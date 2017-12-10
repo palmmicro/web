@@ -1,0 +1,191 @@
+<?php
+
+/*
+ CREATE TABLE `camman`.`member` (
+`id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+`email` VARCHAR( 128 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
+`password` VARCHAR( 32 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
+`ip` VARCHAR( 16 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
+`login` DATETIME NOT NULL ,
+`register` DATETIME NOT NULL ,
+`status` INT UNSIGNED NOT NULL ,
+`activity` INT NOT NULL ,
+INDEX ( `ip` ) ,
+UNIQUE (
+`email`
+)
+) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci
+
+ CREATE TABLE `camman`.`blacklist` (
+`id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+`email` VARCHAR( 128 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
+`ip` VARCHAR( 16 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
+`created` DATETIME NOT NULL ,
+`reason` INT UNSIGNED NOT NULL ,
+INDEX ( `ip` ) ,
+UNIQUE (
+`email`
+)
+) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci 
+
+ CREATE TABLE `camman`.`profile` (
+`id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+`member_id` INT UNSIGNED NOT NULL ,
+`name` VARCHAR( 64 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL ,
+`phone` VARCHAR( 32 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL ,
+`address` VARCHAR( 128 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL ,
+`web` VARCHAR( 128 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL ,
+`signature` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL ,
+FOREIGN KEY (`member_id`) REFERENCES `member`(`id`) ON DELETE CASCADE
+) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci 
+
+ CREATE TABLE `camman`.`device` (
+`id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+`member_id` INT UNSIGNED NOT NULL ,
+`hardware` VARCHAR( 32 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL ,
+`software` VARCHAR( 16 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL ,
+`service` VARCHAR( 128 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL ,
+`number` VARCHAR( 16 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL ,
+`name` VARCHAR( 128 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL ,
+`pstn` VARCHAR( 16 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL ,
+`address` VARCHAR( 128 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL ,
+FOREIGN KEY (`member_id`) REFERENCES `member`(`id`) ON DELETE CASCADE ,
+INDEX ( `address` )
+) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci 
+*/
+
+// ****************************** Member table *******************************************************
+
+function SqlUpdateLoginField($strEmail)
+{
+	$strIp = UrlGetIp();
+
+	// Create UPDATE query
+	$strQry = "UPDATE member SET ip = '$strIp', login = NOW() WHERE email = '$strEmail' LIMIT 1";
+	return SqlDieByQuery($strQry, 'Update member login time failed');
+}
+
+function SqlUpdatePasswordField($strEmail, $strPassword)
+{
+	// Create UPDATE query
+	$strQry = "UPDATE member SET password = '".md5($strPassword)."' WHERE email = '$strEmail' LIMIT 1";
+	return SqlDieByQuery($strQry, 'Update member password failed');
+}
+
+function SqlUpdateLoginEmail($id, $strEmail)
+{
+	// Create UPDATE query
+	$strQry = "UPDATE member SET email = '$strEmail' WHERE id = '$id' LIMIT 1";
+	return SqlDieByQuery($strQry, 'Update member login email failed');
+}
+
+function SqlExecLogin($strEmail, $strPassword)
+{
+	$strQry = "SELECT * FROM member WHERE email = '$strEmail' AND password = '".md5($strPassword)."' LIMIT 1";
+	if ($member = SqlQuerySingleRecord($strQry, 'Query member by email and password failed'))
+	{	// Login Successful
+		return $member['id'];
+	}
+	return false;
+}
+
+function SqlInsertMember($strEmail, $strPassword)
+{
+	$strIp = UrlGetIp();
+
+	// Create INSERT query
+	$strQry = "INSERT INTO member(id, email, password, ip, register, login, status, activity) VALUES('0', '$strEmail', '".md5($strPassword)."', '$strIp', NOW(), NOW(), '1', '0')";
+	return SqlDieByQuery($strQry, 'Insert member failed');
+}
+
+function SqlGetIdByEmail($strEmail)
+{
+	$strQry = "SELECT * FROM member WHERE email = '$strEmail'";
+	$member = SqlQuerySingleRecord($strQry, 'Query id from email failed');
+	if ($member) 
+	{
+		return $member['id'];
+	}
+	return false;
+}
+
+function SqlGetMemberEmails()
+{
+    return SqlGetTableData('member', "status = '2'", false, false);
+}
+
+function SqlGetMemberById($strId)
+{
+    return SqlGetTableDataById('member', $strId);
+}
+
+function SqlGetMemberByIp($strIp)
+{
+    return SqlGetTableData('member', _SqlBuildWhere('ip', $strIp), '`login` DESC', false);
+}
+
+function SqlGetEmailById($strId)
+{
+	if ($member = SqlGetMemberById($strId))
+	{
+		return $member['email'];
+	}
+	return false;
+}
+
+function SqlChangeActivity($strId, $iChangeValue)
+{
+	if ($member = SqlGetMemberById($strId))
+	{
+		$iActivity = $member['activity'];
+		$iActivity += $iChangeValue;
+
+		// Create UPDATE query
+		$strQry = "UPDATE member SET activity = '$iActivity' WHERE id = '$strId' LIMIT 1";
+		return SqlDieByQuery($strQry, 'Update member activity failed');
+	}
+	return false;
+}
+
+function SqlUpdateStatus($strId, $iNewStatus)
+{
+	// Create UPDATE query
+	$strQry = "UPDATE member SET status = '$iNewStatus' WHERE id = '$strId' LIMIT 1";
+	return SqlDieByQuery($strQry, 'Update member status failed');
+}
+
+// ****************************** Profile table *******************************************************
+
+function SqlGetProfileByMemberId($id)
+{
+	$strQry = "SELECT * FROM profile WHERE member_id = '$id' LIMIT 1";
+	return SqlQuerySingleRecord($strQry, 'Query profile by id failed');
+}
+
+function SqlGetNameByMemberId($strMemberId)
+{
+	if ($profile = SqlGetProfileByMemberId($strMemberId))
+	{
+		return $profile['name'];
+	}
+	return false;
+}
+
+function SqlUpdateProfile($id, $strName, $strPhone, $strAddress, $strWeb, $strSignature)
+{
+	if (SqlGetProfileByMemberId($id))
+	{	// Create UPDATE query
+		$strQry = "UPDATE profile SET name = '$strName', phone = '$strPhone', address = '$strAddress', web = '$strWeb', signature = '$strSignature' WHERE member_id = '$id' LIMIT 1";
+        return SqlDieByQuery($strQry, 'Update profile failed');
+	}
+	
+	$strQry = "INSERT INTO profile(id, member_id, name, phone, address, web, signature) VALUES('0', '$id', '$strName', '$strPhone', '$strAddress', '$strWeb', '$strSignature')";
+    return SqlDieByQuery($strQry, 'Insert profile failed');
+}
+
+function SqlDeleteProfileByMemberId($strMemberId)
+{
+    return SqlDeleteTableData('profile', _SqlBuildWhere('member_id', $strMemberId), '1');
+}
+
+?>
