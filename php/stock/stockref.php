@@ -149,17 +149,27 @@ function _getSinaArray($sym, $strSinaSymbol, $strFileName)
     return explodeQuote($str);
 }
 
+function _getGoogleFile($strGoogleSymbol, $strFileName)
+{
+    $str = GetGoogleQuotes($strGoogleSymbol);
+    if ($str)   file_put_contents($strFileName, $str);
+    else         $str = file_get_contents($strFileName);
+    return $str;
+}
+
 function _getGoogleArray($sym, $strGoogleSymbol, $strFileName)
 {
     if (StockNeedNewQuotes($sym, $strFileName))
     {
-        $str = GetGoogleQuotes($strGoogleSymbol);
-        if ($str)   file_put_contents($strFileName, $str);
-        else         $str = file_get_contents($strFileName);
+        $str = _getGoogleFile($strGoogleSymbol, $strFileName);
     }
     else
     {
         $str = file_get_contents($strFileName);
+        if (strlen($str) < 10)
+        {
+            $str = _getGoogleFile($strGoogleSymbol, $strFileName);
+        }
     }
     return json_decode($str, true);
 }
