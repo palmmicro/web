@@ -188,7 +188,7 @@ function _getTradingNumber($strNumber)
     return strval(intval($fNum));
 }
 
-function _echoTradingTableItem($strAskBid, $strPrice, $strQuantity, $ref, $fEstPrice, $fEstPrice2, $fEstPrice3, $fCallback, $bChinese)
+function _echoTradingTableItem($i, $strAskBid, $strPrice, $strQuantity, $ref, $fEstPrice, $fEstPrice2, $fEstPrice3, $fCallback, $bChinese)
 {
     $fPrice = floatval($strPrice);
     $strPriceDisplay = $ref->GetPriceDisplay($fPrice);
@@ -199,16 +199,19 @@ function _echoTradingTableItem($strAskBid, $strPrice, $strQuantity, $ref, $fEstP
 
     if ($fCallback)    $strUserDefined = call_user_func($fCallback, TABLE_USER_DEFINED_VAL, $fPrice, $bChinese);
     else                 $strUserDefined = '';  
+
+    if ($i == 0)    $strBackGround = 'style="background-color:yellow"';
+    else            $strBackGround = '';
     
     echo <<<END
     <tr>
-        <td class=c1>$strAskBid</td>
-        <td class=c1>$strPriceDisplay</td>
-        <td class=c1>$strTradingNumber</td>
-        <td class=c1>$strPercentage</td>
-        <td class=c1>$strPercentage2</td>
-        <td class=c1>$strPercentage3</td>
-        <td class=c1>$strUserDefined</td>
+        <td $strBackGround class=c1>$strAskBid</td>
+        <td $strBackGround class=c1>$strPriceDisplay</td>
+        <td $strBackGround class=c1>$strTradingNumber</td>
+        <td $strBackGround class=c1>$strPercentage</td>
+        <td $strBackGround class=c1>$strPercentage2</td>
+        <td $strBackGround class=c1>$strPercentage3</td>
+        <td $strBackGround class=c1>$strUserDefined</td>
     </tr>
 END;
 }
@@ -217,12 +220,12 @@ function _echoTradingTableData($strSell, $strBuy, $ref, $fEstPrice, $fEstPrice2,
 {
     for ($i = TRADING_QUOTE_NUM - 1; $i >= 0; $i --)
     {
-        _echoTradingTableItem($strSell.strval($i + 1), $ref->arAskPrice[$i], $ref->arAskQuantity[$i], $ref, $fEstPrice, $fEstPrice2, $fEstPrice3, $fCallback, $bChinese);
+        _echoTradingTableItem($i, $strSell.strval($i + 1), $ref->arAskPrice[$i], $ref->arAskQuantity[$i], $ref, $fEstPrice, $fEstPrice2, $fEstPrice3, $fCallback, $bChinese);
     }
 
     for ($i = 0; $i < TRADING_QUOTE_NUM; $i ++)
     {
-        _echoTradingTableItem($strBuy.strval($i + 1), $ref->arBidPrice[$i], $ref->arBidQuantity[$i], $ref, $fEstPrice, $fEstPrice2, $fEstPrice3, $fCallback, $bChinese);
+        _echoTradingTableItem($i, $strBuy.strval($i + 1), $ref->arBidPrice[$i], $ref->arBidQuantity[$i], $ref, $fEstPrice, $fEstPrice2, $fEstPrice3, $fCallback, $bChinese);
     }
 }
 
@@ -283,7 +286,7 @@ function _getTradingRangeRow($stock_his, $strKey)
     return strval($iVal); 
 }
 
-function _echoSmaTableItem($stock_his, $strKey, $fVal, $ref, $fCallback, $fCallback2, $bChinese)
+function _echoSmaTableItem($stock_his, $strKey, $fVal, $ref, $fCallback, $fCallback2, $strColor, $bChinese)
 {
     $stock_ref = $stock_his->stock_ref;
     
@@ -306,18 +309,55 @@ function _echoSmaTableItem($stock_his, $strKey, $fVal, $ref, $fCallback, $fCallb
 
     if ($fCallback2)    $strUserDefined = call_user_func($fCallback2, TABLE_USER_DEFINED_VAL, $fVal, $bChinese);
     else                  $strUserDefined = '';  
+
+    if ($strColor)    $strBackGround = 'style="background-color:'.$strColor.'"';
+    else                $strBackGround = '';
     
     echo <<<END
     <tr>
-        <td class=c1>$strSma</td>
-        <td class=c1>$strPrice</td>
-        <td class=c1>$strPercentage</td>
-        <td class=c1>$strTradingRange</td>
-        <td class=c1>$strEstPrice</td>
-        <td class=c1>$strEstPercentage</td>
-        <td class=c1>$strUserDefined</td>
+        <td $strBackGround class=c1>$strSma</td>
+        <td $strBackGround class=c1>$strPrice</td>
+        <td $strBackGround class=c1>$strPercentage</td>
+        <td $strBackGround class=c1>$strTradingRange</td>
+        <td $strBackGround class=c1>$strEstPrice</td>
+        <td $strBackGround class=c1>$strEstPercentage</td>
+        <td $strBackGround class=c1>$strUserDefined</td>
     </tr>
 END;
+}
+
+function _echoSmaTableData($stock_his, $ref, $fCallback, $fCallback2, $bChinese)
+{
+    $fMin = 10000000.0;
+    $fMax = 0.0;
+    $fMinW = false;
+    $fMaxW = false;
+    foreach ($stock_his->afSMA as $strKey => $fVal)
+    {
+        $strColor = false;
+        $strFirst = substr($strKey, 0, 1); 
+        if ($strFirst == 'D')
+        {
+            if ($fVal > $fMax)  $fMax = $fVal;
+            if ($fVal < $fMin)  $fMin = $fVal;
+        }
+        else if ($strFirst == 'W')
+        {
+            if ($fMinW == false && $fMaxW == false)
+            {
+                $fMinW = $fMin;
+                $fMaxW = $fMax;
+            }
+            if ($fVal > $fMaxW)  $fMaxW = $fVal;
+            if ($fVal < $fMinW)  $fMinW = $fVal;
+            if ($fVal > $fMin && $fVal < $fMax) $strColor = 'gray';
+        }
+        else if ($strFirst == 'M')
+        {
+            if ($fVal > $fMinW && $fVal < $fMaxW) $strColor = 'gray';
+        }
+        _echoSmaTableItem($stock_his, $strKey, $fVal, $ref, $fCallback, $fCallback2, $strColor, $bChinese);
+    }
 }
 
 function EchoSmaTable($stock_his, $ref, $fCallback, $fCallback2, $bChinese)
@@ -363,10 +403,7 @@ function EchoSmaTable($stock_his, $ref, $fCallback, $fCallback2, $bChinese)
     </tr>
 END;
 
-    foreach ($stock_his->afSMA as $strKey => $fVal)
-    {
-        _echoSmaTableItem($stock_his, $strKey, $fVal, $ref, $fCallback, $fCallback2, $bChinese);
-    }
+    _echoSmaTableData($stock_his, $ref, $fCallback, $fCallback2, $bChinese);
     EchoTableEnd();
 }
 

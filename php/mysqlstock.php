@@ -757,20 +757,21 @@ function _webUpdateYahooHistory($strStockId, $sym)
     $strSymbol = $sym->GetYahooSymbol();
     $sym->SetTimeZone();
     $iTime = time();
-    
+
+    $iTotal = 0;
     $iMax = 100;
     $iMaxSeconds = $iMax * SECONDS_IN_DAY;
     for ($k = 0; $k < MAX_QUOTES_DAYS; $k += $iMax)
     {
-        $str = YahooGetStockHistory($strSymbol, $iTime - $iMaxSeconds, $iTime);
-        $iTime -= $iMaxSeconds;
+        $iTimeBegin = $iTime - $iMaxSeconds;
+        $str = YahooGetStockHistory($strSymbol, $iTimeBegin, $iTime);
 
         $arMatch = preg_match_yahoo_history($str);
         $iVal = count($arMatch);
+        $iTotal += $iVal;
         if ($iVal < $iMax / 2)
         {
-            DebugString('_webUpdateYahooHistory error: '.$strSymbol);
-            DebugVal($iVal);
+            DebugString(sprintf('_webUpdateYahooHistory %s %d from %s to %s', $strSymbol, $iVal, dateYMD($iTimeBegin), dateYMD($iTime)));
         }
         
         for ($j = 0; $j < $iVal; $j ++)
@@ -784,10 +785,11 @@ function _webUpdateYahooHistory($strStockId, $sym)
                 $ar[] = $strNoComma;
                 $str .= ' '.$strNoComma; 
             }
-//            DebugString($str);
             _sqlMergeStockHistory($strStockId, $strDate, $ar[0], $ar[1], $ar[2], $ar[3], $ar[5], $ar[4]);
-       }
+        }
+        $iTime = $iTimeBegin;
     }
+    DebugString(sprintf('_webUpdateYahooHistory %s total %d', $strSymbol, $iTotal));
 }
 
 function StockUpdateYahooHistory($strStockId, $strSymbol)

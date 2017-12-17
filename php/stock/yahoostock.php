@@ -137,15 +137,28 @@ function YahooGetStockHistory($strSymbol, $iTimeBegin, $iTimeEnd)
 <td class="Py(10px)" data-reactid="222"><span data-reactid="223">33,877,800</span></td>
 </tr>
 */
+
+/*
+<tr class="BdT Bdc($c-fuji-grey-c) Ta(end) Fz(s) Whs(nw)" data-reactid="51">
+<td class="Py(10px) Ta(start) Pend(10px)" data-reactid="52"><span data-reactid="53">Dec 15, 2017</span></td>
+<td class="Py(10px) Pstart(10px)" data-reactid="54"><span data-reactid="55">34.78</span></td>
+<td class="Py(10px) Pstart(10px)" data-reactid="56"><span data-reactid="57">34.69</span></td>
+<td class="Py(10px) Pstart(10px)" data-reactid="58"><span data-reactid="59">34.05</span></td>
+<td class="Py(10px) Pstart(10px)" data-reactid="60"><span data-reactid="61">34.13</span></td>
+<td class="Py(10px) Pstart(10px)" data-reactid="62"><span data-reactid="63">34.13</span></td>
+<td class="Py(10px) Pstart(10px)" data-reactid="64"><span data-reactid="65">11,759,579</span></td>
+</tr>
+*/
+
 function preg_match_yahoo_history($str)
 {
     $strBoundary = RegExpBoundary();
     
     $strPattern = $strBoundary;
-    $strPattern .= RegExpParenthesis('<td class="Py\(10px\) Ta\(start\)" data-reactid="\d*"><span data-reactid="\d*">', '[^<]*', '</span></td>');
+    $strPattern .= RegExpParenthesis('<td class="Py\(10px\) Ta\(start\) Pend\(10px\)" data-reactid="\d*"><span data-reactid="\d*">', '[^<]*', '</span></td>');
     for ($i = 0; $i < 6; $i ++)
     {
-        $strPattern .= RegExpParenthesis('<td class="Py\(10px\)" data-reactid="\d*"><span data-reactid="\d*">', '[^<]*', '</span></td>');
+        $strPattern .= RegExpParenthesis('<td class="Py\(10px\) Pstart\(10px\)" data-reactid="\d*"><span data-reactid="\d*">', '[^<]*', '</span></td>');
     }
     $strPattern .= $strBoundary;
 //    DebugString($strPattern);

@@ -1,6 +1,7 @@
 <?php
 
 // max 20 months history used
+//define ('MAX_QUOTES_DAYS', 930);
 define ('MAX_QUOTES_DAYS', 620);
 
 define ('BOLL_DAYS', 20);
@@ -405,6 +406,7 @@ class StockHistory
     {
         $this->stock_ref = $ref;
         $strSymbol = $this->GetStockSymbol();
+//        $this->aiNum = array(5, 10, 20, 30);
         $this->aiNum = array(5, 10, 20);
 
         $this->strConfigName = DebugGetConfigFileName($strSymbol);
