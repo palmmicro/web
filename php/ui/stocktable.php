@@ -326,35 +326,72 @@ function _echoSmaTableItem($stock_his, $strKey, $fVal, $ref, $fCallback, $fCallb
 END;
 }
 
+// ****************************** MultiCurrency Class *******************************************************
+
+class MaxMin
+{
+    var $fMax;
+    var $fMin;
+    
+    // constructor 
+    function MaxMin() 
+    {
+        $this->fMax = false;
+        $this->fMin = false;
+    }
+
+    function Init($fMax, $fMin)
+    {
+        if ($this->fMin == false && $this->fMax == false)
+        {
+            $this->fMin = $fMin;
+            $this->fMax = $fMax;
+        }
+    }
+    
+    function Set($fVal) 
+    {
+        if ($fVal > $this->fMax)  $this->fMax = $fVal;
+        if ($fVal < $this->fMin)  $this->fMin = $fVal;
+    }
+    
+    function Fit($fVal)
+    {
+        if ($fVal > $this->fMin && $fVal < $this->fMax) return true;
+        return false;
+    }
+}
+
 function _echoSmaTableData($stock_his, $ref, $fCallback, $fCallback2, $bChinese)
 {
-    $fMin = 10000000.0;
-    $fMax = 0.0;
-    $fMinW = false;
-    $fMaxW = false;
+    $mm = new MaxMin();
+    $mmB = new MaxMin();
+    $mmW = new MaxMin();
     foreach ($stock_his->afSMA as $strKey => $fVal)
     {
         $strColor = false;
         $strFirst = substr($strKey, 0, 1); 
         if ($strFirst == 'D')
         {
-            if ($fVal > $fMax)  $fMax = $fVal;
-            if ($fVal < $fMin)  $fMin = $fVal;
+            $mm->Init(0.0, 10000000.0);
+            $mm->Set($fVal);
+        }
+        else if ($strFirst == 'B')
+        {
+            $mmB->Init($mm->fMax, $mm->fMin);
+            $mmB->Set($fVal);
         }
         else if ($strFirst == 'W')
         {
-            if ($fMinW == false && $fMaxW == false)
-            {
-                $fMinW = $fMin;
-                $fMaxW = $fMax;
-            }
-            if ($fVal > $fMaxW)  $fMaxW = $fVal;
-            if ($fVal < $fMinW)  $fMinW = $fVal;
-            if ($fVal > $fMin && $fVal < $fMax) $strColor = 'gray';
+            $mmW->Init($mm->fMax, $mm->fMin);
+            $mmW->Set($fVal);
+            if ($mm->Fit($fVal))         $strColor = 'gray';
+            else if ($mmB->Fit($fVal))  $strColor = 'silver';
         }
         else if ($strFirst == 'M')
         {
-            if ($fVal > $fMinW && $fVal < $fMaxW) $strColor = 'gray';
+            if ($mmW->Fit($fVal))        $strColor = 'gray';
+            else if ($mmB->Fit($fVal))  $strColor = 'silver';
         }
         _echoSmaTableItem($stock_his, $strKey, $fVal, $ref, $fCallback, $fCallback2, $strColor, $bChinese);
     }
