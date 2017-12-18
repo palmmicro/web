@@ -80,17 +80,17 @@ function SqlDeleteStockHistoryWithZeroVolume($strStockId)
     return SqlDeleteTableData('stockhistory', "volume = '0' AND stock_id = '$strStockId'", false);
 }
 
-function SqlUpdateStockHistoryAdjCloseByDividend($strStockId, $fDividend)
+function SqlUpdateStockHistoryAdjCloseByDividend($strStockId, $fDividend, $strYMD)
 {
     $ar = array();
     if ($result = SqlGetStockHistory($strStockId, 0, 0)) 
     {
         while ($history = mysql_fetch_assoc($result)) 
         {
-//            if ($history['date'])
-//            {
+            if (mktimeYMD($history['date']) < mktimeYMD($strYMD))
+            {
                 $ar[$history['id']] = floatval($history['adjclose']);
-//            }
+            }
         }
         @mysql_free_result($result);
     }

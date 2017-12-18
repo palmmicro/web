@@ -176,7 +176,11 @@ function test_stock_dividend()
 //	_debug_dividend('sz000028');
 //	test_stock_dividend();
 //	SqlDeleteStockGroupByGroupName('YZC');
-//	SqlUpdateStockHistoryAdjCloseByDividend('1293', 0.50);
+/*
+    $strSymbol = 'XOP';
+	SqlUpdateStockHistoryAdjCloseByDividend(SqlGetStockId($strSymbol), 0.06, '2017-12-15');
+    unlinkEmptyFile(DebugGetConfigFileName($strSymbol));
+*/	
 //	echoDebugString(url_get_contents('http://palmmicro.com/php/spidercn.php?list=sz162411'));
 //    TestGoogleHistory();
 
