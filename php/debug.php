@@ -213,7 +213,8 @@ function DebugGetFileLink($strPathName)
 {
     $strLink = DebugFileLink($strPathName);
     $strLastTime = _getFileTimeDisplay($strPathName);
-    return "$strLink($strLastTime)";
+    $strDelete = UrlGetDeleteLink('/php/_submitdeletefile.php?delete='.$strPathName, '调试文件', 'debug file', false);
+    return "$strLink($strLastTime $strDelete)";
 }
 
 function DebugGetDebugFileLink()
