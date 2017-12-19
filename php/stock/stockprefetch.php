@@ -197,7 +197,7 @@ function PrefetchGoogleStockData($arSymbol)
             $arUnknown[] = $strSymbol;
         }
     }
-    _prefetchGoogleData($arPrefetch);
+//    _prefetchGoogleData($arPrefetch); bug to be fixed for this function
     return $arUnknown;
 }
 
