@@ -9,8 +9,7 @@ require_once('account.php');
 	    if (AcctIsAdmin())
 	    {
 	        unlinkEmptyFile($strPathName);
-//	        EmailDebug('Deleted file: '.DebugFileLink(UrlGetDomain().$strPathName), 'Deleted debug file'); 
-	        EmailDebug('Deleted file: '.UrlGetDomain().$strPathName, 'Deleted debug file'); 
+	        EmailDebug('Deleted file: '.DebugFileLink(UrlGetServer().$strPathName), 'Deleted debug file'); 
 	    }
 	}
 	
