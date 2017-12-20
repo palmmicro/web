@@ -5,10 +5,9 @@ require_once('/php/stocklink.php');
 require_once('_stock.php');
 
     AcctNoAuth();
-
-	if ($strId = UrlGetQueryValue('delete'))
+    if (AcctIsAdmin())
 	{
-	    if (AcctIsAdmin())
+	    if ($strId = UrlGetQueryValue('delete'))
 	    {
 	        SqlDeleteTableDataById('stockcalibration', $strId);
 	    }

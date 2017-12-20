@@ -38,9 +38,26 @@ function _getStockCost()
 	return strval(round($fCommission + $fTax, 3));
 }
 
+function _canModifyStockTransaction($strId)
+{
+    $transaction = SqlGetStockTransactionById($strId);
+	$strGroupItemId = $transaction['groupitem_id'];
+	
+    $groupitem = SqlGetStockGroupItemById($strGroupItemId);
+    $strGroupId = $groupitem['group_id'];
+    
+    $strMemberId = SqlGetStockGroupMemberId($strGroupId);
+	if (AcctIsReadOnly($strMemberId))    return false;
+	
+	return true;
+}
+
 function _onDelete($strId)
 {
-    SqlDeleteTableDataById('stocktransaction', $strId);
+    if (_canModifyStockTransaction($strId))
+    {
+        SqlDeleteTableDataById('stocktransaction', $strId);
+    }
 }
 
 function _emailStockTransaction($strMemberId, $strGroupId, $strOperation, $strSymbol, $strQuantity, $strPrice, $strCost, $strRemark)
@@ -58,10 +75,13 @@ function _emailStockTransaction($strMemberId, $strGroupId, $strOperation, $strSy
 
 function _onEdit($strId, $strMemberId, $strGroupId, $strGroupItemId, $strSymbol, $strQuantity, $strPrice, $strCost, $strRemark)
 {
-    if (SqlEditStockTransaction($strId, $strGroupItemId, $strQuantity, $strPrice, $strCost, $strRemark))
-	{
-	    _emailStockTransaction($strMemberId, $strGroupId, $_POST['submit'], $strSymbol, $strQuantity, $strPrice, $strCost, $strRemark);
-	}
+    if (_canModifyStockTransaction($strId))
+    {
+        if (SqlEditStockTransaction($strId, $strGroupItemId, $strQuantity, $strPrice, $strCost, $strRemark))
+        {
+            _emailStockTransaction($strMemberId, $strGroupId, $_POST['submit'], $strSymbol, $strQuantity, $strPrice, $strCost, $strRemark);
+        }
+    }
 }
 
 function _onNew($strMemberId, $strGroupId, $strGroupItemId, $strSymbol, $strQuantity, $strPrice, $strCost, $strRemark)

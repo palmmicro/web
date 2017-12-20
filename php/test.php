@@ -12,9 +12,10 @@ require_once('sql/sqlstockhistory.php');
 require_once('sql/sqlparameter.php');
 
 require_once('stock/stocksymbol.php');
+//require_once('stock/chinamoney.php');
+require_once('stock/yahoostock.php');
 require_once('stock/sinastock.php');
 require_once('stock/googlestock.php');
-require_once('stock/yahoostock.php');
 require_once('stock/stockprefetch.php');
 
 //require_once('account.php');
@@ -176,11 +177,7 @@ function test_stock_dividend()
 //	_debug_dividend('sz000028');
 //	test_stock_dividend();
 //	SqlDeleteStockGroupByGroupName('YZC');
-/*
-    $strSymbol = 'XOP';
-	SqlUpdateStockHistoryAdjCloseByDividend(SqlGetStockId($strSymbol), 0.06, '2017-12-15');
-    unlinkEmptyFile(DebugGetConfigFileName($strSymbol));
-*/	
+//	SqlUpdateStockHistoryAdjCloseByDividend(SqlGetStockId('XOP'), 0.06, '2017-12-15');
 //	echoDebugString(url_get_contents('http://palmmicro.com/php/spidercn.php?list=sz162411'));
 //    TestGoogleHistory();
 

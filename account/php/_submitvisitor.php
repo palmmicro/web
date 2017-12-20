@@ -4,22 +4,25 @@ require_once('/php/sql/sqlspider.php');
 require_once('/php/sql/sqlweixin.php');
 
     AcctSessionStart();
-	if ($strSrc = UrlGetQueryValue('delete'))
+	if (AcctIsAdmin())
 	{
-	    if (isset($_SESSION['userurl'])) 
+	    if ($strSrc = UrlGetQueryValue('delete'))
 	    {
-	        $str = $_SESSION['userurl'];
-	        if (strchr($str, SPIDER_VISITOR_TABLE))
+	        if (isset($_SESSION['userurl'])) 
 	        {
-	            SqlDeleteVisitor(SPIDER_VISITOR_TABLE, SqlGetIpAddressId($strSrc));
-	        }
-	        else if (strchr($str, WEIXIN_VISITOR_TABLE))
-	        {
-	            SqlDeleteVisitor(WEIXIN_VISITOR_TABLE, SqlGetWeixinId($strSrc));
-	        }
-	        else
-	        {
-	            AcctDeleteBlogVisitorByIp($strSrc);
+	            $str = $_SESSION['userurl'];
+	            if (strchr($str, SPIDER_VISITOR_TABLE))
+	            {
+	                SqlDeleteVisitor(SPIDER_VISITOR_TABLE, SqlGetIpAddressId($strSrc));
+	            }
+	            else if (strchr($str, WEIXIN_VISITOR_TABLE))
+	            {
+	                SqlDeleteVisitor(WEIXIN_VISITOR_TABLE, SqlGetWeixinId($strSrc));
+	            }
+	            else
+	            {
+	                AcctDeleteBlogVisitorByIp($strSrc);
+	            }
 	        }
 	    }
 	}

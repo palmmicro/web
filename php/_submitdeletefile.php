@@ -1,15 +1,13 @@
 <?php
-require_once('email.php');
 require_once('account.php');
 
     AcctNoAuth();
-
-	if ($strPathName = UrlGetQueryValue('delete'))
+	if (AcctIsAdmin())
 	{
-	    if (AcctIsAdmin())
+	    if ($strPathName = UrlGetQueryValue('delete'))
 	    {
 	        unlinkEmptyFile($strPathName);
-	        EmailDebug('Deleted file: '.DebugFileLink(UrlGetServer().$strPathName), 'Deleted debug file'); 
+	        EmailDebug('Deleted file: '.DebugFileLink($strPathName), 'Deleted debug file'); 
 	    }
 	}
 	

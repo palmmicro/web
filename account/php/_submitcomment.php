@@ -2,23 +2,40 @@
 require_once('/php/account.php');
 require_once('_editcommentform.php');
 
+function _canModifyComment($strId, $strMemberId)
+{
+	if (AcctIsAdmin())    return true;
+	
+    $comment = SqlGetBlogCommentById($strId);
+    if ($comment['member_id'] == $strMemberId)                          return true;    // I posted the comment
+    if (SqlGetMemberIdByBlogId($comment['blog_id']) == $strMemberId)   return true;     // I posted the blog
+    
+    return false;
+}
+
 function _onDelete($strId, $strMemberId)
 {
-    if (SqlDeleteTableDataById('blogcomment', $strId))
-    {
-        SqlChangeActivity($strMemberId, -1);
-    }
+	if (_canModifyComment($strId, $strMemberId))
+	{
+	    if (SqlDeleteTableDataById('blogcomment', $strId))
+	    {
+	        SqlChangeActivity($strMemberId, -1);
+	    }
+	}
 }
 
 function _onEdit($strId, $strMemberId, $strComment)
 {
     if ($strComment != '')
     {
-        if (SqlEditBlogComment($strId, $strComment))
-		{
-		    $comment = SqlGetBlogCommentById($strId);
-		    EmailBlogComment($strMemberId, $comment['blog_id'], $_POST['submit'], $_POST['comment']);
-	    }
+        if (_canModifyComment($strId, $strMemberId))
+    	{
+    	    if (SqlEditBlogComment($strId, $strComment))
+    	    {
+    	        $comment = SqlGetBlogCommentById($strId);
+    	        EmailBlogComment($strMemberId, $comment['blog_id'], $_POST['submit'], $_POST['comment']);
+    	    }
+    	}
 	}
 	else
 	{	// delete when empty

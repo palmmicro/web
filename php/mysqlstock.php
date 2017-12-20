@@ -794,6 +794,8 @@ function _webUpdateYahooHistory($strStockId, $sym)
 
 function StockUpdateYahooHistory($strStockId, $strSymbol)
 {
+    if (AcctIsAdmin() == false)     return;
+    
     unlinkEmptyFile(DebugGetConfigFileName($strSymbol));
     
     $sym = new StockSymbol($strSymbol);

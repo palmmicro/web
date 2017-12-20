@@ -206,7 +206,7 @@ function _getFileTimeDisplay($strPathName)
 
 function DebugFileLink($strPathName)
 {
-    return DebugGetExternalLink($strPathName, UrlGetFileName($strPathName));
+    return DebugGetExternalLink(UrlGetServer().$strPathName, UrlGetFileName($strPathName));
 }
 
 function DebugGetFileLink($strPathName)

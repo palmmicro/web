@@ -48,9 +48,19 @@ function _onAdjust($strSymbols)
     }
 }
 
-function _onDelete($strGroupId)
+function _canModifyGroup($strGroupId, $strMemberId)
 {
-    SqlDeleteStockGroup($strGroupId);
+	if (AcctIsAdmin())    return true;
+    if ($strMemberId == SqlGetStockGroupMemberId($strGroupId))  return true;    // I am the group onwer
+    return false;
+}
+
+function _onDelete($strGroupId, $strMemberId)
+{
+    if (_canModifyGroup($strGroupId, $strMemberId))
+    {
+        SqlDeleteStockGroup($strGroupId);
+    }
 }
 
 function _emailStockGroup($strMemberId, $strOperation, $strGroupName, $strSymbols)
@@ -96,12 +106,15 @@ function _sqlEditStockGroup($strGroupId, $strGroupName, $strSymbols)
 
 function _onEdit($strMemberId, $strGroupId, $strGroupName, $strSymbols)
 {
-    $str = SqlGetStockGroupName($strGroupId);
-    if (IsGroupNameReadOnly($str))  $strGroupName = $str;
-    if (_sqlEditStockGroup($strGroupId, $strGroupName, $strSymbols))
+    if (_canModifyGroup($strGroupId, $strMemberId))
     {
-        _emailStockGroup($strMemberId, $_POST['submit'], $strGroupName, $strSymbols);
-	}
+        $str = SqlGetStockGroupName($strGroupId);
+        if (IsGroupNameReadOnly($str))  $strGroupName = $str;
+        if (_sqlEditStockGroup($strGroupId, $strGroupName, $strSymbols))
+        {
+            _emailStockGroup($strMemberId, $_POST['submit'], $strGroupName, $strSymbols);
+        }
+    }
 }
 
 function _onNew($strMemberId, $strGroupName, $strSymbols)
@@ -114,7 +127,7 @@ function _onNew($strMemberId, $strGroupName, $strSymbols)
 
 	if ($strGroupId = UrlGetQueryValue('delete'))
 	{
-	    _onDelete($strGroupId);
+	    _onDelete($strGroupId, $strMemberId);
 	}
 	else if (isset($_POST['submit']))
 	{
