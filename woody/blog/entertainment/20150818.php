@@ -1,0 +1,282 @@
+<?php require_once('php/_entertainment.php'); ?>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>PHP Application to Estimate the Net Value of SZ162411</title>
+<meta name="description" content="My second PHP application, to estimate the net value of SZ162411 based on XOP, ^SPSIOP and USDCNY exchange rate.">
+<link href="../../../common/style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body bgproperties=fixed leftmargin=0 topmargin=0>
+<?php _LayoutTopLeft(false); ?>
+
+<div>
+<h1>PHP Application to Estimate the Net Value of SZ162411</h1>
+<p>Aug 18, 2015
+<br />As my <a href="20141016.php">CSR</a> stock is turning into cash soon, I am considering to use the USD to trade XOP while using my other CNY to trade SZ162411 together. 
+I was watching stock quotations on Yahoo and Sina everyday, and always need to click on the calculator application to convert the price between XOP and SZ162411, soon I got bored. 
+<br />Later I thought of my first PHP application 5 years ago, and decided to write my second PHP application.
+It was planned to put all the usual stock quotations together, and to estimate <a href="../../res/sz162411.php">SZ162411 net value</a> based on XOP, ^SPSIOP and USDCNY exchange rate.
+Today the first version is released, and I am writing this record of programming details for future reference.
+<br />Using Yahoo Finance API for US stocks (15 minutes delay): <?php EchoLink('https://finance.yahoo.com/d/quotes.csv?s=XOP+%5ESPSIOP&f=l1t1p2nd1p'); ?>
+<br />Using Sina realtime source for Chinese stocks, oil futures and forex: <?php EchoLink('http://hq.sinajs.cn/list=sz162411,hf_CL,USDCNY'); ?>
+<br />At first I found that <i>fopen</i> will always fail to open those urls, maybe my <a href="../palmmicro/20100427.php">Yahoo Web Hosting</a> does not support <i>allow_url_fopen</i>. 
+I searched and found curl to solve this problem, copied some curl code to my <i>url_get_contents</i> function in file <?php EchoPhpFileLink('/php/url.php'); ?>,
+with function name similar as <i>file_get_contents</i>.
+<br />Functions using <i>url_get_contents</i> to read stock quotes, display green for gain and red for loss are located in new file <?php EchoPhpFileLink('/php/stock.php'); ?>.
+<br />Other php code only for this tool are located in in file <?php EchoPhpFileLink('/woody/res/php/_lof.php'); ?>. 
+The name directly comes from the type of SZ162411, which is called LOF, a Chinese special ETF like fund.
+<br />To optimize web response time, I used 2 files <b>xop.txt</b> and <?php EchoFileLink('/debug/sina/sz162411.txt'); ?> to save last updated Yahoo and Sina stock data.
+The following are checked:
+<ol>
+  <li>New request in the same minute using data in original files directly.
+  <li>Using <b>xop.txt</b> for US stock data after US market closed.
+  <li>Using <b>sz162411.txt</b> for Chinese stock data after Chinese market closed.
+</ol>
+<br />Similarly, oil future data is stored in file <?php EchoFileLink('/debug/sina/hf_cl.txt'); ?>, and USDCNY forex data in <b>usdcny.txt</b>.
+</p>
+
+<h3><a name="sma">SMA</a></h3>
+<p>Aug 20, 2015
+<br />To set up my own trading rules, and to avoid following the market all night, I plan to trade XOP simply on <a href="../../res/sma.php">SMA</a> values.
+This version added the premium of current trading price comparing with XOP estimation of SZ162411 net value,
+and the days in past 100 trading days did the estimated SMA value fitted in the trading range.
+<br />Using Yahoo stock historic data:
+<a href="http://table.finance.yahoo.com/table.csv?s=XOP&d=7&e=19&f=2015&g=d&a=6&b=19&c=2015&ignore=.csv" target=_blank>http://table.finance.yahoo.com/table.csv?s=XOP&d=7&e=19&f=2015&g=d&a=6&b=19&c=2015&ignore=.csv</a>.
+The code is in /php/stock/<b>stockhistory.php</b>.
+<br />The historic data of XOP only need to update once a day, but I do not konw when will Yahoo update the current day data, so I update it once an hour stupidly.
+Using file <b><a href="/debug/yahoo/xop_500.txt" target=_blank>xop_500.txt</a></b> to store it.
+<br />The official fund net value only need to update once a day too.
+Using file <b><a href="/debug/sina/f_162411.txt" target=_blank>f_162411.txt</a></b> for official SZ162411 net value from <a href="http://hq.sinajs.cn/list=f_162411" target=_blank>http://hq.sinajs.cn/list=f_162411</a>.
+The code is in /php/stock/<b>fundref.php</b>.
+<br />Using debug file <b><a href="/debug/debug.txt" target=_blank>debug.txt</a></b> for temp data checking.
+</p>
+
+<h3><a name="mobiledetect">Mobile Detect</a></h3>
+<p>Aug 21, 2015
+<br />After released the link of this tool, I checked the data of <a href="20101107.php">Google Analytics</a> yesterday. During the 3 days there are 584 visits from 289 different IP address.
+Unlike the usual <a href="../palmmicro/20080326.php">Palmmicro</a> visitors, 1/3 of the tool visitors used mobile phone. So I added the UI optimization for mobile phone in a hurry.
+<br />Using <a href="http://mobiledetect.net/" target=_blank>Mobile-Detect</a> to detect if it is a mobile phone visit.
+Following the developer's advice, I copied the code github and put it separately in /php/class/<b>Mobile_Detect.php</b>.
+</p>
+
+<h3>Expansion</h3>
+<p>Aug 27, 2015
+<br />The best way to organize the source code is to finish the <a href="../../res/sz162411.php">English</a> version and to write a few more similar LOF net value estimation software.
+I bought 2 HK ETF related LOF with recent stock market crash,
+and added <a href="../../res/sz159920.php">CHINA ASSET HANG SENG</a> and <a href="../../res/sh510900.php">E FUND H-Share</a> net value tool.
+Although I only watched US market crash, I still added <a href="../../res/sh513500.php">BOSERA S&P 500</a> net value tool for possible future usage.
+<br />The original one file /woody/res/php/<b>_lof.php</b> now becomes 5 files:
+</p>
+<TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="table1">
+       <tr>
+        <td class=c1 width=160 align=center>File Name</td>
+        <td class=c1 width=200 align=center>Used by</td>
+        <td class=c1 width=280 align=center>Function</td>
+      </tr>
+      <tr>
+        <td class=c1 align="center">_stock.php</td>
+        <td class=c1 align="center">_sma.php, _lof.php</td>
+        <td class=c1 align="center">Put html unrelated php code together</td>
+      </tr>
+      <tr>
+        <td class=c1 align="center">_sma.php</td>
+        <td class=c1 align="center">/woody/res/<a href="../../res/sma.php">sma.php</a>, <a href="../../res/smacn.php">smacn.php</a></td>
+        <td class=c1 align="center">SMA related functions</td>
+      </tr>
+      <tr>
+        <td class=c1 align="center">_lof.php</td>
+        <td class=c1 align="center">/woody/res/<a href="../../res/sz162411.php">sz162411.php</a>, <a href="../../res/sz162411cn.php">sz162411cn.php</a>, <a href="../../res/sz159920.php">sz159920.php</a>, <a href="../../res/sz159920cn.php">sz159920cn.php</a> etc</td>
+        <td class=c1 align="center">LOF related functions</td>
+      </tr>
+      <tr>
+        <td class=c1 align="center">_stocksymbol.php</td>
+        <td class=c1 align="center">_stock.php</td>
+        <td class=c1 align="center">Stock symbol ralated data and code</td>
+      </tr>
+      <tr>
+        <td class=c1 align="center">_stocklink.php</td>
+        <td class=c1 align="center">_stock.php</td>
+        <td class=c1 align="center">Code to generate page links</td>
+      </tr>
+</TABLE>
+
+<h3>Stock <a name="transaction">Transaction</a></h3>
+<p>Sep 13, 2015
+<br />Integrated with my first <a href="20100905.php">PHP</a> application. After login, user can now input related stock transaction record.
+And we make SZ162411 and XOP arbitrage analysis based on those record.
+<br />The input and handling of stock transaction record is in file /woody/res/php/<b>_edittransactionform.php</b> and <b>_submittransaction.php</b>. 
+<a href="20100529.php">Woody's Web Tool</a> is modified to generate <b>_submitXXX.php</b> file automatically when insert copy of a <b>_editXXXform.php</b> file. 
+</p>
+
+<h3>ADR</h3>
+<p>Nov 7, 2015
+<br />Continue to organize code, add similar <a href="../../res/lof.php">LOF</a> net value tool for <a href="../../res/sh513100.php">GUOTAI NASDAQ-100</a>, <a href="../../res/sz159941.php">NASDAQ-100</a>,
+<a href="../../res/sz160125.php">Southern Hong Kong</a>, <a href="../../res/sz160717.php">JIASHI H-Share</a>, <a href="../../res/sz160216.php">GUOTAI COMMODITY</a>, <a href="../../res/sz165510.php">BRIC</a>, 
+<a href="../../res/sz163208.php">NUOAN Energy</a> and <a href="../../res/sz160416.php">HUAAN S&P GLOBAL OIL</a>.
+<br />Steps to add new LOF tools:
+<ol>
+  <li>Add the new LOF code in function <i>LofGetSymbolArray</i>, for tools navigation link.
+  <li>Add LOF related ETF symbol and index symbol in function <i>LofGetEtfSymbol</i> and <i>LofGetIndexSymbol</i>.
+</ol>
+<br /><a name="adr">Add</a> Hongkong <a href="../../res/adr.php">ADR</a> price comparing tool for <a href="../../res/adrach.php">Aluminum Corporation of China</a>, <a href="../../res/adrchu.php">China Unicom</a>,
+<a href="../../res/adrgsh.php">Guangshen Railway</a>, <a href="../../res/adrlfc.php">China Life Insurance</a>, <a href="../../res/adrptr.php">PETROCHINA</a>,
+<a href="../../res/adrsnp.php">SINOPEC</a>, <a href="../../res/adrshi.php">Sinopec Shanghai Petrochemical</a>, <a href="../../res/adrcea.php">CEA</a> and 
+<a href="../../res/adrznh.php">CSN</a>.
+<br />After php/<b>_adr.php</b> file is added for ADR. The commone stock data part of ADR and LOF is moved to <font color=olive>StockReference</font> class in file /php/stock/<b>stockref.php</b>, 
+used in <font color=olive>_LofGroup</font> class in file php/<b>_lof.php</b> and <font color=olive>_AdrGroup</font> class in file php/<b>_adr.php</b>.
+</p>
+
+<h3><a name="future">Future</a> ETF</h3>
+<p>Nov 24, 2015
+<br />Continue to use web tools to replace calculator works, add price calculation tool for <a href="../../res/future.php">Future ETF</a> like USO/UWTI/DWTI based on <a href="../../res/futurecl.php">NYMEX CL</a>.
+Including similar from <a href="../../res/futureng.php">NYMEX NG</a> to UNG/UGAZ/DGAZ price, from <a href="../../res/futuregc.php">COMEX GC</a> to GLD/DGP/DZZ price,
+from <a href="../../res/futuresi.php">COMEX SI</a> to SLV/AGQ/ZSL price.
+<br />Same way as php/<b>_adr.php</b> and php/<b>_lof.php</b>, add <font color=olive>_FutureGroup</font> class and php/<b>_future.php</b> file.
+</p>
+
+<h3>Sina Realtime US Stock Data</h3>
+<p>Dec 13, 2015
+<br />With the help of abkoooo, now using Sina realtime US stock data (<a href="http://hq.sinajs.cn/list=gb_xop" target=_blank>http://hq.sinajs.cn/list=gb_xop</a>) to replace original Yahoo data which has 15 minutes delay.
+Now XOP data in file <b><a href="/debug/sina/xop.txt" target=_blank>xop.txt</a></b>. ^SYSIOP data still uses Yahoo and in a separated file <b><a href="/debug/yahoo/_spsiop.txt" target=_blank>_spsiop.txt</a></b>.
+<br />The code of <font color=olive>StockReference</font> class in file /php/stock/<b>stockref.php</b> is a mess now, I doubt if I can still understand it in the future.
+</p>
+
+<h3><a name="netvalue">Net Value</a> History</h3>
+<p>Jan 8, 2016
+<br /><a href="../../res/netvaluehistory.php?symbol=SZ162411">SZ162411 history</a> net value table was added following the advice from airwolf2026. 
+The most recent a few records are displayed in the current page, add files <b>netvaluehistory.php</b>, <b>netvaluehistorycn.php</b> and php/<b>_netvaluehistory.php</b> to display all history data.
+</p>
+
+<h3>Unified Display</h3>
+<p>Jan 26, 2016
+<br />Add date display in related price time items following the advice from oldwain.
+The original version omitted date display because I thougth it was obvious. And it is obvious too that not every one is as familar with both USA and China time as I am.
+<br />Although it is a small display change, I can not help myself to mofidy a lot of code.
+The original <font color=olive>StockReference</font> class in /php/stock/<b>stockref.php</b> is now only as a base class for basic data and display data, 
+with <font color=olive>SinaStockReference</font> class and <font color=olive>YahooStockReference</font> class extends from it.
+The original future data read becomes <font color=olive>FutureReference</font> class extends from <font color=olive>StockReference</font>,
+and forex data read becomes <font color=olive>ForexReference</font> class extends from <font color=olive>StockReference</font> too. 
+In this way, the display is unified, so the new version number really has something new with it.
+<br />Original data member $strDate (2014-11-13, 'Y-m-d') and $strTime (08:55:00, 'H:i:s') in class <font color=olive>StockReference</font> are kept as the same, 
+added new data member $strTimeHM (08:55) for display, separating data and display.
+</p>
+
+<h3><a name="pairtrading">Pair Trading</a></h3>
+<p>Feb 26, 2016
+<br />SZ162411 is trading more than 10% higher than its net value recently, the max premium as high as 17%, so the <a href="20160101.php">XOP and SZ162411 arbitrage</a> is not possible now.
+Add <a href="../../res/xop.php">XOP</a> and two oil ETF USO/USL pair trading tool page.
+<br />The current day pair trading price uses the same method as the leverage ETF price estimation in the future ETF pages.
+Continuing to organzie the similar code, extends <font color=olive>MyStockReference</font> class from <font color=olive>SinaStockReference</font> class,
+and finally extends <font color=olive>MyLeverageReference</font> class from <font color=olive>MyStockReference</font>.
+As we called mysql related function like <i>SqlGetStockDescription</i> of /php/sql/<b>sqlstock.php</b> in <font color=olive>MyStockReference</font> class,
+To keep the independence of the different modules in /php, <font color=olive>MyStockReference</font> and <font color=olive>MyLeverageReference</font> class are put in a new file /php/<b>mysqlstock.php</b>.
+</p>
+
+<h3><a name="gradedfund">Graded Fund</a></h3>
+<p>March 11, 2016
+<br />As Chinese stock going down frequently, I feel more and more unsafe for SZ150022 now. Added <a href="../../res/sz150022.php">Shenzhen Index A</a> page to calculate it more carefully.
+And added another similar graded fund <a href="../../res/sz150175.php">H Shares A</a> at the same time as well.
+<br />Different users have been suggesting to add estimation value in the <a href="../../res/sz162411.php#history">history net value</a> table of SZ162411.
+Except for not willing to show my possible error directly, I did not add it because the change is realtime, and I don't know when to record it, after US market close or Chinese market close?
+<br />In the LOF code, the variable for estimation value was originally in <font color=olive>_LofGroup</font> class.
+With my new <font color=olive>_GradedFundGroup</font> class in file php/<b>_gradedfund.php</b> having 3 class member of <font color=olive>FundReference</font> class in file /php/stock/<b>fundref.php</b>,
+naturally I moved the estimation value to <font color=olive>FundReference</font> class. And when estimaation value and net value variable are put together, the data structure leads my mind again,
+suddenly I realized that it is most reasonable to record the estimation value in the same time when the current day net value is recorded!
+</p>
+
+<h3>US Daylight Saving Time</h3>
+<p>March 14, 2016
+<br />A bug is found as US enter daylight saving time: <i>date_default_timezone_set('EST')</i> is not considering daylight saving,
+need to use <i>date_default_timezone_set('America/New_York')</i> or <i>date_default_timezone_set('EDT')</i>.
+</p>
+
+<h3><a name="goldetf">Gold ETF</a></h3>
+<p>March 25, 2016
+<br />As Gold future GC is not trading on Easter holiday, I get the chance to adjust the net value estimation for Chinese <a href="../../res/goldetf.php">Gold ETF</a>, 
+including <a href="../../res/sh518800.php">GuoTai Gold ETF</a>, <a href="../../res/sh518880.php">HuaAn Gold ETF</a>, <a href="../../res/sz159934.php">E Fund Gold ETF</a>,
+<a href="../../res/sz159937.php">Bosera Gold ETF</a>, <a href="../../res/sz164701.php">Universal Gold LOF</a>, <a href="../../res/sz160719.php">Harvest Gold LOF</a> and <a href="../../res/sz161116.php">E Fund Gold LOF</a>.
+<br />The average page view of my net value pages in a normal trading day is around 1000 now, the max day is nearly 1700. I have been optimizing my software for more page views in the future.
+As the <a href="#sma">SMA</a> caculation only need to be done once in a day, it is natural to save the result instead of calculate it with every page view.
+I have been thinking about it but never did anything, until I finished the adjustment of 7 gold ETF, I realized that the SMA of GLD need to be calculated in 8 pages including the GC gold future page.
+I feel I can not stand it any more.
+<br />Based on the experience of finding <a href="#mobiledetect">Mobile-Detect</a> code on internet, I underestimated the efforts to find a ready php class for config file read and write.
+An easy found one cost 5 USD, it says to support file and mysql for configuration at the same time, as I do not like too many tables in mysql and only interested in file config,
+I think 5 USD may be a waste of money.
+As last I found the free <a href="http://px.sklar.com/code.html?id=142&fmt=pl" target=_blank>INIFile</a>, put it into /php/class/<b>ini_file.php</b> file. 
+The class only support config read and write on an existing file, still as a PHP new programmer, I spent a few hours to modify it and finally made it works with my pages.
+</p>
+
+<h3>Sina Realtime HK Stock Data</h3>
+<p>Apr 18, 2016
+<br />With the help of rdcheju,
+now using Sina realtime HK stock data(<a href="http://hq.sinajs.cn/list=rt_hk02828" target=_blank>http://hq.sinajs.cn/list=rt_hk02828</a>) to replace original <a href="20151225.php#hongkong">Sina HK data</a> which has 15 minutes delay.
+</p>
+
+<h3><a name="spy">Leverage ETF</a></h3>
+<p>Apr 23, 2016
+<br />On last Thursday the total page view of my net value pages was over 2200, this encouraged me to do more page speed optimization.
+Removed leverage ETF data from LOF pages, the old usage was moved to the <a href="../../res/spy.php">SPY</a> and SH/SDS <a href="../../res/pairtrading.php">pair trading</a> page.
+</p>
+
+<h3>The Most Stupid Bug in Recent Years</h3>
+<p>May 15, 2016
+<br />Last week USDCNY was rising significantly again, and a new bug of SZ162411 net value estimation floated on water. On Friday, May 13, my estimation was about 1% higher than the official data.
+I began to check the problem yesterday, found that the last automatic calibration was done on the evening of May 12, after the official net value of May 11 data released.
+And the automatic calibration on May 13 was not done yet. In other words, the calibration was one day late for quite some time now, but when USDCNY had little change, the problem was ignored.
+<br />It was easy to find the bug, I used the simplest way to fix the estimation bug (mentioned in <a href="20151225.php#fund">Sina fund data</a>) caused by continue Chinese and USA market close after Chinese New Year.
+Because only Hongkong LOF would have the chance of official LOF net value newer than ETF, I rewrote part of the code by checking if it was HK LOF,
+and modified an actually unrelated code, what should be <i>$iHours = STOCK_HOUR_END + ($this->usdhkd_ref ? 0 : 24);</i> was written as <i>$iHours = STOCK_HOUR_END + ($this->usdhkd_ref) ? 0 : 24;</i>
+<br />But this bug made me feel very bad, this time I can not say I am still a 6 years <font color=red>new</font> PHP programmer. As a proud 25 years C programmer, this is also a very stupid bug in C language!
+</p>
+
+<h3>My <a name="portfolio">Portfolio</a></h3>
+<p>June 5, 2016
+<br />Wang Xiaobo always says that he is writing his books using software editer programmed by himself. I was laughing at the idea 20 years ago.
+To my own surprise, I began to write my own stock software after all those years. People think differently in different age.
+<br />When <a href="../../res/myportfolio.php?email=woody@palmmicro.com">My Portfolio</a> function first online, the page load speed was very slow,
+and it will become much faster when refresh. Not confident about my mysql skills, I started optimizing database at once.
+I solved some obvious problems. For example, I extended the data field of original stockgroupitem table, made necessary calculation for all records with the same groupitem_id in stocktransaction table,
+and saved the result in stockgroupitem table, so to avoid query stocktransaction table and calculate every time.
+However, after all those changes, the speed was still slow. But the good news is, after reviewing the software again and again, I finally found the real reason.
+<br />After get <a href="../../res/mystockgroup.php?email=woody@palmmicro.com">stock group</a> from member_id in <a name="stockgroup">stockgroup</a> table, 
+I will construct a <font color=olive>MyStockGroup</font> class instance for each stockgroup. 
+And in the original construct function of <font color=olive>MyStockGroup</font> class, it will construct a <font color=olive>MyStockTransaction</font> class instance for each stock in the stockgroup,
+Because <font color=olive>MyStockTransaction</font> class need <font color=olive>MyStockReference</font> class as parameter, 
+if no existing <font color=olive>MyStockReference</font> instance for the stock, it will construct a new one.
+The result was, when I was getting my portfolio in the first time, I would download nearly all stock data from Sina, no wonder it was so slow.
+<br />The problem is easy to solve, first I will not construct <font color=olive>MyStockTransaction</font> class instance if there is no stock transaction at all,
+then I will group all stock when has transaction, and to prefetch all the data from Sina at the same time.
+The prefetch code is put in new file /php/stock/<b>stockprefetch.php</b>.
+<br />Finally I used the prefetch method in all places when need to download data from Sina, including the SZ162411 net value calculation of course.
+All page speed is improved in some way. It seems that I was wrong to explain why my net value pages were slow some time earlier, 
+I thought it was because the web server was in US and my major visitors were from China.
+</p> 
+
+<h3>T+1 <a name="realtime">Estimation</a> with Current CL Factor in</h3>
+<p>Aug 18, 2016
+<br />Many people's Excel sheet has this one, so I added it too.
+</p>
+
+<h3>Test <a name="thanouslaw">Thanous Law</a></h3>
+<p>Sep 18, 2016
+<br /><img src=../photo/20160918.jpg alt="Screen shot of test Thanous Law on Sep 18, 2016" />
+</p>
+
+<h3>How to <a name="precise">Precisely</a> Estimate the Net Value of SZ162411</h3>
+<p>Sep 27, 2016
+<br />Added 95% position for all LOF net value estimation.
+</p>
+
+<h3>Automatic and manual <a name="calibration">calibration</a> history</h3>
+<p>Oct 6, 2016
+<br />SZ162411 <a href="../../res/calibrationhistory.php?stockid=75">calibration history</a>.
+</p>
+
+</div>
+
+<?php _LayoutBottom(false); ?>
+
+</body>
+</html>
+

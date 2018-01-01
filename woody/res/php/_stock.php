@@ -619,11 +619,11 @@ function _EchoTransactionParagraph($group, $bChinese)
         EchoParagraphEnd();
     }
     
+    StockEditTransactionForm($strGroupId, false, $bChinese);
+    
     EchoParagraphBegin(_GetPortfolioLink($bChinese));
     _EchoGroupPortfolioTable($group, $bChinese);
     EchoParagraphEnd();
-    
-    StockEditTransactionForm($strGroupId, false, $bChinese);
 }
 
 // ****************************** String functions *******************************************************
