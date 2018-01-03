@@ -324,7 +324,7 @@ class MyFundReference extends FundReference
     {
         $strDate = $this->strDate;
         $ymd = new YearMonthDate($strDate);
-        if ($ymd->IsWeekDay() == false)     return false;   // sina fund may provide wrong weekend data
+        if ($ymd->IsWeekend())     return false;   // sina fund may provide wrong weekend data
 
         $strSqlId = $this->GetStockId();
         $strNetValue = $this->strPrevPrice;

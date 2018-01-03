@@ -4,22 +4,14 @@
 define ('STOCK_HOUR_BEGIN', 9);
 define ('STOCK_HOUR_END', 16);
 
-function _isHoliday($localtime)
-{
-    if ($localtime[4] == 0 && $localtime[3] == 1)
-    {   // New Years Day is not a trading day everywhere
-        return true;
-    }
-    return false;
-}
-
 function _isMarketTrading($sym, $iTime)
 {
-    $localtime = localtime($iTime);
-    if (_isHoliday($localtime))     return false;
-    if (IsWeekDay($localtime))
+    $ymd = new YearMonthDate(false);
+    $ymd->SetTime($iTime);
+    if ($ymd->IsHoliday())     return false;
+    if ($ymd->IsWeekDay())
     {
-        $iHour = $localtime[2]; 
+        $iHour = $ymd->local[2]; 
         if ($sym->IsSymbolA())
         {
             if ($iHour < STOCK_HOUR_BEGIN || $iHour > 15)     return false;
@@ -47,8 +39,9 @@ function mktimeYMD_NextTradingDay($strYMD)
     else                      $iHours = 24;
     $iTime = $ymd->iTime + $iHours * SECONDS_IN_HOUR;
 
-    $localtime = localtime($iTime);
-    if (_isHoliday($localtime))
+    $ymd_next = new YearMonthDate(false);
+    $ymd_next->SetTime($iTime);
+    if ($ymd_next->IsHoliday())
     {
         return mktimeYMD_NextTradingDay(dateYMD($iTime));
     }
@@ -132,17 +125,17 @@ function ForexAndFutureNeedNewFile($strFileName, $strTimeZone)
     date_default_timezone_set($strTimeZone);
     if (file_exists($strFileName))
     {
-        $iCurTime = time();
+        $ymd = new YearMonthDate(false);
         $iFileTime = filemtime($strFileName);
-        if ($iCurTime < ($iFileTime + SECONDS_IN_MIN))       return false;   // update on every minute
+        if ($ymd->iTime < ($iFileTime + SECONDS_IN_MIN))       return false;   // update on every minute
         
-        $localtime = localtime($iFileTime);
-        if (IsWeekDay($localtime))    return true;
+        $ymd_file = new YearMonthDate(false);
+        $ymd_file->SetTime($iFileTime);
+        if ($ymd_file->IsWeekDay())    return true;
         else 
         {
-            $localtime = localtime($iCurTime);
-            if (IsWeekDay($localtime))    return true;
-            else                            return false;
+            if ($ymd->IsWeekDay())    return true;
+            else                        return false;
         }
     }
     return true;

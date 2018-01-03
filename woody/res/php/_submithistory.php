@@ -3,12 +3,9 @@ require_once('_stock.php');
 
 function _isInvalidDate($strYMD)
 {
-//    $iTime = mktimeYMD($strYMD);
-//    $localtime = localtime($iTime);
-//    if ($localtime[6] == 0 || $localtime[6] == 6)     return true;  // weekend
     $ymd = new YearMonthDate($strYMD);
-    if ($ymd->IsWeekDay() == false)          return true;    // weekend
-    if ($ymd->iTime > time())                return true;
+    if ($ymd->IsWeekend())      return true;
+    if ($ymd->IsFuture())       return true;
     
     $ymd_oldest = new YearMonthDate('2000-01-01');
     if ($ymd->iTime < $ymd_oldest->iTime)                 return true;

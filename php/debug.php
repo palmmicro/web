@@ -28,12 +28,6 @@ function dateYMD($iTime)
     return date(DEBUG_DATE_FORMAT, $iTime);
 }
 
-function IsWeekDay($localtime)
-{
-    if ($localtime[6] == 0 || $localtime[6] == 6)     return false;
-    return true;
-}
-
 function _getTimeDisplay($iTime, $strTimeZone)
 {
     date_default_timezone_set($strTimeZone);

@@ -156,10 +156,11 @@ function _isWeekEnd($strYMD, $strNextDayYMD)
     else
     {   // Here is a BUG if a certain Friday is not a trading day 
         if ($ymd->IsFriday())   return true;
-        $localtimeNow = localtime();
-        if (IsWeekDay($localtimeNow))
+        
+        $ymd_now = new YearMonthDate(false);
+        if ($ymd_now->IsWeekDay())
         {
-            if ($ymd->local[6] > $localtimeNow[6])     return true;
+            if ($ymd->local[6] > $ymd_now->local[6])     return true;
         }
         else
         {
