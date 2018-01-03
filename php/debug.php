@@ -28,25 +28,6 @@ function dateYMD($iTime)
     return date(DEBUG_DATE_FORMAT, $iTime);
 }
 
-function mktimeYMD_H($strYMD, $iHour)
-{
-    $arYMD = explode('-', $strYMD);
-    return mktime($iHour, 0, 0, $arYMD[1], $arYMD[2], $arYMD[0]);
-}
-
-function mktimeYMD($strYMD)
-{
-    return mktimeYMD_H($strYMD, 0);
-}
-
-function IsFridayYMD($strYMD)
-{
-    $iTime = mktimeYMD($strYMD);
-    $localtime = localtime($iTime);
-    if ($localtime[6] == 5)     return true;
-    return false;
-}
-
 function IsWeekDay($localtime)
 {
     if ($localtime[6] == 0 || $localtime[6] == 6)     return false;

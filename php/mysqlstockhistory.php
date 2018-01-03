@@ -147,19 +147,19 @@ function _estBollingerBands($arF, $iIndex, $iAvg)
 
 function _isWeekEnd($strYMD, $strNextDayYMD)
 {
-    $localtime = localtime(mktimeYMD($strYMD));
+    $ymd = new YearMonthDate($strYMD);
     if ($strNextDayYMD)
     {
-        $localtimeNextDay = localtime(mktimeYMD($strNextDayYMD));
-        if ($localtime[6] >= $localtimeNextDay[6])     return true;
+        $ymd_next = new YearMonthDate($strNextDayYMD);
+        if ($ymd->local[6] >= $ymd_next->local[6])     return true;
     }
     else
     {   // Here is a BUG if a certain Friday is not a trading day 
-        if (IsFridayYMD($strYMD))   return true;
+        if ($ymd->IsFriday())   return true;
         $localtimeNow = localtime();
         if (IsWeekDay($localtimeNow))
         {
-            if ($localtime[6] > $localtimeNow[6])     return true;
+            if ($ymd->local[6] > $localtimeNow[6])     return true;
         }
         else
         {
@@ -171,20 +171,21 @@ function _isWeekEnd($strYMD, $strNextDayYMD)
 
 function _isMonthEnd($strYMD, $strNextDayYMD)
 {
-    $iTime = mktimeYMD($strYMD);
-    $localtime = localtime($iTime);
+    $ymd = new YearMonthDate($strYMD);
+    $iTime = $ymd->iTime;
     if ($strNextDayYMD)
     {
-        $iTime = mktimeYMD($strNextDayYMD);
+        $ymd_next = new YearMonthDate($strNextDayYMD);
+        $iTime = $ymd_next->iTime;
     }
     else
     {   // Here is a BUG if the last none weekend day of a certain month is not a trading day 
-        if (IsFridayYMD($strYMD))   $iTime += 3 * SECONDS_IN_DAY;
-        else                          $iTime += SECONDS_IN_DAY;
+        if ($ymd->IsFriday())   $iTime += 3 * SECONDS_IN_DAY;
+        else                      $iTime += SECONDS_IN_DAY;
     }
     $localtimeNextDay = localtime($iTime);
     
-    if ($localtime[4] == $localtimeNextDay[4])     return false;    // same month    
+    if ($ymd->local[4] == $localtimeNextDay[4])     return false;    // same month    
     return true;
 }
 

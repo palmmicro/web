@@ -356,13 +356,14 @@ class _LofReference extends MyFundReference
                 $est_ref = $this->est_ref;
                 if ($est_ref == false)              return false;
                 if ($est_ref->bHasData == false)    return false;
+                $ymd_est = new YearMonthDate($est_ref->strDate);
             
                 if ($strDate == $est_ref->strDate)
                 {
                     $fEst = $est_ref->fPrice;
                     $strEst = $est_ref->strPrice;
                 }
-                else if (mktimeYMD_NextTradingDay($strDate) == mktimeYMD($est_ref->strDate))
+                else if (mktimeYMD_NextTradingDay($strDate) == $ymd_est->iTime)
                 {
                     $fEst = $est_ref->fPrevPrice;
                     $strEst = $est_ref->strPrevPrice;

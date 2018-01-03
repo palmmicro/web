@@ -6,9 +6,10 @@ require_once('stocklink.php');
 require_once('externallink.php');
 
 require_once('class/ini_file.php');
+require_once('class/year_month_date.php');
 
 require_once('stock/stocksymbol.php');
-require_once('stock/chinamoney.php');
+//require_once('stock/chinamoney.php');
 require_once('stock/yahoostock.php');
 require_once('stock/sinastock.php');
 require_once('stock/googlestock.php');

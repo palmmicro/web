@@ -1,4 +1,5 @@
 <?php
+require_once('/php/class/year_month_date.php');
 
 // ****************************** Stock History tables *******************************************************
 
@@ -83,11 +84,13 @@ function SqlDeleteStockHistoryWithZeroVolume($strStockId)
 function SqlUpdateStockHistoryAdjCloseByDividend($strStockId, $fDividend, $strYMD)
 {
     $ar = array();
+    $ymd = new YearMonthDate($strYMD);
     if ($result = SqlGetStockHistory($strStockId, 0, 0)) 
     {
         while ($history = mysql_fetch_assoc($result)) 
         {
-            if (mktimeYMD($history['date']) < mktimeYMD($strYMD))
+            $ymd_history = new YearMonthDate($history['date']);
+            if ($ymd_history->iTime < $ymd->iTime)
             {
                 $ar[$history['id']] = floatval($history['adjclose']);
             }

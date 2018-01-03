@@ -322,8 +322,11 @@ class MyFundReference extends FundReference
 
     function UpdateOfficialNetValue()
     {
-        $strSqlId = $this->GetStockId();
         $strDate = $this->strDate;
+        $ymd = new YearMonthDate($strDate);
+        if ($ymd->IsWeekDay() == false)     return false;   // sina fund may provide wrong weekend data
+
+        $strSqlId = $this->GetStockId();
         $strNetValue = $this->strPrevPrice;
         if ($history = SqlGetFundHistoryByDate($strSqlId, $strDate))
         {

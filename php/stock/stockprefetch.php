@@ -42,9 +42,10 @@ function _isMarketTrading($sym, $iTime)
 
 function mktimeYMD_NextTradingDay($strYMD)
 {
-    if (IsFridayYMD($strYMD))   $iHours = 3 * 24;
-    else                          $iHours = 24;
-    $iTime = mktimeYMD_H($strYMD, $iHours);
+    $ymd = new YearMonthDate($strYMD);
+    if ($ymd->IsFriday())   $iHours = 3 * 24;
+    else                      $iHours = 24;
+    $iTime = $ymd->iTime + $iHours * SECONDS_IN_HOUR;
 
     $localtime = localtime($iTime);
     if (_isHoliday($localtime))
@@ -79,6 +80,8 @@ function IsNewDailyQuotes($sym, $strFileName, $bSameDay, $fCallback)
     {
         $str = file_get_contents($strFileName);
         if (($strYMD = call_user_func($fCallback, $str)) == false)  return false;
+        $ymd = new YearMonthDate($strYMD);
+        
 //        DebugString($sym->strSymbol.' '.$strYMD);
         $iCurTime = time();
         $iFileTime = filemtime($strFileName);
@@ -86,7 +89,7 @@ function IsNewDailyQuotes($sym, $strFileName, $bSameDay, $fCallback)
         {
             if (dateYMD($iCurTime) == $strYMD)
             {
-                if (($iFileTime - STOCK_HOUR_BEGIN * SECONDS_IN_HOUR) > mktimeYMD($strYMD))  return $str;    // We already have today's data
+                if (($iFileTime - STOCK_HOUR_BEGIN * SECONDS_IN_HOUR) > $ymd->iTime)  return $str;    // We already have today's data
             }
         }
         else
