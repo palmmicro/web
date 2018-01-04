@@ -32,22 +32,6 @@ function _isMarketTrading($sym, $iTime)
     return true;
 }
 
-function mktimeYMD_NextTradingDay($strYMD)
-{
-    $ymd = new YearMonthDate($strYMD);
-    if ($ymd->IsFriday())   $iHours = 3 * 24;
-    else                      $iHours = 24;
-    $iTime = $ymd->GetTick() + $iHours * SECONDS_IN_HOUR;
-
-    $ymd_next = new YearMonthDate(false);
-    $ymd_next->SetTick($iTime);
-    if ($ymd_next->IsHoliday())
-    {
-        return mktimeYMD_NextTradingDay(dateYMD($iTime));
-    }
-    return $iTime;
-}
-
 function _GetEastMoneyQuotesYMD($str)
 {
     $ar = explode(',', $str);
