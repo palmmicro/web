@@ -7,7 +7,7 @@ define ('STOCK_HOUR_END', 16);
 function _isMarketTrading($sym, $iTime)
 {
     $ymd = new YearMonthDate(false);
-    $ymd->SetTime($iTime);
+    $ymd->SetTick($iTime);
     if ($ymd->IsHoliday())     return false;
     if ($ymd->IsWeekDay())
     {
@@ -37,10 +37,10 @@ function mktimeYMD_NextTradingDay($strYMD)
     $ymd = new YearMonthDate($strYMD);
     if ($ymd->IsFriday())   $iHours = 3 * 24;
     else                      $iHours = 24;
-    $iTime = $ymd->iTime + $iHours * SECONDS_IN_HOUR;
+    $iTime = $ymd->GetTick() + $iHours * SECONDS_IN_HOUR;
 
     $ymd_next = new YearMonthDate(false);
-    $ymd_next->SetTime($iTime);
+    $ymd_next->SetTick($iTime);
     if ($ymd_next->IsHoliday())
     {
         return mktimeYMD_NextTradingDay(dateYMD($iTime));
@@ -82,12 +82,12 @@ function IsNewDailyQuotes($sym, $strFileName, $bSameDay, $fCallback)
         {
             if (dateYMD($iCurTime) == $strYMD)
             {
-                if (($iFileTime - STOCK_HOUR_BEGIN * SECONDS_IN_HOUR) > $ymd->iTime)  return $str;    // We already have today's data
+                if (($iFileTime - STOCK_HOUR_BEGIN * SECONDS_IN_HOUR) > $ymd->GetTick())  return $str;    // We already have today's data
             }
         }
         else
         {
-            if (($iCurTime - STOCK_HOUR_END * SECONDS_IN_HOUR) < mktimeYMD_NextTradingDay($strYMD))     return $str;   // We already have yesterday or last Friday's history quotes.
+            if (($iCurTime - STOCK_HOUR_END * SECONDS_IN_HOUR) < $ymd->GetNextTradingDayTick())     return $str;   // We already have yesterday or last Friday's history quotes.
         }
         
         $localtime = localtime($iCurTime);
@@ -125,12 +125,12 @@ function ForexAndFutureNeedNewFile($strFileName, $strTimeZone)
     date_default_timezone_set($strTimeZone);
     if (file_exists($strFileName))
     {
-        $ymd = new YearMonthDate(false);
         $iFileTime = filemtime($strFileName);
-        if ($ymd->iTime < ($iFileTime + SECONDS_IN_MIN))       return false;   // update on every minute
+        $ymd = new YearMonthDate(false);
+        if ($ymd->GetTick() < ($iFileTime + SECONDS_IN_MIN))       return false;   // update on every minute
         
         $ymd_file = new YearMonthDate(false);
-        $ymd_file->SetTime($iFileTime);
+        $ymd_file->SetTick($iFileTime);
         if ($ymd_file->IsWeekDay())    return true;
         else 
         {

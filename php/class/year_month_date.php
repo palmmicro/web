@@ -20,18 +20,30 @@ class YearMonthDate
         {
             $iTime = time();
         }
-        $this->SetTime($iTime);
+        $this->SetTick($iTime);
     }
 
-    function SetTime($iTime)
+    function SetTick($iTime)
     {
         $this->iTime = $iTime;
-        $this->local = localtime($this->iTime);
+        $this->local = localtime($iTime);
+    }
+    
+    function GetTick()
+    {
+        return $this->iTime;
+    }
+
+    function GetNextWeekDayTick()
+    {
+        if ($this->IsFriday())   $iHours = 3 * 24;
+        else                      $iHours = 24;
+        return $this->GetTick() + $iHours * SECONDS_IN_HOUR;
     }
     
     function IsFuture() 
     {
-        if ($this->iTime > time())     return true;
+        if ($this->GetTick() > time())     return true;
         return false;
     }
     
@@ -60,6 +72,19 @@ class YearMonthDate
             return true;
         }
         return false;
+    }
+
+    function GetNextTradingDayTick()
+    {
+        $iTick = $this->GetNextWeekDayTick();
+        
+        $ymd_next = new YearMonthDate(false);
+        $ymd_next->SetTick($iTick);
+        if ($ymd_next->IsHoliday())
+        {
+            return $ymd_next->GetNextTradingDayTick();
+        }
+        return $iTick;
     }
 }
 

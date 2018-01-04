@@ -169,7 +169,8 @@ function _echoHistoryTableData($fund, $bSameDayNetValue, $stock_his, $iStart, $i
             }
             else
             {
-                $strDate = dateYMD(mktimeYMD_NextTradingDay($record['date']));
+                $ymd = new YearMonthDate($record['date']);
+                $strDate = dateYMD($ymd->GetNextTradingDayTick());
             }
             
             if ($stock_his)     $arEtfClose = $stock_his->GetDailyCloseByDate($record['date']);
