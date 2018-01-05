@@ -147,17 +147,17 @@ function _estBollingerBands($arF, $iIndex, $iAvg)
 
 function _isWeekEnd($strYMD, $strNextDayYMD)
 {
-    $ymd = new YearMonthDate($strYMD);
+    $ymd = new YMDString($strYMD);
     if ($strNextDayYMD)
     {
-        $ymd_next = new YearMonthDate($strNextDayYMD);
+        $ymd_next = new YMDString($strNextDayYMD);
         if ($ymd->local[6] >= $ymd_next->local[6])     return true;
     }
     else
     {   // Here is a BUG if a certain Friday is not a trading day 
         if ($ymd->IsFriday())   return true;
         
-        $ymd_now = new YearMonthDate(false);
+        $ymd_now = new YMDNow();
         if ($ymd_now->IsWeekDay())
         {
             if ($ymd->local[6] > $ymd_now->local[6])     return true;
@@ -172,11 +172,11 @@ function _isWeekEnd($strYMD, $strNextDayYMD)
 
 function _isMonthEnd($strYMD, $strNextDayYMD)
 {
-    $ymd = new YearMonthDate($strYMD);
+    $ymd = new YMDString($strYMD);
     $iTime = $ymd->iTime;
     if ($strNextDayYMD)
     {
-        $ymd_next = new YearMonthDate($strNextDayYMD);
+        $ymd_next = new YMDString($strNextDayYMD);
         $iTime = $ymd_next->iTime;
     }
     else

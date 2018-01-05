@@ -3,11 +3,11 @@ require_once('_stock.php');
 
 function _isInvalidDate($strYMD)
 {
-    $ymd = new YearMonthDate($strYMD);
+    $ymd = new YMDString($strYMD);
     if ($ymd->IsWeekend())      return true;
     if ($ymd->IsFuture())       return true;
     
-    $ymd_oldest = new YearMonthDate('2000-01-01');
+    $ymd_oldest = new YMDString('2000-01-01');
     if ($ymd->iTime < $ymd_oldest->iTime)                 return true;
     return false;
 }

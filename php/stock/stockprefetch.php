@@ -6,8 +6,7 @@ define ('STOCK_HOUR_END', 16);
 
 function _isMarketTrading($sym, $iTime)
 {
-    $ymd = new YearMonthDate(false);
-    $ymd->SetTick($iTime);
+    $ymd = new YMDTick($iTime);
     if ($ymd->IsHoliday())     return false;
     if ($ymd->IsWeekDay())
     {
@@ -57,7 +56,7 @@ function IsNewDailyQuotes($sym, $strFileName, $bSameDay, $fCallback)
     {
         $str = file_get_contents($strFileName);
         if (($strYMD = call_user_func($fCallback, $str)) == false)  return false;
-        $ymd = new YearMonthDate($strYMD);
+        $ymd = new YMDString($strYMD);
         
 //        DebugString($sym->strSymbol.' '.$strYMD);
         $iCurTime = time();
@@ -110,11 +109,10 @@ function ForexAndFutureNeedNewFile($strFileName, $strTimeZone)
     if (file_exists($strFileName))
     {
         $iFileTime = filemtime($strFileName);
-        $ymd = new YearMonthDate(false);
+        $ymd = new YMDNow();
         if ($ymd->GetTick() < ($iFileTime + SECONDS_IN_MIN))       return false;   // update on every minute
         
-        $ymd_file = new YearMonthDate(false);
-        $ymd_file->SetTick($iFileTime);
+        $ymd_file = new YMDTick($iFileTime);
         if ($ymd_file->IsWeekDay())    return true;
         else 
         {

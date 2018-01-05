@@ -357,8 +357,8 @@ class _LofReference extends MyFundReference
                 if ($est_ref == false)              return false;
                 if ($est_ref->bHasData == false)    return false;
                 
-                $ymd = new YearMonthDate($strDate);
-                $ymd_est = new YearMonthDate($est_ref->strDate);
+                $ymd = new YMDString($strDate);
+                $ymd_est = new YMDString($est_ref->strDate);
             
                 if ($strDate == $est_ref->strDate)
                 {

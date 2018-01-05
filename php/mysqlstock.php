@@ -323,7 +323,7 @@ class MyFundReference extends FundReference
     function UpdateOfficialNetValue()
     {
         $strDate = $this->strDate;
-        $ymd = new YearMonthDate($strDate);
+        $ymd = new YMDString($strDate);
         if ($ymd->IsWeekend())     return false;   // sina fund may provide wrong weekend data
 
         $strSqlId = $this->GetStockId();

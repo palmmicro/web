@@ -4,29 +4,21 @@
 
 class YearMonthDate
 {
-    var $arYMD;
+    var $strYMD;
+    
     var $iTime;
     var $local;     // localtime
     
     // constructor 
-    function YearMonthDate($strYMD) 
+    function YearMonthDate($iTick) 
     {
-        if ($strYMD)
-        {
-            $this->arYMD = explode('-', $strYMD);
-            $iTime = mktime(0, 0, 0, $this->arYMD[1], $this->arYMD[2], $this->arYMD[0]);
-        }
-        else
-        {
-            $iTime = time();
-        }
-        $this->SetTick($iTime);
+        $this->iTime = $iTick;
+        $this->local = localtime($iTick);
     }
 
-    function SetTick($iTime)
+    function GetYMD()
     {
-        $this->iTime = $iTime;
-        $this->local = localtime($iTime);
+        return $this->strYMD;
     }
     
     function GetTick()
@@ -74,17 +66,73 @@ class YearMonthDate
         return false;
     }
 
+    function IsSameMonth($ymd) 
+    {
+        if ($ymd->local[4] == $this->local[4])     return true;
+        return false;
+    }
+    
+    function IsSameDay($ymd) 
+    {
+        if ($ymd->local[3] == $this->local[3])     return true;
+        return false;
+    }
+    
+    function IsSameHour($ymd) 
+    {
+        if ($ymd->local[2] == $this->local[2])     return true;
+        return false;
+    }
+    
     function GetNextTradingDayTick()
     {
         $iTick = $this->GetNextWeekDayTick();
         
-        $ymd_next = new YearMonthDate(false);
-        $ymd_next->SetTick($iTick);
+        $ymd_next = new YearMonthDate($iTick);
         if ($ymd_next->IsHoliday())
         {
             return $ymd_next->GetNextTradingDayTick();
         }
         return $iTick;
+    }
+}
+
+// ****************************** YMDString *******************************************************
+
+class YMDString extends YearMonthDate
+{
+    var $arYMD;
+    
+    // constructor 
+    function YMDString($strYMD)
+    {
+        $this->strYMD = $strYMD;
+        $this->arYMD = explode('-', $strYMD);
+        $iTick = mktime(0, 0, 0, $this->arYMD[1], $this->arYMD[2], $this->arYMD[0]);
+        parent::YearMonthDate($iTick);
+    }
+}
+
+// ****************************** YMDTick *******************************************************
+
+class YMDTick extends YearMonthDate
+{
+    // constructor 
+    function YMDTick($iTick)
+    {
+        $this->strYMD = date(DEBUG_DATE_FORMAT, $iTick);
+        parent::YearMonthDate($iTick);
+    }
+}
+
+// ****************************** YMDNow *******************************************************
+
+class YMDNow extends YMDTick
+{
+    // constructor 
+    function YMDNow()
+    {
+        parent::YMDTick(time());
     }
 }
 

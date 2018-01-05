@@ -322,7 +322,7 @@ class StockReference
         $this->ConvertDateTime(strtotime($strDateTime), STOCK_TIME_ZONE_US);
         $this->strTimeZone = STOCK_TIME_ZONE_US;
         
-        $ymd = new YearMonthDate($this->strDate);
+        $ymd = new YMDString($this->strDate);
         if ($ymd->IsFuture())
         {   // Dec 30 04:00PM EST, an extra year bug caused by strtotime function
             $iYear = intval($ymd->arYMD[0]);

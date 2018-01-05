@@ -169,7 +169,7 @@ function _echoHistoryTableData($fund, $bSameDayNetValue, $stock_his, $iStart, $i
             }
             else
             {
-                $ymd = new YearMonthDate($record['date']);
+                $ymd = new YMDString($record['date']);
                 $strDate = dateYMD($ymd->GetNextTradingDayTick());
             }
             
