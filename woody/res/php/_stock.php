@@ -156,6 +156,15 @@ function _echoHistoryTableItem($ref, $history, $fund, $arEtfClose)
 END;
 }
 
+function GetNextTradingDayYMD($strYMD)
+{
+    $ymd = new YMDString($strYMD);
+    $iTick = $ymd->GetNextTradingDayTick();
+    
+    $ymd_next = new YMDTick($iTick);
+    return $ymd_next->GetYMD();
+}
+
 function _echoHistoryTableData($fund, $bSameDayNetValue, $stock_his, $iStart, $iNum)
 {
     $strStockId = $fund->GetStockId();
@@ -169,8 +178,7 @@ function _echoHistoryTableData($fund, $bSameDayNetValue, $stock_his, $iStart, $i
             }
             else
             {
-                $ymd = new YMDString($record['date']);
-                $strDate = dateYMD($ymd->GetNextTradingDayTick());
+                $strDate = GetNextTradingDayYMD($record['date']);
             }
             
             if ($stock_his)     $arEtfClose = $stock_his->GetDailyCloseByDate($record['date']);

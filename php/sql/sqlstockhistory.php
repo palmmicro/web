@@ -90,7 +90,7 @@ function SqlUpdateStockHistoryAdjCloseByDividend($strStockId, $fDividend, $strYM
         while ($history = mysql_fetch_assoc($result)) 
         {
             $ymd_history = new YMDString($history['date']);
-            if ($ymd_history->iTime < $ymd->iTime)
+            if ($ymd_history->GetTick() < $ymd->GetTick())
             {
                 $ar[$history['id']] = floatval($history['adjclose']);
             }

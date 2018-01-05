@@ -23,11 +23,6 @@ function unlinkEmptyFile($strFileName)
     }
 }
 
-function dateYMD($iTime)
-{
-    return date(DEBUG_DATE_FORMAT, $iTime);
-}
-
 function _getTimeDisplay($iTime, $strTimeZone)
 {
     date_default_timezone_set($strTimeZone);

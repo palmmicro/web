@@ -414,7 +414,7 @@ class StockReference
     function _generateUsTradingDateTime()
     {
         $this->strTimeZone = STOCK_TIME_ZONE_US;
-        $iTime = time();
+/*        $iTime = time();
         $localtime = localtime($iTime);
         $iHour = $localtime[2];
         if ($iHour < 9 || ($iHour == 9 && $localtime[1] < 30))
@@ -422,6 +422,15 @@ class StockReference
             $iTime -= SECONDS_IN_DAY;
             $localtime = localtime($iTime);
             $iTime = mktime(16, 1, 0, $localtime[4] + 1, $localtime[3], 1900 + $localtime[5]);
+        }*/
+        $ymd_now = new YMDNow();
+        $iTime = $ymd_now->GetTick();
+        $iHour = $ymd_now->GetHour();
+        $iMinute = $ymd_now->GetMinute();
+        if ($iHour < 9 || ($iHour == 9 && $iMinute < 30))
+        {
+            $ymd = new YMDTick($iTime - SECONDS_IN_DAY);
+            $iTime = mktime(16, 1, 0, $ymd->GetMonth(), $ymd->GetDay(), $ymd->GetYear());
         }
         $this->ConvertDateTime($iTime, $this->strTimeZone);
     }

@@ -10,7 +10,7 @@ function _isMarketTrading($sym, $iTime)
     if ($ymd->IsHoliday())     return false;
     if ($ymd->IsWeekDay())
     {
-        $iHour = $ymd->local[2]; 
+        $iHour = $ymd->GetHour(); 
         if ($sym->IsSymbolA())
         {
             if ($iHour < STOCK_HOUR_BEGIN || $iHour > 15)     return false;
@@ -58,24 +58,22 @@ function IsNewDailyQuotes($sym, $strFileName, $bSameDay, $fCallback)
         if (($strYMD = call_user_func($fCallback, $str)) == false)  return false;
         $ymd = new YMDString($strYMD);
         
-//        DebugString($sym->strSymbol.' '.$strYMD);
-        $iCurTime = time();
+        $ymd_now = new YMDNow();
         $iFileTime = filemtime($strFileName);
         if ($bSameDay)
         {
-            if (dateYMD($iCurTime) == $strYMD)
+            if ($ymd_now->GetYMD() == $strYMD)
             {
                 if (($iFileTime - STOCK_HOUR_BEGIN * SECONDS_IN_HOUR) > $ymd->GetTick())  return $str;    // We already have today's data
             }
         }
         else
         {
-            if (($iCurTime - STOCK_HOUR_END * SECONDS_IN_HOUR) < $ymd->GetNextTradingDayTick())     return $str;   // We already have yesterday or last Friday's history quotes.
+            if (($ymd_now->GetTick() - STOCK_HOUR_END * SECONDS_IN_HOUR) < $ymd->GetNextTradingDayTick())     return $str;   // We already have yesterday or last Friday's history quotes.
         }
         
-        $localtime = localtime($iCurTime);
-        $filetime = localtime($iFileTime);
-        if (($localtime[2] == $filetime[2]) && ($localtime[3] == $filetime[3]))  return $str;   // same hour and same day
+        $ymd_file = new YMDTick($iFileTime);
+        if ($ymd_now->IsSameHour($ymd_file) && $ymd_now->IsSameDay($ymd_file))  return $str;   // same hour and same day
         else                                                                               return false;
     }
     return false;

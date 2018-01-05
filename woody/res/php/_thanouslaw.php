@@ -106,8 +106,7 @@ function _echoLofPredictionParagraph($lof_ref, $etf_his, $bChinese)
         _EchoHistoryTableBegin($arColumn);
         while ($record = mysql_fetch_assoc($result)) 
         {
-            $ymd = new YMDString($record['date']);
-            $strDate = dateYMD($ymd->GetNextTradingDayTick());
+            $strDate = GetNextTradingDayYMD($record['date']);
             if ($history = SqlGetStockHistoryByDate($strStockId, $strDate))
             {
                 $arEtfClose = $etf_his->GetDailyCloseByDate($strDate);

@@ -692,6 +692,19 @@ class MyStockGroup extends StockGroup
 
 // ****************************** General functions related with Sql and stock *******************************************************
 
+function _sqlMergeStockHistory($strStockId, $strDate, $strOpen, $strHigh, $strLow, $strClose, $strVolume, $strAdjClose)
+{
+    if ($history = SqlGetStockHistoryByDate($strStockId, $strDate))
+    {
+        SqlUpdateStockHistory($history['id'], $strOpen, $strHigh, $strLow, $strClose, $strVolume, $strAdjClose);
+    }
+    else
+    {
+        SqlInsertStockHistory($strStockId, $strDate, $strOpen, $strHigh, $strLow, $strClose, $strVolume, $strAdjClose);
+    }
+}
+
+/*
 function _getHistoryQuotesYMD($str)
 {
     $arLines = explode("\n", $str, 3);
@@ -708,18 +721,6 @@ function _getPastQuotes($sym, $strFileName)
         file_put_contents($strFileName, $str);
     }
     return $str;
-}
-
-function _sqlMergeStockHistory($strStockId, $strDate, $strOpen, $strHigh, $strLow, $strClose, $strVolume, $strAdjClose)
-{
-    if ($history = SqlGetStockHistoryByDate($strStockId, $strDate))
-    {
-        SqlUpdateStockHistory($history['id'], $strOpen, $strHigh, $strLow, $strClose, $strVolume, $strAdjClose);
-    }
-    else
-    {
-        SqlInsertStockHistory($strStockId, $strDate, $strOpen, $strHigh, $strLow, $strClose, $strVolume, $strAdjClose);
-    }
 }
 
 function _oldUpdateYahooHistory($strStockId, $sym)
@@ -743,17 +744,10 @@ function _oldUpdateYahooHistory($strStockId, $sym)
         if ((!empty($strDate)) && ($strDate != 'Date'))
         {
             _sqlMergeStockHistory($strStockId, $strDate, $ar[1], $ar[2], $ar[3], $ar[4], $ar[5], $ar[6]);
-/*            if ($history = SqlGetStockHistoryByDate($strStockId, $strDate))
-            {
-                SqlUpdateStockHistory($history['id'], $ar[1], $ar[2], $ar[3], $ar[4], $ar[5], $ar[6]);
-            }
-            else
-            {
-                SqlInsertStockHistory($strStockId, $strDate, $ar[1], $ar[2], $ar[3], $ar[4], $ar[5], $ar[6]);
-            }*/
         }
     }
 }
+*/
 
 function _webUpdateYahooHistory($strStockId, $sym)
 {
@@ -774,12 +768,16 @@ function _webUpdateYahooHistory($strStockId, $sym)
         $iTotal += $iVal;
         if ($iVal < $iMax / 2)
         {
-            DebugString(sprintf('_webUpdateYahooHistory %s %d from %s to %s', $strSymbol, $iVal, dateYMD($iTimeBegin), dateYMD($iTime)));
+            $ymd_begin = new YMDTick($iTimeBegin);
+            $ymd = new YMDTick($iTime);
+            DebugString(sprintf('_webUpdateYahooHistory %s %d from %s to %s', $strSymbol, $iVal, $ymd_begin->GetYMD(), $ymd->GetYMD()));
         }
         
         for ($j = 0; $j < $iVal; $j ++)
         {
-            $strDate = dateYMD(strtotime($arMatch[$j][1]));
+            $ymd = new YMDTick(strtotime($arMatch[$j][1]));
+            $strDate = $ymd->GetYMD();
+            
             $ar = array();
             $str = $strDate;
             for ($i = 0; $i < 6; $i ++)

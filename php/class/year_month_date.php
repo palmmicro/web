@@ -1,8 +1,8 @@
 <?php
 
-// ****************************** YearMonthDate Class *******************************************************
+// ****************************** YearMonthDay Class *******************************************************
 
-class YearMonthDate
+class YearMonthDay
 {
     var $strYMD;
     
@@ -10,7 +10,7 @@ class YearMonthDate
     var $local;     // localtime
     
     // constructor 
-    function YearMonthDate($iTick) 
+    function YearMonthDay($iTick) 
     {
         $this->iTime = $iTick;
         $this->local = localtime($iTick);
@@ -51,10 +51,45 @@ class YearMonthDate
         return true;
     }
     
+    function GetDayOfWeek()
+    {
+        return $this->local[6];
+    }
+    
     function IsWeekend()
     {
         if ($this->IsWeekDay())     return false;
         return true;
+    }
+    
+    function GetYear()
+    {
+        return $this->local[5] + 1900;
+    }
+    
+    function GetYearStr()
+    {
+        return strval($this->GetYear());
+    }
+    
+    function GetMonth()
+    {
+        return $this->local[4] + 1;
+    }
+    
+    function GetMonthStr()
+    {
+        return strval($this->GetMonth());
+    }
+    
+    function GetDay()
+    {
+        return $this->local[3];
+    }
+    
+    function GetDayStr()
+    {
+        return strval($this->GetDay());
     }
     
     function IsHoliday()
@@ -88,7 +123,7 @@ class YearMonthDate
     {
         $iTick = $this->GetNextWeekDayTick();
         
-        $ymd_next = new YearMonthDate($iTick);
+        $ymd_next = new YearMonthDay($iTick);
         if ($ymd_next->IsHoliday())
         {
             return $ymd_next->GetNextTradingDayTick();
@@ -99,7 +134,7 @@ class YearMonthDate
 
 // ****************************** YMDString *******************************************************
 
-class YMDString extends YearMonthDate
+class YMDString extends YearMonthDay
 {
     var $arYMD;
     
@@ -109,19 +144,29 @@ class YMDString extends YearMonthDate
         $this->strYMD = $strYMD;
         $this->arYMD = explode('-', $strYMD);
         $iTick = mktime(0, 0, 0, $this->arYMD[1], $this->arYMD[2], $this->arYMD[0]);
-        parent::YearMonthDate($iTick);
+        parent::YearMonthDay($iTick);
     }
 }
 
 // ****************************** YMDTick *******************************************************
 
-class YMDTick extends YearMonthDate
+class YMDTick extends YearMonthDay
 {
     // constructor 
     function YMDTick($iTick)
     {
         $this->strYMD = date(DEBUG_DATE_FORMAT, $iTick);
-        parent::YearMonthDate($iTick);
+        parent::YearMonthDay($iTick);
+    }
+    
+    function GetHour() 
+    {
+        return $this->local[2];
+    }
+    
+    function GetMinute() 
+    {
+        return $this->local[1];
     }
 }
 

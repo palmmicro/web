@@ -9,14 +9,11 @@ define ('BOLL_DAYS', 20);
 function _ignoreCurrentTradingData($strDate, $sym)
 {        
     $sym->SetTimeZone();
-    $iCurTime = time();
-    if (dateYMD($iCurTime) == $strDate)
+    $ymd = new YMDNow();
+    if ($ymd->GetYMD() == $strDate)
     {
-        $localtime = localtime($iCurTime);
-        $iHour = $localtime[2]; 
-        if ($iHour <= STOCK_HOUR_END)
+        if ($ymd->GetHour() <= STOCK_HOUR_END)
         {   // market still trading, do not use today's data
-//            DebugString('_ignoreCurrentTradingData() returned true');
             return true;
         }
     }
@@ -151,7 +148,7 @@ function _isWeekEnd($strYMD, $strNextDayYMD)
     if ($strNextDayYMD)
     {
         $ymd_next = new YMDString($strNextDayYMD);
-        if ($ymd->local[6] >= $ymd_next->local[6])     return true;
+        if ($ymd->GetDayOfWeek() >= $ymd_next->GetDayOfWeek())     return true;
     }
     else
     {   // Here is a BUG if a certain Friday is not a trading day 
@@ -160,7 +157,7 @@ function _isWeekEnd($strYMD, $strNextDayYMD)
         $ymd_now = new YMDNow();
         if ($ymd_now->IsWeekDay())
         {
-            if ($ymd->local[6] > $ymd_now->local[6])     return true;
+            if ($ymd->GetDayOfWeek() > $ymd_now->GetDayOfWeek())     return true;
         }
         else
         {
@@ -173,20 +170,17 @@ function _isWeekEnd($strYMD, $strNextDayYMD)
 function _isMonthEnd($strYMD, $strNextDayYMD)
 {
     $ymd = new YMDString($strYMD);
-    $iTime = $ymd->iTime;
     if ($strNextDayYMD)
     {
         $ymd_next = new YMDString($strNextDayYMD);
-        $iTime = $ymd_next->iTime;
     }
     else
     {   // Here is a BUG if the last none weekend day of a certain month is not a trading day 
-        if ($ymd->IsFriday())   $iTime += 3 * SECONDS_IN_DAY;
-        else                      $iTime += SECONDS_IN_DAY;
+        $iTick = $ymd->GetNextTradingDayTick();
+        $ymd_next = new YMDTick($iTick);
     }
-    $localtimeNextDay = localtime($iTime);
     
-    if ($ymd->local[4] == $localtimeNextDay[4])     return false;    // same month    
+    if ($ymd->IsSameMonth($ymd_next))     return false;    // same month    
     return true;
 }
 

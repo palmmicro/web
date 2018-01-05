@@ -8,7 +8,7 @@ function _isInvalidDate($strYMD)
     if ($ymd->IsFuture())       return true;
     
     $ymd_oldest = new YMDString('2000-01-01');
-    if ($ymd->iTime < $ymd_oldest->iTime)                 return true;
+    if ($ymd->GetTick() < $ymd_oldest->GetTick())                 return true;
     return false;
 }
 

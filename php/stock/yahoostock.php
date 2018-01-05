@@ -79,7 +79,7 @@ function GetYahooQuotes($strSymbols)
 //    DebugString($str);
     return $str;
 }
-
+/*
 // http://table.finance.yahoo.com/table.csv?s=XOP&d=7&e=19&f=2015&g=d&a=6&b=19&c=2015&ignore=.csv
 define ('YAHOO_HISTORY_QUOTES_URL', 'https://chart.finance.yahoo.com/table.csv?');
 function GetYahooHistoryQuotes($strSymbol, $strBeginY, $strBeginM, $strBeginD, $strEndY, $strEndM, $strEndD)
@@ -88,7 +88,7 @@ function GetYahooHistoryQuotes($strSymbol, $strBeginY, $strBeginM, $strBeginD, $
 //    DebugString('Yahoo:'.$strUrl);
     return url_get_contents($strUrl);
 }
-
+*/
 function IsYahooStrError($str)
 {
     $str = trim($str);
@@ -98,7 +98,7 @@ function IsYahooStrError($str)
     }
     return false;
 }
-
+/*
 function GetYahooPastQuotes($strSymbol, $iDays)
 { 
     $iTime = time();
@@ -115,6 +115,7 @@ function GetYahooPastQuotes($strSymbol, $iDays)
 
     return GetYahooHistoryQuotes($strSymbol, $strBeginY, $strBeginM, $strBeginD, $strEndY, $strEndM, $strEndD);
 }
+*/
 
 // https://finance.yahoo.com/quote/XOP/history?period1=1467122442&period2=1498658442&interval=1d&filter=history&frequency=1d 
 // https://query1.finance.yahoo.com/v7/finance/download/XOP?period1=1467122442&period2=1498658442&interval=1d&events=history&crumb=EMGTmG8UgZ4
@@ -125,18 +126,6 @@ function YahooGetStockHistory($strSymbol, $iTimeBegin, $iTimeEnd)
     $str = url_get_contents($strUrl); 
     return $str;
 }
-
-/*
-<tr class="BdT Bdc($lightGray) Ta(end) Fz(s)" data-reactid="209">
-<td class="Py(10px) Ta(start)" data-reactid="210"><span data-reactid="211">Jun 14, 2017</span></td>
-<td class="Py(10px)" data-reactid="212"><span data-reactid="213">33.34</span></td>
-<td class="Py(10px)" data-reactid="214"><span data-reactid="215">33.42</span></td>
-<td class="Py(10px)" data-reactid="216"><span data-reactid="217">32.10</span></td>
-<td class="Py(10px)" data-reactid="218"><span data-reactid="219">32.20</span></td>
-<td class="Py(10px)" data-reactid="220"><span data-reactid="221">32.12</span></td>
-<td class="Py(10px)" data-reactid="222"><span data-reactid="223">33,877,800</span></td>
-</tr>
-*/
 
 /*
 <tr class="BdT Bdc($c-fuji-grey-c) Ta(end) Fz(s) Whs(nw)" data-reactid="51">

@@ -1,4 +1,5 @@
 <?php
+require_once('class/year_month_date.php');
 // Provide enhanced function replacement of /js/copyright.js
 // CopyRight functions
 
@@ -42,11 +43,11 @@ function _getCompanyCopyright($strCompany, $strYear, $bChinese)
 
 function EchoCopyRight($bMobile, $bChinese)
 {
-    $bSwitchLanguage = true;
-    $localtime = localtime();
-    $strYear = strval($localtime[5] + 1900);
-	$strUri = UrlGetUri();	            // /woody/res/sz162411cn.php
+    $ymd = new YMDNow();
+    $strYear = $ymd->GetYearStr();
     
+    $bSwitchLanguage = true;
+	$strUri = UrlGetUri();	            // /woody/res/sz162411cn.php
     $ar = explode('/', $strUri);
 	if ($ar[1] == 'woody')
 	{
