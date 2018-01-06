@@ -1,7 +1,6 @@
 <?php
 require_once('url.php');
 require_once('debug.php');
-require_once('format.php');
 require_once('switch.php');
 require_once('sqlquery.php');
 require_once('email.php');
@@ -89,27 +88,10 @@ function AcctIsLogin()
 	return $strMemberId;
 }
 
-function AcctSessionStart()
-{
-    session_start();
-    SqlConnectDatabase();
-}
-
 function AcctSwitchToLogin()
 {
     SwitchSetSess();
     SwitchTo('/account/login');
-}
-
-function AcctAuth()
-{
-    AcctSessionStart();
-    $strMemberId = AcctIsLogin(); 
-    if ($strMemberId == false) 
-    {
-        AcctSwitchToLogin();
-    }
-	return $strMemberId;
 }
 
 function AcctIsReadOnly($strMemberId)
@@ -120,6 +102,28 @@ function AcctIsReadOnly($strMemberId)
         if ($strMemberId == $_SESSION['SESS_ID'])   return false;
     }
     return true;
+}
+
+function AcctSessionStart()
+{
+    session_start();
+    SqlConnectDatabase();
+}
+
+function AcctMustLogin()
+{
+    $strMemberId = AcctIsLogin(); 
+    if ($strMemberId == false) 
+    {
+        AcctSwitchToLogin();
+    }
+	return $strMemberId;
+}
+
+function AcctAuth()
+{
+    AcctSessionStart();
+    return AcctMustLogin();
 }
 
 function AcctEmailSpiderReport($strIp, $strText, $strSubject)
@@ -213,9 +217,8 @@ function AcctGetBlogId()
     return $strBlogId;
 }
 
-function AcctNoAuth()
+function AcctCheckLogin()
 {
-    AcctSessionStart();
 	if (($strMemberId = AcctIsLogin()) == false)
 	{
 	    SqlCreateVisitorTable(VISITOR_TABLE);
@@ -234,18 +237,26 @@ function AcctNoAuth()
     return $strMemberId;	
 }
 
-function AcctEmailAuth()
+function AcctNoAuth()
+{
+    AcctSessionStart();
+    return AcctCheckLogin();
+}
+
+function AcctEmailQueryLogin()
 {
     if ($strEmail = UrlGetQueryValue('email'))
     {
-        AcctNoAuth();
-        $strMemberId = SqlGetIdByEmail($strEmail); 
+        AcctCheckLogin();
+        return SqlGetIdByEmail($strEmail); 
     }
-    else
-    {
-        $strMemberId = AcctAuth();
-    }
-    return $strMemberId;
+    return AcctMustLogin();
+}
+
+function AcctEmailAuth()
+{
+    AcctSessionStart();
+    return AcctEmailQueryLogin();
 }
 
 function AcctGetEmailFromBlogUri($strUri)

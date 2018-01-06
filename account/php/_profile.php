@@ -107,6 +107,16 @@ function _echoAccountProfileChinese($member, $strName, $strPhone, $strAddress, $
 END;
 }
 
+function _getWebLink($strWeb)
+{
+	$str = $strWeb;
+	if (!strchr($strWeb, 'http'))
+	{
+		$str = 'http://'.$strWeb;
+	}
+	return DebugGetExternalLink($str, $strWeb); 
+}
+
 function EchoAccountProfile($bChinese)
 {
     global $strMemberId;
@@ -123,7 +133,7 @@ function EchoAccountProfile($bChinese)
 	        $strName = $profile['name'];
 	        $strPhone = $profile['phone'];
 	        $strAddress = $profile['address'];
-	        $strWeb = FormatGetWeb($profile['web']);
+	        $strWeb = _getWebLink($profile['web']);
 	        $strSignature = nl2br($profile['signature']);
 	    }
 	    else

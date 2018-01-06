@@ -1,4 +1,6 @@
 <?php
+require_once('format.php');
+
 define('URL_HTML', '.html');
 define('URL_CNHTML', 'cn.html');
 
@@ -62,16 +64,11 @@ function UrlGetQueryString()
 
 function UrlGetQueryValue($strQueryItem)
 { 
-/*	if ($strQuery = UrlGetQueryString())
-	{
-	    if (strstr($strQuery, '=', true) == $strQueryItem)
-	    {
-	        $strEqual = strstr($strQuery, '=');
-	        return substr($strEqual, 1);
-	    }
-	}*/
 	$query = $_GET;
-	if (isset($query[$strQueryItem]))    return $query[$strQueryItem]; 
+	if (isset($query[$strQueryItem]))
+	{
+	    return FormatCleanString($query[$strQueryItem]);
+	}
 	return false;
 }
 

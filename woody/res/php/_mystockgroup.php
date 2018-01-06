@@ -218,13 +218,14 @@ function MyStockGroupEchoTitle($bChinese)
 }
 
     $g_strMemberId = false;
+    AcctSessionStart();
     if ($g_strGroupId = UrlGetQueryValue('groupid'))
     {
-        $g_strMemberId = AcctNoAuth();
+        $g_strMemberId = AcctCheckLogin();
     }
     else
     {
-        $g_strMemberId = AcctEmailAuth();
+        $g_strMemberId = AcctEmailQueryLogin();
     }
 
 ?>
