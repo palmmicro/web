@@ -164,6 +164,12 @@ function DebugGetLink($strHttp)
     return DebugGetExternalLink($strHttp, $strHttp);
 }
 
+function DebugGetCurLink()
+{
+    $strHttp = UrlGetCur();
+    return DebugGetLink($strHttp);
+}
+
 function _getFileTimeDisplay($strPathName)
 {
     clearstatcache(true, $strPathName);

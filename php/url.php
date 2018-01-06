@@ -141,6 +141,7 @@ function UrlGetCur()
 {
     $strUrl = UrlGetServer();
     $strUrl .= UrlGetUri();
+    $strUrl .= UrlPassQuery();
     return $strUrl;
 }
 
