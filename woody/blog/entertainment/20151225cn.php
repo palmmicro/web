@@ -13,7 +13,7 @@
 <div>
 <h1>新浪股票实时数据接口的字段意义</h1>
 <p>2015年12月25日
-<br />在塔夫男等人的建议下, 最近打算加入记录<a href="../../res/netvaluehistorycn.php?symbol=SZ162411">华宝油气历史净值</a>的表格.
+<br />在<?php EchoXueqieId('2091843424', '塔夫男'); ?>等人的建议下, 最近打算加入记录<a href="../../res/netvaluehistorycn.php?symbol=SZ162411">华宝油气历史净值</a>的表格.
 开始动手后发现4个多月前分析的新浪A股实时数据接口的字段意义已经差不多忘光了. 好记性不如烂笔头, 本着磨刀不误砍柴工的精神, 先在这里完整记录一下, 以便日后查阅.
 <br />目前从<a href="http://hq.sinajs.cn/list=sz162411" target=_blank>http://hq.sinajs.cn/list=sz162411</a>拿到后记录在<b><a href="/debug/sina/sz162411.txt" target=_blank>sz162411.txt</a></b>中的数据如下:
 <br /><font color=grey>var hq_str_sz162411="华宝油气,
@@ -48,7 +48,7 @@
 
 <h3>新浪外盘<a name="future">期货</a>实时数据接口的字段意义</h3>
 <p>2016年1月28日
-<br />最近在oldwain的建议下, 在<a href="../../res/sz162411cn.php">华宝油气净值</a>计算页面中相关价格记录的时间中加入日期显示.
+<br />最近在<?php EchoXueqieId('8907500725', 'oldwain'); ?>的建议下, 在<a href="../../res/sz162411cn.php">华宝油气净值</a>计算页面中相关价格记录的时间中加入日期显示.
 这下上次的股票接口记录就派上用场了. 不过期货的格式又重新看了一遍, 加个记录以防以后还要用.
 <br />目前从<a href="http://hq.sinajs.cn/list=hf_CL" target=_blank>http://hq.sinajs.cn/list=hf_CL</a>拿到后记录在<b><a href="/debug/sina/cl.txt" target=_blank>cl.txt</a></b>中的数据如下:
 <br /><font color=grey>var hq_str_hf_CL="31.85,1.2719,31.85,31.86,31.88,30.14,

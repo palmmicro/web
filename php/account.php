@@ -317,11 +317,6 @@ function AcctGetVisitorLink($strIp, $bChinese)
     return _getIpLink(VISITOR_TABLE, $strIp, $bChinese);
 }
 
-function AcctGetCurVisitorLink()
-{
-    return AcctGetVisitorLink(UrlGetIp(), true);
-}
-
 function AcctGetSpiderVisitorLink($strIp, $bChinese)
 {
     return _getIpLink(SPIDER_VISITOR_TABLE, $strIp, $bChinese);

@@ -36,6 +36,7 @@ function EmailReport($strWho, $strText, $strSubject)
 
 function EmailDebug($strText, $strSubject) 
 {
+    $strText .= '<br />'.AcctGetVisitorLink(UrlGetIp(), true);
     EmailReport(false, $strText, $strSubject);
 }
 

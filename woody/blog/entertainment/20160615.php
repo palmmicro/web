@@ -17,7 +17,7 @@
 so the <a href="20150818.php">SZ162411</a> net value calculation may have 0.1 cent of difference compared with final official data. 
 As the difference is so small, and I also believe the trading price will move to reference rate during the day, I was not changing it. After all, I will not trade based 0.1 cent any way.
 <br />Since this year, the manager of SZ160216 works very hard to keep the <a href="../../res/sz160216.php">SZ160216 net value</a> moves almost the same as USO, 
-and triggered huge amount of arbitrage between SZ160216 and CL future. One of them, zzzzv, is trading for 0.05 cent profit now, so the use of USDCNY reference rate is necessary.
+and triggered huge amount of arbitrage between SZ160216 and CL future. One of them, <?php EchoXueqieId('6706948861', 'zzzzv'); ?>, is trading for 0.05 cent profit now, so the use of USDCNY reference rate is necessary.
 Based on his long term experience, he also confirmed me that the trading price will not move to the USDCNY reference rate.
 He also provided the <a href="http://hq2gjqh.eastmoney.com/EM_Futures2010NumericApplication/Index.aspx?type=z&ids=usdcny0" target=_blank>USDCNY reference rate interface</a> from <a href="http://quote.eastmoney.com/forex/USDCNY.html" target=_blank>Easy Money</a>,
 which was used in his Excel+VBA tools.

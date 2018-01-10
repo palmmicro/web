@@ -6,8 +6,7 @@ define ('HTML_NEW_LINE', '<br />');
 function _emailMetaDescriptionWarning($iLen, $strType, $str)
 {
     $strLink = DebugGetCurLink();
-    $strIpLink = AcctGetCurVisitorLink(); 
-    $strText = sprintf('%s%sLength=%d%s%s%s%s', $strLink, HTML_NEW_LINE, $iLen, HTML_NEW_LINE, $str, HTML_NEW_LINE, $strIpLink);
+    $strText = sprintf('%s%sLength=%d%s%s', $strLink, HTML_NEW_LINE, $iLen, HTML_NEW_LINE, $str);
     EmailDebug($strText, $strType.' Meta Description Warning');
 }
 

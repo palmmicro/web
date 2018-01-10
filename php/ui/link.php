@@ -21,4 +21,11 @@ function EchoPhpFileLink($strPathName)
     echo $str;
 }
 
+function EchoXueqieId($strId, $strDisplay)
+{
+    $str = DebugGetExternalLink('https://xueqiu.com/u/'.$strId, $strDisplay);
+    echo $str;
+}
+
+
 ?>

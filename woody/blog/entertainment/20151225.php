@@ -49,7 +49,7 @@ Current data got from <a href="http://hq.sinajs.cn/list=sz162411" target=_blank>
 
 <h3>The Interpretation of Sina Realtime <a name="future">Future</a> Data Interface</h3>
 <p>Jan 28, 2016
-<br />Recently I added date display in the time field of <a href="../../res/sz162411.php">SZ162411 net value</a> page following the advice of oldwain.
+<br />Recently I added date display in the time field of <a href="../../res/sz162411.php">SZ162411 net value</a> page following the advice of <?php EchoXueqieId('8907500725', 'oldwain'); ?>.
 So the stock interface recorded last time was usaful this time. But I had to review the future interface format again, and adding this record for future use.
 <br />Current data got from <a href="http://hq.sinajs.cn/list=hf_CL" target=_blank>http://hq.sinajs.cn/list=hf_CL</a> and saved in file <b><a href="/debug/sina/cl.txt" target=_blank>cl.txt</a></b> as following:
 <br /><font color=grey>var hq_str_hf_CL="31.85,1.2719,31.85,31.86,31.88,30.14,

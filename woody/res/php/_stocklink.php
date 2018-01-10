@@ -32,7 +32,6 @@ function _GetReturnGroupLink($strGroupId, $bChinese)
     return $str;
 }
 
-// calibrationhistorycn.php?stockid=76&start=0&num=390
 function _GetNavLink($strTitle, $strId, $iTotal, $iStart, $iNum, $bChinese)
 {
     return UrlGetNavLink(STOCK_PATH.$strTitle, $strId, $iTotal, $iStart, $iNum, $bChinese);
