@@ -2,6 +2,19 @@
 require_once('/php/account.php');
 require_once('_editprofileform.php');
 
+function _emailProfile($strMemberId, $strName, $strPhone, $strAddress, $strWeb, $strSignature, $strStatus)
+{
+    $strSubject = 'Profile Changed';
+	$str = AcctGetMemberLink($strMemberId, true);
+    $str .= '<br />Name: '.$strName; 
+    $str .= '<br />Phone: '.$strPhone; 
+    $str .= '<br />Address: '.$strAddress; 
+    $str .= '<br />Web: '.$strWeb; 
+    $str .= '<br />Signature: '.$strSignature; 
+    $str .= '<br />Status: '.$strStatus; 
+    EmailDebug($str, $strSubject); 
+}
+
 function _onEdit($strMemberId)
 {
 	// Sanitize the POST values
@@ -22,7 +35,7 @@ function _onEdit($strMemberId)
 		return false;
 	}
 	
-	EmailProfile($strMemberId, $strName, $strPhone, $strAddress, $strWeb, $strSignature, $strStatus);
+	_emailProfile($strMemberId, $strName, $strPhone, $strAddress, $strWeb, $strSignature, $strStatus);
 	return true;
 }
 
@@ -35,6 +48,15 @@ function _onEdit($strMemberId)
 		    _onEdit($strMemberId);
 		}
 		unset($_POST['submit']);
+		
+		if ($strSubmit == ACCOUNT_PROFILE_EDIT)
+		{
+		    SwitchToLink("../profile.php");
+		}
+		else if ($strSubmit == ACCOUNT_PROFILE_EDIT_CN)
+		{
+		    SwitchToLink("../profilecn.php");
+		}
 	}
 
 	SwitchToSess();

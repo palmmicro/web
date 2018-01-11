@@ -2,6 +2,47 @@
 require_once('/php/account.php');
 require_once('_editcommentform.php');
 
+function _emailBlogComment($strId, $strBlogId, $strSubject, $strComment)
+{
+	$strBlogUri = SqlGetUriByBlogId($strBlogId);
+	
+	// build email contents
+	$str = SqlGetEmailById($strId);
+	$str .= " $strSubject:<br />$strComment<br />";
+	$str .= AcctGetBlogLink($strBlogId);
+
+	// build mailing list
+	$arEmails = array();				                                                    // Array to store emails addresses to send to
+	$arEmails[] = AcctGetEmailFromBlogUri($strBlogUri);                                 // always send to blog writer
+//	$arEmails[] = UrlGetEmail('support');					                                // always send to support@domain.com
+	if ($result = SqlGetBlogCommentByBlogId($strBlogId)) 
+	{
+		while ($comment = mysql_fetch_assoc($result)) 
+		{
+			$strNewEmail = SqlGetEmailById($comment['member_id']);
+			$bFound = false;
+			foreach($arEmails as $strEmail) 
+			{
+				if ($strNewEmail == $strEmail)
+				{
+					$bFound = true;
+					break;
+				}
+			}		
+			if ($bFound == false)
+			{
+				$arEmails[] = $strNewEmail;					// send to previous comments writer
+			}
+		}
+		@mysql_free_result($result);
+	}
+
+	foreach($arEmails as $strEmail) 
+	{
+		EmailHtml($strEmail, $strSubject, $str);
+	}	
+}
+
 function _canModifyComment($strId, $strMemberId)
 {
 	if (AcctIsAdmin())    return true;
@@ -33,7 +74,7 @@ function _onEdit($strId, $strMemberId, $strComment)
     	    if (SqlEditBlogComment($strId, $strComment))
     	    {
     	        $comment = SqlGetBlogCommentById($strId);
-    	        EmailBlogComment($strMemberId, $comment['blog_id'], $_POST['submit'], $_POST['comment']);
+    	        _emailBlogComment($strMemberId, $comment['blog_id'], $_POST['submit'], $_POST['comment']);
     	    }
     	}
 	}
@@ -51,7 +92,7 @@ function _onNew($strMemberId, $strComment)
 	    if (SqlInsertBlogComment($strMemberId, $strBlogId, $strComment))
 		{
 			SqlChangeActivity($strMemberId, 1);
-			EmailBlogComment($strMemberId, $strBlogId, $_POST['submit'], $_POST['comment']);
+			_emailBlogComment($strMemberId, $strBlogId, $_POST['submit'], $_POST['comment']);
 		}
 	}
 }

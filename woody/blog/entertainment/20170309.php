@@ -13,7 +13,7 @@
 <div>
 <h1>Advice to the Web Crawler on SZ162411 Net Value Page</h1>
 <p>Mar 9, 2017
-<br />Example data from <a href="http://palmmicro.com/php/spidercn.php?list=sz162411,SZ160216,Sz160416,sH501018" target=_blank>http://palmmicro.com/php/spidercn.php?list=sz162411,SZ160216,Sz160416,sH501018</a>:
+<br />Example data from <?php EchoLink('http://palmmicro.com/php/spidercn.php?list=sz162411,SZ160216,Sz160416,sH501018'); ?>:
 <font color=grey>
 <br />SZ162411_net_value=0.645,2017-03-07,0.6267,2017-03-08,0.6267,0.6267,0.643
 <br />SZ160216_net_value=0.445,2017-03-07,0.4312,2017-03-08,0.4312,0.4312,0.440

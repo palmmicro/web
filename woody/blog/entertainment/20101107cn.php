@@ -14,7 +14,7 @@
 <h1>网络日志搬家 - GB18030和GB2312</h1>
 <p>2010年11月7日
 <br />微软宣布把MSN网络日志搬家到wordpress的时候我正好在美国, 点了几下鼠标就顺利完成了搬家工作.
-等我回到北京后却发现打不开<a href="http://woody1234.wordpress.com/" target=_blank>woody1234.wordpress.com</a>的页面, 于是决定把我的MSN网络日志手工搬迁到我的Palmmicro网络日志上来.
+等我回到北京后却发现打不开<?php EchoLink('http://woody1234.wordpress.com'); ?>的页面, 于是决定把我的MSN网络日志手工搬迁到我的Palmmicro网络日志上来.
 <br />在一个月见缝插针的陆续工作后, 到今天我已经搬了37篇日志过来, 同时把<a href="../palmmicro/20080326cn.php">Palmmicro.com</a>到aredfox.spaces.live.com的链接从130个减少到了10个.
 <br />今天晚上我在检查搬家效果, 发现1/5的中文日志在我64位英文版Windows Vista下用英文版IE8看的时候偶尔会有乱码, 但是同一台笔记本下运行的Firefox和Chrome都能正常浏览.
 进一步测试发现如果我把IE8菜单中的Encoding改成GB2312就能正常工作, 并且即使再次改回原来的GB18030也能显示正确.
@@ -75,8 +75,8 @@
 <br .>随着涉及的股票越来越多, 我打算用直接采用<a href="20151225cn.php">新浪股票数据</a>中的股票名称和说明, 避免手工一个个输入. 结果四年前碰到的问题又回来了, 新浪的数据还在用GB2312编码,
 而我反复折腾<i>mb_detect_encoding</i>和<i>iconv</i>等PHP函数都无法把GB2312转换成UTF8.
 <br .>不过我已经不是当年的吴下阿蒙了. 我先上网找来了GB2312和UNICODE的<a href="http://blog.csdn.net/longronglin/article/details/1355890" target=_blank>对应码表</a>,
-存到了<b><a href="/php/gb2312/unicode_gb2312.txt" target=_blank>unicode_gb2312.txt</a></b>文件中. 然后在/php/<b>gb2312.php</b>文件中写了个转换工具,
-生成了按照GB2312作为key排序后的对应数组$arGB2312, 放在了/php/gb2312/<b>gb2312_unicode.php</b>文件中. 
+存到了<?php EchoFileLink('/php/gb2312/unicode_gb2312.txt'); ?>文件中. 然后在<?php EchoPhpFileLink('/php/gb2312.php'); ?>文件中写了个转换工具,
+生成了按照GB2312作为key排序后的对应数组$arGB2312, 放在了<?php EchoPhpFileLink('/php/gb2312/gb2312_unicode.php'); ?>文件中. 
 最后在函数<i>FromGB2312ToUTF8</i>中把从$arGB2312查表得到的UNICODE调用网上找来的小函数<a href="https://segmentfault.com/a/1190000003020776" target=_blank><i>unicode_to_utf8</i></a>转换成UTF8.
 整个过程耗时一个晚上一气呵成, 感觉好极了!
 </p>

@@ -21,7 +21,7 @@
 <br />同时我很清醒的认识到, 为了克服我设置的这个小障碍, 爬虫要实现自动登录其实是很容易的. 另外即使是目前这种状态, 依旧有每秒2次的访问压在<a href="../../../account/logincn.php">登录页面</a>上, 
 一样给服务器带来了不必要的额外压力.
 <br />所以我只好在这里给爬虫提一个我觉得不该被拒绝的建议, 我仿照<a href="20151225cn.php">新浪股票数据接口</a>的设计思路和数据格式, 给爬虫提供了一个页面直接拿文本格式的净值数据.
-以目前从<a href="http://palmmicro.com/php/spidercn.php?list=sz162411,SZ160216,Sz160416,sH501018" target=_blank>http://palmmicro.com/php/spidercn.php?list=sz162411,SZ160216,Sz160416,sH501018</a>拿到的数据举例:
+以目前从<?php EchoLink('http://palmmicro.com/php/spidercn.php?list=sz162411,SZ160216,Sz160416,sH501018'); ?>拿到的数据举例:
 <font color=grey>
 <br />SZ162411_net_value=0.645,2017-03-07,0.6267,2017-03-08,0.6267,0.6267,0.643
 <br />SZ160216_net_value=0.445,2017-03-07,0.4312,2017-03-08,0.4312,0.4312,0.440

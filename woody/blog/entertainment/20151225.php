@@ -16,7 +16,7 @@
 <br />I was planning to add the <a href="../../res/netvaluehistory.php?symbol=SZ162411">SZ162411 history</a> net value table,
 and found that the I have almost forgotten the meanings of Sina Chinese stock data interface which was analysed 4 months ago.  
 In case I will forget them again, I am recording it here for future refernce.
-Current data got from <a href="http://hq.sinajs.cn/list=sz162411" target=_blank>http://hq.sinajs.cn/list=sz162411</a> and saved in <b><a href="/debug/sina/sz162411.txt" target=_blank>sz162411.txt</a></b> as following:
+Current data got from <?php EchoLink('http://hq.sinajs.cn/list=sz162411'); ?> and saved in <?php EchoFileLink('/debug/sina/sz162411.txt'); ?> as following:
 <br /><font color=grey>var hq_str_sz162411="华宝油气,
 0.502,0.482,0.500,0.503,0.499,0.499,0.500,811593355,406232297.465,
 31772194,0.499,4024600,0.498,771800,0.497,854000,0.496,308800,0.495,
@@ -51,7 +51,7 @@ Current data got from <a href="http://hq.sinajs.cn/list=sz162411" target=_blank>
 <p>Jan 28, 2016
 <br />Recently I added date display in the time field of <a href="../../res/sz162411.php">SZ162411 net value</a> page following the advice of <?php EchoXueqieId('8907500725', 'oldwain'); ?>.
 So the stock interface recorded last time was usaful this time. But I had to review the future interface format again, and adding this record for future use.
-<br />Current data got from <a href="http://hq.sinajs.cn/list=hf_CL" target=_blank>http://hq.sinajs.cn/list=hf_CL</a> and saved in file <b><a href="/debug/sina/cl.txt" target=_blank>cl.txt</a></b> as following:
+<br />Current data got from <?php EchoLink('http://hq.sinajs.cn/list=hf_CL'); ?> and saved in file <?php EchoFileLink('/debug/sina/hf_cl.txt'); ?> as following:
 <br /><font color=grey>var hq_str_hf_CL="31.85,1.2719,31.85,31.86,31.88,30.14,
 00:24:20,31.45,30.52,40629,0,0,2016-01-28,NYMEX原油";</font>
 <br />After removed double quotation marks, separated by ',', the interpretation of words in the next table.
@@ -76,8 +76,9 @@ So the stock interface recorded last time was usaful this time. But I had to rev
 
 <h3>The Interpretation of Sina Realtime <a name="fund">Fund</a> Data Interface</h3>
 <p>Feb 16, 2016
-<br />On 9pm, uqot told me the net value calculation of <a href="20150818.php">SZ162411</a> was wrong now. I checked the debug information, and found that automatic calibration was done on 8pm.
-Current data got from <a href="http://hq.sinajs.cn/list=f_162411" target=_blank>http://hq.sinajs.cn/list=f_162411</a> and saved in <b><a href="/debug/sina/f_162411.txt" target=_blank>f_162411.txt</a></b> as following:
+<br />On 9pm, <?php EchoXueqieId('5240589924', 'uqot'); ?> told me the net value calculation of <a href="20150818.php">SZ162411</a> was wrong now. 
+I checked the debug information, and found that automatic calibration was done on 8pm.
+Current data got from <?php EchoLink('http://hq.sinajs.cn/list=f_162411'); ?> and saved in <?php EchoFileLink('/debug/sina/f_162411.txt'); ?> as following:
 <br /><font color=grey>var hq_str_f_162411="华宝兴业标普油气上游股票(QDII-LOF),
 0.406,0.406,0.435,2016-02-15,66.2444";</font>
 <br />According to the automatic calibration process in php/<b>_lof.php</b>, when we got the Feb 15 net value of SZ1682411, we would do calibration with the close price of XOP on Feb 15.

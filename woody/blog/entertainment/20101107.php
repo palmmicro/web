@@ -14,7 +14,7 @@
 <h1>Moving Blog - GB18030 and GB2312</h1>
 <p>Nov 7, 2010
 <br />I was in US when Microsoft announced the MSN blog moving plan to wordpress, and I finished the moving with a few mouse clicks.
-But when I got back to Beijing, I found that I can not open <a href="http://woody1234.wordpress.com/" target=_blank>woody1234.wordpress.com</a> web pages,
+But when I got back to Beijing, I found that I can not open <?php EchoLink('http://woody1234.wordpress.com'); ?> web pages,
 then I decided to move my MSN blog to my blog in Palmmicro web site manually.
 <br />After one month of casual work, I have moved 37 old blogs so far, and reduced <a href="../palmmicro/20080326.php">Palmmicro.com</a> links to aredfox.spaces.live.com from 130 to 10.
 <br />When I was checking the result tonight, I found that 1/5 of the Chinese blog pages had small display errors with my English IE8 running on 64-bit English Windows Vista,
@@ -86,8 +86,8 @@ and palmmicro.com is becoming an amateur stock web site.
 <br .>As more and more stocks are involved, I plan to use the stock information in <a href="20151225.php">Sina stock data</a> directly instead of input them by hand.
 Now the problem of 4 years ago comes back, the data from Sina is still GB2312 encoded, and I still can not convert them from GB2312 to UTF8 by native PHP functions like <i>mb_detect_encoding</i> and <i>iconv</i>.
 <br .>But I am much more experienced in PHP now. First I downloaded the GB2312 and UNICODE converting <a href="http://blog.csdn.net/longronglin/article/details/1355890" target=_blank>table</a>, from internet,
-saved it to file <b><a href="/php/gb2312/unicode_gb2312.txt" target=_blank>unicode_gb2312.txt</a></b>. Then I wrote a converting tool in /php/<b>gb2312.php</b>,
-generated array $arGB2312 sorted by GB2312 as key, put it in /php/gb2312/<b>gb2312_unicode.php</b> file. 
+saved it to file <?php EchoFileLink('/php/gb2312/unicode_gb2312.txt'); ?>. Then I wrote a converting tool in <?php EchoPhpFileLink('/php/gb2312.php'); ?>,
+generated array $arGB2312 sorted by GB2312 as key, put it in <?php EchoPhpFileLink('/php/gb2312/gb2312_unicode.php'); ?> file. 
 Finallly function <i>FromGB2312ToUTF8</i> searched UNICODE from $arGB2312 table,
 and called a small function <a href="https://segmentfault.com/a/1190000003020776" target=_blank><i>unicode_to_utf8</i></a> to convert it to UTF8. 
 The whole process was done in a night, it really feels good!

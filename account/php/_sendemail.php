@@ -1,6 +1,18 @@
 <?php
 require_once('../../php/account.php');
 
+function _emailAll($strContents, $strSubject) 
+{
+	if ($result = SqlGetMemberEmails()) 
+	{
+		while ($member = mysql_fetch_assoc($result)) 
+		{
+			EmailHtml($member['email'], $strSubject, $strContents);
+		}
+		@mysql_free_result($result);
+	}
+}
+
 	AcctAuth();
 	if (!AcctIsAdmin())		SwitchToLink("../profile.php");
 	
@@ -11,8 +23,8 @@ require_once('../../php/account.php');
 		unset($_POST['submit']);
 		if ($strSubmit == "Send Email")
 		{	// send email
-//			EmailAll($strContents, 'Test');
-			EmailAll($_POST['contents'], $_POST['subject']);
+//			_emailAll($strContents, 'Test');
+			_emailAll($_POST['contents'], $_POST['subject']);
 		}
 		SwitchToLink("../profile.php");
 	}
