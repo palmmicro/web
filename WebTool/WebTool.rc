@@ -1,0 +1,639 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#ifndef APSTUDIO_INVOKED
+#include "targetver.h"
+#endif
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Chinese (Simplified, PRC) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
+#pragma code_page(936)
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#ifndef APSTUDIO_INVOKED\r\n"
+    "#include ""targetver.h""\r\n"
+    "#endif\r\n"
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)\r\n"
+    "LANGUAGE 9, 1\r\n"
+    "#pragma code_page(1252)\r\n"
+    "#include ""res\\WebTool.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""afxres.rc""         // Standard components\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDR_MAINFRAME ACCELERATORS
+BEGIN
+    "N",            ID_FILE_NEW,            VIRTKEY, CONTROL
+    "O",            ID_FILE_OPEN,           VIRTKEY, CONTROL
+    "S",            ID_FILE_SAVE,           VIRTKEY, CONTROL
+    "Z",            ID_EDIT_UNDO,           VIRTKEY, CONTROL
+    "X",            ID_EDIT_CUT,            VIRTKEY, CONTROL
+    "C",            ID_EDIT_COPY,           VIRTKEY, CONTROL
+    "V",            ID_EDIT_PASTE,          VIRTKEY, CONTROL
+    VK_BACK,        ID_EDIT_UNDO,           VIRTKEY, ALT
+    VK_DELETE,      ID_EDIT_CUT,            VIRTKEY, SHIFT
+    VK_INSERT,      ID_EDIT_COPY,           VIRTKEY, CONTROL
+    VK_INSERT,      ID_EDIT_PASTE,          VIRTKEY, SHIFT
+    VK_F6,          ID_NEXT_PANE,           VIRTKEY 
+    VK_F6,          ID_PREV_PANE,           VIRTKEY, SHIFT
+END
+
+#endif    // Chinese (Simplified, PRC) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// English (United States) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDR_MAINFRAME ACCELERATORS
+BEGIN
+    "N",            ID_FILE_NEW,            VIRTKEY, CONTROL
+    "O",            ID_FILE_OPEN,           VIRTKEY, CONTROL
+    "S",            ID_FILE_SAVE,           VIRTKEY, CONTROL
+    "Z",            ID_EDIT_UNDO,           VIRTKEY, CONTROL
+    "X",            ID_EDIT_CUT,            VIRTKEY, CONTROL
+    "C",            ID_EDIT_COPY,           VIRTKEY, CONTROL
+    "V",            ID_EDIT_PASTE,          VIRTKEY, CONTROL
+    VK_BACK,        ID_EDIT_UNDO,           VIRTKEY, ALT
+    VK_DELETE,      ID_EDIT_CUT,            VIRTKEY, SHIFT
+    VK_INSERT,      ID_EDIT_COPY,           VIRTKEY, CONTROL
+    VK_INSERT,      ID_EDIT_PASTE,          VIRTKEY, SHIFT
+    VK_F6,          ID_NEXT_PANE,           VIRTKEY 
+    VK_F6,          ID_PREV_PANE,           VIRTKEY, SHIFT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\WebTool.ico"
+
+IDR_WebToolTYPE         ICON                    "res\\WebToolDoc.ico"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDR_MAINFRAME           BITMAP                  "res\\Toolbar.bmp"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Toolbar
+//
+
+IDR_MAINFRAME TOOLBAR 16, 15
+BEGIN
+    BUTTON      ID_FILE_NEW
+    BUTTON      ID_FILE_OPEN
+    BUTTON      ID_FILE_SAVE
+    SEPARATOR
+    BUTTON      ID_EDIT_CUT
+    BUTTON      ID_EDIT_COPY
+    BUTTON      ID_EDIT_PASTE
+    SEPARATOR
+    BUTTON      ID_TOOLS_FTP
+    SEPARATOR
+    BUTTON      ID_FILE_PRINT
+    BUTTON      ID_APP_ABOUT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MAINFRAME MENU
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "&New\tCtrl+N",                ID_FILE_NEW
+        MENUITEM "&Open...\tCtrl+O",            ID_FILE_OPEN
+        MENUITEM "&Save\tCtrl+S",               ID_FILE_SAVE
+        MENUITEM "Save &As...",                 ID_FILE_SAVE_AS
+        MENUITEM SEPARATOR
+        MENUITEM "&Directory...",               ID_FILE_DIRECTORY
+        MENUITEM SEPARATOR
+        MENUITEM "Recent File",                 ID_FILE_MRU_FILE1
+        MENUITEM SEPARATOR
+        MENUITEM "E&xit",                       ID_APP_EXIT
+    END
+    POPUP "&Edit"
+    BEGIN
+        MENUITEM "&Undo\tCtrl+Z",               ID_EDIT_UNDO
+        MENUITEM SEPARATOR
+        MENUITEM "Cu&t\tCtrl+X",                ID_EDIT_CUT
+        MENUITEM "&Copy\tCtrl+C",               ID_EDIT_COPY
+        MENUITEM "&Paste\tCtrl+V",              ID_EDIT_PASTE
+    END
+    POPUP "&View"
+    BEGIN
+        MENUITEM "&Toolbar",                    ID_VIEW_TOOLBAR
+        MENUITEM "&Status Bar",                 ID_VIEW_STATUS_BAR
+    END
+    POPUP "&Tools"
+    BEGIN
+        MENUITEM "&Iterate...",                 ID_TOOLS_ITERATE
+        MENUITEM "&Undo",                       ID_TOOLS_UNDO
+        MENUITEM "&Clear Undo Files",           ID_TOOLS_CLEAR
+        MENUITEM SEPARATOR
+        MENUITEM "G&B2312 to UTF8",             ID_TOOLS_GB2312TOUTF8
+        MENUITEM "&Generate Sitemap",           ID_TOOLS_GENERATE_SITEMAP
+        MENUITEM "&Add Download ...",           ID_TOOLS_ADD_DOWNLOAD
+        MENUITEM "A&dd Image ...",              ID_TOOLS_ADD_IMAGE
+        MENUITEM SEPARATOR
+        MENUITEM "&Touch Current .wwt File",    ID_TOOLS_TOUCH
+        MENUITEM SEPARATOR
+        MENUITEM "&FTP...",                     ID_TOOLS_FTP
+        MENUITEM SEPARATOR
+        MENUITEM "&Options...",                 ID_TOOLS_OPTIONS
+    END
+    POPUP "&Help"
+    BEGIN
+        MENUITEM "&About WebTool...",           ID_APP_ABOUT
+    END
+END
+
+IDR_LEFTVIEW MENU
+BEGIN
+    POPUP "&Tree"
+    BEGIN
+        MENUITEM "Insert &Copy...",             ID_TREE_COPY
+        MENUITEM SEPARATOR
+        MENUITEM "&Load Child",                 ID_TREE_LOAD
+        MENUITEM "Load &Non-Empty Child",       ID_TREE_LOAD_NONEMPTY
+        MENUITEM "Insert &Sibling ",            ID_TREE_INSERT
+        MENUITEM SEPARATOR
+        MENUITEM "&Delete",                     ID_TREE_DELETE
+        MENUITEM "Delete &Empty Folders",       ID_TREE_DELETEEMPTY
+        MENUITEM SEPARATOR
+        MENUITEM "&Iterate...",                 ID_TOOLS_ITERATE
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOGEX 0, 0, 299, 61
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "About WebTool"
+FONT 8, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,242,40,50,14,WS_GROUP
+    ICON            IDR_MAINFRAME,IDC_STATIC,14,14,20,20
+    LTEXT           "Woody's Web Tool, Version 3.3",IDC_STATIC,42,14,114,8,SS_NOPREFIX
+    LTEXT           "Copyright (C) 2010-2017 Palmmicro Communications Inc. All Rights Reserved.",IDC_STATIC,41,25,254,8
+END
+
+IDD_ITERATEBOX DIALOGEX 0, 0, 625, 207
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Iterate Options"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,564,186,50,14,WS_GROUP
+    PUSHBUTTON      "Cancel",IDCANCEL,564,163,50,14,WS_GROUP
+    LTEXT           "Match string:",IDC_STATIC,15,11,47,8
+    COMBOBOX        IDC_ITERATE_MATCH_STR,64,13,550,255,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_GROUP | WS_TABSTOP
+    LTEXT           "New string:",IDC_STATIC,15,33,47,8
+    COMBOBOX        IDC_ITERATE_NEW_STR,63,35,551,253,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_GROUP | WS_TABSTOP
+    GROUPBOX        "Line Operations:",IDC_STATIC,7,50,524,96,WS_GROUP
+    CONTROL         "Remove previous line",IDC_ITERATE_REMOVE_PREV,"Button",BS_AUTORADIOBUTTON | WS_GROUP,23,66,84,10
+    CONTROL         "Insert new string to previous line",IDC_ITERATE_INSERT_PREV,
+                    "Button",BS_AUTORADIOBUTTON,23,81,139,10
+    CONTROL         "Replace the current line with new string",IDC_ITERATE_REPLACE,
+                    "Button",BS_AUTORADIOBUTTON,23,97,165,10
+    CONTROL         "Insert new string to next line",IDC_ITERATE_INSERT_NEXT,
+                    "Button",BS_AUTORADIOBUTTON,23,115,160,10
+    CONTROL         "Remove next line",IDC_ITERATE_REMOVE_NEXT,"Button",BS_AUTORADIOBUTTON,23,131,98,10
+    CONTROL         "Remove multiple lines:",IDC_ITERATE_REMOVE_MULTI_LINE,
+                    "Button",BS_AUTOCHECKBOX | WS_GROUP | WS_TABSTOP,219,57,84,10
+    EDITTEXT        IDC_ITERATE_LINE_NUM,303,56,25,14,ES_AUTOHSCROLL | WS_GROUP
+    CONTROL         "Insert multiple strings from .txt file:",IDC_ITERATE_INSERT_MULTI_STR,
+                    "Button",BS_AUTOCHECKBOX | WS_GROUP | WS_TABSTOP,219,71,134,10
+    PUSHBUTTON      "Browse ...",IDC_ITERATE_BROWSE,360,69,50,14,WS_GROUP
+    LTEXT           ".txt file path and name",IDC_ITERATE_TXT_FILE,221,86,303,8
+    CONTROL         "Replace match string part only",IDC_ITERATE_REPLACE_MATCH_ONLY,
+                    "Button",BS_AUTOCHECKBOX | WS_GROUP | WS_TABSTOP,219,110,127,10
+    CONTROL         "Add related path '../' after '=' or '=""' in new string ",IDC_ITERATE_REPLACE_ADD_PATH,
+                    "Button",BS_AUTOCHECKBOX | WS_GROUP | WS_TABSTOP,219,126,161,10
+    GROUPBOX        "Folder Options",IDC_STATIC,7,150,272,50
+    CONTROL         "Start from selected folder only",IDC_ITERATE_FOLDER_ONLY,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,20,164,247,10
+    CONTROL         "Recursive all sub folders",IDC_ITERATE_FOLDER_RECURSIVE,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,20,182,247,10
+END
+
+IDD_OPTIONSBOX DIALOGEX 0, 0, 316, 253
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Options"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,200,230,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,259,230,50,14
+    GROUPBOX        "FTP",IDC_STATIC,7,7,302,158
+    LTEXT           "Domain:",IDC_STATIC,31,26,54,8
+    EDITTEXT        IDC_OPTIONS_FTP_DOMAIN,109,23,170,14,ES_AUTOHSCROLL
+    LTEXT           "Sub domain:",IDC_STATIC,31,84,54,8
+    EDITTEXT        IDC_OPTIONS_FTP_SUBDOMAIN,109,82,170,14,ES_AUTOHSCROLL
+    LTEXT           "User name:",IDC_STATIC,31,110,54,8
+    EDITTEXT        IDC_OPTIONS_FTP_USERNAME,109,108,170,14,ES_AUTOHSCROLL
+    LTEXT           "Password:",IDC_STATIC,31,134,54,8
+    EDITTEXT        IDC_OPTIONS_FTP_PASSWORD,109,131,170,14,ES_AUTOHSCROLL
+    GROUPBOX        "User Interface",IDC_STATIC,7,177,302,45
+    LTEXT           "Start page:",IDC_STATIC,33,197,54,8
+    EDITTEXT        IDC_OPTIONS_START_PAGE,111,194,170,14,ES_AUTOHSCROLL
+    LTEXT           "Encryption:",IDC_STATIC,31,52,54,8
+    COMBOBOX        IDC_OPTIONS_FTP_ENCRYPTION,108,49,171,56,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+END
+
+IDD_INSERTBOX DIALOGEX 0, 0, 233, 197
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Insert Copy"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,7,176,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,61,176,50,14
+    LTEXT           "New file name:",IDC_STATIC,8,11,61,8
+    EDITTEXT        IDC_INSERT_NAME,73,7,94,14,ES_AUTOHSCROLL
+    CONTROL         "Insert Chinese copy together",IDC_INSERT_CHINESE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,30,161,10
+    CONTROL         "Replace all names in new files",IDC_INSERT_REPLACE,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,46,161,10
+    CONTROL         "Modify Blog related files",IDC_INSERT_MODIFY_BLOG,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,103,161,10
+    LTEXT           "Blog title:",IDC_STATIC,7,119,61,8
+    EDITTEXT        IDC_INSERT_TITLE,78,114,148,14,ES_AUTOHSCROLL
+    LTEXT           "Blog Chinese title:",IDC_STATIC,7,135,61,8
+    EDITTEXT        IDC_INSERT_CHINESE_TITLE,77,130,149,14,ES_AUTOHSCROLL
+    LTEXT           "Blog image alt text:",IDC_STATIC,7,154,64,8
+    EDITTEXT        IDC_INSERT_IMAGE_TEXT,77,149,149,14,ES_AUTOHSCROLL
+    CONTROL         "Insert Form related _submit file together",IDC_INSERT_FORM,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,73,208,10
+END
+
+IDD_FTPBOX DIALOGEX 0, 0, 446, 85
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "FTP"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,7,65,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,61,65,50,14
+    GROUPBOX        "Only upload files newer than:",IDC_STATIC,7,3,432,50
+    CONTROL         "last FTP upload time:",IDC_FTP_LAST_TIME,"Button",BS_AUTORADIOBUTTON | WS_GROUP,17,19,87,10
+    CONTROL         "file:",IDC_FTP_LAST_FILE,"Button",BS_AUTORADIOBUTTON,17,36,31,10
+    LTEXT           "time",IDC_FTP_TIME,116,19,291,8,NOT WS_GROUP
+    LTEXT           "File name",IDC_FTP_FILE_NAME,51,36,331,8,NOT WS_GROUP
+    PUSHBUTTON      "Browse...",IDC_FTP_BROWSE,389,36,50,14
+END
+
+IDD_IMAGEBOX DIALOGEX 0, 0, 459, 115
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Add Image"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,341,94,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,402,94,50,14
+    LTEXT           "File name",IDC_IMAGE_FILE_NAME,10,11,331,8,NOT WS_GROUP
+    PUSHBUTTON      "Browse...",IDC_IMAGE_BROWSE,399,10,50,14
+    LTEXT           "Title:",IDC_STATIC,10,37,61,8
+    EDITTEXT        IDC_IMAGE_TITLE,78,32,374,14,ES_AUTOHSCROLL
+    LTEXT           "Chinese title:",IDC_STATIC,10,53,61,8
+    EDITTEXT        IDC_IMAGE_CHINESE_TITLE,77,48,375,14,ES_AUTOHSCROLL
+    LTEXT           "Image alt text:",IDC_STATIC,10,72,64,8
+    EDITTEXT        IDC_IMAGE_ALT_TEXT,77,67,375,14,ES_AUTOHSCROLL
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 3,3,0,0
+ PRODUCTVERSION 3,3,0,0
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904e4"
+        BEGIN
+            VALUE "CompanyName", "Palmmicro"
+            VALUE "FileDescription", "Woody's Web Tool"
+            VALUE "FileVersion", "3.3.0.0"
+            VALUE "InternalName", "WebTool.exe"
+            VALUE "LegalCopyright", "Copyright (C) 2010-2017 Palmmicro Communications Inc.  All rights reserved."
+            VALUE "OriginalFilename", "WebTool.exe"
+            VALUE "ProductName", "Woody's Web Tool"
+            VALUE "ProductVersion", "3.3.0.0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1252
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 292
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 54
+    END
+
+    IDD_ITERATEBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 614
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 200
+    END
+
+    IDD_OPTIONSBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 309
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 244
+    END
+
+    IDD_INSERTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 226
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 190
+    END
+
+    IDD_FTPBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 439
+        TOPMARGIN, 7
+    END
+
+    IDD_IMAGEBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 452
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 108
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// AFX_DIALOG_LAYOUT
+//
+
+IDD_ABOUTBOX AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE
+BEGIN
+    IDP_OLE_INIT_FAILED     "OLE initialization failed.  Make sure that the OLE libraries are the correct version."
+    IDP_SOCKETS_INIT_FAILED "Windows sockets initialization failed."
+END
+
+STRINGTABLE
+BEGIN
+    IDR_MAINFRAME           "Woody's Web Tool\n\nWebTool\nWebTool Files (*.wwt)\n.wwt\nWebTool.Document\nWebTool.Document"
+END
+
+STRINGTABLE
+BEGIN
+    AFX_IDS_APP_TITLE       "WebTool"
+    AFX_IDS_IDLEMESSAGE     "Ready"
+END
+
+STRINGTABLE
+BEGIN
+    ID_INDICATOR_EXT        "EXT"
+    ID_INDICATOR_CAPS       "CAP"
+    ID_INDICATOR_NUM        "NUM"
+    ID_INDICATOR_SCRL       "SCRL"
+    ID_INDICATOR_OVR        "OVR"
+    ID_INDICATOR_REC        "REC"
+END
+
+STRINGTABLE
+BEGIN
+    ID_FILE_NEW             "Create a new document\nNew"
+    ID_FILE_OPEN            "Open an existing document\nOpen"
+    ID_FILE_CLOSE           "Close the active document\nClose"
+    ID_FILE_SAVE            "Save the active document\nSave"
+    ID_FILE_SAVE_AS         "Save the active document with a new name\nSave As"
+END
+
+STRINGTABLE
+BEGIN
+    ID_APP_ABOUT            "Display program information, version number and copyright\nAbout"
+    ID_APP_EXIT             "Quit the application; prompts to save documents\nExit"
+END
+
+STRINGTABLE
+BEGIN
+    ID_FILE_MRU_FILE1       "Open this document"
+    ID_FILE_MRU_FILE2       "Open this document"
+    ID_FILE_MRU_FILE3       "Open this document"
+    ID_FILE_MRU_FILE4       "Open this document"
+    ID_FILE_MRU_FILE5       "Open this document"
+    ID_FILE_MRU_FILE6       "Open this document"
+    ID_FILE_MRU_FILE7       "Open this document"
+    ID_FILE_MRU_FILE8       "Open this document"
+    ID_FILE_MRU_FILE9       "Open this document"
+    ID_FILE_MRU_FILE10      "Open this document"
+    ID_FILE_MRU_FILE11      "Open this document"
+    ID_FILE_MRU_FILE12      "Open this document"
+    ID_FILE_MRU_FILE13      "Open this document"
+    ID_FILE_MRU_FILE14      "Open this document"
+    ID_FILE_MRU_FILE15      "Open this document"
+    ID_FILE_MRU_FILE16      "Open this document"
+END
+
+STRINGTABLE
+BEGIN
+    ID_NEXT_PANE            "Switch to the next window pane\nNext Pane"
+    ID_PREV_PANE            "Switch back to the previous window pane\nPrevious Pane"
+END
+
+STRINGTABLE
+BEGIN
+    ID_WINDOW_SPLIT         "Split the active window into panes\nSplit"
+END
+
+STRINGTABLE
+BEGIN
+    ID_EDIT_CLEAR           "Erase the selection\nErase"
+    ID_EDIT_CLEAR_ALL       "Erase everything\nErase All"
+    ID_EDIT_COPY            "Copy the selection and put it on the Clipboard\nCopy"
+    ID_EDIT_CUT             "Cut the selection and put it on the Clipboard\nCut"
+    ID_EDIT_FIND            "Find the specified text\nFind"
+    ID_EDIT_PASTE           "Insert Clipboard contents\nPaste"
+    ID_EDIT_REPEAT          "Repeat the last action\nRepeat"
+    ID_EDIT_REPLACE         "Replace specific text with different text\nReplace"
+    ID_EDIT_SELECT_ALL      "Select the entire document\nSelect All"
+    ID_EDIT_UNDO            "Undo the last action\nUndo"
+    ID_EDIT_REDO            "Redo the previously undone action\nRedo"
+END
+
+STRINGTABLE
+BEGIN
+    ID_VIEW_TOOLBAR         "Show or hide the toolbar\nToggle ToolBar"
+    ID_VIEW_STATUS_BAR      "Show or hide the status bar\nToggle StatusBar"
+END
+
+STRINGTABLE
+BEGIN
+    AFX_IDS_SCSIZE          "Change the window size"
+    AFX_IDS_SCMOVE          "Change the window position"
+    AFX_IDS_SCMINIMIZE      "Reduce the window to an icon"
+    AFX_IDS_SCMAXIMIZE      "Enlarge the window to full size"
+    AFX_IDS_SCNEXTWINDOW    "Switch to the next document window"
+    AFX_IDS_SCPREVWINDOW    "Switch to the previous document window"
+    AFX_IDS_SCCLOSE         "Close the active window and prompts to save the documents"
+END
+
+STRINGTABLE
+BEGIN
+    AFX_IDS_SCRESTORE       "Restore the window to normal size"
+    AFX_IDS_SCTASKLIST      "Activate Task List"
+END
+
+STRINGTABLE
+BEGIN
+    ID_FILE_DIRECTORY       "Select the current working directory\nDirectory"
+    ID_TOOLS_FTP            "Upload all files using FTP\nFTP"
+    ID_TOOLS_OPTIONS        "Set FTP options\nOptions"
+    ID_TOOLS_ITERATE        "Iterate files for changes based on string search\nIterate"
+    ID_TOOLS_UNDO           "Undo previous iterate changes\nUndo"
+    ID_TREE_DELETE          "Delete current item\nDelete"
+    ID_TREE_LOAD            "Load possible child items of current item\nLoad"
+    ID_TREE_INSERT          "Insert possible items under the same parent\nInsert"
+    ID_TREE_COPY            "Insert copy of current file\nInsert Copy"
+    ID_TOOLS_GENERATE_SITEMAP "Generate sitemap\nGenerate sitemap"
+    ID_TOOLS_CLEAR          "Clear undo files\nClear undo files"
+END
+
+STRINGTABLE
+BEGIN
+    ID_TREE_DELETEEMPTY     "Delete empty sub folders of current node\nDelete Empty Folders"
+    ID_TREE_LOAD_NONEMPTY   "Load non-empty child of current node\nLoad Non-Empty Child"
+    ID_TOOLS_ADD_DOWNLOAD   "Add download .zip files\nAdd download"
+    ID_TOOLS_ADD_IMAGE      "Add image .jpg file\nAdd image"
+END
+
+#endif    // English (United States) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE 9, 1
+#pragma code_page(1252)
+#include "res\WebTool.rc2"  // non-Microsoft Visual C++ edited resources
+#include "afxres.rc"         // Standard components
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

@@ -320,6 +320,28 @@ class MyFundReference extends FundReference
         }
     }
 
+    function _compareEstResult($strNetValue, $strEstValue)
+    {
+        $fNetValue = floatval($strNetValue); 
+        $fEstValue = floatval($strEstValue);
+        if (abs($fEstValue - $fNetValue) < 0.0005)
+        {
+            $fPercentage = 0.0;
+        }
+        else
+        {
+            $fPercentage = StockGetPercentage($fEstValue, $fNetValue);
+        }
+        
+        if (abs($fPercentage) > 0.01)
+        {
+            $strSymbol = $this->GetStockSymbol();
+            $strLink = UrlGetPhpLink(STOCK_PATH.'netvaluehistory', 'symbol='.$strSymbol, $strSymbol, true);
+            $str = sprintf('%s 实际值%s 估值%s 误差:%.2f%%, 从_compareEstResult函数调用.', $strLink, $strNetValue, $strEstValue, $fPercentage); 
+            EmailDebug($str, 'Netvalue estimation error');
+        }
+    }
+    
     function UpdateOfficialNetValue()
     {
         $strDate = $this->strDate;
@@ -332,7 +354,9 @@ class MyFundReference extends FundReference
         {
             if ($history['netvalue'] == FUND_EMPTY_NET_VALUE)
             {
-                SqlUpdateFundHistory($history['id'], $strNetValue, $history['estimated'], $history['time']);
+                $strEstValue = $history['estimated'];
+                SqlUpdateFundHistory($history['id'], $strNetValue, $strEstValue, $history['time']);
+                $this->_compareEstResult($strNetValue, $strEstValue);
             }
             else
             {

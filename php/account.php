@@ -128,8 +128,7 @@ function AcctAuth()
 
 function AcctEmailSpiderReport($strIp, $strText, $strSubject)
 {
-    $strIpLink = AcctGetVisitorLink($strIp, false); 
-    EmailDebug($strIpLink.' '.$strText, $strSubject.' from '.$strIp); 
+    EmailDebug($strText, $strSubject.' from '.$strIp); 
 }
 
 function AcctGetBlogVisitor($strIp, $iStart, $iNum)
