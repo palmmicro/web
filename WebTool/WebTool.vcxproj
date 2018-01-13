@@ -141,6 +141,7 @@
     <ClCompile Include="WebTool.cpp" />
     <ClCompile Include="WebToolDoc.cpp" />
     <ClCompile Include="WebToolView.cpp" />
+    <ClCompile Include="WinSCP.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BlogFile.h" />
@@ -164,6 +165,7 @@
     <ClInclude Include="WebTool.h" />
     <ClInclude Include="WebToolDoc.h" />
     <ClInclude Include="WebToolView.h" />
+    <ClInclude Include="WinSCP.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\idr_main.ico" />

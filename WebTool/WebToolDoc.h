@@ -5,6 +5,7 @@
 #pragma once
 
 //#define MFC_FTP
+#define WINSCP_FTP
 
 class CLeftView;
 class CIterateDlg;
@@ -12,7 +13,11 @@ class CInsertDlg;
 
 
 #ifndef MFC_FTP
+#ifdef WINSCP_FTP
+class WinSCP;
+#else
 class CNetFtp;
+#endif
 #endif
 
 class CWebToolDoc : public CDocument
@@ -78,6 +83,8 @@ protected:
 
 #ifdef MFC_FTP
 	CFtpConnection * m_pFtp;
+#elif defined WINSCP_FTP
+	WinSCP * m_pFtp;
 #else
 	CNetFtp * m_pFtp;
 #endif

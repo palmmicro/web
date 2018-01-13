@@ -21,9 +21,13 @@
 #include "BlogFile.h"
 #include "DownloadFile.h"
 
-//#ifndef MFC_FTP
+#ifndef MFC_FTP
+#ifdef WINSCP_FTP
+#include "WinSCP.h"
+#else
 #include "NetFtp.h"
-//#endif
+#endif
+#endif
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -124,7 +128,7 @@ CWebToolDoc::CWebToolDoc()
 , m_strFtpSubDomain(_T(""))
 , m_strFtpUserName(_T("anonymous"))
 , m_strFtpPassword(_T(""))
-, m_iFtpEncryption(FTP_ENCRYPTION_NONE)
+, m_iFtpEncryption(0)
 , m_iTreeLevel(0)
 , m_iIterateFilesChanged(0)
 , m_iFtpLastTime(0)
@@ -1019,6 +1023,11 @@ void CWebToolDoc::OnToolsFtp()
 		m_pFtp->Close();
 		delete m_pFtp;
 	}
+#elif defined WINSCP_FTP
+	m_pFtp = new WinSCP();
+	ToolsFtpItem(hCur);
+	m_pFtp->UpLoad();
+	delete m_pFtp;
 #else
 	m_pFtp = new CNetFtp(m_strFtpUserName, m_strFtpPassword, m_iFtpEncryption);
 	if (m_pFtp)
@@ -1086,6 +1095,8 @@ void CWebToolDoc::ToolsFtpItem(HTREEITEM hCur)
 						str = _T("Put ") + strPathName + _T(" to FTP ") + strPath;
 #ifdef MFC_FTP
 						if (!m_pFtp->PutFile(strPathName, strSubDomain + strPath))
+#elif defined WINSCP_FTP
+						if (!m_pFtp->AddFile(strPathName, strSubDomain + strPath))
 #else
 						if (!m_pFtp->UpLoadFile(strPathName, _T("ftp://") + m_strFtpDomain + _T("/") + strSubDomain + strPath))
 #endif
