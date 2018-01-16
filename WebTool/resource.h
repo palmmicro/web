@@ -86,13 +86,16 @@
 #define ID_TOOLS_                       32792
 #define ID_TOOLS_ADD_IMAGE              32793
 #define ID_TOOLS_TOUCH                  32794
+#define ID_WINSCP_EXE                   32795
+#define ID_WINSCP_SCRIPT                32796
+#define ID_WINSCP_LOG                   32797
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        136
-#define _APS_NEXT_COMMAND_VALUE         32795
+#define _APS_NEXT_COMMAND_VALUE         32798
 #define _APS_NEXT_CONTROL_VALUE         1027
 #define _APS_NEXT_SYMED_VALUE           101
 #endif

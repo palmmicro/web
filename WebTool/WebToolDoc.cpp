@@ -117,6 +117,9 @@ BEGIN_MESSAGE_MAP(CWebToolDoc, CDocument)
 	ON_COMMAND(ID_TOOLS_ADD_DOWNLOAD, &CWebToolDoc::OnToolsAddDownload)
 	ON_COMMAND(ID_TOOLS_TOUCH, &CWebToolDoc::OnToolsTouch)
 	ON_COMMAND(ID_TOOLS_ADD_IMAGE, &CWebToolDoc::OnToolsAddImage)
+	ON_COMMAND(ID_WINSCP_EXE, &CWebToolDoc::OnWinscpExe)
+	ON_COMMAND(ID_WINSCP_SCRIPT, &CWebToolDoc::OnWinscpScript)
+	ON_COMMAND(ID_WINSCP_LOG, &CWebToolDoc::OnWinscpLog)
 END_MESSAGE_MAP()
 
 
@@ -135,12 +138,16 @@ CWebToolDoc::CWebToolDoc()
 , m_iFtpTotal(0)
 , m_iFtpFailedTotal(0)
 {
-	// TODO: add one-time construction code here
-
+	m_strWinscpExe = AfxGetApp()->GetProfileString(_T("WinSCP"), _T("exe"), _T(""));
+	m_strWinscpScript = AfxGetApp()->GetProfileString(_T("WinSCP"), _T("Script"), _T(""));
+	m_strWinscpLog = AfxGetApp()->GetProfileString(_T("WinSCP"), _T("Log"), _T(""));
 }
 
 CWebToolDoc::~CWebToolDoc()
 {
+	AfxGetApp()->WriteProfileString(_T("WinSCP"), _T("exe"), m_strWinscpExe);
+	AfxGetApp()->WriteProfileString(_T("WinSCP"), _T("Script"), m_strWinscpScript);
+	AfxGetApp()->WriteProfileString(_T("WinSCP"), _T("Log"), m_strWinscpLog);
 }
 
 BOOL CWebToolDoc::OnNewDocument()
@@ -1026,7 +1033,7 @@ void CWebToolDoc::OnToolsFtp()
 #elif defined WINSCP_FTP
 	m_pFtp = new WinSCP();
 	ToolsFtpItem(hCur);
-	m_pFtp->UpLoad();
+	m_pFtp->UpLoad(m_strWinscpExe, m_strWinscpScript, m_strWinscpLog);
 	delete m_pFtp;
 #else
 	m_pFtp = new CNetFtp(m_strFtpUserName, m_strFtpPassword, m_iFtpEncryption);
@@ -1471,5 +1478,37 @@ void CWebToolDoc::OnToolsAddImage()
 	else
 	{
 		AfxMessageBox(_T("Operation failed"), MB_OK | MB_ICONSTOP);
+	}
+}
+
+
+void CWebToolDoc::OnWinscpExe()
+{
+	CFileDialog dlg(TRUE, _T("*.exe"), m_strWinscpExe, OFN_FILEMUSTEXIST | OFN_PATHMUSTEXIST, _T("Exe files (*.exe)|*.exe|"));
+
+	if (dlg.DoModal() == IDOK)
+	{
+		m_strWinscpExe = dlg.GetPathName();
+	}
+}
+
+void CWebToolDoc::OnWinscpScript()
+{
+	CFileDialog dlg(TRUE, _T("*.txt"), m_strWinscpScript, OFN_FILEMUSTEXIST | OFN_PATHMUSTEXIST, _T("Script files (*.txt)|*.txt|"));
+
+	if (dlg.DoModal() == IDOK)
+	{
+		m_strWinscpScript = dlg.GetPathName();
+	}
+}
+
+
+void CWebToolDoc::OnWinscpLog()
+{
+	CFileDialog dlg(FALSE, _T("*.txt"), m_strWinscpLog, OFN_PATHMUSTEXIST, _T("Log files (*.txt)|*.txt|"));
+
+	if (dlg.DoModal() == IDOK)
+	{
+		m_strWinscpLog = dlg.GetPathName();
 	}
 }

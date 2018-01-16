@@ -199,7 +199,7 @@ BEGIN
         MENUITEM SEPARATOR
         MENUITEM "G&B2312 to UTF8",             ID_TOOLS_GB2312TOUTF8
         MENUITEM "&Generate Sitemap",           ID_TOOLS_GENERATE_SITEMAP
-        MENUITEM "&Add Download ...",           ID_TOOLS_ADD_DOWNLOAD
+        MENUITEM "&Add Download...",            ID_TOOLS_ADD_DOWNLOAD
         MENUITEM "A&dd Image ...",              ID_TOOLS_ADD_IMAGE
         MENUITEM SEPARATOR
         MENUITEM "&Touch Current .wwt File",    ID_TOOLS_TOUCH
@@ -207,6 +207,12 @@ BEGIN
         MENUITEM "&FTP...",                     ID_TOOLS_FTP
         MENUITEM SEPARATOR
         MENUITEM "&Options...",                 ID_TOOLS_OPTIONS
+    END
+    POPUP "&WinSCP"
+    BEGIN
+        MENUITEM "&Exe...",                     ID_WINSCP_EXE
+        MENUITEM "&Script...",                  ID_WINSCP_SCRIPT
+        MENUITEM "&Log...",                     ID_WINSCP_LOG
     END
     POPUP "&Help"
     BEGIN

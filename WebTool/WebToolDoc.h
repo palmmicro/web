@@ -76,8 +76,12 @@ protected:
 	CString m_strFtpPassword;
 	int m_iFtpEncryption;
 
-	CStringList m_listTxtFile;
+	CString m_strWinscpExe;
+	CString m_strWinscpScript;
+	CString m_strWinscpLog;
 
+	CStringList m_listTxtFile;
+	
 	int m_iTreeLevel;
 	int m_iIterateFilesChanged;
 
@@ -140,6 +144,9 @@ public:
 	afx_msg void OnToolsAddDownload();
 	afx_msg void OnToolsTouch();
 	afx_msg void OnToolsAddImage();
+	afx_msg void OnWinscpExe();
+	afx_msg void OnWinscpScript();
+	afx_msg void OnWinscpLog();
 };
 
 void GetChineseName(CString & strName, CString strType);
