@@ -1,13 +1,43 @@
 #include "stdafx.h"
+#include "MyString.h"
 #include "WinSCP.h"
 
 
 WinSCP::WinSCP()
 {
+	m_strPath = _T("");
 }
 
 bool WinSCP::AddFile(CString strLocal, CString strRemote)
 {
+	CString str;
+	int iPos = strLocal.ReverseFind('\\');
+	CString strPath = strLocal.Left(iPos);
+	CString strFileName = strLocal.Right(strLocal.GetLength() - iPos - 1);
+//	DebugString(strLocal);
+//	DebugString(strPath);
+//	DebugString(strFileName);
+//	DebugString(strRemote);
+	if (m_strPath != strPath)
+	{
+		m_strPath = strPath;
+		str = _T("lcd ") + strPath;
+		DebugString(str);
+		m_listScript.AddTail(str);
+
+		int iPos = strRemote.ReverseFind('/');
+		CString strRemotePath = strRemote.Left(iPos);
+	//	DebugString(strRemotePath);
+
+		str = _T("cd /") + strRemotePath;
+		DebugString(str);
+		m_listScript.AddTail(str);
+	}
+
+	str = _T("put ") + strFileName;
+	DebugString(str);
+	m_listScript.AddTail(str);
+
 	return true;
 }
 
@@ -22,7 +52,7 @@ bool WinSCP::UpLoad(CString strExe, CString strScript, CString strLog)
 //	LPCSTR strCmd = "\"C:\\Program Files (x86)\\WinSCP\\WinSCP.exe\" /log=\"C:\\Temp\\WinSCP.log\" /ini=nul /script=\"C:\\Temp\\WinSCPscript.txt\"";
 	CString strLogFile = AddDoubleQuotation(strLog);
 	CString strCmd = AddDoubleQuotation(strExe) + _T(" /log=") + strLogFile + _T(" /ini=nul /script=") + AddDoubleQuotation(strScript);
-	OutputDebugString(strCmd + _T("\n"));
+//	DebugString(strCmd);
 
 	ExecCmd(strCmd);
 	ExecCmd(_T("notepad ") + strLogFile);
@@ -33,48 +63,3 @@ WinSCP::~WinSCP()
 {
 }
 
-CString WinSCP::AddDoubleQuotation(CString str)
-{
-	return _T("\"") + str + _T("\"");
-}
-
-UINT WinSCP::ExecCmd(CString strCmd)
-{
-/*	USES_CONVERSION;
-	LPCSTR pCmd = T2A(strCmd.GetBuffer(strCmd.GetLength()));
-	return WinExec(pCmd, 1);*/
-
-	LPTSTR pCmd = strCmd.GetBuffer(strCmd.GetLength());
-	STARTUPINFO si;
-	PROCESS_INFORMATION pi;
-
-	ZeroMemory(&si, sizeof(si));
-	si.cb = sizeof(si);
-	ZeroMemory(&pi, sizeof(pi));
-
-	// Start the child process. 
-	if (!CreateProcess(NULL,   // No module name (use command line)
- 		pCmd,        // Command line
-		NULL,           // Process handle not inheritable
-		NULL,           // Thread handle not inheritable
-		FALSE,          // Set handle inheritance to FALSE
-		0,              // No creation flags
-		NULL,           // Use parent's environment block
-		NULL,           // Use parent's starting directory 
-		&si,            // Pointer to STARTUPINFO structure
-		&pi)           // Pointer to PROCESS_INFORMATION structure
-		)
-	{
-//		printf("CreateProcess failed (%d).\n", GetLastError());
-		return GetLastError();
-	}
-
-	// Wait until child process exits.
-	WaitForSingleObject(pi.hProcess, INFINITE);
-
-	// Close process and thread handles. 
-	CloseHandle(pi.hProcess);
-	CloseHandle(pi.hThread);
-
-	return 1;
-}

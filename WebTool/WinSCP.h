@@ -1,5 +1,5 @@
 #pragma once
-class WinSCP
+class WinSCP : public MyString
 {
 public:
 	WinSCP();
@@ -9,7 +9,7 @@ public:
 	bool UpLoad(CString strExe, CString strScript, CString strLog);
 
 protected:
-	CString AddDoubleQuotation(CString str);
-	UINT ExecCmd(CString strCmd);
+	CString m_strPath;
+	CStringList m_listScript;
 };
 

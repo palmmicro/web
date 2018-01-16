@@ -19,4 +19,5 @@ function EchoStockPrice($bChinese)
     echo '<br />'.$ref->GetDebugLink();
 }
 
+
 ?>

@@ -129,6 +129,7 @@
     <ClCompile Include="IterateDlg.cpp" />
     <ClCompile Include="LeftView.cpp" />
     <ClCompile Include="MainFrm.cpp" />
+    <ClCompile Include="MyString.cpp" />
     <ClCompile Include="NetFtp.cpp" />
     <ClCompile Include="OptionsDlg.cpp" />
     <ClCompile Include="PhpFile.cpp" />
@@ -155,6 +156,7 @@
     <ClInclude Include="IterateDlg.h" />
     <ClInclude Include="LeftView.h" />
     <ClInclude Include="MainFrm.h" />
+    <ClInclude Include="MyString.h" />
     <ClInclude Include="NetFtp.h" />
     <ClInclude Include="OptionsDlg.h" />
     <ClInclude Include="PhpFile.h" />

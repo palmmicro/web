@@ -18,6 +18,7 @@
 #include "ImageDlg.h"
 #include "ImageFile.h"
 
+#include "MyString.h"
 #include "BlogFile.h"
 #include "DownloadFile.h"
 
