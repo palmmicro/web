@@ -1495,7 +1495,7 @@ void CWebToolDoc::OnWinscpExe()
 
 void CWebToolDoc::OnWinscpScript()
 {
-	CFileDialog dlg(TRUE, _T("*.txt"), m_strWinscpScript, OFN_FILEMUSTEXIST | OFN_PATHMUSTEXIST, _T("Script files (*.txt)|*.txt|"));
+	CFileDialog dlg(FALSE, _T("*.txt"), m_strWinscpScript, OFN_PATHMUSTEXIST, _T("Script files (*.txt)|*.txt|"));
 
 	if (dlg.DoModal() == IDOK)
 	{
