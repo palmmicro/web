@@ -6,7 +6,7 @@ public:
 	~WinSCP();
 
 	bool AddFile(CString strLocal, CString strRemote);
-	bool UpLoad(CString strExe, CString strScript, CString strLog);
+	bool UpLoad(CString strExe, CString strScript, CString strLog, CString strDomain, CString strUserName, CString strPassword);
 
 protected:
 	CString m_strPath;

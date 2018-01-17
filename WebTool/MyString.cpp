@@ -16,6 +16,25 @@ void MyString::DebugString(CString str)
 	OutputDebugString(str + _T("\n"));
 }
 
+void MyString::DebugStringList(CStringList & list)
+{
+	POSITION pos;
+
+	for (pos = list.GetHeadPosition(); pos != NULL;)
+	{
+		DebugString(list.GetNext(pos));
+	}
+}
+
+int MyString::ReplaceEscapeCharacter(CString & str)
+{
+	int iChanged;
+
+	iChanged = str.Replace(_T("@"), _T("%40"));
+	iChanged += str.Replace(_T("#"), _T("%23"));
+	return iChanged;
+}
+
 CString MyString::AddDoubleQuotation(CString str)
 {
 	return _T("\"") + str + _T("\"");

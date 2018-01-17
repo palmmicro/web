@@ -204,6 +204,11 @@ void CWebToolDoc::Serialize(CArchive& ar)
 		hCur = ctrl.GetRootItem();
 		StoringTree(ar, hCur);
 		ar << 0;	// use 0 to mark the end of file
+
+		if (m_strFtpPassword != _T(""))
+		{
+			AfxGetApp()->WriteProfileString(_T("Local"), _T("Password"), m_strFtpPassword);
+		}
 	}
 	else
 	{
@@ -1034,7 +1039,12 @@ void CWebToolDoc::OnToolsFtp()
 #elif defined WINSCP_FTP
 	m_pFtp = new WinSCP();
 	ToolsFtpItem(hCur);
-	m_pFtp->UpLoad(m_strWinscpExe, m_strWinscpScript, m_strWinscpLog);
+	CString strPassword = m_strFtpPassword;
+	if (strPassword == _T(""))
+	{
+		strPassword = AfxGetApp()->GetProfileString(_T("Local"), _T("Password"), _T(""));
+	}
+	m_pFtp->UpLoad(m_strWinscpExe, m_strWinscpScript, m_strWinscpLog, m_strFtpDomain, m_strFtpUserName, strPassword);
 	delete m_pFtp;
 #else
 	m_pFtp = new CNetFtp(m_strFtpUserName, m_strFtpPassword, m_iFtpEncryption);

@@ -26,4 +26,5 @@ function EchoChineseHoldResult($strOldSZ162411, $strOldXOP, $strSZ162411, $strXO
 END;
 }
 
+
 ?>

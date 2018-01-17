@@ -14,7 +14,7 @@ require_once('sql/sqlvisitor.php');
 require_once('sql/sqlspider.php');
 require_once('sql/sqlweixin.php');
 
-define('WX_DEBUG_VER', '版本739');
+define('WX_DEBUG_VER', '版本743');
 
 define('WX_DEFAULT_SYMBOL', 'SZ162411');
 define('MAX_WX_STOCK', 20);

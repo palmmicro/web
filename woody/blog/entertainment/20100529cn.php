@@ -48,6 +48,13 @@ Here the plate goes around so, and the reason it's two to one is . . ." and I sh
 <br /><img src=../photo/20130219.jpg alt="Screen shot of Woody's Web Tool with FTPS encryption settings Require explicit FTP over TLS" />
 </p> 
 
+<h3>调用WinSCP</h3>
+<p>2018年1月18日
+<br />去年的某一天, C#的FtpWebRequest突然罢工了. 它前一次罢工的时候, 我通过升级Windows系统和编译器解决了问题. 但是这一次, 最新的Windows 10和Visual Studio 2017都没能帮上忙.
+<br />那段时间刚好Yahoo的FTP也特别慢, 无奈之下我在腾讯云弄了个虚拟主机方便调试PHP代码, 于是开始使用WinSCP开始跟虚拟主机同步文件.
+<br />上周WinSCP提示我有更新, 正巧更新又特别慢, 无聊之下我第一次扫了一眼它的文档, 结果发现竟然可以从命令行调用它. 这下我的问题解决了, 赶快削尖铅笔在我的工具中直接调用WinSCP完成FTP的工作.
+</p> 
+
 </div>
 
 <?php _LayoutBottom(true); ?>

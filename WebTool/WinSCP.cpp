@@ -1,53 +1,54 @@
 #include "stdafx.h"
 #include "MyString.h"
 #include "WinSCP.h"
-
+#include "TxtFile.h"
 
 WinSCP::WinSCP()
 {
 	m_strPath = _T("");
 }
 
+WinSCP::~WinSCP()
+{
+}
+
 bool WinSCP::AddFile(CString strLocal, CString strRemote)
 {
-	CString str;
 	int iPos = strLocal.ReverseFind('\\');
 	CString strPath = strLocal.Left(iPos);
 	CString strFileName = strLocal.Right(strLocal.GetLength() - iPos - 1);
-//	DebugString(strLocal);
-//	DebugString(strPath);
-//	DebugString(strFileName);
-//	DebugString(strRemote);
+
 	if (m_strPath != strPath)
 	{
 		m_strPath = strPath;
-		str = _T("lcd ") + strPath;
-		DebugString(str);
-		m_listScript.AddTail(str);
+		m_listScript.AddTail(_T("lcd ") + strPath);
 
-		int iPos = strRemote.ReverseFind('/');
+		iPos = strRemote.ReverseFind('/');
 		CString strRemotePath = strRemote.Left(iPos);
-	//	DebugString(strRemotePath);
-
-		str = _T("cd /") + strRemotePath;
-		DebugString(str);
-		m_listScript.AddTail(str);
+		m_listScript.AddTail(_T("cd /") + strRemotePath);
 	}
-
-	str = _T("put ") + strFileName;
-	DebugString(str);
-	m_listScript.AddTail(str);
-
+	m_listScript.AddTail(_T("put ") + strFileName);
 	return true;
 }
 
-bool WinSCP::UpLoad(CString strExe, CString strScript, CString strLog)
+bool WinSCP::UpLoad(CString strExe, CString strScript, CString strLog, CString strDomain, CString strUserName, CString strPassword)
 {
+	// Clean log file
 	CFileStatus status;
 	if (CFile::GetStatus(strLog, status))
 	{
 		CFile::Remove(strLog);
 	}
+
+	// Prepare script file
+	ReplaceEscapeCharacter(strUserName);
+	ReplaceEscapeCharacter(strPassword);
+	m_listScript.AddHead(_T("open ftpes://") + strUserName + _T(":") + strPassword + _T("@") + strDomain + _T("/ -certificate=\"*\" -rawsettings ProxyPort=0"));
+	m_listScript.AddTail(_T("exit"));
+//	DebugStringList(m_listScript);
+
+	CTxtFile file;
+	file.WriteFromStringList(strScript, m_listScript);
 
 //	LPCSTR strCmd = "\"C:\\Program Files (x86)\\WinSCP\\WinSCP.exe\" /log=\"C:\\Temp\\WinSCP.log\" /ini=nul /script=\"C:\\Temp\\WinSCPscript.txt\"";
 	CString strLogFile = AddDoubleQuotation(strLog);
@@ -59,7 +60,4 @@ bool WinSCP::UpLoad(CString strExe, CString strScript, CString strLog)
 	return true;
 }
 
-WinSCP::~WinSCP()
-{
-}
 
