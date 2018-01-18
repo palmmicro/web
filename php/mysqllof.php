@@ -42,7 +42,7 @@ function LofGetSpySymbolArray()
 
 function LofGetSymbolArray()
 {
-    $ar = array('sh513030', 'sz161126', 'sz161127', 'sz161128', 'sz162415'); 
+    $ar = array('sh513030', 'sz160140', 'sz161126', 'sz161127', 'sz161128', 'sz162415'); 
     $ar = array_merge($ar, LofGetChinaInternetSymbolArray());
     $ar = array_merge($ar, LofGetGoldSymbolArray());
     $ar = array_merge($ar, LofGetOilSymbolArray());
@@ -101,6 +101,7 @@ function LofGetEtfSymbol($strSymbol)
     else if ($strSymbol == 'SZ162719')   return 'IEO';
     else if ($strSymbol == 'SZ162415')   return 'XLY';
     else if (in_arrayOilLof($strSymbol)) return 'USO';
+    else if ($strSymbol == 'SZ160140')   return 'SCHH';
     else if ($strSymbol == 'SZ160416')   return 'IXC';
     else if ($strSymbol == 'SZ161126')   return 'XLV';
 //    else if ($strSymbol == 'F001092')   return 'IBB';

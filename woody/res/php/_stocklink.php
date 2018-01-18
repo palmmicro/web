@@ -401,13 +401,13 @@ function EchoPenghuaSoftwareLinks($bChinese)
 
 function EchoSouthernSoftwareLinks($bChinese)
 {
-    $ar = array('sh501018', 'sz160125');
+    $ar = array('sh501018', 'sz160140', 'sz160125');
     $strLink = DebugGetExternalLink('http://www.nffund.com', $bChinese ? '南方基金' : 'CSAM');
     $str = GetCategorySoftwareLinks($ar, $strLink, $bChinese);
     echo $str;                 
 }
 
-function EchoSwsMuSoftwareLinks($bChinese)
+function EchoSwsMuSoftwareLinks($bChinese)       
 {
     $ar = array('sz150022', 'sz150186');
     $strLink = DebugGetExternalLink('http://www.swsmu.com', $bChinese ? '申万菱信基金' : 'SWS MU Fund');
