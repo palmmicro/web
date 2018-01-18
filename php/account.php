@@ -133,7 +133,12 @@ function AcctEmailSpiderReport($strIp, $strText, $strSubject)
 
 function AcctGetBlogVisitor($strIp, $iStart, $iNum)
 {
-    return SqlGetVisitor(VISITOR_TABLE, SqlGetIpAddressId($strIp), $iStart, $iNum); 
+/*    if ($strIpId = SqlGetIpAddressId($strIp))
+    {
+        return SqlGetVisitor(VISITOR_TABLE, $strIpId, $iStart, $iNum);
+    }
+    return false;*/
+    return SqlGetVisitor(VISITOR_TABLE, SqlGetIpAddressId($strIp), $iStart, $iNum);
 }
 
 function AcctGetSpiderPageCount($strIp)

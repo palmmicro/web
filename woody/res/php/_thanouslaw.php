@@ -39,7 +39,7 @@ class PriceCompare
 
 function _getNetValueLink($strSymbol, $bChinese)
 {
-    $strGroupLink = SelectSymbolInternalLink($strSymbol, $bChinese); 
+    $strGroupLink = _GetReturnSymbolGroupLink($strSymbol, $bChinese); 
     $strNetValue = UrlBuildPhpLink(STOCK_PATH.'netvaluehistory', 'symbol='.$strSymbol, '净值历史', 'Net Value History', $bChinese);
     return $strGroupLink.' '.$strNetValue;
 }

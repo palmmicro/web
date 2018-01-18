@@ -286,13 +286,18 @@ function SelectGroupInternalLink($strGroupId, $bChinese)
     return $strLink; 
 }
 
+function GetMyStockLink($strSymbol, $bChinese)
+{
+    return UrlGetPhpLink(STOCK_PATH.'mystock', 'symbol='.$strSymbol, $strSymbol, $bChinese);
+}
+
 function SelectAHCompareLink($strSymbol, $bChinese)
 {
     if ($strSymbol == UrlGetQueryValue('symbol'))
-    {
+    {   // in mystock.php
         return GetJisiluAHLink($strSymbol);
     }
-    return UrlGetPhpLink(STOCK_PATH.'mystock', 'symbol='.$strSymbol, $strSymbol, $bChinese);
+    return GetMyStockLink($strSymbol, $bChinese);
 }
 
 ?>

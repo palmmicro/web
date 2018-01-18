@@ -18,18 +18,33 @@ function _GetCombineTransactionLink($strGroupId, $bChinese)
     return UrlBuildPhpLink(STOCK_PATH.'combinetransaction', 'groupid='.$strGroupId, '合并记录', 'Combined Records', $bChinese);
 }
 
-function _GetReturnGroupLink($strGroupId, $bChinese)
+function _getReturnGroupText($strLink, $bChinese)
 {
-    $strLink = SelectGroupInternalLink($strGroupId, $bChinese);
     if ($bChinese)     
     {
-        $str = "返回{$strLink}分组 ";
+        $str = "返回{$strLink}分组";
     }
     else
     {
-        $str = "Return $strLink Group ";
+        $str = "Return $strLink Group";
     }
-    return $str;
+    return $str.HTML_NEW_LINE;
+}
+
+function _GetReturnGroupLink($strGroupId, $bChinese)
+{
+    $strLink = SelectGroupInternalLink($strGroupId, $bChinese);
+    return _getReturnGroupText($strLink, $bChinese);
+}
+
+function _GetReturnSymbolGroupLink($strSymbol, $bChinese)
+{
+    $strLink = SelectSymbolInternalLink($strSymbol, $bChinese);
+    if ($strLink == $strSymbol)
+    {
+        return $strSymbol;
+    }
+    return _getReturnGroupText($strLink, $bChinese);
 }
 
 function _GetNavLink($strTitle, $strId, $iTotal, $iStart, $iNum, $bChinese)
@@ -346,7 +361,7 @@ function EchoEFundSoftwareLinks($bChinese)
 function EchoFortuneSoftwareLinks($bChinese)
 {
     $ar = array('sh501021', 'sz162411', 'sz162415');
-    $strLink = DebugGetExternalLink('http://www.fsfund.com', $bChinese ? '华宝兴业基金' : 'Fortune SG Fund');
+    $strLink = DebugGetExternalLink('http://www.fsfund.com', $bChinese ? '华宝基金' : 'Hwabao Fund');
     $str = GetCategorySoftwareLinks($ar, $strLink, $bChinese);
     echo $str;                 
 }
@@ -401,7 +416,7 @@ function EchoPenghuaSoftwareLinks($bChinese)
 
 function EchoSouthernSoftwareLinks($bChinese)
 {
-    $ar = array('sh501018', 'sz160140', 'sz160125');
+    $ar = array('sh501018', 'sz160125', 'sz160140');
     $strLink = DebugGetExternalLink('http://www.nffund.com', $bChinese ? '南方基金' : 'CSAM');
     $str = GetCategorySoftwareLinks($ar, $strLink, $bChinese);
     echo $str;                 

@@ -43,8 +43,9 @@ function _echoStockHistoryParagraph($strSymbol, $iStart, $iNum, $bChinese)
     }
     $iTotal = SqlCountStockHistory($strStockId);
     $strNavLink = _GetStockNavLink('stockhistory', $strSymbol, $iTotal, $iStart, $iNum, $bChinese);
+    $strSymbolLink = GetMyStockLink($strSymbol, $bChinese);
     
-    EchoParagraphBegin($strNavLink.' '.$strUpdateLink);
+    EchoParagraphBegin($strSymbolLink.' '.$strNavLink.' '.$strUpdateLink);
     echo <<<END
     <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="history">
     <tr>

@@ -216,8 +216,8 @@ function _GetHistoryTableColumnArray($his, $bChinese)
 {
     if ($his)
     {
-        $strSymbol = $his->GetStockSymbol();
-        if ($bChinese)  $strChange = $strSymbol.'涨跌';
+        $strSymbol = GetMyStockLink($his->GetStockSymbol(), $bChinese);
+        if ($bChinese)  $strChange = '涨跌';
         else              $strChange = 'Change';
     }
     else
@@ -241,13 +241,14 @@ function _EchoHistoryParagraph($fund, $bSameDayNetValue, $stock_his, $iStart, $i
 {
     $arColumn = _GetHistoryTableColumnArray($stock_his, $bChinese);
     $strSymbol = $fund->GetStockSymbol();
+    $strSymbolLink = GetMyStockLink($strSymbol, $bChinese);
     if ($bChinese)     
     {
-        $str = "{$strSymbol}<a name=\"history\">历史</a>{$arColumn[1]}相对于{$arColumn[2]}的{$arColumn[3]}";
+        $str = "{$strSymbolLink}<a name=\"history\">历史</a>{$arColumn[1]}相对于{$arColumn[2]}的{$arColumn[3]}";
     }
     else
     {
-        $str = "The {$arColumn[3]} <a name=\"history\">history</a> of $strSymbol {$arColumn[1]} price comparing with {$arColumn[2]}";
+        $str = "The {$arColumn[3]} <a name=\"history\">history</a> of $strSymbolLink {$arColumn[1]} price comparing with {$arColumn[2]}";
     }
     
     if (($iStart == 0) && ($iNum == MAX_HISTORY_DISPLAY))
@@ -264,21 +265,11 @@ function _EchoHistoryParagraph($fund, $bSameDayNetValue, $stock_his, $iStart, $i
 
 // ****************************** Transaction table *******************************************************
 
-function _echoTransactionTableItem($group, $transaction, $bReadOnly, $bChinese)
+function _echoTransactionTableItem($trans, $strSymbol, $transaction, $bReadOnly, $bChinese)
 {
     $strDate = GetSqlTransactionDate($transaction);
-    $trans = $group->GetStockTransactionByStockGroupItemId($transaction['groupitem_id']);
-    if ($trans)
-    {
-        $strSymbol = $trans->GetStockSymbol();
-        $strPrice = $trans->ref->GetPriceDisplay($transaction['price']);
-    }
-    else
-    {
-        $strSymbol = '';
-        $strPrice = '';
-    }
-
+    $strPrice = $trans->ref->GetPriceDisplay($transaction['price']);
+    $strFees = round_display_str($transaction['fees']);
     if ($bReadOnly)
     {
         $strEditDelete = '';
@@ -294,15 +285,39 @@ function _echoTransactionTableItem($group, $transaction, $bReadOnly, $bChinese)
         <td class=c1>$strSymbol</td>
         <td class=c1>{$transaction['quantity']}</td>
         <td class=c1>$strPrice</td>
-        <td class=c1>{$transaction['fees']}</td>
+        <td class=c1>$strFees</td>
         <td class=c1>{$transaction['remark']}</td>
         <td class=c1>$strEditDelete</td>
     </tr>
 END;
 }
 
-define ('MAX_TRANSACTION_DISPLAY', 10);
+function _echoTransactionTableData($group, $iStart, $iNum, $bChinese)
+{
+    $arSymbols = array();
+    $bReadOnly = IsStockGroupReadOnly($group->strGroupId);
+    if ($result = SqlGetStockTransactionByGroupId($group->strGroupId, $iStart, $iNum)) 
+    {
+        while ($transaction = mysql_fetch_assoc($result)) 
+        {
+            $trans = $group->GetStockTransactionByStockGroupItemId($transaction['groupitem_id']);
+            if ($trans)
+            {
+                $strSymbol = $trans->GetStockSymbol();
+                if (in_array($strSymbol, $arSymbols))    $strSymbolLink = $strSymbol;
+                else
+                {
+                    $strSymbolLink = GetMyStockLink($strSymbol, $bChinese);
+                    $arSymbols[] = $strSymbol;
+                }
+                _echoTransactionTableItem($trans, $strSymbolLink, $transaction, $bReadOnly, $bChinese);
+            }
+        }
+        @mysql_free_result($result);
+    }
+}
 
+define ('MAX_TRANSACTION_DISPLAY', 10);
 function _EchoTransactionTable($group, $iStart, $iNum, $bChinese)
 {
     if ($bChinese)     
@@ -327,15 +342,7 @@ function _EchoTransactionTable($group, $iStart, $iNum, $bChinese)
     </tr>
 END;
 
-    $bReadOnly = IsStockGroupReadOnly($group->strGroupId);
-    if ($result = SqlGetStockTransactionByGroupId($group->strGroupId, $iStart, $iNum)) 
-    {
-        while ($transaction = mysql_fetch_assoc($result)) 
-        {
-            _echoTransactionTableItem($group, $transaction, $bReadOnly, $bChinese);
-        }
-        @mysql_free_result($result);
-    }
+    _echoTransactionTableData($group, $iStart, $iNum, $bChinese);
     EchoTableEnd();
 }
 

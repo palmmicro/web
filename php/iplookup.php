@@ -267,6 +267,8 @@ function _ipLookupHttp($strIp, $strNewLine, $bChinese)
  
 function IpLookupGetString($strIp, $strNewLine, $bChinese)
 {
+    $strIpId = SqlMustGetIpId($strIp);
+    
     $str = $strIp._ipLookupHttp($strIp, $strNewLine, $bChinese);
     if ($ar = ProjectHoneyPotIpLookUp($strIp))
     {

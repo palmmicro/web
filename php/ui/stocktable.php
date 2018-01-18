@@ -508,6 +508,7 @@ END;
 function _echoStockTransactionTableItem($ref, $transaction, $bReadOnly, $bChinese)
 {
     $strPrice = $ref->GetPriceDisplay($transaction['price']);
+    $strFees = round_display_str($transaction['fees']);
     if ($bReadOnly)
     {
         $strEditDelete = '';
@@ -522,7 +523,7 @@ function _echoStockTransactionTableItem($ref, $transaction, $bReadOnly, $bChines
         <td class=c1>{$transaction['filled']}</td>
         <td class=c1>{$transaction['quantity']}</td>
         <td class=c1>$strPrice</td>
-        <td class=c1>{$transaction['fees']}</td>
+        <td class=c1>$strFees</td>
         <td class=c1>{$transaction['remark']}</td>
         <td class=c1>$strEditDelete</td>
     </tr>

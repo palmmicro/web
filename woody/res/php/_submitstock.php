@@ -2,6 +2,12 @@
 require_once('_stock.php');
 require_once('_editstockform.php');
 
+function _emailEditStock($strSymbol, $strDescription, $bChinese)
+{
+    $strLink = GetMyStockLink($strSymbol, $bChinese);
+    EmailDebug($strLink.' '.$strDescription, $_POST['submit']);
+}
+
 function _onDelete($strSymbol)
 {
 }
@@ -18,12 +24,12 @@ function _onEdit($strStockId, $strSymbol, $strDescription, $bChinese)
     {
         SqlUpdateStock($strStockId, $strSymbol, $strDescription, $stock['cn']);
     }
-    EmailDebug($strSymbol.' '.$strDescription, 'Edit Stock');
+    _emailEditStock($strSymbol, $strDescription, $bChinese);
 }
 
 function _onNew($strSymbol, $strDescription, $bChinese)
 {
-    EmailDebug($strSymbol.' '.$strDescription, 'New Stock');
+    _emailEditStock($strSymbol, $strDescription, $bChinese);
 }
 
     AcctAuth();

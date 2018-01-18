@@ -241,6 +241,11 @@ function round_display($fCur)
     return strval($fCur);
 }
 
+function round_display_str($str)
+{
+    return round_display(floatval($str));
+}
+
 function StockGetPriceDisplay($fCur, $fPre)
 {
     if ($fCur)

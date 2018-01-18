@@ -3,7 +3,7 @@ require_once('_stock.php');
 
 function _echoThanousLawLink($strSymbol, $bChinese)
 {
-    $strGroupLink = SelectSymbolInternalLink($strSymbol, $bChinese); 
+    $strGroupLink = _GetReturnSymbolGroupLink($strSymbol, $bChinese); 
     $strThanousLaw = UrlBuildPhpLink(STOCK_PATH.'thanouslaw', 'symbol='.$strSymbol, '测试小心愿定律', 'Test Thanous Law', $bChinese);
     EchoParagraph($strGroupLink.' '.$strThanousLaw);
 }

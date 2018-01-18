@@ -51,7 +51,7 @@ function _selectSmaExternalLink($strSymbol)
     {
         if ($sym->IsFundA())
         {
-            return GetChinaFundLink($sym);
+//            return GetChinaFundLink($sym);
         }
         else
         {
@@ -65,7 +65,8 @@ function _selectSmaExternalLink($strSymbol)
     {
         return GetYahooStockLink($sym->GetYahooSymbol(), $strSymbol);
     }
-    return $strSymbol;
+//    return $strSymbol;
+    return GetXueQiuLink($strSymbol);
 }
 
 function EchoSmaParagraph($stock_his, $ref, $fCallback, $fCallback2, $bChinese)
