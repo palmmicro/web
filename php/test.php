@@ -166,7 +166,7 @@ function test_stock_dividend()
     
 //	phpinfo();
     DebugClear();
-    echoDebugString('Admin test debug begin ...');
+    echoDebugString('Admin test begin ...');
 	echoDebugString($_SERVER['DOCUMENT_ROOT']);
 	echoDebugString(phpversion());
 	if (SqlConnectDatabase())

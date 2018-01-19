@@ -1,5 +1,4 @@
 <?php
-require_once('/php/class/year_month_date.php');
 
 // ****************************** Stock History tables *******************************************************
 
