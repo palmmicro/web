@@ -2,7 +2,7 @@
 require_once('debug.php');
 require_once('url.php');
 require_once('weixinstock.php');
-require_once('sqlquery.php');
+require_once('sql.php');
 
 require_once('sql/sqlstock.php');
 require_once('sql/sqlvisitor.php');

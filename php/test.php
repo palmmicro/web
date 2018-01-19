@@ -5,7 +5,7 @@ require_once('url.php');
 require_once('regexp.php');
 require_once('gb2312.php');
 
-require_once('sqlquery.php');
+require_once('sql.php');
 require_once('sql/sqlstocksymbol.php');
 //require_once('sql/sqlstockgroup.php');
 require_once('sql/sqlstockhistory.php');
@@ -173,6 +173,8 @@ function test_stock_dividend()
 	{
 	    echoDebugString('connect database ok');
 	}
+	
+	echoDebugString('Hello, world!');
 
 //	_debug_dividend('sz000028');
 //	test_stock_dividend();
