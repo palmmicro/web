@@ -1,0 +1,106 @@
+td {
+FONT-FAMILY: verdana, arial, sans-serif;
+FONT-SIZE: 14px;
+TEXT-ALIGN: left;
+font-weight: normal;
+noboard;
+nowrap;
+}
+
+textarea {
+FONT-FAMILY: verdana, arial, sans-serif;
+FONT-SIZE: 12px;
+}
+
+a.A2:link {
+FONT-SIZE: 10pt; FONT-WEIGHT: bold; COLOR: white; FONT-FAMILY: Verdana; TEXT-ALIGN: left; TEXT-DECORATION: Underline;
+}
+a.A2:visited {
+FONT-SIZE: 10pt; FONT-WEIGHT: bold; COLOR: white; FONT-FAMILY: Verdana; TEXT-ALIGN: left; TEXT-DECORATION: Underline;
+}
+a.A2:hover {
+FONT-SIZE: 10pt; FONT-WEIGHT: bold; COLOR: yellow; FONT-FAMILY: Verdana; TEXT-ALIGN: left; TEXT-DECORATION: Underline;
+}
+
+.THead {
+COLOR: white;
+FONT-FAMILY: verdana,arial,sans-serif;
+FONT-SIZE: 14px;
+FONT-WEIGHT: bold;
+TEXT-ALIGN: left;
+background-color: #9EA2A5;
+height: 24px;
+width: 600px;
+vertical-align: middle;
+}
+
+h1 {
+COLOR: white;
+FONT-FAMILY: verdana,arial,sans-serif;
+FONT-SIZE: 14px;
+FONT-WEIGHT: bold;
+TEXT-ALIGN: left;
+background-color: #9EA2A5;
+height: 24px;
+width: 670px;
+vertical-align: middle;
+}
+
+h3 {
+COLOR: white;
+FONT-FAMILY: verdana,arial,sans-serif;
+FONT-SIZE: 14px;
+FONT-WEIGHT: bold;
+TEXT-ALIGN: left;
+background-color: grey;
+height: 24px;
+width: 670px;
+vertical-align: middle;
+}
+
+.Update {
+COLOR: magenta;
+}
+
+h2 {
+COLOR: magenta;
+FONT-FAMILY: verdana,arial,sans-serif;
+FONT-SIZE: 14px;
+}
+
+.Warning {
+COLOR: #CC0000;
+FONT-FAMILY: verdana,arial,sans-serif;
+FONT-SIZE: 14px;
+FONT-WEIGHT: bold;
+TEXT-ALIGN: left;
+background-color: #FFFFFF;
+height: 24px;
+vertical-align: middle;
+}
+
+p.info span {
+	font-weight:bold;
+	color:#ff9955;
+}
+
+p.info {
+FONT-FAMILY: verdana, arial, sans-serif;
+FONT-SIZE: 12px;
+font-weight: normal;
+line-height: 2;
+}
+
+#banner{width:100%; height:105px; background:#049ACC;}
+    .logo{width:780px; height:105px; vertical-align:top;}
+    .blue{vertical-align:top;}
+
+#main{width:900px; height:85%; background:url(/common/green.png) repeat-y 0 0;}
+    .green{width:30px; background:#66CC66; vertical-align:top; float:left; position:relative;}
+    .nav{width:120px; background:#66CC66; vertical-align:top; float:left; position:relative;}
+    .green2{width:30px; background:#66CC66; vertical-align:top; float:left; position:relative;}
+    .white{width:50px; background:#ffffff; vertical-align:top; float:left; position:relative;}
+    .edit{vertical-align:top; float:left; position:relative;}
+    
+#copyright{float:left; font-size:small; font-weight:normal;}
+
