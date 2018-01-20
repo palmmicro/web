@@ -453,7 +453,6 @@ function _echoAHStockTableItem($a_ref, $ref, $fHKDCNY, $bChinese)
     
     $strPriceDisplay = $ref->GetCurrentPriceDisplay();
     $strPercentageDisplay = $ref->GetCurrentPercentageDisplay();
-    $strDescription = _convertDescription($a_ref->strDescription, $bChinese);
     
     $strSymbolA = $a_ref->GetStockSymbol();
     $strLinkA = SelectAHCompareLink($strSymbolA, $bChinese);
@@ -471,28 +470,26 @@ function _echoAHStockTableItem($a_ref, $ref, $fHKDCNY, $bChinese)
         <td class=c1>{$ref->strTimeHM}</td>
         <td class=c1>$strAHRatio</td>
         <td class=c1>$strHARatio</td>
-        <td class=c1>$strDescription</td>
     </tr>
 END;
 }
 
 function EchoAHStockTable($arRefAH, $fHKDCNY, $bChinese)
 {
-    if ($bChinese)  $arColumn = array('A股代码',  'H股代码',  PRICE_DISPLAY_CN,   '涨跌',  '日期', '时间', 'AH比价', 'HA比价', '备注');
-    else              $arColumn = array('A Symbol', 'H Symbol', PRICE_DISPLAY_US, 'Change', 'Date', 'Time', 'AH Ratio', 'HA Ratio', 'Remark');
+    if ($bChinese)  $arColumn = array('A股代码',  'H股代码',  PRICE_DISPLAY_CN,   '涨跌',  '日期', '时间', 'AH比价', 'HA比价');
+    else              $arColumn = array('A Symbol', 'H Symbol', PRICE_DISPLAY_US, 'Change', 'Date', 'Time', 'AH Ratio', 'HA Ratio');
     
     echo <<<END
         <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="ahstock">
         <tr>
             <td class=c1 width=80 align=center>{$arColumn[0]}</td>
             <td class=c1 width=80 align=center>{$arColumn[1]}</td>
-            <td class=c1 width=70 align=center>{$arColumn[2]}</td>
-            <td class=c1 width=60 align=center>{$arColumn[3]}</td>
-            <td class=c1 width=100 align=center>{$arColumn[4]}</td>
-            <td class=c1 width=50 align=center>{$arColumn[5]}</td>
-            <td class=c1 width=60 align=center>{$arColumn[6]}</td>
-            <td class=c1 width=60 align=center>{$arColumn[7]}</td>
-            <td class=c1 width=80 align=center>{$arColumn[8]}</td>
+            <td class=c1 width=80 align=center>{$arColumn[2]}</td>
+            <td class=c1 width=70 align=center>{$arColumn[3]}</td>
+            <td class=c1 width=110 align=center>{$arColumn[4]}</td>
+            <td class=c1 width=60 align=center>{$arColumn[5]}</td>
+            <td class=c1 width=80 align=center>{$arColumn[6]}</td>
+            <td class=c1 width=80 align=center>{$arColumn[7]}</td>
         </tr>
 END;
 

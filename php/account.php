@@ -247,6 +247,15 @@ function AcctNoAuth()
     return AcctCheckLogin();
 }
 
+function AcctGetMemberId()
+{
+    if ($strEmail = UrlGetQueryValue('email'))
+    {
+        return SqlGetIdByEmail($strEmail); 
+    }
+    return AcctIsLogin();
+}
+
 function AcctEmailQueryLogin()
 {
     if ($strEmail = UrlGetQueryValue('email'))

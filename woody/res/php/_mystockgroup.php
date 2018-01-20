@@ -2,6 +2,16 @@
 require_once('_stock.php');
 require_once('_editgroupform.php');
 
+function _isPreDefinedGroup()
+{
+    $strTitle = UrlGetTitle();
+    if ($strTitle == 'mystockgroup')
+    {
+        return false;
+    }
+    return $strTitle;
+}
+
 function _getStockGroupEditString($strGroupId, $bChinese)
 {
     $strStocks = '';
@@ -62,15 +72,17 @@ function _echoStockGroupTableData($strMemberId, $bReadOnly, $bChinese)
 	}
 }
 
-function _echoStockGroupTable($strMemberId, $bReadOnly, $bChinese)
+function _echoStockGroupTable($bChinese)
 {
     if ($bChinese)
     {
         $arColumn = array('分组名称', '股票', '操作');
+        $strSubmit = STOCK_GROUP_NEW_CN;
     }
     else
     {
         $arColumn = array('Group Name', 'Stocks', 'Operation');
+        $strSubmit = STOCK_GROUP_NEW;
     }
     
     echo <<<END
@@ -81,16 +93,20 @@ function _echoStockGroupTable($strMemberId, $bReadOnly, $bChinese)
         <td class=c1 width=100 align=center>{$arColumn[2]}</td>
     </tr>
 END;
+
+    $strMemberId = AcctGetMemberId();
+    $bReadOnly = AcctIsReadOnly($strMemberId);
     _echoStockGroupTableData($strMemberId, $bReadOnly, $bChinese);
     EchoTableEnd();
+    
+    if ($bReadOnly == false)
+    {
+        StockEditGroupForm($strSubmit, $bChinese);
+    }
 }
 
-function _echoMyStockGroup($strGroupId, $bReadOnly, $bChinese)
+function _echoStockGroupArray($arStock, $bChinese)
 {
-    global $group;  // in _stocklink.php $group = false;
-    
-    $arStock = SqlGetStocksArray($strGroupId);
-//    sort($arStock);
     WeixinStockPrefetchData($arStock);
     
     $arRef = array();
@@ -128,63 +144,82 @@ function _echoMyStockGroup($strGroupId, $bReadOnly, $bChinese)
             $arTransactionRef[] = $ref;
         }
     }
-    $group = new MyStockGroup($strGroupId, $arTransactionRef);
     
     EchoReferenceParagraph($arRef, $bChinese);
     if (count($arFund) > 0)     EchoFundEstParagraph($arFund, '', $bChinese);
     if (count($arRefAH) > 0)    EchoAHStockParagraph($arRefAH, $bChinese);
+    
+    return $arTransactionRef;
+}
 
-    if (!$bReadOnly)
+function _echoMyStockGroup($strGroupId, $bChinese)
+{
+    global $group;  // in _stocklink.php $group = false;
+    
+    $arStock = SqlGetStocksArray($strGroupId);
+//    sort($arStock);
+
+    $arTransactionRef = _echoStockGroupArray($arStock, $bChinese); 
+    if (IsStockGroupReadOnly($strGroupId) == false)
     {
+        $group = new MyStockGroup($strGroupId, $arTransactionRef);
         _EchoTransactionParagraph($group, $bChinese);
         EchoEditGroupEchoParagraph($strGroupId, $bChinese);
     }
 }
 
-function MyStockGroupEchoAll($strSubmit, $bChinese)
+function _getPreDefinedGroupArray($strTitle)
 {
-    global $g_strMemberId;
-    global $g_strGroupId;
-    global $group;  // in _stocklink.php $group = false;
-    
-    if ($g_strGroupId)
+    $ar = array();
+    switch ($strTitle)
     {
-        $bReadOnly = IsStockGroupReadOnly($g_strGroupId);
-        _echoMyStockGroup($g_strGroupId, $bReadOnly, $bChinese);
+    case 'commodity':
+        $ar = LofGetCommoditySymbolArray();
+        break;
+    }
+    return StockGetArraySymbol($ar);
+}
+
+function MyStockGroupEchoAll($bChinese)
+{
+    $strGroupId = false;
+    if ($strTitle = _isPreDefinedGroup())
+    {
+        _echoStockGroupArray(_getPreDefinedGroupArray($strTitle), $bChinese);
     }
     else
     {
-        $bReadOnly = AcctIsReadOnly($g_strMemberId);
-        _echoStockGroupTable($g_strMemberId, $bReadOnly, $bChinese);
-        if ($bReadOnly == false)
+        $strGroupId = UrlGetQueryValue('groupid');
+        if ($strGroupId)
         {
-            StockEditGroupForm($strSubmit, $bChinese);
+            _echoMyStockGroup($strGroupId, $bChinese);
+        }
+        else
+        {
+            _echoStockGroupTable($bChinese);
         }
     }
     
     EchoPromotionHead('stockgroup', $bChinese);
     if (AcctIsAdmin())
     {
-        if ($group)
+        if ($strGroupId)
         {   
-    	    $strStocks = _getStockGroupEditString($g_strGroupId, $bChinese);
-    	    EchoParagraph('修改股票说明: '.$strStocks);
+    	    EchoParagraph('修改股票说明: '._getStockGroupEditString($strGroupId, $bChinese));
         }
     }
 }
 
 function MyStockGroupEchoMetaDescription($bChinese)
 {
-    global $g_strMemberId;
-    global $g_strGroupId;
-
-    if ($g_strGroupId)
+    $strGroupId = UrlGetQueryValue('groupid');
+    if ($strGroupId)
     {
-        $str = _GetWhoseStockGroupDisplay(false, $g_strGroupId, $bChinese);
+        $str = _GetWhoseStockGroupDisplay(false, $strGroupId, $bChinese);
     }
     else
     {
-        $str = _GetWhoseDisplay($g_strMemberId, AcctIsLogin(), $bChinese);
+        $str = _GetWhoseDisplay(AcctGetMemberId(), AcctIsLogin(), $bChinese);
         $str .= _GetAllDisplay(false, $bChinese);
     }
     
@@ -195,16 +230,14 @@ function MyStockGroupEchoMetaDescription($bChinese)
 
 function MyStockGroupEchoTitle($bChinese)
 {
-    global $g_strMemberId;
-    global $g_strGroupId;
-
-    if ($g_strGroupId)
+    $strGroupId = UrlGetQueryValue('groupid');
+    if ($strGroupId)
     {
-        $str = _GetWhoseStockGroupDisplay($g_strMemberId, $g_strGroupId, $bChinese);
+        $str = _GetWhoseStockGroupDisplay(AcctIsLogin(), $strGroupId, $bChinese);
     }
     else
     {
-        $str = _GetWhoseDisplay($g_strMemberId, AcctIsLogin(), $bChinese);
+        $str = _GetWhoseDisplay(AcctGetMemberId(), AcctIsLogin(), $bChinese);
         $str .= _GetAllDisplay(false, $bChinese);
     }
     
@@ -212,20 +245,33 @@ function MyStockGroupEchoTitle($bChinese)
     else
     {
         $str .= ' Stock Group';
-        if (!$g_strGroupId)  $str .= 's'; 
+        if (!$strGroupId)  $str .= 's'; 
     }
     echo $str;
 }
 
-    $g_strMemberId = false;
     AcctSessionStart();
-    if ($g_strGroupId = UrlGetQueryValue('groupid'))
+    if (_isPreDefinedGroup())
     {
-        $g_strMemberId = AcctCheckLogin();
+        AcctCheckLogin();
     }
     else
-    {
-        $g_strMemberId = AcctEmailQueryLogin();
+    {   // mystockgroupcn.php
+        if (UrlGetQueryValue('groupid'))
+        {
+            AcctCheckLogin();
+        }
+        else
+        {
+            if (UrlGetQueryValue('email'))
+            {
+                AcctCheckLogin();
+            }
+            else
+            {
+                AcctMustLogin();
+            }
+        }
     }
 
 ?>

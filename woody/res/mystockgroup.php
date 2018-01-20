@@ -12,7 +12,7 @@
 
 <div>
 <h1><?php MyStockGroupEchoTitle(false); ?></h1>
-<?php MyStockGroupEchoAll(STOCK_GROUP_NEW, false); ?>
+<?php MyStockGroupEchoAll(false); ?>
 <p>Related software:
 <?php 
     EchoStockGroupLinks(false);

@@ -12,7 +12,7 @@
 
 <div>
 <h1><?php MyStockGroupEchoTitle(true); ?></h1>
-<?php MyStockGroupEchoAll(STOCK_GROUP_NEW_CN, true); ?>
+<?php MyStockGroupEchoAll(true); ?>
 <p>相关软件:
 <?php
     EchoStockGroupLinks(true);
