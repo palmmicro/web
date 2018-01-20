@@ -166,14 +166,13 @@ function test_stock_dividend()
     
 //	phpinfo();
     DebugClear();
-    echoDebugString('Admin test begin ...');
+    echoDebugString('Test begin ...');
 	echoDebugString($_SERVER['DOCUMENT_ROOT']);
 	echoDebugString(phpversion());
 	if (SqlConnectDatabase())
 	{
 	    echoDebugString('connect database ok');
 	}
-	
 	echoDebugString('Hello, world!');
 
 //	_debug_dividend('sz000028');
@@ -188,6 +187,6 @@ function test_stock_dividend()
 	else                            echoDebugString('NOT matched');
 */
 	
-    echoDebugString('Admin test done.');
+    echoDebugString('Test done.');
 
 ?>
