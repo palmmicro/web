@@ -211,6 +211,29 @@ function _getCategorySoftwareLinks($arTitle, $strCn, $strUs, $bChinese)
     return GetCategorySoftwareLinks($arTitle, $bChinese ? $strCn : $strUs, $bChinese);
 }
 
+function GetCategoryArray($strTitle)
+{
+    $ar = array();
+    switch ($strTitle)
+    {
+    case 'chinainternet':
+        $ar = LofGetChinaInternetSymbolArray();
+        break;
+        
+    case 'commodity':
+        $ar = LofGetCommoditySymbolArray();
+        break;
+    }
+    return $ar;
+}
+
+function _echoCategorySoftwareLinks($strCategory, $bChinese)
+{
+    $ar = GetCategoryArray($strCategory);
+    $strLink = _getCategoryLink($strCategory, $bChinese);
+    echo GetCategorySoftwareLinks($ar, $strLink, $bChinese);
+}
+
 function EchoOilSoftwareLinks($bChinese)
 {
     $ar = array('adrptr', 'adrshi', 'adrsnp', 'futurecl', 'futureng', 'futureoil', 'xop');

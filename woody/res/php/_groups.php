@@ -68,11 +68,6 @@ function EchoLofToolTable($bChinese)
     _echoLofToolTable(LofGetSymbolArray(), $bChinese);
 }
 
-function EchoChinaInternetToolTable($bChinese)
-{
-    _echoLofToolTable(LofGetChinaInternetSymbolArray(), $bChinese);
-}
-
 function EchoQqqFundToolTable($bChinese)
 {
     _echoLofToolTable(LofGetQqqSymbolArray(), $bChinese);
