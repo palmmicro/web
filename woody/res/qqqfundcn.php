@@ -1,4 +1,4 @@
-<?php require_once('php/_groups.php'); ?>
+<?php require_once('php/_mystockgroup.php'); ?>
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -12,10 +12,8 @@
 
 <div>
 <h1>纳斯达克100基金净值计算工具</h1>
-<p>使用纳斯达克100指数(^NDX)估值, QQQ仅用于参考.
-<?php EchoQqqFundToolTable(true); ?>
-</p>
-<?php EchoPromotionHead('', true); ?>
+<p>使用纳斯达克100指数(^NDX)估值, QQQ仅用于参考.</p>
+<?php MyStockGroupEchoAll(true); ?>
 <p>相关软件:
 <?php 
     EchoStockCategoryLinks(true);

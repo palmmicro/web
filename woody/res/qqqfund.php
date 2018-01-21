@@ -1,4 +1,4 @@
-<?php require_once('php/_groups.php'); ?>
+<?php require_once('php/_mystockgroup.php'); ?>
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -12,10 +12,7 @@
 
 <div>
 <h1>NASDAQ-100 Fund Net Value Tools</h1>
-<p>
-<?php EchoQqqFundToolTable(false); ?>
-</p>
-<?php EchoPromotionHead('', false); ?>
+<?php MyStockGroupEchoAll(false); ?>
 <p>Related software:
 <?php 
     EchoStockCategoryLinks(false);

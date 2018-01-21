@@ -216,12 +216,28 @@ function GetCategoryArray($strTitle)
     $ar = array();
     switch ($strTitle)
     {
+    case 'bricfund':
+        $ar = LofGetBricSymbolArray();
+        break;
+        
     case 'chinainternet':
         $ar = LofGetChinaInternetSymbolArray();
         break;
         
     case 'commodity':
         $ar = LofGetCommoditySymbolArray();
+        break;
+        
+    case 'lof':
+        $ar = LofGetSymbolArray();
+        break;
+        
+    case 'lofhk':
+        $ar = LofHkGetSymbolArray();
+        break;
+        
+    case 'qqqfund':
+        $ar = LofGetQqqSymbolArray(); 
         break;
     }
     return $ar;
@@ -254,16 +270,12 @@ function EchoGoldSoftwareLinks($bChinese)
 
 function EchoCommoditySoftwareLinks($bChinese)
 {
-    $ar = LofGetCommoditySymbolArray();
-    $strLink = _getCategoryLink('commodity', $bChinese);
-    echo GetCategorySoftwareLinks($ar, $strLink, $bChinese);
+    _echoCategorySoftwareLinks('commodity', $bChinese);
 }
 
 function EchoQqqSoftwareLinks($bChinese)
 {
-    $ar = LofGetQqqSymbolArray(); 
-    $strLink = _getCategoryLink('qqqfund', $bChinese);
-    echo GetCategorySoftwareLinks($ar, $strLink, $bChinese);
+    _echoCategorySoftwareLinks('qqqfund', $bChinese);
 }
 
 function EchoSpySoftwareLinks($bChinese)
@@ -299,16 +311,12 @@ function EchoASharesSoftwareLinks($bChinese)
 
 function EchoBricSoftwareLinks($bChinese)
 {
-    $ar = LofGetBricSymbolArray();
-    $strLink = _getCategoryLink('bricfund', $bChinese);
-    echo GetCategorySoftwareLinks($ar, $strLink, $bChinese);
+    _echoCategorySoftwareLinks('bricfund', $bChinese);
 }
 
 function EchoChinaInternetSoftwareLinks($bChinese)
 {
-    $ar = LofGetChinaInternetSymbolArray();
-    $strLink = _getCategoryLink('chinainternet', $bChinese);
-    echo GetCategorySoftwareLinks($ar, $strLink, $bChinese);
+    _echoCategorySoftwareLinks('chinainternet', $bChinese);
 }
 
 function EchoMilitarySoftwareLinks($bChinese)

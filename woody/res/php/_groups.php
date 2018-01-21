@@ -63,24 +63,9 @@ function _echoLofToolTable($arFundSymbol, $bChinese)
     _echoAllFundTables($arFundRef, $bChinese);
 }
 
-function EchoLofToolTable($bChinese)
-{
-    _echoLofToolTable(LofGetSymbolArray(), $bChinese);
-}
-
-function EchoQqqFundToolTable($bChinese)
-{
-    _echoLofToolTable(LofGetQqqSymbolArray(), $bChinese);
-}
-
 function EchoSpyFundToolTable($bChinese)
 {
     _echoLofToolTable(LofGetSpySymbolArray(), $bChinese);
-}
-
-function EchoBricFundToolTable($bChinese)
-{
-    _echoLofToolTable(LofGetBricSymbolArray(), $bChinese);
 }
 
 function EchoOilFundToolTable($bChinese)
@@ -107,11 +92,6 @@ function _echoLofHkToolTable($arFundSymbol, $bChinese)
         $arFundRef[] = new MyLofHkReference($strSymbol);
     }
     _echoAllFundTables($arFundRef, $bChinese);
-}
-
-function EchoLofHkToolTable($bChinese)
-{
-    _echoLofHkToolTable(LofHkGetSymbolArray(), $bChinese);
 }
 
 function EchoHSharesToolTable($bChinese)

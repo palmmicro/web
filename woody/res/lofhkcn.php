@@ -1,4 +1,4 @@
-<?php require_once('php/_groups.php'); ?>
+<?php require_once('php/_mystockgroup.php'); ?>
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -14,11 +14,13 @@
 <h1>A股香港LOF基金净值计算工具</h1>
 <p>计算中国A股市场中各种香港LOF的净值.
 <br />类似软件: 集思录<a href="https://www.jisilu.cn/data/lof/#index" target=_blank>指数LOF</a>基金实时投资数据.
-<?php EchoLofHkToolTable(true); ?>
 </p>
-<?php EchoPromotionHead('', true); ?>
+<?php MyStockGroupEchoAll(true); ?>
 <p>相关软件:
-<?php EchoStockGroupLinks(true); ?>
+<?php 
+    EchoStockCategoryLinks(true);
+    EchoStockGroupLinks(true);
+?>
 </p>
 </div>
 
