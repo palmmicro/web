@@ -7,7 +7,6 @@ http://finance.google.com/finance/info?client=ig&q=AAPL,YHOO
 charts -- https://www.google.com/finance/getchart?q=YELP
 https://finance.google.com/finance?q=BVMF:TPIS3&output=json
 */
-//define ('GOOGLE_QUOTES_URL', 'http://www.google.com/finance/info?q=');
 define ('GOOGLE_QUOTES_URL', 'https://finance.google.com/finance?q=');
 function GetGoogleQuotes($strSymbols)
 { 

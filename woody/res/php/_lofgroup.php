@@ -71,10 +71,23 @@ class _LofGroup extends _MyStockGroup
 
     function _getAdjustString($bChinese)
     {
-        $est_ref = $this->ref->est_ref;
-        $stock_ref = $this->ref->stock_ref;
+    	$ref = $this->ref;
+        $est_ref = $ref->est_ref;
+/*        $stock_ref = $this->ref->stock_ref;
         $strSymbol = $stock_ref->GetStockSymbol();
-        $strQuery = sprintf('%s=%.4f&%s=%.2f&CNY=%.4f', $strSymbol, $stock_ref->fPrevPrice, $est_ref->GetStockSymbol(), $est_ref->fPrevPrice, $this->cny_ref->fPrevPrice);
+        $strQuery = sprintf('%s=%.4f&%s=%.2f&CNY=%.4f', $strSymbol, $stock_ref->fPrevPrice, $est_ref->GetStockSymbol(), $est_ref->fPrevPrice, $this->cny_ref->fPrevPrice);*/
+        $strSymbol = $ref->GetStockSymbol();
+        $strDate = $ref->strDate;
+        $strCNY = SqlGetForexCloseString($ref->strForexSqlId, $strDate);
+        if ($history = SqlGetStockHistoryByDate($est_ref->GetStockId(), $strDate))
+        {
+        	$strEst = $history['close'];
+        }
+        else
+        {
+        	$strEst = $est_ref->strPrevPrice;
+        }
+        $strQuery = sprintf('%s=%s&%s=%s&CNY=%s', $strSymbol, $ref->strPrice, $est_ref->GetStockSymbol(), $strEst, $strCNY);
         return _GetAdjustLink($strSymbol, $strQuery, $bChinese);
     }
 

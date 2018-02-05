@@ -231,6 +231,12 @@ function _ipLookupLocalDatabase($strIp, $strNewLine, $bChinese)
     return $str;
 }
 
+function _convertTaobaoIp($str)
+{
+	if ($str == 'XX')	return '';
+	return $str.' ';
+}
+
 function _ipLookupHttp($strIp, $strNewLine, $bChinese)
 {
     $str = '';
@@ -246,7 +252,7 @@ function _ipLookupHttp($strIp, $strNewLine, $bChinese)
         
         $arTaobao = TaobaoIpLookUp($strIp);
         $str .= $strNewLine.DebugGetExternalLink(_getTaobaoIpLookUpUrl($strIp), '淘宝数据').': ';
-        $str .= $arTaobao['country'].' '.$arTaobao['area'].' '.$arTaobao['region'].' '.$arTaobao['city'].' '.$arTaobao['county'].' '.$arTaobao['isp'];
+        $str .= _convertTaobaoIp($arTaobao['country'])._convertTaobaoIp($arTaobao['area'])._convertTaobaoIp($arTaobao['region'])._convertTaobaoIp($arTaobao['city'])._convertTaobaoIp($arTaobao['county'])._convertTaobaoIp($arTaobao['isp']);
         $fStart = microtime(true);
         $str .= DebugGetStopWatchDisplay($fStart, $fStartTaobao);
     }

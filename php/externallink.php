@@ -1,6 +1,7 @@
 <?php
 require_once('debug.php');
 require_once('stock/stocksymbol.php');
+require_once('stock/googlestock.php');
 
 // ****************************** External link functions *******************************************************
 
@@ -29,7 +30,7 @@ function GetYahooStockLink($strYahooSymbol, $strSymbol)
 
 function GetGoogleStockLink($strGoogleSymbol, $strSymbol)
 {
-    $strHttp = "https://www.google.com/finance?q=$strGoogleSymbol";
+    $strHttp = GOOGLE_QUOTES_URL.$strGoogleSymbol;
     return DebugGetExternalLink($strHttp, $strSymbol);
 }
 

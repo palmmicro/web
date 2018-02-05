@@ -61,10 +61,19 @@ function SqlInsertUSCNYHistory($strDate, $strClose)
 }
 */
 
-function SqlGetForexCloseHistory($strStockId, $strDate)
+function SqlGetForexCloseString($strStockId, $strDate)
 {
     $history = SqlGetForexHistory($strStockId, $strDate);
-    if ($history)   return floatval($history['close']);
+    if ($history)   return $history['close'];
+    return false;
+}
+
+function SqlGetForexCloseHistory($strStockId, $strDate)
+{
+	if ($str = SqlGetForexCloseString($strStockId, $strDate))
+	{
+		return floatval($str);
+	}
     return false;
 }
 
