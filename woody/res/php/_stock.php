@@ -126,13 +126,13 @@ function _echoHistoryTableItem($ref, $history, $fund, $arEtfClose)
     {
         $fEstValue = floatval($strEstValue);
         $strEstValueDisplay = StockGetPriceDisplay($fEstValue, $fFundClose);
-        if (abs($fEstValue - $fNetValue) < 0.0005)
+        if (FloatNotZero(GetEstErrorPercentage($fEstValue, $fNetValue)))
         {
-            $strError = '<font color=grey>0</font>'; 
+            $strError = StockGetPercentageDisplay($fEstValue, $fNetValue);
         }
         else
         {
-            $strError = StockGetPercentageDisplay($fEstValue, $fNetValue);
+            $strError = '<font color=grey>0</font>'; 
         }
     }
     else

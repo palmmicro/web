@@ -275,6 +275,19 @@ class MyFutureReference extends MyStockReference
 define ('FUND_POSITION_RATIO', 0.95);
 define ('FUND_EMPTY_NET_VALUE', '0');
 
+function GetEstErrorPercentage($fEstValue, $fNetValue)
+{
+    if (abs($fEstValue - $fNetValue) < 0.0005)
+    {
+        $fPercentage = 0.0;
+    }
+    else
+    {
+        $fPercentage = StockGetPercentage($fEstValue, $fNetValue);
+    }
+    return $fPercentage;
+}
+
 class MyFundReference extends FundReference
 {
     var $stock_ref = false;     // MyStockReference
@@ -322,18 +335,8 @@ class MyFundReference extends FundReference
 
     function _compareEstResult($strNetValue, $strEstValue)
     {
-        $fNetValue = floatval($strNetValue); 
-        $fEstValue = floatval($strEstValue);
-        if (abs($fEstValue - $fNetValue) < 0.0005)
-        {
-            $fPercentage = 0.0;
-        }
-        else
-        {
-            $fPercentage = StockGetPercentage($fEstValue, $fNetValue);
-        }
-        
-        if (abs($fPercentage) > 0.01)
+        $fPercentage = GetEstErrorPercentage(floatval($strEstValue), floatval($strNetValue));
+        if (abs($fPercentage) > 0.5)
         {
             $strSymbol = $this->GetStockSymbol();
             $strLink = UrlGetPhpLink(STOCK_PATH.'netvaluehistory', 'symbol='.$strSymbol, $strSymbol, true);
