@@ -41,7 +41,7 @@ function _getNetValueLink($strSymbol, $bChinese)
 {
     $strGroupLink = _GetReturnSymbolGroupLink($strSymbol, $bChinese); 
     $strNetValue = UrlBuildPhpLink(STOCK_PATH.'netvaluehistory', 'symbol='.$strSymbol, '净值历史', 'Net Value History', $bChinese);
-    return $strGroupLink.' '.$strNetValue;
+    return $strGroupLink.$strNetValue;
 }
 
 function _echoLofPredictionItem($str, $price_compare)
@@ -138,14 +138,12 @@ function _echoLofPredictionParagraph($lof_ref, $etf_his, $bChinese)
 
 function EchoThanousLawTest($bChinese)
 {
-    global $g_strSymbol;
-    
-    if ($g_strSymbol)
+    if ($strSymbol = UrlGetQueryValue('symbol'))
     {
-        if (in_arrayLof($g_strSymbol))
+        if (in_arrayLof($strSymbol))
         {
-            PrefetchStockData(LofGetAllSymbolArray($g_strSymbol));
-            $fund = new MyLofReference($g_strSymbol);
+            PrefetchStockData(LofGetAllSymbolArray($strSymbol));
+            $fund = new MyLofReference($strSymbol);
             _echoLofPredictionParagraph($fund->stock_ref, new StockHistory($fund->etf_ref), $bChinese);
         }
     }
@@ -154,9 +152,7 @@ function EchoThanousLawTest($bChinese)
 
 function EchoTitle($bChinese)
 {
-    global $g_strSymbol;
-    
-    $str = $g_strSymbol; 
+  	$str = UrlGetQueryDisplay('symbol', '');
     if ($bChinese)
     {
         $str .= '小心愿定律测试';
@@ -169,7 +165,6 @@ function EchoTitle($bChinese)
 }
 
     AcctNoAuth();
-    $g_strSymbol = UrlGetQueryValue('symbol');
 
 ?>
 

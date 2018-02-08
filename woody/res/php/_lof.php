@@ -39,7 +39,7 @@ class _LofUsGroup extends _LofGroup
     }
 } 
 
-define ('FUND_PURCHASE_AMOUNT', 90000.0);
+define ('FUND_PURCHASE_AMOUNT', 300000.0);
 function _onSmaUserDefinedVal($fVal, $bChinese)
 {
     global $group;

@@ -3,9 +3,8 @@ require_once('_stock.php');
 
 function _echoThanousLawLink($strSymbol, $bChinese)
 {
-    $strGroupLink = _GetReturnSymbolGroupLink($strSymbol, $bChinese); 
     $strThanousLaw = UrlBuildPhpLink(STOCK_PATH.'thanouslaw', 'symbol='.$strSymbol, '测试小心愿定律', 'Test Thanous Law', $bChinese);
-    EchoParagraph($strGroupLink.' '.$strThanousLaw);
+    EchoParagraph($strThanousLaw);
 }
 
 function _getStockHistory($ref)
@@ -23,7 +22,8 @@ function _echoNetValueHistory($strSymbol, $iStart, $iNum, $bChinese)
     $strStockId = SqlGetStockId($strSymbol);
     $iTotal = SqlCountFundHistory($strStockId);
     $strNavLink = _GetStockNavLink('netvaluehistory', $strSymbol, $iTotal, $iStart, $iNum, $bChinese);
-    EchoParagraph($strNavLink);
+    $strGroupLink = _GetReturnSymbolGroupLink($strSymbol, $bChinese); 
+    EchoParagraph($strGroupLink.$strNavLink);
     
     if (in_arrayLof($strSymbol))
     {
@@ -50,22 +50,18 @@ function _echoNetValueHistory($strSymbol, $iStart, $iNum, $bChinese)
 
 function EchoNetValueHistory($bChinese)
 {
-    global $g_strSymbol;
-    
-    if ($g_strSymbol)
+    if ($strSymbol = UrlGetQueryValue('symbol'))
     {
         $iStart = UrlGetQueryInt('start', 0);
         $iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
-        _echoNetValueHistory($g_strSymbol, $iStart, $iNum, $bChinese);
+        _echoNetValueHistory($strSymbol, $iStart, $iNum, $bChinese);
     }
     EchoPromotionHead('netvalue', $bChinese);
 }
 
 function EchoTitle($bChinese)
 {
-    global $g_strSymbol;
-    
-    $str = $g_strSymbol; 
+  	$str = UrlGetQueryDisplay('symbol', '');
     if ($bChinese)
     {
         $str .= '净值历史记录';
@@ -78,7 +74,6 @@ function EchoTitle($bChinese)
 }
 
     AcctAuth();
-    $g_strSymbol = UrlGetQueryValue('symbol');
 
 ?>
 

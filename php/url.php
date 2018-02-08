@@ -72,6 +72,15 @@ function UrlGetQueryValue($strQueryItem)
 	return false;
 }
 
+function UrlGetQueryDisplay($strQueryItem, $strDefault)
+{ 
+    if ($str = UrlGetQueryValue($strQueryItem))
+    {
+        return $str;
+    }
+    return $strDefault;
+}
+
 function UrlGetQueryInt($strQueryItem, $iDefault)
 { 
     $iNum = $iDefault;
