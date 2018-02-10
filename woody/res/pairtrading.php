@@ -1,4 +1,4 @@
-<?php require_once('php/_groups.php'); ?>
+<?php require_once('php/_mystockgroup.php'); ?>
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -13,11 +13,13 @@
 <div>
 <h1>Pair Trading Analysis Tools</h1>
 <p>When the arbitrage between <a href="sz162411.php">SZ162411</a> and XOP can not continue, I begin to test the pair trading of XOP and USO/USL, and begin this new analysis tools.
-<?php EchoPairTradingToolTable(false); ?>
 </p>
-<?php EchoPromotionHead('pairtrading', false); ?>
+<?php MyStockGroupEchoAll(false); ?>
 <p>Related software:
-<?php EchoStockGroupLinks(false); ?>
+<?php 
+    EchoStockCategoryLinks(false);
+    EchoStockGroupLinks(false);
+?>
 </p>
 </div>
 

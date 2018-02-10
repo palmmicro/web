@@ -36,13 +36,6 @@ function EchoGradedFundToolTable($bChinese)
     _echoCommonToolTable(GradedFundGetSymbolArray(), $bChinese);
 }
 
-// ****************************** Pair traing tool table *******************************************************
-
-function EchoPairTradingToolTable($bChinese)
-{
-    _echoCommonToolTable(PairTradingGetSymbolArray(), $bChinese);
-}
-
 // ****************************** LOF tool table *******************************************************
 
 function _echoLofToolTable($arFundSymbol, $bChinese)
@@ -71,37 +64,6 @@ function EchoSpyFundToolTable($bChinese)
 function EchoOilFundToolTable($bChinese)
 {
     _echoLofToolTable(array_merge(LofGetOilSymbolArray(), LofGetOilEtfSymbolArray()), $bChinese);
-}
-
-// ****************************** HK LOF tool table *******************************************************
-
-function _echoLofHkToolTable($arFundSymbol, $bChinese)
-{
-    $arSymbol = StockGetArraySymbol($arFundSymbol);
-    
-    $arAll = array();
-    foreach ($arSymbol as $strSymbol)
-    {
-        $arAll = array_merge($arAll, LofHkGetAllSymbolArray($strSymbol));
-    }
-    PrefetchStockData(array_unique($arAll));
-    
-    $arFundRef = array();
-    foreach ($arSymbol as $strSymbol)
-    {
-        $arFundRef[] = new MyLofHkReference($strSymbol);
-    }
-    _echoAllFundTables($arFundRef, $bChinese);
-}
-
-function EchoHSharesToolTable($bChinese)
-{
-    _echoLofHkToolTable(LofHkGetHSharesSymbolArray(), $bChinese);
-}
-
-function EchoHangSengToolTable($bChinese)
-{
-    _echoLofHkToolTable(LofHkGetHangSengSymbolArray(), $bChinese);
 }
 
 // ****************************** Gold ETF tool table *******************************************************

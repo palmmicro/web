@@ -1,4 +1,4 @@
-<?php require_once('php/_groups.php'); ?>
+<?php require_once('php/_mystockgroup.php'); ?>
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -13,9 +13,8 @@
 <div>
 <h1>恒生指数基金净值计算工具</h1>
 <p>使用恒生指数(^HSI)进行估值, 恒生指数盈富基金(02800)仅作为参考.
-<?php EchoHangSengToolTable(true); ?>
 </p>
-<?php EchoPromotionHead('', true); ?>
+<?php MyStockGroupEchoAll(true); ?>
 <p>相关软件:
 <?php 
     EchoStockCategoryLinks(true);

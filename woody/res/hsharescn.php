@@ -1,4 +1,4 @@
-<?php require_once('php/_groups.php'); ?>
+<?php require_once('php/_mystockgroup.php'); ?>
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -13,9 +13,8 @@
 <div>
 <h1>H股基金净值计算工具</h1>
 <p>使用恒生中国企业指数(^HSCE)估值, 恒生H股ETF(02828)仅用于参考.
-<?php EchoHSharesToolTable(true); ?>
 </p>
-<?php EchoPromotionHead('', true); ?>
+<?php MyStockGroupEchoAll(true); ?>
 <p>相关软件:
 <?php 
     EchoStockCategoryLinks(true);

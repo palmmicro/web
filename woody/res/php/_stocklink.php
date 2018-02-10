@@ -228,12 +228,26 @@ function GetCategoryArray($strTitle)
         $ar = LofGetCommoditySymbolArray();
         break;
         
+    case 'hangseng':
+    	$ar[] = 'sz150169';
+    	$ar = array_merge($ar, LofHkGetHangSengSymbolArray());
+        break;
+        
+    case 'hshares':
+    	$ar[] = 'sz150175';
+    	$ar = array_merge($ar, LofHkGetHSharesSymbolArray());
+        break;
+        
     case 'lof':
         $ar = LofGetSymbolArray();
         break;
         
     case 'lofhk':
         $ar = LofHkGetSymbolArray();
+        break;
+        
+    case 'pairtrading':
+        $ar = PairTradingGetSymbolArray();
         break;
         
     case 'qqqfund':
@@ -288,18 +302,12 @@ function EchoSpySoftwareLinks($bChinese)
 
 function EchoHangSengSoftwareLinks($bChinese)
 {
-    $ar = array('sz150169');
-    $ar = array_merge($ar, LofHkGetHangSengSymbolArray());
-    $strLink = _getCategoryLink('hangseng', $bChinese);
-    echo GetCategorySoftwareLinks($ar, $strLink, $bChinese);
+    _echoCategorySoftwareLinks('hangseng', $bChinese);
 }
 
 function EchoHSharesSoftwareLinks($bChinese)
 {
-    $ar = array('sz150175');
-    $ar = array_merge($ar, LofHkGetHSharesSymbolArray());
-    $strLink = _getCategoryLink('hshares', $bChinese);
-    echo GetCategorySoftwareLinks($ar, $strLink, $bChinese);
+    _echoCategorySoftwareLinks('hshares', $bChinese);
 }
 
 function EchoASharesSoftwareLinks($bChinese)
