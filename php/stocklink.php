@@ -22,11 +22,6 @@ function GetCommonToolLink($strSymbol, $bChinese)
     return _getStockToolLink($strSymbol, $strSymbol, $bChinese);
 }
 
-function GetFutureToolLink($strSymbol, $bChinese)
-{
-    return _getStockToolLink('future'.$strSymbol, $strSymbol, $bChinese);
-}
-
 function _getStockHistoryLink($strHistory, $strSymbol, $bChinese)
 {
     return UrlBuildPhpLink(STOCK_PATH.$strHistory, 'symbol='.$strSymbol, '历史记录', 'History', $bChinese);
@@ -179,47 +174,18 @@ function ConvertFutureSymbol($strSymbol)
 
 function FutureGetSymbolArray()
 {
-    return array('futurecl', 'futurees', 'futuregc', 'futureng', 'futureoil', 'futuresi'); 
+    return array('cl', 'es', 'gc', 'ng', 'oil', 'si'); 
 }
 
 function in_arrayFuture($strSymbol)
 {
     $strFutureSymbol = ConvertFutureSymbol($strSymbol);
-    return in_array('future'.strtolower($strFutureSymbol), FutureGetSymbolArray());
-}
-
-function GetFutureSymbol($strTitle)
-{
-    return StockGetSymbolByTitle($strTitle);
-}
-
-function StockGetSymbolByTitle($strTitle)
-{
-	if (substr($strTitle, 0, 6) == 'future')
-    {
-        $str = substr($strTitle, 6);
-    }
-    else
-    {
-        $str = $strTitle;
-    }
-    return StockGetSymbol($str);
+    return in_array(strtolower($strFutureSymbol), FutureGetSymbolArray());
 }
 
 function StockGetSymbolByUrl()
 {
-    $strTitle = UrlGetTitle();
-    return StockGetSymbolByTitle($strTitle);
-}
-
-function StockGetTitleArraySymbol($ar)
-{
-    $arSymbol = array();
-    foreach ($ar as $str)
-    {
-        $arSymbol[] = StockGetSymbolByTitle($str); 
-    }
-    return $arSymbol;
+    return StockGetSymbol(UrlGetTitle());
 }
 
 function GetFutureSymbol1x($strSymbolFuture)
@@ -239,7 +205,7 @@ function in_arrayFutureETF($strSymbol)
     $ar = FutureGetSymbolArray();
     foreach($ar as $strTitle)
     {
-        $strSymbolFuture = StockGetSymbolByTitle($strTitle);
+        $strSymbolFuture = StockGetSymbol($strTitle);
         if ($strSymbol == GetFutureSymbol1x($strSymbolFuture))   return $strSymbolFuture;
     }
     return false;
@@ -254,11 +220,11 @@ function SelectSymbolInternalLink($strSymbol, $bChinese)
     else if (in_arrayFuture($strSymbol))
     {
         $strFutureSymbol = ConvertFutureSymbol($strSymbol);
-        return GetFutureToolLink($strFutureSymbol, $bChinese);
+        return GetCommonToolLink($strFutureSymbol, $bChinese);
     }
     else if (($strFutureSymbol = in_arrayFutureETF($strSymbol)) !== false)
     {
-        return _getStockToolLink('future'.$strFutureSymbol, $strSymbol, $bChinese);
+        return _getStockToolLink($strFutureSymbol, $strSymbol, $bChinese);
     }
     return $strSymbol;
 }

@@ -1,4 +1,4 @@
-<?php require_once('php/_groups.php'); ?>
+<?php require_once('php/_mystockgroup.php'); ?>
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -13,11 +13,13 @@
 <div>
 <h1>美股期货类ETF价格计算工具</h1>
 <p>根据期货价格计算美股市场上对应做多, 2倍做多, 3倍做多, 做空, 2倍做空, 3倍做空等ETF在关键点位上的价格, 分析摩擦损耗和期货的升水贴水, 提供交易建议.
-<?php EchoFutureToolTable(true); ?>
 </p>
-<?php EchoPromotionHead('future', true); ?>
+<?php MyStockGroupEchoAll(true); ?>
 <p>相关软件:
-<?php EchoStockGroupLinks(true); ?>
+<?php 
+    EchoStockCategoryLinks(true);
+    EchoStockGroupLinks(true);
+?>
 </p>
 </div>
 

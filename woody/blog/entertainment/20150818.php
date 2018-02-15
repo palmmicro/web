@@ -129,9 +129,9 @@ used in <font color=olive>_LofGroup</font> class in file <?php EchoPhpFileLink('
 
 <h3><a name="future">Future</a> ETF</h3>
 <p>Nov 24, 2015
-<br />Continue to use web tools to replace calculator works, add price calculation tool for <a href="../../res/future.php">Future ETF</a> like USO/UWTI/DWTI based on <a href="../../res/futurecl.php">NYMEX CL</a>.
-Including similar from <a href="../../res/futureng.php">NYMEX NG</a> to UNG/UGAZ/DGAZ price, from <a href="../../res/futuregc.php">COMEX GC</a> to GLD/DGP/DZZ price,
-from <a href="../../res/futuresi.php">COMEX SI</a> to SLV/AGQ/ZSL price.
+<br />Continue to use web tools to replace calculator works, add price calculation tool for <a href="../../res/future.php">Future ETF</a> like USO/UWTI/DWTI based on <a href="../../res/cl.php">NYMEX CL</a>.
+Including similar from <a href="../../res/ng.php">NYMEX NG</a> to UNG/UGAZ/DGAZ price, from <a href="../../res/gc.php">COMEX GC</a> to GLD/DGP/DZZ price,
+from <a href="../../res/si.php">COMEX SI</a> to SLV/AGQ/ZSL price.
 <br />Same way as <?php EchoPhpFileLink('/woody/res/php/_adr.php'); ?> and <?php EchoPhpFileLink('/woody/res/php/_lof.php'); ?>,
 add <font color=olive>_FutureGroup</font> class and <?php EchoPhpFileLink('/woody/res/php/_future.php'); ?> file.
 </p>

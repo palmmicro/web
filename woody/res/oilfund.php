@@ -1,4 +1,4 @@
-<?php require_once('php/_groups.php'); ?>
+<?php require_once('php/_mystockgroup.php'); ?>
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -12,10 +12,9 @@
 
 <div>
 <h1>Oil Fund Net Value Tools</h1>
-<p>Investors should avoid to hold oil future related fund for a long period. Oil company ETF in the bottom is a better way for long term investment.
-<?php EchoOilFundToolTable(false); ?>
+<p>Investors should avoid to hold oil future related fund for a long period. Oil company ETF is a better way for long term investment.
 </p>
-<?php EchoPromotionHead('', false); ?>
+<?php MyStockGroupEchoAll(false); ?>
 <p>Related software:
 <?php 
     EchoStockCategoryLinks(false);

@@ -207,7 +207,7 @@ function UrlGetTitle()
    	    return substr($str, 0, $iPos);
    	}
    	
-   	// http://www.palmmicro.com/woody/res/futurecl ==> futurecl
+   	// http://www.palmmicro.com/woody/res/cl ==> cl
 //   	DebugString($str);
     if (_cnEndString($str))
    	{

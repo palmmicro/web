@@ -1,4 +1,4 @@
-<?php require_once('php/_groups.php'); ?>
+<?php require_once('php/_mystockgroup.php'); ?>
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -13,9 +13,8 @@
 <div>
 <h1>Chinese Gold ETF Net Value Tools</h1>
 <p>Each of these tools estimates the net value of one Chinese Gold ETF and makes arbitrage analysis.
-<?php EchoGoldEtfToolTable(false); ?>
 </p>
-<?php EchoPromotionHead('goldetf', false); ?>
+<?php MyStockGroupEchoAll(false); ?>
 <p>Related software:
 <?php 
     EchoStockCategoryLinks(false);

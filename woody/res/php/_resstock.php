@@ -44,7 +44,7 @@ function ResMenu($arLoop, $bChinese)
 	NavBegin();
 	WoodyMenuItem($iLevel, 'res', $bChinese);
 	NavContinueNewLine();
-	if (strlen($arLoop[0]) > 6 && substr($arLoop[0], 0, 6) == 'future')
+	if ($arLoop[0] == 'cl')
 	{
 	    _menuItemClass($iLevel, 'future', $bChinese);
 	}

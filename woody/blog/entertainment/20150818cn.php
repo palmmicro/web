@@ -118,9 +118,9 @@
 
 <h3><a name="future">期货</a>ETF</h3>
 <p>2015年11月24日
-<br />继续用网页工具代替手工按计算器的工作, 增加根据<a href="../../res/futureclcn.php">美油期货CL</a>价格计算对应USO/UWTI/DWTI等<a href="../../res/futurecn.php">期货ETF</a>价格的软件.
-包括类似的根据<a href="../../res/futurengcn.php">天然气期货NG</a>计算UNG/UGAZ/DGAZ价格, 根据<a href="../../res/futuregccn.php">黄金期货GC</a>计算GLD/DGP/DZZ价格,
-根据<a href="../../res/futuresicn.php">白银期货SI</a>计算SLV/AGQ/ZSL价格.
+<br />继续用网页工具代替手工按计算器的工作, 增加根据<a href="../../res/clcn.php">美油期货CL</a>价格计算对应USO/UWTI/DWTI等<a href="../../res/futurecn.php">期货ETF</a>价格的软件.
+包括类似的根据<a href="../../res/ngcn.php">天然气期货NG</a>计算UNG/UGAZ/DGAZ价格, 根据<a href="../../res/gccn.php">黄金期货GC</a>计算GLD/DGP/DZZ价格,
+根据<a href="../../res/sicn.php">白银期货SI</a>计算SLV/AGQ/ZSL价格.
 <br />跟<?php EchoPhpFileLink('/woody/res/php/_adr.php'); ?>和<?php EchoPhpFileLink('/woody/res/php/_lof.php'); ?>同样的模式,
 加入<font color=olive>_FutureGroup</font>类和<?php EchoPhpFileLink('/woody/res/php/_future.php'); ?>文件.
 </p>

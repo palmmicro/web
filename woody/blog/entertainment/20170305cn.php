@@ -31,7 +31,7 @@
         <td class=c1 align="center">XOP</td>
       </tr>
       <tr>
-        <td class=c1 align="center">T+1日<a href="../../res/futureclcn.php">CL</a>期货</td>
+        <td class=c1 align="center">T+1日<a href="../../res/clcn.php">CL</a>期货</td>
         <td class=c1 align="center">否</td>
         <td class=c1 align="center">否</td>
         <td class=c1 align="center">是</td>

@@ -1,4 +1,4 @@
-<?php require_once('php/_groups.php'); ?>
+<?php require_once('php/_mystockgroup.php'); ?>
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -12,10 +12,9 @@
 
 <div>
 <h1>原油基金净值计算工具</h1>
-<p>跟踪原油期货的基金都有因为期货升水带来的损耗, 不能长期持有. 用后面的油气公司行业ETF做长期投资是更好的选择.
-<?php EchoOilFundToolTable(true); ?>
+<p>跟踪原油期货的基金都有因为期货升水带来的损耗, 不能长期持有. 用油气公司行业ETF做长期投资是更好的选择.
 </p>
-<?php EchoPromotionHead('', true); ?>
+<?php MyStockGroupEchoAll(true); ?>
 <p>相关软件:
 <?php 
     EchoStockCategoryLinks(true);

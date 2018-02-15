@@ -199,7 +199,7 @@ function GetCategorySoftwareLinks($arTitle, $strCategory, $bChinese)
     {
         if (UrlGetTitle() != $strTitle)
         {
-            $strDisplay = StockGetSymbolByTitle($strTitle);
+            $strDisplay = StockGetSymbol($strTitle);
             $str .= UrlGetPhpLink(STOCK_PATH.$strTitle, false, $strDisplay, $bChinese).' ';
         }
     }
@@ -232,6 +232,16 @@ function GetCategoryArray($strTitle)
         $ar = LofGetCommoditySymbolArray();
         break;
         
+    case 'future':
+        $ar = FutureGetSymbolArray();
+        break;
+        
+    case 'goldetf':
+    	$ar = array('gc', 'si');
+    	$ar = array_merge($ar, GoldEtfGetSymbolArray());
+    	$ar = array_merge($ar, LofGetGoldSymbolArray());
+        break;
+        
     case 'gradedfund':
         $ar = GradedFundGetSymbolArray();
         break;
@@ -254,6 +264,17 @@ function GetCategoryArray($strTitle)
         $ar = LofHkGetSymbolArray();
         break;
         
+    case 'spyfund':
+    	$ar = array('es', 'spy', 'uvxy'); 
+    	$ar = array_merge($ar, LofGetSpySymbolArray());
+        break;
+        
+    case 'oilfund':
+    	$ar = array('ptr', 'shi', 'snp', 'cl', 'ng', 'oil', 'xop');
+    	$ar = array_merge($ar, LofGetOilEtfSymbolArray());
+    	$ar = array_merge($ar, LofGetOilSymbolArray());
+        break;
+        
     case 'pairtrading':
         $ar = PairTradingGetSymbolArray();
         break;
@@ -274,20 +295,12 @@ function _echoCategorySoftwareLinks($strCategory, $bChinese)
 
 function EchoOilSoftwareLinks($bChinese)
 {
-    $ar = array('ptr', 'shi', 'snp', 'futurecl', 'futureng', 'futureoil', 'xop');
-    $ar = array_merge($ar, LofGetOilEtfSymbolArray());
-    $ar = array_merge($ar, LofGetOilSymbolArray());
-    $strLink = _getCategoryLink('oilfund', $bChinese);
-    echo GetCategorySoftwareLinks($ar, $strLink, $bChinese);
+    _echoCategorySoftwareLinks('oilfund', $bChinese);
 }
 
 function EchoGoldSoftwareLinks($bChinese)
 {
-    $ar = array('futuregc', 'futuresi');
-    $ar = array_merge($ar, GoldEtfGetSymbolArray());
-    $ar = array_merge($ar, LofGetGoldSymbolArray());
-    $strLink = UrlBuildPhpLink(STOCK_PATH.'goldetf', false, '金银', 'Gold and Silver', $bChinese);
-    echo GetCategorySoftwareLinks($ar, $strLink, $bChinese);
+    _echoCategorySoftwareLinks('goldetf', $bChinese);
 }
 
 function EchoCommoditySoftwareLinks($bChinese)
@@ -302,10 +315,7 @@ function EchoQqqSoftwareLinks($bChinese)
 
 function EchoSpySoftwareLinks($bChinese)
 {
-    $ar = array('futurees', 'spy', 'uvxy'); 
-    $ar = array_merge($ar, LofGetSpySymbolArray());
-    $strLink = _getCategoryLink('spyfund', $bChinese);
-    echo GetCategorySoftwareLinks($ar, $strLink, $bChinese);
+    _echoCategorySoftwareLinks('spyfund', $bChinese);
 }
 
 function EchoHangSengSoftwareLinks($bChinese)

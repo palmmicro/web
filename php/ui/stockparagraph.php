@@ -125,7 +125,7 @@ function _getFundRealtimeStr($fund, $bChinese)
     }
     $strHistoryLink = GetCalibrationHistoryLink($strSymbol, $bChinese);
     
-    $strFutureLink = GetFutureToolLink($future_ref->GetStockSymbol(), $bChinese);
+    $strFutureLink = GetCommonToolLink($future_ref->GetStockSymbol(), $bChinese);
     $strFuture = GetFutureLink($bChinese);
     if ($bChinese)
     {
