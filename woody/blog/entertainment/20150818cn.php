@@ -109,9 +109,9 @@
   <li>在函数<i>LofGetSymbolArray</i>加入新的LOF代码, 用于同类工具中的循环导航链接.
   <li>在函数<i>LofGetEtfSymbol</i>和<i>LofGetIndexSymbol</i>中加上LOF对应的ETF代码和指数代码.
 </ol>
-<br /><a name="adr">为</a>港股在美股的<a href="../../res/adrcn.php">ADR</a>加入<a href="../../res/adrachcn.php">中国铝业</a>, <a href="../../res/adrchucn.php">中国联通</a>, <a href="../../res/adrgshcn.php">广深铁路</a>,
-<a href="../../res/adrlfccn.php">中国人寿</a>, <a href="../../res/adrptrcn.php">中国石油</a>, <a href="../../res/adrsnpcn.php">中国石化</a>, <a href="../../res/adrshicn.php">上海石化</a>,
-<a href="../../res/adrceacn.php">东方航空</a>和<a href="../../res/adrznhcn.php">南方航空</a>等价格比较工具.
+<br /><a name="adr">为</a>港股在美股的<a href="../../res/adrcn.php">ADR</a>加入<a href="../../res/achcn.php">中国铝业</a>, <a href="../../res/chucn.php">中国联通</a>, <a href="../../res/gshcn.php">广深铁路</a>,
+<a href="../../res/lfccn.php">中国人寿</a>, <a href="../../res/ptrcn.php">中国石油</a>, <a href="../../res/snpcn.php">中国石化</a>, <a href="../../res/shicn.php">上海石化</a>,
+<a href="../../res/ceacn.php">东方航空</a>和<a href="../../res/znhcn.php">南方航空</a>等价格比较工具.
 <br />在为ADR加入<?php EchoPhpFileLink('/woody/res/php/_adr.php'); ?>后, 把ADR和LOF用到的共同股票数据部分放到<?php EchoPhpFileLink('/php/stock/stockref.php'); ?>中的<font color=olive>StockReference</font>类中,
 用在<?php EchoPhpFileLink('/woody/res/php/_lof.php'); ?>中<font color=olive>_LofGroup</font>类和<?php EchoPhpFileLink('/woody/res/php/_adr.php'); ?>中<font color=olive>_AdrGroup</font>类中.
 </p>

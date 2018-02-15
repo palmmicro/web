@@ -10,20 +10,7 @@ function _echoAllFundTables($arFundRef, $bChinese)
     EchoFundEstimationTable($arFundRef, $bChinese);
 }
 
-function _echoNewLinkReferenceTable($arSymbol, $fNewLinkCallback, $bChinese)
-{
-    PrefetchStockData($arSymbol);
-    
-    $arRef = array();
-    foreach ($arSymbol as $strSymbol)
-    {
-        $ref = new MyStockReference($strSymbol);
-        $ref->strExternalLink = call_user_func($fNewLinkCallback, $strSymbol, $bChinese);
-        $arRef[] = $ref;
-    }
-    EchoReferenceTable($arRef, $bChinese);
-}
-        
+      
 // ****************************** LOF tool table *******************************************************
 
 function _echoLofToolTable($arFundSymbol, $bChinese)
@@ -82,19 +69,6 @@ function EchoGoldEtfToolTable($bChinese)
         $arFundRef[] = new MyLofReference($strSymbol);
     }
     _echoAllFundTables($arFundRef, $bChinese);
-}
-
-// ****************************** ADR tool table *******************************************************
-
-function EchoAdrToolTable($bChinese)
-{
-    $ar = AdrGetSymbolArray();
-    $arSymbol = array();
-    foreach ($ar as $str)
-    {
-        $arSymbol[] = StockGetSymbolByTitle($str);
-    }
-    _echoNewLinkReferenceTable($arSymbol, GetAdrToolLink, $bChinese);
 }
 
 // ****************************** Future ETF tool table *******************************************************

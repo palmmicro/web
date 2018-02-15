@@ -1,4 +1,4 @@
-<?php require_once('php/_groups.php'); ?>
+<?php require_once('php/_mystockgroup.php'); ?>
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -13,12 +13,12 @@
 <div>
 <h1>Price Compare Tools for ADR</h1>
 <p>Each of these tools compares the China/Hongkong/US market price of one American Depositary Receipt (ADR) and makes arbitrage analysis.
-<?php EchoAdrToolTable(false); ?>
 </p>
-<?php EchoPromotionHead('adr', false); ?>
+<?php MyStockGroupEchoAll(false); ?>
 <p>Related software:
 <?php 
     EchoAHCompareLink(false);
+    EchoStockCategoryLinks(false);
     EchoStockGroupLinks(false);
 ?>
 </p>

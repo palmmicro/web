@@ -27,11 +27,6 @@ function GetFutureToolLink($strSymbol, $bChinese)
     return _getStockToolLink('future'.$strSymbol, $strSymbol, $bChinese);
 }
 
-function GetAdrToolLink($strSymbol, $bChinese)
-{
-    return _getStockToolLink('adr'.$strSymbol, $strSymbol, $bChinese);
-}
-
 function _getStockHistoryLink($strHistory, $strSymbol, $bChinese)
 {
     return UrlBuildPhpLink(STOCK_PATH.$strHistory, 'symbol='.$strSymbol, '历史记录', 'History', $bChinese);
@@ -164,12 +159,12 @@ function in_arrayPairTrading($strSymbol)
 
 function AdrGetSymbolArray()
 {
-    return array('adrach', 'adrcea', 'adrchu', 'adrgsh', 'adrlfc', 'adrptr', 'adrshi', 'adrsnp', 'adrznh');
+    return array('ach', 'cea', 'chu', 'gsh', 'lfc', 'ptr', 'shi', 'snp', 'znh');
 }
 
 function in_arrayAdr($strSymbol)
 {
-    return in_array('adr'.strtolower($strSymbol), AdrGetSymbolArray());
+    return in_array(strtolower($strSymbol), AdrGetSymbolArray());
 }
 
 function ConvertFutureSymbol($strSymbol)
@@ -200,11 +195,7 @@ function GetFutureSymbol($strTitle)
 
 function StockGetSymbolByTitle($strTitle)
 {
-    if (substr($strTitle, 0, 3) == 'adr')
-    {
-        $str = substr($strTitle, 3);
-    }
-    else if (substr($strTitle, 0, 6) == 'future')
+	if (substr($strTitle, 0, 6) == 'future')
     {
         $str = substr($strTitle, 6);
     }
@@ -215,6 +206,12 @@ function StockGetSymbolByTitle($strTitle)
     return StockGetSymbol($str);
 }
 
+function StockGetSymbolByUrl()
+{
+    $strTitle = UrlGetTitle();
+    return StockGetSymbolByTitle($strTitle);
+}
+
 function StockGetTitleArraySymbol($ar)
 {
     $arSymbol = array();
@@ -223,13 +220,6 @@ function StockGetTitleArraySymbol($ar)
         $arSymbol[] = StockGetSymbolByTitle($str); 
     }
     return $arSymbol;
-}
-
-
-function StockGetSymbolByUrl()
-{
-    $strTitle = UrlGetTitle();
-    return StockGetSymbolByTitle($strTitle);
 }
 
 function GetFutureSymbol1x($strSymbolFuture)
@@ -257,13 +247,9 @@ function in_arrayFutureETF($strSymbol)
 
 function SelectSymbolInternalLink($strSymbol, $bChinese)
 {
-    if (in_arrayLof($strSymbol) || in_arrayLofHk($strSymbol) || in_arrayGradedFund($strSymbol) || in_arrayPairTrading($strSymbol) || in_arrayGoldEtf($strSymbol))
+    if (in_arrayLof($strSymbol) || in_arrayLofHk($strSymbol) || in_arrayAdr($strSymbol) || in_arrayGradedFund($strSymbol) || in_arrayPairTrading($strSymbol) || in_arrayGoldEtf($strSymbol))
     {
         return GetCommonToolLink($strSymbol, $bChinese);
-    }
-    else if (in_arrayAdr($strSymbol))
-    {
-        return GetAdrToolLink($strSymbol, $bChinese);
     }
     else if (in_arrayFuture($strSymbol))
     {

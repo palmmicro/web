@@ -44,13 +44,13 @@ function ResMenu($arLoop, $bChinese)
 	NavBegin();
 	WoodyMenuItem($iLevel, 'res', $bChinese);
 	NavContinueNewLine();
-	if (strlen($arLoop[0]) > 3 && substr($arLoop[0], 0, 3) == 'adr')
-	{
-	    _menuItemClass($iLevel, 'adr', $bChinese);
-	}
-	else if (strlen($arLoop[0]) > 6 && substr($arLoop[0], 0, 6) == 'future')
+	if (strlen($arLoop[0]) > 6 && substr($arLoop[0], 0, 6) == 'future')
 	{
 	    _menuItemClass($iLevel, 'future', $bChinese);
+	}
+	else if ($arLoop[0] == 'ach')
+	{
+	    _menuItemClass($iLevel, 'adr', $bChinese);
 	}
 	else if ($arLoop[0] == 'sh501018')
 	{

@@ -118,10 +118,10 @@ And we make SZ162411 and XOP arbitrage analysis based on those record.
   <li>Add the new LOF code in function <i>LofGetSymbolArray</i>, for tools navigation link.
   <li>Add LOF related ETF symbol and index symbol in function <i>LofGetEtfSymbol</i> and <i>LofGetIndexSymbol</i>.
 </ol>
-<br /><a name="adr">Add</a> Hongkong <a href="../../res/adr.php">ADR</a> price comparing tool for <a href="../../res/adrach.php">Aluminum Corporation of China</a>, <a href="../../res/adrchu.php">China Unicom</a>,
-<a href="../../res/adrgsh.php">Guangshen Railway</a>, <a href="../../res/adrlfc.php">China Life Insurance</a>, <a href="../../res/adrptr.php">PETROCHINA</a>,
-<a href="../../res/adrsnp.php">SINOPEC</a>, <a href="../../res/adrshi.php">Sinopec Shanghai Petrochemical</a>, <a href="../../res/adrcea.php">CEA</a> and 
-<a href="../../res/adrznh.php">CSN</a>.
+<br /><a name="adr">Add</a> Hongkong <a href="../../res/adr.php">ADR</a> price comparing tool for <a href="../../res/ach.php">Aluminum Corporation of China</a>, <a href="../../res/chu.php">China Unicom</a>,
+<a href="../../res/gsh.php">Guangshen Railway</a>, <a href="../../res/lfc.php">China Life Insurance</a>, <a href="../../res/ptr.php">PETROCHINA</a>,
+<a href="../../res/snp.php">SINOPEC</a>, <a href="../../res/shi.php">Sinopec Shanghai Petrochemical</a>, <a href="../../res/cea.php">CEA</a> and 
+<a href="../../res/znh.php">CSN</a>.
 <br />After <?php EchoPhpFileLink('/woody/res/php/_adr.php'); ?> file is added for ADR,
 the common stock data part of ADR and LOF is moved to <font color=olive>StockReference</font> class in file <?php EchoPhpFileLink('/php/stock/stockref.php'); ?>, 
 used in <font color=olive>_LofGroup</font> class in file <?php EchoPhpFileLink('/woody/res/php/_lof.php'); ?> and <font color=olive>_AdrGroup</font> class in file <?php EchoPhpFileLink('/woody/res/php/_adr.php'); ?>.

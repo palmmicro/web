@@ -216,6 +216,10 @@ function GetCategoryArray($strTitle)
     $ar = array();
     switch ($strTitle)
     {
+    case 'adr':
+        $ar = AdrGetSymbolArray();
+        break;
+        
     case 'bricfund':
         $ar = LofGetBricSymbolArray();
         break;
@@ -270,7 +274,7 @@ function _echoCategorySoftwareLinks($strCategory, $bChinese)
 
 function EchoOilSoftwareLinks($bChinese)
 {
-    $ar = array('adrptr', 'adrshi', 'adrsnp', 'futurecl', 'futureng', 'futureoil', 'xop');
+    $ar = array('ptr', 'shi', 'snp', 'futurecl', 'futureng', 'futureoil', 'xop');
     $ar = array_merge($ar, LofGetOilEtfSymbolArray());
     $ar = array_merge($ar, LofGetOilSymbolArray());
     $strLink = _getCategoryLink('oilfund', $bChinese);
