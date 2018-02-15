@@ -228,6 +228,10 @@ function GetCategoryArray($strTitle)
         $ar = LofGetCommoditySymbolArray();
         break;
         
+    case 'gradedfund':
+        $ar = GradedFundGetSymbolArray();
+        break;
+        
     case 'hangseng':
     	$ar[] = 'sz150169';
     	$ar = array_merge($ar, LofHkGetHangSengSymbolArray());

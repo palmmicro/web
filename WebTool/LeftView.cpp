@@ -22,6 +22,8 @@ BEGIN_MESSAGE_MAP(CLeftView, CTreeView)
 	ON_WM_RBUTTONDOWN()
 	ON_WM_CONTEXTMENU()
 	ON_NOTIFY_REFLECT(TVN_SELCHANGED, &CLeftView::OnTvnSelchanged)
+	ON_NOTIFY_REFLECT(TVN_ENDLABELEDIT, &CLeftView::OnTvnEndlabeledit)
+	ON_NOTIFY_REFLECT(TVN_BEGINLABELEDIT, &CLeftView::OnTvnBeginlabeledit)
 END_MESSAGE_MAP()
 
 
@@ -49,6 +51,10 @@ void CLeftView::OnInitialUpdate()
 
 	// TODO: You may populate your TreeView with items by directly accessing
 	//  its tree control through a call to GetTreeCtrl().
+	CTreeCtrl & ctrl = GetTreeCtrl();
+	HWND hWnd = ctrl.GetSafeHwnd();
+	DWORD dwFlags = GetWindowLong(hWnd, GWL_STYLE);
+	SetWindowLong(hWnd, GWL_STYLE, dwFlags | TVS_EDITLABELS);
 }
 
 
@@ -146,4 +152,31 @@ void CLeftView::OnTvnSelchanged(NMHDR *pNMHDR, LRESULT *pResult)
 	GetDocument()->OnItemSelected();
 	// TODO: Add your control notification handler code here
 	*pResult = 0;
+}
+
+
+void CLeftView::OnTvnEndlabeledit(NMHDR *pNMHDR, LRESULT *pResult)
+{
+	LPNMTVDISPINFO pTVDispInfo = reinterpret_cast<LPNMTVDISPINFO>(pNMHDR);
+	// TODO: Add your control notification handler code here
+	*pResult = 0;
+//	OutputDebugString(_T("End label edit"));
+
+	CTreeCtrl & ctrl = GetTreeCtrl();
+	HTREEITEM hItem = ctrl.GetSelectedItem();
+	if (ctrl.GetItemText(hItem) != pTVDispInfo->item.pszText)
+	{
+		ctrl.SetItemText(hItem, pTVDispInfo->item.pszText);
+		GetDocument()->OnItemSelected();
+		GetDocument()->SetModifiedFlag(TRUE);
+	}
+}
+
+
+void CLeftView::OnTvnBeginlabeledit(NMHDR *pNMHDR, LRESULT *pResult)
+{
+	LPNMTVDISPINFO pTVDispInfo = reinterpret_cast<LPNMTVDISPINFO>(pNMHDR);
+	// TODO: Add your control notification handler code here
+	*pResult = 0;
+//	*pResult = -1;
 }

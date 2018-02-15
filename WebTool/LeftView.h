@@ -46,6 +46,8 @@ public:
 
 public:
 	afx_msg void OnTvnSelchanged(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void OnTvnEndlabeledit(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void OnTvnBeginlabeledit(NMHDR *pNMHDR, LRESULT *pResult);
 };
 
 #ifndef _DEBUG  // debug version in LeftView.cpp

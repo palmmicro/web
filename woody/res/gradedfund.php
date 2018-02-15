@@ -1,4 +1,4 @@
-<?php require_once('php/_groups.php'); ?>
+<?php require_once('php/_mystockgroup.php'); ?>
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -13,11 +13,13 @@
 <div>
 <h1>Chinese Graded Fund Analysis Tools</h1>
 <p>Each of these tools estimates the net value of one Chinese graded fund and makes arbitrage analysis.
-<?php EchoGradedFundToolTable(false); ?>
 </p>
-<?php EchoPromotionHead('gradedfund', false); ?>
+<?php MyStockGroupEchoAll(false); ?>
 <p>Related software:
-<?php EchoStockGroupLinks(false); ?>
+<?php 
+    EchoStockCategoryLinks(false);
+    EchoStockGroupLinks(false);
+?>
 </p>
 </div>
 

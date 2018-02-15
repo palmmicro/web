@@ -24,18 +24,6 @@ function _echoNewLinkReferenceTable($arSymbol, $fNewLinkCallback, $bChinese)
     EchoReferenceTable($arRef, $bChinese);
 }
         
-function _echoCommonToolTable($ar, $bChinese)
-{
-    _echoNewLinkReferenceTable(StockGetArraySymbol($ar), GetCommonToolLink, $bChinese);
-}
-
-// ****************************** Graded Fund tool table *******************************************************
-
-function EchoGradedFundToolTable($bChinese)
-{
-    _echoCommonToolTable(GradedFundGetSymbolArray(), $bChinese);
-}
-
 // ****************************** LOF tool table *******************************************************
 
 function _echoLofToolTable($arFundSymbol, $bChinese)

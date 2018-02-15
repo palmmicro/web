@@ -215,6 +215,17 @@ function StockGetSymbolByTitle($strTitle)
     return StockGetSymbol($str);
 }
 
+function StockGetTitleArraySymbol($ar)
+{
+    $arSymbol = array();
+    foreach ($ar as $str)
+    {
+        $arSymbol[] = StockGetSymbolByTitle($str); 
+    }
+    return $arSymbol;
+}
+
+
 function StockGetSymbolByUrl()
 {
     $strTitle = UrlGetTitle();

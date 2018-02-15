@@ -173,7 +173,7 @@ function MyStockGroupEchoAll($bChinese)
     $strGroupId = false;
     if ($strTitle = _isPreDefinedGroup())
     {
-        _echoStockGroupArray(StockGetArraySymbol(GetCategoryArray($strTitle)), $bChinese);
+        _echoStockGroupArray(StockGetTitleArraySymbol(GetCategoryArray($strTitle)), $bChinese);
     }
     else
     {
