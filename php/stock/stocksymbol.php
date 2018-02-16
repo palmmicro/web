@@ -1,6 +1,8 @@
 <?php
 
 define ('SINA_FUND_PREFIX', 'f_');
+define ('SINA_HK_PREFIX', 'rt_hk');
+define ('SINA_US_PREFIX', 'gb_');
 
 define ('SHANGHAI_PREFIX', 'SH');
 define ('SHENZHEN_PREFIX', 'SZ');
@@ -55,6 +57,10 @@ class StockSymbol
 
     // Hongkong
     var $iDigitH = -1;
+    var $strSinaIndexH = false;
+    
+    // US
+    var $strSinaIndexUS = false;
     
     function _getFirstChar()
     {
@@ -184,28 +190,48 @@ class StockSymbol
         return false;
     }
     
+    function GetSinaIndexH()
+    {
+    	if ($this->strSinaIndexH == false)
+    	{
+    		$strSymbol = $this->strSymbol;
+    		if ($strSymbol == '^HSI')			$this->strSinaIndexH = 'HSI';
+    		else if ($strSymbol == '^HSCE')   $this->strSinaIndexH = 'HSCEI';
+    	}
+    	return $this->strSinaIndexH;
+    }
+    
+    function GetSinaIndexUS()
+    {
+    	if ($this->strSinaIndexUS == false)
+    	{
+    		$strSymbol = $this->strSymbol;
+    		if ($strSymbol == '^DJI')     		  $this->strSinaIndexUS = 'dji';  
+            else if ($strSymbol == '^GSPC')    $this->strSinaIndexUS = 'inx';  
+            else if ($strSymbol == '^NDX')     $this->strSinaIndexUS = 'ndx';  
+    	}
+    	return $this->strSinaIndexUS;
+    }
+    
     function GetSinaSymbol()
     {
         $strSymbol = str_replace('.', '', $this->strSymbol);
         $strLower = strtolower($strSymbol);
         if ($this->IsIndex())
         {
-            if ($strSymbol == '^HSI')           return 'rt_hkHSI';
-            else if ($strSymbol == '^HSCE')    return 'rt_hkHSCEI';  
-            else if ($strSymbol == '^DJI')     return 'gb_dji';  
-            else if ($strSymbol == '^GSPC')    return 'gb_inx';  
-            else if ($strSymbol == '^NDX')     return 'gb_ndx';  
-            else                                  return false;
+			if ($this->GetSinaIndexH())		    return SINA_HK_PREFIX.$this->strSinaIndexH;
+			else if ($this->GetSinaIndexUS())		return SINA_US_PREFIX.$this->strSinaIndexUS;
+            else                                   return false;
         }
         else if ($this->IsSymbolH())
         {   // Hongkong market
-            return 'rt_hk'.$strSymbol;    
+            return SINA_HK_PREFIX.$strSymbol;    
         }
         else if ($this->IsSymbolA())
         {
             return $strLower;
         }
-        return 'gb_'.$strLower;
+        return SINA_US_PREFIX.$strLower;
     }
 
 /*

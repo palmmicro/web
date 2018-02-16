@@ -466,8 +466,8 @@ class StockReference
     
     function _onSinaDataHK($ar)
     {
-        $strSymbol = $this->GetStockSymbol();
-        $this->strExternalLink = GetSinaHkStockLink($strSymbol);
+//        $strSymbol = $this->GetStockSymbol();
+        $this->strExternalLink = GetSinaHkStockLink($this->sym);
         
         $this->strPrevPrice = $ar[3];
         $this->strPrice = $ar[6];
@@ -490,7 +490,7 @@ class StockReference
     function _onSinaDataUS($ar)
     {
         $strSymbol = $this->GetStockSymbol();
-        $this->strExternalLink = GetSinaUsStockLink($strSymbol);
+        $this->strExternalLink = GetSinaUsStockLink($this->sym);
         
         $this->strName = $ar[0];
         $this->strPrice = $ar[1];

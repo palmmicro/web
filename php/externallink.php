@@ -43,17 +43,29 @@ function GetSinaStockLink($strSymbol)
 }
 
 // http://stock.finance.sina.com.cn/usstock/quotes/SNP.html
-function GetSinaUsStockLink($strSymbol)
+function GetSinaUsStockLink($sym)
 {
-    $strHttp = "http://stock.finance.sina.com.cn/usstock/quotes/$strSymbol.html";
+    $strSymbol = $sym->strSymbol;
+    if ($sym->IsIndex())
+    {
+		$str = '.'.strtoupper($sym->GetSinaIndexUS());
+	}
+    else 
+    {
+        $str = $strSymbol;
+    }
+    $strHttp = "http://stock.finance.sina.com.cn/usstock/quotes/$str.html";
     return DebugGetExternalLink($strHttp, $strSymbol);
 }
 
 // http://stock.finance.sina.com.cn/hkstock/quotes/00386.html
-function GetSinaHkStockLink($strSymbol)
+function GetSinaHkStockLink($sym)
 {
-    if ($strSymbol == '^HSI')            $str = 'HSI';
-    else if ($strSymbol == '^HSCE')     $str = 'HSCEI';  
+    $strSymbol = $sym->strSymbol;
+    if ($sym->IsIndex())
+    {
+		$str = $sym->GetSinaIndexH();
+	}
     else 
     {
         $str = $strSymbol;
