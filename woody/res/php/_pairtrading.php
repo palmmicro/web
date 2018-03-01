@@ -113,7 +113,9 @@ function _echoAdminTestParagraph($group, $bChinese)
     $str .= HTML_NEW_LINE._GetStockHistoryDebugString(array($group->stock_his, $group->index_his), $bChinese);
     if ($group->index_ref)
     {
-        $str .= HTML_NEW_LINE._GetEtfAdjustString($group->index_ref, $group->ref, $bChinese);
+        $str .= HTML_NEW_LINE;
+//        $str .= _GetEtfAdjustString($group->index_ref, $group->ref, $bChinese);
+        $str .= _GetEtfAdjustString($group->index_ref, $group->netvalue_ref, $bChinese);
         $str .= ' '.GetCalibrationHistoryLink($group->index_ref->GetStockSymbol(), $bChinese);
     }
     EchoParagraph($str);
