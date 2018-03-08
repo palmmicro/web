@@ -5,7 +5,7 @@ require_once('sqlstocktransaction.php');
 /*
 function SqlCreateStockGroupTable()
 {
-    $str = 'CREATE TABLE IF NOT EXISTS `camman`.`stockgroup2` ('
+    $str = 'CREATE TABLE IF NOT EXISTS `camman`.`stockgroup` ('
          . ' `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,'
          . ' `member_id` INT UNSIGNED NOT NULL ,'
          . ' `groupname` VARCHAR( 64 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,'
