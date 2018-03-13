@@ -20,7 +20,7 @@ function SqlInsertSpiderParameter($strParameter)
 
 function SqlGetSpiderParameter($strId)
 {
-    if ($record = SqlGetTableDataById('spiderparameter', $strId))
+    if ($record = SqlGetTableDataById(TABLE_SPIDER_PARAMTER, $strId))
     {
 		return $record['parameter'];
 	}
@@ -29,8 +29,7 @@ function SqlGetSpiderParameter($strId)
 
 function SqlGetSpiderParameterId($strParameter)
 {
-	$strQry = "SELECT * FROM spiderparameter WHERE parameter = '$strParameter' LIMIT 1";
-    if ($record = SqlQuerySingleRecord($strQry, 'Query spiderparameter id failed'))
+	if ($record = SqlGetUniqueTableData(TABLE_SPIDER_PARAMTER, _SqlBuildWhere('parameter', $strParameter)))
     {
 		return $record['id'];
 	}

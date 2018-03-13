@@ -25,7 +25,7 @@ function SqlUpdateStockGroup($strStockGroupId, $strGroupName)
 
 function SqlGetStockGroupName($strStockGroupId)
 {
-    if ($stockgroup = SqlGetTableDataById('stockgroup', $strStockGroupId))
+    if ($stockgroup = SqlGetTableDataById(TABLE_STOCK_GROUP, $strStockGroupId))
 	{
 		return $stockgroup['groupname'];
 	}
@@ -34,8 +34,7 @@ function SqlGetStockGroupName($strStockGroupId)
 
 function SqlGetStockGroupId($strGroupName, $strMemberId)
 {
-	$strQry = "SELECT * FROM stockgroup WHERE groupname = '$strGroupName' AND member_id = '$strMemberId' LIMIT 1";
-	if ($stockgroup = SqlQuerySingleRecord($strQry, 'Query stockgroup failed'))
+	if ($stockgroup = SqlGetUniqueTableData(TABLE_STOCK_GROUP, _SqlBuildWhereAndArray(array('groupname' => $strGroupName, 'member_id' => $strMemberId))))
 	{
 	    return $stockgroup['id'];
 	}
@@ -50,7 +49,7 @@ function SqlInsertStockGroup($strMemberId, $strGroupName)
 
 function SqlGetStockGroupById($strGroupId)
 {
-    return SqlGetTableDataById('stockgroup', $strGroupId);
+    return SqlGetTableDataById(TABLE_STOCK_GROUP, $strGroupId);
 }
 
 function SqlGetStockGroupMemberId($strGroupId)
@@ -64,7 +63,7 @@ function SqlGetStockGroupMemberId($strGroupId)
 
 function SqlGetStockGroupByMemberId($strMemberId)
 {
-    return SqlGetTableData('stockgroup', _SqlBuildWhere('member_id', $strMemberId), '`groupname` ASC', false);
+    return SqlGetTableData(TABLE_STOCK_GROUP, _SqlBuildWhere('member_id', $strMemberId), '`groupname` ASC', false);
 }
 
 // ****************************** Stock Group Item table *******************************************************
@@ -113,8 +112,7 @@ function SqlUpdateStockGroupItem($strStockGroupItemId, $strQuantity, $strCost, $
 
 function SqlGetStockGroupItemId($strGroupId, $strStockId)
 {
-	$strQry = "SELECT * FROM stockgroupitem WHERE group_id = '$strGroupId' AND stock_id = '$strStockId' LIMIT 1";
-	if ($stockgroupitem = SqlQuerySingleRecord($strQry, 'Query stockgroupitem failed'))
+	if ($stockgroupitem = SqlGetUniqueTableData(TABLE_STOCK_GROUP_ITEM, _SqlBuildWhereAndArray(array('group_id' => $strGroupId, 'stock_id' => $strStockId))))
 	{
 	    return $stockgroupitem['id'];
 	}
@@ -123,12 +121,12 @@ function SqlGetStockGroupItemId($strGroupId, $strStockId)
 
 function SqlGetStockGroupItemById($strGroupItemId)
 {
-    return SqlGetTableDataById('stockgroupitem', $strGroupItemId);
+    return SqlGetTableDataById(TABLE_STOCK_GROUP_ITEM, $strGroupItemId);
 }
 
 function SqlGetStockGroupItemByGroupId($strGroupId)
 {
-    return SqlGetTableData('stockgroupitem', _SqlBuildWhere('group_id', $strGroupId), false, false);
+    return SqlGetTableData(TABLE_STOCK_GROUP_ITEM, _SqlBuildWhere('group_id', $strGroupId), false, false);
 }
 
 // ****************************** Stock Group Item functions *******************************************************
@@ -136,7 +134,7 @@ function SqlGetStockGroupItemByGroupId($strGroupId)
 function SqlDeleteStockGroupItem($strId)
 {
     SqlDeleteStockTransactionByGroupItemId($strId);
-    SqlDeleteTableDataById('stockgroupitem', $strId);
+    SqlDeleteTableDataById(TABLE_STOCK_GROUP_ITEM, $strId);
 }
 
 // ****************************** Stock Group functions *******************************************************
@@ -255,17 +253,17 @@ function SqlDeleteStockGroupItemByGroupId($strGroupId)
 function SqlDeleteStockGroup($strGroupId)
 {
     SqlDeleteStockGroupItemByGroupId($strGroupId);
-    SqlDeleteTableDataById('stockgroup', $strGroupId);
+    SqlDeleteTableDataById(TABLE_STOCK_GROUP, $strGroupId);
 }
 
 function SqlDeleteStockGroupByGroupName($strGroupName)
 {
     $strWhere = _SqlBuildWhere('groupname', $strGroupName);
-    $iCount = SqlCountTableData('stockgroup', $strWhere);
+    $iCount = SqlCountTableData(TABLE_STOCK_GROUP, $strWhere);
     DebugString('GroupName: '.$strGroupName.' total: '.strval($iCount));
     if ($iCount == 0)   return true;
     
-    if ($result = SqlGetTableData('stockgroup', $strWhere, false, false))
+    if ($result = SqlGetTableData(TABLE_STOCK_GROUP, $strWhere, false, false))
     {
         while ($stockgroup = mysql_fetch_assoc($result)) 
         {
@@ -273,7 +271,7 @@ function SqlDeleteStockGroupByGroupName($strGroupName)
         }
         @mysql_free_result($result);
     }
-    return SqlDeleteTableData('stockgroup', $strWhere, false);
+    return SqlDeleteTableData(TABLE_STOCK_GROUP, $strWhere, false);
 }
 
 ?>

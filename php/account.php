@@ -40,7 +40,7 @@ function AcctDeleteMember($strMemberId)
 	SqlDeleteStockGroupByMemberId($strMemberId);
 	SqlDeleteBlogCommentByMemberId($strMemberId);
 	SqlDeleteProfileByMemberId($strMemberId);
-    SqlDeleteTableDataById('member', $strMemberId);
+    SqlDeleteTableDataById(TABLE_MEMBER, $strMemberId);
 }
 
 function AcctLogin($strEmail, $strPassword)

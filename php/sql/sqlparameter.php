@@ -1,8 +1,5 @@
 <?php
 
-define('DIVIDEND_PARAMETER_TABLE', 'dividendparameter');
-define('SPIDER_PARAMETER_TABLE', 'spiderparameter');
-
 // ****************************** Parameter table *******************************************************
 
 function SqlCreateParameterTable($strTableName)
@@ -34,8 +31,7 @@ function SqlGetParameter($strTableName, $strId)
 
 function SqlGetParameterId($strTableName, $strParameter)
 {
-	$strQry = "SELECT * FROM $strTableName WHERE parameter = '$strParameter' LIMIT 1";
-    if ($record = SqlQuerySingleRecord($strQry, $strTableName.' query parameter id failed'))
+	if ($record = SqlGetUniqueTableData($strTableName, _SqlBuildWhere('parameter', $strParameter)))
     {
 		return $record['id'];
 	}

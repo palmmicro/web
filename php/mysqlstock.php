@@ -856,7 +856,7 @@ function StockGroupItemTransactionUpdate($strStockGroupItemId)
 /*
 function StockGroupItemUpdateAll()
 {
-    if ($result = SqlGetTableData('stockgroupitem', false, false, false)) 
+    if ($result = SqlGetTableData(TABLE_STOCK_GROUP_ITEM, false, false, false)) 
     {
         while ($item = mysql_fetch_assoc($result)) 
         {

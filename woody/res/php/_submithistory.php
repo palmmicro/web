@@ -29,7 +29,7 @@ function _cleanInvalidStockHistory($strStockId, $strSymbol)
 
     foreach ($ar as $strId)
     {
-        SqlDeleteTableDataById('stockhistory', $strId);
+        SqlDeleteTableDataById(TABLE_STOCK_HISTORY, $strId);
     }
 }
 

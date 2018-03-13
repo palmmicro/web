@@ -17,14 +17,12 @@ function SqlCreateForexHistoryTable()
 
 function SqlGetForexHistory($strStockId, $strDate)
 {
-	$strQry = "SELECT * FROM forexhistory WHERE date = '$strDate' AND stock_id = '$strStockId' LIMIT 1";
-	return SqlQuerySingleRecord($strQry, 'Query forexhistory by date and stock_id failed');
+	return SqlGetUniqueTableData(TABLE_FOREX_HISTORY, _SqlBuildWhereAndArray(array('date' => $strDate, 'stock_id' => $strStockId)));
 }
 
 function SqlGetForexHistoryNow($strStockId)
 {
-	$strQry = "SELECT * FROM forexhistory WHERE stock_id = '$strStockId' ORDER BY `date` DESC LIMIT 1";
-	return SqlQuerySingleRecord($strQry, 'Query forexhistory by stock_id failed');
+	return SqlGetSingleTableData(TABLE_FOREX_HISTORY, _SqlBuildWhere('stock_id', $strStockId), '`date` DESC');
 }
 
 function SqlInsertForexHistory($strStockId, $strDate, $strClose)

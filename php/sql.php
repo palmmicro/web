@@ -3,6 +3,21 @@ define('DB_HOST', 'localhost');
 define('DB_USER', 'woody');
 define('DB_DATABASE', 'camman');
 
+define ('TABLE_BLOG', 'blog');
+define ('TABLE_DIVIDEND_PARAMETER', 'dividendparameter');
+define ('TABLE_FOREX_HISTORY', 'forexhistory');
+define ('TABLE_FUND_HISTORY', 'fundhistory');
+define ('TABLE_IP_ADDRESS', 'ipaddress');
+define ('TABLE_MEMBER', 'member');
+define ('TABLE_PROFILE', 'profile');
+define ('TABLE_SPIDER_PARAMTER', 'spiderparameter');
+define ('TABLE_STOCK', 'stock');
+define ('TABLE_STOCK_CALIBRATION', 'stockcalibration');
+define ('TABLE_STOCK_GROUP', 'stockgroup');
+define ('TABLE_STOCK_GROUP_ITEM', 'stockgroupitem');
+define ('TABLE_STOCK_HISTORY', 'stockhistory');
+define ('TABLE_WEIXIN', 'weixin');
+
 require_once('debug.php');
 require_once('_private.php');
 require_once('class/year_month_date.php');
@@ -25,23 +40,14 @@ function SqlWhereFromUrlQuery($strQuery)
 {
     if ($strQuery == false)     return false;
     
-    $strAnd = ' AND ';
-    $strWhere = '';
+	$arVal = array();
     $arQuery = explode('&', $strQuery);
     foreach ($arQuery as $str)
     {
         $ar = explode('=', $str);
-        if ($str = _SqlBuildWhere($ar[0], $ar[1]))
-        {
-            $strWhere .= $str.$strAnd;
-        }
+        $arVal[$ar[0]] = $ar[1];
     }
-    
-    if ($strWhere != '')
-    {
-        return rtrim($strWhere, $strAnd); 
-    }
-    return false;
+    return _SqlBuildWhereAndArray($arVal);
 }
 
 function SqlDieByQuery($strQry, $strDie)

@@ -81,8 +81,7 @@ function SqlUpdateLoginEmail($id, $strEmail)
 
 function SqlExecLogin($strEmail, $strPassword)
 {
-	$strQry = "SELECT * FROM member WHERE email = '$strEmail' AND password = '".md5($strPassword)."' LIMIT 1";
-	if ($member = SqlQuerySingleRecord($strQry, 'Query member by email and password failed'))
+	if ($member = SqlGetUniqueTableData(TABLE_MEMBER, _SqlBuildWhereAndArray(array('email' => $strEmail, 'password' => md5($strPassword)))))
 	{	// Login Successful
 		return $member['id'];
 	}
@@ -100,9 +99,7 @@ function SqlInsertMember($strEmail, $strPassword)
 
 function SqlGetIdByEmail($strEmail)
 {
-	$strQry = "SELECT * FROM member WHERE email = '$strEmail'";
-	$member = SqlQuerySingleRecord($strQry, 'Query id from email failed');
-	if ($member) 
+	if ($member = SqlGetUniqueTableData(TABLE_MEMBER, _SqlBuildWhere('email', $strEmail)))
 	{
 		return $member['id'];
 	}
@@ -111,17 +108,17 @@ function SqlGetIdByEmail($strEmail)
 
 function SqlGetMemberEmails()
 {
-    return SqlGetTableData('member', "status = '2'", false, false);
+    return SqlGetTableData(TABLE_MEMBER, "status = '2'", false, false);
 }
 
 function SqlGetMemberById($strId)
 {
-    return SqlGetTableDataById('member', $strId);
+    return SqlGetTableDataById(TABLE_MEMBER, $strId);
 }
 
 function SqlGetMemberByIp($strIp)
 {
-    return SqlGetTableData('member', _SqlBuildWhere('ip', $strIp), '`login` DESC', false);
+    return SqlGetTableData(TABLE_MEMBER, _SqlBuildWhere('ip', $strIp), '`login` DESC', false);
 }
 
 function SqlGetEmailById($strId)
@@ -156,10 +153,9 @@ function SqlUpdateStatus($strId, $iNewStatus)
 
 // ****************************** Profile table *******************************************************
 
-function SqlGetProfileByMemberId($id)
+function SqlGetProfileByMemberId($strMemberId)
 {
-	$strQry = "SELECT * FROM profile WHERE member_id = '$id' LIMIT 1";
-	return SqlQuerySingleRecord($strQry, 'Query profile by id failed');
+	return SqlGetUniqueTableData(TABLE_PROFILE, _SqlBuildWhere('member_id', $strMemberId));
 }
 
 function SqlGetNameByMemberId($strMemberId)
@@ -185,7 +181,7 @@ function SqlUpdateProfile($id, $strName, $strPhone, $strAddress, $strWeb, $strSi
 
 function SqlDeleteProfileByMemberId($strMemberId)
 {
-    return SqlDeleteTableData('profile', _SqlBuildWhere('member_id', $strMemberId), '1');
+    return SqlDeleteTableData(TABLE_PROFILE, _SqlBuildWhere('member_id', $strMemberId), '1');
 }
 
 ?>

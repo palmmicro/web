@@ -34,8 +34,6 @@ INDEX ( `ip` )
 
 // ****************************** Blog table *******************************************************
 
-define ('TABLE_BLOG', 'blog');
-
 function SqlCreateBlogTable()
 {
     $strQry = 'CREATE TABLE IF NOT EXISTS `camman`.`blog` ('

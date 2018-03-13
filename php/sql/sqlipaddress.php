@@ -32,7 +32,7 @@ function SqlUpdateIpAddress($strIp, $strVisit, $strLogin, $strStatus)
 
 function SqlGetIpAddress($strId)
 {
-    if ($record = SqlGetTableDataById('ipaddress', $strId))
+    if ($record = SqlGetTableDataById(TABLE_IP_ADDRESS, $strId))
     {
 		return $record['ip'];
 	}
@@ -41,8 +41,7 @@ function SqlGetIpAddress($strId)
 
 function SqlGetIpAddressRecord($strIp)
 {
-	$strQry = "SELECT * FROM ipaddress WHERE ip = '$strIp' LIMIT 1";
-    return SqlQuerySingleRecord($strQry, 'Query ipaddress id failed');
+	return SqlGetUniqueTableData(TABLE_IP_ADDRESS, _SqlBuildWhere('ip', $strIp));
 }
 
 function SqlGetIpAddressId($strIp)

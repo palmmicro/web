@@ -14,7 +14,7 @@ function _onDelete($strSymbol)
 
 function _onEdit($strStockId, $strSymbol, $strDescription, $bChinese)
 {
-    $stock = SqlGetTableDataById('stock', $strStockId);
+    $stock = SqlGetTableDataById(TABLE_STOCK, $strStockId);
     $strSymbol = $stock['name'];
     if ($bChinese)
     {

@@ -1,7 +1,6 @@
 <?php
 
 // ****************************** Stock table *******************************************************
-define ('TABLE_STOCK', 'stock');
 
 function SqlCreateStockTable()
 {
@@ -35,8 +34,6 @@ function SqlUpdateStock($strId, $strSymbol, $strEnglish, $strChinese)
 
 function SqlGetStock($strSymbol)
 {
-//	$strQry = "SELECT * FROM stock WHERE name = '$strSymbol' LIMIT 1";
-//	return SqlQuerySingleRecord($strQry, 'Query stock by symbol failed');
 	return SqlGetUniqueTableData(TABLE_STOCK, _SqlBuildWhere('name', $strSymbol));
 }
 

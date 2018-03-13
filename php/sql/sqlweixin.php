@@ -37,7 +37,6 @@ function SqlGetWeixinImageNow($strOpenId)
 }
 
 // ****************************** Weixin openid table *******************************************************
-define ('TABLE_WEIXIN', 'weixin');
 
 function SqlCreateWeixinTable()
 {

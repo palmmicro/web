@@ -33,18 +33,17 @@ function SqlGetFundHistoryNow($strStockId)
 
 function SqlCountFundHistory($strStockId)
 {
-    return SqlCountTableData('fundhistory', _SqlBuildWhere('stock_id', $strStockId));
+    return SqlCountTableData(TABLE_FUND_HISTORY, _SqlBuildWhere('stock_id', $strStockId));
 }
 
 function SqlGetFundHistory($strStockId, $iStart, $iNum)
 {
-    return SqlGetTableData('fundhistory', _SqlBuildWhere('stock_id', $strStockId), '`date` DESC', _SqlBuildLimit($iStart, $iNum));
+    return SqlGetTableData(TABLE_FUND_HISTORY, _SqlBuildWhere('stock_id', $strStockId), '`date` DESC', _SqlBuildLimit($iStart, $iNum));
 }
 
 function SqlGetFundHistoryByDate($strStockId, $strDate)
 {
-	$strQry = "SELECT * FROM fundhistory WHERE date = '$strDate' AND stock_id = '$strStockId' LIMIT 1";
-	return SqlQuerySingleRecord($strQry, 'Query fundhistory by date failed');
+	return SqlGetUniqueTableData(TABLE_FUND_HISTORY, _SqlBuildWhereAndArray(array('date' => $strDate, 'stock_id' => $strStockId)));
 }
 
 function SqlInsertFundHistory($strStockId, $strDate, $strNetValue, $strEstimated, $strTime)

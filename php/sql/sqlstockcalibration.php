@@ -42,8 +42,7 @@ function SqlInsertStockCalibration($strStockId, $strPeerName, $strPrice, $strPee
         $strFactor = strval($fFactor);
         
         // check if record already exist
-        $strQry = "SELECT * FROM stockcalibration WHERE stock_id = '$strStockId' AND filled = '$strDateTime' LIMIT 1";
-        if (SqlQuerySingleRecord($strQry, 'Query stock_id and filled from stockcalibration failed'))
+		if (SqlGetUniqueTableData(TABLE_STOCK_CALIBRATION, _SqlBuildWhereAndArray(array('stock_id' => $strStockId, 'filled' => $strDateTime))))
         {
             return SqlUpdateStockCalibration($strStockId, $strPeerName, $strPrice, $strPeerPrice, $strFactor, $strDateTime);
         }
@@ -56,12 +55,12 @@ function SqlInsertStockCalibration($strStockId, $strPeerName, $strPrice, $strPee
 
 function SqlCountStockCalibration($strStockId)
 {
-    return SqlCountTableData('stockcalibration', _SqlBuildWhere('stock_id', $strStockId));
+    return SqlCountTableData(TABLE_STOCK_CALIBRATION, _SqlBuildWhere('stock_id', $strStockId));
 }
 
 function SqlGetStockCalibration($strStockId, $iStart, $iNum)
 {
-    return SqlGetTableData('stockcalibration', _SqlBuildWhere('stock_id', $strStockId), '`filled` DESC', _SqlBuildLimit($iStart, $iNum));
+    return SqlGetTableData(TABLE_STOCK_CALIBRATION, _SqlBuildWhere('stock_id', $strStockId), '`filled` DESC', _SqlBuildLimit($iStart, $iNum));
 }
 
 function SqlGetStockCalibrationNow($strStockId)

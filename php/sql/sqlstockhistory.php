@@ -43,18 +43,17 @@ function SqlGetStockHistoryNow($strStockId)
 
 function SqlCountStockHistory($strStockId)
 {
-    return SqlCountTableData('stockhistory', _SqlBuildWhere('stock_id', $strStockId));
+    return SqlCountTableData(TABLE_STOCK_HISTORY, _SqlBuildWhere('stock_id', $strStockId));
 }
 
 function SqlGetStockHistory($strStockId, $iStart, $iNum)
 {
-    return SqlGetTableData('stockhistory', _SqlBuildWhere('stock_id', $strStockId), '`date` DESC', _SqlBuildLimit($iStart, $iNum));
+    return SqlGetTableData(TABLE_STOCK_HISTORY, _SqlBuildWhere('stock_id', $strStockId), '`date` DESC', _SqlBuildLimit($iStart, $iNum));
 }
 
 function SqlGetStockHistoryByDate($strStockId, $strDate)
 {
-	$strQry = "SELECT * FROM stockhistory WHERE date = '$strDate' AND stock_id = '$strStockId' LIMIT 1";
-	return SqlQuerySingleRecord($strQry, 'Query stockhistory by date and stock_id failed');
+	return SqlGetUniqueTableData(TABLE_STOCK_HISTORY, _SqlBuildWhereAndArray(array('date' => $strDate, 'stock_id' => $strStockId)));
 }
 
 function SqlInsertStockHistory($strStockId, $strDate, $strOpen, $strHigh, $strLow, $strClose, $strVolume, $strAdjClose)

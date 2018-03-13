@@ -129,7 +129,7 @@ function test_stock_dividend()
 	$arSymbolData = SinaGetAllStockArrayA();
 	$arOutput = array();
 	SqlCreateStockTable();
-	SqlCreateParameterTable(DIVIDEND_PARAMETER_TABLE);
+	SqlCreateParameterTable(TABLE_DIVIDEND_PARAMETER);
     foreach ($arSymbolData as $strSymbol => $arData)
     {
         SqlUpdateStockChineseDescription($strSymbol, $arData['name']);

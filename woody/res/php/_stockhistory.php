@@ -38,7 +38,7 @@ function _echoStockHistoryParagraph($strSymbol, $iStart, $iNum, $bChinese)
     if (AcctIsAdmin())
     {
         $strUpdateLink = UrlGetOnClickLink(STOCK_PHP_PATH.'_submithistory.php?id='.$strStockId, $bChinese ? '确认更新股票历史记录?' : 'Confirm update stock history?', $bChinese ? '更新历史记录' : 'Update History');
-        $iCount = SqlCountTableData('stockhistory', false);
+        $iCount = SqlCountTableData(TABLE_STOCK_HISTORY, false);
         $strUpdateLink .= ' '.strval($iCount);
     }
     $iTotal = SqlCountStockHistory($strStockId);

@@ -9,7 +9,7 @@ require_once('_stock.php');
 	{
 	    if ($strId = UrlGetQueryValue('delete'))
 	    {
-	        SqlDeleteTableDataById('stockcalibration', $strId);
+	        SqlDeleteTableDataById(TABLE_STOCK_CALIBRATION, $strId);
 	    }
 	}
 	

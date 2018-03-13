@@ -6,7 +6,7 @@ require_once('sql.php');
 
 function DeleteStockGroupByName($strGroupName)
 {
-    $strGroupTable = 'stockgroup';
+    $strGroupTable = TABLE_STOCK_GROUP;
     $strGroupWhere = _SqlBuildWhere('groupname', $strGroupName);
     DebugString($strGroupWhere);
     $iGroupCount = SqlCountTableData($strGroupTable, $strGroupWhere);
@@ -14,7 +14,7 @@ function DeleteStockGroupByName($strGroupName)
     if (($result = SqlGetTableData($strGroupTable, $strGroupWhere, false, false)) == false)   return;
     
     $strItemWhere = _SqlBuildWhereOrArray('group_id', _SqlFetchIdArray($result));
-    $strItemTable = 'stockgroupitem';
+    $strItemTable = TABLE_STOCK_GROUP_ITEM;
     $iItemCount = SqlCountTableData($strItemTable, $strItemWhere);
     DebugVal($iItemCount);
     if (($result = SqlGetTableData($strItemTable, $strItemWhere, false, false)) == false)   return;
@@ -59,7 +59,7 @@ function ValidateTableIpField($strTableName)
 function CorrectBlogTable()
 {
     $ar = array();
-    if ($result = SqlGetTableData('blog', false, false, false)) 
+    if ($result = SqlGetTableData(TABLE_BLOG, false, false, false)) 
     {
         while ($record = mysql_fetch_assoc($result)) 
         {
@@ -74,7 +74,7 @@ function CorrectBlogTable()
     
     foreach ($ar as $str)
     {
-        SqlDeleteTableDataById('blog', $str);
+        SqlDeleteTableDataById(TABLE_BLOG, $str);
     }
 }
 

@@ -14,7 +14,7 @@ require_once('sql/sqlvisitor.php');
 require_once('sql/sqlspider.php');
 require_once('sql/sqlweixin.php');
 
-define('WX_DEBUG_VER', '版本744');
+define('WX_DEBUG_VER', '版本745');
 
 define('WX_DEFAULT_SYMBOL', 'SZ162411');
 define('MAX_WX_STOCK', 20);
@@ -83,7 +83,7 @@ function _getMatchSymbolArray($strKey)
     }
     else
     {   // check all
-        if ($result = SqlGetTableData('stock', false, false, false)) 
+        if ($result = SqlGetTableData(TABLE_STOCK, false, false, false)) 
         {
             while ($stock = mysql_fetch_assoc($result)) 
             {
