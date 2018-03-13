@@ -104,10 +104,27 @@ function SqlGetTableData($strTableName, $strWhere, $strOrderBy, $strLimit)
 	return false;
 }
 
+function SqlGetSingleTableData($strTableName, $strWhere, $strOrderBy)
+{
+	$strQry = 'SELECT * FROM '.$strTableName;
+	if ($strWhere)       $strQry .= ' WHERE '.$strWhere; 
+	if ($strOrderBy)    $strQry .= ' ORDER BY '.$strOrderBy; 
+	$strQry .= ' LIMIT 1'; 
+	return SqlQuerySingleRecord($strQry, $strTableName.' query table data by '.$strWhere.' failed');
+}
+
+function SqlGetUniqueTableData($strTableName, $strWhere)
+{
+	if ($strWhere)
+	{
+		return SqlGetSingleTableData($strTableName, $strWhere, false);
+	}
+	return false;
+}
+
 function SqlGetTableDataById($strTableName, $strId)
 {
-	$strQry = "SELECT * FROM $strTableName WHERE id = '$strId' LIMIT 1";
-	return SqlQuerySingleRecord($strQry, $strTableName.' query table data by id failed');
+	return SqlGetUniqueTableData($strTableName, _SqlBuildWhere('id', $strId));
 }
 
 function SqlDeleteTableData($strTableName, $strWhere, $strLimit)

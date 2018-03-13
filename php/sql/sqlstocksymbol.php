@@ -1,6 +1,8 @@
 <?php
 
 // ****************************** Stock table *******************************************************
+define ('TABLE_STOCK', 'stock');
+
 function SqlCreateStockTable()
 {
     $strQry = 'CREATE TABLE IF NOT EXISTS `camman`.`stock` ('
@@ -33,17 +35,9 @@ function SqlUpdateStock($strId, $strSymbol, $strEnglish, $strChinese)
 
 function SqlGetStock($strSymbol)
 {
-	$strQry = "SELECT * FROM stock WHERE name = '$strSymbol' LIMIT 1";
-	return SqlQuerySingleRecord($strQry, 'Query stock by symbol failed');
-/*	$result = mysql_query($strQry);
-	if (!$result)		die('Query stock by symbol failed');
-
-	if (mysql_num_rows($result) > 0) 
-	{
-		$stock = mysql_fetch_assoc($result);
-		return $stock;
-	}
-	return false;*/
+//	$strQry = "SELECT * FROM stock WHERE name = '$strSymbol' LIMIT 1";
+//	return SqlQuerySingleRecord($strQry, 'Query stock by symbol failed');
+	return SqlGetUniqueTableData(TABLE_STOCK, _SqlBuildWhere('name', $strSymbol));
 }
 
 function SqlGetStockDescription($strSymbol)
@@ -69,7 +63,7 @@ function SqlGetStockId($strSymbol)
 
 function SqlGetStockSymbol($strId)
 {
-    if ($stock = SqlGetTableDataById('stock', $strId))
+    if ($stock = SqlGetTableDataById(TABLE_STOCK, $strId))
     {
 		return $stock['name'];
     }

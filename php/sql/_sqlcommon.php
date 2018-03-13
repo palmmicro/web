@@ -20,12 +20,10 @@ function _SqlBuildWhere($strKey, $strVal)
     return false;
 }
 
-function _SqlBuildWhereOrArray($strKey, $arVal)
+function _SqlBuildWhereArray($arVal, $strOr)
 {
-    $strOr = ' OR ';
-    
     $str = '';
-    foreach ($arVal as $strVal)
+    foreach ($arVal as $strVal => $strKey)
     {
         if ($strWhere = _SqlBuildWhere($strKey, $strVal))
         {
@@ -40,6 +38,21 @@ function _SqlBuildWhereOrArray($strKey, $arVal)
         return $str; 
     }
     return false;
+}
+
+function _SqlBuildWhereOrArray($strKey, $arVal)
+{
+	$ar = array();
+	foreach ($arVal as $strVal)
+	{
+		$ar[$strVal] = $strKey;
+	}
+	return _SqlBuildWhereArray($ar, ' OR ');
+}
+
+function _SqlBuildWhereAndArray($arVal)
+{
+	return _SqlBuildWhereArray($arVal, ' AND ');
 }
 
 function _SqlBuildLimit($iStart, $iNum)

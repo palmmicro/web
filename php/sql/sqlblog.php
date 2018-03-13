@@ -34,6 +34,8 @@ INDEX ( `ip` )
 
 // ****************************** Blog table *******************************************************
 
+define ('TABLE_BLOG', 'blog');
+
 function SqlCreateBlogTable()
 {
     $strQry = 'CREATE TABLE IF NOT EXISTS `camman`.`blog` ('
@@ -48,8 +50,7 @@ function SqlCreateBlogTable()
 
 function SqlGetBlogIdByUri($strUri)
 {
-	$strQry = "SELECT * FROM blog WHERE uri = '$strUri' LIMIT 1";
-	if ($blog = SqlQuerySingleRecord($strQry, 'Query blog id by uri failed'))
+	if ($blog = SqlGetUniqueTableData(TABLE_BLOG, _SqlBuildWhere('uri', $strUri)))
 	{
 	    return $blog['id'];
 	}
@@ -58,7 +59,7 @@ function SqlGetBlogIdByUri($strUri)
 
 function SqlGetUriByBlogId($strId)
 {
-    if ($blog = SqlGetTableDataById('blog', $strId))
+    if ($blog = SqlGetTableDataById(TABLE_BLOG, $strId))
 	{
 		return $blog['uri'];
 	}
@@ -67,7 +68,7 @@ function SqlGetUriByBlogId($strId)
 
 function SqlGetMemberIdByBlogId($strId)
 {
-    if ($blog = SqlGetTableDataById('blog', $strId))
+    if ($blog = SqlGetTableDataById(TABLE_BLOG, $strId))
 	{
 		return $blog['member_id'];
 	}
@@ -90,7 +91,7 @@ function SqlDeleteBlog($strUri)
     if ($strBlogId)
     {
         SqlDeleteBlogCommentByBlogId($strBlogId);
-        SqlDeleteTableDataById('blog', $strBlogId);
+        SqlDeleteTableDataById(TABLE_BLOG, $strBlogId);
     }
 }
 

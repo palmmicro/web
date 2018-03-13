@@ -37,6 +37,7 @@ function SqlGetWeixinImageNow($strOpenId)
 }
 
 // ****************************** Weixin openid table *******************************************************
+define ('TABLE_WEIXIN', 'weixin');
 
 function SqlCreateWeixinTable()
 {
@@ -60,7 +61,7 @@ function SqlInsertWeixin($strOpenId)
 
 function SqlGetWeixin($strId)
 {
-    if ($record = SqlGetTableDataById('weixin', $strId))
+    if ($record = SqlGetTableDataById(TABLE_WEIXIN, $strId))
     {
 		return $record['open'];
 	}
@@ -69,8 +70,7 @@ function SqlGetWeixin($strId)
 
 function SqlGetWeixinId($strOpenId)
 {
-	$strQry = "SELECT * FROM weixin WHERE open = '$strOpenId' LIMIT 1";
-    if ($record = SqlQuerySingleRecord($strQry, 'Query weixin id failed'))
+	if ($record = SqlGetUniqueTableData(TABLE_WEIXIN, _SqlBuildWhere('open', $strOpenId)))
     {
 		return $record['id'];
 	}
