@@ -117,6 +117,22 @@ function _getWebLink($strWeb)
 	return DebugGetExternalLink($str, $strWeb); 
 }
 
+function _echoAccountBlogComments($strMemberId, $bChinese)
+{
+    $strQuery = 'member_id='.$strMemberId;
+    $strWhere = SqlWhereFromUrlQuery($strQuery);
+    $iTotal = SqlCountBlogComment($strWhere);
+    if ($iTotal == 0)   return;
+
+    $str = $bChinese ? '评论' : 'Comment';
+    if ($iTotal > NAX_COMMENT_DISPLAY)
+    {
+        $str .= ' '.AcctGetAllCommentLink($strQuery, $bChinese);
+    }
+    EchoParagraph($str);
+    EchoCommentParagraphs($strMemberId, $strWhere, 0, NAX_COMMENT_DISPLAY, $bChinese);    
+}
+
 function EchoAccountProfile($bChinese)
 {
     global $strMemberId;
@@ -149,7 +165,7 @@ function EchoAccountProfile($bChinese)
 	    else    	        _echoAccountProfileEnglish($member, $strName, $strPhone, $strAddress, $strWeb, $strSignature);
 	}
 	
-	AcctEchoBlogComments($strMemberId, $bChinese);
+	_echoAccountBlogComments($strMemberId, $bChinese);
 }                                                         
 
 function _loginAccount($strEmail, $strPassword)

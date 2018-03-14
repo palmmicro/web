@@ -8,7 +8,7 @@ function SqlCreateFundPurchaseTable()
          . ' `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,'
          . ' `member_id` INT UNSIGNED NOT NULL ,'
          . ' `stock_id` INT UNSIGNED NOT NULL ,'
-         . ' `amount` DOUBLE(13,2) NOT NULL ,'
+         . ' `amount` INT UNSIGNED NOT NULL ,'
          . ' FOREIGN KEY (`member_id`) REFERENCES `member`(`id`) ON DELETE CASCADE ,'
          . ' UNIQUE ( `stock_id`, `member_id` )'
          . ') ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci'; 
@@ -17,50 +17,36 @@ function SqlCreateFundPurchaseTable()
 
 function SqlGetFundPurchaseAmount($strMemberId, $strStockId)
 {
-	$strQry = "SELECT * FROM fundpurchase WHERE uri = '$strUri' LIMIT 1";
-	if ($blog = SqlQuerySingleRecord($strQry, 'Query blog id by uri failed'))
+	if ($record = SqlGetUniqueTableData(TABLE_FUND_PURCHASE, _SqlBuildWhereAndArray(array('stock_id' => $strStockId, 'member_id' => $strMemberId))))
 	{
-	    return $blog['id'];
+	    return intval($record['amount']);
 	}
 	return false;
 }
 
-function SqlGetUriByBlogId($strId)
+function SqlGetFundPurchaseAmountById($strId)
 {
-    if ($blog = SqlGetTableDataById('blog', $strId))
+    if ($record = SqlGetTableDataById(TABLE_FUND_PURCHASE, $strId))
 	{
-		return $blog['uri'];
+		return $record['amount'];
 	}
 	return false;
 }
 
-function SqlGetMemberIdByBlogId($strId)
+function SqlGetFundPurchaseByMemberId($strMemberId)
 {
-    if ($blog = SqlGetTableDataById('blog', $strId))
-	{
-		return $blog['member_id'];
-	}
-	return false;
+    return SqlGetTableData(TABLE_FUND_PURCHASE, _SqlBuildWhere('member_id', $strMemberId), false, false);
 }
 
-function SqlInsertBlog($strMemberId, $strUri)
+function SqlInsertFundPurchase($strMemberId, $strStockId, $strAmount)
 {
-	$strQry = "INSERT INTO blog(id, member_id, uri) VALUES('0', '$strMemberId', '$strUri')";
-	if (SqlDieByQuery($strQry, 'Insert blog failed'))
-	{
-	    return SqlGetBlogIdByUri($strUri);
-	}
-	return false;
+	$strQry = "INSERT INTO fundpurchase(id, member_id, stock_id, amount) VALUES('0', '$strMemberId', '$strStockId', '$strAmount')";
+	return SqlDieByQuery($strQry, 'Insert fundpurchase failed');
 }
 
-function SqlDeleteBlog($strUri)
+function SqlDeleteFundPurchaseByMemberId($strMemberId)
 {
-    $strBlogId = SqlGetBlogIdByUri($strUri);
-    if ($strBlogId)
-    {
-        SqlDeleteBlogCommentByBlogId($strBlogId);
-        SqlDeleteTableDataById('blog', $strBlogId);
-    }
+	return SqlDeleteTableData(TABLE_FUND_PURCHASE, _SqlBuildWhere('member_id', $strMemberId), false);
 }
 
 ?>

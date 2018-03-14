@@ -7,6 +7,7 @@ define ('TABLE_BLOG', 'blog');
 define ('TABLE_DIVIDEND_PARAMETER', 'dividendparameter');
 define ('TABLE_FOREX_HISTORY', 'forexhistory');
 define ('TABLE_FUND_HISTORY', 'fundhistory');
+define ('TABLE_FUND_PURCHASE', 'fundpurchase');
 define ('TABLE_IP_ADDRESS', 'ipaddress');
 define ('TABLE_MEMBER', 'member');
 define ('TABLE_PROFILE', 'profile');

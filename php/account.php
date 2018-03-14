@@ -13,6 +13,7 @@ require_once('sql/sqlblog.php');
 require_once('sql/sqlipaddress.php');
 require_once('sql/sqlvisitor.php');
 require_once('sql/sqlstockgroup.php');
+require_once('sql/sqlfundpurchase.php');
 
 function filter_var_email($strEmail)
 {
@@ -37,6 +38,7 @@ function AcctDeleteBlogVisitorByIp($strIp)
 
 function AcctDeleteMember($strMemberId)
 {
+	SqlDeleteFundPurchaseByMemberId($strMemberId);
 	SqlDeleteStockGroupByMemberId($strMemberId);
 	SqlDeleteBlogCommentByMemberId($strMemberId);
 	SqlDeleteProfileByMemberId($strMemberId);
@@ -343,22 +345,6 @@ function AcctGetLoginLink($strCn, $strUs, $bChinese)
 function AcctGetAllCommentLink($strQuery, $bChinese)
 {
     return UrlBuildPhpLink('/account/comment', $strQuery, '全部评论', 'All Comment', $bChinese);
-}
-
-function AcctEchoBlogComments($strMemberId, $bChinese)
-{
-    $strQuery = 'member_id='.$strMemberId;
-    $strWhere = SqlWhereFromUrlQuery($strQuery);
-    $iTotal = SqlCountBlogComment($strWhere);
-    if ($iTotal == 0)   return;
-
-    $str = $bChinese ? '评论' : 'Comment';
-    if ($iTotal > NAX_COMMENT_DISPLAY)
-    {
-        $str .= ' '.AcctGetAllCommentLink($strQuery, $bChinese);
-    }
-    EchoParagraph($str);
-    EchoCommentParagraphs($strMemberId, $strWhere, 0, NAX_COMMENT_DISPLAY, $bChinese);    
 }
 
 ?>
