@@ -40,11 +40,12 @@ function _echoStockHistoryParagraph($strSymbol, $iStart, $iNum, $bChinese)
         $strUpdateLink = UrlGetOnClickLink(STOCK_PHP_PATH.'_submithistory.php?id='.$strStockId, $bChinese ? '确认更新股票历史记录?' : 'Confirm update stock history?', $bChinese ? '更新历史记录' : 'Update History');
         $iCount = SqlCountTableData(TABLE_STOCK_HISTORY, false);
         $strUpdateLink .= ' '.strval($iCount);
+        $strUpdateLink .= ' '.GetYahooStockHistoryLink($strSymbol);
     }
     $iTotal = SqlCountStockHistory($strStockId);
     $strNavLink = _GetStockNavLink('stockhistory', $strSymbol, $iTotal, $iStart, $iNum, $bChinese);
     $strSymbolLink = GetMyStockLink($strSymbol, $bChinese);
-    
+ 
     EchoParagraphBegin($strSymbolLink.' '.$strNavLink.' '.$strUpdateLink);
     echo <<<END
     <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="history">

@@ -28,6 +28,14 @@ function GetYahooStockLink($strYahooSymbol, $strSymbol)
     return DebugGetExternalLink($strHttp, $strSymbol);
 }
 
+function GetYahooStockHistoryLink($strSymbol)
+{
+    $sym = new StockSymbol($strSymbol);
+    $strYahooSymbol = $sym->GetYahooSymbol();
+    $strHttp = YAHOO_HISTORY_QUOTES_URL.$strYahooSymbol.'/history';
+    return DebugGetExternalLink($strHttp, $strSymbol);
+}
+
 function GetGoogleStockLink($strGoogleSymbol, $strSymbol)
 {
     $strHttp = GOOGLE_QUOTES_URL.$strGoogleSymbol;

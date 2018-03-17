@@ -278,7 +278,7 @@ class StockSymbol
  
     function GetGoogleSymbol()
     {
-        $strSymbol = $this->strSymbol;
+/*        $strSymbol = $this->strSymbol;
         if ($this->IsIndex())
         {
             $str = $this->strOthers;
@@ -286,7 +286,7 @@ class StockSymbol
             else if ($strSymbol == '^SPSIOP' || $strSymbol == '^SPGOGUP' || $strSymbol == '^SPBRICNTR' || $strSymbol == '^IXY')  return INDEXSP_PREFIX.$str;
             else if ($strSymbol == '^VIX')      return INDEXCBOE_PREFIX.$str;
             else if ($strSymbol == '^DJSOEP')   return INDEXDJX_PREFIX.$str;
-        }
+        }*/
 //        return $strSymbol;
         return false;
     }

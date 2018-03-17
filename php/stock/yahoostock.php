@@ -119,9 +119,10 @@ function GetYahooPastQuotes($strSymbol, $iDays)
 
 // https://finance.yahoo.com/quote/XOP/history?period1=1467122442&period2=1498658442&interval=1d&filter=history&frequency=1d 
 // https://query1.finance.yahoo.com/v7/finance/download/XOP?period1=1467122442&period2=1498658442&interval=1d&events=history&crumb=EMGTmG8UgZ4
+define ('YAHOO_HISTORY_QUOTES_URL', 'https://finance.yahoo.com/quote/');
 function YahooGetStockHistory($strSymbol, $iTimeBegin, $iTimeEnd)
 {
-    $strUrl = 'https://finance.yahoo.com/quote/'.$strSymbol.'/history?period1='.strval($iTimeBegin).'&period2='.strval($iTimeEnd).'&interval=1d&filter=history&frequency=1d';
+    $strUrl = YAHOO_HISTORY_QUOTES_URL.$strSymbol.'/history?period1='.strval($iTimeBegin).'&period2='.strval($iTimeEnd).'&interval=1d&filter=history&frequency=1d';
 //    DebugString($strUrl);
     $str = url_get_contents($strUrl); 
     return $str;
