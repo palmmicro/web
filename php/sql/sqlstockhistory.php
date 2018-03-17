@@ -31,16 +31,6 @@ function SqlAlterStockHistoryTable()
 }
 */
 
-function SqlGetStockHistoryNow($strStockId)
-{
-	if ($result = SqlGetStockHistory($strStockId, 0, 1))
-	{
-	    $history = mysql_fetch_assoc($result);
-	    return $history;
-	}
-	return false;
-}
-
 function SqlCountStockHistory($strStockId)
 {
     return SqlCountTableData(TABLE_STOCK_HISTORY, _SqlBuildWhere('stock_id', $strStockId));
@@ -49,6 +39,11 @@ function SqlCountStockHistory($strStockId)
 function SqlGetStockHistory($strStockId, $iStart, $iNum)
 {
     return SqlGetTableData(TABLE_STOCK_HISTORY, _SqlBuildWhere('stock_id', $strStockId), '`date` DESC', _SqlBuildLimit($iStart, $iNum));
+}
+
+function SqlGetStockHistoryNow($strStockId)
+{
+	return SqlGetSingleTableData(TABLE_STOCK_HISTORY, _SqlBuildWhere('stock_id', $strStockId), '`date` DESC');
 }
 
 function SqlGetStockHistoryByDate($strStockId, $strDate)
@@ -77,30 +72,6 @@ function SqlUpdateStockHistoryAdjClose($strId, $strAdjClose)
 function SqlDeleteStockHistoryWithZeroVolume($strStockId)
 {
     return SqlDeleteTableData('stockhistory', "volume = '0' AND stock_id = '$strStockId'", false);
-}
-
-function SqlUpdateStockHistoryAdjCloseByDividend($strStockId, $fDividend, $strYMD)
-{
-    $ar = array();
-    $ymd = new YMDString($strYMD);
-    if ($result = SqlGetStockHistory($strStockId, 0, 0)) 
-    {
-        while ($history = mysql_fetch_assoc($result)) 
-        {
-            $ymd_history = new YMDString($history['date']);
-            if ($ymd_history->GetTick() < $ymd->GetTick())
-            {
-                $ar[$history['id']] = floatval($history['adjclose']);
-            }
-        }
-        @mysql_free_result($result);
-    }
-
-    foreach ($ar as $strId => $fAdjClose)
-    {
-        $fAdjClose -= $fDividend;
-        SqlUpdateStockHistoryAdjClose($strId, strval($fAdjClose));
-    }
 }
 
 ?>

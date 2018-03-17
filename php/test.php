@@ -178,7 +178,6 @@ function test_stock_dividend()
 //	_debug_dividend('sz000028');
 //	test_stock_dividend();
 //	SqlDeleteStockGroupByGroupName('YZC');
-//	SqlUpdateStockHistoryAdjCloseByDividend(SqlGetStockId('XOP'), 0.06, '2018-3-16');
 //	echoDebugString(url_get_contents('http://palmmicro.com/php/spidercn.php?list=sz162411'));
 //    TestGoogleHistory();
 

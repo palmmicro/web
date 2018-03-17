@@ -150,13 +150,18 @@ function SqlDeleteTableDataById($strTableName, $strId)
     return SqlDeleteTableData($strTableName, _SqlBuildWhere('id', $strId), '1');
 }
 
-function SqlCountTableData($strTableName, $strWhere)
+function SqlCountTableDataString($strTableName, $strWhere)
 {
 	$strQry = "SELECT count(*) as total FROM $strTableName";
 	if ($strWhere)    $strQry .= ' WHERE '.$strWhere; 
 	$result = mysql_query($strQry);
 	$record = mysql_fetch_array($result);
-	return intval($record['total']);
+	return $record['total'];
+}
+
+function SqlCountTableData($strTableName, $strWhere)
+{
+	return intval(SqlCountTableDataString($strTableName, $strWhere));
 }
 
 function SqlCountTableByDate($strTableName, $strDate)
