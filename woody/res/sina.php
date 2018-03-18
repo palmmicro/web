@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title><?php EchoTitle(false); ?></title>
-<meta name="description" content="<?php EchoMetaDescription(false);  ?> Short WB and long SINA.">
+<meta name="description" content="<?php EchoMetaDescription(false);  ?>">
 <link href="../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

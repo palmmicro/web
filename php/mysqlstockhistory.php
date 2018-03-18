@@ -319,11 +319,12 @@ class StockHistory
         for ($i = 1; $i <= count($this->arYahoo); $i ++)
         {
             $arColumn = explode(',', $this->arYahoo[$i]);
-            $afHigh[] = floatval($arColumn[2]);
-            $afLow[] = floatval($arColumn[3]);
-            
             $fClose = floatval($arColumn[6]);  // adjust close
             $afClose[] = $fClose;
+            
+            $fDiff = floatval($arColumn[4]) - $fClose; 
+            $afHigh[] = floatval($arColumn[2]) - $fDiff;
+            $afLow[] = floatval($arColumn[3]) - $fDiff;
             
             $strYMD = $arColumn[0];
             if (_isWeekEnd($strYMD, $strNextDayYMD))    $afWeeklyClose[] = $fClose;

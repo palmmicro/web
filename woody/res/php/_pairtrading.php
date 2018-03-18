@@ -197,7 +197,7 @@ function _getPairSymbol($group)
     return rtrim($str, '/');
 }
 
-function _getPairMetaDescription($strDescription, $strPair, $bChinese)
+function _getPairMetaDescription($strSymbol, $strDescription, $strPair, $bChinese)
 {
     if ($bChinese)
     {
@@ -207,6 +207,18 @@ function _getPairMetaDescription($strDescription, $strPair, $bChinese)
     {
         $str = 'Pair trading analysis between '.$strDescription.' and '.$strPair.'.';
     }
+    
+    if ($strSymbol == 'SINA')
+    {
+    	if ($bChinese)
+    	{
+    		$str .= ' SINA持有的WB市值比它本身市值还大, 空WB多SINA也许是个不错的策略, 但是市场无情, 从2017年初到现在做这个的坟头草已经几人高了.';
+    	}
+    	else
+    	{
+    		$str .= ' Short WB and long SINA.';
+    	}
+    }
     return $str;
 }
 
@@ -214,11 +226,12 @@ function EchoMetaDescription($bChinese)
 {
     global $group;
     
+    $strSymbol = $group->ref->GetStockSymbol();
     $strDescription = $group->ref->strDescription;
-    $str = _getPairMetaDescription($strDescription, _getPairDescription($group), $bChinese);
+    $str = _getPairMetaDescription($strSymbol, $strDescription, _getPairDescription($group), $bChinese);
     if (IsLongMetaDescription($str))
     {
-        $str = _getPairMetaDescription($strDescription, _getPairSymbol($group), $bChinese);
+        $str = _getPairMetaDescription($strSymbol, $strDescription, _getPairSymbol($group), $bChinese);
     }
     EchoMetaDescriptionText($str);
 }

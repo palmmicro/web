@@ -32,10 +32,10 @@ function _updateStockHistoryAdjCloseByDividend($strSymbol, $strYMD, $strDividend
 	{
 		$strSymbol = FormatCleanString($_POST['symbol']);
 		$strDate = FormatCleanString($_POST['date']);
-		$strDividend = FormatCleanString($_POST['dividend']);
+		$strVal = FormatCleanString($_POST['val']);
 		if (AcctIsAdmin())
 		{
-		    _updateStockHistoryAdjCloseByDividend($strSymbol, $strDate, $strDividend);
+		    _updateStockHistoryAdjCloseByDividend($strSymbol, $strDate, $strVal);
 		}
 		unset($_POST['submit']);
 	}

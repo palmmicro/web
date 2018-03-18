@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title><?php EchoTitle(true); ?></title>
-<meta name="description" content="<?php EchoMetaDescription(true); ?> SINA持有的WB市值比它本身市值还大, 空WB多SINA也许是个不错的策略, 但是市场无情, 从2017年初到现在做这个的坟头草已经几人高了.">
+<meta name="description" content="<?php EchoMetaDescription(true); ?>">
 <link href="../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

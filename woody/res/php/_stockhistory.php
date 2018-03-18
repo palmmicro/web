@@ -70,14 +70,15 @@ function _editStockHistoryAdjCloseByDividend($strSymbol, $strStockId)
 	$strDate = $history['date'];
     $strSymbolReadonly = HtmlElementReadonly();
 	$strSubmit = '更新';
+	$strOption = '根据分红更新复权收盘价';
 	
 	echo <<< END
-	<form id="dividendForm" name="dividendForm" method="post" action="/woody/res/php/_submitdividend.php">
+	<form id="optionForm" name="optionForm" method="post" action="/woody/res/php/_submitstockoptions.php">
         <div>
-		<p>根据分红手工更新复权收盘价
+		<p>$strOption
 		<br /><input name="symbol" value="$strSymbol" type="text" size="20" maxlength="32" class="textfield" id="symbol" $strSymbolReadonly />
 		<br /><input name="date" value="$strDate" type="text" size="10" maxlength="32" class="textfield" id="date" />
-		<br /><input name="dividend" value="0.01" type="text" size="8" maxlength="32" class="textfield" id="dividend" />
+		<br /><input name="val" value="0.01" type="text" size="8" maxlength="32" class="textfield" id="val" />
 	    <br /><input type="submit" name="submit" value="$strSubmit" />
 	    </p>
 	    </div>
