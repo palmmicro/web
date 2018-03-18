@@ -1,6 +1,6 @@
 <?php
 require_once('_stock.php');
-require_once('/php/ui/htmlelement.php');
+require_once('_editstockoptionform.php');
 
 function _echoStockHistoryItem($history)
 {
@@ -64,28 +64,6 @@ END;
     EchoParagraphEnd();
 }
 
-function _editStockHistoryAdjCloseByDividend($strSymbol, $strStockId)
-{
-	$history = SqlGetStockHistoryNow($strStockId);
-	$strDate = $history['date'];
-    $strSymbolReadonly = HtmlElementReadonly();
-	$strSubmit = '更新';
-	$strOption = '根据分红更新复权收盘价';
-	
-	echo <<< END
-	<form id="optionForm" name="optionForm" method="post" action="/woody/res/php/_submitstockoptions.php">
-        <div>
-		<p>$strOption
-		<br /><input name="symbol" value="$strSymbol" type="text" size="20" maxlength="32" class="textfield" id="symbol" $strSymbolReadonly />
-		<br /><input name="date" value="$strDate" type="text" size="10" maxlength="32" class="textfield" id="date" />
-		<br /><input name="val" value="0.01" type="text" size="8" maxlength="32" class="textfield" id="val" />
-	    <br /><input type="submit" name="submit" value="$strSubmit" />
-	    </p>
-	    </div>
-    </form>
-END;
-}
-
 function EchoStockHistory($bChinese)
 {
     if ($strSymbol = UrlGetQueryValue('symbol'))
@@ -98,7 +76,7 @@ function EchoStockHistory($bChinese)
     		_echoStockHistoryParagraph($strSymbol, $strStockId, $iStart, $iNum, $bAdmin, $bChinese);
     		if ($bAdmin && $bChinese && $iStart == 0)
     		{
-    			_editStockHistoryAdjCloseByDividend($strSymbol, $strStockId);
+				StockOptionEditForm(STOCK_OPTION_ADJCLOSE_CN);
     		}
     	}
     }

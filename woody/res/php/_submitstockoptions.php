@@ -1,6 +1,7 @@
 <?php
 require_once('/php/account.php');
 require_once('/php/sql/sqlstock.php');
+require_once('_editstockoptionform.php');
 
 function _updateStockHistoryAdjCloseByDividend($strSymbol, $strYMD, $strDividend)
 {
@@ -27,15 +28,45 @@ function _updateStockHistoryAdjCloseByDividend($strSymbol, $strYMD, $strDividend
     }
 }
 
+function _updateStockDescription($strSubmit, $strSymbol, $strVal)
+{
+    $stock = SqlGetStock($strSymbol);
+    if ($strSubmit == STOCK_OPTION_EDIT_CN)
+    {
+        SqlUpdateStock($stock['id'], $strSymbol, $stock['us'], $strVal);
+        $bChinese = true;
+    }
+    else
+    {
+        SqlUpdateStock($stock['id'], $strSymbol, $strVal, $stock['cn']);
+        $bChinese = false;
+    }
+    $strLink = GetMyStockLink($strSymbol, $bChinese);
+    EmailDebug($strLink.' '.$strVal, $strSubmit);
+}
+
 	AcctAuth();
 	if (isset($_POST['submit']))
 	{
+		$strEmail = FormatCleanString($_POST['login']);
 		$strSymbol = FormatCleanString($_POST['symbol']);
 		$strDate = FormatCleanString($_POST['date']);
 		$strVal = FormatCleanString($_POST['val']);
-		if (AcctIsAdmin())
+   		$bAdmin = AcctIsAdmin();
+		$strSubmit = $_POST['submit'];
+		if ($strSubmit == STOCK_OPTION_ADJCLOSE_CN)
 		{
-		    _updateStockHistoryAdjCloseByDividend($strSymbol, $strDate, $strVal);
+			if ($bAdmin)
+			{
+				_updateStockHistoryAdjCloseByDividend($strSymbol, $strDate, $strVal);
+			}
+		}
+		else if ($strSubmit == STOCK_OPTION_EDIT_CN || $strSubmit == STOCK_OPTION_EDIT)
+		{
+			if ($bAdmin)
+			{
+				_updateStockDescription($strSubmit, $strSymbol, $strVal);
+			}
 		}
 		unset($_POST['submit']);
 	}
