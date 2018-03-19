@@ -68,6 +68,9 @@ function _updateStockDescription($strSubmit, $strSymbol, $strVal)
 				_updateStockDescription($strSubmit, $strSymbol, $strVal);
 			}
 		}
+		else if ($strSubmit == STOCK_OPTION_REVERSESPLIT_CN || $strSubmit == STOCK_OPTION_REVERSESPLIT)
+		{
+		}
 		unset($_POST['submit']);
 	}
 

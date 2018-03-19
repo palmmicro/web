@@ -55,6 +55,12 @@ function _echoMyStockTransactions($strMemberId, $ref, $bChinese)
 	}
 }
 
+function _echoMyStockLinks($bChinese)
+{
+    $strReverseSplit = UrlBuildPhpLink(STOCK_PATH.'editstockreversesplit', UrlGetQueryString(), '合股', 'Reverse Split', $bChinese);
+    EchoParagraph($strReverseSplit);
+}
+
 function _echoMyStock($strSymbol, $bChinese)
 {
     WeixinStockPrefetchData(array($strSymbol));
@@ -86,6 +92,7 @@ function _echoMyStock($strSymbol, $bChinese)
     
     if ($strMemberId = AcctIsLogin())
     {
+    	_echoMyStockLinks($bChinese);
         _echoMyStockTransactions($strMemberId, $ref, $bChinese);
     }
 }

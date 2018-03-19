@@ -10,9 +10,12 @@ define ('STOCK_OPTION_ADJCLOSE_CN', '根据分红更新复权收盘价');
 define ('STOCK_OPTION_EDIT', 'Edit Stock Description');
 define ('STOCK_OPTION_EDIT_CN', '修改股票说明');
 
+define ('STOCK_OPTION_REVERSESPLIT', 'Stock Reverse Split');
+define ('STOCK_OPTION_REVERSESPLIT_CN', '股票合股');
+
 function _getStockOptionDate($strSubmit, $strSymbol)
 {
-	if ($strSubmit == STOCK_OPTION_ADJCLOSE_CN)
+	if ($strSubmit == STOCK_OPTION_ADJCLOSE_CN || $strSubmit == STOCK_OPTION_REVERSESPLIT_CN || $strSubmit == STOCK_OPTION_REVERSESPLIT)
 	{
 		if ($history = SqlGetStockHistoryNow(SqlGetStockId($strSymbol)))
 		{
@@ -57,6 +60,10 @@ function _getStockOptionVal($strSubmit, $strSymbol)
 	{
 		return _getStockOptionDescription($strSubmit, $strSymbol);
 	}
+	else if ($strSubmit == STOCK_OPTION_REVERSESPLIT_CN || $strSubmit == STOCK_OPTION_REVERSESPLIT)
+	{
+		return '10';
+	}
 	return '';
 }
 
@@ -77,6 +84,12 @@ function StockOptionEditForm($strSubmit)
     $strVal = _getStockOptionVal($strSubmit, $strSymbol);
 	
 	echo <<< END
+	<script type="text/javascript">
+	    function OnLoad()
+	    {
+	    }
+	</script>
+	
 	<form id="stockoptionForm" name="stockoptionForm" method="post" action="/woody/res/php/_submitstockoptions.php">
         <div>
 		<p><input name="login" value="$strEmail" type="text" size="40" maxlength="128" class="textfield" id="login" $strEmailReadonly />
