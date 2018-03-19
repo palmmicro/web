@@ -10,8 +10,11 @@ define ('STOCK_OPTION_ADJCLOSE_CN', '根据分红更新复权收盘价');
 define ('STOCK_OPTION_EDIT', 'Edit Stock Description');
 define ('STOCK_OPTION_EDIT_CN', '修改股票说明');
 
-define ('STOCK_OPTION_REVERSESPLIT', 'Stock Reverse Split');
+define ('STOCK_OPTION_REVERSESPLIT', 'Reverse Split Stock');
 define ('STOCK_OPTION_REVERSESPLIT_CN', '股票合股');
+
+define ('STOCK_OPTION_AMOUNT', 'Set Fund Purchase Amount');
+define ('STOCK_OPTION_AMOUNT_CN', '设置基金申购金额');
 
 function _getStockOptionDate($strSubmit, $strSymbol)
 {
@@ -50,6 +53,15 @@ function _getStockOptionDescription($strSubmit, $strSymbol)
     return $strDescription;
 }
 
+function _getStockOptionAmount($strSymbol)
+{
+   	if ($str = SqlGetFundPurchaseAmount(AcctIsLogin(), SqlGetStockId($strSymbol)))
+   	{
+    	return $str;
+    }
+    return FUND_PURCHASE_AMOUNT;
+}
+
 function _getStockOptionVal($strSubmit, $strSymbol)
 {
 	if ($strSubmit == STOCK_OPTION_ADJCLOSE_CN)
@@ -63,6 +75,10 @@ function _getStockOptionVal($strSubmit, $strSymbol)
 	else if ($strSubmit == STOCK_OPTION_REVERSESPLIT_CN || $strSubmit == STOCK_OPTION_REVERSESPLIT)
 	{
 		return '10';
+	}
+	else if ($strSubmit == STOCK_OPTION_AMOUNT_CN || $strSubmit == STOCK_OPTION_AMOUNT)
+	{
+		return _getStockOptionAmount($strSymbol);
 	}
 	return '';
 }

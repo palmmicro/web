@@ -45,6 +45,27 @@ function _updateStockDescription($strSubmit, $strSymbol, $strVal)
     EmailDebug($strLink.' '.$strVal, $strSubmit);
 }
 
+function _updateFundPurchaseAmount($strEmail, $strSymbol, $strVal)
+{
+	$strMemberId = SqlGetIdByEmail($strEmail);
+	$strStockId = SqlGetStockId($strSymbol);
+	if ($strMemberId && $strStockId && is_numeric($strVal))
+	{
+    	if ($str = SqlGetFundPurchaseAmount($strMemberId, $strStockId))
+    	{
+    		if ($str != $strVal)
+    		{
+    			SqlUpdateFundPurchase($strMemberId, $strStockId, $strVal);
+    		}
+    	}
+    	else
+    	{
+    		SqlInsertFundPurchase($strMemberId, $strStockId, $strVal);
+    	}
+	}
+}
+
+
 	AcctAuth();
 	if (isset($_POST['submit']))
 	{
@@ -70,6 +91,10 @@ function _updateStockDescription($strSubmit, $strSymbol, $strVal)
 		}
 		else if ($strSubmit == STOCK_OPTION_REVERSESPLIT_CN || $strSubmit == STOCK_OPTION_REVERSESPLIT)
 		{
+		}
+		else if ($strSubmit == STOCK_OPTION_AMOUNT_CN || $strSubmit == STOCK_OPTION_AMOUNT)
+		{
+			_updateFundPurchaseAmount($strEmail, $strSymbol, $strVal);
 		}
 		unset($_POST['submit']);
 	}

@@ -1,11 +1,10 @@
-<?php require_once('php/_stock.php'); ?>
-<?php require_once('php/_editstockoptionform.php'); ?>
-<?php AcctAuth(); ?>
+<?php require_once('php/_editstockoption.php'); ?>
+<?php SetStockOptionType(STOCK_OPTION_EDIT_CN); ?>
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<title>修改股票说明</title>
-<meta name="description" content="本中文页面文件跟/woody/res/php/_submitstockoptions.php和/woody/res/php/_editstockoptionform.php一起配合完成修改股票说明内容的功能.">
+<title><?php EchoTitle(); ?></title>
+<meta name="description" content="<?php EchoMetaDescription(true); ?>">
 <link href="../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
 
@@ -13,8 +12,8 @@
 <?php _LayoutTopLeft(true); ?>
 
 <div>
-<h1>修改股票说明</h1>
-<?php StockOptionEditForm(STOCK_OPTION_EDIT_CN); ?>
+<h1><?php EchoHeadLine(); ?></h1>
+<?php EchoAll(); ?>
 </div>
 
 <?php LayoutTail(true); ?>

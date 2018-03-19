@@ -39,13 +39,21 @@ class _LofUsGroup extends _LofGroup
     }
 } 
 
-define ('FUND_PURCHASE_AMOUNT', 100000.0);
 function _onSmaUserDefinedVal($fVal, $bChinese)
 {
     global $group;
     
     $fund = $group->ref;
-    $fAmount = FUND_PURCHASE_AMOUNT;
+    $strAmount = FUND_PURCHASE_AMOUNT;
+    if ($group->strGroupId) 
+    {
+    	SqlCreateFundPurchaseTable();
+    	if ($str = SqlGetFundPurchaseAmount(AcctIsLogin(), $fund->stock_ref->strSqlId))
+    	{
+    		$strAmount = $str;
+    	}
+    }
+	$fAmount = floatval($strAmount);
     $iQuantity = intval($fAmount / $fund->fCNY / $fVal);
     $strQuantity = strval($iQuantity);
     if ($group->strGroupId) 
@@ -59,13 +67,26 @@ function _onSmaUserDefinedVal($fVal, $bChinese)
 
 function _getArbitrageQuantityName($bChinese)
 {
+    global $group;
+
     if ($bChinese)
     {
-        $str = '申购对冲数量';
+    	$str = '申购对冲';
+    	$strDisplay = '数量';
     }
     else
     {
-        $str = 'Arbitrage Quantity';
+    	$str = 'Arbitrage ';
+    	$strDisplay = 'Quantity';
+    }
+    
+    if ($group->strGroupId) 
+    {
+    	$str .= UrlGetPhpLink(STOCK_PATH.'editfundamount', 'symbol='.$group->ref->GetStockSymbol(), $strDisplay, $bChinese);
+    }
+    else
+    {
+    	$str .= $strDisplay;
     }
     return $str;
 }

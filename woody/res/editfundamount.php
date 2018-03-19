@@ -1,5 +1,5 @@
 <?php require_once('php/_editstockoption.php'); ?>
-<?php SetStockOptionType(STOCK_OPTION_EDIT); ?>
+<?php SetStockOptionType(STOCK_OPTION_AMOUNT); ?>
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">

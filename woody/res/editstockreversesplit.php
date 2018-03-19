@@ -1,11 +1,11 @@
-<?php require_once('php/_stock.php'); ?>
-<?php require_once('php/_editstockoptionform.php'); ?>
+<?php require_once('php/_editstockoption.php'); ?>
+<?php SetStockOptionType(STOCK_OPTION_REVERSESPLIT); ?>
 <?php AcctAuth(); ?>
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<title>Stock Reverse Split</title>
-<meta name="description" content="This English web page works together with php/_submitstockoptions.php and php/_editstockoptionform.php to do stock reverse split.">
+<title><?php EchoTitle(); ?></title>
+<meta name="description" content="<?php EchoMetaDescription(false); ?>">
 <link href="../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
 
@@ -13,8 +13,8 @@
 <?php _LayoutTopLeft(false); ?>
 
 <div>
-<h1>Stock Reverse Split</h1>
-<?php StockOptionEditForm(STOCK_OPTION_REVERSESPLIT); ?>
+<h1><?php EchoHeadLine(); ?></h1>
+<?php EchoAll(); ?>
 </div>
 
 <?php LayoutTail(false); ?>
