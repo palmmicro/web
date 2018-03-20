@@ -107,7 +107,6 @@ function SqlGetBlogComment($strWhere, $iStart, $iNum)
         
 function SqlGetBlogCommentByBlogId($strBlogId)
 {
-//   return SqlGetTableData('blogcomment', _SqlBuildWhere('blog_id', $strBlogId), '`id` ASC', false);
     return SqlGetBlogComment(_SqlBuildWhere('blog_id', $strBlogId), 0, 0);
 }
 
@@ -116,17 +115,6 @@ function SqlGetBlogCommentById($strId)
     return SqlGetTableDataById('blogcomment', $strId);
 }
 
-/*
-function SqlGetBlogCommentByMemberId($strMemberId)
-{
-    return SqlGetTableData('blogcomment', _SqlBuildWhere('member_id', $strMemberId), '`id` DESC', false);
-}
-
-function SqlGetBlogCommentByIp($strIp)
-{
-    return SqlGetTableData('blogcomment', _SqlBuildWhere('ip', $strIp), '`modified` DESC', false);
-}
-*/
 function SqlInsertBlogComment($member_id, $blog_id, $strComment)
 {
 	$strIp = UrlGetIp();
@@ -143,7 +131,7 @@ function SqlEditBlogComment($blogcomment_id, $strComment)
 
 function SqlDeleteBlogCommentByMemberId($strMemberId)
 {
-    return SqlDeleteTableData('blogcomment', _SqlBuildWhere('member_id', $strMemberId), false);
+    return SqlDeleteTableData('blogcomment', _SqlBuildWhere_member($strMemberId), false);
 }
 
 function SqlDeleteBlogCommentByBlogId($strBlogId)

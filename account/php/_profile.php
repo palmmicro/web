@@ -1,7 +1,10 @@
 <?php
 require_once('_account.php');
 require_once('_editemailform.php');
-require_once('/php/ui/table.php');
+require_once('/php/stocklink.php');
+require_once('/php/sql/sqlstock.php');
+require_once('/php/ui/commentparagraph.php');
+require_once('/php/ui/fundpurchaseparagraph.php');
 
 define ('PROFILE_LOGIN_ACCOUNT', 'Login completed');
 define ('PROFILE_PASSWORD_CHANGED', 'Password changed');
@@ -125,12 +128,25 @@ function _echoAccountBlogComments($strMemberId, $bChinese)
     if ($iTotal == 0)   return;
 
     $str = $bChinese ? '评论' : 'Comment';
-    if ($iTotal > NAX_COMMENT_DISPLAY)
+    if ($iTotal > MAX_COMMENT_DISPLAY)
     {
         $str .= ' '.AcctGetAllCommentLink($strQuery, $bChinese);
     }
     EchoParagraph($str);
-    EchoCommentParagraphs($strMemberId, $strWhere, 0, NAX_COMMENT_DISPLAY, $bChinese);    
+    EchoCommentParagraphs($strMemberId, $strWhere, 0, MAX_COMMENT_DISPLAY, $bChinese);    
+}
+
+function _echoAccountFundAmount($strMemberId, $bChinese)
+{
+    $iTotal = SqlCountFundPurchase($strMemberId);
+    if ($iTotal == 0)   return;
+
+    $str = $bChinese ? '申购金额' : 'Fund Amount';
+    if ($iTotal > TABLE_COMMON_DISPLAY)
+    {
+        $str .= ' '.UrlBuildPhpLink(STOCK_PATH.'fundpurchaseamount', 'member_id='.$strMemberId, '全部', 'All', $bChinese);
+    }
+    EchoFundPurchaseParagraph($str, $strMemberId, 0, TABLE_COMMON_DISPLAY, $bChinese);
 }
 
 function EchoAccountProfile($bChinese)
@@ -166,6 +182,7 @@ function EchoAccountProfile($bChinese)
 	}
 	
 	_echoAccountBlogComments($strMemberId, $bChinese);
+	_echoAccountFundAmount($strMemberId, $bChinese);
 }                                                         
 
 function _loginAccount($strEmail, $strPassword)

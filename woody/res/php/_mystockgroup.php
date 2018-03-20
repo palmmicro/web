@@ -1,6 +1,7 @@
 <?php
 require_once('_stock.php');
 require_once('_editgroupform.php');
+require_once('/php/ui/stockgroupparagraph.php');
 
 function _isPreDefinedGroup()
 {
@@ -12,95 +13,20 @@ function _isPreDefinedGroup()
     return $strTitle;
 }
 
-function _getStockGroupEditString($strGroupId, $bChinese)
+
+function _echoStockGroupParagraph($bChinese)
 {
-    $strStocks = '';
-	$arStock = SqlGetStocksArray($strGroupId);
-	foreach ($arStock as $strSymbol)
-	{
-	    $strStocks .= StockGetEditLink($strSymbol, $bChinese).', ';
-	}
-	$strStocks = rtrim($strStocks, ', ');
-	return $strStocks;
-}
-
-// ****************************** Stock group table *******************************************************
-
-function _echoStockGroupTableItem($stockgroup, $bReadOnly, $bChinese)
-{
-    $strGroupId = $stockgroup['id'];
-    
-    if ($bReadOnly)
-    {
-        $strDelete = '';
-        $strEdit = '';
-    }
-    else
-    {
-        $strDelete = UrlGetDeleteLink(STOCK_PHP_PATH.'_submitgroup.php?delete='.$strGroupId, '股票分组和相关交易记录', 'stock group and related stock transactions', $bChinese);
-        $strEdit = StockGetEditGroupLink($strGroupId, $bChinese);
-    }
-    $strLink = SelectGroupInternalLink($strGroupId, $bChinese);
-	
-    if (AcctIsAdmin())
-	{
-	    $strStocks = _getStockGroupEditString($strGroupId, $bChinese);
-	}
-	else
-	{
-	    $strStocks = SqlGetStocksString($strGroupId);
-	}
-
-    echo <<<END
-    <tr>
-        <td class=c1>$strLink</td>
-        <td class=c1>$strStocks</td>
-        <td class=c1>$strEdit $strDelete</td>
-    </tr>
-END;
-}
-
-function _echoStockGroupTableData($strMemberId, $bReadOnly, $bChinese)
-{
-	if ($result = SqlGetStockGroupByMemberId($strMemberId)) 
-	{
-		while ($stockgroup = mysql_fetch_assoc($result)) 
-		{
-		    _echoStockGroupTableItem($stockgroup, $bReadOnly, $bChinese);
-		}
-		@mysql_free_result($result);
-	}
-}
-
-function _echoStockGroupTable($bChinese)
-{
-    if ($bChinese)
-    {
-        $arColumn = array('分组名称', '股票', '操作');
-        $strSubmit = STOCK_GROUP_NEW_CN;
-    }
-    else
-    {
-        $arColumn = array('Group Name', 'Stocks', 'Operation');
-        $strSubmit = STOCK_GROUP_NEW;
-    }
-    
-    echo <<<END
-    <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="stockgroup">
-    <tr>
-        <td class=c1 width=100 align=center>{$arColumn[0]}</td>
-        <td class=c1 width=440 align=center>{$arColumn[1]}</td>
-        <td class=c1 width=100 align=center>{$arColumn[2]}</td>
-    </tr>
-END;
-
-    $strMemberId = AcctGetMemberId();
-    $bReadOnly = AcctIsReadOnly($strMemberId);
-    _echoStockGroupTableData($strMemberId, $bReadOnly, $bChinese);
-    EchoTableEnd();
-    
+	EchoStockGroupParagraph($bChinese);	
     if ($bReadOnly == false)
     {
+    	if ($bChinese)
+    	{
+    		$strSubmit = STOCK_GROUP_NEW_CN;
+    	}
+    	else
+    	{
+    		$strSubmit = STOCK_GROUP_NEW;
+    	}
         StockEditGroupForm($strSubmit, $bChinese);
     }
 }
@@ -184,7 +110,7 @@ function MyStockGroupEchoAll($bChinese)
         }
         else
         {
-            _echoStockGroupTable($bChinese);
+            _echoStockGroupParagraph($bChinese);
         }
     }
     
@@ -193,7 +119,7 @@ function MyStockGroupEchoAll($bChinese)
     {
         if ($strGroupId)
         {   
-    	    EchoParagraph('修改股票说明: '._getStockGroupEditString($strGroupId, $bChinese));
+    	    EchoParagraph('修改股票说明: '.StockGroupGetEditString($strGroupId, $bChinese));
         }
     }
 }

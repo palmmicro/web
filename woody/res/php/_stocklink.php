@@ -157,6 +157,7 @@ function _getCategoryArray($bChinese)
     {
         return array('oilfund' => '油气',
                       'commodity' => '商品',
+                      'goldetf' => '金银',
                       'chinainternet' => '海外中国互联网',
                       'qqqfund' => '纳斯达克100',
                       'spyfund' => '标普500',
@@ -169,6 +170,7 @@ function _getCategoryArray($bChinese)
     {
          return array('oilfund' => 'Oil&Gas',
                       'commodity' => 'Commodity',
+                      'goldetf' => 'Gold&Silver',
                       'chinainternet' => 'Overseas China Internet',
                       'qqqfund' => 'NASDAQ-100',
                       'spyfund' => 'S&P 500',

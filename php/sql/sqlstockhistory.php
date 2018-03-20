@@ -33,17 +33,17 @@ function SqlAlterStockHistoryTable()
 
 function SqlCountStockHistory($strStockId)
 {
-    return SqlCountTableData(TABLE_STOCK_HISTORY, _SqlBuildWhere('stock_id', $strStockId));
+    return SqlCountTableData(TABLE_STOCK_HISTORY, _SqlBuildWhere_stock($strStockId));
 }
 
 function SqlGetStockHistory($strStockId, $iStart, $iNum)
 {
-    return SqlGetTableData(TABLE_STOCK_HISTORY, _SqlBuildWhere('stock_id', $strStockId), '`date` DESC', _SqlBuildLimit($iStart, $iNum));
+    return SqlGetTableData(TABLE_STOCK_HISTORY, _SqlBuildWhere_stock($strStockId), '`date` DESC', _SqlBuildLimit($iStart, $iNum));
 }
 
 function SqlGetStockHistoryNow($strStockId)
 {
-	return SqlGetSingleTableData(TABLE_STOCK_HISTORY, _SqlBuildWhere('stock_id', $strStockId), '`date` DESC');
+	return SqlGetSingleTableData(TABLE_STOCK_HISTORY, _SqlBuildWhere_stock($strStockId), '`date` DESC');
 }
 
 function SqlGetStockHistoryByDate($strStockId, $strDate)

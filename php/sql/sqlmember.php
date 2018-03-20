@@ -155,7 +155,7 @@ function SqlUpdateStatus($strId, $iNewStatus)
 
 function SqlGetProfileByMemberId($strMemberId)
 {
-	return SqlGetUniqueTableData(TABLE_PROFILE, _SqlBuildWhere('member_id', $strMemberId));
+	return SqlGetUniqueTableData(TABLE_PROFILE, _SqlBuildWhere_member($strMemberId));
 }
 
 function SqlGetNameByMemberId($strMemberId)
@@ -181,7 +181,7 @@ function SqlUpdateProfile($id, $strName, $strPhone, $strAddress, $strWeb, $strSi
 
 function SqlDeleteProfileByMemberId($strMemberId)
 {
-    return SqlDeleteTableData(TABLE_PROFILE, _SqlBuildWhere('member_id', $strMemberId), '1');
+    return SqlDeleteTableData(TABLE_PROFILE, _SqlBuildWhere_member($strMemberId), '1');
 }
 
 ?>

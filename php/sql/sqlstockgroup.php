@@ -63,7 +63,7 @@ function SqlGetStockGroupMemberId($strGroupId)
 
 function SqlGetStockGroupByMemberId($strMemberId)
 {
-    return SqlGetTableData(TABLE_STOCK_GROUP, _SqlBuildWhere('member_id', $strMemberId), '`groupname` ASC', false);
+    return SqlGetTableData(TABLE_STOCK_GROUP, _SqlBuildWhere_member($strMemberId), '`groupname` ASC', false);
 }
 
 // ****************************** Stock Group Item table *******************************************************

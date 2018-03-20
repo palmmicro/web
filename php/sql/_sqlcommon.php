@@ -20,6 +20,16 @@ function _SqlBuildWhere($strKey, $strVal)
     return false;
 }
 
+function _SqlBuildWhere_member($strMemberId)
+{
+	return _SqlBuildWhere('member_id', $strMemberId);
+}
+
+function _SqlBuildWhere_stock($strStockId)
+{
+	return _SqlBuildWhere('stock_id', $strStockId);
+}
+
 function _SqlBuildWhereOrArray($strKey, $arVal)
 {
     $strOr = ' OR ';
@@ -58,6 +68,11 @@ function _SqlBuildWhereAndArray($arVal)
         return $str; 
     }
     return false;
+}
+
+function _SqlBuildWhere_stock_member($strStockId, $strMemberId)
+{
+	return _SqlBuildWhereAndArray(array('stock_id' => $strStockId, 'member_id' => $strMemberId));
 }
 
 function _SqlBuildLimit($iStart, $iNum)

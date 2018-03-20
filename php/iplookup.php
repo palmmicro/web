@@ -1,8 +1,10 @@
 <?php
 require_once('debug.php');
 require_once('url.php');
-require_once('gb2312.php');
+//require_once('gb2312.php');
+require_once('ui/commentparagraph.php');
 
+/*
 define ('SINA_IP_URL', 'http://int.dpool.sina.com.cn/iplookup/iplookup.php?ip=');
 function _getSinaIpLookUpUrl($strIp)
 {
@@ -17,7 +19,7 @@ function SinaIpLookUpGB2312($strIp)
     $ar = explode("\t", $str, 4);
     return $ar[3];
 }
-
+*/
 define ('SINA_JSON_IP_URL', 'http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=json&ip=');
 function _getSinaJsonIpLookUpUrl($strIp)
 {
@@ -194,13 +196,10 @@ function _ipLookupBlogCommentTable($strIp, $strNewLine, $bChinese)
     if ($iTotal == 0)   return '';
         
     $str = $strNewLine;
-	if ($result = SqlGetBlogComment($strWhere, 0, NAX_COMMENT_DISPLAY)) 
+	if ($result = SqlGetBlogComment($strWhere, 0, MAX_COMMENT_DISPLAY)) 
     {
         while ($comment = mysql_fetch_assoc($result)) 
         {
-//            $strLink = AcctGetMemberLink($record['member_id'], $bChinese);
-//            $str .= $strNewLine.$strLink.($bChinese ? '评论于' : ' posted comment on ').$record['modified'];
-//            $str .= ' '.AcctGetBlogLink($record['blog_id']);
             $str .= $strNewLine.GetSingleCommentDescription($comment, $strWhere, $bChinese);
         }
         @mysql_free_result($result);

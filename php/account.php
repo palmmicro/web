@@ -6,7 +6,6 @@ require_once('sql.php');
 require_once('email.php');
 require_once('iplookup.php');
 require_once('ui/table.php');
-require_once('ui/commentparagraph.php');
 
 require_once('sql/sqlmember.php');
 require_once('sql/sqlblog.php');

@@ -18,7 +18,7 @@ function SqlCreateFundPurchaseTable()
 
 function SqlGetFundPurchaseAmount($strMemberId, $strStockId)
 {
-	if ($record = SqlGetUniqueTableData(TABLE_FUND_PURCHASE, _SqlBuildWhereAndArray(array('stock_id' => $strStockId, 'member_id' => $strMemberId))))
+	if ($record = SqlGetUniqueTableData(TABLE_FUND_PURCHASE, _SqlBuildWhere_stock_member($strStockId, $strMemberId)))
 	{
 	    return $record['amount'];
 	}
@@ -34,9 +34,9 @@ function SqlGetFundPurchaseAmountById($strId)
 	return false;
 }
 
-function SqlGetFundPurchaseByMemberId($strMemberId)
+function SqlGetFundPurchase($strMemberId, $iStart, $iNum)
 {
-    return SqlGetTableData(TABLE_FUND_PURCHASE, _SqlBuildWhere('member_id', $strMemberId), false, false);
+    return SqlGetTableData(TABLE_FUND_PURCHASE, _SqlBuildWhere_member($strMemberId), false, _SqlBuildLimit($iStart, $iNum));
 }
 
 function SqlInsertFundPurchase($strMemberId, $strStockId, $strAmount)
@@ -48,14 +48,19 @@ function SqlInsertFundPurchase($strMemberId, $strStockId, $strAmount)
 function SqlUpdateFundPurchase($strMemberId, $strStockId, $strAmount)
 {
 	// Create UPDATE query
-	$strWhere = _SqlBuildWhereAndArray(array('stock_id' => $strStockId, 'member_id' => $strMemberId));
+	$strWhere = _SqlBuildWhere_stock_member($strStockId, $strMemberId);
 	$strQry = "UPDATE fundpurchase SET amount = '$strAmount' WHERE $strWhere LIMIT 1";
 	return SqlDieByQuery($strQry, 'Update fundpurchase failed');
 }
 
 function SqlDeleteFundPurchaseByMemberId($strMemberId)
 {
-	return SqlDeleteTableData(TABLE_FUND_PURCHASE, _SqlBuildWhere('member_id', $strMemberId), false);
+	return SqlDeleteTableData(TABLE_FUND_PURCHASE, _SqlBuildWhere_member($strMemberId), false);
+}
+
+function SqlCountFundPurchase($strMemberId)
+{
+    return SqlCountTableData(TABLE_FUND_PURCHASE, _SqlBuildWhere_member($strMemberId));
 }
 
 ?>

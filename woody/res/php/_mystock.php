@@ -1,22 +1,16 @@
 <?php
 require_once('_stock.php');
 require_once('_editmergeform.php');
+require_once('/php/ui/stockgroupparagraph.php');
 
 function _checkStockTransaction($strGroupId, $ref)
 {
-    if ($result = SqlGetStockGroupItemByGroupId($strGroupId))
+	if ($stockgroupitem = StockGroupHasSymbol($strGroupId, $ref->strSqlId))
 	{
-        while ($stockgroupitem = mysql_fetch_assoc($result)) 
+		if (intval($stockgroupitem['record']) > 0)
 		{
-		    if ($stockgroupitem['stock_id'] == $ref->strSqlId)
-		    {
-		        if (intval($stockgroupitem['record']) > 0)
-		        {
-		            return $stockgroupitem['id'];
-		        }
-		    }        
+		    return $stockgroupitem['id'];
 		}
-		@mysql_free_result($result);
 	}
 	return false;
 }
@@ -93,6 +87,7 @@ function _echoMyStock($strSymbol, $bChinese)
     if ($strMemberId = AcctIsLogin())
     {
     	_echoMyStockLinks($bChinese);
+    	EchoStockGroupParagraph($bChinese);	
         _echoMyStockTransactions($strMemberId, $ref, $bChinese);
     }
 }

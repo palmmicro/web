@@ -55,12 +55,12 @@ function SqlInsertStockCalibration($strStockId, $strPeerName, $strPrice, $strPee
 
 function SqlCountStockCalibration($strStockId)
 {
-    return SqlCountTableData(TABLE_STOCK_CALIBRATION, _SqlBuildWhere('stock_id', $strStockId));
+    return SqlCountTableData(TABLE_STOCK_CALIBRATION, _SqlBuildWhere_stock($strStockId));
 }
 
 function SqlGetStockCalibration($strStockId, $iStart, $iNum)
 {
-    return SqlGetTableData(TABLE_STOCK_CALIBRATION, _SqlBuildWhere('stock_id', $strStockId), '`filled` DESC', _SqlBuildLimit($iStart, $iNum));
+    return SqlGetTableData(TABLE_STOCK_CALIBRATION, _SqlBuildWhere_stock($strStockId), '`filled` DESC', _SqlBuildLimit($iStart, $iNum));
 }
 
 function SqlGetStockCalibrationNow($strStockId)

@@ -1,7 +1,7 @@
 <?php
 require_once('account.php');
 require_once('visitorlogin.php');
-require_once('/php/ui/table.php');
+require_once('ui/commentparagraph.php');
 require_once('/account/php/_editcommentform.php');
 
 function _echoPreviousComments($strBlogId, $strMemberId, $bChinese)
@@ -19,14 +19,14 @@ function _echoPreviousComments($strBlogId, $strMemberId, $bChinese)
     }
     $str = "<font color=blue><em>$str</em></font>";
     
-    if ($iTotal > NAX_COMMENT_DISPLAY)
+    if ($iTotal > MAX_COMMENT_DISPLAY)
 	{
 	    $str .= ' '.AcctGetAllCommentLink($strQuery, $bChinese);
 	}
 	
 	echo '<div>';
 	EchoParagraph($str);
-    if ($iTotal > 0)    EchoCommentParagraphs($strMemberId, $strWhere, 0, NAX_COMMENT_DISPLAY, $bChinese);    
+    if ($iTotal > 0)    EchoCommentParagraphs($strMemberId, $strWhere, 0, MAX_COMMENT_DISPLAY, $bChinese);    
     echo '</div>';
 }
 

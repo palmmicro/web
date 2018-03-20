@@ -1,6 +1,5 @@
 <?php
 require_once('_account.php');
-require_once('/php/ui/table.php');
 require_once('/php/ui/commentparagraph.php');
 
 function EchoUserComment($bChinese)

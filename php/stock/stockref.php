@@ -100,7 +100,7 @@ function _replaceCommaInsideQuotationMarks($str)
     }
     return $strNew;
 }
-/*
+
 // "+2.3%", "-11.37%", "N/A"
 function _convertYahooPercentage($strChange)
 {
@@ -110,7 +110,7 @@ function _convertYahooPercentage($strChange)
     if (substr($str, 0, 1) == '+')   $str = ltrim($str, '+');
     return floatval(rtrim($str, '%')) / 100.0;
 }
-*/
+
 // "9:59am" "11:11pm"
 function _convertYahooTime($strAmpm)
 {
@@ -386,8 +386,8 @@ class StockReference
         $this->strName = str_replace(COMMA_REPLACEMENT, ',', RemoveDoubleQuotationMarks($ar[3]));
         
         $this->strPrice = $ar[0];
-//        $this->strPrevPrice = strval(floatval($this->strPrice) / (1 + _convertYahooPercentage($ar[2])));
-        $this->strPrevPrice = $ar[5];         // p
+        $this->strPrevPrice = strval(floatval($this->strPrice) / (1 + _convertYahooPercentage($ar[2])));
+//        $this->strPrevPrice = $ar[5];         // p
         $this->strDate = _convertYahooDate($ar[4]);
         $this->strTime = _convertYahooTime($ar[1]);
         if ($this->sym->IsSymbolUS())

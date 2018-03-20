@@ -33,12 +33,12 @@ function SqlGetFundHistoryNow($strStockId)
 
 function SqlCountFundHistory($strStockId)
 {
-    return SqlCountTableData(TABLE_FUND_HISTORY, _SqlBuildWhere('stock_id', $strStockId));
+    return SqlCountTableData(TABLE_FUND_HISTORY, _SqlBuildWhere_stock($strStockId));
 }
 
 function SqlGetFundHistory($strStockId, $iStart, $iNum)
 {
-    return SqlGetTableData(TABLE_FUND_HISTORY, _SqlBuildWhere('stock_id', $strStockId), '`date` DESC', _SqlBuildLimit($iStart, $iNum));
+    return SqlGetTableData(TABLE_FUND_HISTORY, _SqlBuildWhere_stock($strStockId), '`date` DESC', _SqlBuildLimit($iStart, $iNum));
 }
 
 function SqlGetFundHistoryByDate($strStockId, $strDate)

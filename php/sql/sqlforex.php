@@ -22,7 +22,7 @@ function SqlGetForexHistory($strStockId, $strDate)
 
 function SqlGetForexHistoryNow($strStockId)
 {
-	return SqlGetSingleTableData(TABLE_FOREX_HISTORY, _SqlBuildWhere('stock_id', $strStockId), '`date` DESC');
+	return SqlGetSingleTableData(TABLE_FOREX_HISTORY, _SqlBuildWhere_stock($strStockId), '`date` DESC');
 }
 
 function SqlInsertForexHistory($strStockId, $strDate, $strClose)
