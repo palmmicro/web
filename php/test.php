@@ -7,7 +7,7 @@ require_once('gb2312.php');
 
 require_once('sql.php');
 require_once('sql/sqlstocksymbol.php');
-//require_once('sql/sqlstockgroup.php');
+require_once('sql/sqlstockgroup.php');
 require_once('sql/sqlstockhistory.php');
 require_once('sql/sqlparameter.php');
 
@@ -177,7 +177,7 @@ function test_stock_dividend()
 
 //	_debug_dividend('sz000028');
 //	test_stock_dividend();
-//	SqlDeleteStockGroupByGroupName('YZC');
+//	SqlDeleteStockGroupByGroupName('#SMA');
 //	echoDebugString(url_get_contents('http://palmmicro.com/php/spidercn.php?list=sz162411'));
 //    TestGoogleHistory();
 

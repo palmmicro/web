@@ -4,7 +4,7 @@ require_once('mysqllof.php');
 require_once('mysqlgold.php');
 require_once('mysqlgraded.php');
 
-function WeixinStockPrefetchData($ar)
+function MyStockPrefetchData($ar)
 {
     $arAll = array();
     foreach ($ar as $strSymbol)
@@ -26,7 +26,7 @@ function WeixinStockPrefetchData($ar)
     PrefetchStockData(array_unique($arAll));
 }
 
-function WeixinStockGetFundReference($strSymbol)
+function MyStockGetFundReference($strSymbol)
 {
     if (in_arrayLof($strSymbol))                 $ref = new MyLofReference($strSymbol);
     else if (in_arrayLofHk($strSymbol))         $ref = new MyLofHkReference($strSymbol);
@@ -48,5 +48,6 @@ function WeixinStockGetFundReference($strSymbol)
     }
     return $ref;
 }
+
 
 ?>

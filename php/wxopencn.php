@@ -5,7 +5,7 @@ require_once('debug.php');
 require_once('stock.php');
 require_once('email.php');
 require_once('sql.php');
-require_once('weixinstock.php');
+require_once('mystock.php');
 
 require_once('ui/stocktext.php');
 
@@ -106,7 +106,7 @@ function _wxGetStockText($strSymbol)
     }
     else if ($sym->IsFundA())
     {
-        $ref = WeixinStockGetFundReference($strSymbol);
+        $ref = MyStockGetFundReference($strSymbol);
         $str = _getFundReferenceText($ref); 
     }
     else
@@ -158,7 +158,7 @@ function _wxUnknownMessage($strContents, $strUserName)
 
 function _wxGetStockArrayText($arSymbol)
 {
-    WeixinStockPrefetchData($arSymbol);
+    MyStockPrefetchData($arSymbol);
     $str = '';
     foreach ($arSymbol as $strSymbol)
     {

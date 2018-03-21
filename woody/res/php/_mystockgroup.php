@@ -33,7 +33,7 @@ function _echoStockGroupParagraph($bChinese)
 
 function _echoStockGroupArray($arStock, $bChinese)
 {
-    WeixinStockPrefetchData($arStock);
+    MyStockPrefetchData($arStock);
     
     $arRef = array();
     $arTransactionRef = array();
@@ -48,7 +48,7 @@ function _echoStockGroupArray($arStock, $bChinese)
         }
         else if ($sym->IsFundA())
         {
-            $fund = WeixinStockGetFundReference($strSymbol);
+            $fund = MyStockGetFundReference($strSymbol);
             $arFund[] = $fund;
             $ref = $fund->stock_ref; 
         }

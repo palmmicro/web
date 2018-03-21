@@ -57,12 +57,12 @@ function _echoMyStockLinks($bChinese)
 
 function _echoMyStock($strSymbol, $bChinese)
 {
-    WeixinStockPrefetchData(array($strSymbol));
+    MyStockPrefetchData(array($strSymbol));
     
     $sym = new StockSymbol($strSymbol);
     if ($sym->IsFundA())
     {
-        $fund = WeixinStockGetFundReference($strSymbol);
+        $fund = MyStockGetFundReference($strSymbol);
         $ref = $fund->stock_ref; 
     }
     else

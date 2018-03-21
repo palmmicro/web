@@ -1,6 +1,6 @@
 <?php
 require_once('_resstock.php');
-require_once('/php/weixinstock.php');
+require_once('/php/mystock.php');
 require_once('/php/ui/stocktable.php');
 require_once('_editformcommon.php');
 require_once('_edittransactionform.php');
