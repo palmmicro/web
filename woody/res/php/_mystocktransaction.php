@@ -1,48 +1,43 @@
 <?php
 require_once('_stock.php');
 
-// ****************************** Public *******************************************************
-
 function MyStockTransactionEchoAll($bChinese)
 {
-    global $g_strGroupId;
-    global $g_strSymbol;
-    
-    if ($g_strGroupId)
+    if ($strGroupId = UrlGetQueryValue('groupid'))
     {
         $iStart = UrlGetQueryInt('start', 0);
         $iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
-        $strGroupLink = _GetReturnGroupLink($g_strGroupId, $bChinese);
+        $strGroupLink = _GetReturnGroupLink($strGroupId, $bChinese);
         
-        if ($g_strSymbol)
+        if ($strSymbol = UrlGetQueryValue('symbol'))
         {   // Display transactions of a stock
-            $strAllLink = StockGetAllTransactionLink($g_strGroupId, false, $bChinese);
-            $strStockLinks = StockGetGroupTransactionLinks($g_strGroupId, $g_strSymbol, $bChinese);
+            $strAllLink = StockGetAllTransactionLink($strGroupId, false, $bChinese);
+            $strStockLinks = StockGetGroupTransactionLinks($strGroupId, $strSymbol, $bChinese);
             
-            $ref = new MyStockReference($g_strSymbol);
+            $ref = new MyStockReference($strSymbol);
             $strStockId = $ref->strSqlId;
-            $iTotal = SqlCountStockTransaction($g_strGroupId, $strStockId);
-            $strNavLink = _GetNavLink('mystocktransaction', 'groupid='.$g_strGroupId.'&symbol='.$g_strSymbol, $iTotal, $iStart, $iNum, $bChinese);
+            $iTotal = SqlCountStockTransaction($strGroupId, $strStockId);
+            $strNavLink = _GetNavLink('mystocktransaction', 'groupid='.$strGroupId.'&symbol='.$strSymbol, $iTotal, $iStart, $iNum, $bChinese);
             
             EchoParagraphBegin($strGroupLink.' '.$strAllLink.' '.$strStockLinks.'<br />'.$strNavLink);
-            if ($result = SqlGetStockTransaction($g_strGroupId, $strStockId, $iStart, $iNum)) 
+            if ($result = SqlGetStockTransaction($strGroupId, $strStockId, $iStart, $iNum)) 
             {
-                EchoStockTransactionTable($g_strGroupId, $ref, $result, $bChinese);
+                EchoStockTransactionTable($strGroupId, $ref, $result, $bChinese);
             }
         }
         else
         {   // Display transactions of the whole group
-            $arSymbol = SqlGetStockGroupPrefetchSymbolArray($g_strGroupId);
+            $arSymbol = SqlGetStockGroupPrefetchSymbolArray($strGroupId);
             PrefetchForexAndStockData($arSymbol);
             
-            $strCombineLink = _GetCombineTransactionLink($g_strGroupId, $bChinese);
-            $strStockLinks = StockGetGroupTransactionLinks($g_strGroupId, '', $bChinese);
+            $strCombineLink = UrlBuildPhpLink(STOCK_PATH.'combinetransaction', 'groupid='.$strGroupId, '合并记录', 'Combined Records', $bChinese);
+            $strStockLinks = StockGetGroupTransactionLinks($strGroupId, '', $bChinese);
             
-            $iTotal = SqlCountStockTransactionByGroupId($g_strGroupId);
-            $strNavLink = _GetNavLink('mystocktransaction', 'groupid='.$g_strGroupId, $iTotal, $iStart, $iNum, $bChinese);
+            $iTotal = SqlCountStockTransactionByGroupId($strGroupId);
+            $strNavLink = _GetNavLink('mystocktransaction', 'groupid='.$strGroupId, $iTotal, $iStart, $iNum, $bChinese);
             EchoParagraphBegin($strGroupLink.' '.$strCombineLink.' '.$strStockLinks.'<br />'.$strNavLink);
             
-            $group = new MyStockGroup($g_strGroupId, array());
+            $group = new MyStockGroup($strGroupId, array());
             _EchoTransactionTable($group, $iStart, $iNum, $bChinese);
         }
         EchoParagraphEnd();

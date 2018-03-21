@@ -1,6 +1,7 @@
 <?php
 require_once('_stock.php');
 require_once('_editmergeform.php');
+require_once('_editstockoptionform.php');
 require_once('/php/ui/stockgroupparagraph.php');
 
 function _checkStockTransaction($strGroupId, $ref)
@@ -49,12 +50,6 @@ function _echoMyStockTransactions($strMemberId, $ref, $bChinese)
 	}
 }
 
-function _echoMyStockLinks($bChinese)
-{
-    $strReverseSplit = UrlBuildPhpLink(STOCK_PATH.'editstockreversesplit', UrlGetQueryString(), '合股', 'Reverse Split', $bChinese);
-    EchoParagraph($strReverseSplit);
-}
-
 function _echoMyStock($strSymbol, $bChinese)
 {
     MyStockPrefetchData(array($strSymbol));
@@ -86,14 +81,17 @@ function _echoMyStock($strSymbol, $bChinese)
     
     if ($strMemberId = AcctIsLogin())
     {
-    	_echoMyStockLinks($bChinese);
     	EchoStockGroupParagraph($bChinese);	
         _echoMyStockTransactions($strMemberId, $ref, $bChinese);
     }
 }
 
-function _echoAllMyStock($bChinese)
+function _echoMyStockLinks($bChinese)
 {
+	$strQuery = UrlGetQueryString();
+    $strDescription = UrlBuildPhpLink(STOCK_PATH.'editstock', $strQuery, STOCK_OPTION_EDIT_CN, STOCK_OPTION_EDIT, $bChinese);
+    $strReverseSplit = UrlBuildPhpLink(STOCK_PATH.'editstockreversesplit', $strQuery, STOCK_OPTION_REVERSESPLIT_CN, STOCK_OPTION_REVERSESPLIT, $bChinese);
+    EchoParagraph($strDescription.' '.$strReverseSplit);
 }
 
 function EchoMyStock($bChinese)
@@ -101,12 +99,11 @@ function EchoMyStock($bChinese)
     if ($str = UrlGetQueryValue('symbol'))
     {
         _echoMyStock(StockGetSymbol($str), $bChinese);
+        if (AcctIsAdmin())
+        {
+        	_echoMyStockLinks($bChinese);
+        }
     }
-    else
-    {
-        _echoAllMyStock($bChinese);
-    }
-
     EchoPromotionHead('', $bChinese);
 }
 

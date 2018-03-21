@@ -119,11 +119,6 @@ function StockGetEditGroupLink($strGroupId, $bChinese)
     return UrlGetEditLink(STOCK_PATH.'editstockgroup', $strGroupId, $bChinese);
 }
 
-function StockGetEditLink($strSymbol, $bChinese)
-{
-    return UrlGetPhpLink(STOCK_PATH.'editstock', 'symbol='.$strSymbol, $strSymbol, $bChinese);
-}
-
 // ****************************** Other internal link related functions *******************************************************
 
 function PairTradingGetSymbolArray()

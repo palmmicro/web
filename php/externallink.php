@@ -132,6 +132,19 @@ function GetJisiluAHLink($strSymbol)
     return $strSymbol;
 }
 
+// https://www.jisilu.cn/data/sfnew/detail/502004
+function EchoJisiluGradedFund()
+{
+    $strSymbol = UrlGetTitle();
+    $sym = new StockSymbol($strSymbol);
+    if ($sym->IsFundA())
+    {
+        $strHttp = 'https://www.jisilu.cn/data/sfnew/detail/'.$sym->strDigitA;
+        $str = DebugGetExternalLink($strHttp, '集思录');
+        echo $str;
+    }
+}
+
 // http://quote.eastmoney.com/forex/USDCNY.html
 function GetEastMoneyForexLink($strSymbol)
 {

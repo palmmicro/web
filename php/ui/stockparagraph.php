@@ -224,18 +224,4 @@ function EchoStockTransactionParagraph($strGroupId, $ref, $result, $bChinese)
     EchoParagraphEnd();
 }
 
-function EchoEditGroupEchoParagraph($strGroupId, $bChinese)
-{
-    $str = StockGetEditGroupLink($strGroupId, $bChinese);
-    if ($bChinese)
-    {
-        $str .= '分组';
-    }
-    else
-    {
-        $str .= ' Group';
-    }
-    EchoParagraph($str);
-}
-
 ?>

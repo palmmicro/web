@@ -1,23 +1,5 @@
 <?php
 
-// https://www.jisilu.cn/data/sfnew/detail/502004
-function EchoJisiluGradedFund()
-{
-    $strSymbol = UrlGetTitle();
-    $sym = new StockSymbol($strSymbol);
-    if ($sym->IsFundA())
-    {
-        $strHttp = 'https://www.jisilu.cn/data/sfnew/detail/'.$sym->strDigitA;
-        $str = DebugGetExternalLink($strHttp, '集思录');
-        echo $str;
-    }
-}
-
-function _GetCombineTransactionLink($strGroupId, $bChinese)
-{
-    return UrlBuildPhpLink(STOCK_PATH.'combinetransaction', 'groupid='.$strGroupId, '合并记录', 'Combined Records', $bChinese);
-}
-
 function _getReturnGroupText($strLink, $bChinese)
 {
     if ($bChinese)     
@@ -57,27 +39,9 @@ function _GetStockNavLink($strTitle, $strSymbol, $iTotal, $iStart, $iNum, $bChin
     return _GetNavLink($strTitle, 'symbol='.$strSymbol, $iTotal, $iStart, $iNum, $bChinese);
 }
 
-function _GetDevGuideLink($strVer, $bChinese)
-{
-    if ($strVer != '')
-    {
-        $strQuery = '#'.$strVer;
-    }
-    else
-    {
-        $strQuery = false;
-    }
-    return UrlBuildPhpLink('/woody/blog/entertainment/20150818', $strQuery, '开发记录', 'Development Record', $bChinese);
-}
-
 function _GetAdjustLink($strSymbol, $strQuery, $bChinese)
 {
     return UrlBuildPhpLink(STOCK_PATH.'editstockgroup', $strQuery, '校准', 'Adjust', $bChinese).' '.$strSymbol;
-}
-
-function _GetPortfolioLink($bChinese)
-{
-    return UrlBuildPhpLink(STOCK_PATH.'myportfolio', false, '持仓盈亏', 'My Portfolio', $bChinese);
 }
 
 function _GetEtfAdjustString($ref, $etf_ref, $bChinese)
@@ -142,7 +106,7 @@ function EchoStockGroupLinks($bChinese)
     $strTitle = UrlGetTitle();
 //    if ($strTitle != 'mystockgroup')
     $str .= ' '.StockGetGroupLink($bChinese);
-    if ($strTitle != 'myportfolio')    $str .= '<br />'._GetPortfolioLink($bChinese);
+    if ($strTitle != 'myportfolio')    $str .= '<br />'.UrlBuildPhpLink(STOCK_PATH.'myportfolio', false, '持仓盈亏', 'My Portfolio', $bChinese);
     
     if ($strMemberId = AcctIsLogin())
     {

@@ -42,17 +42,15 @@ class _MyStockGroup extends MyStockGroup
     
     function GetDebugString($bChinese)
     {
-        $strEdit = $bChinese ? '修改' : 'Edit';   
         $strFile = $bChinese ? '数据' : 'Data';
         foreach ($this->arDisplayRef as $ref)
         {
             if ($ref)
             {
                 $strFile .= ' '.DebugGetFileLink($ref->strFileName);
-                $strEdit .=  ' '.StockGetEditLink($ref->GetStockSymbol(), $bChinese);
             }
         }
-        return $strEdit.HTML_NEW_LINE.$strFile;
+        return $strFile;
     }
 }
 
@@ -462,10 +460,11 @@ function _EchoPortfolioItem($strGroupId, $trans, $bChinese)
 END;
 }
 
-function _EchoGroupPortfolioTable($group, $bChinese)
+function _echoGroupPortfolioParagraph($group, $bChinese)
 {
     if ($group->GetTotalRecords() > 0)
 	{
+		EchoParagraphBegin('');
 	    _EchoPortfolioTableBegin($bChinese);    
         foreach ($group->arStockTransaction as $trans)
         {
@@ -475,6 +474,7 @@ function _EchoGroupPortfolioTable($group, $bChinese)
             }
 		}
 		EchoTableEnd();    
+		EchoParagraphEnd();
 	}
 }
 
@@ -571,6 +571,19 @@ function _echoMyPromotion()
 END;
 }
 
+function _getDevGuideLink($strVer, $bChinese)
+{
+    if ($strVer != '')
+    {
+        $strQuery = '#'.$strVer;
+    }
+    else
+    {
+        $strQuery = false;
+    }
+    return UrlBuildPhpLink('/woody/blog/entertainment/20150818', $strQuery, '开发记录', 'Development Record', $bChinese);
+}
+
 function EchoPromotionHead($strVer, $bChinese)
 {
     if ($bChinese)  echo '<h3>讨论和建议</h3>';
@@ -584,7 +597,7 @@ function EchoPromotionHead($strVer, $bChinese)
         else if ($iVal == 3)    _echoMyPromotion();
         EchoNewLine();
     }
-    echo _GetDevGuideLink($strVer, $bChinese);
+    echo _getDevGuideLink($strVer, $bChinese);
     EchoParagraphEnd();
     
     if (AcctIsAdmin())
@@ -636,10 +649,7 @@ function _EchoTransactionParagraph($group, $bChinese)
     }
     
     StockEditTransactionForm($strGroupId, false, $bChinese);
-    
-    EchoParagraphBegin(_GetPortfolioLink($bChinese));
-    _EchoGroupPortfolioTable($group, $bChinese);
-    EchoParagraphEnd();
+    _echoGroupPortfolioParagraph($group, $bChinese);
 }
 
 // ****************************** String functions *******************************************************

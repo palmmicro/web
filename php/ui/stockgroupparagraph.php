@@ -1,12 +1,12 @@
 <?php
 
-function StockGroupGetEditString($strGroupId, $bChinese)
+function _getMyStockLinks($strGroupId, $bChinese)
 {
     $strStocks = '';
 	$arStock = SqlGetStocksArray($strGroupId);
 	foreach ($arStock as $strSymbol)
 	{
-	    $strStocks .= StockGetEditLink($strSymbol, $bChinese).', ';
+	    $strStocks .= GetMyStockLink($strSymbol, $bChinese).', ';
 	}
 	$strStocks = rtrim($strStocks, ', ');
 	return $strStocks;
@@ -26,16 +26,9 @@ function _echoStockGroupTableItem($stockgroup, $bReadOnly, $bChinese)
         $strDelete = UrlGetDeleteLink(STOCK_PHP_PATH.'_submitgroup.php?delete='.$strGroupId, '股票分组和相关交易记录', 'stock group and related stock transactions', $bChinese);
         $strEdit = StockGetEditGroupLink($strGroupId, $bChinese);
     }
+    
     $strLink = SelectGroupInternalLink($strGroupId, $bChinese);
-	
-    if (AcctIsAdmin())
-	{
-	    $strStocks = StockGroupGetEditString($strGroupId, $bChinese);
-	}
-	else
-	{
-	    $strStocks = SqlGetStocksString($strGroupId);
-	}
+    $strStocks = _getMyStockLinks($strGroupId, $bChinese);
 
     echo <<<END
     <tr>

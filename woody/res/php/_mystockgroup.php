@@ -13,7 +13,6 @@ function _isPreDefinedGroup()
     return $strTitle;
 }
 
-
 function _echoStockGroupParagraph($bChinese)
 {
 	EchoStockGroupParagraph($bChinese);	
@@ -78,6 +77,20 @@ function _echoStockGroupArray($arStock, $bChinese)
     return $arTransactionRef;
 }
 
+function _echoEditGroupParagraph($strGroupId, $bChinese)
+{
+    $str = StockGetEditGroupLink($strGroupId, $bChinese);
+    if ($bChinese)
+    {
+        $str .= '分组';
+    }
+    else
+    {
+        $str .= ' Group';
+    }
+    EchoParagraph($str);
+}
+
 function _echoMyStockGroup($strGroupId, $bChinese)
 {
     global $group;  // in _stocklink.php $group = false;
@@ -90,7 +103,7 @@ function _echoMyStockGroup($strGroupId, $bChinese)
     {
         $group = new MyStockGroup($strGroupId, $arTransactionRef);
         _EchoTransactionParagraph($group, $bChinese);
-        EchoEditGroupEchoParagraph($strGroupId, $bChinese);
+        _echoEditGroupParagraph($strGroupId, $bChinese);
     }
 }
 
@@ -115,13 +128,6 @@ function MyStockGroupEchoAll($bChinese)
     }
     
     EchoPromotionHead('stockgroup', $bChinese);
-    if (AcctIsAdmin())
-    {
-        if ($strGroupId)
-        {   
-    	    EchoParagraph('修改股票说明: '.StockGroupGetEditString($strGroupId, $bChinese));
-        }
-    }
 }
 
 function MyStockGroupEchoMetaDescription($bChinese)
