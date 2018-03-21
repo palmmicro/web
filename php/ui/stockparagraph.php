@@ -81,18 +81,16 @@ function EchoSmaParagraph($stock_his, $ref, $fCallback, $fCallback2, $bChinese)
     $strSymbol = $stock_his->GetStockSymbol();
     $strDate = $stock_his->strDate;
     
-    if (UrlGetTitle() == 'sma')    $strSymbolLink = SelectSymbolInternalLink($strSymbol, $bChinese);
-    else                            $strSymbolLink = _selectSmaExternalLink($strSymbol);
+	$strSymbolLink = _selectSmaExternalLink($strSymbol);
     $strHistoryLink = GetStockHistoryLink($strSymbol, $bChinese);
-    $strSmaLink = GetSmaLink($bChinese);
     if ($bChinese)     
     {
-        $str = "{$strSymbolLink}从{$strDate}开始的过去100个交易日中{$strSmaLink}落在当天成交范围内的".DAYS_DISPLAY_CN.'.';
+        $str = "{$strSymbolLink}从{$strDate}开始的过去100个交易日中".SMA_DISPLAY_CN.'落在当天成交范围内的'.DAYS_DISPLAY_CN.'.';
         if ($ref)   $str .= " {$strRefSymbol}当前成交价格{$strRefPrice}相对于".EST_DISPLAY_CN.'的'.PREMIUM_DISPLAY_CN.'.';
     }
     else
     {
-        $str = DAYS_DISPLAY_US." of $strSymbolLink trading range covered the $strSmaLink in past 100 trading days starting from $strDate.";
+        $str = DAYS_DISPLAY_US." of $strSymbolLink trading range covered the ".SMA_DISPLAY_US." in past 100 trading days starting from $strDate.";
         if ($ref)   $str .= " $strRefSymbol current trading price $strRefPrice comparing with ".EST_DISPLAY_US.'.';
     }
     EchoParagraphBegin($str.' '.$strHistoryLink);

@@ -6,12 +6,6 @@ require_once('url.php');
 define ('STOCK_PATH', '/woody/res/');
 define ('STOCK_PHP_PATH', '/woody/res/php/');
 
-define ('SMA_STOCK_GROUP', '#SMA');
-function in_arrayStockGroupTool($str)
-{
-    return in_array($str, array(SMA_STOCK_GROUP));
-}
-
 function _getStockToolLink($strTitle, $strSymbol, $bChinese)
 {
     return UrlGetPhpLink(STOCK_PATH.strtolower($strTitle), false, $strSymbol, $bChinese);
@@ -45,16 +39,6 @@ function _stockGetLink($strTitle, $strCn, $strUs, $bChinese)
         return "<font color=blue>$strDisplay</font>";
     }
     return UrlGetPhpLink(STOCK_PATH.$strTitle, false, $strDisplay, $bChinese);
-}
-
-function GetSmaLink($bChinese)
-{
-    return _stockGetLink('sma', '均线', 'SMA', $bChinese);
-}
-
-function EchoSmaLink($bChinese)
-{
-    echo GetSmaLink($bChinese);
 }
 
 function GetAHCompareLink($bChinese)
@@ -236,15 +220,7 @@ function SelectGroupInternalLink($strGroupId, $bChinese)
 	$strLink = SelectSymbolInternalLink($strGroupName, $bChinese);
 	if ($strLink == $strGroupName)
 	{
-	    if (in_arrayStockGroupTool($strGroupName))
-	    {
-	        $strTitle = strtolower(substr($strGroupName, 1));
-	        $strLink = UrlGetPhpLink(STOCK_PATH.$strTitle, false, $strGroupName, $bChinese);
-	    }
-	    else
-	    {
-	        $strLink = UrlGetPhpLink(STOCK_PATH.'mystockgroup', 'groupid='.$strGroupId, $strGroupName, $bChinese);
-	    }
+        $strLink = UrlGetPhpLink(STOCK_PATH.'mystockgroup', 'groupid='.$strGroupId, $strGroupName, $bChinese);
 	}
     return $strLink; 
 }

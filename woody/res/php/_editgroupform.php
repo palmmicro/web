@@ -10,7 +10,6 @@ define ('STOCK_GROUP_ADJUST_CN', '校准');
 
 function IsGroupNameReadOnly($strGroupName)
 {
-    if (in_arrayStockGroupTool($strGroupName))    return true;
     if (in_arrayLof($strGroupName))               return true;
     if (in_arrayLofHk($strGroupName))             return true;
     if (in_arrayGoldEtf($strGroupName))           return true;

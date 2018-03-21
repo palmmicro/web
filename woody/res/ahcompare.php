@@ -15,7 +15,7 @@
 <?php _EchoCompareAH(false); ?>
 <p>Related software:
 <?php
-    EchoSmaLink(false);
+    EchoStockCategoryLinks(false);
     EchoStockGroupLinks(false);
 ?>
 </p>

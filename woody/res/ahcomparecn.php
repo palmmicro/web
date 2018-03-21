@@ -19,7 +19,7 @@
 <?php _EchoCompareAH(true); ?>
 <p>相关软件:
 <?php
-    EchoSmaLink(true);
+    EchoStockCategoryLinks(true);
     EchoStockGroupLinks(true);
 ?>
 </p>

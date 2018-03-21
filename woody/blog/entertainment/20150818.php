@@ -38,7 +38,7 @@ The following are checked:
 
 <h3><a name="sma">SMA</a></h3>
 <p>Aug 20, 2015
-<br />To set up my own trading rules, and to avoid following the market all night, I plan to trade XOP simply on <a href="../../res/sma.php">SMA</a> values.
+<br />To set up my own trading rules, and to avoid following the market all night, I plan to trade XOP simply on Simple Moving Average (SMA) values.
 This version added the premium of current trading price comparing with XOP estimation of SZ162411 net value,
 and the days in past 100 trading days did the estimated SMA value fitted in the trading range.
 <br />Using Yahoo stock historic data: <?php EchoLink('http://table.finance.yahoo.com/table.csv?s=XOP&d=7&e=19&f=2015&g=d&a=6&b=19&c=2015&ignore=.csv'); ?>,
@@ -65,7 +65,7 @@ Following the developer's advice, I copied the code github and put it separately
 I bought 2 HK ETF related LOF with recent stock market crash,
 and added <a href="../../res/sz159920.php">CHINA ASSET HANG SENG</a> and <a href="../../res/sh510900.php">E FUND H-Share</a> net value tool.
 Although I only watched US market crash, I still added <a href="../../res/sh513500.php">BOSERA S&P 500</a> net value tool for possible future usage.
-<br />The original one file <?php EchoPhpFileLink('/woody/res/php/_lof.php'); ?> now becomes 5 files:
+<br />The original one file <?php EchoPhpFileLink('/woody/res/php/_lof.php'); ?> now becomes 4 files:
 </p>
 <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="table1">
        <tr>
@@ -75,13 +75,8 @@ Although I only watched US market crash, I still added <a href="../../res/sh5135
       </tr>
       <tr>
         <td class=c1 align="center">_stock.php</td>
-        <td class=c1 align="center">_sma.php, _lof.php</td>
+        <td class=c1 align="center">_lof.php</td>
         <td class=c1 align="center">Put html unrelated php code together</td>
-      </tr>
-      <tr>
-        <td class=c1 align="center">_sma.php</td>
-        <td class=c1 align="center">/woody/res/<a href="../../res/sma.php">sma.php</a>, <a href="../../res/smacn.php">smacn.php</a></td>
-        <td class=c1 align="center">SMA related functions</td>
       </tr>
       <tr>
         <td class=c1 align="center">_lof.php</td>

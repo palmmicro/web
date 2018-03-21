@@ -422,9 +422,8 @@ function EchoSmaTable($stock_his, $ref, $fCallback, $fCallback2, $bChinese)
     if ($fCallback2)    $strUserDefined = call_user_func($fCallback2, TABLE_USER_DEFINED_NAME, 0.0, $bChinese);
     else                  $strUserDefined = '';  
     
-    $strSmaLink = GetSmaLink($bChinese);
-    if ($bChinese)  $arColumn = array($strSmaLink, EST_DISPLAY_CN, PREMIUM_DISPLAY_CN, DAYS_DISPLAY_CN, $strEst, $strPremium, $strUserDefined);
-    else              $arColumn = array($strSmaLink, EST_DISPLAY_US, PREMIUM_DISPLAY_US, DAYS_DISPLAY_US, $strEst, $strPremium, $strUserDefined);
+    if ($bChinese)  $arColumn = array(SMA_DISPLAY_CN, EST_DISPLAY_CN, PREMIUM_DISPLAY_CN, DAYS_DISPLAY_CN, $strEst, $strPremium, $strUserDefined);
+    else              $arColumn = array(SMA_DISPLAY_US, EST_DISPLAY_US, PREMIUM_DISPLAY_US, DAYS_DISPLAY_US, $strEst, $strPremium, $strUserDefined);
     
     $strSymbol = $stock_his->GetStockSymbol();
     echo <<<END

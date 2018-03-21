@@ -35,7 +35,7 @@
 
 <h3><a name="sma">SMA</a></h3>
 <p>2015年8月20日
-<br />为严格交易规则, 同时避免半夜盯盘, 套利过程中我打算简单的在均线上下单买卖XOP. 这个版本加入下一个交易日XOP预计的常用<a href="../../res/smacn.php">SMA</a>均线值,
+<br />为严格交易规则, 同时避免半夜盯盘, 套利过程中我打算简单的在均线上下单买卖XOP. 这个版本加入下一个交易日XOP预计的常用SMA均线值,
 以及当前成交价格相对于华宝油气对应净值的溢价.
 <br />采用Yahoo股票历史数据接口: <?php EchoLink('http://table.finance.yahoo.com/table.csv?s=XOP&d=7&e=19&f=2015&g=d&a=6&b=19&c=2015&ignore=.csv'); ?>,
 读取数据的代码在<?php EchoPhpFileLink('/php/stock/yahoostock.php'); ?>中.
@@ -57,7 +57,7 @@
 <br />整理代码最好的方式是补充<a href="../../res/sz162411.php">英文版本</a>和多开发几个类似LOF基金估值软件.
 伴随最近抄底港股加入<a href="../../res/sz159920cn.php">恒生ETF</a>和<a href="../../res/sh510900cn.php">H股ETF</a>净值计算工具.
 观摩美股崩盘期间顺手加入了<a href="../../res/sh513500cn.php">博时标普500</a>(SH:513500)净值计算工具, 也许日后会用上.
-<br />原本单个的<?php EchoPhpFileLink('/woody/res/php/_lof.php'); ?>现在扩展成了5个文件:
+<br />原本单个的<?php EchoPhpFileLink('/woody/res/php/_lof.php'); ?>现在扩展成了4个文件:
 </p>
 <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="phpfile">
        <tr>
@@ -67,13 +67,8 @@
       </tr>
       <tr>
         <td class=c1 align="center">_stock.php</td>
-        <td class=c1 align="center">_sma.php, _lof.php</td>
+        <td class=c1 align="center">_lof.php</td>
         <td class=c1 align="center">集中放置跟html无关的php代码</td>
-      </tr>
-      <tr>
-        <td class=c1 align="center">_sma.php</td>
-        <td class=c1 align="center">/woody/res/<a href="../../res/sma.php">sma.php</a>, <a href="../../res/smacn.php">smacn.php</a></td>
-        <td class=c1 align="center">跟SMA相关的公共函数代码</td>
       </tr>
       <tr>
         <td class=c1 align="center">_lof.php</td>
