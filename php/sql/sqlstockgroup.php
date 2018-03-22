@@ -215,17 +215,6 @@ function SqlGetStocksArray($strStockGroupId)
     return $ar;
 }
 
-function SqlGetStocksString($strStockGroupId)
-{
-    $str = '';
-    $arStockIdName = SqlGetStockGroupArray($strStockGroupId);
-    foreach ($arStockIdName as $strId => $strSymbol)
-    {
-        $str .= $strSymbol.', ';
-    }
-    return rtrim($str, ', ');
-}
-
 function SqlDeleteStockGroupByMemberId($strMemberId)
 {
 	if ($result = SqlGetStockGroupByMemberId($strMemberId)) 

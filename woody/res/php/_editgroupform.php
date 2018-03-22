@@ -20,6 +20,17 @@ function IsGroupNameReadOnly($strGroupName)
     return false;
 }
 
+function _getStocksString($strStockGroupId)
+{
+    $str = '';
+    $arStockIdName = SqlGetStockGroupArray($strStockGroupId);
+    foreach ($arStockIdName as $strId => $strSymbol)
+    {
+        $str .= $strSymbol.', ';
+    }
+    return rtrim($str, ', ');
+}
+
 function StockEditGroupForm($str, $bChinese)
 {
     if ($bChinese)
@@ -42,7 +53,7 @@ function StockEditGroupForm($str, $bChinese)
         {
             $strGroupName = SqlGetStockGroupName($strGroupId);
             if (IsGroupNameReadOnly($strGroupName) == false)     $strGroupNameDisabled = '0';
-            $strStocks = SqlGetStocksString($strGroupId);
+            $strStocks = _getStocksString($strGroupId);
         }
         else
         {

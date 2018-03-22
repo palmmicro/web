@@ -280,15 +280,21 @@ function UrlGetPhpLink($strPathTitle, $strQuery, $strDisplay, $bChinese)
     return UrlGetLink($str, $strDisplay);
 }
 
+function UrlGetTitleLink($strPath, $strTitle, $strQuery, $strDisplay, $bChinese)
+{
+    if ((UrlGetTitle() == $strTitle) && (UrlGetQueryString() == $strQuery))
+    {
+        return "<font color=blue>$strDisplay</font>";
+    }
+    return UrlGetPhpLink($strPath.$strTitle, $strQuery, $strDisplay, $bChinese);
+}
+
 function UrlGetCategoryLinks($strPath, $arCategory, $bChinese)
 {
     $str = '';
     foreach ($arCategory as $strCategory => $strDisplay)
     {
-        if ($strCategory != UrlGetTitle())
-        {
-            $str .= UrlGetPhpLink($strPath.$strCategory, false, $strDisplay, $bChinese).' ';
-        }
+    	$str .= UrlGetTitleLink($strPath, $strCategory, false, $strDisplay, $bChinese).' ';
     }
     return $str;
 }

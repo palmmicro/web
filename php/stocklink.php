@@ -31,29 +31,55 @@ function GetStockHistoryLink($strSymbol, $bChinese)
     return _getStockHistoryLink('stockhistory', $strSymbol, $bChinese);
 }
 
-function _stockGetLink($strTitle, $strCn, $strUs, $bChinese)
+function _stockGetLink($strTitle, $strQuery, $strDisplay, $bChinese)
+{
+	return UrlGetTitleLink(STOCK_PATH, $strTitle, $strQuery, $strDisplay, $bChinese);
+}
+
+function _stockBuildLink($strTitle, $strQuery, $strCn, $strUs, $bChinese)
 {
     $strDisplay = $bChinese ? $strCn : $strUs;
-    if (UrlGetTitle() == $strTitle)
-    {
-        return "<font color=blue>$strDisplay</font>";
-    }
-    return UrlGetPhpLink(STOCK_PATH.$strTitle, false, $strDisplay, $bChinese);
+    return _stockGetLink($strTitle, $strQuery, $strDisplay, $bChinese);
+}
+
+function GetMyStockLink($strSymbol, $bChinese)
+{
+    return _stockGetLink('mystock', 'symbol='.$strSymbol, $strSymbol, $bChinese);
+}
+
+function GetMyPortfolioLink($bChinese)
+{
+    return _stockBuildLink('myportfolio', false, '持仓盈亏', 'My Portfolio', $bChinese);
 }
 
 function GetAHCompareLink($bChinese)
 {
-    return _stockGetLink('ahcompare', 'AH对比', 'AH Compare', $bChinese);
-}
-
-function EchoAHCompareLink($bChinese)
-{
-    echo GetAHCompareLink($bChinese);
+    return _stockBuildLink('ahcompare', false, 'AH对比', 'AH Compare', $bChinese);
 }
 
 function GetFutureLink($bChinese)
 {
-    return _stockGetLink('future', '期货', 'Future', $bChinese);
+    return _stockBuildLink('future', false, '期货', 'Future', $bChinese);
+}
+
+function StockGetGroupLink($bChinese)
+{
+    $strQuery = false; 
+    if ($strEmail = UrlGetQueryValue('email'))
+    {
+        $strQuery = 'email='.$strEmail; 
+    }
+    return _stockBuildLink('mystockgroup', $strQuery, '股票分组', 'Stock Groups', $bChinese);
+}
+
+function GetCategorySoftwareLinks($arTitle, $strCategory, $bChinese)
+{
+    $str = '<br />'.$strCategory.' - ';
+    foreach ($arTitle as $strTitle)
+    {
+    	$str .= _stockGetLink($strTitle, false, StockGetSymbol($strTitle), $bChinese).' ';
+    }
+    return $str;
 }
 
 function StockGetEditDeleteTransactionLink($strTransactionId, $bChinese)
@@ -101,16 +127,6 @@ function StockGetGroupTransactionLinks($strGroupId, $strCurSymbol, $bChinese)
         $str .= ' ';
     }
     return $str;
-}
-
-function StockGetGroupLink($bChinese)
-{
-    $strQuery = false; 
-    if ($strEmail = UrlGetQueryValue('email'))
-    {
-        $strQuery = 'email='.$strEmail; 
-    }
-    return UrlBuildPhpLink(STOCK_PATH.'mystockgroup', $strQuery, '股票分组', 'Stock Groups', $bChinese);
 }
 
 // editstockgroupcn.php?edit=24
@@ -220,10 +236,6 @@ function SelectGroupInternalLink($strGroupId, $bChinese)
     return $strLink; 
 }
 
-function GetMyStockLink($strSymbol, $bChinese)
-{
-    return UrlGetPhpLink(STOCK_PATH.'mystock', 'symbol='.$strSymbol, $strSymbol, $bChinese);
-}
 
 function SelectAHCompareLink($strSymbol, $bChinese)
 {

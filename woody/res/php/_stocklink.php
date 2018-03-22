@@ -82,7 +82,7 @@ function _checkPersonalGroupId($strGroupId)
 
 function _getPersonalLinks($strMemberId, $bChinese)
 {
-    $str = '<br />';
+    $str = HTML_NEW_LINE;
 	if ($result = SqlGetStockGroupByMemberId($strMemberId)) 
 	{
 		while ($stockgroup = mysql_fetch_assoc($result)) 
@@ -100,14 +100,9 @@ function _getPersonalLinks($strMemberId, $bChinese)
 
 function EchoStockGroupLinks($bChinese)
 {
-    $ar = GetMenuArray($bChinese);
-    $str = '<br />'.UrlGetCategoryLinks(STOCK_PATH, $ar, $bChinese);
-    
-    $strTitle = UrlGetTitle();
-//    if ($strTitle != 'mystockgroup')
-    $str .= ' '.StockGetGroupLink($bChinese);
-    if ($strTitle != 'myportfolio')    $str .= '<br />'.UrlBuildPhpLink(STOCK_PATH.'myportfolio', false, '持仓盈亏', 'My Portfolio', $bChinese);
-    
+    $str = HTML_NEW_LINE.UrlGetCategoryLinks(STOCK_PATH, GetMenuArray($bChinese), $bChinese);
+    $str .= HTML_NEW_LINE.StockGetGroupLink($bChinese);
+    $str .= HTML_NEW_LINE.GetMyPortfolioLink($bChinese);
     if ($strMemberId = AcctIsLogin())
     {
         $str .= _getPersonalLinks($strMemberId, $bChinese);
@@ -153,23 +148,8 @@ function _getCategoryLink($strCategory, $bChinese)
 
 function EchoStockCategoryLinks($bChinese)
 {
-    $ar = _getCategoryArray($bChinese);
-    $str = '<br />'.UrlGetCategoryLinks(STOCK_PATH, $ar, $bChinese);
+    $str = HTML_NEW_LINE.UrlGetCategoryLinks(STOCK_PATH, _getCategoryArray($bChinese), $bChinese);
     echo $str;
-}
-
-function GetCategorySoftwareLinks($arTitle, $strCategory, $bChinese)
-{
-    $str = '<br />'.$strCategory.' - ';
-    foreach ($arTitle as $strTitle)
-    {
-        if (UrlGetTitle() != $strTitle)
-        {
-            $strDisplay = StockGetSymbol($strTitle);
-            $str .= UrlGetPhpLink(STOCK_PATH.$strTitle, false, $strDisplay, $bChinese).' ';
-        }
-    }
-    return $str;
 }
 
 function _getCategorySoftwareLinks($arTitle, $strCn, $strUs, $bChinese)

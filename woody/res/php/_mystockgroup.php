@@ -105,6 +105,7 @@ function _echoMyStockGroup($strGroupId, $bChinese)
         _EchoTransactionParagraph($group, $bChinese);
         _echoEditGroupParagraph($strGroupId, $bChinese);
     }
+    EchoParagraph(StockGroupGetStockLinks($strGroupId, $bChinese));
 }
 
 function MyStockGroupEchoAll($bChinese)
@@ -168,6 +169,11 @@ function MyStockGroupEchoTitle($bChinese)
         if (!$strGroupId)  $str .= 's'; 
     }
     echo $str;
+}
+
+function EchoAHCompareLink($bChinese)
+{
+    echo GetAHCompareLink($bChinese);
 }
 
     AcctSessionStart();

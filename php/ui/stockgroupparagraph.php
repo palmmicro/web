@@ -1,6 +1,6 @@
 <?php
 
-function _getMyStockLinks($strGroupId, $bChinese)
+function StockGroupGetStockLinks($strGroupId, $bChinese)
 {
     $strStocks = '';
 	$arStock = SqlGetStocksArray($strGroupId);
@@ -28,7 +28,7 @@ function _echoStockGroupTableItem($stockgroup, $bReadOnly, $bChinese)
     }
     
     $strLink = SelectGroupInternalLink($strGroupId, $bChinese);
-    $strStocks = _getMyStockLinks($strGroupId, $bChinese);
+    $strStocks = StockGroupGetStockLinks($strGroupId, $bChinese);
 
     echo <<<END
     <tr>
