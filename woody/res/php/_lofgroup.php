@@ -1,5 +1,6 @@
 <?php
 require_once('_fundgroup.php');
+require_once('/php/ui/smaparagraph.php');
 
 class _LofGroup extends _MyStockGroup
 {

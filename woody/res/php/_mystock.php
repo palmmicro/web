@@ -2,6 +2,7 @@
 require_once('_stock.php');
 require_once('_editmergeform.php');
 require_once('_editstockoptionform.php');
+require_once('/php/ui/smaparagraph.php');
 require_once('/php/ui/stockgroupparagraph.php');
 
 function _checkStockTransaction($strGroupId, $ref)

@@ -44,60 +44,6 @@ function EchoFundTradingParagraph($fund, $fCallback, $bChinese)
     EchoParagraphEnd();
 }
 
-function _selectSmaExternalLink($strSymbol)
-{
-    $sym = new StockSymbol($strSymbol);
-    if ($sym->IsSymbolA())
-    {
-        if ($sym->IsFundA())
-        {
-//            return GetChinaFundLink($sym);
-        }
-        else
-        {
-            return GetSinaN8n8Link($sym);
-        }
-    }
-    else if ($sym->IsSymbolH())
-    {
-    }
-    else
-    {
-        return GetYahooStockLink($sym->GetYahooSymbol(), $strSymbol);
-    }
-//    return $strSymbol;
-    return GetXueQiuLink($strSymbol);
-}
-
-function EchoSmaParagraph($stock_his, $ref, $fCallback, $fCallback2, $bChinese)
-{
-    if ($stock_his == false)              return;
-    
-    if ($ref)
-    {
-        $strRefSymbol = $ref->GetStockSymbol();
-        $strRefPrice = $ref->GetCurrentPriceDisplay();
-    }
-    $strSymbol = $stock_his->GetStockSymbol();
-    $strDate = $stock_his->strDate;
-    
-	$strSymbolLink = _selectSmaExternalLink($strSymbol);
-    $strHistoryLink = GetStockHistoryLink($strSymbol, $bChinese);
-    if ($bChinese)     
-    {
-        $str = "{$strSymbolLink}从{$strDate}开始的过去100个交易日中".SMA_DISPLAY_CN.'落在当天成交范围内的'.DAYS_DISPLAY_CN.'.';
-        if ($ref)   $str .= " {$strRefSymbol}当前成交价格{$strRefPrice}相对于".EST_DISPLAY_CN.'的'.PREMIUM_DISPLAY_CN.'.';
-    }
-    else
-    {
-        $str = DAYS_DISPLAY_US." of $strSymbolLink trading range covered the ".SMA_DISPLAY_US." in past 100 trading days starting from $strDate.";
-        if ($ref)   $str .= " $strRefSymbol current trading price $strRefPrice comparing with ".EST_DISPLAY_US.'.';
-    }
-    EchoParagraphBegin($str.' '.$strHistoryLink);
-    EchoSmaTable($stock_his, $ref, $fCallback, $fCallback2, $bChinese);
-    EchoParagraphEnd();
-}
-
 function EchoAHStockParagraph($arRefAH, $bChinese)
 {
     $hkcny_ref = new CNYReference('HKCNY');

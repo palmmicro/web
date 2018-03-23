@@ -152,13 +152,14 @@ function MyStockGroupEchoMetaDescription($bChinese)
 function MyStockGroupEchoTitle($bChinese)
 {
     $strGroupId = UrlGetQueryValue('groupid');
+    $strMemberId = AcctIsLogin(); 
     if ($strGroupId)
     {
-        $str = _GetWhoseStockGroupDisplay(AcctIsLogin(), $strGroupId, $bChinese);
+        $str = _GetWhoseStockGroupDisplay($strMemberId, $strGroupId, $bChinese);
     }
     else
     {
-        $str = _GetWhoseDisplay(AcctGetMemberId(), AcctIsLogin(), $bChinese);
+        $str = _GetWhoseDisplay(AcctGetMemberId(), $strMemberId, $bChinese);
         $str .= _GetAllDisplay(false, $bChinese);
     }
     

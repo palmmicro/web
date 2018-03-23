@@ -1,5 +1,21 @@
 <?php
 
+function StockGroupHasSymbol($strGroupId, $strStockId)
+{
+    if ($result = SqlGetStockGroupItemByGroupId($strGroupId))
+	{
+        while ($stockgroupitem = mysql_fetch_assoc($result)) 
+		{
+		    if ($stockgroupitem['stock_id'] == $strStockId)
+		    {
+		    	return $stockgroupitem;
+		    }        
+		}
+		@mysql_free_result($result);
+	}
+	return false;
+}
+
 function StockGroupGetStockLinks($strGroupId, $bChinese)
 {
     $strStocks = '';
@@ -12,10 +28,8 @@ function StockGroupGetStockLinks($strGroupId, $bChinese)
 	return $strStocks;
 }
 
-function _echoStockGroupTableItem($stockgroup, $bReadOnly, $bChinese)
+function _echoStockGroupTableItem($strGroupId, $bReadOnly, $bChinese)
 {
-    $strGroupId = $stockgroup['id'];
-    
     if ($bReadOnly)
     {
         $strDelete = '';
@@ -39,36 +53,23 @@ function _echoStockGroupTableItem($stockgroup, $bReadOnly, $bChinese)
 END;
 }
 
-function StockGroupHasSymbol($strGroupId, $strStockId)
-{
-    if ($result = SqlGetStockGroupItemByGroupId($strGroupId))
-	{
-        while ($stockgroupitem = mysql_fetch_assoc($result)) 
-		{
-		    if ($stockgroupitem['stock_id'] == $strStockId)
-		    {
-		    	return $stockgroupitem;
-		    }        
-		}
-		@mysql_free_result($result);
-	}
-	return false;
-}
-
-function _echoStockGroupTableData($strMemberId, $bReadOnly, $bChinese)
+function _echoStockGroupTableData($bChinese)
 {
     if ($strSymbol = UrlGetQueryValue('symbol'))
     {
     	$strStockId = SqlGetStockId($strSymbol);
     }
     
+    $strMemberId = AcctGetMemberId();
+    $bReadOnly = AcctIsReadOnly($strMemberId);
 	if ($result = SqlGetStockGroupByMemberId($strMemberId)) 
 	{
 		while ($stockgroup = mysql_fetch_assoc($result)) 
 		{
-			if (($strSymbol == false) || StockGroupHasSymbol($stockgroup['id'], $strStockId))
+			$strGroupId = $stockgroup['id'];
+			if (($strSymbol == false) || StockGroupHasSymbol($strGroupId, $strStockId))
 			{
-				_echoStockGroupTableItem($stockgroup, $bReadOnly, $bChinese);
+				_echoStockGroupTableItem($strGroupId, $bReadOnly, $bChinese);
 			}
 		}
 		@mysql_free_result($result);
@@ -96,9 +97,7 @@ function EchoStockGroupParagraph($bChinese)
     </tr>
 END;
 
-    $strMemberId = AcctGetMemberId();
-    $bReadOnly = AcctIsReadOnly($strMemberId);
-    _echoStockGroupTableData($strMemberId, $bReadOnly, $bChinese);
+    _echoStockGroupTableData($bChinese);
     EchoTableEnd();
     EchoParagraphEnd();
 }
