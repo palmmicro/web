@@ -38,17 +38,22 @@ function SqlCountStockHistory($strStockId)
 
 function SqlGetStockHistory($strStockId, $iStart, $iNum)
 {
-    return SqlGetTableData(TABLE_STOCK_HISTORY, _SqlBuildWhere_stock($strStockId), '`date` DESC', _SqlBuildLimit($iStart, $iNum));
+    return SqlGetTableData(TABLE_STOCK_HISTORY, _SqlBuildWhere_stock($strStockId), _SqlOrderByDate(), _SqlBuildLimit($iStart, $iNum));
 }
 
 function SqlGetStockHistoryNow($strStockId)
 {
-	return SqlGetSingleTableData(TABLE_STOCK_HISTORY, _SqlBuildWhere_stock($strStockId), '`date` DESC');
+	return SqlGetSingleTableData(TABLE_STOCK_HISTORY, _SqlBuildWhere_stock($strStockId), _SqlOrderByDate());
 }
 
 function SqlGetStockHistoryByDate($strStockId, $strDate)
 {
-	return SqlGetUniqueTableData(TABLE_STOCK_HISTORY, _SqlBuildWhereAndArray(array('date' => $strDate, 'stock_id' => $strStockId)));
+	return SqlGetUniqueTableData(TABLE_STOCK_HISTORY, _SqlBuildWhere_date_stock($strDate, $strStockId));
+}
+
+function SqlGetPrevStockHistoryByDate($strStockId, $strDate)
+{
+	return SqlGetSingleTableData(TABLE_STOCK_HISTORY, "stock_id = '$strStockId' AND date < '$strDate'", _SqlOrderByDate());
 }
 
 function SqlInsertStockHistory($strStockId, $strDate, $strOpen, $strHigh, $strLow, $strClose, $strVolume, $strAdjClose)
@@ -71,7 +76,7 @@ function SqlUpdateStockHistoryAdjClose($strId, $strAdjClose)
 
 function SqlDeleteStockHistoryWithZeroVolume($strStockId)
 {
-    return SqlDeleteTableData('stockhistory', "volume = '0' AND stock_id = '$strStockId'", false);
+    return SqlDeleteTableData(TABLE_STOCK_HISTORY, "volume = '0' AND stock_id = '$strStockId'", false);
 }
 
 ?>

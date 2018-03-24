@@ -1,5 +1,6 @@
 <?php
 require_once('_stock.php');
+require_once('/php/ui/fundhistoryparagraph.php');
 
 class _GradedFundGroup extends _MyStockGroup 
 {
@@ -139,11 +140,11 @@ function EchoAll($bChinese)
         EchoFundTradingParagraph($m_fund, false, $bChinese);    
     }
 
-    _EchoHistoryParagraph($fund, true, false, 0, MAX_HISTORY_DISPLAY, $bChinese);
-    _EchoHistoryParagraph($b_fund, true, false, 0, MAX_HISTORY_DISPLAY, $bChinese);
+    EchoFundHistoryParagraph($fund, 0, TABLE_COMMON_DISPLAY, $bChinese);
+    EchoFundHistoryParagraph($b_fund, 0, TABLE_COMMON_DISPLAY, $bChinese);
     if ($group->bCanTradeM)
     {
-        _EchoHistoryParagraph($m_fund, true, false, 0, MAX_HISTORY_DISPLAY, $bChinese);
+        EchoFundHistoryParagraph($m_fund, 0, TABLE_COMMON_DISPLAY, $bChinese);
     }
     
     if ($group->strGroupId) 

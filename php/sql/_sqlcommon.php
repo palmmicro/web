@@ -75,6 +75,11 @@ function _SqlBuildWhere_stock_member($strStockId, $strMemberId)
 	return _SqlBuildWhereAndArray(array('stock_id' => $strStockId, 'member_id' => $strMemberId));
 }
 
+function _SqlBuildWhere_date_stock($strDate, $strStockId)
+{
+	return _SqlBuildWhereAndArray(array('date' => $strDate, 'stock_id' => $strStockId));
+}
+
 function _SqlBuildLimit($iStart, $iNum)
 {
 	if ($iStart == 0)
@@ -94,6 +99,11 @@ function _SqlBuildLimit($iStart, $iNum)
 function _SqlOrderByDateTime()
 {
     return '`date` DESC, `time` DESC';
+}
+
+function _SqlOrderByDate()
+{
+    return '`date` DESC';
 }
 
 ?>

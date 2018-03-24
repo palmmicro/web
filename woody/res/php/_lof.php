@@ -65,7 +65,7 @@ function _onSmaUserDefinedVal($fVal, $bChinese)
     return $strQuantity;
 }
 
-function _getArbitrageQuantityName($bChinese)
+function _getArbitrageQuantityName($bEditLink, $bChinese)
 {
     global $group;
 
@@ -80,7 +80,7 @@ function _getArbitrageQuantityName($bChinese)
     	$strDisplay = 'Quantity';
     }
     
-    if ($group->strGroupId) 
+    if ($group->strGroupId && $bEditLink) 
     {
     	$str .= UrlGetPhpLink(STOCK_PATH.'editfundamount', 'symbol='.$group->ref->GetStockSymbol(), $strDisplay, $bChinese);
     }
@@ -95,7 +95,7 @@ function _onSmaUserDefined($iType, $fVal, $bChinese)
 {
     if ($iType == TABLE_USER_DEFINED_NAME)
     {
-        return _getArbitrageQuantityName($bChinese);
+        return _getArbitrageQuantityName(false, $bChinese);
     }
     else if ($iType == TABLE_USER_DEFINED_VAL)
     {
@@ -117,7 +117,7 @@ function _onTradingUserDefined($iType, $fVal, $bChinese)
 {
     if ($iType == TABLE_USER_DEFINED_NAME)
     {
-        return _getArbitrageQuantityName($bChinese);
+        return _getArbitrageQuantityName(true, $bChinese);
     }
     else if ($iType == TABLE_USER_DEFINED_VAL)
     {
@@ -135,7 +135,7 @@ function EchoAll($bChinese)
     EchoReferenceParagraph($group->arDisplayRef, $bChinese);
     EchoFundTradingParagraph($fund, _onTradingUserDefined, $bChinese);    
     EchoSmaParagraph($group->etf_his, $fund->stock_ref, EtfEstLof, _onSmaUserDefined, $bChinese);
-    _EchoHistoryParagraph($fund, false, $group->etf_his, 0, MAX_HISTORY_DISPLAY, $bChinese);
+    EchoFundHistoryParagraph($fund, 0, TABLE_COMMON_DISPLAY, $bChinese);
     
     if ($group->strGroupId) 
     {

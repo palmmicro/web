@@ -1,20 +1,11 @@
 <?php
 require_once('_stock.php');
+require_once('/php/ui/fundhistoryparagraph.php');
 
 function _echoThanousLawLink($strSymbol, $bChinese)
 {
     $strThanousLaw = UrlBuildPhpLink(STOCK_PATH.'thanouslaw', 'symbol='.$strSymbol, '测试小心愿定律', 'Test Thanous Law', $bChinese);
     EchoParagraph($strThanousLaw);
-}
-
-function _getStockHistory($ref)
-{
-    if ($ref)
-    {
-        $his = new StockHistory($ref);
-        return $his;
-    }        
-    return false;
 }
 
 function _echoNetValueHistory($strSymbol, $iStart, $iNum, $bChinese)
@@ -30,21 +21,21 @@ function _echoNetValueHistory($strSymbol, $iStart, $iNum, $bChinese)
         PrefetchStockData(LofGetAllSymbolArray($strSymbol));
         $fund = new MyLofReference($strSymbol);
         _echoThanousLawLink($strSymbol, $bChinese);
-        _EchoHistoryParagraph($fund, false, _getStockHistory($fund->etf_ref), $iStart, $iNum, $bChinese);
+        EchoFundHistoryParagraph($fund, $iStart, $iNum, $bChinese);
     }
     else if (in_arrayLofHk($strSymbol))
     {
         PrefetchStockData(LofHkGetAllSymbolArray($strSymbol));
         $fund = new MyLofHkReference($strSymbol);
-        _EchoHistoryParagraph($fund, true, _getStockHistory($fund->etf_ref), $iStart, $iNum, $bChinese);
+        EchoFundHistoryParagraph($fund, $iStart, $iNum, $bChinese);
     }
     else if (in_arrayGoldEtf($strSymbol))
     {
-        _EchoHistoryParagraph(new MyFundReference($strSymbol), true, false, $iStart, $iNum, $bChinese);
+        EchoFundHistoryParagraph(new MyFundReference($strSymbol), $iStart, $iNum, $bChinese);
     }
     else if (in_arrayGradedFund($strSymbol))
     {
-        _EchoHistoryParagraph(new MyFundReference($strSymbol), true, false, $iStart, $iNum, $bChinese);
+        EchoFundHistoryParagraph(new MyFundReference($strSymbol), $iStart, $iNum, $bChinese);
     }
 }
 

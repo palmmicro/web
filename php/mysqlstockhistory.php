@@ -210,21 +210,6 @@ class StockHistory
         return DebugGetFileLink($this->strConfigName);
     }
     
-    function GetDailyCloseByDate($strYMD)
-    {
-        for ($i = 1; $i <= count($this->arYahoo); $i ++)
-        {
-            $arColumn = explode(',', $this->arYahoo[$i]);
-            if ($arColumn[0] == $strYMD)
-            {
-                $strClose = $arColumn[4];
-                $arColumn = explode(',', $this->arYahoo[$i + 1]);
-                return array($strClose, $arColumn[4]); 
-            }
-        }
-        return false;
-    }
-    
     function _getTradingRange($iDays, $afClose, $afHigh, $afLow)
     {
         $iFit = 0;

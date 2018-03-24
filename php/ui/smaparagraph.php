@@ -61,6 +61,7 @@ function _echoSmaTableItem($stock_his, $strKey, $fVal, $ref, $fCallback, $fCallb
         <td $strBackGround class=c1>$strPrice</td>
         <td $strBackGround class=c1>$strPercentage</td>
         <td $strBackGround class=c1>$strTradingRange</td>
+        <td $strBackGround class=c1></td>
         <td $strBackGround class=c1>$strEstPrice</td>
         <td $strBackGround class=c1>$strEstPercentage</td>
         <td $strBackGround class=c1>$strUserDefined</td>
@@ -186,8 +187,8 @@ function _getSmaColumn($strRefSymbol, $fCallback2, $bChinese)
     if ($fCallback2)    $strUserDefined = call_user_func($fCallback2, TABLE_USER_DEFINED_NAME, 0.0, $bChinese);
     else                  $strUserDefined = '';  
     
-    if ($bChinese)  $arColumn = array(SMA_DISPLAY_CN, EST_DISPLAY_CN, PREMIUM_DISPLAY_CN, DAYS_DISPLAY_CN, $strEst, $strPremium, $strUserDefined);
-    else              $arColumn = array(SMA_DISPLAY_US, EST_DISPLAY_US, PREMIUM_DISPLAY_US, DAYS_DISPLAY_US, $strEst, $strPremium, $strUserDefined);
+    if ($bChinese)  $arColumn = array(SMA_DISPLAY_CN, EST_DISPLAY_CN, PREMIUM_DISPLAY_CN, DAYS_DISPLAY_CN, 'T+1'.EST_DISPLAY_CN, $strEst, $strPremium, $strUserDefined);
+    else              $arColumn = array(SMA_DISPLAY_US, EST_DISPLAY_US, PREMIUM_DISPLAY_US, DAYS_DISPLAY_US, 'T+1 '.EST_DISPLAY_US, $strEst, $strPremium, $strUserDefined);
     return $arColumn;
 }
 
@@ -234,9 +235,10 @@ function EchoSmaParagraph($stock_his, $ref, $fCallback, $fCallback2, $bChinese)
         <td class=c1 width=70 align=center>{$arColumn[1]}</td>
         <td class=c1 width=70 align=center>{$arColumn[2]}</td>
         <td class=c1 width=60 align=center>{$arColumn[3]}</td>
-        <td class=c1 width=120 align=center>{$arColumn[4]}</td>
-        <td class=c1 width=100 align=center>{$arColumn[5]}</td>
-        <td class=c1 width=130 align=center>{$arColumn[6]}</td>
+        <td class=c1 width=70 align=center>{$arColumn[4]}</td>
+        <td class=c1 width=110 align=center>{$arColumn[5]}</td>
+        <td class=c1 width=70 align=center>{$arColumn[6]}</td>
+        <td class=c1 width=100 align=center>{$arColumn[7]}</td>
     </tr>
 END;
 

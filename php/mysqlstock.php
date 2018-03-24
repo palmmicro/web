@@ -291,6 +291,8 @@ function GetEstErrorPercentage($fEstValue, $fNetValue)
 class MyFundReference extends FundReference
 {
     var $stock_ref = false;     // MyStockReference
+    var $index_ref = false;
+    var $etf_ref = false;
     var $future_ref = false;
     var $future_etf_ref = false;
     

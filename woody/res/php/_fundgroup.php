@@ -1,4 +1,5 @@
 <?php
+require_once('/php/ui/fundhistoryparagraph.php');
 
 // ****************************** Common China fund functions *******************************************************
 

@@ -244,11 +244,7 @@ function LofHkGetAllSymbolArray($strSymbol)
 
 class _LofReference extends MyFundReference
 {
-    var $index_ref = false;
-    var $etf_ref = false;
-
     var $fCNY = false;
-    
     var $fEtfFactor;
     
     // constructor 

@@ -1,6 +1,6 @@
 <?php
 
-define ('TABLE_COMMON_DISPLAY', 5);
+define ('TABLE_COMMON_DISPLAY', 8);
 
 define ('TABLE_USER_DEFINED_NAME', 0);
 define ('TABLE_USER_DEFINED_VAL', 1);

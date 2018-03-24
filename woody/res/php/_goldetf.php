@@ -32,7 +32,7 @@ function EchoAll($bChinese)
     EchoSingleFundEstParagraph($fund, $bChinese);
     EchoReferenceParagraph($group->arDisplayRef, $bChinese);
     EchoFundTradingParagraph($fund, false, $bChinese);    
-    _EchoHistoryParagraph($fund, true, false, 0, MAX_HISTORY_DISPLAY, $bChinese);
+    EchoFundHistoryParagraph($fund, 0, TABLE_COMMON_DISPLAY, $bChinese);
 
     if ($group->strGroupId) 
     {

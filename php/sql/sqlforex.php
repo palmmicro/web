@@ -17,12 +17,12 @@ function SqlCreateForexHistoryTable()
 
 function SqlGetForexHistory($strStockId, $strDate)
 {
-	return SqlGetUniqueTableData(TABLE_FOREX_HISTORY, _SqlBuildWhereAndArray(array('date' => $strDate, 'stock_id' => $strStockId)));
+	return SqlGetUniqueTableData(TABLE_FOREX_HISTORY, _SqlBuildWhere_date_stock($strDate, $strStockId));
 }
 
 function SqlGetForexHistoryNow($strStockId)
 {
-	return SqlGetSingleTableData(TABLE_FOREX_HISTORY, _SqlBuildWhere_stock($strStockId), '`date` DESC');
+	return SqlGetSingleTableData(TABLE_FOREX_HISTORY, _SqlBuildWhere_stock($strStockId), _SqlOrderByDate());
 }
 
 function SqlInsertForexHistory($strStockId, $strDate, $strClose)

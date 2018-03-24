@@ -1,5 +1,6 @@
 <?php
 require_once('_stock.php');
+require_once('/php/ui/fundhistoryparagraph.php');
 
 // ****************************** PriceCompare Class *******************************************************
 
@@ -64,10 +65,10 @@ END;
 
 define ('MAX_PREDICTION_DAYS', 100);
 
-function _echoLofPredictionTableBegin($lof_ref, $etf_his, $bChinese)
+function _echoLofPredictionTableBegin($lof_ref, $etf_ref, $bChinese)
 {
     $strLofSymbol = $lof_ref->GetStockSymbol();
-    $strEtfSymbol = $etf_his->GetStockSymbol();
+    $strEtfSymbol = $etf_ref->GetStockSymbol();
     if ($bChinese)     
     {
         $arColumn = array($strLofSymbol.'交易', '天数', $strEtfSymbol.'涨', $strEtfSymbol.'不变', $strEtfSymbol.'跌');
@@ -89,27 +90,29 @@ function _echoLofPredictionTableBegin($lof_ref, $etf_his, $bChinese)
 END;
 }
 
-function _echoLofPredictionParagraph($lof_ref, $etf_his, $bChinese)
+function _echoLofPredictionParagraph($fund, $bChinese)
 {
-    $arColumn = _GetHistoryTableColumnArray($etf_his, $bChinese);
-    
     $netvalue_higher = new PriceCompare();
     $netvalue_same = new PriceCompare();
     $netvalue_lower = new PriceCompare();
     
+	$lof_ref = $fund->stock_ref;
     $strSymbol = $lof_ref->GetStockSymbol();
     $strStockId = $lof_ref->GetStockId();
+    
+	$etf_ref = $fund->etf_ref;
+    $arColumn = FundHistoryTableGetColumn($etf_ref, $bChinese);
     
     EchoParagraphBegin(_getNetValueLink($strSymbol, $bChinese));
     if ($result = SqlGetFundHistory($strStockId, 0, MAX_PREDICTION_DAYS)) 
     {
-        _EchoHistoryTableBegin($arColumn);
+        EchoFundHistoryTableBegin($arColumn);
         while ($record = mysql_fetch_assoc($result)) 
         {
             $strDate = GetNextTradingDayYMD($record['date']);
             if ($history = SqlGetStockHistoryByDate($strStockId, $strDate))
             {
-                $arEtfClose = $etf_his->GetDailyCloseByDate($strDate);
+                $arEtfClose = GetDailyCloseByDate($etf_ref, $strDate);
                 if ($arEtfClose)
                 {
                     $fNetValue = floatval($record['netvalue']);
@@ -118,7 +121,7 @@ function _echoLofPredictionParagraph($lof_ref, $etf_his, $bChinese)
                     else if (($fNetValue + MIN_FLOAT_VAL) < $fClose)     $netvalue_lower->AddCompare($arEtfClose);        
                     else                                                     $netvalue_same->AddCompare($arEtfClose);
                     
-                    _echoHistoryTableItem($lof_ref, $history, $record, $arEtfClose);
+                    EchoFundHistoryTableItem($lof_ref, $history, $record, $arEtfClose);
                 }
             }
         }
@@ -127,7 +130,7 @@ function _echoLofPredictionParagraph($lof_ref, $etf_his, $bChinese)
     }
 
     EchoNewLine();
-    _echoLofPredictionTableBegin($lof_ref, $etf_his, $bChinese);
+    _echoLofPredictionTableBegin($lof_ref, $etf_ref, $bChinese);
     _echoLofPredictionItem($bChinese ? '折价' : 'Lower', $netvalue_higher);
     _echoLofPredictionItem($bChinese ? '平价' : 'Same', $netvalue_same);
     _echoLofPredictionItem($bChinese ? '溢价' : 'Higher', $netvalue_lower);
@@ -143,8 +146,7 @@ function EchoThanousLawTest($bChinese)
         if (in_arrayLof($strSymbol))
         {
             PrefetchStockData(LofGetAllSymbolArray($strSymbol));
-            $fund = new MyLofReference($strSymbol);
-            _echoLofPredictionParagraph($fund->stock_ref, new StockHistory($fund->etf_ref), $bChinese);
+            _echoLofPredictionParagraph(new MyLofReference($strSymbol), $bChinese);
         }
     }
     EchoPromotionHead('thanouslaw', $bChinese);

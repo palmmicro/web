@@ -27,7 +27,7 @@ function EchoAll($bChinese)
     EchoReferenceParagraph($group->arDisplayRef, $bChinese);
     EchoFundTradingParagraph($fund, false, $bChinese);    
     EchoSmaParagraph($group->etf_his, $fund->stock_ref, EtfEstLof, false, $bChinese);
-    _EchoHistoryParagraph($fund, true, $group->etf_his, 0, MAX_HISTORY_DISPLAY, $bChinese);
+    EchoFundHistoryParagraph($fund, 0, TABLE_COMMON_DISPLAY, $bChinese);
 
     if ($group->strGroupId) 
     {
