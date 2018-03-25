@@ -1,6 +1,7 @@
 <?php
 require_once('_stock.php');
 require_once('/php/ui/smaparagraph.php');
+require_once('/php/ui/fundtradingparagraph.php');
 
 function _getRatioAdrH($strSymbolAdr)
 {

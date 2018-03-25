@@ -1,5 +1,6 @@
 <?php
 require_once('_stock.php');
+require_once('/php/ui/fundtradingparagraph.php');
 require_once('/php/ui/fundhistoryparagraph.php');
 
 class _GradedFundGroup extends _MyStockGroup 
@@ -75,13 +76,14 @@ END;
 
 function _echoRefTable($group, $bChinese)
 {
+	$ar = FundEstTableGetColumn($bChinese);
     if ($bChinese)     
     {
-        $arColumn = array('代码', PRICE_DISPLAY_CN, '日期', '时间', '涨跌', '前日净值', '官方'.EST_DISPLAY_CN, '参考'.EST_DISPLAY_CN);
+        $arColumn = array('代码', PRICE_DISPLAY_CN, '日期', '时间', '涨跌', '前日净值', $ar[1], $ar[3]);
     }
     else
     {
-        $arColumn = array('Symbol', PRICE_DISPLAY_US, 'Date', 'Time', 'Change', 'Last Net', 'Official '.EST_DISPLAY_US, 'Fair '.EST_DISPLAY_US);
+        $arColumn = array('Symbol', PRICE_DISPLAY_US, 'Date', 'Time', 'Change', 'Last Net', $ar[1], $ar[3]);
     }
     
     echo <<<END
@@ -140,11 +142,11 @@ function EchoAll($bChinese)
         EchoFundTradingParagraph($m_fund, false, $bChinese);    
     }
 
-    EchoFundHistoryParagraph($fund, 0, TABLE_COMMON_DISPLAY, $bChinese);
-    EchoFundHistoryParagraph($b_fund, 0, TABLE_COMMON_DISPLAY, $bChinese);
+    EchoFundHistoryParagraph($fund, $bChinese);
+    EchoFundHistoryParagraph($b_fund, $bChinese);
     if ($group->bCanTradeM)
     {
-        EchoFundHistoryParagraph($m_fund, 0, TABLE_COMMON_DISPLAY, $bChinese);
+        EchoFundHistoryParagraph($m_fund, $bChinese);
     }
     
     if ($group->strGroupId) 

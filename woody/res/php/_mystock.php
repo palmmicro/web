@@ -3,6 +3,7 @@ require_once('_stock.php');
 require_once('_editmergeform.php');
 require_once('_editstockoptionform.php');
 require_once('/php/ui/smaparagraph.php');
+require_once('/php/ui/fundestparagraph.php');
 require_once('/php/ui/stockgroupparagraph.php');
 
 function _checkStockTransaction($strGroupId, $ref)
@@ -71,7 +72,7 @@ function _echoMyStock($strSymbol, $bChinese)
     {
         if ($sym->IsFundA())
         {
-            if ($fund->fPrice)      EchoSingleFundEstParagraph($fund, $bChinese);
+            if ($fund->fPrice)      EchoFundEstParagraph($fund, $bChinese);
         }
         else
         {

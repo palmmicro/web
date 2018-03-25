@@ -1,5 +1,6 @@
 <?php
-
+function GB2312GetArray()
+{
 $arGB2312 = array(
 'A1A1' => '3000',
 'A1A2' => '3001',
@@ -7447,6 +7448,8 @@ $arGB2312 = array(
 'F7FD' => '9F3E',
 'F7FE' => '9F44',
 );
+return $arGB2312;
+}
 
 ?>
 

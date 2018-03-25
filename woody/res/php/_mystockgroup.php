@@ -1,6 +1,7 @@
 <?php
 require_once('_stock.php');
 require_once('_editgroupform.php');
+require_once('/php/ui/fundestparagraph.php');
 require_once('/php/ui/stockgroupparagraph.php');
 
 function _isPreDefinedGroup()
@@ -71,7 +72,7 @@ function _echoStockGroupArray($arStock, $bChinese)
     }
     
     EchoReferenceParagraph($arRef, $bChinese);
-    if (count($arFund) > 0)     EchoFundEstParagraph($arFund, '', $bChinese);
+    if (count($arFund) > 0)     EchoFundArrayEstParagraph($arFund, '', $bChinese);
     if (count($arRefAH) > 0)    EchoAHStockParagraph($arRefAH, $bChinese);
     
     return $arTransactionRef;

@@ -57,7 +57,7 @@ class _MyStockGroup extends MyStockGroup
 function _GetStockHistoryDebugString($ar_his, $bChinese)
 {
     $strHistory = $bChinese ? '历史' : 'History';   
-    $strSma = $bChinese ? '均线' : 'SMA';
+    $strSma = $bChinese ? SMA_DISPLAY_CN : SMA_DISPLAY_US;
     foreach ($ar_his as $his)
     {
         if ($his)

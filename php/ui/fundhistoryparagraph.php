@@ -1,4 +1,5 @@
 <?php
+require_once('fundestparagraph.php');
 
 function GetDailyCloseByDate($ref, $strYMD)
 {
@@ -145,18 +146,19 @@ function FundHistoryTableGetColumn($etf_ref, $bChinese)
         $strChange = '';
     }
     
+	$ar = FundEstTableGetColumn($bChinese);
     if ($bChinese)     
     {
-        $arColumn = array('日期', '<font color=indigo>收盘价</font>', '<font color=olive>净值</font>', PREMIUM_DISPLAY_CN, $strSymbol, $strChange, '官方'.EST_DISPLAY_CN, '估值时间', '误差');
+        $arColumn = array('日期', '<font color=indigo>收盘价</font>', '<font color=olive>净值</font>', PREMIUM_DISPLAY_CN, $strSymbol, $strChange, $ar[1], '估值时间', '误差');
     }
     else
     {
-        $arColumn = array('Date', '<font color=indigo>Close</font>', '<font color=olive>Net Value</font>', PREMIUM_DISPLAY_US, $strSymbol, $strChange, 'Official '.EST_DISPLAY_US, 'Est Time', 'Error');
+        $arColumn = array('Date', '<font color=indigo>Close</font>', '<font color=olive>Net Value</font>', PREMIUM_DISPLAY_US, $strSymbol, $strChange, $ar[1], 'Est Time', 'Error');
     }
     return $arColumn;
 }
 
-function EchoFundHistoryParagraph($fund, $iStart, $iNum, $bChinese)
+function EchoFundHistoryFullParagraph($fund, $iStart, $iNum, $bChinese)
 {
 	$etf_ref = $fund->etf_ref;
     $arColumn = FundHistoryTableGetColumn($etf_ref, $bChinese);
@@ -173,7 +175,7 @@ function EchoFundHistoryParagraph($fund, $iStart, $iNum, $bChinese)
     
     if (($iStart == 0) && ($iNum == TABLE_COMMON_DISPLAY))
     {
-        $str .= ' '.UrlBuildPhpLink(STOCK_PATH.'netvaluehistory', 'symbol='.$strSymbol, '全部记录', 'All Records', $bChinese);
+        $str .= ' '.GetNetValueHistoryLink($strSymbol, $bChinese);
     }
     
     EchoParagraphBegin($str);
@@ -181,6 +183,11 @@ function EchoFundHistoryParagraph($fund, $iStart, $iNum, $bChinese)
     _echoHistoryTableData($fund, $etf_ref, $iStart, $iNum);
     EchoTableEnd();
     EchoParagraphEnd();
+}
+
+function EchoFundHistoryParagraph($fund, $bChinese)
+{
+	EchoFundHistoryFullParagraph($fund, 0, TABLE_COMMON_DISPLAY, $bChinese);
 }
 
 ?>

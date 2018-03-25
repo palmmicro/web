@@ -16,19 +16,14 @@ function GetCommonToolLink($strSymbol, $bChinese)
     return _getStockToolLink($strSymbol, $strSymbol, $bChinese);
 }
 
-function _getStockHistoryLink($strHistory, $strSymbol, $bChinese)
-{
-    return UrlBuildPhpLink(STOCK_PATH.$strHistory, 'symbol='.$strSymbol, '历史记录', 'History', $bChinese);
-}
-
 function GetCalibrationHistoryLink($strSymbol, $bChinese)
 {
-    return _getStockHistoryLink('calibrationhistory', $strSymbol, $bChinese);
+    return UrlBuildPhpLink(STOCK_PATH.'calibrationhistory', 'symbol='.$strSymbol, '校准记录', 'Calibration History', $bChinese);
 }
 
-function GetStockHistoryLink($strSymbol, $bChinese)
+function GetNetValueHistoryLink($strSymbol, $bChinese)
 {
-    return _getStockHistoryLink('stockhistory', $strSymbol, $bChinese);
+    return UrlBuildPhpLink(STOCK_PATH.'netvaluehistory', 'symbol='.$strSymbol, '净值历史', 'Net Value History', $bChinese);
 }
 
 function _stockGetLink($strTitle, $strQuery, $strDisplay, $bChinese)
@@ -55,11 +50,6 @@ function GetMyPortfolioLink($bChinese)
 function GetAHCompareLink($bChinese)
 {
     return _stockBuildLink('ahcompare', false, 'AH对比', 'AH Compare', $bChinese);
-}
-
-function GetFutureLink($bChinese)
-{
-    return _stockBuildLink('future', false, '期货', 'Future', $bChinese);
 }
 
 function StockGetGroupLink($bChinese)

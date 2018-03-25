@@ -23,11 +23,11 @@ function EchoAll($bChinese)
     global $group;
     $fund = $group->ref;
     
-    EchoSingleFundEstParagraph($fund, $bChinese);
+    EchoFundEstParagraph($fund, $bChinese);
     EchoReferenceParagraph($group->arDisplayRef, $bChinese);
     EchoFundTradingParagraph($fund, false, $bChinese);    
     EchoSmaParagraph($group->etf_his, $fund->stock_ref, EtfEstLof, false, $bChinese);
-    EchoFundHistoryParagraph($fund, 0, TABLE_COMMON_DISPLAY, $bChinese);
+    EchoFundHistoryParagraph($fund, $bChinese);
 
     if ($group->strGroupId) 
     {

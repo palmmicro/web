@@ -20,6 +20,7 @@ define ('PRICE_DISPLAY_CN', '<font color=indigo>价格</font>');
 define ('SMA_DISPLAY_US', '<font color=blue>SMA</font>');
 define ('SMA_DISPLAY_CN', '<font color=blue>均线</font>');
 
+
 // ****************************** Common Table Functions *******************************************************
 
 function EchoParagraphBegin($str)

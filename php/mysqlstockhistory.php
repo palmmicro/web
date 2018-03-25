@@ -3,8 +3,9 @@
 // max 20 months history used
 //define ('MAX_QUOTES_DAYS', 930);
 define ('MAX_QUOTES_DAYS', 620);
-
 define ('BOLL_DAYS', 20);
+
+define ('SMA_SECTION', 'SMA');
 
 function _ignoreCurrentTradingData($strDate, $sym)
 {        
@@ -59,21 +60,6 @@ function _estSma($arF, $iIndex, $iAvg)
 }
 
 /*
-function _estSmaSigma($arF, $iIndex, $iAvg, $fSma)
-{
-    $f = 0.0;
-    $iNum = $iAvg - 1;
-//    $iNum = $iAvg;
-    for ($i = 0; $i < $iNum; $i ++)
-    {
-        $fDiff = $arF[$iIndex + $i] - $fSma; 
-        $f += $fDiff * $fDiff;
-    }
-    $f /= $iAvg;
-    return sqrt($f);
-}
-*/
-
 // http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:moving_averages
 function _estEma($af, $iIndex, $iAvg)
 {
@@ -87,6 +73,7 @@ function _estEma($af, $iIndex, $iAvg)
     }
     return $fEma;
 }
+*/
 
 // axx + bx + c = 0
 function GetQuadraticEquationRoot($a, $b, $c)
@@ -192,6 +179,7 @@ class StockHistory
     var $arYahoo;
     
     var $afSMA = array();
+    var $afNext = array();
     var $aiTradingRange = array();
 
     var $strConfigName;
@@ -253,18 +241,26 @@ class StockHistory
         return $strName.'Fit';
     }
     
-    function _cfg_set_SMA($cfg, $strName, $fSma, $iTradingRange)
+    function _buildNextName($strName)
+    {
+        return $strName.'Next';
+    }
+    
+    function _cfg_set_SMA($cfg, $strName, $fSma, $fNext, $iTradingRange)
     {
         $this->afSMA[$strName] = $fSma;
+        $this->afNext[$strName] = $fNext;
         $this->aiTradingRange[$strName] = $iTradingRange;
-        $cfg->set_var('SMA', $strName, strval($fSma));
-        $cfg->set_var('SMA', $this->_buildTradingRangeName($strName), strval($iTradingRange));
+        $cfg->set_var(SMA_SECTION, $strName, strval($fSma));
+        $cfg->set_var(SMA_SECTION, $this->_buildNextName($strName), strval($fNext));
+        $cfg->set_var(SMA_SECTION, $this->_buildTradingRangeName($strName), strval($iTradingRange));
     }
     
     function _cfg_get_SMA($cfg, $strName)
     {
-        $this->afSMA[$strName] = floatval($cfg->read_var('SMA', $strName));
-        $this->aiTradingRange[$strName] = intval($cfg->read_var('SMA', $this->_buildTradingRangeName($strName)));
+        $this->afSMA[$strName] = floatval($cfg->read_var(SMA_SECTION, $strName));
+        $this->afNext[$strName] = floatval($cfg->read_var(SMA_SECTION, $this->_buildNextName($strName)));
+        $this->aiTradingRange[$strName] = intval($cfg->read_var(SMA_SECTION, $this->_buildTradingRangeName($strName)));
     }
     
     function _loadConfigSMA($cfg)
@@ -319,28 +315,25 @@ class StockHistory
         
         foreach ($this->aiNum as $i)
         {
-            $this->_cfg_set_SMA($cfg, 'D'.strval($i), _estSma($afClose, 0, $i), $this->_getTradingRange($i, $afClose, $afHigh, $afLow));
+            $this->_cfg_set_SMA($cfg, 'D'.strval($i), _estSma($afClose, 0, $i), _estSma($afClose, 0, $i - 1), $this->_getTradingRange($i, $afClose, $afHigh, $afLow));
         }
 
-//        $this->_cfg_set_SMA($cfg, 'D50', _estSma($afClose, 0, 50), -1);
 //        $this->_cfg_set_SMA($cfg, 'EMA50', _estEma($afClose, 0, 50), -1);
-        
-//        $this->_cfg_set_SMA($cfg, 'D200', _estSma($afClose, 0, 200), -1);
 //        $this->_cfg_set_SMA($cfg, 'EMA200', _estEma($afClose, 0, 200), -1);
 
         list($fUp, $fDown) = _estBollingerBands($afClose, 0, BOLL_DAYS);
         list($iUp, $iDown) = $this->_getBollTradingRange($afClose, $afHigh, $afLow);
-        $this->_cfg_set_SMA($cfg, 'BOLLUP', $fUp, $iUp);
-        $this->_cfg_set_SMA($cfg, 'BOLLDN', $fDown, $iDown);
+        $this->_cfg_set_SMA($cfg, 'BOLLUP', $fUp, 0.0, $iUp);
+        $this->_cfg_set_SMA($cfg, 'BOLLDN', $fDown, 0.0, $iDown);
 
         foreach ($this->aiNum as $i)
         {
-            $this->_cfg_set_SMA($cfg, 'W'.strval($i), _estSma($afWeeklyClose, 0, $i), -1);
+            $this->_cfg_set_SMA($cfg, 'W'.strval($i), _estSma($afWeeklyClose, 0, $i), _estSma($afWeeklyClose, 0, $i - 1), -1);
         }
             
         foreach ($this->aiNum as $i)
         {
-            $this->_cfg_set_SMA($cfg, 'M'.strval($i), _estSma($afMonthlyClose, 0, $i), -1);
+            $this->_cfg_set_SMA($cfg, 'M'.strval($i), _estSma($afMonthlyClose, 0, $i), _estSma($afMonthlyClose, 0, $i - 1),  -1);
         }
         
         $cfg->save_data();
@@ -350,25 +343,25 @@ class StockHistory
     {
         $cfg = new INIFile($this->strConfigName);
         $strCurDate = $this->strDate;
-        if ($cfg->group_exists('SMA'))
+        if ($cfg->group_exists(SMA_SECTION))
         {
-            $strDate = $cfg->read_var('SMA', 'Date');
+            $strDate = $cfg->read_var(SMA_SECTION, 'Date');
             if ($strDate == $strCurDate)
             {
                 $this->_loadConfigSMA($cfg);
             }
             else
             {
-//                $cfg->add_group('SMA');
-                $cfg->set_group('SMA');
-                $cfg->set_var('SMA', 'Date', $strCurDate);
+//                $cfg->add_group(SMA_SECTION);
+                $cfg->set_group(SMA_SECTION);
+                $cfg->set_var(SMA_SECTION, 'Date', $strCurDate);
                 $this->_saveConfigSMA($cfg);
             }
         }
         else
         {
-            $cfg->add_group('SMA');
-            $cfg->set_var('SMA', 'Date', $strCurDate);
+            $cfg->add_group(SMA_SECTION);
+            $cfg->set_var(SMA_SECTION, 'Date', $strCurDate);
             $this->_saveConfigSMA($cfg);
         }
     }

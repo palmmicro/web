@@ -34,6 +34,7 @@ function _echoSmaTableItem($stock_his, $strKey, $fVal, $ref, $fCallback, $fCallb
     
     $strSma = _getSmaRow($strKey, $bChinese);
     $strPrice = $stock_ref->GetPriceDisplay($fVal);
+    $strNext = $stock_ref->GetPriceDisplay($stock_his->afNext[$strKey]);
     $strPercentage = $stock_ref->GetPercentageDisplay($fVal);
     $strTradingRange = _getTradingRangeRow($stock_his, $strKey);
     
@@ -61,7 +62,7 @@ function _echoSmaTableItem($stock_his, $strKey, $fVal, $ref, $fCallback, $fCallb
         <td $strBackGround class=c1>$strPrice</td>
         <td $strBackGround class=c1>$strPercentage</td>
         <td $strBackGround class=c1>$strTradingRange</td>
-        <td $strBackGround class=c1></td>
+        <td $strBackGround class=c1>$strNext</td>
         <td $strBackGround class=c1>$strEstPrice</td>
         <td $strBackGround class=c1>$strEstPercentage</td>
         <td $strBackGround class=c1>$strUserDefined</td>
@@ -205,7 +206,7 @@ function _getSmaParagraphStr($strSymbol, $strRefSymbol, $strRefPrice, $strDate, 
         $str = "{$arColumn[3]} of $strSymbolLink trading range covered the {$arColumn[0]} in past 100 trading days starting from $strDate.";
         if ($strRefSymbol)   $str .= " $strRefSymbol current trading price $strRefPrice comparing with {$arColumn[1]}.";
     }
-    $str .= ' '.GetStockHistoryLink($strSymbol, $bChinese);
+    $str .= ' '.UrlBuildPhpLink(STOCK_PATH.'stockhistory', 'symbol='.$strSymbol, '历史记录', 'History', $bChinese);
     return $str;
 }
 

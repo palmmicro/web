@@ -338,11 +338,11 @@ class MyFundReference extends FundReference
     function _compareEstResult($strNetValue, $strEstValue)
     {
         $fPercentage = GetEstErrorPercentage(floatval($strEstValue), floatval($strNetValue));
-        if (abs($fPercentage) > 0.5)
+        if (abs($fPercentage) > 1.0)
         {
             $strSymbol = $this->GetStockSymbol();
-            $strLink = UrlGetPhpLink(STOCK_PATH.'netvaluehistory', 'symbol='.$strSymbol, $strSymbol, true);
-            $str = sprintf('%s 实际值%s 估值%s 误差:%.2f%%, 从_compareEstResult函数调用.', $strLink, $strNetValue, $strEstValue, $fPercentage); 
+            $strLink = GetNetValueHistoryLink($strSymbol, true);
+            $str = sprintf('%s%s 实际值%s 估值%s 误差:%.2f%%, 从_compareEstResult函数调用.', $strSymbol, $strLink, $strNetValue, $strEstValue, $fPercentage); 
             EmailDebug($str, 'Netvalue estimation error');
         }
     }
