@@ -69,10 +69,10 @@ function _updateFundPurchaseAmount($strEmail, $strSymbol, $strVal)
 	AcctAuth();
 	if (isset($_POST['submit']))
 	{
-		$strEmail = FormatCleanString($_POST['login']);
-		$strSymbol = FormatCleanString($_POST['symbol']);
-		$strDate = FormatCleanString($_POST['date']);
-		$strVal = FormatCleanString($_POST['val']);
+		$strEmail = UrlCleanString($_POST['login']);
+		$strSymbol = UrlCleanString($_POST['symbol']);
+		$strDate = UrlCleanString($_POST['date']);
+		$strVal = UrlCleanString($_POST['val']);
    		$bAdmin = AcctIsAdmin();
 		$strSubmit = $_POST['submit'];
 		if ($strSubmit == STOCK_OPTION_ADJCLOSE_CN)

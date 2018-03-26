@@ -18,7 +18,7 @@ function _emailAll($strContents, $strSubject)
 	
 	if (isset($_POST['submit']))
 	{
-//		$strContents = FormatCleanString($_POST['contents']);
+//		$strContents = UrlCleanString($_POST['contents']);
 		$strSubmit = $_POST['submit'];
 		unset($_POST['submit']);
 		if ($strSubmit == "Send Email")

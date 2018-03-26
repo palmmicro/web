@@ -65,7 +65,7 @@ Following the developer's advice, I copied the code github and put it separately
 I bought 2 HK ETF related LOF with recent stock market crash,
 and added <a href="../../res/sz159920.php">CHINA ASSET HANG SENG</a> and <a href="../../res/sh510900.php">E FUND H-Share</a> net value tool.
 Although I only watched US market crash, I still added <a href="../../res/sh513500.php">BOSERA S&P 500</a> net value tool for possible future usage.
-<br />The original one file <?php EchoPhpFileLink('/woody/res/php/_lof.php'); ?> now becomes 4 files:
+<br />The original one file <?php EchoPhpFileLink('/woody/res/php/_lof.php'); ?> now becomes 3 files:
 </p>
 <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="table1">
        <tr>
@@ -82,11 +82,6 @@ Although I only watched US market crash, I still added <a href="../../res/sh5135
         <td class=c1 align="center">_lof.php</td>
         <td class=c1 align="center">/woody/res/<a href="../../res/sz162411.php">sz162411.php</a>, <a href="../../res/sz162411cn.php">sz162411cn.php</a>, <a href="../../res/sz159920.php">sz159920.php</a>, <a href="../../res/sz159920cn.php">sz159920cn.php</a> etc</td>
         <td class=c1 align="center">LOF related functions</td>
-      </tr>
-      <tr>
-        <td class=c1 align="center">_stocksymbol.php</td>
-        <td class=c1 align="center">_stock.php</td>
-        <td class=c1 align="center">Stock symbol ralated data and code</td>
       </tr>
       <tr>
         <td class=c1 align="center">_stocklink.php</td>

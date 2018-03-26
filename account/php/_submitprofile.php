@@ -18,18 +18,18 @@ function _emailProfile($strMemberId, $strName, $strPhone, $strAddress, $strWeb, 
 function _onEdit($strMemberId)
 {
 	// Sanitize the POST values
-	$strName = FormatCleanString($_POST['name']);
-	$strPhone = FormatCleanString($_POST['phone']);
-	$strAddress = FormatCleanString($_POST['address']);
-	$strWeb = FormatCleanString($_POST['web']);
-	$strSignature = FormatCleanString($_POST['signature']);
+	$strName = UrlCleanString($_POST['name']);
+	$strPhone = UrlCleanString($_POST['phone']);
+	$strAddress = UrlCleanString($_POST['address']);
+	$strWeb = UrlCleanString($_POST['web']);
+	$strSignature = UrlCleanString($_POST['signature']);
 
 	if (!SqlUpdateProfile($strMemberId, $strName, $strPhone, $strAddress, $strWeb, $strSignature))
 	{	
 		return false;
 	}
 
-	$strStatus = FormatCleanString($_POST['status']);
+	$strStatus = UrlCleanString($_POST['status']);
 	if (!SqlUpdateStatus($strMemberId, $strStatus))
 	{    
 		return false;

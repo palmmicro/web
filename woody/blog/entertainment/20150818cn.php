@@ -67,7 +67,7 @@
 <br />整理代码最好的方式是补充<a href="../../res/sz162411.php">英文版本</a>和多开发几个类似LOF基金估值软件.
 伴随最近抄底港股加入<a href="../../res/sz159920cn.php">恒生ETF</a>和<a href="../../res/sh510900cn.php">H股ETF</a>净值计算工具.
 观摩美股崩盘期间顺手加入了<a href="../../res/sh513500cn.php">博时标普500</a>(SH:513500)净值计算工具, 也许日后会用上.
-<br />原本单个的<?php EchoPhpFileLink('/woody/res/php/_lof.php'); ?>现在扩展成了4个文件:
+<br />原本单个的<?php EchoPhpFileLink('/woody/res/php/_lof.php'); ?>现在扩展成了3个文件:
 </p>
 <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="phpfile">
        <tr>
@@ -84,11 +84,6 @@
         <td class=c1 align="center">_lof.php</td>
         <td class=c1 align="center">/woody/res/<a href="../../res/sz162411.php">sz162411.php</a>, <a href="../../res/sz162411cn.php">sz162411cn.php</a>, <a href="../../res/sz159920.php">sz159920.php</a>, <a href="../../res/sz159920cn.php">sz159920cn.php</a>等</td>
         <td class=c1 align="center">跟LOF相关的公共函数代码</td>
-      </tr>
-      <tr>
-        <td class=c1 align="center">_stocksymbol.php</td>
-        <td class=c1 align="center">_stock.php</td>
-        <td class=c1 align="center">跟股票代码相关的数据和代码</td>
       </tr>
       <tr>
         <td class=c1 align="center">_stocklink.php</td>

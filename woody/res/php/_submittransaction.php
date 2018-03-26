@@ -6,7 +6,7 @@ require_once('_edittransactionform.php');
 
 function _getStockQuantity()
 {
-	$strQuantity = FormatCleanString($_POST['quantity']);
+	$strQuantity = UrlCleanString($_POST['quantity']);
 	if ($_POST['type'] == '0')    // sell
 	{
 	    $strQuantity = '-'.$strQuantity;
@@ -103,9 +103,9 @@ function _onNew($strGroupItemId, $strQuantity, $strPrice, $strCost, $strRemark)
 	{
 	    $strGroupItemId = $_POST['symbol'];
 	    $strQuantity = _getStockQuantity();
-		$strPrice = FormatCleanString($_POST['price']);
+		$strPrice = UrlCleanString($_POST['price']);
 	    $strCost = _getStockCost();
-		$strRemark = FormatCleanString($_POST['remark']);
+		$strRemark = UrlCleanString($_POST['remark']);
 
 		if ($_POST['submit'] == STOCK_TRANSACTION_NEW || $_POST['submit'] == STOCK_TRANSACTION_NEW_CN)
 		{	// post new transaction

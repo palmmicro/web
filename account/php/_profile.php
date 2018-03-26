@@ -383,10 +383,10 @@ function _closeAccount($strEmail)
 	    AcctSessionStart();
 		$strSubmit = $_POST['submit'];
 		unset($_POST['submit']);
-		$strEmail = FormatCleanString($_POST['login']);
+		$strEmail = UrlCleanString($_POST['login']);
 		$_SESSION['SESS_EMAIL_INPUT'] = $strEmail;
-		$strPassword = FormatCleanString($_POST['password']);
-		$strPassword2 = FormatCleanString($_POST['cpassword']);
+		$strPassword = UrlCleanString($_POST['password']);
+		$strPassword2 = UrlCleanString($_POST['cpassword']);
 		if ($strSubmit == EDIT_EMAIL_LOGIN_CN || $strSubmit == EDIT_EMAIL_LOGIN)
 		{	// from login page
 			if ($strMsg = _loginAccount($strEmail, $strPassword))    SwitchToSess();

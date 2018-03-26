@@ -4,7 +4,6 @@ require_once('/php/mystock.php');
 require_once('/php/ui/stocktable.php');
 require_once('_editformcommon.php');
 require_once('_edittransactionform.php');
-require_once('_stocksymbol.php');
 require_once('_stocklink.php');
 
 class _MyStockGroup extends MyStockGroup
@@ -67,18 +66,6 @@ function _GetStockHistoryDebugString($ar_his, $bChinese)
         }
     }
     return $strHistory.HTML_NEW_LINE.$strSma;
-}
-
-function AdjustLofPriceFactor($strLofSymbol, $fLof, $fEst, $fCNY)
-{
-    $fFactor = $fEst * $fCNY / $fLof;
-    return $fFactor;
-}
-
-function AdjustEtfPriceFactor($strEstSymbol, $fEst, $fEtf)
-{
-    $fFactor = $fEst / $fEtf;
-    return $fFactor;
 }
 
 // ****************************** LOF/ETF/INDEX(FUTURE) convert functions *******************************************************

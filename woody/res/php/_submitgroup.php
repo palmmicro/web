@@ -1,8 +1,20 @@
 <?php
 require_once('/php/account.php');
-require_once('/php/stocklink.php');
-require_once('_stock.php');
+require_once('/php/mystock.php');
+require_once('/php/ui/stocktable.php');
 require_once('_editgroupform.php');
+
+function _adjustLofPriceFactor($strLofSymbol, $fLof, $fEst, $fCNY)
+{
+    $fFactor = $fEst * $fCNY / $fLof;
+    return $fFactor;
+}
+
+function _adjustEtfPriceFactor($strEstSymbol, $fEst, $fEtf)
+{
+    $fFactor = $fEst / $fEtf;
+    return $fFactor;
+}
 
 function _onAdjust($strSymbols)
 {
@@ -25,20 +37,20 @@ function _onAdjust($strSymbols)
     $fFactor = false;
     if (in_arrayLof($strSymbol) || in_arrayLofHk($strSymbol))
     {
-        $fFactor = AdjustLofPriceFactor($strSymbol, $fVal, $fVal2, floatval($ar2[1]));
+        $fFactor = _adjustLofPriceFactor($strSymbol, $fVal, $fVal2, floatval($ar2[1]));
     }
     else if (in_arrayGoldEtf($strSymbol))
     {
-        $fFactor = AdjustEtfPriceFactor($strSymbol, $fVal2, $fVal);
+        $fFactor = _adjustEtfPriceFactor($strSymbol, $fVal2, $fVal);
     }
     else if (in_arrayFuture($strSymbol))
     {
-        $fFactor = AdjustEtfPriceFactor($strSymbol, $fVal, $fVal2);
+        $fFactor = _adjustEtfPriceFactor($strSymbol, $fVal, $fVal2);
         $strSymbol = FutureGetSinaSymbol($strSymbol);
     }
     else    // if (in_arrayPairTrading($strSymbol2))
     {
-        $fFactor = AdjustEtfPriceFactor($strSymbol, $fVal, $fVal2);
+        $fFactor = _adjustEtfPriceFactor($strSymbol, $fVal, $fVal2);
     }
     
     if ($fFactor !== false)
@@ -120,8 +132,8 @@ function _onNew($strMemberId, $strGroupName, $strSymbols)
 	}
 	else if (isset($_POST['submit']))
 	{
-		$strSymbols = FormatCleanString($_POST['symbols']);
-		$strGroupName = FormatCleanString($_POST['groupname']);
+		$strSymbols = UrlCleanString($_POST['symbols']);
+		$strGroupName = UrlCleanString($_POST['groupname']);
 
 		$strGroupId = UrlGetQueryValue('edit');
 		if ($_POST['submit'] == STOCK_GROUP_EDIT || $_POST['submit'] == STOCK_GROUP_EDIT_CN)

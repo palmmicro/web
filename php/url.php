@@ -1,6 +1,4 @@
 <?php
-require_once('format.php');
-
 define('URL_HTML', '.html');
 define('URL_CNHTML', 'cn.html');
 
@@ -62,12 +60,23 @@ function UrlGetQueryString()
 	return false;
 }
 
+// Function to sanitize values received from the form. Prevents SQL injection
+function UrlCleanString($str) 
+{
+	$str = @trim($str);
+	if (get_magic_quotes_gpc()) 
+	{
+		$str = stripslashes($str);
+	}
+	return mysql_real_escape_string($str);
+}
+
 function UrlGetQueryValue($strQueryItem)
 { 
 	$query = $_GET;
 	if (isset($query[$strQueryItem]))
 	{
-	    return FormatCleanString($query[$strQueryItem]);
+	    return UrlCleanString($query[$strQueryItem]);
 	}
 	return false;
 }

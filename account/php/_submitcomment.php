@@ -105,7 +105,7 @@ function _onNew($strMemberId, $strComment)
 	else if (isset($_POST['submit']))
 	{
 		$strSubmit = $_POST['submit'];
-		$strComment = FormatCleanString($_POST['comment']);
+		$strComment = UrlCleanString($_POST['comment']);
 		if ($strSubmit == BLOG_COMMENT_NEW || $strSubmit == BLOG_COMMENT_NEW_CN)
 		{	// post new comment
 		    _onNew($strMemberId, $strComment);
