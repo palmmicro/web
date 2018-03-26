@@ -18,6 +18,8 @@ require_once('stock/sinastock.php');
 require_once('stock/googlestock.php');
 require_once('stock/stockprefetch.php');
 
+//require_once('gb2312/gb2312_tools.php');
+
 //require_once('account.php');
 //require_once('stock.php');
 //require_once('sql/_sqltest.php');
@@ -180,7 +182,7 @@ function test_stock_dividend()
 //	SqlDeleteStockGroupByGroupName('#SMA');
 //	echoDebugString(url_get_contents('http://palmmicro.com/php/spidercn.php?list=sz162411'));
 //    TestGoogleHistory();
-
+//	GB2312WriteDatabase();
 /*
     if (test_preg_match() > 1)    echoDebugString('matched');
 	else                            echoDebugString('NOT matched');

@@ -37,8 +37,11 @@ function MyStockTransactionEchoAll($bChinese)
             $strNavLink = _GetNavLink('mystocktransaction', 'groupid='.$strGroupId, $iTotal, $iStart, $iNum, $bChinese);
             EchoParagraphBegin($strGroupLink.' '.$strCombineLink.' '.$strStockLinks.'<br />'.$strNavLink);
             
-            $group = new MyStockGroup($strGroupId, array());
-            _EchoTransactionTable($group, $iStart, $iNum, $bChinese);
+            if ($iTotal > 0)
+            {
+            	$group = new MyStockGroup($strGroupId, array());
+            	_EchoTransactionTable($group, $iStart, $iNum, $bChinese);
+            }
         }
         EchoParagraphEnd();
     }

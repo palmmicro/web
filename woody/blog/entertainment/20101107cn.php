@@ -81,6 +81,20 @@
 整个过程耗时一个晚上一气呵成, 感觉好极了!
 </p>
 
+<h3>从MySQL表中查找<a name="gb2312">GB2312</a>对应的UNICODE</h3>
+<p>2017年2月16日
+<br />随着我的网站软件越来越多的使用$arGB2312查表, 对网站的访问也越来越不稳定, 经常需要重新刷新一次才能正常显示页面.
+很久以来我一直认为是从中国访问在美国的<a href="20100905cn.php">Yahoo网站服务</a>不稳定造成的, 也就一直没有深究.
+<br />这个春节在圣地亚哥溜娃一个月, 我很悲哀的发现, 在美国访问网站也经常需要重新刷新.
+联想到Google总是利用Chrome浏览器的输入抢先我一步爬一下我要访问的网页的坏习惯, 我意识到一定是程序哪里出现了执行效率问题, 不能正确反应2个几乎同时的页面请求.
+庞大的$arGB2312全局数组马上成了最大的疑犯.
+<br />在我把全局数组放进<i>GB2312GetArray</i>函数后, 情况更加恶化了.
+需要重新刷新的情况看上去像是少了一点, 却出现了<?php EchoPhpFileLink('/php/switch.php'); ?>文件中<b>$_SESSION['userurl']</b>这种全局数据被莫名其妙的冲掉的问题.
+<br />好在经过这么多年后, 我对MySQL已经没有那么畏惧, 在溜娃间隙中削尖铅笔在<?php EchoPhpFileLink('/php/sql/sqlgb2312.php'); ?>文件中增加了一个GB2312和UNICODE的对应表, 
+把查内存中的大数组改成了查数据库, 终于解决了这个困扰了我一年半的刷新问题.
+<br /><img src=../photo/mermaid.jpg alt="Mermaid and Sapphire in SeaWorld San Diego." />
+</p>
+
 </div>
 
 <?php _LayoutBottom(true); ?>

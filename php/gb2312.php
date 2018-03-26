@@ -1,12 +1,14 @@
 <?php
-require_once('gb2312/gb2312_unicode.php');
+//require_once('gb2312/gb2312_unicode.php');
+require_once('/php/sql/sqlgb2312.php');
 
 function _lookupUnicodeTable($iChar, $iCharNext)
 {
 //    global $arGB2312;
-    $arGB2312 = GB2312GetArray();
+//    $arGB2312 = GB2312GetArray();
     $strGB2312 = sprintf('%02X%02X', $iChar, $iCharNext);
-    return $arGB2312[$strGB2312];
+    return SqlGetUTF($strGB2312);
+//    return $arGB2312[$strGB2312];
 }
 
 function FromGB2312ToUTF8($str)

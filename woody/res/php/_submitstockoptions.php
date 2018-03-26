@@ -65,7 +65,6 @@ function _updateFundPurchaseAmount($strEmail, $strSymbol, $strVal)
 	}
 }
 
-
 	AcctAuth();
 	if (isset($_POST['submit']))
 	{

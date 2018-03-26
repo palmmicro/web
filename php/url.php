@@ -367,16 +367,14 @@ function _getNavLinkQuery($strId, $iStart, $iNum)
 
 function UrlGetNavLink($strPath, $strQueryId, $iTotal, $iStart, $iNum, $bChinese)
 {
-    $arDir = UrlGetNavDisplayArray();
-    
     $str = ($bChinese ? '总数' : 'Total').': '.strval($iTotal).' ';
+    if ($iTotal <= 0)		return $str;
+    
     $iLast = $iStart + $iNum;
     if ($iLast > $iTotal)   $iLast = $iTotal;
-    if ($iTotal > 0)
-    {
-        $str .= ($bChinese ? '当前显示' : 'Current').': '.strval($iStart).'-'.strval($iLast - 1).' ';
-    }
+    $str .= ($bChinese ? '当前显示' : 'Current').': '.strval($iStart).'-'.strval($iLast - 1).' ';
     
+    $arDir = UrlGetNavDisplayArray();
     if ($iStart > 0)
     {   // Prev
         if ($iStart > $iNum)

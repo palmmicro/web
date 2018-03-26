@@ -61,7 +61,11 @@ function SqlCountStockTransactionByGroupId($strGroupId)
     {
         $strWhere = _SqlBuildWhereOrArray('groupitem_id', $ar);
     }
-    return SqlCountTableData('stocktransaction', $strWhere);
+    if ($strWhere)
+    {
+    	return SqlCountTableData('stocktransaction', $strWhere);
+    }
+    return 0;
 }
 
 function SqlGetStockTransactionByGroupId($strGroupId, $iStart, $iNum)
@@ -80,8 +84,11 @@ function SqlGetStockTransactionByGroupItemId($strId, $iStart, $iNum)
 
 function SqlCountStockTransaction($strGroupId, $strStockId)
 {
-    $strId = SqlGetStockGroupItemId($strGroupId, $strStockId);
-    return SqlCountTableData('stocktransaction', _SqlBuildWhere('groupitem_id', $strId));
+    if ($strId = SqlGetStockGroupItemId($strGroupId, $strStockId))
+    {
+    	return SqlCountTableData('stocktransaction', _SqlBuildWhere('groupitem_id', $strId));
+    }
+    return 0;
 }
 
 function SqlGetStockTransaction($strGroupId, $strStockId, $iStart, $iNum)

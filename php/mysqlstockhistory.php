@@ -89,6 +89,7 @@ function GetQuadraticEquationRoot($a, $b, $c)
     }
     return false;
 }
+
 /*
 a = (n - 4) * (n - 1)² - 4 * (n - 1)
 b = (8 - 2 * (n - 4) * (n - 1)) * ∑Xn
@@ -126,6 +127,33 @@ function _estBollingerBands($arF, $iIndex, $iAvg)
     }
     return false;
 }
+
+function _estNextBollingerBands($arF, $iAvg)
+{
+    $fSum = 0.0;
+    $fQuadraticSum = 0.0;
+    $iNum = $iAvg - 2;
+    for ($i = 0; $i < $iNum; $i ++)
+    {
+        $fVal = $arF[$i];
+        $fSum += $fVal;
+        $fQuadraticSum += $fVal * $fVal;
+    }
+    $f = 1.0 * ($iAvg - 8);
+    $a = $f * $iNum * $iNum - 16 * $iNum;
+    $b = (32 - 2 * $f * $iNum) * $fSum;
+    $c = $f * $fSum * $fSum - 16 * $fQuadraticSum;
+    
+    if ($ar = GetQuadraticEquationRoot($a, $b, $c))
+    {
+        list($x1, $x2) = $ar;
+        $sigma1 = ($fSum - $iNum * $x1) / 2;
+        $sigma2 = ($fSum - $iNum * $x2) / 2;
+        return array($x1 - 2 * $sigma1, $x2 - 2 * $sigma2);
+    }
+    return false;
+}
+
 
 // ****************************** Private functions *******************************************************
 
@@ -322,9 +350,10 @@ class StockHistory
 //        $this->_cfg_set_SMA($cfg, 'EMA200', _estEma($afClose, 0, 200), -1);
 
         list($fUp, $fDown) = _estBollingerBands($afClose, 0, BOLL_DAYS);
+        list($fUpNext, $fDownNext) = _estNextBollingerBands($afClose, BOLL_DAYS);
         list($iUp, $iDown) = $this->_getBollTradingRange($afClose, $afHigh, $afLow);
-        $this->_cfg_set_SMA($cfg, 'BOLLUP', $fUp, 0.0, $iUp);
-        $this->_cfg_set_SMA($cfg, 'BOLLDN', $fDown, 0.0, $iDown);
+        $this->_cfg_set_SMA($cfg, 'BOLLUP', $fUp, $fUpNext, $iUp);
+        $this->_cfg_set_SMA($cfg, 'BOLLDN', $fDown, $fDownNext, $iDown);
 
         foreach ($this->aiNum as $i)
         {

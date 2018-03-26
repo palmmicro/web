@@ -23,7 +23,7 @@
 2015-12-24,15:34:34,00";</font>
 <br />去掉前后双引号后, 按逗号','分隔的各个字段意义如下表.
 <?php
-    EchoInterpretationTable(array(array('0', '华宝油气', 'GB2312编码的股票名字'),
+    EchoInterpretationTable(array(array('0', '华宝油气', '<a href="20101107cn.php#gb2312">GB2312</a>编码的股票名字'),
                                    array('1', '0.502', '今日开盘价'),
                                    array('2', '0.482', '昨日收盘价'),
                                    array('3', '0.500', '当前价格, 收盘后数据可以当成今日收盘价?'),
