@@ -1,5 +1,4 @@
 <?php
-require_once('fundestparagraph.php');
 
 function GetDailyCloseByDate($ref, $strYMD)
 {
@@ -146,14 +145,16 @@ function FundHistoryTableGetColumn($etf_ref, $bChinese)
         $strChange = '';
     }
     
-	$ar = FundEstTableGetColumn($bChinese);
+	$arFundEst = GetFundEstTableColumn($bChinese);
+	$arSma = GetSmaTableColumn($bChinese);
+	$strPremium = $arSma[2];
     if ($bChinese)     
     {
-        $arColumn = array('日期', '<font color=indigo>收盘价</font>', '<font color=olive>净值</font>', PREMIUM_DISPLAY_CN, $strSymbol, $strChange, $ar[1], '估值时间', '误差');
+        $arColumn = array('日期', '<font color=indigo>收盘价</font>', '<font color=olive>净值</font>', $strPremium, $strSymbol, $strChange, $arFundEst[1], '估值时间', '误差');
     }
     else
     {
-        $arColumn = array('Date', '<font color=indigo>Close</font>', '<font color=olive>Net Value</font>', PREMIUM_DISPLAY_US, $strSymbol, $strChange, $ar[1], 'Est Time', 'Error');
+        $arColumn = array('Date', '<font color=indigo>Close</font>', '<font color=olive>Net Value</font>', $strPremium, $strSymbol, $strChange, $arFundEst[1], 'Est Time', 'Error');
     }
     return $arColumn;
 }

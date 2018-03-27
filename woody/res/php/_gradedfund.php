@@ -76,15 +76,17 @@ END;
 
 function _echoRefTable($group, $bChinese)
 {
-	$ar = FundEstTableGetColumn($bChinese);
+	$arFundEst = GetFundEstTableColumn($bChinese);
     if ($bChinese)     
     {
-        $arColumn = array('代码', PRICE_DISPLAY_CN, '日期', '时间', '涨跌', '前日净值', $ar[1], $ar[3]);
+        $arColumn = array('代码', PRICE_DISPLAY_CN, '日期', '时间', '涨跌', '前日净值');
     }
     else
     {
-        $arColumn = array('Symbol', PRICE_DISPLAY_US, 'Date', 'Time', 'Change', 'Last Net', $ar[1], $ar[3]);
+        $arColumn = array('Symbol', PRICE_DISPLAY_US, 'Date', 'Time', 'Change', 'Last Net');
     }
+    $arColumn[] = $arFundEst[1];
+    $arColumn[] = $arFundEst[3];
     
     echo <<<END
         <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="reference">

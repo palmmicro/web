@@ -51,6 +51,11 @@ function SqlGetStockHistoryByDate($strStockId, $strDate)
 	return SqlGetUniqueTableData(TABLE_STOCK_HISTORY, _SqlBuildWhere_date_stock($strDate, $strStockId));
 }
 
+function SqlGetStockHistoryFromDate($strStockId, $strDate, $iNum)
+{
+    return SqlGetTableData(TABLE_STOCK_HISTORY, "stock_id = '$strStockId' AND date <= '$strDate'", _SqlOrderByDate(), _SqlBuildLimit(0, $iNum));
+}
+
 function SqlGetPrevStockHistoryByDate($strStockId, $strDate)
 {
 	return SqlGetSingleTableData(TABLE_STOCK_HISTORY, "stock_id = '$strStockId' AND date < '$strDate'", _SqlOrderByDate());

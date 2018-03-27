@@ -21,30 +21,6 @@ function _ignoreCurrentTradingData($strDate, $sym)
     return false;
 }
 
-function _getSqlDataArray($strStockId, $sym)
-{
-    $ar = array();
-    $ar[] = 'Date,Open,High,Low,Close,Volume,Adj Close';
-    
-    $result = SqlGetStockHistory($strStockId, 0, MAX_QUOTES_DAYS);
-    if ($result)
-    {
-        $bFirst = true;
-        while ($history = mysql_fetch_assoc($result)) 
-        {
-            if ($bFirst)
-            {
-                $bFirst = false;
-                if (_ignoreCurrentTradingData($history['date'], $sym))   continue;
-            }
-            $ar[] = $history['date'].','.$history['open'].','.$history['high'].','.$history['low'].','.$history['close'].','.$history['volume'].','.$history['adjclose'];
-//            DebugString($history['date'].' '.$history['open'].' '.$history['high'].' '.$history['low'].' '.$history['close'].' '.$history['volume'].' '.$history['adjclose']);
-        }
-        @mysql_free_result($result);
-    }
-    return $ar;
-}
-
 // ****************************** SMA functions *******************************************************
 
 function _estSma($arF, $iIndex, $iAvg)
@@ -58,22 +34,6 @@ function _estSma($arF, $iIndex, $iAvg)
     }
     return $f / $iNum;
 }
-
-/*
-// http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:moving_averages
-function _estEma($af, $iIndex, $iAvg)
-{
-    $iStart = $iAvg * 5 + $iIndex;
-    $fEma = _estSma($af, $iStart, $iAvg + 1);
-    $fMultiplier = 2.0 / ($iAvg + 1);
-    for ($i = $iStart - 1; $i >= $iIndex; $i --)
-    {
-        $fDiff = ($af[$i] - $fEma) * $fMultiplier;
-        $fEma += $fDiff;   
-    }
-    return $fEma;
-}
-*/
 
 // axx + bx + c = 0
 function GetQuadraticEquationRoot($a, $b, $c)
@@ -147,8 +107,8 @@ function _estNextBollingerBands($arF, $iAvg)
     if ($ar = GetQuadraticEquationRoot($a, $b, $c))
     {
         list($x1, $x2) = $ar;
-        $sigma1 = ($fSum - $iNum * $x1) / 2;
-        $sigma2 = ($fSum - $iNum * $x2) / 2;
+        $sigma1 = ($fSum - $iNum * $x1) / 4;
+        $sigma2 = ($fSum - $iNum * $x2) / 4;
         return array($x1 - 2 * $sigma1, $x2 - 2 * $sigma2);
     }
     return false;
@@ -204,22 +164,15 @@ function _isMonthEnd($strYMD, $strNextDayYMD)
 class StockHistory
 {
     var $aiNum;     // days/weeks/months 
-    var $arYahoo;
     
     var $afSMA = array();
     var $afNext = array();
     var $aiTradingRange = array();
 
     var $strConfigName;
-    var $strFileName;                // File to store original data
     var $strDate;                     // 2014-11-13
     
     var $stock_ref;     // MyStockReference
-    
-    function DebugLink()
-    {
-        return DebugGetFileLink($this->strFileName);
-    }
     
     function DebugConfigLink()
     {
@@ -320,26 +273,28 @@ class StockHistory
         $afHigh = array();
         $afLow = array();
         $afClose = array();
-    
         $afWeeklyClose = array();
         $afMonthlyClose = array();
 
         $strNextDayYMD = false;
-        for ($i = 1; $i <= count($this->arYahoo); $i ++)
-        {
-            $arColumn = explode(',', $this->arYahoo[$i]);
-            $fClose = floatval($arColumn[6]);  // adjust close
-            $afClose[] = $fClose;
+    	if ($result = SqlGetStockHistoryFromDate($this->GetStockId(), $this->strDate, MAX_QUOTES_DAYS))
+    	{
+    		while ($history = mysql_fetch_assoc($result)) 
+    		{
+    			$fClose = floatval($history['adjclose']);
+    			$afClose[] = $fClose;
             
-            $fDiff = floatval($arColumn[4]) - $fClose; 
-            $afHigh[] = floatval($arColumn[2]) - $fDiff;
-            $afLow[] = floatval($arColumn[3]) - $fDiff;
-            
-            $strYMD = $arColumn[0];
-            if (_isWeekEnd($strYMD, $strNextDayYMD))    $afWeeklyClose[] = $fClose;
-            if (_isMonthEnd($strYMD, $strNextDayYMD))   $afMonthlyClose[] = $fClose;
-            $strNextDayYMD = $strYMD;
-        }
+    			$fDiff = floatval($history['close']) - $fClose; 
+    			$afHigh[] = floatval($history['high']) - $fDiff;
+    			$afLow[] = floatval($history['low']) - $fDiff;
+    			
+    			$strYMD = $history['date'];
+    			if (_isWeekEnd($strYMD, $strNextDayYMD))    $afWeeklyClose[] = $fClose;
+    			if (_isMonthEnd($strYMD, $strNextDayYMD))   $afMonthlyClose[] = $fClose;
+    			$strNextDayYMD = $strYMD;
+    		}
+    		@mysql_free_result($result);
+    	}
         
         foreach ($this->aiNum as $i)
         {
@@ -405,22 +360,35 @@ class StockHistory
         return $this->stock_ref->GetStockId();
     }
     
+    function _getStartDate()
+    {
+    	if ($result = SqlGetStockHistory($this->GetStockId(), 0, 2))
+    	{
+    		while ($history = mysql_fetch_assoc($result)) 
+    		{
+    			$strDate = $history['date'];
+                if (_ignoreCurrentTradingData($strDate, $this->stock_ref->sym))
+                {
+                	continue;
+                }
+                else 
+                {
+                	return $strDate;
+                }
+            }
+        }
+        return false;
+    }
+    
     // constructor 
     function StockHistory($ref) 
     {
         $this->stock_ref = $ref;
-        $strSymbol = $this->GetStockSymbol();
 //        $this->aiNum = array(5, 10, 20, 30);
         $this->aiNum = array(5, 10, 20);
 
-        $this->strConfigName = DebugGetConfigFileName($strSymbol);
-        $this->strFileName = DebugGetYahooHistoryFileName($strSymbol);
-        $strStockId = $this->GetStockId();
-        $this->arYahoo = _getSqlDataArray($strStockId, $this->stock_ref->sym);
-        
-        $arColumn = explode(',', $this->arYahoo[1]);
-        $this->strDate = $arColumn[0];
-        
+        $this->strConfigName = DebugGetConfigFileName($this->GetStockSymbol());
+		$this->strDate = $this->_getStartDate();
         $this->_configSMA();
     }
 }

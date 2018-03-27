@@ -57,6 +57,7 @@ class _PairTradingGroup extends _MyStockGroup
             $this->index_his = new StockHistory($this->index_ref);
             $this->netvalue_ref = new YahooNetValueReference($strSymbol);
             $this->yahoo_ref = new YahooStockReference($strSymbol);
+            $this->stock_his = false;
         }
         else
         {
@@ -64,8 +65,8 @@ class _PairTradingGroup extends _MyStockGroup
             $this->index_his = false;
             $this->netvalue_ref = false;
             $this->yahoo_ref = false;
+            $this->stock_his = new StockHistory($this->ref);
         }
-        $this->stock_his = new StockHistory($this->ref);
         $this->arDisplayRef = array_merge(array($this->index_ref, $this->yahoo_ref, $this->ref, $this->netvalue_ref), $this->ar_leverage_ref);     
         parent::_MyStockGroup(array_merge(array($this->ref), $this->ar_leverage_ref));
     }

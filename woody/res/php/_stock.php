@@ -55,17 +55,16 @@ class _MyStockGroup extends MyStockGroup
 
 function _GetStockHistoryDebugString($ar_his, $bChinese)
 {
-    $strHistory = $bChinese ? '历史' : 'History';   
-    $strSma = $bChinese ? SMA_DISPLAY_CN : SMA_DISPLAY_US;
+	$arColumn = GetSmaTableColumn($bChinese);
+    $str = $arColumn[0];
     foreach ($ar_his as $his)
     {
         if ($his)
         {
-            $strHistory .= ' '.$his->DebugLink();
-            $strSma .= ' '.$his->DebugConfigLink();
+            $str .= ' '.$his->DebugConfigLink();
         }
     }
-    return $strHistory.HTML_NEW_LINE.$strSma;
+    return $str;
 }
 
 // ****************************** LOF/ETF/INDEX(FUTURE) convert functions *******************************************************

@@ -232,16 +232,20 @@ function _echoRefParagraph($group, $bChinese)
 function _echoTradingParagraph($group, $bChinese)
 {
     $strSymbol = $group->cn_ref->GetStockSymbol(); 
-    $strSymbolH = $group->hk_ref->GetStockSymbol(); 
+    $strSymbolH = $group->hk_ref->GetStockSymbol();
+    
+	$arSma = GetSmaTableColumn($bChinese);
+    $arColumn = GetTradingTableColumn($bChinese);
+	$strPremium = $arSma[2];
+    $arColumn[] = $strPremium;
+    for ($i = 0; $i < 3; $i ++)	$arColumn[] = '';
     if ($bChinese)     
     {
-        $arColumn = array('交易', PRICE_DISPLAY_CN.'(人民币￥)', '数量(手)', PREMIUM_DISPLAY_CN, '', '', '');
-        $str = "{$strSymbol}当前5档交易{$arColumn[1]}相对于{$strSymbolH}交易价格<b>{$group->hk_ref->strPrice}</b>港币的{$arColumn[3]}";
+        $str = "{$strSymbol}当前5档交易{$arColumn[1]}相对于{$strSymbolH}交易价格<b>{$group->hk_ref->strPrice}</b>港币的{$strPremium}";
     }
     else
     {
-        $arColumn = array('Trading', PRICE_DISPLAY_US.'(RMB￥)', 'Num(100)', PREMIUM_DISPLAY_US, '', '', '');
-        $str = "The {$arColumn[3]} of $strSymbol Ask/Bid {$arColumn[1]} comparing with $strSymbolH trading price <b>{$group->hk_ref->strPrice}</b>HKD";
+        $str = "The $strPremium of $strSymbol Ask/Bid {$arColumn[1]} comparing with $strSymbolH trading price <b>{$group->hk_ref->strPrice}</b>HKD";
     }
     EchoParagraphBegin($str);
     EchoTradingTable($arColumn, $group->cn_ref, _convertH2CNY($group->hk_ref->fPrice, $group), false, false, false, $bChinese); 

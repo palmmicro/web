@@ -1,18 +1,5 @@
 <?php
 
-function FundEstTableGetColumn($bChinese)
-{
-    if ($bChinese)
-    {
-        $arColumn = array('代码', '官方'.EST_DISPLAY_CN, '官方'.PREMIUM_DISPLAY_CN, '参考'.EST_DISPLAY_CN, '参考'.PREMIUM_DISPLAY_CN, '实时'.EST_DISPLAY_CN, '实时'.PREMIUM_DISPLAY_CN);
-    }
-    else
-    {
-        $arColumn = array('Symbol', 'Official '.EST_DISPLAY_US, 'Official '.PREMIUM_DISPLAY_US, 'Fair '.EST_DISPLAY_US, 'Fair '.PREMIUM_DISPLAY_US, 'Realtime '.EST_DISPLAY_US, 'Realtime '.PREMIUM_DISPLAY_US);
-    }
-    return $arColumn;
-}
-
 // $ref from FundReference
 function _echoFundEstTableItem($ref, $bChinese)
 {
@@ -43,7 +30,7 @@ END;
 
 function _echoFundEstTable($arRef, $bChinese)
 {
-	$arColumn = FundEstTableGetColumn($bChinese);
+	$arColumn = GetFundEstTableColumn($bChinese);
     echo <<<END
         <TABLE borderColor=#cccccc cellSpacing=0 width=560 border=1 class="text" id="estimation">
         <tr>
@@ -132,7 +119,7 @@ function _getFundParagraphStr($fund, $bChinese)
     $strDate = $fund->strOfficialDate;
     $strLastTime = SqlGetStockCalibrationTime($ref->strSqlId);
     $strHistoryLink = GetCalibrationHistoryLink($ref->GetStockSymbol(), $bChinese);
-	$arColumn = FundEstTableGetColumn($bChinese);
+	$arColumn = GetFundEstTableColumn($bChinese);
 	$str = $arColumn[1];
     if ($bChinese)     
     {

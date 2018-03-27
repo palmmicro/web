@@ -166,30 +166,27 @@ function _selectSmaExternalLink($strSymbol)
 
 function _getSmaColumn($strRefSymbol, $fCallback2, $bChinese)
 {
-    if ($strRefSymbol)
+	$arColumn = GetSmaTableColumn($bChinese);
+	
+	if ($bChinese)	$strEst = '';
+	else				$strEst = ' ';
+	$strEst .= $arColumn[1];
+	$arColumn[] = 'T+1'.$strEst;
+	
+	if ($strRefSymbol)
     {
-        if ($bChinese)     
-        {
-            $strEst = $strRefSymbol.EST_DISPLAY_CN;
-            $strPremium = PREMIUM_DISPLAY_CN;
-        }
-        else
-        {
-            $strEst = $strRefSymbol.' '.EST_DISPLAY_US;
-            $strPremium = PREMIUM_DISPLAY_US;
-        }
+    	$arColumn[] = $strRefSymbol.$strEst;
+    	$arColumn[] = $arColumn[2];
     }
     else
     {
-        $strEst = '';
-        $strPremium = '';
+        $arColumn[] = '';
+        $arColumn[] = '';
     }
     
-    if ($fCallback2)    $strUserDefined = call_user_func($fCallback2, TABLE_USER_DEFINED_NAME, 0.0, $bChinese);
-    else                  $strUserDefined = '';  
+    if ($fCallback2)    $arColumn[] = call_user_func($fCallback2, TABLE_USER_DEFINED_NAME, 0.0, $bChinese);
+    else                  $arColumn[] = '';  
     
-    if ($bChinese)  $arColumn = array(SMA_DISPLAY_CN, EST_DISPLAY_CN, PREMIUM_DISPLAY_CN, DAYS_DISPLAY_CN, 'T+1'.EST_DISPLAY_CN, $strEst, $strPremium, $strUserDefined);
-    else              $arColumn = array(SMA_DISPLAY_US, EST_DISPLAY_US, PREMIUM_DISPLAY_US, DAYS_DISPLAY_US, 'T+1 '.EST_DISPLAY_US, $strEst, $strPremium, $strUserDefined);
     return $arColumn;
 }
 
