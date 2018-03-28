@@ -34,23 +34,25 @@ function _echoSmaTableItem($stock_his, $strKey, $fVal, $ref, $fCallback, $fCallb
     
     $strSma = _getSmaRow($strKey, $bChinese);
     $strPrice = $stock_ref->GetPriceDisplay($fVal);
-    $strNext = $stock_ref->GetPriceDisplay($stock_his->afNext[$strKey]);
+    $fNext = $stock_his->afNext[$strKey];
+    $strNext = $stock_ref->GetPriceDisplay($fNext);
     $strPercentage = $stock_ref->GetPercentageDisplay($fVal);
     $strTradingRange = _getTradingRangeRow($stock_his, $strKey);
     
     if ($ref)
     {
-        $fEst = call_user_func($fCallback, $fVal, $ref);
-        $strEstPrice = $ref->GetPriceDisplay($fEst);
-        $strEstPercentage = $ref->GetPercentageDisplay($fEst);
+        $strEstPrice = $ref->GetPriceDisplay(call_user_func($fCallback, $fVal, $ref));
+        $strEstNext = $ref->GetPriceDisplay(call_user_func($fCallback, $fNext, $ref));
+//        $strEstPercentage = $ref->GetPercentageDisplay($fEst);
     }
     else
     {
         $strEstPrice = '';
-        $strEstPercentage = '';
+//        $strEstPercentage = '';
+        $strEstNext = '';
     }
 
-    if ($fCallback2)    $strUserDefined = call_user_func($fCallback2, TABLE_USER_DEFINED_VAL, $fVal, $bChinese);
+    if ($fCallback2)    $strUserDefined = call_user_func($fCallback2, $fVal, $fNext, $bChinese);
     else                  $strUserDefined = '';  
 
     if ($strColor)    $strBackGround = 'style="background-color:'.$strColor.'"';
@@ -64,7 +66,7 @@ function _echoSmaTableItem($stock_his, $strKey, $fVal, $ref, $fCallback, $fCallb
         <td $strBackGround class=c1>$strTradingRange</td>
         <td $strBackGround class=c1>$strNext</td>
         <td $strBackGround class=c1>$strEstPrice</td>
-        <td $strBackGround class=c1>$strEstPercentage</td>
+        <td $strBackGround class=c1>$strEstNext</td>
         <td $strBackGround class=c1>$strUserDefined</td>
     </tr>
 END;
@@ -171,12 +173,14 @@ function _getSmaColumn($strRefSymbol, $fCallback2, $bChinese)
 	if ($bChinese)	$strEst = '';
 	else				$strEst = ' ';
 	$strEst .= $arColumn[1];
-	$arColumn[] = 'T+1'.$strEst;
+	$strNextEst = 'T+1'.$strEst;
+	$arColumn[] = $strNextEst;
 	
 	if ($strRefSymbol)
     {
     	$arColumn[] = $strRefSymbol.$strEst;
-    	$arColumn[] = $arColumn[2];
+//    	$arColumn[] = $arColumn[2];
+    	$arColumn[] = $strNextEst;
     }
     else
     {
@@ -184,7 +188,7 @@ function _getSmaColumn($strRefSymbol, $fCallback2, $bChinese)
         $arColumn[] = '';
     }
     
-    if ($fCallback2)    $arColumn[] = call_user_func($fCallback2, TABLE_USER_DEFINED_NAME, 0.0, $bChinese);
+    if ($fCallback2)    $arColumn[] = call_user_func($fCallback2, false, false, $bChinese);
     else                  $arColumn[] = '';  
     
     return $arColumn;

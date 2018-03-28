@@ -2,9 +2,6 @@
 
 define ('TABLE_COMMON_DISPLAY', 8);
 
-define ('TABLE_USER_DEFINED_NAME', 0);
-define ('TABLE_USER_DEFINED_VAL', 1);
-
 define ('PRICE_DISPLAY_US', '<font color=indigo>Price</font>');
 define ('PRICE_DISPLAY_CN', '<font color=indigo>价格</font>');
 

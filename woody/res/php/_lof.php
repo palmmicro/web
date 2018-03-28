@@ -91,17 +91,13 @@ function _getArbitrageQuantityName($bEditLink, $bChinese)
     return $str;
 }
 
-function _onSmaUserDefined($iType, $fVal, $bChinese)
+function _onSmaUserDefined($fVal, $fNext, $bChinese)
 {
-    if ($iType == TABLE_USER_DEFINED_NAME)
+    if ($fVal)
     {
-        return _getArbitrageQuantityName(false, $bChinese);
+        return _onSmaUserDefinedVal($fVal, $bChinese).'/'._onSmaUserDefinedVal($fNext, $bChinese);
     }
-    else if ($iType == TABLE_USER_DEFINED_VAL)
-    {
-        return _onSmaUserDefinedVal($fVal, $bChinese);
-    }
-    return '';
+    return _getArbitrageQuantityName(false, $bChinese);
 }
 
 function _onTradingUserDefinedVal($fVal, $bChinese)
@@ -113,17 +109,13 @@ function _onTradingUserDefinedVal($fVal, $bChinese)
     return _onSmaUserDefinedVal($fEtf, $bChinese).'@'.$fund->etf_ref->GetPriceDisplay($fEtf);
 }
 
-function _onTradingUserDefined($iType, $fVal, $bChinese)
+function _onTradingUserDefined($fVal, $bChinese)
 {
-    if ($iType == TABLE_USER_DEFINED_NAME)
-    {
-        return _getArbitrageQuantityName(true, $bChinese);
-    }
-    else if ($iType == TABLE_USER_DEFINED_VAL)
+    if ($fVal)
     {
         return _onTradingUserDefinedVal($fVal, $bChinese);
     }
-    return '';
+    return _getArbitrageQuantityName(true, $bChinese);
 }
 
 function EchoAll($bChinese)
