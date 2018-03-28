@@ -1,6 +1,7 @@
 <?php
 require_once('_stock.php');
 require_once('_editgroupform.php');
+require_once('/php/ui/ahparagraph.php');
 require_once('/php/ui/fundestparagraph.php');
 require_once('/php/ui/stockgroupparagraph.php');
 
@@ -38,7 +39,7 @@ function _echoStockGroupArray($arStock, $bChinese)
     $arRef = array();
     $arTransactionRef = array();
     $arFund = array();
-    $arRefAH = array();
+    $arRefH = array();
     foreach ($arStock as $strSymbol)
     {
         $sym = new StockSymbol($strSymbol);
@@ -55,7 +56,11 @@ function _echoStockGroupArray($arStock, $bChinese)
         else
         {
             $ref = new MyStockReference($strSymbol);
-            if ($ref->h_ref)        $arRefAH[] = $ref;
+            if ($ref->h_ref)
+            {
+            	$ref->h_ref->h_ref = $ref;
+            	$arRefH[] = $ref->h_ref;
+            }
         }
 
         $strInternalLink = SelectSymbolInternalLink($strSymbol, $bChinese);
@@ -73,7 +78,7 @@ function _echoStockGroupArray($arStock, $bChinese)
     
     EchoReferenceParagraph($arRef, $bChinese);
     if (count($arFund) > 0)     EchoFundArrayEstParagraph($arFund, '', $bChinese);
-    if (count($arRefAH) > 0)    EchoAHStockParagraph($arRefAH, $bChinese);
+    if (count($arRefH) > 0)    EchoAhParagraph($arRefH, $bChinese);
     
     return $arTransactionRef;
 }

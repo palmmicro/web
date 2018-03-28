@@ -28,7 +28,7 @@ function _getTradingRangeRow($stock_his, $strKey)
     return strval($iVal); 
 }
 
-function _echoSmaTableItem($stock_his, $strKey, $fVal, $ref, $fCallback, $fCallback2, $strColor, $bChinese)
+function _echoSmaTableItem($stock_his, $strKey, $fVal, $ref, $callback, $callback2, $strColor, $bChinese)
 {
     $stock_ref = $stock_his->stock_ref;
     
@@ -41,18 +41,16 @@ function _echoSmaTableItem($stock_his, $strKey, $fVal, $ref, $fCallback, $fCallb
     
     if ($ref)
     {
-        $strEstPrice = $ref->GetPriceDisplay(call_user_func($fCallback, $fVal, $ref));
-        $strEstNext = $ref->GetPriceDisplay(call_user_func($fCallback, $fNext, $ref));
-//        $strEstPercentage = $ref->GetPercentageDisplay($fEst);
+        $strEstPrice = $ref->GetPriceDisplay(call_user_func($callback, $fVal, $ref));
+        $strEstNext = $ref->GetPriceDisplay(call_user_func($callback, $fNext, $ref));
     }
     else
     {
         $strEstPrice = '';
-//        $strEstPercentage = '';
         $strEstNext = '';
     }
 
-    if ($fCallback2)    $strUserDefined = call_user_func($fCallback2, $fVal, $fNext, $bChinese);
+    if ($callback2)    $strUserDefined = call_user_func($callback2, $fVal, $fNext, $bChinese);
     else                  $strUserDefined = '';  
 
     if ($strColor)    $strBackGround = 'style="background-color:'.$strColor.'"';
@@ -106,7 +104,7 @@ class MaxMin
     }
 }
 
-function _echoSmaTableData($stock_his, $ref, $fCallback, $fCallback2, $bChinese)
+function _echoSmaTableData($stock_his, $ref, $callback, $callback2, $bChinese)
 {
     $mm = new MaxMin();
     $mmB = new MaxMin();
@@ -137,7 +135,7 @@ function _echoSmaTableData($stock_his, $ref, $fCallback, $fCallback2, $bChinese)
             if ($mmW->Fit($fVal))        $strColor = 'gray';
             else if ($mmB->Fit($fVal))  $strColor = 'silver';
         }
-        _echoSmaTableItem($stock_his, $strKey, $fVal, $ref, $fCallback, $fCallback2, $strColor, $bChinese);
+        _echoSmaTableItem($stock_his, $strKey, $fVal, $ref, $callback, $callback2, $strColor, $bChinese);
     }
 }
 
@@ -166,20 +164,18 @@ function _selectSmaExternalLink($strSymbol)
     return GetXueQiuLink($strSymbol);
 }
 
-function _getSmaColumn($strRefSymbol, $fCallback2, $bChinese)
+function _getSmaColumn($strRefSymbol, $callback2, $bChinese)
 {
 	$arColumn = GetSmaTableColumn($bChinese);
 	
-	if ($bChinese)	$strEst = '';
-	else				$strEst = ' ';
-	$strEst .= $arColumn[1];
+	if ($bChinese)	$strEst = $arColumn[1];
+	else				$strEst = ' '.$arColumn[1];
 	$strNextEst = 'T+1'.$strEst;
 	$arColumn[] = $strNextEst;
 	
 	if ($strRefSymbol)
     {
     	$arColumn[] = $strRefSymbol.$strEst;
-//    	$arColumn[] = $arColumn[2];
     	$arColumn[] = $strNextEst;
     }
     else
@@ -188,7 +184,7 @@ function _getSmaColumn($strRefSymbol, $fCallback2, $bChinese)
         $arColumn[] = '';
     }
     
-    if ($fCallback2)    $arColumn[] = call_user_func($fCallback2, false, false, $bChinese);
+    if ($callback2)    $arColumn[] = call_user_func($callback2, false, false, $bChinese);
     else                  $arColumn[] = '';  
     
     return $arColumn;
@@ -211,7 +207,7 @@ function _getSmaParagraphStr($strSymbol, $strRefSymbol, $strRefPrice, $strDate, 
     return $str;
 }
 
-function EchoSmaParagraph($stock_his, $ref, $fCallback, $fCallback2, $bChinese)
+function EchoSmaParagraph($stock_his, $ref, $callback, $callback2, $bChinese)
 {
     if ($stock_his == false)              return;
     
@@ -225,7 +221,7 @@ function EchoSmaParagraph($stock_his, $ref, $fCallback, $fCallback2, $bChinese)
     	$strRefSymbol = false;
     	$strRefPrice = false;
     }
-    $arColumn = _getSmaColumn($strRefSymbol, $fCallback2, $bChinese);
+    $arColumn = _getSmaColumn($strRefSymbol, $callback2, $bChinese);
     $strSymbol = $stock_his->GetStockSymbol();
     $str = _getSmaParagraphStr($strSymbol, $strRefSymbol, $strRefPrice, $stock_his->strDate, $arColumn, $bChinese);
     EchoParagraphBegin($str);
@@ -244,7 +240,7 @@ function EchoSmaParagraph($stock_his, $ref, $fCallback, $fCallback2, $bChinese)
     </tr>
 END;
 
-    _echoSmaTableData($stock_his, $ref, $fCallback, $fCallback2, $bChinese);
+    _echoSmaTableData($stock_his, $ref, $callback, $callback2, $bChinese);
     EchoTableEnd();
     EchoParagraphEnd();
 }

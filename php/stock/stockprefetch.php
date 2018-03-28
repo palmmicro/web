@@ -48,14 +48,14 @@ function _GetFundQuotesYMD($str)
     return $arWords[4];
 }
 
-function IsNewDailyQuotes($sym, $strFileName, $bSameDay, $fCallback)
+function IsNewDailyQuotes($sym, $strFileName, $bSameDay, $callback)
 {
     clearstatcache(true, $strFileName);
     $sym->SetTimeZone();
     if (file_exists($strFileName))
     {
         $str = file_get_contents($strFileName);
-        if (($strYMD = call_user_func($fCallback, $str)) == false)  return false;
+        if (($strYMD = call_user_func($callback, $str)) == false)  return false;
         $ymd = new YMDString($strYMD);
         
         $ymd_now = new YMDNow();

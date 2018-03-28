@@ -137,13 +137,15 @@ function _echoTransactionTableData($group, $iStart, $iNum, $bChinese)
 define ('MAX_TRANSACTION_DISPLAY', 10);
 function _EchoTransactionTable($group, $iStart, $iNum, $bChinese)
 {
+	$arReference = GetReferenceTableColumn($bChinese);
+	$strPrice = $arReference[1];
     if ($bChinese)     
     {
-        $arColumn = array('日期', '股票代码', '数量', PRICE_DISPLAY_CN, '交易费用', '备注', '操作');
+        $arColumn = array('日期', '股票代码', '数量', $strPrice, '交易费用', '备注', '操作');
     }
     else
     {
-        $arColumn = array('Date', 'Symbol', 'Quantity', PRICE_DISPLAY_US, 'Fees', 'Remark', 'Operation');
+        $arColumn = array('Date', 'Symbol', 'Quantity', $strPrice, 'Fees', 'Remark', 'Operation');
     }
     
     echo <<<END

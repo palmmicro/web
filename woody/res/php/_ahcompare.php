@@ -1,5 +1,6 @@
 <?php
 require_once('_stock.php');
+require_once('/php/ui/ahparagraph.php');
 
 function _EchoCompareAH($bChinese)
 {
@@ -11,12 +12,14 @@ function _EchoCompareAH($bChinese)
     }
     PrefetchStockData($arPrefetch);
     
-    $arRefAH = array();
+    $arRefH = array();
     foreach ($arPrefetch as $strSymbol)
     {
-        $arRefAH[] = new MyStockReference($strSymbol);
+    	$ref = new MyStockReference($strSymbol);
+        $ref->h_ref->h_ref = $ref;
+        $arRefH[] = $ref->h_ref;
     }
-    EchoAHStockParagraph($arRefAH, $bChinese);
+    EchoAhParagraph($arRefH, $bChinese);
     
     EchoPromotionHead('', $bChinese);
 }

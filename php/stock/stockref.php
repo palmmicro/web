@@ -59,11 +59,11 @@ function GetHourFromStrEndWithPM($strEndWithPM)
 
 // ****************************** Protected functions *******************************************************
 
-function _GetForexAndFutureArray($strSymbol, $strFileName, $strTimeZone, $fCallback)
+function _GetForexAndFutureArray($strSymbol, $strFileName, $strTimeZone, $callback)
 {
     if (ForexAndFutureNeedNewFile($strFileName, $strTimeZone))
     {
-        $str = call_user_func($fCallback, $strSymbol);
+        $str = call_user_func($callback, $strSymbol);
         if ($str)   file_put_contents($strFileName, $str);
         else         $str = file_get_contents($strFileName);
     }

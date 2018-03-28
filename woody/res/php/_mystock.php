@@ -2,6 +2,7 @@
 require_once('_stock.php');
 require_once('_editmergeform.php');
 require_once('_editstockoptionform.php');
+require_once('/php/ui/ahparagraph.php');
 require_once('/php/ui/smaparagraph.php');
 require_once('/php/ui/fundestparagraph.php');
 require_once('/php/ui/stockgroupparagraph.php');
@@ -76,7 +77,11 @@ function _echoMyStock($strSymbol, $bChinese)
         }
         else
         {
-            if ($ref->h_ref)        EchoAHStockParagraph(array($ref), $bChinese);
+            if ($ref->h_ref)
+            {
+       	        $ref->h_ref->h_ref = $ref;
+            	EchoAhParagraph(array($ref->h_ref), $bChinese);
+            }
         }
     }
     EchoSmaParagraph(new StockHistory($ref), false, false, false, $bChinese);

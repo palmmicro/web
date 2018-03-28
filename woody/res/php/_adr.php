@@ -147,85 +147,51 @@ function ConvertA2USD($fPriceA, $us_ref)
     return _convertA2USD($fPriceA, $group);
 }
 
-
-// ****************************** Reference table *******************************************************
-
-function _echoRefTableData($ref, $group)
+function _adrStockRefCallbackData($ref, $bChinese)
 {
+    global $group;
+    
     $sym = $ref->sym;
     $strPriceDisplay = $ref->GetCurrentPriceDisplay();
-    $strPercentageDisplay = $ref->GetCurrentPercentageDisplay();
-    
+    $fPrice = $ref->fPrice;
+	$ar = array();
     if ($sym->IsSymbolA())
     {
-        $strCNY = $strPriceDisplay;
-        $strHKD = $group->hk_ref->GetPriceDisplay(_convertA2HKD($ref->fPrice, $group));
-        $strUSD = $group->us_ref->GetPriceDisplay(_convertA2USD($ref->fPrice, $group));
+        $ar[] = $strPriceDisplay;
+        $ar[] = $group->hk_ref->GetPriceDisplay(_convertA2HKD($fPrice, $group));
+        $ar[] = $group->us_ref->GetPriceDisplay(_convertA2USD($fPrice, $group));
     }
     else if ($sym->IsSymbolH())
     {
-        $strCNY = $group->cn_ref->GetPriceDisplay(_convertH2CNY($ref->fPrice, $group));
-        $strHKD = $strPriceDisplay;
-        $strUSD = $group->us_ref->GetPriceDisplay(_convertH2USD($ref->fPrice, $group));
+        $ar[] = $group->cn_ref->GetPriceDisplay(_convertH2CNY($fPrice, $group));
+        $ar[] = $strPriceDisplay;
+        $ar[] = $group->us_ref->GetPriceDisplay(_convertH2USD($fPrice, $group));
     }
     else
     {
-        $strCNY = $group->cn_ref->GetPriceDisplay(_convertAdr2CNY($ref->fPrice, $group));
-        $strHKD = $group->hk_ref->GetPriceDisplay(_convertAdr2HKD($ref->fPrice, $group));
-        $strUSD = $strPriceDisplay;
+        $ar[] = $group->cn_ref->GetPriceDisplay(_convertAdr2CNY($fPrice, $group));
+        $ar[] = $group->hk_ref->GetPriceDisplay(_convertAdr2HKD($fPrice, $group));
+        $ar[] = $strPriceDisplay;
     }
-
-    echo <<<END
-    <tr>
-        <td class=c1>{$ref->strExternalLink}</td>
-        <td class=c1>$strPriceDisplay</td>
-        <td class=c1>$strPercentageDisplay</td>
-        <td class=c1>{$ref->strDate}</td>
-        <td class=c1>{$ref->strTimeHM}</td>
-        <td class=c1>$strCNY</td>
-        <td class=c1>$strHKD</td>
-        <td class=c1>$strUSD</td>
-    </tr>
-END;
+	return $ar;
 }
 
-function _EchoRefTable($group, $bChinese)
+function _adrStockRefCallback($ref, $bChinese)
 {
-    if ($bChinese)     
+    if ($ref)
     {
-        $arColumn = array('代码', PRICE_DISPLAY_CN, '涨跌', '日期', '时间', '人民币￥', '港币$', '美元$');
-    }
-    else
-    {                                                                                
-        $arColumn = array('Symbol', PRICE_DISPLAY_US, 'Change', 'Date', 'Time', 'RMB￥', 'HK$', 'US$');
+        return _adrStockRefCallbackData($ref, $bChinese);
     }
     
-    echo <<<END
-        <TABLE borderColor=#cccccc cellSpacing=0 width=590 border=1 class="text" id="reference">
-        <tr>
-            <td class=c1 width=80 align=center>{$arColumn[0]}</td>
-            <td class=c1 width=70 align=center>{$arColumn[1]}</td>
-            <td class=c1 width=80 align=center>{$arColumn[2]}</td>
-            <td class=c1 width=100 align=center>{$arColumn[3]}</td>
-            <td class=c1 width=50 align=center>{$arColumn[4]}</td>
-            <td class=c1 width=70 align=center>{$arColumn[5]}</td>
-            <td class=c1 width=70 align=center>{$arColumn[6]}</td>
-            <td class=c1 width=70 align=center>{$arColumn[7]}</td>
-        </tr>
-END;
-
-    foreach ($group->arStockRef as $ref)
-    {
-        _echoRefTableData($ref, $group);
-    }
-   
-    EchoTableEnd();
+    if ($bChinese)  $arColumn = array('人民币￥', '港币$', '美元$');
+    else              $arColumn = array('RMB￥', 'HK$', 'US$');
+    return $arColumn;
 }
 
 function _echoRefParagraph($group, $bChinese)
 {
     EchoParagraphBegin($bChinese ? '价格数据' : 'Price data');
-    _EchoRefTable($group, $bChinese);
+    EchoStockRefTable($group->arStockRef, _adrStockRefCallback, $bChinese);
     EchoParagraphEnd();
 }
 

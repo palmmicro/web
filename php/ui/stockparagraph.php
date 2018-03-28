@@ -16,15 +16,6 @@ function EchoReferenceParagraph($arRef, $bChinese)
     EchoParagraphEnd();
 }
 
-function EchoAHStockParagraph($arRefAH, $bChinese)
-{
-    $hkcny_ref = new CNYReference('HKCNY');
-    $strLink = GetAHCompareLink($bChinese);
-    EchoParagraphBegin($strLink.' '.$hkcny_ref->strDescription.' '.$hkcny_ref->strPrice);
-    EchoAHStockTable($arRefAH, $hkcny_ref->fPrice, $bChinese);
-    EchoParagraphEnd();
-}
-
 function EchoStockTransactionParagraph($strGroupId, $ref, $result, $bChinese)
 {
     if ($result == false)   return;

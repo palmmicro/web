@@ -8,7 +8,7 @@ function _getTradingNumber($strNumber)
     return strval(intval($fNum));
 }
 
-function _echoTradingTableItem($i, $strAskBid, $strPrice, $strQuantity, $ref, $fEstPrice, $fEstPrice2, $fEstPrice3, $fCallback, $bChinese)
+function _echoTradingTableItem($i, $strAskBid, $strPrice, $strQuantity, $ref, $fEstPrice, $fEstPrice2, $fEstPrice3, $callback, $bChinese)
 {
     $fPrice = floatval($strPrice);
     $strPriceDisplay = $ref->GetPriceDisplay($fPrice);
@@ -17,7 +17,7 @@ function _echoTradingTableItem($i, $strAskBid, $strPrice, $strQuantity, $ref, $f
     $strPercentage2 = StockGetPercentageDisplay($fPrice, $fEstPrice2);
     $strPercentage3 = StockGetPercentageDisplay($fPrice, $fEstPrice3);
 
-    if ($fCallback)    $strUserDefined = call_user_func($fCallback, $fPrice, $bChinese);
+    if ($callback)    $strUserDefined = call_user_func($callback, $fPrice, $bChinese);
     else                 $strUserDefined = '';  
 
     if ($i == 0)    $strBackGround = 'style="background-color:yellow"';
@@ -36,20 +36,20 @@ function _echoTradingTableItem($i, $strAskBid, $strPrice, $strQuantity, $ref, $f
 END;
 }
 
-function _echoTradingTableData($strSell, $strBuy, $ref, $fEstPrice, $fEstPrice2, $fEstPrice3, $fCallback, $bChinese)
+function _echoTradingTableData($strSell, $strBuy, $ref, $fEstPrice, $fEstPrice2, $fEstPrice3, $callback, $bChinese)
 {
     for ($i = TRADING_QUOTE_NUM - 1; $i >= 0; $i --)
     {
-        _echoTradingTableItem($i, $strSell.strval($i + 1), $ref->arAskPrice[$i], $ref->arAskQuantity[$i], $ref, $fEstPrice, $fEstPrice2, $fEstPrice3, $fCallback, $bChinese);
+        _echoTradingTableItem($i, $strSell.strval($i + 1), $ref->arAskPrice[$i], $ref->arAskQuantity[$i], $ref, $fEstPrice, $fEstPrice2, $fEstPrice3, $callback, $bChinese);
     }
 
     for ($i = 0; $i < TRADING_QUOTE_NUM; $i ++)
     {
-        _echoTradingTableItem($i, $strBuy.strval($i + 1), $ref->arBidPrice[$i], $ref->arBidQuantity[$i], $ref, $fEstPrice, $fEstPrice2, $fEstPrice3, $fCallback, $bChinese);
+        _echoTradingTableItem($i, $strBuy.strval($i + 1), $ref->arBidPrice[$i], $ref->arBidQuantity[$i], $ref, $fEstPrice, $fEstPrice2, $fEstPrice3, $callback, $bChinese);
     }
 }
 
-function EchoTradingTable($arColumn, $ref, $fEstPrice, $fEstPrice2, $fEstPrice3, $fCallback, $bChinese)
+function EchoTradingTable($arColumn, $ref, $fEstPrice, $fEstPrice2, $fEstPrice3, $callback, $bChinese)
 {
     if ($bChinese)
     {
@@ -72,11 +72,11 @@ function EchoTradingTable($arColumn, $ref, $fEstPrice, $fEstPrice2, $fEstPrice3,
         <td class=c1 width=120 align=center>{$arColumn[6]}</td>
     </tr>
 END;
-    _echoTradingTableData($arRow[0], $arRow[1], $ref, $fEstPrice, $fEstPrice2, $fEstPrice3, $fCallback, $bChinese);
+    _echoTradingTableData($arRow[0], $arRow[1], $ref, $fEstPrice, $fEstPrice2, $fEstPrice3, $callback, $bChinese);
     EchoTableEnd();
 }
 
-function EchoFundTradingParagraph($fund, $fCallback, $bChinese)
+function EchoFundTradingParagraph($fund, $callback, $bChinese)
 {
     $ref = $fund->stock_ref;
     $strSymbol = $ref->GetStockSymbol();
@@ -90,7 +90,7 @@ function EchoFundTradingParagraph($fund, $fCallback, $bChinese)
     $arColumn[] = $arFundEst[2];
     $arColumn[] = $arFundEst[4];
     $arColumn[] = $arFundEst[6];
-    if ($fCallback)     $arColumn[] = call_user_func($fCallback, false, $bChinese);
+    if ($callback)     $arColumn[] = call_user_func($callback, false, $bChinese);
     else                  $arColumn[] = '';  
     
 	$arSma = GetSmaTableColumn($bChinese);
@@ -106,7 +106,7 @@ function EchoFundTradingParagraph($fund, $fCallback, $bChinese)
     }
     
     EchoParagraphBegin($str);
-    EchoTradingTable($arColumn, $ref, $fund->fPrice, $fund->fFairNetValue, $fund->fRealtimeNetValue, $fCallback, $bChinese); 
+    EchoTradingTable($arColumn, $ref, $fund->fPrice, $fund->fFairNetValue, $fund->fRealtimeNetValue, $callback, $bChinese); 
     EchoParagraphEnd();
 }
 

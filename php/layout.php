@@ -69,13 +69,13 @@ END;*/
 END;
 }
 
-function LayoutTopLeft($fCallback, $bChinese)
+function LayoutTopLeft($callback, $bChinese)
 {
     if (!LayoutIsMobilePhone())
     {
         _layoutBanner($bChinese);
         _layoutAboveMenu();
-        call_user_func($fCallback, $bChinese);
+        call_user_func($callback, $bChinese);
         _layoutBelowMenu();
     }
 }

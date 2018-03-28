@@ -2,13 +2,19 @@
 
 define ('TABLE_COMMON_DISPLAY', 8);
 
-define ('PRICE_DISPLAY_US', '<font color=indigo>Price</font>');
-define ('PRICE_DISPLAY_CN', '<font color=indigo>价格</font>');
+function GetReferenceTableColumn($bChinese)			
+{
+    if ($bChinese)  $arColumn = array('代码', '<font color=blue>价格</font>', '涨跌', '日期', '时间');
+    else              $arColumn = array('Symbol', '<font color=blue>Price</font>', 'Change', 'Date', 'Time');
+    return $arColumn;
+}
 
 function GetTradingTableColumn($bChinese)
 {
-    if ($bChinese)	$arColumn = array('交易', PRICE_DISPLAY_CN, '数量(手)');
-    else		        $arColumn = array('Trading', PRICE_DISPLAY_US, 'Num(100)');
+	$arReference = GetReferenceTableColumn($bChinese);
+	$strPrice = $arReference[1];
+    if ($bChinese)	$arColumn = array('交易', $strPrice, '数量(手)');
+    else		        $arColumn = array('Trading', $strPrice, 'Num(100)');
     return $arColumn;
 }
 
@@ -27,6 +33,11 @@ function GetFundEstTableColumn($bChinese)
     if ($bChinese)	$arColumn = array('代码', '官方'.$strEst, '官方'.$strPremium, '参考'.$strEst, '参考'.$strPremium, '实时'.$strEst, '实时'.$strPremium);
     else		        $arColumn = array('Symbol', 'Official '.$strEst, 'Official '.$strPremium, 'Fair '.$strEst, 'Fair '.$strPremium, 'Realtime '.$strEst, 'Realtime '.$strPremium);
     return $arColumn;
+}
+
+function GetTableColumnDisplay($str)
+{
+	return "<td class=c1>$str</td>";
 }
 
 // ****************************** Common Table Functions *******************************************************

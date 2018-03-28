@@ -60,13 +60,26 @@ function _checkStockReference($ref)
 }
 
 // $ref from StockReference
-function _echoReferenceTableItem($ref, $bChinese)
+function _echoReferenceTableItem($ref, $callback, $bChinese)
 {
     if (_checkStockReference($ref) == false)    return;
 
     $strPriceDisplay = $ref->GetCurrentPriceDisplay();
     $strPercentageDisplay = $ref->GetCurrentPercentageDisplay();
-    $strDescription = _convertDescription($ref->strDescription, $bChinese);
+    if ($callback)
+    {
+        $strDisplayEx = '';
+		$arDisplayEx = call_user_func($callback, $ref, $bChinese);
+		foreach ($arDisplayEx as $str)
+		{
+			$strDisplayEx .= GetTableColumnDisplay($str);
+		}
+    }
+    else
+    {
+    	$strDescription = _convertDescription($ref->strDescription, $bChinese);
+        $strDisplayEx = GetTableColumnDisplay($strDescription);
+    }
 
     echo <<<END
     <tr>
@@ -75,34 +88,54 @@ function _echoReferenceTableItem($ref, $bChinese)
         <td class=c1>$strPercentageDisplay</td>
         <td class=c1>{$ref->strDate}</td>
         <td class=c1>{$ref->strTimeHM}</td>
-        <td class=c1>$strDescription</td>
+        $strDisplayEx
     </tr>
 END;
 }
 
-function EchoReferenceTable($arRef, $bChinese)
+function EchoStockRefTable($arRef, $callback, $bChinese)
 {
-    if ($bChinese)  $arColumn = array('代码', PRICE_DISPLAY_CN, '涨跌', '日期', '时间', '备注');
-    else              $arColumn = array('Symbol', PRICE_DISPLAY_US, 'Change', 'Date', 'Time', 'Remark');
+	$arColumn = GetReferenceTableColumn($bChinese);
+	if ($callback)
+	{
+		$arColumnEx = call_user_func($callback, false, $bChinese);
+        $strColumnEx = ' ';
+		foreach ($arColumnEx as $str)
+		{
+            $strColumnEx .= "<td class=c1 width=90 align=center>$str</td>";
+		}
+	}
+	else
+	{
+		$strColumnEx = '<td class=c1 width=270 align=center></td>';
+	}
     
     echo <<<END
         <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="reference">
         <tr>
             <td class=c1 width=80 align=center>{$arColumn[0]}</td>
             <td class=c1 width=70 align=center>{$arColumn[1]}</td>
-            <td class=c1 width=60 align=center>{$arColumn[2]}</td>
+            <td class=c1 width=70 align=center>{$arColumn[2]}</td>
             <td class=c1 width=100 align=center>{$arColumn[3]}</td>
             <td class=c1 width=50 align=center>{$arColumn[4]}</td>
-            <td class=c1 width=280 align=center>{$arColumn[5]}</td>
+            $strColumnEx
         </tr>
 END;
 
     foreach ($arRef as $ref)
     {
-        _echoReferenceTableItem($ref, $bChinese);
-        _echoReferenceTableItem($ref->extended_ref, $bChinese);
+        _echoReferenceTableItem($ref, $callback, $bChinese);
+        if ($callback == false)
+        {
+        	_echoReferenceTableItem($ref->extended_ref, false, $bChinese);
+        }
     }
     EchoTableEnd();
+}
+
+function EchoReferenceTable($arRef, $bChinese)
+{
+	EchoStockRefTable($arRef, false, $bChinese);
 }
 
 // ****************************** Fund Reference table *******************************************************
@@ -117,62 +150,6 @@ function EchoFundReferenceTable($arFundRef, $bChinese)
         $arRef[] = $ref;
     }
     EchoReferenceTable($arRef, $bChinese);
-}
-
-// ****************************** AH stock table *******************************************************
-
-function _echoAHStockTableItem($a_ref, $ref, $fHKDCNY, $bChinese)
-{
-    if (_checkStockReference($ref) == false)    return;
-    if (_checkStockReference($a_ref) == false)    return;
-    
-    $strPriceDisplay = $ref->GetCurrentPriceDisplay();
-    $strPercentageDisplay = $ref->GetCurrentPercentageDisplay();
-    
-    $strSymbolA = $a_ref->GetStockSymbol();
-    $strLinkA = SelectAHCompareLink($strSymbolA, $bChinese);
-    $fAHRatio = $a_ref->fPrice / $fHKDCNY / $ref->fPrice / AhGetRatio($strSymbolA);
-    $strAHRatio = GetRatioDisplay($fAHRatio);
-    $strHARatio = GetRatioDisplay(1.0 / $fAHRatio);
-    
-    echo <<<END
-    <tr>
-        <td class=c1>$strLinkA</td>
-        <td class=c1>{$ref->strExternalLink}</td>
-        <td class=c1>$strPriceDisplay</td>
-        <td class=c1>$strPercentageDisplay</td>
-        <td class=c1>{$ref->strDate}</td>
-        <td class=c1>{$ref->strTimeHM}</td>
-        <td class=c1>$strAHRatio</td>
-        <td class=c1>$strHARatio</td>
-    </tr>
-END;
-}
-
-function EchoAHStockTable($arRefAH, $fHKDCNY, $bChinese)
-{
-    if ($bChinese)  $arColumn = array('A股代码',  'H股代码',  PRICE_DISPLAY_CN,   '涨跌',  '日期', '时间', 'AH比价', 'HA比价');
-    else              $arColumn = array('A Symbol', 'H Symbol', PRICE_DISPLAY_US, 'Change', 'Date', 'Time', 'AH Ratio', 'HA Ratio');
-    
-    echo <<<END
-        <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="ahstock">
-        <tr>
-            <td class=c1 width=80 align=center>{$arColumn[0]}</td>
-            <td class=c1 width=80 align=center>{$arColumn[1]}</td>
-            <td class=c1 width=80 align=center>{$arColumn[2]}</td>
-            <td class=c1 width=70 align=center>{$arColumn[3]}</td>
-            <td class=c1 width=110 align=center>{$arColumn[4]}</td>
-            <td class=c1 width=60 align=center>{$arColumn[5]}</td>
-            <td class=c1 width=80 align=center>{$arColumn[6]}</td>
-            <td class=c1 width=80 align=center>{$arColumn[7]}</td>
-        </tr>
-END;
-
-    foreach ($arRefAH as $a_ref)
-    {
-        _echoAHStockTableItem($a_ref, $a_ref->h_ref, $fHKDCNY, $bChinese);
-    }
-    EchoTableEnd();
 }
 
 // ****************************** Stock transaction table *******************************************************
@@ -210,8 +187,10 @@ function IsStockGroupReadOnly($strGroupId)
 
 function EchoStockTransactionTable($strGroupId, $ref, $result, $bChinese)
 {
-    if ($bChinese)  $arColumn = array('时间', '数量', PRICE_DISPLAY_CN, '交易费用', '备注', '操作');
-    else              $arColumn = array('Time', 'Quantity', PRICE_DISPLAY_US, 'Fees', 'Remark', 'Operation');
+	$arReference = GetReferenceTableColumn($bChinese);
+	$strPrice = $arReference[1];
+    if ($bChinese)  $arColumn = array('时间', '数量', $strPrice, '交易费用', '备注', '操作');
+    else              $arColumn = array('Time', 'Quantity', $strPrice, 'Fees', 'Remark', 'Operation');
     
     $strTableId = $ref->GetStockSymbol().$strGroupId;
     

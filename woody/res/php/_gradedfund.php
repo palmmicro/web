@@ -64,9 +64,9 @@ function _echoRefTableData($ref, $fund)
     <tr>
         <td class=c1>$strLink</td>
         <td class=c1>$strPrice</td>
+        <td class=c1>$strPercentageDisplay</td>
         <td class=c1>$strDate</td>
         <td class=c1>$strTime</td>
-        <td class=c1>$strPercentageDisplay</td>
         <td class=c1>$strLastNetValue</td>
         <td class=c1>$strNetValue</td>
         <td class=c1>$strReferencePrice</td>
@@ -76,15 +76,16 @@ END;
 
 function _echoRefTable($group, $bChinese)
 {
-	$arFundEst = GetFundEstTableColumn($bChinese);
+	$arColumn = GetReferenceTableColumn($bChinese);
     if ($bChinese)     
     {
-        $arColumn = array('代码', PRICE_DISPLAY_CN, '日期', '时间', '涨跌', '前日净值');
+        $arColumn[] = '前日净值';
     }
     else
     {
-        $arColumn = array('Symbol', PRICE_DISPLAY_US, 'Date', 'Time', 'Change', 'Last Net');
+        $arColumn[] = 'Last Net';
     }
+	$arFundEst = GetFundEstTableColumn($bChinese);
     $arColumn[] = $arFundEst[1];
     $arColumn[] = $arFundEst[3];
     
@@ -92,13 +93,13 @@ function _echoRefTable($group, $bChinese)
         <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="reference">
         <tr>
             <td class=c1 width=80 align=center>{$arColumn[0]}</td>
-            <td class=c1 width=100 align=center>{$arColumn[1]}</td>
-            <td class=c1 width=100 align=center>{$arColumn[2]}</td>
-            <td class=c1 width=50 align=center>{$arColumn[3]}</td>
-            <td class=c1 width=70 align=center>{$arColumn[4]}</td>
-            <td class=c1 width=80 align=center>{$arColumn[5]}</td>
-            <td class=c1 width=80 align=center>{$arColumn[6]}</td>
-            <td class=c1 width=80 align=center>{$arColumn[7]}</td>
+            <td class=c1 width=70 align=center>{$arColumn[1]}</td>
+            <td class=c1 width=70 align=center>{$arColumn[2]}</td>
+            <td class=c1 width=100 align=center>{$arColumn[3]}</td>
+            <td class=c1 width=50 align=center>{$arColumn[4]}</td>
+            <td class=c1 width=90 align=center>{$arColumn[5]}</td>
+            <td class=c1 width=90 align=center>{$arColumn[6]}</td>
+            <td class=c1 width=90 align=center>{$arColumn[7]}</td>
         </tr>
 END;
 
