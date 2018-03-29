@@ -39,18 +39,15 @@ function _echoSmaTableItem($stock_his, $strKey, $fVal, $ref, $callback, $callbac
     $strPercentage = $stock_ref->GetPercentageDisplay($fVal);
     $strTradingRange = _getTradingRangeRow($stock_his, $strKey);
     
+    $strDisplayEx = '';
     if ($ref)
     {
         $strDisplayEx = GetTableColumnColorDisplay($strColor, $ref->GetPriceDisplay(call_user_func($callback, $fVal, $ref)));
         $strDisplayEx .= GetTableColumnColorDisplay($strColor, $ref->GetPriceDisplay(call_user_func($callback, $fNext, $ref)));
     }
-    else
-    {
-        $strDisplayEx = '';
-    }
 
-    if ($callback2)    $strDisplayEx2 = GetTableColumnColorDisplay($strColor, call_user_func($callback2, $fVal, $fNext, $bChinese));
-    else                 $strDisplayEx2 = '';  
+    $strUserDefined = '';  
+    if ($callback2)    $strUserDefined = GetTableColumnColorDisplay($strColor, call_user_func($callback2, $fVal, $fNext, $bChinese));
 
     $strBackGround = GetTableColumnColor($strColor);
     echo <<<END
@@ -61,7 +58,7 @@ function _echoSmaTableItem($stock_his, $strKey, $fVal, $ref, $callback, $callbac
         <td $strBackGround class=c1>$strTradingRange</td>
         <td $strBackGround class=c1>$strNext</td>
         $strDisplayEx
-        $strDisplayEx2
+        $strUserDefined
     </tr>
 END;
 }
@@ -183,29 +180,32 @@ function EchoSmaParagraph($stock_his, $ref, $callback, $callback2, $bChinese)
     
 	$arColumn = GetSmaTableColumn($bChinese);
     $strSymbol = $stock_his->GetStockSymbol();
-    $str = _getSmaParagraphStr($strSymbol, $stock_his->strDate, $arColumn, $bChinese);
-    EchoParagraphBegin($str);
+    EchoParagraphBegin(_getSmaParagraphStr($strSymbol, $stock_his->strDate, $arColumn, $bChinese));
 
 	if ($bChinese)	$strEst = $arColumn[1];
 	else				$strEst = ' '.$arColumn[1];
 	$strNextEst = 'T+1'.$strEst;
 	$arColumn[] = $strNextEst;
 	
+	$iWidth = 360;
+    $strColumnEx = '';
 	if ($ref)
     {
     	$strColumnEx = GetTableColumn(110, $ref->GetStockSymbol().$strEst);
     	$strColumnEx .= GetTableColumn(70, $strNextEst);
+    	$iWidth += 180;
     }
-    else
+    
+    $strUserDefined = '';  
+    if ($callback2)
     {
-        $strColumnEx = '';
+    	$strUserDefined = GetTableColumn(100, call_user_func($callback2, false, false, $bChinese));
+    	$iWidth += 100;
     }
     
-    if ($callback2)    $strColumnEx2 = GetTableColumn(100, call_user_func($callback2, false, false, $bChinese));
-    else                 $strColumnEx2 = '';  
-    
+    $strWidth = strval($iWidth);
     echo <<<END
-    <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="{$strSymbol}sma">
+    <TABLE borderColor=#cccccc cellSpacing=0 width=$strWidth border=1 class="text" id="{$strSymbol}sma">
     <tr>
         <td class=c1 width=90 align=center>{$arColumn[0]}</td>
         <td class=c1 width=70 align=center>{$arColumn[1]}</td>
@@ -213,7 +213,7 @@ function EchoSmaParagraph($stock_his, $ref, $callback, $callback2, $bChinese)
         <td class=c1 width=60 align=center>{$arColumn[3]}</td>
         <td class=c1 width=70 align=center>{$arColumn[4]}</td>
         $strColumnEx
-        $strColumnEx2
+        $strUserDefined
     </tr>
 END;
 

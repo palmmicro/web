@@ -151,7 +151,7 @@ class StockSymbol
     function IsForex()
     {
         $strSymbol = $this->strSymbol;
-        if ($strSymbol == 'USCNY' || $strSymbol == 'HKCNY')
+        if ($strSymbol == 'DINIW' || $strSymbol == 'USCNY' || $strSymbol == 'HKCNY')
         {
             return true;
         }

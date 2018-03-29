@@ -5,6 +5,7 @@ require_once('_editstockoptionform.php');
 require_once('/php/ui/ahparagraph.php');
 require_once('/php/ui/smaparagraph.php');
 require_once('/php/ui/fundestparagraph.php');
+require_once('/php/ui/fundtradingparagraph.php');
 require_once('/php/ui/stockgroupparagraph.php');
 
 function _checkStockTransaction($strGroupId, $ref)
@@ -53,6 +54,22 @@ function _echoMyStockTransactions($strMemberId, $ref, $bChinese)
 	}
 }
 
+function _echoTradingParagraph($ref, $bChinese)
+{
+    $arColumn = GetTradingTableColumn($bChinese);
+    if ($bChinese)     
+    {
+        $str = "当前5档交易{$arColumn[1]}";
+    }
+    else
+    {
+        $str = "Ask/Bid {$arColumn[1]}";
+    }
+    EchoParagraphBegin($str);
+    EchoTradingTable($arColumn, $ref, false, false, false, false, $bChinese); 
+    EchoParagraphEnd();
+}
+
 function _echoMyStock($strSymbol, $bChinese)
 {
     MyStockPrefetchData(array($strSymbol));
@@ -74,6 +91,7 @@ function _echoMyStock($strSymbol, $bChinese)
         if ($sym->IsFundA())
         {
             if ($fund->fPrice)      EchoFundEstParagraph($fund, $bChinese);
+            EchoFundTradingParagraph($fund, false, $bChinese);
         }
         else
         {
@@ -82,6 +100,7 @@ function _echoMyStock($strSymbol, $bChinese)
        	        $ref->h_ref->h_ref = $ref;
             	EchoAhParagraph(array($ref->h_ref), $bChinese);
             }
+            _echoTradingParagraph($ref, $bChinese);
         }
     }
     EchoSmaParagraph(new StockHistory($ref), false, false, false, $bChinese);

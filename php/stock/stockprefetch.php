@@ -235,7 +235,7 @@ function _prefetchSinaData($arSymbol)
     {
         $strFileName = DebugGetSinaFileName($str);
         $sym = new StockSymbol($strSymbol);
-        if (substr($str, 0, 3) == 'USD')
+        if ($sym->IsForex())
         {   // forex
             if (ForexAndFutureNeedNewFile($strFileName, ForexGetTimezone()) == false)    continue;
         }
@@ -273,6 +273,7 @@ function PrefetchSinaStockData($arSymbol)
             $sym = new StockSymbol($strSymbol);
             if ($sym->IsForex())
             {
+                $arPrefetch[$strSymbol] = $strSymbol;
             }
             else if ($strFundSymbol = IsSinaFundSymbol($strSymbol))
             {   // IsSinaFundSymbol must be called before IsSinaFutureSymbol

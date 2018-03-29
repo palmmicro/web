@@ -5,15 +5,15 @@ require_once('_lofgroup.php');
 class _LofUsGroup extends _LofGroup
 {
     var $etf_netvalue_ref;
-    var $usd_future_ref;
+    var $usd_ref;
 
     // constructor 
     function _LofUsGroup($strSymbol) 
     {
-        $strFutureUSD = 'DXF'; 
+        $strUSD = 'DINIW'; 
         $strEtfSymbol = LofGetEtfSymbol($strSymbol);
         $arPrefetch = LofGetAllSymbolArray($strSymbol);
-        $arPrefetch[] = FutureGetSinaSymbol($strFutureUSD); 
+        $arPrefetch[] = $strUSD; 
         $arPrefetch[] = GetYahooNetValueSymbol($strEtfSymbol);
         PrefetchStockData($arPrefetch);
         
@@ -21,10 +21,10 @@ class _LofUsGroup extends _LofGroup
         ForexUpdateHistory($this->cny_ref);
         
         $this->ref = new MyLofReference($strSymbol);
-        $this->usd_future_ref = new MyFutureReference($strFutureUSD);
+        $this->usd_ref = new ForexReference($strUSD);
         $this->etf_netvalue_ref = new YahooNetValueReference($strEtfSymbol);
         parent::_LofGroup();
-        $this->arDisplayRef = array($this->ref->index_ref, $this->ref->etf_ref, $this->etf_netvalue_ref, $this->ref->future_ref, $this->usd_future_ref, $this->cny_ref, $this->ref->stock_ref, $this->ref);
+        $this->arDisplayRef = array($this->ref->index_ref, $this->ref->etf_ref, $this->etf_netvalue_ref, $this->ref->future_ref, $this->usd_ref, $this->cny_ref, $this->ref->stock_ref, $this->ref);
     }
     
     function OnData()

@@ -12,40 +12,42 @@ function _echoTradingTableItem($i, $strAskBid, $strPrice, $strQuantity, $ref, $f
 {
 	if ($strQuantity == '0')	return;
 	
+    $strColor = false;
     if ($i == 0)    $strColor = 'yellow';
-    else             $strColor = false;
     $strBackGround = GetTableColumnColor($strColor);
     
     $fPrice = floatval($strPrice);
     $strPriceDisplay = $ref->GetPriceDisplay($fPrice);
     $strTradingNumber = _getTradingNumber($strQuantity);
-    $strPercentage = StockGetPercentageDisplay($fPrice, $fEstPrice);
-    $strPercentage2 = StockGetPercentageDisplay($fPrice, $fEstPrice2);
-    $strPercentage3 = StockGetPercentageDisplay($fPrice, $fEstPrice3);
+    
+    $strDisplayEx = '';
+    if ($fEstPrice)	$strDisplayEx .= GetTableColumnColorDisplay($strColor, StockGetPercentageDisplay($fPrice, $fEstPrice));
+    if ($fEstPrice2)	$strDisplayEx .= GetTableColumnColorDisplay($strColor, StockGetPercentageDisplay($fPrice, $fEstPrice2));
+    if ($fEstPrice3)	$strDisplayEx .= GetTableColumnColorDisplay($strColor, StockGetPercentageDisplay($fPrice, $fEstPrice3));
 
+    $strUserDefined = '';  
     if ($callback)    $strUserDefined = GetTableColumnColorDisplay($strColor, call_user_func($callback, $fPrice, $bChinese));
-    else                $strUserDefined = '';  
 
     echo <<<END
     <tr>
         <td $strBackGround class=c1>$strAskBid</td>
         <td $strBackGround class=c1>$strPriceDisplay</td>
         <td $strBackGround class=c1>$strTradingNumber</td>
-        <td $strBackGround class=c1>$strPercentage</td>
-        <td $strBackGround class=c1>$strPercentage2</td>
-        <td $strBackGround class=c1>$strPercentage3</td>
+        $strDisplayEx
         $strUserDefined
     </tr>
 END;
 }
 
-function _echoTradingTableData($strSell, $strBuy, $ref, $fEstPrice, $fEstPrice2, $fEstPrice3, $callback, $bChinese)
+function _echoTradingTableData($ref, $fEstPrice, $fEstPrice2, $fEstPrice3, $callback, $bChinese)
 {
+	$strSell = $bChinese ? '卖' : 'Ask ';
     for ($i = TRADING_QUOTE_NUM - 1; $i >= 0; $i --)
     {
         _echoTradingTableItem($i, $strSell.strval($i + 1), $ref->arAskPrice[$i], $ref->arAskQuantity[$i], $ref, $fEstPrice, $fEstPrice2, $fEstPrice3, $callback, $bChinese);
     }
 
+	$strBuy = $bChinese ? '买' : 'Bid ';
     for ($i = 0; $i < TRADING_QUOTE_NUM; $i ++)
     {
         _echoTradingTableItem($i, $strBuy.strval($i + 1), $ref->arBidPrice[$i], $ref->arBidQuantity[$i], $ref, $fEstPrice, $fEstPrice2, $fEstPrice3, $callback, $bChinese);
@@ -54,31 +56,44 @@ function _echoTradingTableData($strSell, $strBuy, $ref, $fEstPrice, $fEstPrice2,
 
 function EchoTradingTable($arColumn, $ref, $fEstPrice, $fEstPrice2, $fEstPrice3, $callback, $bChinese)
 {
-    if ($bChinese)
+	$iWidth = 280;
+	
+    $strColumnEx = '';
+	if ($fEstPrice)
+	{
+    	$strColumnEx .= GetTableColumn(80, $arColumn[3]);
+    	$iWidth += 80;
+	}
+	if ($fEstPrice2)
+	{
+    	$strColumnEx .= GetTableColumn(80, $arColumn[4]);
+    	$iWidth += 80;
+	}
+	if ($fEstPrice3)
+	{
+    	$strColumnEx .= GetTableColumn(80, $arColumn[5]);
+    	$iWidth += 80;
+	}
+		
+    $strUserDefined = '';  
+    if ($callback)
     {
-        $arRow = array('卖', '买');
+    	$strUserDefined = GetTableColumn(120, $arColumn[6]);
+    	$iWidth += 120;
     }
-    else
-    {
-        $arRow = array('Ask ', 'Bid ');
-    }
-
-    if ($callback)    $strUserDefined = GetTableColumn(120, $arColumn[6]);
-    else                $strUserDefined = '';  
     
+    $strWidth = strval($iWidth);
     echo <<<END
-    <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="trading">
+    <TABLE borderColor=#cccccc cellSpacing=0 width=$strWidth border=1 class="text" id="trading">
     <tr>
         <td class=c1 width=60 align=center>{$arColumn[0]}</td>
         <td class=c1 width=120 align=center>{$arColumn[1]}</td>
         <td class=c1 width=100 align=center>{$arColumn[2]}</td>
-        <td class=c1 width=80 align=center>{$arColumn[3]}</td>
-        <td class=c1 width=80 align=center>{$arColumn[4]}</td>
-        <td class=c1 width=80 align=center>{$arColumn[5]}</td>
+        $strColumnEx
         $strUserDefined
     </tr>
 END;
-    _echoTradingTableData($arRow[0], $arRow[1], $ref, $fEstPrice, $fEstPrice2, $fEstPrice3, $callback, $bChinese);
+    _echoTradingTableData($ref, $fEstPrice, $fEstPrice2, $fEstPrice3, $callback, $bChinese);
     EchoTableEnd();
 }
 

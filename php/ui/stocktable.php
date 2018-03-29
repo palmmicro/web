@@ -138,20 +138,6 @@ function EchoReferenceTable($arRef, $bChinese)
 	EchoStockRefTable($arRef, false, $bChinese);
 }
 
-// ****************************** Fund Reference table *******************************************************
-
-function EchoFundReferenceTable($arFundRef, $bChinese)
-{
-    $arRef = array();
-    foreach ($arFundRef as $fund_ref)
-    {
-        $ref = $fund_ref->stock_ref; 
-        $ref->strExternalLink = GetCommonToolLink($ref->GetStockSymbol(), $bChinese);
-        $arRef[] = $ref;
-    }
-    EchoReferenceTable($arRef, $bChinese);
-}
-
 // ****************************** Stock transaction table *******************************************************
 
 function _echoStockTransactionTableItem($ref, $transaction, $bReadOnly, $bChinese)

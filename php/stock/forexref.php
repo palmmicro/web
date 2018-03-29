@@ -10,6 +10,7 @@ function _getForexDescription($strSymbol)
                       'USCNY' => '美元人民币中间价',
                       'HKCNY' => '港币人民币中间价',
                       'USDHKD' => '美元港币汇率',
+                      'DINIW' => '美元指数',
                      );
     }
     else
@@ -18,6 +19,7 @@ function _getForexDescription($strSymbol)
                       'USCNY' => 'USD/CNY Reference Rate',
                       'HKCNY' => 'HKD/CNY Reference Rate',
                       'USDHKD' => 'USD/HKD Exchange Rate',
+                      'DINIW' => 'USD Index',
                      );
     }
     return $ar[$strSymbol];
