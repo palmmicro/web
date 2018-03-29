@@ -41,21 +41,18 @@ function _echoSmaTableItem($stock_his, $strKey, $fVal, $ref, $callback, $callbac
     
     if ($ref)
     {
-        $strEstPrice = $ref->GetPriceDisplay(call_user_func($callback, $fVal, $ref));
-        $strEstNext = $ref->GetPriceDisplay(call_user_func($callback, $fNext, $ref));
+        $strDisplayEx = GetTableColumnColorDisplay($strColor, $ref->GetPriceDisplay(call_user_func($callback, $fVal, $ref)));
+        $strDisplayEx .= GetTableColumnColorDisplay($strColor, $ref->GetPriceDisplay(call_user_func($callback, $fNext, $ref)));
     }
     else
     {
-        $strEstPrice = '';
-        $strEstNext = '';
+        $strDisplayEx = '';
     }
 
-    if ($callback2)    $strUserDefined = call_user_func($callback2, $fVal, $fNext, $bChinese);
-    else                  $strUserDefined = '';  
+    if ($callback2)    $strDisplayEx2 = GetTableColumnColorDisplay($strColor, call_user_func($callback2, $fVal, $fNext, $bChinese));
+    else                 $strDisplayEx2 = '';  
 
-    if ($strColor)    $strBackGround = 'style="background-color:'.$strColor.'"';
-    else                $strBackGround = '';
-    
+    $strBackGround = GetTableColumnColor($strColor);
     echo <<<END
     <tr>
         <td $strBackGround class=c1>$strSma</td>
@@ -63,9 +60,8 @@ function _echoSmaTableItem($stock_his, $strKey, $fVal, $ref, $callback, $callbac
         <td $strBackGround class=c1>$strPercentage</td>
         <td $strBackGround class=c1>$strTradingRange</td>
         <td $strBackGround class=c1>$strNext</td>
-        <td $strBackGround class=c1>$strEstPrice</td>
-        <td $strBackGround class=c1>$strEstNext</td>
-        <td $strBackGround class=c1>$strUserDefined</td>
+        $strDisplayEx
+        $strDisplayEx2
     </tr>
 END;
 }
@@ -164,44 +160,18 @@ function _selectSmaExternalLink($strSymbol)
     return GetXueQiuLink($strSymbol);
 }
 
-function _getSmaColumn($strRefSymbol, $callback2, $bChinese)
-{
-	$arColumn = GetSmaTableColumn($bChinese);
-	
-	if ($bChinese)	$strEst = $arColumn[1];
-	else				$strEst = ' '.$arColumn[1];
-	$strNextEst = 'T+1'.$strEst;
-	$arColumn[] = $strNextEst;
-	
-	if ($strRefSymbol)
-    {
-    	$arColumn[] = $strRefSymbol.$strEst;
-    	$arColumn[] = $strNextEst;
-    }
-    else
-    {
-        $arColumn[] = '';
-        $arColumn[] = '';
-    }
-    
-    if ($callback2)    $arColumn[] = call_user_func($callback2, false, false, $bChinese);
-    else                  $arColumn[] = '';  
-    
-    return $arColumn;
-}
-
-function _getSmaParagraphStr($strSymbol, $strRefSymbol, $strRefPrice, $strDate, $arColumn, $bChinese)
+function _getSmaParagraphStr($strSymbol, $strDate, $arColumn, $bChinese)
 {
 	$strSymbolLink = _selectSmaExternalLink($strSymbol);
+	$strSMA = $arColumn[0];
+	$strDays = $arColumn[3];
     if ($bChinese)     
     {
-        $str = "{$strSymbolLink}从{$strDate}开始的过去100个交易日中{$arColumn[0]}落在当天成交范围内的{$arColumn[3]}.";
-        if ($strRefSymbol)   $str .= " {$strRefSymbol}当前成交价格{$strRefPrice}相对于{$arColumn[1]}的{$arColumn[2]}.";
+        $str = "{$strSymbolLink}从{$strDate}开始的过去100个交易日中{$strSMA}落在当天成交范围内的{$strDays}";
     }
     else
     {
-        $str = "{$arColumn[3]} of $strSymbolLink trading range covered the {$arColumn[0]} in past 100 trading days starting from $strDate.";
-        if ($strRefSymbol)   $str .= " $strRefSymbol current trading price $strRefPrice comparing with {$arColumn[1]}.";
+        $str = "$strDays of $strSymbolLink trading range covered the $strSMA in past 100 trading days starting from $strDate";
     }
     $str .= ' '.UrlBuildPhpLink(STOCK_PATH.'stockhistory', 'symbol='.$strSymbol, '历史记录', 'History', $bChinese);
     return $str;
@@ -211,21 +181,29 @@ function EchoSmaParagraph($stock_his, $ref, $callback, $callback2, $bChinese)
 {
     if ($stock_his == false)              return;
     
-    if ($ref)
-    {
-        $strRefSymbol = $ref->GetStockSymbol();
-        $strRefPrice = $ref->GetCurrentPriceDisplay();
-    }
-    else 
-    {
-    	$strRefSymbol = false;
-    	$strRefPrice = false;
-    }
-    $arColumn = _getSmaColumn($strRefSymbol, $callback2, $bChinese);
+	$arColumn = GetSmaTableColumn($bChinese);
     $strSymbol = $stock_his->GetStockSymbol();
-    $str = _getSmaParagraphStr($strSymbol, $strRefSymbol, $strRefPrice, $stock_his->strDate, $arColumn, $bChinese);
+    $str = _getSmaParagraphStr($strSymbol, $stock_his->strDate, $arColumn, $bChinese);
     EchoParagraphBegin($str);
 
+	if ($bChinese)	$strEst = $arColumn[1];
+	else				$strEst = ' '.$arColumn[1];
+	$strNextEst = 'T+1'.$strEst;
+	$arColumn[] = $strNextEst;
+	
+	if ($ref)
+    {
+    	$strColumnEx = GetTableColumn(110, $ref->GetStockSymbol().$strEst);
+    	$strColumnEx .= GetTableColumn(70, $strNextEst);
+    }
+    else
+    {
+        $strColumnEx = '';
+    }
+    
+    if ($callback2)    $strColumnEx2 = GetTableColumn(100, call_user_func($callback2, false, false, $bChinese));
+    else                 $strColumnEx2 = '';  
+    
     echo <<<END
     <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="{$strSymbol}sma">
     <tr>
@@ -234,9 +212,8 @@ function EchoSmaParagraph($stock_his, $ref, $callback, $callback2, $bChinese)
         <td class=c1 width=70 align=center>{$arColumn[2]}</td>
         <td class=c1 width=60 align=center>{$arColumn[3]}</td>
         <td class=c1 width=70 align=center>{$arColumn[4]}</td>
-        <td class=c1 width=110 align=center>{$arColumn[5]}</td>
-        <td class=c1 width=70 align=center>{$arColumn[6]}</td>
-        <td class=c1 width=100 align=center>{$arColumn[7]}</td>
+        $strColumnEx
+        $strColumnEx2
     </tr>
 END;
 

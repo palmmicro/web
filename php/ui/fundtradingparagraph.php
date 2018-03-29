@@ -10,6 +10,12 @@ function _getTradingNumber($strNumber)
 
 function _echoTradingTableItem($i, $strAskBid, $strPrice, $strQuantity, $ref, $fEstPrice, $fEstPrice2, $fEstPrice3, $callback, $bChinese)
 {
+	if ($strQuantity == '0')	return;
+	
+    if ($i == 0)    $strColor = 'yellow';
+    else             $strColor = false;
+    $strBackGround = GetTableColumnColor($strColor);
+    
     $fPrice = floatval($strPrice);
     $strPriceDisplay = $ref->GetPriceDisplay($fPrice);
     $strTradingNumber = _getTradingNumber($strQuantity);
@@ -17,12 +23,9 @@ function _echoTradingTableItem($i, $strAskBid, $strPrice, $strQuantity, $ref, $f
     $strPercentage2 = StockGetPercentageDisplay($fPrice, $fEstPrice2);
     $strPercentage3 = StockGetPercentageDisplay($fPrice, $fEstPrice3);
 
-    if ($callback)    $strUserDefined = call_user_func($callback, $fPrice, $bChinese);
-    else                 $strUserDefined = '';  
+    if ($callback)    $strUserDefined = GetTableColumnColorDisplay($strColor, call_user_func($callback, $fPrice, $bChinese));
+    else                $strUserDefined = '';  
 
-    if ($i == 0)    $strBackGround = 'style="background-color:yellow"';
-    else            $strBackGround = '';
-    
     echo <<<END
     <tr>
         <td $strBackGround class=c1>$strAskBid</td>
@@ -31,7 +34,7 @@ function _echoTradingTableItem($i, $strAskBid, $strPrice, $strQuantity, $ref, $f
         <td $strBackGround class=c1>$strPercentage</td>
         <td $strBackGround class=c1>$strPercentage2</td>
         <td $strBackGround class=c1>$strPercentage3</td>
-        <td $strBackGround class=c1>$strUserDefined</td>
+        $strUserDefined
     </tr>
 END;
 }
@@ -59,6 +62,9 @@ function EchoTradingTable($arColumn, $ref, $fEstPrice, $fEstPrice2, $fEstPrice3,
     {
         $arRow = array('Ask ', 'Bid ');
     }
+
+    if ($callback)    $strUserDefined = GetTableColumn(120, $arColumn[6]);
+    else                $strUserDefined = '';  
     
     echo <<<END
     <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="trading">
@@ -69,7 +75,7 @@ function EchoTradingTable($arColumn, $ref, $fEstPrice, $fEstPrice2, $fEstPrice3,
         <td class=c1 width=80 align=center>{$arColumn[3]}</td>
         <td class=c1 width=80 align=center>{$arColumn[4]}</td>
         <td class=c1 width=80 align=center>{$arColumn[5]}</td>
-        <td class=c1 width=120 align=center>{$arColumn[6]}</td>
+        $strUserDefined
     </tr>
 END;
     _echoTradingTableData($arRow[0], $arRow[1], $ref, $fEstPrice, $fEstPrice2, $fEstPrice3, $callback, $bChinese);
@@ -91,7 +97,6 @@ function EchoFundTradingParagraph($fund, $callback, $bChinese)
     $arColumn[] = $arFundEst[4];
     $arColumn[] = $arFundEst[6];
     if ($callback)     $arColumn[] = call_user_func($callback, false, $bChinese);
-    else                  $arColumn[] = '';  
     
 	$arSma = GetSmaTableColumn($bChinese);
 	$strEst = $arSma[1];

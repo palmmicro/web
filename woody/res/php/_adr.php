@@ -204,7 +204,8 @@ function _echoTradingParagraph($group, $bChinese)
     $arColumn = GetTradingTableColumn($bChinese);
 	$strPremium = $arSma[2];
     $arColumn[] = $strPremium;
-    for ($i = 0; $i < 3; $i ++)	$arColumn[] = '';
+    $arColumn[] = '';
+    $arColumn[] = '';
     if ($bChinese)     
     {
         $str = "{$strSymbol}当前5档交易{$arColumn[1]}相对于{$strSymbolH}交易价格<b>{$group->hk_ref->strPrice}</b>港币的{$strPremium}";

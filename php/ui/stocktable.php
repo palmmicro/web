@@ -102,12 +102,12 @@ function EchoStockRefTable($arRef, $callback, $bChinese)
         $strColumnEx = ' ';
 		foreach ($arColumnEx as $str)
 		{
-            $strColumnEx .= "<td class=c1 width=90 align=center>$str</td>";
+            $strColumnEx .= GetTableColumn(90, $str);
 		}
 	}
 	else
 	{
-		$strColumnEx = '<td class=c1 width=270 align=center></td>';
+		$strColumnEx = GetTableColumn(270, '');
 	}
     
     echo <<<END

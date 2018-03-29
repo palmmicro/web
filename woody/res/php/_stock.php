@@ -55,8 +55,8 @@ class _MyStockGroup extends MyStockGroup
 
 function _GetStockHistoryDebugString($ar_his, $bChinese)
 {
-	$arColumn = GetSmaTableColumn($bChinese);
-    $str = $arColumn[0];
+	$arSma = GetSmaTableColumn($bChinese);
+    $str = $arSma[0];
     foreach ($ar_his as $his)
     {
         if ($his)
