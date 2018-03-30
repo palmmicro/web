@@ -13,8 +13,6 @@ class MyStockReference extends StockReference
     var $strSqlId = false;      // ID in mysql database
     var $fFactor;
 
-    var $h_ref = false;          // H stock MyStockReference
-    
     function _loadFactor()
     {
         if ($fVal = SqlGetStockCalibrationFactor($this->strSqlId))
@@ -199,11 +197,6 @@ class MyStockReference extends StockReference
         {
             $this->_updateStockHistory();
             $this->strDescription = SqlGetStockDescription($strSqlName);
-        }
-        
-        if ($strSymbolH = AhGetSymbol($strSymbol))
-        {
-            $this->h_ref = new MyStockReference($strSymbolH);
         }
     }
 }

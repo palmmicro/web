@@ -291,11 +291,19 @@ function PrefetchSinaStockData($arSymbol)
                     if ($sym->IsFundA())     $arPrefetch[$sym->GetSinaFundSymbol()] = $strSymbol;
                     else 
                     {
-                        if ($strSymbolH = AhGetSymbol($strSymbol))
+                        if ($strSymbolH = SqlGetAhPair($strSymbol))
                         {
                             $h_sym = new StockSymbol($strSymbolH);
                             $arPrefetch[$h_sym->GetSinaSymbol()] = $strSymbolH;
                         }
+                    }
+                }
+                else if ($sym->IsSymbolH())
+                {
+                    if ($strSymbolA = SqlGetHaPair($strSymbol))
+                    {
+                        $a_sym = new StockSymbol($strSymbolA);
+                        $arPrefetch[$a_sym->GetSinaSymbol()] = $strSymbolA;
                     }
                 }
             }

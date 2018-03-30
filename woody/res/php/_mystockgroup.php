@@ -39,28 +39,28 @@ function _echoStockGroupArray($arStock, $bChinese)
     $arRef = array();
     $arTransactionRef = array();
     $arFund = array();
-    $arRefH = array();
+    $arSymbolH = array();
     foreach ($arStock as $strSymbol)
     {
         $sym = new StockSymbol($strSymbol);
-        if (in_arrayFuture($strSymbol))
-        {
-            $ref = new MyFutureReference($strSymbol);
-        }
+        if (in_arrayFuture($strSymbol))	$ref = new MyFutureReference($strSymbol);
         else if ($sym->IsFundA())
         {
-            $fund = MyStockGetFundReference($strSymbol);
-            $arFund[] = $fund;
-            $ref = $fund->stock_ref; 
-        }
-        else
-        {
-            $ref = new MyStockReference($strSymbol);
-            if ($ref->h_ref)
+        	$fund = MyStockGetFundReference($strSymbol);
+        	$arFund[] = $fund;
+        	$ref = $fund->stock_ref; 
+       	}
+       	else
+       	{
+       		if ($sym->IsSymbolA())
+       		{
+        		if ($strSymbolH = SqlGetAhPair($strSymbol))		$arSymbolH[] = $strSymbolH;
+        	}
+            else if ($sym->IsSymbolH())
             {
-            	$ref->h_ref->h_ref = $ref;
-            	$arRefH[] = $ref->h_ref;
+                if (SqlGetHaPair($strSymbol))		$arSymbolH[] = $strSymbol;
             }
+        	$ref = new MyStockReference($strSymbol);
         }
 
         $strInternalLink = SelectSymbolInternalLink($strSymbol, $bChinese);
@@ -78,7 +78,7 @@ function _echoStockGroupArray($arStock, $bChinese)
     
     EchoReferenceParagraph($arRef, $bChinese);
     if (count($arFund) > 0)     EchoFundArrayEstParagraph($arFund, '', $bChinese);
-    if (count($arRefH) > 0)    EchoAhParagraph($arRefH, $bChinese);
+    if (count($arSymbolH) > 0)	EchoAhParagraph($arSymbolH, $bChinese);
     
     return $arTransactionRef;
 }

@@ -86,25 +86,28 @@ function _echoMyStock($strSymbol, $bChinese)
     }
     EchoReferenceParagraph(array($ref), $bChinese);
     
-    if ($sym->IsSymbolA())
+    if ($sym->IsFundA())
     {
-        if ($sym->IsFundA())
-        {
-            if ($fund->fPrice)      EchoFundEstParagraph($fund, $bChinese);
-            EchoFundTradingParagraph($fund, false, $bChinese);
-        }
-        else
-        {
-            if ($ref->h_ref)
-            {
-       	        $ref->h_ref->h_ref = $ref;
-            	EchoAhParagraph(array($ref->h_ref), $bChinese);
-            }
-            _echoTradingParagraph($ref, $bChinese);
-        }
+        if ($fund->fPrice)      EchoFundEstParagraph($fund, $bChinese);
+        EchoFundTradingParagraph($fund, false, $bChinese);
     }
-    EchoSmaParagraph(new StockHistory($ref), false, false, false, $bChinese);
+    else
+    {
+    	$strSymbolH = false;
+   		if ($sym->IsSymbolA())
+   		{
+   			_echoTradingParagraph($ref, $bChinese);
+      		$strSymbolH = SqlGetAhPair($strSymbol);
+       	}
+        else if ($sym->IsSymbolH())
+        {
+            if (SqlGetHaPair($strSymbol))		$strSymbolH = $strSymbol;
+        }
+        
+        if ($strSymbolH)	EchoAhParagraph(array($strSymbolH), $bChinese);
+    }
     
+    EchoSmaParagraph(new StockHistory($ref), false, false, false, $bChinese);
     if ($strMemberId = AcctIsLogin())
     {
     	EchoStockGroupParagraph($bChinese);	

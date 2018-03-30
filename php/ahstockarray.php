@@ -99,16 +99,20 @@ function AhGetArray()
     return $ar;
 }
 
+function AhWriteDatabase()
+{
+    $ar = AhGetArray();
+	SqlCreateStockPairTable(TABLE_AHSTOCK);
+    foreach ($ar as $strA => $strH)
+    {
+    	SqlInsertStockPair(TABLE_AHSTOCK, SqlGetStockId($strA), SqlGetStockId($strH));
+    }
+}
+
 function AhGetSymbol($strSymbolA)
 {
     $ar = AhGetArray();
     return $ar[$strSymbolA];
-}
-
-function AhGetRatio($strSymbolA)
-{
-    if (strcmp($strSymbolA, 'SH600050') == 0)         return 0.332;
-    return 1.0;
 }
 
 ?>

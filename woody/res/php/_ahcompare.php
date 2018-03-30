@@ -4,24 +4,19 @@ require_once('/php/ui/ahparagraph.php');
 
 function _EchoCompareAH($bChinese)
 {
-    $ar = AhGetArray();
     $arPrefetch = array();
+    $arSymbolH = array();
+    
+    $ar = SqlGetAhSymbolArray();
     foreach ($ar as $strSymbolA => $strSymbolH)
     {
         $arPrefetch[] = $strSymbolA;
+        $arSymbolH[] = $strSymbolH;
     }
     PrefetchStockData($arPrefetch);
+    EchoAhParagraph($arSymbolH, $bChinese);
     
-    $arRefH = array();
-    foreach ($arPrefetch as $strSymbol)
-    {
-    	$ref = new MyStockReference($strSymbol);
-        $ref->h_ref->h_ref = $ref;
-        $arRefH[] = $ref->h_ref;
-    }
-    EchoAhParagraph($arRefH, $bChinese);
-    
-    EchoPromotionHead('', $bChinese);
+    EchoPromotionHead('ahcompare', $bChinese);
 }
 
     AcctNoAuth();

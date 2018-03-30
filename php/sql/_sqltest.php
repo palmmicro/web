@@ -1,6 +1,4 @@
 <?php
-require_once('debug.php');
-require_once('sql.php');
 
 // ****************************** Sql database maintenance functions *******************************************************
 

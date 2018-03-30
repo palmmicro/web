@@ -99,8 +99,13 @@
 同时修改<a href="20100529cn.php">Woody的网站工具</a>对_editXXXform.php名字格式的自动生成对应的_submitXXX.php文件. 
 </p>
 
-<h3>ADR</h3>
+<h3><a name="adr">ADR</a></h3>
 <p>2015年11月7日
+<br />为港股在美股的<a href="../../res/adrcn.php">ADR</a>加入<a href="../../res/achcn.php">中国铝业</a>, <a href="../../res/chucn.php">中国联通</a>, <a href="../../res/gshcn.php">广深铁路</a>,
+<a href="../../res/lfccn.php">中国人寿</a>, <a href="../../res/ptrcn.php">中国石油</a>, <a href="../../res/snpcn.php">中国石化</a>, <a href="../../res/shicn.php">上海石化</a>,
+<a href="../../res/ceacn.php">东方航空</a>和<a href="../../res/znhcn.php">南方航空</a>等价格比较工具.
+<br />在为ADR加入<?php EchoPhpFileLink('/woody/res/php/_adr.php'); ?>后, 把ADR和LOF用到的共同股票数据部分放到<?php EchoPhpFileLink('/php/stock/stockref.php'); ?>中的<font color=olive>StockReference</font>类中,
+用在<?php EchoPhpFileLink('/woody/res/php/_lof.php'); ?>中<font color=olive>_LofGroup</font>类和<?php EchoPhpFileLink('/woody/res/php/_adr.php'); ?>中<font color=olive>_AdrGroup</font>类中.
 <br />继续整理代码, 为热心吃螃蟹的用户们增加<a href="../../res/sh513100cn.php">国泰纳斯达克100</a>, <a href="../../res/sz159941cn.php">广发纳指100</a>, <a href="../../res/sz160125cn.php">南方香港</a>,
 <a href="../../res/sz160717cn.php">恒生H股</a>, <a href="../../res/sz160216cn.php">国泰商品</a>, <a href="../../res/sz160416cn.php">华安石油</a>, 
 <a href="../../res/sz163208cn.php">诺安油气</a>和<a href="../../res/sz165510cn.php">信诚四国</a>等<a href="../../res/lofcn.php">LOF</a>净值计算工具.
@@ -109,11 +114,6 @@
   <li>在函数<i>LofGetSymbolArray</i>加入新的LOF代码, 用于同类工具中的循环导航链接.
   <li>在函数<i>LofGetEtfSymbol</i>和<i>LofGetIndexSymbol</i>中加上LOF对应的ETF代码和指数代码.
 </ol>
-<br /><a name="adr">为</a>港股在美股的<a href="../../res/adrcn.php">ADR</a>加入<a href="../../res/achcn.php">中国铝业</a>, <a href="../../res/chucn.php">中国联通</a>, <a href="../../res/gshcn.php">广深铁路</a>,
-<a href="../../res/lfccn.php">中国人寿</a>, <a href="../../res/ptrcn.php">中国石油</a>, <a href="../../res/snpcn.php">中国石化</a>, <a href="../../res/shicn.php">上海石化</a>,
-<a href="../../res/ceacn.php">东方航空</a>和<a href="../../res/znhcn.php">南方航空</a>等价格比较工具.
-<br />在为ADR加入<?php EchoPhpFileLink('/woody/res/php/_adr.php'); ?>后, 把ADR和LOF用到的共同股票数据部分放到<?php EchoPhpFileLink('/php/stock/stockref.php'); ?>中的<font color=olive>StockReference</font>类中,
-用在<?php EchoPhpFileLink('/woody/res/php/_lof.php'); ?>中<font color=olive>_LofGroup</font>类和<?php EchoPhpFileLink('/woody/res/php/_adr.php'); ?>中<font color=olive>_AdrGroup</font>类中.
 </p>
 
 <h3><a name="future">期货</a>ETF</h3>
@@ -271,6 +271,12 @@
 这2者的记录就多得多了, 只要有人访问页面, 拿到的2个相关数据是在同一分钟, 就会自动校准一次并且记录下来. 这2个校准时间都是记录的美股时间.
 </p>
 
+<h3><a name="ahcompare">AH股</a>对比</h3>
+<p>2017年1月28日
+<br />为了有效配合今年的<a href="20141016cn.php#2016">打新</a>计划, 我打算扩大中国石化外的门票范围, 但是同时沿用AH股价格比较的思路, 只选取A股价格低于H股的作为门票.
+<br />替选股增加了<a href="../../res/ahcomparecn.php">AH对比</a>, 同时把原来</a><a href="#adr">ADR</a>中用到的AH关联数组统一放到<?php EchoPhpFileLink('/php/ahstockarray.php'); ?>中.
+</p>
+
 <h3><a name="bollinger">布林</a>线</h3>
 <p>2017年4月2日
 <br /><a href="#sma">SMA</a>均线交易XOP很有效, 但是有时候会在价格突破所有均线后失去用武之地, 因此我把布林线也加入进了交易系统, 跟SMA放同一个表格中显示.
@@ -308,6 +314,13 @@
 <h3>200天和50天<a name="ema">EMA</a>均线</h3>
 <p>2017年10月1日
 <br />均线交易中加入美股最看重的牛熊分界线200天EMA均线和小牛熊分界线50天EMA均线.
+</p>
+
+<h3>把<a name="aharray">AH股数组</a>放MySQL表中</h3>
+<p>2018年2月18日
+<br />发现<a href="20101107cn.php#gb2312">GB2312</a>和UNICODE的对应表放在函数内返回可能会冲掉全局数据后, 我想起了<a href="#ahcompare">AH对比</a>中也用到了一个不小的数组.
+赶快把它挪到了<?php EchoPhpFileLink('/php/sql/sqlstockpair.php'); ?>文件中的ahstock表.
+<br />发现帮助傻瓜编程的PHP也对程序优化有要求还是挺让我兴奋的, 觉得这么多年来的优化软件经验终于又有用武之地了.
 </p>
 
 <h3>走火入魔的<a name="nextsma">T+1</a>均线</h3>

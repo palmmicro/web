@@ -1,7 +1,6 @@
 <?php
 require_once('url.php');
 require_once('regexp.php');
-require_once('ahstockarray.php');
 require_once('stocklink.php');
 require_once('externallink.php');
 
@@ -25,6 +24,14 @@ define ('STOCK_DATA_YAHOO', 1);
 define ('STOCK_DATA_EASTMONEY', 2);
 define ('STOCK_DATA_GOOGLE', 3);
 define ('FUTURE_DATA_SINA', 4);
+
+// ****************************** AH Stock functions *******************************************************
+
+function AhGetRatio($strSymbolA)
+{
+    if (strcmp($strSymbolA, 'SH600050') == 0)         return 0.332;
+    return 1.0;
+}
 
 // ****************************** Stock symbol functions *******************************************************
 

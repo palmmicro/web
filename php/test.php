@@ -4,9 +4,11 @@ require_once('url.php');
 //require_once('email.php');
 require_once('regexp.php');
 require_once('gb2312.php');
+//require_once('ahstockarray.php');
 
 require_once('sql.php');
 require_once('sql/sqlstocksymbol.php');
+require_once('sql/sqlstockpair.php');
 require_once('sql/sqlstockgroup.php');
 require_once('sql/sqlstockhistory.php');
 require_once('sql/sqlparameter.php');
@@ -164,6 +166,12 @@ function test_stock_dividend()
     }
 }
 
+function SysInit()
+{
+//	GB2312WriteDatabase();
+//	AhWriteDatabase();
+}
+
     echo '<meta http-equiv="content-type" content="text/html; charset=UTF-8">';
     
 //	phpinfo();
@@ -177,12 +185,12 @@ function test_stock_dividend()
 	}
 	echoDebugString('Hello, world!');
 
+	SysInit();
 //	_debug_dividend('sz000028');
 //	test_stock_dividend();
 //	SqlDeleteStockGroupByGroupName('#SMA');
 //	echoDebugString(url_get_contents('http://palmmicro.com/php/spidercn.php?list=sz162411'));
 //    TestGoogleHistory();
-//	GB2312WriteDatabase();
 /*
     if (test_preg_match() > 1)    echoDebugString('matched');
 	else                            echoDebugString('NOT matched');
