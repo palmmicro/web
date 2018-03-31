@@ -36,6 +36,7 @@ function EchoAhParagraph($arSymbolH, $bChinese)
     $g_fHKDCNY = $hkcny_ref->fPrice;
 	
 	$arRef = array();
+    sort($arSymbolH);
 	foreach ($arSymbolH as $strSymbol)
 	{
 		$arRef[] = new MyStockReference($strSymbol);

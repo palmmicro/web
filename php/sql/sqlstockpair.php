@@ -1,7 +1,7 @@
 <?php
 
 define('TABLE_AH_STOCK', 'ahstock');
-define('TABLE_HADR_STOCK', 'hadrstock');
+define('TABLE_ADRH_STOCK', 'adrhstock');
 
 // ****************************** Stock pair tables *******************************************************
 
@@ -62,20 +62,24 @@ function SqlGetStockPairStockId($strTableName, $strPairId)
 
 // ****************************** Support functions *******************************************************
 
-function SqlGetAhSymbolArray()
+function SqlGetStockPairArray($strTableName)
 {
 	$ar = array();
-	if ($result = SqlGetTableData(TABLE_AH_STOCK, false, false, false)) 
+	if ($result = SqlGetTableData($strTableName, false, false, false)) 
     {
         while ($record = mysql_fetch_assoc($result)) 
         {
-            $strSymbolA = SqlGetStockSymbol($record['stock_id']);
-            $strSymbolH = SqlGetStockSymbol($record['pair_id']);
-            $ar[$strSymbolA] = $strSymbolH;
+            $ar[] = SqlGetStockSymbol($record['stock_id']);
         }
         @mysql_free_result($result);
     }
+    sort($ar);
 	return $ar;
+}
+
+function SqlGetAhArray()
+{
+	return SqlGetStockPairArray(TABLE_AH_STOCK);
 }
 
 function SqlGetAhPairRatio($ref_a)

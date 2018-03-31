@@ -126,9 +126,10 @@ function _isWeekEnd($strYMD, $strNextDayYMD)
         if ($ymd->GetDayOfWeek() >= $ymd_next->GetDayOfWeek())     return true;
     }
     else
-    {   // Here is a BUG if a certain Friday is not a trading day 
+    { 
         if ($ymd->IsFriday())   return true;
         
+        // If this Friday is not a trading day
         $ymd_now = new YMDNow();
         if ($ymd_now->IsWeekDay())
         {
@@ -150,8 +151,10 @@ function _isMonthEnd($strYMD, $strNextDayYMD)
         $ymd_next = new YMDString($strNextDayYMD);
     }
     else
-    {   // Here is a BUG if the last none weekend day of a certain month is not a trading day 
-        $iTick = $ymd->GetNextTradingDayTick();
+    {   // If the last none weekend day of a certain month is not a trading day 
+//        $iTick = $ymd->GetNextTradingDayTick();
+        $ymd_now = new YMDNow();
+        $iTick = $ymd_now->GetNextTradingDayTick();
         $ymd_next = new YMDTick($iTick);
     }
     

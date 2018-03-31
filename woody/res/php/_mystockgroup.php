@@ -5,16 +5,6 @@ require_once('/php/ui/ahparagraph.php');
 require_once('/php/ui/fundestparagraph.php');
 require_once('/php/ui/stockgroupparagraph.php');
 
-function _isPreDefinedGroup()
-{
-    $strTitle = UrlGetTitle();
-    if ($strTitle == 'mystockgroup')
-    {
-        return false;
-    }
-    return $strTitle;
-}
-
 function _echoStockGroupParagraph($bChinese)
 {
 	EchoStockGroupParagraph($bChinese);	
@@ -116,15 +106,10 @@ function _echoMyStockGroup($strGroupId, $bChinese)
 
 function MyStockGroupEchoAll($bChinese)
 {
-    $strGroupId = false;
-    if ($strTitle = _isPreDefinedGroup())
+    $strTitle = UrlGetTitle();
+    if ($strTitle == 'mystockgroup')
     {
-        _echoStockGroupArray(StockGetArraySymbol(GetCategoryArray($strTitle)), $bChinese);
-    }
-    else
-    {
-        $strGroupId = UrlGetQueryValue('groupid');
-        if ($strGroupId)
+        if ($strGroupId = UrlGetQueryValue('groupid'))
         {
             _echoMyStockGroup($strGroupId, $bChinese);
         }
@@ -133,14 +118,17 @@ function MyStockGroupEchoAll($bChinese)
             _echoStockGroupParagraph($bChinese);
         }
     }
+    else
+    {
+        _echoStockGroupArray(StockGetArraySymbol(GetCategoryArray($strTitle)), $bChinese);
+    }
     
-    EchoPromotionHead('stockgroup', $bChinese);
+    EchoPromotionHead($strTitle, $bChinese);
 }
 
 function MyStockGroupEchoMetaDescription($bChinese)
 {
-    $strGroupId = UrlGetQueryValue('groupid');
-    if ($strGroupId)
+    if ($strGroupId = UrlGetQueryValue('groupid'))
     {
         $str = _GetWhoseStockGroupDisplay(false, $strGroupId, $bChinese);
     }
@@ -157,9 +145,8 @@ function MyStockGroupEchoMetaDescription($bChinese)
 
 function MyStockGroupEchoTitle($bChinese)
 {
-    $strGroupId = UrlGetQueryValue('groupid');
     $strMemberId = AcctIsLogin(); 
-    if ($strGroupId)
+    if ($strGroupId = UrlGetQueryValue('groupid'))
     {
         $str = _GetWhoseStockGroupDisplay($strMemberId, $strGroupId, $bChinese);
     }
@@ -184,11 +171,7 @@ function EchoAHCompareLink($bChinese)
 }
 
     AcctSessionStart();
-    if (_isPreDefinedGroup())
-    {
-        AcctCheckLogin();
-    }
-    else
+    if (UrlGetTitle() == 'mystockgroup')
     {   // mystockgroupcn.php
         if (UrlGetQueryValue('groupid'))
         {
@@ -205,6 +188,10 @@ function EchoAHCompareLink($bChinese)
                 AcctMustLogin();
             }
         }
+    }
+    else
+    {
+        AcctCheckLogin();
     }
 
 ?>

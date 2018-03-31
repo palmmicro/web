@@ -169,7 +169,11 @@ function GetCategoryArray($strTitle)
     case 'bricfund':
         $ar = LofGetBricSymbolArray();
         break;
-        
+  
+    case 'ahcompare':
+        $ar = SqlGetAhArray();
+        break;
+  
     case 'chinainternet':
         $ar = LofGetChinaInternetSymbolArray();
         break;

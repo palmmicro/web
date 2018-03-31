@@ -1,4 +1,4 @@
-<?php require_once('php/_ahcompare.php'); ?>
+<?php require_once('php/_mystockgroup.php'); ?>
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -12,7 +12,7 @@
 
 <div>
 <h1>AH Compare Tool</h1>
-<?php _EchoCompareAH(false); ?>
+<?php MyStockGroupEchoAll(false); ?>
 <p>Related software:
 <?php
     EchoStockCategoryLinks(false);
