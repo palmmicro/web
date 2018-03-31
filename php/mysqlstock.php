@@ -279,9 +279,19 @@ class MyHShareReference extends MyStockReference
         parent::MyStockReference($strSymbol);
     }
     
+    function EstFromCny($fEst)
+    {
+    	return $fEst / ($this->fRatio * $this->hkcny_ref->fPrice);
+    }
+
+    function EstToCny($fEst)
+    {
+    	return $fEst * ($this->fRatio * $this->hkcny_ref->fPrice);
+    }
+    
     function GetCnyPrice()
     {
-    	return $this->fPrice * $this->fRatio * $this->hkcny_ref->fPrice;
+    	return $this->EstToCny($this->fPrice);
     }
 }
 
