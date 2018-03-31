@@ -1,15 +1,17 @@
 <?php
 
+$g_fHKDCNY = 0.0;
+
 function _ahStockRefCallbackData($ref, $bChinese)
 {
+	global $g_fHKDCNY;
 	$ar = array();
 	
-    $hkcny_ref = new CNYReference('HKCNY');
     $strSymbolA = SqlGetHaPair($ref->GetStockSymbol());
     $ref_a = new MyStockReference($strSymbolA);
     $ar[] = SelectAHCompareLink($strSymbolA, $bChinese);
     
-    $fAHRatio = $ref_a->fPrice / $hkcny_ref->fPrice / $ref->fPrice / AhGetRatio($strSymbolA);
+    $fAHRatio = $ref_a->fPrice / $g_fHKDCNY / $ref->fPrice / SqlGetAhPairRatio($ref_a);
     $ar[] = GetRatioDisplay($fAHRatio);
     $ar[] = GetRatioDisplay(1.0 / $fAHRatio);
 	return $ar;
@@ -29,13 +31,16 @@ function _ahStockRefCallback($ref, $bChinese)
 
 function EchoAhParagraph($arSymbolH, $bChinese)
 {
+	global $g_fHKDCNY;
+    $hkcny_ref = new CNYReference('HKCNY');
+    $g_fHKDCNY = $hkcny_ref->fPrice;
+	
 	$arRef = array();
 	foreach ($arSymbolH as $strSymbol)
 	{
 		$arRef[] = new MyStockReference($strSymbol);
 	}
 	
-    $hkcny_ref = new CNYReference('HKCNY');
     EchoParagraphBegin(GetAHCompareLink($bChinese).' '.$hkcny_ref->strDescription.' '.$hkcny_ref->strPrice);
     EchoStockRefTable($arRef, _ahStockRefCallback, $bChinese);
     EchoParagraphEnd();

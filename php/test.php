@@ -169,7 +169,8 @@ function test_stock_dividend()
 function SysInit()
 {
 //	GB2312WriteDatabase();
-//	AhWriteDatabase();
+//	SqlDropTable(TABLE_AH_STOCK);
+//	AhWriteDatabase();	//ahstockarray.php
 }
 
     echo '<meta http-equiv="content-type" content="text/html; charset=UTF-8">';

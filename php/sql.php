@@ -88,8 +88,7 @@ function SqlDropTable($strTableName)
     $str = 'DROP TABLE IF EXISTS `camman`.`'
         . $strTableName
         . '`';
-	$result = @mysql_query($str);
-	if (!$result)	die($strTableName.' Drop table failed');
+	SqlDieByQuery($str, $strTableName.' Drop table failed');
 }
 
 function SqlGetTableData($strTableName, $strWhere, $strOrderBy, $strLimit)

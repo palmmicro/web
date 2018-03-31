@@ -78,7 +78,7 @@ function _echoStockGroupArray($arStock, $bChinese)
     
     EchoReferenceParagraph($arRef, $bChinese);
     if (count($arFund) > 0)     EchoFundArrayEstParagraph($arFund, '', $bChinese);
-    if (count($arSymbolH) > 0)	EchoAhParagraph($arSymbolH, $bChinese);
+    if (count($arSymbolH) > 0)	EchoAhParagraph(array_unique($arSymbolH), $bChinese);
     
     return $arTransactionRef;
 }
