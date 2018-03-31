@@ -17,7 +17,6 @@
 <?php MyStockGroupEchoAll(false); ?>
 <p>Related software:
 <?php 
-    EchoAHCompareLink(false);
     EchoStockCategoryLinks(false);
     EchoStockGroupLinks(false);
 ?>

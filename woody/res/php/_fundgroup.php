@@ -1,6 +1,6 @@
 <?php
 require_once('/php/ui/fundestparagraph.php');
-require_once('/php/ui/fundtradingparagraph.php');
+require_once('/php/ui/tradingparagraph.php');
 require_once('/php/ui/fundhistoryparagraph.php');
 
 // ****************************** Common China fund functions *******************************************************

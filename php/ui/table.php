@@ -9,15 +9,6 @@ function GetReferenceTableColumn($bChinese)
     return $arColumn;
 }
 
-function GetTradingTableColumn($bChinese)
-{
-	$arReference = GetReferenceTableColumn($bChinese);
-	$strPrice = $arReference[1];
-    if ($bChinese)	$arColumn = array('交易', $strPrice, '数量(手)');
-    else		        $arColumn = array('Trading', $strPrice, 'Num(100)');
-    return $arColumn;
-}
-
 function GetSmaTableColumn($bChinese)
 {
     if ($bChinese)  $arColumn = array('<font color=indigo>均线</font>', '<font color=magenta>估值</font>', '<font color=orange>溢价</font>',    '<font color=olive>天数</font>');

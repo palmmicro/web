@@ -5,7 +5,7 @@ require_once('_editstockoptionform.php');
 require_once('/php/ui/ahparagraph.php');
 require_once('/php/ui/smaparagraph.php');
 require_once('/php/ui/fundestparagraph.php');
-require_once('/php/ui/fundtradingparagraph.php');
+require_once('/php/ui/tradingparagraph.php');
 require_once('/php/ui/stockgroupparagraph.php');
 
 function _checkStockTransaction($strGroupId, $ref)
@@ -54,26 +54,13 @@ function _echoMyStockTransactions($strMemberId, $ref, $bChinese)
 	}
 }
 
-function _echoTradingParagraph($ref, $bChinese)
-{
-    $arColumn = GetTradingTableColumn($bChinese);
-    if ($bChinese)     
-    {
-        $str = "当前5档交易{$arColumn[1]}";
-    }
-    else
-    {
-        $str = "Ask/Bid {$arColumn[1]}";
-    }
-    EchoParagraphBegin($str);
-    EchoTradingTable($arColumn, $ref, false, false, false, false, $bChinese); 
-    EchoParagraphEnd();
-}
-
 function _echoMyStock($strSymbol, $bChinese)
 {
     MyStockPrefetchData(array($strSymbol));
     
+    $hkcny_ref = new CNYReference('HKCNY');
+    $hshare_ref = false;
+    	
     $sym = new StockSymbol($strSymbol);
     if ($sym->IsFundA())
     {
@@ -82,7 +69,21 @@ function _echoMyStock($strSymbol, $bChinese)
     }
     else
     {
-        $ref = new MyStockReference($strSymbol);
+   		if ($sym->IsSymbolA())
+   		{
+   			$ref = new MyStockReference($strSymbol);
+      		if ($strSymbolH = SqlGetAhPair($strSymbol))		$hshare_ref = new MyHShareReference($strSymbolH, $ref, $hkcny_ref);
+      	}
+        else if ($sym->IsSymbolH())
+        {
+            if ($strSymbolA = SqlGetHaPair($strSymbol))	
+            {
+            	$hshare_ref = new MyHShareReference($strSymbol, new MyStockReference($strSymbolA), $hkcny_ref);
+            	$ref = $hshare_ref;
+            }
+            else	$ref = new MyStockReference($strSymbol);
+        }
+        else	$ref = new MyStockReference($strSymbol);
     }
     EchoReferenceParagraph(array($ref), $bChinese);
     
@@ -93,18 +94,12 @@ function _echoMyStock($strSymbol, $bChinese)
     }
     else
     {
-    	$strSymbolH = false;
+        if ($hshare_ref)	EchoAhParagraph(array($hshare_ref), $hkcny_refk, $bChinese);
    		if ($sym->IsSymbolA())
    		{
-   			_echoTradingParagraph($ref, $bChinese);
-      		$strSymbolH = SqlGetAhPair($strSymbol);
+   			if ($hshare_ref)	EchoHShareTradingParagraph($ref, $hshare_ref, $bChinese);
+   			else 				EchoTradingParagraph($ref, $bChinese);
        	}
-        else if ($sym->IsSymbolH())
-        {
-            if (SqlGetHaPair($strSymbol))		$strSymbolH = $strSymbol;
-        }
-        
-        if ($strSymbolH)	EchoAhParagraph(array($strSymbolH), $bChinese);
     }
     
     EchoSmaParagraph(new StockHistory($ref), false, false, false, $bChinese);

@@ -93,6 +93,25 @@ function _echoReferenceTableItem($ref, $callback, $bChinese)
 END;
 }
 
+function _echoReferenceTableData($arRef, $callback, $bChinese)
+{
+//	$ar = array();
+    foreach ($arRef as $ref)
+    {
+//        $strSymbol = $ref->GetStockSymbol();
+//        if (!in_array($strSymbol, $ar))
+//        {
+        	_echoReferenceTableItem($ref, $callback, $bChinese);
+//        	$ar[] = $strSymbol;
+//        }
+        
+        if ($callback == false)
+        {
+        	_echoReferenceTableItem($ref->extended_ref, false, $bChinese);
+        }
+    }
+}
+
 function EchoStockRefTable($arRef, $callback, $bChinese)
 {
 	$arColumn = GetReferenceTableColumn($bChinese);
@@ -122,14 +141,7 @@ function EchoStockRefTable($arRef, $callback, $bChinese)
         </tr>
 END;
 
-    foreach ($arRef as $ref)
-    {
-        _echoReferenceTableItem($ref, $callback, $bChinese);
-        if ($callback == false)
-        {
-        	_echoReferenceTableItem($ref->extended_ref, false, $bChinese);
-        }
-    }
+	_echoReferenceTableData($arRef, $callback, $bChinese);
     EchoTableEnd();
 }
 

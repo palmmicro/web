@@ -100,8 +100,8 @@ function _getPersonalLinks($strMemberId, $bChinese)
 
 function EchoStockGroupLinks($bChinese)
 {
-    $str = HTML_NEW_LINE.UrlGetCategoryLinks(STOCK_PATH, GetMenuArray($bChinese), $bChinese);
-    $str .= HTML_NEW_LINE.StockGetGroupLink($bChinese);
+    $str .= HTML_NEW_LINE.UrlGetCategoryLinks(STOCK_PATH, GetMenuArray($bChinese), $bChinese);
+    $str .= HTML_NEW_LINE.StockGetGroupLink($bChinese).' '.GetAHCompareLink($bChinese);
     $str .= HTML_NEW_LINE.GetMyPortfolioLink($bChinese);
     if ($strMemberId = AcctIsLogin())
     {

@@ -22,14 +22,28 @@ function _echoStockGroupParagraph($bChinese)
     }
 }
 
+function in_array_ref($strSymbol, $arRef)
+{
+	foreach ($arRef as $ref)
+	{
+		if ($ref->GetStockSymbol() == $strSymbol)
+		{
+			return $ref;
+		}
+	}
+	return false;
+}
+
 function _echoStockGroupArray($arStock, $bChinese)
 {
     MyStockPrefetchData($arStock);
+
+    $hkcny_ref = new CNYReference('HKCNY');
     
     $arRef = array();
     $arTransactionRef = array();
     $arFund = array();
-    $arSymbolH = array();
+    $arHShareRef = array();
     foreach ($arStock as $strSymbol)
     {
         $sym = new StockSymbol($strSymbol);
@@ -44,13 +58,26 @@ function _echoStockGroupArray($arStock, $bChinese)
        	{
        		if ($sym->IsSymbolA())
        		{
-        		if ($strSymbolH = SqlGetAhPair($strSymbol))		$arSymbolH[] = $strSymbolH;
-        	}
-            else if ($sym->IsSymbolH())
-            {
-                if (SqlGetHaPair($strSymbol))		$arSymbolH[] = $strSymbol;
-            }
-        	$ref = new MyStockReference($strSymbol);
+       			$ref = new MyStockReference($strSymbol);
+       			if ($strSymbolH = SqlGetAhPair($strSymbol))
+       			{
+       				if (in_array_ref($strSymbolH, $arHShareRef) == false)		$arHShareRef[] = new MyHShareReference($strSymbolH, $ref, $hkcny_ref);
+       			}
+       		}
+       		else if ($sym->IsSymbolH())
+       		{
+       			if ($strSymbolA = SqlGetHaPair($strSymbol))	
+       			{
+       				if (($ref = in_array_ref($strSymbol, $arHShareRef)) == false)
+       				{
+       					$hshare_ref = new MyHShareReference($strSymbol, new MyStockReference($strSymbolA), $hkcny_ref);
+       					$arHShareRef[] = $hshare_ref;
+       					$ref = $hshare_ref;
+       				}
+       			}
+       			else	$ref = new MyStockReference($strSymbol);
+       		}
+       		else	$ref = new MyStockReference($strSymbol);
         }
 
         $strInternalLink = SelectSymbolInternalLink($strSymbol, $bChinese);
@@ -68,7 +95,7 @@ function _echoStockGroupArray($arStock, $bChinese)
     
     EchoReferenceParagraph($arRef, $bChinese);
     if (count($arFund) > 0)     EchoFundArrayEstParagraph($arFund, '', $bChinese);
-    if (count($arSymbolH) > 0)	EchoAhParagraph(array_unique($arSymbolH), $bChinese);
+    if (count($arHShareRef) > 0)	EchoAhParagraph($arHShareRef, $hkcny_ref, $bChinese);
     
     return $arTransactionRef;
 }
@@ -163,11 +190,6 @@ function MyStockGroupEchoTitle($bChinese)
         if (!$strGroupId)  $str .= 's'; 
     }
     echo $str;
-}
-
-function EchoAHCompareLink($bChinese)
-{
-    echo GetAHCompareLink($bChinese);
 }
 
     AcctSessionStart();

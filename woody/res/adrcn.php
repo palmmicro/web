@@ -17,7 +17,6 @@
 <?php MyStockGroupEchoAll(true); ?>
 <p>相关软件:
 <?php 
-    EchoAHCompareLink(true);
     EchoStockCategoryLinks(true);
     EchoStockGroupLinks(true);
 ?>

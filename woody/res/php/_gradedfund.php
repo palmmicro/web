@@ -1,6 +1,6 @@
 <?php
 require_once('_stock.php');
-require_once('/php/ui/fundtradingparagraph.php');
+require_once('/php/ui/tradingparagraph.php');
 require_once('/php/ui/fundhistoryparagraph.php');
 
 class _GradedFundGroup extends _MyStockGroup 

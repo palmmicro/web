@@ -263,6 +263,28 @@ class MyFutureReference extends MyStockReference
     }
 }
 
+class MyHShareReference extends MyStockReference
+{
+    var $a_ref;
+    var $hkcny_ref;
+
+    var $fRatio;
+    
+    // constructor 
+    function MyHShareReference($strSymbol, $a_ref, $hkcny_ref) 
+    {
+    	$this->a_ref = $a_ref;
+    	$this->hkcny_ref = $hkcny_ref;
+    	$this->fRatio = SqlGetAhPairRatio($a_ref);
+        parent::MyStockReference($strSymbol);
+    }
+    
+    function GetCnyPrice()
+    {
+    	return $this->fPrice * $this->fRatio * $this->hkcny_ref->fPrice;
+    }
+}
+
 // ****************************** FundReference class related *******************************************************
 
 define ('FUND_POSITION_RATIO', 0.95);
