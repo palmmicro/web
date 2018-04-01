@@ -293,6 +293,11 @@ class MyHShareReference extends MyStockReference
     {
     	return $this->EstToCny($this->fPrice);
     }
+    
+    function GetAhRatio()
+    {
+        return $this->a_ref->fPrice / $this->GetCnyPrice();
+    }
 }
 
 // ****************************** FundReference class related *******************************************************

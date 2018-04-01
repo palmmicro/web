@@ -23,8 +23,15 @@
   <li>查珠海炬力股票信息: 输入<font color=grey>acts</font>.
 </ol>
 <br /><img src=../photo/20161014_qrcode_small.jpg alt="Palmmicro wechat public account sz162411 small size QR code" />
-
 </p>
+
+<h3><a name="ahcompare">AH股</a>对比</h3>
+<p>2017年1月30日
+<br />微信公众号搞了一年多, 使用者寥寥. 算上我自己的测试, 总查询次数也不过几千而已. 不过开发微信公众号的过程中有个意外收获, 帮助我彻底区分了净值计算和用户显示界面的代码.
+<br />为了充分利用这个好处, 在为了有效配合今年打新加入<a href="20150818cn.php#ahcompare">AH股</a>对比后, 我马上把它也包括在了微信公众号的查询结果中.
+<br />输入查<font color=grey>600028</font>或者<font color=grey>00386</font>试试看.
+</p>
+
 
 </div>
 

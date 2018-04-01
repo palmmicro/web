@@ -76,14 +76,14 @@ function _getExactMatch($strKey)
 function _getStockReferenceText($ref)
 {
     $ref->strExternalLink = $ref->GetStockSymbol();
-    $str = TextFromStockReferencce($ref);
+    $str = TextFromStockReference($ref);
     return $str;
 }
 
 function _getFundReferenceText($ref)
 {
     $ref->stock_ref->strExternalLink = GetCommonToolLink($ref->GetStockSymbol(), true);
-    $str = TextFromFundReferencce($ref); 
+    $str = TextFromFundReference($ref); 
     return $str;
 }
 

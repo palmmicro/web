@@ -24,7 +24,7 @@ function TextFromExtendedTradingReferencce($ref)
     return $str;
 }
 
-function TextFromStockReferencce($ref)
+function TextFromStockReference($ref)
 {
     if ($ref->bHasData == false)        return false;
 
@@ -45,6 +45,15 @@ function TextFromStockReferencce($ref)
     return $str;
 }
 
+function TextFromAhReference($ref, $hshare_ref)
+{
+	$str = TextFromStockReference($ref);
+	$str .= 'A股代码:'.GetMyStockRefLink($hshare_ref->a_ref, true).WX_EOL;
+	$str .= 'H股代码:'.GetMyStockRefLink($hshare_ref, true).WX_EOL;
+	$str .= 'AH比价:'.round_display($hshare_ref->GetAhRatio()).WX_EOL;
+	return $str;
+}
+
 function _textPremium($stock_ref, $fEst)
 {
     $str = '估值:'.$stock_ref->GetPriceText($fEst);
@@ -55,7 +64,7 @@ function _textPremium($stock_ref, $fEst)
     return $str;
 }
 
-function TextFromFundReferencce($ref)
+function TextFromFundReference($ref)
 {
     if ($ref->bHasData == false)                return false;
 
@@ -63,7 +72,7 @@ function TextFromFundReferencce($ref)
     $stock_ref = $ref->stock_ref;
     if ($stock_ref)
     {
-        if (($str = TextFromStockReferencce($stock_ref)) == false)
+        if (($str = TextFromStockReference($stock_ref)) == false)
         {
             $str = $strName;
         }

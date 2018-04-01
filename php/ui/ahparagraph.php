@@ -4,11 +4,10 @@ function _ahStockRefCallbackData($ref, $bChinese)
 {
 	$ar = array();
 	
-    $a_ref = $ref->a_ref;
-    $strSymbolA = $a_ref->GetStockSymbol();
+    $strSymbolA = $ref->a_ref->GetStockSymbol();
     $ar[] = SelectAHCompareLink($strSymbolA, $bChinese);
     
-    $fAHRatio = $a_ref->fPrice / $ref->GetCnyPrice();
+    $fAHRatio = $ref->GetAhRatio();
     $ar[] = GetRatioDisplay($fAHRatio);
     $ar[] = GetRatioDisplay(1.0 / $fAHRatio);
 	return $ar;
