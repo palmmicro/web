@@ -184,18 +184,19 @@ function _echoIntegerParagraph($group, $bChinese)
     EchoParagraphEnd();
 }
 
-function _estLeverage($fEtf1x, $leverage_ref)
-{
-    global $group;
-    return $leverage_ref->EstByEtf1x($fEtf1x, $group->etf_ref);
-}
-
 function _echoAdminTestParagraph($group, $bChinese)
 {
     $str = $group->GetDebugString($bChinese);
     $str .= HTML_NEW_LINE._GetStockHistoryDebugString(array($group->etf_his), $bChinese);
     $str .= HTML_NEW_LINE._GetEtfAdjustString($group->ref, $group->etf_ref, $bChinese);
     EchoParagraph($str);
+}
+
+function _estLeverage($fEtf1x, $leverage_ref)
+{
+    global $group;
+    if ($fEtf1x)	return $leverage_ref->EstByEtf1x($fEtf1x, $group->etf_ref);
+    return $leverage_ref->GetStockSymbol();
 }
 
 function EchoAll($bChinese)

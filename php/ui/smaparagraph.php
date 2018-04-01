@@ -191,7 +191,7 @@ function EchoSmaParagraph($stock_his, $ref, $callback, $callback2, $bChinese)
     $strColumnEx = '';
 	if ($ref)
     {
-    	$strColumnEx = GetTableColumn(110, $ref->GetStockSymbol().$strEst);
+    	$strColumnEx = GetTableColumn(110, call_user_func($callback, false, $ref).$strEst);
     	$strColumnEx .= GetTableColumn(70, $strNextEst);
     	$iWidth += 180;
     }

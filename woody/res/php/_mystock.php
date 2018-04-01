@@ -56,33 +56,31 @@ function _echoMyStockTransactions($strMemberId, $ref, $bChinese)
 
 function _callbackSmaA($fEst, $ref)
 {
-	return $ref->EstFromCny($fEst);
+	if ($fEst)		return $ref->EstFromCny($fEst);
+	return $ref->GetStockSymbol();
 }
 
 function _callbackSmaH($fEst, $ref)
 {
-	$hshare_ref = new MyHShareReference(SqlGetAhPair($ref->GetStockSymbol()), $ref, new CNYReference('HKCNY'));
-	return $hshare_ref->EstToCny($fEst);
+	if ($fEst)		return $ref->EstToCny($fEst);
+	return $ref->a_ref->GetStockSymbol();
 }
 
 function _echoMyStockSma($ref, $hshare_ref, $bChinese)
 {
-	$est_ref = false;
 	$callback = false;
 	if ($hshare_ref)
 	{
    		if ($ref->sym->IsSymbolA())
    		{
-   			$est_ref = $hshare_ref;
    			$callback = _callbackSmaA;
    		}
    		else
    		{
-   			$est_ref = $hshare_ref->a_ref;
    			$callback = _callbackSmaH;
    		}
 	}
-	EchoSmaParagraph(new StockHistory($ref), $est_ref, $callback, false, $bChinese);
+	EchoSmaParagraph(new StockHistory($ref), $hshare_ref, $callback, false, $bChinese);
 }
 
 function _echoMyStock($strSymbol, $bChinese)

@@ -138,7 +138,8 @@ function EchoMetaDescription($bChinese)
 function EtfEstLof($fEtf, $lof_ref)
 {
     global $group;
-    return $group->ref->_estLofByEtf($fEtf, $group->ref->fCNY);
+    if ($fEtf)		return $group->ref->_estLofByEtf($fEtf, $group->ref->fCNY);
+    return $lof_ref->GetStockSymbol();
 }
 
 ?>

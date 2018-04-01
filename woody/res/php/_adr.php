@@ -135,18 +135,6 @@ function _convertAdr2CNY($fPriceAdr, $group)
     return ($fPriceAdr / $group->fRatioAdrH * $group->fRatioAH) * $group->fUSDCNY;
 }
 
-function ConvertH2USD($fPriceH, $us_ref)
-{
-    global $group;
-    return _convertH2USD($fPriceH, $group);
-}
-
-function ConvertA2USD($fPriceA, $us_ref)
-{
-    global $group;
-    return _convertA2USD($fPriceA, $group);
-}
-
 function _adrStockRefCallbackData($ref, $bChinese)
 {
     global $group;
@@ -198,6 +186,20 @@ function _echoRefParagraph($group, $bChinese)
 function _echoTradingParagraph($group, $bChinese)
 {
 	EchoAhTradingParagraph($group->cn_ref, $group->hk_ref->GetStockSymbol(), $group->hk_ref->strPrice, _convertH2CNY($group->hk_ref->fPrice, $group), $bChinese);
+}
+
+function ConvertH2USD($fPriceH, $us_ref)
+{
+    global $group;
+    if ($fPriceH)		return _convertH2USD($fPriceH, $group);
+    return $us_ref->GetStockSymbol();
+}
+
+function ConvertA2USD($fPriceA, $us_ref)
+{
+    global $group;
+    if ($fPriceA)		return _convertA2USD($fPriceA, $group);
+    return $us_ref->GetStockSymbol();
 }
 
 function _echoAvgParagraph($group, $bChinese)

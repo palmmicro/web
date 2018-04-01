@@ -96,19 +96,6 @@ class _PairTradingGroup extends _MyStockGroup
     }
 } 
 
-function _estEtf1x($fEst, $ref)
-{
-    global $group;
-    return $group->EstEtf1x($fEst);
-}
-
-function _estLeverage($fEst, $leverage_ref)
-{
-    global $group;
-    $fEtf1x = $group->EstEtf1x($fEst);
-    return $leverage_ref->EstByEtf1x($fEtf1x, $group->ref);
-}
-
 function _echoAdminTestParagraph($group, $bChinese)
 {
     $str = $group->GetDebugString($bChinese);
@@ -121,6 +108,24 @@ function _echoAdminTestParagraph($group, $bChinese)
         $str .= ' '.GetCalibrationHistoryLink($group->index_ref->GetStockSymbol(), $bChinese);
     }
     EchoParagraph($str);
+}
+
+function _estEtf1x($fEst, $ref)
+{
+    global $group;
+    if ($fEst)		return $group->EstEtf1x($fEst);
+    return $ref->GetStockSymbol();
+}
+
+function _estLeverage($fEst, $leverage_ref)
+{
+    global $group;
+    if ($fEst)
+    {
+    	$fEtf1x = $group->EstEtf1x($fEst);
+    	return $leverage_ref->EstByEtf1x($fEtf1x, $group->ref);
+    }
+    return $leverage_ref->GetStockSymbol();
 }
 
 function EchoAll($bChinese)
