@@ -7,7 +7,7 @@ class _LofHkGroup extends _LofGroup
     // constructor 
     function _LofHkGroup($strSymbol) 
     {
-        PrefetchStockData(LofHkGetAllSymbolArray($strSymbol));
+        MyStockPrefetchData(array($strSymbol));
 
         $this->cny_ref = new CNYReference('HKCNY');
         ForexUpdateHistory($this->cny_ref);

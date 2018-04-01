@@ -7,7 +7,7 @@ class _GoldEtfGroup extends _MyStockGroup
     // constructor 
     function _GoldEtfGroup($strSymbol) 
     {
-        PrefetchStockData(GoldEtfGetAllSymbolArray($strSymbol));
+        MyStockPrefetchData(array($strSymbol));
 
         $this->cny_ref = new CNYReference('USCNY');
         $this->ref = new MyGoldEtfReference($strSymbol);

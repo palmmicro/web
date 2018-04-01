@@ -59,7 +59,7 @@ class _AdrGroup extends _MyStockGroup
     function _AdrGroup($strSymbolAdr) 
     {
         $strSymbolA = _getAdrSymbolA($strSymbolAdr);
-        PrefetchForexAndStockData(array($strSymbolAdr, $strSymbolA));
+        MyStockPrefetchDataAndForex(array($strSymbolAdr, $strSymbolA));
         
         $this->cn_ref = new MyStockReference($strSymbolA);
         $this->hk_ref = new MyStockReference(SqlGetAhPair($strSymbolA));

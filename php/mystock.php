@@ -9,7 +9,8 @@ function MyStockPrefetchData($ar)
     $arAll = array();
     foreach ($ar as $strSymbol)
     {
-        if (StockFundFromCN($strSymbol))
+    	$sym = new StockSymbol($strSymbol);
+        if ($sym->IsFundA())
         {
             if (in_arrayLof($strSymbol))                $arAll = array_merge($arAll, LofGetAllSymbolArray($strSymbol));
             else if (in_arrayLofHk($strSymbol))         $arAll = array_merge($arAll, LofHkGetAllSymbolArray($strSymbol));
@@ -20,10 +21,24 @@ function MyStockPrefetchData($ar)
         }
         else
         {
+            if ($sym->IsSymbolA())
+            {
+                if ($strSymbolH = SqlGetAhPair($strSymbol))		$arAll[] = $strSymbolH; 
+            }
+            else if ($sym->IsSymbolH())
+            {
+                if ($strSymbolA = SqlGetHaPair($strSymbol))		$arAll[] = $strSymbolA;
+            }
             $arAll[] = $strSymbol; 
         }
     }
     PrefetchStockData(array_unique($arAll));
+}
+
+function MyStockPrefetchDataAndForex($arStockSymbol)
+{
+    MyStockPrefetchData($arStockSymbol);
+    PrefetchEastMoneyData(array('USCNY', 'HKCNY'));
 }
 
 function MyStockGetFundReference($strSymbol)

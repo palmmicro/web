@@ -24,7 +24,6 @@ class _PairTradingGroup extends _MyStockGroup
 {
     var $index_ref;
     var $netvalue_ref;
-    var $yahoo_ref;
     
     var $ar_leverage_ref = array();
 
@@ -38,12 +37,7 @@ class _PairTradingGroup extends _MyStockGroup
     {
         $strIndexSymbol = _getPairTradingIndex($strSymbol);
         $arLeverageSymbol = _getPairTradingLeverage($strSymbol);
-
-        $arSymbol = array_merge($arLeverageSymbol, array($strSymbol, $strIndexSymbol, GetYahooNetValueSymbol($strSymbol)));  
-        $arUnknown = PrefetchSinaStockData($arSymbol);
-        $arUnknown = PrefetchGoogleStockData($arUnknown);
-        $arUnknown[] = $strSymbol;
-        PrefetchYahooData($arUnknown);
+        MyStockPrefetchData(array_merge($arLeverageSymbol, array($strSymbol, $strIndexSymbol, GetYahooNetValueSymbol($strSymbol))));  
         
         $this->ref = new MyStockReference($strSymbol);
         foreach ($arLeverageSymbol as $strLeverageSymbol)
@@ -56,7 +50,6 @@ class _PairTradingGroup extends _MyStockGroup
             $this->index_ref = new MyStockReference($strIndexSymbol);
             $this->index_his = new StockHistory($this->index_ref);
             $this->netvalue_ref = new YahooNetValueReference($strSymbol);
-            $this->yahoo_ref = new YahooStockReference($strSymbol);
             $this->stock_his = false;
         }
         else
@@ -64,10 +57,9 @@ class _PairTradingGroup extends _MyStockGroup
             $this->index_ref = false;
             $this->index_his = false;
             $this->netvalue_ref = false;
-            $this->yahoo_ref = false;
             $this->stock_his = new StockHistory($this->ref);
         }
-        $this->arDisplayRef = array_merge(array($this->index_ref, $this->yahoo_ref, $this->ref, $this->netvalue_ref), $this->ar_leverage_ref);     
+        $this->arDisplayRef = array_merge(array($this->index_ref, $this->ref, $this->netvalue_ref), $this->ar_leverage_ref);     
         parent::_MyStockGroup(array_merge(array($this->ref), $this->ar_leverage_ref));
     }
     
@@ -77,10 +69,7 @@ class _PairTradingGroup extends _MyStockGroup
         {
             if ($this->index_ref->AdjustEtfFactor($this->netvalue_ref) == false)
             {
-                if ($this->index_ref->AdjustEtfFactor($this->yahoo_ref) == false)
-                {
-                    $this->index_ref->AdjustEtfFactor($this->ref);
-                }
+                $this->index_ref->AdjustEtfFactor($this->ref);
             }
             $this->fFactor = $this->index_ref->_loadFactor();
         }

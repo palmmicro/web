@@ -286,26 +286,7 @@ function PrefetchSinaStockData($arSymbol)
             else if ($strSinaSymbol = $sym->GetSinaSymbol())
             {
                 $arPrefetch[$strSinaSymbol] = $strSymbol;
-                if ($sym->IsSymbolA())
-                {
-                    if ($sym->IsFundA())     $arPrefetch[$sym->GetSinaFundSymbol()] = $strSymbol;
-                    else 
-                    {
-                        if ($strSymbolH = SqlGetAhPair($strSymbol))
-                        {
-                            $h_sym = new StockSymbol($strSymbolH);
-                            $arPrefetch[$h_sym->GetSinaSymbol()] = $strSymbolH;
-                        }
-                    }
-                }
-                else if ($sym->IsSymbolH())
-                {
-                    if ($strSymbolA = SqlGetHaPair($strSymbol))
-                    {
-                        $a_sym = new StockSymbol($strSymbolA);
-                        $arPrefetch[$a_sym->GetSinaSymbol()] = $strSymbolA;
-                    }
-                }
+                if ($sym->IsFundA())     $arPrefetch[$sym->GetSinaFundSymbol()] = $strSymbol;
             }
             else
             {
@@ -322,12 +303,6 @@ function PrefetchStockData($arStockSymbol)
     $arUnknown = PrefetchSinaStockData($arStockSymbol);
     $arUnknown = PrefetchGoogleStockData($arUnknown);
     PrefetchYahooData($arUnknown);
-}
-
-function PrefetchForexAndStockData($arStockSymbol)
-{
-    PrefetchStockData($arStockSymbol);
-    PrefetchEastMoneyData(array('USCNY', 'HKCNY'));
 }
 
 ?>

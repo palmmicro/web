@@ -11,11 +11,8 @@ class _LofUsGroup extends _LofGroup
     function _LofUsGroup($strSymbol) 
     {
         $strUSD = 'DINIW'; 
-        $strEtfSymbol = LofGetEtfSymbol($strSymbol);
-        $arPrefetch = LofGetAllSymbolArray($strSymbol);
-        $arPrefetch[] = $strUSD; 
-        $arPrefetch[] = GetYahooNetValueSymbol($strEtfSymbol);
-        PrefetchStockData($arPrefetch);
+        $strEtfSymbol = LofGetEtfSymbol();
+        MyStockPrefetchData(array($strSymbol, $strUSD, GetYahooNetValueSymbol($strEtfSymbol)));
         
         $this->cny_ref = new CNYReference('USCNY');
         ForexUpdateHistory($this->cny_ref);

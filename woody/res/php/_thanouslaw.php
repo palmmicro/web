@@ -145,7 +145,7 @@ function EchoThanousLawTest($bChinese)
     {
         if (in_arrayLof($strSymbol))
         {
-            PrefetchStockData(LofGetAllSymbolArray($strSymbol));
+            MyStockPrefetchData(array($strSymbol));
             _echoLofPredictionParagraph(new MyLofReference($strSymbol), $bChinese);
         }
     }
