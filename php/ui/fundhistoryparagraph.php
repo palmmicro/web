@@ -135,7 +135,7 @@ function FundHistoryTableGetColumn($etf_ref, $bChinese)
 {
     if ($etf_ref)
     {
-        $strSymbol = GetMyStockLink($etf_ref->GetStockSymbol(), $bChinese);
+        $strSymbol = GetMyStockRefLink($etf_ref, $bChinese);
         if ($bChinese)  $strChange = '涨跌';
         else              $strChange = 'Change';
     }

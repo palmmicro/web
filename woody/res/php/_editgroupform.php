@@ -33,15 +33,7 @@ function _getStocksString($strStockGroupId)
 
 function StockEditGroupForm($str, $bChinese)
 {
-    if ($bChinese)
-    {
-        $arColumn = array('分组名称', '股票', '操作');
-    }
-    else
-    {
-        $arColumn = array('Group Name', 'Stocks', 'Operation');
-    }
-
+    $arColumn = GetStockGroupTableColumn($bChinese);
     $strPassQuery = UrlPassQuery();
 	$strSubmit = $str;
     $strGroupName = '';

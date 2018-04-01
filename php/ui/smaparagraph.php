@@ -139,21 +139,12 @@ function _selectSmaExternalLink($strSymbol)
     {
         if ($sym->IsFundA())
         {
-//            return GetChinaFundLink($sym);
         }
         else
         {
             return GetSinaN8n8Link($sym);
         }
     }
-    else if ($sym->IsSymbolH())
-    {
-    }
-    else
-    {
-        return GetYahooStockLink($sym->GetYahooSymbol(), $strSymbol);
-    }
-//    return $strSymbol;
     return GetXueQiuLink($strSymbol);
 }
 
@@ -191,7 +182,8 @@ function EchoSmaParagraph($stock_his, $ref, $callback, $callback2, $bChinese)
     $strColumnEx = '';
 	if ($ref)
     {
-    	$strColumnEx = GetTableColumn(110, call_user_func($callback, false, $ref).$strEst);
+    	$strEstSymbol = call_user_func($callback, false, $ref);
+    	$strColumnEx = GetTableColumn(110, GetXueQiuLink($strEstSymbol).$strEst);
     	$strColumnEx .= GetTableColumn(70, $strNextEst);
     	$iWidth += 180;
     }

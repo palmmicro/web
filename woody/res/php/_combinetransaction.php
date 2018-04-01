@@ -94,14 +94,10 @@ function _echoCombinedTransactionTableData($group, $iMax, $bChinese)
 
 function _echoCombinedTransactionTable($group, $iMax, $bChinese)
 {
-    if ($bChinese)     
-    {
-        $arColumn = array('日期', '股票代码', '合并数量', '折算数量', '平均成本', '折算成本', '备注');
-    }
-    else
-    {
-        $arColumn = array('Date', 'Symbol', 'Combined Quantity', 'Converted Quantity', 'Avg Cost', 'Converted Cost', 'Remark');
-    }
+	$arReference = GetReferenceTableColumn($bChinese);
+	$strSymbol = $arReference[0];
+    if ($bChinese)	$arColumn = array('日期', $strSymbol, '合并数量', '折算数量', '平均成本', '折算成本', '备注');
+    else		        $arColumn = array('Date', $strSymbol, 'Combined Quantity', 'Converted Quantity', 'Avg Cost', 'Converted Cost', 'Remark');
     
     echo <<<END
     <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="combined">

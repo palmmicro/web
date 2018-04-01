@@ -29,8 +29,10 @@ function EchoFundPurchaseParagraph($str, $strMemberId, $iStart, $iNum, $bChinese
 {
     EchoParagraphBegin($str);
     
-    if ($bChinese)  $arColumn = array('代码', '金额');
-    else              $arColumn = array('Symbol', 'Amount');
+	$arReference = GetReferenceTableColumn($bChinese);
+	$strSymbol = $arReference[0];
+    if ($bChinese)  $arColumn = array($strSymbol, '金额');
+    else              $arColumn = array($strSymbol, 'Amount');
     
     echo <<<END
         <TABLE borderColor=#cccccc cellSpacing=0 width=200 border=1 class="text" id="fund">

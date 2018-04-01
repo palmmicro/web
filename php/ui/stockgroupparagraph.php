@@ -78,14 +78,7 @@ function _echoStockGroupTableData($bChinese)
 
 function EchoStockGroupParagraph($bChinese)
 {
-    if ($bChinese)
-    {
-        $arColumn = array('分组名称', '股票', '操作');
-    }
-    else
-    {
-        $arColumn = array('Group Name', 'Stocks', 'Operation');
-    }
+    $arColumn = GetStockGroupTableColumn($bChinese);
     
     EchoParagraphBegin('');
     echo <<<END

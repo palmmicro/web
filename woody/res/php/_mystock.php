@@ -98,20 +98,11 @@ function _echoMyStock($strSymbol, $bChinese)
     }
     else
     {
-   		if ($sym->IsSymbolA())
-   		{
-   			$ref = new MyStockReference($strSymbol);
-      		if ($strSymbolH = SqlGetAhPair($strSymbol))		$hshare_ref = new MyHShareReference($strSymbolH, $ref, $hkcny_ref);
-      	}
-        else if ($sym->IsSymbolH())
-        {
-            if ($strSymbolA = SqlGetHaPair($strSymbol))	
-            {
-            	$hshare_ref = new MyHShareReference($strSymbol, new MyStockReference($strSymbolA), $hkcny_ref);
-            	$ref = $hshare_ref;
-            }
-            else	$ref = new MyStockReference($strSymbol);
-        }
+    	if ($hshare_ref = MyStockGetHShareReference($sym))
+    	{
+    		if ($hshare_ref->GetStockSymbol() == $strSymbol)	$ref = $hshare_ref;
+    		else										   			$ref = $hshare_ref->a_ref;
+    	}
         else	$ref = new MyStockReference($strSymbol);
     }
     EchoReferenceParagraph(array($ref), $bChinese);
@@ -126,7 +117,7 @@ function _echoMyStock($strSymbol, $bChinese)
         if ($hshare_ref)	EchoAhParagraph(array($hshare_ref), $hkcny_ref, $bChinese);
    		if ($sym->IsSymbolA())
    		{
-   			if ($hshare_ref)	EchoHShareTradingParagraph($ref, $hshare_ref, $bChinese);
+   			if ($hshare_ref)	EchoAhTradingParagraph($hshare_ref, $bChinese);
    			else 				EchoTradingParagraph($ref, $bChinese);
        	}
     }

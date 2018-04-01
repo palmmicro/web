@@ -56,26 +56,13 @@ function _echoStockGroupArray($arStock, $bChinese)
        	}
        	else
        	{
-       		if ($sym->IsSymbolA())
+       		if ($hshare_ref = MyStockGetHShareReference($sym))
        		{
-       			$ref = new MyStockReference($strSymbol);
-       			if ($strSymbolH = SqlGetAhPair($strSymbol))
-       			{
-       				if (in_array_ref($strSymbolH, $arHShareRef) == false)		$arHShareRef[] = new MyHShareReference($strSymbolH, $ref, $hkcny_ref);
-       			}
-       		}
-       		else if ($sym->IsSymbolH())
-       		{
-       			if ($strSymbolA = SqlGetHaPair($strSymbol))	
-       			{
-       				if (($ref = in_array_ref($strSymbol, $arHShareRef)) == false)
-       				{
-       					$hshare_ref = new MyHShareReference($strSymbol, new MyStockReference($strSymbolA), $hkcny_ref);
-       					$arHShareRef[] = $hshare_ref;
-       					$ref = $hshare_ref;
-       				}
-       			}
-       			else	$ref = new MyStockReference($strSymbol);
+       			$strSymbolH = $hshare_ref->GetStockSymbol();
+       			if ($strSymbolH == $strSymbol)	$ref = $hshare_ref;
+       			else								$ref = $hshare_ref->a_ref;
+
+       			if (in_array_ref($strSymbolH, $arHShareRef) == false)		$arHShareRef[] = $hshare_ref;
        		}
        		else	$ref = new MyStockReference($strSymbol);
         }

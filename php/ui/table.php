@@ -2,10 +2,11 @@
 
 define ('TABLE_COMMON_DISPLAY', 8);
 
+// aqua, black, blue, fuchsia, gray, green, lime, maroon, navy, olive, purple, red, silver, teal, white, yellow
 function GetReferenceTableColumn($bChinese)			
 {
-    if ($bChinese)  $arColumn = array('代码', '<font color=blue>价格</font>', '涨跌', '日期', '时间');
-    else              $arColumn = array('Symbol', '<font color=blue>Price</font>', 'Change', 'Date', 'Time');
+    if ($bChinese)  $arColumn = array('<font color=maroon>代码</font>',   '<font color=blue>价格</font>', '涨跌', '日期', '时间');
+    else              $arColumn = array('<font color=maroon>Symbol</font>', '<font color=blue>Price</font>', 'Change', 'Date', 'Time');
     return $arColumn;
 }
 
@@ -18,11 +19,25 @@ function GetSmaTableColumn($bChinese)
 
 function GetFundEstTableColumn($bChinese)
 {
+	$arReference = GetReferenceTableColumn($bChinese);
+	$strSymbol = $arReference[0];
+	
 	$arSma = GetSmaTableColumn($bChinese);
 	$strEst = $arSma[1];
 	$strPremium = $arSma[2];
-    if ($bChinese)	$arColumn = array('代码', '官方'.$strEst, '官方'.$strPremium, '参考'.$strEst, '参考'.$strPremium, '实时'.$strEst, '实时'.$strPremium);
-    else		        $arColumn = array('Symbol', 'Official '.$strEst, 'Official '.$strPremium, 'Fair '.$strEst, 'Fair '.$strPremium, 'Realtime '.$strEst, 'Realtime '.$strPremium);
+	
+    if ($bChinese)	$arColumn = array($strSymbol, '官方'.$strEst, '官方'.$strPremium, '参考'.$strEst, '参考'.$strPremium, '实时'.$strEst, '实时'.$strPremium);
+    else		        $arColumn = array($strSymbol, 'Official '.$strEst, 'Official '.$strPremium, 'Fair '.$strEst, 'Fair '.$strPremium, 'Realtime '.$strEst, 'Realtime '.$strPremium);
+    return $arColumn;
+}
+
+function GetStockGroupTableColumn($bChinese)
+{
+	$arReference = GetReferenceTableColumn($bChinese);
+	$strSymbol = $arReference[0];
+	
+    if ($bChinese)	$arColumn = array('分组名称', $strSymbol, '操作');
+    else		        $arColumn = array('Group Name', $strSymbol.'s', 'Operation');
     return $arColumn;
 }
 

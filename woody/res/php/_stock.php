@@ -138,15 +138,10 @@ define ('MAX_TRANSACTION_DISPLAY', 10);
 function _EchoTransactionTable($group, $iStart, $iNum, $bChinese)
 {
 	$arReference = GetReferenceTableColumn($bChinese);
+	$strSymbol = $arReference[0];
 	$strPrice = $arReference[1];
-    if ($bChinese)     
-    {
-        $arColumn = array('日期', '股票代码', '数量', $strPrice, '交易费用', '备注', '操作');
-    }
-    else
-    {
-        $arColumn = array('Date', 'Symbol', 'Quantity', $strPrice, 'Fees', 'Remark', 'Operation');
-    }
+    if ($bChinese)     $arColumn = array('日期', $strSymbol, '数量', $strPrice, '交易费用', '备注', '操作');
+    else		         $arColumn = array('Date', $strSymbol, 'Quantity', $strPrice, 'Fees', 'Remark', 'Operation');
     
     echo <<<END
     <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="average">
@@ -169,14 +164,11 @@ END;
 
 function _EchoArbitrageTableBegin($bChinese)
 {
-    if ($bChinese)     
-    {
-        $arColumn = array('股票代码', '对冲数量', '对冲价格', '折算数量', '折算价格', '折算净值盈亏');
-    }
-    else
-    {
-        $arColumn = array('Symbol', 'Quantity', 'Price', 'Convert Total', 'Convert Avg', 'Convert Profit');
-    }
+	$arReference = GetReferenceTableColumn($bChinese);
+	$strSymbol = $arReference[0];
+	$strPrice = $arReference[1];
+    if ($bChinese)	$arColumn = array($strSymbol, '对冲数量', '对冲'.$strPrice, '折算数量', '折算'.$strPrice, '折算净值盈亏');
+    else		        $arColumn = array($strSymbol, 'Quantity', $strPrice, 'Convert Total', 'Convert Avg', 'Convert Profit');
     
     echo <<<END
     <TABLE borderColor=#cccccc cellSpacing=0 width=510 border=1 class="text" id="arbitrage">
@@ -196,9 +188,20 @@ function _EchoArbitrageTableItem2($arbi_trans, $convert_trans)
     _EchoArbitrageTableItem($arbi_trans->iTotalShares, $arbi_trans->GetAvgCostDisplay(), $convert_trans);
 }
 
+function _selectArbitrageExternalLink($sym)
+{
+	$strSymbol = $sym->strSymbol;
+    if ($sym->IsSymbolUS())
+    {
+        return GetYahooStockLink($sym->GetYahooSymbol(), $strSymbol);
+    }
+    return $strSymbol;
+}
+
 function _EchoArbitrageTableItem($iQuantity, $strPrice, $trans)
 {
-    $strSymbol = $trans->GetStockSymbol();
+//    $strSymbol = $trans->GetStockSymbol();
+	$strSymbol = _selectArbitrageExternalLink($trans->ref->sym);
     $strQuantity = strval($iQuantity); 
     $strConvertTotal = strval($trans->iTotalShares); 
     $strConvertPrice = $trans->GetAvgCostDisplay();
@@ -220,14 +223,10 @@ END;
 
 function _EchoPortfolioTableBegin($bChinese)
 {
-    if ($bChinese)     
-    {
-        $arColumn = array('股票', '总数量', '平均价格', '百分比', '持仓', '盈亏', '货币');
-    }
-    else
-    {
-        $arColumn = array('Stock', 'Total', 'Avg', 'Percentage', 'Amount', 'Profit', 'Money');
-    }
+	$arReference = GetReferenceTableColumn($bChinese);
+	$strSymbol = $arReference[0];
+    if ($bChinese)	$arColumn = array($strSymbol, '总数量', '平均价格', '百分比', '持仓', '盈亏', '货币');
+    else		        $arColumn = array($strSymbol, 'Total', 'Avg', 'Percentage', 'Amount', 'Profit', 'Money');
     
     echo <<<END
         <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="portfolio">

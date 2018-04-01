@@ -266,27 +266,27 @@ class MyFutureReference extends MyStockReference
 class MyHShareReference extends MyStockReference
 {
     var $a_ref;
-    var $hkcny_ref;
 
     var $fRatio;
+    var $fHKDCNY;
     
     // constructor 
-    function MyHShareReference($strSymbol, $a_ref, $hkcny_ref) 
+    function MyHShareReference($strSymbol, $a_ref) 
     {
     	$this->a_ref = $a_ref;
-    	$this->hkcny_ref = $hkcny_ref;
     	$this->fRatio = SqlGetAhPairRatio($a_ref);
+    	$this->fHKDCNY = SqlGetHKCNY();
         parent::MyStockReference($strSymbol);
     }
     
     function EstFromCny($fEst)
     {
-    	return $fEst / ($this->fRatio * $this->hkcny_ref->fPrice);
+    	return $fEst / ($this->fRatio * $this->fHKDCNY);
     }
 
     function EstToCny($fEst)
     {
-    	return $fEst * ($this->fRatio * $this->hkcny_ref->fPrice);
+    	return $fEst * ($this->fRatio * $this->fHKDCNY);
     }
     
     function GetCnyPrice()
@@ -336,8 +336,7 @@ class MyFundReference extends FundReference
 
     function GetForexNow()
     {
-        $history = SqlGetForexHistoryNow($this->strForexSqlId);
-        return floatval($history['close']);
+        return SqlGetForexNow($this->strForexSqlId);
     }
     
     // Update database

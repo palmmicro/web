@@ -42,6 +42,11 @@ function GetMyStockLink($strSymbol, $bChinese)
     return _stockGetLink('mystock', 'symbol='.$strSymbol, $strSymbol, $bChinese);
 }
 
+function GetMyStockRefLink($ref, $bChinese)
+{
+    return GetMyStockLink($ref->GetStockSymbol(), $bChinese);
+}
+
 function GetMyPortfolioLink($bChinese)
 {
     return _stockBuildLink('myportfolio', false, '持仓盈亏', 'My Portfolio', $bChinese);

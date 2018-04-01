@@ -61,15 +61,15 @@ class _AdrGroup extends _MyStockGroup
         $strSymbolA = _getAdrSymbolA($strSymbolAdr);
         MyStockPrefetchDataAndForex(array($strSymbolAdr, $strSymbolA));
         
+        $this->uscny_ref = new CNYReference('USCNY');
+        $this->hkcny_ref = new CNYReference('HKCNY');
+        
         $this->cn_ref = new MyStockReference($strSymbolA);
-        $this->hk_ref = new MyStockReference(SqlGetAhPair($strSymbolA));
+        $this->hk_ref = new MyHShareReference(SqlGetAhPair($strSymbolA), $this->cn_ref);
         $this->us_ref = new MyStockReference($strSymbolAdr);
 
         $this->hk_his = new StockHistory($this->hk_ref);
         $this->cn_his = new StockHistory($this->cn_ref);
-        
-        $this->uscny_ref = new CNYReference('USCNY');
-        $this->hkcny_ref = new CNYReference('HKCNY');
         
         $this->fUSDCNY = $this->uscny_ref->fPrice;
         $this->fHKDCNY = $this->hkcny_ref->fPrice;
@@ -105,16 +105,6 @@ class _AdrGroup extends _MyStockGroup
     }
 } 
 
-function _convertH2CNY($fPriceH, $group)
-{
-    return ($fPriceH * $group->fRatioAH) * $group->fHKDCNY;
-}
-
-function _convertA2HKD($fPrice, $group)
-{
-    return ($fPrice / $group->fRatioAH) / $group->fHKDCNY;
-}
-
 function _convertH2USD($fPriceH, $group)
 {
     return ($fPriceH * $group->fRatioAdrH) / $group->fUSDHKD;
@@ -138,27 +128,30 @@ function _convertAdr2CNY($fPriceAdr, $group)
 function _adrStockRefCallbackData($ref, $bChinese)
 {
     global $group;
+    $cn_ref = $group->cn_ref;
+    $hk_ref = $group->hk_ref;
+    $us_ref = $group->us_ref;
     
-    $sym = $ref->sym;
     $strPriceDisplay = $ref->GetCurrentPriceDisplay();
     $fPrice = $ref->fPrice;
+    $sym = $ref->sym;
 	$ar = array();
     if ($sym->IsSymbolA())
     {
         $ar[] = $strPriceDisplay;
-        $ar[] = $group->hk_ref->GetPriceDisplay(_convertA2HKD($fPrice, $group));
-        $ar[] = $group->us_ref->GetPriceDisplay(_convertA2USD($fPrice, $group));
+        $ar[] = $hk_ref->GetPriceDisplay($hk_ref->EstFromCny($fPrice));
+        $ar[] = $us_ref->GetPriceDisplay(_convertA2USD($fPrice, $group));
     }
     else if ($sym->IsSymbolH())
     {
-        $ar[] = $group->cn_ref->GetPriceDisplay(_convertH2CNY($fPrice, $group));
+        $ar[] = $cn_ref->GetPriceDisplay($hk_ref->EstToCny($fPrice));
         $ar[] = $strPriceDisplay;
-        $ar[] = $group->us_ref->GetPriceDisplay(_convertH2USD($fPrice, $group));
+        $ar[] = $us_ref->GetPriceDisplay(_convertH2USD($fPrice, $group));
     }
     else
     {
-        $ar[] = $group->cn_ref->GetPriceDisplay(_convertAdr2CNY($fPrice, $group));
-        $ar[] = $group->hk_ref->GetPriceDisplay(_convertAdr2HKD($fPrice, $group));
+        $ar[] = $cn_ref->GetPriceDisplay(_convertAdr2CNY($fPrice, $group));
+        $ar[] = $hk_ref->GetPriceDisplay(_convertAdr2HKD($fPrice, $group));
         $ar[] = $strPriceDisplay;
     }
 	return $ar;
@@ -181,11 +174,6 @@ function _echoRefParagraph($group, $bChinese)
     EchoParagraphBegin($bChinese ? '价格数据' : 'Price data');
     EchoStockRefTable($group->arStockRef, _adrStockRefCallback, $bChinese);
     EchoParagraphEnd();
-}
-
-function _echoTradingParagraph($group, $bChinese)
-{
-	EchoAhTradingParagraph($group->cn_ref, $group->hk_ref->GetStockSymbol(), $group->hk_ref->strPrice, _convertH2CNY($group->hk_ref->fPrice, $group), $bChinese);
 }
 
 function ConvertH2USD($fPriceH, $us_ref)
@@ -223,13 +211,13 @@ function _echoArbitrageParagraph($group, $bChinese)
     {
         $cn_arbi = $group->arbi_trans;
         _EchoArbitrageTableItem2($cn_arbi, $group->cn_convert); 
-        _EchoArbitrageTableItem(intval(-1.0 * $cn_arbi->iTotalShares * $group->fRatioAH), StockGetPriceDisplay(_convertA2HKD($cn_arbi->GetAvgCost(), $group), $group->hk_ref->fPrice), $group->hk_convert); 
+        _EchoArbitrageTableItem(intval(-1.0 * $cn_arbi->iTotalShares * $group->fRatioAH), StockGetPriceDisplay($group->hk_ref->EstFromCny($cn_arbi->GetAvgCost()), $group->hk_ref->fPrice), $group->hk_convert); 
         _EchoArbitrageTableItem(intval(-1.0 * $cn_arbi->iTotalShares * $group->fRatioAH / $group->fRatioAdrH), StockGetPriceDisplay(_convertA2USD($cn_arbi->GetAvgCost(), $group), $group->us_ref->fPrice), $group->us_convert); 
     }
     else if ($sym->IsSymbolH())
     {
         $hk_arbi = $group->arbi_trans;
-        _EchoArbitrageTableItem(intval(-1.0 * $hk_arbi->iTotalShares / $group->fRatioAH), StockGetPriceDisplay(_convertH2CNY($hk_arbi->GetAvgCost(), $group), $group->cn_ref->fPrice), $group->cn_convert); 
+        _EchoArbitrageTableItem(intval(-1.0 * $hk_arbi->iTotalShares / $group->fRatioAH), StockGetPriceDisplay($group->hk_ref->EstToCny($hk_arbi->GetAvgCost()), $group->cn_ref->fPrice), $group->cn_convert); 
         _EchoArbitrageTableItem2($hk_arbi, $group->hk_convert); 
         _EchoArbitrageTableItem(intval(-1.0 * $hk_arbi->iTotalShares / $group->fRatioAdrH), StockGetPriceDisplay(_convertH2USD($hk_arbi->GetAvgCost(), $group), $group->us_ref->fPrice), $group->us_convert); 
     }
@@ -257,7 +245,7 @@ function AdrEchoAll($bChinese)
     global $group;
     
     _echoRefParagraph($group, $bChinese);
-    _echoTradingParagraph($group, $bChinese);
+	EchoAhTradingParagraph($group->hk_ref, $bChinese);
     _echoAvgParagraph($group, $bChinese);
 
     if ($group->strGroupId) 

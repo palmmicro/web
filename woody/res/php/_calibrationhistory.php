@@ -52,9 +52,10 @@ function _echoCalibrationHistoryParagraph($strSymbol, $iStart, $iNum, $bChinese)
     if (($strStockId = SqlGetStockId($strSymbol)) == false)  return;
     
 	$arReference = GetReferenceTableColumn($bChinese);
+	$strSymbolDisplay = $arReference[0];
 	$strPrice = $arReference[1];
-    if ($bChinese)  $arColumn = array('代码', $strPrice, '对方代码', '对方'.$strPrice, '校准值', '时间', '操作');
-    else              $arColumn = array('Symbol', $strPrice, 'Peer Symbol', 'Peer '.$strPrice, 'Factor', 'Time', 'More');
+    if ($bChinese)  $arColumn = array($strSymbolDisplay, $strPrice, '对方'.$strSymbolDisplay, '对方'.$strPrice, '校准值', '时间', '操作');
+    else              $arColumn = array($strSymbolDisplay, $strPrice, 'Peer '.$strSymbolDisplay, 'Peer '.$strPrice, 'Factor', 'Time', 'More');
     
     $strSymbolLink = _GetReturnSymbolGroupLink($strSymbol, $bChinese);
     $iTotal = SqlCountStockCalibration($strStockId);

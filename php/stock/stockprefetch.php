@@ -298,11 +298,4 @@ function PrefetchSinaStockData($arSymbol)
     return $arUnknown;
 }
 
-function PrefetchStockData($arStockSymbol)
-{
-    $arUnknown = PrefetchSinaStockData($arStockSymbol);
-    $arUnknown = PrefetchGoogleStockData($arUnknown);
-    PrefetchYahooData($arUnknown);
-}
-
 ?>

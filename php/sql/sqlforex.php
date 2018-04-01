@@ -75,4 +75,18 @@ function SqlGetForexCloseHistory($strStockId, $strDate)
     return false;
 }
 
+function SqlGetForexNow($strStockId)
+{
+	if ($history = SqlGetForexHistoryNow($strStockId))
+	{
+		return floatval($history['close']);
+	}
+	return false;
+}
+
+function SqlGetHKCNY()
+{
+	return SqlGetForexNow(SqlGetStockId('HKCNY'));
+}
+
 ?>

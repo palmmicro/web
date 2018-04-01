@@ -104,73 +104,8 @@ END;
     EchoTableEnd();
 }
 
-function EchoFundTradingParagraph($fund, $callback, $bChinese)
+function _getTradingParagraphStr($arColumn, $bChinese)
 {
-    $ref = $fund->stock_ref;
-    $strSymbol = $ref->GetStockSymbol();
-    $strSymbolLink = GetXueQiuLink($strSymbol);
-    $strPrice = $ref->GetPriceDisplay($fund->fPrice);
-    if ($fund->fFairNetValue)       $strPrice .= '/'.$ref->GetPriceDisplay($fund->fFairNetValue);
-    if ($fund->fRealtimeNetValue)   $strPrice .= '/'.$ref->GetPriceDisplay($fund->fRealtimeNetValue);
-    
-	$arFundEst = GetFundEstTableColumn($bChinese);
-    $arColumn = _getTradingTableColumn($bChinese);
-	$strPrice = $arColumn[1];
-    $arColumn[] = $arFundEst[2];
-    $arColumn[] = $arFundEst[4];
-    $arColumn[] = $arFundEst[6];
-    if ($callback)     $arColumn[] = call_user_func($callback, false, $bChinese);
-    
-	$arSma = GetSmaTableColumn($bChinese);
-	$strEst = $arSma[1];
-	$strPremium = $arSma[2];
-    if ($bChinese)     
-    {
-        $str = $strSymbolLink.'当前5档交易'.$strPrice.'相对于各个'.$strEst.$strPrice.'的'.$strPremium;
-    }
-    else
-    {
-        $str = 'The '.$strPremium.' of Ask/Bid '.$strPrice.' comparing with '.$strSymbolLink.' each '.$strEst.' net value '.$strPrice;
-    }
-    
-    EchoParagraphBegin($str);
-    _echoTradingTable($arColumn, $ref, $fund->fPrice, $fund->fFairNetValue, $fund->fRealtimeNetValue, $callback, $bChinese); 
-    EchoParagraphEnd();
-}
-
-function EchoAhTradingParagraph($ref, $strSymbolH, $strPriceH, $fCnyPriceH, $bChinese)
-{
-    $strSymbol = $ref->GetStockSymbol(); 
-   
-	$arSma = GetSmaTableColumn($bChinese);
-	$strPremium = $arSma[2];
-	
-    $arColumn = _getTradingTableColumn($bChinese);
-	$strPrice = $arColumn[1];
-    $arColumn[] = $strPremium;
-    $arColumn[] = '';
-    $arColumn[] = '';
-    if ($bChinese)     
-    {
-        $str = "{$strSymbol}当前5档交易{$strPrice}相对于{$strSymbolH}交易价格<b>{$strPriceH}</b>港币的{$strPremium}";
-    }
-    else
-    {
-        $str = "The $strPremium of $strSymbol Ask/Bid $strPrice comparing with $strSymbolH trading price <b>$strPriceH</b>HKD";
-    }
-    EchoParagraphBegin($str);
-    _echoTradingTable($arColumn, $ref, $fCnyPriceH, false, false, false, $bChinese); 
-    EchoParagraphEnd();
-}
-
-function EchoHShareTradingParagraph($ref, $hshare_ref, $bChinese)
-{
-	EchoAhTradingParagraph($ref, $hshare_ref->GetStockSymbol(), $hshare_ref->strPrice, $hshare_ref->GetCnyPrice(), $bChinese);
-}
-
-function EchoTradingParagraph($ref, $bChinese)
-{
-    $arColumn = _getTradingTableColumn($bChinese);
 	$strPrice = $arColumn[1];
     if ($bChinese)     
     {
@@ -180,7 +115,74 @@ function EchoTradingParagraph($ref, $bChinese)
     {
         $str = "Ask/Bid $strPrice";
     }
+    return $str;
+}
+
+function EchoFundTradingParagraph($fund, $callback, $bChinese)
+{
+    $ref = $fund->stock_ref;
+    $strSymbol = GetMyStockRefLink($ref, $bChinese);
+    $strEstPrice = $ref->GetPriceDisplay($fund->fPrice);
+    if ($fund->fFairNetValue)       $strEstPrice .= '/'.$ref->GetPriceDisplay($fund->fFairNetValue);
+    if ($fund->fRealtimeNetValue)   $strEstPrice .= '/'.$ref->GetPriceDisplay($fund->fRealtimeNetValue);
+    
+	$arFundEst = GetFundEstTableColumn($bChinese);
+    $arColumn = _getTradingTableColumn($bChinese);
+    $arColumn[] = $arFundEst[2];
+    $arColumn[] = $arFundEst[4];
+    $arColumn[] = $arFundEst[6];
+    if ($callback)     $arColumn[] = call_user_func($callback, false, $bChinese);
+    $strPrice = _getTradingParagraphStr($arColumn, $bChinese);
+    
+	$arSma = GetSmaTableColumn($bChinese);
+	$strEst = $arSma[1];
+	$strPremium = $arSma[2];
+    if ($bChinese)     
+    {
+        $str = "{$strSymbol}{$strPrice}相对于各个{$strEst}{$strEstPrice}的{$strPremium}";
+    }
+    else
+    {
+        $str = "The $strPremium of $strPrice comparing with $strSymbol each $strEst net value $strEstPrice";
+    }
+    
     EchoParagraphBegin($str);
+    _echoTradingTable($arColumn, $ref, $fund->fPrice, $fund->fFairNetValue, $fund->fRealtimeNetValue, $callback, $bChinese); 
+    EchoParagraphEnd();
+}
+
+function EchoAhTradingParagraph($hshare_ref, $bChinese)
+{
+	$ref = $hshare_ref->a_ref;
+    $strSymbol = GetMyStockRefLink($ref, $bChinese); 
+    $strSymbolH = GetMyStockRefLink($hshare_ref, $bChinese);
+    $strPriceH = $hshare_ref->GetCurrentPriceDisplay();
+   
+	$arSma = GetSmaTableColumn($bChinese);
+	$strPremium = $arSma[2];
+	
+    $arColumn = _getTradingTableColumn($bChinese);
+    $arColumn[] = $strPremium;
+    $arColumn[] = '';
+    $arColumn[] = '';
+    $strPrice = _getTradingParagraphStr($arColumn, $bChinese);
+    if ($bChinese)     
+    {
+        $str = "{$strSymbol}{$strPrice}相对于{$strSymbolH}交易价格{$strPriceH}港币的{$strPremium}";
+    }
+    else
+    {
+        $str = "The $strPremium of $strSymbol $strPrice comparing with $strSymbolH trading price $strPriceH HKD";
+    }
+    EchoParagraphBegin($str);
+    _echoTradingTable($arColumn, $ref, $hshare_ref->GetCnyPrice(), false, false, false, $bChinese); 
+    EchoParagraphEnd();
+}
+
+function EchoTradingParagraph($ref, $bChinese)
+{
+    $arColumn = _getTradingTableColumn($bChinese);
+    EchoParagraphBegin(_getTradingParagraphStr($arColumn, $bChinese));
     _echoTradingTable($arColumn, $ref, false, false, false, false, $bChinese); 
     EchoParagraphEnd();
 }

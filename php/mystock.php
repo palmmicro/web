@@ -4,6 +4,13 @@ require_once('mysqllof.php');
 require_once('mysqlgold.php');
 require_once('mysqlgraded.php');
 
+function _prefetchStockData($arStockSymbol)
+{
+    $arUnknown = PrefetchSinaStockData($arStockSymbol);
+    $arUnknown = PrefetchGoogleStockData($arUnknown);
+    PrefetchYahooData($arUnknown);
+}
+
 function MyStockPrefetchData($ar)
 {
     $arAll = array();
@@ -32,7 +39,7 @@ function MyStockPrefetchData($ar)
             $arAll[] = $strSymbol; 
         }
     }
-    PrefetchStockData(array_unique($arAll));
+    _prefetchStockData(array_unique($arAll));
 }
 
 function MyStockPrefetchDataAndForex($arStockSymbol)
@@ -64,5 +71,24 @@ function MyStockGetFundReference($strSymbol)
     return $ref;
 }
 
+function MyStockGetHShareReference($sym)
+{
+	$strSymbol = $sym->strSymbol;
+   	if ($sym->IsSymbolA())
+   	{
+    	if ($strSymbolH = SqlGetAhPair($strSymbol))
+    	{
+    		return (new MyHShareReference($strSymbolH, new MyStockReference($strSymbol)));
+      	}
+    }
+    else if ($sym->IsSymbolH())
+    {
+        if ($strSymbolA = SqlGetHaPair($strSymbol))	
+        {
+            return (new MyHShareReference($strSymbol, new MyStockReference($strSymbolA)));
+        }
+    }
+    return false;
+}
 
 ?>
