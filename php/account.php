@@ -3,7 +3,6 @@ require_once('url.php');
 require_once('debug.php');
 require_once('switch.php');
 require_once('sql.php');
-require_once('email.php');
 require_once('iplookup.php');
 require_once('ui/table.php');
 
@@ -14,10 +13,7 @@ require_once('sql/sqlvisitor.php');
 require_once('sql/sqlstockgroup.php');
 require_once('sql/sqlfundpurchase.php');
 
-function filter_var_email($strEmail)
-{
-    return filter_var($strEmail, FILTER_VALIDATE_EMAIL);
-}
+require_once('email.php');
 
 function AcctDeleteBlogVisitor($strIp, $strIpId, $iCount)
 {
@@ -282,68 +278,6 @@ function AcctGetEmailFromBlogUri($strUri)
 	    return UrlGetEmail($strName);
 	}
 	return ADMIN_EMAIL;
-}
-
-function AcctGetBlogLink($strBlogId)
-{
-    $strBlogUri = SqlGetUriByBlogId($strBlogId);
-    if ($strBlogUri)
-    {
-        return UrlGetLink($strBlogUri, $strBlogUri);
-    }
-    return '';
-}
-
-function AcctGetMemberDisplay($strMemberId)
-{
-	if (($strName = SqlGetNameByMemberId($strMemberId)) == false)
-	{
-	    return SqlGetEmailById($strMemberId);
-	}
-	return $strName;
-}
-
-function AcctGetMemberLink($strMemberId, $bChinese)
-{
-	if ($strEmail = SqlGetEmailById($strMemberId))
-	{
-	    if (($strName = SqlGetNameByMemberId($strMemberId)) == false)
-	    {
-	        $strName = $strEmail;
-	    }
-	    return UrlGetPhpLink('/account/profile', 'email='.$strEmail, $strName, $bChinese);
-	}
-    return '';
-}
-
-function _getIpLink($strTitle, $strIp, $bChinese)
-{
-    return UrlGetPhpLink('/account/'.$strTitle, 'ip='.$strIp, $strIp, $bChinese);
-}
-
-function AcctGetIpLink($strIp, $bChinese)
-{
-    return _getIpLink('ip', $strIp, $bChinese);
-}
-
-function AcctGetVisitorLink($strIp, $bChinese)
-{
-    return _getIpLink(VISITOR_TABLE, $strIp, $bChinese);
-}
-
-function AcctGetSpiderVisitorLink($strIp, $bChinese)
-{
-    return _getIpLink(SPIDER_VISITOR_TABLE, $strIp, $bChinese);
-}
-
-function AcctGetLoginLink($strCn, $strUs, $bChinese)
-{
-    return UrlBuildPhpLink('/account/login', false, $strCn, $strUs, $bChinese);
-}
-
-function AcctGetAllCommentLink($strQuery, $bChinese)
-{
-    return UrlBuildPhpLink('/account/comment', $strQuery, '全部评论', 'All Comment', $bChinese);
 }
 
 ?>

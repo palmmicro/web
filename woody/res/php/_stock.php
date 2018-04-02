@@ -482,6 +482,15 @@ function EchoUrlSymbol()
     }
 }
 
+function _getMemberDisplay($strMemberId)
+{
+	if (($strName = SqlGetNameByMemberId($strMemberId)) == false)
+	{
+	    return SqlGetEmailById($strMemberId);
+	}
+	return $strName;
+}
+
 function _GetWhoseDisplay($strOwnerMemberId, $strMemberId, $bChinese)
 {
     if ($strOwnerMemberId == $strMemberId)
@@ -491,7 +500,7 @@ function _GetWhoseDisplay($strOwnerMemberId, $strMemberId, $bChinese)
     }
     else
     {
-	    $str = AcctGetMemberDisplay($strOwnerMemberId);
+	    $str = _getMemberDisplay($strOwnerMemberId);
         if ($bChinese)  $str .= '的';
         else             $str .= "'s ";
     }

@@ -79,7 +79,7 @@ class _AdrGroup extends _MyStockGroup
         $this->arDisplayRef = array_merge($this->arStockRef, array($this->uscny_ref, $this->hkcny_ref));
         
         $this->fRatioAdrH = _getRatioAdrH($strSymbolAdr);
-        $this->fRatioAH = SqlGetAhPairRatio($this->cn_ref);
+        $this->fRatioAH = $this->hk_ref->fRatio;
 
         parent::_MyStockGroup($this->arStockRef);
     }

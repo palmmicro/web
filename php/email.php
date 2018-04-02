@@ -1,4 +1,5 @@
 <?php
+require_once('internallink.php');
 
 define ('ADMIN_EMAIL', 'woody@palmmicro.com');
 
