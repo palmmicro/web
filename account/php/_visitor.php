@@ -27,7 +27,7 @@ function _echoBlogVisitorData($strIp, $iStart, $iNum, $bChinese)
                 if (in_array($strIpId, $arIpId))    $strIpLink = $str;
                 else
                 {
-                    $strIpLink = AcctGetVisitorLink($str, $bChinese);
+                    $strIpLink = GetVisitorLink($str, $bChinese);
                     $arIpId[] = $strIpId;
                 }
             }

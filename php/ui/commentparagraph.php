@@ -19,8 +19,8 @@ function _getSingleCommentTime($comment, $bChinese)
 
 function GetSingleCommentDescription($comment, $strWhere, $bChinese)
 {
-    $strAuthor = AcctGetMemberLink($comment['member_id'], $bChinese);
-    $strIp = AcctGetIpLink($comment['ip'], $bChinese);
+    $strAuthor = GetMemberLink($comment['member_id'], $bChinese);
+    $strIp = GetIpLink($comment['ip'], $bChinese);
     $strTime = _getSingleCommentTime($comment, $bChinese);
     $strUri = SqlGetUriByBlogId($comment['blog_id']);
     $strTimeLink = "<a href=\"$strUri#{$comment['id']}\">$strTime</a>";

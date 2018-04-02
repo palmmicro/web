@@ -9,7 +9,7 @@ function _emailBlogComment($strId, $strBlogId, $strSubject, $strComment)
 	// build email contents
 	$str = SqlGetEmailById($strId);
 	$str .= " $strSubject:<br />$strComment<br />";
-	$str .= AcctGetBlogLink($strBlogId);
+	$str .= GetBlogLink($strBlogId);
 
 	// build mailing list
 	$arEmails = array();				                                                    // Array to store emails addresses to send to

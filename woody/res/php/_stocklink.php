@@ -101,7 +101,7 @@ function _getPersonalLinks($strMemberId, $bChinese)
 function EchoStockGroupLinks($bChinese)
 {
     $str .= HTML_NEW_LINE.UrlGetCategoryLinks(STOCK_PATH, GetMenuArray($bChinese), $bChinese);
-    $str .= HTML_NEW_LINE.StockGetGroupLink($bChinese).' '.GetAHCompareLink($bChinese);
+    $str .= HTML_NEW_LINE.StockGetGroupLink($bChinese).' '.GetAHCompareLink($bChinese).' '.GetAdrHCompareLink($bChinese);
     $str .= HTML_NEW_LINE.GetMyPortfolioLink($bChinese);
     if ($strMemberId = AcctIsLogin())
     {
@@ -172,6 +172,10 @@ function GetCategoryArray($strTitle)
   
     case 'ahcompare':
         $ar = SqlGetAhArray();
+        break;
+  
+    case 'adrhcompare':
+        $ar = SqlGetAdrhArray();
         break;
   
     case 'chinainternet':

@@ -1,21 +1,20 @@
 <?php
 require_once('weixin.php');
-require_once('url.php');
+//require_once('url.php');
 require_once('debug.php');
 require_once('stock.php');
 require_once('sql.php');
 require_once('mystock.php');
+require_once('email.php');
 
 require_once('ui/stocktext.php');
 
 require_once('sql/sqlstock.php');
-require_once('sql/sqlvisitor.php');
+//require_once('sql/sqlvisitor.php');
 require_once('sql/sqlspider.php');
 require_once('sql/sqlweixin.php');
 
-require_once('email.php');
-
-define('WX_DEBUG_VER', '版本752');
+define('WX_DEBUG_VER', '版本769');
 
 define('WX_DEFAULT_SYMBOL', 'SZ162411');
 define('MAX_WX_STOCK', 20);
@@ -77,29 +76,25 @@ function _getExactMatch($strKey)
 function _getMatchSymbolArray($strKey)
 {
     $ar = array();
-    
     if ($strSymbol = _getExactMatch($strKey))
     {   // exact match
         $ar[] = $strSymbol;
     }
-    else
-    {   // check all
-        if ($result = SqlGetTableData(TABLE_STOCK, false, false, false)) 
+    
+    // check all
+    if ($result = SqlGetTableData(TABLE_STOCK, false, false, false)) 
+    {
+        while ($stock = mysql_fetch_assoc($result)) 
         {
-            while ($stock = mysql_fetch_assoc($result)) 
+            $str = $stock['name'];
+//            if (strchr($str, $strKey) || strchr($stock['cn'], $strKey) || strchr(strtoupper($stock['us']), $strKey))
+            if (strchr($str, $strKey) || strchr($stock['cn'], $strKey))
             {
-                $str = $stock['name'];
-                if (strchr($str, $strKey) || strchr($stock['cn'], $strKey) || strchr(strtoupper($stock['us']), $strKey))
-                {
-                    $ar[] = $str;
-                    if (count($ar) > MAX_WX_STOCK)
-                    {
-                        break;
-                    }
-                }
+                $ar[] = $str;
+                if (count($ar) > MAX_WX_STOCK)	break;
             }
-            @mysql_free_result($result);
         }
+        @mysql_free_result($result);
     }
     return $ar;
 }
@@ -136,13 +131,10 @@ function _wxGetStockArray($strContents)
         if (strlen($str) > 0)
         {
             $ar = array_merge($ar, _getMatchSymbolArray($str));
-            if (count($ar) > MAX_WX_STOCK)
-            {
-                break;
-            }
+            if (count($ar) > MAX_WX_STOCK)	break;
         }
     }
-    return $ar;
+    return array_unique($ar);
 }
 
 function _getAhReferenceText($ref, $hshare_ref)
@@ -161,7 +153,7 @@ function _getStockReferenceText($ref)
 
 function _getFundReferenceText($ref)
 {
-    $ref->stock_ref->strExternalLink = GetCommonToolLink($ref->GetStockSymbol(), true);
+	if ($ref->stock_ref)	$ref->stock_ref->strExternalLink = GetCommonToolLink($ref->GetStockSymbol(), true);
     $str = TextFromFundReference($ref); 
     return $str;
 }
@@ -173,9 +165,9 @@ function _wxGetStockText($strSymbol)
     {
         return false;
     }
-    else if ($strFundSymbol = IsSinaFundSymbol($strSymbol))     
-    {   // IsSinaFundSymbol must be called before IsSinaFutureSymbol
-        $ref = new MyFundReference($strFundSymbol);
+    else if ($sym->IsSinaFund())     
+    {   // IsSinaFund must be called before IsSinaFutureSymbol
+        $ref = new MyFundReference($strSymbol);
         $str = _getFundReferenceText($ref); 
     }
     else if ($strFutureSymbol = IsSinaFutureSymbol($strSymbol))
@@ -225,19 +217,17 @@ function _wxGetUnknownStockText($strContents)
 
 function _wxGetDefaultText()
 {
-//    $str = _wxGetStockArrayText(LofGetAllSymbolArray(WX_DEFAULT_SYMBOL));
-//    return '最热门:'.WX_EOL.$str;
     return _wxGetStockArrayText(array(WX_DEFAULT_SYMBOL));
 }
 
 function _wxEmailDebug($strUserName, $strText, $strSubject)
 {   
-    EmailDebug("<font color=blue>用户:</font>$strUserName.<br />".$strText, $strSubject);
+    EmailDebug("<font color=blue>用户:</font>$strUserName.<br />$strText", $strSubject);
 }
 
 function _wxUnknownMessage($strContents, $strUserName)
 {
-    _wxEmailDebug($strUserName, "<font color=green>内容:</font>".$strContents, 'Wechat message');
+    _wxEmailDebug($strUserName, "<font color=green>内容:</font>$strContents", 'Wechat message');
     $str = $strContents.WX_EOL;
     $str .= '本公众号目前只提供股票交易和净值估算自动查询. 因为没有匹配到信息, 此消息内容已经发往support@palmmicro.com邮箱, palmmicro会尽可能用电子邮件回复.'.WX_EOL;
     return $str._wxGetDefaultText();
@@ -245,6 +235,7 @@ function _wxUnknownMessage($strContents, $strUserName)
 
 function _wxGetStockArrayText($arSymbol)
 {
+	sort($arSymbol);
     MyStockPrefetchData($arSymbol);
     $str = '';
     foreach ($arSymbol as $strSymbol)

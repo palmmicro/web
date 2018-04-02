@@ -148,9 +148,12 @@ function _selectSmaExternalLink($strSymbol)
     return GetXueQiuLink($strSymbol);
 }
 
-function _getSmaParagraphStr($strSymbol, $strDate, $arColumn, $bChinese)
+function _echoSmaParagraphBegin($stock_his, $bChinese)
 {
+	$strDate = $stock_his->strDate;
+	$strSymbol = $stock_his->GetStockSymbol();
 	$strSymbolLink = _selectSmaExternalLink($strSymbol);
+	$arColumn = GetSmaTableColumn($bChinese);
 	$strSMA = $arColumn[0];
 	$strDays = $arColumn[3];
     if ($bChinese)     
@@ -162,17 +165,12 @@ function _getSmaParagraphStr($strSymbol, $strDate, $arColumn, $bChinese)
         $str = "$strDays of $strSymbolLink trading range covered the $strSMA in past 100 trading days starting from $strDate";
     }
     $str .= ' '.UrlBuildPhpLink(STOCK_PATH.'stockhistory', 'symbol='.$strSymbol, '历史记录', 'History', $bChinese);
-    return $str;
+    EchoParagraphBegin($str);
+    return $arColumn;
 }
 
-function EchoSmaParagraph($stock_his, $ref, $callback, $callback2, $bChinese)
+function _echoSmaTable($arColumn, $stock_his, $ref, $callback, $callback2, $bChinese)
 {
-    if ($stock_his == false)              return;
-    
-	$arColumn = GetSmaTableColumn($bChinese);
-    $strSymbol = $stock_his->GetStockSymbol();
-    EchoParagraphBegin(_getSmaParagraphStr($strSymbol, $stock_his->strDate, $arColumn, $bChinese));
-
 	if ($bChinese)	$strEst = $arColumn[1];
 	else				$strEst = ' '.$arColumn[1];
 	$strNextEst = 'T+1'.$strEst;
@@ -197,7 +195,7 @@ function EchoSmaParagraph($stock_his, $ref, $callback, $callback2, $bChinese)
     
     $strWidth = strval($iWidth);
     echo <<<END
-    <TABLE borderColor=#cccccc cellSpacing=0 width=$strWidth border=1 class="text" id="{$strSymbol}sma">
+    <TABLE borderColor=#cccccc cellSpacing=0 width=$strWidth border=1 class="text" id="sma">
     <tr>
         <td class=c1 width=90 align=center>{$arColumn[0]}</td>
         <td class=c1 width=70 align=center>{$arColumn[1]}</td>
@@ -211,6 +209,25 @@ END;
 
     _echoSmaTableData($stock_his, $ref, $callback, $callback2, $bChinese);
     EchoTableEnd();
+}
+
+function EchoSmaParagraph($stock_his, $ref, $callback, $callback2, $bChinese)
+{
+    if ($stock_his == false)              return;
+	$arColumn = _echoSmaParagraphBegin($stock_his, $bChinese);
+	_echoSmaTable($arColumn, $stock_his, $ref, $callback, $callback2, $bChinese);
+    EchoParagraphEnd();
+}
+
+function EchoSmaLeverageParagraph($stock_his, $arRef, $callback, $callback2, $bChinese)
+{
+    if ($stock_his == false)              return;
+	$arColumn = _echoSmaParagraphBegin($stock_his, $bChinese);
+	foreach ($arRef as $ref)
+	{
+		_echoSmaTable($arColumn, $stock_his, $ref, $callback, $callback2, $bChinese);
+		EchoNewLine();
+	}
     EchoParagraphEnd();
 }
 

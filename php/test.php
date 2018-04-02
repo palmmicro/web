@@ -170,7 +170,9 @@ function SysInit()
 {
 //	GB2312WriteDatabase();
 //	SqlDropTable(TABLE_AH_STOCK);
-//	AhWriteDatabase();	//ahstockarray.php
+	// ahstockarray.php
+//	AhWriteDatabase();		
+//	AdrhWriteDatabase();
 }
 
     echo '<meta http-equiv="content-type" content="text/html; charset=UTF-8">';

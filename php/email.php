@@ -1,4 +1,6 @@
 <?php
+//require_once('debug.php');
+//require_once('url.php');
 require_once('internallink.php');
 
 define ('ADMIN_EMAIL', 'woody@palmmicro.com');
@@ -31,7 +33,7 @@ function EmailReport($strWho, $strText, $strSubject)
     else             $str = $strSubject;
 	$str .= '<br />'.$strText;
 
-	EmailHtml(ADMIN_EMAIL, $strSubject, $str.'<br />'.AcctGetVisitorLink(UrlGetIp(), true));
+	EmailHtml(ADMIN_EMAIL, $strSubject, $str.'<br />'.GetVisitorLink(UrlGetIp(), true));
 	if ($strWho)    EmailHtml($strWho, $strSubject, $str);
 }
 

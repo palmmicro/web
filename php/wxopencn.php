@@ -94,32 +94,7 @@ function _wxGetStockText($strSymbol)
     {
         return false;
     }
-    else if ($strFundSymbol = IsSinaFundSymbol($strSymbol))     
-    {   // IsSinaFundSymbol must be called before IsSinaFutureSymbol
-        $ref = new MyFundReference($strFundSymbol);
-        $str = _getFundReferenceText($ref); 
-    }
-    else if ($strFutureSymbol = IsSinaFutureSymbol($strSymbol))
-    {
-        $ref = new MyFutureReference($strFutureSymbol);
-        $str = _getStockReferenceText($ref); 
-    }
-    else if ($sym->IsFundA())
-    {
-        $ref = MyStockGetFundReference($strSymbol);
-        $str = _getFundReferenceText($ref); 
-    }
-    else
-    {
-        $ref = new MyStockReference($strSymbol);
-        $str = _getStockReferenceText($ref);
-        if ($str == false)
-        {
-            $ref = new MyYahooStockReference($strSymbol);
-            $str = _getStockReferenceText($ref);
-        }
-    }
-    return $str;
+    return $strSymbol;
 }
 
 // Try to stock stock information directly from stock data sources

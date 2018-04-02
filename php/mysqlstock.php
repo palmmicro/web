@@ -328,7 +328,7 @@ class MyFundReference extends FundReference
     
     var $strOfficialDate = false;
     
-    var $fFactor;
+    var $fFactor = 1.0;
     
     var $strForexSymbol;
     var $strForexSqlId;
@@ -415,7 +415,7 @@ class MyFundReference extends FundReference
         {
             return $this->stock_ref->GetStockSymbol();
         }
-        return false;
+        return parent::GetStockSymbol();
     }
 
     function GetStockId()
@@ -430,18 +430,15 @@ class MyFundReference extends FundReference
     // constructor 
     function MyFundReference($strSymbol)
     {
-        if (StockFundFromCN($strSymbol))
+        parent::FundReference($strSymbol);
+
+        if ($this->sym->IsFundA())
         {
             $this->stock_ref = new MyStockReference($strSymbol);
         }
-        parent::FundReference($strSymbol);
-        if ($fVal = SqlGetStockCalibrationFactor($this->GetStockId()))
+        if ($strStockId = $this->GetStockId())
         {
-            $this->fFactor = $fVal; 
-        }
-        else
-        {
-            $this->fFactor = 1.0; 
+        	if ($fVal = SqlGetStockCalibrationFactor($strStockId))		$this->fFactor = $fVal; 
         }
     }
 

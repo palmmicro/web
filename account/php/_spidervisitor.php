@@ -20,7 +20,7 @@ function _echoSpiderVisitorData($strIp, $iStart, $iNum, $bChinese)
                 if (in_array($strId, $arId))    $strLink = $str;
                 else
                 {
-                    $strLink = AcctGetSpiderVisitorLink($str, $bChinese);
+                    $strLink = GetSpiderVisitorLink($str, $bChinese);
                     $arId[] = $strId;
                 }
             }

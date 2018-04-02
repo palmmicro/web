@@ -239,8 +239,8 @@ function _prefetchSinaData($arSymbol)
         {   // forex
             if (ForexAndFutureNeedNewFile($strFileName, ForexGetTimezone()) == false)    continue;
         }
-        else if (IsSinaFundSymbol($str))
-        {   // fund, IsSinaFundSymbol must be called before IsSinaFutureSymbol
+        else if ($sym->IsSinaFund())
+        {   // fund, IsSinaFund must be called before IsSinaFutureSymbol
             if (IsNewDailyQuotes($sym, $strFileName, false, _GetFundQuotesYMD))       continue;
         }
         else if (IsSinaFutureSymbol($str))
@@ -275,9 +275,9 @@ function PrefetchSinaStockData($arSymbol)
             {
                 $arPrefetch[$strSymbol] = $strSymbol;
             }
-            else if ($strFundSymbol = IsSinaFundSymbol($strSymbol))
-            {   // IsSinaFundSymbol must be called before IsSinaFutureSymbol
-                $arPrefetch[$strSymbol] = $strFundSymbol;
+            else if ($sym->IsSinaFund())
+            {   // IsSinaFund must be called before IsSinaFutureSymbol
+                $arPrefetch[$strSymbol] = $strSymbol;
             }
             else if ($strFutureSymbol = IsSinaFutureSymbol($strSymbol))
             {

@@ -158,6 +158,18 @@ class StockSymbol
         return false;
     }
     
+    // f_240019
+    function IsSinaFund()
+    {
+    	$strSinaSymbol = $this->strSymbol;
+        if (substr($strSinaSymbol, 0, 2) == SINA_FUND_PREFIX)
+        {
+            $strDigit = substr($strSinaSymbol, 2);
+            return IsChineseStockDigit($strDigit);
+        }
+        return false;
+    }
+    
     // AUO, AG1712
     function IsFutureCn()
     {
@@ -172,7 +184,7 @@ class StockSymbol
 
     function SetTimeZone()
     {
-        if ($this->IsSymbolA() || $this->IsSymbolH() || $this->IsForex())
+        if ($this->IsSymbolA() || $this->IsSymbolH() || $this->IsForex() || $this->IsSinaFund())
         {
             $strTimeZone = STOCK_TIME_ZONE_CN;
         }

@@ -62,7 +62,7 @@ function _echoAccountProfileLinks($bChinese)
 
 function _echoAccountProfileEnglish($member, $strName, $strPhone, $strAddress, $strWeb, $strSignature)
 {
-    $strIp = AcctGetIpLink($member['ip'], false);
+    $strIp = GetIpLink($member['ip'], false);
     $strStatus = $member['status'];
 	if ($strStatus == '2')		$strStatusDisplay = 'Palmmicro email subscription completed.';
 	else if ($strStatus == '1')	$strStatusDisplay = 'No email subscription.';
@@ -87,7 +87,7 @@ END;
 
 function _echoAccountProfileChinese($member, $strName, $strPhone, $strAddress, $strWeb, $strSignature)
 {
-    $strIp = AcctGetIpLink($member['ip'], true);
+    $strIp = GetIpLink($member['ip'], true);
     $strStatus = $member['status'];
 	if ($strStatus == '2')		$strStatusDisplay = '接收Palmmicro邮件.';
 	else if ($strStatus == '1')	$strStatusDisplay = '不接收任何邮件.';
@@ -130,7 +130,7 @@ function _echoAccountBlogComments($strMemberId, $bChinese)
     $str = $bChinese ? '评论' : 'Comment';
     if ($iTotal > MAX_COMMENT_DISPLAY)
     {
-        $str .= ' '.AcctGetAllCommentLink($strQuery, $bChinese);
+        $str .= ' '.GetAllCommentLink($strQuery, $bChinese);
     }
     EchoParagraph($str);
     EchoCommentParagraphs($strMemberId, $strWhere, 0, MAX_COMMENT_DISPLAY, $bChinese);    

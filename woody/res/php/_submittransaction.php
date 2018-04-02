@@ -63,7 +63,7 @@ function _emailStockTransaction($strGroupItemId, $strQuantity, $strPrice, $strCo
     
     $bChinese = true;
     $strSubject = 'Stock Transaction: '.$strOperation;
-	$str = AcctGetMemberLink($strMemberId, $bChinese);
+	$str = GetMemberLink($strMemberId, $bChinese);
     $str .= '<br />Symbol: '.StockGetSingleTransactionLink($strGroupId, $strSymbol, $bChinese); 
     $str .= '<br />Quantity: '.$strQuantity; 
     $str .= '<br />Price: '.$strPrice; 

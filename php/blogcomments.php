@@ -21,7 +21,7 @@ function _echoPreviousComments($strBlogId, $strMemberId, $bChinese)
     
     if ($iTotal > MAX_COMMENT_DISPLAY)
 	{
-	    $str .= ' '.AcctGetAllCommentLink($strQuery, $bChinese);
+	    $str .= ' '.GetAllCommentLink($strQuery, $bChinese);
 	}
 	
 	echo '<div>';

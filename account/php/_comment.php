@@ -9,17 +9,17 @@ function EchoUserComment($bChinese)
     if ($str = UrlGetQueryValue('blog_id'))
     {
         $strQuery = 'blog_id='.$str;
-        $strLink = AcctGetBlogLink($str);
+        $strLink = GetBlogLink($str);
     }
     else if ($str = UrlGetQueryValue('member_id'))
     {
         $strQuery = 'member_id='.$str;
-        $strLink = AcctGetMemberLink($str, $bChinese);
+        $strLink = GetMemberLink($str, $bChinese);
     }
     else if ($str = UrlGetQueryValue('ip'))
     {
         $strQuery = 'ip='.$str;
-        $strLink = AcctGetIpLink($str, $bChinese);
+        $strLink = GetIpLink($str, $bChinese);
     }
     else
     {

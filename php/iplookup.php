@@ -180,7 +180,7 @@ function _ipLookupMemberTable($strIp, $strNewLine, $bChinese)
     {
         while ($record = mysql_fetch_assoc($result)) 
         {
-            $strLink = AcctGetMemberLink($record['id'], $bChinese);
+            $strLink = GetMemberLink($record['id'], $bChinese);
             $str .= $strNewLine.$strLink.($bChinese ? '登录于' : ' login on ').$record['login'];
         }
         @mysql_free_result($result);
@@ -204,7 +204,7 @@ function _ipLookupBlogCommentTable($strIp, $strNewLine, $bChinese)
         }
         @mysql_free_result($result);
     }
-    $str .= $strNewLine.AcctGetAllCommentLink($strQuery, $bChinese).$strNewLine;
+    $str .= $strNewLine.GetAllCommentLink($strQuery, $bChinese).$strNewLine;
     return $str;
 }
 

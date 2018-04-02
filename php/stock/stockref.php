@@ -386,8 +386,8 @@ class StockReference
         $this->strName = str_replace(COMMA_REPLACEMENT, ',', RemoveDoubleQuotationMarks($ar[3]));
         
         $this->strPrice = $ar[0];
-        $this->strPrevPrice = strval(floatval($this->strPrice) / (1 + _convertYahooPercentage($ar[2])));
-//        $this->strPrevPrice = $ar[5];         // p
+//        $this->strPrevPrice = strval(floatval($this->strPrice) / (1 + _convertYahooPercentage($ar[2])));
+        $this->strPrevPrice = $ar[5];         // p
         $this->strDate = _convertYahooDate($ar[4]);
         $this->strTime = _convertYahooTime($ar[1]);
         if ($this->sym->IsSymbolUS())

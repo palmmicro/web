@@ -57,6 +57,11 @@ function GetAHCompareLink($bChinese)
     return _stockBuildLink('ahcompare', false, 'AH对比', 'AH Compare', $bChinese);
 }
 
+function GetAdrHCompareLink($bChinese)
+{
+    return _stockBuildLink('adrhcompare', false, 'ADR和H对比', 'ADR&H Compare', $bChinese);
+}
+
 function StockGetGroupLink($bChinese)
 {
     $strQuery = false; 

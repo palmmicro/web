@@ -82,55 +82,37 @@ function SqlGetAhArray()
 	return SqlGetStockPairArray(TABLE_AH_STOCK);
 }
 
+function SqlGetAdrhArray()
+{
+	return SqlGetStockPairArray(TABLE_ADRH_STOCK);
+}
+
 function SqlGetAhPairRatio($ref_a)
 {
 	return SqlGetStockPairRatio(TABLE_AH_STOCK, $ref_a->GetStockId());
 }
 
-function SqlGetAhPairIdById($strStockIdA)
+function SqlGetPair($strTableName, $strSymbol, $callback)
 {
-	return SqlGetStockPairId(TABLE_AH_STOCK, $strStockIdA);
-}
-
-function SqlGetAhPairId($strSymbolA)
-{
-	if ($strStockIdA = SqlGetStockId($strSymbolA))
+	if ($strStockId = SqlGetStockId($strSymbol))
 	{
-		return SqlGetAhPairIdById($strStockIdA);
+//		if ($strPairId = SqlGetStockPairId($strTableName, $strStockId))
+		if ($strPairId = call_user_func($callback, $strTableName, $strStockId))
+		{
+			return SqlGetStockSymbol($strPairId);
+		}
 	}
 	return false;
 }
 
 function SqlGetAhPair($strSymbolA)
 {
-	if ($strStockId = SqlGetAhPairId($strSymbolA))
-	{
-		return SqlGetStockSymbol($strStockId);
-	}
-	return false;
-}
-
-function SqlGetHaPairIdById($strStockIdH)
-{
-	return SqlGetStockPairStockId(TABLE_AH_STOCK, $strStockIdH);
-}
-
-function SqlGetHaPairId($strSymbolH)
-{
-	if ($strStockIdH = SqlGetStockId($strSymbolH))
-	{
-		return SqlGetHaPairIdById($strStockIdH);
-	}
-	return false;
+	return SqlGetPair(TABLE_AH_STOCK, $strSymbolA, SqlGetStockPairId);
 }
 
 function SqlGetHaPair($strSymbolH)
 {
-	if ($strStockId = SqlGetHaPairId($strSymbolH))
-	{
-		return SqlGetStockSymbol($strStockId);
-	}
-	return false;
+	return SqlGetPair(TABLE_AH_STOCK, $strSymbolH, SqlGetStockPairStockId);
 }
 
 ?>

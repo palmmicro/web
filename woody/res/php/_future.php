@@ -205,8 +205,7 @@ function EchoAll($bChinese)
     
     EchoReferenceParagraph($group->arDisplayRef, $bChinese);
     _echoIntegerParagraph($group, $bChinese);
-    EchoSmaParagraph($group->etf_his, $group->ref_3x, _estLeverage, false, $bChinese);
-    EchoSmaParagraph($group->etf_his, $group->ref_3xShort, _estLeverage, false, $bChinese);
+    EchoSmaLeverageParagraph($group->etf_his, array($group->ref_3x, $group->ref_3xShort), _estLeverage, false, $bChinese);
 
     if ($group->strGroupId) 
     {

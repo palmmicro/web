@@ -5,7 +5,7 @@ require_once('_editprofileform.php');
 function _emailProfile($strMemberId, $strName, $strPhone, $strAddress, $strWeb, $strSignature, $strStatus)
 {
     $strSubject = 'Profile Changed';
-	$str = AcctGetMemberLink($strMemberId, true);
+	$str = GetMemberLink($strMemberId, true);
     $str .= '<br />Name: '.$strName; 
     $str .= '<br />Phone: '.$strPhone; 
     $str .= '<br />Address: '.$strAddress; 

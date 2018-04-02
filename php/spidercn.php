@@ -11,8 +11,9 @@ require_once('sql/sqlipaddress.php');
 
 function _getSymbolOutput($strSymbol)
 {
+    $sym = new StockSymbol($strSymbol);
     $str = $strSymbol.'_net_value=';
-    if (StockFundFromCN($strSymbol))
+    if ($sym->IsFundA())
     {
         $ref = MyStockGetFundReference($strSymbol);
         $str .= $ref->strPrevPrice.','.$ref->strDate.',';   // T-1 net value;

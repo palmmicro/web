@@ -1,6 +1,7 @@
 <?php
+require_once('stocklink.php');
 
-function AhGetArray()
+function _ahGetArray()
 {
     $ar = array('SZ000002' => '02202',
                   'SZ000039' => '02039',
@@ -101,7 +102,7 @@ function AhGetArray()
 
 function AhWriteDatabase()
 {
-    $ar = AhGetArray();
+    $ar = _ahGetArray();
 	SqlCreateStockPairTable(TABLE_AH_STOCK);
     foreach ($ar as $strA => $strH)
     {
@@ -111,16 +112,45 @@ function AhWriteDatabase()
     }
 }
 
-function AhGetSymbol($strSymbolA)
+function _getRatioAdrH($strSymbolAdr)
 {
-    $ar = AhGetArray();
-    return $ar[$strSymbolA];
+    if ($strSymbolAdr == 'ACH')         return 25.0;
+    else if ($strSymbolAdr == 'CEA')   return 50.0;
+    else if ($strSymbolAdr == 'CHU')   return 10.0;
+    else if ($strSymbolAdr == 'GSH')   return 50.0;
+    else if ($strSymbolAdr == 'LFC')   return 5.0;
+    else if ($strSymbolAdr == 'ZNH')   return 50.0;
+    else 
+        return 100.0;
 }
 
-function AhGetRatio($strSymbolA)
+function _getAdrSymbolA($strSymbolAdr)
 {
-    if (strcmp($strSymbolA, 'SH600050') == 0)         return 0.332;
-    return 1.0;
+    if ($strSymbolAdr == 'ACH')         return 'SH601600';
+    else if ($strSymbolAdr == 'CEA')   return 'SH600115';
+    else if ($strSymbolAdr == 'CHU')   return 'SH600050';
+    else if ($strSymbolAdr == 'GSH')   return 'SH601333';
+    else if ($strSymbolAdr == 'LFC')   return 'SH601628';
+    else if ($strSymbolAdr == 'PTR')   return 'SH601857';
+    else if ($strSymbolAdr == 'SHI')   return 'SH600688';
+    else if ($strSymbolAdr == 'SNP')   return 'SH600028';
+    else if ($strSymbolAdr == 'ZNH')   return 'SH600029';
+    else 
+        return false;
+}
+
+function AdrhWriteDatabase()
+{
+	SqlCreateStockPairTable(TABLE_ADRH_STOCK);
+    $ar = AdrGetSymbolArray();
+    foreach ($ar as $str)
+    {
+    	$strAdr = strtoupper($str);
+    	$strA = _getAdrSymbolA($strAdr);
+    	$strH = SqlGetAhPair($strA);
+    	$strRatio = strval(_getRatioAdrH($strAdr));
+    	SqlInsertStockPair(TABLE_ADRH_STOCK, SqlGetStockId($strAdr), SqlGetStockId($strH), $strRatio);
+    }
 }
 
 ?>

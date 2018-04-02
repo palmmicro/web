@@ -7,7 +7,7 @@ function _emailFundPurchase($strMemberId, $strGroupId, $strFundId, $strArbitrage
 {
     $bChinese = true;
     $strSubject = 'Arbitrage Fund Purchase';
-	$str = AcctGetMemberLink($strMemberId, $bChinese);
+	$str = GetMemberLink($strMemberId, $bChinese);
     $str .= '<br />Fund: '.StockGetSingleTransactionLink($strGroupId, SqlGetStockSymbol($strFundId), $bChinese); 
     $str .= '<br />Arbitrage: '.StockGetSingleTransactionLink($strGroupId, SqlGetStockSymbol($strArbitrageId), $bChinese); 
     EmailDebug($str, $strSubject); 

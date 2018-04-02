@@ -69,7 +69,7 @@ function _emailStockGroup($strMemberId, $strOperation, $strGroupName, $strSymbol
 {
     $bChinese = true;
     $strSubject = 'Stock Group: '.$strOperation;
-	$str = AcctGetMemberLink($strMemberId, $bChinese);
+	$str = GetMemberLink($strMemberId, $bChinese);
 
 //	$strMemberEmail = SqlGetEmailById($strMemberId);
     $strGroupId = SqlGetStockGroupId($strGroupName, $strMemberId);

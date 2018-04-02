@@ -131,10 +131,7 @@ function EchoAll($bChinese)
     {
         $his = $group->stock_his;
     }
-    foreach ($group->ar_leverage_ref as $leverage_ref)
-    {
-        EchoSmaParagraph($his, $leverage_ref, _estLeverage, false, $bChinese);
-    }
+    EchoSmaLeverageParagraph($his, $group->ar_leverage_ref, _estLeverage, false, $bChinese);
     
     if (count($group->ar_leverage_ref) == 1)
     {

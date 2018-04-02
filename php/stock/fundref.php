@@ -30,10 +30,12 @@ class FundReference extends StockReference
     function FundReference($strSymbol) 
     {
         $this->_newStockSymbol($strSymbol);
-        $strFundSymbol = $this->sym->GetSinaFundSymbol();
+        $sym = $this->sym;
+        if ($sym->IsSinaFund())	$strFundSymbol = $strSymbol;
+        else						$strFundSymbol = $sym->GetSinaFundSymbol();
         
         $this->strFileName = DebugGetSinaFileName($strFundSymbol);
-        $ar = explodeQuote(_getSinaFundStr($this->sym, $strFundSymbol, $this->strFileName));
+        $ar = explodeQuote(_getSinaFundStr($sym, $strFundSymbol, $this->strFileName));
         if (count($ar) < 4)
         {
             $this->bHasData = false;

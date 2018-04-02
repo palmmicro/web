@@ -22,8 +22,8 @@ function VisitorLogin($bChinese)
 	SwitchSetSess();
 	if ($strMemberId = AcctIsLogin()) 
 	{
-	    $strLink = AcctGetMemberLink($strMemberId, $bChinese);
-	    $strLoginLink = AcctGetLoginLink('切换', 'Change', $bChinese);
+	    $strLink = GetMemberLink($strMemberId, $bChinese);
+	    $strLoginLink = GetLoginLink('切换', 'Change', $bChinese);
 		if ($bChinese)
 		{
 		    _echoLogin($strLoginLink.'登录账号'.$strLink);
@@ -35,7 +35,7 @@ function VisitorLogin($bChinese)
 	}
 	else
 	{
-	    $strLoginLink = AcctGetLoginLink('登录', 'login', $bChinese);
+	    $strLoginLink = GetLoginLink('登录', 'login', $bChinese);
 	    $strRegisterLink = UrlBuildPhpLink('/account/register', false, '注册', 'register', $bChinese);
 		if ($bChinese)
 		{

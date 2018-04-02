@@ -1,19 +1,18 @@
 <?php
-require_once('url.php');
+//require_once('url.php');
 require_once('debug.php');
 require_once('switch.php');
 require_once('sql.php');
 require_once('iplookup.php');
+require_once('email.php');
 require_once('ui/table.php');
 
-require_once('sql/sqlmember.php');
-require_once('sql/sqlblog.php');
+//require_once('sql/sqlmember.php');
+//require_once('sql/sqlblog.php');
 require_once('sql/sqlipaddress.php');
-require_once('sql/sqlvisitor.php');
+//require_once('sql/sqlvisitor.php');
 require_once('sql/sqlstockgroup.php');
 require_once('sql/sqlfundpurchase.php');
-
-require_once('email.php');
 
 function AcctDeleteBlogVisitor($strIp, $strIpId, $iCount)
 {

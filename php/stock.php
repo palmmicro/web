@@ -38,12 +38,6 @@ function StockBuildChineseSymbol($strDigit)
     return SHANGHAI_PREFIX.$strDigit;
 }            
 
-function StockFundFromCN($strSymbol)
-{
-    $sym = new StockSymbol($strSymbol);
-    return $sym->IsFundA();
-}
-
 function StockGetSymbol($str)
 {
     return strtoupper(trim($str));
@@ -63,22 +57,6 @@ function StockGetSymbolArray($strSymbols)
 {
     $ar = explode(',', $strSymbols);
     return StockGetArraySymbol($ar);
-}
-
-function IsSinaFundSymbol($strSinaSymbol)
-{
-    if ($strSinaSymbol)
-    {
-        if (substr($strSinaSymbol, 0, 2) == SINA_FUND_PREFIX)
-        {
-            $strDigit = substr($strSinaSymbol, 2);
-            if (IsChineseStockDigit($strDigit))
-            {
-                return StockBuildChineseSymbol($strDigit);
-            }
-        }
-    }
-    return false;
 }
 
 function IsSinaFutureCnSymbol($strSymbol)
