@@ -158,9 +158,9 @@ function GetReferenceRateForexLink($strSymbol)
     return DebugGetExternalLink($strHttp, $strSymbol);
 }
 
-function GetQqAdrLink($strSymbol)
+function GetAdrLink($strSymbol)
 {
-    $strHttp = 'http://stockhtm.finance.qq.com/hk/hklist/adr.htm';
+    $strHttp = 'http://www.aastocks.com/tc/market/adr.aspx';
     return DebugGetExternalLink($strHttp, $strSymbol);
 }
 

@@ -151,7 +151,7 @@ function in_arrayPairTrading($strSymbol)
 
 function AdrGetSymbolArray()
 {
-    return array('ach', 'cea', 'chu', 'gsh', 'lfc', 'ptr', 'shi', 'snp', 'znh');
+    return array('ach', 'cea', 'chu', 'gsh', 'hnp', 'lfc', 'ptr', 'shi', 'snp', 'znh');
 }
 
 function in_arrayAdr($strSymbol)

@@ -7,6 +7,8 @@ require_once('/php/ui/htmlelement.php');
 
 define ('STOCK_OPTION_ADJCLOSE_CN', '根据分红更新复权收盘价');
 
+define ('STOCK_OPTION_ADR_CN', '修改ADR代码');
+
 define ('STOCK_OPTION_EDIT', 'Edit Stock Description');
 define ('STOCK_OPTION_EDIT_CN', '修改股票说明');
 
@@ -62,11 +64,28 @@ function _getStockOptionAmount($strSymbol)
     return FUND_PURCHASE_AMOUNT;
 }
 
+function _getStockOptionAdr($strSymbol)
+{
+	if ($strAdr = SqlGetHadrPair($strSymbol))
+	{
+		if ($fRatio = SqlGetStockPairRatio(TABLE_ADRH_STOCK, SqlGetStockId($strAdr)))
+		{
+			return $strAdr.'/'.strval($fRatio);
+		}
+		return $strAdr;
+	}
+	return '';
+}
+
 function _getStockOptionVal($strSubmit, $strSymbol)
 {
 	if ($strSubmit == STOCK_OPTION_ADJCLOSE_CN)
 	{
 		return '0.01';
+	}
+	else if ($strSubmit == STOCK_OPTION_ADR_CN)
+	{
+		return _getStockOptionAdr($strSymbol);
 	}
 	else if ($strSubmit == STOCK_OPTION_EDIT_CN || $strSubmit == STOCK_OPTION_EDIT)
 	{

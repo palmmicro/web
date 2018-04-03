@@ -196,7 +196,7 @@ function _estLeverage($fEtf1x, $leverage_ref)
 {
     global $group;
     if ($fEtf1x)	return $leverage_ref->EstByEtf1x($fEtf1x, $group->etf_ref);
-    return $leverage_ref->GetStockSymbol();
+    return $leverage_ref;
 }
 
 function EchoAll($bChinese)

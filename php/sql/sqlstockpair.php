@@ -28,6 +28,12 @@ function SqlInsertStockPair($strTableName, $strStockId, $strPairId, $strRatio)
 	return SqlDieByQuery($strQry, $strTableName.' insert stock pair failed');
 }
 
+function SqlUpdateStockPair($strTableName, $strId, $strStockId, $strPairId, $strRatio)
+{
+	$strQry = "UPDATE $strTableName SET stock_id = '$strStockId', pair_id = '$strPairId', ratio = '$strRatio' WHERE id = '$strId' LIMIT 1";
+	return SqlDieByQuery($strQry, $strTableName.' update stock pair failed');
+}
+
 function SqlGetStockPair($strTableName, $strStockId)
 {
     return SqlGetUniqueTableData($strTableName, _SqlBuildWhere_stock($strStockId));

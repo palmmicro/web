@@ -14,7 +14,7 @@ require_once('sql/sqlstock.php');
 require_once('sql/sqlspider.php');
 require_once('sql/sqlweixin.php');
 
-define('WX_DEBUG_VER', '版本772');
+define('WX_DEBUG_VER', '版本773');
 
 define('WX_DEFAULT_SYMBOL', 'SZ162411');
 define('MAX_WX_STOCK', 20);
@@ -269,6 +269,7 @@ function _updateWeixinTables($strText, $strUserName)
 
 function WxOnText($strText, $strUserName)
 {
+	$strText = UrlCleanString($strText);
     _updateWeixinTables($strText, $strUserName);
     
     $strContents = strtoupper($strText);

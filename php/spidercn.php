@@ -63,6 +63,7 @@ function _main()
     $strOutput = '';
     if ($strList = UrlGetQueryValue('list'))
     {
+    	$strList = UrlCleanString($strList);
         _updateSpiderTables($strList);
         $arSymbol = StockGetSymbolArray($strList);
         MyStockPrefetchData($arSymbol);

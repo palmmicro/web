@@ -139,7 +139,7 @@ function EtfEstLof($fEtf, $lof_ref)
 {
     global $group;
     if ($fEtf)		return $group->ref->_estLofByEtf($fEtf, $group->ref->fCNY);
-    return $lof_ref->GetStockSymbol();
+    return $lof_ref;
 }
 
 ?>

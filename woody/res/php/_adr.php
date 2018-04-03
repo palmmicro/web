@@ -3,33 +3,6 @@ require_once('_stock.php');
 require_once('/php/ui/smaparagraph.php');
 require_once('/php/ui/tradingparagraph.php');
 
-function _getRatioAdrH($strSymbolAdr)
-{
-    if ($strSymbolAdr == 'ACH')         return 25.0;
-    else if ($strSymbolAdr == 'CEA')   return 50.0;
-    else if ($strSymbolAdr == 'CHU')   return 10.0;
-    else if ($strSymbolAdr == 'GSH')   return 50.0;
-    else if ($strSymbolAdr == 'LFC')   return 5.0;
-    else if ($strSymbolAdr == 'ZNH')   return 50.0;
-    else 
-        return 100.0;
-}
-
-function _getAdrSymbolA($strSymbolAdr)
-{
-    if ($strSymbolAdr == 'ACH')         return 'SH601600';
-    else if ($strSymbolAdr == 'CEA')   return 'SH600115';
-    else if ($strSymbolAdr == 'CHU')   return 'SH600050';
-    else if ($strSymbolAdr == 'GSH')   return 'SH601333';
-    else if ($strSymbolAdr == 'LFC')   return 'SH601628';
-    else if ($strSymbolAdr == 'PTR')   return 'SH601857';
-    else if ($strSymbolAdr == 'SHI')   return 'SH600688';
-    else if ($strSymbolAdr == 'SNP')   return 'SH600028';
-    else if ($strSymbolAdr == 'ZNH')   return 'SH600029';
-    else 
-        return false;
-}
-
 class _AdrGroup extends _MyStockGroup 
 {
     var $cn_ref;
@@ -56,17 +29,18 @@ class _AdrGroup extends _MyStockGroup
     var $hk_convert;
     
     // constructor
-    function _AdrGroup($strSymbolAdr) 
+    function _AdrGroup($strSymbolAdr)
     {
-        $strSymbolA = _getAdrSymbolA($strSymbolAdr);
-        MyStockPrefetchDataAndForex(array($strSymbolAdr, $strSymbolA));
+        MyStockPrefetchDataAndForex(array($strSymbolAdr));
         
         $this->uscny_ref = new CNYReference('USCNY');
         $this->hkcny_ref = new CNYReference('HKCNY');
         
+    	$strSymbolH = SqlGetAdrhPair($strSymbolAdr);
+        $strSymbolA = SqlGetHaPair($strSymbolH);
         $this->cn_ref = new MyStockReference($strSymbolA);
-        $this->hk_ref = new MyHShareReference(SqlGetAhPair($strSymbolA), $this->cn_ref);
         $this->us_ref = new MyStockReference($strSymbolAdr);
+        $this->hk_ref = new MyHAdrReference($strSymbolH, $this->cn_ref, $this->us_ref);
 
         $this->hk_his = new StockHistory($this->hk_ref);
         $this->cn_his = new StockHistory($this->cn_ref);
@@ -78,7 +52,7 @@ class _AdrGroup extends _MyStockGroup
         $this->arStockRef = array($this->us_ref, $this->hk_ref, $this->cn_ref);
         $this->arDisplayRef = array_merge($this->arStockRef, array($this->uscny_ref, $this->hkcny_ref));
         
-        $this->fRatioAdrH = _getRatioAdrH($strSymbolAdr);
+        $this->fRatioAdrH = $this->hk_ref->fAdrRatio;
         $this->fRatioAH = $this->hk_ref->fRatio;
 
         parent::_MyStockGroup($this->arStockRef);
@@ -176,26 +150,6 @@ function _echoRefParagraph($group, $bChinese)
     EchoParagraphEnd();
 }
 
-function ConvertH2USD($fPriceH, $us_ref)
-{
-    global $group;
-    if ($fPriceH)		return _convertH2USD($fPriceH, $group);
-    return $us_ref->GetStockSymbol();
-}
-
-function ConvertA2USD($fPriceA, $us_ref)
-{
-    global $group;
-    if ($fPriceA)		return _convertA2USD($fPriceA, $group);
-    return $us_ref->GetStockSymbol();
-}
-
-function _echoAvgParagraph($group, $bChinese)
-{
-    EchoSmaParagraph($group->hk_his, $group->us_ref, ConvertH2USD, false, $bChinese);
-    EchoSmaParagraph($group->cn_his, $group->us_ref, ConvertA2USD, false, $bChinese);
-}
-
 function _echoArbitrageParagraph($group, $bChinese)
 {
     EchoParagraphBegin($bChinese ? '策略分析' : 'Arbitrage analysis');
@@ -246,7 +200,9 @@ function AdrEchoAll($bChinese)
     
     _echoRefParagraph($group, $bChinese);
 	EchoAhTradingParagraph($group->hk_ref, $bChinese);
-    _echoAvgParagraph($group, $bChinese);
+    EchoMyStockSmaParagraph($group->cn_ref, $group->hk_ref, $group->hk_ref, $bChinese);
+    EchoMyStockSmaParagraph($group->hk_ref, $group->hk_ref, $group->hk_ref, $bChinese);
+    EchoMyStockSmaParagraph($group->us_ref, $group->hk_ref, $group->hk_ref, $bChinese);
 
     if ($group->strGroupId) 
     {

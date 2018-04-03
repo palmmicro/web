@@ -1,5 +1,6 @@
 <?php
 require_once('/php/account.php');
+require_once('/php/mystock.php');
 require_once('/php/sql/sqlstock.php');
 require_once('_editstockoptionform.php');
 
@@ -65,6 +66,22 @@ function _updateFundPurchaseAmount($strEmail, $strSymbol, $strVal)
 	}
 }
 
+function _updateStockOptionAdr($strSymbol, $strVal)
+{
+	$strPairId = SqlGetStockId($strSymbol);
+	$ar = explode('/', $strVal);
+	$adr_ref = new MyStockReference(StockGetSymbol($ar[0])); 
+	$strStockId = $adr_ref->GetStockId();
+    if ($record = SqlGetStockPair(TABLE_ADRH_STOCK, $strStockId))
+    {
+    	SqlUpdateStockPair(TABLE_ADRH_STOCK, $record['id'], $strStockId, $strPairId, $ar[1]);
+    }
+    else
+    {
+    	SqlInsertStockPair(TABLE_ADRH_STOCK, $strStockId, $strPairId, $ar[1]);
+    }
+}
+
 	AcctAuth();
 	if (isset($_POST['submit']))
 	{
@@ -76,17 +93,15 @@ function _updateFundPurchaseAmount($strEmail, $strSymbol, $strVal)
 		$strSubmit = $_POST['submit'];
 		if ($strSubmit == STOCK_OPTION_ADJCLOSE_CN)
 		{
-			if ($bAdmin)
-			{
-				_updateStockHistoryAdjCloseByDividend($strSymbol, $strDate, $strVal);
-			}
+			if ($bAdmin)	_updateStockHistoryAdjCloseByDividend($strSymbol, $strDate, $strVal);
+		}
+		else if ($strSubmit == STOCK_OPTION_ADR_CN)
+		{
+			if ($bAdmin)	_updateStockOptionAdr($strSymbol, $strVal);
 		}
 		else if ($strSubmit == STOCK_OPTION_EDIT_CN || $strSubmit == STOCK_OPTION_EDIT)
 		{
-			if ($bAdmin)
-			{
-				_updateStockDescription($strSubmit, $strSymbol, $strVal);
-			}
+			if ($bAdmin)	_updateStockDescription($strSubmit, $strSymbol, $strVal);
 		}
 		else if ($strSubmit == STOCK_OPTION_REVERSESPLIT_CN || $strSubmit == STOCK_OPTION_REVERSESPLIT)
 		{

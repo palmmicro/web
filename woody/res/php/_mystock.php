@@ -54,35 +54,6 @@ function _echoMyStockTransactions($strMemberId, $ref, $bChinese)
 	}
 }
 
-function _callbackSmaA($fEst, $ref)
-{
-	if ($fEst)		return $ref->EstFromCny($fEst);
-	return $ref->GetStockSymbol();
-}
-
-function _callbackSmaH($fEst, $ref)
-{
-	if ($fEst)		return $ref->EstToCny($fEst);
-	return $ref->a_ref->GetStockSymbol();
-}
-
-function _echoMyStockSma($ref, $hshare_ref, $bChinese)
-{
-	$callback = false;
-	if ($hshare_ref)
-	{
-   		if ($ref->sym->IsSymbolA())
-   		{
-   			$callback = _callbackSmaA;
-   		}
-   		else
-   		{
-   			$callback = _callbackSmaH;
-   		}
-	}
-	EchoSmaParagraph(new StockHistory($ref), $hshare_ref, $callback, false, $bChinese);
-}
-
 function _setMyStockLink($ref, $strPageSymbol, $bChinese)
 {
 	$strSymbol = $ref->GetStockSymbol();
@@ -135,30 +106,35 @@ function _echoMyStock($strSymbol, $bChinese)
        	}
     }
     
-    _echoMyStockSma($ref, $hshare_ref, $bChinese);
+    EchoMyStockSmaParagraph($ref, $hshare_ref, $hadr_ref, $bChinese);
     if ($strMemberId = AcctIsLogin())
     {
     	EchoStockGroupParagraph($bChinese);	
         _echoMyStockTransactions($strMemberId, $ref, $bChinese);
     }
+    return $sym;
 }
 
-function _echoMyStockLinks($bChinese)
+function _echoMyStockLinks($sym, $bChinese)
 {
 	$strQuery = UrlGetQueryString();
-    $strDescription = UrlBuildPhpLink(STOCK_PATH.'editstock', $strQuery, STOCK_OPTION_EDIT_CN, STOCK_OPTION_EDIT, $bChinese);
-    $strReverseSplit = UrlBuildPhpLink(STOCK_PATH.'editstockreversesplit', $strQuery, STOCK_OPTION_REVERSESPLIT_CN, STOCK_OPTION_REVERSESPLIT, $bChinese);
-    EchoParagraph($strDescription.' '.$strReverseSplit);
+    $str = UrlBuildPhpLink(STOCK_PATH.'editstock', $strQuery, STOCK_OPTION_EDIT_CN, STOCK_OPTION_EDIT, $bChinese);
+    $str .= ' '.UrlBuildPhpLink(STOCK_PATH.'editstockreversesplit', $strQuery, STOCK_OPTION_REVERSESPLIT_CN, STOCK_OPTION_REVERSESPLIT, $bChinese);
+    if ($sym->IsSymbolH())
+    {
+    	if ($bChinese)	$str .= ' '.UrlGetPhpLink(STOCK_PATH.'editstockadr', $strQuery, STOCK_OPTION_ADR_CN, true);
+    }
+    EchoParagraph($str);
 }
 
 function EchoMyStock($bChinese)
 {
     if ($str = UrlGetQueryValue('symbol'))
     {
-        _echoMyStock(StockGetSymbol($str), $bChinese);
+        $sym = _echoMyStock(StockGetSymbol($str), $bChinese);
         if (AcctIsAdmin())
         {
-        	_echoMyStockLinks($bChinese);
+        	_echoMyStockLinks($sym, $bChinese);
         }
     }
     EchoPromotionHead('', $bChinese);

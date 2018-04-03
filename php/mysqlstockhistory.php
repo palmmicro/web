@@ -292,8 +292,8 @@ class StockHistory
     			$afLow[] = floatval($history['low']) - $fDiff;
     			
     			$strYMD = $history['date'];
-    			if (_isWeekEnd($strYMD, $strNextDayYMD))    $afWeeklyClose[] = $fClose;
-    			if (_isMonthEnd($strYMD, $strNextDayYMD))   $afMonthlyClose[] = $fClose;
+    			if (_isWeekEnd($strYMD, $strNextDayYMD))	$afWeeklyClose[] = $fClose;
+    			if (_isMonthEnd($strYMD, $strNextDayYMD))	$afMonthlyClose[] = $fClose;
     			$strNextDayYMD = $strYMD;
     		}
     		@mysql_free_result($result);

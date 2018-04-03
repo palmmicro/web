@@ -45,7 +45,7 @@ function _selectAdrhCompareLink($strSymbol, $bChinese)
 {
     if ($strSymbol == UrlGetQueryValue('symbol'))
     {   // in mystock.php
-        return GetQqAdrLink($strSymbol);
+        return GetAdrLink($strSymbol);
     }
     return GetMyStockLink($strSymbol, $bChinese);
 }
