@@ -69,7 +69,9 @@ function StockGetGroupLink($bChinese)
     {
         $strQuery = 'email='.$strEmail; 
     }
-    return _stockBuildLink('mystockgroup', $strQuery, '股票分组', 'Stock Groups', $bChinese);
+//    return _stockBuildLink('mystockgroup', $strQuery, '股票分组', 'Stock Groups', $bChinese);
+    $arColumn = GetStockGroupTableColumn($bChinese);
+    return _stockGetLink('mystockgroup', $strQuery, $arColumn[0], $bChinese);
 }
 
 function GetCategorySoftwareLinks($arTitle, $strCategory, $bChinese)

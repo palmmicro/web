@@ -36,8 +36,8 @@ function GetStockGroupTableColumn($bChinese)
 	$arReference = GetReferenceTableColumn($bChinese);
 	$strSymbol = $arReference[0];
 	
-    if ($bChinese)	$arColumn = array('分组名称', $strSymbol, '操作');
-    else		        $arColumn = array('Group Name', $strSymbol.'s', 'Operation');
+    if ($bChinese)	$arColumn = array('股票分组', $strSymbol, '操作');
+    else		        $arColumn = array('Stock Group', $strSymbol.'s', 'Operation');
     return $arColumn;
 }
 

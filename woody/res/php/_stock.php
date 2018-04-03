@@ -284,7 +284,7 @@ function _echoGroupPortfolioParagraph($group, $bChinese)
 {
     if ($group->GetTotalRecords() > 0)
 	{
-		EchoParagraphBegin('');
+		EchoParagraphBegin(GetMyPortfolioLink($bChinese));
 	    _EchoPortfolioTableBegin($bChinese);    
         foreach ($group->arStockTransaction as $trans)
         {
