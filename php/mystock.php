@@ -30,11 +30,24 @@ function MyStockPrefetchData($ar)
         {
             if ($sym->IsSymbolA())
             {
-                if ($strSymbolH = SqlGetAhPair($strSymbol))		$arAll[] = $strSymbolH; 
+                if ($strSymbolH = SqlGetAhPair($strSymbol))	
+                {
+                	$arAll[] = $strSymbolH;
+                	if ($strSymbolAdr = SqlGetHadrPair($strSymbolH))	$arAll[] = $strSymbolAdr;
+                }
             }
             else if ($sym->IsSymbolH())
             {
-                if ($strSymbolA = SqlGetHaPair($strSymbol))		$arAll[] = $strSymbolA;
+                if ($strSymbolA = SqlGetHaPair($strSymbol))			$arAll[] = $strSymbolA;
+                if ($strSymbolAdr = SqlGetHadrPair($strSymbol))	$arAll[] = $strSymbolAdr;
+            }
+            else
+            {
+            	if ($strSymbolH = SqlGetAdrhPair($strSymbol))
+            	{
+                	$arAll[] = $strSymbolH;
+                	if ($strSymbolA = SqlGetHaPair($strSymbolH))	$arAll[] = $strSymbolA;
+                }
             }
             $arAll[] = $strSymbol; 
         }
@@ -71,22 +84,56 @@ function MyStockGetFundReference($strSymbol)
     return $ref;
 }
 
-function MyStockGetHShareReference($sym)
+function MyStockGetHAdrReference($sym)
 {
 	$strSymbol = $sym->strSymbol;
    	if ($sym->IsSymbolA())
    	{
     	if ($strSymbolH = SqlGetAhPair($strSymbol))
     	{
-    		return (new MyHShareReference($strSymbolH, new MyStockReference($strSymbol)));
+    		$a_ref = new MyStockReference($strSymbol);
+    		if ($strSymbolAdr = SqlGetHadrPair($strSymbolH))
+    		{
+    			$hadr_ref = new MyHAdrReference($strSymbolH, $a_ref, new MyStockReference($strSymbolAdr));
+    			return array($a_ref, $hadr_ref, $hadr_ref);
+    		}
+    		else	return array($a_ref, new MyHShareReference($strSymbolH, $a_ref), false);
       	}
     }
     else if ($sym->IsSymbolH())
     {
-        if ($strSymbolA = SqlGetHaPair($strSymbol))	
+        if ($strSymbolAdr = SqlGetHadrPair($strSymbol))	
         {
-            return (new MyHShareReference($strSymbol, new MyStockReference($strSymbolA)));
+    		$adr_ref = new MyStockReference($strSymbolAdr);
+    		if ($strSymbolA = SqlGetHaPair($strSymbol))	
+    		{
+    			$hadr_ref = new MyHAdrReference($strSymbol, new MyStockReference($strSymbolA), $adr_ref);
+    			return array($hadr_ref, $hadr_ref, $hadr_ref);
+    		}
+            else
+            {
+            	$hadr_ref = new MyHAdrReference($strSymbol, false, $adr_ref);
+            	return array($hadr_ref, false, $hadr_ref);
+            }
         }
+        else if ($strSymbolA = SqlGetHaPair($strSymbol))	
+        {
+        	$hshare_ref = new MyHShareReference($strSymbol, new MyStockReference($strSymbolA));
+            return array($hshare_ref, $hshare_ref, false);
+        }
+    }
+   	else 	// if ($sym->IsSymbolUS())
+   	{
+    	if ($strSymbolH = SqlGetAdrhPair($strSymbol))
+    	{
+    		$adr_ref = new MyStockReference($strSymbol);
+    		if ($strSymbolA = SqlGetHaPair($strSymbolH))
+    		{
+    			$hadr_ref = new MyHAdrReference($strSymbolH, new MyStockReference($strSymbolA), $adr_ref);
+    			return array($adr_ref, $hadr_ref, $hadr_ref);
+    		}
+    		else	return array($adr_ref, false, new MyHAdrReference($strSymbolH, false, $adr_ref));
+      	}
     }
     return false;
 }

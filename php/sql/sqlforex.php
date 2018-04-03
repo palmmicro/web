@@ -89,4 +89,9 @@ function SqlGetHKCNY()
 	return SqlGetForexNow(SqlGetStockId('HKCNY'));
 }
 
+function SqlGetUSCNY()
+{
+	return SqlGetForexNow(SqlGetStockId('USCNY'));
+}
+
 ?>

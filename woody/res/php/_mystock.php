@@ -83,12 +83,20 @@ function _echoMyStockSma($ref, $hshare_ref, $bChinese)
 	EchoSmaParagraph(new StockHistory($ref), $hshare_ref, $callback, false, $bChinese);
 }
 
+function _setMyStockLink($ref, $strPageSymbol, $bChinese)
+{
+	$strSymbol = $ref->GetStockSymbol();
+	if ($strPageSymbol != $strSymbol)	$ref->strExternalLink = GetMyStockLink($strSymbol, $bChinese);
+}
+
 function _echoMyStock($strSymbol, $bChinese)
 {
-    MyStockPrefetchData(array($strSymbol));
+    MyStockPrefetchDataAndForex(array($strSymbol));
     
+    $uscny_ref = new CNYReference('USCNY');
     $hkcny_ref = new CNYReference('HKCNY');
     $hshare_ref = false;
+    $hadr_ref = false;
     	
     $sym = new StockSymbol($strSymbol);
     if ($sym->IsFundA())
@@ -98,12 +106,8 @@ function _echoMyStock($strSymbol, $bChinese)
     }
     else
     {
-    	if ($hshare_ref = MyStockGetHShareReference($sym))
-    	{
-    		if ($hshare_ref->GetStockSymbol() == $strSymbol)	$ref = $hshare_ref;
-    		else										   			$ref = $hshare_ref->a_ref;
-    	}
-        else	$ref = new MyStockReference($strSymbol);
+    	if ($ref_ar = MyStockGetHAdrReference($sym))		list($ref, $hshare_ref, $hadr_ref) = $ref_ar;
+        else												$ref = new MyStockReference($strSymbol);
     }
     EchoReferenceParagraph(array($ref), $bChinese);
     
@@ -114,7 +118,16 @@ function _echoMyStock($strSymbol, $bChinese)
     }
     else
     {
-        if ($hshare_ref)	EchoAhParagraph(array($hshare_ref), $hkcny_ref, $bChinese);
+        if ($hshare_ref)
+        {
+			_setMyStockLink($hshare_ref, $strSymbol, $bChinese);
+        	EchoAhParagraph(array($hshare_ref), $hkcny_ref, $bChinese);
+        }
+        if ($hadr_ref)
+        {
+			_setMyStockLink($hadr_ref, $strSymbol, $bChinese);
+        	EchoAdrhParagraph(array($hadr_ref), $uscny_ref, $hkcny_ref, $bChinese);
+        }
    		if ($sym->IsSymbolA())
    		{
    			if ($hshare_ref)	EchoAhTradingParagraph($hshare_ref, $bChinese);

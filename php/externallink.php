@@ -121,7 +121,7 @@ function GetSinaN8n8Link($sym)
 }
 
 // https://www.jisilu.cn/data/ha_history/600585
-function GetJisiluAHLink($strSymbol)
+function GetJisiluAhLink($strSymbol)
 {
     $sym = new StockSymbol($strSymbol);
     if ($sym->IsSymbolA())
@@ -155,6 +155,12 @@ function GetEastMoneyForexLink($strSymbol)
 function GetReferenceRateForexLink($strSymbol)
 {
     $strHttp = 'http://www.chinamoney.com.cn/index.html';
+    return DebugGetExternalLink($strHttp, $strSymbol);
+}
+
+function GetQqAdrLink($strSymbol)
+{
+    $strHttp = 'http://stockhtm.finance.qq.com/hk/hklist/adr.htm';
     return DebugGetExternalLink($strHttp, $strSymbol);
 }
 

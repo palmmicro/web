@@ -52,12 +52,12 @@ function GetMyPortfolioLink($bChinese)
     return _stockBuildLink('myportfolio', false, '持仓盈亏', 'My Portfolio', $bChinese);
 }
 
-function GetAHCompareLink($bChinese)
+function GetAhCompareLink($bChinese)
 {
     return _stockBuildLink('ahcompare', false, 'AH对比', 'AH Compare', $bChinese);
 }
 
-function GetAdrHCompareLink($bChinese)
+function GetAdrhCompareLink($bChinese)
 {
     return _stockBuildLink('adrhcompare', false, 'ADR和H对比', 'ADR&H Compare', $bChinese);
 }
@@ -234,16 +234,6 @@ function SelectGroupInternalLink($strGroupId, $bChinese)
         $strLink = UrlGetPhpLink(STOCK_PATH.'mystockgroup', 'groupid='.$strGroupId, $strGroupName, $bChinese);
 	}
     return $strLink; 
-}
-
-
-function SelectAHCompareLink($strSymbol, $bChinese)
-{
-    if ($strSymbol == UrlGetQueryValue('symbol'))
-    {   // in mystock.php
-        return GetJisiluAHLink($strSymbol);
-    }
-    return GetMyStockLink($strSymbol, $bChinese);
 }
 
 ?>

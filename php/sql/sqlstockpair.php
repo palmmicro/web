@@ -87,9 +87,14 @@ function SqlGetAdrhArray()
 	return SqlGetStockPairArray(TABLE_ADRH_STOCK);
 }
 
-function SqlGetAhPairRatio($ref_a)
+function SqlGetAhPairRatio($a_ref)
 {
-	return SqlGetStockPairRatio(TABLE_AH_STOCK, $ref_a->GetStockId());
+	return SqlGetStockPairRatio(TABLE_AH_STOCK, $a_ref->GetStockId());
+}
+
+function SqlGetAdrhPairRatio($adr_ref)
+{
+	return SqlGetStockPairRatio(TABLE_ADRH_STOCK, $adr_ref->GetStockId());
 }
 
 function SqlGetPair($strTableName, $strSymbol, $callback)
@@ -110,9 +115,19 @@ function SqlGetAhPair($strSymbolA)
 	return SqlGetPair(TABLE_AH_STOCK, $strSymbolA, SqlGetStockPairId);
 }
 
+function SqlGetAdrhPair($strSymbolAdr)
+{
+	return SqlGetPair(TABLE_ADRH_STOCK, $strSymbolAdr, SqlGetStockPairId);
+}
+
 function SqlGetHaPair($strSymbolH)
 {
 	return SqlGetPair(TABLE_AH_STOCK, $strSymbolH, SqlGetStockPairStockId);
+}
+
+function SqlGetHadrPair($strSymbolH)
+{
+	return SqlGetPair(TABLE_ADRH_STOCK, $strSymbolH, SqlGetStockPairStockId);
 }
 
 ?>

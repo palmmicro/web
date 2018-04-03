@@ -36,14 +36,16 @@ function in_array_ref($strSymbol, $arRef)
 
 function _echoStockGroupArray($arStock, $bChinese)
 {
-    MyStockPrefetchData($arStock);
+    MyStockPrefetchDataAndForex($arStock);
 
+    $uscny_ref = new CNYReference('USCNY');
     $hkcny_ref = new CNYReference('HKCNY');
     
     $arRef = array();
     $arTransactionRef = array();
     $arFund = array();
     $arHShareRef = array();
+    $arHAdrRef = array();
     foreach ($arStock as $strSymbol)
     {
         $sym = new StockSymbol($strSymbol);
@@ -56,13 +58,17 @@ function _echoStockGroupArray($arStock, $bChinese)
        	}
        	else
        	{
-       		if ($hshare_ref = MyStockGetHShareReference($sym))
+       		if ($ref_ar = MyStockGetHAdrReference($sym))
        		{
-       			$strSymbolH = $hshare_ref->GetStockSymbol();
-       			if ($strSymbolH == $strSymbol)	$ref = $hshare_ref;
-       			else								$ref = $hshare_ref->a_ref;
-
-       			if (in_array_ref($strSymbolH, $arHShareRef) == false)		$arHShareRef[] = $hshare_ref;
+       			list($ref, $hshare_ref, $hadr_ref) = $ref_ar;
+       			if ($hshare_ref)
+       			{
+       				if (in_array_ref($hshare_ref->GetStockSymbol(), $arHShareRef) == false)		$arHShareRef[] = $hshare_ref;
+       			}
+       			if ($hadr_ref)
+       			{
+       				if (in_array_ref($hadr_ref->GetStockSymbol(), $arHAdrRef) == false)		$arHAdrRef[] = $hadr_ref;
+       			}
        		}
        		else	$ref = new MyStockReference($strSymbol);
         }
@@ -71,6 +77,7 @@ function _echoStockGroupArray($arStock, $bChinese)
         if ($strInternalLink != $strSymbol)
         {
             $ref->strExternalLink = $strInternalLink;
+            $ref->extended_ref = false;	// do not display extended trading information in adrcn.php page
         }
 
         $arRef[] = $ref;
@@ -83,6 +90,7 @@ function _echoStockGroupArray($arStock, $bChinese)
     EchoReferenceParagraph($arRef, $bChinese);
     if (count($arFund) > 0)     EchoFundArrayEstParagraph($arFund, '', $bChinese);
     if (count($arHShareRef) > 0)	EchoAhParagraph($arHShareRef, $hkcny_ref, $bChinese);
+    if (count($arHAdrRef) > 0)	EchoAdrhParagraph($arHAdrRef, $uscny_ref, $hkcny_ref, $bChinese);
     
     return $arTransactionRef;
 }

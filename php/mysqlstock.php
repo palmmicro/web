@@ -267,14 +267,17 @@ class MyHShareReference extends MyStockReference
 {
     var $a_ref;
 
-    var $fRatio;
+    var $fRatio = 1.0;
     var $fHKDCNY;
     
     // constructor 
     function MyHShareReference($strSymbol, $a_ref) 
     {
     	$this->a_ref = $a_ref;
-    	$this->fRatio = SqlGetAhPairRatio($a_ref);
+    	if ($a_ref)
+    	{
+    		$this->fRatio = SqlGetAhPairRatio($a_ref);
+    	}
     	$this->fHKDCNY = SqlGetHKCNY();
         parent::MyStockReference($strSymbol);
     }
@@ -296,7 +299,57 @@ class MyHShareReference extends MyStockReference
     
     function GetAhRatio()
     {
-        return $this->a_ref->fPrice / $this->GetCnyPrice();
+    	if ($this->a_ref)
+    	{
+    		return $this->a_ref->fPrice / $this->GetCnyPrice();
+    	}
+    	return 1.0;
+    }
+}
+
+class MyHAdrReference extends MyHShareReference
+{
+    var $adr_ref;
+
+    var $fAdrRatio = 1.0;
+    var $fHKDUSD;
+    var $fUSDCNY;
+    
+    // constructor 
+    function MyHAdrReference($strSymbol, $a_ref, $adr_ref) 
+    {
+    	$this->adr_ref = $adr_ref;
+    	if ($adr_ref)
+    	{
+    		$this->fAdrRatio = SqlGetAdrhPairRatio($adr_ref);
+    	}
+    	$this->fUSDCNY = SqlGetUSCNY();
+        parent::MyHShareReference($strSymbol, $a_ref);
+        $this->fHKDUSD = $this->fHKDCNY / $this->fUSDCNY;
+    }
+    
+    function EstFromUsd($fEst)
+    {
+    	return $fEst / ($this->fAdrRatio * $this->fHKDUSD);
+    }
+
+    function EstToUsd($fEst)
+    {
+    	return $fEst * ($this->fAdrRatio * $this->fHKDUSD);
+    }
+    
+    function GetUsdPrice()
+    {
+    	return $this->EstToUsd($this->fPrice);
+    }
+    
+    function GetAdrhRatio()
+    {
+    	if ($this->adr_ref)
+    	{
+    		return $this->adr_ref->fPrice / $this->GetUsdPrice();
+    	}
+    	return 1.0;
     }
 }
 

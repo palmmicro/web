@@ -14,7 +14,7 @@ require_once('sql/sqlstock.php');
 require_once('sql/sqlspider.php');
 require_once('sql/sqlweixin.php');
 
-define('WX_DEBUG_VER', '版本769');
+define('WX_DEBUG_VER', '版本772');
 
 define('WX_DEFAULT_SYMBOL', 'SZ162411');
 define('MAX_WX_STOCK', 20);
@@ -137,10 +137,10 @@ function _wxGetStockArray($strContents)
     return array_unique($ar);
 }
 
-function _getAhReferenceText($ref, $hshare_ref)
+function _getAhReferenceText($ref, $hshare_ref, $hadr_ref)
 {
     $ref->strExternalLink = $ref->GetStockSymbol();
-    $str = TextFromAhReference($ref, $hshare_ref);
+    $str = TextFromAhReference($ref, $hshare_ref, $hadr_ref);
     return $str;
 }
 
@@ -182,10 +182,10 @@ function _wxGetStockText($strSymbol)
     }
     else
     {
-    	if ($hshare_ref = MyStockGetHShareReference($sym))
+    	if ($ref_ar = MyStockGetHAdrReference($sym))
     	{
-    		if ($hshare_ref->GetStockSymbol() == $strSymbol)	$str = _getAhReferenceText($hshare_ref, $hshare_ref);
-    		else										   			$str = _getAhReferenceText($hshare_ref->a_ref, $hshare_ref);
+    		list($ref, $hshare_ref, $hadr_ref) = $ref_ar;
+			$str = _getAhReferenceText($ref, $hshare_ref, $hadr_ref);
     	}
         else
         {

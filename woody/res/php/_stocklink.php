@@ -101,7 +101,7 @@ function _getPersonalLinks($strMemberId, $bChinese)
 function EchoStockGroupLinks($bChinese)
 {
     $str .= HTML_NEW_LINE.UrlGetCategoryLinks(STOCK_PATH, GetMenuArray($bChinese), $bChinese);
-    $str .= HTML_NEW_LINE.StockGetGroupLink($bChinese).' '.GetAHCompareLink($bChinese).' '.GetAdrHCompareLink($bChinese);
+    $str .= HTML_NEW_LINE.StockGetGroupLink($bChinese).' '.GetAhCompareLink($bChinese).' '.GetAdrhCompareLink($bChinese);
     $str .= HTML_NEW_LINE.GetMyPortfolioLink($bChinese);
     if ($strMemberId = AcctIsLogin())
     {
