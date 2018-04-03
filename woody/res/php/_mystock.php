@@ -101,7 +101,7 @@ function _echoMyStock($strSymbol, $bChinese)
         }
    		if ($sym->IsSymbolA())
    		{
-   			if ($hshare_ref)	EchoAhTradingParagraph($hshare_ref, $bChinese);
+   			if ($hshare_ref)	EchoAhTradingParagraph($hshare_ref, $hadr_ref, $bChinese);
    			else 				EchoTradingParagraph($ref, $bChinese);
        	}
     }

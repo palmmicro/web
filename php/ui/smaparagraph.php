@@ -257,21 +257,13 @@ function _callbackHAdrSmaH($fEst, $ref)
 
 function _callbackHAdrSmaUsd($fEst, $ref)
 {
-	if ($fEst)
-	{
-		$fHkd = $ref->EstFromUsd($fEst);
-		return $ref->EstToCny($fHkd);
-	}
+	if ($fEst)		return $ref->FromUsdToCny($fEst);
 	return $ref->a_ref;
 }
 
 function _callbackHAdrSmaCny($fEst, $ref)
 {
-	if ($fEst)
-	{
-		$fHkd = $ref->EstFromCny($fEst);
-		return $ref->EstToUsd($fHkd);
-	}
+	if ($fEst)		return $ref->FromCnyToUsd($fEst);
 	return $ref->adr_ref;
 }
 

@@ -199,7 +199,7 @@ function AdrEchoAll($bChinese)
     global $group;
     
     _echoRefParagraph($group, $bChinese);
-	EchoAhTradingParagraph($group->hk_ref, $bChinese);
+	EchoAhTradingParagraph($group->hk_ref, $group->hk_ref, $bChinese);
     EchoMyStockSmaParagraph($group->cn_ref, $group->hk_ref, $group->hk_ref, $bChinese);
     EchoMyStockSmaParagraph($group->hk_ref, $group->hk_ref, $group->hk_ref, $bChinese);
     EchoMyStockSmaParagraph($group->us_ref, $group->hk_ref, $group->hk_ref, $bChinese);

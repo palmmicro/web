@@ -54,7 +54,7 @@ function GetMyPortfolioLink($bChinese)
 
 function GetAhCompareLink($bChinese)
 {
-    return _stockBuildLink('ahcompare', false, 'AH对比', 'AH Compare', $bChinese);
+    return _stockBuildLink('ahcompare', false, 'AH对比', 'AH Compare ', $bChinese);
 }
 
 function GetAdrhCompareLink($bChinese)

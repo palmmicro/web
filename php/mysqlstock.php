@@ -338,6 +338,18 @@ class MyHAdrReference extends MyHShareReference
     	return $fEst * ($this->fAdrRatio * $this->fHKDUSD);
     }
     
+    function FromUsdToCny($fEst)
+    {
+		$fHkd = $this->EstFromUsd($fEst);
+		return $this->EstToCny($fHkd);
+	}
+
+	function FromCnyToUsd($fEst, $ref)
+	{
+		$fHkd = $this->EstFromCny($fEst);
+		return $this->EstToUsd($fHkd);
+	}
+    
     function GetUsdPrice()
     {
     	return $this->EstToUsd($this->fPrice);

@@ -63,23 +63,24 @@ function _echoTradingTableData($ref, $fEstPrice, $fEstPrice2, $fEstPrice3, $call
 
 function _echoTradingTable($arColumn, $ref, $fEstPrice, $fEstPrice2, $fEstPrice3, $callback, $bChinese)
 {
-	$iWidth = 280;
+	$iWidth = 250;
+	$iEstWidth = 90;
 	
     $strColumnEx = '';
 	if ($fEstPrice)
 	{
-    	$strColumnEx .= GetTableColumn(80, $arColumn[3]);
-    	$iWidth += 80;
+    	$strColumnEx .= GetTableColumn($iEstWidth, $arColumn[3]);
+    	$iWidth += $iEstWidth;
 	}
 	if ($fEstPrice2)
 	{
-    	$strColumnEx .= GetTableColumn(80, $arColumn[4]);
-    	$iWidth += 80;
+    	$strColumnEx .= GetTableColumn($iEstWidth, $arColumn[4]);
+    	$iWidth += $iEstWidth;
 	}
 	if ($fEstPrice3)
 	{
-    	$strColumnEx .= GetTableColumn(80, $arColumn[5]);
-    	$iWidth += 80;
+    	$strColumnEx .= GetTableColumn($iEstWidth, $arColumn[5]);
+    	$iWidth += $iEstWidth;
 	}
 		
     $strUserDefined = '';  
@@ -94,7 +95,7 @@ function _echoTradingTable($arColumn, $ref, $fEstPrice, $fEstPrice2, $fEstPrice3
     <TABLE borderColor=#cccccc cellSpacing=0 width=$strWidth border=1 class="text" id="trading">
     <tr>
         <td class=c1 width=60 align=center>{$arColumn[0]}</td>
-        <td class=c1 width=120 align=center>{$arColumn[1]}</td>
+        <td class=c1 width=90 align=center>{$arColumn[1]}</td>
         <td class=c1 width=100 align=center>{$arColumn[2]}</td>
         $strColumnEx
         $strUserDefined
@@ -151,7 +152,7 @@ function EchoFundTradingParagraph($fund, $callback, $bChinese)
     EchoParagraphEnd();
 }
 
-function EchoAhTradingParagraph($hshare_ref, $bChinese)
+function EchoAhTradingParagraph($hshare_ref, $hadr_ref, $bChinese)
 {
 	$ref = $hshare_ref->a_ref;
     $strSymbol = GetMyStockRefLink($ref, $bChinese); 
@@ -162,20 +163,26 @@ function EchoAhTradingParagraph($hshare_ref, $bChinese)
 	$strPremium = $arSma[2];
 	
     $arColumn = _getTradingTableColumn($bChinese);
-    $arColumn[] = $strPremium;
-    $arColumn[] = '';
-    $arColumn[] = '';
-    $strPrice = _getTradingParagraphStr($arColumn, $bChinese);
-    if ($bChinese)     
+    $arColumn[] = GetAhCompareLink($bChinese).$strPremium;
+    if ($hadr_ref)
     {
-        $str = "{$strSymbol}{$strPrice}相对于{$strSymbolH}交易价格{$strPriceH}港币的{$strPremium}";
+    	$strAdrLink = GetMyStockRefLink($hadr_ref->adr_ref, $bChinese);
+    	if ($bChinese == false)	$strAdrLink .= ' ';
+    	$arColumn[] = $strAdrLink.$strPremium;
+    	$fVal = $hadr_ref->FromUsdToCny($hadr_ref->adr_ref->fPrice);
     }
     else
     {
-        $str = "The $strPremium of $strSymbol $strPrice comparing with $strSymbolH trading price $strPriceH HKD";
+    	$arColumn[] = '';
+    	$fVal = false;
     }
+    $arColumn[] = '';
+    $strPrice = _getTradingParagraphStr($arColumn, $bChinese);
+    if ($bChinese)     $str = "{$strSymbol}{$strPrice}相对于{$strSymbolH}交易价格{$strPriceH}港币的{$strPremium}";
+    else				 $str = "The $strPremium of $strSymbol $strPrice comparing with $strSymbolH trading price $strPriceH HKD";
+        
     EchoParagraphBegin($str);
-    _echoTradingTable($arColumn, $ref, $hshare_ref->GetCnyPrice(), false, false, false, $bChinese); 
+    _echoTradingTable($arColumn, $ref, $hshare_ref->GetCnyPrice(), $fVal, false, false, $bChinese); 
     EchoParagraphEnd();
 }
 
