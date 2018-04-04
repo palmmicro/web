@@ -1,6 +1,7 @@
 <?php
 require_once('_stock.php');
 require_once('_editgroupform.php');
+//require_once('/php/ui/referenceparagraph.php');
 require_once('/php/ui/ahparagraph.php');
 require_once('/php/ui/fundestparagraph.php');
 require_once('/php/ui/stockgroupparagraph.php');
@@ -95,20 +96,6 @@ function _echoStockGroupArray($arStock, $bChinese)
     return $arTransactionRef;
 }
 
-function _echoEditGroupParagraph($strGroupId, $bChinese)
-{
-    $str = StockGetEditGroupLink($strGroupId, $bChinese);
-    if ($bChinese)
-    {
-        $str .= '分组';
-    }
-    else
-    {
-        $str .= ' Group';
-    }
-    EchoParagraph($str);
-}
-
 function _echoMyStockGroup($strGroupId, $bChinese)
 {
     global $group;  // in _stocklink.php $group = false;
@@ -117,13 +104,12 @@ function _echoMyStockGroup($strGroupId, $bChinese)
 //    sort($arStock);
 
     $arTransactionRef = _echoStockGroupArray($arStock, $bChinese); 
-    if (IsStockGroupReadOnly($strGroupId) == false)
+    if (StockGroupIsReadOnly($strGroupId) == false)
     {
         $group = new MyStockGroup($strGroupId, $arTransactionRef);
         _EchoTransactionParagraph($group, $bChinese);
-        _echoEditGroupParagraph($strGroupId, $bChinese);
     }
-    EchoParagraph(StockGroupGetStockLinks($strGroupId, $bChinese));
+    EchoStockGroupParagraph($bChinese);
 }
 
 function MyStockGroupEchoAll($bChinese)

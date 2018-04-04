@@ -1,5 +1,6 @@
 <?php
 require_once('_stock.php');
+require_once('/php/ui/referenceparagraph.php');
 require_once('/php/ui/smaparagraph.php');
 
 function _getPairTradingIndex($strSymbol)

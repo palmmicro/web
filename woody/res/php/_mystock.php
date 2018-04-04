@@ -2,11 +2,13 @@
 require_once('_stock.php');
 require_once('_editmergeform.php');
 require_once('_editstockoptionform.php');
+//require_once('/php/ui/referenceparagraph.php');
 require_once('/php/ui/ahparagraph.php');
 require_once('/php/ui/smaparagraph.php');
 require_once('/php/ui/fundestparagraph.php');
 require_once('/php/ui/tradingparagraph.php');
-require_once('/php/ui/stockgroupparagraph.php');
+//require_once('/php/ui/stockgroupparagraph.php');
+require_once('/php/ui/transactionparagraph.php');
 
 function _checkStockTransaction($strGroupId, $ref)
 {
@@ -40,8 +42,8 @@ function _echoMyStockTransactions($strMemberId, $ref, $bChinese)
 	if ($iCount == 0)    return;
 	foreach ($arGroup as $strGroupId => $strGroupItemId)
 	{
-	    $result = SqlGetStockTransactionByGroupItemId($strGroupItemId, 0, MAX_TRANSACTION_DISPLAY); 
-	    EchoStockTransactionParagraph($strGroupId, $ref, $result, $bChinese);
+		$strGroupLink = SelectGroupInternalLink($strGroupId, $bChinese);
+		EchoTransactionParagraph($strGroupLink.' ', $strGroupId, $ref, $bChinese);
 	}
 	
 	if ($iCount == 1)

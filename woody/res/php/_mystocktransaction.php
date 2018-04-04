@@ -13,16 +13,14 @@ function MyStockTransactionEchoAll($bChinese)
         {   // Display transactions of a stock
             $strAllLink = StockGetAllTransactionLink($strGroupId, false, $bChinese);
             $strStockLinks = StockGetGroupTransactionLinks($strGroupId, $strSymbol, $bChinese);
+            EchoParagraph($strGroupLink.' '.$strAllLink.' '.$strStockLinks);
             
             $ref = new MyStockReference($strSymbol);
-            $strStockId = $ref->strSqlId;
-            $iTotal = SqlCountStockTransaction($strGroupId, $strStockId);
-            $strNavLink = _GetNavLink('mystocktransaction', 'groupid='.$strGroupId.'&symbol='.$strSymbol, $iTotal, $iStart, $iNum, $bChinese);
-            
-            EchoParagraphBegin($strGroupLink.' '.$strAllLink.' '.$strStockLinks.'<br />'.$strNavLink);
-            if ($result = SqlGetStockTransaction($strGroupId, $strStockId, $iStart, $iNum)) 
+            $iTotal = SqlCountStockTransaction($strGroupId, $ref->GetStockId());
+            if ($iTotal > 0)
             {
-                EchoStockTransactionTable($strGroupId, $ref, $result, $bChinese);
+            	$strNavLink = _GetNavLink('mystocktransaction', 'groupid='.$strGroupId.'&symbol='.$strSymbol, $iTotal, $iStart, $iNum, $bChinese);
+            	EchoTransactionFullParagraph($strNavLink, $strGroupId, $ref, $iStart, $iNum, $bChinese);
             }
         }
         else
@@ -32,18 +30,15 @@ function MyStockTransactionEchoAll($bChinese)
             
             $strCombineLink = UrlBuildPhpLink(STOCK_PATH.'combinetransaction', 'groupid='.$strGroupId, '合并记录', 'Combined Records', $bChinese);
             $strStockLinks = StockGetGroupTransactionLinks($strGroupId, '', $bChinese);
+            EchoParagraph($strGroupLink.' '.$strCombineLink.' '.$strStockLinks);
             
             $iTotal = SqlCountStockTransactionByGroupId($strGroupId);
-            $strNavLink = _GetNavLink('mystocktransaction', 'groupid='.$strGroupId, $iTotal, $iStart, $iNum, $bChinese);
-            EchoParagraphBegin($strGroupLink.' '.$strCombineLink.' '.$strStockLinks.'<br />'.$strNavLink);
-            
             if ($iTotal > 0)
             {
-            	$group = new MyStockGroup($strGroupId, array());
-            	_EchoTransactionTable($group, $iStart, $iNum, $bChinese);
+            	$strNavLink = _GetNavLink('mystocktransaction', 'groupid='.$strGroupId, $iTotal, $iStart, $iNum, $bChinese);
+            	EchoTransactionFullParagraph($strNavLink, $strGroupId, false, $iStart, $iNum, $bChinese);
             }
         }
-        EchoParagraphEnd();
     }
     EchoPromotionHead('transaction', $bChinese);
 }

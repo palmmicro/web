@@ -1,4 +1,5 @@
 <?php
+require_once('referenceparagraph.php');
 
 function _selectAhCompareLink($strSymbol, $bChinese)
 {

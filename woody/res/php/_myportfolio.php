@@ -1,5 +1,6 @@
 <?php
 require_once('_stock.php');
+require_once('/php/ui/referenceparagraph.php');
 
 class _MyPortfolio extends StockGroup
 {

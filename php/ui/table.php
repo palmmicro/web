@@ -1,6 +1,7 @@
 <?php
+require_once('plaintext.php');
 
-define ('TABLE_COMMON_DISPLAY', 8);
+define ('TABLE_COMMON_DISPLAY', 10);
 
 // aqua, black, blue, fuchsia, gray, green, lime, maroon, navy, olive, purple, red, silver, teal, white, yellow
 function GetReferenceTableColumn($bChinese)			

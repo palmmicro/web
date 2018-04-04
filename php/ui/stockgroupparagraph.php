@@ -1,5 +1,11 @@
 <?php
 
+function StockGroupIsReadOnly($strGroupId)
+{
+    $strMemberId = SqlGetStockGroupMemberId($strGroupId);
+    return AcctIsReadOnly($strMemberId);
+}
+
 function StockGroupHasSymbol($strGroupId, $strStockId)
 {
     if ($result = SqlGetStockGroupItemByGroupId($strGroupId))
@@ -16,7 +22,7 @@ function StockGroupHasSymbol($strGroupId, $strStockId)
 	return false;
 }
 
-function StockGroupGetStockLinks($strGroupId, $bChinese)
+function _stockGroupGetStockLinks($strGroupId, $bChinese)
 {
     $strStocks = '';
 	$arStock = SqlGetStocksArray($strGroupId);
@@ -28,40 +34,44 @@ function StockGroupGetStockLinks($strGroupId, $bChinese)
 	return $strStocks;
 }
 
-function _echoStockGroupTableItem($strGroupId, $bReadOnly, $bChinese)
+function _echoStockGroupTableItem($strGroupId, $bChinese)
 {
-    if ($bReadOnly)
+    if (StockGroupIsReadOnly($strGroupId))
     {
-        $strDelete = '';
-        $strEdit = '';
+        $strEditDelete = '';
     }
     else
     {
-        $strDelete = UrlGetDeleteLink(STOCK_PHP_PATH.'_submitgroup.php?delete='.$strGroupId, '股票分组和相关交易记录', 'stock group and related stock transactions', $bChinese);
-        $strEdit = StockGetEditGroupLink($strGroupId, $bChinese);
+        $strEditDelete = UrlGetDeleteLink(STOCK_PHP_PATH.'_submitgroup.php?delete='.$strGroupId, '股票分组和相关交易记录', 'stock group and related stock transactions', $bChinese);
+        $strEditDelete .= ' '.StockGetEditGroupLink($strGroupId, $bChinese);
     }
     
     $strLink = SelectGroupInternalLink($strGroupId, $bChinese);
-    $strStocks = StockGroupGetStockLinks($strGroupId, $bChinese);
-
+    $strStocks = _stockGroupGetStockLinks($strGroupId, $bChinese);
+    
     echo <<<END
     <tr>
         <td class=c1>$strLink</td>
         <td class=c1>$strStocks</td>
-        <td class=c1>$strEdit $strDelete</td>
+        <td class=c1>$strEditDelete</td>
     </tr>
 END;
 }
 
 function _echoStockGroupTableData($bChinese)
 {
+    if ($strGroupId = UrlGetQueryValue('groupid'))
+    {
+		_echoStockGroupTableItem($strGroupId, $bChinese);
+		return;
+    }
+
     if ($strSymbol = UrlGetQueryValue('symbol'))
     {
     	$strStockId = SqlGetStockId($strSymbol);
     }
     
     $strMemberId = AcctGetMemberId();
-    $bReadOnly = AcctIsReadOnly($strMemberId);
 	if ($result = SqlGetStockGroupByMemberId($strMemberId)) 
 	{
 		while ($stockgroup = mysql_fetch_assoc($result)) 
@@ -69,7 +79,7 @@ function _echoStockGroupTableData($bChinese)
 			$strGroupId = $stockgroup['id'];
 			if (($strSymbol == false) || StockGroupHasSymbol($strGroupId, $strStockId))
 			{
-				_echoStockGroupTableItem($strGroupId, $bReadOnly, $bChinese);
+				_echoStockGroupTableItem($strGroupId, $bChinese);
 			}
 		}
 		@mysql_free_result($result);

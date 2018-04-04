@@ -1,7 +1,7 @@
 <?php
 require_once('/php/account.php');
 require_once('/php/mystock.php');
-require_once('/php/ui/stocktable.php');
+require_once('/php/ui/stockgroupparagraph.php');
 require_once('_editgroupform.php');
 
 function _adjustLofPriceFactor($strLofSymbol, $fLof, $fEst, $fCNY)
@@ -61,7 +61,7 @@ function _onAdjust($strSymbols)
 
 function _onDelete($strGroupId)
 {
-    if (IsStockGroupReadOnly($strGroupId))  return;
+    if (StockGroupIsReadOnly($strGroupId))  return;
     SqlDeleteStockGroup($strGroupId);
 }
 
@@ -108,7 +108,7 @@ function _sqlEditStockGroup($strGroupId, $strGroupName, $strSymbols)
 
 function _onEdit($strMemberId, $strGroupId, $strGroupName, $strSymbols)
 {
-    if (IsStockGroupReadOnly($strGroupId))  return;
+    if (StockGroupIsReadOnly($strGroupId))  return;
 
     $str = SqlGetStockGroupName($strGroupId);
     if (IsGroupNameReadOnly($str))  $strGroupName = $str;

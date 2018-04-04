@@ -3,6 +3,7 @@ require_once('/php/account.php');
 require_once('/php/stocklink.php');
 require_once('_stock.php');
 require_once('_edittransactionform.php');
+require_once('/php/ui/stockgroupparagraph.php');
 
 function _getStockQuantity()
 {
@@ -40,7 +41,7 @@ function _getStockCost()
 function _canModifyStockTransaction($strGroupItemId)
 {
     $groupitem = SqlGetStockGroupItemById($strGroupItemId);
-	if (IsStockGroupReadOnly($groupitem['group_id']))    return false;
+	if (StockGroupIsReadOnly($groupitem['group_id']))    return false;
 	
 	return true;
 }

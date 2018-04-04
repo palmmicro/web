@@ -101,10 +101,17 @@ function StockGetTransactionLink($strGroupId, $strSymbol, $strDisplay, $bChinese
     return UrlGetPhpLink(STOCK_PATH.'mystocktransaction', $strQuery, $strDisplay, $bChinese);
 }
 
-function StockGetAllTransactionLink($strGroupId, $strSymbol, $bChinese)
+function StockGetAllTransactionLink($strGroupId, $ref, $bChinese)
 {
-//    return UrlBuildPhpLink(STOCK_PATH.'mystocktransaction', 'groupid='.$strGroupId.'&symbol='.$strSymbol, '全部记录', 'All Records', $bChinese);
-    return StockGetTransactionLink($strGroupId, $strSymbol, $bChinese ? '全部记录' : 'All Records', $bChinese);
+	if ($ref)
+	{
+		$strSymbol = $ref->GetStockSymbol();
+	}
+	else
+	{
+		$strSymbol = false;
+	}
+    return StockGetTransactionLink($strGroupId, $strSymbol, $bChinese ? '交易记录' : 'Stock Transactions', $bChinese);
 }
 
 function StockGetSingleTransactionLink($strGroupId, $strSymbol, $bChinese)
@@ -233,7 +240,7 @@ function SelectGroupInternalLink($strGroupId, $bChinese)
 	$strLink = SelectSymbolInternalLink($strGroupName, $bChinese);
 	if ($strLink == $strGroupName)
 	{
-        $strLink = UrlGetPhpLink(STOCK_PATH.'mystockgroup', 'groupid='.$strGroupId, $strGroupName, $bChinese);
+        $strLink = _stockGetLink('mystockgroup', 'groupid='.$strGroupId, $strGroupName, $bChinese);
 	}
     return $strLink; 
 }

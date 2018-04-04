@@ -355,6 +355,15 @@
 <br />最后解出结果.
 </p>
 
+<h3>美股<a name="adrhcompare">ADR</a>跟港股H股对比</h3>
+<p>2018年4月4日
+<br />雪球创始人方三文, 自称<?php EchoXueqieId('1955602780', '不明真相的群众'); ?>, 平时总是苦口婆心的把盈亏同源放在嘴边, 鼓动大家通过雪球资管做资产配置.
+但是他却认为自己对互联网企业有深刻理解, 在推销自己的私募的时候总是鼓吹腾讯和FB, 又把盈亏同源抛在脑后了.
+<br />最近2个月腾讯结束了屡创新高的行情, 开始跟FB一起下跌, 引发了大家抄底雪球方丈的热情.
+不仅<a href="../../res/mystockcn.php?symbol=00700">港股腾讯</a>每天巨量交易, 就连它在美股粉单市场的<a href="#adr">ADR</a>代码<a href="../../res/mystockcn.php?symbol=TCEHY">TCEHY</a>在雪球上都热闹非凡.
+这吸引了我的注意力, 然后发现港股还有其它不少股票也有美股粉单市场的ADR, 于是我按照原来<a href="#ahcompare">AH对比</a>的套路增加了<a href="../../res/adrhcomparecn.php">ADR和H对比</a>页面蹭一下热度.
+</p>
+
 </div>
 
 <?php _LayoutBottom(true); ?>

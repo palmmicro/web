@@ -1,7 +1,8 @@
 <?php
 require_once('_resstock.php');
 require_once('/php/mystock.php');
-require_once('/php/ui/stocktable.php');
+require_once('/php/ui/table.php');
+require_once('/php/ui/transactionparagraph.php');
 require_once('_editformcommon.php');
 require_once('_edittransactionform.php');
 require_once('_stocklink.php');
@@ -78,86 +79,6 @@ function EstEtfByIndex($fIndex, $fEtfFactor)
 {
 //    return $fIndex / $fEtfFactor;
     return EstLofByIndex($fIndex, $fEtfFactor, 1.0);
-}
-
-// ****************************** Transaction table *******************************************************
-
-function _echoTransactionTableItem($trans, $strSymbol, $transaction, $bReadOnly, $bChinese)
-{
-    $strDate = GetSqlTransactionDate($transaction);
-    $strPrice = $trans->ref->GetPriceDisplay($transaction['price']);
-    $strFees = round_display_str($transaction['fees']);
-    if ($bReadOnly)
-    {
-        $strEditDelete = '';
-    }
-    else
-    {
-        $strEditDelete = StockGetEditDeleteTransactionLink($transaction['id'], $bChinese);
-    }
-    
-    echo <<<END
-    <tr>
-        <td class=c1>$strDate</td>
-        <td class=c1>$strSymbol</td>
-        <td class=c1>{$transaction['quantity']}</td>
-        <td class=c1>$strPrice</td>
-        <td class=c1>$strFees</td>
-        <td class=c1>{$transaction['remark']}</td>
-        <td class=c1>$strEditDelete</td>
-    </tr>
-END;
-}
-
-function _echoTransactionTableData($group, $iStart, $iNum, $bChinese)
-{
-    $arSymbols = array();
-    $bReadOnly = IsStockGroupReadOnly($group->strGroupId);
-    if ($result = SqlGetStockTransactionByGroupId($group->strGroupId, $iStart, $iNum)) 
-    {
-        while ($transaction = mysql_fetch_assoc($result)) 
-        {
-            $trans = $group->GetStockTransactionByStockGroupItemId($transaction['groupitem_id']);
-            if ($trans)
-            {
-                $strSymbol = $trans->GetStockSymbol();
-                if (in_array($strSymbol, $arSymbols))    $strSymbolLink = $strSymbol;
-                else
-                {
-                    $strSymbolLink = GetMyStockLink($strSymbol, $bChinese);
-                    $arSymbols[] = $strSymbol;
-                }
-                _echoTransactionTableItem($trans, $strSymbolLink, $transaction, $bReadOnly, $bChinese);
-            }
-        }
-        @mysql_free_result($result);
-    }
-}
-
-define ('MAX_TRANSACTION_DISPLAY', 10);
-function _EchoTransactionTable($group, $iStart, $iNum, $bChinese)
-{
-	$arReference = GetReferenceTableColumn($bChinese);
-	$strSymbol = $arReference[0];
-	$strPrice = $arReference[1];
-    if ($bChinese)     $arColumn = array('日期', $strSymbol, '数量', $strPrice, '交易费用', '备注', '操作');
-    else		         $arColumn = array('Date', $strSymbol, 'Quantity', $strPrice, 'Fees', 'Remark', 'Operation');
-    
-    echo <<<END
-    <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="average">
-    <tr>
-        <td class=c1 width=100 align=center>{$arColumn[0]}</td>
-        <td class=c1 width=80 align=center>{$arColumn[1]}</td>
-        <td class=c1 width=70 align=center>{$arColumn[2]}</td>
-        <td class=c1 width=80 align=center>{$arColumn[3]}</td>
-        <td class=c1 width=60 align=center>{$arColumn[4]}</td>
-        <td class=c1 width=170 align=center>{$arColumn[5]}</td>
-        <td class=c1 width=80 align=center>{$arColumn[6]}</td>
-    </tr>
-END;
-
-    _echoTransactionTableData($group, $iStart, $iNum, $bChinese);
-    EchoTableEnd();
 }
 
 // ****************************** Arbitrage table *******************************************************
@@ -454,20 +375,8 @@ function _EchoTransactionParagraph($group, $bChinese)
     
     if ($group->GetTotalRecords() > 0)
     {
-        if ($bChinese)     
-        {                                          
-            $str = '交易记录';
-        }
-        else
-        {
-            $str = 'Stock transaction record';
-        }
-        $str .= ' '.StockGetAllTransactionLink($strGroupId, false, $bChinese);
-        EchoParagraphBegin($str);
-        _EchoTransactionTable($group, 0, MAX_TRANSACTION_DISPLAY, $bChinese);
-        EchoParagraphEnd();
+    	EchoTransactionParagraph('', $strGroupId, false, $bChinese);
     }
-    
     StockEditTransactionForm($strGroupId, false, $bChinese);
     _echoGroupPortfolioParagraph($group, $bChinese);
 }
