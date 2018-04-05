@@ -41,7 +41,7 @@ function _echoPortfolioTable($portfolio, $strMemberId, $bChinese)
     EchoTableEnd();    
 
     EchoNewLine();
-    $arRef = sortStockReferenceBySymbol($arRef);
+    $arRef = StockReferenceSortBySymbol($arRef);
     foreach ($arRef as $ref)
     {
     	$ref->strExternalLink = GetMyStockRefLink($ref, $bChinese);

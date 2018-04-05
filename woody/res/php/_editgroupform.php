@@ -1,4 +1,6 @@
 <?php
+require_once('/php/ui/stocktable.php');
+
 define ('STOCK_GROUP_NEW', 'New Group');
 define ('STOCK_GROUP_NEW_CN', '新建分组');
 

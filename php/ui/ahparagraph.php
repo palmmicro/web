@@ -1,6 +1,21 @@
 <?php
 require_once('referenceparagraph.php');
 
+function _getSortHLink($strSort, $bChinese)
+{
+    $strSortQuery = 'sort='.$strSort;
+    if ($strQuery = UrlGetQueryString())
+    {
+    	$strQuery .= '&'.$strSortQuery;
+    }
+    else
+    {
+    	$strQuery = $strSortQuery;
+    }
+    
+    return UrlBuildPhpLink(UrlGetUri(), $strQuery, '按H股排序', 'Sort by H', $bChinese);
+}
+
 function _selectAhCompareLink($strSymbol, $bChinese)
 {
     if ($strSymbol == UrlGetQueryValue('symbol'))
@@ -30,14 +45,30 @@ function _ahStockRefCallback($ref, $bChinese)
         return _ahStockRefCallbackData($ref, $bChinese);
     }
     
-    if ($bChinese)  $arColumn = array('A股代码', 'AH比价', 'HA比价');
-    else              $arColumn = array('A Symbol', 'AH Ratio', 'HA Ratio');
+	$strSymbol = GetReferenceTableSymbol($bChinese);
+    if ($bChinese)  $arColumn = array('A股'.$strSymbol, 'AH比价', 'HA比价');
+    else              $arColumn = array('A '.$strSymbol, 'AH Ratio', 'HA Ratio');
     return $arColumn;
 }
 
 function EchoAhParagraph($arRef, $hkcny_ref, $bChinese)
 {
-    EchoParagraphBegin(GetAhCompareLink($bChinese).' '.$hkcny_ref->strDescription.' '.$hkcny_ref->strPrice);
+	$str = GetAhCompareLink($bChinese).' '.$hkcny_ref->strDescription.' '.$hkcny_ref->strPrice;
+	if (count($arRef) > 2)
+	{
+		if ($strSort = UrlGetQueryValue('sort'))
+		{
+			if ($strSort == 'ha')
+			{
+				$arRef = StockReferenceSortBySymbol($arRef);
+			}
+		}
+		else
+		{
+			$str .= ' '._getSortHLink('ha', $bChinese);
+		}
+	}
+    EchoParagraphBegin($str);
     EchoStockRefTable($arRef, _ahStockRefCallback, $bChinese);
     EchoParagraphEnd();
 }
@@ -71,14 +102,30 @@ function _adrhStockRefCallback($ref, $bChinese)
         return _adrhStockRefCallbackData($ref, $bChinese);
     }
     
-    if ($bChinese)  $arColumn = array('ADR代码', 'ADRH比价', 'HADR比价');
-    else              $arColumn = array('ADR Symbol', 'ADRH Ratio', 'HADR Ratio');
+	$strSymbol = GetReferenceTableSymbol($bChinese);
+    if ($bChinese)  $arColumn = array('ADR'.$strSymbol, 'ADRH比价', 'HADR比价');
+    else              $arColumn = array('ADR '.$strSymbol, 'ADRH Ratio', 'HADR Ratio');
     return $arColumn;
 }
 
 function EchoAdrhParagraph($arRef, $uscny_ref, $hkcny_ref, $bChinese)
 {
-    EchoParagraphBegin(GetAdrhCompareLink($bChinese).' '.$uscny_ref->strDescription.' '.$uscny_ref->strPrice.' '.$hkcny_ref->strDescription.' '.$hkcny_ref->strPrice);
+	$str = GetAdrhCompareLink($bChinese).' '.$uscny_ref->strDescription.' '.$uscny_ref->strPrice.' '.$hkcny_ref->strDescription.' '.$hkcny_ref->strPrice;
+	if (count($arRef) > 2)
+	{
+		if ($strSort = UrlGetQueryValue('sort'))
+		{
+			if ($strSort == 'hadr')
+			{
+				$arRef = StockReferenceSortBySymbol($arRef);
+			}
+		}
+		else
+		{
+			$str .= ' '._getSortHLink('hadr', $bChinese);
+		}
+	}
+    EchoParagraphBegin($str);
     EchoStockRefTable($arRef, _adrhStockRefCallback, $bChinese);
     EchoParagraphEnd();
 }

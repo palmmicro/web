@@ -1,5 +1,6 @@
 <?php
 require_once('_stock.php');
+require_once('/php/ui/stocktable.php');
 
 function _echoCalibrationHistoryItem($strSymbol, $history, $bReadOnly, $bChinese)
 {

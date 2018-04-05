@@ -1,4 +1,5 @@
 <?php
+require_once('stocktable.php');
 
 function GetDailyCloseByDate($ref, $strYMD)
 {

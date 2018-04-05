@@ -1,4 +1,5 @@
 <?php
+require_once('stocktable.php');
 
 function _echoFundPurchaseTableItem($strStockId, $strAmount, $bChinese)
 {
@@ -29,8 +30,7 @@ function EchoFundPurchaseParagraph($str, $strMemberId, $iStart, $iNum, $bChinese
 {
     EchoParagraphBegin($str);
     
-	$arReference = GetReferenceTableColumn($bChinese);
-	$strSymbol = $arReference[0];
+	$strSymbol = GetReferenceTableSymbol($bChinese);
     if ($bChinese)  $arColumn = array($strSymbol, '金额');
     else              $arColumn = array($strSymbol, 'Amount');
     

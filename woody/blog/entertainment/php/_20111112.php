@@ -1,7 +1,6 @@
 <?php
 require_once('/php/stock.php');
 //require_once('/php/gb2312.php');            // FromGB2312ToUTF8
-require_once('/php/ui/table.php');
 require_once('/php/ui/referenceparagraph.php');     // EchoReferenceTable
 
 function EchoStockPrice($bChinese)

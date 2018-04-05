@@ -1,4 +1,5 @@
 <?php
+require_once('stocktable.php');
 
 // $ref from FundReference
 function _echoFundEstTableItem($ref, $bChinese)

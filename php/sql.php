@@ -32,12 +32,6 @@ function die_mysql_error($strDie)
     die($str);
 }
 
-// mysql中用2个单引号代替一个
-function str_replace_single_quote($str)
-{
-    return str_replace("'", "''", $str);
-}
-
 function SqlWhereFromUrlQuery($strQuery)
 {
     if ($strQuery == false)     return false;

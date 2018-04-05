@@ -1,5 +1,6 @@
 <?php
 require_once('url.php');
+require_once('ui/stocktable.php');
 
 // ****************************** Stock internal link functions *******************************************************
 

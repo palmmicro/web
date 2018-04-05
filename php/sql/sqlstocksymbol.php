@@ -16,8 +16,8 @@ function SqlCreateStockTable()
 
 function SqlInsertStock($strSymbol, $strEnglish, $strChinese)
 {
-    $strEnglish = str_replace_single_quote($strEnglish);
-    $strChinese = str_replace_single_quote($strChinese);
+    $strEnglish = UrlCleanString($strEnglish);
+    $strChinese = UrlCleanString($strChinese);
     
 	$strQry = "INSERT INTO stock(id, name, us, cn) VALUES('0', '$strSymbol', '$strEnglish', '$strChinese')";
 	return SqlDieByQuery($strQry, 'Insert stock table failed');
@@ -25,8 +25,8 @@ function SqlInsertStock($strSymbol, $strEnglish, $strChinese)
 
 function SqlUpdateStock($strId, $strSymbol, $strEnglish, $strChinese)
 {
-    $strEnglish = str_replace_single_quote($strEnglish);
-    $strChinese = str_replace_single_quote($strChinese);
+    $strEnglish = UrlCleanString($strEnglish);
+    $strChinese = UrlCleanString($strChinese);
     
 	$strQry = "UPDATE stock SET name = '$strSymbol', us = '$strEnglish', cn = '$strChinese'  WHERE id = '$strId' LIMIT 1";
 	return SqlDieByQuery($strQry, 'Update stock table failed');

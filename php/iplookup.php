@@ -1,25 +1,8 @@
 <?php
 require_once('debug.php');
 require_once('url.php');
-//require_once('gb2312.php');
 require_once('ui/commentparagraph.php');
 
-/*
-define ('SINA_IP_URL', 'http://int.dpool.sina.com.cn/iplookup/iplookup.php?ip=');
-function _getSinaIpLookUpUrl($strIp)
-{
-    return SINA_IP_URL.$strIp;
-}
-
-function SinaIpLookUpGB2312($strIp)
-{ 
-    $strUrl = _getSinaIpLookUpUrl($strIp);
-    $str = url_get_contents($strUrl);
-    $str = FromGB2312ToUTF8($str);
-    $ar = explode("\t", $str, 4);
-    return $ar[3];
-}
-*/
 define ('SINA_JSON_IP_URL', 'http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=json&ip=');
 function _getSinaJsonIpLookUpUrl($strIp)
 {
@@ -242,7 +225,6 @@ function _ipLookupHttp($strIp, $strNewLine, $bChinese)
     $fStart = microtime(true);
     if ($bChinese)
     {
-//        $str .= $strNewLine.DebugGetExternalLink(_getSinaIpLookUpUrl($strIp), '新浪数据').': '.SinaIpLookUpGB2312($strIp);
         $arSina = SinaIpLookUp($strIp);
         $str .= $strNewLine.DebugGetExternalLink(_getSinaJsonIpLookUpUrl($strIp), '新浪数据').': ';
         $str .= $arSina['country'].' '.$arSina['province'].' '.$arSina['city'].' '.$arSina['district'].' '.$arSina['isp'].' '.$arSina['type'].' '.$arSina['desc'];
@@ -257,13 +239,13 @@ function _ipLookupHttp($strIp, $strNewLine, $bChinese)
     }
     $arFreeGeo = FreeGeoIpLookUp($strIp);
     $str .= $strNewLine.DebugGetExternalLink(_getFreeGeoIpLookUpUrl($strIp), 'freegeoip.net').': ';
-    $str .= $arFreeGeo['country_name'].' '.$arFreeGeo['region_name'].' '.$arFreeGeo['city'].' '.$arFreeGeo['zip_code'].' '.$arFreeGeo['latitude'].','.$arFreeGeo['longitude'].' '.$arFreeGeo['time_zone'];
+    $str .= $arFreeGeo['country_name'].' '.$arFreeGeo['region_name'].' '.$arFreeGeo['city'].' '.$arFreeGeo['zip_code'].' ['.$arFreeGeo['latitude'].','.$arFreeGeo['longitude'].'] ';	//.$arFreeGeo['time_zone'];
     $fStartIpInfo = microtime(true);
     $str .= DebugGetStopWatchDisplay($fStartIpInfo, $fStart);
 
     $arIpInfo = IpInfoIpLookUp($strIp);
     $str .= $strNewLine.DebugGetExternalLink(_getIpInfoIpLookUpUrl($strIp), 'ipinfo.io').': ';
-    $str .= $arIpInfo['country'].' '.$arIpInfo['region'].' '.$arIpInfo['city'].' '.$arIpInfo['postal'].' '.$arIpInfo['loc'].' '.$arIpInfo['hostname'].' '.$arIpInfo['org'];
+    $str .= $arIpInfo['country'].' '.$arIpInfo['region'].' '.$arIpInfo['city'].' '.$arIpInfo['postal'].' ['.$arIpInfo['loc'].'] '.$arIpInfo['hostname'].' '.$arIpInfo['org'];
     $fStop = microtime(true);
     $str .= DebugGetStopWatchDisplay($fStop, $fStartIpInfo);
     

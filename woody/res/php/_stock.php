@@ -1,7 +1,7 @@
 <?php
 require_once('_resstock.php');
 require_once('/php/mystock.php');
-require_once('/php/ui/table.php');
+require_once('/php/ui/stocktable.php');
 require_once('/php/ui/transactionparagraph.php');
 require_once('_editformcommon.php');
 require_once('_edittransactionform.php');
@@ -144,8 +144,7 @@ END;
 
 function _EchoPortfolioTableBegin($bChinese)
 {
-	$arReference = GetReferenceTableColumn($bChinese);
-	$strSymbol = $arReference[0];
+	$strSymbol = GetReferenceTableSymbol($bChinese);
     if ($bChinese)	$arColumn = array($strSymbol, '总数量', '平均价格', '百分比', '持仓', '盈亏', '货币');
     else		        $arColumn = array($strSymbol, 'Total', 'Avg', 'Percentage', 'Amount', 'Profit', 'Money');
     
@@ -436,24 +435,5 @@ function _GetStockDisplay($ref)
 {
     return $ref->strDescription.'('.$ref->GetStockSymbol().')';
 }
-
-function sortStockReferenceBySymbol($arRef)
-{
-    $ar = array();
-    foreach ($arRef as $ref)
-    {
-        $strSymbol = $ref->GetStockSymbol();
-        $ar[$strSymbol] = $ref; 
-    }
-    ksort($ar);
-    
-    $arSort = array();
-    foreach ($ar as $str => $ref)
-    {
-        $arSort[] = $ref;
-    }
-    return $arSort;
-}
-
 
 ?>

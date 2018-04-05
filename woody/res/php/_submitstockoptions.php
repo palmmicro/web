@@ -68,17 +68,28 @@ function _updateFundPurchaseAmount($strEmail, $strSymbol, $strVal)
 
 function _updateStockOptionAdr($strSymbol, $strVal)
 {
+	if (strchr($strVal, '/'))
+	{
+		$ar = explode('/', $strVal);
+		$strAdr = $ar[0];
+		$strRatio = $ar[1];
+	}
+	else
+	{
+		$strAdr = $strVal;
+		$strRatio = '1';
+	}
 	$strPairId = SqlGetStockId($strSymbol);
-	$ar = explode('/', $strVal);
-	$adr_ref = new MyStockReference(StockGetSymbol($ar[0])); 
+	
+	$adr_ref = new MyStockReference(StockGetSymbol($strAdr)); 
 	$strStockId = $adr_ref->GetStockId();
     if ($record = SqlGetStockPair(TABLE_ADRH_STOCK, $strStockId))
     {
-    	SqlUpdateStockPair(TABLE_ADRH_STOCK, $record['id'], $strStockId, $strPairId, $ar[1]);
+    	SqlUpdateStockPair(TABLE_ADRH_STOCK, $record['id'], $strStockId, $strPairId, $strRatio);
     }
     else
     {
-    	SqlInsertStockPair(TABLE_ADRH_STOCK, $strStockId, $strPairId, $ar[1]);
+    	SqlInsertStockPair(TABLE_ADRH_STOCK, $strStockId, $strPairId, $strRatio);
     }
 }
 

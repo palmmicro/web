@@ -1,5 +1,6 @@
 <?php
 require_once('_stock.php');
+require_once('/php/ui/stocktable.php');
 
 // ****************************** Combined group transaction table *******************************************************
 
@@ -94,8 +95,7 @@ function _echoCombinedTransactionTableData($group, $iMax, $bChinese)
 
 function _echoCombinedTransactionTable($group, $iMax, $bChinese)
 {
-	$arReference = GetReferenceTableColumn($bChinese);
-	$strSymbol = $arReference[0];
+	$strSymbol = GetReferenceTableSymbol($bChinese);
     if ($bChinese)	$arColumn = array('日期', $strSymbol, '合并数量', '折算数量', '平均成本', '折算成本', '备注');
     else		        $arColumn = array('Date', $strSymbol, 'Combined Quantity', 'Converted Quantity', 'Avg Cost', 'Converted Cost', 'Remark');
     

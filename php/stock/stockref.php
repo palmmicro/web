@@ -11,6 +11,24 @@ define ('STOCK_POST_MARKET', 'Post-Market Trading');
 
 // ****************************** Public functions *******************************************************
 
+function StockReferenceSortBySymbol($arRef)
+{
+    $ar = array();
+    foreach ($arRef as $ref)
+    {
+        $strSymbol = $ref->GetStockSymbol();
+        $ar[$strSymbol] = $ref; 
+    }
+    ksort($ar);
+    
+    $arSort = array();
+    foreach ($ar as $str => $ref)
+    {
+        $arSort[] = $ref;
+    }
+    return $arSort;
+}
+
 function ConvertChineseDescription($str, $bChinese)
 {
     if ($str == STOCK_SINA_DATA)
