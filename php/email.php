@@ -4,6 +4,7 @@
 require_once('internallink.php');
 
 define ('ADMIN_EMAIL', 'woody@palmmicro.com');
+define ('SUPPORT_EMAIL', 'support@palmmicro.com');
 
 function EmailHtml($strWho, $strSubject, $strContents) 
 {
@@ -14,11 +15,11 @@ function EmailHtml($strWho, $strSubject, $strContents)
 
     $strHeaders = 'MIME-Version: 1.0'."\r\n";
     $strHeaders .= 'Content-type:text/html;charset=UTF-8'."\r\n";     // 当发送 HTML 电子邮件时，请始终设置 content-type
-    $strHeaders .= 'From: <'.ADMIN_EMAIL.'>'."\r\n";          // 更多报头
+    $strHeaders .= 'From: <'.SUPPORT_EMAIL.'>'."\r\n";          // 更多报头
 
 /*    ini_set('SMTP', 'smtp.bizmail.yahoo.com');
 	ini_set('smtp_port', '465');
-	ini_set('sendmail_from', ADMIN_EMAIL);
+	ini_set('sendmail_from', SUPPORT_EMAIL);
 */	
     if (!mail($strWho, $strSubject, $strMessage, $strHeaders))
     {
@@ -33,7 +34,7 @@ function EmailReport($strWho, $strText, $strSubject)
     else             $str = $strSubject;
 	$str .= '<br />'.$strText;
 
-	EmailHtml(ADMIN_EMAIL, $strSubject, $str.'<br />'.GetVisitorLink(UrlGetIp(), true));
+	EmailHtml(SUPPORT_EMAIL, $strSubject, $str.'<br />'.GetVisitorLink(UrlGetIp(), true));
 	if ($strWho)    EmailHtml($strWho, $strSubject, $str);
 }
 

@@ -32,7 +32,7 @@ class _MyStockGroup extends MyStockGroup
                 {
                     if ($ref->sym->IsIndex() == false)
                     {
-                        SqlInsertStockGroupItem($strGroupId, $ref->strSqlId);
+                        SqlInsertStockGroupItem($strGroupId, $ref->GetStockId());
                     }
                 }      
             }

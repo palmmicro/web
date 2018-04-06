@@ -39,8 +39,8 @@ function _echoStockGroupArray($arStock, $bChinese)
 {
     MyStockPrefetchDataAndForex($arStock);
 
-    $uscny_ref = new CNYReference('USCNY');
-    $hkcny_ref = new CNYReference('HKCNY');
+    $uscny_ref = new MyCnyReference('USCNY');
+    $hkcny_ref = new MyCnyReference('HKCNY');
     
     $arRef = array();
     $arTransactionRef = array();

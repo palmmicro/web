@@ -14,7 +14,7 @@ require_once('sql/sqlipaddress.php');
 require_once('sql/sqlstockgroup.php');
 require_once('sql/sqlfundpurchase.php');
 
-function AcctDeleteBlogVisitor($strIp, $strIpId, $iCount)
+function _deleteVisitor($strIp, $strIpId, $iCount)
 {
     SqlAddIpVisit($strIp, $iCount);
     return SqlDeleteVisitor(VISITOR_TABLE, $strIpId);
@@ -26,7 +26,7 @@ function AcctDeleteBlogVisitorByIp($strIp)
     {
         $iCount = SqlCountVisitor(VISITOR_TABLE, $strIpId);
         SqlSetIpStatus($strIp, IP_STATUS_NORMAL);
-        AcctDeleteBlogVisitor($strIp, $strIpId, $iCount);
+        _deleteVisitor($strIp, $strIpId, $iCount);
     }
 }
 
@@ -73,6 +73,15 @@ function AcctIsAdmin()
 	return false;
 }
 
+function AcctIsSupport()
+{
+    if (AcctGetEmail() == SUPPORT_EMAIL)
+	{
+	    return true;
+	}
+	return false;
+}
+
 function AcctIsLogin()
 {
 	// Check whether the session variable SESS_ID is present or not
@@ -92,7 +101,8 @@ function AcctSwitchToLogin()
 
 function AcctIsReadOnly($strMemberId)
 {
-    if (AcctIsAdmin())  return false;
+//    if (AcctIsAdmin())  return false;
+    if (AcctIsSupport())  return false;
     if ($strMemberId)
     {
         if ($strMemberId == $_SESSION['SESS_ID'])   return false;
@@ -194,7 +204,7 @@ function _checkSpiderBehaviour($strIp, $strIpId)
 	{
 	    if (ProjectHoneyPotCheckSearchEngine($strIp) || DnsCheckSearchEngine($strIp) || _checkSearchEngineSpider($strIp, $iCount))
 	    {
-	        AcctDeleteBlogVisitor($strIp, $strIpId, $iCount);
+	        _deleteVisitor($strIp, $strIpId, $iCount);
 	        return false;
 	    }
 	    return true;

@@ -89,7 +89,7 @@ function _getFundReferenceText($ref)
 function _wxGetStockText($strSymbol)
 {
     $sym = new StockSymbol($strSymbol);
-    if ($sym->IsForex())
+    if ($sym->IsSinaForex())
     {
         return false;
     }

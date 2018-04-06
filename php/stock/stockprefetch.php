@@ -31,12 +31,17 @@ function _isMarketTrading($sym, $iTime)
     return true;
 }
 
+function GetEastMoneyForexDateTime($ar)
+{
+    return explode(' ', $ar[27]);
+}
+
 function _GetEastMoneyQuotesYMD($str)
 {
     $ar = explode(',', $str);
     if (count($ar) > 27)
     {
-        list($strDate, $strTime) = _getEastMoneyForexDateTime($ar); 
+        list($strDate, $strTime) = GetEastMoneyForexDateTime($ar); 
         return $strDate;
     }
     return false;
@@ -207,14 +212,10 @@ function PrefetchEastMoneyData($arSymbol)
     {
         $strFileName = DebugGetEastMoneyFileName($strSymbol);
         $sym = new StockSymbol($strSymbol);
-        if ($sym->IsForex())
+        if ($sym->IsEastMoneyForex())
         {   // forex reference rate USCNY/HKCNY
             if (IsNewDailyQuotes($sym, $strFileName, true, _GetEastMoneyQuotesYMD))   continue;
         }
-/*        else if (substr($strSymbol, 0, 3) == 'USD')
-        {   // forex USDCNY/USDHKG
-            if (ForexAndFutureNeedNewFile($strFileName, ForexGetTimezone()) == false)    continue;
-        }*/
         $arFileName[] = $strFileName; 
         $strSymbols .= ForexGetEastMoneySymbol($strSymbol).','; 
     }
@@ -235,17 +236,13 @@ function _prefetchSinaData($arSymbol)
     {
         $strFileName = DebugGetSinaFileName($str);
         $sym = new StockSymbol($strSymbol);
-        if ($sym->IsForex())
-        {   // forex
-            if (ForexAndFutureNeedNewFile($strFileName, ForexGetTimezone()) == false)    continue;
-        }
-        else if ($sym->IsSinaFund())
+		if ($sym->IsSinaFund())
         {   // fund, IsSinaFund must be called before IsSinaFutureSymbol
             if (IsNewDailyQuotes($sym, $strFileName, false, _GetFundQuotesYMD))       continue;
         }
-        else if (IsSinaFutureSymbol($str))
-        {   // future
-            if (ForexAndFutureNeedNewFile($strFileName, FutureGetTimezone()) == false)    continue;
+        else if (IsSinaFutureSymbol($str) || $sym->IsSinaForex())
+        {   // forex and future
+            if (ForexAndFutureNeedNewFile($strFileName, ForexAndFutureGetTimezone()) == false)    continue;
         }
         else
         {   // Stock symbol
@@ -271,11 +268,10 @@ function PrefetchSinaStockData($arSymbol)
         if ($strSymbol)
         {
             $sym = new StockSymbol($strSymbol);
-            if ($sym->IsForex())
-            {
-                $arPrefetch[$strSymbol] = $strSymbol;
-            }
-            else if ($sym->IsSinaFund())
+            if ($sym->IsEastMoneyForex())
+            {	// Only WX call may into this, nothing need to be done. Do not put it in $arUnknown neither!
+            }	
+            else if ($sym->IsSinaFund() || $sym->IsSinaForex())
             {   // IsSinaFund must be called before IsSinaFutureSymbol
                 $arPrefetch[$strSymbol] = $strSymbol;
             }

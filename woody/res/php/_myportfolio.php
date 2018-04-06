@@ -51,8 +51,8 @@ function _echoPortfolioTable($portfolio, $strMemberId, $bChinese)
 
 function _echoMoneyTable($portfolio, $bChinese)
 {
-    $uscny_ref = new CNYReference('USCNY');
-    $hkcny_ref = new CNYReference('HKCNY');
+    $uscny_ref = new MyCnyReference('USCNY');
+    $hkcny_ref = new MyCnyReference('HKCNY');
     $fUSDCNY = $uscny_ref->fPrice;
     $fHKDCNY = $hkcny_ref->fPrice;    
 

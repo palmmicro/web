@@ -17,14 +17,8 @@ function _getSinaFundStr($sym, $strFundSymbol, $strFileName)
 
 class FundReference extends StockReference
 {
-    var $est_ref = false;      // StockRefenrence for fund net value estimation
-    
     // original data
 //    var $strPrevNetValue;      // Most recent net value orginal data is in parent::$strPrevPrice 
-
-    // estimated float point data 
-    var $fRealtimeNetValue = false;
-    var $fFairNetValue = false;
 
     // constructor 
     function FundReference($strSymbol) 

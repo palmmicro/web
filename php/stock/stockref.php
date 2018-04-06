@@ -226,10 +226,10 @@ class StockReference
     var $strChineseName = false;
     var $strName = '';
     
-    var $strOpen;                     // open price
-    var $strHigh;
-    var $strLow;
-    var $strVolume;
+    var $strOpen = false;                     // open price
+    var $strHigh = false;
+    var $strLow = false;
+    var $strVolume = false;
     
 //    var $strPB;
 
@@ -620,7 +620,7 @@ class StockReference
     {
         $strSinaSymbol = FutureGetSinaSymbol($strSymbol);
         $this->strFileName = DebugGetSinaFileName($strSinaSymbol);
-        $ar = _GetForexAndFutureArray($strSinaSymbol, $this->strFileName, FutureGetTimezone(), GetSinaQuotes);
+        $ar = _GetForexAndFutureArray($strSinaSymbol, $this->strFileName, ForexAndFutureGetTimezone(), GetSinaQuotes);
         if (count($ar) < 13)
         {
             $this->bHasData = false;
@@ -638,6 +638,35 @@ class StockReference
 
         $this->strExternalLink = GetSinaFutureLink($strSymbol);
     }
+    
+    function _getEastMoneyForexData($ar)
+    {
+    	$this->strName = $ar[1];
+    	$this->strChineseName = $ar[2];
+    	$this->strPrevPrice = $ar[3];
+    	$this->strOpen = $ar[4];
+    	$this->strPrice = $ar[5];
+    	list($this->strDate, $this->strTime) = GetEastMoneyForexDateTime($ar); 
+    }
+    
+    function LoadEastMoneyCnyData($strSymbol)
+    {
+        $this->_newStockSymbol($strSymbol);
+        $this->strFileName = DebugGetEastMoneyFileName($strSymbol);
+        if (($str = IsNewDailyQuotes($this->sym, $this->strFileName, true, _GetEastMoneyQuotesYMD)) === false)
+        {
+            $str = GetEastMoneyQuotes(ForexGetEastMoneySymbol($strSymbol));
+            if ($str)   file_put_contents($this->strFileName, $str);
+            else         $str = file_get_contents($this->strFileName);
+        }
+        
+        $this->_getEastMoneyForexData(explodeQuote($str));
+//        if (floatval($this->strOpen) > MIN_FLOAT_VAL)   $this->strPrice = $this->strOpen;
+//        else                                               $this->strPrice = $this->strPrevPrice;
+        $this->strPrice = $this->strOpen;
+        
+        $this->strExternalLink = GetReferenceRateForexLink($strSymbol);
+    }       
 }
 
 // ****************************** SinaStockReference Class *******************************************************

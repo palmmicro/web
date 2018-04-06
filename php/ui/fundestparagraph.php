@@ -1,7 +1,7 @@
 <?php
 require_once('stocktable.php');
 
-// $ref from FundReference
+// $ref from MyFundReference
 function _echoFundEstTableItem($ref, $bChinese)
 {
     if ($ref == false)                  return;
@@ -118,7 +118,7 @@ function _getFundParagraphStr($fund, $bChinese)
 {
     $ref = $fund->stock_ref;
     $strDate = $fund->strOfficialDate;
-    $strLastTime = SqlGetStockCalibrationTime($ref->strSqlId);
+    $strLastTime = SqlGetStockCalibrationTime($ref->GetStockId());
     $strHistoryLink = GetCalibrationHistoryLink($ref->GetStockSymbol(), $bChinese);
 	$arColumn = GetFundEstTableColumn($bChinese);
 	$str = $arColumn[1];

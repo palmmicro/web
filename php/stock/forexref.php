@@ -25,21 +25,6 @@ function _getForexDescription($strSymbol)
     return $ar[$strSymbol];
 }
 
-function _getEastMoneyForexDateTime($ar)
-{
-    return explode(' ', $ar[27]);
-}
-
-function _getEastMoneyForexData($ref, $ar)
-{
-    $ref->strName = $ar[1];
-    $ref->strChineseName = $ar[2];
-    $ref->strPrevPrice = $ar[3];
-    $ref->strOpen = $ar[4];
-    $ref->strPrice = $ar[5];
-    list($ref->strDate, $ref->strTime) = _getEastMoneyForexDateTime($ar); 
-}
-
 class ForexReference extends StockReference
 {
     public static $iDataSource = STOCK_DATA_SINA;
@@ -48,7 +33,7 @@ class ForexReference extends StockReference
     function _onSinaData($strSymbol)
     {
         $this->strFileName = DebugGetSinaFileName($strSymbol);
-        $ar = _GetForexAndFutureArray($strSymbol, $this->strFileName, ForexGetTimezone(), GetSinaQuotes);
+        $ar = _GetForexAndFutureArray($strSymbol, $this->strFileName, ForexAndFutureGetTimezone(), GetSinaQuotes);
         if (count($ar) < 10)
         {
             $this->bHasData = false;
@@ -66,13 +51,13 @@ class ForexReference extends StockReference
     function _onEastMoneyData($strSymbol)
     {
         $this->strFileName = DebugGetEastMoneyFileName($strSymbol);
-        $ar = _GetForexAndFutureArray(ForexGetEastMoneySymbol($strSymbol), $this->strFileName, ForexGetTimezone(), GetEastMoneyQuotes);
+        $ar = _GetForexAndFutureArray(ForexGetEastMoneySymbol($strSymbol), $this->strFileName, ForexAndFutureGetTimezone(), GetEastMoneyQuotes);
         if (count($ar) < 27)
         {
             $this->bHasData = false;
             return;
         }
-        _getEastMoneyForexData($this, $ar);
+        $this->_getEastMoneyForexData($ar);
 
         $this->strExternalLink = GetEastMoneyForexLink($strSymbol);
     }       
@@ -94,10 +79,10 @@ class ForexReference extends StockReference
 }
 
 // Only East Money has USCNY/HKCNY reference rate 
-class CNYReference extends StockReference
+class CnyReference extends StockReference
 {
     // constructor 
-    function CNYReference($strSymbol)
+    function CnyReference($strSymbol)
     {
         $this->_newStockSymbol($strSymbol);
         $this->strFileName = DebugGetEastMoneyFileName($strSymbol);
@@ -108,7 +93,7 @@ class CNYReference extends StockReference
             else         $str = file_get_contents($this->strFileName);
         }
         
-        _getEastMoneyForexData($this, explodeQuote($str));
+        $this->_getEastMoneyForexData(explodeQuote($str));
 //        if (floatval($this->strOpen) > MIN_FLOAT_VAL)   $this->strPrice = $this->strOpen;
 //        else                                               $this->strPrice = $this->strPrevPrice;
         $this->strPrice = $this->strOpen;
@@ -119,7 +104,5 @@ class CNYReference extends StockReference
         $this->strDescription = _getForexDescription($strSymbol);
     }       
 }
-
-
 
 ?>

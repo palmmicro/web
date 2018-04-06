@@ -192,14 +192,9 @@ function GetEastMoneyQuotes($strSymbols)
 
 // ****************************** Stock display functions *******************************************************
 
-function FutureGetTimezone()
+function ForexAndFutureGetTimezone()
 {
     return 'GMT';
-}
-
-function ForexGetTimezone()
-{
-    return STOCK_TIME_ZONE_CN;
 }
 
 define ('MIN_FLOAT_VAL', 0.0000001);

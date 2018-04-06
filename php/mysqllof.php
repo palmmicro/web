@@ -288,7 +288,7 @@ class _LofReference extends MyFundReference
         }
         else
         {   // Load last value from database
-            if ($history = SqlGetFundHistoryNow($this->stock_ref->strSqlId))
+            if ($history = SqlGetFundHistoryNow($this->GetStockId()))
             {
                 $this->fPrice = floatval($history['estimated']);
                 $this->strOfficialDate = $history['date'];

@@ -34,8 +34,8 @@ class _AdrGroup extends _MyStockGroup
     {
         MyStockPrefetchDataAndForex(array($strSymbolAdr));
         
-        $this->uscny_ref = new CNYReference('USCNY');
-        $this->hkcny_ref = new CNYReference('HKCNY');
+        $this->uscny_ref = new MyCnyReference('USCNY');
+        $this->hkcny_ref = new MyCnyReference('HKCNY');
         
     	$strSymbolH = SqlGetAdrhPair($strSymbolAdr);
         $strSymbolA = SqlGetHaPair($strSymbolH);

@@ -14,9 +14,7 @@ class _LofUsGroup extends _LofGroup
         $strEtfSymbol = LofGetEtfSymbol();
         MyStockPrefetchData(array($strSymbol, $strUSD, GetYahooNetValueSymbol($strEtfSymbol)));
         
-        $this->cny_ref = new CNYReference('USCNY');
-        ForexUpdateHistory($this->cny_ref);
-        
+        $this->cny_ref = new MyCnyReference('USCNY');	// Always create CNY Forex class instance first!
         $this->ref = new MyLofReference($strSymbol);
         $this->usd_ref = new ForexReference($strUSD);
         $this->etf_netvalue_ref = new YahooNetValueReference($strEtfSymbol);
@@ -45,7 +43,7 @@ function _onSmaUserDefinedVal($fVal, $bChinese)
     if ($group->strGroupId) 
     {
     	SqlCreateFundPurchaseTable();
-    	if ($str = SqlGetFundPurchaseAmount(AcctIsLogin(), $fund->stock_ref->strSqlId))
+    	if ($str = SqlGetFundPurchaseAmount(AcctIsLogin(), $fund->GetStockId()))
     	{
     		$strAmount = $str;
     	}
@@ -56,7 +54,7 @@ function _onSmaUserDefinedVal($fVal, $bChinese)
     if ($group->strGroupId) 
     {
         $etf_ref = $fund->etf_ref;
-        $strQuery = sprintf('groupid=%s&fundid=%s&amount=%.2f&netvalue=%.3f&arbitrageid=%s&quantity=%s&price=%.2f', $group->strGroupId, $fund->stock_ref->strSqlId, $fAmount, $fund->fPrice, $etf_ref->strSqlId, $strQuantity, $etf_ref->fPrice);
+        $strQuery = sprintf('groupid=%s&fundid=%s&amount=%.2f&netvalue=%.3f&arbitrageid=%s&quantity=%s&price=%.2f', $group->strGroupId, $fund->GetStockId(), $fAmount, $fund->fPrice, $etf_ref->GetStockId(), $strQuantity, $etf_ref->fPrice);
         return UrlGetOnClickLink(STOCK_PHP_PATH.'_submitfundpurchase.php?'.$strQuery, $bChinese ? '确认添加对冲申购记录?' : 'Confirm to add arbitrage fund purchase record?', $strQuantity);
     }
     return $strQuantity;

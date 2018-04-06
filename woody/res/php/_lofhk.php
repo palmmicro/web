@@ -9,9 +9,7 @@ class _LofHkGroup extends _LofGroup
     {
         MyStockPrefetchData(array($strSymbol));
 
-        $this->cny_ref = new CNYReference('HKCNY');
-        ForexUpdateHistory($this->cny_ref);
-
+        $this->cny_ref = new MyCnyReference('HKCNY');
         $this->ref = new MyLofHkReference($strSymbol);
         parent::_LofGroup();
         $this->arDisplayRef = array($this->ref->index_ref, $this->ref->etf_ref, $this->cny_ref, $this->ref->stock_ref, $this->ref);

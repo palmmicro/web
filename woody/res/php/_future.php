@@ -164,7 +164,7 @@ function _getCalibrationString($future_ref, $etf_ref, $bChinese)
         $strNames = "$strSymbol and $trEtfSymbol "; 
         $strCalibration = 'calibration on ';
     }
-    $strLastTime = SqlGetStockCalibrationTime($future_ref->strSqlId);
+    $strLastTime = SqlGetStockCalibrationTime($future_ref->GetStockId());
     $strHistoryLink = GetCalibrationHistoryLink(FutureGetSinaSymbol($strSymbol), $bChinese);
     return $strNames.$strCalibration.$strLastTime.' '.$strHistoryLink;
 }

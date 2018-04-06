@@ -10,9 +10,9 @@ require_once('/php/ui/tradingparagraph.php');
 //require_once('/php/ui/stockgroupparagraph.php');
 require_once('/php/ui/transactionparagraph.php');
 
-function _checkStockTransaction($strGroupId, $ref)
+function _checkStockTransaction($strGroupId, $strStockId)
 {
-	if ($stockgroupitem = StockGroupHasSymbol($strGroupId, $ref->strSqlId))
+	if ($stockgroupitem = StockGroupHasSymbol($strGroupId, $strStockId))
 	{
 		if (intval($stockgroupitem['record']) > 0)
 		{
@@ -25,12 +25,13 @@ function _checkStockTransaction($strGroupId, $ref)
 function _echoMyStockTransactions($strMemberId, $ref, $bChinese)
 {
     $arGroup = array();
+    $strStockId = $ref->GetStockId();
 	if ($result = SqlGetStockGroupByMemberId($strMemberId)) 
 	{
 		while ($stockgroup = mysql_fetch_assoc($result)) 
 		{
 		    $strGroupId = $stockgroup['id'];
-		    if ($strGroupItemId = _checkStockTransaction($strGroupId, $ref))
+		    if ($strGroupItemId = _checkStockTransaction($strGroupId, $strStockId))
 		    {
 		        $arGroup[$strGroupId] = $strGroupItemId;
 		    }
@@ -66,8 +67,8 @@ function _echoMyStock($strSymbol, $bChinese)
 {
     MyStockPrefetchDataAndForex(array($strSymbol));
     
-    $uscny_ref = new CNYReference('USCNY');
-    $hkcny_ref = new CNYReference('HKCNY');
+    $uscny_ref = new MyCnyReference('USCNY');
+    $hkcny_ref = new MyCnyReference('HKCNY');
     $hshare_ref = false;
     $hadr_ref = false;
     	

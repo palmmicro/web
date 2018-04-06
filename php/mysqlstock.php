@@ -4,13 +4,63 @@ require_once('stock.php');
 require_once('mysqlstockhistory.php');
 require_once('sql/sqlstock.php');
 
-// ****************************** StockReference class related *******************************************************
+// ****************************** MysqlReference class *******************************************************
+class MysqlReference extends StockReference
+{
+    var $strSqlId = false;      // ID in mysql database
+    
+    var $strSqlName = false;
+	var $bConvertGB2312 = false;
+    
+    function GetStockId()
+    {
+        return $this->strSqlId;
+    }
+    
+    function _loadSqlId()
+    {
+    	$this->strSqlId = SqlGetStockId($this->strSqlName);
+        if ($this->strSqlId == false)
+        {
+            if ($this->bHasData)
+            {
+                if ($this->bConvertGB2312)
+                {
+                    $strEnglish = FromGB2312ToUTF8($this->strName);
+                    $strChinese = FromGB2312ToUTF8($this->strChineseName);
+                }
+                else
+                {
+                    $strEnglish = $this->strName;
+                    $strChinese = $this->strChineseName;
+                }
+                SqlInsertStock($this->strSqlName, $strEnglish, $strChinese);
+                $this->strSqlId = SqlGetStockId($this->strSqlName);
+            }
+        }
+    }
+    
+    // constructor 
+    function MysqlReference($strSymbol) 
+    {
+        parent::StockReference($strSymbol);
+        if ($this->strSqlName == false)
+        {
+        	$this->strSqlName = $strSymbol;
+        }
+        $this->_loadSqlId();
+        if ($this->strSqlId)
+        {
+            $this->strDescription = SqlGetStockDescription($this->strSqlName);
+        }
+    }
+}
 
-class MyStockReference extends StockReference
+// ****************************** MyStockReference class *******************************************************
+class MyStockReference extends MysqlReference
 {
     public static $iDataSource = STOCK_DATA_SINA;
 
-    var $strSqlId = false;      // ID in mysql database
     var $fFactor;
 
     function _loadFactor()
@@ -94,29 +144,6 @@ class MyStockReference extends StockReference
         return false;
     }
     
-    function _loadSqlId($strSqlName, $bConvertGB2312)
-    {
-        if (($strSqlId = SqlGetStockId($strSqlName)) === false)
-        {
-            if ($this->bHasData)
-            {
-                if ($bConvertGB2312)
-                {
-                    $strEnglish = FromGB2312ToUTF8($this->strName);
-                    $strChinese = FromGB2312ToUTF8($this->strChineseName);
-                }
-                else
-                {
-                    $strEnglish = $this->strName;
-                    $strChinese = $this->strChineseName;
-                }
-                SqlInsertStock($strSqlName, $strEnglish, $strChinese);
-                $strSqlId = SqlGetStockId($strSqlName);
-            }
-        }
-        return $strSqlId;
-    }
-    
     function _invalidHistoryData($str)
     {
 //        if (empty($str))    return true;
@@ -151,23 +178,16 @@ class MyStockReference extends StockReference
         return false;
     }
     
-    function GetStockId()
-    {
-        return $this->strSqlId;
-    }
-    
     // constructor 
     function MyStockReference($strSymbol) 
     {
-        $bConvertGB2312 = false;
-        $strSqlName = $strSymbol;
         $this->_newStockSymbol($strSymbol);
         if (self::$iDataSource == STOCK_DATA_SINA)
         {
             if ($strSinaSymbol = $this->sym->GetSinaSymbol())
             {
                 $this->LoadSinaData($strSinaSymbol);
-                $bConvertGB2312 = true;     // Sina name is GB2312 coded
+                $this->bConvertGB2312 = true;     // Sina name is GB2312 coded
             }
             else
             {
@@ -187,16 +207,15 @@ class MyStockReference extends StockReference
         }
         else if (self::$iDataSource == FUTURE_DATA_SINA)
         {
-            $strSqlName = FutureGetSinaSymbol($strSymbol);
+            $this->strSqlName = FutureGetSinaSymbol($strSymbol);
             $this->LoadSinaFutureData($strSymbol);
-            $bConvertGB2312 = true;     // Sina name is GB2312 coded
+            $this->bConvertGB2312 = true;     // Sina name is GB2312 coded
         }
         
-        parent::StockReference($strSymbol);
-        if ($this->strSqlId = $this->_loadSqlId($strSqlName, $bConvertGB2312))
+        parent::MysqlReference($strSymbol);
+        if ($this->strSqlId)
         {
             $this->_updateStockHistory();
-            $this->strDescription = SqlGetStockDescription($strSqlName);
         }
     }
 }
@@ -365,7 +384,7 @@ class MyHAdrReference extends MyHShareReference
     }
 }
 
-// ****************************** FundReference class related *******************************************************
+// ****************************** MyFundReference class *******************************************************
 
 define ('FUND_POSITION_RATIO', 0.95);
 define ('FUND_EMPTY_NET_VALUE', '0');
@@ -385,12 +404,17 @@ function GetEstErrorPercentage($fEstValue, $fNetValue)
 
 class MyFundReference extends FundReference
 {
+    var $est_ref = false;       // MyStockRefenrence for fund net value estimation
     var $stock_ref = false;     // MyStockReference
     var $index_ref = false;
     var $etf_ref = false;
     var $future_ref = false;
     var $future_etf_ref = false;
-    
+
+    // estimated float point data 
+    var $fRealtimeNetValue = false;
+    var $fFairNetValue = false;
+
     var $strOfficialDate = false;
     
     var $fFactor = 1.0;
@@ -513,60 +537,59 @@ class MyFundReference extends FundReference
     }
 }
 
-function FundUpdateHistory($ref)
+// ****************************** MyCnyReference class *******************************************************
+/*
+class MyCnyReference extends CnyReference
 {
-    $strId = $ref->GetStockId();
-    $strDate = $ref->est_ref->strDate;
-    $strPrice = strval($ref->fPrice);
-    if ($ref->strDate == $strDate)
-    {
-        $strNetValue = $ref->strPrevPrice;
-    }
-    else
-    {
-        $strNetValue = '0';
-        if ($history = SqlGetFundHistoryByDate($strId, $ref->strDate))
-        {
-            if ($ref->strPrevPrice != $history['netvalue'])
-            {
-                SqlUpdateFundHistory($history['id'], $ref->strPrevPrice, $history['estimated'], $history['time']);
-            }
-        }
-    }
+	function _updateHistory()
+	{
+		if (FloatNotZero(floatval($this->strOpen)) == false)
+		{
+			$this->EmptyFile();
+			return;
+		}
     
-    list($strDummy, $strTime) = explodeDebugDateTime();
-    if ($history = SqlGetFundHistoryByDate($strId, $strDate))
-    {
-        if ($strNetValue == '0')
-        {
-            SqlUpdateFundHistory($history['id'], $strNetValue, $strPrice, $strTime);
-        }
-        else if ($strNetValue != $history['netvalue'])
-        {
-            SqlUpdateFundHistory($history['id'], $strNetValue, $history['estimated'], $history['time']);
-        }
-    }
-    else
-    {
-        SqlInsertFundHistory($strId, $strDate, $strNetValue, $strPrice, $strTime);
-    }
-}
+		$strId = SqlGetStockId($this->GetStockSymbol());
+		$strDate = $this->strDate;
+		if (SqlGetForexHistory($strId, $strDate) == false)
+		{
+			SqlInsertForexHistory($strId, $strDate, $this->strPrice);
+		}    
+	}
 
-// ****************************** ForexReference class related *******************************************************
-
-function ForexUpdateHistory($ref)
+    // constructor 
+    function MyCnyReference($strSymbol)
+    {
+        parent::CnyReference($strSymbol);
+        $this->_updateHistory();
+    }       
+}*/
+class MyCnyReference extends MysqlReference
 {
-    if (FloatNotZero(floatval($ref->strOpen)) == false)
-    {
-        $ref->EmptyFile();
-        return;
-    }
+	function _updateHistory()
+	{
+		if (FloatNotZero(floatval($this->strOpen)) == false)
+		{
+			$this->EmptyFile();
+			return;
+		}
     
-    $strId = SqlGetStockId($ref->GetStockSymbol());
-    if (SqlGetForexHistory($strId, $ref->strDate) === false)
+		if (SqlGetForexHistory($this->strSqlId, $this->strDate) == false)
+		{
+			SqlInsertForexHistory($this->strSqlId, $this->strDate, $this->strPrice);
+		}    
+	}
+
+    // constructor 
+    function MyCnyReference($strSymbol)
     {
-        SqlInsertForexHistory($strId, $ref->strDate, $ref->strPrice);
-    }    
+    	$this->LoadEastMoneyCnyData($strSymbol);
+        parent::MysqlReference($strSymbol);
+        if ($this->strSqlId)
+        {
+        	$this->_updateHistory();
+        }
+    }       
 }
 
 // ****************************** StockTransaction class related *******************************************************
@@ -582,7 +605,7 @@ class MyStockTransaction extends StockTransaction
         $this->ref = $ref;
         if ($strStockGroupId)
         {
-            if ($ref)   $this->strStockGroupItemId = SqlGetStockGroupItemId($strStockGroupId, $ref->strSqlId);
+            if ($ref)   $this->strStockGroupItemId = SqlGetStockGroupItemId($strStockGroupId, $ref->GetStockId());
         }
         parent::StockTransaction();
     }
@@ -648,7 +671,7 @@ class MyStockGroup extends StockGroup
     {
         foreach ($this->arStockTransaction as $trans)
         {
-            if ($trans->ref->strSqlId == $strStockId)     return $trans;
+            if ($trans->ref->GetStockId() == $strStockId)     return $trans;
         }
         return false;
     }
@@ -983,7 +1006,7 @@ function StockGetIdSymbolArray($strSymbols)
 	    if ($strStockId == false)
 	    {
             $ref = new MyStockReference($strSymbol);
-            $strStockId = $ref->strSqlId;
+            $strStockId = $ref->GetStockId();
 	    }
 	    $arIdSymbol[$strStockId] = $strSymbol; 
 	}

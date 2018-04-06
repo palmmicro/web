@@ -148,10 +148,20 @@ class StockSymbol
         return false;
     }
     
-    function IsForex()
+    function IsEastMoneyForex()
     {
         $strSymbol = $this->strSymbol;
-        if ($strSymbol == 'DINIW' || $strSymbol == 'USCNY' || $strSymbol == 'HKCNY')
+        if ($strSymbol == 'USCNY' || $strSymbol == 'HKCNY')
+        {
+            return true;
+        }
+        return false;
+    }
+    
+    function IsSinaForex()
+    {
+        $strSymbol = $this->strSymbol;
+        if ($strSymbol == 'DINIW')
         {
             return true;
         }
@@ -184,7 +194,7 @@ class StockSymbol
 
     function SetTimeZone()
     {
-        if ($this->IsSymbolA() || $this->IsSymbolH() || $this->IsForex() || $this->IsSinaFund())
+        if ($this->IsSymbolA() || $this->IsSymbolH() || $this->IsEastMoneyForex() || $this->IsSinaFund())
         {
             $strTimeZone = STOCK_TIME_ZONE_CN;
         }
