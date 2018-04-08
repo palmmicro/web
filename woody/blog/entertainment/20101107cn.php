@@ -92,7 +92,7 @@
 需要重新刷新的情况看上去像是少了一点, 却出现了<?php EchoPhpFileLink('/php/switch.php'); ?>文件中<b>$_SESSION['userurl']</b>这种全局数据被莫名其妙的冲掉的问题.
 <br />好在经过这么多年后, 我对MySQL已经没有那么畏惧, 在溜娃间隙中削尖铅笔在<?php EchoPhpFileLink('/php/sql/sqlgb2312.php'); ?>文件中增加了一个GB2312和UNICODE的对应表, 
 把查内存中的大数组改成了查数据库, 终于解决了这个困扰了我一年半的刷新问题.
-<br /><img src=../photo/mermaid.jpg alt="Mermaid and Sapphire in SeaWorld San Diego." />
+<br /><img src=../photo/mermaid.jpg alt="Feb 3, 2018. Mermaid and Sapphire in SeaWorld San Diego." />
 </p>
 
 </div>

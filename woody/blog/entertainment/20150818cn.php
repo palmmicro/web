@@ -321,6 +321,7 @@
 <br />发现<a href="20101107cn.php#gb2312">GB2312</a>和UNICODE的对应表放在函数内返回可能会冲掉全局数据后, 我想起了<a href="#ahcompare">AH对比</a>中也用到了一个不小的数组.
 赶快把它挪到了<?php EchoPhpFileLink('/php/sql/sqlstockpair.php'); ?>文件中的ahstock表.
 <br />发现帮助傻瓜编程的PHP也对程序优化有要求还是挺让我兴奋的, 觉得这么多年来的优化软件经验终于又有用武之地了.
+<br /><img src=../photo/solitaire.jpg alt="Jan 29, 2018. Solitaire Sapphire in LEGOLAND CALIFORNIA." />
 </p>
 
 <h3>走火入魔的<a name="nextsma">T+1</a>均线</h3>
