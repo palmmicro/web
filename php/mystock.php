@@ -84,6 +84,18 @@ function MyStockGetFundReference($strSymbol)
     return $ref;
 }
 
+function MyStockGetReference($sym)
+{
+	$strSymbol = $sym->strSymbol;
+    if ($sym->IsSinaFund())
+    {
+    }
+    else if ($strFutureSymbol = $sym->IsSinaFuture())   	return new MyFutureReference($strFutureSymbol);
+    else if ($sym->IsSinaForex())   							return new MyForexReference($strSymbol);
+	else if ($sym->IsEastMoneyForex())						return new MyCnyReference($strSymbol);
+    return new MyStockReference($strSymbol);
+}
+
 function MyStockGetHAdrReference($sym)
 {
 	$strSymbol = $sym->strSymbol;

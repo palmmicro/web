@@ -182,15 +182,20 @@ function _getFileTimeDisplay($strPathName)
 
 function DebugFileLink($strPathName)
 {
-    return DebugGetExternalLink(UrlGetServer().$strPathName, UrlGetFileName($strPathName));
+	$strFileName = UrlGetFileName($strPathName);
+	if (strlen($strFileName) > 10)
+	{
+		$strFileName = substr($strFileName, -10, 10);
+	}
+    return DebugGetExternalLink(UrlGetServer().$strPathName, $strFileName);
 }
 
 function DebugGetFileLink($strPathName)
 {
     $strLink = DebugFileLink($strPathName);
     $strLastTime = _getFileTimeDisplay($strPathName);
-    $strDelete = UrlGetDeleteLink('/php/_submitdeletefile.php?delete='.$strPathName, '调试文件', 'debug file', false);
-    return "$strLink($strLastTime $strDelete)";
+    $strDelete = UrlGetOnClickLink('/php/_submitdeletefile.php?delete='.$strPathName, '确认删除调试文件'.$strPathName.'?', $strLastTime);
+    return "$strLink($strDelete)";
 }
 
 function DebugGetDebugFileLink()

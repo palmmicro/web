@@ -167,25 +167,29 @@ function in_arrayAdr($strSymbol)
     return in_array(strtolower($strSymbol), AdrGetSymbolArray());
 }
 
-function ConvertFutureSymbol($strSymbol)
-{
-    $strFutureSymbol = IsSinaFutureSymbol($strSymbol);
-    if ($strFutureSymbol == false)
-    {
-        $strFutureSymbol = $strSymbol;
-    }
-    return $strFutureSymbol;
-}
-
 function FutureGetSymbolArray()
 {
     return array('cl', 'es', 'gc', 'ng', 'oil', 'si'); 
 }
 
+function _convertFutureSymbol($strSymbol)
+{
+   	$sym = new StockSymbol($strSymbol);
+    if ($strFutureSymbol = $sym->IsSinaFuture())
+    {
+    	return $strFutureSymbol;
+    }
+    return $strSymbol;
+}
+
 function in_arrayFuture($strSymbol)
 {
-    $strFutureSymbol = ConvertFutureSymbol($strSymbol);
-    return in_array(strtolower($strFutureSymbol), FutureGetSymbolArray());
+    $strFutureSymbol = _convertFutureSymbol($strSymbol);
+    if (in_array(strtolower($strFutureSymbol), FutureGetSymbolArray()))
+    {
+    	return $strFutureSymbol;
+    }
+    return false;
 }
 
 function StockGetSymbolByUrl()
@@ -222,12 +226,11 @@ function SelectSymbolInternalLink($strSymbol, $bChinese)
     {
         return GetCommonToolLink($strSymbol, $bChinese);
     }
-    else if (in_arrayFuture($strSymbol))
+    else if ($strFutureSymbol = in_arrayFuture($strSymbol))
     {
-        $strFutureSymbol = ConvertFutureSymbol($strSymbol);
         return GetCommonToolLink($strFutureSymbol, $bChinese);
     }
-    else if (($strFutureSymbol = in_arrayFutureETF($strSymbol)) !== false)
+    else if ($strFutureSymbol = in_arrayFutureETF($strSymbol))
     {
         return _getStockToolLink($strFutureSymbol, $strSymbol, $bChinese);
     }

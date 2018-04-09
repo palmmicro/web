@@ -73,7 +73,7 @@ function AcctIsAdmin()
 	return false;
 }
 
-function AcctIsSupport()
+function AcctIsDebug()
 {
     if (AcctGetEmail() == SUPPORT_EMAIL)
 	{
@@ -102,7 +102,7 @@ function AcctSwitchToLogin()
 function AcctIsReadOnly($strMemberId)
 {
 //    if (AcctIsAdmin())  return false;
-    if (AcctIsSupport())  return false;
+    if (AcctIsDebug())  return false;
     if ($strMemberId)
     {
         if ($strMemberId == $_SESSION['SESS_ID'])   return false;

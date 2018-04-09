@@ -147,8 +147,8 @@ The original version omitted date display because I thougth it was obvious. And 
 <br />Although it is a small display change, I can not help myself to mofidy a lot of code.
 The original <font color=olive>StockReference</font> class in <?php EchoPhpFileLink('/php/stock/stockref.php'); ?> is now only as a base class for basic data and display data, 
 with <font color=olive>SinaStockReference</font> class and <font color=olive>YahooStockReference</font> class extends from it.
-The original future data read becomes <font color=olive>FutureReference</font> class extends from <font color=olive>StockReference</font>,
-and forex data read becomes <font color=olive>ForexReference</font> class extends from <font color=olive>StockReference</font> too. 
+The original future data read becomes <font color=olive>SinaFutureReference</font> class extends from <font color=olive>StockReference</font>,
+and forex data read becomes <font color=olive>SinaForexReference</font> class extends from <font color=olive>StockReference</font> too. 
 In this way, the display is unified, so the new version number really has something new with it.
 <br />Original data member $strDate (2014-11-13, 'Y-m-d') and $strTime (08:55:00, 'H:i:s') in class <font color=olive>StockReference</font> are kept as the same, 
 added new data member $strTimeHM (08:55) for display, separating data and display.

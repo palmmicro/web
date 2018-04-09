@@ -14,7 +14,6 @@ require_once('stock/sinastock.php');
 require_once('stock/googlestock.php');
 require_once('stock/stockprefetch.php');
 require_once('stock/stockref.php');
-require_once('stock/forexref.php');
 require_once('stock/fundref.php');
 require_once('stock/stocktransaction.php');
 require_once('stock/stockgroup.php');
@@ -26,8 +25,6 @@ define ('STOCK_DATA_GOOGLE', 3);
 define ('FUTURE_DATA_SINA', 4);
 
 // ****************************** Stock symbol functions *******************************************************
-
-define ('SINA_FUTURE_PREFIX', 'hf_');
 
 function StockBuildChineseSymbol($strDigit)
 {
@@ -59,27 +56,12 @@ function StockGetSymbolArray($strSymbols)
     return StockGetArraySymbol($ar);
 }
 
-function IsSinaFutureCnSymbol($strSymbol)
-{
-    $sym = new StockSymbol($strSymbol);
-    return $sym->IsFutureCn();
-}
-
-function IsSinaFutureSymbol($strSinaSymbol)
-{
-    if ($strSinaSymbol)
-    {
-        if (IsSinaFutureCnSymbol($strSinaSymbol))                   return $strSinaSymbol;
-        if (substr($strSinaSymbol, 0, 3) == SINA_FUTURE_PREFIX)    return substr($strSinaSymbol, 3);
-    }
-    return false;
-}
-
 function FutureGetSinaSymbol($strSymbol)
 {
     if ($strSymbol == false)    return false;
     
-    if (IsSinaFutureCnSymbol($strSymbol))
+    $sym = new StockSymbol($strSymbol);
+    if ($sym->IsFutureCn())
     {   // AU0
         return $strSymbol;
     }

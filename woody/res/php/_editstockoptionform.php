@@ -32,25 +32,29 @@ function _getStockOptionDate($strSubmit, $strSymbol)
 
 function _getStockOptionDescription($strSubmit, $strSymbol)
 {
-    $stock = SqlGetStock($strSymbol);
     $sym = new StockSymbol($strSymbol);
+    if ($sym->IsSinaFund())
+    {   // IsSinaFund must be called before IsSinaFuture
+    }
+    else if ($strFutureSymbol = $sym->IsSinaFuture())		$ref = 	new SinaFutureReference($strFutureSymbol);
+    else if ($sym->IsSinaForex())								$ref = 	new SinaForexReference($strSymbol);
+    else if ($sym->IsEastMoneyForex())						$ref = new CnyReference($strSymbol);
+    else														$ref = new SinaStockReference($strSymbol);
         
-    if ($strFutureSymbol = IsSinaFutureSymbol($strSymbol))     $ref_sina = new FutureReference($strFutureSymbol);
-    else                                                            $ref_sina = new SinaStockReference($strSymbol);
-        
+    $stock = SqlGetStock($strSymbol);
     if ($strSubmit == STOCK_OPTION_EDIT_CN)
     {
-        $strDescription = $stock['cn'].'-'.FromGB2312ToUTF8($ref_sina->strChineseName);
+        $strDescription = $stock['cn'].'-'.$ref->GetChineseName();
         if ($sym->IsFundA())
         {
             $fund_ref = new FundReference($strSymbol);
-            $strDescription .= '-'.FromGB2312ToUTF8($fund_ref->strChineseName);
+            $strDescription .= '-'.$fund_ref->GetChineseName();
         }
     }
     else
     {
-        $ref = new YahooStockReference($strSymbol);
-        $strDescription = $stock['us'].'-'.$ref->strName.'-'.FromGB2312ToUTF8($ref_sina->strName);
+        $yahoo_ref = new YahooStockReference($strSymbol);
+        $strDescription = $stock['us'].'-'.$ref->GetEnglishName().'-'.$yahoo_ref->GetEnglishName();
     }
     return $strDescription;
 }

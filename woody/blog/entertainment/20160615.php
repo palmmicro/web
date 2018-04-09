@@ -21,7 +21,7 @@ and triggered huge amount of arbitrage between SZ160216 and CL future. One of th
 Based on his long term experience, he also confirmed me that the trading price will not move to the USDCNY reference rate.
 He also provided the <a href="http://hq2gjqh.eastmoney.com/EM_Futures2010NumericApplication/Index.aspx?type=z&ids=usdcny0" target=_blank>USDCNY reference rate interface</a> from <a href="http://quote.eastmoney.com/forex/USDCNY.html" target=_blank>Easy Money</a>,
 which was used in his Excel+VBA tools.
-<br />Document first, then to implement my <font color=olive>ForexReference</font> class.
+<br />Document first, then to implement my <font color=olive>EastMoneyForexReference</font> class.
 The data as following:
 <br /><font color=grey>var js={futures:["USDCNY0,USDCNY,美元人民币,6.5842,6.5835,6.5966,6.5966,6.5804,0,1,
 0.0000,0,0,6.5842,0.0000,0,0,0.0124,0.19%,0.0000,

@@ -10,7 +10,6 @@ class MysqlReference extends StockReference
     var $strSqlId = false;      // ID in mysql database
     
     var $strSqlName = false;
-	var $bConvertGB2312 = false;
     
     function GetStockId()
     {
@@ -24,17 +23,7 @@ class MysqlReference extends StockReference
         {
             if ($this->bHasData)
             {
-                if ($this->bConvertGB2312)
-                {
-                    $strEnglish = FromGB2312ToUTF8($this->strName);
-                    $strChinese = FromGB2312ToUTF8($this->strChineseName);
-                }
-                else
-                {
-                    $strEnglish = $this->strName;
-                    $strChinese = $this->strChineseName;
-                }
-                SqlInsertStock($this->strSqlName, $strEnglish, $strChinese);
+                SqlInsertStock($this->strSqlName, $this->GetEnglishName(), $this->GetChineseName());
                 $this->strSqlId = SqlGetStockId($this->strSqlName);
             }
         }
@@ -187,7 +176,6 @@ class MyStockReference extends MysqlReference
             if ($strSinaSymbol = $this->sym->GetSinaSymbol())
             {
                 $this->LoadSinaData($strSinaSymbol);
-                $this->bConvertGB2312 = true;     // Sina name is GB2312 coded
             }
             else
             {
@@ -209,7 +197,6 @@ class MyStockReference extends MysqlReference
         {
             $this->strSqlName = FutureGetSinaSymbol($strSymbol);
             $this->LoadSinaFutureData($strSymbol);
-            $this->bConvertGB2312 = true;     // Sina name is GB2312 coded
         }
         
         parent::MysqlReference($strSymbol);
@@ -538,32 +525,6 @@ class MyFundReference extends FundReference
 }
 
 // ****************************** MyCnyReference class *******************************************************
-/*
-class MyCnyReference extends CnyReference
-{
-	function _updateHistory()
-	{
-		if (FloatNotZero(floatval($this->strOpen)) == false)
-		{
-			$this->EmptyFile();
-			return;
-		}
-    
-		$strId = SqlGetStockId($this->GetStockSymbol());
-		$strDate = $this->strDate;
-		if (SqlGetForexHistory($strId, $strDate) == false)
-		{
-			SqlInsertForexHistory($strId, $strDate, $this->strPrice);
-		}    
-	}
-
-    // constructor 
-    function MyCnyReference($strSymbol)
-    {
-        parent::CnyReference($strSymbol);
-        $this->_updateHistory();
-    }       
-}*/
 class MyCnyReference extends MysqlReference
 {
 	function _updateHistory()
@@ -589,6 +550,27 @@ class MyCnyReference extends MysqlReference
         {
         	$this->_updateHistory();
         }
+    }       
+}
+
+// ****************************** MyCnyReference class *******************************************************
+class MyForexReference extends MysqlReference
+{
+    public static $iDataSource = STOCK_DATA_SINA;
+//    public static $iDataSource = STOCK_DATA_EASTMONEY;
+
+    // constructor 
+    function MyForexReference($strSymbol)
+    {
+        if (self::$iDataSource == STOCK_DATA_SINA)
+        {
+            $this->LoadSinaForexData($strSymbol);
+        }
+        else
+        {
+            $this->LoadEastMoneyForexData($strSymbol);
+        }
+        parent::MysqlReference($strSymbol);
     }       
 }
 
@@ -1005,8 +987,15 @@ function StockGetIdSymbolArray($strSymbols)
 	    $strStockId = SqlGetStockId($strSymbol);
 	    if ($strStockId == false)
 	    {
-            $ref = new MyStockReference($strSymbol);
-            $strStockId = $ref->GetStockId();
+            $ref = MyStockGetReference(new StockSymbol($strSymbol));
+            if ($ref->bHasData)
+            {
+            	$strStockId = $ref->GetStockId();
+            }
+            else
+            {
+            	continue;
+            }
 	    }
 	    $arIdSymbol[$strStockId] = $strSymbol; 
 	}

@@ -147,8 +147,8 @@
 估计大多数人还是不熟悉美国股市交易时间, 而在这里, 美股数据后面跟的是美东日期和时间.
 <br />虽说是个小的显示改动, 但是忍不住哗啦哗啦又整理优化了一大片代码. 把原来<?php EchoPhpFileLink('/php/stock/stockref.php'); ?>中的<font color=olive>StockReference</font>类抽出基础数据和显示数据变成基础类,
 派生出股票数据类<font color=olive>SinaStockReference</font>和<font color=olive>YahooStockReference</font>. 
-把原来期货数据读取改为继承自<font color=olive>StockReference</font>类的<font color=olive>FutureReference</font>类, 
-汇率的数据读取改为继承自<font color=olive>StockReference</font>类的<font color=olive>ForexReference</font>类, 达到统一数据显示格式的目的. 这样到也算对得起这个新版本号.
+把原来期货数据读取改为继承自<font color=olive>StockReference</font>类的<font color=olive>SinaFutureReference</font>类, 
+汇率的数据读取改为继承自<font color=olive>StockReference</font>类的<font color=olive>SinaForexReference</font>类, 达到统一数据显示格式的目的. 这样到也算对得起这个新版本号.
 <br />原来<font color=olive>StockReference</font>类中记录原始数据的成员变量$strDate (2014-11-13, 'Y-m-d')和$strTime (08:55:00, 'H:i:s')维持不变,
 增加专门用来显示的成员变量$strTimeHM (08:55), 分离数据和显示.   
 </p>

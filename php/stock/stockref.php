@@ -3,6 +3,8 @@ define ('TRADING_QUOTE_NUM', 5);
 
 define ('STOCK_SINA_DATA', 'Sina Data');
 define ('STOCK_SINA_FUTURE_DATA', 'Sina Future Data');
+define ('STOCK_SINA_FOREX', 'Sina Forex Data');
+define ('STOCK_EASTMONEY_FOREX', 'East Money Forex Data');
 define ('STOCK_GOOGLE_DATA', 'Google Data');
 define ('STOCK_YAHOO_DATA', 'Yahoo Data (possible 15 min delay)');
 define ('STOCK_NET_VALUE', 'Net Value');
@@ -212,6 +214,7 @@ class StockReference
 {
     var $sym = false;                  // StockSymbol class
     var $strDescription;              // Stock description
+	var $bConvertGB2312 = false;
     
     var $strFileName;                       // File to store original data
     var $strTimeZone = STOCK_TIME_ZONE_CN;  // Time zone for $strDate and $strTime display
@@ -272,6 +275,24 @@ class StockReference
     function EmptyFile()
     {
         unlinkEmptyFile($this->strFileName);
+    }
+    
+    function GetChineseName()
+    {
+    	if ($this->bConvertGB2312)
+    	{
+    		return FromGB2312ToUTF8($this->strChineseName);
+    	}
+   		return $this->strChineseName;
+    }
+    
+    function GetEnglishName()
+    {
+    	if ($this->bConvertGB2312)
+    	{
+    		return FromGB2312ToUTF8($this->strName);
+    	}
+   		return $this->strName;
     }
     
     function GetStockSymbol()
@@ -585,6 +606,7 @@ class StockReference
         {
             $this->_onSinaDataUS($ar);
         }
+        $this->bConvertGB2312 = true;     // Sina name is GB2312 coded
     }
     
     function _onSinaFuture($ar)
@@ -635,6 +657,7 @@ class StockReference
         {
             $this->_onSinaFuture($ar);
         }
+        $this->bConvertGB2312 = true;     // Sina name is GB2312 coded
 
         $this->strExternalLink = GetSinaFutureLink($strSymbol);
     }
@@ -666,7 +689,42 @@ class StockReference
         $this->strPrice = $this->strOpen;
         
         $this->strExternalLink = GetReferenceRateForexLink($strSymbol);
+    }
+    
+    function LoadSinaForexData($strSymbol)
+    {
+        $this->strFileName = DebugGetSinaFileName($strSymbol);
+        $ar = _GetForexAndFutureArray($strSymbol, $this->strFileName, ForexAndFutureGetTimezone(), GetSinaQuotes);
+        if (count($ar) < 10)
+        {
+            $this->bHasData = false;
+            return;
+        }
+        
+        $this->strTime = $ar[0];
+        $this->strPrevPrice = $ar[3];
+        $this->strPrice = $ar[8];
+    	$this->strName = $ar[9];
+        $this->strDate = $ar[10];
+        $this->bConvertGB2312 = true;     // Sina name is GB2312 coded
+        
+        $this->strExternalLink = GetSinaForexLink($strSymbol);
     }       
+
+    function LoadEastMoneyForexData($strSymbol)
+    {
+        $this->strFileName = DebugGetEastMoneyFileName($strSymbol);
+        $ar = _GetForexAndFutureArray(ForexGetEastMoneySymbol($strSymbol), $this->strFileName, ForexAndFutureGetTimezone(), GetEastMoneyQuotes);
+        if (count($ar) < 27)
+        {
+            $this->bHasData = false;
+            return;
+        }
+        $this->_getEastMoneyForexData($ar);
+
+        $this->strExternalLink = GetEastMoneyForexLink($strSymbol);
+    }       
+    
 }
 
 // ****************************** SinaStockReference Class *******************************************************
@@ -742,12 +800,11 @@ class YahooNetValueReference extends YahooStockReference
     }
 }
 
-// ****************************** FutureReference Class *******************************************************
-
-class FutureReference extends StockReference
+// ****************************** SinaFutureReference Class *******************************************************
+class SinaFutureReference extends StockReference
 {
     // constructor 
-    function FutureReference($strSymbol)
+    function SinaFutureReference($strSymbol)
     {
         $this->LoadSinaFutureData($strSymbol);
         parent::StockReference($strSymbol);
@@ -755,5 +812,40 @@ class FutureReference extends StockReference
     }
 }
 
+// ****************************** SinaForexReference Class *******************************************************
+class SinaForexReference extends StockReference
+{
+    // constructor 
+    function SinaForexReference($strSymbol)
+    {
+    	$this->LoadSinaForexData($strSymbol);
+        parent::StockReference($strSymbol);
+        $this->strDescription = STOCK_SINA_FOREX_DATA;
+    }       
+}
+
+// ****************************** EastMoneyForexReference Class *******************************************************
+class EastMoneyForexReference extends StockReference
+{
+    // constructor 
+    function EastMoneyForexReference($strSymbol)
+    {
+    	$this->LoadEastMoneyForexData($strSymbol);
+        parent::StockReference($strSymbol);
+        $this->strDescription = STOCK_EASTMONEY_FOREX_DATA;
+    }       
+}
+
+// ****************************** CnyReference Class *******************************************************
+class CnyReference extends StockReference
+{
+    // constructor 
+    function CnyReference($strSymbol)
+    {
+    	$this->LoadEastMoneyCnyData($strSymbol);
+        parent::StockReference($strSymbol);
+        $this->strDescription = STOCK_EASTMONEY_FOREX_DATA;
+    }       
+}
 
 ?>

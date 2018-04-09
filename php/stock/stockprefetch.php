@@ -227,20 +227,19 @@ function PrefetchEastMoneyData($arSymbol)
     _writePrefetchFiles($arFileName, $arLine, $iCount);
 }
 
-function _prefetchSinaData($arSymbol)
+function _prefetchSinaData($arSym)
 {
     $strSymbols = '';
     $arFileName = array();
     
-    foreach ($arSymbol as $str => $strSymbol)
+    foreach ($arSym as $str => $sym)
     {
         $strFileName = DebugGetSinaFileName($str);
-        $sym = new StockSymbol($strSymbol);
 		if ($sym->IsSinaFund())
-        {   // fund, IsSinaFund must be called before IsSinaFutureSymbol
+        {   // fund, IsSinaFund must be called before IsSinaFuture
             if (IsNewDailyQuotes($sym, $strFileName, false, _GetFundQuotesYMD))       continue;
         }
-        else if (IsSinaFutureSymbol($str) || $sym->IsSinaForex())
+        else if ($sym->IsSinaFuture() || $sym->IsSinaForex())
         {   // forex and future
             if (ForexAndFutureNeedNewFile($strFileName, ForexAndFutureGetTimezone()) == false)    continue;
         }
@@ -268,21 +267,25 @@ function PrefetchSinaStockData($arSymbol)
         if ($strSymbol)
         {
             $sym = new StockSymbol($strSymbol);
-            if ($sym->IsEastMoneyForex())
+            if ($sym->IsSinaFund() || $sym->IsSinaForex())
+            {   // IsSinaFund must be called before IsSinaFuture
+                $arPrefetch[$strSymbol] = $sym;
+            }
+            else if ($sym->IsSinaFuture())
+            {
+                $arPrefetch[$strSymbol] = $sym;
+            }
+            else if ($sym->IsEastMoneyForex())
             {	// Only WX call may into this, nothing need to be done. Do not put it in $arUnknown neither!
             }	
-            else if ($sym->IsSinaFund() || $sym->IsSinaForex())
-            {   // IsSinaFund must be called before IsSinaFutureSymbol
-                $arPrefetch[$strSymbol] = $strSymbol;
-            }
-            else if ($strFutureSymbol = IsSinaFutureSymbol($strSymbol))
-            {
-                $arPrefetch[$strSymbol] = $strFutureSymbol;
-            }
             else if ($strSinaSymbol = $sym->GetSinaSymbol())
             {
-                $arPrefetch[$strSinaSymbol] = $strSymbol;
-                if ($sym->IsFundA())     $arPrefetch[$sym->GetSinaFundSymbol()] = $strSymbol;
+                $arPrefetch[$strSinaSymbol] = $sym;
+                if ($sym->IsFundA())
+                {
+                	$strSinaFundSymbol = $sym->GetSinaFundSymbol();
+                	$arPrefetch[$strSinaFundSymbol] = new StockSymbol($strSinaFundSymbol);
+                }
             }
             else
             {

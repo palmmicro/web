@@ -50,8 +50,7 @@ function _echoStockGroupArray($arStock, $bChinese)
     foreach ($arStock as $strSymbol)
     {
         $sym = new StockSymbol($strSymbol);
-        if (in_arrayFuture($strSymbol))	$ref = new MyFutureReference($strSymbol);
-        else if ($sym->IsFundA())
+        if ($sym->IsFundA())
         {
         	$fund = MyStockGetFundReference($strSymbol);
         	$arFund[] = $fund;
@@ -71,7 +70,7 @@ function _echoStockGroupArray($arStock, $bChinese)
        				if (in_array_ref($hadr_ref->GetStockSymbol(), $arHAdrRef) == false)		$arHAdrRef[] = $hadr_ref;
        			}
        		}
-       		else	$ref = new MyStockReference($strSymbol);
+       		else	$ref = MyStockGetReference($sym);
         }
 
         $strInternalLink = SelectSymbolInternalLink($strSymbol, $bChinese);
@@ -82,7 +81,7 @@ function _echoStockGroupArray($arStock, $bChinese)
         }
 
         $arRef[] = $ref;
-        if ($sym->IsIndex() == false)
+        if (($sym->IsForex() == false) || ($sym->IsIndex() == false))
         {
             $arTransactionRef[] = $ref;
         }

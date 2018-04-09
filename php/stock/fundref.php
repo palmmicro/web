@@ -43,6 +43,7 @@ class FundReference extends StockReference
         $this->strDate = $ar[4];
         $this->strName = $ar[0];
 
+        $this->bConvertGB2312 = true;     // Sina name is GB2312 coded
         parent::StockReference($strSymbol);
     }
 }

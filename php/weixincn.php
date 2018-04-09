@@ -14,7 +14,7 @@ require_once('sql/sqlstock.php');
 require_once('sql/sqlspider.php');
 require_once('sql/sqlweixin.php');
 
-define('WX_DEBUG_VER', '版本785');
+define('WX_DEBUG_VER', '版本787');
 
 define('WX_DEFAULT_SYMBOL', 'SZ162411');
 define('MAX_WX_STOCK', 30);
@@ -170,23 +170,23 @@ function _wxGetStockText($strSymbol)
 {
     $sym = new StockSymbol($strSymbol);
     $str = false;
-    if ($sym->IsEastMoneyForex())
-    {
-    }
-    else if ($sym->IsSinaForex())
-    {
-    	$ref = new ForexReference($strSymbol);
-        $str = _getStockReferenceText($ref); 
-    }
-    else if ($sym->IsSinaFund())     
-    {   // IsSinaFund must be called before IsSinaFutureSymbol
+    if ($sym->IsSinaFund())     
+    {   // IsSinaFund must be called before IsSinaFuture
         $ref = new MyFundReference($strSymbol);
         $str = _getFundReferenceText($ref); 
     }
-    else if ($strFutureSymbol = IsSinaFutureSymbol($strSymbol))
+    else if ($strFutureSymbol = $sym->IsSinaFuture())
     {
         $ref = new MyFutureReference($strFutureSymbol);
         $str = _getStockReferenceText($ref); 
+    }
+    else if ($sym->IsSinaForex())
+    {
+    	$ref = new MyForexReference($strSymbol);
+        $str = _getStockReferenceText($ref); 
+    }
+    else if ($sym->IsEastMoneyForex())
+    {
     }
     else if ($sym->IsFundA())
     {

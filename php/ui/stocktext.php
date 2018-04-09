@@ -77,7 +77,7 @@ function TextFromFundReference($ref)
 {
     if ($ref->bHasData == false)                return false;
 
-    $strName = FromGB2312ToUTF8($ref->strChineseName).WX_EOL.$ref->GetStockSymbol().WX_EOL;
+    $strName = $ref->GetChineseName().WX_EOL.$ref->GetStockSymbol().WX_EOL;
     $stock_ref = $ref->stock_ref;
     if ($stock_ref)
     {

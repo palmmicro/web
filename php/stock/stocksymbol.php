@@ -1,5 +1,6 @@
 <?php
 
+define ('SINA_FUTURE_PREFIX', 'hf_');
 define ('SINA_FUND_PREFIX', 'f_');
 define ('SINA_HK_PREFIX', 'rt_hk');
 define ('SINA_US_PREFIX', 'gb_');
@@ -168,6 +169,13 @@ class StockSymbol
         return false;
     }
     
+    function IsForex()
+    {
+    	if ($this->IsEastMoneyForex())	return true;
+    	if ($this->IsSinaForex())			return true;
+    	return false;
+    }
+    
     // f_240019
     function IsSinaFund()
     {
@@ -192,6 +200,14 @@ class StockSymbol
         return false;
     }
 
+    function IsSinaFuture()
+    {
+    	$strSinaSymbol = $this->strSymbol;
+        if ($this->IsFutureCn())					                   return $strSinaSymbol;
+        if (substr($strSinaSymbol, 0, 3) == SINA_FUTURE_PREFIX)    return substr($strSinaSymbol, 3);
+        return false;
+    }
+    
     function SetTimeZone()
     {
         if ($this->IsSymbolA() || $this->IsSymbolH() || $this->IsEastMoneyForex() || $this->IsSinaFund())

@@ -81,7 +81,7 @@ function _echoMyStock($strSymbol, $bChinese)
     else
     {
     	if ($ref_ar = MyStockGetHAdrReference($sym))		list($ref, $hshare_ref, $hadr_ref) = $ref_ar;
-        else												$ref = new MyStockReference($strSymbol);
+   		else												$ref = MyStockGetReference($sym);
     }
     EchoReferenceParagraph(array($ref), $bChinese);
     
@@ -109,7 +109,8 @@ function _echoMyStock($strSymbol, $bChinese)
        	}
     }
     
-    EchoMyStockSmaParagraph($ref, $hshare_ref, $hadr_ref, $bChinese);
+    if ($sym->IsForex() == false)	EchoMyStockSmaParagraph($ref, $hshare_ref, $hadr_ref, $bChinese);
+    
     if ($strMemberId = AcctIsLogin())
     {
     	EchoStockGroupParagraph($bChinese);	
@@ -134,7 +135,7 @@ function EchoMyStock($bChinese)
 {
     if ($str = UrlGetQueryValue('symbol'))
     {
-        $sym = _echoMyStock(StockGetSymbol($str), $bChinese);
+        $sym = _echoMyStock($str, $bChinese);
         if (AcctIsAdmin())
         {
         	_echoMyStockLinks($sym, $bChinese);
