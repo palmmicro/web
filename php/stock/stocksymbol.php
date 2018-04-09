@@ -244,7 +244,7 @@ class StockSymbol
     	if ($this->strSinaIndexUS == false)
     	{
     		$strSymbol = $this->strSymbol;
-    		if ($strSymbol == '^DJI')     		  $this->strSinaIndexUS = 'dji';  
+    		if ($strSymbol == '^DJI')     	  $this->strSinaIndexUS = 'dji';  
             else if ($strSymbol == '^GSPC')    $this->strSinaIndexUS = 'inx';  
             else if ($strSymbol == '^NDX')     $this->strSinaIndexUS = 'ndx';  
     	}
@@ -258,7 +258,7 @@ class StockSymbol
         if ($this->IsIndex())
         {
 			if ($this->GetSinaIndexH())		    return SINA_HK_PREFIX.$this->strSinaIndexH;
-			else if ($this->GetSinaIndexUS())		return SINA_US_PREFIX.$this->strSinaIndexUS;
+			else if ($this->GetSinaIndexUS())	return SINA_US_PREFIX.$this->strSinaIndexUS;
             else                                   return false;
         }
         else if ($this->IsSymbolH())

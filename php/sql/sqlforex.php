@@ -25,6 +25,11 @@ function SqlGetForexHistoryNow($strStockId)
 	return SqlGetSingleTableData(TABLE_FOREX_HISTORY, _SqlBuildWhere_stock($strStockId), _SqlOrderByDate());
 }
 
+function SqlGetPrevForexHistoryByDate($strStockId, $strDate)
+{
+	return SqlGetSingleTableData(TABLE_FOREX_HISTORY, "stock_id = '$strStockId' AND date < '$strDate'", _SqlOrderByDate());
+}
+
 function SqlInsertForexHistory($strStockId, $strDate, $strClose)
 {
 	$strQry = "INSERT INTO forexhistory(id, stock_id, date, close) VALUES('0', '$strStockId', '$strDate', '$strClose')";

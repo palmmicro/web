@@ -11,7 +11,7 @@ class _LofUsGroup extends _LofGroup
     function _LofUsGroup($strSymbol) 
     {
         $strUSD = 'DINIW'; 
-        $strEtfSymbol = LofGetEtfSymbol();
+        $strEtfSymbol = LofGetEtfSymbol($strSymbol);
         MyStockPrefetchData(array($strSymbol, $strUSD, GetYahooNetValueSymbol($strEtfSymbol)));
         
         $this->cny_ref = new MyCnyReference('USCNY');	// Always create CNY Forex class instance first!

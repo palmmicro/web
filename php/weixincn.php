@@ -14,7 +14,7 @@ require_once('sql/sqlstock.php');
 require_once('sql/sqlspider.php');
 require_once('sql/sqlweixin.php');
 
-define('WX_DEBUG_VER', '版本787');
+define('WX_DEBUG_VER', '版本790');
 
 define('WX_DEFAULT_SYMBOL', 'SZ162411');
 define('MAX_WX_STOCK', 30);
@@ -145,6 +145,25 @@ function _wxGetStockArray($strContents)
     return array_unique($ar);
 }
 
+function _getForexText($strSymbol)
+{
+	$stock = SqlGetStock($strSymbol);
+    $str = $stock['cn'].WX_EOL;
+    $str .= $strSymbol.WX_EOL;
+    $strStockId = $stock['id'];
+	if ($history = SqlGetForexHistoryNow($strStockId))
+	{
+		$strPrice = $history['close'];
+		$strDate = $history['date'];
+		$str .= '现价:'.$strPrice.' '.$strDate.WX_EOL;
+		if ($history_prev = SqlGetPrevForexHistoryByDate($strStockId, $strDate))
+		{
+			$str .= '涨跌:'.StockGetPercentageText(floatval($strPrice), floatval($history_prev['close'])).WX_EOL;
+		}
+	}
+    return $str;
+}
+
 function _getAhReferenceText($ref, $hshare_ref, $hadr_ref)
 {
     $ref->strExternalLink = $ref->GetStockSymbol();
@@ -187,6 +206,7 @@ function _wxGetStockText($strSymbol)
     }
     else if ($sym->IsEastMoneyForex())
     {
+    	$str = _getForexText($strSymbol);
     }
     else if ($sym->IsFundA())
     {

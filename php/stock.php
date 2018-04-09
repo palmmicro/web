@@ -231,6 +231,16 @@ function StockGetPercentage($fPrice, $fPrice2)
     return round($fPercentage, 2);
 }
 
+function StockGetPercentageText($fPrice, $fPrice2)
+{
+    if (FloatNotZero($fPrice2))
+    {
+        $fPercentage = StockGetPercentage($fPrice, $fPrice2);
+        return strval($fPercentage).'%';
+    }
+    return '';
+}
+
 function StockGetPercentageDisplay($fPrice, $fPrice2)
 {
     if ($fPrice2 && FloatNotZero($fPrice2) && FloatNotZero($fPrice))

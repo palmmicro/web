@@ -49,7 +49,7 @@ function MyStockPrefetchData($ar)
                 	if ($strSymbolA = SqlGetHaPair($strSymbolH))	$arAll[] = $strSymbolA;
                 }
             }
-            $arAll[] = $strSymbol; 
+            $arAll[] = $strSymbol;
         }
     }
     _prefetchStockData(array_unique($arAll));

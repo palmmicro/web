@@ -337,12 +337,7 @@ class StockReference
 
     function GetPercentageText($fVal)
     {
-        if (FloatNotZero($fVal))
-        {
-            $fPercentage = StockGetPercentage($this->fPrice, $fVal);
-            return strval($fPercentage).'%';
-        }
-        return '';
+    	return StockGetPercentageText($this->fPrice, $fVal);
     }
     
     function GetDebugLink()
