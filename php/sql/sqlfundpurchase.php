@@ -63,4 +63,9 @@ function SqlCountFundPurchase($strMemberId)
     return SqlCountTableData(TABLE_FUND_PURCHASE, _SqlBuildWhere_member($strMemberId));
 }
 
+function SqlCountFundPurchaseByStockId($strStockId)
+{
+    return SqlCountTableData(TABLE_FUND_PURCHASE, _SqlBuildWhere_stock($strStockId));
+}
+
 ?>

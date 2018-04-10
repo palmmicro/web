@@ -84,4 +84,9 @@ function SqlDeleteStockHistoryWithZeroVolume($strStockId)
     return SqlDeleteTableData(TABLE_STOCK_HISTORY, "volume = '0' AND stock_id = '$strStockId'", false);
 }
 
+function SqlDeleteStockHistory($strStockId)
+{
+    return SqlDeleteTableData(TABLE_STOCK_HISTORY, _SqlBuildWhere_stock($strStockId), false);
+}
+
 ?>

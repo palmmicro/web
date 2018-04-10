@@ -32,6 +32,11 @@ function SqlUpdateStock($strId, $strSymbol, $strEnglish, $strChinese)
 	return SqlDieByQuery($strQry, 'Update stock table failed');
 }
 
+function SqlGetAllStock($iStart, $iNum)
+{
+    return SqlGetTableData(TABLE_STOCK, false, '`name` ASC', _SqlBuildLimit($iStart, $iNum));
+}
+
 function SqlGetStock($strSymbol)
 {
 	return SqlGetUniqueTableData(TABLE_STOCK, _SqlBuildWhere('name', $strSymbol));
@@ -58,13 +63,23 @@ function SqlGetStockId($strSymbol)
 	return false;
 }
 
+function SqlGetStockById($strId)
+{
+	return SqlGetTableDataById(TABLE_STOCK, $strId);
+}
+
 function SqlGetStockSymbol($strId)
 {
-    if ($stock = SqlGetTableDataById(TABLE_STOCK, $strId))
+    if ($stock = SqlGetStockById($strId))
     {
 		return $stock['name'];
     }
 	return false;
+}
+
+function SqlDeleteStock($strId)
+{
+	SqlDeleteTableDataById(TABLE_STOCK, $strId);
 }
 
 // ****************************** Other SQL and stock related functions *******************************************************

@@ -129,6 +129,11 @@ function SqlGetStockGroupItemByGroupId($strGroupId)
     return SqlGetTableData(TABLE_STOCK_GROUP_ITEM, _SqlBuildWhere('group_id', $strGroupId), false, false);
 }
 
+function SqlCountStockGroupItemByStockId($strStockId)
+{
+    return SqlCountTableData(TABLE_STOCK_GROUP_ITEM, _SqlBuildWhere_stock($strStockId));
+}
+
 // ****************************** Stock Group Item functions *******************************************************
 
 function SqlDeleteStockGroupItem($strId)

@@ -194,7 +194,7 @@ function DebugGetFileLink($strPathName)
 {
     $strLink = DebugFileLink($strPathName);
     $strLastTime = _getFileTimeDisplay($strPathName);
-    $strDelete = UrlGetOnClickLink('/php/_submitdeletefile.php?delete='.$strPathName, '确认删除调试文件'.$strPathName.'?', $strLastTime);
+    $strDelete = UrlGetOnClickLink('/php/_submitdelete.php?file='.$strPathName, '确认删除调试文件'.$strPathName.'?', $strLastTime);
     return "$strLink($strDelete)";
 }
 

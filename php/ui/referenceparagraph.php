@@ -116,7 +116,7 @@ function EchoStockRefTable($arRef, $callback, $bChinese)
 	}
 	else
 	{
-		$strColumnEx = GetTableColumn(270, '');
+		$strColumnEx = GetTableColumn(270, $arColumn[5]);
 	}
     
     echo <<<END

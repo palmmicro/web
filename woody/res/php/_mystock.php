@@ -3,6 +3,7 @@ require_once('_stock.php');
 require_once('_editmergeform.php');
 require_once('_editstockoptionform.php');
 //require_once('/php/ui/referenceparagraph.php');
+require_once('/php/ui/stockparagraph.php');
 require_once('/php/ui/ahparagraph.php');
 require_once('/php/ui/smaparagraph.php');
 require_once('/php/ui/fundestparagraph.php');
@@ -131,6 +132,15 @@ function _echoMyStockLinks($sym, $bChinese)
     EchoParagraph($str);
 }
 
+function _echoAllStock($bChinese)
+{
+    $iStart = UrlGetQueryInt('start', 0);
+    $iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
+    $iTotal = SqlCountTableData(TABLE_STOCK, false);
+    $strNavLink = _GetNavLink('mystock', false, $iTotal, $iStart, $iNum, $bChinese);
+    EchoStockParagraph($strNavLink, $iStart, $iNum, $bChinese);
+}
+
 function EchoMyStock($bChinese)
 {
     if ($str = UrlGetQueryValue('symbol'))
@@ -139,6 +149,13 @@ function EchoMyStock($bChinese)
         if (AcctIsAdmin())
         {
         	_echoMyStockLinks($sym, $bChinese);
+        }
+    }
+    else
+    {
+        if (AcctIsDebug())
+        {
+        	_echoAllStock($bChinese);
         }
     }
     EchoPromotionHead('', $bChinese);
