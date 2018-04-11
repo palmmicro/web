@@ -50,7 +50,7 @@ function _getNavVisitorLink($strIp, $iStart, $iNum, $bChinese)
         $strId = false;
         $iTotal = SqlCountTableData(VISITOR_TABLE, false);
     }
-    return UrlGetNavLink(AccountGetPathTitle(), $strId, $iTotal, $iStart, $iNum, $bChinese);
+    return UrlGetNavLink($strId, $iTotal, $iStart, $iNum, $bChinese);
 }
 
 function _echoBlogVisitorParagraph($strIp, $iStart, $iNum, $bChinese)

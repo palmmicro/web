@@ -45,7 +45,7 @@ function _getNavWeixinVisitorLink($strOpenId, $iStart, $iNum, $bChinese)
         $strId = false;
         $iTotal = SqlCountTableData(WEIXIN_VISITOR_TABLE, false);
     }
-    return UrlGetNavLink(AccountGetPathTitle(), $strId, $iTotal, $iStart, $iNum, $bChinese);
+    return UrlGetNavLink($strId, $iTotal, $iStart, $iNum, $bChinese);
 }
 
 function _echoWeixinVisitorParagraph($strOpenId, $iStart, $iNum, $bChinese)

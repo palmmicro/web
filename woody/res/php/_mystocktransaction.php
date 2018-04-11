@@ -19,7 +19,7 @@ function MyStockTransactionEchoAll($bChinese)
             $iTotal = SqlCountStockTransaction($strGroupId, $ref->GetStockId());
             if ($iTotal > 0)
             {
-            	$strNavLink = _GetNavLink('mystocktransaction', 'groupid='.$strGroupId.'&symbol='.$strSymbol, $iTotal, $iStart, $iNum, $bChinese);
+            	$strNavLink = UrlGetNavLink('groupid='.$strGroupId.'&symbol='.$strSymbol, $iTotal, $iStart, $iNum, $bChinese);
             	EchoTransactionFullParagraph($strNavLink, $strGroupId, $ref, $iStart, $iNum, $bChinese);
             }
         }
@@ -35,7 +35,7 @@ function MyStockTransactionEchoAll($bChinese)
             $iTotal = SqlCountStockTransactionByGroupId($strGroupId);
             if ($iTotal > 0)
             {
-            	$strNavLink = _GetNavLink('mystocktransaction', 'groupid='.$strGroupId, $iTotal, $iStart, $iNum, $bChinese);
+            	$strNavLink = UrlGetNavLink('groupid='.$strGroupId, $iTotal, $iStart, $iNum, $bChinese);
             	EchoTransactionFullParagraph($strNavLink, $strGroupId, false, $iStart, $iNum, $bChinese);
             }
         }

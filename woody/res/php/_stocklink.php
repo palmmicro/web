@@ -29,14 +29,9 @@ function _GetReturnSymbolGroupLink($strSymbol, $bChinese)
     return _getReturnGroupText($strLink, $bChinese);
 }
 
-function _GetNavLink($strTitle, $strId, $iTotal, $iStart, $iNum, $bChinese)
+function _GetStockNavLink($strSymbol, $iTotal, $iStart, $iNum, $bChinese)
 {
-    return UrlGetNavLink(STOCK_PATH.$strTitle, $strId, $iTotal, $iStart, $iNum, $bChinese);
-}
-
-function _GetStockNavLink($strTitle, $strSymbol, $iTotal, $iStart, $iNum, $bChinese)
-{
-    return _GetNavLink($strTitle, 'symbol='.$strSymbol, $iTotal, $iStart, $iNum, $bChinese);
+    return UrlGetNavLink('symbol='.$strSymbol, $iTotal, $iStart, $iNum, $bChinese);
 }
 
 function _GetAdjustLink($strSymbol, $strQuery, $bChinese)

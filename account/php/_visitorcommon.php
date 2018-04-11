@@ -4,7 +4,7 @@ require_once('/php/ui/table.php');
 
 function GetVisitorTodayLink($iCount, $bChinese)
 {
-    return UrlBuildPhpLink(AccountGetPathTitle(), 'start=0&num='.$iCount, '今日访问', 'Visitors of Today', $bChinese);
+    return UrlBuildPhpLink(UrlGetUriTitle(), 'start=0&num='.$iCount, '今日访问', 'Visitors of Today', $bChinese);
 }
 
 function EchoVisitorItem($strContent, $strLink, $record)
@@ -40,7 +40,7 @@ function _getOrigVisitorLink($bChinese)
     }
     else
     {
-        $strOrigLink = UrlBuildPhpLink(AccountGetPathTitle(), false, '回访问首页', 'Back to Visitor Home', $bChinese);
+        $strOrigLink = UrlBuildPhpLink(UrlGetUriTitle(), false, '回访问首页', 'Back to Visitor Home', $bChinese);
     }
     return $strOrigLink;    
 }

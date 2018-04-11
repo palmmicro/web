@@ -206,9 +206,8 @@ function UrlGetPageName()
 }
 
 // /woody/blog/entertainment/20140615cn.php ==> 20140615
-function UrlGetTitle()
+function _getTitle($str)
 {
-    $str = UrlGetPageName();
     $strType = UrlGetType();
    	$iPos = strpos($str, $strType);
    	if ($iPos > 0)
@@ -223,6 +222,16 @@ function UrlGetTitle()
    	    return substr($str, 0, strlen($str) - 2);
    	}
    	return $str;
+}
+
+function UrlGetTitle()
+{
+    return _getTitle(UrlGetPageName());
+}
+
+function UrlGetUriTitle()
+{
+    return _getTitle(UrlGetUri());
 }
 
 function UrlGetPhp($bChinese)
@@ -365,7 +374,7 @@ function _getNavLinkQuery($strId, $iStart, $iNum)
     return $str;
 }
 
-function UrlGetNavLink($strPath, $strQueryId, $iTotal, $iStart, $iNum, $bChinese)
+function UrlGetNavLink($strQueryId, $iTotal, $iStart, $iNum, $bChinese)
 {
     $str = ($bChinese ? '总数' : 'Total').': '.strval($iTotal).' ';
     if ($iTotal <= 0)		return $str;
@@ -374,6 +383,7 @@ function UrlGetNavLink($strPath, $strQueryId, $iTotal, $iStart, $iNum, $bChinese
     if ($iLast > $iTotal)   $iLast = $iTotal;
     $str .= ($bChinese ? '当前显示' : 'Current').': '.strval($iStart).'-'.strval($iLast - 1).' ';
     
+    $strPath = UrlGetUriTitle();
     $arDir = UrlGetNavDisplayArray();
     if ($iStart > 0)
     {   // Prev

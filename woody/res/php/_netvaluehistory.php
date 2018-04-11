@@ -12,7 +12,7 @@ function _echoNetValueHistory($strSymbol, $iStart, $iNum, $bChinese)
     
     $strStockId = SqlGetStockId($strSymbol);
     $iTotal = SqlCountFundHistory($strStockId);
-    $strNavLink = _GetStockNavLink('netvaluehistory', $strSymbol, $iTotal, $iStart, $iNum, $bChinese);
+    $strNavLink = _GetStockNavLink($strSymbol, $iTotal, $iStart, $iNum, $bChinese);
     $strGroupLink = _GetReturnSymbolGroupLink($strSymbol, $bChinese); 
     EchoParagraph($strGroupLink.$strNavLink);
     

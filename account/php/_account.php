@@ -36,9 +36,4 @@ function _LayoutTopLeft($bChinese)
     LayoutTopLeft(AccountMenu, $bChinese);
 }
 
-function AccountGetPathTitle()
-{
-    return '/account/'.UrlGetTitle();
-}
-
 ?>
