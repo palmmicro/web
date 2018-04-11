@@ -179,7 +179,7 @@ class StockHistory
     
     function DebugConfigLink()
     {
-        return DebugGetFileLink($this->strConfigName);
+        return GetFileDebugLink($this->strConfigName);
     }
     
     function _getTradingRange($iDays, $afClose, $afHigh, $afLow)

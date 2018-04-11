@@ -14,7 +14,7 @@ require_once('sql/sqlstock.php');
 require_once('sql/sqlspider.php');
 require_once('sql/sqlweixin.php');
 
-define('WX_DEBUG_VER', '版本791');
+define('WX_DEBUG_VER', '版本793');
 
 define('WX_DEFAULT_SYMBOL', 'SZ162411');
 define('MAX_WX_STOCK', 30);
@@ -376,7 +376,7 @@ function WxOnImage($strUrl, $strUserName)
         fclose($fp);  
 //      unset($img, $url);
 
-        $strLink = UrlGetLink($strFileName, $strFileName);
+        $strLink = GetInternalLink($strFileName, $strFileName);
         $strContents .= "(已经保存到{$strLink})";
     }
     

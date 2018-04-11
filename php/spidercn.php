@@ -1,6 +1,6 @@
 <?php
+//require_once('url.php');
 require_once('debug.php');
-require_once('url.php');
 require_once('mystock.php');
 require_once('sql.php');
 

@@ -1,6 +1,6 @@
 <?php
+//require_once('url.php');
 require_once('debug.php');
-require_once('url.php');
 //require_once('email.php');
 require_once('regexp.php');
 require_once('gb2312.php');
@@ -46,7 +46,7 @@ function TestGoogleHistory()
     $str = StockGetGoogleHistoryQuotes($sym->GetGoogleSymbol(), 'Jan+01%2C+2009', 'Aug+2%2C+2012');
     $strFileName = DebugGetGoogleHistoryFileName($strSymbol);
     file_put_contents($strFileName, $str);
-    $strLink = DebugGetFileLink($strFileName);
+    $strLink = GetFileDebugLink($strFileName);
     echoDebugString($strLink);
 }
 */

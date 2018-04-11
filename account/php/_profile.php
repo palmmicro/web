@@ -117,7 +117,7 @@ function _getWebLink($strWeb)
 	{
 		$str = 'http://'.$strWeb;
 	}
-	return DebugGetExternalLink($str, $strWeb); 
+	return GetExternalLink($str, $strWeb); 
 }
 
 function _echoAccountBlogComments($strMemberId, $bChinese)
@@ -144,7 +144,7 @@ function _echoAccountFundAmount($strMemberId, $bChinese)
     $str = $bChinese ? '申购金额' : 'Fund Amount';
     if ($iTotal > TABLE_COMMON_DISPLAY)
     {
-        $str .= ' '.UrlBuildPhpLink(STOCK_PATH.'fundpurchaseamount', 'member_id='.$strMemberId, '全部', 'All', $bChinese);
+        $str .= ' '.BuildPhpLink(STOCK_PATH.'fundpurchaseamount', 'member_id='.$strMemberId, '全部', 'All', $bChinese);
     }
     EchoFundPurchaseParagraph($str, $strMemberId, 0, TABLE_COMMON_DISPLAY, $bChinese);
 }

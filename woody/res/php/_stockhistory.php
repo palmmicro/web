@@ -37,7 +37,7 @@ function _echoStockHistoryParagraph($strSymbol, $strStockId, $iStart, $iNum, $bA
     $strUpdateLink = ''; 
     if ($bAdmin)
     {
-        $strUpdateLink = UrlGetOnClickLink(STOCK_PHP_PATH.'_submithistory.php?id='.$strStockId, $bChinese ? '确认更新股票历史记录?' : 'Confirm update stock history?', $bChinese ? '更新历史记录' : 'Update History');
+        $strUpdateLink = GetOnClickLink(STOCK_PHP_PATH.'_submithistory.php?id='.$strStockId, $bChinese ? '确认更新股票历史记录?' : 'Confirm update stock history?', $bChinese ? '更新历史记录' : 'Update History');
         $strUpdateLink .= ' '.SqlCountTableDataString(TABLE_STOCK_HISTORY, false);
         $strUpdateLink .= ' '.GetYahooStockHistoryLink($strSymbol);
     }

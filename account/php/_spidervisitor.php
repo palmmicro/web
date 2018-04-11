@@ -43,7 +43,7 @@ function _getNavSpiderVisitorLink($strIp, $iStart, $iNum, $bChinese)
         $strId = false;
         $iTotal = SqlCountTableData(SPIDER_VISITOR_TABLE, false);
     }
-    return UrlGetNavLink($strId, $iTotal, $iStart, $iNum, $bChinese);
+    return GetNavLink($strId, $iTotal, $iStart, $iNum, $bChinese);
 }
 
 function _echoSpiderVisitorParagraph($strIp, $iStart, $iNum, $bChinese)

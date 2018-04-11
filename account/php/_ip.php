@@ -41,7 +41,7 @@ function EchoCheckIp($bChinese)
     
     if (AcctIsAdmin())
     {
-        EchoParagraph(DebugGetDebugFileLink());
+        EchoParagraph(GetDebugLink());
     }
 }
 

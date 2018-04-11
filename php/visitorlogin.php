@@ -1,5 +1,5 @@
 <?php
-require_once('url.php');
+//require_once('url.php');
 require_once('debug.php');
 require_once('switch.php');
 require_once('account.php');
@@ -36,7 +36,7 @@ function VisitorLogin($bChinese)
 	else
 	{
 	    $strLoginLink = GetLoginLink('登录', 'login', $bChinese);
-	    $strRegisterLink = UrlBuildPhpLink('/account/register', false, '注册', 'register', $bChinese);
+	    $strRegisterLink = BuildPhpLink('/account/register', false, '注册', 'register', $bChinese);
 		if ($bChinese)
 		{
 		    _echoLogin('更多选项? 请先'.$strLoginLink.'或者'.$strRegisterLink.'.');

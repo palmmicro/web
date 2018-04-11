@@ -55,7 +55,7 @@ function _onSmaUserDefinedVal($fVal, $bChinese)
     {
         $etf_ref = $fund->etf_ref;
         $strQuery = sprintf('groupid=%s&fundid=%s&amount=%.2f&netvalue=%.3f&arbitrageid=%s&quantity=%s&price=%.2f', $group->strGroupId, $fund->GetStockId(), $fAmount, $fund->fPrice, $etf_ref->GetStockId(), $strQuantity, $etf_ref->fPrice);
-        return UrlGetOnClickLink(STOCK_PHP_PATH.'_submitfundpurchase.php?'.$strQuery, $bChinese ? '确认添加对冲申购记录?' : 'Confirm to add arbitrage fund purchase record?', $strQuantity);
+        return GetOnClickLink(STOCK_PHP_PATH.'_submitfundpurchase.php?'.$strQuery, $bChinese ? '确认添加对冲申购记录?' : 'Confirm to add arbitrage fund purchase record?', $strQuantity);
     }
     return $strQuantity;
 }
@@ -77,7 +77,7 @@ function _getArbitrageQuantityName($bEditLink, $bChinese)
     
     if ($group->strGroupId && $bEditLink) 
     {
-    	$str .= UrlGetPhpLink(STOCK_PATH.'editfundamount', 'symbol='.$group->ref->GetStockSymbol(), $strDisplay, $bChinese);
+    	$str .= GetPhpLink(STOCK_PATH.'editfundamount', 'symbol='.$group->ref->GetStockSymbol(), $strDisplay, $bChinese);
     }
     else
     {

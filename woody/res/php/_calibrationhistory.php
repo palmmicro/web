@@ -10,7 +10,7 @@ function _echoCalibrationHistoryItem($strSymbol, $history, $bReadOnly, $bChinese
     }
     else
     {
-        $strDelete = UrlGetDeleteLink(STOCK_PHP_PATH.'_submitcalibration.php?delete='.$history['id'], '校准记录', 'calibration record', $bChinese);
+        $strDelete = GetDeleteLink(STOCK_PHP_PATH.'_submitcalibration.php?delete='.$history['id'], '校准记录', 'calibration record', $bChinese);
     }
     
     $strTime = substr($history['filled'], 0, 16);

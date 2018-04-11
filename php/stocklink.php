@@ -1,5 +1,7 @@
 <?php
-require_once('url.php');
+//require_once('url.php');
+//require_once('debug.php');
+require_once('httplink.php');
 require_once('ui/stocktable.php');
 
 // ****************************** Stock internal link functions *******************************************************
@@ -9,7 +11,7 @@ define ('STOCK_PHP_PATH', '/woody/res/php/');
 
 function _getStockToolLink($strTitle, $strSymbol, $bChinese)
 {
-    return UrlGetPhpLink(STOCK_PATH.strtolower($strTitle), false, $strSymbol, $bChinese);
+    return GetPhpLink(STOCK_PATH.strtolower($strTitle), false, $strSymbol, $bChinese);
 }
 
 function GetCommonToolLink($strSymbol, $bChinese)
@@ -19,17 +21,17 @@ function GetCommonToolLink($strSymbol, $bChinese)
 
 function GetCalibrationHistoryLink($strSymbol, $bChinese)
 {
-    return UrlBuildPhpLink(STOCK_PATH.'calibrationhistory', 'symbol='.$strSymbol, '校准记录', 'Calibration History', $bChinese);
+    return BuildPhpLink(STOCK_PATH.'calibrationhistory', 'symbol='.$strSymbol, '校准记录', 'Calibration History', $bChinese);
 }
 
 function GetNetValueHistoryLink($strSymbol, $bChinese)
 {
-    return UrlBuildPhpLink(STOCK_PATH.'netvaluehistory', 'symbol='.$strSymbol, '净值历史', 'Net Value History', $bChinese);
+    return BuildPhpLink(STOCK_PATH.'netvaluehistory', 'symbol='.$strSymbol, '净值历史', 'Net Value History', $bChinese);
 }
 
 function _stockGetLink($strTitle, $strQuery, $strDisplay, $bChinese)
 {
-	return UrlGetTitleLink(STOCK_PATH, $strTitle, $strQuery, $strDisplay, $bChinese);
+	return GetTitleLink(STOCK_PATH, $strTitle, $strQuery, $strDisplay, $bChinese);
 }
 
 function _stockBuildLink($strTitle, $strQuery, $strCn, $strUs, $bChinese)
@@ -87,8 +89,8 @@ function GetCategorySoftwareLinks($arTitle, $strCategory, $bChinese)
 
 function StockGetEditDeleteTransactionLink($strTransactionId, $bChinese)
 {
-    $strEdit = UrlGetEditLink(STOCK_PATH.'editstocktransaction', $strTransactionId, $bChinese);
-    $strDelete = UrlGetDeleteLink(STOCK_PHP_PATH.'_submittransaction.php?delete='.$strTransactionId, '交易记录', 'transaction', $bChinese);
+    $strEdit = GetEditLink(STOCK_PATH.'editstocktransaction', $strTransactionId, $bChinese);
+    $strDelete = GetDeleteLink(STOCK_PHP_PATH.'_submittransaction.php?delete='.$strTransactionId, '交易记录', 'transaction', $bChinese);
 	return $strEdit.' '.$strDelete;
 }
 
@@ -99,7 +101,7 @@ function StockGetTransactionLink($strGroupId, $strSymbol, $strDisplay, $bChinese
     {
         $strQuery .= '&symbol='.$strSymbol;
     }
-    return UrlGetPhpLink(STOCK_PATH.'mystocktransaction', $strQuery, $strDisplay, $bChinese);
+    return GetPhpLink(STOCK_PATH.'mystocktransaction', $strQuery, $strDisplay, $bChinese);
 }
 
 function StockGetAllTransactionLink($strGroupId, $ref, $bChinese)
@@ -142,7 +144,7 @@ function StockGetGroupTransactionLinks($strGroupId, $strCurSymbol, $bChinese)
 // editstockgroupcn.php?edit=24
 function StockGetEditGroupLink($strGroupId, $bChinese)
 {
-    return UrlGetEditLink(STOCK_PATH.'editstockgroup', $strGroupId, $bChinese);
+    return GetEditLink(STOCK_PATH.'editstockgroup', $strGroupId, $bChinese);
 }
 
 // ****************************** Other internal link related functions *******************************************************

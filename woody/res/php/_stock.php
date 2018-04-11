@@ -47,7 +47,7 @@ class _MyStockGroup extends MyStockGroup
         {
             if ($ref)
             {
-                $strFile .= ' '.DebugGetFileLink($ref->strFileName);
+                $strFile .= ' '.$ref->DebugLink();
             }
         }
         return $strFile;
@@ -297,7 +297,7 @@ END;
 function _getGuangFaLink()
 {
     $strHttp = "http://clickeggs.gf.com.cn/qrcode/page/index.html?channel=normal&branch_no=1507&bn_alterornot=1&recommend_no=3046963&rn_alterornot=1&product_kind=normal&product_no=&bank_type=&fund_nos=&from_source_info=qrcode_user_3046963_x";
-    return DebugGetExternalLink($strHttp, '广发开户');
+    return GetExternalLink($strHttp, '广发开户');
 }
 
 function _echoMyPromotion()
@@ -321,7 +321,7 @@ function _getDevGuideLink($strVer, $bChinese)
     {
         $strQuery = false;
     }
-    return UrlBuildPhpLink('/woody/blog/entertainment/20150818', $strQuery, '开发记录', 'Development Record', $bChinese);
+    return BuildPhpLink('/woody/blog/entertainment/20150818', $strQuery, '开发记录', 'Development Record', $bChinese);
 }
 
 function EchoPromotionHead($strVer, $bChinese)
@@ -342,7 +342,7 @@ function EchoPromotionHead($strVer, $bChinese)
     
     if (AcctIsAdmin())
     {
-        $str = DebugGetDebugFileLink();
+        $str = GetDebugLink();
         EchoParagraph($str);
     }
 }

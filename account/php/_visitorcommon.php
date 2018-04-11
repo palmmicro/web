@@ -4,7 +4,7 @@ require_once('/php/ui/table.php');
 
 function GetVisitorTodayLink($iCount, $bChinese)
 {
-    return UrlBuildPhpLink(UrlGetUriTitle(), 'start=0&num='.$iCount, '今日访问', 'Visitors of Today', $bChinese);
+    return CopyPhpLink('start=0&num='.$iCount, '今日访问', 'Visitors of Today', $bChinese);
 }
 
 function EchoVisitorItem($strContent, $strLink, $record)
@@ -26,7 +26,7 @@ function _getDeleteVisitorLink($strIp, $bChinese)
     {
         if (AcctIsAdmin())
         {
-            return UrlGetDeleteLink('/account/php/_submitvisitor.php?delete='.$strIp, '访问记录', 'visitor records', $bChinese);
+            return GetDeleteLink('/account/php/_submitvisitor.php?delete='.$strIp, '访问记录', 'visitor records', $bChinese);
         }
     }
     return '';
@@ -40,7 +40,7 @@ function _getOrigVisitorLink($bChinese)
     }
     else
     {
-        $strOrigLink = UrlBuildPhpLink(UrlGetUriTitle(), false, '回访问首页', 'Back to Visitor Home', $bChinese);
+        $strOrigLink = CopyPhpLink(false, '回访问首页', 'Back to Visitor Home', $bChinese);
     }
     return $strOrigLink;    
 }
@@ -110,10 +110,10 @@ function EchoVisitorCommonLinks($strAllLink, $bChinese)
     EchoParagraph($strAllLink);     // Put same links below for easy access
     
     $arCategory = _getCategoryArray($bChinese);
-    $str = UrlGetCategoryLinks('/account/', $arCategory, $bChinese);
+    $str = GetCategoryLinks('/account/', $arCategory, $bChinese);
     if (AcctIsAdmin())
     {
-        $str .= ' '.DebugGetDebugFileLink();
+        $str .= ' '.GetDebugLink();
     }
     EchoParagraph($str);
 }

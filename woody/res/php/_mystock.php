@@ -123,11 +123,11 @@ function _echoMyStock($strSymbol, $bChinese)
 function _echoMyStockLinks($sym, $bChinese)
 {
 	$strQuery = UrlGetQueryString();
-    $str = UrlBuildPhpLink(STOCK_PATH.'editstock', $strQuery, STOCK_OPTION_EDIT_CN, STOCK_OPTION_EDIT, $bChinese);
-    $str .= ' '.UrlBuildPhpLink(STOCK_PATH.'editstockreversesplit', $strQuery, STOCK_OPTION_REVERSESPLIT_CN, STOCK_OPTION_REVERSESPLIT, $bChinese);
+    $str = BuildPhpLink(STOCK_PATH.'editstock', $strQuery, STOCK_OPTION_EDIT_CN, STOCK_OPTION_EDIT, $bChinese);
+    $str .= ' '.BuildPhpLink(STOCK_PATH.'editstockreversesplit', $strQuery, STOCK_OPTION_REVERSESPLIT_CN, STOCK_OPTION_REVERSESPLIT, $bChinese);
     if ($sym->IsSymbolH())
     {
-    	if ($bChinese)	$str .= ' '.UrlGetPhpLink(STOCK_PATH.'editstockadr', $strQuery, STOCK_OPTION_ADR_CN, true);
+    	if ($bChinese)	$str .= ' '.GetPhpLink(STOCK_PATH.'editstockadr', $strQuery, STOCK_OPTION_ADR_CN, true);
     }
     EchoParagraph($str);
 }
@@ -137,7 +137,7 @@ function _echoAllStock($bChinese)
     $iStart = UrlGetQueryInt('start', 0);
     $iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
     $iTotal = SqlCountTableData(TABLE_STOCK, false);
-    $strNavLink = UrlGetNavLink(false, $iTotal, $iStart, $iNum, $bChinese);
+    $strNavLink = GetNavLink(false, $iTotal, $iStart, $iNum, $bChinese);
     EchoStockParagraph($strNavLink, $iStart, $iNum, $bChinese);
 }
 

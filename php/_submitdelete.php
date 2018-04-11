@@ -58,7 +58,7 @@ function _deleteStockById($strStockId)
 	    if ($strPathName = UrlGetQueryValue('file'))
 	    {
 	        unlinkEmptyFile($strPathName);
-	        EmailDebug('Deleted file: '.DebugFileLink($strPathName), 'Deleted debug file'); 
+	        EmailDebug('Deleted file: '.GetFileLink($strPathName), 'Deleted debug file'); 
 	    }
 	    else if ($strStockId = UrlGetQueryValue('stockid'))
 	    {

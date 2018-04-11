@@ -1,5 +1,7 @@
 <?php
-require_once('debug.php');
+//require_once('url.php');
+//require_once('debug.php');
+require_once('httplink.php');
 require_once('stock/stocksymbol.php');
 require_once('stock/googlestock.php');
 
@@ -11,7 +13,7 @@ function GetChinaFundLink($sym)
     if ($sym->IsFundA())
     {
         $strHttp = 'http://fund.eastmoney.com/'.$sym->strDigitA.'.html';
-        return DebugGetExternalLink($strHttp, $strSymbol);
+        return GetExternalLink($strHttp, $strSymbol);
     }
     return $strSymbol;
 }
@@ -19,13 +21,13 @@ function GetChinaFundLink($sym)
 function GetXueQiuLink($strSymbol)
 {
     $strHttp = "https://xueqiu.com/S/$strSymbol";
-    return DebugGetExternalLink($strHttp, $strSymbol);
+    return GetExternalLink($strHttp, $strSymbol);
 }
 
 function GetYahooStockLink($strYahooSymbol, $strSymbol)
 {
     $strHttp = "http://finance.yahoo.com/q?s=$strYahooSymbol";
-    return DebugGetExternalLink($strHttp, $strSymbol);
+    return GetExternalLink($strHttp, $strSymbol);
 }
 
 function GetYahooStockHistoryLink($strSymbol)
@@ -33,13 +35,13 @@ function GetYahooStockHistoryLink($strSymbol)
     $sym = new StockSymbol($strSymbol);
     $strYahooSymbol = $sym->GetYahooSymbol();
     $strHttp = YAHOO_HISTORY_QUOTES_URL.$strYahooSymbol.'/history';
-    return DebugGetExternalLink($strHttp, $strSymbol);
+    return GetExternalLink($strHttp, $strSymbol);
 }
 
 function GetGoogleStockLink($strGoogleSymbol, $strSymbol)
 {
     $strHttp = GOOGLE_QUOTES_URL.$strGoogleSymbol;
-    return DebugGetExternalLink($strHttp, $strSymbol);
+    return GetExternalLink($strHttp, $strSymbol);
 }
 
 // http://finance.sina.com.cn/realstock/company/sh600028/nc.shtml
@@ -47,7 +49,7 @@ function GetSinaStockLink($strSymbol)
 {
     $strLower = strtolower($strSymbol);
     $strHttp = "http://finance.sina.com.cn/realstock/company/$strLower/nc.shtml";
-    return DebugGetExternalLink($strHttp, $strSymbol);
+    return GetExternalLink($strHttp, $strSymbol);
 }
 
 // http://stock.finance.sina.com.cn/usstock/quotes/SNP.html
@@ -63,7 +65,7 @@ function GetSinaUsStockLink($sym)
         $str = $strSymbol;
     }
     $strHttp = "http://stock.finance.sina.com.cn/usstock/quotes/$str.html";
-    return DebugGetExternalLink($strHttp, $strSymbol);
+    return GetExternalLink($strHttp, $strSymbol);
 }
 
 // http://stock.finance.sina.com.cn/hkstock/quotes/00386.html
@@ -79,7 +81,7 @@ function GetSinaHkStockLink($sym)
         $str = $strSymbol;
     }
     $strHttp = "http://stock.finance.sina.com.cn/hkstock/quotes/$str.html";
-    return DebugGetExternalLink($strHttp, $strSymbol);
+    return GetExternalLink($strHttp, $strSymbol);
 }
 
 // http://finance.sina.com.cn/fund/quotes/162411/bc.shtml
@@ -89,7 +91,7 @@ function GetSinaFundLink($sym)
     if ($sym->IsFundA())
     {
         $strHttp = 'http://finance.sina.com.cn/fund/quotes/'.$sym->strDigitA.'/bc.shtml';
-        return DebugGetExternalLink($strHttp, $strSymbol);
+        return GetExternalLink($strHttp, $strSymbol);
     }
     return $strSymbol;
 }
@@ -98,14 +100,14 @@ function GetSinaFundLink($sym)
 function GetSinaFutureLink($strSymbol)
 {
     $strHttp = "http://finance.sina.com.cn/futures/quotes/$strSymbol.shtml";
-    return DebugGetExternalLink($strHttp, $strSymbol);
+    return GetExternalLink($strHttp, $strSymbol);
 }
 
 // http://finance.sina.com.cn/money/forex/hq/USDCNY.shtml
 function GetSinaForexLink($strSymbol)
 {
     $strHttp = "http://finance.sina.com.cn/money/forex/hq/$strSymbol.shtml";
-    return DebugGetExternalLink($strHttp, $strSymbol);
+    return GetExternalLink($strHttp, $strSymbol);
 }
 
 // http://vip.stock.finance.sina.com.cn/q/go.php/vDYData/kind/znzd/index.phtml?symbol=600028
@@ -115,7 +117,7 @@ function GetSinaN8n8Link($sym)
     if ($sym->IsSymbolA())
     {
         $strHttp = 'http://vip.stock.finance.sina.com.cn/q/go.php/vDYData/kind/znzd/index.phtml?symbol='.$sym->strDigitA;
-        return DebugGetExternalLink($strHttp, $strSymbol);
+        return GetExternalLink($strHttp, $strSymbol);
     }
     return $strSymbol;
 }
@@ -127,7 +129,7 @@ function GetJisiluAhLink($strSymbol)
     if ($sym->IsSymbolA())
     {
         $strHttp = 'https://www.jisilu.cn/data/ha_history/'.$sym->strDigitA;
-        return DebugGetExternalLink($strHttp, $strSymbol);
+        return GetExternalLink($strHttp, $strSymbol);
     }
     return $strSymbol;
 }
@@ -140,7 +142,7 @@ function EchoJisiluGradedFund()
     if ($sym->IsFundA())
     {
         $strHttp = 'https://www.jisilu.cn/data/sfnew/detail/'.$sym->strDigitA;
-        $str = DebugGetExternalLink($strHttp, '集思录');
+        $str = GetExternalLink($strHttp, '集思录');
         echo $str;
     }
 }
@@ -149,19 +151,19 @@ function EchoJisiluGradedFund()
 function GetEastMoneyForexLink($strSymbol)
 {
     $strHttp = "http://quote.eastmoney.com/forex/$strSymbol.html";
-    return DebugGetExternalLink($strHttp, $strSymbol);
+    return GetExternalLink($strHttp, $strSymbol);
 }
 
 function GetReferenceRateForexLink($strSymbol)
 {
     $strHttp = 'http://www.chinamoney.com.cn/index.html';
-    return DebugGetExternalLink($strHttp, $strSymbol);
+    return GetExternalLink($strHttp, $strSymbol);
 }
 
 function GetAdrLink($strSymbol)
 {
     $strHttp = 'http://www.aastocks.com/tc/market/adr.aspx';
-    return DebugGetExternalLink($strHttp, $strSymbol);
+    return GetExternalLink($strHttp, $strSymbol);
 }
 
 ?>

@@ -1,6 +1,6 @@
 <?php
 require_once('weixin.php');
-require_once('url.php');
+//require_once('url.php');
 require_once('debug.php');
 require_once('stock.php');
 require_once('email.php');
@@ -238,7 +238,7 @@ function WxOnImage($strUrl, $strUserName)
         fclose($fp);  
 //      unset($img, $url);
 
-        $strLink = UrlGetLink($strFileName, $strFileName);
+        $strLink = GetInternalLink($strFileName, $strFileName);
         $strContents .= "(已经保存到{$strLink})";
     }
     

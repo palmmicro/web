@@ -8,7 +8,7 @@ function _echoStockTableItem($strStockId, $strDisplay, $bChinese)
 //	if (empty($strSymbol))	$strSymbol = '(Unknown)';
 	if (AcctIsDebug())
 	{
-		$strLink = UrlGetOnClickLink('/php/_submitdelete.php?stockid='.$strStockId, '确认删除股票'.$strSymbol.'?', $strSymbol);
+		$strLink = GetOnClickLink('/php/_submitdelete.php?stockid='.$strStockId, '确认删除股票'.$strSymbol.'?', $strSymbol);
 	}
 	else
 	{

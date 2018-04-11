@@ -5,7 +5,6 @@ define ('DEBUG_UTF8_BOM', "\xef\xbb\xbf");
 
 define ('DEBUG_FILE_PATH', 'debug');
 define ('DEBUG_FILE_NAME', 'debug.txt');
-define ('DEBUG_TEST_PATHNAME', 'php/test.php');
 
 define ('DEBUG_TIME_ZONE', 'PRC');
 define ('DEBUG_TIME_FORMAT', 'Y-m-d H:i:s');
@@ -47,6 +46,16 @@ function _getTimeDisplayPRC($iTime)
 function DebugGetTimeDisplay()
 {
     return _getTimeDisplayPRC(time());
+}
+
+function DebugGetFileTimeDisplay($strPathName)
+{
+    clearstatcache(true, $strPathName);
+    if (file_exists($strPathName))
+    {
+        return _getTimeDisplayPRC(filemtime($strPathName));
+    }
+    return '';
 }
 
 function DebugGetStopWatchDisplay($fStop, $fStart)
@@ -151,56 +160,6 @@ function DebugGetYahooHistoryFileName($strSymbol)
 function DebugGetConfigFileName($strSymbol)
 {
     return _getDebugFileName('config', $strSymbol);
-}
-
-function DebugGetExternalLink($strHttp, $strDisplay)
-{
-    $strLink = "<a href=\"$strHttp\" target=_blank>$strDisplay</a>";
-    return $strLink;
-}
-
-function DebugGetLink($strHttp)
-{
-    return DebugGetExternalLink($strHttp, $strHttp);
-}
-
-function DebugGetCurLink()
-{
-    $strHttp = UrlGetCur();
-    return DebugGetLink($strHttp);
-}
-
-function _getFileTimeDisplay($strPathName)
-{
-    clearstatcache(true, $strPathName);
-    if (file_exists($strPathName))
-    {
-        return _getTimeDisplayPRC(filemtime($strPathName));
-    }
-    return '';
-}
-
-function DebugFileLink($strPathName)
-{
-	$strFileName = UrlGetFileName($strPathName);
-	if (strlen($strFileName) > 10)
-	{
-		$strFileName = substr($strFileName, -10, 10);
-	}
-    return DebugGetExternalLink(UrlGetServer().$strPathName, $strFileName);
-}
-
-function DebugGetFileLink($strPathName)
-{
-    $strLink = DebugFileLink($strPathName);
-    $strLastTime = _getFileTimeDisplay($strPathName);
-    $strDelete = UrlGetOnClickLink('/php/_submitdelete.php?file='.$strPathName, '确认删除调试文件'.$strPathName.'?', $strLastTime);
-    return "$strLink($strDelete)";
-}
-
-function DebugGetDebugFileLink()
-{
-    return DebugGetFileLink(DebugGetFile()).' '.DebugGetFileLink(UrlGetRootDir().DEBUG_TEST_PATHNAME);
 }
 
 ?>

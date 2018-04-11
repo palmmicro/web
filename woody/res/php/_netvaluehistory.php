@@ -6,7 +6,7 @@ function _echoNetValueHistory($strSymbol, $iStart, $iNum, $bChinese)
 {
     if (in_arrayLof($strSymbol))
     {
-    	$strThanousLaw = UrlBuildPhpLink(STOCK_PATH.'thanouslaw', 'symbol='.$strSymbol, '测试小心愿定律', 'Test Thanous Law', $bChinese);
+    	$strThanousLaw = BuildPhpLink(STOCK_PATH.'thanouslaw', 'symbol='.$strSymbol, '测试小心愿定律', 'Test Thanous Law', $bChinese);
     	EchoParagraph($strThanousLaw);
     }
     

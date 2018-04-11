@@ -15,7 +15,7 @@ function _echoBlogVisitorData($strIp, $iStart, $iNum, $bChinese)
             $strUriLink = GetVisitorContentsDisplay($strUriLink);
             if (!in_array($strBlogId, $arBlogId))
             {
-                $strUriLink = UrlGetLink($strUri, $strUriLink);
+                $strUriLink = GetInternalLink($strUri, $strUriLink);
                 $arBlogId[] = $strBlogId;
             }
             
@@ -50,7 +50,7 @@ function _getNavVisitorLink($strIp, $iStart, $iNum, $bChinese)
         $strId = false;
         $iTotal = SqlCountTableData(VISITOR_TABLE, false);
     }
-    return UrlGetNavLink($strId, $iTotal, $iStart, $iNum, $bChinese);
+    return GetNavLink($strId, $iTotal, $iStart, $iNum, $bChinese);
 }
 
 function _echoBlogVisitorParagraph($strIp, $iStart, $iNum, $bChinese)

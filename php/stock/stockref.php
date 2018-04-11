@@ -340,14 +340,14 @@ class StockReference
     	return StockGetPercentageText($this->fPrice, $fVal);
     }
     
-    function GetDebugLink()
-    {
-        return DebugGetFileLink($this->strFileName);
-    }
-
     function ConvertDateTime($iTime, $strTimeZone)
     {
         list($this->strDate, $this->strTime) = explodeDateTime($iTime, $strTimeZone);
+    }
+    
+    function DebugLink()
+    {
+        return GetFileDebugLink($this->strFileName);
     }
     
     // Oct 17 09:31AM EDT

@@ -1,6 +1,6 @@
 <?php
-//require_once('debug.php');
 //require_once('url.php');
+//require_once('debug.php');
 require_once('internallink.php');
 
 define ('ADMIN_EMAIL', 'woody@palmmicro.com');

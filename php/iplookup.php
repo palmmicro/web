@@ -1,6 +1,6 @@
 <?php
+//require_once('url.php');
 require_once('debug.php');
-require_once('url.php');
 require_once('ui/commentparagraph.php');
 
 define ('SINA_JSON_IP_URL', 'http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=json&ip=');
@@ -226,25 +226,25 @@ function _ipLookupHttp($strIp, $strNewLine, $bChinese)
     if ($bChinese)
     {
         $arSina = SinaIpLookUp($strIp);
-        $str .= $strNewLine.DebugGetExternalLink(_getSinaJsonIpLookUpUrl($strIp), '新浪数据').': ';
+        $str .= $strNewLine.GetExternalLink(_getSinaJsonIpLookUpUrl($strIp), '新浪数据').': ';
         $str .= $arSina['country'].' '.$arSina['province'].' '.$arSina['city'].' '.$arSina['district'].' '.$arSina['isp'].' '.$arSina['type'].' '.$arSina['desc'];
         $fStartTaobao = microtime(true);
         $str .= DebugGetStopWatchDisplay($fStartTaobao, $fStart);
         
         $arTaobao = TaobaoIpLookUp($strIp);
-        $str .= $strNewLine.DebugGetExternalLink(_getTaobaoIpLookUpUrl($strIp), '淘宝数据').': ';
+        $str .= $strNewLine.GetExternalLink(_getTaobaoIpLookUpUrl($strIp), '淘宝数据').': ';
         $str .= _convertTaobaoIp($arTaobao['country'])._convertTaobaoIp($arTaobao['area'])._convertTaobaoIp($arTaobao['region'])._convertTaobaoIp($arTaobao['city'])._convertTaobaoIp($arTaobao['county'])._convertTaobaoIp($arTaobao['isp']);
         $fStart = microtime(true);
         $str .= DebugGetStopWatchDisplay($fStart, $fStartTaobao);
     }
     $arFreeGeo = FreeGeoIpLookUp($strIp);
-    $str .= $strNewLine.DebugGetExternalLink(_getFreeGeoIpLookUpUrl($strIp), 'freegeoip.net').': ';
+    $str .= $strNewLine.GetExternalLink(_getFreeGeoIpLookUpUrl($strIp), 'freegeoip.net').': ';
     $str .= $arFreeGeo['country_name'].' '.$arFreeGeo['region_name'].' '.$arFreeGeo['city'].' '.$arFreeGeo['zip_code'].' ['.$arFreeGeo['latitude'].','.$arFreeGeo['longitude'].'] ';	//.$arFreeGeo['time_zone'];
     $fStartIpInfo = microtime(true);
     $str .= DebugGetStopWatchDisplay($fStartIpInfo, $fStart);
 
     $arIpInfo = IpInfoIpLookUp($strIp);
-    $str .= $strNewLine.DebugGetExternalLink(_getIpInfoIpLookUpUrl($strIp), 'ipinfo.io').': ';
+    $str .= $strNewLine.GetExternalLink(_getIpInfoIpLookUpUrl($strIp), 'ipinfo.io').': ';
     $str .= $arIpInfo['country'].' '.$arIpInfo['region'].' '.$arIpInfo['city'].' '.$arIpInfo['postal'].' ['.$arIpInfo['loc'].'] '.$arIpInfo['hostname'].' '.$arIpInfo['org'];
     $fStop = microtime(true);
     $str .= DebugGetStopWatchDisplay($fStop, $fStartIpInfo);
@@ -259,7 +259,7 @@ function IpLookupGetString($strIp, $strNewLine, $bChinese)
     $str = $strIp._ipLookupHttp($strIp, $strNewLine, $bChinese);
     if ($ar = ProjectHoneyPotIpLookUp($strIp))
     {
-        $str .= $strNewLine.DebugGetExternalLink(PROJECT_HONEY_POT_URL.$strIp, 'projecthoneypot.org').': '._getProjectHoneyPotIpLookUpString($ar);
+        $str .= $strNewLine.GetExternalLink(PROJECT_HONEY_POT_URL.$strIp, 'projecthoneypot.org').': '._getProjectHoneyPotIpLookUpString($ar);
     }
     
     if ($strDns = DnsIpLookUp($strIp))

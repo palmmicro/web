@@ -7,6 +7,16 @@ define('URL_CNPHP', 'cn.php');
 
 define('URL_WWW', 'www.');
 
+define('NAV_DIR_FIRST', 'First');
+define('NAV_DIR_PREV', 'Prev');
+define('NAV_DIR_NEXT', 'Next');
+define('NAV_DIR_LAST', 'Last');
+
+function UrlGetNavDisplayArray()
+{
+    return array(NAV_DIR_FIRST => '第一页', NAV_DIR_PREV => '上一页', NAV_DIR_NEXT => '下一页', NAV_DIR_LAST => '最后一页');
+}
+
 function url_get_contents($strUrl)
 {
     $ch = curl_init();  
@@ -272,151 +282,6 @@ function UrlIsChinese()
 function UrlIsEnglish()
 {
     return (UrlGetType() == URL_PHP) ? true : false;
-}
-
-function UrlBuildPhpLink($strPathTitle, $strQuery, $strCn, $strUs, $bChinese)
-{
-    $strDisplay = $bChinese ? $strCn : $strUs;
-    return UrlGetPhpLink($strPathTitle, $strQuery, $strDisplay, $bChinese);
-}
-
-function UrlGetPhpLink($strPathTitle, $strQuery, $strDisplay, $bChinese)
-{
-    $str = $strPathTitle;
-    $str .= UrlGetPhp($bChinese);
-    if ($strQuery)
-    {
-        if (substr($strQuery, 0, 1) == '#')
-        {
-            $str .= $strQuery;
-        }
-        else
-        {
-            $str .= '?'.$strQuery;
-        }
-    }
-    return UrlGetLink($str, $strDisplay);
-}
-
-function UrlGetTitleLink($strPath, $strTitle, $strQuery, $strDisplay, $bChinese)
-{
-    if ((UrlGetTitle() == $strTitle) && (UrlGetQueryString() == $strQuery))
-    {
-        return "<font color=blue>$strDisplay</font>";
-    }
-    return UrlGetPhpLink($strPath.$strTitle, $strQuery, $strDisplay, $bChinese);
-}
-
-function UrlGetCategoryLinks($strPath, $arCategory, $bChinese)
-{
-    $str = '';
-    foreach ($arCategory as $strCategory => $strDisplay)
-    {
-    	$str .= UrlGetTitleLink($strPath, $strCategory, false, $strDisplay, $bChinese).' ';
-    }
-    return $str;
-}
-
-function UrlGetLink($strPath, $strDisplay)
-{
-    $strHttp = UrlGetServer().$strPath;
-    $strLink = "<a href=\"$strHttp\">$strDisplay</a>";
-    return $strLink;
-}
-
-function UrlGetOnClickLink($strPath, $strQuestion, $strDisplay)
-{
-    $strHttp = UrlGetServer().$strPath;
-    $strLink = "<a href=\"$strHttp\" onclick=\"return confirm('$strQuestion')\">$strDisplay</a>";
-    return $strLink;
-}
-
-function UrlGetEditLink($strPathTitle, $strEdit, $bChinese)
-{
-    return UrlBuildPhpLink($strPathTitle, 'edit='.$strEdit, '修改', 'Edit', $bChinese);
-}
-
-function UrlGetDeleteLink($strPath, $strCn, $strUs, $bChinese)
-{
-    if ($bChinese)
-    {
-        $strDisplay = '删除';
-        $strQuestion = '确认删除'.$strCn;
-    }
-    else
-    {
-        $strDisplay = 'Delete';
-        $strQuestion = 'Confirm delete '.$strUs;
-    }
-    return UrlGetOnClickLink($strPath, $strQuestion.'?', $strDisplay);
-}
-
-define ('DEFAULT_NAV_DISPLAY', 100);
-
-define ('NAV_DIR_FIRST', 'First');
-define ('NAV_DIR_PREV', 'Prev');
-define ('NAV_DIR_NEXT', 'Next');
-define ('NAV_DIR_LAST', 'Last');
-
-function UrlGetNavDisplayArray()
-{
-    return array(NAV_DIR_FIRST => '第一页', NAV_DIR_PREV => '上一页', NAV_DIR_NEXT => '下一页', NAV_DIR_LAST => '最后一页');
-}
-
-function _getNavLinkQuery($strId, $iStart, $iNum)
-{
-    $str = '';
-    if ($strId)
-    {
-        $str = $strId.'&';
-    }
-    $str .= 'start='.strval($iStart).'&num='.strval($iNum);
-    return $str;
-}
-
-function UrlGetNavLink($strQueryId, $iTotal, $iStart, $iNum, $bChinese)
-{
-    $str = ($bChinese ? '总数' : 'Total').': '.strval($iTotal).' ';
-    if ($iTotal <= 0)		return $str;
-    
-    $iLast = $iStart + $iNum;
-    if ($iLast > $iTotal)   $iLast = $iTotal;
-    $str .= ($bChinese ? '当前显示' : 'Current').': '.strval($iStart).'-'.strval($iLast - 1).' ';
-    
-    $strPath = UrlGetUriTitle();
-    $arDir = UrlGetNavDisplayArray();
-    if ($iStart > 0)
-    {   // Prev
-        if ($iStart > $iNum)
-        {
-            $iPrevStart = $iStart - $iNum;
-        }
-        else
-        {
-            $iPrevStart = 0;
-        }
-        
-        if ($iPrevStart != 0)
-        {   // First
-            $strQuery = _getNavLinkQuery($strQueryId, 0, $iNum);
-            $str .= UrlBuildPhpLink($strPath, $strQuery, $arDir[NAV_DIR_FIRST], NAV_DIR_FIRST, $bChinese).' ';
-        }
-        $strQuery = _getNavLinkQuery($strQueryId, $iPrevStart, $iNum);
-        $str .= UrlBuildPhpLink($strPath, $strQuery, $arDir[NAV_DIR_PREV], NAV_DIR_PREV, $bChinese).' ';
-    }
-    
-    $iNextStart = $iStart + $iNum;
-    if ($iNextStart < $iTotal)
-    {   // Next
-        $strQuery = _getNavLinkQuery($strQueryId, $iNextStart, $iNum);
-        $str .= UrlBuildPhpLink($strPath, $strQuery, $arDir[NAV_DIR_NEXT], NAV_DIR_NEXT, $bChinese).' ';
-        if ($iNextStart + $iNum < $iTotal)
-        {   // Last
-            $strQuery = _getNavLinkQuery($strQueryId, $iTotal - $iNum, $iNum);
-            $str .= UrlBuildPhpLink($strPath, $strQuery, $arDir[NAV_DIR_LAST], NAV_DIR_LAST, $bChinese);
-        }
-    }
-    return $str;
 }
 
 ?>

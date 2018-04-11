@@ -48,13 +48,13 @@ function _echoSingleCommentParagraph($comment, $strMemberId, $strWhere, $bChines
     {
         if ($comment['member_id'] == $strMemberId)
         {	// I posted the comment
-            $strEdit = UrlGetEditLink('/account/editcomment', $comment['id'], $bChinese);
+            $strEdit = GetEditLink('/account/editcomment', $comment['id'], $bChinese);
         }
 
         // <a href="delete.page" onclick="return confirm('Are you sure you want to delete?')">Delete</a> 
         if (SqlGetMemberIdByBlogId($comment['blog_id']) == $strMemberId || $comment['member_id'] == $strMemberId)
         {	// I posted the blog or the comment
-            $strDelete = UrlGetDeleteLink('/account/php/_submitcomment.php?delete='.$comment['id'], '评论', 'comment', $bChinese);
+            $strDelete = GetDeleteLink('/account/php/_submitcomment.php?delete='.$comment['id'], '评论', 'comment', $bChinese);
         }
     }
 

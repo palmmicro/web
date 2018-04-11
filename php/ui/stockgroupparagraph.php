@@ -43,7 +43,7 @@ function _echoStockGroupTableItem($strGroupId, $bChinese)
     }
     else
     {
-        $strEditDelete = UrlGetDeleteLink(STOCK_PHP_PATH.'_submitgroup.php?delete='.$strGroupId, '股票分组和相关交易记录', 'stock group and related stock transactions', $bChinese);
+        $strEditDelete = GetDeleteLink(STOCK_PHP_PATH.'_submitgroup.php?delete='.$strGroupId, '股票分组和相关交易记录', 'stock group and related stock transactions', $bChinese);
         $strEditDelete .= ' '.StockGetEditGroupLink($strGroupId, $bChinese);
     }
     

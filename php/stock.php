@@ -1,5 +1,6 @@
 <?php
-require_once('url.php');
+//require_once('url.php');
+require_once('debug.php');
 require_once('regexp.php');
 require_once('stocklink.php');
 require_once('externallink.php');

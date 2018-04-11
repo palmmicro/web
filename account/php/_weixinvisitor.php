@@ -22,7 +22,7 @@ function _echoWeixinVisitorData($strOpenId, $iStart, $iNum, $bChinese)
                 if (in_array($strId, $arId))    $strLink = $strDisplay;
                 else
                 {
-                    $strLink = UrlGetPhpLink('/account/weixinvisitor', 'id='.$str, $strDisplay, $bChinese);
+                    $strLink = GetPhpLink('/account/weixinvisitor', 'id='.$str, $strDisplay, $bChinese);
                     $arId[] = $strId;
                 }
             }
@@ -45,7 +45,7 @@ function _getNavWeixinVisitorLink($strOpenId, $iStart, $iNum, $bChinese)
         $strId = false;
         $iTotal = SqlCountTableData(WEIXIN_VISITOR_TABLE, false);
     }
-    return UrlGetNavLink($strId, $iTotal, $iStart, $iNum, $bChinese);
+    return GetNavLink($strId, $iTotal, $iStart, $iNum, $bChinese);
 }
 
 function _echoWeixinVisitorParagraph($strOpenId, $iStart, $iNum, $bChinese)

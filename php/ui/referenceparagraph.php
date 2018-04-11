@@ -73,7 +73,7 @@ function _echoReferenceTableItem($ref, $callback, $bChinese)
     }
     else
     {
-    	if (AcctIsDebug())		$strDescription = DebugGetFileLink($ref->strFileName);
+    	if (AcctIsDebug())		$strDescription = $ref->DebugLink();
     	else					$strDescription = _convertDescription($ref->strDescription, $bChinese);
         $strDisplayEx = GetTableColumnDisplay($strDescription);
     }
