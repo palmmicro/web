@@ -55,12 +55,6 @@ function MyStockPrefetchData($ar)
     _prefetchStockData(array_unique($arAll));
 }
 
-function MyStockPrefetchDataAndForex($arStockSymbol)
-{
-    MyStockPrefetchData($arStockSymbol);
-    PrefetchEastMoneyData(array('USCNY', 'HKCNY'));
-}
-
 function MyStockGetFundReference($strSymbol)
 {
     if (in_arrayLof($strSymbol))                 $ref = new MyLofReference($strSymbol);

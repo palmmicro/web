@@ -51,10 +51,8 @@ function _echoPortfolioTable($portfolio, $strMemberId, $bChinese)
 
 function _echoMoneyTable($portfolio, $bChinese)
 {
-    $uscny_ref = new MyCnyReference('USCNY');
-    $hkcny_ref = new MyCnyReference('HKCNY');
-    $fUSDCNY = $uscny_ref->fPrice;
-    $fHKDCNY = $hkcny_ref->fPrice;    
+    $fUSDCNY = SqlGetUSCNY();
+    $fHKDCNY = SqlGetHKCNY();    
 
     _EchoMoneyTableBegin($bChinese);
     foreach ($portfolio->arStockGroup as $group)
@@ -76,28 +74,28 @@ function _onPrefetch($strMemberId)
 		}
 		@mysql_free_result($result);
 	}
-    MyStockPrefetchDataAndForex($arSymbol);
+    MyStockPrefetchData($arSymbol);
 }
 
 function EchoMyFortfolio($bChinese)
 {
-    global $strMemberId;
-    
+    $strMemberId = AcctGetMemberId();
     _onPrefetch($strMemberId);
+
     $portfolio = new _MyPortfolio();
-    
     EchoParagraphBegin($bChinese ? '个股盈亏' : 'Stock performance');
     _echoPortfolioTable($portfolio, $strMemberId, $bChinese);
     EchoParagraphEnd();
     
-    EchoParagraphBegin($bChinese ? '持仓盈亏' : 'Overall performance');
+    EchoParagraphBegin('');
+//    EchoParagraphBegin($bChinese ? '持仓盈亏' : 'Overall performance');
     _echoMoneyTable($portfolio, $bChinese);
     EchoParagraphEnd();
     
     EchoPromotionHead('portfolio', $bChinese);
 }
 
-    $strMemberId = AcctEmailAuth();
+    AcctEmailAuth();
 
 ?>
 

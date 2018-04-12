@@ -35,13 +35,20 @@ function in_array_ref($strSymbol, $arRef)
 	return false;
 }
 
+function _prefetchStockGroupArray($arStock)
+{
+    MyStockPrefetchData($arStock);
+    if (in_array('USCNY', $arStock) && in_array('HKCNY', $arStock))
+    {	
+//    	DebugString('USCNY and HKCNY in stockgroup together, need Forex prefetch.');
+        PrefetchEastMoneyData(array('USCNY', 'HKCNY'));
+    }
+}
+
 function _echoStockGroupArray($arStock, $bChinese)
 {
-    MyStockPrefetchDataAndForex($arStock);
+	_prefetchStockGroupArray($arStock);
 
-    $uscny_ref = new MyCnyReference('USCNY');
-    $hkcny_ref = new MyCnyReference('HKCNY');
-    
     $arRef = array();
     $arTransactionRef = array();
     $arFund = array();
@@ -89,8 +96,8 @@ function _echoStockGroupArray($arStock, $bChinese)
     
     EchoReferenceParagraph($arRef, $bChinese);
     if (count($arFund) > 0)     EchoFundArrayEstParagraph($arFund, '', $bChinese);
-    if (count($arHShareRef) > 0)	EchoAhParagraph($arHShareRef, $hkcny_ref, $bChinese);
-    if (count($arHAdrRef) > 0)	EchoAdrhParagraph($arHAdrRef, $uscny_ref, $hkcny_ref, $bChinese);
+    if (count($arHShareRef) > 0)	EchoAhParagraph($arHShareRef, $bChinese);
+    if (count($arHAdrRef) > 0)	EchoAdrhParagraph($arHAdrRef, $bChinese);
     
     return $arTransactionRef;
 }

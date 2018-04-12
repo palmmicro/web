@@ -51,9 +51,9 @@ function _ahStockRefCallback($ref, $bChinese)
     return $arColumn;
 }
 
-function EchoAhParagraph($arRef, $hkcny_ref, $bChinese)
+function EchoAhParagraph($arRef, $bChinese)
 {
-	$str = GetAhCompareLink($bChinese).' '.$hkcny_ref->strDescription.' '.$hkcny_ref->strPrice;
+	$str = GetAhCompareLink($bChinese);
 	if (count($arRef) > 2)
 	{
 		if ($strSort = UrlGetQueryValue('sort'))
@@ -108,9 +108,9 @@ function _adrhStockRefCallback($ref, $bChinese)
     return $arColumn;
 }
 
-function EchoAdrhParagraph($arRef, $uscny_ref, $hkcny_ref, $bChinese)
+function EchoAdrhParagraph($arRef, $bChinese)
 {
-	$str = GetAdrhCompareLink($bChinese).' '.$uscny_ref->strDescription.' '.$uscny_ref->strPrice.' '.$hkcny_ref->strDescription.' '.$hkcny_ref->strPrice;
+	$str = GetAdrhCompareLink($bChinese);
 	if (count($arRef) > 2)
 	{
 		if ($strSort = UrlGetQueryValue('sort'))
