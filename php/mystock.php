@@ -83,6 +83,7 @@ function MyStockGetReference($sym)
 	$strSymbol = $sym->strSymbol;
     if ($sym->IsSinaFund())
     {
+//    	return new MyFundReference($strSymbol);	// Need more consideration here
     }
     else if ($strFutureSymbol = $sym->IsSinaFuture())   	return new MyFutureReference($strFutureSymbol);
     else if ($sym->IsSinaForex())   							return new MyForexReference($strSymbol);

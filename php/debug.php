@@ -114,6 +114,12 @@ function DebugGetImageName($str)
     return "$strPath/$str.jpg";
 }
 
+function DebugGetChinaMoneyFile()
+{
+    $strPath = _getDebugPath('chinamoney');
+    return "$strPath/json.txt";
+}
+
 function _getDebugFileName($strSection, $strSymbol)
 {
     $strPath = _getDebugPath($strSection);

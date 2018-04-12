@@ -52,6 +52,15 @@
 数据保存在<?php EchoFileLink('/debug/eastmoney/uscny.txt'); ?>.
 </p>
 
+<h3><a name="chinamoney">中国外汇交易中心的中间价接口</a></h3>
+<p>2018年4月13日
+<br />不知道是不是没有人用, 去年东方财富的中间价数据接口混乱了2个月, 总是给个老数据出来, 偶尔才冒个当天的新数据. 这样吊着我的胃口, 害我一直在没当天新数据的时候手工更新数据库. 我的导师zzzzv退群了, 也没有人可以问.
+等我下定决心克服自己的<a href="20170309cn.php">爬虫洁癖</a>打算去<?php EchoLink('http://www.chinamoney.com.cn/r/cms/www/chinamoney/html/cn/latestRMBParityCn.html'); ?>爬数据后, 东方财富的中间价接口却又奇迹般恢复正常了.
+<br />前天晚上的时候东方财富又出错了, 这次不是给老数据, 而是干脆就没有数据了. 昨天白天我在群里抱怨了一下, 正打算重新挽起袖子写爬虫.
+没想到群里的海浪突然告诉我他找到了中国外汇交易中心的中间价接口<?php EchoLink('http://www.chinamoney.com.cn/r/cms/www/chinamoney/data/fx/ccpr.json'); ?>.
+<br />真是个天大的利好啊, 我赶快把手头的微信小程序和IB自动交易编程放在一边, 在晚上炒美股的时候改写了本来为爬虫准备的<?php EchoPhpFileLink('/php/stock/chinamoney.php'); ?>, 过几个小时就能用上了.
+</p>
+
 </div>
 
 <?php _LayoutBottom(true); ?>

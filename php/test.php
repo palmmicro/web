@@ -12,6 +12,7 @@ require_once('sql/sqlstockpair.php');
 require_once('sql/sqlstockgroup.php');
 require_once('sql/sqlstockhistory.php');
 require_once('sql/sqlparameter.php');
+require_once('sql/sqlforex.php');
 
 require_once('stock/stocksymbol.php');
 //require_once('stock/chinamoney.php');
@@ -189,6 +190,7 @@ function SysInit()
 	echoDebugString('Hello, world!');
 
 	SysInit();
+//	GetChinaMoney();
 //	_debug_dividend('sz000028');
 //	test_stock_dividend();
 //	SqlDeleteStockGroupByGroupName('#SMA');

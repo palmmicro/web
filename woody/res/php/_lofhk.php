@@ -8,6 +8,7 @@ class _LofHkGroup extends _LofGroup
     function _LofHkGroup($strSymbol) 
     {
         MyStockPrefetchData(array($strSymbol));
+        GetChinaMoney();
 
         $this->cny_ref = new MyCnyReference('HKCNY');
         $this->ref = new MyLofHkReference($strSymbol);
@@ -32,7 +33,7 @@ function EchoAll($bChinese)
         _EchoTransactionParagraph($group, $bChinese);
         if ($group->GetTotalRecords() > 0)
         {
-            EchoMoneyParagraph($group, false, $group->cny_ref->fPrice, $bChinese);
+            EchoMoneyParagraph($group, false, $group->fCnyPrice, $bChinese);
             $group->EchoArbitrageParagraph($bChinese);
         }
 	}

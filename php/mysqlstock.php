@@ -8,7 +8,6 @@ require_once('sql/sqlstock.php');
 class MysqlReference extends StockReference
 {
     var $strSqlId = false;      // ID in mysql database
-    
     var $strSqlName = false;
     
     function GetStockId()
@@ -18,6 +17,8 @@ class MysqlReference extends StockReference
     
     function _loadSqlId()
     {
+    	if ($this->strSqlId)	return;	// Already set, like in MyCnyReference
+    	
     	$this->strSqlId = SqlGetStockId($this->strSqlName);
         if ($this->strSqlId == false)
         {
@@ -48,7 +49,7 @@ class MysqlReference extends StockReference
 // ****************************** MyStockReference class *******************************************************
 class MyStockReference extends MysqlReference
 {
-    public static $iDataSource = STOCK_DATA_SINA;
+    public static $strDataSource = STOCK_SINA_DATA;
 
     var $fFactor;
 
@@ -171,7 +172,7 @@ class MyStockReference extends MysqlReference
     function MyStockReference($strSymbol) 
     {
         $this->_newStockSymbol($strSymbol);
-        if (self::$iDataSource == STOCK_DATA_SINA)
+        if (self::$strDataSource == STOCK_SINA_DATA)
         {
             if ($strSinaSymbol = $this->sym->GetSinaSymbol())
             {
@@ -189,11 +190,11 @@ class MyStockReference extends MysqlReference
                 }
             }
         }
-        else if (self::$iDataSource == STOCK_DATA_YAHOO)
+        else if (self::$strDataSource == STOCK_YAHOO_DATA)
         {
             $this->LoadYahooData();
         }
-        else if (self::$iDataSource == FUTURE_DATA_SINA)
+        else if (self::$strDataSource == STOCK_SINA_FUTURE_DATA)
         {
             $this->strSqlName = FutureGetSinaSymbol($strSymbol);
             $this->LoadSinaFutureData($strSymbol);
@@ -250,10 +251,10 @@ class MyYahooStockReference extends MyStockReference
     // constructor 
     function MyYahooStockReference($strSymbol) 
     {
-        $iBackup = parent::$iDataSource;
-        parent::$iDataSource = STOCK_DATA_YAHOO;
+        $strBackup = parent::$strDataSource;
+        parent::$strDataSource = STOCK_YAHOO_DATA;
         parent::MyStockReference($strSymbol);
-        parent::$iDataSource = $iBackup;
+        parent::$strDataSource = $strBackup;
     }
 }
 
@@ -262,10 +263,10 @@ class MyFutureReference extends MyStockReference
     // constructor 
     function MyFutureReference($strSymbol) 
     {
-        $iBackup = parent::$iDataSource;
-        parent::$iDataSource = FUTURE_DATA_SINA;
+        $strBackup = parent::$strDataSource;
+        parent::$strDataSource = STOCK_SINA_FUTURE_DATA;
         parent::MyStockReference($strSymbol);
-        parent::$iDataSource = $iBackup;
+        parent::$strDataSource = $strBackup;
     }
 }
 
@@ -527,6 +528,26 @@ class MyFundReference extends FundReference
 // ****************************** MyCnyReference class *******************************************************
 class MyCnyReference extends MysqlReference
 {
+//    public static $strDataSource = STOCK_EASTMONEY_FOREX;
+    public static $strDataSource = STOCK_DATABASE_FOREX;
+    
+    function _loadDatabaseData($strSymbol)
+    {
+    	$this->strSqlId = SqlGetStockId($strSymbol);
+    	if ($history = SqlGetForexHistoryNow($this->strSqlId))
+    	{
+    		$this->strPrice = $history['close'];
+    		$this->strDate = $history['date'];
+    		$this->strTime = '09:15';
+    		if ($history_prev = SqlGetPrevForexHistoryByDate($this->strSqlId, $this->strDate))
+    		{
+    			$this->strPrevPrice = $history_prev['close'];
+    		}
+    	}
+        $this->strFileName = DebugGetChinaMoneyFile();
+        $this->strExternalLink = GetReferenceRateForexLink($strSymbol);
+    }
+    
 	function _updateHistory()
 	{
 		if (FloatNotZero(floatval($this->strOpen)) == false)
@@ -544,11 +565,21 @@ class MyCnyReference extends MysqlReference
     // constructor 
     function MyCnyReference($strSymbol)
     {
-    	$this->LoadEastMoneyCnyData($strSymbol);
-        parent::MysqlReference($strSymbol);
-        if ($this->strSqlId)
+        if (self::$strDataSource == STOCK_EASTMONEY_FOREX)
         {
-        	$this->_updateHistory();
+        	$this->LoadEastMoneyCnyData($strSymbol);
+        }
+        else
+        {
+            $this->_loadDatabaseData($strSymbol);
+        }
+        parent::MysqlReference($strSymbol);
+        if (self::$strDataSource != STOCK_DATABASE_FOREX)
+        {
+        	if ($this->strSqlId)
+        	{
+        		$this->_updateHistory();
+        	}
         }
     }       
 }
@@ -556,17 +587,17 @@ class MyCnyReference extends MysqlReference
 // ****************************** MyCnyReference class *******************************************************
 class MyForexReference extends MysqlReference
 {
-    public static $iDataSource = STOCK_DATA_SINA;
-//    public static $iDataSource = STOCK_DATA_EASTMONEY;
+    public static $strDataSource = STOCK_SINA_FOREX;
+//    public static $strDataSource = STOCK_EASTMONEY_FOREX;
 
     // constructor 
     function MyForexReference($strSymbol)
     {
-        if (self::$iDataSource == STOCK_DATA_SINA)
+        if (self::$strDataSource == STOCK_SINA_FOREX)
         {
             $this->LoadSinaForexData($strSymbol);
         }
-        else
+        else // if (self::$strDataSource == STOCK_EASTMONEY_FOREX)
         {
             $this->LoadEastMoneyForexData($strSymbol);
         }

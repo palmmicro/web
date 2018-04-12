@@ -1,6 +1,82 @@
 <?php
-// http://www.chinamoney.com.cn/r/cms/www/chinamoney/data/fx/ccpr.json
-// http://www.chinamoney.com.cn/static/html/column/frontpage/baseprice/rmbcentralparity/RMBCentralParity.html
+// 
+
+function _chinaMoneyHasFile($strFileName)
+{
+	clearstatcache(true, $strFileName);
+    if (file_exists($strFileName))
+    {
+        $str = file_get_contents($strFileName);
+        $iCurTime = time();
+        if ($iCurTime < (filemtime($strFileName) + SECONDS_IN_MIN))	return $str;   // update on every minute
+        
+        $ar = json_decode($str, true);
+        $arHead = $ar['head'];
+        if ($arHead['rep_code'] != '200')		return false;;	// 200 ok not found
+        
+        $arData = $ar['data'];
+        $ymd = new YMDTick(strtotime($arData['lastDate']));	// 2018-04-12 9:15
+//        DebugString($ymd->GetYMD());
+//        DebugString(strval($ymd->GetHour()));
+//        DebugString(strval($ymd->GetMinute()));
+        if ($ymd->GetNextTradingDayTick() <= $iCurTime)	return false;	// need update
+
+//        DebugString('Use current file');
+        return $str;
+    }
+    return false;
+}
+
+define ('CHINA_MONEY_URL', 'http://www.chinamoney.com.cn/r/cms/www/chinamoney/data/fx/ccpr.json');
+function GetChinaMoney()
+{
+    date_default_timezone_set(STOCK_TIME_ZONE_CN);
+	$strFileName = DebugGetChinaMoneyFile();
+	$str = _chinaMoneyHasFile($strFileName);
+    if ($str == false)
+    {
+    	if ($str = url_get_contents(CHINA_MONEY_URL))
+    	{
+    		DebugString('Save new file');
+    		file_put_contents($strFileName, $str);
+    	}
+    	else
+    	{
+    		DebugString('No data!');
+    		return;
+    	}
+    }
+	
+    $ar = json_decode($str, true);
+    $arData = $ar['data'];
+    $ymd = new YMDTick(strtotime($arData['lastDate']));	// 2018-04-12 9:15
+    $strDate = $ymd->GetYMD();
+//    DebugString($strDate);
+    if (SqlGetForexHistory(SqlGetStockId('USCNY'), $strDate))
+    {
+//    	DebugString('Database entry existed');
+    	return;
+    }
+
+    $arRecord = $ar['records'];
+    foreach ($arRecord as $arPair)
+    {
+    	$strPair = $arPair['vrtEName'];
+    	$strPrice = $arPair['price'];
+    	DebugString($strPair.' '.$strPrice);
+    	if ($strPair == 'USD/CNY')
+    	{
+    		DebugString('Insert USCNY');
+			SqlInsertForexHistory(SqlGetStockId('USCNY'), $strDate, $strPrice);
+		}
+    	else if ($strPair == 'HKD/CNY')
+    	{
+    		DebugString('Insert HKCNY');
+			SqlInsertForexHistory(SqlGetStockId('HKCNY'), $strDate, $strPrice);
+		}
+    }
+}
+
 // http://www.chinamoney.com.cn/r/cms/www/chinamoney/html/cn/latestRMBParityCn.html
 /*
 <body class="bg"><div style="width:330px;">
@@ -218,41 +294,11 @@
 	    		</ul>
 */
 
+/*
 function preg_match_china_money($str)
 {
     $strBoundary = RegExpBoundary();
     $strSpace = RegExpSpace();
-    
-    $strPattern = $strBoundary;
-    $strPattern .= RegExpParenthesis('<td class="Py\(10px\) Ta\(start\) Pend\(10px\)" data-reactid="\d*"><span data-reactid="\d*">', '[^<]*', '</span></td>');
-    for ($i = 0; $i < 6; $i ++)
-    {
-        $strPattern .= RegExpParenthesis('<td class="Py\(10px\) Pstart\(10px\)" data-reactid="\d*"><span data-reactid="\d*">', '[^<]*', '</span></td>');
-    }
-    $strPattern .= $strBoundary;
-//    DebugString($strPattern);
-    
-    $arMatch = array();
-    preg_match_all($strPattern, $str, $arMatch, PREG_SET_ORDER);
-    return $arMatch;
-}
-
-/*
-<tr class="BdT Bdc($c-fuji-grey-c) Ta(end) Fz(s) Whs(nw)" data-reactid="51">
-<td class="Py(10px) Ta(start) Pend(10px)" data-reactid="52"><span data-reactid="53">Dec 15, 2017</span></td>
-<td class="Py(10px) Pstart(10px)" data-reactid="54"><span data-reactid="55">34.78</span></td>
-<td class="Py(10px) Pstart(10px)" data-reactid="56"><span data-reactid="57">34.69</span></td>
-<td class="Py(10px) Pstart(10px)" data-reactid="58"><span data-reactid="59">34.05</span></td>
-<td class="Py(10px) Pstart(10px)" data-reactid="60"><span data-reactid="61">34.13</span></td>
-<td class="Py(10px) Pstart(10px)" data-reactid="62"><span data-reactid="63">34.13</span></td>
-<td class="Py(10px) Pstart(10px)" data-reactid="64"><span data-reactid="65">11,759,579</span></td>
-</tr>
-*/
-
-/*
-function preg_match_yahoo_history($str)
-{
-    $strBoundary = RegExpBoundary();
     
     $strPattern = $strBoundary;
     $strPattern .= RegExpParenthesis('<td class="Py\(10px\) Ta\(start\) Pend\(10px\)" data-reactid="\d*"><span data-reactid="\d*">', '[^<]*', '</span></td>');

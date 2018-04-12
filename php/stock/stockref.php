@@ -5,6 +5,7 @@ define ('STOCK_SINA_DATA', 'Sina Data');
 define ('STOCK_SINA_FUTURE_DATA', 'Sina Future Data');
 define ('STOCK_SINA_FOREX', 'Sina Forex Data');
 define ('STOCK_EASTMONEY_FOREX', 'East Money Forex Data');
+define ('STOCK_DATABASE_FOREX', 'Forex Data From Database');
 define ('STOCK_GOOGLE_DATA', 'Google Data');
 define ('STOCK_YAHOO_DATA', 'Yahoo Data (possible 15 min delay)');
 define ('STOCK_NET_VALUE', 'Net Value');
@@ -543,7 +544,11 @@ class StockReference
         $this->strLow = $ar[7];
         $this->strVolume = $ar[10];
         
-		if (!empty($ar[24]))    $this->extended_ref = new ExtendedTradingReference($ar, $strSymbol);
+		if (!empty($ar[24]))
+		{
+			$this->extended_ref = new ExtendedTradingReference($ar, $strSymbol);
+			$this->extended_ref->strFileName = $this->strFileName;
+		}
     }
     
     function _onSinaDataCN($ar)

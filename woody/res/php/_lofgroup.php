@@ -6,6 +6,7 @@ class _LofGroup extends _MyStockGroup
 {
     var $etf_his;
     var $cny_ref;
+    var $fCnyPrice;
     
     // constructor 
     function _LofGroup() 
@@ -21,6 +22,7 @@ class _LofGroup extends _MyStockGroup
             $this->etf_his = false;
             parent::_MyStockGroup(array($this->ref->stock_ref));
         }
+        $this->fCnyPrice = SqlGetForexNow($this->cny_ref->GetStockId());
     } 
     
     function ConvertToEtfTransaction($etf_convert_trans, $lof_trans)

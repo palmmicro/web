@@ -13,6 +13,7 @@ class _LofUsGroup extends _LofGroup
         $strUSD = 'DINIW'; 
         $strEtfSymbol = LofGetEtfSymbol($strSymbol);
         MyStockPrefetchData(array($strSymbol, $strUSD, GetYahooNetValueSymbol($strEtfSymbol)));
+        GetChinaMoney();
         
         $this->cny_ref = new MyCnyReference('USCNY');	// Always create CNY Forex class instance first!
         $this->ref = new MyLofReference($strSymbol);
@@ -129,7 +130,7 @@ function EchoAll($bChinese)
         _EchoTransactionParagraph($group, $bChinese);
         if ($group->GetTotalRecords() > 0)
         {
-            EchoMoneyParagraph($group, $group->cny_ref->fPrice, false, $bChinese);
+            EchoMoneyParagraph($group, $group->fCnyPrice, false, $bChinese);
             $group->EchoArbitrageParagraph($bChinese);
         }
 	}

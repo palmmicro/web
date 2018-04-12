@@ -9,7 +9,7 @@ require_once('class/ini_file.php');
 require_once('class/year_month_date.php');
 
 require_once('stock/stocksymbol.php');
-//require_once('stock/chinamoney.php');
+require_once('stock/chinamoney.php');
 require_once('stock/yahoostock.php');
 require_once('stock/sinastock.php');
 require_once('stock/googlestock.php');
@@ -18,12 +18,6 @@ require_once('stock/stockref.php');
 require_once('stock/fundref.php');
 require_once('stock/stocktransaction.php');
 require_once('stock/stockgroup.php');
-
-define ('STOCK_DATA_SINA', 0);
-define ('STOCK_DATA_YAHOO', 1);
-define ('STOCK_DATA_EASTMONEY', 2);
-define ('STOCK_DATA_GOOGLE', 3);
-define ('FUTURE_DATA_SINA', 4);
 
 // ****************************** Stock symbol functions *******************************************************
 
