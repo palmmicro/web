@@ -1,5 +1,5 @@
 <?php
-
+// http://www.chinamoney.com.cn/r/cms/www/chinamoney/data/fx/ccpr.json
 // http://www.chinamoney.com.cn/static/html/column/frontpage/baseprice/rmbcentralparity/RMBCentralParity.html
 // http://www.chinamoney.com.cn/r/cms/www/chinamoney/html/cn/latestRMBParityCn.html
 /*
