@@ -584,7 +584,7 @@ class MyCnyReference extends MysqlReference
     }       
 }
 
-// ****************************** MyCnyReference class *******************************************************
+// ****************************** MyForexReference class *******************************************************
 class MyForexReference extends MysqlReference
 {
     public static $strDataSource = STOCK_SINA_FOREX;
