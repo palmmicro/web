@@ -1,0 +1,120 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>AR1688常见问题</title>
+<link href="../common/style.css" rel="stylesheet" type="text/css" />
+<script src="../js/filetype.js"></script>
+<script src="../js/copyright.js"></script>
+<script src="../js/nav.js"></script>
+<script src="../palmmicro.js"></script>
+<script src="ar1688.js"></script>
+<script src="../js/analytics.js"></script>
+</head>
+
+<body bgproperties=fixed leftmargin=0 topmargin=0>
+<table width=100% height=105 order=0 cellpadding=0 cellspacing=0 bgcolor=#049ACC>
+<tr>
+<td width=780 height=105 align=left valign=top><a href="/"><img src=../image/image_palmmicro.jpg alt="Palmmicro Name Logo" /></a></td>
+<td align=left valign=top></td>
+</tr>
+</table>
+
+<table width=900 height=85% border=0 cellpadding=0 cellspacing=0>
+<td width=30 valign=top bgcolor=#66CC66>&nbsp;</td>
+<td width=120 valign=top bgcolor=#66CC66>
+<TABLE width=120 border=0 cellPadding=5 cellSpacing=0>
+<script type="text/javascript">Ar1688Menu();</script>
+</TABLE>
+</TD>
+<td width=30 valign=top bgcolor=#66CC66>&nbsp;</td>
+<td width=50 valign=top bgcolor=#ffffff>&nbsp;</td>
+<td valign=top>
+	
+<table>
+<tr><td class=THead><B>AR1688常见问题</B></td></tr>
+<tr><td>&nbsp;
+<br /><font color=gray>目前市场上有哪些基于AR1688的设备？</font>
+<br />常见的有：<a href="user/gf302cn.html">GF302</a>网络电话、<a href="user/gp1266cn.html">GP1266和GP1260</a>网络电话、<a href="user/ywh201cn.html">YWH201</a>(<a href="user/basiccn.html">BASIC YWH200D-505</a>)网络电话。外加我们提供的<a href="modulecn.html">AR168M</a>网络语音模块和<a href="roipcn.html">AR168R</a> RoIP模块。
+<br />&nbsp;
+<br /><font color=gray>我们想开发一个类似于CISCO SPA112但是带LCD显示的网关，为什么不能用你们的芯片/模块？</font>
+<br />我们<a href="../woody/blog/ar1688/20080903cn.php">尝试</a>过开发基于AR1688的SPA112类似产品，但是失败了。因为我们处理不好<a href="../woody/blog/ar1688/20090417cn.php">回声抵消</a>和传真部分的软件。
+<br />&nbsp;
+<br /><font color=gray>我让<a name="module">AR168M</a>在安全模式下工作(GPIO7接GND)，现在AR168M会回应ping 192.168.1.200，mac地址是(00-18-1F-00-00-00)。但是我无法进入网页设置界面，PalmTool也连接不上？当我接上rs232口(用max232做了电平转换)后，我也收不到任何串口数据？</font>
+<br />PalmTool根本就不是为AR1688方案工作的。在<a href="../woody/blog/pa6488/20090927cn.php">安全模式</a>下，<a href="../woody/blog/pa6488/20100109cn.php">网页界面</a>和<a href="../woody/blog/pa6488/20110411cn.php">串口</a>都不会工作。
+<br />&nbsp;
+<br /><font color=gray>如何得到在正常模式工作下的AR168M的IP地址？</font>
+<br />sdcc\bin下面有Manager.exe，运行它后点击"Start Debug"，然后加电运行AR168M，你能在调试窗口中看到IP地址。
+<br />&nbsp;
+<br /><font color=gray>我们用PC串口连接AR1688。从PC软件上能收到AR1688发送的字符串，但是AR1688收不到PC发出的LOOPXXXXX或者TEXTXXXXX等字符串。Manager.exe的调试窗口显示很多"UART data lost"？</font>
+</td></tr>
+<tr><td><img src=module/realterm.jpg></td></tr>
+<tr><td>我们的串口演示<a href="../woody/blog/ar1688/20080329cn.php">协议</a>是"基于字符串"的。这意味着你需要在发送每个串口字符串后加上ascii字符0x00，我们才能判断字符串的结束。没有0，就会有"UART data lost"的错误信息出现。
+<br />在你的软件中，需要发送"TEXTHello+NULL"获得正确的结果。
+<br />&nbsp;
+<br /><font color=gray>能告诉我用来摘挂机和呼叫的模块控制字符串吗？</font>
+<br />发送以下字符串呼叫223：
+<br />"KEY z" (摘机/挂机)
+<br />"KEY 2"
+<br />"KEY 2"
+<br />"KEY 3"
+<br />"KEY a" (呼叫)
+<br />&nbsp;
+<br /><font color=gray>AR168M (VREFI)的参考电压是多少，xpc6606p152可以用什么其它器件替换？</font>
+<br />VREFI要求1.5V，2%的精度，额定电流为500mA，你可以按照这样的规格寻找替换器件。
+<br />&nbsp;
+<br /><font color=gray>我试图使用你们网上的AR168M gerber文件，我的pcb制造商询问各层板之间的次序？</font>
+<br />次序如下：
+</td></tr>
+<tr><td><img src=module/layer.jpg></td></tr>
+<tr><td>&nbsp;
+<br /><font color=gray>我的<a name="ar168r">AR168R</a> LCD上面显示：“Invalid Settings Forced in Page0”。现在我可以ping它，但是打不开网页设置。怎么样能够恢复它？</font>
+</td></tr>
+<tr><td><img src=roip/invalid.jpg></td></tr>
+<tr><td>这里的<a href="roip/settings.dat" target=_blank>settings.dat</a>是从我们办公室一个工作的AR168上用命令行'tftp -i 192.168.1.13 get setting.dat'倒出来的。你可以用命令行'tftp -i 192.168.1.200 put settings.dat'把它导入你处于安全模式中的AR168R。
+<br />&nbsp;
+<br /><font color=gray>网页升级时，把升级程序文件在"Upgrade"->"Settings"中而不是"Firmware"中升级了，现在设置乱了，恢复出厂设置也不能工作，怎么办？</font>
+<br />出厂设置和设置都在一起被升级程序文件冲了，可以进入<a href="../woody/blog/pa6488/20090927cn.php">安全模式</a>，用软件API下sdcc\bin\getopt.bat和getopt.bat恢复正常设置。
+<br />&nbsp;
+<br /><font color=gray>如何在Linux下<a name="compile">编译</a>AR1688 API？</font>
+<br />阅读<a href="../woody/blog/ar1688/20070609cn.php">说明</a>。
+<br />&nbsp;
+<br /><font color=gray>我在Win XP下编译0.63 API的时候提示错误<b>无法定位程序输入点Getlogicalprocessorinformation于动态链接库KERNEL32.dll上</b>？</font>
+<br />0.63版本以上的工具(例如hex2bin)使用<a href="../woody/blog/entertainment/20140615cn.php">VS2013/VC12</a>编译，你需要从微软下载安装VS2013可再发行组件包，同时把Win XP升级到sp3。
+<br />&nbsp;
+<br /><font color=gray>我不能在Win XP下编译新的0.52软件，出现以下错误(命令行'mk gp1266 sip us')：Error: C:\SDCC\BIN\hex2bin main.bin -f0 -a0 -x6 -b32768 -e57344 main.ihx process_begin: CreateProcess(C:\SDCC\BIN\hex2bin.exe, C:\SDCC\BIN\hex2bin main.bin -f0 -a0 -x6 -b32768 -e57344 main.ihx, ...) failed. </font>
+<br />0.52版本以上的工具(例如hex2bin)使用<a href="../woody/blog/ar1688/20100818cn.php">VS2008/VC9</a>编译，碰到上面的英文提示，或者中文系统出现错误提示<font color=red><i>系统无法执行指定的程序</i></font>，说明你需要从微软下载安装VS2008可再发行组件包。
+<br />&nbsp;
+<br /><font color=gray>如何改MAC地址？</font>
+<br />请按照我们的<a href="../woody/blog/ar1688/20070827cn.php">步骤</a>来做。如果MAC地址不"匹配"，全部功能键和部分语音功能都不会正常工作，但是可以正常升级软件。
+<br />&nbsp;
+<br /><font color=gray>我能否增加短消息功能？</font>
+<br />我们的软件可以按照标准SIP(RFC 2438)和IAX2协议<a href="../woody/blog/ar1688/20080512cn.php">显示短消息</a>，你需要自己增加消息输入和发送部分。
+<br />&nbsp;
+<br /><font color=gray>我找不到开发指南中提到的mk<a name="web">web</a>.bat和mkweball.bat这2个文件？</font>
+<br />我们简化了网页生成步骤，但是pdf的开发指南一直没有更新，忽略要用到这2个文的步骤即可。
+<br />&nbsp;
+<br /><font color=gray>我的确需要一个简单的<a name="tcp">tcp</a>监听远端用来进行命令行处理，你们有示例程序和相关开发指南吗？</font>
+<br />我们不鼓励客户在AR1688上把tcp用在网页界面以外的地方，最好把你设计中的TCP改为UDP。你可以下载<a href="software/sw050cn.html">0.50</a>软件API，其中有个DemoTcp.c是简单的TCP示例，我们在<a href="software/sw052cn.html">0.52</a>版本中取消了它。
+<br />&nbsp;
+<br /><font color=gray>我试图用<a href="programmercn.html">AR168D</a>来<a name="programmer">编程</a>MT28F016S5，不过在按下***#键后没有反应，只看到：</font>
+<br /><font color=red>Socket OK:2</font>
+<br /><font color=red>Program page: 0</font>
+<br /><font color=gray>然后就不动了。我需要多长时间写入一片芯片？</font>
+</td></tr>
+<tr><td><img src=programmer/ar168d.jpg></td></tr>
+<tr><td>跟AR168DS不同，当使用AR168D的时候，即使你只打算写一片芯片，也要把3个空插座都放满。
+<br />&nbsp;
+<br /><font color=gray>如何生成<a href="../woody/blog/ar1688/20101202cn.php">程序存储器烧录器</a>使用的_all.<a name="bin">bin</a>文件？</font>
+<br />我们的软件API不能生成安全模式文件例如<a href="software/sw063cn.html">ar168m_none_us_063010.bin</a>。你需要从我们这里得到它后，拷贝到C:\SDCC\src中。这样ar168m_sip_us_063010_all.bin文件会在ar168m_sip_us_063010.bin编译成功后自动生成。
+<br /><a href="../woody/blog/pa6488/20090927cn.php">安全模式</a>文件不经常变动，你可以放心修改ar168m_none_us_063010.bin文件名中跟版本号有关的部分，使其和你的工作软件版本一致。
+<br />&nbsp;
+</td></tr>
+</table>
+
+</td>
+</table>
+
+<script type="text/javascript">CopyRightDisplay();</script>
+
+</body>
+</html>

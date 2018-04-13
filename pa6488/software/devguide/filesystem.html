@@ -1,0 +1,69 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>PA6488 Developer's Guide - EFSL File System</title>
+<link href="../../../common/style.css" rel="stylesheet" type="text/css" />
+<script src="../../../js/filetype.js"></script>
+<script src="../../../js/copyright.js"></script>
+<script src="../../../js/nav.js"></script>
+<script src="../../../palmmicro.js"></script>
+<script src="../../pa6488.js"></script>
+<script src="../software.js"></script>
+<script src="devguide.js"></script>
+<script src="../../../js/analytics.js"></script>
+</head>
+
+<body bgproperties=fixed leftmargin=0 topmargin=0>
+<table width=100% height=105 order=0 cellpadding=0 cellspacing=0 bgcolor=#049ACC>
+<tr>
+<td width=780 height=105 align=left valign=top><a href="/"><img src=../../../image/image_palmmicro.jpg alt="Palmmicro Name Logo" /></a></td>
+<td align=left valign=top></td>
+</tr>
+</table>
+
+<table width=900 height=85% border=0 cellpadding=0 cellspacing=0>
+<td width=30 valign=top bgcolor=#66CC66>&nbsp;</td>
+<td width=120 valign=top bgcolor=#66CC66>
+<TABLE width=120 border=0 cellPadding=5 cellSpacing=0>
+<script type="text/javascript">NavigateDevGuide();</script>
+</TABLE>
+</TD>
+<td width=30 valign=top bgcolor=#66CC66>&nbsp;</td>
+<td width=50 valign=top bgcolor=#ffffff>&nbsp;</td>
+<td valign=top>
+	
+	
+<table>
+<tr><td class=THead><B>PA6488 Developer's Guide - EFSL File System</B></td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><font color=#545454>Why</font></td></tr>
+<tr><td>The improved PA6488 <a href="../../../woody/blog/pa6488/20100109.php">web interface</a> need to support multiple files, software <a href="../../../woody/blog/pa6488/20090816.php">upgrade</a> and other <a href="../../../woody/blog/pa6488/20101213.php">tests</a> are also benefit from it.
+<br />As <a href="../../../woody/blog/pa6488/20101225.php">file system</a> related tasks are not performance critical, we have decided to use the open source <a href="http://efsl.be/" target=_blank>EFSL</a>. 
+Instead of using it with SD card as its original purpose, we are using it with a small part of the DDR2 memory on PA6488 device.
+</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><font color=#545454>How</font></td></tr>
+<tr><td>The offical EFSL 0.2.8 document can also be downloaded <a href="../../download/misc/efsl0.2.8manual.pdf" target=_blank>here</a>. PA6488 users need to read its "EFSL Functions" part to learn how to use its functions.
+<br />Include pa6488\include\efsl.h in source fils need to call EFSL functions.
+<br />Compiled efsl.lib is in pa6488\lib, it can also be recompiled from the API source code.
+<br />The most easy to read example is pa6488\test\testg729ab.c, other examples can be found in tftp.c, function.c, testjpeg.c ect.
+</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><font color=#545454>Details</font></td></tr>
+<tr><td>EFSL is released under the LGPL license, we have included its source code with all our changes in PA6488 <a href="../../../woody/blog/pa6488/20100211.php">API</a> under pa6488\efsl:
+<br />Added HW_ENDPOINT_PA6488_DDR2 define in config.h and changed related settings based on PA6488 features, disabled time functions.
+<br />In types.h, changed esint8 typedef to 16-bit for better performance.
+<br />In plibc.h, restored EFSL's replacements of common c library functions for better performance.
+<br />Added pa6488_ddr2.h and pa6488_ddr2.c for PA6488 basic DDR2 memory read and write functions, and faked a boot sector MBR necessary for FAT system.
+<br />In debug.h, use DebugPrintf() to report all message via UDP debug.
+<br />All "unsigned long" used in .c files changed to "euint32".
+</td></tr>
+</table>
+
+</td>
+</table>
+
+<script type="text/javascript">CopyRightDisplay();</script>
+
+</body>
+</html>

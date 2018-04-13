@@ -1,0 +1,70 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>SIP2SIP服务</title>
+<meta name="keywords" content="SIP2SIP服务">
+<meta name="description" content="SIP2SIP(www.sip2sip.info)VoIP服务和使用这个服务的AR1688参考设置. 在这个服务下, speex会导致单通, 跟AR1688通话时候要禁用.">
+<link href="../common/style.css" rel="stylesheet" type="text/css" />
+<script src="../js/filetype.js"></script>
+<script src="../js/copyright.js"></script>
+<script src="../js/nav.js"></script>
+<script src="../palmmicro.js"></script>
+<script src="res.js"></script>
+<script src="../js/analytics.js"></script>
+</head>
+
+<body bgproperties=fixed leftmargin=0 topmargin=0>
+<table width=100% height=105 order=0 cellpadding=0 cellspacing=0 bgcolor=#049ACC>
+<tr>
+<td width=780 height=105 align=left valign=top><a href="/"><img src=../image/image_palmmicro.jpg alt="Palmmicro Name Logo" /></a></td>
+<td align=left valign=top></td>
+</tr>
+</table>
+
+<table width=900 height=85% border=0 cellpadding=0 cellspacing=0>
+<td width=30 valign=top bgcolor=#66CC66>&nbsp;</td>
+<td width=120 valign=top bgcolor=#66CC66>
+<TABLE width=120 border=0 cellPadding=5 cellSpacing=0>
+<script type="text/javascript">NavLoopService();</script>
+</TABLE>
+</TD>
+<td width=30 valign=top bgcolor=#66CC66>&nbsp;</td>
+<td width=50 valign=top bgcolor=#ffffff>&nbsp;</td>
+<td valign=top>
+
+
+<table>
+<tr><td class=THead><B>SIP2SIP服务</B></td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>网站: <a href="http://www.sip2sip.info" target=_blank>www.sip2sip.info</a>
+<br />
+<br />SIP地址: palmmicro@sip2sip.info  
+<br />用户名: palmmicro  
+<br />密码: 28y62d95hw  
+<br />Domain/Realm: sip2sip.info  
+<br />Outbound Proxy: proxy.sipthor.net  
+<br />SIP别名: 33011668@sip2sip.info
+<br />
+<br />SIP别名例如<font color=blue>33011668</font>可以在<font color=blue>Identity</font>网页中添加,
+这样其它使用硬件电话例如<a href="../ar1688/user/gp1266cn.html">GP1266</a>的用户可以拨打这个全数字号码来呼叫<font color=blue>palmmicro</font>用户.
+AR1688设备用户也可以把<font color=blue>palmmicro</font>存在<font color=blue>热线号码</font>设置选项中或者把<font color=blue>palmmicro</font>保存到电话号码本中用快速拨号呼叫. 
+<br />
+<br />呼叫测试: 3333
+<br />回声测试: 4444
+<br />
+<br />在这个免费服务中同时使用<a href="http://icanblink.com/" target=_blank>Blink</a>和AR1688设备时, 有已知问题: 
+<br />1. 用<b>Blink</b>的缺省配置, 连通后使用<a href="../woody/blog/ar1688/20071031cn.php">speex</a> 8k编解码器. 当<b>Blink</b>呼叫AR1688时正常, 当AR1688呼叫<b>Blink</b>时会没有声音.
+可能在协商speex payload type的时候有问题. 
+<br />2. 把speex从<b>Blink</b>的<font color=blue>preference</font>菜单中取消后, 通话使用PCMU, 两边呼叫都正常. 
+<br />
+<br /><a href="../ar1688/settingscn.html">AR1688</a>参考<a href="../ar1688/settings/sip2sip_sip_us.html" target=_blank>设置</a>
+</td></tr>
+</table>
+
+</td>
+</table>
+
+<script type="text/javascript">CopyRightDisplay();</script>
+
+</body>
+</html>

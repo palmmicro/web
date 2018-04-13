@@ -1,0 +1,68 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>PA6488开发指南 - EFSL文件系统</title>
+<link href="../../../common/style.css" rel="stylesheet" type="text/css" />
+<script src="../../../js/filetype.js"></script>
+<script src="../../../js/copyright.js"></script>
+<script src="../../../js/nav.js"></script>
+<script src="../../../palmmicro.js"></script>
+<script src="../../pa6488.js"></script>
+<script src="../software.js"></script>
+<script src="devguide.js"></script>
+<script src="../../../js/analytics.js"></script>
+</head>
+
+<body bgproperties=fixed leftmargin=0 topmargin=0>
+<table width=100% height=105 order=0 cellpadding=0 cellspacing=0 bgcolor=#049ACC>
+<tr>
+<td width=780 height=105 align=left valign=top><a href="/"><img src=../../../image/image_palmmicro.jpg alt="Palmmicro Name Logo" /></a></td>
+<td align=left valign=top></td>
+</tr>
+</table>
+
+<table width=900 height=85% border=0 cellpadding=0 cellspacing=0>
+<td width=30 valign=top bgcolor=#66CC66>&nbsp;</td>
+<td width=120 valign=top bgcolor=#66CC66>
+<TABLE width=120 border=0 cellPadding=5 cellSpacing=0>
+<script type="text/javascript">NavigateDevGuide();</script>
+</TABLE>
+</TD>
+<td width=30 valign=top bgcolor=#66CC66>&nbsp;</td>
+<td width=50 valign=top bgcolor=#ffffff>&nbsp;</td>
+<td valign=top>
+	
+	
+<table>
+<tr><td class=THead><B>PA6488开发指南 - EFSL文件系统</B></td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><font color=#545454>为什么</font></td></tr>
+<tr><td>改进了的PA6488<a href="../../../woody/blog/pa6488/20100109cn.php">网页界面</a>需要多文件支持，软件<a href="../../../woody/blog/pa6488/20090816cn.php">升级</a>和其它<a href="../../../woody/blog/pa6488/20101213cn.php">测试</a>也能从中受益。
+<br />由于<a href="../../../woody/blog/pa6488/20101225cn.php">文件系统</a>相关的任务都不要求很高的性能，我们决定采用开放源代码的<a href="http://efsl.be/" target=_blank>EFSL</a>。它原来的目的是用在SD卡上，我们把它用在PA6488设备的一小部分DDR2内存上。
+</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><font color=#545454>怎么用</font></td></tr>
+<tr><td>EFSL 0.2.8的官方文档也可以在这里<a href="../../download/misc/efsl0.2.8manual.pdf" target=_blank>下载</a>。PA6488用户需要阅读"EFSL Functions"部分学习如何调用它的相关函数。
+<br />在需要调用EFSL函数的文件中include文件pa6488\include\efsl.h。
+<br />编译好的efsl.lib在pa6488\lib中，它也可以从API源程序中重新编译。
+<br />最容易读的调用例子是pa6488\test\testg729ab.c，在tftp.c、function.c、testjpeg.c等文件中可以找到更多例子。
+</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><font color=#545454>细节</font></td></tr>
+<tr><td>EFSL基于LGPL协议发布，我们相关的改动和它的源程序一起放在了PA6488 <a href="../../../woody/blog/pa6488/20100211cn.php">API</a>的pa6488\efsl下：
+<br />在config.h中增加了HW_ENDPOINT_PA6488_DDR2定义，根据PA6488特点更改了相关设置，禁用了时间函数。
+<br />为了更好的性能在types.h中把esint8改为定义成16位数据类型。
+<br />在plibc.h中恢复了原来EFSL对普通c语言函数的替代，同样是为了更好的性能。
+<br />增加了pa6488_ddr2.h和pa6488_ddr2.c文件，其中包括基本的PA6488 DDR2内存读写功能，以及伪造了FAT系统需要的一个启动盘MBR。
+<br />在debug.h中用UDP调试的DebugPrintf()输出调试信息。
+<br />所有.c文件中使用的"unsigned long"全部改为"euint32"。
+</td></tr>
+</table>
+
+</td>
+</table>
+
+<script type="text/javascript">CopyRightDisplay();</script>
+
+</body>
+</html>

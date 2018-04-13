@@ -1,0 +1,68 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>PA6488开发指南 - 使用H.263</title>
+<link href="../../../common/style.css" rel="stylesheet" type="text/css" />
+<script src="../../../js/filetype.js"></script>
+<script src="../../../js/copyright.js"></script>
+<script src="../../../js/nav.js"></script>
+<script src="../../../palmmicro.js"></script>
+<script src="../../pa6488.js"></script>
+<script src="../software.js"></script>
+<script src="devguide.js"></script>
+<script src="../../../js/analytics.js"></script>
+</head>
+
+<body bgproperties=fixed leftmargin=0 topmargin=0>
+<table width=100% height=105 order=0 cellpadding=0 cellspacing=0 bgcolor=#049ACC>
+<tr>
+<td width=780 height=105 align=left valign=top><a href="/"><img src=../../../image/image_palmmicro.jpg alt="Palmmicro Name Logo" /></a></td>
+<td align=left valign=top></td>
+</tr>
+</table>
+
+<table width=900 height=85% border=0 cellpadding=0 cellspacing=0>
+<td width=30 valign=top bgcolor=#66CC66>&nbsp;</td>
+<td width=120 valign=top bgcolor=#66CC66>
+<TABLE width=120 border=0 cellPadding=5 cellSpacing=0>
+<script type="text/javascript">NavigateDevGuide();</script>
+</TABLE>
+</TD>
+<td width=30 valign=top bgcolor=#66CC66>&nbsp;</td>
+<td width=50 valign=top bgcolor=#ffffff>&nbsp;</td>
+<td valign=top>
+	
+	
+<table>
+<tr><td class=THead><B>PA6488开发指南 - 使用H.263</B></td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><font color=#545454>为什么</font></td></tr>
+<tr><td>就跟语音上的G.711一样，H.263图像编码算法<a href="../../../woody/blog/pa6488/20110524cn.php">广泛使用</a>在例如<a href="http://www.counterpath.com/x-lite-download.html" target=_blank>X-Lite</a>等免费软件上。
+<br />在PA6488上提供H.263支持，可以让我们跟现实世界中大量的老视频软硬件配合工作。
+</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><font color=#545454>怎么测试</font></td></tr>
+<tr><td>在pa6488\bin下运行"jpegput.bat xxx.xxx.xxx.xxx"，TFTP会把全部需要的文件传送到PA6488，使用跟<a href="jpegcn.html">JPEG</a>测试同样的输入文件。
+<br />在PA6488设备上按键"#9*2"开始H.263测试，更多的<a href="../userguide/keytestcn.php">键盘测试</a>内容见pa6488\doc\test.txt。
+<br />H.263测试结束后，在pa6488\bin下运行"h263get.bat xxx.xxx.xxx.xxx"把产生的文件用TFTP传回PC。
+<br />在pa6488\bin下运行"h263fc.bat"比较测试结果。
+</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><font color=#545454>如何使用</font></td></tr>
+<tr><td>H.263测试代码在pa6488\test\testh263.c。
+<br />H.263函数说明在pa6488\include\h263.h、库文件在pa6488\lib\h263.lib。软件API中不包括源程序。
+<br />H263Encode()函数中"PCHAR pcSrc"参数必须是指向非缓存DDR2 RAM的指针。
+<br />只支持H.263 1996年基本版本，QCIF和CIF格式。
+</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+
+</td></tr>
+</table>
+
+</td>
+</table>
+
+<script type="text/javascript">CopyRightDisplay();</script>
+
+</body>
+</html>

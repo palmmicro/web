@@ -1,0 +1,97 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>PA1688 FAQ</title>
+<meta name="keywords" content="PA1688 FAQ">
+<link href="../common/style.css" rel="stylesheet" type="text/css" />
+<script src="../js/filetype.js"></script>
+<script src="../js/copyright.js"></script>
+<script src="../js/nav.js"></script>
+<script src="../palmmicro.js"></script>
+<script src="pa1688.js"></script>
+<script src="../js/analytics.js"></script>
+</head>
+
+<body bgproperties=fixed leftmargin=0 topmargin=0>
+<table width=100% height=105 order=0 cellpadding=0 cellspacing=0 bgcolor=#049ACC>
+<tr>
+<td width=780 height=105 align=left valign=top><a href="/"><img src=../image/image_palmmicro.jpg alt="Palmmicro Name Logo" /></a></td>
+<td align=left valign=top></td>
+</tr>
+</table>
+
+<table width=900 height=85% border=0 cellpadding=0 cellspacing=0>
+<td width=30 valign=top bgcolor=#66CC66>&nbsp;</td>
+<td width=120 valign=top bgcolor=#66CC66>
+<TABLE width=120 border=0 cellPadding=5 cellSpacing=0>
+<script type="text/javascript">Pa1688Menu();</script>
+</TABLE>
+</TD>
+<td width=30 valign=top bgcolor=#66CC66>&nbsp;</td>
+<td width=50 valign=top bgcolor=#ffffff>&nbsp;</td>
+<td valign=top>
+
+	
+<table>
+<tr><td class=THead><B>PA1688 FAQ</B></td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><font color=grey>My IP phone had a PA1688PQ <a name="chip">chip</a> inside it, please give me the update firmware?</font></td></tr>
+<tr><td>Try to find your device in following typical PA1688 based <a href="../woody/blog/ar1688/20061014.php">devices</a> first. If no match, please send us the external and internal pictures of your device by <a href="mailto:support@palmmicro.com">email</a>. 
+<br /><a href="user/ag168v.html">AG-168V</a>(Soyo G1681/<a href="user/pa168v.html">PA168V</a>) 1-port FXS gateway, <a href="user/at320.html">AT320</a> and <a href="user/at323.html">AT323</a>(<a href="user/pa168s.html">PA168S</a>) IP phones,
+<a href="user/dp3000.html">DP3000</a>(PA168P) 1-port FXS gateway, <a href="user/ehog.html">eHOG</a>/WUC-GW202 1-port FXS gateway, <a href="user/ep668.html">EP668</a> IP phone, <a href="user/et6602.html">ET6602</a>(PA168T) IP phone, HOP-1002(<a href="user/5111phone.html">5111PHONE</a> and <a href="user/pinghe.html">PINGHE</a>) IP phones, <a href="user/hop3003.html">HOP-3003</a> IP phone,
+<a href="user/ip2004.html">IP2004</a> IP phone, <a href="user/ip300.html">IP300</a> IP phone, <a href="user/ipf2000.html">IPF-2000</a> IP phone, <a href="user/iphe00.html">IPH E00</a> IP phone, <a href="user/iplink.html">IPLINK</a> IP phone, <a href="user/ke1000.html">KE1000</a> IP phone,
+<a href="user/kta1010.html">KTA1010</a> 1-port FXS gateway, <a href="user/ml220.html">ML220</a>(KE1020/KE1020A/KE1021A) IP phone, <a href="user/myicall.html">MYICALL</a> IP phone,
+<a href="user/nt323c.html">NT323C</a> 1-port FXS gateway, <a href="user/p100.html">Primeworx P100</a>(Global IPtel G100/Cistrix CT-100/Siptronic ST-102) IP phone, <a href="user/pa168f.html">PA168F</a> IP phone, <a href="user/pa168q.html">PA168Q</a> 1-port FXS gateway,
+JR168S and China Roby <a href="user/pb35.html">PB-35</a> IP phone, <a href="user/voip616.html">VOIP616</a> IP phone, <a href="user/ywh10.html">YWH10</a> IP phone, <a href="user/ywh100.html">YWH100</a> IP phone, <a href="user/ywh500.html">YWH500</a> IP phone.</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><font color=grey>I have a device with <a name="mac">MAC</a> address 00-09-45-xx-xx-xx which is registered by your company, can I update it?</font></td></tr>
+<tr><td>Please use the answer of previous question, we can not provide software by <a href="../woody/blog/palmmicro/20091114.php">MAC</a> address. Some devices (for example <a href="user/jr168.html">JR168</a>) with Palmmicro MAC address are actually based on other chipset.</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><font color=grey>I can not see the SIP <a name="password">configuration</a> in web interface?</font></td></tr>
+<tr><td>You need use "super" password to enter web interface in order to access SIP (or other protocol) configuration web page. If none of those default "12345678", "19750407", "19800211" can work, you can try to hack the <a href="../woody/blog/palmmicro/20100909.php">password</a> by yourself.</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><font color=grey>I can pretty much <a name="compile">compile</a> the firmware here following the instructions on the website but I am unsure of the definitions in the headers?</font></td></tr>
+<tr><td>Compile in Windows cammand line prompt, following steps below, no need to worry extra header definitions:
+<br />1. Download the <a href="download/misc/keil7_c51.zip">compiler</a>, extract it to C:\keil
+<br />2. Download software API and extract to C:\Palmh323
+<br />3. "cd Palmh323"
+<br />4. Run setenv.bat
+<br />5. Run command line "mk pa168v iax2 us" to compile the PA168V IAX2 English version.</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><font color=grey>My phone got stuck at "<a name="booting">Booting</a> ..." after update new software?</font></td></tr>
+<tr><td>Many PA1688 manufacturers and users prefer to set "debug" option to "<a href="../woody/blog/pa1688/20091215.php">no check</a>", and prevent any check on the upgrade files. When wrong software is used, for example, updated "<a href="user/pinghe.html">PINGHE</a>" software to "<a href="user/5111phone.html">5111PHONE</a>", this error will occur because the booting sequences are different. Need to recover the correct software in <a href="../woody/blog/pa6488/20090927.php">safe mode</a>.
+<br />In some rare cases, because we changed booting sequence at an early software version, if your orginal phone software version is older than that, you need to use PalmTool to update page0.hex <a href="../woody/blog/pa6488/20090927.php">safe mode</a> file to fix this problem. We do not provide page0 file download because update page0 is rather <a href="../woody/blog/pa1688/20110225.php">risky</a>, please <a href="mailto:support@palmmicro.com">email</a> us.</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><font color=grey>Is there a way to load the firmware from another phone for debuging?</font></td></tr>
+<tr><td>No.</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><font color=grey>I received a <a name="page0">page0.hex</a>, how to update it?</font></td></tr>
+<tr><td>Select PalmTool "PFlash Page" to "page0", "PFlash Type" to what we instructed along with the page0.hex file, and use "Update PFlash" to update it. The file page0.hex is different for each <a href="../woody/blog/ar1688/20061014.php">hardware type</a> and there has no check, do NOT use it with other devices except those we specially specified!</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><font color=grey>I cannot change the <a name="ringtone">ring tone</a>. I've tried to upload via web interface most of them in .dat .zip and .pcm format but it never work I always have the default ring tone although the ring tone file update was successful?</font></td></tr>
+<tr><td>Please use ringtone in .dat file, and select option "Audio Settings" -> "ring type" to "user define" or "advanced".</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><font color=grey><a name="palmtool">PalmTool</a> "List Phones" can list the phone, but when trying to change settings or upgrade, "Can not connect to Palm1" or "tcp connection failed" message is displayed?</font></td></tr>
+<tr><td>PalmTool change settings and upgrade can only work when the device "debug" option is not "disabled". In web page, change "debug" option no zero value like "output" will be ok. 
+<br />As "List Phones" message is sent to 255.255.255.255 broadcast address, you might also need to check if your PC and phone are in the same subnet. For example, when your phone address is 192.168.1.100 and your PC address is 192.168.0.101, you can also see the listed phone, but can not connect by TCP.</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><font color=grey>After loading upgrade file, PalmTool says "Updating ... please wait until the update led stops flashing" but I do not see any LED?</font></td></tr>
+<tr><td>Use the LCD display on your phone to judge if the update finished.</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><font color=grey>Which "PFlash Type" in PalmTool should I choose from?</font></td></tr>
+<tr><td>"PFlash Type" only matters when upgrade page by page in "Update PFlash", it does not matter when you change "Phone Settings" or "Upgrade Program".</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><font color=grey>It appears that the PA168Q V1.66 IAX2 English version has no incoming <a name="cid">Caller-ID</a> FSK? I am in the US. We use the bellcore FSK 1200baud <a href="http://web.textfiles.com/phreak/caller-id.txt" target=_blank>cid standard</a>.</font></td></tr>
+<tr><td>Seems that we had only implemented PA168Q (and all other PA1688 based ATAs) Chinese Caller-ID function.</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><font color=grey>My God the <a name="lm386">LM386</a> in AT323 phone is working ALL the time?</font></td></tr>
+<tr><td><a href="../woody/blog/pa1688/20110420.php">Exactly</a>.</td></tr>
+</table>
+
+</td>
+</table>
+
+<script type="text/javascript">CopyRightDisplay();</script>
+
+</body>
+</html>

@@ -1,0 +1,122 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>AR168R RoIP Module</title>
+<meta name="keywords" content="RoIP Module">
+<meta name="description" content="AR168R and AR168RT RoIP module based on Palmmicro AR1688 solution. Including customer provided video and image.">
+<link href="../common/style.css" rel="stylesheet" type="text/css" />
+<script src="../js/filetype.js"></script>
+<script src="../js/copyright.js"></script>
+<script src="../js/nav.js"></script>
+<script src="../palmmicro.js"></script>
+<script src="ar1688.js"></script>
+<script src="../js/analytics.js"></script>
+</head>
+
+<body bgproperties=fixed leftmargin=0 topmargin=0>
+<table width=100% height=105 order=0 cellpadding=0 cellspacing=0 bgcolor=#049ACC>
+<tr>
+<td width=780 height=105 align=left valign=top><a href="/"><img src=../image/image_palmmicro.jpg alt="Palmmicro Name Logo" /></a></td>
+<td align=left valign=top></td>
+</tr>
+</table>
+
+<table width=900 height=85% border=0 cellpadding=0 cellspacing=0>
+<td width=30 valign=top bgcolor=#66CC66>&nbsp;</td>
+<td width=120 valign=top bgcolor=#66CC66>
+<TABLE width=120 border=0 cellPadding=5 cellSpacing=0>
+<script type="text/javascript">Ar1688Menu();</script>
+</TABLE>
+</TD>
+<td width=30 valign=top bgcolor=#66CC66>&nbsp;</td>
+<td width=50 valign=top bgcolor=#ffffff>&nbsp;</td>
+<td valign=top>
+
+	
+<table>
+<tr><td class=THead><B>AR168R RoIP Module</B></td></tr>
+<tr><td>&nbsp;
+<br />AR168R is the actual example of <a href="module.html">AR168M</a> VoIP module used in Radio over IP market.
+<font color=orange>
+<br />Special attension to users in Brazil: <a href="http://www.remotatec.com.br/" target=_blank>REMOTA TECNOLOGIA</a> owns exclusivity in Brazil for this AR168R Radio over IP design, please contact with them directly. We will NOT receive other RoIP orders from Brazil.
+</font>
+<br />Special <b><i>OEM_REMOTA</i></b> RoIP upgrade file is like <a href="software/063/ar168r_sip_us_remota_063004.zip">ar168r_sip_us_remota_063004.bin</a>.
+Its web server uses port 88, need to access it by http://xxx.xxx.xxx.xxx:88
+<br />Normal RoIP upgrade file is like <a href="software/057/ar168r_sip_us_057060.zip">ar168r_sip_us_057060.bin</a>.
+<br />AR168R can also be used as a basic AR168M module by using <b><i>OEM_UART</i></b> compile option.
+For example, upgrade <a href="../woody/blog/ar1688/20080607.php">file name</a> like <a href="software/057/ar168r_sip_us_uart_057037.zip">ar168r_sip_us_uart_057037.bin</a> is to use AR168R as AR168M.
+<br />AR168R <a href="faq.html#ar168r">FAQ</a>.
+<br />&nbsp;
+<br /><b>Quick Start:</b>
+<br />1) Config AR168R to use <a href="../contactus/pbx.html">Palmmicro PBX</a> test number 222 as in example <a href="settings/roip_sip_us.html" target=_blank>roip_sip_us.html</a> settings.
+<br />2) Press <font color=grey>SW1</font> key (near RJ45) to dial out 223 saved in <font color=blue>Hot Line Number</font> settings.
+<br />3) Press <font color=grey>SW1</font> key to answer an incoming call, or use <font color=blue>Auto Answer</font> option in settings.
+<br /><b>Familiar with <a href="hardware/AR168R_v1.1.pdf" target=_blank>Board</a> Connectors and Jumpers:</b>
+<br />1) A <a href="../woody/blog/ar1688/20070604.php">2x16 character LCD</a> is connected to J3.
+<br />2) J4(<font color=red>RED</font>) MIC is only used when AR168R used as AR168M, like AR168M itself,
+voice communication might <a href="../woody/blog/ar1688/20120213.php">get lost</a> if the UART of an external controller is not connected on J7(DB9).
+With normal RoIP, the audio input must use ELINEIN0 signal on J6 or J7(DB9).
+<br />3) When a headset is plugged in J5(<font color=green>GREEN</font>) jack, the AUDIOOUT signal on J6 and J7(DB9) will not work, this is done by hardware.
+<br />4) By default the jumper on J6 is over pin 21(GPIOB4) and pin 22(GPIOB5). Our standard software sets GPIOB4 as output LOW, and sets GPIOB5 as input, so GPIOB5 read as LOW too.
+When jumper is over pin 24(GPIOA0) and pin 22(GPIOB5), as out standard software sets <a href="../woody/blog/ar1688/20080903.php">GPIO</a>A0 as ringing and talking LED(D2) indication output,
+GPIOB5 will read as HIGH when not in a call. When jumper is over pin 11(GND) and pin 13(GPIOC2), the board will stay in <a href="../woody/blog/pa6488/20090927.php">safe mode</a> after power up.
+<br />5) J8 uses the same 5V 500mA power supply as <a href="user/gp1266.html">GP1266</a> IP phone.
+<br /><b>LEDs (near J8):</b>
+<br />1) D1, power up on.
+<br />2) D3, connected with GPIOA2, on after logon ok.
+<br />3) D2, connected with GPIOA0, blink when ringing, on after call connected, off when not in a call. 
+<br /><b>Special Settings:</b>
+<br />1) When <font color=blue>VAD</font> option disabled, we use SIP MESSAGE method to send <a href="../woody/blog/ar1688/20120430.php">PTT/COR</a> signal,
+as in example <a href="settings/iptel_sip_us.html" target=_blank>iptel_sip_us.html</a> settings.
+<br />2) When GPIOB5 is HIGH (either pull to 3.3v or just use jumper connected with GPIOA0), we will enter an <font color=grey>always connected</font> mode.
+When <font colue=blue>Auto Answer</font> option disabled, AR168R will automatically dial out the number in <font color=blue>Hot Line Number</font> after logon, and keep trying in every 30 seconds.
+<br /><b>Special Behaviour:</b>
+<br />1) If AR168R <a href="../woody/blog/pa6488/20100109.php">web</a> is accessed during a call, the call will be automatically disconnected.
+<br />2) If one party of a call is talking continuously for more than 30 seconds, the COR status will be automatically changed to allow the other party to talk.
+<br />&nbsp;
+<br /><i>Comparison table of AR1688 RoIP modules:</i>
+</td></tr>
+</table>
+
+<TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="module">
+       <tr>
+        <td class=c1 width=120 align=center>Hardware <a href="../woody/blog/ar1688/20061014.php">Type</a></td>
+        <td class=c1 width=50 align=center>Ethernet</td>
+        <td class=c1 width=110 align=center><a href="../woody/blog/ar1688/20101202.php">Program Flash</a></td>
+        <td class=c1 width=180 align=center>Support<font color=red>(*)</font> <a href="../woody/blog/ar1688/20080216.php">2x16 LCD</a></td>
+        <td class=c1 width=180 align=center><font color=green>(**)</font> Sending <a href="../woody/blog/ar1688/20120430.php">PTT</a> via</td>
+      </tr>
+      <tr>
+        <td class=c1>AR168R</td>
+        <td class=c1><a href="../woody/blog/ar1688/20080615.php">RTL8019AS</a></td>
+        <td class=c1>MT28F016S5</td>
+        <td class=c1>Yes</td>
+        <td class=c1>SIP MESSAGE</td>
+      </tr>
+      <tr>
+        <td class=c1>AR168RT</td>
+        <td class=c1><a href="../woody/blog/ar1688/20081124.php">KSZ8842</a></td>
+        <td class=c1>MT28F016S5</td>
+        <td class=c1>No</td>
+        <td class=c1>RFC 2833</td>
+      </tr>
+</TABLE>
+
+<table>
+<tr><td><font color=red>(*) Can be changed by <b><i>LCD_HY1602</i></b> define in <b>version.h</b>, but need update special <a href="../woody/blog/pa6488/20090927.php">safe mode</a> file from us, because <i>LcdInit</i> function is called in safe mode.</font> 
+<br /><font color=green>(**) Can be changed by <b><i>PTT_RFC2833</i></b> define in <b>version.h</b>.</font>
+<br />&nbsp;
+<br />Download a <a href="roip/ar168r.mp4" target=_blank>video</a> by Miguel Wisintainer.
+<br />AR168R <a href="../woody/blog/ar1688/20121111.php">special</a> version for REMOTA TECNOLOGIA. <a href="roip/ar168r.jpg" target=_blank>Large</a>
+</td></tr>
+<tr><td><img src=roip/ar168r_s.jpg alt="Special AR168R RoIP module for REMOTA TECNOLOGIA in Brazil." /></td></tr>
+<tr><td><img src=roip/silkscreen.jpg alt="AR168R silk screen." /></td></tr>
+</table>
+
+</td>
+</table>
+
+<script type="text/javascript">CopyRightDisplay();</script>
+
+</body>
+</html>

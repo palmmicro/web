@@ -1,0 +1,65 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>PA6488 Developer's Guide - H.263 Usage</title>
+<link href="../../../common/style.css" rel="stylesheet" type="text/css" />
+<script src="../../../js/filetype.js"></script>
+<script src="../../../js/copyright.js"></script>
+<script src="../../../js/nav.js"></script>
+<script src="../../../palmmicro.js"></script>
+<script src="../../pa6488.js"></script>
+<script src="../software.js"></script>
+<script src="devguide.js"></script>
+<script src="../../../js/analytics.js"></script>
+</head>
+
+<body bgproperties=fixed leftmargin=0 topmargin=0>
+<table width=100% height=105 order=0 cellpadding=0 cellspacing=0 bgcolor=#049ACC>
+<tr>
+<td width=780 height=105 align=left valign=top><a href="/"><img src=../../../image/image_palmmicro.jpg alt="Palmmicro Name Logo" /></a></td>
+<td align=left valign=top></td>
+</tr>
+</table>
+
+<table width=900 height=85% border=0 cellpadding=0 cellspacing=0>
+<td width=30 valign=top bgcolor=#66CC66>&nbsp;</td>
+<td width=120 valign=top bgcolor=#66CC66>
+<TABLE width=120 border=0 cellPadding=5 cellSpacing=0>
+<script type="text/javascript">NavigateDevGuide();</script>
+</TABLE>
+</TD>
+<td width=30 valign=top bgcolor=#66CC66>&nbsp;</td>
+<td width=50 valign=top bgcolor=#ffffff>&nbsp;</td>
+<td valign=top>
+	
+	
+<table>
+<tr><td class=THead><B>PA6488 Developer's Guide - H.263 Usage</B></td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><font color=#545454>Why</font></td></tr>
+<tr><td>Like G.711 for voice, H.263 video codec is <a href="../../../woody/blog/pa6488/20110524.php">widely used</a> in free software like <a href="http://www.counterpath.com/x-lite-download.html" target=_blank>X-Lite</a>.
+<br />H.263 support in PA6488 provides us the flexibility to work with many old video hardware and software in the existing world.
+</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><font color=#545454>How to Test</font></td></tr>
+<tr><td>Run "jpegput.bat xxx.xxx.xxx.xxx" from pa6488\bin, all necessary files will be transfer to PA6488 device by TFTP, using same input files as <a href="jpeg.html">JPEG</a> test.
+<br />On PA6488 device, press key "#9*2" to start H.263 test, more <a href="../userguide/keytest.php">key test</a> information can be found in pa6488\doc\test.txt.
+<br />After H.263 test finished, run "h263get.bat xxx.xxx.xxx.xxx" from pa6488\bin, all generate files will be transfer to PC by TFTP.
+<br />Run "h263fc.bat" from pa6488\bin to compare the results.
+</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><font color=#545454>How to Use</font></td></tr>
+<tr><td>H.263 test implementation in pa6488\test\testh263.c.
+<br />H.263 functions prototype in pa6488\include\h263.h, lib in pa6488\lib\h263.lib, source files not provided with software API.
+<br />The "PCHAR pcSrc" parameter in H263Encode() function must be a data pointer for none-cached DDR2 RAM.
+<br />Only support H.263 baseline (1996 version) with QCIF and CIF format.
+</td></tr>
+</table>
+
+</td>
+</table>
+
+<script type="text/javascript">CopyRightDisplay();</script>
+
+</body>
+</html>

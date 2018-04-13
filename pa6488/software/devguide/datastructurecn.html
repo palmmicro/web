@@ -1,0 +1,68 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>PA6488开发指南 - 数据结构</title>
+<meta name="keywords" content="PA6488数据结构">
+<link href="../../../common/style.css" rel="stylesheet" type="text/css" />
+<script src="../../../js/filetype.js"></script>
+<script src="../../../js/copyright.js"></script>
+<script src="../../../js/nav.js"></script>
+<script src="../../../palmmicro.js"></script>
+<script src="../../pa6488.js"></script>
+<script src="../software.js"></script>
+<script src="devguide.js"></script>
+<script src="../../../js/analytics.js"></script>
+</head>
+
+<body bgproperties=fixed leftmargin=0 topmargin=0>
+<table width=100% height=105 order=0 cellpadding=0 cellspacing=0 bgcolor=#049ACC>
+<tr>
+<td width=780 height=105 align=left valign=top><a href="/"><img src=../../../image/image_palmmicro.jpg alt="Palmmicro Name Logo" /></a></td>
+<td align=left valign=top></td>
+</tr>
+</table>
+
+<table width=900 height=85% border=0 cellpadding=0 cellspacing=0>
+<td width=30 valign=top bgcolor=#66CC66>&nbsp;</td>
+<td width=120 valign=top bgcolor=#66CC66>
+<TABLE width=120 border=0 cellPadding=5 cellSpacing=0>
+<script type="text/javascript">NavigateDevGuide();</script>
+</TABLE>
+</TD>
+<td width=30 valign=top bgcolor=#66CC66>&nbsp;</td>
+<td width=50 valign=top bgcolor=#ffffff>&nbsp;</td>
+<td valign=top>
+	
+	
+<table>
+<tr><td class=THead><B>PA6488开发指南 - 数据结构</B></td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><font color=grey>数据类型</font>
+<br />见Palmmicro软件API<a href="../../../res/apiguide/datatypecn.php">数据类型</a>.
+<br />&nbsp;
+<br /><font color=grey>数据性能</font>
+<br />索引用变量使用带符号的整数, 例如: <font color=olive>int i;</font>
+<br />当并行处理不可能或者不明显的时候, 尽量使用int或者UINT保证最佳性能和最小代码.
+<br />为最佳性能确保所有结构和联合中的数据类型做到64位数据对齐.
+<br />确保结构内的数据项按照32位组合避免编译错误, 见<a href="knownbugscn.html">已知错误</a>页面.
+<br />&nbsp;
+<br /><font color=grey>数据对齐</font>
+<br />结构总体大小64位对齐.
+<br />结构内的结构64位对齐.
+<br />结构内大于8字节的数组尽可能64位对齐.
+<br />结构内32位的int、指针等做到32位对齐.
+<br />结构内16位数据做到16位对齐.
+<br />尽可能不用在结构内使用8位数据, 但是也不要特别勉强.
+<br />&nbsp;
+<br /><font color=grey>相关信息</font>
+<br />PA3288的<a href="../../../pa3288/software/devguide/datastructurecn.php">数据结构</a>。
+</td></tr>
+</table>
+
+</td>
+</table>
+
+<script type="text/javascript">CopyRightDisplay();</script>
+
+</body>
+</html>

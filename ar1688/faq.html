@@ -1,0 +1,120 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>AR1688 FAQ</title>
+<link href="../common/style.css" rel="stylesheet" type="text/css" />
+<script src="../js/filetype.js"></script>
+<script src="../js/copyright.js"></script>
+<script src="../js/nav.js"></script>
+<script src="../palmmicro.js"></script>
+<script src="ar1688.js"></script>
+<script src="../js/analytics.js"></script>
+</head>
+
+<body bgproperties=fixed leftmargin=0 topmargin=0>
+<table width=100% height=105 order=0 cellpadding=0 cellspacing=0 bgcolor=#049ACC>
+<tr>
+<td width=780 height=105 align=left valign=top><a href="/"><img src=../image/image_palmmicro.jpg alt="Palmmicro Name Logo" /></a></td>
+<td align=left valign=top></td>
+</tr>
+</table>
+
+<table width=900 height=85% border=0 cellpadding=0 cellspacing=0>
+<td width=30 valign=top bgcolor=#66CC66>&nbsp;</td>
+<td width=120 valign=top bgcolor=#66CC66>
+<TABLE width=120 border=0 cellPadding=5 cellSpacing=0>
+<script type="text/javascript">Ar1688Menu();</script>
+</TABLE>
+</TD>
+<td width=30 valign=top bgcolor=#66CC66>&nbsp;</td>
+<td width=50 valign=top bgcolor=#ffffff>&nbsp;</td>
+<td valign=top>
+	
+<table>
+<tr><td class=THead><B>AR1688 FAQ</B></td></tr>
+<tr><td>&nbsp;
+<br /><font color=gray>What AR1688 device can I buy?</font>
+<br />Typical devices based on AR1688: <a href="user/gf302.html">GF302</a> IP phone, <a href="user/gp1266.html">GP1266 and GP1260</a> IP phones, <a href="user/ywh201.html">YWH201</a>(<a href="user/basic.html">BASIC YWH200D-505</a>) IP phone. You can also try our <a href="module.html">AR168M</a> VoIP module and <a href="roip.html">AR168R</a> RoIP module.
+<br />&nbsp;
+<br /><font color=gray>We have to develop a gateway like CISCO SPA112 with LCD display. Why can not we use your chip/module?</font>
+<br />We <a href="../woody/blog/ar1688/20080903.php">tried</a> to develop SPA112 like products based on AR1688, but failed because we can not handle well in the <a href="../woody/blog/ar1688/20090417.php">AEC</a> and FAX part.
+<br />&nbsp;
+<br /><font color=gray>When I start <a name="module">AR168M</a> in safe mode (connect GPIO7 to GND), then AR168M reply ping request in address 192.168.1.200 and mac address (00-18-1F-00-00-00), but i can't enter it's configurations in any web browser or even with your PalmTool? When I connect rs232 port to it's usart (convert ttl level to rs232 level use max232), I can't reveive any things?</font>
+<br />Please do not use PalmTool, PalmTool is not for AR1688 at all. <a href="../woody/blog/pa6488/20100109.php">Web interface</a> is not available in <a href="../woody/blog/pa6488/20090927.php">safe mode</a>. <a href="../woody/blog/pa6488/20110411.php">UART</a> interface is not available in safe mode neither.
+<br />&nbsp;
+<br /><font color=gray>How can I know the IP address of AR168M running in normal mode?</font>
+<br />There is a Manager.exe located in sdcc\bin, run it, click on "Start Debug" button before you power up AR168M module, so you can see the IP address of it in the debug window.
+<br />&nbsp;
+<br /><font color=gray>We are using a PC connected with AR1688 by UART and running a software TERMINAL EMULATOR. We are only receiving the characters from AR1688, but when try to send commands, like LOOPXXXXX or TEXTXXXXX, the AR1688 is not interpreting it. The debug window of Manager.exe shows a lot of "UART data lost"?.</font>
+</td></tr>
+<tr><td><img src=module/realterm.jpg></td></tr>
+<tr><td>Our demo <a href="../woody/blog/ar1688/20080329.php">protocol</a> is "string based", which means you need to add ascii 0x00 to the end of each string you send via UART, so we can know the end of the string. Without the 0, we will get the error message like "UART data lost".
+<br />Send string like "TEXTHello+NULL" in your software to get the correct result.
+<br />&nbsp;
+<br /><font color=gray>Can you inform me the STRING to HANG ON/ HANG OFF and DIAL UP the module?</font>
+<br />To call 223, you need to send the following strings:
+<br />"KEY z" (hook)
+<br />"KEY 2"
+<br />"KEY 2"
+<br />"KEY 3"
+<br />"KEY a" (call)
+<br />&nbsp;
+<br /><font color=gray>What is the voltage refrence in the AR168M (VREFI), and what part number can we use to replace the xpc6606p152?</font>
+<br />The VREFI voltage is 1.5V with accuracy of 2%. The rating current is 500mA. You can try find the replacement with these parameters.
+<br />&nbsp;
+<br /><font color=gray>I am using the AR168M gerber file on your website, my pcb-manufacterer asks me what the layer stack order is from top to bottom for the module?</font>
+<br />The layer stack order of the module is:
+</td></tr>
+<tr><td><img src=module/layer.jpg></td></tr>
+<tr><td>&nbsp;
+<br /><font color=gray>The LCD on my <a name="ar168r">AR168R</a> shows: "Invalid Settings Forced in Page0". Now I can ping it, but I can't open settings web page. How can I recover it?</font>
+</td></tr>
+<tr><td><img src=roip/invalid.jpg></td></tr>
+<tr><td>The <a href="roip/settings.dat" target=_blank>settings.dat</a> here was get from a working AR168R in our office, by command line 'tftp -i 192.168.1.13 get setting.dat'. You can load its contents to your safe mode AR168R by command line 'tftp -i 192.168.1.200 put settings.dat'.
+<br />&nbsp;
+<br /><font color=gray>In web page, I used "Upgrade"->"Settings" to load an update binary file instead of "Firmware", now the settings is corrupted and restore factory default can not work, what can I do now?</font>
+<br />In this case, factory default settings and phone settings are all corrupted by the update binary file. You can enter <a href="../woody/blog/pa6488/20090927.php">safe mode</a>, use software API sdcc\bin\getopt.bat and getopt.bat to restore corrupted settings.
+<br />&nbsp;
+<br /><font color=gray>How to <a name="compile">compile</a> AR1688 API with Linux?</font>
+<br />Read the <a href="../woody/blog/ar1688/20070609.php">descriptions</a>.
+<br />&nbsp;
+<br /><font color=gray>I got <b>Failed to get proc address for GetLogicalProcessorInformation (KERNEL32.dll)</b> error when compiling 0.63 API Win XP?</font>
+<br />Since 0.63, tools (like hex2bin) are compiled with <a href="../woody/blog/entertainment/20140615.php">VS2013/VC12</a>, you need to install the VS2013 distribution package from Microsoft and upgrade Win XP to sp3.
+<br />&nbsp;
+<br /><font color=gray>I'm unable to compile the new 0.52 SW in Win XP the following error appear (command 'mk gp1266 sip us'): Error: C:\SDCC\BIN\hex2bin main.bin -f0 -a0 -x6 -b32768 -e57344 main.ihx process_begin: CreateProcess(C:\SDCC\BIN\hex2bin.exe, C:\SDCC\BIN\hex2bin main.bin -f0 -a0 -x6 -b32768 -e57344 main.ihx, ...) failed. </font>
+<br />Since 0.52, tools (like hex2bin) are compiled with <a href="../woody/blog/ar1688/20100818.php">VS2008/VC9</a>, you need to install the VS2008 distribution package from Microsoft.
+<br />&nbsp;
+<br /><font color=gray>How to change MAC address?</font>
+<br />It is possible if you follow the <a href="../woody/blog/ar1688/20070827.php">steps</a>. If the MAC address does not "match", all function keys and some voice functions will not work correctly, but upgrade functions will work as usual.
+<br />&nbsp;
+<br /><font color=gray>Can I add short message function?</font>
+<br />Our software can <a href="../woody/blog/ar1688/20080512.php">display short message</a> following standard SIP (RFC 2438) and IAX2 protocols, you need to add message input and send out part.
+<br />&nbsp;
+<br /><font color=gray>I can not find mk<a name="web">web</a>.bat and mkweball.bat mentioned in the development guide?</font>
+<br />The pdf development guide is out of date, we simplized the web build steps, just ignore the steps related with those 2 files.
+<br />&nbsp;
+<br /><font color=gray>I really need to implement a simple command parser which listening a <a name="tcp">tcp</a> port to receive remote command. Do you have any sample codes or programming guide for it?</font>
+<br />Actually we do not encourage user to use more tcp on AR1688 besides web configuration. Better reconstruct your design by using UDP instead of TCP. You can download <a href="software/sw050.html">0.50</a> software API, there is a DemoTcp.c for simple TCP demo, which was removed in <a href="software/sw052.html">0.52</a>.
+<br />&nbsp;
+<br /><font color=gray>I am trying to <a name="programmer">program</a> MT28F016S5 with <a href="programmer.html">AR168D</a>, unfortunately there is no feedback on what is happening when you press ***#. you only get: </font>
+<br /><font color=red>Socket OK:2</font>
+<br /><font color=red>Program page: 0</font>
+<br /><font color=gray>And that's it. How long do I wait to do 1 chip?</font>
+</td></tr>
+<tr><td><img src=programmer/ar168d.jpg></td></tr>
+<tr><td>Unlike AR168DS, with AR168D, you need to put all 3 empty socket with flash, even if you only wish to program one of them.
+<br />&nbsp;
+<br /><font color=gray>How can I generate _all.<a name="bin">bin</a> file to be used in a <a href="../woody/blog/ar1688/20101202.php">flash programmer</a>?</font>
+<br />Our software API can not generate safe mode file like <a href="software/sw063.html">ar168m_none_us_063010.bin</a>, you need to get it from us, copy it to C:\SDCC\src. The ar168m_sip_us_063010_all.bin will be generated automatically after ar168m_sip_us_063010.bin is compiled.
+<br /><a href="../woody/blog/pa6488/20090927.php">Safe mode</a> file is not changed frequently, feel free to change the version number in the name of ar168m_none_us_063010.bin to match your working software version.
+<br />&nbsp;
+</td></tr>
+</table>
+
+</td>
+</table>
+
+<script type="text/javascript">CopyRightDisplay();</script>
+
+</body>
+</html>

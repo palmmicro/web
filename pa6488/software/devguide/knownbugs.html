@@ -1,0 +1,84 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>PA6488 Developer's Guide - Known Bugs</title>
+<meta name="description" content="PA6488 solution developer's guide, known bugs">
+<meta name="keywords" content="PA6488 Known Bugs">
+<link href="../../../common/style.css" rel="stylesheet" type="text/css" />
+<script src="../../../js/filetype.js"></script>
+<script src="../../../js/copyright.js"></script>
+<script src="../../../js/nav.js"></script>
+<script src="../../../palmmicro.js"></script>
+<script src="../../pa6488.js"></script>
+<script src="../software.js"></script>
+<script src="devguide.js"></script>
+<script src="../../../js/analytics.js"></script>
+</head>
+
+<body bgproperties=fixed leftmargin=0 topmargin=0>
+<table width=100% height=105 order=0 cellpadding=0 cellspacing=0 bgcolor=#049ACC>
+<tr>
+<td width=780 height=105 align=left valign=top><a href="/"><img src=../../../image/image_palmmicro.jpg alt="Palmmicro Name Logo" /></a></td>
+<td align=left valign=top></td>
+</tr>
+</table>
+
+<table width=900 height=85% border=0 cellpadding=0 cellspacing=0>
+<td width=30 valign=top bgcolor=#66CC66>&nbsp;</td>
+<td width=120 valign=top bgcolor=#66CC66>
+<TABLE width=120 border=0 cellPadding=5 cellSpacing=0>
+<script type="text/javascript">NavigateDevGuide();</script>
+</TABLE>
+</TD>
+<td width=30 valign=top bgcolor=#66CC66>&nbsp;</td>
+<td width=50 valign=top bgcolor=#ffffff>&nbsp;</td>
+<td valign=top>
+	
+	
+<table>
+<tr><td class=THead><B>PA6488 Developer's Guide - Known Bugs</B></td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><font color=#545454>Function include</font></td></tr>
+<tr><td>Must include corresponding include files when calling a function. 
+<br />For example, calling sprintf() without include stdio.h will not have compiler error, but will cause unpredictable results.
+</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><font color=#545454>32-bit boundary data in struct</font></td></tr>
+<tr><td>When a struct mapped into a memory buffer, UINT in the struct will be wrong if it is over the 32-bit boundary.
+<br />Found in arp.c
+<br />typedef struct _ARP_FORMAT	
+<br />{
+<br />	USHORT sHardwareType;	/* hardware type */
+<br />	USHORT sProtocolType;	/* protocol type */
+<br />	UCHAR cHardwareLen;		/* hardware address length */
+<br />	UCHAR cProtocolLen;		/* protocol address length */
+<br />	USHORT sOperation;		/* T_ARP_FORMAT operation (see AR_XXXX list above) */
+<br />	UCHAR pcSHA[HW_ALEN];	/* sender's physical hardware address */
+<br />	UCHAR pcSPA[IP_ALEN];	/* sender's protocol address (IP addr.)	*/
+<br />	UCHAR pcTHA[HW_ALEN];	/* target's physical hardware address */
+<br />	UCHAR pcTPA[IP_ALEN];	/* target's protocol address (IP) */
+<br />} T_ARP_FORMAT;
+<br />if chang to
+<br />typedef struct _ARP_FORMAT	
+<br />{
+<br />	USHORT sHardwareType;	/* hardware type */
+<br />	USHORT sProtocolType;	/* protocol type */
+<br />	UCHAR cHardwareLen;		/* hardware address length */
+<br />	UCHAR cProtocolLen;		/* protocol address length */
+<br />	USHORT sOperation;		/* T_ARP_FORMAT operation (see AR_XXXX list above) */
+<br />	UCHAR pcSHA[HW_ALEN];	/* sender's physical hardware address */
+<br />	UINT iSPA;				/* sender's protocol address (IP addr.)	*/
+<br />	UCHAR pcTHA[HW_ALEN];	/* target's physical hardware address */
+<br />	UINT iTPA;				/* target's protocol address (IP) */
+<br />} T_ARP_FORMAT;
+<br />iSPA value is wrong, while iTPA is correct.
+</td></tr>
+</table>
+
+</td>
+</table>
+
+<script type="text/javascript">CopyRightDisplay();</script>
+
+</body>
+</html>

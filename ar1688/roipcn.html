@@ -1,0 +1,120 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>AR168R RoIP模块</title>
+<meta name="keywords" content="RoIP模块">
+<meta name="description" content="基于Palmmicro AR1688方案的AR168R和AR168RT RoIP模块. 包括用户拍摄的视频和图片, 为REMOTA TECNOLOGIA设计特殊版本图片, 各种模块的对比, 软硬件具体使用说明等.">
+<link href="../common/style.css" rel="stylesheet" type="text/css" />
+<script src="../js/filetype.js"></script>
+<script src="../js/copyright.js"></script>
+<script src="../js/nav.js"></script>
+<script src="../palmmicro.js"></script>
+<script src="ar1688.js"></script>
+<script src="../js/analytics.js"></script>
+</head>
+
+<body bgproperties=fixed leftmargin=0 topmargin=0>
+<table width=100% height=105 order=0 cellpadding=0 cellspacing=0 bgcolor=#049ACC>
+<tr>
+<td width=780 height=105 align=left valign=top><a href="/"><img src=../image/image_palmmicro.jpg alt="Palmmicro Name Logo" /></a></td>
+<td align=left valign=top></td>
+</tr>
+</table>
+
+<table width=900 height=85% border=0 cellpadding=0 cellspacing=0>
+<td width=30 valign=top bgcolor=#66CC66>&nbsp;</td>
+<td width=120 valign=top bgcolor=#66CC66>
+<TABLE width=120 border=0 cellPadding=5 cellSpacing=0>
+<script type="text/javascript">Ar1688Menu();</script>
+</TABLE>
+</TD>
+<td width=30 valign=top bgcolor=#66CC66>&nbsp;</td>
+<td width=50 valign=top bgcolor=#ffffff>&nbsp;</td>
+<td valign=top>
+	
+	
+<table>
+<tr><td class=THead><B>AR168R RoIP模块</B></td></tr>
+<tr><td>&nbsp;
+<br />AR168R RoIP模块是<a href="modulecn.html">AR168M</a>网络语音模块在Radio over IP领域的具体应用.  
+<font color=orange>
+<br />请巴西客户注意: <a href="http://www.remotatec.com.br/" target=_blank>REMOTA TECNOLOGIA</a>拥有AR168R Radio over IP设计在巴西市场的独家销售权利, 请直接跟该公司联系. 我们不会接受其它来自巴西的RoIP订单. 
+</font>
+<br />特殊的<b><i>OEM_REMOTA</b></i> RoIP升级文件类似于<a href="software/063/ar168r_sip_us_remota_063004.zip">ar168r_sip_us_remota_063004.bin</a>. 它的网页界面使用端口88, 需要用http://xxx.xxx.xxx.xxx:88访问.
+<br />而普通RoIP功能的升级文件类似于<a href="software/057/ar168r_sip_us_057060.zip">ar168r_sip_us_057060.bin</a>. 
+<br />使用编译选项<b><i>OEM_UART</b></i>, AR168R本身也能当成基本的AR168M模块测试使用,
+此时升级<a href="../woody/blog/ar1688/20080607cn.php">文件名字</a>类似于<a href="software/057/ar168r_sip_us_uart_057037.zip">ar168r_sip_us_uart_057037.bin</a>. 
+<br />AR168R <a href="faqcn.html#ar168r">常见问题</a>. 
+<br />&nbsp;
+<br /><b>快速上手:</b>
+<br />1) 按照参考设置<a href="settings/roip_sip_cn.html" target=_blank>roip_sip_cn.html</a>配置AR168R使用<a href="../contactus/pbxcn.html">Palmmicro PBX</a>测试号码223. 
+<br />2) 按<font color=grey>SW1</font>键(RJ45插座旁边)呼叫<font color=blue>热线号码</font>设置中的号码222. 
+<br />3) 按<font color=grey>SW1</font>键应答来电, 或者使用设置中的<font color=blue>自动应答</font>功能. 
+<br /><b>熟悉<a href="hardware/AR168R_v1.1.pdf" target=_blank>板子</a>接插件和跳线: </b>
+<br />1) J3外接一个<a href="../woody/blog/ar1688/20070604cn.php">2x16字符型LCD</a>. 
+<br />2) J4(<font color=red>红色</font>) MIC仅用于AR168R当成AR168M使用时, 跟AR168M本身一样, 如果J7(DB9)上没有正常连接外部控制器的串口的话, 语音通信可能会<a href="../woody/blog/ar1688/20120213cn.php">中断</a>.
+当使用普通RoIP功能的时候, 语音输入必须使用J6或者J7(DB9)上的ELINEIN0信号.
+<br />3) 当有耳机插入在J5(<font color=green>绿色</font>)插头上时, J6和J7(DB9)上的AUDIOOUT信号无效, 这是由硬件控制的.
+<br />4) J6上面的跳线缺省放在脚21(GPIOB4)和脚22(GPIOB5)上. 在我们的标准软件中GPIOB4设置成输出低电平, GPIOB5设置成输人, 这样GPIOB5也会是低电平.
+当跳线放在脚24(GPIOA0)和脚22(GPIOB5)上时, 由于我们标准软件设置<a href="../woody/blog/ar1688/20080903cn.php">GPIO</a>A0作为振铃和通话的LED(D2)指示输出, 这样GPIOB5在没通话时会是高电平.
+当跳线放在脚11(GND)和脚13(GPIOC2)上时, 板子上电后会进入<a href="../woody/blog/pa6488/20090927cn.php">安全模式</a>.
+<br />5) J8使用跟<a href="user/gp1266cn.html">GP1266</a>网络电话相同的5V 500mA开关电源.
+<br /><b>LED指示灯(在J8附近):</b>
+<br />1) D1, 加电后亮. 
+<br />2) D3, 连在GPIOA2上, 注册成功后亮. 
+<br />3) D2, 连在GPIOA0上, 振铃时闪烁, 呼叫中亮, 平时灭.  
+<br /><b>特殊设置: </b>
+<br />1) 当不使用<font color=blue>VAD</font>选项的时候, 我们会使用SIP MESSAGE方式发送<a href="../woody/blog/ar1688/20120430cn.php">PTT/COR</a>信号,
+参考<a href="settings/iptel_sip_cn.html" target=_blank>iptel_sip_cn.html</a>的设置. 
+<br />2) 当GPIOB5为高电平时(可以拉到3.3v或者简单的用跳线跟GPIOA0连在一起), 我们进入<font color=grey>保持连接</font>模式.
+当不使用<font color=blue>自动应答</font>选项时, AR168R会在注册成功后自动拨打<font color=blue>热线号码</font>, 没连通的话会每隔30秒拨打一次. 
+<br /><b>特殊行为: </b>
+<br />1) 在通话中如果有对AR168R的<a href="../woody/blog/pa6488/20100109cn.php">网页</a>访问, 该通话会被自动断开. 
+<br />2) 通话中的一方连续说话超过30秒后, COR状态会自动改变, 以便让对方有机会插话. 
+<br />&nbsp;
+<br /><i>AR1688 RoIP模块比较表: </i>
+</td></tr>
+</table>
+
+<TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="module">
+       <tr>
+        <td class=c1 width=90 align=center>硬件<a href="../woody/blog/ar1688/20061014cn.php">型号</a></td>
+        <td class=c1 width=80 align=center>网络芯片</td>
+        <td class=c1 width=110 align=center><a href="../woody/blog/ar1688/20101202cn.php">程序存储器</a></td>
+        <td class=c1 width=180 align=center>支持<font color=red>(*)</font> <a href="../woody/blog/ar1688/20080216cn.php">2x16 LCD</a></td>
+        <td class=c1 width=180 align=center><font color=green>(**)</font> <a href="../woody/blog/ar1688/20120430cn.php">PTT</a>发送方式</td>
+      </tr>
+      <tr>
+        <td class=c1>AR168R</td>
+        <td class=c1><a href="../woody/blog/ar1688/20080615cn.php">RTL8019AS</a></td>
+        <td class=c1>MT28F016S5</td>
+        <td class=c1>是</td>
+        <td class=c1>SIP MESSAGE</td>
+      </tr>
+      <tr>
+        <td class=c1>AR168RT</td>
+        <td class=c1><a href="../woody/blog/ar1688/20081124cn.php">KSZ8842</a></td>
+        <td class=c1>MT28F016S5</td>
+        <td class=c1>否</td>
+        <td class=c1>RFC 2833</td>
+      </tr>
+</TABLE>
+
+<table>
+<tr><td><font color=red>(*) 可以修改<b><i>LCD_HY1602</i></b>在<b>version.h</b>中的定义来改变, 但是需要从我们这里获得特别的<a href="../woody/blog/pa6488/20090927cn.php">安全模式</a>文件更新, 因为函数<i>LcdInit</i>是在安全模式中被调用的. </font> 
+<br /><font color=green>(**) 可以修改<b><i>PTT_RFC2833</i></b>在<b>version.h</b>中的定义来改变. </font>
+<br />&nbsp;
+<br />下载Miguel Wisintainer拍摄的<a href="roip/ar168r.mp4" target=_blank>视频</a>. 
+<br />为REMOTA TECNOLOGIA设计的AR168R<a href="../woody/blog/ar1688/20121111cn.php">特殊</a>版本. <a href="roip/ar168r.jpg" target=_blank>大图</a>
+</td></tr>
+<tr><td><img src=roip/ar168r_s.jpg alt="Special AR168R RoIP module for REMOTA TECNOLOGIA in Brazil." /></td></tr>
+<tr><td><img src=roip/silkscreen.jpg alt="AR168R silk screen." /></td></tr>
+</table>
+
+</td>
+</table>
+
+<script type="text/javascript">CopyRightDisplay();</script>
+
+</body>
+</html>

@@ -1,0 +1,114 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>VoIP Module</title>
+<meta name="keywords" content="VoIP Module">
+<meta name="description" content="AR168M, AR168MT, AR168MK, AR168MS, AR1168L VoIP modules based on Palmmicro AR1688 solution.">
+<link href="../common/style.css" rel="stylesheet" type="text/css" />
+<script src="../js/filetype.js"></script>
+<script src="../js/copyright.js"></script>
+<script src="../js/nav.js"></script>
+<script src="../palmmicro.js"></script>
+<script src="ar1688.js"></script>
+<script src="../js/analytics.js"></script>
+</head>
+
+<body bgproperties=fixed leftmargin=0 topmargin=0>
+<table width=100% height=105 order=0 cellpadding=0 cellspacing=0 bgcolor=#049ACC>
+<tr>
+<td width=780 height=105 align=left valign=top><a href="/"><img src=../image/image_palmmicro.jpg alt="Palmmicro Name Logo" /></a></td>
+<td align=left valign=top></td>
+</tr>
+</table>
+
+<table width=900 height=85% border=0 cellpadding=0 cellspacing=0>
+<td width=30 valign=top bgcolor=#66CC66>&nbsp;</td>
+<td width=120 valign=top bgcolor=#66CC66>
+<TABLE width=120 border=0 cellPadding=5 cellSpacing=0>
+<script type="text/javascript">Ar1688Menu();</script>
+</TABLE>
+</TD>
+<td width=30 valign=top bgcolor=#66CC66>&nbsp;</td>
+<td width=50 valign=top bgcolor=#ffffff>&nbsp;</td>
+<td valign=top>
+
+	
+<table>
+<tr><td class=THead><B>AR168M VoIP Module</B></td></tr>
+<tr><td>&nbsp;
+<br />The highly integrated and low cost AR168M VoIP module is designed to shorten the development cycle for device which need to do voice communication over IP network.
+<br />AR168M module <a href="download/us_pdf/AR168MModuleBrief_US.pdf" target=_blank>brief</a>, hardware <a href="download/us_pdf/AR168MModuleHardwareManual_US.pdf" target=_blank>manual</a>, <a href="faq.html#module">FAQ</a>.
+<br />Although we provided a sample design to build an IP phone based on 8051+AR168M, this was not what we recommended to do with it, actually single AR1688 is enough for an IP phone.
+For other applications, user need to define and <a href="../woody/blog/ar1688/20071119.php">implement</a> the serial protocols actually used,
+the <a href="../woody/blog/ar1688/20080329.php">communication protocol</a> between <a href="../woody/blog/ar1688/20080330.php">8051</a> and AR168M in our demo is provided only as a sample.
+<br /><a href="module/IpPhone_Mega.rar">Here</a> is another IP phone <a href="../woody/blog/ar1688/20080708.php">design</a> based on AR168M by <a href="mailto:warmbupt@gmail.com">Steven</a> when he was an undergraduate student in BUPT.
+The controler used in this design is MEGA128L. 
+<tr><td>&nbsp;
+<br /><i>Comparison table of AR1688 VoIP modules:</i>
+</td></tr>
+</table>
+
+<TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="module">
+       <tr>
+        <td class=c1 width=120 align=center>Hardware <a href="../woody/blog/ar1688/20061014.php">Type</a></td>
+        <td class=c1 width=50 align=center>Ethernet</td>
+        <td class=c1 width=110 align=center>Program Flash</td>
+        <td class=c1 width=180 align=center>Support<font color=red>(*)</font> <a href="../woody/blog/ar1688/20080216.php">2x16 LCD</a></td>
+        <td class=c1 width=180 align=center>Support<font color=green>(**)</font> <a href="software/devguide/uiprotocol.html">demo UI</a></td>
+      </tr>
+      <tr>
+        <td class=c1>AR168M</td>
+        <td class=c1><a href="../woody/blog/ar1688/20080615.php">RTL8019AS</a></td>
+        <td class=c1>MT28F016S5</td>
+        <td class=c1>No</td>
+        <td class=c1>Yes</td>
+      </tr>
+      <tr>
+        <td class=c1>AR168MK</td>
+        <td class=c1><a href="../woody/blog/ar1688/20081124.php">KSZ8842</a></td>
+        <td class=c1><a href="../woody/blog/ar1688/20101202.php">SST39VF1681</a></td>
+        <td class=c1>Yes</td>
+        <td class=c1>No</td>
+      </tr>
+      <tr>
+        <td class=c1>AR168MS</td>
+        <td class=c1>RTL8019AS</td>
+        <td class=c1>SST39VF1681</td>
+        <td class=c1>Yes</td>
+        <td class=c1>No</td>
+      </tr>
+      <tr>
+        <td class=c1>AR168MT</td>
+        <td class=c1>KSZ8842</td>
+        <td class=c1>MT28F016S5</td>
+        <td class=c1>No</td>
+        <td class=c1>Yes</td>
+      </tr>
+      <tr>
+        <td class=c1>AR168L</td>
+        <td class=c1>RTL8019AS</td>
+        <td class=c1>MT28F016S5</td>
+        <td class=c1>Support ST7565 LCD</td>
+        <td class=c1>Yes</td>
+      </tr>
+</TABLE>
+
+<table>
+<tr><td><font color=red>(*) Can be changed by <b><i>LCD_HY1602</i></b> define in <b>version.h</b>, but need update special <a href="../woody/blog/pa6488/20090927.php">safe mode</a> file from us, because <i>LcdInit</i> function is called in safe mode.</font> 
+<br /><font color=green>(**) Can be changed by <b><i>SERIAL_UI</i></b> or <b><i>SERIAL_LOOP</i></b> define in <b>version.h</b>.</font>
+<tr><td>&nbsp;
+<br /><font color=grey>We are sorry that AR168M is currently <a href="../woody/blog/ar1688/20100625.php">out of stock</a>. Those hoping to have a quick test on the VoIP module functions can buy <a href="roip.html">AR168R</a> RoIP module to do the <a href="../woody/blog/ar1688/20121111.php">test</a>.</font>
+</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><img src=module/ar168m_2.jpg alt="AR168M VoIP module, AR1688 side." /><a href="module/ar168m_4.jpg" target=_blank>Large</a></td></tr>
+<tr><td><img src=module/ar168m_1.jpg alt="AR168M VoIP module, RTL8019AS and MT28F016S5 side." /><a href="module/ar168m_3.jpg" target=_blank>Large</a></td></tr>
+</table>
+
+</td>
+</table>
+
+<script type="text/javascript">CopyRightDisplay();</script>
+
+</body>
+</html>
+

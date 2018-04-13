@@ -1,0 +1,117 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>网络语音模块</title>
+<meta name="keywords" content="网络语音模块">
+<meta name="description" content="基于Palmmicro AR1688方案的AR168M, AR168MT, AR168MK, AR168MS和AR1168L网络语音(VoIP)模块. 带模块图片和各种硬件型号之间的比较.">
+<link href="../common/style.css" rel="stylesheet" type="text/css" />
+<script src="../js/filetype.js"></script>
+<script src="../js/copyright.js"></script>
+<script src="../js/nav.js"></script>
+<script src="../palmmicro.js"></script>
+<script src="ar1688.js"></script>
+<script src="../js/analytics.js"></script>
+</head>
+
+<body bgproperties=fixed leftmargin=0 topmargin=0>
+<table width=100% height=105 order=0 cellpadding=0 cellspacing=0 bgcolor=#049ACC>
+<tr>
+<td width=780 height=105 align=left valign=top><a href="/"><img src=../image/image_palmmicro.jpg alt="Palmmicro Name Logo" /></a></td>
+<td align=left valign=top></td>
+</tr>
+</table>
+
+<table width=900 height=85% border=0 cellpadding=0 cellspacing=0>
+<td width=30 valign=top bgcolor=#66CC66>&nbsp;</td>
+<td width=120 valign=top bgcolor=#66CC66>
+<TABLE width=120 border=0 cellPadding=5 cellSpacing=0>
+<script type="text/javascript">Ar1688Menu();</script>
+</TABLE>
+</TD>
+<td width=30 valign=top bgcolor=#66CC66>&nbsp;</td>
+<td width=50 valign=top bgcolor=#ffffff>&nbsp;</td>
+<td valign=top>
+	
+	
+<table>
+<tr><td class=THead><B>AR168M网络语音模块</B></td></tr>
+<tr><td>&nbsp;
+<br />高集成度低价格的AR168M网络语音模块专门为需要快速开发网络语音通信的设备设计.
+<br />AR168M模块<a href="download/cn_pdf/AR168MModuleBrief_CN.pdf" target=_blank>简介</a>, 硬件<a href="download/cn_pdf/AR168MModuleHardwareManual_CN.pdf" target=_blank>手册</a>,
+<a href="faqcn.html#module">常见问题</a>. 
+<br />虽然我们提供了一个8051+AR168M的网络电话设计, 但是网络电话并不是我们推荐的AR168M应用, 事实上单独用AR1688就够了.
+在其它应用场合下, 用户需要定义和<a href="../woody/blog/ar1688/20071119cn.php">开发</a>自己实际使用的串口协议,
+用<a href="../woody/blog/ar1688/20080330cn.php">8051</a>配合AR168M实现网络电话的<a href="../woody/blog/ar1688/20080329cn.php">协议</a>只是一个参考例子而已. 
+<br /><a href="module/IpPhone_Mega.rar">这里</a>是北邮的<a href="mailto:warmbupt@gmail.com">黄鹏程</a>读本科的时候基于AR168M实现的另外一个网络电话<a href="../woody/blog/ar1688/20080708cn.php">设计</a>,
+控制器用的是MEGA128L. 
+<tr><td>&nbsp;
+<br /><i>AR1688网络语音模块比较表:</i>
+</td></tr>
+</table>
+
+<TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="module">
+       <tr>
+        <td class=c1 width=90 align=center>硬件<a href="../woody/blog/ar1688/20061014cn.php">型号</a></td>
+        <td class=c1 width=80 align=center>网络芯片</td>
+        <td class=c1 width=110 align=center>程序存储器</td>
+        <td class=c1 width=180 align=center>支持<font color=red>(*)</font> <a href="../woody/blog/ar1688/20080216cn.php">2x16 LCD</a></td>
+        <td class=c1 width=180 align=center>支持<font color=green>(**)</font> <a href="software/devguide/uiprotocolcn.html">演示界面</a></td>
+      </tr>
+      <tr>
+        <td class=c1>AR168M</td>
+        <td class=c1><a href="../woody/blog/ar1688/20080615cn.php">RTL8019AS</a></td>
+        <td class=c1>MT28F016S5</td>
+        <td class=c1>否</td>
+        <td class=c1>是</td>
+      </tr>
+      <tr>
+        <td class=c1>AR168MK</td>
+        <td class=c1><a href="../woody/blog/ar1688/20081124cn.php">KSZ8842</a></td>
+        <td class=c1><a href="../woody/blog/ar1688/20101202cn.php">SST39VF1681</a></td>
+        <td class=c1>是</td>
+        <td class=c1>否</td>
+      </tr>
+      <tr>
+        <td class=c1>AR168MS</td>
+        <td class=c1>RTL8019AS</td>
+        <td class=c1>SST39VF1681</td>
+        <td class=c1>是</td>
+        <td class=c1>否</td>
+      </tr>
+      <tr>
+        <td class=c1>AR168MT</td>
+        <td class=c1>KSZ8842</td>
+        <td class=c1>MT28F016S5</td>
+        <td class=c1>否</td>
+        <td class=c1>是</td>
+      </tr>
+      <tr>
+        <td class=c1>AR168L</td>
+        <td class=c1>RTL8019AS</td>
+        <td class=c1>MT28F016S5</td>
+        <td class=c1>支持ST7565点阵LCD</td>
+        <td class=c1>是</td>
+      </tr>
+</TABLE>
+
+<table>
+<tr><td><font color=red>(*) 可以修改<b><i>LCD_HY1602</i></b>在<b>version.h</b>中的定义来改变, 但是需要从我们这里获得特别的<a href="../woody/blog/pa6488/20090927cn.php">安全模式</a>文件更新,
+因为函数<i>LcdInit</i>是在安全模式中被调用的. </font> 
+<br /><font color=green>(**) 可以修改<b><i>SERIAL_UI</i></b>或者<b><i>SERIAL_LOOP</i></b>在<b>version.h</b>中的定义来改变. </font>
+<tr><td>&nbsp;
+<br /><font color=grey>我们抱歉的通知, AR168M目前<a href="../woody/blog/ar1688/20100625cn.php">缺货</a>.
+希望快速测试网络语音模块功能的客户可以购买<a href="roipcn.html">AR168R</a> RoIP模块进行<a href="../woody/blog/ar1688/20121111cn.php">测试</a>. </font>
+</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><img src=module/ar168m_2.jpg alt="AR168M VoIP module, AR1688 side." /><a href="module/ar168m_4.jpg" target=_blank>大图</a></td></tr>
+<tr><td><img src=module/ar168m_1.jpg alt="AR168M VoIP module, RTL8019AS and MT28F016S5 side." /><a href="module/ar168m_3.jpg" target=_blank>大图</a></td></tr>
+</table>
+
+</td>
+</table>
+
+<script type="text/javascript">CopyRightDisplay();</script>
+
+</body>
+</html>
+

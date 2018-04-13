@@ -1,0 +1,70 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>IPH E00网络电话</title>
+<meta name="keywords" content="IPH E00网络电话">
+<meta name="description" content="由Vida在台湾生产, 基于Centrality(Palmmicro) PA1688方案设计的IPH EOO网络电话的特点, 软件说明, 用户手册以及正面, 背面和内部PCB图片.">
+<link href="../../common/style.css" rel="stylesheet" type="text/css" />
+<script src="../../js/filetype.js"></script>
+<script src="../../js/copyright.js"></script>
+<script src="../../js/nav.js"></script>
+<script src="../../palmmicro.js"></script>
+<script src="../pa1688.js"></script>
+<script src="user.js"></script>
+<script src="../../js/analytics.js"></script>
+</head>
+
+<body bgproperties=fixed leftmargin=0 topmargin=0>
+<table width=100% height=105 order=0 cellpadding=0 cellspacing=0 bgcolor=#049ACC>
+<tr>
+<td width=800 height=105 align=left valign=top><img src=../../image/image_palmmicro.jpg alt="Palmmicro Name Logo" /></a></td>
+<td align=left valign=top></td>
+</tr>
+</table>
+
+<table width=900 height=85% border=0 cellpadding=0 cellspacing=0>
+<td width=30 valign=top bgcolor=#66CC66>&nbsp;</td>
+<td width=120 valign=top bgcolor=#66CC66>
+<TABLE width=120 border=0 cellPadding=5 cellSpacing=0>
+<script type="text/javascript">NavLoopUser();</script>
+</TABLE>
+</TD>
+<td width=30 valign=top bgcolor=#66CC66>&nbsp;</td>
+<td width=50 valign=top bgcolor=#ffffff>&nbsp;</td>
+<td valign=top>
+	
+<table>
+<tr><td class=THead><B>IPH E00网络电话</B></td></tr>
+<tr><td>&nbsp;
+<br />Vida IPH E00网络电话系列都不使用<a href="../../woody/blog/pa1688/20080806cn.php">标准</a>参考设计. 都需要特别的软件升级.
+好在Vida的工程师们跟我们分享了所有的硬件改动以及大多数的软件改动, 我们得以现在还能鼓捣出能用的升级软件. 下面就是一个成功例子. 
+<br />IPH E00系列至少有2种机壳和5种不同的硬件设计. 这里显示的<font color=grey>IPH_E00_2G</font>,
+升级软件名称应该类似于<a href="../software/165/iph_e00_2g_sip_us_165002.zip" target=_blank>iph_e00_2g_sip_us_165002.bin</a>. 
+<br />Web说明: <a href="../download/cn_pdf/PA168XSIPPhoneWebSetupGuideGB.pdf" target=_blank>SIP</a> <a href="../download/cn_pdf/PA168XIAX2PhoneWebSetupGuideGB.pdf" target=_blank>IAX2</a>
+<a href="../download/cn_pdf/PA168XH323PhoneWebSetupGuideGB.pdf" target=_blank>H323</a> <a href="../download/cn_pdf/PA168XMGCPPhoneWebSetupGuideGB.pdf" target=_blank>MGCP</a>.
+菜单说明: <a href="../download/cn_pdf/PA168XSIPPhoneMenuGuideGB.pdf" target=_blank>SIP</a> <a href="../download/cn_pdf/PA168XIAX2PhoneMenuGuideGB.pdf" target=_blank>IAX2</a>
+<a href="../download/cn_pdf/PA168XH323PhoneMenuGuideGB.pdf" target=_blank>H323</a> <a href="../download/cn_pdf/PA168XMGCPPhoneMenuGuideGB.pdf" target=_blank>MGCP</a>.
+Telnet说明: <a href="../download/cn_pdf/PA168XSIPPhoneTelnetSetupGuideGB.pdf" target=_blank>SIP</a> <a href="../download/cn_pdf/PA168XIAX2PhoneTelnetSetupGuideGB.pdf" target=_blank>IAX2</a>
+<a href="../download/cn_pdf/PA168XH323PhoneTelnetSetupGuideGB.pdf" target=_blank>H323</a> <a href="../download/cn_pdf/PA168XMGCPPhoneTelnetSetupGuideGB.pdf" target=_blank>MGCP</a>. 
+</td></tr>
+<tr><td>正面图. 不要根据机壳的样子判断网络电话的型号. 大多数制造商都是使用现成的普通电话机壳生产网络电话, 而这里这个机壳是最常见的.
+我至少知道6家PA1688生产商用过这个机壳, 例如<a href="p100cn.html">Primeworx P100</a>. 也许是因为它最<a href="../../woody/blog/ar1688/20090217cn.php">便宜</a>. <a href="iphe00/1.jpg" target=_blank>大图</a></td></tr>
+<tr><td><img src=iphe00/1_s.jpg alt="IPH E00 IP phone front view" /></td></tr>
+<tr><td>背面图.  <a href="iphe00/2.jpg" target=_blank>大图</a></td></tr>
+<tr><td><img src=iphe00/2_s.jpg alt="IPH E00 IP phone back view" /></td></tr>
+<tr><td>内部PCB图. MX芯片上的文字是<font color=grey>29LV008BTC-70</font>,
+用<a href="../software/palmtoolcn.html">PalmTool</a>的时候, 要记得把<font color=blue>PFlash类型</font>设置成<font color=blue>AM29LV008B</font>.
+这个PCB板子是PA1688当中最复杂的. 除了Ethernet网络外, 它还通过16c550芯片把Modem芯片接在了PA1688内部8051的数据总线上.
+<a href="atcomcn.html">ATCOM</a>和金未来后来也生产了类似的拨号上网电话, 在Davicom工程师的帮助下, 他们把8051数据总线直接接到了Modem芯片内部的16c550接口, 从而节省了外面的16c550接口芯片.
+<a href="iphe00/3.jpg" target=_blank>大图</a></td></tr>
+<tr><td><img src=iphe00/3_s.jpg alt="IPH E00 IP phone internal and PCB view" /></td></tr>
+<tr><td>以上照片由Jinsong Hu拍摄. </td></tr>
+</table>
+
+</td>
+</table>
+
+<script type="text/javascript">CopyRightDisplay();</script>
+
+</body>
+</html>

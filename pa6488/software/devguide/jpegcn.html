@@ -1,0 +1,71 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>PA6488开发指南 - IJG JPEG</title>
+<link href="../../../common/style.css" rel="stylesheet" type="text/css" />
+<script src="../../../js/filetype.js"></script>
+<script src="../../../js/copyright.js"></script>
+<script src="../../../js/nav.js"></script>
+<script src="../../../palmmicro.js"></script>
+<script src="../../pa6488.js"></script>
+<script src="../software.js"></script>
+<script src="devguide.js"></script>
+<script src="../../../js/analytics.js"></script>
+</head>
+
+<body bgproperties=fixed leftmargin=0 topmargin=0>
+<table width=100% height=105 order=0 cellpadding=0 cellspacing=0 bgcolor=#049ACC>
+<tr>
+<td width=780 height=105 align=left valign=top><a href="/"><img src=../../../image/image_palmmicro.jpg alt="Palmmicro Name Logo" /></a></td>
+<td align=left valign=top></td>
+</tr>
+</table>
+
+<table width=900 height=85% border=0 cellpadding=0 cellspacing=0>
+<td width=30 valign=top bgcolor=#66CC66>&nbsp;</td>
+<td width=120 valign=top bgcolor=#66CC66>
+<TABLE width=120 border=0 cellPadding=5 cellSpacing=0>
+<script type="text/javascript">NavigateDevGuide();</script>
+</TABLE>
+</TD>
+<td width=30 valign=top bgcolor=#66CC66>&nbsp;</td>
+<td width=50 valign=top bgcolor=#ffffff>&nbsp;</td>
+<td valign=top>
+	
+	
+<table>
+<tr><td class=THead><B>PA6488开发指南 - IJG JPEG</B></td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><font color=#545454>为什么用JPEG</font></td></tr>
+<tr><td>摄像头设置和控制功能由<a href="../../../woody/blog/pa6488/20100109cn.php">网页界面</a>完成，使用rawvideo.jpg文件直观的检查和观看效果。我们的PA6488软件中需要一个基本的JPEG编码器。
+<br /><a href="http://www.ijg.org/" target=_blank>IJG JPEG</a>文件被用来测试部分PA6488视频处理性能。
+<br />优化的JPEG源代码同时为基于提供PA6488 API开发额外的图像处理功能提供例子。
+</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><font color=#545454>怎么测试</font></td></tr>
+<tr><td>在pa6488\bin下运行"jpegput.bat xxx.xxx.xxx.xxx"，TFTP会把全部需要的文件传送到PA6488。
+<br />在PA6488设备上按键"#9*1"开始JPEG测试，更多的<a href="../userguide/keytestcn.php">键盘测试</a>内容见pa6488\doc\test.txt。
+<br />JPEG测试结束后，在pa6488\bin下运行"jpegget.bat xxx.xxx.xxx.xxx"把产生的文件用TFTP传回PC。
+<br />在pa6488\bin下运行"jpegfc.bat"比较测试结果。
+<br />这个测试具体包含的内容在不同软件版本中会有所不同，密切注意输出的UDP调试信息。
+</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><font color=#545454>代码细节</font></td></tr>
+<tr><td>JPEG测试代码在pa6488\test\testjpeg.c。消息输出设置成使用DebugPrintf();
+<br />JPEG函数说明在pa6488\include\jpeg.h、库文件在pa6488\lib\jpeg.lib。全部源代码按照IJG授权协议在API中提供，用户也可以自行编译库文件。 
+<br />在源代码中检查PA6488_IJG的定义阅读PA6488主要的相关改动。
+<br />在源代码中检查JINT16、JUINT16和JINT32阅读PA6488剩下的相关改动。部分"int"和"unsigned int"改为了"JINT16"和"JUINT16"。全部"long"改成了"JINT32"。
+<br />使用IJG JPEG版本8c(16-Jan-2011)。
+</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+
+</td></tr>
+</table>
+
+</td>
+</table>
+
+<script type="text/javascript">CopyRightDisplay();</script>
+
+</body>
+</html>

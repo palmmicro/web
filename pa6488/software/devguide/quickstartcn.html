@@ -1,0 +1,73 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>PA6488开发指南 - 快速上手</title>
+<meta name="keywords" content="PA6488快速上手">
+<link href="../../../common/style.css" rel="stylesheet" type="text/css" />
+<script src="../../../js/filetype.js"></script>
+<script src="../../../js/copyright.js"></script>
+<script src="../../../js/nav.js"></script>
+<script src="../../../palmmicro.js"></script>
+<script src="../../pa6488.js"></script>
+<script src="../software.js"></script>
+<script src="devguide.js"></script>
+<script src="../../../js/analytics.js"></script>
+</head>
+
+<body bgproperties=fixed leftmargin=0 topmargin=0>
+<table width=100% height=105 order=0 cellpadding=0 cellspacing=0 bgcolor=#049ACC>
+<tr>
+<td width=780 height=105 align=left valign=top><a href="/"><img src=../../../image/image_palmmicro.jpg alt="Palmmicro Name Logo" /></a></td>
+<td align=left valign=top></td>
+</tr>
+</table>
+
+<table width=900 height=85% border=0 cellpadding=0 cellspacing=0>
+<td width=30 valign=top bgcolor=#66CC66>&nbsp;</td>
+<td width=120 valign=top bgcolor=#66CC66>
+<TABLE width=120 border=0 cellPadding=5 cellSpacing=0>
+<script type="text/javascript">NavigateDevGuide();</script>
+</TABLE>
+</TD>
+<td width=30 valign=top bgcolor=#66CC66>&nbsp;</td>
+<td width=50 valign=top bgcolor=#ffffff>&nbsp;</td>
+<td valign=top>
+	
+	
+<table>
+<tr><td class=THead><B>PA6488开发指南 - 快速上手</B></td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><font color=#545454>编译</font></td></tr>
+<tr><td>运行pa6488\setenv.bat，如果编译器安装在D:盘，则使用setenvd.bat。
+<br />进入<a href="../../../woody/blog/pa6488/20090811cn.php">pa6488\bin</a>子目录。
+<br />运行"mk pa648c"编译PA648C正常升级文件。
+<br />运行"mk pa648c us safemode"编译PA648C<a href="../../../woody/blog/pa6488/20090927cn.php">安全模式</a>升级文件。</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><font color=#545454>升级程序</font></td></tr>
+<tr><td>在pa6488\bin子目录下，使用<a href="../../../woody/blog/pa6488/20090825cn.php">tftp更新</a>编译好的升级文件。
+<br />运行"tftp -i xxx.xxx.xxx.xxx put PA648C_US_001002.bin"更新PA648C正常<a href="../../../woody/blog/pa6488/20090816cn.php">升级文件</a>，也可以用put.bat: "put xxx.xxx.xxx.xxx PA648C_US_001002.bin"。
+<br />运行"tftp -i xxx.xxx.xxx.xxx put PA648C_US_SAFEMODE_001002.bin"更新PA648C安全模式升级文件，也可以用put.bat: "put xxx.xxx.xxx.xxx PA648C_US_SAFEMODE_001002.bin"。
+<br />运行"tftp -i 192.168.1.200 put PA648C_US_001002.bin"在安全模式下更新<a href="../../../woody/blog/pa6488/20090819cn.php">PA648C</a>正常升级文件，也可以用puts.bat: "puts PA648C_US_001002.bin"。</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><font color=#545454>更新设置</font></td></tr>
+<tr><td>在pa6488\bin子目录下，使用tftp更新设置。
+<br />运行"tftp -i xxx.xxx.xxx.xxx get config.txt"得到config.txt设置文件。
+<br />运行"attrib -r config.txt"。
+<br />修改config.txt相应内容。
+<br />运行"tftp -i xxx.xxx.xxx.xxx put config.txt"更新设置。
+<br />使用setcfg.bat可以批处理执行上面的步骤: "setcfg xxx.xxx.xxx.xxx"。</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><font color=#545454>常见问题</font></td></tr>
+<tr><td>经常碰到的问题和解决方法。
+<br /><font color=red>命令行下显示错误信息"the device is not ready":</font> 运行了setenvd.bat，但是实际上编译器安装在C:盘。
+<br /><font color=red>Windows Vista user account control提示"An unidentified program wants access to your computer":</font> 运行Command Prompt进入命令行前点鼠标右键使用"Run as administrator"方式。
+</td></tr>
+</table>
+
+</td>
+</table>
+
+<script type="text/javascript">CopyRightDisplay();</script>
+
+</body>
+</html>

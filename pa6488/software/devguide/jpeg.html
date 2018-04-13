@@ -1,0 +1,68 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>PA6488 Developer's Guide - IJG JPEG</title>
+<link href="../../../common/style.css" rel="stylesheet" type="text/css" />
+<script src="../../../js/filetype.js"></script>
+<script src="../../../js/copyright.js"></script>
+<script src="../../../js/nav.js"></script>
+<script src="../../../palmmicro.js"></script>
+<script src="../../pa6488.js"></script>
+<script src="../software.js"></script>
+<script src="devguide.js"></script>
+<script src="../../../js/analytics.js"></script>
+</head>
+
+<body bgproperties=fixed leftmargin=0 topmargin=0>
+<table width=100% height=105 order=0 cellpadding=0 cellspacing=0 bgcolor=#049ACC>
+<tr>
+<td width=780 height=105 align=left valign=top><a href="/"><img src=../../../image/image_palmmicro.jpg alt="Palmmicro Name Logo" /></a></td>
+<td align=left valign=top></td>
+</tr>
+</table>
+
+<table width=900 height=85% border=0 cellpadding=0 cellspacing=0>
+<td width=30 valign=top bgcolor=#66CC66>&nbsp;</td>
+<td width=120 valign=top bgcolor=#66CC66>
+<TABLE width=120 border=0 cellPadding=5 cellSpacing=0>
+<script type="text/javascript">NavigateDevGuide();</script>
+</TABLE>
+</TD>
+<td width=30 valign=top bgcolor=#66CC66>&nbsp;</td>
+<td width=50 valign=top bgcolor=#ffffff>&nbsp;</td>
+<td valign=top>
+	
+	
+<table>
+<tr><td class=THead><B>PA6488 Developer's Guide - IJG JPEG</B></td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><font color=#545454>Why JPEG</font></td></tr>
+<tr><td>Camera settings and control functions are provided in <a href="../../../woody/blog/pa6488/20100109.php">web interface</a> with rawvideo.jpg file for direct effect viewing and checking. We need a base line JPEG encoder inside PA6488 software.
+<br /><a href="http://www.ijg.org/" target=_blank>IJG JPEG</a> files are used to test part of PA6488 video processing performance.
+<br />Optimized JPEG source code provides good example of how to do extra image processing based on PA6488 API.
+</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><font color=#545454>How to Test</font></td></tr>
+<tr><td>Run "jpegput.bat xxx.xxx.xxx.xxx" from pa6488\bin, all necessary files will be transfer to PA6488 device by TFTP.
+<br />On PA6488 device, press key "#9*1" to start JPEG tests, more <a href="../userguide/keytest.php">key test</a> information can be found in pa6488\doc\test.txt.
+<br />After JPEG tests finished, run "jpegget.bat xxx.xxx.xxx.xxx" from pa6488\bin, all generate files will be transfer to PC by TFTP.
+<br />Run "jpegfc.bat" from pa6488\bin to compare the results.
+<br />The detail items of this test varies in different software versions, watch for UDP debug message output carefully.
+</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><font color=#545454>Coding Details</font></td></tr>
+<tr><td>JPEG test implementation in pa6488\test\testjpeg.c. Message output redirected to DebugPrintf();
+<br />JPEG functions prototype in pa6488\include\jpeg.h, lib in pa6488\lib\jpeg.lib, source files provided with API under IJG license terms. Users can compile the lib by themselves.
+<br />Check PA6488_IJG define for PA6488 related major changes in source files.
+<br />Check JINT16, JUINT16 and JINT32 for PA6488 related others changes in source files. Some of "int" and "unsigned int" changed to "JINT16" and "JUINT16", and all "long" changed to "JINT32".
+<br />IJG JPEG release 8c of 16-Jan-2011 is used.
+</td></tr>
+</table>
+
+</td>
+</table>
+
+<script type="text/javascript">CopyRightDisplay();</script>
+
+</body>
+</html>

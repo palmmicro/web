@@ -1,0 +1,84 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>PA6488开发指南 - 已知错误</title>
+<meta name="description" content="PA6488方案开发指南，已知错误页面">
+<meta name="keywords" content="PA6488已知错误">
+<link href="../../../common/style.css" rel="stylesheet" type="text/css" />
+<script src="../../../js/filetype.js"></script>
+<script src="../../../js/copyright.js"></script>
+<script src="../../../js/nav.js"></script>
+<script src="../../../palmmicro.js"></script>
+<script src="../../pa6488.js"></script>
+<script src="../software.js"></script>
+<script src="devguide.js"></script>
+<script src="../../../js/analytics.js"></script>
+</head>
+
+<body bgproperties=fixed leftmargin=0 topmargin=0>
+<table width=100% height=105 order=0 cellpadding=0 cellspacing=0 bgcolor=#049ACC>
+<tr>
+<td width=780 height=105 align=left valign=top><a href="/"><img src=../../../image/image_palmmicro.jpg alt="Palmmicro Name Logo" /></a></td>
+<td align=left valign=top></td>
+</tr>
+</table>
+
+<table width=900 height=85% border=0 cellpadding=0 cellspacing=0>
+<td width=30 valign=top bgcolor=#66CC66>&nbsp;</td>
+<td width=120 valign=top bgcolor=#66CC66>
+<TABLE width=120 border=0 cellPadding=5 cellSpacing=0>
+<script type="text/javascript">NavigateDevGuide();</script>
+</TABLE>
+</TD>
+<td width=30 valign=top bgcolor=#66CC66>&nbsp;</td>
+<td width=50 valign=top bgcolor=#ffffff>&nbsp;</td>
+<td valign=top>
+	
+	
+<table>
+<tr><td class=THead><B>PA6488开发指南 - 已知错误</B></td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><font color=#545454>函数include</font></td></tr>
+<tr><td>调用函数时必须include相关的include文件. 
+<br />例如调用sprintf()而没有include stdio.h的话编译器并不会抱错, 但是执行结果会跑飞.
+</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><font color=#545454>结构中跨越32位边界的数据</font></td></tr>
+<tr><td>当结构映射到内存中时, 在结构中跨越32位边界的UINT的值会出错.
+<br />在arp.c中发现
+<br />typedef struct _ARP_FORMAT	
+<br />{
+<br />	USHORT sHardwareType;	/* hardware type */
+<br />	USHORT sProtocolType;	/* protocol type */
+<br />	UCHAR cHardwareLen;		/* hardware address length */
+<br />	UCHAR cProtocolLen;		/* protocol address length */
+<br />	USHORT sOperation;		/* T_ARP_FORMAT operation (see AR_XXXX list above) */
+<br />	UCHAR pcSHA[HW_ALEN];	/* sender's physical hardware address */
+<br />	UCHAR pcSPA[IP_ALEN];	/* sender's protocol address (IP addr.)	*/
+<br />	UCHAR pcTHA[HW_ALEN];	/* target's physical hardware address */
+<br />	UCHAR pcTPA[IP_ALEN];	/* target's protocol address (IP) */
+<br />} T_ARP_FORMAT;
+<br />如果改为
+<br />typedef struct _ARP_FORMAT	
+<br />{
+<br />	USHORT sHardwareType;	/* hardware type */
+<br />	USHORT sProtocolType;	/* protocol type */
+<br />	UCHAR cHardwareLen;		/* hardware address length */
+<br />	UCHAR cProtocolLen;		/* protocol address length */
+<br />	USHORT sOperation;		/* T_ARP_FORMAT operation (see AR_XXXX list above) */
+<br />	UCHAR pcSHA[HW_ALEN];	/* sender's physical hardware address */
+<br />	UINT iSPA;				/* sender's protocol address (IP addr.)	*/
+<br />	UCHAR pcTHA[HW_ALEN];	/* target's physical hardware address */
+<br />	UINT iTPA;				/* target's protocol address (IP) */
+<br />} T_ARP_FORMAT;
+<br />iSPA的值是错误的, 而iTPA是正确的.
+</td></tr>
+</table>
+
+</td>
+</table>
+
+<script type="text/javascript">CopyRightDisplay();</script>
+
+</body>
+</html>

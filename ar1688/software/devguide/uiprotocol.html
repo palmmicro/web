@@ -1,0 +1,65 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>AR1688 Development Guide - UI Protocols</title>
+<link href="../../../common/style.css" rel="stylesheet" type="text/css" />
+<script src="../../../js/filetype.js"></script>
+<script src="../../../js/copyright.js"></script>
+<script src="../../../js/nav.js"></script>
+<script src="../../../palmmicro.js"></script>
+<script src="../../ar1688.js"></script>
+<script src="../software.js"></script>
+<script src="devguide.js"></script>
+<script src="../../../js/analytics.js"></script>
+</head>
+
+<body bgproperties=fixed leftmargin=0 topmargin=0>
+<table width=100% height=105 order=0 cellpadding=0 cellspacing=0 bgcolor=#049ACC>
+<tr>
+<td width=780 height=105 align=left valign=top><a href="/"><img src=../../../image/image_palmmicro.jpg alt="Palmmicro Name Logo" /></a></td>
+<td align=left valign=top></td>
+</tr>
+</table>
+
+<table width=900 height=85% border=0 cellpadding=0 cellspacing=0>
+<td width=30 valign=top bgcolor=#66CC66>&nbsp;</td>
+<td width=120 valign=top bgcolor=#66CC66>
+<TABLE width=120 border=0 cellPadding=5 cellSpacing=0>
+<script type="text/javascript">NavigateDevGuide();</script>
+</TABLE>
+</TD>
+<td width=30 valign=top bgcolor=#66CC66>&nbsp;</td>
+<td width=50 valign=top bgcolor=#ffffff>&nbsp;</td>
+<td valign=top>
+	
+	
+<table>
+<tr><td class=THead><B>AR1688 Development Guide - UI Protocols</B></td></tr>
+<tr><td>&nbsp;
+<br />There are currently 7 kind of string based high level <a href="../../../woody/blog/ar1688/20080329.php">UI protocols</a> between AR1688 and external controller:
+<br />1. Key, format "KEY x", where 'x' comes from <b>mcs51\hook.c</b> and <b>mcs51\key.c</b>, indicate a key or a hook event occurs on external controller side and send it to handle in AR1688 <b>function.c</b> function <i>UI_HandleKeys</i>.
+<br />2. LCD, format "LCD lxxxxxxxxxxxxxxxx", where 'l' stands for display lines, '0' to display on the first line, '1' on second, possible '2' and '3' on third and fourth. "xxxxxxxxxxxxxxx" is the string to display, transferred from AR1688 to external controller.
+<br />3. LCD Cursor, format "LCDClps", 'l' for line number same as above, 'p' for cursor position, '0' as first. 's' for show or hide cursor, '0' to hide, '1' to show. Same as 2, this command is also from AR1688 to external controller.
+<br />4. LED, format "LED ts", 't' is the LED type listed below, 's' for status, '0' - On, '1' - Off, '2'- Blink. This command is from AR1688 to external controller too. LED type (<b>mcs51\led.c</b>, <b>inc\bank1.h</b>):
+<br /> '0' - LCD
+<br /> '1' - KEYPAD
+<br /> '2' - MESSAGE
+<br /> '3' - MUTE
+<br /> '4' - HOLD
+<br /> '5' - TRANSFER
+<br />5. Loop test, format "LOOPXXXXXXXXXXX", indicate peer to loop back "XXXXXXXXXXX".
+<br />6. Status report, format "STATxxx", indicate a status change in AR1688, where "xxx" is from <b>include\core.h</b> <b><i>UI_YYYY_ZZZZ</i></b> defines just before function <i>TaskUIHandler</i>.
+<br />For example, "logon ok", AR1688 will send "STAT10" to peer, as <b><i>UI_LOGON_OK</i></b> defined as "10" in <b>core.h</b>. Just as "LCD ", "LCDC" and "LED " commands, "STAT" is also only from AR1688 to external controller.
+<br />7. Text exchange, format "TEXTxxx", where "xxx" is the actual text user wish to exchange.
+<br />Like "LOOP" command, This command is used in both side. When external controller send "TEXTxxx" to AR1688 by <a href="../../../woody/blog/ar1688/20071119.php">UART</a>, AR1688 will send the string "TEXTxxx" to the other AR1688 in the call by standard SIP MESSAGE request.
+And the receiving party will <a href="../../../woody/blog/ar1688/20080512.php">display</a> it and send it to its own external controller via UART, using exactly the same command.
+</td></tr>
+</table>
+
+</td>
+</table>
+
+<script type="text/javascript">CopyRightDisplay();</script>
+
+</body>
+</html>

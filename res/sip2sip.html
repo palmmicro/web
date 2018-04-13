@@ -1,0 +1,70 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>SIP2SIP Service</title>
+<meta name="keywords" content="SIP2SIP">
+<meta name="description" content="SIP2SIP (www.sip2sip.info) VoIP service introduction and reference AR1688 settings to use the service.">
+<link href="../common/style.css" rel="stylesheet" type="text/css" />
+<script src="../js/filetype.js"></script>
+<script src="../js/copyright.js"></script>
+<script src="../js/nav.js"></script>
+<script src="../palmmicro.js"></script>
+<script src="res.js"></script>
+<script src="../js/analytics.js"></script>
+</head>
+
+<body bgproperties=fixed leftmargin=0 topmargin=0>
+<table width=100% height=105 order=0 cellpadding=0 cellspacing=0 bgcolor=#049ACC>
+<tr>
+<td width=780 height=105 align=left valign=top><a href="/"><img src=../image/image_palmmicro.jpg alt="Palmmicro Name Logo" /></a></td>
+<td align=left valign=top></td>
+</tr>
+</table>
+
+<table width=900 height=85% border=0 cellpadding=0 cellspacing=0>
+<td width=30 valign=top bgcolor=#66CC66>&nbsp;</td>
+<td width=120 valign=top bgcolor=#66CC66>
+<TABLE width=120 border=0 cellPadding=5 cellSpacing=0>
+<script type="text/javascript">NavLoopService();</script>
+</TABLE>
+</TD>
+<td width=30 valign=top bgcolor=#66CC66>&nbsp;</td>
+<td width=50 valign=top bgcolor=#ffffff>&nbsp;</td>
+<td valign=top>
+
+
+<table>
+<tr><td class=THead><B>SIP2SIP Service</B></td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>Web: <a href="http://www.sip2sip.info" target=_blank>www.sip2sip.info</a>
+<br />
+<br />SIP Address: palmmicro@sip2sip.info  
+<br />Username: palmmicro  
+<br />Password: 28y62d95hw  
+<br />Domain/Realm: sip2sip.info  
+<br />Outbound Proxy: proxy.sipthor.net  
+<br />SIP Alias: 33011668@sip2sip.info
+<br />
+<br />SIP alias like <font color=blue>33011668</font> can be added in the <font color=blue>Identity</font> web page.
+By adding an all-digit alias, other user with a hardware phone like <a href="../ar1688/user/gp1266.html">GP1266</a> can dial the number to call <font color=blue>palmmicro</font>.
+AR1688 device user can also put <font color=blue>palmmicro</font> in <font color=blue>Hot Line Number</font> option field or save <font color=blue>palmmicro</font> to phone book and use quick dial to call.
+<br />
+<br />Call Test: 3333
+<br />Echo Test: 4444
+<br />
+<br />When using <a href="http://icanblink.com/" target=_blank>Blink</a> and AR1688 device together in this free service, there is a known problem:
+<br />1. If using <b>Blink</b> default configuration, the call is connected in <a href="../woody/blog/ar1688/20071031.php">speex</a> 8k codec, which is ok when <b>Blink</b> call AR1688,
+and no voice when AR1688 call <b>Blink</b>. Maybe there is a bug with speex payload type negotiation
+<br />2. If remove speex codec from <b>Blink</b>'s <font color=blue>preference</font> menu, the call is connected in PCMU, which is ok on both sides.
+<br />
+<br /><a href="../ar1688/settings.html">AR1688</a> reference <a href="../ar1688/settings/sip2sip_sip_us.html" target=_blank>setting</a>
+</td></tr>
+</table>
+
+</td>
+</table>
+
+<script type="text/javascript">CopyRightDisplay();</script>
+
+</body>
+</html>
