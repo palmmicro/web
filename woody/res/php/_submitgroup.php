@@ -1,6 +1,6 @@
 <?php
 require_once('/php/account.php');
-require_once('/php/mystock.php');
+require_once('/php/stock.php');
 require_once('/php/ui/stockgroupparagraph.php');
 require_once('_editgroupform.php');
 

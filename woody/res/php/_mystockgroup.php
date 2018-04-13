@@ -37,7 +37,7 @@ function in_array_ref($strSymbol, $arRef)
 
 function _prefetchStockGroupArray($arStock)
 {
-    MyStockPrefetchData($arStock);
+    StockPrefetchData($arStock);
     GetChinaMoney();
 /*    if (in_array('USCNY', $arStock) && in_array('HKCNY', $arStock))
     {	
@@ -60,13 +60,13 @@ function _echoStockGroupArray($arStock, $bChinese)
         $sym = new StockSymbol($strSymbol);
         if ($sym->IsFundA())
         {
-        	$fund = MyStockGetFundReference($strSymbol);
+        	$fund = StockGetFundReference($strSymbol);
         	$arFund[] = $fund;
         	$ref = $fund->stock_ref; 
        	}
        	else
        	{
-       		if ($ref_ar = MyStockGetHAdrReference($sym))
+       		if ($ref_ar = StockGetHAdrReference($sym))
        		{
        			list($ref, $hshare_ref, $hadr_ref) = $ref_ar;
        			if ($hshare_ref)
@@ -78,7 +78,7 @@ function _echoStockGroupArray($arStock, $bChinese)
        				if (in_array_ref($hadr_ref->GetStockSymbol(), $arHAdrRef) == false)		$arHAdrRef[] = $hadr_ref;
        			}
        		}
-       		else	$ref = MyStockGetReference($sym);
+       		else	$ref = StockGetReference($sym);
         }
 
         $strInternalLink = SelectSymbolInternalLink($strSymbol, $bChinese);

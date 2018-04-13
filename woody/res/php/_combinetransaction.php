@@ -125,7 +125,7 @@ function CombineTransactionEchoAll($bChinese)
     if ($g_strGroupId)
     {
         $arSymbol = SqlGetStocksArray($g_strGroupId);
-        MyStockPrefetchData($arSymbol);
+        StockPrefetchData($arSymbol);
 
         $strGroupLink = _GetReturnGroupLink($g_strGroupId, $bChinese);
         $strStockLinks = StockGetGroupTransactionLinks($g_strGroupId, '', $bChinese);

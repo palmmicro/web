@@ -1,7 +1,7 @@
 <?php
 //require_once('url.php');
 require_once('debug.php');
-require_once('mystock.php');
+require_once('stock.php');
 require_once('sql.php');
 
 require_once('sql/sqlstock.php');
@@ -15,7 +15,7 @@ function _getSymbolOutput($strSymbol)
     $str = $strSymbol.'_net_value=';
     if ($sym->IsFundA())
     {
-        $ref = MyStockGetFundReference($strSymbol);
+        $ref = StockGetFundReference($strSymbol);
         $str .= $ref->strPrevPrice.','.$ref->strDate.',';   // T-1 net value;
         if ($ref->strOfficialDate)
         {
@@ -66,7 +66,7 @@ function _main()
     	$strList = UrlCleanString($strList);
         _updateSpiderTables($strList);
         $arSymbol = StockGetSymbolArray($strList);
-        MyStockPrefetchData($arSymbol);
+        StockPrefetchData($arSymbol);
             
         foreach ($arSymbol as $strSymbol)
         {

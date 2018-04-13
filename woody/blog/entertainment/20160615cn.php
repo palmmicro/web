@@ -18,7 +18,7 @@
 <br />今年以来国泰商品的基金经理费心费力, 在国内监管部门要求多个不同美股ETF持仓的条件下, 居然一直维持了<a href="../../res/sz160216cn.php">国泰商品净值</a>和USO几乎完全相同的变动,
 由此在白天引发了大量跟原油期货CL的套利交易. 在我QQ群204836363中的高手<?php EchoXueqieId('6706948861', 'zzzzv'); ?>已经做到了0.05分的套利, 这样就必须使用中间价了. zzzzv根据长期经验给我确认了交易值不会往中间价靠拢,
 并且给我提供了他手头的Excel+VBA工具中使用的<a href="http://quote.eastmoney.com/forex/USDCNY.html" target=_blank>东方财富人民币美元</a>的<a href="http://hq2gjqh.eastmoney.com/EM_Futures2010NumericApplication/Index.aspx?type=z&ids=usdcny0" target=_blank>中间价接口</a>.
-<br />先写这个格式文档, 然后再改我的<font color=olive>EastMoneyForexReference</font>类.
+<br />先写这个格式文档, 然后再改我的<font color=olive>ForexReference</font>类.
 拿到的数据如下:
 <br /><font color=grey>var js={futures:["USDCNY0,USDCNY,美元人民币,6.5842,6.5835,6.5966,6.5966,6.5804,0,1,
 0.0000,0,0,6.5842,0.0000,0,0,0.0124,0.19%,0.0000,
@@ -61,7 +61,7 @@
 没想到群里的海浪突然告诉我他找到了中国外汇交易中心的中间价接口<?php EchoLink('http://www.chinamoney.com.cn/r/cms/www/chinamoney/data/fx/ccpr.json'); ?>.
 <br />真是个天大的利好啊, 我赶快把手头的微信小程序和IB自动交易编程放在一边, 在晚上炒美股的时候改写了本来为爬虫准备的<?php EchoPhpFileLink('/php/stock/chinamoney.php'); ?>, 过几个小时就能用上了.
 基于中国外汇交易中心的第一手数据, 这样能够有效的在每天9点15后就拿到当天的中间价, 从而可以根据按当天中间价调整后的华宝油气<a href="20170305cn.php">参考估值</a>决定是否要在9点20前撤销掉集合竞价的买卖单.
-<br />软件总是会越写越乱. 在早几年最初的结构设计中, 放在<font color=lime>/php/stock/</font>目录下的文件本来是打算只放跟MySQL数据库无关的基本股票数据采集处理代码的.
+<br />软件总是会越写越乱. 在2年前写<a href="20150818cn.php#pairtrading">配对交易</a>时候的结构设计中, 放在<font color=lime>/php/stock/</font>目录下的文件本来是打算只放跟MySQL数据库无关的基本股票数据采集处理代码的.
 但是这个结构在2个月前把<a href="20101107cn.php#gb2312">GB2312</a>对应的UNICODE码表放到MySQL数据库时就被打破了, 因为读取<a href="20151225cn.php">新浪股票数据</a>后需要把它GB2312编码的中文转换成UTF-8.
 <br />发现自己短时间违背了2次原则后, 我感觉恶向胆边生, 想干脆一口气把原来幻想独立于MySQL而方便测试和移植的基础股票类全部取消掉, 给自己的理由是结构更紧凑了!
 </p>

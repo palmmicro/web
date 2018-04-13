@@ -5,7 +5,6 @@ require_once('debug.php');
 require_once('stock.php');
 require_once('email.php');
 require_once('sql.php');
-require_once('mystock.php');
 
 require_once('ui/stocktext.php');
 
@@ -132,7 +131,7 @@ function _wxUnknownMessage($strContents, $strUserName)
 
 function _wxGetStockArrayText($arSymbol)
 {
-    MyStockPrefetchData($arSymbol);
+    StockPrefetchData($arSymbol);
     $str = '';
     foreach ($arSymbol as $strSymbol)
     {

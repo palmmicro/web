@@ -147,8 +147,8 @@ The original version omitted date display because I thougth it was obvious. And 
 <br />Although it is a small display change, I can not help myself to mofidy a lot of code.
 The original <font color=olive>StockReference</font> class in <?php EchoPhpFileLink('/php/stock/stockref.php'); ?> is now only as a base class for basic data and display data, 
 with <font color=olive>SinaStockReference</font> class and <font color=olive>YahooStockReference</font> class extends from it.
-The original future data read becomes <font color=olive>SinaFutureReference</font> class extends from <font color=olive>StockReference</font>,
-and forex data read becomes <font color=olive>SinaForexReference</font> class extends from <font color=olive>StockReference</font> too. 
+The original future data read becomes <font color=olive>FutureReference</font> class extends from <font color=olive>StockReference</font>,
+and forex data read becomes <font color=olive>ForexReference</font> class extends from <font color=olive>StockReference</font> too. 
 In this way, the display is unified, so the new version number really has something new with it.
 <br />Original data member $strDate (2014-11-13, 'Y-m-d') and $strTime (08:55:00, 'H:i:s') in class <font color=olive>StockReference</font> are kept as the same, 
 added new data member $strTimeHM (08:55) for display, separating data and display.
@@ -159,8 +159,8 @@ added new data member $strTimeHM (08:55) for display, separating data and displa
 <br />SZ162411 is trading more than 10% higher than its net value recently, the max premium as high as 17%, so the <a href="20160101.php">XOP and SZ162411 arbitrage</a> is not possible now.
 Add <a href="../../res/xop.php">XOP</a> and two oil ETF USO/USL pair trading tool page.
 <br />The current day pair trading price uses the same method as the leverage ETF price estimation in the future ETF pages.
-Continuing to organzie the similar code, extends <font color=olive>MyStockReference</font> class from <font color=olive>SinaStockReference</font> class,
-and finally extends <font color=olive>MyLeverageReference</font> class from <font color=olive>MyStockReference</font>.
+Continuing to organzie the similar code, added <font color=olive>MyStockReference</font> class, and put it between <font color=olive>StockReference</font> class and <font color=olive>SinaStockReference/YahooStockReference</font>.
+Then extends <font color=olive>MyLeverageReference</font> class also from <font color=olive>MyStockReference</font>.
 As we called mysql related function like <i>SqlGetStockDescription</i> of <?php EchoPhpFileLink('/php/sql/sqlstock.php'); ?> in <font color=olive>MyStockReference</font> class,
 To keep the independence of the different modules in /php, 
 <font color=olive>MyStockReference</font> and <font color=olive>MyLeverageReference</font> class are put in a new file <?php EchoPhpFileLink('/php/mysqlstock.php'); ?>.

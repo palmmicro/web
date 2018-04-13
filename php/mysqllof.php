@@ -417,7 +417,7 @@ class MyLofReference extends _LofReference
         }
         if ($strFutureSymbol = LofGetFutureSymbol($strSymbol))
         {
-            $this->future_ref = new MyFutureReference($strFutureSymbol);
+            $this->future_ref = new FutureReference($strFutureSymbol);
         }
         
         $this->EstNetValue();

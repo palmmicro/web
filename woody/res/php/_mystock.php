@@ -66,20 +66,20 @@ function _setMyStockLink($ref, $strPageSymbol, $bChinese)
 
 function _echoMyStock($strSymbol, $bChinese)
 {
-    MyStockPrefetchData(array($strSymbol));
+    StockPrefetchData(array($strSymbol));
     
     $hshare_ref = false;
     $hadr_ref = false;
     $sym = new StockSymbol($strSymbol);
     if ($sym->IsFundA())
     {
-        $fund = MyStockGetFundReference($strSymbol);
+        $fund = StockGetFundReference($strSymbol);
         $ref = $fund->stock_ref; 
     }
     else
     {
-    	if ($ref_ar = MyStockGetHAdrReference($sym))		list($ref, $hshare_ref, $hadr_ref) = $ref_ar;
-   		else												$ref = MyStockGetReference($sym);
+    	if ($ref_ar = StockGetHAdrReference($sym))		list($ref, $hshare_ref, $hadr_ref) = $ref_ar;
+   		else												$ref = StockGetReference($sym);
     }
     EchoReferenceParagraph(array($ref), $bChinese);
     

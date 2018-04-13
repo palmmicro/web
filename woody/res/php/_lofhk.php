@@ -7,10 +7,10 @@ class _LofHkGroup extends _LofGroup
     // constructor 
     function _LofHkGroup($strSymbol) 
     {
-        MyStockPrefetchData(array($strSymbol));
+        StockPrefetchData(array($strSymbol));
         GetChinaMoney();
 
-        $this->cny_ref = new MyCnyReference('HKCNY');
+        $this->cny_ref = new CnyReference('HKCNY');
         $this->ref = new MyLofHkReference($strSymbol);
         parent::_LofGroup();
         $this->arDisplayRef = array($this->ref->index_ref, $this->ref->etf_ref, $this->cny_ref, $this->ref->stock_ref, $this->ref);

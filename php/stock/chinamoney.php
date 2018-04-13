@@ -1,16 +1,15 @@
 <?php
 // 
 
-function _chinaMoneyHasFile($strFileName)
+function _chinaMoneyHasFile($iCurTime, $strFileName)
 {
 	clearstatcache(true, $strFileName);
     if (file_exists($strFileName))
     {
         $str = file_get_contents($strFileName);
-        $iCurTime = time();
-        if ($iCurTime < (filemtime($strFileName) + SECONDS_IN_MIN))	return $str;   // update on every minute
-        
         $ar = json_decode($str, true);
+        if ($iCurTime < (filemtime($strFileName) + SECONDS_IN_MIN))	return $ar;   // update on every minute
+        
         $arHead = $ar['head'];
         if ($arHead['rep_code'] != '200')		return false;;	// 200 ok not found
         
@@ -22,23 +21,40 @@ function _chinaMoneyHasFile($strFileName)
         if ($ymd->GetNextTradingDayTick() <= $iCurTime)	return false;	// need update
 
 //        DebugString('Use current file');
-        return $str;
+        return $ar;
     }
     return false;
+}
+
+function _chinaMoneyNeedData($iCurTime)
+{
+	$ymd = new YMDTick($iCurTime);
+    $strDate = $ymd->GetYMD();
+//    DebugString($strDate);
+    if (SqlGetForexHistory(SqlGetStockId('USCNY'), $strDate) && SqlGetForexHistory(SqlGetStockId('HKCNY'), $strDate))
+    {
+//    	DebugString('Database entry existed');
+    	return false;
+    }
+    return $strDate;
 }
 
 define ('CHINA_MONEY_URL', 'http://www.chinamoney.com.cn/r/cms/www/chinamoney/data/fx/ccpr.json');
 function GetChinaMoney()
 {
     date_default_timezone_set(STOCK_TIME_ZONE_CN);
+    $iCurTime = time();
+    if (_chinaMoneyNeedData($iCurTime) == false)	return;
+    
 	$strFileName = DebugGetChinaMoneyFile();
-	$str = _chinaMoneyHasFile($strFileName);
-    if ($str == false)
+	$ar = _chinaMoneyHasFile($iCurTime, $strFileName);
+    if ($ar == false)
     {
     	if ($str = url_get_contents(CHINA_MONEY_URL))
     	{
     		DebugString('Save new file');
     		file_put_contents($strFileName, $str);
+    		$ar = json_decode($str, true);
     	}
     	else
     	{
@@ -47,16 +63,9 @@ function GetChinaMoney()
     	}
     }
 	
-    $ar = json_decode($str, true);
     $arData = $ar['data'];
-    $ymd = new YMDTick(strtotime($arData['lastDate']));	// 2018-04-12 9:15
-    $strDate = $ymd->GetYMD();
-//    DebugString($strDate);
-    if (SqlGetForexHistory(SqlGetStockId('USCNY'), $strDate))
-    {
-//    	DebugString('Database entry existed');
-    	return;
-    }
+    $strDate = _chinaMoneyNeedData(strtotime($arData['lastDate']));		// 2018-04-12 9:15
+    if ($strDate == false)		return;
 
     $arRecord = $ar['records'];
     foreach ($arRecord as $arPair)

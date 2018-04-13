@@ -4,7 +4,6 @@ require_once('weixin.php');
 require_once('debug.php');
 require_once('stock.php');
 require_once('sql.php');
-require_once('mystock.php');
 require_once('email.php');
 
 require_once('ui/stocktext.php');
@@ -14,7 +13,9 @@ require_once('sql/sqlstock.php');
 require_once('sql/sqlspider.php');
 require_once('sql/sqlweixin.php');
 
-define('WX_DEBUG_VER', '版本798');
+require_once('stock/sqlcnyref.php');
+
+define('WX_DEBUG_VER', '版本799');
 
 define('WX_DEFAULT_SYMBOL', 'SZ162411');
 define('MAX_WX_STOCK', 30);
@@ -177,30 +178,27 @@ function _wxGetStockText($strSymbol)
     }
     else if ($strFutureSymbol = $sym->IsSinaFuture())
     {
-        $ref = new MyFutureReference($strFutureSymbol);
+        $ref = new FutureReference($strFutureSymbol);
         $str = _getStockReferenceText($ref); 
     }
     else if ($sym->IsSinaForex())
     {
-    	$ref = new MyForexReference($strSymbol);
+    	$ref = new ForexReference($strSymbol);
         $str = _getStockReferenceText($ref); 
     }
     else if ($sym->IsEastMoneyForex())
     {
-		$strBackup = MyCnyReference::$strDataSource;
-		MyCnyReference::$strDataSource = STOCK_DATABASE_FOREX;
-    	$ref = new MyCnyReference($strSymbol);
+    	$ref = new SqlCnyReference($strSymbol);
         $str = _getStockReferenceText($ref); 
-		MyCnyReference::$strDataSource = $strBackup;
     }
     else if ($sym->IsFundA())
     {
-        $ref = MyStockGetFundReference($strSymbol);
+        $ref = StockGetFundReference($strSymbol);
         $str = _getFundReferenceText($ref); 
     }
     else
     {
-    	if ($ref_ar = MyStockGetHAdrReference($sym))
+    	if ($ref_ar = StockGetHAdrReference($sym))
     	{
     		list($ref, $hshare_ref, $hadr_ref) = $ref_ar;
 			$str = _getAhReferenceText($ref, $hshare_ref, $hadr_ref);
@@ -254,7 +252,7 @@ function _wxUnknownMessage($strContents, $strUserName)
 function _wxGetStockArrayText($arSymbol)
 {
 	sort($arSymbol);
-    MyStockPrefetchData($arSymbol);
+    StockPrefetchData($arSymbol);
     $str = '';
     foreach ($arSymbol as $strSymbol)
     {

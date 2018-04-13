@@ -5,7 +5,7 @@ define ('STOCK_SINA_DATA', 'Sina Data');
 define ('STOCK_SINA_FUTURE_DATA', 'Sina Future Data');
 define ('STOCK_SINA_FOREX', 'Sina Forex Data');
 define ('STOCK_EASTMONEY_FOREX', 'East Money Forex Data');
-define ('STOCK_DATABASE_FOREX', 'Forex Data From Database');
+define ('STOCK_SQL_FOREX', 'Forex Data From Database');
 define ('STOCK_GOOGLE_DATA', 'Google Data');
 define ('STOCK_YAHOO_DATA', 'Yahoo Data (possible 15 min delay)');
 define ('STOCK_NET_VALUE', 'Net Value');
@@ -798,54 +798,6 @@ class YahooNetValueReference extends YahooStockReference
         parent::YahooStockReference(GetYahooNetValueSymbol($strSymbol));
         $this->strDescription = STOCK_NET_VALUE;
     }
-}
-
-// ****************************** SinaFutureReference Class *******************************************************
-class SinaFutureReference extends StockReference
-{
-    // constructor 
-    function SinaFutureReference($strSymbol)
-    {
-        $this->LoadSinaFutureData($strSymbol);
-        parent::StockReference($strSymbol);
-        $this->strDescription = STOCK_SINA_FUTURE_DATA;
-    }
-}
-
-// ****************************** SinaForexReference Class *******************************************************
-class SinaForexReference extends StockReference
-{
-    // constructor 
-    function SinaForexReference($strSymbol)
-    {
-    	$this->LoadSinaForexData($strSymbol);
-        parent::StockReference($strSymbol);
-        $this->strDescription = STOCK_SINA_FOREX_DATA;
-    }       
-}
-
-// ****************************** EastMoneyForexReference Class *******************************************************
-class EastMoneyForexReference extends StockReference
-{
-    // constructor 
-    function EastMoneyForexReference($strSymbol)
-    {
-    	$this->LoadEastMoneyForexData($strSymbol);
-        parent::StockReference($strSymbol);
-        $this->strDescription = STOCK_EASTMONEY_FOREX_DATA;
-    }       
-}
-
-// ****************************** CnyReference Class *******************************************************
-class CnyReference extends StockReference
-{
-    // constructor 
-    function CnyReference($strSymbol)
-    {
-    	$this->LoadEastMoneyCnyData($strSymbol);
-        parent::StockReference($strSymbol);
-        $this->strDescription = STOCK_EASTMONEY_FOREX_DATA;
-    }       
 }
 
 ?>

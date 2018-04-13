@@ -74,7 +74,7 @@ function _onPrefetch($strMemberId)
 		}
 		@mysql_free_result($result);
 	}
-    MyStockPrefetchData($arSymbol);
+    StockPrefetchData($arSymbol);
 }
 
 function EchoMyFortfolio($bChinese)

@@ -16,8 +16,8 @@ function _echoNetValueHistory($strSymbol, $iStart, $iNum, $bChinese)
     $strGroupLink = _GetReturnSymbolGroupLink($strSymbol, $bChinese); 
     EchoParagraph($strGroupLink.$strNavLink);
     
-    MyStockPrefetchData(array($strSymbol));
-    $fund = MyStockGetFundReference($strSymbol);
+    StockPrefetchData(array($strSymbol));
+    $fund = StockGetFundReference($strSymbol);
     EchoFundHistoryFullParagraph($fund, $iStart, $iNum, $bChinese);
 }
 

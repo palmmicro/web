@@ -32,12 +32,12 @@ class _AdrGroup extends _MyStockGroup
     // constructor
     function _AdrGroup($strSymbolAdr)
     {
-        MyStockPrefetchData(array($strSymbolAdr));
+        StockPrefetchData(array($strSymbolAdr));
 //        PrefetchEastMoneyData(array('USCNY', 'HKCNY'));
         GetChinaMoney();
         
-        $this->uscny_ref = new MyCnyReference('USCNY');
-        $this->hkcny_ref = new MyCnyReference('HKCNY');
+        $this->uscny_ref = new CnyReference('USCNY');
+        $this->hkcny_ref = new CnyReference('HKCNY');
         
     	$strSymbolH = SqlGetAdrhPair($strSymbolAdr);
         $strSymbolA = SqlGetHaPair($strSymbolH);

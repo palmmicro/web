@@ -10,7 +10,7 @@ class _GradedFundGroup extends _MyStockGroup
     // constructor
     function _GradedFundGroup($strSymbol) 
     {
-        MyStockPrefetchData(array($strSymbol));
+        StockPrefetchData(array($strSymbol));
         $this->ref = new MyGradedFundReference($strSymbol);
         
         $arRef = array($this->ref->stock_ref, $this->ref->b_ref->stock_ref);

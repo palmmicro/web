@@ -38,7 +38,7 @@ class _PairTradingGroup extends _MyStockGroup
     {
         $strIndexSymbol = _getPairTradingIndex($strSymbol);
         $arLeverageSymbol = _getPairTradingLeverage($strSymbol);
-        MyStockPrefetchData(array_merge($arLeverageSymbol, array($strSymbol, $strIndexSymbol, GetYahooNetValueSymbol($strSymbol))));  
+        StockPrefetchData(array_merge($arLeverageSymbol, array($strSymbol, $strIndexSymbol, GetYahooNetValueSymbol($strSymbol))));  
         
         $this->ref = new MyStockReference($strSymbol);
         foreach ($arLeverageSymbol as $strLeverageSymbol)

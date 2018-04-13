@@ -1,6 +1,5 @@
 <?php
 require_once('gb2312.php');
-require_once('stock.php');
 require_once('mysqlstockhistory.php');
 require_once('sql/sqlstock.php');
 
@@ -17,7 +16,7 @@ class MysqlReference extends StockReference
     
     function _loadSqlId()
     {
-    	if ($this->strSqlId)	return;	// Already set, like in MyCnyReference
+    	if ($this->strSqlId)	return;	// Already set, like in CnyReference
     	
     	$this->strSqlId = SqlGetStockId($this->strSqlName);
         if ($this->strSqlId == false)
@@ -253,18 +252,6 @@ class MyYahooStockReference extends MyStockReference
     {
         $strBackup = parent::$strDataSource;
         parent::$strDataSource = STOCK_YAHOO_DATA;
-        parent::MyStockReference($strSymbol);
-        parent::$strDataSource = $strBackup;
-    }
-}
-
-class MyFutureReference extends MyStockReference
-{
-    // constructor 
-    function MyFutureReference($strSymbol) 
-    {
-        $strBackup = parent::$strDataSource;
-        parent::$strDataSource = STOCK_SINA_FUTURE_DATA;
         parent::MyStockReference($strSymbol);
         parent::$strDataSource = $strBackup;
     }
@@ -523,86 +510,6 @@ class MyFundReference extends FundReference
     {
         return $fVal * FUND_POSITION_RATIO + $this->fPrevPrice * (1.0 - FUND_POSITION_RATIO);
     }
-}
-
-// ****************************** MyCnyReference class *******************************************************
-class MyCnyReference extends MysqlReference
-{
-//    public static $strDataSource = STOCK_EASTMONEY_FOREX;
-    public static $strDataSource = STOCK_DATABASE_FOREX;
-    
-    function _loadDatabaseData($strSymbol)
-    {
-    	$this->strSqlId = SqlGetStockId($strSymbol);
-    	if ($history = SqlGetForexHistoryNow($this->strSqlId))
-    	{
-    		$this->strPrice = $history['close'];
-    		$this->strDate = $history['date'];
-    		$this->strTime = '09:15';
-    		if ($history_prev = SqlGetPrevForexHistoryByDate($this->strSqlId, $this->strDate))
-    		{
-    			$this->strPrevPrice = $history_prev['close'];
-    		}
-    	}
-        $this->strFileName = DebugGetChinaMoneyFile();
-        $this->strExternalLink = GetReferenceRateForexLink($strSymbol);
-    }
-    
-	function _updateHistory()
-	{
-		if (FloatNotZero(floatval($this->strOpen)) == false)
-		{
-			$this->EmptyFile();
-			return;
-		}
-    
-		if (SqlGetForexHistory($this->strSqlId, $this->strDate) == false)
-		{
-			SqlInsertForexHistory($this->strSqlId, $this->strDate, $this->strPrice);
-		}    
-	}
-
-    // constructor 
-    function MyCnyReference($strSymbol)
-    {
-        if (self::$strDataSource == STOCK_EASTMONEY_FOREX)
-        {
-        	$this->LoadEastMoneyCnyData($strSymbol);
-        }
-        else
-        {
-            $this->_loadDatabaseData($strSymbol);
-        }
-        parent::MysqlReference($strSymbol);
-        if (self::$strDataSource != STOCK_DATABASE_FOREX)
-        {
-        	if ($this->strSqlId)
-        	{
-        		$this->_updateHistory();
-        	}
-        }
-    }       
-}
-
-// ****************************** MyForexReference class *******************************************************
-class MyForexReference extends MysqlReference
-{
-    public static $strDataSource = STOCK_SINA_FOREX;
-//    public static $strDataSource = STOCK_EASTMONEY_FOREX;
-
-    // constructor 
-    function MyForexReference($strSymbol)
-    {
-        if (self::$strDataSource == STOCK_SINA_FOREX)
-        {
-            $this->LoadSinaForexData($strSymbol);
-        }
-        else // if (self::$strDataSource == STOCK_EASTMONEY_FOREX)
-        {
-            $this->LoadEastMoneyForexData($strSymbol);
-        }
-        parent::MysqlReference($strSymbol);
-    }       
 }
 
 // ****************************** StockTransaction class related *******************************************************
@@ -1018,7 +925,7 @@ function StockGetIdSymbolArray($strSymbols)
 	    $strStockId = SqlGetStockId($strSymbol);
 	    if ($strStockId == false)
 	    {
-            $ref = MyStockGetReference(new StockSymbol($strSymbol));
+            $ref = StockGetReference(new StockSymbol($strSymbol));
             if ($ref->bHasData)
             {
             	$strStockId = $ref->GetStockId();

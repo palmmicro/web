@@ -36,8 +36,8 @@ class MyGoldEtfReference extends MyFundReference
     {
         parent::MyFundReference($strSymbol);
         $this->SetForex('USCNY');
-        $this->est_ref = new MyFutureReference(GoldEtfGetCnFutureSymbol($strSymbol));
-        $this->future_ref = new MyFutureReference(GoldEtfGetFutureSymbol($strSymbol));
+        $this->est_ref = new FutureReference(GoldEtfGetCnFutureSymbol($strSymbol));
+        $this->future_ref = new FutureReference(GoldEtfGetFutureSymbol($strSymbol));
         $this->EstNetValue();
     }
 

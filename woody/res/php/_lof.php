@@ -12,12 +12,12 @@ class _LofUsGroup extends _LofGroup
     {
         $strUSD = 'DINIW'; 
         $strEtfSymbol = LofGetEtfSymbol($strSymbol);
-        MyStockPrefetchData(array($strSymbol, $strUSD, GetYahooNetValueSymbol($strEtfSymbol)));
+        StockPrefetchData(array($strSymbol, $strUSD, GetYahooNetValueSymbol($strEtfSymbol)));
         GetChinaMoney();
         
-        $this->cny_ref = new MyCnyReference('USCNY');	// Always create CNY Forex class instance first!
+        $this->cny_ref = new CnyReference('USCNY');	// Always create CNY Forex class instance first!
         $this->ref = new MyLofReference($strSymbol);
-        $this->usd_ref = new MyForexReference($strUSD);
+        $this->usd_ref = new ForexReference($strUSD);
         $this->etf_netvalue_ref = new YahooNetValueReference($strEtfSymbol);
         parent::_LofGroup();
         $this->arDisplayRef = array($this->ref->index_ref, $this->ref->etf_ref, $this->etf_netvalue_ref, $this->ref->future_ref, $this->usd_ref, $this->cny_ref, $this->ref->stock_ref, $this->ref);
