@@ -14,6 +14,7 @@ function ChishinNavigateBlogGroup($bChinese)
 
 function _ChishinLayoutTopLeft($bChinese)
 {
+    AcctNoAuth();
     LayoutTopLeft(ChishinNavigateBlogGroup, $bChinese);
 }
 

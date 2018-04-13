@@ -32,7 +32,8 @@ function _echoPreviousComments($strBlogId, $strMemberId, $bChinese)
 
 function EchoBlogComments($bChinese)
 {
-    $strMemberId = AcctNoAuth();
+//    $strMemberId = AcctNoAuth();
+    $strMemberId = AcctIsLogin();
 	if ($strBlogId = AcctGetBlogId())
 	{	
 		_echoPreviousComments($strBlogId, $strMemberId, $bChinese);
@@ -54,6 +55,7 @@ function EchoBlogComments($bChinese)
 function BlogComments()
 {
     $bChinese = UrlIsChinese();
+    AcctNoAuth();
     EchoBlogComments($bChinese);
 	VisitorLogin($bChinese);
 }

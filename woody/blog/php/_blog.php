@@ -32,6 +32,7 @@ function NavigateBlogGroup($bChinese)
 
 function _LayoutTopLeft($bChinese)
 {
+    AcctNoAuth();
     LayoutTopLeft(NavigateBlogGroup, $bChinese);
 }
 

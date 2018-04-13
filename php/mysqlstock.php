@@ -245,18 +245,6 @@ class MyLeverageReference extends MyStockReference
     }
 }
 
-class MyYahooStockReference extends MyStockReference
-{
-    // constructor 
-    function MyYahooStockReference($strSymbol) 
-    {
-        $strBackup = parent::$strDataSource;
-        parent::$strDataSource = STOCK_YAHOO_DATA;
-        parent::MyStockReference($strSymbol);
-        parent::$strDataSource = $strBackup;
-    }
-}
-
 class MyHShareReference extends MyStockReference
 {
     var $a_ref;

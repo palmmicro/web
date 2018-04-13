@@ -14,8 +14,9 @@ require_once('sql/sqlspider.php');
 require_once('sql/sqlweixin.php');
 
 require_once('stock/sqlcnyref.php');
+require_once('stock/yahoostockref.php');
 
-define('WX_DEBUG_VER', '版本799');
+define('WX_DEBUG_VER', '版本800');
 
 define('WX_DEFAULT_SYMBOL', 'SZ162411');
 define('MAX_WX_STOCK', 30);
@@ -209,7 +210,7 @@ function _wxGetStockText($strSymbol)
         	$str = _getStockReferenceText($ref);
         	if ($str == false)
         	{
-        		$ref = new MyYahooStockReference($strSymbol);
+        		$ref = new YahooStockReference($strSymbol);
         		$str = _getStockReferenceText($ref);
         	}
         }

@@ -1,7 +1,7 @@
 <?php
 require_once('/php/account.php');
 require_once('/php/stock.php');
-require_once('/php/gb2312.php');
+require_once('/php/stock/yahoostockref.php');
 require_once('/php/sql/sqlstock.php');
 require_once('/php/ui/htmlelement.php');
 
@@ -33,14 +33,6 @@ function _getStockOptionDate($strSubmit, $strSymbol)
 function _getStockOptionDescription($strSubmit, $strSymbol)
 {
     $sym = new StockSymbol($strSymbol);
-/*    if ($sym->IsSinaFund())
-    {   // IsSinaFund must be called before IsSinaFuture
-    }
-    else if ($strFutureSymbol = $sym->IsSinaFuture())		$ref = 	new FutureReference($strFutureSymbol);
-    else if ($sym->IsSinaForex())								$ref = 	new ForexReference($strSymbol);
-    else if ($sym->IsEastMoneyForex())						$ref = new CnyReference($strSymbol);
-    else														$ref = new SinaStockReference($strSymbol);
-*/
 	$ref = StockGetReference($sym);
     $stock = SqlGetStock($strSymbol);
     if ($strSubmit == STOCK_OPTION_EDIT_CN)

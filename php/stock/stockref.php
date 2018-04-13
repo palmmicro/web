@@ -135,6 +135,7 @@ function _convertYahooPercentage($strChange)
 // "9:59am" "11:11pm"
 function _convertYahooTime($strAmpm)
 {
+	if ($strAmpm == 'N/A')		return '';
     $str = RemoveDoubleQuotationMarks($strAmpm);
     $iHour = GetHourFromStrEndWithPM($str);
     $str = strstr($str, ':');
@@ -146,6 +147,7 @@ function _convertYahooTime($strAmpm)
 // "1/26/2016"
 function _convertYahooDate($strMdy)
 {
+	if ($strMdy == 'N/A')		return '';
     $str = RemoveDoubleQuotationMarks($strMdy);
     $ar = explode('/', $str);
     $strMonth = $ar[0];
@@ -727,27 +729,6 @@ class StockReference
     
 }
 
-// ****************************** SinaStockReference Class *******************************************************
-
-class SinaStockReference extends StockReference
-{
-    // constructor 
-    function SinaStockReference($strSymbol)
-    {
-        $this->_newStockSymbol($strSymbol);
-        if ($strSinaSymbol = $this->sym->GetSinaSymbol())
-        {
-            $this->LoadSinaData($strSinaSymbol);
-            parent::StockReference($strSymbol);
-            $this->strDescription = STOCK_SINA_DATA;
-        }
-        else
-        {
-            $this->bHasData = false;
-        }
-    }
-}
-
 // ****************************** ExtendedTrading Class *******************************************************
 
 class ExtendedTradingReference extends StockReference
@@ -776,28 +757,20 @@ class ExtendedTradingReference extends StockReference
     }
 }
 
-// ****************************** YahooStockReference Class *******************************************************
+// ****************************** YahooNetValueReference Class *******************************************************
 
-class YahooStockReference extends StockReference
+class YahooNetValueReference extends StockReference
 {
     // constructor 
-    function YahooStockReference($strSymbol)
+    function YahooNetValueReference($strStockSymbol)
     {
+    	$strSymbol = GetYahooNetValueSymbol($strStockSymbol);
         $this->_newStockSymbol($strSymbol);
         $this->LoadYahooData();
         parent::StockReference($strSymbol);
-        $this->strDescription = STOCK_YAHOO_DATA;
-    }
-}
-
-class YahooNetValueReference extends YahooStockReference
-{
-    // constructor 
-    function YahooNetValueReference($strSymbol)
-    {
-        parent::YahooStockReference(GetYahooNetValueSymbol($strSymbol));
         $this->strDescription = STOCK_NET_VALUE;
     }
 }
+
 
 ?>
