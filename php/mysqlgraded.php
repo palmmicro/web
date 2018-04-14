@@ -109,7 +109,7 @@ function GradedFundGetInterest($strSymbol)
     return ($fBase + $fVal) / 100.0 / 365.0;
 }
 
-class MyGradedFundReference extends MyFundReference
+class MyGradedFundReference extends FundReference
 {
     var $b_ref = false;
     var $m_ref = false;
@@ -117,9 +117,9 @@ class MyGradedFundReference extends MyFundReference
     // constructor 
     function MyGradedFundReference($strSymbol)
     {
-        parent::MyFundReference($strSymbol);
-        $this->b_ref = new MyFundReference(GradedFundGetSymbolB($strSymbol));
-        $this->m_ref = new MyFundReference(GradedFundGetSymbolM($strSymbol));
+        parent::FundReference($strSymbol);
+        $this->b_ref = new FundReference(GradedFundGetSymbolB($strSymbol));
+        $this->m_ref = new FundReference(GradedFundGetSymbolM($strSymbol));
         $this->est_ref = new MyStockReference(GradedFundGetIndexSymbol($strSymbol));
         $this->EstNetValue();
     }

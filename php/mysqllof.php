@@ -242,7 +242,7 @@ function LofHkGetAllSymbolArray($strSymbol)
     return $ar;
 }
 
-class _LofReference extends MyFundReference
+class _LofReference extends FundReference
 {
     var $fCNY = false;
     var $fEtfFactor;
@@ -250,7 +250,7 @@ class _LofReference extends MyFundReference
     // constructor 
     function _LofReference($strSymbol, $strForex)
     {
-        parent::MyFundReference($strSymbol);
+        parent::FundReference($strSymbol);
         $this->SetForex($strForex);
     }
 

@@ -15,11 +15,11 @@ require_once('stock/sinastock.php');
 require_once('stock/googlestock.php');
 require_once('stock/stockprefetch.php');
 require_once('stock/stockref.php');
-require_once('stock/fundref.php');
 require_once('stock/stocktransaction.php');
 require_once('stock/stockgroup.php');
 
 require_once('mysqlstock.php');
+require_once('stock/fundref.php');
 require_once('mysqllof.php');
 require_once('mysqlgold.php');
 require_once('mysqlgraded.php');
@@ -27,6 +27,7 @@ require_once('mysqlgraded.php');
 require_once('stock/cnyref.php');
 require_once('stock/forexref.php');
 require_once('stock/futureref.php');
+require_once('stock/hshareref.php');
 
 // ****************************** Stock symbol functions *******************************************************
 
@@ -330,7 +331,7 @@ function StockGetFundReference($strSymbol)
     }
     else
     {
-        $ref = new MyFundReference($strSymbol);
+        $ref = new FundReference($strSymbol);
     }
     return $ref;
 }
@@ -340,7 +341,7 @@ function StockGetReference($sym)
 	$strSymbol = $sym->strSymbol;
     if ($sym->IsSinaFund())
     {
-//    	return new MyFundReference($strSymbol);	// Need more consideration here
+//    	return new FundReference($strSymbol);	// Need more consideration here
     }
     else if ($strFutureSymbol = $sym->IsSinaFuture())   	return new FutureReference($strFutureSymbol);
     else if ($sym->IsSinaForex())   							return new ForexReference($strSymbol);
@@ -358,10 +359,10 @@ function StockGetHAdrReference($sym)
     		$a_ref = new MyStockReference($strSymbol);
     		if ($strSymbolAdr = SqlGetHadrPair($strSymbolH))
     		{
-    			$hadr_ref = new MyHAdrReference($strSymbolH, $a_ref, new MyStockReference($strSymbolAdr));
+    			$hadr_ref = new HAdrReference($strSymbolH, $a_ref, new MyStockReference($strSymbolAdr));
     			return array($a_ref, $hadr_ref, $hadr_ref);
     		}
-    		else	return array($a_ref, new MyHShareReference($strSymbolH, $a_ref), false);
+    		else	return array($a_ref, new HShareReference($strSymbolH, $a_ref), false);
       	}
     }
     else if ($sym->IsSymbolH())
@@ -371,18 +372,18 @@ function StockGetHAdrReference($sym)
     		$adr_ref = new MyStockReference($strSymbolAdr);
     		if ($strSymbolA = SqlGetHaPair($strSymbol))	
     		{
-    			$hadr_ref = new MyHAdrReference($strSymbol, new MyStockReference($strSymbolA), $adr_ref);
+    			$hadr_ref = new HAdrReference($strSymbol, new MyStockReference($strSymbolA), $adr_ref);
     			return array($hadr_ref, $hadr_ref, $hadr_ref);
     		}
             else
             {
-            	$hadr_ref = new MyHAdrReference($strSymbol, false, $adr_ref);
+            	$hadr_ref = new HAdrReference($strSymbol, false, $adr_ref);
             	return array($hadr_ref, false, $hadr_ref);
             }
         }
         else if ($strSymbolA = SqlGetHaPair($strSymbol))	
         {
-        	$hshare_ref = new MyHShareReference($strSymbol, new MyStockReference($strSymbolA));
+        	$hshare_ref = new HShareReference($strSymbol, new MyStockReference($strSymbolA));
             return array($hshare_ref, $hshare_ref, false);
         }
     }
@@ -393,10 +394,10 @@ function StockGetHAdrReference($sym)
     		$adr_ref = new MyStockReference($strSymbol);
     		if ($strSymbolA = SqlGetHaPair($strSymbolH))
     		{
-    			$hadr_ref = new MyHAdrReference($strSymbolH, new MyStockReference($strSymbolA), $adr_ref);
+    			$hadr_ref = new HAdrReference($strSymbolH, new MyStockReference($strSymbolA), $adr_ref);
     			return array($adr_ref, $hadr_ref, $hadr_ref);
     		}
-    		else	return array($adr_ref, false, new MyHAdrReference($strSymbolH, false, $adr_ref));
+    		else	return array($adr_ref, false, new HAdrReference($strSymbolH, false, $adr_ref));
       	}
     }
     return false;

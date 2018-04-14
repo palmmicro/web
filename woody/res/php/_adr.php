@@ -43,7 +43,7 @@ class _AdrGroup extends _MyStockGroup
         $strSymbolA = SqlGetHaPair($strSymbolH);
         $this->cn_ref = new MyStockReference($strSymbolA);
         $this->us_ref = new MyStockReference($strSymbolAdr);
-        $this->hk_ref = new MyHAdrReference($strSymbolH, $this->cn_ref, $this->us_ref);
+        $this->hk_ref = new HAdrReference($strSymbolH, $this->cn_ref, $this->us_ref);
 
         $this->hk_his = new StockHistory($this->hk_ref);
         $this->cn_his = new StockHistory($this->cn_ref);

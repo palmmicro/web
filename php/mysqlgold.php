@@ -29,12 +29,12 @@ function GoldEtfGetAllSymbolArray($strSymbol)
     return array($strSymbol, FutureGetSinaSymbol($strCnFutureSymbol), FutureGetSinaSymbol($strFutureSymbol));
 }
 
-class MyGoldEtfReference extends MyFundReference
+class MyGoldEtfReference extends FundReference
 {
     // constructor 
     function MyGoldEtfReference($strSymbol)
     {
-        parent::MyFundReference($strSymbol);
+        parent::FundReference($strSymbol);
         $this->SetForex('USCNY');
         $this->est_ref = new FutureReference(GoldEtfGetCnFutureSymbol($strSymbol));
         $this->future_ref = new FutureReference(GoldEtfGetFutureSymbol($strSymbol));

@@ -174,7 +174,7 @@ function _wxGetStockText($strSymbol)
     $str = false;
     if ($sym->IsSinaFund())     
     {   // IsSinaFund must be called before IsSinaFuture
-        $ref = new MyFundReference($strSymbol);
+        $ref = new FundReference($strSymbol);
         $str = _getFundReferenceText($ref); 
     }
     else if ($strFutureSymbol = $sym->IsSinaFuture())

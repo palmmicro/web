@@ -1,7 +1,7 @@
 <?php
 require_once('stocktable.php');
 
-// $ref from MyFundReference
+// $ref from FundReference
 function _echoFundEstTableItem($ref, $bChinese)
 {
     if ($ref == false)                  return;
