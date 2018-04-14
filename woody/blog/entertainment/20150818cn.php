@@ -1,4 +1,5 @@
 <?php require_once('php/_entertainment.php'); ?>
+<?php require_once('php/_20150818.php'); ?>
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -9,6 +10,8 @@
 
 <body bgproperties=fixed leftmargin=0 topmargin=0>
 <?php _LayoutTopLeft(true); ?>
+
+<?php DemoPrefetchData(); ?>
 
 <div>
 <h1>SZ162411净值估算的PHP程序</h1>
@@ -135,10 +138,11 @@
 
 <h3>历史<a name="netvalue">净值</a></h3>
 <p>2016年1月8日
-<br />在<?php EchoXueqieId('2091843424', '塔夫男'); ?>等人的建议下, 加入记录<a href="../../res/netvaluehistorycn.php?symbol=SZ162411">华宝油气历史净值</a>的表格. 
+<br />在<?php EchoXueqieId('2091843424', '塔夫男'); ?>等人的建议下, 加入记录华宝油气历史净值表格. 
 最近几天的直接显示在当前页面, 同时增加<?php EchoPhpFileLink('/woody/res/netvaluehistory.php'); ?>, 
 <?php EchoPhpFileLink('/woody/res/netvaluehistorycn.php'); ?>和<?php EchoPhpFileLink('/woody/res/php/_netvaluehistory.php'); ?>显示全部历史数据.
 </p>
+<?php EchoFundHistoryDemo(true); ?>
 
 <h3>统一数据显示格式</h3>
 <p>2016年1月26日
@@ -152,6 +156,7 @@
 <br />原来<font color=olive>StockReference</font>类中记录原始数据的成员变量$strDate (2014-11-13, 'Y-m-d')和$strTime (08:55:00, 'H:i:s')维持不变,
 增加专门用来显示的成员变量$strTimeHM (08:55), 分离数据和显示.   
 </p>
+<?php EchoReferenceDemo(true); ?>
 
 <h3><a name="pairtrading">配对交易</a></h3>
 <p>2016年2月26日
@@ -166,7 +171,7 @@
 <h3><a name="gradedfund">分级基金</a></h3>
 <p>2016年3月11日
 <br />A股屡次大跌, 原本觉得安全的SZ150022越来越不敢买了. 增加<a href="../../res/sz150022cn.php">深成指A</a>页面细算一下, 同时顺手加了<a href="../../res/sz150175cn.php">H股A</a>.
-<br />一直有用户建议我在华宝油气等LOF的<a href="../../res/sz162411cn.php#history">净值历史</a>表格上加入预估净值比较栏目. 除了不愿意直接打自己嘴巴外的心理因素外, 我迟迟没有加上它的原因主要是估值是实时变化的.
+<br />一直有用户建议我在华宝油气等LOF的<a href="#netvalue">历史净值</a>表格上加入预估净值比较栏目. 除了不愿意直接打自己嘴巴外的心理因素外, 我迟迟没有加上它的原因主要是估值是实时变化的.
 我一直想不清楚是该加在美股收盘后的预估净值还是A股收盘后的.
 <br />在LOF的代码中, 单独的预估净值变量原本放在<font color=olive>_LofGroup</font>类中.
 而在新的分级基金<?php EchoPhpFileLink('/woody/res/php/_gradedfund.php'); ?>中的<font color=olive>_GradedFundGroup</font>类中用到了3个<?php EchoPhpFileLink('/php/stock/fundref.php'); ?>中<font color=olive>FundReference</font>类的成员变量. 
@@ -239,6 +244,7 @@
 <br />不知道什么原因, 我不喜欢T-1/T/T+1这种叫法, 所以我在网页中把T日估值称为官方估值, 而把T+1估值称为实时估值. 为了让我的实时估值更加名副其实, 在采用的<a href="20160615cn.php">美元人民币中间价</a>上也是用的当天的中间价.
 也就是说, 除了中间价和CL的区别, 用来做官方估值和实时估值的其它因素都是一样的.
 </p>
+<?php EchoFundEstDemo(true); ?>
 
 <h3>验证<a name="thanouslaw">小心愿定律</a></h3>
 <p>2016年9月18日
@@ -275,8 +281,9 @@
 <h3><a name="ahcompare">AH股</a>对比</h3>
 <p>2017年1月28日
 <br />为了有效配合今年的<a href="20141016cn.php#2016">打新</a>计划, 我打算扩大中国石化外的门票范围, 但是同时沿用AH股价格比较的思路, 只选取A股价格低于H股的作为门票.
-<br />替选股增加了<a href="../../res/ahcomparecn.php">AH对比</a>, 同时把原来</a><a href="#adr">ADR</a>中用到的AH关联数组统一放到<?php EchoPhpFileLink('/php/ahstockarray.php'); ?>中.
+<br />替选股增加个对比页面, 同时把原来<a href="#adr">ADR</a>中用到的AH关联数组统一放到<?php EchoPhpFileLink('/php/ahstockarray.php'); ?>中.
 </p>
+<?php EchoAhDemo(true); ?>
 
 <h3><a name="bollinger">布林</a>线</h3>
 <p>2017年4月2日
@@ -356,15 +363,17 @@
 <br />c = k * (∑Xm)² - 16 * ∑Xm²;
 <br />最后解出结果.
 </p>
+<?php EchoLofSmaDemo(true); ?>
 
-<h3>美股<a name="adrhcompare">ADR</a>跟港股H股对比</h3>
+<h3>美股<a name="adrhcompare">ADR</a>跟港股对比</h3>
 <p>2018年4月4日
 <br />雪球创始人方三文, 自称<?php EchoXueqieId('1955602780', '不明真相的群众'); ?>, 平时总是苦口婆心的把盈亏同源放在嘴边, 鼓动大家通过雪球资管做资产配置.
 但是他却认为自己对互联网企业有深刻理解, 在推销自己的私募的时候总是鼓吹腾讯和FB, 又把盈亏同源抛在脑后了.
 <br />最近2个月腾讯结束了屡创新高的行情, 开始跟FB一起下跌, 引发了大家抄底雪球方丈的热情.
-不仅<a href="../../res/mystockcn.php?symbol=00700">港股腾讯</a>每天巨量交易, 就连它在美股粉单市场的<a href="#adr">ADR</a>代码<a href="../../res/mystockcn.php?symbol=TCEHY">TCEHY</a>在雪球上都热闹非凡.
-这吸引了我的注意力, 然后发现港股还有其它不少股票也有美股粉单市场的ADR, 于是我按照原来<a href="#ahcompare">AH对比</a>的套路增加了<a href="../../res/adrhcomparecn.php">ADR和H对比</a>页面蹭一下热度.
+不仅<a href="../../res/mystockcn.php?symbol=00700">港股腾讯</a>每天巨量交易, 就连它在美股粉单市场的<a href="#adr">ADR</a>在雪球上都热闹非凡.
+这吸引了我的注意力, 然后发现港股还有其它不少股票也有美股粉单市场的ADR, 于是我按照原来<a href="#ahcompare">AH对比</a>的套路增加了个页面蹭一下热度.
 </p>
+<?php EchoAdrhDemo(true); ?>
 
 </div>
 

@@ -122,7 +122,7 @@ function EchoAll($bChinese)
     EchoFundEstParagraph($fund, $bChinese);
     EchoReferenceParagraph($group->arDisplayRef, $bChinese);
     EchoFundTradingParagraph($fund, _onTradingUserDefined, $bChinese);    
-    EchoSmaParagraph($group->etf_his, $fund->stock_ref, EtfEstLof, _onSmaUserDefined, $bChinese);
+	EchoLofSmaParagraph($fund, _onSmaUserDefined, $bChinese);
     EchoFundHistoryParagraph($fund, $bChinese);
     
     if ($group->strGroupId) 

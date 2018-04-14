@@ -1,4 +1,5 @@
 <?php require_once('php/_entertainment.php'); ?>
+<?php require_once('php/_20170305.php'); ?>
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -17,6 +18,7 @@
 参考估值和实时估值有什么不同?
 <br />华宝油气的实时估值在<a href="20150818cn.php#realtime">考虑当日CL交易情况后的T+1估值</a>中解释过, 不过那篇程序说明已经太长篇幅了, 所以在这里单独列个表解释一下这些混乱的估值名称.
 </p>
+<?php EchoFundEstDemo(true); ?>
 <TABLE borderColor=#cccccc cellSpacing=0 width=440 border=1 class="text" id="netvalue">
        <tr>
         <td class=c1 width=140 align=center>估值因素</td>
@@ -31,7 +33,7 @@
         <td class=c1 align="center">XOP</td>
       </tr>
       <tr>
-        <td class=c1 align="center">T+1日<a href="../../res/clcn.php">CL</a>期货</td>
+        <td class=c1 align="center">T+1日<a href="20150818cn.php#future">CL</a>期货</td>
         <td class=c1 align="center">否</td>
         <td class=c1 align="center">否</td>
         <td class=c1 align="center">是</td>
@@ -52,7 +54,7 @@
 而如果偶尔出现官方估值和实时估值不同, 那是因为CL和USO的数据没能在同一分钟内自动校准. 事实上, 显然在美股交易时段是没有T+1的CL数据和T+1的美元人民币中间价的, 此时的实时估值用的只能是T日的实时CL和T日的美元人民币中间价,
 参考估值也只能用T日的美元人民币中间价, 此时所有的估值和校准都是为美股结束后的参考估值和实时估值做准备, 用户只需要看官方估值即可.
 <br />在美股交易结束后, 这3个估值就开始分道扬镳了. T日官方估值不会再变化. 因为XOP和^SPSIOP通常不会100%一致收盘, 参考估值就可能会暂时固定在一个不同于官方估值的位置上. 
-CL通常会在美股收盘后继续多交易一个小时, 此时实时估值也就会随之变化. 等到第2天的10点, 软件会去自动拿通常在9点多发布的T+1日美元人民币中间价, 参考估值会因此改变固定在新值上,
+CL通常会在美股收盘后继续多交易一个小时, 此时实时估值也就会随之变化. 等到第2天, 软件会去自动拿通常在9点多发布的T+1日美元人民币中间价, 参考估值会因此改变固定在新值上,
 实时估值也会在这时候开始用T+1日美元人民币中间价.
 <br />说了这么多, 最后着重列一下大家最关心:
 <ol>

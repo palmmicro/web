@@ -54,15 +54,15 @@ class _MyStockGroup extends MyStockGroup
     }
 }
 
-function _GetStockHistoryDebugString($ar_his, $bChinese)
+function _GetStockConfigDebugString($ar_ref, $bChinese)
 {
 	$arSma = GetSmaTableColumn($bChinese);
     $str = $arSma[0];
-    foreach ($ar_his as $his)
+    foreach ($ar_ref as $ref)
     {
-        if ($his)
+        if ($ref)
         {
-            $str .= ' '.$his->DebugConfigLink();
+            $str .= ' '.$ref->DebugConfigLink();
         }
     }
     return $str;

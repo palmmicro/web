@@ -5,7 +5,7 @@ require_once('_editstockoptionform.php');
 //require_once('/php/ui/referenceparagraph.php');
 require_once('/php/ui/stockparagraph.php');
 require_once('/php/ui/ahparagraph.php');
-require_once('/php/ui/smaparagraph.php');
+require_once('/php/ui/stocksmaparagraph.php');
 require_once('/php/ui/fundestparagraph.php');
 require_once('/php/ui/tradingparagraph.php');
 //require_once('/php/ui/stockgroupparagraph.php');
@@ -107,7 +107,7 @@ function _echoMyStock($strSymbol, $bChinese)
        	}
     }
     
-    if ($sym->IsForex() == false)	EchoMyStockSmaParagraph($ref, $hshare_ref, $hadr_ref, $bChinese);
+    if ($sym->IsForex() == false)	EchoStockSmaParagraph($ref, $hshare_ref, $hadr_ref, $bChinese);
     
     if ($strMemberId = AcctIsLogin())
     {

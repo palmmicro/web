@@ -89,7 +89,7 @@ class _PairTradingGroup extends _MyStockGroup
 function _echoAdminTestParagraph($group, $bChinese)
 {
     $str = $group->GetDebugString($bChinese);
-    $str .= HTML_NEW_LINE._GetStockHistoryDebugString(array($group->stock_his, $group->index_his), $bChinese);
+    $str .= HTML_NEW_LINE._GetStockConfigDebugString(array($group->ref, $group->index_ref), $bChinese);
     if ($group->index_ref)
     {
         $str .= HTML_NEW_LINE;

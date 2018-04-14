@@ -1,4 +1,5 @@
 <?php require_once('php/_entertainment.php'); ?>
+<?php require_once('php/_20150818.php'); ?>
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -9,6 +10,8 @@
 
 <body bgproperties=fixed leftmargin=0 topmargin=0>
 <?php _LayoutTopLeft(false); ?>
+
+<?php DemoPrefetchData(); ?>
 
 <div>
 <h1>PHP Application to Estimate the Net Value of SZ162411</h1>
@@ -135,10 +138,11 @@ Now XOP data in file <?php EchoFileLink('/debug/sina/gb_xop.txt'); ?>. ^SPSIOP d
 
 <h3><a name="netvalue">Net Value</a> History</h3>
 <p>Jan 8, 2016
-<br /><a href="../../res/netvaluehistory.php?symbol=SZ162411">SZ162411 history</a> net value table was added following the advice from <?php EchoXueqieId('2091843424', 'airwolf2026'); ?>. 
+<br />SZ162411 history net value table was added following the advice from <?php EchoXueqieId('2091843424', 'airwolf2026'); ?>. 
 The most recent a few records are displayed in the current page, add files <?php EchoPhpFileLink('/woody/res/netvaluehistory.php'); ?>,
 <?php EchoPhpFileLink('/woody/res/netvaluehistorycn.php'); ?> and <?php EchoPhpFileLink('/woody/res/php/_netvaluehistory.php'); ?> to display all history data.
 </p>
+<?php EchoFundHistoryDemo(false); ?>
 
 <h3>Unified Display</h3>
 <p>Jan 26, 2016
@@ -153,6 +157,7 @@ In this way, the display is unified, so the new version number really has someth
 <br />Original data member $strDate (2014-11-13, 'Y-m-d') and $strTime (08:55:00, 'H:i:s') in class <font color=olive>StockReference</font> are kept as the same, 
 added new data member $strTimeHM (08:55) for display, separating data and display.
 </p>
+<?php EchoReferenceDemo(false); ?>
 
 <h3><a name="pairtrading">Pair Trading</a></h3>
 <p>Feb 26, 2016
@@ -170,7 +175,7 @@ To keep the independence of the different modules in /php,
 <p>March 11, 2016
 <br />As Chinese stock going down frequently, I feel more and more unsafe for SZ150022 now. Added <a href="../../res/sz150022.php">Shenzhen Index A</a> page to calculate it more carefully.
 And added another similar graded fund <a href="../../res/sz150175.php">H Shares A</a> at the same time as well.
-<br />Different users have been suggesting to add estimation value in the <a href="../../res/sz162411.php#history">history net value</a> table of SZ162411.
+<br />Different users have been suggesting to add estimation value in the <a href="#netvalue">net value history</a> table of SZ162411.
 Except for not willing to show my possible error directly, I did not add it because the change is realtime, and I don't know when to record it, after US market close or Chinese market close?
 <br />In the LOF code, the variable for estimation value was originally in <font color=olive>_LofGroup</font> class.
 With my new <font color=olive>_GradedFundGroup</font> class in file <?php EchoPhpFileLink('/woody/res/php/_gradedfund.php'); ?> having 3 class member of <font color=olive>FundReference</font> class in file <?php EchoPhpFileLink('/php/stock/fundref.php'); ?>,
@@ -250,6 +255,7 @@ I thought it was because the web server was in US and my major visitors were fro
 <p>Aug 18, 2016
 <br />Many people's Excel sheet has this one, so I added it too.
 </p>
+<?php EchoFundEstDemo(false); ?>
 
 <h3>Test <a name="thanouslaw">Thanous Law</a></h3>
 <p>Sep 18, 2016
@@ -265,6 +271,22 @@ I thought it was because the web server was in US and my major visitors were fro
 <p>Oct 6, 2016
 <br />SZ162411 <a href="../../res/calibrationhistory.php?symbol=SZ162411">calibration history</a>.
 </p>
+
+<h3><a name="ahcompare">AH</a> Compare</h3>
+<p>Jan 28, 2017
+</p>
+<?php EchoAhDemo(false); ?>
+
+<h3>Crazy <a name="nextsma">T+1</a> Moving Average</h3>
+<p>March 27, 2018
+</p>
+<?php EchoLofSmaDemo(false); ?>
+
+<h3>Hongkong Stock and US <a name="adrhcompare">ADR</a> Compare</h3>
+<p>Apr 4, 2018
+<br />Similar with <a href="#ahcompare">AH Compare</a>.
+</p>
+<?php EchoAdrhDemo(false); ?>
 
 </div>
 

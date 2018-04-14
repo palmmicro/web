@@ -1,7 +1,7 @@
 <?php
 require_once('_stock.php');
 require_once('/php/ui/referenceparagraph.php');
-require_once('/php/ui/smaparagraph.php');
+require_once('/php/ui/stocksmaparagraph.php');
 require_once('/php/ui/tradingparagraph.php');
 
 class _AdrGroup extends _MyStockGroup 
@@ -10,9 +10,6 @@ class _AdrGroup extends _MyStockGroup
     var $us_ref;
     var $hk_ref;
     
-    var $cn_his;
-    var $hk_his;
-
     var $uscny_ref;
     var $hkcny_ref;
     
@@ -45,9 +42,6 @@ class _AdrGroup extends _MyStockGroup
         $this->us_ref = new MyStockReference($strSymbolAdr);
         $this->hk_ref = new HAdrReference($strSymbolH, $this->cn_ref, $this->us_ref);
 
-        $this->hk_his = new StockHistory($this->hk_ref);
-        $this->cn_his = new StockHistory($this->cn_ref);
-        
         $this->fUSDCNY = $this->uscny_ref->fPrice;
         $this->fHKDCNY = $this->hkcny_ref->fPrice;
         $this->fUSDHKD = $this->fUSDCNY / $this->fHKDCNY;
@@ -174,7 +168,7 @@ function _echoArbitrageParagraph($group, $bChinese)
 function _echoAdminTestParagraph($group, $bChinese)
 {
     $str = $group->GetDebugString($bChinese);
-    $str .= HTML_NEW_LINE._GetStockHistoryDebugString(array($group->hk_his, $group->cn_his), $bChinese);
+    $str .= HTML_NEW_LINE._GetStockConfigDebugString(array($group->hk_ref, $group->cn_ref, $group->us_ref), $bChinese);
     EchoParagraph($str);
 }
 
@@ -184,9 +178,9 @@ function AdrEchoAll($bChinese)
     
     _echoRefParagraph($group, $bChinese);
 	EchoAhTradingParagraph($group->hk_ref, $group->hk_ref, $bChinese);
-    EchoMyStockSmaParagraph($group->cn_ref, $group->hk_ref, $group->hk_ref, $bChinese);
-    EchoMyStockSmaParagraph($group->hk_ref, $group->hk_ref, $group->hk_ref, $bChinese);
-    EchoMyStockSmaParagraph($group->us_ref, $group->hk_ref, $group->hk_ref, $bChinese);
+    EchoStockSmaParagraph($group->cn_ref, $group->hk_ref, $group->hk_ref, $bChinese);
+    EchoStockSmaParagraph($group->hk_ref, $group->hk_ref, $group->hk_ref, $bChinese);
+    EchoStockSmaParagraph($group->us_ref, $group->hk_ref, $group->hk_ref, $bChinese);
 
     if ($group->strGroupId) 
     {

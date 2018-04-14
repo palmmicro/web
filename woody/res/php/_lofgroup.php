@@ -1,10 +1,9 @@
 <?php
 require_once('_fundgroup.php');
-require_once('/php/ui/smaparagraph.php');
+require_once('/php/ui/lofsmaparagraph.php');
 
 class _LofGroup extends _MyStockGroup
 {
-    var $etf_his;
     var $cny_ref;
     var $fCnyPrice;
     
@@ -14,12 +13,10 @@ class _LofGroup extends _MyStockGroup
         $etf_ref = $this->ref->etf_ref; 
         if ($etf_ref)
         {
-            $this->etf_his = new StockHistory($etf_ref);
             parent::_MyStockGroup(array($this->ref->stock_ref, $etf_ref));
         }
         else
         {
-            $this->etf_his = false;
             parent::_MyStockGroup(array($this->ref->stock_ref));
         }
         $this->fCnyPrice = SqlGetForexNow($this->cny_ref->GetStockId());
@@ -102,7 +99,7 @@ class _LofGroup extends _MyStockGroup
         $str = $this->GetDebugString($bChinese);
         if ($fund->etf_ref)
         {
-            $str .= HTML_NEW_LINE._GetStockHistoryDebugString(array($this->etf_his), $bChinese);
+            $str .= HTML_NEW_LINE._GetStockConfigDebugString(array($fund->etf_ref), $bChinese);
         }
         $str .=  HTML_NEW_LINE.$this->_getAdjustString($bChinese);
         if ($fund->index_ref && $fund->etf_ref)
@@ -135,13 +132,6 @@ function EchoMetaDescription($bChinese)
     if ($bChinese)  $str = '根据'.$strBase.'等因素计算'.$strDescription.'实时净值的网页工具, 提供不同市场下统一的交易记录和转换持仓盈亏等功能.';
     else              $str = 'Net value of '.$strDescription.' based on '.$strBase.'.';
     EchoMetaDescriptionText($str);
-}
-
-function EtfEstLof($fEtf, $lof_ref)
-{
-    global $group;
-    if ($fEtf)		return $group->ref->_estLofByEtf($fEtf, $group->ref->fCNY);
-    return $lof_ref;
 }
 
 ?>

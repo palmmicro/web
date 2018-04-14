@@ -188,7 +188,7 @@ function _echoIntegerParagraph($group, $bChinese)
 function _echoAdminTestParagraph($group, $bChinese)
 {
     $str = $group->GetDebugString($bChinese);
-    $str .= HTML_NEW_LINE._GetStockHistoryDebugString(array($group->etf_his), $bChinese);
+    $str .= HTML_NEW_LINE._GetStockConfigDebugString(array($group->etf_ref), $bChinese);
     $str .= HTML_NEW_LINE._GetEtfAdjustString($group->ref, $group->etf_ref, $bChinese);
     EchoParagraph($str);
 }

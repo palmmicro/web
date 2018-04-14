@@ -1,6 +1,5 @@
 <?php
 require_once('/php/stock.php');
-//require_once('/php/stock/yahoostockref.php');
 //require_once('/php/ui/referenceparagraph.php');
 require_once('/php/ui/ahparagraph.php');
 require_once('/php/ui/fundestparagraph.php');
