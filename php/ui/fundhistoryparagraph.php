@@ -168,11 +168,11 @@ function EchoFundHistoryFullParagraph($fund, $iStart, $iNum, $bChinese)
     $strSymbolLink = GetMyStockLink($strSymbol, $bChinese);
     if ($bChinese)     
     {
-        $str = "{$strSymbolLink}<a name=\"history\">历史</a>{$arColumn[1]}相对于{$arColumn[2]}的{$arColumn[3]}";
+        $str = "{$strSymbolLink}历史{$arColumn[1]}相对于{$arColumn[2]}的{$arColumn[3]}";
     }
     else
     {
-        $str = "The {$arColumn[3]} <a name=\"history\">history</a> of $strSymbolLink {$arColumn[1]} price comparing with {$arColumn[2]}";
+        $str = "The {$arColumn[3]} history of $strSymbolLink {$arColumn[1]} price comparing with {$arColumn[2]}";
     }
     
     if (($iStart == 0) && ($iNum == TABLE_COMMON_DISPLAY))

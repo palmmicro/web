@@ -172,15 +172,9 @@ class StockHistory
     var $afNext = array();
     var $aiTradingRange = array();
 
-    var $strConfigName;
     var $strDate;                     // 2014-11-13
     
     var $stock_ref;     // MyStockReference
-    
-    function DebugConfigLink()
-    {
-        return GetFileDebugLink($this->strConfigName);
-    }
     
     function _getTradingRange($iDays, $afClose, $afHigh, $afLow)
     {
@@ -328,7 +322,7 @@ class StockHistory
     
     function _configSMA()
     {
-        $cfg = new INIFile($this->strConfigName);
+        $cfg = new INIFile($this->stock_ref->strConfigName);
         $strCurDate = $this->strDate;
         if ($cfg->group_exists(SMA_SECTION))
         {
@@ -390,7 +384,6 @@ class StockHistory
 //        $this->aiNum = array(5, 10, 20, 30);
         $this->aiNum = array(5, 10, 20);
 
-        $this->strConfigName = DebugGetConfigFileName($this->GetStockSymbol());
 		$this->strDate = $this->_getStartDate();
         $this->_configSMA();
     }

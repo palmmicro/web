@@ -220,6 +220,7 @@ class StockReference
 	var $bConvertGB2312 = false;
     
     var $strFileName;                       // File to store original data
+    var $strConfigName;
     var $strTimeZone = STOCK_TIME_ZONE_CN;  // Time zone for $strDate and $strTime display
     var $strExternalLink = false;          // External link help to interprete the original data
     
@@ -260,6 +261,7 @@ class StockReference
     function StockReference($strSymbol)
     {
         $this->_newStockSymbol($strSymbol);
+        $this->strConfigName = DebugGetConfigFileName($strSymbol);
 
         if (floatval($this->strPrice) < MIN_FLOAT_VAL)   $this->strPrice = $this->strPrevPrice;
         
@@ -351,6 +353,11 @@ class StockReference
     function DebugLink()
     {
         return GetFileDebugLink($this->strFileName);
+    }
+    
+    function DebugConfigLink()
+    {
+        return GetFileDebugLink($this->strConfigName);
     }
     
     // Oct 17 09:31AM EDT
