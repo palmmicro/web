@@ -15,10 +15,10 @@ require_once('sql/sqlweixin.php');
 
 require_once('stock/sqlcnyref.php');
 
-define('WX_DEBUG_VER', '版本802');
+define('WX_DEBUG_VER', '版本805');
 
 define('WX_DEFAULT_SYMBOL', 'SZ162411');
-define('MAX_WX_STOCK', 30);
+define('MAX_WX_STOCK', 50);
 
 // ****************************** Wexin support functions *******************************************************
 
@@ -209,7 +209,12 @@ function _wxGetStockText($strSymbol)
         	$str = _getStockReferenceText($ref);
         }
     }
-   	if ($str == false)	$str = "($strSymbol:无数据)";
+   	if ($str == false)
+   	{
+   		$str = "($strSymbol:无数据)";
+   		DebugString($str);
+   		$str .= WX_EOL;
+   	}
     return $str;
 }
 

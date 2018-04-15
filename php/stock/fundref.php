@@ -184,6 +184,7 @@ class FundReference extends StockReference
         $this->_newStockSymbol($strSymbol);
         $this->LoadSinaFundData();
         parent::StockReference($strSymbol);
+        $this->strDescription = $this->GetChineseName();
 
         if ($this->sym->IsFundA())
         {

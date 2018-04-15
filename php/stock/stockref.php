@@ -251,7 +251,7 @@ class StockReference
     var $fPercentage;           // $fPrice / $fPrevPrice
     
     // converted string data
-    var $strTimeHM;              //           06:56
+    var $strTimeHM = '';              //           06:56
     
     var $bHasData = true;
     

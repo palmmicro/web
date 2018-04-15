@@ -1,6 +1,5 @@
 <?php
 require_once('gb2312.php');
-require_once('mysqlstockhistory.php');
 require_once('sql/sqlstock.php');
 
 // ****************************** MysqlReference class *******************************************************

@@ -1,5 +1,4 @@
 <?php
-
 // max 20 months history used
 //define ('MAX_QUOTES_DAYS', 930);
 define ('MAX_QUOTES_DAYS', 620);
@@ -22,7 +21,6 @@ function _ignoreCurrentTradingData($strDate, $sym)
 }
 
 // ****************************** SMA functions *******************************************************
-
 function _estSma($arF, $iIndex, $iAvg)
 {
     $f = 0.0;
@@ -114,9 +112,7 @@ function _estNextBollingerBands($arF, $iAvg)
     return false;
 }
 
-
 // ****************************** Private functions *******************************************************
-
 function _isWeekEnd($strYMD, $strNextDayYMD)
 {
     $ymd = new YMDString($strYMD);
@@ -163,7 +159,6 @@ function _isMonthEnd($strYMD, $strNextDayYMD)
 }
 
 // ****************************** StockHistory Class *******************************************************
-
 class StockHistory
 {
     var $aiNum;     // days/weeks/months 
