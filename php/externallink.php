@@ -87,10 +87,20 @@ function GetSinaHkStockLink($sym)
 // http://finance.sina.com.cn/fund/quotes/162411/bc.shtml
 function GetSinaFundLink($sym)
 {
-    $strSymbol = $sym->strSymbol;
+    $strDigit = false;
     if ($sym->IsFundA())
     {
-        $strHttp = 'http://finance.sina.com.cn/fund/quotes/'.$sym->strDigitA.'/bc.shtml';
+    	$strDigit = $sym->strDigitA;
+    }
+    else
+    {
+    	$strDigit = $sym->IsSinaFund();
+    }
+    
+    $strSymbol = $sym->strSymbol;
+    if ($strDigit)
+    {
+        $strHttp = "http://finance.sina.com.cn/fund/quotes/$strDigit/bc.shtml";
         return GetExternalLink($strHttp, $strSymbol);
     }
     return $strSymbol;

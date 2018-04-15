@@ -60,7 +60,6 @@ class _PairTradingGroup extends _MyStockGroup
             $this->netvalue_ref = false;
             $this->stock_his = new StockHistory($this->ref);
         }
-        $this->arDisplayRef = array_merge(array($this->index_ref, $this->ref, $this->netvalue_ref), $this->ar_leverage_ref);     
         parent::_MyStockGroup(array_merge(array($this->ref), $this->ar_leverage_ref));
     }
     
@@ -88,8 +87,7 @@ class _PairTradingGroup extends _MyStockGroup
 
 function _echoAdminTestParagraph($group, $bChinese)
 {
-    $str = $group->GetDebugString($bChinese);
-    $str .= HTML_NEW_LINE._GetStockConfigDebugString(array($group->ref, $group->index_ref), $bChinese);
+    $str = _GetStockConfigDebugString(array($group->ref, $group->index_ref), $bChinese);
     if ($group->index_ref)
     {
         $str .= HTML_NEW_LINE;
@@ -122,7 +120,7 @@ function EchoAll($bChinese)
 {
     global $group;
     
-    EchoReferenceParagraph($group->arDisplayRef, $bChinese);
+    EchoReferenceParagraph(array_merge(array($group->index_ref, $group->ref, $group->netvalue_ref), $group->ar_leverage_ref), $bChinese);
     if ($group->index_his)
     {
         $his = $group->index_his;

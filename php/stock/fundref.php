@@ -156,7 +156,7 @@ class FundReference extends StockReference
     function LoadSinaFundData()
     {
         $sym = $this->sym;
-        if ($sym->IsSinaFund())	$strFundSymbol = $strSymbol;
+        if ($sym->IsSinaFund())	$strFundSymbol = $sym->strSymbol;
         else						$strFundSymbol = $sym->GetSinaFundSymbol();
         
         $this->strFileName = DebugGetSinaFileName($strFundSymbol);
@@ -175,6 +175,7 @@ class FundReference extends StockReference
         $this->strName = $ar[0];
 
         $this->bConvertGB2312 = true;     // Sina name is GB2312 coded
+        $this->strExternalLink = GetSinaFundLink($sym);
     }
 	
     // constructor 

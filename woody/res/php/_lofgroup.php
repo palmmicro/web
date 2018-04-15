@@ -96,15 +96,14 @@ class _LofGroup extends _MyStockGroup
         if (AcctIsAdmin() == false)     return;
         
         $fund = $this->ref;
-        $str = $this->GetDebugString($bChinese);
-        if ($fund->etf_ref)
-        {
-            $str .= HTML_NEW_LINE._GetStockConfigDebugString(array($fund->etf_ref), $bChinese);
-        }
-        $str .=  HTML_NEW_LINE.$this->_getAdjustString($bChinese);
+        $str = $this->_getAdjustString($bChinese);
         if ($fund->index_ref && $fund->etf_ref)
         {
             $str .=  HTML_NEW_LINE._GetEtfAdjustString($fund->index_ref, $fund->etf_ref, $bChinese);
+        }
+        if ($fund->etf_ref)
+        {
+            $str .= HTML_NEW_LINE._GetStockConfigDebugString(array($fund->etf_ref), $bChinese);
         }
         EchoParagraph($str);
     }

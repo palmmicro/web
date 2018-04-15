@@ -177,12 +177,12 @@ class MyStockReference extends MysqlReference
 			else if ($strGoogleSymbol = $this->sym->GetGoogleSymbol())	$this->LoadGoogleData($strGoogleSymbol);
             else											                    $this->LoadYahooData();
             
-            if ($this->bHasData == false)
+/*            if ($this->bHasData == false)
             {
             	$this->bHasData = true;
                 $this->LoadYahooData();
                 if ($this->bHasData)	DebugString('Wrong symbol classification warning:'.$strSymbol);
-            }
+            }*/
         }
         else if (self::$strDataSource == STOCK_YAHOO_DATA)
         {

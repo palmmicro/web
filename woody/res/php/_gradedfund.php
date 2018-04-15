@@ -20,7 +20,6 @@ class _GradedFundGroup extends _MyStockGroup
             $arRef[] = $this->ref->m_ref->stock_ref;     
         }
 
-        $this->arDisplayRef = array_merge($arRef, array($this->ref, $this->ref->b_ref, $this->ref->m_ref, $this->ref->est_ref));
         parent::_MyStockGroup($arRef);
     } 
 } 
@@ -121,11 +120,6 @@ function _echoRefParagraph($group, $bChinese)
 
 // ****************************** private functions *******************************************************
 
-function _echoAdminTestParagraph($group, $bChinese)
-{
-    EchoParagraph($group->GetDebugString($bChinese));
-}
-
 function EchoAll($bChinese)
 {
     global $group;
@@ -158,10 +152,6 @@ function EchoAll($bChinese)
 	}
     
     EchoPromotionHead('gradedfund', $bChinese);
-    if (AcctIsAdmin())
-    {
-        _echoAdminTestParagraph($group, $bChinese);
-    }
 }
 
 function GradedFundEchoTitle($bChinese)

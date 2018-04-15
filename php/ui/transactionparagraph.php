@@ -106,6 +106,10 @@ END;
 
 function EchoTransactionFullParagraph($strText, $strGroupId, $ref, $iStart, $iNum, $bChinese)
 {
+	if (AcctIsDebug())
+	{
+		$strText .= ' '.GetMyStockGroupLink($strGroupId, SqlGetStockGroupName($strGroupId), $bChinese);
+	}
     EchoParagraphBegin($strText);
     _echoTransactionTable($strGroupId, $ref, $iStart, $iNum, $bChinese);
     EchoParagraphEnd();

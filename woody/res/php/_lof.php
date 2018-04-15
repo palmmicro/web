@@ -20,7 +20,6 @@ class _LofUsGroup extends _LofGroup
         $this->usd_ref = new ForexReference($strUSD);
         $this->etf_netvalue_ref = new YahooNetValueReference($strEtfSymbol);
         parent::_LofGroup();
-        $this->arDisplayRef = array($this->ref->index_ref, $this->ref->etf_ref, $this->etf_netvalue_ref, $this->ref->future_ref, $this->usd_ref, $this->cny_ref, $this->ref->stock_ref, $this->ref);
     }
     
     function OnData()
@@ -120,7 +119,7 @@ function EchoAll($bChinese)
     $fund = $group->ref;
     
     EchoFundEstParagraph($fund, $bChinese);
-    EchoReferenceParagraph($group->arDisplayRef, $bChinese);
+    EchoReferenceParagraph(array($fund->index_ref, $fund->etf_ref, $group->etf_netvalue_ref, $fund->future_ref, $group->usd_ref, $group->cny_ref, $fund->stock_ref), $bChinese);
     EchoFundTradingParagraph($fund, _onTradingUserDefined, $bChinese);    
 	EchoLofSmaParagraph($fund, _onSmaUserDefined, $bChinese);
     EchoFundHistoryParagraph($fund, $bChinese);

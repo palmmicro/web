@@ -111,10 +111,6 @@ function EchoVisitorCommonLinks($strAllLink, $bChinese)
     
     $arCategory = _getCategoryArray($bChinese);
     $str = GetCategoryLinks('/account/', $arCategory, $bChinese);
-    if (AcctIsAdmin())
-    {
-        $str .= ' '.GetDebugLink();
-    }
     EchoParagraph($str);
 }
 

@@ -179,6 +179,8 @@ function EchoFundHistoryFullParagraph($fund, $iStart, $iNum, $bChinese)
     {
         $str .= ' '.GetNetValueHistoryLink($strSymbol, $bChinese);
     }
+
+    if (AcctIsDebug())		$str .= ' '.$fund->DebugLink();
     
     EchoParagraphBegin($str);
     EchoFundHistoryTableBegin($arColumn);

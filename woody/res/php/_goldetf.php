@@ -13,15 +13,13 @@ class _GoldEtfGroup extends _MyStockGroup
         $this->cny_ref = new CnyReference('USCNY');
         $this->ref = new MyGoldEtfReference($strSymbol);
         
-        $this->arDisplayRef = array($this->ref->est_ref, $this->ref->future_ref, $this->cny_ref, $this->ref->stock_ref, $this->ref);
         parent::_MyStockGroup(array($this->ref->stock_ref));
     }
 } 
 
 function _echoAdminTestParagraph($group, $bChinese)
 {
-    $str = $group->GetDebugString($bChinese);
-    $str .= '<br />'._GetEtfAdjustString($group->ref->stock_ref, $group->ref->est_ref, $bChinese);
+    $str = _GetEtfAdjustString($group->ref->stock_ref, $group->ref->est_ref, $bChinese);
     EchoParagraph($str);
 }
 
@@ -31,7 +29,7 @@ function EchoAll($bChinese)
     $fund = $group->ref;
     
     EchoFundEstParagraph($fund, $bChinese);
-    EchoReferenceParagraph($group->arDisplayRef, $bChinese);
+    EchoReferenceParagraph(array($fund->est_ref, $fund->future_ref, $group->cny_ref, $fund->stock_ref), $bChinese);
     EchoFundTradingParagraph($fund, false, $bChinese);    
     EchoFundHistoryParagraph($fund, $bChinese);
 

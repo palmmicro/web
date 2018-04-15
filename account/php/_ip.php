@@ -38,11 +38,6 @@ function EchoCheckIp($bChinese)
     $str = IpLookupGetString($strIp, '<br />', $bChinese);
     EchoParagraph($str);
     _echoEditIpForm($strIp, $bChinese);
-    
-    if (AcctIsAdmin())
-    {
-        EchoParagraph(GetDebugLink());
-    }
 }
 
     AcctNoAuth();

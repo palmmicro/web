@@ -4,6 +4,28 @@ require_once('debug.php');
 
 define ('DEFAULT_NAV_DISPLAY', 100);
 
+function GetOnClickLink($strPath, $strQuestion, $strDisplay)
+{
+    $strHttp = UrlGetServer().$strPath;
+    $strLink = "<a href=\"$strHttp\" onclick=\"return confirm('$strQuestion')\">$strDisplay</a>";
+    return $strLink;
+}
+
+function GetDeleteLink($strPath, $strCn, $strUs, $bChinese)
+{
+    if ($bChinese)
+    {
+        $strDisplay = '删除';
+        $strQuestion = '确认删除'.$strCn;
+    }
+    else
+    {
+        $strDisplay = 'Delete';
+        $strQuestion = 'Confirm delete '.$strUs;
+    }
+    return GetOnClickLink($strPath, $strQuestion.'?', $strDisplay);
+}
+
 function GetInternalLink($strPath, $strDisplay)
 {
     $strHttp = UrlGetServer().$strPath;
@@ -36,6 +58,14 @@ function GetFileLink($strPathName)
 		$strFileName = substr($strFileName, -10, 10);
 	}
     return GetExternalLink(UrlGetServer().$strPathName, $strFileName);
+}
+
+function GetFileDebugLink($strPathName)
+{
+    $strLink = GetFileLink($strPathName);
+    $strLastTime = DebugGetFileTimeDisplay($strPathName);
+    $strDelete = GetOnClickLink('/php/_submitdelete.php?file='.$strPathName, '确认删除调试文件'.$strPathName.'?', $strLastTime);
+    return "$strLink($strDelete)";
 }
 
 function GetPhpLink($strPathTitle, $strQuery, $strDisplay, $bChinese)
@@ -120,28 +150,6 @@ function GetNavLink($strQueryId, $iTotal, $iStart, $iNum, $bChinese)
         }
     }
     return $str;
-}
-
-function GetOnClickLink($strPath, $strQuestion, $strDisplay)
-{
-    $strHttp = UrlGetServer().$strPath;
-    $strLink = "<a href=\"$strHttp\" onclick=\"return confirm('$strQuestion')\">$strDisplay</a>";
-    return $strLink;
-}
-
-function GetDeleteLink($strPath, $strCn, $strUs, $bChinese)
-{
-    if ($bChinese)
-    {
-        $strDisplay = '删除';
-        $strQuestion = '确认删除'.$strCn;
-    }
-    else
-    {
-        $strDisplay = 'Delete';
-        $strQuestion = 'Confirm delete '.$strUs;
-    }
-    return GetOnClickLink($strPath, $strQuestion.'?', $strDisplay);
 }
 
 function GetEditLink($strPathTitle, $strEdit, $bChinese)

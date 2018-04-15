@@ -135,7 +135,14 @@ function MyStockGroupEchoAll($bChinese)
     }
     else
     {
-        _echoStockGroupArray(StockGetArraySymbol(GetCategoryArray($strTitle)), $bChinese);
+    	$ar = GetCategoryArray($strTitle);
+    	$arSymbol = array();
+    	foreach ($ar as $str)
+    	{
+    		if (in_arrayFuture($str))		$arSymbol[] = FutureGetSinaSymbol(strtoupper($str));
+    		else							$arSymbol[] = StockGetSymbol($str); 
+    	}
+        _echoStockGroupArray($arSymbol, $bChinese);
     }
     
     EchoPromotionHead($strTitle, $bChinese);

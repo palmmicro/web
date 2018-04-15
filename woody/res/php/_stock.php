@@ -10,8 +10,6 @@ require_once('_stocklink.php');
 class _MyStockGroup extends MyStockGroup
 {
     var $ref;                
-    var $arDisplayRef = false;      // For stock information display and debug
-    
     var $strName;            //  Group name
     
     // constructor 
@@ -38,19 +36,6 @@ class _MyStockGroup extends MyStockGroup
             }
         }
         parent::MyStockGroup($strGroupId, $arRef);
-    }
-    
-    function GetDebugString($bChinese)
-    {
-        $strFile = $bChinese ? '数据' : 'Data';
-        foreach ($this->arDisplayRef as $ref)
-        {
-            if ($ref)
-            {
-                $strFile .= ' '.$ref->DebugLink();
-            }
-        }
-        return $strFile;
     }
 }
 
@@ -339,12 +324,6 @@ function EchoPromotionHead($strVer, $bChinese)
     }
     echo _getDevGuideLink($strVer, $bChinese);
     EchoParagraphEnd();
-    
-    if (AcctIsAdmin())
-    {
-        $str = GetDebugLink();
-        EchoParagraph($str);
-    }
 }
 
 // ****************************** Money Paragraph *******************************************************

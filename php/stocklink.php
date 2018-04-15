@@ -239,6 +239,11 @@ function SelectSymbolInternalLink($strSymbol, $bChinese)
     return $strSymbol;
 }
 
+function GetMyStockGroupLink($strGroupId, $strGroupName, $bChinese)
+{
+	return _stockGetLink('mystockgroup', 'groupid='.$strGroupId, $strGroupName, $bChinese);
+}
+
 function SelectGroupInternalLink($strGroupId, $bChinese)
 {
     if (($strGroupName = SqlGetStockGroupName($strGroupId)) == false)    return '';
@@ -246,7 +251,7 @@ function SelectGroupInternalLink($strGroupId, $bChinese)
 	$strLink = SelectSymbolInternalLink($strGroupName, $bChinese);
 	if ($strLink == $strGroupName)
 	{
-        $strLink = _stockGetLink('mystockgroup', 'groupid='.$strGroupId, $strGroupName, $bChinese);
+        $strLink = GetMyStockGroupLink($strGroupId, $strGroupName, $bChinese);
 	}
     return $strLink; 
 }

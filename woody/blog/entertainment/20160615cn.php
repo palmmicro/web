@@ -58,7 +58,7 @@
 己所不欲勿施于人, 我也就一直不愿意用<a href="20170309cn.php">爬虫</a>抓取其它网站的数据. 
 而等我下定决心克服自己的爬虫洁癖打算去<?php EchoLink('http://www.chinamoney.com.cn/r/cms/www/chinamoney/html/cn/latestRMBParityCn.html'); ?>爬数据后, 东方财富的中间价接口却又奇迹般恢复正常了.
 <br />前天晚上的时候东方财富又出错了, 这次不是给老数据, 而是干脆就没有数据了. 昨天白天我在群里抱怨了一下, 正打算重新挽起袖子写爬虫.
-没想到群里的海浪突然告诉我他找到了中国外汇交易中心的中间价接口<?php EchoLink('http://www.chinamoney.com.cn/r/cms/www/chinamoney/data/fx/ccpr.json'); ?>.
+没想到群里的海风突然告诉我他找到了中国外汇交易中心的中间价接口<?php EchoLink('http://www.chinamoney.com.cn/r/cms/www/chinamoney/data/fx/ccpr.json'); ?>.
 <br />真是个天大的利好啊, 我赶快把手头的微信小程序和IB自动交易编程放在一边, 在晚上炒美股的时候改写了本来为爬虫准备的<?php EchoPhpFileLink('/php/stock/chinamoney.php'); ?>, 过几个小时就能用上了.
 基于中国外汇交易中心的第一手数据, 这样能够有效的在每天9点15后就拿到当天的中间价, 从而可以根据按当天中间价调整后的华宝油气<a href="20170305cn.php">参考估值</a>决定是否要在9点20前撤销掉集合竞价的买卖单.
 <br />软件总是会越写越乱. 在2年前写<a href="20150818cn.php#pairtrading">配对交易</a>时候的结构设计中, 放在<font color=lime>/php/stock/</font>目录下的文件本来是打算只放跟MySQL数据库无关的基本股票数据采集处理代码的.

@@ -11,20 +11,6 @@ define ('DEFAULT_NAV_DISPLAY', 100);
 // ****************************** Internal none-stock link functions *******************************************************
 
 define ('ACCT_PATH', '/account/');
-define ('TEST_PATHNAME', 'php/test.php');
-
-function GetFileDebugLink($strPathName)
-{
-    $strLink = GetFileLink($strPathName);
-    $strLastTime = DebugGetFileTimeDisplay($strPathName);
-    $strDelete = GetOnClickLink('/php/_submitdelete.php?file='.$strPathName, '确认删除调试文件'.$strPathName.'?', $strLastTime);
-    return "$strLink($strDelete)";
-}
-
-function GetDebugLink()
-{
-    return GetFileDebugLink(DebugGetFile()).' '.GetFileDebugLink(UrlGetRootDir().TEST_PATHNAME);
-}
 
 function GetBlogLink($strBlogId)
 {

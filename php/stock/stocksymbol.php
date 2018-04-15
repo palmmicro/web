@@ -23,7 +23,7 @@ function IsChineseStockDigit($strDigit)
     {
         if (strlen($strDigit) == 6)
         {
-            return true;
+            return $strDigit;
         }
     }
     return false;

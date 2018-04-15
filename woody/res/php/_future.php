@@ -49,7 +49,6 @@ class _FutureGroup extends _MyStockGroup
         
         $this->etf_his = new StockHistory($this->etf_ref);
         
-        $this->arDisplayRef = array($this->ref, $this->etf_ref, $this->ref_3x, $this->ref_3xShort); 
         parent::_MyStockGroup(array($this->etf_ref, $this->ref_3x, $this->ref_3xShort));
         
         $this->ref->LoadEtfFactor($this->etf_ref); 
@@ -187,9 +186,8 @@ function _echoIntegerParagraph($group, $bChinese)
 
 function _echoAdminTestParagraph($group, $bChinese)
 {
-    $str = $group->GetDebugString($bChinese);
+    $str = _GetEtfAdjustString($group->ref, $group->etf_ref, $bChinese);
     $str .= HTML_NEW_LINE._GetStockConfigDebugString(array($group->etf_ref), $bChinese);
-    $str .= HTML_NEW_LINE._GetEtfAdjustString($group->ref, $group->etf_ref, $bChinese);
     EchoParagraph($str);
 }
 
@@ -204,7 +202,7 @@ function EchoAll($bChinese)
 {
     global $group;
     
-    EchoReferenceParagraph($group->arDisplayRef, $bChinese);
+    EchoReferenceParagraph(array($group->ref, $group->etf_ref, $group->ref_3x, $group->ref_3xShort), $bChinese);
     _echoIntegerParagraph($group, $bChinese);
     EchoSmaLeverageParagraph($group->etf_his, array($group->ref_3x, $group->ref_3xShort), _estLeverage, false, $bChinese);
 

@@ -47,8 +47,7 @@ class _AdrGroup extends _MyStockGroup
         $this->fUSDHKD = $this->fUSDCNY / $this->fHKDCNY;
 
         $this->arStockRef = array($this->us_ref, $this->hk_ref, $this->cn_ref);
-        $this->arDisplayRef = array_merge($this->arStockRef, array($this->uscny_ref, $this->hkcny_ref));
-        
+       
         $this->fRatioAdrH = $this->hk_ref->fAdrRatio;
         $this->fRatioAH = $this->hk_ref->fRatio;
 
@@ -167,8 +166,7 @@ function _echoArbitrageParagraph($group, $bChinese)
 
 function _echoAdminTestParagraph($group, $bChinese)
 {
-    $str = $group->GetDebugString($bChinese);
-    $str .= HTML_NEW_LINE._GetStockConfigDebugString(array($group->hk_ref, $group->cn_ref, $group->us_ref), $bChinese);
+    $str = _GetStockConfigDebugString(array($group->hk_ref, $group->cn_ref, $group->us_ref), $bChinese);
     EchoParagraph($str);
 }
 

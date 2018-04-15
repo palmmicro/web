@@ -15,7 +15,7 @@ require_once('sql/sqlweixin.php');
 
 require_once('stock/sqlcnyref.php');
 
-define('WX_DEBUG_VER', '版本801');
+define('WX_DEBUG_VER', '版本802');
 
 define('WX_DEFAULT_SYMBOL', 'SZ162411');
 define('MAX_WX_STOCK', 30);
@@ -254,6 +254,7 @@ function _wxGetStockArrayText($arSymbol)
     {
         if ($strText = _wxGetStockText($strSymbol))
         {
+//            DebugString($strText);
             if (strlen($str.$strText.WX_EOL.WX_DEBUG_VER) < MAX_WX_MSG_LEN)
             {
                 $str .= $strText.WX_EOL;
