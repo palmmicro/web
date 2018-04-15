@@ -643,45 +643,4 @@ function StockGroupItemUpdate($strGroupItemId)
 	}
 }
 
-function StockGetIdSymbolArray($strSymbols)
-{
-	$arIdSymbol = array();
-    $arSymbol = StockGetSymbolArray($strSymbols);
-	foreach ($arSymbol as $strSymbol)
-	{
-	    $strStockId = SqlGetStockId($strSymbol);
-	    if ($strStockId == false)
-	    {
-            $ref = StockGetReference(new StockSymbol($strSymbol));
-            if ($ref->bHasData)
-            {
-            	$strStockId = $ref->GetStockId();
-            }
-            else
-            {
-            	continue;
-            }
-	    }
-	    $arIdSymbol[$strStockId] = $strSymbol; 
-	}
-	return $arIdSymbol;
-}
-
-function StockInsertGroup($strMemberId, $strGroupName, $strStocks)
-{
-    SqlInsertStockGroup($strMemberId, $strGroupName);
-    $strGroupId = SqlGetStockGroupId($strGroupName, $strMemberId);
-    
-    if ($strGroupId)
-    {
-        $arIdSymbol = StockGetIdSymbolArray($strStocks);
-        foreach ($arIdSymbol as $strStockId => $strSymbol)
-        {
-	        SqlInsertStockGroupItem($strGroupId, $strStockId);
-        }
-    }
-    
-    return $strGroupId;
-}
-
 ?>

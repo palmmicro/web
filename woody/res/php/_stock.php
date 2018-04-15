@@ -1,7 +1,7 @@
 <?php
 require_once('_resstock.php');
 require_once('/php/stock.php');
-require_once('/php/ui/stocktable.php');
+//require_once('/php/ui/stocktable.php');
 require_once('/php/ui/transactionparagraph.php');
 require_once('_editformcommon.php');
 require_once('_edittransactionform.php');

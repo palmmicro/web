@@ -80,11 +80,35 @@ function _emailStockGroup($strMemberId, $strOperation, $strGroupName, $strSymbol
     EmailDebug($str, $strSubject); 
 }
 
+function _getStockIdSymbolArray($strSymbols)
+{
+	$arIdSymbol = array();
+    $arSymbol = StockGetSymbolArray($strSymbols);
+	foreach ($arSymbol as $strSymbol)
+	{
+	    $strStockId = SqlGetStockId($strSymbol);
+	    if ($strStockId == false)
+	    {
+            $ref = StockGetReference(new StockSymbol($strSymbol));
+            if ($ref->bHasData)
+            {
+            	$strStockId = $ref->GetStockId();
+            }
+            else
+            {
+            	continue;
+            }
+	    }
+	    $arIdSymbol[$strStockId] = $strSymbol; 
+	}
+	return $arIdSymbol;
+}
+
 function _sqlEditStockGroup($strGroupId, $strGroupName, $strSymbols)
 {
     if (SqlUpdateStockGroup($strGroupId, $strGroupName) == false)  return false;
     
-	$arNew = StockGetIdSymbolArray($strSymbols);
+	$arNew = _getStockIdSymbolArray($strSymbols);
     $arOld = SqlGetStockGroupArray($strGroupId);
     foreach ($arNew as $strStockId => $strSymbol)
 	{
@@ -118,9 +142,24 @@ function _onEdit($strMemberId, $strGroupId, $strGroupName, $strSymbols)
     }
 }
 
+function _insertStockGroup($strMemberId, $strGroupName, $strStocks)
+{
+    SqlInsertStockGroup($strMemberId, $strGroupName);
+    $strGroupId = SqlGetStockGroupId($strGroupName, $strMemberId);
+    if ($strGroupId)
+    {
+        $arIdSymbol = _getStockIdSymbolArray($strStocks);
+        foreach ($arIdSymbol as $strStockId => $strSymbol)
+        {
+	        SqlInsertStockGroupItem($strGroupId, $strStockId);
+        }
+    }
+    return $strGroupId;
+}
+
 function _onNew($strMemberId, $strGroupName, $strSymbols)
 {
-	StockInsertGroup($strMemberId, $strGroupName, $strSymbols);
+	_insertStockGroup($strMemberId, $strGroupName, $strSymbols);
     _emailStockGroup($strMemberId, $_POST['submit'], $strGroupName, $strSymbols);
 }
 

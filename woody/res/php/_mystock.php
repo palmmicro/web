@@ -2,6 +2,7 @@
 require_once('_stock.php');
 require_once('_editmergeform.php');
 require_once('_editstockoptionform.php');
+require_once('/php/stockhis.php');
 //require_once('/php/ui/referenceparagraph.php');
 require_once('/php/ui/stockparagraph.php');
 require_once('/php/ui/ahparagraph.php');
@@ -64,6 +65,13 @@ function _setMyStockLink($ref, $strPageSymbol, $bChinese)
 	if ($strPageSymbol != $strSymbol)	$ref->strExternalLink = GetMyStockLink($strSymbol, $bChinese);
 }
 
+function _hasSmaDisplay($sym)
+{
+    if ($sym->IsSinaFund())		return false;
+    else if ($sym->IsForex())   	return false;
+    return true;
+}
+
 function _echoMyStock($strSymbol, $bChinese)
 {
     StockPrefetchData(array($strSymbol));
@@ -107,7 +115,7 @@ function _echoMyStock($strSymbol, $bChinese)
        	}
     }
     
-    if ($sym->IsForex() == false)	EchoStockSmaParagraph($ref, $hshare_ref, $hadr_ref, $bChinese);
+    if (_hasSmaDisplay($sym))	EchoStockSmaParagraph($ref, $hshare_ref, $hadr_ref, $bChinese);
     
     if ($strMemberId = AcctIsLogin())
     {
