@@ -510,17 +510,4 @@ function StockGroupItemUpdateAll()
 }
 */
 
-function StockGroupItemUpdate($strGroupItemId)
-{
-    $groupitem = SqlGetStockGroupItemById($strGroupItemId);
-	if ($result = SqlGetStockGroupItemByGroupId($groupitem['group_id']))
-	{
-		while ($stockgroupitem = mysql_fetch_assoc($result)) 
-		{
-		    StockGroupItemTransactionUpdate($stockgroupitem['id']);
-		}
-		@mysql_free_result($result);
-	}
-}
-
 ?>
