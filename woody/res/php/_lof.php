@@ -4,7 +4,7 @@ require_once('_lofgroup.php');
 
 class _LofUsGroup extends _LofGroup
 {
-    var $etf_netvalue_ref;
+    var $etf_netvalue_ref = false;
     var $usd_ref;
 
     // constructor 
@@ -12,13 +12,14 @@ class _LofUsGroup extends _LofGroup
     {
         $strUSD = 'DINIW'; 
         $strEtfSymbol = LofGetEtfSymbol($strSymbol);
-        StockPrefetchData(array($strSymbol, $strUSD, GetYahooNetValueSymbol($strEtfSymbol)));
+//        StockPrefetchData(array($strSymbol, $strUSD, GetYahooNetValueSymbol($strEtfSymbol)));
+        StockPrefetchData(array($strSymbol, $strUSD));
         GetChinaMoney();
         
         $this->cny_ref = new CnyReference('USCNY');	// Always create CNY Forex class instance first!
         $this->ref = new LofReference($strSymbol);
         $this->usd_ref = new ForexReference($strUSD);
-        $this->etf_netvalue_ref = new YahooNetValueReference($strEtfSymbol);
+//        $this->etf_netvalue_ref = new YahooNetValueReference($strEtfSymbol);
         parent::_LofGroup();
     }
     
@@ -26,10 +27,10 @@ class _LofUsGroup extends _LofGroup
     {
         if ($this->ref->index_ref)
         {
-            if ($this->ref->index_ref->AdjustEtfFactor($this->etf_netvalue_ref) == false)
-            {
+//            if ($this->ref->index_ref->AdjustEtfFactor($this->etf_netvalue_ref) == false)
+//            {
                 $this->ref->index_ref->AdjustEtfFactor($this->ref->etf_ref);
-            }
+//            }
         }
     }
 } 

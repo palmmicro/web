@@ -124,13 +124,14 @@ function LofGetEtfSymbol($strSymbol)
 // https://markets.ft.com/data/indices/tearsheet/charts?s=SPGOGUP:REU
 function LofGetIndexSymbol($strSymbol)
 {
-    if ($strSymbol == 'SZ162411')            return '^SPSIOP';
-//    else if ($strSymbol == 'SZ160416')      return '^SPGOGUP';
-    else if ($strSymbol == 'SZ162719')      return '^DJSOEP';
+    if (in_arraySpyLof($strSymbol))    return '^GSPC';
+    else if (in_arrayQqqLof($strSymbol))    return '^NDX';
+/*    else if ($strSymbol == 'SZ162411')            return '^SPSIOP';
     else if (in_arrayBricLof($strSymbol))   return '^SPBRICNTR';
     else if ($strSymbol == 'SZ162415')      return '^IXY';
-    else if (in_arraySpyLof($strSymbol))    return '^GSPC';
-    else if (in_arrayQqqLof($strSymbol))    return '^NDX';
+*/
+//    else if ($strSymbol == 'SZ162719')      return '^DJSOEP';
+//    else if ($strSymbol == 'SZ160416')      return '^SPGOGUP';
     else 
         return false;
 }
