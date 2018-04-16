@@ -46,7 +46,7 @@ function StockMergeTransactionForm($arGroup, $bChinese)
 	</script>
 	
     <table>
-	  <form id="mergeForm" name="mergeForm" method="post" action="/woody/res/php/_submitmerge.php">
+	  <form id="mergeForm" name="mergeForm" method="post" action="/woody/res/php/_submittransaction.php">
 		<tr>
 		    <td><SELECT name="type0" onChange=OnType() size=1> <OPTION value=0>{$arDirection[0]}</OPTION> <OPTION value=1>{$arDirection[1]}</OPTION> </SELECT></td>
 		    <td>{$arGroupName[0]}</td>

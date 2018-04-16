@@ -16,7 +16,7 @@ class _LofUsGroup extends _LofGroup
         GetChinaMoney();
         
         $this->cny_ref = new CnyReference('USCNY');	// Always create CNY Forex class instance first!
-        $this->ref = new MyLofReference($strSymbol);
+        $this->ref = new LofReference($strSymbol);
         $this->usd_ref = new ForexReference($strUSD);
         $this->etf_netvalue_ref = new YahooNetValueReference($strEtfSymbol);
         parent::_LofGroup();

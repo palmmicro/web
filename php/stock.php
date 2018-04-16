@@ -4,9 +4,13 @@ require_once('debug.php');
 require_once('regexp.php');
 require_once('stocklink.php');
 require_once('externallink.php');
+//require_once('sql.php');
+require_once('gb2312.php');
 
 require_once('class/ini_file.php');
 require_once('class/year_month_date.php');
+
+require_once('sql/sqlstock.php');
 
 require_once('stock/stocksymbol.php');
 require_once('stock/chinamoney.php');
@@ -15,19 +19,21 @@ require_once('stock/sinastock.php');
 require_once('stock/googlestock.php');
 require_once('stock/stockprefetch.php');
 require_once('stock/stockref.php');
-require_once('stock/stocktransaction.php');
-require_once('stock/stockgroup.php');
 
-require_once('mysqlstock.php');
+require_once('stock/mysqlref.php');
+require_once('stock/mystockref.php');
 require_once('stock/fundref.php');
-require_once('mysqllof.php');
-require_once('mysqlgold.php');
-require_once('mysqlgraded.php');
+require_once('stock/lofref.php');
+require_once('stock/goldfundref.php');
+require_once('stock/gradedfundref.php');
 
 require_once('stock/cnyref.php');
 require_once('stock/forexref.php');
 require_once('stock/futureref.php');
 require_once('stock/hshareref.php');
+
+//require_once('stocktrans.php');
+//require_once('stockgroup.php');
 
 // ****************************** Stock symbol functions *******************************************************
 
@@ -315,18 +321,18 @@ function StockPrefetchData($ar)
 
 function StockGetFundReference($strSymbol)
 {
-    if (in_arrayLof($strSymbol))                 $ref = new MyLofReference($strSymbol);
-    else if (in_arrayLofHk($strSymbol))         $ref = new MyLofHkReference($strSymbol);
-    else if (in_arrayGoldEtf($strSymbol))       $ref = new MyGoldEtfReference($strSymbol);
-    else if (in_arrayGradedFund($strSymbol))    $ref = new MyGradedFundReference($strSymbol);
+    if (in_arrayLof($strSymbol))                 $ref = new LofReference($strSymbol);
+    else if (in_arrayLofHk($strSymbol))         $ref = new LofHkReference($strSymbol);
+    else if (in_arrayGoldEtf($strSymbol))       $ref = new GoldFundReference($strSymbol);
+    else if (in_arrayGradedFund($strSymbol))    $ref = new GradedFundReference($strSymbol);
     else if ($strSymbolA = in_arrayGradedFundB($strSymbol))
     {
-        $a_ref = new MyGradedFundReference($strSymbolA);
+        $a_ref = new GradedFundReference($strSymbolA);
         $ref = $a_ref->b_ref;
     }
     else if ($strSymbolA = in_arrayGradedFundM($strSymbol))
     {
-        $a_ref = new MyGradedFundReference($strSymbolA);
+        $a_ref = new GradedFundReference($strSymbolA);
         $ref = $a_ref->m_ref;
     }
     else

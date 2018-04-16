@@ -146,7 +146,7 @@ function EchoThanousLawTest($bChinese)
         if (in_arrayLof($strSymbol))
         {
             StockPrefetchData(array($strSymbol));
-            _echoLofPredictionParagraph(new MyLofReference($strSymbol), $bChinese);
+            _echoLofPredictionParagraph(new LofReference($strSymbol), $bChinese);
         }
     }
     EchoPromotionHead('thanouslaw', $bChinese);

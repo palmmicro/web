@@ -4,11 +4,9 @@ require_once('weixin.php');
 require_once('debug.php');
 require_once('stock.php');
 require_once('email.php');
-require_once('sql.php');
 
 require_once('ui/stocktext.php');
 
-require_once('sql/sqlstock.php');
 require_once('sql/sqlvisitor.php');
 require_once('sql/sqlspider.php');
 require_once('sql/sqlweixin.php');

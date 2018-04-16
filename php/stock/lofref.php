@@ -396,10 +396,10 @@ class _LofReference extends FundReference
     }
 }
 
-class MyLofReference extends _LofReference
+class LofReference extends _LofReference
 {
     // constructor 
-    function MyLofReference($strSymbol)
+    function LofReference($strSymbol)
     {
         parent::_LofReference($strSymbol, 'USCNY');
         
@@ -424,10 +424,10 @@ class MyLofReference extends _LofReference
     }
 }
 
-class MyLofHkReference extends _LofReference
+class LofHkReference extends _LofReference
 {
     // constructor 
-    function MyLofHkReference($strSymbol)
+    function LofHkReference($strSymbol)
     {
         parent::_LofReference($strSymbol, 'HKCNY');
         

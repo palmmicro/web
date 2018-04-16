@@ -109,13 +109,13 @@ function GradedFundGetInterest($strSymbol)
     return ($fBase + $fVal) / 100.0 / 365.0;
 }
 
-class MyGradedFundReference extends FundReference
+class GradedFundReference extends FundReference
 {
     var $b_ref = false;
     var $m_ref = false;
     
     // constructor 
-    function MyGradedFundReference($strSymbol)
+    function GradedFundReference($strSymbol)
     {
         parent::FundReference($strSymbol);
         $this->b_ref = new FundReference(GradedFundGetSymbolB($strSymbol));

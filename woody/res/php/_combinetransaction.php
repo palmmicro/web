@@ -1,5 +1,7 @@
 <?php
 require_once('_stock.php');
+//require_once('/php/stocktrans.php');
+//require_once('/php/stockgroup.php');
 require_once('/php/ui/stocktable.php');
 
 // ****************************** Combined group transaction table *******************************************************
@@ -51,7 +53,7 @@ function _getFundClass($group)
     $strSymbol = $trans->GetStockSymbol();
     if (in_arrayLof($strSymbol))
     {
-        $fund = new MyLofReference($strSymbol);
+        $fund = new LofReference($strSymbol);
     }
     else
     {

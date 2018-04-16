@@ -1,6 +1,7 @@
 <?php
 require_once('_stock.php');
 require_once('/php/stockhis.php');
+require_once('/php/stock/leverageref.php');
 require_once('/php/ui/referenceparagraph.php');
 require_once('/php/ui/smaparagraph.php');
 
@@ -44,7 +45,7 @@ class _PairTradingGroup extends _MyStockGroup
         $this->ref = new MyStockReference($strSymbol);
         foreach ($arLeverageSymbol as $strLeverageSymbol)
         {
-            $this->ar_leverage_ref[] = new MyLeverageReference($strLeverageSymbol);
+            $this->ar_leverage_ref[] = new LeverageReference($strLeverageSymbol);
         }
         
         if ($strIndexSymbol)

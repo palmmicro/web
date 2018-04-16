@@ -1,7 +1,7 @@
 <?php
 //require_once('gb2312/gb2312_unicode.php');
-require_once('/php/sql.php');
-require_once('/php/sql/sqlgb2312.php');
+require_once('sql.php');
+require_once('sql/sqlgb2312.php');
 
 function _lookupUnicodeTable($iChar, $iCharNext)
 {

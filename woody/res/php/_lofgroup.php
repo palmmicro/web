@@ -1,6 +1,7 @@
 <?php
 require_once('_fundgroup.php');
 require_once('/php/stockhis.php');
+require_once('/php/stocktrans.php');
 require_once('/php/ui/lofsmaparagraph.php');
 
 class _LofGroup extends _MyStockGroup

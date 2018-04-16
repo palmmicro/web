@@ -1,7 +1,6 @@
 <?php
 require_once('/php/account.php');
 require_once('/php/stock.php');
-require_once('/php/sql/sqlstock.php');
 require_once('_editstockoptionform.php');
 
 function _updateStockHistoryAdjCloseByDividend($strSymbol, $strYMD, $strDividend)

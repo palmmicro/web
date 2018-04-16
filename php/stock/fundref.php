@@ -31,10 +31,10 @@ function _getSinaFundStr($sym, $strFundSymbol, $strFileName)
 
 // ****************************** FundReference Class *******************************************************
 
-class FundReference extends StockReference
+class FundReference extends MysqlReference
 {
     // original data
-//    var $strPrevNetValue;      // Most recent net value orginal data is in parent::$strPrevPrice 
+//    var $strPrevNetValue;      // Most recent net value orginal data is in StockReference::$strPrevPrice 
 
     var $est_ref = false;       // MyStockRefenrence for fund net value estimation
     var $stock_ref = false;     // MyStockReference
@@ -145,7 +145,7 @@ class FundReference extends StockReference
         {
             return $this->stock_ref->GetStockId();
         }
-        return false;
+        return parent::GetStockId();
     }
 
     function AdjustPosition($fVal)
@@ -156,10 +156,12 @@ class FundReference extends StockReference
     function LoadSinaFundData()
     {
         $sym = $this->sym;
+        $this->strExternalLink = GetSinaFundLink($sym);
+        
         if ($sym->IsSinaFund())	$strFundSymbol = $sym->strSymbol;
         else						$strFundSymbol = $sym->GetSinaFundSymbol();
-        
         $this->strFileName = DebugGetSinaFileName($strFundSymbol);
+        
         $ar = explodeQuote(_getSinaFundStr($sym, $strFundSymbol, $this->strFileName));
         if (count($ar) < 4)
         {
@@ -175,7 +177,6 @@ class FundReference extends StockReference
         $this->strName = $ar[0];
 
         $this->bConvertGB2312 = true;     // Sina name is GB2312 coded
-        $this->strExternalLink = GetSinaFundLink($sym);
     }
 	
     // constructor 
@@ -183,8 +184,7 @@ class FundReference extends StockReference
     {
         $this->_newStockSymbol($strSymbol);
         $this->LoadSinaFundData();
-        parent::StockReference($strSymbol);
-        $this->strDescription = $this->GetChineseName();
+        parent::MysqlReference($strSymbol);
 
         if ($this->sym->IsFundA())
         {

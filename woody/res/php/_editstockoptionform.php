@@ -2,7 +2,6 @@
 require_once('/php/account.php');
 require_once('/php/stock.php');
 require_once('/php/stock/yahoostockref.php');
-require_once('/php/sql/sqlstock.php');
 require_once('/php/ui/htmlelement.php');
 
 define ('STOCK_OPTION_ADJCLOSE_CN', '根据分红更新复权收盘价');

@@ -1,8 +1,24 @@
 <?php
 require_once('/php/account.php');
 require_once('/php/stock.php');
+require_once('/php/stocktrans.php');
 require_once('/php/ui/stockgroupparagraph.php');
 require_once('_edittransactionform.php');
+require_once('_editmergeform.php');
+
+function _updateStockGroupItemTransaction($strGroupItemId)
+{
+    $trans = new StockTransaction();
+    if ($result = SqlGetStockTransactionByGroupItemId($strGroupItemId, 0, 0)) 
+    {
+        while ($transaction = mysql_fetch_assoc($result)) 
+        {
+            AddSqlTransaction($trans, $transaction);
+        }
+        @mysql_free_result($result);
+    }
+    SqlUpdateStockGroupItem($strGroupItemId, strval($trans->iTotalShares), strval($trans->fTotalCost), strval($trans->iTotalRecords));
+}
 
 function _updateStockGroupItem($strGroupItemId)
 {
@@ -11,7 +27,7 @@ function _updateStockGroupItem($strGroupItemId)
 	{
 		while ($stockgroupitem = mysql_fetch_assoc($result)) 
 		{
-		    StockGroupItemTransactionUpdate($stockgroupitem['id']);
+		    _updateStockGroupItemTransaction($stockgroupitem['id']);
 		}
 		@mysql_free_result($result);
 	}
@@ -146,26 +162,41 @@ function _onNew($strGroupItemId, $strQuantity, $strPrice, $strCost, $strRemark)
     }
 }
 
-    AcctNoAuth();
+function _onMergeTransaction()
+{
+    if ($_POST['type0'] == '0')    // From
+    {
+        $strSrcGroupItemId = $_POST['symbol0'];
+        $strDstGroupItemId = $_POST['symbol1'];
+    }
+    else
+    {
+        $strSrcGroupItemId = $_POST['symbol1'];
+        $strDstGroupItemId = $_POST['symbol0'];
+    }
+		    
+    if (SqlMergeStockTransaction($strSrcGroupItemId, $strDstGroupItemId))
+    {
+        _updateStockGroupItemTransaction($strSrcGroupItemId);
+        _updateStockGroupItemTransaction($strDstGroupItemId);
+    }
+}
 
-	if ($strId = UrlGetQueryValue('delete'))
+    AcctNoAuth();
+	if (isset($_POST['submit']))
 	{
-	    $transaction = SqlGetStockTransactionById($strId);
-	    $strGroupItemId = $transaction['groupitem_id'];
-	    _onDelete($strId, $strGroupItemId);
-	}
-	else if ($strGroupId = UrlGetQueryValue('groupid'))
-	{
-	    $strGroupItemId = _onAddFundPurchase($strGroupId);
-	}
-	else if (isset($_POST['submit']))
-	{
+		if ($_POST['submit'] == STOCK_TRANSACTION_MERGE || $_POST['submit'] == STOCK_TRANSACTION_MERGE_CN)
+		{
+			_onMergeTransaction();
+			unset($_POST['submit']);
+			SwitchToSess();		
+		}
+		
 	    $strGroupItemId = $_POST['symbol'];
 	    $strQuantity = _getStockQuantity();
 		$strPrice = UrlCleanString($_POST['price']);
 	    $strCost = _getStockCost();
 		$strRemark = UrlCleanString($_POST['remark']);
-
 		if ($_POST['submit'] == STOCK_TRANSACTION_NEW || $_POST['submit'] == STOCK_TRANSACTION_NEW_CN)
 		{	// post new transaction
 		    _onNew($strGroupItemId, $strQuantity, $strPrice, $strCost, $strRemark);
@@ -178,6 +209,16 @@ function _onNew($strGroupItemId, $strQuantity, $strPrice, $strCost, $strRemark)
 		    }
 		}
 		unset($_POST['submit']);
+	}
+	else if ($strId = UrlGetQueryValue('delete'))
+	{
+	    $transaction = SqlGetStockTransactionById($strId);
+	    $strGroupItemId = $transaction['groupitem_id'];
+	    _onDelete($strId, $strGroupItemId);
+	}
+	else if ($strGroupId = UrlGetQueryValue('groupid'))
+	{
+	    $strGroupItemId = _onAddFundPurchase($strGroupId);
 	}
 
 	if ($strGroupItemId)		_updateStockGroupItem($strGroupItemId);

@@ -11,7 +11,7 @@ class _GradedFundGroup extends _MyStockGroup
     function _GradedFundGroup($strSymbol) 
     {
         StockPrefetchData(array($strSymbol));
-        $this->ref = new MyGradedFundReference($strSymbol);
+        $this->ref = new GradedFundReference($strSymbol);
         
         $arRef = array($this->ref->stock_ref, $this->ref->b_ref->stock_ref);
         $this->bCanTradeM = $this->ref->m_ref->stock_ref->bHasData; 

@@ -11,7 +11,7 @@ class _LofHkGroup extends _LofGroup
         GetChinaMoney();
 
         $this->cny_ref = new CnyReference('HKCNY');
-        $this->ref = new MyLofHkReference($strSymbol);
+        $this->ref = new LofHkReference($strSymbol);
         parent::_LofGroup();
     } 
 } 

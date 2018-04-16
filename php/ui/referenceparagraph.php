@@ -50,8 +50,8 @@ function _convertDescription($str, $bChinese)
 function _checkStockReference($ref)
 {
     if ($ref == false)                  return false;
-    if ($ref->bHasData == false)        return false;
-    if ($ref->strExternalLink == false) return false;
+//    if ($ref->bHasData == false)        return false;
+//    if ($ref->strExternalLink == false) return false;
     return true;
 }
 

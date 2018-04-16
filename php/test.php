@@ -6,7 +6,7 @@ require_once('regexp.php');
 require_once('gb2312.php');
 //require_once('ahstockarray.php');
 
-require_once('sql.php');
+//require_once('sql.php');
 require_once('sql/sqlstocksymbol.php');
 require_once('sql/sqlstockpair.php');
 require_once('sql/sqlstockgroup.php');

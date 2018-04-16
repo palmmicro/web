@@ -1,6 +1,7 @@
 <?php
 require_once('_stock.php');
 require_once('/php/stockhis.php');
+require_once('/php/stocktrans.php');
 require_once('/php/ui/referenceparagraph.php');
 require_once('/php/ui/stocksmaparagraph.php');
 require_once('/php/ui/tradingparagraph.php');

@@ -163,9 +163,8 @@
 <br />华宝油气持续溢价10%已经成了常态, 最近最高甚至到了17%, <a href="20160101cn.php">华宝油气和XOP套利</a>没法做了. 加入<a href="../../res/xopcn.php">XOP</a>跟USO和USL两个原油ETF配对交易的工具页面.
 <br />配对交易的当日价格比较采用了跟期货ETF页面中杠杆ETF同样的处理方式. 继续整理同类代码, 加入<font color=olive>MyStockReference</font>类, 
 放在<font color=olive>StockReference</font>类和<font color=olive>SinaStockReference/YahooStockReference</font>类的中间.
-然后再从<font color=olive>MyStockReference</font>派生出<font color=olive>MyLeverageReference</font>杠杆类.
-从<font color=olive>MyStockReference</font>开始调用了<?php EchoPhpFileLink('/php/sql/sqlstock.php'); ?>中的<i>SqlGetStockDescription</i>等数据库相关函数,
-为保证/php下各个模块的独立性, <font color=olive>MyStockReference</font>和<font color=olive>MyLeverageReference</font>等都放在了新文件<?php EchoPhpFileLink('/php/mysqlstock.php'); ?>中.
+然后再从<font color=olive>MyStockReference</font>派生出<font color=olive>LeverageReference</font>杠杆类.
+从<font color=olive>MyStockReference</font>开始调用了<?php EchoPhpFileLink('/php/sql/sqlstock.php'); ?>中的<i>SqlGetStockDescription</i>等数据库相关函数.
 </p>
 
 <h3><a name="gradedfund">分级基金</a></h3>

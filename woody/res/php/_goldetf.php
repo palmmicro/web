@@ -11,7 +11,7 @@ class _GoldEtfGroup extends _MyStockGroup
         GetChinaMoney();
 
         $this->cny_ref = new CnyReference('USCNY');
-        $this->ref = new MyGoldEtfReference($strSymbol);
+        $this->ref = new GoldFundReference($strSymbol);
         
         parent::_MyStockGroup(array($this->ref->stock_ref));
     }

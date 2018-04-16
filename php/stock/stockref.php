@@ -412,10 +412,11 @@ class StockReference
         $strSymbol = $this->GetStockSymbol();
         $this->strFileName = DebugGetYahooFileName($strSymbol);
         $strYahooSymbol = $this->sym->GetYahooSymbol();
+        $this->strExternalLink = GetYahooStockLink($strYahooSymbol, $strSymbol);
         $str = _getYahooStr($this->sym, $strYahooSymbol, $this->strFileName);
         if (IsYahooStrError($str))
         {
-            $this->EmptyFile();
+//            $this->EmptyFile();
             $this->bHasData = false;
             return;
         }
@@ -451,8 +452,6 @@ class StockReference
 
 //        $this->strPB = $ar[12];                // p6-Price / Book
 //        DebugString($strYahooSymbol.' Price/Book: '.$this->strPB);
-        
-        $this->strExternalLink = GetYahooStockLink($strYahooSymbol, $strSymbol);
     }
 
     function _generateUsTradingDateTime()
@@ -649,6 +648,7 @@ class StockReference
     
     function LoadSinaFutureData($strSymbol)
     {
+        $this->strExternalLink = GetSinaFutureLink($strSymbol);
         $strSinaSymbol = FutureGetSinaSymbol($strSymbol);
         $this->strFileName = DebugGetSinaFileName($strSinaSymbol);
         $ar = _GetForexAndFutureArray($strSinaSymbol, $this->strFileName, ForexAndFutureGetTimezone(), GetSinaQuotes);
@@ -667,8 +667,6 @@ class StockReference
             $this->_onSinaFuture($ar);
         }
         $this->bConvertGB2312 = true;     // Sina name is GB2312 coded
-
-        $this->strExternalLink = GetSinaFutureLink($strSymbol);
     }
     
     function _getEastMoneyForexData($ar)
@@ -702,6 +700,7 @@ class StockReference
     
     function LoadSinaForexData($strSymbol)
     {
+        $this->strExternalLink = GetSinaForexLink($strSymbol);
         $this->strFileName = DebugGetSinaFileName($strSymbol);
         $ar = _GetForexAndFutureArray($strSymbol, $this->strFileName, ForexAndFutureGetTimezone(), GetSinaQuotes);
         if (count($ar) < 10)
@@ -716,12 +715,11 @@ class StockReference
     	$this->strName = $ar[9];
         $this->strDate = $ar[10];
         $this->bConvertGB2312 = true;     // Sina name is GB2312 coded
-        
-        $this->strExternalLink = GetSinaForexLink($strSymbol);
     }       
 
     function LoadEastMoneyForexData($strSymbol)
     {
+        $this->strExternalLink = GetEastMoneyForexLink($strSymbol);
         $this->strFileName = DebugGetEastMoneyFileName($strSymbol);
         $ar = _GetForexAndFutureArray(ForexGetEastMoneySymbol($strSymbol), $this->strFileName, ForexAndFutureGetTimezone(), GetEastMoneyQuotes);
         if (count($ar) < 27)
@@ -730,8 +728,6 @@ class StockReference
             return;
         }
         $this->_getEastMoneyForexData($ar);
-
-        $this->strExternalLink = GetEastMoneyForexLink($strSymbol);
     }       
     
 }

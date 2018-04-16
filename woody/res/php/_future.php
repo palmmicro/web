@@ -1,6 +1,7 @@
 <?php
 require_once('_stock.php');
 require_once('/php/stockhis.php');
+require_once('/php/stock/leverageref.php');
 require_once('/php/ui/referenceparagraph.php');
 require_once('/php/ui/smaparagraph.php');
 
@@ -45,8 +46,8 @@ class _FutureGroup extends _MyStockGroup
         
         $this->ref = new FutureReference($strSymbol);
         $this->etf_ref = new MyStockReference($strSymbol1x);
-        $this->ref_3x = new MyLeverageReference($strSymbol3x);
-        $this->ref_3xShort = new MyLeverageReference($strSymbol3xShort);
+        $this->ref_3x = new LeverageReference($strSymbol3x);
+        $this->ref_3xShort = new LeverageReference($strSymbol3xShort);
         
         $this->etf_his = new StockHistory($this->etf_ref);
         

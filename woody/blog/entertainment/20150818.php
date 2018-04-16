@@ -165,10 +165,8 @@ added new data member $strTimeHM (08:55) for display, separating data and displa
 Add <a href="../../res/xop.php">XOP</a> and two oil ETF USO/USL pair trading tool page.
 <br />The current day pair trading price uses the same method as the leverage ETF price estimation in the future ETF pages.
 Continuing to organzie the similar code, added <font color=olive>MyStockReference</font> class, and put it between <font color=olive>StockReference</font> class and <font color=olive>SinaStockReference/YahooStockReference</font>.
-Then extends <font color=olive>MyLeverageReference</font> class also from <font color=olive>MyStockReference</font>.
-As we called mysql related function like <i>SqlGetStockDescription</i> of <?php EchoPhpFileLink('/php/sql/sqlstock.php'); ?> in <font color=olive>MyStockReference</font> class,
-To keep the independence of the different modules in /php, 
-<font color=olive>MyStockReference</font> and <font color=olive>MyLeverageReference</font> class are put in a new file <?php EchoPhpFileLink('/php/mysqlstock.php'); ?>.
+Then extends <font color=olive>LeverageReference</font> class also from <font color=olive>MyStockReference</font>.
+As we called mysql related function like <i>SqlGetStockDescription</i> of <?php EchoPhpFileLink('/php/sql/sqlstock.php'); ?> in <font color=olive>MyStockReference</font> class.
 </p>
 
 <h3><a name="gradedfund">Graded Fund</a></h3>
