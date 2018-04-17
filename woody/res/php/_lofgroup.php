@@ -2,9 +2,10 @@
 require_once('_fundgroup.php');
 require_once('/php/stockhis.php');
 require_once('/php/stocktrans.php');
+require_once('/php/ui/arbitrageparagraph.php');
 require_once('/php/ui/lofsmaparagraph.php');
 
-class _LofGroup extends _MyStockGroup
+class _LofGroup extends _StockGroup
 {
     var $cny_ref;
     var $fCnyPrice;
@@ -15,11 +16,11 @@ class _LofGroup extends _MyStockGroup
         $etf_ref = $this->ref->etf_ref; 
         if ($etf_ref)
         {
-            parent::_MyStockGroup(array($this->ref->stock_ref, $etf_ref));
+            parent::_StockGroup(array($this->ref->stock_ref, $etf_ref));
         }
         else
         {
-            parent::_MyStockGroup(array($this->ref->stock_ref));
+            parent::_StockGroup(array($this->ref->stock_ref));
         }
         $this->fCnyPrice = SqlGetForexNow($this->cny_ref->GetStockId());
     } 
@@ -51,21 +52,21 @@ class _LofGroup extends _MyStockGroup
         $this->ConvertToEtfTransaction($etf_convert_trans, $lof_trans);
     
         EchoParagraphBegin($bChinese ? '策略分析' : 'Arbitrage analysis');
-        _EchoArbitrageTableBegin($bChinese);
+        EchoArbitrageTableBegin($bChinese);
         $sym = $this->arbi_trans->ref->sym;
         if ($sym->IsSymbolA())
         {
             $arbi_convert_trans = new MyStockTransaction($this->ref->etf_ref, $this->strGroupId);
             $this->ConvertToEtfTransaction($arbi_convert_trans, $this->arbi_trans);
-            _EchoArbitrageTableItem2($this->arbi_trans, $lof_convert_trans); 
-            _EchoArbitrageTableItem2($arbi_convert_trans, $etf_convert_trans); 
+            EchoArbitrageTableItem2($this->arbi_trans, $lof_convert_trans); 
+            EchoArbitrageTableItem2($arbi_convert_trans, $etf_convert_trans); 
         }
         else
         {
             $arbi_convert_trans = new MyStockTransaction($this->ref->stock_ref, $this->strGroupId);
             $this->ConvertToLofTransaction($arbi_convert_trans, $this->arbi_trans);
-            _EchoArbitrageTableItem2($arbi_convert_trans, $lof_convert_trans); 
-            _EchoArbitrageTableItem2($this->arbi_trans, $etf_convert_trans); 
+            EchoArbitrageTableItem2($arbi_convert_trans, $lof_convert_trans); 
+            EchoArbitrageTableItem2($this->arbi_trans, $etf_convert_trans); 
         }
         EchoTableEnd();
         EchoParagraphEnd();

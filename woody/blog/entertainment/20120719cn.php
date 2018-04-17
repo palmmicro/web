@@ -25,6 +25,23 @@
 <br />本来我想把这个小结分类在PA6488下, 后来改了主意. 考虑到以后真把PA6488和这个路由器芯片合在一起做产品的机会不大, 现在还是把它归类在我的个人<a href="20100905cn.php">编程</a>娱乐类比较合适. 
 <br /><img src=../../myphoto/1997/ess.jpg alt="My first digit photo taken at ESS office in Fremont" />
 </p>
+
+<h3>在<a name="qcloud">腾讯云</a>上安装PHP调试环境</h3>
+<p>2017年3月24日
+<br />不知道是不是被收购的原因, 最近从国内访问Yahoo的FTP服务器特别慢, 而且还经常被限制访问, 逼我被迫放弃自己写的<a href="20100529cn.php#ftps">网站工具</a>, 转而使用Yahoo提供的WEB工具上传文件.
+一下子修改测试<a href="20150818cn.php">华宝油气</a>净值计算工具PHP代码的效率变得特别低, 让我苦恼无比.
+<br />这两天刚好读了篇有关云服务的文章, 让我想到了干脆自己弄个云服务器, 自己搭建一个PHP测试环境, 测试好的代码再上传<a href="../palmmicro/20080326cn.php">palmmicro.com</a>.
+国内阿里/新浪/腾讯这些提供云服务的巨头中, 平时使用腾讯的QQ最多, 就此上了腾讯云的贼船, 再次开始了痛苦的Linux学习过程. 这一次是从最基础的软件安装学习起.
+<br />还是一样, 好记性不如烂笔头, 在这里记录一下各种细节.
+<ol>
+  <li>用腾讯云的系统镜像重装系统到CentOS 6.7 64位. 这个过程很快, 比以前在自己的机器上装<a href="../../../pa6488/software/userguide/sipcn.php">ubuntu</a>快太多了.
+  <li>按<?php EchoLink('https://www.biaodianfu.com/centos-6-7-install-amh-4-2.html'); ?>中的步骤, root登录后运行yum update更新系统, 这个时间很长. 然后运行yum install wget安装wget, 这貌似是多余的, 提示已经装好了.
+  <li>执行wget http://amh.sh/file/AMH/4.2/amh.sh && chmod 775 amh.sh && ./amh.sh 2>&1 | tee amh.log安装AMH 4.2.
+  <li>http://139.199.173.16:8888进入AMH 4.2管理页面. 管理员账号admin, 密码3178. MySQL也用同样的密码.
+  <li>WEB文件根目录是/home/wwwroot/139.199.173.16/web/.
+</ol>
+</p> 
+
 </div>
 
 <?php _LayoutBottom(true); ?>

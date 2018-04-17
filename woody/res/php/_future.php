@@ -29,7 +29,7 @@ function _getSymbol3xShort($strSymbolFuture)
         return false;
 }
 
-class _FutureGroup extends _MyStockGroup
+class _FutureGroup extends _StockGroup
 {
     var $etf_ref;
     var $etf_his;
@@ -51,7 +51,7 @@ class _FutureGroup extends _MyStockGroup
         
         $this->etf_his = new StockHistory($this->etf_ref);
         
-        parent::_MyStockGroup(array($this->etf_ref, $this->ref_3x, $this->ref_3xShort));
+        parent::_StockGroup(array($this->etf_ref, $this->ref_3x, $this->ref_3xShort));
         
         $this->ref->LoadEtfFactor($this->etf_ref); 
     }

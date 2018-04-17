@@ -1,6 +1,5 @@
 <?php
 require_once('gb2312_unicode.php');
-require_once('/php/sql/sqlgb2312.php');
 
 function GB2312WriteDatabase()
 {

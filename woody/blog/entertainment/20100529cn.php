@@ -35,7 +35,7 @@ Here the plate goes around so, and the reason it's two to one is . . ." and I sh
 <br /><img src=../photo/20100529.jpg alt="Screen shot of My First Visual C++ 2008 Application Woody's Web Tool" />
 </p>
 
-<h3>从FTP到FTPS</h3>
+<h3>从FTP到<a name="ftps">FTPS</a></h3>
 <p>2013年2月19日
 <br />王田可能是我认识的人中唯一一个跟我一样把编程序当成娱乐的. 几年前当他还在微软工作的时候, 有一天他突然跟我说, 他刚刚写了自己的第一个C#程序, 感觉很好.
 <br />跟通常一样我总是后知后觉. 尽管我在网上读了不少, 而且听过王田感觉很好的亲身经历, 在2010年我开始写<b>Woody的网站工具</b>的时候我完全没有考虑C#.
@@ -51,7 +51,7 @@ Here the plate goes around so, and the reason it's two to one is . . ." and I sh
 <h3>调用WinSCP</h3>
 <p>2018年1月18日
 <br />去年的某一天, C#的FtpWebRequest突然罢工了. 它前一次罢工的时候, 我通过升级Windows系统和编译器解决了问题. 但是这一次, 最新的Windows 10和Visual Studio 2017都没能帮上忙.
-<br />那段时间刚好Yahoo的FTP也特别慢, 无奈之下我在腾讯云弄了个虚拟主机方便调试PHP代码, 于是开始使用WinSCP开始跟虚拟主机同步文件.
+<br />那段时间刚好Yahoo的FTP也特别慢, 无奈之下我在<a href="20120719cn.php#qcloud">腾讯云</a>弄了个虚拟主机方便调试PHP代码, 于是开始使用WinSCP开始跟虚拟主机同步文件.
 <br />上周WinSCP提示我有更新, 正巧更新又特别慢, 无聊之下我第一次扫了一眼它的文档, 结果发现竟然可以从命令行调用它. 这下我的问题解决了, 赶快削尖铅笔在我的工具中直接调用WinSCP完成FTP的工作.
 </p> 
 

@@ -23,7 +23,7 @@ function _getPairTradingLeverage($strSymbol)
         return false;
 }
 
-class _PairTradingGroup extends _MyStockGroup
+class _PairTradingGroup extends _StockGroup
 {
     var $index_ref;
     var $netvalue_ref;
@@ -62,7 +62,7 @@ class _PairTradingGroup extends _MyStockGroup
             $this->netvalue_ref = false;
             $this->stock_his = new StockHistory($this->ref);
         }
-        parent::_MyStockGroup(array_merge(array($this->ref), $this->ar_leverage_ref));
+        parent::_StockGroup(array_merge(array($this->ref), $this->ar_leverage_ref));
     }
     
     function OnData()

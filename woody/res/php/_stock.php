@@ -1,44 +1,12 @@
 <?php
 require_once('_resstock.php');
 require_once('/php/stock.php');
-require_once('/php/stockgroup.php');
 //require_once('/php/ui/stocktable.php');
 require_once('/php/ui/transactionparagraph.php');
 require_once('_editformcommon.php');
 require_once('_edittransactionform.php');
 require_once('_stocklink.php');
-
-class _MyStockGroup extends MyStockGroup
-{
-    var $ref;                
-    var $strName;            //  Group name
-    
-    // constructor 
-    function _MyStockGroup($arRef) 
-    {
-        $this->strName = $arRef[0]->GetStockSymbol();
-        $strMemberId = AcctIsLogin();
-        if ($strMemberId == false)     return;
-        
-        $strGroupName = $this->strName;
-        if (($strGroupId = SqlGetStockGroupId($strGroupName, $strMemberId)) === false)
-        {
-            SqlInsertStockGroup($strMemberId, $strGroupName);
-            $strGroupId = SqlGetStockGroupId($strGroupName, $strMemberId);
-            if ($strGroupId)
-            {
-                foreach ($arRef as $ref)
-                {
-                    if ($ref->sym->IsIndex() == false)
-                    {
-                        SqlInsertStockGroupItem($strGroupId, $ref->GetStockId());
-                    }
-                }      
-            }
-        }
-        parent::MyStockGroup($strGroupId, $arRef);
-    }
-}
+require_once('_stockgroup.php');
 
 function _GetStockConfigDebugString($ar_ref, $bChinese)
 {
@@ -65,65 +33,6 @@ function EstEtfByIndex($fIndex, $fEtfFactor)
 {
 //    return $fIndex / $fEtfFactor;
     return EstLofByIndex($fIndex, $fEtfFactor, 1.0);
-}
-
-// ****************************** Arbitrage table *******************************************************
-
-function _EchoArbitrageTableBegin($bChinese)
-{
-	$arReference = GetReferenceTableColumn($bChinese);
-	$strSymbol = $arReference[0];
-	$strPrice = $arReference[1];
-    if ($bChinese)	$arColumn = array($strSymbol, '对冲数量', '对冲'.$strPrice, '折算数量', '折算'.$strPrice, '折算净值盈亏');
-    else		        $arColumn = array($strSymbol, 'Quantity', $strPrice, 'Convert Total', 'Convert Avg', 'Convert Profit');
-    
-    echo <<<END
-    <TABLE borderColor=#cccccc cellSpacing=0 width=510 border=1 class="text" id="arbitrage">
-    <tr>
-        <td class=c1 width=80 align=center>{$arColumn[0]}</td>
-        <td class=c1 width=90 align=center>{$arColumn[1]}</td>
-        <td class=c1 width=70 align=center>{$arColumn[2]}</td>
-        <td class=c1 width=100 align=center>{$arColumn[3]}</td>
-        <td class=c1 width=70 align=center>{$arColumn[4]}</td>
-        <td class=c1 width=100 align=center>{$arColumn[5]}</td>
-    </tr>
-END;
-}
-
-function _EchoArbitrageTableItem2($arbi_trans, $convert_trans)
-{
-    _EchoArbitrageTableItem($arbi_trans->iTotalShares, $arbi_trans->GetAvgCostDisplay(), $convert_trans);
-}
-
-function _selectArbitrageExternalLink($sym)
-{
-	$strSymbol = $sym->strSymbol;
-    if ($sym->IsSymbolUS())
-    {
-        return GetYahooStockLink($sym->GetYahooSymbol(), $strSymbol);
-    }
-    return $strSymbol;
-}
-
-function _EchoArbitrageTableItem($iQuantity, $strPrice, $trans)
-{
-//    $strSymbol = $trans->GetStockSymbol();
-	$strSymbol = _selectArbitrageExternalLink($trans->ref->sym);
-    $strQuantity = strval($iQuantity); 
-    $strConvertTotal = strval($trans->iTotalShares); 
-    $strConvertPrice = $trans->GetAvgCostDisplay();
-    $strConvertProfit = $trans->GetProfitDisplay();
-    
-    echo <<<END
-    <tr>
-        <td class=c1>$strSymbol</td>
-        <td class=c1>$strQuantity</td>
-        <td class=c1>$strPrice</td>
-        <td class=c1>$strConvertTotal</td>
-        <td class=c1>$strConvertPrice</td>
-        <td class=c1>$strConvertProfit</td>
-    </tr>
-END;
 }
 
 // ****************************** Portfolio table *******************************************************

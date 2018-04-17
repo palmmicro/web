@@ -1,4 +1,6 @@
 <?php
+require_once('class/ini_file.php');
+
 // max 20 months history used
 //define ('MAX_QUOTES_DAYS', 930);
 define ('MAX_QUOTES_DAYS', 620);

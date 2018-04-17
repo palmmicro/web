@@ -6,6 +6,8 @@ require_once('regexp.php');
 require_once('gb2312.php');
 //require_once('ahstockarray.php');
 
+require_once('stock.php');
+
 //require_once('sql.php');
 require_once('sql/sqlstocksymbol.php');
 require_once('sql/sqlstockpair.php');
@@ -13,14 +15,14 @@ require_once('sql/sqlstockgroup.php');
 require_once('sql/sqlstockhistory.php');
 require_once('sql/sqlparameter.php');
 require_once('sql/sqlforex.php');
-
+/*
 require_once('stock/stocksymbol.php');
 //require_once('stock/chinamoney.php');
 require_once('stock/yahoostock.php');
 require_once('stock/sinastock.php');
 require_once('stock/googlestock.php');
 require_once('stock/stockprefetch.php');
-
+*/
 //require_once('gb2312/gb2312_tools.php');
 
 //require_once('account.php');
@@ -176,6 +178,17 @@ function SysInit()
 //	AdrhWriteDatabase();
 }
 
+function TestCmdLine()
+{
+	echoDebugString('stock.php');
+    if ($strSymbol = UrlGetQueryValue('symbol'))
+    {
+    	echoDebugString($strSymbol);
+    	$ref = new MyStockReference($strSymbol);
+    	echoDebugString($ref->GetChineseName());
+    }
+}
+
     echo '<meta http-equiv="content-type" content="text/html; charset=UTF-8">';
     
 //	phpinfo();
@@ -190,6 +203,7 @@ function SysInit()
 	echoDebugString('Hello, world!');
 
 	SysInit();
+	TestCmdLine();
 //	GetChinaMoney();
 //	_debug_dividend('sz000028');
 //	test_stock_dividend();

@@ -1,4 +1,5 @@
 <?php
+require_once('url.php');
 
 // Provide enhanced function replacement of /js/nav.js
 // Menu navigation functions

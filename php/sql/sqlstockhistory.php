@@ -3,7 +3,6 @@
 // ****************************** Stock History tables *******************************************************
 
 // Date,Open,High,Low,Close,Volume
-/*
 function SqlCreateStockHistoryTable()
 {
     $str = 'CREATE TABLE IF NOT EXISTS `camman`.`stockhistory` ('
@@ -19,10 +18,10 @@ function SqlCreateStockHistoryTable()
          . ' FOREIGN KEY (`stock_id`) REFERENCES `stock`(`id`) ON DELETE CASCADE ,'
          . ' UNIQUE ( `date`, `stock_id` )'
          . ' ) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci '; 
-	$result = @mysql_query($str);
-	if (!$result)	die('Create stockhistory table failed');
+	return SqlDieByQuery($str, 'Create stockhistory table failed');
 }
 
+/*
 function SqlAlterStockHistoryTable()
 {    
     $strQry = 'ALTER TABLE `camman`.`stockhistory` ADD '

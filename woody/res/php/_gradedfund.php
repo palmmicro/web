@@ -3,7 +3,7 @@ require_once('_stock.php');
 require_once('/php/ui/tradingparagraph.php');
 require_once('/php/ui/fundhistoryparagraph.php');
 
-class _GradedFundGroup extends _MyStockGroup 
+class _GradedFundGroup extends _StockGroup 
 {
     var $bCanTradeM;
     
@@ -20,7 +20,7 @@ class _GradedFundGroup extends _MyStockGroup
             $arRef[] = $this->ref->m_ref->stock_ref;     
         }
 
-        parent::_MyStockGroup($arRef);
+        parent::_StockGroup($arRef);
     } 
 } 
 

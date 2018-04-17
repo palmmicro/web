@@ -267,7 +267,8 @@ class StockReference
         
         $this->fPrice = floatval($this->strPrice); 
         $this->fPrevPrice = floatval($this->strPrevPrice);
-        $this->fPercentage = $this->fPrice / $this->fPrevPrice;  
+        if (FloatNotZero($this->fPrevPrice))		$this->fPercentage = $this->fPrice / $this->fPrevPrice;
+        else										$this->fPercentage = 0.0;
         
         if ($this->strTime)
         {

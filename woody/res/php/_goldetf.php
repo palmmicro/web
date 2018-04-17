@@ -2,7 +2,7 @@
 require_once('_stock.php');
 require_once('_fundgroup.php');
 
-class _GoldEtfGroup extends _MyStockGroup
+class _GoldEtfGroup extends _StockGroup
 {
     // constructor 
     function _GoldEtfGroup($strSymbol) 
@@ -13,7 +13,7 @@ class _GoldEtfGroup extends _MyStockGroup
         $this->cny_ref = new CnyReference('USCNY');
         $this->ref = new GoldFundReference($strSymbol);
         
-        parent::_MyStockGroup(array($this->ref->stock_ref));
+        parent::_StockGroup(array($this->ref->stock_ref));
     }
 } 
 

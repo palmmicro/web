@@ -107,6 +107,7 @@ class MyStockReference extends MysqlReference
         $strLow = $this->strLow;
         $strClose = $this->strPrice;
         $strVolume = $this->strVolume;
+        SqlCreateStockHistoryTable();
         if ($history = SqlGetStockHistoryByDate($strStockId, $strDate))
         {
 //            if ($this->_invalidHistoryData($strOpen))   return false;
