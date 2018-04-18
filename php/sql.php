@@ -1,6 +1,4 @@
 <?php
-define('DB_HOST', 'localhost');
-define('DB_USER', 'woody');
 define('DB_DATABASE', 'camman');
 
 define ('TABLE_BLOG', 'blog');
@@ -214,13 +212,18 @@ function SqlCreateDatabase($strDb)
 
 function SqlConnectDatabase()
 {
-    $strHost = DB_HOST;
     if (UrlGetDomain() == 'palmmicro.com')
     {
         $strHost = 'mysql';
+        $strUser = 'woody';
+    }
+    else
+    {
+        $strHost = 'localhost';
+        $strUser = 'root';
     }
     
-	$link = mysql_connect($strHost, DB_USER, DB_PASSWORD);	// Connect to mysql server
+	$link = mysql_connect($strHost, $strUser, DB_PASSWORD);	// Connect to mysql server
 	if (!$link) 
 	{
 		die('Failed to connect to server: ' . mysql_error());

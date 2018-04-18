@@ -42,7 +42,7 @@ void CWebToolView::OnInitialUpdate()
 {
 	CHtmlView::OnInitialUpdate();
 
-	CString str = AfxGetApp()->GetProfileString(_T("OptionsDlg"), _T("StartPage"), _T("http://www.palmmicro.com/woody/myphoto/2010/ushighway1_s.jpg"));
+	CString str = AfxGetApp()->GetProfileString(_T("OptionsDlg"), _T("StartPage"), _T("http://palmmicro.com/woody/blog/photo/mermaid.jpg"));
 
 	Navigate2(str, NULL, NULL);
 }

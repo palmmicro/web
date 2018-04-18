@@ -207,7 +207,7 @@ void CWebToolDoc::Serialize(CArchive& ar)
 
 		if (m_strFtpPassword != _T(""))
 		{
-			AfxGetApp()->WriteProfileString(_T("Local"), _T("Password"), m_strFtpPassword);
+			AfxGetApp()->WriteProfileString(_T("LocalPassword"), m_strFtpDomain, m_strFtpPassword);
 		}
 	}
 	else
@@ -1042,7 +1042,7 @@ void CWebToolDoc::OnToolsFtp()
 	CString strPassword = m_strFtpPassword;
 	if (strPassword == _T(""))
 	{
-		strPassword = AfxGetApp()->GetProfileString(_T("Local"), _T("Password"), _T(""));
+		strPassword = AfxGetApp()->GetProfileString(_T("LocalPassword"), m_strFtpDomain, _T(""));
 	}
 	m_pFtp->UpLoad(m_strWinscpExe, m_strWinscpScript, m_strWinscpLog, m_strFtpDomain, m_strFtpUserName, strPassword);
 	delete m_pFtp;

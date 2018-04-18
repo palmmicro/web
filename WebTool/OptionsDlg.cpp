@@ -60,7 +60,7 @@ BOOL COptionsDlg::OnInitDialog()
 	CDialog::OnInitDialog();
 
 	// TODO:  Add extra initialization here
-	m_strStartPage = AfxGetApp()->GetProfileString(c_strOptionsDlg, _T("StartPage"), _T("http://www.palmmicro.com/woody/myphoto/2010/ushighway1_s.jpg"));
+	m_strStartPage = AfxGetApp()->GetProfileString(c_strOptionsDlg, _T("StartPage"), _T("http://palmmicro.com/woody/blog/photo/mermaid.jpg"));
 	m_ctlFtpEncryption.AddString(_T("Normal"));
 	m_ctlFtpEncryption.AddString(_T("Require explicit FTP over TLS"));
 	UpdateData(FALSE);

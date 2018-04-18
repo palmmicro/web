@@ -35,10 +35,10 @@
 <br />还是一样, 好记性不如烂笔头, 在这里记录一下各种细节.
 <ol>
   <li>用腾讯云的系统镜像重装系统到CentOS 6.7 64位. 这个过程很快, 比以前在自己的机器上装<a href="../../../pa6488/software/userguide/sipcn.php">ubuntu</a>快太多了.
-  <li>按<?php EchoLink('https://www.biaodianfu.com/centos-6-7-install-amh-4-2.html'); ?>中的步骤, root登录后运行yum update更新系统, 这个时间很长. 然后运行yum install wget安装wget, 这貌似是多余的, 提示已经装好了.
+  <li>按<?php EchoLink('https://www.biaodianfu.com/centos-6-7-install-amh-4-2.html'); ?>中的步骤, root登录后运行yum update更新系统, 然后运行yum install wget安装wget.
   <li>执行wget http://amh.sh/file/AMH/4.2/amh.sh && chmod 775 amh.sh && ./amh.sh 2>&1 | tee amh.log安装AMH 4.2.
   <li>http://139.199.173.16:8888进入AMH 4.2管理页面. 管理员账号admin, 密码3178. MySQL也用同样的密码.
-  <li>WEB文件根目录是/home/wwwroot/139.199.173.16/web/.
+  <li>在虚拟主机页面新增虚拟主机, 主标识域名和绑定域名都填写139.199.173.16. 这一步完成后, 访问http://139.199.173.16就不再是403 bad request了. WEB文件根目录是/home/wwwroot/139.199.173.16/web/.
 </ol>
 </p> 
 

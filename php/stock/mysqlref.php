@@ -15,6 +15,7 @@ class MysqlReference extends StockReference
     {
     	if ($this->strSqlId)	return;	// Already set, like in CnyReference
     	
+    	SqlCreateStockTable();
     	$this->strSqlId = SqlGetStockId($this->strSqlName);
         if ($this->strSqlId == false)
         {
