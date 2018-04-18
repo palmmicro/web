@@ -1044,7 +1044,7 @@ void CWebToolDoc::OnToolsFtp()
 	{
 		strPassword = AfxGetApp()->GetProfileString(_T("LocalPassword"), m_strFtpDomain, _T(""));
 	}
-	m_pFtp->UpLoad(m_strWinscpExe, m_strWinscpScript, m_strWinscpLog, m_strFtpDomain, m_strFtpUserName, strPassword);
+	m_pFtp->UpLoad(m_strWinscpExe, m_strWinscpScript, m_strWinscpLog, m_strFtpDomain, m_strFtpUserName, strPassword, m_iFtpEncryption);
 	delete m_pFtp;
 #else
 	m_pFtp = new CNetFtp(m_strFtpUserName, m_strFtpPassword, m_iFtpEncryption);

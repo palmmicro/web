@@ -3,6 +3,8 @@
 #include "WinSCP.h"
 #include "TxtFile.h"
 
+#include "NetFtp.h"		// for FTP_ENCRYPTION_SSL
+
 WinSCP::WinSCP()
 {
 	m_strPath = _T("");
@@ -31,7 +33,7 @@ bool WinSCP::AddFile(CString strLocal, CString strRemote)
 	return true;
 }
 
-bool WinSCP::UpLoad(CString strExe, CString strScript, CString strLog, CString strDomain, CString strUserName, CString strPassword)
+bool WinSCP::UpLoad(CString strExe, CString strScript, CString strLog, CString strDomain, CString strUserName, CString strPassword, int iEncryption)
 {
 	// Clean log file
 	CFileStatus status;
@@ -43,7 +45,17 @@ bool WinSCP::UpLoad(CString strExe, CString strScript, CString strLog, CString s
 	// Prepare script file
 	ReplaceEscapeCharacter(strUserName);
 	ReplaceEscapeCharacter(strPassword);
-	m_listScript.AddHead(_T("open ftpes://") + strUserName + _T(":") + strPassword + _T("@") + strDomain + _T("/ -certificate=\"*\" -rawsettings ProxyPort=0"));
+	CString strOpenCmd;
+	if (iEncryption == FTP_ENCRYPTION_SSL)
+	{
+		strOpenCmd = _T("open ftpes://") + strUserName + _T(":") + strPassword + _T("@") + strDomain + _T("/ -certificate=\"*\" -rawsettings ProxyPort=0");
+	}
+	else
+	{   //	open ftp ://admin:woody3178@111.230.12.222/
+		strOpenCmd = _T("open ftp://") + strUserName + _T(":") + strPassword + _T("@") + strDomain;
+	}
+	m_listScript.AddHead(strOpenCmd);
+
 	m_listScript.AddTail(_T("exit"));
 //	DebugStringList(m_listScript);
 

@@ -180,7 +180,7 @@ function SysInit()
 
 function TestCmdLine()
 {
-	echoDebugString('stock.php');
+	echoDebugString('cmd line test');
     if ($strSymbol = UrlGetQueryValue('symbol'))
     {
     	echoDebugString($strSymbol);

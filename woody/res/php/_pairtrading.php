@@ -93,8 +93,9 @@ function _echoAdminTestParagraph($group, $bChinese)
     if ($group->index_ref)
     {
         $str .= HTML_NEW_LINE;
-//        $str .= _GetEtfAdjustString($group->index_ref, $group->ref, $bChinese);
-        $str .= _GetEtfAdjustString($group->index_ref, $group->netvalue_ref, $bChinese);
+        if ($group->netvalue_ref->bHasData)	$est_etf = $group->netvalue_ref;
+        else									$est_etf = $group->ref;
+        $str .= _GetEtfAdjustString($group->index_ref, $est_etf, $bChinese);
         $str .= ' '.GetCalibrationHistoryLink($group->index_ref->GetStockSymbol(), $bChinese);
     }
     EchoParagraph($str);
