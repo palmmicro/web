@@ -5,6 +5,7 @@ define ('DEBUG_UTF8_BOM', "\xef\xbb\xbf");
 
 define ('DEBUG_FILE_PATH', 'debug');
 define ('DEBUG_FILE_NAME', 'debug.txt');
+define ('TEST_PATH_NAME', 'php/test.php');
 
 define ('DEBUG_TIME_ZONE', 'PRC');
 define ('DEBUG_TIME_FORMAT', 'Y-m-d H:i:s');
@@ -80,6 +81,11 @@ function DebugGetPathName($strFileName)
 function DebugGetFile()
 {
     return DebugGetPathName(DEBUG_FILE_NAME);
+}
+
+function DebugGetTestFile()
+{
+    return UrlGetRootDir().TEST_PATH_NAME;
 }
 
 function DebugClear()

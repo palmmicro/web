@@ -12,6 +12,12 @@ function EchoFileLink($strPathName)
     echo $str;
 }
 
+function EchoMyStockLink($strSymbol)
+{
+    $str = GetMyStockLink($strSymbol, true);
+    echo $str;
+}
+
 function EchoPhpFileLink($strPathName)
 {
     $strTxtPathName = str_replace('.', '_', $strPathName).'.txt';

@@ -6,14 +6,12 @@ require_once('account.php');
 require_once('httplink.php');
 require_once('adsense.php');
 
-define ('TEST_PATHNAME', 'php/test.php');
-
 function _echoLogin($str)
 {
 	$strDebugLink = '';
     if (AcctIsAdmin())
     {
-        $strDebugLink = GetFileDebugLink(DebugGetFile()).' '.GetFileDebugLink(UrlGetRootDir().TEST_PATHNAME);
+        $strDebugLink = GetFileDebugLink(DebugGetFile()).' '.GetFileDebugLink(DebugGetTestFile());
     }
     $strServer = UrlGetServer();
     echo <<<END

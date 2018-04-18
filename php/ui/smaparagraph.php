@@ -196,7 +196,7 @@ function EchoSmaTable($arColumn, $stock_his, $ref, $callback, $callback2, $bChin
     
     $strWidth = strval($iWidth);
     echo <<<END
-    <TABLE borderColor=#cccccc cellSpacing=0 width=$strWidth border=1 class="text" id="sma">
+    <TABLE borderColor=#cccccc cellSpacing=0 width=$strWidth border=1 class="text" id="smatable">
     <tr>
         <td class=c1 width=90 align=center>{$arColumn[0]}</td>
         <td class=c1 width=70 align=center>{$arColumn[1]}</td>
