@@ -18,11 +18,11 @@ function preg_match_market_watch($str)
     $strLeft = ':{"raw":';
     $strMid = '[^,]*';
     $strRight = ',"fmt":"[\d,.-]*"},';
-    $strPattern .= RegExpParenthesis('"S&P\s*OIL\s*&\s*GAS\s*EXPLORATION\s*&\s*PR","exchangeTimezoneName":"America\\\\u002FNew_York","regularMarketChange"'.$strLeft, $strMid, $strRight);
-    $strPattern .= RegExpParenthesis('"regularMarketPreviousClose"'.$strLeft, $strMid, $strRight);
-    $strPattern .= RegExpParenthesis('"fiftyTwoWeekHighChange"'.$strLeft, $strMid, $strRight);
-    $strPattern .= RegExpParenthesis('"exchangeTimezoneShortName":"EDT","fiftyTwoWeekLowChange"'.$strLeft, $strMid, $strRight);
-    $strPattern .= RegExpParenthesis('"exchangeDataDelayedBy":\d*,"regularMarketDayLow"'.$strLeft, $strMid, $strRight);
+//    $strPattern .= RegExpParenthesis('"S&P\s*OIL\s*&\s*GAS\s*EXPLORATION\s*&\s*PR","exchangeTimezoneName":"America\\\\u002FNew_York","regularMarketChange"'.$strLeft, $strMid, $strRight);
+//    $strPattern .= RegExpParenthesis('"regularMarketPreviousClose"'.$strLeft, $strMid, $strRight);
+//    $strPattern .= RegExpParenthesis('"fiftyTwoWeekHighChange"'.$strLeft, $strMid, $strRight);
+//    $strPattern .= RegExpParenthesis('"exchangeTimezoneShortName":"EDT","fiftyTwoWeekLowChange"'.$strLeft, $strMid, $strRight);
+//    $strPattern .= RegExpParenthesis('"exchangeDataDelayedBy":\d*,"regularMarketDayLow"'.$strLeft, $strMid, $strRight);
     $strPattern .= RegExpParenthesis('"priceHint":\d*,"currency":"USD","regularMarketPrice"'.$strLeft, $strMid, $strRight);
     $strPattern .= $strBoundary;
 //    DebugString($strPattern);
@@ -40,6 +40,7 @@ function MarketWatchGetUrl($sym)
 	}
 	return false;*/
 	return 'https://finance.yahoo.com/quote/%5ESPSIOP?ltr=1';
+//	return 'https://xueqiu.com/u/woody1234';
 }
 
 function MarketWatchGetData($strSymbol)

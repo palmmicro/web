@@ -185,8 +185,9 @@ function TestCmdLine()
     if ($strSymbol = UrlGetQueryValue('symbol'))
     {
     	echoDebugString($strSymbol);
-    	$ref = new MyStockReference($strSymbol);
-    	echoDebugString($ref->GetChineseName());
+//    	$ref = new MyStockReference($strSymbol);
+//    	echoDebugString($ref->GetChineseName());
+    	YahooStockGetNetValue($strSymbol);
     }
 }
 
@@ -205,6 +206,8 @@ function TestCmdLine()
 
 	SysInit();
 	TestCmdLine();
+//	YahooStockGetData('^SPSIOP');
+//	YahooStockGetNetValue('XOP');
 //	MarketWatchGetData('^SPSIOP');
 //	GetChinaMoney();
 //	_debug_dividend('sz000028');

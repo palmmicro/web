@@ -33,6 +33,16 @@ class YearMonthDay
         return $this->GetTick() + $iHours * SECONDS_IN_HOUR;
     }
     
+    function IsNewFile($strFileName)
+    {
+        if ($this->GetTick() < (filemtime($strFileName) + SECONDS_IN_MIN))
+        {
+//        	DebugString($strFileName.' in a minute');
+        	return true;
+        }
+        return false;
+    }
+    
     function IsFuture() 
     {
         if ($this->GetTick() > time())     return true;

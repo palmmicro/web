@@ -27,13 +27,14 @@ function url_get_contents($strUrl)
     curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
     if (substr($strUrl, 0, 5) == 'https')
     {
+//    	DebugString('https: '.$strUrl);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
     }
     $img = curl_exec($ch);
     if ($img == false)
     {
-    	DebugString('url_get_contents: '.curl_error($ch));
+    	DebugString('url_get_contents: '.$strUrl.'- '.curl_error($ch));
     }
     curl_close($ch);
     return $img;

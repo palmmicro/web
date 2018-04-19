@@ -26,7 +26,7 @@ function GetXueQiuLink($strSymbol)
 
 function GetYahooStockLink($strYahooSymbol, $strSymbol)
 {
-    $strHttp = "http://finance.yahoo.com/q?s=$strYahooSymbol";
+    $strHttp = YahooStockGetUrl($strYahooSymbol);
     return GetExternalLink($strHttp, $strSymbol);
 }
 

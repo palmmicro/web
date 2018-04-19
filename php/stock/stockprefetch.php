@@ -90,9 +90,11 @@ function StockNeedNewQuotes($sym, $strFileName)
     $sym->SetTimeZone();
     if (file_exists($strFileName))
     {
-        $iCurTime = time();
+        $ymd = new YMDNow();
+        if ($ymd->IsNewFile($strFileName))       return false;   // update on every minute
+ 
         $iFileTime = filemtime($strFileName);
-        if ($iCurTime < ($iFileTime + SECONDS_IN_MIN))              return false;   // update on every minute
+		$iCurTime = $ymd->GetTick();
         if ($iCurTime > ($iFileTime + 6 * SECONDS_IN_HOUR))     return true;   // always update after 6 hours
         
         if (_isMarketTrading($sym, $iFileTime))    return true;
@@ -111,11 +113,10 @@ function ForexAndFutureNeedNewFile($strFileName, $strTimeZone)
     date_default_timezone_set($strTimeZone);
     if (file_exists($strFileName))
     {
-        $iFileTime = filemtime($strFileName);
         $ymd = new YMDNow();
-        if ($ymd->GetTick() < ($iFileTime + SECONDS_IN_MIN))       return false;   // update on every minute
+        if ($ymd->IsNewFile($strFileName))       return false;   // update on every minute
         
-        $ymd_file = new YMDTick($iFileTime);
+        $ymd_file = new YMDTick(filemtime($strFileName));
         if ($ymd_file->IsWeekDay())    return true;
         else 
         {
