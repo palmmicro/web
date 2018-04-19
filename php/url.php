@@ -30,7 +30,11 @@ function url_get_contents($strUrl)
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
     }
-    $img = curl_exec($ch);  
+    $img = curl_exec($ch);
+    if ($img == false)
+    {
+    	DebugString('url_get_contents: '.curl_error($ch));
+    }
     curl_close($ch);
     return $img;
 }

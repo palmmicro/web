@@ -7,6 +7,7 @@ require_once('gb2312.php');
 //require_once('ahstockarray.php');
 
 require_once('stock.php');
+require_once('stock/marketwatchstock.php');
 
 //require_once('sql.php');
 require_once('sql/sqlstocksymbol.php');
@@ -204,6 +205,7 @@ function TestCmdLine()
 
 	SysInit();
 	TestCmdLine();
+//	MarketWatchGetData('^SPSIOP');
 //	GetChinaMoney();
 //	_debug_dividend('sz000028');
 //	test_stock_dividend();

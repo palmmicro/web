@@ -313,7 +313,16 @@ class StockSymbol
         }
         return $strSymbol;
     }
- 
+/* 
+    function GetMarketWatchSymbol()
+    {
+        if ($this->IsIndex())
+        {
+            return strtolower($this->strOthers);   // index ^SPSIOP
+        }
+        return false;
+    }
+*/    
     function GetGoogleSymbol()
     {
 /*        $strSymbol = $this->strSymbol;
