@@ -3,7 +3,6 @@
 // ****************************** Fund History tables *******************************************************
 
 // Date, Net Value, Estimated Value, Estimated Time
-/*
 function SqlCreateFundHistoryTable()
 {
     $str = 'CREATE TABLE IF NOT EXISTS `camman`.`fundhistory` ('
@@ -16,10 +15,8 @@ function SqlCreateFundHistoryTable()
          . ' FOREIGN KEY (`stock_id`) REFERENCES `stock`(`id`) ON DELETE CASCADE ,'
          . ' UNIQUE ( `date`, `stock_id` )'
          . ' ) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci '; 
-	$result = @mysql_query($str);
-	if (!$result)	die('Create fundhistory table failed');
+	return SqlDieByQuery($str, 'Create fundhistory table failed');
 }
-*/
 
 function SqlGetFundHistoryNow($strStockId)
 {

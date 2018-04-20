@@ -26,7 +26,7 @@ function _getPairTradingLeverage($strSymbol)
 class _PairTradingGroup extends _StockGroup
 {
     var $index_ref;
-    var $netvalue_ref;
+    var $netvalue_ref = false;
     
     var $ar_leverage_ref = array();
 
@@ -40,7 +40,8 @@ class _PairTradingGroup extends _StockGroup
     {
         $strIndexSymbol = _getPairTradingIndex($strSymbol);
         $arLeverageSymbol = _getPairTradingLeverage($strSymbol);
-        StockPrefetchData(array_merge($arLeverageSymbol, array($strSymbol, $strIndexSymbol, GetYahooNetValueSymbol($strSymbol))));  
+//        StockPrefetchData(array_merge($arLeverageSymbol, array($strSymbol, $strIndexSymbol, GetYahooNetValueSymbol($strSymbol))));  
+        StockPrefetchData(array_merge($arLeverageSymbol, array($strSymbol, $strIndexSymbol)));  
         
         $this->ref = new MyStockReference($strSymbol);
         foreach ($arLeverageSymbol as $strLeverageSymbol)
@@ -52,7 +53,7 @@ class _PairTradingGroup extends _StockGroup
         {
             $this->index_ref = new MyStockReference($strIndexSymbol);
             $this->index_his = new StockHistory($this->index_ref);
-            $this->netvalue_ref = new YahooNetValueReference($strSymbol);
+//            $this->netvalue_ref = new YahooNetValueReference($strSymbol);
             $this->stock_his = false;
         }
         else
@@ -69,10 +70,10 @@ class _PairTradingGroup extends _StockGroup
     {
         if ($this->index_ref)
         {
-            if ($this->index_ref->AdjustEtfFactor($this->netvalue_ref) == false)
-            {
+//            if ($this->index_ref->AdjustEtfFactor($this->netvalue_ref) == false)
+//            {
                 $this->index_ref->AdjustEtfFactor($this->ref);
-            }
+//            }
             $this->fFactor = $this->index_ref->_loadFactor();
         }
         else
@@ -93,7 +94,8 @@ function _echoAdminTestParagraph($group, $bChinese)
     if ($group->index_ref)
     {
         $str .= HTML_NEW_LINE;
-        if ($group->netvalue_ref->bHasData)	$est_etf = $group->netvalue_ref;
+//        if ($group->netvalue_ref->bHasData)	$est_etf = $group->netvalue_ref;
+        if ($group->netvalue_ref)				$est_etf = $group->netvalue_ref;
         else									$est_etf = $group->ref;
         $str .= _GetEtfAdjustString($group->index_ref, $est_etf, $bChinese);
         $str .= ' '.GetCalibrationHistoryLink($group->index_ref->GetStockSymbol(), $bChinese);

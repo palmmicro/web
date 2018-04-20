@@ -15,6 +15,7 @@ class _LofUsGroup extends _LofGroup
 //        StockPrefetchData(array($strSymbol, $strUSD, GetYahooNetValueSymbol($strEtfSymbol)));
         StockPrefetchData(array($strSymbol, $strUSD));
         GetChinaMoney();
+        YahooUpdateNetValue($strEtfSymbol);
         
         $this->cny_ref = new CnyReference('USCNY');	// Always create CNY Forex class instance first!
         $this->ref = new LofReference($strSymbol);

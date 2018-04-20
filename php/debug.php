@@ -164,6 +164,11 @@ function DebugGetYahooFileName($strSymbol)
     return _getDebugFileName('yahoo', $strSymbol);
 }
 
+function DebugGetYahooWebFileName($strSymbol)
+{
+    return _getDebugFileName('yahooweb', $strSymbol);
+}
+
 function DebugGetYahooHistoryFileName($strSymbol)
 {
     return _getDebugFileName('yahoohistory', $strSymbol);

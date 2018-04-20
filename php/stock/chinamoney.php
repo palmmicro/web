@@ -22,7 +22,6 @@ function _chinaMoneyHasFile($ymd_now, $strFileName)
 function _chinaMoneyNeedData($ymd)
 {
     $strDate = $ymd->GetYMD();
-//    DebugString($strDate);
     if (SqlGetForexHistory(SqlGetStockId('USCNY'), $strDate) && SqlGetForexHistory(SqlGetStockId('HKCNY'), $strDate))
     {
 //    	DebugString('Database entry existed');

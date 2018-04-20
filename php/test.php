@@ -16,6 +16,7 @@ require_once('sql/sqlstockgroup.php');
 require_once('sql/sqlstockhistory.php');
 require_once('sql/sqlparameter.php');
 require_once('sql/sqlforex.php');
+require_once('sql/sqlfundhistory.php');
 /*
 require_once('stock/stocksymbol.php');
 //require_once('stock/chinamoney.php');
@@ -184,10 +185,8 @@ function TestCmdLine()
 	echoDebugString('cmd line test');
     if ($strSymbol = UrlGetQueryValue('symbol'))
     {
-    	echoDebugString($strSymbol);
-//    	$ref = new MyStockReference($strSymbol);
-//    	echoDebugString($ref->GetChineseName());
-    	YahooStockGetNetValue($strSymbol);
+    	$strPrice = TestYahooWebData($strSymbol);
+    	echoDebugString($strSymbol.':'.$strPrice);
     }
 }
 
@@ -206,8 +205,6 @@ function TestCmdLine()
 
 	SysInit();
 	TestCmdLine();
-//	YahooStockGetData('^SPSIOP');
-//	YahooStockGetNetValue('XOP');
 //	MarketWatchGetData('^SPSIOP');
 //	GetChinaMoney();
 //	_debug_dividend('sz000028');
