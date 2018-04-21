@@ -7,8 +7,7 @@ define ('STOCK_HOUR_END', 16);
 function _isMarketTrading($sym, $iTime)
 {
     $ymd = new YMDTick($iTime);
-    if ($ymd->IsHoliday())     return false;
-    if ($ymd->IsWeekDay())
+    if ($ymd->IsTradingDay())
     {
         $iHour = $ymd->GetHour(); 
         if ($sym->IsSymbolA())
@@ -26,7 +25,7 @@ function _isMarketTrading($sym, $iTime)
     }
     else 
     {
-        return false;   // do not trade on weekend
+        return false;   // do not trade on holiday and weekend
     }
     return true;
 }

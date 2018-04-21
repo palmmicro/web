@@ -28,9 +28,10 @@ class YearMonthDay
 
     function GetNextWeekDayTick()
     {
-        if ($this->IsFriday())   $iHours = 3 * 24;
-        else                      $iHours = 24;
-        return $this->GetTick() + $iHours * SECONDS_IN_HOUR;
+        if ($this->IsFriday())   			$iSeconds = 3 * SECONDS_IN_DAY;
+        else if ($this->IsSaturday())	$iSeconds = 2 * SECONDS_IN_DAY;
+        else                      			$iSeconds = SECONDS_IN_DAY;
+        return $this->GetTick() + $iSeconds;
     }
     
     function IsNewFile($strFileName)
@@ -52,6 +53,12 @@ class YearMonthDay
     function IsFriday() 
     {
         if ($this->local[6] == 5)     return true;
+        return false;
+    }
+    
+    function IsSaturday() 
+    {
+        if ($this->local[6] == 6)     return true;
         return false;
     }
     
@@ -109,6 +116,12 @@ class YearMonthDay
             return true;
         }
         return false;
+    }
+    
+    function IsTradingDay()
+    {
+    	if ($this->IsHoliday())	return false;
+    	return $this->IsWeekDay();
     }
 
     function IsSameMonth($ymd) 

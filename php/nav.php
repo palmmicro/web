@@ -39,12 +39,29 @@ function NavWriteLink($strTitle, $strType, $strDisp, $strOutput)
     }
 }
 
+// /woody/blog/entertainment/20140615cn.php ==> 20140615.php
+function _navSwitchLanguage()
+{
+    $strCur = UrlGetTitle();
+    $strCur .= UrlGetPhp(UrlIsEnglish());
+    return $strCur.UrlPassQuery();
+}
+
+$g_bSwitchLanguage = true;
+function SetSwitchLanguage($bSwitchLanguage)
+{
+	global $g_bSwitchLanguage;
+	$g_bSwitchLanguage = $bSwitchLanguage;
+}
+
 //<TR><TD><A class=A2 HREF="logincn.php"><img src=../image/zh.jpg alt="Switch to Chinese" />Chinese</A></TD></TR>
 //<TR><TD><A class=A2 HREF="login.php"><img src=../image/us.gif alt="Switch to English" />English</A></TD></TR>
-
 function GetSwitchLanguageLink($bChinese)
 {
-	$str = UrlSwitchLanguage();
+	global $g_bSwitchLanguage;
+	if ($g_bSwitchLanguage == false)	return '';
+
+	$str = _navSwitchLanguage();
     if ($bChinese)
     {
     	return "<A class=A2 HREF=\"$str\"><img src=/image/us.gif alt=\"Switch to English\" />English</A>";

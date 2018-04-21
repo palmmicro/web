@@ -46,7 +46,6 @@ function EchoCopyRight($bMobile, $bChinese)
     $ymd = new YMDNow();
     $strYear = $ymd->GetYearStr();
     
-    $bSwitchLanguage = true;
 	$strUri = UrlGetUri();	            // /woody/res/sz162411cn.php
     $ar = explode('/', $strUri);
 	if ($ar[1] == 'woody')
@@ -74,19 +73,17 @@ function EchoCopyRight($bMobile, $bChinese)
 	else if ($ar[1] == 'chishin')
 	{
 	    $str = _getCopyright($bChinese ? '王继行' : 'Chi-Shin Wang', false, $strYear, $bChinese);
-	    $bSwitchLanguage = false;
 	}
 	else if ($ar[1] == 'laosun')
 	{
 	    $str = _getCopyright($bChinese ? '孙老湿' : 'Teacher Sun', false, $strYear, $bChinese);
-	    $bSwitchLanguage = false;
 	}
 	else
 	{
 	    $str = _getCopyright($bChinese ? '北京微掌和深圳迪迈特' : 'Palmmicro Communications Inc', '2006', $strYear, $bChinese);
 	}
 	
-	if ($bMobile && $bSwitchLanguage)
+	if ($bMobile)
 	{
 	    $str .= ' '.GetSwitchLanguageLink($bChinese);
 	}

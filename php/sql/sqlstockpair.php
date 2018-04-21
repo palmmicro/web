@@ -2,6 +2,7 @@
 
 define('TABLE_AH_STOCK', 'ahstock');
 define('TABLE_ADRH_STOCK', 'adrhstock');
+define('TABLE_LEVERAGE_ETF', 'leverageetf');
 
 // ****************************** Stock pair tables *******************************************************
 
@@ -15,7 +16,7 @@ function SqlCreateStockPairTable($strTableName)
          . ' `pair_id` INT UNSIGNED NOT NULL ,'
          . ' `ratio` DOUBLE(10,6) NOT NULL ,'
          . ' FOREIGN KEY (`stock_id`) REFERENCES `stock`(`id`) ON DELETE CASCADE ,'
-         . ' UNIQUE ( `pair_id` )'
+         . ' INDEX ( `pair_id` )'
          . ' ) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci '; 
 	return SqlDieByQuery($str, $strTableName.' create table failed');
 }

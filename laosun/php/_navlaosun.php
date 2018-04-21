@@ -15,6 +15,7 @@ function LaosunNavigateBlogGroup($bChinese)
 function _LaosunLayoutTopLeft($bChinese)
 {
     AcctNoAuth();
+    SetSwitchLanguage(false);
     LayoutTopLeft(LaosunNavigateBlogGroup, $bChinese);
 }
 

@@ -95,6 +95,7 @@ function DebugClear()
 
 function DebugString($str)
 {
+	if ($str == false)	$str = '(false)';
     $strTimeZone = date_default_timezone_get();
     file_put_contents(DebugGetFile(), DebugGetTimeDisplay().': '.$str.PHP_EOL, FILE_APPEND);     // DebugGetTimeDisplay will change timezone!
     date_default_timezone_set($strTimeZone);

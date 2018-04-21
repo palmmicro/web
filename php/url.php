@@ -254,14 +254,6 @@ function UrlGetPhp($bChinese)
     return $bChinese ? URL_CNPHP : URL_PHP;
 }
 
-// /woody/blog/entertainment/20140615cn.php ==> 20140615.php
-function UrlSwitchLanguage()
-{
-    $strCur = UrlGetTitle();
-    $strCur .= UrlGetPhp(UrlIsEnglish());
-    return $strCur.UrlPassQuery();
-}
-
 function UrlGetDomain()
 {
 	$strDomain = $_SERVER['SERVER_NAME'];
