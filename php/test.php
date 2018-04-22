@@ -185,8 +185,8 @@ function TestCmdLine()
 	echoDebugString('cmd line test');
     if ($strSymbol = UrlGetQueryValue('symbol'))
     {
-    	$strPrice = TestYahooWebData($strSymbol);
-    	echoDebugString($strSymbol.':'.$strPrice);
+    	$str = TestYahooWebData($strSymbol);
+    	echoDebugString($strSymbol.':'.$str);
     }
 }
 

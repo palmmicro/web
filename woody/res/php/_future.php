@@ -43,6 +43,9 @@ class _FutureGroup extends _StockGroup
         $strSymbol3x = _getSymbol3x($strSymbol);
         $strSymbol3xShort = _getSymbol3xShort($strSymbol);
         StockPrefetchData(array(FutureGetSinaSymbol($strSymbol), $strSymbol1x, $strSymbol3x, $strSymbol3xShort));
+        YahooUpdateNetValue($strSymbol1x);
+        YahooUpdateNetValue($strSymbol3x);
+        YahooUpdateNetValue($strSymbol3xShort);
         
         $this->ref = new FutureReference($strSymbol);
         $this->etf_ref = new MyStockReference($strSymbol1x);

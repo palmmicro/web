@@ -55,6 +55,11 @@ class _PairTradingGroup extends _StockGroup
             $this->index_his = new StockHistory($this->index_ref);
 //            $this->netvalue_ref = new YahooNetValueReference($strSymbol);
             $this->stock_his = false;
+            YahooUpdateNetValue($strSymbol);
+            foreach ($arLeverageSymbol as $strLeverageSymbol)
+            {
+            	YahooUpdateNetValue($strLeverageSymbol);
+            }
         }
         else
         {

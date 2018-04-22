@@ -135,6 +135,29 @@ function _cleanInvalidStockHistory($strStockId)
     }
 }
 
+function _cleanInvalidHistory($strTableName)
+{
+    $ar = array();
+    if ($result = SqlGetTableData($strTableName, false, false, false)) 
+    {
+        while ($history = mysql_fetch_assoc($result)) 
+        {
+            if (_isInvalidDate($history['date']))
+            {
+                $ar[] = $history['id'];
+            }
+        }
+        @mysql_free_result($result);
+    }
+
+    $iCount = count($ar);
+    DebugString($strTableName.' - invalid date: '.strval($iCount)); 
+    foreach ($ar as $strId)
+    {
+        SqlDeleteTableDataById($strTableName, $strId);
+    }
+}
+
 function _submitStockHistory($strStockId, $strSymbol)
 {
     if (AcctIsAdmin() == false)     return;
@@ -153,6 +176,7 @@ function _submitStockHistory($strStockId, $strSymbol)
         }
     }
     _cleanInvalidStockHistory($strStockId);
+//    _cleanInvalidHistory(TABLE_FUND_HISTORY);
 }
 
     AcctNoAuth();

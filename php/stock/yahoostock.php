@@ -158,10 +158,10 @@ function preg_match_yahoo_history($str)
     return $arMatch;
 }
 
-function _debugPregMatch($arMatch, $strSrc)
+function _debugPregMatch($arMatch, $strSrc, $iMin)
 {
 	$iCount = count($arMatch);
-    if ($iCount > 1)
+    if ($iCount > $iMin)
     {
     	DebugString($strSrc.' '.strval($iCount).':');
     	foreach ($arMatch as $ar)
@@ -234,96 +234,74 @@ function _debugPregMatch($arMatch, $strSrc)
 "tradeable":false
 },
 */
-function _preg_match_yahoo_extra($str, $strSymbol)
+
+function _preg_match_yahoo_stock_data($str)
+{
+    $strBoundary = RegExpBoundary();
+    
+    $strPattern = $strBoundary;
+//    $strPattern .= RegExpParenthesis('"regularMarketTime":{"raw":', RegExpDigit(), ',"fmt":"[^"]*"},');
+//    $strPattern .= RegExpNoneSpace();
+//  	$strPattern .= RegExpParenthesis('"fiftyTwoWeekRange":{', '[^}]*', '},');
+//    	$strPattern .= RegExpNoneSpace();
+//    $strPattern .= RegExpParenthesis('"shortName":"', '[^"]*', '",');
+//    $strPattern .= RegExpNoneSpace();
+//    $strPattern .= RegExpParenthesis('"exchangeDataDelayedBy":', RegExpDigit(), ',');
+    $strPattern .= RegExpParenthesis('"regularMarketPrice":{"raw":', RegExpNumber(), ',"fmt":"[\d,.-]*"},');
+  	$strPattern .= RegExpNoneSpace();
+   	$strPattern .= RegExpParenthesis('"symbol":"', '[^"]*', '",');
+    $strPattern .= $strBoundary;
+    
+    $arMatch = array();
+    preg_match_all($strPattern, $str, $arMatch, PREG_SET_ORDER);
+    if (_debugPregMatch($arMatch, 'Yahoo stock data', 17) == 0)	return false;
+    return $arMatch;
+}
+
+function _preg_match_yahoo_stock_time($str)
 {
     $strBoundary = RegExpBoundary();
     
     $strPattern = $strBoundary;
     $strPattern .= RegExpParenthesis('"regularMarketTime":{"raw":', RegExpDigit(), ',"fmt":"[^"]*"},');
-    $strPattern .= RegExpNoneSpace();
-    if ($strSymbol)
-    {
-    	$strPattern .= RegExpParenthesis('"fiftyTwoWeekRange":{', '[^}]*', '},');
-    	$strPattern .= RegExpNoneSpace();
-    }
-    $strPattern .= RegExpParenthesis('"shortName":"', '[^"]*', '",');
-    $strPattern .= RegExpNoneSpace();
-//    $strPattern .= RegExpParenthesis('"exchangeDataDelayedBy":', RegExpDigit(), ',');
-    $strPattern .= RegExpParenthesis('"regularMarketPrice":{"raw":', RegExpNumber(), ',"fmt":"[\d,.-]*"},');
-    if ($strSymbol == false)
-    {
-    	$strPattern .= RegExpNoneSpace();
-    	$strPattern .= RegExpParenthesis('"symbol":"', '[^"]*', '",');
-    }
     $strPattern .= $strBoundary;
-//    DebugString($strPattern);
     
     $arMatch = array();
     preg_match_all($strPattern, $str, $arMatch, PREG_SET_ORDER);
-    if (_debugPregMatch($arMatch, 'Yahoo extra') == 0)	return false;
-    
-    date_default_timezone_set(STOCK_TIME_ZONE_US);
-    $ymd = new YMDTick((intval($arMatch[0][1])));
-    DebugString($ymd->GetYMD().' '.strval($ymd->GetHour()).':'.strval($ymd->GetMinute()));
-    	
     return $arMatch;
 }
 
-/*
-"S&P OIL & GAS  EXPLORATION & PR","exchangeTimezoneName":"America\u002FNew_York","regularMarketChange":{"raw":216.1001,"fmt":"216.10"},
-"regularMarketPreviousClose":{"raw":5773.2,"fmt":"5,773.20"},
-"fiftyTwoWeekHighChange":{"raw":-77.529785,"fmt":"-77.53"},
-"exchangeTimezoneShortName":"EDT","fiftyTwoWeekLowChange":{"raw":176.91992,"fmt":"176.92"},
-"exchangeDataDelayedBy":0,"regularMarketDayLow":{"raw":5773.2,"fmt":"5,773.20"},
-"priceHint":2,"currency":"USD","regularMarketPrice":{"raw":5950.12,"fmt":"5,950.12"},
-"regularMarketVolume":{"raw":0,"fmt":"0","longFmt":"0"}
-*/
-function _preg_match_yahoo_stock($str)
+function _yahooStockMatchGetDate($str)
 {
-    $strBoundary = RegExpBoundary();
+	$arMatch = _preg_match_yahoo_stock_time($str);
+	$iCount = count($arMatch);
+//   	DebugString('_preg_match_yahoo_stock_time - '.strval($iCount).':');
+   	$arDate = array();
+    foreach ($arMatch as $ar)
+    {
+//    	foreach ($ar as $str)	DebugString($str);
+    	$ymd = new YMDTick($ar[1]);
+    	$strDate = $ymd->GetYMD();
+//    	DebugString($strDate);
+       	if (array_key_exists($strDate, $arDate))	$arDate[$strDate] ++;
+       	else											$arDate[$strDate] = 1;
+    }
     
-    $strPattern = $strBoundary;
-//    $strSpace = RegExpSpace();
-    $strLeft = ':{"raw":';
-    $strMid = RegExpNumber();
-    $strRight = ',"fmt":"[\d,.-]*"},';
-//    $strPattern .= '"S&P'.$strSpace.'OIL'.$strSpace.'&'.$strSpace.'GAS'.$strSpace.'EXPLORATION'.$strSpace.'&'.$strSpace.'PR"';
-//    $strPattern .= RegExpNoneSpace();
-//    $strPattern .= RegExpParenthesis('"S&P\s*OIL\s*&\s*GAS\s*EXPLORATION\s*&\s*PR","exchangeTimezoneName":"America\\\\u002FNew_York","regularMarketChange"'.$strLeft, $strMid, $strRight);
-//    $strPattern .= RegExpParenthesis('"regularMarketPreviousClose"'.$strLeft, $strMid, $strRight);
-//    $strPattern .= RegExpParenthesis('"fiftyTwoWeekHighChange"'.$strLeft, $strMid, $strRight);
-//    $strPattern .= RegExpParenthesis('"exchangeTimezoneShortName":"EDT","fiftyTwoWeekLowChange"'.$strLeft, $strMid, $strRight);
-//    $strPattern .= RegExpParenthesis('"exchangeDataDelayedBy":\d*,"regularMarketDayLow"'.$strLeft, $strMid, $strRight);
-    $strPattern .= RegExpParenthesis('"priceHint":\d*,"currency":"USD","regularMarketPrice"'.$strLeft, $strMid, $strRight);
-    $strPattern .= $strBoundary;
-//    DebugString($strPattern);
+    $iMax = 0;
+    $strMax = false;
+    foreach ($arDate as $strDate => $iNum)
+    {
+    	if ($iNum > $iMax)
+    	{
+    		$iMax = $iNum;
+    		$strMax = $strDate;
+//    		DebugString($strMax.' '.strval($iMax));
+    	}
+    }
     
-    $arMatch = array();
-    preg_match_all($strPattern, $str, $arMatch, PREG_SET_ORDER);
-    if (_debugPregMatch($arMatch, 'Yahoo stock') == 0)	return false;
-    return $arMatch[0][1];
-}
-
-/*
-"open":"2018-04-20T13:30:00Z",
-"name":"U.S. Markets","time":"2018-04-20T15:57:37Z",
-"yfit_market_status":"YFT_MARKET_WILL_CLOSE","status":"open","duration":[{"hrs":"4","mins":"3"}],
-"yfit_market_id":"us_market","close":"2018-04-20T20:00:00Z","timezone":[{"dst":"true","gmtoffset":"-14400","short":"EDT","$text":"America\u002FNew_York"}],"id":"us"}}
-*/
-function _preg_match_yahoo_date($str)
-{
-    $strBoundary = RegExpBoundary();
-    
-    $strPattern = $strBoundary;
-//    $strPattern .= RegExpParenthesis('"name":"U.S.\s*Markets","time":"', '[^T]*', 'T[\d:]*Z",');
-    $strPattern .= RegExpParenthesis('"yfit_market_id":"us_market","close":"', '[^T]*', 'T[\d:]*Z",');
-    $strPattern .= $strBoundary;
-//    DebugString($strPattern);
-    
-    $arMatch = array();
-    preg_match_all($strPattern, $str, $arMatch, PREG_SET_ORDER);
-    if (_debugPregMatch($arMatch, 'Yahoo date') == 0)	return false;
-    return $arMatch[0][1];
+//	$ymd = new YMDString($strMax);
+//	DebugString(sprintf('%s %02d:%02d', $ymd->GetYMD(), $ymd->GetHour(), $ymd->GetMinute()));
+	return $strMax;
 }
 
 function YahooStockGetUrl($strYahooSymbol)
@@ -336,25 +314,32 @@ function _yahooStockGetData($strSymbol)
 	$sym = new StockSymbol($strSymbol);
     $strUrl = YahooStockGetUrl($sym->GetYahooSymbol());
     $str = url_get_contents($strUrl);
-//    DebugString($str);
-//	DebugString(_preg_match_yahoo_date($str));
-	_preg_match_yahoo_extra($str, $strSymbol);
-    return _preg_match_yahoo_stock($str);
+	//    DebugString($str);
+    $strDate = _yahooStockMatchGetDate($str);
+	if ($arMatch = _preg_match_yahoo_stock_data($str))
+	{
+		foreach ($arMatch as $ar)
+		{
+			if ($ar[2] == $strSymbol)	return $strDate.' '.$ar[1];
+		}
+	}
+    return false;
 }
 
 function TestYahooWebData($strSymbol)
 {
+	date_default_timezone_set(STOCK_TIME_ZONE_US);
     $sym = new StockSymbol($strSymbol);
     if ($sym->IsIndex())
     {
-   		$strPrice = _yahooStockGetData($strSymbol);
+   		$str = _yahooStockGetData($strSymbol);
    	}
    	else
    	{
-   		$strPrice = _yahooStockGetData(GetYahooNetValueSymbol($strSymbol));
+   		$str = _yahooStockGetData(GetYahooNetValueSymbol($strSymbol));
    	}
-   	if ($strPrice == false)	return '(Not found)';
-   	return $strPrice;
+   	if ($str == false)	return '(Not found)';
+   	return $str;
 }
 
 function _getNetValueDelayTick()
@@ -370,32 +355,44 @@ function _yahooNetValueHasFile($ymd_now, $strFileName)
         $str = file_get_contents($strFileName);
         if ($ymd_now->IsNewFile($strFileName))							return $str;   		// update on every minute
         
-        if ($strDate = _preg_match_yahoo_date($str))
-        {
-//        	DebugString($strFileName.' '.$strDate);
-        	$ymd = new YMDString($strDate);
-        	if (($ymd->GetNextTradingDayTick() + _getNetValueDelayTick()) <= $ymd_now->GetTick())		return false;		// need update
-        }
-        else
-        {
-        	return false;
-        }
-//        DebugString($strFileName.'- Use current file');
+       	$strDate = _yahooStockMatchGetDate($str);
+       	$ymd = new YMDString($strDate);
+       	if (($ymd->GetNextTradingDayTick() + _getNetValueDelayTick()) <= $ymd_now->GetTick())		return false;		// need update
+
+//        DebugString($strFileName.' - Use current file');
         return $str;
     }
     return false;
 }
 
+function _insertFundHistory($strStockId, $strDate, $strVal)
+{
+	if (SqlGetFundHistoryByDate($strStockId, $strDate) == false)
+    {
+    	DebugString('Insert fund history: '.SqlGetStockSymbol($strStockId).' '.$strDate.':'.$strVal);
+    	SqlInsertFundHistory($strStockId, $strDate, $strVal, '0', '0');
+    }
+}
+
+
 function YahooUpdateNetValue($strSymbol)
 {
+	if ($strSymbol == 'USO' || $strSymbol == 'DBC')	return;
+	
     date_default_timezone_set(STOCK_TIME_ZONE_US);
     $ymd_now = new YMDNow();
     $strDate = $ymd_now->GetYMD();
     $strStockId = SqlGetStockId($strSymbol);
+    if ($strStockId == false)
+    {
+    	DebugString($strSymbol.' not in database');
+    	return;
+    }
+    
     SqlCreateFundHistoryTable();
     if (SqlGetFundHistoryByDate($strStockId, $strDate))
     {
-//    	DebugString($strSymbol.' '.$strDate.': fund table entry existed');
+    	DebugString($strSymbol.' '.$strDate.': fund table entry existed');
     	return;
     }
 	
@@ -408,11 +405,12 @@ function YahooUpdateNetValue($strSymbol)
     	}
     }
     
+	$strNetValueSymbol = GetYahooNetValueSymbol($strSymbol);
 	$strFileName = DebugGetYahooWebFileName($strSymbol);
 	$str = _yahooNetValueHasFile($ymd_now, $strFileName);
     if ($str == false)
     {
-    	$sym = new StockSymbol(GetYahooNetValueSymbol($strSymbol));
+    	$sym = new StockSymbol($strNetValueSymbol);
     	$strUrl = YahooStockGetUrl($sym->GetYahooSymbol());
     	if ($str = url_get_contents($strUrl))
     	{
@@ -426,15 +424,15 @@ function YahooUpdateNetValue($strSymbol)
     	}
     }
 	
-    if ($strDate = _preg_match_yahoo_date($str))
+    if ($str == false)										return;
+   	$strDate = _yahooStockMatchGetDate($str);
+    if (SqlGetFundHistoryByDate($strStockId, $strDate))    	return;
+    if ($arMatch = _preg_match_yahoo_stock_data($str))
     {
-    	if (SqlGetFundHistoryByDate($strStockId, $strDate) == false)
+    	foreach ($arMatch as $ar)
     	{
-    		if ($strNetValue = _preg_match_yahoo_stock($str))
-    		{
-    			DebugString($strSymbol.' '.$strDate.':'.$strNetValue);
-    			SqlInsertFundHistory($strStockId, $strDate, $strNetValue, '0', '0');
-    		}
+    		if ($strNetValueSymbol == $ar[2])			_insertFundHistory($strStockId, $strDate, $ar[1]);
+    		else if ($strId = SqlGetStockId($ar[2]))		_insertFundHistory($strId, $strDate, $ar[1]);
     	}
     }
 }
