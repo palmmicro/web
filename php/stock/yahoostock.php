@@ -374,10 +374,39 @@ function _insertFundHistory($strStockId, $strDate, $strVal)
     }
 }
 
+function _yahooGetNetValueSymbol($strSymbol)
+{
+    $sym = new StockSymbol($strSymbol);
+    if ($sym->IsSymbolA() || $sym->IsSymbolH())
+    {
+    	return false;
+    }
+    else if ($sym->IsIndex())
+    {
+   		return $strSymbol;
+   	}
+   	else
+   	{
+   		if ($strSymbol == 'USO' || $strSymbol == 'DBC')	return false;
+   	}
+   	return GetYahooNetValueSymbol($strSymbol);
+}
+
+function _yahooNetValueReady($strStockId, $strDate)
+{
+    SqlCreateFundHistoryTable();
+    if (SqlGetFundHistoryByDate($strStockId, $strDate))
+    {
+//    	DebugString(SqlGetStockSymbol($strStockId).' '.$strDate.': fund table entry existed');
+    	return true;
+    }
+    return false;
+}
 
 function YahooUpdateNetValue($strSymbol)
 {
-	if ($strSymbol == 'USO' || $strSymbol == 'DBC')	return;
+	$strNetValueSymbol = _yahooGetNetValueSymbol($strSymbol);
+	if ($strNetValueSymbol == false)	return;
 	
     date_default_timezone_set(STOCK_TIME_ZONE_US);
     $ymd_now = new YMDNow();
@@ -388,13 +417,7 @@ function YahooUpdateNetValue($strSymbol)
     	DebugString($strSymbol.' not in database');
     	return;
     }
-    
-    SqlCreateFundHistoryTable();
-    if (SqlGetFundHistoryByDate($strStockId, $strDate))
-    {
-    	DebugString($strSymbol.' '.$strDate.': fund table entry existed');
-    	return;
-    }
+    if (_yahooNetValueReady($strStockId, $strDate))		return;
 	
     if ($ymd_now->IsTradingDay())
     {
@@ -405,7 +428,6 @@ function YahooUpdateNetValue($strSymbol)
     	}
     }
     
-	$strNetValueSymbol = GetYahooNetValueSymbol($strSymbol);
 	$strFileName = DebugGetYahooWebFileName($strSymbol);
 	$str = _yahooNetValueHasFile($ymd_now, $strFileName);
     if ($str == false)
@@ -424,15 +446,14 @@ function YahooUpdateNetValue($strSymbol)
     	}
     }
 	
-    if ($str == false)										return;
    	$strDate = _yahooStockMatchGetDate($str);
-    if (SqlGetFundHistoryByDate($strStockId, $strDate))    	return;
+    if (_yahooNetValueReady($strStockId, $strDate))		return;
     if ($arMatch = _preg_match_yahoo_stock_data($str))
     {
     	foreach ($arMatch as $ar)
     	{
-    		if ($strNetValueSymbol == $ar[2])			_insertFundHistory($strStockId, $strDate, $ar[1]);
-    		else if ($strId = SqlGetStockId($ar[2]))		_insertFundHistory($strId, $strDate, $ar[1]);
+    		if ($strNetValueSymbol == $ar[2])					_insertFundHistory($strStockId, $strDate, $ar[1]);
+    		else if ($strExtraId = SqlGetStockId($ar[2]))		_insertFundHistory($strExtraId, $strDate, $ar[1]);
     	}
     }
 }

@@ -42,6 +42,15 @@ class _PairTradingGroup extends _StockGroup
         $arLeverageSymbol = _getPairTradingLeverage($strSymbol);
 //        StockPrefetchData(array_merge($arLeverageSymbol, array($strSymbol, $strIndexSymbol, GetYahooNetValueSymbol($strSymbol))));  
         StockPrefetchData(array_merge($arLeverageSymbol, array($strSymbol, $strIndexSymbol)));  
+        if ($strIndexSymbol)
+        {
+            YahooUpdateNetValue($strIndexSymbol);
+            YahooUpdateNetValue($strSymbol);
+            foreach ($arLeverageSymbol as $strLeverageSymbol)
+            {
+            	YahooUpdateNetValue($strLeverageSymbol);
+            }
+        }
         
         $this->ref = new MyStockReference($strSymbol);
         foreach ($arLeverageSymbol as $strLeverageSymbol)
@@ -55,11 +64,6 @@ class _PairTradingGroup extends _StockGroup
             $this->index_his = new StockHistory($this->index_ref);
 //            $this->netvalue_ref = new YahooNetValueReference($strSymbol);
             $this->stock_his = false;
-            YahooUpdateNetValue($strSymbol);
-            foreach ($arLeverageSymbol as $strLeverageSymbol)
-            {
-            	YahooUpdateNetValue($strLeverageSymbol);
-            }
         }
         else
         {
