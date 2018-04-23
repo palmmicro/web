@@ -12,6 +12,7 @@ define ('TABLE_MEMBER', 'member');
 define ('TABLE_PROFILE', 'profile');
 define ('TABLE_SPIDER_PARAMTER', 'spiderparameter');
 define ('TABLE_STOCK', 'stock');
+define ('TABLE_CALIBRATION', 'calibration');
 define ('TABLE_STOCK_CALIBRATION', 'stockcalibration');
 define ('TABLE_STOCK_GROUP', 'stockgroup');
 define ('TABLE_STOCK_GROUP_ITEM', 'stockgroupitem');

@@ -30,6 +30,11 @@ function _SqlBuildWhere_stock($strStockId)
 	return _SqlBuildWhere('stock_id', $strStockId);
 }
 
+function _SqlBuildWhere_etfpair($strEtfPairId)
+{
+	return _SqlBuildWhere('etfpair_id', $strEtfPairId);
+}
+
 function _SqlBuildWhereOrArray($strKey, $arVal)
 {
     $strOr = ' OR ';

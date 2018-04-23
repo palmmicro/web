@@ -405,25 +405,17 @@ function _yahooNetValueReady($strStockId, $strDate)
 
 function YahooUpdateNetValue($strSymbol)
 {
-	$strNetValueSymbol = _yahooGetNetValueSymbol($strSymbol);
-	if ($strNetValueSymbol == false)	return;
-	
+	if (($strNetValueSymbol = _yahooGetNetValueSymbol($strSymbol)) == false)	return;
+    if (($strStockId = SqlGetStockId($strSymbol)) == false)  					return;
     date_default_timezone_set(STOCK_TIME_ZONE_US);
     $ymd_now = new YMDNow();
     $strDate = $ymd_now->GetYMD();
-    $strStockId = SqlGetStockId($strSymbol);
-    if ($strStockId == false)
-    {
-    	DebugString($strSymbol.' not in database');
-    	return;
-    }
-    if (_yahooNetValueReady($strStockId, $strDate))		return;
-	
+    if (_yahooNetValueReady($strStockId, $strDate))								return;
     if ($ymd_now->IsTradingDay())
     {
     	if ($ymd_now->GetTick() < (strtotime($strDate) + _getNetValueDelayTick()))
     	{
-    		DebugString($strSymbol.': Market not closed');
+//    		DebugString($strSymbol.': Market not closed');
     		return;
     	}
     }

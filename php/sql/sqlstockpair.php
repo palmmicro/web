@@ -2,7 +2,7 @@
 
 define('TABLE_AH_STOCK', 'ahstock');
 define('TABLE_ADRH_STOCK', 'adrhstock');
-define('TABLE_LEVERAGE_ETF', 'leverageetf');
+define('TABLE_ETF_PAIR', 'etfpair');
 
 // ****************************** Stock pair tables *******************************************************
 
@@ -15,8 +15,8 @@ function SqlCreateStockPairTable($strTableName)
          . ' `stock_id` INT UNSIGNED NOT NULL ,'
          . ' `pair_id` INT UNSIGNED NOT NULL ,'
          . ' `ratio` DOUBLE(10,6) NOT NULL ,'
-         . ' FOREIGN KEY (`stock_id`) REFERENCES `stock`(`id`) ON DELETE CASCADE ,'
-         . ' INDEX ( `pair_id` )'
+         . ' FOREIGN KEY (`pair_id`) REFERENCES `stock`(`id`) ON DELETE CASCADE ,'
+         . ' UNIQUE ( `stock_id` )'
          . ' ) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci '; 
 	return SqlDieByQuery($str, $strTableName.' create table failed');
 }
@@ -104,6 +104,11 @@ function SqlGetAdrhPairRatio($adr_ref)
 	return SqlGetStockPairRatio(TABLE_ADRH_STOCK, $adr_ref->GetStockId());
 }
 
+function SqlGetEtfPairRatio($strEtfId)
+{
+	return SqlGetStockPairRatio(TABLE_ETF_PAIR, $strEtfId);
+}
+
 function SqlGetPair($strTableName, $strSymbol, $callback)
 {
 	if ($strStockId = SqlGetStockId($strSymbol))
@@ -115,6 +120,11 @@ function SqlGetPair($strTableName, $strSymbol, $callback)
 		}
 	}
 	return false;
+}
+
+function SqlGetEtfPair($strEtf)
+{
+	return SqlGetPair(TABLE_ETF_PAIR, $strEtf, SqlGetStockPairId);
 }
 
 function SqlGetAhPair($strSymbolA)

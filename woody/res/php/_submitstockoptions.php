@@ -92,6 +92,31 @@ function _updateStockOptionAdr($strSymbol, $strVal)
     }
 }
 
+function _updateStockOptionEtf($strSymbol, $strVal)
+{
+	if (strchr($strVal, '*'))
+	{
+		$ar = explode('*', $strVal);
+		$strIndex = $ar[0];
+		$strRatio = $ar[1];
+	}
+	else
+	{
+		$strIndex = $strVal;
+		$strRatio = '1';
+	}
+	$strStockId = SqlGetStockId($strSymbol);
+	$strPairId = SqlGetStockId(StockGetSymbol($strIndex));
+    if ($record = SqlGetStockPair(TABLE_ETF_PAIR, $strStockId))
+    {
+    	SqlUpdateStockPair(TABLE_ETF_PAIR, $record['id'], $strStockId, $strPairId, $strRatio);
+    }
+    else
+    {
+    	SqlInsertStockPair(TABLE_ETF_PAIR, $strStockId, $strPairId, $strRatio);
+    }
+}
+
 	AcctAuth();
 	if (isset($_POST['submit']))
 	{
@@ -108,6 +133,10 @@ function _updateStockOptionAdr($strSymbol, $strVal)
 		else if ($strSubmit == STOCK_OPTION_ADR_CN)
 		{
 			if ($bAdmin)	_updateStockOptionAdr($strSymbol, $strVal);
+		}
+		else if ($strSubmit == STOCK_OPTION_ETF_CN)
+		{
+			if ($bAdmin)	_updateStockOptionEtf($strSymbol, $strVal);
 		}
 		else if ($strSubmit == STOCK_OPTION_EDIT_CN || $strSubmit == STOCK_OPTION_EDIT)
 		{

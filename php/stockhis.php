@@ -380,7 +380,6 @@ class StockHistory
         $this->stock_ref = $ref;
 //        $this->aiNum = array(5, 10, 20, 30);
         $this->aiNum = array(5, 10, 20);
-
 		$this->strDate = $this->_getStartDate();
         $this->_configSMA();
     }

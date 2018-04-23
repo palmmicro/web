@@ -134,6 +134,10 @@ function _echoMyStockLinks($sym, $bChinese)
     {
     	if ($bChinese)	$str .= ' '.GetPhpLink(STOCK_PATH.'editstockadr', $strQuery, STOCK_OPTION_ADR_CN, true);
     }
+    else
+    {
+    	if ($bChinese)	$str .= ' '.GetPhpLink(STOCK_PATH.'editstocketf', $strQuery, STOCK_OPTION_ETF_CN, true);
+    }
     EchoParagraph($str);
 }
 

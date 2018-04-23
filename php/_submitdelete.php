@@ -30,7 +30,12 @@ function _deleteStockById($strStockId)
 	}
 	else if (SqlGetStockPair(TABLE_ADRH_STOCK, $strStockId) || SqlGetStockPair(TABLE_AH_STOCK, $strStockId) || SqlGetStockPairStockId(TABLE_ADRH_STOCK, $strStockId) || SqlGetStockPairStockId(TABLE_AH_STOCK, $strStockId))
 	{
-		DebugString($strFailed.'Stock pair existed');
+		DebugString($strFailed.'H Stock pair existed');
+		return;
+	}
+	else if (SqlGetStockPair(TABLE_ETF_PAIR, $strStockId))
+	{
+		DebugString($strFailed.'ETF pair existed');
 		return;
 	}
 	else if (SqlGetForexHistoryNow($strStockId) || SqlGetFundHistoryNow($strStockId))

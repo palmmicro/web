@@ -6,7 +6,8 @@ require_once('/php/ui/htmlelement.php');
 
 define ('STOCK_OPTION_ADJCLOSE_CN', '根据分红更新复权收盘价');
 
-define ('STOCK_OPTION_ADR_CN', '修改ADR代码');
+define ('STOCK_OPTION_ADR_CN', '修改港股对应ADR代码');
+define ('STOCK_OPTION_ETF_CN', '修改ETF对应跟踪代码');
 
 define ('STOCK_OPTION_EDIT', 'Edit Stock Description');
 define ('STOCK_OPTION_EDIT_CN', '修改股票说明');
@@ -73,6 +74,20 @@ function _getStockOptionAdr($strSymbol)
 	return '';
 }
 
+function _getStockOptionEtf($strSymbol)
+{
+	SqlCreateStockPairTable(TABLE_ETF_PAIR);
+	if ($strIndex = SqlGetEtfPair($strSymbol))
+	{
+		if ($fRatio = SqlGetStockPairRatio(TABLE_ETF_PAIR, SqlGetStockId($strSymbol)))
+		{
+			return $strIndex.'*'.strval($fRatio);
+		}
+		return $strIndex;
+	}
+	return '';
+}
+
 function _getStockOptionVal($strSubmit, $strSymbol)
 {
 	if ($strSubmit == STOCK_OPTION_ADJCLOSE_CN)
@@ -82,6 +97,10 @@ function _getStockOptionVal($strSubmit, $strSymbol)
 	else if ($strSubmit == STOCK_OPTION_ADR_CN)
 	{
 		return _getStockOptionAdr($strSymbol);
+	}
+	else if ($strSubmit == STOCK_OPTION_ETF_CN)
+	{
+		return _getStockOptionEtf($strSymbol);
 	}
 	else if ($strSubmit == STOCK_OPTION_EDIT_CN || $strSubmit == STOCK_OPTION_EDIT)
 	{

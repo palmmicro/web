@@ -20,12 +20,13 @@ function SqlCreateFundHistoryTable()
 
 function SqlGetFundHistoryNow($strStockId)
 {
-	if ($result = SqlGetFundHistory($strStockId, 0, 1))
+	return SqlGetSingleTableData(TABLE_FUND_HISTORY, _SqlBuildWhere_stock($strStockId), _SqlOrderByDate());
+/*	if ($result = SqlGetFundHistory($strStockId, 0, 1))
 	{
 	    $history = mysql_fetch_assoc($result);
 	    return $history;
 	}
-	return false;
+	return false;*/
 }
 
 function SqlCountFundHistory($strStockId)
