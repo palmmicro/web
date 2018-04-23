@@ -1,7 +1,6 @@
 <?php
 
 // ****************************** Stock Calibration tables *******************************************************
-
 function SqlCreateCalibrationTable()
 {
     $str = 'CREATE TABLE IF NOT EXISTS `camman`.`calibration` ('

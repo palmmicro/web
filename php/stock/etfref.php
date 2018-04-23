@@ -9,11 +9,11 @@ class EtfReference extends MyStockReference
     var $fRatio = 1.0;
     
     // constructor 
-    function EtfReference($strSymbol, $strPairSymbol) 
+    function EtfReference($strSymbol) 
     {
         parent::MyStockReference($strSymbol);
-    	$this->strPairSymbol = $strPairSymbol;
-    	$this->strPairId = SqlGetStockId($strPairSymbol);
+//    	$this->strPairSymbol = $strPairSymbol;
+//    	$this->strPairId = SqlGetStockId($strPairSymbol);
         $this->fRatio = SqlGetEtfPairRatio($this->GetStockId());
         if ($history = SqlGetFundHistoryNow($this->GetStockId()))
         {
