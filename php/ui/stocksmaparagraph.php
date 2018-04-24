@@ -37,17 +37,15 @@ function _callbackHAdrSmaCny($fEst, $ref)
 	return $ref->adr_ref;
 }
 
-function EchoStockSmaParagraph($ref, $hshare_ref, $hadr_ref, $bChinese)
+function EchoStockSmaParagraph($ref, $hshare_ref, $bChinese)
 {
     if ($ref->bHasData == false) 	return;
     
 	$stock_his = new StockHistory($ref);
 	$arColumn = EchoSmaParagraphBegin($stock_his, $bChinese);
 	$callback = false;
-	$cb_ref = false;
-	if ($hshare_ref && $hadr_ref)
+	if ($hshare_ref->a_ref && $hshare_ref->adr_ref)
 	{
-		$cb_ref = $hadr_ref;
    		if ($ref->sym->IsSymbolA())
    		{
    			$callback2 = _callbackHAdrSmaCny;
@@ -63,23 +61,21 @@ function EchoStockSmaParagraph($ref, $hshare_ref, $hadr_ref, $bChinese)
    			$callback2 = _callbackHAdrSmaUsd;
    			$callback = _callbackHAdrSmaAdr;
    		}
-   		EchoSmaTable($arColumn, $stock_his, $hadr_ref, $callback2, false, $bChinese);
+   		EchoSmaTable($arColumn, $stock_his, $hshare_ref, $callback2, false, $bChinese);
 		EchoNewLine();
 	}
-	else if ($hshare_ref)
+	else if ($hshare_ref->a_ref)
 	{
-		$cb_ref = $hshare_ref;
    		if ($ref->sym->IsSymbolA())	$callback = _callbackHShareSmaA;
    		else				   			$callback = _callbackHShareSmaH;
 	}
-	else if ($hadr_ref)
+	else if ($hshare_ref->adr_ref)
 	{
-		$cb_ref = $hadr_ref;
    		if ($ref->sym->IsSymbolH())	$callback = _callbackHAdrSmaH;
    		else				   			$callback = _callbackHAdrSmaAdr;
 	}
 	
-	EchoSmaTable($arColumn, $stock_his, $cb_ref, $callback, false, $bChinese);
+	EchoSmaTable($arColumn, $stock_his, $hshare_ref, $callback, false, $bChinese);
     EchoParagraphEnd();
 }
 

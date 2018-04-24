@@ -156,7 +156,7 @@ function EchoFundTradingParagraph($fund, $callback, $bChinese)
     EchoParagraphEnd();
 }
 
-function EchoAhTradingParagraph($hshare_ref, $hadr_ref, $bChinese)
+function EchoAhTradingParagraph($hshare_ref, $bChinese)
 {
 	$ref = $hshare_ref->a_ref;
     $strSymbol = GetMyStockRefLink($ref, $bChinese); 
@@ -168,12 +168,12 @@ function EchoAhTradingParagraph($hshare_ref, $hadr_ref, $bChinese)
 	
     $arColumn = _getTradingTableColumn($bChinese);
     $arColumn[] = GetAhCompareLink($bChinese).$strPremium;
-    if ($hadr_ref)
+    if ($hshare_ref->adr_ref)
     {
-    	$strAdrLink = GetMyStockRefLink($hadr_ref->adr_ref, $bChinese);
+    	$strAdrLink = GetMyStockRefLink($hshare_ref->adr_ref, $bChinese);
     	if ($bChinese == false)	$strAdrLink .= ' ';
     	$arColumn[] = $strAdrLink.$strPremium;
-    	$fVal = $hadr_ref->FromUsdToCny($hadr_ref->adr_ref->fPrice);
+    	$fVal = $hshare_ref->FromUsdToCny($hshare_ref->adr_ref->fPrice);
     }
     else
     {

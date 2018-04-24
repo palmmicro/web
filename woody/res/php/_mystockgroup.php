@@ -67,16 +67,19 @@ function _echoStockGroupArray($arStock, $bChinese)
        	}
        	else
        	{
-       		if ($ref_ar = StockGetHAdrReference($sym))
+       		if ($ref_ar = StockGetHShareReference($sym))
        		{
-       			list($ref, $hshare_ref, $hadr_ref) = $ref_ar;
+       			list($ref, $hshare_ref) = $ref_ar;
        			if ($hshare_ref)
        			{
-       				if (in_array_ref($hshare_ref->GetStockSymbol(), $arHShareRef) == false)		$arHShareRef[] = $hshare_ref;
-       			}
-       			if ($hadr_ref)
-       			{
-       				if (in_array_ref($hadr_ref->GetStockSymbol(), $arHAdrRef) == false)		$arHAdrRef[] = $hadr_ref;
+       				if ($hshare_ref->a_ref)
+       				{
+       					if (in_array_ref($hshare_ref->GetStockSymbol(), $arHShareRef) == false)		$arHShareRef[] = $hshare_ref;
+       				}
+       				if ($hshare_ref->adr_ref)
+       				{
+       					if (in_array_ref($hshare_ref->GetStockSymbol(), $arHAdrRef) == false)			$arHAdrRef[] = $hshare_ref;
+       				}
        			}
        		}
        		else	$ref = StockGetReference($sym);
@@ -97,9 +100,9 @@ function _echoStockGroupArray($arStock, $bChinese)
     }
     
     EchoReferenceParagraph($arRef, $bChinese);
-    if (count($arFund) > 0)     EchoFundArrayEstParagraph($arFund, '', $bChinese);
+    if (count($arFund) > 0)     		EchoFundArrayEstParagraph($arFund, '', $bChinese);
     if (count($arHShareRef) > 0)	EchoAhParagraph($arHShareRef, $bChinese);
-    if (count($arHAdrRef) > 0)	EchoAdrhParagraph($arHAdrRef, $bChinese);
+    if (count($arHAdrRef) > 0)		EchoAdrhParagraph($arHAdrRef, $bChinese);
     
     return $arTransactionRef;
 }

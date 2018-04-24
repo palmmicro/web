@@ -42,16 +42,14 @@ function EchoFundEstDemo($bChinese)
 
 function EchoAhDemo($bChinese)
 {
-    $a_ref = new MyStockReference(SqlGetHaPair(AH_DEMO_SYMBOL));
-   	$hshare_ref = new HShareReference(AH_DEMO_SYMBOL, $a_ref);
+   	$hshare_ref = new HShareReference(AH_DEMO_SYMBOL);
    	EchoAhParagraph(array($hshare_ref), $bChinese);
 }
 
 function EchoAdrhDemo($bChinese)
 {
-    $adr_ref = new MyStockReference(SqlGetHadrPair(ADRH_DEMO_SYMBOL));
-   	$hadr_ref = new HAdrReference(ADRH_DEMO_SYMBOL, false, $adr_ref);
-   	EchoAdrhParagraph(array($hadr_ref), $bChinese);
+   	$hshare_ref = new HShareReference(ADRH_DEMO_SYMBOL);
+   	EchoAdrhParagraph(array($hshare_ref), $bChinese);
 }
 
 ?>

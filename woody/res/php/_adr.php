@@ -39,11 +39,9 @@ class _AdrGroup extends _StockGroup
         $this->uscny_ref = new CnyReference('USCNY');
         $this->hkcny_ref = new CnyReference('HKCNY');
         
-    	$strSymbolH = SqlGetAdrhPair($strSymbolAdr);
-        $strSymbolA = SqlGetHaPair($strSymbolH);
-        $this->cn_ref = new MyStockReference($strSymbolA);
-        $this->us_ref = new MyStockReference($strSymbolAdr);
-        $this->hk_ref = new HAdrReference($strSymbolH, $this->cn_ref, $this->us_ref);
+        $this->hk_ref = new HShareReference(SqlGetAdrhPair($strSymbolAdr));
+        $this->cn_ref = $this->hk_ref->a_ref;
+        $this->us_ref = $this->hk_ref->adr_ref;
 
         $this->fUSDCNY = $this->uscny_ref->fPrice;
         $this->fHKDCNY = $this->hkcny_ref->fPrice;
@@ -178,10 +176,10 @@ function AdrEchoAll($bChinese)
     global $group;
     
     _echoRefParagraph($group, $bChinese);
-	EchoAhTradingParagraph($group->hk_ref, $group->hk_ref, $bChinese);
-    EchoStockSmaParagraph($group->cn_ref, $group->hk_ref, $group->hk_ref, $bChinese);
-    EchoStockSmaParagraph($group->hk_ref, $group->hk_ref, $group->hk_ref, $bChinese);
-    EchoStockSmaParagraph($group->us_ref, $group->hk_ref, $group->hk_ref, $bChinese);
+	EchoAhTradingParagraph($group->hk_ref, $bChinese);
+    EchoStockSmaParagraph($group->cn_ref, $group->hk_ref, $bChinese);
+    EchoStockSmaParagraph($group->hk_ref, $group->hk_ref, $bChinese);
+    EchoStockSmaParagraph($group->us_ref, $group->hk_ref, $bChinese);
 
     if ($group->strGroupId) 
     {

@@ -77,7 +77,6 @@ function _echoMyStock($strSymbol, $bChinese)
     StockPrefetchData(array($strSymbol));
     
     $hshare_ref = false;
-    $hadr_ref = false;
     $sym = new StockSymbol($strSymbol);
     if ($sym->IsFundA())
     {
@@ -86,7 +85,7 @@ function _echoMyStock($strSymbol, $bChinese)
     }
     else
     {
-    	if ($ref_ar = StockGetHAdrReference($sym))		list($ref, $hshare_ref, $hadr_ref) = $ref_ar;
+    	if ($ref_ar = StockGetHShareReference($sym))		list($ref, $hshare_ref) = $ref_ar;
    		else												$ref = StockGetReference($sym);
     }
     EchoReferenceParagraph(array($ref), $bChinese);
@@ -101,21 +100,17 @@ function _echoMyStock($strSymbol, $bChinese)
         if ($hshare_ref)
         {
 			_setMyStockLink($hshare_ref, $strSymbol, $bChinese);
-        	EchoAhParagraph(array($hshare_ref), $bChinese);
-        }
-        if ($hadr_ref)
-        {
-			_setMyStockLink($hadr_ref, $strSymbol, $bChinese);
-        	EchoAdrhParagraph(array($hadr_ref), $bChinese);
+			if ($hshare_ref->a_ref)		EchoAhParagraph(array($hshare_ref), $bChinese);
+			if ($hshare_ref->adr_ref)	EchoAdrhParagraph(array($hshare_ref), $bChinese);
         }
    		if ($sym->IsSymbolA())
    		{
-   			if ($hshare_ref)	EchoAhTradingParagraph($hshare_ref, $hadr_ref, $bChinese);
+   			if ($hshare_ref)	EchoAhTradingParagraph($hshare_ref, $bChinese);
    			else 				EchoTradingParagraph($ref, $bChinese);
        	}
     }
     
-    if (_hasSmaDisplay($sym))	EchoStockSmaParagraph($ref, $hshare_ref, $hadr_ref, $bChinese);
+    if (_hasSmaDisplay($sym))	EchoStockSmaParagraph($ref, $hshare_ref, $bChinese);
     
     if ($strMemberId = AcctIsLogin())
     {

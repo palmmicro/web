@@ -3,31 +3,51 @@
 // ****************************** HShareReference class *******************************************************
 class HShareReference extends MyStockReference
 {
-    var $a_ref;
+    var $a_ref = false;
+    var $adr_ref = false;
 
     var $fRatio = 1.0;
+    var $fAdrRatio = 1.0;
+    
+    var $fHKDUSD;
+    var $fUSDCNY;
     var $fHKDCNY;
     
     // constructor 
-    function HShareReference($strSymbol, $a_ref) 
+    function HShareReference($strSymbol) 
     {
-    	$this->a_ref = $a_ref;
-    	if ($a_ref)
-    	{
-    		$this->fRatio = SqlGetAhPairRatio($a_ref);
+   		$this->fHKDCNY = SqlGetHKCNY();
+        if ($strSymbolA = SqlGetHaPair($strSymbol))
+        {
+        	$this->a_ref = new MyStockReference($strSymbolA);
+    		$this->fRatio = SqlGetAhPairRatio($this->a_ref);
     	}
-    	$this->fHKDCNY = SqlGetHKCNY();
+        if ($strSymbolAdr = SqlGetHadrPair($strSymbol))
+        {
+        	$this->adr_ref = new MyStockReference($strSymbolAdr);
+    		$this->fAdrRatio = SqlGetAdrhPairRatio($this->adr_ref);
+    		$this->fUSDCNY = SqlGetUSCNY();
+    		$this->fHKDUSD = $this->fHKDCNY / $this->fUSDCNY;
+    	}
         parent::MyStockReference($strSymbol);
     }
     
     function EstFromCny($fEst)
     {
-    	return $fEst / ($this->fRatio * $this->fHKDCNY);
+    	if ($this->a_ref)
+    	{
+    		return $fEst / ($this->fRatio * $this->fHKDCNY);
+    	}
+    	return 0.0;
     }
 
     function EstToCny($fEst)
     {
-    	return $fEst * ($this->fRatio * $this->fHKDCNY);
+    	if ($this->a_ref)
+    	{
+    		return $fEst * ($this->fRatio * $this->fHKDCNY);
+    	}
+    	return 0.0;
     }
     
     function GetCnyPrice()
@@ -43,38 +63,23 @@ class HShareReference extends MyStockReference
     	}
     	return 1.0;
     }
-}
-
-// ****************************** HAdrReference class *******************************************************
-class HAdrReference extends HShareReference
-{
-    var $adr_ref;
-
-    var $fAdrRatio = 1.0;
-    var $fHKDUSD;
-    var $fUSDCNY;
-    
-    // constructor 
-    function HAdrReference($strSymbol, $a_ref, $adr_ref) 
-    {
-    	$this->adr_ref = $adr_ref;
-    	if ($adr_ref)
-    	{
-    		$this->fAdrRatio = SqlGetAdrhPairRatio($adr_ref);
-    	}
-    	$this->fUSDCNY = SqlGetUSCNY();
-        parent::HShareReference($strSymbol, $a_ref);
-        $this->fHKDUSD = $this->fHKDCNY / $this->fUSDCNY;
-    }
-    
+   
     function EstFromUsd($fEst)
     {
-    	return $fEst / ($this->fAdrRatio * $this->fHKDUSD);
+    	if ($this->adr_ref)
+    	{
+    		return $fEst / ($this->fAdrRatio * $this->fHKDUSD);
+    	}
+    	return 0.0;
     }
 
     function EstToUsd($fEst)
     {
-    	return $fEst * ($this->fAdrRatio * $this->fHKDUSD);
+    	if ($this->adr_ref)
+    	{
+    		return $fEst * ($this->fAdrRatio * $this->fHKDUSD);
+    	}
+    	return 0.0;
     }
     
     function FromUsdToCny($fEst)

@@ -45,21 +45,14 @@ function TextFromStockReference($ref)
     return $str;
 }
 
-function TextFromAhReference($ref, $hshare_ref, $hadr_ref)
+function TextFromAhReference($ref, $hshare_ref)
 {
 	$str = TextFromStockReference($ref);
-	if ($hshare_ref)
-	{
-		$str .= 'A股代码:'.GetMyStockRefLink($hshare_ref->a_ref, true).WX_EOL;
-		$str .= 'H股代码:'.GetMyStockRefLink($hshare_ref, true).WX_EOL;
-	}
-	if ($hadr_ref)
-	{
-		$str .= 'ADR代码:'.GetMyStockRefLink($hadr_ref->adr_ref, true).WX_EOL;
-		if ($hshare_ref == false)	$str .= 'H股代码:'.GetMyStockRefLink($hadr_ref, true).WX_EOL;
-	}
-	if ($hshare_ref)		$str .= 'AH比价:'.round_display($hshare_ref->GetAhRatio()).WX_EOL;
-	if ($hadr_ref)		$str .= 'ADRH比价:'.round_display($hadr_ref->GetAdrhRatio()).WX_EOL;
+	$str .= 'H股代码:'.GetMyStockRefLink($hshare_ref, true).WX_EOL;
+	if ($hshare_ref->a_ref)		$str .= 'A股代码:'.GetMyStockRefLink($hshare_ref->a_ref, true).WX_EOL;
+	if ($hshare_ref->adr_ref)	$str .= 'ADR代码:'.GetMyStockRefLink($hshare_ref->adr_ref, true).WX_EOL;
+	if ($hshare_ref->a_ref)		$str .= 'AH比价:'.round_display($hshare_ref->GetAhRatio()).WX_EOL;
+	if ($hshare_ref->adr_ref)	$str .= 'ADRH比价:'.round_display($hshare_ref->GetAdrhRatio()).WX_EOL;
 	return $str;
 }
 
