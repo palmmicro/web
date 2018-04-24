@@ -181,6 +181,10 @@ function GetCategoryArray($strTitle)
         $ar = LofGetCommoditySymbolArray();
         break;
         
+    case 'etflist':
+        $ar = SqlGetEtfPairArray();
+        break;
+  
     case 'future':
         $ar = FutureGetSymbolArray();
         break;

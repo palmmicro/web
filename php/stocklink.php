@@ -57,7 +57,12 @@ function GetMyPortfolioLink($bChinese)
 
 function GetAhCompareLink($bChinese)
 {
-    return _stockBuildLink('ahcompare', false, 'AH对比', 'AH Compare ', $bChinese);
+    return _stockBuildLink('ahcompare', false, 'AH对比', 'AH Compare', $bChinese);
+}
+
+function GetEtfListLink($bChinese)
+{
+    return _stockBuildLink('etflist', false, 'ETF对照表', 'ETF List', $bChinese);
 }
 
 function GetAdrhCompareLink($bChinese)

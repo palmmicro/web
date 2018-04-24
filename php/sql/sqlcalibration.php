@@ -22,7 +22,7 @@ function SqlUpdateCalibration($strEtfPairId, $strFactor, $strDate)
 
 function SqlInsertCalibration($strEtfPairId, $strFactor, $strDate)
 {
-    $strQry = "INSERT INTO calibration(id, etfpari_id, factor, date) VALUES('0', '$strEtfPairId', '$strFactor', '$strDate')";
+    $strQry = "INSERT INTO calibration(id, etfpair_id, factor, date) VALUES('0', '$strEtfPairId', '$strFactor', '$strDate')";
 	return SqlDieByQuery($strQry, 'Insert calibration table failed');
 }
 
@@ -34,6 +34,15 @@ function SqlCountCalibration($strEtfPairId)
 function SqlGetCalibration($strEtfPairId, $iStart, $iNum)
 {
     return SqlGetTableData(TABLE_CALIBRATION, _SqlBuildWhere_etfpair($strEtfPairId), _SqlOrderByDate(), _SqlBuildLimit($iStart, $iNum));
+}
+
+function SqlGetCalibrationByDate($strEtfPairId, $strDate)
+{
+	if ($history = SqlGetUniqueTableData(TABLE_CALIBRATION, _SqlBuildWhereAndArray(array('etfpair_id' => $strEtfPairId, 'date' => $strDate))))
+    {
+        return floatval($history['factor']); 
+    }
+    return false;
 }
 
 function SqlGetCalibrationNow($strEtfPairId)

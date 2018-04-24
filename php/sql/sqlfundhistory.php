@@ -44,6 +44,15 @@ function SqlGetFundHistoryByDate($strStockId, $strDate)
 	return SqlGetUniqueTableData(TABLE_FUND_HISTORY, _SqlBuildWhere_date_stock($strDate, $strStockId));
 }
 
+function SqlGetFundNetValueByDate($strStockId, $strDate)
+{
+	if ($history = SqlGetFundHistoryByDate($strStockId, $strDate))
+	{
+		return floatval($history['netvalue']);
+	}
+	return false;
+}
+
 function SqlInsertFundHistory($strStockId, $strDate, $strNetValue, $strEstimated, $strTime)
 {
 	$strQry = "INSERT INTO fundhistory(id, stock_id, date, netvalue, estimated, time) VALUES('0', '$strStockId', '$strDate', '$strNetValue', '$strEstimated', '$strTime')";

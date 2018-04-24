@@ -6,6 +6,7 @@ require_once('/php/stockhis.php');
 //require_once('/php/ui/referenceparagraph.php');
 require_once('/php/ui/stockparagraph.php');
 require_once('/php/ui/ahparagraph.php');
+require_once('/php/ui/etfparagraph.php');
 require_once('/php/ui/stocksmaparagraph.php');
 require_once('/php/ui/fundestparagraph.php');
 require_once('/php/ui/tradingparagraph.php');
@@ -77,6 +78,7 @@ function _echoMyStock($strSymbol, $bChinese)
     StockPrefetchData(array($strSymbol));
     
     $hshare_ref = false;
+    $etf_ref = false;
     $sym = new StockSymbol($strSymbol);
     if ($sym->IsFundA())
     {
@@ -85,8 +87,9 @@ function _echoMyStock($strSymbol, $bChinese)
     }
     else
     {
-    	if ($ref_ar = StockGetHShareReference($sym))		list($ref, $hshare_ref) = $ref_ar;
-   		else												$ref = StockGetReference($sym);
+    	if ($ref_ar = StockGetHShareReference($sym))				list($ref, $hshare_ref) = $ref_ar;
+    	else if ($etf_ref = StockGetEtfReference($strSymbol))	$ref = $etf_ref;
+   		else														$ref = StockGetReference($sym);
     }
     EchoReferenceParagraph(array($ref), $bChinese);
     
@@ -103,6 +106,7 @@ function _echoMyStock($strSymbol, $bChinese)
 			if ($hshare_ref->a_ref)		EchoAhParagraph(array($hshare_ref), $bChinese);
 			if ($hshare_ref->adr_ref)	EchoAdrhParagraph(array($hshare_ref), $bChinese);
         }
+        if ($etf_ref)						EchoEtfListParagraph(array($etf_ref), $bChinese);
    		if ($sym->IsSymbolA())
    		{
    			if ($hshare_ref)	EchoAhTradingParagraph($hshare_ref, $bChinese);

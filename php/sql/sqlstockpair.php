@@ -94,6 +94,11 @@ function SqlGetAdrhArray()
 	return SqlGetStockPairArray(TABLE_ADRH_STOCK);
 }
 
+function SqlGetEtfPairArray()
+{
+	return SqlGetStockPairArray(TABLE_ETF_PAIR);
+}
+
 function SqlGetAhPairRatio($a_ref)
 {
 	return SqlGetStockPairRatio(TABLE_AH_STOCK, $a_ref->GetStockId());
