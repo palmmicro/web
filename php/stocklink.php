@@ -24,6 +24,11 @@ function GetCalibrationHistoryLink($strSymbol, $bChinese)
     return BuildPhpLink(STOCK_PATH.'calibrationhistory', 'symbol='.$strSymbol, '校准记录', 'Calibration History', $bChinese);
 }
 
+function GetCalibrationLink($strSymbol, $bChinese)
+{
+    return BuildPhpLink(STOCK_PATH.'calibration', 'symbol='.$strSymbol, '校准记录', 'Calibration History', $bChinese);
+}
+
 function GetNetValueHistoryLink($strSymbol, $bChinese)
 {
     return BuildPhpLink(STOCK_PATH.'netvaluehistory', 'symbol='.$strSymbol, '净值历史', 'Net Value History', $bChinese);

@@ -5,6 +5,7 @@ require_once('sql/sqlfundpurchase.php');
 require_once('sql/sqlforex.php');
 require_once('sql/sqlfundhistory.php');
 require_once('sql/sqlstockhistory.php');
+require_once('sql/sqlcalibration.php');
 require_once('sql/sqlstockcalibration.php');
 require_once('sql/sqlstockpair.php');
 require_once('sql/sqlstockgroup.php');
@@ -68,6 +69,10 @@ function _deleteStockById($strStockId)
 	    else if ($strStockId = UrlGetQueryValue('stockid'))
 	    {
 	    	_deleteStockById($strStockId);
+	    }
+	    else if ($strId = UrlGetQueryValue('calibrationid'))
+	    {
+	    	SqlDeleteTableDataById(TABLE_CALIBRATION, $strId);
 	    }
 	}
 	

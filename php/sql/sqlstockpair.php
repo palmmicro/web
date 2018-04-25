@@ -69,6 +69,15 @@ function SqlGetStockPairStockId($strTableName, $strPairId)
 
 // ****************************** Support functions *******************************************************
 
+function SqlGetEtfPairId($strStockId)
+{
+    if ($record = SqlGetStockPair(TABLE_ETF_PAIR, $strStockId))
+    {
+		return $record['id'];
+    }
+    return false;
+}
+
 function SqlGetStockPairArray($strTableName)
 {
 	$ar = array();

@@ -20,7 +20,7 @@ function UrlGetNavDisplayArray()
 function url_get_contents($strUrl)
 {
     $ch = curl_init();  
-    $timeout = 3;  
+    $timeout = 2;  
     curl_setopt($ch, CURLOPT_URL, $strUrl);  
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);  
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);  

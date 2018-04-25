@@ -15,6 +15,12 @@ function GetReferenceTableSymbol($bChinese)
 	return $arReference[0];
 }
 
+function GetReferenceTablePrice($bChinese)			
+{
+	$arReference = GetReferenceTableColumn($bChinese);
+	return $arReference[1];
+}
+
 function GetSmaTableColumn($bChinese)
 {
     if ($bChinese)  $arColumn = array('<font color=indigo>均线</font>', '<font color=magenta>估值</font>', '<font color=orange>溢价</font>',    '<font color=olive>天数</font>');

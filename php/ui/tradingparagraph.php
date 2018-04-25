@@ -3,8 +3,7 @@ require_once('stocktable.php');
 
 function _getTradingTableColumn($bChinese)
 {
-	$arReference = GetReferenceTableColumn($bChinese);
-	$strPrice = $arReference[1];
+	$strPrice = GetReferenceTablePrice($bChinese);
     if ($bChinese)	$arColumn = array('交易', $strPrice, '数量(手)');
     else		        $arColumn = array('Trading', $strPrice, 'Num(100)');
     return $arColumn;

@@ -5,8 +5,9 @@ function _etfListRefCallbackData($ref, $bChinese)
 {
 	$ar = array();
     $ar[] = GetMyStockLink(SqlGetStockSymbol($ref->strPairId), $bChinese);
-    $ar[] = GetRatioDisplay($ref->fRatio);
-    $ar[] = GetRatioDisplay($ref->fFactor);
+    $ar[] = GetNumberDisplay($ref->fRatio);
+    $strFactor = GetNumberDisplay($ref->fFactor);
+    $ar[] = GetPhpLink(STOCK_PATH.'calibration', 'symbol='.$ref->GetStockSymbol(), $strFactor, $bChinese);
 	return $ar;
 }
 

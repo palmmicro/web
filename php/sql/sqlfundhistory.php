@@ -44,11 +44,20 @@ function SqlGetFundHistoryByDate($strStockId, $strDate)
 	return SqlGetUniqueTableData(TABLE_FUND_HISTORY, _SqlBuildWhere_date_stock($strDate, $strStockId));
 }
 
-function SqlGetFundNetValueByDate($strStockId, $strDate)
+function SqlGetNetValueByDate($strStockId, $strDate)
 {
 	if ($history = SqlGetFundHistoryByDate($strStockId, $strDate))
 	{
-		return floatval($history['netvalue']);
+		return $history['netvalue'];
+	}
+	return false;
+}
+
+function SqlGetFundNetValueByDate($strStockId, $strDate)
+{
+	if ($str = SqlGetNetValueByDate($strStockId, $strDate))
+	{
+		return floatval($str);
 	}
 	return false;
 }
