@@ -5,6 +5,7 @@ require_once('/php/stock/leverageref.php');
 require_once('/php/ui/referenceparagraph.php');
 //require_once('/php/ui/smaparagraph.php');
 require_once('/php/ui/etfsmaparagraph.php');
+require_once('/php/ui/etfparagraph.php');
 
 function _getPairTradingIndex($strSymbol)
 {
@@ -103,6 +104,7 @@ function EchoAll($bChinese)
     if ($group->index_ref)
     {
     	EchoReferenceParagraph(array_merge(array($group->index_ref), $group->ar_ref), $bChinese);
+        EchoEtfListParagraph($group->ar_ref, $bChinese);
         EchoEtfSmaParagraph($group->his, $group->ar_ref, false, $bChinese);
     }
     else

@@ -115,7 +115,7 @@ function GetNavLink($strQueryId, $iTotal, $iStart, $iNum, $bChinese)
     
     $iLast = $iStart + $iNum;
     if ($iLast > $iTotal)   $iLast = $iTotal;
-    $str .= ($bChinese ? '当前显示' : 'Current').': '.strval($iStart).'-'.strval($iLast - 1).' ';
+    $str .= ($bChinese ? '当前显示' : 'Current').': '.strval($iStart + 1).'-'.strval($iLast).' ';
     
     $arDir = UrlGetNavDisplayArray();
     if ($iStart > 0)
