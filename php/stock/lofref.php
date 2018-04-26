@@ -303,7 +303,6 @@ class _LofReference extends FundReference
     {
         if ($this->index_ref)
         {
-//            $this->fEtfFactor = $this->index_ref->LoadEtfFactor($this->etf_ref); 
             $this->fEtfFactor = $this->index_ref->_loadFactor();
         }
         else

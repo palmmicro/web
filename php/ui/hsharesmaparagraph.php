@@ -37,7 +37,7 @@ function _callbackHAdrSmaCny($fEst, $ref)
 	return $ref->adr_ref;
 }
 
-function EchoStockSmaParagraph($ref, $hshare_ref, $bChinese)
+function EchoHShareSmaParagraph($ref, $hshare_ref, $bChinese)
 {
     if ($ref->bHasData == false) 	return;
     

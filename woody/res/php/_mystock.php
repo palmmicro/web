@@ -7,7 +7,7 @@ require_once('/php/stockhis.php');
 require_once('/php/ui/stockparagraph.php');
 require_once('/php/ui/ahparagraph.php');
 require_once('/php/ui/etfparagraph.php');
-require_once('/php/ui/stocksmaparagraph.php');
+require_once('/php/ui/hsharesmaparagraph.php');
 require_once('/php/ui/fundestparagraph.php');
 require_once('/php/ui/tradingparagraph.php');
 //require_once('/php/ui/stockgroupparagraph.php');
@@ -114,7 +114,7 @@ function _echoMyStock($strSymbol, $bChinese)
        	}
     }
     
-    if (_hasSmaDisplay($sym))	EchoStockSmaParagraph($ref, $hshare_ref, $bChinese);
+    if (_hasSmaDisplay($sym))	EchoHShareSmaParagraph($ref, $hshare_ref, $bChinese);
     
     if ($strMemberId = AcctIsLogin())
     {

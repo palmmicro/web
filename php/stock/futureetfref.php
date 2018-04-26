@@ -1,7 +1,7 @@
 <?php
 
 // ****************************** EtfReference class *******************************************************
-class EtfReference extends MyStockReference
+class FutureEtfReference extends MyStockReference
 {
     var $strPairId = false;
 
@@ -9,7 +9,7 @@ class EtfReference extends MyStockReference
     var $fPairNetValue = 0.0;
     
     var $fRatio = 1.0;
-//    var $fFactor = 1.0;
+    var $fFactor = 1.0;
     
     // constructor 
     function EtfReference($strSymbol) 

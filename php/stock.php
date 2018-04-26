@@ -280,6 +280,7 @@ function StockPrefetchData($ar)
     $arAll = array();
     foreach ($ar as $strSymbol)
     {
+    	if ($strSymbol == false)		continue;
     	$sym = new StockSymbol($strSymbol);
         if ($sym->IsFundA())
         {

@@ -23,17 +23,6 @@ class _LofUsGroup extends _LofGroup
 //        $this->etf_netvalue_ref = new YahooNetValueReference($strEtfSymbol);
         parent::_LofGroup();
     }
-    
-    function OnData()
-    {
-        if ($this->ref->index_ref)
-        {
-//            if ($this->ref->index_ref->AdjustEtfFactor($this->etf_netvalue_ref) == false)
-//            {
-                $this->ref->index_ref->AdjustEtfFactor($this->ref->etf_ref);
-//            }
-        }
-    }
 } 
 
 function _onSmaUserDefinedVal($fVal, $bChinese)
@@ -142,6 +131,5 @@ function EchoAll($bChinese)
 
     AcctNoAuth();
     $group = new _LofUsGroup(StockGetSymbolByUrl());
-    $group->OnData();
 
 ?>

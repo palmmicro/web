@@ -1,5 +1,5 @@
 <?php
-require_once('/php/ui/htmlelement.php');
+//require_once('/php/ui/htmlelement.php');
 
 define ('BLOG_COMMENT_NEW', 'Post Comment');
 define ('BLOG_COMMENT_NEW_CN', '发表评论');

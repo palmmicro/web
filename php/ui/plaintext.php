@@ -31,4 +31,12 @@ function EchoMetaDescriptionText($str)
     echo $str;
 }
 
+function EchoUrlSymbol()
+{
+    if ($strSymbol = UrlGetQueryValue('symbol'))  
+    {
+        echo $strSymbol;
+    }
+}
+
 ?>

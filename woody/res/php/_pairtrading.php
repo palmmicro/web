@@ -3,7 +3,8 @@ require_once('_stock.php');
 require_once('/php/stockhis.php');
 require_once('/php/stock/leverageref.php');
 require_once('/php/ui/referenceparagraph.php');
-require_once('/php/ui/smaparagraph.php');
+//require_once('/php/ui/smaparagraph.php');
+require_once('/php/ui/etfsmaparagraph.php');
 
 function _getPairTradingIndex($strSymbol)
 {
@@ -26,22 +27,17 @@ function _getPairTradingLeverage($strSymbol)
 class _PairTradingGroup extends _StockGroup
 {
     var $index_ref;
-    var $netvalue_ref = false;
-    
     var $ar_leverage_ref = array();
-
-    var $stock_his;
-    var $index_his;
-
-    var $fFactor;
-    
+    var $ar_ref;
+    var $his;
+   
     // constructor 
     function _PairTradingGroup($strSymbol) 
     {
         $strIndexSymbol = _getPairTradingIndex($strSymbol);
         $arLeverageSymbol = _getPairTradingLeverage($strSymbol);
-//        StockPrefetchData(array_merge($arLeverageSymbol, array($strSymbol, $strIndexSymbol, GetYahooNetValueSymbol($strSymbol))));  
-        StockPrefetchData(array_merge($arLeverageSymbol, array($strSymbol, $strIndexSymbol)));  
+        StockPrefetchData(array_merge($arLeverageSymbol, array($strSymbol, $strIndexSymbol)));
+        
         if ($strIndexSymbol)
         {
             YahooUpdateNetValue($strIndexSymbol);
@@ -50,73 +46,44 @@ class _PairTradingGroup extends _StockGroup
             {
             	YahooUpdateNetValue($strLeverageSymbol);
             }
-        }
-        
-        $this->ref = new MyStockReference($strSymbol);
-        foreach ($arLeverageSymbol as $strLeverageSymbol)
-        {
-            $this->ar_leverage_ref[] = new LeverageReference($strLeverageSymbol);
-        }
-        
-        if ($strIndexSymbol)
-        {
+            
             $this->index_ref = new MyStockReference($strIndexSymbol);
-            $this->index_his = new StockHistory($this->index_ref);
-//            $this->netvalue_ref = new YahooNetValueReference($strSymbol);
-            $this->stock_his = false;
+            $this->ref = new EtfReference($strSymbol);
+            foreach ($arLeverageSymbol as $strLeverageSymbol)
+            {
+            	$this->ar_leverage_ref[] = new EtfReference($strLeverageSymbol);
+            }
+            $this->his = new StockHistory($this->index_ref);
         }
         else
         {
             $this->index_ref = false;
-            $this->index_his = false;
-            $this->netvalue_ref = false;
-            $this->stock_his = new StockHistory($this->ref);
+        	$this->ref = new MyStockReference($strSymbol);
+        	foreach ($arLeverageSymbol as $strLeverageSymbol)
+        	{
+        		$this->ar_leverage_ref[] = new LeverageReference($strLeverageSymbol);
+        	}
+            $this->his = new StockHistory($this->ref);
         }
-        parent::_StockGroup(array_merge(array($this->ref), $this->ar_leverage_ref));
-    }
-    
-    function OnData()
-    {
-        if ($this->index_ref)
-        {
-//            if ($this->index_ref->AdjustEtfFactor($this->netvalue_ref) == false)
-//            {
-                $this->index_ref->AdjustEtfFactor($this->ref);
-//            }
-            $this->fFactor = $this->index_ref->_loadFactor();
-        }
-        else
-        {
-            $this->fFactor = 1.0;
-        }
-    }
-
-    function EstEtf1x($fEst)
-    {
-        return EstEtfByIndex($fEst, $this->fFactor);
+        
+        $this->ar_ref = array_merge(array($this->ref), $this->ar_leverage_ref);
+        parent::_StockGroup($this->ar_ref);
     }
 } 
 
 function _echoAdminTestParagraph($group, $bChinese)
 {
-    $str = _GetStockConfigDebugString(array($group->ref, $group->index_ref), $bChinese);
     if ($group->index_ref)
     {
-        $str .= HTML_NEW_LINE;
-//        if ($group->netvalue_ref->bHasData)	$est_etf = $group->netvalue_ref;
-        if ($group->netvalue_ref)				$est_etf = $group->netvalue_ref;
-        else									$est_etf = $group->ref;
-        $str .= _GetEtfAdjustString($group->index_ref, $est_etf, $bChinese);
+    	$str = _GetStockConfigDebugString(array($group->index_ref), $bChinese);
+        $str .= HTML_NEW_LINE._GetEtfAdjustString($group->index_ref, $group->ref, $bChinese);
         $str .= ' '.GetCalibrationHistoryLink($group->index_ref->GetStockSymbol(), $bChinese);
     }
+    else
+    {
+    	$str = _GetStockConfigDebugString(array($group->ref), $bChinese);
+    }
     EchoParagraph($str);
-}
-
-function _estEtf1x($fEst, $ref)
-{
-    global $group;
-    if ($fEst)		return $group->EstEtf1x($fEst);
-    return $ref;
 }
 
 function _estLeverage($fEst, $leverage_ref)
@@ -124,8 +91,7 @@ function _estLeverage($fEst, $leverage_ref)
     global $group;
     if ($fEst)
     {
-    	$fEtf1x = $group->EstEtf1x($fEst);
-    	return $leverage_ref->EstByEtf1x($fEtf1x, $group->ref);
+    	return $leverage_ref->EstByEtf1x($fEst, $group->ref);
     }
     return $leverage_ref;
 }
@@ -134,17 +100,16 @@ function EchoAll($bChinese)
 {
     global $group;
     
-    EchoReferenceParagraph(array_merge(array($group->index_ref, $group->ref, $group->netvalue_ref), $group->ar_leverage_ref), $bChinese);
-    if ($group->index_his)
+    if ($group->index_ref)
     {
-        $his = $group->index_his;
-        EchoSmaParagraph($his, $group->ref, _estEtf1x, false, $bChinese);
+    	EchoReferenceParagraph(array_merge(array($group->index_ref), $group->ar_ref), $bChinese);
+        EchoEtfSmaParagraph($group->his, $group->ar_ref, false, $bChinese);
     }
     else
     {
-        $his = $group->stock_his;
+    	EchoReferenceParagraph($group->ar_ref, $bChinese);
+    	EchoSmaLeverageParagraph($group->his, $group->ar_leverage_ref, _estLeverage, false, $bChinese);
     }
-    EchoSmaLeverageParagraph($his, $group->ar_leverage_ref, _estLeverage, false, $bChinese);
     
     if (count($group->ar_leverage_ref) == 1)
     {
@@ -244,6 +209,5 @@ function EchoMetaDescription($bChinese)
 
     AcctNoAuth();
     $group = new _PairTradingGroup(StockGetSymbolByUrl());
-    $group->OnData();
 
 ?>

@@ -22,19 +22,6 @@ function _GetStockConfigDebugString($ar_ref, $bChinese)
     return $str;
 }
 
-// ****************************** LOF/ETF/INDEX(FUTURE) convert functions *******************************************************
-
-function EstLofByIndex($fIndex, $fFactor, $fCNY)
-{
-    return $fIndex * $fCNY / $fFactor;
-}
-
-function EstEtfByIndex($fIndex, $fEtfFactor)
-{
-//    return $fIndex / $fEtfFactor;
-    return EstLofByIndex($fIndex, $fEtfFactor, 1.0);
-}
-
 // ****************************** Portfolio table *******************************************************
 
 function _EchoPortfolioTableBegin($bChinese)
@@ -270,14 +257,6 @@ function _EchoTransactionParagraph($group, $bChinese)
 }
 
 // ****************************** String functions *******************************************************
-
-function EchoUrlSymbol()
-{
-    if ($strSymbol = UrlGetQueryValue('symbol'))  
-    {
-        echo $strSymbol;
-    }
-}
 
 function _getMemberDisplay($strMemberId)
 {

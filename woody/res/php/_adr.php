@@ -4,7 +4,7 @@ require_once('/php/stockhis.php');
 require_once('/php/stocktrans.php');
 require_once('/php/ui/arbitrageparagraph.php');
 require_once('/php/ui/referenceparagraph.php');
-require_once('/php/ui/stocksmaparagraph.php');
+require_once('/php/ui/hsharesmaparagraph.php');
 require_once('/php/ui/tradingparagraph.php');
 
 class _AdrGroup extends _StockGroup 
@@ -177,9 +177,9 @@ function AdrEchoAll($bChinese)
     
     _echoRefParagraph($group, $bChinese);
 	EchoAhTradingParagraph($group->hk_ref, $bChinese);
-    EchoStockSmaParagraph($group->cn_ref, $group->hk_ref, $bChinese);
-    EchoStockSmaParagraph($group->hk_ref, $group->hk_ref, $bChinese);
-    EchoStockSmaParagraph($group->us_ref, $group->hk_ref, $bChinese);
+    EchoHShareSmaParagraph($group->cn_ref, $group->hk_ref, $bChinese);
+    EchoHShareSmaParagraph($group->hk_ref, $group->hk_ref, $bChinese);
+    EchoHShareSmaParagraph($group->us_ref, $group->hk_ref, $bChinese);
 
     if ($group->strGroupId) 
     {
