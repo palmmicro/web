@@ -20,7 +20,9 @@
         <li>2016年12月17日星期五, XOP季度分红除权, 这里显示的涨跌幅跟新浪和Yahoo等不一致, 它们都已经把昨天的收盘价减掉分红的0.08美元了. SMA均线数值也需要手工调整.
     </ol>
 </font>
-<br /><a href="https://xueqiu.com/2244868365/60702370" target=_blank>华宝油气和XOP套利交易Q&A</a>
+<br />
+<a href="https://us.spdrs.com/en/etf/spdr-sp-oil-gas-exploration-production-etf-XOP" target=_blank>XOP官网</a>
+<a href="https://xueqiu.com/2244868365/60702370" target=_blank>华宝油气和XOP套利交易Q&A</a>
 <a href="https://xueqiu.com/2244868365/81340659" target=_blank>一种根据XOP均线进行华宝油气和XOP联动交易的方法</a>
 <br />相关软件: 
 <?php

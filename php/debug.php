@@ -8,7 +8,7 @@ define ('DEBUG_FILE_NAME', 'debug.txt');
 define ('TEST_PATH_NAME', 'php/test.php');
 
 define ('DEBUG_TIME_ZONE', 'PRC');
-define ('DEBUG_TIME_FORMAT', 'Y-m-d H:i:s');
+define ('DEBUG_TIME_FORMAT', 'H:i:s');
 define ('DEBUG_DATE_FORMAT', 'Y-m-d');
 
 define ('SECONDS_IN_MIN', 60);
@@ -26,7 +26,7 @@ function unlinkEmptyFile($strFileName)
 function _getTimeDisplay($iTime, $strTimeZone)
 {
     date_default_timezone_set($strTimeZone);
-    return date(DEBUG_TIME_FORMAT, $iTime);
+    return date(DEBUG_DATE_FORMAT.' '.DEBUG_TIME_FORMAT, $iTime);
 }
 
 function explodeDateTime($iTime, $strTimeZone)
@@ -97,7 +97,7 @@ function DebugString($str)
 {
 	if ($str == false)	$str = '(false)';
     $strTimeZone = date_default_timezone_get();
-    file_put_contents(DebugGetFile(), DebugGetTimeDisplay().': '.$str.PHP_EOL, FILE_APPEND);     // DebugGetTimeDisplay will change timezone!
+    file_put_contents(DebugGetFile(), UrlGetCur().' '.DebugGetTimeDisplay().':'.$str.PHP_EOL, FILE_APPEND);     // DebugGetTimeDisplay will change timezone!
     date_default_timezone_set($strTimeZone);
 }
 

@@ -175,10 +175,13 @@ class YMDString extends YearMonthDay
 
 class YMDTick extends YearMonthDay
 {
+	var $strHMS;
+	
     // constructor 
     function YMDTick($iTick)
     {
         $this->strYMD = date(DEBUG_DATE_FORMAT, $iTick);
+        $this->strHMS = date(DEBUG_TIME_FORMAT, $iTick);
         parent::YearMonthDay($iTick);
     }
     
@@ -190,6 +193,11 @@ class YMDTick extends YearMonthDay
     function GetMinute() 
     {
         return $this->local[1];
+    }
+    
+    function GetHMS()
+    {
+    	return $this->strHMS;
     }
 }
 

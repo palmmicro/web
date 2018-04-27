@@ -26,7 +26,7 @@ require_once('sql/_sqlcommon.php');
 
 function die_mysql_error($strDie)
 {
-    $str = $strDie.'--- '.mysql_error();
+    $str = $strDie.' '.mysql_error();
     DebugString($str);
     die($str);
 }

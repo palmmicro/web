@@ -60,7 +60,7 @@ function SqlGetStockId($strSymbol)
     {
         return $stock['id'];
 	}
-   	DebugString(UrlGetCur().' '.$strSymbol.' not in stock table');
+   	DebugString($strSymbol.' not in stock table');
 	return false;
 }
 

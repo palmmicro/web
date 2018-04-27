@@ -316,6 +316,7 @@
 事实上, 因为考虑的都是极限因素, 20天布林上下轨不动点的开口要比只算前19天的布林上下轨大, 就是说, 下轨更低一点而上轨更高一点.
 <br /><img src=../photo/20170402.jpg alt="Script for bollinger quadratic equation with one unknown" />
 <br />感觉好久没做这么复杂的数学了, 把计算过程拍了个照片留念一下.
+<br /><font color=grey>给我舞台我就能华丽登场 <a href="../../favoritecn.html#dgldq">叮咯咙咚呛</a></font>
 </p>
 
 <h3>200天和50天<a name="ema">EMA</a>均线</h3>

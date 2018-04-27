@@ -103,7 +103,7 @@ function EchoAll($bChinese)
     
     if ($group->index_ref)
     {
-    	EchoReferenceParagraph(array_merge(array($group->index_ref), $group->ar_ref), $bChinese);
+    	EchoReferenceParagraph(array($group->index_ref), $bChinese);
         EchoEtfListParagraph($group->ar_ref, $bChinese);
         EchoEtfSmaParagraph($group->his, $group->ar_ref, false, $bChinese);
     }

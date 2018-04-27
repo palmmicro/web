@@ -18,7 +18,7 @@ function RegExpNoneSpace()
 
 function RegExpAll()
 {
-    return '[\S\s]*';
+    return '[\S\s]*?';
 }
 
 function RegExpDigit()
@@ -35,5 +35,30 @@ function RegExpParenthesis($strLeft, $strMid, $strRight)
 {
     return $strLeft.'('.$strMid.')'.$strRight;
 }
+
+function RegExpStockSymbol($strSymbol)
+{
+	$sym = new StockSymbol($strSymbol);
+	if ($sym->IsIndex())
+	{
+		return '\\'.$strSymbol;
+	}
+	return $strSymbol;
+}
+
+function RegExpDebug($arMatch, $strSrc, $iMin)
+{
+	$iCount = count($arMatch);
+    if ($iCount > $iMin)
+    {
+    	DebugString($strSrc.' '.strval($iCount).':');
+    	foreach ($arMatch as $ar)
+    	{
+    		foreach ($ar as $str)	DebugString($str);
+    	}
+    }
+    return $iCount;
+}
+
 
 ?>
