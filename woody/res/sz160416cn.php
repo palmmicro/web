@@ -20,6 +20,8 @@
         <li>2016-12-22, IXC股息除权, 导致23日全天估值不正常. 这个问题会涉及到所有没有参考指数数据, 而只能使用ETF估值的LOF.
     </ol>
 </font>
+<br />
+<a href="https://us.spindices.com/indices/equity/sp-global-oil-index" target=_blank>SPGOGUP官网</a>
 <br />相关软件:
 <?php
     EchoOilSoftwareLinks(true);

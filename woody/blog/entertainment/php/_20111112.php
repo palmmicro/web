@@ -17,7 +17,10 @@ function EchoStockPrice($bChinese)
         $ref->strDescription = $ref->GetEnglishName();
     }
     EchoReferenceTable(array($ref), $bChinese);
-    echo '<br />'.$ref->DebugLink();
+    if (AcctIsDebug())	
+    {
+    	echo '<br />'.$ref->DebugLink();
+    }
 }
 
 

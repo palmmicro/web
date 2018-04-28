@@ -129,8 +129,8 @@ function LofGetIndexSymbol($strSymbol)
 /*    else if ($strSymbol == 'SZ162411')            return '^SPSIOP';
     else if (in_arrayBricLof($strSymbol))   return '^SPBRICNTR';
     else if ($strSymbol == 'SZ162415')      return '^IXY';
+    else if ($strSymbol == 'SZ162719')      return '^DJSOEP';
 */
-//    else if ($strSymbol == 'SZ162719')      return '^DJSOEP';
 //    else if ($strSymbol == 'SZ160416')      return '^SPGOGUP';
     else 
         return false;

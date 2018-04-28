@@ -41,12 +41,12 @@ class _PairTradingGroup extends _StockGroup
         
         if ($strIndexSymbol)
         {
-            YahooUpdateNetValue($strIndexSymbol);
             YahooUpdateNetValue($strSymbol);
             foreach ($arLeverageSymbol as $strLeverageSymbol)
             {
             	YahooUpdateNetValue($strLeverageSymbol);
             }
+            YahooUpdateNetValue($strIndexSymbol);
             
             $this->index_ref = new MyStockReference($strIndexSymbol);
             $this->ref = new EtfReference($strSymbol);

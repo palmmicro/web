@@ -36,6 +36,11 @@ function RegExpParenthesis($strLeft, $strMid, $strRight)
     return $strLeft.'('.$strMid.')'.$strRight;
 }
 
+function RegExpSkip($strPattern) 
+{
+    return '(?:'.$strPattern.')?';
+}
+
 function RegExpStockSymbol($strSymbol)
 {
 	$sym = new StockSymbol($strSymbol);
