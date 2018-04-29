@@ -39,8 +39,7 @@ function MarketWatchGetUrl($sym)
 		return "https://www.marketwatch.com/investing/index/$strSymbol/historical?countrycode=xx";
 	}
 	return false;*/
-	return 'https://finance.yahoo.com/quote/%5ESPSIOP?ltr=1';
-//	return 'https://xueqiu.com/u/woody1234';
+	return 'https://us.spindices.com/indices/equity/sp-global-oil-index';
 }
 
 function MarketWatchGetData($strSymbol)
@@ -49,7 +48,7 @@ function MarketWatchGetData($strSymbol)
     $strUrl = MarketWatchGetUrl($sym);
     DebugString('MarketWatch: '.$strUrl);
     $str = url_get_contents($strUrl);
-//    DebugString($str);
+    DebugString($str);
     $arMatch = preg_match_market_watch($str);
     foreach ($arMatch as $ar)
     {

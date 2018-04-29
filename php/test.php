@@ -7,7 +7,7 @@ require_once('gb2312.php');
 //require_once('ahstockarray.php');
 
 require_once('stock.php');
-require_once('stock/marketwatchstock.php');
+require_once('stock/marketwatch.php');
 
 //require_once('sql.php');
 require_once('sql/sqlstocksymbol.php');

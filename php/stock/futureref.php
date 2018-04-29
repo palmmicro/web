@@ -39,38 +39,6 @@ class FutureReference extends MyStockReference
         return false;
     }
 	
-    // Future Factor functions
-    function EstByFuture($fEtf, $fCNY)
-    {
-        return $fEtf * $fCNY / $this->fFactor;
-    }
-    
-    function LoadFutureFactor($future_ref, $strForexSqlId)
-    {
-        if ($this->AdjustFutureFactor($future_ref, $strForexSqlId) == false)
-        {
-            $this->_loadFactor();
-        }
-        return $this->fFactor;
-    }
-    
-    function AdjustFutureFactor($future_ref, $strForexSqlId)
-    {
-        if ($this->bHasData == false)    return false;
-        
-        $fCNY = SqlGetForexCloseHistory($strForexSqlId, $this->strDate);
-        if ($fCNY)
-        {
-            if ($this->CheckAdjustFactorTime($future_ref))
-            {
-                $this->fFactor = $future_ref->fPrice * $fCNY / $this->fPrice;
-                $this->InsertStockCalibration($future_ref);
-                return true;
-            }
-        }
-        return false;
-    }
-    
     // constructor 
     function FutureReference($strSymbol) 
     {
