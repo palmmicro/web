@@ -5,7 +5,7 @@ require_once('/php/nav.php');
 
 function ChishinNavigateBlogGroup($bChinese)
 {
-    $arBlog = array('20170512', '20170517', '20170523', '20170524');
+    $arBlog = array('20170512', '20170517', '20170523', '20170524', '20180429');
     
 	NavBegin();
     NavDirFirstLast($arBlog);
