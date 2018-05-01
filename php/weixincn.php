@@ -11,9 +11,9 @@ require_once('ui/stocktext.php');
 require_once('sql/sqlspider.php');
 require_once('sql/sqlweixin.php');
 
-require_once('stock/sqlcnyref.php');
+require_once('stock/dbcnyref.php');
 
-define('WX_DEBUG_VER', '版本810');
+define('WX_DEBUG_VER', '版本812');
 
 define('WX_DEFAULT_SYMBOL', 'SZ162411');
 define('MAX_WX_STOCK', 50);
@@ -186,7 +186,7 @@ function _wxGetStockText($strSymbol)
     }
     else if ($sym->IsEastMoneyForex())
     {
-    	$ref = new SqlCnyReference($strSymbol);
+    	$ref = new DbCnyReference($strSymbol);
         $str = _getStockReferenceText($ref); 
     }
     else if ($sym->IsFundA())

@@ -4,7 +4,7 @@
 class CnyReference extends MysqlReference
 {
 //    public static $strDataSource = STOCK_EASTMONEY_FOREX;
-    public static $strDataSource = STOCK_SQL_FOREX;
+    public static $strDataSource = STOCK_DB_FOREX;
     
     function _loadDatabaseData($strSymbol)
     {
@@ -49,7 +49,7 @@ class CnyReference extends MysqlReference
             $this->_loadDatabaseData($strSymbol);
         }
         parent::MysqlReference($strSymbol);
-        if (self::$strDataSource != STOCK_SQL_FOREX)
+        if (self::$strDataSource != STOCK_DB_FOREX)
         {
         	if ($this->strSqlId)
         	{

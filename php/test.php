@@ -7,6 +7,7 @@ require_once('gb2312.php');
 //require_once('ahstockarray.php');
 
 require_once('stock.php');
+require_once('stock/ftstock.php');
 require_once('stock/marketwatch.php');
 
 //require_once('sql.php');
@@ -182,11 +183,16 @@ function SysInit()
 
 function TestCmdLine()
 {
-	echoDebugString('cmd line test');
+	echoDebugString('cmd line test '.UrlGetQueryString());
     if ($strSymbol = UrlGetQueryValue('symbol'))
     {
-    	$str = TestYahooWebData($strSymbol);
-    	echoDebugString($strSymbol.':'.$str);
+    	$strSrc = UrlGetQueryDisplay('src', 'yahoo');
+    	$fStart = microtime(true);
+    	if ($strSrc == 'yahoo')		$str = TestYahooWebData($strSymbol);
+    	else if ($strSrc == 'ft')	$str = TestFtStock($strSymbol);
+    	$fStop = microtime(true);
+    	if (empty($str))	$str = '(Not found)';
+    	echoDebugString($strSymbol.':'.$str.DebugGetStopWatchDisplay($fStop, $fStart));
     }
 }
 
@@ -205,7 +211,9 @@ function TestCmdLine()
 
 	SysInit();
 	TestCmdLine();
+	
 //	MarketWatchGetData('^SPSIOP');
+	
 //	GetChinaMoney();
 //	_debug_dividend('sz000028');
 //	test_stock_dividend();

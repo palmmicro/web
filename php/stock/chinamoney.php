@@ -48,7 +48,7 @@ function GetChinaMoney()
     {
     	if ($str = url_get_contents(ChinaMoneyGetUrl()))
     	{
-    		DebugString('Save new file');
+    		DebugString($strFileName.': Save new file');
     		file_put_contents($strFileName, $str);
     		$ar = json_decode($str, true);
     	}

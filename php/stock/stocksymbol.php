@@ -313,6 +313,19 @@ class StockSymbol
         }
         return $strSymbol;
     }
+    
+    function GetFtSymbol()
+    {
+        if ($this->IsIndex())
+        {
+        	if ($this->strSymbol == '^SPSIOP')												return $this->strOthers.':IOM';
+        	else if ($this->strSymbol == '^SPGOGUP' || $this->strSymbol == '^SPBRICNTR')	return $this->strOthers.':REU';
+        	else if ($this->strSymbol == '^DJSOEP')											return $this->strOthers.':DJI';
+        	else if ($this->strSymbol == '^IXY')												return $this->strOthers.':PSE';
+        }
+        return false;
+    }
+    
 /* 
     function GetMarketWatchSymbol()
     {

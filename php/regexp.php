@@ -31,6 +31,11 @@ function RegExpNumber()
     return '[\d.-]*';
 }
 
+function RegExpFmtNumber()
+{
+    return '[\d,.-]*';
+}
+
 function RegExpParenthesis($strLeft, $strMid, $strRight) 
 {
     return $strLeft.'('.$strMid.')'.$strRight;

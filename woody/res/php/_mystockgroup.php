@@ -4,6 +4,7 @@ require_once('_editgroupform.php');
 //require_once('/php/stockgroup.php');
 //require_once('/php/ui/referenceparagraph.php');
 require_once('/php/ui/ahparagraph.php');
+require_once('/php/ui/etfparagraph.php');
 require_once('/php/ui/fundestparagraph.php');
 require_once('/php/ui/stockgroupparagraph.php');
 
@@ -56,6 +57,7 @@ function _echoStockGroupArray($arStock, $bChinese)
     $arFund = array();
     $arHShareRef = array();
     $arHAdrRef = array();
+    $arEtfRef = array();
     foreach ($arStock as $strSymbol)
     {
         $sym = new StockSymbol($strSymbol);
@@ -82,6 +84,7 @@ function _echoStockGroupArray($arStock, $bChinese)
        				}
        			}
        		}
+	    	else if ($ref = StockGetEtfReference($strSymbol))	$arEtfRef[] = $ref;
        		else	$ref = StockGetReference($sym);
         }
 
@@ -103,6 +106,7 @@ function _echoStockGroupArray($arStock, $bChinese)
     if (count($arFund) > 0)     		EchoFundArrayEstParagraph($arFund, '', $bChinese);
     if (count($arHShareRef) > 0)	EchoAhParagraph($arHShareRef, $bChinese);
     if (count($arHAdrRef) > 0)		EchoAdrhParagraph($arHAdrRef, $bChinese);
+    if (count($arEtfRef) > 0)		EchoEtfListParagraph($arEtfRef, $bChinese);
     
     return $arTransactionRef;
 }
