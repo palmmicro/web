@@ -12,7 +12,11 @@ function _getSmaRow($strKey, $bChinese)
         $arRow = array('D' => ' Days', 'W' => ' Weeks', 'M' => ' Months', 'BOLLUP' => 'Boll Up', 'BOLLDN' => 'Boll Down');
     }
     $strFirst = substr($strKey, 0, 1);
-    if ($strFirst != 'B')
+    if ($strFirst == 'E')
+    {
+    	return $strKey;
+    }
+    else if ($strFirst != 'B')
     {
         return substr($strKey, 1, strlen($strKey) - 1).$arRow[$strFirst];
     }

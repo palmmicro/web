@@ -247,6 +247,10 @@ class StockHistory
 
 //        $this->_cfg_get_SMA($cfg, 'EMA50');
 //        $this->_cfg_get_SMA($cfg, 'EMA200');
+		if ($this->GetStockSymbol() == '^GSPC')
+		{
+			$this->_cfg_get_SMA($cfg, 'EMA200');
+		}
         
         $this->_cfg_get_SMA($cfg, 'BOLLUP');
         $this->_cfg_get_SMA($cfg, 'BOLLDN');
@@ -297,6 +301,10 @@ class StockHistory
 
 //        $this->_cfg_set_SMA($cfg, 'EMA50', _estEma($afClose, 0, 50), -1);
 //        $this->_cfg_set_SMA($cfg, 'EMA200', _estEma($afClose, 0, 200), -1);
+		if ($this->GetStockSymbol() == '^GSPC')
+		{
+			$this->_cfg_set_SMA($cfg, 'EMA200', 2609.73, 0.0, -1);
+		}
 
         list($fUp, $fDown) = _estBollingerBands($afClose, 0, BOLL_DAYS);
         list($fUpNext, $fDownNext) = _estNextBollingerBands($afClose, BOLL_DAYS);
