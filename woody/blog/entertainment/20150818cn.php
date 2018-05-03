@@ -325,7 +325,6 @@
 <br />用En表示今天的n天EMA值, 其它沿用前面的符号, 
 <br />En = k * X0 + (1 - k) * Em; 其中m = n - 1; k = 2 / (n + 1)
 <br />不动点En = X0, 得到En = Em, 就是说今天的不动点就是昨天的值. 所以唯一要做的就是每天收盘后算一下当天的EMA.
-<br />2609.73
 </p>
 
 <h3>把<a name="aharray">AH股数组</a>放MySQL表中</h3>
@@ -366,6 +365,7 @@
 <br />b = (32 - 2 * k * m) * ∑Xm;
 <br />c = k * (∑Xm)² - 16 * ∑Xm²;
 <br />最后解出结果.
+<br /><font color=grey>你永远比你想象中更勇敢 <a href="../../favoritecn.html#dream">相信梦想</a></font>
 </p>
 <?php EchoLofSmaDemo(true); ?>
 

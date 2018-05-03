@@ -244,14 +244,6 @@ class StockHistory
         {
             $this->_cfg_get_SMA($cfg, 'D'.strval($i));
         }
-
-//        $this->_cfg_get_SMA($cfg, 'EMA50');
-//        $this->_cfg_get_SMA($cfg, 'EMA200');
-		if ($this->GetStockSymbol() == '^GSPC')
-		{
-			$this->_cfg_get_SMA($cfg, 'EMA200');
-		}
-        
         $this->_cfg_get_SMA($cfg, 'BOLLUP');
         $this->_cfg_get_SMA($cfg, 'BOLLDN');
         
@@ -264,6 +256,11 @@ class StockHistory
         {
             $this->_cfg_get_SMA($cfg, 'M'.strval($i));
         }
+        
+		if ($this->GetStockSymbol() == '^GSPC')
+		{
+			$this->_cfg_get_SMA($cfg, 'EMA');
+		}
     }
     
     function _saveConfigSMA($cfg)
@@ -298,14 +295,6 @@ class StockHistory
         {
             $this->_cfg_set_SMA($cfg, 'D'.strval($i), _estSma($afClose, 0, $i), _estSma($afClose, 0, $i - 1), $this->_getTradingRange($i, $afClose, $afHigh, $afLow));
         }
-
-//        $this->_cfg_set_SMA($cfg, 'EMA50', _estEma($afClose, 0, 50), -1);
-//        $this->_cfg_set_SMA($cfg, 'EMA200', _estEma($afClose, 0, 200), -1);
-		if ($this->GetStockSymbol() == '^GSPC')
-		{
-			$this->_cfg_set_SMA($cfg, 'EMA200', 2609.73, 0.0, -1);
-		}
-
         list($fUp, $fDown) = _estBollingerBands($afClose, 0, BOLL_DAYS);
         list($fUpNext, $fDownNext) = _estNextBollingerBands($afClose, BOLL_DAYS);
         list($iUp, $iDown) = $this->_getBollTradingRange($afClose, $afHigh, $afLow);
@@ -322,6 +311,10 @@ class StockHistory
             $this->_cfg_set_SMA($cfg, 'M'.strval($i), _estSma($afMonthlyClose, 0, $i), _estSma($afMonthlyClose, 0, $i - 1),  -1);
         }
         
+		if ($this->GetStockSymbol() == '^GSPC')
+		{
+			$this->_cfg_set_SMA($cfg, 'EMA', 2610.43, 2674.37, -1);
+		}
         $cfg->save_data();
     }
     
