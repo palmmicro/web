@@ -129,6 +129,7 @@ function _echoMyStockLinks($sym, $bChinese)
 	$strQuery = UrlGetQueryString();
     $str = BuildPhpLink(STOCK_PATH.'editstock', $strQuery, STOCK_OPTION_EDIT_CN, STOCK_OPTION_EDIT, $bChinese);
     $str .= ' '.BuildPhpLink(STOCK_PATH.'editstockreversesplit', $strQuery, STOCK_OPTION_REVERSESPLIT_CN, STOCK_OPTION_REVERSESPLIT, $bChinese);
+    if ($bChinese)	$str .= ' '.GetPhpLink(STOCK_PATH.'editstockema', $strQuery, STOCK_OPTION_EMA_CN, true);
     if ($sym->IsSymbolH())
     {
     	if ($bChinese)	$str .= ' '.GetPhpLink(STOCK_PATH.'editstockadr', $strQuery, STOCK_OPTION_ADR_CN, true);

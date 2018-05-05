@@ -8,6 +8,7 @@ define ('STOCK_OPTION_ADJCLOSE_CN', '根据分红更新复权收盘价');
 
 define ('STOCK_OPTION_ADR_CN', '修改港股对应ADR代码');
 define ('STOCK_OPTION_ETF_CN', '修改ETF对应跟踪代码');
+define ('STOCK_OPTION_EMA_CN', '修改200/50天EMA');
 
 define ('STOCK_OPTION_EDIT', 'Edit Stock Description');
 define ('STOCK_OPTION_EDIT_CN', '修改股票说明');
@@ -20,7 +21,7 @@ define ('STOCK_OPTION_AMOUNT_CN', '设置基金申购金额');
 
 function _getStockOptionDate($strSubmit, $strSymbol)
 {
-	if ($strSubmit == STOCK_OPTION_ADJCLOSE_CN || $strSubmit == STOCK_OPTION_REVERSESPLIT_CN || $strSubmit == STOCK_OPTION_REVERSESPLIT)
+	if ($strSubmit == STOCK_OPTION_ADJCLOSE_CN || $strSubmit == STOCK_OPTION_REVERSESPLIT_CN || $strSubmit == STOCK_OPTION_REVERSESPLIT || $strSubmit == STOCK_OPTION_EMA_CN)
 	{
 		if ($history = SqlGetStockHistoryNow(SqlGetStockId($strSymbol)))
 		{
@@ -88,6 +89,20 @@ function _getStockOptionEtf($strSymbol)
 	return '';
 }
 
+function _getStockOptionEma($strSymbol)
+{
+/*	SqlCreateStockPairTable(TABLE_ETF_PAIR);
+	if ($strIndex = SqlGetEtfPair($strSymbol))
+	{
+		if ($fRatio = SqlGetStockPairRatio(TABLE_ETF_PAIR, SqlGetStockId($strSymbol)))
+		{
+			return $strIndex.'*'.strval($fRatio);
+		}
+		return $strIndex;
+	}*/
+	return 'EMA200/50';
+}
+
 function _getStockOptionVal($strSubmit, $strSymbol)
 {
 	if ($strSubmit == STOCK_OPTION_ADJCLOSE_CN)
@@ -97,6 +112,10 @@ function _getStockOptionVal($strSubmit, $strSymbol)
 	else if ($strSubmit == STOCK_OPTION_ADR_CN)
 	{
 		return _getStockOptionAdr($strSymbol);
+	}
+	else if ($strSubmit == STOCK_OPTION_EMA_CN)
+	{
+		return _getStockOptionEma($strSymbol);
 	}
 	else if ($strSubmit == STOCK_OPTION_ETF_CN)
 	{
