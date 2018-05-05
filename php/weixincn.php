@@ -13,7 +13,7 @@ require_once('sql/sqlweixin.php');
 
 require_once('stock/dbcnyref.php');
 
-define('WX_DEBUG_VER', '版本812');
+define('WX_DEBUG_VER', '版本814');
 
 define('WX_DEFAULT_SYMBOL', 'SZ162411');
 define('MAX_WX_STOCK', 50);

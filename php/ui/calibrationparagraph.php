@@ -8,14 +8,14 @@ function _echoCalibrationItem($strStockId, $strPairId, $history, $bReadOnly, $bC
     $strPairPrice = SqlGetNetValueByDate($strPairId, $strDate);
     if ($bReadOnly == false)
     {
-    	$strDate = GetOnClickLink('/php/_submitdelete.php?calibrationid='.$history['id'], '确认删除'.$history['date'].'校准记录?', $history['date']);
+    	$strDate = GetOnClickLink('/php/_submitdelete.php?etfcalibrationid='.$history['id'], '确认删除'.$history['date'].'校准记录?', $history['date']);
     }
     
     echo <<<END
     <tr>
         <td class=c1>$strPrice</td>
         <td class=c1>$strPairPrice</td>
-        <td class=c1>{$history['factor']}</td>
+        <td class=c1>{$history['close']}</td>
         <td class=c1>$strDate</td>
     </tr>
 END;
@@ -34,12 +34,12 @@ function _echoCalibrationData($strSymbol, $iStart, $iNum, $bChinese)
     
 	$strStockId = SqlGetStockId($strSymbol);
     $record = SqlGetStockPair(TABLE_ETF_PAIR, $strStockId);
-    $strEtfPairId = $record['id'];
-    if ($result = SqlGetCalibration($strEtfPairId, $iStart, $iNum)) 
+    $strPairId = $record['pair_id'];
+    if ($result = SqlGetEtfCalibrationAll($strStockId, $iStart, $iNum)) 
     {
         while ($history = mysql_fetch_assoc($result)) 
         {
-            _echoCalibrationItem($strStockId, $record['pair_id'], $history, $bReadOnly, $bChinese);
+            _echoCalibrationItem($strStockId, $strPairId, $history, $bReadOnly, $bChinese);
         }
         @mysql_free_result($result);
     }

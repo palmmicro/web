@@ -76,4 +76,42 @@ function CorrectBlogTable()
     }
 }
 
+/*
+function SqlInsertFuture()
+{
+    SqlInsertStock('hf_CL', 'NYMEX Oil Future', 'NYMEX原油期货');
+    SqlInsertStock('hf_GC', 'COMEX Gold Future', 'COMEX黄金期货');
+    SqlInsertStock('hf_NG', 'NYMEX Gas Future', 'NYMEX天然气期货');
+    SqlInsertStock('hf_OIL', 'Brent Oil Future', '布伦特原油期货');
+    SqlInsertStock('hf_SI', 'COMEX Silver Future', 'COMEX白银期货');
+}
+
+function SqlInsertUSCNY()
+{
+    SqlInsertStock('USCNY', 'USD/CNY Reference Rate', '美元人民币中间价');
+}
+
+function SqlInsertHKCNY()
+{
+    SqlInsertStock('HKCNY', 'HKD/CNY Reference Rate', '港币人民币中间价');
+}
+*/
+
+function CopyCalibrationData()
+{
+	SqlCreateEtfCalibrationTable();
+	if ($result = SqlGetTableData(TABLE_CALIBRATION, false, false, false)) 
+    {
+        while ($record = mysql_fetch_assoc($result)) 
+        {
+        	if ($etfpair = SqlGetTableDataById(TABLE_ETF_PAIR, $record['etfpair_id']))
+        	{
+        		SqlInsertEtfCalibration($etfpair['stock_id'], $record['date'], $record['factor']);
+        	}
+        }
+        @mysql_free_result($result);
+    }
+}
+
+
 ?>

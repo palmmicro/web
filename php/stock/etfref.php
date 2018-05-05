@@ -18,16 +18,15 @@ class EtfReference extends MyStockReference
         $strStockId = $this->GetStockId();
         if ($record = SqlGetStockPair(TABLE_ETF_PAIR, $strStockId))
         {
-        	$strEtfPairId = $record['id'];
         	$this->strPairId = $record['pair_id'];
         	$this->fRatio = floatval($record['ratio']);
         	if ($history = SqlGetFundHistoryNow($strStockId))
         	{
         		$strDate = $history['date'];
         		$fNetValue = floatval($history['netvalue']);
-        		SqlCreateCalibrationTable();
-        		if ($fFactor = SqlGetCalibrationByDate($strEtfPairId, $strDate))
+        		if ($calibration = SqlGetEtfCalibration($strStockId, $strDate))
         		{
+        			$fFactor = floatval($calibration['close']);
         			$fPairNetValue = SqlGetFundNetValueByDate($this->strPairId, $strDate);
         		}
         		else
@@ -35,13 +34,13 @@ class EtfReference extends MyStockReference
         			if ($fPairNetValue = SqlGetFundNetValueByDate($this->strPairId, $strDate))
         			{
         				$fFactor = $fPairNetValue / $fNetValue;
-        				SqlInsertCalibration($strEtfPairId, strval($fFactor), $strDate);
+        				SqlInsertEtfCalibration($strStockId, $strDate, strval($fFactor));
         			}
         			else
         			{
-        				if ($calibration = SqlGetCalibrationNow($strEtfPairId))
+        				if ($calibration = SqlGetEtfCalibrationNow($strStockId))
         				{
-        					$fFactor = floatval($calibration['factor']); 
+        					$fFactor = floatval($calibration['close']); 
         					$fNetValue = SqlGetFundNetValueByDate($strStockId, $calibration['date']);
         					$fPairNetValue = SqlGetFundNetValueByDate($this->strPairId, $calibration['date']);
         				}

@@ -2,7 +2,9 @@
 define('DB_DATABASE', 'camman');
 
 define ('TABLE_BLOG', 'blog');
+define ('TABLE_CALIBRATION', 'calibration');
 define ('TABLE_DIVIDEND_PARAMETER', 'dividendparameter');
+define ('TABLE_ETF_CALIBRATION', 'etfcalibration');
 define ('TABLE_FOREX_HISTORY', 'forexhistory');
 define ('TABLE_FUND_HISTORY', 'fundhistory');
 define ('TABLE_FUND_PURCHASE', 'fundpurchase');
@@ -12,7 +14,6 @@ define ('TABLE_MEMBER', 'member');
 define ('TABLE_PROFILE', 'profile');
 define ('TABLE_SPIDER_PARAMTER', 'spiderparameter');
 define ('TABLE_STOCK', 'stock');
-define ('TABLE_CALIBRATION', 'calibration');
 define ('TABLE_STOCK_CALIBRATION', 'stockcalibration');
 define ('TABLE_STOCK_GROUP', 'stockgroup');
 define ('TABLE_STOCK_GROUP_ITEM', 'stockgroupitem');
@@ -74,6 +75,17 @@ function SqlQuerySingleRecord($strQry, $strDie)
 	    die_mysql_error($strDie);
 	}
 	return false;
+}
+
+function SqlCreateTable($str, $strTableName)
+{
+    $strQuery = 'CREATE TABLE IF NOT EXISTS `camman`.`'
+         . $strTableName
+         . '` ('
+         . ' `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,'
+         . $str
+         . ' ) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci '; 
+	return SqlDieByQuery($strQuery, $strTableName.' create table failed');
 }
 
 function SqlDropTable($strTableName)

@@ -13,8 +13,8 @@ class CnyReference extends MysqlReference
     	{
     		$this->strPrice = $history['close'];
     		$this->strDate = $history['date'];
-    		$this->strTime = '09:15';
-    		if ($history_prev = SqlGetPrevForexHistoryByDate($this->strSqlId, $this->strDate))
+    		$this->strTime = '09:15:00';
+    		if ($history_prev = SqlGetForexHistoryPrev($this->strSqlId, $this->strDate))
     		{
     			$this->strPrevPrice = $history_prev['close'];
     		}

@@ -16,7 +16,7 @@ require_once('sql/sqlstockpair.php');
 require_once('sql/sqlstockgroup.php');
 require_once('sql/sqlstockhistory.php');
 require_once('sql/sqlparameter.php');
-require_once('sql/sqlforex.php');
+require_once('sql/sqlstockdaily.php');
 require_once('sql/sqlfundhistory.php');
 /*
 require_once('stock/stocksymbol.php');
@@ -30,7 +30,7 @@ require_once('stock/stockprefetch.php');
 
 //require_once('account.php');
 //require_once('stock.php');
-//require_once('sql/_sqltest.php');
+require_once('sql/_sqltest.php');
 
 //require_once('test/chinastocklist.php');
 
@@ -212,6 +212,7 @@ function TestCmdLine()
 	SysInit();
 	TestCmdLine();
 	
+//	CopyCalibrationData();
 //	MarketWatchGetData('^SPSIOP');
 	
 //	GetChinaMoney();

@@ -313,7 +313,7 @@ class StockHistory
         
 		if ($this->GetStockSymbol() == '^GSPC')
 		{
-			$this->_cfg_set_SMA($cfg, 'EMA', 2610.43, 2674.37, -1);
+			$this->_cfg_set_SMA($cfg, 'EMA', 2610.62, 2672.62, -1);
 		}
         $cfg->save_data();
     }

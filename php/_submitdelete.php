@@ -2,10 +2,9 @@
 require_once('account.php');
 require_once('sql/sqlstocksymbol.php');
 require_once('sql/sqlfundpurchase.php');
-require_once('sql/sqlforex.php');
+require_once('sql/sqlstockdaily.php');
 require_once('sql/sqlfundhistory.php');
 require_once('sql/sqlstockhistory.php');
-require_once('sql/sqlcalibration.php');
 require_once('sql/sqlstockcalibration.php');
 require_once('sql/sqlstockpair.php');
 require_once('sql/sqlstockgroup.php');
@@ -70,9 +69,9 @@ function _deleteStockById($strStockId)
 	    {
 	    	_deleteStockById($strStockId);
 	    }
-	    else if ($strId = UrlGetQueryValue('calibrationid'))
+	    else if ($strId = UrlGetQueryValue('etfcalibrationid'))
 	    {
-	    	SqlDeleteTableDataById(TABLE_CALIBRATION, $strId);
+	    	SqlDeleteTableDataById(TABLE_ETF_CALIBRATION, $strId);
 	    }
 	}
 	
