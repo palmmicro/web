@@ -6,7 +6,7 @@ require_once('/php/ui/link.php');
 
 function ChishinNavigateBlogGroup($bChinese)
 {
-    $arBlog = array('20170512', '20170517', '20170523', '20170524', '20180426', '20180429');
+    $arBlog = array('20170512', '20170517', '20170523', '20170524', '20180426', '20180429', '20180504');
     
 	NavBegin();
     NavDirFirstLast($arBlog);
