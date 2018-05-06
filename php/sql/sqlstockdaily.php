@@ -1,13 +1,30 @@
 <?php
+require_once('sqlstocktable.php');
 
-function SqlCreateStockDailyTable($strTableName)
+// ****************************** SqlStockDaily class *******************************************************
+class SqlStockDaily extends SqlStockTable
 {
-    $str = ' `stock_id` INT UNSIGNED NOT NULL ,'
-         . ' `date` DATE NOT NULL ,'
-         . ' `close` DOUBLE(13,6) NOT NULL ,'
-         . ' FOREIGN KEY (`stock_id`) REFERENCES `stock`(`id`) ON DELETE CASCADE ,'
-         . ' UNIQUE ( `date`, `stock_id` )';
-    return SqlCreateTable($str, $strTableName);
+    // constructor 
+    function SqlStockDaily($strSymbol, $strTableName) 
+    {
+        parent::SqlStockTable($strSymbol, $strTableName);
+        $this->Create();
+    }
+    
+    function Create()
+    {
+    	$str = ' `stock_id` INT UNSIGNED NOT NULL ,'
+         	  . ' `date` DATE NOT NULL ,'
+         	  . ' `close` DOUBLE(13,6) NOT NULL ,'
+         	  . ' FOREIGN KEY (`stock_id`) REFERENCES `stock`(`id`) ON DELETE CASCADE ,'
+         	  . ' UNIQUE ( `date`, `stock_id` )';
+    	return parent::Create($str);
+    }
+
+    function GetByDate($strDate)
+    {
+    	return SqlGetUniqueTableData($this->strName, $this->_buildWhere_date_stock($strDate));
+    }
 }
 
 function SqlGetStockDaily($strTableName, $strStockId, $strDate)
@@ -47,17 +64,27 @@ function SqlUpdateStockDaily($strTableName, $strStockId, $strDate, $strClose)
 	return SqlDieByQuery($strQry, $strTableName.' update data failed');
 }
 
+// ****************************** SqlStockEma class *******************************************************
+class SqlStockEma extends SqlStockDaily
+{
+    // constructor 
+    function SqlStockEma($strSymbol, $iDays) 
+    {
+        parent::SqlStockDaily($strSymbol, 'stockema'.strval($iDays));
+    }
+}
+
+// ****************************** SqlEtfCalibration class *******************************************************
+class SqlEtfCalibration extends SqlStockDaily
+{
+    // constructor 
+    function SqlEtfCalibration($strSymbol)
+    {
+        parent::SqlStockDaily($strSymbol, TABLE_ETF_CALIBRATION);
+    }
+}
+
 // ****************************** ETF Calibration table *******************************************************
-function SqlCreateEtfCalibrationTable()
-{
-	return SqlCreateStockDailyTable(TABLE_ETF_CALIBRATION);
-}
-
-function SqlGetEtfCalibration($strStockId, $strDate)
-{
-	return SqlGetStockDaily(TABLE_ETF_CALIBRATION, $strStockId, $strDate);
-}
-
 function SqlGetEtfCalibrationNow($strStockId)
 {
 	return SqlGetStockDailyNow(TABLE_ETF_CALIBRATION, $strStockId);
@@ -83,12 +110,17 @@ function SqlInsertEtfCalibration($strStockId, $strDate, $strClose)
 	return SqlInsertStockDaily(TABLE_ETF_CALIBRATION, $strStockId, $strDate, $strClose);
 }
 
-// ****************************** Forex History table *******************************************************
-function SqlCreateForexHistoryTable()
+// ****************************** SqlForexHistory class *******************************************************
+class SqlForexHistory extends SqlStockDaily
 {
-	return SqlCreateStockDailyTable(TABLE_FOREX_HISTORY);
+    // constructor 
+    function SqlForexHistory($strSymbol) 
+    {
+        parent::SqlStockDaily($strSymbol, TABLE_FOREX_HISTORY);
+    }
 }
 
+// ****************************** Forex History table *******************************************************
 function SqlGetForexHistory($strStockId, $strDate)
 {
 	return SqlGetStockDaily(TABLE_FOREX_HISTORY, $strStockId, $strDate);

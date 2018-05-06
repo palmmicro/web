@@ -91,15 +91,8 @@ function _getStockOptionEtf($strSymbol)
 
 function _getStockOptionEma($strSymbol)
 {
-/*	SqlCreateStockPairTable(TABLE_ETF_PAIR);
-	if ($strIndex = SqlGetEtfPair($strSymbol))
-	{
-		if ($fRatio = SqlGetStockPairRatio(TABLE_ETF_PAIR, SqlGetStockId($strSymbol)))
-		{
-			return $strIndex.'*'.strval($fRatio);
-		}
-		return $strIndex;
-	}*/
+	$ema50 = new SqlStockEma($strSymbol, 50);
+	$ema200 = new SqlStockEma($strSymbol, 200);
 	return 'EMA200/50';
 }
 

@@ -97,21 +97,4 @@ function SqlInsertHKCNY()
 }
 */
 
-function CopyCalibrationData()
-{
-	SqlCreateEtfCalibrationTable();
-	if ($result = SqlGetTableData(TABLE_CALIBRATION, false, false, false)) 
-    {
-        while ($record = mysql_fetch_assoc($result)) 
-        {
-        	if ($etfpair = SqlGetTableDataById(TABLE_ETF_PAIR, $record['etfpair_id']))
-        	{
-        		SqlInsertEtfCalibration($etfpair['stock_id'], $record['date'], $record['factor']);
-        	}
-        }
-        @mysql_free_result($result);
-    }
-}
-
-
 ?>
