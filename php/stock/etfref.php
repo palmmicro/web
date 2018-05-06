@@ -15,8 +15,8 @@ class EtfReference extends MyStockReference
     function EtfReference($strSymbol) 
     {
         parent::MyStockReference($strSymbol);
-        $sql_etf_calibration = new SqlEtfCalibration($strSymbol);
         $strStockId = $this->GetStockId();
+        $sql_etf_calibration = new SqlEtfCalibration($strStockId);
         if ($record = SqlGetStockPair(TABLE_ETF_PAIR, $strStockId))
         {
         	$this->strPairId = $record['pair_id'];
@@ -25,9 +25,8 @@ class EtfReference extends MyStockReference
         	{
         		$strDate = $history['date'];
         		$fNetValue = floatval($history['netvalue']);
-        		if ($calibration = $sql_etf_calibration->GetByDate($strDate))
+        		if ($fFactor = $sql_etf_calibration->GetCloseByDate($strDate))
         		{
-        			$fFactor = floatval($calibration['close']);
         			$fPairNetValue = SqlGetFundNetValueByDate($this->strPairId, $strDate);
         		}
         		else
@@ -39,7 +38,7 @@ class EtfReference extends MyStockReference
         			}
         			else
         			{
-        				if ($calibration = SqlGetEtfCalibrationNow($strStockId))
+        				if ($calibration = $sql_etf_calibration->GetNow())
         				{
         					$fFactor = floatval($calibration['close']); 
         					$fNetValue = SqlGetFundNetValueByDate($strStockId, $calibration['date']);

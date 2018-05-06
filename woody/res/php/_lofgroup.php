@@ -8,7 +8,6 @@ require_once('/php/ui/lofsmaparagraph.php');
 class _LofGroup extends _StockGroup
 {
     var $cny_ref;
-    var $fCnyPrice;
     
     // constructor 
     function _LofGroup() 
@@ -22,7 +21,6 @@ class _LofGroup extends _StockGroup
         {
             parent::_StockGroup(array($this->ref->stock_ref));
         }
-        $this->fCnyPrice = SqlGetForexNow($this->cny_ref->GetStockId());
     } 
     
     function ConvertToEtfTransaction($etf_convert_trans, $lof_trans)
@@ -76,12 +74,9 @@ class _LofGroup extends _StockGroup
     {
     	$ref = $this->ref;
         $est_ref = $ref->est_ref;
-/*        $stock_ref = $this->ref->stock_ref;
-        $strSymbol = $stock_ref->GetStockSymbol();
-        $strQuery = sprintf('%s=%.4f&%s=%.2f&CNY=%.4f', $strSymbol, $stock_ref->fPrevPrice, $est_ref->GetStockSymbol(), $est_ref->fPrevPrice, $this->cny_ref->fPrevPrice);*/
         $strSymbol = $ref->GetStockSymbol();
         $strDate = $ref->strDate;
-        $strCNY = SqlGetForexCloseString($ref->strForexSqlId, $strDate);
+        $strCNY = $ref->sql_forex_history->GetCloseStringByDate($strDate);
         if ($history = SqlGetStockHistoryByDate($est_ref->GetStockId(), $strDate))
         {
         	$strEst = $history['close'];

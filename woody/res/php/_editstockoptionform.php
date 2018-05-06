@@ -91,8 +91,9 @@ function _getStockOptionEtf($strSymbol)
 
 function _getStockOptionEma($strSymbol)
 {
-	$ema50 = new SqlStockEma($strSymbol, 50);
-	$ema200 = new SqlStockEma($strSymbol, 200);
+	$strStockId = SqlGetStockId($strSymbol);
+	$ema50 = new SqlStockEma($strStockId, 50);
+	$ema200 = new SqlStockEma($strStockId, 200);
 	return 'EMA200/50';
 }
 

@@ -1,13 +1,14 @@
 <?php
 require_once('sqlstocktable.php');
+require_once('sqlstocksymbol.php');
 
 // ****************************** SqlStockDaily class *******************************************************
 class SqlStockDaily extends SqlStockTable
 {
     // constructor 
-    function SqlStockDaily($strSymbol, $strTableName) 
+    function SqlStockDaily($strStockId, $strTableName) 
     {
-        parent::SqlStockTable($strSymbol, $strTableName);
+        parent::SqlStockTable($strStockId, $strTableName);
         $this->Create();
     }
     
@@ -25,16 +26,47 @@ class SqlStockDaily extends SqlStockTable
     {
     	return SqlGetUniqueTableData($this->strName, $this->_buildWhere_date_stock($strDate));
     }
-}
+    
+    function GetCloseStringByDate($strDate)
+    {
+    	if ($record = $this->GetByDate($strDate))
+    	{
+    		return $record['close'];
+    	}
+    	return false;
+    }
 
-function SqlGetStockDaily($strTableName, $strStockId, $strDate)
-{
-	return SqlGetUniqueTableData($strTableName, _SqlBuildWhere_date_stock($strDate, $strStockId));
-}
+    function GetCloseByDate($strDate)
+    {
+    	if ($str = $this->GetCloseStringByDate($strDate))
+    	{
+    		return floatval($str);
+    	}
+    	return false;
+    }
 
-function SqlGetStockDailyNow($strTableName, $strStockId)
-{
-	return SqlGetSingleTableData($strTableName, _SqlBuildWhere_stock($strStockId), _SqlOrderByDate());
+    function GetNow()
+    {
+    	return SqlGetSingleTableData($this->strName, $this->_buildWhere_stock(), _SqlOrderByDate());
+    }
+    
+    function GetCloseStringNow()
+    {
+    	if ($record = $this->GetNow())
+    	{
+    		return $record['close'];
+    	}
+    	return false;
+    }
+
+    function GetCloseNow()
+    {
+    	if ($str = $this->GetCloseStringNow())
+    	{
+    		return floatval($str);
+    	}
+    	return false;
+    }
 }
 
 function SqlGetStockDailyPrev($strTableName, $strStockId, $strDate)
@@ -68,9 +100,9 @@ function SqlUpdateStockDaily($strTableName, $strStockId, $strDate, $strClose)
 class SqlStockEma extends SqlStockDaily
 {
     // constructor 
-    function SqlStockEma($strSymbol, $iDays) 
+    function SqlStockEma($strStockId, $iDays) 
     {
-        parent::SqlStockDaily($strSymbol, 'stockema'.strval($iDays));
+        parent::SqlStockDaily($strStockId, 'stockema'.strval($iDays));
     }
 }
 
@@ -78,18 +110,13 @@ class SqlStockEma extends SqlStockDaily
 class SqlEtfCalibration extends SqlStockDaily
 {
     // constructor 
-    function SqlEtfCalibration($strSymbol)
+    function SqlEtfCalibration($strStockId)
     {
-        parent::SqlStockDaily($strSymbol, TABLE_ETF_CALIBRATION);
+        parent::SqlStockDaily($strStockId, TABLE_ETF_CALIBRATION);
     }
 }
 
 // ****************************** ETF Calibration table *******************************************************
-function SqlGetEtfCalibrationNow($strStockId)
-{
-	return SqlGetStockDailyNow(TABLE_ETF_CALIBRATION, $strStockId);
-}
-
 function SqlGetEtfCalibrationPrev($strStockId, $strDate)
 {
 	return SqlGetStockDailyPrev(TABLE_ETF_CALIBRATION, $strStockId, $strDate);
@@ -114,23 +141,31 @@ function SqlInsertEtfCalibration($strStockId, $strDate, $strClose)
 class SqlForexHistory extends SqlStockDaily
 {
     // constructor 
-    function SqlForexHistory($strSymbol) 
+    function SqlForexHistory($strStockId) 
     {
-        parent::SqlStockDaily($strSymbol, TABLE_FOREX_HISTORY);
+        parent::SqlStockDaily($strStockId, TABLE_FOREX_HISTORY);
+    }
+}
+
+class SqlUscnyHistory extends SqlForexHistory
+{
+    // constructor 
+    function SqlUscnyHistory() 
+    {
+        parent::SqlForexHistory(SqlGetStockId('USCNY'));
+    }
+}
+
+class SqlHkcnyHistory extends SqlForexHistory
+{
+    // constructor 
+    function SqlHkcnyHistory() 
+    {
+        parent::SqlForexHistory(SqlGetStockId('HKCNY'));
     }
 }
 
 // ****************************** Forex History table *******************************************************
-function SqlGetForexHistory($strStockId, $strDate)
-{
-	return SqlGetStockDaily(TABLE_FOREX_HISTORY, $strStockId, $strDate);
-}
-
-function SqlGetForexHistoryNow($strStockId)
-{
-	return SqlGetStockDailyNow(TABLE_FOREX_HISTORY, $strStockId);
-}
-
 function SqlGetForexHistoryPrev($strStockId, $strDate)
 {
 	return SqlGetStockDailyPrev(TABLE_FOREX_HISTORY, $strStockId, $strDate);
@@ -142,39 +177,22 @@ function SqlInsertForexHistory($strStockId, $strDate, $strClose)
 }
 
 // ****************************** Forex Support Functions *******************************************************
-function SqlGetForexCloseString($strStockId, $strDate)
+function SqlGetForexHistoryNow($strStockId)
 {
-    $history = SqlGetForexHistory($strStockId, $strDate);
-    if ($history)   return $history['close'];
-    return false;
-}
-
-function SqlGetForexCloseHistory($strStockId, $strDate)
-{
-	if ($str = SqlGetForexCloseString($strStockId, $strDate))
-	{
-		return floatval($str);
-	}
-    return false;
-}
-
-function SqlGetForexNow($strStockId)
-{
-	if ($history = SqlGetForexHistoryNow($strStockId))
-	{
-		return floatval($history['close']);
-	}
-	return false;
+	$forex = new SqlForexHistory($strStockId);
+	return $forex->GetNow();
 }
 
 function SqlGetHKCNY()
 {
-	return SqlGetForexNow(SqlGetStockId('HKCNY'));
+	$hkcny = new SqlHkcnyHistory();
+	return $hkcny->GetCloseNow();
 }
 
 function SqlGetUSCNY()
 {
-	return SqlGetForexNow(SqlGetStockId('USCNY'));
+	$uscny = new SqlUscnyHistory();
+	return $uscny->GetCloseNow();
 }
 
 ?>

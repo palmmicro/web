@@ -32,7 +32,7 @@ function EchoAll($bChinese)
         _EchoTransactionParagraph($group, $bChinese);
         if ($group->GetTotalRecords() > 0)
         {
-            EchoMoneyParagraph($group, false, $group->fCnyPrice, $bChinese);
+            EchoMoneyParagraph($group, false, $fund->fCNY, $bChinese);
             $group->EchoArbitrageParagraph($bChinese);
         }
 	}

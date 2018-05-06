@@ -1,6 +1,5 @@
 <?php
 require_once('sqltable.php');
-require_once('sqlstocksymbol.php');
 
 // ****************************** SqlStockTable class *******************************************************
 class SqlStockTable extends SqlTable
@@ -12,10 +11,15 @@ class SqlStockTable extends SqlTable
     	return _SqlBuildWhere_date_stock($strDate, $this->strStockId);
     }
     
-    // constructor 
-    function SqlStockTable($strSymbol, $strTableName) 
+    function _buildWhere_stock()
     {
-    	$this->strStockId = SqlGetStockId($strSymbol);
+    	return _SqlBuildWhere_stock($this->strStockId);
+    }
+    
+    // constructor 
+    function SqlStockTable($strStockId, $strTableName) 
+    {
+    	$this->strStockId = $strStockId;
         parent::SqlTable($strTableName);
     }
 }

@@ -51,18 +51,16 @@ class FundReference extends MysqlReference
     
     var $fFactor = 1.0;
     
-    var $strForexSymbol;
-    var $strForexSqlId;
+    var $sql_forex_history;
     
     function SetForex($strForex)
     {
-        $this->strForexSymbol = $strForex;
-        $this->strForexSqlId = SqlGetStockId($this->strForexSymbol);
+        $this->sql_forex_history = new SqlForexHistory(SqlGetStockId($strForex));
     }
 
     function GetForexNow()
     {
-        return SqlGetForexNow($this->strForexSqlId);
+        return $this->sql_forex_history->GetCloseNow();
     }
     
     // Update database

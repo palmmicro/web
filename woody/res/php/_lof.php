@@ -120,7 +120,7 @@ function EchoAll($bChinese)
         _EchoTransactionParagraph($group, $bChinese);
         if ($group->GetTotalRecords() > 0)
         {
-            EchoMoneyParagraph($group, $group->fCnyPrice, false, $bChinese);
+            EchoMoneyParagraph($group, $fund->fCNY, false, $bChinese);
             $group->EchoArbitrageParagraph($bChinese);
         }
 	}
