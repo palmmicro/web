@@ -32,7 +32,7 @@ class CnyReference extends MysqlReference
 		$sql = new SqlForexHistory($this->strSqlId);
 		if ($sql->Get($this->strDate) == false)
 		{
-			SqlInsertForexHistory($this->strSqlId, $this->strDate, $this->strPrice);
+			$sql->Insert($this->strDate, $this->strPrice);
 		}    
 	}
 

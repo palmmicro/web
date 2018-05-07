@@ -19,11 +19,9 @@ function _chinaMoneyHasFile($ymd_now, $strFileName)
     return false;
 }
 
-function _chinaMoneyNeedData($ymd)
+function _chinaMoneyNeedData($ymd, $uscny, $hkcny)
 {
     $strDate = $ymd->GetYMD();
-    $uscny = new SqlUscnyHistory();
-    $hkcny = new SqlHkcnyHistory();
     if ($uscny->Get($strDate) && $hkcny->Get($strDate))
     {
 //    	DebugString('Database entry existed');
@@ -42,7 +40,9 @@ function GetChinaMoney()
 {
     date_default_timezone_set(STOCK_TIME_ZONE_CN);
     $ymd_now = new YMDNow();
-    if (_chinaMoneyNeedData($ymd_now) == false)		return;
+    $uscny = new SqlUscnyHistory();
+    $hkcny = new SqlHkcnyHistory();
+    if (_chinaMoneyNeedData($ymd_now, $uscny, $hkcny) == false)		return;
     
 	$strFileName = DebugGetChinaMoneyFile();
 	$ar = _chinaMoneyHasFile($ymd_now, $strFileName);
@@ -62,7 +62,7 @@ function GetChinaMoney()
     }
 	
     $arData = $ar['data'];
-    $strDate = _chinaMoneyNeedData(new YMDTick(strtotime($arData['lastDate'])));		// 2018-04-12 9:15
+    $strDate = _chinaMoneyNeedData(new YMDTick(strtotime($arData['lastDate'])), $uscny, $hkcny);		// 2018-04-12 9:15
     if ($strDate == false)		return;
 
     $arRecord = $ar['records'];
@@ -74,12 +74,12 @@ function GetChinaMoney()
     	if ($strPair == 'USD/CNY')
     	{
     		DebugString('Insert USCNY');
-			SqlInsertForexHistory(SqlGetStockId('USCNY'), $strDate, $strPrice);
+			$uscny->Insert($strDate, $strPrice);
 		}
     	else if ($strPair == 'HKD/CNY')
     	{
     		DebugString('Insert HKCNY');
-			SqlInsertForexHistory(SqlGetStockId('HKCNY'), $strDate, $strPrice);
+			$hkcny->Insert($strDate, $strPrice);
 		}
     }
 }

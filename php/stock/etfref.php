@@ -34,7 +34,7 @@ class EtfReference extends MyStockReference
         			if ($fPairNetValue = SqlGetFundNetValueByDate($this->strPairId, $strDate))
         			{
         				$fFactor = $fPairNetValue / $fNetValue;
-        				SqlInsertEtfCalibration($strStockId, $strDate, strval($fFactor));
+        				$sql_etf_calibration->Insert($strDate, strval($fFactor));
         			}
         			else
         			{

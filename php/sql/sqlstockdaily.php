@@ -24,7 +24,7 @@ class SqlStockDaily extends SqlStockTable
 
     function Get($strDate)
     {
-    	return SqlGetUniqueTableData($this->strName, $this->_buildWhere_date_stock($strDate));
+    	return SqlGetUniqueTableData($this->strName, $this->BuildWhere_date_stock($strDate));
     }
     
     function GetCloseString($strDate)
@@ -47,7 +47,7 @@ class SqlStockDaily extends SqlStockTable
 
     function GetPrev($strDate)
     {
-    	return SqlGetSingleTableData($this->strName, $this->_buildWhere_stock()." AND date < '$strDate'", _SqlOrderByDate());
+    	return SqlGetSingleTableData($this->strName, $this->BuildWhere_stock()." AND date < '$strDate'", _SqlOrderByDate());
     }
 
     function GetPrevCloseString($strDate)
@@ -61,7 +61,7 @@ class SqlStockDaily extends SqlStockTable
 
     function GetNow()
     {
-    	return SqlGetSingleTableData($this->strName, $this->_buildWhere_stock(), _SqlOrderByDate());
+    	return SqlGetSingleTableData($this->strName, $this->BuildWhere_stock(), _SqlOrderByDate());
     }
     
     function GetCloseStringNow()
@@ -81,28 +81,32 @@ class SqlStockDaily extends SqlStockTable
     	}
     	return false;
     }
-}
 
-function SqlCountStockDaily($strTableName, $strStockId)
-{
-    return SqlCountTableData($strTableName, _SqlBuildWhere_stock($strStockId));
-}
+    function Count()
+    {
+    	return SqlCountTableData($this->strName, $this->BuildWhere_stock());
+    }
 
-function SqlGetStockDailyAll($strTableName, $strStockId, $iStart, $iNum)
-{
-    return SqlGetTableData($strTableName, _SqlBuildWhere_stock($strStockId), _SqlOrderByDate(), _SqlBuildLimit($iStart, $iNum));
-}
+    function GetAll($iStart, $iNum)
+    {
+    	return SqlGetTableData($this->strName, $this->BuildWhere_stock(), _SqlOrderByDate(), _SqlBuildLimit($iStart, $iNum));
+    }
+    
+    function Insert($strDate, $strClose)
+    {
+    	$strTableName = $this->strName;
+    	$strStockId = $this->GetStockId(); 
+    	$strQry = "INSERT INTO $strTableName(id, stock_id, date, close) VALUES('0', '$strStockId', '$strDate', '$strClose')";
+    	return SqlDieByQuery($strQry, $strTableName.' insert data failed');
+    }
 
-function SqlInsertStockDaily($strTableName, $strStockId, $strDate, $strClose)
-{
-	$strQry = "INSERT INTO $strTableName(id, stock_id, date, close) VALUES('0', '$strStockId', '$strDate', '$strClose')";
-	return SqlDieByQuery($strQry, $strTableName.' insert data failed');
-}
-
-function SqlUpdateStockDaily($strTableName, $strStockId, $strDate, $strClose)
-{
-	$strQry = "UPDATE $strTableName SET close = '$strClose' WHERE stock_id = '$strStockId' AND date = '$strDate' LIMIT 1";
-	return SqlDieByQuery($strQry, $strTableName.' update data failed');
+    function Update($strDate, $strClose)
+    {
+    	$strTableName = $this->strName;
+    	$strStockId = $this->GetStockId(); 
+    	$strQry = "UPDATE $strTableName SET close = '$strClose' WHERE stock_id = '$strStockId' AND date = '$strDate' LIMIT 1";
+    	return SqlDieByQuery($strQry, $strTableName.' update data failed');
+    }
 }
 
 // ****************************** SqlStockEma class *******************************************************
@@ -123,22 +127,6 @@ class SqlEtfCalibration extends SqlStockDaily
     {
         parent::SqlStockDaily($strStockId, TABLE_ETF_CALIBRATION);
     }
-}
-
-// ****************************** ETF Calibration table *******************************************************
-function SqlCountEtfCalibration($strStockId)
-{
-    return SqlCountStockDaily(TABLE_ETF_CALIBRATION, $strStockId);
-}
-
-function SqlGetEtfCalibrationAll($strStockId, $iStart, $iNum)
-{
-    return SqlGetStockDailyAll(TABLE_ETF_CALIBRATION, $strStockId, $iStart, $iNum);
-}
-
-function SqlInsertEtfCalibration($strStockId, $strDate, $strClose)
-{
-	return SqlInsertStockDaily(TABLE_ETF_CALIBRATION, $strStockId, $strDate, $strClose);
 }
 
 // ****************************** SqlForexHistory class *******************************************************
@@ -167,12 +155,6 @@ class SqlHkcnyHistory extends SqlForexHistory
     {
         parent::SqlForexHistory(SqlGetStockId('HKCNY'));
     }
-}
-
-// ****************************** Forex History table *******************************************************
-function SqlInsertForexHistory($strStockId, $strDate, $strClose)
-{
-	return SqlInsertStockDaily(TABLE_FOREX_HISTORY, $strStockId, $strDate, $strClose);
 }
 
 // ****************************** Forex Support Functions *******************************************************

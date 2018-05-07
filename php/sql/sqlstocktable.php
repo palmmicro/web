@@ -6,14 +6,19 @@ class SqlStockTable extends SqlTable
 {
 	var $strStockId;
 	
-    function _buildWhere_date_stock($strDate)
+    function BuildWhere_date_stock($strDate)
     {
     	return _SqlBuildWhere_date_stock($strDate, $this->strStockId);
     }
     
-    function _buildWhere_stock()
+    function BuildWhere_stock()
     {
     	return _SqlBuildWhere_stock($this->strStockId);
+    }
+    
+    function GetStockId()
+    {
+    	return $this->strStockId;
     }
     
     // constructor 

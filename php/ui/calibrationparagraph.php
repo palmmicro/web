@@ -33,9 +33,10 @@ function _echoCalibrationData($strSymbol, $iStart, $iNum, $bChinese)
     }
     
 	$strStockId = SqlGetStockId($strSymbol);
+    $sql = new SqlEtfCalibration($strStockId);
     $record = SqlGetStockPair(TABLE_ETF_PAIR, $strStockId);
     $strPairId = $record['pair_id'];
-    if ($result = SqlGetEtfCalibrationAll($strStockId, $iStart, $iNum)) 
+    if ($result = $sql->GetAll($iStart, $iNum)) 
     {
         while ($history = mysql_fetch_assoc($result)) 
         {
