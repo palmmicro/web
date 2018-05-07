@@ -89,15 +89,21 @@ function _getStockOptionEtf($strSymbol)
 	return '';
 }
 
-function _getStockOptionEma($strSymbol)
+function _getStockOptionEma($strSymbol, $strDate)
 {
 	$strStockId = SqlGetStockId($strSymbol);
-	$ema50 = new SqlStockEma($strStockId, 50);
 	$ema200 = new SqlStockEma($strStockId, 200);
+	$ema50 = new SqlStockEma($strStockId, 50);
+	$str200 = $ema200->GetCloseString($strDate);
+	$str50 = $ema50->GetCloseString($strDate);
+	if ($str200 && $str200)
+	{
+		return $str200.'/'.$str50;
+	}
 	return 'EMA200/50';
 }
 
-function _getStockOptionVal($strSubmit, $strSymbol)
+function _getStockOptionVal($strSubmit, $strSymbol, $strDate)
 {
 	if ($strSubmit == STOCK_OPTION_ADJCLOSE_CN)
 	{
@@ -109,7 +115,7 @@ function _getStockOptionVal($strSubmit, $strSymbol)
 	}
 	else if ($strSubmit == STOCK_OPTION_EMA_CN)
 	{
-		return _getStockOptionEma($strSymbol);
+		return _getStockOptionEma($strSymbol, $strDate);
 	}
 	else if ($strSubmit == STOCK_OPTION_ETF_CN)
 	{
@@ -144,7 +150,7 @@ function StockOptionEditForm($strSubmit)
     	$strDateDisabled = HtmlElementDisabled();
     }
     
-    $strVal = _getStockOptionVal($strSubmit, $strSymbol);
+    $strVal = _getStockOptionVal($strSubmit, $strSymbol, $strDate);
 	
 	echo <<< END
 	<script type="text/javascript">

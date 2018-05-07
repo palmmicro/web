@@ -2,7 +2,6 @@
 require_once('class/ini_file.php');
 
 // max 20 months history used
-//define ('MAX_QUOTES_DAYS', 930);
 define ('MAX_QUOTES_DAYS', 620);
 define ('BOLL_DAYS', 20);
 
@@ -66,11 +65,6 @@ function _estBollingerBands($arF, $iIndex, $iAvg)
         $fSum += $fVal;
         $fQuadraticSum += $fVal * $fVal;
     }
-/*    $f = 1.0 * ($iAvg - 4) / 4;
-    $a = $f * $iNum * $iNum - $iNum;
-    $b = -1.0 * $f * 2 * $iNum * $fSum + 2 * $fSum;
-    $c = $f * $fSum * $fSum - $fQuadraticSum;
-*/    
     $f = 1.0 * ($iAvg - 4);
     $a = $f * $iNum * $iNum - 4 * $iNum;
     $b = (8 - 2 * $f * $iNum) * $fSum;
@@ -150,7 +144,6 @@ function _isMonthEnd($strYMD, $strNextDayYMD)
     }
     else
     {   // If the last none weekend day of a certain month is not a trading day 
-//        $iTick = $ymd->GetNextTradingDayTick();
         $ymd_now = new YMDNow();
         $iTick = $ymd_now->GetNextTradingDayTick();
         $ymd_next = new YMDTick($iTick);
@@ -237,6 +230,20 @@ class StockHistory
         $this->afNext[$strName] = floatval($cfg->read_var(SMA_SECTION, $this->_buildNextName($strName)));
         $this->aiTradingRange[$strName] = intval($cfg->read_var(SMA_SECTION, $this->_buildTradingRangeName($strName)));
     }
+
+    function _getEMA($iDays)
+    {
+    	$sql = new SqlStockEma($this->GetStockId(), $iDays);
+    	return $sql->GetClose($this->strDate);
+    }
+    
+    function _loadConfigEMA($cfg)
+    {
+		if ($this->_getEMA(200) && $this->_getEMA(50))
+		{
+			$this->_cfg_get_SMA($cfg, 'EMA');
+		}
+    }
     
     function _loadConfigSMA($cfg)
     {
@@ -257,9 +264,16 @@ class StockHistory
             $this->_cfg_get_SMA($cfg, 'M'.strval($i));
         }
         
-		if ($this->GetStockSymbol() == '^GSPC')
+        $this->_loadConfigEMA($cfg);
+    }
+    
+    function _saveConfigEMA($cfg)
+    {
+    	$fEma200 = $this->_getEMA(200);
+    	$fEma50 = $this->_getEMA(50);
+		if ($fEma200 && $fEma50)
 		{
-			$this->_cfg_get_SMA($cfg, 'EMA');
+			$this->_cfg_set_SMA($cfg, 'EMA', $fEma200, $fEma50, -1);
 		}
     }
     
@@ -311,10 +325,7 @@ class StockHistory
             $this->_cfg_set_SMA($cfg, 'M'.strval($i), _estSma($afMonthlyClose, 0, $i), _estSma($afMonthlyClose, 0, $i - 1),  -1);
         }
         
-		if ($this->GetStockSymbol() == '^GSPC')
-		{
-			$this->_cfg_set_SMA($cfg, 'EMA', 2610.62, 2672.62, -1);
-		}
+        $this->_saveConfigEMA($cfg);
         $cfg->save_data();
     }
     
@@ -379,7 +390,6 @@ class StockHistory
     function StockHistory($ref) 
     {
         $this->stock_ref = $ref;
-//        $this->aiNum = array(5, 10, 20, 30);
         $this->aiNum = array(5, 10, 20);
 		$this->strDate = $this->_getStartDate();
         $this->_configSMA();

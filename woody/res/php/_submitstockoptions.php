@@ -92,6 +92,28 @@ function _updateStockOptionAdr($strSymbol, $strVal)
     }
 }
 
+function _updateStockOptionEmaDays($strStockId, $iDays, $strDate, $strVal)
+{
+	$sql = new SqlStockEma($strStockId, $iDays);
+	if ($sql->Get($strDate))
+	{
+		$sql->Update($strDate, $strVal);
+	}
+	else
+	{
+		$sql->Insert($strDate, $strVal);
+	}
+}
+
+function _updateStockOptionEma($strSymbol, $strDate, $strVal)
+{
+	if (strchr($strVal, '/') == false)		return;
+	$ar = explode('/', $strVal);
+	$strStockId = SqlGetStockId($strSymbol);
+	_updateStockOptionEmaDays($strStockId, 200, $strDate, $ar[0]);
+	_updateStockOptionEmaDays($strStockId, 50, $strDate, $ar[1]);
+}
+
 function _updateStockOptionEtf($strSymbol, $strVal)
 {
 	if (strchr($strVal, '*'))
@@ -133,6 +155,10 @@ function _updateStockOptionEtf($strSymbol, $strVal)
 		else if ($strSubmit == STOCK_OPTION_ADR_CN)
 		{
 			if ($bAdmin)	_updateStockOptionAdr($strSymbol, $strVal);
+		}
+		else if ($strSubmit == STOCK_OPTION_EMA_CN)
+		{
+			if ($bAdmin)	_updateStockOptionEma($strSymbol, $strDate, $strVal);
 		}
 		else if ($strSubmit == STOCK_OPTION_ETF_CN)
 		{
