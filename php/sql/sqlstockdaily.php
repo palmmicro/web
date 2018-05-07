@@ -22,25 +22,39 @@ class SqlStockDaily extends SqlStockTable
     	return parent::Create($str);
     }
 
-    function GetByDate($strDate)
+    function Get($strDate)
     {
     	return SqlGetUniqueTableData($this->strName, $this->_buildWhere_date_stock($strDate));
     }
     
-    function GetCloseStringByDate($strDate)
+    function GetCloseString($strDate)
     {
-    	if ($record = $this->GetByDate($strDate))
+    	if ($record = $this->Get($strDate))
     	{
     		return $record['close'];
     	}
     	return false;
     }
 
-    function GetCloseByDate($strDate)
+    function GetClose($strDate)
     {
-    	if ($str = $this->GetCloseStringByDate($strDate))
+    	if ($str = $this->GetCloseString($strDate))
     	{
     		return floatval($str);
+    	}
+    	return false;
+    }
+
+    function GetPrev($strDate)
+    {
+    	return SqlGetSingleTableData($this->strName, $this->_buildWhere_stock()." AND date < '$strDate'", _SqlOrderByDate());
+    }
+
+    function GetPrevCloseString($strDate)
+    {
+    	if ($record = $this->GetPrev($strDate))
+    	{
+    		return $record['close'];
     	}
     	return false;
     }
@@ -67,11 +81,6 @@ class SqlStockDaily extends SqlStockTable
     	}
     	return false;
     }
-}
-
-function SqlGetStockDailyPrev($strTableName, $strStockId, $strDate)
-{
-	return SqlGetSingleTableData($strTableName, "stock_id = '$strStockId' AND date < '$strDate'", _SqlOrderByDate());
 }
 
 function SqlCountStockDaily($strTableName, $strStockId)
@@ -117,11 +126,6 @@ class SqlEtfCalibration extends SqlStockDaily
 }
 
 // ****************************** ETF Calibration table *******************************************************
-function SqlGetEtfCalibrationPrev($strStockId, $strDate)
-{
-	return SqlGetStockDailyPrev(TABLE_ETF_CALIBRATION, $strStockId, $strDate);
-}
-
 function SqlCountEtfCalibration($strStockId)
 {
     return SqlCountStockDaily(TABLE_ETF_CALIBRATION, $strStockId);
@@ -166,11 +170,6 @@ class SqlHkcnyHistory extends SqlForexHistory
 }
 
 // ****************************** Forex History table *******************************************************
-function SqlGetForexHistoryPrev($strStockId, $strDate)
-{
-	return SqlGetStockDailyPrev(TABLE_FOREX_HISTORY, $strStockId, $strDate);
-}
-
 function SqlInsertForexHistory($strStockId, $strDate, $strClose)
 {
 	return SqlInsertStockDaily(TABLE_FOREX_HISTORY, $strStockId, $strDate, $strClose);
@@ -179,20 +178,20 @@ function SqlInsertForexHistory($strStockId, $strDate, $strClose)
 // ****************************** Forex Support Functions *******************************************************
 function SqlGetForexHistoryNow($strStockId)
 {
-	$forex = new SqlForexHistory($strStockId);
-	return $forex->GetNow();
+	$sql = new SqlForexHistory($strStockId);
+	return $sql->GetNow();
 }
 
 function SqlGetHKCNY()
 {
-	$hkcny = new SqlHkcnyHistory();
-	return $hkcny->GetCloseNow();
+	$sql = new SqlHkcnyHistory();
+	return $sql->GetCloseNow();
 }
 
 function SqlGetUSCNY()
 {
-	$uscny = new SqlUscnyHistory();
-	return $uscny->GetCloseNow();
+	$sql = new SqlUscnyHistory();
+	return $sql->GetCloseNow();
 }
 
 ?>

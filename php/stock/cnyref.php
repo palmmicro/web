@@ -9,16 +9,13 @@ class CnyReference extends MysqlReference
     function _loadDatabaseData($strSymbol)
     {
     	$this->strSqlId = SqlGetStockId($strSymbol);
-		$forex = new SqlForexHistory($this->strSqlId);
-    	if ($history = $forex->GetNow())
+		$sql = new SqlForexHistory($this->strSqlId);
+    	if ($history = $sql->GetNow())
     	{
     		$this->strPrice = $history['close'];
     		$this->strDate = $history['date'];
     		$this->strTime = '09:15:00';
-    		if ($history_prev = SqlGetForexHistoryPrev($this->strSqlId, $this->strDate))
-    		{
-    			$this->strPrevPrice = $history_prev['close'];
-    		}
+    		$this->strPrevPrice = $sql->GetPrevCloseString($this->strDate);
     	}
         $this->strFileName = DebugGetChinaMoneyFile();
         $this->strExternalLink = GetReferenceRateForexLink($strSymbol);
@@ -32,8 +29,8 @@ class CnyReference extends MysqlReference
 			return;
 		}
     
-		$forex = new SqlForexHistory($this->strSqlId);
-		if ($forex->GetByDate($this->strDate) == false)
+		$sql = new SqlForexHistory($this->strSqlId);
+		if ($sql->Get($this->strDate) == false)
 		{
 			SqlInsertForexHistory($this->strSqlId, $this->strDate, $this->strPrice);
 		}    

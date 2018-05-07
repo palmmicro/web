@@ -76,7 +76,7 @@ class _LofGroup extends _StockGroup
         $est_ref = $ref->est_ref;
         $strSymbol = $ref->GetStockSymbol();
         $strDate = $ref->strDate;
-        $strCNY = $ref->sql_forex_history->GetCloseStringByDate($strDate);
+        $strCNY = $ref->sql_forex_history->GetCloseString($strDate);
         if ($history = SqlGetStockHistoryByDate($est_ref->GetStockId(), $strDate))
         {
         	$strEst = $history['close'];

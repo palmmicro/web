@@ -24,7 +24,7 @@ function _chinaMoneyNeedData($ymd)
     $strDate = $ymd->GetYMD();
     $uscny = new SqlUscnyHistory();
     $hkcny = new SqlHkcnyHistory();
-    if ($uscny->GetByDate($strDate) && $hkcny->GetByDate($strDate))
+    if ($uscny->Get($strDate) && $hkcny->Get($strDate))
     {
 //    	DebugString('Database entry existed');
     	return false;
