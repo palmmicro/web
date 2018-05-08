@@ -365,6 +365,7 @@
 <br />b = (32 - 2 * k * m) * ∑Xm;
 <br />c = k * (∑Xm)² - 16 * ∑Xm²;
 <br />最后解出结果.
+<br />EMA设计精巧, 不存在偷跑的问题. 为统一显示, 现在T估值中放的200天EMA, T+1估值中放的50天EMA.
 <br /><font color=grey>你永远比你想象中更勇敢 <a href="../../favoritecn.html#dream">相信梦想</a></font>
 </p>
 <?php EchoLofSmaDemo(true); ?>

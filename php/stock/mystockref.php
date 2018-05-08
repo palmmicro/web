@@ -26,8 +26,6 @@ class MyStockReference extends MysqlReference
     
     function _updateStockHistory()
     {
-        if ($this->bHasData == false)   return false;
-        
         $strStockId = $this->strSqlId;
         $strDate = $this->strDate;
         $strOpen = $this->strOpen;
@@ -38,17 +36,49 @@ class MyStockReference extends MysqlReference
         SqlCreateStockHistoryTable();
         if ($history = SqlGetStockHistoryByDate($strStockId, $strDate))
         {
-//            if ($this->_invalidHistoryData($strOpen))   return false;
-//            if ($this->_invalidHistoryData($strHigh))   return false;
-//            if ($this->_invalidHistoryData($strLow))    return false;
-            if ($this->_invalidHistoryData($strClose))  return false;
-            return SqlUpdateStockHistory($history['id'], $strOpen, $strHigh, $strLow, $strClose, $strVolume, $strClose);
+            if ($this->_invalidHistoryData($strClose))  return;
+            SqlUpdateStockHistory($history['id'], $strOpen, $strHigh, $strLow, $strClose, $strVolume, $strClose);
         }
-        else
-        {
-            return SqlInsertStockHistory($strStockId, $strDate, $strOpen, $strHigh, $strLow, $strClose, $strVolume, $strClose);
+		else
+		{
+			SqlInsertStockHistory($strStockId, $strDate, $strOpen, $strHigh, $strLow, $strClose, $strVolume, $strClose);
         }
-        return false;
+    }
+
+    // En = k * X0 + (1 - k) * Em; 其中m = n - 1; k = 2 / (n + 1)
+	function CalculateEMA($fPrice, $fPrev, $iDays)
+	{
+		$f = 2.0 / ($iDays + 1);
+		return $f * $fPrice + (1.0 - $f) * $fPrev;
+	}
+    
+	function _updateStockEmaDays($iDays)
+	{
+		$sql = new SqlStockEma($this->strSqlId, $iDays);
+		$strDate = $this->strDate;
+		if ($fPrev = $sql->GetClosePrev($strDate))
+		{
+			$fCur = $this->CalculateEMA($this->fPrice, $fPrev, $iDays);
+			$strCur = strval($fCur);
+			if ($fSaved = $sql->GetClose($strDate))
+			{
+				if (abs($fSaved - $fCur) > 0.005)
+				{
+					$sql->Update($strDate, $strCur);
+				}
+			}
+			else
+			{
+				$sql->Insert($strDate, $strCur);
+			}
+		}
+	}
+	
+    function _updateStockEma($ymd_now)
+    {
+    	if ($ymd_now->GetHour() <= STOCK_HOUR_END)	return;
+        $this->_updateStockEmaDays(50);
+        $this->_updateStockEmaDays(200);
     }
     
     // constructor 
@@ -79,9 +109,11 @@ class MyStockReference extends MysqlReference
         }
         
         parent::MysqlReference($strSymbol);
-        if ($this->strSqlId)
+        $ymd_now = new YMDNow();
+        if ($ymd_now->GetYMD() == $this->strDate && $this->strSqlId && $this->bHasData)
         {
             $this->_updateStockHistory();
+            $this->_updateStockEma($ymd_now);
         }
     }
 }

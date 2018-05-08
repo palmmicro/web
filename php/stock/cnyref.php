@@ -15,7 +15,7 @@ class CnyReference extends MysqlReference
     		$this->strPrice = $history['close'];
     		$this->strDate = $history['date'];
     		$this->strTime = '09:15:00';
-    		$this->strPrevPrice = $sql->GetPrevCloseString($this->strDate);
+    		$this->strPrevPrice = $sql->GetCloseStringPrev($this->strDate);
     	}
         $this->strFileName = DebugGetChinaMoneyFile();
         $this->strExternalLink = GetReferenceRateForexLink($strSymbol);

@@ -199,6 +199,11 @@ class YMDTick extends YearMonthDay
     {
     	return $this->strHMS;
     }
+    
+    function Debug()
+    {
+    	DebugString($this->strYMD.' '.$this->strHMS);
+    }
 }
 
 // ****************************** YMDNow *******************************************************

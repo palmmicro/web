@@ -50,11 +50,20 @@ class SqlStockDaily extends SqlStockTable
     	return SqlGetSingleTableData($this->strName, $this->BuildWhere_stock()." AND date < '$strDate'", _SqlOrderByDate());
     }
 
-    function GetPrevCloseString($strDate)
+    function GetCloseStringPrev($strDate)
     {
     	if ($record = $this->GetPrev($strDate))
     	{
     		return $record['close'];
+    	}
+    	return false;
+    }
+
+    function GetClosePrev($strDate)
+    {
+    	if ($str = $this->GetCloseStringPrev($strDate))
+    	{
+    		return floatval($str);
     	}
     	return false;
     }
