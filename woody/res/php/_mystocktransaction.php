@@ -68,7 +68,7 @@ function MyStockTransactionEchoTitle($bChinese)
     echo $str;
 }
 
-    $g_strMemberId = AcctNoAuth();
+    $g_strMemberId = AcctAuth();
     $g_strGroupId = UrlGetQueryValue('groupid');
     $g_strSymbol = UrlGetQueryValue('symbol');
 

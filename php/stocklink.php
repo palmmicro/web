@@ -181,7 +181,7 @@ function in_arrayAdr($strSymbol)
 
 function FutureGetSymbolArray()
 {
-    return array('cl', 'es', 'gc', 'ng', 'oil', 'si'); 
+    return array('cl', 'gc', 'ng', 'oil', 'si'); 
 }
 
 function _convertFutureSymbol($strSymbol)
@@ -212,7 +212,6 @@ function StockGetSymbolByUrl()
 function GetFutureSymbol1x($strSymbolFuture)
 {
     if ($strSymbolFuture == 'CL')         return 'USO';
-    else if ($strSymbolFuture == 'ES')   return 'SPY';
     else if ($strSymbolFuture == 'GC')   return 'GLD';
     else if ($strSymbolFuture == 'NG')   return 'UNG';
     else if ($strSymbolFuture == 'OIL')   return 'BNO';

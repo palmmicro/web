@@ -8,7 +8,6 @@ require_once('/php/ui/smaparagraph.php');
 function _getSymbol3x($strSymbolFuture)
 {
     if ($strSymbolFuture == 'CL')         return 'UWT';
-    else if ($strSymbolFuture == 'ES')   return 'UPRO';
     else if ($strSymbolFuture == 'GC')   return 'DGP';
     else if ($strSymbolFuture == 'NG')   return 'UGAZ';
     else if ($strSymbolFuture == 'OIL')   return 'UCO';
@@ -20,7 +19,6 @@ function _getSymbol3x($strSymbolFuture)
 function _getSymbol3xShort($strSymbolFuture)
 {
     if ($strSymbolFuture == 'CL')         return 'DWT';
-    else if ($strSymbolFuture == 'ES')   return 'SPXU';
     else if ($strSymbolFuture == 'GC')   return 'DZZ';
     else if ($strSymbolFuture == 'NG')   return 'DGAZ';
     else if ($strSymbolFuture == 'OIL')   return 'SCO';

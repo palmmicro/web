@@ -15,10 +15,17 @@ function _getPairTradingIndex($strSymbol)
         return false;
 }
 
+function _getPairTradingFuture($strSymbol)
+{
+    if ($strSymbol == 'SPY')         return 'ES';
+    else 
+        return false;
+}
+
 function _getPairTradingLeverage($strSymbol)
 {
     if ($strSymbol == 'SINA')         return array('WB');
-    else if ($strSymbol == 'SPY')         return array('SH', 'SDS', 'SPXU');
+    else if ($strSymbol == 'SPY')         return array('SH', 'SDS', 'SPXU', 'UPRO');
     else if ($strSymbol == 'UVXY')   return array('VXX', 'SVXY', 'TVIX');
     else if ($strSymbol == 'XOP')   return array('USO', 'USL', 'UCO', 'UWT', 'GUSH', 'DRIP');
     else 
@@ -27,7 +34,8 @@ function _getPairTradingLeverage($strSymbol)
 
 class _PairTradingGroup extends _StockGroup
 {
-    var $index_ref;
+    var $index_ref = false;
+    var $future_ref = false;
     var $ar_leverage_ref = array();
     var $ar_ref;
     var $his;
@@ -36,8 +44,9 @@ class _PairTradingGroup extends _StockGroup
     function _PairTradingGroup($strSymbol) 
     {
         $strIndexSymbol = _getPairTradingIndex($strSymbol);
+        $strFutureSymbol = _getPairTradingFuture($strSymbol);
         $arLeverageSymbol = _getPairTradingLeverage($strSymbol);
-        StockPrefetchData(array_merge($arLeverageSymbol, array($strSymbol, $strIndexSymbol)));
+        StockPrefetchData(array_merge($arLeverageSymbol, array($strSymbol, $strIndexSymbol, FutureGetSinaSymbol($strFutureSymbol))));
         
         if ($strIndexSymbol)
         {
@@ -58,13 +67,17 @@ class _PairTradingGroup extends _StockGroup
         }
         else
         {
-            $this->index_ref = false;
         	$this->ref = new MyStockReference($strSymbol);
         	foreach ($arLeverageSymbol as $strLeverageSymbol)
         	{
         		$this->ar_leverage_ref[] = new LeverageReference($strLeverageSymbol);
         	}
             $this->his = new StockHistory($this->ref);
+        }
+        
+        if ($strFutureSymbol)
+        {
+        	$this->future_ref = new FutureReference($strFutureSymbol);
         }
         
         $this->ar_ref = array_merge(array($this->ref), $this->ar_leverage_ref);
@@ -103,7 +116,7 @@ function EchoAll($bChinese)
     
     if ($group->index_ref)
     {
-    	EchoReferenceParagraph(array($group->index_ref), $bChinese);
+    	EchoReferenceParagraph(array($group->index_ref, $group->future_ref), $bChinese);
         EchoEtfListParagraph($group->ar_ref, $bChinese);
         EchoEtfSmaParagraph($group->his, $group->ar_ref, false, $bChinese);
     }
