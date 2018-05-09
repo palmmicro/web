@@ -22,6 +22,24 @@ class SqlStockDaily extends SqlStockTable
     	return parent::Create($str);
     }
 
+    function _getCloseString($strDate, $callback)
+    {
+    	if ($record = $this->$callback($strDate))
+    	{
+    		return $record['close'];
+    	}
+    	return false;
+    }
+    
+    function _getClose($strDate, $callback)
+    {
+    	if ($str = $this->_getCloseString($strDate, $callback))
+    	{
+    		return floatval($str);
+    	}
+    	return false;
+    }
+    
     function Get($strDate)
     {
     	return SqlGetUniqueTableData($this->strName, $this->BuildWhere_date_stock($strDate));
@@ -29,20 +47,12 @@ class SqlStockDaily extends SqlStockTable
     
     function GetCloseString($strDate)
     {
-    	if ($record = $this->Get($strDate))
-    	{
-    		return $record['close'];
-    	}
-    	return false;
+    	return $this->_getCloseString($strDate, 'Get');
     }
 
     function GetClose($strDate)
     {
-    	if ($str = $this->GetCloseString($strDate))
-    	{
-    		return floatval($str);
-    	}
-    	return false;
+    	return $this->_getClose($strDate, 'Get');
     }
 
     function GetPrev($strDate)
@@ -52,20 +62,12 @@ class SqlStockDaily extends SqlStockTable
 
     function GetCloseStringPrev($strDate)
     {
-    	if ($record = $this->GetPrev($strDate))
-    	{
-    		return $record['close'];
-    	}
-    	return false;
+    	return $this->_getCloseString($strDate, 'GetPrev');
     }
 
     function GetClosePrev($strDate)
     {
-    	if ($str = $this->GetCloseStringPrev($strDate))
-    	{
-    		return floatval($str);
-    	}
-    	return false;
+    	return $this->_getClose($strDate, 'GetPrev');
     }
 
     function GetNow()
