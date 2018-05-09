@@ -200,7 +200,10 @@ function SqlGetStockGroupArray($strStockGroupId)
 		while ($stockgroupitem = mysql_fetch_assoc($result)) 
 		{
 		    $strStockId = $stockgroupitem['stock_id'];
-    		$ar[$strStockId] = SqlGetStockSymbol($strStockId);
+		    if ($strSymbol = SqlGetStockSymbol($strStockId))
+		    {
+		    	$ar[$strStockId] = $strSymbol;
+		    }
 		}
 		@mysql_free_result($result);
 		asort($ar);

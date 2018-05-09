@@ -76,7 +76,7 @@ class MyStockReference extends MysqlReference
 	
     function _updateStockEma($ymd_now)
     {
-    	if ($ymd_now->GetHour() <= STOCK_HOUR_END)	return;
+    	if ($ymd_now->IsTradingHourEnd() == false)	return;
         $this->_updateStockEmaDays(50);
         $this->_updateStockEmaDays(200);
     }

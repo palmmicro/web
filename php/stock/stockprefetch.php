@@ -1,9 +1,5 @@
 <?php
 
-// Every market trading from 9 to 17?
-define ('STOCK_HOUR_BEGIN', 9);
-define ('STOCK_HOUR_END', 16);
-
 function _isMarketTrading($sym, $iTime)
 {
     $ymd = new YMDTick($iTime);

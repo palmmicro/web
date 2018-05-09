@@ -1,4 +1,7 @@
 <?php
+// Every market trading from 9 to 17?
+define ('STOCK_HOUR_BEGIN', 9);
+define ('STOCK_HOUR_END', 16);
 
 // ****************************** YearMonthDay Class *******************************************************
 
@@ -118,12 +121,6 @@ class YearMonthDay
         return false;
     }
     
-    function IsTradingDay()
-    {
-    	if ($this->IsHoliday())	return false;
-    	return $this->IsWeekDay();
-    }
-
     function IsSameMonth($ymd) 
     {
         if ($ymd->local[4] == $this->local[4])     return true;
@@ -152,6 +149,12 @@ class YearMonthDay
             return $ymd_next->GetNextTradingDayTick();
         }
         return $iTick;
+    }
+    
+    function IsTradingDay()
+    {
+    	if ($this->IsHoliday())	return false;
+    	return $this->IsWeekDay();
     }
 }
 
@@ -203,6 +206,12 @@ class YMDTick extends YearMonthDay
     function Debug()
     {
     	DebugString($this->strYMD.' '.$this->strHMS);
+    }
+
+    function IsTradingHourEnd()
+    {
+    	if ($this->GetHour() <= STOCK_HOUR_END)	return false;
+    	return true;
     }
 }
 
