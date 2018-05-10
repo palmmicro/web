@@ -27,6 +27,11 @@ class SqlStockTable extends SqlTable
     	$this->strStockId = $strStockId;
         parent::SqlTable($strTableName);
     }
+    
+    function Count()
+    {
+    	return SqlCountTableData($this->strName, $this->BuildWhere_stock());
+    }
 }
 
 ?>

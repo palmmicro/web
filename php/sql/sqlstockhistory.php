@@ -1,4 +1,16 @@
 <?php
+require_once('sqlstocktable.php');
+
+// ****************************** SqlStockHistory class *******************************************************
+class SqlStockHistory extends SqlStockTable
+{
+    // constructor 
+    function SqlStockHistory($strStockId) 
+    {
+        parent::SqlStockTable($strStockId, TABLE_STOCK_HISTORY);
+//        $this->Create();
+    }
+}
 
 // ****************************** Stock History tables *******************************************************
 
@@ -32,7 +44,9 @@ function SqlAlterStockHistoryTable()
 
 function SqlCountStockHistory($strStockId)
 {
-    return SqlCountTableData(TABLE_STOCK_HISTORY, _SqlBuildWhere_stock($strStockId));
+	$sql = new SqlStockHistory($strStockId);
+	return $sql->Count();
+//    return SqlCountTableData(TABLE_STOCK_HISTORY, _SqlBuildWhere_stock($strStockId));
 }
 
 function SqlGetStockHistory($strStockId, $iStart, $iNum)
