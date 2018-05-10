@@ -9,7 +9,7 @@ class SqlStockDaily extends SqlStockTable
     function SqlStockDaily($strStockId, $strTableName) 
     {
         parent::SqlStockTable($strStockId, $strTableName);
-        $this->Create();
+//        $this->Create();
     }
     
     function Create()
@@ -75,6 +75,15 @@ class SqlStockDaily extends SqlStockTable
     	return SqlGetSingleTableData($this->strName, $this->BuildWhere_stock(), _SqlOrderByDate());
     }
     
+    function GetDateNow()
+    {
+    	if ($record = $this->GetNow())
+    	{
+    		return $record['date'];
+    	}
+    	return false;
+    }
+
     function GetCloseStringNow()
     {
     	if ($record = $this->GetNow())
@@ -97,7 +106,7 @@ class SqlStockDaily extends SqlStockTable
     {
     	return SqlGetTableData($this->strName, $this->BuildWhere_stock(), _SqlOrderByDate(), _SqlBuildLimit($iStart, $iNum));
     }
-    
+
     function Insert($strDate, $strClose)
     {
     	$strTableName = $this->strName;
@@ -112,6 +121,11 @@ class SqlStockDaily extends SqlStockTable
     	$strStockId = $this->GetStockId(); 
     	$strQry = "UPDATE $strTableName SET close = '$strClose' WHERE stock_id = '$strStockId' AND date = '$strDate' LIMIT 1";
     	return SqlDieByQuery($strQry, $strTableName.' update data failed');
+    }
+
+    function DeleteByDate($strDate)
+    {
+    	return SqlDeleteTableData($this->strName, $this->BuildWhere_date_stock($strDate), '1');
     }
 }
 

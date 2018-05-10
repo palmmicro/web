@@ -19,13 +19,14 @@ define ('STOCK_OPTION_REVERSESPLIT_CN', '股票合股');
 define ('STOCK_OPTION_AMOUNT', 'Set Fund Purchase Amount');
 define ('STOCK_OPTION_AMOUNT_CN', '设置基金申购金额');
 
-function _getStockOptionDate($strSubmit, $strSymbol)
+function _getStockOptionDate($strSubmit, $strStockId)
 {
 	if ($strSubmit == STOCK_OPTION_ADJCLOSE_CN || $strSubmit == STOCK_OPTION_REVERSESPLIT_CN || $strSubmit == STOCK_OPTION_REVERSESPLIT || $strSubmit == STOCK_OPTION_EMA_CN)
 	{
-		if ($history = SqlGetStockHistoryNow(SqlGetStockId($strSymbol)))
+		$sql = new SqlStockHistory($strStockId);
+		if ($strDate = $sql->GetDateNow())
 		{
-			return $history['date'];
+			return $strDate;
 		}
 	}
 	return '';
@@ -142,10 +143,11 @@ function StockOptionEditForm($strSubmit)
 	$strEmailReadonly = HtmlElementReadonly();
 	
 	$strSymbol = UrlGetQueryValue('symbol');
+	$strStockId = SqlGetStockId($strSymbol);
 	$strSymbolReadonly = HtmlElementReadonly();
 	
     $strDateDisabled = '';
-    if (($strDate = _getStockOptionDate($strSubmit, $strSymbol)) == '')
+    if (($strDate = _getStockOptionDate($strSubmit, $strStockId)) == '')
     {
     	$strDateDisabled = HtmlElementDisabled();
     }

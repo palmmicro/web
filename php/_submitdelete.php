@@ -9,6 +9,22 @@ require_once('sql/sqlstockcalibration.php');
 require_once('sql/sqlstockpair.php');
 require_once('sql/sqlstockgroup.php');
 
+function _deleteHasStockHistory($strStockId)
+{
+	$sql = new SqlStockHistory($strStockId);
+	$iTotal = $sql->Count();
+	if ($iTotal > 0)
+	{
+		DebugString('Stock history existed: '.strval($iTotal));
+		if ($iTotal > 100)	
+		{
+			return true;
+		}
+		$sql->DeleteAll();
+	}
+	return false;
+}
+
 function _deleteStockById($strStockId)
 {
 	$strSymbol = SqlGetStockSymbol($strStockId);
@@ -43,17 +59,7 @@ function _deleteStockById($strStockId)
 		DebugString($strFailed.'Stock history existed');
 		return;
 	}
-	else if (($iTotal = SqlCountStockHistory($strStockId)) > 0)
-	{
-		$strWarning = 'Stock history existed: '.strval($iTotal);
-		if ($iTotal > 100)	
-		{
-			DebugString($strFailed.$strWarning);
-			return;
-		}
-		DebugString($strSymbol.' '.$strWarning);
-		SqlDeleteStockHistory($strStockId);
-	}
+	else if (_deleteHasStockHistory($strStockId))	return;
 	SqlDeleteStock($strStockId);
 }
 

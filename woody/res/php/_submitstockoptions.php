@@ -95,14 +95,22 @@ function _updateStockOptionAdr($strSymbol, $strVal)
 function _updateStockOptionEmaDays($strStockId, $iDays, $strDate, $strVal)
 {
 	$sql = new SqlStockEma($strStockId, $iDays);
-	if ($sql->Get($strDate))
-	{
-		$sql->Update($strDate, $strVal);
-	}
-	else
-	{
-		$sql->Insert($strDate, $strVal);
-	}
+    if ($strVal == '0')
+    {
+//   		$sql->DeleteByDate($strDate);
+   		$sql->DeleteAll();
+    }
+    else
+    {
+    	if ($sql->Get($strDate))
+    	{
+    		$sql->Update($strDate, $strVal);
+    	}
+    	else
+    	{
+    		$sql->Insert($strDate, $strVal);
+    	}
+    }
 }
 
 function _updateStockOptionEma($strSymbol, $strDate, $strVal)

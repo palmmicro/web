@@ -1,14 +1,14 @@
 <?php
 require_once('stocktable.php');
 
-function GetDailyCloseByDate($ref, $strYMD)
+function GetDailyCloseByDate($ref, $strDate)
 {
 	if ($ref)
 	{
-		$strStockId = $ref->GetStockId();
-		if ($history = SqlGetStockHistoryByDate($strStockId, $strYMD))
+		$sql = new SqlStockHistory($ref->GetStockId());
+		if ($history = $sql->Get($strDate))
 		{
-			if ($history_prev = SqlGetPrevStockHistoryByDate($strStockId, $strYMD))
+			if ($history_prev = $sql->GetPrev($strDate))
 			{
 				return array($history['close'], $history_prev['close']);
 			}

@@ -33,16 +33,10 @@ class MyStockReference extends MysqlReference
         $strLow = $this->strLow;
         $strClose = $this->strPrice;
         $strVolume = $this->strVolume;
+        if ($this->_invalidHistoryData($strClose))  return;
         SqlCreateStockHistoryTable();
-        if ($history = SqlGetStockHistoryByDate($strStockId, $strDate))
-        {
-            if ($this->_invalidHistoryData($strClose))  return;
-            SqlUpdateStockHistory($history['id'], $strOpen, $strHigh, $strLow, $strClose, $strVolume, $strClose);
-        }
-		else
-		{
-			SqlInsertStockHistory($strStockId, $strDate, $strOpen, $strHigh, $strLow, $strClose, $strVolume, $strClose);
-        }
+        $sql = new SqlStockHistory($strStockId);
+        SqlMergeStockHistory($sql, $strDate, $strOpen, $strHigh, $strLow, $strClose, $strVolume, $strClose);
     }
 
     // En = k * X0 + (1 - k) * Em; 其中m = n - 1; k = 2 / (n + 1)

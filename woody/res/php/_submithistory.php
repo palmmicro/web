@@ -5,64 +5,7 @@ require_once('/php/stockhis.php');
 
 // https://danjuanapp.com/djmodule/value-center
 
-function _sqlMergeStockHistory($strStockId, $strDate, $strOpen, $strHigh, $strLow, $strClose, $strVolume, $strAdjClose)
-{
-    if ($history = SqlGetStockHistoryByDate($strStockId, $strDate))
-    {
-        SqlUpdateStockHistory($history['id'], $strOpen, $strHigh, $strLow, $strClose, $strVolume, $strAdjClose);
-    }
-    else
-    {
-        SqlInsertStockHistory($strStockId, $strDate, $strOpen, $strHigh, $strLow, $strClose, $strVolume, $strAdjClose);
-    }
-}
-
-/*
-function _getHistoryQuotesYMD($str)
-{
-    $arLines = explode("\n", $str, 3);
-    $arWords = explode(',', $arLines[1], 2);
-//    return explode('-', $arWords[0]);
-    return $arWords[0];
-}
-
-function _getPastQuotes($sym, $strFileName)
-{
-    if (($str = IsNewDailyQuotes($sym, $strFileName, false, _getHistoryQuotesYMD)) === false)
-    {
-        $str = GetYahooPastQuotes($sym->GetYahooSymbol(), MAX_QUOTES_DAYS);
-        file_put_contents($strFileName, $str);
-    }
-    return $str;
-}
-
-function _oldUpdateYahooHistory($strStockId, $sym)
-{
-    $strSymbol = $sym->strSymbol;
-    $strFileName = DebugGetYahooHistoryFileName($strSymbol);
-    $str = _getPastQuotes($sym, $strFileName);
-    if (IsYahooStrError($str))
-    {
-        DebugString('IsYahooStrError returned ture with symbol - '.$strSymbol);
-        return;
-    }
-
-    DebugString('StockUpdateYahooHistory with symbol - '.$strSymbol);
-    $arYahoo = explode("\n", $str);
-    foreach ($arYahoo as $strLine)
-    {
-        $ar = explode(',', $strLine);
-//        DebugString($ar[0].' '.$ar[1].' '.$ar[2].' '.$ar[3].' '.$ar[4].' '.$ar[5].' '.$ar[6]);
-        $strDate = $ar[0];
-        if ((!empty($strDate)) && ($strDate != 'Date'))
-        {
-            _sqlMergeStockHistory($strStockId, $strDate, $ar[1], $ar[2], $ar[3], $ar[4], $ar[5], $ar[6]);
-        }
-    }
-}
-*/
-
-function _webUpdateYahooHistory($strStockId, $strYahooSymbol)
+function _webUpdateYahooHistory($sql, $strYahooSymbol)
 {
     $iTime = time();
     $iTotal = 0;
@@ -96,7 +39,7 @@ function _webUpdateYahooHistory($strStockId, $strYahooSymbol)
                 $ar[] = $strNoComma;
                 $str .= ' '.$strNoComma; 
             }
-            _sqlMergeStockHistory($strStockId, $strDate, $ar[0], $ar[1], $ar[2], $ar[3], $ar[5], $ar[4]);
+            SqlMergeStockHistory($sql, $strDate, $ar[0], $ar[1], $ar[2], $ar[3], $ar[5], $ar[4]);
         }
         $iTime = $iTimeBegin;
     }
@@ -114,10 +57,10 @@ function _isInvalidDate($strYMD)
     return false;
 }
 
-function _cleanInvalidStockHistory($strStockId)
+function _cleanInvalidStockHistory($sql)
 {
     $ar = array();
-    if ($result = SqlGetStockHistory($strStockId, 0, 0)) 
+    if ($result = $sql->GetAll(0, 0)) 
     {
         while ($history = mysql_fetch_assoc($result)) 
         {
@@ -131,7 +74,7 @@ function _cleanInvalidStockHistory($strStockId)
 
     foreach ($ar as $strId)
     {
-        SqlDeleteTableDataById(TABLE_STOCK_HISTORY, $strId);
+        $sql->Delete($strId);
     }
 }
 
@@ -165,17 +108,17 @@ function _submitStockHistory($strStockId, $strSymbol)
     unlinkEmptyFile(DebugGetConfigFileName($strSymbol));
     
     $sym = new StockSymbol($strSymbol);
-//    _oldUpdateYahooHistory($strStockId, $sym);
     $sym->SetTimeZone();
-    _webUpdateYahooHistory($strStockId, $sym->GetYahooSymbol());
+	$sql = new SqlStockHistory($strStockId);
+    _webUpdateYahooHistory($sql, $sym->GetYahooSymbol());
     if ($sym->IsSymbolA() || $sym->IsSymbolH())
     {   // Yahoo has wrong Chinese and Hongkong holiday record with '0' volume 
         if ($sym->IsIndex() == false)
         {
-            SqlDeleteStockHistoryWithZeroVolume($strStockId);
+            $sql->DeleteByZeroVolume();
         }
     }
-    _cleanInvalidStockHistory($strStockId);
+    _cleanInvalidStockHistory($sql);
 //    _cleanInvalidHistory(TABLE_FUND_HISTORY);
 }
 

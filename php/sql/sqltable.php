@@ -15,6 +15,11 @@ class SqlTable
     {
     	return SqlCreateTable($str, $this->strName);
     }
+    
+    function Delete($strId)
+    {
+        return SqlDeleteTableDataById($this->strName, $strId);
+    }
 }
 
 ?>

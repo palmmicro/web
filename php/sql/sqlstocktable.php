@@ -32,6 +32,11 @@ class SqlStockTable extends SqlTable
     {
     	return SqlCountTableData($this->strName, $this->BuildWhere_stock());
     }
+    
+    function DeleteAll()
+    {
+    	return SqlDeleteTableData($this->strName, $this->BuildWhere_stock(), false);
+    }
 }
 
 ?>

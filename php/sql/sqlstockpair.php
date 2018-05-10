@@ -1,8 +1,25 @@
 <?php
+require_once('sqlstocktable.php');
 
 define('TABLE_AH_STOCK', 'ahstock');
 define('TABLE_ADRH_STOCK', 'adrhstock');
 define('TABLE_ETF_PAIR', 'etfpair');
+
+// ****************************** SqlStockPair class *******************************************************
+class SqlStockPair extends SqlStockTable
+{
+    // constructor 
+    function SqlStockPair($strStockId, $strTableName) 
+    {
+        parent::SqlStockTable($strStockId, $strTableName);
+//        $this->Create();
+    }
+    
+    function Get()
+    {
+    	return SqlGetUniqueTableData($this->strName, $this->BuildWhere_stock());
+    }
+}
 
 // ****************************** Stock pair tables *******************************************************
 
@@ -37,7 +54,9 @@ function SqlUpdateStockPair($strTableName, $strId, $strStockId, $strPairId, $str
 
 function SqlGetStockPair($strTableName, $strStockId)
 {
-    return SqlGetUniqueTableData($strTableName, _SqlBuildWhere_stock($strStockId));
+	$sql = new SqlStockPair($strStockId, $strTableName);
+	return $sql->Get();
+//    return SqlGetUniqueTableData($strTableName, _SqlBuildWhere_stock($strStockId));
 }
 
 function SqlGetStockPairId($strTableName, $strStockId)

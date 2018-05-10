@@ -17,9 +17,9 @@ function _echoStockHistoryItem($history)
 END;
 }
 
-function _echoStockHistoryData($strStockId, $iStart, $iNum)
+function _echoStockHistoryData($sql, $iStart, $iNum)
 {
-    if ($result = SqlGetStockHistory($strStockId, $iStart, $iNum)) 
+    if ($result = $sql->GetAll($iStart, $iNum)) 
     {
         while ($history = mysql_fetch_assoc($result)) 
         {
@@ -41,8 +41,9 @@ function _echoStockHistoryParagraph($strSymbol, $strStockId, $iStart, $iNum, $bA
         $strUpdateLink .= ' '.SqlCountTableDataString(TABLE_STOCK_HISTORY, false);
         $strUpdateLink .= ' '.GetYahooStockHistoryLink($strSymbol);
     }
-    $iTotal = SqlCountStockHistory($strStockId);
-    $strNavLink = _GetStockNavLink($strSymbol, $iTotal, $iStart, $iNum, $bChinese);
+
+	$sql = new SqlStockHistory($strStockId);
+    $strNavLink = _GetStockNavLink($strSymbol, $sql->Count(), $iStart, $iNum, $bChinese);
     $strSymbolLink = GetMyStockLink($strSymbol, $bChinese);
  
     EchoParagraphBegin($strSymbolLink.' '.$strNavLink.' '.$strUpdateLink);
@@ -59,7 +60,7 @@ function _echoStockHistoryParagraph($strSymbol, $strStockId, $iStart, $iNum, $bA
     </tr>
 END;
    
-    _echoStockHistoryData($strStockId, $iStart, $iNum);
+    _echoStockHistoryData($sql, $iStart, $iNum);
     EchoTableEnd();
     EchoParagraphEnd();
 }
