@@ -117,10 +117,11 @@ class SqlStockDaily extends SqlStockTable
 
     function Update($strDate, $strClose)
     {
-    	$strTableName = $this->strName;
+    	return SqlUpdateTableData("close = '$strClose' WHERE ".$this->BuildWhere_date_stock($strDate), $this->strName);
+/*    	$strTableName = $this->strName;
     	$strStockId = $this->GetStockId(); 
     	$strQry = "UPDATE $strTableName SET close = '$strClose' WHERE stock_id = '$strStockId' AND date = '$strDate' LIMIT 1";
-    	return SqlDieByQuery($strQry, $strTableName.' update data failed');
+    	return SqlDieByQuery($strQry, $strTableName.' update data failed');*/
     }
 
     function DeleteByDate($strDate)

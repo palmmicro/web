@@ -18,9 +18,10 @@ class SqlStockHistory extends SqlStockDaily
 
     function Update($strId, $strOpen, $strHigh, $strLow, $strClose, $strVolume, $strAdjClose)
     {
-    	$strTableName = $this->strName;
+    	return SqlUpdateTableData("open = '$strOpen', high = '$strHigh', low = '$strLow', close = '$strClose', volume = '$strVolume', adjclose = '$strAdjClose' WHERE "._SqlBuildWhere_id($strId), $this->strName);
+/*    	$strTableName = $this->strName;
     	$strQry = "UPDATE $strTableName SET open = '$strOpen', high = '$strHigh', low = '$strLow', close = '$strClose', volume = '$strVolume', adjclose = '$strAdjClose' WHERE id = '$strId' LIMIT 1";
-    	return SqlDieByQuery($strQry, $strTableName.' update table failed');
+    	return SqlDieByQuery($strQry, $strTableName.' update table failed');*/
     }
 
     function Insert($strDate, $strOpen, $strHigh, $strLow, $strClose, $strVolume, $strAdjClose)

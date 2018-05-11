@@ -150,15 +150,33 @@ function _echoAllStock($bChinese)
     EchoStockParagraph($strNavLink, $iStart, $iNum, $bChinese);
 }
 
+function _echoMyStockData($strSymbol, $bChinese)
+{
+    $sym = _echoMyStock($strSymbol, $bChinese);
+    if (AcctIsAdmin())
+    {
+     	_echoMyStockLinks($sym, $bChinese);
+    }
+}
+
+function _echoMyStockSymbol($strSymbol, $bChinese)
+{
+	$str = GetMyStockLink($strSymbol, $bChinese);
+    EchoParagraph($str);
+}
+
 function EchoMyStock($bChinese)
 {
-    if ($str = UrlGetQueryValue('symbol'))
+    if ($strSymbol = UrlGetQueryValue('symbol'))
     {
-        $sym = _echoMyStock($str, $bChinese);
-        if (AcctIsAdmin())
-        {
-        	_echoMyStockLinks($sym, $bChinese);
-        }
+    	_echoMyStockData($strSymbol, $bChinese);
+    }
+    else if ($strStockId = UrlGetQueryValue('id'))
+    {
+    	if ($strSymbol = SqlGetStockSymbol($strStockId))
+    	{
+    		_echoMyStockSymbol($strSymbol, $bChinese);
+    	}
     }
     else
     {

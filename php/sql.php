@@ -96,6 +96,13 @@ function SqlDropTable($strTableName)
 	SqlDieByQuery($str, $strTableName.' Drop table failed');
 }
 
+function SqlUpdateTableData($str, $strTableName)
+{
+   	$strQuery = "UPDATE $strTableName SET $str LIMIT 1";
+//   	DebugString($strQuery);
+	return SqlDieByQuery($strQuery, $strTableName.' update data failed');
+}
+
 function SqlGetTableData($strTableName, $strWhere, $strOrderBy, $strLimit)
 {
 	$strQry = 'SELECT * FROM '.$strTableName;

@@ -30,6 +30,11 @@ function _SqlBuildWhere_stock($strStockId)
 	return _SqlBuildWhere('stock_id', $strStockId);
 }
 
+function _SqlBuildWhere_id($strId)
+{
+	return _SqlBuildWhere('id', $strId);
+}
+
 function _SqlBuildWhereOrArray($strKey, $arVal)
 {
     $strOr = ' OR ';
