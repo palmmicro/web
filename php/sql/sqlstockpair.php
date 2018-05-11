@@ -17,7 +17,7 @@ class SqlStockPair extends SqlStockTable
     
     function Get()
     {
-    	return SqlGetUniqueTableData($this->strName, $this->BuildWhere_stock());
+    	return $this->GetUniqueData($this->BuildWhere_stock());
     }
 }
 

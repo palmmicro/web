@@ -11,25 +11,25 @@ class SqlStockHistory extends SqlStockDaily
 //        $this->Create();
     }
 
-    function DeleteByZeroVolume()
-    {
-    	return SqlDeleteTableData($this->strName, "volume = '0' AND ".$this->BuildWhere_stock(), false);
-    }
-
-    function Update($strId, $strOpen, $strHigh, $strLow, $strClose, $strVolume, $strAdjClose)
-    {
-    	return SqlUpdateTableData("open = '$strOpen', high = '$strHigh', low = '$strLow', close = '$strClose', volume = '$strVolume', adjclose = '$strAdjClose' WHERE "._SqlBuildWhere_id($strId), $this->strName);
-/*    	$strTableName = $this->strName;
-    	$strQry = "UPDATE $strTableName SET open = '$strOpen', high = '$strHigh', low = '$strLow', close = '$strClose', volume = '$strVolume', adjclose = '$strAdjClose' WHERE id = '$strId' LIMIT 1";
-    	return SqlDieByQuery($strQry, $strTableName.' update table failed');*/
-    }
-
     function Insert($strDate, $strOpen, $strHigh, $strLow, $strClose, $strVolume, $strAdjClose)
     {
-    	$strTableName = $this->strName;
     	$strStockId = $this->GetStockId(); 
-    	$strQry = "INSERT INTO $strTableName(id, stock_id, date, open, high, low, close, volume, adjclose) VALUES('0', '$strStockId', '$strDate', '$strOpen', '$strHigh', '$strLow', '$strClose', '$strVolume', '$strAdjClose')";
-    	return SqlDieByQuery($strQry, $strTableName.' insert table failed');
+    	return SqlTable::Insert("(id, stock_id, date, open, high, low, close, volume, adjclose) VALUES('0', '$strStockId', '$strDate', '$strOpen', '$strHigh', '$strLow', '$strClose', '$strVolume', '$strAdjClose')");
+    }
+    
+    function Update($strId, $strOpen, $strHigh, $strLow, $strClose, $strVolume, $strAdjClose)
+    {
+		return SqlTable::Update("open = '$strOpen', high = '$strHigh', low = '$strLow', close = '$strClose', volume = '$strVolume', adjclose = '$strAdjClose' WHERE "._SqlBuildWhere_id($strId));
+    }
+
+    function UpdateAdjClose($strId, $strAdjClose)
+    {
+		return SqlTable::Update("adjclose = '$strAdjClose' WHERE "._SqlBuildWhere_id($strId));
+    }
+
+    function DeleteByZeroVolume()
+    {
+    	return $this->Delete("volume = '0' AND ".$this->BuildWhere_stock(), false);
     }
 }
 
@@ -63,29 +63,10 @@ function SqlAlterStockHistoryTable()
 }
 */
 
-function SqlGetStockHistory($strStockId, $iStart, $iNum)
-{
-	$sql = new SqlStockHistory($strStockId);
-	return $sql->GetAll($iStart, $iNum);
-//    return SqlGetTableData(TABLE_STOCK_HISTORY, _SqlBuildWhere_stock($strStockId), _SqlOrderByDate(), _SqlBuildLimit($iStart, $iNum));
-}
-
 function SqlGetStockHistoryByDate($strStockId, $strDate)
 {
 	$sql = new SqlStockHistory($strStockId);
 	return $sql->Get($strDate);
-//	return SqlGetUniqueTableData(TABLE_STOCK_HISTORY, _SqlBuildWhere_date_stock($strDate, $strStockId));
-}
-
-function SqlGetStockHistoryFromDate($strStockId, $strDate, $iNum)
-{
-    return SqlGetTableData(TABLE_STOCK_HISTORY, "stock_id = '$strStockId' AND date <= '$strDate'", _SqlOrderByDate(), _SqlBuildLimit(0, $iNum));
-}
-
-function SqlUpdateStockHistoryAdjClose($strId, $strAdjClose)
-{
-	$strQry = "UPDATE stockhistory SET adjclose = '$strAdjClose' WHERE id = '$strId' LIMIT 1";
-	return SqlDieByQuery($strQry, 'Update stockhistory table adjclose failed');
 }
 
 function SqlMergeStockHistory($sql, $strDate, $strOpen, $strHigh, $strLow, $strClose, $strVolume, $strAdjClose)

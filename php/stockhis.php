@@ -162,9 +162,10 @@ class StockHistory
     var $afNext = array();
     var $aiTradingRange = array();
 
-    var $strDate;                     // 2014-11-13
+    var $strDate;		// 2014-11-13
     
-    var $stock_ref;     // MyStockReference
+    var $stock_ref;	// MyStockReference
+    var $sql;			// SqlStockHistory				
     
     function _getTradingRange($iDays, $afClose, $afHigh, $afLow)
     {
@@ -286,7 +287,7 @@ class StockHistory
         $afMonthlyClose = array();
 
         $strNextDayYMD = false;
-    	if ($result = SqlGetStockHistoryFromDate($this->GetStockId(), $this->strDate, MAX_QUOTES_DAYS))
+    	if ($result = $this->sql->GetFromDate($this->strDate, MAX_QUOTES_DAYS))
     	{
     		while ($history = mysql_fetch_assoc($result)) 
     		{
@@ -368,7 +369,7 @@ class StockHistory
     
     function _getStartDate()
     {
-    	if ($result = SqlGetStockHistory($this->GetStockId(), 0, 2))
+    	if ($result = $this->sql->GetAll(0, 2))
     	{
     		while ($history = mysql_fetch_assoc($result)) 
     		{
@@ -390,6 +391,7 @@ class StockHistory
     function StockHistory($ref) 
     {
         $this->stock_ref = $ref;
+		$this->sql = new SqlStockHistory($this->GetStockId());
         $this->aiNum = array(5, 10, 20);
 		$this->strDate = $this->_getStartDate();
         $this->_configSMA();

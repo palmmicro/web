@@ -34,7 +34,7 @@ function url_get_contents($strUrl)
     $img = curl_exec($ch);
     if ($img == false)
     {
-    	DebugString('url_get_contents-'.$strUrl.' '.curl_error($ch));
+    	dieDebugString('url_get_contents-'.$strUrl.' '.curl_error($ch));
     }
     curl_close($ch);
     return $img;

@@ -74,7 +74,7 @@ function _cleanInvalidStockHistory($sql)
 
     foreach ($ar as $strId)
     {
-        $sql->Delete($strId);
+        $sql->DeleteById($strId);
     }
 }
 

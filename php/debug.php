@@ -101,6 +101,12 @@ function DebugString($str)
     date_default_timezone_set($strTimeZone);
 }
 
+function dieDebugString($str)
+{
+    DebugString($str);
+    die($str);
+}
+
 function DebugVal($iVal)
 {
     DebugString(strval($iVal)); 

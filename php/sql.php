@@ -27,9 +27,7 @@ require_once('sql/_sqlcommon.php');
 
 function die_mysql_error($strDie)
 {
-    $str = $strDie.' '.mysql_error();
-    DebugString($str);
-    die($str);
+    dieDebugString($strDie.' '.mysql_error());
 }
 
 function SqlWhereFromUrlQuery($strQuery)
@@ -77,7 +75,7 @@ function SqlQuerySingleRecord($strQry, $strDie)
 	return false;
 }
 
-function SqlCreateTable($str, $strTableName)
+function SqlCreateTable($strTableName, $str)
 {
     $strQuery = 'CREATE TABLE IF NOT EXISTS `camman`.`'
          . $strTableName
@@ -96,11 +94,16 @@ function SqlDropTable($strTableName)
 	SqlDieByQuery($str, $strTableName.' Drop table failed');
 }
 
-function SqlUpdateTableData($str, $strTableName)
+function SqlUpdateTableData($strTableName, $str)
 {
    	$strQuery = "UPDATE $strTableName SET $str LIMIT 1";
-//   	DebugString($strQuery);
 	return SqlDieByQuery($strQuery, $strTableName.' update data failed');
+}
+
+function SqlInsertTableData($strTableName, $str)
+{
+    $strQuery = 'INSERT INTO '.$strTableName.$str;
+   	return SqlDieByQuery($strQuery, $strTableName.' insert data failed');
 }
 
 function SqlGetTableData($strTableName, $strWhere, $strOrderBy, $strLimit)
@@ -143,7 +146,7 @@ function SqlGetUniqueTableData($strTableName, $strWhere)
 
 function SqlGetTableDataById($strTableName, $strId)
 {
-	return SqlGetUniqueTableData($strTableName, _SqlBuildWhere('id', $strId));
+	return SqlGetUniqueTableData($strTableName, _SqlBuildWhere_id($strId));
 }
 
 function SqlDeleteTableData($strTableName, $strWhere, $strLimit)
@@ -159,7 +162,7 @@ function SqlDeleteTableData($strTableName, $strWhere, $strLimit)
 
 function SqlDeleteTableDataById($strTableName, $strId)
 {
-    return SqlDeleteTableData($strTableName, _SqlBuildWhere('id', $strId), '1');
+    return SqlDeleteTableData($strTableName, _SqlBuildWhere_id($strId), '1');
 }
 
 function SqlCountTableDataString($strTableName, $strWhere)

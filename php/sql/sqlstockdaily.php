@@ -42,7 +42,7 @@ class SqlStockDaily extends SqlStockTable
     
     function Get($strDate)
     {
-    	return SqlGetUniqueTableData($this->strName, $this->BuildWhere_date_stock($strDate));
+    	return $this->GetUniqueData($this->BuildWhere_date_stock($strDate));
     }
     
     function GetCloseString($strDate)
@@ -55,9 +55,14 @@ class SqlStockDaily extends SqlStockTable
     	return $this->_getClose($strDate, 'Get');
     }
 
+    function GetFromDate($strDate, $iNum)
+    {
+    	return $this->GetData($this->BuildWhere_stock()." AND date <= '$strDate'", _SqlOrderByDate(), _SqlBuildLimit(0, $iNum));
+    }
+    
     function GetPrev($strDate)
     {
-    	return SqlGetSingleTableData($this->strName, $this->BuildWhere_stock()." AND date < '$strDate'", _SqlOrderByDate());
+    	return $this->GetSingleData($this->BuildWhere_stock()." AND date < '$strDate'", _SqlOrderByDate());
     }
 
     function GetCloseStringPrev($strDate)
@@ -72,7 +77,7 @@ class SqlStockDaily extends SqlStockTable
 
     function GetNow()
     {
-    	return SqlGetSingleTableData($this->strName, $this->BuildWhere_stock(), _SqlOrderByDate());
+    	return $this->GetSingleData($this->BuildWhere_stock(), _SqlOrderByDate());
     }
     
     function GetDateNow()
@@ -104,29 +109,23 @@ class SqlStockDaily extends SqlStockTable
 
     function GetAll($iStart, $iNum)
     {
-    	return SqlGetTableData($this->strName, $this->BuildWhere_stock(), _SqlOrderByDate(), _SqlBuildLimit($iStart, $iNum));
+    	return $this->GetData($this->BuildWhere_stock(), _SqlOrderByDate(), _SqlBuildLimit($iStart, $iNum));
     }
 
     function Insert($strDate, $strClose)
     {
-    	$strTableName = $this->strName;
     	$strStockId = $this->GetStockId(); 
-    	$strQry = "INSERT INTO $strTableName(id, stock_id, date, close) VALUES('0', '$strStockId', '$strDate', '$strClose')";
-    	return SqlDieByQuery($strQry, $strTableName.' insert data failed');
+    	return SqlTable::Insert("(id, stock_id, date, close) VALUES('0', '$strStockId', '$strDate', '$strClose')");
     }
 
     function Update($strDate, $strClose)
     {
-    	return SqlUpdateTableData("close = '$strClose' WHERE ".$this->BuildWhere_date_stock($strDate), $this->strName);
-/*    	$strTableName = $this->strName;
-    	$strStockId = $this->GetStockId(); 
-    	$strQry = "UPDATE $strTableName SET close = '$strClose' WHERE stock_id = '$strStockId' AND date = '$strDate' LIMIT 1";
-    	return SqlDieByQuery($strQry, $strTableName.' update data failed');*/
+    	return SqlTable::Update("close = '$strClose' WHERE ".$this->BuildWhere_date_stock($strDate));
     }
 
     function DeleteByDate($strDate)
     {
-    	return SqlDeleteTableData($this->strName, $this->BuildWhere_date_stock($strDate), '1');
+    	return $this->Delete($this->BuildWhere_date_stock($strDate), '1');
     }
 }
 

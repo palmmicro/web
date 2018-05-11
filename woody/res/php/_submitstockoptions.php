@@ -7,7 +7,8 @@ function _updateStockHistoryAdjCloseByDividend($strSymbol, $strYMD, $strDividend
 {
     $ar = array();
     $ymd = new YMDString($strYMD);
-    if ($result = SqlGetStockHistory(SqlGetStockId($strSymbol), 0, 0)) 
+	$sql = new SqlStockHistory(SqlGetStockId($strSymbol));
+    if ($result = $sql->GetAll(0, 0)) 
     {
         while ($history = mysql_fetch_assoc($result)) 
         {
@@ -24,7 +25,7 @@ function _updateStockHistoryAdjCloseByDividend($strSymbol, $strYMD, $strDividend
     foreach ($ar as $strId => $fAdjClose)
     {
         $fAdjClose -= $fDividend;
-        SqlUpdateStockHistoryAdjClose($strId, strval($fAdjClose));
+        $sql->UpdateAdjClose($strId, strval($fAdjClose));
     }
 }
 
