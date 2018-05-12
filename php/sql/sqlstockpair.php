@@ -19,6 +19,15 @@ class SqlStockPair extends SqlStockTable
     {
     	return $this->GetUniqueData($this->BuildWhere_stock());
     }
+
+    function GetPairId()
+    {
+    	if ($record = $this->Get())
+    	{
+    		return $record['pair_id'];
+    	}	
+    	return false;
+    }
 }
 
 // ****************************** Stock pair tables *******************************************************
@@ -56,9 +65,8 @@ function SqlGetStockPair($strTableName, $strStockId)
 {
 	$sql = new SqlStockPair($strStockId, $strTableName);
 	return $sql->Get();
-//    return SqlGetUniqueTableData($strTableName, _SqlBuildWhere_stock($strStockId));
 }
-
+/*
 function SqlGetStockPairId($strTableName, $strStockId)
 {
     if ($record = SqlGetStockPair($strTableName, $strStockId))
@@ -67,7 +75,7 @@ function SqlGetStockPairId($strTableName, $strStockId)
     }
     return false;
 }
-
+*/
 function SqlGetStockPairRatio($strTableName, $strStockId)
 {
     if ($record = SqlGetStockPair($strTableName, $strStockId))
@@ -146,8 +154,20 @@ function SqlGetPair($strTableName, $strSymbol, $callback)
 {
 	if ($strStockId = SqlGetStockId($strSymbol))
 	{
-//		if ($strPairId = SqlGetStockPairId($strTableName, $strStockId))
 		if ($strPairId = call_user_func($callback, $strTableName, $strStockId))
+		{
+			return SqlGetStockSymbol($strPairId);
+		}
+	}
+	return false;
+}
+
+function _sqlGetPair($strTableName, $strSymbol, $callback)
+{
+	if ($strStockId = SqlGetStockId($strSymbol))
+	{
+		$sql = new SqlStockPair($strStockId, $strTableName);
+		if ($strPairId = $sql->$callback())
 		{
 			return SqlGetStockSymbol($strPairId);
 		}
@@ -157,17 +177,20 @@ function SqlGetPair($strTableName, $strSymbol, $callback)
 
 function SqlGetEtfPair($strEtf)
 {
-	return SqlGetPair(TABLE_ETF_PAIR, $strEtf, SqlGetStockPairId);
+	return _sqlGetPair(TABLE_ETF_PAIR, $strEtf, 'GetPairId');
+//	return SqlGetPair(TABLE_ETF_PAIR, $strEtf, SqlGetStockPairId);
 }
 
 function SqlGetAhPair($strSymbolA)
 {
-	return SqlGetPair(TABLE_AH_STOCK, $strSymbolA, SqlGetStockPairId);
+	return _sqlGetPair(TABLE_AH_STOCK, $strSymbolA, 'GetPairId');
+//	return SqlGetPair(TABLE_AH_STOCK, $strSymbolA, SqlGetStockPairId);
 }
 
 function SqlGetAdrhPair($strSymbolAdr)
 {
-	return SqlGetPair(TABLE_ADRH_STOCK, $strSymbolAdr, SqlGetStockPairId);
+	return _sqlGetPair(TABLE_ADRH_STOCK, $strSymbolAdr, 'GetPairId');
+//	return SqlGetPair(TABLE_ADRH_STOCK, $strSymbolAdr, SqlGetStockPairId);
 }
 
 function SqlGetHaPair($strSymbolH)
