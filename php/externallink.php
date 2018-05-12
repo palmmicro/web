@@ -20,7 +20,15 @@ function GetChinaFundLink($sym)
 
 function GetXueQiuLink($strSymbol)
 {
-    $strHttp = "https://xueqiu.com/S/$strSymbol";
+	if ($strSymbol == '^GSPC')
+	{
+		$strXueQiuSymbol = '.INX';
+	}
+	else
+	{
+		$strXueQiuSymbol = $strSymbol;
+	}
+    $strHttp = 'https://xueqiu.com/S/'.$strXueQiuSymbol;
     return GetExternalLink($strHttp, $strSymbol);
 }
 

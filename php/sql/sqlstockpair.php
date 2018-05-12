@@ -28,6 +28,16 @@ class SqlStockPair extends SqlStockTable
     	}	
     	return false;
     }
+    
+    function GetStockId()
+    {
+    	$strPairId = parent::GetStockId();
+    	if ($record = $this->GetSingleData(_SqlBuildWhere('pair_id', $strPairId), false))
+    	{
+    		return $record['stock_id'];
+    	}
+    	return false;
+    }
 }
 
 // ****************************** Stock pair tables *******************************************************
@@ -66,16 +76,7 @@ function SqlGetStockPair($strTableName, $strStockId)
 	$sql = new SqlStockPair($strStockId, $strTableName);
 	return $sql->Get();
 }
-/*
-function SqlGetStockPairId($strTableName, $strStockId)
-{
-    if ($record = SqlGetStockPair($strTableName, $strStockId))
-    {
-		return $record['pair_id'];
-    }
-    return false;
-}
-*/
+
 function SqlGetStockPairRatio($strTableName, $strStockId)
 {
     if ($record = SqlGetStockPair($strTableName, $strStockId))
@@ -87,28 +88,17 @@ function SqlGetStockPairRatio($strTableName, $strStockId)
 
 function SqlGetStockPairStockId($strTableName, $strPairId)
 {
-    if ($record = SqlGetUniqueTableData($strTableName, _SqlBuildWhere('pair_id', $strPairId)))
-    {
-		return $record['stock_id'];
-    }
-    return false;
+	$sql = new SqlStockPair($strPairId, $strTableName);
+	return $sql->GetStockId();
 }
 
 // ****************************** Support functions *******************************************************
 
-function SqlGetEtfPairId($strStockId)
-{
-    if ($record = SqlGetStockPair(TABLE_ETF_PAIR, $strStockId))
-    {
-		return $record['id'];
-    }
-    return false;
-}
-
-function SqlGetStockPairArray($strTableName)
+function _sqlGetStockPairArray($strTableName)
 {
 	$ar = array();
-	if ($result = SqlGetTableData($strTableName, false, false, false)) 
+	$sql = new SqlTable($strTableName);
+	if ($result = $sql->GetAllData()) 
     {
         while ($record = mysql_fetch_assoc($result)) 
         {
@@ -122,17 +112,17 @@ function SqlGetStockPairArray($strTableName)
 
 function SqlGetAhArray()
 {
-	return SqlGetStockPairArray(TABLE_AH_STOCK);
+	return _sqlGetStockPairArray(TABLE_AH_STOCK);
 }
 
 function SqlGetAdrhArray()
 {
-	return SqlGetStockPairArray(TABLE_ADRH_STOCK);
+	return _sqlGetStockPairArray(TABLE_ADRH_STOCK);
 }
 
 function SqlGetEtfPairArray()
 {
-	return SqlGetStockPairArray(TABLE_ETF_PAIR);
+	return _sqlGetStockPairArray(TABLE_ETF_PAIR);
 }
 
 function SqlGetAhPairRatio($a_ref)
@@ -148,18 +138,6 @@ function SqlGetAdrhPairRatio($adr_ref)
 function SqlGetEtfPairRatio($strEtfId)
 {
 	return SqlGetStockPairRatio(TABLE_ETF_PAIR, $strEtfId);
-}
-
-function SqlGetPair($strTableName, $strSymbol, $callback)
-{
-	if ($strStockId = SqlGetStockId($strSymbol))
-	{
-		if ($strPairId = call_user_func($callback, $strTableName, $strStockId))
-		{
-			return SqlGetStockSymbol($strPairId);
-		}
-	}
-	return false;
 }
 
 function _sqlGetPair($strTableName, $strSymbol, $callback)
@@ -178,29 +156,26 @@ function _sqlGetPair($strTableName, $strSymbol, $callback)
 function SqlGetEtfPair($strEtf)
 {
 	return _sqlGetPair(TABLE_ETF_PAIR, $strEtf, 'GetPairId');
-//	return SqlGetPair(TABLE_ETF_PAIR, $strEtf, SqlGetStockPairId);
 }
 
 function SqlGetAhPair($strSymbolA)
 {
 	return _sqlGetPair(TABLE_AH_STOCK, $strSymbolA, 'GetPairId');
-//	return SqlGetPair(TABLE_AH_STOCK, $strSymbolA, SqlGetStockPairId);
 }
 
 function SqlGetAdrhPair($strSymbolAdr)
 {
 	return _sqlGetPair(TABLE_ADRH_STOCK, $strSymbolAdr, 'GetPairId');
-//	return SqlGetPair(TABLE_ADRH_STOCK, $strSymbolAdr, SqlGetStockPairId);
 }
 
 function SqlGetHaPair($strSymbolH)
 {
-	return SqlGetPair(TABLE_AH_STOCK, $strSymbolH, SqlGetStockPairStockId);
+	return _sqlGetPair(TABLE_AH_STOCK, $strSymbolH, 'GetStockId');
 }
 
 function SqlGetHadrPair($strSymbolH)
 {
-	return SqlGetPair(TABLE_ADRH_STOCK, $strSymbolH, SqlGetStockPairStockId);
+	return _sqlGetPair(TABLE_ADRH_STOCK, $strSymbolH, 'GetStockId');
 }
 
 ?>

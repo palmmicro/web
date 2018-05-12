@@ -7,7 +7,7 @@ function MarketWatchGetUrl($sym)
 		return "https://www.marketwatch.com/investing/index/$strSymbol/historical?countrycode=xx";
 	}
 	return false;*/
-	return 'https://markets.ft.com/data/indices/tearsheet/summary?s=SPGOGUP:REU';
+	return 'https://xueqiu.com/S/SPY';
 }
 
 function MarketWatchGetData($strSymbol)

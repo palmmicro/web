@@ -36,6 +36,11 @@ class SqlTable
     	return SqlGetTableData($this->strName, $strWhere, $strOrderBy, $strLimit);
     }
 
+    function GetAllData()
+    {
+    	return $this->GetData(false, false, false);
+    }
+    
     function GetSingleData($strWhere, $strOrderBy)
     {
     	return SqlGetSingleTableData($this->strName, $strWhere, $strOrderBy);
