@@ -9,6 +9,28 @@ require_once('sql/sqlstockcalibration.php');
 require_once('sql/sqlstockpair.php');
 require_once('sql/sqlstockgroup.php');
 
+function _deleteIsStockPair($strTableName, $strPairId)
+{
+	$sql = new SqlStockPair($strPairId, $strTableName);
+	if ($strStockId = $sql->GetStockId())
+	{
+		DebugString('Stock at least paired with: '.SqlGetStockSymbol($strStockId));
+		return true;
+	}
+	return false;
+}
+
+function _deleteHasStockPair($strTableName, $strStockId)
+{
+	$sql = new SqlStockPair($strStockId, $strTableName);
+	if ($strPairId = $sql->GetPairId())
+	{
+		DebugString('Stock pair existed: '.SqlGetStockSymbol($strPairId));
+		return true;
+	}
+	return false;
+}
+
 function _deleteHasStockHistory($strStockId)
 {
 	$sql = new SqlStockHistory($strStockId);
@@ -28,38 +50,44 @@ function _deleteHasStockHistory($strStockId)
 function _deleteStockById($strStockId)
 {
 	$strSymbol = SqlGetStockSymbol($strStockId);
-	$strFailed = $strSymbol.' delete failed - ';
+	DebugString('Deleting '.$strSymbol);
 	if (($iTotal = SqlCountStockGroupItemByStockId($strStockId)) > 0)
 	{
-		DebugString($strFailed.'Stock group item existed: '.strval($iTotal));
+		DebugString('Stock group item existed: '.strval($iTotal));
 		return;
 	}
+	else if (_deleteIsStockPair(TABLE_ADRH_STOCK, $strStockId))		return;
+	else if (_deleteIsStockPair(TABLE_AH_STOCK, $strStockId))		return;
+	else if (_deleteIsStockPair(TABLE_ETF_PAIR, $strStockId))		return;
+	else if (_deleteHasStockPair(TABLE_ADRH_STOCK, $strStockId))		return;
+	else if (_deleteHasStockPair(TABLE_AH_STOCK, $strStockId))		return;
+	else if (_deleteHasStockPair(TABLE_ETF_PAIR, $strStockId))		return;
+	else if (_deleteHasStockHistory($strStockId))					return;
 	else if (($iTotal = SqlCountStockCalibration($strStockId)) > 0)
 	{
-		DebugString($strFailed.'Stock calibration existed: '.strval($iTotal));
+		DebugString('Stock calibration existed: '.strval($iTotal));
 		return;
 	}
 	else if (($iTotal = SqlCountFundPurchaseByStockId($strStockId)) > 0)
 	{
-		DebugString($strFailed.'Fund purchase existed: '.strval($iTotal));
+		DebugString('Fund purchase existed: '.strval($iTotal));
 		return;
 	}
-	else if (SqlGetStockPair(TABLE_ADRH_STOCK, $strStockId) || SqlGetStockPair(TABLE_AH_STOCK, $strStockId) || SqlGetStockPairStockId(TABLE_ADRH_STOCK, $strStockId) || SqlGetStockPairStockId(TABLE_AH_STOCK, $strStockId))
+	else if (SqlGetStockPair(TABLE_ADRH_STOCK, $strStockId) || SqlGetStockPair(TABLE_AH_STOCK, $strStockId))
 	{
-		DebugString($strFailed.'H Stock pair existed');
+		DebugString('H Stock pair existed');
 		return;
 	}
 	else if (SqlGetStockPair(TABLE_ETF_PAIR, $strStockId))
 	{
-		DebugString($strFailed.'ETF pair existed');
+		DebugString('ETF pair existed');
 		return;
 	}
 	else if (SqlGetForexHistoryNow($strStockId) || SqlGetFundHistoryNow($strStockId))
 	{
-		DebugString($strFailed.'Stock history existed');
+		DebugString('Stock history existed');
 		return;
 	}
-	else if (_deleteHasStockHistory($strStockId))	return;
 	SqlDeleteStock($strStockId);
 }
 

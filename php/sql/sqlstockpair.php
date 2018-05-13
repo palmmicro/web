@@ -86,12 +86,6 @@ function SqlGetStockPairRatio($strTableName, $strStockId)
     return false;
 }
 
-function SqlGetStockPairStockId($strTableName, $strPairId)
-{
-	$sql = new SqlStockPair($strPairId, $strTableName);
-	return $sql->GetStockId();
-}
-
 // ****************************** Support functions *******************************************************
 
 function _sqlGetStockPairArray($strTableName)
