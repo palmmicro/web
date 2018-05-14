@@ -3,7 +3,6 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>Jan, Sing和Wang不得不说的故事 - VoIP华人鼻祖</title>
-<meta name="keywords" content="VoIP华人鼻祖">
 <meta name="description" content="ATCOM老孙写的这篇文章总结了几个VoIP华人鼻祖和他们成立的公司之间的关联. 人物Chi-Shin Wang, Y.W. Sing和Jan Fandrianto. 公司有8x8, Tigerjet, Komodo, Sipura和Centrality(Palmmicro)等.">
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>
@@ -48,7 +47,7 @@
 <br />1995~1996: 与Jan一起创办Videocore, 任职CTO, Jan任CEO
 <br />1996~1999: Videocore被ESS公司收购, 任职ESS公司CTO
 <br />1999~      CTO Centrality
-<br />Dr. Wang Stanford 博士, California Institute of Technology硕士, 台湾国立大学本科. 
+<br /><a href="../../../chishin/indexcn.php">Dr. Wang</a> Stanford 博士, California Institute of Technology硕士, 台湾国立大学本科. 
 <br /><b>Y．W．Sing</b>
 <br />1979~1981: 任职惠普
 <br />1981~1987: 任职Weitek Corporation
