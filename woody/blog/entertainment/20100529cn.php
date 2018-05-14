@@ -20,11 +20,12 @@
 我开始写这第一个程序, 名字叫做<b>Woody的网站工具</b>, 主要作用是把重复的拷贝粘贴和上传的工作自动完成. 现在网站搬家结束, 程序也宣告完成.
 <br />在开发过程中, 我几次考虑要不要升级到Visual C++ 2010. 上个月碰了一个专业软件公司的程序员, 得知人家依然在用VC9, 这样我就不考虑升级了. 
 <br />跟VC6比较, VC9给我印象深的有以下几点:
+</p>
 <ol>
-  <li>尽管我在本地硬盘上安装了全部文档, 实际使用中从来都是从网上看文档打开更快.
-  <li>重复使用老的VC6代码的时候, 因为严格的unicode检查被迫在字符串上加了很多_T().
-  <li>新CHtmlView类让浏览网页文件很方便.
-  <li>新CFtpConnection类同样让上传文件到FTP服务器相当容易.
+  <li>尽管我在本地硬盘上安装了全部文档, 实际使用中从来都是从网上看文档打开更快.</li>
+  <li>重复使用老的VC6代码的时候, 因为严格的unicode检查被迫在字符串上加了很多_T().</li>
+  <li>新CHtmlView类让浏览网页文件很方便.</li>
+  <li>新CFtpConnection类同样让上传文件到FTP服务器相当容易.</li>
 </ol>
 <blockquote><font color=grey>I still remember going to Hans Bethe and saying, "Hey, Hans! I noticed something interesting.
 Here the plate goes around so, and the reason it's two to one is . . ." and I showed him the accelerations.
@@ -32,7 +33,7 @@ Here the plate goes around so, and the reason it's two to one is . . ." and I sh
 <br />"Hah!" I say. "There's no importance whatsoever. I'm just doing it for the fun of it." His reaction didn't discourage me; I had made up my mind I was going to enjoy physics and do whatever I liked.
 <br />Page 67 <a href="../../favoritecn.html#surely">Surely You're Joking, Mr. Feynman!</a> <i>Richard P. Feynman</i>、<i>Ralph Leighton</i>笔录
 </font></blockquote>
-<br /><img src=../photo/20100529.jpg alt="Screen shot of My First Visual C++ 2008 Application Woody's Web Tool" />
+<p><img src=../photo/20100529.jpg alt="Screen shot of My First Visual C++ 2008 Application Woody's Web Tool" />
 </p>
 
 <h3>从FTP到<a name="ftps">FTPS</a></h3>

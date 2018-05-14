@@ -13,18 +13,20 @@
 <div>
 <h1>Coin WiFi投币式上网分享器</h1>
 <p>产品功能:
-<ol>
-  <li>IEEE802.11n Wireless AP
-  <li>2T2R 双天线设计可支持300Mbps高速无线传输
-  <li>专业级大容量64MB DDR内存，100人可同时畅快上网
-  <li>内建58mm热敏打印机，投币就列印上网QR Code/密码
-  <li>直连电信ADSL网络，绝无第三方后台与恶意软件
-</ol>
 </p>
+<ol>
+  <li>IEEE802.11n Wireless AP</li>
+  <li>2T2R 双天线设计可支持300Mbps高速无线传输</li>
+  <li>专业级大容量64MB DDR内存，100人可同时畅快上网</li>
+  <li>内建58mm热敏打印机，投币就列印上网QR Code/密码</li>
+  <li>直连电信ADSL网络，绝无第三方后台与恶意软件</li>
+</ol>
 <p>外观 <a href="coinwifi/cn/large/view.jpg" target=_blank>大图</a>
-<br /><img src=coinwifi/cn/view.jpg alt="Chinese brochure of coin WiFi hotspot" /></p>
+<br /><img src=coinwifi/cn/view.jpg alt="Chinese brochure of coin WiFi hotspot" />
+</p>
 <p>指标 <a href="coinwifi/cn/large/spec.jpg" target=_blank>大图</a>
-<br /><img src=coinwifi/cn/spec.jpg alt="Chinese specification of coin WiFi hotspot" /></p>
+<br /><img src=coinwifi/cn/spec.jpg alt="Chinese specification of coin WiFi hotspot" />
+</p>
 </div>
 
 <?php LayoutTailLogin(true); ?>

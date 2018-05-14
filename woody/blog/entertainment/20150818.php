@@ -31,12 +31,13 @@ with function name similar as <i>file_get_contents</i>.
 The name directly comes from the type of SZ162411, which is called LOF, a Chinese special ETF like fund.
 <br />To optimize web response time, I used 2 files xop.txt and <?php EchoFileLink('/debug/sina/sz162411.txt'); ?> to save last updated Yahoo and Sina stock data.
 The following are checked:
+</p>
 <ol>
-  <li>New request in the same minute using data in original files directly.
-  <li>Using xop.txt for US stock data after US market closed.
-  <li>Using sz162411.txt for Chinese stock data after Chinese market closed.
+  <li>New request in the same minute using data in original files directly.</li>
+  <li>Using xop.txt for US stock data after US market closed.</li>
+  <li>Using sz162411.txt for Chinese stock data after Chinese market closed.</li>
 </ol>
-<br />Similarly, oil future data is stored in file <?php EchoFileLink('/debug/sina/hf_cl.txt'); ?>, and USDCNY forex data in usdcny.txt.
+<p>Similarly, oil future data is stored in file <?php EchoFileLink('/debug/sina/hf_cl.txt'); ?>, and USDCNY forex data in usdcny.txt.
 </p>
 
 <h3><a name="sma">SMA</a></h3>
@@ -107,11 +108,12 @@ And we make SZ162411 and XOP arbitrage analysis based on those record.
 <a href="../../res/sz160125.php">Southern Hong Kong</a>, <a href="../../res/sz160717.php">JIASHI H-Share</a>, <a href="../../res/sz160216.php">GUOTAI COMMODITY</a>, <a href="../../res/sz165510.php">BRIC</a>, 
 <a href="../../res/sz163208.php">NUOAN Energy</a> and <a href="../../res/sz160416.php">HUAAN S&P GLOBAL OIL</a>.
 <br />Steps to add new LOF tools:
+</p>
 <ol>
-  <li>Add the new LOF code in function <i>LofGetSymbolArray</i>, for tools navigation link.
-  <li>Add LOF related ETF symbol and index symbol in function <i>LofGetEtfSymbol</i> and <i>LofGetIndexSymbol</i>.
+  <li>Add the new LOF code in function <i>LofGetSymbolArray</i>, for tools navigation link.</li>
+  <li>Add LOF related ETF symbol and index symbol in function <i>LofGetEtfSymbol</i> and <i>LofGetIndexSymbol</i>.</li>
 </ol>
-<br /><a name="adr">Add</a> Hongkong <a href="../../res/adr.php">ADR</a> price comparing tool for <a href="../../res/ach.php">Aluminum Corporation of China</a>, <a href="../../res/chu.php">China Unicom</a>,
+<p><a name="adr">Add</a> Hongkong <a href="../../res/adr.php">ADR</a> price comparing tool for <a href="../../res/ach.php">Aluminum Corporation of China</a>, <a href="../../res/chu.php">China Unicom</a>,
 <a href="../../res/gsh.php">Guangshen Railway</a>, <a href="../../res/lfc.php">China Life Insurance</a>, <a href="../../res/ptr.php">PETROCHINA</a>,
 <a href="../../res/snp.php">SINOPEC</a>, <a href="../../res/shi.php">Sinopec Shanghai Petrochemical</a>, <a href="../../res/cea.php">CEA</a> and 
 <a href="../../res/znh.php">CSN</a>.

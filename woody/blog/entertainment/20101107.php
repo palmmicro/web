@@ -42,14 +42,15 @@ Besides many newly added Chinese translation, I have also added many links betwe
 Now I fully understand why Jin Yong was modifying his 15 novels again and again in past 30 years.
 <br />All remarks in original post were discarded. It is a pity but I can not move remarks for others. 
 <br />Why not stay in wordpresss.com? Here is the answers:
+</p>
 <ol>
   <li>Actually I was planning to move my blogs from MSN space to company website since May. I built my blog page at that time and began to use MSN space as a copy.
-      But the huge moving work made me hesitated. I am glad that finally Microsoft helped me to make the choice.
-  <li>The visit to wordpress.com is often slow or totally blocked in China. And I can not see any reason it will not be blocked by <a href="../palmmicro/20100427.php">GFW</a> in the near future.
+      But the huge moving work made me hesitated. I am glad that finally Microsoft helped me to make the choice.</li>
+  <li>The visit to wordpress.com is often slow or totally blocked in China. And I can not see any reason it will not be blocked by <a href="../palmmicro/20100427.php">GFW</a> in the near future.</li>
   <li>The automatic moving to wordpress.com is not good as promised. I have noticed many lost of ' ', '\0' and ''' in the moved text.
-      And when displaying in Chinese, wordpress will stupidly convert many punctuation marks into Chinese version and made the whole page silly.
+      And when displaying in Chinese, wordpress will stupidly convert many punctuation marks into Chinese version and made the whole page silly.</li>
 </ol>
-<br /><a href="../../../tangli/index.html">Tang Li</a> is also moving her MSN space to Palmmicro website. With so many new pages added, the visitor statistics of our website is expected to explode next.
+<p><a href="../../../tangli/index.html">Tang Li</a> is also moving her MSN space to Palmmicro website. With so many new pages added, the visitor statistics of our website is expected to explode next.
 The image below shows 885 visits from 230 cities in the world for the past 30 days, with 6,649 total pageviews. 
 <br /><img src=../photo/20101114.jpg alt="Google Analytics reports of Palmmicro.com visitor location information on Oct, 2010." />
 </p>

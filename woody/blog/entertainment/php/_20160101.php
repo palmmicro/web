@@ -18,10 +18,10 @@ function EchoChineseHoldResult($strOldSZ162411, $strOldXOP, $strSZ162411, $strXO
     
     echo <<<END
     <ol>
-        <li>{$strQuantitySZ162411}股华宝油气获利($strSZ162411 - $strOldSZ162411) * $strQuantitySZ162411 = $strRMB 人民币.
-        <li>{$strQuantityXOP}股XOP获利($strXOP - $strOldXOP) * $strQuantityXOP = $strUSD 美元.
-        <li>全部换成人民币{$strRMB} + $strUSD * $strUSCNY = $strConvertRMB 人民币.
-        <li>全部换成美元{$strRMB} / $strUSCNY + $strUSD = $strConvertUSD 美元.
+        <li>{$strQuantitySZ162411}股华宝油气获利($strSZ162411 - $strOldSZ162411) * $strQuantitySZ162411 = $strRMB 人民币.</li>
+        <li>{$strQuantityXOP}股XOP获利($strXOP - $strOldXOP) * $strQuantityXOP = $strUSD 美元.</li>
+        <li>全部换成人民币{$strRMB} + $strUSD * $strUSCNY = $strConvertRMB 人民币.</li>
+        <li>全部换成美元{$strRMB} / $strUSCNY + $strUSD = $strConvertUSD 美元.</li>
     </ol>
 END;
 }

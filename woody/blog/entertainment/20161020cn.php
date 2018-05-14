@@ -16,13 +16,14 @@
 <br />如何使用Palmmicro<a href="../palmmicro/20161014cn.php">微信公众订阅号</a>sz162411查<a href="20111112cn.php">ACTS</a>等股票信息和<a href="20150818cn.php">华宝油气</a>等基金净值. 
 此公众号不聊天, 想讨论相关问题的请扫描下面二维码加入QQ群204836363.
 <br /><img src=../../image/qq.png alt="QQ group 204836363 scan QR code" />
+</p>
 <ol>
   <li>查<a href="../../res/sz162411cn.php">华宝油气净值</a>: 语音输入<font color=grey>162411</font>, 或者键盘输入<font color=grey>sz162411</font>, <font color=grey>SZ162411</font>, <font color=grey>Sz162411</font>,
-      <font color=grey>162411</font>, <font color=grey>华宝油气</font>等.
-  <li>同时查华宝油气净值和<a href="../../res/sz160216cn.php">国泰商品净值</a>: 输入<font color=grey>sz162411 sz160216</font>, <font color=grey>162411 160216</font>, <font color=grey>华宝油气 国泰商品</font>等.
-  <li>查珠海炬力股票信息: 输入<font color=grey>acts</font>.
+      <font color=grey>162411</font>, <font color=grey>华宝油气</font>等.</li>
+  <li>同时查华宝油气净值和<a href="../../res/sz160216cn.php">国泰商品净值</a>: 输入<font color=grey>sz162411 sz160216</font>, <font color=grey>162411 160216</font>, <font color=grey>华宝油气 国泰商品</font>等.</li>
+  <li>查珠海炬力股票信息: 输入<font color=grey>acts</font>.</li>
 </ol>
-<br /><img src=../photo/20161014_qrcode_small.jpg alt="Palmmicro wechat public account sz162411 small size QR code" />
+<p><img src=../photo/20161014_qrcode_small.jpg alt="Palmmicro wechat public account sz162411 small size QR code" />
 </p>
 
 <h3><a name="ahcompare">AH股</a>对比</h3>

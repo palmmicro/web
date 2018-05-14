@@ -51,13 +51,13 @@
 <tr><td>很多用户都需要增加自己的UDP或者<a href="../../../ar1688/faqcn.html#tcp">TCP</a>连接. 在AR1688软件中每个连接都在一个单独的文件中实现. 
 这一课讲如果在AR1688软件<a href="20061211cn.php">API</a>中增加一个文件. 具体步骤: 
 <ol>
-  <li>决定新的文件放在哪个<a href="20080706cn.php">页面</a>. 我们推荐把TCP连接放在3, UDP连接放在2. </li>
-  <li>修改sdcc\src\<a href="20070609cn.php">makefile</a>中跟.c文件相关的2处地方. </li>
+  <li>决定新的文件放在哪个<a href="20080706cn.php">页面</a>. 我们推荐把TCP连接放在3, UDP连接放在2.</li>
+  <li>修改sdcc\src\<a href="20070609cn.php">makefile</a>中跟.c文件相关的2处地方.</li>
   <li>把新的.rel文件添加到sdcc\src\<b>linkmain.lnk</b>. 不要把它加到文件末尾, 而要加到同一个页面的其他.rel文件一起. 
-      否则编译时会有类似于<font color=red>Error: banked code exceeded bank 7 end (default 0xe000)</font>的信息. 或者更糟糕的是, 没有出错信息, 但是链接后的文件结果是错误的. </li>
+      否则编译时会有类似于<font color=red>Error: banked code exceeded bank 7 end (default 0xe000)</font>的信息. 或者更糟糕的是, 没有出错信息, 但是链接后的文件结果是错误的.</li>
   <li>不要在新文件中做类似于<font color=grey>UDP_SOCKET _pTestSocket = NULL;</font>这样的全局变量初始化(也不要在其它老文件中加全局变量初始化), 把初始化代码放在例如<i>SntpInit</i>这样的函数中. 
       否则编译时会有类似于<font color=red>Error: sram code exceeded code end (default 0x2000)</font>的信息. 
-      在我们分页面的代码结构下, <a href="20101123cn.php">SDCC</a>不能把全局变量初始化的代码生成在我们需要的地址范围中. </li>
+      在我们分页面的代码结构下, <a href="20101123cn.php">SDCC</a>不能把全局变量初始化的代码生成在我们需要的地址范围中.</li>
 </ol>
 <br />&nbsp;
 </td></tr>

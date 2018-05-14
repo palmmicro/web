@@ -33,16 +33,16 @@
 <br />这两天刚好读了篇有关云服务的文章, 让我想到了干脆自己弄个云服务器, 自己搭建一个PHP测试环境, 测试好的代码再上传<a href="../palmmicro/20080326cn.php">palmmicro.com</a>.
 国内阿里/新浪/腾讯这些提供云服务的巨头中, 平时使用腾讯的QQ最多, 就此上了腾讯云的贼船, 再次开始了痛苦的Linux学习过程. 这一次是从最基础的软件安装学习起.
 <br />还是一样, 好记性不如烂笔头, 在这里记录一下各种细节.
+</p>
 <ol>
-  <li>用腾讯云的系统镜像重装系统到CentOS 6.7 64位. 这个过程很快, 比以前在自己的机器上装<a href="../../../pa6488/software/userguide/sipcn.php">ubuntu</a>快太多了.
-  <li>按<?php EchoLink('https://www.biaodianfu.com/centos-6-7-install-amh-4-2.html'); ?>中的步骤, root登录后运行yum update更新系统, 然后运行yum install wget安装wget.
-  <li>执行wget http://amh.sh/file/AMH/4.2/amh.sh && chmod 775 amh.sh && ./amh.sh 2>&1 | tee amh.log安装AMH 4.2.
-  <li>http://139.199.173.16:8888进入AMH 4.2管理页面. 管理员账号admin. 为了记忆方便, 管理员密码使用跟MySQL同样的密码.
-  <li>在虚拟主机页面新增虚拟主机, 主标识域名和绑定域名都填写139.199.173.16. 这一步完成后, 访问http://139.199.173.16就不再是403 bad request了. WEB文件根目录是/home/wwwroot/139.199.173.16/web/.
-  <li>在FTP页面新增FTP账号admin, 密码依旧使用同一个. 这样我可以继续用自己的网站工具自动管理文件更新.
-  <li>在模块扩展页面安装AMChroot, 然后进入管理模块, 把运行模式从安全模式改成兼容模式. 否则用curl访问https站点内容时会出<font color=red>Problem with the SSL CA cert</font>错误.
+  <li>用腾讯云的系统镜像重装系统到CentOS 6.7 64位. 这个过程很快, 比以前在自己的机器上装<a href="../../../pa6488/software/userguide/sipcn.php">ubuntu</a>快太多了.</li>
+  <li>按<?php EchoLink('https://www.biaodianfu.com/centos-6-7-install-amh-4-2.html'); ?>中的步骤, root登录后运行yum update更新系统, 然后运行yum install wget安装wget.</li>
+  <li>执行wget http://amh.sh/file/AMH/4.2/amh.sh && chmod 775 amh.sh && ./amh.sh 2>&1 | tee amh.log安装AMH 4.2.</li>
+  <li>http://139.199.173.16:8888进入AMH 4.2管理页面. 管理员账号admin. 为了记忆方便, 管理员密码使用跟MySQL同样的密码.</li>
+  <li>在虚拟主机页面新增虚拟主机, 主标识域名和绑定域名都填写139.199.173.16. 这一步完成后, 访问http://139.199.173.16就不再是403 bad request了. WEB文件根目录是/home/wwwroot/139.199.173.16/web/.</li>
+  <li>在FTP页面新增FTP账号admin, 密码依旧使用同一个. 这样我可以继续用自己的网站工具自动管理文件更新.</li>
+  <li>在模块扩展页面安装AMChroot, 然后进入管理模块, 把运行模式从安全模式改成兼容模式. 否则用curl访问https站点内容时会出<font color=red>Problem with the SSL CA cert</font>错误.</li>
 </ol>
-</p> 
 
 <h3>重度<a name="procrastination">拖延症</a>患者的外部刺激治疗方案</h3>
 <p>2018年4月19日

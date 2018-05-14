@@ -42,15 +42,14 @@
 <p>2016年10月20日
 <br />今天发现有个微信公众号用户用语音查询<font color=grey>交通银行</font>, 没查到因为数据库表stock中根本没有它. 不过因此刺激了我给加上查询所有股票交易数据的功能.
 <br />首先我要把A股3000只左右的股票都加到数据库中. 开始我想直接开个大循环从000001到699999从新浪拿数据, 后来觉得太蠢了, 还担心新浪的数据接口把我列入黑名单. 网上查了下, 发现自己太不了解几乎每天都用的A股股票软件了.
-<blockquote><font color=grey>
+</p>
 <ol>
-  <li>打开股票行情软件.
-  <li>在键盘输入60, 按【ENTER】, 显示所有股票的从涨到跌的排名.
-  <li>输入34（也就是点击系统—数据导出）, 在【文本文件】, 【EXCEL】或者【图像】选择一个数据处理方式.
-  <li>点击【报表中所有数据】, 在【存盘文件名】选择储存位置, 自行设定一个文件名，点击【导出】即可.
+  <li>打开股票行情软件.</li>
+  <li>在键盘输入60, 按【ENTER】, 显示所有股票的从涨到跌的排名.</li>
+  <li>输入34（也就是点击系统—数据导出）, 在【文本文件】, 【EXCEL】或者【图像】选择一个数据处理方式.</li>
+  <li>点击【报表中所有数据】, 在【存盘文件名】选择储存位置, 自行设定一个文件名，点击【导出】即可.</li>
 </ol>
-</font></blockquote>
-<br />我依葫芦画瓢把数据存在了<?php EchoFileLink('/debug/chinastocklist.txt'); ?>中. 然后在<?php EchoPhpFileLink('/php/test/chinastocklist.php'); ?>中写了一小段代码处理它, 
+<p>我依葫芦画瓢把数据存在了<?php EchoFileLink('/debug/chinastocklist.txt'); ?>中. 然后在<?php EchoPhpFileLink('/php/test/chinastocklist.php'); ?>中写了一小段代码处理它, 
 现在所有A股股民们都能<a href="../entertainment/20161020cn.php">使用微信公众号</a><font color=orange>sz162411</font>了.
 <br />继续给数据库中加美股代码, 
 把<a href="http://vip.stock.finance.sina.com.cn/usstock/ustotal.php" target=_blank>http://vip.stock.finance.sina.com.cn/usstock/ustotal.php</a>的网页源码中有关部分存在了<?php EchoFileLink('/debug/usstocklist.txt'); ?>中,

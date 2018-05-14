@@ -27,12 +27,13 @@
 <br />专门供本页面使用的其它php代码放在新文件<?php EchoPhpFileLink('/woody/res/php/_lof.php'); ?>中. 取这个名字是因为华宝油气是一个中国特色的LOF基金.
 <br />为提高页面反应速度, 使用2个文件xop.txt和<?php EchoFileLink('/debug/sina/sz162411.txt'); ?>分别保存最后更新的Yahoo和新浪股票数据,
 实施以下优化:
+</p>
 <ol>
-  <li>跟文件时间在同一分钟内的页面请求直接使用原来文件内的数据.
-  <li>美股闭市后的页面请求直接使用xop.txt内的美股数据.
-  <li>A股闭市后的页面请求直接使用sz162411.txt内的A股数据.
+  <li>跟文件时间在同一分钟内的页面请求直接使用原来文件内的数据.</li>
+  <li>美股闭市后的页面请求直接使用xop.txt内的美股数据.</li>
+  <li>A股闭市后的页面请求直接使用sz162411.txt内的A股数据.</li>
 </ol>
-<br />类似的, 原油期货数据缓存在文件<?php EchoFileLink('/debug/sina/hf_cl.txt'); ?>. 美元人民币汇率数据在usdcny.txt.
+<p>类似的, 原油期货数据缓存在文件<?php EchoFileLink('/debug/sina/hf_cl.txt'); ?>. 美元人民币汇率数据在usdcny.txt.
 <br /><font color=grey>所有的代码最终都会烂到无法维护, 成功的项目就是在烂掉之前发布出去的.</font>
 </p>
 
@@ -113,11 +114,11 @@
 <a href="../../res/sz160717cn.php">恒生H股</a>, <a href="../../res/sz160216cn.php">国泰商品</a>, <a href="../../res/sz160416cn.php">华安石油</a>, 
 <a href="../../res/sz163208cn.php">诺安油气</a>和<a href="../../res/sz165510cn.php">信诚四国</a>等<a href="../../res/lofcn.php">LOF</a>净值计算工具.
 <br />以后新加入同类LOF工具的修改步骤:
-<ol>
-  <li>在函数<i>LofGetSymbolArray</i>加入新的LOF代码, 用于同类工具中的循环导航链接.
-  <li>在函数<i>LofGetEtfSymbol</i>和<i>LofGetIndexSymbol</i>中加上LOF对应的ETF代码和指数代码.
-</ol>
 </p>
+<ol>
+  <li>在函数<i>LofGetSymbolArray</i>加入新的LOF代码, 用于同类工具中的循环导航链接.</li>
+  <li>在函数<i>LofGetEtfSymbol</i>和<i>LofGetIndexSymbol</i>中加上LOF对应的ETF代码和指数代码.</li>
+</ol>
 
 <h3><a name="future">期货</a>ETF</h3>
 <p>2015年11月24日
@@ -262,12 +263,12 @@
 <h3>如何把华宝油气估值<a name="precise">精确</a>到0.0001元</h3>
 <p>2016年9月27日
 <br />一开始实在不可能想到花了1年多时间才做到这一点.
-<ol>
-  <li>要使用^SPSIOP, 而不是<?php EchoMyStockLink('XOP'); ?>, 2者通常收盘不一致.
-  <li>要使用<a href="20160615cn.php">美元人民币中间价</a>, 而不是新浪的实时交易价格.
-  <li>今天加入所有LOF都最多95%仓位的处理, 而不是100%.
-</ol>
 </p>
+<ol>
+  <li>要使用^SPSIOP, 而不是<?php EchoMyStockLink('XOP'); ?>, 2者通常收盘不一致.</li>
+  <li>要使用<a href="20160615cn.php">美元人民币中间价</a>, 而不是新浪的实时交易价格.</li>
+  <li>今天加入所有LOF都最多95%仓位的处理, 而不是100%.</li>
+</ol>
 
 <h3>估值自动和手工<a name="calibration">校准</a>的历史记录</h3>
 <p>2016年10月6日

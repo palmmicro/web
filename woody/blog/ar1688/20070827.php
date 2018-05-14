@@ -45,15 +45,15 @@ But still there is request of MAC address changing request that we feel not easy
 <br />However, this is not a simple guide, and you must be an advanced user to follow this guide. If you do not know how to upgrade by TFTP, do not know how to enter safe mode, or do not know what MAC address is,
 you can skip the rest.
 <ol>
-  <li>Make sure you have most recent AR1688 <a href="20061211.php">API</a> in hand, feel free to write <a href="mailto:support@palmmicro.com">email</a> to us for a copy if you do not have it.
+  <li>Make sure you have most recent AR1688 <a href="20061211.php">API</a> in hand, feel free to write <a href="mailto:support@palmmicro.com">email</a> to us for a copy if you do not have it.</li>
   <li>Also write to us saying that you need special firmware to change your MAC address.
-      Please provide information like <a href="20061014.php">hardware type</a>, protocol and <a href="20070405.php">language</a> for us to send you the correct firmware.
-  <li>Press * while power up to set your <a href="../../../ar1688/index.html">AR1688</a> IP phone into safe mode.
-  <li>Use the command line tool in API SDCC\bin, <i>getopt 192.168.1.200</i>, when it finishes, an <b>options.txt</b> file will pop up.
-  <li>In <b>options.txt</b>, find the line like <i><b>mac_address=0x00,0x18,0x1f,0x10,0xa0,0xb8</b></i>, change whatever MAC address you like to use.
-  <li>Save <b>options.txt</b>, use <i>setopt 192.168.1.200</i>, the phone will reboot after change.
-  <li>In normal mode, use command line to upgrade the special firmware we sent in email, usually like <i>tftp -i xxx.xxx.xxx.xxx put ar168f_sip_us_mac_017037.bin</i>. The file is 640k in size.
-  <li>In normal mode, use command line to upgrade the safe mode firmware we sent in email, usually like <i>tftp -i xxx.xxx.xxx.xxx put ar168f_none_us_017037.bin</i>, the file is 64k in size.
+      Please provide information like <a href="20061014.php">hardware type</a>, protocol and <a href="20070405.php">language</a> for us to send you the correct firmware.</li>
+  <li>Press * while power up to set your <a href="../../../ar1688/index.html">AR1688</a> IP phone into safe mode.</li>
+  <li>Use the command line tool in API SDCC\bin, <i>getopt 192.168.1.200</i>, when it finishes, an <b>options.txt</b> file will pop up.</li>
+  <li>In <b>options.txt</b>, find the line like <i><b>mac_address=0x00,0x18,0x1f,0x10,0xa0,0xb8</b></i>, change whatever MAC address you like to use.</li>
+  <li>Save <b>options.txt</b>, use <i>setopt 192.168.1.200</i>, the phone will reboot after change.</li>
+  <li>In normal mode, use command line to upgrade the special firmware we sent in email, usually like <i>tftp -i xxx.xxx.xxx.xxx put ar168f_sip_us_mac_017037.bin</i>. The file is 640k in size.</li>
+  <li>In normal mode, use command line to upgrade the safe mode firmware we sent in email, usually like <i>tftp -i xxx.xxx.xxx.xxx put ar168f_none_us_017037.bin</i>, the file is 64k in size.</li>
 </ol>
 <br />After those steps, you can use and upgrade normal firmware in the future with MAC address changed.
 <br />&nbsp;

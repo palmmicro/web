@@ -24,11 +24,12 @@ It was designed to do those repeated copy, paste and FTP upload works automatica
 <br />During my development, I was also considering if I should upgrade to Visual C++ 2010. However I met a developer from a professional software company last month and knew that they are still working with VC9,
 so I feel comfortable to stay with this version now.
 <br />Comparing with VC6, those impressed me with VC9:
+</p> 
 <ol>
-  <li>Although I installed help documents on my local hardware drive, I find it is always fast to get help information online.
-  <li>When reusing old VC6 source codes, I had to add _T() to all strings because of strictly unicode check.
-  <li>New CHtmlView class makes it so easy to view web files in application.
-  <li>New CFtpConnection class also makes it very easy to upload files to FTP servers.
+  <li>Although I installed help documents on my local hardware drive, I find it is always fast to get help information online.</li>
+  <li>When reusing old VC6 source codes, I had to add _T() to all strings because of strictly unicode check.</li>
+  <li>New CHtmlView class makes it so easy to view web files in application.</li>
+  <li>New CFtpConnection class also makes it very easy to upload files to FTP servers.</li>
 </ol>
 <blockquote><font color=grey>I still remember going to Hans Bethe and saying, "Hey, Hans! I noticed something interesting.
 Here the plate goes around so, and the reason it's two to one is . . ." and I showed him the accelerations.
@@ -36,7 +37,7 @@ Here the plate goes around so, and the reason it's two to one is . . ." and I sh
 <br />"Hah!" I say. "There's no importance whatsoever. I'm just doing it for the fun of it." His reaction didn't discourage me; I had made up my mind I was going to enjoy physics and do whatever I liked.
 <br />Page 67 <a href="../../favorite.html#surely">Surely You're Joking, Mr. Feynman!</a> by <i>Richard P. Feynman</i>, as told to <i>Ralph Leighton</i>
 </font></blockquote>
-<br /><img src=../photo/20100529.jpg alt="Screen shot of My First Visual C++ 2008 Application Woody's Web Tool" />
+<p><img src=../photo/20100529.jpg alt="Screen shot of My First Visual C++ 2008 Application Woody's Web Tool" />
 </p> 
 
 <h3>From FTP to FTPS</h3>
