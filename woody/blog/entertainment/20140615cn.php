@@ -45,11 +45,12 @@
 <h3>AR1688编译辅助工具也要升级</h3>
 <p>2015年8月3日
 <br />今天有个老用户抱怨无法编译新的软件API, 让我很惭愧, 觉得自己的中文表达能力太差了. 
+</p>
 <blockquote><font color=grey>
 我上个版本是ar168m_sip_cn_062000 . 
 看了你的一大片文章, 还是不知道怎么办, 我只要编译模块能用的软件就行. 我的环境: 32位win7. 
 </font></blockquote>
-<br />赶快回答: 我们的PC端编译工具升级了, 要安装<i>Visual C++ Redistributable Packages for Visual Studio 2013</i>的32位版本.  
+<p>赶快回答: 我们的PC端编译工具升级了, 要安装<i>Visual C++ Redistributable Packages for Visual Studio 2013</i>的32位版本.  
 <br /><img src=../photo/mfc120u.jpg alt="Screen shot of AR1688 reversion.exe Chinese mfc120u.dll error message." />
 </p>
 

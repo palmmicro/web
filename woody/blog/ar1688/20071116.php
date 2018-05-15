@@ -39,11 +39,12 @@
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
 <tr><td>Nov 16, 2007</td></tr>
 <tr><td>There is no RTOS with <a href="../../../ar1688/index.html">AR1688</a> software, everything is being performed inside a loop like
-<br /><blockquote><code>while (1) 
+<blockquote><code>while (1) 
 <br />{ 
 <br />&nbsp;&nbsp;&nbsp;&nbsp;do_everything(); 
-<br />}</code></blockquote>
-<br />To make things worse, the 8-bit Z80 processor is slow for task like MD5 encryption, typically takes 5-10 milliseconds. We use same FWD test account to test IAX2 and SIP protocol.
+<br />}
+</code></blockquote>
+To make things worse, the 8-bit Z80 processor is slow for task like MD5 encryption, typically takes 5-10 milliseconds. We use same FWD test account to test IAX2 and SIP protocol.
 <a href="20071110.php">IAX2</a> protocol needs 12ms to do a register with 1 MD5 calculation. SIP protocol needs 80ms to do a register with 3 MD5 calculation.
 Within the 80ms of SIP register, all incoming and outgoing RTP packets are held unhandled, thus cause a lot of RTP jitter during a call.
 <br />The problem was pointed out by customer on our mailing list, the customer suggested that the usage of RTOS is the only solution.

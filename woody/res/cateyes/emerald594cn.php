@@ -23,12 +23,12 @@
 <p>GRS证书 <a href="emerald/594/large/grs.jpg" target=_blank>大图</a>
 <br /><img src=emerald/594/grs.jpg alt="GRS report for emerald cat eye 5.94ct" /></p>
 <p>引用亚洲宝石协会(GIG)研究报告:
+</p>
 <blockquote><font color=grey>
 祖母绿是一种含铍铝的硅酸盐, 其分子式为Be3Al2[Si6O18], 属于绿柱石家族中最"高贵"的一员. 属六方晶系. 晶体单形为六方柱, 六方双锥, 多呈长方柱状. 集合体呈粒状, 块状等. 翠绿色, 玻璃光泽, 透明至半透明.
 折光率1.564-1.602, 双折射率0.005-0.009, 多色性不明显. 非均质体. 硬度7.5, 密度2.63-2.90 克/立方厘米. 解理不完全, 贝壳状断口. 具脆性. 因含微量的"铬"元素而呈现出晶莹艳美的绿色.
 X射线照射下, 祖母绿发很弱的纯红色荧光. 
 </font></blockquote>
-</p>
 </div>
 
 <?php LayoutTailLogin(true); ?>

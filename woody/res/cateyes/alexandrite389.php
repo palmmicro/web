@@ -27,6 +27,7 @@
 <p>GRS report <a href="alexandrite/389/large/grs.jpg" target=_blank>Large</a>
 <br /><img src=alexandrite/389/grs.jpg alt="GRS report for alexandrite cat eye 3.89ct" /></p>
 <p>From <a href="http://www.realgems.org/list_of_gemstones/alexandrite.html" target=_blank>realgems.org</a>:
+</p>
 <blockquote><font color=grey>
 <br />Formula: BeAl2O4 
 <br />Mineral class: oxides 
@@ -58,7 +59,6 @@
 <br /> • Discovery of alexandrit deposits in the Araku Valley in Andhra Pradesh / India in 1996. 
 <br /> • Destruction of the coastal mines in India by the tsunami in 2004.
 </font></blockquote>
-</p>
 </div>
 
 <?php LayoutTailLogin(false); ?>

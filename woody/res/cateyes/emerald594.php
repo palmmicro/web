@@ -23,6 +23,7 @@
 <p>GRS report <a href="emerald/594/large/grs.jpg" target=_blank>Large</a>
 <br /><img src=emerald/594/grs.jpg alt="GRS report for emerald cat eye 5.94ct" /></p>
 <p>From <a href="http://www.realgems.org/list_of_gemstones/beryl.html" target=_blank>realgems.org</a>:
+</p>
 <blockquote><font color=grey>
 <br />Formula Emerald: Be3Al2Si6O18 
 <br />Agee, Emerald, Émeraude, Esmeralda, Smaragdas, Smaragdi, Smaragds, Smarald, Smeraldo, Szmaragd, Zamrud, Zümrüt, Ngọc lục bảo, Изумруд, 綠寶石, زمرد, ברקת, มรกต, エメラルド 
@@ -39,7 +40,6 @@
 <br />Deposits: Worldwide. Famous for the best known specimens: Muzo / Vasquez-Yacopi Mining Distr. / Boyacá Dep. / Colombia Chivor / Guavio-Guateque Mining Distr. / Boyacá Dep. / Colombia 
 <br />Name: from the Greek word "smáragdos" (green stone)
 </font></blockquote>
-</p>
 </div>
 
 <?php LayoutTailLogin(false); ?>
