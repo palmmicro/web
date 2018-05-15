@@ -20,6 +20,15 @@ class SqlStockPair extends SqlStockTable
     	return $this->GetUniqueData($this->BuildWhere_stock());
     }
 
+    function GetRatio()
+    {
+    	if ($record = $this->Get())
+    	{
+    		return floatval($record['ratio']);
+    	}
+    	return false;
+    }
+
     function GetPairId()
     {
     	if ($record = $this->Get())
@@ -29,9 +38,9 @@ class SqlStockPair extends SqlStockTable
     	return false;
     }
     
-    function GetStockId()
+    function GetStockIdByPairId()
     {
-    	$strPairId = parent::GetStockId();
+    	$strPairId = $this->GetStockId();
     	if ($record = $this->GetSingleData(_SqlBuildWhere('pair_id', $strPairId), false))
     	{
     		return $record['stock_id'];
@@ -79,11 +88,13 @@ function SqlGetStockPair($strTableName, $strStockId)
 
 function SqlGetStockPairRatio($strTableName, $strStockId)
 {
-    if ($record = SqlGetStockPair($strTableName, $strStockId))
+	$sql = new SqlStockPair($strStockId, $strTableName);
+	return $sql->GetRatio();
+/*    if ($record = SqlGetStockPair($strTableName, $strStockId))
     {
 		return floatval($record['ratio']);
     }
-    return false;
+    return false;*/
 }
 
 // ****************************** Support functions *******************************************************
@@ -164,12 +175,12 @@ function SqlGetAdrhPair($strSymbolAdr)
 
 function SqlGetHaPair($strSymbolH)
 {
-	return _sqlGetPair(TABLE_AH_STOCK, $strSymbolH, 'GetStockId');
+	return _sqlGetPair(TABLE_AH_STOCK, $strSymbolH, 'GetStockIdByPairId');
 }
 
 function SqlGetHadrPair($strSymbolH)
 {
-	return _sqlGetPair(TABLE_ADRH_STOCK, $strSymbolH, 'GetStockId');
+	return _sqlGetPair(TABLE_ADRH_STOCK, $strSymbolH, 'GetStockIdByPairId');
 }
 
 ?>

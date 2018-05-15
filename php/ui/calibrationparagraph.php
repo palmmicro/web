@@ -48,10 +48,12 @@ function _echoCalibrationData($strSymbol, $iStart, $iNum, $bChinese)
 
 function EchoCalibrationFullParagraph($strSymbol, $iStart, $iNum, $bChinese)
 {
+	$strSymbolLink = GetMyStockLink($strSymbol, $bChinese);
 	$strPair = SqlGetEtfPair($strSymbol);
+	$strPairLink = GetMyStockLink($strPair, $bChinese);
 	$strPrice = GetReferenceTablePrice($bChinese);
-    if ($bChinese)  $arColumn = array($strSymbol.$strPrice,     $strPair.$strPrice,     '校准值', '日期');
-    else              $arColumn = array($strSymbol.' '.$strPrice, $strPair.' '.$strPrice, 'Factor', 'Date');
+    if ($bChinese)  $arColumn = array($strSymbolLink.$strPrice,     $strPairLink.$strPrice,     '校准值', '日期');
+    else              $arColumn = array($strSymbolLink.' '.$strPrice, $strPairLink.' '.$strPrice, 'Factor', 'Date');
     
 	$str = '';    
     if (($iStart == 0) && ($iNum == TABLE_COMMON_DISPLAY))
