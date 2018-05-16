@@ -65,6 +65,11 @@ function GetAhCompareLink($bChinese)
     return _stockBuildLink('ahcompare', false, 'AH对比', 'AH Compare', $bChinese);
 }
 
+function GetAhHistoryLink($strSymbol, $bChinese)
+{
+    return _stockBuildLink('ahhistory', 'symbol='.$strSymbol, 'AH历史', 'AH History', $bChinese);
+}
+
 function GetEtfListLink($bChinese)
 {
     return _stockBuildLink('etflist', false, 'ETF对照表', 'ETF List', $bChinese);

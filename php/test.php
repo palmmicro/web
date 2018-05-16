@@ -211,6 +211,8 @@ function TestCmdLine()
 
 	SysInit();
 	TestCmdLine();
+
+//	WriteForexDataFromFile();
 	
 //	CopyCalibrationData();
 //	MarketWatchGetData('^SPSIOP');

@@ -97,4 +97,29 @@ function SqlInsertHKCNY()
 }
 */
 
+function WriteForexDataFromFile()
+{
+	$sql_uscny = new SqlUscnyHistory();
+	$sql_hkcny = new SqlHkcnyHistory();
+    $file = fopen('/debug/cny2016.csv', 'r');
+//    $file = fopen('/debug/cny2015.csv', 'r');
+//    $file = fopen('/debug/cny2014.csv', 'r');
+    while (!feof($file))
+    {
+        $strLine = fgets($file);
+        $arWord = explode(',', $strLine);
+        if (count($arWord) >= 5)
+        {
+        	$strDate = $arWord[0];
+        	$strUSD = $arWord[1];
+        	$strHKD = $arWord[4];
+        	DebugString($strDate.' '.$strUSD.' '.$strHKD);
+        	
+       		$sql_uscny->Write($strDate, $strUSD);
+       		$sql_hkcny->Write($strDate, $strHKD);
+        }
+    }
+    fclose($file);
+}
+
 ?>

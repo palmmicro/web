@@ -44,17 +44,18 @@ function _ahStockRefCallback($ref, $bChinese)
     {
         return _ahStockRefCallbackData($ref, $bChinese);
     }
-    
-	$strSymbol = GetReferenceTableSymbol($bChinese);
-    if ($bChinese)  $arColumn = array('A股'.$strSymbol, 'AH比价', 'HA比价');
-    else              $arColumn = array('A '.$strSymbol, 'AH Ratio', 'HA Ratio');
-    return $arColumn;
+    return GetAhCompareTableColumn($bChinese);
 }
 
 function EchoAhParagraph($arRef, $bChinese)
 {
 	$str = GetAhCompareLink($bChinese);
-	if (count($arRef) > 2)
+	$iCount = count($arRef);
+	if ($iCount == 1)
+	{
+		$str .= ' '.GetAhHistoryLink($arRef[0]->a_ref->GetStockSymbol(), $bChinese);
+	}
+	else if ($iCount > 2)
 	{
 		if ($strSort = UrlGetQueryValue('sort'))
 		{

@@ -123,6 +123,21 @@ class SqlStockDaily extends SqlStockTable
     	return SqlTable::Update("close = '$strClose' WHERE ".$this->BuildWhere_date_stock($strDate));
     }
 
+    function Write($strDate, $strClose)
+    {
+    	if ($str = $this->GetCloseString($strDate))
+    	{
+    		if ($str != $strClose)
+    		{
+    			$this->Update($strDate, $strClose);
+    		}
+    	}
+    	else
+    	{
+    		$this->Insert($strDate, $strClose);
+    	}
+    }
+    
     function DeleteByDate($strDate)
     {
     	return $this->Delete($this->BuildWhere_date_stock($strDate), '1');

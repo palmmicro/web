@@ -1,9 +1,9 @@
-<?php require_once('php/_stockhistory.php'); ?>
+<?php require_once('php/_ahhistory.php'); ?>
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title><?php EchoTitle(true); ?></title>
-<meta name="description" content="<?php EchoUrlSymbol(); ?>历史价格记录页面. 用于查看计算SMA的原始数据, 提供跟Yahoo历史数据同步的功能, 方便人工处理合股和拆股, 分红除权等价格处理问题.">
+<meta name="description" content="<?php EchoUrlSymbol(); ?>中国A股和香港H股历史价格比较页面. 按A股交易日期排序显示. 同时显示港币人民币中间价历史, 提供跟Yahoo历史数据同步的功能.">
 <link href="../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
 
@@ -12,7 +12,7 @@
 
 <div>
 <h1><?php EchoTitle(true); ?></h1>
-<?php EchoStockHistory(true); ?>
+<?php EchoAhHistory(true); ?>
 <p>相关软件:
 <?php 
     EchoStockCategoryLinks(true);

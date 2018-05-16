@@ -64,47 +64,6 @@ function _getPersonalGroupLink($strGroupId, $bChinese)
     return $str;
 }
 
-$group = false;
-
-function _checkPersonalGroupId($strGroupId)
-{
-    global $group;
-    
-    if ($group == false)                        return true;
-    if ($group->strGroupId != $strGroupId)    return true;
-    return false;
-}
-
-function _getPersonalLinks($strMemberId, $bChinese)
-{
-    $str = HTML_NEW_LINE;
-	if ($result = SqlGetStockGroupByMemberId($strMemberId)) 
-	{
-		while ($stockgroup = mysql_fetch_assoc($result)) 
-		{
-		    $strGroupId = $stockgroup['id'];
-		    if (_checkPersonalGroupId($strGroupId))
-		    {
-		        $str .= _getPersonalGroupLink($strGroupId, $bChinese).' ';
-		    }
-		}
-		@mysql_free_result($result);
-	}
-	return $str;
-}
-
-function EchoStockGroupLinks($bChinese)
-{
-    $str .= HTML_NEW_LINE.GetCategoryLinks(STOCK_PATH, GetMenuArray($bChinese), $bChinese);
-    $str .= HTML_NEW_LINE.StockGetGroupLink($bChinese);	// .' '.GetAhCompareLink($bChinese).' '.GetAdrhCompareLink($bChinese);
-    $str .= HTML_NEW_LINE.GetMyPortfolioLink($bChinese);
-    if ($strMemberId = AcctIsLogin())
-    {
-        $str .= _getPersonalLinks($strMemberId, $bChinese);
-    }
-    echo $str;
-}
-
 function _getCategoryArray($bChinese)
 {
     if ($bChinese)
@@ -139,12 +98,6 @@ function _getCategoryLink($strCategory, $bChinese)
 {
     $ar = _getCategoryArray($bChinese);
     return GetPhpLink(STOCK_PATH.$strCategory, false, $ar[$strCategory], $bChinese);
-}
-
-function EchoStockCategoryLinks($bChinese)
-{
-    $str = HTML_NEW_LINE.GetCategoryLinks(STOCK_PATH, _getCategoryArray($bChinese), $bChinese);
-    echo $str;
 }
 
 function _getCategorySoftwareLinks($arTitle, $strCn, $strUs, $bChinese)
@@ -454,6 +407,53 @@ function EchoYinHuaSoftwareLinks($bChinese)
     $strLink = GetExternalLink('http://www.yhfund.com.cn', $bChinese ? '银华基金' : 'YinHua Fund');
     $str = GetCategorySoftwareLinks($ar, $strLink, $bChinese);
     echo $str;                 
+}
+
+$group = false;
+
+function _checkPersonalGroupId($strGroupId)
+{
+    global $group;
+    
+    if ($group == false)                        return true;
+    if ($group->strGroupId != $strGroupId)    return true;
+    return false;
+}
+
+function _getPersonalLinks($strMemberId, $bChinese)
+{
+    $str = HTML_NEW_LINE;
+	if ($result = SqlGetStockGroupByMemberId($strMemberId)) 
+	{
+		while ($stockgroup = mysql_fetch_assoc($result)) 
+		{
+		    $strGroupId = $stockgroup['id'];
+		    if (_checkPersonalGroupId($strGroupId))
+		    {
+		        $str .= _getPersonalGroupLink($strGroupId, $bChinese).' ';
+		    }
+		}
+		@mysql_free_result($result);
+	}
+	return $str;
+}
+
+function EchoStockGroupLinks($bChinese)
+{
+    $str = HTML_NEW_LINE.GetCategoryLinks(STOCK_PATH, GetMenuArray($bChinese), $bChinese);
+    $str .= HTML_NEW_LINE.StockGetGroupLink($bChinese);	// .' '.GetAhCompareLink($bChinese).' '.GetAdrhCompareLink($bChinese);
+    $str .= HTML_NEW_LINE.GetMyPortfolioLink($bChinese);
+    if ($strMemberId = AcctIsLogin())
+    {
+        $str .= _getPersonalLinks($strMemberId, $bChinese);
+    }
+    echo $str;
+}
+
+function EchoStockCategoryLinks($bChinese)
+{
+    $str = HTML_NEW_LINE.GetCategoryLinks(STOCK_PATH, _getCategoryArray($bChinese), $bChinese);
+    echo $str;
 }
 
 ?>
