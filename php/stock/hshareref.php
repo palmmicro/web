@@ -1,5 +1,10 @@
 <?php
 
+function HShareEstToCny($fEst, $fRatio, $fHKCNY)
+{
+	return $fEst * $fRatio * $fHKCNY;
+}
+
 // ****************************** HShareReference class *******************************************************
 class HShareReference extends MyStockReference
 {
@@ -45,7 +50,8 @@ class HShareReference extends MyStockReference
     {
     	if ($this->a_ref)
     	{
-    		return $fEst * ($this->fRatio * $this->fHKDCNY);
+//    		return $fEst * ($this->fRatio * $this->fHKDCNY);
+			return HShareEstToCny($fEst, $this->fRatio, $this->fHKDCNY);
     	}
     	return 0.0;
     }

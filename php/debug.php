@@ -127,6 +127,12 @@ function DebugGetImageName($str)
     return "$strPath/$str.jpg";
 }
 
+function DebugGetCsvName($str)
+{
+    $strPath = _getDebugPath('csv');
+    return "$strPath/$str.csv";
+}
+
 function DebugGetChinaMoneyFile()
 {
     $strPath = _getDebugPath('chinamoney');

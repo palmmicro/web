@@ -53,10 +53,10 @@ function GetCurLink()
 function GetFileLink($strPathName)
 {
 	$strFileName = UrlGetFileName($strPathName);
-	if (strlen($strFileName) > 10)
+/*	if (strlen($strFileName) > 10)
 	{
 		$strFileName = substr($strFileName, -10, 10);
-	}
+	}*/
     return GetExternalLink(UrlGetServer().$strPathName, $strFileName);
 }
 
@@ -110,8 +110,12 @@ function _getNavLinkQuery($strId, $iStart, $iNum)
 
 function GetNavLink($strQueryId, $iTotal, $iStart, $iNum, $bChinese)
 {
-    $str = ($bChinese ? '总数' : 'Total').': '.strval($iTotal).' ';
-    if ($iTotal <= 0)		return $str;
+	$strTotal = strval($iTotal);
+    $str = ($bChinese ? '总数' : 'Total').': ';	//.strval($iTotal).' ';
+    if ($iTotal <= 0)		return $str.$strTotal;
+
+    $strQuery = _getNavLinkQuery($strQueryId, 0, $iTotal);
+    $str .= CopyPhpLink($strQuery, $strTotal, $strTotal, $bChinese).' ';
     
     $iLast = $iStart + $iNum;
     if ($iLast > $iTotal)   $iLast = $iTotal;

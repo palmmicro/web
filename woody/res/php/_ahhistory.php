@@ -1,7 +1,8 @@
 <?php
 require_once('_stock.php');
+require_once('/php/csvfile.php');
 
-function _echoAhHistoryItem($history, $sql_pair, $sql_hkcny, $fRatio)
+function _echoAhHistoryItem($csv, $history, $sql_pair, $sql_hkcny, $fRatio)
 {
 	$strDate = $history['date'];
 	$fClose = floatval($history['close']);
@@ -17,9 +18,11 @@ function _echoAhHistoryItem($history, $sql_pair, $sql_hkcny, $fRatio)
 		$strPairClose = round_display($fPairClose);
 		if ($fHKCNY)
 		{
-			$fAh = $fClose / ($fPairClose * $fRatio * $fHKCNY);
+			$fAh = $fClose / HShareEstToCny($fPairClose, $fRatio, $fHKCNY);
+			$fHa = 1.0 / $fAh;
 			$strAH = GetRatioDisplay($fAh);
-			$strHA = GetRatioDisplay(1.0 / $fAh);
+			$strHA = GetRatioDisplay($fHa);
+			$csv->WriteArray(array($strDate, $strClose, $strPairClose, $strHKCNY, round_display($fAh), round_display($fHa)));
 		}
 	}
 	else
@@ -39,7 +42,7 @@ function _echoAhHistoryItem($history, $sql_pair, $sql_hkcny, $fRatio)
 END;
 }
 
-function _echoAhHistoryData($sql, $strPairId, $fRatio, $iStart, $iNum)
+function _echoAhHistoryData($csv, $sql, $strPairId, $fRatio, $iStart, $iNum)
 {
 	$sql_hkcny = new SqlHkcnyHistory();
 	$sql_pair = new SqlStockHistory($strPairId);
@@ -47,7 +50,7 @@ function _echoAhHistoryData($sql, $strPairId, $fRatio, $iStart, $iNum)
     {
         while ($history = mysql_fetch_assoc($result)) 
         {
-            _echoAhHistoryItem($history, $sql_pair, $sql_hkcny, $fRatio);
+            _echoAhHistoryItem($csv, $history, $sql_pair, $sql_hkcny, $fRatio);
         }
         @mysql_free_result($result);
     }
@@ -73,7 +76,11 @@ function _echoAhHistoryParagraph($strSymbol, $strStockId, $strPairId, $fRatio, $
 	$sql = new SqlStockHistory($strStockId);
     $strNavLink = _GetStockNavLink($strSymbol, $sql->Count(), $iStart, $iNum, $bChinese);
  
-    EchoParagraphBegin($strNavLink.' '.$strUpdateLink);
+    $csv = new PageCsvFile();
+//    $csv->WriteArray($arColumn);
+    $strFileLink = GetFileLink($csv->GetPathName());
+    
+    EchoParagraphBegin($strNavLink.' '.$strFileLink.' '.$strUpdateLink);
     echo <<<END
     <TABLE borderColor=#cccccc cellSpacing=0 width=530 border=1 class="text" id="ahhistory">
     <tr>
@@ -86,7 +93,8 @@ function _echoAhHistoryParagraph($strSymbol, $strStockId, $strPairId, $fRatio, $
     </tr>
 END;
    
-    _echoAhHistoryData($sql, $strPairId, $fRatio, $iStart, $iNum);
+    _echoAhHistoryData($csv, $sql, $strPairId, $fRatio, $iStart, $iNum);
+    $csv->Close();
     EchoTableEnd();
     EchoParagraphEnd();
 }
