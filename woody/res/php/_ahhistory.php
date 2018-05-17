@@ -100,6 +100,24 @@ END;
     EchoParagraphEnd();
 }
 
+function EchoPageImage($strPathName, $strPageTitle)
+{
+	$strRand = strval(rand());
+	echo <<< END
+	<p>
+	<img src=$strPathName?$strRand alt="$strPageTitle automatical generated image" />
+    </p>
+END;
+}
+
+function _echoAhHistoryGraph($bChinese)
+{
+    $jpg = new PageImageFile();
+    $jpg->Text(20, 115, 410, 'Hello, world!');
+    $jpg->SaveFile();
+    EchoPageImage($jpg->GetPathName(), UrlGetTitle());
+}
+
 function EchoAhHistory($bChinese)
 {
     if ($strSymbol = UrlGetQueryValue('symbol'))
@@ -112,6 +130,7 @@ function EchoAhHistory($bChinese)
     			$iStart = UrlGetQueryInt('start', 0);
     			$iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
     			_echoAhHistoryParagraph($strSymbol, $strStockId, $strPairId, $sql->GetRatio(), $iStart, $iNum, $bChinese);
+//    			_echoAhHistoryGraph($bChinese);
     		}
     	}
     }
