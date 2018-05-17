@@ -1,6 +1,7 @@
 <?php
 require_once('_stock.php');
 require_once('/php/csvfile.php');
+require_once('/php/imagefile.php');
 
 function _echoAhHistoryItem($csv, $history, $sql_pair, $sql_hkcny, $fRatio)
 {
