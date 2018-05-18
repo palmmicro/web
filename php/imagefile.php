@@ -7,10 +7,13 @@ class ImageFile
     var $iWidth;
     var $iHeight;
     
+    var $iTextHeight;
+    
     var $image;
     
     var $textcolor;
     var $linecolor;
+    var $pixelcolor;
     
     var $iFont;
     
@@ -20,10 +23,13 @@ class ImageFile
         $this->iWidth = $iWidth;
         $this->iHeight = $iHeight;
         
+        $this->iTextHeight = 20;
+        
         $this->image = imagecreatetruecolor($iWidth, $iHeight);
+        $this->iFont = 20;
         $this->textcolor = imagecolorallocate($this->image, 255, 255, 255);
         $this->linecolor = imagecolorallocate($this->image, 255, 0, 0);
-        $this->iFont = 20;
+        $this->pixelcolor = imagecolorallocate($this->image, 0, 255, 0);
     }
     
     function Text($x, $y, $strText)
@@ -31,38 +37,57 @@ class ImageFile
         imagestring($this->image, $this->iFont, $x, $y, $strText, $this->textcolor);
     }
     
-    function Line($x1, $y1, $x2, $y2)
+    function Line($x1, $y1, $x, $y)
     {
-    	imageline($this->image, $x1, $y1, $x2, $y2, $this->linecolor);
+    	imageline($this->image, $x1, $y1, $x, $y, $this->linecolor);
+    }
+    
+    function Pixel($x, $y)
+    {
+    	imagesetpixel($this->image, $x, $y, $this->pixelcolor);
+    }
+    
+    function _textFromDateArray($x, $y, $fVal, $ar)
+    {
+    	$this->Text($x, $y, strval($fVal).' '.array_search($fVal, $ar));
     }
     
     function DrawDateArray($ar)
     {
     	ksort($ar);
     	reset($ar);
-    	$this->Text(0, $this->iHeight - 20, key($ar));
+    	$iBottom = $this->iHeight - $this->iTextHeight;
+    	$this->Text(0, $iBottom, key($ar));
     	end($ar);
-    	$this->Text($this->iWidth - 100, $this->iHeight - 20, key($ar));
+    	$this->Text($this->iWidth - 100, $iBottom, key($ar));
     	
     	$fMax = max($ar);
-    	$this->Text(0, 0, strval($fMax).' '.array_search($fMax, $ar));
+    	$this->_textFromDateArray(0, 0, $fMax, $ar);
     	$fMin = min($ar);
-    	$this->Text(0, $this->iHeight - 40, strval($fMin).' '.array_search($fMin, $ar));
+    	$iBottom -= $this->iTextHeight;
+    	$this->_textFromDateArray(0, $iBottom, $fMin, $ar);
     	
-    	reset($ar);
+//    	reset($ar);
     	$iCount = count($ar);
     	$iCur = 0;
     	foreach ($ar as $strDate => $fVal)
     	{
-    		$x2 = intval($this->iWidth * $iCur / $iCount);
-    		$y2 = intval(($this->iHeight - 60) * ($fVal - $fMax) / ($fMin - $fMax) + 20);
-    		if ($iCur != 0)
+    		$x = intval($this->iWidth * $iCur / $iCount);
+    		$y = intval(($iBottom - $this->iTextHeight) * ($fVal - $fMax) / ($fMin - $fMax)) + $this->iTextHeight;
+/*    		if ($iCount > $this->iWidth)
     		{
-    			$this->Line($x1, $y1, $x2, $y2);
+    			$this->Pixel($x, $y);
     		}
+    		else
+    		{*/
+    			if ($iCur != 0)
+    			{
+    				$this->Line($x1, $y1, $x, $y);
+    			}
+    			$x1 = $x;
+    			$y1 = $y;
+//    		}
     		$iCur ++;
-    		$x1 = $x2;
-    		$y1 = $y2;
     	}
     }
                                              

@@ -51,18 +51,18 @@ function _deleteStockById($strStockId)
 {
 	$strSymbol = SqlGetStockSymbol($strStockId);
 	DebugString('Deleting '.$strSymbol);
-	if (($iTotal = SqlCountStockGroupItemByStockId($strStockId)) > 0)
-	{
-		DebugString('Stock group item existed: '.strval($iTotal));
-		return;
-	}
-	else if (_deleteIsStockPair(TABLE_ADRH_STOCK, $strStockId))		return;
+	if (_deleteIsStockPair(TABLE_ADRH_STOCK, $strStockId))			return;
 	else if (_deleteIsStockPair(TABLE_AH_STOCK, $strStockId))		return;
 	else if (_deleteIsStockPair(TABLE_ETF_PAIR, $strStockId))		return;
 	else if (_deleteHasStockPair(TABLE_ADRH_STOCK, $strStockId))		return;
 	else if (_deleteHasStockPair(TABLE_AH_STOCK, $strStockId))		return;
 	else if (_deleteHasStockPair(TABLE_ETF_PAIR, $strStockId))		return;
 	else if (_deleteHasStockHistory($strStockId))					return;
+	else if (($iTotal = SqlCountStockGroupItemByStockId($strStockId)) > 0)
+	{
+		DebugString('Stock group item existed: '.strval($iTotal));
+		return;
+	}
 	else if (($iTotal = SqlCountStockCalibration($strStockId)) > 0)
 	{
 		DebugString('Stock calibration existed: '.strval($iTotal));
@@ -71,16 +71,6 @@ function _deleteStockById($strStockId)
 	else if (($iTotal = SqlCountFundPurchaseByStockId($strStockId)) > 0)
 	{
 		DebugString('Fund purchase existed: '.strval($iTotal));
-		return;
-	}
-	else if (SqlGetStockPair(TABLE_ADRH_STOCK, $strStockId) || SqlGetStockPair(TABLE_AH_STOCK, $strStockId))
-	{
-		DebugString('H Stock pair existed');
-		return;
-	}
-	else if (SqlGetStockPair(TABLE_ETF_PAIR, $strStockId))
-	{
-		DebugString('ETF pair existed');
 		return;
 	}
 	else if (SqlGetForexHistoryNow($strStockId) || SqlGetFundHistoryNow($strStockId))
