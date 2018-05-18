@@ -12,12 +12,22 @@ class CsvFile
         $this->file = false;
     }
     
-    function WriteArray($ar)
+    function GetPathName()
+    {
+    	return $this->strPathName;
+    }
+    
+    function _open($strMode)
     {
     	if ($this->file == false)
     	{
-    		$this->file = fopen($this->strPathName, 'w');
+    		$this->file = fopen($this->strPathName, $strMode);
     	}
+    }
+    
+    function WriteArray($ar)
+    {
+    	$this->_open('w');
     	
     	$strLine = '';
     	foreach ($ar as $str)
@@ -33,12 +43,25 @@ class CsvFile
     	if ($this->file)
     	{
     		fclose($this->file);
+    		$this->file = false;
     	}
     }
     
-    function GetPathName()
+    function ReadColumn($iColumn)
     {
-    	return $this->strPathName;
+    	$ar = array();
+    	$this->_open('r');
+    	while (!feof($this->file))
+    	{	
+    		$strLine = fgets($this->file);
+    		$arWord = explode(',', $strLine);
+    		if (count($arWord) > $iColumn)
+    		{
+    			$ar[$arWord[0]] = floatval($arWord[$iColumn]);
+    		}
+        }
+    	$this->Close();
+    	return $ar;
     }
 }
 

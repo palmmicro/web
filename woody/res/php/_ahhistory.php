@@ -3,6 +3,24 @@ require_once('_stock.php');
 require_once('/php/csvfile.php');
 require_once('/php/imagefile.php');
 
+function EchoPageImage($strPathName, $strPageTitle)
+{
+	$strRand = strval(rand());
+	echo <<< END
+	<p>
+	<img src=$strPathName?$strRand alt="$strPageTitle automatical generated image" />
+    </p>
+END;
+}
+
+function _echoAhHistoryGraph($csv, $bChinese)
+{
+    $jpg = new PageImageFile();
+    $jpg->DrawDateArray($csv->ReadColumn(4));
+    $jpg->SaveFile();
+    EchoPageImage($jpg->GetPathName(), UrlGetTitle());
+}
+
 function _echoAhHistoryItem($csv, $history, $sql_pair, $sql_hkcny, $fRatio)
 {
 	$strDate = $history['date'];
@@ -78,7 +96,6 @@ function _echoAhHistoryParagraph($strSymbol, $strStockId, $strPairId, $fRatio, $
     $strNavLink = _GetStockNavLink($strSymbol, $sql->Count(), $iStart, $iNum, $bChinese);
  
     $csv = new PageCsvFile();
-//    $csv->WriteArray($arColumn);
     $strFileLink = GetFileLink($csv->GetPathName());
     
     EchoParagraphBegin($strNavLink.' '.$strFileLink.' '.$strUpdateLink);
@@ -98,24 +115,8 @@ END;
     $csv->Close();
     EchoTableEnd();
     EchoParagraphEnd();
-}
 
-function EchoPageImage($strPathName, $strPageTitle)
-{
-	$strRand = strval(rand());
-	echo <<< END
-	<p>
-	<img src=$strPathName?$strRand alt="$strPageTitle automatical generated image" />
-    </p>
-END;
-}
-
-function _echoAhHistoryGraph($bChinese)
-{
-    $jpg = new PageImageFile();
-    $jpg->Text(20, 115, 410, 'Hello, world!');
-    $jpg->SaveFile();
-    EchoPageImage($jpg->GetPathName(), UrlGetTitle());
+    _echoAhHistoryGraph($csv, $bChinese);
 }
 
 function EchoAhHistory($bChinese)
@@ -130,7 +131,6 @@ function EchoAhHistory($bChinese)
     			$iStart = UrlGetQueryInt('start', 0);
     			$iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
     			_echoAhHistoryParagraph($strSymbol, $strStockId, $strPairId, $sql->GetRatio(), $iStart, $iNum, $bChinese);
-//    			_echoAhHistoryGraph($bChinese);
     		}
     	}
     }

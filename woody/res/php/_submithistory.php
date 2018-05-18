@@ -52,7 +52,7 @@ function _isInvalidDate($strYMD)
     if ($ymd->IsWeekend())      return true;
     if ($ymd->IsFuture())       return true;
     
-    $ymd_oldest = new YMDString('2000-01-01');
+    $ymd_oldest = new YMDString('2014-01-01');
     if ($ymd->GetTick() < $ymd_oldest->GetTick())                 return true;
     return false;
 }
