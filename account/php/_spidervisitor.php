@@ -58,11 +58,9 @@ function _echoSpiderVisitorParagraph($strIp, $iStart, $iNum, $bChinese)
     }
     
     $strNavLink = _getNavSpiderVisitorLink($strIp, $iStart, $iNum, $bChinese);
-    $strAllLink = EchoVisitorParagraphBegin($arColumn, $strNavLink, $strIp, $bChinese);
+    EchoVisitorParagraphBegin($arColumn, $strNavLink, $strIp, $bChinese);
     _echoSpiderVisitorData($strIp, $iStart, $iNum, $bChinese);
-    EchoTableEnd();
-    EchoParagraphEnd();
-    return $strAllLink;
+    EchoTableParagraphEnd($strNavLink);
 }
 
 function EchoSpiderVisitor($bChinese)
@@ -80,9 +78,8 @@ function EchoSpiderVisitor($bChinese)
     
     $iStart = UrlGetQueryInt('start', 0);
     $iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
-    $strAllLink = _echoSpiderVisitorParagraph($strIp, $iStart, $iNum, $bChinese);
-    
-    EchoVisitorCommonLinks($strAllLink, $bChinese);
+    _echoSpiderVisitorParagraph($strIp, $iStart, $iNum, $bChinese);
+    EchoVisitorCommonLinks($bChinese);
 }
 
     AcctAuth();

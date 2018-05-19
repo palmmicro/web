@@ -281,4 +281,18 @@ function UrlIsEnglish()
     return (UrlGetType() == URL_PHP) ? true : false;
 }
 
+function UrlGetUniqueString()
+{
+	$str = UrlGetTitle();
+    if ($strQuery = UrlGetQueryString())
+    {
+    	$ar = explode('&', $strQuery);
+    	foreach ($ar as $strItem)
+    	{
+    		$str .= str_replace('=', '', $strItem);
+    	}
+    }
+	return $str;
+}
+
 ?>

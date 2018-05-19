@@ -49,6 +49,11 @@ function EchoTableEnd()
     echo '</TABLE>';
 }
 
+function EchoTableParagraphEnd($str)
+{
+    echo '</TABLE>'.$str.'</p>';
+}
+
 function EchoNewLine()
 {
     echo HTML_NEW_LINE;

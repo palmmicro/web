@@ -3,22 +3,23 @@ require_once('_stock.php');
 require_once('/php/csvfile.php');
 require_once('/php/imagefile.php');
 
-function EchoPageImage($strPathName, $strPageTitle)
+function EchoPageImage($str, $strPathName, $strPageTitle)
 {
 	$strRand = strval(rand());
 	echo <<< END
-	<p>
-	<img src=$strPathName?$strRand alt="$strPageTitle automatical generated image" />
+	<p>$str
+	<br /><img src=$strPathName?$strRand alt="$strPageTitle automatical generated image" />
     </p>
 END;
 }
 
-function _echoAhHistoryGraph($csv, $bChinese)
+function _echoAhHistoryGraph($bChinese)
 {
+   	$csv = new PageCsvFile();
     $jpg = new PageImageFile();
     $jpg->DrawDateArray($csv->ReadColumn(4));
     $jpg->SaveFile();
-    EchoPageImage($jpg->GetPathName(), UrlGetTitle());
+    EchoPageImage(GetFileLink($csv->GetPathName()), $jpg->GetPathName(), UrlGetTitle());
 }
 
 function _echoAhHistoryItem($csv, $history, $sql_pair, $sql_hkcny, $fRatio)
@@ -61,16 +62,18 @@ function _echoAhHistoryItem($csv, $history, $sql_pair, $sql_hkcny, $fRatio)
 END;
 }
 
-function _echoAhHistoryData($csv, $sql, $strPairId, $fRatio, $iStart, $iNum)
+function _echoAhHistoryData($sql, $strPairId, $fRatio, $iStart, $iNum)
 {
-	$sql_hkcny = new SqlHkcnyHistory();
-	$sql_pair = new SqlStockHistory($strPairId);
     if ($result = $sql->GetAll($iStart, $iNum)) 
     {
+    	$sql_hkcny = new SqlHkcnyHistory();
+    	$sql_pair = new SqlStockHistory($strPairId);
+     	$csv = new PageCsvFile();
         while ($history = mysql_fetch_assoc($result)) 
         {
             _echoAhHistoryItem($csv, $history, $sql_pair, $sql_hkcny, $fRatio);
         }
+        $csv->Close();
         @mysql_free_result($result);
     }
 }
@@ -95,10 +98,7 @@ function _echoAhHistoryParagraph($strSymbol, $strStockId, $strPairId, $fRatio, $
 	$sql = new SqlStockHistory($strStockId);
     $strNavLink = _GetStockNavLink($strSymbol, $sql->Count(), $iStart, $iNum, $bChinese);
  
-    $csv = new PageCsvFile();
-    $strFileLink = GetFileLink($csv->GetPathName());
-    
-    EchoParagraphBegin($strNavLink.' '.$strFileLink.' '.$strUpdateLink);
+    EchoParagraphBegin($strNavLink.' '.$strUpdateLink);
     echo <<<END
     <TABLE borderColor=#cccccc cellSpacing=0 width=530 border=1 class="text" id="ahhistory">
     <tr>
@@ -111,12 +111,10 @@ function _echoAhHistoryParagraph($strSymbol, $strStockId, $strPairId, $fRatio, $
     </tr>
 END;
    
-    _echoAhHistoryData($csv, $sql, $strPairId, $fRatio, $iStart, $iNum);
-    $csv->Close();
-    EchoTableEnd();
-    EchoParagraphEnd();
+    _echoAhHistoryData($sql, $strPairId, $fRatio, $iStart, $iNum);
+    EchoTableParagraphEnd($strNavLink);
 
-    _echoAhHistoryGraph($csv, $bChinese);
+    _echoAhHistoryGraph($bChinese);
 }
 
 function EchoAhHistory($bChinese)

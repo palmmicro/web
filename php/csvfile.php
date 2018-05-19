@@ -69,7 +69,7 @@ class PageCsvFile extends CsvFile
 {
     function PageCsvFile() 
     {
-        parent::CsvFile(DebugGetCsvName(UrlGetTitle()));
+        parent::CsvFile(DebugGetCsvName(UrlGetUniqueString()));
     }
 }
 

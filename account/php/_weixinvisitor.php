@@ -60,11 +60,9 @@ function _echoWeixinVisitorParagraph($strOpenId, $iStart, $iNum, $bChinese)
     }
     
     $strNavLink = _getNavWeixinVisitorLink($strOpenId, $iStart, $iNum, $bChinese);
-    $strAllLink = EchoVisitorParagraphBegin($arColumn, $strNavLink, $strOpenId, $bChinese);
+    EchoVisitorParagraphBegin($arColumn, $strNavLink, $strOpenId, $bChinese);
     _echoWeixinVisitorData($strOpenId, $iStart, $iNum, $bChinese);
-    EchoTableEnd();
-    EchoParagraphEnd();
-    return $strAllLink;
+    EchoTableParagraphEnd($strNavLink);
 }
 
 function EchoWeixinVisitor($bChinese)
@@ -72,7 +70,6 @@ function EchoWeixinVisitor($bChinese)
     $strOpenId = UrlGetQueryValue('id');
     if ($strOpenId)
     {
-//        $str = IpLookupGetString($strIp, '<br />', $bChinese);
         $str = $strOpenId;
     }
     else
@@ -83,9 +80,8 @@ function EchoWeixinVisitor($bChinese)
     
     $iStart = UrlGetQueryInt('start', 0);
     $iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
-    $strAllLink = _echoWeixinVisitorParagraph($strOpenId, $iStart, $iNum, $bChinese);
-    
-    EchoVisitorCommonLinks($strAllLink, $bChinese);
+    _echoWeixinVisitorParagraph($strOpenId, $iStart, $iNum, $bChinese);
+    EchoVisitorCommonLinks($bChinese);
 }
 
     AcctAuth();

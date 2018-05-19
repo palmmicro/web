@@ -114,8 +114,15 @@ function GetNavLink($strQueryId, $iTotal, $iStart, $iNum, $bChinese)
     $str = ($bChinese ? '总数' : 'Total').': ';	//.strval($iTotal).' ';
     if ($iTotal <= 0)		return $str.$strTotal;
 
-    $strQuery = _getNavLinkQuery($strQueryId, 0, $iTotal);
-    $str .= CopyPhpLink($strQuery, $strTotal, $strTotal, $bChinese).' ';
+    if ($iTotal < 2000)
+    {
+    	$strQuery = _getNavLinkQuery($strQueryId, 0, $iTotal);
+    	$str .= CopyPhpLink($strQuery, $strTotal, $strTotal, $bChinese).' ';
+    }
+    else
+    {
+    	$str .= $strTotal.' ';
+    }
     
     $iLast = $iStart + $iNum;
     if ($iLast > $iTotal)   $iLast = $iTotal;

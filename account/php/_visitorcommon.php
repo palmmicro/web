@@ -51,8 +51,7 @@ function EchoVisitorParagraphBegin($arColumn, $strNavLink, $strSrc, $bChinese)
 {
     $strOrigLink = _getOrigVisitorLink($bChinese);
     $strDeleteLink = _getDeleteVisitorLink($strSrc, $bChinese);
-    $strAllLink = $strNavLink.' '.$strOrigLink.' '.$strDeleteLink;
-    EchoParagraphBegin($strAllLink);
+    EchoParagraphBegin($strNavLink.' '.$strOrigLink.' '.$strDeleteLink);
     
     echo <<<END
     <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="visitor">
@@ -63,8 +62,6 @@ function EchoVisitorParagraphBegin($arColumn, $strNavLink, $strSrc, $bChinese)
         <td class=c1 width=80 align=center>{$arColumn[3]}</td>
     </tr>
 END;
-
-    return $strAllLink;
 }
 
 function GetVisitorSrcDisplay($strSrc)
@@ -105,10 +102,8 @@ function _getCategoryArray($bChinese)
     }
 }
 
-function EchoVisitorCommonLinks($strAllLink, $bChinese)
+function EchoVisitorCommonLinks($bChinese)
 {
-    EchoParagraph($strAllLink);     // Put same links below for easy access
-    
     $arCategory = _getCategoryArray($bChinese);
     $str = GetCategoryLinks('/account/', $arCategory, $bChinese);
     EchoParagraph($str);

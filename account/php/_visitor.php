@@ -65,11 +65,9 @@ function _echoBlogVisitorParagraph($strIp, $iStart, $iNum, $bChinese)
     }
     
     $strNavLink = _getNavVisitorLink($strIp, $iStart, $iNum, $bChinese);
-    $strAllLink = EchoVisitorParagraphBegin($arColumn, $strNavLink, $strIp, $bChinese);
+    EchoVisitorParagraphBegin($arColumn, $strNavLink, $strIp, $bChinese);
     _echoBlogVisitorData($strIp, $iStart, $iNum, $bChinese);
-    EchoTableEnd();
-    EchoParagraphEnd();
-    return $strAllLink;
+    EchoTableParagraphEnd($strNavLink);
 }
 
 function EchoBlogVisitor($bChinese)
@@ -89,9 +87,8 @@ function EchoBlogVisitor($bChinese)
     
     $iStart = UrlGetQueryInt('start', 0);
     $iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
-    $strAllLink = _echoBlogVisitorParagraph($strIp, $iStart, $iNum, $bChinese);
-    
-    EchoVisitorCommonLinks($strAllLink, $bChinese);
+    _echoBlogVisitorParagraph($strIp, $iStart, $iNum, $bChinese);
+    EchoVisitorCommonLinks($bChinese);
 }
 
     AcctAuth();

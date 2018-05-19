@@ -108,7 +108,7 @@ class PageImageFile extends ImageFile
 {
     function PageImageFile() 
     {
-        parent::ImageFile(DebugGetImageName(UrlGetTitle()), 640, 480);
+        parent::ImageFile(DebugGetImageName(UrlGetUniqueString()), 640, 480);
     }
 }
 
