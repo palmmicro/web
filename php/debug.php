@@ -133,6 +133,12 @@ function DebugGetCsvName($str)
     return "$strPath/$str.csv";
 }
 
+function DebugGetFontName($str)
+{
+    $strPath = _getDebugPath('font');
+    return "$strPath/$str.ttf";
+}
+
 function DebugGetChinaMoneyFile()
 {
     $strPath = _getDebugPath('chinamoney');

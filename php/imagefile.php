@@ -7,8 +7,6 @@ class ImageFile
     var $iWidth;
     var $iHeight;
     
-    var $iTextHeight;
-    
     var $image;
     
     var $textcolor;
@@ -16,25 +14,45 @@ class ImageFile
     var $pixelcolor;
     
     var $iFont;
+    var $fFontSize;
+    var $fFontAngle;
+    var $strFontFile;
     
     function ImageFile($strPathName, $iWidth, $iHeight) 
     {
         $this->strPathName = $strPathName;
         $this->iWidth = $iWidth;
         $this->iHeight = $iHeight;
-        
-        $this->iTextHeight = 20;
-        
         $this->image = imagecreatetruecolor($iWidth, $iHeight);
-        $this->iFont = 20;
+        
         $this->textcolor = imagecolorallocate($this->image, 255, 255, 255);
         $this->linecolor = imagecolorallocate($this->image, 255, 0, 0);
         $this->pixelcolor = imagecolorallocate($this->image, 0, 255, 0);
+        
+        $this->iFont = 5;
+        $this->fFontSize = 15.0;
+        $this->fFontAngle = 0.0;
+        $this->strFontFile = DebugGetFontName('simkai');
     }
     
     function Text($x, $y, $strText)
     {
-        imagestring($this->image, $this->iFont, $x, $y, $strText, $this->textcolor);
+//        imagestring($this->image, $this->iFont, $x, $y, $strText, $this->textcolor);
+		$ar = imagettfbbox($this->fFontSize, $this->fFontAngle, $this->strFontFile, $strText);
+/*		DebugString($strText);
+		foreach ($ar as $iVal)
+		{
+			DebugVal($iVal);
+		}*/
+		$iMin = min($ar[0], $ar[6]);
+		if ($x + $iMin < 0)					$x = 1 - $iMin;
+		$iMax = max($ar[2], $ar[4]);
+		if ($x + $iMax > $this->iWidth)		$x = $this->iWidth - $iMax - 2;
+		$iMin = min($ar[5], $ar[7]);
+		if ($y + $iMin < 0)					$y = 1 - $iMin;
+		$iMax = max($ar[3], $ar[1]);
+		if ($y + $iMax > $this->iHeight)		$y = $this->iHeight - $iMax - 2;
+		return imagettftext($this->image, $this->fFontSize, $this->fFontAngle, $x, $y, $this->textcolor, $this->strFontFile, $strText);
     }
     
     function Line($x1, $y1, $x, $y)
@@ -47,46 +65,43 @@ class ImageFile
     	imagesetpixel($this->image, $x, $y, $this->pixelcolor);
     }
     
-    function _textFromDateArray($x, $y, $fVal, $ar)
-    {
-    	$this->Text($x, $y, strval($fVal).' '.array_search($fVal, $ar));
-    }
-    
     function DrawDateArray($ar)
     {
     	ksort($ar);
     	reset($ar);
-    	$iBottom = $this->iHeight - $this->iTextHeight;
+    	$iBottom = $this->iHeight;
     	$this->Text(0, $iBottom, key($ar));
     	end($ar);
-    	$this->Text($this->iWidth - 100, $iBottom, key($ar));
+    	$arPos = $this->Text($this->iWidth, $iBottom, key($ar));
+    	$iBottom = min($arPos[5], $arPos[7]);
+    	$iTextHeight = $this->iHeight - $iBottom + 1;
     	
     	$fMax = max($ar);
-    	$this->_textFromDateArray(0, 0, $fMax, $ar);
     	$fMin = min($ar);
-    	$iBottom -= $this->iTextHeight;
-    	$this->_textFromDateArray(0, $iBottom, $fMin, $ar);
+    	$iBottom -= $iTextHeight;
     	
-//    	reset($ar);
     	$iCount = count($ar);
     	$iCur = 0;
+    	$iMaxPos = false;
+    	$iMinPos = false;
     	foreach ($ar as $strDate => $fVal)
     	{
-    		$x = intval($this->iWidth * $iCur / $iCount);
-    		$y = intval(($iBottom - $this->iTextHeight) * ($fVal - $fMax) / ($fMin - $fMax)) + $this->iTextHeight;
-/*    		if ($iCount > $this->iWidth)
+    		$x = intval($this->iWidth * $iCur / $iCount);                                                                 
+    		$y = intval(($iBottom - $iTextHeight) * ($fVal - $fMax) / ($fMin - $fMax)) + $iTextHeight;
+   			if ($iMaxPos == false && abs($fVal - $fMax) < 0.000001)
     		{
-    			$this->Pixel($x, $y);
+   				$this->Text($x, 0, strval($fMax).' '.$strDate);
+   				$iMaxPos = $iCur;
     		}
-    		else
-    		{*/
-    			if ($iCur != 0)
-    			{
-    				$this->Line($x1, $y1, $x, $y);
-    			}
-    			$x1 = $x;
-    			$y1 = $y;
-//    		}
+    		if ($iMinPos == false && abs($fVal - $fMin) < 0.000001)
+    		{
+   				$this->Text($x, $iBottom, strval($fMin).' '.$strDate);
+   				$iMinPos = $iCur;
+    		}
+    		
+   			if ($iCur != 0)	$this->Line($x1, $y1, $x, $y);
+   			$x1 = $x;
+   			$y1 = $y;
     		$iCur ++;
     	}
     }

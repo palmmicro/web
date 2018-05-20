@@ -39,10 +39,9 @@ function _echoAhHistoryItem($csv, $history, $sql_pair, $sql_hkcny, $fRatio)
 		if ($fHKCNY)
 		{
 			$fAh = $fClose / HShareEstToCny($fPairClose, $fRatio, $fHKCNY);
-			$fHa = 1.0 / $fAh;
 			$strAH = GetRatioDisplay($fAh);
-			$strHA = GetRatioDisplay($fHa);
-			$csv->WriteArray(array($strDate, $strClose, $strPairClose, $strHKCNY, round_display($fAh), round_display($fHa)));
+			$strHA = GetRatioDisplay(1.0 / $fAh);
+			$csv->WriteArray(array($strDate, $strClose, $strPairClose, $strHKCNY, round_display($fAh)));
 		}
 	}
 	else
