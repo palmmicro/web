@@ -95,8 +95,7 @@ function _echoGroupPortfolioParagraph($group, $bChinese)
                 _EchoPortfolioItem($group->strGroupId, $trans, $bChinese);
             }
 		}
-		EchoTableEnd();    
-		EchoParagraphEnd();
+		EchoTableParagraphEnd('');
 	}
 }
 
@@ -238,8 +237,7 @@ function EchoMoneyParagraph($group, $fUSDCNY, $fHKDCNY, $bChinese)
     EchoParagraphBegin($str);
     _EchoMoneyTableBegin($bChinese);
     _EchoMoneyGroupData($group, $group->strName, $fUSDCNY, $fHKDCNY);
-    EchoTableEnd();
-    EchoParagraphEnd();
+    EchoTableParagraphEnd('');
 }
 
 // ****************************** Transaction Paragraph *******************************************************

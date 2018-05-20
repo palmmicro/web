@@ -103,8 +103,7 @@ function EchoStockGroupParagraph($bChinese)
 END;
 
     _echoStockGroupTableData($bChinese);
-    EchoTableEnd();
-    EchoParagraphEnd();
+    EchoTableParagraphEnd('');
 }
 
 ?>

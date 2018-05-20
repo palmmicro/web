@@ -45,7 +45,6 @@ function _echoStockHistoryParagraph($strSymbol, $strStockId, $iStart, $iNum, $bA
 	$sql = new SqlStockHistory($strStockId);
     $strNavLink = _GetStockNavLink($strSymbol, $sql->Count(), $iStart, $iNum, $bChinese);
     $strSymbolLink = GetMyStockLink($strSymbol, $bChinese);
- 
     EchoParagraphBegin($strSymbolLink.' '.$strNavLink.' '.$strUpdateLink);
     echo <<<END
     <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="history">
@@ -61,8 +60,7 @@ function _echoStockHistoryParagraph($strSymbol, $strStockId, $iStart, $iNum, $bA
 END;
    
     _echoStockHistoryData($sql, $iStart, $iNum);
-    EchoTableEnd();
-    EchoParagraphEnd();
+    EchoTableParagraphEnd($strNavLink);
 }
 
 function EchoStockHistory($bChinese)
