@@ -65,14 +65,19 @@ class ImageFile
     	imagesetpixel($this->image, $x, $y, $this->pixelcolor);
     }
     
+    function _textDateVal($x, $y, $strDate, $fVal)
+    {
+		return $this->Text($x, $y, $strDate.' '.strval($fVal));
+    }
+    
     function DrawDateArray($ar)
     {
     	ksort($ar);
     	reset($ar);
     	$iBottom = $this->iHeight;
-    	$this->Text(0, $iBottom, key($ar));
+    	$this->_textDateVal(0, $iBottom, key($ar), current($ar));
     	end($ar);
-    	$arPos = $this->Text($this->iWidth, $iBottom, key($ar));
+    	$arPos = $this->_textDateVal($this->iWidth, $iBottom, key($ar), current($ar));
     	$iBottom = min($arPos[5], $arPos[7]);
     	$iTextHeight = $this->iHeight - $iBottom + 1;
     	
@@ -90,12 +95,12 @@ class ImageFile
     		$y = intval(($iBottom - $iTextHeight) * ($fVal - $fMax) / ($fMin - $fMax)) + $iTextHeight;
    			if ($iMaxPos == false && abs($fVal - $fMax) < 0.000001)
     		{
-   				$this->Text($x, 0, strval($fMax).' '.$strDate);
+   				$this->_textDateVal($x, 0, $strDate, $fVal);
    				$iMaxPos = $iCur;
     		}
     		if ($iMinPos == false && abs($fVal - $fMin) < 0.000001)
     		{
-   				$this->Text($x, $iBottom, strval($fMin).' '.$strDate);
+   				$this->_textDateVal($x, $iBottom, $strDate, $fVal);
    				$iMinPos = $iCur;
     		}
     		
