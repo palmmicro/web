@@ -121,7 +121,7 @@ function _echoLofPredictionParagraph($fund, $bChinese)
                     else if (($fNetValue + MIN_FLOAT_VAL) < $fClose)     $netvalue_lower->AddCompare($arEtfClose);        
                     else                                                     $netvalue_same->AddCompare($arEtfClose);
                     
-                    EchoFundHistoryTableItem($lof_ref, $history, $record, $arEtfClose);
+                    EchoFundHistoryTableItem($lof_ref, false, $history, $record, $arEtfClose);
                 }
             }
         }

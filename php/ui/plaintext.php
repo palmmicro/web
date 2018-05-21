@@ -39,4 +39,15 @@ function EchoUrlSymbol()
     }
 }
 
+function EchoPageImage($strName, $strCompare, $strCsv, $strPathName)
+{
+	$strRand = strval(rand());
+	$strCsvLink = GetFileLink($strCsv);
+	echo <<< END
+	<p><font color=red>$strName</font> <font color=green>$strCompare</font> $strCsvLink
+	<br /><img src=$strPathName?$strRand alt="$strRand automatical generated image, do NOT link" />
+    </p>
+END;
+}
+
 ?>

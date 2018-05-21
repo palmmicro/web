@@ -3,23 +3,13 @@ require_once('_stock.php');
 require_once('/php/csvfile.php');
 require_once('/php/imagefile.php');
 
-function EchoPageImage($str, $strPathName, $strPageTitle)
-{
-	$strRand = strval(rand());
-	echo <<< END
-	<p>$str
-	<br /><img src=$strPathName?$strRand alt="$strPageTitle automatical generated image" />
-    </p>
-END;
-}
-
-function _echoAhHistoryGraph($bChinese)
+function _echoAhHistoryGraph($strSymbol, $bChinese)
 {
    	$csv = new PageCsvFile();
     $jpg = new PageImageFile();
-    $jpg->DrawDateArray($csv->ReadColumn(4));
-    $jpg->SaveFile();
-    EchoPageImage(GetFileLink($csv->GetPathName()), $jpg->GetPathName(), UrlGetTitle());
+    $jpg->DrawDateArray($csv->ReadColumn(4), $csv->ReadColumn(1));
+	$arColumn = GetAhCompareTableColumn($bChinese);
+    EchoPageImage($arColumn[1], $strSymbol, $csv->GetPathName(), $jpg->GetPathName());
 }
 
 function _echoAhHistoryItem($csv, $history, $sql_pair, $sql_hkcny, $fRatio)
@@ -113,7 +103,7 @@ END;
     _echoAhHistoryData($sql, $strPairId, $fRatio, $iStart, $iNum);
     EchoTableParagraphEnd($strNavLink);
 
-    _echoAhHistoryGraph($bChinese);
+    _echoAhHistoryGraph($strSymbol, $bChinese);
 }
 
 function EchoAhHistory($bChinese)

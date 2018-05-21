@@ -17,8 +17,9 @@ function GetDailyCloseByDate($ref, $strDate)
     return false;
 }
 
-function EchoFundHistoryTableItem($ref, $history, $fund, $arEtfClose)
+function EchoFundHistoryTableItem($ref, $csv, $history, $fund, $arEtfClose)
 {
+	$strDate = $history['date'];
     $strFundClose = $history['close'];
     $strNetValue = $fund['netvalue'];
     $strEstValue = $fund['estimated'];
@@ -28,6 +29,10 @@ function EchoFundHistoryTableItem($ref, $history, $fund, $arEtfClose)
     $fFundClose = floatval($strFundClose);
     $strNetValueDisplay = StockGetPriceDisplay($fNetValue, $fFundClose);
     $strPercentage = StockGetPercentageDisplay($fFundClose, $fNetValue);
+    if ($csv && FloatNotZero($fNetValue))
+    {
+    	$csv->WriteArray(array($strDate, $strNetValue, strval(StockGetPercentage($fFundClose, $fNetValue))));
+    }
     
     $strEtfClose = ''; 
     $strEtfChange = '';
@@ -60,7 +65,7 @@ function EchoFundHistoryTableItem($ref, $history, $fund, $arEtfClose)
     
     echo <<<END
     <tr>
-        <td class=c1>{$history['date']}</td>
+        <td class=c1>$strDate</td>
         <td class=c1>$strFundClose</td>
         <td class=c1>$strNetValueDisplay</td>
         <td class=c1>$strPercentage</td>
@@ -82,7 +87,7 @@ function GetNextTradingDayYMD($strYMD)
     return $ymd_next->GetYMD();
 }
 
-function _echoHistoryTableData($fund, $etf_ref, $iStart, $iNum)
+function _echoHistoryTableData($fund, $csv, $etf_ref, $iStart, $iNum)
 {
 	$bSameDayNetValue	 = true;
 	if ($etf_ref)
@@ -107,7 +112,7 @@ function _echoHistoryTableData($fund, $etf_ref, $iStart, $iNum)
             if ($history = SqlGetStockHistoryByDate($strStockId, $strDate))
             {
             	$arEtfClose = GetDailyCloseByDate($etf_ref, $record['date']);
-                EchoFundHistoryTableItem($ref, $history, $record, $arEtfClose);
+                EchoFundHistoryTableItem($ref, $csv, $history, $record, $arEtfClose);
             }
         }
         @mysql_free_result($result);
@@ -160,7 +165,7 @@ function FundHistoryTableGetColumn($etf_ref, $bChinese)
     return $arColumn;
 }
 
-function EchoFundHistoryFullParagraph($fund, $iStart, $iNum, $bChinese)
+function EchoFundHistoryFullParagraph($fund, $csv, $iStart, $iNum, $bChinese)
 {
 	$etf_ref = $fund->etf_ref;
     $arColumn = FundHistoryTableGetColumn($etf_ref, $bChinese);
@@ -190,13 +195,13 @@ function EchoFundHistoryFullParagraph($fund, $iStart, $iNum, $bChinese)
     
     EchoParagraphBegin($str.' '.$strNavLink);
     EchoFundHistoryTableBegin($arColumn);
-    _echoHistoryTableData($fund, $etf_ref, $iStart, $iNum);
+    _echoHistoryTableData($fund, $csv, $etf_ref, $iStart, $iNum);
     EchoTableParagraphEnd($strNavLink);
 }
 
 function EchoFundHistoryParagraph($fund, $bChinese)
 {
-	EchoFundHistoryFullParagraph($fund, 0, TABLE_COMMON_DISPLAY, $bChinese);
+	EchoFundHistoryFullParagraph($fund, false, 0, TABLE_COMMON_DISPLAY, $bChinese);
 }
 
 ?>

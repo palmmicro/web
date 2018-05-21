@@ -1,6 +1,17 @@
 <?php
 require_once('_stock.php');
+require_once('/php/csvfile.php');
+require_once('/php/imagefile.php');
 require_once('/php/ui/fundhistoryparagraph.php');
+
+function _echoNetValueHistoryGraph($strSymbol, $bChinese)
+{
+   	$csv = new PageCsvFile();
+    $jpg = new PageImageFile();
+    $jpg->DrawDateArray($csv->ReadColumn(2), $csv->ReadColumn(1));
+	$strPremium = $bChinese ? '溢价' : 'Premium';
+    EchoPageImage($strPremium, $strSymbol, $csv->GetPathName(), $jpg->GetPathName());
+}
 
 function _echoNetValueHistory($strSymbol, $iStart, $iNum, $bChinese)
 {
@@ -13,7 +24,10 @@ function _echoNetValueHistory($strSymbol, $iStart, $iNum, $bChinese)
     
     StockPrefetchData(array($strSymbol));
     $fund = StockGetFundReference($strSymbol);
-    EchoFundHistoryFullParagraph($fund, $iStart, $iNum, $bChinese);
+   	$csv = new PageCsvFile();
+    EchoFundHistoryFullParagraph($fund, $csv, $iStart, $iNum, $bChinese);
+    
+    _echoNetValueHistoryGraph($strSymbol, $bChinese);
 }
 
 function EchoNetValueHistory($bChinese)
