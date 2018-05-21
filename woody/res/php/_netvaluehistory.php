@@ -4,17 +4,12 @@ require_once('/php/ui/fundhistoryparagraph.php');
 
 function _echoNetValueHistory($strSymbol, $iStart, $iNum, $bChinese)
 {
+    $str = _GetReturnSymbolGroupLink($strSymbol, $bChinese); 
     if (in_arrayLof($strSymbol))
     {
-    	$strThanousLaw = BuildPhpLink(STOCK_PATH.'thanouslaw', 'symbol='.$strSymbol, '测试小心愿定律', 'Test Thanous Law', $bChinese);
-    	EchoParagraph($strThanousLaw);
+    	$str .= ' '.BuildPhpLink(STOCK_PATH.'thanouslaw', 'symbol='.$strSymbol, '测试小心愿定律', 'Test Thanous Law', $bChinese);
     }
-    
-    $strStockId = SqlGetStockId($strSymbol);
-    $iTotal = SqlCountFundHistory($strStockId);
-    $strNavLink = _GetStockNavLink($strSymbol, $iTotal, $iStart, $iNum, $bChinese);
-    $strGroupLink = _GetReturnSymbolGroupLink($strSymbol, $bChinese); 
-    EchoParagraph($strGroupLink.$strNavLink);
+   	EchoParagraph($str);
     
     StockPrefetchData(array($strSymbol));
     $fund = StockGetFundReference($strSymbol);

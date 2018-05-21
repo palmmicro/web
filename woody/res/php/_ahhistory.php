@@ -95,7 +95,7 @@ function _echoAhHistoryParagraph($strSymbol, $strStockId, $strPairId, $fRatio, $
     }
 
 	$sql = new SqlStockHistory($strStockId);
-    $strNavLink = _GetStockNavLink($strSymbol, $sql->Count(), $iStart, $iNum, $bChinese);
+    $strNavLink = StockGetNavLink($strSymbol, $sql->Count(), $iStart, $iNum, $bChinese);
  
     EchoParagraphBegin($strNavLink.' '.$strUpdateLink);
     echo <<<END

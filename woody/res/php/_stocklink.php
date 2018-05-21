@@ -29,11 +29,6 @@ function _GetReturnSymbolGroupLink($strSymbol, $bChinese)
     return _getReturnGroupText($strLink, $bChinese);
 }
 
-function _GetStockNavLink($strSymbol, $iTotal, $iStart, $iNum, $bChinese)
-{
-    return GetNavLink('symbol='.$strSymbol, $iTotal, $iStart, $iNum, $bChinese);
-}
-
 function _GetAdjustLink($strSymbol, $strQuery, $bChinese)
 {
     return BuildPhpLink(STOCK_PATH.'editstockgroup', $strQuery, '校准', 'Adjust', $bChinese).' '.$strSymbol;

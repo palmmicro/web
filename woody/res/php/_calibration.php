@@ -9,7 +9,7 @@ function _echoCalibration($strSymbol, $iStart, $iNum, $bChinese)
     $strSymbolLink = _GetReturnSymbolGroupLink($strSymbol, $bChinese);
     $sql = new SqlEtfCalibration($strStockId);
     $iTotal = $sql->Count();
-    $strNavLink = _GetStockNavLink($strSymbol, $iTotal, $iStart, $iNum, $bChinese);
+    $strNavLink = StockGetNavLink($strSymbol, $iTotal, $iStart, $iNum, $bChinese);
     EchoParagraph($strSymbolLink.$strNavLink);
     EchoCalibrationFullParagraph($strSymbol, $iStart, $iNum, $bChinese);
 }

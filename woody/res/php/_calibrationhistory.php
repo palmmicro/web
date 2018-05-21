@@ -60,7 +60,7 @@ function _echoCalibrationHistoryParagraph($strSymbol, $iStart, $iNum, $bChinese)
     
     $strSymbolLink = _GetReturnSymbolGroupLink($strSymbol, $bChinese);
     $iTotal = SqlCountStockCalibration($strStockId);
-    $strNavLink = _GetStockNavLink($strSymbol, $iTotal, $iStart, $iNum, $bChinese);
+    $strNavLink = StockGetNavLink($strSymbol, $iTotal, $iStart, $iNum, $bChinese);
     
     EchoParagraphBegin($strSymbolLink.$strNavLink);
     echo <<<END

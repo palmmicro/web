@@ -270,4 +270,9 @@ function SelectGroupInternalLink($strGroupId, $bChinese)
     return $strLink; 
 }
 
+function StockGetNavLink($strSymbol, $iTotal, $iStart, $iNum, $bChinese)
+{
+    return GetNavLink('symbol='.$strSymbol, $iTotal, $iStart, $iNum, $bChinese);
+}
+
 ?>

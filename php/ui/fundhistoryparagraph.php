@@ -178,15 +178,20 @@ function EchoFundHistoryFullParagraph($fund, $iStart, $iNum, $bChinese)
     if (($iStart == 0) && ($iNum == TABLE_COMMON_DISPLAY))
     {
         $str .= ' '.GetNetValueHistoryLink($strSymbol, $bChinese);
+        $strNavLink = '';
+    }
+    else
+    {
+    	$iTotal = SqlCountFundHistory($fund->GetStockId());
+    	$strNavLink = StockGetNavLink($strSymbol, $iTotal, $iStart, $iNum, $bChinese);
     }
 
     if (AcctIsDebug())		$str .= ' '.$fund->DebugLink();
     
-    EchoParagraphBegin($str);
+    EchoParagraphBegin($str.' '.$strNavLink);
     EchoFundHistoryTableBegin($arColumn);
     _echoHistoryTableData($fund, $etf_ref, $iStart, $iNum);
-    EchoTableEnd();
-    EchoParagraphEnd();
+    EchoTableParagraphEnd($strNavLink);
 }
 
 function EchoFundHistoryParagraph($fund, $bChinese)

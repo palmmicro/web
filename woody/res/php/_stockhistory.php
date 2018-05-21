@@ -43,7 +43,7 @@ function _echoStockHistoryParagraph($strSymbol, $strStockId, $iStart, $iNum, $bA
     }
 
 	$sql = new SqlStockHistory($strStockId);
-    $strNavLink = _GetStockNavLink($strSymbol, $sql->Count(), $iStart, $iNum, $bChinese);
+    $strNavLink = StockGetNavLink($strSymbol, $sql->Count(), $iStart, $iNum, $bChinese);
     $strSymbolLink = GetMyStockLink($strSymbol, $bChinese);
     EchoParagraphBegin($strSymbolLink.' '.$strNavLink.' '.$strUpdateLink);
     echo <<<END
