@@ -130,8 +130,18 @@ class PageImageFile extends ImageFile
     	return false;
     }
     
+    function _drawDashedGrid()
+    {
+    	$iStep = 80;
+    	for ($x = $iStep; $x < $this->iWidth; $x += $iStep)
+    	{
+    		$this->DashedLine($x, 0, $x, $this->iHeight);
+    	}
+    }
+    
     function DrawDateArray($ar, $ar2)
     {
+    	$this->_drawDashedGrid();
     	ksort($ar);
     	reset($ar);
     	$this->_textDateVal(0, $this->iHeight, key($ar), current($ar));
