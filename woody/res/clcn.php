@@ -13,9 +13,14 @@
 <div>
 <h1><?php EchoTitle(true); ?></h1>
 <?php EchoAll(true); ?>
-<p><a href="https://www.hedgewise.com/blog/data/current-cost-oil-contango-uso-usl-dbo.php" target=_blank>原油期货汇总</a>
-<br />2016年3月14日星期一, UWTI合股, 导致全天无法计算CL对应的UWTI价格.
-<br />2016年2月22日星期一, USO和UWTI换仓4月期货后新浪的CL数据没有换, 一直到第二天才正常. 看来是月月如此.
+<p><font color=red>已知问题:</font>
+</p>
+<ol>
+    <li>2016年3月14日星期一, UWTI合股, 导致全天无法计算CL对应的UWTI价格.</li>
+    <li>2016年2月22日星期一, USO和UWTI换仓4月期货后新浪的CL数据没有换, 一直到第二天才正常. 看来是月月如此.</li>
+</ol>
+<p><a href="http://quote.eastmoney.com/centerv2/qhsc/gjqh/UF_NYMEX_CL" target=_blank>原油期货汇总</a>
+<a href="https://www.hedgewise.com/blog/investmentstrategy/the-right-way-to-invest-in-oil.php" target=_blank>原油投资比较</a>
 <br />相关软件:
 <?php
     EchoOilSoftwareLinks(true);

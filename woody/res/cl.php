@@ -13,8 +13,7 @@
 <div>
 <h1><?php EchoTitle(false); ?></h1>
 <?php EchoAll(false); ?>
-<p><a href="https://www.hedgewise.com/blog/data/current-cost-oil-contango-uso-usl-dbo.php" target=_blank>All Oil Futures</a>
-<br />Related software:
+<p>Related software:
 <?php 
     EchoOilSoftwareLinks(false);
     EchoCommoditySoftwareLinks(false);
