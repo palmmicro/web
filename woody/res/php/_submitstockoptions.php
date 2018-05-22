@@ -83,9 +83,10 @@ function _updateStockOptionAdr($strSymbol, $strVal)
 	
 	$adr_ref = new MyStockReference(StockGetSymbol($strAdr)); 
 	$strStockId = $adr_ref->GetStockId();
-    if ($record = SqlGetStockPair(TABLE_ADRH_STOCK, $strStockId))
+	$sql = new SqlStockPair($strStockId, TABLE_ADRH_STOCK);
+    if ($record = $sql->Get())
     {
-    	SqlUpdateStockPair(TABLE_ADRH_STOCK, $record['id'], $strStockId, $strPairId, $strRatio);
+    	$sql->Update($record['id'], $strPairId, $strRatio);
     }
     else
     {
@@ -136,11 +137,12 @@ function _updateStockOptionEtf($strSymbol, $strVal)
 		$strIndex = $strVal;
 		$strRatio = '1';
 	}
-	$strStockId = SqlGetStockId($strSymbol);
 	$strPairId = SqlGetStockId(StockGetSymbol($strIndex));
-    if ($record = SqlGetStockPair(TABLE_ETF_PAIR, $strStockId))
+	$strStockId = SqlGetStockId($strSymbol);
+	$sql = new SqlStockPair($strStockId, TABLE_ETF_PAIR);
+    if ($record = $sql->Get())
     {
-    	SqlUpdateStockPair(TABLE_ETF_PAIR, $record['id'], $strStockId, $strPairId, $strRatio);
+    	$sql->Update($record['id'], $strPairId, $strRatio);
     }
     else
     {

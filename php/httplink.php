@@ -114,7 +114,7 @@ function GetNavLink($strQueryId, $iTotal, $iStart, $iNum, $bChinese)
     $str = ($bChinese ? '总数' : 'Total').': ';	//.strval($iTotal).' ';
     if ($iTotal <= 0)		return $str.$strTotal;
 
-    if ($iTotal < 2000)
+    if ($iTotal > $iNum && $iTotal < 2000)
     {
     	$strQuery = _getNavLinkQuery($strQueryId, 0, $iTotal);
     	$str .= CopyPhpLink($strQuery, $strTotal, $strTotal, $bChinese).' ';

@@ -145,9 +145,7 @@ function _echoAllStock($bChinese)
 {
     $iStart = UrlGetQueryInt('start', 0);
     $iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
-    $iTotal = SqlCountTableData(TABLE_STOCK, false);
-    $strNavLink = GetNavLink(false, $iTotal, $iStart, $iNum, $bChinese);
-    EchoStockParagraph($strNavLink, $iStart, $iNum, $bChinese);
+    EchoStockParagraph($iStart, $iNum, $bChinese);
 }
 
 function _echoMyStockData($strSymbol, $bChinese)

@@ -31,6 +31,7 @@ require_once('stock/forexref.php');
 require_once('stock/futureref.php');
 require_once('stock/hshareref.php');
 require_once('stock/etfref.php');
+require_once('stock/futureetfref.php');
 
 //require_once('stocktrans.php');
 //require_once('stockgroup.php');

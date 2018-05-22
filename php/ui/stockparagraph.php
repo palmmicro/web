@@ -37,9 +37,11 @@ function _echoStockTableData($iStart, $iNum, $bChinese)
 	}
 }
 
-function EchoStockParagraph($str, $iStart, $iNum, $bChinese)
+function EchoStockParagraph($iStart, $iNum, $bChinese)
 {
-    EchoParagraphBegin($str);
+    $iTotal = SqlCountTableData(TABLE_STOCK, false);
+    $strNavLink = GetNavLink(false, $iTotal, $iStart, $iNum, $bChinese);
+    EchoParagraphBegin($strNavLink);
 	$arReference = GetReferenceTableColumn($bChinese);
     echo <<<END
         <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="stock">
@@ -51,8 +53,7 @@ function EchoStockParagraph($str, $iStart, $iNum, $bChinese)
 END;
 
 	_echoStockTableData($iStart, $iNum, $bChinese);
-    EchoTableEnd();
-    EchoParagraphEnd();
+    EchoTableParagraphEnd($strNavLink);
 }
 
 

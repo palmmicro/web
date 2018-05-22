@@ -47,6 +47,11 @@ class SqlStockPair extends SqlStockTable
     	}
     	return false;
     }
+
+    function Update($strId, $strPairId, $strRatio)
+    {
+		return SqlTable::Update("pair_id = '$strPairId', ratio = '$strRatio' WHERE "._SqlBuildWhere_id($strId));
+	}
 }
 
 // ****************************** Stock pair tables *******************************************************
@@ -74,27 +79,10 @@ function SqlInsertStockPair($strTableName, $strStockId, $strPairId, $strRatio)
 	return SqlDieByQuery($strQry, $strTableName.' insert stock pair failed');
 }
 
-function SqlUpdateStockPair($strTableName, $strId, $strStockId, $strPairId, $strRatio)
-{
-	$strQry = "UPDATE $strTableName SET stock_id = '$strStockId', pair_id = '$strPairId', ratio = '$strRatio' WHERE id = '$strId' LIMIT 1";
-	return SqlDieByQuery($strQry, $strTableName.' update stock pair failed');
-}
-
-function SqlGetStockPair($strTableName, $strStockId)
-{
-	$sql = new SqlStockPair($strStockId, $strTableName);
-	return $sql->Get();
-}
-
 function SqlGetStockPairRatio($strTableName, $strStockId)
 {
 	$sql = new SqlStockPair($strStockId, $strTableName);
 	return $sql->GetRatio();
-/*    if ($record = SqlGetStockPair($strTableName, $strStockId))
-    {
-		return floatval($record['ratio']);
-    }
-    return false;*/
 }
 
 // ****************************** Support functions *******************************************************
