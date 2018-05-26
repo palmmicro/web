@@ -77,15 +77,14 @@ function _echoCalibrationHistoryParagraph($strSymbol, $iStart, $iNum, $bChinese)
 END;
    
     _echoCalibrationHistoryData($strStockId, $strSymbol, $iStart, $iNum, $bChinese);
-    EchoTableEnd();
-    EchoParagraphEnd();
+    EchoTableParagraphEnd();
 }
 
 function EchoCalibrationHistory($bChinese)
 {
     if ($strSymbol = UrlGetQueryValue('symbol'))
     {
-        $iStart = UrlGetQueryInt('start', 0);
+        $iStart = UrlGetQueryInt('start');
         $iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
         _echoCalibrationHistoryParagraph($strSymbol, $iStart, $iNum, $bChinese);
     }

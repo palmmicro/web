@@ -96,7 +96,7 @@ function UrlGetQueryValue($strQueryItem)
 	return false;
 }
 
-function UrlGetQueryDisplay($strQueryItem, $strDefault)
+function UrlGetQueryDisplay($strQueryItem, $strDefault = '')
 { 
     if ($str = UrlGetQueryValue($strQueryItem))
     {
@@ -105,7 +105,7 @@ function UrlGetQueryDisplay($strQueryItem, $strDefault)
     return $strDefault;
 }
 
-function UrlGetQueryInt($strQueryItem, $iDefault)
+function UrlGetQueryInt($strQueryItem, $iDefault = 0)
 { 
     $iNum = $iDefault;
     if ($strNum = UrlGetQueryValue($strQueryItem))

@@ -28,7 +28,7 @@ function GetTableColumn($iWidth, $strDisplay)
 
 // ****************************** Common Table Functions *******************************************************
 
-function EchoParagraphBegin($str)
+function EchoParagraphBegin($str = '')
 {
     echo '<p>'.$str;
 }
@@ -49,7 +49,7 @@ function EchoTableEnd()
     echo '</TABLE>';
 }
 
-function EchoTableParagraphEnd($str)
+function EchoTableParagraphEnd($str = '')
 {
     echo '</TABLE>'.$str.'</p>';
 }

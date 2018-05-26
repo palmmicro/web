@@ -66,7 +66,7 @@ class _LofGroup extends _StockGroup
             EchoArbitrageTableItem2($arbi_convert_trans, $lof_convert_trans); 
             EchoArbitrageTableItem2($this->arbi_trans, $etf_convert_trans); 
         }
-        EchoTableParagraphEnd('');
+        EchoTableParagraphEnd();
     }
 
     function _getAdjustString($bChinese)

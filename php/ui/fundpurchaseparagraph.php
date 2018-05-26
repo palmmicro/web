@@ -43,8 +43,7 @@ function EchoFundPurchaseParagraph($str, $strMemberId, $iStart, $iNum, $bChinese
 END;
 
 	_echoFundPurchaseTableData($strMemberId, $iStart, $iNum, $bChinese);
-    EchoTableEnd();
-    EchoParagraphEnd();
+    EchoTableParagraphEnd();
 }
 
 ?>

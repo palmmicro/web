@@ -161,7 +161,7 @@ function _echoArbitrageParagraph($group, $bChinese)
         EchoArbitrageTableItem2($us_arbi, $group->us_convert); 
     }
     
-    EchoTableParagraphEnd('');
+    EchoTableParagraphEnd();
 }
 
 function _echoAdminTestParagraph($group, $bChinese)

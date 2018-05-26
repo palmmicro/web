@@ -69,7 +69,7 @@ function EchoStockHistory($bChinese)
     {
     	if ($strStockId = SqlGetStockId($strSymbol))
     	{
-    		$iStart = UrlGetQueryInt('start', 0);
+    		$iStart = UrlGetQueryInt('start');
     		$iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
     		$bAdmin = AcctIsAdmin();
     		_echoStockHistoryParagraph($strSymbol, $strStockId, $iStart, $iNum, $bAdmin, $bChinese);

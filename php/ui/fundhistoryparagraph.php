@@ -165,7 +165,7 @@ function FundHistoryTableGetColumn($etf_ref, $bChinese)
     return $arColumn;
 }
 
-function EchoFundHistoryFullParagraph($fund, $csv, $iStart, $iNum, $bChinese)
+function EchoFundHistoryParagraph($fund, $bChinese, $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
 {
 	$etf_ref = $fund->etf_ref;
     $arColumn = FundHistoryTableGetColumn($etf_ref, $bChinese);
@@ -197,11 +197,6 @@ function EchoFundHistoryFullParagraph($fund, $csv, $iStart, $iNum, $bChinese)
     EchoFundHistoryTableBegin($arColumn);
     _echoHistoryTableData($fund, $csv, $etf_ref, $iStart, $iNum);
     EchoTableParagraphEnd($strNavLink);
-}
-
-function EchoFundHistoryParagraph($fund, $bChinese)
-{
-	EchoFundHistoryFullParagraph($fund, false, 0, TABLE_COMMON_DISPLAY, $bChinese);
 }
 
 ?>

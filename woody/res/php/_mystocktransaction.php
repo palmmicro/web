@@ -5,7 +5,7 @@ function MyStockTransactionEchoAll($bChinese)
 {
     if ($strGroupId = UrlGetQueryValue('groupid'))
     {
-        $iStart = UrlGetQueryInt('start', 0);
+        $iStart = UrlGetQueryInt('start');
         $iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
         $strGroupLink = _GetReturnGroupLink($strGroupId, $bChinese);
         

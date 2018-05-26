@@ -25,7 +25,7 @@ function _echoNetValueHistory($strSymbol, $iStart, $iNum, $bChinese)
     StockPrefetchData(array($strSymbol));
     $fund = StockGetFundReference($strSymbol);
    	$csv = new PageCsvFile();
-    EchoFundHistoryFullParagraph($fund, $csv, $iStart, $iNum, $bChinese);
+    EchoFundHistoryParagraph($fund, $bChinese, $csv, $iStart, $iNum);
     
     _echoNetValueHistoryGraph($strSymbol, $bChinese);
 }
@@ -37,7 +37,7 @@ function EchoNetValueHistory($bChinese)
     	$sym = new StockSymbol($strSymbol);
     	if ($sym->IsFundA())
     	{
-    		$iStart = UrlGetQueryInt('start', 0);
+    		$iStart = UrlGetQueryInt('start');
     		$iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
     		_echoNetValueHistory($strSymbol, $iStart, $iNum, $bChinese);
     	}
@@ -47,7 +47,7 @@ function EchoNetValueHistory($bChinese)
 
 function EchoTitle($bChinese)
 {
-  	$str = UrlGetQueryDisplay('symbol', '');
+  	$str = UrlGetQueryDisplay('symbol');
     if ($bChinese)
     {
         $str .= '净值历史记录';

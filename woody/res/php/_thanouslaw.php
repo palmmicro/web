@@ -154,7 +154,7 @@ function EchoThanousLawTest($bChinese)
 
 function EchoTitle($bChinese)
 {
-  	$str = UrlGetQueryDisplay('symbol', '');
+  	$str = UrlGetQueryDisplay('symbol');
     if ($bChinese)
     {
         $str .= '小心愿定律测试';

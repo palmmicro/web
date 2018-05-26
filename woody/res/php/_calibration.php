@@ -11,14 +11,14 @@ function _echoCalibration($strSymbol, $iStart, $iNum, $bChinese)
     $iTotal = $sql->Count();
     $strNavLink = StockGetNavLink($strSymbol, $iTotal, $iStart, $iNum, $bChinese);
     EchoParagraph($strSymbolLink.$strNavLink);
-    EchoCalibrationFullParagraph($strSymbol, $iStart, $iNum, $bChinese);
+    EchoCalibrationParagraph($strSymbol, $bChinese, $iStart, $iNum);
 }
 
 function EchoCalibration($bChinese)
 {
     if ($strSymbol = UrlGetQueryValue('symbol'))
     {
-        $iStart = UrlGetQueryInt('start', 0);
+        $iStart = UrlGetQueryInt('start');
         $iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
         _echoCalibration($strSymbol, $iStart, $iNum, $bChinese);
     }

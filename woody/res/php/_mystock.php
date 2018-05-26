@@ -143,7 +143,7 @@ function _echoMyStockLinks($sym, $bChinese)
 
 function _echoAllStock($bChinese)
 {
-    $iStart = UrlGetQueryInt('start', 0);
+    $iStart = UrlGetQueryInt('start');
     $iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
     EchoStockParagraph($iStart, $iNum, $bChinese);
 }

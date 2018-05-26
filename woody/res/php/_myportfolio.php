@@ -88,7 +88,7 @@ function EchoMyFortfolio($bChinese)
     _echoPortfolioTable($portfolio, $strMemberId, $bChinese);
     EchoParagraphEnd();
     
-    EchoParagraphBegin('');
+    EchoParagraphBegin();
 //    EchoParagraphBegin($bChinese ? '持仓盈亏' : 'Overall performance');
     _echoMoneyTable($portfolio, $bChinese);
     EchoParagraphEnd();

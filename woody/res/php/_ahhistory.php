@@ -115,7 +115,7 @@ function EchoAhHistory($bChinese)
     		$sql = new SqlStockPair($strStockId, TABLE_AH_STOCK);
     		if ($strPairId = $sql->GetPairId())
     		{
-    			$iStart = UrlGetQueryInt('start', 0);
+    			$iStart = UrlGetQueryInt('start');
     			$iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
     			_echoAhHistoryParagraph($strSymbol, $strStockId, $strPairId, $sql->GetRatio(), $iStart, $iNum, $bChinese);
     		}

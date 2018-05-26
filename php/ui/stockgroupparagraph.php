@@ -92,7 +92,7 @@ function EchoStockGroupParagraph($bChinese)
     $arColumn = GetStockGroupTableColumn($bChinese);
     $arColumn[0] = StockGetGroupLink($bChinese);
     
-    EchoParagraphBegin('');
+    EchoParagraphBegin();
     echo <<<END
     <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="stockgroup">
     <tr>
@@ -103,7 +103,7 @@ function EchoStockGroupParagraph($bChinese)
 END;
 
     _echoStockGroupTableData($bChinese);
-    EchoTableParagraphEnd('');
+    EchoTableParagraphEnd();
 }
 
 ?>

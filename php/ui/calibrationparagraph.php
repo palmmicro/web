@@ -46,7 +46,7 @@ function _echoCalibrationData($strSymbol, $iStart, $iNum, $bChinese)
     }
 }
 
-function EchoCalibrationFullParagraph($strSymbol, $iStart, $iNum, $bChinese)
+function EchoCalibrationParagraph($strSymbol, $bChinese, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
 {
 	$strSymbolLink = GetMyStockLink($strSymbol, $bChinese);
 	$strPair = SqlGetEtfPair($strSymbol);
@@ -73,13 +73,7 @@ function EchoCalibrationFullParagraph($strSymbol, $iStart, $iNum, $bChinese)
 END;
 
     _echoCalibrationData($strSymbol, $iStart, $iNum, $bChinese);
-    EchoTableEnd();
-    EchoParagraphEnd();
-}
-
-function EchoCalibrationParagraph($strSymbol, $bChinese)
-{
-	EchoCalibrationFullParagraph($strSymbol, 0, TABLE_COMMON_DISPLAY, $bChinese);
+    EchoTableParagraphEnd();
 }
 
 ?>
