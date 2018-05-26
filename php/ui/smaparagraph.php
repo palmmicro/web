@@ -33,13 +33,12 @@ function _getTradingRangeRow($stock_his, $strKey)
     return strval($iVal); 
 }
 
-function _echoSmaTableItem($stock_his, $strKey, $fVal, $ref, $callback, $callback2, $strColor, $bChinese)
+function _echoSmaTableItem($stock_his, $strKey, $fVal, $fNext, $ref, $callback, $callback2, $strColor, $bChinese)
 {
     $stock_ref = $stock_his->stock_ref;
     
     $strSma = _getSmaRow($strKey, $bChinese);
     $strPrice = $stock_ref->GetPriceDisplay($fVal);
-    $fNext = $stock_his->afNext[$strKey];
     $strNext = $stock_ref->GetPriceDisplay($fNext);
     $strPercentage = $stock_ref->GetPercentageDisplay($fVal);
     $strTradingRange = _getTradingRangeRow($stock_his, $strKey);
@@ -109,6 +108,7 @@ function _echoSmaTableData($stock_his, $ref, $callback, $callback2, $bChinese)
     $mmW = new MaxMin();
     foreach ($stock_his->afSMA as $strKey => $fVal)
     {
+    	$fNext = $stock_his->afNext[$strKey];
         $strColor = false;
         $strFirst = substr($strKey, 0, 1); 
         if ($strFirst == 'D')
@@ -133,7 +133,11 @@ function _echoSmaTableData($stock_his, $ref, $callback, $callback2, $bChinese)
             if ($mmW->Fit($fVal))        $strColor = 'gray';
             else if ($mmB->Fit($fVal))  $strColor = 'silver';
         }
-        _echoSmaTableItem($stock_his, $strKey, $fVal, $ref, $callback, $callback2, $strColor, $bChinese);
+        else if ($strFirst == 'E')
+        {
+            if ($mmB->Fit($fVal) || $mmB->Fit($fNext))     $strColor = 'yellow';
+        }
+        _echoSmaTableItem($stock_his, $strKey, $fVal, $fNext, $ref, $callback, $callback2, $strColor, $bChinese);
     }
 }
 
@@ -142,10 +146,7 @@ function _selectSmaExternalLink($strSymbol)
     $sym = new StockSymbol($strSymbol);
     if ($sym->IsSymbolA())
     {
-        if ($sym->IsFundA())
-        {
-        }
-        else
+        if ($sym->IsFundA() == false && $sym->IsIndexA() == false)
         {
             return GetSinaN8n8Link($sym);
         }

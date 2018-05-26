@@ -9,10 +9,10 @@ require_once('stock/googlestock.php');
 
 function GetChinaFundLink($sym)
 {
-    $strSymbol = $sym->strSymbol;
-    if ($sym->IsFundA())
+    $strSymbol = $sym->GetSymbol();
+    if ($strDigit = $sym->IsFundA())
     {
-        $strHttp = 'http://fund.eastmoney.com/'.$sym->strDigitA.'.html';
+        $strHttp = "http://fund.eastmoney.com/$strDigit.html";
         return GetExternalLink($strHttp, $strSymbol);
     }
     return $strSymbol;
@@ -52,6 +52,24 @@ function GetGoogleStockLink($strGoogleSymbol, $strSymbol)
     return GetExternalLink($strHttp, $strSymbol);
 }
 
+// http://finance.sina.com.cn/fund/quotes/162411/bc.shtml
+function GetSinaFundLink($sym)
+{
+    $strDigit = $sym->IsFundA();
+    if ($strDigit == false)
+    {
+    	$strDigit = $sym->IsSinaFund();
+    }
+    
+    $strSymbol = $sym->GetSymbol();
+    if ($strDigit)
+    {
+        $strHttp = "http://finance.sina.com.cn/fund/quotes/$strDigit/bc.shtml";
+        return GetExternalLink($strHttp, $strSymbol);
+    }
+    return $strSymbol;
+}
+
 // http://finance.sina.com.cn/realstock/company/sh600028/nc.shtml
 function GetSinaStockLink($strSymbol)
 {
@@ -60,10 +78,19 @@ function GetSinaStockLink($strSymbol)
     return GetExternalLink($strHttp, $strSymbol);
 }
 
+function GetSinaCnLink($sym)
+{
+    if ($sym->IsFundA())
+    {
+		return GetSinaFundLink($sym);
+    }
+	return GetSinaStockLink($sym->GetSymbol());
+}
+
 // http://stock.finance.sina.com.cn/usstock/quotes/SNP.html
 function GetSinaUsStockLink($sym)
 {
-    $strSymbol = $sym->strSymbol;
+    $strSymbol = $sym->GetSymbol();
     if ($sym->IsIndex())
     {
 		$str = '.'.strtoupper($sym->GetSinaIndexUS());
@@ -79,7 +106,7 @@ function GetSinaUsStockLink($sym)
 // http://stock.finance.sina.com.cn/hkstock/quotes/00386.html
 function GetSinaHkStockLink($sym)
 {
-    $strSymbol = $sym->strSymbol;
+    $strSymbol = $sym->GetSymbol();
     if ($sym->IsIndex())
     {
 		$str = $sym->GetSinaIndexH();
@@ -90,28 +117,6 @@ function GetSinaHkStockLink($sym)
     }
     $strHttp = "http://stock.finance.sina.com.cn/hkstock/quotes/$str.html";
     return GetExternalLink($strHttp, $strSymbol);
-}
-
-// http://finance.sina.com.cn/fund/quotes/162411/bc.shtml
-function GetSinaFundLink($sym)
-{
-    $strDigit = false;
-    if ($sym->IsFundA())
-    {
-    	$strDigit = $sym->strDigitA;
-    }
-    else
-    {
-    	$strDigit = $sym->IsSinaFund();
-    }
-    
-    $strSymbol = $sym->strSymbol;
-    if ($strDigit)
-    {
-        $strHttp = "http://finance.sina.com.cn/fund/quotes/$strDigit/bc.shtml";
-        return GetExternalLink($strHttp, $strSymbol);
-    }
-    return $strSymbol;
 }
 
 // http://finance.sina.com.cn/futures/quotes/CL.shtml
@@ -131,10 +136,10 @@ function GetSinaForexLink($strSymbol)
 // http://vip.stock.finance.sina.com.cn/q/go.php/vDYData/kind/znzd/index.phtml?symbol=600028
 function GetSinaN8n8Link($sym)
 {
-    $strSymbol = $sym->strSymbol;
-    if ($sym->IsSymbolA())
+    $strSymbol = $sym->GetSymbol();
+    if ($strDigit = $sym->IsSymbolA())
     {
-        $strHttp = 'http://vip.stock.finance.sina.com.cn/q/go.php/vDYData/kind/znzd/index.phtml?symbol='.$sym->strDigitA;
+        $strHttp = "http://vip.stock.finance.sina.com.cn/q/go.php/vDYData/kind/znzd/index.phtml?symbol=$strDigit";
         return GetExternalLink($strHttp, $strSymbol);
     }
     return $strSymbol;
@@ -144,9 +149,9 @@ function GetSinaN8n8Link($sym)
 function GetJisiluAhLink($strSymbol)
 {
     $sym = new StockSymbol($strSymbol);
-    if ($sym->IsSymbolA())
+    if ($strDigit = $sym->IsSymbolA())
     {
-        $strHttp = 'https://www.jisilu.cn/data/ha_history/'.$sym->strDigitA;
+        $strHttp = "https://www.jisilu.cn/data/ha_history/$strDigit";
         return GetExternalLink($strHttp, $strSymbol);
     }
     return $strSymbol;
@@ -157,9 +162,9 @@ function EchoJisiluGradedFund()
 {
     $strSymbol = UrlGetTitle();
     $sym = new StockSymbol($strSymbol);
-    if ($sym->IsFundA())
+    if ($strDigit = $sym->IsFundA())
     {
-        $strHttp = 'https://www.jisilu.cn/data/sfnew/detail/'.$sym->strDigitA;
+        $strHttp = "https://www.jisilu.cn/data/sfnew/detail/$strDigit";
         $str = GetExternalLink($strHttp, '集思录');
         echo $str;
     }

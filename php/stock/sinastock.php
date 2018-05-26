@@ -126,9 +126,10 @@ function SinaGetAllStockSymbolA()
 function SinaGetStockDividendA($strSymbol)
 {
     $sym = new StockSymbol($strSymbol);
-    if ($sym->IsSymbolA() == false)    return;
+    $strDigit = $sym->IsSymbolA();
+    if ($strDigit == false)    return;
     
-    $strUrl = 'http://vip.stock.finance.sina.com.cn/corp/go.php/vISSUE_ShareBonus/stockid/'.$sym->strDigitA.'.phtml';
+    $strUrl = "http://vip.stock.finance.sina.com.cn/corp/go.php/vISSUE_ShareBonus/stockid/$strDigit.phtml";
     $str = url_get_contents($strUrl);
     $str = FromGB2312ToUTF8($str);
 //    return $str;

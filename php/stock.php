@@ -346,7 +346,7 @@ function StockGetFundReference($strSymbol)
 
 function StockGetReference($sym)
 {
-	$strSymbol = $sym->strSymbol;
+	$strSymbol = $sym->GetSymbol();
     if ($sym->IsSinaFund())							    	return new FundReference($strSymbol);
     else if ($strFutureSymbol = $sym->IsSinaFuture())   	return new FutureReference($strFutureSymbol);
     else if ($sym->IsSinaForex())   							return new ForexReference($strSymbol);
@@ -365,7 +365,7 @@ function StockGetEtfReference($strSymbol)
 
 function StockGetHShareReference($sym)
 {
-	$strSymbol = $sym->strSymbol;
+	$strSymbol = $sym->GetSymbol();
    	if ($sym->IsSymbolA())
    	{
     	if ($strSymbolH = SqlGetAhPair($strSymbol))

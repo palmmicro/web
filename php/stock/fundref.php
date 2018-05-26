@@ -156,7 +156,7 @@ class FundReference extends MysqlReference
         $sym = $this->sym;
         $this->strExternalLink = GetSinaFundLink($sym);
         
-        if ($sym->IsSinaFund())	$strFundSymbol = $sym->strSymbol;
+        if ($sym->IsSinaFund())	$strFundSymbol = $sym->GetSymbol();
         else						$strFundSymbol = $sym->GetSinaFundSymbol();
         $this->strFileName = DebugGetSinaFileName($strFundSymbol);
         

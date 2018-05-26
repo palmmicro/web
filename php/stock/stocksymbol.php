@@ -41,6 +41,18 @@ function _isShanghaiFundDigit($iDigit)
     return false;
 }
 
+function _isShenzhenIndexDigit($iDigit)
+{
+    if ($iDigit >= 300000 && $iDigit < 400000)  return true;
+    return false;
+}
+
+function _isShanghaiIndexDigit($iDigit)
+{
+    if ($iDigit >= 000000 && $iDigit < 100000)  return true;
+    return false;
+}
+
 // ****************************** StockSymbol Class *******************************************************
 
 class StockSymbol
@@ -119,7 +131,7 @@ class StockSymbol
     
     function IsSymbolA()
     {
-        if ($this->strDigitA)   return true;
+        if ($this->strDigitA)   return $this->strDigitA;
         
         $strSymbol = $this->strSymbol;
         $strDigit = substr($strSymbol, 2);
@@ -129,9 +141,9 @@ class StockSymbol
             if ($strPrefix == SHANGHAI_PREFIX || $strPrefix == SHENZHEN_PREFIX)
             {
                 $this->strPrefixA = $strPrefix;
-                $this->strDigitA = $strDigit;
                 $this->iDigitA = intval($strDigit);
-                return true;
+                $this->strDigitA = $strDigit;
+                return $strDigit;
             }
         }
         return false;
@@ -144,8 +156,20 @@ class StockSymbol
             if ($this->IsSymbolA() == false)    return false;
         }
         
-        if ($this->strPrefixA == SHENZHEN_PREFIX && _isShenzhenFundDigit($this->iDigitA))   return true;
-        if ($this->strPrefixA == SHANGHAI_PREFIX && _isShanghaiFundDigit($this->iDigitA))   return true;
+        if ($this->strPrefixA == SHENZHEN_PREFIX && _isShenzhenFundDigit($this->iDigitA))   return $this->strDigitA;
+        if ($this->strPrefixA == SHANGHAI_PREFIX && _isShanghaiFundDigit($this->iDigitA))   return $this->strDigitA;
+        return false;
+    }
+    
+    function IsIndexA()
+    {
+        if ($this->strDigitA == false)
+        {
+            if ($this->IsSymbolA() == false)    return false;
+        }
+        
+        if ($this->strPrefixA == SHENZHEN_PREFIX && _isShenzhenIndexDigit($this->iDigitA))   return $this->strDigitA;
+        if ($this->strPrefixA == SHANGHAI_PREFIX && _isShanghaiIndexDigit($this->iDigitA))   return $this->strDigitA;
         return false;
     }
     
@@ -349,6 +373,11 @@ class StockSymbol
         }*/
 //        return $strSymbol;
         return false;
+    }
+    
+    function GetSymbol()
+    {
+        return $this->strSymbol;
     }
     
     // constructor 

@@ -303,7 +303,7 @@ class StockReference
     
     function GetStockSymbol()
     {
-        return $this->sym->strSymbol;
+        return $this->sym->GetSymbol();
     }
 
     function _newStockSymbol($strSymbol)
@@ -562,16 +562,7 @@ class StockReference
     
     function _onSinaDataCN($ar)
     {
-        $sym = $this->sym;
-        $strSymbol = $sym->strSymbol;
-        if ($sym->IsFundA())
-        {
-            $this->strExternalLink = GetSinaFundLink($sym);
-        }
-        else
-        {
-            $this->strExternalLink = GetSinaStockLink($strSymbol);
-        }
+    	$this->strExternalLink = GetSinaCnLink($this->sym);
         
         $this->strPrevPrice = $ar[2];
         $this->strPrice = $ar[3];

@@ -53,7 +53,7 @@ function _EchoPortfolioItem($strGroupId, $trans, $bChinese)
     else if ($sym->IsSymbolH())     $strMoney = $bChinese ? '港币$' : 'HK$';
     else                              $strMoney = '$';
     
-    $strTransactions = StockGetSingleTransactionLink($strGroupId, $sym->strSymbol, $bChinese);
+    $strTransactions = StockGetSingleTransactionLink($strGroupId, $sym->GetSymbol(), $bChinese);
     if ($trans->iTotalShares == 0)
     {
         $strAvgCost = '';
