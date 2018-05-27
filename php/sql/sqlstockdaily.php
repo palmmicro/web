@@ -107,7 +107,7 @@ class SqlStockDaily extends SqlStockTable
     	return false;
     }
 
-    function GetAll($iStart, $iNum)
+    function GetAll($iStart = 0, $iNum = 0)
     {
     	return $this->GetData($this->BuildWhere_stock(), _SqlOrderByDate(), _SqlBuildLimit($iStart, $iNum));
     }

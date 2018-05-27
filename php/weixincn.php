@@ -13,7 +13,7 @@ require_once('sql/sqlweixin.php');
 
 require_once('stock/dbcnyref.php');
 
-define('WX_DEBUG_VER', '版本815');
+define('WX_DEBUG_VER', '版本816');
 
 define('WX_DEFAULT_SYMBOL', 'SZ162411');
 define('MAX_WX_STOCK', 50);
@@ -237,7 +237,7 @@ function _wxGetDefaultText()
 
 function _wxEmailDebug($strUserName, $strText, $strSubject)
 {   
-    EmailDebug("<font color=blue>用户:</font>$strUserName.<br />$strText", $strSubject);
+    EmailReport("<font color=blue>用户:</font>$strUserName.<br />$strText", $strSubject);
 }
 
 function _wxUnknownMessage($strContents, $strUserName)

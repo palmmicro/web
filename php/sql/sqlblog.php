@@ -48,7 +48,7 @@ function SqlCreateBlogTable()
 
 function SqlGetBlogIdByUri($strUri)
 {
-	if ($blog = SqlGetUniqueTableData(TABLE_BLOG, _SqlBuildWhere('uri', $strUri)))
+	if ($blog = SqlGetSingleTableData(TABLE_BLOG, _SqlBuildWhere('uri', $strUri)))
 	{
 	    return $blog['id'];
 	}
@@ -131,12 +131,12 @@ function SqlEditBlogComment($blogcomment_id, $strComment)
 
 function SqlDeleteBlogCommentByMemberId($strMemberId)
 {
-    return SqlDeleteTableData('blogcomment', _SqlBuildWhere_member($strMemberId), false);
+    return SqlDeleteTableData('blogcomment', _SqlBuildWhere_member($strMemberId));
 }
 
 function SqlDeleteBlogCommentByBlogId($strBlogId)
 {
-    return SqlDeleteTableData('blogcomment', _SqlBuildWhere('blog_id', $strBlogId), false);
+    return SqlDeleteTableData('blogcomment', _SqlBuildWhere('blog_id', $strBlogId));
 }
 
 ?>

@@ -43,7 +43,7 @@ function _getNavWeixinVisitorLink($strOpenId, $iStart, $iNum, $bChinese)
     else
     {
         $strId = false;
-        $iTotal = SqlCountTableData(WEIXIN_VISITOR_TABLE, false);
+        $iTotal = SqlCountTableData(WEIXIN_VISITOR_TABLE);
     }
     return GetNavLink($strId, $iTotal, $iStart, $iNum, $bChinese);
 }

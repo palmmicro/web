@@ -12,7 +12,7 @@ function _emailProfile($strMemberId, $strName, $strPhone, $strAddress, $strWeb, 
     $str .= '<br />Web: '.$strWeb; 
     $str .= '<br />Signature: '.$strSignature; 
     $str .= '<br />Status: '.$strStatus; 
-    EmailDebug($str, $strSubject); 
+    EmailReport($str, $strSubject); 
 }
 
 function _onEdit($strMemberId)

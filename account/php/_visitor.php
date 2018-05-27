@@ -48,7 +48,7 @@ function _getNavVisitorLink($strIp, $iStart, $iNum, $bChinese)
     else
     {
         $strId = false;
-        $iTotal = SqlCountTableData(VISITOR_TABLE, false);
+        $iTotal = SqlCountTableData(VISITOR_TABLE);
     }
     return GetNavLink($strId, $iTotal, $iStart, $iNum, $bChinese);
 }

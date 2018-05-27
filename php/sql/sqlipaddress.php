@@ -41,7 +41,7 @@ function SqlGetIpAddress($strId)
 
 function SqlGetIpAddressRecord($strIp)
 {
-	return SqlGetUniqueTableData(TABLE_IP_ADDRESS, _SqlBuildWhere('ip', $strIp));
+	return SqlGetSingleTableData(TABLE_IP_ADDRESS, _SqlBuildWhere('ip', $strIp));
 }
 
 function SqlGetIpAddressId($strIp)

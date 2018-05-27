@@ -1,7 +1,7 @@
 <?php
 require_once('smaparagraph.php');
 
-function _callbackEtfSma($fEst, $ref)
+function _callbackEtfSma($ref, $fEst = false)
 {
 	if ($fEst)		return $ref->EstFromPair($fEst);
 	return $ref;

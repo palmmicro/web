@@ -136,7 +136,7 @@ function EchoAll($bChinese)
         _EchoTransactionParagraph($group, $bChinese);
         if ($group->GetTotalRecords() > 0)
         {
-            EchoMoneyParagraph($group, false, false, $bChinese);
+            EchoMoneyParagraph($group, $bChinese);
         }
 	}
 

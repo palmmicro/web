@@ -38,7 +38,7 @@ function _ahStockRefCallbackData($ref, $bChinese)
 	return $ar;
 }
 
-function _ahStockRefCallback($ref, $bChinese)
+function _ahStockRefCallback($bChinese, $ref = false)
 {
     if ($ref)
     {
@@ -70,7 +70,7 @@ function EchoAhParagraph($arRef, $bChinese)
 		}
 	}
     EchoParagraphBegin($str);
-    EchoStockRefTable($arRef, _ahStockRefCallback, $bChinese);
+    EchoReferenceTable($arRef, $bChinese, _ahStockRefCallback);
     EchoParagraphEnd();
 }
 
@@ -96,7 +96,7 @@ function _adrhStockRefCallbackData($ref, $bChinese)
 	return $ar;
 }
 
-function _adrhStockRefCallback($ref, $bChinese)
+function _adrhStockRefCallback($bChinese, $ref = false)
 {
     if ($ref)
     {
@@ -127,7 +127,7 @@ function EchoAdrhParagraph($arRef, $bChinese)
 		}
 	}
     EchoParagraphBegin($str);
-    EchoStockRefTable($arRef, _adrhStockRefCallback, $bChinese);
+    EchoReferenceTable($arRef, $bChinese, _adrhStockRefCallback);
     EchoParagraphEnd();
 }
 

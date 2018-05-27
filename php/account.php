@@ -134,7 +134,7 @@ function AcctAuth()
 
 function AcctEmailSpiderReport($strIp, $strText, $strSubject)
 {
-    EmailDebug($strText, $strSubject.' from '.$strIp); 
+    EmailReport($strText, $strSubject.' from '.$strIp); 
 }
 
 function AcctGetBlogVisitor($strIp, $iStart, $iNum)

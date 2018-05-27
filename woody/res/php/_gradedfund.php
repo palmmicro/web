@@ -132,11 +132,11 @@ function EchoAll($bChinese)
     
     _echoRefParagraph($group, $bChinese);
 
-    EchoFundTradingParagraph($fund, false, $bChinese);    
-    EchoFundTradingParagraph($b_fund, false, $bChinese);    
+    EchoFundTradingParagraph($fund, $bChinese);    
+    EchoFundTradingParagraph($b_fund, $bChinese);    
     if ($group->bCanTradeM)
     {
-        EchoFundTradingParagraph($m_fund, false, $bChinese);    
+        EchoFundTradingParagraph($m_fund, $bChinese);    
     }
 
     EchoFundHistoryParagraph($fund, $bChinese);

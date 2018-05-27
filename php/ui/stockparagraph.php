@@ -39,7 +39,7 @@ function _echoStockTableData($iStart, $iNum, $bChinese)
 
 function EchoStockParagraph($iStart, $iNum, $bChinese)
 {
-    $iTotal = SqlCountTableData(TABLE_STOCK, false);
+    $iTotal = SqlCountTableData(TABLE_STOCK);
     $strNavLink = GetNavLink(false, $iTotal, $iStart, $iNum, $bChinese);
     EchoParagraphBegin($strNavLink);
 	$arReference = GetReferenceTableColumn($bChinese);

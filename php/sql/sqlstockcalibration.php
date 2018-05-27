@@ -42,7 +42,7 @@ function SqlInsertStockCalibration($strStockId, $strPeerName, $strPrice, $strPee
         $strFactor = strval($fFactor);
         
         // check if record already exist
-		if (SqlGetUniqueTableData(TABLE_STOCK_CALIBRATION, _SqlBuildWhereAndArray(array('stock_id' => $strStockId, 'filled' => $strDateTime))))
+		if (SqlGetSingleTableData(TABLE_STOCK_CALIBRATION, _SqlBuildWhereAndArray(array('stock_id' => $strStockId, 'filled' => $strDateTime))))
         {
             return SqlUpdateStockCalibration($strStockId, $strPeerName, $strPrice, $strPeerPrice, $strFactor, $strDateTime);
         }

@@ -51,7 +51,7 @@ function _onSmaUserDefinedVal($fVal, $bChinese)
     return $strQuantity;
 }
 
-function _getArbitrageQuantityName($bEditLink, $bChinese)
+function _getArbitrageQuantityName($bChinese, $bEditLink = false)
 {
     global $group;
 
@@ -77,13 +77,13 @@ function _getArbitrageQuantityName($bEditLink, $bChinese)
     return $str;
 }
 
-function _onSmaUserDefined($fVal, $fNext, $bChinese)
+function _onSmaUserDefined($bChinese, $fVal = false, $fNext = false)
 {
     if ($fVal)
     {
         return _onSmaUserDefinedVal($fVal, $bChinese).'/'._onSmaUserDefinedVal($fNext, $bChinese);
     }
-    return _getArbitrageQuantityName(false, $bChinese);
+    return _getArbitrageQuantityName($bChinese);
 }
 
 function _onTradingUserDefinedVal($fVal, $bChinese)
@@ -95,13 +95,13 @@ function _onTradingUserDefinedVal($fVal, $bChinese)
     return _onSmaUserDefinedVal($fEtf, $bChinese).'@'.$fund->etf_ref->GetPriceDisplay($fEtf);
 }
 
-function _onTradingUserDefined($fVal, $bChinese)
+function _onTradingUserDefined($bChinese, $fVal = false)
 {
     if ($fVal)
     {
         return _onTradingUserDefinedVal($fVal, $bChinese);
     }
-    return _getArbitrageQuantityName(true, $bChinese);
+    return _getArbitrageQuantityName($bChinese, true);
 }
 
 function EchoAll($bChinese)
@@ -111,7 +111,7 @@ function EchoAll($bChinese)
     
     EchoFundEstParagraph($fund, $bChinese);
     EchoReferenceParagraph(array($fund->index_ref, $fund->etf_ref, $group->etf_netvalue_ref, $fund->future_ref, $group->usd_ref, $group->cny_ref, $fund->stock_ref), $bChinese);
-    EchoFundTradingParagraph($fund, _onTradingUserDefined, $bChinese);    
+    EchoFundTradingParagraph($fund, $bChinese, _onTradingUserDefined);    
 	EchoLofSmaParagraph($fund, $bChinese, _onSmaUserDefined);
     EchoFundHistoryParagraph($fund, $bChinese);
     
@@ -120,7 +120,7 @@ function EchoAll($bChinese)
         _EchoTransactionParagraph($group, $bChinese);
         if ($group->GetTotalRecords() > 0)
         {
-            EchoMoneyParagraph($group, $fund->fCNY, false, $bChinese);
+            EchoMoneyParagraph($group, $bChinese, $fund->fCNY);
             $group->EchoArbitrageParagraph($bChinese);
         }
 	}

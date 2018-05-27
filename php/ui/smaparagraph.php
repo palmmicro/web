@@ -46,12 +46,12 @@ function _echoSmaTableItem($stock_his, $strKey, $fVal, $fNext, $ref, $callback, 
     $strDisplayEx = '';
     if ($ref)
     {
-        $strDisplayEx = GetTableColumnColorDisplay($strColor, $ref->GetPriceDisplay(call_user_func($callback, $fVal, $ref)));
-        $strDisplayEx .= GetTableColumnColorDisplay($strColor, $ref->GetPriceDisplay(call_user_func($callback, $fNext, $ref)));
+        $strDisplayEx = GetTableColumnColorDisplay($strColor, $ref->GetPriceDisplay(call_user_func($callback, $ref, $fVal)));
+        $strDisplayEx .= GetTableColumnColorDisplay($strColor, $ref->GetPriceDisplay(call_user_func($callback, $ref, $fNext)));
     }
 
     $strUserDefined = '';  
-    if ($callback2)    $strUserDefined = GetTableColumnColorDisplay($strColor, call_user_func($callback2, $fVal, $fNext, $bChinese));
+    if ($callback2)    $strUserDefined = GetTableColumnColorDisplay($strColor, call_user_func($callback2, $bChinese, $fVal, $fNext));
 
     $strBackGround = GetTableColumnColor($strColor);
     echo <<<END
@@ -186,7 +186,7 @@ function EchoSmaTable($arColumn, $stock_his, $bChinese, $ref = false, $callback 
     $strColumnEx = '';
 	if ($ref)
     {
-    	$est_ref = call_user_func($callback, false, $ref);
+    	$est_ref = call_user_func($callback, $ref);
     	$strColumnEx = GetTableColumn(110, GetXueQiuLink($est_ref->GetStockSymbol()).$strEst);
     	$strColumnEx .= GetTableColumn(70, $strNextEst);
     	$iWidth += 180;
@@ -195,7 +195,7 @@ function EchoSmaTable($arColumn, $stock_his, $bChinese, $ref = false, $callback 
     $strUserDefined = '';  
     if ($callback2)
     {
-    	$strUserDefined = GetTableColumn(100, call_user_func($callback2, false, false, $bChinese));
+    	$strUserDefined = GetTableColumn(100, call_user_func($callback2, $bChinese));
     	$iWidth += 100;
     }
     

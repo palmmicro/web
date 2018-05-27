@@ -1,7 +1,7 @@
 <?php
 require_once('smaparagraph.php');
 
-function _callbackLofSma($fEst, $lof_ref)
+function _callbackLofSma($lof_ref, $fEst = false)
 {
 	if ($fEst)		return $lof_ref->_estLofByEtf($fEst, $lof_ref->fCNY);
 	return $lof_ref->stock_ref;

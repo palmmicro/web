@@ -11,7 +11,7 @@ function _etfListRefCallbackData($ref, $bChinese)
 	return $ar;
 }
 
-function _etfListRefCallback($ref, $bChinese)
+function _etfListRefCallback($bChinese, $ref = false)
 {
     if ($ref)
     {
@@ -28,7 +28,7 @@ function EchoEtfListParagraph($arRef, $bChinese)
 {
 	$str = GetEtfListLink($bChinese);
     EchoParagraphBegin($str);
-    EchoStockRefTable($arRef, _etfListRefCallback, $bChinese);
+    EchoReferenceTable($arRef, $bChinese, _etfListRefCallback);
     EchoParagraphEnd();
 }
 

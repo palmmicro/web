@@ -224,7 +224,7 @@ function EchoPromotionHead($strVer, $bChinese)
 
 // ****************************** Money Paragraph *******************************************************
 
-function EchoMoneyParagraph($group, $fUSDCNY, $fHKDCNY, $bChinese)
+function EchoMoneyParagraph($group, $bChinese, $fUSDCNY = false, $fHKDCNY = false)
 {
     if ($bChinese)     
     {                                          
@@ -250,7 +250,7 @@ function _EchoTransactionParagraph($group, $bChinese)
     {
     	EchoTransactionParagraph('', $strGroupId, false, $bChinese);
     }
-    StockEditTransactionForm($strGroupId, false, $bChinese);
+    StockEditTransactionForm($bChinese, $strGroupId);
     _echoGroupPortfolioParagraph($group, $bChinese);
 }
 

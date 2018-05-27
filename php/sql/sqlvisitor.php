@@ -45,7 +45,7 @@ function SqlDeleteVisitor($strTableName, $strSrcId)
 {
     if ($strSrcId)
     {
-        return SqlDeleteTableData($strTableName, _SqlBuildWhere('src_id', $strSrcId), false);
+        return SqlDeleteTableData($strTableName, _SqlBuildWhere('src_id', $strSrcId));
     }
     return false;
 }

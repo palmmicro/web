@@ -31,7 +31,7 @@ function SqlGetParameter($strTableName, $strId)
 
 function SqlGetParameterId($strTableName, $strParameter)
 {
-	if ($record = SqlGetUniqueTableData($strTableName, _SqlBuildWhere('parameter', $strParameter)))
+	if ($record = SqlGetSingleTableData($strTableName, _SqlBuildWhere('parameter', $strParameter)))
     {
 		return $record['id'];
 	}

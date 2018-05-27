@@ -108,7 +108,7 @@ function _adrStockRefCallbackData($ref, $bChinese)
 	return $ar;
 }
 
-function _adrStockRefCallback($ref, $bChinese)
+function _adrStockRefCallback($bChinese, $ref = false)
 {
     if ($ref)
     {
@@ -123,7 +123,7 @@ function _adrStockRefCallback($ref, $bChinese)
 function _echoRefParagraph($group, $bChinese)
 {
     EchoParagraphBegin($bChinese ? '价格数据' : 'Price data');
-    EchoStockRefTable($group->arStockRef, _adrStockRefCallback, $bChinese);
+    EchoReferenceTable($group->arStockRef, $bChinese, _adrStockRefCallback);
     EchoParagraphEnd();
 }
 
@@ -185,7 +185,7 @@ function AdrEchoAll($bChinese)
         _EchoTransactionParagraph($group, $bChinese);
         if ($group->GetTotalRecords() > 0)
         {
-            EchoMoneyParagraph($group, $group->fUSDCNY, $group->fHKDCNY, $bChinese);
+            EchoMoneyParagraph($group, $bChinese, $group->fUSDCNY, $group->fHKDCNY);
             _echoArbitrageParagraph($group, $bChinese);
         }
 	}

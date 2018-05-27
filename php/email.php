@@ -28,7 +28,7 @@ function EmailHtml($strWho, $strSubject, $strContents)
 //    DebugString("mail to $strWho: $strContents");
 }
 
-function EmailReport($strWho, $strText, $strSubject) 
+function EmailReport($strText, $strSubject, $strWho = false) 
 {
     if ($strWho)    $str = $strWho.':<br />'.$strSubject;
     else             $str = $strSubject;
@@ -36,11 +36,6 @@ function EmailReport($strWho, $strText, $strSubject)
 
 	EmailHtml(SUPPORT_EMAIL, $strSubject, $str.'<br />'.GetVisitorLink(UrlGetIp(), true));
 	if ($strWho)    EmailHtml($strWho, $strSubject, $str);
-}
-
-function EmailDebug($strText, $strSubject) 
-{
-    EmailReport(false, $strText, $strSubject);
 }
 
 ?>

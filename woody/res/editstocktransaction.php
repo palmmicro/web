@@ -14,7 +14,7 @@
 
 <div>
 <h1>Update Stock Transaction</h1>
-<?php StockEditTransactionForm(false, false, false); ?>
+<?php StockEditTransactionForm(); ?>
 </div>
 
 <?php LayoutTail(false); ?>

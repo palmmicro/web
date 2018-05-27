@@ -23,7 +23,7 @@ function EchoAll($bChinese)
     
     EchoFundEstParagraph($fund, $bChinese);
     EchoReferenceParagraph(array($fund->index_ref, $fund->etf_ref, $group->cny_ref, $fund->stock_ref), $bChinese);
-    EchoFundTradingParagraph($fund, false, $bChinese);    
+    EchoFundTradingParagraph($fund, $bChinese);    
 	EchoLofSmaParagraph($fund, $bChinese);
     EchoFundHistoryParagraph($fund, $bChinese);
 
@@ -32,7 +32,7 @@ function EchoAll($bChinese)
         _EchoTransactionParagraph($group, $bChinese);
         if ($group->GetTotalRecords() > 0)
         {
-            EchoMoneyParagraph($group, false, $fund->fCNY, $bChinese);
+            EchoMoneyParagraph($group, $bChinese, false, $fund->fCNY);
             $group->EchoArbitrageParagraph($bChinese);
         }
 	}

@@ -9,29 +9,29 @@ function DeleteStockGroupByName($strGroupName)
     DebugString($strGroupWhere);
     $iGroupCount = SqlCountTableData($strGroupTable, $strGroupWhere);
     DebugVal($iGroupCount);
-    if (($result = SqlGetTableData($strGroupTable, $strGroupWhere, false, false)) == false)   return;
+    if (($result = SqlGetTableData($strGroupTable, $strGroupWhere)) == false)   return;
     
     $strItemWhere = _SqlBuildWhereOrArray('group_id', _SqlFetchIdArray($result));
     $strItemTable = TABLE_STOCK_GROUP_ITEM;
     $iItemCount = SqlCountTableData($strItemTable, $strItemWhere);
     DebugVal($iItemCount);
-    if (($result = SqlGetTableData($strItemTable, $strItemWhere, false, false)) == false)   return;
+    if (($result = SqlGetTableData($strItemTable, $strItemWhere)) == false)   return;
 
     $strTransactionWhere = _SqlBuildWhereOrArray('groupitem_id', _SqlFetchIdArray($result));
     $strTransactionTable = 'stocktransaction';
     $iTransactionCount = SqlCountTableData($strTransactionTable, $strTransactionWhere);
     DebugVal($iTransactionCount);
 /*    
-    if ($iTransactionCount > 0)    SqlDeleteTableData($strTransactionTable, $strTransactionWhere, false);
-    if ($iItemCount > 0)    SqlDeleteTableData($strItemTable, $strItemWhere, false);
-    if ($iGroupCount > 0)    SqlDeleteTableData($strGroupTable, $strGroupWhere, false);
+    if ($iTransactionCount > 0)    SqlDeleteTableData($strTransactionTable, $strTransactionWhere);
+    if ($iItemCount > 0)    SqlDeleteTableData($strItemTable, $strItemWhere);
+    if ($iGroupCount > 0)    SqlDeleteTableData($strGroupTable, $strGroupWhere);
 */    
 }
 
 function ValidateTableIpField($strTableName)
 {
     $ar = array();
-    if ($result = SqlGetTableData($strTableName, false, false, false)) 
+    if ($result = SqlGetTableData($strTableName)) 
     {
         while ($record = mysql_fetch_assoc($result)) 
         {
@@ -57,7 +57,7 @@ function ValidateTableIpField($strTableName)
 function CorrectBlogTable()
 {
     $ar = array();
-    if ($result = SqlGetTableData(TABLE_BLOG, false, false, false)) 
+    if ($result = SqlGetTableData(TABLE_BLOG)) 
     {
         while ($record = mysql_fetch_assoc($result)) 
         {

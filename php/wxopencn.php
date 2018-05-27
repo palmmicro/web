@@ -116,7 +116,7 @@ function _wxGetDefaultText()
 
 function _wxEmailDebug($strUserName, $strText, $strSubject)
 {   
-    EmailDebug("<font color=blue>用户:</font>$strUserName.<br />".$strText, $strSubject);
+    EmailReport("<font color=blue>用户:</font>$strUserName.<br />".$strText, $strSubject);
 }
 
 function _wxUnknownMessage($strContents, $strUserName)

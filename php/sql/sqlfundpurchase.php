@@ -18,7 +18,7 @@ function SqlCreateFundPurchaseTable()
 
 function SqlGetFundPurchaseAmount($strMemberId, $strStockId)
 {
-	if ($record = SqlGetUniqueTableData(TABLE_FUND_PURCHASE, _SqlBuildWhere_stock_member($strStockId, $strMemberId)))
+	if ($record = SqlGetSingleTableData(TABLE_FUND_PURCHASE, _SqlBuildWhere_stock_member($strStockId, $strMemberId)))
 	{
 	    return $record['amount'];
 	}
@@ -55,7 +55,7 @@ function SqlUpdateFundPurchase($strMemberId, $strStockId, $strAmount)
 
 function SqlDeleteFundPurchaseByMemberId($strMemberId)
 {
-	return SqlDeleteTableData(TABLE_FUND_PURCHASE, _SqlBuildWhere_member($strMemberId), false);
+	return SqlDeleteTableData(TABLE_FUND_PURCHASE, _SqlBuildWhere_member($strMemberId));
 }
 
 function SqlCountFundPurchase($strMemberId)

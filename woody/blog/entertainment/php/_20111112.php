@@ -2,7 +2,7 @@
 require_once('/php/stock.php');
 require_once('/php/stock/sinastockref.php');
 require_once('/php/stock/yahoostockref.php');
-require_once('/php/ui/referenceparagraph.php');     // EchoReferenceTable
+require_once('/php/ui/referenceparagraph.php');
 
 function EchoStockPrice($bChinese)
 {

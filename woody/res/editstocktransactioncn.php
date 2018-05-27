@@ -14,7 +14,7 @@
 
 <div>
 <h1>修改股票交易</h1>
-<?php StockEditTransactionForm(false, false, true); ?>
+<?php StockEditTransactionForm(true); ?>
 </div>
 
 <?php LayoutTail(true); ?>

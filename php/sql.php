@@ -106,7 +106,7 @@ function SqlInsertTableData($strTableName, $str)
    	return SqlDieByQuery($strQuery, $strTableName.' insert data failed');
 }
 
-function SqlGetTableData($strTableName, $strWhere, $strOrderBy, $strLimit)
+function SqlGetTableData($strTableName, $strWhere = false, $strOrderBy = false, $strLimit = false)
 {
 	$strQry = 'SELECT * FROM '.$strTableName;
 	if ($strWhere)       $strQry .= ' WHERE '.$strWhere; 
@@ -126,7 +126,7 @@ function SqlGetTableData($strTableName, $strWhere, $strOrderBy, $strLimit)
 	return false;
 }
 
-function SqlGetSingleTableData($strTableName, $strWhere, $strOrderBy)
+function SqlGetSingleTableData($strTableName, $strWhere = false, $strOrderBy = false)
 {
 	$strQry = 'SELECT * FROM '.$strTableName;
 	if ($strWhere)       $strQry .= ' WHERE '.$strWhere; 
@@ -135,21 +135,12 @@ function SqlGetSingleTableData($strTableName, $strWhere, $strOrderBy)
 	return SqlQuerySingleRecord($strQry, $strTableName.' query table data by '.$strWhere.' failed');
 }
 
-function SqlGetUniqueTableData($strTableName, $strWhere)
-{
-	if ($strWhere)
-	{
-		return SqlGetSingleTableData($strTableName, $strWhere, false);
-	}
-	return false;
-}
-
 function SqlGetTableDataById($strTableName, $strId)
 {
-	return SqlGetUniqueTableData($strTableName, _SqlBuildWhere_id($strId));
+	return SqlGetSingleTableData($strTableName, _SqlBuildWhere_id($strId));
 }
 
-function SqlDeleteTableData($strTableName, $strWhere, $strLimit)
+function SqlDeleteTableData($strTableName, $strWhere, $strLimit = false)
 {
     if ($strWhere)
     {
@@ -165,7 +156,7 @@ function SqlDeleteTableDataById($strTableName, $strId)
     return SqlDeleteTableData($strTableName, _SqlBuildWhere_id($strId), '1');
 }
 
-function SqlCountTableDataString($strTableName, $strWhere)
+function SqlCountTableDataString($strTableName, $strWhere = false)
 {
 	$strQry = "SELECT count(*) as total FROM $strTableName";
 	if ($strWhere)    $strQry .= ' WHERE '.$strWhere; 
@@ -174,7 +165,7 @@ function SqlCountTableDataString($strTableName, $strWhere)
 	return $record['total'];
 }
 
-function SqlCountTableData($strTableName, $strWhere)
+function SqlCountTableData($strTableName, $strWhere = false)
 {
 	return intval(SqlCountTableDataString($strTableName, $strWhere));
 }

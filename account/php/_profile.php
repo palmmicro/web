@@ -249,7 +249,7 @@ function _registerAccount($strEmail, $strPassword, $strPassword2)
 	    $strText = 'Welcome';
 	    $strSubject = PROFILE_NEW_ACCOUNT;
 	}
-	EmailReport($strEmail, $strText, $strSubject);
+	EmailReport($strText, $strSubject, $strEmail);
 
 	AcctLogin($strEmail, $_POST['password']);
 	return $strSubject;
@@ -337,7 +337,7 @@ function _remindPassword($strEmail)
 	    $strText = 'Your new password';
 	    $strSubject = PROFILE_NEW_PASSWORD;
 	}
-	EmailReport($strEmail, $strText.': '.$strPassword, $strSubject);
+	EmailReport($strText.': '.$strPassword, $strSubject, $strEmail);
 	return $strSubject;
 }
 
@@ -377,7 +377,7 @@ function _closeAccount($strEmail)
 	    $strText = 'Goodbye and good luck';
 	    $strSubject = PROFILE_CLOSE_ACCOUNT;
 	}
-	EmailReport($strEmail, $strText, $strSubject);
+	EmailReport($strText, $strSubject, $strEmail);
 	return $strSubject;
 }
 

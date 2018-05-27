@@ -81,7 +81,7 @@ function SqlUpdateLoginEmail($id, $strEmail)
 
 function SqlExecLogin($strEmail, $strPassword)
 {
-	if ($member = SqlGetUniqueTableData(TABLE_MEMBER, _SqlBuildWhereAndArray(array('email' => $strEmail, 'password' => md5($strPassword)))))
+	if ($member = SqlGetSingleTableData(TABLE_MEMBER, _SqlBuildWhereAndArray(array('email' => $strEmail, 'password' => md5($strPassword)))))
 	{	// Login Successful
 		return $member['id'];
 	}
@@ -99,7 +99,7 @@ function SqlInsertMember($strEmail, $strPassword)
 
 function SqlGetIdByEmail($strEmail)
 {
-	if ($member = SqlGetUniqueTableData(TABLE_MEMBER, _SqlBuildWhere('email', $strEmail)))
+	if ($member = SqlGetSingleTableData(TABLE_MEMBER, _SqlBuildWhere('email', $strEmail)))
 	{
 		return $member['id'];
 	}
@@ -108,7 +108,7 @@ function SqlGetIdByEmail($strEmail)
 
 function SqlGetMemberEmails()
 {
-    return SqlGetTableData(TABLE_MEMBER, "status = '2'", false, false);
+    return SqlGetTableData(TABLE_MEMBER, "status = '2'");
 }
 
 function SqlGetMemberById($strId)
@@ -118,7 +118,7 @@ function SqlGetMemberById($strId)
 
 function SqlGetMemberByIp($strIp)
 {
-    return SqlGetTableData(TABLE_MEMBER, _SqlBuildWhere('ip', $strIp), '`login` DESC', false);
+    return SqlGetTableData(TABLE_MEMBER, _SqlBuildWhere('ip', $strIp), '`login` DESC');
 }
 
 function SqlGetEmailById($strId)
@@ -155,7 +155,7 @@ function SqlUpdateStatus($strId, $iNewStatus)
 
 function SqlGetProfileByMemberId($strMemberId)
 {
-	return SqlGetUniqueTableData(TABLE_PROFILE, _SqlBuildWhere_member($strMemberId));
+	return SqlGetSingleTableData(TABLE_PROFILE, _SqlBuildWhere_member($strMemberId));
 }
 
 function SqlGetNameByMemberId($strMemberId)

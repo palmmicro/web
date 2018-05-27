@@ -35,7 +35,7 @@ function _echoTradingTableItem($i, $strAskBid, $strPrice, $strQuantity, $ref, $f
     $strUserDefined = '';  
     if ($callback && $fPrice)
     {
-    	$strUserDefined = GetTableColumnColorDisplay($strColor, call_user_func($callback, $fPrice, $bChinese));
+    	$strUserDefined = GetTableColumnColorDisplay($strColor, call_user_func($callback, $bChinese, $fPrice));
     }
 
     echo <<<END
@@ -64,7 +64,7 @@ function _echoTradingTableData($ref, $fEstPrice, $fEstPrice2, $fEstPrice3, $call
     }
 }
 
-function _echoTradingTable($arColumn, $ref, $fEstPrice, $fEstPrice2, $fEstPrice3, $callback, $bChinese)
+function _echoTradingTable($arColumn, $ref, $bChinese, $fEstPrice = false, $fEstPrice2 = false, $fEstPrice3 = false, $callback = false)
 {
 	$iWidth = 250;
 	$iEstWidth = 90;
@@ -122,7 +122,7 @@ function _getTradingParagraphStr($arColumn, $bChinese)
     return $str;
 }
 
-function EchoFundTradingParagraph($fund, $callback, $bChinese)
+function EchoFundTradingParagraph($fund, $bChinese, $callback = false)
 {
     $ref = $fund->stock_ref;
     $strSymbol = GetMyStockRefLink($ref, $bChinese);
@@ -135,7 +135,7 @@ function EchoFundTradingParagraph($fund, $callback, $bChinese)
     $arColumn[] = $arFundEst[2];
     $arColumn[] = $arFundEst[4];
     $arColumn[] = $arFundEst[6];
-    if ($callback)     $arColumn[] = call_user_func($callback, false, $bChinese);
+    if ($callback)     $arColumn[] = call_user_func($callback, $bChinese);
     $strPrice = _getTradingParagraphStr($arColumn, $bChinese);
     
 	$arSma = GetSmaTableColumn($bChinese);
@@ -151,7 +151,7 @@ function EchoFundTradingParagraph($fund, $callback, $bChinese)
     }
     
     EchoParagraphBegin($str);
-    _echoTradingTable($arColumn, $ref, $fund->fPrice, $fund->fFairNetValue, $fund->fRealtimeNetValue, $callback, $bChinese); 
+    _echoTradingTable($arColumn, $ref, $bChinese, $fund->fPrice, $fund->fFairNetValue, $fund->fRealtimeNetValue, $callback); 
     EchoParagraphEnd();
 }
 
@@ -185,7 +185,7 @@ function EchoAhTradingParagraph($hshare_ref, $bChinese)
     else				 $str = "The $strPremium of $strSymbol $strPrice comparing with $strSymbolH trading price $strPriceH HKD";
         
     EchoParagraphBegin($str);
-    _echoTradingTable($arColumn, $ref, $hshare_ref->GetCnyPrice(), $fVal, false, false, $bChinese); 
+    _echoTradingTable($arColumn, $ref, $bChinese, $hshare_ref->GetCnyPrice(), $fVal); 
     EchoParagraphEnd();
 }
 
@@ -193,7 +193,7 @@ function EchoTradingParagraph($ref, $bChinese)
 {
     $arColumn = _getTradingTableColumn($bChinese);
     EchoParagraphBegin(_getTradingParagraphStr($arColumn, $bChinese));
-    _echoTradingTable($arColumn, $ref, false, false, false, false, $bChinese); 
+    _echoTradingTable($arColumn, $ref, $bChinese); 
     EchoParagraphEnd();
 }
 

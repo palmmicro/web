@@ -77,7 +77,7 @@ function _emailStockGroup($strMemberId, $strOperation, $strGroupName, $strSymbol
     $str .= '<br />GroupName: '.$strGroupLink; 
     $str .= '<br />Symbols: '.$strSymbols; 
     
-    EmailDebug($str, $strSubject); 
+    EmailReport($str, $strSubject); 
 }
 
 function _getStockIdSymbolArray($strSymbols)

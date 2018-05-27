@@ -60,7 +60,7 @@ function _isInvalidDate($strYMD)
 function _cleanInvalidStockHistory($sql)
 {
     $ar = array();
-    if ($result = $sql->GetAll(0, 0)) 
+    if ($result = $sql->GetAll()) 
     {
         while ($history = mysql_fetch_assoc($result)) 
         {
@@ -81,7 +81,7 @@ function _cleanInvalidStockHistory($sql)
 function _cleanInvalidHistory($strTableName)
 {
     $ar = array();
-    if ($result = SqlGetTableData($strTableName, false, false, false)) 
+    if ($result = SqlGetTableData($strTableName)) 
     {
         while ($history = mysql_fetch_assoc($result)) 
         {

@@ -91,7 +91,7 @@ class FundReference extends MysqlReference
             $strSymbol = $this->GetStockSymbol();
             $strLink = GetNetValueHistoryLink($strSymbol, true);
             $str = sprintf('%s%s 实际值%s 估值%s 误差:%.2f%%, 从_compareEstResult函数调用.', $strSymbol, $strLink, $strNetValue, $strEstValue, $fPercentage); 
-            EmailDebug($str, 'Netvalue estimation error');
+            EmailReport($str, 'Netvalue estimation error');
         }
     }
     

@@ -39,7 +39,7 @@ function SqlGetAllStock($iStart, $iNum)
 
 function SqlGetStock($strSymbol)
 {
-	return SqlGetUniqueTableData(TABLE_STOCK, _SqlBuildWhere('name', $strSymbol));
+	return SqlGetSingleTableData(TABLE_STOCK, _SqlBuildWhere('name', $strSymbol));
 }
 
 function SqlGetStockDescription($strSymbol)

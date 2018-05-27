@@ -7,7 +7,7 @@ function _emailMetaDescriptionWarning($iLen, $strType, $str)
 {
     $strLink = GetCurLink();
     $strText = sprintf('%s%sLength=%d%s%s', $strLink, HTML_NEW_LINE, $iLen, HTML_NEW_LINE, $str);
-    EmailDebug($strText, $strType.' Meta Description Warning');
+    EmailReport($strText, $strType.' Meta Description Warning');
 }
 
 function IsLongMetaDescription($str)

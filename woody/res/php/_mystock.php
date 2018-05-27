@@ -52,7 +52,7 @@ function _echoMyStockTransactions($strMemberId, $ref, $bChinese)
 	
 	if ($iCount == 1)
 	{
-	    StockEditTransactionForm($strGroupId, $strGroupItemId, $bChinese);
+	    StockEditTransactionForm($bChinese, $strGroupId, $strGroupItemId);
 	}
 	else
 	{
@@ -114,7 +114,7 @@ function _echoMyStockData($strSymbol, $bChinese)
     if ($sym->IsFundA())
     {
         if ($fund->fPrice)      EchoFundEstParagraph($fund, $bChinese);
-        EchoFundTradingParagraph($fund, false, $bChinese);
+        EchoFundTradingParagraph($fund, $bChinese);
     }
     else
     {

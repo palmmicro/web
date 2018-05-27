@@ -49,7 +49,7 @@ function SqlGetStockTransactionByGroupItemIdArray($arGroupItemId, $iStart, $iNum
 
 function SqlDeleteStockTransactionByGroupItemId($strGroupItemId)
 {
-    return SqlDeleteTableData('stocktransaction', _SqlBuildWhere('groupitem_id', $strGroupItemId), false);
+    return SqlDeleteTableData('stocktransaction', _SqlBuildWhere('groupitem_id', $strGroupItemId));
 }
 
 // ****************************** Stock Transaction functions *******************************************************

@@ -19,7 +19,7 @@ function SqlInsertGB2312($strGB, $strUTF)
 
 function SqlGetUTF($strGB)
 {
-	if ($record = SqlGetUniqueTableData(TABLE_GB2312, _SqlBuildWhere('gb', $strGB)))
+	if ($record = SqlGetSingleTableData(TABLE_GB2312, _SqlBuildWhere('gb', $strGB)))
 	{
         return $record['utf'];
 	}

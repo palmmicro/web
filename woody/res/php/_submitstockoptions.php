@@ -8,7 +8,7 @@ function _updateStockHistoryAdjCloseByDividend($strSymbol, $strYMD, $strDividend
     $ar = array();
     $ymd = new YMDString($strYMD);
 	$sql = new SqlStockHistory(SqlGetStockId($strSymbol));
-    if ($result = $sql->GetAll(0, 0)) 
+    if ($result = $sql->GetAll()) 
     {
         while ($history = mysql_fetch_assoc($result)) 
         {
@@ -43,7 +43,7 @@ function _updateStockDescription($strSubmit, $strSymbol, $strVal)
         $bChinese = false;
     }
     $strLink = GetMyStockLink($strSymbol, $bChinese);
-    EmailDebug($strLink.' '.$strVal, $strSubmit);
+    EmailReport($strLink.' '.$strVal, $strSubmit);
 }
 
 function _updateFundPurchaseAmount($strEmail, $strSymbol, $strVal)

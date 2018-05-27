@@ -98,7 +98,7 @@ function _emailStockTransaction($strGroupItemId, $strQuantity, $strPrice, $strCo
     $str .= '<br />Price: '.$strPrice; 
     $str .= '<br />Cost: '.$strCost; 
     $str .= '<br />Remark: '.$strRemark; 
-    EmailDebug($str, $strSubject); 
+    EmailReport($str, $strSubject); 
 }
 
 function _emailFundPurchase($strGroupId, $strFundId, $strArbitrageId)
@@ -109,7 +109,7 @@ function _emailFundPurchase($strGroupId, $strFundId, $strArbitrageId)
 	$str = GetMemberLink($strMemberId, $bChinese);
     $str .= '<br />Fund: '.StockGetSingleTransactionLink($strGroupId, SqlGetStockSymbol($strFundId), $bChinese); 
     $str .= '<br />Arbitrage: '.StockGetSingleTransactionLink($strGroupId, SqlGetStockSymbol($strArbitrageId), $bChinese); 
-    EmailDebug($str, $strSubject); 
+    EmailReport($str, $strSubject); 
 }
 
 function _onArbitrageCost($strQuantity, $strPrice)

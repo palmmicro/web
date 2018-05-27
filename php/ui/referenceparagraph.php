@@ -56,7 +56,7 @@ function _checkStockReference($ref)
 }
 
 // $ref from StockReference
-function _echoReferenceTableItem($ref, $callback, $bChinese)
+function _echoReferenceTableItem($ref, $bChinese, $callback = false)
 {
     if (_checkStockReference($ref) == false)    return;
 
@@ -65,7 +65,7 @@ function _echoReferenceTableItem($ref, $callback, $bChinese)
     if ($callback)
     {
         $strDisplayEx = '';
-		$arDisplayEx = call_user_func($callback, $ref, $bChinese);
+		$arDisplayEx = call_user_func($callback, $bChinese, $ref);
 		foreach ($arDisplayEx as $str)
 		{
 			$strDisplayEx .= GetTableColumnDisplay($str);
@@ -94,20 +94,20 @@ function _echoReferenceTableData($arRef, $callback, $bChinese)
 {
     foreach ($arRef as $ref)
     {
-       	_echoReferenceTableItem($ref, $callback, $bChinese);
+       	_echoReferenceTableItem($ref, $bChinese, $callback);
         if ($callback == false)
         {
-        	_echoReferenceTableItem($ref->extended_ref, false, $bChinese);
+        	_echoReferenceTableItem($ref->extended_ref, $bChinese);
         }
     }
 }
 
-function EchoStockRefTable($arRef, $callback, $bChinese)
+function EchoReferenceTable($arRef, $bChinese, $callback = false)
 {
 	$arColumn = GetReferenceTableColumn($bChinese);
 	if ($callback)
 	{
-		$arColumnEx = call_user_func($callback, false, $bChinese);
+		$arColumnEx = call_user_func($callback, $bChinese);
         $strColumnEx = ' ';
 		foreach ($arColumnEx as $str)
 		{
@@ -133,11 +133,6 @@ END;
 
 	_echoReferenceTableData($arRef, $callback, $bChinese);
     EchoTableEnd();
-}
-
-function EchoReferenceTable($arRef, $bChinese)
-{
-	EchoStockRefTable($arRef, false, $bChinese);
 }
 
 function EchoReferenceParagraph($arRef, $bChinese)

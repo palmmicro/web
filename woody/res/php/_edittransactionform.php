@@ -5,7 +5,7 @@ define ('STOCK_TRANSACTION_EDIT_CN', '修改交易');
 define ('STOCK_TRANSACTION_NEW', 'New Transaction');
 define ('STOCK_TRANSACTION_NEW_CN', '新增交易');
 
-function StockEditTransactionForm($strGroupId, $strGroupItemId, $bChinese)
+function StockEditTransactionForm($bChinese = false, $strGroupId = false, $strGroupItemId = false)
 {
     $strQuantity = '';
     $strPrice = '';

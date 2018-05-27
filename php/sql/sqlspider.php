@@ -29,7 +29,7 @@ function SqlGetSpiderParameter($strId)
 
 function SqlGetSpiderParameterId($strParameter)
 {
-	if ($record = SqlGetUniqueTableData(TABLE_SPIDER_PARAMTER, _SqlBuildWhere('parameter', $strParameter)))
+	if ($record = SqlGetSingleTableData(TABLE_SPIDER_PARAMTER, _SqlBuildWhere('parameter', $strParameter)))
     {
 		return $record['id'];
 	}

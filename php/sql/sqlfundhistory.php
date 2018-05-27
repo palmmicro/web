@@ -21,12 +21,6 @@ function SqlCreateFundHistoryTable()
 function SqlGetFundHistoryNow($strStockId)
 {
 	return SqlGetSingleTableData(TABLE_FUND_HISTORY, _SqlBuildWhere_stock($strStockId), _SqlOrderByDate());
-/*	if ($result = SqlGetFundHistory($strStockId, 0, 1))
-	{
-	    $history = mysql_fetch_assoc($result);
-	    return $history;
-	}
-	return false;*/
 }
 
 function SqlCountFundHistory($strStockId)
@@ -41,7 +35,7 @@ function SqlGetFundHistory($strStockId, $iStart, $iNum)
 
 function SqlGetFundHistoryByDate($strStockId, $strDate)
 {
-	return SqlGetUniqueTableData(TABLE_FUND_HISTORY, _SqlBuildWhere_date_stock($strDate, $strStockId));
+	return SqlGetSingleTableData(TABLE_FUND_HISTORY, _SqlBuildWhere_date_stock($strDate, $strStockId));
 }
 
 function SqlGetNetValueByDate($strStockId, $strDate)

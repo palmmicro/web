@@ -69,7 +69,7 @@ function SqlGetWeixin($strId)
 
 function SqlGetWeixinId($strOpenId)
 {
-	if ($record = SqlGetUniqueTableData(TABLE_WEIXIN, _SqlBuildWhere('open', $strOpenId)))
+	if ($record = SqlGetSingleTableData(TABLE_WEIXIN, _SqlBuildWhere('open', $strOpenId)))
     {
 		return $record['id'];
 	}

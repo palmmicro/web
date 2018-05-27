@@ -1,37 +1,37 @@
 <?php
 require_once('smaparagraph.php');
 
-function _callbackHShareSmaA($fEst, $ref)
+function _callbackHShareSmaA($ref, $fEst = false)
 {
 	if ($fEst)		return $ref->EstFromCny($fEst);
 	return $ref;
 }
 
-function _callbackHShareSmaH($fEst, $ref)
+function _callbackHShareSmaH($ref, $fEst = false)
 {
 	if ($fEst)		return $ref->EstToCny($fEst);
 	return $ref->a_ref;
 }
 
-function _callbackHAdrSmaAdr($fEst, $ref)
+function _callbackHAdrSmaAdr($ref, $fEst = false)
 {
 	if ($fEst)		return $ref->EstFromUsd($fEst);
 	return $ref;
 }
 
-function _callbackHAdrSmaH($fEst, $ref)
+function _callbackHAdrSmaH($ref, $fEst = false)
 {
 	if ($fEst)		return $ref->EstToUsd($fEst);
 	return $ref->adr_ref;
 }
 
-function _callbackHAdrSmaUsd($fEst, $ref)
+function _callbackHAdrSmaUsd($ref, $fEst = false)
 {
 	if ($fEst)		return $ref->FromUsdToCny($fEst);
 	return $ref->a_ref;
 }
 
-function _callbackHAdrSmaCny($fEst, $ref)
+function _callbackHAdrSmaCny($ref, $fEst = false)
 {
 	if ($fEst)		return $ref->FromCnyToUsd($fEst);
 	return $ref->adr_ref;

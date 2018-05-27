@@ -9,7 +9,7 @@ function EchoChineseHoldResult($strOldSZ162411, $strOldXOP, $strSZ162411, $strXO
     $multi = new MultiCurrency();
     $multi->fCNY = (floatval($strSZ162411) - floatval($strOldSZ162411)) * intval($strQuantitySZ162411);
     $multi->fUSD = (floatval($strXOP) - floatval($strOldXOP)) * intval($strQuantityXOP);
-    $multi->Convert(floatval($strUSCNY), false);
+    $multi->Convert(floatval($strUSCNY));
     
     $strRMB = strval(round($multi->fCNY, 2));
     $strUSD = strval(round($multi->fUSD, 2));

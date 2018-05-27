@@ -30,7 +30,7 @@ function EchoAll($bChinese)
     
     EchoFundEstParagraph($fund, $bChinese);
     EchoReferenceParagraph(array($fund->est_ref, $fund->future_ref, $group->cny_ref, $fund->stock_ref), $bChinese);
-    EchoFundTradingParagraph($fund, false, $bChinese);    
+    EchoFundTradingParagraph($fund, $bChinese);    
     EchoFundHistoryParagraph($fund, $bChinese);
 
     if ($group->strGroupId) 
