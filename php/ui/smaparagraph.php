@@ -175,7 +175,7 @@ function EchoSmaParagraphBegin($stock_his, $bChinese)
     return $arColumn;
 }
 
-function EchoSmaTable($arColumn, $stock_his, $ref, $callback, $callback2, $bChinese)
+function EchoSmaTable($arColumn, $stock_his, $bChinese, $ref = false, $callback = false, $callback2 = false)
 {
 	if ($bChinese)	$strEst = $arColumn[1];
 	else				$strEst = ' '.$arColumn[1];
@@ -217,21 +217,21 @@ END;
     EchoTableEnd();
 }
 
-function EchoSmaParagraph($stock_his, $ref, $callback, $callback2, $bChinese)
+function EchoSmaParagraph($stock_his, $bChinese, $ref = false, $callback = false, $callback2 = false)
 {
 	$arColumn = EchoSmaParagraphBegin($stock_his, $bChinese);
-	EchoSmaTable($arColumn, $stock_his, $ref, $callback, $callback2, $bChinese);
+	EchoSmaTable($arColumn, $stock_his, $bChinese, $ref, $callback, $callback2);
     EchoParagraphEnd();
 }
 
-function EchoSmaLeverageParagraph($stock_his, $arRef, $callback, $callback2, $bChinese)
+function EchoSmaLeverageParagraph($stock_his, $arRef, $callback, $bChinese, $callback2 = false)
 {
     if ($stock_his == false)              return;
     
 	$arColumn = EchoSmaParagraphBegin($stock_his, $bChinese);
 	foreach ($arRef as $ref)
 	{
-		EchoSmaTable($arColumn, $stock_his, $ref, $callback, $callback2, $bChinese);
+		EchoSmaTable($arColumn, $stock_his, $bChinese, $ref, $callback, $callback2);
 		EchoNewLine();
 	}
     EchoParagraphEnd();

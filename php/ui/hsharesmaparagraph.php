@@ -61,7 +61,7 @@ function EchoHShareSmaParagraph($ref, $hshare_ref, $bChinese)
    			$callback2 = _callbackHAdrSmaUsd;
    			$callback = _callbackHAdrSmaAdr;
    		}
-   		EchoSmaTable($arColumn, $stock_his, $hshare_ref, $callback2, false, $bChinese);
+   		EchoSmaTable($arColumn, $stock_his, $bChinese, $hshare_ref, $callback2);
 		EchoNewLine();
 	}
 	else if ($hshare_ref->a_ref)
@@ -75,7 +75,7 @@ function EchoHShareSmaParagraph($ref, $hshare_ref, $bChinese)
    		else				   			$callback = _callbackHAdrSmaAdr;
 	}
 	
-	EchoSmaTable($arColumn, $stock_his, $hshare_ref, $callback, false, $bChinese);
+	EchoSmaTable($arColumn, $stock_his, $bChinese, $hshare_ref, $callback);
     EchoParagraphEnd();
 }
 

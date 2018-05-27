@@ -25,7 +25,7 @@ function EchoReferenceDemo($bChinese)
 function EchoLofSmaDemo($bChinese)
 {
 	$fund_ref = StockGetFundReference(FUND_DEMO_SYMBOL);
-	EchoLofSmaParagraph($fund_ref, false, $bChinese);
+	EchoLofSmaParagraph($fund_ref, $bChinese);
 }
 
 function EchoFundHistoryDemo($bChinese)

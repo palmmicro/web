@@ -118,17 +118,17 @@ function EchoAll($bChinese)
     {
     	EchoReferenceParagraph(array($group->index_ref, $group->future_ref), $bChinese);
         EchoEtfListParagraph($group->ar_ref, $bChinese);
-        EchoEtfSmaParagraph($group->his, $group->ar_ref, false, $bChinese);
+        EchoEtfSmaParagraph($group->his, $group->ar_ref, $bChinese);
     }
     else
     {
     	EchoReferenceParagraph($group->ar_ref, $bChinese);
-    	EchoSmaLeverageParagraph($group->his, $group->ar_leverage_ref, _estLeverage, false, $bChinese);
+    	EchoSmaLeverageParagraph($group->his, $group->ar_leverage_ref, _estLeverage, $bChinese);
     }
     
     if (count($group->ar_leverage_ref) == 1)
     {
-        EchoSmaParagraph(new StockHistory($group->ar_leverage_ref[0]), false, false, false, $bChinese);
+        EchoSmaParagraph(new StockHistory($group->ar_leverage_ref[0]), $bChinese);
     }
 
     if ($group->strGroupId) 

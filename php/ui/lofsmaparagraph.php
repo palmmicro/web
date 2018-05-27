@@ -7,7 +7,7 @@ function _callbackLofSma($fEst, $lof_ref)
 	return $lof_ref->stock_ref;
 }
 
-function EchoLofSmaParagraph($lof_ref, $callback2, $bChinese)
+function EchoLofSmaParagraph($lof_ref, $bChinese, $callback2 = false)
 {
 	$ref = $lof_ref->etf_ref;
     if ($ref == false) 				return;
@@ -15,7 +15,7 @@ function EchoLofSmaParagraph($lof_ref, $callback2, $bChinese)
     
 	$stock_his = new StockHistory($ref);
 	$arColumn = EchoSmaParagraphBegin($stock_his, $bChinese);
-	EchoSmaTable($arColumn, $stock_his, $lof_ref, _callbackLofSma, $callback2, $bChinese);
+	EchoSmaTable($arColumn, $stock_his, $bChinese, $lof_ref, _callbackLofSma, $callback2);
     EchoParagraphEnd();
 }
 
