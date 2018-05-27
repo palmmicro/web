@@ -137,20 +137,15 @@ function AcctEmailSpiderReport($strIp, $strText, $strSubject)
     EmailReport($strText, $strSubject.' from '.$strIp); 
 }
 
-function AcctGetBlogVisitor($strIp, $iStart, $iNum)
+function AcctGetBlogVisitor($strIp, $iStart = 0, $iNum = 0)
 {
-/*    if ($strIpId = SqlGetIpAddressId($strIp))
-    {
-        return SqlGetVisitor(VISITOR_TABLE, $strIpId, $iStart, $iNum);
-    }
-    return false;*/
     return SqlGetVisitor(VISITOR_TABLE, SqlGetIpAddressId($strIp), $iStart, $iNum);
 }
 
 function AcctGetSpiderPageCount($strIp)
 {
     $ar = array();
-	if ($result = AcctGetBlogVisitor($strIp, 0, 0)) 
+	if ($result = AcctGetBlogVisitor($strIp)) 
 	{
 	    while ($record = mysql_fetch_assoc($result)) 
 	    {
