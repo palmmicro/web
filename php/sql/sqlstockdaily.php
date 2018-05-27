@@ -42,7 +42,7 @@ class SqlStockDaily extends SqlStockTable
     
     function Get($strDate)
     {
-    	return $this->GetUniqueData($this->BuildWhere_date_stock($strDate));
+    	return $this->GetSingleData($this->BuildWhere_date_stock($strDate));
     }
     
     function GetCloseString($strDate)

@@ -35,7 +35,7 @@ class SqlStockTable extends SqlTable
     
     function DeleteAll()
     {
-    	return $this->Delete($this->BuildWhere_stock(), false);
+    	return $this->Delete($this->BuildWhere_stock());
     }
 }
 

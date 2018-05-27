@@ -26,36 +26,22 @@ class SqlTable
     	return SqlUpdateTableData($this->strName, $str);
     }
     
-    function Count($strWhere)
+    function Count($strWhere = false)
     {
     	return SqlCountTableData($this->strName, $strWhere);
     }
 
-    function GetData($strWhere, $strOrderBy, $strLimit)
+    function GetData($strWhere = false, $strOrderBy = false, $strLimit = false)
     {
     	return SqlGetTableData($this->strName, $strWhere, $strOrderBy, $strLimit);
     }
 
-    function GetAllData()
-    {
-    	return $this->GetData(false, false, false);
-    }
-    
-    function GetSingleData($strWhere, $strOrderBy)
+    function GetSingleData($strWhere = false, $strOrderBy = false)
     {
     	return SqlGetSingleTableData($this->strName, $strWhere, $strOrderBy);
     }
     
-    function GetUniqueData($strWhere)
-    {
-    	if ($strWhere)
-    	{
-    		return $this->GetSingleData($strWhere, false);
-    	}
-    	return false;
-    }
-    
-    function Delete($strWhere, $strLimit)
+    function Delete($strWhere, $strLimit = false)
     {
     	return SqlDeleteTableData($this->strName, $strWhere, $strLimit);
     }

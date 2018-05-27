@@ -17,7 +17,7 @@ class SqlStockPair extends SqlStockTable
     
     function Get()
     {
-    	return $this->GetUniqueData($this->BuildWhere_stock());
+    	return $this->GetSingleData($this->BuildWhere_stock());
     }
 
     function GetRatio()
@@ -41,7 +41,7 @@ class SqlStockPair extends SqlStockTable
     function GetStockIdByPairId()
     {
     	$strPairId = $this->GetStockId();
-    	if ($record = $this->GetSingleData(_SqlBuildWhere('pair_id', $strPairId), false))
+    	if ($record = $this->GetSingleData(_SqlBuildWhere('pair_id', $strPairId)))
     	{
     		return $record['stock_id'];
     	}
@@ -91,7 +91,7 @@ function _sqlGetStockPairArray($strTableName)
 {
 	$ar = array();
 	$sql = new SqlTable($strTableName);
-	if ($result = $sql->GetAllData()) 
+	if ($result = $sql->GetData()) 
     {
         while ($record = mysql_fetch_assoc($result)) 
         {

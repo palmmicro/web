@@ -29,7 +29,7 @@ class SqlStockHistory extends SqlStockDaily
 
     function DeleteByZeroVolume()
     {
-    	return $this->Delete("volume = '0' AND ".$this->BuildWhere_stock(), false);
+    	return $this->Delete("volume = '0' AND ".$this->BuildWhere_stock());
     }
 }
 

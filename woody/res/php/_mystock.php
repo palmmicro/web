@@ -73,7 +73,25 @@ function _hasSmaDisplay($sym)
     return true;
 }
 
-function _echoMyStock($strSymbol, $bChinese)
+function _getMyStockLinks($sym, $bChinese)
+{
+	$strQuery = UrlGetQueryString();
+    $str = BuildPhpLink(STOCK_PATH.'editstock', $strQuery, STOCK_OPTION_EDIT_CN, STOCK_OPTION_EDIT, $bChinese);
+    $str .= ' '.BuildPhpLink(STOCK_PATH.'editstockreversesplit', $strQuery, STOCK_OPTION_REVERSESPLIT_CN, STOCK_OPTION_REVERSESPLIT, $bChinese);
+    if ($bChinese)	$str .= ' '.GetPhpLink(STOCK_PATH.'editstockema', $strQuery, STOCK_OPTION_EMA_CN, true);
+    if ($sym->IsSymbolH())
+    {
+    	if ($bChinese)	$str .= ' '.GetPhpLink(STOCK_PATH.'editstockadr', $strQuery, STOCK_OPTION_ADR_CN, true);
+    }
+    else
+    {
+    	if ($bChinese)	$str .= ' '.GetPhpLink(STOCK_PATH.'editstocketf', $strQuery, STOCK_OPTION_ETF_CN, true);
+    }
+    return $str;
+}
+
+
+function _echoMyStockData($strSymbol, $bChinese)
 {
     StockPrefetchData(array($strSymbol));
     
@@ -121,24 +139,16 @@ function _echoMyStock($strSymbol, $bChinese)
     	EchoStockGroupParagraph($bChinese);	
         _echoMyStockTransactions($strMemberId, $ref, $bChinese);
     }
-    return $sym;
-}
-
-function _echoMyStockLinks($sym, $bChinese)
-{
-	$strQuery = UrlGetQueryString();
-    $str = BuildPhpLink(STOCK_PATH.'editstock', $strQuery, STOCK_OPTION_EDIT_CN, STOCK_OPTION_EDIT, $bChinese);
-    $str .= ' '.BuildPhpLink(STOCK_PATH.'editstockreversesplit', $strQuery, STOCK_OPTION_REVERSESPLIT_CN, STOCK_OPTION_REVERSESPLIT, $bChinese);
-    if ($bChinese)	$str .= ' '.GetPhpLink(STOCK_PATH.'editstockema', $strQuery, STOCK_OPTION_EMA_CN, true);
-    if ($sym->IsSymbolH())
+    
+    if (AcctIsAdmin())
     {
-    	if ($bChinese)	$str .= ' '.GetPhpLink(STOCK_PATH.'editstockadr', $strQuery, STOCK_OPTION_ADR_CN, true);
+     	$str = _getMyStockLinks($sym, $bChinese);
+    	if (_hasSmaDisplay($sym))
+    	{
+    		$str .= '<br />'._GetStockConfigDebugString(array($ref), $bChinese);
+    	}
+    	EchoParagraph($str);
     }
-    else
-    {
-    	if ($bChinese)	$str .= ' '.GetPhpLink(STOCK_PATH.'editstocketf', $strQuery, STOCK_OPTION_ETF_CN, true);
-    }
-    EchoParagraph($str);
 }
 
 function _echoAllStock($bChinese)
@@ -146,15 +156,6 @@ function _echoAllStock($bChinese)
     $iStart = UrlGetQueryInt('start');
     $iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
     EchoStockParagraph($iStart, $iNum, $bChinese);
-}
-
-function _echoMyStockData($strSymbol, $bChinese)
-{
-    $sym = _echoMyStock($strSymbol, $bChinese);
-    if (AcctIsAdmin())
-    {
-     	_echoMyStockLinks($sym, $bChinese);
-    }
 }
 
 function _echoMyStockSymbol($strSymbol, $bChinese)
