@@ -5,18 +5,14 @@ function _getSmaRow($strKey, $bChinese)
 {
     if ($bChinese)
     {
-        $arRow = array('D' => '日', 'W' => '周', 'M' => '月', 'BOLLUP' => '布林上轨', 'BOLLDN' => '布林下轨');
+        $arRow = array('D' => '日', 'W' => '周', 'M' => '月', 'BOLLUP' => '布林上轨', 'BOLLDN' => '布林下轨', 'EMA' => '牛熊分界');
     }
     else
     {
-        $arRow = array('D' => ' Days', 'W' => ' Weeks', 'M' => ' Months', 'BOLLUP' => 'Boll Up', 'BOLLDN' => 'Boll Down');
+        $arRow = array('D' => ' Days', 'W' => ' Weeks', 'M' => ' Months', 'BOLLUP' => 'Boll Up', 'BOLLDN' => 'Boll Down', 'EMA' => 'EMA200/50');
     }
     $strFirst = substr($strKey, 0, 1);
-    if ($strFirst == 'E')
-    {
-    	return $strKey;
-    }
-    else if ($strFirst != 'B')
+    if ($strFirst != 'B' && $strFirst != 'E')
     {
         return substr($strKey, 1, strlen($strKey) - 1).$arRow[$strFirst];
     }
@@ -33,6 +29,11 @@ function _getTradingRangeRow($stock_his, $strKey)
     return strval($iVal); 
 }
 
+function _getSmaCallbackPriceDisplay($callback, $ref, $fVal, $strColor)
+{
+	return GetTableColumnDisplay($ref->GetPriceDisplay(call_user_func($callback, $ref, $fVal)), $strColor);
+}
+
 function _echoSmaTableItem($stock_his, $strKey, $fVal, $fNext, $ref, $callback, $callback2, $strColor, $bChinese)
 {
     $stock_ref = $stock_his->stock_ref;
@@ -46,12 +47,12 @@ function _echoSmaTableItem($stock_his, $strKey, $fVal, $fNext, $ref, $callback, 
     $strDisplayEx = '';
     if ($ref)
     {
-        $strDisplayEx = GetTableColumnColorDisplay($strColor, $ref->GetPriceDisplay(call_user_func($callback, $ref, $fVal)));
-        $strDisplayEx .= GetTableColumnColorDisplay($strColor, $ref->GetPriceDisplay(call_user_func($callback, $ref, $fNext)));
+        $strDisplayEx = _getSmaCallbackPriceDisplay($callback, $ref, $fVal, $strColor);
+        $strDisplayEx .= _getSmaCallbackPriceDisplay($callback, $ref, $fNext, $strColor);
     }
 
     $strUserDefined = '';  
-    if ($callback2)    $strUserDefined = GetTableColumnColorDisplay($strColor, call_user_func($callback2, $bChinese, $fVal, $fNext));
+    if ($callback2)    $strUserDefined = GetTableColumnDisplay(call_user_func($callback2, $bChinese, $fVal, $fNext), $strColor);
 
     $strBackGround = GetTableColumnColor($strColor);
     echo <<<END

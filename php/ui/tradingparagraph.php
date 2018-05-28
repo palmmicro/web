@@ -15,6 +15,15 @@ function _getTradingNumber($strNumber)
     return strval(intval($fNum));
 }
 
+function _getTradingEstPercentageDisplay($fPrice, $fEstPrice, $strColor)
+{
+	if ($fEstPrice)
+	{
+		return GetTableColumnDisplay(StockGetPercentageDisplay($fPrice, $fEstPrice), $strColor);
+	}
+	return '';
+}
+
 function _echoTradingTableItem($i, $strAskBid, $strPrice, $strQuantity, $ref, $fEstPrice, $fEstPrice2, $fEstPrice3, $callback, $bChinese)
 {
 	if ($strQuantity == '0')	return;
@@ -27,15 +36,14 @@ function _echoTradingTableItem($i, $strAskBid, $strPrice, $strQuantity, $ref, $f
     $strPriceDisplay = $ref->GetPriceDisplay($fPrice);
     $strTradingNumber = _getTradingNumber($strQuantity);
     
-    $strDisplayEx = '';
-    if ($fEstPrice)	$strDisplayEx .= GetTableColumnColorDisplay($strColor, StockGetPercentageDisplay($fPrice, $fEstPrice));
-    if ($fEstPrice2)	$strDisplayEx .= GetTableColumnColorDisplay($strColor, StockGetPercentageDisplay($fPrice, $fEstPrice2));
-    if ($fEstPrice3)	$strDisplayEx .= GetTableColumnColorDisplay($strColor, StockGetPercentageDisplay($fPrice, $fEstPrice3));
+    $strDisplayEx = _getTradingEstPercentageDisplay($fPrice, $fEstPrice, $strColor);
+    $strDisplayEx .= _getTradingEstPercentageDisplay($fPrice, $fEstPrice2, $strColor);
+    $strDisplayEx .= _getTradingEstPercentageDisplay($fPrice, $fEstPrice3, $strColor);
 
     $strUserDefined = '';  
     if ($callback && $fPrice)
     {
-    	$strUserDefined = GetTableColumnColorDisplay($strColor, call_user_func($callback, $bChinese, $fPrice));
+    	$strUserDefined = GetTableColumnDisplay(call_user_func($callback, $bChinese, $fPrice), $strColor);
     }
 
     echo <<<END

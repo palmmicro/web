@@ -9,15 +9,10 @@ function GetTableColumnColor($strColor)
     return '';
 }
 
-function GetTableColumnColorDisplay($strColor, $strDisplay)
+function GetTableColumnDisplay($strDisplay, $strColor = false)
 {
     $strBackGround = GetTableColumnColor($strColor);
 	return "<td $strBackGround class=c1>$strDisplay</td>";
-}
-
-function GetTableColumnDisplay($strDisplay)
-{
-	return GetTableColumnColorDisplay(false, $strDisplay);
 }
 
 function GetTableColumn($iWidth, $strDisplay)

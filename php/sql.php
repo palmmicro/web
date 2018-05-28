@@ -137,7 +137,11 @@ function SqlGetSingleTableData($strTableName, $strWhere = false, $strOrderBy = f
 
 function SqlGetTableDataById($strTableName, $strId)
 {
-	return SqlGetSingleTableData($strTableName, _SqlBuildWhere_id($strId));
+	if ($strId)
+	{
+		return SqlGetSingleTableData($strTableName, _SqlBuildWhere_id($strId));
+	}
+	return false;
 }
 
 function SqlDeleteTableData($strTableName, $strWhere, $strLimit = false)
