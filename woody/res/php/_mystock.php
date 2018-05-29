@@ -68,6 +68,7 @@ function _setMyStockLink($ref, $strPageSymbol, $bChinese)
 function _hasSmaDisplay($sym)
 {
     if ($sym->IsSinaFund())		return false;
+    else if ($sym->IsFundA())   	return false;
     else if ($sym->IsForex())   	return false;
     return true;
 }

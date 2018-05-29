@@ -100,7 +100,7 @@ function _echoAdminTestParagraph($group, $bChinese)
     EchoParagraph($str);
 }
 
-function _estLeverage($fEst, $leverage_ref)
+function _estLeverage($leverage_ref, $fEst = false)
 {
     global $group;
     if ($fEst)

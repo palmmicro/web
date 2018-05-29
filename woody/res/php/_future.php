@@ -194,7 +194,7 @@ function _echoAdminTestParagraph($group, $bChinese)
     EchoParagraph($str);
 }
 
-function _estLeverage($fEtf1x, $leverage_ref)
+function _estLeverage($leverage_ref, $fEtf1x = false)
 {
     global $group;
     if ($fEtf1x)	return $leverage_ref->EstByEtf1x($fEtf1x, $group->etf_ref);
