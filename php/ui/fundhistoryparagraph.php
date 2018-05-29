@@ -180,7 +180,7 @@ function EchoFundHistoryParagraph($fund, $bChinese, $csv = false, $iStart = 0, $
         $str = "The {$arColumn[3]} history of $strSymbolLink {$arColumn[1]} price comparing with {$arColumn[2]}";
     }
     
-    if (($iStart == 0) && ($iNum == TABLE_COMMON_DISPLAY))
+    if (IsTableCommonDisplay($iStart, $iNum))
     {
         $str .= ' '.GetNetValueHistoryLink($strSymbol, $bChinese);
         $strNavLink = '';

@@ -146,7 +146,7 @@ function _echoAccountFundAmount($strMemberId, $bChinese)
     {
         $str .= ' '.BuildPhpLink(STOCK_PATH.'fundpurchaseamount', 'member_id='.$strMemberId, '全部', 'All', $bChinese);
     }
-    EchoFundPurchaseParagraph($str, $strMemberId, 0, TABLE_COMMON_DISPLAY, $bChinese);
+    EchoFundPurchaseParagraph($str, $strMemberId, $bChinese);
 }
 
 function EchoAccountProfile($bChinese)

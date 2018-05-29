@@ -131,7 +131,7 @@ function CombineTransactionEchoAll($bChinese)
 
         $strGroupLink = _GetReturnGroupLink($g_strGroupId, $bChinese);
         $strStockLinks = StockGetGroupTransactionLinks($g_strGroupId, '', $bChinese);
-        $strAllLink = StockGetAllTransactionLink($g_strGroupId, false, $bChinese);
+        $strAllLink = StockGetAllTransactionLink($g_strGroupId, $bChinese);
         EchoParagraphBegin($strGroupLink.' '.$strAllLink.' '.$strStockLinks);
         
         $group = new MyStockGroup($g_strGroupId, array());

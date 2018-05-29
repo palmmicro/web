@@ -175,19 +175,10 @@ function _echoWeixinPromotion()
 END;
 }
 
-function _getGuangFaLink()
-{
-    $strHttp = "http://clickeggs.gf.com.cn/qrcode/page/index.html?channel=normal&branch_no=1507&bn_alterornot=1&recommend_no=3046963&rn_alterornot=1&product_kind=normal&product_no=&bank_type=&fund_nos=&from_source_info=qrcode_user_3046963_x";
-    return GetExternalLink($strHttp, '广发开户');
-}
-
 function _echoMyPromotion()
 {
-    $strExampleLink = _getGuangFaLink();
     echo <<<END
-        <p>随机显示广告位招租, 显示一张图片和一个外部链接如{$strExampleLink}.
-           提供<a href="/account/visitorcn.php">网站访问</a>和广告展示统计, 广告费用按同期<a href="/woody/blog/entertainment/20110509cn.php">Google Adsense</a>收益标准收取.
-        <br />觉得这个页面有用? 可以打赏支持一下. 
+        <p>觉得这个页面有用? 可以打赏支持一下. 
         <br /><img src=/woody/blog/photo/wxpay_small.jpg alt="Small QRcode to pay 1 RMB to Woody in Weixin" />
 END;
 }
@@ -248,7 +239,7 @@ function _EchoTransactionParagraph($group, $bChinese)
     
     if ($group->GetTotalRecords() > 0)
     {
-    	EchoTransactionParagraph('', $strGroupId, false, $bChinese);
+    	EchoTransactionParagraph($strGroupId, $bChinese);
     }
     StockEditTransactionForm($bChinese, $strGroupId);
     _echoGroupPortfolioParagraph($group, $bChinese);

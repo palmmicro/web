@@ -26,7 +26,7 @@ function _echoFundPurchaseTableData($strMemberId, $iStart, $iNum, $bChinese)
 	}
 }
 
-function EchoFundPurchaseParagraph($str, $strMemberId, $iStart, $iNum, $bChinese)
+function EchoFundPurchaseParagraph($str, $strMemberId, $bChinese, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
 {
     EchoParagraphBegin($str);
     

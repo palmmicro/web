@@ -79,14 +79,40 @@ function _echoTransactionTableData($strGroupId, $ref, $iStart, $iNum, $bChinese)
     }
 }
 
-function _echoTransactionTable($strGroupId, $ref, $iStart, $iNum, $bChinese)
+function EchoTransactionParagraph($strGroupId, $bChinese, $ref = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
 {
+    if (IsTableCommonDisplay($iStart, $iNum))
+    {
+    	$str = StockGetAllTransactionLink($strGroupId, $bChinese, $ref);
+        $strNavLink = '';
+    }
+    else
+    {
+    	if ($ref)
+    	{
+            $iTotal = SqlCountStockTransaction($strGroupId, $ref->GetStockId());
+           	$strNavLink = GetNavLink('groupid='.$strGroupId.'&symbol='.$ref->GetStockSymbol(), $iTotal, $iStart, $iNum, $bChinese);
+    	}
+    	else
+    	{
+            $iTotal = SqlCountStockTransactionByGroupId($strGroupId);
+           	$strNavLink = GetNavLink('groupid='.$strGroupId, $iTotal, $iStart, $iNum, $bChinese);
+        }
+        $str = $strNavLink;
+    }
+    
+	if (AcctIsDebug())
+	{
+		$str .= ' '.GetMyStockGroupLink($strGroupId, SqlGetStockGroupName($strGroupId), $bChinese);
+	}
+	
 	$arReference = GetReferenceTableColumn($bChinese);
 	$strSymbol = $arReference[0];
 	$strPrice = $arReference[1];
     if ($bChinese)     $arColumn = array('日期', $strSymbol, '数量', $strPrice, '交易费用', '备注', '操作');
     else		         $arColumn = array('Date', $strSymbol, 'Quantity', $strPrice, 'Fees', 'Remark', 'Operation');
     
+    EchoParagraphBegin($str);
     echo <<<END
     <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="transaction">
     <tr>
@@ -101,24 +127,7 @@ function _echoTransactionTable($strGroupId, $ref, $iStart, $iNum, $bChinese)
 END;
 
     _echoTransactionTableData($strGroupId, $ref, $iStart, $iNum, $bChinese);
-    EchoTableEnd();
-}
-
-function EchoTransactionFullParagraph($strText, $strGroupId, $ref, $iStart, $iNum, $bChinese)
-{
-	if (AcctIsDebug())
-	{
-		$strText .= ' '.GetMyStockGroupLink($strGroupId, SqlGetStockGroupName($strGroupId), $bChinese);
-	}
-    EchoParagraphBegin($strText);
-    _echoTransactionTable($strGroupId, $ref, $iStart, $iNum, $bChinese);
-    EchoParagraphEnd();
-}
-
-function EchoTransactionParagraph($strText, $strGroupId, $ref, $bChinese)
-{
-	$strText .= StockGetAllTransactionLink($strGroupId, $ref, $bChinese);
-	EchoTransactionFullParagraph($strText, $strGroupId, $ref, 0, TABLE_COMMON_DISPLAY, $bChinese);
+    EchoTableParagraphEnd($strNavLink);
 }
 
 ?>

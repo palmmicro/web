@@ -56,7 +56,7 @@ function EchoCalibrationParagraph($strSymbol, $bChinese, $iStart = 0, $iNum = TA
     else              $arColumn = array($strSymbolLink.' '.$strPrice, $strPairLink.' '.$strPrice, 'Factor', 'Date');
     
 	$str = '';    
-    if (($iStart == 0) && ($iNum == TABLE_COMMON_DISPLAY))
+    if (IsTableCommonDisplay($iStart, $iNum))
     {
         $str .= ' '.GetCalibrationLink($strSymbol, $bChinese);
     }

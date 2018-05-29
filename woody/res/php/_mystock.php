@@ -46,8 +46,7 @@ function _echoMyStockTransactions($strMemberId, $ref, $bChinese)
 	if ($iCount == 0)    return;
 	foreach ($arGroup as $strGroupId => $strGroupItemId)
 	{
-		$strGroupLink = SelectGroupInternalLink($strGroupId, $bChinese);
-		EchoTransactionParagraph($strGroupLink.' ', $strGroupId, $ref, $bChinese);
+		EchoTransactionParagraph($strGroupId, $bChinese, $ref);
 	}
 	
 	if ($iCount == 1)
