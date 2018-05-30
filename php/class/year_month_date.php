@@ -97,6 +97,11 @@ class YearMonthDay
         return $this->local[4] + 1;
     }
     
+    function GetSeason()
+    {
+    	return intval($this->local[4] / 3) + 1;
+    }
+    
     function GetMonthStr()
     {
         return strval($this->GetMonth());

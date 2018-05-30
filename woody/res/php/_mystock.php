@@ -9,6 +9,7 @@ require_once('/php/ui/ahparagraph.php');
 require_once('/php/ui/etfparagraph.php');
 require_once('/php/ui/hsharesmaparagraph.php');
 require_once('/php/ui/fundestparagraph.php');
+require_once('/php/ui/fundhistoryparagraph.php');
 require_once('/php/ui/tradingparagraph.php');
 //require_once('/php/ui/stockgroupparagraph.php');
 require_once('/php/ui/transactionparagraph.php');
@@ -85,7 +86,10 @@ function _getMyStockLinks($sym, $bChinese)
     }
     else
     {
-    	if ($bChinese)	$str .= ' '.GetPhpLink(STOCK_PATH.'editstocketf', $strQuery, STOCK_OPTION_ETF_CN, true);
+    	if ($sym->IsIndex() == false && $sym->IsIndexA() == false)
+    	{
+    		if ($bChinese)	$str .= ' '.GetPhpLink(STOCK_PATH.'editstocketf', $strQuery, STOCK_OPTION_ETF_CN, true);
+    	}
     }
     return $str;
 }
@@ -115,6 +119,7 @@ function _echoMyStockData($strSymbol, $bChinese)
     {
         if ($fund->fPrice)      EchoFundEstParagraph($fund, $bChinese);
         EchoFundTradingParagraph($fund, $bChinese);
+        EchoFundHistoryParagraph($fund, $bChinese);
     }
     else
     {

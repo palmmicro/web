@@ -435,7 +435,7 @@ function _getPersonalLinks($strMemberId, $bChinese)
 
 function EchoStockGroupLinks($bChinese)
 {
-    $str = HTML_NEW_LINE.GetCategoryLinks(STOCK_PATH, GetMenuArray($bChinese), $bChinese);
+    $str = HTML_NEW_LINE.GetCategoryLinks(GetMenuArray, $bChinese);
     $str .= HTML_NEW_LINE.StockGetGroupLink($bChinese);	// .' '.GetAhCompareLink($bChinese).' '.GetAdrhCompareLink($bChinese);
     $str .= HTML_NEW_LINE.GetMyPortfolioLink($bChinese);
     if ($strMemberId = AcctIsLogin())
@@ -447,7 +447,7 @@ function EchoStockGroupLinks($bChinese)
 
 function EchoStockCategoryLinks($bChinese)
 {
-    $str = HTML_NEW_LINE.GetCategoryLinks(STOCK_PATH, _getCategoryArray($bChinese), $bChinese);
+    $str = HTML_NEW_LINE.GetCategoryLinks(_getCategoryArray, $bChinese);
     echo $str;
 }
 

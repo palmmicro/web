@@ -6,9 +6,6 @@ require_once('ui/stocktable.php');
 
 // ****************************** Stock internal link functions *******************************************************
 
-define ('STOCK_PATH', '/woody/res/');
-define ('STOCK_PHP_PATH', '/woody/res/php/');
-
 function _getStockToolLink($strTitle, $strSymbol, $bChinese)
 {
     return GetPhpLink(STOCK_PATH.strtolower($strTitle), false, $strSymbol, $bChinese);

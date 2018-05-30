@@ -190,6 +190,7 @@ function TestCmdLine()
     	$fStart = microtime(true);
     	if ($strSrc == 'yahoo')		$str = TestYahooWebData($strSymbol);
     	else if ($strSrc == 'ft')	$str = TestFtStock($strSymbol);
+    	else if ($strSrc == 'sina')	$str = TestSinaStockHistory($strSymbol);
     	$fStop = microtime(true);
     	if (empty($str))	$str = '(Not found)';
     	echoDebugString($strSymbol.':'.$str.DebugGetStopWatchDisplay($fStop, $fStart));

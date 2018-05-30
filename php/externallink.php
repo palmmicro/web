@@ -145,6 +145,13 @@ function GetSinaN8n8Link($sym)
     return $strSymbol;
 }
 
+function GetSinaStockHistoryLink($strSymbol)
+{
+    $sym = new StockSymbol($strSymbol);
+    $strHttp = SinaGetStockHistoryUrl($sym);
+    return GetExternalLink($strHttp, $strSymbol);
+}
+
 // https://www.jisilu.cn/data/ha_history/600585
 function GetJisiluAhLink($strSymbol)
 {

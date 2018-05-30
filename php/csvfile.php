@@ -51,16 +51,21 @@ class CsvFile
     {
     	$ar = array();
     	$this->_open('r');
-    	while (!feof($this->file))
-    	{	
-    		$strLine = fgets($this->file);
-    		$arWord = explode(',', $strLine);
-    		if (count($arWord) > $iColumn)
-    		{
-    			$ar[$arWord[0]] = floatval($arWord[$iColumn]);
+    	if ($this->file)
+    	{
+    		while (!feof($this->file))
+    		{	
+    			if ($strLine = fgets($this->file))
+    			{
+    				$arWord = explode(',', $strLine);
+    				if (count($arWord) > $iColumn)
+    				{
+    					$ar[$arWord[0]] = floatval($arWord[$iColumn]);
+    				}
+    			}
     		}
-        }
-    	$this->Close();
+    		$this->Close();
+    	}
     	return $ar;
     }
 }

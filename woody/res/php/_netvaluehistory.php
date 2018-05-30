@@ -8,9 +8,13 @@ function _echoNetValueHistoryGraph($strSymbol, $bChinese)
 {
    	$csv = new PageCsvFile();
     $jpg = new PageImageFile();
-    $jpg->DrawDateArray($csv->ReadColumn(2), $csv->ReadColumn(1));
-	$strPremium = $bChinese ? '溢价' : 'Premium';
-    EchoPageImage($strPremium, $strSymbol, $csv->GetPathName(), $jpg->GetPathName());
+    $ar = $csv->ReadColumn(2);
+   	if (count($ar) > 0)
+   	{
+   		$jpg->DrawDateArray($ar, $csv->ReadColumn(1));
+   		$strPremium = $bChinese ? '溢价' : 'Premium';
+   		EchoPageImage($strPremium, $strSymbol, $csv->GetPathName(), $jpg->GetPathName());
+   	}
 }
 
 function _echoNetValueHistory($strSymbol, $iStart, $iNum, $bChinese)

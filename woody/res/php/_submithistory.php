@@ -5,6 +5,32 @@ require_once('/php/stockhis.php');
 
 // https://danjuanapp.com/djmodule/value-center
 
+function _webUpdateSinaHistory($sql, $sym)
+{
+	$ymd = new YMDNow();
+	$iYear = $ymd->GetYear();
+	$iSeason = $ymd->GetSeason();
+	$iTotal = 0;
+	while ($iTotal < MAX_QUOTES_DAYS)
+	{
+        $str = SinaGetStockHistory($sym, $iYear, $iSeason);
+        $arMatch = preg_match_sina_history($str);
+        foreach ($arMatch as $ar)
+        {
+        	SqlMergeStockHistory($sql, $ar[1], $ar[2], $ar[3], $ar[5], $ar[4], $ar[6], $ar[4]);
+        	$iTotal ++;
+		}
+		$iSeason --;
+		if ($iSeason == 0)
+		{
+			$iSeason = 4;
+			$iYear --;
+			if ($iYear < 2014)	break;
+		}
+	}
+    DebugString(sprintf('_webUpdateSinaHistory %s total %d', $sym->GetSymbol(), $iTotal));
+}
+
 function _webUpdateYahooHistory($sql, $strYahooSymbol)
 {
     $iTime = time();
@@ -110,14 +136,21 @@ function _submitStockHistory($strStockId, $strSymbol)
     $sym = new StockSymbol($strSymbol);
     $sym->SetTimeZone();
 	$sql = new SqlStockHistory($strStockId);
-    _webUpdateYahooHistory($sql, $sym->GetYahooSymbol());
-    if ($sym->IsSymbolA() || $sym->IsSymbolH())
-    {   // Yahoo has wrong Chinese and Hongkong holiday record with '0' volume 
-        if ($sym->IsIndex() == false)
-        {
-            $sql->DeleteByZeroVolume();
-        }
-    }
+	if ($sym->IsIndexA())
+	{
+		_webUpdateSinaHistory($sql, $sym);
+	}
+	else
+	{
+		_webUpdateYahooHistory($sql, $sym->GetYahooSymbol());
+		if ($sym->IsSymbolA() || $sym->IsSymbolH())
+		{   // Yahoo has wrong Chinese and Hongkong holiday record with '0' volume 
+			if ($sym->IsIndex() == false)
+			{
+				$sql->DeleteByZeroVolume();
+			}
+		}
+	}
     _cleanInvalidStockHistory($sql);
 //    _cleanInvalidHistory(TABLE_FUND_HISTORY);
 }

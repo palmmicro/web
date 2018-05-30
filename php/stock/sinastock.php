@@ -1,4 +1,104 @@
 <?php
+// http://money.finance.sina.com.cn/corp/go.php/vMS_MarketHistory/stockid/601006.phtml
+// http://money.finance.sina.com.cn/corp/go.php/vMS_MarketHistory/stockid/000001/type/S.phtml?year=2018&jidu=1
+function SinaGetStockHistoryUrl($sym, $iYear = false, $iSeason = false)
+{
+	$str = 'http://money.finance.sina.com.cn/corp/go.php/vMS_MarketHistory/stockid/';
+	if ($strDigit = $sym->IsIndexA())
+	{
+		$str .= $strDigit.'/type/S.phtml';
+	}
+	else if ($strDigit = $sym->IsSymbolA())
+	{
+		$str .= $strDigit.'.phtml';
+	}
+	
+	if ($iYear)
+	{
+		$str .= '?year='.strval($iYear);
+		if ($iSeason)
+		{
+			$str .= '&jidu='.strval($iSeason);
+		}
+	}
+	return $str;
+}
+
+function SinaGetStockHistory($sym, $iYear = false, $iSeason = false)
+{
+    $strUrl = SinaGetStockHistoryUrl($sym, $iYear, $iSeason);
+    DebugString($strUrl);
+    $str = url_get_contents($strUrl); 
+    return $str;
+}
+
+/*
+/*
+$stockCode = 600000
+$url = "http://money.finance.sina.com.cn/corp/go.php/vMS_MarketHistory/stockid/{0}.phtml" -f $stockCode
+$wc = New-Object System.Net.WebClient
+$content = $wc.DownloadString($url)
+
+$reg = "<a target='_blank's+href='http://biz.finance.sina.com.cn/stock/history_min.php?symbol=shd{6}&date=d{4}-d{2}-d{2}'>s*([^s]+)s+</a>s*</div></td>s*<td[^d]*([^<]*)</div></td>s+<td[^d]*([^<]*)</div></td>s+<td[^d]*([^<]*)</div></td>s+<td[^d]*([^<]*)</div></td>s+"
+$result = [RegEx]::matches($content, $reg)
+
+foreach($item in $result)
+{
+    $date = $item.Groups[1].Value # 时间
+    $opening = $item.Groups[2].Value # 开盘
+    $maxHigh = $item.Groups[3].Value # 最高
+    $closing = $item.Groups[4].Value # 收盘
+    $maxLow = $item.Groups[5].Value # 最低
+    Write-Host $date $opening $maxHigh $closing $maxLow
+}
+
+			<td><div align="center">
+					<a target='_blank' href='http://vip.stock.finance.sina.com.cn/quotes_service/view/vMS_tradehistory.php?symbol=sh000001&date=2018-05-29'>
+			2018-05-29			</a>
+						</div></td>
+			<td><div align="center">3129.621</div></td>
+			<td><div align="center">3143.208</div></td>
+			<td><div align="center">3120.461</div></td>
+			<td class="tdr"><div align="center">3112.153</div></td>
+			<td class="tdr"><div align="center">13571780000</div></td>
+			<td class="tdr"><div align="center">177826106449</div></td>
+*/
+function preg_match_sina_history($str)
+{
+    $strBoundary = RegExpBoundary();
+    $strDate = RegExpDate();
+    $strSpace = RegExpSpace();
+    
+    $strPattern = $strBoundary;
+    $strPattern .= RegExpParenthesis("date=$strDate'>$strSpace", $strDate, "$strSpace</a>$strSpace</div></td>");
+    for ($i = 0; $i < 6; $i ++)
+    {
+        $strPattern .= RegExpParenthesis("$strSpace<td".RegExpSkip($strSpace.'class="tdr"').'><div align="center">', RegExpNumber(), '</div></td>');
+    }
+    $strPattern .= $strBoundary;
+//    DebugString($strPattern);
+    
+    $arMatch = array();
+    preg_match_all($strPattern, $str, $arMatch, PREG_SET_ORDER);
+    return $arMatch;
+}
+			
+function TestSinaStockHistory($strSymbol)
+{
+	$sym = new StockSymbol($strSymbol);
+	$str = SinaGetStockHistory($sym);
+	$arMatch = preg_match_sina_history($str);
+	foreach ($arMatch as $ar)
+	{
+		$str = $ar[1];
+		for ($i = 2; $i < count($ar); $i ++)
+		{
+			$str .= ' '.$ar[$i];
+		}
+		DebugString($str);
+	}
+	return $str;
+}
 
 //[{symbol:"sh600000",code:"600000",name:"浦发银行",trade:"12.890",pricechange:"-0.030",changepercent:"-0.232",buy:"12.890",sell:"12.900",settlement:"12.920",open:"12.930",high:"13.010",low:"12.740",volume:80197701,amount:1034450236,ticktime:"15:00:00",per:5.362,pb:0.796,mktcap:36225751.665811,nmc:36225751.665811,turnoverratio:0.28536},
 //http://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeData?page=1&num=100&sort=symbol&asc=1&node=hs_a&symbol=&_s_r_a=init

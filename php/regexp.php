@@ -36,6 +36,11 @@ function RegExpFmtNumber()
     return '[\d,.-]*';
 }
 
+function RegExpDate()
+{
+    return '\d{4}-\d{2}-\d{2}';
+}
+
 function RegExpParenthesis($strLeft, $strMid, $strRight) 
 {
     return $strLeft.'('.$strMid.')'.$strRight;

@@ -2,6 +2,9 @@
 //require_once('url.php');
 require_once('debug.php');
 
+define ('STOCK_PATH', '/woody/res/');
+define ('STOCK_PHP_PATH', '/woody/res/php/');
+
 define ('DEFAULT_NAV_DISPLAY', 100);
 
 function GetOnClickLink($strPath, $strQuestion, $strDisplay)
@@ -177,8 +180,9 @@ function GetTitleLink($strPath, $strTitle, $strQuery, $strDisplay, $bChinese)
     return GetPhpLink($strPath.$strTitle, $strQuery, $strDisplay, $bChinese);
 }
 
-function GetCategoryLinks($strPath, $arCategory, $bChinese)
+function GetCategoryLinks($callback, $bChinese, $strPath = STOCK_PATH)
 {
+	$arCategory = call_user_func($callback, $bChinese);
     $str = '';
     foreach ($arCategory as $strCategory => $strDisplay)
     {
