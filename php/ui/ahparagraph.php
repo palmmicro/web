@@ -13,7 +13,7 @@ function _getSortHLink($strSort, $bChinese)
     	$strQuery = $strSortQuery;
     }
     
-    return CopyPhpLink($strQuery, '按H股排序', 'Sort by H', $bChinese);
+    return CopyPhpLink($strQuery, $bChinese, '按H股排序', 'Sort by H');
 }
 
 function _selectAhCompareLink($strSymbol, $bChinese)

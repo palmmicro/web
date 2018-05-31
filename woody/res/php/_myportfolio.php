@@ -89,11 +89,10 @@ function EchoMyFortfolio($bChinese)
     EchoParagraphEnd();
     
     EchoParagraphBegin();
-//    EchoParagraphBegin($bChinese ? '持仓盈亏' : 'Overall performance');
     _echoMoneyTable($portfolio, $bChinese);
     EchoParagraphEnd();
     
-    EchoPromotionHead('portfolio', $bChinese);
+    EchoPromotionHead($bChinese, 'portfolio');
 }
 
     AcctEmailAuth();

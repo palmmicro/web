@@ -103,7 +103,7 @@ function EchoTransactionParagraph($strGroupId, $bChinese, $ref = false, $iStart 
     
 	if (AcctIsDebug())
 	{
-		$str .= ' '.GetMyStockGroupLink($strGroupId, SqlGetStockGroupName($strGroupId), $bChinese);
+		$str .= ' '.GetMyStockGroupLink($bChinese, $strGroupId);
 	}
 	
 	$arReference = GetReferenceTableColumn($bChinese);

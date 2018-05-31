@@ -22,7 +22,7 @@ function _echoWeixinVisitorData($strOpenId, $iStart, $iNum, $bChinese)
                 if (in_array($strId, $arId))    $strLink = $strDisplay;
                 else
                 {
-                    $strLink = GetPhpLink('/account/weixinvisitor', 'id='.$str, $strDisplay, $bChinese);
+                    $strLink = GetPhpLink('/account/weixinvisitor', $bChinese, $strDisplay, false, 'id='.$str);
                     $arId[] = $strId;
                 }
             }

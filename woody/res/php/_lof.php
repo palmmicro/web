@@ -68,7 +68,7 @@ function _getArbitrageQuantityName($bChinese, $bEditLink = false)
     
     if ($group->strGroupId && $bEditLink) 
     {
-    	$str .= GetPhpLink(STOCK_PATH.'editfundamount', 'symbol='.$group->ref->GetStockSymbol(), $strDisplay, $bChinese);
+    	$str .= GetStockSymbolLink('editfundamount', $group->ref->GetStockSymbol(), $bChinese, $strDisplay);
     }
     else
     {
@@ -125,7 +125,7 @@ function EchoAll($bChinese)
         }
 	}
 	    
-    EchoPromotionHead('', $bChinese);
+    EchoPromotionHead($bChinese);
     $group->EchoAdminTestParagraph($bChinese);
 }
 

@@ -21,13 +21,13 @@ function MyStockTransactionEchoAll($bChinese)
             $arSymbol = SqlGetStockGroupPrefetchSymbolArray($strGroupId);
             StockPrefetchData($arSymbol);
             
-            $strCombineLink = BuildPhpLink(STOCK_PATH.'combinetransaction', 'groupid='.$strGroupId, '合并记录', 'Combined Records', $bChinese);
+            $strCombineLink = GetPhpLink(STOCK_PATH.'combinetransaction', $bChinese, '合并记录', 'Combined Records', 'groupid='.$strGroupId);
             $strStockLinks = StockGetGroupTransactionLinks($strGroupId, '', $bChinese);
             EchoParagraph($strGroupLink.' '.$strCombineLink.' '.$strStockLinks);
            	EchoTransactionParagraph($strGroupId, $bChinese, false, $iStart, $iNum);
         }
     }
-    EchoPromotionHead('transaction', $bChinese);
+    EchoPromotionHead($bChinese, 'transaction');
 }
 
 function MyStockTransactionEchoMetaDescription($bChinese)

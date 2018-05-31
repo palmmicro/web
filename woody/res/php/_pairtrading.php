@@ -140,7 +140,7 @@ function EchoAll($bChinese)
         }
 	}
 
-    EchoPromotionHead('pairtrading', $bChinese);
+    EchoPromotionHead($bChinese, 'pairtrading');
     if (AcctIsAdmin())
     {
         _echoAdminTestParagraph($group, $bChinese);

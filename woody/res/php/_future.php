@@ -214,7 +214,7 @@ function EchoAll($bChinese)
         _EchoTransactionParagraph($group, $bChinese);
 	}
     
-    EchoPromotionHead('future', $bChinese);
+    EchoPromotionHead($bChinese, 'future');
     if (AcctIsAdmin())
     {
         _echoAdminTestParagraph($group, $bChinese);

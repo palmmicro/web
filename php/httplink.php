@@ -71,33 +71,25 @@ function GetFileDebugLink($strPathName)
     return "$strLink($strDelete)";
 }
 
-function GetPhpLink($strPathTitle, $strQuery, $strDisplay, $bChinese)
+function GetPhpLink($strPathTitle, $bChinese, $strDisplay, $strUs = false, $strQuery = false)
 {
+	if ($strUs && ($bChinese == false))
+	{
+		$strDisplay = $strUs;
+	}
+	
     $str = $strPathTitle;
     $str .= UrlGetPhp($bChinese);
     if ($strQuery)
     {
-        if (substr($strQuery, 0, 1) == '#')
-        {
-            $str .= $strQuery;
-        }
-        else
-        {
-            $str .= '?'.$strQuery;
-        }
+        $str .= '?'.$strQuery;
     }
     return GetInternalLink($str, $strDisplay);
 }
 
-function BuildPhpLink($strPathTitle, $strQuery, $strCn, $strUs, $bChinese)
+function CopyPhpLink($strQuery, $bChinese, $strCn, $strUs = false)
 {
-    $strDisplay = $bChinese ? $strCn : $strUs;
-    return GetPhpLink($strPathTitle, $strQuery, $strDisplay, $bChinese);
-}
-
-function CopyPhpLink($strQuery, $strCn, $strUs, $bChinese)
-{
-	return BuildPhpLink(UrlGetUriTitle(), $strQuery, $strCn, $strUs, $bChinese);
+	return GetPhpLink(UrlGetUriTitle(), $bChinese, $strCn, $strUs, $strQuery);
 }
 
 function _getNavLinkQuery($strId, $iStart, $iNum)
@@ -120,7 +112,7 @@ function GetNavLink($strQueryId, $iTotal, $iStart, $iNum, $bChinese)
     if ($iTotal > $iNum && $iTotal < 2000)
     {
     	$strQuery = _getNavLinkQuery($strQueryId, 0, $iTotal);
-    	$str .= CopyPhpLink($strQuery, $strTotal, $strTotal, $bChinese).' ';
+    	$str .= CopyPhpLink($strQuery, $bChinese, $strTotal).' ';
     }
     else
     {
@@ -146,21 +138,21 @@ function GetNavLink($strQueryId, $iTotal, $iStart, $iNum, $bChinese)
         if ($iPrevStart != 0)
         {   // First
             $strQuery = _getNavLinkQuery($strQueryId, 0, $iNum);
-            $str .= CopyPhpLink($strQuery, $arDir[NAV_DIR_FIRST], NAV_DIR_FIRST, $bChinese).' ';
+            $str .= CopyPhpLink($strQuery, $bChinese, $arDir[NAV_DIR_FIRST], NAV_DIR_FIRST).' ';
         }
         $strQuery = _getNavLinkQuery($strQueryId, $iPrevStart, $iNum);
-        $str .= CopyPhpLink($strQuery, $arDir[NAV_DIR_PREV], NAV_DIR_PREV, $bChinese).' ';
+        $str .= CopyPhpLink($strQuery, $bChinese, $arDir[NAV_DIR_PREV], NAV_DIR_PREV).' ';
     }
     
     $iNextStart = $iStart + $iNum;
     if ($iNextStart < $iTotal)
     {   // Next
         $strQuery = _getNavLinkQuery($strQueryId, $iNextStart, $iNum);
-        $str .= CopyPhpLink($strQuery, $arDir[NAV_DIR_NEXT], NAV_DIR_NEXT, $bChinese).' ';
+        $str .= CopyPhpLink($strQuery, $bChinese, $arDir[NAV_DIR_NEXT], NAV_DIR_NEXT).' ';
         if ($iNextStart + $iNum < $iTotal)
         {   // Last
             $strQuery = _getNavLinkQuery($strQueryId, $iTotal - $iNum, $iNum);
-            $str .= CopyPhpLink($strQuery, $arDir[NAV_DIR_LAST], NAV_DIR_LAST, $bChinese);
+            $str .= CopyPhpLink($strQuery, $bChinese, $arDir[NAV_DIR_LAST], NAV_DIR_LAST);
         }
     }
     return $str;
@@ -168,16 +160,21 @@ function GetNavLink($strQueryId, $iTotal, $iStart, $iNum, $bChinese)
 
 function GetEditLink($strPathTitle, $strEdit, $bChinese)
 {
-    return BuildPhpLink($strPathTitle, 'edit='.$strEdit, '修改', 'Edit', $bChinese);
+    return GetPhpLink($strPathTitle, $bChinese, '修改', 'Edit', 'edit='.$strEdit);
 }
 
-function GetTitleLink($strPath, $strTitle, $strQuery, $strDisplay, $bChinese)
+function GetTitleLink($strTitle, $bChinese, $strDisplay, $strUs = false, $strQuery = false, $strPath = STOCK_PATH)
 {
+	if ($strUs && ($bChinese == false))
+	{
+		$strDisplay = $strUs;
+	}
+	
     if ((UrlGetTitle() == $strTitle) && (UrlGetQueryString() == $strQuery))
     {
         return "<font color=blue>$strDisplay</font>";
     }
-    return GetPhpLink($strPath.$strTitle, $strQuery, $strDisplay, $bChinese);
+    return GetPhpLink($strPath.$strTitle, $bChinese, $strDisplay, false, $strQuery);
 }
 
 function GetCategoryLinks($callback, $bChinese, $strPath = STOCK_PATH)
@@ -186,7 +183,7 @@ function GetCategoryLinks($callback, $bChinese, $strPath = STOCK_PATH)
     $str = '';
     foreach ($arCategory as $strCategory => $strDisplay)
     {
-    	$str .= GetTitleLink($strPath, $strCategory, false, $strDisplay, $bChinese).' ';
+    	$str .= GetTitleLink($strCategory, $bChinese, $strDisplay, false, false, $strPath).' ';
     }
     return $str;
 }

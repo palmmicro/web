@@ -139,7 +139,7 @@ function CombineTransactionEchoAll($bChinese)
         
         EchoParagraphEnd();
     }
-    EchoPromotionHead('', $bChinese);
+    EchoPromotionHead($bChinese);
 }
 
 function CombineTransactionEchoMetaDescription($bChinese)

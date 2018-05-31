@@ -3,14 +3,12 @@ require_once('class/year_month_date.php');
 // Provide enhanced function replacement of /js/copyright.js
 // CopyRight functions
 
-define ('COPYRIGHT_BEGIN', '<div id="copyright"><p>');
-define ('COPYRIGHT_END', '</p></div>');
-
-function _getCopyright($strName, $strBeginYear, $strYear, $bChinese)
+function _getCopyright($strCn, $strUs, $bChinese, $strEndYear = false, $strBeginYear = false)
 {
-    if ($strBeginYear && $strYear)
+	$strName = $bChinese ? $strCn : $strUs;
+    if ($strBeginYear && $strEndYear)
     {
-        $strYear = "$strBeginYear-$strYear";
+        $strYear = "$strBeginYear-$strEndYear";
     }
     else
     {
@@ -21,18 +19,18 @@ function _getCopyright($strName, $strBeginYear, $strYear, $bChinese)
 
 function _getWoodyCopyright($strYear, $bChinese)
 {
-    return _getCopyright($bChinese ? '林蓉榕' : 'Woody', '1973', $strYear, $bChinese);
+    return _getCopyright('林蓉榕', 'Woody', $bChinese, $strYear, '1973');
 }
 
 function _getCompanyCopyright($strCompany, $strYear, $bChinese)
 {
 	if ($strCompany == 'btbond')
 	{
-	    $str = _getCopyright($bChinese ? '藍邦科技有限公司' : 'BTBOND', '2014', $strYear, $bChinese);
+	    $str = _getCopyright('藍邦科技有限公司', 'BTBOND', $bChinese, $strYear, '2014');
 	}
 	else if ($strCompany == 'cateyes')
 	{
-	    $str = _getCopyright($bChinese ? '西雅图夜猫眼' : 'Cat Eyes in Seattle', '2008', $strYear, $bChinese);
+	    $str = _getCopyright('西雅图夜猫眼', 'Cat Eyes in Seattle', $bChinese, $strYear, '2008');
 	}
 	else
 	{
@@ -63,7 +61,7 @@ function EchoCopyRight($bMobile, $bChinese)
 		}
 		else if ($ar[2] == 'sapphire')
 		{
-		    $str = _getCopyright($bChinese ? '林近岚' : 'Sapphire', '2014', $strYear, $bChinese);
+		    $str = _getCopyright('林近岚', 'Sapphire', $bChinese, $strYear, '2014');
 		}
 		else
 		{
@@ -72,22 +70,27 @@ function EchoCopyRight($bMobile, $bChinese)
 	}
 	else if ($ar[1] == 'chishin')
 	{
-	    $str = _getCopyright($bChinese ? '王继行' : 'Chi-Shin Wang', false, $strYear, $bChinese);
+	    $str = _getCopyright('王继行', 'Chi-Shin Wang', $bChinese, $strYear);
 	}
 	else if ($ar[1] == 'laosun')
 	{
-	    $str = _getCopyright($bChinese ? '孙老湿' : 'Teacher Sun', false, $strYear, $bChinese);
+	    $str = _getCopyright('孙老湿', 'Teacher Sun', $bChinese, $strYear);
 	}
 	else
 	{
-	    $str = _getCopyright($bChinese ? '北京微掌和深圳迪迈特' : 'Palmmicro Communications Inc', '2006', $strYear, $bChinese);
+	    $str = _getCopyright('北京微掌和深圳迪迈特', 'Palmmicro Communications Inc', $bChinese, $strYear, '2006');
 	}
 	
 	if ($bMobile)
 	{
 	    $str .= ' '.GetSwitchLanguageLink($bChinese);
 	}
-    echo COPYRIGHT_BEGIN.$str.COPYRIGHT_END;
+	
+    echo <<<END
+    <div id="copyright">
+    <p>$str</p>
+    </div>
+END;
 }
 
 ?>

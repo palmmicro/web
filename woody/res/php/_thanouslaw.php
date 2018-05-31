@@ -149,7 +149,7 @@ function EchoThanousLawTest($bChinese)
             _echoLofPredictionParagraph(new LofReference($strSymbol), $bChinese);
         }
     }
-    EchoPromotionHead('thanouslaw', $bChinese);
+    EchoPromotionHead($bChinese, 'thanouslaw');
 }
 
 function EchoTitle($bChinese)

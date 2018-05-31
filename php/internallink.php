@@ -30,14 +30,14 @@ function GetMemberLink($strMemberId, $bChinese)
 	    {
 	        $strName = $strEmail;
 	    }
-	    return GetPhpLink(ACCT_PATH.'profile', 'email='.$strEmail, $strName, $bChinese);
+	    return GetPhpLink(ACCT_PATH.'profile', $bChinese, $strName, false, 'email='.$strEmail);
 	}
     return '';
 }
 
 function _getIpLink($strTitle, $strIp, $bChinese)
 {
-    return GetPhpLink(ACCT_PATH.$strTitle, 'ip='.$strIp, $strIp, $bChinese);
+    return GetPhpLink(ACCT_PATH.$strTitle, $bChinese, $strIp, false, 'ip='.$strIp);
 }
 
 function GetIpLink($strIp, $bChinese)
@@ -57,12 +57,12 @@ function GetSpiderVisitorLink($strIp, $bChinese)
 
 function GetLoginLink($strCn, $strUs, $bChinese)
 {
-    return BuildPhpLink(ACCT_PATH.'login', false, $strCn, $strUs, $bChinese);
+    return GetPhpLink(ACCT_PATH.'login', $bChinese, $strCn, $strUs);
 }
 
 function GetAllCommentLink($strQuery, $bChinese)
 {
-    return BuildPhpLink(ACCT_PATH.'comment', $strQuery, '全部评论', 'All Comment', $bChinese);
+    return GetPhpLink(ACCT_PATH.'comment', $bChinese, '全部评论', 'All Comment', $strQuery);
 }
 
 ?>

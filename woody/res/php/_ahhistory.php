@@ -121,7 +121,7 @@ function EchoAhHistory($bChinese)
     		}
     	}
     }
-    EchoPromotionHead('', $bChinese);
+    EchoPromotionHead($bChinese);
 }
 
 function EchoTitle($bChinese)

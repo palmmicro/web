@@ -4,7 +4,7 @@ require_once('/php/ui/table.php');
 
 function GetVisitorTodayLink($iCount, $bChinese)
 {
-    return CopyPhpLink('start=0&num='.$iCount, '今日访问', 'Visitors of Today', $bChinese);
+    return CopyPhpLink('start=0&num='.$iCount, $bChinese, '今日访问', 'Visitors of Today');
 }
 
 function EchoVisitorItem($strContent, $strLink, $record)
@@ -40,7 +40,7 @@ function _getOrigVisitorLink($bChinese)
     }
     else
     {
-        $strOrigLink = CopyPhpLink(false, '回访问首页', 'Back to Visitor Home', $bChinese);
+        $strOrigLink = CopyPhpLink(false, $bChinese, '回访问首页', 'Back to Visitor Home');
     }
     return $strOrigLink;    
 }

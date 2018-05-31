@@ -88,7 +88,7 @@ function EchoCalibrationHistory($bChinese)
         $iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
         _echoCalibrationHistoryParagraph($strSymbol, $iStart, $iNum, $bChinese);
     }
-    EchoPromotionHead('calibration', $bChinese);
+    EchoPromotionHead($bChinese, 'calibration');
 }
 
 function EchoTitle($bChinese)

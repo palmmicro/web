@@ -153,7 +153,7 @@ function MyStockGroupEchoAll($bChinese)
         _echoStockGroupArray($arSymbol, $bChinese);
     }
     
-    EchoPromotionHead($strTitle, $bChinese);
+    EchoPromotionHead($bChinese, $strTitle);
 }
 
 function MyStockGroupEchoMetaDescription($bChinese)

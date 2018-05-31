@@ -8,7 +8,7 @@ require_once('ui/stocktable.php');
 
 function _getStockToolLink($strTitle, $strSymbol, $bChinese)
 {
-    return GetPhpLink(STOCK_PATH.strtolower($strTitle), false, $strSymbol, $bChinese);
+    return GetPhpLink(STOCK_PATH.strtolower($strTitle), $bChinese, $strSymbol);
 }
 
 function GetCommonToolLink($strSymbol, $bChinese)
@@ -16,35 +16,29 @@ function GetCommonToolLink($strSymbol, $bChinese)
     return _getStockToolLink($strSymbol, $strSymbol, $bChinese);
 }
 
+function GetStockSymbolLink($strTitle, $strSymbol, $bChinese, $strDisplay, $strUs = false)
+{
+    return GetPhpLink(STOCK_PATH.$strTitle, $bChinese, $strDisplay, $strUs, 'symbol='.$strSymbol);
+}
+
 function GetCalibrationHistoryLink($strSymbol, $bChinese)
 {
-    return BuildPhpLink(STOCK_PATH.'calibrationhistory', 'symbol='.$strSymbol, '校准记录', 'Calibration History', $bChinese);
+    return GetStockSymbolLink('calibrationhistory', $strSymbol, $bChinese, '校准记录', 'Calibration History');
 }
 
 function GetCalibrationLink($strSymbol, $bChinese)
 {
-    return BuildPhpLink(STOCK_PATH.'calibration', 'symbol='.$strSymbol, '校准记录', 'Calibration History', $bChinese);
+    return GetStockSymbolLink('calibration', $strSymbol, $bChinese, '校准记录', 'Calibration History');
 }
 
 function GetNetValueHistoryLink($strSymbol, $bChinese)
 {
-    return BuildPhpLink(STOCK_PATH.'netvaluehistory', 'symbol='.$strSymbol, '净值历史', 'Net Value History', $bChinese);
-}
-
-function _stockGetLink($strTitle, $strQuery, $strDisplay, $bChinese)
-{
-	return GetTitleLink(STOCK_PATH, $strTitle, $strQuery, $strDisplay, $bChinese);
-}
-
-function _stockBuildLink($strTitle, $strQuery, $strCn, $strUs, $bChinese)
-{
-    $strDisplay = $bChinese ? $strCn : $strUs;
-    return _stockGetLink($strTitle, $strQuery, $strDisplay, $bChinese);
+    return GetStockSymbolLink('netvaluehistory', $strSymbol, $bChinese, '净值历史', 'Net Value History');
 }
 
 function GetMyStockLink($strSymbol, $bChinese)
 {
-    return _stockGetLink('mystock', 'symbol='.$strSymbol, $strSymbol, $bChinese);
+    return GetTitleLink('mystock', $bChinese, $strSymbol, false, 'symbol='.$strSymbol);
 }
 
 function GetMyStockRefLink($ref, $bChinese)
@@ -54,39 +48,43 @@ function GetMyStockRefLink($ref, $bChinese)
 
 function GetMyPortfolioLink($bChinese)
 {
-    return _stockBuildLink('myportfolio', false, '持仓盈亏', 'My Portfolio', $bChinese);
+    return GetTitleLink('myportfolio', $bChinese, '持仓盈亏', 'My Portfolio');
 }
 
 function GetAhCompareLink($bChinese)
 {
-    return _stockBuildLink('ahcompare', false, 'AH对比', 'AH Compare', $bChinese);
+    return GetTitleLink('ahcompare', $bChinese, 'AH对比', 'AH Compare');
 }
 
 function GetAhHistoryLink($strSymbol, $bChinese)
 {
-    return _stockBuildLink('ahhistory', 'symbol='.$strSymbol, 'AH历史', 'AH History', $bChinese);
+    return GetTitleLink('ahhistory', $bChinese, 'AH历史', 'AH History', 'symbol='.$strSymbol);
 }
 
 function GetEtfListLink($bChinese)
 {
-    return _stockBuildLink('etflist', false, 'ETF对照表', 'ETF List', $bChinese);
+    return GetTitleLink('etflist', $bChinese, 'ETF对照表', 'ETF List');
 }
 
 function GetAdrhCompareLink($bChinese)
 {
-    return _stockBuildLink('adrhcompare', false, 'ADR和H对比', 'ADR&H Compare', $bChinese);
+    return GetTitleLink('adrhcompare', $bChinese, 'ADR和H对比', 'ADR&H Compare');
 }
 
-function StockGetGroupLink($bChinese)
+function GetMyStockGroupLink($bChinese, $strGroupId = false)
 {
-    $strQuery = false; 
-    if ($strEmail = UrlGetQueryValue('email'))
-    {
-        $strQuery = 'email='.$strEmail; 
-    }
-//    return _stockBuildLink('mystockgroup', $strQuery, '股票分组', 'Stock Groups', $bChinese);
-    $arColumn = GetStockGroupTableColumn($bChinese);
-    return _stockGetLink('mystockgroup', $strQuery, $arColumn[0], $bChinese);
+	if ($strGroupId)
+	{
+		$strDisplay = SqlGetStockGroupName($strGroupId);
+		$strQuery = 'groupid='.$strGroupId;
+	}
+	else
+	{
+		$arColumn = GetStockGroupTableColumn($bChinese);
+		$strDisplay = $arColumn[0];
+		$strQuery = false;
+	}
+	return GetTitleLink('mystockgroup', $bChinese, $strDisplay, false, $strQuery);
 }
 
 function GetCategorySoftwareLinks($arTitle, $strCategory, $bChinese)
@@ -94,7 +92,7 @@ function GetCategorySoftwareLinks($arTitle, $strCategory, $bChinese)
     $str = '<br />'.$strCategory.' - ';
     foreach ($arTitle as $strTitle)
     {
-    	$str .= _stockGetLink($strTitle, false, StockGetSymbol($strTitle), $bChinese).' ';
+    	$str .= GetTitleLink($strTitle, $bChinese, StockGetSymbol($strTitle)).' ';
     }
     return $str;
 }
@@ -113,7 +111,7 @@ function StockGetTransactionLink($strGroupId, $strSymbol, $strDisplay, $bChinese
     {
         $strQuery .= '&symbol='.$strSymbol;
     }
-    return GetPhpLink(STOCK_PATH.'mystocktransaction', $strQuery, $strDisplay, $bChinese);
+    return GetPhpLink(STOCK_PATH.'mystocktransaction', $bChinese, $strDisplay, false, $strQuery);
 }
 
 function StockGetAllTransactionLink($strGroupId, $bChinese, $ref = false)
@@ -250,11 +248,6 @@ function SelectSymbolInternalLink($strSymbol, $bChinese)
     return $strSymbol;
 }
 
-function GetMyStockGroupLink($strGroupId, $strGroupName, $bChinese)
-{
-	return _stockGetLink('mystockgroup', 'groupid='.$strGroupId, $strGroupName, $bChinese);
-}
-
 function SelectGroupInternalLink($strGroupId, $bChinese)
 {
     if (($strGroupName = SqlGetStockGroupName($strGroupId)) == false)    return '';
@@ -262,7 +255,7 @@ function SelectGroupInternalLink($strGroupId, $bChinese)
 	$strLink = SelectSymbolInternalLink($strGroupName, $bChinese);
 	if ($strLink == $strGroupName)
 	{
-        $strLink = GetMyStockGroupLink($strGroupId, $strGroupName, $bChinese);
+        $strLink = GetMyStockGroupLink($bChinese, $strGroupId);
 	}
     return $strLink; 
 }

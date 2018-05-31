@@ -151,7 +151,6 @@ function preg_match_yahoo_history($str)
         $strPattern .= RegExpParenthesis('<td class="Py\(10px\) Pstart\(10px\)" data-reactid="\d*">'.RegExpSkip('<span data-reactid="\d*">'), '[^<]*', RegExpSkip('</span>').'</td>');
     }
     $strPattern .= $strBoundary;
-//    DebugString($strPattern);
     
     $arMatch = array();
     preg_match_all($strPattern, $str, $arMatch, PREG_SET_ORDER);
@@ -256,7 +255,6 @@ function _preg_match_yahoo_stock($str)
    	$strPattern .= RegExpParenthesis('"symbol":"', '[^"]*', '",');
 //   	$strPattern .= '"symbol":"'.$strSymbol;
     $strPattern .= $strBoundary;
-//    DebugString($strPattern);
     
     $arMatch = array();
     preg_match_all($strPattern, $str, $arMatch, PREG_SET_ORDER);

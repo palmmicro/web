@@ -151,7 +151,7 @@ function EchoAll($bChinese)
         _EchoTransactionParagraph($group, $bChinese);
 	}
     
-    EchoPromotionHead('gradedfund', $bChinese);
+    EchoPromotionHead($bChinese, 'gradedfund');
 }
 
 function GradedFundEchoTitle($bChinese)

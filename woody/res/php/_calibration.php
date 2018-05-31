@@ -22,7 +22,7 @@ function EchoCalibration($bChinese)
         $iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
         _echoCalibration($strSymbol, $iStart, $iNum, $bChinese);
     }
-    EchoPromotionHead('calibration', $bChinese);
+    EchoPromotionHead($bChinese, 'calibration');
 }    
 
 function EchoTitle($bChinese)

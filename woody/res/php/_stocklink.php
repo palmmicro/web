@@ -31,7 +31,7 @@ function _GetReturnSymbolGroupLink($strSymbol, $bChinese)
 
 function _GetAdjustLink($strSymbol, $strQuery, $bChinese)
 {
-    return BuildPhpLink(STOCK_PATH.'editstockgroup', $strQuery, '校准', 'Adjust', $bChinese).' '.$strSymbol;
+    return GetPhpLink(STOCK_PATH.'editstockgroup', $bChinese, '校准', 'Adjust', $strQuery).' '.$strSymbol;
 }
 
 function _GetEtfAdjustString($ref, $etf_ref, $bChinese)
@@ -92,7 +92,7 @@ function _getCategoryArray($bChinese)
 function _getCategoryLink($strCategory, $bChinese)
 {
     $ar = _getCategoryArray($bChinese);
-    return GetPhpLink(STOCK_PATH.$strCategory, false, $ar[$strCategory], $bChinese);
+    return GetPhpLink(STOCK_PATH.$strCategory, $bChinese, $ar[$strCategory]);
 }
 
 function _getCategorySoftwareLinks($arTitle, $strCn, $strUs, $bChinese)
@@ -436,7 +436,7 @@ function _getPersonalLinks($strMemberId, $bChinese)
 function EchoStockGroupLinks($bChinese)
 {
     $str = HTML_NEW_LINE.GetCategoryLinks(GetMenuArray, $bChinese);
-    $str .= HTML_NEW_LINE.StockGetGroupLink($bChinese);	// .' '.GetAhCompareLink($bChinese).' '.GetAdrhCompareLink($bChinese);
+    $str .= HTML_NEW_LINE.GetMyStockGroupLink($bChinese);	// .' '.GetAhCompareLink($bChinese).' '.GetAdrhCompareLink($bChinese);
     $str .= HTML_NEW_LINE.GetMyPortfolioLink($bChinese);
     if ($strMemberId = AcctIsLogin())
     {

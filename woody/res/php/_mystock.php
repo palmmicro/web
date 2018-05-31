@@ -77,18 +77,18 @@ function _hasSmaDisplay($sym)
 function _getMyStockLinks($sym, $bChinese)
 {
 	$strQuery = UrlGetQueryString();
-    $str = BuildPhpLink(STOCK_PATH.'editstock', $strQuery, STOCK_OPTION_EDIT_CN, STOCK_OPTION_EDIT, $bChinese);
-    $str .= ' '.BuildPhpLink(STOCK_PATH.'editstockreversesplit', $strQuery, STOCK_OPTION_REVERSESPLIT_CN, STOCK_OPTION_REVERSESPLIT, $bChinese);
-    if ($bChinese)	$str .= ' '.GetPhpLink(STOCK_PATH.'editstockema', $strQuery, STOCK_OPTION_EMA_CN, true);
+    $str = GetPhpLink(STOCK_PATH.'editstock', $bChinese, STOCK_OPTION_EDIT_CN, STOCK_OPTION_EDIT, $strQuery);
+    $str .= ' '.GetPhpLink(STOCK_PATH.'editstockreversesplit', $bChinese, STOCK_OPTION_REVERSESPLIT_CN, STOCK_OPTION_REVERSESPLIT, $strQuery);
+    if ($bChinese)	$str .= ' '.GetPhpLink(STOCK_PATH.'editstockema', true, STOCK_OPTION_EMA_CN, false, $strQuery);
     if ($sym->IsSymbolH())
     {
-    	if ($bChinese)	$str .= ' '.GetPhpLink(STOCK_PATH.'editstockadr', $strQuery, STOCK_OPTION_ADR_CN, true);
+    	if ($bChinese)	$str .= ' '.GetPhpLink(STOCK_PATH.'editstockadr', true, STOCK_OPTION_ADR_CN, false, $strQuery);
     }
     else
     {
     	if ($sym->IsIndex() == false && $sym->IsIndexA() == false)
     	{
-    		if ($bChinese)	$str .= ' '.GetPhpLink(STOCK_PATH.'editstocketf', $strQuery, STOCK_OPTION_ETF_CN, true);
+    		if ($bChinese)	$str .= ' '.GetPhpLink(STOCK_PATH.'editstocketf', true, STOCK_OPTION_ETF_CN, false, $strQuery);
     	}
     }
     return $str;
@@ -189,7 +189,7 @@ function EchoMyStock($bChinese)
         	_echoAllStock($bChinese);
         }
     }
-    EchoPromotionHead('', $bChinese);
+    EchoPromotionHead($bChinese);
 }
 
 function EchoMyStockTitle($bChinese)

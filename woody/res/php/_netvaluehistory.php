@@ -22,7 +22,7 @@ function _echoNetValueHistory($strSymbol, $iStart, $iNum, $bChinese)
     $str = _GetReturnSymbolGroupLink($strSymbol, $bChinese); 
     if (in_arrayLof($strSymbol))
     {
-    	$str .= ' '.BuildPhpLink(STOCK_PATH.'thanouslaw', 'symbol='.$strSymbol, '测试小心愿定律', 'Test Thanous Law', $bChinese);
+    	$str .= ' '.GetStockSymbolLink('thanouslaw', $strSymbol, $bChinese, '测试小心愿定律', 'Test Thanous Law');
     }
    	EchoParagraph($str);
     
@@ -46,7 +46,7 @@ function EchoNetValueHistory($bChinese)
     		_echoNetValueHistory($strSymbol, $iStart, $iNum, $bChinese);
     	}
     }
-    EchoPromotionHead('netvalue', $bChinese);
+    EchoPromotionHead($bChinese, 'netvalue');
 }
 
 function EchoTitle($bChinese)

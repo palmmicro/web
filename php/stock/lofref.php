@@ -282,7 +282,15 @@ class _LofReference extends FundReference
         if ($fCNY = $this->sql_forex_history->GetClose($strDate))
         {
             $this->fCNY = $fCNY;
-            $this->fPrice = $this->_estLof($this->est_ref->fPrice, $fCNY);
+            if ($fEstNetValue = SqlGetFundNetValueByDate($this->est_ref->GetStockId(), $strDate))
+            {
+            	$fEst = $fEstNetValue;
+            }
+            else
+            {
+            	$fEst = $this->est_ref->fPrice;
+            }
+            $this->fPrice = $this->_estLof($fEst, $fCNY);
             $this->strOfficialDate = $strDate;
             $this->UpdateEstNetValue();
         }

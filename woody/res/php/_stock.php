@@ -103,7 +103,7 @@ function _echoGroupPortfolioParagraph($group, $bChinese)
 
 function _EchoMoneyTableBegin($bChinese)
 {
-    $strGroupLink = StockGetGroupLink($bChinese);
+    $strGroupLink = GetMyStockGroupLink($bChinese);
     if ($bChinese)     
     {
         $arColumn = array($strGroupLink, '持仓', '盈亏', '全部持仓', '全部盈亏', '货币');
@@ -185,18 +185,16 @@ END;
 
 function _getDevGuideLink($strVer, $bChinese)
 {
-    if ($strVer != '')
+    $str = '/woody/blog/entertainment/20150818';
+    $str .= UrlGetPhp($bChinese);
+    if ($strVer)
     {
-        $strQuery = '#'.$strVer;
+        $str .= '#'.$strVer;
     }
-    else
-    {
-        $strQuery = false;
-    }
-    return BuildPhpLink('/woody/blog/entertainment/20150818', $strQuery, '开发记录', 'Development Record', $bChinese);
+    return GetInternalLink($str, $bChinese ? '开发记录' : 'Development Record');
 }
 
-function EchoPromotionHead($strVer, $bChinese)
+function EchoPromotionHead($bChinese, $strVer = false)
 {
     if ($bChinese)  echo '<h3>讨论和建议</h3>';
     else              echo '<h3>Discussions and Suggestions</h3>';
@@ -209,8 +207,7 @@ function EchoPromotionHead($strVer, $bChinese)
         else if ($iVal == 3)    _echoMyPromotion();
         EchoNewLine();
     }
-    echo _getDevGuideLink($strVer, $bChinese);
-    EchoParagraphEnd();
+    EchoParagraphEnd(_getDevGuideLink($strVer, $bChinese));
 }
 
 // ****************************** Money Paragraph *******************************************************

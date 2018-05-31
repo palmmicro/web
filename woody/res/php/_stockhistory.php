@@ -81,7 +81,7 @@ function EchoStockHistory($bChinese)
     		}
     	}
     }
-    EchoPromotionHead('', $bChinese);
+    EchoPromotionHead($bChinese);
 }
 
 function EchoTitle($bChinese)

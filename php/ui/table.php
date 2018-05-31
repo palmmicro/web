@@ -34,9 +34,9 @@ function EchoParagraphBegin($str = '')
     echo '<p>'.$str;
 }
 
-function EchoParagraphEnd()
+function EchoParagraphEnd($str = '')
 {
-    echo '</p>';
+    echo $str.'</p>';
 }
 
 function EchoParagraph($str)
@@ -52,7 +52,8 @@ function EchoTableEnd()
 
 function EchoTableParagraphEnd($str = '')
 {
-    echo '</TABLE>'.$str.'</p>';
+	EchoTableEnd();
+	EchoParagraphEnd($str);
 }
 
 function EchoNewLine()

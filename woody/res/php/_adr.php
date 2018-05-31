@@ -190,7 +190,7 @@ function AdrEchoAll($bChinese)
         }
 	}
     
-    EchoPromotionHead('adr', $bChinese);
+    EchoPromotionHead($bChinese, 'adr');
     if (AcctIsAdmin())
     {
         _echoAdminTestParagraph($group, $bChinese);

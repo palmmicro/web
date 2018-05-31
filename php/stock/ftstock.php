@@ -33,7 +33,6 @@ function _preg_match_ft_stock($str)
     $strPattern .= $strAll;
     $strPattern .= RegExpParenthesis('<div class="mod-disclaimer">', '[^<]*', '</div>');
     $strPattern .= $strBoundary;
-//    DebugString($strPattern);
     
     $arMatch = array();
     preg_match_all($strPattern, $str, $arMatch, PREG_SET_ORDER);

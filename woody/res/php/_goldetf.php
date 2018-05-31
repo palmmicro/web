@@ -38,7 +38,7 @@ function EchoAll($bChinese)
         _EchoTransactionParagraph($group, $bChinese);
 	}
     
-    EchoPromotionHead('goldetf', $bChinese);
+    EchoPromotionHead($bChinese, 'goldetf');
     if (AcctIsAdmin())
     {
         _echoAdminTestParagraph($group, $bChinese);

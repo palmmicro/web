@@ -171,7 +171,7 @@ function EchoSmaParagraphBegin($stock_his, $bChinese)
     {
         $str = "$strDays of $strSymbolLink trading range covered the $strSMA in past 100 trading days starting from $strDate";
     }
-    $str .= ' '.BuildPhpLink(STOCK_PATH.'stockhistory', 'symbol='.$strSymbol, '历史记录', 'History', $bChinese);
+    $str .= ' '.GetStockSymbolLink('stockhistory', $strSymbol, $bChinese, '历史记录', 'History');
     EchoParagraphBegin($str);
     return $arColumn;
 }

@@ -37,7 +37,7 @@ function EchoAll($bChinese)
         }
 	}
 	    
-    EchoPromotionHead('', $bChinese);
+    EchoPromotionHead($bChinese);
     $group->EchoAdminTestParagraph($bChinese);
 }
 
