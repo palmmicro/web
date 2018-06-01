@@ -25,7 +25,7 @@ class EtfReference extends MyStockReference
         	if ($history = SqlGetFundHistoryNow($strStockId))
         	{
         		$strDate = $history['date'];
-        		$fNetValue = floatval($history['netvalue']);
+        		$fNetValue = floatval($history['close']);
         		if ($fFactor = $sql_calibration->GetClose($strDate))
         		{
         			$fPairNetValue = SqlGetFundNetValueByDate($this->strPairId, $strDate);

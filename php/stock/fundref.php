@@ -72,7 +72,7 @@ class FundReference extends MysqlReference
         $strPrice = strval($this->fPrice);
         if ($history = SqlGetFundHistoryByDate($strSqlId, $strDate))
         {
-            if ($history['netvalue'] == FUND_EMPTY_NET_VALUE)
+            if ($history['close'] == FUND_EMPTY_NET_VALUE)
             {   // Only update when official net value is not ready
                 SqlUpdateFundHistory($history['id'], FUND_EMPTY_NET_VALUE, $strPrice, $strTime);
             }
@@ -105,7 +105,7 @@ class FundReference extends MysqlReference
         $strNetValue = $this->strPrevPrice;
         if ($history = SqlGetFundHistoryByDate($strSqlId, $strDate))
         {
-            if ($history['netvalue'] == FUND_EMPTY_NET_VALUE)
+            if ($history['close'] == FUND_EMPTY_NET_VALUE)
             {
                 $strEstValue = $history['estimated'];
                 SqlUpdateFundHistory($history['id'], $strNetValue, $strEstValue, $history['time']);

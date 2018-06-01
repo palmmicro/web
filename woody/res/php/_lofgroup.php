@@ -76,14 +76,15 @@ class _LofGroup extends _StockGroup
         $strSymbol = $ref->GetStockSymbol();
         $strDate = $ref->strDate;
         $strCNY = $ref->sql_forex_history->GetCloseString($strDate);
-        if ($history = SqlGetStockHistoryByDate($est_ref->GetStockId(), $strDate))
-        {
-        	$strEst = $history['close'];
-        }
-        else
-        {
-        	$strEst = $est_ref->strPrevPrice;
-        }
+        
+       	$sql = new SqlFundHistory($est_ref->GetStockId());
+       	$strEst = $sql->GetCloseString($strDate);
+       	if ($strEst == false)
+       	{
+       		$strEst = $sql->stock->GetCloseString($strDate);
+       		if ($strEst == false)	$strEst = $est_ref->strPrevPrice;
+       	}
+       	
         $strQuery = sprintf('%s=%s&%s=%s&CNY=%s', $strSymbol, $ref->strPrice, $est_ref->GetStockSymbol(), $strEst, $strCNY);
         return _GetAdjustLink($strSymbol, $strQuery, $bChinese);
     }

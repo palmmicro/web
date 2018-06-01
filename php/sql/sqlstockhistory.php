@@ -22,6 +22,18 @@ class SqlStockHistory extends SqlStockDaily
 		return SqlTable::Update("open = '$strOpen', high = '$strHigh', low = '$strLow', close = '$strClose', volume = '$strVolume', adjclose = '$strAdjClose' WHERE "._SqlBuildWhere_id($strId));
     }
 
+    function Merge($strDate, $strOpen, $strHigh, $strLow, $strClose, $strVolume, $strAdjClose)
+    {
+    	if ($history = $this->Get($strDate))
+    	{
+    		$this->Update($history['id'], $strOpen, $strHigh, $strLow, $strClose, $strVolume, $strAdjClose);
+    	}
+    	else
+    	{
+    		$this->Insert($strDate, $strOpen, $strHigh, $strLow, $strClose, $strVolume, $strAdjClose);
+    	}
+    }
+    
     function UpdateAdjClose($strId, $strAdjClose)
     {
 		return SqlTable::Update("adjclose = '$strAdjClose' WHERE "._SqlBuildWhere_id($strId));
@@ -46,7 +58,7 @@ function SqlCreateStockHistoryTable()
          . ' `high` DOUBLE(10,3) NOT NULL ,'
          . ' `low` DOUBLE(10,3) NOT NULL ,'
          . ' `close` DOUBLE(10,3) NOT NULL ,'
-         . ' `volume` INT UNSIGNED NOT NULL ,'
+         . ' `volume` BIGINT UNSIGNED NOT NULL ,'
          . ' `adjclose` DOUBLE(13,6) NOT NULL ,'
          . ' FOREIGN KEY (`stock_id`) REFERENCES `stock`(`id`) ON DELETE CASCADE ,'
          . ' UNIQUE ( `date`, `stock_id` )'
@@ -62,23 +74,5 @@ function SqlAlterStockHistoryTable()
 	return SqlDieByQuery($strQry, 'Alter stockhistory table failed');
 }
 */
-
-function SqlGetStockHistoryByDate($strStockId, $strDate)
-{
-	$sql = new SqlStockHistory($strStockId);
-	return $sql->Get($strDate);
-}
-
-function SqlMergeStockHistory($sql, $strDate, $strOpen, $strHigh, $strLow, $strClose, $strVolume, $strAdjClose)
-{
-    if ($history = $sql->Get($strDate))
-    {
-        $sql->Update($history['id'], $strOpen, $strHigh, $strLow, $strClose, $strVolume, $strAdjClose);
-    }
-    else
-    {
-        $sql->Insert($strDate, $strOpen, $strHigh, $strLow, $strClose, $strVolume, $strAdjClose);
-    }
-}
 
 ?>

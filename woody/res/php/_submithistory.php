@@ -5,8 +5,19 @@ require_once('/php/stockhis.php');
 
 // https://danjuanapp.com/djmodule/value-center
 
+class YMDOldest extends YMDString
+{
+    function YMDOldest()
+    {
+        parent::YMDString('2014-01-01');
+    }
+}
+
 function _webUpdateSinaHistory($sql, $sym)
 {
+    $ymd_oldest = new YMDOldest();
+    $iYearOldest = $ymd_oldest->GetYear();
+    
 	$ymd = new YMDNow();
 	$iYear = $ymd->GetYear();
 	$iSeason = $ymd->GetSeason();
@@ -17,7 +28,7 @@ function _webUpdateSinaHistory($sql, $sym)
         $arMatch = preg_match_sina_history($str);
         foreach ($arMatch as $ar)
         {
-        	SqlMergeStockHistory($sql, $ar[1], $ar[2], $ar[3], $ar[5], $ar[4], $ar[6], $ar[4]);
+        	$sql->Merge($ar[1], $ar[2], $ar[3], $ar[5], $ar[4], $ar[6], $ar[4]);
         	$iTotal ++;
 		}
 		$iSeason --;
@@ -25,7 +36,7 @@ function _webUpdateSinaHistory($sql, $sym)
 		{
 			$iSeason = 4;
 			$iYear --;
-			if ($iYear < 2014)	break;
+			if ($iYear < $iYearOldest)	break;
 		}
 	}
     DebugString(sprintf('_webUpdateSinaHistory %s total %d', $sym->GetSymbol(), $iTotal));
@@ -65,7 +76,7 @@ function _webUpdateYahooHistory($sql, $strYahooSymbol)
                 $ar[] = $strNoComma;
                 $str .= ' '.$strNoComma; 
             }
-            SqlMergeStockHistory($sql, $strDate, $ar[0], $ar[1], $ar[2], $ar[3], $ar[5], $ar[4]);
+            $sql->Merge($strDate, $ar[0], $ar[1], $ar[2], $ar[3], $ar[5], $ar[4]);
         }
         $iTime = $iTimeBegin;
     }
@@ -78,7 +89,7 @@ function _isInvalidDate($strYMD)
     if ($ymd->IsWeekend())      return true;
     if ($ymd->IsFuture())       return true;
     
-    $ymd_oldest = new YMDString('2014-01-01');
+    $ymd_oldest = new YMDOldest();
     if ($ymd->GetTick() < $ymd_oldest->GetTick())                 return true;
     return false;
 }
