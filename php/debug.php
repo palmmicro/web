@@ -198,4 +198,9 @@ function DebugGetConfigFileName($strSymbol)
     return _getDebugFileName('config', $strSymbol);
 }
 
+function unlinkConfigFile($strSymbol)
+{
+	unlinkEmptyFile(DebugGetConfigFileName($strSymbol));
+}
+
 ?>

@@ -131,8 +131,7 @@ function _submitStockHistory($strStockId, $strSymbol)
 {
     if (AcctIsAdmin() == false)     return;
     
-    unlinkEmptyFile(DebugGetConfigFileName($strSymbol));
-    
+    unlinkConfigFile($strSymbol);
     $sym = new StockSymbol($strSymbol);
     $sym->SetTimeZone();
 	$sql = new SqlStockHistory($strStockId);

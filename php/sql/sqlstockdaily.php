@@ -125,9 +125,9 @@ class SqlStockDaily extends SqlStockTable
 
     function Write($strDate, $strClose)
     {
-    	if ($str = $this->GetCloseString($strDate))
+    	if ($fSaved = $this->GetClose($strDate))
     	{
-    		if ($str != $strClose)
+    		if (abs($fSaved - floatval($strClose)) > 0.000001)
     		{
     			$this->Update($strDate, $strClose);
     		}

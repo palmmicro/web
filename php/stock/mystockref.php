@@ -53,18 +53,7 @@ class MyStockReference extends MysqlReference
 		if ($fPrev = $sql->GetClosePrev($strDate))
 		{
 			$fCur = $this->CalculateEMA($this->fPrice, $fPrev, $iDays);
-			$strCur = strval($fCur);
-			if ($fSaved = $sql->GetClose($strDate))
-			{
-				if (abs($fSaved - $fCur) > 0.005)
-				{
-					$sql->Update($strDate, $strCur);
-				}
-			}
-			else
-			{
-				$sql->Insert($strDate, $strCur);
-			}
+			$sql->Write($strDate, strval($fCur));
 		}
 	}
 	

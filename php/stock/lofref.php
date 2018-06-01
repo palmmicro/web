@@ -363,23 +363,17 @@ class _LofReference extends FundReference
                 $ymd = new YMDString($strDate);
                 $ymd_est = new YMDString($est_ref->strDate);
             
-                if ($strDate == $est_ref->strDate)
+                $fEst = SqlGetFundNetValueByDate($this->est_ref->GetStockId(), $strDate);
+                if ($fEst == false)
                 {
-                    $fEst = $est_ref->fPrice;
-                    $strEst = $est_ref->strPrice;
-                }
-                else if ($ymd->GetNextTradingDayTick() == $ymd_est->GetTick())
-                {
-                    $fEst = $est_ref->fPrevPrice;
-                    $strEst = $est_ref->strPrevPrice;
-                }
-                else
-                {
-                    return false;
+                	DebugString($strDate.' '.$this->est_ref->GetStockSymbol().' ETF net value not found, use close price.');
+                	if ($strDate == $est_ref->strDate)	                   				$fEst = $est_ref->fPrice;
+                	else if ($ymd->GetNextTradingDayTick() == $ymd_est->GetTick())		$fEst = $est_ref->fPrevPrice;
+                	else	return false;
                 }
         
                 $this->fFactor = $fEst * $fCNY / $this->fPrevPrice;
-                $this->InsertFundCalibration($est_ref, $strEst);
+                $this->InsertFundCalibration($est_ref, strval($fEst));
                 return $this->fFactor;
             }
         }

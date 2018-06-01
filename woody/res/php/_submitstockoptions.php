@@ -99,19 +99,11 @@ function _updateStockOptionEmaDays($strStockId, $iDays, $strDate, $strVal)
 	$sql = new SqlStockEma($strStockId, $iDays);
     if ($strVal == '0')
     {
-//   		$sql->DeleteByDate($strDate);
    		$sql->DeleteAll();
     }
     else
     {
-    	if ($sql->Get($strDate))
-    	{
-    		$sql->Update($strDate, $strVal);
-    	}
-    	else
-    	{
-    		$sql->Insert($strDate, $strVal);
-    	}
+   		$sql->Write($strDate, $strVal);
     }
 }
 
@@ -122,6 +114,7 @@ function _updateStockOptionEma($strSymbol, $strDate, $strVal)
 	$strStockId = SqlGetStockId($strSymbol);
 	_updateStockOptionEmaDays($strStockId, 200, $strDate, $ar[0]);
 	_updateStockOptionEmaDays($strStockId, 50, $strDate, $ar[1]);
+    unlinkConfigFile($strSymbol);
 }
 
 function _updateStockOptionEtf($strSymbol, $strVal)
