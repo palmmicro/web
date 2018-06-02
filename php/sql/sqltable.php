@@ -1,12 +1,12 @@
 <?php
 
-// ****************************** SqlTable class *******************************************************
-class SqlTable
+// ****************************** TableSql class *******************************************************
+class TableSql
 {
 	var $strName;
 	
     // constructor 
-    function SqlTable($strTableName) 
+    function TableSql($strTableName) 
     {
     	$this->strName = $strTableName;
     }
@@ -18,12 +18,16 @@ class SqlTable
     
     function Insert($str)
     {
-    	return SqlInsertTableData($this->strName, $str);
+    	$strTableName = $this->strName;
+	    $strQuery = 'INSERT INTO '.$strTableName.$str;
+	    return SqlDieByQuery($strQuery, $strTableName.' insert data failed');
     }
     
     function Update($str)
     {
-    	return SqlUpdateTableData($this->strName, $str);
+    	$strTableName = $this->strName;
+    	$strQuery = "UPDATE $strTableName SET $str LIMIT 1";
+    	return SqlDieByQuery($strQuery, $strTableName.' update data failed');
     }
     
     function Count($strWhere = false)

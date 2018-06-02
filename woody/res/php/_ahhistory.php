@@ -12,7 +12,7 @@ function _echoAhHistoryGraph($strSymbol, $bChinese)
     EchoPageImage($arColumn[1], $strSymbol, $csv->GetPathName(), $jpg->GetPathName());
 }
 
-function _echoAhHistoryItem($csv, $history, $sql_pair, $sql_hkcny, $fRatio)
+function _echoAhHistoryItem($csv, $history, $pair_sql, $sql_hkcny, $fRatio)
 {
 	$strDate = $history['date'];
 	$fClose = floatval($history['close']);
@@ -23,7 +23,7 @@ function _echoAhHistoryItem($csv, $history, $sql_pair, $sql_hkcny, $fRatio)
 	
 	$strAH = '';
 	$strHA = '';
-	if ($fPairClose = $sql_pair->GetClose($strDate))
+	if ($fPairClose = $pair_sql->GetClose($strDate))
 	{
 		$strPairClose = round_display($fPairClose);
 		if ($fHKCNY)
@@ -56,11 +56,11 @@ function _echoAhHistoryData($sql, $strPairId, $fRatio, $iStart, $iNum)
     if ($result = $sql->GetAll($iStart, $iNum)) 
     {
     	$sql_hkcny = new SqlHkcnyHistory();
-    	$sql_pair = new SqlStockHistory($strPairId);
+    	$pair_sql = new StockHistorySql($strPairId);
      	$csv = new PageCsvFile();
         while ($history = mysql_fetch_assoc($result)) 
         {
-            _echoAhHistoryItem($csv, $history, $sql_pair, $sql_hkcny, $fRatio);
+            _echoAhHistoryItem($csv, $history, $pair_sql, $sql_hkcny, $fRatio);
         }
         $csv->Close();
         @mysql_free_result($result);
@@ -84,7 +84,7 @@ function _echoAhHistoryParagraph($strSymbol, $strStockId, $strPairId, $fRatio, $
         $strUpdateLink .= ' '.GetOnClickLink(STOCK_PHP_PATH.'_submithistory.php?id='.$strPairId, "确认更新$strPairSymbol历史记录?", $strPairSymbol);
     }
 
-	$sql = new SqlStockHistory($strStockId);
+	$sql = new StockHistorySql($strStockId);
     $strNavLink = StockGetNavLink($strSymbol, $sql->Count(), $iStart, $iNum, $bChinese);
  
     EchoParagraphBegin($strNavLink.' '.$strUpdateLink);
@@ -112,7 +112,7 @@ function EchoAhHistory($bChinese)
     {
     	if ($strStockId = SqlGetStockId($strSymbol))
     	{
-    		$sql = new SqlStockPair($strStockId, TABLE_AH_STOCK);
+    		$sql = new PairStockSql($strStockId, TABLE_AH_STOCK);
     		if ($strPairId = $sql->GetPairId())
     		{
     			$iStart = UrlGetQueryInt('start');

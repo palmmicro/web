@@ -2,16 +2,16 @@
 //require_once('sqlstockdaily.php');
 require_once('sqlstockhistory.php');
 
-// ****************************** SqlStockHistory class *******************************************************
-class SqlFundHistory extends SqlStockDaily
+// ****************************** FundHistorySql class *******************************************************
+class FundHistorySql extends DailyStockSql
 {
-	var $stock;
+	var $stock_sql;	// StockHistorySql
 	
     // constructor 
-    function SqlFundHistory($strStockId) 
+    function FundHistorySql($strStockId) 
     {
-        parent::SqlStockDaily($strStockId, TABLE_FUND_HISTORY);
-        $this->stock = new SqlStockHistory($strStockId);
+        parent::DailyStockSql($strStockId, TABLE_FUND_HISTORY);
+        $this->stock_sql = new StockHistorySql($strStockId);
     }
 }
 
@@ -35,21 +35,20 @@ function SqlCreateFundHistoryTable()
 
 function SqlGetFundHistoryNow($strStockId)
 {
-	$sql = new SqlFundHistory($strStockId);
+	$sql = new FundHistorySql($strStockId);
 	return $sql->GetNow();
 //	return SqlGetSingleTableData(TABLE_FUND_HISTORY, _SqlBuildWhere_stock($strStockId), _SqlOrderByDate());
 }
 
 function SqlGetFundHistoryByDate($strStockId, $strDate)
 {
-	$sql = new SqlFundHistory($strStockId);
+	$sql = new FundHistorySql($strStockId);
 	return $sql->Get($strDate);
-//	return SqlGetSingleTableData(TABLE_FUND_HISTORY, _SqlBuildWhere_date_stock($strDate, $strStockId));
 }
 
 function SqlGetNetValueByDate($strStockId, $strDate)
 {
-	$sql = new SqlFundHistory($strStockId);
+	$sql = new FundHistorySql($strStockId);
 	return $sql->GetCloseString($strDate);
 /*	if ($history = SqlGetFundHistoryByDate($strStockId, $strDate))
 	{
@@ -60,7 +59,7 @@ function SqlGetNetValueByDate($strStockId, $strDate)
 
 function SqlGetFundNetValueByDate($strStockId, $strDate)
 {
-	$sql = new SqlFundHistory($strStockId);
+	$sql = new FundHistorySql($strStockId);
 	return $sql->GetClose($strDate);
 /*	if ($str = SqlGetNetValueByDate($strStockId, $strDate))
 	{

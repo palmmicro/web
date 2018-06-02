@@ -23,7 +23,7 @@ function _getStockOptionDate($strSubmit, $strStockId)
 {
 	if ($strSubmit == STOCK_OPTION_ADJCLOSE_CN || $strSubmit == STOCK_OPTION_REVERSESPLIT_CN || $strSubmit == STOCK_OPTION_REVERSESPLIT || $strSubmit == STOCK_OPTION_EMA_CN)
 	{
-		$sql = new SqlStockHistory($strStockId);
+		$sql = new StockHistorySql($strStockId);
 		if ($strDate = $sql->GetDateNow())
 		{
 			return $strDate;
@@ -90,21 +90,24 @@ function _getStockOptionEtf($strSymbol)
 	return '';
 }
 
-function _getStockOptionEma($strSymbol, $strDate)
+function _getStockOptionEmaDays($strStockId, $strDate, $iDays)
 {
-	$strStockId = SqlGetStockId($strSymbol);
-	$ema200 = new SqlStockEma($strStockId, 200);
-	$ema50 = new SqlStockEma($strStockId, 50);
-	$str200 = $ema200->GetCloseString($strDate);
-	$str50 = $ema50->GetCloseString($strDate);
-	if ($str200 && $str200)
+	$sql = new StockEmaSql($strStockId, $iDays);
+	return $sql->GetCloseString($strDate);
+}
+
+function _getStockOptionEma($strStockId, $strDate)
+{
+	$str200 = _getStockOptionEmaDays($strStockId, $strDate, 200);
+	$str50 = _getStockOptionEmaDays($strStockId, $strDate, 50);
+	if ($str200 && $str50)
 	{
 		return $str200.'/'.$str50;
 	}
 	return 'EMA200/50';
 }
 
-function _getStockOptionVal($strSubmit, $strSymbol, $strDate)
+function _getStockOptionVal($strSubmit, $strSymbol, $strStockId, $strDate)
 {
 	if ($strSubmit == STOCK_OPTION_ADJCLOSE_CN)
 	{
@@ -116,7 +119,7 @@ function _getStockOptionVal($strSubmit, $strSymbol, $strDate)
 	}
 	else if ($strSubmit == STOCK_OPTION_EMA_CN)
 	{
-		return _getStockOptionEma($strSymbol, $strDate);
+		return _getStockOptionEma($strStockId, $strDate);
 	}
 	else if ($strSubmit == STOCK_OPTION_ETF_CN)
 	{
@@ -152,7 +155,7 @@ function StockOptionEditForm($strSubmit)
     	$strDateDisabled = HtmlElementDisabled();
     }
     
-    $strVal = _getStockOptionVal($strSubmit, $strSymbol, $strDate);
+    $strVal = _getStockOptionVal($strSubmit, $strSymbol, $strStockId, $strDate);
 	
 	echo <<< END
 	<script type="text/javascript">

@@ -94,18 +94,6 @@ function SqlDropTable($strTableName)
 	SqlDieByQuery($str, $strTableName.' Drop table failed');
 }
 
-function SqlUpdateTableData($strTableName, $str)
-{
-   	$strQuery = "UPDATE $strTableName SET $str LIMIT 1";
-	return SqlDieByQuery($strQuery, $strTableName.' update data failed');
-}
-
-function SqlInsertTableData($strTableName, $str)
-{
-    $strQuery = 'INSERT INTO '.$strTableName.$str;
-   	return SqlDieByQuery($strQuery, $strTableName.' insert data failed');
-}
-
 function SqlGetTableData($strTableName, $strWhere = false, $strOrderBy = false, $strLimit = false)
 {
 	$strQry = 'SELECT * FROM '.$strTableName;

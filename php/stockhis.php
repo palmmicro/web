@@ -165,7 +165,7 @@ class StockHistory
     var $strDate;		// 2014-11-13
     
     var $stock_ref;	// MyStockReference
-    var $sql;			// SqlStockHistory				
+    var $sql;			// StockHistorySql				
     
     function _getTradingRange($iDays, $afClose, $afHigh, $afLow)
     {
@@ -234,7 +234,7 @@ class StockHistory
 
     function _getEMA($iDays)
     {
-    	$sql = new SqlStockEma($this->GetStockId(), $iDays);
+    	$sql = new StockEmaSql($this->GetStockId(), $iDays);
     	return $sql->GetClose($this->strDate);
     }
     
@@ -391,7 +391,7 @@ class StockHistory
     function StockHistory($ref) 
     {
         $this->stock_ref = $ref;
-		$this->sql = new SqlStockHistory($this->GetStockId());
+		$this->sql = new StockHistorySql($this->GetStockId());
         $this->aiNum = array(5, 10, 20);
 		$this->strDate = $this->_getStartDate();
         $this->_configSMA();

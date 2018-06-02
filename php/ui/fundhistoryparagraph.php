@@ -5,7 +5,7 @@ function GetDailyCloseByDate($ref, $strDate)
 {
 	if ($ref)
 	{
-		$sql = new SqlStockHistory($ref->GetStockId());
+		$sql = new StockHistorySql($ref->GetStockId());
 		if ($history = $sql->Get($strDate))
 		{
 			if ($history_prev = $sql->GetPrev($strDate))
@@ -108,7 +108,7 @@ function _echoHistoryTableData($sql, $fund, $csv, $etf_ref, $iStart, $iNum)
                 $strDate = GetNextTradingDayYMD($record['date']);
             }
             
-            if ($history = $sql->stock->Get($strDate))
+            if ($history = $sql->stock_sql->Get($strDate))
             {
             	$arEtfClose = GetDailyCloseByDate($etf_ref, $record['date']);
                 EchoFundHistoryTableItem($ref, $csv, $history, $record, $arEtfClose);
@@ -179,7 +179,7 @@ function EchoFundHistoryParagraph($fund, $bChinese, $csv = false, $iStart = 0, $
         $str = "The {$arColumn[3]} history of $strSymbolLink {$arColumn[1]} price comparing with {$arColumn[2]}";
     }
     
-	$sql = new SqlFundHistory($fund->GetStockId());
+	$sql = new FundHistorySql($fund->GetStockId());
     if (IsTableCommonDisplay($iStart, $iNum))
     {
         $str .= ' '.GetNetValueHistoryLink($strSymbol, $bChinese);

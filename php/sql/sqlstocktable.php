@@ -1,14 +1,14 @@
 <?php
 require_once('sqltable.php');
 
-// ****************************** SqlStockTable class *******************************************************
-class SqlStockTable extends SqlTable
+// ****************************** StockTableSql class *******************************************************
+class StockTableSql extends TableSql
 {
 	var $strStockId;
 	
     function BuildWhere_date_stock($strDate)
     {
-    	return _SqlBuildWhere_date_stock($strDate, $this->strStockId);
+		return _SqlBuildWhereAndArray(array('date' => $strDate, 'stock_id' => $this->strStockId));
     }
     
     function BuildWhere_stock()
@@ -22,15 +22,15 @@ class SqlStockTable extends SqlTable
     }
     
     // constructor 
-    function SqlStockTable($strStockId, $strTableName) 
+    function StockTableSql($strStockId, $strTableName) 
     {
     	$this->strStockId = $strStockId;
-        parent::SqlTable($strTableName);
+        parent::TableSql($strTableName);
     }
     
     function Count()
     {
-    	return SqlTable::Count($this->BuildWhere_stock());
+    	return TableSql::Count($this->BuildWhere_stock());
     }
     
     function DeleteAll()

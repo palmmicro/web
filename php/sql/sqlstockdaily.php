@@ -2,13 +2,13 @@
 require_once('sqlstocktable.php');
 require_once('sqlstocksymbol.php');
 
-// ****************************** SqlStockDaily class *******************************************************
-class SqlStockDaily extends SqlStockTable
+// ****************************** DailyStockSql class *******************************************************
+class DailyStockSql extends StockTableSql
 {
     // constructor 
-    function SqlStockDaily($strStockId, $strTableName) 
+    function DailyStockSql($strStockId, $strTableName) 
     {
-        parent::SqlStockTable($strStockId, $strTableName);
+        parent::StockTableSql($strStockId, $strTableName);
 //        $this->Create();
     }
     
@@ -115,12 +115,12 @@ class SqlStockDaily extends SqlStockTable
     function Insert($strDate, $strClose)
     {
     	$strStockId = $this->GetStockId(); 
-    	return SqlTable::Insert("(id, stock_id, date, close) VALUES('0', '$strStockId', '$strDate', '$strClose')");
+    	return TableSql::Insert("(id, stock_id, date, close) VALUES('0', '$strStockId', '$strDate', '$strClose')");
     }
 
     function Update($strDate, $strClose)
     {
-    	return SqlTable::Update("close = '$strClose' WHERE ".$this->BuildWhere_date_stock($strDate));
+    	return TableSql::Update("close = '$strClose' WHERE ".$this->BuildWhere_date_stock($strDate));
     }
 
     function Write($strDate, $strClose)
@@ -144,58 +144,58 @@ class SqlStockDaily extends SqlStockTable
     }
 }
 
-// ****************************** SqlStockEma class *******************************************************
-class SqlStockEma extends SqlStockDaily
+// ****************************** StockEmaSql class *******************************************************
+class StockEmaSql extends DailyStockSql
 {
     // constructor 
-    function SqlStockEma($strStockId, $iDays) 
+    function StockEmaSql($strStockId, $iDays) 
     {
-        parent::SqlStockDaily($strStockId, 'stockema'.strval($iDays));
+        parent::DailyStockSql($strStockId, 'stockema'.strval($iDays));
     }
 }
 
 // ****************************** SqlEtfCalibration class *******************************************************
-class SqlEtfCalibration extends SqlStockDaily
+class SqlEtfCalibration extends DailyStockSql
 {
     // constructor 
     function SqlEtfCalibration($strStockId)
     {
-        parent::SqlStockDaily($strStockId, TABLE_ETF_CALIBRATION);
+        parent::DailyStockSql($strStockId, TABLE_ETF_CALIBRATION);
     }
 }
 
-// ****************************** SqlForexHistory class *******************************************************
-class SqlForexHistory extends SqlStockDaily
+// ****************************** ForexHistorySql class *******************************************************
+class ForexHistorySql extends DailyStockSql
 {
     // constructor 
-    function SqlForexHistory($strStockId) 
+    function ForexHistorySql($strStockId) 
     {
-        parent::SqlStockDaily($strStockId, TABLE_FOREX_HISTORY);
+        parent::DailyStockSql($strStockId, TABLE_FOREX_HISTORY);
     }
 }
 
-class SqlUscnyHistory extends SqlForexHistory
+class SqlUscnyHistory extends ForexHistorySql
 {
     // constructor 
     function SqlUscnyHistory() 
     {
-        parent::SqlForexHistory(SqlGetStockId('USCNY'));
+        parent::ForexHistorySql(SqlGetStockId('USCNY'));
     }
 }
 
-class SqlHkcnyHistory extends SqlForexHistory
+class SqlHkcnyHistory extends ForexHistorySql
 {
     // constructor 
     function SqlHkcnyHistory() 
     {
-        parent::SqlForexHistory(SqlGetStockId('HKCNY'));
+        parent::ForexHistorySql(SqlGetStockId('HKCNY'));
     }
 }
 
 // ****************************** Forex Support Functions *******************************************************
 function SqlGetForexHistoryNow($strStockId)
 {
-	$sql = new SqlForexHistory($strStockId);
+	$sql = new ForexHistorySql($strStockId);
 	return $sql->GetNow();
 }
 

@@ -75,13 +75,13 @@ class _LofGroup extends _StockGroup
         $est_ref = $ref->est_ref;
         $strSymbol = $ref->GetStockSymbol();
         $strDate = $ref->strDate;
-        $strCNY = $ref->sql_forex_history->GetCloseString($strDate);
+        $strCNY = $ref->forex_sql->GetCloseString($strDate);
         
-       	$sql = new SqlFundHistory($est_ref->GetStockId());
+       	$sql = new FundHistorySql($est_ref->GetStockId());
        	$strEst = $sql->GetCloseString($strDate);
        	if ($strEst == false)
        	{
-       		$strEst = $sql->stock->GetCloseString($strDate);
+       		$strEst = $sql->stock_sql->GetCloseString($strDate);
        		if ($strEst == false)	$strEst = $est_ref->strPrevPrice;
        	}
        	

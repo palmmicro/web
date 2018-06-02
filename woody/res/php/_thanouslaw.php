@@ -104,14 +104,14 @@ function _echoLofPredictionParagraph($fund, $bChinese)
     $arColumn = FundHistoryTableGetColumn($etf_ref, $bChinese);
     
     EchoParagraphBegin(_getNetValueLink($strSymbol, $bChinese));
-	$sql = new SqlFundHistory($strStockId);
+	$sql = new FundHistorySql($strStockId);
     if ($result = $sql->GetAll(0, MAX_PREDICTION_DAYS)) 
     {
         EchoFundHistoryTableBegin($arColumn);
         while ($record = mysql_fetch_assoc($result)) 
         {
             $strDate = GetNextTradingDayYMD($record['date']);
-            if ($history = $sql->stock->Get($strDate))
+            if ($history = $sql->stock_sql->Get($strDate))
             {
                 $arEtfClose = GetDailyCloseByDate($etf_ref, $strDate);
                 if ($arEtfClose)

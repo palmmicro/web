@@ -145,7 +145,7 @@ function _submitStockHistory($strStockId, $strSymbol)
     unlinkConfigFile($strSymbol);
     $sym = new StockSymbol($strSymbol);
     $sym->SetTimeZone();
-	$sql = new SqlStockHistory($strStockId);
+	$sql = new StockHistorySql($strStockId);
 	if ($sym->IsIndexA())
 	{
 		_webUpdateSinaHistory($sql, $sym);

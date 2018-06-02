@@ -1,25 +1,25 @@
 <?php
 require_once('sqlstockdaily.php');
 
-// ****************************** SqlStockHistory class *******************************************************
-class SqlStockHistory extends SqlStockDaily
+// ****************************** StockHistorySql class *******************************************************
+class StockHistorySql extends DailyStockSql
 {
     // constructor 
-    function SqlStockHistory($strStockId) 
+    function StockHistorySql($strStockId) 
     {
-        parent::SqlStockDaily($strStockId, TABLE_STOCK_HISTORY);
+        parent::DailyStockSql($strStockId, TABLE_STOCK_HISTORY);
 //        $this->Create();
     }
 
     function Insert($strDate, $strOpen, $strHigh, $strLow, $strClose, $strVolume, $strAdjClose)
     {
     	$strStockId = $this->GetStockId(); 
-    	return SqlTable::Insert("(id, stock_id, date, open, high, low, close, volume, adjclose) VALUES('0', '$strStockId', '$strDate', '$strOpen', '$strHigh', '$strLow', '$strClose', '$strVolume', '$strAdjClose')");
+    	return TableSql::Insert("(id, stock_id, date, open, high, low, close, volume, adjclose) VALUES('0', '$strStockId', '$strDate', '$strOpen', '$strHigh', '$strLow', '$strClose', '$strVolume', '$strAdjClose')");
     }
     
     function Update($strId, $strOpen, $strHigh, $strLow, $strClose, $strVolume, $strAdjClose)
     {
-		return SqlTable::Update("open = '$strOpen', high = '$strHigh', low = '$strLow', close = '$strClose', volume = '$strVolume', adjclose = '$strAdjClose' WHERE "._SqlBuildWhere_id($strId));
+		return TableSql::Update("open = '$strOpen', high = '$strHigh', low = '$strLow', close = '$strClose', volume = '$strVolume', adjclose = '$strAdjClose' WHERE "._SqlBuildWhere_id($strId));
     }
 
     function Merge($strDate, $strOpen, $strHigh, $strLow, $strClose, $strVolume, $strAdjClose)
@@ -36,7 +36,7 @@ class SqlStockHistory extends SqlStockDaily
     
     function UpdateAdjClose($strId, $strAdjClose)
     {
-		return SqlTable::Update("adjclose = '$strAdjClose' WHERE "._SqlBuildWhere_id($strId));
+		return TableSql::Update("adjclose = '$strAdjClose' WHERE "._SqlBuildWhere_id($strId));
     }
 
     function DeleteByZeroVolume()

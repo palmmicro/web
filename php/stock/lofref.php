@@ -279,7 +279,7 @@ class _LofReference extends FundReference
         $this->AdjustFactor();
         
         $strDate = $this->est_ref->strDate;
-        if ($fCNY = $this->sql_forex_history->GetClose($strDate))
+        if ($fCNY = $this->forex_sql->GetClose($strDate))
         {
             $this->fCNY = $fCNY;
             if ($fEstNetValue = SqlGetFundNetValueByDate($this->est_ref->GetStockId(), $strDate))
@@ -326,7 +326,7 @@ class _LofReference extends FundReference
     function EstRealtimeNetValue()
     {
         $this->_loadEtfFactor();
-        $fCNY = $this->GetForexNow();
+        $fCNY = $this->forex_sql->GetCloseNow();
         if ($this->fCNY == false)
         {
             $this->fCNY = $fCNY;
@@ -354,7 +354,7 @@ class _LofReference extends FundReference
         if ($this->UpdateOfficialNetValue())
         {
             $strDate = $this->strDate;
-            if ($fCNY = $this->sql_forex_history->GetClose($strDate))
+            if ($fCNY = $this->forex_sql->GetClose($strDate))
             {
                 $est_ref = $this->est_ref;
                 if ($est_ref == false)              return false;

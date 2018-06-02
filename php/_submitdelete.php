@@ -11,7 +11,7 @@ require_once('sql/sqlstockgroup.php');
 
 function _deleteIsStockPair($strTableName, $strPairId)
 {
-	$sql = new SqlStockPair($strPairId, $strTableName);
+	$sql = new PairStockSql($strPairId, $strTableName);
 	if ($strStockId = $sql->GetStockIdByPairId())
 	{
 		DebugString('Stock at least paired with: '.SqlGetStockSymbol($strStockId));
@@ -22,7 +22,7 @@ function _deleteIsStockPair($strTableName, $strPairId)
 
 function _deleteHasStockPair($strTableName, $strStockId)
 {
-	$sql = new SqlStockPair($strStockId, $strTableName);
+	$sql = new PairStockSql($strStockId, $strTableName);
 	if ($strPairId = $sql->GetPairId())
 	{
 		DebugString('Stock pair existed: '.SqlGetStockSymbol($strPairId));
@@ -33,7 +33,7 @@ function _deleteHasStockPair($strTableName, $strStockId)
 
 function _deleteHasStockHistory($strStockId)
 {
-	$sql = new SqlStockHistory($strStockId);
+	$sql = new StockHistorySql($strStockId);
 	$iTotal = $sql->Count();
 	if ($iTotal > 0)
 	{

@@ -5,13 +5,13 @@ define('TABLE_AH_STOCK', 'ahstock');
 define('TABLE_ADRH_STOCK', 'adrhstock');
 define('TABLE_ETF_PAIR', 'etfpair');
 
-// ****************************** SqlStockPair class *******************************************************
-class SqlStockPair extends SqlStockTable
+// ****************************** PairStockSql class *******************************************************
+class PairStockSql extends StockTableSql
 {
     // constructor 
-    function SqlStockPair($strStockId, $strTableName) 
+    function PairStockSql($strStockId, $strTableName) 
     {
-        parent::SqlStockTable($strStockId, $strTableName);
+        parent::StockTableSql($strStockId, $strTableName);
 //        $this->Create();
     }
     
@@ -50,7 +50,7 @@ class SqlStockPair extends SqlStockTable
 
     function Update($strId, $strPairId, $strRatio)
     {
-		return SqlTable::Update("pair_id = '$strPairId', ratio = '$strRatio' WHERE "._SqlBuildWhere_id($strId));
+		return TableSql::Update("pair_id = '$strPairId', ratio = '$strRatio' WHERE "._SqlBuildWhere_id($strId));
 	}
 }
 
@@ -81,7 +81,7 @@ function SqlInsertStockPair($strTableName, $strStockId, $strPairId, $strRatio)
 
 function SqlGetStockPairRatio($strTableName, $strStockId)
 {
-	$sql = new SqlStockPair($strStockId, $strTableName);
+	$sql = new PairStockSql($strStockId, $strTableName);
 	return $sql->GetRatio();
 }
 
@@ -90,7 +90,7 @@ function SqlGetStockPairRatio($strTableName, $strStockId)
 function _sqlGetStockPairArray($strTableName)
 {
 	$ar = array();
-	$sql = new SqlTable($strTableName);
+	$sql = new TableSql($strTableName);
 	if ($result = $sql->GetData()) 
     {
         while ($record = mysql_fetch_assoc($result)) 
@@ -137,7 +137,7 @@ function _sqlGetPair($strTableName, $strSymbol, $callback)
 {
 	if ($strStockId = SqlGetStockId($strSymbol))
 	{
-		$sql = new SqlStockPair($strStockId, $strTableName);
+		$sql = new PairStockSql($strStockId, $strTableName);
 		if ($strPairId = $sql->$callback())
 		{
 			return SqlGetStockSymbol($strPairId);

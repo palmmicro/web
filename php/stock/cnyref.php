@@ -9,7 +9,7 @@ class CnyReference extends MysqlReference
     function _loadDatabaseData($strSymbol)
     {
     	$this->strSqlId = SqlGetStockId($strSymbol);
-		$sql = new SqlForexHistory($this->strSqlId);
+		$sql = new ForexHistorySql($this->strSqlId);
     	if ($history = $sql->GetNow())
     	{
     		$this->strPrice = $history['close'];
@@ -29,7 +29,7 @@ class CnyReference extends MysqlReference
 			return;
 		}
     
-		$sql = new SqlForexHistory($this->strSqlId);
+		$sql = new ForexHistorySql($this->strSqlId);
 		if ($sql->Get($this->strDate) == false)
 		{
 			$sql->Insert($this->strDate, $this->strPrice);

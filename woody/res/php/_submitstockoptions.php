@@ -7,7 +7,7 @@ function _updateStockHistoryAdjCloseByDividend($strSymbol, $strYMD, $strDividend
 {
     $ar = array();
     $ymd = new YMDString($strYMD);
-	$sql = new SqlStockHistory(SqlGetStockId($strSymbol));
+	$sql = new StockHistorySql(SqlGetStockId($strSymbol));
     if ($result = $sql->GetAll()) 
     {
         while ($history = mysql_fetch_assoc($result)) 
@@ -83,7 +83,7 @@ function _updateStockOptionAdr($strSymbol, $strVal)
 	
 	$adr_ref = new MyStockReference(StockGetSymbol($strAdr)); 
 	$strStockId = $adr_ref->GetStockId();
-	$sql = new SqlStockPair($strStockId, TABLE_ADRH_STOCK);
+	$sql = new PairStockSql($strStockId, TABLE_ADRH_STOCK);
     if ($record = $sql->Get())
     {
     	$sql->Update($record['id'], $strPairId, $strRatio);
@@ -96,7 +96,7 @@ function _updateStockOptionAdr($strSymbol, $strVal)
 
 function _updateStockOptionEmaDays($strStockId, $iDays, $strDate, $strVal)
 {
-	$sql = new SqlStockEma($strStockId, $iDays);
+	$sql = new StockEmaSql($strStockId, $iDays);
     if ($strVal == '0')
     {
    		$sql->DeleteAll();
@@ -107,11 +107,10 @@ function _updateStockOptionEmaDays($strStockId, $iDays, $strDate, $strVal)
     }
 }
 
-function _updateStockOptionEma($strSymbol, $strDate, $strVal)
+function _updateStockOptionEma($strSymbol, $strStockId, $strDate, $strVal)
 {
 	if (strchr($strVal, '/') == false)		return;
 	$ar = explode('/', $strVal);
-	$strStockId = SqlGetStockId($strSymbol);
 	_updateStockOptionEmaDays($strStockId, 200, $strDate, $ar[0]);
 	_updateStockOptionEmaDays($strStockId, 50, $strDate, $ar[1]);
     unlinkConfigFile($strSymbol);
@@ -132,7 +131,7 @@ function _updateStockOptionEtf($strSymbol, $strVal)
 	}
 	$strPairId = SqlGetStockId(StockGetSymbol($strIndex));
 	$strStockId = SqlGetStockId($strSymbol);
-	$sql = new SqlStockPair($strStockId, TABLE_ETF_PAIR);
+	$sql = new PairStockSql($strStockId, TABLE_ETF_PAIR);
     if ($record = $sql->Get())
     {
     	$sql->Update($record['id'], $strPairId, $strRatio);
@@ -152,6 +151,7 @@ function _updateStockOptionEtf($strSymbol, $strVal)
 		$strVal = UrlCleanString($_POST['val']);
    		$bAdmin = AcctIsAdmin();
 		$strSubmit = $_POST['submit'];
+		$strStockId = SqlGetStockId($strSymbol);
 		if ($strSubmit == STOCK_OPTION_ADJCLOSE_CN)
 		{
 			if ($bAdmin)	_updateStockHistoryAdjCloseByDividend($strSymbol, $strDate, $strVal);
@@ -162,7 +162,7 @@ function _updateStockOptionEtf($strSymbol, $strVal)
 		}
 		else if ($strSubmit == STOCK_OPTION_EMA_CN)
 		{
-			if ($bAdmin)	_updateStockOptionEma($strSymbol, $strDate, $strVal);
+			if ($bAdmin)	_updateStockOptionEma($strSymbol, $strStockId, $strDate, $strVal);
 		}
 		else if ($strSubmit == STOCK_OPTION_ETF_CN)
 		{

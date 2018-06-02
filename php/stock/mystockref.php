@@ -35,7 +35,7 @@ class MyStockReference extends MysqlReference
         $strVolume = $this->strVolume;
         if ($this->_invalidHistoryData($strClose))  return;
         SqlCreateStockHistoryTable();
-        $sql = new SqlStockHistory($strStockId);
+        $sql = new StockHistorySql($strStockId);
         $sql->Merge($strDate, $strOpen, $strHigh, $strLow, $strClose, $strVolume, $strClose);
     }
 
@@ -48,7 +48,7 @@ class MyStockReference extends MysqlReference
     
 	function _updateStockEmaDays($iDays)
 	{
-		$sql = new SqlStockEma($this->strSqlId, $iDays);
+		$sql = new StockEmaSql($this->strSqlId, $iDays);
 		$strDate = $this->strDate;
 		if ($fPrev = $sql->GetClosePrev($strDate))
 		{

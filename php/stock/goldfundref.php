@@ -60,7 +60,7 @@ class GoldFundReference extends FundReference
 
     function EstRealtimeNetValue()
     {
-		$fEst = $this->future_ref->fPrice * $this->GetForexNow() / 31.1035;
+		$fEst = $this->future_ref->fPrice * $this->forex_sql->GetCloseNow() / 31.1035;
 		if ($this->future_ref->GetStockSymbol() == 'SI')
 		{
 //			DebugString('Silver');

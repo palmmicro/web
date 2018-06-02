@@ -44,7 +44,7 @@ function _echoStockHistoryParagraph($strSymbol, $strStockId, $iStart, $iNum, $bA
         else				        $strUpdateLink .= ' '.GetYahooStockHistoryLink($strSymbol);
     }
 
-	$sql = new SqlStockHistory($strStockId);
+	$sql = new StockHistorySql($strStockId);
     $strNavLink = StockGetNavLink($strSymbol, $sql->Count(), $iStart, $iNum, $bChinese);
     $strSymbolLink = GetMyStockLink($strSymbol, $bChinese);
     EchoParagraphBegin($strSymbolLink.' '.$strNavLink.' '.$strUpdateLink);

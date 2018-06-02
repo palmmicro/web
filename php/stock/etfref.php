@@ -17,8 +17,8 @@ class EtfReference extends MyStockReference
         parent::MyStockReference($strSymbol);
         $strStockId = $this->GetStockId();
         $sql_calibration = new SqlEtfCalibration($strStockId);
-        $sql_pair = new SqlStockPair($strStockId, TABLE_ETF_PAIR);
-        if ($record = $sql_pair->Get())
+        $pair_sql = new PairStockSql($strStockId, TABLE_ETF_PAIR);
+        if ($record = $pair_sql->Get())
         {
         	$this->strPairId = $record['pair_id'];
         	$this->fRatio = floatval($record['ratio']);
