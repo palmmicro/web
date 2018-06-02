@@ -11,13 +11,7 @@ require_once('stock/ftstock.php');
 require_once('stock/marketwatch.php');
 
 //require_once('sql.php');
-require_once('sql/sqlstocksymbol.php');
-require_once('sql/sqlstockpair.php');
-require_once('sql/sqlstockgroup.php');
-require_once('sql/sqlstockhistory.php');
-require_once('sql/sqlparameter.php');
-require_once('sql/sqlstockdaily.php');
-require_once('sql/sqlfundhistory.php');
+require_once('sql/sqlstock.php');
 /*
 require_once('stock/stocksymbol.php');
 //require_once('stock/chinamoney.php');

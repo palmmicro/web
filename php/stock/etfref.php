@@ -16,34 +16,33 @@ class EtfReference extends MyStockReference
     {
         parent::MyStockReference($strSymbol);
         $strStockId = $this->GetStockId();
-        $sql_calibration = new SqlEtfCalibration($strStockId);
-        $pair_sql = new PairStockSql($strStockId, TABLE_ETF_PAIR);
-        if ($record = $pair_sql->Get())
+        $sql = new EtfCalibrationSql($strStockId);
+        if ($record = $sql->pair_sql->Get())
         {
         	$this->strPairId = $record['pair_id'];
         	$this->fRatio = floatval($record['ratio']);
-        	if ($history = SqlGetFundHistoryNow($strStockId))
+        	if ($history = $sql->fund_sql->GetNow())
         	{
         		$strDate = $history['date'];
         		$fNetValue = floatval($history['close']);
-        		if ($fFactor = $sql_calibration->GetClose($strDate))
+        		if ($fFactor = $sql->GetClose($strDate))
         		{
-        			$fPairNetValue = SqlGetFundNetValueByDate($this->strPairId, $strDate);
+        			$fPairNetValue = $sql->pair_fund_sql->GetClose($strDate);
         		}
         		else
         		{
-        			if ($fPairNetValue = SqlGetFundNetValueByDate($this->strPairId, $strDate))
+        			if ($fPairNetValue = $sql->pair_fund_sql->GetClose($strDate))
         			{
         				$fFactor = $fPairNetValue / $fNetValue;
-        				$sql_calibration->Insert($strDate, strval($fFactor));
+        				$sql->Insert($strDate, strval($fFactor));
         			}
         			else
         			{
-        				if ($calibration = $sql_calibration->GetNow())
+        				if ($calibration = $sql->GetNow())
         				{
         					$fFactor = floatval($calibration['close']); 
-        					$fNetValue = SqlGetFundNetValueByDate($strStockId, $calibration['date']);
-        					$fPairNetValue = SqlGetFundNetValueByDate($this->strPairId, $calibration['date']);
+        					$fNetValue = $sql->fund_sql->GetClose($calibration['date']);
+        					$fPairNetValue = $sql->pair_fund_sql->GetClose($calibration['date']);
         				}
         			}
         		}
@@ -64,6 +63,11 @@ class EtfReference extends MyStockReference
     function EstToPair($fEst)
     {
     	return ($fEst - $this->fNetValue) * $this->fFactor / $this->fRatio + $this->fPairNetValue;
+    }
+    
+    function GetPairId()
+    {
+		return $this->strPairId;
     }
 }
 

@@ -9,7 +9,6 @@ class DailyStockSql extends StockTableSql
     function DailyStockSql($strStockId, $strTableName) 
     {
         parent::StockTableSql($strStockId, $strTableName);
-//        $this->Create();
     }
     
     function Create()
@@ -129,6 +128,7 @@ class DailyStockSql extends StockTableSql
     	{
     		if (abs($fSaved - floatval($strClose)) > 0.000001)
     		{
+    			DebugString($strDate.' '.$strClose);
     			$this->Update($strDate, $strClose);
     		}
     	}
@@ -154,16 +154,6 @@ class StockEmaSql extends DailyStockSql
     }
 }
 
-// ****************************** SqlEtfCalibration class *******************************************************
-class SqlEtfCalibration extends DailyStockSql
-{
-    // constructor 
-    function SqlEtfCalibration($strStockId)
-    {
-        parent::DailyStockSql($strStockId, TABLE_ETF_CALIBRATION);
-    }
-}
-
 // ****************************** ForexHistorySql class *******************************************************
 class ForexHistorySql extends DailyStockSql
 {
@@ -174,19 +164,19 @@ class ForexHistorySql extends DailyStockSql
     }
 }
 
-class SqlUscnyHistory extends ForexHistorySql
+class UscnyHistorySql extends ForexHistorySql
 {
     // constructor 
-    function SqlUscnyHistory() 
+    function UscnyHistorySql() 
     {
         parent::ForexHistorySql(SqlGetStockId('USCNY'));
     }
 }
 
-class SqlHkcnyHistory extends ForexHistorySql
+class HkcnyHistorySql extends ForexHistorySql
 {
     // constructor 
-    function SqlHkcnyHistory() 
+    function HkcnyHistorySql() 
     {
         parent::ForexHistorySql(SqlGetStockId('HKCNY'));
     }
@@ -201,13 +191,13 @@ function SqlGetForexHistoryNow($strStockId)
 
 function SqlGetHKCNY()
 {
-	$sql = new SqlHkcnyHistory();
+	$sql = new HkcnyHistorySql();
 	return $sql->GetCloseNow();
 }
 
 function SqlGetUSCNY()
 {
-	$sql = new SqlUscnyHistory();
+	$sql = new UscnyHistorySql();
 	return $sql->GetCloseNow();
 }
 

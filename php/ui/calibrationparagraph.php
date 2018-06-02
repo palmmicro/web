@@ -1,11 +1,11 @@
 <?php
 require_once('stocktable.php');
 
-function _echoCalibrationItem($strStockId, $strPairId, $history, $bReadOnly, $bChinese)
+function _echoCalibrationItem($sql, $history, $bReadOnly, $bChinese)
 {
    	$strDate = $history['date'];
-    $strPrice = SqlGetNetValueByDate($strStockId, $strDate);
-    $strPairPrice = SqlGetNetValueByDate($strPairId, $strDate);
+    $strPrice = $sql->fund_sql->GetCloseString($strDate);
+    $strPairPrice = $sql->pair_fund_sql->GetCloseString($strDate);
     if ($bReadOnly == false)
     {
     	$strDate = GetOnClickLink('/php/_submitdelete.php?etfcalibrationid='.$history['id'], '确认删除'.$history['date'].'校准记录?', $history['date']);
@@ -21,7 +21,7 @@ function _echoCalibrationItem($strStockId, $strPairId, $history, $bReadOnly, $bC
 END;
 }
 
-function _echoCalibrationData($strSymbol, $iStart, $iNum, $bChinese)
+function _echoCalibrationData($sql, $strSymbol, $strStockId, $iStart, $iNum, $bChinese)
 {
     if (AcctIsAdmin())
     {
@@ -32,21 +32,17 @@ function _echoCalibrationData($strSymbol, $iStart, $iNum, $bChinese)
         $bReadOnly = true;
     }
     
-	$strStockId = SqlGetStockId($strSymbol);
-    $sql_calibration = new SqlEtfCalibration($strStockId);
-    $pair_sql = new PairStockSql($strStockId, TABLE_ETF_PAIR);
-    $strPairId = $pair_sql->GetPairId();
-    if ($result = $sql_calibration->GetAll($iStart, $iNum)) 
+    if ($result = $sql->GetAll($iStart, $iNum)) 
     {
         while ($history = mysql_fetch_assoc($result)) 
         {
-            _echoCalibrationItem($strStockId, $strPairId, $history, $bReadOnly, $bChinese);
+            _echoCalibrationItem($sql, $history, $bReadOnly, $bChinese);
         }
         @mysql_free_result($result);
     }
 }
 
-function EchoCalibrationParagraph($strSymbol, $bChinese, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
+function EchoCalibrationParagraph($strSymbol, $strStockId, $bChinese, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
 {
 	$strSymbolLink = GetMyStockLink($strSymbol, $bChinese);
 	$strPair = SqlGetEtfPair($strSymbol);
@@ -55,10 +51,17 @@ function EchoCalibrationParagraph($strSymbol, $bChinese, $iStart = 0, $iNum = TA
     if ($bChinese)  $arColumn = array($strSymbolLink.$strPrice,     $strPairLink.$strPrice,     '校准值', '日期');
     else              $arColumn = array($strSymbolLink.' '.$strPrice, $strPairLink.' '.$strPrice, 'Factor', 'Date');
     
-	$str = '';    
+    $sql = new EtfCalibrationSql($strStockId);
     if (IsTableCommonDisplay($iStart, $iNum))
     {
-        $str .= ' '.GetCalibrationLink($strSymbol, $bChinese);
+        $str = GetCalibrationLink($strSymbol, $bChinese);
+        $strNavLink = '';
+    }
+    else
+    {
+    	$iTotal = $sql->Count();
+    	$strNavLink = StockGetNavLink($strSymbol, $iTotal, $iStart, $iNum, $bChinese);
+    	$str = $strNavLink;
     }
     
     EchoParagraphBegin($str);
@@ -72,8 +75,8 @@ function EchoCalibrationParagraph($strSymbol, $bChinese, $iStart = 0, $iNum = TA
     </tr>
 END;
 
-    _echoCalibrationData($strSymbol, $iStart, $iNum, $bChinese);
-    EchoTableParagraphEnd();
+    _echoCalibrationData($sql, $strSymbol, $strStockId, $iStart, $iNum, $bChinese);
+    EchoTableParagraphEnd($strNavLink);
 }
 
 ?>

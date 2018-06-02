@@ -1,13 +1,6 @@
 <?php
 require_once('account.php');
-require_once('sql/sqlstocksymbol.php');
-require_once('sql/sqlfundpurchase.php');
-require_once('sql/sqlstockdaily.php');
-require_once('sql/sqlfundhistory.php');
-require_once('sql/sqlstockhistory.php');
-require_once('sql/sqlstockcalibration.php');
-require_once('sql/sqlstockpair.php');
-require_once('sql/sqlstockgroup.php');
+require_once('sql/sqlstock.php');
 
 function _deleteIsStockPair($strTableName, $strPairId)
 {

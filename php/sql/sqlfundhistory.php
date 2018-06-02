@@ -46,17 +46,6 @@ function SqlGetFundHistoryByDate($strStockId, $strDate)
 	return $sql->Get($strDate);
 }
 
-function SqlGetNetValueByDate($strStockId, $strDate)
-{
-	$sql = new FundHistorySql($strStockId);
-	return $sql->GetCloseString($strDate);
-/*	if ($history = SqlGetFundHistoryByDate($strStockId, $strDate))
-	{
-		return $history['close'];
-	}
-	return false;*/
-}
-
 function SqlGetFundNetValueByDate($strStockId, $strDate)
 {
 	$sql = new FundHistorySql($strStockId);

@@ -12,13 +12,13 @@ function _echoAhHistoryGraph($strSymbol, $bChinese)
     EchoPageImage($arColumn[1], $strSymbol, $csv->GetPathName(), $jpg->GetPathName());
 }
 
-function _echoAhHistoryItem($csv, $history, $pair_sql, $sql_hkcny, $fRatio)
+function _echoAhHistoryItem($csv, $history, $pair_sql, $hkcny_sql, $fRatio)
 {
 	$strDate = $history['date'];
 	$fClose = floatval($history['close']);
 	$strClose = round_display($fClose);
 	
-	if ($fHKCNY = $sql_hkcny->GetClose($strDate))		$strHKCNY = round_display($fHKCNY);
+	if ($fHKCNY = $hkcny_sql->GetClose($strDate))		$strHKCNY = round_display($fHKCNY);
 	else													$strHKCNY = '';
 	
 	$strAH = '';
@@ -46,7 +46,7 @@ function _echoAhHistoryItem($csv, $history, $pair_sql, $sql_hkcny, $fRatio)
         <td class=c1>$strPairClose</td>
         <td class=c1>$strHKCNY</td>
         <td class=c1>$strAH</td>
-        <td class=c1>$strHA</td>
+        <td class=c1>$strHA</td>                                                                                              
     </tr>
 END;
 }
@@ -55,12 +55,12 @@ function _echoAhHistoryData($sql, $strPairId, $fRatio, $iStart, $iNum)
 {
     if ($result = $sql->GetAll($iStart, $iNum)) 
     {
-    	$sql_hkcny = new SqlHkcnyHistory();
+    	$hkcny_sql = new HkcnyHistorySql();
     	$pair_sql = new StockHistorySql($strPairId);
      	$csv = new PageCsvFile();
         while ($history = mysql_fetch_assoc($result)) 
         {
-            _echoAhHistoryItem($csv, $history, $pair_sql, $sql_hkcny, $fRatio);
+            _echoAhHistoryItem($csv, $history, $pair_sql, $hkcny_sql, $fRatio);
         }
         $csv->Close();
         @mysql_free_result($result);

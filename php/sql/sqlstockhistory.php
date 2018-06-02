@@ -4,11 +4,9 @@ require_once('sqlstockdaily.php');
 // ****************************** StockHistorySql class *******************************************************
 class StockHistorySql extends DailyStockSql
 {
-    // constructor 
     function StockHistorySql($strStockId) 
     {
         parent::DailyStockSql($strStockId, TABLE_STOCK_HISTORY);
-//        $this->Create();
     }
 
     function Insert($strDate, $strOpen, $strHigh, $strLow, $strClose, $strVolume, $strAdjClose)
