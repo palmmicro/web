@@ -24,9 +24,8 @@ function _deleteHasStockPair($strTableName, $strStockId)
 	return false;
 }
 
-function _deleteHasStockHistory($strStockId)
+function _deleteHasStockHistory($sql)
 {
-	$sql = new StockHistorySql($strStockId);
 	$iTotal = $sql->Count();
 	if ($iTotal > 0)
 	{
@@ -44,13 +43,15 @@ function _deleteStockById($strStockId)
 {
 	$strSymbol = SqlGetStockSymbol($strStockId);
 	DebugString('Deleting '.$strSymbol);
-	if (_deleteIsStockPair(TABLE_ADRH_STOCK, $strStockId))			return;
-	else if (_deleteIsStockPair(TABLE_AH_STOCK, $strStockId))		return;
-	else if (_deleteIsStockPair(TABLE_ETF_PAIR, $strStockId))		return;
-	else if (_deleteHasStockPair(TABLE_ADRH_STOCK, $strStockId))		return;
-	else if (_deleteHasStockPair(TABLE_AH_STOCK, $strStockId))		return;
-	else if (_deleteHasStockPair(TABLE_ETF_PAIR, $strStockId))		return;
-	else if (_deleteHasStockHistory($strStockId))					return;
+	if (_deleteIsStockPair(TABLE_ADRH_STOCK, $strStockId))					return;
+	else if (_deleteIsStockPair(TABLE_AH_STOCK, $strStockId))				return;
+	else if (_deleteIsStockPair(TABLE_ETF_PAIR, $strStockId))				return;
+	else if (_deleteHasStockPair(TABLE_ADRH_STOCK, $strStockId))				return;
+	else if (_deleteHasStockPair(TABLE_AH_STOCK, $strStockId))				return;
+	else if (_deleteHasStockPair(TABLE_ETF_PAIR, $strStockId))				return;
+	else if (_deleteHasStockHistory(new StockHistorySql($strStockId)))	return;
+	else if (_deleteHasStockHistory(new FundHistorySql($strStockId)))	return;
+	else if (_deleteHasStockHistory(new ForexHistorySql($strStockId)))	return;
 	else if (($iTotal = SqlCountStockGroupItemByStockId($strStockId)) > 0)
 	{
 		DebugString('Stock group item existed: '.strval($iTotal));
@@ -64,11 +65,6 @@ function _deleteStockById($strStockId)
 	else if (($iTotal = SqlCountFundPurchaseByStockId($strStockId)) > 0)
 	{
 		DebugString('Fund purchase existed: '.strval($iTotal));
-		return;
-	}
-	else if (SqlGetForexHistoryNow($strStockId) || SqlGetFundHistoryNow($strStockId))
-	{
-		DebugString('Stock history existed');
 		return;
 	}
 	SqlDeleteStock($strStockId);

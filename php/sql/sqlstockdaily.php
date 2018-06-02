@@ -183,12 +183,6 @@ class HkcnyHistorySql extends ForexHistorySql
 }
 
 // ****************************** Forex Support Functions *******************************************************
-function SqlGetForexHistoryNow($strStockId)
-{
-	$sql = new ForexHistorySql($strStockId);
-	return $sql->GetNow();
-}
-
 function SqlGetHKCNY()
 {
 	$sql = new HkcnyHistorySql();
