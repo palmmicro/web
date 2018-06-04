@@ -31,7 +31,7 @@ function _webUpdateSinaHistory($sql, $sym)
 			if ($iYear < $iYearOldest)	break;
 		}
 	}
-    DebugString(sprintf('_webUpdateSinaHistory %s total %d', $sym->GetSymbol(), $iTotal));
+    DebugVal($iTotal, $sym->GetSymbol().' total');
 }
 
 function _webUpdateYahooHistory($sql, $strYahooSymbol)
@@ -72,7 +72,7 @@ function _webUpdateYahooHistory($sql, $strYahooSymbol)
         }
         $iTime = $iTimeBegin;
     }
-    DebugString(sprintf('_webUpdateYahooHistory %s total %d', $strYahooSymbol, $iTotal));
+    DebugVal($iTotal, $strYahooSymbol.' total');
 }
 /*
 function _isInvalidDate($strYMD)

@@ -55,6 +55,7 @@ function preg_match_sina_history($str)
     for ($i = 0; $i < 6; $i ++)
     {
         $strPattern .= RegExpParenthesis("$strSpace<td".RegExpSkip($strSpace.'class="tdr"').'><div align="center">', RegExpNumber(), '</div></td>');
+//        $strPattern .= RegExpParenthesis($strSpace.'<td[^\d]*', '[^<]*', '</div></td>');
     }
     $strPattern .= $strBoundary;
     

@@ -1,39 +1,15 @@
 <?php
-//require_once('url.php');
 require_once('debug.php');
 //require_once('email.php');
-require_once('regexp.php');
-require_once('gb2312.php');
-//require_once('ahstockarray.php');
-
+//require_once('account.php');
 require_once('stock.php');
 require_once('stock/ftstock.php');
 require_once('stock/marketwatch.php');
 
-//require_once('sql.php');
-require_once('sql/sqlstock.php');
-/*
-require_once('stock/stocksymbol.php');
-//require_once('stock/chinamoney.php');
-require_once('stock/yahoostock.php');
-require_once('stock/sinastock.php');
-require_once('stock/googlestock.php');
-require_once('stock/stockprefetch.php');
-*/
-//require_once('gb2312/gb2312_tools.php');
-
-//require_once('account.php');
-//require_once('stock.php');
+//require_once('ahstockarray.php');
 require_once('sql/_sqltest.php');
-
+//require_once('gb2312/gb2312_tools.php');
 //require_once('test/chinastocklist.php');
-
-
-function echoDebugString($str)
-{
-    echo $str.'<br />';
-	DebugString($str);
-}
 
 /*
 function TestGoogleHistory()
@@ -47,48 +23,9 @@ function TestGoogleHistory()
     $strFileName = DebugGetGoogleHistoryFileName($strSymbol);
     file_put_contents($strFileName, $str);
     $strLink = GetFileDebugLink($strFileName);
-    echoDebugString($strLink);
+    DebugString($strLink);
 }
 */
-
-/*
-<a target='_blank' href='http://vip.stock.finance.sina.com.cn/quotes_service/view/vMS_tradehistory.php?symbol=sh601006&date=2017-06-02'>
-			2017-06-02			</a>
-						</div></td>
-			<td><div align="center">8.400</div></td>
-			<td><div align="center">8.470</div></td>
-			<td><div align="center">8.420</div></td>
-			<td class="tdr"><div align="center">8.370</div></td>
-			<td class="tdr"><div align="center">17822614</div></td>
-			<td class="tdr"><div align="center">150050580</div></td>
-*/			
-			
-function test_preg_match()
-{
-//    $strPattern = "<a target='_blank's+href='http://biz.finance.sina.com.cn/stock/history_min.php?symbol=shd{6}&date=d{4}-d{2}-d{2}'>s*([^s]+)s+</a>s*</div></td>s*<td[^d]*([^<]*)</div></td>s+<td[^d]*([^<]*)</div></td>s+<td[^d]*([^<]*)</div></td>s+<td[^d]*([^<]*)</div></td>s+";
-//    $strPattern = '/symbol=sh\d{6}&date=\d{4}-\d{2}-\d{2}''>\s+\d{4}-\d{2}-\d{2}\s+</';
-    $strBoundary = RegExpBoundary();
-    $strSpace = RegExpSpace();
-    
-    $strPattern = $strBoundary;
-    $strPattern .= 'http://vip.stock.finance.sina.com.cn/quotes_service/view/vMS_tradehistory.php';
-    $strPattern .= '\?';
-    $strPattern .= 'symbol=sh\d{6}&date=\d{4}-\d{2}-\d{2}';
-    $strPattern .= "'";
-    $strPattern .= RegExpParenthesis('>'.$strSpace, '\S*', $strSpace.'</a>'.$strSpace.'</div></td>'.$strSpace);
-    for ($i = 0; $i < 6; $i ++) $strPattern .= RegExpParenthesis('<td[^\d]*', '[^<]*', '</div></td>'.$strSpace);
-    $strPattern .= $strBoundary;
-    $strSubject = url_get_contents('http://money.finance.sina.com.cn/corp/go.php/vMS_MarketHistory/stockid/601006.phtml');
-    $arMatch = array();
-    $iVal = preg_match_all($strPattern, $strSubject, $arMatch, PREG_SET_ORDER);
-    DebugVal($iVal);
-    for ($j = 0; $j < $iVal; $j ++)
-    {
-        DebugString($arMatch[$j][0]);
-        for ($i = 1; $i < 8; $i ++) echoDebugString($arMatch[$j][$i]);
-    }
-    return $iVal;
-}
 
 function _debug_dividend($strSymbol)
 {
@@ -99,7 +36,7 @@ function _debug_dividend($strSymbol)
     for ($j = 0; $j < $iVal; $j ++)
     {
         DebugString($arMatch[$j][0]);
-        for ($i = 1; $i < 9; $i ++) echoDebugString($arMatch[$j][$i]);
+        for ($i = 1; $i < 9; $i ++) DebugString($arMatch[$j][$i]);
     }
 }
 
@@ -151,33 +88,36 @@ function test_stock_dividend()
 
             $fDividendRate = 0.0;
             if ($fDividend > 0.0 && $fPrice > 0.0)   $fDividendRate = $fDividend / $fPrice;
-//            echoDebugString($strSymbol.' '.$arData['trade'].' '.$arData['per'].' '.strval(round($fDividendRate, 4)));
+//            DebugString($strSymbol.' '.$arData['trade'].' '.$arData['per'].' '.strval(round($fDividendRate, 4)));
             $arOutput[$strSymbol] = $fDividendRate; 
         }
     }
     
     arsort($arOutput);
-    echoDebugString('总数: '.strval(count($arOutput)));
-    echoDebugString('代码 名称 当前交易价格 价格涨跌百分比 交易时间 PB PE 骑姐分红指标');
+    DebugString('总数: '.strval(count($arOutput)));
+    DebugString('代码 名称 当前交易价格 价格涨跌百分比 交易时间 PB PE 骑姐分红指标');
     foreach ($arOutput as $strSymbol => $fDividendRate)
     {
         $arData = $arSymbolData[$strSymbol];
-        echoDebugString($strSymbol.' '.$arData['name'].' '.$arData['trade'].' '.$arData['changepercent'].' '.$arData['ticktime'].' '.$arData['pb'].' '.$arData['per'].' '.strval(round($fDividendRate, 4)));
+        DebugString($strSymbol.' '.$arData['name'].' '.$arData['trade'].' '.$arData['changepercent'].' '.$arData['ticktime'].' '.$arData['pb'].' '.$arData['per'].' '.strval(round($fDividendRate, 4)));
     }
 }
 
 function SysInit()
 {
+	if (SqlConnectDatabase())
+	{
+	    DebugString('connect database ok');
+	}
 //	GB2312WriteDatabase();
 //	SqlDropTable(TABLE_AH_STOCK);
-	// ahstockarray.php
 //	AhWriteDatabase();		
 //	AdrhWriteDatabase();
 }
 
 function TestCmdLine()
 {
-	echoDebugString('cmd line test '.UrlGetQueryString());
+	DebugString('cmd line test '.UrlGetQueryString());
     if ($strSymbol = UrlGetQueryValue('symbol'))
     {
     	$strSrc = UrlGetQueryDisplay('src', 'yahoo');
@@ -187,41 +127,24 @@ function TestCmdLine()
     	else if ($strSrc == 'sina')	$str = TestSinaStockHistory($strSymbol);
     	$fStop = microtime(true);
     	if (empty($str))	$str = '(Not found)';
-    	echoDebugString($strSymbol.':'.$str.DebugGetStopWatchDisplay($fStop, $fStart));
+    	DebugString($strSymbol.':'.$str.DebugGetStopWatchDisplay($fStop, $fStart));
     }
 }
 
     echo '<meta http-equiv="content-type" content="text/html; charset=UTF-8">';
-    
-//	phpinfo();
     DebugClear();
-    echoDebugString('Test begin ...');
-	echoDebugString($_SERVER['DOCUMENT_ROOT']);
-	echoDebugString(phpversion());
-	if (SqlConnectDatabase())
-	{
-	    echoDebugString('connect database ok');
-	}
-	echoDebugString('Hello, world!');
-
+	DebugString($_SERVER['DOCUMENT_ROOT']);
+	DebugString(phpversion());
 	SysInit();
-	TestCmdLine();
+	echo 'Hello, world!';
 
+	TestCmdLine();
 //	WriteForexDataFromFile();
-	
-//	CopyCalibrationData();
 //	MarketWatchGetData('^SPSIOP');
-	
-//	GetChinaMoney();
 //	_debug_dividend('sz000028');
 //	test_stock_dividend();
 //	SqlDeleteStockGroupByGroupName('UVXY');
-//    TestGoogleHistory();
-/*
-    if (test_preg_match() > 1)    echoDebugString('matched');
-	else                            echoDebugString('NOT matched');
-*/
-	
-    echoDebugString('Test done.');
+//  TestGoogleHistory();
+	phpinfo();
 
 ?>

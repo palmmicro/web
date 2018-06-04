@@ -32,6 +32,7 @@ Since 1880 up to 2013, your name was recorded 2,469 times in the American baby n
 <br />-- 摘自<a href="http://www.themeaningofnames.org/?n=Sapphire&m=11&d=8&y=1966&go=Go" target=_blank>themeaningofnames.org</a>
 </font></blockquote>
 <p><img src=../photo/20141204.jpg alt="Woody and Sapphire Lin are both worried!" />
+<br /><font color=grey>给我舞台我就能华丽登场 <a href="../../favoritecn.html#dgldq">叮咯咙咚呛</a></font>
 </p>
 
 <h3>林蓉榕和林九霞</h3>
