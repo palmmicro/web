@@ -22,7 +22,7 @@ define ('TABLE_WEIXIN', 'weixin');
 
 require_once('debug.php');
 require_once('_private.php');
-require_once('class/year_month_date.php');
+require_once('class/year_month_day.php');
 require_once('sql/_sqlcommon.php');
 
 function die_mysql_error($strDie)

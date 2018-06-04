@@ -7,8 +7,6 @@ require_once('externallink.php');
 //require_once('sql.php');
 require_once('gb2312.php');
 
-require_once('class/year_month_date.php');
-
 require_once('sql/sqlstock.php');
 
 require_once('stock/stocksymbol.php');

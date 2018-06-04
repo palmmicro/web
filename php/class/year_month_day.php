@@ -7,11 +7,9 @@ define ('STOCK_HOUR_END', 16);
 class YearMonthDay
 {
     var $strYMD;
-    
     var $iTime;
     var $local;     // localtime
     
-    // constructor 
     function YearMonthDay($iTick) 
     {
         $this->iTime = $iTick;
@@ -200,7 +198,6 @@ class TickYMD extends YearMonthDay
 {
 	var $strHMS;
 	
-    // constructor 
     function TickYMD($iTick)
     {
         $this->strYMD = date(DEBUG_DATE_FORMAT, $iTick);
