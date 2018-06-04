@@ -131,15 +131,29 @@ function _updateStockOptionEtf($strSymbol, $strVal)
 	}
 	$strPairId = SqlGetStockId(StockGetSymbol($strIndex));
 	$strStockId = SqlGetStockId($strSymbol);
-	$sql = new PairStockSql($strStockId, TABLE_ETF_PAIR);
-    if ($record = $sql->Get())
-    {
-    	$sql->Update($record['id'], $strPairId, $strRatio);
-    }
-    else
-    {
-    	SqlInsertStockPair(TABLE_ETF_PAIR, $strStockId, $strPairId, $strRatio);
-    }
+	if ($strRatio == '0')
+	{
+        $sql = new EtfCalibrationSql($strStockId);
+        DebugVal($sql->Count(), 'Calibration');
+        $sql->DeleteAll();
+        DebugVal($sql->fund_sql->Count(), $strSymbol.' fund history');
+        $sql->fund_sql->DeleteAll();
+        DebugVal($sql->pair_fund_sql->Count(), $strIndex.' fund history');
+//        $sql->pair_fund_sql->DeleteAll();
+        $sql->pair_sql->DeleteAll();
+	}
+	else
+	{
+		$sql = new PairStockSql($strStockId, TABLE_ETF_PAIR);
+		if ($record = $sql->Get())
+		{
+			$sql->Update($record['id'], $strPairId, $strRatio);
+		}
+		else
+		{
+			SqlInsertStockPair(TABLE_ETF_PAIR, $strStockId, $strPairId, $strRatio);
+		}
+	}
 }
 
 	AcctAuth();

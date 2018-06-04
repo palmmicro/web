@@ -3,8 +3,6 @@
 function _getEtfLeverageRatio($strSymbol)
 {
     if ($strSymbol == 'SH')         return -1.0;
-    else if ($strSymbol == 'VXX')  return 0.5;      // compare with UVXY
-    else if ($strSymbol == 'SVXY')  return -0.5;    // compare with UVXY
     else if ($strSymbol == 'DGP' || $strSymbol == 'AGQ' || $strSymbol == 'UCO')   return 2.0;
     else if ($strSymbol == 'SDS' || $strSymbol == 'DZZ' || $strSymbol == 'ZSL' || $strSymbol == 'SCO')  return -2.0;
     else if ($strSymbol == 'GUSH' || $strSymbol == 'UWT' || $strSymbol == 'UPRO' || $strSymbol == 'UGAZ')  return 3.0;

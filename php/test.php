@@ -215,8 +215,7 @@ function TestCmdLine()
 //	GetChinaMoney();
 //	_debug_dividend('sz000028');
 //	test_stock_dividend();
-//	SqlDeleteStockGroupByGroupName('#SMA');
-//	echoDebugString(url_get_contents('http://palmmicro.com/php/spidercn.php?list=sz162411'));
+//	SqlDeleteStockGroupByGroupName('UVXY');
 //    TestGoogleHistory();
 /*
     if (test_preg_match() > 1)    echoDebugString('matched');

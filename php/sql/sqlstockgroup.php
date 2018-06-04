@@ -257,7 +257,7 @@ function SqlDeleteStockGroupByGroupName($strGroupName)
 {
     $strWhere = _SqlBuildWhere('groupname', $strGroupName);
     $iCount = SqlCountTableData(TABLE_STOCK_GROUP, $strWhere);
-    DebugString('GroupName: '.$strGroupName.' total: '.strval($iCount));
+    DebugVal($iCount, 'GroupName: '.$strGroupName.' total');
     if ($iCount == 0)   return true;
     
     if ($result = SqlGetTableData(TABLE_STOCK_GROUP, $strWhere))

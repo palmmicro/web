@@ -29,11 +29,11 @@ function _deleteHasStockHistory($sql)
 	$iTotal = $sql->Count();
 	if ($iTotal > 0)
 	{
-		DebugString('Stock history existed: '.strval($iTotal));
-		if ($iTotal > 100)	
+		DebugVal($iTotal, 'Stock history existed');
+/*		if ($iTotal > 100)	
 		{
 			return true;
-		}
+		}*/
 		$sql->DeleteAll();
 	}
 	return false;
@@ -54,17 +54,17 @@ function _deleteStockById($strStockId)
 	else if (_deleteHasStockHistory(new ForexHistorySql($strStockId)))	return;
 	else if (($iTotal = SqlCountStockGroupItemByStockId($strStockId)) > 0)
 	{
-		DebugString('Stock group item existed: '.strval($iTotal));
+		DebugVal($iTotal, 'Stock group item existed');
 		return;
 	}
 	else if (($iTotal = SqlCountStockCalibration($strStockId)) > 0)
 	{
-		DebugString('Stock calibration existed: '.strval($iTotal));
+		DebugVal($iTotal, 'Stock calibration existed');
 		return;
 	}
 	else if (($iTotal = SqlCountFundPurchaseByStockId($strStockId)) > 0)
 	{
-		DebugString('Fund purchase existed: '.strval($iTotal));
+		DebugVal($iTotal, 'Fund purchase existed');
 		return;
 	}
 	SqlDeleteStock($strStockId);

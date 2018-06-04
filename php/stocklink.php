@@ -161,7 +161,7 @@ function StockGetEditGroupLink($strGroupId, $bChinese)
 
 function PairTradingGetSymbolArray()
 {
-    return array('sina', 'spy', 'uvxy', 'xop'); 
+    return array('sina', 'spy', 'xop'); 
 }
 
 function in_arrayPairTrading($strSymbol)

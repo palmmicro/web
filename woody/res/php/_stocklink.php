@@ -166,7 +166,7 @@ function GetCategoryArray($strTitle)
         break;
         
     case 'spyfund':
-    	$ar = array('spy', 'uvxy'); 
+    	$ar[] = 'spy'; 
     	$ar = array_merge($ar, LofGetSpySymbolArray());
         break;
         

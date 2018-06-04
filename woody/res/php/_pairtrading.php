@@ -10,7 +10,6 @@ require_once('/php/ui/etfparagraph.php');
 function _getPairTradingIndex($strSymbol)
 {
     if ($strSymbol == 'SPY')         return '^GSPC';
-    else if ($strSymbol == 'UVXY')   return '^VIX';
     else 
         return false;
 }
@@ -24,9 +23,8 @@ function _getPairTradingFuture($strSymbol)
 
 function _getPairTradingLeverage($strSymbol)
 {
-    if ($strSymbol == 'SINA')         return array('WB');
-    else if ($strSymbol == 'SPY')         return array('SH', 'SDS', 'SPXU', 'UPRO');
-    else if ($strSymbol == 'UVXY')   return array('VXX', 'SVXY', 'TVIX');
+    if ($strSymbol == 'SINA')        return array('WB');
+    else if ($strSymbol == 'SPY')   return array('SH', 'SDS', 'SPXU', 'UPRO');
     else if ($strSymbol == 'XOP')   return array('USO', 'USL', 'UCO', 'UWT', 'GUSH', 'DRIP');
     else 
         return false;

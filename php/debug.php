@@ -107,9 +107,14 @@ function dieDebugString($str)
     die($str);
 }
 
-function DebugVal($iVal)
+function DebugVal($iVal, $strPrefix = false)
 {
-    DebugString(strval($iVal)); 
+	$str = strval($iVal);
+	if ($strPrefix)
+	{
+		$str = $strPrefix.': '.$str;
+	}
+ 	DebugString($str); 
 }
 
 function _getDebugPath($strSection)

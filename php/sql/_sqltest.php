@@ -44,7 +44,7 @@ function ValidateTableIpField($strTableName)
     }
     
     $iCount = count($ar);
-    DebugString($strTableName.': invalid ip number: '.strval($iCount)); 
+    DebugVal($iCount, $strTableName.': invalid ip number'); 
     if ($iCount > 0)
     {
         foreach ($ar as $strId)
