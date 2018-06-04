@@ -185,10 +185,9 @@ class OldestYMD extends StringYMD
     function IsInvalid($strYMD)
     {
     	$ymd = new StringYMD($strYMD);
-    	if ($ymd->IsWeekend())      return true;
-    	if ($ymd->IsFuture())       return true;
-    
-    	if ($ymd->GetTick() < $this->GetTick())                 return true;
+    	if ($ymd->IsWeekend())      					return true;
+    	if ($ymd->IsFuture())       					return true;
+    	if ($ymd->GetTick() < $this->GetTick())     return true;
     	return false;
     }
 }
