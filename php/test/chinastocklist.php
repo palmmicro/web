@@ -1,8 +1,4 @@
 <?php
-require_once('/php/debug.php');
-require_once('/php/gb2312.php');
-require_once('/php/stock.php');
-require_once('/php/sql/sqlstock.php');
 
 function StockBuildChineseFundSymbol($strDigit)
 {
