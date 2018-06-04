@@ -1,6 +1,6 @@
 <?php
 
-function _chinaMoneyHasFile($ymd_now, $strFileName)
+function _chinaMoneyHasFile($now_ymd, $strFileName)
 {
 	clearstatcache(true, $strFileName);
     if (file_exists($strFileName))
@@ -9,10 +9,10 @@ function _chinaMoneyHasFile($ymd_now, $strFileName)
         $ar = json_decode($str, true);
         $arHead = $ar['head'];
         if ($arHead['rep_code'] != '200')									return false;		// 200 ok not found
-        if ($ymd_now->IsNewFile($strFileName))							return $ar;   		// update on every minute
+        if ($now_ymd->IsNewFile($strFileName))							return $ar;   		// update on every minute
         $arData = $ar['data'];
-        $ymd = new YMDTick(strtotime($arData['lastDate']));								// 2018-04-12 9:15
-        if ($ymd->GetNextTradingDayTick() <= $ymd_now->GetTick())		return false;		// need update
+        $ymd = new TickYMD(strtotime($arData['lastDate']));								// 2018-04-12 9:15
+        if ($ymd->GetNextTradingDayTick() <= $now_ymd->GetTick())		return false;		// need update
 //        DebugString('Use current file');
         return $ar;
     }
@@ -39,13 +39,13 @@ function ChinaMoneyGetUrl()
 function GetChinaMoney()
 {
     date_default_timezone_set(STOCK_TIME_ZONE_CN);
-    $ymd_now = new YMDNow();
+    $now_ymd = new NowYMD();
     $uscny_sql = new UscnyHistorySql();
     $hkcny_sql = new HkcnyHistorySql();
-    if (_chinaMoneyNeedData($ymd_now, $uscny_sql, $hkcny_sql) == false)		return;
+    if (_chinaMoneyNeedData($now_ymd, $uscny_sql, $hkcny_sql) == false)		return;
     
 	$strFileName = DebugGetChinaMoneyFile();
-	$ar = _chinaMoneyHasFile($ymd_now, $strFileName);
+	$ar = _chinaMoneyHasFile($now_ymd, $strFileName);
     if ($ar == false)
     {
     	if ($str = url_get_contents(ChinaMoneyGetUrl()))
@@ -62,7 +62,7 @@ function GetChinaMoney()
     }
 	
     $arData = $ar['data'];
-    $strDate = _chinaMoneyNeedData(new YMDTick(strtotime($arData['lastDate'])), $uscny_sql, $hkcny_sql);		// 2018-04-12 9:15
+    $strDate = _chinaMoneyNeedData(new TickYMD(strtotime($arData['lastDate'])), $uscny_sql, $hkcny_sql);		// 2018-04-12 9:15
     if ($strDate == false)		return;
 
     $arRecord = $ar['records'];

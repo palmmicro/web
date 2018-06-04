@@ -57,9 +57,9 @@ class MyStockReference extends MysqlReference
 		}
 	}
 	
-    function _updateStockEma($ymd_now)
+    function _updateStockEma($now_ymd)
     {
-    	if ($ymd_now->IsTradingHourEnd() == false)	return;
+    	if ($now_ymd->IsTradingHourEnd() == false)	return;
         $this->_updateStockEmaDays(50);
         $this->_updateStockEmaDays(200);
     }
@@ -92,11 +92,11 @@ class MyStockReference extends MysqlReference
         }
         
         parent::MysqlReference($strSymbol);
-        $ymd_now = new YMDNow();
-        if ($ymd_now->GetYMD() == $this->strDate && $this->strSqlId && $this->bHasData)
+        $now_ymd = new NowYMD();
+        if ($now_ymd->GetYMD() == $this->strDate && $this->strSqlId && $this->bHasData)
         {
             $this->_updateStockHistory();
-            $this->_updateStockEma($ymd_now);
+            $this->_updateStockEma($now_ymd);
         }
     }
 }

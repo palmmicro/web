@@ -2,7 +2,7 @@
 
 function _isMarketTrading($sym, $iTime)
 {
-    $ymd = new YMDTick($iTime);
+    $ymd = new TickYMD($iTime);
     if ($ymd->IsTradingDay())
     {
         $iHour = $ymd->GetHour(); 
@@ -56,24 +56,24 @@ function IsNewDailyQuotes($sym, $strFileName, $bSameDay, $callback)
     {
         $str = file_get_contents($strFileName);
         if (($strYMD = call_user_func($callback, $str)) == false)  return false;
-        $ymd = new YMDString($strYMD);
+        $ymd = new StringYMD($strYMD);
         
-        $ymd_now = new YMDNow();
+        $now_ymd = new NowYMD();
         $iFileTime = filemtime($strFileName);
         if ($bSameDay)
         {
-            if ($ymd_now->GetYMD() == $strYMD)
+            if ($now_ymd->GetYMD() == $strYMD)
             {
                 if (($iFileTime - STOCK_HOUR_BEGIN * SECONDS_IN_HOUR) > $ymd->GetTick())  return $str;    // We already have today's data
             }
         }
         else
         {
-            if (($ymd_now->GetTick() - STOCK_HOUR_END * SECONDS_IN_HOUR) < $ymd->GetNextTradingDayTick())     return $str;   // We already have yesterday or last Friday's history quotes.
+            if (($now_ymd->GetTick() - STOCK_HOUR_END * SECONDS_IN_HOUR) < $ymd->GetNextTradingDayTick())     return $str;   // We already have yesterday or last Friday's history quotes.
         }
         
-        $ymd_file = new YMDTick($iFileTime);
-        if ($ymd_now->IsSameHour($ymd_file) && $ymd_now->IsSameDay($ymd_file))  return $str;   // same hour and same day
+        $file_ymd = new TickYMD($iFileTime);
+        if ($now_ymd->IsSameHour($file_ymd) && $now_ymd->IsSameDay($file_ymd))  return $str;   // same hour and same day
         else                                                                               return false;
     }
     return false;
@@ -85,7 +85,7 @@ function StockNeedNewQuotes($sym, $strFileName)
     $sym->SetTimeZone();
     if (file_exists($strFileName))
     {
-        $ymd = new YMDNow();
+        $ymd = new NowYMD();
         if ($ymd->IsNewFile($strFileName))       return false;   // update on every minute
  
         $iFileTime = filemtime($strFileName);
@@ -108,11 +108,11 @@ function ForexAndFutureNeedNewFile($strFileName, $strTimeZone)
     date_default_timezone_set($strTimeZone);
     if (file_exists($strFileName))
     {
-        $ymd = new YMDNow();
+        $ymd = new NowYMD();
         if ($ymd->IsNewFile($strFileName))       return false;   // update on every minute
         
-        $ymd_file = new YMDTick(filemtime($strFileName));
-        if ($ymd_file->IsWeekDay())    return true;
+        $file_ymd = new TickYMD(filemtime($strFileName));
+        if ($file_ymd->IsWeekDay())    return true;
         else 
         {
             if ($ymd->IsWeekDay())    return true;

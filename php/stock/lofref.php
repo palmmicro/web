@@ -360,15 +360,14 @@ class _LofReference extends FundReference
                 if ($est_ref == false)              return false;
                 if ($est_ref->bHasData == false)    return false;
                 
-                $ymd = new YMDString($strDate);
-                $ymd_est = new YMDString($est_ref->strDate);
-            
                 $fEst = SqlGetFundNetValueByDate($this->est_ref->GetStockId(), $strDate);
                 if ($fEst == false)
                 {
                 	DebugString($strDate.' '.$this->est_ref->GetStockSymbol().' ETF net value not found, use close price.');
+                	$ymd = new StringYMD($strDate);
+                	$est_ymd = new StringYMD($est_ref->strDate);
                 	if ($strDate == $est_ref->strDate)	                   				$fEst = $est_ref->fPrice;
-                	else if ($ymd->GetNextTradingDayTick() == $ymd_est->GetTick())		$fEst = $est_ref->fPrevPrice;
+                	else if ($ymd->GetNextTradingDayTick() == $est_ymd->GetTick())		$fEst = $est_ref->fPrevPrice;
                 	else	return false;
                 }
         

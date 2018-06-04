@@ -268,7 +268,7 @@ function _yahooStockMatchGetYmd($arMatch, $strSymbol)
 	{
 		if ($ar[4] == $strSymbol)
 		{
-			return new YMDTick($ar[1]);
+			return new TickYMD($ar[1]);
 		}
 	}
    	return false;
@@ -300,7 +300,7 @@ function _yahooStockGetData($strSymbol)
 		{
 			if ($ar[4] == $strSymbol)
 			{
-				$ymd = new YMDTick($ar[1]);
+				$ymd = new TickYMD($ar[1]);
 				return $ar[3].' '.$ar[2].' '.$ymd->GetYMD().' '.$ymd->GetHMS();
 			}
 		}
@@ -328,20 +328,20 @@ function _getNetValueDelayTick()
 	return 16 * SECONDS_IN_HOUR + 30 * SECONDS_IN_MIN;
 }
 
-function _yahooNetValueHasFile($ymd_now, $strFileName, $strNetValueSymbol)
+function _yahooNetValueHasFile($now_ymd, $strFileName, $strNetValueSymbol)
 {
 	clearstatcache(true, $strFileName);
     if (file_exists($strFileName))
     {
         $str = file_get_contents($strFileName);
         $arMatch = _preg_match_yahoo_stock($str);
-        if ($ymd_now->IsNewFile($strFileName))														return $arMatch;   		// update on every minute
+        if ($now_ymd->IsNewFile($strFileName))														return $arMatch;   		// update on every minute
         
         if ($arMatch)
         {
         	$strDate = _yahooStockMatchGetDate($arMatch, $strNetValueSymbol);
-        	$ymd = new YMDString($strDate);
-        	if (($ymd->GetNextTradingDayTick() + _getNetValueDelayTick()) <= $ymd_now->GetTick())	return false;		// need update
+        	$ymd = new StringYMD($strDate);
+        	if (($ymd->GetNextTradingDayTick() + _getNetValueDelayTick()) <= $now_ymd->GetTick())	return false;		// need update
         }
         else
         {
@@ -397,12 +397,12 @@ function YahooUpdateNetValue($strSymbol)
 	if (($strNetValueSymbol = _yahooGetNetValueSymbol($strSymbol)) == false)	return;
     if (($strStockId = SqlGetStockId($strSymbol)) == false)  					return;
     date_default_timezone_set(STOCK_TIME_ZONE_US);
-    $ymd_now = new YMDNow();
-    $strDate = $ymd_now->GetYMD();
+    $now_ymd = new NowYMD();
+    $strDate = $now_ymd->GetYMD();
     if (_yahooNetValueReady($strStockId, $strDate))								return;
-    if ($ymd_now->IsTradingDay())
+    if ($now_ymd->IsTradingDay())
     {
-    	if ($ymd_now->GetTick() < (strtotime($strDate) + _getNetValueDelayTick()))
+    	if ($now_ymd->GetTick() < (strtotime($strDate) + _getNetValueDelayTick()))
     	{
 //    		DebugString($strSymbol.': Market not closed');
     		return;
@@ -410,7 +410,7 @@ function YahooUpdateNetValue($strSymbol)
     }
     
 	$strFileName = DebugGetYahooWebFileName($strSymbol);
-	$arMatch = _yahooNetValueHasFile($ymd_now, $strFileName, $strNetValueSymbol);
+	$arMatch = _yahooNetValueHasFile($now_ymd, $strFileName, $strNetValueSymbol);
     if ($arMatch == false)
     {
     	$sym = new StockSymbol($strNetValueSymbol);

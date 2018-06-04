@@ -5,20 +5,12 @@ require_once('/php/stockhis.php');
 
 // https://danjuanapp.com/djmodule/value-center
 
-class YMDOldest extends YMDString
-{
-    function YMDOldest()
-    {
-        parent::YMDString('2014-01-01');
-    }
-}
-
 function _webUpdateSinaHistory($sql, $sym)
 {
-    $ymd_oldest = new YMDOldest();
-    $iYearOldest = $ymd_oldest->GetYear();
+    $oldest_ymd = new OldestYMD();
+    $iYearOldest = $oldest_ymd->GetYear();
     
-	$ymd = new YMDNow();
+	$ymd = new NowYMD();
 	$iYear = $ymd->GetYear();
 	$iSeason = $ymd->GetSeason();
 	$iTotal = 0;
@@ -58,14 +50,14 @@ function _webUpdateYahooHistory($sql, $strYahooSymbol)
         $iTotal += $iVal;
         if ($iVal < $iMax / 2)
         {
-            $ymd_begin = new YMDTick($iTimeBegin);
-            $ymd = new YMDTick($iTime);
-            DebugString(sprintf('_webUpdateYahooHistory %s %d from %s to %s', $strYahooSymbol, $iVal, $ymd_begin->GetYMD(), $ymd->GetYMD()));
+            $begin_ymd = new TickYMD($iTimeBegin);
+            $ymd = new TickYMD($iTime);
+            DebugString(sprintf('_webUpdateYahooHistory %s %d from %s to %s', $strYahooSymbol, $iVal, $begin_ymd->GetYMD(), $ymd->GetYMD()));
         }
         
         for ($j = 0; $j < $iVal; $j ++)
         {
-            $ymd = new YMDTick(strtotime($arMatch[$j][1]));
+            $ymd = new TickYMD(strtotime($arMatch[$j][1]));
             $strDate = $ymd->GetYMD();
             
             $ar = array();
@@ -82,15 +74,15 @@ function _webUpdateYahooHistory($sql, $strYahooSymbol)
     }
     DebugString(sprintf('_webUpdateYahooHistory %s total %d', $strYahooSymbol, $iTotal));
 }
-
+/*
 function _isInvalidDate($strYMD)
 {
-    $ymd = new YMDString($strYMD);
+    $ymd = new StringYMD($strYMD);
     if ($ymd->IsWeekend())      return true;
     if ($ymd->IsFuture())       return true;
     
-    $ymd_oldest = new YMDOldest();
-    if ($ymd->GetTick() < $ymd_oldest->GetTick())                 return true;
+    $oldest_ymd = new OldestYMD();
+    if ($ymd->GetTick() < $oldest_ymd->GetTick())                 return true;
     return false;
 }
 
@@ -131,13 +123,13 @@ function _cleanInvalidHistory($strTableName)
     }
 
     $iCount = count($ar);
-    DebugString($strTableName.' - invalid date: '.strval($iCount)); 
+    DebugVal($iCount, $strTableName.' - invalid date'); 
     foreach ($ar as $strId)
     {
         SqlDeleteTableDataById($strTableName, $strId);
     }
 }
-
+*/
 function _submitStockHistory($strStockId, $strSymbol)
 {
     if (AcctIsAdmin() == false)     return;
@@ -161,8 +153,7 @@ function _submitStockHistory($strStockId, $strSymbol)
 			}
 		}
 	}
-    _cleanInvalidStockHistory($sql);
-//    _cleanInvalidHistory(TABLE_FUND_HISTORY);
+    $sql->DeleteInvalidDate();
 }
 
     AcctNoAuth();

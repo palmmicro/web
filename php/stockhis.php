@@ -10,7 +10,7 @@ define ('SMA_SECTION', 'SMA');
 function _ignoreCurrentTradingData($strDate, $sym)
 {        
     $sym->SetTimeZone();
-    $ymd = new YMDNow();
+    $ymd = new NowYMD();
     if ($ymd->GetYMD() == $strDate)
     {
         if ($ymd->IsTradingHourEnd() == false)
@@ -111,21 +111,21 @@ function _estNextBollingerBands($arF, $iAvg)
 // ****************************** Private functions *******************************************************
 function _isWeekEnd($strYMD, $strNextDayYMD)
 {
-    $ymd = new YMDString($strYMD);
+    $ymd = new StringYMD($strYMD);
     if ($strNextDayYMD)
     {
-        $ymd_next = new YMDString($strNextDayYMD);
-        if ($ymd->GetDayOfWeek() >= $ymd_next->GetDayOfWeek())     return true;
+        $next_ymd = new StringYMD($strNextDayYMD);
+        if ($ymd->GetDayOfWeek() >= $next_ymd->GetDayOfWeek())     return true;
     }
     else
     { 
         if ($ymd->IsFriday())   return true;
         
         // If this Friday is not a trading day
-        $ymd_now = new YMDNow();
-        if ($ymd_now->IsWeekDay())
+        $now_ymd = new NowYMD();
+        if ($now_ymd->IsWeekDay())
         {
-            if ($ymd->GetDayOfWeek() > $ymd_now->GetDayOfWeek())     return true;
+            if ($ymd->GetDayOfWeek() > $now_ymd->GetDayOfWeek())     return true;
         }
         else
         {
@@ -137,19 +137,19 @@ function _isWeekEnd($strYMD, $strNextDayYMD)
 
 function _isMonthEnd($strYMD, $strNextDayYMD)
 {
-    $ymd = new YMDString($strYMD);
+    $ymd = new StringYMD($strYMD);
     if ($strNextDayYMD)
     {
-        $ymd_next = new YMDString($strNextDayYMD);
+        $next_ymd = new StringYMD($strNextDayYMD);
     }
     else
     {   // If the last none weekend day of a certain month is not a trading day 
-        $ymd_now = new YMDNow();
-        $iTick = $ymd_now->GetNextTradingDayTick();
-        $ymd_next = new YMDTick($iTick);
+        $now_ymd = new NowYMD();
+        $iTick = $now_ymd->GetNextTradingDayTick();
+        $next_ymd = new TickYMD($iTick);
     }
     
-    if ($ymd->IsSameMonth($ymd_next))     return false;    // same month    
+    if ($ymd->IsSameMonth($next_ymd))     return false;    // same month    
     return true;
 }
 

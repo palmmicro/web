@@ -52,7 +52,34 @@ class TableSql
 
     function DeleteById($strId)
     {
-        return SqlDeleteTableDataById($this->strName, $strId);
+    	return $this->Delete(_SqlBuildWhere_id($strId), '1');
+    }
+
+    function DeleteInvalidDate()
+    {
+    	$ar = array();
+    	if ($result = $this->GetAll()) 
+    	{
+    		while ($history = mysql_fetch_assoc($result)) 
+    		{
+    			$ymd = new OldestYMD();
+    			if ($ymd->IsInvalid($history['date']))
+    			{
+    				$ar[] = $history['id'];
+    			}
+    		}
+    		@mysql_free_result($result);
+    	}
+
+    	$iCount = count($ar);
+    	if ($iCount > 0)
+    	{
+    		DebugVal($iCount, $this->strName.' - invalid date'); 
+    		foreach ($ar as $strId)
+    		{
+    			$this->DeleteById($strId);
+    		}
+    	}
     }
 }
 

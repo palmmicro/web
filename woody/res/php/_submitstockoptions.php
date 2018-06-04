@@ -6,14 +6,14 @@ require_once('_editstockoptionform.php');
 function _updateStockHistoryAdjCloseByDividend($strSymbol, $strYMD, $strDividend)
 {
     $ar = array();
-    $ymd = new YMDString($strYMD);
+    $ymd = new StringYMD($strYMD);
 	$sql = new StockHistorySql(SqlGetStockId($strSymbol));
     if ($result = $sql->GetAll()) 
     {
         while ($history = mysql_fetch_assoc($result)) 
         {
-            $ymd_history = new YMDString($history['date']);
-            if ($ymd_history->GetTick() < $ymd->GetTick())
+            $history_ymd = new StringYMD($history['date']);
+            if ($history_ymd->GetTick() < $ymd->GetTick())
             {
                 $ar[$history['id']] = floatval($history['adjclose']);
             }

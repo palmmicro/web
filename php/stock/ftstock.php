@@ -73,7 +73,7 @@ function TestFtStock($strSymbol)
 			$strTime = strstr($ar[3], 'as of ');
 			$strTime = ltrim($strTime, 'as of ');
 			$strTime = rtrim($strTime, '.');
-			$ymd = new YMDTick(strtotime($strTime));
+			$ymd = new TickYMD(strtotime($strTime));
 			$strPrice .= $ymd->GetYMD().' '.$ymd->GetHMS().' ';
 		}
 	}

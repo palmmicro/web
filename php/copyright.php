@@ -41,7 +41,7 @@ function _getCompanyCopyright($strCompany, $strYear, $bChinese)
 
 function EchoCopyRight($bMobile, $bChinese)
 {
-    $ymd = new YMDNow();
+    $ymd = new NowYMD();
     $strYear = $ymd->GetYearStr();
     
 	$strUri = UrlGetUri();	            // /woody/res/sz162411cn.php

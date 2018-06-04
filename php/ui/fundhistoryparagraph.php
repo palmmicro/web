@@ -80,11 +80,11 @@ END;
 
 function GetNextTradingDayYMD($strYMD)
 {
-    $ymd = new YMDString($strYMD);
+    $ymd = new StringYMD($strYMD);
     $iTick = $ymd->GetNextTradingDayTick();
     
-    $ymd_next = new YMDTick($iTick);
-    return $ymd_next->GetYMD();
+    $next_ymd = new TickYMD($iTick);
+    return $next_ymd->GetYMD();
 }
 
 function _echoHistoryTableData($sql, $fund, $csv, $etf_ref, $iStart, $iNum)
