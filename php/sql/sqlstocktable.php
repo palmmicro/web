@@ -6,9 +6,9 @@ class StockTableSql extends TableSql
 {
 	var $strStockId;
 	
-    function BuildWhere_date_stock($strDate)
+    function BuildWhere_stock_date($strDate)
     {
-		return _SqlBuildWhereAndArray(array('date' => $strDate, 'stock_id' => $this->strStockId));
+		return _SqlBuildWhereAndArray(array('stock_id' => $this->strStockId, 'date' => $strDate));
     }
     
     function BuildWhere_stock()

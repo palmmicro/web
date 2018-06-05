@@ -41,7 +41,7 @@ class DailyStockSql extends StockTableSql
     
     function Get($strDate)
     {
-    	return $this->GetSingleData($this->BuildWhere_date_stock($strDate));
+    	return $this->GetSingleData($this->BuildWhere_stock_date($strDate));
     }
     
     function GetCloseString($strDate)
@@ -119,7 +119,7 @@ class DailyStockSql extends StockTableSql
 
     function Update($strDate, $strClose)
     {
-    	return TableSql::Update("close = '$strClose' WHERE ".$this->BuildWhere_date_stock($strDate));
+    	return TableSql::Update("close = '$strClose' WHERE ".$this->BuildWhere_stock_date($strDate));
     }
 
     function Write($strDate, $strClose)
@@ -140,7 +140,7 @@ class DailyStockSql extends StockTableSql
     
     function DeleteByDate($strDate)
     {
-    	return $this->Delete($this->BuildWhere_date_stock($strDate), '1');
+    	return $this->Delete($this->BuildWhere_stock_date($strDate), '1');
     }
 }
 

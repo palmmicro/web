@@ -1,4 +1,5 @@
 <?php
+require_once('sqlstocktable.php');
 require_once('sqlstocktransaction.php');
 
 // ****************************** Stock Group table *******************************************************
@@ -66,6 +67,57 @@ function SqlGetStockGroupByMemberId($strMemberId)
     return SqlGetTableData(TABLE_STOCK_GROUP, _SqlBuildWhere_member($strMemberId), '`groupname` ASC');
 }
 
+// ****************************** StockGroupTableSql class *******************************************************
+class StockGroupTableSql extends TableSql
+{
+	var $strStockGroupId;
+	
+    function BuildWhere_group_stock($strStockId)
+    {
+		return _SqlBuildWhereAndArray(array('group_id' => $this->strStockGroupId, 'stock_id' => $strStockId));
+    }
+    
+    function BuildWhere_group()
+    {
+    	return _SqlBuildWhere('group_id', $this->strStockGroupId);
+    }
+    
+    function GetStockGroupId()
+    {
+    	return $this->strStockGroupId;
+    }
+    
+    function StockGroupTableSql($strStockGroupId, $strTableName) 
+    {
+    	$this->strStockGroupId = $strStockGroupId;
+        parent::TableSql($strTableName);
+    }
+    
+    function Count()
+    {
+    	return TableSql::Count($this->BuildWhere_group());
+    }
+    
+    function GetAll()
+    {
+    	return $this->GetData($this->BuildWhere_group());
+    }
+    
+    function DeleteAll()
+    {
+    	return $this->Delete($this->BuildWhere_group());
+    }
+}
+
+// ****************************** StockGroupItemSql class *******************************************************
+class StockGroupItemSql extends StockGroupTableSql
+{
+    function StockGroupItemSql($strStockGroupId) 
+    {
+        parent::StockGroupTableSql($strStockGroupId, TABLE_STOCK_GROUP_ITEM);
+    }
+}    
+
 // ****************************** Stock Group Item table *******************************************************
 /*
 function SqlCreateStockGroupItemTable()
@@ -126,20 +178,14 @@ function SqlGetStockGroupItemById($strGroupItemId)
 
 function SqlGetStockGroupItemByGroupId($strGroupId)
 {
-    return SqlGetTableData(TABLE_STOCK_GROUP_ITEM, _SqlBuildWhere('group_id', $strGroupId));
+	$sql = new StockGroupItemSql($strGroupId);
+	return $sql->GetAll();
+//    return SqlGetTableData(TABLE_STOCK_GROUP_ITEM, _SqlBuildWhere('group_id', $strGroupId));
 }
 
 function SqlCountStockGroupItemByStockId($strStockId)
 {
     return SqlCountTableData(TABLE_STOCK_GROUP_ITEM, _SqlBuildWhere_stock($strStockId));
-}
-
-// ****************************** Stock Group Item functions *******************************************************
-
-function SqlDeleteStockGroupItem($strId)
-{
-    SqlDeleteStockTransactionByGroupItemId($strId);
-    SqlDeleteTableDataById(TABLE_STOCK_GROUP_ITEM, $strId);
 }
 
 // ****************************** Stock Group functions *******************************************************
@@ -237,13 +283,15 @@ function SqlDeleteStockGroupByMemberId($strMemberId)
 
 function SqlDeleteStockGroupItemByGroupId($strGroupId)
 {
-	if ($result = SqlGetStockGroupItemByGroupId($strGroupId))
+	$sql = new StockGroupItemSql($strGroupId);
+	if ($result = $sql->GetAll())
 	{
 		while ($stockgroupitem = mysql_fetch_assoc($result)) 
 		{
-		    SqlDeleteStockGroupItem($stockgroupitem['id']);
+			SqlDeleteStockTransactionByGroupItemId($stockgroupitem['id']);
 		}
 		@mysql_free_result($result);
+		$sql->DeleteAll();
 	}
 }
 
@@ -255,12 +303,13 @@ function SqlDeleteStockGroup($strGroupId)
 
 function SqlDeleteStockGroupByGroupName($strGroupName)
 {
+	$sql = new TableSql(TABLE_STOCK_GROUP);
     $strWhere = _SqlBuildWhere('groupname', $strGroupName);
-    $iCount = SqlCountTableData(TABLE_STOCK_GROUP, $strWhere);
+    $iCount = $sql->Count($strWhere);
     DebugVal($iCount, 'GroupName: '.$strGroupName.' total');
     if ($iCount == 0)   return true;
     
-    if ($result = SqlGetTableData(TABLE_STOCK_GROUP, $strWhere))
+    if ($result = $sql->GetData($strWhere))
     {
         while ($stockgroup = mysql_fetch_assoc($result)) 
         {
@@ -268,7 +317,7 @@ function SqlDeleteStockGroupByGroupName($strGroupName)
         }
         @mysql_free_result($result);
     }
-    return SqlDeleteTableData(TABLE_STOCK_GROUP, $strWhere);
+    return $sql->Delete($strWhere);
 }
 
 ?>

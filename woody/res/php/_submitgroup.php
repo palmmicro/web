@@ -118,7 +118,8 @@ function _sqlEditStockGroup($strGroupId, $strGroupName, $strSymbols)
 	    if (array_key_exists($strStockId, $arNew) == false)
 	    {
             $strId = SqlGetStockGroupItemId($strGroupId, $strStockId);
-	        SqlDeleteStockGroupItem($strId);
+            SqlDeleteStockTransactionByGroupItemId($strId);
+            SqlDeleteTableDataById(TABLE_STOCK_GROUP_ITEM, $strId);
 	    }
 	}
 	
