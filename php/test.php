@@ -136,7 +136,7 @@ function TestCmdLine()
 	DebugString($_SERVER['DOCUMENT_ROOT']);
 	DebugString(phpversion());
 	SysInit();
-	echo 'Hello, world!';
+	echo 'Hello, world! '.strval(rand());
 
 	TestCmdLine();
 //	WriteForexDataFromFile();

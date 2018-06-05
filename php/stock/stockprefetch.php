@@ -62,7 +62,7 @@ function IsNewDailyQuotes($sym, $strFileName, $bSameDay, $callback)
         $iFileTime = filemtime($strFileName);
         if ($bSameDay)
         {
-            if ($now_ymd->GetYMD() == $strYMD)
+            if ($now_ymd->IsSameDay($ymd))
             {
                 if (($iFileTime - STOCK_HOUR_BEGIN * SECONDS_IN_HOUR) > $ymd->GetTick())  return $str;    // We already have today's data
             }

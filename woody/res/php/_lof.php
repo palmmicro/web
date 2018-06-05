@@ -5,20 +5,24 @@ require_once('_lofgroup.php');
 class _LofUsGroup extends _LofGroup
 {
     var $etf_netvalue_ref = false;
+    var $oil_ref = false;
     var $usd_ref;
 
     // constructor 
     function _LofUsGroup($strSymbol) 
     {
-        $strUSD = 'DINIW'; 
+        $strUSD = 'DINIW';
+        $strOil = false;
+        if (LofGetFutureSymbol($strSymbol) == 'CL')	$strOil = 'OIL';
         $strEtfSymbol = LofGetEtfSymbol($strSymbol);
 //        StockPrefetchData(array($strSymbol, $strUSD, GetYahooNetValueSymbol($strEtfSymbol)));
-        StockPrefetchData(array($strSymbol, $strUSD));
+        StockPrefetchData(array($strSymbol, $strOil, $strUSD));
         GetChinaMoney();
         YahooUpdateNetValue($strEtfSymbol);
         
         $this->cny_ref = new CnyReference('USCNY');	// Always create CNY Forex class instance first!
         $this->ref = new LofReference($strSymbol);
+        if ($strOil)	$this->oil_ref = new FutureReference($strOil);
         $this->usd_ref = new ForexReference($strUSD);
 //        $this->etf_netvalue_ref = new YahooNetValueReference($strEtfSymbol);
         parent::_LofGroup();
@@ -110,7 +114,7 @@ function EchoAll($bChinese)
     $fund = $group->ref;
     
     EchoFundEstParagraph($fund, $bChinese);
-    EchoReferenceParagraph(array($fund->index_ref, $fund->etf_ref, $group->etf_netvalue_ref, $fund->future_ref, $group->usd_ref, $group->cny_ref, $fund->stock_ref), $bChinese);
+    EchoReferenceParagraph(array($fund->index_ref, $fund->etf_ref, $group->etf_netvalue_ref, $fund->future_ref, $group->oil_ref, $group->usd_ref, $group->cny_ref, $fund->stock_ref), $bChinese);
     EchoFundTradingParagraph($fund, $bChinese, _onTradingUserDefined);    
 	EchoLofSmaParagraph($fund, $bChinese, _onSmaUserDefined);
     EchoFundHistoryParagraph($fund, $bChinese);
