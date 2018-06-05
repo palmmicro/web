@@ -50,6 +50,11 @@ function StockGetSymbol($str)
     return strtoupper(trim($str));
 }
 
+function StockGetSymbolByUrl()
+{
+    return StockGetSymbol(UrlGetTitle());
+}
+
 function StockGetArraySymbol($ar)
 {
     $arSymbol = array();

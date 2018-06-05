@@ -230,7 +230,7 @@ function _getTitle($str)
    	    return substr($str, 0, $iPos);
    	}
    	
-   	// http://www.palmmicro.com/woody/res/cl ==> cl
+   	// http://www.palmmicro.com/woody/res/snp ==> snp
 //   	DebugString($str);
     if (_cnEndString($str))
    	{

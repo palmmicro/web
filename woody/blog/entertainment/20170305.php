@@ -31,7 +31,7 @@
         <td class=c1 align="center">XOP</td>
       </tr>
       <tr>
-        <td class=c1 align="center">T+1 day <a href="20150818.php#future">CL</a> future</td>
+        <td class=c1 align="center">T+1 day <a href="20151225.php#future">CL</a> future</td>
         <td class=c1 align="center">N</td>
         <td class=c1 align="center">N</td>
         <td class=c1 align="center">Y</td>

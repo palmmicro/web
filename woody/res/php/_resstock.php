@@ -7,7 +7,6 @@ function GetMenuArray($bChinese)
     if ($bChinese)
     {
         return array('adr' => 'ADR工具',
-                      'future' => '期货ETF',
                       'goldetf' => '黄金ETF',
                       'gradedfund' => '分级基金',
                       'lof' => 'LOF工具',
@@ -18,7 +17,6 @@ function GetMenuArray($bChinese)
     else
     {
          return array('adr' => 'ADR Tools',
-                      'future' => 'Future ETF',
                       'goldetf' => 'Gold ETF',
                       'gradedfund' => 'Graded Fund',
                       'lof' => 'LOF Tools',
@@ -44,11 +42,7 @@ function ResMenu($arLoop, $bChinese)
 	NavBegin();
 	WoodyMenuItem($iLevel, 'res', $bChinese);
 	NavContinueNewLine();
-	if ($arLoop[0] == 'cl')
-	{
-	    _menuItemClass($iLevel, 'future', $bChinese);
-	}
-	else if ($arLoop[0] == 'ach')
+	if ($arLoop[0] == 'ach')
 	{
 	    _menuItemClass($iLevel, 'adr', $bChinese);
 	}
@@ -94,16 +88,6 @@ function NavStockSoftware($bChinese)
 function _LayoutTopLeft($bChinese)
 {
     LayoutTopLeft(NavStockSoftware, $bChinese);
-}
-
-function NavLoopFuture($bChinese)
-{
-    ResMenu(FutureGetSymbolArray(), $bChinese);
-}
-
-function _LayoutFutureTopLeft($bChinese)
-{
-    LayoutTopLeft(NavLoopFuture, $bChinese);
 }
 
 function NavLoopGradedFund($bChinese)

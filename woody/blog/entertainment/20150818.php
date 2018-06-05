@@ -102,8 +102,16 @@ And we make SZ162411 and XOP arbitrage analysis based on those record.
 <a href="20100529.php">Woody's Web Tool</a> is modified to generate _submitXXX.php file automatically when insert copy of a _editXXXform.php file. 
 </p>
 
-<h3>ADR</h3>
+<h3><a name="adr">ADR</a></h3>
 <p>Nov 7, 2015
+<p>Continue to use web tools to replace calculator works, add Hongkong <a href="../../res/adr.php">ADR</a> price comparing tool for <a href="../../res/ach.php">Aluminum Corporation of China</a>, <a href="../../res/chu.php">China Unicom</a>,
+<a href="../../res/gsh.php">Guangshen Railway</a>, <a href="../../res/lfc.php">China Life Insurance</a>, <a href="../../res/ptr.php">PETROCHINA</a>,
+<a href="../../res/snp.php">SINOPEC</a>, <a href="../../res/shi.php">Sinopec Shanghai Petrochemical</a>, <a href="../../res/cea.php">CEA</a> and 
+<a href="../../res/znh.php">CSN</a>.
+<br />After <?php EchoPhpFileLink('/woody/res/php/_adr.php'); ?> file is added for ADR,
+the common stock data part of ADR and LOF is moved to <font color=olive>StockReference</font> class in file <?php EchoPhpFileLink('/php/stock/stockref.php'); ?>, 
+used in <font color=olive>_LofGroup</font> class in file <?php EchoPhpFileLink('/woody/res/php/_lof.php'); ?> and <font color=olive>_AdrGroup</font> class in file <?php EchoPhpFileLink('/woody/res/php/_adr.php'); ?>.
+</p>
 <br />Continue to organize code, add similar <a href="../../res/lof.php">LOF</a> net value tool for <a href="../../res/sh513100.php">GUOTAI NASDAQ-100</a>, <a href="../../res/sz159941.php">NASDAQ-100</a>,
 <a href="../../res/sz160125.php">Southern Hong Kong</a>, <a href="../../res/sz160717.php">JIASHI H-Share</a>, <a href="../../res/sz160216.php">GUOTAI COMMODITY</a>, <a href="../../res/sz165510.php">BRIC</a>, 
 <a href="../../res/sz163208.php">NUOAN Energy</a> and <a href="../../res/sz160416.php">HUAAN S&P GLOBAL OIL</a>.
@@ -113,23 +121,6 @@ And we make SZ162411 and XOP arbitrage analysis based on those record.
   <li>Add the new LOF code in function <i>LofGetSymbolArray</i>, for tools navigation link.</li>
   <li>Add LOF related ETF symbol and index symbol in function <i>LofGetEtfSymbol</i> and <i>LofGetIndexSymbol</i>.</li>
 </ol>
-<p><a name="adr">Add</a> Hongkong <a href="../../res/adr.php">ADR</a> price comparing tool for <a href="../../res/ach.php">Aluminum Corporation of China</a>, <a href="../../res/chu.php">China Unicom</a>,
-<a href="../../res/gsh.php">Guangshen Railway</a>, <a href="../../res/lfc.php">China Life Insurance</a>, <a href="../../res/ptr.php">PETROCHINA</a>,
-<a href="../../res/snp.php">SINOPEC</a>, <a href="../../res/shi.php">Sinopec Shanghai Petrochemical</a>, <a href="../../res/cea.php">CEA</a> and 
-<a href="../../res/znh.php">CSN</a>.
-<br />After <?php EchoPhpFileLink('/woody/res/php/_adr.php'); ?> file is added for ADR,
-the common stock data part of ADR and LOF is moved to <font color=olive>StockReference</font> class in file <?php EchoPhpFileLink('/php/stock/stockref.php'); ?>, 
-used in <font color=olive>_LofGroup</font> class in file <?php EchoPhpFileLink('/woody/res/php/_lof.php'); ?> and <font color=olive>_AdrGroup</font> class in file <?php EchoPhpFileLink('/woody/res/php/_adr.php'); ?>.
-</p>
-
-<h3><a name="future">Future</a> ETF</h3>
-<p>Nov 24, 2015
-<br />Continue to use web tools to replace calculator works, add price calculation tool for <a href="../../res/future.php">Future ETF</a> like USO/UWTI/DWTI based on <a href="../../res/cl.php">NYMEX CL</a>.
-Including similar from <a href="../../res/ng.php">NYMEX NG</a> to UNG/UGAZ/DGAZ price, from <a href="../../res/gc.php">COMEX GC</a> to GLD/DGP/DZZ price,
-from <a href="../../res/si.php">COMEX SI</a> to SLV/AGQ/ZSL price.
-<br />Same way as <?php EchoPhpFileLink('/woody/res/php/_adr.php'); ?> and <?php EchoPhpFileLink('/woody/res/php/_lof.php'); ?>,
-add <font color=olive>_FutureGroup</font> class and <?php EchoPhpFileLink('/woody/res/php/_future.php'); ?> file.
-</p>
 
 <h3>Sina Realtime US Stock Data</h3>
 <p>Dec 13, 2015

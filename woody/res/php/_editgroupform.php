@@ -18,7 +18,6 @@ function IsGroupNameReadOnly($strGroupName)
     if (in_arrayPairTrading($strGroupName))       return true;
     if (in_arrayGradedFund($strGroupName))        return true;
     if (in_arrayAdr($strGroupName))               return true;
-    if (in_arrayFutureETF($strGroupName))         return true;
     return false;
 }
 

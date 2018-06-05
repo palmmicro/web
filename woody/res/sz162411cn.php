@@ -23,6 +23,8 @@
 <a href="https://us.spdrs.com/en/etf/spdr-sp-oil-gas-exploration-production-etf-XOP" target=_blank>XOP官网</a>
 <a href="https://xueqiu.com/2244868365/60702370" target=_blank>华宝油气和XOP套利交易Q&A</a>
 <a href="https://xueqiu.com/2244868365/81340659" target=_blank>一种根据XOP均线进行华宝油气和XOP联动交易的方法</a>
+<a href="http://quote.eastmoney.com/centerv2/qhsc/gjqh/UF_NYMEX_CL" target=_blank>原油期货汇总</a>
+<a href="https://www.hedgewise.com/blog/investmentstrategy/the-right-way-to-invest-in-oil.php" target=_blank>原油投资比较</a>
 <br />相关软件: 
 <?php
     EchoOilSoftwareLinks(true);

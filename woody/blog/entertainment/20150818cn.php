@@ -105,7 +105,7 @@
 
 <h3><a name="adr">ADR</a></h3>
 <p>2015年11月7日
-<br />为港股在美股的<a href="../../res/adrcn.php">ADR</a>加入<a href="../../res/achcn.php">中国铝业</a>, <a href="../../res/chucn.php">中国联通</a>, <a href="../../res/gshcn.php">广深铁路</a>,
+<br />继续用网页工具代替手工按计算器的工作, 为港股在美股的<a href="../../res/adrcn.php">ADR</a>加入<a href="../../res/achcn.php">中国铝业</a>, <a href="../../res/chucn.php">中国联通</a>, <a href="../../res/gshcn.php">广深铁路</a>,
 <a href="../../res/lfccn.php">中国人寿</a>, <a href="../../res/ptrcn.php">中国石油</a>, <a href="../../res/snpcn.php">中国石化</a>, <a href="../../res/shicn.php">上海石化</a>,
 <a href="../../res/ceacn.php">东方航空</a>和<a href="../../res/znhcn.php">南方航空</a>等价格比较工具.
 <br />在为ADR加入<?php EchoPhpFileLink('/woody/res/php/_adr.php'); ?>后, 把ADR和LOF用到的共同股票数据部分放到<?php EchoPhpFileLink('/php/stock/stockref.php'); ?>中的<font color=olive>StockReference</font>类中,
@@ -119,15 +119,6 @@
   <li>在函数<i>LofGetSymbolArray</i>加入新的LOF代码, 用于同类工具中的循环导航链接.</li>
   <li>在函数<i>LofGetEtfSymbol</i>和<i>LofGetIndexSymbol</i>中加上LOF对应的ETF代码和指数代码.</li>
 </ol>
-
-<h3><a name="future">期货</a>ETF</h3>
-<p>2015年11月24日
-<br />继续用网页工具代替手工按计算器的工作, 增加根据<a href="../../res/clcn.php">美油期货CL</a>价格计算对应USO/UWTI/DWTI等<a href="../../res/futurecn.php">期货ETF</a>价格的软件.
-包括类似的根据<a href="../../res/ngcn.php">天然气期货NG</a>计算UNG/UGAZ/DGAZ价格, 根据<a href="../../res/gccn.php">黄金期货GC</a>计算GLD/DGP/DZZ价格,
-根据<a href="../../res/sicn.php">白银期货SI</a>计算SLV/AGQ/ZSL价格.
-<br />跟<?php EchoPhpFileLink('/woody/res/php/_adr.php'); ?>和<?php EchoPhpFileLink('/woody/res/php/_lof.php'); ?>同样的模式,
-加入<font color=olive>_FutureGroup</font>类和<?php EchoPhpFileLink('/woody/res/php/_future.php'); ?>文件.
-</p>
 
 <h3>新浪实时美股数据</h3>
 <p>2015年12月13日

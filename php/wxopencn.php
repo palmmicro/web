@@ -78,7 +78,7 @@ function _getStockReferenceText($ref)
 
 function _getFundReferenceText($ref)
 {
-    $ref->stock_ref->strExternalLink = GetCommonToolLink($ref->GetStockSymbol(), true);
+    $ref->stock_ref->strExternalLink = GetStockToolLink($ref->GetStockSymbol(), true);
     $str = TextFromFundReference($ref); 
     return $str;
 }

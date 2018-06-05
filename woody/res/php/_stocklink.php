@@ -133,13 +133,8 @@ function GetCategoryArray($strTitle)
         $ar = SqlGetEtfPairArray();
         break;
   
-    case 'future':
-        $ar = FutureGetSymbolArray();
-        break;
-        
     case 'goldetf':
-    	$ar = array('gc', 'si');
-    	$ar = array_merge($ar, GoldEtfGetSymbolArray());
+    	$ar = GoldEtfGetSymbolArray();
     	$ar = array_merge($ar, LofGetGoldSymbolArray());
         break;
         
@@ -171,7 +166,7 @@ function GetCategoryArray($strTitle)
         break;
         
     case 'oilfund':
-    	$ar = array('ptr', 'shi', 'snp', 'cl', 'ng', 'oil', 'xop');
+    	$ar = array('ptr', 'shi', 'snp', 'xop');
     	$ar = array_merge($ar, LofGetOilEtfSymbolArray());
     	$ar = array_merge($ar, LofGetOilSymbolArray());
         break;

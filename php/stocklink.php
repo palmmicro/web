@@ -5,15 +5,9 @@ require_once('httplink.php');
 require_once('ui/stocktable.php');
 
 // ****************************** Stock internal link functions *******************************************************
-
-function _getStockToolLink($strTitle, $strSymbol, $bChinese)
+function GetStockToolLink($strSymbol, $bChinese)
 {
-    return GetPhpLink(STOCK_PATH.strtolower($strTitle), $bChinese, $strSymbol);
-}
-
-function GetCommonToolLink($strSymbol, $bChinese)
-{
-    return _getStockToolLink($strSymbol, $strSymbol, $bChinese);
+    return GetPhpLink(STOCK_PATH.strtolower($strSymbol), $bChinese, $strSymbol);
 }
 
 function GetStockSymbolLink($strTitle, $strSymbol, $bChinese, $strDisplay, $strUs = false)
@@ -179,71 +173,11 @@ function in_arrayAdr($strSymbol)
     return in_array(strtolower($strSymbol), AdrGetSymbolArray());
 }
 
-function FutureGetSymbolArray()
-{
-    return array('cl', 'gc', 'ng', 'oil', 'si'); 
-}
-
-function _convertFutureSymbol($strSymbol)
-{
-   	$sym = new StockSymbol($strSymbol);
-    if ($strFutureSymbol = $sym->IsSinaFuture())
-    {
-    	return $strFutureSymbol;
-    }
-    return $strSymbol;
-}
-
-function in_arrayFuture($strSymbol)
-{
-    $strFutureSymbol = _convertFutureSymbol($strSymbol);
-    if (in_array(strtolower($strFutureSymbol), FutureGetSymbolArray()))
-    {
-    	return $strFutureSymbol;
-    }
-    return false;
-}
-
-function StockGetSymbolByUrl()
-{
-    return StockGetSymbol(UrlGetTitle());
-}
-
-function GetFutureSymbol1x($strSymbolFuture)
-{
-    if ($strSymbolFuture == 'CL')         return 'USO';
-    else if ($strSymbolFuture == 'GC')   return 'GLD';
-    else if ($strSymbolFuture == 'NG')   return 'UNG';
-    else if ($strSymbolFuture == 'OIL')   return 'BNO';
-    else if ($strSymbolFuture == 'SI')   return 'SLV';
-    else 
-        return false;
-}
-
-function in_arrayFutureETF($strSymbol)
-{
-    $ar = FutureGetSymbolArray();
-    foreach($ar as $strTitle)
-    {
-        $strSymbolFuture = StockGetSymbol($strTitle);
-        if ($strSymbol == GetFutureSymbol1x($strSymbolFuture))   return $strSymbolFuture;
-    }
-    return false;
-}
-
 function SelectSymbolInternalLink($strSymbol, $bChinese)
 {
     if (in_arrayLof($strSymbol) || in_arrayLofHk($strSymbol) || in_arrayAdr($strSymbol) || in_arrayGradedFund($strSymbol) || in_arrayPairTrading($strSymbol) || in_arrayGoldEtf($strSymbol))
     {
-        return GetCommonToolLink($strSymbol, $bChinese);
-    }
-    else if ($strFutureSymbol = in_arrayFuture($strSymbol))
-    {
-        return GetCommonToolLink($strFutureSymbol, $bChinese);
-    }
-    else if ($strFutureSymbol = in_arrayFutureETF($strSymbol))
-    {
-        return _getStockToolLink($strFutureSymbol, $strSymbol, $bChinese);
+        return GetStockToolLink($strSymbol, $bChinese);
     }
     return $strSymbol;
 }

@@ -13,7 +13,7 @@ require_once('sql/sqlweixin.php');
 
 require_once('stock/dbcnyref.php');
 
-define('WX_DEBUG_VER', '版本816');
+define('WX_DEBUG_VER', '版本817');
 
 define('WX_DEFAULT_SYMBOL', 'SZ162411');
 define('MAX_WX_STOCK', 50);
@@ -160,7 +160,7 @@ function _getStockReferenceText($ref)
 
 function _getFundReferenceText($ref)
 {
-	if ($ref->stock_ref)	$ref->stock_ref->strExternalLink = GetCommonToolLink($ref->GetStockSymbol(), true);
+	if ($ref->stock_ref)	$ref->stock_ref->strExternalLink = GetStockToolLink($ref->GetStockSymbol(), true);
     $str = TextFromFundReference($ref); 
     return $str;
 }

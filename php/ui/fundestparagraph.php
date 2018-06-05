@@ -66,16 +66,15 @@ function _getFundRealtimeStr($fund, $strRealtimeEst, $bChinese)
     {   // GoldEtf
         $strSymbol = $fund->est_ref->GetStockSymbol();
     }
-    $strHistoryLink = GetCalibrationHistoryLink($strSymbol, $bChinese);
     
-    $strFutureLink = GetCommonToolLink($future_ref->GetStockSymbol(), $bChinese);
+    $strFutureSymbol = $future_ref->GetStockSymbol();
     if ($bChinese)
     {
-        $str = "期货{$strRealtimeEst}{$strFutureLink}({$strHistoryLink})关联程度按照100%估算";
+        $str = "期货{$strRealtimeEst}{$strFutureSymbol}关联程度按照100%估算";
     }
     else
     {
-        $str = "Future $strRealtimeEst assume $strFutureLink({$strHistoryLink}) 100%  related";
+        $str = "Future $strRealtimeEst assume $strFutureSymbol 100%  related";
     }
     
     if ($future_etf_ref != $etf_ref)
@@ -83,7 +82,7 @@ function _getFundRealtimeStr($fund, $strRealtimeEst, $bChinese)
         $strEtfSymbol = $etf_ref->GetStockSymbol();
         if (in_arrayPairTrading($strEtfSymbol))
         {
-            $strPairTradingLink = GetCommonToolLink($strEtfSymbol, $bChinese); 
+            $strPairTradingLink = GetStockToolLink($strEtfSymbol, $bChinese); 
         }
         else
         {

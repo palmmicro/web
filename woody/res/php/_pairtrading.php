@@ -88,8 +88,6 @@ function _echoAdminTestParagraph($group, $bChinese)
     if ($group->index_ref)
     {
     	$str = _GetStockConfigDebugString(array($group->index_ref), $bChinese);
-        $str .= HTML_NEW_LINE._GetEtfAdjustString($group->index_ref, $group->ref, $bChinese);
-        $str .= ' '.GetCalibrationHistoryLink($group->index_ref->GetStockSymbol(), $bChinese);
     }
     else
     {
