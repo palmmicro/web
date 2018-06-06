@@ -11,7 +11,7 @@ class StockHistorySql extends DailyStockSql
 
     function Insert($strDate, $strOpen, $strHigh, $strLow, $strClose, $strVolume, $strAdjClose)
     {
-    	$strStockId = $this->GetStockId(); 
+    	$strStockId = $this->GetId(); 
     	return TableSql::Insert("(id, stock_id, date, open, high, low, close, volume, adjclose) VALUES('0', '$strStockId', '$strDate', '$strOpen', '$strHigh', '$strLow', '$strClose', '$strVolume', '$strAdjClose')");
     }
     
@@ -39,7 +39,7 @@ class StockHistorySql extends DailyStockSql
 
     function DeleteByZeroVolume()
     {
-    	return $this->Delete("volume = '0' AND ".$this->BuildWhere_stock());
+    	return $this->Delete("volume = '0' AND ".$this->BuildWhere_id());
     }
 }
 

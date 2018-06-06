@@ -106,6 +106,7 @@ function _echoMyStockData($strSymbol, $bChinese)
     {
         $fund = StockGetFundReference($strSymbol);
         $ref = $fund->stock_ref; 
+    	$etf_ref = StockGetEtfReference($strSymbol);
     }
     else
     {
@@ -115,9 +116,10 @@ function _echoMyStockData($strSymbol, $bChinese)
     }
     EchoReferenceParagraph(array($ref), $bChinese);
     
+    if ($etf_ref)		EchoEtfListParagraph(array($etf_ref), $bChinese);
     if ($sym->IsFundA())
     {
-        if ($fund->fPrice)      EchoFundEstParagraph($fund, $bChinese);
+        if ($fund->fPrice)	EchoFundEstParagraph($fund, $bChinese);
         EchoFundTradingParagraph($fund, $bChinese);
         EchoFundHistoryParagraph($fund, $bChinese);
     }
@@ -129,7 +131,6 @@ function _echoMyStockData($strSymbol, $bChinese)
 			if ($hshare_ref->a_ref)		EchoAhParagraph(array($hshare_ref), $bChinese);
 			if ($hshare_ref->adr_ref)	EchoAdrhParagraph(array($hshare_ref), $bChinese);
         }
-        if ($etf_ref)						EchoEtfListParagraph(array($etf_ref), $bChinese);
    		if ($sym->IsSymbolA())
    		{
    			if ($hshare_ref)	EchoAhTradingParagraph($hshare_ref, $bChinese);

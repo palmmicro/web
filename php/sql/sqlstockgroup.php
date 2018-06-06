@@ -1,5 +1,5 @@
 <?php
-require_once('sqlstocktable.php');
+require_once('sqltable.php');
 require_once('sqlstocktransaction.php');
 
 // ****************************** Stock Group table *******************************************************
@@ -66,7 +66,7 @@ function SqlGetStockGroupByMemberId($strMemberId)
 {
     return SqlGetTableData(TABLE_STOCK_GROUP, _SqlBuildWhere_member($strMemberId), '`groupname` ASC');
 }
-
+/*
 // ****************************** StockGroupTableSql class *******************************************************
 class StockGroupTableSql extends TableSql
 {
@@ -108,7 +108,7 @@ class StockGroupTableSql extends TableSql
     	return $this->Delete($this->BuildWhere_group());
     }
 }
-
+*/
 // ****************************** StockGroupItemSql class *******************************************************
 class StockGroupItemSql extends StockGroupTableSql
 {

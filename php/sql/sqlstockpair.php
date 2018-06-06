@@ -1,5 +1,5 @@
 <?php
-require_once('sqlstocktable.php');
+require_once('sqltable.php');
 
 define('TABLE_AH_STOCK', 'ahstock');
 define('TABLE_ADRH_STOCK', 'adrhstock');
@@ -17,7 +17,7 @@ class PairStockSql extends StockTableSql
     
     function Get()
     {
-    	return $this->GetSingleData($this->BuildWhere_stock());
+    	return $this->GetSingleData($this->BuildWhere_id());
     }
 
     function GetRatio()
@@ -38,9 +38,9 @@ class PairStockSql extends StockTableSql
     	return false;
     }
     
-    function GetStockIdByPairId()
+    function GetStockId()
     {
-    	$strPairId = $this->GetStockId();
+    	$strPairId = $this->GetId();
     	if ($record = $this->GetSingleData(_SqlBuildWhere('pair_id', $strPairId)))
     	{
     		return $record['stock_id'];
@@ -163,12 +163,12 @@ function SqlGetAdrhPair($strSymbolAdr)
 
 function SqlGetHaPair($strSymbolH)
 {
-	return _sqlGetPair(TABLE_AH_STOCK, $strSymbolH, 'GetStockIdByPairId');
+	return _sqlGetPair(TABLE_AH_STOCK, $strSymbolH, 'GetStockId');
 }
 
 function SqlGetHadrPair($strSymbolH)
 {
-	return _sqlGetPair(TABLE_ADRH_STOCK, $strSymbolH, 'GetStockIdByPairId');
+	return _sqlGetPair(TABLE_ADRH_STOCK, $strSymbolH, 'GetStockId');
 }
 
 ?>

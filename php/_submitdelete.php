@@ -5,7 +5,7 @@ require_once('sql/sqlstock.php');
 function _deleteIsStockPair($strTableName, $strPairId)
 {
 	$sql = new PairStockSql($strPairId, $strTableName);
-	if ($strStockId = $sql->GetStockIdByPairId())
+	if ($strStockId = $sql->GetStockId())
 	{
 		DebugString('Stock at least paired with: '.SqlGetStockSymbol($strStockId));
 		return true;

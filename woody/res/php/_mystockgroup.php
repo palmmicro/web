@@ -65,7 +65,8 @@ function _echoStockGroupArray($arStock, $bChinese)
         {
         	$fund = StockGetFundReference($strSymbol);
         	$arFund[] = $fund;
-        	$ref = $fund->stock_ref; 
+	    	if ($ref = StockGetEtfReference($strSymbol))		$arEtfRef[] = $ref;
+        	else												$ref = $fund->stock_ref; 
        	}
        	else
        	{
