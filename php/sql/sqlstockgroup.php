@@ -66,55 +66,27 @@ function SqlGetStockGroupByMemberId($strMemberId)
 {
     return SqlGetTableData(TABLE_STOCK_GROUP, _SqlBuildWhere_member($strMemberId), '`groupname` ASC');
 }
-/*
-// ****************************** StockGroupTableSql class *******************************************************
-class StockGroupTableSql extends TableSql
-{
-	var $strStockGroupId;
-	
-    function BuildWhere_group_stock($strStockId)
-    {
-		return _SqlBuildWhereAndArray(array('group_id' => $this->strStockGroupId, 'stock_id' => $strStockId));
-    }
-    
-    function BuildWhere_group()
-    {
-    	return _SqlBuildWhere('group_id', $this->strStockGroupId);
-    }
-    
-    function GetStockGroupId()
-    {
-    	return $this->strStockGroupId;
-    }
-    
-    function StockGroupTableSql($strStockGroupId, $strTableName) 
-    {
-    	$this->strStockGroupId = $strStockGroupId;
-        parent::TableSql($strTableName);
-    }
-    
-    function Count()
-    {
-    	return TableSql::Count($this->BuildWhere_group());
-    }
-    
-    function GetAll()
-    {
-    	return $this->GetData($this->BuildWhere_group());
-    }
-    
-    function DeleteAll()
-    {
-    	return $this->Delete($this->BuildWhere_group());
-    }
-}
-*/
+
 // ****************************** StockGroupItemSql class *******************************************************
 class StockGroupItemSql extends StockGroupTableSql
 {
     function StockGroupItemSql($strStockGroupId) 
     {
         parent::StockGroupTableSql($strStockGroupId, TABLE_STOCK_GROUP_ITEM);
+    }
+
+    function Get($strStockId)
+    {
+    	return $this->GetSingleData($this->BuildWhere_id_stock($strStockId));
+    }
+    
+    function GetTableId($strStockId)
+    {
+    	if ($record = $this->Get($strStockId))
+    	{
+    		return $record['id'];
+    	}
+    	return false;
     }
 }    
 
@@ -164,11 +136,13 @@ function SqlUpdateStockGroupItem($strStockGroupItemId, $strQuantity, $strCost, $
 
 function SqlGetStockGroupItemId($strGroupId, $strStockId)
 {
-	if ($stockgroupitem = SqlGetSingleTableData(TABLE_STOCK_GROUP_ITEM, _SqlBuildWhereAndArray(array('group_id' => $strGroupId, 'stock_id' => $strStockId))))
+	$sql = new StockGroupItemSql($strGroupId);
+	return $sql->GetTableId($strStockId);
+/*	if ($stockgroupitem = SqlGetSingleTableData(TABLE_STOCK_GROUP_ITEM, _SqlBuildWhereAndArray(array('group_id' => $strGroupId, 'stock_id' => $strStockId))))
 	{
 	    return $stockgroupitem['id'];
 	}
-	return false;
+	return false;*/
 }
 
 function SqlGetStockGroupItemById($strGroupItemId)
@@ -180,7 +154,6 @@ function SqlGetStockGroupItemByGroupId($strGroupId)
 {
 	$sql = new StockGroupItemSql($strGroupId);
 	return $sql->GetAll();
-//    return SqlGetTableData(TABLE_STOCK_GROUP_ITEM, _SqlBuildWhere('group_id', $strGroupId));
 }
 
 function SqlCountStockGroupItemByStockId($strStockId)
