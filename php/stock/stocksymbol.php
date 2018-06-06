@@ -232,6 +232,15 @@ class StockSymbol
         return false;
     }
     
+    function IsTradable()
+    {
+    	if ($this->IsIndex())			return false;
+    	if ($this->IsIndexA())		return false;
+    	if ($this->IsForex())			return false;
+    	if ($this->IsSinaFuture())	return false;
+    	return true;
+    }
+    
     function SetTimeZone()
     {
         if ($this->IsSymbolA() || $this->IsSymbolH() || $this->IsEastMoneyForex() || $this->IsSinaFund())

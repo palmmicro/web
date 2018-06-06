@@ -97,7 +97,7 @@ function _echoStockGroupArray($arStock, $bChinese)
         }
 
         $arRef[] = $ref;
-        if (($sym->IsForex() == false) || ($sym->IsIndex() == false))
+        if ($sym->IsTradable())
         {
             $arTransactionRef[] = $ref;
         }
@@ -117,7 +117,7 @@ function _echoMyStockGroup($strGroupId, $bChinese)
     global $group;  // in _stocklink.php $group = false;
     
     $arStock = SqlGetStocksArray($strGroupId);
-//    sort($arStock);
+    if (count($arStock) == 0)	return;
 
     $arTransactionRef = _echoStockGroupArray($arStock, $bChinese); 
     if (StockGroupIsReadOnly($strGroupId) == false)

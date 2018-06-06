@@ -86,7 +86,7 @@ function _getMyStockLinks($sym, $bChinese)
     }
     else
     {
-    	if ($sym->IsIndex() == false && $sym->IsIndexA() == false)
+    	if ($sym->IsTradable())
     	{
     		if ($bChinese)	$str .= ' '.GetPhpLink(STOCK_PATH.'editstocketf', true, STOCK_OPTION_ETF_CN, false, $strQuery);
     	}

@@ -271,9 +271,12 @@ function _GetWhoseDisplay($strOwnerMemberId, $strMemberId, $bChinese)
 
 function _GetWhoseStockGroupDisplay($strMemberId, $strGroupId, $bChinese)
 {
-    $strGroupMemberId = SqlGetStockGroupMemberId($strGroupId);
-    $str = _GetWhoseDisplay($strGroupMemberId, $strMemberId, $bChinese); 
-    return $str.SqlGetStockGroupName($strGroupId);
+    if ($strGroupMemberId = SqlGetStockGroupMemberId($strGroupId))
+    {
+    	$str = _GetWhoseDisplay($strGroupMemberId, $strMemberId, $bChinese); 
+    	return $str.SqlGetStockGroupName($strGroupId);
+    }
+    return '';
 }
 
 function _GetAllDisplay($str, $bChinese)

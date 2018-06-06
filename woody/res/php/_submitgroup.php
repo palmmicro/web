@@ -60,18 +60,12 @@ function _onDelete($strGroupId)
     SqlDeleteStockGroup($strGroupId);
 }
 
-function _emailStockGroup($strMemberId, $strOperation, $strGroupName, $strSymbols)
+function _emailStockGroup($strMemberId, $strGroupId, $strSymbols)
 {
-    $bChinese = true;
-    $strSubject = 'Stock Group: '.$strOperation;
-	$str = GetMemberLink($strMemberId, $bChinese);
-
-//	$strMemberEmail = SqlGetEmailById($strMemberId);
-    $strGroupId = SqlGetStockGroupId($strGroupName, $strMemberId);
-    $strGroupLink = SelectGroupInternalLink($strGroupId, $bChinese);
-    $str .= '<br />GroupName: '.$strGroupLink; 
+    $strSubject = 'Stock Group: '.$_POST['submit'];
+	$str = GetMemberLink($strMemberId);
+    $str .= '<br />GroupName: '.SelectGroupInternalLink($strGroupId); 
     $str .= '<br />Symbols: '.$strSymbols; 
-    
     EmailReport($str, $strSubject); 
 }
 
@@ -99,64 +93,35 @@ function _getStockIdSymbolArray($strSymbols)
 	return $arIdSymbol;
 }
 
-function _sqlEditStockGroup($strGroupId, $strGroupName, $strSymbols)
-{
-    if (SqlUpdateStockGroup($strGroupId, $strGroupName) == false)  return false;
-    
-	$arNew = _getStockIdSymbolArray($strSymbols);
-    $arOld = SqlGetStockGroupArray($strGroupId);
-    foreach ($arNew as $strStockId => $strSymbol)
-	{
-	    if (array_key_exists($strStockId, $arOld) == false)
-	    {
-	        SqlInsertStockGroupItem($strGroupId, $strStockId);
-	    }
-	}
-	
-    foreach ($arOld as $strStockId => $strSymbol)
-	{
-	    if (array_key_exists($strStockId, $arNew) == false)
-	    {
-            $strId = SqlGetStockGroupItemId($strGroupId, $strStockId);
-            SqlDeleteStockTransactionByGroupItemId($strId);
-            SqlDeleteTableDataById(TABLE_STOCK_GROUP_ITEM, $strId);
-	    }
-	}
-	
-    return true;
-}
-
 function _onEdit($strMemberId, $strGroupId, $strGroupName, $strSymbols)
 {
     if (StockGroupIsReadOnly($strGroupId))  return;
 
     $str = SqlGetStockGroupName($strGroupId);
     if (IsGroupNameReadOnly($str))  $strGroupName = $str;
-    if (_sqlEditStockGroup($strGroupId, $strGroupName, $strSymbols))
+    
+	$sql = new StockGroupSql($strMemberId);
+    if ($sql->Update($strGroupId, $strGroupName))
     {
-        _emailStockGroup($strMemberId, $_POST['submit'], $strGroupName, $strSymbols);
+    	SqlUpdateStockGroup($strGroupId, _getStockIdSymbolArray($strSymbols));
     }
-}
-
-function _insertStockGroup($strMemberId, $strGroupName, $strStocks)
-{
-    SqlInsertStockGroup($strMemberId, $strGroupName);
-    $strGroupId = SqlGetStockGroupId($strGroupName, $strMemberId);
-    if ($strGroupId)
-    {
-        $arIdSymbol = _getStockIdSymbolArray($strStocks);
-        foreach ($arIdSymbol as $strStockId => $strSymbol)
-        {
-	        SqlInsertStockGroupItem($strGroupId, $strStockId);
-        }
-    }
-    return $strGroupId;
+    _emailStockGroup($strMemberId, $strGroupId, $strSymbols);
 }
 
 function _onNew($strMemberId, $strGroupName, $strSymbols)
 {
-	_insertStockGroup($strMemberId, $strGroupName, $strSymbols);
-    _emailStockGroup($strMemberId, $_POST['submit'], $strGroupName, $strSymbols);
+	$sql = new StockGroupSql($strMemberId);
+	$sql->Insert($strGroupName);
+    if ($strGroupId = $sql->GetTableId($strGroupName))
+    {
+        $arIdSymbol = _getStockIdSymbolArray($strSymbols);
+    	$item_sql = new StockGroupItemSql($strGroupId);
+        foreach ($arIdSymbol as $strStockId => $strSymbol)
+        {
+        	$item_sql->Insert($strStockId);
+        }
+    }
+    _emailStockGroup($strMemberId, $strGroupId, $strSymbols);
 }
 
     $strMemberId = AcctAuth();

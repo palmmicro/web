@@ -2,6 +2,36 @@
 require_once('sqltable.php');
 require_once('sqlstocktransaction.php');
 
+// ****************************** StockGroupSql class *******************************************************
+class StockGroupSql extends MemberTableSql
+{
+    function StockGroupSql($strMemberId) 
+    {
+        parent::MemberTableSql($strMemberId, TABLE_STOCK_GROUP);
+    }
+    
+    function Get($strGroupName)
+    {
+    	return $this->GetSingleData($this->BuildWhere_id_extra('groupname', $strGroupName));
+    }
+    
+    function GetTableId($strGroupName)
+    {
+		return $this->GetTableIdCallback($strGroupName, 'Get');
+    }
+    
+    function Insert($strGroupName)
+    {
+    	$strMemberId = $this->GetId(); 
+    	return TableSql::Insert("(id, member_id, groupname) VALUES('0', '$strMemberId', '$strGroupName')");
+    }
+    
+    function Update($strId, $strGroupName)
+    {
+		return TableSql::Update("groupname = '$strGroupName' WHERE "._SqlBuildWhere_id($strId));
+    }
+}
+
 // ****************************** Stock Group table *******************************************************
 /*
 function SqlCreateStockGroupTable()
@@ -18,12 +48,6 @@ function SqlCreateStockGroupTable()
 }
 */
 
-function SqlUpdateStockGroup($strStockGroupId, $strGroupName)
-{
-	$strQry = "UPDATE stockgroup SET groupname = '$strGroupName' WHERE id = '$strStockGroupId' LIMIT 1";
-	return SqlDieByQuery($strQry, 'Update stockgroup failed');
-}
-
 function SqlGetStockGroupName($strStockGroupId)
 {
     if ($stockgroup = SqlGetTableDataById(TABLE_STOCK_GROUP, $strStockGroupId))
@@ -31,21 +55,6 @@ function SqlGetStockGroupName($strStockGroupId)
 		return $stockgroup['groupname'];
 	}
 	return false;
-}
-
-function SqlGetStockGroupId($strGroupName, $strMemberId)
-{
-	if ($stockgroup = SqlGetSingleTableData(TABLE_STOCK_GROUP, _SqlBuildWhereAndArray(array('groupname' => $strGroupName, 'member_id' => $strMemberId))))
-	{
-	    return $stockgroup['id'];
-	}
-	return false;
-}
-
-function SqlInsertStockGroup($strMemberId, $strGroupName)
-{
-	$strQry = "INSERT INTO stockgroup(id, member_id, groupname) VALUES('0', '$strMemberId', '$strGroupName')";
-	return SqlDieByQuery($strQry, 'Insert stockgroup failed');
 }
 
 function SqlGetStockGroupById($strGroupId)
@@ -70,9 +79,12 @@ function SqlGetStockGroupByMemberId($strMemberId)
 // ****************************** StockGroupItemSql class *******************************************************
 class StockGroupItemSql extends StockGroupTableSql
 {
+	var $trans_sql;	// TableSql
+	
     function StockGroupItemSql($strStockGroupId) 
     {
         parent::StockGroupTableSql($strStockGroupId, TABLE_STOCK_GROUP_ITEM);
+        $this->trans_sql = new TableSql(TABLE_STOCK_TRANSACTION);
     }
 
     function Get($strStockId)
@@ -82,11 +94,18 @@ class StockGroupItemSql extends StockGroupTableSql
     
     function GetTableId($strStockId)
     {
-    	if ($record = $this->Get($strStockId))
-    	{
-    		return $record['id'];
-    	}
-    	return false;
+		return $this->GetTableIdCallback($strStockId, 'Get');
+    }
+
+    function Insert($strStockId)
+    {
+    	$strGroupId = $this->GetId(); 
+    	return TableSql::Insert("(id, group_id, stock_id, quantity, cost, record) VALUES('0', '$strGroupId', '$strStockId', '0', '0.0', '0')");
+    }
+    
+    function DeleteStockTransaction($strGroupItemId)
+    {
+    	$this->trans_sql->Delete(_SqlBuildWhere('groupitem_id', $strGroupItemId));
     }
 }    
 
@@ -122,12 +141,6 @@ function SqlAlterStockGroupItemTable()
 }
 */
 
-function SqlInsertStockGroupItem($strGroupId, $strStockId)
-{
-	$strQry = "INSERT INTO stockgroupitem(id, group_id, stock_id, quantity, cost, record) VALUES('0', '$strGroupId', '$strStockId', '0', '0.0', '0')";
-	return SqlDieByQuery($strQry, 'Insert stockgroupitem failed');
-}
-
 function SqlUpdateStockGroupItem($strStockGroupItemId, $strQuantity, $strCost, $strRecord)
 {
 	$strQry = "UPDATE stockgroupitem SET quantity = '$strQuantity', cost = '$strCost', record = '$strRecord' WHERE id = '$strStockGroupItemId' LIMIT 1";
@@ -138,11 +151,6 @@ function SqlGetStockGroupItemId($strGroupId, $strStockId)
 {
 	$sql = new StockGroupItemSql($strGroupId);
 	return $sql->GetTableId($strStockId);
-/*	if ($stockgroupitem = SqlGetSingleTableData(TABLE_STOCK_GROUP_ITEM, _SqlBuildWhereAndArray(array('group_id' => $strGroupId, 'stock_id' => $strStockId))))
-	{
-	    return $stockgroupitem['id'];
-	}
-	return false;*/
 }
 
 function SqlGetStockGroupItemById($strGroupItemId)
@@ -211,9 +219,9 @@ function SqlGetStockGroupPrefetchSymbolArray($strGroupId)
 	return $arSymbol;
 }
 
-function SqlGetStockGroupArray($strStockGroupId)
+function SqlGetStockGroupArray($sql)
 {
-	if ($result = SqlGetStockGroupItemByGroupId($strStockGroupId))
+	if ($result = $sql->GetAll())
 	{
 	    $ar = array();
 		while ($stockgroupitem = mysql_fetch_assoc($result)) 
@@ -231,10 +239,11 @@ function SqlGetStockGroupArray($strStockGroupId)
 	return false;
 }
 
-function SqlGetStocksArray($strStockGroupId)
+function SqlGetStocksArray($strGroupId)
 {
     $ar = array();
-    $arStockIdName = SqlGetStockGroupArray($strStockGroupId);
+	$sql = new StockGroupItemSql($strGroupId);
+    $arStockIdName = SqlGetStockGroupArray($sql);
     foreach ($arStockIdName as $strId => $strSymbol)
     {
         $ar[] = $strSymbol;
@@ -261,7 +270,7 @@ function SqlDeleteStockGroupItemByGroupId($strGroupId)
 	{
 		while ($stockgroupitem = mysql_fetch_assoc($result)) 
 		{
-			SqlDeleteStockTransactionByGroupItemId($stockgroupitem['id']);
+            $sql->DeleteStockTransaction($stockgroupitem['id']);
 		}
 		@mysql_free_result($result);
 		$sql->DeleteAll();
@@ -291,6 +300,29 @@ function SqlDeleteStockGroupByGroupName($strGroupName)
         @mysql_free_result($result);
     }
     return $sql->Delete($strWhere);
+}
+
+function SqlUpdateStockGroup($strGroupId, $arNew)
+{
+	$sql = new StockGroupItemSql($strGroupId);
+    $arOld = SqlGetStockGroupArray($sql);
+    foreach ($arNew as $strStockId => $strSymbol)
+	{
+	    if (array_key_exists($strStockId, $arOld) == false)
+	    {
+	    	$sql->Insert($strStockId);
+	    }
+	}
+	
+    foreach ($arOld as $strStockId => $strSymbol)
+	{
+	    if (array_key_exists($strStockId, $arNew) == false)
+	    {
+            $strId = $sql->GetTableId($strStockId);
+            $sql->DeleteStockTransaction($strId);
+            $sql->DeleteById($strId);
+	    }
+	}
 }
 
 ?>

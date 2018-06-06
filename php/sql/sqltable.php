@@ -44,6 +44,15 @@ class TableSql
     {
     	return SqlGetSingleTableData($this->strName, $strWhere, $strOrderBy);
     }
+
+    function GetTableIdCallback($strKey, $callback)
+    {
+    	if ($record = $this->$callback($strKey))
+    	{
+    		return $record['id'];
+    	}
+    	return false;
+    }
     
     function Delete($strWhere, $strLimit = false)
     {

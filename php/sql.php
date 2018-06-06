@@ -17,6 +17,7 @@ define ('TABLE_STOCK', 'stock');
 define ('TABLE_STOCK_CALIBRATION', 'stockcalibration');
 define ('TABLE_STOCK_GROUP', 'stockgroup');
 define ('TABLE_STOCK_GROUP_ITEM', 'stockgroupitem');
+define ('TABLE_STOCK_TRANSACTION', 'stocktransaction');
 define ('TABLE_STOCK_HISTORY', 'stockhistory');
 define ('TABLE_WEIXIN', 'weixin');
 

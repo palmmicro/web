@@ -21,10 +21,11 @@ function IsGroupNameReadOnly($strGroupName)
     return false;
 }
 
-function _getStocksString($strStockGroupId)
+function _getStocksString($strGroupId)
 {
     $str = '';
-    $arStockIdName = SqlGetStockGroupArray($strStockGroupId);
+	$sql = new StockGroupItemSql($strGroupId);
+    $arStockIdName = SqlGetStockGroupArray($sql);
     foreach ($arStockIdName as $strId => $strSymbol)
     {
         $str .= $strSymbol.', ';

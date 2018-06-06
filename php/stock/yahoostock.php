@@ -324,8 +324,8 @@ function TestYahooWebData($strSymbol)
 }
 
 function _getNetValueDelayTick()
-{	// get net value after 16:30
-	return 16 * SECONDS_IN_HOUR + 30 * SECONDS_IN_MIN;
+{	// get net value after 16:55
+	return 16 * SECONDS_IN_HOUR + 55 * SECONDS_IN_MIN;
 }
 
 function _yahooNetValueHasFile($now_ymd, $strFileName, $strNetValueSymbol)

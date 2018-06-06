@@ -182,7 +182,7 @@ function SelectSymbolInternalLink($strSymbol, $bChinese)
     return $strSymbol;
 }
 
-function SelectGroupInternalLink($strGroupId, $bChinese)
+function SelectGroupInternalLink($strGroupId, $bChinese = false)
 {
     if (($strGroupName = SqlGetStockGroupName($strGroupId)) == false)    return '';
         

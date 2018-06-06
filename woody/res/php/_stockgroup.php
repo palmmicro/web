@@ -13,18 +13,32 @@ class _StockGroup extends MyStockGroup
         $strMemberId = AcctIsLogin();
         if ($strMemberId == false)     return;
         
+        $sql = new StockGroupSql($strMemberId);
         $strGroupName = $this->strName;
-        if (($strGroupId = SqlGetStockGroupId($strGroupName, $strMemberId)) === false)
+        if ($strGroupId = $sql->GetTableId($strGroupName))
         {
-            SqlInsertStockGroup($strMemberId, $strGroupName);
-            $strGroupId = SqlGetStockGroupId($strGroupName, $strMemberId);
-            if ($strGroupId)
+        	$arNew = array();
+            foreach ($arRef as $ref)
             {
+                if ($ref->sym->IsTradable())
+                {
+                	$strStockId = $ref->GetStockId();
+                	$arNew[$strStockId] = $ref->GetStockSymbol();
+                }
+            }      
+            SqlUpdateStockGroup($strGroupId, $arNew);
+        }
+        else
+        {
+			$sql->Insert($strGroupName);
+            if ($strGroupId = $sql->GetTableId($strGroupName))
+            {
+            	$item_sql = new StockGroupItemSql($strGroupId);
                 foreach ($arRef as $ref)
                 {
-                    if ($ref->sym->IsIndex() == false)
+                    if ($ref->sym->IsTradable())
                     {
-                        SqlInsertStockGroupItem($strGroupId, $ref->GetStockId());
+                    	$item_sql->Insert($ref->GetStockId());
                     }
                 }      
             }

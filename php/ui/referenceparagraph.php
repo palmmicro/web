@@ -135,6 +135,28 @@ END;
     EchoTableEnd();
 }
 
+
+function GetTimeDisplay()
+{
+    date_default_timezone_set(STOCK_TIME_ZONE_CN);
+	$ymd = new NowYMD();
+	$strDateTime = $ymd->GetDisplay();
+	
+	echo <<< END
+	<script type="text/javascript">
+		var now = new Date("$strDateTime"); 
+		function UpdateTime() 
+		{ 
+			now.setTime(now.getTime() + 250); 
+			document.getElementById("time").innerHTML = now.toLocaleTimeString(); 
+		} 
+		setInterval("UpdateTime()", 250);
+	</script>
+END;
+
+	return '<span id="time">'.$ymd->GetHMS().'</span>';
+}
+
 function EchoReferenceParagraph($arRef, $bChinese)
 {
     if ($bChinese)     
@@ -145,6 +167,7 @@ function EchoReferenceParagraph($arRef, $bChinese)
     {
         $str = 'Reference data';
     }
+    $str .= ' '.GetTimeDisplay();
     
     EchoParagraphBegin($str);
     EchoReferenceTable($arRef, $bChinese);
