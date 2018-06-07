@@ -48,18 +48,18 @@ function SqlCreateStockGroupTable()
 }
 */
 
-function SqlGetStockGroupName($strStockGroupId)
-{
-    if ($stockgroup = SqlGetTableDataById(TABLE_STOCK_GROUP, $strStockGroupId))
-	{
-		return $stockgroup['groupname'];
-	}
-	return false;
-}
-
 function SqlGetStockGroupById($strGroupId)
 {
     return SqlGetTableDataById(TABLE_STOCK_GROUP, $strGroupId);
+}
+
+function SqlGetStockGroupName($strGroupId)
+{
+    if ($group = SqlGetStockGroupById($strGroupId))
+    {
+        return $group['groupname'];
+    }
+	return false;
 }
 
 function SqlGetStockGroupMemberId($strGroupId)
@@ -102,10 +102,36 @@ class StockGroupItemSql extends StockGroupTableSql
     	$strGroupId = $this->GetId(); 
     	return TableSql::Insert("(id, group_id, stock_id, quantity, cost, record) VALUES('0', '$strGroupId', '$strStockId', '0', '0.0', '0')");
     }
+
+    function BuildWhere_groupitem($strGroupItemId)
+    {
+    	return _SqlBuildWhere('groupitem_id', $strGroupItemId);
+    }
     
     function DeleteStockTransaction($strGroupItemId)
     {
-    	$this->trans_sql->Delete(_SqlBuildWhere('groupitem_id', $strGroupItemId));
+    	$this->trans_sql->Delete($this->BuildWhere_groupitem($strGroupItemId));
+    }
+
+    function CountStockTransaction($strStockId)
+    {
+    	if ($strGroupItemId = $this->GetTableId($strStockId))
+    	{
+    		return $this->trans_sql->Count($this->BuildWhere_groupitem($strGroupItemId));
+    	}
+    	return 0;
+    }
+
+    function CountAllStockTransaction()
+    {
+    	if ($ar = $this->GetTableIdArray())
+    	{
+    		if ($strWhere = _SqlBuildWhereOrArray('groupitem_id', $ar))
+    		{
+    			return $this->trans_sql->Count($strWhere);
+    		}
+    	}
+    	return 0;
     }
 }    
 
@@ -164,24 +190,13 @@ function SqlGetStockGroupItemByGroupId($strGroupId)
 	return $sql->GetAll();
 }
 
-function SqlCountStockGroupItemByStockId($strStockId)
-{
-    return SqlCountTableData(TABLE_STOCK_GROUP_ITEM, _SqlBuildWhere_stock($strStockId));
-}
-
 // ****************************** Stock Group functions *******************************************************
-
-function SqlGetStockGroupItemArray($strGroupId)
+function SqlGetStockTransactionByGroupId($strGroupId, $iStart, $iNum)
 {
-	if ($result = SqlGetStockGroupItemByGroupId($strGroupId))
+	$sql = new StockGroupItemSql($strGroupId);
+	if ($ar = $sql->GetTableIdArray())
 	{
-	    $ar = array();
-		while ($stockgroupitem = mysql_fetch_assoc($result)) 
-		{
-    		$ar[] = $stockgroupitem['id'];
-		}
-		@mysql_free_result($result);
-        return $ar;
+		return SqlGetStockTransactionByGroupItemIdArray($ar, $iStart, $iNum);
 	}
 	return false;
 }

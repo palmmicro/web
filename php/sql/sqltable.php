@@ -134,11 +134,26 @@ class IdTableSql extends TableSql
     {
     	return $this->GetData($this->BuildWhere_id());
     }
+
+    function GetTableIdArray()
+    {
+    	if ($result = $this->GetAll())
+    	{
+    		$ar = array();
+    		while ($record = mysql_fetch_assoc($result)) 
+    		{
+    			$ar[] = $record['id'];
+    		}
+    		@mysql_free_result($result);
+    		return $ar;
+    	}
+    	return false;
+    }
     
     function DeleteAll()
     {
     	return $this->Delete($this->BuildWhere_id());
-    }
+    }  
 }
 
 // ****************************** StockTableSql class *******************************************************

@@ -48,41 +48,9 @@ function SqlGetStockTransactionByGroupItemIdArray($arGroupItemId, $iStart, $iNum
 }
 
 // ****************************** Stock Transaction functions *******************************************************
-function SqlCountStockTransactionByGroupId($strGroupId)
-{
-    $strWhere = false;
-    if ($ar = SqlGetStockGroupItemArray($strGroupId))
-    {
-        $strWhere = _SqlBuildWhereOrArray('groupitem_id', $ar);
-    }
-    if ($strWhere)
-    {
-    	return SqlCountTableData('stocktransaction', $strWhere);
-    }
-    return 0;
-}
-
-function SqlGetStockTransactionByGroupId($strGroupId, $iStart, $iNum)
-{
-	if ($ar = SqlGetStockGroupItemArray($strGroupId))
-	{
-		return SqlGetStockTransactionByGroupItemIdArray($ar, $iStart, $iNum);
-	}
-	return false;
-}
-
 function SqlGetStockTransactionByGroupItemId($strId, $iStart, $iNum)
 {
 	return SqlGetStockTransactionByGroupItemIdArray(array($strId), $iStart, $iNum);
-}
-
-function SqlCountStockTransaction($strGroupId, $strStockId)
-{
-    if ($strId = SqlGetStockGroupItemId($strGroupId, $strStockId))
-    {
-    	return SqlCountTableData('stocktransaction', _SqlBuildWhere('groupitem_id', $strId));
-    }
-    return 0;
 }
 
 function SqlGetStockTransaction($strGroupId, $strStockId, $iStart, $iNum)

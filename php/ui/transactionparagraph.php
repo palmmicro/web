@@ -81,6 +81,7 @@ function _echoTransactionTableData($strGroupId, $ref, $iStart, $iNum, $bChinese)
 
 function EchoTransactionParagraph($strGroupId, $bChinese, $ref = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
 {
+	$sql = new StockGroupItemSql($strGroupId);
     if (IsTableCommonDisplay($iStart, $iNum))
     {
     	$str = StockGetAllTransactionLink($strGroupId, $bChinese, $ref);
@@ -90,12 +91,12 @@ function EchoTransactionParagraph($strGroupId, $bChinese, $ref = false, $iStart 
     {
     	if ($ref)
     	{
-            $iTotal = SqlCountStockTransaction($strGroupId, $ref->GetStockId());
+            $iTotal = $sql->CountStockTransaction($ref->GetStockId());
            	$strNavLink = GetNavLink('groupid='.$strGroupId.'&symbol='.$ref->GetStockSymbol(), $iTotal, $iStart, $iNum, $bChinese);
     	}
     	else
     	{
-            $iTotal = SqlCountStockTransactionByGroupId($strGroupId);
+            $iTotal = $sql->CountAllStockTransaction();
            	$strNavLink = GetNavLink('groupid='.$strGroupId, $iTotal, $iStart, $iNum, $bChinese);
         }
         $str = $strNavLink;
