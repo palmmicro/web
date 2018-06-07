@@ -23,14 +23,17 @@ function IsGroupNameReadOnly($strGroupName)
 
 function _getStocksString($strGroupId)
 {
-    $str = '';
 	$sql = new StockGroupItemSql($strGroupId);
-    $arStockIdName = SqlGetStockGroupArray($sql);
-    foreach ($arStockIdName as $strId => $strSymbol)
+    if ($arStockId = $sql->GetStockIdArray())
     {
-        $str .= $strSymbol.', ';
+    	$strStocks = '';
+    	foreach ($arStockId as $str => $strStockId)
+    	{
+    		$strStocks .= SqlGetStockSymbol($strStockId).', ';
+    	}
+    	return rtrim($strStocks, ', ');
     }
-    return rtrim($str, ', ');
+    return '';
 }
 
 function StockEditGroupForm($str, $bChinese)

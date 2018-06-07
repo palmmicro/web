@@ -9,11 +9,12 @@ require_once('_editmergeform.php');
 function _updateStockGroupItemTransaction($strGroupItemId)
 {
     $trans = new StockTransaction();
-    if ($result = SqlGetStockTransactionByGroupItemId($strGroupItemId, 0, 0)) 
+	$sql = new StockTransactionSql();
+    if ($result = $sql->Get($strGroupItemId)) 
     {
-        while ($transaction = mysql_fetch_assoc($result)) 
+        while ($record = mysql_fetch_assoc($result)) 
         {
-            AddSqlTransaction($trans, $transaction);
+            AddSqlTransaction($trans, $record);
         }
         @mysql_free_result($result);
     }
@@ -23,7 +24,8 @@ function _updateStockGroupItemTransaction($strGroupItemId)
 function _updateStockGroupItem($strGroupItemId)
 {
     $groupitem = SqlGetStockGroupItemById($strGroupItemId);
-	if ($result = SqlGetStockGroupItemByGroupId($groupitem['group_id']))
+	$sql = new StockGroupItemSql($groupitem['group_id']);
+	if ($result = $sql->GetAll())
 	{
 		while ($stockgroupitem = mysql_fetch_assoc($result)) 
 		{
@@ -131,10 +133,11 @@ function _onAddFundPurchase($strGroupId)
 	if (($strQuantity = UrlGetQueryValue('quantity')) == false)    		return false;
 	if (($strPrice = UrlGetQueryValue('price')) == false)    			return false;
 	
-	if (($strGroupItemId = SqlGetStockGroupItemId($strGroupId, $strFundId)) == false)    return false;
+	$sql = new StockGroupItemSql($strGroupId);
+	if (($strGroupItemId = $sql->GetTableId($strFundId)) == false)    return false;
 	if (SqlInsertStockTransaction($strGroupItemId, strval(intval(floatval($strAmount) / floatval($strNetValue))), $strNetValue, '', '{'))
 	{
-	    if ($strGroupItemId = SqlGetStockGroupItemId($strGroupId, $strArbitrageId))
+	    if ($strGroupItemId = $sql->GetTableId($strArbitrageId))
 	    {
 	        SqlInsertStockTransaction($strGroupItemId, '-'.$strQuantity, $strPrice, _onArbitrageCost($strQuantity, $strPrice), '}');
 	    }

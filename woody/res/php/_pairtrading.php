@@ -25,7 +25,7 @@ function _getPairTradingLeverage($strSymbol)
 {
     if ($strSymbol == 'SINA')        return array('WB');
     else if ($strSymbol == 'SPY')   return array('SH', 'SPXU', 'UPRO');
-    else if ($strSymbol == 'XOP')   return array('USO', 'USL', 'UCO', 'UWT', 'GUSH', 'DRIP');
+    else if ($strSymbol == 'XOP')   return array('USO', 'DWT', 'UWT', 'GUSH', 'DRIP');
     else 
         return false;
 }

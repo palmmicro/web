@@ -1,33 +1,6 @@
 <?php
 
 // ****************************** Sql database maintenance functions *******************************************************
-
-function DeleteStockGroupByName($strGroupName)
-{
-    $strGroupTable = TABLE_STOCK_GROUP;
-    $strGroupWhere = _SqlBuildWhere('groupname', $strGroupName);
-    DebugString($strGroupWhere);
-    $iGroupCount = SqlCountTableData($strGroupTable, $strGroupWhere);
-    DebugVal($iGroupCount);
-    if (($result = SqlGetTableData($strGroupTable, $strGroupWhere)) == false)   return;
-    
-    $strItemWhere = _SqlBuildWhereOrArray('group_id', _SqlFetchIdArray($result));
-    $strItemTable = TABLE_STOCK_GROUP_ITEM;
-    $iItemCount = SqlCountTableData($strItemTable, $strItemWhere);
-    DebugVal($iItemCount);
-    if (($result = SqlGetTableData($strItemTable, $strItemWhere)) == false)   return;
-
-    $strTransactionWhere = _SqlBuildWhereOrArray('groupitem_id', _SqlFetchIdArray($result));
-    $strTransactionTable = 'stocktransaction';
-    $iTransactionCount = SqlCountTableData($strTransactionTable, $strTransactionWhere);
-    DebugVal($iTransactionCount);
-/*    
-    if ($iTransactionCount > 0)    SqlDeleteTableData($strTransactionTable, $strTransactionWhere);
-    if ($iItemCount > 0)    SqlDeleteTableData($strItemTable, $strItemWhere);
-    if ($iGroupCount > 0)    SqlDeleteTableData($strGroupTable, $strGroupWhere);
-*/    
-}
-
 function ValidateTableIpField($strTableName)
 {
     $ar = array();

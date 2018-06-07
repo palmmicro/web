@@ -43,20 +43,13 @@ function _GetEtfAdjustString($ref, $etf_ref, $bChinese)
 
 function _getPersonalGroupLink($strGroupId, $bChinese)
 {
-    $str = '';
-    if ($result = SqlGetStockGroupItemByGroupId($strGroupId)) 
-    {   
-        while ($groupitem = mysql_fetch_assoc($result)) 
-        {
-            if (intval($groupitem['record']) > 0)
-            {
-                $str = SelectGroupInternalLink($strGroupId, $bChinese);
-                break;
-            }
-        }
-        @mysql_free_result($result);
+	$sql = new StockGroupItemSql($strGroupId);
+    $arStockId = $sql->GetStockIdArray(true);
+    if (count($arStockId) > 0)
+    {
+		return SelectGroupInternalLink($strGroupId, $bChinese);
     }
-    return $str;
+    return '';
 }
 
 function _getCategoryArray($bChinese)
@@ -413,7 +406,8 @@ function _checkPersonalGroupId($strGroupId)
 function _getPersonalLinks($strMemberId, $bChinese)
 {
     $str = HTML_NEW_LINE;
-	if ($result = SqlGetStockGroupByMemberId($strMemberId)) 
+	$sql = new StockGroupSql($strMemberId);
+	if ($result = $sql->GetAll()) 
 	{
 		while ($stockgroup = mysql_fetch_assoc($result)) 
 		{

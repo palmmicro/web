@@ -45,6 +45,11 @@ class TableSql
     	return SqlGetSingleTableData($this->strName, $strWhere, $strOrderBy);
     }
 
+    function GetDataById($strId)
+    {
+    	return $this->GetSingleData(_SqlBuildWhere_id($strId));
+    }
+    
     function GetTableIdCallback($strKey, $callback)
     {
     	if ($record = $this->$callback($strKey))

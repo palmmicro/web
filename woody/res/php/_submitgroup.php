@@ -57,7 +57,8 @@ function _onAdjust($strSymbols)
 function _onDelete($strGroupId)
 {
     if (StockGroupIsReadOnly($strGroupId))  return;
-    SqlDeleteStockGroup($strGroupId);
+    SqlDeleteStockGroupItemByGroupId($strGroupId);
+    SqlDeleteTableDataById(TABLE_STOCK_GROUP, $strGroupId);
 }
 
 function _emailStockGroup($strMemberId, $strGroupId, $strSymbols)
@@ -69,9 +70,9 @@ function _emailStockGroup($strMemberId, $strGroupId, $strSymbols)
     EmailReport($str, $strSubject); 
 }
 
-function _getStockIdSymbolArray($strSymbols)
+function _getStockIdArray($strSymbols)
 {
-	$arIdSymbol = array();
+	$arStockId = array();
     $arSymbol = StockGetSymbolArray($strSymbols);
 	foreach ($arSymbol as $strSymbol)
 	{
@@ -88,9 +89,9 @@ function _getStockIdSymbolArray($strSymbols)
             	continue;
             }
 	    }
-	    $arIdSymbol[$strStockId] = $strSymbol; 
+	    $arStockId[] = $strStockId; 
 	}
-	return $arIdSymbol;
+	return $arStockId;
 }
 
 function _onEdit($strMemberId, $strGroupId, $strGroupName, $strSymbols)
@@ -103,7 +104,7 @@ function _onEdit($strMemberId, $strGroupId, $strGroupName, $strSymbols)
 	$sql = new StockGroupSql($strMemberId);
     if ($sql->Update($strGroupId, $strGroupName))
     {
-    	SqlUpdateStockGroup($strGroupId, _getStockIdSymbolArray($strSymbols));
+    	SqlUpdateStockGroup($strGroupId, _getStockIdArray($strSymbols));
     }
     _emailStockGroup($strMemberId, $strGroupId, $strSymbols);
 }
@@ -114,9 +115,9 @@ function _onNew($strMemberId, $strGroupName, $strSymbols)
 	$sql->Insert($strGroupName);
     if ($strGroupId = $sql->GetTableId($strGroupName))
     {
-        $arIdSymbol = _getStockIdSymbolArray($strSymbols);
     	$item_sql = new StockGroupItemSql($strGroupId);
-        foreach ($arIdSymbol as $strStockId => $strSymbol)
+        $arStockId = _getStockIdArray($strSymbols);
+        foreach ($arStockId as $strStockId)
         {
         	$item_sql->Insert($strStockId);
         }

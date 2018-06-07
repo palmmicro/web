@@ -19,6 +19,11 @@ class StockGroupSql extends MemberTableSql
     {
 		return $this->GetTableIdCallback($strGroupName, 'Get');
     }
+
+    function GetAll()
+    {
+    	return $this->GetData($this->BuildWhere_id(), '`groupname` ASC');
+    }
     
     function Insert($strGroupName)
     {
@@ -71,11 +76,6 @@ function SqlGetStockGroupMemberId($strGroupId)
     return false;
 }
 
-function SqlGetStockGroupByMemberId($strMemberId)
-{
-    return SqlGetTableData(TABLE_STOCK_GROUP, _SqlBuildWhere_member($strMemberId), '`groupname` ASC');
-}
-
 // ****************************** StockGroupItemSql class *******************************************************
 class StockGroupItemSql extends StockGroupTableSql
 {
@@ -103,6 +103,25 @@ class StockGroupItemSql extends StockGroupTableSql
     	return TableSql::Insert("(id, group_id, stock_id, quantity, cost, record) VALUES('0', '$strGroupId', '$strStockId', '0', '0.0', '0')");
     }
 
+    function GetStockIdArray($bCheckTransaction = false)
+    {
+    	if ($result = $this->GetAll())
+    	{
+    		$ar = array();
+    		while ($record = mysql_fetch_assoc($result)) 
+    		{
+    			if ($bCheckTransaction)
+    			{
+    				if (intval($record['record']) == 0)		continue;
+    			}
+    			$ar[$record['id']] = $record['stock_id'];
+    		}
+    		@mysql_free_result($result);
+    		return $ar;
+    	}
+    	return false;
+    }
+    
     function BuildWhere_groupitem($strGroupItemId)
     {
     	return _SqlBuildWhere('groupitem_id', $strGroupItemId);
@@ -122,16 +141,31 @@ class StockGroupItemSql extends StockGroupTableSql
     	return 0;
     }
 
+    function GetStockTransaction($strStockId, $iStart = 0, $iNum = 0)
+    {
+    	if ($strId = $this->GetTableId($strStockId))
+    	{
+    		return $this->trans_sql->Get($strId, $iStart, $iNum);
+    	}
+    	return false;
+    }
+    
     function CountAllStockTransaction()
     {
     	if ($ar = $this->GetTableIdArray())
     	{
-    		if ($strWhere = _SqlBuildWhereOrArray('groupitem_id', $ar))
-    		{
-    			return $this->trans_sql->Count($strWhere);
-    		}
+   			return $this->trans_sql->CountAll($ar);
     	}
     	return 0;
+    }
+    
+    function GetAllStockTransaction($iStart = 0, $iNum = 0)
+    {
+    	if ($ar = $this->GetTableIdArray())
+    	{
+    		return $this->trans_sql->GetAll($ar, $iStart, $iNum);
+    	}
+    	return false;
     }
 }    
 
@@ -173,118 +207,63 @@ function SqlUpdateStockGroupItem($strStockGroupItemId, $strQuantity, $strCost, $
 	return SqlDieByQuery($strQry, 'Update stockgroupitem failed');
 }
 
-function SqlGetStockGroupItemId($strGroupId, $strStockId)
-{
-	$sql = new StockGroupItemSql($strGroupId);
-	return $sql->GetTableId($strStockId);
-}
-
-function SqlGetStockTransaction($sql, $strStockId, $iStart, $iNum)
-{
-    if ($strId = $sql->GetTableId($strStockId))
-    {
-        return SqlGetStockTransactionByGroupItemId($strId, $iStart, $iNum);
-    }
-	return false;
-}
-
 function SqlGetStockGroupItemById($strGroupItemId)
 {
     return SqlGetTableDataById(TABLE_STOCK_GROUP_ITEM, $strGroupItemId);
 }
 
-function SqlGetStockGroupItemByGroupId($strGroupId)
-{
-	$sql = new StockGroupItemSql($strGroupId);
-	return $sql->GetAll();
-}
-
 // ****************************** Stock Group functions *******************************************************
-function SqlGetStockTransactionByGroupId($strGroupId, $iStart, $iNum)
+function SqlGetStockGroupItemSymbolArray($sql)
 {
-	$sql = new StockGroupItemSql($strGroupId);
-	if ($ar = $sql->GetTableIdArray())
-	{
-		return SqlGetStockTransactionByGroupItemIdArray($ar, $iStart, $iNum);
-	}
-	return false;
-}
-
-function SqlGetStockGroupItemSymbolArray($strGroupId)
-{
-	if ($result = SqlGetStockGroupItemByGroupId($strGroupId))
-	{
-	    $ar = array();
-		while ($stockgroupitem = mysql_fetch_assoc($result)) 
-		{
-    		$ar[$stockgroupitem['id']] = SqlGetStockSymbol($stockgroupitem['stock_id']);
-		}
-		@mysql_free_result($result);
+    if ($arStockId = $sql->GetStockIdArray())
+    {
+    	$ar = array();
+    	foreach ($arStockId as $str => $strStockId)
+    	{
+    		$ar[$str] = SqlGetStockSymbol($strStockId);
+    	}
 		asort($ar);
-        return $ar;
-	}
-	return false;
+    	return $ar;
+    }
+    return false;
 }
 
-function SqlGetStockGroupPrefetchSymbolArray($strGroupId)
-{
-    $arSymbol = array();
-    if ($result = SqlGetStockGroupItemByGroupId($strGroupId))
-	{
-        while ($stockgroupitem = mysql_fetch_assoc($result)) 
-		{
-		    if (intval($stockgroupitem['record']) > 0)
-		    {
-		        $arSymbol[] = SqlGetStockSymbol($stockgroupitem['stock_id']);
-		    }        
-		}
-		@mysql_free_result($result);
-	}
-	return $arSymbol;
-}
-
-function SqlGetStockGroupArray($sql)
-{
-	if ($result = $sql->GetAll())
-	{
-	    $ar = array();
-		while ($stockgroupitem = mysql_fetch_assoc($result)) 
-		{
-		    $strStockId = $stockgroupitem['stock_id'];
-		    if ($strSymbol = SqlGetStockSymbol($strStockId))
-		    {
-		    	$ar[$strStockId] = $strSymbol;
-		    }
-		}
-		@mysql_free_result($result);
-		asort($ar);
-		return $ar;
-	}
-	return false;
-}
-
-function SqlGetStocksArray($strGroupId)
+function SqlGetStocksArray($strGroupId, $bCheckTransaction = false)
 {
     $ar = array();
 	$sql = new StockGroupItemSql($strGroupId);
-    $arStockIdName = SqlGetStockGroupArray($sql);
-    foreach ($arStockIdName as $strId => $strSymbol)
+    if ($arStockId = $sql->GetStockIdArray($bCheckTransaction))
     {
-        $ar[] = $strSymbol;
+    	foreach ($arStockId as $str => $strStockId)
+    	{
+    		$ar[] = SqlGetStockSymbol($strStockId);
+    	}
     }
     return $ar;
 }
 
+function SqlGroupHasStock($strGroupId, $strStockId, $bCheckTransaction = false)
+{
+	$sql = new StockGroupItemSql($strGroupId);
+    if ($arStockId = $sql->GetStockIdArray($bCheckTransaction))
+    {
+    	return array_search($strStockId, $arStockId);
+    }
+    return false;
+}
+
 function SqlDeleteStockGroupByMemberId($strMemberId)
 {
-	if ($result = SqlGetStockGroupByMemberId($strMemberId)) 
+	$sql = new StockGroupSql($strMemberId);
+	if ($result = $sql->GetAll()) 
 	{
 		while ($stockgroup = mysql_fetch_assoc($result)) 
 		{
-		    SqlDeleteStockGroup($stockgroup['id']);
+		    SqlDeleteStockGroupItemByGroupId($stockgroup['id']);
 		}
 		@mysql_free_result($result);
 	}
+	$sql->DeleteAll();
 }
 
 function SqlDeleteStockGroupItemByGroupId($strGroupId)
@@ -299,12 +278,6 @@ function SqlDeleteStockGroupItemByGroupId($strGroupId)
 		@mysql_free_result($result);
 		$sql->DeleteAll();
 	}
-}
-
-function SqlDeleteStockGroup($strGroupId)
-{
-    SqlDeleteStockGroupItemByGroupId($strGroupId);
-    SqlDeleteTableDataById(TABLE_STOCK_GROUP, $strGroupId);
 }
 
 function SqlDeleteStockGroupByGroupName($strGroupName)
@@ -329,18 +302,26 @@ function SqlDeleteStockGroupByGroupName($strGroupName)
 function SqlUpdateStockGroup($strGroupId, $arNew)
 {
 	$sql = new StockGroupItemSql($strGroupId);
-    $arOld = SqlGetStockGroupArray($sql);
-    foreach ($arNew as $strStockId => $strSymbol)
+    $arOld = array();
+    if ($arStockId = $sql->GetStockIdArray())
+    {
+    	foreach ($arStockId as $str => $strStockId)
+    	{
+    		$arOld[] = $strStockId;
+    	}
+    }
+    
+    foreach ($arNew as $strStockId)
 	{
-	    if (array_key_exists($strStockId, $arOld) == false)
+	    if (in_array($strStockId, $arOld) == false)
 	    {
 	    	$sql->Insert($strStockId);
 	    }
 	}
 	
-    foreach ($arOld as $strStockId => $strSymbol)
+    foreach ($arOld as $strStockId)
 	{
-	    if (array_key_exists($strStockId, $arNew) == false)
+	    if (in_array($strStockId, $arNew) == false)
 	    {
             $strId = $sql->GetTableId($strStockId);
             $sql->DeleteStockTransaction($strId);

@@ -129,7 +129,8 @@ function StockGetSingleTransactionLink($strGroupId, $strSymbol, $bChinese)
 function StockGetGroupTransactionLinks($strGroupId, $strCurSymbol, $bChinese)
 {
     $str = '';
-    $arGroupItemSymbol = SqlGetStockGroupItemSymbolArray($strGroupId);
+	$sql = new StockGroupItemSql($strGroupId);
+    $arGroupItemSymbol = SqlGetStockGroupItemSymbolArray($sql);
     foreach ($arGroupItemSymbol as $strGroupItemId => $strSymbol)
     {
         if ($strSymbol == $strCurSymbol)

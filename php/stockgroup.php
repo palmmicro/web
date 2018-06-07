@@ -189,9 +189,10 @@ class MyStockGroup extends StockGroup
     function OnArbitrage()
     {
         $strGroupId = $this->strGroupId;
-        if ($result = SqlGetStockTransactionByGroupId($strGroupId, 0, 0)) 
+		$sql = new StockGroupItemSql($strGroupId);
+        if ($result = $sql->GetAllStockTransaction()) 
         {   
-            $arGroupItemSymbol = SqlGetStockGroupItemSymbolArray($strGroupId);
+            $arGroupItemSymbol = SqlGetStockGroupItemSymbolArray($sql);
             while ($transaction = mysql_fetch_assoc($result)) 
             {
                 $strSymbol = $arGroupItemSymbol[$transaction['groupitem_id']];
@@ -213,7 +214,8 @@ class MyStockGroup extends StockGroup
         }
         parent::StockGroup();
         
-        if ($result = SqlGetStockGroupItemByGroupId($strGroupId)) 
+        $sql = new StockGroupItemSql($strGroupId);
+        if ($result = $sql->GetAll()) 
         {   
             while ($groupitem = mysql_fetch_assoc($result)) 
             {

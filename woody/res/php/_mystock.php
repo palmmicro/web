@@ -13,10 +13,10 @@ require_once('/php/ui/fundhistoryparagraph.php');
 require_once('/php/ui/tradingparagraph.php');
 //require_once('/php/ui/stockgroupparagraph.php');
 require_once('/php/ui/transactionparagraph.php');
-
+/*
 function _checkStockTransaction($strGroupId, $strStockId)
 {
-	if ($stockgroupitem = StockGroupHasSymbol($strGroupId, $strStockId))
+	if ($stockgroupitem = SqlGroupHasStock($strGroupId, $strStockId))
 	{
 		if (intval($stockgroupitem['record']) > 0)
 		{
@@ -25,17 +25,19 @@ function _checkStockTransaction($strGroupId, $strStockId)
 	}
 	return false;
 }
-
+*/
 function _echoMyStockTransactions($strMemberId, $ref, $bChinese)
 {
     $arGroup = array();
     $strStockId = $ref->GetStockId();
-	if ($result = SqlGetStockGroupByMemberId($strMemberId)) 
+	$sql = new StockGroupSql($strMemberId);
+	if ($result = $sql->GetAll()) 
 	{
 		while ($stockgroup = mysql_fetch_assoc($result)) 
 		{
 		    $strGroupId = $stockgroup['id'];
-		    if ($strGroupItemId = _checkStockTransaction($strGroupId, $strStockId))
+//		    if ($strGroupItemId = _checkStockTransaction($strGroupId, $strStockId))
+		    if ($strGroupItemId = SqlGroupHasStock($strGroupId, $strStockId, true))
 		    {
 		        $arGroup[$strGroupId] = $strGroupItemId;
 		    }

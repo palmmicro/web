@@ -14,11 +14,11 @@ class _MyPortfolio extends StockGroup
     }
 }
 
-function _echoPortfolioTable($portfolio, $strMemberId, $bChinese)
+function _echoPortfolioTable($portfolio, $sql, $bChinese)
 {
     $arRef = array();
     _EchoPortfolioTableBegin($bChinese);    
-	if ($result = SqlGetStockGroupByMemberId($strMemberId)) 
+	if ($result = $sql->GetAll()) 
 	{
 		while ($stockgroup = mysql_fetch_assoc($result)) 
 		{
@@ -64,14 +64,14 @@ function _echoMoneyTable($portfolio, $bChinese)
     EchoTableEnd();
 }
 
-function _onPrefetch($strMemberId) 
+function _onPrefetch($sql) 
 {
-	if ($result = SqlGetStockGroupByMemberId($strMemberId)) 
+	if ($result = $sql->GetAll()) 
 	{
 	    $arSymbol = array();
 		while ($stockgroup = mysql_fetch_assoc($result)) 
 		{
-		    $arSymbol = array_merge($arSymbol, SqlGetStockGroupPrefetchSymbolArray($stockgroup['id']));
+		    $arSymbol = array_merge($arSymbol, SqlGetStocksArray($stockgroup['id'], true));
 		}
 		@mysql_free_result($result);
 	}
@@ -80,12 +80,12 @@ function _onPrefetch($strMemberId)
 
 function EchoMyFortfolio($bChinese)
 {
-    $strMemberId = AcctGetMemberId();
-    _onPrefetch($strMemberId);
+	$sql = new StockGroupSql(AcctGetMemberId());
+    _onPrefetch($sql);
 
     $portfolio = new _MyPortfolio();
     EchoParagraphBegin($bChinese ? '个股盈亏' : 'Stock performance');
-    _echoPortfolioTable($portfolio, $strMemberId, $bChinese);
+    _echoPortfolioTable($portfolio, $sql, $bChinese);
     EchoParagraphEnd();
     
     EchoParagraphBegin();

@@ -31,7 +31,7 @@ END;
 
 function _echoSingleTransactionTableData($sql, $ref, $iStart, $iNum, $bReadOnly, $bChinese)
 {
-	if ($result = SqlGetStockTransaction($sql, $ref->GetStockId(), $iStart, $iNum)) 
+	if ($result = $sql->GetStockTransaction($ref->GetStockId(), $iStart, $iNum)) 
     {
         while ($transaction = mysql_fetch_assoc($result)) 
         {
@@ -41,10 +41,10 @@ function _echoSingleTransactionTableData($sql, $ref, $iStart, $iNum, $bReadOnly,
     }
 }
 
-function _echoAllTransactionTableData($strGroupId, $iStart, $iNum, $bReadOnly, $bChinese)
+function _echoAllTransactionTableData($sql, $iStart, $iNum, $bReadOnly, $bChinese)
 {
     $ar = array();
-    if ($result = SqlGetStockTransactionByGroupId($strGroupId, $iStart, $iNum)) 
+    if ($result = $sql->GetAllStockTransaction($iStart, $iNum)) 
     {
         while ($transaction = mysql_fetch_assoc($result)) 
         {
@@ -55,7 +55,7 @@ function _echoAllTransactionTableData($strGroupId, $iStart, $iNum, $bReadOnly, $
         	}
         	else
         	{
-        		$groupitem = SqlGetStockGroupItemById($strGroupItemId);
+        		$groupitem = $sql->GetDataById($strGroupItemId);
         		$strSymbol = SqlGetStockSymbol($groupitem['stock_id']);
         		$ref = new MyStockReference($strSymbol);
         		$ar[$strGroupItemId] = $ref;
@@ -66,16 +66,15 @@ function _echoAllTransactionTableData($strGroupId, $iStart, $iNum, $bReadOnly, $
     }
 }
 
-function _echoTransactionTableData($sql, $strGroupId, $ref, $iStart, $iNum, $bChinese)
+function _echoTransactionTableData($sql, $ref, $iStart, $iNum, $bReadOnly, $bChinese)
 {
-    $bReadOnly = StockGroupIsReadOnly($strGroupId);
     if ($ref)
     {
     	_echoSingleTransactionTableData($sql, $ref, $iStart, $iNum, $bReadOnly, $bChinese);
     }
     else
     {
-    	_echoAllTransactionTableData($strGroupId, $iStart, $iNum, $bReadOnly, $bChinese);
+    	_echoAllTransactionTableData($sql, $iStart, $iNum, $bReadOnly, $bChinese);
     }
 }
 
@@ -127,7 +126,7 @@ function EchoTransactionParagraph($strGroupId, $bChinese, $ref = false, $iStart 
     </tr>
 END;
 
-    _echoTransactionTableData($sql, $strGroupId, $ref, $iStart, $iNum, $bChinese);
+    _echoTransactionTableData($sql, $ref, $iStart, $iNum, StockGroupIsReadOnly($strGroupId), $bChinese);
     EchoTableParagraphEnd($strNavLink);
 }
 

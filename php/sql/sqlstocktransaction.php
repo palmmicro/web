@@ -7,6 +7,34 @@ class StockTransactionSql extends TableSql
     {
         parent::TableSql(TABLE_STOCK_TRANSACTION);
     }
+    
+    function BuildWhereOr_groupitem($arGroupItemId)
+    {
+    	return _SqlBuildWhereOrArray('groupitem_id', $arGroupItemId);
+    }
+    
+    function GetAll($arGroupItemId, $iStart = 0, $iNum = 0)
+    {
+    	if ($strWhere = $this->BuildWhereOr_groupitem($arGroupItemId))
+    	{
+    		return $this->GetData($strWhere, '`filled` DESC', _SqlBuildLimit($iStart, $iNum));
+    	}
+    	return false;
+    }
+
+    function Get($strGroupItemId, $iStart = 0, $iNum = 0)
+    {
+    	return $this->GetAll(array($strGroupItemId), $iStart, $iNum);
+    }
+    
+    function CountAll($arGroupItemId)
+    {
+    	if ($strWhere = $this->BuildWhereOr_groupitem($arGroupItemId))
+    	{
+    		return $this->Count($strWhere);
+    	}
+    	return 0;
+    }
 }
 
 // ****************************** Stock Transaction table *******************************************************
@@ -51,17 +79,7 @@ function SqlGetStockTransactionById($strTransactionId)
     return SqlGetTableDataById('stocktransaction', $strTransactionId);
 }
 
-function SqlGetStockTransactionByGroupItemIdArray($arGroupItemId, $iStart, $iNum)
-{
-    return SqlGetTableData('stocktransaction', _SqlBuildWhereOrArray('groupitem_id', $arGroupItemId), '`filled` DESC', _SqlBuildLimit($iStart, $iNum));
-}
-
 // ****************************** Stock Transaction functions *******************************************************
-function SqlGetStockTransactionByGroupItemId($strId, $iStart, $iNum)
-{
-	return SqlGetStockTransactionByGroupItemIdArray(array($strId), $iStart, $iNum);
-}
-
 function GetSqlTransactionDate($transaction)
 {
     return strstr($transaction['filled'], ' ', true);

@@ -7,22 +7,6 @@ function StockGroupIsReadOnly($strGroupId)
     return AcctIsReadOnly($strMemberId);
 }
 
-function StockGroupHasSymbol($strGroupId, $strStockId)
-{
-    if ($result = SqlGetStockGroupItemByGroupId($strGroupId))
-	{
-        while ($stockgroupitem = mysql_fetch_assoc($result)) 
-		{
-		    if ($stockgroupitem['stock_id'] == $strStockId)
-		    {
-		    	return $stockgroupitem;
-		    }        
-		}
-		@mysql_free_result($result);
-	}
-	return false;
-}
-
 function _stockGroupGetStockLinks($strGroupId, $bChinese)
 {
     $strStocks = '';
@@ -68,17 +52,17 @@ function _echoStockGroupTableData($bChinese)
     }
 
     if ($strSymbol = UrlGetQueryValue('symbol'))
-    {
+    {	// in mystock page
     	$strStockId = SqlGetStockId($strSymbol);
     }
     
-    $strMemberId = AcctGetMemberId();
-	if ($result = SqlGetStockGroupByMemberId($strMemberId)) 
+	$sql = new StockGroupSql(AcctGetMemberId());
+	if ($result = $sql->GetAll()) 
 	{
 		while ($stockgroup = mysql_fetch_assoc($result)) 
 		{
 			$strGroupId = $stockgroup['id'];
-			if (($strSymbol == false) || StockGroupHasSymbol($strGroupId, $strStockId))
+			if (($strSymbol == false) || SqlGroupHasStock($strGroupId, $strStockId))
 			{
 				_echoStockGroupTableItem($strGroupId, $bChinese);
 			}

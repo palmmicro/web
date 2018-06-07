@@ -2,7 +2,9 @@
 
 function EditGetStockGroupItemList($strGroupId, $strCurGroupItemId)
 {
-    if (($arGroupItemSymbol = SqlGetStockGroupItemSymbolArray($strGroupId)) == false)   return '';
+	$sql = new StockGroupItemSql($strGroupId);
+    $arGroupItemSymbol = SqlGetStockGroupItemSymbolArray($sql);
+    if ($arGroupItemSymbol == false)   return '';
     
     $strSymbolsList = '';
     foreach ($arGroupItemSymbol as $strGroupItemId => $strSymbol)

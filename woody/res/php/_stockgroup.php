@@ -22,8 +22,7 @@ class _StockGroup extends MyStockGroup
             {
                 if ($ref->sym->IsTradable())
                 {
-                	$strStockId = $ref->GetStockId();
-                	$arNew[$strStockId] = $ref->GetStockSymbol();
+                	$arNew[] = $ref->GetStockId();
                 }
             }      
             SqlUpdateStockGroup($strGroupId, $arNew);

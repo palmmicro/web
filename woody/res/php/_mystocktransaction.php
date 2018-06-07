@@ -18,7 +18,7 @@ function MyStockTransactionEchoAll($bChinese)
         }
         else
         {   // Display transactions of the whole group
-            $arSymbol = SqlGetStockGroupPrefetchSymbolArray($strGroupId);
+            $arSymbol = SqlGetStocksArray($strGroupId, true);
             StockPrefetchData($arSymbol);
             
             $strCombineLink = GetPhpLink(STOCK_PATH.'combinetransaction', $bChinese, '合并记录', 'Combined Records', 'groupid='.$strGroupId);

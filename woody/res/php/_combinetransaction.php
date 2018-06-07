@@ -64,7 +64,8 @@ function _getFundClass($group)
 
 function _echoCombinedTransactionTableData($group, $iMax, $bChinese)
 {
-    if ($result = SqlGetStockTransactionByGroupId($group->strGroupId, 0, $iMax)) 
+	$sql = new StockGroupItemSql($group->strGroupId);
+    if ($result = $sql->GetAllStockTransaction(0, $iMax)) 
     {
         $fund = _getFundClass($group); 
         $trans = new StockTransaction();

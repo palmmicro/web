@@ -363,7 +363,7 @@ class _LofReference extends FundReference
                 $fEst = SqlGetFundNetValueByDate($this->est_ref->GetStockId(), $strDate);
                 if ($fEst == false)
                 {
-                	DebugString($strDate.' '.$this->est_ref->GetStockSymbol().' ETF net value not found, use close price.');
+                	// DebugString($strDate.' '.$this->est_ref->GetStockSymbol().' ETF net value not found, use close price.');
                 	$ymd = new StringYMD($strDate);
                 	$est_ymd = new StringYMD($est_ref->strDate);
                 	if ($strDate == $est_ref->strDate)	                   				$fEst = $est_ref->fPrice;

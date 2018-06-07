@@ -49,13 +49,16 @@ class MyStockTransaction extends StockTransaction
     var $ref;                       // MyStockReference
     var $strStockGroupItemId;
     
-    // constructor 
-    function MyStockTransaction($ref, $strStockGroupId) 
+    function MyStockTransaction($ref, $strGroupId) 
     {
         $this->ref = $ref;
-        if ($strStockGroupId)
+        if ($strGroupId)
         {
-            if ($ref)   $this->strStockGroupItemId = SqlGetStockGroupItemId($strStockGroupId, $ref->GetStockId());
+            if ($ref)
+            {
+            	$sql = new StockGroupItemSql($strGroupId);
+            	$this->strStockGroupItemId = $sql->GetTableId($ref->GetStockId());
+            }
         }
         parent::StockTransaction();
     }

@@ -1,16 +1,5 @@
 <?php
 
-function _SqlFetchIdArray($result)
-{
-    $arId = array();
-    while ($record = mysql_fetch_assoc($result)) 
-    {
-        $arId[] = $record['id'];
-    }
-    @mysql_free_result($result);
-    return $arId;
-}
-
 function _SqlBuildWhere($strKey, $strVal)
 {
     if ($strVal)  
