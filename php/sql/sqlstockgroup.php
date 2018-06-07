@@ -79,12 +79,12 @@ function SqlGetStockGroupByMemberId($strMemberId)
 // ****************************** StockGroupItemSql class *******************************************************
 class StockGroupItemSql extends StockGroupTableSql
 {
-	var $trans_sql;	// TableSql
+	var $trans_sql;	// StockTransactionSql
 	
     function StockGroupItemSql($strStockGroupId) 
     {
         parent::StockGroupTableSql($strStockGroupId, TABLE_STOCK_GROUP_ITEM);
-        $this->trans_sql = new TableSql(TABLE_STOCK_TRANSACTION);
+        $this->trans_sql = new StockTransactionSql();
     }
 
     function Get($strStockId)
@@ -177,6 +177,15 @@ function SqlGetStockGroupItemId($strGroupId, $strStockId)
 {
 	$sql = new StockGroupItemSql($strGroupId);
 	return $sql->GetTableId($strStockId);
+}
+
+function SqlGetStockTransaction($sql, $strStockId, $iStart, $iNum)
+{
+    if ($strId = $sql->GetTableId($strStockId))
+    {
+        return SqlGetStockTransactionByGroupItemId($strId, $iStart, $iNum);
+    }
+	return false;
 }
 
 function SqlGetStockGroupItemById($strGroupItemId)

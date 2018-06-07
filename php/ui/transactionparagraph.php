@@ -29,9 +29,9 @@ function _echoTransactionTableItem($ref, $transaction, $bReadOnly, $bChinese)
 END;
 }
 
-function _echoSingleTransactionTableData($strGroupId, $ref, $iStart, $iNum, $bReadOnly, $bChinese)
+function _echoSingleTransactionTableData($sql, $ref, $iStart, $iNum, $bReadOnly, $bChinese)
 {
-	if ($result = SqlGetStockTransaction($strGroupId, $ref->GetStockId(), $iStart, $iNum)) 
+	if ($result = SqlGetStockTransaction($sql, $ref->GetStockId(), $iStart, $iNum)) 
     {
         while ($transaction = mysql_fetch_assoc($result)) 
         {
@@ -66,12 +66,12 @@ function _echoAllTransactionTableData($strGroupId, $iStart, $iNum, $bReadOnly, $
     }
 }
 
-function _echoTransactionTableData($strGroupId, $ref, $iStart, $iNum, $bChinese)
+function _echoTransactionTableData($sql, $strGroupId, $ref, $iStart, $iNum, $bChinese)
 {
     $bReadOnly = StockGroupIsReadOnly($strGroupId);
     if ($ref)
     {
-    	_echoSingleTransactionTableData($strGroupId, $ref, $iStart, $iNum, $bReadOnly, $bChinese);
+    	_echoSingleTransactionTableData($sql, $ref, $iStart, $iNum, $bReadOnly, $bChinese);
     }
     else
     {
@@ -127,7 +127,7 @@ function EchoTransactionParagraph($strGroupId, $bChinese, $ref = false, $iStart 
     </tr>
 END;
 
-    _echoTransactionTableData($strGroupId, $ref, $iStart, $iNum, $bChinese);
+    _echoTransactionTableData($sql, $strGroupId, $ref, $iStart, $iNum, $bChinese);
     EchoTableParagraphEnd($strNavLink);
 }
 

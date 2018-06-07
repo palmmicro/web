@@ -1,5 +1,14 @@
 <?php
 
+// ****************************** StockTransactionSql class *******************************************************
+class StockTransactionSql extends TableSql
+{
+    function StockTransactionSql() 
+    {
+        parent::TableSql(TABLE_STOCK_TRANSACTION);
+    }
+}
+
 // ****************************** Stock Transaction table *******************************************************
 /*
 function SqlCreateStockTransactionTable()
@@ -51,15 +60,6 @@ function SqlGetStockTransactionByGroupItemIdArray($arGroupItemId, $iStart, $iNum
 function SqlGetStockTransactionByGroupItemId($strId, $iStart, $iNum)
 {
 	return SqlGetStockTransactionByGroupItemIdArray(array($strId), $iStart, $iNum);
-}
-
-function SqlGetStockTransaction($strGroupId, $strStockId, $iStart, $iNum)
-{
-    if ($strId = SqlGetStockGroupItemId($strGroupId, $strStockId))
-    {
-        return SqlGetStockTransactionByGroupItemId($strId, $iStart, $iNum);
-    }
-	return false;
 }
 
 function GetSqlTransactionDate($transaction)
