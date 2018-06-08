@@ -95,12 +95,9 @@ function SqlDropTable($strTableName)
 	SqlDieByQuery($str, $strTableName.' Drop table failed');
 }
 
-function SqlGetTableData($strTableName, $strWhere = false, $strOrderBy = false, $strLimit = false)
+function SqlGetTableData($strTableName, $strWhere = false, $strOrder = false, $strLimit = false)
 {
-	$strQry = 'SELECT * FROM '.$strTableName;
-	if ($strWhere)       $strQry .= ' WHERE '.$strWhere; 
-	if ($strOrderBy)    $strQry .= ' ORDER BY '.$strOrderBy; 
-	if ($strLimit)       $strQry .= ' LIMIT '.$strLimit; 
+	$strQry = 'SELECT * FROM '.$strTableName._SqlAddWhere($strWhere)._SqlAddOrder($strOrder)._SqlAddLimit($strLimit);
 	if ($result = mysql_query($strQry))
 	{
 	    if (mysql_num_rows($result) > 0) 
@@ -115,12 +112,9 @@ function SqlGetTableData($strTableName, $strWhere = false, $strOrderBy = false, 
 	return false;
 }
 
-function SqlGetSingleTableData($strTableName, $strWhere = false, $strOrderBy = false)
+function SqlGetSingleTableData($strTableName, $strWhere = false, $strOrder = false)
 {
-	$strQry = 'SELECT * FROM '.$strTableName;
-	if ($strWhere)       $strQry .= ' WHERE '.$strWhere; 
-	if ($strOrderBy)    $strQry .= ' ORDER BY '.$strOrderBy; 
-	$strQry .= ' LIMIT 1'; 
+	$strQry = 'SELECT * FROM '.$strTableName._SqlAddWhere($strWhere)._SqlAddOrder($strOrder)._SqlAddLimit('1');
 	return SqlQuerySingleRecord($strQry, $strTableName.' query table data by '.$strWhere.' failed');
 }
 
@@ -137,8 +131,7 @@ function SqlDeleteTableData($strTableName, $strWhere, $strLimit = false)
 {
     if ($strWhere)
     {
-        $strQry = "DELETE FROM $strTableName WHERE $strWhere";
-        if ($strLimit)  $strQry .= ' LIMIT '.$strLimit; 
+        $strQry = 'DELETE FROM '.$strTableName._SqlAddWhere($strWhere)._SqlAddLimit($strLimit);
         return SqlDieByQuery($strQry, $strTableName.' delete table data by '.$strQry.' failed');
     }
     return false;
@@ -151,8 +144,7 @@ function SqlDeleteTableDataById($strTableName, $strId)
 
 function SqlCountTableDataString($strTableName, $strWhere = false)
 {
-	$strQry = "SELECT count(*) as total FROM $strTableName";
-	if ($strWhere)    $strQry .= ' WHERE '.$strWhere; 
+	$strQry = "SELECT count(*) as total FROM $strTableName"._SqlAddWhere($strWhere);
 	$result = mysql_query($strQry);
 	$record = mysql_fetch_array($result);
 	return $record['total'];

@@ -135,7 +135,6 @@ END;
     EchoTableEnd();
 }
 
-
 function GetTimeDisplay()
 {
     date_default_timezone_set(STOCK_TIME_ZONE_CN);
@@ -154,7 +153,7 @@ function GetTimeDisplay()
 	</script>
 END;
 
-	return '<span id="time">'.$ymd->GetHMS().'</span>';
+	return '<span id="time"></span>';
 }
 
 function EchoReferenceParagraph($arRef, $bChinese)

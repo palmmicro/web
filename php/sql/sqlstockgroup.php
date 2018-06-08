@@ -33,7 +33,7 @@ class StockGroupSql extends MemberTableSql
     
     function Update($strId, $strGroupName)
     {
-		return TableSql::Update("groupname = '$strGroupName' WHERE "._SqlBuildWhere_id($strId));
+		return $this->UpdateById("groupname = '$strGroupName'", $strId);
     }
 }
 

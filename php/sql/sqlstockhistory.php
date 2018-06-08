@@ -17,7 +17,7 @@ class StockHistorySql extends DailyStockSql
     
     function Update($strId, $strOpen, $strHigh, $strLow, $strClose, $strVolume, $strAdjClose)
     {
-		return TableSql::Update("open = '$strOpen', high = '$strHigh', low = '$strLow', close = '$strClose', volume = '$strVolume', adjclose = '$strAdjClose' WHERE "._SqlBuildWhere_id($strId));
+		return $this->UpdateById("open = '$strOpen', high = '$strHigh', low = '$strLow', close = '$strClose', volume = '$strVolume', adjclose = '$strAdjClose'", $strId);
     }
 
     function Merge($strDate, $strOpen, $strHigh, $strLow, $strClose, $strVolume, $strAdjClose)
@@ -34,7 +34,7 @@ class StockHistorySql extends DailyStockSql
     
     function UpdateAdjClose($strId, $strAdjClose)
     {
-		return TableSql::Update("adjclose = '$strAdjClose' WHERE "._SqlBuildWhere_id($strId));
+		return $this->UpdateById("adjclose = '$strAdjClose'", $strId);
     }
 
     function DeleteByZeroVolume()

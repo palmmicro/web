@@ -95,4 +95,28 @@ function _SqlOrderByDate()
     return '`date` DESC';
 }
 
+function _sqlAddClause($strClause, $strParameter)
+{
+	if ($strParameter)
+	{
+		return " $strClause $strParameter";
+	}
+	return '';
+}
+
+function _SqlAddWhere($strWhere)
+{
+	return _sqlAddClause('WHERE', $strWhere);
+}
+
+function _SqlAddOrder($strOrder)
+{
+	return _sqlAddClause('ORDER BY', $strOrder);
+}
+
+function _SqlAddLimit($strLimit)
+{
+	return _sqlAddClause('LIMIT', $strLimit);
+}
+
 ?>

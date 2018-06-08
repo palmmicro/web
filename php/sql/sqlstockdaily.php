@@ -119,7 +119,7 @@ class DailyStockSql extends StockTableSql
 
     function Update($strDate, $strClose)
     {
-    	return TableSql::Update("close = '$strClose' WHERE ".$this->BuildWhere_stock_date($strDate));
+    	return $this->UpdateData("close = '$strClose'", $this->BuildWhere_stock_date($strDate), '1');
     }
 
     function Write($strDate, $strClose)

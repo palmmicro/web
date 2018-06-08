@@ -13,6 +13,11 @@ class FundHistorySql extends DailyStockSql
         parent::DailyStockSql($strStockId, TABLE_FUND_HISTORY);
         $this->stock_sql = new StockHistorySql($strStockId);
     }
+
+    function Update($strId, $strNetValue, $strEstimated, $strTime)
+    {
+		return $this->UpdateById("close = '$strNetValue', estimated = '$strEstimated', time = '$strTime'", $strId);
+	}
 }
 
 // ****************************** Fund History tables *******************************************************
@@ -37,7 +42,6 @@ function SqlGetFundHistoryNow($strStockId)
 {
 	$sql = new FundHistorySql($strStockId);
 	return $sql->GetNow();
-//	return SqlGetSingleTableData(TABLE_FUND_HISTORY, _SqlBuildWhere_stock($strStockId), _SqlOrderByDate());
 }
 
 function SqlGetFundHistoryByDate($strStockId, $strDate)
@@ -50,11 +54,6 @@ function SqlGetFundNetValueByDate($strStockId, $strDate)
 {
 	$sql = new FundHistorySql($strStockId);
 	return $sql->GetClose($strDate);
-/*	if ($str = SqlGetNetValueByDate($strStockId, $strDate))
-	{
-		return floatval($str);
-	}
-	return false;*/
 }
 
 function SqlInsertFundHistory($strStockId, $strDate, $strNetValue, $strEstimated, $strTime)
@@ -65,8 +64,10 @@ function SqlInsertFundHistory($strStockId, $strDate, $strNetValue, $strEstimated
 
 function SqlUpdateFundHistory($strId, $strNetValue, $strEstimated, $strTime)
 {
-	$strQry = "UPDATE fundhistory SET close = '$strNetValue', estimated = '$strEstimated', time = '$strTime' WHERE id = '$strId' LIMIT 1";
-	return SqlDieByQuery($strQry, 'Update fundhistory table failed');
+	$sql = new FundHistorySql($strStockId);
+	return $sql->Update($strId, $strNetValue, $strEstimated, $strTime);
+//	$strQry = "UPDATE fundhistory SET close = '$strNetValue', estimated = '$strEstimated', time = '$strTime' WHERE id = '$strId' LIMIT 1";
+//	return SqlDieByQuery($strQry, 'Update fundhistory table failed');
 }
 
 ?>

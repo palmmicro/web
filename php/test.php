@@ -11,6 +11,7 @@ require_once('sql/_sqltest.php');
 //require_once('gb2312/gb2312_tools.php');
 //require_once('test/chinastocklist.php');
 
+// http://www.todayir.com/en/index.php HSFML25
 /*
 function TestGoogleHistory()
 {

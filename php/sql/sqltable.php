@@ -23,11 +23,16 @@ class TableSql
 	    return SqlDieByQuery($strQuery, $strTableName.' insert data failed');
     }
     
-    function Update($str)
+    function UpdateData($str, $strWhere, $strLimit = false)
     {
     	$strTableName = $this->strName;
-    	$strQuery = "UPDATE $strTableName SET $str LIMIT 1";
+    	$strQuery = "UPDATE $strTableName SET $str"._SqlAddWhere($strWhere)._SqlAddLimit($strLimit);
     	return SqlDieByQuery($strQuery, $strTableName.' update data failed');
+    }
+    
+    function UpdateById($str, $strId)
+    {
+    	return $this->UpdateData($str, _SqlBuildWhere_id($strId), '1');
     }
     
     function Count($strWhere = false)

@@ -50,7 +50,7 @@ class PairStockSql extends StockTableSql
 
     function Update($strId, $strPairId, $strRatio)
     {
-		return TableSql::Update("pair_id = '$strPairId', ratio = '$strRatio' WHERE "._SqlBuildWhere_id($strId));
+		return $this->UpdateById("pair_id = '$strPairId', ratio = '$strRatio'", $strId);
 	}
 }
 
