@@ -12,7 +12,7 @@
 
 <div>
 <h1><?php EchoTitle(true); ?></h1>
-<p><b>注意<?php EchoEtfSymbol(); ?>其实只是<?php EchoShortName(); ?>可能跟踪的标的之一, 此处估算结果仅供参考.</b></p>
+<p><b>注意<?php EchoEstSymbol(); ?>其实只是<?php EchoShortName(); ?>可能跟踪的标的之一, 此处估算结果仅供参考.</b></p>
 <?php EchoAll(true); ?>
 <p>相关软件:
 <?php

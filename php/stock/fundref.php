@@ -36,10 +36,8 @@ class FundReference extends MysqlReference
     // original data
 //    var $strPrevNetValue;      // Most recent net value orginal data is in StockReference::$strPrevPrice 
 
-    var $est_ref = false;       // MyStockRefenrence for fund net value estimation
     var $stock_ref = false;     // MyStockReference
-    var $index_ref = false;
-    var $etf_ref = false;
+    var $est_ref = false;       // MyStockRefenrence for fund net value estimation
     var $future_ref = false;
     var $future_etf_ref = false;
 

@@ -119,7 +119,7 @@ used in <font color=olive>_LofGroup</font> class in file <?php EchoPhpFileLink('
 </p>
 <ol>
   <li>Add the new LOF code in function <i>LofGetSymbolArray</i>, for tools navigation link.</li>
-  <li>Add LOF related ETF symbol and index symbol in function <i>LofGetEtfSymbol</i> and <i>LofGetIndexSymbol</i>.</li>
+  <li>Add LOF estimation related symbol in function <i>LofGetEstSymbol</i>.</li>
 </ol>
 
 <h3>Sina Realtime US Stock Data</h3>

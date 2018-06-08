@@ -12,7 +12,7 @@
 
 <div>
 <h1><?php EchoTitle(true); ?></h1>
-<p><b>注意<?php EchoEtfSymbol(); ?>和<?php EchoShortName(); ?>跟踪的指数其实不同, 只是成分相似, 此处估算结果仅供参考.</b></p>
+<p><b>注意<?php EchoEstSymbol(); ?>和<?php EchoShortName(); ?>跟踪的指数其实不同, 只是成分相似, 此处估算结果仅供参考.</b></p>
 <?php EchoAll(true); ?>
 <p><font color=red>已知问题:</font>
 </p>

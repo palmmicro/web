@@ -12,27 +12,19 @@ class _LofGroup extends _StockGroup
     // constructor 
     function _LofGroup() 
     {
-        $etf_ref = $this->ref->etf_ref; 
-        if ($etf_ref)
-        {
-            parent::_StockGroup(array($this->ref->stock_ref, $etf_ref));
-        }
-        else
-        {
-            parent::_StockGroup(array($this->ref->stock_ref));
-        }
+        parent::_StockGroup(array($this->ref->stock_ref, $this->ref->est_ref));
     } 
     
     function ConvertToEtfTransaction($etf_convert_trans, $lof_trans)
     {
         $fund = $this->ref;
-        $etf_convert_trans->AddTransaction($fund->EstEtfQuantity($lof_trans->iTotalShares), $lof_trans->fTotalCost / $fund->fCNY);
+        $etf_convert_trans->AddTransaction($fund->GetEstQuantity($lof_trans->iTotalShares), $lof_trans->fTotalCost / $fund->fCNY);
     }
     
     function ConvertToLofTransaction($lof_convert_trans, $etf_trans)
     {
         $fund = $this->ref;
-        $lof_convert_trans->AddTransaction($fund->EstLofQuantity($etf_trans->iTotalShares), $etf_trans->fTotalCost * $fund->fCNY);
+        $lof_convert_trans->AddTransaction($fund->GetLofQuantity($etf_trans->iTotalShares), $etf_trans->fTotalCost * $fund->fCNY);
     }
     
     function EchoArbitrageParagraph($bChinese)
@@ -45,7 +37,7 @@ class _LofGroup extends _StockGroup
         $lof_convert_trans->AddTransaction($lof_trans->iTotalShares, $lof_trans->fTotalCost);
         $this->ConvertToLofTransaction($lof_convert_trans, $etf_trans);
         
-        $etf_convert_trans = new MyStockTransaction($this->ref->etf_ref, $this->strGroupId);
+        $etf_convert_trans = new MyStockTransaction($this->ref->est_ref, $this->strGroupId);
         $etf_convert_trans->AddTransaction($etf_trans->iTotalShares, $etf_trans->fTotalCost);
         $this->ConvertToEtfTransaction($etf_convert_trans, $lof_trans);
     
@@ -54,7 +46,7 @@ class _LofGroup extends _StockGroup
         $sym = $this->arbi_trans->ref->sym;
         if ($sym->IsSymbolA())
         {
-            $arbi_convert_trans = new MyStockTransaction($this->ref->etf_ref, $this->strGroupId);
+            $arbi_convert_trans = new MyStockTransaction($this->ref->est_ref, $this->strGroupId);
             $this->ConvertToEtfTransaction($arbi_convert_trans, $this->arbi_trans);
             EchoArbitrageTableItem2($this->arbi_trans, $lof_convert_trans); 
             EchoArbitrageTableItem2($arbi_convert_trans, $etf_convert_trans); 
@@ -95,24 +87,20 @@ class _LofGroup extends _StockGroup
         
         $fund = $this->ref;
         $str = $this->_getAdjustString($bChinese);
-        if ($fund->index_ref && $fund->etf_ref)
+        if ($fund->est_ref)
         {
-            $str .=  HTML_NEW_LINE._GetEtfAdjustString($fund->index_ref, $fund->etf_ref, $bChinese);
-        }
-        if ($fund->etf_ref)
-        {
-            $str .= HTML_NEW_LINE._GetStockConfigDebugString(array($fund->etf_ref), $bChinese);
+            $str .= HTML_NEW_LINE._GetStockConfigDebugString(array($fund->est_ref), $bChinese);
         }
         EchoParagraph($str);
     }
 } 
 
-function EchoEtfSymbol()
+function EchoEstSymbol()
 {
     global $group;
-    if ($group->ref->etf_ref)
+    if ($group->ref->est_ref)
     {
-        echo $group->ref->etf_ref->GetStockSymbol();
+        echo $group->ref->est_ref->GetStockSymbol();
     }
 }
 
@@ -123,8 +111,7 @@ function EchoMetaDescription($bChinese)
     $fund = $group->ref;
     $strDescription = _GetStockDisplay($fund->stock_ref);
     $strBase = $group->cny_ref->strDescription;
-    if ($fund->index_ref)   $strBase .= '/'.$fund->index_ref->strDescription;
-    if ($fund->etf_ref)     $strBase .= '/'.$fund->etf_ref->strDescription;
+    if ($fund->est_ref)     $strBase .= '/'.$fund->est_ref->strDescription;
     
     if ($bChinese)  $str = '根据'.$strBase.'等因素计算'.$strDescription.'实时净值的网页工具, 提供不同市场下统一的交易记录和转换持仓盈亏等功能.';
     else              $str = 'Net value of '.$strDescription.' based on '.$strBase.'.';

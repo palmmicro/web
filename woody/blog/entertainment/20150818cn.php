@@ -117,7 +117,7 @@
 </p>
 <ol>
   <li>在函数<i>LofGetSymbolArray</i>加入新的LOF代码, 用于同类工具中的循环导航链接.</li>
-  <li>在函数<i>LofGetEtfSymbol</i>和<i>LofGetIndexSymbol</i>中加上LOF对应的ETF代码和指数代码.</li>
+  <li>在函数<i>LofGetEstSymbol</i>中加上LOF对应的估值代码.</li>
 </ol>
 
 <h3>新浪实时美股数据</h3>

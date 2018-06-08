@@ -114,7 +114,7 @@ class DailyStockSql extends StockTableSql
     function Insert($strDate, $strClose)
     {
     	$strStockId = $this->GetId(); 
-    	return TableSql::Insert("(id, stock_id, date, close) VALUES('0', '$strStockId', '$strDate', '$strClose')");
+    	return $this->InsertData("(id, stock_id, date, close) VALUES('0', '$strStockId', '$strDate', '$strClose')");
     }
 
     function Update($strDate, $strClose)

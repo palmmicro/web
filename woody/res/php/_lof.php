@@ -4,27 +4,25 @@ require_once('_lofgroup.php');
 
 class _LofUsGroup extends _LofGroup
 {
-    var $etf_netvalue_ref = false;
     var $oil_ref = false;
+    var $es_ref;
     var $usd_ref;
 
-    // constructor 
     function _LofUsGroup($strSymbol) 
     {
         $strUSD = 'DINIW';
+        $strES = 'ES';
         $strOil = false;
         if (LofGetFutureSymbol($strSymbol) == 'CL')	$strOil = 'OIL';
-        $strEtfSymbol = LofGetEtfSymbol($strSymbol);
-//        StockPrefetchData(array($strSymbol, $strUSD, GetYahooNetValueSymbol($strEtfSymbol)));
-        StockPrefetchData(array($strSymbol, $strOil, $strUSD));
+        StockPrefetchData(array($strSymbol, FutureGetSinaSymbol($strOil), FutureGetSinaSymbol($strES), $strUSD));
         GetChinaMoney();
-        YahooUpdateNetValue($strEtfSymbol);
+        YahooUpdateNetValue(LofGetEstSymbol($strSymbol));
         
         $this->cny_ref = new CnyReference('USCNY');	// Always create CNY Forex class instance first!
         $this->ref = new LofReference($strSymbol);
         if ($strOil)	$this->oil_ref = new FutureReference($strOil);
+        $this->es_ref = new FutureReference($strES);
         $this->usd_ref = new ForexReference($strUSD);
-//        $this->etf_netvalue_ref = new YahooNetValueReference($strEtfSymbol);
         parent::_LofGroup();
     }
 } 
@@ -48,8 +46,8 @@ function _onSmaUserDefinedVal($fVal, $bChinese)
     $strQuantity = strval($iQuantity);
     if ($group->strGroupId) 
     {
-        $etf_ref = $fund->etf_ref;
-        $strQuery = sprintf('groupid=%s&fundid=%s&amount=%.2f&netvalue=%.3f&arbitrageid=%s&quantity=%s&price=%.2f', $group->strGroupId, $fund->GetStockId(), $fAmount, $fund->fPrice, $etf_ref->GetStockId(), $strQuantity, $etf_ref->fPrice);
+        $est_ref = $fund->est_ref;
+        $strQuery = sprintf('groupid=%s&fundid=%s&amount=%.2f&netvalue=%.3f&arbitrageid=%s&quantity=%s&price=%.2f', $group->strGroupId, $fund->GetStockId(), $fAmount, $fund->fPrice, $est_ref->GetStockId(), $strQuantity, $est_ref->fPrice);
         return GetOnClickLink(STOCK_PHP_PATH.'_submittransaction.php?'.$strQuery, $bChinese ? '确认添加对冲申购记录?' : 'Confirm to add arbitrage fund purchase record?', $strQuantity);
     }
     return $strQuantity;
@@ -95,8 +93,8 @@ function _onTradingUserDefinedVal($fVal, $bChinese)
     global $group;
     
     $fund = $group->ref;
-    $fEtf = $fund->EstEtf($fVal);
-    return _onSmaUserDefinedVal($fEtf, $bChinese).'@'.$fund->etf_ref->GetPriceDisplay($fEtf);
+    $fEst = $fund->GetEstValue($fVal);
+    return _onSmaUserDefinedVal($fEst, $bChinese).'@'.$fund->est_ref->GetPriceDisplay($fEst);
 }
 
 function _onTradingUserDefined($bChinese, $fVal = false)
@@ -114,7 +112,7 @@ function EchoAll($bChinese)
     $fund = $group->ref;
     
     EchoFundEstParagraph($fund, $bChinese);
-    EchoReferenceParagraph(array($fund->index_ref, $fund->etf_ref, $group->etf_netvalue_ref, $fund->future_ref, $group->oil_ref, $group->usd_ref, $group->cny_ref, $fund->stock_ref), $bChinese);
+    EchoReferenceParagraph(array($fund->stock_ref, $fund->est_ref, $fund->future_ref, $group->oil_ref, $group->es_ref, $group->usd_ref, $group->cny_ref), $bChinese);
     EchoFundTradingParagraph($fund, $bChinese, _onTradingUserDefined);    
 	EchoLofSmaParagraph($fund, $bChinese, _onSmaUserDefined);
     EchoFundHistoryParagraph($fund, $bChinese);

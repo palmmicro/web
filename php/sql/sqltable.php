@@ -16,7 +16,7 @@ class TableSql
     	return SqlCreateTable($this->strName, $str);
     }
     
-    function Insert($str)
+    function InsertData($str)
     {
     	$strTableName = $this->strName;
 	    $strQuery = 'INSERT INTO '.$strTableName.$str;

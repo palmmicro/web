@@ -12,7 +12,7 @@
 
 <div>
 <h1><?php EchoTitle(true); ?></h1>
-<p><b><?php EchoShortName(); ?>大致对应跟踪<?php EchoEtfSymbol(); ?>, 此处估算结果仅供参考.</b></p>
+<p><b><?php EchoShortName(); ?>大致对应跟踪<?php EchoEstSymbol(); ?>, 此处估算结果仅供参考.</b></p>
 <?php EchoAll(true); ?>
 <p><a href="https://xueqiu.com/4206051491/69865145" target=_blank>DBC和GSG的区别</a>
 <br />相关软件:

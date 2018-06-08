@@ -124,7 +124,7 @@ function EchoAll($bChinese)
     
     if (count($group->ar_leverage_ref) == 1)
     {
-        EchoSmaParagraph(new StockHistory($group->ar_leverage_ref[0]), $bChinese);
+        EchoSmaParagraph($group->ar_leverage_ref[0], $bChinese);
     }
 
     if ($group->strGroupId) 

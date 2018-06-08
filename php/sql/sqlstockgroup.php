@@ -28,7 +28,7 @@ class StockGroupSql extends MemberTableSql
     function Insert($strGroupName)
     {
     	$strMemberId = $this->GetId(); 
-    	return TableSql::Insert("(id, member_id, groupname) VALUES('0', '$strMemberId', '$strGroupName')");
+    	return $this->InsertData("(id, member_id, groupname) VALUES('0', '$strMemberId', '$strGroupName')");
     }
     
     function Update($strId, $strGroupName)
@@ -100,7 +100,7 @@ class StockGroupItemSql extends StockGroupTableSql
     function Insert($strStockId)
     {
     	$strGroupId = $this->GetId(); 
-    	return TableSql::Insert("(id, group_id, stock_id, quantity, cost, record) VALUES('0', '$strGroupId', '$strStockId', '0', '0.0', '0')");
+    	return $this->InsertData("(id, group_id, stock_id, quantity, cost, record) VALUES('0', '$strGroupId', '$strStockId', '0', '0.0', '0')");
     }
 
     function GetStockIdArray($bCheckTransaction = false)

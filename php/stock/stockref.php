@@ -262,22 +262,29 @@ class StockReference
     {
         $this->_newStockSymbol($strSymbol);
         $this->strConfigName = DebugGetConfigFileName($strSymbol);
-
-        if (floatval($this->strPrice) < MIN_FLOAT_VAL)   $this->strPrice = $this->strPrevPrice;
         
-        $this->fPrice = floatval($this->strPrice); 
-        $this->fPrevPrice = floatval($this->strPrevPrice);
+        if (floatval($this->strPrice) < MIN_FLOAT_VAL)   $this->strPrice = $this->strPrevPrice;
+        $this->_convertPrice();
         if (FloatNotZero($this->fPrevPrice))		$this->fPercentage = $this->fPrice / $this->fPrevPrice;
         else										$this->fPercentage = 0.0;
         
-        if ($this->strTime)
-        {
-            $this->strTimeHM = GetTimeHM($this->strTime);
-        }
-
-        if ($this->strChineseName == false)     $this->strChineseName = $this->strName;     // 数据中只有唯一一个中文或者英文名字的情况下, 优先放strName字段.
+        if ($this->strTime)					$this->strTimeHM = GetTimeHM($this->strTime);
+        if ($this->strChineseName == false)	$this->strChineseName = $this->strName;     // 数据中只有唯一一个中文或者英文名字的情况下, 优先放strName字段.
     }
 
+    function _convertPrice()
+    {
+        $this->fPrice = floatval($this->strPrice); 
+        $this->fPrevPrice = floatval($this->strPrevPrice);
+    }
+    
+    function SetPrice($strPrice, $strPrevPrice)
+    {
+    	$this->strPrice = $strPrice;
+    	$this->strPrevPrice = $strPrevPrice;
+        $this->_convertPrice();
+    }
+    
     function EmptyFile()
     {
         unlinkEmptyFile($this->strFileName);

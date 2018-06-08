@@ -22,13 +22,13 @@ class PriceCompare
         $this->iLower = 0;
     }
     
-    function AddCompare($arClose)
+    function AddCompare($ref)
     {
         $this->iDays ++;
         
-        list($strClose, $strPrevClose) = $arClose;
-        $fClose = floatval($strClose);
-        $fPrevClose = floatval($strPrevClose);
+//        list($strClose, $strPrevClose) = $arClose;
+        $fClose = $ref->fPrice;			// floatval($strClose);
+        $fPrevClose = $ref->fPrevPrice;	// floatval($strPrevClose);
             
         if (($fClose - MIN_FLOAT_VAL) > $fPrevClose)          $this->iHigher ++;
         else if (($fClose + MIN_FLOAT_VAL) < $fPrevClose)    $this->iLower ++;        
@@ -65,10 +65,10 @@ END;
 
 define ('MAX_PREDICTION_DAYS', 100);
 
-function _echoLofPredictionTableBegin($lof_ref, $etf_ref, $bChinese)
+function _echoLofPredictionTableBegin($lof_ref, $est_ref, $bChinese)
 {
     $strLofSymbol = $lof_ref->GetStockSymbol();
-    $strEtfSymbol = $etf_ref->GetStockSymbol();
+    $strEtfSymbol = $est_ref->GetStockSymbol();
     if ($bChinese)     
     {
         $arColumn = array($strLofSymbol.'交易', '天数', $strEtfSymbol.'涨', $strEtfSymbol.'不变', $strEtfSymbol.'跌');
@@ -100,8 +100,15 @@ function _echoLofPredictionParagraph($fund, $bChinese)
     $strSymbol = $lof_ref->GetStockSymbol();
     $strStockId = $lof_ref->GetStockId();
     
-	$etf_ref = $fund->etf_ref;
-    $arColumn = FundHistoryTableGetColumn($etf_ref, $bChinese);
+	$est_ref = $fund->est_ref;
+    $arColumn = FundHistoryTableGetColumn($est_ref, $bChinese);
+    
+	$clone_ref = false;
+	if ($est_ref)
+	{
+		$est_sql = new StockHistorySql($est_ref->GetStockId());
+		$clone_ref = clone $est_ref;
+	}
     
     EchoParagraphBegin(_getNetValueLink($strSymbol, $bChinese));
 	$sql = new FundHistorySql($strStockId);
@@ -113,16 +120,15 @@ function _echoLofPredictionParagraph($fund, $bChinese)
             $strDate = GetNextTradingDayYMD($record['date']);
             if ($history = $sql->stock_sql->Get($strDate))
             {
-                $arEtfClose = GetDailyCloseByDate($etf_ref, $strDate);
-                if ($arEtfClose)
+                if ($ref = GetDailyCloseByDate($clone_ref, $est_sql, $strDate))
                 {
                     $fNetValue = floatval($record['close']);
                     $fClose = floatval($history['close']);
-                    if (($fNetValue - MIN_FLOAT_VAL) > $fClose)          $netvalue_higher->AddCompare($arEtfClose);
-                    else if (($fNetValue + MIN_FLOAT_VAL) < $fClose)     $netvalue_lower->AddCompare($arEtfClose);        
-                    else                                                     $netvalue_same->AddCompare($arEtfClose);
-                    
-                    EchoFundHistoryTableItem($lof_ref, false, $history, $record, $arEtfClose);
+                    if (($fNetValue - MIN_FLOAT_VAL) > $fClose)          $netvalue_higher->AddCompare($ref);
+                    else if (($fNetValue + MIN_FLOAT_VAL) < $fClose)     $netvalue_lower->AddCompare($ref);        
+                    else                                                     $netvalue_same->AddCompare($ref);
+
+                    EchoFundHistoryTableItem($lof_ref, false, $history, $record, $ref);
                 }
             }
         }
@@ -131,7 +137,7 @@ function _echoLofPredictionParagraph($fund, $bChinese)
     }
 
     EchoNewLine();
-    _echoLofPredictionTableBegin($lof_ref, $etf_ref, $bChinese);
+    _echoLofPredictionTableBegin($lof_ref, $est_ref, $bChinese);
     _echoLofPredictionItem($bChinese ? '折价' : 'Lower', $netvalue_higher);
     _echoLofPredictionItem($bChinese ? '平价' : 'Same', $netvalue_same);
     _echoLofPredictionItem($bChinese ? '溢价' : 'Higher', $netvalue_lower);
@@ -147,7 +153,10 @@ function EchoThanousLawTest($bChinese)
         if (in_arrayLof($strSymbol))
         {
             StockPrefetchData(array($strSymbol));
+            $fStart = microtime(true);
             _echoLofPredictionParagraph(new LofReference($strSymbol), $bChinese);
+            $fStop = microtime(true);
+            DebugString($strSymbol.' Thanous Law: '.DebugGetStopWatchDisplay($fStop, $fStart));
         }
     }
     EchoPromotionHead($bChinese, 'thanouslaw');

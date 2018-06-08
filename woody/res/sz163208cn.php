@@ -12,7 +12,7 @@
 
 <div>
 <h1><?php EchoTitle(true); ?></h1>
-<p><b><?php EchoShortName(); ?>是一个FOF, 此处用<?php EchoEtfSymbol(); ?>的估算结果仅供参考.</b></p>
+<p><b><?php EchoShortName(); ?>是一个FOF, 此处用<?php EchoEstSymbol(); ?>的估算结果仅供参考.</b></p>
 <?php EchoAll(true); ?>
 <p>相关软件:
 <?php

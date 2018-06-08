@@ -24,8 +24,8 @@ function _echoCombinedTransactionTableItem($group, $strDate, $strGroupItemId, $c
         $strCost = $trans->ref->GetPriceDisplay($fCost);
         if ($fund && $fund->GetStockSymbol() == $strSymbol)
         {
-            $strConvertedShares = strval($fund->EstEtfQuantity($combined_trans->iTotalShares));
-            $strConvertedCost = $fund->etf_ref->GetPriceDisplay($fund->EstEtf($fCost));
+            $strConvertedShares = strval($fund->GetEstQuantity($combined_trans->iTotalShares));
+            $strConvertedCost = $fund->est_ref->GetPriceDisplay($fund->GetEstValue($fCost));
         }
         else
         {

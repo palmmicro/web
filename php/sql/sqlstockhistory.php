@@ -12,7 +12,7 @@ class StockHistorySql extends DailyStockSql
     function Insert($strDate, $strOpen, $strHigh, $strLow, $strClose, $strVolume, $strAdjClose)
     {
     	$strStockId = $this->GetId(); 
-    	return TableSql::Insert("(id, stock_id, date, open, high, low, close, volume, adjclose) VALUES('0', '$strStockId', '$strDate', '$strOpen', '$strHigh', '$strLow', '$strClose', '$strVolume', '$strAdjClose')");
+    	return $this->InsertData("(id, stock_id, date, open, high, low, close, volume, adjclose) VALUES('0', '$strStockId', '$strDate', '$strOpen', '$strHigh', '$strLow', '$strClose', '$strVolume', '$strAdjClose')");
     }
     
     function Update($strId, $strOpen, $strHigh, $strLow, $strClose, $strVolume, $strAdjClose)

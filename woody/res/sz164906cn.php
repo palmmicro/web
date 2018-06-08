@@ -12,7 +12,7 @@
 
 <div>
 <h1><?php EchoTitle(true); ?></h1>
-<p><b>注意<?php EchoEtfSymbol(); ?>和<?php EchoShortName(); ?>跟踪的指数可能不同, 此处估算结果仅供参考.</b></p>
+<p><b>注意<?php EchoEstSymbol(); ?>和<?php EchoShortName(); ?>跟踪的指数可能不同, 此处估算结果仅供参考.</b></p>
 <?php EchoAll(true); ?>
 <p><a href="https://xueqiu.com/6827215131/68185067" target=_blank>中证海外中国互联网指数</a> <a href="https://xueqiu.com/6827215131/80361226" target=_blank>中国互联VS中国互联50</a>
 <br />相关软件: 

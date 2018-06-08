@@ -1,23 +1,23 @@
 <?php
 require_once('stocktable.php');
 
-function GetDailyCloseByDate($ref, $strDate)
+function GetDailyCloseByDate($ref, $sql, $strDate)
 {
 	if ($ref)
 	{
-		$sql = new StockHistorySql($ref->GetStockId());
 		if ($history = $sql->Get($strDate))
 		{
 			if ($history_prev = $sql->GetPrev($strDate))
 			{
-				return array($history['close'], $history_prev['close']);
+				$ref->SetPrice($history['close'], $history_prev['close']);
+				return $ref;
 			}
 		}
 	}
     return false;
 }
 
-function EchoFundHistoryTableItem($ref, $csv, $history, $fund, $arEtfClose)
+function EchoFundHistoryTableItem($ref, $csv, $history, $fund, $clone_ref)
 {
 	$strDate = $history['date'];
     $strFundClose = $history['close'];
@@ -34,13 +34,13 @@ function EchoFundHistoryTableItem($ref, $csv, $history, $fund, $arEtfClose)
     	$csv->WriteArray(array($strDate, $strNetValue, strval(StockGetPercentage($fFundClose, $fNetValue))));
     }
     
-    $strEtfClose = ''; 
-    $strEtfChange = '';
-    if ($arEtfClose)
+    $strEstClose = ''; 
+    $strEstChange = '';
+    if ($clone_ref)
     {
-        list($strClose, $strPrevClose) = $arEtfClose;
-        $strEtfClose = StockGetPriceDisplay(floatval($strClose), floatval($strPrevClose)); 
-        $strEtfChange = StockGetPercentageDisplay(floatval($strClose), floatval($strPrevClose));
+//        list($strClose, $strPrevClose) = $arEtfClose;
+        $strEstClose = $clone_ref->GetCurrentPriceDisplay();			// StockGetPriceDisplay(floatval($strClose), floatval($strPrevClose)); 
+        $strEstChange = $clone_ref->GetCurrentPercentageDisplay();		// StockGetPercentageDisplay(floatval($strClose), floatval($strPrevClose));
     }
 
     $strEstValueDisplay = '';
@@ -69,8 +69,8 @@ function EchoFundHistoryTableItem($ref, $csv, $history, $fund, $arEtfClose)
         <td class=c1>$strFundClose</td>
         <td class=c1>$strNetValueDisplay</td>
         <td class=c1>$strPercentage</td>
-        <td class=c1>$strEtfClose</td>
-        <td class=c1>$strEtfChange</td>
+        <td class=c1>$strEstClose</td>
+        <td class=c1>$strEstChange</td>
         <td class=c1>$strEstValueDisplay</td>
         <td class=c1>$strEstTime</td>
         <td class=c1>$strError</td>
@@ -87,12 +87,15 @@ function GetNextTradingDayYMD($strYMD)
     return $next_ymd->GetYMD();
 }
 
-function _echoHistoryTableData($sql, $fund, $csv, $etf_ref, $iStart, $iNum)
+function _echoHistoryTableData($sql, $fund, $csv, $est_ref, $iStart, $iNum)
 {
 	$bSameDayNetValue	 = true;
-	if ($etf_ref)
+	$clone_ref = false;
+	if ($est_ref)
 	{
-		if ($etf_ref->sym->IsSymbolUS())		$bSameDayNetValue	 = false;
+		if ($est_ref->sym->IsSymbolUS())		$bSameDayNetValue	 = false;
+		$est_sql = new StockHistorySql($est_ref->GetStockId());
+		$clone_ref = clone $est_ref;
 	}
 	
     if ($result = $sql->GetAll($iStart, $iNum)) 
@@ -110,8 +113,7 @@ function _echoHistoryTableData($sql, $fund, $csv, $etf_ref, $iStart, $iNum)
             
             if ($history = $sql->stock_sql->Get($strDate))
             {
-            	$arEtfClose = GetDailyCloseByDate($etf_ref, $record['date']);
-                EchoFundHistoryTableItem($ref, $csv, $history, $record, $arEtfClose);
+                EchoFundHistoryTableItem($ref, $csv, $history, $record, GetDailyCloseByDate($clone_ref, $est_sql, $record['date']));
             }
         }
         @mysql_free_result($result);
@@ -136,11 +138,11 @@ function EchoFundHistoryTableBegin($arColumn)
 END;
 }
 
-function FundHistoryTableGetColumn($etf_ref, $bChinese)
+function FundHistoryTableGetColumn($est_ref, $bChinese)
 {
-    if ($etf_ref)
+    if ($est_ref)
     {
-        $strSymbol = GetMyStockRefLink($etf_ref, $bChinese);
+        $strSymbol = GetMyStockRefLink($est_ref, $bChinese);
         if ($bChinese)  $strChange = '涨跌';
         else              $strChange = 'Change';
     }
@@ -166,8 +168,8 @@ function FundHistoryTableGetColumn($etf_ref, $bChinese)
 
 function EchoFundHistoryParagraph($fund, $bChinese, $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
 {
-	$etf_ref = $fund->etf_ref;
-    $arColumn = FundHistoryTableGetColumn($etf_ref, $bChinese);
+	$est_ref = $fund->est_ref;
+    $arColumn = FundHistoryTableGetColumn($est_ref, $bChinese);
     $strSymbol = $fund->GetStockSymbol();
     $strSymbolLink = GetMyStockLink($strSymbol, $bChinese);
     if ($bChinese)     
@@ -195,7 +197,7 @@ function EchoFundHistoryParagraph($fund, $bChinese, $csv = false, $iStart = 0, $
     
     EchoParagraphBegin($str.' '.$strNavLink);
     EchoFundHistoryTableBegin($arColumn);
-    _echoHistoryTableData($sql, $fund, $csv, $etf_ref, $iStart, $iNum);
+    _echoHistoryTableData($sql, $fund, $csv, $est_ref, $iStart, $iNum);
     EchoTableParagraphEnd($strNavLink);
 }
 

@@ -140,7 +140,11 @@ function _echoMyStockData($strSymbol, $bChinese)
        	}
     }
     
-    if (_hasSmaDisplay($sym))	EchoHShareSmaParagraph($ref, $hshare_ref, $bChinese);
+    if (_hasSmaDisplay($sym))
+    {
+    	if ($hshare_ref)		EchoHShareSmaParagraph($ref, $hshare_ref, $bChinese);
+    	else	        		EchoSmaParagraph($ref, $bChinese);
+    }
     
     if ($strMemberId = AcctIsLogin())
     {

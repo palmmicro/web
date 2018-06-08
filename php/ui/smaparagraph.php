@@ -218,8 +218,9 @@ END;
     EchoTableEnd();
 }
 
-function EchoSmaParagraph($stock_his, $bChinese, $ref = false, $callback = false, $callback2 = false)
+function EchoSmaParagraph($stock_ref, $bChinese, $ref = false, $callback = false, $callback2 = false)
 {
+	$stock_his = new StockHistory($stock_ref);
 	$arColumn = EchoSmaParagraphBegin($stock_his, $bChinese);
 	EchoSmaTable($arColumn, $stock_his, $bChinese, $ref, $callback, $callback2);
     EchoParagraphEnd();

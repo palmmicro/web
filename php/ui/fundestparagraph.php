@@ -56,7 +56,7 @@ function _getFundRealtimeStr($fund, $strRealtimeEst, $bChinese)
 {
     $future_ref = $fund->future_ref;
     $future_etf_ref = $fund->future_etf_ref;
-    $etf_ref =  $fund->etf_ref;
+    $est_ref = $fund->est_ref;
     
     if ($future_etf_ref)
     {   // Lof and LofHk
@@ -77,9 +77,9 @@ function _getFundRealtimeStr($fund, $strRealtimeEst, $bChinese)
         $str = "Future $strRealtimeEst assume $strFutureSymbol 100%  related";
     }
     
-    if ($future_etf_ref != $etf_ref)
+    if ($future_etf_ref != $est_ref)
     {
-        $strEtfSymbol = $etf_ref->GetStockSymbol();
+        $strEtfSymbol = $est_ref->GetStockSymbol();
         if (in_arrayPairTrading($strEtfSymbol))
         {
             $strPairTradingLink = GetStockToolLink($strEtfSymbol, $bChinese); 
@@ -102,17 +102,6 @@ function _getFundRealtimeStr($fund, $strRealtimeEst, $bChinese)
     return $str.'.';    
 }
 
-function _getFundFairStr($fund, $strFairEst, $bChinese)
-{
-    if ($fund->index_ref && $fund->etf_ref)
-    {
-    	$str = $strFairEst;
-    	if ($bChinese == false)	$str .= ' ';
-        return $str.GetCalibrationHistoryLink($fund->index_ref->GetStockSymbol(), $bChinese).'.';
-    }
-    return '';
-}
-
 function _getFundParagraphStr($fund, $bChinese)
 {
     $ref = $fund->stock_ref;
@@ -129,7 +118,6 @@ function _getFundParagraphStr($fund, $bChinese)
     {
         $str .= ' date '.$strDate.", calibration($strHistoryLink) on $strLastTime.";
     }
-    if ($fund->fFairNetValue)   $str .= ' '._getFundFairStr($fund, $arColumn[3], $bChinese);
     if ($fund->fRealtimeNetValue)   $str .= ' '._getFundRealtimeStr($fund, $arColumn[5], $bChinese);
     return $str;
 }

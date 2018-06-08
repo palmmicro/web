@@ -12,7 +12,7 @@
 
 <div>
 <h1><?php EchoTitle(false); ?></h1>
-<p><b>Please notice that using <?php EchoEtfSymbol(); ?> for its net value may not be accurate.</b></p>
+<p><b>Please notice that using <?php EchoEstSymbol(); ?> for its net value may not be accurate.</b></p>
 <?php EchoAll(false); ?>
 <p>Related software:
 <?php

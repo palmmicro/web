@@ -14,6 +14,12 @@ class FundHistorySql extends DailyStockSql
         $this->stock_sql = new StockHistorySql($strStockId);
     }
 
+    function Insert($strDate, $strClose, $strEstimated, $strTime)
+    {
+    	$strStockId = $this->GetId(); 
+    	return $this->InsertData("(id, stock_id, date, close, estimated, time) VALUES('0', '$strStockId', '$strDate', '$strClose', '$strEstimated', '$strTime')");
+    }
+    
     function Update($strId, $strNetValue, $strEstimated, $strTime)
     {
 		return $this->UpdateById("close = '$strNetValue', estimated = '$strEstimated', time = '$strTime'", $strId);
@@ -58,16 +64,17 @@ function SqlGetFundNetValueByDate($strStockId, $strDate)
 
 function SqlInsertFundHistory($strStockId, $strDate, $strNetValue, $strEstimated, $strTime)
 {
-	$strQry = "INSERT INTO fundhistory(id, stock_id, date, close, estimated, time) VALUES('0', '$strStockId', '$strDate', '$strNetValue', '$strEstimated', '$strTime')";
-	return SqlDieByQuery($strQry, 'Insert fundhistory table failed');
+	DebugString('Insert fund history '.SqlGetStockSymbol($strStockId));
+	$sql = new FundHistorySql($strStockId);
+	return $sql->Insert($strDate, $strNetValue, $strEstimated, $strTime);
+//	$strQry = "INSERT INTO fundhistory(id, stock_id, date, close, estimated, time) VALUES('0', '$strStockId', '$strDate', '$strNetValue', '$strEstimated', '$strTime')";
+//	return SqlDieByQuery($strQry, 'Insert fundhistory table failed');
 }
 
 function SqlUpdateFundHistory($strId, $strNetValue, $strEstimated, $strTime)
 {
 	$sql = new FundHistorySql($strStockId);
 	return $sql->Update($strId, $strNetValue, $strEstimated, $strTime);
-//	$strQry = "UPDATE fundhistory SET close = '$strNetValue', estimated = '$strEstimated', time = '$strTime' WHERE id = '$strId' LIMIT 1";
-//	return SqlDieByQuery($strQry, 'Update fundhistory table failed');
 }
 
 ?>

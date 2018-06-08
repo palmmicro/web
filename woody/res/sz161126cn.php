@@ -12,7 +12,7 @@
 
 <div>
 <h1><?php EchoTitle(true); ?></h1>
-<p><b>注意<?php EchoEtfSymbol(); ?>和<?php EchoShortName(); ?>跟踪的指数可能不同, 此处估算结果仅供参考.</b></p>
+<p><b>注意<?php EchoEstSymbol(); ?>和<?php EchoShortName(); ?>跟踪的指数可能不同, 此处估算结果仅供参考.</b></p>
 <?php EchoAll(true); ?>
 <p>相关软件: 
 <?php
