@@ -13,7 +13,12 @@ function EditGetStockGroupItemList($strGroupId, $strCurGroupItemId)
         {
             if ($strCurGroupItemId != $strGroupItemId)  continue;
         }
-        $strSymbolsList .= "<OPTION value=$strGroupItemId>$strSymbol</OPTION>";
+        
+        $sym = new StockSymbol($strSymbol);
+        if ($sym->IsTradable())
+        {
+        	$strSymbolsList .= "<OPTION value=$strGroupItemId>$strSymbol</OPTION>";
+        }
     }
     return $strSymbolsList;
 }

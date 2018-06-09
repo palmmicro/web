@@ -18,17 +18,17 @@ function GetChinaFundLink($sym)
     return $strSymbol;
 }
 
-function GetXueQiuLink($strSymbol)
+function GetXueQiuLink($sym)
 {
-	if ($strSymbol == '^GSPC')
-	{
-		$strXueQiuSymbol = '.INX';
+    $strSymbol = $sym->GetSymbol();
+	$strXueQiu = $strSymbol;
+    if ($sym->IsIndex())
+    {
+    	if ($strSymbol == '^GSPC')			$strXueQiu = '.INX';
+    	else if ($strSymbol == '^HSI')		$strXueQiu = 'HKHSI';
+    	else if ($strSymbol == '^HSCE')		$strXueQiu = 'HKHSCEI';
 	}
-	else
-	{
-		$strXueQiuSymbol = $strSymbol;
-	}
-    $strHttp = 'https://xueqiu.com/S/'.$strXueQiuSymbol;
+    $strHttp = 'https://xueqiu.com/S/'.$strXueQiu;
     return GetExternalLink($strHttp, $strSymbol);
 }
 

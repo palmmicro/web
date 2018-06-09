@@ -20,10 +20,7 @@ class _StockGroup extends MyStockGroup
         	$arNew = array();
             foreach ($arRef as $ref)
             {
-                if ($ref->sym->IsTradable())
-                {
-                	$arNew[] = $ref->GetStockId();
-                }
+               	$arNew[] = $ref->GetStockId();
             }      
             SqlUpdateStockGroup($strGroupId, $arNew);
         }
@@ -35,10 +32,7 @@ class _StockGroup extends MyStockGroup
             	$item_sql = new StockGroupItemSql($strGroupId);
                 foreach ($arRef as $ref)
                 {
-                    if ($ref->sym->IsTradable())
-                    {
-                    	$item_sql->Insert($ref->GetStockId());
-                    }
+                   	$item_sql->Insert($ref->GetStockId());
                 }      
             }
         }

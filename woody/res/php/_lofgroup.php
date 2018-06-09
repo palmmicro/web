@@ -4,16 +4,61 @@ require_once('/php/stockhis.php');
 require_once('/php/stocktrans.php');
 require_once('/php/ui/arbitrageparagraph.php');
 require_once('/php/ui/lofsmaparagraph.php');
+require_once('/php/ui/etfsmaparagraph.php');
+require_once('/php/ui/etfparagraph.php');
 
 class _LofGroup extends _StockGroup
 {
     var $cny_ref;
+    var $arLeverage = array();
+    var $ar_leverage_ref = array();
     
-    // constructor 
     function _LofGroup() 
     {
-        parent::_StockGroup(array($this->ref->stock_ref, $this->ref->est_ref));
+    	foreach ($this->arLeverage as $strSymbol)
+    	{
+    		$this->ar_leverage_ref[] = new EtfReference($strSymbol);
+    	}
+        parent::_StockGroup(array_merge($this->ar_leverage_ref, array($this->ref->stock_ref, $this->ref->est_ref)));
     } 
+    
+    function GetLeverage()
+    {
+        return $this->arLeverage;
+    }
+
+    function GetLeverageRef()
+    {
+    	return $this->ar_leverage_ref;
+    }
+    
+    function EchoLeverageParagraph($bChinese)
+    {
+    	if (count($this->ar_leverage_ref) > 0)
+    	{
+            EchoEtfListParagraph($this->ar_leverage_ref, $bChinese);
+//			DebugString('EchoEtfList');
+        }
+    }
+
+    function GetWebData($strEstSymbol)
+    {
+        GetChinaMoney();
+        YahooUpdateNetValue($strEstSymbol);
+        
+//        $this->arLeverage = array();
+        $sql = new PairStockSql(SqlGetStockId($strEstSymbol), TABLE_ETF_PAIR);
+        $ar = $sql->GetAllStockId();
+        foreach ($ar as $strStockId)
+        {
+        	if ($strSymbol = SqlGetStockSymbol($strStockId))
+        	{
+        		$this->arLeverage[] = $strSymbol;
+        		YahooUpdateNetValue($strSymbol);
+//        		DebugString($strSymbol);
+        	}
+        }
+    }
     
     function ConvertToEtfTransaction($etf_convert_trans, $lof_trans)
     {

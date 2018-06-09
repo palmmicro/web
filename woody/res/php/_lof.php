@@ -14,9 +14,8 @@ class _LofUsGroup extends _LofGroup
         $strES = 'ES';
         $strOil = false;
         if (LofGetFutureSymbol($strSymbol) == 'CL')	$strOil = 'OIL';
-        StockPrefetchData(array($strSymbol, FutureGetSinaSymbol($strOil), FutureGetSinaSymbol($strES), $strUSD));
-        GetChinaMoney();
-        YahooUpdateNetValue(LofGetEstSymbol($strSymbol));
+        $this->GetWebData(LofGetEstSymbol($strSymbol));
+        StockPrefetchData(array_merge($this->GetLeverage(), array($strSymbol, FutureGetSinaSymbol($strOil), FutureGetSinaSymbol($strES), $strUSD)));
         
         $this->cny_ref = new CnyReference('USCNY');	// Always create CNY Forex class instance first!
         $this->ref = new LofReference($strSymbol);
@@ -113,8 +112,10 @@ function EchoAll($bChinese)
     
     EchoFundEstParagraph($fund, $bChinese);
     EchoReferenceParagraph(array($fund->stock_ref, $fund->est_ref, $fund->future_ref, $group->oil_ref, $group->es_ref, $group->usd_ref, $group->cny_ref), $bChinese);
+    $group->EchoLeverageParagraph($bChinese);
     EchoFundTradingParagraph($fund, $bChinese, _onTradingUserDefined);    
 	EchoLofSmaParagraph($fund, $bChinese, _onSmaUserDefined);
+    EchoEtfSmaParagraph(new StockHistory($fund->est_ref), $group->GetLeverageRef(), $bChinese);
     EchoFundHistoryParagraph($fund, $bChinese);
     
     if ($group->strGroupId) 

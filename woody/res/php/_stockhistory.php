@@ -4,15 +4,20 @@ require_once('_editstockoptionform.php');
 
 function _echoStockHistoryItem($history)
 {
+ 	$strOpen = GetTableColumnFloatDisplay($history['open']);
+ 	$strHigh = GetTableColumnFloatDisplay($history['high']);
+ 	$strLow = GetTableColumnFloatDisplay($history['low']);
+ 	$strClose = GetTableColumnFloatDisplay($history['close']);
+	$strAdjClose = GetTableColumnFloatDisplay($history['adjclose']);
     echo <<<END
     <tr>
         <td class=c1>{$history['date']}</td>
-        <td class=c1>{$history['open']}</td>
-        <td class=c1>{$history['high']}</td>
-        <td class=c1>{$history['low']}</td>
-        <td class=c1>{$history['close']}</td>
+        $strOpen
+        $strHigh
+        $strLow
+        $strClose
         <td class=c1>{$history['volume']}</td>
-        <td class=c1>{$history['adjclose']}</td>
+        $strAdjClose
     </tr>
 END;
 }

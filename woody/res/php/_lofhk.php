@@ -7,8 +7,8 @@ class _LofHkGroup extends _LofGroup
     // constructor 
     function _LofHkGroup($strSymbol) 
     {
-        StockPrefetchData(array($strSymbol));
-        GetChinaMoney();
+        $this->GetWebData(LofHkGetEstSymbol($strSymbol));
+        StockPrefetchData(array_merge($this->GetLeverage(), array($strSymbol)));
 
         $this->cny_ref = new CnyReference('HKCNY');
         $this->ref = new LofHkReference($strSymbol);
@@ -23,6 +23,7 @@ function EchoAll($bChinese)
     
     EchoFundEstParagraph($fund, $bChinese);
     EchoReferenceParagraph(array($fund->stock_ref, $fund->est_ref, $group->cny_ref), $bChinese);
+    $group->EchoLeverageParagraph($bChinese);
     EchoFundTradingParagraph($fund, $bChinese);    
 	EchoLofSmaParagraph($fund, $bChinese);
     EchoFundHistoryParagraph($fund, $bChinese);

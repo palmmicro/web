@@ -45,7 +45,7 @@ function _echoSmaTableItem($stock_his, $strKey, $fVal, $fNext, $ref, $callback, 
     $strTradingRange = _getTradingRangeRow($stock_his, $strKey);
     
     $strDisplayEx = '';
-    if ($ref)
+    if ($callback)
     {
         $strDisplayEx = _getSmaCallbackPriceDisplay($callback, $ref, $fVal, $strColor);
         $strDisplayEx .= _getSmaCallbackPriceDisplay($callback, $ref, $fNext, $strColor);
@@ -152,7 +152,7 @@ function _selectSmaExternalLink($strSymbol)
             return GetSinaN8n8Link($sym);
         }
     }
-    return GetXueQiuLink($strSymbol);
+    return GetXueQiuLink($sym);
 }
 
 function EchoSmaParagraphBegin($stock_his, $bChinese)
@@ -185,10 +185,10 @@ function EchoSmaTable($arColumn, $stock_his, $bChinese, $ref = false, $callback 
 	
 	$iWidth = 360;
     $strColumnEx = '';
-	if ($ref)
+	if ($callback)
     {
     	$est_ref = call_user_func($callback, $ref);
-    	$strColumnEx = GetTableColumn(110, GetXueQiuLink($est_ref->GetStockSymbol()).$strEst);
+    	$strColumnEx = GetTableColumn(110, GetXueQiuLink($est_ref->sym).$strEst);
     	$strColumnEx .= GetTableColumn(70, $strNextEst);
     	$iWidth += 180;
     }

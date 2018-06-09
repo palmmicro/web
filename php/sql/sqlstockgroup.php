@@ -239,6 +239,7 @@ function SqlGetStocksArray($strGroupId, $bCheckTransaction = false)
     		$ar[] = SqlGetStockSymbol($strStockId);
     	}
     }
+	sort($ar);
     return $ar;
 }
 

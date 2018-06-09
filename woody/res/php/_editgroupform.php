@@ -23,13 +23,12 @@ function IsGroupNameReadOnly($strGroupName)
 
 function _getStocksString($strGroupId)
 {
-	$sql = new StockGroupItemSql($strGroupId);
-    if ($arStockId = $sql->GetStockIdArray())
+    if ($arSymbol = SqlGetStocksArray($strGroupId))
     {
     	$strStocks = '';
-    	foreach ($arStockId as $str => $strStockId)
+    	foreach ($arSymbol as $strSymbol)
     	{
-    		$strStocks .= SqlGetStockSymbol($strStockId).', ';
+    		$strStocks .= $strSymbol.', ';
     	}
     	return rtrim($strStocks, ', ');
     }

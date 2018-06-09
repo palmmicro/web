@@ -8,11 +8,9 @@ define('TABLE_ETF_PAIR', 'etfpair');
 // ****************************** PairStockSql class *******************************************************
 class PairStockSql extends StockTableSql
 {
-    // constructor 
     function PairStockSql($strStockId, $strTableName) 
     {
         parent::StockTableSql($strStockId, $strTableName);
-//        $this->Create();
     }
     
     function Get()
@@ -38,17 +36,35 @@ class PairStockSql extends StockTableSql
     	return false;
     }
     
+    function BuildWhere_pair()
+    {
+    	return _SqlBuildWhere('pair_id', $this->GetId());
+    }
+    
     function GetStockId()
     {
-    	$strPairId = $this->GetId();
-    	if ($record = $this->GetSingleData(_SqlBuildWhere('pair_id', $strPairId)))
+    	if ($record = $this->GetSingleData($this->BuildWhere_pair()))
     	{
     		return $record['stock_id'];
     	}
     	return false;
     }
 
-    function Update($strId, $strPairId, $strRatio)
+    function GetAllStockId()
+    {
+    	$ar = array();
+    	if ($result = $this->GetData($this->BuildWhere_pair())) 
+    	{
+    		while ($record = mysql_fetch_assoc($result)) 
+    		{
+    			$ar[] = $record['stock_id'];
+    		}
+    		@mysql_free_result($result);
+    	}
+    	return $ar;
+    }
+
+	function Update($strId, $strPairId, $strRatio)
     {
 		return $this->UpdateById("pair_id = '$strPairId', ratio = '$strRatio'", $strId);
 	}
