@@ -144,7 +144,7 @@ function TestCmdLine()
 //	MarketWatchGetData('^SPSIOP');
 //	_debug_dividend('sz000028');
 //	test_stock_dividend();
-//	SqlDeleteStockGroupByGroupName('USO');
+//	SqlDeleteStockGroupByGroupName('SH');
 //  TestGoogleHistory();
 	phpinfo();
 

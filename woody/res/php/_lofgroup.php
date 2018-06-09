@@ -19,7 +19,7 @@ class _LofGroup extends _StockGroup
     	{
     		$this->ar_leverage_ref[] = new EtfReference($strSymbol);
     	}
-        parent::_StockGroup(array_merge($this->ar_leverage_ref, array($this->ref->stock_ref, $this->ref->est_ref)));
+        parent::_StockGroup(array_merge(array($this->ref->stock_ref, $this->ref->est_ref), $this->ar_leverage_ref));
     } 
     
     function GetLeverage()
