@@ -122,21 +122,11 @@ class StockGroupItemSql extends StockGroupTableSql
     	return false;
     }
     
-    function BuildWhere_groupitem($strGroupItemId)
-    {
-    	return _SqlBuildWhere('groupitem_id', $strGroupItemId);
-    }
-    
-    function DeleteStockTransaction($strGroupItemId)
-    {
-    	$this->trans_sql->Delete($this->BuildWhere_groupitem($strGroupItemId));
-    }
-
     function CountStockTransaction($strStockId)
     {
     	if ($strGroupItemId = $this->GetTableId($strStockId))
     	{
-    		return $this->trans_sql->Count($this->BuildWhere_groupitem($strGroupItemId));
+    		return $this->trans_sql->Count($strGroupItemId);
     	}
     	return 0;
     }
@@ -274,7 +264,7 @@ function SqlDeleteStockGroupItemByGroupId($strGroupId)
 	{
 		while ($stockgroupitem = mysql_fetch_assoc($result)) 
 		{
-            $sql->DeleteStockTransaction($stockgroupitem['id']);
+            $sql->trans_sql->Delete($stockgroupitem['id']);
 		}
 		@mysql_free_result($result);
 		$sql->DeleteAll();
@@ -285,7 +275,7 @@ function SqlDeleteStockGroupByGroupName($strGroupName)
 {
 	$sql = new TableSql(TABLE_STOCK_GROUP);
     $strWhere = _SqlBuildWhere('groupname', $strGroupName);
-    $iCount = $sql->Count($strWhere);
+    $iCount = $sql->CountData($strWhere);
     DebugVal($iCount, 'GroupName: '.$strGroupName.' total');
     if ($iCount == 0)   return true;
     
@@ -297,7 +287,7 @@ function SqlDeleteStockGroupByGroupName($strGroupName)
         }
         @mysql_free_result($result);
     }
-    return $sql->Delete($strWhere);
+    return $sql->DeleteData($strWhere);
 }
 
 function SqlUpdateStockGroup($strGroupId, $arNew)
@@ -325,7 +315,7 @@ function SqlUpdateStockGroup($strGroupId, $arNew)
 	    if (in_array($strStockId, $arNew) == false)
 	    {
             $strId = $sql->GetTableId($strStockId);
-            $sql->DeleteStockTransaction($strId);
+            $sql->trans_sql->Delete($strId);
             $sql->DeleteById($strId);
 	    }
 	}

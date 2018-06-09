@@ -73,7 +73,7 @@ function _getStockOptionAdr($strSymbol)
 		}
 		return $strAdr;
 	}
-	return '';
+	return 'ADR/100';
 }
 
 function _getStockOptionEtf($strSymbol)
@@ -87,7 +87,7 @@ function _getStockOptionEtf($strSymbol)
 		}
 		return $strIndex;
 	}
-	return '';
+	return 'INDEX*1';
 }
 
 function _getStockOptionEmaDays($strStockId, $strDate, $iDays)

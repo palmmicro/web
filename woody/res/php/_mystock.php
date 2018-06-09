@@ -78,19 +78,26 @@ function _hasSmaDisplay($sym)
 
 function _getMyStockLinks($sym, $bChinese)
 {
+	$strSymbol = $sym->GetSymbol();
 	$strQuery = UrlGetQueryString();
     $str = GetPhpLink(STOCK_PATH.'editstock', $bChinese, STOCK_OPTION_EDIT_CN, STOCK_OPTION_EDIT, $strQuery);
     $str .= ' '.GetPhpLink(STOCK_PATH.'editstockreversesplit', $bChinese, STOCK_OPTION_REVERSESPLIT_CN, STOCK_OPTION_REVERSESPLIT, $strQuery);
-    if ($bChinese)	$str .= ' '.GetPhpLink(STOCK_PATH.'editstockema', true, STOCK_OPTION_EMA_CN, false, $strQuery);
-    if ($sym->IsSymbolH())
+    if ($bChinese)
     {
-    	if ($bChinese)	$str .= ' '.GetPhpLink(STOCK_PATH.'editstockadr', true, STOCK_OPTION_ADR_CN, false, $strQuery);
-    }
-    else
-    {
-    	if ($sym->IsTradable())
+    	if (SqlGetEtfPair($strSymbol) == false)
     	{
-    		if ($bChinese)	$str .= ' '.GetPhpLink(STOCK_PATH.'editstocketf', true, STOCK_OPTION_ETF_CN, false, $strQuery);
+    		$str .= ' '.GetPhpLink(STOCK_PATH.'editstockema', true, STOCK_OPTION_EMA_CN, false, $strQuery);
+    	}
+    	if ($sym->IsSymbolH())
+    	{
+    		$str .= ' '.GetPhpLink(STOCK_PATH.'editstockadr', true, STOCK_OPTION_ADR_CN, false, $strQuery);
+    	}
+    	else
+    	{
+    		if ($sym->IsTradable() && (SqlGetIndexPair($strSymbol) == false))
+    		{
+    			$str .= ' '.GetPhpLink(STOCK_PATH.'editstocketf', true, STOCK_OPTION_ETF_CN, false, $strQuery);
+    		}
     	}
     }
     return $str;

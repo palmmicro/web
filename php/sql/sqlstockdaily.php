@@ -140,7 +140,7 @@ class DailyStockSql extends StockTableSql
     
     function DeleteByDate($strDate)
     {
-    	return $this->Delete($this->BuildWhere_stock_date($strDate), '1');
+    	return $this->DeleteData($this->BuildWhere_stock_date($strDate), '1');
     }
 }
 

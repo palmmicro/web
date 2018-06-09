@@ -3,19 +3,24 @@
 // ****************************** StockTransactionSql class *******************************************************
 class StockTransactionSql extends TableSql
 {
-    function StockTransactionSql() 
+    function StockTransactionSql()
     {
         parent::TableSql(TABLE_STOCK_TRANSACTION);
     }
     
-    function BuildWhereOr_groupitem($arGroupItemId)
+    function _buildWhereOr_groupitem($arGroupItemId)
     {
     	return _SqlBuildWhereOrArray('groupitem_id', $arGroupItemId);
     }
     
+    function _buildWhere_groupitem($strGroupItemId)
+    {
+    	return _SqlBuildWhere('groupitem_id', $strGroupItemId);
+    }
+    
     function GetAll($arGroupItemId, $iStart = 0, $iNum = 0)
     {
-    	if ($strWhere = $this->BuildWhereOr_groupitem($arGroupItemId))
+    	if ($strWhere = $this->_buildWhereOr_groupitem($arGroupItemId))
     	{
     		return $this->GetData($strWhere, '`filled` DESC', _SqlBuildLimit($iStart, $iNum));
     	}
@@ -29,11 +34,46 @@ class StockTransactionSql extends TableSql
     
     function CountAll($arGroupItemId)
     {
-    	if ($strWhere = $this->BuildWhereOr_groupitem($arGroupItemId))
+    	if ($strWhere = $this->_buildWhereOr_groupitem($arGroupItemId))
     	{
-    		return $this->Count($strWhere);
+    		return $this->CountData($strWhere);
     	}
     	return 0;
+    }
+
+    function Count($strGroupItemId)
+    {
+    	if ($strWhere = $this->_buildWhere_groupitem($strGroupItemId))
+    	{
+    		return $this->CountData($strWhere);
+    	}
+    }
+    
+    function Delete($strGroupItemId)
+    {
+    	if ($strWhere = $this->_buildWhere_groupitem($strGroupItemId))
+    	{
+    		$this->DeleteData($strWhere);
+    	}
+    }
+    
+    function Insert($strGroupItemId, $strQuantity, $strPrice, $strFees, $strRemark)
+    {
+    	return $this->InsertData("(id, groupitem_id, quantity, price, fees, filled, remark) VALUES('0', '$strGroupItemId', '$strQuantity', '$strPrice', '$strFees', NOW(), '$strRemark')");
+    }
+
+    function Update($strId, $strGroupItemId, $strQuantity, $strPrice, $strCost, $strRemark)
+    {
+		return $this->UpdateById("groupitem_id = '$strGroupItemId', quantity = '$strQuantity', price = '$strPrice', fees = '$strCost', remark = '$strRemark'", $strId);
+	}
+	
+    function Merge($strSrcGroupItemId, $strDstGroupItemId)
+    {
+    	if ($strWhere = $this->_buildWhere_groupitem($strSrcGroupItemId))
+    	{
+    		return $this->UpdateData("groupitem_id = '$strDstGroupItemId'", $strWhere);
+    	}
+    	return false;
     }
 }
 
@@ -55,25 +95,20 @@ function SqlCreateStockTransactionTable()
 	if (!$result)	die('Create stocktransaction table failed');
 }
 */
-
+/*
 function SqlInsertStockTransaction($strGroupItemId, $strQuantity, $strPrice, $strFees, $strRemark)
 {
-	$strQry = "INSERT INTO stocktransaction(id, groupitem_id, quantity, price, fees, filled, remark) VALUES('0', '$strGroupItemId', '$strQuantity', '$strPrice', '$strFees', NOW(), '$strRemark')";
-	return SqlDieByQuery($strQry, 'Insert stocktransaction failed');
+	$sql = new StockTransactionSql();
+	return $sql->Insert($strGroupItemId, $strQuantity, $strPrice, $strFees, $strRemark);
 }
-
+*/
+/*
 function SqlEditStockTransaction($strTransactionId, $strGroupItemId, $strQuantity, $strPrice, $strCost, $strRemark)
 {
 	$strQry = "UPDATE stocktransaction SET groupitem_id = '$strGroupItemId', quantity = '$strQuantity', price = '$strPrice', fees = '$strCost', remark = '$strRemark' WHERE id = '$strTransactionId' LIMIT 1";
 	return SqlDieByQuery($strQry, 'Update stocktransaction failed');
 }
-
-function SqlMergeStockTransaction($strSrcGroupItemId, $strDstGroupItemId)
-{
-	$strQry = "UPDATE stocktransaction SET groupitem_id = '$strDstGroupItemId' WHERE groupitem_id = '$strSrcGroupItemId'";
-	return SqlDieByQuery($strQry, 'Merge stocktransaction failed');
-}
-
+*/
 function SqlGetStockTransactionById($strTransactionId)
 {
     return SqlGetTableDataById('stocktransaction', $strTransactionId);

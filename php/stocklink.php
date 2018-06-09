@@ -98,12 +98,17 @@ function StockGetEditDeleteTransactionLink($strTransactionId, $bChinese)
 	return $strEdit.' '.$strDelete;
 }
 
-function StockGetTransactionLink($strGroupId, $strSymbol, $strDisplay, $bChinese)
+function StockGetTransactionLink($strGroupId, $strSymbol, $bChinese = false, $strDisplay = false, $strUs = false)
 {
     $strQuery = 'groupid='.$strGroupId;
     if ($strSymbol)
     {
         $strQuery .= '&symbol='.$strSymbol;
+    }
+    
+    if ($strDisplay == false)
+    {
+    	$strDisplay = $strSymbol;
     }
     return GetPhpLink(STOCK_PATH.'mystocktransaction', $bChinese, $strDisplay, false, $strQuery);
 }
@@ -118,12 +123,7 @@ function StockGetAllTransactionLink($strGroupId, $bChinese, $ref = false)
 	{
 		$strSymbol = false;
 	}
-    return StockGetTransactionLink($strGroupId, $strSymbol, $bChinese ? '交易记录' : 'Stock Transactions', $bChinese);
-}
-
-function StockGetSingleTransactionLink($strGroupId, $strSymbol, $bChinese)
-{
-    return StockGetTransactionLink($strGroupId, $strSymbol, $strSymbol, $bChinese);
+    return StockGetTransactionLink($strGroupId, $strSymbol, $bChinese, '交易记录', 'Stock Transactions');
 }
 
 function StockGetGroupTransactionLinks($strGroupId, $strCurSymbol, $bChinese)
@@ -139,7 +139,7 @@ function StockGetGroupTransactionLinks($strGroupId, $strCurSymbol, $bChinese)
         }
         else
         {
-            $str .= StockGetSingleTransactionLink($strGroupId, $strSymbol, $bChinese);
+            $str .= StockGetTransactionLink($strGroupId, $strSymbol, $bChinese);
         }
         $str .= ' ';
     }

@@ -32,10 +32,14 @@ class TableSql
     
     function UpdateById($str, $strId)
     {
-    	return $this->UpdateData($str, _SqlBuildWhere_id($strId), '1');
+    	if ($strWhere = _SqlBuildWhere_id($strId))
+    	{
+    		return $this->UpdateData($str, $strWhere, '1');
+    	}
+    	return false;
     }
     
-    function Count($strWhere = false)
+    function CountData($strWhere = false)
     {
     	return SqlCountTableData($this->strName, $strWhere);
     }
@@ -64,14 +68,18 @@ class TableSql
     	return false;
     }
     
-    function Delete($strWhere, $strLimit = false)
+    function DeleteData($strWhere, $strLimit = false)
     {
     	return SqlDeleteTableData($this->strName, $strWhere, $strLimit);
     }
 
     function DeleteById($strId)
     {
-    	return $this->Delete(_SqlBuildWhere_id($strId), '1');
+    	if ($strWhere = _SqlBuildWhere_id($strId))
+    	{
+    		return $this->DeleteData($strWhere, '1');
+    	}
+    	return false;
     }
 
     function DeleteInvalidDate()
@@ -137,7 +145,7 @@ class IdTableSql extends TableSql
     
     function Count()
     {
-    	return TableSql::Count($this->BuildWhere_id());
+    	return $this->CountData($this->BuildWhere_id());
     }
     
     function GetAll()
@@ -162,7 +170,7 @@ class IdTableSql extends TableSql
     
     function DeleteAll()
     {
-    	return $this->Delete($this->BuildWhere_id());
+    	return $this->DeleteData($this->BuildWhere_id());
     }  
 }
 

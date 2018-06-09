@@ -137,7 +137,7 @@ function _updateStockOptionEtf($strSymbol, $strVal)
         DebugVal($sql->Count(), 'Calibration');
         $sql->DeleteAll();
         DebugVal($sql->fund_sql->Count(), $strSymbol.' fund history');
-        $sql->fund_sql->DeleteAll();
+//        $sql->fund_sql->DeleteAll();
         DebugVal($sql->pair_fund_sql->Count(), $strIndex.' fund history');
 //        $sql->pair_fund_sql->DeleteAll();
         $sql->pair_sql->DeleteAll();

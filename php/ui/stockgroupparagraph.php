@@ -23,12 +23,13 @@ function _echoStockGroupTableItem($strGroupId, $bChinese)
 {
     if (StockGroupIsReadOnly($strGroupId))
     {
-        $strEditDelete = '';
+        $strEdit = '';
+        $strDelete = '';
     }
     else
     {
-        $strEditDelete = GetDeleteLink(STOCK_PHP_PATH.'_submitgroup.php?delete='.$strGroupId, '股票分组和相关交易记录', 'stock group and related stock transactions', $bChinese);
-        $strEditDelete .= ' '.StockGetEditGroupLink($strGroupId, $bChinese);
+        $strEdit = StockGetEditGroupLink($strGroupId, $bChinese);
+        $strDelete = GetDeleteLink(STOCK_PHP_PATH.'_submitgroup.php?delete='.$strGroupId, '股票分组和相关交易记录', 'stock group and related stock transactions', $bChinese);
     }
     
     $strLink = SelectGroupInternalLink($strGroupId, $bChinese);
@@ -38,7 +39,7 @@ function _echoStockGroupTableItem($strGroupId, $bChinese)
     <tr>
         <td class=c1>$strLink</td>
         <td class=c1>$strStocks</td>
-        <td class=c1>$strEditDelete</td>
+        <td class=c1>$strEdit $strDelete</td>
     </tr>
 END;
 }

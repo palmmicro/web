@@ -41,7 +41,7 @@ class PairStockSql extends StockTableSql
     	return _SqlBuildWhere('pair_id', $this->GetId());
     }
     
-    function GetStockId()
+    function GetFirstStockId()
     {
     	if ($record = $this->GetSingleData($this->BuildWhere_pair()))
     	{
@@ -177,14 +177,20 @@ function SqlGetAdrhPair($strSymbolAdr)
 	return _sqlGetPair(TABLE_ADRH_STOCK, $strSymbolAdr, 'GetPairId');
 }
 
+// Use GetAllStockId() for all Index matches
+function SqlGetIndexPair($strIndex)
+{
+	return _sqlGetPair(TABLE_ETF_PAIR, $strIndex, 'GetFirstStockId');
+}
+
 function SqlGetHaPair($strSymbolH)
 {
-	return _sqlGetPair(TABLE_AH_STOCK, $strSymbolH, 'GetStockId');
+	return _sqlGetPair(TABLE_AH_STOCK, $strSymbolH, 'GetFirstStockId');
 }
 
 function SqlGetHadrPair($strSymbolH)
 {
-	return _sqlGetPair(TABLE_ADRH_STOCK, $strSymbolH, 'GetStockId');
+	return _sqlGetPair(TABLE_ADRH_STOCK, $strSymbolH, 'GetFirstStockId');
 }
 
 ?>
