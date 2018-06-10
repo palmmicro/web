@@ -86,7 +86,6 @@ function _onDelete($strId, $strGroupItemId)
     {
     	$sql = new StockTransactionSql();
     	$sql->DeleteById($strId);
-//        SqlDeleteTableDataById(TABLE_STOCK_TRANSACTION, $strId);
     }
     return $strGroupId;
 }
@@ -103,7 +102,7 @@ function _getStockTransactionLink($strGroupId, $strStockId)
     return StockGetTransactionLink($strGroupId, $strSymbol); 
 }
 
-function _emailStockTransaction($strGroupId, $strGroupItemId, $strQuantity, $strPrice, $strCost, $strRemark, $strStockId = false)
+function _emailStockTransaction($strStockId, $strGroupId, $strQuantity, $strPrice, $strCost, $strRemark)
 {
     $strSubject = 'Stock Transaction: '.$_POST['submit'];
 	$str = _getGroupOwnerLink($strGroupId);
@@ -163,7 +162,7 @@ function _onEdit($strId, $strGroupItemId, $strQuantity, $strPrice, $strCost, $st
     	$sql = new StockGroupItemSql($strGroupId);
         if ($sql->trans_sql->Update($strId, $strGroupItemId, $strQuantity, $strPrice, $strCost, $strRemark))
         {
-            _emailStockTransaction($strGroupId, $strGroupItemId, $strQuantity, $strPrice, $strCost, $strRemark, $sql->GetStockId());
+            _emailStockTransaction($sql->GetStockId($strGroupItemId), $strGroupId, $strQuantity, $strPrice, $strCost, $strRemark);
         }
     }
     return $strGroupId;
@@ -176,7 +175,7 @@ function _onNew($strGroupItemId, $strQuantity, $strPrice, $strCost, $strRemark)
     	$sql = new StockGroupItemSql($strGroupId);
     	if ($sql->trans_sql->Insert($strGroupItemId, $strQuantity, $strPrice, $strCost, $strRemark))
     	{
-    		_emailStockTransaction($strGroupId, $strGroupItemId, $strQuantity, $strPrice, $strCost, $strRemark);
+    		_emailStockTransaction($sql->GetStockId($strGroupItemId), $strGroupId, $strQuantity, $strPrice, $strCost, $strRemark);
     	}
     }
     return $strGroupId;
@@ -231,7 +230,7 @@ function _onMergeTransaction()
 		    $strGroupId = _onNew($strGroupItemId, $strQuantity, $strPrice, $strCost, $strRemark);
 		}
 		else if ($_POST['submit'] == STOCK_TRANSACTION_EDIT || $_POST['submit'] == STOCK_TRANSACTION_EDIT_CN)
-		{	// edit transaction
+		{
 		    if ($strId = UrlGetQueryValue('edit'))
 		    {
 		        $strGroupId = _onEdit($strId, $strGroupItemId, $strQuantity, $strPrice, $strCost, $strRemark);

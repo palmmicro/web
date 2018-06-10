@@ -1,5 +1,5 @@
 <?php
-require_once('sqltable.php');
+//require_once('sqltable.php');
 require_once('sqlstocktransaction.php');
 
 // ****************************** StockGroupSql class *******************************************************
@@ -53,14 +53,14 @@ function SqlCreateStockGroupTable()
 }
 */
 
-function SqlGetStockGroupById($strGroupId)
+function SqlGetStockGroup($strGroupId)
 {
     return SqlGetTableDataById(TABLE_STOCK_GROUP, $strGroupId);
 }
 
 function SqlGetStockGroupName($strGroupId)
 {
-    if ($group = SqlGetStockGroupById($strGroupId))
+    if ($group = SqlGetStockGroup($strGroupId))
     {
         return $group['groupname'];
     }
@@ -69,7 +69,7 @@ function SqlGetStockGroupName($strGroupId)
 
 function SqlGetStockGroupMemberId($strGroupId)
 {
-    if ($group = SqlGetStockGroupById($strGroupId))
+    if ($group = SqlGetStockGroup($strGroupId))
     {
         return $group['member_id'];
     }
@@ -198,10 +198,7 @@ function SqlAlterStockGroupItemTable()
          . ' INDEX ( `record` )';
 //         . ' `quantity` INT DEFAULT \'0\'';
 //         . ' `cost` DOUBLE(10,3) DEFAULT \'0.0\'';
-//         . ' `filled` DATETIME DEFAULT \'2014-11-13 08:55:00\'';
-//         . ' `record` INT DEFAULT \'0\'';
 	$result = @mysql_query($str);
-	if (!$result)	die('Alter stockgroupitem table failed');
 }
 */
 
@@ -261,8 +258,8 @@ function SqlDeleteStockGroupByMemberId($strMemberId)
 		    SqlDeleteStockGroupItemByGroupId($stockgroup['id']);
 		}
 		@mysql_free_result($result);
+		$sql->DeleteAll();
 	}
-	$sql->DeleteAll();
 }
 
 function SqlDeleteStockGroupItemByGroupId($strGroupId)

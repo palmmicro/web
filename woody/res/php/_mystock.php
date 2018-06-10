@@ -13,19 +13,7 @@ require_once('/php/ui/fundhistoryparagraph.php');
 require_once('/php/ui/tradingparagraph.php');
 //require_once('/php/ui/stockgroupparagraph.php');
 require_once('/php/ui/transactionparagraph.php');
-/*
-function _checkStockTransaction($strGroupId, $strStockId)
-{
-	if ($stockgroupitem = SqlGroupHasStock($strGroupId, $strStockId))
-	{
-		if (intval($stockgroupitem['record']) > 0)
-		{
-		    return $stockgroupitem['id'];
-		}
-	}
-	return false;
-}
-*/
+
 function _echoMyStockTransactions($strMemberId, $ref, $bChinese)
 {
     $arGroup = array();
@@ -36,7 +24,6 @@ function _echoMyStockTransactions($strMemberId, $ref, $bChinese)
 		while ($stockgroup = mysql_fetch_assoc($result)) 
 		{
 		    $strGroupId = $stockgroup['id'];
-//		    if ($strGroupItemId = _checkStockTransaction($strGroupId, $strStockId))
 		    if ($strGroupItemId = SqlGroupHasStock($strGroupId, $strStockId, true))
 		    {
 		        $arGroup[$strGroupId] = $strGroupItemId;
@@ -123,8 +110,9 @@ function _echoMyStockData($strSymbol, $bChinese)
     	else if ($etf_ref = StockGetEtfReference($strSymbol))	$ref = $etf_ref;
    		else														$ref = StockGetReference($sym);
     }
-    EchoReferenceParagraph(array($ref), $bChinese);
+    if ($ref->bHasData == false)		return;
     
+    EchoReferenceParagraph(array($ref), $bChinese);
     if ($etf_ref)		EchoEtfListParagraph(array($etf_ref), $bChinese);
     if ($sym->IsFundA())
     {

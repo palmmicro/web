@@ -1,4 +1,5 @@
 <?php
+require_once('sqltable.php');
 
 // ****************************** StockTransactionSql class *******************************************************
 class StockTransactionSql extends TableSql
