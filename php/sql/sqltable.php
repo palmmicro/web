@@ -10,24 +10,42 @@ class TableSql
     {
     	$this->strName = $strTableName;
     }
-    
-    function Create($str)
+
+    function _query($strQuery, $strDie)
     {
-    	return SqlCreateTable($this->strName, $str);
+    	DebugString($strQuery);
+        return SqlDieByQuery($strQuery, $this->strName.' '.$strDie);
+	}
+	
+    function CreateTable($str)
+    {
+    	$strQuery = 'CREATE TABLE IF NOT EXISTS `camman`.`'
+        	 . $this->strName
+        	 . '` ('
+        	 . ' `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,'
+        	 . $str
+        	 . ' ) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci '; 
+        return $this->_query($strQuery, 'create table failed');
+    }
+
+    function DropTable()
+    {
+    	$strQuery = 'DROP TABLE IF EXISTS `camman`.`'
+        	. $this->strName
+        	. '`';
+        return $this->_query($strQuery, 'drop table failed');
     }
     
     function InsertData($str)
     {
-    	$strTableName = $this->strName;
-	    $strQuery = 'INSERT INTO '.$strTableName.$str;
-	    return SqlDieByQuery($strQuery, $strTableName.' insert data failed');
+	    $strQuery = 'INSERT INTO '.$this->strName.$str;
+        return $this->_query($strQuery, 'insert data failed');
     }
     
     function UpdateData($str, $strWhere, $strLimit = false)
     {
-    	$strTableName = $this->strName;
-    	$strQuery = "UPDATE $strTableName SET $str"._SqlAddWhere($strWhere)._SqlAddLimit($strLimit);
-    	return SqlDieByQuery($strQuery, $strTableName.' update data failed');
+    	$strQuery = 'UPDATE '.$this->strName.' SET '.$str._SqlAddWhere($strWhere)._SqlAddLimit($strLimit);
+        return $this->_query($strQuery, 'update data failed');
     }
     
     function UpdateById($str, $strId)
@@ -59,9 +77,9 @@ class TableSql
     	return $this->GetSingleData(_SqlBuildWhere_id($strId));
     }
     
-    function GetTableIdCallback($strKey, $callback)
+    function GetTableIdCallback($strVal, $callback)
     {
-    	if ($record = $this->$callback($strKey))
+    	if ($record = $this->$callback($strVal))
     	{
     		return $record['id'];
     	}
@@ -110,47 +128,47 @@ class TableSql
     }
 }
 
-// ****************************** IdTableSql class *******************************************************
-class IdTableSql extends TableSql
+// ****************************** KeyTableSql class *******************************************************
+class KeyTableSql extends TableSql
 {
 	var $strKey;
-	var $strId;
+	var $strKeyId;
 	
-    function BuildWhere_id_extra($strKey, $strVal)
+    function BuildWhere_key_extra($strKey, $strVal)
     {
-		return _SqlBuildWhereAndArray(array($this->strKey => $this->strId, $strKey => $strVal));
+		return _SqlBuildWhereAndArray(array($this->strKey => $this->strKeyId, $strKey => $strVal));
     }
     
-    function BuildWhere_id_stock($strStockId)
+    function BuildWhere_key_stock($strStockId)
     {
-		return $this->BuildWhere_id_extra('stock_id', $strStockId);
+		return $this->BuildWhere_key_extra('stock_id', $strStockId);
     }
     
-    function BuildWhere_id()
+    function BuildWhere_key()
     {
-    	return _SqlBuildWhere($this->strKey, $this->strId);
+    	return _SqlBuildWhere($this->strKey, $this->strKeyId);
     }
     
-    function GetId()
+    function GetKeyId()
     {
-    	return $this->strId;
+    	return $this->strKeyId;
     }
     
-    function IdTableSql($strId, $strPrefix, $strTableName) 
+    function KeyTableSql($strKeyId, $strKeyPrefix, $strTableName) 
     {
-    	$this->strId = $strId;
-    	$this->strKey = $strPrefix.'_id';
+    	$this->strKeyId = $strKeyId;
+    	$this->strKey = $strKeyPrefix.'_id';
         parent::TableSql($strTableName);
     }
     
     function Count()
     {
-    	return $this->CountData($this->BuildWhere_id());
+    	return $this->CountData($this->BuildWhere_key());
     }
     
     function GetAll()
     {
-    	return $this->GetData($this->BuildWhere_id());
+    	return $this->GetData($this->BuildWhere_key());
     }
 
     function GetTableIdArray()
@@ -170,39 +188,39 @@ class IdTableSql extends TableSql
     
     function DeleteAll()
     {
-    	return $this->DeleteData($this->BuildWhere_id());
+    	return $this->DeleteData($this->BuildWhere_key());
     }  
 }
 
 // ****************************** StockTableSql class *******************************************************
-class StockTableSql extends IdTableSql
+class StockTableSql extends KeyTableSql
 {
     function BuildWhere_stock_date($strDate)
     {
-		return $this->BuildWhere_id_extra('date', $strDate);
+		return $this->BuildWhere_key_extra('date', $strDate);
     }
     
     function StockTableSql($strStockId, $strTableName) 
     {
-        parent::IdTableSql($strStockId, 'stock', $strTableName);
+        parent::KeyTableSql($strStockId, 'stock', $strTableName);
     }
 }
 
 // ****************************** MemberTableSql class *******************************************************
-class MemberTableSql extends IdTableSql
+class MemberTableSql extends KeyTableSql
 {
     function MemberTableSql($strMemberId, $strTableName) 
     {
-        parent::IdTableSql($strMemberId, 'member', $strTableName);
+        parent::KeyTableSql($strMemberId, 'member', $strTableName);
     }
 }
 
 // ****************************** StockGroupTableSql class *******************************************************
-class StockGroupTableSql extends IdTableSql
+class StockGroupTableSql extends KeyTableSql
 {
     function StockGroupTableSql($strGroupId, $strTableName) 
     {
-        parent::IdTableSql($strGroupId, 'group', $strTableName);
+        parent::KeyTableSql($strGroupId, 'group', $strTableName);
     }
 }
 

@@ -1,7 +1,43 @@
 <?php
+require_once('sqltable.php');
+
+// ****************************** StockSql class *******************************************************
+class StockSql extends TableSql
+{
+    function StockSql()
+    {
+        parent::TableSql(TABLE_STOCK);
+    }
+
+    function Create()
+    {
+    	$str = ' `name` VARCHAR( 32 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,'
+         	. ' `us` VARCHAR( 128 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,'
+         	. ' `cn` VARCHAR( 128 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,'
+         	. ' UNIQUE ( `name` )';
+    	return $this->CreateTable($str);
+    }
+    
+    function Insert($strSymbol, $strEnglish, $strChinese)
+    {
+    	$strEnglish = UrlCleanString($strEnglish);
+    	$strChinese = UrlCleanString($strChinese);
+    	return $this->InsertData("(id, name, us, cn) VALUES('0', '$strSymbol', '$strEnglish', '$strChinese')");
+    }
+
+    function Get($strSymbol)
+    {
+    	return $this->GetSingleData(_SqlBuildWhere('name', $strSymbol));
+    }
+    
+    function GetTableId($strSymbol)
+    {
+		return $this->GetTableIdCallback($strSymbol, 'Get');
+    }
+}
 
 // ****************************** Stock table *******************************************************
-
+/*
 function SqlCreateStockTable()
 {
     $strQry = 'CREATE TABLE IF NOT EXISTS `camman`.`stock` ('
@@ -13,14 +49,18 @@ function SqlCreateStockTable()
          . ' ) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci '; 
 	return SqlDieByQuery($strQry, 'Create stock table failed');
 }
+*/
 
 function SqlInsertStock($strSymbol, $strEnglish, $strChinese)
 {
-    $strEnglish = UrlCleanString($strEnglish);
+	DebugString('SqlInsertStock '.$strSymbol);
+	$sql = new StockSql();
+	return $sql->Insert($strSymbol, $strEnglish, $strChinese);
+/*    $strEnglish = UrlCleanString($strEnglish);
     $strChinese = UrlCleanString($strChinese);
     
 	$strQry = "INSERT INTO stock(id, name, us, cn) VALUES('0', '$strSymbol', '$strEnglish', '$strChinese')";
-	return SqlDieByQuery($strQry, 'Insert stock table failed');
+	return SqlDieByQuery($strQry, 'Insert stock table failed');*/
 }
 
 function SqlUpdateStock($strId, $strSymbol, $strEnglish, $strChinese)
@@ -39,7 +79,8 @@ function SqlGetAllStock($iStart, $iNum)
 
 function SqlGetStock($strSymbol)
 {
-	return SqlGetSingleTableData(TABLE_STOCK, _SqlBuildWhere('name', $strSymbol));
+	$sql = new StockSql();
+	return $sql->Get($strSymbol);
 }
 
 function SqlGetStockDescription($strSymbol)
@@ -55,10 +96,10 @@ function SqlGetStockDescription($strSymbol)
 
 function SqlGetStockId($strSymbol)
 {
-    $stock = SqlGetStock($strSymbol);
-    if ($stock)
-    {
-        return $stock['id'];
+	$sql = new StockSql();
+	if ($strStockId = $sql->GetTableId($strSymbol))
+	{
+		return $strStockId;
 	}
    	DebugString($strSymbol.' not in stock table');
 	return false;

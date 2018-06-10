@@ -8,16 +8,31 @@ class FundHistorySql extends DailyStockSql
 	var $stock_sql;	// StockHistorySql
 	
     // constructor 
-    function FundHistorySql($strStockId) 
+    function FundHistorySql($strStockId = false) 
     {
         parent::DailyStockSql($strStockId, TABLE_FUND_HISTORY);
         $this->stock_sql = new StockHistorySql($strStockId);
     }
 
+    function Create()
+    {
+    	$str = ' `stock_id` INT UNSIGNED NOT NULL ,'
+         	  . ' `date` DATE NOT NULL ,'
+         	  . ' `close` DOUBLE(13,6) NOT NULL ,'
+         	  . ' `estimated` DOUBLE(10,4) NOT NULL ,'
+         	  . ' `time` TIME NOT NULL ,'
+         	  . ' FOREIGN KEY (`stock_id`) REFERENCES `stock`(`id`) ON DELETE CASCADE ,'
+         	  . ' UNIQUE ( `date`, `stock_id` )';
+    	return $this->CreateTable($str);
+    }
+    
     function Insert($strDate, $strClose, $strEstimated, $strTime)
     {
-    	$strStockId = $this->GetId(); 
-    	return $this->InsertData("(id, stock_id, date, close, estimated, time) VALUES('0', '$strStockId', '$strDate', '$strClose', '$strEstimated', '$strTime')");
+    	if ($strStockId = $this->GetKeyId())
+    	{
+    		return $this->InsertData("(id, stock_id, date, close, estimated, time) VALUES('0', '$strStockId', '$strDate', '$strClose', '$strEstimated', '$strTime')");
+    	}
+    	return false;
     }
     
     function Update($strId, $strNetValue, $strEstimated, $strTime)
@@ -27,22 +42,6 @@ class FundHistorySql extends DailyStockSql
 }
 
 // ****************************** Fund History tables *******************************************************
-
-// Date, Net Value, Estimated Value, Estimated Time
-function SqlCreateFundHistoryTable()
-{
-    $str = 'CREATE TABLE IF NOT EXISTS `camman`.`fundhistory` ('
-         . ' `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,'
-         . ' `stock_id` INT UNSIGNED NOT NULL ,'
-         . ' `date` DATE NOT NULL ,'
-         . ' `close` DOUBLE(13,6) NOT NULL ,'
-         . ' `estimated` DOUBLE(10,4) NOT NULL ,'
-         . ' `time` TIME NOT NULL ,'
-         . ' FOREIGN KEY (`stock_id`) REFERENCES `stock`(`id`) ON DELETE CASCADE ,'
-         . ' UNIQUE ( `date`, `stock_id` )'
-         . ' ) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci '; 
-	return SqlDieByQuery($str, 'Create fundhistory table failed');
-}
 
 function SqlGetFundHistoryNow($strStockId)
 {
@@ -67,8 +66,6 @@ function SqlInsertFundHistory($strStockId, $strDate, $strNetValue, $strEstimated
 	DebugString('Insert fund history '.SqlGetStockSymbol($strStockId));
 	$sql = new FundHistorySql($strStockId);
 	return $sql->Insert($strDate, $strNetValue, $strEstimated, $strTime);
-//	$strQry = "INSERT INTO fundhistory(id, stock_id, date, close, estimated, time) VALUES('0', '$strStockId', '$strDate', '$strNetValue', '$strEstimated', '$strTime')";
-//	return SqlDieByQuery($strQry, 'Insert fundhistory table failed');
 }
 
 function SqlUpdateFundHistory($strId, $strNetValue, $strEstimated, $strTime)

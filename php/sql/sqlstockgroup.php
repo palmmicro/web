@@ -12,7 +12,7 @@ class StockGroupSql extends MemberTableSql
     
     function Get($strGroupName)
     {
-    	return $this->GetSingleData($this->BuildWhere_id_extra('groupname', $strGroupName));
+    	return $this->GetSingleData($this->BuildWhere_key_extra('groupname', $strGroupName));
     }
     
     function GetTableId($strGroupName)
@@ -22,12 +22,12 @@ class StockGroupSql extends MemberTableSql
 
     function GetAll()
     {
-    	return $this->GetData($this->BuildWhere_id(), '`groupname` ASC');
+    	return $this->GetData($this->BuildWhere_key(), '`groupname` ASC');
     }
     
     function Insert($strGroupName)
     {
-    	$strMemberId = $this->GetId(); 
+    	$strMemberId = $this->GetKeyId(); 
     	return $this->InsertData("(id, member_id, groupname) VALUES('0', '$strMemberId', '$strGroupName')");
     }
     
@@ -122,12 +122,12 @@ class StockGroupItemSql extends StockGroupTableSql
 
     function Get($strStockId)
     {
-    	return $this->GetSingleData($this->BuildWhere_id_stock($strStockId));
+    	return $this->GetSingleData($this->BuildWhere_key_stock($strStockId));
     }
     
     function Insert($strStockId)
     {
-    	$strGroupId = $this->GetId(); 
+    	$strGroupId = $this->GetKeyId(); 
     	return $this->InsertData("(id, group_id, stock_id, quantity, cost, record) VALUES('0', '$strGroupId', '$strStockId', '0', '0.0', '0')");
     }
 

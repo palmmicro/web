@@ -354,12 +354,12 @@ function _yahooNetValueHasFile($now_ymd, $strFileName, $strNetValueSymbol)
     return false;
 }
 
-function _insertFundHistory($strStockId, $strDate, $strTime, $strPrice, $strChange)
+function _insertFundHistory($sql, $strDate, $strTime, $strPrice, $strChange)
 {
-	if (SqlGetFundHistoryByDate($strStockId, $strDate) == false)
+	if ($sql->Get($strDate) == false)
     {
-    	DebugString('Insert fund history: '.SqlGetStockSymbol($strStockId).' '.$strDate.' '.$strTime.':'.$strPrice.' '.$strChange);
-    	SqlInsertFundHistory($strStockId, $strDate, $strPrice, $strChange, $strTime);
+    	DebugString('Insert fund history '.SqlGetStockSymbol($sql->GetKeyId()).' '.$strDate.' '.$strTime.':'.$strPrice.' '.$strChange);
+    	$sql->Insert($strDate, $strPrice, $strChange, $strTime);
     }
 }
 
@@ -381,12 +381,12 @@ function _yahooGetNetValueSymbol($strSymbol)
    	return GetYahooNetValueSymbol($strSymbol);
 }
 
-function _yahooNetValueReady($strStockId, $strDate)
+function _yahooNetValueReady($sql, $strDate)
 {
-    SqlCreateFundHistoryTable();
-    if (SqlGetFundHistoryByDate($strStockId, $strDate))
+	$sql->Create();
+    if ($sql->Get($strDate))
     {
-//    	DebugString(SqlGetStockSymbol($strStockId).' '.$strDate.': fund table entry existed');
+//    	DebugString(SqlGetStockSymbol($sql->GetKeyId()).' '.$strDate.' fund table entry existed');
     	return true;
     }
     return false;
@@ -396,10 +396,12 @@ function YahooUpdateNetValue($strSymbol)
 {
 	if (($strNetValueSymbol = _yahooGetNetValueSymbol($strSymbol)) == false)	return;
     if (($strStockId = SqlGetStockId($strSymbol)) == false)  					return;
+	$sql = new FundHistorySql($strStockId);
+	
     date_default_timezone_set(STOCK_TIME_ZONE_US);
     $now_ymd = new NowYMD();
     $strDate = $now_ymd->GetYMD();
-    if (_yahooNetValueReady($strStockId, $strDate))								return;
+    if (_yahooNetValueReady($sql, $strDate))								return;
     if ($now_ymd->IsTradingDay())
     {
     	if ($now_ymd->GetTick() < (strtotime($strDate) + _getNetValueDelayTick()))
@@ -432,17 +434,17 @@ function YahooUpdateNetValue($strSymbol)
     {
     	$ymd = _yahooStockMatchGetYmd($arMatch, $strNetValueSymbol);
     	$strDate = $ymd->GetYMD();
-    	if (_yahooNetValueReady($strStockId, $strDate))		return;
+    	if (_yahooNetValueReady($sql, $strDate))		return;
     	foreach ($arMatch as $ar)
     	{
     		$strMatchSymbol = $ar[4];
     		$strMatchPrice = $ar[3];
     		$strMatchChange = $ar[2];
-    		if ($strNetValueSymbol == $strMatchSymbol)					_insertFundHistory($strStockId, $strDate, $ymd->GetHMS(), $strMatchPrice, $strMatchChange);
+    		if ($strNetValueSymbol == $strMatchSymbol)					_insertFundHistory($sql, $strDate, $ymd->GetHMS(), $strMatchPrice, $strMatchChange);
     		else if ($strExtraId = SqlGetStockId($strMatchSymbol))
     		{
     			$ymd_extra = _yahooStockMatchGetYmd($arMatch, $strMatchSymbol);
-    			_insertFundHistory($strExtraId, $ymd_extra->GetYMD(), $ymd_extra->GetHMS(), $strMatchPrice, $strMatchChange);
+    			_insertFundHistory(new FundHistorySql($strExtraId), $ymd_extra->GetYMD(), $ymd_extra->GetHMS(), $strMatchPrice, $strMatchChange);
     		}
     	}
     }

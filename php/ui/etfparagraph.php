@@ -19,8 +19,8 @@ function _etfListRefCallback($bChinese, $ref = false)
     }
     
 	$strSymbol = GetReferenceTableSymbol($bChinese);
-    if ($bChinese)  $arColumn = array('指数'.$strSymbol, '杠杆倍数', '校准值');
-    else              $arColumn = array('Index '.$strSymbol, 'Ratio', 'Factor');
+    if ($bChinese)  $arColumn = array('跟踪'.$strSymbol, '杠杆倍数', '校准值');
+    else              $arColumn = array('Follow '.$strSymbol, 'Ratio', 'Factor');
     return $arColumn;
 }
 

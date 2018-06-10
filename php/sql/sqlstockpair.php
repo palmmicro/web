@@ -15,7 +15,7 @@ class PairStockSql extends StockTableSql
     
     function Get()
     {
-    	return $this->GetSingleData($this->BuildWhere_id());
+    	return $this->GetSingleData($this->BuildWhere_key());
     }
 
     function GetRatio()
@@ -38,7 +38,7 @@ class PairStockSql extends StockTableSql
     
     function BuildWhere_pair()
     {
-    	return _SqlBuildWhere('pair_id', $this->GetId());
+    	return _SqlBuildWhere('pair_id', $this->GetKeyId());
     }
     
     function GetFirstStockId()

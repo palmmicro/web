@@ -70,7 +70,6 @@ function test_stock_dividend()
 {
 	$arSymbolData = SinaGetAllStockArrayA();
 	$arOutput = array();
-	SqlCreateStockTable();
 	SqlCreateParameterTable(TABLE_DIVIDEND_PARAMETER);
     foreach ($arSymbolData as $strSymbol => $arData)
     {
@@ -110,8 +109,14 @@ function SysInit()
 	{
 	    DebugString('connect database ok');
 	}
+
+//	$sql = new FundHistorySql();
+//	$sql->DropTable();
+	
+//	$sql = new StockSql();
+//	$sql->DropTable();
+	
 //	GB2312WriteDatabase();
-//	SqlDropTable(TABLE_AH_STOCK);
 //	AhWriteDatabase();		
 //	AdrhWriteDatabase();
 }
@@ -122,8 +127,14 @@ function TestCmdLine()
     if ($strSymbol = UrlGetQueryValue('symbol'))
     {
     	$strSrc = UrlGetQueryDisplay('src', 'yahoo');
+    	$ref = new MyStockReference($strSymbol);
+    	DebugString(SqlGetStockId($strSymbol));
     	$fStart = microtime(true);
-    	if ($strSrc == 'yahoo')		$str = TestYahooWebData($strSymbol);
+    	if ($strSrc == 'yahoo')		
+    	{
+    		$str = TestYahooWebData($strSymbol);
+//    		YahooUpdateNetValue($strSymbol);
+    	}
     	else if ($strSrc == 'ft')	$str = TestFtStock($strSymbol);
     	else if ($strSrc == 'sina')	$str = TestSinaStockHistory($strSymbol);
     	$fStop = microtime(true);

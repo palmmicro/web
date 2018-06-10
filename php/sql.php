@@ -58,43 +58,6 @@ function SqlDieByQuery($strQry, $strDie)
 	return false;
 }
 
-function SqlQuerySingleRecord($strQry, $strDie)
-{
-	if ($result = mysql_query($strQry)) 
-	{
-	    if (mysql_num_rows($result) == 1) 
-	    {
-	        $record = mysql_fetch_assoc($result);
-	        @mysql_free_result($result);
-	        return $record;
-	    }
-	}
-	else
-	{
-	    die_mysql_error($strDie);
-	}
-	return false;
-}
-
-function SqlCreateTable($strTableName, $str)
-{
-    $strQuery = 'CREATE TABLE IF NOT EXISTS `camman`.`'
-         . $strTableName
-         . '` ('
-         . ' `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,'
-         . $str
-         . ' ) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci '; 
-	return SqlDieByQuery($strQuery, $strTableName.' create table failed');
-}
-
-function SqlDropTable($strTableName)
-{
-    $str = 'DROP TABLE IF EXISTS `camman`.`'
-        . $strTableName
-        . '`';
-	SqlDieByQuery($str, $strTableName.' Drop table failed');
-}
-
 function SqlGetTableData($strTableName, $strWhere = false, $strOrder = false, $strLimit = false)
 {
 	$strQry = 'SELECT * FROM '.$strTableName._SqlAddWhere($strWhere)._SqlAddOrder($strOrder)._SqlAddLimit($strLimit);
@@ -107,7 +70,7 @@ function SqlGetTableData($strTableName, $strWhere = false, $strOrder = false, $s
 	}
 	else
 	{
-	    die_mysql_error($strTableName.' query table data by '.$strQry.' failed');
+	    die_mysql_error($strTableName.' query data by '.$strQry.' failed');
 	}
 	return false;
 }
@@ -115,7 +78,20 @@ function SqlGetTableData($strTableName, $strWhere = false, $strOrder = false, $s
 function SqlGetSingleTableData($strTableName, $strWhere = false, $strOrder = false)
 {
 	$strQry = 'SELECT * FROM '.$strTableName._SqlAddWhere($strWhere)._SqlAddOrder($strOrder)._SqlAddLimit('1');
-	return SqlQuerySingleRecord($strQry, $strTableName.' query table data by '.$strWhere.' failed');
+	if ($result = mysql_query($strQry)) 
+	{
+	    if (mysql_num_rows($result) == 1) 
+	    {
+	        $record = mysql_fetch_assoc($result);
+	        @mysql_free_result($result);
+	        return $record;
+	    }
+	}
+	else
+	{
+	    die_mysql_error($strTableName.' query single data by '.$strQry.' failed');
+	}
+	return false;
 }
 
 function SqlGetTableDataById($strTableName, $strId)

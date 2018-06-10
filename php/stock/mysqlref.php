@@ -15,22 +15,23 @@ class MysqlReference extends StockReference
     {
     	if ($this->strSqlId)	return;	// Already set, like in CnyReference
     	
-    	SqlCreateStockTable();
-    	$this->strSqlId = SqlGetStockId($this->strSqlName);
+    	$sql = new StockSql();
+    	$sql->Create();
+    	$this->strSqlId = $sql->GetTableId($this->strSqlName);
+    	DebugString($this->strSqlName);
         if ($this->strSqlId == false)
         {
             if ($this->bHasData)
             {
-                SqlInsertStock($this->strSqlName, $this->GetEnglishName(), $this->GetChineseName());
-                $this->strSqlId = SqlGetStockId($this->strSqlName);
+                $sql->Insert($this->strSqlName, $this->GetEnglishName(), $this->GetChineseName());
+                $this->strSqlId = $sql->GetTableId($this->strSqlName);
             }
         }
     }
     
-    // constructor 
     function MysqlReference($strSymbol) 
     {
-        parent::StockReference($strSymbol);
+		parent::StockReference($strSymbol);
         if ($this->strSqlName == false)
         {
         	$this->strSqlName = $strSymbol;

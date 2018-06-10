@@ -18,7 +18,7 @@ class DailyStockSql extends StockTableSql
          	  . ' `close` DOUBLE(13,6) NOT NULL ,'
          	  . ' FOREIGN KEY (`stock_id`) REFERENCES `stock`(`id`) ON DELETE CASCADE ,'
          	  . ' UNIQUE ( `date`, `stock_id` )';
-    	return parent::Create($str);
+    	return $this->CreateTable($str);
     }
 
     function _getCloseString($strDate, $callback)
@@ -56,12 +56,12 @@ class DailyStockSql extends StockTableSql
 
     function GetFromDate($strDate, $iNum)
     {
-    	return $this->GetData($this->BuildWhere_id()." AND date <= '$strDate'", _SqlOrderByDate(), _SqlBuildLimit(0, $iNum));
+    	return $this->GetData($this->BuildWhere_key()." AND date <= '$strDate'", _SqlOrderByDate(), _SqlBuildLimit(0, $iNum));
     }
     
     function GetPrev($strDate)
     {
-    	return $this->GetSingleData($this->BuildWhere_id()." AND date < '$strDate'", _SqlOrderByDate());
+    	return $this->GetSingleData($this->BuildWhere_key()." AND date < '$strDate'", _SqlOrderByDate());
     }
 
     function GetCloseStringPrev($strDate)
@@ -76,7 +76,7 @@ class DailyStockSql extends StockTableSql
 
     function GetNow()
     {
-    	return $this->GetSingleData($this->BuildWhere_id(), _SqlOrderByDate());
+    	return $this->GetSingleData($this->BuildWhere_key(), _SqlOrderByDate());
     }
     
     function GetDateNow()
@@ -108,12 +108,12 @@ class DailyStockSql extends StockTableSql
 
     function GetAll($iStart = 0, $iNum = 0)
     {
-    	return $this->GetData($this->BuildWhere_id(), _SqlOrderByDate(), _SqlBuildLimit($iStart, $iNum));
+    	return $this->GetData($this->BuildWhere_key(), _SqlOrderByDate(), _SqlBuildLimit($iStart, $iNum));
     }
 
     function Insert($strDate, $strClose)
     {
-    	$strStockId = $this->GetId(); 
+    	$strStockId = $this->GetKeyId(); 
     	return $this->InsertData("(id, stock_id, date, close) VALUES('0', '$strStockId', '$strDate', '$strClose')");
     }
 

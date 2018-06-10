@@ -598,6 +598,7 @@ class StockReference
         if (count($ar) < 18)
         {
             $this->bHasData = false;
+            DebugString($this->strFileName.' LoadSinaData found NO data');
             return;
         }
         
