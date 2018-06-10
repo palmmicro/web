@@ -95,23 +95,11 @@ function SqlCreateStockTransactionTable()
 	if (!$result)	die('Create stocktransaction table failed');
 }
 */
-/*
-function SqlInsertStockTransaction($strGroupItemId, $strQuantity, $strPrice, $strFees, $strRemark)
+
+function SqlGetStockTransaction($strTransactionId)
 {
 	$sql = new StockTransactionSql();
-	return $sql->Insert($strGroupItemId, $strQuantity, $strPrice, $strFees, $strRemark);
-}
-*/
-/*
-function SqlEditStockTransaction($strTransactionId, $strGroupItemId, $strQuantity, $strPrice, $strCost, $strRemark)
-{
-	$strQry = "UPDATE stocktransaction SET groupitem_id = '$strGroupItemId', quantity = '$strQuantity', price = '$strPrice', fees = '$strCost', remark = '$strRemark' WHERE id = '$strTransactionId' LIMIT 1";
-	return SqlDieByQuery($strQry, 'Update stocktransaction failed');
-}
-*/
-function SqlGetStockTransactionById($strTransactionId)
-{
-    return SqlGetTableDataById('stocktransaction', $strTransactionId);
+	return $sql->GetById($strTransactionId);
 }
 
 // ****************************** Stock Transaction functions *******************************************************

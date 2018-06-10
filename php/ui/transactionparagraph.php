@@ -55,8 +55,8 @@ function _echoAllTransactionTableData($sql, $iStart, $iNum, $bReadOnly, $bChines
         	}
         	else
         	{
-        		$groupitem = $sql->GetDataById($strGroupItemId);
-        		$strSymbol = SqlGetStockSymbol($groupitem['stock_id']);
+        		$strStockId = $sql->GetStockId($strGroupItemId);
+        		$strSymbol = SqlGetStockSymbol($strStockId);
         		$ref = new MyStockReference($strSymbol);
         		$ar[$strGroupItemId] = $ref;
         	}

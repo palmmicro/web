@@ -15,7 +15,7 @@ function _echoCombinedTransactionTableItem($group, $strDate, $strGroupItemId, $c
     $strConvertedShares = '';
     $strCost = '';
     $strConvertedCost = '';
-        
+    
     $trans = $group->GetStockTransactionByStockGroupItemId($strGroupItemId);
     if ($trans)
     {
@@ -49,54 +49,53 @@ END;
 
 function _getFundClass($group)
 {
-    $trans = $group->GetStockTransactionCN();
-    $strSymbol = $trans->GetStockSymbol();
-    if (in_arrayLof($strSymbol))
+    if ($trans = $group->GetStockTransactionCN())
     {
-        $fund = new LofReference($strSymbol);
+    	$strSymbol = $trans->GetStockSymbol();
+    	if (in_arrayLof($strSymbol))
+    	{
+    		return new LofReference($strSymbol);
+    	}
     }
-    else
-    {
-        $fund = false;
-    }
-    return $fund;
+    return $false;
 }
 
-function _echoCombinedTransactionTableData($group, $iMax, $bChinese)
+function _echoCombinedTransactionTableData($strGroupId, $iMax, $bChinese)
 {
-	$sql = new StockGroupItemSql($group->strGroupId);
+    $group = new MyStockGroup($strGroupId, array());
+	$sql = new StockGroupItemSql($strGroupId);
     if ($result = $sql->GetAllStockTransaction(0, $iMax)) 
     {
         $fund = _getFundClass($group); 
         $trans = new StockTransaction();
         $strRemark = '';
-        while ($transaction = mysql_fetch_assoc($result)) 
+        while ($record = mysql_fetch_assoc($result)) 
         {
             if ($trans->iTotalRecords == 0)
             {
-                $strDate = GetSqlTransactionDate($transaction);
-                $strGroupItemId = $transaction['groupitem_id'];
+                $strDate = GetSqlTransactionDate($record);
+                $strGroupItemId = $record['groupitem_id'];
             }
             else
             {
-                if ($strGroupItemId != $transaction['groupitem_id'])
+                if ($strGroupItemId != $record['groupitem_id'])
                 {
                     _echoCombinedTransactionTableItem($group, $strDate, $strGroupItemId, $trans, $strRemark, $fund);
-                    $strGroupItemId = $transaction['groupitem_id'];
-                    $strDate = GetSqlTransactionDate($transaction);
+                    $strGroupItemId = $record['groupitem_id'];
+                    $strDate = GetSqlTransactionDate($record);
                     $trans->Zero();
                     $strRemark = '';
                 }
             }
-            AddSqlTransaction($trans, $transaction);
-            $strRemark .= $transaction['remark'].' ';
+            AddSqlTransaction($trans, $record);
+            $strRemark .= $record['remark'].' ';
         }
         _echoCombinedTransactionTableItem($group, $strDate, $strGroupItemId, $trans, $strRemark, $fund);
         @mysql_free_result($result);
     }
 }
 
-function _echoCombinedTransactionTable($group, $iMax, $bChinese)
+function _echoCombinedTransactionTable($strGroupId, $iMax, $bChinese)
 {
 	$strSymbol = GetReferenceTableSymbol($bChinese);
     if ($bChinese)	$arColumn = array('日期', $strSymbol, '合并数量', '折算数量', '平均成本', '折算成本', '备注');
@@ -115,7 +114,7 @@ function _echoCombinedTransactionTable($group, $iMax, $bChinese)
     </tr>
 END;
 
-    _echoCombinedTransactionTableData($group, $iMax, $bChinese);
+    _echoCombinedTransactionTableData($strGroupId, $iMax, $bChinese);
     EchoTableEnd();
 }
 
@@ -123,21 +122,16 @@ END;
 
 function CombineTransactionEchoAll($bChinese)
 {
-    global $g_strGroupId;
-
-    if ($g_strGroupId)
+    if ($strGroupId = UrlGetQueryValue('groupid'))
     {
-        $arSymbol = SqlGetStocksArray($g_strGroupId);
+        $arSymbol = SqlGetStocksArray($strGroupId);
         StockPrefetchData($arSymbol);
 
-        $strGroupLink = _GetReturnGroupLink($g_strGroupId, $bChinese);
-        $strStockLinks = StockGetGroupTransactionLinks($g_strGroupId, '', $bChinese);
-        $strAllLink = StockGetAllTransactionLink($g_strGroupId, $bChinese);
+        $strGroupLink = _GetReturnGroupLink($strGroupId, $bChinese);
+        $strStockLinks = StockGetGroupTransactionLinks($strGroupId, $bChinese);
+        $strAllLink = StockGetAllTransactionLink($strGroupId, $bChinese);
         EchoParagraphBegin($strGroupLink.' '.$strAllLink.' '.$strStockLinks);
-        
-        $group = new MyStockGroup($g_strGroupId, array());
-        _echoCombinedTransactionTable($group, 0, $bChinese);
-        
+        _echoCombinedTransactionTable($strGroupId, 0, $bChinese);
         EchoParagraphEnd();
     }
     EchoPromotionHead($bChinese);
@@ -145,9 +139,7 @@ function CombineTransactionEchoAll($bChinese)
 
 function CombineTransactionEchoMetaDescription($bChinese)
 {
-    global $g_strGroupId;
-
-    $strWhose = _GetWhoseStockGroupDisplay(false, $g_strGroupId, $bChinese);
+    $strWhose = _GetWhoseStockGroupDisplay(false, UrlGetQueryValue('groupid'), $bChinese);
     if ($bChinese)  $str = '不同的数据显示方式可能会带来不同的思路和想法. 这里显示'.$strWhose.'股票分组内相同股票连续交易的合并交易结果, 并且对LOF等跨市场的分组进行了合并交易结果后相应的价格折算.';
     else             $str = 'Displays the combined transaction in '.$strWhose.' stock group, to provide a different view of my stock transactions.';
     EchoMetaDescriptionText($str);
@@ -155,17 +147,13 @@ function CombineTransactionEchoMetaDescription($bChinese)
 
 function CombineTransactionEchoTitle($bChinese)
 {
-    global $g_strMemberId;
-    global $g_strGroupId;
-    
-    $str = _GetWhoseStockGroupDisplay($g_strMemberId, $g_strGroupId, $bChinese);
+    $str = _GetWhoseStockGroupDisplay(AcctIsLogin(), UrlGetQueryValue('groupid'), $bChinese);
     if ($bChinese)  $str .= '合并股票交易记录';
     else             $str .= ' Combined Stock Transactions';
     echo $str;
 }
 
-    $g_strMemberId = AcctNoAuth();
-    $g_strGroupId = UrlGetQueryValue('groupid');
+    AcctNoAuth();
 
 ?>
 

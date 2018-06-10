@@ -6,11 +6,10 @@ require_once('/php/ui/stockgroupparagraph.php');
 require_once('_edittransactionform.php');
 require_once('_editmergeform.php');
 
-function _updateStockGroupItemTransaction($strGroupItemId)
+function _updateStockGroupItemTransaction($sql, $strGroupItemId)
 {
     $trans = new StockTransaction();
-	$sql = new StockTransactionSql();
-    if ($result = $sql->Get($strGroupItemId)) 
+    if ($result = $sql->trans_sql->Get($strGroupItemId)) 
     {
         while ($record = mysql_fetch_assoc($result)) 
         {
@@ -18,7 +17,7 @@ function _updateStockGroupItemTransaction($strGroupItemId)
         }
         @mysql_free_result($result);
     }
-    SqlUpdateStockGroupItem($strGroupItemId, strval($trans->iTotalShares), strval($trans->fTotalCost), strval($trans->iTotalRecords));
+    $sql->Update($strGroupItemId, strval($trans->iTotalShares), strval($trans->fTotalCost), strval($trans->iTotalRecords));
 }
 
 function _updateStockGroupItem($strGroupId, $strGroupItemId)
@@ -31,7 +30,7 @@ function _updateStockGroupItem($strGroupId, $strGroupItemId)
 	{
 		while ($stockgroupitem = mysql_fetch_assoc($result)) 
 		{
-		    _updateStockGroupItemTransaction($stockgroupitem['id']);
+		    _updateStockGroupItemTransaction($sql, $stockgroupitem['id']);
 		}
 		@mysql_free_result($result);
 	}
@@ -72,7 +71,7 @@ function _getStockCost()
 
 function _canModifyStockTransaction($strGroupItemId)
 {
-    $groupitem = SqlGetStockGroupItemById($strGroupItemId);
+    $groupitem = SqlGetStockGroupItem($strGroupItemId);
     $strGroupId = $groupitem['group_id'];
 	if (StockGroupIsReadOnly($strGroupId))
 	{
@@ -85,7 +84,9 @@ function _onDelete($strId, $strGroupItemId)
 {
     if ($strGroupId = _canModifyStockTransaction($strGroupItemId))
     {
-        SqlDeleteTableDataById('stocktransaction', $strId);
+    	$sql = new StockTransactionSql();
+    	$sql->DeleteById($strId);
+//        SqlDeleteTableDataById(TABLE_STOCK_TRANSACTION, $strId);
     }
     return $strGroupId;
 }
@@ -102,15 +103,11 @@ function _getStockTransactionLink($strGroupId, $strStockId)
     return StockGetTransactionLink($strGroupId, $strSymbol); 
 }
 
-function _emailStockTransaction($sql, $strGroupItemId, $strQuantity, $strPrice, $strCost, $strRemark)
+function _emailStockTransaction($strGroupId, $strGroupItemId, $strQuantity, $strPrice, $strCost, $strRemark, $strStockId = false)
 {
-	$groupitem = $sql->GetDataById($strGroupItemId);
-//    $groupitem = SqlGetStockGroupItemById($strGroupItemId);
-    $strGroupId = $groupitem['group_id'];
-    
     $strSubject = 'Stock Transaction: '.$_POST['submit'];
 	$str = _getGroupOwnerLink($strGroupId);
-    $str .= '<br />Symbol: '._getStockTransactionLink($strGroupId, $groupitem['stock_id']); 
+    $str .= '<br />Symbol: '._getStockTransactionLink($strGroupId, $strStockId); 
     $str .= '<br />Quantity: '.$strQuantity; 
     $str .= '<br />Price: '.$strPrice; 
     $str .= '<br />Cost: '.$strCost; 
@@ -166,7 +163,7 @@ function _onEdit($strId, $strGroupItemId, $strQuantity, $strPrice, $strCost, $st
     	$sql = new StockGroupItemSql($strGroupId);
         if ($sql->trans_sql->Update($strId, $strGroupItemId, $strQuantity, $strPrice, $strCost, $strRemark))
         {
-            _emailStockTransaction($sql, $strGroupItemId, $strQuantity, $strPrice, $strCost, $strRemark);
+            _emailStockTransaction($strGroupId, $strGroupItemId, $strQuantity, $strPrice, $strCost, $strRemark, $sql->GetStockId());
         }
     }
     return $strGroupId;
@@ -179,7 +176,7 @@ function _onNew($strGroupItemId, $strQuantity, $strPrice, $strCost, $strRemark)
     	$sql = new StockGroupItemSql($strGroupId);
     	if ($sql->trans_sql->Insert($strGroupItemId, $strQuantity, $strPrice, $strCost, $strRemark))
     	{
-    		_emailStockTransaction($sql, $strGroupItemId, $strQuantity, $strPrice, $strCost, $strRemark);
+    		_emailStockTransaction($strGroupId, $strGroupItemId, $strQuantity, $strPrice, $strCost, $strRemark);
     	}
     }
     return $strGroupId;
@@ -197,13 +194,18 @@ function _onMergeTransaction()
         $strSrcGroupItemId = $_POST['symbol1'];
         $strDstGroupItemId = $_POST['symbol0'];
     }
-		    
-//    if (SqlMergeStockTransaction($strSrcGroupItemId, $strDstGroupItemId))
-	$sql = new StockTransactionSql();
-	if ($sql->Merge($strSrcGroupItemId, $strDstGroupItemId))
+
+    if ($strSrcGroupId = _canModifyStockTransaction($strSrcGroupItemId))
     {
-        _updateStockGroupItemTransaction($strSrcGroupItemId);
-        _updateStockGroupItemTransaction($strDstGroupItemId);
+    	if ($strDstGroupId = _canModifyStockTransaction($strDstGroupItemId))
+    	{
+    		$sql = new StockGroupItemSql($strSrcGroupId);
+    		if ($sql->trans_sql->Merge($strSrcGroupItemId, $strDstGroupItemId))
+    		{
+    			_updateStockGroupItemTransaction($sql, $strSrcGroupItemId);
+    			_updateStockGroupItemTransaction(new StockGroupItemSql($strDstGroupId), $strDstGroupItemId);
+    		}
+    	}
     }
 }
 
@@ -239,7 +241,7 @@ function _onMergeTransaction()
 	}
 	else if ($strId = UrlGetQueryValue('delete'))
 	{
-	    $transaction = SqlGetStockTransactionById($strId);
+	    $transaction = SqlGetStockTransaction($strId);
 	    $strGroupItemId = $transaction['groupitem_id'];
 	    $strGroupId = _onDelete($strId, $strGroupItemId);
 	}

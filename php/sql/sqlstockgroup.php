@@ -81,26 +81,10 @@ class StockGroupItemSql extends StockGroupTableSql
 {
 	var $trans_sql;	// StockTransactionSql
 	
-    function StockGroupItemSql($strStockGroupId) 
+    function StockGroupItemSql($strGroupId) 
     {
-        parent::StockGroupTableSql($strStockGroupId, TABLE_STOCK_GROUP_ITEM);
+        parent::StockGroupTableSql($strGroupId, TABLE_STOCK_GROUP_ITEM);
         $this->trans_sql = new StockTransactionSql();
-    }
-
-    function Get($strStockId)
-    {
-    	return $this->GetSingleData($this->BuildWhere_id_stock($strStockId));
-    }
-    
-    function GetTableId($strStockId)
-    {
-		return $this->GetTableIdCallback($strStockId, 'Get');
-    }
-
-    function Insert($strStockId)
-    {
-    	$strGroupId = $this->GetId(); 
-    	return $this->InsertData("(id, group_id, stock_id, quantity, cost, record) VALUES('0', '$strGroupId', '$strStockId', '0', '0.0', '0')");
     }
 
     function GetStockIdArray($bCheckTransaction = false)
@@ -121,6 +105,36 @@ class StockGroupItemSql extends StockGroupTableSql
     	}
     	return false;
     }
+    
+    function GetStockId($strId)
+    {
+    	if ($record = $this->GetById($strId))
+    	{
+    		return $record['stock_id'];
+    	}
+    	return false;
+    }
+
+    function GetTableId($strStockId)
+    {
+		return $this->GetTableIdCallback($strStockId, 'Get');
+    }
+
+    function Get($strStockId)
+    {
+    	return $this->GetSingleData($this->BuildWhere_id_stock($strStockId));
+    }
+    
+    function Insert($strStockId)
+    {
+    	$strGroupId = $this->GetId(); 
+    	return $this->InsertData("(id, group_id, stock_id, quantity, cost, record) VALUES('0', '$strGroupId', '$strStockId', '0', '0.0', '0')");
+    }
+
+    function Update($strId, $strQuantity, $strCost, $strRecord)
+    {
+		return $this->UpdateById("quantity = '$strQuantity', cost = '$strCost', record = '$strRecord'", $strId);
+	}
     
     function CountStockTransaction($strStockId)
     {
@@ -191,13 +205,7 @@ function SqlAlterStockGroupItemTable()
 }
 */
 
-function SqlUpdateStockGroupItem($strStockGroupItemId, $strQuantity, $strCost, $strRecord)
-{
-	$strQry = "UPDATE stockgroupitem SET quantity = '$strQuantity', cost = '$strCost', record = '$strRecord' WHERE id = '$strStockGroupItemId' LIMIT 1";
-	return SqlDieByQuery($strQry, 'Update stockgroupitem failed');
-}
-
-function SqlGetStockGroupItemById($strGroupItemId)
+function SqlGetStockGroupItem($strGroupItemId)
 {
     return SqlGetTableDataById(TABLE_STOCK_GROUP_ITEM, $strGroupItemId);
 }

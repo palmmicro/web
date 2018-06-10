@@ -22,8 +22,8 @@ function StockEditTransactionForm($bChinese = false, $strGroupId = false, $strGr
     else
     {
         if ($strId == false)                                                                                    return;
-        if (($transaction = SqlGetStockTransactionById($strId)) == false)                       return;
-        if (($groupitem = SqlGetStockGroupItemById($transaction['groupitem_id'])) == false)    return;
+        if (($transaction = SqlGetStockTransaction($strId)) == false)                       return;
+        if (($groupitem = SqlGetStockGroupItem($transaction['groupitem_id'])) == false)    return;
 
         $strGroupId = $groupitem['group_id'];
         $strSubmit = $bChinese ? STOCK_TRANSACTION_EDIT_CN : STOCK_TRANSACTION_EDIT;

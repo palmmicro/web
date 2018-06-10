@@ -126,7 +126,7 @@ function StockGetAllTransactionLink($strGroupId, $bChinese, $ref = false)
     return StockGetTransactionLink($strGroupId, $strSymbol, $bChinese, '交易记录', 'Stock Transactions');
 }
 
-function StockGetGroupTransactionLinks($strGroupId, $strCurSymbol, $bChinese)
+function StockGetGroupTransactionLinks($strGroupId, $bChinese, $strCurSymbol = '')
 {
     $str = '';
 	$sql = new StockGroupItemSql($strGroupId);
@@ -139,11 +139,15 @@ function StockGetGroupTransactionLinks($strGroupId, $strCurSymbol, $bChinese)
         }
         else
         {
-            $str .= StockGetTransactionLink($strGroupId, $strSymbol, $bChinese);
+        	$sym = new StockSymbol($strSymbol);
+        	if ($sym->IsTradable())
+        	{
+        		$str .= StockGetTransactionLink($strGroupId, $strSymbol, $bChinese);
+        	}
         }
         $str .= ' ';
     }
-    return $str;
+    return rtrim($str, ' ');
 }
 
 // editstockgroupcn.php?edit=24

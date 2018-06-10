@@ -54,7 +54,7 @@ class TableSql
     	return SqlGetSingleTableData($this->strName, $strWhere, $strOrderBy);
     }
 
-    function GetDataById($strId)
+    function GetById($strId)
     {
     	return $this->GetSingleData(_SqlBuildWhere_id($strId));
     }
@@ -200,9 +200,9 @@ class MemberTableSql extends IdTableSql
 // ****************************** StockGroupTableSql class *******************************************************
 class StockGroupTableSql extends IdTableSql
 {
-    function StockGroupTableSql($strStockGroupId, $strTableName) 
+    function StockGroupTableSql($strGroupId, $strTableName) 
     {
-        parent::IdTableSql($strStockGroupId, 'group', $strTableName);
+        parent::IdTableSql($strGroupId, 'group', $strTableName);
     }
 }
 
