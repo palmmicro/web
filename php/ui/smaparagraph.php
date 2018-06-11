@@ -226,17 +226,4 @@ function EchoSmaParagraph($stock_ref, $bChinese, $ref = false, $callback = false
     EchoParagraphEnd();
 }
 
-function EchoSmaLeverageParagraph($stock_his, $arRef, $callback, $bChinese, $callback2 = false)
-{
-    if ($stock_his == false)              return;
-    
-	$arColumn = EchoSmaParagraphBegin($stock_his, $bChinese);
-	foreach ($arRef as $ref)
-	{
-		EchoSmaTable($arColumn, $stock_his, $bChinese, $ref, $callback, $callback2);
-		EchoNewLine();
-	}
-    EchoParagraphEnd();
-}
-
 ?>

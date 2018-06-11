@@ -142,20 +142,17 @@
 原来版本中没有日期是因为我自己觉得交易日期很明显, 完全没有必要出来占地方. 不过既然有人觉得有问题, 我就效仿白居易写诗先读给妇孺听的优良传统改了.
 估计大多数人还是不熟悉美国股市交易时间, 而在这里, 美股数据后面跟的是美东日期和时间.
 <br />虽说是个小的显示改动, 但是忍不住哗啦哗啦又整理优化了一大片代码. 把原来<?php EchoPhpFileLink('/php/stock/stockref.php'); ?>中的<font color=olive>StockReference</font>类抽出基础数据和显示数据变成基础类,
-派生出股票数据类<font color=olive>SinaStockReference</font>和<font color=olive>YahooStockReference</font>. 
-把原来期货数据读取改为继承自<font color=olive>StockReference</font>类的<font color=olive>FutureReference</font>类, 
+派生出股票数据类<font color=olive>SinaStockReference</font>. 把原来期货数据读取改为继承自<font color=olive>StockReference</font>类的<font color=olive>FutureReference</font>类, 
 汇率的数据读取改为继承自<font color=olive>StockReference</font>类的<font color=olive>ForexReference</font>类, 达到统一数据显示格式的目的. 这样到也算对得起这个新版本号.
 <br />原来<font color=olive>StockReference</font>类中记录原始数据的成员变量$strDate (2014-11-13, 'Y-m-d')和$strTime (08:55:00, 'H:i:s')维持不变,
 增加专门用来显示的成员变量$strTimeHM (08:55), 分离数据和显示.   
 </p>
 <?php EchoReferenceDemo(true); ?>
 
-<h3><a name="pairtrading">配对交易</a></h3>
+<h3>限购的总是好东西</h3>
 <p>2016年2月26日
-<br />华宝油气持续溢价10%已经成了常态, 最近最高甚至到了17%, <a href="20160101cn.php">华宝油气和XOP套利</a>没法做了. 加入<a href="../../res/xopcn.php">XOP</a>跟USO和USL两个原油ETF配对交易的工具页面.
-<br />配对交易的当日价格比较采用了跟期货ETF页面中杠杆ETF同样的处理方式. 继续整理同类代码, 加入<font color=olive>MyStockReference</font>类, 
-放在<font color=olive>StockReference</font>类和<font color=olive>SinaStockReference/YahooStockReference</font>类的中间.
-然后再从<font color=olive>MyStockReference</font>派生出<font color=olive>LeverageReference</font>杠杆类.
+<br />华宝油气持续溢价10%已经成了常态, 最近最高甚至到了17%, <a href="20160101cn.php">华宝油气和XOP套利</a>没法做了.
+<br />继续整理同类代码, 加入<font color=olive>MyStockReference</font>类, 放在<font color=olive>StockReference</font>类和<font color=olive>SinaStockReference</font>类的中间.
 从<font color=olive>MyStockReference</font>开始调用了<?php EchoPhpFileLink('/php/sql/sqlstock.php'); ?>中的<i>SqlGetStockDescription</i>等数据库相关函数.
 </p>
 
@@ -187,15 +184,10 @@
 </p>
 
 <h3>新浪实时港股数据</h3>
-<p>2016年4月18日
+<p>2016年4月23日
 <br />在<?php EchoXueqieId('5174320624', '均金无忌'); ?>的帮助下使用新浪实时港股数据(<?php EchoLink('http://hq.sinajs.cn/list=rt_hk02828'); ?>),
 替代原来延迟15分钟的<a href="20151225cn.php#hongkong">新浪港股数据</a>.
-</p>
-
-<h3><a name="spy">杠杆ETF</a></h3>
-<p>2016年4月23日
-<br />刚过去的周4净值页面系列的当日总访问量创纪录的超过了2200, 激励我继续优化页面反应速度. 从LOF页面中去掉杠杆ETF的分析,
-原来用到的转放到<a href="../../res/spycn.php">SPY</a>跟SH和SDS<a href="../../res/pairtradingcn.php">配对交易</a>页面.
+<br />刚过去的周4净值页面系列的当日总访问量创纪录的超过了2200, 激励我继续优化页面反应速度.
 </p>
 
 <h3>近几年来最低级的bug</h3>

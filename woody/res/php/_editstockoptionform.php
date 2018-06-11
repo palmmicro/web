@@ -1,7 +1,6 @@
 <?php
 require_once('/php/account.php');
 require_once('/php/stock.php');
-require_once('/php/stock/yahoostockref.php');
 require_once('/php/ui/htmlelement.php');
 
 define ('STOCK_OPTION_ADJCLOSE_CN', '根据分红更新复权收盘价');
@@ -48,8 +47,7 @@ function _getStockOptionDescription($strSubmit, $strSymbol)
     }
     else
     {
-        $yahoo_ref = new YahooStockReference($strSymbol);
-        $strDescription = $stock['us'].'-'.$ref->GetEnglishName().'-'.$yahoo_ref->GetEnglishName();
+        $strDescription = $stock['us'].'-'.$ref->GetEnglishName();
     }
     return $strDescription;
 }

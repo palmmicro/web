@@ -157,17 +157,6 @@ function StockGetEditGroupLink($strGroupId, $bChinese)
 }
 
 // ****************************** Other internal link related functions *******************************************************
-
-function PairTradingGetSymbolArray()
-{
-    return array('sina', 'spy', 'xop'); 
-}
-
-function in_arrayPairTrading($strSymbol)
-{
-    return in_array(strtolower($strSymbol), PairTradingGetSymbolArray());
-}
-
 function AdrGetSymbolArray()
 {
     return array('ach', 'cea', 'chu', 'gsh', 'hnp', 'lfc', 'ptr', 'shi', 'snp', 'znh');
@@ -180,7 +169,7 @@ function in_arrayAdr($strSymbol)
 
 function SelectSymbolInternalLink($strSymbol, $bChinese)
 {
-    if (in_arrayLof($strSymbol) || in_arrayLofHk($strSymbol) || in_arrayAdr($strSymbol) || in_arrayGradedFund($strSymbol) || in_arrayPairTrading($strSymbol) || in_arrayGoldEtf($strSymbol))
+    if (in_arrayLof($strSymbol) || in_arrayLofHk($strSymbol) || in_arrayAdr($strSymbol) || in_arrayGradedFund($strSymbol) || in_arrayGoldEtf($strSymbol))
     {
         return GetStockToolLink($strSymbol, $bChinese);
     }

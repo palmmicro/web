@@ -26,8 +26,14 @@
 <p>2016年3月28日
 <br />自从开始写<a href="20150818cn.php">华宝油气</a>净值计算软件以来就陷入了无穷无尽的PHP代码整理当中.
 前两天看<a href="http://optimizr.com" target=_blank>optimizr.com</a>的网站检查报告的时候注意到这个股票相关的网页有不少需要修改的地方, 正好用它来测试一下PHP股票代码和用户界面分离工作做得是否彻底.
-调用\php\<b>stock.php</b>相关函数显示ACTS的当前价格如下:
+调用<?php EchoPhpFileLink('/php/stock.php'); ?>相关函数显示ACTS的当前价格如下:
+</p>
 <?php EchoStockPrice(true); ?>
+
+<h3>IQ换ACTS继续测试</h3>
+<p>2018年6月12日
+<br />炬力刚从美股退市时, 从<a href="20151225cn.php#stockus">新浪美股数据</a>还能拿到最后一天的交易数据. 今天做测试的时候发现彻底没有数据了. 
+换上刚上市不久的爱奇艺(<?php EchoMyStockLink('IQ'); ?>)填补这个测试空缺, 希望它能多坚持几年.
 </p>
 
 </div>

@@ -69,7 +69,7 @@ function RegExpDebug($arMatch, $strSrc, $iMin)
     	DebugVal($iCount, $strSrc);
     	foreach ($arMatch as $ar)
     	{
-    		foreach ($ar as $str)	DebugString($str);
+    		DebugArray($ar);
     	}
     }
     return $iCount;

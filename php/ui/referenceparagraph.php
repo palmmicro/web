@@ -102,39 +102,6 @@ function _echoReferenceTableData($arRef, $callback, $bChinese)
     }
 }
 
-function EchoReferenceTable($arRef, $bChinese, $callback = false)
-{
-	$arColumn = GetReferenceTableColumn($bChinese);
-	if ($callback)
-	{
-		$arColumnEx = call_user_func($callback, $bChinese);
-        $strColumnEx = ' ';
-		foreach ($arColumnEx as $str)
-		{
-            $strColumnEx .= GetTableColumn(90, $str);
-		}
-	}
-	else
-	{
-		$strColumnEx = GetTableColumn(270, $arColumn[5]);
-	}
-    
-    echo <<<END
-        <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="reference">
-        <tr>
-            <td class=c1 width=80 align=center>{$arColumn[0]}</td>
-            <td class=c1 width=70 align=center>{$arColumn[1]}</td>
-            <td class=c1 width=70 align=center>{$arColumn[2]}</td>
-            <td class=c1 width=100 align=center>{$arColumn[3]}</td>
-            <td class=c1 width=50 align=center>{$arColumn[4]}</td>
-            $strColumnEx
-        </tr>
-END;
-
-	_echoReferenceTableData($arRef, $callback, $bChinese);
-    EchoTableEnd();
-}
-
 function GetTimeDisplay()
 {
     date_default_timezone_set(STOCK_TIME_ZONE_CN);
@@ -156,21 +123,41 @@ END;
 	return '<span id="time"></span>';
 }
 
-function EchoReferenceParagraph($arRef, $bChinese)
+function EchoReferenceParagraph($arRef, $bChinese, $str = false, $callback = false)
 {
-    if ($bChinese)     
-    {
-        $str = '参考数据';
+	if ($str == false)
+	{
+        $str = $bChinese ? '参考数据' : 'Reference data';
+        $str .= ' '.GetTimeDisplay();
     }
-    else
-    {
-        $str = 'Reference data';
-    }
-    $str .= ' '.GetTimeDisplay();
     
-    EchoParagraphBegin($str);
-    EchoReferenceTable($arRef, $bChinese);
-    EchoParagraphEnd();
+	$arColumn = GetReferenceTableColumn($bChinese);
+	if ($callback)
+	{
+		$arColumnEx = call_user_func($callback, $bChinese);
+        $strColumnEx = ' ';
+		foreach ($arColumnEx as $str)
+		{
+            $strColumnEx .= GetTableColumn(90, $str);
+		}
+	}
+	else	$strColumnEx = GetTableColumn(270, $arColumn[5]);
+    
+    echo <<<END
+    	<p>$str
+        <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="reference">
+        <tr>
+            <td class=c1 width=80 align=center>{$arColumn[0]}</td>
+            <td class=c1 width=70 align=center>{$arColumn[1]}</td>
+            <td class=c1 width=70 align=center>{$arColumn[2]}</td>
+            <td class=c1 width=100 align=center>{$arColumn[3]}</td>
+            <td class=c1 width=50 align=center>{$arColumn[4]}</td>
+            $strColumnEx
+        </tr>
+END;
+
+	_echoReferenceTableData($arRef, $callback, $bChinese);
+    EchoTableParagraphEnd();
 }
 
 ?>

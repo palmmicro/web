@@ -22,13 +22,7 @@
 #include "BlogFile.h"
 #include "DownloadFile.h"
 
-#ifndef MFC_FTP
-#ifdef WINSCP_FTP
 #include "WinSCP.h"
-#else
-#include "NetFtp.h"
-#endif
-#endif
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -136,8 +130,6 @@ CWebToolDoc::CWebToolDoc()
 , m_iTreeLevel(0)
 , m_iIterateFilesChanged(0)
 , m_iFtpLastTime(0)
-, m_iFtpTotal(0)
-, m_iFtpFailedTotal(0)
 {
 	m_strWinscpExe = AfxGetApp()->GetProfileString(_T("WinSCP"), _T("exe"), _T(""));
 	m_strWinscpScript = AfxGetApp()->GetProfileString(_T("WinSCP"), _T("Script"), _T(""));
@@ -974,6 +966,8 @@ void CWebToolDoc::OnToolsFtp()
 	CFtpDlg dlg;
 	CFileStatus status;
 	CTime t = CTime::GetCurrentTime();
+	int iTotal;
+	UINT iIcon;
 
 	dlg.m_iLastTime = m_iFtpLastTime;
 	if (m_strFtpLast.IsEmpty())
@@ -1005,38 +999,13 @@ void CWebToolDoc::OnToolsFtp()
 	}
 	str = m_timeFtpCompare.Format(_T("%A, %B %d, %H:%M:%S, %Y\n"));
 	::OutputDebugString(str);
-	m_timeFtpError = t;
 
 	m_pFtp = NULL;
-	m_iFtpTotal = 0;
-	m_iFtpFailedTotal = 0;
 	str.Format(_T("Connecting to FTP server at %s"), m_strFtpDomain);
 	((CMainFrame*)AfxGetMainWnd())->UpdateStatus(str);
 	AfxGetApp()->DoWaitCursor(1); // 1->>display the hourglass cursor
 	hCur = ctrl.GetRootItem();
 
-#ifdef MFC_FTP
-	CInternetSession sess(c_strName);
-	try
-    {
-		m_pFtp = sess.GetFtpConnection(m_strFtpDomain, m_strFtpUserName, m_strFtpPassword, INTERNET_INVALID_PORT_NUMBER, TRUE);
-		ToolsFtpItem(hCur);
-	}
-	catch (CInternetException * pEx)
-	{
-		TCHAR sz[1024];
-		pEx->GetErrorMessage(sz, 1024);
-		str.Format(_T("FTP error: %s"), sz);
-		AfxMessageBox(str, MB_OK | MB_ICONSTOP);
-		pEx->Delete();
-	}
-
-	if (m_pFtp != NULL) 
-	{
-		m_pFtp->Close();
-		delete m_pFtp;
-	}
-#elif defined WINSCP_FTP
 	m_pFtp = new WinSCP();
 	ToolsFtpItem(hCur);
 	CString strPassword = m_strFtpPassword;
@@ -1044,34 +1013,28 @@ void CWebToolDoc::OnToolsFtp()
 	{
 		strPassword = AfxGetApp()->GetProfileString(_T("LocalPassword"), m_strFtpDomain, _T(""));
 	}
-	m_pFtp->UpLoad(m_strWinscpExe, m_strWinscpScript, m_strWinscpLog, m_strFtpDomain, m_strFtpUserName, strPassword, m_iFtpEncryption);
+	iTotal = m_pFtp->UpLoad(m_strWinscpExe, m_strWinscpScript, m_strWinscpLog, m_strFtpDomain, m_strFtpUserName, strPassword, m_iFtpEncryption);
 	delete m_pFtp;
-#else
-	m_pFtp = new CNetFtp(m_strFtpUserName, m_strFtpPassword, m_iFtpEncryption);
-	if (m_pFtp)
-	{
-		ToolsFtpItem(hCur);
-		delete m_pFtp;
-	}
-#endif
 
 	AfxGetApp()->DoWaitCursor(-1); // -1->>remove the hourglass cursor
-	if (m_iFtpFailedTotal)
-	{
-		m_timeFtpLast = m_timeFtpError;
-		str.Format(_T("Total %d files uploaded FTP server at %s, %d failed, %d ignored"), m_iFtpTotal, m_strFtpDomain, 1, m_iFtpFailedTotal - 1);
-	}
-	else if (m_iFtpTotal)
+	if (iTotal > 0)
 	{
 		m_timeFtpLast = t;
-		str.Format(_T("Total %d files uploaded FTP server at %s"), m_iFtpTotal, m_strFtpDomain);
+		str.Format(_T("Total %d files uploaded FTP server at %s"), iTotal, m_strFtpDomain);
+		iIcon = MB_ICONINFORMATION;
+		SetModifiedFlag(TRUE);
+	}
+	else if (iTotal == 0)
+	{
+		str.Format(_T("No file uploaded FTP server at %s"), m_strFtpDomain);
+		iIcon = MB_ICONWARNING;
 	}
 	else
 	{
-		str.Format(_T("No file uploaded FTP server at %s"), m_strFtpDomain);
+		str.Format(_T("FTP server connection failed at %s"), m_strFtpDomain);
+		iIcon = MB_ICONSTOP;
 	}
-	AfxMessageBox(str, MB_OK | MB_ICONINFORMATION);
-	SetModifiedFlag(TRUE);
+	AfxMessageBox(str, MB_OK | iIcon);
 }
 
 void CWebToolDoc::ToolsFtpItem(HTREEITEM hCur)
@@ -1099,41 +1062,11 @@ void CWebToolDoc::ToolsFtpItem(HTREEITEM hCur)
 			{
 				if (status.m_mtime >= m_timeFtpCompare)
 				{
-					if (m_iFtpFailedTotal)
-					{
-						if (status.m_mtime <= m_timeFtpError)
-						{
-							m_timeFtpError = status.m_mtime;
-							m_iFtpFailedTotal ++;
-						}
-					}
-					else
-					{
-						GetItemPath(hCur, strPath, c_cSlash);
-						str = _T("Put ") + strPathName + _T(" to FTP ") + strPath;
-#ifdef MFC_FTP
-						if (!m_pFtp->PutFile(strPathName, strSubDomain + strPath))
-#elif defined WINSCP_FTP
-						if (!m_pFtp->AddFile(strPathName, strSubDomain + strPath))
-#else
-						if (!m_pFtp->UpLoadFile(strPathName, _T("ftp://") + m_strFtpDomain + _T("/") + strSubDomain + strPath))
-#endif
-						{
-							m_iFtpFailedTotal ++;
-							str += _T(" failed");
-							if (status.m_mtime < m_timeFtpError)
-							{
-								m_timeFtpError = status.m_mtime;
-							}
-						}
-						else
-						{
-							m_iFtpTotal ++;
-							str += _T(" ok");
-						}
-						::OutputDebugString(str + c_cNewLine);
-						((CMainFrame*)AfxGetMainWnd())->UpdateStatus(str);
-					}
+					GetItemPath(hCur, strPath, c_cSlash);
+					m_pFtp->AddFile(strPathName, strSubDomain + strPath);
+					str = _T("Put ") + strPathName + _T(" to FTP ") + strPath;
+					::OutputDebugString(str + c_cNewLine);
+					((CMainFrame*)AfxGetMainWnd())->UpdateStatus(str);
 				}
 			}
 		}

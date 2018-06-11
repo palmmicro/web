@@ -383,7 +383,7 @@ function _yahooGetNetValueSymbol($strSymbol)
 
 function _yahooNetValueReady($sql, $strDate)
 {
-	$sql->Create();
+//	$sql->Create();
     if ($sql->Get($strDate))
     {
 //    	DebugString(SqlGetStockSymbol($sql->GetKeyId()).' '.$strDate.' fund table entry existed');

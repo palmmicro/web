@@ -351,7 +351,7 @@ function _main()
     SqlConnectDatabase();
 
     $wx = new WeixinStock();
-    $wx->valid();
+    $wx->Run();
 }
 
     _main();

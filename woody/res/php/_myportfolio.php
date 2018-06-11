@@ -39,15 +39,14 @@ function _echoPortfolioTable($portfolio, $sql, $bChinese)
 		}
 		@mysql_free_result($result);
 	}
-    EchoTableEnd();    
+    EchoTableParagraphEnd();    
 
-    EchoNewLine();
     $arRef = StockReferenceSortBySymbol($arRef);
     foreach ($arRef as $ref)
     {
     	$ref->strExternalLink = GetMyStockRefLink($ref, $bChinese);
     }
-    EchoReferenceTable($arRef, $bChinese);
+    EchoReferenceParagraph($arRef, $bChinese);
 }
 
 function _echoMoneyTable($portfolio, $bChinese)

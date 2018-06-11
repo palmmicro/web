@@ -15,7 +15,7 @@ function _main()
     SqlConnectDatabase();
 
     $wx = new WeixinTest();
-    $wx->valid();
+    $wx->Run();
 }
 
     _main();

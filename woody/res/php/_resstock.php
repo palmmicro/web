@@ -11,7 +11,6 @@ function GetMenuArray($bChinese)
                       'gradedfund' => '分级基金',
                       'lof' => 'LOF工具',
                       'lofhk' => '香港LOF',
-                      'pairtrading' => '配对交易',
                      );
     }
     else
@@ -21,7 +20,6 @@ function GetMenuArray($bChinese)
                       'gradedfund' => 'Graded Fund',
                       'lof' => 'LOF Tools',
                       'lofhk' => 'HK LOF',
-                      'pairtrading' => 'Pair Trading',      
                      );
     }
 }
@@ -61,10 +59,6 @@ function ResMenu($arLoop, $bChinese)
 	else if ($arLoop[0] == 'sh502004')
 	{
 	    _menuItemClass($iLevel, 'gradedfund', $bChinese);
-	}
-	else if ($arLoop[0] == 'sina')
-	{
-	    _menuItemClass($iLevel, 'pairtrading', $bChinese);
 	}
     NavDirLoop($arLoop);
 	NavContinueNewLine();
@@ -128,16 +122,6 @@ function NavLoopLofHk($bChinese)
 function _LayoutLofHkTopLeft($bChinese)
 {
     LayoutTopLeft(NavLoopLofHk, $bChinese);
-}
-
-function NavLoopPairTrading($bChinese)
-{
-    ResMenu(PairTradingGetSymbolArray(), $bChinese);
-}
-
-function _LayoutPairTradingTopLeft($bChinese)
-{
-    LayoutTopLeft(NavLoopPairTrading, $bChinese);
 }
 
 function NavLoopAdr($bChinese)

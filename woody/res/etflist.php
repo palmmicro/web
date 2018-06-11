@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>ETF List</title>
-<meta name="description" content="List of all ETFs used in other tools like Pair Trading and Future ETF, including ratio and calibration snapshot.">
+<meta name="description" content="List of all ETFs used in other tools, including following index, levergae ratio and calibration snapshot.">
 <link href="../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

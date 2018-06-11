@@ -69,9 +69,7 @@ function EchoAhParagraph($arRef, $bChinese)
 			$str .= ' '._getSortHLink('ha', $bChinese);
 		}
 	}
-    EchoParagraphBegin($str);
-    EchoReferenceTable($arRef, $bChinese, _ahStockRefCallback);
-    EchoParagraphEnd();
+    EchoReferenceParagraph($arRef, $bChinese, $str, _ahStockRefCallback);
 }
 
 function _selectAdrhCompareLink($strSymbol, $bChinese)
@@ -126,9 +124,7 @@ function EchoAdrhParagraph($arRef, $bChinese)
 			$str .= ' '._getSortHLink('hadr', $bChinese);
 		}
 	}
-    EchoParagraphBegin($str);
-    EchoReferenceTable($arRef, $bChinese, _adrhStockRefCallback);
-    EchoParagraphEnd();
+    EchoReferenceParagraph($arRef, $bChinese, $str, _adrhStockRefCallback);
 }
 
 ?>

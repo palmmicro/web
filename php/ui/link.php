@@ -12,9 +12,9 @@ function EchoFileLink($strPathName)
     echo $str;
 }
 
-function EchoMyStockLink($strSymbol)
+function EchoMyStockLink($strSymbol, $bChinese = true)
 {
-    $str = GetMyStockLink($strSymbol, true);
+    $str = GetMyStockLink($strSymbol, $bChinese);
     echo $str;
 }
 

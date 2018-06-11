@@ -154,18 +154,13 @@ function GetCategoryArray($strTitle)
         break;
         
     case 'spyfund':
-    	$ar[] = 'spy'; 
-    	$ar = array_merge($ar, LofGetSpySymbolArray());
+    	$ar = LofGetSpySymbolArray();
         break;
         
     case 'oilfund':
-    	$ar = array('ptr', 'shi', 'snp', 'xop');
+    	$ar = array('ptr', 'shi', 'snp');
     	$ar = array_merge($ar, LofGetOilEtfSymbolArray());
     	$ar = array_merge($ar, LofGetOilSymbolArray());
-        break;
-        
-    case 'pairtrading':
-        $ar = PairTradingGetSymbolArray();
         break;
         
     case 'qqqfund':

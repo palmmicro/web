@@ -30,8 +30,13 @@ And hope to bring <a href="../palmmicro/20080326.php">Palmmicro</a> all the way 
 <p>Mar 28, 2016
 <br />Since I began writing the <a href="20150818.php">SZ162411</a> net value calculation software, I have been cleanning the PHP code all the time.
 A few days ago <a href="http://optimizr.com" target=_blank>optimizr.com</a> sent me a web checking report, reminded me that this stock related web page had quite some places to be optimized.
-I felt it is a good chance to test if I have separated the PHP stock code and UI code successfully. The following ACTS price is from related functions in \php\<b>stock.php</b>:
+I felt it is a good chance to test if I have separated the PHP stock code and UI code successfully. The following ACTS price is from related functions in <?php EchoPhpFileLink('/php/stock.php'); ?>>:
+</p>
 <?php EchoStockPrice(false); ?>
+
+<h3>IQ to Replace ACTS for My Test</h3>
+<p>June 12, 2018
+<br />As ACTS delisted, its <a href="20151225.php">Sina Stock Data</a> is not available now. To continue my test, using newly listed <?php EchoMyStockLink('IQ', false); ?> to replace it, hope it can last longer.
 </p>
 
 </div>

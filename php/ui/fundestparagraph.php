@@ -29,29 +29,6 @@ function _echoFundEstTableItem($ref, $bChinese)
 END;
 }
 
-function _echoFundEstTable($arRef, $bChinese)
-{
-	$arColumn = GetFundEstTableColumn($bChinese);
-    echo <<<END
-        <TABLE borderColor=#cccccc cellSpacing=0 width=560 border=1 class="text" id="estimation">
-        <tr>
-            <td class=c1 width=80 align=center>{$arColumn[0]}</td>
-            <td class=c1 width=80 align=center>{$arColumn[1]}</td>
-            <td class=c1 width=80 align=center>{$arColumn[2]}</td>
-            <td class=c1 width=80 align=center>{$arColumn[3]}</td>
-            <td class=c1 width=80 align=center>{$arColumn[4]}</td>
-            <td class=c1 width=80 align=center>{$arColumn[5]}</td>
-            <td class=c1 width=80 align=center>{$arColumn[6]}</td>
-        </tr>
-END;
-
-    foreach ($arRef as $ref)
-    {
-        _echoFundEstTableItem($ref, $bChinese);
-    }
-    EchoTableEnd();
-}
-
 function _getFundRealtimeStr($fund, $strRealtimeEst, $bChinese)
 {
     $future_ref = $fund->future_ref;
@@ -80,23 +57,14 @@ function _getFundRealtimeStr($fund, $strRealtimeEst, $bChinese)
     if ($future_etf_ref != $est_ref)
     {
         $strEtfSymbol = $est_ref->GetStockSymbol();
-        if (in_arrayPairTrading($strEtfSymbol))
-        {
-            $strPairTradingLink = GetStockToolLink($strEtfSymbol, $bChinese); 
-        }
-        else
-        {
-            $strPairTradingLink = $strEtfSymbol; 
-        }
-        
         $strFutureEtfSymbol = $future_etf_ref->GetStockSymbol();
         if ($bChinese)
         {
-            $str .= ", {$strPairTradingLink}和{$strFutureEtfSymbol}关联程度按照100%估算";
+            $str .= ", {$strEtfSymbol}和{$strFutureEtfSymbol}关联程度按照100%估算";
         }
         else
         {
-            $str .= ", assume $strPairTradingLink and $strFutureEtfSymbol 100% related";
+            $str .= ", assume $strEtfSymbol and $strFutureEtfSymbol 100% related";
         }
     }
     return $str.'.';    
@@ -122,17 +90,34 @@ function _getFundParagraphStr($fund, $bChinese)
     return $str;
 }
 
-function EchoFundArrayEstParagraph($arFund, $str, $bChinese)
+function EchoFundArrayEstParagraph($arRef, $bChinese, $str = '')
 {
-    EchoParagraphBegin($str);
-    _echoFundEstTable($arFund, $bChinese);
-    EchoParagraphEnd();
+	$arColumn = GetFundEstTableColumn($bChinese);
+    echo <<<END
+    	<p>$str
+        <TABLE borderColor=#cccccc cellSpacing=0 width=560 border=1 class="text" id="estimation">
+        <tr>
+            <td class=c1 width=80 align=center>{$arColumn[0]}</td>
+            <td class=c1 width=80 align=center>{$arColumn[1]}</td>
+            <td class=c1 width=80 align=center>{$arColumn[2]}</td>
+            <td class=c1 width=80 align=center>{$arColumn[3]}</td>
+            <td class=c1 width=80 align=center>{$arColumn[4]}</td>
+            <td class=c1 width=80 align=center>{$arColumn[5]}</td>
+            <td class=c1 width=80 align=center>{$arColumn[6]}</td>
+        </tr>
+END;
+
+    foreach ($arRef as $ref)
+    {
+        _echoFundEstTableItem($ref, $bChinese);
+    }
+    EchoTableParagraphEnd();
 }
 
 function EchoFundEstParagraph($fund, $bChinese)
 {
     $str = _getFundParagraphStr($fund, $bChinese);
-    EchoFundArrayEstParagraph(array($fund), $str, $bChinese);
+    EchoFundArrayEstParagraph(array($fund), $bChinese, $str);
 }
 
 ?>

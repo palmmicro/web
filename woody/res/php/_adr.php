@@ -122,9 +122,8 @@ function _adrStockRefCallback($bChinese, $ref = false)
 
 function _echoRefParagraph($group, $bChinese)
 {
-    EchoParagraphBegin($bChinese ? '价格数据' : 'Price data');
-    EchoReferenceTable($group->arStockRef, $bChinese, _adrStockRefCallback);
-    EchoParagraphEnd();
+    $str = $bChinese ? '价格数据' : 'Price data';
+    EchoReferenceParagraph($group->arStockRef, $bChinese, $str, _adrStockRefCallback);
 }
 
 function _echoArbitrageParagraph($group, $bChinese)

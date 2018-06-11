@@ -27,9 +27,7 @@ function _etfListRefCallback($bChinese, $ref = false)
 function EchoEtfListParagraph($arRef, $bChinese)
 {
 	$str = GetEtfListLink($bChinese);
-    EchoParagraphBegin($str);
-    EchoReferenceTable($arRef, $bChinese, _etfListRefCallback);
-    EchoParagraphEnd();
+    EchoReferenceParagraph($arRef, $bChinese, $str, _etfListRefCallback);
 }
 
 ?>

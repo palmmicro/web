@@ -143,8 +143,7 @@ The most recent a few records are displayed in the current page, add files <?php
 The original version omitted date display because I thougth it was obvious. And it is obvious too that not every one is as familar with both USA and China time as I am.
 <br />Although it is a small display change, I can not help myself to mofidy a lot of code.
 The original <font color=olive>StockReference</font> class in <?php EchoPhpFileLink('/php/stock/stockref.php'); ?> is now only as a base class for basic data and display data, 
-with <font color=olive>SinaStockReference</font> class and <font color=olive>YahooStockReference</font> class extends from it.
-The original future data read becomes <font color=olive>FutureReference</font> class extends from <font color=olive>StockReference</font>,
+with <font color=olive>SinaStockReference</font> class extends from it. The original future data read becomes <font color=olive>FutureReference</font> class extends from <font color=olive>StockReference</font>,
 and forex data read becomes <font color=olive>ForexReference</font> class extends from <font color=olive>StockReference</font> too. 
 In this way, the display is unified, so the new version number really has something new with it.
 <br />Original data member $strDate (2014-11-13, 'Y-m-d') and $strTime (08:55:00, 'H:i:s') in class <font color=olive>StockReference</font> are kept as the same, 
@@ -152,14 +151,11 @@ added new data member $strTimeHM (08:55) for display, separating data and displa
 </p>
 <?php EchoReferenceDemo(false); ?>
 
-<h3><a name="pairtrading">Pair Trading</a></h3>
+<h3>Period Three Implies Chaos</h3>
 <p>Feb 26, 2016
 <br />SZ162411 is trading more than 10% higher than its net value recently, the max premium as high as 17%, so the <a href="20160101.php">XOP and SZ162411 arbitrage</a> is not possible now.
-Add <a href="../../res/xop.php">XOP</a> and two oil ETF USO/USL pair trading tool page.
-<br />The current day pair trading price uses the same method as the leverage ETF price estimation in the future ETF pages.
-Continuing to organzie the similar code, added <font color=olive>MyStockReference</font> class, and put it between <font color=olive>StockReference</font> class and <font color=olive>SinaStockReference/YahooStockReference</font>.
-Then extends <font color=olive>LeverageReference</font> class also from <font color=olive>MyStockReference</font>.
-As we called mysql related function like <i>SqlGetStockDescription</i> of <?php EchoPhpFileLink('/php/sql/sqlstock.php'); ?> in <font color=olive>MyStockReference</font> class.
+<br />Continuing to organzie the similar code, added <font color=olive>MyStockReference</font> class, and put it between <font color=olive>StockReference</font> class and <font color=olive>SinaStockReference</font>.
+We called mysql related function like <i>SqlGetStockDescription</i> of <?php EchoPhpFileLink('/php/sql/sqlstock.php'); ?> in <font color=olive>MyStockReference</font> class.
 </p>
 
 <h3><a name="gradedfund">Graded Fund</a></h3>
@@ -197,15 +193,10 @@ The class only support config read and write on an existing file, still as a PHP
 </p>
 
 <h3>Sina Realtime HK Stock Data</h3>
-<p>Apr 18, 2016
+<p>Apr 23, 2016
 <br />With the help of <?php EchoXueqieId('5174320624', 'rdcheju'); ?>,
 now using Sina realtime HK stock data(<?php EchoLink('http://hq.sinajs.cn/list=rt_hk02828'); ?>) to replace original <a href="20151225.php#hongkong">Sina HK data</a> which has 15 minutes delay.
-</p>
-
-<h3><a name="spy">Leverage ETF</a></h3>
-<p>Apr 23, 2016
 <br />On last Thursday the total page view of my net value pages was over 2200, this encouraged me to do more page speed optimization.
-Removed leverage ETF data from LOF pages, the old usage was moved to the <a href="../../res/spy.php">SPY</a> and SH/SDS <a href="../../res/pairtrading.php">pair trading</a> page.
 </p>
 
 <h3>The Most Stupid Bug in Recent Years</h3>

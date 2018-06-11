@@ -15,7 +15,6 @@ function IsGroupNameReadOnly($strGroupName)
     if (in_arrayLof($strGroupName))               return true;
     if (in_arrayLofHk($strGroupName))             return true;
     if (in_arrayGoldEtf($strGroupName))           return true;
-    if (in_arrayPairTrading($strGroupName))       return true;
     if (in_arrayGradedFund($strGroupName))        return true;
     if (in_arrayAdr($strGroupName))               return true;
     return false;

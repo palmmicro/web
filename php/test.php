@@ -111,7 +111,6 @@ function SysInit()
 	}
 
 	$sql = new FundHistorySql();
-	DebugArray($sql->GetTableColumn());
 //	$sql->DropTable();
 	
 //	$sql = new StockSql();
@@ -156,7 +155,7 @@ function TestCmdLine()
 //	MarketWatchGetData('^SPSIOP');
 //	_debug_dividend('sz000028');
 //	test_stock_dividend();
-//	SqlDeleteStockGroupByGroupName('SH');
+//	SqlDeleteStockGroupByGroupName('SINA');
 //  TestGoogleHistory();
 	phpinfo();
 

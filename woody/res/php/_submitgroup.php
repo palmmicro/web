@@ -43,10 +43,6 @@ function _onAdjust($strSymbols)
     {
         $fFactor = _adjustEtfPriceFactor($strSymbol, $fVal2, $fVal);
     }
-    else    // if (in_arrayPairTrading($strSymbol2))
-    {
-        $fFactor = _adjustEtfPriceFactor($strSymbol, $fVal, $fVal2);
-    }
     
     if ($fFactor !== false)
     {

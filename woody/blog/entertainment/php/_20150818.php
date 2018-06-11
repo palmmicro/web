@@ -37,7 +37,7 @@ function EchoFundHistoryDemo($bChinese)
 function EchoFundEstDemo($bChinese)
 {
 	$fund_ref = StockGetFundReference(FUND_DEMO_SYMBOL);
-	EchoFundArrayEstParagraph(array($fund_ref), '', $bChinese);
+	EchoFundArrayEstParagraph(array($fund_ref), $bChinese);
 }
 
 function EchoAhDemo($bChinese)

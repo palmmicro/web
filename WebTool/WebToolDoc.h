@@ -4,21 +4,11 @@
 
 #pragma once
 
-//#define MFC_FTP
-#define WINSCP_FTP
-
 class CLeftView;
 class CIterateDlg;
 class CInsertDlg;
 
-
-#ifndef MFC_FTP
-#ifdef WINSCP_FTP
 class WinSCP;
-#else
-class CNetFtp;
-#endif
-#endif
 
 class CWebToolDoc : public CDocument
 {
@@ -85,21 +75,12 @@ protected:
 	int m_iTreeLevel;
 	int m_iIterateFilesChanged;
 
-#ifdef MFC_FTP
-	CFtpConnection * m_pFtp;
-#elif defined WINSCP_FTP
 	WinSCP * m_pFtp;
-#else
-	CNetFtp * m_pFtp;
-#endif
 
 	int m_iFtpLastTime;
-	int m_iFtpTotal;
-	int m_iFtpFailedTotal;
 	CString m_strFtpLast;
 	CTime m_timeFtpLast;
 	CTime m_timeFtpCompare;
-	CTime m_timeFtpError;
 
 
 protected:

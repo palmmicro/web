@@ -3,18 +3,20 @@
 #include "WinSCP.h"
 #include "TxtFile.h"
 
-#include "NetFtp.h"		// for FTP_ENCRYPTION_SSL
+#define FTP_ENCRYPTION_NONE		0
+#define FTP_ENCRYPTION_SSL		1
 
 WinSCP::WinSCP()
 {
 	m_strPath = _T("");
+	m_iTotal = 0;
 }
 
 WinSCP::~WinSCP()
 {
 }
 
-bool WinSCP::AddFile(CString strLocal, CString strRemote)
+void WinSCP::AddFile(CString strLocal, CString strRemote)
 {
 	int iPos = strLocal.ReverseFind('\\');
 	CString strPath = strLocal.Left(iPos);
@@ -30,11 +32,37 @@ bool WinSCP::AddFile(CString strLocal, CString strRemote)
 		m_listScript.AddTail(_T("cd /") + strRemotePath);
 	}
 	m_listScript.AddTail(_T("put ") + strFileName);
-	return true;
+	m_iTotal ++;
 }
 
-bool WinSCP::UpLoad(CString strExe, CString strScript, CString strLog, CString strDomain, CString strUserName, CString strPassword, int iEncryption)
+bool WinSCP::CheckLogFile(CString strLog)
 {
+	CTxtFile file;
+	CStringList list;
+	POSITION pos;
+	CString str;
+	int iTotal = 0;
+	CString strVal;
+
+	if (file.ReadToStringList(strLog, list))
+	{
+		for (pos = list.GetHeadPosition(); pos != NULL;)
+		{
+			str = list.GetNext(pos);
+			if (str.Find(_T("Upload successful")) != -1)
+			{
+				iTotal ++;
+			}
+		}
+		if (iTotal == m_iTotal)	return true;
+	}
+	return false;
+}
+
+int WinSCP::UpLoad(CString strExe, CString strScript, CString strLog, CString strDomain, CString strUserName, CString strPassword, int iEncryption)
+{
+	if (m_iTotal == 0)	return 0;
+
 	// Clean log file
 	CFileStatus status;
 	if (CFile::GetStatus(strLog, status))
@@ -68,8 +96,12 @@ bool WinSCP::UpLoad(CString strExe, CString strScript, CString strLog, CString s
 //	DebugString(strCmd);
 
 	ExecCmd(strCmd);
+	if (CheckLogFile(strLog))
+	{
+		return m_iTotal;
+	}
 	ExecCmd(_T("notepad ") + strLogFile);
-	return true;
+	return -1;
 }
 
 
