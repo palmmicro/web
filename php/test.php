@@ -110,7 +110,8 @@ function SysInit()
 	    DebugString('connect database ok');
 	}
 
-//	$sql = new FundHistorySql();
+	$sql = new FundHistorySql();
+	DebugArray($sql->GetTableColumn());
 //	$sql->DropTable();
 	
 //	$sql = new StockSql();

@@ -57,7 +57,7 @@ class MyStockTransaction extends StockTransaction
             if ($ref)
             {
             	$sql = new StockGroupItemSql($strGroupId);
-            	$this->strStockGroupItemId = $sql->GetTableId($ref->GetStockId());
+            	$this->strStockGroupItemId = $sql->GetId($ref->GetStockId());
             }
         }
         parent::StockTransaction();

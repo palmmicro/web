@@ -17,14 +17,14 @@ class MysqlReference extends StockReference
     	
     	$sql = new StockSql();
     	$sql->Create();
-    	$this->strSqlId = $sql->GetTableId($this->strSqlName);
+    	$this->strSqlId = $sql->GetId($this->strSqlName);
     	DebugString($this->strSqlName);
         if ($this->strSqlId == false)
         {
             if ($this->bHasData)
             {
                 $sql->Insert($this->strSqlName, $this->GetEnglishName(), $this->GetChineseName());
-                $this->strSqlId = $sql->GetTableId($this->strSqlName);
+                $this->strSqlId = $sql->GetId($this->strSqlName);
             }
         }
     }

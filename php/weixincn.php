@@ -13,8 +13,6 @@ require_once('sql/sqlweixin.php');
 
 require_once('stock/dbcnyref.php');
 
-define('WX_DEBUG_VER', '版本817');
-
 define('WX_DEFAULT_SYMBOL', 'SZ162411');
 define('MAX_WX_STOCK', 50);
 
@@ -230,22 +228,9 @@ function _wxGetUnknownStockText($strContents)
     return false;
 }
 
-function _wxGetDefaultText()
-{
-    return _wxGetStockArrayText(array(WX_DEFAULT_SYMBOL));
-}
-
 function _wxEmailDebug($strUserName, $strText, $strSubject)
 {   
     EmailReport("<font color=blue>用户:</font>$strUserName.<br />$strText", $strSubject);
-}
-
-function _wxUnknownMessage($strContents, $strUserName)
-{
-    _wxEmailDebug($strUserName, "<font color=green>内容:</font>$strContents", 'Wechat message');
-    $str = $strContents.WX_EOL;
-    $str .= '本公众号目前只提供股票交易和净值估算自动查询. 因为没有匹配到信息, 此消息内容已经发往support@palmmicro.com邮箱, palmmicro会尽可能用电子邮件回复.'.WX_EOL;
-    return $str._wxGetDefaultText();
 }
 
 function _wxGetStockArrayText($arSymbol)
@@ -281,122 +266,92 @@ function _updateWeixinTables($strText, $strUserName)
     }
 }
 
-// ****************************** Functions used in weixin.php *******************************************************
-
-function WxOnText($strText, $strUserName)
+class WeixinStock extends WeixinCallback
 {
-	$strText = UrlCleanString($strText);
-    _updateWeixinTables($strText, $strUserName);
+	function GetDefaultText()
+	{
+		return _wxGetStockArrayText(array(WX_DEFAULT_SYMBOL));
+	}
+
+	function GetUnknownText($strContents, $strUserName)
+	{
+		_wxEmailDebug($strUserName, "<font color=green>内容:</font>$strContents", 'Wechat message');
+		$str = $strContents.WX_EOL;
+		$str .= '本公众号目前只提供股票交易和净值估算自动查询. 因为没有匹配到信息, 此消息内容已经发往support@palmmicro.com邮箱, palmmicro会尽可能用电子邮件回复.'.WX_EOL;
+		return $str.$this->GetDefaultText();
+	}
+
+	function OnText($strText, $strUserName)
+	{
+		$strText = UrlCleanString($strText);
+		_updateWeixinTables($strText, $strUserName);
     
-    $strContents = strtoupper($strText);
-    $arSymbol = _wxGetStockArray($strContents);
-    if (count($arSymbol))
-    {
-        $str = _wxGetStockArrayText($arSymbol);
-    }
-    else
-    {
-        if (($str = _wxGetUnknownStockText($strContents)) == false)
-        {
-            $str = _wxUnknownMessage($strText, $strUserName);
+		$strContents = strtoupper($strText);
+		$arSymbol = _wxGetStockArray($strContents);
+		if (count($arSymbol))
+		{
+			$str = _wxGetStockArrayText($arSymbol);
+		}
+		else
+		{
+			if (($str = _wxGetUnknownStockText($strContents)) == false)
+			{
+				$str = $this->GetUnknownText($strText, $strUserName);
+			}
+		}
+		return $str;
+	}
+
+	function OnEvent($strContents, $strUserName)
+	{
+		if ($strContents == 'subscribe')
+		{
+			$str = '欢迎订阅, 本账号为自动回复, 请用语音或者键盘输入要查找的内容. 想聊天的请加QQ群204836363'.WX_EOL;
+			$str .= $this->GetDefaultText();
+		}
+		else if ($strContents == 'unsubscribe')
+		{
+			$str = '再见';
+		}
+		else if ($strContents == 'MASSSENDJOBFINISH')
+		{	// Mass send job finish
+			$str = '收到群发完毕';
+		}
+		_wxEmailDebug($strUserName, $str, 'Wechat '.$strContents);
+		return $str;
+	}
+
+	function OnImage($strUrl, $strUserName)
+	{
+		$strContents = '未知图像信息';
+    
+		SqlCreateWeixinImageTable();
+		$strOpenId = MustGetWeixinId($strUserName);
+		SqlInsertWeixinImage($strOpenId);
+		if ($str = SqlGetWeixinImageNow($strOpenId))
+		{
+			$img = url_get_contents($strUrl);    
+			$size = strlen($img);
+			$strFileName = DebugGetImageName($str); 
+			$fp = @fopen($strFileName, 'w');  
+			fwrite($fp, $img);  
+			fclose($fp);  
+//      	unset($img, $url);
+
+        	$strLink = GetInternalLink($strFileName, $strFileName);
+        	$strContents .= "(已经保存到{$strLink})";
         }
-    }
-    return $str;
-}
-
-function WxOnVoice($strContents, $strUserName)
-{
-    if (strlen($strContents) > 0)
-    {
-        $str = WxOnText($strContents, $strUserName);
-    }
-    else
-    {
-        $str = _wxUnknownMessage('未知语音信息', $strUserName);
-    }
-    return $str;
-}
-
-function WxOnEvent($strContents, $strUserName)
-{
-    if ($strContents == 'subscribe')
-    {
-        $str = '欢迎订阅, 本账号为自动回复, 请用语音或者键盘输入要查找的内容. 想聊天的请加QQ群204836363'.WX_EOL;
-        $str .= _wxGetDefaultText();
-    }
-    else if ($strContents == 'unsubscribe')
-    {
-        $str = '再见';
-    }
-    else if ($strContents == 'MASSSENDJOBFINISH')
-    {   // Mass send job finish
-        $str = '收到群发完毕';
-    }
-    _wxEmailDebug($strUserName, $str, 'Wechat '.$strContents);
-    return $str;
-}
-
-function WxOnEventMenu($strMenu, $strUserName)
-{
-    $str = _wxUnknownMessage('未知自定义菜单点击事件', $strUserName);
-    return $str;
-}
-
-function WxOnImage($strUrl, $strUserName)
-{
-    $strContents = '未知图像信息';
     
-    SqlCreateWeixinImageTable();
-    $strOpenId = MustGetWeixinId($strUserName);
-    SqlInsertWeixinImage($strOpenId);
-    if ($str = SqlGetWeixinImageNow($strOpenId))
-    {
-        $img = url_get_contents($strUrl);    
-        $size = strlen($img);
-        $strFileName = DebugGetImageName($str); 
-        $fp = @fopen($strFileName, 'w');  
-        fwrite($fp, $img);  
-        fclose($fp);  
-//      unset($img, $url);
-
-        $strLink = GetInternalLink($strFileName, $strFileName);
-        $strContents .= "(已经保存到{$strLink})";
+        return $this->GetUnknownText($strContents, $strUserName);
     }
-    
-    $str = _wxUnknownMessage($strContents, $strUserName);
-    return $str;
-}
-
-function WxOnShortVideo($strContents, $strUserName)
-{
-    $str = _wxUnknownMessage('未知小视频信息', $strUserName);
-    return $str;
-}
-
-function WxOnLocation($strContents, $strUserName)
-{
-    $str = _wxUnknownMessage('未知位置信息', $strUserName);
-    return $str;
-}
-
-function WxOnLink($strContents, $strUserName)
-{
-    $str = _wxUnknownMessage('未知链接信息', $strUserName);
-    return $str;
-}
-
-function WxOnUnknownType($strType, $strUserName)
-{
-    $str = _wxUnknownMessage('未知信息类型'.$strType, $strUserName);
-    return $str;
 }
 
 function _main()
 {
     SqlConnectDatabase();
 
-    $wechatObj = new wechatCallbackapiTest();
-    $wechatObj->valid();
+    $wx = new WeixinStock();
+    $wx->valid();
 }
 
     _main();

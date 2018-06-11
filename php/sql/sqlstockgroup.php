@@ -14,11 +14,6 @@ class StockGroupSql extends MemberTableSql
     {
     	return $this->GetSingleData($this->BuildWhere_key_extra('groupname', $strGroupName));
     }
-    
-    function GetTableId($strGroupName)
-    {
-		return $this->GetTableIdCallback($strGroupName, 'Get');
-    }
 
     function GetAll()
     {
@@ -115,11 +110,6 @@ class StockGroupItemSql extends StockGroupTableSql
     	return false;
     }
 
-    function GetTableId($strStockId)
-    {
-		return $this->GetTableIdCallback($strStockId, 'Get');
-    }
-
     function Get($strStockId)
     {
     	return $this->GetSingleData($this->BuildWhere_key_stock($strStockId));
@@ -138,7 +128,7 @@ class StockGroupItemSql extends StockGroupTableSql
     
     function CountStockTransaction($strStockId)
     {
-    	if ($strGroupItemId = $this->GetTableId($strStockId))
+    	if ($strGroupItemId = $this->GetId($strStockId))
     	{
     		return $this->trans_sql->Count($strGroupItemId);
     	}
@@ -147,7 +137,7 @@ class StockGroupItemSql extends StockGroupTableSql
 
     function GetStockTransaction($strStockId, $iStart = 0, $iNum = 0)
     {
-    	if ($strId = $this->GetTableId($strStockId))
+    	if ($strId = $this->GetId($strStockId))
     	{
     		return $this->trans_sql->Get($strId, $iStart, $iNum);
     	}
@@ -319,7 +309,7 @@ function SqlUpdateStockGroup($strGroupId, $arNew)
 	{
 	    if (in_array($strStockId, $arNew) == false)
 	    {
-            $strId = $sql->GetTableId($strStockId);
+            $strId = $sql->GetId($strStockId);
             $sql->trans_sql->Delete($strId);
             $sql->DeleteById($strId);
 	    }

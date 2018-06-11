@@ -113,7 +113,7 @@ function _onNew($strMemberId, $strGroupName, $strSymbols)
 {
 	$sql = new StockGroupSql($strMemberId);
 	$sql->Insert($strGroupName);
-    if ($strGroupId = $sql->GetTableId($strGroupName))
+    if ($strGroupId = $sql->GetId($strGroupName))
     {
     	$item_sql = new StockGroupItemSql($strGroupId);
         $arStockId = _getStockIdArray($strSymbols);

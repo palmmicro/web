@@ -77,11 +77,14 @@ class TableSql
     	return $this->GetSingleData(_SqlBuildWhere_id($strId));
     }
     
-    function GetTableIdCallback($strVal, $callback)
+    function GetId($strVal, $callback = 'Get')
     {
-    	if ($record = $this->$callback($strVal))
+    	if (method_exists($this, $callback))
     	{
-    		return $record['id'];
+    		if ($record = $this->$callback($strVal))
+    		{
+    			return $record['id'];
+    		}
     	}
     	return false;
     }
@@ -125,6 +128,37 @@ class TableSql
     			$this->DeleteById($strId);
     		}
     	}
+    }
+    
+    function GetTableSchema()
+    {
+    	$strQry = "SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = 'camman' AND "._SqlBuildWhere('TABLE_NAME', $this->strName);
+    	if ($result = mysql_query($strQry))
+    	{
+    		if (mysql_num_rows($result) > 0) 
+    		{
+    			return $result;
+    		}
+    	}
+    	else
+    	{
+    		die_mysql_error($strQry.' query data failed');
+    	}
+    	return false;
+    }
+    
+    function GetTableColumn()
+    {
+    	$ar = array();
+    	if ($result = $this->GetTableSchema()) 
+    	{
+    		while ($record = mysql_fetch_assoc($result)) 
+    		{
+   				$ar[] = $record['COLUMN_NAME'];
+    		}
+    		@mysql_free_result($result);
+    	}
+    	return $ar;
     }
 }
 

@@ -29,11 +29,6 @@ class StockSql extends TableSql
     {
     	return $this->GetSingleData(_SqlBuildWhere('name', $strSymbol));
     }
-    
-    function GetTableId($strSymbol)
-    {
-		return $this->GetTableIdCallback($strSymbol, 'Get');
-    }
 }
 
 // ****************************** Stock table *******************************************************
@@ -97,7 +92,7 @@ function SqlGetStockDescription($strSymbol)
 function SqlGetStockId($strSymbol)
 {
 	$sql = new StockSql();
-	if ($strStockId = $sql->GetTableId($strSymbol))
+	if ($strStockId = $sql->GetId($strSymbol))
 	{
 		return $strStockId;
 	}

@@ -15,7 +15,7 @@ class _StockGroup extends MyStockGroup
         
         $sql = new StockGroupSql($strMemberId);
         $strGroupName = $this->strName;
-        if ($strGroupId = $sql->GetTableId($strGroupName))
+        if ($strGroupId = $sql->GetId($strGroupName))
         {
         	$arNew = array();
             foreach ($arRef as $ref)
@@ -27,7 +27,7 @@ class _StockGroup extends MyStockGroup
         else
         {
 			$sql->Insert($strGroupName);
-            if ($strGroupId = $sql->GetTableId($strGroupName))
+            if ($strGroupId = $sql->GetId($strGroupName))
             {
             	$item_sql = new StockGroupItemSql($strGroupId);
                 foreach ($arRef as $ref)

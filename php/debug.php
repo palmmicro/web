@@ -117,6 +117,14 @@ function DebugVal($iVal, $strPrefix = false)
  	DebugString($str); 
 }
 
+function DebugArray($ar)
+{
+	foreach ($ar as $str)
+	{
+		DebugString($str);
+	}
+}
+
 function _getDebugPath($strSection)
 {
     $strPath = _checkDebugPath(); 
