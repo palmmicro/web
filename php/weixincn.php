@@ -190,7 +190,12 @@ function _wxGetStockText($strSymbol)
     else if ($sym->IsFundA())
     {
         $ref = StockGetFundReference($strSymbol);
-        $str = _getFundReferenceText($ref); 
+        $str = _getFundReferenceText($ref);
+        if (in_arrayLof($strSymbol))
+        {
+        	$uscny_ref = new DbCnyReference('USCNY');
+	        $str .= _getStockReferenceText($uscny_ref); 
+        }
     }
     else
     {

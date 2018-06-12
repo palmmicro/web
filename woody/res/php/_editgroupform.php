@@ -10,16 +10,6 @@ define ('STOCK_GROUP_EDIT_CN', '修改分组');
 define ('STOCK_GROUP_ADJUST', 'Adjust');
 define ('STOCK_GROUP_ADJUST_CN', '校准');
 
-function IsGroupNameReadOnly($strGroupName)
-{
-    if (in_arrayLof($strGroupName))               return true;
-    if (in_arrayLofHk($strGroupName))             return true;
-    if (in_arrayGoldEtf($strGroupName))           return true;
-    if (in_arrayGradedFund($strGroupName))        return true;
-    if (in_arrayAdr($strGroupName))               return true;
-    return false;
-}
-
 function _getStocksString($strGroupId)
 {
     if ($arSymbol = SqlGetStocksArray($strGroupId))
@@ -47,7 +37,7 @@ function StockEditGroupForm($str, $bChinese)
         if ($strGroupId = UrlGetQueryValue('edit'))
         {
             $strGroupName = SqlGetStockGroupName($strGroupId);
-            if (IsGroupNameReadOnly($strGroupName) == false)     $strGroupNameDisabled = '0';
+            if (in_arrayAll($strGroupName) == false)     $strGroupNameDisabled = '0';
             $strStocks = _getStocksString($strGroupId);
         }
         else

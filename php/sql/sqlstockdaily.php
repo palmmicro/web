@@ -9,6 +9,7 @@ class DailyStockSql extends StockTableSql
     function DailyStockSql($strStockId, $strTableName) 
     {
         parent::StockTableSql($strStockId, $strTableName);
+        $this->Create();
     }
     
     function Create()

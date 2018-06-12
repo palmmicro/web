@@ -1,10 +1,5 @@
 <?php
 
-function GradedFundGetSymbolArray()
-{
-    return array('sh502004', 'sz150022', 'sz150152', 'sz150169', 'sz150175', 'sz150181', 'sz150186', 'sz150200', 'sz150205', 'sz150209', 'sz150223', 'sz150277', 'sz150287'); 
-}
-
 function GradedFundGetSymbolA($strSymbol)
 {
     $sym = new StockSymbol($strSymbol);
@@ -23,11 +18,6 @@ function GradedFundGetSymbolB($strSymbol)
         return $sym->strPrefixA.strval($sym->iDigitA + 1);
     }
     return $strSymbol;
-}
-
-function in_arrayGradedFund($strSymbol)
-{
-    return in_array(strtolower($strSymbol), GradedFundGetSymbolArray());
 }
 
 function in_arrayGradedFundB($strSymbol)

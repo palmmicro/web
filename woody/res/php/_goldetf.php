@@ -27,7 +27,6 @@ function EchoAll($bChinese)
 {
     global $group;
     $fund = $group->ref;
-    
     EchoFundEstParagraph($fund, $bChinese);
     EchoReferenceParagraph(array($fund->est_ref, $fund->future_ref, $group->cny_ref, $fund->stock_ref), $bChinese);
     EchoFundTradingParagraph($fund, $bChinese);    

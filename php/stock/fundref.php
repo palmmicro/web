@@ -20,7 +20,7 @@ function GetEstErrorPercentage($fEstValue, $fNetValue)
 
 function _getSinaFundStr($sym, $strFundSymbol, $strFileName)
 {
-    if (($str = IsNewDailyQuotes($sym, $strFileName, false, _GetFundQuotesYMD)) === false)
+    if (($str = IsNewDailyQuotes($sym, $strFileName, _GetFundQuotesYMD)) === false)
     {
         $str = GetSinaQuotes($strFundSymbol);
         if ($str)   file_put_contents($strFileName, $str);

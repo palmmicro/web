@@ -683,7 +683,7 @@ class StockReference
     {
         $this->_newStockSymbol($strSymbol);
         $this->strFileName = DebugGetEastMoneyFileName($strSymbol);
-        if (($str = IsNewDailyQuotes($this->sym, $this->strFileName, true, _GetEastMoneyQuotesYMD)) === false)
+        if (($str = IsNewDailyQuotes($this->sym, $this->strFileName, _GetEastMoneyQuotesYMD)) === false)
         {
             $str = GetEastMoneyQuotes(ForexGetEastMoneySymbol($strSymbol));
             if ($str)   file_put_contents($this->strFileName, $str);

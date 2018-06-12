@@ -35,15 +35,6 @@ function _getFundRealtimeStr($fund, $strRealtimeEst, $bChinese)
     $future_etf_ref = $fund->future_etf_ref;
     $est_ref = $fund->est_ref;
     
-    if ($future_etf_ref)
-    {   // Lof and LofHk
-        $strSymbol = FutureGetSinaSymbol($future_ref->GetStockSymbol());
-    }
-    else
-    {   // GoldEtf
-        $strSymbol = $fund->est_ref->GetStockSymbol();
-    }
-    
     $strFutureSymbol = $future_ref->GetStockSymbol();
     if ($bChinese)
     {
@@ -54,7 +45,7 @@ function _getFundRealtimeStr($fund, $strRealtimeEst, $bChinese)
         $str = "Future $strRealtimeEst assume $strFutureSymbol 100%  related";
     }
     
-    if ($future_etf_ref != $est_ref)
+    if ($future_etf_ref && ($future_etf_ref != $est_ref))
     {
         $strEtfSymbol = $est_ref->GetStockSymbol();
         $strFutureEtfSymbol = $future_etf_ref->GetStockSymbol();

@@ -95,7 +95,7 @@ function _onEdit($strMemberId, $strGroupId, $strGroupName, $strSymbols)
     if (StockGroupIsReadOnly($strGroupId))  return;
 
     $str = SqlGetStockGroupName($strGroupId);
-    if (IsGroupNameReadOnly($str))  $strGroupName = $str;
+    if (in_arrayAll($str))  $strGroupName = $str;
     
 	$sql = new StockGroupSql($strMemberId);
     if ($sql->Update($strGroupId, $strGroupName))

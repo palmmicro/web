@@ -159,8 +159,8 @@ function GetCategoryArray($strTitle)
         
     case 'oilfund':
     	$ar = array('ptr', 'shi', 'snp');
-    	$ar = array_merge($ar, LofGetOilEtfSymbolArray());
-    	$ar = array_merge($ar, LofGetOilSymbolArray());
+    	$ar = array_merge($ar, LofGetOilEtfSymbolArray()
+    							, LofGetOilSymbolArray());
         break;
         
     case 'qqqfund':

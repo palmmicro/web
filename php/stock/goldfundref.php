@@ -1,15 +1,5 @@
 <?php
 
-function GoldEtfGetSymbolArray()
-{
-    return array('sh518800', 'sh518880', 'sz159934', 'sz159937', 'sz161226'); 
-}
-
-function in_arrayGoldEtf($strSymbol)
-{
-    return in_array(strtolower($strSymbol), GoldEtfGetSymbolArray());
-}
-
 function GoldEtfGetCnFutureSymbol($strSymbol)
 {
     if ($strSymbol == 'SZ161226')   return 'AG0';

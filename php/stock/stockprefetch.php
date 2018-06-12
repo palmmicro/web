@@ -48,7 +48,7 @@ function _GetFundQuotesYMD($str)
     return $arWords[4];
 }
 
-function IsNewDailyQuotes($sym, $strFileName, $bSameDay, $callback)
+function IsNewDailyQuotes($sym, $strFileName, $callback)
 {
     clearstatcache(true, $strFileName);
     $sym->SetTimeZone();
@@ -60,16 +60,16 @@ function IsNewDailyQuotes($sym, $strFileName, $bSameDay, $callback)
         
         $now_ymd = new NowYMD();
         $iFileTime = filemtime($strFileName);
-        if ($bSameDay)
+        if (in_arrayLof($sym->GetSymbol()))
+        {
+            if (($now_ymd->GetTick() - STOCK_HOUR_END * SECONDS_IN_HOUR) < $ymd->GetNextTradingDayTick())     return $str;	// We already have yesterday or last Friday's history quotes.
+        }
+        else
         {
             if ($now_ymd->IsSameDay($ymd))
             {
                 if (($iFileTime - STOCK_HOUR_BEGIN * SECONDS_IN_HOUR) > $ymd->GetTick())  return $str;    // We already have today's data
             }
-        }
-        else
-        {
-            if (($now_ymd->GetTick() - STOCK_HOUR_END * SECONDS_IN_HOUR) < $ymd->GetNextTradingDayTick())     return $str;   // We already have yesterday or last Friday's history quotes.
         }
         
         $file_ymd = new TickYMD($iFileTime);
@@ -210,7 +210,7 @@ function PrefetchEastMoneyData($arSymbol)
         $sym = new StockSymbol($strSymbol);
         if ($sym->IsEastMoneyForex())
         {   // forex reference rate USCNY/HKCNY
-            if (IsNewDailyQuotes($sym, $strFileName, true, _GetEastMoneyQuotesYMD))   continue;
+            if (IsNewDailyQuotes($sym, $strFileName, _GetEastMoneyQuotesYMD))   continue;
         }
         $arFileName[] = $strFileName; 
         $strSymbols .= ForexGetEastMoneySymbol($strSymbol).','; 
@@ -233,7 +233,7 @@ function _prefetchSinaData($arSym)
         $strFileName = DebugGetSinaFileName($str);
 		if ($sym->IsSinaFund())
         {   // fund, IsSinaFund must be called before IsSinaFuture
-            if (IsNewDailyQuotes($sym, $strFileName, false, _GetFundQuotesYMD))       continue;
+            if (IsNewDailyQuotes($sym, $strFileName, _GetFundQuotesYMD))       continue;
         }
         else if ($sym->IsSinaFuture() || $sym->IsSinaForex())
         {   // forex and future
