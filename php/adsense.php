@@ -1,23 +1,7 @@
 <?php
 
-/*
-function using_ie() 
-{ 
-    $u_agent = $_SERVER['HTTP_USER_AGENT']; 
-    $ub = False; 
-    if(preg_match('/MSIE/i',$u_agent)) 
-    { 
-        $ub = True; 
-    } 
-    
-    return $ub; 
-} 
-*/
-
 function AdsenseSearchEngine($bChinese)
 {
-//	if (using_ie())	return;
-	
 	$strSearch = $bChinese ? '搜索' : 'Search';
 	
     echo <<< END
@@ -33,10 +17,23 @@ function AdsenseSearchEngine($bChinese)
 END;
 }
 
+function AdsenseAuto()
+{
+    echo <<< END
+<div>
+	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+	<script>
+    	 (adsbygoogle = window.adsbygoogle || []).push({
+        	  google_ad_client: "ca-pub-7413337917168353",
+        	  enable_page_level_ads: true
+          });
+    </script>
+</div>
+END;
+}
+
 function AdsenseUnit($strWidth, $strHeight, $strUnit, $strSlot)
 {
-//	if (using_ie())	return;
-	
     echo <<< END
 <div>
     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
@@ -51,10 +48,16 @@ function AdsenseUnit($strWidth, $strHeight, $strUnit, $strSlot)
 </div>
 END;
 }
-
+/*
 function AdsensePalmmicro()
 {
 	AdsenseUnit('728px', '90px', 'Palmmicro', '6869455571');
+}
+*/
+
+function AdsenseLeft()
+{
+	AdsenseUnit('160px', '600px', 'Left', '2492639509');
 }
 
 function AdsensePalmmicroUser()

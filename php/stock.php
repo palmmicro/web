@@ -249,14 +249,6 @@ function StockGetPercentageDisplay($fPrice, $fPrice2)
 }
 
 // ****************************** Stock final integration functions *******************************************************
-
-function _prefetchStockData($arStockSymbol)
-{
-    $arUnknown = PrefetchSinaStockData($arStockSymbol);
-    $arUnknown = PrefetchGoogleStockData($arUnknown);
-    PrefetchYahooData($arUnknown);
-}
-
 function StockPrefetchData($ar)
 {
     $arAll = array();
@@ -299,7 +291,7 @@ function StockPrefetchData($ar)
             $arAll[] = $strSymbol;
         }
     }
-    _prefetchStockData(array_unique($arAll));
+    PrefetchSinaStockData(array_unique($arAll));
 }
 
 function StockGetFundReference($strSymbol)

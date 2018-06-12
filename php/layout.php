@@ -3,7 +3,11 @@ require_once('account.php');
 require_once('visitorlogin.php');
 require_once('copyright.php');
 require_once('analytics.php');
+require_once('adsense.php');
 require_once('class/Mobile_Detect.php');
+
+define ('MIN_SCRREN_WIDTH', 1280);
+define ('DEFAULT_DISPLAY_WIDTH', 900);
 
 function LayoutIsMobilePhone()
 {
@@ -13,6 +17,16 @@ function LayoutIsMobilePhone()
         return true;
     }
     return false;
+}
+
+function LayoutScreenWidthOk()
+{
+	if ($strWidth = $_COOKIE['screen'])
+	{
+		$iWidth = intval($strWidth);
+		if ($iWidth >= MIN_SCRREN_WIDTH)	return $iWidth;
+	}
+	return false;
 }
 
 function _layoutBanner($bChinese)
@@ -39,38 +53,47 @@ END;
 
 function _layoutAboveMenu()
 {
+	$iWidth = LayoutScreenWidthOk();
+	if ($iWidth == false)	$iWidth = DEFAULT_DISPLAY_WIDTH;
+	$strWidth = strval($iWidth);
+	
+    echo <<<END
+<table width=$strWidth height=85% border=0 cellpadding=0 cellspacing=0>
+<td width=30 valign=top bgcolor=#66CC66>&nbsp;</td>
+<td width=120 valign=top bgcolor=#66CC66>
+<TABLE width=120 border=0 cellPadding=5 cellSpacing=0>
+END;
 /*    echo <<<END
         <div id="main">
             <div class="green">&nbsp;</div>
             <div class="nav">
 END;*/
-    echo <<<END
-<table width=900 height=85% border=0 cellpadding=0 cellspacing=0>
-<td width=30 valign=top bgcolor=#66CC66>&nbsp;</td>
-<td width=120 valign=top bgcolor=#66CC66>
-<TABLE width=120 border=0 cellPadding=5 cellSpacing=0>
-END;
 }
 
 function _layoutBelowMenu()
 {
+	if ($iWidth = LayoutScreenWidthOk())		$strExtra = 'width='.strval($iWidth - MIN_SCRREN_WIDTH + DEFAULT_DISPLAY_WIDTH);
+	else 										$strExtra = '';
+	
+    echo <<<END
+</TABLE>
+</TD>
+<td width=30 valign=top bgcolor=#66CC66>&nbsp;</td>
+<td width=50 valign=top bgcolor=#ffffff>&nbsp;</td>
+<td $strExtra valign=top>
+END;
 /*    echo <<<END
             </div>
             <div class="green2">&nbsp;</div>
             <div class="white">&nbsp;</div>
             <div class="edit">
 END;*/
-    echo <<<END
-</TABLE>
-</TD>
-<td width=30 valign=top bgcolor=#66CC66>&nbsp;</td>
-<td width=50 valign=top bgcolor=#ffffff>&nbsp;</td>
-<td valign=top>
-END;
 }
 
 function LayoutTopLeft($callback, $bChinese)
 {
+    EchoAnalyticsOptimize();
+//    EchoAnalytics();
     if (!LayoutIsMobilePhone())
     {
         _layoutBanner($bChinese);
@@ -85,18 +108,27 @@ function LayoutTail($bChinese)
     $bMobile = LayoutIsMobilePhone(); 
     if ($bMobile == false)
     {
-        echo '</td>';
-        echo '</table>';
+    	if (LayoutScreenWidthOk())
+    	{
+    		echo '</td><td valign=top>';
+//    		AdsenseCompanyAds();
+//			AdsenseAuto();
+    		AdsenseLeft();
+    	}
+        echo '</td></table>';
 //        echo '    </div>';
 //        echo '</div>';
     }
     EchoCopyRight($bMobile, $bChinese);
-    EchoAnalytics();
 }
 
 function LayoutTailLogin($bChinese)
 {
     VisitorLogin($bChinese);
+	if (LayoutIsMobilePhone() || (LayoutScreenWidthOk() == false))
+	{
+		AdsenseCompanyAds();
+	}
     LayoutTail($bChinese);
 }
 

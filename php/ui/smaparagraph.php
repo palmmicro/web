@@ -176,7 +176,7 @@ function EchoSmaParagraphBegin($stock_his, $bChinese)
     return $arColumn;
 }
 
-function EchoSmaTable($arColumn, $stock_his, $bChinese, $ref = false, $callback = false, $callback2 = false)
+function EchoSmaTable($arColumn, $stock_his, $bChinese, $cb_ref = false, $callback = false, $callback2 = false)
 {
 	if ($bChinese)	$strEst = $arColumn[1];
 	else				$strEst = ' '.$arColumn[1];
@@ -187,7 +187,7 @@ function EchoSmaTable($arColumn, $stock_his, $bChinese, $ref = false, $callback 
     $strColumnEx = '';
 	if ($callback)
     {
-    	$est_ref = call_user_func($callback, $ref);
+    	$est_ref = call_user_func($callback, $cb_ref);
     	$strColumnEx = GetTableColumn(110, GetXueQiuLink($est_ref->sym).$strEst);
     	$strColumnEx .= GetTableColumn(70, $strNextEst);
     	$iWidth += 180;
@@ -214,7 +214,7 @@ function EchoSmaTable($arColumn, $stock_his, $bChinese, $ref = false, $callback 
     </tr>
 END;
 
-    _echoSmaTableData($stock_his, $ref, $callback, $callback2, $bChinese);
+    _echoSmaTableData($stock_his, $cb_ref, $callback, $callback2, $bChinese);
     EchoTableEnd();
 }
 

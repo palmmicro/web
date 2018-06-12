@@ -41,11 +41,6 @@ function _prefetchStockGroupArray($arStock)
 {
     StockPrefetchData($arStock);
     GetChinaMoney();
-/*    if (in_array('USCNY', $arStock) && in_array('HKCNY', $arStock))
-    {	
-//    	DebugString('USCNY and HKCNY in stockgroup together, need Forex prefetch.');
-        PrefetchEastMoneyData(array('USCNY', 'HKCNY'));
-    }*/
 }
 
 function _echoStockGroupArray($arStock, $bChinese)

@@ -138,6 +138,19 @@ function _getStockOptionVal($strSubmit, $strSymbol, $strStockId, $strDate)
 	return '';
 }
 
+function _getStockOptionMemo($strSubmit)
+{
+	if ($strSubmit == STOCK_OPTION_EMA_CN)
+	{
+		return '输入0/0删除全部EMA记录';
+	}
+	else if ($strSubmit == STOCK_OPTION_ETF_CN)
+	{
+		return '输入INDEX*0删除对应关系和全部校准记录';
+	}
+	return '';
+}
+
 function StockOptionEditForm($strSubmit)
 {
     $strEmail = AcctGetEmail(); 
@@ -154,6 +167,7 @@ function StockOptionEditForm($strSubmit)
     }
     
     $strVal = _getStockOptionVal($strSubmit, $strSymbol, $strStockId, $strDate);
+    $strMemo = _getStockOptionMemo($strSubmit);
 	
 	echo <<< END
 	<script type="text/javascript">
@@ -164,7 +178,8 @@ function StockOptionEditForm($strSubmit)
 	
 	<form id="stockoptionForm" name="stockoptionForm" method="post" action="/woody/res/php/_submitstockoptions.php">
         <div>
-		<p><input name="login" value="$strEmail" type="text" size="40" maxlength="128" class="textfield" id="login" $strEmailReadonly />
+		<p><font color=blue>$strMemo</font>
+		<br /><input name="login" value="$strEmail" type="text" size="40" maxlength="128" class="textfield" id="login" $strEmailReadonly />
 		<br /><input name="symbol" value="$strSymbol" type="text" size="20" maxlength="32" class="textfield" id="symbol" $strSymbolReadonly />
 		<br /><input name="date" value="$strDate" type="text" size="10" maxlength="32" class="textfield" id="date" $strDateDisabled />
 		<br /><textarea name="val" rows="8" cols="75" id="val">$strVal</textarea>

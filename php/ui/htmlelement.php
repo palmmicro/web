@@ -16,7 +16,9 @@ function HtmlElementDisabled()
 
 function HtmlElementReadonly()
 {
-    return _getHtmlElement('readonly');
+    $str = _getHtmlElement('readonly');
+    $str .= ' style="background:#CCCCCC"';
+    return $str;
 }
 
 ?>

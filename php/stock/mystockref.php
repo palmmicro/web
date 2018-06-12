@@ -70,25 +70,20 @@ class MyStockReference extends MysqlReference
         $this->_newStockSymbol($strSymbol);
         if (self::$strDataSource == STOCK_SINA_DATA)
         {
-            if ($strSinaSymbol = $this->sym->GetSinaSymbol())	            $this->LoadSinaData($strSinaSymbol);
-			else if ($strGoogleSymbol = $this->sym->GetGoogleSymbol())	$this->LoadGoogleData($strGoogleSymbol);
-            else											                    $this->LoadYahooData();
-            
-/*            if ($this->bHasData == false)
-            {
-            	$this->bHasData = true;
-                $this->LoadYahooData();
-                if ($this->bHasData)	DebugString('Wrong symbol classification warning:'.$strSymbol);
-            }*/
-        }
-        else if (self::$strDataSource == STOCK_YAHOO_DATA)
-        {
-            $this->LoadYahooData();
+            if ($strSinaSymbol = $this->sym->GetSinaSymbol())	$this->LoadSinaData($strSinaSymbol);
         }
         else if (self::$strDataSource == STOCK_SINA_FUTURE_DATA)
         {
             $this->strSqlName = FutureGetSinaSymbol($strSymbol);
             $this->LoadSinaFutureData($strSymbol);
+        }
+        else if (self::$strDataSource == STOCK_YAHOO_DATA)
+        {
+            $this->LoadYahooData();
+        }
+        else if (self::$strDataSource == STOCK_GOOGLE_DATA)
+        {
+			if ($strGoogleSymbol = $this->sym->GetGoogleSymbol())	$this->LoadGoogleData($strGoogleSymbol);
         }
         
         parent::MysqlReference($strSymbol);

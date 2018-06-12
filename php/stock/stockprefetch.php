@@ -131,7 +131,7 @@ function _writePrefetchFiles($arFileName, $arLine, $iCount)
         file_put_contents($arFileName[$i], $arLine[$i]);
     }
 }
-
+/*
 function _prefetchGoogleData($arSymbol)
 {
     $strSymbols = '';
@@ -222,7 +222,7 @@ function PrefetchEastMoneyData($arSymbol)
     $arLine = explode('",', $str);
     _writePrefetchFiles($arFileName, $arLine, $iCount);
 }
-
+*/
 function _prefetchSinaData($arSym)
 {
     $strSymbols = '';

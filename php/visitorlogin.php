@@ -4,7 +4,6 @@ require_once('debug.php');
 require_once('switch.php');
 require_once('account.php');
 require_once('httplink.php');
-require_once('adsense.php');
 
 function _echoLogin($str)
 {
@@ -52,9 +51,6 @@ function VisitorLogin($bChinese)
 		    _echoLogin('More options? Please '.$strLoginLink.' or '.$strRegisterLink.' account.');
 		}
 	}
-	
-	AdsenseCompanyAds();
-//	AdsenseSearchEngine($bChinese);
 }
 
 ?>

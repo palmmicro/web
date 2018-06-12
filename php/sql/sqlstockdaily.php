@@ -129,7 +129,7 @@ class DailyStockSql extends StockTableSql
     	{
     		if (abs($fSaved - floatval($strClose)) > 0.000001)
     		{
-    			DebugString($strDate.' '.$strClose);
+//    			DebugString($strDate.' '.$strClose);
     			$this->Update($strDate, $strClose);
     		}
     	}

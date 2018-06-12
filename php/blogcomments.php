@@ -1,6 +1,7 @@
 <?php
 require_once('account.php');
 require_once('visitorlogin.php');
+require_once('adsense.php');
 require_once('ui/commentparagraph.php');
 require_once('/account/php/_editcommentform.php');
 
@@ -58,6 +59,8 @@ function BlogComments()
     AcctNoAuth();
     EchoBlogComments($bChinese);
 	VisitorLogin($bChinese);
+	AdsenseCompanyAds();
+//	AdsenseSearchEngine($bChinese);
 }
 
 
