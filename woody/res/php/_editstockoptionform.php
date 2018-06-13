@@ -142,11 +142,11 @@ function _getStockOptionMemo($strSubmit)
 {
 	if ($strSubmit == STOCK_OPTION_EMA_CN)
 	{
-		return '输入0/0删除全部EMA记录';
+		return '股票收盘后的第2天修改才会生效, 输入0/0删除全部EMA记录.';
 	}
 	else if ($strSubmit == STOCK_OPTION_ETF_CN)
 	{
-		return '输入INDEX*0删除对应关系和全部校准记录';
+		return '输入INDEX*0删除对应关系和全部校准记录.';
 	}
 	return '';
 }

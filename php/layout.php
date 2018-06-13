@@ -51,9 +51,8 @@ function _layoutBanner($bChinese)
 END;
 }
 
-function _layoutAboveMenu()
+function _layoutAboveMenu($iWidth)
 {
-	$iWidth = LayoutScreenWidthOk();
 	if ($iWidth == false)	$iWidth = DEFAULT_DISPLAY_WIDTH;
 	$strWidth = strval($iWidth);
 	
@@ -70,10 +69,10 @@ END;
 END;*/
 }
 
-function _layoutBelowMenu()
+function _layoutBelowMenu($iWidth)
 {
-	if ($iWidth = LayoutScreenWidthOk())		$strExtra = 'width='.strval($iWidth - MIN_SCRREN_WIDTH + DEFAULT_DISPLAY_WIDTH);
-	else 										$strExtra = '';
+	if ($iWidth)		$strExtra = 'width='.strval($iWidth - MIN_SCRREN_WIDTH + DEFAULT_DISPLAY_WIDTH - 30);
+	else 				$strExtra = '';
 	
     echo <<<END
 </TABLE>
@@ -97,20 +96,21 @@ function LayoutTopLeft($callback, $bChinese)
     if (!LayoutIsMobilePhone())
     {
         _layoutBanner($bChinese);
-        _layoutAboveMenu();
+        
+        $iWidth = LayoutScreenWidthOk();
+        _layoutAboveMenu($iWidth);
         call_user_func($callback, $bChinese);
-        _layoutBelowMenu();
+        _layoutBelowMenu($iWidth);
     }
 }
 
-function LayoutTail($bChinese)
+function _layoutTail($iWidth, $bMobile, $bChinese)
 {
-    $bMobile = LayoutIsMobilePhone(); 
     if ($bMobile == false)
     {
-    	if (LayoutScreenWidthOk())
+    	if ($iWidth)
     	{
-    		echo '</td><td valign=top>';
+    		echo '</td><td width=30 valign=top>&nbsp;</td><td valign=top>';
 //    		AdsenseCompanyAds();
 //			AdsenseAuto();
     		AdsenseLeft();
@@ -122,14 +122,22 @@ function LayoutTail($bChinese)
     EchoCopyRight($bMobile, $bChinese);
 }
 
+function LayoutTail($bChinese)
+{
+	_layoutTail(LayoutScreenWidthOk(), LayoutIsMobilePhone(), $bChinese);
+}
+
 function LayoutTailLogin($bChinese)
 {
     VisitorLogin($bChinese);
-	if (LayoutIsMobilePhone() || (LayoutScreenWidthOk() == false))
+    
+    $iWidth = LayoutScreenWidthOk();
+    $bMobile = LayoutIsMobilePhone();
+	if ($bMobile || ($iWidth == false))
 	{
 		AdsenseCompanyAds();
-	}
-    LayoutTail($bChinese);
+	}    
+	_layoutTail($iWidth, $bMobile, $bChinese);
 }
 
 ?>
