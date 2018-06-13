@@ -7,17 +7,12 @@ function _callbackEtfSma($ref, $fEst = false)
 	return $ref;
 }
 
-function EchoEtfSmaParagraph($stock_his, $arRef, $bChinese, $callback2 = false)
+function EchoEtfSmaParagraph($ref, $arEtfRef, $bChinese, $callback2 = false)
 {
-    if ($stock_his == false)              return;
-    
-	$arColumn = EchoSmaParagraphBegin($stock_his, $bChinese);
-	foreach ($arRef as $ref)
+	foreach ($arEtfRef as $etf_ref)
 	{
-		EchoSmaTable($arColumn, $stock_his, $bChinese, $ref, _callbackEtfSma, $callback2);
-		EchoNewLine();
+		EchoSmaParagraph($ref, $bChinese, '', $etf_ref, _callbackEtfSma, $callback2);
 	}
-    EchoParagraphEnd();
 }
 
 ?>

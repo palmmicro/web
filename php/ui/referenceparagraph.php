@@ -139,9 +139,9 @@ function EchoReferenceParagraph($arRef, $bChinese, $str = false, $callback = fal
 	{
 		$arColumnEx = call_user_func($callback, $bChinese);
         $strColumnEx = ' ';
-		foreach ($arColumnEx as $str)
+		foreach ($arColumnEx as $strColumn)
 		{
-            $strColumnEx .= GetTableColumn(90, $str);
+            $strColumnEx .= GetTableColumn(90, $strColumn);
 		}
 	}
 	else	$strColumnEx = GetTableColumn(270, $arColumn[5]);

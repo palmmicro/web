@@ -155,12 +155,11 @@ function _selectSmaExternalLink($strSymbol)
     return GetXueQiuLink($sym);
 }
 
-function EchoSmaParagraphBegin($stock_his, $bChinese)
+function _getSmaParagraphMemo($his, $arColumn, $bChinese)
 {
-	$strDate = $stock_his->strDate;
-	$strSymbol = $stock_his->GetStockSymbol();
+	$strDate = $his->strDate;
+	$strSymbol = $his->GetStockSymbol();
 	$strSymbolLink = _selectSmaExternalLink($strSymbol);
-	$arColumn = GetSmaTableColumn($bChinese);
 	$strSMA = $arColumn[0];
 	$strDays = $arColumn[3];
     if ($bChinese)     
@@ -172,12 +171,15 @@ function EchoSmaParagraphBegin($stock_his, $bChinese)
         $str = "$strDays of $strSymbolLink trading range covered the $strSMA in past 100 trading days starting from $strDate";
     }
     $str .= ' '.GetStockSymbolLink('stockhistory', $strSymbol, $bChinese, '历史记录', 'History');
-    EchoParagraphBegin($str);
-    return $arColumn;
+    return $str;
 }
 
-function EchoSmaTable($arColumn, $stock_his, $bChinese, $cb_ref = false, $callback = false, $callback2 = false)
+function EchoSmaParagraph($ref, $bChinese, $str = false, $cb_ref = false, $callback = false, $callback2 = false)
 {
+	$his = new StockHistory($ref);
+	$arColumn = GetSmaTableColumn($bChinese);
+	if ($str === false)	$str = _getSmaParagraphMemo($his, $arColumn, $bChinese);
+
 	if ($bChinese)	$strEst = $arColumn[1];
 	else				$strEst = ' '.$arColumn[1];
 	$strNextEst = 'T+1'.$strEst;
@@ -202,6 +204,7 @@ function EchoSmaTable($arColumn, $stock_his, $bChinese, $cb_ref = false, $callba
     
     $strWidth = strval($iWidth);
     echo <<<END
+    <p>$str
     <TABLE borderColor=#cccccc cellSpacing=0 width=$strWidth border=1 class="text" id="smatable">
     <tr>
         <td class=c1 width=90 align=center>{$arColumn[0]}</td>
@@ -214,16 +217,8 @@ function EchoSmaTable($arColumn, $stock_his, $bChinese, $cb_ref = false, $callba
     </tr>
 END;
 
-    _echoSmaTableData($stock_his, $cb_ref, $callback, $callback2, $bChinese);
-    EchoTableEnd();
-}
-
-function EchoSmaParagraph($stock_ref, $bChinese, $ref = false, $callback = false, $callback2 = false)
-{
-	$stock_his = new StockHistory($stock_ref);
-	$arColumn = EchoSmaParagraphBegin($stock_his, $bChinese);
-	EchoSmaTable($arColumn, $stock_his, $bChinese, $ref, $callback, $callback2);
-    EchoParagraphEnd();
+    _echoSmaTableData($his, $cb_ref, $callback, $callback2, $bChinese);
+    EchoTableParagraphEnd();
 }
 
 ?>

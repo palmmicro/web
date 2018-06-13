@@ -13,10 +13,7 @@ function EchoLofSmaParagraph($lof_ref, $bChinese, $callback2 = false)
     if ($ref == false) 				return;
     if ($ref->bHasData == false) 	return;
     
-	$stock_his = new StockHistory($ref);
-	$arColumn = EchoSmaParagraphBegin($stock_his, $bChinese);
-	EchoSmaTable($arColumn, $stock_his, $bChinese, $lof_ref, _callbackLofSma, $callback2);
-    EchoParagraphEnd();
+    EchoSmaParagraph($ref, $bChinese, false, $lof_ref, _callbackLofSma, $callback2);
 }
 
 ?>

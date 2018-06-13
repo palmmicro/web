@@ -41,9 +41,8 @@ function EchoHShareSmaParagraph($ref, $hshare_ref, $bChinese)
 {
     if ($ref->bHasData == false) 	return;
     
-	$stock_his = new StockHistory($ref);
-	$arColumn = EchoSmaParagraphBegin($stock_his, $bChinese);
 	$callback = false;
+	$str = false;
 	if ($hshare_ref->a_ref && $hshare_ref->adr_ref)
 	{
    		if ($ref->sym->IsSymbolA())
@@ -61,8 +60,8 @@ function EchoHShareSmaParagraph($ref, $hshare_ref, $bChinese)
    			$callback2 = _callbackHAdrSmaUsd;
    			$callback = _callbackHAdrSmaAdr;
    		}
-   		EchoSmaTable($arColumn, $stock_his, $bChinese, $hshare_ref, $callback2);
-		EchoNewLine();
+		EchoSmaParagraph($ref, $bChinese, false, $hshare_ref, $callback2);
+		$str = '';
 	}
 	else if ($hshare_ref->a_ref)
 	{
@@ -75,8 +74,7 @@ function EchoHShareSmaParagraph($ref, $hshare_ref, $bChinese)
    		else				   			$callback = _callbackHAdrSmaAdr;
 	}
 	
-	EchoSmaTable($arColumn, $stock_his, $bChinese, $hshare_ref, $callback);
-    EchoParagraphEnd();
+	EchoSmaParagraph($ref, $bChinese, $str, $hshare_ref, $callback);
 }
 
 ?>
