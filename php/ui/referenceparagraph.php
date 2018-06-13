@@ -106,11 +106,11 @@ function GetTimeDisplay()
 {
     date_default_timezone_set(STOCK_TIME_ZONE_CN);
 	$ymd = new NowYMD();
-	$strDateTime = $ymd->GetDisplay();
+	$strTick = strval($ymd->GetTick() * 1000);
 	
 	echo <<< END
 	<script type="text/javascript">
-		var now = new Date("$strDateTime"); 
+		var now = new Date($strTick); 
 		function UpdateTime() 
 		{ 
 			now.setTime(now.getTime() + 250); 

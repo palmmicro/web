@@ -14,10 +14,10 @@ class _MyPortfolio extends StockGroup
     }
 }
 
-function _echoPortfolioTable($portfolio, $sql, $bChinese)
+function _echoPortfolio($portfolio, $sql, $bChinese)
 {
     $arRef = array();
-    _EchoPortfolioTableBegin($bChinese);    
+    _EchoPortfolioParagraphBegin($bChinese ? '个股盈亏' : 'Stock performance', $bChinese);    
 	if ($result = $sql->GetAll()) 
 	{
 		while ($stockgroup = mysql_fetch_assoc($result)) 
@@ -49,18 +49,18 @@ function _echoPortfolioTable($portfolio, $sql, $bChinese)
     EchoReferenceParagraph($arRef, $bChinese);
 }
 
-function _echoMoneyTable($portfolio, $bChinese)
+function _echoMoneyParagraph($portfolio, $bChinese)
 {
     $fUSDCNY = SqlGetUSCNY();
     $fHKDCNY = SqlGetHKCNY();    
 
-    _EchoMoneyTableBegin($bChinese);
+    _EchoMoneyParagraphBegin($bChinese);
     foreach ($portfolio->arStockGroup as $group)
     {
         _EchoMoneyGroupData($group, SelectGroupInternalLink($group->strGroupId, $bChinese), $fUSDCNY, $fHKDCNY);
     }
     _EchoMoneyGroupData($portfolio, ($bChinese ? '全部' : 'All'), $fUSDCNY, $fHKDCNY);
-    EchoTableEnd();
+    EchoTableParagraphEnd();
 }
 
 function _onPrefetch($sql) 
@@ -83,13 +83,8 @@ function EchoMyFortfolio($bChinese)
     _onPrefetch($sql);
 
     $portfolio = new _MyPortfolio();
-    EchoParagraphBegin($bChinese ? '个股盈亏' : 'Stock performance');
-    _echoPortfolioTable($portfolio, $sql, $bChinese);
-    EchoParagraphEnd();
-    
-    EchoParagraphBegin();
-    _echoMoneyTable($portfolio, $bChinese);
-    EchoParagraphEnd();
+    _echoPortfolio($portfolio, $sql, $bChinese);
+    _echoMoneyParagraph($portfolio, $bChinese);
     
     EchoPromotionHead($bChinese, 'portfolio');
 }

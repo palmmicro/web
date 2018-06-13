@@ -39,31 +39,20 @@ function EchoParagraphBegin($str = '')
     echo '<p>'.$str;
 }
 
-function EchoParagraphEnd($str = '')
-{
-    echo $str.'</p>';
-}
-
 function EchoParagraph($str)
 {
-    EchoParagraphBegin($str);
-    EchoParagraphEnd();
-}
-
-function EchoTableEnd()
-{
-    echo '</TABLE>';
+    echo <<<END
+    <p>$str
+    </p>
+END;
 }
 
 function EchoTableParagraphEnd($str = '')
 {
-	EchoTableEnd();
-	EchoParagraphEnd($str);
-}
-
-function EchoNewLine()
-{
-    echo HTML_NEW_LINE;
+    echo <<<END
+    </TABLE>
+    $str</p>
+END;
 }
 
 ?>

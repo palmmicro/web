@@ -65,7 +65,7 @@ END;
 
 define ('MAX_PREDICTION_DAYS', 100);
 
-function _echoLofPredictionTableBegin($lof_ref, $est_ref, $bChinese)
+function _echoLofPredictionParagraphBegin($lof_ref, $est_ref, $bChinese)
 {
     $strLofSymbol = $lof_ref->GetStockSymbol();
     $strEtfSymbol = $est_ref->GetStockSymbol();
@@ -79,6 +79,7 @@ function _echoLofPredictionTableBegin($lof_ref, $est_ref, $bChinese)
     }
 
     echo <<<END
+    <p>
     <TABLE borderColor=#cccccc cellSpacing=0 width=570 border=1 class="text" id="prediction">
     <tr>
         <td class=c1 width=150 align=center>{$arColumn[0]}</td>
@@ -111,10 +112,10 @@ function _echoLofPredictionParagraph($fund, $bChinese)
 	}
     
     EchoParagraphBegin(_getNetValueLink($strSymbol, $bChinese));
+    EchoFundHistoryTableBegin($arColumn);
 	$sql = new FundHistorySql($strStockId);
     if ($result = $sql->GetAll(0, MAX_PREDICTION_DAYS)) 
     {
-        EchoFundHistoryTableBegin($arColumn);
         while ($record = mysql_fetch_assoc($result)) 
         {
             $strDate = GetNextTradingDayYMD($record['date']);
@@ -133,17 +134,14 @@ function _echoLofPredictionParagraph($fund, $bChinese)
             }
         }
         @mysql_free_result($result);
-        EchoTableEnd();
     }
+    EchoTableParagraphEnd();
 
-    EchoNewLine();
-    _echoLofPredictionTableBegin($lof_ref, $est_ref, $bChinese);
+    _echoLofPredictionParagraphBegin($lof_ref, $est_ref, $bChinese);
     _echoLofPredictionItem($bChinese ? '折价' : 'Lower', $netvalue_higher);
     _echoLofPredictionItem($bChinese ? '平价' : 'Same', $netvalue_same);
     _echoLofPredictionItem($bChinese ? '溢价' : 'Higher', $netvalue_lower);
-    EchoTableEnd();
-    
-    EchoParagraphEnd();
+    EchoTableParagraphEnd();
 }
 
 function EchoThanousLawTest($bChinese)

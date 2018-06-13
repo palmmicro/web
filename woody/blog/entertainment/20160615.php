@@ -27,8 +27,9 @@ The data as following:
 0.0000,0,0,6.5842,0.0000,0,0,0.0124,0.19%,0.0000,
 0,0,0,0,0,0.0024,0.0000,2016-06-14 23:45:00,3"]}</font>
 <br />After removed double quotation marks, separated by ',', the interpretation of words in the next table.
+</p>
 <?php
-    EchoInterpretationTable(array(array('0', 'USDCNY0', 'Interface symbol'),
+    EchoInterpretationParagraph(array(array('0', 'USDCNY0', 'Interface symbol'),
                                    array('1', 'USDCNY', 'Name'),
                                    array('2', '美元人民币', 'Chinese name'),
                                    array('3', '6.5842', 'Previous close?'),
@@ -46,7 +47,6 @@ The data as following:
                                    array('28', '3', '(Unknown)')
                                    ), 'usdcny', false);
 ?>
-</p>
 
 <h3><a name="uscny">USCNY and USDCNY</a></h3>
 <p>June 16, 2016

@@ -24,13 +24,14 @@ function _GetStockConfigDebugString($ar_ref, $bChinese)
 
 // ****************************** Portfolio table *******************************************************
 
-function _EchoPortfolioTableBegin($bChinese)
+function _EchoPortfolioParagraphBegin($str, $bChinese)
 {
 	$strSymbol = GetReferenceTableSymbol($bChinese);
     if ($bChinese)	$arColumn = array($strSymbol, '总数量', '平均价格', '百分比', '持仓', '盈亏', '货币');
     else		        $arColumn = array($strSymbol, 'Total', 'Avg', 'Percentage', 'Amount', 'Profit', 'Money');
     
     echo <<<END
+    	<p>$str
         <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="portfolio">
         <tr>
             <td class=c1 width=100 align=center>{$arColumn[0]}</td>
@@ -86,8 +87,7 @@ function _echoGroupPortfolioParagraph($group, $bChinese)
 {
     if ($group->GetTotalRecords() > 0)
 	{
-		EchoParagraphBegin(GetMyPortfolioLink($bChinese));
-	    _EchoPortfolioTableBegin($bChinese);    
+	    _EchoPortfolioParagraphBegin(GetMyPortfolioLink($bChinese), $bChinese);    
         foreach ($group->arStockTransaction as $trans)
         {
             if ($trans->iTotalRecords > 0)
@@ -101,7 +101,7 @@ function _echoGroupPortfolioParagraph($group, $bChinese)
 
 // ****************************** Money table *******************************************************
 
-function _EchoMoneyTableBegin($bChinese)
+function _EchoMoneyParagraphBegin($bChinese, $str = '')
 {
     $strGroupLink = GetMyStockGroupLink($bChinese);
     if ($bChinese)     
@@ -114,6 +114,7 @@ function _EchoMoneyTableBegin($bChinese)
     }
     
     echo <<<END
+    	<p>$str
         <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="money">
         <tr>
             <td class=c1 width=110 align=center>{$arColumn[0]}</td>
@@ -164,6 +165,7 @@ function _echoQQgroupPromotion()
         <p>请扫下面的二维码或者点击最右边的链接加入Woody创建的QQ群204836363
         <a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=2eb90427cf5fc1c14f4ebd8f72351d4a09e259cf48f137e312cd54163bd5c165"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="Alcoholic Anonymus" title="Alcoholic Anonymus"></a>
         <br /><img src=/woody/image/qq.png alt="QQ group 204836363 scan QR code" />
+        </p>
 END;
 }
 
@@ -172,6 +174,7 @@ function _echoWeixinPromotion()
     echo <<<END
         <p>请扫下面的二维码关注Palmmicro<a href="/woody/blog/palmmicro/20161014cn.php">微信公众订阅号</a>sz162411. 
         <br /><img src=/woody/blog/photo/20161014_qrcode_mid.jpg alt="Palmmicro wechat public account sz162411 middle size QR code" />
+        </p>
 END;
 }
 
@@ -180,6 +183,7 @@ function _echoMyPromotion()
     echo <<<END
         <p>觉得这个页面有用? 可以打赏支持一下. 
         <br /><img src=/woody/blog/photo/wxpay_small.jpg alt="Small QRcode to pay 1 RMB to Woody in Weixin" />
+        </p>
 END;
 }
 
@@ -205,9 +209,8 @@ function EchoPromotionHead($bChinese, $strVer = false)
         if ($iVal == 1)          _echoQQgroupPromotion();
         else if ($iVal == 2)    _echoWeixinPromotion();
         else if ($iVal == 3)    _echoMyPromotion();
-        EchoNewLine();
     }
-    EchoParagraphEnd(_getDevGuideLink($strVer, $bChinese));
+    EchoParagraph(_getDevGuideLink($strVer, $bChinese));
 }
 
 // ****************************** Money Paragraph *******************************************************
@@ -222,8 +225,7 @@ function EchoMoneyParagraph($group, $bChinese, $fUSDCNY = false, $fHKDCNY = fals
     {
         $str = 'Convert currency';
     }
-    EchoParagraphBegin($str);
-    _EchoMoneyTableBegin($bChinese);
+    _EchoMoneyParagraphBegin($bChinese, $str);
     _EchoMoneyGroupData($group, $group->strName, $fUSDCNY, $fHKDCNY);
     EchoTableParagraphEnd();
 }

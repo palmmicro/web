@@ -95,13 +95,14 @@ function _echoCombinedTransactionTableData($strGroupId, $iMax, $bChinese)
     }
 }
 
-function _echoCombinedTransactionTable($strGroupId, $iMax, $bChinese)
+function _echoCombinedTransactionParagraph($str, $strGroupId, $iMax, $bChinese)
 {
 	$strSymbol = GetReferenceTableSymbol($bChinese);
     if ($bChinese)	$arColumn = array('日期', $strSymbol, '合并数量', '折算数量', '平均成本', '折算成本', '备注');
     else		        $arColumn = array('Date', $strSymbol, 'Combined Quantity', 'Converted Quantity', 'Avg Cost', 'Converted Cost', 'Remark');
     
     echo <<<END
+    <p>$str
     <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="combined">
     <tr>
         <td class=c1 width=100 align=center>{$arColumn[0]}</td>
@@ -115,7 +116,7 @@ function _echoCombinedTransactionTable($strGroupId, $iMax, $bChinese)
 END;
 
     _echoCombinedTransactionTableData($strGroupId, $iMax, $bChinese);
-    EchoTableEnd();
+    EchoTableParagraphEnd();
 }
 
 // ****************************** Public *******************************************************
@@ -127,12 +128,10 @@ function CombineTransactionEchoAll($bChinese)
         $arSymbol = SqlGetStocksArray($strGroupId);
         StockPrefetchData($arSymbol);
 
-        $strGroupLink = _GetReturnGroupLink($strGroupId, $bChinese);
-        $strStockLinks = StockGetGroupTransactionLinks($strGroupId, $bChinese);
-        $strAllLink = StockGetAllTransactionLink($strGroupId, $bChinese);
-        EchoParagraphBegin($strGroupLink.' '.$strAllLink.' '.$strStockLinks);
-        _echoCombinedTransactionTable($strGroupId, 0, $bChinese);
-        EchoParagraphEnd();
+        $str = _GetReturnGroupLink($strGroupId, $bChinese);
+        $str .= ' '.StockGetGroupTransactionLinks($strGroupId, $bChinese);
+        $str .= ' '.StockGetAllTransactionLink($strGroupId, $bChinese);
+        _echoCombinedTransactionParagraph($str, $strGroupId, 0, $bChinese);
     }
     EchoPromotionHead($bChinese);
 }

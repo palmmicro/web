@@ -23,8 +23,9 @@ Current data got from <?php EchoLink('http://hq.sinajs.cn/list=sz162411'); ?> an
 6062158,0.500,47389213,0.501,11186263,0.502,13222780,0.503,4471351,0.504,
 2015-12-24,15:34:34,00";</font>
 <br />After removed double quotation marks, separated by ',', the interpretation of words in the next table.
+</p>
 <?php
-    EchoInterpretationTable(array(array('0', '华宝油气', 'GB2312 coded stock name'),
+    EchoInterpretationParagraph(array(array('0', '华宝油气', 'GB2312 coded stock name'),
                                    array('1', '0.502', 'Today open'),
                                    array('2', '0.482', 'Previous close'),
                                    array('3', '0.500', 'Current price, used as today close after market close?'),
@@ -45,7 +46,6 @@ Current data got from <?php EchoLink('http://hq.sinajs.cn/list=sz162411'); ?> an
                                    array('32', '00', 'End of data?')
                                    ), 'stock', false);
 ?>
-</p>
 
 <h3>The Interpretation of Sina Realtime <a name="future">Future</a> Data Interface</h3>
 <p>Jan 28, 2016
@@ -55,8 +55,9 @@ So the stock interface recorded last time was usaful this time. But I had to rev
 <br /><font color=grey>var hq_str_hf_CL="31.85,1.2719,31.85,31.86,31.88,30.14,
 00:24:20,31.45,30.52,40629,0,0,2016-01-28,NYMEX原油";</font>
 <br />After removed double quotation marks, separated by ',', the interpretation of words in the next table.
+</p>
 <?php
-    EchoInterpretationTable(array(array('0', '31.85', 'Current price'),
+    EchoInterpretationParagraph(array(array('0', '31.85', 'Current price'),
                                    array('1', '1.2719', 'The percentage of current price change'),
                                    array('2', '31.85', 'Bid price'),
                                    array('3', '31.86', 'Ask price'),
@@ -72,7 +73,6 @@ So the stock interface recorded last time was usaful this time. But I had to rev
                                    array('13', 'NYMEX原油', 'GB2312 coded name')
                                    ), 'future', false);
 ?>
-</p>
 
 <h3>The Interpretation of Sina Realtime <a name="fund">Fund</a> Data Interface</h3>
 <p>Feb 16, 2016
@@ -88,8 +88,9 @@ So the software did wrong calibration based on the SZ162411 net value of last tr
 The bug only occurs when Chinese and US market close continuesly, and we are lucky the past week just fall into this pattern!
 <br />First I recoverd the correct parameters by manual calibration, then I added this record in case we will need the fund data in the future.
 <br />After removed double quotation marks, separated by ',', the interpretation of words in the next table.
+</p>
 <?php
-    EchoInterpretationTable(array(array('0', '华宝兴业标普油气上游股票(QDII-LOF)', 'GB2312 coded name'),
+    EchoInterpretationParagraph(array(array('0', '华宝兴业标普油气上游股票(QDII-LOF)', 'GB2312 coded name'),
                                    array('1', '0.406', 'Current net value'),
                                    array('2', '0.406', 'Accumulated net value'),
                                    array('3', '0.435', 'Previous trading day net value'),
@@ -97,7 +98,6 @@ The bug only occurs when Chinese and US market close continuesly, and we are luc
                                    array('5', '66.2444', '(Unknown)')
                                    ), 'fund', false);
 ?>
-</p>
 
 </div>
 

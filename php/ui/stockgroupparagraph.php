@@ -77,8 +77,8 @@ function EchoStockGroupParagraph($bChinese)
     $arColumn = GetStockGroupTableColumn($bChinese);
     $arColumn[0] = GetMyStockGroupLink($bChinese);
     
-    EchoParagraphBegin();
     echo <<<END
+    <p>
     <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="stockgroup">
     <tr>
         <td class=c1 width=100 align=center>{$arColumn[0]}</td>

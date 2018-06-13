@@ -112,8 +112,8 @@ function EchoTransactionParagraph($strGroupId, $bChinese, $ref = false, $iStart 
     if ($bChinese)     $arColumn = array('日期', $strSymbol, '数量', $strPrice, '交易费用', '备注', '操作');
     else		         $arColumn = array('Date', $strSymbol, 'Quantity', $strPrice, 'Fees', 'Remark', 'Operation');
     
-    EchoParagraphBegin($str);
     echo <<<END
+    <p>$str
     <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="transaction">
     <tr>
         <td class=c1 width=100 align=center>{$arColumn[0]}</td>

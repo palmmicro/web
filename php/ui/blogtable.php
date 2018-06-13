@@ -14,12 +14,13 @@ function _echoInterpretationTableItem($ar)
 END;
 }
 
-function EchoInterpretationTable($arData, $strName, $bChinese)
+function EchoInterpretationParagraph($arData, $strName, $bChinese)
 {
     if ($bChinese)  $arColumn = array('序号', '原始数据内容', '字段意义');
     else              $arColumn = array('Index', 'Original Data', 'Meaning');
     
     echo <<<END
+    	<p>
         <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="$strName">
         <tr>
             <td class=c1 width=50 align=center>{$arColumn[0]}</td>
@@ -29,7 +30,7 @@ function EchoInterpretationTable($arData, $strName, $bChinese)
 END;
 
     foreach ($arData as $ar)    _echoInterpretationTableItem($ar);
-    EchoTableEnd();
+    EchoTableParagraphEnd();
 }
 
 ?>

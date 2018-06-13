@@ -64,8 +64,8 @@ function EchoCalibrationParagraph($strSymbol, $strStockId, $bChinese, $iStart = 
     	$str = $strNavLink;
     }
     
-    EchoParagraphBegin($str);
     echo <<<END
+    <p>$str
     <TABLE borderColor=#cccccc cellSpacing=0 width=590 border=1 class="text" id="calibration">
     <tr>
         <td class=c1 width=170 align=center>{$arColumn[0]}</td>

@@ -21,8 +21,9 @@
 <br />SH501018_net_value=1.0185,2017-03-07,0.9869,2017-03-08,0.9869,0.9869,1.004
 </font>
 <br />Data of each line separated by <b>"\n"</b>. For each line, data separated by <b>','</b> after <b>'='</b> :
+</p>
 <?php
-    EchoInterpretationTable(array(array('0', '0.645',  'T-1 day published official net value'),
+    EchoInterpretationParagraph(array(array('0', '0.645',  'T-1 day published official net value'),
                                    array('1', '2017-03-07', 'T-1 date'),
                                    array('2', '0.6267', 'T day estimated official net value'),
                                    array('3', '2017-03-08', 'T date'),
@@ -31,7 +32,6 @@
                                    array('6', '0.643', 'Last trade')
                                    ), 'netvalue', false);
 ?>
-</p>
 
 </div>
 

@@ -24,8 +24,9 @@
 0.0000,0,0,6.5842,0.0000,0,0,0.0124,0.19%,0.0000,
 0,0,0,0,0,0.0024,0.0000,2016-06-14 23:45:00,3"]}</font>
 <br />去掉前后双引号后, 按逗号','分隔的各个字段意义如下表.
+</p>
 <?php
-    EchoInterpretationTable(array(array('0', 'USDCNY0', '接口符号'),
+    EchoInterpretationParagraph(array(array('0', 'USDCNY0', '接口符号'),
                                    array('1', 'USDCNY', '英文名字'),
                                    array('2', '美元人民币', '中文名字'),
                                    array('3', '6.5842', '昨日收盘价?'),
@@ -43,7 +44,6 @@
                                    array('28', '3', '(未知)')
                                    ), 'usdcny', true);
 ?>
-</p>
 
 <h3><a name="uscny">USCNY和USDCNY</a></h3>
 <p>2016年6月16日

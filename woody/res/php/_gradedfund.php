@@ -73,8 +73,9 @@ function _echoRefTableData($ref, $fund)
 END;
 }
 
-function _echoRefTable($group, $bChinese)
+function _echoRefParagraph($group, $bChinese)
 {
+    $str = $bChinese ? '数据和净值表' : 'Data and net value table';
 	$arColumn = GetReferenceTableColumn($bChinese);
     if ($bChinese)     
     {
@@ -89,6 +90,7 @@ function _echoRefTable($group, $bChinese)
     $arColumn[] = $arFundEst[3];
     
     echo <<<END
+    	<p>$str
         <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="reference">
         <tr>
             <td class=c1 width=80 align=center>{$arColumn[0]}</td>
@@ -107,15 +109,7 @@ END;
     _echoRefTableData($ref->m_ref->stock_ref, $ref->m_ref);
     _echoRefTableData($ref->stock_ref, $ref);
     _echoRefTableData($ref->b_ref->stock_ref, $ref->b_ref);
-    
-    EchoTableEnd();
-}
-
-function _echoRefParagraph($group, $bChinese)
-{
-    EchoParagraphBegin($bChinese ? '数据和净值表' : 'Data and net value table');
-    _echoRefTable($group, $bChinese);
-    EchoParagraphEnd();
+    EchoTableParagraphEnd();
 }
 
 // ****************************** private functions *******************************************************
