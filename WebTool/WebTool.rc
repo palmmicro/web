@@ -250,8 +250,8 @@ FONT 8, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
     DEFPUSHBUTTON   "OK",IDOK,242,40,50,14,WS_GROUP
     ICON            IDR_MAINFRAME,IDC_STATIC,14,14,20,20
-    LTEXT           "Woody's Web Tool, Version 3.3",IDC_STATIC,42,14,114,8,SS_NOPREFIX
-    LTEXT           "Copyright (C) 2010-2017 Palmmicro Communications Inc. All Rights Reserved.",IDC_STATIC,41,25,254,8
+    LTEXT           "Woody's Web Tool, Version 3.4",IDC_STATIC,42,14,114,8,SS_NOPREFIX
+    LTEXT           "Copyright (C) 2010-2018 Palmmicro Communications Inc. All Rights Reserved.",IDC_STATIC,41,25,254,8
 END
 
 IDD_ITERATEBOX DIALOGEX 0, 0, 625, 207
