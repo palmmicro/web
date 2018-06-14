@@ -26,8 +26,28 @@ function _etfListRefCallback($bChinese, $ref = false)
 
 function EchoEtfListParagraph($arRef, $bChinese)
 {
+	$ar = array();
+	foreach ($arRef as $ref)
+	{
+		$sym = $ref->GetSym();
+		if ($strDigit = $sym->IsFundA())
+		{
+			$ar[$strDigit] = $ref->GetExternalLink();
+			$ref->SetExternalLink(GetEastMoneyFundRatioLink($sym));
+		}
+	}
 	$str = GetEtfListLink($bChinese);
     EchoReferenceParagraph($arRef, $bChinese, $str, _etfListRefCallback);
+    
+    // restore external link
+    foreach ($arRef as $ref)
+    {
+		$sym = $ref->GetSym();
+		if ($strDigit = $sym->IsFundA())
+		{
+			$ref->SetExternalLink($ar[$strDigit]);
+		}
+    }
 }
 
 ?>

@@ -5,11 +5,6 @@ require_once('httplink.php');
 require_once('ui/stocktable.php');
 
 // ****************************** Stock internal link functions *******************************************************
-function GetStockToolLink($strSymbol, $bChinese)
-{
-    return GetPhpLink(STOCK_PATH.strtolower($strSymbol), $bChinese, $strSymbol);
-}
-
 function GetStockSymbolLink($strTitle, $strSymbol, $bChinese, $strDisplay, $strUs = false)
 {
     return GetPhpLink(STOCK_PATH.$strTitle, $bChinese, $strDisplay, $strUs, 'symbol='.$strSymbol);
@@ -157,25 +152,26 @@ function StockGetEditGroupLink($strGroupId, $bChinese)
 }
 
 // ****************************** Other internal link related functions *******************************************************
-function SelectSymbolInternalLink($strSymbol, $bChinese)
+function SelectSymbolInternalLink($strSymbol, $bChinese = true)
 {
     if (in_arrayAll($strSymbol))
     {
-        return GetStockToolLink($strSymbol, $bChinese);
+    	return GetPhpLink(STOCK_PATH.strtolower($strSymbol), $bChinese, $strSymbol);
     }
-    return $strSymbol;
+    return false;
 }
 
 function SelectGroupInternalLink($strGroupId, $bChinese = false)
 {
-    if (($strGroupName = SqlGetStockGroupName($strGroupId)) == false)    return '';
-        
-	$strLink = SelectSymbolInternalLink($strGroupName, $bChinese);
-	if ($strLink == $strGroupName)
-	{
-        $strLink = GetMyStockGroupLink($bChinese, $strGroupId);
-	}
-    return $strLink; 
+    if ($strGroupName = SqlGetStockGroupName($strGroupId))
+    {
+    	if ($strLink = SelectSymbolInternalLink($strGroupName, $bChinese))
+    	{
+    		return $strLink; 
+    	}
+    	return GetMyStockGroupLink($bChinese, $strGroupId);
+    }
+    return '';
 }
 
 function StockGetNavLink($strSymbol, $iTotal, $iStart, $iNum, $bChinese)

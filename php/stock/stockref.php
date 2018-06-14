@@ -313,12 +313,39 @@ class StockReference
         return $this->sym->GetSymbol();
     }
 
+    function GetExternalLink()
+    {
+        return $this->strExternalLink;
+    }
+    
+    function SetExternalLink($strLink = false)
+    {
+    	if ($strLink)
+    	{
+    		$this->strExternalLink = $strLink;
+    	}
+    	else
+    	{
+    		$this->strExternalLink = $this->GetStockSymbol();
+    	}
+    }
+    
+    function SetMyStockLink($bChinese)
+    {
+    	$this->SetExternalLink(GetMyStockLink($this->GetStockSymbol(), $bChinese));
+    }
+    
     function _newStockSymbol($strSymbol)
     {
         if ($this->sym == false)
         {
             $this->sym = new StockSymbol($strSymbol);
         }
+    }
+
+    function GetSym()
+    {
+        return $this->sym;
     }
     
     // for table display

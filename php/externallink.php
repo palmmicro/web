@@ -6,13 +6,23 @@ require_once('stock/stocksymbol.php');
 require_once('stock/googlestock.php');
 
 // ****************************** External link functions *******************************************************
-
-function GetChinaFundLink($sym)
+function GetEastMoneyFundLink($sym)
 {
     $strSymbol = $sym->GetSymbol();
     if ($strDigit = $sym->IsFundA())
     {
         $strHttp = "http://fund.eastmoney.com/$strDigit.html";
+        return GetExternalLink($strHttp, $strSymbol);
+    }
+    return $strSymbol;
+}
+
+function GetEastMoneyFundRatioLink($sym)
+{
+    $strSymbol = $sym->GetSymbol();
+    if ($strDigit = $sym->IsFundA())
+    {
+        $strHttp = "http://fund.eastmoney.com/f10/zcpz_$strDigit.html";
         return GetExternalLink($strHttp, $strSymbol);
     }
     return $strSymbol;

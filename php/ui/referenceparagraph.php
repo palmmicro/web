@@ -47,19 +47,12 @@ function _convertDescription($str, $bChinese)
     return $str;
 }
 
-function _checkStockReference($ref)
-{
-    if ($ref == false)                  return false;
-//    if ($ref->bHasData == false)        return false;
-//    if ($ref->strExternalLink == false) return false;
-    return true;
-}
-
 // $ref from StockReference
 function _echoReferenceTableItem($ref, $bChinese, $callback = false)
 {
-    if (_checkStockReference($ref) == false)    return;
+    if ($ref == false)	return;
 
+    $strLink = $ref->GetExternalLink();
     $strPriceDisplay = $ref->GetCurrentPriceDisplay();
     $strPercentageDisplay = $ref->GetCurrentPercentageDisplay();
     if ($callback)
@@ -80,7 +73,7 @@ function _echoReferenceTableItem($ref, $bChinese, $callback = false)
 
     echo <<<END
     <tr>
-        <td class=c1>{$ref->strExternalLink}</td>
+        <td class=c1>$strLink</td>
         <td class=c1>$strPriceDisplay</td>
         <td class=c1>$strPercentageDisplay</td>
         <td class=c1>{$ref->strDate}</td>
@@ -94,11 +87,11 @@ function _echoReferenceTableData($arRef, $callback, $bChinese)
 {
     foreach ($arRef as $ref)
     {
-       	_echoReferenceTableItem($ref, $bChinese, $callback);
-        if ($callback == false)
-        {
-        	_echoReferenceTableItem($ref->extended_ref, $bChinese);
-        }
+   		_echoReferenceTableItem($ref, $bChinese, $callback);
+    	if ($callback == false)
+    	{
+    		_echoReferenceTableItem($ref->extended_ref, $bChinese);
+    	}
     }
 }
 
@@ -132,8 +125,10 @@ function EchoReferenceParagraph($arRef, $bChinese, $str = false, $callback = fal
     }
     
 	$arColumn = GetReferenceTableColumn($bChinese);
+	$strId = 'reference';
 	if ($callback)
 	{
+		$strId .= $callback;
 		$arColumnEx = call_user_func($callback, $bChinese);
         $strColumnEx = ' ';
 		foreach ($arColumnEx as $strColumn)
@@ -141,11 +136,14 @@ function EchoReferenceParagraph($arRef, $bChinese, $str = false, $callback = fal
             $strColumnEx .= GetTableColumn(90, $strColumn);
 		}
 	}
-	else	$strColumnEx = GetTableColumn(270, $arColumn[5]);
+	else
+	{
+		$strColumnEx = GetTableColumn(270, $arColumn[5]);
+	}
     
     echo <<<END
     	<p>$str
-        <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="reference">
+        <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="$strId">
         <tr>
             <td class=c1 width=80 align=center>{$arColumn[0]}</td>
             <td class=c1 width=70 align=center>{$arColumn[1]}</td>

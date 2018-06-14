@@ -29,7 +29,7 @@ function TextFromStockReference($ref)
     if ($ref->bHasData == false)        return false;
 
     $str = ConvertChineseDescription($ref->strDescription, true).WX_EOL;
-    $str .= $ref->strExternalLink.WX_EOL;
+    $str .= $ref->GetExternalLink().WX_EOL;
     $str .= '现价:'.$ref->strPrice.' '.$ref->strDate.' '.$ref->strTime.WX_EOL;
     $str .= '涨跌:'.$ref->GetPercentageText($ref->fPrevPrice).WX_EOL;
     if ($ref->strOpen)		$str .= '开盘价:'.$ref->strOpen.WX_EOL;

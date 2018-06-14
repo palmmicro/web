@@ -144,21 +144,23 @@ function _wxGetStockArray($strContents)
 
 function _getAhReferenceText($ref, $hshare_ref)
 {
-    $ref->strExternalLink = $ref->GetStockSymbol();
     $str = TextFromAhReference($ref, $hshare_ref);
     return $str;
 }
 
 function _getStockReferenceText($ref)
 {
-    $ref->strExternalLink = $ref->GetStockSymbol();
+    $ref->SetExternalLink();
     $str = TextFromStockReference($ref);
     return $str;
 }
 
 function _getFundReferenceText($ref)
 {
-	if ($ref->stock_ref)	$ref->stock_ref->strExternalLink = GetStockToolLink($ref->GetStockSymbol(), true);
+	if ($ref->stock_ref)
+	{
+		$ref->stock_ref->SetExternalLink(SelectSymbolInternalLink($ref->GetStockSymbol()));
+	}
     $str = TextFromFundReference($ref); 
     return $str;
 }

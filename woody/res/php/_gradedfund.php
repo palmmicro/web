@@ -35,7 +35,7 @@ function _echoRefTableData($ref, $fund)
         $strDate = $ref->strDate;
         $strTime = $ref->strTimeHM;
         $strPercentageDisplay = $ref->GetCurrentPercentageDisplay();
-        $strLink = $ref->strExternalLink;
+        $strLink = $ref->GetExternalLink();
     }
     else
     {

@@ -21,12 +21,11 @@ function _GetReturnGroupLink($strGroupId, $bChinese)
 
 function _GetReturnSymbolGroupLink($strSymbol, $bChinese)
 {
-    $strLink = SelectSymbolInternalLink($strSymbol, $bChinese);
-    if ($strLink == $strSymbol)
+    if ($strLink = SelectSymbolInternalLink($strSymbol, $bChinese))
     {
-        return $strSymbol;
+    	return _getReturnGroupText($strLink, $bChinese);
     }
-    return _getReturnGroupText($strLink, $bChinese);
+    return '';
 }
 
 function _GetAdjustLink($strSymbol, $strQuery, $bChinese)

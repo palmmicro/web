@@ -41,16 +41,17 @@ function EchoHShareSmaParagraph($ref, $hshare_ref, $bChinese)
 {
     if ($ref->bHasData == false) 	return;
     
+    $sym = $ref->GetSym();
 	$callback = false;
 	$str = false;
 	if ($hshare_ref->a_ref && $hshare_ref->adr_ref)
 	{
-   		if ($ref->sym->IsSymbolA())
+   		if ($sym->IsSymbolA())
    		{
    			$callback2 = _callbackHAdrSmaCny;
    			$callback = _callbackHShareSmaA;
    		}
-   		else if ($ref->sym->IsSymbolH())
+   		else if ($sym->IsSymbolH())
    		{
    			$callback2 = _callbackHAdrSmaH;
    			$callback = _callbackHShareSmaH;
@@ -65,12 +66,12 @@ function EchoHShareSmaParagraph($ref, $hshare_ref, $bChinese)
 	}
 	else if ($hshare_ref->a_ref)
 	{
-   		if ($ref->sym->IsSymbolA())	$callback = _callbackHShareSmaA;
+   		if ($sym->IsSymbolA())	$callback = _callbackHShareSmaA;
    		else				   			$callback = _callbackHShareSmaH;
 	}
 	else if ($hshare_ref->adr_ref)
 	{
-   		if ($ref->sym->IsSymbolH())	$callback = _callbackHAdrSmaH;
+   		if ($sym->IsSymbolH())	$callback = _callbackHAdrSmaH;
    		else				   			$callback = _callbackHAdrSmaAdr;
 	}
 	

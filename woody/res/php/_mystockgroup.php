@@ -84,10 +84,9 @@ function _echoStockGroupArray($arStock, $bChinese)
        		else	$ref = StockGetReference($sym);
         }
 
-        $strInternalLink = SelectSymbolInternalLink($strSymbol, $bChinese);
-        if ($strInternalLink != $strSymbol)
+        if ($strInternalLink = SelectSymbolInternalLink($strSymbol, $bChinese))
         {
-            $ref->strExternalLink = $strInternalLink;
+            $ref->SetExternalLink($strInternalLink);
             $ref->extended_ref = false;	// do not display extended trading information in adrcn.php page
         }
 

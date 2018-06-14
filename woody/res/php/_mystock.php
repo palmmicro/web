@@ -49,12 +49,6 @@ function _echoMyStockTransactions($strMemberId, $ref, $bChinese)
 	}
 }
 
-function _setMyStockLink($ref, $strPageSymbol, $bChinese)
-{
-	$strSymbol = $ref->GetStockSymbol();
-	if ($strPageSymbol != $strSymbol)	$ref->strExternalLink = GetMyStockLink($strSymbol, $bChinese);
-}
-
 function _hasSmaDisplay($sym)
 {
     if ($sym->IsSinaFund())		return false;
@@ -124,7 +118,7 @@ function _echoMyStockData($strSymbol, $bChinese)
     {
         if ($hshare_ref)
         {
-			_setMyStockLink($hshare_ref, $strSymbol, $bChinese);
+        	if ($strSymbol != $hshare_ref->GetStockSymbol())	$hshare_ref->SetMyStockLink($bChinese);
 			if ($hshare_ref->a_ref)		EchoAhParagraph(array($hshare_ref), $bChinese);
 			if ($hshare_ref->adr_ref)	EchoAdrhParagraph(array($hshare_ref), $bChinese);
         }

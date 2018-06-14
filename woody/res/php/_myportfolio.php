@@ -44,7 +44,7 @@ function _echoPortfolio($portfolio, $sql, $bChinese)
     $arRef = StockReferenceSortBySymbol($arRef);
     foreach ($arRef as $ref)
     {
-    	$ref->strExternalLink = GetMyStockRefLink($ref, $bChinese);
+    	$ref->SetMyStockLink($bChinese);
     }
     EchoReferenceParagraph($arRef, $bChinese);
 }

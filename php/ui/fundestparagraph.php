@@ -8,7 +8,7 @@ function _echoFundEstTableItem($ref, $bChinese)
     if ($ref->bHasData == false)        return;
     
     $stock_ref = $ref->stock_ref;
-    $strLink = GetChinaFundLink($stock_ref->sym);
+    $strLink = GetEastMoneyFundLink($stock_ref->sym);
     $strPrice = $stock_ref->GetPriceDisplay($ref->fPrice);
     $strPremium = $stock_ref->GetPercentageDisplay($ref->fPrice);
     $strFairPrice = $stock_ref->GetPriceDisplay($ref->fFairNetValue);
