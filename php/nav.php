@@ -4,12 +4,12 @@ require_once('url.php');
 // Provide enhanced function replacement of /js/nav.js
 // Menu navigation functions
 
-define ('NAV_DIR_PREV_LOOP', 'PrevLoop');
-define ('NAV_DIR_NEXT_LOOP', 'NextLoop');
+define('NAV_DIR_PREV_LOOP', 'PrevLoop');
+define('NAV_DIR_NEXT_LOOP', 'NextLoop');
 
-define ('NAV_OUTPUT_LINK', 'link');
-define ('NAV_OUTPUT_DISABLED', 'disabled');
-define ('NAV_OUTPUT_ENABLED', 'enabled');
+define('NAV_OUTPUT_LINK', 'link');
+define('NAV_OUTPUT_DISABLED', 'disabled');
+define('NAV_OUTPUT_ENABLED', 'enabled');
 
 function NavWriteItemLink($iLevel, $strTitle, $strType, $strDisp)
 {

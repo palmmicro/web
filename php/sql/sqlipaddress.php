@@ -2,8 +2,8 @@
 
 // ****************************** IP Address table *******************************************************
 
-define ('IP_STATUS_NORMAL', '0');
-define ('IP_STATUS_BLOCKED', '1');
+define('IP_STATUS_NORMAL', '0');
+define('IP_STATUS_BLOCKED', '1');
 
 function SqlCreateIpAddressTable()
 {

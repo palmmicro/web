@@ -1,7 +1,7 @@
 <?php
 require_once('plaintext.php');
 
-define ('TABLE_COMMON_DISPLAY', 10);
+define('TABLE_COMMON_DISPLAY', 10);
 
 function IsTableCommonDisplay($iStart, $iNum)
 {

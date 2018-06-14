@@ -66,9 +66,9 @@ r7: Price / EPS Estimate Next Year
 s7: Short Ratio 
 */
 
-define ('YAHOO_QUOTES_FLAGS', 'l1t1p2nd1poghvn4');
+define('YAHOO_QUOTES_FLAGS', 'l1t1p2nd1poghvn4');
 // l1-Last Trade (Price Only), t1-Last Trade Time, p2-Change in Percent, n-Name, d1-Last Trade Date, p-Previous Close, o-Open, g-Day's Low, h-Day's High, v-Volume, n4-Notes
-define ('YAHOO_QUOTES_URL', 'https://finance.yahoo.com/d/quotes.csv?');
+define('YAHOO_QUOTES_URL', 'https://finance.yahoo.com/d/quotes.csv?');
 function GetYahooQuotes($strSymbols)
 { 
     // http://finance.yahoo.com/d/quotes.csv?s= STOCK SYMBOLS &f= FORMAT TAGS
@@ -81,7 +81,7 @@ function GetYahooQuotes($strSymbols)
 }
 /*
 // http://table.finance.yahoo.com/table.csv?s=XOP&d=7&e=19&f=2015&g=d&a=6&b=19&c=2015&ignore=.csv
-define ('YAHOO_HISTORY_QUOTES_URL', 'https://chart.finance.yahoo.com/table.csv?');
+define('YAHOO_HISTORY_QUOTES_URL', 'https://chart.finance.yahoo.com/table.csv?');
 function GetYahooHistoryQuotes($strSymbol, $strBeginY, $strBeginM, $strBeginD, $strEndY, $strEndM, $strEndD)
 { 
     $strUrl = YAHOO_HISTORY_QUOTES_URL."s=$strSymbol&d=$strEndM&e=$strEndD&f=$strEndY&g=d&a=$strBeginM&b=$strBeginD&c=$strBeginY&ignore=.csv"; 
@@ -119,7 +119,7 @@ function GetYahooPastQuotes($strSymbol, $iDays)
 
 // https://finance.yahoo.com/quote/XOP/history?period1=1467122442&period2=1498658442&interval=1d&filter=history&frequency=1d 
 // https://query1.finance.yahoo.com/v7/finance/download/XOP?period1=1467122442&period2=1498658442&interval=1d&events=history&crumb=EMGTmG8UgZ4
-define ('YAHOO_HISTORY_QUOTES_URL', 'https://finance.yahoo.com/quote/');
+define('YAHOO_HISTORY_QUOTES_URL', 'https://finance.yahoo.com/quote/');
 function YahooGetStockHistory($strSymbol, $iTimeBegin, $iTimeEnd)
 {
     $strUrl = YAHOO_HISTORY_QUOTES_URL.$strSymbol.'/history?period1='.strval($iTimeBegin).'&period2='.strval($iTimeEnd).'&interval=1d&filter=history&frequency=1d';
@@ -381,17 +381,6 @@ function _yahooGetNetValueSymbol($strSymbol)
    	return GetYahooNetValueSymbol($strSymbol);
 }
 
-function _yahooNetValueReady($sql, $strDate)
-{
-//	$sql->Create();
-    if ($sql->Get($strDate))
-    {
-//    	DebugString(SqlGetStockSymbol($sql->GetKeyId()).' '.$strDate.' fund table entry existed');
-    	return true;
-    }
-    return false;
-}
-
 function YahooUpdateNetValue($strSymbol)
 {
 	if (($strNetValueSymbol = _yahooGetNetValueSymbol($strSymbol)) == false)	return;
@@ -401,7 +390,7 @@ function YahooUpdateNetValue($strSymbol)
     date_default_timezone_set(STOCK_TIME_ZONE_US);
     $now_ymd = new NowYMD();
     $strDate = $now_ymd->GetYMD();
-    if (_yahooNetValueReady($sql, $strDate))								return;
+    if ($sql->Get($strDate))								return;
     if ($now_ymd->IsTradingDay())
     {
     	if ($now_ymd->GetTick() < (strtotime($strDate) + _getNetValueDelayTick()))
@@ -434,7 +423,7 @@ function YahooUpdateNetValue($strSymbol)
     {
     	$ymd = _yahooStockMatchGetYmd($arMatch, $strNetValueSymbol);
     	$strDate = $ymd->GetYMD();
-    	if (_yahooNetValueReady($sql, $strDate))		return;
+    	if ($sql->Get($strDate))		return;
     	foreach ($arMatch as $ar)
     	{
     		$strMatchSymbol = $ar[4];

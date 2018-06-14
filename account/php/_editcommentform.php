@@ -1,11 +1,11 @@
 <?php
 //require_once('/php/ui/htmlelement.php');
 
-define ('BLOG_COMMENT_NEW', 'Post Comment');
-define ('BLOG_COMMENT_NEW_CN', '发表评论');
+define('BLOG_COMMENT_NEW', 'Post Comment');
+define('BLOG_COMMENT_NEW_CN', '发表评论');
 
-define ('BLOG_COMMENT_EDIT', 'Edit Comment');
-define ('BLOG_COMMENT_EDIT_CN', '修改评论');
+define('BLOG_COMMENT_EDIT', 'Edit Comment');
+define('BLOG_COMMENT_EDIT_CN', '修改评论');
 
 function _getEditComment($strMemberId)
 {

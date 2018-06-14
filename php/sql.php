@@ -1,25 +1,25 @@
 <?php
 define('DB_DATABASE', 'camman');
 
-define ('TABLE_BLOG', 'blog');
-define ('TABLE_CALIBRATION', 'calibration');
-define ('TABLE_DIVIDEND_PARAMETER', 'dividendparameter');
-define ('TABLE_ETF_CALIBRATION', 'etfcalibration');
-define ('TABLE_FOREX_HISTORY', 'forexhistory');
-define ('TABLE_FUND_HISTORY', 'fundhistory');
-define ('TABLE_FUND_PURCHASE', 'fundpurchase');
-define ('TABLE_GB2312', 'gb2312');
-define ('TABLE_IP_ADDRESS', 'ipaddress');
-define ('TABLE_MEMBER', 'member');
-define ('TABLE_PROFILE', 'profile');
-define ('TABLE_SPIDER_PARAMTER', 'spiderparameter');
-define ('TABLE_STOCK', 'stock');
-define ('TABLE_STOCK_CALIBRATION', 'stockcalibration');
-define ('TABLE_STOCK_GROUP', 'stockgroup');
-define ('TABLE_STOCK_GROUP_ITEM', 'stockgroupitem');
-define ('TABLE_STOCK_TRANSACTION', 'stocktransaction');
-define ('TABLE_STOCK_HISTORY', 'stockhistory');
-define ('TABLE_WEIXIN', 'weixin');
+define('TABLE_BLOG', 'blog');
+define('TABLE_CALIBRATION', 'calibration');
+define('TABLE_DIVIDEND_PARAMETER', 'dividendparameter');
+define('TABLE_ETF_CALIBRATION', 'etfcalibration');
+define('TABLE_FOREX_HISTORY', 'forexhistory');
+define('TABLE_FUND_HISTORY', 'fundhistory');
+define('TABLE_FUND_PURCHASE', 'fundpurchase');
+define('TABLE_GB2312', 'gb2312');
+define('TABLE_IP_ADDRESS', 'ipaddress');
+define('TABLE_MEMBER', 'member');
+define('TABLE_PROFILE', 'profile');
+define('TABLE_SPIDER_PARAMTER', 'spiderparameter');
+define('TABLE_STOCK', 'stock');
+define('TABLE_STOCK_CALIBRATION', 'stockcalibration');
+define('TABLE_STOCK_GROUP', 'stockgroup');
+define('TABLE_STOCK_GROUP_ITEM', 'stockgroupitem');
+define('TABLE_STOCK_TRANSACTION', 'stocktransaction');
+define('TABLE_STOCK_HISTORY', 'stockhistory');
+define('TABLE_WEIXIN', 'weixin');
 
 require_once('debug.php');
 require_once('_private.php');
@@ -141,6 +141,15 @@ function SqlCountTableToday($strTableName)
     list($strDate, $strTime) = explodeDebugDateTime();
     return SqlCountTableByDate($strTableName, $strDate);
 }
+
+/*
+function SqlAlterStockHistoryTable()
+{    
+    $strQry = 'ALTER TABLE `camman`.`stockhistory` ADD '
+         . ' `adjclose` DOUBLE(13,6) NOT NULL';   // ALTER TABLE这个写法每次只能改一个
+	return SqlDieByQuery($strQry, 'Alter stockhistory table failed');
+}
+*/
 
 function SqlCreateDatabase($strDb)
 {

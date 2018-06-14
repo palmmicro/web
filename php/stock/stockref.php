@@ -1,16 +1,16 @@
 <?php
-define ('TRADING_QUOTE_NUM', 5);
+define('TRADING_QUOTE_NUM', 5);
 
-define ('STOCK_SINA_DATA', 'Sina Data');
-define ('STOCK_SINA_FUTURE_DATA', 'Sina Future Data');
-define ('STOCK_SINA_FOREX', 'Sina Forex Data');
-define ('STOCK_EASTMONEY_FOREX', 'East Money Forex Data');
-define ('STOCK_DB_FOREX', 'Forex Data From Database');
-define ('STOCK_GOOGLE_DATA', 'Google Data');
-define ('STOCK_YAHOO_DATA', 'Yahoo Data (possible 15 min delay)');
-define ('STOCK_NET_VALUE', 'Net Value');
-define ('STOCK_PRE_MARKET', 'Pre-Market Trading');
-define ('STOCK_POST_MARKET', 'Post-Market Trading');
+define('STOCK_SINA_DATA', 'Sina Data');
+define('STOCK_SINA_FUTURE_DATA', 'Sina Future Data');
+define('STOCK_SINA_FOREX', 'Sina Forex Data');
+define('STOCK_EASTMONEY_FOREX', 'East Money Forex Data');
+define('STOCK_DB_FOREX', 'Forex Data From Database');
+define('STOCK_GOOGLE_DATA', 'Google Data');
+define('STOCK_YAHOO_DATA', 'Yahoo Data (possible 15 min delay)');
+define('STOCK_NET_VALUE', 'Net Value');
+define('STOCK_PRE_MARKET', 'Pre-Market Trading');
+define('STOCK_POST_MARKET', 'Post-Market Trading');
 
 // ****************************** Public functions *******************************************************
 
@@ -97,7 +97,7 @@ function _GetForexAndFutureArray($strSymbol, $strFileName, $strTimeZone, $callba
 
 // ****************************** Private functions *******************************************************
 
-define ('COMMA_REPLACEMENT', '*');
+define('COMMA_REPLACEMENT', '*');
 
 //  "Actions Semiconductor Co., Ltd." ==> "Actions Semiconductor Co.* Ltd."
 function _replaceCommaInsideQuotationMarks($str)

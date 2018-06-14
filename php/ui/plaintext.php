@@ -1,7 +1,7 @@
 <?php
 
-define ('MAX_META_DESCRIPTION', 156);
-define ('HTML_NEW_LINE', '<br />');
+define('MAX_META_DESCRIPTION', 156);
+define('HTML_NEW_LINE', '<br />');
 
 function _emailMetaDescriptionWarning($iLen, $strType, $str)
 {

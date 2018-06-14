@@ -63,7 +63,7 @@ function _echoLofPredictionItem($str, $price_compare)
 END;
 }
 
-define ('MAX_PREDICTION_DAYS', 100);
+define('MAX_PREDICTION_DAYS', 100);
 
 function _echoLofPredictionParagraphBegin($lof_ref, $est_ref, $bChinese)
 {

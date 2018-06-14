@@ -6,16 +6,16 @@ require_once('/php/sql/sqlstock.php');
 require_once('/php/ui/commentparagraph.php');
 require_once('/php/ui/fundpurchaseparagraph.php');
 
-define ('PROFILE_LOGIN_ACCOUNT', 'Login completed');
-define ('PROFILE_PASSWORD_CHANGED', 'Password changed');
-define ('PROFILE_EMAIL_CHANGED', 'Login email updated');
-define ('PROFILE_NEW_ACCOUNT', 'Registration completed');
-define ('PROFILE_NEW_PASSWORD', 'New password sent by email');
-define ('PROFILE_CLOSE_ACCOUNT', 'Account closed');
+define('PROFILE_LOGIN_ACCOUNT', 'Login completed');
+define('PROFILE_PASSWORD_CHANGED', 'Password changed');
+define('PROFILE_EMAIL_CHANGED', 'Login email updated');
+define('PROFILE_NEW_ACCOUNT', 'Registration completed');
+define('PROFILE_NEW_PASSWORD', 'New password sent by email');
+define('PROFILE_CLOSE_ACCOUNT', 'Account closed');
 
-define ('PROFILE_NEW_ACCOUNT_CN', '注册成功');
-define ('PROFILE_NEW_PASSWORD_CN', '新密码通过电子邮件发送');
-define ('PROFILE_CLOSE_ACCOUNT_CN', '帐号已经关闭');
+define('PROFILE_NEW_ACCOUNT_CN', '注册成功');
+define('PROFILE_NEW_PASSWORD_CN', '新密码通过电子邮件发送');
+define('PROFILE_CLOSE_ACCOUNT_CN', '帐号已经关闭');
 
 function _echoAccountProfileMsg($strMsg, $bChinese)
 {

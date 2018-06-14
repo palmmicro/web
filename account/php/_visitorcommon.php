@@ -45,8 +45,8 @@ function _getOrigVisitorLink($bChinese)
     return $strOrigLink;    
 }
 
-define ('MAX_VISITOR_CONTENTS', 35);
-define ('MAX_VISITOR_SRC', 16);
+define('MAX_VISITOR_CONTENTS', 35);
+define('MAX_VISITOR_SRC', 16);
 function EchoVisitorParagraphBegin($arColumn, $strNavLink, $strSrc, $bChinese)
 {
     $strOrigLink = _getOrigVisitorLink($bChinese);

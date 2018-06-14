@@ -1,6 +1,6 @@
 <?php
 
-define ('MAX_COMMENT_DISPLAY', 5);
+define('MAX_COMMENT_DISPLAY', 5);
 
 function _getSingleCommentTime($comment, $bChinese)
 {

@@ -7,6 +7,7 @@ class StockSql extends TableSql
     function StockSql()
     {
         parent::TableSql(TABLE_STOCK);
+        $this->Create();
     }
 
     function Create()

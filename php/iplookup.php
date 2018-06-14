@@ -3,7 +3,7 @@
 require_once('debug.php');
 require_once('ui/commentparagraph.php');
 
-define ('SINA_JSON_IP_URL', 'http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=json&ip=');
+define('SINA_JSON_IP_URL', 'http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=json&ip=');
 function _getSinaJsonIpLookUpUrl($strIp)
 {
     return SINA_JSON_IP_URL.$strIp;
@@ -16,7 +16,7 @@ function SinaIpLookUp($strIp)
     return json_decode($str, true);
 }
 
-define ('TAOBAO_IP_URL', 'http://ip.taobao.com/service/getIpInfo.php?ip=');
+define('TAOBAO_IP_URL', 'http://ip.taobao.com/service/getIpInfo.php?ip=');
 function _getTaobaoIpLookUpUrl($strIp)
 {
     return TAOBAO_IP_URL.$strIp;
@@ -34,7 +34,7 @@ function TaobaoIpLookUp($strIp)
     return (array)$json->data;    
 }
 
-define ('IPINFO_IO_IP_URL', 'http://ipinfo.io/');
+define('IPINFO_IO_IP_URL', 'http://ipinfo.io/');
 function _getIpInfoIpLookUpUrl($strIp)
 {
     return IPINFO_IO_IP_URL.$strIp.'/json';
@@ -53,7 +53,7 @@ function IpInfoIpLookUp($strIp)
 // https://freegeoip2.azurewebsites.net/Home/
 
 // http://freegeoip.net/
-define ('FREEGEOIP_NET_IP_URL', 'http://freegeoip.net/json/');
+define('FREEGEOIP_NET_IP_URL', 'http://freegeoip.net/json/');
 function _getFreeGeoIpLookUpUrl($strIp)
 {
     return FREEGEOIP_NET_IP_URL.$strIp;
@@ -67,14 +67,14 @@ function FreeGeoIpLookUp($strIp)
 }
 
 // http://www.projecthoneypot.org/httpbl_api.php
-define ('PROJECT_HONEY_POT_URL', 'http://www.projecthoneypot.org/ip_');
+define('PROJECT_HONEY_POT_URL', 'http://www.projecthoneypot.org/ip_');
 function ProjectHoneyPotGetSearchEngineArray()
 {
     return array('Undocumented', 'AltaVista', 'Ask', 'Baidu', 'Excite', 'Google', 'Looksmart', 'Lycos', 'MSN', 'Yahoo', 'Cuil', 'InfoSeek', 'Miscellaneous', '(13)', 'Yandex');
 }
 
-define ('PROJECT_HONEY_POT_KEY', 'qvcumkhjlcik');
-define ('HTTPBL_ORG_URL', '.dnsbl.httpbl.org');
+define('PROJECT_HONEY_POT_KEY', 'qvcumkhjlcik');
+define('HTTPBL_ORG_URL', '.dnsbl.httpbl.org');
 function ProjectHoneyPotIpLookUp($strIp)
 {
     $ar = explode('.', $strIp);

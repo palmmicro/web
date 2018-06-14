@@ -16,7 +16,6 @@ class MysqlReference extends StockReference
     	if ($this->strSqlId)	return;	// Already set, like in CnyReference
     	
     	$sql = new StockSql();
-//    	$sql->Create();
     	$this->strSqlId = $sql->GetId($this->strSqlName);
 //    	DebugString($this->strSqlName);
         if ($this->strSqlId == false)

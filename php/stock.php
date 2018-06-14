@@ -140,7 +140,7 @@ function explodeQuote($str)
     return explode(',', RemoveDoubleQuotationMarks($str));
 }
 
-define ('SINA_QUOTES_URL', 'http://hq.sinajs.cn/list=');
+define('SINA_QUOTES_URL', 'http://hq.sinajs.cn/list=');
 function GetSinaQuotes($strSymbols)
 { 
     $strUrl = SINA_QUOTES_URL.$strSymbols;
@@ -155,7 +155,7 @@ http://quote.eastmoney.com/forex/USDCNY.html
 http://hq2gjqh.eastmoney.com/EM_Futures2010NumericApplication/Index.aspx?type=z&ids=usdcny0
 http://hq2gjqh.eastmoney.com/EM_Futures2010NumericApplication/Index.aspx?type=z&ids=uscny0
 */
-define ('EASTMONEY_QUOTES_URL', 'http://hq2gjqh.eastmoney.com/EM_Futures2010NumericApplication/Index.aspx?type=z&ids=');
+define('EASTMONEY_QUOTES_URL', 'http://hq2gjqh.eastmoney.com/EM_Futures2010NumericApplication/Index.aspx?type=z&ids=');
 function GetEastMoneyQuotes($strSymbols)
 { 
     $strUrl = EASTMONEY_QUOTES_URL.$strSymbols;
@@ -172,7 +172,7 @@ function ForexAndFutureGetTimezone()
     return 'GMT';
 }
 
-define ('MIN_FLOAT_VAL', 0.0000001);
+define('MIN_FLOAT_VAL', 0.0000001);
 
 function FloatNotZero($fVal)
 {

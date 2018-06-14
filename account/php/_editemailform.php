@@ -1,23 +1,23 @@
 <?php
 require_once('/php/ui/htmlelement.php');
 
-define ('EDIT_EMAIL_REGISTER_CN', '注册新帐号');
-define ('EDIT_EMAIL_REGISTER', 'Register New Account');
+define('EDIT_EMAIL_REGISTER_CN', '注册新帐号');
+define('EDIT_EMAIL_REGISTER', 'Register New Account');
 
-define ('EDIT_EMAIL_LOGIN_CN', '登录帐号');
-define ('EDIT_EMAIL_LOGIN', 'Login Account');
+define('EDIT_EMAIL_LOGIN_CN', '登录帐号');
+define('EDIT_EMAIL_LOGIN', 'Login Account');
 
-define ('EDIT_EMAIL_PASSWORD_CN', '修改密码');
-define ('EDIT_EMAIL_PASSWORD', 'Change Password');
+define('EDIT_EMAIL_PASSWORD_CN', '修改密码');
+define('EDIT_EMAIL_PASSWORD', 'Change Password');
 
-define ('EDIT_EMAIL_UPDATE_CN', '修改登录帐号');
-define ('EDIT_EMAIL_UPDATE', 'Change Login Account');
+define('EDIT_EMAIL_UPDATE_CN', '修改登录帐号');
+define('EDIT_EMAIL_UPDATE', 'Change Login Account');
 
-define ('EDIT_EMAIL_REMINDER_CN', '生成新密码');
-define ('EDIT_EMAIL_REMINDER', 'Reset Password');
+define('EDIT_EMAIL_REMINDER_CN', '生成新密码');
+define('EDIT_EMAIL_REMINDER', 'Reset Password');
 
-define ('EDIT_EMAIL_CLOSE_CN', '关闭帐号');
-define ('EDIT_EMAIL_CLOSE', 'Close Account');
+define('EDIT_EMAIL_CLOSE_CN', '关闭帐号');
+define('EDIT_EMAIL_CLOSE', 'Close Account');
 
 define('ACCT_ERR_EMAIL_INPUT',			1);		// '登录电子邮件不能为空并且要求是有效的邮件地址' : 'Login email missing or not valid';
 define('ACCT_ERR_EMAIL_REGISTERED',	2);		// '登录电子邮件已经注册' : 'Login Email already in use';

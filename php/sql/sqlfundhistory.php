@@ -11,6 +11,8 @@ class FundHistorySql extends DailyStockSql
     function FundHistorySql($strStockId = false) 
     {
         parent::DailyStockSql($strStockId, TABLE_FUND_HISTORY);
+        $this->Create();
+        
         $this->stock_sql = new StockHistorySql($strStockId);
     }
 

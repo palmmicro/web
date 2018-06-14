@@ -1,7 +1,7 @@
 <?php
 
-define ('ACCOUNT_PROFILE_EDIT', 'Edit Account Profile');
-define ('ACCOUNT_PROFILE_EDIT_CN', '修改帐号资料');
+define('ACCOUNT_PROFILE_EDIT', 'Edit Account Profile');
+define('ACCOUNT_PROFILE_EDIT_CN', '修改帐号资料');
 
 function EditProfileForm($strSubmit)
 {

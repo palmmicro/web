@@ -1,5 +1,5 @@
 <?php
-define ('FUND_PURCHASE_AMOUNT', '100000');
+define('FUND_PURCHASE_AMOUNT', '100000');
 
 // ****************************** FundPurchase table *******************************************************
 

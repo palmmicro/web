@@ -1,6 +1,6 @@
 <?php
-define ('STOCK_TRANSACTION_MERGE', 'Merge Transaction');
-define ('STOCK_TRANSACTION_MERGE_CN', '合并交易');
+define('STOCK_TRANSACTION_MERGE', 'Merge Transaction');
+define('STOCK_TRANSACTION_MERGE_CN', '合并交易');
 
 function StockMergeTransactionForm($arGroup, $bChinese)
 {

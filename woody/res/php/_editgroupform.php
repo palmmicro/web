@@ -1,14 +1,14 @@
 <?php
 require_once('/php/ui/stocktable.php');
 
-define ('STOCK_GROUP_NEW', 'New Group');
-define ('STOCK_GROUP_NEW_CN', '新建分组');
+define('STOCK_GROUP_NEW', 'New Group');
+define('STOCK_GROUP_NEW_CN', '新建分组');
 
-define ('STOCK_GROUP_EDIT', 'Edit Group');
-define ('STOCK_GROUP_EDIT_CN', '修改分组');
+define('STOCK_GROUP_EDIT', 'Edit Group');
+define('STOCK_GROUP_EDIT_CN', '修改分组');
 
-define ('STOCK_GROUP_ADJUST', 'Adjust');
-define ('STOCK_GROUP_ADJUST_CN', '校准');
+define('STOCK_GROUP_ADJUST', 'Adjust');
+define('STOCK_GROUP_ADJUST_CN', '校准');
 
 function _getStocksString($strGroupId)
 {

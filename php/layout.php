@@ -6,8 +6,8 @@ require_once('analytics.php');
 require_once('adsense.php');
 require_once('class/Mobile_Detect.php');
 
-define ('MIN_SCRREN_WIDTH', 1280);
-define ('DEFAULT_DISPLAY_WIDTH', 900);
+define('DEFAULT_DISPLAY_WIDTH', 900);
+define('MIN_SCRREN_WIDTH', DEFAULT_DISPLAY_WIDTH + 20 + 160);		// width=20
 
 function LayoutIsMobilePhone()
 {
@@ -22,7 +22,7 @@ function LayoutIsMobilePhone()
 function LayoutScreenWidthOk()
 {
 	if ($strWidth = $_COOKIE['screen'])
-	{
+	{	// cookie in _layoutBanner worked 
 		$iWidth = intval($strWidth);
 		if ($iWidth >= MIN_SCRREN_WIDTH)	return $iWidth;
 	}
@@ -48,6 +48,11 @@ function _layoutBanner($bChinese)
             <div class="logo"><a href="/$strHome"><$strImage></a></div>
             <div class="blue"></div>
         </div>
+
+        <script type="text/javascript">
+			var width = window.screen.width;
+			document.cookie="screen="+width;
+		</script>
 END;
 }
 
@@ -71,7 +76,7 @@ END;*/
 
 function _layoutBelowMenu($iWidth)
 {
-	if ($iWidth)		$strExtra = 'width='.strval($iWidth - MIN_SCRREN_WIDTH + DEFAULT_DISPLAY_WIDTH - 30);
+	if ($iWidth)		$strExtra = 'width='.strval($iWidth - MIN_SCRREN_WIDTH + DEFAULT_DISPLAY_WIDTH - 30 - 120 - 30 - 50);
 	else 				$strExtra = '';
 	
     echo <<<END
@@ -110,7 +115,7 @@ function _layoutTail($iWidth, $bMobile, $bChinese)
     {
     	if ($iWidth)
     	{
-    		echo '</td><td width=30 valign=top>&nbsp;</td><td valign=top>';
+    		echo '</td><td width=20 valign=top>&nbsp;</td><td valign=top>';
 //    		AdsenseCompanyAds();
 //			AdsenseAuto();
     		AdsenseLeft();

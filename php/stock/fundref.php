@@ -1,7 +1,7 @@
 <?php
 
-define ('FUND_POSITION_RATIO', 0.95);
-define ('FUND_EMPTY_NET_VALUE', '0');
+define('FUND_POSITION_RATIO', 0.95);
+define('FUND_EMPTY_NET_VALUE', '0');
 
 function GetEstErrorPercentage($fEstValue, $fNetValue)
 {

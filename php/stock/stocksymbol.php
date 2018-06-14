@@ -1,21 +1,21 @@
 <?php
 
-define ('SINA_FUTURE_PREFIX', 'hf_');
-define ('SINA_FUND_PREFIX', 'f_');
-define ('SINA_HK_PREFIX', 'rt_hk');
-define ('SINA_US_PREFIX', 'gb_');
+define('SINA_FUTURE_PREFIX', 'hf_');
+define('SINA_FUND_PREFIX', 'f_');
+define('SINA_HK_PREFIX', 'rt_hk');
+define('SINA_US_PREFIX', 'gb_');
 
-define ('SHANGHAI_PREFIX', 'SH');
-define ('SHENZHEN_PREFIX', 'SZ');
+define('SHANGHAI_PREFIX', 'SH');
+define('SHENZHEN_PREFIX', 'SZ');
 
-define ('YAHOO_INDEX_CHAR', '^');
+define('YAHOO_INDEX_CHAR', '^');
 
-define ('INDEXSP_PREFIX', 'INDEXSP:');
-define ('INDEXDJX_PREFIX', 'INDEXDJX:');
-define ('INDEXCBOE_PREFIX', 'INDEXCBOE:');
+define('INDEXSP_PREFIX', 'INDEXSP:');
+define('INDEXDJX_PREFIX', 'INDEXDJX:');
+define('INDEXCBOE_PREFIX', 'INDEXCBOE:');
 
-define ('STOCK_TIME_ZONE_CN', 'PRC');
-define ('STOCK_TIME_ZONE_US', 'America/New_York');
+define('STOCK_TIME_ZONE_CN', 'PRC');
+define('STOCK_TIME_ZONE_US', 'America/New_York');
 
 function in_array_lower($strSymbol, $callback)
 {

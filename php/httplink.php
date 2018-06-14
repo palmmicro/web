@@ -2,10 +2,10 @@
 //require_once('url.php');
 require_once('debug.php');
 
-define ('STOCK_PATH', '/woody/res/');
-define ('STOCK_PHP_PATH', '/woody/res/php/');
+define('STOCK_PATH', '/woody/res/');
+define('STOCK_PHP_PATH', '/woody/res/php/');
 
-define ('DEFAULT_NAV_DISPLAY', 100);
+define('DEFAULT_NAV_DISPLAY', 100);
 
 function GetOnClickLink($strPath, $strQuestion, $strDisplay)
 {

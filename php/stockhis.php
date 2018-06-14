@@ -2,10 +2,10 @@
 require_once('class/ini_file.php');
 
 // max 20 months history used
-define ('MAX_QUOTES_DAYS', 620);
-define ('BOLL_DAYS', 20);
+define('MAX_QUOTES_DAYS', 620);
+define('BOLL_DAYS', 20);
 
-define ('SMA_SECTION', 'SMA');
+define('SMA_SECTION', 'SMA');
 
 function _ignoreCurrentTradingData($strDate, $sym)
 {        

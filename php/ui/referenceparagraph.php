@@ -117,9 +117,6 @@ function GetTimeDisplay()
 			document.getElementById("time").innerHTML = now.toLocaleTimeString(); 
 		} 
 		setInterval("UpdateTime()", 250);
-		
-		var width = window.screen.width;
-		document.cookie="screen="+width;
 	</script>
 END;
 

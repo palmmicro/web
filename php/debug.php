@@ -1,19 +1,19 @@
 <?php
 require_once('url.php');
 
-define ('DEBUG_UTF8_BOM', "\xef\xbb\xbf");
+define('DEBUG_UTF8_BOM', "\xef\xbb\xbf");
 
-define ('DEBUG_FILE_PATH', 'debug');
-define ('DEBUG_FILE_NAME', 'debug.txt');
-define ('TEST_PATH_NAME', 'php/test.php');
+define('DEBUG_FILE_PATH', 'debug');
+define('DEBUG_FILE_NAME', 'debug.txt');
+define('TEST_PATH_NAME', 'php/test.php');
 
-define ('DEBUG_TIME_ZONE', 'PRC');
-define ('DEBUG_TIME_FORMAT', 'H:i:s');
-define ('DEBUG_DATE_FORMAT', 'Y-m-d');
+define('DEBUG_TIME_ZONE', 'PRC');
+define('DEBUG_TIME_FORMAT', 'H:i:s');
+define('DEBUG_DATE_FORMAT', 'Y-m-d');
 
-define ('SECONDS_IN_MIN', 60);
-define ('SECONDS_IN_HOUR', 3600);
-define ('SECONDS_IN_DAY', 86400);
+define('SECONDS_IN_MIN', 60);
+define('SECONDS_IN_HOUR', 3600);
+define('SECONDS_IN_DAY', 86400);
 
 function unlinkEmptyFile($strFileName)
 {

@@ -109,12 +109,6 @@ function SysInit()
 	{
 	    DebugString('connect database ok');
 	}
-
-	$sql = new FundHistorySql();
-//	$sql->DropTable();
-	
-//	$sql = new StockSql();
-//	$sql->DropTable();
 	
 //	GB2312WriteDatabase();
 //	AhWriteDatabase();		
@@ -133,7 +127,7 @@ function TestCmdLine()
     	if ($strSrc == 'yahoo')		
     	{
     		$str = TestYahooWebData($strSymbol);
-//    		YahooUpdateNetValue($strSymbol);
+    		YahooUpdateNetValue($strSymbol);
     	}
     	else if ($strSrc == 'ft')	$str = TestFtStock($strSymbol);
     	else if ($strSrc == 'sina')	$str = TestSinaStockHistory($strSymbol);

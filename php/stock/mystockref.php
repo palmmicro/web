@@ -34,7 +34,6 @@ class MyStockReference extends MysqlReference
         $strClose = $this->strPrice;
         $strVolume = $this->strVolume;
         if ($this->_invalidHistoryData($strClose))  return;
-        SqlCreateStockHistoryTable();
         $sql = new StockHistorySql($strStockId);
         $sql->Merge($strDate, $strOpen, $strHigh, $strLow, $strClose, $strVolume, $strClose);
     }

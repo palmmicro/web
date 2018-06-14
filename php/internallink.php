@@ -6,11 +6,11 @@ require_once('sql/sqlblog.php');
 require_once('sql/sqlmember.php');
 require_once('sql/sqlvisitor.php');
 
-define ('DEFAULT_NAV_DISPLAY', 100);
+define('DEFAULT_NAV_DISPLAY', 100);
 
 // ****************************** Internal none-stock link functions *******************************************************
 
-define ('ACCT_PATH', '/account/');
+define('ACCT_PATH', '/account/');
 
 function GetBlogLink($strBlogId)
 {

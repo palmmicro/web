@@ -3,8 +3,8 @@
 //require_once('debug.php');
 require_once('internallink.php');
 
-define ('ADMIN_EMAIL', 'woody@palmmicro.com');
-define ('SUPPORT_EMAIL', 'support@palmmicro.com');
+define('ADMIN_EMAIL', 'woody@palmmicro.com');
+define('SUPPORT_EMAIL', 'support@palmmicro.com');
 
 function EmailHtml($strWho, $strSubject, $strContents) 
 {
