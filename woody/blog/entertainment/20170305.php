@@ -1,4 +1,3 @@
-<?php require_once('php/_entertainment.php'); ?>
 <?php require_once('php/_20170305.php'); ?>
 <html>
 <head>
@@ -16,7 +15,7 @@
 <p>Mar 5, 2017
 <br />The difference between offical estimation, fair estimation and realtime estimation of SZ162411 net value.
 </p>
-<?php EchoFundEstDemo(false); ?>
+<?php EchoFundEst(false); ?>
 <TABLE borderColor=#cccccc cellSpacing=0 width=500 border=1 class="text" id="netvalue">
        <tr>
         <td class=c1 width=200 align=center>Est Factor</td>

@@ -1,4 +1,3 @@
-<?php require_once('php/_entertainment.php'); ?>
 <?php require_once('php/_20160101.php'); ?>
 <html>
 <head>

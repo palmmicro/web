@@ -158,35 +158,6 @@ function _EchoMoneyGroupData($group, $strLink, $fUSDCNY, $fHKDCNY)
 
 
 // ****************************** Premotion Headline *******************************************************
-
-function _echoQQgroupPromotion()
-{
-    echo <<<END
-        <p>请扫下面的二维码或者点击最右边的链接加入Woody创建的QQ群204836363
-        <a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=2eb90427cf5fc1c14f4ebd8f72351d4a09e259cf48f137e312cd54163bd5c165"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="Alcoholic Anonymus" title="Alcoholic Anonymus"></a>
-        <br /><img src=/woody/image/qq.png alt="QQ group 204836363 scan QR code" />
-        </p>
-END;
-}
-
-function _echoWeixinPromotion()
-{
-    echo <<<END
-        <p>请扫下面的二维码关注Palmmicro<a href="/woody/blog/palmmicro/20161014cn.php">微信公众订阅号</a>sz162411. 
-        <br /><img src=/woody/blog/photo/20161014_qrcode_mid.jpg alt="Palmmicro wechat public account sz162411 middle size QR code" />
-        </p>
-END;
-}
-
-function _echoMyPromotion()
-{
-    echo <<<END
-        <p>觉得这个页面有用? 可以打赏支持一下. 
-        <br /><img src=/woody/blog/photo/wxpay_small.jpg alt="Small QRcode to pay 1 RMB to Woody in Weixin" />
-        </p>
-END;
-}
-
 function _getDevGuideLink($strVer, $bChinese)
 {
     $str = '/woody/blog/entertainment/20150818';
@@ -206,9 +177,9 @@ function EchoPromotionHead($bChinese, $strVer = false)
     if ($bChinese)
     {
         $iVal = rand(1, 3);
-        if ($iVal == 1)          _echoQQgroupPromotion();
-        else if ($iVal == 2)    _echoWeixinPromotion();
-        else if ($iVal == 3)    _echoMyPromotion();
+        if ($iVal == 1)          LayoutQQgroupPromotion();
+        else if ($iVal == 2)    LayoutWeixinPromotion();
+        else if ($iVal == 3)    LayoutMyPromotion();
     }
     EchoParagraph(_getDevGuideLink($strVer, $bChinese));
 }

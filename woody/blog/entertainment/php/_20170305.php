@@ -1,14 +1,11 @@
 <?php
-require_once('/php/stock.php');
-require_once('/php/ui/fundestparagraph.php');
+require_once('_entertainment.php');
+require_once('_stockdemo.php');
 
-define('FUND_DEMO_SYMBOL', 'SZ162411');
-
-function EchoFundEstDemo($bChinese)
+function EchoFundEst($bChinese = true)
 {
     StockPrefetchData(array(FUND_DEMO_SYMBOL));
-	$fund_ref = StockGetFundReference(FUND_DEMO_SYMBOL);
-	EchoFundEstParagraph($fund_ref, $bChinese);
+	EchoFundEstDemo($bChinese);
 }
 
 ?>

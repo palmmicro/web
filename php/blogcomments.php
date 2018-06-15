@@ -59,7 +59,7 @@ function BlogComments()
     AcctNoAuth();
     EchoBlogComments($bChinese);
 	VisitorLogin($bChinese);
-	AdsenseCompanyAds();
+	AdsenseWoodyBlog();
 //	AdsenseSearchEngine($bChinese);
 }
 

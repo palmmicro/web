@@ -1,4 +1,3 @@
-<?php require_once('php/_entertainment.php'); ?>
 <?php require_once('php/_20111112.php'); ?>
 <html>
 <head>
@@ -30,7 +29,7 @@ And hope to bring <a href="../palmmicro/20080326.php">Palmmicro</a> all the way 
 <p>Mar 28, 2016
 <br />Since I began writing the <a href="20150818.php">SZ162411</a> net value calculation software, I have been cleanning the PHP code all the time.
 A few days ago <a href="http://optimizr.com" target=_blank>optimizr.com</a> sent me a web checking report, reminded me that this stock related web page had quite some places to be optimized.
-I felt it is a good chance to test if I have separated the PHP stock code and UI code successfully. The following ACTS price is from related functions in <?php EchoPhpFileLink('/php/stock.php'); ?>>:
+I felt it is a good chance to test if I have separated the PHP stock code and UI code successfully. The following ACTS price is from related functions:
 </p>
 <?php EchoStockPrice(false); ?>
 

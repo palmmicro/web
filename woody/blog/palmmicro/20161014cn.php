@@ -17,7 +17,7 @@
 <br />因为一年多前做<a href="../entertainment/20150818cn.php">华宝油气</a>净值计算页面的时候就跟提供QDII基金估值的微信公众号小飞猪<font color=orange>flyingpig33</font>交流过, 我一直觉得加微信公众号是件非常简单的事情,
 没想到在启用<a href="https://mp.weixin.qq.com/" target=_blank>微信公众平台</a>开发模式消息接口的时候就碰到了问题.
 采用几乎是一目了然的微信示例PHP程序, 我在设置服务器链接的时候不断被提示<font color=red>Token验证失败</font>.
-反复调试一整晚后才意识到是因为<a href="../entertainment/20100529cn.php">Yahoo网站服务</a>在我的每个页面后都加了一段javascript统计代码. 
+反复调试一整晚后才意识到是因为<a href="../entertainment/20100905cn.php">Yahoo网站服务</a>在我的每个页面后都加了一段javascript统计代码. 
 <br />因为我早就在用<a href="../entertainment/20110509cn.php">Google Analytics</a>做网站统计, 其实我一直觉得Yahoo前两年加的这个功能是个累赘, 没有提供什么新功能, 反而拖累了网页反应速度, 
 这下我就有了充分理由去掉它了. 在Yahoo Small Business的新网站<a href="https://www.luminate.com/" target=_blank>Aabaco Small Business</a>里面又找了好半天, 终于关闭了它.
 <?php EchoPhpFileLink('/php/weixincn.php'); ?>链接提交成功.

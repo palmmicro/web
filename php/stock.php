@@ -140,10 +140,14 @@ function explodeQuote($str)
     return explode(',', RemoveDoubleQuotationMarks($str));
 }
 
-define('SINA_QUOTES_URL', 'http://hq.sinajs.cn/list=');
-function GetSinaQuotes($strSymbols)
+function GetSinaQuotesUrl($strSinaSymbols)
+{
+	return 'http://hq.sinajs.cn/list='.$strSinaSymbols;
+}	
+
+function GetSinaQuotes($strSinaSymbols)
 { 
-    $strUrl = SINA_QUOTES_URL.$strSymbols;
+    $strUrl = GetSinaQuotesUrl($strSinaSymbols);
     $str = url_get_contents($strUrl);
 //    DebugString('Sina:'.$strSymbols);
     if (strlen($str) < 10)      return false;   // Sina returns error in an empty file

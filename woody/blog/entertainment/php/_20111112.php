@@ -1,20 +1,15 @@
 <?php
-require_once('/php/stock.php');
-require_once('/php/stock/sinastockref.php');
-require_once('/php/ui/referenceparagraph.php');
+require_once('_entertainment.php');
+require_once('_stockdemo.php');
 
 function EchoStockPrice($bChinese = true)
 {
-    $ref = new SinaStockReference('IQ');
-	if ($bChinese)
-    {
-        $ref->strDescription = $ref->GetChineseName();
-    }
-    else
-    {
-        $ref->strDescription = $ref->GetEnglishName();
-    }
-    EchoReferenceParagraph(array($ref), $bChinese, $ref->DebugLink());
+	$strSymbol = STOCK_DEMO_SYMBOL;
+	$sym = new StockSymbol($strSymbol);
+	$strLink = GetSinaQuotesLink($sym->GetSinaSymbol());
+	
+	EchoReferenceDemo($bChinese, $strSymbol);
+	EchoParagraph($strLink);
 }
 
 ?>

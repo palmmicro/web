@@ -79,16 +79,7 @@ function GetYahooQuotes($strSymbols)
 //    DebugString($str);
     return $str;
 }
-/*
-// http://table.finance.yahoo.com/table.csv?s=XOP&d=7&e=19&f=2015&g=d&a=6&b=19&c=2015&ignore=.csv
-define('YAHOO_HISTORY_QUOTES_URL', 'https://chart.finance.yahoo.com/table.csv?');
-function GetYahooHistoryQuotes($strSymbol, $strBeginY, $strBeginM, $strBeginD, $strEndY, $strEndM, $strEndD)
-{ 
-    $strUrl = YAHOO_HISTORY_QUOTES_URL."s=$strSymbol&d=$strEndM&e=$strEndD&f=$strEndY&g=d&a=$strBeginM&b=$strBeginD&c=$strBeginY&ignore=.csv"; 
-//    DebugString('Yahoo:'.$strUrl);
-    return url_get_contents($strUrl);
-}
-*/
+
 function IsYahooStrError($str)
 {
     $str = trim($str);
@@ -98,31 +89,23 @@ function IsYahooStrError($str)
     }
     return false;
 }
-/*
-function GetYahooPastQuotes($strSymbol, $iDays)
-{ 
-    $iTime = time();
-    $localtime = localtime($iTime);
-    $strEndY = strval($localtime[5] + 1900);
-    $strEndM = strval($localtime[4]);
-    $strEndD = strval($localtime[3]);
-
-    $iTime -= $iDays * SECONDS_IN_DAY;
-    $localtime = localtime($iTime);
-    $strBeginY = strval($localtime[5] + 1900);
-    $strBeginM = strval($localtime[4]);
-    $strBeginD = strval($localtime[3]);
-
-    return GetYahooHistoryQuotes($strSymbol, $strBeginY, $strBeginM, $strBeginD, $strEndY, $strEndM, $strEndD);
-}
-*/
 
 // https://finance.yahoo.com/quote/XOP/history?period1=1467122442&period2=1498658442&interval=1d&filter=history&frequency=1d 
 // https://query1.finance.yahoo.com/v7/finance/download/XOP?period1=1467122442&period2=1498658442&interval=1d&events=history&crumb=EMGTmG8UgZ4
-define('YAHOO_HISTORY_QUOTES_URL', 'https://finance.yahoo.com/quote/');
-function YahooGetStockHistory($strSymbol, $iTimeBegin, $iTimeEnd)
+define('YAHOO_STOCK_QUOTES_URL', 'https://finance.yahoo.com/quote/');
+function YahooStockHistoryGetUrl($strYahooSymbol, $iTimeBegin = false, $iTimeEnd = false)
 {
-    $strUrl = YAHOO_HISTORY_QUOTES_URL.$strSymbol.'/history?period1='.strval($iTimeBegin).'&period2='.strval($iTimeEnd).'&interval=1d&filter=history&frequency=1d';
+    $strUrl = YAHOO_STOCK_QUOTES_URL.$strYahooSymbol.'/history';
+    if ($iTimeBegin && $iTimeEnd)
+    {
+    	$strUrl .= '?period1='.strval($iTimeBegin).'&period2='.strval($iTimeEnd).'&interval=1d&filter=history&frequency=1d';
+    }
+    return $strUrl;
+}
+
+function YahooGetStockHistory($strYahooSymbol, $iTimeBegin, $iTimeEnd)
+{
+    $strUrl = YahooStockHistoryGetUrl($strYahooSymbol, $iTimeBegin, $iTimeEnd);
 //    DebugString($strUrl);
     $str = url_get_contents($strUrl); 
     return $str;
@@ -285,7 +268,7 @@ function _yahooStockMatchGetDate($arMatch, $strSymbol)
 
 function YahooStockGetUrl($strYahooSymbol)
 {
-	return 'https://finance.yahoo.com/quote/'.$strYahooSymbol;
+	return YAHOO_STOCK_QUOTES_URL.$strYahooSymbol;
 }
 
 function _yahooStockGetData($strSymbol)

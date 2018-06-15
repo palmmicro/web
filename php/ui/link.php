@@ -6,6 +6,11 @@ function EchoLink($strHttp)
     echo $str;
 }
 
+function EchoSinaQuotesLink($strSinaSymbols)
+{
+	EchoLink(GetSinaQuotesUrl($strSinaSymbols));
+}
+
 function EchoFileLink($strPathName)
 {
     $str = GetFileLink($strPathName);

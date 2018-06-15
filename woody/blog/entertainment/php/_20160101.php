@@ -1,4 +1,5 @@
 <?php
+require_once('_entertainment.php');
 require_once('/php/class/multi_currency.php');
 
 function EchoChineseHoldResult($strOldSZ162411, $strOldXOP, $strSZ162411, $strXOP, $strUSCNY)

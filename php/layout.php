@@ -7,7 +7,35 @@ require_once('adsense.php');
 require_once('class/Mobile_Detect.php');
 
 define('DEFAULT_DISPLAY_WIDTH', 900);
-define('MIN_SCRREN_WIDTH', DEFAULT_DISPLAY_WIDTH + 20 + 160);		// width=20
+define('MIN_SCRREN_WIDTH', DEFAULT_DISPLAY_WIDTH + 15 + DEFAULT_ADSENSE_WIDTH);		// 隔15个像素再显示最右边的广告, 见下面width=15
+
+function LayoutQQgroupPromotion()
+{
+    echo <<<END
+        <p>请扫二维码或者点击链接加入Woody创建的QQ群204836363
+        <br /><a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=2eb90427cf5fc1c14f4ebd8f72351d4a09e259cf48f137e312cd54163bd5c165"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="Alcoholic Anonymus" title="Alcoholic Anonymus"></a>
+        <br /><img src=/woody/image/qq.jpg alt="QQ group 204836363 scan QR code" />
+        </p>
+END;
+}
+
+function LayoutWeixinPromotion()
+{
+    echo <<<END
+        <p>请扫二维码关注Palmmicro<a href="/woody/blog/palmmicro/20161014cn.php">微信公众订阅号</a>sz162411. 
+        <br /><img src=/woody/image/wx.jpg alt="Palmmicro wechat public account sz162411 small size QR code" />
+        </p>
+END;
+}
+
+function LayoutMyPromotion()
+{
+    echo <<<END
+        <p>觉得这个网站有用? 可以打赏支持一下. 
+        <br /><img src=/woody/image/wxpay.jpg alt="Small QRcode to pay 1 RMB to Woody in Weixin" />
+        </p>
+END;
+}
 
 function LayoutIsMobilePhone()
 {
@@ -23,7 +51,7 @@ function LayoutScreenWidthOk()
 {
 	if ($strWidth = $_COOKIE['screen'])
 	{	// cookie in _layoutBanner worked 
-		$iWidth = intval($strWidth);
+		$iWidth = intval($strWidth) - 20;	// 假设右侧垂直滚动条是20像素
 		if ($iWidth >= MIN_SCRREN_WIDTH)	return $iWidth;
 	}
 	return false;
@@ -109,16 +137,23 @@ function LayoutTopLeft($callback, $bChinese)
     }
 }
 
-function _layoutTail($iWidth, $bMobile, $bChinese)
+function _layoutTail($iWidth, $bMobile, $bChinese, $bAdsense = true)
 {
     if ($bMobile == false)
     {
     	if ($iWidth)
     	{
-    		echo '</td><td width=20 valign=top>&nbsp;</td><td valign=top>';
-//    		AdsenseCompanyAds();
-//			AdsenseAuto();
-    		AdsenseLeft();
+    		echo '</td><td width=15 valign=top>&nbsp;</td><td valign=top>';
+    		if ($bAdsense)
+    		{
+    			AdsenseLeft();
+    		}
+    		else
+    		{
+    			LayoutMyPromotion();
+    			LayoutWeixinPromotion();
+    			LayoutQQgroupPromotion();
+    		}
     	}
         echo '</td></table>';
 //        echo '    </div>';
@@ -129,7 +164,7 @@ function _layoutTail($iWidth, $bMobile, $bChinese)
 
 function LayoutTail($bChinese = true)
 {
-	_layoutTail(LayoutScreenWidthOk(), LayoutIsMobilePhone(), $bChinese);
+	_layoutTail(LayoutScreenWidthOk(), LayoutIsMobilePhone(), $bChinese, false);	// According to google policy, do NOT show Adsense in pages with no contents, such as input pages
 }
 
 function LayoutTailLogin($bChinese = true)
@@ -140,7 +175,7 @@ function LayoutTailLogin($bChinese = true)
     $bMobile = LayoutIsMobilePhone();
 	if ($bMobile || ($iWidth == false))
 	{
-		AdsenseCompanyAds();
+		AdsenseWoodyBlog();
 	}    
 	_layoutTail($iWidth, $bMobile, $bChinese);
 }

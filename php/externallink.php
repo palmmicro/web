@@ -48,18 +48,22 @@ function GetYahooStockLink($strYahooSymbol, $strSymbol)
     return GetExternalLink($strHttp, $strSymbol);
 }
 
-function GetYahooStockHistoryLink($strSymbol)
+function GetYahooStockHistoryLink($sym)
 {
-    $sym = new StockSymbol($strSymbol);
-    $strYahooSymbol = $sym->GetYahooSymbol();
-    $strHttp = YAHOO_HISTORY_QUOTES_URL.$strYahooSymbol.'/history';
-    return GetExternalLink($strHttp, $strSymbol);
+    $strHttp = YahooStockHistoryGetUrl($sym->GetYahooSymbol());
+    return GetExternalLink($strHttp, $sym->GetSymbol());
 }
 
 function GetGoogleStockLink($strGoogleSymbol, $strSymbol)
 {
     $strHttp = GOOGLE_QUOTES_URL.$strGoogleSymbol;
     return GetExternalLink($strHttp, $strSymbol);
+}
+
+function GetSinaQuotesLink($strSinaSymbols)
+{
+	$strHttp = GetSinaQuotesUrl($strSinaSymbols);
+    return GetExternalLink($strHttp, $strSinaSymbols);
 }
 
 // http://finance.sina.com.cn/fund/quotes/162411/bc.shtml
@@ -155,11 +159,10 @@ function GetSinaN8n8Link($sym)
     return $strSymbol;
 }
 
-function GetSinaStockHistoryLink($strSymbol)
+function GetSinaStockHistoryLink($sym)
 {
-    $sym = new StockSymbol($strSymbol);
     $strHttp = SinaGetStockHistoryUrl($sym);
-    return GetExternalLink($strHttp, $strSymbol);
+    return GetExternalLink($strHttp, $sym->GetSymbol());
 }
 
 // https://www.jisilu.cn/data/ha_history/600585

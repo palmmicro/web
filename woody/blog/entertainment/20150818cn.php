@@ -1,4 +1,3 @@
-<?php require_once('php/_entertainment.php'); ?>
 <?php require_once('php/_20150818.php'); ?>
 <html>
 <head>
@@ -17,11 +16,11 @@
 <h1>SZ162411净值估算的PHP程序</h1>
 <p>2015年8月18日
 <br />眼看Qualcomm收购<a href="20141016cn.php">CSR</a>的现金快要到账, 最近我在琢磨在A股华宝油气和和美股XOP之间套利. 每天看Yahoo新浪等网站的股票行情, 时不时还要用鼠标点开计算器算算转换价格, 时间长了后有点烦.
-<br />后来我想起来5年前学习的PHP, 于是打算写我的第二个PHP程序, 统一把套利需要常看的行情显示在一起, 同时根据SPDR标普油气开采指数ETF(XOP), 标普油气开采指数(^SPSIOP),
+<br />后来我想起来5年前学习的<a href="20100905cn.php">PHP</a>, 于是打算写我的第二个PHP程序, 统一把套利需要常看的行情显示在一起, 同时根据SPDR标普油气开采指数ETF(XOP), 标普油气开采指数(^SPSIOP),
 以及美元对人民币的汇率计算<a href="../../res/sz162411cn.php">华宝油气净值</a>. 今天出了第一版, 记录下相关开发过程以备日后查阅.
-<br />美股用Yahoo股票数据接口(15分钟延迟): <?php EchoLink('https://finance.yahoo.com/d/quotes.csv?s=XOP+%5ESPSIOP&f=l1t1p2nd1p'); ?>
-<br />A股, 期货和汇率都用新浪实时的数据接口: <?php EchoLink('http://hq.sinajs.cn/list=sz162411,hf_CL,USDCNY'); ?>
-<br />一开始发现无论怎么弄<i>fopen</i>打开这些链接都会失败, 估计是我用的<a href="../palmmicro/20100427cn.php">Yahoo网站服务</a>不支持<i>allow_url_fopen</i>. 
+<br />美股用Yahoo股票数据接口(<a href="#usstock">已停用</a>).
+<br />A股, 期货和汇率都用新浪实时的数据接口: <?php EchoSinaQuotesLink('sz162411,hf_CL,USDCNY'); ?>
+<br />一开始发现无论怎么弄<i>fopen</i>打开这些链接都会失败, 估计是我用的Yahoo网站服务不支持<i>allow_url_fopen</i>. 
 在网上找解决方法, 发现应该用早就有的curl. 抄了2段curl代码, 仿照<i>file_get_contents</i>函数的名字在<?php EchoPhpFileLink('/php/url.php'); ?>中加了个<i>url_get_contents</i>函数.
 <br />使用<i>url_get_contents</i>读取股票等数据, 显示绿涨红跌的股票价格等函数放在新文件<?php EchoPhpFileLink('/php/stock.php'); ?>中.
 <br />专门供本页面使用的其它php代码放在新文件<?php EchoPhpFileLink('/woody/res/php/_lof.php'); ?>中. 取这个名字是因为华宝油气是一个中国特色的LOF基金.
@@ -51,11 +50,10 @@
 <br />An = ∑Xm / (n - 1); 或者 An = ∑Xm / m;
 <br />这样就很清楚了, 当我说5日线的时候, 我实际算的是前4个交易日收盘价的平均值. 当我说20周线的时候, 我实际算的是前19周每周最后一个交易日收盘价的平均值.
 这样算出来的不动点是极限值, 所以我整天装神弄鬼说XOP过了什么什么均线算强势, 没过什么什么均线算弱势. 而这些装神弄鬼的背后, 其实用到的都是小学数学.
-<br />采用Yahoo股票历史数据接口: <?php EchoLink('http://table.finance.yahoo.com/table.csv?s=XOP&d=7&e=19&f=2015&g=d&a=6&b=19&c=2015&ignore=.csv'); ?>,
-读取数据的代码在<?php EchoPhpFileLink('/php/stock/yahoostock.php'); ?>中.
-<br />XOP历史数据每天只需要更新一次, 但是我不知道Yahoo自己什么时候更新当日数据, 只好采用一个小时更新一次的笨办法. 平时使用文件xop_500.txt缓存.
-<br />同样每天只需要更新一次的还有华宝油气基金官方净值, 来自于<?php EchoLink('http://hq.sinajs.cn/list=f_162411'); ?>,
-使用文件<?php EchoFileLink('/debug/sina/f_162411.txt'); ?>缓存, 读取基金数据的代码在<?php EchoPhpFileLink('/php/stock/fundref.php'); ?>中
+<br />XOP历史数据每天只需要更新一次, 采用Yahoo股票历史数据: <?php EchoLink(YahooStockHistoryGetUrl('XOP')); ?>,
+<br />同样每天只需要更新一次的还有华宝油气基金官方净值, 来自于<?php EchoSinaQuotesLink('f_162411'); ?>,
+使用文件<?php EchoFileLink('/debug/sina/f_162411.txt'); ?>缓存, 读取基金数据的代码在<?php EchoPhpFileLink('/php/stock/fundref.php'); ?>中.
+因为不知道什么时候更新当日数据, 只好采用一个小时更新一次的笨办法.
 <br />增加调试文件<?php EchoFileLink(DebugGetFile()); ?>用于临时查看数据.
 </p>
 
@@ -120,7 +118,7 @@
   <li>在函数<i>LofGetEstSymbol</i>中加上LOF对应的估值代码.</li>
 </ol>
 
-<h3>新浪实时美股数据</h3>
+<h3>新浪实时<a name="usstock">美股</a>数据</h3>
 <p>2015年12月13日
 <br />在<?php EchoXueqieId('6188729918', 'abkoooo'); ?>的帮助下使用新浪实时美股数据<?php EchoLink('http://hq.sinajs.cn/list=gb_xop'); ?>替代原来延迟15分钟的Yahoo数据.
 现在XOP数据在<?php EchoFileLink('/debug/sina/gb_xop.txt'); ?>中. ^SPSIOP数据还是用Yahoo的, 分开在_spsiop.txt中.
@@ -324,7 +322,7 @@
 <br />从宇宙观上来说, 我是不相信历史能够预测未来的, 当然也就不相信技术分析能够预测市场. 但是交易XOP这4年多来, 我却在技术指标上一步一步加码. 
 从<a href="#sma">SMA</a>均线, <a href="#bollinger">布林</a>线到美股牛熊分界线<a href="#ema">EMA</a>均线, 我都觉得自己变成了一个神棍.
 <br />现在居然搞起了T+1均线, 原因是我发现XOP的SMA周线和月线经常能做出非常准的交易价格预测, 但是SMA日线和和布林线就不如前2者. 
-而另外一方面, XOP的收盘价却经常会刚好在第2天我计算出来的SMA日线和和布林线上. 这让我猜想每天交易结束前也许有人偷跑, 会提前估算在第二天的均线位置上交易.
+而另外一方面, XOP的收盘价却经常会刚好在第2天我计算出来的SMA日线或者布林线上. 这让我猜想每天交易结束前也许有人偷跑, 会提前估算在第二天的均线位置上交易.
 偷跑也可以解释为什么我觉得周线和月线准确, 因为要在周5和月末最后一个交易日才会出现周线和月线上的偷跑, 总体概率就小了.
 <br />计算SMA的偷跑很简单, 沿用前面SMA的表述:
 <br />An = (X0 + ∑Xm) / n; 其中m =  n - 1; 改写为

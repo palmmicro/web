@@ -1,4 +1,3 @@
-<?php require_once('php/_entertainment.php'); ?>
 <?php require_once('php/_20170305.php'); ?>
 <html>
 <head>
@@ -18,7 +17,7 @@
 参考估值和实时估值有什么不同?
 <br />华宝油气的实时估值在考虑当日CL交易情况后的<a href="20150818cn.php#realtime">T+1估值</a>中解释过, 不过那篇程序说明已经太长篇幅了, 所以在这里单独列个表解释一下这些混乱的估值名称.
 </p>
-<?php EchoFundEstDemo(); ?>
+<?php EchoFundEst(); ?>
 <p><TABLE borderColor=#cccccc cellSpacing=0 width=440 border=1 class="text" id="netvalue">
        <tr>
         <td class=c1 width=140 align=center>估值因素</td>

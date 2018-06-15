@@ -1,4 +1,5 @@
 <?php
+define('DEFAULT_ADSENSE_WIDTH', 300);
 
 function AdsenseSearchEngine($bChinese = true)
 {
@@ -17,23 +18,10 @@ function AdsenseSearchEngine($bChinese = true)
 END;
 }
 
-function AdsenseAuto()
+function AdsenseUnit($strUnit, $strSlot, $iHeight, $iWidth = DEFAULT_ADSENSE_WIDTH)
 {
-    echo <<< END
-<div>
-	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-	<script>
-    	 (adsbygoogle = window.adsbygoogle || []).push({
-        	  google_ad_client: "ca-pub-7413337917168353",
-        	  enable_page_level_ads: true
-          });
-    </script>
-</div>
-END;
-}
-
-function AdsenseUnit($strWidth, $strHeight, $strUnit, $strSlot)
-{
+	$strHeight = strval($iHeight).'px';
+	$strWidth = strval($iWidth).'px';
     echo <<< END
 <div>
     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
@@ -48,88 +36,16 @@ function AdsenseUnit($strWidth, $strHeight, $strUnit, $strSlot)
 </div>
 END;
 }
-/*
-function AdsensePalmmicro()
-{
-	AdsenseUnit('728px', '90px', 'Palmmicro', '6869455571');
-}
-*/
-
-function AdsenseLeft()
-{
-	AdsenseUnit('160px', '600px', 'Left', '2492639509');
-}
-
-function AdsensePalmmicroUser()
-{
-	AdsenseUnit('320px', '100px', 'Palmmicro User', '4158164773');
-}
 
 function AdsenseWoodyBlog()
 {
-	AdsenseUnit('300px', '250px', "Woody's blog", '6567638260');
+	AdsenseUnit("Woody's blog", '6567638260', 250);
 }
 
-function AdsenseBtbond()
+function AdsenseLeft()
 {
-	AdsenseUnit('336px', '280px', 'Btbond', '3712669579');
+	AdsenseUnit('LeftWide', '7644091508', 1050);
 }
 
-function AdsenseCatEyes()
-{
-	AdsenseUnit('336px', '280px', 'CatEyes', '7606315576');
-}
-
-function AdsenseSapphire()
-{
-	AdsenseUnit('320px', '100px', 'Sapphire', '7682733977');
-}
-
-function _CompanyAds($strCompany)
-{
-	if ($strCompany == 'btbond')
-	{
-		AdsenseBtbond();
-	}
-	else if ($strCompany == 'cateyes')
-	{
-		AdsenseCatEyes();
-	}
-	else
-	{
-		AdsenseWoodyBlog();
-	}
-}
-
-function AdsenseCompanyAds()
-{
-    $ar = explode('/', UrlGetUri());
-	if ($ar[1] == 'woody')
-	{
-		if ($ar[2] == 'res')
-		{
-		    if (strpos($ar[3], '.') > 0)
-		    {
-			    _CompanyAds(UrlGetTitle());
-		    }
-		    else
-		    {
-			    _CompanyAds($ar[3]);
-		    }
-		}
-		else if ($ar[2] == 'sapphire')
-		{
-			AdsenseSapphire();
-		}
-		else
-		{
-			AdsenseWoodyBlog();
-		}
-	}
-	else
-	{
-	    AdsensePalmmicroUser();
-	}
-}
 
 ?>

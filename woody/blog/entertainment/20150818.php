@@ -1,4 +1,3 @@
-<?php require_once('php/_entertainment.php'); ?>
 <?php require_once('php/_20150818.php'); ?>
 <html>
 <head>
@@ -18,12 +17,12 @@
 <p>Aug 18, 2015
 <br />As my <a href="20141016.php">CSR</a> stock is turning into cash soon, I am considering to use the USD to trade XOP while using my other CNY to trade SZ162411 together. 
 I was watching stock quotations on Yahoo and Sina everyday, and always need to click on the calculator application to convert the price between XOP and SZ162411, soon I got bored. 
-<br />Later I thought of my first PHP application 5 years ago, and decided to write my second PHP application.
+<br />Later I thought of my first <a href="20100905.php">PHP</a> application 5 years ago, and decided to write my second PHP application.
 It was planned to put all the usual stock quotations together, and to estimate <a href="../../res/sz162411.php">SZ162411 net value</a> based on XOP, ^SPSIOP and USDCNY exchange rate.
 Today the first version is released, and I am writing this record of programming details for future reference.
-<br />Using Yahoo Finance API for US stocks (15 minutes delay): <?php EchoLink('https://finance.yahoo.com/d/quotes.csv?s=XOP+%5ESPSIOP&f=l1t1p2nd1p'); ?>
-<br />Using Sina realtime source for Chinese stocks, oil futures and forex: <?php EchoLink('http://hq.sinajs.cn/list=sz162411,hf_CL,USDCNY'); ?>
-<br />At first I found that <i>fopen</i> will always fail to open those urls, maybe my <a href="../palmmicro/20100427.php">Yahoo Web Hosting</a> does not support <i>allow_url_fopen</i>. 
+<br />Using Yahoo Finance API for US stocks (<a href="#usstock">Discontinued</a>).
+<br />Using Sina realtime source for Chinese stocks, oil futures and forex: <?php EchoSinaQuotesLink('sz162411,hf_CL,USDCNY'); ?>
+<br />At first I found that <i>fopen</i> will always fail to open those urls, maybe my Yahoo Web Hosting does not support <i>allow_url_fopen</i>. 
 I searched and found curl to solve this problem, copied some curl code to my <i>url_get_contents</i> function in file <?php EchoPhpFileLink('/php/url.php'); ?>,
 with function name similar as <i>file_get_contents</i>.
 <br />Functions using <i>url_get_contents</i> to read stock quotes, display green for gain and red for loss are located in new file <?php EchoPhpFileLink('/php/stock.php'); ?>.
@@ -45,13 +44,11 @@ The following are checked:
 <br />To set up my own trading rules, and to avoid following the market all night, I plan to trade XOP simply on Simple Moving Average (SMA) values.
 This version added the premium of current trading price comparing with XOP estimation of SZ162411 net value,
 and the days in past 100 trading days did the estimated SMA value fitted in the trading range.
-<br />Using Yahoo stock historic data: <?php EchoLink('http://table.finance.yahoo.com/table.csv?s=XOP&d=7&e=19&f=2015&g=d&a=6&b=19&c=2015&ignore=.csv'); ?>,
-the code is in <?php EchoPhpFileLink('/php/stock/yahoostock.php'); ?>
-<br />The historic data of XOP only need to update once a day, but I do not konw when will Yahoo update the current day data, so I update it once an hour stupidly.
-Using file xop_500.txt to store it.
+<br />The historic data of XOP only need to update once a day, using Yahoo stock historic data: <?php EchoLink(YahooStockHistoryGetUrl('XOP')); ?>
 <br />The official fund net value only need to update once a day too.
-Using file <?php EchoFileLink('/debug/sina/f_162411.txt'); ?> for official SZ162411 net value from <?php EchoLink('http://hq.sinajs.cn/list=f_162411'); ?>,
+Using file <?php EchoFileLink('/debug/sina/f_162411.txt'); ?> for official SZ162411 net value from <?php EchoSinaQuotesLink('f_162411'); ?>,
 the code is in <?php EchoPhpFileLink('/php/stock/fundref.php'); ?>.
+As I do not konw when the data will be updated, I update it once an hour stupidly.
 <br />Using debug file <?php EchoFileLink(DebugGetFile()); ?> for temp data checking.
 </p>
 
@@ -122,7 +119,7 @@ used in <font color=olive>_LofGroup</font> class in file <?php EchoPhpFileLink('
   <li>Add LOF estimation related symbol in function <i>LofGetEstSymbol</i>.</li>
 </ol>
 
-<h3>Sina Realtime US Stock Data</h3>
+<h3>Sina Realtime <a name="usstock">US Stock</a> Data</h3>
 <p>Dec 13, 2015
 <br />With the help of <?php EchoXueqieId('6188729918', 'abkoooo'); ?>, now using Sina realtime US stock data (<?php EchoLink('http://hq.sinajs.cn/list=gb_xop'); ?>) to replace original Yahoo data which has 15 minutes delay.
 Now XOP data in file <?php EchoFileLink('/debug/sina/gb_xop.txt'); ?>. ^SPSIOP data still uses Yahoo and in a separated file _spsiop.txt.
