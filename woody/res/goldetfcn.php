@@ -8,23 +8,23 @@
 </head>
 
 <body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _LayoutTopLeft(true); ?>
+<?php _LayoutTopLeft(); ?>
 
 <div>
 <h1>A股黄金ETF净值计算工具</h1>
 <p>中国A股的交易者普遍不理性, 当A股大跌的时候, 完全不相关的黄金ETF也经常会跟着跌, 这样会产生套利机会. 这个工具箱计算各种黄金ETF的净值, 同时分析比较各种套利对冲方案, 提供交易建议.  
 <br />类似软件: 集思录<a href="https://www.jisilu.cn/data/etf/#tlink_1" target=_blank>黄金ETF</a>实时投资数据.
 </p>
-<?php MyStockGroupEchoAll(true); ?>
+<?php MyStockGroupEchoAll(); ?>
 <p>相关软件:
 <?php 
-    EchoStockCategoryLinks(true);
-    EchoStockGroupLinks(true);
+    EchoStockCategoryLinks();
+    EchoStockGroupLinks();
 ?>
 </p>
 </div>
 
-<?php LayoutTailLogin(true); ?>
+<?php LayoutTailLogin(); ?>
 
 </body>
 </html>

@@ -9,7 +9,7 @@
 </head>
 
 <body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _LayoutTopLeft(true); ?>
+<?php _LayoutTopLeft(); ?>
 
 <div>
 <h1>2016年华宝油气和XOP套利交易初始记录</h1>
@@ -46,7 +46,7 @@
 
 </div>
 
-<?php _LayoutBottom(true); ?>
+<?php _LayoutBottom(); ?>
 
 </body>
 </html>

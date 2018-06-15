@@ -7,7 +7,7 @@
 </head>
 
 <body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _LayoutTopLeft(true); ?>
+<?php _LayoutTopLeft(); ?>
 
 <div>
 <h1>林近岚满月艺术照 - 黄色系列</h1>
@@ -37,7 +37,7 @@
 <br /><img src=../30days/knit.jpg alt="Sapphire Lin dress in yellow knit. I am protesting now!" /></p>
 </div>
 
-<?php LayoutTailLogin(true); ?>
+<?php LayoutTailLogin(); ?>
 
 </body>
 </html>

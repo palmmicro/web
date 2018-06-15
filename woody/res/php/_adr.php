@@ -168,7 +168,7 @@ function _echoAdminTestParagraph($group, $bChinese)
     EchoParagraph($str);
 }
 
-function AdrEchoAll($bChinese)
+function AdrEchoAll($bChinese = true)
 {
     global $group;
     
@@ -195,7 +195,7 @@ function AdrEchoAll($bChinese)
     }
 }
 
-function AdrEchoTitle($bChinese)
+function AdrEchoTitle($bChinese = true)
 {
     global $group;
     
@@ -211,7 +211,7 @@ function AdrEchoTitle($bChinese)
     echo $str;
 }
 
-function AdrEchoMetaDescription($bChinese)
+function AdrEchoMetaDescription($bChinese = true)
 {
     global $group;
     

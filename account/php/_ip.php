@@ -27,7 +27,7 @@ function _echoEditIpForm($strIp, $bChinese)
 END;
 }
 
-function EchoCheckIp($bChinese)
+function EchoCheckIp($bChinese = true)
 {
     $strIp = UrlGetQueryValue('ip');
     if ($strIp == false)

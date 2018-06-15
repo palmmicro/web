@@ -80,7 +80,7 @@ END;
     EchoTableParagraphEnd();
 }
 
-function EchoCalibrationHistory($bChinese)
+function EchoCalibrationHistory($bChinese = true)
 {
     if ($strSymbol = UrlGetQueryValue('symbol'))
     {
@@ -91,7 +91,7 @@ function EchoCalibrationHistory($bChinese)
     EchoPromotionHead($bChinese, 'calibration');
 }
 
-function EchoTitle($bChinese)
+function EchoTitle($bChinese = true)
 {
     EchoUrlSymbol();
     if ($bChinese)  echo '校准历史记录';

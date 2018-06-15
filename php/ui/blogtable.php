@@ -14,7 +14,7 @@ function _echoInterpretationTableItem($ar)
 END;
 }
 
-function EchoInterpretationParagraph($arData, $strName, $bChinese)
+function EchoInterpretationParagraph($arData, $strName, $bChinese = true)
 {
     if ($bChinese)  $arColumn = array('序号', '原始数据内容', '字段意义');
     else              $arColumn = array('Index', 'Original Data', 'Meaning');

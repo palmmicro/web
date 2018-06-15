@@ -19,7 +19,7 @@ function _textVolume($strVolume)
 
 function TextFromExtendedTradingReferencce($ref)
 {
-    $str = ConvertChineseDescription($ref->strDescription, true).':'.$ref->strPrice.' '.$ref->strDate.' '.$ref->strTime.WX_EOL;
+    $str = ConvertChineseDescription($ref->strDescription).':'.$ref->strPrice.' '.$ref->strDate.' '.$ref->strTime.WX_EOL;
     if ($ref->strVolume)	$str .= _textVolume($ref->strVolume);
     return $str;
 }
@@ -28,7 +28,7 @@ function TextFromStockReference($ref)
 {
     if ($ref->bHasData == false)        return false;
 
-    $str = ConvertChineseDescription($ref->strDescription, true).WX_EOL;
+    $str = ConvertChineseDescription($ref->strDescription).WX_EOL;
     $str .= $ref->GetExternalLink().WX_EOL;
     $str .= '现价:'.$ref->strPrice.' '.$ref->strDate.' '.$ref->strTime.WX_EOL;
     $str .= '涨跌:'.$ref->GetPercentageText($ref->fPrevPrice).WX_EOL;
@@ -48,9 +48,9 @@ function TextFromStockReference($ref)
 function TextFromAhReference($ref, $hshare_ref)
 {
 	$str = TextFromStockReference($ref);
-	$str .= 'H股代码:'.GetMyStockRefLink($hshare_ref, true).WX_EOL;
-	if ($hshare_ref->a_ref)		$str .= 'A股代码:'.GetMyStockRefLink($hshare_ref->a_ref, true).WX_EOL;
-	if ($hshare_ref->adr_ref)	$str .= 'ADR代码:'.GetMyStockRefLink($hshare_ref->adr_ref, true).WX_EOL;
+	$str .= 'H股代码:'.RefGetMyStockLink($hshare_ref).WX_EOL;
+	if ($hshare_ref->a_ref)		$str .= 'A股代码:'.RefGetMyStockLink($hshare_ref->a_ref).WX_EOL;
+	if ($hshare_ref->adr_ref)	$str .= 'ADR代码:'.RefGetMyStockLink($hshare_ref->adr_ref).WX_EOL;
 	if ($hshare_ref->a_ref)		$str .= 'AH比价:'.round_display($hshare_ref->GetAhRatio()).WX_EOL;
 	if ($hshare_ref->adr_ref)	$str .= 'ADRH比价:'.round_display($hshare_ref->GetAdrhRatio()).WX_EOL;
 	return $str;

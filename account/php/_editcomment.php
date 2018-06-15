@@ -15,13 +15,13 @@ function _getEditCommentSubmit($bChinese)
     return $str;
 }
 
-function EchoEditCommentTitle($bChinese)
+function EchoEditCommentTitle($bChinese = true)
 {
     $str = _getEditCommentSubmit($bChinese);
     echo $str;
 }
 
-function EchoEditComment($bChinese)
+function EchoEditComment($bChinese = true)
 {
     $strSubmit = _getEditCommentSubmit($bChinese);
     EditCommentForm($strSubmit);

@@ -15,7 +15,7 @@ function NavigateSapphirePhoto($bChinese)
     NavEnd();
 }
 
-function _LayoutLinksSapphirePhoto($bChinese)
+function _LayoutLinksSapphirePhoto($bChinese = true)
 {
     LayoutTopLeft(NavigateSapphirePhoto, $bChinese);
 }

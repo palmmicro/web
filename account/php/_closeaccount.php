@@ -15,13 +15,13 @@ function _getCloseAccountSubmit($bChinese)
     return $str;
 }
 
-function EchoCloseAccountTitle($bChinese)
+function EchoCloseAccountTitle($bChinese = true)
 {
     $str = _getCloseAccountSubmit($bChinese);
     echo $str;
 }
 
-function EchoCloseAccount($bChinese)
+function EchoCloseAccount($bChinese = true)
 {
     $strSubmit = _getCloseAccountSubmit($bChinese);
     EditEmailForm($strSubmit);

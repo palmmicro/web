@@ -8,23 +8,23 @@
 </head>
 
 <body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _LayoutTopLeft(true); ?>
+<?php _LayoutTopLeft(); ?>
 
 <div>
 <h1>A股LOF基金净值计算工具</h1>
 <p>中国A股的LOF基金是个奇葩设计, 加上A股交易者普遍的不理性, 产生了很多套利机会. 这个工具箱计算各种LOF的净值, 同时分析比较各种套利对冲方案, 提供交易建议.  
 <br />类似软件: 集思录<a href="http://www.jisilu.cn/data/qdii/" target=_blank>QDII</a>基金实时投资数据.
 </p>
-<?php MyStockGroupEchoAll(true); ?>
+<?php MyStockGroupEchoAll(); ?>
 <p>相关软件:
 <?php 
-    EchoStockCategoryLinks(true);
-    EchoStockGroupLinks(true);
+    EchoStockCategoryLinks();
+    EchoStockGroupLinks();
 ?>
 </p>
 </div>
 
-<?php LayoutTailLogin(true); ?>
+<?php LayoutTailLogin(); ?>
 
 </body>
 </html>

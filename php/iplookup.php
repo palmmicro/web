@@ -145,8 +145,8 @@ function DnsCheckSearchEngine($strIp)
     if ($str = DnsIpLookUp($strIp))
     {
         $str = strtolower($str);
-        if (strchr($str, 'googlebot.com') || strchr($str, 'google.com') || strchr($str, 'crawl.baidu.com') || strchr($str, 'yandex') || strchr($str, 'search.msn.com') || strchr($str, 'crawl.sogou.com')
-            || strchr($str, 'yse.yahoo.net')
+        if (strstr($str, 'googlebot.com') || strstr($str, 'google.com') || strstr($str, 'crawl.baidu.com') || strstr($str, 'yandex') || strstr($str, 'search.msn.com') || strstr($str, 'crawl.sogou.com')
+            || strstr($str, 'yse.yahoo.net')
             )
         {
             AcctEmailSpiderReport($strIp, 'Known DNS: '.$str, 'Known spider');

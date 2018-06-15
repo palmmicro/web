@@ -17,7 +17,7 @@ function _navLoopBlogPhoto($bChinese)
     NavEnd();
 }
 
-function _LayoutTopLeft($bChinese)
+function _LayoutTopLeft($bChinese = true)
 {
     LayoutTopLeft(_navLoopBlogPhoto, $bChinese);
 }

@@ -6,7 +6,7 @@ require_once('/php/ui/fundhistoryparagraph.php');
 
 // ****************************** Common China fund functions *******************************************************
 
-function EchoTitle($bChinese)
+function EchoTitle($bChinese = true)
 {
     global $group;
     

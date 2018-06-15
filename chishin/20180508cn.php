@@ -8,7 +8,7 @@
 </head>
 
 <body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _ChishinLayoutTopLeft(true); ?>
+<?php _ChishinLayoutTopLeft(); ?>
 
 <div>
 <h1>如何从美国封杀中兴通讯的危机变成转机之四</h1>
@@ -82,7 +82,7 @@
 </p>
 </div>
 
-<?php _ChishinLayoutBottom(true); ?>
+<?php _ChishinLayoutBottom(); ?>
 
 </body>
 </html>

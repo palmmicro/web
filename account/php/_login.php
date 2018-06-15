@@ -15,13 +15,13 @@ function _getEmailLoginSubmit($bChinese)
     return $str;
 }
 
-function EchoEmailLoginTitle($bChinese)
+function EchoEmailLoginTitle($bChinese = true)
 {
     $str = _getEmailLoginSubmit($bChinese);
     echo $str;
 }
 
-function EchoEmailLogin($bChinese)
+function EchoEmailLogin($bChinese = true)
 {
     $strSubmit = _getEmailLoginSubmit($bChinese);
     EditEmailForm($strSubmit);

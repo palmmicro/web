@@ -8,7 +8,7 @@
 </head>
 
 <body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _LayoutTopLeft(true); ?>
+<?php _LayoutTopLeft(); ?>
 
 <div>
 <h1>猫眼模特包子</h1>
@@ -23,7 +23,7 @@
 <br /><img src=../../blog/photo/20120420.jpg alt="Scottish fold female cat taking a shower" /></p>
 </div>
 
-<?php LayoutTailLogin(true); ?>
+<?php LayoutTailLogin(); ?>
 
 </body>
 </html>

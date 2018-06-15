@@ -8,7 +8,7 @@
 </head>
 
 <body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _LayoutTopLeft(true); ?>
+<?php _LayoutTopLeft(); ?>
 
 <div>
 <h1>林近岚满月艺术照 - 蓝色系列</h1>
@@ -24,7 +24,7 @@
 <br /><img src=../30days/blue5.jpg alt="Sapphire Lin dress in blue, sprawling." /></p>
 </div>
 
-<?php LayoutTailLogin(true); ?>
+<?php LayoutTailLogin(); ?>
 
 </body>
 </html>

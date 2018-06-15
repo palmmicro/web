@@ -31,13 +31,13 @@ function NavigateBlogGroup($bChinese)
     NavEnd();
 }
 
-function _LayoutTopLeft($bChinese)
+function _LayoutTopLeft($bChinese = true)
 {
     AcctNoAuth();
     LayoutTopLeft(NavigateBlogGroup, $bChinese);
 }
 
-function _LayoutBottom($bChinese)
+function _LayoutBottom($bChinese = true)
 {
     EchoBlogComments($bChinese);
     LayoutTailLogin($bChinese);

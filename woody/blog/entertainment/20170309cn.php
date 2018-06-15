@@ -8,7 +8,7 @@
 </head>
 
 <body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _LayoutTopLeft(true); ?>
+<?php _LayoutTopLeft(); ?>
 
 <div>
 <h1>给SZ162411净值页面网络爬虫的建议</h1>
@@ -31,7 +31,7 @@
 <br />各行数据间用<b>"\n"</b>分隔, 每行中等号后按逗号<b>','</b>分隔的各个字段意义如下表.
 </p>
 <?php
-	$strSZ162411 = GetMyStockLink('SZ162411', true);
+	$strSZ162411 = GetMyStockLink('SZ162411');
     EchoInterpretationParagraph(array(array('0', '0.645',  'T-1日官方公布的净值'),
                                    array('1', '2017-03-07', 'T-1日日期'),
                                    array('2', '0.6267', 'T日预估官方净值'),
@@ -39,14 +39,14 @@
                                    array('4', '0.6267', '<a href="20170305cn.php">参考估值</a>'),
                                    array('5', '0.6267', '实时考虑当日CL交易情况后的<a href="20150818cn.php#realtime">T+1估值</a>'),
                                    array('6', '0.643', $strSZ162411.'当前交易价格')
-                                   ), 'netvalue', true);
+                                   ), 'netvalue');
 ?>
 <p>最后补充一点, 因为我估值软件每分钟才从新浪等处取一次股票交易数据, 所以爬虫每秒都来爬是没有任何意义的, 每分钟来爬一次足够了.
 </p>
 
 </div>
 
-<?php _LayoutBottom(true); ?>
+<?php _LayoutBottom(); ?>
 
 </body>
 </html>

@@ -84,7 +84,7 @@ function _echoStockGroupArray($arStock, $bChinese)
        		else	$ref = StockGetReference($sym);
         }
 
-        if ($strInternalLink = SelectSymbolInternalLink($strSymbol, $bChinese))
+        if ($strInternalLink = SelectStockLink($strSymbol, $bChinese))
         {
             $ref->SetExternalLink($strInternalLink);
             $ref->extended_ref = false;	// do not display extended trading information in adrcn.php page
@@ -122,7 +122,7 @@ function _echoMyStockGroup($strGroupId, $bChinese)
     EchoStockGroupParagraph($bChinese);
 }
 
-function MyStockGroupEchoAll($bChinese)
+function MyStockGroupEchoAll($bChinese = true)
 {
     $strTitle = UrlGetTitle();
     if ($strTitle == 'mystockgroup')
@@ -143,7 +143,7 @@ function MyStockGroupEchoAll($bChinese)
     EchoPromotionHead($bChinese, $strTitle);
 }
 
-function MyStockGroupEchoMetaDescription($bChinese)
+function MyStockGroupEchoMetaDescription($bChinese = true)
 {
     if ($strGroupId = UrlGetQueryValue('groupid'))
     {
@@ -160,7 +160,7 @@ function MyStockGroupEchoMetaDescription($bChinese)
     EchoMetaDescriptionText($str);
 }
 
-function MyStockGroupEchoTitle($bChinese)
+function MyStockGroupEchoTitle($bChinese = true)
 {
     $strMemberId = AcctIsLogin(); 
     if ($strGroupId = UrlGetQueryValue('groupid'))

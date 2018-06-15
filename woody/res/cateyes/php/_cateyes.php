@@ -30,7 +30,7 @@ function NavLoopCateyes($bChinese)
 	CateyesMenu($arCateyes, $bChinese);
 }
 
-function _LayoutTopLeft($bChinese)
+function _LayoutTopLeft($bChinese = true)
 {
     LayoutTopLeft(NavLoopCateyes, $bChinese);
 }

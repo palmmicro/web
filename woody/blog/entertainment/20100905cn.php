@@ -8,7 +8,7 @@
 </head>
 
 <body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _LayoutTopLeft(true); ?>
+<?php _LayoutTopLeft(); ?>
 
 <div>
 <h1>我的第一个PHP程序</h1>
@@ -24,7 +24,7 @@
 
 </div>
 
-<?php _LayoutBottom(true); ?>
+<?php _LayoutBottom(); ?>
 
 </body>
 </html>

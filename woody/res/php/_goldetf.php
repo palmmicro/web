@@ -23,7 +23,7 @@ function _echoAdminTestParagraph($group, $bChinese)
     EchoParagraph($str);
 }
 
-function EchoAll($bChinese)
+function EchoAll($bChinese = true)
 {
     global $group;
     $fund = $group->ref;
@@ -44,7 +44,7 @@ function EchoAll($bChinese)
     }
 }
 
-function EchoMetaDescription($bChinese)
+function EchoMetaDescription($bChinese = true)
 {
     global $group;
 

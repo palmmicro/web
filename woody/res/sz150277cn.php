@@ -2,28 +2,28 @@
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<title><?php GradedFundEchoTitle(true); ?></title>
-<meta name="description" content="<?php GradedFundEchoMetaDescription(true); ?>">
+<title><?php GradedFundEchoTitle(); ?></title>
+<meta name="description" content="<?php GradedFundEchoMetaDescription(); ?>">
 <link href="../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _LayoutGradedFundTopLeft(true); ?>
+<?php _LayoutGradedFundTopLeft(); ?>
 
 <div>
-<h1><?php GradedFundEchoTitle(true); ?></h1>
-<?php EchoAll(true); ?>
+<h1><?php GradedFundEchoTitle(); ?></h1>
+<?php EchoAll(); ?>
 <p>类似软件: <?php EchoJisiluGradedFund(); ?>
 <br />相关软件:
 <?php
-    EchoASharesSoftwareLinks(true);
-    EchoPenghuaSoftwareLinks(true);
-    EchoStockGroupLinks(true);
+    EchoASharesSoftwareLinks();
+    EchoPenghuaSoftwareLinks();
+    EchoStockGroupLinks();
 ?>
 </p>
 </div>
 
-<?php LayoutTailLogin(true); ?>
+<?php LayoutTailLogin(); ?>
 
 </body>
 </html>

@@ -1,6 +1,6 @@
 <?php
 
-function AdsenseSearchEngine($bChinese)
+function AdsenseSearchEngine($bChinese = true)
 {
 	$strSearch = $bChinese ? '搜索' : 'Search';
 	

@@ -15,13 +15,13 @@ function _getPasswordReminderSubmit($bChinese)
     return $str;
 }
 
-function EchoPasswordReminderTitle($bChinese)
+function EchoPasswordReminderTitle($bChinese = true)
 {
     $str = _getPasswordReminderSubmit($bChinese);
     echo $str;
 }
 
-function EchoPasswordReminder($bChinese)
+function EchoPasswordReminder($bChinese = true)
 {
     $strSubmit = _getPasswordReminderSubmit($bChinese);
     EditEmailForm($strSubmit);

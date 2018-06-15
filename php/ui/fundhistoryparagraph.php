@@ -142,7 +142,7 @@ function FundHistoryTableGetColumn($est_ref, $bChinese)
 {
     if ($est_ref)
     {
-        $strSymbol = GetMyStockRefLink($est_ref, $bChinese);
+        $strSymbol = RefGetMyStockLink($est_ref, $bChinese);
         if ($bChinese)  $strChange = '涨跌';
         else              $strChange = 'Change';
     }

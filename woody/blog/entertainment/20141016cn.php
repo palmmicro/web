@@ -8,7 +8,7 @@
 </head>
 
 <body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _LayoutTopLeft(true); ?>
+<?php _LayoutTopLeft(); ?>
 
 <div>
 <h1>大道至简从上证大型国有股获利</h1>
@@ -158,7 +158,7 @@ SH600028的门票打中了一个新股<?php EchoMyStockLink('SH603060'); ?>, 赚
 
 </div>
                                   
-<?php _LayoutBottom(true); ?>
+<?php _LayoutBottom(); ?>
 
 </body>
 </html>

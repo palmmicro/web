@@ -8,15 +8,15 @@
 </head>
 
 <body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _LayoutTopLeft(true); ?>
+<?php _LayoutTopLeft(); ?>
 
 <div>
 <h1>微信接口访问数据</h1>
 <p>用于观察<a href="../woody/blog/entertainment/20161020cn.php">微信</a>接口的使用情况.</p>
-<?php EchoWeixinVisitor(true); ?>
+<?php EchoWeixinVisitor(); ?>
 </div>
 
-<?php LayoutTailLogin(true); ?>
+<?php LayoutTailLogin(); ?>
 
 </body>
 </html>

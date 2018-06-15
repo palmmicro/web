@@ -92,8 +92,8 @@ function _getMatchSymbolArray($strKey)
         while ($stock = mysql_fetch_assoc($result)) 
         {
             $str = $stock['name'];
-//            if (strchr($str, $strKey) || strchr($stock['cn'], $strKey) || strchr(strtoupper($stock['us']), $strKey))
-            if (strchr($str, $strKey) || strchr($stock['cn'], $strKey))
+//            if (strstr($str, $strKey) || strstr($stock['cn'], $strKey) || strstr(strtoupper($stock['us']), $strKey))
+            if (strstr($str, $strKey) || strstr($stock['cn'], $strKey))
             {
                 $ar[] = $str;
                 if (count($ar) > MAX_WX_STOCK)	break;
@@ -144,13 +144,14 @@ function _wxGetStockArray($strContents)
 
 function _getAhReferenceText($ref, $hshare_ref)
 {
+	RefSetExternalLink($ref);
     $str = TextFromAhReference($ref, $hshare_ref);
     return $str;
 }
 
 function _getStockReferenceText($ref)
 {
-    $ref->SetExternalLink();
+	RefSetExternalLink($ref);
     $str = TextFromStockReference($ref);
     return $str;
 }
@@ -159,7 +160,7 @@ function _getFundReferenceText($ref)
 {
 	if ($ref->stock_ref)
 	{
-		$ref->stock_ref->SetExternalLink(SelectSymbolInternalLink($ref->GetStockSymbol()));
+		RefSetExternalLink($ref->stock_ref);
 	}
     $str = TextFromFundReference($ref); 
     return $str;

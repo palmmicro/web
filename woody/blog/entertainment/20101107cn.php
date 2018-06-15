@@ -8,7 +8,7 @@
 </head>
 
 <body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _LayoutTopLeft(true); ?>
+<?php _LayoutTopLeft(); ?>
 
 <div>
 <h1>网络日志搬家 - GB18030和GB2312</h1>
@@ -98,7 +98,7 @@
 
 </div>
 
-<?php _LayoutBottom(true); ?>
+<?php _LayoutBottom(); ?>
 
 </body>
 </html>

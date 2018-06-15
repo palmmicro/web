@@ -8,7 +8,7 @@
 </head>
 
 <body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _LayoutTopLeft(true); ?>
+<?php _LayoutTopLeft(); ?>
 
 <div>
 <h1>东方财富人民币美元中间价汇率实时数据接口的字段意义</h1>
@@ -42,7 +42,7 @@
                                    array('19-26', '0.0000,0,0,0,0,0,0.0024,0.0000', '(未知)'),
                                    array('27', '2016-06-14 23:45:00', '日期和时间'),
                                    array('28', '3', '(未知)')
-                                   ), 'usdcny', true);
+                                   ), 'usdcny');
 ?>
 
 <h3><a name="uscny">USCNY和USDCNY</a></h3>
@@ -68,7 +68,7 @@
 
 </div>
 
-<?php _LayoutBottom(true); ?>
+<?php _LayoutBottom(); ?>
 
 </body>
 </html>

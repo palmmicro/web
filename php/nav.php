@@ -48,7 +48,7 @@ function _navSwitchLanguage()
 }
 
 $g_bSwitchLanguage = true;
-function SetSwitchLanguage($bSwitchLanguage)
+function SetSwitchLanguage($bSwitchLanguage = false)
 {
 	global $g_bSwitchLanguage;
 	$g_bSwitchLanguage = $bSwitchLanguage;

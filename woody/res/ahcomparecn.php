@@ -8,7 +8,7 @@
 </head>
 
 <body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _LayoutTopLeft(true); ?>
+<?php _LayoutTopLeft(); ?>
 
 <div>
 <h1>AH股价格比较工具</h1>
@@ -16,16 +16,16 @@
 集思录<a href="https://www.jisilu.cn/data/ha/" target=_blank>A/H比价</a>
 同花顺<a href="http://data.10jqka.com.cn/market/ahgbj/" target=_blank>AH股比价</a>
 </p>
-<?php MyStockGroupEchoAll(true); ?>
+<?php MyStockGroupEchoAll(); ?>
 <p>相关软件:
 <?php
-    EchoStockCategoryLinks(true);
-    EchoStockGroupLinks(true);
+    EchoStockCategoryLinks();
+    EchoStockGroupLinks();
 ?>
 </p>
 </div>
 
-<?php LayoutTailLogin(true); ?>
+<?php LayoutTailLogin(); ?>
 
 </body>
 </html>

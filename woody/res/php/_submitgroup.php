@@ -61,7 +61,7 @@ function _emailStockGroup($strMemberId, $strGroupId, $strSymbols)
 {
     $strSubject = 'Stock Group: '.$_POST['submit'];
 	$str = GetMemberLink($strMemberId);
-    $str .= '<br />GroupName: '.SelectGroupInternalLink($strGroupId); 
+    $str .= '<br />GroupName: '.GetStockGroupLink($strGroupId); 
     $str .= '<br />Symbols: '.$strSymbols; 
     EmailReport($str, $strSubject); 
 }

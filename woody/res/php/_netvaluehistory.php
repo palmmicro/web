@@ -34,7 +34,7 @@ function _echoNetValueHistory($strSymbol, $iStart, $iNum, $bChinese)
     _echoNetValueHistoryGraph($strSymbol, $bChinese);
 }
 
-function EchoNetValueHistory($bChinese)
+function EchoNetValueHistory($bChinese = true)
 {
     if ($strSymbol = UrlGetQueryValue('symbol'))
     {
@@ -49,7 +49,7 @@ function EchoNetValueHistory($bChinese)
     EchoPromotionHead($bChinese, 'netvalue');
 }
 
-function EchoTitle($bChinese)
+function EchoTitle($bChinese = true)
 {
   	$str = UrlGetQueryDisplay('symbol');
     if ($bChinese)

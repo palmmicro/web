@@ -118,9 +118,9 @@ function _echoMyStockData($strSymbol, $bChinese)
     {
         if ($hshare_ref)
         {
-        	if ($strSymbol != $hshare_ref->GetStockSymbol())	$hshare_ref->SetMyStockLink($bChinese);
-			if ($hshare_ref->a_ref)		EchoAhParagraph(array($hshare_ref), $bChinese);
-			if ($hshare_ref->adr_ref)	EchoAdrhParagraph(array($hshare_ref), $bChinese);
+        	if ($strSymbol != $hshare_ref->GetStockSymbol())	RefSetExternalLinkMyStock($hshare_ref, $bChinese);
+			if ($hshare_ref->a_ref)								EchoAhParagraph(array($hshare_ref), $bChinese);
+			if ($hshare_ref->adr_ref)							EchoAdrhParagraph(array($hshare_ref), $bChinese);
         }
    		if ($sym->IsSymbolA())
    		{
@@ -165,7 +165,7 @@ function _echoMyStockSymbol($strSymbol, $bChinese)
     EchoParagraph($str);
 }
 
-function EchoMyStock($bChinese)
+function EchoMyStock($bChinese = true)
 {
     if ($strSymbol = UrlGetQueryValue('symbol'))
     {
@@ -188,7 +188,7 @@ function EchoMyStock($bChinese)
     EchoPromotionHead($bChinese);
 }
 
-function EchoMyStockTitle($bChinese)
+function EchoMyStockTitle($bChinese = true)
 {
     if ($bChinese)  echo '我的股票';
     else              echo 'My Stock ';

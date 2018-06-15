@@ -9,7 +9,7 @@ function _echoCalibration($strSymbol, $strStockId, $iStart, $iNum, $bChinese)
     EchoCalibrationParagraph($strSymbol, $strStockId, $bChinese, $iStart, $iNum);
 }
 
-function EchoCalibration($bChinese)
+function EchoCalibration($bChinese = true)
 {
     if ($strSymbol = UrlGetQueryValue('symbol'))
     {
@@ -23,7 +23,7 @@ function EchoCalibration($bChinese)
     EchoPromotionHead($bChinese, 'calibration');
 }    
 
-function EchoTitle($bChinese)
+function EchoTitle($bChinese = true)
 {
     EchoUrlSymbol();
     if ($bChinese)  echo '校准历史记录';

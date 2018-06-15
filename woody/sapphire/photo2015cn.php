@@ -8,7 +8,7 @@
 </head>
 
 <body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _LayoutLinksSapphirePhoto(true); ?>
+<?php _LayoutLinksSapphirePhoto(); ?>
 
 <div>
 <h1>林近岚2015年相片</h1>
@@ -72,7 +72,7 @@
 <br /><img src=2015/20150103.jpg alt="Sapphire Lin focusing on bright color swinging objects." /></p>
 </div>
 
-<?php LayoutTailLogin(true); ?>
+<?php LayoutTailLogin(); ?>
 
 </body>
 </html>

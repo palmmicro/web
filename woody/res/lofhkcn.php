@@ -8,23 +8,23 @@
 </head>
 
 <body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _LayoutTopLeft(true); ?>
+<?php _LayoutTopLeft(); ?>
 
 <div>
 <h1>A股香港LOF基金净值计算工具</h1>
 <p>计算中国A股市场中各种香港LOF的净值.
 <br />类似软件: 集思录<a href="https://www.jisilu.cn/data/lof/#index" target=_blank>指数LOF</a>基金实时投资数据.
 </p>
-<?php MyStockGroupEchoAll(true); ?>
+<?php MyStockGroupEchoAll(); ?>
 <p>相关软件:
 <?php 
-    EchoStockCategoryLinks(true);
-    EchoStockGroupLinks(true);
+    EchoStockCategoryLinks();
+    EchoStockGroupLinks();
 ?>
 </p>
 </div>
 
-<?php LayoutTailLogin(true); ?>
+<?php LayoutTailLogin(); ?>
 
 </body>
 </html>

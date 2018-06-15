@@ -149,7 +149,7 @@ function EchoEstSymbol()
     }
 }
 
-function EchoMetaDescription($bChinese)
+function EchoMetaDescription($bChinese = true)
 {
     global $group;
     

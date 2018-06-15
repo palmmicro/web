@@ -15,13 +15,13 @@ function _getEditProfileSubmit($bChinese)
     return $str;
 }
 
-function EchoEditProfileTitle($bChinese)
+function EchoEditProfileTitle($bChinese = true)
 {
     $str = _getEditProfileSubmit($bChinese);
     echo $str;
 }
 
-function EchoEditProfile($bChinese)
+function EchoEditProfile($bChinese = true)
 {
     $strSubmit = _getEditProfileSubmit($bChinese);
     EditProfileForm($strSubmit);

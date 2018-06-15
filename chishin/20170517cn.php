@@ -8,7 +8,7 @@
 </head>
 
 <body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _ChishinLayoutTopLeft(true); ?>
+<?php _ChishinLayoutTopLeft(); ?>
 
 <div>
 <h1>光量子计算机时代的来临?</h1>
@@ -39,7 +39,7 @@
 </p>
 </div>
 
-<?php _ChishinLayoutBottom(true); ?>
+<?php _ChishinLayoutBottom(); ?>
 
 </body>
 </html>

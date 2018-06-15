@@ -13,7 +13,7 @@ function EchoHeadLine()
 	EchoTitle();
 }
 
-function EchoMetaDescription($bChinese)
+function EchoMetaDescription($bChinese = true)
 {
     global $g_strOptionType;
 

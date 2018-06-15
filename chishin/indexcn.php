@@ -8,7 +8,7 @@
 </head>
 
 <body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _ChishinLayoutTopLeft(true); ?>
+<?php _ChishinLayoutTopLeft(); ?>
 
 <div>
 <h1>王继行</h1>
@@ -23,7 +23,7 @@
 </p>
 </div>
 
-<?php _ChishinLayoutBottom(true); ?>
+<?php _ChishinLayoutBottom(); ?>
 
 </body>
 </html>

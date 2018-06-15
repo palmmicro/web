@@ -65,7 +65,7 @@ function _echoWeixinVisitorParagraph($strOpenId, $iStart, $iNum, $bChinese)
     EchoTableParagraphEnd($strNavLink);
 }
 
-function EchoWeixinVisitor($bChinese)
+function EchoWeixinVisitor($bChinese = true)
 {
     $strOpenId = UrlGetQueryValue('id');
     if ($strOpenId)

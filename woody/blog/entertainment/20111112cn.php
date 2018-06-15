@@ -9,7 +9,7 @@
 </head>
 
 <body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _LayoutTopLeft(true); ?>
+<?php _LayoutTopLeft(); ?>
 
 <div>
 <h1>技术派</h1>
@@ -28,7 +28,7 @@
 前两天看<a href="http://optimizr.com" target=_blank>optimizr.com</a>的网站检查报告的时候注意到这个股票相关的网页有不少需要修改的地方, 正好用它来测试一下PHP股票代码和用户界面分离工作做得是否彻底.
 调用<?php EchoPhpFileLink('/php/stock.php'); ?>相关函数显示ACTS的当前价格如下:
 </p>
-<?php EchoStockPrice(true); ?>
+<?php EchoStockPrice(); ?>
 
 <h3>IQ换ACTS继续测试</h3>
 <p>2018年6月12日
@@ -38,7 +38,7 @@
 
 </div>
 
-<?php _LayoutBottom(true); ?>
+<?php _LayoutBottom(); ?>
 
 </body>
 </html>

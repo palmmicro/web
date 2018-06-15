@@ -161,7 +161,7 @@ function _checkSearchEngineSpider($strIp, $iCount)
 {
     $arIpInfo = IpInfoIpLookUp($strIp);
     $str = strtolower($arIpInfo['org']);
-    if (strchr($str, 'microsoft') || strchr($str, 'yahoo') || strchr($str, 'yandex'))
+    if (strstr($str, 'microsoft') || strstr($str, 'yahoo') || strstr($str, 'yandex'))
     {
         AcctEmailSpiderReport($strIp, 'Known company: '.$arIpInfo['org'], 'Known spider');
         return true;

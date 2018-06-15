@@ -127,12 +127,12 @@ function _layoutTail($iWidth, $bMobile, $bChinese)
     EchoCopyRight($bMobile, $bChinese);
 }
 
-function LayoutTail($bChinese)
+function LayoutTail($bChinese = true)
 {
 	_layoutTail(LayoutScreenWidthOk(), LayoutIsMobilePhone(), $bChinese);
 }
 
-function LayoutTailLogin($bChinese)
+function LayoutTailLogin($bChinese = true)
 {
     VisitorLogin($bChinese);
     

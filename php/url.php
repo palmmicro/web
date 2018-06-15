@@ -190,13 +190,13 @@ function _cnEndString($str)
 // /woody/blog/entertainment/20140615cn.php ==> cn.php
 function UrlGetType()
 {
-//    if (strchr($_SERVER["SCRIPT_NAME"], URL_CNPHP) == URL_CNPHP)
+//    if (strstr($_SERVER["SCRIPT_NAME"], URL_CNPHP) == URL_CNPHP)
     $str = UrlGetUri();
-    if (strchr($str, URL_CNPHP) == URL_CNPHP)
+    if (strstr($str, URL_CNPHP) == URL_CNPHP)
     {
         return URL_CNPHP;
     }
-    else if (strchr($str, URL_PHP) == URL_PHP)
+    else if (strstr($str, URL_PHP) == URL_PHP)
     {
         return URL_PHP;
     }
@@ -257,7 +257,7 @@ function UrlGetPhp($bChinese)
 function UrlGetDomain()
 {
 	$strDomain = $_SERVER['SERVER_NAME'];
-	if (strchr($strDomain, URL_WWW))
+	if (strstr($strDomain, URL_WWW))
 	{
 		return substr($strDomain, 4);
 	}

@@ -15,13 +15,13 @@ function _getEmailPasswordSubmit($bChinese)
     return $str;
 }
 
-function EchoEmailPasswordTitle($bChinese)
+function EchoEmailPasswordTitle($bChinese = true)
 {
     $str = _getEmailPasswordSubmit($bChinese);
     echo $str;
 }
 
-function EchoEmailPassword($bChinese)
+function EchoEmailPassword($bChinese = true)
 {
     $strSubmit = _getEmailPasswordSubmit($bChinese);
     EditEmailForm($strSubmit);

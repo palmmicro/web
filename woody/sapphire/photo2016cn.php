@@ -8,7 +8,7 @@
 </head>
 
 <body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _LayoutLinksSapphirePhoto(true); ?>
+<?php _LayoutLinksSapphirePhoto(); ?>
 
 <div>
 <h1>林近岚2016年相片</h1>
@@ -39,7 +39,7 @@
 
 </div>
 
-<?php LayoutTailLogin(true); ?>
+<?php LayoutTailLogin(); ?>
 
 </body>
 </html>

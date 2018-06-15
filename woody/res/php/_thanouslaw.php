@@ -144,7 +144,7 @@ function _echoLofPredictionParagraph($fund, $bChinese)
     EchoTableParagraphEnd();
 }
 
-function EchoThanousLawTest($bChinese)
+function EchoThanousLawTest($bChinese = true)
 {
     if ($strSymbol = UrlGetQueryValue('symbol'))
     {
@@ -160,7 +160,7 @@ function EchoThanousLawTest($bChinese)
     EchoPromotionHead($bChinese, 'thanouslaw');
 }
 
-function EchoTitle($bChinese)
+function EchoTitle($bChinese = true)
 {
   	$str = UrlGetQueryDisplay('symbol');
     if ($bChinese)

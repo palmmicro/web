@@ -114,7 +114,7 @@ END;
 
 // ****************************** private functions *******************************************************
 
-function EchoAll($bChinese)
+function EchoAll($bChinese = true)
 {
     global $group;
     $fund = $group->ref;
@@ -148,7 +148,7 @@ function EchoAll($bChinese)
     EchoPromotionHead($bChinese, 'gradedfund');
 }
 
-function GradedFundEchoTitle($bChinese)
+function GradedFundEchoTitle($bChinese = true)
 {
     global $group;
     
@@ -158,7 +158,7 @@ function GradedFundEchoTitle($bChinese)
     echo $str;
 }
 
-function GradedFundEchoMetaDescription($bChinese)
+function GradedFundEchoMetaDescription($bChinese = true)
 {
     global $group;
     

@@ -32,7 +32,7 @@ function StockReferenceSortBySymbol($arRef)
     return $arSort;
 }
 
-function ConvertChineseDescription($str, $bChinese)
+function ConvertChineseDescription($str, $bChinese = true)
 {
     if ($str == STOCK_SINA_DATA)
     {
@@ -318,21 +318,9 @@ class StockReference
         return $this->strExternalLink;
     }
     
-    function SetExternalLink($strLink = false)
+    function SetExternalLink($strLink)
     {
-    	if ($strLink)
-    	{
-    		$this->strExternalLink = $strLink;
-    	}
-    	else
-    	{
-    		$this->strExternalLink = $this->GetStockSymbol();
-    	}
-    }
-    
-    function SetMyStockLink($bChinese)
-    {
-    	$this->SetExternalLink(GetMyStockLink($this->GetStockSymbol(), $bChinese));
+   		$this->strExternalLink = $strLink;
     }
     
     function _newStockSymbol($strSymbol)

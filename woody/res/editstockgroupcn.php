@@ -10,14 +10,14 @@
 </head>
 
 <body bgproperties=fixed leftmargin=0 topmargin=0 onLoad=OnLoad()>
-<?php _LayoutTopLeft(true); ?>
+<?php _LayoutTopLeft(); ?>
 
 <div>
 <h1>修改股票分组</h1>
 <?php StockEditGroupForm(STOCK_GROUP_EDIT_CN, true); ?>
 </div>
 
-<?php LayoutTail(true); ?>
+<?php LayoutTail(); ?>
 
 </body>
 </html>

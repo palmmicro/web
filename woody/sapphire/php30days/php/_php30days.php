@@ -25,7 +25,7 @@ function NavLoop30Days($bChinese)
     NavEnd();
 }
 
-function _LayoutTopLeft($bChinese)
+function _LayoutTopLeft($bChinese = true)
 {
     LayoutTopLeft(NavLoop30Days, $bChinese);
 }

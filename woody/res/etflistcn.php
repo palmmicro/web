@@ -8,21 +8,21 @@
 </head>
 
 <body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _LayoutTopLeft(true); ?>
+<?php _LayoutTopLeft(); ?>
 
 <div>
 <h1>ETF对照表</h1>
 <p>有些指数不容易拿到数据, 就用1倍ETF代替指数给其它杠杆ETF做对照.</p>
-<?php MyStockGroupEchoAll(true); ?>
+<?php MyStockGroupEchoAll(); ?>
 <p>相关软件:
 <?php
-    EchoStockCategoryLinks(true);
-    EchoStockGroupLinks(true);
+    EchoStockCategoryLinks();
+    EchoStockGroupLinks();
 ?>
 </p>
 </div>
 
-<?php LayoutTailLogin(true); ?>
+<?php LayoutTailLogin(); ?>
 
 </body>
 </html>

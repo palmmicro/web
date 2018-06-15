@@ -79,7 +79,7 @@ function NavStockSoftware($bChinese)
     NavEnd();
 }
 
-function _LayoutTopLeft($bChinese)
+function _LayoutTopLeft($bChinese = true)
 {
     LayoutTopLeft(NavStockSoftware, $bChinese);
 }
@@ -89,7 +89,7 @@ function NavLoopGradedFund($bChinese)
     ResMenu(GradedFundGetSymbolArray(), $bChinese);
 }
 
-function _LayoutGradedFundTopLeft($bChinese)
+function _LayoutGradedFundTopLeft($bChinese = true)
 {
     LayoutTopLeft(NavLoopGradedFund, $bChinese);
 }
@@ -99,7 +99,7 @@ function NavLoopGoldEtf($bChinese)
     ResMenu(GoldEtfGetSymbolArray(), $bChinese);
 }
 
-function _LayoutGoldEtfTopLeft($bChinese)
+function _LayoutGoldEtfTopLeft($bChinese = true)
 {
     LayoutTopLeft(NavLoopGoldEtf, $bChinese);
 }
@@ -109,7 +109,7 @@ function NavLoopLof($bChinese)
     ResMenu(LofGetSymbolArray(), $bChinese);
 }
 
-function _LayoutLofTopLeft($bChinese)
+function _LayoutLofTopLeft($bChinese = true)
 {
     LayoutTopLeft(NavLoopLof, $bChinese);
 }
@@ -119,7 +119,7 @@ function NavLoopLofHk($bChinese)
     ResMenu(LofHkGetSymbolArray(), $bChinese);
 }
 
-function _LayoutLofHkTopLeft($bChinese)
+function _LayoutLofHkTopLeft($bChinese = true)
 {
     LayoutTopLeft(NavLoopLofHk, $bChinese);
 }
@@ -129,7 +129,7 @@ function NavLoopAdr($bChinese)
     ResMenu(AdrGetSymbolArray(), $bChinese);
 }
 
-function _LayoutAdrTopLeft($bChinese)
+function _LayoutAdrTopLeft($bChinese = true)
 {
     LayoutTopLeft(NavLoopAdr, $bChinese);
 }

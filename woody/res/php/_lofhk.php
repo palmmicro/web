@@ -16,7 +16,7 @@ class _LofHkGroup extends _LofGroup
     } 
 } 
 
-function EchoAll($bChinese)
+function EchoAll($bChinese = true)
 {
     global $group;
     $fund = $group->ref;

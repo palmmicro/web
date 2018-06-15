@@ -113,7 +113,7 @@ END;
 function _getWebLink($strWeb)
 {
 	$str = $strWeb;
-	if (!strchr($strWeb, 'http'))
+	if (!strstr($strWeb, 'http'))
 	{
 		$str = 'http://'.$strWeb;
 	}
@@ -149,7 +149,7 @@ function _echoAccountFundAmount($strMemberId, $bChinese)
     EchoFundPurchaseParagraph($str, $strMemberId, $bChinese);
 }
 
-function EchoAccountProfile($bChinese)
+function EchoAccountProfile($bChinese = true)
 {
     global $strMemberId;
     global $strMsg;

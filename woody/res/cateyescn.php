@@ -8,7 +8,7 @@
 </head>
 
 <body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _LayoutTopLeft(true); ?>
+<?php _LayoutTopLeft(); ?>
 
 <div>
 <h1>西雅图夜猫眼</h1>
@@ -26,7 +26,7 @@
 <br /><img src=../groupphoto/world/KualaLumpur.jpg alt="Lobster meal at a Chinese restaurant in Kuala Lumpur." /></p>
 </div>
 
-<?php LayoutTailLogin(true); ?>
+<?php LayoutTailLogin(); ?>
 
 </body>
 </html>

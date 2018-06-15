@@ -106,7 +106,7 @@ END;
     _echoAhHistoryGraph($strSymbol, $bChinese);
 }
 
-function EchoAhHistory($bChinese)
+function EchoAhHistory($bChinese = true)
 {
     if ($strSymbol = UrlGetQueryValue('symbol'))
     {
@@ -124,7 +124,7 @@ function EchoAhHistory($bChinese)
     EchoPromotionHead($bChinese);
 }
 
-function EchoTitle($bChinese)
+function EchoTitle($bChinese = true)
 {
     EchoUrlSymbol();
     if ($bChinese)  echo '历史AH价格比较';

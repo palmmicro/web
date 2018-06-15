@@ -70,7 +70,7 @@ END;
     EchoTableParagraphEnd($strNavLink);
 }
 
-function EchoStockHistory($bChinese)
+function EchoStockHistory($bChinese = true)
 {
     if ($strSymbol = UrlGetQueryValue('symbol'))
     {
@@ -89,7 +89,7 @@ function EchoStockHistory($bChinese)
     EchoPromotionHead($bChinese);
 }
 
-function EchoTitle($bChinese)
+function EchoTitle($bChinese = true)
 {
     EchoUrlSymbol();
     if ($bChinese)  echo '历史价格记录';

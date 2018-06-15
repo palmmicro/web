@@ -44,7 +44,7 @@ function _echoPortfolio($portfolio, $sql, $bChinese)
     $arRef = StockReferenceSortBySymbol($arRef);
     foreach ($arRef as $ref)
     {
-    	$ref->SetMyStockLink($bChinese);
+    	RefSetExternalLinkMyStock($ref, $bChinese);
     }
     EchoReferenceParagraph($arRef, $bChinese);
 }
@@ -57,7 +57,7 @@ function _echoMoneyParagraph($portfolio, $bChinese)
     _EchoMoneyParagraphBegin($bChinese);
     foreach ($portfolio->arStockGroup as $group)
     {
-        _EchoMoneyGroupData($group, SelectGroupInternalLink($group->strGroupId, $bChinese), $fUSDCNY, $fHKDCNY);
+        _EchoMoneyGroupData($group, GetStockGroupLink($group->strGroupId, $bChinese), $fUSDCNY, $fHKDCNY);
     }
     _EchoMoneyGroupData($portfolio, ($bChinese ? '全部' : 'All'), $fUSDCNY, $fHKDCNY);
     EchoTableParagraphEnd();
@@ -77,7 +77,7 @@ function _onPrefetch($sql)
     StockPrefetchData($arSymbol);
 }
 
-function EchoMyFortfolio($bChinese)
+function EchoMyFortfolio($bChinese = true)
 {
 	$sql = new StockGroupSql(AcctGetMemberId());
     _onPrefetch($sql);

@@ -15,13 +15,13 @@ function _getEmailRegisterSubmit($bChinese)
     return $str;
 }
 
-function EchoEmailRegisterTitle($bChinese)
+function EchoEmailRegisterTitle($bChinese = true)
 {
     $str = _getEmailRegisterSubmit($bChinese);
     echo $str;
 }
 
-function EchoEmailRegister($bChinese)
+function EchoEmailRegister($bChinese = true)
 {
     $strSubmit = _getEmailRegisterSubmit($bChinese);
     EditEmailForm($strSubmit);

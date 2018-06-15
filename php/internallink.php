@@ -45,7 +45,7 @@ function GetIpLink($strIp, $bChinese)
     return _getIpLink('ip', $strIp, $bChinese);
 }
 
-function GetVisitorLink($strIp, $bChinese)
+function GetVisitorLink($strIp, $bChinese = true)
 {
     return _getIpLink(VISITOR_TABLE, $strIp, $bChinese);
 }

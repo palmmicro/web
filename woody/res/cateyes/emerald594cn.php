@@ -8,7 +8,7 @@
 </head>
 
 <body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _LayoutTopLeft(true); ?>
+<?php _LayoutTopLeft(); ?>
 
 <div>
 <h1>天然无油5.94克拉祖母绿猫眼</h1>
@@ -31,7 +31,7 @@ X射线照射下, 祖母绿发很弱的纯红色荧光.
 </font></blockquote>
 </div>
 
-<?php LayoutTailLogin(true); ?>
+<?php LayoutTailLogin(); ?>
 
 </body>
 </html>

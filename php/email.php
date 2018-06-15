@@ -34,7 +34,7 @@ function EmailReport($strText, $strSubject, $strWho = false)
     else             $str = $strSubject;
 	$str .= '<br />'.$strText;
 
-	EmailHtml(SUPPORT_EMAIL, $strSubject, $str.'<br />'.GetVisitorLink(UrlGetIp(), true));
+	EmailHtml(SUPPORT_EMAIL, $strSubject, $str.'<br />'.GetVisitorLink(UrlGetIp()));
 	if ($strWho)    EmailHtml($strWho, $strSubject, $str);
 }
 

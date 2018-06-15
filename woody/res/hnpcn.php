@@ -2,26 +2,26 @@
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<title><?php AdrEchoTitle(true); ?></title>
-<meta name="description" content="<?php AdrEchoMetaDescription(true); ?>">
+<title><?php AdrEchoTitle(); ?></title>
+<meta name="description" content="<?php AdrEchoMetaDescription(); ?>">
 <link href="../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _LayoutAdrTopLeft(true); ?>
+<?php _LayoutAdrTopLeft(); ?>
 
 <div>
-<h1><?php AdrEchoTitle(true); ?></h1>
-<?php AdrEchoAll(true); ?>
+<h1><?php AdrEchoTitle(); ?></h1>
+<?php AdrEchoAll(); ?>
 <p>相关软件:
 <?php
-    EchoCommoditySoftwareLinks(true);
-    EchoStockGroupLinks(true);
+    EchoCommoditySoftwareLinks();
+    EchoStockGroupLinks();
 ?>
 </p>
 </div>
 
-<?php LayoutTailLogin(true); ?>
+<?php LayoutTailLogin(); ?>
 
 </body>
 </html>

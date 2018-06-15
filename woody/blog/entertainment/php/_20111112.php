@@ -3,7 +3,7 @@ require_once('/php/stock.php');
 require_once('/php/stock/sinastockref.php');
 require_once('/php/ui/referenceparagraph.php');
 
-function EchoStockPrice($bChinese)
+function EchoStockPrice($bChinese = true)
 {
     $ref = new SinaStockReference('IQ');
 	if ($bChinese)

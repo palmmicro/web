@@ -92,7 +92,7 @@ function GetYahooHistoryQuotes($strSymbol, $strBeginY, $strBeginM, $strBeginD, $
 function IsYahooStrError($str)
 {
     $str = trim($str);
-    if (strlen($str) == 0 || strchr($str, 'html') || strchr($str, '<head>'))
+    if (strlen($str) == 0 || strstr($str, 'html') || strstr($str, '<head>'))
     {
         return true;
     }

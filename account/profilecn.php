@@ -8,14 +8,14 @@
 </head>
 
 <body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _LayoutTopLeft(true); ?>
+<?php _LayoutTopLeft(); ?>
 
 <div>
 <h1>资料</h1>
-<?php EchoAccountProfile(true); ?>
+<?php EchoAccountProfile(); ?>
 </div>
 
-<?php LayoutTail(true); ?>
+<?php LayoutTail(); ?>
 
 </body>
 </html>

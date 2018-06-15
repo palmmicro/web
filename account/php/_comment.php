@@ -2,7 +2,7 @@
 require_once('_account.php');
 require_once('/php/ui/commentparagraph.php');
 
-function EchoUserComment($bChinese)
+function EchoUserComment($bChinese = true)
 {
     global $strMemberId;
     

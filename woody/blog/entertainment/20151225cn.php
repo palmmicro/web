@@ -8,7 +8,7 @@
 </head>
 
 <body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _LayoutTopLeft(true); ?>
+<?php _LayoutTopLeft(); ?>
 
 <div>
 <h1>新浪股票实时数据接口的字段意义</h1>
@@ -43,7 +43,7 @@
                                    array('30', '2015-12-24', '日期'),
                                    array('31', '15:34:34', '时间'),
                                    array('32', '00', '结束符?')
-                                   ), 'stock', true);
+                                   ), 'stock');
 ?>
 
 <h3>新浪外盘<a name="future">期货</a>实时数据接口的字段意义</h3>
@@ -70,7 +70,7 @@
                                    array('11', '0', '当前卖量?'),
                                    array('12', '2016-01-28', '日期'),
                                    array('13', 'NYMEX原油', 'GB2312编码的名字')
-                                   ), 'future', true);
+                                   ), 'future');
 ?>
 
 <h3>新浪<a name="fund">基金</a>数据接口的字段意义</h3>
@@ -92,7 +92,7 @@
                                    array('3', '0.435', '上一个交易日净值'),
                                    array('4', '2016-02-15', '日期'),
                                    array('5', '66.2444', '(未知)')
-                                   ), 'fund', true);
+                                   ), 'fund');
 ?>
 
 <h3>新浪<a name="hongkong">港股</a>数据接口的字段意义</h3>
@@ -124,7 +124,7 @@
                             array('16', '75.700', '52周最低价'),
                             array('17', '2016/03/02', '日期'),
                             array('18', '16:01', '时间')
-                            ), 'hkstock', true);
+                            ), 'hkstock');
 ?>
 
 <h3>新浪<a name="futurecn">国内期货</a>实时数据接口的字段意义</h3>
@@ -157,7 +157,7 @@
                                    array('16', '黄金', '品种名简称'),
                                    array('17', '2016-09-30', '日期'),
                                    array('18-27', '0, 289.300, 283.900, 289.700, 283.050, 291.700, 282.000, 293.500, 282.000, 2.280', '(未知)')
-                                   ), 'cnfuture', true);
+                                   ), 'cnfuture');
 ?>
 
 <h3>新浪实时<a name="stockus">美股</a>数据接口的字段意义</h3>
@@ -203,12 +203,12 @@ Oct 14 04:00PM EDT,38.07,106590.00";
                             array('25', 'Oct 14 04:00PM EDT', '美东时区日期和时间'),
                             array('26', '38.07', '昨日收盘价'),
                             array('27', '106590.00', '盘前盘后交易成交量')
-                            ), 'usstock', true);
+                            ), 'usstock');
 ?>
 
 </div>
 
-<?php _LayoutBottom(true); ?>
+<?php _LayoutBottom(); ?>
 
 </body>
 </html>

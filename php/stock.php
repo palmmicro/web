@@ -128,9 +128,9 @@ http://stock.finance.sina.com.cn/usstock/quotes/XOP.html
 
 function RemoveDoubleQuotationMarks($str)
 {
-    $str = strchr($str, '"');
+    $str = strstr($str, '"');
     $str = ltrim($str, '"');
-    $strLeft = strchr($str, '"', true);     // works with no ending "
+    $strLeft = strstr($str, '"', true);     // works with no ending "
     if ($strLeft)   return $strLeft;
     return $str;
 }

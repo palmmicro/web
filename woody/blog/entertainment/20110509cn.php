@@ -8,7 +8,7 @@
 </head>
 
 <body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _LayoutTopLeft(true); ?>
+<?php _LayoutTopLeft(); ?>
 
 <div>
 <h1>Google投放的广告</h1>
@@ -32,7 +32,7 @@
 <br />由于<a href="../palmmicro/20100427cn.php">GFW</a>的影响, 从国内访问Palmmicro网站的时候Google的搜索框会导致所有Javascript延迟超过1分钟执行.
 另外, 根据Adsense的统计, 在过去4年半这个搜索框一共也就被用过几十次, 估计都是我自己用的. 为改善用户体验, 我把它从其它页面都去掉了, 仅在本篇的中英文页面保留. 
 </p>
-<?php AdsenseSearchEngine(true); ?>
+<?php AdsenseSearchEngine(); ?>
 
 <h3>第一笔Adsense收入</h3>
 <p>2016年1月22日
@@ -44,7 +44,7 @@
 
 </div>
 
-<?php _LayoutBottom(true); ?>
+<?php _LayoutBottom(); ?>
 
 </body>
 </html>

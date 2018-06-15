@@ -31,7 +31,7 @@ function AccountMenu($bChinese)
     NavEnd();
 }
 
-function _LayoutTopLeft($bChinese)
+function _LayoutTopLeft($bChinese = true)
 {
     LayoutTopLeft(AccountMenu, $bChinese);
 }

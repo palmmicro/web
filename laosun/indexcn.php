@@ -8,7 +8,7 @@
 </head>
 
 <body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _LaosunLayoutTopLeft(true); ?>
+<?php _LaosunLayoutTopLeft(); ?>
 
 <div>
 <h1>孙老湿</h1>
@@ -20,7 +20,7 @@
 </p>
 </div>
 
-<?php _LaosunLayoutBottom(true); ?>
+<?php _LaosunLayoutBottom(); ?>
 
 </body>
 </html>

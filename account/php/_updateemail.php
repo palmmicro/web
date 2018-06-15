@@ -15,13 +15,13 @@ function _getEmailUpdateSubmit($bChinese)
     return $str;
 }
 
-function EchoEmailUpdateTitle($bChinese)
+function EchoEmailUpdateTitle($bChinese = true)
 {
     $str = _getEmailUpdateSubmit($bChinese);
     echo $str;
 }
 
-function EchoEmailUpdate($bChinese)
+function EchoEmailUpdate($bChinese = true)
 {
     $strSubmit = _getEmailUpdateSubmit($bChinese);
     EditEmailForm($strSubmit);

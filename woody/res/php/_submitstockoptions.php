@@ -68,7 +68,7 @@ function _updateFundPurchaseAmount($strEmail, $strSymbol, $strVal)
 
 function _updateStockOptionAdr($strSymbol, $strVal)
 {
-	if (strchr($strVal, '/'))
+	if (strstr($strVal, '/'))
 	{
 		$ar = explode('/', $strVal);
 		$strAdr = $ar[0];
@@ -109,7 +109,7 @@ function _updateStockOptionEmaDays($strStockId, $iDays, $strDate, $strVal)
 
 function _updateStockOptionEma($strSymbol, $strStockId, $strDate, $strVal)
 {
-	if (strchr($strVal, '/') == false)		return;
+	if (strstr($strVal, '/') == false)		return;
 	$ar = explode('/', $strVal);
 	_updateStockOptionEmaDays($strStockId, 200, $strDate, $ar[0]);
 	_updateStockOptionEmaDays($strStockId, 50, $strDate, $ar[1]);
@@ -118,7 +118,7 @@ function _updateStockOptionEma($strSymbol, $strStockId, $strDate, $strVal)
 
 function _updateStockOptionEtf($strSymbol, $strVal)
 {
-	if (strchr($strVal, '*'))
+	if (strstr($strVal, '*'))
 	{
 		$ar = explode('*', $strVal);
 		$strIndex = $ar[0];

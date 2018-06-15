@@ -63,7 +63,7 @@ function _echoSpiderVisitorParagraph($strIp, $iStart, $iNum, $bChinese)
     EchoTableParagraphEnd($strNavLink);
 }
 
-function EchoSpiderVisitor($bChinese)
+function EchoSpiderVisitor($bChinese = true)
 {
     $strIp = UrlGetQueryValue('ip');
     if ($strIp)

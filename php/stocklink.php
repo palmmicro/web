@@ -20,19 +20,29 @@ function GetCalibrationLink($strSymbol, $bChinese)
     return GetStockSymbolLink('calibration', $strSymbol, $bChinese, '校准记录', 'Calibration History');
 }
 
-function GetNetValueHistoryLink($strSymbol, $bChinese)
+function GetNetValueHistoryLink($strSymbol, $bChinese = true)
 {
     return GetStockSymbolLink('netvaluehistory', $strSymbol, $bChinese, '净值历史', 'Net Value History');
 }
 
-function GetMyStockLink($strSymbol, $bChinese)
+function GetMyStockLink($strSymbol, $bChinese = true)
 {
     return GetTitleLink('mystock', $bChinese, $strSymbol, false, 'symbol='.$strSymbol);
 }
 
-function GetMyStockRefLink($ref, $bChinese)
+function RefGetMyStockLink($ref, $bChinese = true)
 {
     return GetMyStockLink($ref->GetStockSymbol(), $bChinese);
+}
+
+function RefSetExternalLinkMyStock($ref, $bChinese)
+{
+   	$ref->SetExternalLink(RefGetMyStockLink($ref, $bChinese));
+}
+
+function RefSetExternalLink($ref, $bChinese = true)
+{
+	$ref->SetExternalLink(GetStockLink($ref->GetStockSymbol(), $bChinese));
 }
 
 function GetMyPortfolioLink($bChinese)
@@ -152,7 +162,7 @@ function StockGetEditGroupLink($strGroupId, $bChinese)
 }
 
 // ****************************** Other internal link related functions *******************************************************
-function SelectSymbolInternalLink($strSymbol, $bChinese = true)
+function SelectStockLink($strSymbol, $bChinese)
 {
     if (in_arrayAll($strSymbol))
     {
@@ -161,11 +171,20 @@ function SelectSymbolInternalLink($strSymbol, $bChinese = true)
     return false;
 }
 
-function SelectGroupInternalLink($strGroupId, $bChinese = false)
+function GetStockLink($strSymbol, $bChinese)
+{
+   	if ($strLink = SelectStockLink($strSymbol, $bChinese))
+    {
+    	return $strLink; 
+    }
+    return GetMyStockLink($strSymbol, $bChinese);
+}
+
+function GetStockGroupLink($strGroupId, $bChinese = true)
 {
     if ($strGroupName = SqlGetStockGroupName($strGroupId))
     {
-    	if ($strLink = SelectSymbolInternalLink($strGroupName, $bChinese))
+    	if ($strLink = SelectStockLink($strGroupName, $bChinese))
     	{
     		return $strLink; 
     	}

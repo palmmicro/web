@@ -12,14 +12,14 @@ function LaosunNavigateBlogGroup($bChinese)
     NavEnd();
 }
 
-function _LaosunLayoutTopLeft($bChinese)
+function _LaosunLayoutTopLeft($bChinese = true)
 {
     AcctNoAuth();
-    SetSwitchLanguage(false);
+    SetSwitchLanguage();
     LayoutTopLeft(LaosunNavigateBlogGroup, $bChinese);
 }
 
-function _LaosunLayoutBottom($bChinese)
+function _LaosunLayoutBottom($bChinese = true)
 {
     EchoBlogComments($bChinese);
     LayoutTailLogin($bChinese);

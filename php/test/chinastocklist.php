@@ -24,7 +24,7 @@ function TestChinaFundList()
     while (!feof($file))
     {
         $strLine = fgets($file);
-        if ($strLeft = strchr($strLine, '<span>', true))
+        if ($strLeft = strstr($strLine, '<span>', true))
         {
             $strName = FromGB2312ToUTF8(substr($strLeft, 6));
             $strNumber = substr($strLeft, 0, 6);
@@ -73,7 +73,7 @@ function TestUsStockList()
     while (!feof($file))
     {
         $strLine = fgets($file);
-        if ($str = strchr($strLine, 'title='))
+        if ($str = strstr($strLine, 'title='))
         {
             $str = RemoveDoubleQuotationMarks($str);
             $arWord = explode(US_STOCK_SEPARATER, $str);

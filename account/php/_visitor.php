@@ -70,7 +70,7 @@ function _echoBlogVisitorParagraph($strIp, $iStart, $iNum, $bChinese)
     EchoTableParagraphEnd($strNavLink);
 }
 
-function EchoBlogVisitor($bChinese)
+function EchoBlogVisitor($bChinese = true)
 {
     $strIp = UrlGetQueryValue('ip');
     if ($strIp)

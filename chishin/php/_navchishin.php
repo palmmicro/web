@@ -13,14 +13,14 @@ function ChishinNavigateBlogGroup($bChinese)
     NavEnd();
 }
 
-function _ChishinLayoutTopLeft($bChinese)
+function _ChishinLayoutTopLeft($bChinese = true)
 {
     AcctNoAuth();
-    SetSwitchLanguage(false);
+    SetSwitchLanguage();
     LayoutTopLeft(ChishinNavigateBlogGroup, $bChinese);
 }
 
-function _ChishinLayoutBottom($bChinese)
+function _ChishinLayoutBottom($bChinese = true)
 {
     EchoBlogComments($bChinese);
     LayoutTailLogin($bChinese);

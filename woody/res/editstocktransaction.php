@@ -10,7 +10,7 @@
 </head>
 
 <body bgproperties=fixed leftmargin=0 topmargin=0 onLoad=OnLoad()>
-<?php _LayoutTopLeft(true); ?>
+<?php _LayoutTopLeft(false); ?>
 
 <div>
 <h1>Update Stock Transaction</h1>

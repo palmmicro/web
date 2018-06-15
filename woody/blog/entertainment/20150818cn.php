@@ -9,7 +9,7 @@
 </head>
 
 <body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _LayoutTopLeft(true); ?>
+<?php _LayoutTopLeft(); ?>
 
 <?php DemoPrefetchData(); ?>
 
@@ -134,7 +134,7 @@
 最近几天的直接显示在当前页面, 同时增加<?php EchoPhpFileLink('/woody/res/netvaluehistory.php'); ?>, 
 <?php EchoPhpFileLink('/woody/res/netvaluehistorycn.php'); ?>和<?php EchoPhpFileLink('/woody/res/php/_netvaluehistory.php'); ?>显示全部历史数据.
 </p>
-<?php EchoFundHistoryDemo(true); ?>
+<?php EchoFundHistoryDemo(); ?>
 
 <h3>统一数据显示格式</h3>
 <p>2016年1月26日
@@ -147,7 +147,7 @@
 <br />原来<font color=olive>StockReference</font>类中记录原始数据的成员变量$strDate (2014-11-13, 'Y-m-d')和$strTime (08:55:00, 'H:i:s')维持不变,
 增加专门用来显示的成员变量$strTimeHM (08:55), 分离数据和显示.   
 </p>
-<?php EchoReferenceDemo(true); ?>
+<?php EchoReferenceDemo(); ?>
 
 <h3>限购的总是好东西</h3>
 <p>2016年2月26日
@@ -227,7 +227,7 @@
 <br />不知道什么原因, 我不喜欢T-1/T/T+1这种叫法, 所以我在网页中把T日估值称为官方估值, 而把T+1估值称为实时估值. 为了让我的实时估值更加名副其实, 在采用的<a href="20160615cn.php">美元人民币中间价</a>上也是用的当天的中间价.
 也就是说, 除了中间价和CL的区别, 用来做官方估值和实时估值的其它因素都是一样的.
 </p>
-<?php EchoFundEstDemo(true); ?>
+<?php EchoFundEstDemo(); ?>
 
 <h3>验证<a name="thanouslaw">小心愿定律</a></h3>
 <p>2016年9月18日
@@ -266,7 +266,7 @@
 <br />为了有效配合今年的<a href="20141016cn.php#2016">打新</a>计划, 我打算扩大中国石化外的门票范围, 但是同时沿用AH股价格比较的思路, 只选取A股价格低于H股的作为门票.
 <br />替选股增加个对比页面, 同时把原来<a href="#adr">ADR</a>中用到的AH关联数组统一放到<?php EchoPhpFileLink('/php/ahstockarray.php'); ?>中.
 </p>
-<?php EchoAhDemo(true); ?>
+<?php EchoAhDemo(); ?>
 
 <h3><a name="bollinger">布林</a>线</h3>
 <p>2017年4月2日
@@ -351,7 +351,7 @@
 <br />最后解出结果.
 <br />EMA设计精巧, 不存在偷跑的问题. 为统一显示, 现在T估值中放的200天EMA, T+1估值中放的50天EMA.
 </p>
-<?php EchoLofSmaDemo(true); ?>
+<?php EchoLofSmaDemo(); ?>
 
 <h3>美股<a name="adrhcompare">ADR</a>跟港股对比</h3>
 <p>2018年4月4日
@@ -361,11 +361,11 @@
 不仅港股腾讯(<?php EchoMyStockLink('00700'); ?>)每天巨量交易, 就连它在美股粉单市场的<a href="#adr">ADR</a>在雪球上都热闹非凡.
 这吸引了我的注意力, 然后发现港股还有其它不少股票也有美股粉单市场的ADR, 于是我按照原来<a href="#ahcompare">AH对比</a>的套路增加了个页面蹭一下热度.
 </p>
-<?php EchoAdrhDemo(true); ?>
+<?php EchoAdrhDemo(); ?>
 
 </div>
 
-<?php _LayoutBottom(true); ?>
+<?php _LayoutBottom(); ?>
 
 </body>
 </html>

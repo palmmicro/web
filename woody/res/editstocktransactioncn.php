@@ -10,14 +10,14 @@
 </head>
 
 <body bgproperties=fixed leftmargin=0 topmargin=0 onLoad=OnLoad()>
-<?php _LayoutTopLeft(true); ?>
+<?php _LayoutTopLeft(); ?>
 
 <div>
 <h1>修改股票交易</h1>
 <?php StockEditTransactionForm(true); ?>
 </div>
 
-<?php LayoutTail(true); ?>
+<?php LayoutTail(); ?>
 
 </body>
 </html>

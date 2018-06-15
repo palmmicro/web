@@ -134,7 +134,7 @@ function _getTradingParagraphStr($arColumn, $bChinese)
 function EchoFundTradingParagraph($fund, $bChinese, $callback = false)
 {
     $ref = $fund->stock_ref;
-    $strSymbol = GetMyStockRefLink($ref, $bChinese);
+    $strSymbol = RefGetMyStockLink($ref, $bChinese);
     $strEstPrice = $ref->GetPriceDisplay($fund->fPrice);
     if ($fund->fFairNetValue)       $strEstPrice .= '/'.$ref->GetPriceDisplay($fund->fFairNetValue);
     if ($fund->fRealtimeNetValue)   $strEstPrice .= '/'.$ref->GetPriceDisplay($fund->fRealtimeNetValue);
@@ -165,8 +165,8 @@ function EchoFundTradingParagraph($fund, $bChinese, $callback = false)
 function EchoAhTradingParagraph($hshare_ref, $bChinese)
 {
 	$ref = $hshare_ref->a_ref;
-    $strSymbol = GetMyStockRefLink($ref, $bChinese); 
-    $strSymbolH = GetMyStockRefLink($hshare_ref, $bChinese);
+    $strSymbol = RefGetMyStockLink($ref, $bChinese); 
+    $strSymbolH = RefGetMyStockLink($hshare_ref, $bChinese);
     $strPriceH = $hshare_ref->GetCurrentPriceDisplay();
    
 	$arSma = GetSmaTableColumn($bChinese);
@@ -176,7 +176,7 @@ function EchoAhTradingParagraph($hshare_ref, $bChinese)
     $arColumn[] = GetAhCompareLink($bChinese).$strPremium;
     if ($hshare_ref->adr_ref)
     {
-    	$strAdrLink = GetMyStockRefLink($hshare_ref->adr_ref, $bChinese);
+    	$strAdrLink = RefGetMyStockLink($hshare_ref->adr_ref, $bChinese);
     	if ($bChinese == false)	$strAdrLink .= ' ';
     	$arColumn[] = $strAdrLink.$strPremium;
     	$fVal = $hshare_ref->FromUsdToCny($hshare_ref->adr_ref->fPrice);

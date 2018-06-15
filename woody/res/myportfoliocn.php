@@ -8,19 +8,19 @@
 </head>
 
 <body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _LayoutTopLeft(true); ?>
+<?php _LayoutTopLeft(); ?>
 
 <div>
 <h1>我的证券投资组合</h1>
-<?php EchoMyFortfolio(true); ?>
+<?php EchoMyFortfolio(); ?>
 <p>相关软件:
 <?php
-    EchoStockGroupLinks(true);
+    EchoStockGroupLinks();
 ?>
 </p>
 </div>
 
-<?php LayoutTailLogin(true); ?>
+<?php LayoutTailLogin(); ?>
 
 </body>
 </html>

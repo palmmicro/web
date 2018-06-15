@@ -21,7 +21,7 @@ function NavLoopCompany($bChinese)
     ResMenu($arCompanys, $bChinese);
 }
 
-function _LayoutTopLeft($bChinese)
+function _LayoutTopLeft($bChinese = true)
 {
     LayoutTopLeft(NavLoopCompany, $bChinese);
 }
