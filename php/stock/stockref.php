@@ -13,54 +13,6 @@ define('STOCK_PRE_MARKET', 'Pre-Market Trading');
 define('STOCK_POST_MARKET', 'Post-Market Trading');
 
 // ****************************** Public functions *******************************************************
-
-function StockReferenceSortBySymbol($arRef)
-{
-    $ar = array();
-    foreach ($arRef as $ref)
-    {
-        $strSymbol = $ref->GetStockSymbol();
-        $ar[$strSymbol] = $ref; 
-    }
-    ksort($ar);
-    
-    $arSort = array();
-    foreach ($ar as $str => $ref)
-    {
-        $arSort[] = $ref;
-    }
-    return $arSort;
-}
-
-function ConvertChineseDescription($str, $bChinese = true)
-{
-    if ($str == STOCK_SINA_DATA)
-    {
-        if ($bChinese)  $str = 'Sina数据';
-    }
-    else if ($str == STOCK_SINA_FUTURE_DATA)
-    {
-        if ($bChinese)  $str = 'Sina期货数据';
-    }
-    else if ($str == STOCK_YAHOO_DATA)
-    {
-        if ($bChinese)  $str = 'Yahoo数据(可能有15分钟延迟)';
-    }
-    else if ($str == STOCK_PRE_MARKET)
-    {
-        if ($bChinese)  $str = '盘前交易';
-    }
-    else if ($str == STOCK_POST_MARKET)
-    {
-        if ($bChinese)  $str = '盘后交易';
-    }
-    else if ($str == STOCK_NET_VALUE)
-    {
-        if ($bChinese)  $str = '净值';
-    }
-    return $str;
-}
-
 // 06:56:22 => 06:56
 function GetTimeHM($strHMS)
 {
@@ -216,7 +168,7 @@ function _getYahooStr($sym, $strYahooSymbol, $strFileName)
 class StockReference
 {
     var $sym = false;                  // StockSymbol class
-    var $strDescription;              // Stock description
+    var $strDescription = false;     // Stock description
 	var $bConvertGB2312 = false;
     
     var $strFileName;                       // File to store original data

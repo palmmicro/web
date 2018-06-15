@@ -252,6 +252,59 @@ function StockGetPercentageDisplay($fPrice, $fPrice2)
     return '';
 }
 
+// ****************************** StockReference public functions *******************************************************
+function ConvertChineseDescription($str, $bChinese = true)
+{
+    if ($str == STOCK_SINA_DATA)
+    {
+        if ($bChinese)  $str = 'Sina数据';
+    }
+    else if ($str == STOCK_SINA_FUTURE_DATA)
+    {
+        if ($bChinese)  $str = 'Sina期货数据';
+    }
+    else if ($str == STOCK_YAHOO_DATA)
+    {
+        if ($bChinese)  $str = 'Yahoo数据(可能有15分钟延迟)';
+    }
+    else if ($str == STOCK_PRE_MARKET)
+    {
+        if ($bChinese)  $str = '盘前交易';
+    }
+    else if ($str == STOCK_POST_MARKET)
+    {
+        if ($bChinese)  $str = '盘后交易';
+    }
+    else if ($str == STOCK_NET_VALUE)
+    {
+        if ($bChinese)  $str = '净值';
+    }
+    return $str;
+}
+
+function RefGetDescription($ref, $bChinese)
+{
+//    return '<font color=grey>'.$str.'</font>';
+}
+
+function RefSortBySymbol($arRef)
+{
+    $ar = array();
+    foreach ($arRef as $ref)
+    {
+        $strSymbol = $ref->GetStockSymbol();
+        $ar[$strSymbol] = $ref; 
+    }
+    ksort($ar);
+    
+    $arSort = array();
+    foreach ($ar as $str => $ref)
+    {
+        $arSort[] = $ref;
+    }
+    return $arSort;
+}
+
 // ****************************** Stock final integration functions *******************************************************
 function StockPrefetchData($ar)
 {

@@ -61,7 +61,7 @@ function EchoAhParagraph($arRef, $bChinese)
 		{
 			if ($strSort == 'ha')
 			{
-				$arRef = StockReferenceSortBySymbol($arRef);
+				$arRef = RefSortBySymbol($arRef);
 			}
 		}
 		else
@@ -116,7 +116,7 @@ function EchoAdrhParagraph($arRef, $bChinese)
 		{
 			if ($strSort == 'hadr')
 			{
-				$arRef = StockReferenceSortBySymbol($arRef);
+				$arRef = RefSortBySymbol($arRef);
 			}
 		}
 		else
