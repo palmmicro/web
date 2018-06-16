@@ -152,7 +152,7 @@ function GradedFundEchoTitle($bChinese = true)
 {
     global $group;
     
-    $str = _GetStockDisplay($group->ref->stock_ref);
+    $str = _GetStockDisplay($group->ref->stock_ref, $bChinese);
     if ($bChinese)  $str .= '分析工具';
     else              $str .= ' Analysis Tool';
     echo $str;
@@ -162,7 +162,7 @@ function GradedFundEchoMetaDescription($bChinese = true)
 {
     global $group;
     
-    $str = _GetStockDisplay($group->ref->stock_ref);
+    $str = _GetStockDisplay($group->ref->stock_ref, $bChinese);
     if ($bChinese)  $str .= '和它相关的母基金以及分级B的净值分析计算网页工具. 分级基金是个奇葩设计, 简直就是故意给出套利机会, 让大家来交易增加流动性.';
     else              $str .= ' and its related funds net value calculation and analysis.';
     EchoMetaDescriptionText($str);

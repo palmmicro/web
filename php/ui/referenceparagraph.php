@@ -1,52 +1,6 @@
 <?php
 require_once('stocktable.php');
 
-function _greyString($str)
-{
-    return '<font color=grey>'.$str.'</font>';
-}
-
-function _italicString($str)
-{
-    return '<i>'.$str.'</i>';
-}
-
-function _boldString($str)
-{
-    return '<b>'.$str.'</b>';
-}
-
-function _convertDescription($str, $bChinese)
-{
-    $strDisplay = ConvertChineseDescription($str, $bChinese);
-    
-    if ($str == STOCK_SINA_DATA)
-    {
-        $str = _greyString($strDisplay);
-    }
-    else if ($str == STOCK_SINA_FUTURE_DATA)
-    {
-        $str = _greyString($strDisplay);
-    }
-    else if ($str == STOCK_YAHOO_DATA)
-    {
-        $str = _greyString($strDisplay);
-    }
-    else if ($str == STOCK_PRE_MARKET)
-    {
-        $str = _italicString($strDisplay);
-    }
-    else if ($str == STOCK_POST_MARKET)
-    {
-        $str = _italicString($strDisplay);
-    }
-    else if ($str == STOCK_NET_VALUE)
-    {
-        $str = _boldString($strDisplay);
-    }
-    return $str;
-}
-
 // $ref from StockReference
 function _echoReferenceTableItem($ref, $bChinese, $callback = false)
 {
@@ -67,7 +21,7 @@ function _echoReferenceTableItem($ref, $bChinese, $callback = false)
     else
     {
     	if (AcctIsDebug())		$strDescription = $ref->DebugLink();
-    	else					$strDescription = _convertDescription($ref->strDescription, $bChinese);
+    	else					$strDescription = RefGetDescription($ref, $bChinese, true);
         $strDisplayEx = GetTableColumnDisplay($strDescription);
     }
 

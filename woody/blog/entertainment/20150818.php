@@ -152,7 +152,7 @@ added new data member $strTimeHM (08:55) for display, separating data and displa
 <p>Feb 26, 2016
 <br />SZ162411 is trading more than 10% higher than its net value recently, the max premium as high as 17%, so the <a href="20160101.php">XOP and SZ162411 arbitrage</a> is not possible now.
 <br />Continuing to organzie the similar code, added <font color=olive>MyStockReference</font> class, and put it between <font color=olive>StockReference</font> class and <font color=olive>SinaStockReference</font>.
-We called mysql related function like <i>SqlGetStockDescription</i> of <?php EchoPhpFileLink('/php/sql/sqlstock.php'); ?> in <font color=olive>MyStockReference</font> class.
+We called mysql related function of <?php EchoPhpFileLink('/php/sql/sqlstock.php'); ?> in <font color=olive>MyStockReference</font> class.
 </p>
 
 <h3><a name="gradedfund">Graded Fund</a></h3>

@@ -253,38 +253,56 @@ function StockGetPercentageDisplay($fPrice, $fPrice2)
 }
 
 // ****************************** StockReference public functions *******************************************************
-function ConvertChineseDescription($str, $bChinese = true)
+function _greyString($str)
 {
-    if ($str == STOCK_SINA_DATA)
-    {
-        if ($bChinese)  $str = 'Sina数据';
-    }
-    else if ($str == STOCK_SINA_FUTURE_DATA)
-    {
-        if ($bChinese)  $str = 'Sina期货数据';
-    }
-    else if ($str == STOCK_YAHOO_DATA)
-    {
-        if ($bChinese)  $str = 'Yahoo数据(可能有15分钟延迟)';
-    }
-    else if ($str == STOCK_PRE_MARKET)
-    {
-        if ($bChinese)  $str = '盘前交易';
-    }
-    else if ($str == STOCK_POST_MARKET)
-    {
-        if ($bChinese)  $str = '盘后交易';
-    }
-    else if ($str == STOCK_NET_VALUE)
-    {
-        if ($bChinese)  $str = '净值';
-    }
-    return $str;
+    return '<font color=grey>'.$str.'</font>';
 }
 
-function RefGetDescription($ref, $bChinese)
+function _italicString($str)
 {
-//    return '<font color=grey>'.$str.'</font>';
+    return '<i>'.$str.'</i>';
+}
+
+function _boldString($str)
+{
+    return '<b>'.$str.'</b>';
+}
+
+function _convertDescriptionDisplay($str, $strDisplay)
+{
+    if ($str == STOCK_PRE_MARKET || $str == STOCK_POST_MARKET)	        						return _greyString($strDisplay);
+    if ($str == STOCK_NET_VALUE)																	return _boldString($strDisplay);
+    if ($str == STOCK_SINA_DATA || $str == STOCK_SINA_FUTURE_DATA || $str == STOCK_YAHOO_DATA)	return _italicString($strDisplay);
+    return $strDisplay;
+}
+
+function RefGetDescription($ref, $bChinese = true, $bConvertDisplay = false)
+{
+	$str = $ref->GetDescription();
+	if ($str)
+	{
+		$ar = array(STOCK_PRE_MARKET => '盘前交易', STOCK_POST_MARKET => '盘后交易', STOCK_NET_VALUE => '净值');
+		if (array_key_exists($str, $ar))
+		{
+			$strDisplay = $bChinese ? $ar[$str] : $str;
+			if ($bConvertDisplay)
+			{
+				$strDisplay = _convertDescriptionDisplay($str, $strDisplay);
+			}
+			return $strDisplay;
+		}
+	}
+	else
+	{
+		$str = '';
+		$sql = new StockSql();
+		if ($stock = $sql->GetById($ref->GetStockId()))
+		{
+			$str = $bChinese ? $stock['cn'] : $stock['us'];
+			$ref->SetDescription($str);
+		}
+	}
+    return $str;
 }
 
 function RefSortBySymbol($arRef)

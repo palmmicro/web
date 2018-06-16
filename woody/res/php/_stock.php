@@ -261,9 +261,9 @@ function _GetAllDisplay($str, $bChinese)
     return $str;
 }
 
-function _GetStockDisplay($ref)
+function _GetStockDisplay($ref, $bChinese)
 {
-    return $ref->strDescription.'('.$ref->GetStockSymbol().')';
+    return RefGetDescription($ref, $bChinese).'('.$ref->GetStockSymbol().')';
 }
 
 ?>

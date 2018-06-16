@@ -147,11 +147,11 @@
 </p>
 <?php EchoReferenceDemo(); ?>
 
-<h3>限购的总是好东西</h3>
+<h3>周期3意味着混沌</h3>
 <p>2016年2月26日
 <br />华宝油气持续溢价10%已经成了常态, 最近最高甚至到了17%, <a href="20160101cn.php">华宝油气和XOP套利</a>没法做了.
 <br />继续整理同类代码, 加入<font color=olive>MyStockReference</font>类, 放在<font color=olive>StockReference</font>类和<font color=olive>SinaStockReference</font>类的中间.
-从<font color=olive>MyStockReference</font>开始调用了<?php EchoPhpFileLink('/php/sql/sqlstock.php'); ?>中的<i>SqlGetStockDescription</i>等数据库相关函数.
+从<font color=olive>MyStockReference</font>开始调用了<?php EchoPhpFileLink('/php/sql/sqlstock.php'); ?>中的数据库相关函数.
 </p>
 
 <h3><a name="gradedfund">分级基金</a></h3>

@@ -8,6 +8,7 @@ define('STOCK_EASTMONEY_FOREX', 'East Money Forex Data');
 define('STOCK_DB_FOREX', 'Forex Data From Database');
 define('STOCK_GOOGLE_DATA', 'Google Data');
 define('STOCK_YAHOO_DATA', 'Yahoo Data (possible 15 min delay)');
+
 define('STOCK_NET_VALUE', 'Net Value');
 define('STOCK_PRE_MARKET', 'Pre-Market Trading');
 define('STOCK_POST_MARKET', 'Post-Market Trading');
@@ -221,7 +222,6 @@ class StockReference
         else										$this->fPercentage = 0.0;
         
         if ($this->strTime)					$this->strTimeHM = GetTimeHM($this->strTime);
-        if ($this->strChineseName == false)	$this->strChineseName = $this->strName;     // 数据中只有唯一一个中文或者英文名字的情况下, 优先放strName字段.
     }
 
     function _convertPrice()
@@ -242,24 +242,6 @@ class StockReference
         unlinkEmptyFile($this->strFileName);
     }
     
-    function GetChineseName()
-    {
-    	if ($this->bConvertGB2312)
-    	{
-    		return FromGB2312ToUTF8($this->strChineseName);
-    	}
-   		return $this->strChineseName;
-    }
-    
-    function GetEnglishName()
-    {
-    	if ($this->bConvertGB2312)
-    	{
-    		return FromGB2312ToUTF8($this->strName);
-    	}
-   		return $this->strName;
-    }
-    
     function GetStockSymbol()
     {
         return $this->sym->GetSymbol();
@@ -273,6 +255,16 @@ class StockReference
     function SetExternalLink($strLink)
     {
    		$this->strExternalLink = $strLink;
+    }
+    
+    function GetDescription()
+    {
+    	return $this->strDescription;
+    }
+    
+    function SetDescription($str)
+    {
+    	$this->strDescription = $str;
     }
     
     function _newStockSymbol($strSymbol)

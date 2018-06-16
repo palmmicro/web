@@ -19,7 +19,7 @@ function _textVolume($strVolume)
 
 function TextFromExtendedTradingReferencce($ref)
 {
-    $str = ConvertChineseDescription($ref->strDescription).':'.$ref->strPrice.' '.$ref->strDate.' '.$ref->strTime.WX_EOL;
+    $str = RefGetDescription($ref).':'.$ref->strPrice.' '.$ref->strDate.' '.$ref->strTime.WX_EOL;
     if ($ref->strVolume)	$str .= _textVolume($ref->strVolume);
     return $str;
 }
@@ -28,7 +28,7 @@ function TextFromStockReference($ref)
 {
     if ($ref->bHasData == false)        return false;
 
-    $str = ConvertChineseDescription($ref->strDescription).WX_EOL;
+    $str = RefGetDescription($ref).WX_EOL;
     $str .= $ref->GetExternalLink().WX_EOL;
     $str .= '现价:'.$ref->strPrice.' '.$ref->strDate.' '.$ref->strTime.WX_EOL;
     $str .= '涨跌:'.$ref->GetPercentageText($ref->fPrevPrice).WX_EOL;
@@ -70,7 +70,7 @@ function TextFromFundReference($ref)
 {
     if ($ref->bHasData == false)                return false;
 
-    $strName = $ref->strDescription.WX_EOL.$ref->GetStockSymbol().WX_EOL;
+    $strName = RefGetDescription($ref).WX_EOL.$ref->GetStockSymbol().WX_EOL;
     $stock_ref = $ref->stock_ref;
     if ($stock_ref)
     {

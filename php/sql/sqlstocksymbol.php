@@ -79,17 +79,6 @@ function SqlGetStock($strSymbol)
 	return $sql->Get($strSymbol);
 }
 
-function SqlGetStockDescription($strSymbol)
-{
-    $stock = SqlGetStock($strSymbol);
-    if ($stock)
-    {
-		if (UrlIsChinese())    return $stock['cn'];
-		else	                return $stock['us'];
-	}
-	return false;
-}
-
 function SqlGetStockId($strSymbol)
 {
 	$sql = new StockSql();

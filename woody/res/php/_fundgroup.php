@@ -10,7 +10,7 @@ function EchoTitle($bChinese = true)
 {
     global $group;
     
-    $str = _GetStockDisplay($group->ref->stock_ref);
+    $str = _GetStockDisplay($group->ref->stock_ref, $bChinese);
     if ($bChinese)
     {
         $str .= '净值';
@@ -26,7 +26,7 @@ function EchoShortName()
 {
     global $group;
     
-    $ar = explode('-', $group->ref->stock_ref->strDescription);
+    $ar = explode('-', RefGetDescription($group->ref->stock_ref));
     $str = $ar[0];
     echo $str;
 }

@@ -154,9 +154,9 @@ function EchoMetaDescription($bChinese = true)
     global $group;
     
     $fund = $group->ref;
-    $strDescription = _GetStockDisplay($fund->stock_ref);
-    $strBase = $group->cny_ref->strDescription;
-    if ($fund->est_ref)     $strBase .= '/'.$fund->est_ref->strDescription;
+    $strDescription = _GetStockDisplay($fund->stock_ref, $bChinese);
+    $strBase = RefGetDescription($group->cny_ref, $bChinese);
+    if ($fund->est_ref)     $strBase .= '/'.RefGetDescription($fund->est_ref, $bChinese);
     
     if ($bChinese)  $str = '根据'.$strBase.'等因素计算'.$strDescription.'实时净值的网页工具, 提供不同市场下统一的交易记录和转换持仓盈亏等功能.';
     else              $str = 'Net value of '.$strDescription.' based on '.$strBase.'.';
