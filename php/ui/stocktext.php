@@ -19,7 +19,7 @@ function _textVolume($strVolume)
 
 function TextFromExtendedTradingReferencce($ref)
 {
-    $str = RefGetDescription($ref).':'.$ref->strPrice.' '.$ref->strDate.' '.$ref->strTime.WX_EOL;
+    $str = RefGetDescription($ref).':'.strval($ref->fPrice).' '.$ref->strDate.' '.GetTimeHM($ref->strTime).WX_EOL;
     if ($ref->strVolume)	$str .= _textVolume($ref->strVolume);
     return $str;
 }
@@ -30,11 +30,11 @@ function TextFromStockReference($ref)
 
     $str = RefGetDescription($ref).WX_EOL;
     $str .= $ref->GetExternalLink().WX_EOL;
-    $str .= '现价:'.$ref->strPrice.' '.$ref->strDate.' '.$ref->strTime.WX_EOL;
+    $str .= '现价:'.strval($ref->fPrice).' '.$ref->strDate.' '.GetTimeHM($ref->strTime).WX_EOL;
     $str .= '涨跌:'.$ref->GetPercentageText($ref->fPrevPrice).WX_EOL;
-    if ($ref->strOpen)		$str .= '开盘价:'.$ref->strOpen.WX_EOL;
-    if ($ref->strHigh)		$str .= '最高:'.$ref->strHigh.WX_EOL;
-    if ($ref->strLow)		$str .= '最低:'.$ref->strLow.WX_EOL;
+    if ($ref->strOpen)		$str .= '开盘价:'.strval_float($ref->strOpen).WX_EOL;
+    if ($ref->strHigh)		$str .= '最高:'.strval_float($ref->strHigh).WX_EOL;
+    if ($ref->strLow)		$str .= '最低:'.strval_float($ref->strLow).WX_EOL;
     if ($ref->strVolume)	$str .= _textVolume($ref->strVolume);
     
     if ($ref->extended_ref)
@@ -84,7 +84,7 @@ function TextFromFundReference($ref)
         $str = $strName;
     }
     
-    $str .= '净值:'.$ref->strPrice.' '.$ref->strDate.WX_EOL;
+    $str .= '净值:'.strval($ref->fPrice).' '.$ref->strDate.WX_EOL;
     if ($ref->fOfficialNetValue)
     {
         $str .= '官方'._textPremium($stock_ref, $ref->fOfficialNetValue).' '.$ref->strOfficialDate.WX_EOL;

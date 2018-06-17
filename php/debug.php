@@ -15,6 +15,11 @@ define('SECONDS_IN_MIN', 60);
 define('SECONDS_IN_HOUR', 3600);
 define('SECONDS_IN_DAY', 86400);
 
+function strval_float($str)
+{
+	return strval(floatval($str));
+}
+
 function unlinkEmptyFile($strFileName)
 {
     if (!unlink($strFileName))

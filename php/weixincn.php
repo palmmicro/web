@@ -11,8 +11,6 @@ require_once('ui/stocktext.php');
 require_once('sql/sqlspider.php');
 require_once('sql/sqlweixin.php');
 
-require_once('stock/dbcnyref.php');
-
 define('WX_DEFAULT_SYMBOL', 'SZ162411');
 define('MAX_WX_STOCK', 50);
 
@@ -187,7 +185,7 @@ function _wxGetStockText($strSymbol)
     }
     else if ($sym->IsEastMoneyForex())
     {
-    	$ref = new DbCnyReference($strSymbol);
+    	$ref = new CnyReference($strSymbol);
         $str = _getStockReferenceText($ref); 
     }
     else if ($sym->IsFundA())
@@ -196,7 +194,7 @@ function _wxGetStockText($strSymbol)
         $str = _getFundReferenceText($ref);
         if (in_arrayLof($strSymbol))
         {
-        	$uscny_ref = new DbCnyReference('USCNY');
+        	$uscny_ref = new CnyReference('USCNY');
 	        $str .= _getStockReferenceText($uscny_ref); 
         }
     }

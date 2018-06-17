@@ -23,7 +23,7 @@ function GetTableColumnDisplay($strDisplay, $strColor = false)
 
 function GetTableColumnFloatDisplay($strFloat, $strColor = false)
 {
-	return GetTableColumnDisplay(strval(floatval($strFloat)), $strColor);
+	return GetTableColumnDisplay(strval_float($strFloat), $strColor);
 }
 
 function GetTableColumn($iWidth, $strDisplay)
