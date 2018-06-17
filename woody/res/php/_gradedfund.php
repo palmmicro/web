@@ -8,7 +8,6 @@ class _GradedFundGroup extends _StockGroup
 {
     var $bCanTradeM;
     
-    // constructor
     function _GradedFundGroup($strSymbol) 
     {
         StockPrefetchData(array($strSymbol));
@@ -25,7 +24,6 @@ class _GradedFundGroup extends _StockGroup
     } 
 } 
 
-// ****************************** Functions *******************************************************
 function _gradedFundRefCallbackData($ref, $bChinese)
 {
    	$ar = array();
@@ -48,11 +46,7 @@ function _gradedFundRefCallback($bChinese, $ref = false)
     }
     
 	$arFundEst = GetFundEstTableColumn($bChinese);
-    $arColumn = array();
-    $arColumn[] = $arFundEst[7];
-    $arColumn[] = $arFundEst[1];
-    $arColumn[] = $arFundEst[3];
-    return $arColumn;
+    return array($arFundEst[7], $arFundEst[1], $arFundEst[3]);
 }
 
 function _set_extended_ref($ref)

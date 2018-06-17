@@ -4,8 +4,9 @@ require_once('stocktable.php');
 function _echoCalibrationItem($sql, $history, $bReadOnly, $bChinese)
 {
    	$strDate = $history['date'];
-    $strPrice = $sql->fund_sql->GetCloseString($strDate);
-    $strPairPrice = $sql->pair_fund_sql->GetCloseString($strDate);
+    $strPrice = strval($sql->fund_sql->GetClose($strDate));
+    $strPairPrice = strval($sql->pair_fund_sql->GetClose($strDate));
+ 	$strClose = GetTableColumnFloatDisplay($history['close']);
     if ($bReadOnly == false)
     {
     	$strDate = GetOnClickLink('/php/_submitdelete.php?etfcalibrationid='.$history['id'], '确认删除'.$history['date'].'校准记录?', $history['date']);
@@ -15,7 +16,7 @@ function _echoCalibrationItem($sql, $history, $bReadOnly, $bChinese)
     <tr>
         <td class=c1>$strPrice</td>
         <td class=c1>$strPairPrice</td>
-        <td class=c1>{$history['close']}</td>
+        $strClose
         <td class=c1>$strDate</td>
     </tr>
 END;

@@ -150,9 +150,9 @@ function _EchoMoneyGroupData($group, $strLink, $fUSDCNY, $fHKDCNY)
 {
     $group->ConvertCurrency($fUSDCNY, $fHKDCNY);
     _echoMoneyItem($strLink, '', $group->multi_amount->fCNY, $group->multi_profit->fCNY, $group->multi_amount->fConvertCNY, $group->multi_profit->fConvertCNY);
-    if (FloatNotZero($group->multi_amount->fUSD) || FloatNotZero($group->multi_profit->fUSD))
+    if ((empty($group->multi_amount->fUSD) == false) || (empty($group->multi_profit->fUSD) == false))
         _echoMoneyItem('', '$', $group->multi_amount->fUSD, $group->multi_profit->fUSD, $group->multi_amount->fConvertUSD, $group->multi_profit->fConvertUSD);
-    if (FloatNotZero($group->multi_amount->fHKD) || FloatNotZero($group->multi_profit->fHKD))
+    if ((empty($group->multi_amount->fHKD) == false) || (empty($group->multi_profit->fHKD) == false))
         _echoMoneyItem('', 'HK$', $group->multi_amount->fHKD, $group->multi_profit->fHKD, $group->multi_amount->fConvertHKD, $group->multi_profit->fConvertHKD);
 }
 

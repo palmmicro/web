@@ -26,9 +26,8 @@ class PriceCompare
     {
         $this->iDays ++;
         
-//        list($strClose, $strPrevClose) = $arClose;
-        $fClose = $ref->fPrice;			// floatval($strClose);
-        $fPrevClose = $ref->fPrevPrice;	// floatval($strPrevClose);
+        $fClose = $ref->fPrice;
+        $fPrevClose = $ref->fPrevPrice;
             
         if (($fClose - MIN_FLOAT_VAL) > $fPrevClose)          $this->iHigher ++;
         else if (($fClose + MIN_FLOAT_VAL) < $fPrevClose)    $this->iLower ++;        

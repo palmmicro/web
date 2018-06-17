@@ -31,12 +31,11 @@ function EchoArbitrageTableItem2($arbi_trans, $convert_trans)
 
 function _selectArbitrageExternalLink($sym)
 {
-	$strSymbol = $sym->GetSymbol();
     if ($sym->IsSymbolUS())
     {
-        return GetYahooStockLink($sym->GetYahooSymbol(), $strSymbol);
+        return GetYahooStockLink($sym);
     }
-    return $strSymbol;
+    return $sym->GetSymbol();
 }
 
 function EchoArbitrageTableItem($iQuantity, $strPrice, $trans)

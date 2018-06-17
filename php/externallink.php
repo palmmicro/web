@@ -42,10 +42,10 @@ function GetXueQiuLink($sym)
     return GetExternalLink($strHttp, $strSymbol);
 }
 
-function GetYahooStockLink($strYahooSymbol, $strSymbol)
+function GetYahooStockLink($sym)
 {
-    $strHttp = YahooStockGetUrl($strYahooSymbol);
-    return GetExternalLink($strHttp, $strSymbol);
+    $strHttp = YahooStockGetUrl($sym->GetYahooSymbol());
+    return GetExternalLink($strHttp, $sym->GetSymbol());
 }
 
 function GetYahooStockHistoryLink($sym)

@@ -97,7 +97,7 @@
 
 <h3>新浪<a name="hongkong">港股</a>数据接口的字段意义</h3>
 <p>2016年3月2日
-<br />用Yahoo拿港股数据搞了大半年后, 一贯后知后觉的我才发现新浪也有港股数据. 这次吸取以往教训, 挽起袖子改程序前先写这个格式文档, 然后再改我的<font color=olive>SinaStockReference</font>类.
+<br />用Yahoo拿港股数据搞了大半年后, 一贯后知后觉的我才发现新浪也有港股数据. 这次吸取以往教训, 挽起袖子改程序前先写这个格式文档, 然后再改我的<font color=olive>StockReference</font>类.
 从<?php EchoLink('http://hq.sinajs.cn/list=hk02828'); ?>拿到的数据如下:
 <br /><font color=grey>var hq_str_hk02828="HS H-SHARE ETF,恒生Ｈ股,
 83.100,81.250,85.100,83.100,84.350,3.100,3.815,84.450,84.500,1659103503,19690659,

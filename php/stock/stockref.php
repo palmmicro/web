@@ -201,9 +201,16 @@ class StockReference
     var $bHasData = true;
     var $extended_ref = false;          // US stock extended trading StockReference
     
-    function StockReference($strSymbol)
+    function StockReference($strSymbol, $sym = false)
     {
-        $this->_newStockSymbol($strSymbol);
+    	if ($sym)
+    	{
+    		$this->sym = $sym;
+    	}
+    	else
+    	{
+    		$this->_newStockSymbol($strSymbol);
+    	}
         $this->strConfigName = DebugGetConfigFileName($strSymbol);
         
         $this->_convertPrice();
@@ -370,8 +377,8 @@ class StockReference
     {
         $strSymbol = $this->GetStockSymbol();
         $this->strFileName = DebugGetYahooFileName($strSymbol);
+        $this->strExternalLink = GetYahooStockLink($sym);
         $strYahooSymbol = $this->sym->GetYahooSymbol();
-        $this->strExternalLink = GetYahooStockLink($strYahooSymbol, $strSymbol);
         $str = _getYahooStr($this->sym, $strYahooSymbol, $this->strFileName);
         if (IsYahooStrError($str))
         {
@@ -504,7 +511,7 @@ class StockReference
         
 		if (!empty($ar[24]))
 		{
-			$this->extended_ref = new ExtendedTradingReference($ar, $this->GetStockSymbol());
+			$this->extended_ref = new ExtendedTradingReference($ar, $this->sym);
 			$this->extended_ref->strFileName = $this->strFileName;
 		}
     }
@@ -706,10 +713,9 @@ class StockReference
 
 class ExtendedTradingReference extends StockReference
 {
-    // constructor 
-    function ExtendedTradingReference($ar, $strSymbol)
+    function ExtendedTradingReference($ar, $sym)
     {
-        $this->strExternalLink = $strSymbol;
+        $this->strExternalLink = GetYahooStockLink($sym);
         $this->strPrice = $ar[21];
         $this->_convertDateTimeFromUS($ar[24]);
         $this->strPrevPrice = $ar[26];
@@ -718,7 +724,7 @@ class ExtendedTradingReference extends StockReference
 
         $iHour = intval(substr($this->strTime, 0, 2));
         
-        parent::StockReference($strSymbol);
+        parent::StockReference($sym->GetSymbol(), $sym);
         if ($iHour <= STOCK_HOUR_BEGIN)
         {
             $this->strDescription = STOCK_PRE_MARKET;

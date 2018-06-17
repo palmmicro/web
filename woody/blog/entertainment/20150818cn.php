@@ -120,7 +120,7 @@
 
 <h3>新浪实时<a name="usstock">美股</a>数据</h3>
 <p>2015年12月13日
-<br />在<?php EchoXueqieId('6188729918', 'abkoooo'); ?>的帮助下使用新浪实时美股数据<?php EchoLink('http://hq.sinajs.cn/list=gb_xop'); ?>替代原来延迟15分钟的Yahoo数据.
+<br />在<?php EchoXueqieId('6188729918', 'abkoooo'); ?>的帮助下使用新浪实时美股数据<?php EchoSinaQuotesLink('gb_xop'); ?>替代原来延迟15分钟的Yahoo数据.
 现在XOP数据在<?php EchoFileLink('/debug/sina/gb_xop.txt'); ?>中. ^SPSIOP数据还是用Yahoo的, 分开在_spsiop.txt中.
 有人知道新浪怎么查像^SPSIOP这样的指数数据吗?
 <br /><?php EchoPhpFileLink('/php/stock/stockref.php'); ?>中的<font color=olive>StockReference</font>类越改越乱, 开始怀疑以后要看不懂了.
@@ -137,19 +137,21 @@
 <h3>统一数据显示格式</h3>
 <p>2016年1月26日
 <br />在<?php EchoXueqieId('8907500725', 'oldwain'); ?>的建议下, 在相关价格记录的时间中加入日期显示.
-原来版本中没有日期是因为我自己觉得交易日期很明显, 完全没有必要出来占地方. 不过既然有人觉得有问题, 我就效仿白居易写诗先读给妇孺听的优良传统改了.
-估计大多数人还是不熟悉美国股市交易时间, 而在这里, 美股数据后面跟的是美东日期和时间.
-<br />虽说是个小的分离数据和显示改动, 但是忍不住哗啦哗啦又整理优化了一大片代码. 把原来<?php EchoPhpFileLink('/php/stock/stockref.php'); ?>中的<font color=olive>StockReference</font>类抽出基础数据和显示数据变成基础类,
-派生出股票数据类<font color=olive>SinaStockReference</font>. 把原来期货数据读取改为继承自<font color=olive>StockReference</font>类的<font color=olive>FutureReference</font>类, 
-汇率的数据读取改为继承自<font color=olive>StockReference</font>类的<font color=olive>ForexReference</font>类, 达到统一数据显示格式的目的. 这样到也算对得起这个新版本号.
+原来版本中没有它是因为自己觉得交易日期很明显, 完全没有必要出来占地方. 不过既然有人觉得有问题, 我就效仿白居易写诗先读给妇孺听的优良传统改了.
+估计跟我从2000年开始就在美股赔钱不同, 很多人还是不熟悉美国股市交易时间. 而在这里, 美股数据后面跟的是美东日期和时间.
+<br />虽说是个小的分离数据和显示改动, 但是忍不住哗啦哗啦又整理优化了一大片代码. 把原来<?php EchoPhpFileLink('/php/stock/stockref.php'); ?>中的<font color=olive>StockReference</font>类作为基础类,
+原来期货和汇率数据读取分别改为继承自它的<font color=olive>FutureReference</font>类和<font color=olive>ForexReference</font>类, 达到统一数据显示格式的目的.
+<br /><font color=grey>夜深忽梦少年事 梦啼妆泪红阑干</font>
 </p>
 <?php EchoReferenceDemo(); ?>
 
 <h3>周期3意味着混沌</h3>
 <p>2016年2月26日
 <br />华宝油气持续溢价10%已经成了常态, 最近最高甚至到了17%, <a href="20160101cn.php">华宝油气和XOP套利</a>没法做了.
-<br />继续整理同类代码, 加入<font color=olive>MyStockReference</font>类, 放在<font color=olive>StockReference</font>类和<font color=olive>SinaStockReference</font>类的中间.
-从<font color=olive>MyStockReference</font>开始调用了<?php EchoPhpFileLink('/php/sql/sqlstock.php'); ?>中的数据库相关函数.
+<br />继续整理同类代码, 这次下手目标是MySQL相关部分. 加入<font color=olive>MysqlReference</font>类继承自<font color=olive>StockReference</font>类. 集中代码处理历史记录和净值校准等数据库内容.
+再加入<font color=olive>MyStockReference</font>类继承自<font color=olive>MysqlReference</font>, 从此代替<font color=olive>StockReference</font>类作为股票数据实例.
+<font color=olive>FutureReference</font>类和<font color=olive>ForexReference</font>类同时也改为继承自<font color=olive>MysqlReference</font>.
+从<font color=olive>MysqlReference</font>开始调用了<?php EchoPhpFileLink('/php/sql/sqlstock.php'); ?>中的数据库相关函数.
 </p>
 
 <h3><a name="gradedfund">分级基金</a></h3>

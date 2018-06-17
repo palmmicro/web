@@ -139,18 +139,17 @@ The most recent a few records are displayed in the current page, add files <?php
 <br />Add date display in related price time items following the advice from <?php EchoXueqieId('8907500725', 'oldwain'); ?>.
 The original version omitted date display because I thougth it was obvious. And it is obvious too that not every one is as familar with both USA and China time as I am.
 <br />Although it is a small separating data and display change, I can not help myself to mofidy a lot of code.
-The original <font color=olive>StockReference</font> class in <?php EchoPhpFileLink('/php/stock/stockref.php'); ?> is now only as a base class for basic data and display data, 
-with <font color=olive>SinaStockReference</font> class extends from it. The original future data read becomes <font color=olive>FutureReference</font> class extends from <font color=olive>StockReference</font>,
-and forex data read becomes <font color=olive>ForexReference</font> class extends from <font color=olive>StockReference</font> too. 
-In this way, the display is unified, so the new version number really has something new with it.
+The original <font color=olive>StockReference</font> class in <?php EchoPhpFileLink('/php/stock/stockref.php'); ?> is now a base class for <font color=olive>FutureReference</font> and <font color=olive>ForexReference</font>.
+In this way, the display is unified.
 </p>
 <?php EchoReferenceDemo(false); ?>
 
 <h3>Period Three Implies Chaos</h3>
 <p>Feb 26, 2016
 <br />SZ162411 is trading more than 10% higher than its net value recently, the max premium as high as 17%, so the <a href="20160101.php">XOP and SZ162411 arbitrage</a> is not possible now.
-<br />Continuing to organzie the similar code, added <font color=olive>MyStockReference</font> class, and put it between <font color=olive>StockReference</font> class and <font color=olive>SinaStockReference</font>.
-We called mysql related function of <?php EchoPhpFileLink('/php/sql/sqlstock.php'); ?> in <font color=olive>MyStockReference</font> class.
+<br />Continuing to organzie the similar code, added <font color=olive>MysqlReference</font> and <font color=olive>MyStockReference</font> class.
+<font color=olive>FutureReference</font> and <font color=olive>ForexReference</font> are now extended from <font color=olive>MysqlReference</font>, same as the new <font color=olive>MyStockReference</font>.
+We called MySQL related function of <?php EchoPhpFileLink('/php/sql/sqlstock.php'); ?> in <font color=olive>MysqlReference</font> class, put history and calibration database operation in the same place.
 </p>
 
 <h3><a name="gradedfund">Graded Fund</a></h3>
