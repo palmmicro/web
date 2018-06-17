@@ -7,20 +7,19 @@ function _echoFundEstTableItem($ref, $bChinese)
     if ($ref == false)                  return;
     if ($ref->bHasData == false)        return;
     
-    $stock_ref = $ref->stock_ref;
-    $strLink = GetEastMoneyFundLink($stock_ref->sym);
-    $strPrice = $stock_ref->GetPriceDisplay($ref->fPrice);
-    $strPremium = $stock_ref->GetPercentageDisplay($ref->fPrice);
-    $strFairPrice = $stock_ref->GetPriceDisplay($ref->fFairNetValue);
-    $strFairPremium = $stock_ref->GetPercentageDisplay($ref->fFairNetValue);
-    $strRealtimePrice = $stock_ref->GetPriceDisplay($ref->fRealtimeNetValue);
-    $strRealtimePremium = $stock_ref->GetPercentageDisplay($ref->fRealtimeNetValue);
+    $strLink = GetEastMoneyFundLink($ref->GetSym());
+    $strOfficialPrice = $ref->GetPriceDisplay($ref->fOfficialNetValue);
+    $strOfficialPremium = $ref->GetPercentageDisplay($ref->fOfficialNetValue);
+    $strFairPrice = $ref->GetPriceDisplay($ref->fFairNetValue);
+    $strFairPremium = $ref->GetPercentageDisplay($ref->fFairNetValue);
+    $strRealtimePrice = $ref->GetPriceDisplay($ref->fRealtimeNetValue);
+    $strRealtimePremium = $ref->GetPercentageDisplay($ref->fRealtimeNetValue);
     
     echo <<<END
     <tr>
         <td class=c1>$strLink</td>
-        <td class=c1>$strPrice</td>
-        <td class=c1>$strPremium</td>
+        <td class=c1>$strOfficialPrice</td>
+        <td class=c1>$strOfficialPremium</td>
         <td class=c1>$strFairPrice</td>
         <td class=c1>$strFairPremium</td>
         <td class=c1>$strRealtimePrice</td>
@@ -29,11 +28,11 @@ function _echoFundEstTableItem($ref, $bChinese)
 END;
 }
 
-function _getFundRealtimeStr($fund, $strRealtimeEst, $bChinese)
+function _getFundRealtimeStr($ref, $strRealtimeEst, $bChinese)
 {
-    $future_ref = $fund->future_ref;
-    $future_etf_ref = $fund->future_etf_ref;
-    $est_ref = $fund->est_ref;
+    $future_ref = $ref->future_ref;
+    $future_etf_ref = $ref->future_etf_ref;
+    $est_ref = $ref->est_ref;
     
     $strFutureSymbol = $future_ref->GetStockSymbol();
     if ($bChinese)
@@ -61,10 +60,9 @@ function _getFundRealtimeStr($fund, $strRealtimeEst, $bChinese)
     return $str.'.';    
 }
 
-function _getFundParagraphStr($fund, $bChinese)
+function _getFundParagraphStr($ref, $bChinese)
 {
-    $ref = $fund->stock_ref;
-    $strDate = $fund->strOfficialDate;
+    $strDate = $ref->strOfficialDate;
     $strLastTime = SqlGetStockCalibrationTime($ref->GetStockId());
     $strHistoryLink = GetCalibrationHistoryLink($ref->GetStockSymbol(), $bChinese);
 	$arColumn = GetFundEstTableColumn($bChinese);
@@ -77,7 +75,7 @@ function _getFundParagraphStr($fund, $bChinese)
     {
         $str .= ' date '.$strDate.", calibration($strHistoryLink) on $strLastTime.";
     }
-    if ($fund->fRealtimeNetValue)   $str .= ' '._getFundRealtimeStr($fund, $arColumn[5], $bChinese);
+    if ($ref->fRealtimeNetValue)   $str .= ' '._getFundRealtimeStr($ref, $arColumn[5], $bChinese);
     return $str;
 }
 
@@ -105,10 +103,10 @@ END;
     EchoTableParagraphEnd();
 }
 
-function EchoFundEstParagraph($fund, $bChinese)
+function EchoFundEstParagraph($ref, $bChinese)
 {
-    $str = _getFundParagraphStr($fund, $bChinese);
-    EchoFundArrayEstParagraph(array($fund), $bChinese, $str);
+    $str = _getFundParagraphStr($ref, $bChinese);
+    EchoFundArrayEstParagraph(array($ref), $bChinese, $str);
 }
 
 ?>

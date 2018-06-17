@@ -110,7 +110,7 @@ function _echoMyStockData($strSymbol, $bChinese)
     if ($etf_ref)		EchoEtfListParagraph(array($etf_ref), $bChinese);
     if ($sym->IsFundA())
     {
-        if ($fund->fPrice)	EchoFundEstParagraph($fund, $bChinese);
+        if ($fund->fOfficialNetValue)	EchoFundEstParagraph($fund, $bChinese);
         EchoFundTradingParagraph($fund, $bChinese);
         EchoFundHistoryParagraph($fund, $bChinese);
     }

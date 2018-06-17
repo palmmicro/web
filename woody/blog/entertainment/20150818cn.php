@@ -139,11 +139,9 @@
 <br />在<?php EchoXueqieId('8907500725', 'oldwain'); ?>的建议下, 在相关价格记录的时间中加入日期显示.
 原来版本中没有日期是因为我自己觉得交易日期很明显, 完全没有必要出来占地方. 不过既然有人觉得有问题, 我就效仿白居易写诗先读给妇孺听的优良传统改了.
 估计大多数人还是不熟悉美国股市交易时间, 而在这里, 美股数据后面跟的是美东日期和时间.
-<br />虽说是个小的显示改动, 但是忍不住哗啦哗啦又整理优化了一大片代码. 把原来<?php EchoPhpFileLink('/php/stock/stockref.php'); ?>中的<font color=olive>StockReference</font>类抽出基础数据和显示数据变成基础类,
+<br />虽说是个小的分离数据和显示改动, 但是忍不住哗啦哗啦又整理优化了一大片代码. 把原来<?php EchoPhpFileLink('/php/stock/stockref.php'); ?>中的<font color=olive>StockReference</font>类抽出基础数据和显示数据变成基础类,
 派生出股票数据类<font color=olive>SinaStockReference</font>. 把原来期货数据读取改为继承自<font color=olive>StockReference</font>类的<font color=olive>FutureReference</font>类, 
 汇率的数据读取改为继承自<font color=olive>StockReference</font>类的<font color=olive>ForexReference</font>类, 达到统一数据显示格式的目的. 这样到也算对得起这个新版本号.
-<br />原来<font color=olive>StockReference</font>类中记录原始数据的成员变量$strDate (2014-11-13, 'Y-m-d')和$strTime (08:55:00, 'H:i:s')维持不变,
-增加专门用来显示的成员变量$strTimeHM (08:55), 分离数据和显示.   
 </p>
 <?php EchoReferenceDemo(); ?>
 

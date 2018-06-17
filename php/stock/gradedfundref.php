@@ -139,9 +139,9 @@ class GradedFundReference extends FundReference
         $strDate = $this->est_ref->strDate; 
         if ($strDate == $this->m_ref->strDate)
         {
-            $this->fPrice = $this->fPrevPrice;
-            $this->b_ref->fPrice = $this->b_ref->fPrevPrice;
-            $this->m_ref->fPrice = $this->m_ref->fPrevPrice;
+            $this->fOfficialNetValue = $this->fPrice;
+            $this->b_ref->fOfficialNetValue = $this->b_ref->fPrice;
+            $this->m_ref->fOfficialNetValue = $this->m_ref->fPrice;
             
             $this->UpdateOfficialNetValue();
             $this->b_ref->UpdateOfficialNetValue();
@@ -149,16 +149,16 @@ class GradedFundReference extends FundReference
         }
         else
         {
-            $this->m_ref->fPrice = $this->m_ref->fPrevPrice * $this->est_ref->fPercentage;
+            $this->m_ref->fOfficialNetValue = $this->m_ref->fPrice * $this->est_ref->fPercentage;
             if ($this->_isTurningPoint())
             {
-                $this->b_ref->fPrice = $this->b_ref->fPrevPrice * $this->est_ref->fPercentage;
-                $this->fPrice = $this->m_ref->fPrice * 2.0 - $this->b_ref->fPrice;
+                $this->b_ref->fOfficialNetValue = $this->b_ref->fPrice * $this->est_ref->fPercentage;
+                $this->fOfficialNetValue = $this->m_ref->fOfficialNetValue * 2.0 - $this->b_ref->fOfficialNetValue;
             }
             else
             {
-                $this->fPrice = $this->fPrevPrice + GradedFundGetInterest($this->GetStockSymbol());
-                $this->b_ref->fPrice = $this->m_ref->fPrice * 2.0 - $this->fPrice;
+                $this->fOfficialNetValue = $this->fPrice + GradedFundGetInterest($this->GetStockSymbol());
+                $this->b_ref->fOfficialNetValue = $this->m_ref->fOfficialNetValue * 2.0 - $this->fOfficialNetValue;
             }
             
             $this->UpdateEstNetValue();
@@ -180,7 +180,7 @@ class GradedFundReference extends FundReference
         }
         else
         {
-            $fPrice = $this->m_ref->fPrice;
+            $fPrice = $this->m_ref->fOfficialNetValue;
         }
         
         $this->m_ref->fFairNetValue = ($this->stock_ref->fPrice + $this->b_ref->stock_ref->fPrice) / 2.0;

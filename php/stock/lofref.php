@@ -109,7 +109,7 @@ class _LofReference extends FundReference
             {
             	$fEst = $this->est_ref->fPrice;
             }
-            $this->fPrice = $this->GetLofValue($fEst, $fCNY);
+            $this->fOfficialNetValue = $this->GetLofValue($fEst, $fCNY);
             $this->strOfficialDate = $strDate;
             $this->UpdateEstNetValue();
         }
@@ -117,7 +117,7 @@ class _LofReference extends FundReference
         {   // Load last value from database
             if ($history = SqlGetFundHistoryNow($this->GetStockId()))
             {
-                $this->fPrice = floatval($history['estimated']);
+                $this->fOfficialNetValue = floatval($history['estimated']);
                 $this->strOfficialDate = $history['date'];
             }
         }

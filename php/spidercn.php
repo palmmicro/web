@@ -7,6 +7,15 @@ require_once('sql/sqlvisitor.php');
 require_once('sql/sqlspider.php');
 require_once('sql/sqlipaddress.php');
 
+function _getNetValueString($fNetValue)
+{
+    if ($fNetValue)
+    {
+        return round_display($fNetValue).',';
+    }
+	return '0.0,';
+}
+
 function _getSymbolOutput($strSymbol)
 {
     $sym = new StockSymbol($strSymbol);
@@ -14,32 +23,20 @@ function _getSymbolOutput($strSymbol)
     if ($sym->IsFundA())
     {
         $ref = StockGetFundReference($strSymbol);
-        $str .= $ref->strPrevPrice.','.$ref->strDate.',';   // T-1 net value;
-        if ($ref->strOfficialDate)
+        $str .= $ref->strPrice.','.$ref->strDate.',';   		// T-1 net value;
+        $str .= _getNetValueString($ref->fOfficialNetValue);	// T net value
+        if ($ref->fOfficialNetValue)
         {
-            $str .= round_display($ref->fPrice).','.$ref->strOfficialDate.',';  // T net value
+            $str .= $ref->strOfficialDate.',';	
         }
         else
         {
-            $str .= '0.0,0000-00-00,';
+            $str .= '0000-00-00,';
         }
-        if ($ref->fFairNetValue)
-        {
-            $str .= round_display($ref->fFairNetValue).',';
-        }
-        else
-        {
-            $str .= '0.0,';
-        }
-        if ($ref->fRealtimeNetValue)
-        {
-            $str .= round_display($ref->fRealtimeNetValue).',';     // T+1 net value
-        }
-        else
-        {
-            $str .= '0.0,';
-        }
-        $str .= $ref->stock_ref->strPrice;               // Last trading price
+        
+        $str .= _getNetValueString($ref->fFairNetValue);
+        $str .= _getNetValueString($ref->fRealtimeNetValue);	// T+1 net value
+        $str .= $ref->stock_ref->strPrice;               		// Last trading price
     }
     return $str;
 }

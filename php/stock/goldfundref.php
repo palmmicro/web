@@ -41,7 +41,7 @@ class GoldFundReference extends FundReference
     {
         $this->AdjustFactor();
         
-        $this->fPrice = $this->_estGoldEtf($this->est_ref->fPrice);
+        $this->fOfficialNetValue = $this->_estGoldEtf($this->est_ref->fPrice);
         $this->strOfficialDate = $this->est_ref->strDate;
         $this->UpdateEstNetValue();
 

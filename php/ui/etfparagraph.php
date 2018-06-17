@@ -37,7 +37,7 @@ function EchoEtfListParagraph($arRef, $bChinese)
 		}
 	}
 	$str = GetEtfListLink($bChinese);
-    EchoReferenceParagraph($arRef, $bChinese, $str, _etfListRefCallback);
+    EchoReferenceParagraph($arRef, $bChinese, _etfListRefCallback, $str);
     
     // restore external link
     foreach ($arRef as $ref)
@@ -45,7 +45,10 @@ function EchoEtfListParagraph($arRef, $bChinese)
 		$sym = $ref->GetSym();
 		if ($strDigit = $sym->IsFundA())
 		{
-			$ref->SetExternalLink($ar[$strDigit]);
+			if (array_key_exists($strDigit, $ar))
+			{
+				$ref->SetExternalLink($ar[$strDigit]);
+			}
 		}
     }
 }

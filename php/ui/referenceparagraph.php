@@ -6,9 +6,22 @@ function _echoReferenceTableItem($ref, $bChinese, $callback = false)
 {
     if ($ref == false)	return;
 
-    $strLink = $ref->GetExternalLink();
-    $strPriceDisplay = $ref->GetCurrentPriceDisplay();
-    $strPercentageDisplay = $ref->GetCurrentPercentageDisplay();
+   	$strLink = $ref->GetExternalLink();
+    if ($ref->HasData())
+    {
+    	$strPriceDisplay = $ref->GetCurrentPriceDisplay();
+    	$strPercentageDisplay = $ref->GetCurrentPercentageDisplay();
+    	$strDate = $ref->strDate;
+    	$strTime = GetTimeHM($ref->strTime);
+    }
+    else
+    {
+    	$strPriceDisplay = '';
+    	$strPercentageDisplay = '';
+    	$strDate = '';
+    	$strTime = '';
+    }
+    
     if ($callback)
     {
         $strDisplayEx = '';
@@ -30,8 +43,8 @@ function _echoReferenceTableItem($ref, $bChinese, $callback = false)
         <td class=c1>$strLink</td>
         <td class=c1>$strPriceDisplay</td>
         <td class=c1>$strPercentageDisplay</td>
-        <td class=c1>{$ref->strDate}</td>
-        <td class=c1>{$ref->strTimeHM}</td>
+        <td class=c1>$strDate</td>
+        <td class=c1>$strTime</td>
         $strDisplayEx
     </tr>
 END;
@@ -70,7 +83,7 @@ END;
 	return '<span id="time"></span>';
 }
 
-function EchoReferenceParagraph($arRef, $bChinese, $str = false, $callback = false)
+function EchoReferenceParagraph($arRef, $bChinese, $callback = false, $str = false)
 {
 	if ($str == false)
 	{

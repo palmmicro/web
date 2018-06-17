@@ -181,7 +181,7 @@ class StockReference
     var $strPrice;                    // Current trading price string
     var $strPrevPrice;               // Previous close price string
     var $strDate;                     // 2014-11-13
-    var $strTime = false;            // 08:55:00        
+    var $strTime;			            // 08:55:00        
     
     var $strChineseName = false;
     var $strName = '';
@@ -191,8 +191,6 @@ class StockReference
     var $strLow = false;
     var $strVolume = false;
     
-//    var $strPB;
-
     var $arBidPrice = array();
     var $arBidQuantity = array();
     var $arAskPrice = array();
@@ -203,27 +201,24 @@ class StockReference
     var $fPrevPrice;            // Previous close price
     var $fPercentage;           // $fPrice / $fPrevPrice
     
-    // converted string data
-    var $strTimeHM = '';              //           06:56
-    
     var $bHasData = true;
-    
     var $extended_ref = false;          // US stock extended trading StockReference
     
-    // constructor 
     function StockReference($strSymbol)
     {
         $this->_newStockSymbol($strSymbol);
         $this->strConfigName = DebugGetConfigFileName($strSymbol);
         
-        if (floatval($this->strPrice) < MIN_FLOAT_VAL)   $this->strPrice = $this->strPrevPrice;
         $this->_convertPrice();
         if (FloatNotZero($this->fPrevPrice))		$this->fPercentage = $this->fPrice / $this->fPrevPrice;
         else										$this->fPercentage = 0.0;
-        
-        if ($this->strTime)					$this->strTimeHM = GetTimeHM($this->strTime);
     }
 
+    function HasData()
+    {
+    	return $this->bHasData;
+    }
+    
     function _convertPrice()
     {
         $this->fPrice = floatval($this->strPrice); 
@@ -416,9 +411,6 @@ class StockReference
         $this->strLow = $ar[7];                // g
         $this->strHigh = $ar[8];               // h
         $this->strVolume = $ar[9];             // v
-
-//        $this->strPB = $ar[12];                // p6-Price / Book
-//        DebugString($strYahooSymbol.' Price/Book: '.$this->strPB);
     }
 
     function _generateUsTradingDateTime()
@@ -476,9 +468,6 @@ class StockReference
     
     function _onSinaDataHK($ar)
     {
-//        $strSymbol = $this->GetStockSymbol();
-        $this->strExternalLink = GetSinaHkStockLink($this->sym);
-        
         $this->strPrevPrice = $ar[3];
         $this->strPrice = $ar[6];
         $this->strDate = str_replace('/', '-', $ar[17]);    // 2016/03/02
@@ -499,9 +488,6 @@ class StockReference
     
     function _onSinaDataUS($ar)
     {
-        $strSymbol = $this->GetStockSymbol();
-        $this->strExternalLink = GetSinaUsStockLink($this->sym);
-        
         $this->strName = $ar[0];
         $this->strPrice = $ar[1];
         $this->strPrevPrice = $ar[26];
@@ -521,15 +507,13 @@ class StockReference
         
 		if (!empty($ar[24]))
 		{
-			$this->extended_ref = new ExtendedTradingReference($ar, $strSymbol);
+			$this->extended_ref = new ExtendedTradingReference($ar, $this->GetStockSymbol());
 			$this->extended_ref->strFileName = $this->strFileName;
 		}
     }
     
     function _onSinaDataCN($ar)
     {
-    	$this->strExternalLink = GetSinaCnLink($this->sym);
-        
         $this->strPrevPrice = $ar[2];
         $this->strPrice = $ar[3];
         $this->strDate = $ar[30];
@@ -552,8 +536,11 @@ class StockReference
     
     function LoadSinaData($strSinaSymbol)
     {
+    	$sym = $this->sym;
+    	$this->strExternalLink = GetSinaStockLink($sym);
+    	
         $this->strFileName = DebugGetSinaFileName($strSinaSymbol);
-        $ar = _getSinaArray($this->sym, $strSinaSymbol, $this->strFileName);
+        $ar = _getSinaArray($sym, $strSinaSymbol, $this->strFileName);
         if (count($ar) < 18)
         {
             $this->bHasData = false;
@@ -561,11 +548,11 @@ class StockReference
             return;
         }
         
-        if ($this->sym->IsSymbolA())
+        if ($sym->IsSymbolA())
         {
             $this->_onSinaDataCN($ar);
         }
-        else if ($this->sym->IsSymbolH())
+        else if ($sym->IsSymbolH())
         {
             $this->_onSinaDataHK($ar);
         }

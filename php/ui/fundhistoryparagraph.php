@@ -153,15 +153,17 @@ function FundHistoryTableGetColumn($est_ref, $bChinese)
     }
     
 	$arFundEst = GetFundEstTableColumn($bChinese);
+	$strOfficialEst = $arFundEst[1];
+	$strNetValue = $arFundEst[7];
 	$arSma = GetSmaTableColumn($bChinese);
 	$strPremium = $arSma[2];
     if ($bChinese)     
     {
-        $arColumn = array('日期', '<font color=indigo>收盘价</font>', '<font color=olive>净值</font>', $strPremium, $strSymbol, $strChange, $arFundEst[1], '估值时间', '误差');
+        $arColumn = array('日期', '<font color=indigo>收盘价</font>', $strNetValue, $strPremium, $strSymbol, $strChange, $strOfficialEst, '估值时间', '误差');
     }
     else
     {
-        $arColumn = array('Date', '<font color=indigo>Close</font>', '<font color=olive>Net Value</font>', $strPremium, $strSymbol, $strChange, $arFundEst[1], 'Est Time', 'Error');
+        $arColumn = array('Date', '<font color=indigo>Close</font>', $strNetValue, $strPremium, $strSymbol, $strChange, $strOfficialEst, 'Est Time', 'Error');
     }
     return $arColumn;
 }

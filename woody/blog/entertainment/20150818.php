@@ -138,13 +138,11 @@ The most recent a few records are displayed in the current page, add files <?php
 <p>Jan 26, 2016
 <br />Add date display in related price time items following the advice from <?php EchoXueqieId('8907500725', 'oldwain'); ?>.
 The original version omitted date display because I thougth it was obvious. And it is obvious too that not every one is as familar with both USA and China time as I am.
-<br />Although it is a small display change, I can not help myself to mofidy a lot of code.
+<br />Although it is a small separating data and display change, I can not help myself to mofidy a lot of code.
 The original <font color=olive>StockReference</font> class in <?php EchoPhpFileLink('/php/stock/stockref.php'); ?> is now only as a base class for basic data and display data, 
 with <font color=olive>SinaStockReference</font> class extends from it. The original future data read becomes <font color=olive>FutureReference</font> class extends from <font color=olive>StockReference</font>,
 and forex data read becomes <font color=olive>ForexReference</font> class extends from <font color=olive>StockReference</font> too. 
 In this way, the display is unified, so the new version number really has something new with it.
-<br />Original data member $strDate (2014-11-13, 'Y-m-d') and $strTime (08:55:00, 'H:i:s') in class <font color=olive>StockReference</font> are kept as the same, 
-added new data member $strTimeHM (08:55) for display, separating data and display.
 </p>
 <?php EchoReferenceDemo(false); ?>
 

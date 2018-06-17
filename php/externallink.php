@@ -85,20 +85,11 @@ function GetSinaFundLink($sym)
 }
 
 // http://finance.sina.com.cn/realstock/company/sh600028/nc.shtml
-function GetSinaStockLink($strSymbol)
+function GetSinaCnStockLink($strSymbol)
 {
     $strLower = strtolower($strSymbol);
     $strHttp = "http://finance.sina.com.cn/realstock/company/$strLower/nc.shtml";
     return GetExternalLink($strHttp, $strSymbol);
-}
-
-function GetSinaCnLink($sym)
-{
-    if ($sym->IsFundA())
-    {
-		return GetSinaFundLink($sym);
-    }
-	return GetSinaStockLink($sym->GetSymbol());
 }
 
 // http://stock.finance.sina.com.cn/usstock/quotes/SNP.html
@@ -131,6 +122,23 @@ function GetSinaHkStockLink($sym)
     }
     $strHttp = "http://stock.finance.sina.com.cn/hkstock/quotes/$str.html";
     return GetExternalLink($strHttp, $strSymbol);
+}
+
+function GetSinaStockLink($sym)
+{
+    if ($sym->IsSymbolA())
+    {
+    	if ($sym->IsFundA())
+    	{
+    		return GetSinaFundLink($sym);
+    	}
+    	return GetSinaCnStockLink($sym->GetSymbol());
+    }
+    else if ($sym->IsSymbolH())
+    {
+    	return GetSinaHkStockLink($sym);
+    }
+  	return GetSinaUsStockLink($sym);
 }
 
 // http://finance.sina.com.cn/futures/quotes/CL.shtml

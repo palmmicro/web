@@ -84,10 +84,10 @@ function TextFromFundReference($ref)
         $str = $strName;
     }
     
-    $str .= '净值:'.$ref->strPrevPrice.' '.$ref->strDate.WX_EOL;
-    if ($ref->strOfficialDate)
+    $str .= '净值:'.$ref->strPrice.' '.$ref->strDate.WX_EOL;
+    if ($ref->fOfficialNetValue)
     {
-        $str .= '官方'._textPremium($stock_ref, $ref->fPrice).' '.$ref->strOfficialDate.WX_EOL;
+        $str .= '官方'._textPremium($stock_ref, $ref->fOfficialNetValue).' '.$ref->strOfficialDate.WX_EOL;
     }
     if ($ref->fFairNetValue)
     {

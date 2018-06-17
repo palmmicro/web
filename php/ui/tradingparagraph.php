@@ -135,7 +135,7 @@ function EchoFundTradingParagraph($fund, $bChinese, $callback = false)
 {
     $ref = $fund->stock_ref;
     $strSymbol = RefGetMyStockLink($ref, $bChinese);
-    $strEstPrice = $ref->GetPriceDisplay($fund->fPrice);
+    $strEstPrice = $ref->GetPriceDisplay($fund->fOfficialNetValue);
     if ($fund->fFairNetValue)       $strEstPrice .= '/'.$ref->GetPriceDisplay($fund->fFairNetValue);
     if ($fund->fRealtimeNetValue)   $strEstPrice .= '/'.$ref->GetPriceDisplay($fund->fRealtimeNetValue);
     
@@ -159,7 +159,7 @@ function EchoFundTradingParagraph($fund, $bChinese, $callback = false)
         $str = "The $strPremium of $strPrice comparing with $strSymbol each $strEst net value $strEstPrice";
     }
     
-    _echoTradingParagraph($str, $arColumn, $ref, $bChinese, $fund->fPrice, $fund->fFairNetValue, $fund->fRealtimeNetValue, $callback); 
+    _echoTradingParagraph($str, $arColumn, $ref, $bChinese, $fund->fOfficialNetValue, $fund->fFairNetValue, $fund->fRealtimeNetValue, $callback); 
 }
 
 function EchoAhTradingParagraph($hshare_ref, $bChinese)

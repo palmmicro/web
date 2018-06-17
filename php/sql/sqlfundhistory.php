@@ -28,18 +28,18 @@ class FundHistorySql extends DailyStockSql
     	return $this->CreateTable($str);
     }
     
-    function Insert($strDate, $strClose, $strEstimated, $strTime)
+    function Insert($strDate, $strClose, $strEstValue, $strTime)
     {
     	if ($strStockId = $this->GetKeyId())
     	{
-    		return $this->InsertData("(id, stock_id, date, close, estimated, time) VALUES('0', '$strStockId', '$strDate', '$strClose', '$strEstimated', '$strTime')");
+    		return $this->InsertData("(id, stock_id, date, close, estimated, time) VALUES('0', '$strStockId', '$strDate', '$strClose', '$strEstValue', '$strTime')");
     	}
     	return false;
     }
     
-    function Update($strId, $strNetValue, $strEstimated, $strTime)
+    function Update($strId, $strNetValue, $strEstValue, $strTime)
     {
-		return $this->UpdateById("close = '$strNetValue', estimated = '$strEstimated', time = '$strTime'", $strId);
+		return $this->UpdateById("close = '$strNetValue', estimated = '$strEstValue', time = '$strTime'", $strId);
 	}
 }
 
@@ -63,17 +63,17 @@ function SqlGetFundNetValueByDate($strStockId, $strDate)
 	return $sql->GetClose($strDate);
 }
 
-function SqlInsertFundHistory($strStockId, $strDate, $strNetValue, $strEstimated, $strTime)
+function SqlInsertFundHistory($strStockId, $strDate, $strNetValue, $strEstValue, $strTime)
 {
 	DebugString('Insert fund history '.SqlGetStockSymbol($strStockId));
 	$sql = new FundHistorySql($strStockId);
-	return $sql->Insert($strDate, $strNetValue, $strEstimated, $strTime);
+	return $sql->Insert($strDate, $strNetValue, $strEstValue, $strTime);
 }
 
-function SqlUpdateFundHistory($strId, $strNetValue, $strEstimated, $strTime)
+function SqlUpdateFundHistory($strId, $strNetValue, $strEstValue, $strTime)
 {
-	$sql = new FundHistorySql($strStockId);
-	return $sql->Update($strId, $strNetValue, $strEstimated, $strTime);
+	$sql = new FundHistorySql();
+	return $sql->Update($strId, $strNetValue, $strEstValue, $strTime);
 }
 
 ?>

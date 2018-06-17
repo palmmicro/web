@@ -33,19 +33,17 @@ function _getSinaFundStr($sym, $strFundSymbol, $strFileName)
 
 class FundReference extends MysqlReference
 {
-    // original data
-//    var $strPrevNetValue;      // Most recent net value orginal data is in StockReference::$strPrevPrice 
-
     var $stock_ref = false;     // MyStockReference
     var $est_ref = false;       // MyStockRefenrence for fund net value estimation
     var $future_ref = false;
     var $future_etf_ref = false;
 
-    // estimated float point data 
-    var $fRealtimeNetValue = false;
+    // estimated data
+    var $fOfficialNetValue = false;
     var $fFairNetValue = false;
+    var $fRealtimeNetValue = false;
 
-    var $strOfficialDate = false;
+    var $strOfficialDate;
     
     var $fFactor = 1.0;
     
@@ -62,17 +60,17 @@ class FundReference extends MysqlReference
         $strSqlId = $this->GetStockId();
         $strDate = $this->est_ref->strDate;
         list($strDummy, $strTime) = explodeDebugDateTime();
-        $strPrice = strval($this->fPrice);
+        $strEstValue = strval($this->fOfficialNetValue);
         if ($history = SqlGetFundHistoryByDate($strSqlId, $strDate))
         {
             if ($history['close'] == FUND_EMPTY_NET_VALUE)
             {   // Only update when official net value is not ready
-                SqlUpdateFundHistory($history['id'], FUND_EMPTY_NET_VALUE, $strPrice, $strTime);
+                SqlUpdateFundHistory($history['id'], FUND_EMPTY_NET_VALUE, $strEstValue, $strTime);
             }
         }
         else
         {
-            SqlInsertFundHistory($strSqlId, $strDate, FUND_EMPTY_NET_VALUE, $strPrice, $strTime);
+            SqlInsertFundHistory($strSqlId, $strDate, FUND_EMPTY_NET_VALUE, $strEstValue, $strTime);
         }
     }
 
@@ -95,7 +93,7 @@ class FundReference extends MysqlReference
         if ($ymd->IsWeekend())     return false;   // sina fund may provide wrong weekend data
 
         $strSqlId = $this->GetStockId();
-        $strNetValue = $this->strPrevPrice;
+        $strNetValue = $this->strPrice;
         if ($history = SqlGetFundHistoryByDate($strSqlId, $strDate))
         {
             if ($history['close'] == FUND_EMPTY_NET_VALUE)
@@ -118,7 +116,7 @@ class FundReference extends MysqlReference
 
     function InsertFundCalibration($est_ref, $strEstPrice)
     {
-        return SqlInsertStockCalibration($this->GetStockId(), $est_ref->GetStockSymbol(), $this->strPrevPrice, $strEstPrice, $this->fFactor, DebugGetTimeDisplay());
+        return SqlInsertStockCalibration($this->GetStockId(), $est_ref->GetStockSymbol(), $this->strPrice, $strEstPrice, $this->fFactor, DebugGetTimeDisplay());
     }
 
     function GetStockSymbol()
@@ -139,6 +137,32 @@ class FundReference extends MysqlReference
         return parent::GetStockId();
     }
 
+    function GetPriceDisplay($fVal)
+    {
+    	if ($fVal)
+    	{
+    		if ($this->stock_ref)
+    		{
+    			return $this->stock_ref->GetPriceDisplay($fVal);
+    		}
+    		return parent::GetPriceDisplay($fVal);
+    	}
+        return '';
+    }
+    
+    function GetPercentageDisplay($fVal)
+    {
+    	if ($fVal)
+    	{
+    		if ($this->stock_ref)
+    		{
+    			return $this->stock_ref->GetPercentageDisplay($fVal);
+    		}
+    		return parent::GetPercentageDisplay($fVal);
+    	}
+        return '';
+    }
+    
     function AdjustPosition($fVal)
     {
         return $fVal * FUND_POSITION_RATIO + $this->fPrevPrice * (1.0 - FUND_POSITION_RATIO);
@@ -160,9 +184,8 @@ class FundReference extends MysqlReference
             return;
         }
         
-        $this->strPrice = '0.0';
-        $this->strPrevPrice = $ar[1];   // net value
-//        $this->strPrevNetValue = $ar[3];
+        $this->strPrice = $ar[1];   // net value
+        $this->strPrevPrice = $ar[3];
         
         $this->strDate = $ar[4];
         $this->strName = $ar[0];

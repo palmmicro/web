@@ -75,6 +75,49 @@ class _AdrGroup extends _StockGroup
     }
 } 
 
+function _echoArbitrageParagraph($group, $bChinese)
+{
+    EchoParagraphBegin($bChinese ? '策略分析' : 'Arbitrage analysis');
+    EchoArbitrageTableBegin($bChinese);
+
+    $cn_trans = $group->GetStockTransactionCN();
+    $hk_trans = $group->GetStockTransactionHK();
+    $us_trans = $group->GetStockTransactionUS();
+    $group->OnConvert($cn_trans, $hk_trans, $us_trans);
+    
+    $hk_ref = $group->hk_ref;
+	$sym = $group->arbi_trans->ref->sym;
+    if ($sym->IsSymbolA())
+    {
+        $cn_arbi = $group->arbi_trans;
+        EchoArbitrageTableItem2($cn_arbi, $group->cn_convert); 
+        EchoArbitrageTableItem(intval(-1.0 * $cn_arbi->iTotalShares * $group->fRatioAH), StockGetPriceDisplay($hk_ref->EstFromCny($cn_arbi->GetAvgCost()), $group->hk_ref->fPrice), $group->hk_convert); 
+        EchoArbitrageTableItem(intval(-1.0 * $cn_arbi->iTotalShares * $group->fRatioAH / $group->fRatioAdrH), StockGetPriceDisplay($hk_ref->FromCnyToUsd($cn_arbi->GetAvgCost()), $group->us_ref->fPrice), $group->us_convert); 
+    }
+    else if ($sym->IsSymbolH())
+    {
+        $hk_arbi = $group->arbi_trans;
+        EchoArbitrageTableItem(intval(-1.0 * $hk_arbi->iTotalShares / $group->fRatioAH), StockGetPriceDisplay($hk_ref->EstToCny($hk_arbi->GetAvgCost()), $group->cn_ref->fPrice), $group->cn_convert); 
+        EchoArbitrageTableItem2($hk_arbi, $group->hk_convert); 
+        EchoArbitrageTableItem(intval(-1.0 * $hk_arbi->iTotalShares / $group->fRatioAdrH), StockGetPriceDisplay($hk_ref->EstToUsd($hk_arbi->GetAvgCost()), $group->us_ref->fPrice), $group->us_convert); 
+    }
+    else
+    {
+        $us_arbi = $group->arbi_trans;
+        EchoArbitrageTableItem(intval(-1.0 * $us_arbi->iTotalShares * $group->fRatioAdrH / $group->fRatioAH), StockGetPriceDisplay($hk_ref->FromUsdToCny($us_arbi->GetAvgCost()), $group->cn_ref->fPrice), $group->cn_convert); 
+        EchoArbitrageTableItem(intval(-1.0 * $us_arbi->iTotalShares * $group->fRatioAdrH), StockGetPriceDisplay($hk_ref->EstFromUsd($us_arbi->GetAvgCost()), $group->hk_ref->fPrice), $group->hk_convert); 
+        EchoArbitrageTableItem2($us_arbi, $group->us_convert); 
+    }
+    
+    EchoTableParagraphEnd();
+}
+
+function _echoAdminTestParagraph($group, $bChinese)
+{
+    $str = _GetStockConfigDebugString(array($group->hk_ref, $group->cn_ref, $group->us_ref), $bChinese);
+    EchoParagraph($str);
+}
+
 function _adrStockRefCallbackData($ref, $bChinese)
 {
     global $group;
@@ -119,60 +162,11 @@ function _adrStockRefCallback($bChinese, $ref = false)
     return $arColumn;
 }
 
-function _echoRefParagraph($group, $bChinese)
-{
-    $str = $bChinese ? '价格数据' : 'Price data';
-    EchoReferenceParagraph($group->arStockRef, $bChinese, $str, _adrStockRefCallback);
-}
-
-function _echoArbitrageParagraph($group, $bChinese)
-{
-    EchoParagraphBegin($bChinese ? '策略分析' : 'Arbitrage analysis');
-    EchoArbitrageTableBegin($bChinese);
-
-    $cn_trans = $group->GetStockTransactionCN();
-    $hk_trans = $group->GetStockTransactionHK();
-    $us_trans = $group->GetStockTransactionUS();
-    $group->OnConvert($cn_trans, $hk_trans, $us_trans);
-    
-    $hk_ref = $group->hk_ref;
-	$sym = $group->arbi_trans->ref->sym;
-    if ($sym->IsSymbolA())
-    {
-        $cn_arbi = $group->arbi_trans;
-        EchoArbitrageTableItem2($cn_arbi, $group->cn_convert); 
-        EchoArbitrageTableItem(intval(-1.0 * $cn_arbi->iTotalShares * $group->fRatioAH), StockGetPriceDisplay($hk_ref->EstFromCny($cn_arbi->GetAvgCost()), $group->hk_ref->fPrice), $group->hk_convert); 
-        EchoArbitrageTableItem(intval(-1.0 * $cn_arbi->iTotalShares * $group->fRatioAH / $group->fRatioAdrH), StockGetPriceDisplay($hk_ref->FromCnyToUsd($cn_arbi->GetAvgCost()), $group->us_ref->fPrice), $group->us_convert); 
-    }
-    else if ($sym->IsSymbolH())
-    {
-        $hk_arbi = $group->arbi_trans;
-        EchoArbitrageTableItem(intval(-1.0 * $hk_arbi->iTotalShares / $group->fRatioAH), StockGetPriceDisplay($hk_ref->EstToCny($hk_arbi->GetAvgCost()), $group->cn_ref->fPrice), $group->cn_convert); 
-        EchoArbitrageTableItem2($hk_arbi, $group->hk_convert); 
-        EchoArbitrageTableItem(intval(-1.0 * $hk_arbi->iTotalShares / $group->fRatioAdrH), StockGetPriceDisplay($hk_ref->EstToUsd($hk_arbi->GetAvgCost()), $group->us_ref->fPrice), $group->us_convert); 
-    }
-    else
-    {
-        $us_arbi = $group->arbi_trans;
-        EchoArbitrageTableItem(intval(-1.0 * $us_arbi->iTotalShares * $group->fRatioAdrH / $group->fRatioAH), StockGetPriceDisplay($hk_ref->FromUsdToCny($us_arbi->GetAvgCost()), $group->cn_ref->fPrice), $group->cn_convert); 
-        EchoArbitrageTableItem(intval(-1.0 * $us_arbi->iTotalShares * $group->fRatioAdrH), StockGetPriceDisplay($hk_ref->EstFromUsd($us_arbi->GetAvgCost()), $group->hk_ref->fPrice), $group->hk_convert); 
-        EchoArbitrageTableItem2($us_arbi, $group->us_convert); 
-    }
-    
-    EchoTableParagraphEnd();
-}
-
-function _echoAdminTestParagraph($group, $bChinese)
-{
-    $str = _GetStockConfigDebugString(array($group->hk_ref, $group->cn_ref, $group->us_ref), $bChinese);
-    EchoParagraph($str);
-}
-
 function AdrEchoAll($bChinese = true)
 {
     global $group;
     
-    _echoRefParagraph($group, $bChinese);
+    EchoReferenceParagraph($group->arStockRef, $bChinese, _adrStockRefCallback);
 	EchoAhTradingParagraph($group->hk_ref, $bChinese);
     EchoHShareSmaParagraph($group->cn_ref, $group->hk_ref, $bChinese);
     EchoHShareSmaParagraph($group->hk_ref, $group->hk_ref, $bChinese);
