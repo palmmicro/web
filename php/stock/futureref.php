@@ -1,8 +1,17 @@
 <?php
 
 // ****************************** FutureReference class *******************************************************
-class FutureReference extends MyStockReference
+class FutureReference extends MysqlReference
 {
+    function FutureReference($strSymbol) 
+    {
+       	$strSinaSymbol = FutureGetSinaSymbol($strSymbol);
+        $this->strSqlName = $strSinaSymbol;
+        $this->LoadSinaFutureData($strSymbol, $strSinaSymbol);
+        $this->bConvertGB2312 = true;     // Sina name is GB2312 coded
+        parent::MysqlReference($strSymbol);
+    }
+    
     function InsertStockCalibration($etf_ref)
     {
         return SqlInsertStockCalibration($this->strSqlId, $etf_ref->GetStockSymbol(), $this->strPrice, $etf_ref->strPrice, $this->fFactor, $etf_ref->GetDateTime());
@@ -17,6 +26,15 @@ class FutureReference extends MyStockReference
     function EstByEtf($fEtf)
     {
         return $fEtf * $this->fFactor;
+    }
+    
+    function _loadFactor()
+    {
+        if ($fVal = SqlGetStockCalibrationFactor($this->strSqlId))
+        {
+            $this->fFactor = $fVal;
+        }
+        return $this->fFactor;
     }
     
     function LoadEtfFactor($etf_ref)
@@ -37,15 +55,6 @@ class FutureReference extends MyStockReference
             return true;
         }
         return false;
-    }
-	
-    // constructor 
-    function FutureReference($strSymbol) 
-    {
-        $strBackup = parent::$strDataSource;
-        parent::$strDataSource = STOCK_SINA_FUTURE_DATA;
-        parent::MyStockReference($strSymbol);
-        parent::$strDataSource = $strBackup;
     }
 }
 

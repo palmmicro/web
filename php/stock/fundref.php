@@ -16,21 +16,7 @@ function GetEstErrorPercentage($fEstValue, $fNetValue)
     return $fPercentage;
 }
 
-// ****************************** Private functions *******************************************************
-
-function _getSinaFundStr($sym, $strFundSymbol, $strFileName)
-{
-    if (($str = IsNewDailyQuotes($sym, $strFileName, _GetFundQuotesYMD)) === false)
-    {
-        $str = GetSinaQuotes($strFundSymbol);
-        if ($str)   file_put_contents($strFileName, $str);
-        else         $str = file_get_contents($strFileName);
-    }
-    return $str;
-}
-
 // ****************************** FundReference Class *******************************************************
-
 class FundReference extends MysqlReference
 {
     var $stock_ref = false;     // MyStockReference
@@ -45,9 +31,24 @@ class FundReference extends MysqlReference
 
     var $strOfficialDate;
     
-    var $fFactor = 1.0;
-    
     var $forex_sql;
+    
+    function FundReference($strSymbol) 
+    {
+        $this->_newStockSymbol($strSymbol);
+        $this->LoadSinaFundData();
+        $this->bConvertGB2312 = true;     // Sina name is GB2312 coded
+        parent::MysqlReference($strSymbol);
+
+        if ($this->sym->IsFundA())
+        {
+            $this->stock_ref = new MyStockReference($strSymbol);
+        }
+        if ($strStockId = $this->GetStockId())
+        {
+        	if ($fVal = SqlGetStockCalibrationFactor($strStockId))		$this->fFactor = $fVal; 
+        }
+    }
     
     function SetForex($strForex)
     {
@@ -166,48 +167,6 @@ class FundReference extends MysqlReference
     function AdjustPosition($fVal)
     {
         return $fVal * FUND_POSITION_RATIO + $this->fPrevPrice * (1.0 - FUND_POSITION_RATIO);
-    }
-    
-    function LoadSinaFundData()
-    {
-        $sym = $this->sym;
-        $this->strExternalLink = GetSinaFundLink($sym);
-        
-        if ($sym->IsSinaFund())	$strFundSymbol = $sym->GetSymbol();
-        else						$strFundSymbol = $sym->GetSinaFundSymbol();
-        $this->strFileName = DebugGetSinaFileName($strFundSymbol);
-        
-        $ar = explodeQuote(_getSinaFundStr($sym, $strFundSymbol, $this->strFileName));
-        if (count($ar) < 4)
-        {
-            $this->bHasData = false;
-            return;
-        }
-        
-        $this->strPrice = $ar[1];   // net value
-        $this->strPrevPrice = $ar[3];
-        
-        $this->strDate = $ar[4];
-        $this->strName = $ar[0];
-
-        $this->bConvertGB2312 = true;     // Sina name is GB2312 coded
-    }
-	
-    // constructor 
-    function FundReference($strSymbol) 
-    {
-        $this->_newStockSymbol($strSymbol);
-        $this->LoadSinaFundData();
-        parent::MysqlReference($strSymbol);
-
-        if ($this->sym->IsFundA())
-        {
-            $this->stock_ref = new MyStockReference($strSymbol);
-        }
-        if ($strStockId = $this->GetStockId())
-        {
-        	if ($fVal = SqlGetStockCalibrationFactor($strStockId))		$this->fFactor = $fVal; 
-        }
     }
 }
 

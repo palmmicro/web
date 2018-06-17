@@ -2,12 +2,10 @@
 define('TRADING_QUOTE_NUM', 5);
 
 define('STOCK_SINA_DATA', 'Sina Data');
-define('STOCK_SINA_FUTURE_DATA', 'Sina Future Data');
-define('STOCK_SINA_FOREX', 'Sina Forex Data');
-define('STOCK_EASTMONEY_FOREX', 'East Money Forex Data');
-define('STOCK_DB_FOREX', 'Forex Data From Database');
-define('STOCK_GOOGLE_DATA', 'Google Data');
 define('STOCK_YAHOO_DATA', 'Yahoo Data (possible 15 min delay)');
+define('STOCK_GOOGLE_DATA', 'Google Data');
+define('STOCK_EASTMONEY_DATA', 'East Money Data');
+define('STOCK_MYSQL_DATA', 'Data from MySQL');
 
 define('STOCK_NET_VALUE', 'Net Value');
 define('STOCK_PRE_MARKET', 'Pre-Market Trading');
@@ -170,7 +168,6 @@ class StockReference
 {
     var $sym = false;                  // StockSymbol class
     var $strDescription = false;     // Stock description
-	var $bConvertGB2312 = false;
     
     var $strFileName;                       // File to store original data
     var $strConfigName;
@@ -183,13 +180,13 @@ class StockReference
     var $strDate;                     // 2014-11-13
     var $strTime;			            // 08:55:00        
     
-    var $strChineseName = false;
+    var $strChineseName;
     var $strName = '';
     
-    var $strOpen = false;                     // open price
-    var $strHigh = false;
-    var $strLow = false;
-    var $strVolume = false;
+    var $strOpen;                     // open price
+    var $strHigh;
+    var $strLow;
+    var $strVolume = '0';
     
     var $arBidPrice = array();
     var $arBidQuantity = array();
@@ -210,8 +207,8 @@ class StockReference
         $this->strConfigName = DebugGetConfigFileName($strSymbol);
         
         $this->_convertPrice();
-        if (FloatNotZero($this->fPrevPrice))		$this->fPercentage = $this->fPrice / $this->fPrevPrice;
-        else										$this->fPercentage = 0.0;
+        if (empty($this->fPrevPrice))	$this->fPercentage = 0.0;
+        else								$this->fPercentage = $this->fPrice / $this->fPrevPrice;		
     }
 
     function HasData()
@@ -560,7 +557,6 @@ class StockReference
         {
             $this->_onSinaDataUS($ar);
         }
-        $this->bConvertGB2312 = true;     // Sina name is GB2312 coded
     }
     
     function _onSinaFuture($ar)
@@ -592,10 +588,9 @@ class StockReference
         $this->strVolume = $ar[14];
     }
     
-    function LoadSinaFutureData($strSymbol)
+    function LoadSinaFutureData($strSymbol, $strSinaSymbol)
     {
         $this->strExternalLink = GetSinaFutureLink($strSymbol);
-        $strSinaSymbol = FutureGetSinaSymbol($strSymbol);
         $this->strFileName = DebugGetSinaFileName($strSinaSymbol);
         $ar = _GetForexAndFutureArray($strSinaSymbol, $this->strFileName, ForexAndFutureGetTimezone(), GetSinaQuotes);
         if (count($ar) < 13)
@@ -612,7 +607,38 @@ class StockReference
         {
             $this->_onSinaFuture($ar);
         }
-        $this->bConvertGB2312 = true;     // Sina name is GB2312 coded
+    }
+    
+    function LoadSinaFundData()
+    {
+        $sym = $this->sym;
+        $this->strExternalLink = GetSinaFundLink($sym);
+        
+        if ($sym->IsSinaFund())	$strFundSymbol = $sym->GetSymbol();
+        else						$strFundSymbol = $sym->GetSinaFundSymbol();
+        
+        $strFileName = DebugGetSinaFileName($strFundSymbol);
+        $this->strFileName = $strFileName;
+
+        if (($str = IsNewDailyQuotes($sym, $strFileName, _GetFundQuotesYMD)) === false)
+        {
+        	$str = GetSinaQuotes($strFundSymbol);
+        	if ($str)   file_put_contents($strFileName, $str);
+        	else         $str = file_get_contents($strFileName);
+        }
+        
+        $ar = explodeQuote($str);
+        if (count($ar) < 4)
+        {
+            $this->bHasData = false;
+            return;
+        }
+        
+        $this->strPrice = $ar[1];   // net value
+        $this->strPrevPrice = $ar[3];
+        
+        $this->strDate = $ar[4];
+        $this->strName = $ar[0];
     }
     
     function _getEastMoneyForexData($ar)
@@ -660,7 +686,6 @@ class StockReference
         $this->strPrice = $ar[8];
     	$this->strName = $ar[9];
         $this->strDate = $ar[10];
-        $this->bConvertGB2312 = true;     // Sina name is GB2312 coded
     }       
 
     function LoadEastMoneyForexData($strSymbol)
@@ -675,7 +700,6 @@ class StockReference
         }
         $this->_getEastMoneyForexData($ar);
     }       
-    
 }
 
 // ****************************** ExtendedTrading Class *******************************************************

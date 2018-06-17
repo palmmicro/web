@@ -7,7 +7,7 @@ class DbCnyReference extends CnyReference
     function DbCnyReference($strSymbol) 
     {
         $strBackup = parent::$strDataSource;
-        parent::$strDataSource = STOCK_DB_FOREX;
+        parent::$strDataSource = STOCK_MYSQL_DATA;
         parent::CnyReference($strSymbol);
         parent::$strDataSource = $strBackup;
     }

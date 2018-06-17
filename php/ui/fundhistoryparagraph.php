@@ -29,7 +29,7 @@ function EchoFundHistoryTableItem($ref, $csv, $history, $fund, $clone_ref)
     $fFundClose = floatval($strFundClose);
     $strNetValueDisplay = StockGetPriceDisplay($fNetValue, $fFundClose);
     $strPercentage = StockGetPercentageDisplay($fFundClose, $fNetValue);
-    if ($csv && FloatNotZero($fNetValue))
+    if ($csv && (empty($fNetValue) == false))
     {
     	$csv->WriteArray(array($strDate, $strNetValue, strval(StockGetPercentage($fFundClose, $fNetValue))));
     }
@@ -38,9 +38,8 @@ function EchoFundHistoryTableItem($ref, $csv, $history, $fund, $clone_ref)
     $strEstChange = '';
     if ($clone_ref)
     {
-//        list($strClose, $strPrevClose) = $arEtfClose;
-        $strEstClose = $clone_ref->GetCurrentPriceDisplay();			// StockGetPriceDisplay(floatval($strClose), floatval($strPrevClose)); 
-        $strEstChange = $clone_ref->GetCurrentPercentageDisplay();		// StockGetPercentageDisplay(floatval($strClose), floatval($strPrevClose));
+        $strEstClose = $clone_ref->GetCurrentPriceDisplay();
+        $strEstChange = $clone_ref->GetCurrentPercentageDisplay();
     }
 
     $strEstValueDisplay = '';
@@ -49,13 +48,14 @@ function EchoFundHistoryTableItem($ref, $csv, $history, $fund, $clone_ref)
     {
         $fEstValue = floatval($strEstValue);
         $strEstValueDisplay = StockGetPriceDisplay($fEstValue, $fFundClose);
-        if (FloatNotZero(GetEstErrorPercentage($fEstValue, $fNetValue)))
+        $fPercentage = GetEstErrorPercentage($fEstValue, $fNetValue);
+        if (empty($fPercentage))
         {
-            $strError = StockGetPercentageDisplay($fEstValue, $fNetValue);
+            $strError = '<font color=grey>0</font>'; 
         }
         else
         {
-            $strError = '<font color=grey>0</font>'; 
+            $strError = StockGetPercentageDisplay($fEstValue, $fNetValue);
         }
     }
     else

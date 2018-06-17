@@ -178,12 +178,6 @@ function ForexAndFutureGetTimezone()
 
 define('MIN_FLOAT_VAL', 0.0000001);
 
-function FloatNotZero($fVal)
-{
-    if (abs($fVal) > MIN_FLOAT_VAL)     return true;
-    return false;
-}
-
 function round_display($fCur)
 {
     if (abs($fCur) > (10 - MIN_FLOAT_VAL))        $fCur = round($fCur, 2);
@@ -230,26 +224,22 @@ function StockGetPercentage($fPrice, $fPrice2)
 
 function StockGetPercentageText($fPrice, $fPrice2)
 {
-    if (FloatNotZero($fPrice2))
-    {
-        $fPercentage = StockGetPercentage($fPrice, $fPrice2);
-        return strval($fPercentage).'%';
-    }
-    return '';
+    if (empty($fPrice2))		return '';
+    
+    $fPercentage = StockGetPercentage($fPrice, $fPrice2);
+    return strval($fPercentage).'%';
 }
 
 function StockGetPercentageDisplay($fPrice, $fPrice2)
 {
-    if ($fPrice2 && FloatNotZero($fPrice2) && FloatNotZero($fPrice))
-    {
-        $fPercentage = StockGetPercentage($fPrice, $fPrice2);
-        if ($fPercentage > MIN_FLOAT_VAL)    $strColor = 'black';
-        else                                   $strColor = 'red';
+    if (empty($fPrice2) || empty($fPrice))	return '';
+
+    $fPercentage = StockGetPercentage($fPrice, $fPrice2);
+    if ($fPercentage > MIN_FLOAT_VAL)    $strColor = 'black';
+    else                                   $strColor = 'red';
     
-        $str = strval($fPercentage);
-        return "<font color=$strColor>$str%</font>";
-    }
-    return '';
+    $str = strval($fPercentage);
+    return "<font color=$strColor>$str%</font>";
 }
 
 // ****************************** StockReference public functions *******************************************************
@@ -270,9 +260,9 @@ function _boldString($str)
 
 function _convertDescriptionDisplay($str, $strDisplay)
 {
-    if ($str == STOCK_PRE_MARKET || $str == STOCK_POST_MARKET)	        						return _greyString($strDisplay);
-    if ($str == STOCK_NET_VALUE)																	return _boldString($strDisplay);
-    if ($str == STOCK_SINA_DATA || $str == STOCK_SINA_FUTURE_DATA || $str == STOCK_YAHOO_DATA)	return _italicString($strDisplay);
+    if ($str == STOCK_PRE_MARKET || $str == STOCK_POST_MARKET)	return _greyString($strDisplay);
+    if ($str == STOCK_NET_VALUE)									return _boldString($strDisplay);
+    if ($str == STOCK_SINA_DATA || $str == STOCK_YAHOO_DATA)		return _italicString($strDisplay);
     return $strDisplay;
 }
 

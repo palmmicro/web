@@ -3,8 +3,8 @@
 // ****************************** CnyReference class *******************************************************
 class CnyReference extends MysqlReference
 {
-//    public static $strDataSource = STOCK_EASTMONEY_FOREX;
-    public static $strDataSource = STOCK_DB_FOREX;
+//    public static $strDataSource = STOCK_EASTMONEY_DATA;
+    public static $strDataSource = STOCK_MYSQL_DATA;
     
     function _loadDatabaseData($strSymbol)
     {
@@ -23,7 +23,7 @@ class CnyReference extends MysqlReference
     
 	function _updateHistory()
 	{
-		if (FloatNotZero(floatval($this->strOpen)) == false)
+		if (empty($this->strOpen))
 		{
 			$this->EmptyFile();
 			return;
@@ -39,7 +39,7 @@ class CnyReference extends MysqlReference
     // constructor 
     function CnyReference($strSymbol)
     {
-        if (self::$strDataSource == STOCK_EASTMONEY_FOREX)
+        if (self::$strDataSource == STOCK_EASTMONEY_DATA)
         {
         	$this->LoadEastMoneyCnyData($strSymbol);
         }
@@ -48,7 +48,7 @@ class CnyReference extends MysqlReference
             $this->_loadDatabaseData($strSymbol);
         }
         parent::MysqlReference($strSymbol);
-        if (self::$strDataSource != STOCK_DB_FOREX)
+        if (self::$strDataSource != STOCK_MYSQL_DATA)
         {
         	if ($this->strSqlId)
         	{

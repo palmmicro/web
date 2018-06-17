@@ -5,6 +5,9 @@ class MysqlReference extends StockReference
 {
     var $strSqlId = false;      // ID in mysql database
     var $strSqlName = false;
+	var $bConvertGB2312 = false;
+
+    var $fFactor = 1.0;			// 'factor' field in old stockcalibration table or 'close' field in new etfcalibration table
     
     function GetStockId()
     {
@@ -22,15 +25,16 @@ class MysqlReference extends StockReference
     
     function GetChineseName()
     {
-    	if ($this->strChineseName)
+    	if (empty($this->strChineseName))
     	{
-    		if ($this->bConvertGB2312)
-    		{
-    			return FromGB2312ToUTF8($this->strChineseName);
-    		}
-    		return $this->strChineseName;
+    		return $this->GetEnglishName();	// 数据中只有唯一一个中文或者英文名字的情况下, 优先放strName字段.
     	}
-    	return $this->GetEnglishName();	// 数据中只有唯一一个中文或者英文名字的情况下, 优先放strName字段.
+
+    	if ($this->bConvertGB2312)
+    	{
+    		return FromGB2312ToUTF8($this->strChineseName);
+    	}
+    	return $this->strChineseName;
     }
     
     function _loadSqlId()
@@ -49,6 +53,52 @@ class MysqlReference extends StockReference
             }
         }
     }
+
+    function _invalidHistoryData($str)
+    {
+        if (empty($str))    return true;
+        if ($str == 'N/A')   return true;
+        return false;
+    }
+    
+    function _updateStockHistory()
+    {
+        $strOpen = $this->strOpen;
+        if ($this->_invalidHistoryData($strOpen))  return;
+        $strHigh = $this->strHigh;
+        if ($this->_invalidHistoryData($strHigh))  return;
+        $strLow = $this->strLow;
+        if ($this->_invalidHistoryData($strLow))  return;
+        $strClose = $this->strPrice;
+        if ($this->_invalidHistoryData($strClose))  return;
+        $sql = new StockHistorySql($this->strSqlId);
+        $sql->Merge($this->strDate, $strOpen, $strHigh, $strLow, $strClose, $this->strVolume, $strClose);
+    }
+
+    // En = k * X0 + (1 - k) * Em; 其中m = n - 1; k = 2 / (n + 1)
+	function CalculateEMA($fPrice, $fPrev, $iDays)
+	{
+		$f = 2.0 / ($iDays + 1);
+		return $f * $fPrice + (1.0 - $f) * $fPrev;
+	}
+    
+	function _updateStockEmaDays($iDays)
+	{
+		$sql = new StockEmaSql($this->strSqlId, $iDays);
+		$strDate = $this->strDate;
+		if ($fPrev = $sql->GetClosePrev($strDate))
+		{
+			$fCur = $this->CalculateEMA($this->fPrice, $fPrev, $iDays);
+			$sql->Write($strDate, strval($fCur));
+		}
+	}
+	
+    function _updateStockEma($now_ymd)
+    {
+    	if ($now_ymd->IsTradingHourEnd() == false)	return;
+        $this->_updateStockEmaDays(50);
+        $this->_updateStockEmaDays(200);
+    }
     
     function MysqlReference($strSymbol) 
     {
@@ -58,6 +108,12 @@ class MysqlReference extends StockReference
         	$this->strSqlName = $strSymbol;
         }
         $this->_loadSqlId();
+        $now_ymd = new NowYMD();
+        if ($now_ymd->GetYMD() == $this->strDate && $this->strSqlId && $this->bHasData)
+        {
+            $this->_updateStockHistory();
+            $this->_updateStockEma($now_ymd);
+        }
     }
 }
 

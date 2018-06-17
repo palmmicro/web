@@ -37,7 +37,7 @@ function SqlUpdateStockCalibration($strStockId, $strPeerName, $strPrice, $strPee
 
 function SqlInsertStockCalibration($strStockId, $strPeerName, $strPrice, $strPeerPrice, $fFactor, $strDateTime)
 {
-    if (FloatNotZero($fFactor))
+    if (empty($fFactor) == false)
     {
         $strFactor = strval($fFactor);
         
