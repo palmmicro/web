@@ -42,9 +42,14 @@ function EchoFundHistoryTableItem($ref, $csv, $history, $fund, $clone_ref)
         $strEstChange = $clone_ref->GetCurrentPercentageDisplay();
     }
 
-    $strEstValueDisplay = '';
-    $strError = ''; 
-    if ($strEstValue != '0')
+    if ($strEstValue == FUND_EMPTY_VALUE)
+    {
+//    	DebugString('EchoFundHistoryTableItem '.$strEstValue);
+    	$strEstValueDisplay = '';
+    	$strError = ''; 
+        $strEstTime = '';
+    }
+    else
     {
         $fEstValue = floatval($strEstValue);
         $strEstValueDisplay = StockGetPriceDisplay($fEstValue, $fFundClose);
@@ -57,10 +62,6 @@ function EchoFundHistoryTableItem($ref, $csv, $history, $fund, $clone_ref)
         {
             $strError = StockGetPercentageDisplay($fEstValue, $fNetValue);
         }
-    }
-    else
-    {
-        $strEstTime = '';
     }
     
     echo <<<END

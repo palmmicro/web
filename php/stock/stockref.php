@@ -693,6 +693,16 @@ class StockReference
         }
         $this->_getEastMoneyForexData($ar);
     }       
+
+    function LoadSqlData($sql)
+    {
+       	if ($history = $sql->GetNow())
+       	{
+       		$this->strPrice = $history['close'];
+       		$this->strDate = $history['date'];
+   			$this->strPrevPrice = $sql->GetCloseStringPrev($this->strDate);
+   		}
+    }
 }
 
 // ****************************** ExtendedTrading Class *******************************************************

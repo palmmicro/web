@@ -115,7 +115,8 @@ class _LofReference extends FundReference
         }
         else
         {   // Load last value from database
-            if ($history = SqlGetFundHistoryNow($this->GetStockId()))
+			$sql = new FundHistorySql($this->GetStockId());
+            if ($history = $sql->GetNow())
             {
                 $this->fOfficialNetValue = floatval($history['estimated']);
                 $this->strOfficialDate = $history['date'];

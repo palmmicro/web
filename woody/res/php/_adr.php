@@ -127,7 +127,7 @@ function _adrStockRefCallbackData($ref, $bChinese)
     
     $strPriceDisplay = $ref->GetCurrentPriceDisplay();
     $fPrice = $ref->fPrice;
-    $sym = $ref->sym;
+    $sym = $ref->GetSym();
 	$ar = array();
     if ($sym->IsSymbolA())
     {

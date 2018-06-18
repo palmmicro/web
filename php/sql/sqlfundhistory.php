@@ -2,6 +2,8 @@
 //require_once('sqlstockdaily.php');
 require_once('sqlstockhistory.php');
 
+define('FUND_EMPTY_VALUE', '0.0000');
+
 // ****************************** FundHistorySql class *******************************************************
 class FundHistorySql extends DailyStockSql
 {
@@ -28,7 +30,7 @@ class FundHistorySql extends DailyStockSql
     	return $this->CreateTable($str);
     }
     
-    function Insert($strDate, $strClose, $strEstValue, $strTime)
+    function Insert($strDate, $strClose, $strEstValue = FUND_EMPTY_VALUE, $strTime = '00:00:00')
     {
     	if ($strStockId = $this->GetKeyId())
     	{
@@ -41,39 +43,54 @@ class FundHistorySql extends DailyStockSql
     {
 		return $this->UpdateById("close = '$strNetValue', estimated = '$strEstValue', time = '$strTime'", $strId);
 	}
+	
+	function UpdateNetValue($strDate, $strNetValue)
+	{
+        if ($history = $this->Get($strDate))
+        {
+            if ($history['close'] == FUND_EMPTY_VALUE)
+            {
+                $strEstValue = $history['estimated'];
+                $this->Update($history['id'], $strNetValue, $strEstValue, $history['time']);
+                return $strEstValue;
+            }
+            else
+            {	// We already have it
+                return false;
+            }
+        }
+        $sql->Insert($strDate, $strNetValue);
+        return $strNetValue;
+	}
+	
+	function UpdateEstValue($strDate, $fEstValue)
+	{
+        list($strDummy, $strTime) = explodeDebugDateTime();
+        $strEstValue = strval($fEstValue);
+        if ($history = $this->Get($strDate))
+        {
+            if ($history['close'] == FUND_EMPTY_VALUE)
+            {   // Only update when net value is not ready
+            	// DebugString($strDate.' '.$strEstValue);
+            	if (abs($fEstValue - floatval($history['estimated'])) < 0.00005)
+            	{
+            		$this->Update($history['id'], FUND_EMPTY_VALUE, $strEstValue, $strTime);
+            	}
+            }
+        }
+        else
+        {
+            $this->Insert($strDate, FUND_EMPTY_VALUE, $strEstValue, $strTime);
+        }
+	}
 }
 
 // ****************************** Fund History tables *******************************************************
-
-function SqlGetFundHistoryNow($strStockId)
-{
-	$sql = new FundHistorySql($strStockId);
-	return $sql->GetNow();
-}
-
-function SqlGetFundHistoryByDate($strStockId, $strDate)
-{
-	$sql = new FundHistorySql($strStockId);
-	return $sql->Get($strDate);
-}
 
 function SqlGetFundNetValueByDate($strStockId, $strDate)
 {
 	$sql = new FundHistorySql($strStockId);
 	return $sql->GetClose($strDate);
-}
-
-function SqlInsertFundHistory($strStockId, $strDate, $strNetValue, $strEstValue, $strTime)
-{
-	DebugString('Insert fund history '.SqlGetStockSymbol($strStockId));
-	$sql = new FundHistorySql($strStockId);
-	return $sql->Insert($strDate, $strNetValue, $strEstValue, $strTime);
-}
-
-function SqlUpdateFundHistory($strId, $strNetValue, $strEstValue, $strTime)
-{
-	$sql = new FundHistorySql();
-	return $sql->Update($strId, $strNetValue, $strEstValue, $strTime);
 }
 
 ?>

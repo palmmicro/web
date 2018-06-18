@@ -48,7 +48,7 @@ END;
 function _EchoPortfolioItem($strGroupId, $trans, $bChinese)
 {
     $ref = $trans->ref;
-    $sym = $ref->sym;
+    $sym = $ref->GetSym();
     
     if ($sym->IsSymbolA())           $strMoney = '';
     else if ($sym->IsSymbolH())     $strMoney = $bChinese ? '港币$' : 'HK$';

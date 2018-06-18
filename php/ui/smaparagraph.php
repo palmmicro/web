@@ -190,7 +190,7 @@ function EchoSmaParagraph($ref, $bChinese, $str = false, $cb_ref = false, $callb
 	if ($callback)
     {
     	$est_ref = call_user_func($callback, $cb_ref);
-    	$strColumnEx = GetTableColumn(110, GetXueQiuLink($est_ref->sym).$strEst);
+    	$strColumnEx = GetTableColumn(110, GetXueQiuLink($est_ref->GetSym()).$strEst);
     	$strColumnEx .= GetTableColumn(70, $strNextEst);
     	$iWidth += 180;
     }

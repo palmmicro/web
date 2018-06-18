@@ -1,7 +1,6 @@
 <?php
 
 define('FUND_POSITION_RATIO', 0.95);
-define('FUND_EMPTY_NET_VALUE', '0');
 
 function GetEstErrorPercentage($fEstValue, $fNetValue)
 {
@@ -58,21 +57,8 @@ class FundReference extends MysqlReference
     // Update database
     function UpdateEstNetValue()
     {
-        $strSqlId = $this->GetStockId();
-        $strDate = $this->est_ref->strDate;
-        list($strDummy, $strTime) = explodeDebugDateTime();
-        $strEstValue = strval($this->fOfficialNetValue);
-        if ($history = SqlGetFundHistoryByDate($strSqlId, $strDate))
-        {
-            if ($history['close'] == FUND_EMPTY_NET_VALUE)
-            {   // Only update when official net value is not ready
-                SqlUpdateFundHistory($history['id'], FUND_EMPTY_NET_VALUE, $strEstValue, $strTime);
-            }
-        }
-        else
-        {
-            SqlInsertFundHistory($strSqlId, $strDate, FUND_EMPTY_NET_VALUE, $strEstValue, $strTime);
-        }
+        $sql = new FundHistorySql($this->GetStockId());
+        $sql->UpdateEstValue($this->est_ref->strDate, $this->fOfficialNetValue);
     }
 
     function _compareEstResult($strNetValue, $strEstValue)
@@ -93,26 +79,14 @@ class FundReference extends MysqlReference
         $ymd = new StringYMD($strDate);
         if ($ymd->IsWeekend())     return false;   // sina fund may provide wrong weekend data
 
-        $strSqlId = $this->GetStockId();
         $strNetValue = $this->strPrice;
-        if ($history = SqlGetFundHistoryByDate($strSqlId, $strDate))
+        $sql = new FundHistorySql($this->GetStockId());
+        if ($strEstValue = $sql->UpdateNetValue($strDate, $strNetValue))
         {
-            if ($history['close'] == FUND_EMPTY_NET_VALUE)
-            {
-                $strEstValue = $history['estimated'];
-                SqlUpdateFundHistory($history['id'], $strNetValue, $strEstValue, $history['time']);
-                $this->_compareEstResult($strNetValue, $strEstValue);
-            }
-            else
-            {
-                return false;
-            }
+            $this->_compareEstResult($strNetValue, $strEstValue);
+            return true;
         }
-        else
-        {
-            SqlInsertFundHistory($strSqlId, $strDate, $strNetValue, '0', '0');
-        }
-        return true;
+        return false;
     }
 
     function InsertFundCalibration($est_ref, $strEstPrice)

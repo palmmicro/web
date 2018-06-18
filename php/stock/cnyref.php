@@ -10,13 +10,8 @@ class CnyReference extends MysqlReference
     {
     	$this->strSqlId = SqlGetStockId($strSymbol);
 		$sql = new ForexHistorySql($this->strSqlId);
-    	if ($history = $sql->GetNow())
-    	{
-    		$this->strPrice = $history['close'];
-    		$this->strDate = $history['date'];
-    		$this->strTime = '09:15:00';
-    		$this->strPrevPrice = $sql->GetCloseStringPrev($this->strDate);
-    	}
+       	$this->LoadSqlData($sql);
+   		$this->strTime = '09:15:00';
         $this->strFileName = DebugGetChinaMoneyFile();
         $this->strExternalLink = GetReferenceRateForexLink($strSymbol);
     }
