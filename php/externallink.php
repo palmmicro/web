@@ -54,10 +54,10 @@ function GetYahooStockHistoryLink($sym)
     return GetExternalLink($strHttp, $sym->GetSymbol());
 }
 
-function GetGoogleStockLink($strGoogleSymbol, $strSymbol)
+function GetGoogleStockLink($sym)
 {
-    $strHttp = GOOGLE_QUOTES_URL.$strGoogleSymbol;
-    return GetExternalLink($strHttp, $strSymbol);
+    $strHttp = GOOGLE_QUOTES_URL.$sym->GetGoogleSymbol();
+    return GetExternalLink($strHttp, $sym->GetSymbol());
 }
 
 function GetSinaQuotesLink($strSinaSymbols)

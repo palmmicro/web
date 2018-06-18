@@ -9,6 +9,22 @@ class MysqlReference extends StockReference
 
     var $fFactor = 1.0;			// 'factor' field in old stockcalibration table or 'close' field in new etfcalibration table
     
+    function MysqlReference($sym) 
+    {
+		parent::StockReference($sym);
+        if ($this->strSqlName == false)
+        {
+        	$this->strSqlName = $sym->GetSymbol();
+        }
+        $this->_loadSqlId();
+        $now_ymd = new NowYMD();
+        if ($now_ymd->GetYMD() == $this->strDate && $this->strSqlId && $this->bHasData)
+        {
+            $this->_updateStockHistory();
+            $this->_updateStockEma($now_ymd);
+        }
+    }
+
     function GetStockId()
     {
         return $this->strSqlId;
@@ -98,22 +114,6 @@ class MysqlReference extends StockReference
     	if ($now_ymd->IsTradingHourEnd() == false)	return;
         $this->_updateStockEmaDays(50);
         $this->_updateStockEmaDays(200);
-    }
-    
-    function MysqlReference($strSymbol) 
-    {
-		parent::StockReference($strSymbol);
-        if ($this->strSqlName == false)
-        {
-        	$this->strSqlName = $strSymbol;
-        }
-        $this->_loadSqlId();
-        $now_ymd = new NowYMD();
-        if ($now_ymd->GetYMD() == $this->strDate && $this->strSqlId && $this->bHasData)
-        {
-            $this->_updateStockHistory();
-            $this->_updateStockEma($now_ymd);
-        }
     }
 }
 

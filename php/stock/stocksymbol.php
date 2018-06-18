@@ -411,6 +411,16 @@ class StockSymbol
         return false;
     }
     
+    function GetSinaFutureSymbol()
+    {
+    	$strSymbol = $this->strSymbol;
+    	if ($this->IsFutureCn())
+    	{   // AU0
+    		return $strSymbol;
+    	}
+    	return SINA_FUTURE_PREFIX.$strSymbol;
+    }
+    
     function IsTradable()
     {
     	if ($this->IsIndex())			return false;

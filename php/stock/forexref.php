@@ -17,7 +17,7 @@ class ForexReference extends MysqlReference
         {
             $this->LoadEastMoneyForexData($strSymbol);
         }
-        parent::MysqlReference($strSymbol);
+        parent::MysqlReference(new StockSymbol($strSymbol));
     }       
 }
 

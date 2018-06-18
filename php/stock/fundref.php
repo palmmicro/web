@@ -35,10 +35,10 @@ class FundReference extends MysqlReference
     
     function FundReference($strSymbol) 
     {
-        $this->_newStockSymbol($strSymbol);
-        $this->LoadSinaFundData();
+		$sym = new StockSymbol($strSymbol);
+        $this->LoadSinaFundData($sym);
         $this->bConvertGB2312 = true;     // Sina name is GB2312 coded
-        parent::MysqlReference($strSymbol);
+        parent::MysqlReference($sym);
 
         if ($this->sym->IsFundA())
         {

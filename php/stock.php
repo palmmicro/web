@@ -76,11 +76,7 @@ function FutureGetSinaSymbol($strSymbol)
     if ($strSymbol == false)    return false;
     
     $sym = new StockSymbol($strSymbol);
-    if ($sym->IsFutureCn())
-    {   // AU0
-        return $strSymbol;
-    }
-    return SINA_FUTURE_PREFIX.$strSymbol;
+    return $sym->GetSinaFutureSymbol();
 }
 
 function ForexGetEastMoneySymbol($strSymbol)

@@ -39,15 +39,16 @@ class CnyReference extends MysqlReference
     // constructor 
     function CnyReference($strSymbol)
     {
+        $sym = new StockSymbol($strSymbol);
         if (self::$strDataSource == STOCK_EASTMONEY_DATA)
         {
-        	$this->LoadEastMoneyCnyData($strSymbol);
+        	$this->LoadEastMoneyCnyData($sym);
         }
         else
         {
             $this->_loadDatabaseData($strSymbol);
         }
-        parent::MysqlReference($strSymbol);
+        parent::MysqlReference($sym);
         if (self::$strDataSource != STOCK_MYSQL_DATA)
         {
         	if ($this->strSqlId)

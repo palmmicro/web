@@ -7,25 +7,22 @@ class MyStockReference extends MysqlReference
 
     function MyStockReference($strSymbol) 
     {
-        $this->_newStockSymbol($strSymbol);
+		$sym = new StockSymbol($strSymbol);
         if (self::$strDataSource == STOCK_SINA_DATA)
         {
-            if ($strSinaSymbol = $this->sym->GetSinaSymbol())
-            {
-            	$this->LoadSinaData($strSinaSymbol);
-       	        $this->bConvertGB2312 = true;     // Sina name is GB2312 coded
-       	    }
+           	$this->LoadSinaData($sym);
+   	        $this->bConvertGB2312 = true;     // Sina name is GB2312 coded
         }
         else if (self::$strDataSource == STOCK_YAHOO_DATA)
         {
-            $this->LoadYahooData();
+            $this->LoadYahooData($sym);
         }
         else if (self::$strDataSource == STOCK_GOOGLE_DATA)
         {
-			if ($strGoogleSymbol = $this->sym->GetGoogleSymbol())	$this->LoadGoogleData($strGoogleSymbol);
+			$this->LoadGoogleData($sym);
         }
         
-        parent::MysqlReference($strSymbol);
+        parent::MysqlReference($sym);
     }
 }
 
