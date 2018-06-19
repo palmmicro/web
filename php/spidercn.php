@@ -61,7 +61,7 @@ function _main()
     	$strList = UrlCleanString($strList);
         _updateSpiderTables($strList);
         $arSymbol = StockGetSymbolArray($strList);
-        StockPrefetchData($arSymbol);
+        StockPrefetchArrayData($arSymbol);
             
         foreach ($arSymbol as $strSymbol)
         {

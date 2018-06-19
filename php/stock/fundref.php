@@ -2,19 +2,6 @@
 
 define('FUND_POSITION_RATIO', 0.95);
 
-function GetEstErrorPercentage($fEstValue, $fNetValue)
-{
-    if (abs($fEstValue - $fNetValue) < 0.0005)
-    {
-        $fPercentage = 0.0;
-    }
-    else
-    {
-        $fPercentage = StockGetPercentage($fEstValue, $fNetValue);
-    }
-    return $fPercentage;
-}
-
 // ****************************** FundReference Class *******************************************************
 class FundReference extends MysqlReference
 {
@@ -61,29 +48,13 @@ class FundReference extends MysqlReference
         $sql->UpdateEstValue($this->est_ref->strDate, $this->fOfficialNetValue);
     }
 
-    function _compareEstResult($strNetValue, $strEstValue)
-    {
-        $fPercentage = GetEstErrorPercentage(floatval($strEstValue), floatval($strNetValue));
-        if (abs($fPercentage) > 1.0)
-        {
-            $strSymbol = $this->GetStockSymbol();
-            $strLink = GetNetValueHistoryLink($strSymbol);
-            $str = sprintf('%s%s 实际值%s 估值%s 误差:%.2f%%, 从_compareEstResult函数调用.', $strSymbol, $strLink, $strNetValue, $strEstValue, $fPercentage); 
-            EmailReport($str, 'Netvalue estimation error');
-        }
-    }
-    
     function UpdateOfficialNetValue()
     {
-        $strDate = $this->strDate;
-        $ymd = new StringYMD($strDate);
-        if ($ymd->IsWeekend())     return false;   // sina fund may provide wrong weekend data
-
         $strNetValue = $this->strPrice;
         $sql = new FundHistorySql($this->GetStockId());
-        if ($strEstValue = $sql->UpdateNetValue($strDate, $strNetValue))
+        if ($strEstValue = $sql->UpdateNetValue($this->strDate, $strNetValue))
         {
-            $this->_compareEstResult($strNetValue, $strEstValue);
+            StockCompareEstResult($this->GetStockSymbol(), $strNetValue, $strEstValue);
             return true;
         }
         return false;

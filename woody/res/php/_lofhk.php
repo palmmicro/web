@@ -8,7 +8,7 @@ class _LofHkGroup extends _LofGroup
     function _LofHkGroup($strSymbol) 
     {
         $this->GetWebData(LofHkGetEstSymbol($strSymbol));
-        StockPrefetchData(array_merge($this->GetLeverage(), array($strSymbol)));
+        StockPrefetchArrayData(array_merge($this->GetLeverage(), array($strSymbol)));
 
         $this->cny_ref = new CnyReference('HKCNY');
         $this->ref = new LofHkReference($strSymbol);

@@ -87,7 +87,7 @@ function _getMyStockLinks($sym, $bChinese)
 
 function _echoMyStockData($strSymbol, $bChinese)
 {
-    StockPrefetchData(array($strSymbol));
+    StockPrefetchData($strSymbol);
     
     $hshare_ref = false;
     $etf_ref = false;
@@ -190,9 +190,16 @@ function EchoMyStock($bChinese = true)
 
 function EchoMyStockTitle($bChinese = true)
 {
-    if ($bChinese)  echo '我的股票';
-    else              echo 'My Stock ';
-    EchoUrlSymbol();
+    $str = $bChinese ? '我的股票' : 'My Stock ';
+    if ($strSymbol = UrlGetQueryValue('symbol'))  
+    {
+        $str .= $strSymbol;
+    	if (AcctIsDebug())
+    	{
+    		$str .= '('.SqlGetStockId($strSymbol).')';
+    	}
+    }
+    echo $str;
 }
 
     AcctNoAuth();

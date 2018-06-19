@@ -4,7 +4,7 @@ require_once('_stockdemo.php');
 
 function EchoFundEst($bChinese = true)
 {
-    StockPrefetchData(array(FUND_DEMO_SYMBOL));
+    StockPrefetchData(FUND_DEMO_SYMBOL);
 	EchoFundEstDemo($bChinese);
 }
 

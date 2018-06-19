@@ -1,11 +1,11 @@
 <?php
 require_once('stocktable.php');
 
-function _echoCalibrationItem($sql, $history, $bReadOnly, $bChinese)
+function _echoCalibrationItem($sql, $ref, $history, $bReadOnly, $bChinese)
 {
    	$strDate = $history['date'];
-    $strPrice = strval($sql->fund_sql->GetClose($strDate));
-    $strPairPrice = strval($sql->pair_fund_sql->GetClose($strDate));
+    $strPrice = strval($ref->nv_ref->sql->GetClose($strDate));
+    $strPairPrice = strval($ref->pair_nv_ref->sql->GetClose($strDate));
  	$strClose = GetTableColumnFloatDisplay($history['close']);
     if ($bReadOnly == false)
     {
@@ -22,7 +22,7 @@ function _echoCalibrationItem($sql, $history, $bReadOnly, $bChinese)
 END;
 }
 
-function _echoCalibrationData($sql, $strSymbol, $strStockId, $iStart, $iNum, $bChinese)
+function _echoCalibrationData($sql, $ref, $iStart, $iNum, $bChinese)
 {
     if (AcctIsAdmin())
     {
@@ -37,7 +37,7 @@ function _echoCalibrationData($sql, $strSymbol, $strStockId, $iStart, $iNum, $bC
     {
         while ($history = mysql_fetch_assoc($result)) 
         {
-            _echoCalibrationItem($sql, $history, $bReadOnly, $bChinese);
+            _echoCalibrationItem($sql, $ref, $history, $bReadOnly, $bChinese);
         }
         @mysql_free_result($result);
     }
@@ -60,9 +60,10 @@ function EchoCalibrationParagraph($strSymbol, $strStockId, $bChinese, $iStart = 
     }
     else
     {
+    	$str = GetEtfListLink($bChinese);
     	$iTotal = $sql->Count();
     	$strNavLink = StockGetNavLink($strSymbol, $iTotal, $iStart, $iNum, $bChinese);
-    	$str = $strNavLink;
+    	$str .= ' '.$strNavLink;
     }
     
     echo <<<END
@@ -76,7 +77,7 @@ function EchoCalibrationParagraph($strSymbol, $strStockId, $bChinese, $iStart = 
     </tr>
 END;
 
-    _echoCalibrationData($sql, $strSymbol, $strStockId, $iStart, $iNum, $bChinese);
+    _echoCalibrationData($sql, new EtfReference($strSymbol), $iStart, $iNum, $bChinese);
     EchoTableParagraphEnd($strNavLink);
 }
 

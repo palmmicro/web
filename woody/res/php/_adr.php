@@ -32,7 +32,7 @@ class _AdrGroup extends _StockGroup
     // constructor
     function _AdrGroup($strSymbolAdr)
     {
-        StockPrefetchData(array($strSymbolAdr));
+        StockPrefetchData($strSymbolAdr);
         GetChinaMoney();
         
         $this->uscny_ref = new CnyReference('USCNY');

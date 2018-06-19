@@ -4,7 +4,7 @@ require_once('referenceparagraph.php');
 function _etfListRefCallbackData($ref, $bChinese)
 {
 	$ar = array();
-    $ar[] = GetMyStockLink(SqlGetStockSymbol($ref->GetPairId()), $bChinese);
+    $ar[] = GetMyStockLink($ref->GetPairSymbol(), $bChinese);
     $ar[] = GetNumberDisplay($ref->fRatio);
     $strFactor = GetNumberDisplay($ref->fFactor);
     $ar[] = GetStockSymbolLink('calibration', $ref->GetStockSymbol(), $bChinese, $strFactor);

@@ -26,7 +26,7 @@ function _echoNetValueHistory($strSymbol, $iStart, $iNum, $bChinese)
     }
    	EchoParagraph($str);
     
-    StockPrefetchData(array($strSymbol));
+    StockPrefetchData($strSymbol);
     $fund = StockGetFundReference($strSymbol);
    	$csv = new PageCsvFile();
     EchoFundHistoryParagraph($fund, $bChinese, $csv, $iStart, $iNum);

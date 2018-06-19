@@ -53,7 +53,7 @@ function EchoFundHistoryTableItem($ref, $csv, $history, $fund, $clone_ref)
     {
         $fEstValue = floatval($strEstValue);
         $strEstValueDisplay = StockGetPriceDisplay($fEstValue, $fFundClose);
-        $fPercentage = GetEstErrorPercentage($fEstValue, $fNetValue);
+        $fPercentage = StockGetEstErrorPercentage($fEstValue, $fNetValue);
         if (empty($fPercentage))
         {
             $strError = '<font color=grey>0</font>'; 

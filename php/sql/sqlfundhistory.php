@@ -46,6 +46,9 @@ class FundHistorySql extends DailyStockSql
 	
 	function UpdateNetValue($strDate, $strNetValue)
 	{
+        $ymd = new StringYMD($strDate);
+        if ($ymd->IsWeekend())     return false;   // sina fund may provide false weekend data
+        
         if ($history = $this->Get($strDate))
         {
             if ($history['close'] == FUND_EMPTY_VALUE)
@@ -59,7 +62,7 @@ class FundHistorySql extends DailyStockSql
                 return false;
             }
         }
-        $sql->Insert($strDate, $strNetValue);
+        $this->Insert($strDate, $strNetValue);
         return $strNetValue;
 	}
 	

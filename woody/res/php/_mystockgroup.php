@@ -39,7 +39,7 @@ function in_array_ref($strSymbol, $arRef)
 
 function _prefetchStockGroupArray($arStock)
 {
-    StockPrefetchData($arStock);
+    StockPrefetchArrayData($arStock);
     GetChinaMoney();
 }
 

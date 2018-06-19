@@ -703,6 +703,19 @@ class StockReference
    			$this->strPrevPrice = $sql->GetCloseStringPrev($this->strDate);
    		}
     }
+
+    function Debug($iVal = false)
+    {
+    	if (empty($this->sym))
+    	{
+    		DebugVal($iVal, 'sym NOT set');
+    	}
+    	
+    	if ($this->sym->IsSymbolA())
+    	{
+    		DebugHere($iVal);
+    	}
+ 	}
 }
 
 // ****************************** ExtendedTrading Class *******************************************************

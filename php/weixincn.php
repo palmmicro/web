@@ -242,7 +242,7 @@ function _wxEmailDebug($strUserName, $strText, $strSubject)
 function _wxGetStockArrayText($arSymbol)
 {
 	sort($arSymbol);
-    StockPrefetchData($arSymbol);
+    StockPrefetchArrayData($arSymbol);
     $str = '';
     foreach ($arSymbol as $strSymbol)
     {

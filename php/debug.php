@@ -130,6 +130,19 @@ function DebugArray($ar)
 	}
 }
 
+function DebugHere($iVal = false)
+{
+   	static $iDebugVal = 0;
+    	
+   	if ($iVal)	
+   	{
+   		$iDebugVal = $iVal;
+   	}
+    	
+	$iDebugVal ++;
+	DebugVal($iDebugVal);
+}
+
 function _getDebugPath($strSection)
 {
     $strPath = _checkDebugPath(); 

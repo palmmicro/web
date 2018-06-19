@@ -15,7 +15,7 @@ class _LofUsGroup extends _LofGroup
         $strOil = false;
         if (LofGetFutureSymbol($strSymbol) == 'CL')	$strOil = 'OIL';
         $this->GetWebData(LofGetEstSymbol($strSymbol));
-        StockPrefetchData(array_merge($this->GetLeverage(), array($strSymbol, FutureGetSinaSymbol($strOil), FutureGetSinaSymbol($strES), $strUSD)));
+        StockPrefetchArrayData(array_merge($this->GetLeverage(), array($strSymbol, FutureGetSinaSymbol($strOil), FutureGetSinaSymbol($strES), $strUSD)));
         
         $this->cny_ref = new CnyReference('USCNY');	// Always create CNY Forex class instance first!
         $this->ref = new LofReference($strSymbol);

@@ -5,9 +5,13 @@ class MyStockReference extends MysqlReference
 {
     public static $strDataSource = STOCK_SINA_DATA;
 
-    function MyStockReference($strSymbol) 
+    function MyStockReference($strSymbol, $sym = false) 
     {
-		$sym = new StockSymbol($strSymbol);
+    	if ($sym == false)
+    	{
+    		$sym = new StockSymbol($strSymbol);
+    	}
+    	
         if (self::$strDataSource == STOCK_SINA_DATA)
         {
            	$this->LoadSinaData($sym);

@@ -4,6 +4,8 @@ require_once('/php/ui/calibrationparagraph.php');
 
 function _echoCalibration($strSymbol, $strStockId, $iStart, $iNum, $bChinese)
 {
+    StockPrefetchData($strSymbol);
+    
     $strSymbolLink = _GetReturnSymbolGroupLink($strSymbol, $bChinese);
     EchoParagraph($strSymbolLink);
     EchoCalibrationParagraph($strSymbol, $strStockId, $bChinese, $iStart, $iNum);

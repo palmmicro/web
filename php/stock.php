@@ -238,6 +238,26 @@ function StockGetPercentageDisplay($fPrice, $fPrice2)
     return "<font color=$strColor>$str%</font>";
 }
 
+function StockGetEstErrorPercentage($fEstValue, $fNetValue)
+{
+    if (abs($fEstValue - $fNetValue) < 0.0005)
+    {
+        return 0.0;
+    }
+	return StockGetPercentage($fEstValue, $fNetValue);
+}
+
+function StockCompareEstResult($strSymbol, $strNetValue, $strEstValue)
+{
+    $fPercentage = StockGetEstErrorPercentage(floatval($strEstValue), floatval($strNetValue));
+    if (abs($fPercentage) > 1.0)
+    {
+        $strLink = GetNetValueHistoryLink($strSymbol);
+        $str = sprintf('%s%s 实际值%s 估值%s 误差:%.2f%%, 从_compareEstResult函数调用.', $strSymbol, $strLink, $strNetValue, $strEstValue, $fPercentage); 
+        EmailReport($str, 'Netvalue estimation error');
+    }
+}
+
 // ****************************** StockReference public functions *******************************************************
 function _greyString($str)
 {
@@ -310,49 +330,62 @@ function RefSortBySymbol($arRef)
 }
 
 // ****************************** Stock final integration functions *******************************************************
-function StockPrefetchData($ar)
+function _getAllSymbolArray($strSymbol)
+{
+   	$sym = new StockSymbol($strSymbol);
+    if ($sym->IsFundA())
+    {
+        if (in_arrayLof($strSymbol))									return LofGetAllSymbolArray($strSymbol);
+        else if (in_arrayLofHk($strSymbol))							return LofHkGetAllSymbolArray($strSymbol);
+        else if (in_arrayGoldEtf($strSymbol))						return GoldEtfGetAllSymbolArray($strSymbol);
+        else if (in_arrayGradedFund($strSymbol))						return GradedFundGetAllSymbolArray($strSymbol);
+        else if ($strSymbolA = in_arrayGradedFundB($strSymbol))	return GradedFundGetAllSymbolArray($strSymbolA);
+        else if ($strSymbolA = in_arrayGradedFundM($strSymbol))	return GradedFundGetAllSymbolArray($strSymbolA);
+        else 															return array($strSymbol);
+    }
+
+   	$ar = array();
+    if ($sym->IsSymbolA())
+    {
+        if ($strSymbolH = SqlGetAhPair($strSymbol))	
+        {
+          	$ar[] = $strSymbolH;
+            if ($strSymbolAdr = SqlGetHadrPair($strSymbolH))	$ar[] = $strSymbolAdr;
+        }
+    }
+    else if ($sym->IsSymbolH())
+    {
+        if ($strSymbolA = SqlGetHaPair($strSymbol))				$ar[] = $strSymbolA;
+        if ($strSymbolAdr = SqlGetHadrPair($strSymbol))		$ar[] = $strSymbolAdr;
+    }
+    else
+    {
+    	if ($strSymbolH = SqlGetAdrhPair($strSymbol))
+        {
+           	$ar[] = $strSymbolH;
+            if ($strSymbolA = SqlGetHaPair($strSymbolH))		$ar[] = $strSymbolA;
+        }
+    }
+    $ar[] = $strSymbol;
+    return $ar;
+}
+
+function StockPrefetchArrayData($ar)
 {
     $arAll = array();
     foreach ($ar as $strSymbol)
     {
-    	if ($strSymbol == false)		continue;
-    	$sym = new StockSymbol($strSymbol);
-        if ($sym->IsFundA())
-        {
-            if (in_arrayLof($strSymbol))                $arAll = array_merge($arAll, LofGetAllSymbolArray($strSymbol));
-            else if (in_arrayLofHk($strSymbol))         $arAll = array_merge($arAll, LofHkGetAllSymbolArray($strSymbol));
-            else if (in_arrayGoldEtf($strSymbol))       $arAll = array_merge($arAll, GoldEtfGetAllSymbolArray($strSymbol));
-            else if (in_arrayGradedFund($strSymbol))    $arAll = array_merge($arAll, GradedFundGetAllSymbolArray($strSymbol));
-            else if ($strSymbolA = in_arrayGradedFundB($strSymbol))    $arAll = array_merge($arAll, GradedFundGetAllSymbolArray($strSymbolA));
-            else if ($strSymbolA = in_arrayGradedFundM($strSymbol))    $arAll = array_merge($arAll, GradedFundGetAllSymbolArray($strSymbolA));
-        }
-        else
-        {
-            if ($sym->IsSymbolA())
-            {
-                if ($strSymbolH = SqlGetAhPair($strSymbol))	
-                {
-                	$arAll[] = $strSymbolH;
-                	if ($strSymbolAdr = SqlGetHadrPair($strSymbolH))	$arAll[] = $strSymbolAdr;
-                }
-            }
-            else if ($sym->IsSymbolH())
-            {
-                if ($strSymbolA = SqlGetHaPair($strSymbol))			$arAll[] = $strSymbolA;
-                if ($strSymbolAdr = SqlGetHadrPair($strSymbol))	$arAll[] = $strSymbolAdr;
-            }
-            else
-            {
-            	if ($strSymbolH = SqlGetAdrhPair($strSymbol))
-            	{
-                	$arAll[] = $strSymbolH;
-                	if ($strSymbolA = SqlGetHaPair($strSymbolH))	$arAll[] = $strSymbolA;
-                }
-            }
-            $arAll[] = $strSymbol;
-        }
+    	if ($strSymbol)
+    	{
+    		$arAll = array_merge($arAll, _getAllSymbolArray($strSymbol));
+    	}
     }
     PrefetchSinaStockData(array_unique($arAll));
+}
+
+function StockPrefetchData($strSymbol)
+{
+    StockPrefetchArrayData(array($strSymbol));
 }
 
 function StockGetFundReference($strSymbol)
