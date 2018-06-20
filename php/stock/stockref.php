@@ -698,8 +698,19 @@ class StockReference
     {
        	if ($history = $sql->GetNow())
        	{
-       		$this->strPrice = $history['close'];
-       		$this->strDate = $history['date'];
+       		if ($history['close'] == FUND_EMPTY_VALUE)
+       		{	// look further back
+       			if ($prev = $sql->GetPrev($history['date']))
+       			{
+       				$this->strPrice = $prev['close'];
+       				$this->strDate = $prev['date'];
+       			}
+       		}
+       		else
+       		{
+       			$this->strPrice = $history['close'];
+       			$this->strDate = $history['date'];
+       		}
    			$this->strPrevPrice = $sql->GetCloseStringPrev($this->strDate);
    		}
     }

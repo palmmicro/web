@@ -70,12 +70,13 @@ class FundHistorySql extends DailyStockSql
 	{
         list($strDummy, $strTime) = explodeDebugDateTime();
         $strEstValue = strval($fEstValue);
+//        DebugString(SqlGetStockSymbol($this->GetKeyId()).' '.$strTime.' '.$strEstValue);
         if ($history = $this->Get($strDate))
         {
             if ($history['close'] == FUND_EMPTY_VALUE)
             {   // Only update when net value is not ready
             	// DebugString($strDate.' '.$strEstValue);
-            	if (abs($fEstValue - floatval($history['estimated'])) < 0.00005)
+            	if (abs($fEstValue - floatval($history['estimated'])) > 0.00005)
             	{
             		$this->Update($history['id'], FUND_EMPTY_VALUE, $strEstValue, $strTime);
             	}

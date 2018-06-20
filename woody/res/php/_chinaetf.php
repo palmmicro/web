@@ -21,14 +21,14 @@ class _ChinaEtfGroup extends _StockGroup
 
         $this->ref = new EtfReference($strSymbol);
         $this->us_ref = new EtfReference($strUS);
-        $this->arRef = array($this->ref, $this->us_ref, $this->ref->pair_ref);
+        $this->arRef = array($this->ref, $this->us_ref, $this->ref->pair_nv_ref);
         parent::_StockGroup($this->arRef);
     }
 } 
 
 function _echoAdminTestParagraph($group, $bChinese)
 {
-    $str = _GetEtfAdjustString($group->ref, $group->ref->pair_ref, $bChinese);
+    $str = _GetEtfAdjustString($group->ref, $group->ref->pair_nv_ref, $bChinese);
     EchoParagraph($str);
 }
 
@@ -36,7 +36,7 @@ function _chinaEtfRefCallbackData($ref, $bChinese)
 {
    	$ar = array();
     $ar[] = strval($ref->nv_ref->fPrice);
-    $fNetValue = $ref->EstNetValue();
+    $fNetValue = $ref->EstOfficialNetValue();
     $ar[] = $ref->GetPriceDisplay($fNetValue);
     $ar[] = $ref->GetPercentageDisplay($fNetValue);
     return $ar;
@@ -102,7 +102,7 @@ function EchoMetaDescription($bChinese = true)
     global $group;
 
     $strDescription = _GetStockDisplay($group->ref, $bChinese);
-    $strEst = _GetStockDisplay($group->ref->pair_ref, $bChinese);
+    $strEst = _GetStockDisplay($group->ref->pair_nv_ref, $bChinese);
     $strUS = _GetStockDisplay($group->us_ref, $bChinese);
     $strCNY = _GetStockDisplay($group->us_ref->cny_ref, $bChinese);
     if ($bChinese)  $str = "根据{$strEst}计算{$strDescription}净值的网页工具. 同时根据{$strUS}和{$strCNY}提供配对交易分析.";

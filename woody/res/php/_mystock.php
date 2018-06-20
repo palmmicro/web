@@ -117,7 +117,6 @@ function _echoMyStockData($strSymbol, $bChinese)
     {
         if ($fund->fOfficialNetValue)	EchoFundEstParagraph($fund, $bChinese);
         EchoFundTradingParagraph($fund, $bChinese);
-        EchoFundHistoryParagraph($fund, $bChinese);
     }
     else
     {
@@ -139,6 +138,11 @@ function _echoMyStockData($strSymbol, $bChinese)
     {
     	if ($hshare_ref)		EchoHShareSmaParagraph($ref, $hshare_ref, $bChinese);
     	else	        		EchoSmaParagraph($ref, $bChinese);
+    }
+    
+    if ($sym->IsFundA())
+    {
+        EchoFundHistoryParagraph($fund, $bChinese);
     }
     
     if ($strMemberId = AcctIsLogin())

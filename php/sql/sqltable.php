@@ -14,7 +14,7 @@ class TableSql
     function _query($strQuery, $strDie)
     {
 //    	DebugString($strQuery);
-        return SqlDieByQuery($strQuery, $this->strName.' '.$strDie);
+        return SqlDieByQuery($strQuery, $this->strName.' ['.$strQuery.'] '.$strDie);
 	}
 	
     function CreateTable($str)

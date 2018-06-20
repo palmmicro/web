@@ -17,7 +17,7 @@ function EchoEtfArraySmaParagraph($ref, $arEtfRef, $bChinese, $callback2 = false
 
 function EchoEtfSmaParagraph($ref, $bChinese, $callback2 = false)
 {
-	EchoSmaParagraph($ref->pair_ref, $bChinese, false, $ref, _callbackEtfSma, $callback2);
+	EchoSmaParagraph($ref->pair_nv_ref, $bChinese, false, $ref, _callbackEtfSma, $callback2);
 }
 
 ?>

@@ -198,8 +198,8 @@ function EchoEtfTradingParagraph($ref, $bChinese)
 {
 	if ($ref->IsSymbolA() == false)	return;
 	
-    $strSymbol = RefGetMyStockLink($ref, $bChinese); 
-    $strPairSymbol = RefGetMyStockLink($ref->pair_ref, $bChinese);
+    $strSymbol = RefGetMyStockLink($ref, $bChinese);
+    $strPairSymbol = RefGetMyStockLink($ref->pair_nv_ref, $bChinese);
 
     $arColumn = _getTradingTableColumn($bChinese);
 	$arFundEst = GetFundEstTableColumn($bChinese);
@@ -210,7 +210,7 @@ function EchoEtfTradingParagraph($ref, $bChinese)
     if ($bChinese)     $str = "{$strSymbol}{$strPrice}相对于{$strPairSymbol}的{$strPremium}";
     else				 $str = "The $strPremium of $strSymbol $strPrice comparing with $strPairSymbol";
         
-    _echoTradingParagraph($str, $arColumn, $ref, $bChinese, $ref->EstNetValue()); 
+    _echoTradingParagraph($str, $arColumn, $ref, $bChinese, $ref->EstOfficialNetValue()); 
 }
 
 function EchoTradingParagraph($ref, $bChinese)
