@@ -45,10 +45,12 @@ class IndexReference extends MyStockReference
 class EtfReference extends MyStockReference
 {
 	var $nv_ref;
-    var $pair_nv_ref = false;
+    var $pair_ref = false;
+    var $cny_ref = false;
 
     var $fNetValue = 0.0;
     var $fPairNetValue = 0.0;
+    var $fCnyValue = 1.0;
     
     var $fRatio = 1.0;
     
@@ -57,77 +59,139 @@ class EtfReference extends MyStockReference
         parent::MyStockReference($strSymbol);
         $strStockId = $this->GetStockId();
        	$this->nv_ref = new NetValueReference($strStockId, $this->GetSym());
+       	if ($strFactorDate = $this->_onCalibration($strStockId))
+       	{
+       		$this->_load_cny_ref($strFactorDate);
+       	}
+    }
+    
+	function _load_pair_ref($strStockId)
+	{
+		$strSymbol = SqlGetStockSymbol($strStockId);
+		$sym = new StockSymbol($strSymbol);
+		if ($sym->IsEtf())
+		{
+        	$this->pair_ref = new NetValueReference($strStockId, $sym);
+		}
+		else
+		{
+			$this->pair_ref = new IndexReference($strSymbol, $sym);
+		}
+	}
+    
+	function _onCalibration($strStockId)
+	{
         $sql = new EtfCalibrationSql($strStockId);
         if ($record = $sql->pair_sql->Get())
         {
-			$this->_load_pair_nv_ref($record['pair_id']);
+			$this->_load_pair_ref($record['pair_id']);
         	$this->fRatio = floatval($record['ratio']);
-        	if (empty($this->nv_ref->strDate) == false)
+        	$strFactorDate = $this->nv_ref->strDate;
+        	if (empty($strFactorDate) == false)
         	{
-        		$strDate = $this->nv_ref->strDate;
-        		$fNetValue = $this->nv_ref->fPrice;
-        		if ($fFactor = $sql->GetClose($strDate))
+        		$this->fNetValue = $this->nv_ref->fPrice;
+        		if ($this->fFactor = $sql->GetClose($strFactorDate))
         		{
-        			$fPairNetValue = $this->pair_nv_ref->sql->GetClose($strDate);
+        			$this->fPairNetValue = $this->pair_ref->sql->GetClose($strFactorDate);
         		}
         		else
         		{
-        			if ($fPairNetValue = $this->pair_nv_ref->sql->GetClose($strDate))
+        			if ($this->fPairNetValue = $this->pair_ref->sql->GetClose($strFactorDate))
         			{
-        				$fFactor = $fPairNetValue / $fNetValue;
-        				$sql->Insert($strDate, strval($fFactor));
+        				$this->fFactor = $this->fPairNetValue / $this->fNetValue;
+        				$sql->Insert($strFactorDate, strval($this->fFactor));
         			}
         			else
         			{
         				if ($calibration = $sql->GetNow())
         				{
-        					$fFactor = floatval($calibration['close']); 
-        					$fNetValue = $this->nv_ref->sql->GetClose($calibration['date']);
-        					$fPairNetValue = $this->pair_nv_ref->sql->GetClose($calibration['date']);
+        					$this->fFactor = floatval($calibration['close']); 
+        					$strFactorDate = $calibration['date'];
+        					$this->fNetValue = $this->nv_ref->sql->GetClose($strFactorDate);
+        					$this->fPairNetValue = $this->pair_ref->sql->GetClose($strFactorDate);
         				}
         			}
         		}
-        		$this->fFactor = $fFactor;
-        		$this->fNetValue = $fNetValue;
-        		$this->fPairNetValue = $fPairNetValue;
+        		return $strFactorDate;
         	}
         }
+        return false;
+	}
+
+	function _load_cny_ref($strDate)
+	{
+    	if ($this->pair_ref)
+    	{
+    		$strCNY = false;
+    		$sym = $this->pair_ref->GetSym();
+    		if ($sym->IsSymbolA())
+    		{
+    			if ($this->sym->IsSymbolUS())			$strCNY = 'USCNY';
+    			else if ($this->sym->IsSymbolH())	$strCNY = 'HKCNY';
+    		}
+    		else if ($sym->IsSymbolH())
+    		{
+    			if ($this->IsSymbolA())				$strCNY = 'HKCNY';
+    		}
+    		else
+    		{
+    			if ($this->IsSymbolA())				$strCNY = 'USCNY';
+    		}
+    		
+    		if ($strCNY)
+    		{
+    			$this->cny_ref = new CnyReference($strCNY);
+    			$this->fCnyValue = $this->cny_ref->GetClose($strDate);
+    			// DebugVal($this->fCnyValue, '_load_cny_ref');
+    		}
+    	}
+	}
+	
+ 	function GetPairSymbol()
+    {
+    	if ($this->pair_ref)
+    	{
+    		return $this->pair_ref->GetStockSymbol();
+    	}
+    	DebugString('pair_ref NOT set');
+    	return false;
     }
     
-	function _load_pair_nv_ref($strStockId)
-	{
-		$strSymbol = SqlGetStockSymbol($strStockId);
-		$sym = new StockSymbol($strSymbol);
-		if ($sym->IsIndex() || $sym->IsIndexA())
-		{
-			$this->pair_nv_ref = new IndexReference($strSymbol, $sym);
-		}
-		else
-		{
-        	$this->pair_nv_ref = new NetValueReference($strStockId, $sym);
-		}
-	}
-    
-    function GetPairSymbol()
+    function _adjustByCny($fVal, $bSymbolA)
     {
-    	if ($this->pair_nv_ref)
+    	if ($this->cny_ref)
     	{
-    		return $this->pair_nv_ref->GetStockSymbol();
+    		if ($bSymbolA)
+    		{
+    			$fVal *= $this->fCnyValue;
+    			$fVal /= $this->cny_ref->fPrice;
+    		}
+    		else
+    		{
+    			$fVal /= $this->fCnyValue;
+    			$fVal *= $this->cny_ref->fPrice;
+    		}
     	}
-    	DebugString('pair_nv_ref NOT set');
-    	return false;
+    	return $fVal;
     }
     
     // (fEst - fPairNetValue)/(x - fNetValue) = fFactor / fRatio;
     function EstFromPair($fEst)
     {
-    	return ($fEst - $this->fPairNetValue) * $this->fRatio / $this->fFactor + $this->fNetValue;
+    	$fVal = ($fEst - $this->fPairNetValue) * $this->fRatio / $this->fFactor + $this->fNetValue;
+    	return $this->_adjustByCny($fVal, ($this->IsSymbolA() ? false : true));
     }
 
     // (x - fPairNetValue)/(fEsts - fNetValue) = fFactor / fRatio;
     function EstToPair($fEst)
     {
-    	return ($fEst - $this->fNetValue) * $this->fFactor / $this->fRatio + $this->fPairNetValue;
+    	$fVal = ($fEst - $this->fNetValue) * $this->fFactor / $this->fRatio + $this->fPairNetValue;
+    	return $this->_adjustByCny($fVal, $this->IsSymbolA());
+    }
+    
+    function EstNetValue()
+    {
+    	return $this->EstFromPair($this->pair_ref->fPrice);
     }
 }
 

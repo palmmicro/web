@@ -115,7 +115,7 @@ function EchoAll($bChinese = true)
     $group->EchoLeverageParagraph($bChinese);
     EchoFundTradingParagraph($fund, $bChinese, _onTradingUserDefined);    
 	EchoLofSmaParagraph($fund, $bChinese, _onSmaUserDefined);
-    EchoEtfSmaParagraph($fund->est_ref, $group->GetLeverageRef(), $bChinese);
+    EchoEtfArraySmaParagraph($fund->est_ref, $group->GetLeverageRef(), $bChinese);
     EchoFundHistoryParagraph($fund, $bChinese);
     
     if ($group->strGroupId) 

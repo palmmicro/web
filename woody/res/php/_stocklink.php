@@ -113,6 +113,10 @@ function GetCategoryArray($strTitle)
         $ar = SqlGetAdrhArray();
         break;
   
+    case 'chinaetf':
+    	$ar = ChinaEtfGetSymbolArray();
+        break;
+        
     case 'chinainternet':
         $ar = LofGetChinaInternetSymbolArray();
         break;
@@ -214,6 +218,7 @@ function EchoHSharesSoftwareLinks($bChinese = true)
 function EchoASharesSoftwareLinks($bChinese = true)
 {
     $ar = array('sz150022', 'sz150152');
+   	$ar = array_merge($ar, ChinaEtfGetSymbolArray());
     $str = _getCategorySoftwareLinks($ar, 'A股', 'A Shares', $bChinese);
     echo $str;
 }
@@ -260,7 +265,7 @@ function EchoBocomSchroderSoftwareLinks($bChinese = true)
 
 function EchoChinaAmcSoftwareLinks($bChinese = true)
 {
-    $ar = array('sh513660', 'sz159920');
+    $ar = array('sh510330', 'sh513660', 'sz159920');
     $strLink = GetExternalLink('http://www.chinaamc.com', $bChinese ? '华夏基金' : 'China AMC');
     $str = GetCategorySoftwareLinks($ar, $strLink, $bChinese);
     echo $str;                 
@@ -332,7 +337,7 @@ function EchoGuoTaiSoftwareLinks($bChinese = true)
 
 function EchoHarvestSoftwareLinks($bChinese = true)
 {
-    $ar = array('sz160717', 'sz160719', 'sz160723');
+    $ar = array('sz159919', 'sz160717', 'sz160719', 'sz160723');
     $strLink = GetExternalLink('http://www.jsfund.cn', $bChinese ? '嘉实基金' : 'Harvest Fund');
     $str = GetCategorySoftwareLinks($ar, $strLink, $bChinese);
     echo $str;                 
@@ -342,6 +347,14 @@ function EchoHuaAnSoftwareLinks($bChinese = true)
 {
     $ar = array('sh513030', 'sh518880', 'sz160416');
     $strLink = GetExternalLink('http://www.huaan.com.cn', $bChinese ? '华安基金' : 'HuaAn Funds');
+    $str = GetCategorySoftwareLinks($ar, $strLink, $bChinese);
+    echo $str;                 
+}
+
+function EchoHuaTaiSoftwareLinks($bChinese = true)
+{
+    $ar = array('sh510300');
+    $strLink = GetExternalLink('http://www.huatai-pb.com', $bChinese ? '华泰柏瑞' : 'HuaTai-PB Funds');
     $str = GetCategorySoftwareLinks($ar, $strLink, $bChinese);
     echo $str;                 
 }

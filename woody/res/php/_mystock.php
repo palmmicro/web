@@ -8,6 +8,7 @@ require_once('/php/ui/stockparagraph.php');
 require_once('/php/ui/ahparagraph.php');
 require_once('/php/ui/etfparagraph.php');
 require_once('/php/ui/hsharesmaparagraph.php');
+require_once('/php/ui/etfsmaparagraph.php');
 require_once('/php/ui/fundestparagraph.php');
 require_once('/php/ui/fundhistoryparagraph.php');
 require_once('/php/ui/tradingparagraph.php');
@@ -107,8 +108,12 @@ function _echoMyStockData($strSymbol, $bChinese)
     if ($ref->bHasData == false)		return;
     
     EchoReferenceParagraph(array($ref), $bChinese);
-    if ($etf_ref)		EchoEtfListParagraph(array($etf_ref), $bChinese);
-    if ($sym->IsFundA())
+    if ($etf_ref)
+    {
+    	EchoEtfListParagraph(array($etf_ref), $bChinese);
+    	EchoEtfTradingParagraph($etf_ref, $bChinese);
+    }
+    else if ($sym->IsFundA())
     {
         if ($fund->fOfficialNetValue)	EchoFundEstParagraph($fund, $bChinese);
         EchoFundTradingParagraph($fund, $bChinese);
@@ -129,7 +134,8 @@ function _echoMyStockData($strSymbol, $bChinese)
        	}
     }
     
-    if (_hasSmaDisplay($sym))
+    if ($etf_ref)   			EchoEtfSmaParagraph($etf_ref, $bChinese);
+    else if (_hasSmaDisplay($sym))
     {
     	if ($hshare_ref)		EchoHShareSmaParagraph($ref, $hshare_ref, $bChinese);
     	else	        		EchoSmaParagraph($ref, $bChinese);

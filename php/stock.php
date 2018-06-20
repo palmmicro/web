@@ -330,6 +330,11 @@ function RefSortBySymbol($arRef)
 }
 
 // ****************************** Stock final integration functions *******************************************************
+function EtfGetAllSymbolArray($strSymbol)
+{
+    return array($strSymbol, SqlGetEtfPair($strSymbol));
+}
+
 function _getAllSymbolArray($strSymbol)
 {
    	$sym = new StockSymbol($strSymbol);
@@ -338,6 +343,7 @@ function _getAllSymbolArray($strSymbol)
         if (in_arrayLof($strSymbol))									return LofGetAllSymbolArray($strSymbol);
         else if (in_arrayLofHk($strSymbol))							return LofHkGetAllSymbolArray($strSymbol);
         else if (in_arrayGoldEtf($strSymbol))						return GoldEtfGetAllSymbolArray($strSymbol);
+        else if (in_arrayChinaEtf($strSymbol))						return EtfGetAllSymbolArray($strSymbol);
         else if (in_arrayGradedFund($strSymbol))						return GradedFundGetAllSymbolArray($strSymbol);
         else if ($strSymbolA = in_arrayGradedFundB($strSymbol))	return GradedFundGetAllSymbolArray($strSymbolA);
         else if ($strSymbolA = in_arrayGradedFundM($strSymbol))	return GradedFundGetAllSymbolArray($strSymbolA);
@@ -393,6 +399,7 @@ function StockGetFundReference($strSymbol)
     if (in_arrayLof($strSymbol))                 $ref = new LofReference($strSymbol);
     else if (in_arrayLofHk($strSymbol))         $ref = new LofHkReference($strSymbol);
     else if (in_arrayGoldEtf($strSymbol))       $ref = new GoldFundReference($strSymbol);
+//    else if (in_arrayChinaEtf($strSymbol))       $ref = new EtfReference($strSymbol);
     else if (in_arrayGradedFund($strSymbol))    $ref = new GradedFundReference($strSymbol);
     else if ($strSymbolA = in_arrayGradedFundB($strSymbol))
     {

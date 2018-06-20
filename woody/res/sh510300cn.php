@@ -1,4 +1,4 @@
-<?php require_once('php/_lof.php'); ?>
+<?php require_once('php/_chinaetf.php'); ?>
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -8,18 +8,16 @@
 </head>
 
 <body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _LayoutLofTopLeft(); ?>
+<?php _LayoutChinaEtfTopLeft(); ?>
 
 <div>
 <h1><?php EchoTitle(); ?></h1>
 <?php EchoAll(); ?>
 <p>相关软件:
 <?php
-    EchoSpySoftwareLinks();
-    EchoQqqSoftwareLinks();
     EchoASharesSoftwareLinks();
-    EchoHangSengSoftwareLinks();
-    EchoBoseraSoftwareLinks();
+    EchoSpySoftwareLinks();
+    EchoHuaTaiSoftwareLinks();
     EchoStockGroupLinks();
 ?>
 </p>

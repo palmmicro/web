@@ -6,32 +6,8 @@ class CnyReference extends MysqlReference
 //    public static $strDataSource = STOCK_EASTMONEY_DATA;
     public static $strDataSource = STOCK_MYSQL_DATA;
     
-    function _loadDatabaseData($strSymbol)
-    {
-    	$this->strSqlId = SqlGetStockId($strSymbol);
-		$sql = new ForexHistorySql($this->strSqlId);
-       	$this->LoadSqlData($sql);
-   		$this->strTime = '09:15:00';
-        $this->strFileName = DebugGetChinaMoneyFile();
-        $this->strExternalLink = GetReferenceRateForexLink($strSymbol);
-    }
+    var $sql = false;
     
-	function _updateHistory()
-	{
-		if (empty($this->strOpen))
-		{
-			$this->EmptyFile();
-			return;
-		}
-    
-		$sql = new ForexHistorySql($this->strSqlId);
-		if ($sql->Get($this->strDate) == false)
-		{
-			$sql->Insert($this->strDate, $this->strPrice);
-		}    
-	}
-
-    // constructor 
     function CnyReference($strSymbol)
     {
         $sym = new StockSymbol($strSymbol);
@@ -51,7 +27,41 @@ class CnyReference extends MysqlReference
         		$this->_updateHistory();
         	}
         }
-    }       
+    }
+    
+    function _loadDatabaseData($strSymbol)
+    {
+    	$this->strSqlId = SqlGetStockId($strSymbol);
+		$this->sql = new ForexHistorySql($this->strSqlId);
+       	$this->LoadSqlData($this->sql);
+   		$this->strTime = '09:15:00';
+        $this->strFileName = DebugGetChinaMoneyFile();
+        $this->strExternalLink = GetReferenceRateForexLink($strSymbol);
+    }
+    
+	function _updateHistory()
+	{
+		if (empty($this->strOpen))
+		{
+			$this->EmptyFile();
+			return;
+		}
+    
+		$this->sql = new ForexHistorySql($this->strSqlId);
+		if ($this->sql->Get($this->strDate) == false)
+		{
+			$this->sql->Insert($this->strDate, $this->strPrice);
+		}    
+	}
+
+	function GetClose($strDate)
+	{
+		if ($this->sql)
+		{
+			return $this->sql->GetClose($strDate);
+		}
+		return false;
+	}
 }
 
 ?>

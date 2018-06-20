@@ -119,14 +119,14 @@ class GradedFundReference extends FundReference
         $strSymbol = $this->GetStockSymbol();
         if ($strSymbol == 'SZ150022')
         {
-            if ($this->b_ref->fPrevPrice < 0.1)
+            if ($this->b_ref->fPrice < 0.1)
             {
                 return true;
             }
         }
         else if ($strSymbol == 'SZ150175')
         {
-            if ($this->b_ref->fPrevPrice < 0.2) 
+            if ($this->b_ref->fPrice < 0.2) 
             {
                 return true;
             }

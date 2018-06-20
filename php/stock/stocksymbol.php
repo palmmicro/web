@@ -22,9 +22,14 @@ function in_array_lower($strSymbol, $callback)
     return in_array(strtolower($strSymbol), call_user_func($callback));
 }
 
-function Csi300GetSymbolArray()
+function ChinaEtfGetSymbolArray()
 {
     return array('sh510300', 'sh510330', 'sz159919');
+}
+
+function in_arrayChinaEtf($strSymbol)
+{
+    return in_array_lower($strSymbol, ChinaEtfGetSymbolArray);
 }
 
 function AdrGetSymbolArray()
@@ -185,8 +190,9 @@ function GetAllSymbolArray()
 {
 	$ar = LofGetSymbolArray();
 	$ar = array_merge($ar, LofHkGetSymbolArray()
-							, GoldEtfGetSymbolArray()
 							, GradedFundGetSymbolArray()
+							, GoldEtfGetSymbolArray()
+							, ChinaEtfGetSymbolArray()
 							, AdrGetSymbolArray());
     return $ar;
 }
@@ -350,6 +356,12 @@ class StockSymbol
         if ($this->strPrefixA == SHENZHEN_PREFIX && _isShenzhenIndexDigit($this->iDigitA))   return $this->strDigitA;
         if ($this->strPrefixA == SHANGHAI_PREFIX && _isShanghaiIndexDigit($this->iDigitA))   return $this->strDigitA;
         return false;
+    }
+    
+    function IsEtf()
+    {
+    	if ($this->IsIndex() || $this->IsIndexA())	return false;
+    	return true;
     }
     
     function IsEastMoneyForex()

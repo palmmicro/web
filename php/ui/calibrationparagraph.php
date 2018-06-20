@@ -5,7 +5,7 @@ function _echoCalibrationItem($sql, $ref, $history, $bReadOnly, $bChinese)
 {
    	$strDate = $history['date'];
     $strPrice = strval($ref->nv_ref->sql->GetClose($strDate));
-    $strPairPrice = strval($ref->pair_nv_ref->sql->GetClose($strDate));
+    $strPairPrice = strval($ref->pair_ref->sql->GetClose($strDate));
  	$strClose = GetTableColumnFloatDisplay($history['close']);
     if ($bReadOnly == false)
     {

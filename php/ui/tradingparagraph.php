@@ -183,15 +183,34 @@ function EchoAhTradingParagraph($hshare_ref, $bChinese)
     }
     else
     {
-    	$arColumn[] = '';
+//    	$arColumn[] = '';
     	$fVal = false;
     }
-    $arColumn[] = '';
+//    $arColumn[] = '';
     $strPrice = _getTradingParagraphStr($arColumn, $bChinese);
     if ($bChinese)     $str = "{$strSymbol}{$strPrice}相对于{$strSymbolH}交易价格{$strPriceH}港币的{$strPremium}";
     else				 $str = "The $strPremium of $strSymbol $strPrice comparing with $strSymbolH trading price $strPriceH HKD";
         
     _echoTradingParagraph($str, $arColumn, $ref, $bChinese, $hshare_ref->GetCnyPrice(), $fVal); 
+}
+
+function EchoEtfTradingParagraph($ref, $bChinese)
+{
+	if ($ref->IsSymbolA() == false)	return;
+	
+    $strSymbol = RefGetMyStockLink($ref, $bChinese); 
+    $strPairSymbol = RefGetMyStockLink($ref->pair_ref, $bChinese);
+
+    $arColumn = _getTradingTableColumn($bChinese);
+	$arFundEst = GetFundEstTableColumn($bChinese);
+	$strPremium = $arFundEst[2];
+    $arColumn[] = $strPremium;
+
+    $strPrice = _getTradingParagraphStr($arColumn, $bChinese);
+    if ($bChinese)     $str = "{$strSymbol}{$strPrice}相对于{$strPairSymbol}的{$strPremium}";
+    else				 $str = "The $strPremium of $strSymbol $strPrice comparing with $strPairSymbol";
+        
+    _echoTradingParagraph($str, $arColumn, $ref, $bChinese, $ref->EstNetValue()); 
 }
 
 function EchoTradingParagraph($ref, $bChinese)

@@ -7,6 +7,7 @@ function GetMenuArray($bChinese)
     if ($bChinese)
     {
         return array('adr' => 'ADR工具',
+                      'chinaetf' => 'A股ETF',
                       'goldetf' => '黄金ETF',
                       'gradedfund' => '分级基金',
                       'lof' => 'LOF工具',
@@ -16,6 +17,7 @@ function GetMenuArray($bChinese)
     else
     {
          return array('adr' => 'ADR Tools',
+                      'chinaetf' => 'China ETF',
                       'goldetf' => 'Gold ETF',
                       'gradedfund' => 'Graded Fund',
                       'lof' => 'LOF Tools',
@@ -55,6 +57,10 @@ function ResMenu($arLoop, $bChinese)
 	else if ($arLoop[0] == 'sh518800')
 	{
 	    _menuItemClass($iLevel, 'goldetf', $bChinese);
+	}
+	else if ($arLoop[0] == 'sh510300')
+	{
+	    _menuItemClass($iLevel, 'chinaetf', $bChinese);
 	}
 	else if ($arLoop[0] == 'sh502004')
 	{
@@ -102,6 +108,16 @@ function NavLoopGoldEtf($bChinese)
 function _LayoutGoldEtfTopLeft($bChinese = true)
 {
     LayoutTopLeft(NavLoopGoldEtf, $bChinese);
+}
+
+function NavLoopChinaEtf($bChinese)
+{
+    ResMenu(ChinaEtfGetSymbolArray(), $bChinese);
+}
+
+function _LayoutChinaEtfTopLeft($bChinese = true)
+{
+    LayoutTopLeft(NavLoopChinaEtf, $bChinese);
 }
 
 function NavLoopLof($bChinese)

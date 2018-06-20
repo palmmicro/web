@@ -173,7 +173,7 @@ class _LofReference extends FundReference
                 	else	return false;
                 }
         
-                $this->fFactor = $fEst * $fCNY / $this->fPrevPrice;
+                $this->fFactor = $fEst * $fCNY / $this->fPrice;
                 $this->InsertFundCalibration($est_ref, strval($fEst));
                 return $this->fFactor;
             }
