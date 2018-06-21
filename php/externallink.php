@@ -217,4 +217,16 @@ function GetAdrLink($strSymbol)
     return GetExternalLink($strHttp, $strSymbol);
 }
 
+function GetTradingViewLink($strSymbol)
+{
+    $strHttp = 'https://www.tradingview.com/symbols/AMEX-'.$strSymbol;
+    return GetExternalLink($strHttp, $strSymbol);
+}
+
+function GetStockChartsLink($strSymbol)
+{
+    $strHttp = 'http://stockcharts.com/h-sc/ui?s='.$strSymbol;
+    return GetExternalLink($strHttp, $strSymbol);
+}
+
 ?>
