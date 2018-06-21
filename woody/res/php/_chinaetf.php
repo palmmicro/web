@@ -73,6 +73,15 @@ function _chinaEtfSmaCallback($ref, $fEst = false)
 	return $ref;
 }
 
+function _chinaEtfIndexSmaCallback($ref, $fEst = false)
+{
+	if ($fEst)
+	{
+		return $ref->EstToPair($fEst);
+	}
+	return $ref->pair_ref;
+}
+
 function EchoAll($bChinese = true)
 {
     global $group;
@@ -80,7 +89,9 @@ function EchoAll($bChinese = true)
     EchoReferenceParagraph($group->arRef, $bChinese, _chinaEtfRefCallback);
     EchoEtfTradingParagraph($group->ref, $bChinese);
     EchoEtfSmaParagraph($group->ref, $bChinese);
-    EchoSmaParagraph($group->us_ref, $bChinese, false, $group->ref, _chinaEtfSmaCallback);
+    EchoEtfSmaParagraph($group->us_ref, $bChinese, '');
+    EchoSmaParagraph($group->us_ref, $bChinese, false, $group->us_ref, _chinaEtfIndexSmaCallback);
+    EchoSmaParagraph($group->us_ref, $bChinese, '', $group->ref, _chinaEtfSmaCallback);
     EchoEtfHistoryParagraph($group->ref, $bChinese);
     EchoEtfHistoryParagraph($group->us_ref, $bChinese);
 
