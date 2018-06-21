@@ -223,9 +223,12 @@ function GetTradingViewLink($strSymbol)
     return GetExternalLink($strHttp, $strSymbol);
 }
 
+// http://stockcharts.com/h-sc/ui?s=XOP&p=D&b=5&g=0&id=p39648755011
 function GetStockChartsLink($strSymbol)
 {
-    $strHttp = 'http://stockcharts.com/h-sc/ui?s='.$strSymbol;
+	if ($strSymbol == '^GSPC')	$str = '$SPX';
+	else							$str = $strSymbol;
+    $strHttp = 'http://stockcharts.com/h-sc/ui?s='.$str.'&p=D&b=5&g=0&id=p39648755011';
     return GetExternalLink($strHttp, $strSymbol);
 }
 

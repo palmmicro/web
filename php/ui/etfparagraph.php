@@ -1,10 +1,33 @@
 <?php
 require_once('referenceparagraph.php');
 
+function _getEtfPairExternalLink($sym)
+{
+	static $arSymbol = array();
+	
+	$strSymbol = $sym->GetSymbol();
+	if (in_array($strSymbol, $arSymbol))		return $strSymbol;
+	
+	if ($strFutureSymbol = $sym->IsSinaFuture())
+	{
+		$strLink = GetSinaFutureLink($strFutureSymbol);
+	}
+	else if ($sym->IsSymbolUs())
+	{
+		$strLink = GetStockChartsLink($strSymbol);
+	}
+	else
+	{
+		$strLink = GetSinaStockLink($sym);
+	}
+	$arSymbol[] = $strSymbol;
+	return $strLink;
+}
+
 function _etfListRefCallbackData($ref, $bChinese)
 {
 	$ar = array();
-    $ar[] = GetMyStockLink($ref->GetPairSymbol(), $bChinese);
+    $ar[] = _getEtfPairExternalLink($ref->GetPairSym());
     $ar[] = GetNumberDisplay($ref->fRatio);
     $strFactor = GetNumberDisplay($ref->fFactor);
     $ar[] = GetStockSymbolLink('calibration', $ref->GetStockSymbol(), $bChinese, $strFactor);

@@ -3,8 +3,16 @@ require_once('stockgroupparagraph.php');
 
 function _echoTransactionTableItem($ref, $transaction, $bReadOnly, $bChinese)
 {
-    $strDate = GetSqlTransactionDate($transaction);
+	static $arSymbol = array();
+	
     $strSymbol = $ref->GetStockSymbol();
+    if (in_array($strSymbol, $arSymbol) == false)
+    {
+    	$arSymbol[] = $strSymbol;
+    	$strSymbol = GetMyStockLink($strSymbol, $bChinese);
+    }
+    	
+    $strDate = GetSqlTransactionDate($transaction);
     $strPrice = $ref->GetPriceDisplay($transaction['price']);
     $strFees = round_display_str($transaction['fees']);
     if ($bReadOnly)

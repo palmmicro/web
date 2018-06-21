@@ -125,10 +125,9 @@ class EtfReference extends MyStockReference
 
 	function _load_cny_ref($strDate)
 	{
-    	if ($this->pair_nv_ref)
+    	if ($sym = $this->GetPairSym())
     	{
     		$strCNY = false;
-    		$sym = $this->pair_nv_ref->GetSym();
     		if ($sym->IsSymbolA())
     		{
     			if ($this->sym->IsSymbolUS())			$strCNY = 'USCNY';
@@ -152,11 +151,11 @@ class EtfReference extends MyStockReference
     	}
 	}
 	
- 	function GetPairSymbol()
+ 	function GetPairSym()
     {
     	if ($this->pair_nv_ref)
     	{
-    		return $this->pair_nv_ref->GetStockSymbol();
+    		return $this->pair_nv_ref->GetSym();
     	}
     	DebugString('pair_nv_ref NOT set');
     	return false;

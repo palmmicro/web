@@ -34,8 +34,7 @@ function _selectArbitrageExternalLink($sym)
 	$strSymbol = $sym->GetSymbol();
     if ($sym->IsSymbolUS())
     {
-//    	return GetTradingViewLink($strSymbol);
-		return GetStockChartsLink($strSymbol);
+    	return GetTradingViewLink($strSymbol);
     }
     return $strSymbol;
 }
