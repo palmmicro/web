@@ -2,7 +2,16 @@
 //require_once('sqlstockdaily.php');
 require_once('sqlstockhistory.php');
 
-define('FUND_EMPTY_VALUE', '0.0000');
+define('FUND_EMPTY_VALUE', '0.000000');
+
+function IsEmptyFundValue($strVal)
+{
+	if ($strVal == FUND_EMPTY_VALUE)
+	{
+		return true;
+	}
+	return false;
+}
 
 // ****************************** FundHistorySql class *******************************************************
 class FundHistorySql extends DailyStockSql
@@ -23,7 +32,7 @@ class FundHistorySql extends DailyStockSql
     	$str = ' `stock_id` INT UNSIGNED NOT NULL ,'
          	  . ' `date` DATE NOT NULL ,'
          	  . ' `close` DOUBLE(13,6) NOT NULL ,'
-         	  . ' `estimated` DOUBLE(10,4) NOT NULL ,'
+         	  . ' `estimated` DOUBLE(13,6) NOT NULL ,'
          	  . ' `time` TIME NOT NULL ,'
          	  . ' FOREIGN KEY (`stock_id`) REFERENCES `stock`(`id`) ON DELETE CASCADE ,'
          	  . ' UNIQUE ( `date`, `stock_id` )';
@@ -44,14 +53,32 @@ class FundHistorySql extends DailyStockSql
 		return $this->UpdateById("close = '$strNetValue', estimated = '$strEstValue', time = '$strTime'", $strId);
 	}
 	
+	function IsEmptyNetValue($history)
+	{
+        return IsEmptyFundValue($history['close']);
+	}
+	
+	function HasNetValue($strDate)
+	{
+        if ($history = $this->Get($strDate))
+        {
+            if ($this->IsEmptyNetValue($history) == false)
+            {
+                return true;
+            }
+        }
+        return false;
+	}
+	
 	function UpdateNetValue($strDate, $strNetValue)
 	{
         $ymd = new StringYMD($strDate);
         if ($ymd->IsWeekend())     return false;   // sina fund may provide false weekend data
         
+        // DebugString(SqlGetStockSymbol($this->GetKeyId()).' '.$strDate.' '.$strNetValue);
         if ($history = $this->Get($strDate))
         {
-            if ($history['close'] == FUND_EMPTY_VALUE)
+            if ($this->IsEmptyNetValue($history))
             {
                 $strEstValue = $history['estimated'];
                 $this->Update($history['id'], $strNetValue, $strEstValue, $history['time']);
@@ -70,11 +97,11 @@ class FundHistorySql extends DailyStockSql
 	{
         list($strDummy, $strTime) = explodeDebugDateTime();
         $strEstValue = strval($fEstValue);
-//        DebugString(SqlGetStockSymbol($this->GetKeyId()).' '.$strTime.' '.$strEstValue);
+        // DebugString(SqlGetStockSymbol($this->GetKeyId()).' '.$strTime.' '.$strEstValue);
         if ($history = $this->Get($strDate))
         {
-            if ($history['close'] == FUND_EMPTY_VALUE)
-            {   // Only update when net value is not ready
+            if ($this->IsEmptyNetValue($history))
+            {   // Only update when net value is NOT ready
             	// DebugString($strDate.' '.$strEstValue);
             	if (abs($fEstValue - floatval($history['estimated'])) > 0.00005)
             	{

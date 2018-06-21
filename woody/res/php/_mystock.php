@@ -112,11 +112,13 @@ function _echoMyStockData($strSymbol, $bChinese)
     {
     	EchoEtfListParagraph(array($etf_ref), $bChinese);
     	EchoEtfTradingParagraph($etf_ref, $bChinese);
+        EchoEtfHistoryParagraph($etf_ref, $bChinese);
     }
     else if ($sym->IsFundA())
     {
         if ($fund->fOfficialNetValue)	EchoFundEstParagraph($fund, $bChinese);
         EchoFundTradingParagraph($fund, $bChinese);
+        EchoFundHistoryParagraph($fund, $bChinese);
     }
     else
     {
@@ -138,11 +140,6 @@ function _echoMyStockData($strSymbol, $bChinese)
     {
     	if ($hshare_ref)		EchoHShareSmaParagraph($ref, $hshare_ref, $bChinese);
     	else	        		EchoSmaParagraph($ref, $bChinese);
-    }
-    
-    if ($sym->IsFundA())
-    {
-        EchoFundHistoryParagraph($fund, $bChinese);
     }
     
     if ($strMemberId = AcctIsLogin())

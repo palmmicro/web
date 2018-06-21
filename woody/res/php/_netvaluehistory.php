@@ -27,9 +27,17 @@ function _echoNetValueHistory($strSymbol, $iStart, $iNum, $bChinese)
    	EchoParagraph($str);
     
     StockPrefetchData($strSymbol);
-    $fund = StockGetFundReference($strSymbol);
    	$csv = new PageCsvFile();
-    EchoFundHistoryParagraph($fund, $bChinese, $csv, $iStart, $iNum);
+   	$sym = new StockSymbol($strSymbol);
+   	if ($sym->IsFundA())
+   	{
+   		$fund = StockGetFundReference($strSymbol);
+   		EchoFundHistoryParagraph($fund, $bChinese, $csv, $iStart, $iNum);
+   	}
+   	else if ($ref = StockGetEtfReference($strSymbol))
+   	{
+   		EchoEtfHistoryParagraph($ref, $bChinese, $csv, $iStart, $iNum);
+   	}
     
     _echoNetValueHistoryGraph($strSymbol, $bChinese);
 }
@@ -38,13 +46,9 @@ function EchoNetValueHistory($bChinese = true)
 {
     if ($strSymbol = UrlGetQueryValue('symbol'))
     {
-    	$sym = new StockSymbol($strSymbol);
-    	if ($sym->IsFundA())
-    	{
-    		$iStart = UrlGetQueryInt('start');
-    		$iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
-    		_echoNetValueHistory($strSymbol, $iStart, $iNum, $bChinese);
-    	}
+   		$iStart = UrlGetQueryInt('start');
+   		$iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
+   		_echoNetValueHistory($strSymbol, $iStart, $iNum, $bChinese);
     }
     EchoPromotionHead($bChinese, 'netvalue');
 }

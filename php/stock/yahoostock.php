@@ -337,15 +337,6 @@ function _yahooNetValueHasFile($now_ymd, $strFileName, $strNetValueSymbol)
     return false;
 }
 
-function _insertFundHistory($sql, $strDate, $strTime, $strPrice, $strChange)
-{
-	if ($sql->Get($strDate) == false)
-    {
-    	DebugString('Insert fund history '.SqlGetStockSymbol($sql->GetKeyId()).' '.$strDate.' '.$strTime.':'.$strPrice.' '.$strChange);
-    	$sql->Insert($strDate, $strPrice, $strChange, $strTime);
-    }
-}
-
 function _yahooGetNetValueSymbol($strSymbol)
 {
     $sym = new StockSymbol($strSymbol);
@@ -373,7 +364,7 @@ function YahooUpdateNetValue($strSymbol)
     date_default_timezone_set(STOCK_TIME_ZONE_US);
     $now_ymd = new NowYMD();
     $strDate = $now_ymd->GetYMD();
-    if ($sql->Get($strDate))								return;
+    if ($sql->HasNetValue($strDate))								return;
     if ($now_ymd->IsTradingDay())
     {
     	if ($now_ymd->GetTick() < (strtotime($strDate) + _getNetValueDelayTick()))
@@ -406,17 +397,22 @@ function YahooUpdateNetValue($strSymbol)
     {
     	$ymd = _yahooStockMatchGetYmd($arMatch, $strNetValueSymbol);
     	$strDate = $ymd->GetYMD();
-    	if ($sql->Get($strDate))		return;
+    	if ($sql->HasNetValue($strDate))		return;
     	foreach ($arMatch as $ar)
     	{
     		$strMatchSymbol = $ar[4];
     		$strMatchPrice = $ar[3];
-    		$strMatchChange = $ar[2];
-    		if ($strNetValueSymbol == $strMatchSymbol)					_insertFundHistory($sql, $strDate, $ymd->GetHMS(), $strMatchPrice, $strMatchChange);
+    		// $strMatchChange = $ar[2];
+    		if ($strNetValueSymbol == $strMatchSymbol)
+    		{
+    			$sql->UpdateNetValue($strDate, $strMatchPrice);
+    			DebugString('YahooUpdateNetValue '.$strNetValueSymbol.' '.$strDate.' '.$strMatchPrice);
+    		}
     		else if ($strExtraId = SqlGetStockId($strMatchSymbol))
     		{
-    			$ymd_extra = _yahooStockMatchGetYmd($arMatch, $strMatchSymbol);
-    			_insertFundHistory(new FundHistorySql($strExtraId), $ymd_extra->GetYMD(), $ymd_extra->GetHMS(), $strMatchPrice, $strMatchChange);
+    			$extra_sql = new FundHistorySql($strExtraId);
+    			$extra_ymd = _yahooStockMatchGetYmd($arMatch, $strMatchSymbol);
+    			$extra_sql->UpdateNetValue($extra_ymd->GetYMD(), $strMatchPrice);
     		}
     	}
     }

@@ -698,7 +698,8 @@ class StockReference
     {
        	if ($history = $sql->GetNow())
        	{
-       		if ($history['close'] == FUND_EMPTY_VALUE)
+       		// if ($sql->IsEmptyNetValue($history))	// ForexHistorySql class does NOT have IsEmptyNetValue function!
+       		if (IsEmptyFundValue($history['close']))
        		{	// look further back
        			if ($prev = $sql->GetPrev($history['date']))
        			{
@@ -765,7 +766,6 @@ class ExtendedTradingReference extends StockReference
 
 class YahooNetValueReference extends StockReference
 {
-    // constructor 
     function YahooNetValueReference($strStockSymbol)
     {
     	$strSymbol = GetYahooNetValueSymbol($strStockSymbol);

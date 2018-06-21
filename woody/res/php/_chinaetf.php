@@ -77,9 +77,8 @@ function EchoAll($bChinese = true)
     EchoEtfTradingParagraph($group->ref, $bChinese);
     EchoEtfSmaParagraph($group->ref, $bChinese);
     EchoSmaParagraph($group->us_ref, $bChinese, false, $group->ref, _chinaEtfSmaCallback);
-    
-//    $fund = $group->ref;
-//    EchoFundHistoryParagraph($fund, $bChinese);
+    EchoEtfHistoryParagraph($group->ref, $bChinese);
+    EchoEtfHistoryParagraph($group->us_ref, $bChinese);
 
     if ($group->strGroupId) 
     {

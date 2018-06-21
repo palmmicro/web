@@ -42,9 +42,9 @@ function EchoFundHistoryTableItem($ref, $csv, $history, $fund, $clone_ref)
         $strEstChange = $clone_ref->GetCurrentPercentageDisplay();
     }
 
-    if ($strEstValue == FUND_EMPTY_VALUE)
+    if (IsEmptyFundValue($strEstValue))
     {
-//    	DebugString('EchoFundHistoryTableItem '.$strEstValue);
+    	// DebugString('EchoFundHistoryTableItem '.$strEstValue);
     	$strEstValueDisplay = '';
     	$strError = ''; 
         $strEstTime = '';
@@ -88,7 +88,7 @@ function GetNextTradingDayYMD($strYMD)
     return $next_ymd->GetYMD();
 }
 
-function _echoHistoryTableData($sql, $fund, $csv, $est_ref, $iStart, $iNum)
+function _echoHistoryTableData($sql, $csv, $est_ref, $iStart, $iNum)
 {
 	$bSameDayNetValue	 = true;
 	$clone_ref = false;
@@ -101,20 +101,20 @@ function _echoHistoryTableData($sql, $fund, $csv, $est_ref, $iStart, $iNum)
 	
     if ($result = $sql->GetAll($iStart, $iNum)) 
     {
-        while ($record = mysql_fetch_assoc($result)) 
+        while ($fund = mysql_fetch_assoc($result)) 
         {
             if ($bSameDayNetValue)
             {
-                $strDate = $record['date'];
+                $strDate = $fund['date'];
             }
             else
             {
-                $strDate = GetNextTradingDayYMD($record['date']);
+                $strDate = GetNextTradingDayYMD($fund['date']);
             }
             
             if ($history = $sql->stock_sql->Get($strDate))
             {
-                EchoFundHistoryTableItem($ref, $csv, $history, $record, GetDailyCloseByDate($clone_ref, $est_sql, $record['date']));
+                EchoFundHistoryTableItem($ref, $csv, $history, $fund, GetDailyCloseByDate($clone_ref, $est_sql, $fund['date']));
             }
         }
         @mysql_free_result($result);
@@ -169,11 +169,10 @@ function FundHistoryTableGetColumn($est_ref, $bChinese)
     return $arColumn;
 }
 
-function EchoFundHistoryParagraph($fund, $bChinese, $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
+function _echoFundHistoryParagraph($ref, $est_ref, $bChinese, $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
 {
-	$est_ref = $fund->est_ref;
     $arColumn = FundHistoryTableGetColumn($est_ref, $bChinese);
-    $strSymbol = $fund->GetStockSymbol();
+    $strSymbol = $ref->GetStockSymbol();
     $strSymbolLink = GetMyStockLink($strSymbol, $bChinese);
     if ($bChinese)     
     {
@@ -184,7 +183,7 @@ function EchoFundHistoryParagraph($fund, $bChinese, $csv = false, $iStart = 0, $
         $str = "The {$arColumn[3]} history of $strSymbolLink {$arColumn[1]} price comparing with {$arColumn[2]}";
     }
     
-	$sql = new FundHistorySql($fund->GetStockId());
+	$sql = new FundHistorySql($ref->GetStockId());
     if (IsTableCommonDisplay($iStart, $iNum))
     {
         $str .= ' '.GetNetValueHistoryLink($strSymbol, $bChinese);
@@ -196,12 +195,25 @@ function EchoFundHistoryParagraph($fund, $bChinese, $csv = false, $iStart = 0, $
     	$strNavLink = StockGetNavLink($strSymbol, $iTotal, $iStart, $iNum, $bChinese);
     }
 
-    if (AcctIsDebug())		$str .= ' '.$fund->DebugLink();
-    
     EchoParagraphBegin($str.' '.$strNavLink);
     EchoFundHistoryTableBegin($arColumn);
-    _echoHistoryTableData($sql, $fund, $csv, $est_ref, $iStart, $iNum);
+    _echoHistoryTableData($sql, $csv, $est_ref, $iStart, $iNum);
     EchoTableParagraphEnd($strNavLink);
+}
+
+function EchoFundHistoryParagraph($fund, $bChinese, $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
+{
+    if (AcctIsDebug())		EchoParagraph($fund->DebugLink());
+    _echoFundHistoryParagraph($fund->stock_ref, $fund->est_ref, $bChinese, $csv, $iStart, $iNum);
+}
+
+function EchoEtfHistoryParagraph($ref, $bChinese, $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
+{
+    if (AcctIsDebug())
+    {
+    	if ($ref->IsSymbolA())	EchoParagraph($ref->nv_ref->DebugLink());
+    }
+    _echoFundHistoryParagraph($ref, $ref->pair_ref, $bChinese, $csv, $iStart, $iNum);
 }
 
 ?>
