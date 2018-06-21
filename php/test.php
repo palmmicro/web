@@ -130,7 +130,11 @@ function TestCmdLine()
     		YahooUpdateNetValue($strSymbol);
     	}
     	else if ($strSrc == 'ft')	$str = TestFtStock($strSymbol);
-    	else if ($strSrc == 'sina')	$str = TestSinaStockHistory($strSymbol);
+    	else if ($strSrc == 'sina')
+    	{
+//    		_debug_dividend($strSymbol);
+			$str = TestSinaStockHistory($strSymbol);
+    	}
     	$fStop = microtime(true);
     	if (empty($str))	$str = '(Not found)';
     	DebugString($strSymbol.':'.$str.DebugGetStopWatchDisplay($fStop, $fStart));
@@ -147,7 +151,6 @@ function TestCmdLine()
 	TestCmdLine();
 //	WriteForexDataFromFile();
 //	MarketWatchGetData('^SPSIOP');
-//	_debug_dividend('sz000028');
 //	test_stock_dividend();
 //	SqlDeleteStockGroupByGroupName('SINA');
 //  TestGoogleHistory();

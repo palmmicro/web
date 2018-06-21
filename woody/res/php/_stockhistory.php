@@ -39,14 +39,16 @@ function _echoStockHistoryParagraph($strSymbol, $strStockId, $iStart, $iNum, $bA
     if ($bChinese)  $arColumn = array('日期', '开盘价', '最高', '最低', '收盘价', '成交量', '复权收盘价');
     else              $arColumn = array('Date', 'Open', 'High', 'Low', 'Close', 'Volume', 'Adj Close');
     
-    $strUpdateLink = ''; 
+    $sym = new StockSymbol($strSymbol);
+    if ($sym->IsIndexA())		$strUpdateLink = GetSinaStockHistoryLink($sym);
+    else				        $strUpdateLink = GetYahooStockHistoryLink($sym);
+    
+    if ($sym->IsSymbolA())	$strUpdateLink .= ' '.GetSinaStockDividendLink($strSymbol);
+    
     if ($bAdmin)
     {
-        $strUpdateLink = GetOnClickLink(STOCK_PHP_PATH.'_submithistory.php?id='.$strStockId, $bChinese ? '确认更新股票历史记录?' : 'Confirm update stock history?', $bChinese ? '更新历史记录' : 'Update History');
+        $strUpdateLink .= ' '.GetOnClickLink(STOCK_PHP_PATH.'_submithistory.php?id='.$strStockId, $bChinese ? '确认更新股票历史记录?' : 'Confirm update stock history?', $bChinese ? '更新历史记录' : 'Update History');
         $strUpdateLink .= ' '.SqlCountTableDataString(TABLE_STOCK_HISTORY);
-        $sym = new StockSymbol($strSymbol);
-        if ($sym->IsIndexA())		$strUpdateLink .= ' '.GetSinaStockHistoryLink($sym);
-        else				        $strUpdateLink .= ' '.GetYahooStockHistoryLink($sym);
     }
 
 	$sql = new StockHistorySql($strStockId);

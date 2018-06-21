@@ -173,6 +173,12 @@ function GetSinaStockHistoryLink($sym)
     return GetExternalLink($strHttp, $sym->GetSymbol());
 }
 
+function GetSinaStockDividendLink($strSymbol)
+{
+    $strHttp = SinaGetStockDividendUrl($strSymbol);
+    return GetExternalLink($strHttp, $strSymbol);
+}
+
 // https://www.jisilu.cn/data/ha_history/600585
 function GetJisiluAhLink($strSymbol)
 {
