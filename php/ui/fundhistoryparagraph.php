@@ -90,11 +90,15 @@ function GetNextTradingDayYMD($strYMD)
 
 function _echoHistoryTableData($sql, $csv, $est_ref, $iStart, $iNum)
 {
-	$bSameDayNetValue	 = true;
 	$clone_ref = false;
 	if ($est_ref)
 	{
-		if ($est_ref->sym->IsSymbolUS())		$bSameDayNetValue	 = false;
+		$sym = $est_ref->GetSym();
+        // DebugString('stock_sql '.$sym->GetSymbol());
+		if ($sym->IsSinaFuture())			$bSameDayNetValue	 = true;
+		else if ($sym->IsSymbolUS())		$bSameDayNetValue	 = false;
+		else								$bSameDayNetValue	 = true;
+		
 		$est_sql = new StockHistorySql($est_ref->GetStockId());
 		$clone_ref = clone $est_ref;
 	}

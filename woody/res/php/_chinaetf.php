@@ -12,15 +12,19 @@ class _ChinaEtfGroup extends _StockGroup
 	var $us_ref;
 	var $arRef;
 	
+	var $test_ref;
+	
     function _ChinaEtfGroup($strSymbol) 
     {
+    	$strTest = 'USO';
     	$strUS = 'ASHR';
-        StockPrefetchArrayData(array($strSymbol, $strUS));
+        StockPrefetchArrayData(array($strSymbol, $strUS, $strTest));
         GetChinaMoney();
         YahooUpdateNetValue($strUS);
 
         $this->ref = new EtfReference($strSymbol);
         $this->us_ref = new EtfReference($strUS);
+        $this->test_ref = new EtfReference($strTest);
         $this->arRef = array($this->ref, $this->us_ref, $this->ref->pair_nv_ref);
         parent::_StockGroup($this->arRef);
     }
@@ -80,6 +84,8 @@ function EchoAll($bChinese = true)
     EchoEtfHistoryParagraph($group->ref, $bChinese);
     EchoEtfHistoryParagraph($group->us_ref, $bChinese);
 
+    EchoEtfHistoryParagraph($group->test_ref, $bChinese);
+    
     if ($group->strGroupId) 
     {
         _EchoTransactionParagraph($group, $bChinese);

@@ -29,7 +29,6 @@ require_once('stock/forexref.php');
 require_once('stock/futureref.php');
 require_once('stock/hshareref.php');
 require_once('stock/etfref.php');
-require_once('stock/futureetfref.php');
 
 //require_once('stocktrans.php');
 //require_once('stockgroup.php');
@@ -349,8 +348,9 @@ function _getAllSymbolArray($strSymbol)
         else if ($strSymbolA = in_arrayGradedFundM($strSymbol))	return GradedFundGetAllSymbolArray($strSymbolA);
         else 															return array($strSymbol);
     }
-
+    
    	$ar = array();
+    if ($strPairSymbol = SqlGetEtfPair($strSymbol))			$ar[] = $strPairSymbol;
     if ($sym->IsSymbolA())
     {
         if ($strSymbolH = SqlGetAhPair($strSymbol))	

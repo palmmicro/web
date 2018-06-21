@@ -72,7 +72,13 @@ class EtfReference extends MyStockReference
 	{
 		$strSymbol = SqlGetStockSymbol($strStockId);
 		$sym = new StockSymbol($strSymbol);
-		if ($sym->IsEtf())
+		if ($strFutureSymbol = $sym->IsSinaFuture())
+		{
+        	$this->pair_nv_ref = new NetValueReference($strStockId, $sym);
+			$this->pair_ref = new FutureReference($strFutureSymbol);
+			return false;
+		}
+		else if ($sym->IsEtf())
 		{
         	$this->pair_nv_ref = new NetValueReference($strStockId, $sym);
 			$this->pair_ref = new MyStockReference($strSymbol, $sym);
@@ -82,43 +88,83 @@ class EtfReference extends MyStockReference
 			$this->pair_nv_ref = new IndexReference($strSymbol, $sym);
 			$this->pair_ref = $this->pair_nv_ref;
 		}
+		return true;
 	}
     
+	function _insertCalibartion($sql, $strFactorDate)
+	{
+		$this->fFactor = $this->fPairNetValue / $this->fNetValue;
+		$sql->Write($strFactorDate, strval($this->fFactor));
+	}
+	
+	function _loadCalibartion($sql)
+	{
+		if ($calibration = $sql->GetNow())
+		{
+			$this->fFactor = floatval($calibration['close']); 
+			$strDate = $calibration['date'];
+			$this->fNetValue = $this->nv_ref->sql->GetClose($strDate);
+			$this->fPairNetValue = $this->pair_nv_ref->sql->GetClose($strDate);
+			return $strDate;
+		}
+
+		// This is NOT normal
+        DebugString('Missing calibration record');
+        return false;
+ 	}
+	
+	function _onNormalEtfCalibration($sql)
+	{
+       	$strDate = $this->nv_ref->strDate;
+       	if (empty($strDate) == false)
+       	{
+        	$this->fNetValue = $this->nv_ref->fPrice;
+        	if ($this->fFactor = $sql->GetClose($strDate))
+        	{
+        		$this->fPairNetValue = $this->pair_nv_ref->sql->GetClose($strDate);
+        	}
+        	else
+        	{
+        		if ($this->fPairNetValue = $this->pair_nv_ref->sql->GetClose($strDate))
+        		{
+        			$this->_insertCalibartion($sql, $strDate);
+        		}
+        		else
+        		{
+        			$strDate = $this->_loadCalibartion($sql);
+        		}
+        	}
+        	return $strDate;
+        }
+        return false;
+	}
+	
+	function _onFutureEtfCalibration($sql)
+	{
+		if ($this->CheckAdjustFactorTime($this->pair_ref))
+		{
+			$strDate = $this->strDate;
+			$this->fPairNetValue = $this->pair_ref->fPrice;
+			$this->fNetValue = $this->fPrice;
+   			$this->_insertCalibartion($sql, $strDate);
+   			$this->nv_ref->sql->UpdateNetValue($strDate, $this->fNetValue);
+   			$this->pair_nv_ref->sql->UpdateNetValue($strDate, $this->fPairNetValue);
+   			return $strDate;
+		}
+		return $this->_loadCalibartion($sql);
+	}
+	
 	function _onCalibration($strStockId)
 	{
         $sql = new EtfCalibrationSql($strStockId);
         if ($record = $sql->pair_sql->Get())
         {
-			$this->_load_pair_ref($record['pair_id']);
         	$this->fRatio = floatval($record['ratio']);
-        	$strFactorDate = $this->nv_ref->strDate;
-        	if (empty($strFactorDate) == false)
-        	{
-        		$this->fNetValue = $this->nv_ref->fPrice;
-        		if ($this->fFactor = $sql->GetClose($strFactorDate))
-        		{
-        			$this->fPairNetValue = $this->pair_nv_ref->sql->GetClose($strFactorDate);
-        		}
-        		else
-        		{
-        			if ($this->fPairNetValue = $this->pair_nv_ref->sql->GetClose($strFactorDate))
-        			{
-        				$this->fFactor = $this->fPairNetValue / $this->fNetValue;
-        				$sql->Insert($strFactorDate, strval($this->fFactor));
-        			}
-        			else
-        			{
-        				if ($calibration = $sql->GetNow())
-        				{
-        					$this->fFactor = floatval($calibration['close']); 
-        					$strFactorDate = $calibration['date'];
-        					$this->fNetValue = $this->nv_ref->sql->GetClose($strFactorDate);
-        					$this->fPairNetValue = $this->pair_nv_ref->sql->GetClose($strFactorDate);
-        				}
-        			}
-        		}
-        		return $strFactorDate;
-        	}
+			if ($this->_load_pair_ref($record['pair_id']))
+			{
+				return $this->_onNormalEtfCalibration($sql);
+			}
+			return $this->_onFutureEtfCalibration($sql);
         }
         return false;
 	}
