@@ -47,10 +47,55 @@ class CsvFile
     	}
     }
     
+    function OnLineArray($arWord)
+    {
+    	DebugArray($arWord);
+    }
+    
+    function Read()
+    {
+    	$this->_open('r');
+    	if ($this->file)
+    	{
+    		while (!feof($this->file))
+    		{	
+    			if ($strLine = fgets($this->file))
+    			{
+    				$arWord = explode(',', $strLine);
+    				$this->OnLineArray($arWord);
+    			}
+    		}
+    		$this->Close();
+    	}
+    	return $ar;
+    }
+}
+
+class PageCsvFile extends CsvFile
+{
+	var $arColumn = array();
+	var $iColumn;
+	
+    function PageCsvFile() 
+    {
+        parent::CsvFile(DebugGetCsvName(UrlGetUniqueString()));
+    }
+
+    function OnLineArray($arWord)
+    {
+    	if (count($arWord) > $this->iColumn)
+    	{
+    		$this->arColumn[$arWord[0]] = floatval($arWord[$this->iColumn]);
+    	}
+    }
+    
     function ReadColumn($iColumn)
     {
-    	$ar = array();
-    	$this->_open('r');
+    	array_splice($this->arColumn, 0);
+    	$this->iColumn = $iColumn;
+    	$this->Read();
+    	return $this->arColumn;
+/*    	$this->_open('r');
     	if ($this->file)
     	{
     		while (!feof($this->file))
@@ -66,15 +111,7 @@ class CsvFile
     		}
     		$this->Close();
     	}
-    	return $ar;
-    }
-}
-
-class PageCsvFile extends CsvFile
-{
-    function PageCsvFile() 
-    {
-        parent::CsvFile(DebugGetCsvName(UrlGetUniqueString()));
+    	return $ar;*/
     }
 }
 

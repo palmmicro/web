@@ -11,7 +11,9 @@ function _echoNetValueHistoryGraph($strSymbol, $bChinese)
     $ar = $csv->ReadColumn(2);
    	if (count($ar) > 0)
    	{
-   		$jpg->DrawDateArray($ar, $csv->ReadColumn(1));
+   		$jpg->DrawDateArray($ar);
+   		$jpg->DrawSecondArray($csv->ReadColumn(1));
+   		$jpg->SaveFile();
    		$strPremium = $bChinese ? '溢价' : 'Premium';
    		EchoPageImage($strPremium, $strSymbol, $csv->GetPathName(), $jpg->GetPathName());
    	}

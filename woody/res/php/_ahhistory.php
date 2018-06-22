@@ -7,7 +7,9 @@ function _echoAhHistoryGraph($strSymbol, $bChinese)
 {
    	$csv = new PageCsvFile();
     $jpg = new PageImageFile();
-    $jpg->DrawDateArray($csv->ReadColumn(4), $csv->ReadColumn(1));
+    $jpg->DrawDateArray($csv->ReadColumn(4));
+    $jpg->DrawSecondArray($csv->ReadColumn(1));
+    $jpg->SaveFile();
 	$arColumn = GetAhCompareTableColumn($bChinese);
     EchoPageImage($arColumn[1], $strSymbol, $csv->GetPathName(), $jpg->GetPathName());
 }

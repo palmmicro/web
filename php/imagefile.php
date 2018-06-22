@@ -139,7 +139,7 @@ class PageImageFile extends ImageFile
     	}
     }
     
-    function DrawDateArray($ar, $ar2)
+    function DrawDateArray($ar)
     {
     	$this->_drawDashedGrid();
     	ksort($ar);
@@ -158,9 +158,6 @@ class PageImageFile extends ImageFile
     		$this->_drawDashedLine(1.0, $fMax, $fMin);
     	}
 
-    	$fMax2 = max($ar2);
-    	$fMin2 = min($ar2);
-    	
     	$iCount = count($ar);
     	$iCur = 0;
     	$iMaxPos = false;
@@ -169,7 +166,6 @@ class PageImageFile extends ImageFile
     	{
     		$x = intval($this->iWidth * $iCur / $iCount);                                                                 
     		$y = $this->_getVertialPos($fVal, $fMax, $fMin);
-    		$z = $this->_getVertialPos($ar2[$strDate], $fMax2, $fMin2);
    			if ($iMaxPos == false && abs($fVal - $fMax) < 0.000001)
     		{
    				$this->_textDateVal($x, 0, $strDate, $fVal);
@@ -183,16 +179,34 @@ class PageImageFile extends ImageFile
     		
    			if ($iCur != 0)
    			{
-   				$this->Line2($x1, $z1, $x, $z);
    				$this->Line($x1, $y1, $x, $y);
    			}
    			$x1 = $x;
    			$y1 = $y;
+    		$iCur ++;
+    	}
+    }
+
+    function DrawSecondArray($ar2)
+    {
+    	ksort($ar2);
+    	$fMax2 = max($ar2);
+    	$fMin2 = min($ar2);
+    	
+    	$iCount = count($ar2);
+    	$iCur = 0;
+    	foreach ($ar2 as $strDate => $fVal)
+    	{
+    		$x = intval($this->iWidth * $iCur / $iCount);                                                                 
+    		$z = $this->_getVertialPos($fVal, $fMax2, $fMin2);
+   			if ($iCur != 0)
+   			{
+   				$this->Line2($x1, $z1, $x, $z);
+   			}
+   			$x1 = $x;
    			$z1 = $z;
     		$iCur ++;
     	}
-    	
-    	$this->SaveFile();
     }
 }
 
