@@ -14,13 +14,7 @@
 <h1>Price Compare Tools for ADR</h1>
 <p>Each of these tools compares the China/Hongkong/US market price of one American Depositary Receipt (ADR) and makes arbitrage analysis.
 </p>
-<?php MyStockGroupEchoAll(false); ?>
-<p>Related software:
-<?php 
-    EchoStockCategoryLinks(false);
-    EchoStockGroupLinks(false);
-?>
-</p>
+<?php EchoAll(false); ?>
 </div>
 
 <?php LayoutTailLogin(false); ?>

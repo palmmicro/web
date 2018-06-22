@@ -101,7 +101,7 @@ function _echoLofPredictionParagraph($fund, $bChinese)
     $strStockId = $lof_ref->GetStockId();
     
 	$est_ref = $fund->est_ref;
-    $arColumn = FundHistoryTableGetColumn($est_ref, $bChinese);
+    $arColumn = GetFundHistoryTableColumn($est_ref, $bChinese);
     
 	$clone_ref = false;
 	if ($est_ref)
@@ -120,7 +120,7 @@ function _echoLofPredictionParagraph($fund, $bChinese)
             $strDate = GetNextTradingDayYMD($record['date']);
             if ($history = $sql->stock_sql->Get($strDate))
             {
-                if ($ref = GetDailyCloseByDate($clone_ref, $est_sql, $strDate))
+                if ($ref = RefGetDailyClose($clone_ref, $est_sql, $strDate))
                 {
                     $fNetValue = floatval($record['close']);
                     $fClose = floatval($history['close']);
@@ -128,7 +128,7 @@ function _echoLofPredictionParagraph($fund, $bChinese)
                     else if (($fNetValue + MIN_FLOAT_VAL) < $fClose)     $netvalue_lower->AddCompare($ref);        
                     else                                                     $netvalue_same->AddCompare($ref);
 
-                    EchoFundHistoryTableItem($lof_ref, false, $history, $record, $ref);
+                    EchoFundHistoryTableItem(false, $history, $record, $ref);
                 }
             }
         }
@@ -143,7 +143,7 @@ function _echoLofPredictionParagraph($fund, $bChinese)
     EchoTableParagraphEnd();
 }
 
-function EchoThanousLawTest($bChinese = true)
+function EchoAll($bChinese = true)
 {
     if ($strSymbol = UrlGetQueryValue('symbol'))
     {
@@ -157,20 +157,12 @@ function EchoThanousLawTest($bChinese = true)
         }
     }
     EchoPromotionHead($bChinese, 'thanouslaw');
+    EchoStockCategory($bChinese);
 }
 
 function EchoTitle($bChinese = true)
 {
-  	$str = UrlGetQueryDisplay('symbol');
-    if ($bChinese)
-    {
-        $str .= '小心愿定律测试';
-    }
-    else
-    {
-        $str .= ' Thanous Law Test';
-    }
-    echo $str;
+  	echo UrlGetQueryDisplay('symbol').($bChinese ? '小心愿定律测试' : ' Thanous Law Test');
 }
 
     AcctNoAuth();

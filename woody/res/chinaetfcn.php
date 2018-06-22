@@ -14,13 +14,7 @@
 <h1>A股指数ETF净值计算工具</h1>
 <p>这个工具箱计算各种中国A股指数ETF的净值, 同时分析比较各种套利对冲方案.  
 </p>
-<?php MyStockGroupEchoAll(); ?>
-<p>相关软件:
-<?php 
-    EchoStockCategoryLinks();
-    EchoStockGroupLinks();
-?>
-</p>
+<?php EchoAll(); ?>
 </div>
 
 <?php LayoutTailLogin(); ?>

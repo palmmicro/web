@@ -44,7 +44,7 @@ function _echoNetValueHistory($strSymbol, $iStart, $iNum, $bChinese)
     _echoNetValueHistoryGraph($strSymbol, $bChinese);
 }
 
-function EchoNetValueHistory($bChinese = true)
+function EchoAll($bChinese = true)
 {
     if ($strSymbol = UrlGetQueryValue('symbol'))
     {
@@ -53,20 +53,12 @@ function EchoNetValueHistory($bChinese = true)
    		_echoNetValueHistory($strSymbol, $iStart, $iNum, $bChinese);
     }
     EchoPromotionHead($bChinese, 'netvalue');
+    EchoStockCategory($bChinese);
 }
 
 function EchoTitle($bChinese = true)
 {
-  	$str = UrlGetQueryDisplay('symbol');
-    if ($bChinese)
-    {
-        $str .= '净值历史记录';
-    }
-    else
-    {
-        $str .= ' Net Value History';
-    }
-    echo $str;
+  	echo UrlGetQueryDisplay('symbol').($bChinese ? '净值历史记录' : ' Net Value History');
 }
 
     AcctAuth();

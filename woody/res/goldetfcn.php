@@ -15,13 +15,7 @@
 <p>中国A股的交易者普遍不理性, 当A股大跌的时候, 完全不相关的黄金ETF也经常会跟着跌, 这样会产生套利机会. 这个工具箱计算各种黄金ETF的净值, 同时分析比较各种套利对冲方案, 提供交易建议.  
 <br />类似软件: 集思录<a href="https://www.jisilu.cn/data/etf/#tlink_1" target=_blank>黄金ETF</a>实时投资数据.
 </p>
-<?php MyStockGroupEchoAll(); ?>
-<p>相关软件:
-<?php 
-    EchoStockCategoryLinks();
-    EchoStockGroupLinks();
-?>
-</p>
+<?php EchoAll(); ?>
 </div>
 
 <?php LayoutTailLogin(); ?>

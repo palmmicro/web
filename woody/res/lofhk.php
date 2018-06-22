@@ -14,13 +14,7 @@
 <h1>Chinese HK LOF Net Value Tools</h1>
 <p>Each of these tools estimates the net value of one Chinese HK LOF and makes arbitrage analysis.
 </p>
-<?php MyStockGroupEchoAll(false); ?>
-<p>Related software:
-<?php 
-    EchoStockCategoryLinks(false);
-    EchoStockGroupLinks(false);
-?>
-</p>
+<?php EchoAll(false); ?>
 </div>
 
 <?php LayoutTailLogin(false); ?>

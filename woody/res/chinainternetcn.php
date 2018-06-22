@@ -12,13 +12,7 @@
 
 <div>
 <h1>中国互联网指数基金净值计算工具</h1>
-<?php MyStockGroupEchoAll(); ?>
-<p>相关软件:
-<?php 
-    EchoStockCategoryLinks();
-    EchoStockGroupLinks();
-?>
-</p>
+<?php EchoAll(); ?>
 </div>
 
 <?php LayoutTailLogin(); ?>

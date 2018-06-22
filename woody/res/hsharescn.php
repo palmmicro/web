@@ -14,13 +14,7 @@
 <h1>H股基金净值计算工具</h1>
 <p>使用恒生中国企业指数(^HSCE)估值, 恒生H股ETF(02828)仅用于参考.
 </p>
-<?php MyStockGroupEchoAll(); ?>
-<p>相关软件:
-<?php 
-    EchoStockCategoryLinks();
-    EchoStockGroupLinks();
-?>
-</p>
+<?php EchoAll(); ?>
 </div>
 
 <?php LayoutTailLogin(); ?>

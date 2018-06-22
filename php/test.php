@@ -11,6 +11,9 @@ require_once('sql/_sqltest.php');
 //require_once('gb2312/gb2312_tools.php');
 //require_once('test/chinastocklist.php');
 
+require_once('csvfile.php');
+require_once('test/XOP_HistoricalNav.php');
+
 // http://www.todayir.com/en/index.php HSFML25
 /*
 function TestGoogleHistory()
@@ -149,6 +152,7 @@ function TestCmdLine()
 	echo 'Hello, world! '.strval(rand());
 
 	TestCmdLine();
+//	SaveHistoricalNav();
 //	WriteForexDataFromFile();
 //	MarketWatchGetData('^SPSIOP');
 //	test_stock_dividend();

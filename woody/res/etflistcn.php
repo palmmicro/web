@@ -13,13 +13,7 @@
 <div>
 <h1>ETF对照表</h1>
 <p>有些指数不容易拿到数据, 就用1倍ETF代替指数给其它杠杆ETF做对照.</p>
-<?php MyStockGroupEchoAll(); ?>
-<p>相关软件:
-<?php
-    EchoStockCategoryLinks();
-    EchoStockGroupLinks();
-?>
-</p>
+<?php EchoAll(); ?>
 </div>
 
 <?php LayoutTailLogin(); ?>

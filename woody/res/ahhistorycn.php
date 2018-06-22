@@ -12,13 +12,7 @@
 
 <div>
 <h1><?php EchoTitle(); ?></h1>
-<?php EchoAhHistory(); ?>
-<p>相关软件:
-<?php 
-    EchoStockCategoryLinks();
-    EchoStockGroupLinks();
-?>
-</p>
+<?php EchoAll(); ?>
 </div>
 
 <?php LayoutTailLogin(); ?>

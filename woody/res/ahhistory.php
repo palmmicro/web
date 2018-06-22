@@ -12,14 +12,7 @@
 
 <div>
 <h1><?php EchoTitle(false); ?></h1>
-<?php EchoAhHistory(false); ?>
-<p>Related software:
-<?php 
-    EchoStockCategoryLinks(false);
-    EchoStockGroupLinks(false);
-?>
-</p>
-
+<?php EchoAll(false); ?>
 </div>
 
 <?php LayoutTailLogin(false); ?>

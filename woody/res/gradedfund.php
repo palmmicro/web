@@ -14,13 +14,7 @@
 <h1>Chinese Graded Fund Analysis Tools</h1>
 <p>Each of these tools estimates the net value of one Chinese graded fund and makes arbitrage analysis.
 </p>
-<?php MyStockGroupEchoAll(false); ?>
-<p>Related software:
-<?php 
-    EchoStockCategoryLinks(false);
-    EchoStockGroupLinks(false);
-?>
-</p>
+<?php EchoAll(false); ?>
 </div>
 
 <?php LayoutTailLogin(false); ?>

@@ -122,7 +122,7 @@ function _echoMyStockGroup($strGroupId, $bChinese)
     EchoStockGroupParagraph($bChinese);
 }
 
-function MyStockGroupEchoAll($bChinese = true)
+function EchoAll($bChinese = true)
 {
     $strTitle = UrlGetTitle();
     if ($strTitle == 'mystockgroup')
@@ -141,9 +141,10 @@ function MyStockGroupEchoAll($bChinese = true)
         _echoStockGroupArray(StockGetArraySymbol(GetCategoryArray($strTitle)), $bChinese);
     }
     EchoPromotionHead($bChinese, $strTitle);
+    EchoStockCategory($bChinese);
 }
 
-function MyStockGroupEchoMetaDescription($bChinese = true)
+function EchoMetaDescription($bChinese = true)
 {
     if ($strGroupId = UrlGetQueryValue('groupid'))
     {
@@ -160,7 +161,7 @@ function MyStockGroupEchoMetaDescription($bChinese = true)
     EchoMetaDescriptionText($str);
 }
 
-function MyStockGroupEchoTitle($bChinese = true)
+function EchoTitle($bChinese = true)
 {
     $strMemberId = AcctIsLogin(); 
     if ($strGroupId = UrlGetQueryValue('groupid'))

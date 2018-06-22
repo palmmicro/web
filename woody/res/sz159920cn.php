@@ -14,6 +14,10 @@
 <div>
 <h1><?php EchoTitle(); ?></h1>
 <?php EchoAll(); ?>
+<p><font color=red>已知问题:</font></p>
+<ol>
+    <li>2018年6月22日星期五, SZ159920成立以来首次分红0.076元, 导致当日估值误差超过5%.</li>
+</ol>
 <p>相关软件:
 <?php
     EchoHangSengSoftwareLinks();

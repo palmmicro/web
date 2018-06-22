@@ -14,13 +14,7 @@
 <h1>恒生指数基金净值计算工具</h1>
 <p>使用恒生指数(^HSI)进行估值, 恒生指数盈富基金(02800)仅作为参考.
 </p>
-<?php MyStockGroupEchoAll(); ?>
-<p>相关软件:
-<?php 
-    EchoStockCategoryLinks();
-    EchoStockGroupLinks();
-?>
-</p>
+<?php EchoAll(); ?>
 </div>
 
 <?php LayoutTailLogin(); ?>

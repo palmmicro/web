@@ -1,32 +1,16 @@
 <?php
 require_once('stocktable.php');
 
-function GetDailyCloseByDate($ref, $sql, $strDate)
-{
-	if ($ref)
-	{
-		if ($history = $sql->Get($strDate))
-		{
-			if ($history_prev = $sql->GetPrev($strDate))
-			{
-				$ref->SetPrice($history['close'], $history_prev['close']);
-				return $ref;
-			}
-		}
-	}
-    return false;
-}
-
-function EchoFundHistoryTableItem($ref, $csv, $history, $fund, $clone_ref)
+function EchoFundHistoryTableItem($csv, $history, $fund, $clone_ref)
 {
 	$strDate = $history['date'];
-    $strFundClose = $history['close'];
-    $strNetValue = $fund['close'];
+	$strNetValue = $fund['close'];
+    $fFundClose = floatval($history['close']);
     $strEstValue = $fund['estimated'];
     $strEstTime = $fund['time'];
     
     $fNetValue = floatval($strNetValue);
-    $fFundClose = floatval($strFundClose);
+    $strFundClose = strval($fFundClose);
     $strNetValueDisplay = StockGetPriceDisplay($fNetValue, $fFundClose);
     $strPercentage = StockGetPercentageDisplay($fFundClose, $fNetValue);
     if ($csv && (empty($fNetValue) == false))
@@ -118,7 +102,7 @@ function _echoHistoryTableData($sql, $csv, $est_ref, $iStart, $iNum)
             
             if ($history = $sql->stock_sql->Get($strDate))
             {
-                EchoFundHistoryTableItem($ref, $csv, $history, $fund, GetDailyCloseByDate($clone_ref, $est_sql, $fund['date']));
+                EchoFundHistoryTableItem($csv, $history, $fund, RefGetDailyClose($clone_ref, $est_sql, $fund['date']));
             }
         }
         @mysql_free_result($result);
@@ -143,39 +127,9 @@ function EchoFundHistoryTableBegin($arColumn)
 END;
 }
 
-function FundHistoryTableGetColumn($est_ref, $bChinese)
-{
-    if ($est_ref)
-    {
-        $strSymbol = RefGetMyStockLink($est_ref, $bChinese);
-        if ($bChinese)  $strChange = '涨跌';
-        else              $strChange = 'Change';
-    }
-    else
-    {
-        $strSymbol = '';
-        $strChange = '';
-    }
-    
-	$arFundEst = GetFundEstTableColumn($bChinese);
-	$strOfficialEst = $arFundEst[1];
-	$strNetValue = $arFundEst[7];
-	$arSma = GetSmaTableColumn($bChinese);
-	$strPremium = $arSma[2];
-    if ($bChinese)     
-    {
-        $arColumn = array('日期', '<font color=indigo>收盘价</font>', $strNetValue, $strPremium, $strSymbol, $strChange, $strOfficialEst, '估值时间', '误差');
-    }
-    else
-    {
-        $arColumn = array('Date', '<font color=indigo>Close</font>', $strNetValue, $strPremium, $strSymbol, $strChange, $strOfficialEst, 'Est Time', 'Error');
-    }
-    return $arColumn;
-}
-
 function _echoFundHistoryParagraph($ref, $est_ref, $bChinese, $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
 {
-    $arColumn = FundHistoryTableGetColumn($est_ref, $bChinese);
+    $arColumn = GetFundHistoryTableColumn($est_ref, $bChinese);
     $strSymbol = $ref->GetStockSymbol();
     $strSymbolLink = GetMyStockLink($strSymbol, $bChinese);
     if ($bChinese)     

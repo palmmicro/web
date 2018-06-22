@@ -12,13 +12,7 @@
 
 <div>
 <h1>ETF List</h1>
-<?php MyStockGroupEchoAll(false); ?>
-<p>Related software:
-<?php
-    EchoStockCategoryLinks(false);
-    EchoStockGroupLinks(false);
-?>
-</p>
+<?php EchoAll(false); ?>
 </div>
 
 <?php LayoutTailLogin(false); ?>

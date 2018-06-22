@@ -108,7 +108,7 @@ END;
     _echoAhHistoryGraph($strSymbol, $bChinese);
 }
 
-function EchoAhHistory($bChinese = true)
+function EchoAll($bChinese = true)
 {
     if ($strSymbol = UrlGetQueryValue('symbol'))
     {
@@ -124,13 +124,12 @@ function EchoAhHistory($bChinese = true)
     	}
     }
     EchoPromotionHead($bChinese);
+    EchoStockCategory($bChinese);
 }
 
 function EchoTitle($bChinese = true)
 {
-    EchoUrlSymbol();
-    if ($bChinese)  echo '历史AH价格比较';
-    else              echo ' AH History Compare';
+  	echo UrlGetQueryDisplay('symbol').($bChinese ? '历史AH价格比较' : ' AH History Compare');
 }
 
     AcctAuth();

@@ -2,8 +2,8 @@
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<title><?php MyStockGroupEchoTitle(); ?></title>
-<meta name="description" content="<?php MyStockGroupEchoMetaDescription(); ?>">
+<title><?php EchoTitle(); ?></title>
+<meta name="description" content="<?php EchoMetaDescription(); ?>">
 <link href="../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
 
@@ -11,13 +11,8 @@
 <?php _LayoutTopLeft(); ?>
 
 <div>
-<h1><?php MyStockGroupEchoTitle(); ?></h1>
-<?php MyStockGroupEchoAll(); ?>
-<p>相关软件:
-<?php
-    EchoStockGroupLinks();
-?>
-</p>
+<h1><?php EchoTitle(); ?></h1>
+<?php EchoAll(); ?>
 </div>
 
 <?php LayoutTailLogin(); ?>

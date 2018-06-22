@@ -13,8 +13,7 @@
 <div>
 <h1><?php EchoTitle(); ?></h1>
 <?php EchoAll(); ?>
-<p><font color=red>已知问题:</font>
-</p>
+<p><font color=red>已知问题:</font></p>
 <ol>
     <li>2016年12月21日星期三, CL期货换月, 因为CL和USO要等当晚美股开盘才会自动校准, 白天按照CL估算的实时净值不准.</li>
     <li>2016年12月17日星期五, XOP季度分红除权, 这里显示的涨跌幅跟新浪和Yahoo等不一致, 它们都已经把昨天的收盘价减掉分红的0.08美元了. SMA均线数值也需要手工调整.</li>

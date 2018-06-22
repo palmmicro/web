@@ -429,7 +429,7 @@ function _getPersonalLinks($strMemberId, $bChinese)
 	return $str;
 }
 
-function EchoStockGroupLinks($bChinese = true)
+function _getStockGroupLinks($bChinese)
 {
     $str = HTML_NEW_LINE.GetCategoryLinks(GetMenuArray, $bChinese);
     $str .= HTML_NEW_LINE.GetMyStockGroupLink($bChinese);	// .' '.GetAhCompareLink($bChinese).' '.GetAdrhCompareLink($bChinese);
@@ -438,13 +438,21 @@ function EchoStockGroupLinks($bChinese = true)
     {
         $str .= _getPersonalLinks($strMemberId, $bChinese);
     }
+    return $str;
+}
+
+function EchoStockGroupLinks($bChinese = true)
+{
+	$str = _getStockGroupLinks($bChinese);
     echo $str;
 }
 
-function EchoStockCategoryLinks($bChinese = true)
+function EchoStockCategory($bChinese = true)
 {
-    $str = HTML_NEW_LINE.GetCategoryLinks(_getCategoryArray, $bChinese);
-    echo $str;
+	$str = $bChinese ? '相关软件' : 'Related software'; 
+    $str .= ':'.HTML_NEW_LINE.GetCategoryLinks(_getCategoryArray, $bChinese);
+	$str .= _getStockGroupLinks($bChinese);
+    EchoParagraph($str);
 }
 
 ?>

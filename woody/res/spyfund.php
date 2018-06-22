@@ -12,15 +12,7 @@
 
 <div>
 <h1>S&P 500 Fund Net Value Tools</h1>
-<p>
-</p>
-<?php MyStockGroupEchoAll(false); ?>
-<p>Related software:
-<?php 
-    EchoStockCategoryLinks(false);
-    EchoStockGroupLinks(false);
-?>
-</p>
+<?php EchoAll(false); ?>
 </div>
 
 <?php LayoutTailLogin(false); ?>

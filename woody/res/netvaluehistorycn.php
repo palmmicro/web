@@ -12,12 +12,7 @@
 
 <div>
 <h1><?php EchoTitle(); ?></h1>
-<?php EchoNetValueHistory(); ?>
-<p>相关软件:
-<?php
-    EchoStockGroupLinks();
-?>
-</p>
+<?php EchoAll(); ?>
 </div>
 
 <?php LayoutTailLogin(); ?>

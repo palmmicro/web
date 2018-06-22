@@ -16,13 +16,7 @@
 集思录<a href="https://www.jisilu.cn/data/ha/" target=_blank>A/H比价</a>
 同花顺<a href="http://data.10jqka.com.cn/market/ahgbj/" target=_blank>AH股比价</a>
 </p>
-<?php MyStockGroupEchoAll(); ?>
-<p>相关软件:
-<?php
-    EchoStockCategoryLinks();
-    EchoStockGroupLinks();
-?>
-</p>
+<?php EchoAll(); ?>
 </div>
 
 <?php LayoutTailLogin(); ?>

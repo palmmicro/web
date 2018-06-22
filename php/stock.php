@@ -328,6 +328,22 @@ function RefSortBySymbol($arRef)
     return $arSort;
 }
 
+function RefGetDailyClose($ref, $sql, $strDate)
+{
+	if ($ref)
+	{
+		if ($history = $sql->Get($strDate))
+		{
+			if ($history_prev = $sql->GetPrev($strDate))
+			{
+				$ref->SetPrice($history['close'], $history_prev['close']);
+				return $ref;
+			}
+		}
+	}
+    return false;
+}
+
 // ****************************** Stock final integration functions *******************************************************
 function EtfGetAllSymbolArray($strSymbol)
 {

@@ -14,13 +14,7 @@
 <h1>Hang Seng Index Fund Net Value Tools</h1>
 <p>Using ^HSI to estimate and 02800 as reference.
 </p>
-<?php MyStockGroupEchoAll(false); ?>
-<p>Related software:
-<?php 
-    EchoStockCategoryLinks(false);
-    EchoStockGroupLinks(false);
-?>
-</p>
+<?php EchoAll(false); ?>
 </div>
 
 <?php LayoutTailLogin(false); ?>

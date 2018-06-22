@@ -13,13 +13,7 @@
 <div>
 <h1>纳斯达克100基金净值计算工具</h1>
 <p>使用纳斯达克100指数(^NDX)估值, QQQ仅用于参考.</p>
-<?php MyStockGroupEchoAll(); ?>
-<p>相关软件:
-<?php 
-    EchoStockCategoryLinks();
-    EchoStockGroupLinks();
-?>
-</p>
+<?php EchoAll(); ?>
 </div>
 
 <?php LayoutTailLogin(); ?>

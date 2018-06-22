@@ -12,13 +12,7 @@
 
 <div>
 <h1>美股ADR和H股价格比较工具</h1>
-<?php MyStockGroupEchoAll(); ?>
-<p>相关软件:
-<?php
-    EchoStockCategoryLinks();
-    EchoStockGroupLinks();
-?>
-</p>
+<?php EchoAll(); ?>
 </div>
 
 <?php LayoutTailLogin(); ?>

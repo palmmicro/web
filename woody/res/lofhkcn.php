@@ -15,13 +15,7 @@
 <p>计算中国A股市场中各种香港LOF的净值.
 <br />类似软件: 集思录<a href="https://www.jisilu.cn/data/lof/#index" target=_blank>指数LOF</a>基金实时投资数据.
 </p>
-<?php MyStockGroupEchoAll(); ?>
-<p>相关软件:
-<?php 
-    EchoStockCategoryLinks();
-    EchoStockGroupLinks();
-?>
-</p>
+<?php EchoAll(); ?>
 </div>
 
 <?php LayoutTailLogin(); ?>

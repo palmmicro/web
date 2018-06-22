@@ -12,12 +12,7 @@
 
 <div>
 <h1><?php EchoTitle(false); ?></h1>
-<?php EchoThanousLawTest(false); ?>
-<p>Related software:
-<?php 
-    EchoStockGroupLinks(false);
-?>
-</p>
+<?php EchoAll(false); ?>
 </div>
 
 <?php LayoutTailLogin(false); ?>

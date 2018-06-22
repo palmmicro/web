@@ -91,27 +91,10 @@ class PageCsvFile extends CsvFile
     
     function ReadColumn($iColumn)
     {
-    	array_splice($this->arColumn, 0);
+    	unset($this->arColumn);	// array_splice($this->arColumn, 0);
     	$this->iColumn = $iColumn;
     	$this->Read();
     	return $this->arColumn;
-/*    	$this->_open('r');
-    	if ($this->file)
-    	{
-    		while (!feof($this->file))
-    		{	
-    			if ($strLine = fgets($this->file))
-    			{
-    				$arWord = explode(',', $strLine);
-    				if (count($arWord) > $iColumn)
-    				{
-    					$ar[$arWord[0]] = floatval($arWord[$iColumn]);
-    				}
-    			}
-    		}
-    		$this->Close();
-    	}
-    	return $ar;*/
     }
 }
 

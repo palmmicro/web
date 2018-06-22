@@ -1,9 +1,9 @@
-<?php require_once('php/_thanouslaw.php'); ?>
+<?php require_once('php/_navclosehistory.php'); ?>
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title><?php EchoTitle(); ?></title>
-<meta name="description" content="测试<?php EchoUrlSymbol(); ?>的小心愿定律. 仅用于华宝油气(SZ162411)等LOF基金. 看白天A股华宝油气的溢价或者折价交易是否可以预测晚上美股XOP的涨跌.">
+<meta name="description" content="<?php EchoUrlSymbol(); ?>净值和收盘价历史比较页面. 观察每天净值和收盘价偏离的情况. 同时判断偏离是否跟当天涨跌相关, 总结规律以便提供可能的套利操作建议.">
 <link href="../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

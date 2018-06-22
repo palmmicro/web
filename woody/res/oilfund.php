@@ -14,13 +14,7 @@
 <h1>Oil Fund Net Value Tools</h1>
 <p>Investors should avoid to hold oil future related fund for a long period. Oil company ETF is a better way for long term investment.
 </p>
-<?php MyStockGroupEchoAll(false); ?>
-<p>Related software:
-<?php 
-    EchoStockCategoryLinks(false);
-    EchoStockGroupLinks(false);
-?>
-</p>
+<?php EchoAll(false); ?>
 </div>
 
 <?php LayoutTailLogin(false); ?>

@@ -1,9 +1,9 @@
-<?php require_once('php/_mystockgroup.php'); ?>
+<?php require_once('php/_navclosehistory.php'); ?>
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<title>Commodity Fund Net Value Tools</title>
-<meta name="description" content="Estimate the net value of commodity fund in Chinese market, including DBC related SZ161815 and GSG related SZ165513.">
+<title><?php EchoTitle(false); ?></title>
+<meta name="description" content="<?php EchoUrlSymbol(); ?> NAV and close price compare page, check if the difference is related with daily change or not.">
 <link href="../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
 
@@ -11,7 +11,7 @@
 <?php _LayoutTopLeft(false); ?>
 
 <div>
-<h1>Commodity Fund Net Value Tools</h1>
+<h1><?php EchoTitle(false); ?></h1>
 <?php EchoAll(false); ?>
 </div>
 
@@ -19,3 +19,4 @@
 
 </body>
 </html>
+
