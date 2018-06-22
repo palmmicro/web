@@ -25,7 +25,6 @@ function EmailHtml($strWho, $strSubject, $strContents)
     {
         DebugString('mail function failed');
     }
-//    DebugString("mail to $strWho: $strContents");
 }
 
 function EmailReport($strText, $strSubject, $strWho = false) 
