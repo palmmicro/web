@@ -130,19 +130,21 @@ class PageImageFile extends ImageFile
     	return false;
     }
     
-    function _drawDashedGrid()
+    function _drawDashedGrid($fMax, $fMin)
     {
     	$iStep = 80;
     	for ($x = $iStep; $x < $this->iWidth; $x += $iStep)
     	{
     		$this->DashedLine($x, 0, $x, $this->iHeight);
     	}
+    	$this->_drawDashedLine(0.0, $fMax, $fMin);
+   		$this->_drawDashedLine(1.0, $fMax, $fMin);
+   		$this->_drawDashedLine(-1.0, $fMax, $fMin);
     }
     
     function DrawDateArray($ar)
     {
-    	$this->_drawDashedGrid();
-    	ksort($ar);
+    	$ar = array_reverse($ar);	// ksort($ar);
     	reset($ar);
     	$this->_textDateVal(0, $this->iHeight, key($ar), current($ar));
     	end($ar);
@@ -153,10 +155,7 @@ class PageImageFile extends ImageFile
     	$fMax = max($ar);
     	$fMin = min($ar);
     	$this->iBottom -= $this->iTextHeight;
-    	if ($this->_drawDashedLine(0.0, $fMax, $fMin) == false)
-    	{
-    		$this->_drawDashedLine(1.0, $fMax, $fMin);
-    	}
+    	$this->_drawDashedGrid($fMax, $fMin);
 
     	$iCount = count($ar);
     	$iCur = 0;
@@ -189,9 +188,10 @@ class PageImageFile extends ImageFile
 
     function DrawSecondArray($ar2)
     {
-    	ksort($ar2);
+    	$ar2 = array_reverse($ar2);		// ksort($ar2);
     	$fMax2 = max($ar2);
-    	$fMin2 = min($ar2);
+//    	$fMin2 = min($ar2);
+    	$fMin2 = 0.0;
     	
     	$iCount = count($ar2);
     	$iCur = 0;

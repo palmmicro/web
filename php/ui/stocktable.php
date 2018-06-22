@@ -41,6 +41,36 @@ function GetFundEstTableColumn($bChinese)
     return $arColumn;
 }
 
+function GetFundHistoryTableColumn($est_ref, $bChinese)
+{
+    if ($est_ref)
+    {
+        $strSymbol = RefGetMyStockLink($est_ref, $bChinese);
+        if ($bChinese)  $strChange = '涨跌';
+        else              $strChange = 'Change';
+    }
+    else
+    {
+        $strSymbol = '';
+        $strChange = '';
+    }
+    
+	$arFundEst = GetFundEstTableColumn($bChinese);
+	$strOfficialEst = $arFundEst[1];
+	$strNetValue = $arFundEst[7];
+	$arSma = GetSmaTableColumn($bChinese);
+	$strPremium = $arSma[2];
+    if ($bChinese)     
+    {
+        $arColumn = array('日期', '<font color=indigo>收盘价</font>', $strNetValue, $strPremium, $strSymbol, $strChange, $strOfficialEst, '估值时间', '误差');
+    }
+    else
+    {
+        $arColumn = array('Date', '<font color=indigo>Close</font>', $strNetValue, $strPremium, $strSymbol, $strChange, $strOfficialEst, 'Est Time', 'Error');
+    }
+    return $arColumn;
+}
+
 function GetStockGroupTableColumn($bChinese)
 {
 	$strSymbol = GetReferenceTableSymbol($bChinese);
