@@ -60,6 +60,11 @@ function GetAhHistoryLink($strSymbol, $bChinese)
     return GetTitleLink('ahhistory', $bChinese, 'AH历史', 'AH History', 'symbol='.$strSymbol);
 }
 
+function GetNavCloseHistoryLink($strSymbol, $bChinese)
+{
+    return GetTitleLink('navclosehistory', $bChinese, '净值和收盘价比较', 'NAV Close Compare', 'symbol='.$strSymbol);
+}
+
 function GetEtfListLink($bChinese)
 {
     return GetTitleLink('etflist', $bChinese, 'ETF对照表', 'ETF List');

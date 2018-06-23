@@ -127,7 +127,7 @@ function EchoFundHistoryTableBegin($arColumn)
 END;
 }
 
-function _echoFundHistoryParagraph($ref, $est_ref, $bChinese, $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
+function _echoFundHistoryParagraph($ref, $est_ref, $bChinese, $strDisplay = '', $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
 {
     $arColumn = GetFundHistoryTableColumn($est_ref, $bChinese);
     $strSymbol = $ref->GetStockSymbol();
@@ -153,7 +153,7 @@ function _echoFundHistoryParagraph($ref, $est_ref, $bChinese, $csv = false, $iSt
     	$strNavLink = StockGetNavLink($strSymbol, $iTotal, $iStart, $iNum, $bChinese);
     }
 
-    EchoParagraphBegin($str.' '.$strNavLink);
+    EchoParagraphBegin($str.' '.$strNavLink.' '.$strDisplay);
     EchoFundHistoryTableBegin($arColumn);
     _echoHistoryTableData($sql, $csv, $est_ref, $iStart, $iNum);
     EchoTableParagraphEnd($strNavLink);
@@ -161,17 +161,19 @@ function _echoFundHistoryParagraph($ref, $est_ref, $bChinese, $csv = false, $iSt
 
 function EchoFundHistoryParagraph($fund, $bChinese, $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
 {
-    if (AcctIsDebug())		EchoParagraph($fund->DebugLink());
-    _echoFundHistoryParagraph($fund->stock_ref, $fund->est_ref, $bChinese, $csv, $iStart, $iNum);
+	$str = '';
+    if (AcctIsDebug())		$str .= ' '.$fund->DebugLink();
+    _echoFundHistoryParagraph($fund->stock_ref, $fund->est_ref, $bChinese, $str, $csv, $iStart, $iNum);
 }
 
 function EchoEtfHistoryParagraph($ref, $bChinese, $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
 {
+	$str = GetNavCloseHistoryLink($ref->GetStockSymbol(), $bChinese);
     if (AcctIsDebug())
     {
-    	if ($ref->IsSymbolA())	EchoParagraph($ref->nv_ref->DebugLink());
+    	if ($ref->IsSymbolA())	$str .= ' '.$ref->nv_ref->DebugLink();
     }
-    _echoFundHistoryParagraph($ref, $ref->pair_ref, $bChinese, $csv, $iStart, $iNum);
+    _echoFundHistoryParagraph($ref, $ref->pair_ref, $bChinese, $str, $csv, $iStart, $iNum);
 }
 
 ?>
