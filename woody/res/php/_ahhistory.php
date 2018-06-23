@@ -8,10 +8,9 @@ function _echoAhHistoryGraph($strSymbol, $bChinese)
    	$csv = new PageCsvFile();
     $jpg = new PageImageFile();
     $jpg->DrawDateArray($csv->ReadColumn(4));
-    $jpg->DrawSecondArray($csv->ReadColumn(1));
-    $jpg->SaveFile();
+    $jpg->DrawCompareArray($csv->ReadColumn(1));
 	$arColumn = GetAhCompareTableColumn($bChinese);
-    EchoPageImage($arColumn[1], $strSymbol, $csv->GetPathName(), $jpg->GetPathName());
+    $jpg->Show($arColumn[1], $strSymbol, $csv->GetPathName());
 }
 
 function _echoAhHistoryItem($csv, $history, $pair_sql, $hkcny_sql, $fRatio)

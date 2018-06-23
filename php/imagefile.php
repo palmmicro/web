@@ -10,10 +10,13 @@ class ImageFile
     var $image;
     
     var $textcolor;
-    var $linecolor;
-    var $linecolor2;
     var $pixelcolor;
     var $dashedcolor;
+    var $linecolor;
+    var $comparecolor;
+    
+    var $strLineColor;
+    var $strCompareColor;
     
     var $iFont;
     var $fFontSize;
@@ -28,26 +31,38 @@ class ImageFile
         $this->image = imagecreatetruecolor($iWidth, $iHeight);
         
         $this->textcolor = imagecolorallocate($this->image, 255, 255, 255);
-        $this->linecolor = imagecolorallocate($this->image, 255, 0, 0);
-        $this->linecolor2 = imagecolorallocate($this->image, 0, 255, 0);
         $this->pixelcolor = imagecolorallocate($this->image, 0, 255, 255);
         $this->dashedcolor = imagecolorallocate($this->image, 255, 0, 255);
+        $this->_set_line_color(255, 0, 0);
+        $this->_set_compare_color(0, 255, 0);
         
         $this->iFont = 5;
         $this->fFontSize = 15.0;
         $this->fFontAngle = 0.0;
         $this->strFontFile = DebugGetFontName('simkai');
     }
+ 
+    function _getColorString($r, $g, $b)
+    {
+        return sprintf('#%02x%02x%02x', $r, $g, $b);
+    }
+    
+    function _set_line_color($r, $g, $b)
+    {
+        $this->linecolor = imagecolorallocate($this->image, $r, $g, $b);
+        $this->strLineColor = $this->_getColorString($r, $g, $b);
+    }
+    
+    function _set_compare_color($r, $g, $b)
+    {
+        $this->comparecolor = imagecolorallocate($this->image, $r, $g, $b);
+        $this->strCompareColor = $this->_getColorString($r, $g, $b);
+    }
     
     function Text($x, $y, $strText)
     {
 //        imagestring($this->image, $this->iFont, $x, $y, $strText, $this->textcolor);
 		$ar = imagettfbbox($this->fFontSize, $this->fFontAngle, $this->strFontFile, $strText);
-/*		DebugString($strText);
-		foreach ($ar as $iVal)
-		{
-			DebugVal($iVal);
-		}*/
 		$iMin = min($ar[0], $ar[6]);
 		if ($x + $iMin < 0)					$x = 1 - $iMin;
 		$iMax = max($ar[2], $ar[4]);
@@ -69,9 +84,9 @@ class ImageFile
     	$this->_line($x1, $y1, $x, $y, $this->linecolor);
     }
     
-    function Line2($x1, $y1, $x, $y)
+    function CompareLine($x1, $y1, $x, $y)
     {
-    	$this->_line($x1, $y1, $x, $y, $this->linecolor2);
+    	$this->_line($x1, $y1, $x, $y, $this->comparecolor);
     }
     
     function DashedLine($x1, $y1, $x, $y)
@@ -111,7 +126,7 @@ class PageImageFile extends ImageFile
     
     function _textDateVal($x, $y, $strDate, $fVal)
     {
-		return $this->Text($x, $y, $strDate.' '.strval($fVal));
+		return $this->Text($x, $y, substr($strDate, 2).' '.strval($fVal));
     }
     
     function _getVertialPos($fVal, $fMax, $fMin)
@@ -186,28 +201,37 @@ class PageImageFile extends ImageFile
     	}
     }
 
-    function DrawSecondArray($ar2)
+    function DrawCompareArray($ar)
     {
-    	$ar2 = array_reverse($ar2);		// ksort($ar2);
-    	$fMax2 = max($ar2);
-//    	$fMin2 = min($ar2);
-    	$fMin2 = 0.0;
-    	
-    	$iCount = count($ar2);
+    	$ar = array_reverse($ar);
+    	$fMax = max($ar);
+    	$iCount = count($ar);
     	$iCur = 0;
-    	foreach ($ar2 as $strDate => $fVal)
+    	foreach ($ar as $strDate => $fVal)
     	{
     		$x = intval($this->iWidth * $iCur / $iCount);                                                                 
-    		$z = $this->_getVertialPos($fVal, $fMax2, $fMin2);
+    		$y = $this->_getVertialPos($fVal, $fMax, 0.0);
    			if ($iCur != 0)
    			{
-   				$this->Line2($x1, $z1, $x, $z);
+   				$this->CompareLine($x1, $y1, $x, $y);
    			}
    			$x1 = $x;
-   			$z1 = $z;
+   			$y1 = $y;
     		$iCur ++;
     	}
     }
+
+    function Show($strName, $strCompare, $strCsv)
+    {
+    	$this->SaveFile();
+    	$strRand = strval(rand());
+    	$strCsvLink = GetFileLink($strCsv);
+    	echo <<< END
+    		<p><font color={$this->strLineColor}>$strName</font> <font color={$this->strCompareColor}>$strCompare</font> $strCsvLink
+    		<br /><img src={$this->strPathName}?$strRand alt="$strRand automatical generated image, do NOT link" />
+    		</p>
+END;
+	}
 }
 
 ?>
