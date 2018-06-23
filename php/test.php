@@ -138,6 +138,10 @@ function TestCmdLine()
 //    		_debug_dividend($strSymbol);
 			$str = TestSinaStockHistory($strSymbol);
     	}
+    	else if ($strSrc == 'nav')
+    	{
+    		$str = SaveHistoricalNav($strSymbol);
+    	}
     	$fStop = microtime(true);
     	if (empty($str))	$str = '(Not found)';
     	DebugString($strSymbol.':'.$str.DebugGetStopWatchDisplay($fStop, $fStart));
@@ -152,7 +156,6 @@ function TestCmdLine()
 	echo 'Hello, world! '.strval(rand());
 
 	TestCmdLine();
-//	SaveHistoricalNav();
 //	WriteForexDataFromFile();
 //	MarketWatchGetData('^SPSIOP');
 //	test_stock_dividend();

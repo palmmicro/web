@@ -28,8 +28,10 @@ class NavCsvFile extends CsvFile
 
 function SaveHistoricalNav($strSymbol = 'XOP')
 {
-	$csv = new NavCsvFile('/debug/XOP_HistoricalNav.csv', $strSymbol);
+	$strPathName = '/debug/'.$strSymbol.'_HistoricalNav.csv';
+	$csv = new NavCsvFile($strPathName, $strSymbol);
 	$csv->Read();
+	return $strPathName;
 }            
 
 ?>

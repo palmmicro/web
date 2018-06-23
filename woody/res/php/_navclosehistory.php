@@ -31,10 +31,10 @@ function _echoNavCloseItem($csv, $history, $fund, $clone_ref)
     $strNumber = GetNumberDisplay($fPercentage * $fStockPercentage);
     if (empty($fNetValue) == false)
     {
-    	if (abs($fPercentage) < 0.4)
-    	{	// We might have wrong net value data with huge difference
+//    	if (abs($fPercentage) < 0.4)
+//    	{	// We might have wrong net value data with huge difference
     		$csv->WriteArray(array($strDate, $strNetValue, strval($fPercentage), strval($fStockPercentage)));
-    	}
+//    	}
     }
 
     echo <<<END
