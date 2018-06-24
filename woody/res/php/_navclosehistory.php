@@ -3,11 +3,142 @@ require_once('_stock.php');
 require_once('/php/csvfile.php');
 require_once('/php/imagefile.php');
 
+class PriceGoal
+{
+    var $iTotal;
+    
+    var $iHigher;
+    var $iUnchanged;
+    var $iLower;
+
+    function PriceGoal() 
+    {
+        $this->iTotal = 0;
+        
+        $this->iHigher = 0;
+        $this->iUnchanged = 0;
+        $this->iLower = 0;
+    }
+    
+    function AddData($fVal)
+    {
+   		if (empty($fVal))
+   		{
+   			$this->iUnchanged ++;
+   		}
+   		else if ($fVal > 0.0)
+    	{
+    		$this->iHigher ++;
+    	}
+    	else
+    	{
+    		$this->iLower ++;
+    	}
+        $this->iTotal ++;
+    }
+}
+
+class PricePool
+{
+	var $h_goal;
+	var $u_goal;
+	var $l_goal;
+
+    function PricePool() 
+    {
+        $this->h_goal = new PriceGoal();
+        $this->u_goal = new PriceGoal();
+        $this->l_goal = new PriceGoal();
+    }
+    
+    function OnData($fVal, $fCompare)
+    {
+    	if (empty($fVal))
+    	{
+   			$this->u_goal->AddData($fCompare);
+    	}
+    	else if ($fVal > 0.0)
+    	{
+   			$this->h_goal->AddData($fCompare);
+    	}
+    	else
+    	{
+  			$this->l_goal->AddData($fCompare);
+     	}
+    }
+}
+
+function _echoPricePoolItem($str, $goal)
+{
+    $strTotal = strval($goal->iTotal);
+    $strHigher = strval($goal->iHigher);
+    $strUnchanged = strval($goal->iUnchanged);
+    $strLower = strval($goal->iLower);
+    
+    echo <<<END
+    <tr>
+        <td class=c1>$str</td>
+        <td class=c1>$strTotal</td>
+        <td class=c1>$strHigher</td>
+        <td class=c1>$strUnchanged</td>
+        <td class=c1>$strLower</td>
+    </tr>
+END;
+}
+
+function EchoPricePoolParagraph($pool, $bChinese, $strSymbol, $strTradingSymbol = false)
+{
+	if ($strTradingSymbol == false)		$strTradingSymbol = $strSymbol;
+	$strLink = GetMyStockLink($strSymbol, $bChinese);
+    if ($bChinese)	$arColumn = array($strLink.'交易',     '天数', $strTradingSymbol.'涨',      $strTradingSymbol.'不变',      $strTradingSymbol.'跌');
+    else		        $arColumn = array($strLink.' Trading', 'Days', $strTradingSymbol.' Higher', $strTradingSymbol.' Unchanged', $strTradingSymbol.' Lower');
+
+    echo <<<END
+    <p>
+    <TABLE borderColor=#cccccc cellSpacing=0 width=570 border=1 class="text" id="pricepool">
+    <tr>
+        <td class=c1 width=150 align=center>{$arColumn[0]}</td>
+        <td class=c1 width=60 align=center>{$arColumn[1]}</td>
+        <td class=c1 width=120 align=center>{$arColumn[2]}</td>
+        <td class=c1 width=120 align=center>{$arColumn[3]}</td>
+        <td class=c1 width=120 align=center>{$arColumn[4]}</td>
+    </tr>
+END;
+
+    _echoPricePoolItem($bChinese ? '折价' : 'Lower', $pool->l_goal);
+    _echoPricePoolItem($bChinese ? '平价' : 'Unchanged', $pool->u_goal);
+    _echoPricePoolItem($bChinese ? '溢价' : 'Higher', $pool->h_goal);
+    EchoTableParagraphEnd();
+}
+
+class _NavCloseCsvFile extends PageCsvFile
+{
+	var $pool;
+	
+    function _NavCloseCsvFile() 
+    {
+        parent::PageCsvFile();
+        $this->pool = new PricePool();
+    }
+
+    function OnLineArray($arWord)
+    {
+    	$this->pool->OnData(floatval($arWord[3]), floatval($arWord[2]));
+    }
+}
+
+function _echoNavClosePool($strSymbol, $bChinese)
+{
+   	$csv = new _NavCloseCsvFile();
+   	$csv->Read();
+   	EchoPricePoolParagraph($csv->pool, $bChinese, $strSymbol);
+}
+
 function _echoNavCloseGraph($strSymbol, $bChinese)
 {
    	$csv = new PageCsvFile();
     $jpg = new PageImageFile();
-    $jpg->DrawDateArray($csv->ReadColumn(2));
+    $jpg->DrawDateArray($csv->ReadColumn(3));
     $jpg->DrawCompareArray($csv->ReadColumn(1));
 	$strPremium = $bChinese ? '溢价' : 'Premium';
     $jpg->Show($strPremium, $strSymbol, $csv->GetPathName());
@@ -17,13 +148,20 @@ function _echoNavCloseItem($csv, $strDate, $fNetValue, $ref, $strFundId)
 {
 	$fClose = $ref->GetCurrentPrice();
     $strClose = StockGetPriceDisplay($fClose, $fNetValue);
-    $strPercentage = StockGetPercentageDisplay($fClose, $fNetValue);
     $strStockPercentage = $ref->GetCurrentPercentageDisplay();
     $strNetValue = strval($fNetValue);
     
-   	$fPercentage = StockGetPercentage($fClose, $fNetValue);
-   	$fStockPercentage = $ref->GetCurrentPercentage();
-	$csv->WriteArray(array($strDate, $strNetValue, strval($fPercentage), strval($fStockPercentage), strval($fClose)));
+    if (abs($fClose - $fNetValue) > 0.005)
+    {
+    	$strPercentage = StockGetPercentageDisplay($fClose, $fNetValue);
+    	$fPercentage = StockGetPercentage($fClose, $fNetValue);
+    }
+    else
+    {
+    	$strPercentage = '';
+    	$fPercentage = 0.0;
+    }
+	$csv->WriteArray(array($strDate, $strNetValue, strval($ref->GetCurrentPercentage()), strval($fPercentage)));
     
     if ($strFundId)
     {
@@ -88,6 +226,7 @@ END;
     _echoNavCloseData($sql, $ref, $iStart, $iNum, AcctIsTest($bChinese));
     EchoTableParagraphEnd($strNavLink);
 
+    _echoNavClosePool($strSymbol, $bChinese);
     _echoNavCloseGraph($strSymbol, $bChinese);
 }
 
