@@ -245,4 +245,13 @@ class NowYMD extends TickYMD
     }
 }
 
+function GetNextTradingDayYMD($strYMD)
+{
+    $ymd = new StringYMD($strYMD);
+    $iTick = $ymd->GetNextTradingDayTick();
+    
+    $next_ymd = new TickYMD($iTick);
+    return $next_ymd->GetYMD();
+}
+
 ?>

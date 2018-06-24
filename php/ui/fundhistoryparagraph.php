@@ -1,7 +1,7 @@
 <?php
 require_once('stocktable.php');
 
-function EchoFundHistoryTableItem($csv, $history, $fund, $clone_ref)
+function _echoFundHistoryTableItem($csv, $history, $fund, $clone_ref)
 {
 	$strDate = $history['date'];
     $fNetValue = floatval($fund['close']);
@@ -60,15 +60,6 @@ function EchoFundHistoryTableItem($csv, $history, $fund, $clone_ref)
 END;
 }
 
-function GetNextTradingDayYMD($strYMD)
-{
-    $ymd = new StringYMD($strYMD);
-    $iTick = $ymd->GetNextTradingDayTick();
-    
-    $next_ymd = new TickYMD($iTick);
-    return $next_ymd->GetYMD();
-}
-
 function _echoHistoryTableData($sql, $csv, $est_ref, $iStart, $iNum)
 {
 	$clone_ref = false;
@@ -99,14 +90,14 @@ function _echoHistoryTableData($sql, $csv, $est_ref, $iStart, $iNum)
             
             if ($history = $sql->stock_sql->Get($strDate))
             {
-                EchoFundHistoryTableItem($csv, $history, $fund, RefGetDailyClose($clone_ref, $est_sql, $fund['date']));
+                _echoFundHistoryTableItem($csv, $history, $fund, RefGetDailyClose($clone_ref, $est_sql, $fund['date']));
             }
         }
         @mysql_free_result($result);
     }
 }
 
-function EchoFundHistoryTableBegin($arColumn)
+function _echoFundHistoryTableBegin($arColumn)
 {
     echo <<<END
     <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="history">
@@ -151,7 +142,7 @@ function _echoFundHistoryParagraph($ref, $est_ref, $bChinese, $strDisplay = '', 
     }
 
     EchoParagraphBegin($str.' '.$strNavLink.' '.$strDisplay);
-    EchoFundHistoryTableBegin($arColumn);
+    _echoFundHistoryTableBegin($arColumn);
     _echoHistoryTableData($sql, $csv, $est_ref, $iStart, $iNum);
     EchoTableParagraphEnd($strNavLink);
 }

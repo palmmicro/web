@@ -2,155 +2,13 @@
 require_once('_stock.php');
 require_once('/php/csvfile.php');
 require_once('/php/imagefile.php');
+require_once('/php/ui/pricepoolparagraph.php');
 
-class PriceGoal
+class _NavCloseCsvFile extends PricePoolCsvFile
 {
-    var $iTotal;
-    
-    var $iHigher;
-    var $iUnchanged;
-    var $iLower;
-
-    function PriceGoal() 
-    {
-        $this->iTotal = 0;
-        
-        $this->iHigher = 0;
-        $this->iUnchanged = 0;
-        $this->iLower = 0;
-    }
-    
-    function AddData($fVal)
-    {
-   		if (empty($fVal))
-   		{
-   			$this->iUnchanged ++;
-   		}
-   		else if ($fVal > 0.0)
-    	{
-    		$this->iHigher ++;
-    	}
-    	else
-    	{
-    		$this->iLower ++;
-    	}
-        $this->iTotal ++;
-    }
-}
-
-class PricePool
-{
-	var $h_goal;
-	var $u_goal;
-	var $l_goal;
-
-    function PricePool() 
-    {
-        $this->h_goal = new PriceGoal();
-        $this->u_goal = new PriceGoal();
-        $this->l_goal = new PriceGoal();
-    }
-    
-    function OnData($fVal, $fCompare)
-    {
-    	if (empty($fVal))
-    	{
-   			$this->u_goal->AddData($fCompare);
-    	}
-    	else if ($fVal > 0.0)
-    	{
-   			$this->h_goal->AddData($fCompare);
-    	}
-    	else
-    	{
-  			$this->l_goal->AddData($fCompare);
-     	}
-    }
-}
-
-function _echoPricePoolItem($str, $goal)
-{
-    $strTotal = strval($goal->iTotal);
-    $strHigher = strval($goal->iHigher);
-    $strUnchanged = strval($goal->iUnchanged);
-    $strLower = strval($goal->iLower);
-    
-    echo <<<END
-    <tr>
-        <td class=c1>$str</td>
-        <td class=c1>$strTotal</td>
-        <td class=c1>$strHigher</td>
-        <td class=c1>$strUnchanged</td>
-        <td class=c1>$strLower</td>
-    </tr>
-END;
-}
-
-function _echoPricePoolParagraph($pool, $bChinese, $strSymbol, $strTradingSymbol = '', $arColumnEx, $arRow)
-{
-	$strLink = GetMyStockLink($strSymbol, $bChinese);
-    if ($bChinese)	$arColumn = array($strLink.'交易',     '天数');
-    else		    	$arColumn = array($strLink.' Trading', 'Days');
-
-    echo <<<END
-    <p>
-    <TABLE borderColor=#cccccc cellSpacing=0 width=570 border=1 class="text" id="pricepool">
-    <tr>
-        <td class=c1 width=150 align=center>{$arColumn[0]}</td>
-        <td class=c1 width=60 align=center>{$arColumn[1]}</td>
-        <td class=c1 width=120 align=center>{$strTradingSymbol}{$arColumnEx[0]}</td>
-        <td class=c1 width=120 align=center>{$strTradingSymbol}{$arColumnEx[1]}</td>
-        <td class=c1 width=120 align=center>{$strTradingSymbol}{$arColumnEx[2]}</td>
-    </tr>
-END;
-
-    _echoPricePoolItem($arRow[0], $pool->h_goal);
-    _echoPricePoolItem($arRow[1], $pool->u_goal);
-    _echoPricePoolItem($arRow[2], $pool->l_goal);
-    EchoTableParagraphEnd();
-}
-
-function EchoPricePoolParagraph($pool, $bChinese, $strSymbol, $strTradingSymbol = '', $bTranspose = false)
-{
-    if ($bChinese)
-    {
-    	$arColumnEx = array('涨', '不变', '跌');
-    	$arRow = array('溢价', '平价', '折价');
-    }
-    else
-    {
-    	$arColumnEx = array(' Higher', ' Unchanged', ' Lower');
-    	$arRow = array('Higher', 'Unchanged', 'Lower');
-    }
-    
-    if ($bTranspose)
-    {
-    	_echoPricePoolParagraph($pool, $bChinese, $strSymbol, $strTradingSymbol, $arRow, $arColumnEx);
-    }
-    else
-    {
-    	_echoPricePoolParagraph($pool, $bChinese, $strSymbol, $strTradingSymbol, $arColumnEx, $arRow);
-    }
-}
-
-class _NavCloseCsvFile extends PageCsvFile
-{
-	var $pool;
-	var $t_pool;
-	
-    function _NavCloseCsvFile() 
-    {
-        parent::PageCsvFile();
-        $this->pool = new PricePool();
-        $this->t_pool = new PricePool();
-    }
-
     function OnLineArray($arWord)
     {
-    	$fClose = floatval($arWord[2]);
-    	$fNav = floatval($arWord[3]);
-    	$this->pool->OnData($fNav, $fClose);
-    	$this->t_pool->OnData($fClose, $fNav);
+    	$this->pool->OnData(floatval($arWord[2]), floatval($arWord[3]));
     }
 }
 
@@ -159,7 +17,6 @@ function _echoNavClosePool($strSymbol, $bChinese)
    	$csv = new _NavCloseCsvFile();
    	$csv->Read();
    	EchoPricePoolParagraph($csv->pool, $bChinese, $strSymbol);
-   	EchoPricePoolParagraph($csv->t_pool, $bChinese, $strSymbol, '', true);
 }
 
 function _echoNavCloseGraph($strSymbol, $bChinese)

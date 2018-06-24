@@ -1,41 +1,71 @@
 <?php
 require_once('_stock.php');
-require_once('/php/ui/fundhistoryparagraph.php');
+require_once('/php/csvfile.php');
+require_once('/php/ui/pricepoolparagraph.php');
 
-// ****************************** PriceCompare Class *******************************************************
-
-class PriceCompare
+class _ThanousLawCsvFile extends PricePoolCsvFile
 {
-    var $iDays;
-    
-    var $iHigher;
-    var $iUnchanged;
-    var $iLower;
-
-    // constructor 
-    function PriceCompare() 
+    function OnLineArray($arWord)
     {
-        $this->iDays = 0;
-        
-        $this->iHigher = 0;
-        $this->iUnchanged = 0;
-        $this->iLower = 0;
-    }
-    
-    function AddCompare($ref)
-    {
-        $this->iDays ++;
-        
-        $fClose = $ref->fPrice;
-        $fPrevClose = $ref->fPrevPrice;
-            
-        if (($fClose - MIN_FLOAT_VAL) > $fPrevClose)          $this->iHigher ++;
-        else if (($fClose + MIN_FLOAT_VAL) < $fPrevClose)    $this->iLower ++;        
-        else                                                      $this->iUnchanged ++;
+    	$this->pool->OnData(floatval($arWord[3]), floatval($arWord[2]));
     }
 }
 
-// ****************************** LOF Prediction Paragraph *******************************************************
+function _echoThanousLawPool($strSymbol, $strTradingSymbol, $bChinese)
+{
+   	$csv = new _ThanousLawCsvFile();
+   	$csv->Read();
+   	EchoPricePoolParagraph($csv->pool, $bChinese, $strSymbol, $strTradingSymbol, false);
+}
+
+function _echoThanousLawItem($csv, $strDate, $fNetValue, $fFundClose, $ref)
+{
+    $strNetValue = strval($fNetValue);
+    $strFundClose = StockGetPriceDisplay($fFundClose, $fNetValue);
+    $strPercentage = StockGetPercentageDisplay($fFundClose, $fNetValue);
+    $strEstClose = $ref->GetCurrentPriceDisplay();
+    $strEstChange = $ref->GetCurrentPercentageDisplay();
+   	$csv->WriteArray(array($strDate, $strNetValue, strval($ref->GetCurrentPercentage()), strval(StockGetPercentage($fFundClose, $fNetValue))));
+
+    echo <<<END
+    <tr>
+        <td class=c1>$strDate</td>
+        <td class=c1>$strFundClose</td>
+        <td class=c1>$strNetValue</td>
+        <td class=c1>$strPercentage</td>
+        <td class=c1>$strEstClose</td>
+        <td class=c1>$strEstChange</td>
+    </tr>
+END;
+}
+
+function _echoThanousLawData($sql, $ref, $est_ref, $iStart, $iNum, $bChinese)
+{
+	$clone_ref = clone $est_ref;
+	$est_sql = new StockHistorySql($est_ref->GetStockId());
+	
+    if ($result = $sql->GetAll($iStart, $iNum)) 
+    {
+     	$csv = new PageCsvFile();
+        while ($arFund = mysql_fetch_assoc($result)) 
+        {
+        	$fNetValue = floatval($arFund['close']);
+        	if (empty($fNetValue) == false)
+        	{
+        		$strDate = GetNextTradingDayYMD($arFund['date']);
+        		if ($arStock = $sql->stock_sql->Get($strDate))
+        		{
+        			if ($stock_ref = RefGetDailyClose($clone_ref, $est_sql, $strDate))
+        			{
+        				_echoThanousLawItem($csv, $strDate, $fNetValue, floatval($arStock['close']), $stock_ref);
+        			}
+                }
+            }
+        }
+        $csv->Close();
+        @mysql_free_result($result);
+    }
+}
 
 function _getNetValueLink($strSymbol, $bChinese)
 {
@@ -44,103 +74,32 @@ function _getNetValueLink($strSymbol, $bChinese)
     return $strGroupLink.$strNetValue;
 }
 
-function _echoLofPredictionItem($str, $price_compare)
+function _echoThanousLawParagraph($strSymbol, $iStart, $iNum, $bChinese)
 {
-    $strDays = strval($price_compare->iDays);
-    $strHigher = strval($price_compare->iHigher);
-    $strUnchanged = strval($price_compare->iUnchanged);
-    $strLower = strval($price_compare->iLower);
-    
-    echo <<<END
-    <tr>
-        <td class=c1>$str</td>
-        <td class=c1>$strDays</td>
-        <td class=c1>$strHigher</td>
-        <td class=c1>$strUnchanged</td>
-        <td class=c1>$strLower</td>
-    </tr>
-END;
-}
-
-define('MAX_PREDICTION_DAYS', 100);
-
-function _echoLofPredictionParagraphBegin($lof_ref, $est_ref, $bChinese)
-{
-    $strLofSymbol = $lof_ref->GetStockSymbol();
-    $strEtfSymbol = $est_ref->GetStockSymbol();
-    if ($bChinese)     
-    {
-        $arColumn = array($strLofSymbol.'交易', '天数', $strEtfSymbol.'涨', $strEtfSymbol.'不变', $strEtfSymbol.'跌');
-    }
-    else
-    {
-        $arColumn = array($strLofSymbol.' Trading', 'Days', $strEtfSymbol.' Higher', $strEtfSymbol.' Unchanged', $strEtfSymbol.' Lower');
-    }
-
-    echo <<<END
-    <p>
-    <TABLE borderColor=#cccccc cellSpacing=0 width=570 border=1 class="text" id="prediction">
-    <tr>
-        <td class=c1 width=150 align=center>{$arColumn[0]}</td>
-        <td class=c1 width=60 align=center>{$arColumn[1]}</td>
-        <td class=c1 width=120 align=center>{$arColumn[2]}</td>
-        <td class=c1 width=120 align=center>{$arColumn[3]}</td>
-        <td class=c1 width=120 align=center>{$arColumn[4]}</td>
-    </tr>
-END;
-}
-
-function _echoLofPredictionParagraph($fund, $bChinese)
-{
-    $netvalue_higher = new PriceCompare();
-    $netvalue_same = new PriceCompare();
-    $netvalue_lower = new PriceCompare();
-    
-	$lof_ref = $fund->stock_ref;
-    $strSymbol = $lof_ref->GetStockSymbol();
-    $strStockId = $lof_ref->GetStockId();
-    
-	$est_ref = $fund->est_ref;
+	$ref = new LofReference($strSymbol);
+	$est_ref = $ref->est_ref;
     $arColumn = GetFundHistoryTableColumn($est_ref, $bChinese);
-    
-	$clone_ref = false;
-	if ($est_ref)
-	{
-		$est_sql = new StockHistorySql($est_ref->GetStockId());
-		$clone_ref = clone $est_ref;
-	}
-    
-    EchoParagraphBegin(_getNetValueLink($strSymbol, $bChinese));
-    EchoFundHistoryTableBegin($arColumn);
-	$sql = new FundHistorySql($strStockId);
-    if ($result = $sql->GetAll(0, MAX_PREDICTION_DAYS)) 
-    {
-        while ($record = mysql_fetch_assoc($result)) 
-        {
-            $strDate = GetNextTradingDayYMD($record['date']);
-            if ($history = $sql->stock_sql->Get($strDate))
-            {
-                if ($ref = RefGetDailyClose($clone_ref, $est_sql, $strDate))
-                {
-                    $fNetValue = floatval($record['close']);
-                    $fClose = floatval($history['close']);
-                    if (($fNetValue - MIN_FLOAT_VAL) > $fClose)          $netvalue_higher->AddCompare($ref);
-                    else if (($fNetValue + MIN_FLOAT_VAL) < $fClose)     $netvalue_lower->AddCompare($ref);        
-                    else                                                     $netvalue_same->AddCompare($ref);
+ 	$str = _getNetValueLink($strSymbol, $bChinese);
 
-                    EchoFundHistoryTableItem(false, $history, $record, $ref);
-                }
-            }
-        }
-        @mysql_free_result($result);
-    }
-    EchoTableParagraphEnd();
+	$sql = new FundHistorySql($ref->GetStockId());
+   	$strNavLink = StockGetNavLink($strSymbol, $sql->Count(), $iStart, $iNum, $bChinese);
+    echo <<<END
+    <p>$str $strNavLink
+    <TABLE borderColor=#cccccc cellSpacing=0 width=600 border=1 class="text" id="thanouslaw">
+    <tr>
+        <td class=c1 width=100 align=center>{$arColumn[0]}</td>
+        <td class=c1 width=100 align=center>{$arColumn[1]}</td>
+        <td class=c1 width=100 align=center>{$arColumn[2]}</td>
+        <td class=c1 width=100 align=center>{$arColumn[3]}</td>
+        <td class=c1 width=100 align=center>{$arColumn[4]}</td>
+        <td class=c1 width=100 align=center>{$arColumn[5]}</td>
+    </tr>
+END;
 
-    _echoLofPredictionParagraphBegin($lof_ref, $est_ref, $bChinese);
-    _echoLofPredictionItem($bChinese ? '折价' : 'Lower', $netvalue_higher);
-    _echoLofPredictionItem($bChinese ? '平价' : 'Same', $netvalue_same);
-    _echoLofPredictionItem($bChinese ? '溢价' : 'Higher', $netvalue_lower);
-    EchoTableParagraphEnd();
+	_echoThanousLawData($sql, $ref, $est_ref, $iStart, $iNum, $bChinese);
+    EchoTableParagraphEnd($strNavLink);
+
+    _echoThanousLawPool($strSymbol, $est_ref->GetStockSymbol(), $bChinese);
 }
 
 function EchoAll($bChinese = true)
@@ -150,8 +109,11 @@ function EchoAll($bChinese = true)
         if (in_arrayLof($strSymbol))
         {
             StockPrefetchData($strSymbol);
+   			$iStart = UrlGetQueryInt('start');
+   			$iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
+   			
             $fStart = microtime(true);
-            _echoLofPredictionParagraph(new LofReference($strSymbol), $bChinese);
+            _echoThanousLawParagraph($strSymbol, $iStart, $iNum, $bChinese);
             $fStop = microtime(true);
             DebugString($strSymbol.' Thanous Law: '.DebugGetStopWatchDisplay($fStop, $fStart));
         }
@@ -165,7 +127,7 @@ function EchoTitle($bChinese = true)
   	echo UrlGetQueryDisplay('symbol').($bChinese ? '小心愿定律测试' : ' Thanous Law Test');
 }
 
-    AcctNoAuth();
+    AcctAuth();
 
 ?>
 
