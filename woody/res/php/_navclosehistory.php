@@ -86,12 +86,11 @@ function _echoPricePoolItem($str, $goal)
 END;
 }
 
-function EchoPricePoolParagraph($pool, $bChinese, $strSymbol, $strTradingSymbol = false)
+function _echoPricePoolParagraph($pool, $bChinese, $strSymbol, $strTradingSymbol = '', $arColumnEx, $arRow)
 {
-	if ($strTradingSymbol == false)		$strTradingSymbol = $strSymbol;
 	$strLink = GetMyStockLink($strSymbol, $bChinese);
-    if ($bChinese)	$arColumn = array($strLink.'交易',     '天数', $strTradingSymbol.'涨',      $strTradingSymbol.'不变',      $strTradingSymbol.'跌');
-    else		        $arColumn = array($strLink.' Trading', 'Days', $strTradingSymbol.' Higher', $strTradingSymbol.' Unchanged', $strTradingSymbol.' Lower');
+    if ($bChinese)	$arColumn = array($strLink.'交易',     '天数');
+    else		    	$arColumn = array($strLink.' Trading', 'Days');
 
     echo <<<END
     <p>
@@ -99,31 +98,59 @@ function EchoPricePoolParagraph($pool, $bChinese, $strSymbol, $strTradingSymbol 
     <tr>
         <td class=c1 width=150 align=center>{$arColumn[0]}</td>
         <td class=c1 width=60 align=center>{$arColumn[1]}</td>
-        <td class=c1 width=120 align=center>{$arColumn[2]}</td>
-        <td class=c1 width=120 align=center>{$arColumn[3]}</td>
-        <td class=c1 width=120 align=center>{$arColumn[4]}</td>
+        <td class=c1 width=120 align=center>{$strTradingSymbol}{$arColumnEx[0]}</td>
+        <td class=c1 width=120 align=center>{$strTradingSymbol}{$arColumnEx[1]}</td>
+        <td class=c1 width=120 align=center>{$strTradingSymbol}{$arColumnEx[2]}</td>
     </tr>
 END;
 
-    _echoPricePoolItem($bChinese ? '折价' : 'Lower', $pool->l_goal);
-    _echoPricePoolItem($bChinese ? '平价' : 'Unchanged', $pool->u_goal);
-    _echoPricePoolItem($bChinese ? '溢价' : 'Higher', $pool->h_goal);
+    _echoPricePoolItem($arRow[0], $pool->h_goal);
+    _echoPricePoolItem($arRow[1], $pool->u_goal);
+    _echoPricePoolItem($arRow[2], $pool->l_goal);
     EchoTableParagraphEnd();
+}
+
+function EchoPricePoolParagraph($pool, $bChinese, $strSymbol, $strTradingSymbol = '', $bTranspose = false)
+{
+    if ($bChinese)
+    {
+    	$arColumnEx = array('涨', '不变', '跌');
+    	$arRow = array('溢价', '平价', '折价');
+    }
+    else
+    {
+    	$arColumnEx = array(' Higher', ' Unchanged', ' Lower');
+    	$arRow = array('Higher', 'Unchanged', 'Lower');
+    }
+    
+    if ($bTranspose)
+    {
+    	_echoPricePoolParagraph($pool, $bChinese, $strSymbol, $strTradingSymbol, $arRow, $arColumnEx);
+    }
+    else
+    {
+    	_echoPricePoolParagraph($pool, $bChinese, $strSymbol, $strTradingSymbol, $arColumnEx, $arRow);
+    }
 }
 
 class _NavCloseCsvFile extends PageCsvFile
 {
 	var $pool;
+	var $t_pool;
 	
     function _NavCloseCsvFile() 
     {
         parent::PageCsvFile();
         $this->pool = new PricePool();
+        $this->t_pool = new PricePool();
     }
 
     function OnLineArray($arWord)
     {
-    	$this->pool->OnData(floatval($arWord[3]), floatval($arWord[2]));
+    	$fClose = floatval($arWord[2]);
+    	$fNav = floatval($arWord[3]);
+    	$this->pool->OnData($fNav, $fClose);
+    	$this->t_pool->OnData($fClose, $fNav);
     }
 }
 
@@ -132,6 +159,7 @@ function _echoNavClosePool($strSymbol, $bChinese)
    	$csv = new _NavCloseCsvFile();
    	$csv->Read();
    	EchoPricePoolParagraph($csv->pool, $bChinese, $strSymbol);
+   	EchoPricePoolParagraph($csv->t_pool, $bChinese, $strSymbol, '', true);
 }
 
 function _echoNavCloseGraph($strSymbol, $bChinese)
