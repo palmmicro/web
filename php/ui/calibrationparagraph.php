@@ -1,17 +1,19 @@
 <?php
 require_once('stocktable.php');
 
-function _echoCalibrationItem($sql, $ref, $history, $bReadOnly, $bChinese)
+function _echoCalibrationItem($sql, $ref, $arHistory, $bTest)
 {
-   	$strDate = $history['date'];
-    $strPrice = strval($ref->nv_ref->sql->GetClose($strDate));
-    $strPairPrice = strval($ref->pair_nv_ref->sql->GetClose($strDate));
- 	$strClose = GetTableColumnFloatDisplay($history['close']);
-    if ($bReadOnly == false)
+   	$strDate = $arHistory['date'];
+    $strPrice = $ref->GetPriceDisplay($ref->nv_ref->sql->GetClose($strDate));
+    $strPairPrice = $ref->pair_ref->GetPriceDisplay($ref->pair_nv_ref->sql->GetClose($strDate));
+    
+    $strClose = $arHistory['close'];
+    if ($bTest)
     {
-    	$strDate = GetOnClickLink('/php/_submitdelete.php?etfcalibrationid='.$history['id'], '确认删除'.$history['date'].'校准记录?', $history['date']);
+    	$strDate = GetOnClickLink('/php/_submitdelete.php?'.TABLE_ETF_CALIBRATION.'='.$arHistory['id'], '确认删除'.$strDate.'校准记录'.$strClose.'?', $strDate);
     }
     
+ 	$strClose = GetTableColumnFloatDisplay($strClose);
     echo <<<END
     <tr>
         <td class=c1>$strPrice</td>
@@ -22,22 +24,13 @@ function _echoCalibrationItem($sql, $ref, $history, $bReadOnly, $bChinese)
 END;
 }
 
-function _echoCalibrationData($sql, $ref, $iStart, $iNum, $bChinese)
+function _echoCalibrationData($sql, $ref, $iStart, $iNum, $bTest)
 {
-    if (AcctIsAdmin())
-    {
-        $bReadOnly = false;
-    }
-    else
-    {
-        $bReadOnly = true;
-    }
-    
     if ($result = $sql->GetAll($iStart, $iNum)) 
     {
-        while ($history = mysql_fetch_assoc($result)) 
+        while ($arHistory = mysql_fetch_assoc($result)) 
         {
-            _echoCalibrationItem($sql, $ref, $history, $bReadOnly, $bChinese);
+            _echoCalibrationItem($sql, $ref, $arHistory, $bTest);
         }
         @mysql_free_result($result);
     }
@@ -48,9 +41,10 @@ function EchoCalibrationParagraph($strSymbol, $strStockId, $bChinese, $iStart = 
 	$strSymbolLink = GetMyStockLink($strSymbol, $bChinese);
 	$strPair = SqlGetEtfPair($strSymbol);
 	$strPairLink = GetMyStockLink($strPair, $bChinese);
-	$strPrice = GetReferenceTablePrice($bChinese);
-    if ($bChinese)  $arColumn = array($strSymbolLink.$strPrice,     $strPairLink.$strPrice,     '校准值', '日期');
-    else              $arColumn = array($strSymbolLink.' '.$strPrice, $strPairLink.' '.$strPrice, 'Factor', 'Date');
+	$arFundEst = GetFundEstTableColumn($bChinese);
+	$strNetValue = $arFundEst[7];
+    if ($bChinese)  $arColumn = array($strSymbolLink.$strNetValue,     $strPairLink.$strNetValue,     '校准值', '日期');
+    else              $arColumn = array($strSymbolLink.' '.$strNetValue, $strPairLink.' '.$strNetValue, 'Factor', 'Date');
     
     $sql = new EtfCalibrationSql($strStockId);
     if (IsTableCommonDisplay($iStart, $iNum))
@@ -77,7 +71,7 @@ function EchoCalibrationParagraph($strSymbol, $strStockId, $bChinese, $iStart = 
     </tr>
 END;
 
-    _echoCalibrationData($sql, new EtfReference($strSymbol), $iStart, $iNum, $bChinese);
+    _echoCalibrationData($sql, new EtfReference($strSymbol), $iStart, $iNum, AcctIsTest($bChinese));
     EchoTableParagraphEnd($strNavLink);
 }
 

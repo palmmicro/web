@@ -23,8 +23,8 @@
 <p>2010年8月13日
 <br />今天是palmmicro.com在国内被屏蔽的第110天. 我依然无法从北京访问它. 但是我发现服务器被挪到了另外一个IP地址: 216.39.62.190. 
 <br />屏蔽系统的官方名称是GFW, the Great Fire Wall of China, 所以我给这个页面配了司马台长城的图片和一首老歌. 
-<br /><font color=grey>万里长城永不倒 <a href="../../favoritecn.html#greatwall">霍元甲主题曲</a></font>
 <br /><img src=../photo/20100813.jpg alt="Beijing Simatai part of the Great Wall of China" />
+<br /><font color=grey>万里长城永不倒</font> <a href="../../favoritecn.html#greatwall">霍元甲主题曲</a>
 </p>
 
 <h3>解放了</h3>

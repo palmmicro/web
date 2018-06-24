@@ -20,7 +20,7 @@
 <br />总体持仓折合SZ162411共1594283.9股, 折合成本0.54. 
 <br />总体持仓折合XOP共4021.6股, 折合成本32.98.
 <br /><img src=../photo/20160101.jpg alt="Screen shot of my 2015 XOP and SZ162411 arbitrage data" />
-<br /><font color=grey>This could be Heaven or this could be Hell <a href="../../favoritecn.html#californiahotel">California Hotel</a></font>
+<br /><font color=grey>This could be Heaven or this could be Hell</font> <a href="../../favoritecn.html#californiahotel">California Hotel</a>
 </p>
 
 <h3>华宝油气套利完败的一年</h3>

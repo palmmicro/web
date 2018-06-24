@@ -264,10 +264,20 @@ class StockReference
         return $this->sym;
     }
     
-    // for table display
+    function GetCurrentPrice()
+    {
+        return $this->fPrice;
+    }
+    
+    // for display
     function GetPercentageDisplay($fVal)
     {
         return StockGetPercentageDisplay($this->fPrice, $fVal);
+    }
+    
+    function GetCurrentPercentage()
+    {
+        return StockGetPercentage($this->fPrice, $this->fPrevPrice);
     }
     
     function GetCurrentPercentageDisplay()

@@ -13,16 +13,23 @@ function _echoNavCloseGraph($strSymbol, $bChinese)
     $jpg->Show($strPremium, $strSymbol, $csv->GetPathName());
 }
 
-function _echoNavCloseItem($csv, $history, $fund, $clone_ref)
+function _echoNavCloseItem($csv, $strDate, $fNetValue, $ref, $strFundId)
 {
-	$strDate = $history['date'];
-    $fClose = floatval($history['close']);
-    $fNetValue = floatval($fund['close']);
-    
-    $strClose = strval($fClose);
-    $strNetValue = StockGetPriceDisplay($fNetValue, $fClose);
+	$fClose = $ref->GetCurrentPrice();
+    $strClose = StockGetPriceDisplay($fClose, $fNetValue);
     $strPercentage = StockGetPercentageDisplay($fClose, $fNetValue);
-    $strStockPercentage = $clone_ref->GetCurrentPercentageDisplay();
+    $strStockPercentage = $ref->GetCurrentPercentageDisplay();
+    $strNetValue = strval($fNetValue);
+    
+   	$fPercentage = StockGetPercentage($fClose, $fNetValue);
+   	$fStockPercentage = $ref->GetCurrentPercentage();
+	$csv->WriteArray(array($strDate, $strNetValue, strval($fPercentage), strval($fStockPercentage), strval($fClose)));
+    
+    if ($strFundId)
+    {
+    	$strNetValue = GetOnClickLink('/php/_submitdelete.php?'.TABLE_FUND_HISTORY.'='.$strFundId, '确认删除'.$strDate.'净值记录'.$strNetValue.'?', $strNetValue);
+    }
+    
     echo <<<END
     <tr>
         <td class=c1>$strDate</td>
@@ -32,31 +39,25 @@ function _echoNavCloseItem($csv, $history, $fund, $clone_ref)
         <td class=c1>$strStockPercentage</td>
     </tr>
 END;
-
-	if (empty($fNetValue) == false)
-    {
-    	$fPercentage = StockGetPercentage($fClose, $fNetValue);
-    	$fStockPercentage = StockGetPercentage($clone_ref->fPrice, $clone_ref->fPrevPrice);
-   		$csv->WriteArray(array($strDate, strval($fNetValue), strval($fPercentage), strval($fStockPercentage)));
-    }
 }
 
-function _echoNavCloseData($sql, $ref, $iStart, $iNum)
+function _echoNavCloseData($sql, $ref, $iStart, $iNum, $bTest)
 {
 	$clone_ref = clone $ref;
     if ($result = $sql->GetAll($iStart, $iNum)) 
     {
      	$csv = new PageCsvFile();
-        while ($fund = mysql_fetch_assoc($result)) 
+        while ($arFund = mysql_fetch_assoc($result)) 
         {
-        	$strDate = $fund['date'];
-            if ($history = $sql->stock_sql->Get($strDate))
-            {
-            	if ($stock_ref = RefGetDailyClose($clone_ref, $sql->stock_sql, $strDate))
-            	{
-            		_echoNavCloseItem($csv, $history, $fund, $stock_ref);
-            	}
-            }
+        	$fNetValue = floatval($arFund['close']);
+        	if (empty($fNetValue) == false)
+        	{
+        		$strDate = $arFund['date'];
+       			if ($stock_ref = RefGetDailyClose($clone_ref, $sql->stock_sql, $strDate))
+       			{
+       				_echoNavCloseItem($csv, $strDate, $fNetValue, $stock_ref, ($bTest ? $arFund['id'] : false));
+        		}
+        	}
         }
         $csv->Close();
         @mysql_free_result($result);
@@ -71,7 +72,7 @@ function _echoNavCloseParagraph($strSymbol, $strStockId, $iStart, $iNum, $bChine
     
 	$sql = new FundHistorySql($strStockId);
     $strNavLink = StockGetNavLink($strSymbol, $sql->Count(), $iStart, $iNum, $bChinese);
- 
+
     echo <<<END
     <p>$strNavLink
     <TABLE borderColor=#cccccc cellSpacing=0 width=500 border=1 class="text" id="navclosehistory">
@@ -84,7 +85,7 @@ function _echoNavCloseParagraph($strSymbol, $strStockId, $iStart, $iNum, $bChine
     </tr>
 END;
    
-    _echoNavCloseData($sql, $ref, $iStart, $iNum);
+    _echoNavCloseData($sql, $ref, $iStart, $iNum, AcctIsTest($bChinese));
     EchoTableParagraphEnd($strNavLink);
 
     _echoNavCloseGraph($strSymbol, $bChinese);

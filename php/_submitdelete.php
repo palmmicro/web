@@ -70,6 +70,16 @@ function _deleteStockById($strStockId)
 	SqlDeleteStock($strStockId);
 }
 
+function _deleteTableDataById($strTableName)
+{
+	if ($strId = UrlGetQueryValue($strTableName))
+	{
+		$sql = new TableSql($strTableName);
+		return $sql->DeleteById($strId);
+    }
+    return false;
+}
+
     AcctNoAuth();
 	if (AcctIsAdmin() || AcctIsDebug())
 	{
@@ -82,9 +92,10 @@ function _deleteStockById($strStockId)
 	    {
 	    	_deleteStockById($strStockId);
 	    }
-	    else if ($strId = UrlGetQueryValue('etfcalibrationid'))
+	    else
 	    {
-	    	SqlDeleteTableDataById(TABLE_ETF_CALIBRATION, $strId);
+	    	if (_deleteTableDataById(TABLE_FUND_HISTORY))			{}
+	    	else if (_deleteTableDataById(TABLE_ETF_CALIBRATION))	{}
 	    }
 	}
 	

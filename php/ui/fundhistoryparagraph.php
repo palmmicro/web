@@ -4,14 +4,11 @@ require_once('stocktable.php');
 function EchoFundHistoryTableItem($csv, $history, $fund, $clone_ref)
 {
 	$strDate = $history['date'];
-	$strNetValue = $fund['close'];
+    $fNetValue = floatval($fund['close']);
     $fFundClose = floatval($history['close']);
-    $strEstValue = $fund['estimated'];
-    $strEstTime = $fund['time'];
     
-    $fNetValue = floatval($strNetValue);
-    $strFundClose = strval($fFundClose);
-    $strNetValueDisplay = StockGetPriceDisplay($fNetValue, $fFundClose);
+    $strNetValue = strval($fNetValue);
+    $strFundClose = StockGetPriceDisplay($fFundClose, $fNetValue);
     $strPercentage = StockGetPercentageDisplay($fFundClose, $fNetValue);
     if ($csv && (empty($fNetValue) == false))
     {
@@ -26,17 +23,15 @@ function EchoFundHistoryTableItem($csv, $history, $fund, $clone_ref)
         $strEstChange = $clone_ref->GetCurrentPercentageDisplay();
     }
 
-    if (IsEmptyFundValue($strEstValue))
+    $fEstValue = floatval($fund['estimated']);
+    if (empty($fEstValue))
     {
-    	// DebugString('EchoFundHistoryTableItem '.$strEstValue);
-    	$strEstValueDisplay = '';
     	$strError = ''; 
+    	$strEstValue = '';
         $strEstTime = '';
     }
     else
     {
-        $fEstValue = floatval($strEstValue);
-        $strEstValueDisplay = StockGetPriceDisplay($fEstValue, $fFundClose);
         $fPercentage = StockGetEstErrorPercentage($fEstValue, $fNetValue);
         if (empty($fPercentage))
         {
@@ -46,17 +41,19 @@ function EchoFundHistoryTableItem($csv, $history, $fund, $clone_ref)
         {
             $strError = StockGetPercentageDisplay($fEstValue, $fNetValue);
         }
+        $strEstValue = StockGetPriceDisplay($fEstValue, $fFundClose);
+        $strEstTime = $fund['time'];
     }
     
     echo <<<END
     <tr>
         <td class=c1>$strDate</td>
         <td class=c1>$strFundClose</td>
-        <td class=c1>$strNetValueDisplay</td>
+        <td class=c1>$strNetValue</td>
         <td class=c1>$strPercentage</td>
         <td class=c1>$strEstClose</td>
         <td class=c1>$strEstChange</td>
-        <td class=c1>$strEstValueDisplay</td>
+        <td class=c1>$strEstValue</td>
         <td class=c1>$strEstTime</td>
         <td class=c1>$strError</td>
     </tr>

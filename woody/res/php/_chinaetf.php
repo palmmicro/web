@@ -95,7 +95,7 @@ function EchoAll($bChinese = true)
     EchoEtfHistoryParagraph($group->ref, $bChinese);
     EchoEtfHistoryParagraph($group->us_ref, $bChinese);
 
-    EchoEtfHistoryParagraph($group->test_ref, $bChinese);
+    if (AcctIsTest($bChinese))	EchoEtfHistoryParagraph($group->test_ref, $bChinese);
     
     if ($group->strGroupId) 
     {

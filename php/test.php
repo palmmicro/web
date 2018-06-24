@@ -140,7 +140,7 @@ function TestCmdLine()
     	}
     	else if ($strSrc == 'nav')
     	{
-    		$str = SaveHistoricalNav($strSymbol);
+//    		$str = SaveHistoricalNav($strSymbol);
     	}
     	$fStop = microtime(true);
     	if (empty($str))	$str = '(Not found)';

@@ -32,9 +32,9 @@
       反之当上证指数下降的时候, 如果压力位的价格比最后一次卖出的价格低5%就下买单, 当压力位不变或者下降时持续买入, 直到总仓位达到规则3的标准.</b></li>
 </ol>
 <p>基于以上规则, 我希望能带来平均每年10%的收益, 但愿未来能够成功.  
-<br /><font color=grey>Just like I'd never gone, I knew the song. <a href="../../favoritecn.html#laislabonita">La Isla Bonita</a> <i>Madonna</i></font>
-<br /><img src=../photo/20141016.jpg alt="Screen shot of my Chinese A stock portfolio as of Oct 16 2014" />
 <br /><font color=grey>当你为朋友立传时, 一定要做得像你在为他报仇雪恨那样. <a href="../../favoritecn.html#flaubertsparret">福楼拜的鹦鹉</a> Flaubert's Parret by <i>Julian Barnes</i> <i>石雅芳</i>译</font>
+<br /><img src=../photo/20141016.jpg alt="Screen shot of my Chinese A stock portfolio as of Oct 16 2014" />
+<br /><font color=grey>Just like I'd never gone, I knew the song.</font> <a href="../../favoritecn.html#laislabonita">La Isla Bonita</a>
 </p>
 
 <h3><a name="2014">2014</a>总结</h3>
