@@ -31,22 +31,24 @@ function _echoNavCloseGraph($strSymbol, $bChinese)
 
 function _echoNavCloseItem($csv, $strDate, $fNetValue, $ref, $strFundId)
 {
+    $fChange = $ref->GetCurrentPercentage();
+    $strChange = $ref->GetCurrentPercentageDisplay();
 	$fClose = $ref->GetCurrentPrice();
-    $strClose = StockGetPriceDisplay($fClose, $fNetValue);
-    $strStockPercentage = $ref->GetCurrentPercentageDisplay();
+	
     $strNetValue = strval($fNetValue);
-    
+	$ref->SetPrice($strNetValue);
+    $strClose = $ref->GetCurrentPriceDisplay();
     if (abs($fClose - $fNetValue) > 0.005)
     {
-    	$strPercentage = StockGetPercentageDisplay($fClose, $fNetValue);
-    	$fPercentage = StockGetPercentage($fClose, $fNetValue);
+    	$fPremium = $ref->GetCurrentPercentage();
+    	$strPremium = $ref->GetCurrentPercentageDisplay();
     }
     else
     {
-    	$strPercentage = '';
-    	$fPercentage = 0.0;
+    	$fPremium = 0.0;
+    	$strPremium = '';
     }
-	$csv->WriteArray(array($strDate, $strNetValue, strval($ref->GetCurrentPercentage()), strval($fPercentage)));
+	$csv->WriteArray(array($strDate, $strNetValue, strval($fChange), strval($fPremium)));
     
     if ($strFundId)
     {
@@ -58,8 +60,8 @@ function _echoNavCloseItem($csv, $strDate, $fNetValue, $ref, $strFundId)
         <td class=c1>$strDate</td>
         <td class=c1>$strClose</td>
         <td class=c1>$strNetValue</td>
-        <td class=c1>$strPercentage</td>
-        <td class=c1>$strStockPercentage</td>
+        <td class=c1>$strPremium</td>
+        <td class=c1>$strChange</td>
     </tr>
 END;
 }

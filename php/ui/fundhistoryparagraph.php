@@ -1,32 +1,28 @@
 <?php
 require_once('stocktable.php');
 
-function _echoFundHistoryTableItem($csv, $history, $fund, $clone_ref)
+function _echoFundHistoryTableItem($csv, $strDate, $fNetValue, $fClose, $arFund, $ref)
 {
-	$strDate = $history['date'];
-    $fNetValue = floatval($fund['close']);
-    $fFundClose = floatval($history['close']);
-    
     $strNetValue = strval($fNetValue);
-    $strFundClose = StockGetPriceDisplay($fFundClose, $fNetValue);
-    $strPercentage = StockGetPercentageDisplay($fFundClose, $fNetValue);
-    if ($csv && (empty($fNetValue) == false))
+    $strClose = StockGetPriceDisplay($fClose, $fNetValue);
+    $strPremium = StockGetPercentageDisplay($fClose, $fNetValue);
+    if ($csv)
     {
-    	$csv->WriteArray(array($strDate, $strNetValue, strval(StockGetPercentage($fFundClose, $fNetValue))));
+    	$csv->WriteArray(array($strDate, $strNetValue, strval(StockGetPercentage($fClose, $fNetValue))));
     }
     
-    $strEstClose = ''; 
-    $strEstChange = '';
-    if ($clone_ref)
+    $strPairClose = ''; 
+    $strPairChange = '';
+    if ($ref)
     {
-        $strEstClose = $clone_ref->GetCurrentPriceDisplay();
-        $strEstChange = $clone_ref->GetCurrentPercentageDisplay();
+        $strPairClose = $ref->GetCurrentPriceDisplay();
+        $strPairChange = $ref->GetCurrentPercentageDisplay();
     }
 
-    $fEstValue = floatval($fund['estimated']);
+    $fEstValue = floatval($arFund['estimated']);
     if (empty($fEstValue))
     {
-    	$strError = ''; 
+    	$strEstError = ''; 
     	$strEstValue = '';
         $strEstTime = '';
     }
@@ -35,27 +31,27 @@ function _echoFundHistoryTableItem($csv, $history, $fund, $clone_ref)
         $fPercentage = StockGetEstErrorPercentage($fEstValue, $fNetValue);
         if (empty($fPercentage))
         {
-            $strError = '<font color=grey>0</font>'; 
+            $strEstError = '<font color=grey>0</font>'; 
         }
         else
         {
-            $strError = StockGetPercentageDisplay($fEstValue, $fNetValue);
+            $strEstError = StockGetPercentageDisplay($fEstValue, $fNetValue);
         }
-        $strEstValue = StockGetPriceDisplay($fEstValue, $fFundClose);
-        $strEstTime = $fund['time'];
+        $strEstValue = StockGetPriceDisplay($fEstValue, $fClose);
+        $strEstTime = $arFund['time'];
     }
     
     echo <<<END
     <tr>
         <td class=c1>$strDate</td>
-        <td class=c1>$strFundClose</td>
+        <td class=c1>$strClose</td>
         <td class=c1>$strNetValue</td>
-        <td class=c1>$strPercentage</td>
-        <td class=c1>$strEstClose</td>
-        <td class=c1>$strEstChange</td>
+        <td class=c1>$strPremium</td>
+        <td class=c1>$strPairClose</td>
+        <td class=c1>$strPairChange</td>
         <td class=c1>$strEstValue</td>
         <td class=c1>$strEstTime</td>
-        <td class=c1>$strError</td>
+        <td class=c1>$strEstError</td>
     </tr>
 END;
 }
@@ -66,7 +62,6 @@ function _echoHistoryTableData($sql, $csv, $est_ref, $iStart, $iNum)
 	if ($est_ref)
 	{
 		$sym = $est_ref->GetSym();
-        // DebugString('stock_sql '.$sym->GetSymbol());
 		if ($sym->IsSinaFuture())			$bSameDayNetValue	 = true;
 		else if ($sym->IsSymbolUS())		$bSameDayNetValue	 = false;
 		else								$bSameDayNetValue	 = true;
@@ -77,21 +72,25 @@ function _echoHistoryTableData($sql, $csv, $est_ref, $iStart, $iNum)
 	
     if ($result = $sql->GetAll($iStart, $iNum)) 
     {
-        while ($fund = mysql_fetch_assoc($result)) 
+        while ($arFund = mysql_fetch_assoc($result)) 
         {
-            if ($bSameDayNetValue)
-            {
-                $strDate = $fund['date'];
-            }
-            else
-            {
-                $strDate = GetNextTradingDayYMD($fund['date']);
-            }
+        	$fNetValue = floatval($arFund['close']);
+        	if (empty($fNetValue) == false)
+        	{
+        		if ($bSameDayNetValue)
+        		{
+        			$strDate = $arFund['date'];
+        		}
+        		else
+        		{
+        			$strDate = GetNextTradingDayYMD($arFund['date']);
+        		}
             
-            if ($history = $sql->stock_sql->Get($strDate))
-            {
-                _echoFundHistoryTableItem($csv, $history, $fund, RefGetDailyClose($clone_ref, $est_sql, $fund['date']));
-            }
+        		if ($arStock = $sql->stock_sql->Get($strDate))
+        		{
+        			_echoFundHistoryTableItem($csv, $strDate, $fNetValue, floatval($arStock['close']), $arFund, RefGetDailyClose($clone_ref, $est_sql, $arFund['date']));
+        		}
+        	}
         }
         @mysql_free_result($result);
     }

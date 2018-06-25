@@ -222,9 +222,12 @@ class StockReference
         $this->fPrevPrice = floatval($this->strPrevPrice);
     }
     
-    function SetPrice($strPrice, $strPrevPrice)
+    function SetPrice($strPrevPrice, $strPrice = false)
     {
-    	$this->strPrice = $strPrice;
+    	if ($strPrice)
+    	{
+    		$this->strPrice = $strPrice;
+    	}
     	$this->strPrevPrice = $strPrevPrice;
         $this->_convertPrice();
     }

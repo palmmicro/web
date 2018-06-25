@@ -18,23 +18,23 @@ function _echoThanousLawPool($strSymbol, $strTradingSymbol, $bChinese)
    	EchoPricePoolParagraph($csv->pool, $bChinese, $strSymbol, $strTradingSymbol, false);
 }
 
-function _echoThanousLawItem($csv, $strDate, $fNetValue, $fFundClose, $ref)
+function _echoThanousLawItem($csv, $strDate, $fNetValue, $fClose, $ref)
 {
     $strNetValue = strval($fNetValue);
-    $strFundClose = StockGetPriceDisplay($fFundClose, $fNetValue);
-    $strPercentage = StockGetPercentageDisplay($fFundClose, $fNetValue);
-    $strEstClose = $ref->GetCurrentPriceDisplay();
-    $strEstChange = $ref->GetCurrentPercentageDisplay();
-   	$csv->WriteArray(array($strDate, $strNetValue, strval($ref->GetCurrentPercentage()), strval(StockGetPercentage($fFundClose, $fNetValue))));
+    $strClose = StockGetPriceDisplay($fClose, $fNetValue);
+    $strPremium = StockGetPercentageDisplay($fClose, $fNetValue);
+    $strPairClose = $ref->GetCurrentPriceDisplay();
+    $strPairChange = $ref->GetCurrentPercentageDisplay();
+   	$csv->WriteArray(array($strDate, $strNetValue, strval($ref->GetCurrentPercentage()), strval(StockGetPercentage($fClose, $fNetValue))));
 
     echo <<<END
     <tr>
         <td class=c1>$strDate</td>
-        <td class=c1>$strFundClose</td>
+        <td class=c1>$strClose</td>
         <td class=c1>$strNetValue</td>
-        <td class=c1>$strPercentage</td>
-        <td class=c1>$strEstClose</td>
-        <td class=c1>$strEstChange</td>
+        <td class=c1>$strPremium</td>
+        <td class=c1>$strPairClose</td>
+        <td class=c1>$strPairChange</td>
     </tr>
 END;
 }

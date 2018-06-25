@@ -336,7 +336,7 @@ function RefGetDailyClose($ref, $sql, $strDate)
 		{
 			if ($history_prev = $sql->GetPrev($strDate))
 			{
-				$ref->SetPrice($history['close'], $history_prev['close']);
+				$ref->SetPrice($history_prev['close'], $history['close']);
 				return $ref;
 			}
 		}

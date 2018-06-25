@@ -13,7 +13,9 @@
 <div>
 <h1><?php EchoTitle(); ?></h1>
 <?php EchoAll(); ?>
-<p>相关软件:
+<p>
+<a href="https://dws.com/US/EN/Product-Detail-Page/ASHR" target=_blank>ASHR官网</a>
+<br />相关软件:
 <?php
     EchoASharesSoftwareLinks();
     EchoSpySoftwareLinks();
