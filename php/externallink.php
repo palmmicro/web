@@ -48,10 +48,10 @@ function GetYahooStockLink($sym)
     return GetExternalLink($strHttp, $sym->GetSymbol());
 }
 
-function GetYahooStockHistoryLink($sym)
+function GetYahooStockHistoryLink($sym, $bChinese)
 {
     $strHttp = YahooStockHistoryGetUrl($sym->GetYahooSymbol());
-    return GetExternalLink($strHttp, $sym->GetSymbol());
+    return GetExternalLink($strHttp, ($bChinese ? 'Yahoo历史数据' : 'Yahoo History'));
 }
 
 function GetGoogleStockLink($sym)
@@ -167,16 +167,16 @@ function GetSinaN8n8Link($sym)
     return $strSymbol;
 }
 
-function GetSinaStockHistoryLink($sym)
+function GetSinaStockHistoryLink($sym, $bChinese)
 {
     $strHttp = SinaGetStockHistoryUrl($sym);
-    return GetExternalLink($strHttp, $sym->GetSymbol());
+    return GetExternalLink($strHttp, ($bChinese ? '新浪历史数据' : 'Sina History'));
 }
 
-function GetSinaStockDividendLink($strSymbol)
+function GetSinaStockDividendLink($strSymbol, $bChinese)
 {
     $strHttp = SinaGetStockDividendUrl($strSymbol);
-    return GetExternalLink($strHttp, $strSymbol);
+    return GetExternalLink($strHttp, ($bChinese ? '新浪分红数据' : 'Sina Dividend'));
 }
 
 // https://www.jisilu.cn/data/ha_history/600585

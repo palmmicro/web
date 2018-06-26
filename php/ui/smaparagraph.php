@@ -145,12 +145,9 @@ function _echoSmaTableData($stock_his, $ref, $callback, $callback2, $bChinese)
 function _selectSmaExternalLink($strSymbol)
 {
     $sym = new StockSymbol($strSymbol);
-    if ($sym->IsSymbolA())
+    if ($sym->IsStockA())
     {
-        if ($sym->IsFundA() == false && $sym->IsIndexA() == false)
-        {
-            return GetSinaN8n8Link($sym);
-        }
+        return GetSinaN8n8Link($sym);
     }
     return GetXueQiuLink($sym);
 }

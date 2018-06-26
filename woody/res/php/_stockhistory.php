@@ -40,21 +40,22 @@ function _echoStockHistoryParagraph($strSymbol, $strStockId, $iStart, $iNum, $bA
     else              $arColumn = array('Date', 'Open', 'High', 'Low', 'Close', 'Volume', 'Adj Close');
     
     $sym = new StockSymbol($strSymbol);
-    if ($sym->IsIndexA())		$strUpdateLink = GetSinaStockHistoryLink($sym);
-    else				        $strUpdateLink = GetYahooStockHistoryLink($sym);
+    if ($sym->IsIndexA())		$strLinks = GetSinaStockHistoryLink($sym, $bChinese);
+    else				        $strLinks = GetYahooStockHistoryLink($sym, $bChinese);
     
-    if ($sym->IsSymbolA())	$strUpdateLink .= ' '.GetSinaStockDividendLink($strSymbol);
+    if ($sym->IsStockA())		$strLinks .= ' '.GetSinaStockDividendLink($strSymbol, $bChinese);
+	if ($sym->IsEtf())		$strLinks .= ' '.GetNavCloseHistoryLink($strSymbol, $bChinese);
     
     if ($bAdmin)
     {
-        $strUpdateLink .= ' '.GetOnClickLink(STOCK_PHP_PATH.'_submithistory.php?id='.$strStockId, $bChinese ? '确认更新股票历史记录?' : 'Confirm update stock history?', $bChinese ? '更新历史记录' : 'Update History');
-        $strUpdateLink .= ' '.SqlCountTableDataString(TABLE_STOCK_HISTORY);
+        $strLinks .= ' '.GetOnClickLink(STOCK_PHP_PATH.'_submithistory.php?id='.$strStockId, $bChinese ? '确认更新股票历史记录?' : 'Confirm update stock history?', $bChinese ? '更新历史记录' : 'Update History');
+        $strLinks .= ' '.SqlCountTableDataString(TABLE_STOCK_HISTORY);
     }
 
 	$sql = new StockHistorySql($strStockId);
     $strNavLink = StockGetNavLink($strSymbol, $sql->Count(), $iStart, $iNum, $bChinese);
     $strSymbolLink = GetMyStockLink($strSymbol, $bChinese);
-    EchoParagraphBegin($strSymbolLink.' '.$strNavLink.' '.$strUpdateLink);
+    EchoParagraphBegin($strSymbolLink.' '.$strNavLink.' '.$strLinks);
     echo <<<END
     <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="history">
     <tr>

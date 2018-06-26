@@ -358,6 +358,17 @@ class StockSymbol
         return false;
     }
     
+    function IsStockA()
+    {
+    	if ($this->IsSymbolA())
+    	{
+    		if ($this->IsIndexA())	return false;
+    		if ($this->IsFundA())		return false;
+    		return true;
+    	}
+    	return false;
+    }
+    
     function IsEtf()
     {
     	if ($this->IsIndex() || $this->IsIndexA())	return false;

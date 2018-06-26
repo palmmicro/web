@@ -125,11 +125,11 @@ function TestCmdLine()
     {
     	$strSrc = UrlGetQueryDisplay('src', 'yahoo');
     	$ref = new MyStockReference($strSymbol);
-    	DebugString(SqlGetStockId($strSymbol));
+    	DebugString($ref->GetStockId());
     	$fStart = microtime(true);
     	if ($strSrc == 'yahoo')		
     	{
-    		$str = TestYahooWebData($strSymbol);
+    		$str = TestYahooWebData($ref);
     		YahooUpdateNetValue($strSymbol);
     	}
     	else if ($strSrc == 'ft')	$str = TestFtStock($strSymbol);

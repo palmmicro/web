@@ -155,7 +155,7 @@ function EchoFundHistoryParagraph($fund, $bChinese, $csv = false, $iStart = 0, $
 
 function EchoEtfHistoryParagraph($ref, $bChinese, $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
 {
-	$str = GetNavCloseHistoryLink($ref->GetStockSymbol(), $bChinese);
+	$str = '';
     if (AcctIsDebug())
     {
     	if ($ref->IsSymbolA())	$str .= ' '.$ref->nv_ref->DebugLink();

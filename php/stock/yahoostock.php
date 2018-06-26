@@ -271,7 +271,7 @@ function YahooStockGetUrl($strYahooSymbol)
 	return YAHOO_STOCK_QUOTES_URL.$strYahooSymbol;
 }
 
-function _yahooStockGetData($strSymbol)
+function _yahooStockGetData($strSymbol, $strStockId)
 { 
 	$sym = new StockSymbol($strSymbol);
     $strUrl = YahooStockGetUrl($sym->GetYahooSymbol());
@@ -283,25 +283,31 @@ function _yahooStockGetData($strSymbol)
 		{
 			if ($ar[4] == $strSymbol)
 			{
+				$strMatchPrice = $ar[3];
 				$ymd = new TickYMD($ar[1]);
-				return $ar[3].' '.$ar[2].' '.$ymd->GetYMD().' '.$ymd->GetHMS();
+				$strDate = $ymd->GetYMD();
+    			$sql = new FundHistorySql($strStockId);
+    			$sql->Merge($strDate, $strMatchPrice);
+				return $strMatchPrice.' '.$ar[2].' '.$strDate.' '.$ymd->GetHMS();
 			}
 		}
 	}
     return false;
 }
 
-function TestYahooWebData($strSymbol)
+function TestYahooWebData($ref)
 {
 	date_default_timezone_set(STOCK_TIME_ZONE_US);
-    $sym = new StockSymbol($strSymbol);
+    $sym = $ref->GetSym();
+    $strSymbol = $sym->GetSymbol();
+    $strStockId = $ref->GetStockId();
     if ($sym->IsIndex())
     {
-   		$str = _yahooStockGetData($strSymbol);
+   		$str = _yahooStockGetData($strSymbol, $strStockId);
    	}
    	else
    	{
-   		$str = _yahooStockGetData(GetYahooNetValueSymbol($strSymbol));
+   		$str = _yahooStockGetData(GetYahooNetValueSymbol($strSymbol), $strStockId);
    	}
    	return $str;
 }

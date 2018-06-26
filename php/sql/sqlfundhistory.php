@@ -53,6 +53,18 @@ class FundHistorySql extends DailyStockSql
 		return $this->UpdateById("close = '$strNetValue', estimated = '$strEstValue', time = '$strTime'", $strId);
 	}
 	
+	function Merge($strDate, $strNetValue)
+	{
+        if ($history = $this->Get($strDate))
+        {
+            $this->Update($history['id'], $strNetValue, $history['estimated'], $history['time']);
+        }
+        else
+        {
+        	$this->Insert($strDate, $strNetValue);
+        }
+	}
+	
 	function IsEmptyNetValue($history)
 	{
         return IsEmptyFundValue($history['close']);
