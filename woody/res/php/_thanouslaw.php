@@ -39,11 +39,9 @@ function _echoThanousLawItem($csv, $strDate, $fNetValue, $fClose, $ref)
 END;
 }
 
-function _echoThanousLawData($sql, $ref, $est_ref, $iStart, $iNum, $bChinese)
+function _echoThanousLawData($sql, $est_ref, $iStart, $iNum, $bChinese)
 {
-	$clone_ref = clone $est_ref;
 	$est_sql = new StockHistorySql($est_ref->GetStockId());
-	
     if ($result = $sql->GetAll($iStart, $iNum)) 
     {
      	$csv = new PageCsvFile();
@@ -55,9 +53,9 @@ function _echoThanousLawData($sql, $ref, $est_ref, $iStart, $iNum, $bChinese)
         		$strDate = GetNextTradingDayYMD($arFund['date']);
         		if ($arStock = $sql->stock_sql->Get($strDate))
         		{
-        			if ($stock_ref = RefGetDailyClose($clone_ref, $est_sql, $strDate))
+        			if ($ref = RefGetDailyClose($est_ref, $est_sql, $strDate))
         			{
-        				_echoThanousLawItem($csv, $strDate, $fNetValue, floatval($arStock['close']), $stock_ref);
+        				_echoThanousLawItem($csv, $strDate, $fNetValue, floatval($arStock['close']), $ref);
         			}
                 }
             }
@@ -96,7 +94,7 @@ function _echoThanousLawParagraph($strSymbol, $iStart, $iNum, $bChinese)
     </tr>
 END;
 
-	_echoThanousLawData($sql, $ref, $est_ref, $iStart, $iNum, $bChinese);
+	_echoThanousLawData($sql, $est_ref, $iStart, $iNum, $bChinese);
     EchoTableParagraphEnd($strNavLink);
 
     _echoThanousLawPool($strSymbol, $est_ref->GetStockSymbol(), $bChinese);

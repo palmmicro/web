@@ -232,6 +232,26 @@ class StockReference
         $this->_convertPrice();
     }
     
+    function GetCurrentPrice()
+    {
+        return $this->fPrice;
+    }
+    
+    function GetCurrentPriceString()
+    {
+        return $this->strPrice;
+    }
+    
+    function GetPrevPrice()
+    {
+        return $this->fPrevPrice;
+    }
+    
+    function GetPrevPriceString()
+    {
+        return $this->strPrevPrice;
+    }
+    
     function EmptyFile()
     {
         unlinkEmptyFile($this->strFileName);
@@ -265,11 +285,6 @@ class StockReference
     function GetSym()
     {
         return $this->sym;
-    }
-    
-    function GetCurrentPrice()
-    {
-        return $this->fPrice;
     }
     
     // for display

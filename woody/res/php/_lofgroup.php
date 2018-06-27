@@ -126,17 +126,14 @@ class _LofGroup extends _StockGroup
         return _GetAdjustLink($strSymbol, $strQuery, $bChinese);
     }
 
-    function EchoAdminTestParagraph($bChinese)
+    function EchoTestParagraph($bChinese)
     {
-        if (AcctIsAdmin() == false)     return;
-        
-        $fund = $this->ref;
-        $str = $this->_getAdjustString($bChinese);
-        if ($fund->est_ref)
+        if (AcctIsTest($bChinese))
         {
-            $str .= HTML_NEW_LINE._GetStockConfigDebugString(array($fund->est_ref), $bChinese);
-        }
-        EchoParagraph($str);
+	        $str = $this->_getAdjustString($bChinese);
+            $str .= HTML_NEW_LINE._GetStockConfigDebugString(array($this->ref->est_ref), $bChinese);
+            EchoParagraph($str);
+	    }
     }
 } 
 

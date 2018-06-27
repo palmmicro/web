@@ -129,7 +129,7 @@ function EchoAll($bChinese = true)
 	}
 	    
     EchoPromotionHead($bChinese);
-    $group->EchoAdminTestParagraph($bChinese);
+    $group->EchoTestParagraph($bChinese);
 }
 
     AcctNoAuth();

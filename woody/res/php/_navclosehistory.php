@@ -68,7 +68,6 @@ END;
 
 function _echoNavCloseData($sql, $ref, $iStart, $iNum, $bTest)
 {
-	$clone_ref = clone $ref;
     if ($result = $sql->GetAll($iStart, $iNum)) 
     {
      	$csv = new PageCsvFile();
@@ -78,7 +77,7 @@ function _echoNavCloseData($sql, $ref, $iStart, $iNum, $bTest)
         	if (empty($fNetValue) == false)
         	{
         		$strDate = $arFund['date'];
-       			if ($stock_ref = RefGetDailyClose($clone_ref, $sql->stock_sql, $strDate))
+       			if ($stock_ref = RefGetDailyClose($ref, $sql->stock_sql, $strDate))
        			{
        				_echoNavCloseItem($csv, $strDate, $fNetValue, $stock_ref, ($bTest ? $arFund['id'] : false));
         		}

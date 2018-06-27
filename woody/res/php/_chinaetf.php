@@ -26,10 +26,13 @@ class _ChinaEtfGroup extends _StockGroup
     }
 } 
 
-function _echoAdminTestParagraph($group, $bChinese)
+function _echoTestParagraph($group, $bChinese)
 {
-    $str = _GetEtfAdjustString($group->ref, $group->ref->pair_nv_ref, $bChinese);
-    EchoParagraph($str);
+    if (AcctIsTest($bChinese))
+    {
+        $str = _GetStockConfigDebugString(array($group->ref->pair_ref, $group->us_ref), $bChinese);
+        EchoParagraph($str);
+    }
 }
 
 function _chinaEtfRefCallbackData($ref, $bChinese)
@@ -101,10 +104,7 @@ function EchoAll($bChinese = true)
 	}
     
     EchoPromotionHead($bChinese, 'chinaetf');
-    if (AcctIsAdmin())
-    {
-        _echoAdminTestParagraph($group, $bChinese);
-    }
+    _echoTestParagraph($group, $bChinese);
 }
 
 function EchoMetaDescription($bChinese = true)

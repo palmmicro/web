@@ -8,11 +8,11 @@ require_once('_edittransactionform.php');
 require_once('_stocklink.php');
 require_once('_stockgroup.php');
 
-function _GetStockConfigDebugString($ar_ref, $bChinese)
+function _GetStockConfigDebugString($arRef, $bChinese)
 {
 	$arSma = GetSmaTableColumn($bChinese);
     $str = $arSma[0];
-    foreach ($ar_ref as $ref)
+    foreach ($arRef as $ref)
     {
         if ($ref)
         {
