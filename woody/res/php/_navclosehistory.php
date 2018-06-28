@@ -33,12 +33,11 @@ function _echoNavCloseItem($csv, $strDate, $fNetValue, $ref, $strFundId)
 {
     $fChange = $ref->GetCurrentPercentage();
     $strChange = $ref->GetCurrentPercentageDisplay();
-	$fClose = $ref->GetCurrentPrice();
 	
     $strNetValue = strval($fNetValue);
 	$ref->SetPrice($strNetValue);
     $strClose = $ref->GetCurrentPriceDisplay();
-    if (abs($fClose - $fNetValue) > 0.005)
+    if (abs($ref->fPrice - $fNetValue) > 0.005)
     {
     	$fPremium = $ref->GetCurrentPercentage();
     	$strPremium = $ref->GetCurrentPercentageDisplay();

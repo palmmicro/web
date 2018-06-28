@@ -1,7 +1,7 @@
 <?php
 require_once('stocktable.php');
 
-function _echoCalibrationItem($sql, $ref, $arHistory, $bTest)
+function _echoCalibrationItem($ref, $arHistory, $bTest)
 {
    	$strDate = $arHistory['date'];
     $strPrice = $ref->GetPriceDisplay($ref->nv_ref->sql->GetClose($strDate));
@@ -24,19 +24,19 @@ function _echoCalibrationItem($sql, $ref, $arHistory, $bTest)
 END;
 }
 
-function _echoCalibrationData($sql, $ref, $iStart, $iNum, $bTest)
+function _echoCalibrationData($ref, $iStart, $iNum, $bTest)
 {
-    if ($result = $sql->GetAll($iStart, $iNum)) 
+    if ($result = $ref->sql->GetAll($iStart, $iNum)) 
     {
         while ($arHistory = mysql_fetch_assoc($result)) 
         {
-            _echoCalibrationItem($sql, $ref, $arHistory, $bTest);
+            _echoCalibrationItem($ref, $arHistory, $bTest);
         }
         @mysql_free_result($result);
     }
 }
 
-function EchoCalibrationParagraph($strSymbol, $strStockId, $bChinese, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
+function EchoCalibrationParagraph($strSymbol, $bChinese, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
 {
 	$strSymbolLink = GetMyStockLink($strSymbol, $bChinese);
 	$strPair = SqlGetEtfPair($strSymbol);
@@ -46,7 +46,7 @@ function EchoCalibrationParagraph($strSymbol, $strStockId, $bChinese, $iStart = 
     if ($bChinese)  $arColumn = array($strSymbolLink.$strNetValue,     $strPairLink.$strNetValue,     '校准值', '日期');
     else              $arColumn = array($strSymbolLink.' '.$strNetValue, $strPairLink.' '.$strNetValue, 'Factor', 'Date');
     
-    $sql = new EtfCalibrationSql($strStockId);
+    $ref = new EtfReference($strSymbol);
     if (IsTableCommonDisplay($iStart, $iNum))
     {
         $str = GetCalibrationLink($strSymbol, $bChinese);
@@ -55,9 +55,14 @@ function EchoCalibrationParagraph($strSymbol, $strStockId, $bChinese, $iStart = 
     else
     {
     	$str = GetEtfListLink($bChinese);
-    	$iTotal = $sql->Count();
+    	$iTotal = $ref->sql->Count();
     	$strNavLink = StockGetNavLink($strSymbol, $iTotal, $iStart, $iNum, $bChinese);
     	$str .= ' '.$strNavLink;
+    }
+    
+    if ($bTest = AcctIsTest($bChinese))
+    {
+    	$str .= ' '.GetInternalLink('/php/_submitoperation.php?calibration='.$strSymbol, '手工校准');
     }
     
     echo <<<END
@@ -71,7 +76,7 @@ function EchoCalibrationParagraph($strSymbol, $strStockId, $bChinese, $iStart = 
     </tr>
 END;
 
-    _echoCalibrationData($sql, new EtfReference($strSymbol), $iStart, $iNum, AcctIsTest($bChinese));
+    _echoCalibrationData($ref, $iStart, $iNum, $bTest);
     EchoTableParagraphEnd($strNavLink);
 }
 

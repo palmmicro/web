@@ -276,7 +276,6 @@ function _yahooStockGetData($strSymbol, $strStockId)
 	$sym = new StockSymbol($strSymbol);
     $strUrl = YahooStockGetUrl($sym->GetYahooSymbol());
     $str = url_get_contents($strUrl);
-//	DebugString($str);
 	if ($arMatch = _preg_match_yahoo_stock($str))
 	{
 		foreach ($arMatch as $ar)
@@ -287,7 +286,7 @@ function _yahooStockGetData($strSymbol, $strStockId)
 				$ymd = new TickYMD($ar[1]);
 				$strDate = $ymd->GetYMD();
     			$sql = new FundHistorySql($strStockId);
-    			$sql->Merge($strDate, $strMatchPrice);
+    			$sql->Write($strDate, $strMatchPrice);
 				return $strMatchPrice.' '.$ar[2].' '.$strDate.' '.$ymd->GetHMS();
 			}
 		}

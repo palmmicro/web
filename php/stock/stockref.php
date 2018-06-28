@@ -232,22 +232,18 @@ class StockReference
         $this->_convertPrice();
     }
     
-    function GetCurrentPrice()
+    function SetCurrentPrice($strPrice)
     {
-        return $this->fPrice;
+   		$this->strPrice = $strPrice;
+        $this->_convertPrice();
     }
     
-    function GetCurrentPriceString()
+    function GetCurrentPrice()
     {
         return $this->strPrice;
     }
     
     function GetPrevPrice()
-    {
-        return $this->fPrevPrice;
-    }
-    
-    function GetPrevPriceString()
     {
         return $this->strPrevPrice;
     }
@@ -288,9 +284,9 @@ class StockReference
     }
     
     // for display
-    function GetPercentageDisplay($fVal)
+    function GetPercentageDisplay($fPrevPrice)
     {
-        return StockGetPercentageDisplay($this->fPrice, $fVal);
+        return StockGetPercentageDisplay($this->fPrice, $fPrevPrice);
     }
     
     function GetCurrentPercentage()
@@ -303,9 +299,9 @@ class StockReference
         return $this->GetPercentageDisplay($this->fPrevPrice);
     }
     
-    function GetPriceDisplay($fVal)
+    function GetPriceDisplay($fPrice)
     {
-        return StockGetPriceDisplay($fVal, $this->fPrevPrice);
+        return StockGetPriceDisplay($fPrice, $this->fPrevPrice);
     }
 
     function GetCurrentPriceDisplay()

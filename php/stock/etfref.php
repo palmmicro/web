@@ -49,6 +49,8 @@ class EtfReference extends MyStockReference
     var $pair_ref;
     var $cny_ref = false;
 
+    var $sql;
+    
     var $fNetValue = 0.0;
     var $fPairNetValue = 0.0;
     var $fCnyValue = 1.0;
@@ -62,7 +64,8 @@ class EtfReference extends MyStockReference
         parent::MyStockReference($strSymbol);
         $strStockId = $this->GetStockId();
        	$this->nv_ref = new NetValueReference($strStockId, $this->GetSym());
-       	if ($strFactorDate = $this->_onCalibration($strStockId))
+        $this->sql = new EtfCalibrationSql($strStockId);
+       	if ($strFactorDate = $this->_onCalibration())
        	{
        		$this->_load_cny_ref($strFactorDate);
        	}
@@ -91,15 +94,15 @@ class EtfReference extends MyStockReference
 		return true;
 	}
     
-	function _insertCalibartion($sql, $strFactorDate)
+	function _insertCalibartion($strFactorDate)
 	{
 		$this->fFactor = $this->fPairNetValue / $this->fNetValue;
-		$sql->Write($strFactorDate, strval($this->fFactor));
+		$this->sql->Write($strFactorDate, strval($this->fFactor));
 	}
 	
-	function _loadCalibartion($sql)
+	function _loadCalibartion()
 	{
-		if ($calibration = $sql->GetNow())
+		if ($calibration = $this->sql->GetNow())
 		{
 			$this->fFactor = floatval($calibration['close']); 
 			$strDate = $calibration['date'];
@@ -113,13 +116,13 @@ class EtfReference extends MyStockReference
         return false;
  	}
 	
-	function _onNormalEtfCalibration($sql)
+	function _onNormalEtfCalibration()
 	{
        	$strDate = $this->nv_ref->strDate;
        	if (empty($strDate) == false)
        	{
         	$this->fNetValue = $this->nv_ref->fPrice;
-        	if ($this->fFactor = $sql->GetClose($strDate))
+        	if ($this->fFactor = $this->sql->GetClose($strDate))
         	{
         		$this->fPairNetValue = $this->pair_nv_ref->sql->GetClose($strDate);
         	}
@@ -127,11 +130,11 @@ class EtfReference extends MyStockReference
         	{
         		if ($this->fPairNetValue = $this->pair_nv_ref->sql->GetClose($strDate))
         		{
-        			$this->_insertCalibartion($sql, $strDate);
+        			$this->_insertCalibartion($strDate);
         		}
         		else
         		{
-        			$strDate = $this->_loadCalibartion($sql);
+        			$strDate = $this->_loadCalibartion();
         		}
         	}
         	return $strDate;
@@ -139,32 +142,31 @@ class EtfReference extends MyStockReference
         return false;
 	}
 	
-	function _onFutureEtfCalibration($sql)
+	function _onFutureEtfCalibration()
 	{
 		if ($this->CheckAdjustFactorTime($this->pair_ref))
 		{
 			$strDate = $this->strDate;
 			$this->fPairNetValue = $this->pair_ref->fPrice;
 			$this->fNetValue = $this->fPrice;
-   			$this->_insertCalibartion($sql, $strDate);
+   			$this->_insertCalibartion($strDate);
    			$this->nv_ref->sql->UpdateNetValue($strDate, $this->fNetValue);
    			$this->pair_nv_ref->sql->UpdateNetValue($strDate, $this->fPairNetValue);
    			return $strDate;
 		}
-		return $this->_loadCalibartion($sql);
+		return $this->_loadCalibartion();
 	}
 	
-	function _onCalibration($strStockId)
+	function _onCalibration()
 	{
-        $sql = new EtfCalibrationSql($strStockId);
-        if ($record = $sql->pair_sql->Get())
+        if ($record = $this->sql->pair_sql->Get())
         {
         	$this->fRatio = floatval($record['ratio']);
 			if ($this->_load_pair_ref($record['pair_id']))
 			{
-				return $this->_onNormalEtfCalibration($sql);
+				return $this->_onNormalEtfCalibration();
 			}
-			return $this->_onFutureEtfCalibration($sql);
+			return $this->_onFutureEtfCalibration();
         }
         return false;
 	}

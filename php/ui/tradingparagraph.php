@@ -15,11 +15,11 @@ function _getTradingNumber($strNumber)
     return strval(intval($fNum));
 }
 
-function _getTradingEstPercentageDisplay($fPrice, $fEstPrice, $strColor)
+function _getTradingEstPercentageDisplay($ref, $fEstPrice, $strColor)
 {
 	if ($fEstPrice)
 	{
-		return GetTableColumnDisplay(StockGetPercentageDisplay($fPrice, $fEstPrice), $strColor);
+		return GetTableColumnDisplay($ref->GetPercentageDisplay($fEstPrice), $strColor);
 	}
 	return '';
 }
@@ -32,18 +32,18 @@ function _echoTradingTableItem($i, $strAskBid, $strPrice, $strQuantity, $ref, $f
     if ($i == 0)    $strColor = 'yellow';
     $strBackGround = GetTableColumnColor($strColor);
     
-    $fPrice = floatval($strPrice);
-    $strPriceDisplay = $ref->GetPriceDisplay($fPrice);
+    $ref->SetCurrentPrice($strPrice);
+    $strPriceDisplay = $ref->GetCurrentPriceDisplay();
     $strTradingNumber = _getTradingNumber($strQuantity);
     
-    $strDisplayEx = _getTradingEstPercentageDisplay($fPrice, $fEstPrice, $strColor);
-    $strDisplayEx .= _getTradingEstPercentageDisplay($fPrice, $fEstPrice2, $strColor);
-    $strDisplayEx .= _getTradingEstPercentageDisplay($fPrice, $fEstPrice3, $strColor);
+    $strDisplayEx = _getTradingEstPercentageDisplay($ref, $fEstPrice, $strColor);
+    $strDisplayEx .= _getTradingEstPercentageDisplay($ref, $fEstPrice2, $strColor);
+    $strDisplayEx .= _getTradingEstPercentageDisplay($ref, $fEstPrice3, $strColor);
 
     $strUserDefined = '';  
-    if ($callback && $fPrice)
+    if ($callback && (empty($strPrice) == false))
     {
-    	$strUserDefined = GetTableColumnDisplay(call_user_func($callback, $bChinese, $fPrice), $strColor);
+    	$strUserDefined = GetTableColumnDisplay(call_user_func($callback, $bChinese, floatval($strPrice)), $strColor);
     }
 
     echo <<<END
@@ -59,6 +59,8 @@ END;
 
 function _echoTradingTableData($ref, $fEstPrice, $fEstPrice2, $fEstPrice3, $callback, $bChinese)
 {
+	$strBackup = $ref->GetCurrentPrice();
+	
 	$strSell = $bChinese ? '卖' : 'Ask ';
     for ($i = TRADING_QUOTE_NUM - 1; $i >= 0; $i --)
     {
@@ -70,6 +72,8 @@ function _echoTradingTableData($ref, $fEstPrice, $fEstPrice2, $fEstPrice3, $call
     {
         _echoTradingTableItem($i, $strBuy.strval($i + 1), $ref->arBidPrice[$i], $ref->arBidQuantity[$i], $ref, $fEstPrice, $fEstPrice2, $fEstPrice3, $callback, $bChinese);
     }
+    
+    $ref->SetCurrentPrice($strBackup);
 }
 
 function _echoTradingParagraph($str, $arColumn, $ref, $bChinese, $fEstPrice = false, $fEstPrice2 = false, $fEstPrice3 = false, $callback = false)

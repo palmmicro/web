@@ -30,7 +30,7 @@ function _echoTestParagraph($group, $bChinese)
 {
     if (AcctIsTest($bChinese))
     {
-        $str = _GetStockConfigDebugString(array($group->ref->pair_ref, $group->us_ref), $bChinese);
+        $str = _GetStockConfigDebugString(array($group->ref->pair_ref), $bChinese);
         EchoParagraph($str);
     }
 }
@@ -60,7 +60,7 @@ function _chinaEtfRefCallback($bChinese, $ref = false)
 	$arFundEst = GetFundEstTableColumn($bChinese);
     return array($arFundEst[7], $arFundEst[1], $arFundEst[2]);
 }
-
+/*
 function _chinaEtfSmaCallback($ref, $fEst = false)
 {
 	if ($fEst)	
@@ -80,17 +80,17 @@ function _chinaEtfIndexSmaCallback($ref, $fEst = false)
 	}
 	return $ref->pair_ref;
 }
-
+*/
 function EchoAll($bChinese = true)
 {
     global $group;
     
     EchoReferenceParagraph($group->arRef, $bChinese, _chinaEtfRefCallback);
     EchoEtfTradingParagraph($group->ref, $bChinese);
-    EchoEtfSmaParagraph($group->us_ref, $bChinese);
-    EchoEtfSmaParagraph($group->ref, $bChinese, '');
-    EchoSmaParagraph($group->us_ref, $bChinese, false, $group->ref, _chinaEtfSmaCallback);
-    EchoSmaParagraph($group->us_ref, $bChinese, '', $group->us_ref, _chinaEtfIndexSmaCallback);
+    EchoEtfSmaParagraph($group->ref, $bChinese);
+    EchoEtfSmaParagraph($group->us_ref, $bChinese, '');
+//    EchoSmaParagraph($group->us_ref, $bChinese, false, $group->ref, _chinaEtfSmaCallback);
+//    EchoSmaParagraph($group->us_ref, $bChinese, '', $group->us_ref, _chinaEtfIndexSmaCallback);
     EchoEtfHistoryParagraph($group->ref, $bChinese);
     EchoEtfHistoryParagraph($group->us_ref, $bChinese);
 
