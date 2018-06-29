@@ -178,10 +178,12 @@ function SqlGetAdrhPair($strSymbolAdr)
 }
 
 // Use GetAllStockId() for all Index matches
+/*
 function SqlGetIndexPair($strIndex)
 {
 	return _sqlGetPair(TABLE_ETF_PAIR, $strIndex, 'GetFirstStockId');
 }
+*/
 
 function SqlGetHaPair($strSymbolH)
 {

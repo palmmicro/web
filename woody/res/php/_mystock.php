@@ -76,7 +76,7 @@ function _getMyStockLinks($sym, $bChinese)
     	}
     	else
     	{
-    		if ($sym->IsTradable() && (SqlGetIndexPair($strSymbol) == false))
+    		if ($sym->IsTradable())
     		{
     			$str .= ' '.GetPhpLink(STOCK_PATH.'editstocketf', true, STOCK_OPTION_ETF_CN, false, $strQuery);
     		}
@@ -148,7 +148,7 @@ function _echoMyStockData($strSymbol, $bChinese)
         _echoMyStockTransactions($strMemberId, $ref, $bChinese);
     }
     
-    if (AcctIsAdmin())
+    if (AcctIsDebug())
     {
      	$str = _getMyStockLinks($sym, $bChinese);
     	if (_hasSmaDisplay($sym))

@@ -129,8 +129,7 @@ function TestCmdLine()
     	$fStart = microtime(true);
     	if ($strSrc == 'yahoo')		
     	{
-    		$str = TestYahooWebData($ref);
-    		YahooUpdateNetValue($strSymbol);
+    		$str = YahooGetWebData($ref);
     	}
     	else if ($strSrc == 'ft')	$str = TestFtStock($strSymbol);
     	else if ($strSrc == 'sina')

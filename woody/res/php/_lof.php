@@ -5,22 +5,27 @@ require_once('_lofgroup.php');
 class _LofUsGroup extends _LofGroup
 {
     var $oil_ref = false;
-    var $es_ref;
+    var $es_ref = false;
     var $usd_ref;
 
     function _LofUsGroup($strSymbol) 
     {
-        $strUSD = 'DINIW';
-        $strES = 'ES';
-        $strOil = false;
         if (LofGetFutureSymbol($strSymbol) == 'CL')	$strOil = 'OIL';
-        $this->GetWebData(LofGetEstSymbol($strSymbol));
+        else											$strOil = false;
+        
+        $strEst = LofGetEstSymbol($strSymbol);
+        if ($strEst == '^GSPC')						$strES = 'ES';
+        else											$strES = false;
+        
+        $this->GetWebData($strEst);
+
+        $strUSD = 'DINIW';
         StockPrefetchArrayData(array_merge($this->GetLeverage(), array($strSymbol, FutureGetSinaSymbol($strOil), FutureGetSinaSymbol($strES), $strUSD)));
         
         $this->cny_ref = new CnyReference('USCNY');	// Always create CNY Forex class instance first!
         $this->ref = new LofReference($strSymbol);
         if ($strOil)	$this->oil_ref = new FutureReference($strOil);
-        $this->es_ref = new FutureReference($strES);
+        if ($strES)	$this->es_ref = new FutureReference($strES);
         $this->usd_ref = new ForexReference($strUSD);
         parent::_LofGroup();
     }

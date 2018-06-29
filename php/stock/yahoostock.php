@@ -294,7 +294,7 @@ function _yahooStockGetData($strSymbol, $strStockId)
     return false;
 }
 
-function TestYahooWebData($ref)
+function YahooGetWebData($ref)
 {
 	date_default_timezone_set(STOCK_TIME_ZONE_US);
     $sym = $ref->GetSym();

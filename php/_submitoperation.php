@@ -4,31 +4,25 @@ require_once('stock.php');
 
 function _onManualCalibrtion($strSymbol)
 {
-    StockPrefetchData($strSymbol);
+DebugHere();
+	StockPrefetchData($strSymbol);
    	$ref = new EtfReference($strSymbol);
-	$str = TestYahooWebData($ref);
-	DebugString($str);
-//	$strStockId = $ref->GetStockId();
-//    $sql = new EtfCalibrationSql($strStockId);
-	DebugHere();
+   	$ar = explode(' ', YahooGetWebData($ref));
+   	$strNav = $ar[0];
+   	$strDate = $ar[2];
+	$ref->nv_ref->sql->Write($strDate, $strNav);
+DebugHere();
     if ($ref->GetPairSym())
     {
-	DebugHere(10);
-    	$ar = explode(' ', $str);
-    	$strNav = $ar[0];
-    	$strDate = $ar[2];
-//    	$pair_nav_sql = new FundHistorySql($strPairId);
+DebugHere(10);
     	if ($fPairNav = $ref->pair_nv_ref->sql->GetClose($strDate))
     	{
-	DebugHere(20);
-    		DebugVal($fPairNav, 'Pair Nav');
-//    		$nav_sql = new FundHistorySql($strStockId);
-    		$ref->nv_ref->sql->Write($strDate, $strNav);
-	DebugHere();
+DebugHere(20);
     		$ref->sql->Write($strDate, strval($fPairNav / floatval($strNav)));
         }
+DebugHere();
     }
-	DebugHere();
+DebugHere();
 }
 
     AcctNoAuth();

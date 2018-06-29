@@ -159,28 +159,28 @@ function _updateStockOptionEtf($strSymbol, $strVal)
 		$strSymbol = UrlCleanString($_POST['symbol']);
 		$strDate = UrlCleanString($_POST['date']);
 		$strVal = UrlCleanString($_POST['val']);
-   		$bAdmin = AcctIsAdmin();
+   		$bTest = AcctIsDebug();
 		$strSubmit = $_POST['submit'];
 		$strStockId = SqlGetStockId($strSymbol);
 		if ($strSubmit == STOCK_OPTION_ADJCLOSE_CN)
 		{
-			if ($bAdmin)	_updateStockHistoryAdjCloseByDividend($strSymbol, $strDate, $strVal);
+			if ($bTest)	_updateStockHistoryAdjCloseByDividend($strSymbol, $strDate, $strVal);
 		}
 		else if ($strSubmit == STOCK_OPTION_ADR_CN)
 		{
-			if ($bAdmin)	_updateStockOptionAdr($strSymbol, $strVal);
+			if ($bTest)	_updateStockOptionAdr($strSymbol, $strVal);
 		}
 		else if ($strSubmit == STOCK_OPTION_EMA_CN)
 		{
-			if ($bAdmin)	_updateStockOptionEma($strSymbol, $strStockId, $strDate, $strVal);
+			if ($bTest)	_updateStockOptionEma($strSymbol, $strStockId, $strDate, $strVal);
 		}
 		else if ($strSubmit == STOCK_OPTION_ETF_CN)
 		{
-			if ($bAdmin)	_updateStockOptionEtf($strSymbol, $strVal);
+			if ($bTest)	_updateStockOptionEtf($strSymbol, $strVal);
 		}
 		else if ($strSubmit == STOCK_OPTION_EDIT_CN || $strSubmit == STOCK_OPTION_EDIT)
 		{
-			if ($bAdmin)	_updateStockDescription($strSubmit, $strSymbol, $strVal);
+			if ($bTest)	_updateStockDescription($strSubmit, $strSymbol, $strVal);
 		}
 		else if ($strSubmit == STOCK_OPTION_REVERSESPLIT_CN || $strSubmit == STOCK_OPTION_REVERSESPLIT)
 		{

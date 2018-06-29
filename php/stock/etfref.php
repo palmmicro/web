@@ -89,6 +89,10 @@ class EtfReference extends MyStockReference
 		else
 		{
 			$this->pair_nv_ref = new IndexReference($strSymbol, $sym);
+			if ($this->pair_nv_ref->HasData() == false)
+			{
+				$this->pair_nv_ref = new NetValueReference($strStockId, $sym);
+			}
 			$this->pair_ref = $this->pair_nv_ref;
 		}
 		return true;

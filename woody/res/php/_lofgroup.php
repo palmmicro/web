@@ -45,17 +45,25 @@ class _LofGroup extends _StockGroup
     {
         GetChinaMoney();
         YahooUpdateNetValue($strEstSymbol);
-        
-//        $this->arLeverage = array();
+
         $sql = new PairStockSql(SqlGetStockId($strEstSymbol), TABLE_ETF_PAIR);
+        if ($strPairId = $sql->GetPairId())
+        {
+        	if ($strSymbol = SqlGetStockSymbol($strPairId))
+        	{
+        		// DebugString($strSymbol.'=>'.$strEstSymbol);
+        		YahooUpdateNetValue($strSymbol);
+        	}
+        }
+        
         $ar = $sql->GetAllStockId();
         foreach ($ar as $strStockId)
         {
         	if ($strSymbol = SqlGetStockSymbol($strStockId))
         	{
+        		// DebugString($strEstSymbol.'=>'.$strSymbol);
         		$this->arLeverage[] = $strSymbol;
         		YahooUpdateNetValue($strSymbol);
-//        		DebugString($strSymbol);
         	}
         }
     }
