@@ -47,7 +47,7 @@ function _echoNavCloseItem($csv, $strDate, $fNetValue, $ref, $strFundId)
     	$fPremium = 0.0;
     	$strPremium = '';
     }
-	$csv->WriteArray(array($strDate, $strNetValue, strval($fChange), strval($fPremium)));
+	$csv->Write($strDate, $strNetValue, strval($fChange), strval($fPremium));
     
     if ($strFundId)
     {
@@ -89,13 +89,15 @@ function _echoNavCloseData($sql, $ref, $iStart, $iNum, $bTest)
 
 function _echoNavCloseParagraph($strSymbol, $strStockId, $iStart, $iNum, $bChinese)
 {
+	$sql = new FundHistorySql($strStockId);
+	$iTotal = $sql->Count();
+	if ($iTotal == 0)		return;
+    $strNavLink = StockGetNavLink($strSymbol, $iTotal, $iStart, $iNum, $bChinese);
+
     // StockPrefetchData($strSymbol);
     $ref = new MyStockReference($strSymbol);
     $arColumn = GetFundHistoryTableColumn($ref, $bChinese);
     
-	$sql = new FundHistorySql($strStockId);
-    $strNavLink = StockGetNavLink($strSymbol, $sql->Count(), $iStart, $iNum, $bChinese);
-
     echo <<<END
     <p>$strNavLink
     <TABLE borderColor=#cccccc cellSpacing=0 width=500 border=1 class="text" id="navclosehistory">

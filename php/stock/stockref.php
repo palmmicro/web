@@ -218,8 +218,11 @@ class StockReference
     
     function _convertPrice()
     {
-        $this->fPrice = floatval($this->strPrice); 
+        $this->fPrice = floatval($this->strPrice);
+        $this->strPrice = strval($this->fPrice);
+        
         $this->fPrevPrice = floatval($this->strPrevPrice);
+        $this->strPrevPrice = strval($this->fPrevPrice);
     }
     
     function SetPrice($strPrevPrice, $strPrice = false)
@@ -283,10 +286,35 @@ class StockReference
         return $this->sym;
     }
     
+    // for weixin text
+    function GetPriceText($fVal)
+    {
+        return round_display($fVal);
+    }
+
+    function GetPercentageText($fPrevPrice)
+    {
+    	if (empty($fPrevPrice))		return '';
+    
+   		$fPercentage = StockGetPercentage($this->fPrice, $fPrevPrice);
+   		return strval(round($fPercentage, 2)).'%';
+    }
+    
     // for display
     function GetPercentageDisplay($fPrevPrice)
     {
-        return StockGetPercentageDisplay($this->fPrice, $fPrevPrice);
+    	if (abs($this->fPrice - $fPrevPrice) < 0.0005)
+    	{
+    		$strDisplay = '0';
+    		$strColor = 'grey';
+    	}
+    	else
+    	{
+    		$strDisplay = $this->GetPercentageText($fPrevPrice);
+    		if (substr($strDisplay, 0, 1) == '-')	$strColor = 'red';
+    		else                                   		$strColor = 'black';
+    	}
+    	return "<font color=$strColor>$strDisplay</font>";
     }
     
     function GetCurrentPercentage()
@@ -309,17 +337,6 @@ class StockReference
         return $this->GetPriceDisplay($this->fPrice);
     }
 
-    // for weixin text
-    function GetPriceText($fVal)
-    {
-        return round_display($fVal);
-    }
-
-    function GetPercentageText($fVal)
-    {
-    	return StockGetPercentageText($this->fPrice, $fVal);
-    }
-    
     function ConvertDateTime($iTime, $strTimeZone)
     {
         list($this->strDate, $this->strTime) = explodeDateTime($iTime, $strTimeZone);

@@ -25,12 +25,12 @@ class CsvFile
     	}
     }
     
-    function WriteArray($ar)
+    function Write()
     {
     	$this->_open('w');
     	
     	$strLine = '';
-    	foreach ($ar as $str)
+    	foreach (func_get_args() as $str)
     	{
     		$strLine .= $str.',';
     	}

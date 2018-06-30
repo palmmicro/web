@@ -345,7 +345,11 @@ function _yahooNetValueHasFile($now_ymd, $strFileName, $strNetValueSymbol)
 function _yahooGetNetValueSymbol($strSymbol)
 {
     $sym = new StockSymbol($strSymbol);
-    if ($sym->IsSymbolA() || $sym->IsSymbolH())
+    if ($sym->IsSinaFuture())
+    {
+    	return false;
+    }
+    else if ($sym->IsSymbolA() || $sym->IsSymbolH())
     {
     	return false;
     }

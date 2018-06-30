@@ -1,22 +1,22 @@
 <?php
 require_once('stocktable.php');
 
-function _echoFundHistoryTableItem($csv, $strDate, $fNetValue, $fClose, $arFund, $ref)
+function _echoFundHistoryTableItem($csv, $strDate, $arFund, $ref, $est_ref)
 {
-    $strNetValue = strval($fNetValue);
-    $strClose = StockGetPriceDisplay($fClose, $fNetValue);
-    $strPremium = StockGetPercentageDisplay($fClose, $fNetValue);
+    $strNetValue = $ref->GetPrevPrice();
+    $strClose = $ref->GetCurrentPriceDisplay();
+    $strPremium = $ref->GetCurrentPercentageDisplay();
     if ($csv)
     {
-    	$csv->WriteArray(array($strDate, $strNetValue, strval(StockGetPercentage($fClose, $fNetValue))));
+    	$csv->Write($strDate, $strNetValue, strval($ref->GetCurrentPercentage()));
     }
     
     $strPairClose = ''; 
     $strPairChange = '';
-    if ($ref)
+    if ($est_ref)
     {
-        $strPairClose = $ref->GetCurrentPriceDisplay();
-        $strPairChange = $ref->GetCurrentPercentageDisplay();
+        $strPairClose = $est_ref->GetCurrentPriceDisplay();
+        $strPairChange = $est_ref->GetCurrentPercentageDisplay();
     }
 
     $fEstValue = floatval($arFund['estimated']);
@@ -28,16 +28,9 @@ function _echoFundHistoryTableItem($csv, $strDate, $fNetValue, $fClose, $arFund,
     }
     else
     {
-        $fPercentage = StockGetEstErrorPercentage($fEstValue, $fNetValue);
-        if (empty($fPercentage))
-        {
-            $strEstError = '<font color=grey>0</font>'; 
-        }
-        else
-        {
-            $strEstError = StockGetPercentageDisplay($fEstValue, $fNetValue);
-        }
-        $strEstValue = StockGetPriceDisplay($fEstValue, $fClose);
+        $ref->SetCurrentPrice($strNetValue);
+        $strEstError = $ref->GetPercentageDisplay($fEstValue);
+        $strEstValue = $ref->GetPriceDisplay($fEstValue);
         $strEstTime = $arFund['time'];
     }
     
@@ -56,9 +49,10 @@ function _echoFundHistoryTableItem($csv, $strDate, $fNetValue, $fClose, $arFund,
 END;
 }
 
-function _echoHistoryTableData($sql, $csv, $est_ref, $iStart, $iNum)
+function _echoHistoryTableData($sql, $csv, $ref, $est_ref, $iStart, $iNum)
 {
-	$clone_ref = false;
+	$clone_ref = clone $ref;
+	$clone_est_ref = false;
 	if ($est_ref)
 	{
 		$sym = $est_ref->GetSym();
@@ -67,7 +61,7 @@ function _echoHistoryTableData($sql, $csv, $est_ref, $iStart, $iNum)
 		else								$bSameDayNetValue	 = true;
 		
 		$est_sql = new StockHistorySql($est_ref->GetStockId());
-		$clone_ref = clone $est_ref;
+		$clone_est_ref = clone $est_ref;
 	}
 	
     if ($result = $sql->GetAll($iStart, $iNum)) 
@@ -88,7 +82,8 @@ function _echoHistoryTableData($sql, $csv, $est_ref, $iStart, $iNum)
             
         		if ($arStock = $sql->stock_sql->Get($strDate))
         		{
-        			_echoFundHistoryTableItem($csv, $strDate, $fNetValue, floatval($arStock['close']), $arFund, RefGetDailyClose($clone_ref, $est_sql, $arFund['date']));
+       				$clone_ref->SetPrice(strval($fNetValue), $arStock['close']);
+        			_echoFundHistoryTableItem($csv, $strDate, $arFund, $clone_ref, RefGetDailyClose($clone_est_ref, $est_sql, $arFund['date']));
         		}
         	}
         }
@@ -142,7 +137,7 @@ function _echoFundHistoryParagraph($ref, $est_ref, $bChinese, $strDisplay = '', 
 
     EchoParagraphBegin($str.' '.$strNavLink.' '.$strDisplay);
     _echoFundHistoryTableBegin($arColumn);
-    _echoHistoryTableData($sql, $csv, $est_ref, $iStart, $iNum);
+    _echoHistoryTableData($sql, $csv, $ref, $est_ref, $iStart, $iNum);
     EchoTableParagraphEnd($strNavLink);
 }
 

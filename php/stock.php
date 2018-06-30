@@ -213,42 +213,12 @@ function GetRatioDisplay($fVal)
 
 function StockGetPercentage($fPrice, $fPrice2)
 {
-    $fPercentage = ($fPrice/$fPrice2 - 1.0) * 100.0;
-    return round($fPercentage, 2);
-}
-
-function StockGetPercentageText($fPrice, $fPrice2)
-{
-    if (empty($fPrice2))		return '';
-    
-    $fPercentage = StockGetPercentage($fPrice, $fPrice2);
-    return strval($fPercentage).'%';
-}
-
-function StockGetPercentageDisplay($fPrice, $fPrice2)
-{
-    if (empty($fPrice2) || empty($fPrice))	return '';
-
-    $fPercentage = StockGetPercentage($fPrice, $fPrice2);
-    if ($fPercentage > MIN_FLOAT_VAL)    $strColor = 'black';
-    else                                   $strColor = 'red';
-    
-    $str = strval($fPercentage);
-    return "<font color=$strColor>$str%</font>";
-}
-
-function StockGetEstErrorPercentage($fEstValue, $fNetValue)
-{
-    if (abs($fEstValue - $fNetValue) < 0.0005)
-    {
-        return 0.0;
-    }
-	return StockGetPercentage($fEstValue, $fNetValue);
+    return ($fPrice/$fPrice2 - 1.0) * 100.0;
 }
 
 function StockCompareEstResult($strSymbol, $strNetValue, $strEstValue)
 {
-    $fPercentage = StockGetEstErrorPercentage(floatval($strEstValue), floatval($strNetValue));
+    $fPercentage = StockGetPercentage(floatval($strEstValue), floatval($strNetValue));
     if (abs($fPercentage) > 1.0)
     {
         $strLink = GetNetValueHistoryLink($strSymbol);

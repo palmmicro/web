@@ -136,7 +136,7 @@ function _echoMyStockData($strSymbol, $bChinese)
     }
     
     if ($etf_ref)   			EchoEtfSmaParagraph($etf_ref, $bChinese);
-    else if (_hasSmaDisplay($sym))
+    if (_hasSmaDisplay($sym))
     {
     	if ($hshare_ref)		EchoHShareSmaParagraph($ref, $hshare_ref, $bChinese);
     	else	        		EchoSmaParagraph($ref, $bChinese);
