@@ -297,7 +297,7 @@ class StockReference
     	if (empty($fPrevPrice))		return '';
     
    		$fPercentage = StockGetPercentage($this->fPrice, $fPrevPrice);
-   		return strval(round($fPercentage, 2)).'%';
+   		return strval_round($fPercentage).'%';
     }
     
     // for display

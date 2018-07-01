@@ -20,6 +20,11 @@ function strval_float($str)
 	return strval(floatval($str));
 }
 
+function strval_round($fVal, $iPrecision = 2)
+{
+	return strval(round($fVal, $iPrecision));
+}
+
 function unlinkEmptyFile($strFileName)
 {
     if (!unlink($strFileName))
@@ -66,7 +71,7 @@ function DebugGetFileTimeDisplay($strPathName)
 
 function DebugGetStopWatchDisplay($fStop, $fStart)
 {
-    return ' ('.strval(round($fStop - $fStart, 2)).'s)';
+    return ' ('.strval_round($fStop - $fStart).'s)';
 }
 
 function _checkDebugPath()

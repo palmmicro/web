@@ -63,7 +63,12 @@ function _SqlBuildWhereAndArray($arVal)
     }
     return false;
 }
-
+/*
+function _SqlBuildWhereAnd()
+{
+    return _SqlBuildWhereAndArray(func_get_args());
+}
+*/
 function _SqlBuildWhere_stock_member($strStockId, $strMemberId)
 {
 	return _SqlBuildWhereAndArray(array('stock_id' => $strStockId, 'member_id' => $strMemberId));

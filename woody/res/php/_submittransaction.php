@@ -66,7 +66,7 @@ function _getStockCost()
 	    $fTax = floatval($_POST['quantity']) * floatval($_POST['price']) * floatval($_POST['tax']) / 1000.0;
 	}
 	
-	return strval(round($fCommission + $fTax, 3));
+	return strval_round($fCommission + $fTax, 3);
 }
 
 function _canModifyStockTransaction($strGroupItemId)

@@ -91,7 +91,6 @@ function test_stock_dividend()
 
             $fDividendRate = 0.0;
             if ($fDividend > 0.0 && $fPrice > 0.0)   $fDividendRate = $fDividend / $fPrice;
-//            DebugString($strSymbol.' '.$arData['trade'].' '.$arData['per'].' '.strval(round($fDividendRate, 4)));
             $arOutput[$strSymbol] = $fDividendRate; 
         }
     }
@@ -102,7 +101,7 @@ function test_stock_dividend()
     foreach ($arOutput as $strSymbol => $fDividendRate)
     {
         $arData = $arSymbolData[$strSymbol];
-        DebugString($strSymbol.' '.$arData['name'].' '.$arData['trade'].' '.$arData['changepercent'].' '.$arData['ticktime'].' '.$arData['pb'].' '.$arData['per'].' '.strval(round($fDividendRate, 4)));
+        DebugString($strSymbol.' '.$arData['name'].' '.$arData['trade'].' '.$arData['changepercent'].' '.$arData['ticktime'].' '.$arData['pb'].' '.$arData['per'].' '.strval_round($fDividendRate, 4));
     }
 }
 

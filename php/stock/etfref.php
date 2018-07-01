@@ -4,9 +4,11 @@
 class NetValueReference extends StockReference
 {
 	var $sql;
+	var $strStockId;
 	
     function NetValueReference($strStockId, $sym) 
     {
+    	$this->strStockId = $strStockId;
        	$this->sql = new FundHistorySql($strStockId);
         if ($sym->IsFundA())
         {
@@ -26,6 +28,11 @@ class NetValueReference extends StockReference
         		StockCompareEstResult($sym->GetSymbol(), $strNetValue, $strEstValue);
         	}
         }
+    }
+    
+    function GetStockId()
+    {
+    	return $this->strStockId;
     }
 }
 

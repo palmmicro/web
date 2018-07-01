@@ -55,10 +55,13 @@ function _echoHistoryTableData($sql, $csv, $ref, $est_ref, $iStart, $iNum)
 	$clone_est_ref = false;
 	if ($est_ref)
 	{
+		$bSameDayNetValue	 = true;
 		$sym = $est_ref->GetSym();
-		if ($sym->IsSinaFuture())			$bSameDayNetValue	 = true;
-		else if ($sym->IsSymbolUS())		$bSameDayNetValue	 = false;
-		else								$bSameDayNetValue	 = true;
+		if ($sym->IsSinaFuture())			{}
+		else if ($sym->IsSymbolUS())
+		{
+			if ($ref->IsSymbolA())		$bSameDayNetValue	 = false;
+		}
 		
 		$est_sql = new StockHistorySql($est_ref->GetStockId());
 		$clone_est_ref = clone $est_ref;

@@ -12,10 +12,10 @@ function EchoChineseHoldResult($strOldSZ162411, $strOldXOP, $strSZ162411, $strXO
     $multi->fUSD = (floatval($strXOP) - floatval($strOldXOP)) * intval($strQuantityXOP);
     $multi->Convert(floatval($strUSCNY));
     
-    $strRMB = strval(round($multi->fCNY, 2));
-    $strUSD = strval(round($multi->fUSD, 2));
-    $strConvertRMB = strval(round($multi->fConvertCNY, 2));
-    $strConvertUSD = strval(round($multi->fConvertUSD, 2));
+    $strRMB = strval_round($multi->fCNY);
+    $strUSD = strval_round($multi->fUSD);
+    $strConvertRMB = strval_round($multi->fConvertCNY);
+    $strConvertUSD = strval_round($multi->fConvertUSD);
     
     echo <<<END
     <ol>

@@ -8,7 +8,7 @@ class _NavCloseCsvFile extends PricePoolCsvFile
 {
     function OnLineArray($arWord)
     {
-    	$this->pool->OnData(floatval($arWord[2]), floatval($arWord[3]));
+    	$this->pool->OnData(floatval($arWord[1]), floatval($arWord[2]));
     }
 }
 
@@ -23,8 +23,8 @@ function _echoNavCloseGraph($strSymbol, $bChinese)
 {
    	$csv = new PageCsvFile();
     $jpg = new PageImageFile();
-    $jpg->DrawDateArray($csv->ReadColumn(3));
-    $jpg->DrawCompareArray($csv->ReadColumn(1));
+    $jpg->DrawDateArray($csv->ReadColumn(2));
+    $jpg->DrawCompareArray($csv->ReadColumn(3));
 	$strPremium = $bChinese ? '溢价' : 'Premium';
     $jpg->Show($strPremium, $strSymbol, $csv->GetPathName());
 }
@@ -37,17 +37,8 @@ function _echoNavCloseItem($csv, $strDate, $fNetValue, $ref, $strFundId)
     $strNetValue = strval($fNetValue);
 	$ref->SetPrice($strNetValue);
     $strClose = $ref->GetCurrentPriceDisplay();
-    if (abs($ref->fPrice - $fNetValue) > 0.005)
-    {
-    	$fPremium = $ref->GetCurrentPercentage();
-    	$strPremium = $ref->GetCurrentPercentageDisplay();
-    }
-    else
-    {
-    	$fPremium = 0.0;
-    	$strPremium = '';
-    }
-	$csv->Write($strDate, $strNetValue, strval($fChange), strval($fPremium));
+   	$strPremium = $ref->GetCurrentPercentageDisplay();
+	$csv->Write($strDate, strval($fChange), strval($ref->GetCurrentPercentage()), $strNetValue);
     
     if ($strFundId)
     {

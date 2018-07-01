@@ -126,7 +126,7 @@ class PageImageFile extends ImageFile
     
     function _textDateVal($x, $y, $strDate, $fVal)
     {
-		return $this->Text($x, $y, substr($strDate, 2).' '.strval($fVal));
+		return $this->Text($x, $y, substr($strDate, 2).' '.strval_round($fVal));
     }
     
     function _getVertialPos($fVal, $fMax, $fMin)

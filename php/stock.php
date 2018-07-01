@@ -375,9 +375,9 @@ function StockPrefetchArrayData($ar)
     PrefetchSinaStockData(array_unique($arAll));
 }
 
-function StockPrefetchData($strSymbol)
+function StockPrefetchData()
 {
-    StockPrefetchArrayData(array($strSymbol));
+    StockPrefetchArrayData(func_get_args());
 }
 
 function StockGetFundReference($strSymbol)

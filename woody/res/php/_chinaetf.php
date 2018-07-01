@@ -15,7 +15,7 @@ class _ChinaEtfGroup extends _StockGroup
     function _ChinaEtfGroup($strSymbol) 
     {
     	$strUS = 'ASHR';
-        StockPrefetchArrayData(array($strSymbol, $strUS));
+        StockPrefetchData($strSymbol, $strUS);
         GetChinaMoney();
         YahooUpdateNetValue($strUS);
 
