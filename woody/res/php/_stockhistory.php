@@ -39,12 +39,14 @@ function _echoStockHistoryParagraph($strSymbol, $strStockId, $iStart, $iNum, $bA
     if ($bChinese)  $arColumn = array('日期', '开盘价', '最高', '最低', '收盘价', '成交量', '复权收盘价');
     else              $arColumn = array('Date', 'Open', 'High', 'Low', 'Close', 'Volume', 'Adj Close');
     
+    $strLinks = GetMyStockLink($strSymbol, $bChinese);
+	if (SqlGetEtfPair($strSymbol))	$strLinks .= ' '.GetNavCloseHistoryLink($strSymbol, $bChinese);
+	
     $sym = new StockSymbol($strSymbol);
-    if ($sym->IsIndexA())		$strLinks = GetSinaStockHistoryLink($sym, $bChinese);
-    else				        $strLinks = GetYahooStockHistoryLink($sym, $bChinese);
+    if ($sym->IsStockA())				$strLinks .= ' '.GetSinaStockDividendLink($strSymbol, $bChinese);
     
-    if ($sym->IsStockA())		$strLinks .= ' '.GetSinaStockDividendLink($strSymbol, $bChinese);
-	if ($sym->IsEtf())		$strLinks .= ' '.GetNavCloseHistoryLink($strSymbol, $bChinese);
+    if ($sym->IsIndexA())				$strLinks .= ' '.GetSinaStockHistoryLink($sym, $bChinese);
+    else				        		$strLinks .= ' '.GetYahooStockHistoryLink($sym, $bChinese);
     
     if ($bAdmin)
     {
@@ -54,8 +56,7 @@ function _echoStockHistoryParagraph($strSymbol, $strStockId, $iStart, $iNum, $bA
 
 	$sql = new StockHistorySql($strStockId);
     $strNavLink = StockGetNavLink($strSymbol, $sql->Count(), $iStart, $iNum, $bChinese);
-    $strSymbolLink = GetMyStockLink($strSymbol, $bChinese);
-    EchoParagraphBegin($strSymbolLink.' '.$strNavLink.' '.$strLinks);
+    EchoParagraphBegin($strNavLink.' '.$strLinks);
     echo <<<END
     <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="history">
     <tr>
