@@ -1,7 +1,5 @@
 <?php
 require_once('debug.php');
-//require_once('email.php');
-//require_once('account.php');
 require_once('stock.php');
 require_once('stock/ftstock.php');
 require_once('stock/marketwatch.php');

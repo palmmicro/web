@@ -6,6 +6,7 @@ require_once('/php/ui/referenceparagraph.php');
 require_once('/php/ui/tradingparagraph.php');
 require_once('/php/ui/fundhistoryparagraph.php');
 require_once('/php/ui/etfsmaparagraph.php');
+require_once('/php/ui/etfparagraph.php');
 
 class _ChinaEtfGroup extends _StockGroup
 {
@@ -86,6 +87,7 @@ function EchoAll($bChinese = true)
     global $group;
     
     EchoReferenceParagraph($group->arRef, $bChinese, _chinaEtfRefCallback);
+    EchoEtfListParagraph(array($group->ref, $group->us_ref), $bChinese);
     EchoEtfTradingParagraph($group->ref, $bChinese);
     EchoEtfSmaParagraph($group->ref, $bChinese);
     EchoEtfSmaParagraph($group->us_ref, $bChinese, '');

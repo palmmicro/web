@@ -34,7 +34,7 @@ function _echoStockHistoryData($sql, $iStart, $iNum)
     }
 }
 
-function _echoStockHistoryParagraph($strSymbol, $strStockId, $iStart, $iNum, $bAdmin, $bChinese)
+function _echoStockHistoryParagraph($strSymbol, $strStockId, $iStart, $iNum, $bTest, $bChinese)
 {
     if ($bChinese)  $arColumn = array('日期', '开盘价', '最高', '最低', '收盘价', '成交量', '复权收盘价');
     else              $arColumn = array('Date', 'Open', 'High', 'Low', 'Close', 'Volume', 'Adj Close');
@@ -48,7 +48,7 @@ function _echoStockHistoryParagraph($strSymbol, $strStockId, $iStart, $iNum, $bA
     if ($sym->IsIndexA())				$strLinks .= ' '.GetSinaStockHistoryLink($sym, $bChinese);
     else				        		$strLinks .= ' '.GetYahooStockHistoryLink($sym, $bChinese);
     
-    if ($bAdmin)
+    if ($bTest)
     {
         $strLinks .= ' '.GetOnClickLink(STOCK_PHP_PATH.'_submithistory.php?id='.$strStockId, $bChinese ? '确认更新股票历史记录?' : 'Confirm update stock history?', $bChinese ? '更新历史记录' : 'Update History');
         $strLinks .= ' '.SqlCountTableDataString(TABLE_STOCK_HISTORY);
@@ -82,9 +82,9 @@ function EchoAll($bChinese = true)
     	{
     		$iStart = UrlGetQueryInt('start');
     		$iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
-    		$bAdmin = AcctIsAdmin();
-    		_echoStockHistoryParagraph($strSymbol, $strStockId, $iStart, $iNum, $bAdmin, $bChinese);
-    		if ($bAdmin && $bChinese && $iStart == 0)
+    		$bTest = AcctIsTest($bChinese);
+    		_echoStockHistoryParagraph($strSymbol, $strStockId, $iStart, $iNum, $bTest, $bChinese);
+    		if ($bTest && $iStart == 0)
     		{
 				StockOptionEditForm(STOCK_OPTION_ADJCLOSE_CN);
     		}
