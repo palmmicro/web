@@ -1,19 +1,14 @@
 <?php
 require_once('referenceparagraph.php');
 
-function _getSortHLink($strSort, $bChinese)
+function _getSortHLink($bChinese)
 {
-    $strSortQuery = 'sort='.$strSort;
-    if ($strQuery = UrlGetQueryString())
-    {
-    	$strQuery .= '&'.$strSortQuery;
-    }
-    else
-    {
-    	$strQuery = $strSortQuery;
-    }
-    
-    return CopyPhpLink($strQuery, $bChinese, '按H股排序', 'Sort by H');
+    return CopyPhpLink(UrlAddQuery('sort=hshare'), $bChinese, '按H股排序', 'Sort by H');
+}
+
+function _getSortRatioLink($bChinese)
+{
+	return CopyPhpLink(UrlAddQuery('sort=ratio'), $bChinese, '按比价排序', 'Sort by Ratio');
 }
 
 function _selectAhCompareLink($strSymbol, $bChinese)
@@ -47,6 +42,26 @@ function _ahStockRefCallback($bChinese, $ref = false)
     return GetAhCompareTableColumn($bChinese);
 }
 
+function _refSortByRatio($arRef)
+{
+    $ar = array();
+    $arRatio = array();
+    foreach ($arRef as $ref)
+    {
+        $strSymbol = $ref->GetStockSymbol();
+        $ar[$strSymbol] = $ref;
+        $arRatio[$strSymbol] = $ref->GetAhRatio();
+    }
+    asort($arRatio, SORT_NUMERIC);
+    
+    $arSort = array();
+    foreach ($arRatio as $strSymbol => $fRatio)
+    {
+        $arSort[] = $ar[$strSymbol];
+    }
+    return $arSort;
+}
+
 function EchoAhParagraph($arRef, $bChinese)
 {
 	$str = GetAhCompareLink($bChinese);
@@ -59,14 +74,19 @@ function EchoAhParagraph($arRef, $bChinese)
 	{
 		if ($strSort = UrlGetQueryValue('sort'))
 		{
-			if ($strSort == 'ha')
+			if ($strSort == 'hshare')
 			{
 				$arRef = RefSortBySymbol($arRef);
+			}
+			else if ($strSort == 'ratio')
+			{
+				$arRef = _refSortByRatio($arRef);
 			}
 		}
 		else
 		{
-			$str .= ' '._getSortHLink('ha', $bChinese);
+			$str .= ' '._getSortHLink($bChinese);
+			$str .= ' '._getSortRatioLink($bChinese);
 		}
 	}
     EchoReferenceParagraph($arRef, $bChinese, _ahStockRefCallback, $str);
@@ -114,14 +134,14 @@ function EchoAdrhParagraph($arRef, $bChinese)
 	{
 		if ($strSort = UrlGetQueryValue('sort'))
 		{
-			if ($strSort == 'hadr')
+			if ($strSort == 'hshare')
 			{
 				$arRef = RefSortBySymbol($arRef);
 			}
 		}
 		else
 		{
-			$str .= ' '._getSortHLink('hadr', $bChinese);
+			$str .= ' '._getSortHLink($bChinese);
 		}
 	}
     EchoReferenceParagraph($arRef, $bChinese, _adrhStockRefCallback, $str);

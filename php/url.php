@@ -128,6 +128,15 @@ function UrlPassQuery()
 	return $strPassQuery;
 }
 
+function UrlAddQuery($strAdd)
+{
+    if ($strQuery = UrlGetQueryString())
+    {
+    	return $strQuery.'&'.$strAdd;
+    }
+    return $strAdd;
+}
+
 function filter_valid_ip($strIp)
 {
     return filter_var($strIp, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 | FILTER_FLAG_NO_PRIV_RANGE);

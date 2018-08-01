@@ -72,6 +72,7 @@ function _getMyStockLinks($sym, $bChinese)
     	}
     	if ($sym->IsSymbolH())
     	{
+    		$str .= ' '.GetPhpLink(STOCK_PATH.'editstockah', true, STOCK_OPTION_AH_CN, false, $strQuery);
     		$str .= ' '.GetPhpLink(STOCK_PATH.'editstockadr', true, STOCK_OPTION_ADR_CN, false, $strQuery);
     	}
     	else

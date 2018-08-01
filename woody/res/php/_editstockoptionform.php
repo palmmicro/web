@@ -6,6 +6,7 @@ require_once('/php/ui/htmlelement.php');
 define('STOCK_OPTION_ADJCLOSE_CN', '根据分红更新复权收盘价');
 
 define('STOCK_OPTION_ADR_CN', '修改港股对应ADR代码');
+define('STOCK_OPTION_AH_CN', '修改H股对应A股代码');
 define('STOCK_OPTION_ETF_CN', '修改ETF对应跟踪代码');
 define('STOCK_OPTION_EMA_CN', '修改200/50天EMA');
 
@@ -74,6 +75,19 @@ function _getStockOptionAdr($strSymbol)
 	return 'ADR/100';
 }
 
+function _getStockOptionAh($strSymbol)
+{
+	if ($strA = SqlGetHaPair($strSymbol))
+	{
+		if ($fRatio = SqlGetStockPairRatio(TABLE_AH_STOCK, SqlGetStockId($strA)))
+		{
+			return $strA.'/'.strval($fRatio);
+		}
+		return $strA;
+	}
+	return 'A/1';
+}
+
 function _getStockOptionEtf($strSymbol)
 {
 	SqlCreateStockPairTable(TABLE_ETF_PAIR);
@@ -115,6 +129,10 @@ function _getStockOptionVal($strSubmit, $strSymbol, $strStockId, $strDate)
 	{
 		return _getStockOptionAdr($strSymbol);
 	}
+	else if ($strSubmit == STOCK_OPTION_AH_CN)
+	{
+		return _getStockOptionAh($strSymbol);
+	}
 	else if ($strSubmit == STOCK_OPTION_EMA_CN)
 	{
 		return _getStockOptionEma($strStockId, $strDate);
@@ -147,6 +165,10 @@ function _getStockOptionMemo($strSubmit)
 	else if ($strSubmit == STOCK_OPTION_ETF_CN)
 	{
 		return '输入INDEX*0删除对应关系和全部校准记录.';
+	}
+	else if ($strSubmit == STOCK_OPTION_ADR_CN || $strSubmit == STOCK_OPTION_AH_CN)
+	{
+		return '输入SYMBOL/0删除对应关系.';
 	}
 	return '';
 }

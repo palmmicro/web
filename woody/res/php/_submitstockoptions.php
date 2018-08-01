@@ -66,7 +66,7 @@ function _updateFundPurchaseAmount($strEmail, $strSymbol, $strVal)
 	}
 }
 
-function _updateStockOptionAdr($strSymbol, $strVal)
+function _updateStockOptionAdr($strSymbol, $strVal, $strTable = TABLE_ADRH_STOCK)
 {
 	if (strstr($strVal, '/'))
 	{
@@ -83,15 +83,22 @@ function _updateStockOptionAdr($strSymbol, $strVal)
 	
 	$adr_ref = new MyStockReference(StockGetSymbol($strAdr)); 
 	$strStockId = $adr_ref->GetStockId();
-	$sql = new PairStockSql($strStockId, TABLE_ADRH_STOCK);
-    if ($record = $sql->Get())
-    {
-    	$sql->Update($record['id'], $strPairId, $strRatio);
-    }
-    else
-    {
-    	SqlInsertStockPair(TABLE_ADRH_STOCK, $strStockId, $strPairId, $strRatio);
-    }
+	$sql = new PairStockSql($strStockId, $strTable);
+	if ($strRatio == '0')
+	{
+		$sql->DeleteAll();
+	}
+	else
+	{
+		if ($record = $sql->Get())
+		{
+			$sql->Update($record['id'], $strPairId, $strRatio);
+		}
+		else
+		{
+			SqlInsertStockPair($strTable, $strStockId, $strPairId, $strRatio);
+		}
+	}
 }
 
 function _updateStockOptionEmaDays($strStockId, $iDays, $strDate, $strVal)
@@ -169,6 +176,10 @@ function _updateStockOptionEtf($strSymbol, $strVal)
 		else if ($strSubmit == STOCK_OPTION_ADR_CN)
 		{
 			if ($bTest)	_updateStockOptionAdr($strSymbol, $strVal);
+		}
+		else if ($strSubmit == STOCK_OPTION_AH_CN)
+		{
+			if ($bTest)	_updateStockOptionAdr($strSymbol, $strVal, TABLE_AH_STOCK);
 		}
 		else if ($strSubmit == STOCK_OPTION_EMA_CN)
 		{
