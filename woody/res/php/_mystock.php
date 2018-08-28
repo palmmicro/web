@@ -198,14 +198,17 @@ function EchoMyStock($bChinese = true)
 
 function EchoMyStockTitle($bChinese = true)
 {
-    $str = $bChinese ? '我的股票' : 'My Stock ';
     if ($strSymbol = UrlGetQueryValue('symbol'))  
     {
-        $str .= $strSymbol;
+        $str = $strSymbol;
     	if (AcctIsDebug())
     	{
     		$str .= '('.SqlGetStockId($strSymbol).')';
     	}
+    }
+    else
+    {
+    	$str = $bChinese ? '我的股票' : 'My Stock ';
     }
     echo $str;
 }
