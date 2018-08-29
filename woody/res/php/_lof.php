@@ -87,7 +87,12 @@ function _onSmaUserDefined($bChinese, $fVal = false, $fNext = false)
 {
     if ($fVal)
     {
-        return _onSmaUserDefinedVal($fVal, $bChinese).'/'._onSmaUserDefinedVal($fNext, $bChinese);
+        $str = _onSmaUserDefinedVal($fVal, $bChinese);
+        if ($fNext)
+        {
+        	$str .= '/'._onSmaUserDefinedVal($fNext, $bChinese);
+        }
+        return $str;
     }
     return _getArbitrageQuantityName($bChinese);
 }

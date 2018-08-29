@@ -215,21 +215,44 @@ class StockHistory
         return $strName.'Next';
     }
     
-    function _cfg_set_SMA($cfg, $strName, $fSma, $fNext, $iTradingRange)
+    function _cfg_set_SMA($cfg, $strName, $fSma, $fNext = false, $iTradingRange = false)
     {
         $this->afSMA[$strName] = $fSma;
         $this->afNext[$strName] = $fNext;
         $this->aiTradingRange[$strName] = $iTradingRange;
+        
         $cfg->set_var(SMA_SECTION, $strName, strval($fSma));
-        $cfg->set_var(SMA_SECTION, $this->_buildNextName($strName), strval($fNext));
-        $cfg->set_var(SMA_SECTION, $this->_buildTradingRangeName($strName), strval($iTradingRange));
+        if ($fNext)
+        {
+        	$cfg->set_var(SMA_SECTION, $this->_buildNextName($strName), strval($fNext));
+        }
+        if ($iTradingRange)
+        {
+        	$cfg->set_var(SMA_SECTION, $this->_buildTradingRangeName($strName), strval($iTradingRange));
+        }
     }
     
     function _cfg_get_SMA($cfg, $strName)
     {
         $this->afSMA[$strName] = floatval($cfg->read_var(SMA_SECTION, $strName));
-        $this->afNext[$strName] = floatval($cfg->read_var(SMA_SECTION, $this->_buildNextName($strName)));
-        $this->aiTradingRange[$strName] = intval($cfg->read_var(SMA_SECTION, $this->_buildTradingRangeName($strName)));
+        
+        if ($str = $cfg->read_var(SMA_SECTION, $this->_buildNextName($strName)))
+        {
+        	$this->afNext[$strName] = floatval($str);
+        }
+        else
+        {
+        	$this->afNext[$strName] = false;
+        }
+        
+        if ($str = $cfg->read_var(SMA_SECTION, $this->_buildTradingRangeName($strName)))
+        {
+        	$this->aiTradingRange[$strName] = intval($str);
+        }
+        else
+        {
+        	$this->aiTradingRange[$strName] = false;
+        }
     }
 
     function _getEMA($iDays)
@@ -238,11 +261,11 @@ class StockHistory
     	return $sql->GetClose($this->strDate);
     }
     
-    function _loadConfigEMA($cfg)
+    function _loadConfigEMA($cfg, $iDays)
     {
-		if ($this->_getEMA(200) && $this->_getEMA(50))
+		if ($this->_getEMA($iDays))
 		{
-			$this->_cfg_get_SMA($cfg, 'EMA');
+			$this->_cfg_get_SMA($cfg, 'EMA'.strval($iDays));
 		}
     }
     
@@ -265,16 +288,15 @@ class StockHistory
             $this->_cfg_get_SMA($cfg, 'M'.strval($i));
         }
         
-        $this->_loadConfigEMA($cfg);
+        $this->_loadConfigEMA($cfg, 50);
+        $this->_loadConfigEMA($cfg, 200);
     }
     
-    function _saveConfigEMA($cfg)
+    function _saveConfigEMA($cfg, $iDays)
     {
-    	$fEma200 = $this->_getEMA(200);
-    	$fEma50 = $this->_getEMA(50);
-		if ($fEma200 && $fEma50)
+    	if ($fEma = $this->_getEMA($iDays))
 		{
-			$this->_cfg_set_SMA($cfg, 'EMA', $fEma200, $fEma50, -1);
+			$this->_cfg_set_SMA($cfg, 'EMA'.strval($iDays), $fEma);
 		}
     }
     
@@ -318,15 +340,16 @@ class StockHistory
 
         foreach ($this->aiNum as $i)
         {
-            $this->_cfg_set_SMA($cfg, 'W'.strval($i), _estSma($afWeeklyClose, 0, $i), _estSma($afWeeklyClose, 0, $i - 1), -1);
+            $this->_cfg_set_SMA($cfg, 'W'.strval($i), _estSma($afWeeklyClose, 0, $i), _estSma($afWeeklyClose, 0, $i - 1));
         }
             
         foreach ($this->aiNum as $i)
         {
-            $this->_cfg_set_SMA($cfg, 'M'.strval($i), _estSma($afMonthlyClose, 0, $i), _estSma($afMonthlyClose, 0, $i - 1),  -1);
+            $this->_cfg_set_SMA($cfg, 'M'.strval($i), _estSma($afMonthlyClose, 0, $i), _estSma($afMonthlyClose, 0, $i - 1));
         }
         
-        $this->_saveConfigEMA($cfg);
+        $this->_saveConfigEMA($cfg, 50);
+        $this->_saveConfigEMA($cfg, 200);
         $cfg->save_data();
     }
     

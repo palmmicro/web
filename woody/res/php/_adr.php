@@ -170,7 +170,7 @@ function AdrEchoAll($bChinese = true)
 	EchoAhTradingParagraph($group->hk_ref, $bChinese);
     EchoHShareSmaParagraph($group->cn_ref, $group->hk_ref, $bChinese);
     EchoHShareSmaParagraph($group->hk_ref, $group->hk_ref, $bChinese);
-    EchoHShareSmaParagraph($group->us_ref, $group->hk_ref, $bChinese);
+//    EchoHShareSmaParagraph($group->us_ref, $group->hk_ref, $bChinese);
 
     if ($group->strGroupId) 
     {
