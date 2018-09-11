@@ -110,7 +110,7 @@ the common stock data part of ADR and LOF is moved to <font color=olive>StockRef
 used in <font color=olive>_LofGroup</font> class in file <?php EchoPhpFileLink('/woody/res/php/_lof.php'); ?> and <font color=olive>_AdrGroup</font> class in file <?php EchoPhpFileLink('/woody/res/php/_adr.php'); ?>.
 </p>
 <br />Continue to organize code, add similar <a href="../../res/lof.php">LOF</a> net value tool for <a href="../../res/sh513100.php">GUOTAI NASDAQ-100</a>, <a href="../../res/sz159941.php">NASDAQ-100</a>,
-<a href="../../res/sz160125.php">Southern Hong Kong</a>, <a href="../../res/sz160717.php">JIASHI H-Share</a>, <a href="../../res/sz160216.php">GUOTAI COMMODITY</a>, <a href="../../res/sz165510.php">BRIC</a>, 
+<a href="../../res/sz160717.php">JIASHI H-Share</a>, <a href="../../res/sz160216.php">GUOTAI COMMODITY</a>, <a href="../../res/sz165510.php">BRIC</a>, 
 <a href="../../res/sz163208.php">NUOAN Energy</a> and <a href="../../res/sz160416.php">HUAAN S&P GLOBAL OIL</a>.
 <br />Steps to add new LOF tools:
 </p>

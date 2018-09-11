@@ -50,9 +50,9 @@ function GetMyPortfolioLink($bChinese)
     return GetTitleLink('myportfolio', $bChinese, '持仓盈亏', 'My Portfolio');
 }
 
-function GetAhCompareLink($bChinese)
+function GetAhCompareLink($bChinese, $strQuery = false)
 {
-    return GetTitleLink('ahcompare', $bChinese, 'AH对比', 'AH Compare');
+    return GetTitleLink('ahcompare', $bChinese, 'AH对比', 'AH Compare', $strQuery);
 }
 
 function GetAhHistoryLink($strSymbol, $bChinese)

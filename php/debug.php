@@ -69,9 +69,9 @@ function DebugGetFileTimeDisplay($strPathName)
     return '';
 }
 
-function DebugGetStopWatchDisplay($fStop, $fStart)
+function DebugGetStopWatchDisplay($fStart)
 {
-    return ' ('.strval_round($fStop - $fStart).'s)';
+    return ' ('.strval_round(microtime(true) - $fStart).'s)';
 }
 
 function _checkDebugPath()
@@ -100,7 +100,7 @@ function DebugGetTestFile()
 
 function DebugClear()
 {
-    file_put_contents(DebugGetFile(), DEBUG_UTF8_BOM.'Start debug:'.PHP_EOL);
+	file_put_contents(DebugGetFile(), DEBUG_UTF8_BOM.'Start debug:'.PHP_EOL);
 }
 
 function DebugString($str)

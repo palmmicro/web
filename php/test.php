@@ -138,9 +138,8 @@ function TestCmdLine()
     	{
 //    		$str = SaveHistoricalNav($strSymbol);
     	}
-    	$fStop = microtime(true);
     	if (empty($str))	$str = '(Not found)';
-    	DebugString($strSymbol.':'.$str.DebugGetStopWatchDisplay($fStop, $fStart));
+    	DebugString($strSymbol.':'.$str.DebugGetStopWatchDisplay($fStart));
     }
 }
 
@@ -149,7 +148,7 @@ function TestCmdLine()
 	DebugString($_SERVER['DOCUMENT_ROOT']);
 	DebugString(phpversion());
 	SysInit();
-	echo 'Hello, world! '.strval(rand());
+	echo strval(rand()).' Hello, world!';
 
 	TestCmdLine();
 //	WriteForexDataFromFile();

@@ -177,7 +177,7 @@ function EchoAhTradingParagraph($hshare_ref, $bChinese)
 	$strPremium = $arSma[2];
 	
     $arColumn = _getTradingTableColumn($bChinese);
-    $arColumn[] = GetAhCompareLink($bChinese).$strPremium;
+    $arColumn[] = GetAhCompareLink($bChinese, 'sort=ratio').$strPremium;
     if ($hshare_ref->adr_ref)
     {
     	$strAdrLink = RefGetMyStockLink($hshare_ref->adr_ref, $bChinese);

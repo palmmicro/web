@@ -97,11 +97,11 @@ function _echoStockGroupArray($arStock, $bChinese)
         }
     }
     
-    EchoReferenceParagraph($arRef, $bChinese);
-    if (count($arFund) > 0)     		EchoFundArrayEstParagraph($arFund, $bChinese);
-    if (count($arHShareRef) > 0)	EchoAhParagraph($arHShareRef, $bChinese);
-    if (count($arHAdrRef) > 0)		EchoAdrhParagraph($arHAdrRef, $bChinese);
-    if (count($arEtfRef) > 0)		EchoEtfListParagraph($arEtfRef, $bChinese);
+    if (UrlGetQueryValue('sort') == false)	EchoReferenceParagraph($arRef, $bChinese);
+    if (count($arFund) > 0)     				EchoFundArrayEstParagraph($arFund, $bChinese);
+    if (count($arHShareRef) > 0)			EchoAhParagraph($arHShareRef, $bChinese);
+    if (count($arHAdrRef) > 0)				EchoAdrhParagraph($arHAdrRef, $bChinese);
+    if (count($arEtfRef) > 0)				EchoEtfListParagraph($arEtfRef, $bChinese);
     
     return $arTransactionRef;
 }

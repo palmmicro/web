@@ -62,10 +62,10 @@ function LofGetAllSymbolArray($strSymbol)
 
 function LofHkGetEstSymbol($strSymbol)
 {
-    if ($strSymbol == 'SH501021')                                        			return '^SPHCMSHP';
-    else if ($strSymbol == 'SH501025')   										return 'SH000869';	// '03143'
-    else if (in_arrayHangSengLofHk($strSymbol) || $strSymbol == 'SZ160125')   return '^HSI';		// '02800'
-    else if (in_arrayHSharesLofHk($strSymbol))    								return '^HSCE';	// '02828'
+    if ($strSymbol == 'SH501021')                 return '^SPHCMSHP';
+    else if ($strSymbol == 'SH501025')   		 return 'SH000869';	// '03143'
+    else if (in_arrayHangSengLofHk($strSymbol))   return '^HSI';		// '02800'
+    else if (in_arrayHSharesLofHk($strSymbol))    return '^HSCE';	// '02828'
     else 
         return false;
 }

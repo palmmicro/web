@@ -369,7 +369,7 @@ function EchoPenghuaSoftwareLinks($bChinese = true)
 
 function EchoSouthernSoftwareLinks($bChinese = true)
 {
-    $ar = array('sh501018', 'sz160125', 'sz160140');
+    $ar = array('sh501018', 'sz160140');
     $strLink = GetExternalLink('http://www.nffund.com', $bChinese ? '南方基金' : 'CSAM');
     $str = GetCategorySoftwareLinks($ar, $strLink, $bChinese);
     echo $str;                 

@@ -113,8 +113,7 @@ function EchoAll($bChinese = true)
    			
             $fStart = microtime(true);
             _echoThanousLawParagraph($strSymbol, $iStart, $iNum, $bChinese);
-            $fStop = microtime(true);
-            DebugString($strSymbol.' Thanous Law: '.DebugGetStopWatchDisplay($fStop, $fStart));
+            DebugString($strSymbol.' Thanous Law: '.DebugGetStopWatchDisplay($fStart));
         }
     }
     EchoPromotionHead($bChinese, 'thanouslaw');

@@ -289,6 +289,7 @@ class WeixinStock extends WeixinCallback
 
 	function OnText($strText, $strUserName)
 	{
+//		DebugString($strText);
 		$strText = UrlCleanString($strText);
 		_updateWeixinTables($strText, $strUserName);
     
