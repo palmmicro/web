@@ -1,0 +1,77 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>AR1688软件0.57测试版本</title>
+<meta name="keywords" content="AR1688软件0.57">
+<meta name="description" content="Palmmicro AR1688软件0.57版本下载和改动记录。请注意这个页面的下载软件已经不是最新的，仅用于协助调试问题的测试。我们建议用户尽量最新正式发布的版本。">
+<link href="../../common/style.css" rel="stylesheet" type="text/css" />
+<script src="../../js/filetype.js"></script>
+<script src="../../js/copyright.js"></script>
+<script src="../../js/nav.js"></script>
+<script src="../../palmmicro.js"></script>
+<script src="../ar1688.js"></script>
+<script src="software.js"></script>
+<script src="../../js/analytics.js"></script>
+</head>
+
+<body bgproperties=fixed leftmargin=0 topmargin=0>
+<table width=100% height=105 order=0 cellpadding=0 cellspacing=0 bgcolor=#049ACC>
+<tr>
+<td width=780 height=105 align=left valign=top><a href="/"><img src=../../image/image_palmmicro.jpg alt="Palmmicro Name Logo" /></a></td>
+<td align=left valign=top></td>
+</tr>
+</table>
+
+<table width=900 height=85% border=0 cellpadding=0 cellspacing=0>
+<td width=30 valign=top bgcolor=#66CC66>&nbsp;</td>
+<td width=120 valign=top bgcolor=#66CC66>
+<TABLE width=120 border=0 cellPadding=5 cellSpacing=0>
+<script type="text/javascript">NavigateDebug();</script>
+</TABLE>
+</TD>
+<td width=30 valign=top bgcolor=#66CC66>&nbsp;</td>
+<td width=50 valign=top bgcolor=#ffffff>&nbsp;</td>
+<td valign=top>
+	
+	
+<table>
+<tr><td class=THead><B>AR1688软件0.57测试版本</B></td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>软件下载(zip压缩文件)：</td></tr>
+<tr><td>如果找不到你要的文件，请<a href="mailto:support@palmmicro.com">写信</a>给我们。
+<br />2012年7月4日更新的<a href="../roipcn.html">AR168R</a> RoIP模块0.57.060 <a href="057/ar168r_sip_us_057060.zip">SIP英文</a>
+<br />2012年7月4日更新的<a href="snapshot/AR1688_API_057060.zip">0.57.060</a>版本API。
+<br />2012年6月1日更新的<a href="../user/gp1266cn.html">GP1266</a>网络电话0.57.055 <a href="057/gp1266_sip_us_mac_057055.zip">SIP英文OEM_MAC</a> <a href="057/gp1266_none_us_057055.zip">安全模式英文</a> (<a href="../../woody/blog/ar1688/20070827cn.php">如何使用</a>)
+<br />2012年5月4日更新的AR168R RoIP模块0.57.047 <a href="057/ar168r_sip_us_057047.zip">SIP英文</a>
+<br />2012年5月3日更新的AR168R RoIP模块0.57.046 <a href="057/ar168r_sip_us_057046.zip">SIP英文</a>
+<br />2012年5月3日更新的<a href="snapshot/AR1688_API_057046.zip">0.57.046</a>版本API。
+<br />2012年4月18日更新的AR168R当成<a href="../modulecn.html">AR168M</a>模块使用 0.57.037 <a href="057/ar168r_sip_us_uart_057037.zip">SIP英文OEM_UART</a>
+<br />2012年4月11日更新的AR168R RoIP模块0.57.033 <a href="057/ar168r_sip_us_057033.zip">SIP英文</a>
+<br />2012年3月3日更新的<a href="snapshot/AR1688_API_057010.zip">0.57.010</a>版本API。
+<br />2012年2月25日更新的<a href="snapshot/AR1688_API_057006.zip">0.57.006</a>版本API。
+<br />2012年2月13日更新的<a href="snapshot/AR1688_API_057001.zip">0.57.001</a>版本API。
+</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>0.57改动
+<br />1. 增加<a href="../../woody/blog/ar1688/20120213cn.php">OEM_ROIP</a>编译选项，用于产生不带串口功能的AR168M RoIP(Radio over IP)升级软件。
+<br />2. 增加<a href="../../woody/blog/ar1688/20110331cn.php">OEM_IVRG729</a>编译选项，用于编译AR1688 G.729语音提示功能的演示代码。
+<br />3. <a href="../../woody/blog/ar1688/20070605cn.php">升级字库</a>和IVR的.dat文件的时候，取消了64k字节对齐的要求(使用命令行"tftp -i xxx.xxx.xxx.xxx put font_xxxxxxxx.dat")。
+<br />4. 增加<i>SyslogAllUdpData</i>函数用于SIP消息调试。
+<br />5. 增加使用<a href="../../woody/blog/ar1688/20081124cn.php">KSZ8842</a>网络芯片和MT28F016S5程序存储器的VoIP<a href="../modulecn.html">模块</a>硬件<a href="../../woody/blog/ar1688/20061014cn.php">型号</a>AR168MT。
+<br />6. 增加<i>UdpDebugTcpHead</i>函数用于TCP调试。
+<br />7. 增加硬件型号<a href="../roipcn.html">AR168R</a>，用于Radio over IP模块。
+</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>已知问题：
+<br />1. <a href="../../woody/blog/ar1688/20070405cn.php#20100506">法语</a>版本显示不对，除中文英文外的其它语种也可能显示有问题。
+<br />2. SDCC\bin\Manager.exe在Windows 7下运行时不能正确显示GB2312编码的中文调试信息。
+</td></tr>
+</table>
+
+</td>
+</table>
+
+<script type="text/javascript">CopyRightDisplay();</script>
+
+</body>
+</html>

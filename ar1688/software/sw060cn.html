@@ -1,0 +1,76 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>AR1688软件0.60</title>
+<meta name="keywords" content="AR1688软件0.60">
+<meta name="description" content="Palmmicro AR1688软件0.60版本下载和改动记录。请注意这个页面的下载软件已经不是最新的，仅用于协助调试问题的测试。我们建议用户尽量最新正式发布的版本。">
+<link href="../../common/style.css" rel="stylesheet" type="text/css" />
+<script src="../../js/filetype.js"></script>
+<script src="../../js/copyright.js"></script>
+<script src="../../js/nav.js"></script>
+<script src="../../palmmicro.js"></script>
+<script src="../ar1688.js"></script>
+<script src="software.js"></script>
+<script src="../../js/analytics.js"></script>
+</head>
+
+<body bgproperties=fixed leftmargin=0 topmargin=0>
+<table width=100% height=105 order=0 cellpadding=0 cellspacing=0 bgcolor=#049ACC>
+<tr>
+<td width=780 height=105 align=left valign=top><a href="/"><img src=../../image/image_palmmicro.jpg alt="Palmmicro Name Logo" /></a></td>
+<td align=left valign=top></td>
+</tr>
+</table>
+
+<table width=900 height=85% border=0 cellpadding=0 cellspacing=0>
+<td width=30 valign=top bgcolor=#66CC66>&nbsp;</td>
+<td width=120 valign=top bgcolor=#66CC66>
+<TABLE width=120 border=0 cellPadding=5 cellSpacing=0>
+<script type="text/javascript">NavigateRelease();</script>
+</TABLE>
+</TD>
+<td width=30 valign=top bgcolor=#66CC66>&nbsp;</td>
+<td width=50 valign=top bgcolor=#ffffff>&nbsp;</td>
+<td valign=top>
+	
+	
+<table>
+<tr><td class=THead><B>AR1688软件0.60</B></td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>0.60的改动(2012年12月15日)：
+<br />1. 增加<b><i>OEM_SIZE</i></b>编译选项，用于指示namebin.exe报告总<a href="../../woody/blog/ar1688/20111007cn.php#20120813">代码大小</a>。
+<br />2. 增加<b><i>OEM_ZIP</i></b>编译选项，用于指示namebin.exe把产生的.bin文件压缩成.zip文件。
+<br />3. 所有AR1688设备中<a href="../../woody/blog/ar1688/20081202cn.php">Z80运行速度</a>统一到24Mhz。
+<br />4. 增加<b><i>OEM_BROADCAST</i></b>编译选项，用于处理广播的UDP包。
+<br />5. 在网络语音模块高层用户界面协议中增加第7条命令<a href="devguide/uiprotocolcn.html">TEXT</a>。
+<br />6. 删除不成熟的硬件设计型号VER_AR168L/VER_AR168LS和相关<a href="../../woody/blog/ar1688/20080903cn.php">SLIC</a>代码。
+<br />7. 删除不稳定的硬件设计型号VER_AR168O/VER_AR168KD和相关<a href="../../woody/blog/ar1688/20080615cn.php">DM9003</a>代码。
+</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>已知问题：
+<br />1. <a href="../../woody/blog/ar1688/20070405cn.php#20100506">法语</a>版本显示不对，除中文英文外的其它语种也可能显示有问题。
+<br />2. SDCC\bin\Manager.exe在Windows 7下运行时不能正确显示GB2312编码的中文调试信息。
+</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>软件下载(zip压缩文件)：</td></tr>
+<tr><td>如果找不到你要的文件，请<a href="mailto:support@palmmicro.com">写信</a>给我们。</td></tr>
+<tr><td><a href="060/AR1688_API_060000.zip">软件API</a> (运行API中的工具前需要从<a href="http://www.microsoft.com/downloads/details.aspx?FamilyID=9b2da534-3e03-4391-8a4d-074b9f2bc1bf&displaylang=en" target=_blank>微软下载</a>和安装<a href="../../woody/blog/ar1688/20100818cn.php">VC9</a>的可再发行组件包)</td></tr> 
+<tr><td>AR168F网络电话<a href="060/ar168f_sip_us_060000.zip">SIP英文</a></td></tr>
+<tr><td><a href="../user/gp1266cn.html">AR168G(GP1260)</a>网络电话<a href="060/ar168g_sip_cn_060000.zip">SIP中文</a> <a href="060/ar168g_sip_us_060000.zip">SIP英文</a></td></tr>
+<tr><td><a href="../modulecn.html">AR168M</a>网络语音模块<a href="060/ar168m_sip_cn_060000.zip">SIP中文</a> <a href="060/ar168m_sip_us_060000.zip">SIP英文</a> <a href="060/ar168m_sip_us_mac_060000.zip">SIP英文OEM_MAC</a> <a href="060/ar168m_none_us_060000.zip">安全模式英文</a> (<a href="../../woody/blog/ar1688/20070827cn.php">如何使用</a>)</td></tr>
+<tr><td>AR168MT网络语音模块<a href="060/ar168mt_sip_us_060000_all.zip">烧录文件英文</a></td></tr>
+<tr><td><a href="../roipcn.html">AR168R</a> RoIP模块<a href="060/ar168r_sip_cn_060000.zip">SIP中文</a> <a href="060/ar168r_sip_us_060000.zip">SIP英文</a> <a href="060/ar168r_sip_us_uart_060000.zip">SIP英文OEM_UART</a> (用这个软件可以把AR168R当成AR168M这样的VoIP模块<a href="../../woody/blog/ar1688/20121111cn.php">使用</a>)</td></tr>
+<tr><td>AR168P网络电话<a href="060/ar168p_sip_us_060000.zip">SIP英文</a></td></tr>
+<tr><td><a href="../user/gf302cn.html">GF302</a>网络电话<a href="060/gf302_sip_cn_060000.zip">SIP中文</a> <a href="060/gf302_sip_us_060000.zip">SIP英文</a></td></tr>
+<tr><td><a href="../user/gp1266cn.html">GP1266</a>网络电话<a href="060/gp1266_sip_cn_060000.zip">SIP中文</a> <a href="060/gp1266_sip_us_060000.zip">SIP英文</a> <a href="060/gp1266_iax2_us_060000.zip">IAX2英文</a></td></tr>
+<tr><td>GP2266网络电话<a href="060/gp2266_sip_cn_060000.zip">SIP中文</a> <a href="060/gp2266_sip_us_060000.zip">SIP英文</a></td></tr>
+<tr><td><a href="../user/ywh201cn.html">YWH201</a>网络电话<a href="060/ywh201_sip_cn_060000.zip">SIP中文</a> <a href="060/ywh201_sip_us_060000.zip">SIP英文</a></td></tr>
+</table>
+
+</td>
+</table>
+
+<script type="text/javascript">CopyRightDisplay();</script>
+
+</body>
+</html>

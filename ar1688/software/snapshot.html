@@ -1,0 +1,88 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>AR1688 Software API Snapshot</title>
+<meta name="description" content="Palmmicro AR1688 software API test build download and records of changes. Software here is for debug test only, users are suggested to use release version.">
+<link href="../../common/style.css" rel="stylesheet" type="text/css" />
+<script src="../../js/filetype.js"></script>
+<script src="../../js/copyright.js"></script>
+<script src="../../js/nav.js"></script>
+<script src="../../palmmicro.js"></script>
+<script src="../ar1688.js"></script>
+<script src="software.js"></script>
+<script src="../../js/analytics.js"></script>
+</head>
+
+<body bgproperties=fixed leftmargin=0 topmargin=0>
+<table width=100% height=105 order=0 cellpadding=0 cellspacing=0 bgcolor=#049ACC>
+<tr>
+<td width=780 height=105 align=left valign=top><a href="/"><img src=../../image/image_palmmicro.jpg alt="Palmmicro Name Logo" /></a></td>
+<td align=left valign=top></td>
+</tr>
+</table>
+
+<table width=900 height=85% border=0 cellpadding=0 cellspacing=0>
+<td width=30 valign=top bgcolor=#66CC66>&nbsp;</td>
+<td width=120 valign=top bgcolor=#66CC66>
+<TABLE width=120 border=0 cellPadding=5 cellSpacing=0>
+<script type="text/javascript">SoftwareMenu();</script>
+</TABLE>
+</TD>
+<td width=30 valign=top bgcolor=#66CC66>&nbsp;</td>
+<td width=50 valign=top bgcolor=#ffffff>&nbsp;</td>
+<td valign=top>
+	
+<table>
+<tr><td class=THead><B>AR1688 Software API Snapshot</B></td></tr>
+<tr><td>Please <a href="mailto:support@palmmicro.com">email</a> us if you can not find what you need here.
+<br />API <a href="snapshot/AR1688_API_063048.zip">0.63.048</a> updated on March 26, 2017.
+<br />API <a href="snapshot/AR1688_API_063047.zip">0.63.047</a> updated on July 15, 2016.
+<br />API <a href="snapshot/AR1688_API_063045.zip">0.63.045</a> updated on Jan 10, 2016.
+<br />API <a href="snapshot/AR1688_API_063044.zip">0.63.044</a> updated on Jan 8, 2016.
+<br />API <a href="snapshot/AR1688_API_063043.zip">0.63.043</a> updated on Nov 29, 2015.
+<br />API <a href="snapshot/AR1688_API_063040.zip">0.63.040</a> updated on Oct 17, 2015.
+<br />API <a href="snapshot/AR1688_API_063038.zip">0.63.038</a> updated on Sep 9, 2015. Added <b><i>SYS_PPPOE</i></b> in <b>version.h</b>, and <b>ip.c</b> in API.
+The <a href="../../woody/blog/ar1688/20080729.php">PPPoE</a> support is only available when <b><i>SYS_PPPOE</i></b> defined.
+<br />API <a href="snapshot/AR1688_API_063036.zip">0.63.036</a> updated on Sep 3, 2015. Added <b><i>OEM_YEDZ</i></b> compile option.
+<br />API <a href="snapshot/AR1688_API_063035.zip">0.63.035</a> updated on Aug 16, 2015. Added <b>tcp.c</b> in API.
+<br />API <a href="snapshot/AR1688_API_063033.zip">0.63.033</a> updated on July 28, 2015. Added <b><i>SYS_MINI_RUN</i></b> in <b>version.h</b>,
+the <a href="../../woody/blog/ar1688/20071116.php">RTP first</a> Minu Run for <a href="../../woody/blog/ar1688/20080615.php">RTL8019AS</a> will only work when it is defined.
+<br />API <a href="snapshot/AR1688_API_063027.zip">0.63.027</a> updated on May 13, 2015.
+<br />API <a href="snapshot/AR1688_API_063024.zip">0.63.024</a> updated on Nov 29, 2014.
+<br />API <a href="snapshot/AR1688_API_063021.zip">0.63.021</a> updated on Aug 26, 2014. Added <a href="../../woody/blog/ar1688/20061014.php">hardware type</a> AR168RT for RoIP module with KSZ8842.
+<br />API <a href="snapshot/AR1688_API_063018.zip">0.63.018</a> updated on June 25, 2014. Added <b><i>OEM_JOSN</i></b> compile option to keep using RFC 2833 for RoIP <a href="../../woody/blog/ar1688/20120430.php">COR/PTT</a> signals exchange method.
+<br />API <a href="snapshot/AR1688_API_063017.zip">0.63.017</a> updated on June 18, 2014. Tools in SDCC\bin compiler upgraded from <a href="../../woody/blog/ar1688/20100818.php">VS2008/VC9</a> to <a href="../../woody/blog/entertainment/20140615.php">VS2013/VC12</a>.
+<br />API <a href="snapshot/AR1688_API_061024.zip">0.61.024</a> updated on Apr 14, 2013.
+<br />API <a href="snapshot/AR1688_API_061015.zip">0.61.015</a> updated on Mar 7, 2013. Alex Vangelov updated <a href="../../woody/blog/ar1688/20070609.php">Linux</a> tools.
+<br />API <a href="snapshot/AR1688_API_061013.zip">0.61.013</a> updated on Mar 6, 2013. For Linux tools.
+<br />API <a href="snapshot/AR1688_API_061002.zip">0.61.002</a> updated on Feb 16, 2013. For keypad source code.
+<br />API <a href="snapshot/AR1688_API_059019.zip">0.59.019</a> updated on Sep 5, 2012. Back to steady version <a href="../../woody/blog/ar1688/20101123.php#20101208">SDCC 3.0.1 #6078</a>. 
+<br />API <a href="snapshot/AR1688_API_059007.zip">0.59.007</a> updated on Aug 14, 2012. For SDCC 3.2.0 test only.
+<br />API <a href="snapshot/AR1688_API_059003.zip">0.59.003</a> updated on Aug 11, 2012. For <a href="../../woody/blog/ar1688/20111007.php#20120813">SDCC 3.2.1</a> test only.
+<br />API <a href="snapshot/AR1688_API_059002.zip">0.59.002</a> updated on Aug 10, 2012. For SDCC 3.2.1 test only, compiled with <b>--max-allocs-per-node 10000</b> option.
+<br />API <a href="snapshot/AR1688_API_057060.zip">0.57.060</a> updated on July 4, 2012.
+<br />API <a href="snapshot/AR1688_API_057046.zip">0.57.046</a> updated on May 3, 2012.
+<br />API <a href="snapshot/AR1688_API_057010.zip">0.57.010</a> updated on Mar 3, 2012.
+<br />API <a href="snapshot/AR1688_API_057006.zip">0.57.006</a> updated on Feb 25, 2012. For <a href="../../woody/blog/ar1688/20110331.php">G.729 IVR</a>.
+<br />API <a href="snapshot/AR1688_API_057001.zip">0.57.001</a> (<a href="../../woody/blog/ar1688/20120213.php">RoIP</a>) updated on Feb 13, 2012.  
+<br />API <a href="snapshot/AR1688_API_055017.zip">0.55.017</a> updated on Dec 18, 2011. VoIP <a href="../module.html">module</a> high level UI protocols - <a href="../../woody/blog/ar1688/20080329.php">STATxxx</a>. 
+<br />API <a href="snapshot/AR1688_API_055015.zip">0.55.015</a> updated on Dec 5, 2011. Use IP phone to test VoIP module <a href="../../woody/blog/ar1688/20111205.php">functions</a>.
+<br />API <a href="snapshot/AR1688_API_053014.zip">0.53.014</a>(0.54 Release Candidate 1) updated on July 28, 2011. 
+<br />API <a href="snapshot/AR1688_API_053006.zip">0.53.006</a> updated on May 9, 2011.
+<br />API <a href="snapshot/AR1688_API_051008.zip">0.51.008</a> updated on Mar 22, 2011. 
+<br />API <a href="snapshot/AR1688_API_051002.zip">0.51.002</a> updated on Mar 7, 2011. For <a href="../../woody/blog/ar1688/20110307.php">IVR</a>.
+<br />API <a href="snapshot/AR1688_API_049012.zip">0.49.012</a>(0.50 Release Candidate 2) updated on Nov 26, 2010. For <a href="../../woody/blog/ar1688/20101123.php">SDCC 3.0.0</a> test.
+<br />API <a href="snapshot/AR1688_API_049008.zip">0.49.008</a>(0.50 Release Candidate 1) updated on Nov 24, 2010. 
+<br />API <a href="snapshot/AR1688_API_047021.zip">0.47.021</a>(0.48 Release Candidate 1) updated on Aug 18, 2010. Windows tools compiled with <a href="../../woody/blog/ar1688/20100818.php">VC2008</a>.
+<br />API <a href="snapshot/AR1688_API_045011.zip">0.45.011</a>(0.46 Release Candidate 2) updated on Feb 11, 2010. 
+<br />API <a href="snapshot/AR1688_API_045005.zip">0.45.005</a>(0.46 Release Candidate 1) updated on Nov 29, 2009. 
+</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+</table>
+</td>
+</table>
+
+<script type="text/javascript">CopyRightDisplay();</script>
+
+</body>
+</html>

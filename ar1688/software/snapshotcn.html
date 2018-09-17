@@ -1,0 +1,89 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>AR1688软件API快照</title>
+<meta name="description" content="Palmmicro AR1688软件API测试版本下载和改动记录. 请注意这个页面的下载软件仅用于协助调试问题的测试, 我们建议用户尽量使用之前正式发布的版本.">
+<link href="../../common/style.css" rel="stylesheet" type="text/css" />
+<script src="../../js/filetype.js"></script>
+<script src="../../js/copyright.js"></script>
+<script src="../../js/nav.js"></script>
+<script src="../../palmmicro.js"></script>
+<script src="../ar1688.js"></script>
+<script src="software.js"></script>
+<script src="../../js/analytics.js"></script>
+</head>
+
+<body bgproperties=fixed leftmargin=0 topmargin=0>
+<table width=100% height=105 order=0 cellpadding=0 cellspacing=0 bgcolor=#049ACC>
+<tr>
+<td width=780 height=105 align=left valign=top><a href="/"><img src=../../image/image_palmmicro.jpg alt="Palmmicro Name Logo" /></a></td>
+<td align=left valign=top></td>
+</tr>
+</table>
+
+<table width=900 height=85% border=0 cellpadding=0 cellspacing=0>
+<td width=30 valign=top bgcolor=#66CC66>&nbsp;</td>
+<td width=120 valign=top bgcolor=#66CC66>
+<TABLE width=120 border=0 cellPadding=5 cellSpacing=0>
+<script type="text/javascript">SoftwareMenu();</script>
+</TABLE>
+</TD>
+<td width=30 valign=top bgcolor=#66CC66>&nbsp;</td>
+<td width=50 valign=top bgcolor=#ffffff>&nbsp;</td>
+<td valign=top>
+	
+	
+<table>
+<tr><td class=THead><B>AR1688软件API快照</B></td></tr>
+<tr><td>如果找不到你要的文件, 请<a href="mailto:support@palmmicro.com">写信</a>给我们. 
+<br />2017年3月26日更新的<a href="snapshot/AR1688_API_063048.zip">0.63.048</a>版本API.
+<br />2016年7月15日更新的<a href="snapshot/AR1688_API_063047.zip">0.63.047</a>版本API.
+<br />2016年1月10日更新的<a href="snapshot/AR1688_API_063045.zip">0.63.045</a>版本API.
+<br />2016年1月8日更新的<a href="snapshot/AR1688_API_063044.zip">0.63.044</a>版本API.
+<br />2015年11月29日更新的<a href="snapshot/AR1688_API_063043.zip">0.63.043</a>版本API.
+<br />2015年10月17日更新的<a href="snapshot/AR1688_API_063040.zip">0.63.040</a>版本API.
+<br />2015年9月9日更新的<a href="snapshot/AR1688_API_063038.zip">0.63.038</a>版本API. 在<b>version.h</b>中增加<b><i>SYS_PPPOE</i></b>, API中增加<b>ip.c</b>.
+只有在<b><i>SYS_PPPOE</i></b>定义了的时候才支持<a href="../../woody/blog/ar1688/20080729cn.php">PPPoE</a>功能.
+<br />2015年9月3日更新的<a href="snapshot/AR1688_API_063036.zip">0.63.036</a>版本API. 增加<b><i>OEM_YEDZ</i></b>编译选项.
+<br />2015年8月16日更新的<a href="snapshot/AR1688_API_063035.zip">0.63.035</a>版本API. API中增加<b>tcp.c</b>.
+<br />2015年7月28日更新的<a href="snapshot/AR1688_API_063033.zip">0.63.033</a>版本API. 在<b>version.h</b>中增加<b><i>SYS_MINI_RUN</i></b>.
+只有当它定义了的时候才启用<a href="../../woody/blog/ar1688/20080615cn.php">RTL8019AS</a>上<a href="../../woody/blog/ar1688/20071116cn.php">RTP优先</a>的Minu Run.
+<br />2015年5月13日更新的<a href="snapshot/AR1688_API_063027.zip">0.63.027</a>版本API. 
+<br />2014年11月29日更新的<a href="snapshot/AR1688_API_063024.zip">0.63.024</a>版本API. 
+<br />2014年8月26日更新的<a href="snapshot/AR1688_API_063021.zip">0.63.021</a>版本API. 增加使用KSZ8842的RoIP模块<a href="../../woody/blog/ar1688/20061014cn.php">硬件型号</a>AR168RT. 
+<br />2014年6月25日更新的<a href="snapshot/AR1688_API_063018.zip">0.63.018</a>版本API. 增加<b><i>OEM_JOSN</i></b>编译选项, 给需要保留用RFC 2833交换RoIP <a href="../../woody/blog/ar1688/20120430cn.php">COR/PTT</a>信号的厂商. 
+<br />2014年6月18日更新的<a href="snapshot/AR1688_API_063017.zip">0.63.017</a>版本API. SDCC\bin下工具的编译器从<a href="../../woody/blog/ar1688/20100818cn.php">VS2008/VC9</a>升级到<a href="../../woody/blog/entertainment/20140615cn.php">VS2013/VC12</a>. 
+<br />2013年4月14日更新的<a href="snapshot/AR1688_API_061024.zip">0.61.024</a>版本API. 
+<br />2013年3月7日更新的<a href="snapshot/AR1688_API_061015.zip">0.61.015</a>版本API. Alex Vangelov更新<a href="../../woody/blog/ar1688/20070609cn.php">Linux</a>下编译辅助工具. 
+<br />2013年3月6日更新的<a href="snapshot/AR1688_API_061013.zip">0.61.013</a>版本API. 加入Alex Vangelov移植的Linux下编译辅助工具. 
+<br />2013年2月16日更新的<a href="snapshot/AR1688_API_061002.zip">0.61.002</a>版本API. 加入全部键盘源代码. 
+<br />2012年9月5日更新的<a href="snapshot/AR1688_API_059019.zip">0.59.019</a>版本API. 回归稳定版本<a href="../../woody/blog/ar1688/20101123cn.php#20101208">SDCC 3.0.1 #6078</a>. 
+<br />2012年8月14日更新的<a href="snapshot/AR1688_API_059007.zip">0.59.007</a>版本API. 仅供测试SDCC 3.2.0编译器. 
+<br />2012年8月11日更新的<a href="snapshot/AR1688_API_059003.zip">0.59.003</a>版本API. 仅供测试<a href="../../woody/blog/ar1688/20111007cn.php#20120813">SDCC 3.2.1</a>编译器. 
+<br />2012年8月10日更新的<a href="snapshot/AR1688_API_059002.zip">0.59.002</a>版本API. 仅供测试SDCC 3.2.1编译器, 使用<b>--max-allocs-per-node 10000</b>选项编译. 
+<br />2012年7月4日更新的<a href="snapshot/AR1688_API_057060.zip">0.57.060</a> 版本API. 
+<br />2012年5月3日更新的<a href="snapshot/AR1688_API_057046.zip">0.57.046</a> 版本API. 
+<br />2012年3月3日更新的<a href="snapshot/AR1688_API_057010.zip">0.57.010</a> 版本API. 
+<br />2012年2月25日更新的<a href="snapshot/AR1688_API_057006.zip">0.57.006</a> 版本API. 增加<a href="../../woody/blog/ar1688/20110331cn.php">G.729 语音提示</a>. 
+<br />2012年2月13日更新的<a href="snapshot/AR1688_API_057001.zip">0.57.001</a> (<a href="../../woody/blog/ar1688/20120213cn.php">RoIP</a>)版本API. 
+<br />2011年12月18日更新的<a href="snapshot/AR1688_API_055017.zip">0.55.017</a>版本API. <a href="../modulecn.html">网络语音模块</a>高层用户界面协议 - <a href="../../woody/blog/ar1688/20080329cn.php">STATxxx</a>. 
+<br />2011年12月5日更新的<a href="snapshot/AR1688_API_055015.zip">0.55.015</a>版本API. 使用网络电话机测试网络语音模块<a href="../../woody/blog/ar1688/20111205cn.php">功能</a>. 
+<br />2011年7月28日更新的<a href="snapshot/AR1688_API_053014.zip">0.53.014</a>(0.54预览1)版本API. 
+<br />2011年5月9日更新的<a href="snapshot/AR1688_API_053006.zip">0.53.006</a>版本API. 
+<br />2011年3月22日更新的<a href="snapshot/AR1688_API_051008.zip">0.51.008</a>版本API. 
+<br />2011年3月7日更新的<a href="snapshot/AR1688_API_051002.zip">0.51.002</a>版本API. 增加<a href="../../woody/blog/ar1688/20110307cn.php">语音提示</a>. 
+<br />2010年11月26日更新的<a href="snapshot/AR1688_API_049012.zip">0.49.012</a>(0.50预览2)版本API. 测试<a href="../../woody/blog/ar1688/20101123cn.php">SDCC 3.0.0</a>. 
+<br />2010年11月24日更新的<a href="snapshot/AR1688_API_049008.zip">0.49.008</a>(0.50预览1)版本API. 
+<br />2010年8月18日更新的<a href="snapshot/AR1688_API_047021.zip">0.47.021</a>(0.48预览1)版本API. 用<a href="../../woody/blog/ar1688/20100818cn.php">VC2008</a>编译Windows下工具. 
+<br />2010年2月11日更新的<a href="snapshot/AR1688_API_045011.zip">0.45.011</a>(0.46预览2)版本API. 
+<br />2009年11月29日更新的<a href="snapshot/AR1688_API_045005.zip">0.45.005</a>(0.46预览1)版本API. 
+</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+</table>
+</td>
+</table>
+
+<script type="text/javascript">CopyRightDisplay();</script>
+
+</body>
+</html>
