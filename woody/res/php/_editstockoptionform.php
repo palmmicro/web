@@ -9,19 +9,17 @@ define('STOCK_OPTION_ADR_CN', '修改港股对应ADR代码');
 define('STOCK_OPTION_AH_CN', '修改H股对应A股代码');
 define('STOCK_OPTION_ETF_CN', '修改ETF对应跟踪代码');
 define('STOCK_OPTION_EMA_CN', '修改200/50天EMA');
+define('STOCK_OPTION_SPLIT_CN', '拆股或合股');
 
 define('STOCK_OPTION_EDIT', 'Edit Stock Description');
 define('STOCK_OPTION_EDIT_CN', '修改股票说明');
-
-define('STOCK_OPTION_REVERSESPLIT', 'Reverse Split Stock');
-define('STOCK_OPTION_REVERSESPLIT_CN', '股票合股');
 
 define('STOCK_OPTION_AMOUNT', 'Set Fund Purchase Amount');
 define('STOCK_OPTION_AMOUNT_CN', '设置基金申购金额');
 
 function _getStockOptionDate($strSubmit, $strStockId)
 {
-	if ($strSubmit == STOCK_OPTION_ADJCLOSE_CN || $strSubmit == STOCK_OPTION_REVERSESPLIT_CN || $strSubmit == STOCK_OPTION_REVERSESPLIT || $strSubmit == STOCK_OPTION_EMA_CN)
+	if ($strSubmit == STOCK_OPTION_ADJCLOSE_CN || $strSubmit == STOCK_OPTION_SPLIT_CN || $strSubmit == STOCK_OPTION_EMA_CN)
 	{
 		$sql = new StockHistorySql($strStockId);
 		if ($strDate = $sql->GetDateNow())
@@ -145,9 +143,9 @@ function _getStockOptionVal($strSubmit, $strSymbol, $strStockId, $strDate)
 	{
 		return _getStockOptionDescription($strSubmit, $strSymbol);
 	}
-	else if ($strSubmit == STOCK_OPTION_REVERSESPLIT_CN || $strSubmit == STOCK_OPTION_REVERSESPLIT)
+	else if ($strSubmit == STOCK_OPTION_SPLIT_CN)
 	{
-		return '10';
+		return '10:1';
 	}
 	else if ($strSubmit == STOCK_OPTION_AMOUNT_CN || $strSubmit == STOCK_OPTION_AMOUNT)
 	{
@@ -165,6 +163,10 @@ function _getStockOptionMemo($strSubmit)
 	else if ($strSubmit == STOCK_OPTION_ETF_CN)
 	{
 		return '输入INDEX*0删除对应关系和全部校准记录.';
+	}
+	else if ($strSubmit == STOCK_OPTION_SPLIT_CN)
+	{
+		return '输入1:10表示10股合1股, 10:1表示1股拆10股.';
 	}
 	else if ($strSubmit == STOCK_OPTION_ADR_CN || $strSubmit == STOCK_OPTION_AH_CN)
 	{

@@ -1,6 +1,7 @@
 <?php
 require_once('/php/account.php');
 require_once('/php/stock.php');
+require_once('/php/stocktrans.php');
 require_once('_editstockoptionform.php');
 
 function _updateStockHistoryAdjCloseByDividend($strSymbol, $strYMD, $strDividend)
@@ -159,6 +160,53 @@ function _updateStockOptionEtf($strSymbol, $strVal)
 	}
 }
 
+function _updateStockOptionSplitGroupTransactions($strGroupId, $strStockId, $strDate, $fRatio, $fPrice)
+{
+	$sql = new StockGroupItemSql($strGroupId);
+    $arStockId = $sql->GetStockIdArray(true);
+    if (in_array($strStockId, $arStockId))
+    {
+    	$record = $sql->Get($strStockId);
+//    	$strGroupItemId = $sql->GetId($strStockId);
+    	$strGroupItemId = $record['id'];
+    	$iQuantity = intval($record['quantity']);
+    	$sql->trans_sql->Insert($strGroupItemId, strval(0 - $iQuantity), strval($fPrice));
+    	$sql->trans_sql->Insert($strGroupItemId, strval(intval($fRatio * $iQuantity)), strval($fPrice / $fRatio));
+    	UpdateStockGroupItemTransaction($sql, $strGroupItemId);
+    }
+}
+
+function _updateStockOptionSplitTransactions($strStockId, $strDate, $fRatio)
+{
+    $stock_sql = new StockHistorySql($strStockId);
+    $fPrice = $stock_sql->GetClosePrev($strDate);
+    
+	$sql = new TableSql(TABLE_STOCK_GROUP);
+    if ($result = $sql->GetData())
+    {
+        while ($stockgroup = mysql_fetch_assoc($result)) 
+        {
+        	_updateStockOptionSplitGroupTransactions($stockgroup['id'], $strStockId, $strDate, $fRatio, $fPrice);
+        }
+        @mysql_free_result($result);
+    }
+}
+
+function _updateStockOptionSplit($strSymbol, $strStockId, $strDate, $strVal)
+{
+	if (strstr($strVal, ':') == false)		return;
+	$ar = explode(':', $strVal);
+	$fRatio = floatval($ar[0])/floatval($ar[1]);
+//	DebugVal($fRatio, $strSymbol);
+	
+	$sql = new StockSplitSql($strStockId);
+	if ($sql->Get($strDate) == false)
+	{
+		$sql->Insert($strDate, strval($fRatio));
+		_updateStockOptionSplitTransactions($strStockId, $strDate, $fRatio);
+	}
+}
+
 	AcctAuth();
 	if (isset($_POST['submit']))
 	{
@@ -193,8 +241,9 @@ function _updateStockOptionEtf($strSymbol, $strVal)
 		{
 			if ($bTest)	_updateStockDescription($strSubmit, $strSymbol, $strVal);
 		}
-		else if ($strSubmit == STOCK_OPTION_REVERSESPLIT_CN || $strSubmit == STOCK_OPTION_REVERSESPLIT)
+		else if ($strSubmit == STOCK_OPTION_SPLIT_CN)
 		{
+			if ($bTest)	_updateStockOptionSplit($strSymbol, $strStockId, $strDate, $strVal);
 		}
 		else if ($strSubmit == STOCK_OPTION_AMOUNT_CN || $strSubmit == STOCK_OPTION_AMOUNT)
 		{

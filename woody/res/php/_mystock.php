@@ -63,9 +63,9 @@ function _getMyStockLinks($sym, $bChinese)
 	$strSymbol = $sym->GetSymbol();
 	$strQuery = UrlGetQueryString();
     $str = GetPhpLink(STOCK_PATH.'editstock', $bChinese, STOCK_OPTION_EDIT_CN, STOCK_OPTION_EDIT, $strQuery);
-    $str .= ' '.GetPhpLink(STOCK_PATH.'editstockreversesplit', $bChinese, STOCK_OPTION_REVERSESPLIT_CN, STOCK_OPTION_REVERSESPLIT, $strQuery);
     if ($bChinese)
     {
+    	$str .= ' '.GetPhpLink(STOCK_PATH.'editstocksplit', true, STOCK_OPTION_SPLIT_CN, false, $strQuery);
     	if (SqlGetEtfPair($strSymbol) == false)
     	{
     		$str .= ' '.GetPhpLink(STOCK_PATH.'editstockema', true, STOCK_OPTION_EMA_CN, false, $strQuery);

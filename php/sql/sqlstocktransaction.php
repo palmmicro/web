@@ -58,7 +58,7 @@ class StockTransactionSql extends TableSql
     	}
     }
     
-    function Insert($strGroupItemId, $strQuantity, $strPrice, $strFees, $strRemark)
+    function Insert($strGroupItemId, $strQuantity, $strPrice, $strFees = '', $strRemark = '')
     {
     	return $this->InsertData("(id, groupitem_id, quantity, price, fees, filled, remark) VALUES('0', '$strGroupItemId', '$strQuantity', '$strPrice', '$strFees', NOW(), '$strRemark')");
     }
@@ -103,16 +103,4 @@ function SqlGetStockTransaction($strTransactionId)
 	return $sql->GetById($strTransactionId);
 }
 
-// ****************************** Stock Transaction functions *******************************************************
-function GetSqlTransactionDate($transaction)
-{
-    return strstr($transaction['filled'], ' ', true);
-}
-
-function AddSqlTransaction($trans_class, $transaction)
-{
-    $iQuantity = intval($transaction['quantity']);
-    $trans_class->AddTransaction($iQuantity, $iQuantity * floatval($transaction['price']) + floatval($transaction['fees']));
-}
-    
 ?>

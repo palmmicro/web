@@ -148,17 +148,24 @@ class DailyStockSql extends StockTableSql
 // ****************************** StockEmaSql class *******************************************************
 class StockEmaSql extends DailyStockSql
 {
-    // constructor 
     function StockEmaSql($strStockId, $iDays) 
     {
         parent::DailyStockSql($strStockId, 'stockema'.strval($iDays));
     }
 }
 
+// ****************************** StockSplitSql class *******************************************************
+class StockSplitSql extends DailyStockSql
+{
+    function StockSplitSql($strStockId) 
+    {
+        parent::DailyStockSql($strStockId, TABLE_STOCK_SPLIT);
+    }
+}
+
 // ****************************** ForexHistorySql class *******************************************************
 class ForexHistorySql extends DailyStockSql
 {
-    // constructor 
     function ForexHistorySql($strStockId) 
     {
         parent::DailyStockSql($strStockId, TABLE_FOREX_HISTORY);
@@ -167,7 +174,6 @@ class ForexHistorySql extends DailyStockSql
 
 class UscnyHistorySql extends ForexHistorySql
 {
-    // constructor 
     function UscnyHistorySql() 
     {
         parent::ForexHistorySql(SqlGetStockId('USCNY'));
@@ -176,7 +182,6 @@ class UscnyHistorySql extends ForexHistorySql
 
 class HkcnyHistorySql extends ForexHistorySql
 {
-    // constructor 
     function HkcnyHistorySql() 
     {
         parent::ForexHistorySql(SqlGetStockId('HKCNY'));

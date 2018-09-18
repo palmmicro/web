@@ -1,5 +1,7 @@
-<?php require_once('php/_editstockoption.php'); ?>
-<?php SetStockOptionType(STOCK_OPTION_REVERSESPLIT_CN); ?>
+<?php
+require_once('php/_editstockoption.php');
+SetStockOptionType(STOCK_OPTION_SPLIT_CN);
+?>
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">

@@ -39,6 +39,13 @@ function SetStockOptionType($strType)
 {
     global $g_strOptionType;
     $g_strOptionType = $strType;
+    if ($strType == STOCK_OPTION_AMOUNT || $strType == STOCK_OPTION_AMOUNT_CN || $strType == STOCK_OPTION_EDIT || $strType == STOCK_OPTION_EDIT_CN)
+    {
+    }
+    else
+    {
+    	SetSwitchLanguage();
+    }
 }
 
     AcctAuth();

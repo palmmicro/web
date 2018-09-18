@@ -6,20 +6,6 @@ require_once('/php/ui/stockgroupparagraph.php');
 require_once('_edittransactionform.php');
 require_once('_editmergeform.php');
 
-function _updateStockGroupItemTransaction($sql, $strGroupItemId)
-{
-    $trans = new StockTransaction();
-    if ($result = $sql->trans_sql->Get($strGroupItemId)) 
-    {
-        while ($record = mysql_fetch_assoc($result)) 
-        {
-            AddSqlTransaction($trans, $record);
-        }
-        @mysql_free_result($result);
-    }
-    $sql->Update($strGroupItemId, strval($trans->iTotalShares), strval($trans->fTotalCost), strval($trans->iTotalRecords));
-}
-
 function _updateStockGroupItem($strGroupId, $strGroupItemId)
 {
 	if ($strGroupId == false)		return;
@@ -30,7 +16,7 @@ function _updateStockGroupItem($strGroupId, $strGroupItemId)
 	{
 		while ($stockgroupitem = mysql_fetch_assoc($result)) 
 		{
-		    _updateStockGroupItemTransaction($sql, $stockgroupitem['id']);
+		    UpdateStockGroupItemTransaction($sql, $stockgroupitem['id']);
 		}
 		@mysql_free_result($result);
 	}
@@ -201,8 +187,8 @@ function _onMergeTransaction()
     		$sql = new StockGroupItemSql($strSrcGroupId);
     		if ($sql->trans_sql->Merge($strSrcGroupItemId, $strDstGroupItemId))
     		{
-    			_updateStockGroupItemTransaction($sql, $strSrcGroupItemId);
-    			_updateStockGroupItemTransaction(new StockGroupItemSql($strDstGroupId), $strDstGroupItemId);
+    			UpdateStockGroupItemTransaction($sql, $strSrcGroupItemId);
+    			UpdateStockGroupItemTransaction(new StockGroupItemSql($strDstGroupId), $strDstGroupItemId);
     		}
     	}
     }

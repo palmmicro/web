@@ -100,4 +100,32 @@ class MyStockTransaction extends StockTransaction
     }
 }
 
+// ****************************** Stock Transaction functions *******************************************************
+function GetSqlTransactionDate($transaction)
+{
+    return strstr($transaction['filled'], ' ', true);
+}
+
+function AddSqlTransaction($trans_class, $transaction)
+{
+    $iQuantity = intval($transaction['quantity']);
+    $trans_class->AddTransaction($iQuantity, $iQuantity * floatval($transaction['price']) + floatval($transaction['fees']));
+}
+
+function UpdateStockGroupItemTransaction($sql, $strGroupItemId)
+{
+    $trans = new StockTransaction();
+    if ($result = $sql->trans_sql->Get($strGroupItemId)) 
+    {
+        while ($record = mysql_fetch_assoc($result)) 
+        {
+            AddSqlTransaction($trans, $record);
+        }
+        @mysql_free_result($result);
+    }
+    $sql->Update($strGroupItemId, strval($trans->iTotalShares), strval($trans->fTotalCost), strval($trans->iTotalRecords));
+}
+
+
+
 ?>
