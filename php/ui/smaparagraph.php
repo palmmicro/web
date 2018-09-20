@@ -19,15 +19,6 @@ function _getSmaRow($strKey, $bChinese)
     return $arRow[$strKey];
 }
 
-function _getTradingRangeRow($stock_his, $strKey)
-{
-    if ($iVal = $stock_his->aiTradingRange[$strKey])
-    {
-    	return strval($iVal); 
-    }
-    return '';
-}
-
 function _getSmaCallbackPriceDisplay($callback, $ref, $fVal, $strColor)
 {
 	if ($fVal)
@@ -47,13 +38,18 @@ function _echoSmaTableItem($stock_his, $strKey, $fVal, $ref, $callback, $callbac
     
     $strSma = _getSmaRow($strKey, $bChinese);
     $strPrice = $stock_ref->GetPriceDisplay($fVal);
-    
-   	if ($fNext = $stock_his->afNext[$strKey])	    $strNext = $stock_ref->GetPriceDisplay($fNext);
-   	else												$strNext = '';
-   	
     $strPercentage = $stock_ref->GetPercentageDisplay($fVal);
-    $strTradingRange = _getTradingRangeRow($stock_his, $strKey);
-    
+   	if ($fNext = $stock_his->afNext[$strKey])
+   	{
+   		$strNextPrice = $stock_ref->GetPriceDisplay($fNext);
+   		$strNextPercentage = $stock_ref->GetPercentageDisplay($fNext);
+   	}
+   	else
+   	{
+   		$strNextPrice = '';
+   		$strNextPercentage = '';
+   	}
+   	
     $strDisplayEx = '';
     if ($callback)
     {
@@ -70,8 +66,8 @@ function _echoSmaTableItem($stock_his, $strKey, $fVal, $ref, $callback, $callbac
         <td $strBackGround class=c1>$strSma</td>
         <td $strBackGround class=c1>$strPrice</td>
         <td $strBackGround class=c1>$strPercentage</td>
-        <td $strBackGround class=c1>$strTradingRange</td>
-        <td $strBackGround class=c1>$strNext</td>
+        <td $strBackGround class=c1>$strNextPrice</td>
+        <td $strBackGround class=c1>$strNextPercentage</td>
         $strDisplayEx
         $strUserDefined
     </tr>
@@ -163,20 +159,19 @@ function _selectSmaExternalLink($strSymbol)
     return GetXueQiuLink($sym);
 }
 
-function _getSmaParagraphMemo($his, $arColumn, $bChinese)
+function _getSmaParagraphMemo($his, $bChinese)
 {
 	$strDate = $his->strDate;
+	$strScore = '<b>'.strval($his->iScore).'</b>';
 	$strSymbol = $his->GetStockSymbol();
 	$strSymbolLink = _selectSmaExternalLink($strSymbol);
-	$strSMA = $arColumn[0];
-	$strDays = $arColumn[3];
     if ($bChinese)     
     {
-        $str = "{$strSymbolLink}从{$strDate}开始的过去100个交易日中{$strSMA}落在当天成交范围内的{$strDays}";
+        $str = "{$strSymbolLink} {$strDate}数据牛熊分数: {$strScore}";
     }
     else
     {
-        $str = "$strDays of $strSymbolLink trading range covered the $strSMA in past 100 trading days starting from $strDate";
+        $str = "$strSymbolLink $strDate $strScore";
     }
     $str .= ' '.GetStockSymbolLink('stockhistory', $strSymbol, $bChinese, '历史记录', 'History');
     return $str;
@@ -185,13 +180,14 @@ function _getSmaParagraphMemo($his, $arColumn, $bChinese)
 function EchoSmaParagraph($ref, $bChinese, $str = false, $cb_ref = false, $callback = false, $callback2 = false)
 {
 	$his = new StockHistory($ref);
-	$arColumn = GetSmaTableColumn($bChinese);
-	if ($str === false)	$str = _getSmaParagraphMemo($his, $arColumn, $bChinese);
+	if ($str === false)	$str = _getSmaParagraphMemo($his, $bChinese);
 
+	$arColumn = GetSmaTableColumn($bChinese);
 	if ($bChinese)	$strEst = $arColumn[1];
 	else				$strEst = ' '.$arColumn[1];
 	$strNextEst = 'T+1'.$strEst;
 	$arColumn[] = $strNextEst;
+	$arColumn[] = $arColumn[2];
 	
 	$iWidth = 360;
     $strColumnEx = '';
@@ -217,9 +213,9 @@ function EchoSmaParagraph($ref, $bChinese, $str = false, $cb_ref = false, $callb
     <tr>
         <td class=c1 width=90 align=center>{$arColumn[0]}</td>
         <td class=c1 width=70 align=center>{$arColumn[1]}</td>
-        <td class=c1 width=70 align=center>{$arColumn[2]}</td>
-        <td class=c1 width=60 align=center>{$arColumn[3]}</td>
-        <td class=c1 width=70 align=center>{$arColumn[4]}</td>
+        <td class=c1 width=65 align=center>{$arColumn[2]}</td>
+        <td class=c1 width=70 align=center>{$arColumn[3]}</td>
+        <td class=c1 width=65 align=center>{$arColumn[4]}</td>
         $strColumnEx
         $strUserDefined
     </tr>

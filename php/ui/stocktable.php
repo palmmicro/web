@@ -23,8 +23,8 @@ function GetReferenceTablePrice($bChinese)
 
 function GetSmaTableColumn($bChinese)
 {
-    if ($bChinese)  $arColumn = array('<font color=indigo>均线</font>', '<font color=magenta>估值</font>', '<font color=orange>溢价</font>',    '<font color=olive>天数</font>');
-    else              $arColumn = array('<font color=indigo>SMA</font>',  '<font color=magenta>Est</font>',  '<font color=orange>Premium</font>', '<font color=olive>Days</font>');
+    if ($bChinese)  $arColumn = array('<font color=indigo>均线</font>', '<font color=magenta>估值</font>', '<font color=orange>溢价</font>');
+    else              $arColumn = array('<font color=indigo>SMA</font>',  '<font color=magenta>Est</font>',  '<font color=orange>Premium</font>');
     return $arColumn;
 }
 

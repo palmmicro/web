@@ -22,14 +22,14 @@ function _ignoreCurrentTradingData($strDate, $sym)
 }
 
 // ****************************** SMA functions *******************************************************
-function _estSma($arF, $iIndex, $iAvg)
+function _estSma($arF, $iAvg)
 {
     $f = 0.0;
     $iNum = $iAvg - 1;
 //    $iNum = $iAvg;
     for ($i = 0; $i < $iNum; $i ++)
     {
-        $f += $arF[$iIndex + $i];
+        $f += $arF[$i];
     }
     return $f / $iNum;
 }
@@ -54,14 +54,14 @@ a = (n - 4) * (n - 1)² - 4 * (n - 1)
 b = (8 - 2 * (n - 4) * (n - 1)) * ∑Xn
 c = (n - 4) * (∑Xn)² - 4 * ∑Xn²
 */
-function _estBollingerBands($arF, $iIndex, $iAvg)
+function _estBollingerBands($arF, $iAvg)
 {
     $fSum = 0.0;
     $fQuadraticSum = 0.0;
     $iNum = $iAvg - 1;
     for ($i = 0; $i < $iNum; $i ++)
     {
-        $fVal = $arF[$iIndex + $i];
+        $fVal = $arF[$i];
         $fSum += $fVal;
         $fQuadraticSum += $fVal * $fVal;
     }
@@ -75,8 +75,6 @@ function _estBollingerBands($arF, $iIndex, $iAvg)
         list($x1, $x2) = $ar;
         $sigma1 = ($fSum - $iNum * $x1) / 2;
         $sigma2 = ($fSum - $iNum * $x2) / 2;
-//        $strDebug = sprintf('%.2f, %.2f, %.2f, %.2f', $x1, $x2, $x1 - 2 * $sigma1, $x2 - 2 * $sigma2);
-//        DebugString($strDebug);
         return array($x1 - 2 * $sigma1, $x2 - 2 * $sigma2);
     }
     return false;
@@ -160,76 +158,30 @@ class StockHistory
     
     var $afSMA = array();
     var $afNext = array();
-    var $aiTradingRange = array();
-
+    
+    var $iScore = 0;
     var $strDate;		// 2014-11-13
     
     var $stock_ref;	// MyStockReference
     var $sql;			// StockHistorySql				
-    
-    function _getTradingRange($iDays, $afClose, $afHigh, $afLow)
-    {
-        $iFit = 0;
-        $iBelow = 0;
-        $iAbove = 0; 
-        for ($i = 0; $i < 100; $i ++)
-        {
-            $fAvg = _estSma($afClose, $i + 1, $iDays);
-            if (($fAvg - MIN_FLOAT_VAL) > $afHigh[$i])         $iAbove ++;
-            else if (($fAvg + MIN_FLOAT_VAL) < $afLow[$i])    $iBelow ++;        
-            else                                                  $iFit ++;
-        }
-        return $iFit;
-    }
-    
-    function _getBollTradingRange($afClose, $afHigh, $afLow)
-    {
-        $iUpFit = 0;
-        $iUpBelow = 0;
-        $iUpAbove = 0; 
-        $iDownFit = 0;
-        $iDownBelow = 0;
-        $iDownAbove = 0; 
-        for ($i = 0; $i < 100; $i ++)
-        {
-            list($fUp, $fDown) = _estBollingerBands($afClose, $i + 1, BOLL_DAYS);
-            
-            if (($fUp - MIN_FLOAT_VAL) > $afHigh[$i])         $iUpAbove ++;
-            else if (($fUp + MIN_FLOAT_VAL) < $afLow[$i])    $iUpBelow ++;        
-            else                                                  $iUpFit ++;
-            
-            if (($fDown - MIN_FLOAT_VAL) > $afHigh[$i])         $iDownAbove ++;
-            else if (($fDown + MIN_FLOAT_VAL) < $afLow[$i])    $iDownBelow ++;        
-            else                                                  $iDownFit ++;
-        }
-        return array($iUpFit, $iDownFit);
-    }
-    
-    function _buildTradingRangeName($strName)
-    {
-        return $strName.'Fit';
-    }
     
     function _buildNextName($strName)
     {
         return $strName.'Next';
     }
     
-    function _cfg_set_SMA($cfg, $strName, $fSma, $fNext = false, $iTradingRange = false)
+    function _cfg_set_SMA($cfg, $strName, $fSma, $fNext = false)
     {
         $this->afSMA[$strName] = $fSma;
         $this->afNext[$strName] = $fNext;
-        $this->aiTradingRange[$strName] = $iTradingRange;
         
         $cfg->set_var(SMA_SECTION, $strName, strval($fSma));
         if ($fNext)
         {
         	$cfg->set_var(SMA_SECTION, $this->_buildNextName($strName), strval($fNext));
         }
-        if ($iTradingRange)
-        {
-        	$cfg->set_var(SMA_SECTION, $this->_buildTradingRangeName($strName), strval($iTradingRange));
-        }
+        
+        if ($this->stock_ref->fPrice > $fSma)	$this->iScore ++;
     }
     
     function _cfg_get_SMA($cfg, $strName)
@@ -244,15 +196,6 @@ class StockHistory
         {
         	$this->afNext[$strName] = false;
         }
-        
-        if ($str = $cfg->read_var(SMA_SECTION, $this->_buildTradingRangeName($strName)))
-        {
-        	$this->aiTradingRange[$strName] = intval($str);
-        }
-        else
-        {
-        	$this->aiTradingRange[$strName] = false;
-        }
     }
 
     function _getEMA($iDays)
@@ -261,7 +204,7 @@ class StockHistory
     	return $sql->GetClose($this->strDate);
     }
     
-    function _loadConfigEMA($cfg, $iDays)
+    function _cfg_get_EMA($cfg, $iDays)
     {
 		if ($this->_getEMA($iDays))
 		{
@@ -288,11 +231,13 @@ class StockHistory
             $this->_cfg_get_SMA($cfg, 'M'.strval($i));
         }
         
-        $this->_loadConfigEMA($cfg, 50);
-        $this->_loadConfigEMA($cfg, 200);
+        $this->_cfg_get_EMA($cfg, 50);
+        $this->_cfg_get_EMA($cfg, 200);
+
+        $this->iScore = intval($cfg->read_var(SMA_SECTION, 'Score'));
     }
     
-    function _saveConfigEMA($cfg, $iDays)
+    function _cfg_set_EMA($cfg, $iDays)
     {
     	if ($fEma = $this->_getEMA($iDays))
 		{
@@ -302,8 +247,6 @@ class StockHistory
     
     function _saveConfigSMA($cfg)
     {
-        $afHigh = array();
-        $afLow = array();
         $afClose = array();
         $afWeeklyClose = array();
         $afMonthlyClose = array();
@@ -316,10 +259,6 @@ class StockHistory
     			$fClose = floatval($history['adjclose']);
     			$afClose[] = $fClose;
             
-    			$fDiff = floatval($history['close']) - $fClose; 
-    			$afHigh[] = floatval($history['high']) - $fDiff;
-    			$afLow[] = floatval($history['low']) - $fDiff;
-    			
     			$strYMD = $history['date'];
     			if (_isWeekEnd($strYMD, $strNextDayYMD))	$afWeeklyClose[] = $fClose;
     			if (_isMonthEnd($strYMD, $strNextDayYMD))	$afMonthlyClose[] = $fClose;
@@ -330,26 +269,27 @@ class StockHistory
         
         foreach ($this->aiNum as $i)
         {
-            $this->_cfg_set_SMA($cfg, 'D'.strval($i), _estSma($afClose, 0, $i), _estSma($afClose, 0, $i - 1), $this->_getTradingRange($i, $afClose, $afHigh, $afLow));
+            $this->_cfg_set_SMA($cfg, 'D'.strval($i), _estSma($afClose, $i), _estSma($afClose, $i - 1));
         }
-        list($fUp, $fDown) = _estBollingerBands($afClose, 0, BOLL_DAYS);
+        list($fUp, $fDown) = _estBollingerBands($afClose, BOLL_DAYS);
         list($fUpNext, $fDownNext) = _estNextBollingerBands($afClose, BOLL_DAYS);
-        list($iUp, $iDown) = $this->_getBollTradingRange($afClose, $afHigh, $afLow);
-        $this->_cfg_set_SMA($cfg, 'BOLLUP', $fUp, $fUpNext, $iUp);
-        $this->_cfg_set_SMA($cfg, 'BOLLDN', $fDown, $fDownNext, $iDown);
+        $this->_cfg_set_SMA($cfg, 'BOLLUP', $fUp, $fUpNext);
+        $this->_cfg_set_SMA($cfg, 'BOLLDN', $fDown, $fDownNext);
 
         foreach ($this->aiNum as $i)
         {
-            $this->_cfg_set_SMA($cfg, 'W'.strval($i), _estSma($afWeeklyClose, 0, $i), _estSma($afWeeklyClose, 0, $i - 1));
+            $this->_cfg_set_SMA($cfg, 'W'.strval($i), _estSma($afWeeklyClose, $i), _estSma($afWeeklyClose, $i - 1));
         }
             
         foreach ($this->aiNum as $i)
         {
-            $this->_cfg_set_SMA($cfg, 'M'.strval($i), _estSma($afMonthlyClose, 0, $i), _estSma($afMonthlyClose, 0, $i - 1));
+            $this->_cfg_set_SMA($cfg, 'M'.strval($i), _estSma($afMonthlyClose, $i), _estSma($afMonthlyClose, $i - 1));
         }
         
-        $this->_saveConfigEMA($cfg, 50);
-        $this->_saveConfigEMA($cfg, 200);
+        $this->_cfg_set_EMA($cfg, 50);
+        $this->_cfg_set_EMA($cfg, 200);
+
+        $cfg->set_var(SMA_SECTION, 'Score', strval($this->iScore));
         $cfg->save_data();
     }
     
