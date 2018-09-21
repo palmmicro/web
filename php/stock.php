@@ -66,7 +66,8 @@ function StockGetArraySymbol($ar)
 
 function StockGetSymbolArray($strSymbols)
 {
-    $ar = explode(',', $strSymbols);
+	$str = str_replace('，', ',', $strSymbols);
+    $ar = explode(',', $str);
     return StockGetArraySymbol($ar);
 }
 

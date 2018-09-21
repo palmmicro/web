@@ -228,7 +228,7 @@ function _isShanghaiFundDigit($iDigit)
 
 function _isShenzhenIndexDigit($iDigit)
 {
-    if ($iDigit >= 300000 && $iDigit < 400000)  return true;
+    if ($iDigit >= 390000 && $iDigit < 400000)  return true;
     return false;
 }
 
