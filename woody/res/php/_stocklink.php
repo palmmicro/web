@@ -10,7 +10,7 @@ function _getReturnGroupText($strLink, $bChinese)
     {
         $str = "Return $strLink Group";
     }
-    return $str.HTML_NEW_LINE;
+    return $str.'<br />';
 }
 
 function _GetReturnGroupLink($strGroupId, $bChinese)
@@ -412,7 +412,7 @@ function _checkPersonalGroupId($strGroupId)
 
 function _getPersonalLinks($strMemberId, $bChinese)
 {
-    $str = HTML_NEW_LINE;
+    $str = '<br />';
 	$sql = new StockGroupSql($strMemberId);
 	if ($result = $sql->GetAll()) 
 	{
@@ -431,9 +431,9 @@ function _getPersonalLinks($strMemberId, $bChinese)
 
 function _getStockGroupLinks($bChinese)
 {
-    $str = HTML_NEW_LINE.GetCategoryLinks(GetMenuArray, $bChinese);
-    $str .= HTML_NEW_LINE.GetMyStockGroupLink($bChinese);	// .' '.GetAhCompareLink($bChinese).' '.GetAdrhCompareLink($bChinese);
-    $str .= HTML_NEW_LINE.GetMyPortfolioLink($bChinese);
+    $str = '<br />'.GetCategoryLinks(GetMenuArray, $bChinese);
+    $str .= '<br />'.GetMyStockGroupLink($bChinese);	// .' '.GetAhCompareLink($bChinese).' '.GetAdrhCompareLink($bChinese);
+    $str .= '<br />'.GetMyPortfolioLink($bChinese);
     if ($strMemberId = AcctIsLogin())
     {
         $str .= _getPersonalLinks($strMemberId, $bChinese);
@@ -450,7 +450,7 @@ function EchoStockGroupLinks($bChinese = true)
 function EchoStockCategory($bChinese = true)
 {
 	$str = $bChinese ? '相关软件' : 'Related software'; 
-    $str .= ':'.HTML_NEW_LINE.GetCategoryLinks(_getCategoryArray, $bChinese);
+    $str .= ':<br />'.GetCategoryLinks(_getCategoryArray, $bChinese);
 	$str .= _getStockGroupLinks($bChinese);
     EchoParagraph($str);
 }

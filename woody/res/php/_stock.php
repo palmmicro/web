@@ -60,14 +60,15 @@ function _EchoPortfolioItem($strGroupId, $trans, $bChinese)
         $strAvgCost = '';
         $strPercentage = '';
         $strAmount = '';
+        $strTotalShares = '';
     }
     else
     {
         $strAvgCost = $trans->GetAvgCostDisplay();
         $strPercentage = $ref->GetPercentageDisplay($trans->GetAvgCost());
         $strAmount = $trans->GetValueDisplay();
+        $strTotalShares = strval($trans->iTotalShares); 
     }
-    $strTotalShares = strval($trans->iTotalShares); 
     $strProfit = $trans->GetProfitDisplay();
     
     echo <<<END

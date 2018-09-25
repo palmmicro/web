@@ -90,6 +90,8 @@ function _getStockTransactionLink($strGroupId, $strStockId)
 
 function _emailStockTransaction($strStockId, $strGroupId, $strQuantity, $strPrice, $strCost, $strRemark)
 {
+	if (strlen($strRemark) == 0)	return;
+	
     $strSubject = 'Stock Transaction: '.$_POST['submit'];
 	$str = _getGroupOwnerLink($strGroupId);
     $str .= '<br />Symbol: '._getStockTransactionLink($strGroupId, $strStockId); 

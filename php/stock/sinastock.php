@@ -203,7 +203,6 @@ function SinaGetAllStockSymbolA()
 							<td>--</td>
 							<td><a target="_blank" href="/corp/view/vISSUE_ShareBonusDetail.php?stockid=000028&type=1&end_date=2016-05-24">查看</a></td>
 						</tr>*/
-//http://vip.stock.finance.sina.com.cn/corp/go.php/vISSUE_ShareBonus/stockid/000028.phtml
 function SinaGetStockDividendA($strSymbol)
 {
     $strUrl = SinaGetStockDividendUrl($strSymbol);
@@ -222,6 +221,8 @@ function SinaGetStockDividendA($strSymbol)
     return $arMatch;
 }
 
+// http://vip.stock.finance.sina.com.cn/corp/go.php/vISSUE_ShareBonus/stockid/000028.phtml
+// http://stock.finance.sina.com.cn/hkstock/dividends/00386.html
 function SinaGetStockDividendUrl($strSymbol)
 {
     $sym = new StockSymbol($strSymbol);

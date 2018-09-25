@@ -111,8 +111,6 @@ http://hq.sinajs.cn/list=int_dji 道琼斯
 http://hq.sinajs.cn/list=int_nasdaq 纳斯达克
 http://hq.sinajs.cn/list=int_sp500 标普500
 http://hq.sinajs.cn/list=int_ftse 英金融时报指数
-http://hq.sinajs.cn/list=gb_xop
-http://stock.finance.sina.com.cn/usstock/quotes/XOP.html
 */
 // http://www.cnblogs.com/wangxinsheng/p/4260726.html
 // http://blog.sina.com.cn/s/blog_7ed3ed3d0101gphj.html
@@ -120,7 +118,6 @@ http://stock.finance.sina.com.cn/usstock/quotes/XOP.html
 // 期货 http://hq.sinajs.cn/rn=1318986550609&amp;list=hf_CL,hf_GC,hf_SI,hf_CAD,hf_ZSD,hf_S,hf_C,hf_W
 // http://hq.sinajs.cn/rn=1318986628214&amp;list=USDCNY,USDHKD,EURCNY,GBPCNY,USDJPY,EURUSD,GBPUSD,
 // http://hq.sinajs.cn/list=gb_dji
-// http://hq.sinajs.cn/list=hk02828
 
 function RemoveDoubleQuotationMarks($str)
 {

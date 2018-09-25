@@ -139,7 +139,7 @@ class _LofGroup extends _StockGroup
         if (AcctIsTest($bChinese))
         {
 	        $str = $this->_getAdjustString($bChinese);
-            $str .= HTML_NEW_LINE._GetStockConfigDebugString(array($this->ref->est_ref), $bChinese);
+            $str .= '<br />'._GetStockConfigDebugString(array($this->ref->est_ref), $bChinese);
             EchoParagraph($str);
 	    }
     }
