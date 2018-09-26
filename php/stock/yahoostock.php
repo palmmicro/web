@@ -71,7 +71,6 @@ define('YAHOO_QUOTES_FLAGS', 'l1t1p2nd1poghvn4');
 define('YAHOO_QUOTES_URL', 'https://finance.yahoo.com/d/quotes.csv?');
 function GetYahooQuotes($strSymbols)
 { 
-    // http://finance.yahoo.com/d/quotes.csv?s= STOCK SYMBOLS &f= FORMAT TAGS
     $strUrl = YAHOO_QUOTES_URL."s=$strSymbols&f=".YAHOO_QUOTES_FLAGS;   // .'&e=.csv'; 
 //    $strUrl = 'https://finance.yahoo.com/d/quotes.csv?s=XOP+%5ESPSIOP&f=l1t1p2nd1p';
     $str = url_get_contents($strUrl);
@@ -91,7 +90,6 @@ function IsYahooStrError($str)
 }
 
 // https://finance.yahoo.com/quote/XOP/history?period1=1467122442&period2=1498658442&interval=1d&filter=history&frequency=1d 
-// https://query1.finance.yahoo.com/v7/finance/download/XOP?period1=1467122442&period2=1498658442&interval=1d&events=history&crumb=EMGTmG8UgZ4
 define('YAHOO_STOCK_QUOTES_URL', 'https://finance.yahoo.com/quote/');
 function YahooStockHistoryGetUrl($strYahooSymbol, $iTimeBegin = false, $iTimeEnd = false)
 {

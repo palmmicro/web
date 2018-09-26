@@ -1,4 +1,4 @@
-<?php require_once('php/_entertainment.php'); ?>
+<?php require_once('php/_20151225.php'); ?>
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -15,7 +15,7 @@
 <p>2015年12月25日
 <br />在<?php EchoXueqieId('2091843424', '塔夫男'); ?>等人的建议下, 最近打算加入记录<a href="../../res/netvaluehistorycn.php?symbol=SZ162411">华宝油气历史净值</a>的表格.
 开始动手后发现4个多月前分析的新浪A股实时数据接口的字段意义已经差不多忘光了. 好记性不如烂笔头, 本着磨刀不误砍柴工的精神, 先在这里完整记录一下, 以便日后查阅.
-<br />目前从<?php EchoLink('http://hq.sinajs.cn/list=sz162411'); ?>拿到后记录在<?php EchoFileLink('/debug/sina/sz162411.txt'); ?>中的数据如下:
+<br />目前从<?php EchoSinaQuotesLink('sz162411'); ?>拿到后记录在<?php EchoSinaDebugLink('sz162411'); ?>中的数据如下:
 <br /><font color=grey>var hq_str_sz162411="华宝油气,
 0.502,0.482,0.500,0.503,0.499,0.499,0.500,811593355,406232297.465,
 31772194,0.499,4024600,0.498,771800,0.497,854000,0.496,308800,0.495,
@@ -50,7 +50,7 @@
 <p>2016年1月28日
 <br />最近在<?php EchoXueqieId('8907500725', 'oldwain'); ?>的建议下, 在<a href="../../res/sz162411cn.php">华宝油气净值</a>计算页面中相关价格记录的时间中加入日期显示.
 这下上次的股票接口记录就派上用场了. 不过期货的格式又重新看了一遍, 加个记录以防以后还要用.
-<br />目前从<?php EchoLink('http://hq.sinajs.cn/list=hf_CL'); ?>拿到后记录在<?php EchoFileLink('/debug/sina/hf_cl.txt'); ?>中的数据如下:
+<br />目前从<?php EchoSinaQuotesLink('hf_CL'); ?>拿到后记录在<?php EchoSinaDebugLink('hf_cl'); ?>中的数据如下:
 <br /><font color=grey>var hq_str_hf_CL="31.85,1.2719,31.85,31.86,31.88,30.14,
 00:24:20,31.45,30.52,40629,0,0,2016-01-28,NYMEX原油";</font>
 <br />去掉前后双引号后, 按逗号','分隔的各个字段意义如下表.
@@ -76,7 +76,7 @@
 <h3>新浪<a name="fund">基金</a>数据接口的字段意义</h3>
 <p>2016年2月16日
 <br />晚上9点多的时候, <?php EchoXueqieId('5240589924', 'uqot'); ?>跟我说<a href="20150818cn.php">华宝油气</a>净值计算出问题了. 我看了一下调试信息, 发现8点的时候做了一次自动校准,
-从<?php EchoLink('http://hq.sinajs.cn/list=f_162411'); ?>拿到后记录在<?php EchoFileLink('/debug/sina/f_162411.txt'); ?>中的数据如下:
+从<?php EchoSinaQuotesLink('f_162411'); ?>拿到后记录在<?php EchoSinaDebugLink('f_162411'); ?>中的数据如下:
 <br /><font color=grey>var hq_str_f_162411="华宝兴业标普油气上游股票(QDII-LOF),
 0.406,0.406,0.435,2016-02-15,66.2444";</font>
 <br />按照php/<b>_lof.php</b>中的自动校准流程, 拿到15号的<?php EchoMyStockLink('SZ162411'); ?>净值后先跟15号<?php EchoMyStockLink('XOP'); ?>的收盘值校准, 但是昨天美股因为总统日没有交易, 这一步没有成功.
@@ -98,7 +98,7 @@
 <h3>新浪<a name="hongkong">港股</a>数据接口的字段意义</h3>
 <p>2016年3月2日
 <br />用Yahoo拿港股数据搞了大半年后, 一贯后知后觉的我才发现新浪也有港股数据. 这次吸取以往教训, 挽起袖子改程序前先写这个格式文档, 然后再改我的<font color=olive>StockReference</font>类.
-从<?php EchoLink('http://hq.sinajs.cn/list=hk02828'); ?>拿到的数据如下:
+从<?php EchoSinaQuotesLink('hk02828'); ?>拿到的数据如下:
 <br /><font color=grey>var hq_str_hk02828="HS H-SHARE ETF,恒生Ｈ股,
 83.100,81.250,85.100,83.100,84.350,3.100,3.815,84.450,84.500,1659103503,19690659,
 0.000,0.000,151.200,75.700,2016/03/02,16:01";</font>
@@ -130,12 +130,12 @@
 <h3>新浪<a name="futurecn">国内期货</a>实时数据接口的字段意义</h3>
 <p>2016年10月8日
 <br />国际黄金价格在国庆期间暴跌, 赶快把黄金ETF估值重新整理一下.
-<br />目前从<?php EchoLink('http://hq.sinajs.cn/list=AU0'); ?>拿到后记录在<?php EchoFileLink('/debug/sina/au0.txt'); ?>中的数据如下:
+<br />目前从<?php EchoSinaQuotesLink('AU0'); ?>拿到后记录在<?php EchoSinaDebugLink('au0'); ?>中的数据如下:
 <br /><font color=grey>var hq_str_AU0="黄金连续,145957,283.90,285.55,283.90,284.75,285.25,285.30,285.30,284.75,
 285.20,31,38,292310,125074,沪,黄金,2016-09-30,0,289.300,
 283.900,289.700,283.050,291.700,282.000,293.500,282.000,2.280";
 </font>
-<br />跟<?php EchoLink('http://finance.sina.com.cn/futures/quotes/AU0.shtml'); ?>的显示数据比较, 去掉前后双引号后, 按逗号','分隔的各个字段意义如下表.
+<br />跟<?php echo GetSinaFutureLink('AU0'); ?>的显示数据比较, 去掉前后双引号后, 按逗号','分隔的各个字段意义如下表.
 </p>
 <?php
     EchoInterpretationParagraph(array(array('0', '黄金连续', '名字'),
@@ -164,7 +164,7 @@
 <p>2016年10月17日
 <br />最近在股票交易中对<a href="20150818cn.php#sma">均线</a>的依赖越来越严重, 而同时Yahoo的负面用户体验和甩卖消息越来越多, 让我比较担心哪一天Yahoo突然不提供历史数据了, 毕竟是一个非公开的东西.
 于是下决心自己开始记录历史数据, 刚开始改程序就发现去年底写的读取新浪实时美股数据的代码中缺Yahoo历史数据中提供的的开盘价, 最高价, 最低价和成交量. 又要重新开始看数据接口的字段意义.
-从<?php EchoLink('http://hq.sinajs.cn/list=gb_xop'); ?>拿到后记录在<?php EchoFileLink('/debug/sina/gb_xop.txt'); ?>中的数据如下:
+从<?php EchoSinaQuotesLink('gb_xop'); ?>拿到后记录在<?php EchoSinaDebugLink('gb_xop'); ?>中的数据如下:
 <br /><font color=grey>var hq_str_gb_xop="油气开采指数ETF-SPDR S&P,37.66,-1.08,2016-10-15 08:18:14,-0.41,
 38.07,38.36,37.55,40.28,22.06,
 15291967,15204095,523473999,8.36,4.50,
@@ -172,7 +172,7 @@
 0.00,37.70,0.11,0.04,Oct 14 08:00PM EDT,
 Oct 14 04:00PM EDT,38.07,106590.00";
 </font>
-<br />跟<?php EchoLink('http://stock.finance.sina.com.cn/usstock/quotes/XOP.html'); ?>的显示数据比较, 去掉前后双引号后, 按逗号','分隔的各个字段意义如下表.
+<br />跟<?php echo GetSinaUsStockLink(new StockSymbol('XOP')); ?>的显示数据比较, 去掉前后双引号后, 按逗号','分隔的各个字段意义如下表.
 </p>
 <?php
     EchoInterpretationParagraph(array(array('0', '油气开采指数ETF-SPDR S&P', 'GB2312编码的中文名字'),

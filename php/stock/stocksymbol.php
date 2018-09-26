@@ -517,22 +517,19 @@ class StockSymbol
         return SINA_US_PREFIX.$strLower;
     }
 
-/*
-上证综指代码：000001.ss，深证成指代码：399001.SZ，沪深300代码：000300.ss
-下面就是世界股票交易所的网址和缩写，要查找哪个股票交易所的数据，就按照上面的格式以此类推。
-上海交易所=cn.finance.yahoo.com,.SS,Chinese,sl1d1t1c1ohgv
-深圳交易所=cn.finance.yahoo.com,.SZ,Chinese,sl1d1t1c1ohgv
-美国交易所=finance.yahoo.com,,United States,sl1d1t1c1ohgv
-加拿大=ca.finance.yahoo.com,.TO,Toronto,sl1d1t1c1ohgv
-新西兰=au.finance.yahoo.com,.NZ,sl1d1t1c1ohgv
-新加坡=sg.finance.yahoo.com,.SI,Singapore,sl1d1t1c1ohgv
-香港=hk.finance.yahoo.com,.HK,Hong Kong,sl1d1t1c1ohgv
-台湾=tw.finance.yahoo.com,.TW,Taiwan,sl1d1t1c1ohgv
-印度=in.finance.yahoo.com,.BO,Bombay,sl1d1t1c1ohgv
-伦敦=uk.finance.yahoo.com,.L,London,sl1d1t1c1ohgv
-澳洲=au.finance.yahoo.com,.AX,Sydney,sl1d1t1c1ohgv
-巴西=br.finance.yahoo.com,.SA,Sao Paulo,sl1d1t1c1ohgv
-瑞典=se.finance.yahoo.com,.ST,Stockholm,sl1d1t1c1ohgv
+/*上证综指代码：000001.ss，深证成指代码：399001.SZ，沪深300代码：000300.ss 下面就是世界股票交易所的网址和缩写，要查找哪个股票交易所的数据，就按照上面的格式以此类推。
+上海交易所 .SS
+深圳交易所 .SZ
+加拿大     .TO,Toronto
+新西兰     .NZ
+新加坡     .SI
+香港       .HK
+台湾       .TW
+印度       .BO,Bombay
+伦敦       .L
+澳洲       .AX
+巴西       .SA,Sao Paulo
+瑞典       .ST,Stockholm
 */
     function GetYahooSymbol()
     {

@@ -13,7 +13,7 @@ function LayoutQQgroupPromotion()
 {
     echo <<<END
         <p>请扫二维码或者点击链接加入Woody创建的QQ群204836363
-        <br /><a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=2eb90427cf5fc1c14f4ebd8f72351d4a09e259cf48f137e312cd54163bd5c165"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="Alcoholic Anonymus" title="Alcoholic Anonymus"></a>
+        <a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=2eb90427cf5fc1c14f4ebd8f72351d4a09e259cf48f137e312cd54163bd5c165"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="Alcoholic Anonymus" title="Alcoholic Anonymus"></a>
         <br /><img src=/woody/image/qq.jpg alt="QQ group 204836363 scan QR code" />
         </p>
 END;

@@ -20,7 +20,7 @@
 反复调试一整晚后才意识到是因为<a href="../entertainment/20100905cn.php">Yahoo网站服务</a>在我的每个页面后都加了一段javascript统计代码. 
 <br />因为我早就在用<a href="../entertainment/20110509cn.php">Google Analytics</a>做网站统计, 其实我一直觉得Yahoo前两年加的这个功能是个累赘, 没有提供什么新功能, 反而拖累了网页反应速度, 
 这下我就有了充分理由去掉它了. 在Yahoo Small Business的新网站<a href="https://www.luminate.com/" target=_blank>Aabaco Small Business</a>里面又找了好半天, 终于关闭了它.
-<?php EchoPhpFileLink('/php/weixincn.php'); ?>链接提交成功.
+<?php EchoPhpFileLink('/php/weixincn'); ?>链接提交成功.
 <br />接下来增加功能, 现在最直接的需求就是用微信查<a href="../../res/sz162411cn.php">华宝油气净值</a>. 采用对话方式,
 在对话消息中用语音或者键盘输入<font color=grey>sz162411</font>, <font color=grey>SZ162411</font>, <font color=grey>162411</font>,
 <font color=grey>411</font>或者<font color=grey>华宝油气</font>等获取SZ162411华宝油气-华宝标普油气开采指数QDII-LOF在palmmicro.com服务器上保存的最近一次算出的官方和实时估值以及具体估值的时间.
@@ -49,7 +49,7 @@
   <li>输入34（也就是点击系统—数据导出）, 在【文本文件】, 【EXCEL】或者【图像】选择一个数据处理方式.</li>
   <li>点击【报表中所有数据】, 在【存盘文件名】选择储存位置, 自行设定一个文件名，点击【导出】即可.</li>
 </ol>
-<p>我依葫芦画瓢把数据存在了<?php EchoFileLink('/debug/chinastocklist.txt'); ?>中. 然后在<?php EchoPhpFileLink('/php/test/chinastocklist.php'); ?>中写了一小段代码处理它, 
+<p>我依葫芦画瓢把数据存在了<?php EchoFileLink('/debug/chinastocklist.txt'); ?>中. 然后在<?php EchoPhpFileLink('/php/test/chinastocklist'); ?>中写了一小段代码处理它, 
 现在所有A股股民们都能<a href="../entertainment/20161020cn.php">使用微信公众号</a><font color=orange>sz162411</font>了.
 <br />继续给数据库中加美股代码, 
 把<a href="http://vip.stock.finance.sina.com.cn/usstock/ustotal.php" target=_blank>http://vip.stock.finance.sina.com.cn/usstock/ustotal.php</a>的网页源码中有关部分存在了<?php EchoFileLink('/debug/usstocklist.txt'); ?>中,

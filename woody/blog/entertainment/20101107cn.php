@@ -76,8 +76,8 @@
 <br .>随着涉及的股票越来越多, 我打算用直接采用<a href="20151225cn.php">新浪股票数据</a>中的股票名称和说明, 避免手工一个个输入. 结果四年前碰到的问题又回来了, 新浪的数据还在用GB2312编码,
 而我反复折腾<i>mb_detect_encoding</i>和<i>iconv</i>等PHP函数都无法把GB2312转换成UTF8.
 <br .>不过我已经不是当年的吴下阿蒙了. 我先上网找来了GB2312和UNICODE的<a href="http://blog.csdn.net/longronglin/article/details/1355890" target=_blank>对应码表</a>,
-存到了<?php EchoFileLink('/php/gb2312/unicode_gb2312.txt'); ?>文件中. 然后在<?php EchoPhpFileLink('/php/gb2312.php'); ?>文件中写了个转换工具,
-生成了按照GB2312作为key排序后的对应数组$arGB2312, 放在了<?php EchoPhpFileLink('/php/gb2312/gb2312_unicode.php'); ?>文件中. 
+存到了<?php EchoFileLink('/php/gb2312/unicode_gb2312.txt'); ?>文件中. 然后在<?php EchoPhpFileLink('/php/gb2312'); ?>文件中写了个转换工具,
+生成了按照GB2312作为key排序后的对应数组$arGB2312, 放在了<?php EchoPhpFileLink('/php/gb2312/gb2312_unicode'); ?>文件中. 
 最后在函数<i>FromGB2312ToUTF8</i>中把从$arGB2312查表得到的UNICODE调用网上找来的小函数<a href="https://segmentfault.com/a/1190000003020776" target=_blank><i>unicode_to_utf8</i></a>转换成UTF8.
 整个过程耗时一个晚上一气呵成, 感觉好极了!
 </p>
@@ -90,8 +90,8 @@
 联想到Google总是利用Chrome浏览器的输入抢先我一步爬一下我要访问的网页的坏习惯, 我意识到一定是程序哪里出现了执行效率问题, 不能正确反应2个几乎同时的页面请求.
 庞大的$arGB2312全局数组马上成了最大的疑犯.
 <br />在我把全局数组放进<i>GB2312GetArray</i>函数后, 情况更加恶化了.
-需要重新刷新的情况看上去像是少了一点, 却出现了<?php EchoPhpFileLink('/php/switch.php'); ?>文件中<b>$_SESSION['userurl']</b>这种全局数据被莫名其妙的冲掉的问题.
-<br />好在经过这么多年后, 我对MySQL已经没有那么畏惧, 在溜娃间隙中削尖铅笔在<?php EchoPhpFileLink('/php/sql/sqlgb2312.php'); ?>文件中增加了一个GB2312和UNICODE的对应表, 
+需要重新刷新的情况看上去像是少了一点, 却出现了<?php EchoPhpFileLink('/php/switch'); ?>文件中<b>$_SESSION['userurl']</b>这种全局数据被莫名其妙的冲掉的问题.
+<br />好在经过这么多年后, 我对MySQL已经没有那么畏惧, 在溜娃间隙中削尖铅笔在<?php EchoPhpFileLink('/php/sql/sqlgb2312'); ?>文件中增加了一个GB2312和UNICODE的对应表, 
 把查内存中的大数组改成了查数据库, 终于解决了这个困扰了我一年半的刷新问题.
 <br /><img src=../photo/mermaid.jpg alt="Feb 3, 2018. Mermaid and Sapphire in SeaWorld San Diego." />
 </p>

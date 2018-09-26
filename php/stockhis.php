@@ -320,6 +320,11 @@ class StockHistory
         }
     }
     
+    function GetSym()
+    {
+        return $this->stock_ref->GetSym();
+    }
+    
     function GetStockSymbol()
     {
         return $this->stock_ref->GetStockSymbol();

@@ -23,12 +23,12 @@ Today the first version is released, and I am writing this record of programming
 <br />Using Yahoo Finance API for US stocks (<a href="#usstock">Discontinued</a>).
 <br />Using Sina realtime source for Chinese stocks, oil futures and forex: <?php EchoSinaQuotesLink('sz162411,hf_CL,USDCNY'); ?>
 <br />At first I found that <i>fopen</i> will always fail to open those urls, maybe my Yahoo Web Hosting does not support <i>allow_url_fopen</i>. 
-I searched and found curl to solve this problem, copied some curl code to my <i>url_get_contents</i> function in file <?php EchoPhpFileLink('/php/url.php'); ?>,
+I searched and found curl to solve this problem, copied some curl code to my <i>url_get_contents</i> function in file <?php EchoPhpFileLink('/php/url'); ?>,
 with function name similar as <i>file_get_contents</i>.
-<br />Functions using <i>url_get_contents</i> to read stock quotes, display green for gain and red for loss are located in new file <?php EchoPhpFileLink('/php/stock.php'); ?>.
-<br />Other php code only for this tool are located in in file <?php EchoPhpFileLink('/woody/res/php/_lof.php'); ?>. 
+<br />Functions using <i>url_get_contents</i> to read stock quotes, display green for gain and red for loss are located in new file <?php EchoPhpFileLink('/php/stock'); ?>.
+<br />Other php code only for this tool are located in in file <?php EchoPhpFileLink('/woody/res/php/_lof'); ?>. 
 The name directly comes from the type of SZ162411, which is called LOF, a Chinese special ETF like fund.
-<br />To optimize web response time, I used 2 files xop.txt and <?php EchoFileLink('/debug/sina/sz162411.txt'); ?> to save last updated Yahoo and Sina stock data.
+<br />To optimize web response time, I used 2 files xop.txt and <?php EchoSinaDebugLink('sz162411'); ?> to save last updated Yahoo and Sina stock data.
 The following are checked:
 </p>
 <ol>
@@ -36,7 +36,7 @@ The following are checked:
   <li>Using xop.txt for US stock data after US market closed.</li>
   <li>Using sz162411.txt for Chinese stock data after Chinese market closed.</li>
 </ol>
-<p>Similarly, oil future data is stored in file <?php EchoFileLink('/debug/sina/hf_cl.txt'); ?>, and USDCNY forex data in usdcny.txt.
+<p>Similarly, oil future data is stored in file <?php EchoSinaDebugLink('hf_cl'); ?>, and USDCNY forex data in usdcny.txt.
 </p>
 
 <h3><a name="sma">SMA</a></h3>
@@ -46,8 +46,8 @@ This version added the premium of current trading price comparing with XOP estim
 and the days in past 100 trading days did the estimated SMA value fitted in the trading range.
 <br />The historic data of XOP only need to update once a day, using Yahoo stock historic data: <?php EchoLink(YahooStockHistoryGetUrl('XOP')); ?>
 <br />The official fund net value only need to update once a day too.
-Using file <?php EchoFileLink('/debug/sina/f_162411.txt'); ?> for official SZ162411 net value from <?php EchoSinaQuotesLink('f_162411'); ?>,
-the code is in <?php EchoPhpFileLink('/php/stock/fundref.php'); ?>.
+Using file <?php EchoSinaDebugLink('f_162411'); ?> for official SZ162411 net value from <?php EchoSinaQuotesLink('f_162411'); ?>,
+the code is in <?php EchoPhpFileLink('/php/stock/fundref'); ?>.
 As I do not konw when the data will be updated, I update it once an hour stupidly.
 <br />Using debug file <?php EchoFileLink(DebugGetFile()); ?> for temp data checking.
 </p>
@@ -57,7 +57,7 @@ As I do not konw when the data will be updated, I update it once an hour stupidl
 <br />After released the link of this tool, I checked the data of <a href="20101107.php">Google Analytics</a> yesterday. During the 3 days there are 584 visits from 289 different IP address.
 Unlike the usual <a href="../palmmicro/20080326.php">Palmmicro</a> visitors, 1/3 of the tool visitors used mobile phone. So I added the UI optimization for mobile phone in a hurry.
 <br />Using <a href="http://mobiledetect.net/" target=_blank>Mobile-Detect</a> to detect if it is a mobile phone visit.
-Following the developer's advice, I copied the code github and put it separately in <?php EchoPhpFileLink('/php/class/Mobile_Detect.php'); ?>.
+Following the developer's advice, I copied the code github and put it separately in <?php EchoPhpFileLink('/php/class/Mobile_Detect'); ?>.
 </p>
 
 <h3>Expansion</h3>
@@ -66,7 +66,7 @@ Following the developer's advice, I copied the code github and put it separately
 I bought 2 HK ETF related LOF with recent stock market crash,
 and added <a href="../../res/sz159920.php">CHINA ASSET HANG SENG</a> and <a href="../../res/sh510900.php">E FUND H-Share</a> net value tool.
 Although I only watched US market crash, I still added <a href="../../res/sh513500.php">BOSERA S&P 500</a> net value tool for possible future usage.
-<br />The original one file <?php EchoPhpFileLink('/woody/res/php/_lof.php'); ?> now becomes 3 files:
+<br />The original one file <?php EchoPhpFileLink('/woody/res/php/_lof'); ?> now becomes 3 files:
 </p>
 <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="table1">
        <tr>
@@ -95,7 +95,7 @@ Although I only watched US market crash, I still added <a href="../../res/sh5135
 <p>Sep 13, 2015
 <br />Integrated with my first <a href="20100905.php">PHP</a> application. After login, user can now input related stock transaction record.
 And we make SZ162411 and XOP arbitrage analysis based on those record.
-<br />The input and handling of stock transaction record is in file <?php EchoPhpFileLink('/woody/res/php/_edittransactionform.php'); ?> and <?php EchoPhpFileLink('/woody/res/php/_submittransaction.php'); ?>. 
+<br />The input and handling of stock transaction record is in file <?php EchoPhpFileLink('/woody/res/php/_edittransactionform'); ?> and <?php EchoPhpFileLink('/woody/res/php/_submittransaction'); ?>. 
 <a href="20100529.php">Woody's Web Tool</a> is modified to generate _submitXXX.php file automatically when insert copy of a _editXXXform.php file. 
 </p>
 
@@ -105,9 +105,9 @@ And we make SZ162411 and XOP arbitrage analysis based on those record.
 <a href="../../res/gsh.php">Guangshen Railway</a>, <a href="../../res/lfc.php">China Life Insurance</a>, <a href="../../res/ptr.php">PETROCHINA</a>,
 <a href="../../res/snp.php">SINOPEC</a>, <a href="../../res/shi.php">Sinopec Shanghai Petrochemical</a>, <a href="../../res/cea.php">CEA</a> and 
 <a href="../../res/znh.php">CSN</a>.
-<br />After <?php EchoPhpFileLink('/woody/res/php/_adr.php'); ?> file is added for ADR,
-the common stock data part of ADR and LOF is moved to <font color=olive>StockReference</font> class in file <?php EchoPhpFileLink('/php/stock/stockref.php'); ?>, 
-used in <font color=olive>_LofGroup</font> class in file <?php EchoPhpFileLink('/woody/res/php/_lof.php'); ?> and <font color=olive>_AdrGroup</font> class in file <?php EchoPhpFileLink('/woody/res/php/_adr.php'); ?>.
+<br />After <?php EchoPhpFileLink('/woody/res/php/_adr'); ?> file is added for ADR,
+the common stock data part of ADR and LOF is moved to <font color=olive>StockReference</font> class in file <?php EchoPhpFileLink('/php/stock/stockref'); ?>, 
+used in <font color=olive>_LofGroup</font> class in file <?php EchoPhpFileLink('/woody/res/php/_lof'); ?> and <font color=olive>_AdrGroup</font> class in file <?php EchoPhpFileLink('/woody/res/php/_adr'); ?>.
 </p>
 <br />Continue to organize code, add similar <a href="../../res/lof.php">LOF</a> net value tool for <a href="../../res/sh513100.php">GUOTAI NASDAQ-100</a>, <a href="../../res/sz159941.php">NASDAQ-100</a>,
 <a href="../../res/sz160717.php">JIASHI H-Share</a>, <a href="../../res/sz160216.php">GUOTAI COMMODITY</a>, <a href="../../res/sz165510.php">BRIC</a>, 
@@ -121,16 +121,16 @@ used in <font color=olive>_LofGroup</font> class in file <?php EchoPhpFileLink('
 
 <h3>Sina Realtime <a name="usstock">US Stock</a> Data</h3>
 <p>Dec 13, 2015
-<br />With the help of <?php EchoXueqieId('6188729918', 'abkoooo'); ?>, now using Sina realtime US stock data (<?php EchoLink('http://hq.sinajs.cn/list=gb_xop'); ?>) to replace original Yahoo data which has 15 minutes delay.
-Now XOP data in file <?php EchoFileLink('/debug/sina/gb_xop.txt'); ?>. ^SPSIOP data still uses Yahoo and in a separated file _spsiop.txt.
-<br />The code of <font color=olive>StockReference</font> class in file <?php EchoPhpFileLink('/php/stock/stockref.php'); ?> is a mess now, I doubt if I can still understand it in the future.
+<br />With the help of <?php EchoXueqieId('6188729918', 'abkoooo'); ?>, now using Sina realtime US stock data (<?php EchoSinaQuotesLink('gb_xop'); ?>) to replace original Yahoo data which has 15 minutes delay.
+Now XOP data in file <?php EchoSinaDebugLink('gb_xop'); ?>. ^SPSIOP data still uses Yahoo and in a separated file _spsiop.txt.
+<br />The code of <font color=olive>StockReference</font> class in file <?php EchoPhpFileLink('/php/stock/stockref'); ?> is a mess now, I doubt if I can still understand it in the future.
 </p>
 
 <h3><a name="netvalue">Net Value</a> History</h3>
 <p>Jan 8, 2016
 <br />SZ162411 history net value table was added following the advice from <?php EchoXueqieId('2091843424', 'airwolf2026'); ?>. 
-The most recent a few records are displayed in the current page, add files <?php EchoPhpFileLink('/woody/res/netvaluehistory.php'); ?>,
-<?php EchoPhpFileLink('/woody/res/netvaluehistorycn.php'); ?> and <?php EchoPhpFileLink('/woody/res/php/_netvaluehistory.php'); ?> to display all history data.
+The most recent a few records are displayed in the current page, add files <?php EchoPhpFileLink('/woody/res/netvaluehistory'); ?>,
+<?php EchoPhpFileLink('/woody/res/netvaluehistorycn'); ?> and <?php EchoPhpFileLink('/woody/res/php/_netvaluehistory'); ?> to display all history data.
 </p>
 <?php EchoFundHistoryDemo(false); ?>
 
@@ -139,7 +139,7 @@ The most recent a few records are displayed in the current page, add files <?php
 <br />Add date display in related price time items following the advice from <?php EchoXueqieId('8907500725', 'oldwain'); ?>.
 The original version omitted date display because I thougth it was obvious. And it is obvious too that not every one is as familar with both USA and China time as I am.
 <br />Although it is a small separating data and display change, I can not help myself to mofidy a lot of code.
-The original <font color=olive>StockReference</font> class in <?php EchoPhpFileLink('/php/stock/stockref.php'); ?> is now a base class for <font color=olive>FutureReference</font> and <font color=olive>ForexReference</font>.
+The original <font color=olive>StockReference</font> class in <?php EchoPhpFileLink('/php/stock/stockref'); ?> is now a base class for <font color=olive>FutureReference</font> and <font color=olive>ForexReference</font>.
 In this way, the display is unified.
 </p>
 <?php EchoReferenceDemo(false); ?>
@@ -149,7 +149,7 @@ In this way, the display is unified.
 <br />SZ162411 is trading more than 10% higher than its net value recently, the max premium as high as 17%, so the <a href="20160101.php">XOP and SZ162411 arbitrage</a> is not possible now.
 <br />Continuing to organzie the similar code, added <font color=olive>MysqlReference</font> and <font color=olive>MyStockReference</font> class.
 <font color=olive>FutureReference</font> and <font color=olive>ForexReference</font> are now extended from <font color=olive>MysqlReference</font>, same as the new <font color=olive>MyStockReference</font>.
-We called MySQL related function of <?php EchoPhpFileLink('/php/sql/sqlstock.php'); ?> in <font color=olive>MysqlReference</font> class, put history and calibration database operation in the same place.
+We called MySQL related function of <?php EchoPhpFileLink('/php/sql/sqlstock'); ?> in <font color=olive>MysqlReference</font> class, put history and calibration database operation in the same place.
 </p>
 
 <h3><a name="gradedfund">Graded Fund</a></h3>
@@ -159,7 +159,7 @@ And added another similar graded fund <a href="../../res/sz150175.php">H Shares 
 <br />Different users have been suggesting to add estimation value in the <a href="#netvalue">net value history</a> table of SZ162411.
 Except for not willing to show my possible error directly, I did not add it because the change is realtime, and I don't know when to record it, after US market close or Chinese market close?
 <br />In the LOF code, the variable for estimation value was originally in <font color=olive>_LofGroup</font> class.
-With my new <font color=olive>_GradedFundGroup</font> class in file <?php EchoPhpFileLink('/woody/res/php/_gradedfund.php'); ?> having 3 class member of <font color=olive>FundReference</font> class in file <?php EchoPhpFileLink('/php/stock/fundref.php'); ?>,
+With my new <font color=olive>_GradedFundGroup</font> class in file <?php EchoPhpFileLink('/woody/res/php/_gradedfund'); ?> having 3 class member of <font color=olive>FundReference</font> class in file <?php EchoPhpFileLink('/php/stock/fundref'); ?>,
 naturally I moved the estimation value to <font color=olive>FundReference</font> class. And when estimaation value and net value variable are put together, the data structure leads my mind again,
 suddenly I realized that it is most reasonable to record the estimation value in the same time when the current day net value is recorded!
 </p>
@@ -182,14 +182,14 @@ I feel I can not stand it any more.
 <br />Based on the experience of finding <a href="#mobiledetect">Mobile-Detect</a> code on internet, I underestimated the efforts to find a ready php class for config file read and write.
 An easy found one cost 5 USD, it says to support file and mysql for configuration at the same time, as I do not like too many tables in mysql and only interested in file config,
 I think 5 USD may be a waste of money.
-As last I found the free <a href="http://px.sklar.com/code.html?id=142&fmt=pl" target=_blank>INIFile</a>, put it into <?php EchoPhpFileLink('/php/class/ini_file.php'); ?> file. 
+As last I found the free <a href="http://px.sklar.com/code.html?id=142&fmt=pl" target=_blank>INIFile</a>, put it into <?php EchoPhpFileLink('/php/class/ini_file'); ?> file. 
 The class only support config read and write on an existing file, still as a PHP new programmer, I spent a few hours to modify it and finally made it works with my pages.
 </p>
 
 <h3>Sina Realtime HK Stock Data</h3>
 <p>Apr 23, 2016
 <br />With the help of <?php EchoXueqieId('5174320624', 'rdcheju'); ?>,
-now using Sina realtime HK stock data(<?php EchoLink('http://hq.sinajs.cn/list=rt_hk02828'); ?>) to replace original <a href="20151225.php#hongkong">Sina HK data</a> which has 15 minutes delay.
+now using Sina realtime HK stock data(<?php EchoSinaQuotesLink('rt_hk02828'); ?>) to replace original <a href="20151225.php#hongkong">Sina HK data</a> which has 15 minutes delay.
 <br />On last Thursday the total page view of my net value pages was over 2200, this encouraged me to do more page speed optimization.
 </p>
 
@@ -221,7 +221,7 @@ if no existing <font color=olive>MyStockReference</font> instance for the stock,
 The result was, when I was getting my portfolio in the first time, I would download nearly all stock data from Sina, no wonder it was so slow.
 <br />The problem is easy to solve, first I will not construct <font color=olive>MyStockTransaction</font> class instance if there is no stock transaction at all,
 then I will group all stock when has transaction, and to prefetch all the data from Sina at the same time.
-The prefetch code is put in new file <?php EchoPhpFileLink('/php/stock/stockprefetch.php'); ?>.
+The prefetch code is put in new file <?php EchoPhpFileLink('/php/stock/stockprefetch'); ?>.
 <br />Finally I used the prefetch method in all places when need to download data from Sina, including the SZ162411 net value calculation of course.
 All page speed is improved in some way. It seems that I was wrong to explain why my net value pages were slow some time earlier, 
 I thought it was because the web server was in US and my major visitors were from China.

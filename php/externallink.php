@@ -150,15 +150,22 @@ function GetSinaForexLink($strSymbol)
 }
 
 // http://vip.stock.finance.sina.com.cn/q/go.php/vDYData/kind/znzd/index.phtml?symbol=600028
-function GetSinaN8n8Link($sym)
+function GetSinaN8n8Link($sym = false, $bChinese = true)
 {
-    $strSymbol = $sym->GetSymbol();
-    if ($strDigit = $sym->IsSymbolA())
+    $strHttp = 'http://vip.stock.finance.sina.com.cn/q/go.php/vDYData/kind/znzd/index.phtml';
+    if ($sym)
     {
-        $strHttp = "http://vip.stock.finance.sina.com.cn/q/go.php/vDYData/kind/znzd/index.phtml?symbol=$strDigit";
-        return GetExternalLink($strHttp, $strSymbol);
+   		$strWeb = $sym->GetSymbol();
+    	if ($strDigit = $sym->IsSymbolA())
+    	{
+    		$strHttp .= "?symbol=$strDigit";
+    	}
     }
-    return $strSymbol;
+    else
+    {
+    	$strWeb = $bChinese ? '新浪' : 'Sina';
+    }
+    return GetExternalLink($strHttp, $strWeb);
 }
 
 function GetStockHistoryLink($sym, $bChinese)
@@ -188,7 +195,7 @@ function GetStockDividendUrl($sym)
     {
     	return "http://stock.finance.sina.com.cn/hkstock/dividends/$strSymbol.html";
     }
-    return "https://finance.yahoo.com/quote/$strSymbol/history?filter=div";
+    return YahooStockHistoryGetUrl($strSymbol).'?filter=div';
 }
 
 function GetStockDividendLink($sym, $bChinese)

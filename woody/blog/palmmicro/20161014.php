@@ -22,7 +22,7 @@ Using the very simple PHP example code from wechat, I was prompted <font color=r
 After debugging for a whole night I realized it was because <a href="../entertainment/20100905.php">Yahoo Web Hosting</a> appended some javascript for site statistics after my every web page. 
 <br />As I had used <a href="../entertainment/20110509.php">Google Analytics</a> for site statistics for many years, I always feel the new function Yahoo added nearly 2 years ago was unnecessary and made my web pages slow,
 now I have plenty of reasons to get rid of it. After a lot of search in Yahoo Small Business's new web site <a href="https://www.luminate.com/" target=_blank>Aabaco Small Business</a> I finally disabled the function.
-The link <?php EchoPhpFileLink('/php/weixincn.php'); ?> was then successfully submited.
+The link <?php EchoPhpFileLink('/php/weixincn'); ?> was then successfully submited.
 <br />Then I added some real function for it. The most wanted is to use wechat to check <a href="../../res/sz162411.php">SZ162411 Net Value</a>. 
 In the conversation, by voice or keypad, after user input <font color=grey>sz162411</font>, <font color=grey>SZ162411</font>, <font color=grey>162411</font>,
 <font color=grey>411</font> or <font color=grey>Fortune</font>, the last estimated SZ162411 offical net value and real time net value stored in palmmicro.com and the estimation time will be returned.

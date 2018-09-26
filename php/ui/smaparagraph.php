@@ -149,9 +149,8 @@ function _echoSmaTableData($stock_his, $ref, $callback, $callback2, $bChinese)
     }
 }
 
-function _selectSmaExternalLink($strSymbol)
+function _selectSmaExternalLink($sym)
 {
-    $sym = new StockSymbol($strSymbol);
     if ($sym->IsStockA())
     {
         return GetSinaN8n8Link($sym);
@@ -163,8 +162,7 @@ function _getSmaParagraphMemo($his, $bChinese)
 {
 	$strDate = $his->strDate;
 	$strScore = '<b>'.strval($his->iScore).'</b>';
-	$strSymbol = $his->GetStockSymbol();
-	$strSymbolLink = _selectSmaExternalLink($strSymbol);
+	$strSymbolLink = _selectSmaExternalLink($his->GetSym());
     if ($bChinese)     
     {
         $str = "{$strSymbolLink} {$strDate}数据牛熊分数: {$strScore}";
@@ -173,7 +171,7 @@ function _getSmaParagraphMemo($his, $bChinese)
     {
         $str = "$strSymbolLink $strDate $strScore";
     }
-    $str .= ' '.GetStockSymbolLink('stockhistory', $strSymbol, $bChinese, '历史记录', 'History');
+    $str .= ' '.GetStockSymbolLink('stockhistory', $his->GetStockSymbol(), $bChinese, '历史记录', 'History');
     return $str;
 }
 
