@@ -48,12 +48,6 @@ function GetYahooStockLink($sym)
     return GetExternalLink($strHttp, $sym->GetSymbol());
 }
 
-function GetYahooStockHistoryLink($sym, $bChinese)
-{
-    $strHttp = YahooStockHistoryGetUrl($sym->GetYahooSymbol());
-    return GetExternalLink($strHttp, ($bChinese ? 'Yahoo历史数据' : 'Yahoo History'));
-}
-
 function GetGoogleStockLink($sym)
 {
     $strHttp = GOOGLE_QUOTES_URL.$sym->GetGoogleSymbol();
@@ -167,16 +161,40 @@ function GetSinaN8n8Link($sym)
     return $strSymbol;
 }
 
-function GetSinaStockHistoryLink($sym, $bChinese)
+function GetStockHistoryLink($sym, $bChinese)
 {
-    $strHttp = SinaGetStockHistoryUrl($sym);
-    return GetExternalLink($strHttp, ($bChinese ? '新浪历史数据' : 'Sina History'));
+	if ($sym->IsIndexA())
+	{
+		$strHttp = SinaGetStockHistoryUrl($sym);
+	}
+	else
+	{
+		$strHttp = YahooStockHistoryGetUrl($sym->GetYahooSymbol());
+	}
+    return GetExternalLink($strHttp, ($bChinese ? '历史数据' : 'History'));
 }
 
-function GetSinaStockDividendLink($strSymbol, $bChinese)
+// http://vip.stock.finance.sina.com.cn/corp/go.php/vISSUE_ShareBonus/stockid/000028.phtml
+// http://stock.finance.sina.com.cn/hkstock/dividends/00386.html
+// https://finance.yahoo.com/quote/XOP/history?filter=div
+function GetStockDividendUrl($sym)
 {
-    $strHttp = SinaGetStockDividendUrl($strSymbol);
-    return GetExternalLink($strHttp, ($bChinese ? '新浪分红数据' : 'Sina Dividend'));
+   	$strSymbol = $sym->GetSymbol();
+    if ($strDigit = $sym->IsSymbolA())
+    {
+    	return "http://vip.stock.finance.sina.com.cn/corp/go.php/vISSUE_ShareBonus/stockid/$strDigit.phtml";
+    }
+    else if ($sym->IsSymbolH())
+    {
+    	return "http://stock.finance.sina.com.cn/hkstock/dividends/$strSymbol.html";
+    }
+    return "https://finance.yahoo.com/quote/$strSymbol/history?filter=div";
+}
+
+function GetStockDividendLink($sym, $bChinese)
+{
+    $strHttp = GetStockDividendUrl($sym);
+    return GetExternalLink($strHttp, ($bChinese ? '分红数据' : 'Dividend'));
 }
 
 // https://www.jisilu.cn/data/ha_history/600585

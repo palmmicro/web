@@ -205,7 +205,8 @@ function SinaGetAllStockSymbolA()
 						</tr>*/
 function SinaGetStockDividendA($strSymbol)
 {
-    $strUrl = SinaGetStockDividendUrl($strSymbol);
+    $sym = new StockSymbol($strSymbol);
+    $strUrl = GetStockDividendUrl($sym);
     $str = url_get_contents($strUrl);
     $str = FromGB2312ToUTF8($str);
 
@@ -219,18 +220,6 @@ function SinaGetStockDividendA($strSymbol)
     $arMatch = array();
     preg_match_all($strPattern, $str, $arMatch, PREG_SET_ORDER);
     return $arMatch;
-}
-
-// http://vip.stock.finance.sina.com.cn/corp/go.php/vISSUE_ShareBonus/stockid/000028.phtml
-// http://stock.finance.sina.com.cn/hkstock/dividends/00386.html
-function SinaGetStockDividendUrl($strSymbol)
-{
-    $sym = new StockSymbol($strSymbol);
-    if ($strDigit = $sym->IsSymbolA())
-    {
-    	return "http://vip.stock.finance.sina.com.cn/corp/go.php/vISSUE_ShareBonus/stockid/$strDigit.phtml";
-    }
-    return '(Empty)';
 }
 
 ?>

@@ -43,10 +43,8 @@ function _echoStockHistoryParagraph($strSymbol, $strStockId, $iStart, $iNum, $bT
 	if (SqlGetEtfPair($strSymbol))	$strLinks .= ' '.GetNavCloseHistoryLink($strSymbol, $bChinese);
 	
     $sym = new StockSymbol($strSymbol);
-    if ($sym->IsStockA())				$strLinks .= ' '.GetSinaStockDividendLink($strSymbol, $bChinese);
-    
-    if ($sym->IsIndexA())				$strLinks .= ' '.GetSinaStockHistoryLink($sym, $bChinese);
-    else				        		$strLinks .= ' '.GetYahooStockHistoryLink($sym, $bChinese);
+    if ($sym->IsTradable())			$strLinks .= ' '.GetStockDividendLink($sym, $bChinese);
+    $strLinks .= ' '.GetStockHistoryLink($sym, $bChinese);
     
     if ($bTest)
     {
