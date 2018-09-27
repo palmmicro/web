@@ -355,7 +355,6 @@ class StockHistory
         return false;
     }
     
-    // constructor 
     function StockHistory($ref) 
     {
         $this->stock_ref = $ref;
@@ -364,6 +363,14 @@ class StockHistory
 		$this->strDate = $this->_getStartDate();
         $this->_configSMA();
     }
+}
+
+function StockHistoryUpdate($arRef)
+{
+	foreach ($arRef as $ref)
+	{
+		$his = new StockHistory($ref);
+	}
 }
 
 ?>

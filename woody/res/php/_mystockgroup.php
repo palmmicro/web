@@ -1,6 +1,7 @@
 <?php
 require_once('_stock.php');
 require_once('_editgroupform.php');
+require_once('/php/stockhis.php');
 //require_once('/php/stockgroup.php');
 //require_once('/php/ui/referenceparagraph.php');
 require_once('/php/ui/ahparagraph.php');
@@ -97,6 +98,7 @@ function _echoStockGroupArray($arStock, $bChinese)
         }
     }
     
+    StockHistoryUpdate($arRef);    
     if (UrlGetQueryValue('sort') == false)	EchoReferenceParagraph($arRef, $bChinese);
     if (count($arFund) > 0)     				EchoFundArrayEstParagraph($arFund, $bChinese);
     if (count($arHShareRef) > 0)			EchoAhParagraph($arHShareRef, $bChinese);

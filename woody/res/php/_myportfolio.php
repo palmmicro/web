@@ -1,5 +1,6 @@
 <?php
 require_once('_stock.php');
+require_once('/php/stockhis.php');
 //require_once('/php/stockgroup.php');
 require_once('/php/ui/referenceparagraph.php');
 
@@ -41,6 +42,7 @@ function _echoPortfolio($portfolio, $sql, $bChinese)
 	}
     EchoTableParagraphEnd();    
 
+    StockHistoryUpdate($arRef);    
     $arRef = RefSortBySymbol($arRef);
     foreach ($arRef as $ref)
     {

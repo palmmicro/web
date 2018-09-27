@@ -32,14 +32,14 @@ function _getSmaCallbackPriceDisplay($callback, $ref, $fVal, $strColor)
 	return GetTableColumnDisplay($str, $strColor);
 }
 
-function _echoSmaTableItem($stock_his, $strKey, $fVal, $ref, $callback, $callback2, $strColor, $bChinese)
+function _echoSmaTableItem($his, $strKey, $fVal, $ref, $callback, $callback2, $strColor, $bChinese)
 {
-    $stock_ref = $stock_his->stock_ref;
+    $stock_ref = $his->stock_ref;
     
     $strSma = _getSmaRow($strKey, $bChinese);
     $strPrice = $stock_ref->GetPriceDisplay($fVal);
     $strPercentage = $stock_ref->GetPercentageDisplay($fVal);
-   	if ($fNext = $stock_his->afNext[$strKey])
+   	if ($fNext = $his->afNext[$strKey])
    	{
    		$strNextPrice = $stock_ref->GetPriceDisplay($fNext);
    		$strNextPercentage = $stock_ref->GetPercentageDisplay($fNext);
@@ -108,12 +108,12 @@ class MaxMin
     }
 }
 
-function _echoSmaTableData($stock_his, $ref, $callback, $callback2, $bChinese)
+function _echoSmaTableData($his, $ref, $callback, $callback2, $bChinese)
 {
     $mm = new MaxMin();
     $mmB = new MaxMin();
     $mmW = new MaxMin();
-    foreach ($stock_his->afSMA as $strKey => $fVal)
+    foreach ($his->afSMA as $strKey => $fVal)
     {
         $strColor = false;
         $strFirst = substr($strKey, 0, 1); 
@@ -145,7 +145,7 @@ function _echoSmaTableData($stock_his, $ref, $callback, $callback2, $bChinese)
             else if ($mmB->Fit($fVal))  $strColor = 'silver';
             else 							$strColor = 'yellow';
         }
-        _echoSmaTableItem($stock_his, $strKey, $fVal, $ref, $callback, $callback2, $strColor, $bChinese);
+        _echoSmaTableItem($his, $strKey, $fVal, $ref, $callback, $callback2, $strColor, $bChinese);
     }
 }
 
