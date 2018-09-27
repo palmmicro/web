@@ -1,4 +1,4 @@
-<?php require_once('php/_entertainment.php'); ?>
+<?php require_once('php/_20160615.php'); ?>
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -19,7 +19,7 @@ As the difference is so small, and I also believe the trading price will move to
 <br />Since this year, the manager of SZ160216 works very hard to keep the <a href="../../res/sz160216.php">SZ160216 net value</a> moves almost the same as USO, 
 and triggered huge amount of arbitrage between SZ160216 and CL future. One of them, <?php EchoXueqieId('6706948861', 'zzzzv'); ?>, is trading for 0.05 cent profit now, so the use of USDCNY reference rate is necessary.
 Based on his long term experience, he also confirmed me that the trading price will not move to the USDCNY reference rate.
-He also provided the <a href="http://hq2gjqh.eastmoney.com/EM_Futures2010NumericApplication/Index.aspx?type=z&ids=usdcny0" target=_blank>USDCNY reference rate interface</a> from <a href="http://quote.eastmoney.com/forex/USDCNY.html" target=_blank>Easy Money</a>,
+He also provided the <a href="http://hq2gjqh.eastmoney.com/EM_Futures2010NumericApplication/Index.aspx?type=z&ids=usdcny0" target=_blank>USDCNY reference rate interface</a> from Easy Money <?php EchoEastMoneyForexLink('USDCNY'); ?>,
 which was used in his Excel+VBA tools.
 <br />Document first, then to implement my <font color=olive>ForexReference</font> class.
 The data as following:

@@ -148,7 +148,6 @@ function GetSinaQuotes($strSinaSymbols)
 }
 
 /*
-http://quote.eastmoney.com/forex/USDCNY.html
 http://hq2gjqh.eastmoney.com/EM_Futures2010NumericApplication/Index.aspx?type=z&ids=usdcny0
 http://hq2gjqh.eastmoney.com/EM_Futures2010NumericApplication/Index.aspx?type=z&ids=uscny0
 */

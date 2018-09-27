@@ -2,8 +2,9 @@
 require_once('_entertainment.php');
 require_once('_stockdemo.php');
 
-function EchoDemo($bChinese = true)
+function EchoSinaN8n8Link($bChinese = true)
 {
+	echo GetSinaN8n8Link(false, $bChinese);
 }
 
 ?>
