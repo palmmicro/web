@@ -82,9 +82,11 @@ function GetStockGroupTableColumn($bChinese)
 
 function GetAhCompareTableColumn($bChinese)
 {
-	$strSymbol = GetReferenceTableSymbol($bChinese);
-    if ($bChinese)  $arColumn = array('A股'.$strSymbol, 'AH比价', 'HA比价');
-    else              $arColumn = array('A '.$strSymbol, 'AH Ratio', 'HA Ratio');
+	$arReference = GetReferenceTableColumn($bChinese);
+	$strSymbol = $arReference[0];
+	$strName = $arReference[5];
+    if ($bChinese)  $arColumn = array('A股'.$strSymbol, $strName, 'HA比价');
+    else              $arColumn = array('A '.$strSymbol, $strName, 'HA Ratio');
     return $arColumn;
 }
 
