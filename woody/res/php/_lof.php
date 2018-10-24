@@ -85,16 +85,17 @@ function _getArbitrageQuantityName($bChinese, $bEditLink = false)
 
 function _onSmaUserDefined($bChinese, $fVal = false, $fNext = false)
 {
-    if ($fVal)
+    if ($fVal === false)
     {
-        $str = _onSmaUserDefinedVal($fVal, $bChinese);
-        if ($fNext)
-        {
-        	$str .= '/'._onSmaUserDefinedVal($fNext, $bChinese);
-        }
-        return $str;
+    	return _getArbitrageQuantityName($bChinese);
     }
-    return _getArbitrageQuantityName($bChinese);
+
+    $str = _onSmaUserDefinedVal($fVal, $bChinese);
+    if ($fNext)
+    {
+       	$str .= '/'._onSmaUserDefinedVal($fNext, $bChinese);
+    }
+    return $str;
 }
 
 function _onTradingUserDefinedVal($fVal, $bChinese)
@@ -108,11 +109,11 @@ function _onTradingUserDefinedVal($fVal, $bChinese)
 
 function _onTradingUserDefined($bChinese, $fVal = false)
 {
-    if ($fVal)
+    if ($fVal === false)
     {
-        return _onTradingUserDefinedVal($fVal, $bChinese);
+    	return _getArbitrageQuantityName($bChinese, true);
     }
-    return _getArbitrageQuantityName($bChinese, true);
+    return _onTradingUserDefinedVal($fVal, $bChinese);
 }
 
 function EchoAll($bChinese = true)

@@ -3,8 +3,11 @@ require_once('smaparagraph.php');
 
 function _callbackLofSma($lof_ref, $fEst = false)
 {
-	if ($fEst)		return $lof_ref->GetLofValue($fEst, $lof_ref->fCNY);
-	return $lof_ref->stock_ref;
+	if ($fEst === false)
+	{
+		return $lof_ref->stock_ref;
+	}
+	return $lof_ref->GetLofValue($fEst, $lof_ref->fCNY);
 }
 
 function EchoLofSmaParagraph($lof_ref, $bChinese, $callback2 = false)

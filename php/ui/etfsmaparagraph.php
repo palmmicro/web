@@ -3,8 +3,11 @@ require_once('smaparagraph.php');
 
 function _callbackEtfSma($ref, $fEst = false)
 {
-	if ($fEst)		return $ref->EstFromPair($fEst);
-	return $ref;
+	if ($fEst === false)
+	{
+		return $ref;
+	}
+	return $ref->EstFromPair($fEst);
 }
 
 function EchoEtfArraySmaParagraph($ref, $arEtfRef, $bChinese, $callback2 = false)

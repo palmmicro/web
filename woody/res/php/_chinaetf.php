@@ -61,27 +61,7 @@ function _chinaEtfRefCallback($bChinese, $ref = false)
 	$arFundEst = GetFundEstTableColumn($bChinese);
     return array($arFundEst[7], $arFundEst[1], $arFundEst[2]);
 }
-/*
-function _chinaEtfSmaCallback($ref, $fEst = false)
-{
-	if ($fEst)	
-	{
-		global $group;
-		$fEst = $group->us_ref->EstToPair($fEst);
-		return $ref->EstFromPair($fEst);
-	}
-	return $ref;
-}
 
-function _chinaEtfIndexSmaCallback($ref, $fEst = false)
-{
-	if ($fEst)
-	{
-		return $ref->EstToPair($fEst);
-	}
-	return $ref->pair_ref;
-}
-*/
 function EchoAll($bChinese = true)
 {
     global $group;
@@ -91,8 +71,6 @@ function EchoAll($bChinese = true)
     EchoEtfTradingParagraph($group->ref, $bChinese);
     EchoEtfSmaParagraph($group->ref, $bChinese);
     EchoEtfSmaParagraph($group->us_ref, $bChinese, '');
-//    EchoSmaParagraph($group->us_ref, $bChinese, false, $group->ref, _chinaEtfSmaCallback);
-//    EchoSmaParagraph($group->us_ref, $bChinese, '', $group->us_ref, _chinaEtfIndexSmaCallback);
     EchoEtfHistoryParagraph($group->ref, $bChinese);
     EchoEtfHistoryParagraph($group->us_ref, $bChinese);
 

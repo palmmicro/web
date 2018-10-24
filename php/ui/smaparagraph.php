@@ -21,13 +21,13 @@ function _getSmaRow($strKey, $bChinese)
 
 function _getSmaCallbackPriceDisplay($callback, $ref, $fVal, $strColor)
 {
-	if ($fVal)
+	if ($fVal === false)
 	{
-		$str = $ref->GetPriceDisplay(call_user_func($callback, $ref, $fVal));
+		$str = '';
 	}
 	else
 	{
-		$str = '';
+		$str = $ref->GetPriceDisplay(call_user_func($callback, $ref, $fVal));
 	}
 	return GetTableColumnDisplay($str, $strColor);
 }

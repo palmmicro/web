@@ -58,6 +58,14 @@
 发现系统更新到了CentOS 6.9 -- 刚好是腾讯云官方镜像还继续支持的一个版本! 早知如此的话, 我还不知道会把这件事拖到什么时候.
 </p> 
 
+<h3>又到腾讯云续费时间</h3>
+<p>2018年10月24日
+<br />大概2个月前, 平时偶尔做PHP测试的腾讯云突然罢工了, 给我出一堆PHP输出搞得我一筹莫展, 只好先把它扔一边.
+<br /><font color=red>Warning: file_put_contents(/home/wwwroot/111.230.12.222/web/debug/debug.txt): failed to open stream: Permission denied in /home/wwwroot/111.230.12.222/web/php/debug.php on line 103</font>
+<br />最近腾讯开始各种渠道通知我又要缴费了, 还给了不少优惠券鼓励我续费. 搞得我很纠结, 其实我本来是想放弃这块的. 因为实在不知道怎么解决问题, 今天又硬着头皮重新装了一次系统, 安慰自己不要轻易放弃梦想.
+<br />梦想的代价: 1核CPU+1GB内存+1Mbps公网带宽, 1年费用打折后647.4元, 腾讯另外送了满600减300的折扣券, 实际支付347.4元.
+</p> 
+
 </div>
 
 <?php _LayoutBottom(); ?>

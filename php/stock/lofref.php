@@ -86,7 +86,6 @@ class _LofReference extends FundReference
 {
     var $fCNY = false;
     
-    // constructor 
     function _LofReference($strSymbol, $strForex)
     {
         parent::FundReference($strSymbol);
@@ -95,7 +94,7 @@ class _LofReference extends FundReference
 
     function EstNetValue()
     {
-        $this->AdjustFactor();
+		$this->AdjustFactor();
         
         $strDate = $this->est_ref->strDate;
         if ($fCNY = $this->forex_sql->GetClose($strDate))
