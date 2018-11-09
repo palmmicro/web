@@ -119,8 +119,9 @@ function StockGetTransactionLink($strGroupId, $strSymbol, $bChinese = false, $st
     if ($strDisplay == false)
     {
     	$strDisplay = $strSymbol;
+    	$strUs = $strSymbol;
     }
-    return GetPhpLink(STOCK_PATH.'mystocktransaction', $bChinese, $strDisplay, false, $strQuery);
+    return GetPhpLink(STOCK_PATH.'mystocktransaction', $bChinese, $strDisplay, $strUs, $strQuery);
 }
 
 function StockGetAllTransactionLink($strGroupId, $bChinese, $ref = false)
