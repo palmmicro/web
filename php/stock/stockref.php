@@ -294,7 +294,7 @@ class StockReference
 
     function GetPercentageText($fPrevPrice)
     {
-    	if (empty($fPrevPrice))		return '';
+    	if (empty($fPrevPrice) || empty($this->fPrice))		return '';
     
    		$fPercentage = StockGetPercentage($this->fPrice, $fPrevPrice);
    		return strval_round($fPercentage).'%';
@@ -327,9 +327,9 @@ class StockReference
         return $this->GetPercentageDisplay($this->fPrevPrice);
     }
     
-    function GetPriceDisplay($fPrice)
+    function GetPriceDisplay($fPrice, $bPrev = true)
     {
-        return StockGetPriceDisplay($fPrice, $this->fPrevPrice);
+        return StockGetPriceDisplay($fPrice, $bPrev ? $this->fPrevPrice : $this->fPrice);
     }
 
     function GetCurrentPriceDisplay()

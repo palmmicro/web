@@ -21,11 +21,11 @@ function _echoCombinedTransactionTableItem($group, $strDate, $strGroupItemId, $c
     {
         $strSymbol = $trans->GetStockSymbol();
         $fCost = $combined_trans->GetAvgCost();
-        $strCost = $trans->ref->GetPriceDisplay($fCost);
+        $strCost = $trans->ref->GetPriceDisplay($fCost, false);
         if ($fund && $fund->GetStockSymbol() == $strSymbol)
         {
             $strConvertedShares = strval($fund->GetEstQuantity($combined_trans->iTotalShares));
-            $strConvertedCost = $fund->est_ref->GetPriceDisplay($fund->GetEstValue($fCost));
+            $strConvertedCost = $fund->est_ref->GetPriceDisplay($fund->GetEstValue($fCost), false);
         }
         else
         {

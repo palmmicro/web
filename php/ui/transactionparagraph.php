@@ -13,7 +13,7 @@ function _echoTransactionTableItem($ref, $transaction, $bReadOnly, $bChinese)
     }
     	
     $strDate = GetSqlTransactionDate($transaction);
-    $strPrice = $ref->GetPriceDisplay($transaction['price']);
+    $strPrice = $ref->GetPriceDisplay($transaction['price'], false);
     $strFees = round_display_str($transaction['fees']);
     if ($bReadOnly)
     {

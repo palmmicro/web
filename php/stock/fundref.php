@@ -83,15 +83,15 @@ class FundReference extends MysqlReference
         return parent::GetStockId();
     }
 
-    function GetPriceDisplay($fVal)
+    function GetPriceDisplay($fVal, $bPrev = true)
     {
     	if ($fVal)
     	{
     		if ($this->stock_ref)
     		{
-    			return $this->stock_ref->GetPriceDisplay($fVal);
+    			return $this->stock_ref->GetPriceDisplay($fVal, $bPrev);
     		}
-    		return parent::GetPriceDisplay($fVal);
+    		return parent::GetPriceDisplay($fVal, $bPrev);
     	}
         return '';
     }

@@ -104,7 +104,7 @@ function _onTradingUserDefinedVal($fVal, $bChinese)
     
     $fund = $group->ref;
     $fEst = $fund->GetEstValue($fVal);
-    return _onSmaUserDefinedVal($fEst, $bChinese).'@'.$fund->est_ref->GetPriceDisplay($fEst);
+    return _onSmaUserDefinedVal($fEst, $bChinese).'@'.$fund->est_ref->GetPriceDisplay($fEst, false);
 }
 
 function _onTradingUserDefined($bChinese, $fVal = false)

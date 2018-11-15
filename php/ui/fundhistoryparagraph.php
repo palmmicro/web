@@ -30,7 +30,7 @@ function _echoFundHistoryTableItem($csv, $strDate, $arFund, $ref, $est_ref)
     {
         $ref->SetCurrentPrice($strNetValue);
         $strEstError = $ref->GetPercentageDisplay($fEstValue);
-        $strEstValue = $ref->GetPriceDisplay($fEstValue);
+        $strEstValue = $ref->GetPriceDisplay($fEstValue, false);
         $strEstTime = $arFund['time'];
     }
     
