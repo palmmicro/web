@@ -31,7 +31,7 @@ function _echoTestParagraph($group, $bChinese)
 {
     if (AcctIsTest($bChinese))
     {
-        $str = _GetStockConfigDebugString(array($group->ref->pair_ref), $bChinese);
+        $str = _GetStockConfigDebugString(array($group->ref->pair_ref));
         EchoParagraph($str);
     }
 }

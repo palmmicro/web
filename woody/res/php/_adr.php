@@ -112,9 +112,9 @@ function _echoArbitrageParagraph($group, $bChinese)
     EchoTableParagraphEnd();
 }
 
-function _echoTestParagraph($group, $bChinese)
+function _echoTestParagraph($group)
 {
-    $str = _GetStockConfigDebugString(array($group->hk_ref, $group->cn_ref, $group->us_ref), $bChinese);
+    $str = _GetStockConfigDebugString(array($group->hk_ref, $group->cn_ref));
     EchoParagraph($str);
 }
 
@@ -183,9 +183,9 @@ function AdrEchoAll($bChinese = true)
 	}
     
     EchoPromotionHead($bChinese, 'adr');
-    if (AcctIsAdmin())
+    if (AcctIsTest($bChinese))
     {
-        _echoTestParagraph($group, $bChinese);
+        _echoTestParagraph($group);
     }
 }
 

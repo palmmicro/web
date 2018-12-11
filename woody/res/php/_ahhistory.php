@@ -79,7 +79,7 @@ function _echoAhHistoryParagraph($strSymbol, $strStockId, $strPairId, $fRatio, $
     $arColumn[3] = GetMyStockLink('HKCNY', $bChinese);
 	
     $strUpdateLink = ''; 
-    if (AcctIsAdmin() && $bChinese)
+    if (AcctIsTest($bChinese))
     {
         $strUpdateLink = GetOnClickLink(STOCK_PHP_PATH.'_submithistory.php?id='.$strStockId, "确认更新$strSymbol历史记录?", $strSymbol);
         $strUpdateLink .= ' '.GetOnClickLink(STOCK_PHP_PATH.'_submithistory.php?id='.$strPairId, "确认更新$strPairSymbol历史记录?", $strPairSymbol);

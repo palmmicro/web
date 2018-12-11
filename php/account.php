@@ -73,19 +73,10 @@ function AcctIsAdmin()
 	return false;
 }
 
-function AcctIsDebug()
-{
-    if (AcctGetEmail() == SUPPORT_EMAIL)
-	{
-	    return true;
-	}
-	return false;
-}
-
 function AcctIsTest($bChinese)
 {
     if ($bChinese == false)	return false;
-    return AcctIsDebug();
+    return AcctIsAdmin();
 }
 
 function AcctIsLogin()
@@ -107,8 +98,7 @@ function AcctSwitchToLogin()
 
 function AcctIsReadOnly($strMemberId)
 {
-//    if (AcctIsAdmin())  return false;
-    if (AcctIsDebug())  return false;
+    if (AcctIsAdmin())  return false;
     if ($strMemberId)
     {
         if ($strMemberId == $_SESSION['SESS_ID'])   return false;

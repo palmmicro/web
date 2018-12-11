@@ -149,7 +149,7 @@ function _echoMyStockData($strSymbol, $bChinese)
         _echoMyStockTransactions($strMemberId, $ref, $bChinese);
     }
     
-    if (AcctIsDebug())
+    if (AcctIsTest($bChinese))
     {
      	$str = _getMyStockLinks($sym, $bChinese);
     	if (_hasSmaDisplay($sym))
@@ -188,7 +188,7 @@ function EchoMyStock($bChinese = true)
     }
     else
     {
-        if (AcctIsDebug())
+        if (AcctIsTest($bChinese))
         {
         	_echoAllStock($bChinese);
         }
@@ -201,7 +201,7 @@ function EchoMyStockTitle($bChinese = true)
     if ($strSymbol = UrlGetQueryValue('symbol'))  
     {
         $str = $strSymbol;
-    	if (AcctIsDebug())
+    	if (AcctIsTest($bChinese))
     	{
     		$str .= '('.SqlGetStockId($strSymbol).')';
     	}

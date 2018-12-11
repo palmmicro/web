@@ -20,7 +20,7 @@ function _onManualCalibrtion($strSymbol)
 }
 
     AcctNoAuth();
-	if (AcctIsDebug())
+	if (AcctIsAdmin())
 	{
 	    if ($strSymbol = UrlGetQueryValue('calibration'))
 	    {

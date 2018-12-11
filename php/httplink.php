@@ -14,7 +14,7 @@ function GetOnClickLink($strPath, $strQuestion, $strDisplay)
     return $strLink;
 }
 
-function GetDeleteLink($strPath, $strCn, $strUs, $bChinese)
+function GetDeleteLink($strPath, $strCn, $strUs = '', $bChinese = true)
 {
     if ($bChinese)
     {

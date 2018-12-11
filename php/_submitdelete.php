@@ -81,7 +81,7 @@ function _deleteTableDataById($strTableName)
 }
 
     AcctNoAuth();
-	if (AcctIsAdmin() || AcctIsDebug())
+	if (AcctIsAdmin())
 	{
 	    if ($strPathName = UrlGetQueryValue('file'))
 	    {

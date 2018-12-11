@@ -132,7 +132,7 @@ function _cleanInvalidHistory($strTableName)
 */
 function _submitStockHistory($strStockId, $strSymbol)
 {
-    if (AcctIsDebug() == false)     return;
+    if (AcctIsAdmin() == false)     return;
     
     unlinkConfigFile($strSymbol);
     $sym = new StockSymbol($strSymbol);

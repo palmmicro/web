@@ -33,7 +33,7 @@ function _GetAdjustLink($strSymbol, $strQuery, $bChinese)
     return GetPhpLink(STOCK_PATH.'editstockgroup', $bChinese, '校准', 'Adjust', $strQuery).' '.$strSymbol;
 }
 
-function _GetEtfAdjustString($ref, $etf_ref, $bChinese)
+function _GetEtfAdjustString($ref, $etf_ref, $bChinese = true)
 {
     $strSymbol = $ref->GetStockSymbol();
     $strQuery = sprintf('%s=%.3f&%s=%.3f', $strSymbol, $ref->fPrice, $etf_ref->GetStockSymbol(), $etf_ref->fPrice);

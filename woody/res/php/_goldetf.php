@@ -17,9 +17,9 @@ class _GoldEtfGroup extends _StockGroup
     }
 } 
 
-function _echoTestParagraph($group, $bChinese)
+function _echoTestParagraph($group)
 {
-    $str = _GetEtfAdjustString($group->ref->stock_ref, $group->ref->est_ref, $bChinese);
+    $str = _GetEtfAdjustString($group->ref->stock_ref, $group->ref->est_ref);
     EchoParagraph($str);
 }
 
@@ -38,9 +38,9 @@ function EchoAll($bChinese = true)
 	}
     
     EchoPromotionHead($bChinese, 'goldetf');
-    if (AcctIsAdmin())
+    if (AcctIsTest($bChinese))
     {
-        _echoTestParagraph($group, $bChinese);
+        _echoTestParagraph($group);
     }
 }
 

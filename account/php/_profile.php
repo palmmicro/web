@@ -350,7 +350,10 @@ function _closeAccount($strEmail)
 		{
 			if ($strId != $_SESSION['SESS_ID'])
 			{
-				$arErrMsg[] = ACCT_ERR_UNAUTH_OP;
+				if (AcctIsAdmin() == false)
+				{
+					$arErrMsg[] = ACCT_ERR_UNAUTH_OP;
+				}
 			}
 		}
 		else
@@ -364,7 +367,7 @@ function _closeAccount($strEmail)
 	}
 	if (EditEmailErrOcurred($arErrMsg))	return false;
 
-	AcctLogout();
+//	AcctLogout();
     AcctDeleteMember($strId);
     
 	if (UrlIsChinese())

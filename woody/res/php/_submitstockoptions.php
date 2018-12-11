@@ -214,7 +214,7 @@ function _updateStockOptionSplit($strSymbol, $strStockId, $strDate, $strVal)
 		$strSymbol = UrlCleanString($_POST['symbol']);
 		$strDate = UrlCleanString($_POST['date']);
 		$strVal = UrlCleanString($_POST['val']);
-   		$bTest = AcctIsDebug();
+   		$bTest = AcctIsAdmin();
 		$strSubmit = $_POST['submit'];
 		$strStockId = SqlGetStockId($strSymbol);
 		if ($strSubmit == STOCK_OPTION_ADJCLOSE_CN)

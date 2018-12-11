@@ -147,14 +147,17 @@ function _echoFundHistoryParagraph($ref, $est_ref, $bChinese, $strDisplay = '', 
 function EchoFundHistoryParagraph($fund, $bChinese, $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
 {
 	$str = '';
-    if (AcctIsDebug())		$str .= ' '.$fund->DebugLink();
+    if (AcctIsTest($bChinese))
+    {
+    	$str .= ' '.$fund->DebugLink();
+    }
     _echoFundHistoryParagraph($fund->stock_ref, $fund->est_ref, $bChinese, $str, $csv, $iStart, $iNum);
 }
 
 function EchoEtfHistoryParagraph($ref, $bChinese, $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
 {
 	$str = '';
-    if (AcctIsDebug())
+    if (AcctIsTest($bChinese))
     {
     	if ($ref->IsSymbolA())	$str .= ' '.$ref->nv_ref->DebugLink();
     }
