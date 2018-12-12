@@ -45,7 +45,9 @@ function GetFundHistoryTableColumn($est_ref, $bChinese)
 {
     if ($est_ref)
     {
-        $strSymbol = RefGetMyStockLink($est_ref, $bChinese);
+		if ($est_ref->IsTradable())	$strSymbol = GetSymbolLink('navclosehistory', $est_ref->GetStockSymbol(), $bChinese);
+		else							$strSymbol = RefGetMyStockLink($est_ref, $bChinese);
+		
         if ($bChinese)  $strChange = '涨跌';
         else              $strChange = 'Change';
     }

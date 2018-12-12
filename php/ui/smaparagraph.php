@@ -27,7 +27,8 @@ function _getSmaCallbackPriceDisplay($callback, $ref, $fVal, $strColor)
 	}
 	else
 	{
-		$str = $ref->GetPriceDisplay(call_user_func($callback, $ref, $fVal), false);
+		$display_ref = call_user_func($callback, $ref);
+		$str = $display_ref->GetPriceDisplay(call_user_func($callback, $ref, $fVal), false);
 	}
 	return GetTableColumnDisplay($str, $strColor);
 }
