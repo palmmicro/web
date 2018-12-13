@@ -263,4 +263,11 @@ function GetStockChartsLink($strSymbol)
     return GetExternalLink($strHttp, $strSymbol);
 }
 
+// https://mp.weixin.qq.com/
+function GetWeixinLink($bChinese = true)
+{
+    $strHttp = 'https://mp.weixin.qq.com';
+    return GetExternalLink($strHttp, ($bChinese ? '微信公众平台' : 'Wechat Public Platform'));
+}
+
 ?>

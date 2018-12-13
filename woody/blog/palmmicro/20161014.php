@@ -17,7 +17,7 @@
 The world is changing fast, now it seems it is not necessary to develop mobile app, using wechat public account is enough for most applications
 <br />Back a year ago, when I started <a href="../entertainment/20150818.php">SZ162411</a> net value calculation web tool development,
 I talked with a wechat public account <font color=orange>flyingpig33</font> owner who was using wechat to provide QDII LOF net value estimation, it gave me the impression that to use wechat public account was very easy.
-However, I ran into serious trouble when I tried to enable message interface development mode in <a href="https://mp.weixin.qq.com/" target=_blank>Wechat Public Platform</a>.
+However, I ran into serious trouble when I tried to enable message interface development mode in <?php echo GetWeixinLink(false); ?>.
 Using the very simple PHP example code from wechat, I was prompted <font color=red>Token checked failed</font> again and again when I tried to set the server URL.
 After debugging for a whole night I realized it was because <a href="../entertainment/20100905.php">Yahoo Web Hosting</a> appended some javascript for site statistics after my every web page. 
 <br />As I had used <a href="../entertainment/20110509.php">Google Analytics</a> for site statistics for many years, I always feel the new function Yahoo added nearly 2 years ago was unnecessary and made my web pages slow,

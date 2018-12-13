@@ -236,7 +236,10 @@ function _wxGetUnknownStockText($strContents)
 
 function _wxEmailDebug($strUserName, $strText, $strSubject)
 {   
-    EmailReport("<font color=blue>用户:</font>$strUserName.<br />$strText", $strSubject);
+	$str = '<font color=blue>用户:</font>'.$strUserName;
+	$str .= '<br />'.$strText;
+	$str .= '<br />'.GetWeixinLink();
+    EmailReport($str, $strSubject);
 }
 
 function _wxGetStockArrayText($arSymbol)

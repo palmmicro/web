@@ -2,6 +2,7 @@
 require_once('/php/blogcomments.php');
 require_once('/php/layout.php');
 require_once('/php/stocklink.php');
+require_once('/php/externallink.php');
 require_once('/php/ui/link.php');
 require_once('/php/ui/blogtable.php');
 require_once('/woody/php/_navwoody.php');
