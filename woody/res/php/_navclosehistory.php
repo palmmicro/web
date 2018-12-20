@@ -42,7 +42,7 @@ function _echoNavCloseItem($csv, $strDate, $fNetValue, $ref, $strFundId)
     
     if ($strFundId)
     {
-    	$strNetValue = GetOnClickLink('/php/_submitdelete.php?'.TABLE_FUND_HISTORY.'='.$strFundId, '确认删除'.$strDate.'净值记录'.$strNetValue.'?', $strNetValue);
+    	$strNetValue = GetOnClickLink('/php/_submitdelete.php?'.TABLE_NAV_HISTORY.'='.$strFundId, '确认删除'.$strDate.'净值记录'.$strNetValue.'?', $strNetValue);
     }
     
     echo <<<END
@@ -58,6 +58,7 @@ END;
 
 function _echoNavCloseData($sql, $ref, $iStart, $iNum, $bTest)
 {
+    $stock_sql = new StockHistorySql($ref->GetStockId());
     if ($result = $sql->GetAll($iStart, $iNum)) 
     {
      	$csv = new PageCsvFile();
@@ -67,7 +68,7 @@ function _echoNavCloseData($sql, $ref, $iStart, $iNum, $bTest)
         	if (empty($fNetValue) == false)
         	{
         		$strDate = $arFund['date'];
-       			if ($stock_ref = RefGetDailyClose($ref, $sql->stock_sql, $strDate))
+       			if ($stock_ref = RefGetDailyClose($ref, $stock_sql, $strDate))
        			{
        				_echoNavCloseItem($csv, $strDate, $fNetValue, $stock_ref, ($bTest ? $arFund['id'] : false));
         		}
@@ -80,7 +81,7 @@ function _echoNavCloseData($sql, $ref, $iStart, $iNum, $bTest)
 
 function _echoNavCloseParagraph($strSymbol, $strStockId, $iStart, $iNum, $bChinese)
 {
-	$sql = new FundHistorySql($strStockId);
+	$sql = new NavHistorySql($strStockId);
 	$iTotal = $sql->Count();
 	if ($iTotal == 0)		return;
     $strNavLink = StockGetNavLink($strSymbol, $iTotal, $iStart, $iNum, $bChinese);

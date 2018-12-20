@@ -151,6 +151,7 @@ function TestCmdLine()
 	echo strval(rand()).' Hello, world!';
 
 	TestCmdLine();
+//	MergeNavTable();
 //	WriteForexDataFromFile();
 //	MarketWatchGetData('^SPSIOP');
 //	test_stock_dividend();

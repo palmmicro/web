@@ -41,6 +41,7 @@ END;
 
 function _echoThanousLawData($sql, $ref, $est_ref, $iStart, $iNum, $bChinese)
 {
+    $stock_sql = new StockHistorySql($ref->GetStockId());
 	$est_sql = new StockHistorySql($est_ref->GetStockId());
     if ($result = $sql->GetAll($iStart, $iNum)) 
     {
@@ -51,7 +52,7 @@ function _echoThanousLawData($sql, $ref, $est_ref, $iStart, $iNum, $bChinese)
         	if (empty($fNetValue) == false)
         	{
         		$strDate = GetNextTradingDayYMD($arFund['date']);
-        		if ($arStock = $sql->stock_sql->Get($strDate))
+        		if ($arStock = $stock_sql->Get($strDate))
         		{
         			if ($pair_ref = RefGetDailyClose($est_ref, $est_sql, $strDate))
         			{
@@ -80,7 +81,7 @@ function _echoThanousLawParagraph($strSymbol, $iStart, $iNum, $bChinese)
     $arColumn = GetFundHistoryTableColumn($est_ref, $bChinese);
  	$str = _getNetValueLink($strSymbol, $bChinese);
 
-	$sql = new FundHistorySql($ref->GetStockId());
+	$sql = new NavHistorySql($ref->GetStockId());
    	$strNavLink = StockGetNavLink($strSymbol, $sql->Count(), $iStart, $iNum, $bChinese);
     echo <<<END
     <p>$str $strNavLink

@@ -38,7 +38,7 @@ class FundReference extends MysqlReference
     
     function SetForex($strForex)
     {
-        $this->forex_sql = new ForexHistorySql(SqlGetStockId($strForex));
+        $this->forex_sql = new NavHistorySql(SqlGetStockId($strForex));
     }
 
     // Update database

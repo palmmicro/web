@@ -76,11 +76,22 @@ function _echoTradingTableData($ref, $fEstPrice, $fEstPrice2, $fEstPrice3, $call
     $ref->SetCurrentPrice($strBackup);
 }
 
+function _checkTradingQuantity($ref)
+{
+    for ($i = 0; $i < TRADING_QUOTE_NUM; $i ++)
+    {
+        if ($ref->arAskQuantity[$i] != '0')	return false;
+        if ($ref->arBidQuantity[$i] != '0')	return false;
+    }
+    return true;
+}
+
 function _echoTradingParagraph($str, $arColumn, $ref, $bChinese, $fEstPrice = false, $fEstPrice2 = false, $fEstPrice3 = false, $callback = false)
 {
+	if (_checkTradingQuantity($ref))	return;
+	
 	$iWidth = 250;
 	$iEstWidth = 90;
-	
     $strColumnEx = '';
 	if ($fEstPrice)
 	{

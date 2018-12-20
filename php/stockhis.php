@@ -159,7 +159,7 @@ class StockHistory
     var $afSMA = array();
     var $afNext = array();
     
-    var $iScore = 0;
+    var $iScore;
     var $strDate;		// 2014-11-13
     
     var $stock_ref;	// MyStockReference
@@ -180,8 +180,6 @@ class StockHistory
         {
         	$cfg->set_var(SMA_SECTION, $this->_buildNextName($strName), strval($fNext));
         }
-        
-        if ($this->stock_ref->fPrice > $fSma)	$this->iScore ++;
     }
     
     function _cfg_get_SMA($cfg, $strName)
@@ -233,8 +231,6 @@ class StockHistory
         
         $this->_cfg_get_EMA($cfg, 50);
         $this->_cfg_get_EMA($cfg, 200);
-
-        $this->iScore = intval($cfg->read_var(SMA_SECTION, 'Score'));
     }
     
     function _cfg_set_EMA($cfg, $iDays)
@@ -289,7 +285,6 @@ class StockHistory
         $this->_cfg_set_EMA($cfg, 50);
         $this->_cfg_set_EMA($cfg, 200);
 
-        $cfg->set_var(SMA_SECTION, 'Score', strval($this->iScore));
         $cfg->save_data();
     }
     
@@ -355,6 +350,20 @@ class StockHistory
         return false;
     }
     
+    function _getScore()
+    {
+    	$iScore = 0;
+    	$fPrice = $this->stock_ref->fPrice;
+    	foreach ($this->aiNum as $i)
+        {
+        	$strKey = 'D'.strval($i);
+            if ($fPrice > $this->afSMA[$strKey])	$iScore ++;
+        }
+        if ($fPrice > $this->afSMA['BOLLUP'])		$iScore ++;
+        if ($fPrice > $this->afSMA['BOLLDN'])		$iScore ++;
+    	return $iScore;
+    }
+    
     function StockHistory($ref) 
     {
         $this->stock_ref = $ref;
@@ -362,6 +371,7 @@ class StockHistory
         $this->aiNum = array(5, 10, 20);
 		$this->strDate = $this->_getStartDate();
         $this->_configSMA();
+		$this->iScore = $this->_getScore();
     }
 }
 

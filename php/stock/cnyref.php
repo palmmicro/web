@@ -32,7 +32,7 @@ class CnyReference extends MysqlReference
     function _loadDatabaseData($strSymbol)
     {
     	$this->strSqlId = SqlGetStockId($strSymbol);
-		$this->sql = new ForexHistorySql($this->strSqlId);
+		$this->sql = new NavHistorySql($this->strSqlId);
        	$this->LoadSqlData($this->sql);
    		$this->strTime = '09:15:00';
         $this->strFileName = DebugGetChinaMoneyFile();
@@ -47,7 +47,7 @@ class CnyReference extends MysqlReference
 			return;
 		}
     
-		$this->sql = new ForexHistorySql($this->strSqlId);
+		$this->sql = new NavHistorySql($this->strSqlId);
 		if ($this->sql->Get($this->strDate) == false)
 		{
 			$this->sql->Insert($this->strDate, $this->strPrice);

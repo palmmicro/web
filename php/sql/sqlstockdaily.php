@@ -125,9 +125,9 @@ class DailyStockSql extends StockTableSql
 
     function Write($strDate, $strClose)
     {
-    	if ($fSaved = $this->GetClose($strDate))
+    	if ($strSaved = $this->GetCloseString($strDate))
     	{
-    		if (abs($fSaved - floatval($strClose)) > 0.000001)
+    		if (abs(floatval($strSaved) - floatval($strClose)) > 0.000001)
     		{
 //    			DebugString($strDate.' '.$strClose);
     			$this->Update($strDate, $strClose);
@@ -163,28 +163,28 @@ class StockSplitSql extends DailyStockSql
     }
 }
 
-// ****************************** ForexHistorySql class *******************************************************
-class ForexHistorySql extends DailyStockSql
+// ****************************** NavHistorySql class *******************************************************
+class NavHistorySql extends DailyStockSql
 {
-    function ForexHistorySql($strStockId) 
+    function NavHistorySql($strStockId) 
     {
-        parent::DailyStockSql($strStockId, TABLE_FOREX_HISTORY);
+        parent::DailyStockSql($strStockId, TABLE_NAV_HISTORY);
     }
 }
 
-class UscnyHistorySql extends ForexHistorySql
+class UscnyHistorySql extends NavHistorySql
 {
     function UscnyHistorySql() 
     {
-        parent::ForexHistorySql(SqlGetStockId('USCNY'));
+        parent::NavHistorySql(SqlGetStockId('USCNY'));
     }
 }
 
-class HkcnyHistorySql extends ForexHistorySql
+class HkcnyHistorySql extends NavHistorySql
 {
     function HkcnyHistorySql() 
     {
-        parent::ForexHistorySql(SqlGetStockId('HKCNY'));
+        parent::NavHistorySql(SqlGetStockId('HKCNY'));
     }
 }
 

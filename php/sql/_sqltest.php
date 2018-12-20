@@ -103,4 +103,19 @@ function WriteForexDataFromFile()
     fclose($file);
 }
 
+function MergeNavTable()
+{
+    $fStart = microtime(true);
+    if ($result = SqlGetTableData(TABLE_FUND_HISTORY)) 
+    {
+        while ($record = mysql_fetch_assoc($result)) 
+        {
+        	$sql = new NavHistorySql($record['stock_id']);
+        	$sql->Write($record['date'], $record['close']);
+        }
+        @mysql_free_result($result);
+    }
+    DebugString('MergeNavTable: '.DebugGetStopWatchDisplay($fStart));
+}
+
 ?>
