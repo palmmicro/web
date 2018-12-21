@@ -122,11 +122,12 @@ class _LofGroup extends _StockGroup
         $strDate = $ref->strDate;
         $strCNY = $ref->forex_sql->GetCloseString($strDate);
         
-       	$sql = new FundHistorySql($est_ref->GetStockId());
+       	$sql = new NavHistorySql($est_ref->GetStockId());
        	$strEst = $sql->GetCloseString($strDate);
        	if ($strEst == false)
        	{
-       		$strEst = $sql->stock_sql->GetCloseString($strDate);
+       		$stock_sql = new StockHistorySql($est_ref->GetStockId());
+       		$strEst = $stock_sql->GetCloseString($strDate);
        		if ($strEst == false)	$strEst = $est_ref->strPrevPrice;
        	}
        	

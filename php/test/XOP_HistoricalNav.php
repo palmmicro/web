@@ -8,7 +8,7 @@ class NavCsvFile extends CsvFile
     function NavCsvFile($strPathName, $strSymbol) 
     {
         parent::CsvFile($strPathName);
-        $this->sql = new FundHistorySql(SqlGetStockId($strSymbol));
+        $this->sql = new NavHistorySql(SqlGetStockId($strSymbol));
 		$this->oldest_ymd = new OldestYMD();
     }
 
@@ -20,7 +20,7 @@ class NavCsvFile extends CsvFile
     		$strDate = $ymd->GetYMD();
    			if ($this->oldest_ymd->IsInvalid($strDate) == false)
    			{
-   				$this->sql->UpdateNetValue($strDate, $arWord[1]);
+   				$this->sql->Insert($strDate, $arWord[1]);
    			}
     	}
     }

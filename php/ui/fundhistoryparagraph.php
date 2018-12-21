@@ -67,23 +67,22 @@ function _echoHistoryTableData($sql, $csv, $ref, $est_ref, $iStart, $iNum)
 		$clone_est_ref = clone $est_ref;
 	}
 	
+	$fund_sql = new FundHistorySql($ref->GetStockId());
     if ($result = $sql->GetAll($iStart, $iNum)) 
     {
-        while ($arFund = mysql_fetch_assoc($result)) 
+        while ($arNav = mysql_fetch_assoc($result)) 
         {
-        	$fNetValue = floatval($arFund['close']);
+        	$fNetValue = floatval($arNav['close']);
         	if (empty($fNetValue) == false)
         	{
-        		if ($bSameDayNetValue)
+        		$strDate = $arNav['date'];
+        		$arFund = $fund_sql->Get($strDate);
+        		if ($bSameDayNetValue == false)
         		{
-        			$strDate = $arFund['date'];
-        		}
-        		else
-        		{
-        			$strDate = GetNextTradingDayYMD($arFund['date']);
+        			$strDate = GetNextTradingDayYMD($strDate);
         		}
             
-        		if ($arStock = $sql->stock_sql->Get($strDate))
+        		if ($arStock = $fund_sql->stock_sql->Get($strDate))
         		{
        				$clone_ref->SetPrice(strval($fNetValue), $arStock['close']);
         			_echoFundHistoryTableItem($csv, $strDate, $arFund, $clone_ref, RefGetDailyClose($clone_est_ref, $est_sql, $arFund['date']));
@@ -126,7 +125,7 @@ function _echoFundHistoryParagraph($ref, $est_ref, $bChinese, $strDisplay = '', 
         $str = "The {$arColumn[3]} history of $strSymbolLink {$arColumn[1]} price comparing with {$arColumn[2]}";
     }
     
-	$sql = new FundHistorySql($ref->GetStockId());
+	$sql = new NavHistorySql($ref->GetStockId());
     if (IsTableCommonDisplay($iStart, $iNum))
     {
         $str .= ' '.GetNetValueHistoryLink($strSymbol, $bChinese);

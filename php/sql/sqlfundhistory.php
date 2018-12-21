@@ -65,44 +65,18 @@ class FundHistorySql extends DailyStockSql
         }
 	}
 	
-	function IsEmptyNetValue($history)
-	{
-        return IsEmptyFundValue($history['close']);
-	}
-	
-	function HasNetValue($strDate)
+	function GetEstimated($strDate)
 	{
         if ($history = $this->Get($strDate))
         {
-            if ($this->IsEmptyNetValue($history) == false)
-            {
-                return true;
-            }
+			return $history['estimated'];
         }
         return false;
 	}
 	
-	function UpdateNetValue($strDate, $strNetValue)
+	function IsEmptyNetValue($history)
 	{
-        $ymd = new StringYMD($strDate);
-        if ($ymd->IsWeekend())     return false;   // sina fund may provide false weekend data
-        
-        // DebugString(SqlGetStockSymbol($this->GetKeyId()).' '.$strDate.' '.$strNetValue);
-        if ($history = $this->Get($strDate))
-        {
-            if ($this->IsEmptyNetValue($history))
-            {
-                $strEstValue = $history['estimated'];
-                $this->Update($history['id'], $strNetValue, $strEstValue, $history['time']);
-                return $strEstValue;
-            }
-            else
-            {	// We already have it
-                return false;
-            }
-        }
-        $this->Insert($strDate, $strNetValue);
-        return $strNetValue;
+        return IsEmptyFundValue($history['close']);
 	}
 	
 	function UpdateEstValue($strDate, $fEstValue)
@@ -128,12 +102,5 @@ class FundHistorySql extends DailyStockSql
 	}
 }
 
-// ****************************** Fund History tables *******************************************************
-
-function SqlGetFundNetValueByDate($strStockId, $strDate)
-{
-	$sql = new FundHistorySql($strStockId);
-	return $sql->GetClose($strDate);
-}
 
 ?>

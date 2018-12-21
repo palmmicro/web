@@ -50,11 +50,14 @@ class FundReference extends MysqlReference
 
     function UpdateOfficialNetValue()
     {
+    	$strStockId = $this->GetStockId();
         $strNetValue = $this->strPrice;
-        $sql = new FundHistorySql($this->GetStockId());
-        if ($strEstValue = $sql->UpdateNetValue($this->strDate, $strNetValue))
+       	$strDate = $this->strDate;
+        $sql = new NavHistorySql($strStockId);
+        if ($sql->Insert($strDate, $strNetValue))
         {
-            StockCompareEstResult($this->GetStockSymbol(), $strNetValue, $strEstValue);
+        	$fund_sql = new FundHistorySql($strStockId);
+            StockCompareEstResult($this->GetStockSymbol(), $strNetValue, $fund_sql->GetEstimated($strDate));
             return true;
         }
         return false;

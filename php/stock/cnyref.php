@@ -48,10 +48,7 @@ class CnyReference extends MysqlReference
 		}
     
 		$this->sql = new NavHistorySql($this->strSqlId);
-		if ($this->sql->Get($this->strDate) == false)
-		{
-			$this->sql->Insert($this->strDate, $this->strPrice);
-		}    
+		$this->sql->Insert($this->strDate, $this->strPrice);
 	}
 
 	function GetClose($strDate)

@@ -200,9 +200,8 @@ function _updateStockOptionSplit($strSymbol, $strStockId, $strDate, $strVal)
 //	DebugVal($fRatio, $strSymbol);
 	
 	$sql = new StockSplitSql($strStockId);
-	if ($sql->Get($strDate) == false)
+	if ($sql->Insert($strDate, strval($fRatio)))
 	{
-		$sql->Insert($strDate, strval($fRatio));
 		_updateStockOptionSplitTransactions($strStockId, $strDate, $fRatio);
 	}
 }

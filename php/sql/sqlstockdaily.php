@@ -5,7 +5,6 @@ require_once('sqlstocksymbol.php');
 // ****************************** DailyStockSql class *******************************************************
 class DailyStockSql extends StockTableSql
 {
-    // constructor 
     function DailyStockSql($strStockId, $strTableName) 
     {
         parent::StockTableSql($strStockId, $strTableName);
@@ -114,6 +113,11 @@ class DailyStockSql extends StockTableSql
 
     function Insert($strDate, $strClose)
     {
+        if ($this->Get($strDate))			return false;
+        
+        $ymd = new StringYMD($strDate);
+        if ($ymd->IsWeekend())     			return false;   // sina fund may provide false weekend data
+        
     	$strStockId = $this->GetKeyId(); 
     	return $this->InsertData("(id, stock_id, date, close) VALUES('0', '$strStockId', '$strDate', '$strClose')");
     }
@@ -188,7 +192,7 @@ class HkcnyHistorySql extends NavHistorySql
     }
 }
 
-// ****************************** Forex Support Functions *******************************************************
+// ****************************** Nav Support Functions *******************************************************
 function SqlGetHKCNY()
 {
 	$sql = new HkcnyHistorySql();
@@ -199,6 +203,12 @@ function SqlGetUSCNY()
 {
 	$sql = new UscnyHistorySql();
 	return $sql->GetCloseNow();
+}
+
+function SqlGetNetValueByDate($strStockId, $strDate)
+{
+	$sql = new NavHistorySql($strStockId);
+	return $sql->GetClose($strDate);
 }
 
 ?>

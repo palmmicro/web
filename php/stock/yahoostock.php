@@ -283,7 +283,7 @@ function _yahooStockGetData($strSymbol, $strStockId)
 				$strMatchPrice = $ar[3];
 				$ymd = new TickYMD($ar[1]);
 				$strDate = $ymd->GetYMD();
-    			$sql = new FundHistorySql($strStockId);
+    			$sql = new NavHistorySql($strStockId);
     			$sql->Write($strDate, $strMatchPrice);
 				return $strMatchPrice.' '.$ar[2].' '.$strDate.' '.$ymd->GetHMS();
 			}
@@ -366,12 +366,12 @@ function YahooUpdateNetValue($strSymbol)
 {
 	if (($strNetValueSymbol = _yahooGetNetValueSymbol($strSymbol)) == false)	return;
     if (($strStockId = SqlGetStockId($strSymbol)) == false)  					return;
-	$sql = new FundHistorySql($strStockId);
+	$sql = new NavHistorySql($strStockId);
 	
     date_default_timezone_set(STOCK_TIME_ZONE_US);
     $now_ymd = new NowYMD();
     $strDate = $now_ymd->GetYMD();
-    if ($sql->HasNetValue($strDate))								return;
+    if ($sql->Get($strDate))								return;
     if ($now_ymd->IsTradingDay())
     {
     	if ($now_ymd->GetTick() < (strtotime($strDate) + _getNetValueDelayTick()))
@@ -404,7 +404,7 @@ function YahooUpdateNetValue($strSymbol)
     {
     	$ymd = _yahooStockMatchGetYmd($arMatch, $strNetValueSymbol);
     	$strDate = $ymd->GetYMD();
-    	if ($sql->HasNetValue($strDate))		return;
+    	if ($sql->Get($strDate))		return;
     	foreach ($arMatch as $ar)
     	{
     		$strMatchSymbol = $ar[4];
@@ -412,14 +412,14 @@ function YahooUpdateNetValue($strSymbol)
     		// $strMatchChange = $ar[2];
     		if ($strNetValueSymbol == $strMatchSymbol)
     		{
-    			$sql->UpdateNetValue($strDate, $strMatchPrice);
+    			$sql->Insert($strDate, $strMatchPrice);
     			DebugString('YahooUpdateNetValue '.$strNetValueSymbol.' '.$strDate.' '.$strMatchPrice);
     		}
     		else if ($strExtraId = SqlGetStockId($strMatchSymbol))
     		{
-    			$extra_sql = new FundHistorySql($strExtraId);
+    			$extra_sql = new NavHistorySql($strExtraId);
     			$extra_ymd = _yahooStockMatchGetYmd($arMatch, $strMatchSymbol);
-    			$extra_sql->UpdateNetValue($extra_ymd->GetYMD(), $strMatchPrice);
+    			$extra_sql->Insert($extra_ymd->GetYMD(), $strMatchPrice);
     		}
     	}
     }

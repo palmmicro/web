@@ -100,7 +100,7 @@ class _LofReference extends FundReference
         if ($fCNY = $this->forex_sql->GetClose($strDate))
         {
             $this->fCNY = $fCNY;
-            if ($fEstNetValue = SqlGetFundNetValueByDate($this->est_ref->GetStockId(), $strDate))
+            if ($fEstNetValue = SqlGetNetValueByDate($this->est_ref->GetStockId(), $strDate))
             {
             	$fEst = $fEstNetValue;
             }
@@ -161,7 +161,7 @@ class _LofReference extends FundReference
                 if ($est_ref == false)              return false;
                 if ($est_ref->bHasData == false)    return false;
                 
-                $fEst = SqlGetFundNetValueByDate($this->est_ref->GetStockId(), $strDate);
+                $fEst = SqlGetNetValueByDate($this->est_ref->GetStockId(), $strDate);
                 if ($fEst == false)
                 {
                 	// DebugString($strDate.' '.$this->est_ref->GetStockSymbol().' ETF net value not found, use close price.');
