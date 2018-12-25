@@ -67,7 +67,9 @@ function _echoHistoryTableData($sql, $csv, $ref, $est_ref, $iStart, $iNum)
 		$clone_est_ref = clone $est_ref;
 	}
 	
-	$fund_sql = new FundHistorySql($ref->GetStockId());
+	$strStockId = $ref->GetStockId();
+	$fund_sql = new FundHistorySql($strStockId);
+    $stock_sql = new StockHistorySql($strStockId);
     if ($result = $sql->GetAll($iStart, $iNum)) 
     {
         while ($arNav = mysql_fetch_assoc($result)) 
@@ -82,7 +84,7 @@ function _echoHistoryTableData($sql, $csv, $ref, $est_ref, $iStart, $iNum)
         			$strDate = GetNextTradingDayYMD($strDate);
         		}
             
-        		if ($arStock = $fund_sql->stock_sql->Get($strDate))
+        		if ($arStock = $stock_sql->Get($strDate))
         		{
        				$clone_ref->SetPrice(strval($fNetValue), $arStock['close']);
         			_echoFundHistoryTableItem($csv, $strDate, $arFund, $clone_ref, RefGetDailyClose($clone_est_ref, $est_sql, $arFund['date']));

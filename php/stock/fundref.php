@@ -44,23 +44,20 @@ class FundReference extends MysqlReference
     // Update database
     function UpdateEstNetValue()
     {
-        $sql = new FundHistorySql($this->GetStockId());
-        $sql->UpdateEstValue($this->est_ref->strDate, $this->fOfficialNetValue);
+    	$strStockId = $this->GetStockId();
+        $nav_sql = new NavHistorySql($strStockId);
+        if ($nav_sql->Get($this->strOfficialDate) == false)
+        {
+        	$sql = new FundHistorySql($strStockId);
+        	$sql->UpdateEstValue($this->strOfficialDate, $this->fOfficialNetValue);
+        }
     }
 
     function UpdateOfficialNetValue()
     {
     	$strStockId = $this->GetStockId();
-        $strNetValue = $this->strPrice;
-       	$strDate = $this->strDate;
         $sql = new NavHistorySql($strStockId);
-        if ($sql->Insert($strDate, $strNetValue))
-        {
-        	$fund_sql = new FundHistorySql($strStockId);
-            StockCompareEstResult($this->GetStockSymbol(), $strNetValue, $fund_sql->GetEstimated($strDate));
-            return true;
-        }
-        return false;
+		return StockCompareEstResult($this->GetStockSymbol(), $this->strPrice, $this->strDate, $sql);
     }
 
     function InsertFundCalibration($est_ref, $strEstPrice)

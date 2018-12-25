@@ -94,6 +94,16 @@ class TableSql
     	return SqlDeleteTableData($this->strName, $strWhere, $strLimit);
     }
 
+    function DeleteCountData($strWhere)
+    {
+    	$iCount = $this->CountData($strWhere);
+    	if ($iCount > 0)
+    	{
+    		DebugVal($iCount, 'DeleteCountData table '.$this->strName.' WHERE '.$strWhere);
+    		$this->DeleteData($strWhere);
+    	}
+    }
+    
     function DeleteById($strId)
     {
     	if ($strWhere = _SqlBuildWhere_id($strId))

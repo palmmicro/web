@@ -137,6 +137,9 @@ class GradedFundReference extends FundReference
     function EstNetValue()
     {
         $strDate = $this->est_ref->strDate; 
+        $this->strOfficialDate = $strDate;
+        $this->b_ref->strOfficialDate = $strDate;
+        $this->m_ref->strOfficialDate = $strDate;
         if ($strDate == $this->m_ref->strDate)
         {
             $this->fOfficialNetValue = $this->fPrice;
@@ -165,9 +168,6 @@ class GradedFundReference extends FundReference
             $this->b_ref->UpdateEstNetValue();
             $this->m_ref->UpdateEstNetValue();
         }
-        $this->strOfficialDate = $strDate;
-        $this->b_ref->strOfficialDate = $strDate;
-        $this->m_ref->strOfficialDate = $strDate;
 
         $this->EstFairNetValue();
     }

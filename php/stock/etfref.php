@@ -22,13 +22,7 @@ class NetValueReference extends StockReference
         parent::StockReference($sym);
         if ($sym->IsFundA())
         {
-        	$strNetValue = $this->strPrice;
-        	$strDate = $this->strDate;
-        	if ($this->sql->Insert($strDate, $strNetValue))
-        	{
-        		$fund_sql = new FundHistorySql($strStockId);
-        		StockCompareEstResult($sym->GetSymbol(), $strNetValue, $fund_sql->GetEstimated($strDate));
-        	}
+       		StockCompareEstResult($sym->GetSymbol(), $this->strPrice, $this->strDate, $this->sql);
         }
     }
     
@@ -261,7 +255,7 @@ class EtfReference extends MyStockReference
     	return $this->strOfficialDate;
     }
     
-    function _getOfficialNetValue($fund_sql, $fCny = false)
+    function _estOfficialNetValue($fund_sql, $fCny = false)
     {
 		$fEst = $this->pair_nv_ref->sql->GetClose($this->strOfficialDate);
 		if ($fEst == false)	
@@ -270,7 +264,10 @@ class EtfReference extends MyStockReference
 		}
 		
    		$fVal = $this->EstFromPair($fEst, $fCny);
-       	$fund_sql->UpdateEstValue($this->strOfficialDate, $fVal);
+        if ($this->nv_ref->sql->Get($this->strOfficialDate) == false)
+        {   // Only update when net value is NOT ready
+			$fund_sql->UpdateEstValue($this->strOfficialDate, $fVal);
+		}
 //       	DebugVal($fVal, $this->GetStockSymbol().' '.$this->strOfficialDate);
         return $fVal;
     }
@@ -283,7 +280,7 @@ class EtfReference extends MyStockReference
         {
         	if ($fCny = $this->cny_ref->GetClose($this->strOfficialDate))
         	{
-        		return $this->_getOfficialNetValue($fund_sql, $fCny);
+        		return $this->_estOfficialNetValue($fund_sql, $fCny);
         	}
         	else
         	{	// Load last value from database
@@ -295,7 +292,7 @@ class EtfReference extends MyStockReference
         	}
         }
 
-        return $this->_getOfficialNetValue($fund_sql);
+        return $this->_estOfficialNetValue($fund_sql);
     }
 }
 

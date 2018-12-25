@@ -16,15 +16,10 @@ function IsEmptyFundValue($strVal)
 // ****************************** FundHistorySql class *******************************************************
 class FundHistorySql extends DailyStockSql
 {
-	var $stock_sql;	// StockHistorySql
-	
-    // constructor 
     function FundHistorySql($strStockId = false) 
     {
         parent::DailyStockSql($strStockId, TABLE_FUND_HISTORY);
         $this->Create();
-        
-        $this->stock_sql = new StockHistorySql($strStockId);
     }
 
     function Create()

@@ -213,15 +213,24 @@ function StockGetPercentage($fPrice, $fPrice2)
     return ($fPrice/$fPrice2 - 1.0) * 100.0;
 }
 
-function StockCompareEstResult($strSymbol, $strNetValue, $strEstValue)
+function StockCompareEstResult($strSymbol, $strNetValue, $strDate, $nav_sql)
 {
-    $fPercentage = StockGetPercentage(floatval($strEstValue), floatval($strNetValue));
-    if (abs($fPercentage) > 1.0)
+    if ($nav_sql->Insert($strDate, $strNetValue))
     {
-        $strLink = GetNetValueHistoryLink($strSymbol);
-        $str = sprintf('%s%s 实际值%s 估值%s 误差:%.2f%%, 从_compareEstResult函数调用.', $strSymbol, $strLink, $strNetValue, $strEstValue, $fPercentage); 
-        EmailReport($str, 'Netvalue estimation error');
+       	$fund_sql = new FundHistorySql(SqlGetStockId($strSymbol));
+       	if ($strEstValue = $fund_sql->GetEstimated($strDate))
+       	{
+       		$fPercentage = StockGetPercentage(floatval($strEstValue), floatval($strNetValue));
+       		if (abs($fPercentage) > 1.0)
+       		{
+       			$strLink = GetNetValueHistoryLink($strSymbol);
+       			$str = sprintf('%s%s 实际值%s 估值%s 误差:%.2f%%, 从_compareEstResult函数调用.', $strSymbol, $strLink, $strNetValue, $strEstValue, $fPercentage); 
+       			EmailReport($str, 'Netvalue estimation error');
+       		}
+       	}
+    	return true;
     }
+    return false;
 }
 
 // ****************************** StockReference public functions *******************************************************

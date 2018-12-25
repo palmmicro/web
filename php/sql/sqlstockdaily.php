@@ -147,6 +147,11 @@ class DailyStockSql extends StockTableSql
     {
     	return $this->DeleteData($this->BuildWhere_stock_date($strDate), '1');
     }
+    
+    function DeleteZeroData()
+    {
+    	$this->DeleteCountData("close = '0.000000'");
+    }
 }
 
 // ****************************** StockEmaSql class *******************************************************

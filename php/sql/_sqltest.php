@@ -106,7 +106,7 @@ function WriteForexDataFromFile()
 function MergeNavTable()
 {
     $fStart = microtime(true);
-    if ($result = SqlGetTableData(TABLE_FUND_HISTORY)) 
+/*    if ($result = SqlGetTableData(TABLE_FUND_HISTORY)) 
     {
         while ($record = mysql_fetch_assoc($result)) 
         {
@@ -114,7 +114,9 @@ function MergeNavTable()
         	$sql->Write($record['date'], $record['close']);
         }
         @mysql_free_result($result);
-    }
+    }*/
+    $sql = new UscnyHistorySql();
+    $sql->DeleteZeroData();
     DebugString('MergeNavTable: '.DebugGetStopWatchDisplay($fStart));
 }
 
