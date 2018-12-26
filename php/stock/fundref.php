@@ -17,6 +17,7 @@ class FundReference extends MysqlReference
 
     var $strOfficialDate;
     
+    var $sql;
     var $forex_sql;
     
     function FundReference($strSymbol) 
@@ -33,6 +34,7 @@ class FundReference extends MysqlReference
         if ($strStockId = $this->GetStockId())
         {
         	if ($fVal = SqlGetStockCalibrationFactor($strStockId))		$this->fFactor = $fVal; 
+        	$this->sql = new NavHistorySql($strStockId);
         }
     }
     
@@ -44,20 +46,17 @@ class FundReference extends MysqlReference
     // Update database
     function UpdateEstNetValue()
     {
-    	$strStockId = $this->GetStockId();
-        $nav_sql = new NavHistorySql($strStockId);
-        if ($nav_sql->Get($this->strOfficialDate) == false)
+       	$fund_sql = new FundHistorySql($this->GetStockId());
+   		StockUpdateEstResult($this->sql, $fund_sql, $this->fOfficialNetValue, $this->strOfficialDate);
+/*        if ($this->sql->Get($this->strOfficialDate) == false)
         {
-        	$sql = new FundHistorySql($strStockId);
-        	$sql->UpdateEstValue($this->strOfficialDate, $this->fOfficialNetValue);
-        }
+        	$fund_sql->UpdateEstValue($this->strOfficialDate, $this->fOfficialNetValue);
+        }*/
     }
 
     function UpdateOfficialNetValue()
     {
-    	$strStockId = $this->GetStockId();
-        $sql = new NavHistorySql($strStockId);
-		return StockCompareEstResult($this->GetStockSymbol(), $this->strPrice, $this->strDate, $sql);
+		return StockCompareEstResult($this->sql, $this->strPrice, $this->strDate, $this->GetStockSymbol());
     }
 
     function InsertFundCalibration($est_ref, $strEstPrice)

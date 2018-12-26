@@ -4,11 +4,9 @@
 class NetValueReference extends StockReference
 {
 	var $sql;
-	var $strStockId;
 	
     function NetValueReference($strStockId, $sym) 
     {
-    	$this->strStockId = $strStockId;
        	$this->sql = new NavHistorySql($strStockId);
         if ($sym->IsFundA())
         {
@@ -22,13 +20,13 @@ class NetValueReference extends StockReference
         parent::StockReference($sym);
         if ($sym->IsFundA())
         {
-       		StockCompareEstResult($sym->GetSymbol(), $this->strPrice, $this->strDate, $this->sql);
+       		StockCompareEstResult($this->sql, $this->strPrice, $this->strDate, $this->GetStockSymbol());
         }
     }
     
     function GetStockId()
     {
-    	return $this->strStockId;
+    	return $this->sql->GetKeyId();
     }
 }
 
@@ -264,10 +262,11 @@ class EtfReference extends MyStockReference
 		}
 		
    		$fVal = $this->EstFromPair($fEst, $fCny);
-        if ($this->nv_ref->sql->Get($this->strOfficialDate) == false)
+   		StockUpdateEstResult($this->nv_ref->sql, $fund_sql, $fVal, $this->strOfficialDate);
+/*        if ($this->nv_ref->sql->Get($this->strOfficialDate) == false)
         {   // Only update when net value is NOT ready
 			$fund_sql->UpdateEstValue($this->strOfficialDate, $fVal);
-		}
+		}*/
 //       	DebugVal($fVal, $this->GetStockSymbol().' '.$this->strOfficialDate);
         return $fVal;
     }

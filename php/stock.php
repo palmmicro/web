@@ -213,11 +213,11 @@ function StockGetPercentage($fPrice, $fPrice2)
     return ($fPrice/$fPrice2 - 1.0) * 100.0;
 }
 
-function StockCompareEstResult($strSymbol, $strNetValue, $strDate, $nav_sql)
+function StockCompareEstResult($nav_sql, $strNetValue, $strDate, $strSymbol)
 {
     if ($nav_sql->Insert($strDate, $strNetValue))
     {
-       	$fund_sql = new FundHistorySql(SqlGetStockId($strSymbol));
+       	$fund_sql = new FundHistorySql($nav_sql->GetKeyId());
        	if ($strEstValue = $fund_sql->GetEstimated($strDate))
        	{
        		$fPercentage = StockGetPercentage(floatval($strEstValue), floatval($strNetValue));
@@ -231,6 +231,14 @@ function StockCompareEstResult($strSymbol, $strNetValue, $strDate, $nav_sql)
     	return true;
     }
     return false;
+}
+
+function StockUpdateEstResult($nav_sql, $fund_sql, $fNetValue, $strDate)
+{
+	if ($nav_sql->Get($strDate) == false)
+    {   // Only update when net value is NOT ready
+		$fund_sql->UpdateEstValue($strDate, $fNetValue);
+	}
 }
 
 // ****************************** StockReference public functions *******************************************************
