@@ -5,10 +5,12 @@ function MyStockTransactionEchoAll($bChinese = true)
 {
     if ($strGroupId = UrlGetQueryValue('groupid'))
     {
+        $arSymbol = SqlGetStocksArray($strGroupId, true);
+        StockPrefetchArrayData($arSymbol);
+   		EchoStockGroupParagraph($bChinese);
+
         $iStart = UrlGetQueryInt('start');
         $iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
-        $strGroupLink = _GetReturnGroupLink($strGroupId, $bChinese);
-        
         if ($strSymbol = UrlGetQueryValue('symbol'))
         {   // Display transactions of a stock
             $strAllLink = StockGetAllTransactionLink($strGroupId, $bChinese);
@@ -18,9 +20,6 @@ function MyStockTransactionEchoAll($bChinese = true)
         }
         else
         {   // Display transactions of the whole group
-            $arSymbol = SqlGetStocksArray($strGroupId, true);
-            StockPrefetchArrayData($arSymbol);
-            
             $strCombineLink = GetPhpLink(STOCK_PATH.'combinetransaction', $bChinese, '合并记录', 'Combined Records', 'groupid='.$strGroupId);
             $strStockLinks = StockGetGroupTransactionLinks($strGroupId, $bChinese);
             EchoParagraph($strGroupLink.' '.$strCombineLink.' '.$strStockLinks);

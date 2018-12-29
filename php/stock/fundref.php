@@ -48,10 +48,6 @@ class FundReference extends MysqlReference
     {
        	$fund_sql = new FundHistorySql($this->GetStockId());
    		StockUpdateEstResult($this->sql, $fund_sql, $this->fOfficialNetValue, $this->strOfficialDate);
-/*        if ($this->sql->Get($this->strOfficialDate) == false)
-        {
-        	$fund_sql->UpdateEstValue($this->strOfficialDate, $this->fOfficialNetValue);
-        }*/
     }
 
     function UpdateOfficialNetValue()

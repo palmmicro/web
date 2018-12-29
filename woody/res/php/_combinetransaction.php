@@ -127,9 +127,9 @@ function CombineTransactionEchoAll($bChinese = true)
     {
         $arSymbol = SqlGetStocksArray($strGroupId);
         StockPrefetchArrayData($arSymbol);
+   		EchoStockGroupParagraph($bChinese);
 
-        $str = _GetReturnGroupLink($strGroupId, $bChinese);
-        $str .= ' '.StockGetGroupTransactionLinks($strGroupId, $bChinese);
+        $str = StockGetGroupTransactionLinks($strGroupId, $bChinese);
         $str .= ' '.StockGetAllTransactionLink($strGroupId, $bChinese);
         _echoCombinedTransactionParagraph($str, $strGroupId, 0, $bChinese);
     }
@@ -152,7 +152,7 @@ function CombineTransactionEchoTitle($bChinese = true)
     echo $str;
 }
 
-    AcctNoAuth();
+    AcctAuth();
 
 ?>
 

@@ -6,13 +6,10 @@ function EchoCalibration($bChinese = true)
 {
     if ($strSymbol = UrlGetQueryValue('symbol'))
     {
+    	StockPrefetchData($strSymbol);
+   		EchoStockGroupParagraph($bChinese);	
     	if ($strStockId = SqlGetStockId($strSymbol))
     	{
-    		StockPrefetchData($strSymbol);
-    		
-    		$strSymbolLink = _GetReturnSymbolGroupLink($strSymbol, $bChinese);
-    		EchoParagraph($strSymbolLink);
-    
     		$iStart = UrlGetQueryInt('start');
     		$iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
     		EchoCalibrationParagraph($strSymbol, $bChinese, $iStart, $iNum);

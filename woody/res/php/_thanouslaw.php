@@ -67,19 +67,12 @@ function _echoThanousLawData($sql, $ref, $est_ref, $iStart, $iNum, $bChinese)
     }
 }
 
-function _getNetValueLink($strSymbol, $bChinese)
-{
-    $strGroupLink = _GetReturnSymbolGroupLink($strSymbol, $bChinese); 
-    $strNetValue = GetNetValueHistoryLink($strSymbol, $bChinese);
-    return $strGroupLink.$strNetValue;
-}
-
 function _echoThanousLawParagraph($strSymbol, $iStart, $iNum, $bChinese)
 {
 	$ref = new LofReference($strSymbol);
 	$est_ref = $ref->est_ref;
     $arColumn = GetFundHistoryTableColumn($est_ref, $bChinese);
- 	$str = _getNetValueLink($strSymbol, $bChinese);
+ 	$str = GetNetValueHistoryLink($strSymbol, $bChinese);
 
 	$sql = new NavHistorySql($ref->GetStockId());
    	$strNavLink = StockGetNavLink($strSymbol, $sql->Count(), $iStart, $iNum, $bChinese);
@@ -106,9 +99,10 @@ function EchoAll($bChinese = true)
 {
     if ($strSymbol = UrlGetQueryValue('symbol'))
     {
+    	StockPrefetchData($strSymbol);
+   		EchoStockGroupParagraph($bChinese);
         if (in_arrayLof($strSymbol))
         {
-            StockPrefetchData($strSymbol);
    			$iStart = UrlGetQueryInt('start');
    			$iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
    			

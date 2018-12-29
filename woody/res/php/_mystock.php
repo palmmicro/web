@@ -12,8 +12,6 @@ require_once('/php/ui/etfsmaparagraph.php');
 require_once('/php/ui/fundestparagraph.php');
 require_once('/php/ui/fundhistoryparagraph.php');
 require_once('/php/ui/tradingparagraph.php');
-//require_once('/php/ui/stockgroupparagraph.php');
-require_once('/php/ui/transactionparagraph.php');
 
 function _echoMyStockTransactions($strMemberId, $ref, $bChinese)
 {

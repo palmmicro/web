@@ -86,7 +86,6 @@ function _echoNavCloseParagraph($strSymbol, $strStockId, $iStart, $iNum, $bChine
 	if ($iTotal == 0)		return;
     $strNavLink = StockGetNavLink($strSymbol, $iTotal, $iStart, $iNum, $bChinese);
 
-    // StockPrefetchData($strSymbol);
     $ref = new MyStockReference($strSymbol);
     $arColumn = GetFundHistoryTableColumn($ref, $bChinese);
     
@@ -113,6 +112,8 @@ function EchoAll($bChinese = true)
 {
     if ($strSymbol = UrlGetQueryValue('symbol'))
     {
+    	StockPrefetchData($strSymbol);
+   		EchoStockGroupParagraph($bChinese);
     	if ($strStockId = SqlGetStockId($strSymbol))
     	{
    			$iStart = UrlGetQueryInt('start');

@@ -58,11 +58,10 @@ function _echoCalibrationHistoryParagraph($strSymbol, $iStart, $iNum, $bChinese)
     if ($bChinese)  $arColumn = array($strSymbolDisplay, $strPrice, '对方'.$strSymbolDisplay, '对方'.$strPrice, '校准值', '时间', '操作');
     else              $arColumn = array($strSymbolDisplay, $strPrice, 'Peer '.$strSymbolDisplay, 'Peer '.$strPrice, 'Factor', 'Time', 'More');
     
-    $strSymbolLink = _GetReturnSymbolGroupLink($strSymbol, $bChinese);
     $iTotal = SqlCountStockCalibration($strStockId);
     $strNavLink = StockGetNavLink($strSymbol, $iTotal, $iStart, $iNum, $bChinese);
     
-    EchoParagraphBegin($strSymbolLink.$strNavLink);
+    EchoParagraphBegin($strNavLink);
     echo <<<END
     <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="history">
     <tr>
@@ -77,13 +76,16 @@ function _echoCalibrationHistoryParagraph($strSymbol, $iStart, $iNum, $bChinese)
 END;
    
     _echoCalibrationHistoryData($strStockId, $strSymbol, $iStart, $iNum, $bChinese);
-    EchoTableParagraphEnd();
+    EchoTableParagraphEnd($strNavLink);
 }
 
 function EchoCalibrationHistory($bChinese = true)
 {
     if ($strSymbol = UrlGetQueryValue('symbol'))
     {
+    	StockPrefetchData($strSymbol);
+   		EchoStockGroupParagraph($bChinese);
+   		
         $iStart = UrlGetQueryInt('start');
         $iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
         _echoCalibrationHistoryParagraph($strSymbol, $iStart, $iNum, $bChinese);

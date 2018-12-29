@@ -7,7 +7,6 @@ require_once('/php/stockhis.php');
 require_once('/php/ui/ahparagraph.php');
 require_once('/php/ui/etfparagraph.php');
 require_once('/php/ui/fundestparagraph.php');
-require_once('/php/ui/stockgroupparagraph.php');
 
 function _echoStockGroupParagraph($bChinese)
 {

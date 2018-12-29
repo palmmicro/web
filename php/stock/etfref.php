@@ -263,11 +263,6 @@ class EtfReference extends MyStockReference
 		
    		$fVal = $this->EstFromPair($fEst, $fCny);
    		StockUpdateEstResult($this->nv_ref->sql, $fund_sql, $fVal, $this->strOfficialDate);
-/*        if ($this->nv_ref->sql->Get($this->strOfficialDate) == false)
-        {   // Only update when net value is NOT ready
-			$fund_sql->UpdateEstValue($this->strOfficialDate, $fVal);
-		}*/
-//       	DebugVal($fVal, $this->GetStockSymbol().' '.$this->strOfficialDate);
         return $fVal;
     }
     

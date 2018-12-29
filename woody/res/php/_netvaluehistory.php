@@ -20,14 +20,13 @@ function _echoNetValueHistoryGraph($strSymbol, $bChinese)
 
 function _echoNetValueHistory($strSymbol, $iStart, $iNum, $bChinese)
 {
-    $str = _GetReturnSymbolGroupLink($strSymbol, $bChinese); 
+    $str = '';
     if (in_arrayLof($strSymbol))
     {
     	$str .= ' '.GetStockSymbolLink('thanouslaw', $strSymbol, $bChinese, '测试小心愿定律', 'Test Thanous Law');
     }
    	EchoParagraph($str);
-    
-    StockPrefetchData($strSymbol);
+  
    	$csv = new PageCsvFile();
    	$sym = new StockSymbol($strSymbol);
    	if ($sym->IsFundA())
@@ -47,6 +46,9 @@ function EchoAll($bChinese = true)
 {
     if ($strSymbol = UrlGetQueryValue('symbol'))
     {
+    	StockPrefetchData($strSymbol);
+   		EchoStockGroupParagraph($bChinese);	
+
    		$iStart = UrlGetQueryInt('start');
    		$iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
    		_echoNetValueHistory($strSymbol, $iStart, $iNum, $bChinese);

@@ -111,6 +111,8 @@ function EchoAll($bChinese = true)
 {
     if ($strSymbol = UrlGetQueryValue('symbol'))
     {
+    	StockPrefetchData($strSymbol);
+   		EchoStockGroupParagraph($bChinese);	
     	if ($strStockId = SqlGetStockId($strSymbol))
     	{
     		$sql = new PairStockSql($strStockId, TABLE_AH_STOCK);

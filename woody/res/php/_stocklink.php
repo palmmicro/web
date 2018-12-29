@@ -1,33 +1,5 @@
 <?php
 
-function _getReturnGroupText($strLink, $bChinese)
-{
-    if ($bChinese)     
-    {
-        $str = "返回{$strLink}分组";
-    }
-    else
-    {
-        $str = "Return $strLink Group";
-    }
-    return $str.'<br />';
-}
-
-function _GetReturnGroupLink($strGroupId, $bChinese)
-{
-    $strLink = GetStockGroupLink($strGroupId, $bChinese);
-    return _getReturnGroupText($strLink, $bChinese);
-}
-
-function _GetReturnSymbolGroupLink($strSymbol, $bChinese)
-{
-    if ($strLink = SelectStockLink($strSymbol, $bChinese))
-    {
-    	return _getReturnGroupText($strLink, $bChinese);
-    }
-    return '';
-}
-
 function _GetAdjustLink($strSymbol, $strQuery, $bChinese)
 {
     return GetPhpLink(STOCK_PATH.'editstockgroup', $bChinese, '校准', 'Adjust', $strQuery).' '.$strSymbol;

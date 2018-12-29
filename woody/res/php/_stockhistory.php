@@ -39,12 +39,10 @@ function _echoStockHistoryParagraph($strSymbol, $strStockId, $iStart, $iNum, $bT
     if ($bChinese)  $arColumn = array('日期', '开盘价', '最高', '最低', '收盘价', '成交量', '复权收盘价');
     else              $arColumn = array('Date', 'Open', 'High', 'Low', 'Close', 'Volume', 'Adj Close');
     
-    $strLinks = GetMyStockLink($strSymbol, $bChinese);
-	if (SqlGetEtfPair($strSymbol))	$strLinks .= ' '.GetNavCloseHistoryLink($strSymbol, $bChinese);
-	
     $sym = new StockSymbol($strSymbol);
+    $strLinks = GetStockHistoryLink($sym, $bChinese);
     if ($sym->IsTradable())			$strLinks .= ' '.GetStockDividendLink($sym, $bChinese);
-    $strLinks .= ' '.GetStockHistoryLink($sym, $bChinese);
+	if (SqlGetEtfPair($strSymbol))	$strLinks .= ' '.GetNavCloseHistoryLink($strSymbol, $bChinese);
     
     if ($bTest)
     {
@@ -76,6 +74,8 @@ function EchoAll($bChinese = true)
 {
     if ($strSymbol = UrlGetQueryValue('symbol'))
     {
+    	StockPrefetchData($strSymbol);
+   		EchoStockGroupParagraph($bChinese);
     	if ($strStockId = SqlGetStockId($strSymbol))
     	{
     		$iStart = UrlGetQueryInt('start');
