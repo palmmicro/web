@@ -17,9 +17,6 @@
 
 <p>Oct 14 <a href="palmmicro/20161014.php">Palmmicro Wechat Public Account sz162411</a>
 <br /><img src=photo/20161014.jpg alt="430x430 big qrcode of palmmicro wechat public account sz162411" /></p>
-
-<p>Jan 1 <a href="entertainment/20160101.php">2016 XOP and SZ162411 Arbitrage Data</a>
-<br /><img src=photo/20160101.jpg alt="Screen shot of my 2015 XOP and SZ162411 arbitrage data" /></p>
 </div>
 
 <?php LayoutTailLogin(false); ?>

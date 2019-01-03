@@ -17,9 +17,6 @@
 
 <p>10月14日 <a href="palmmicro/20161014cn.php">Palmmicro微信公众订阅号sz162411</a>
 <br /><img src=photo/20161014.jpg alt="430x430 big qrcode of palmmicro wechat public account sz162411" /></p>
-
-<p>1月1日 <a href="entertainment/20160101cn.php">2016年华宝油气和XOP套利交易初始记录</a>
-<br /><img src=photo/20160101.jpg alt="Screen shot of my 2015 XOP and SZ162411 arbitrage data" /></p>
 </div>
 
 <?php LayoutTailLogin(true); ?>

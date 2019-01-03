@@ -4,7 +4,7 @@ require_once('/woody/php/_navwoody.php');
 
 function _navLoopBlogPhoto($bChinese)
 {
-    $arPhoto = array('photo2006', 'photo2007', 'photo2008', 'photo2009', 'photo2010', 'photo2011', 'photo2012', 'photo2013', 'photo2014', 'photo2016', 'photo2017'); 
+    $arPhoto = array('photo2006', 'photo2007', 'photo2008', 'photo2009', 'photo2010', 'photo2011', 'photo2012', 'photo2013', 'photo2014', 'photo2016'); 
     $iLevel = 1;
     
 	NavBegin();
