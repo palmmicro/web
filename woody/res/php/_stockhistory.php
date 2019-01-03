@@ -42,7 +42,6 @@ function _echoStockHistoryParagraph($strSymbol, $strStockId, $iStart, $iNum, $bT
     $sym = new StockSymbol($strSymbol);
     $strLinks = GetStockHistoryLink($sym, $bChinese);
     if ($sym->IsTradable())			$strLinks .= ' '.GetStockDividendLink($sym, $bChinese);
-	if (SqlGetEtfPair($strSymbol))	$strLinks .= ' '.GetNavCloseHistoryLink($strSymbol, $bChinese);
     
     if ($bTest)
     {
@@ -52,8 +51,8 @@ function _echoStockHistoryParagraph($strSymbol, $strStockId, $iStart, $iNum, $bT
 
 	$sql = new StockHistorySql($strStockId);
     $strNavLink = StockGetNavLink($strSymbol, $sql->Count(), $iStart, $iNum, $bChinese);
-    EchoParagraphBegin($strNavLink.' '.$strLinks);
     echo <<<END
+    <p>$strNavLink $strLinks
     <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="history">
     <tr>
         <td class=c1 width=100 align=center>{$arColumn[0]}</td>

@@ -65,9 +65,9 @@ function GetAhHistoryLink($strSymbol, $bChinese)
     return GetTitleLink('ahhistory', $bChinese, 'AH历史', 'AH History', 'symbol='.$strSymbol);
 }
 
-function GetNavCloseHistoryLink($strSymbol, $bChinese)
+function GetBenfordLawLink($strSymbol, $bChinese)
 {
-    return GetTitleLink('navclosehistory', $bChinese, '净值和收盘价比较', 'NAV Close Compare', 'symbol='.$strSymbol);
+    return GetTitleLink('benfordlaw', $bChinese, '本福特定律', 'Benford Law', 'symbol='.$strSymbol);
 }
 
 function GetEtfListLink($bChinese)

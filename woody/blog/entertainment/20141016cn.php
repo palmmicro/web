@@ -162,6 +162,11 @@ SH600028的门票打中了一个新股<?php EchoMyStockLink('SH603060'); ?>, 赚
 2018年继续大隐隐于市的隐居生活, 早日止损空标普, 继续套利的圣杯, 争取净赚个10%回来, 有望首次结束多年来坐吃山空的窘境. 
 </p>
 
+<h3>行至水穷处坐看云起时 - <a name="2018">2018</a>总结</h3>
+<p>2019年1月1日
+<br /><img src=../photo/20190101.png alt="Screen shot of woody's 2018 stock profit data" />
+</p>
+
 </div>
                                   
 <?php _LayoutBottom(); ?>
