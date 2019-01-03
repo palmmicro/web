@@ -146,7 +146,7 @@ In this way, the display is unified.
 
 <h3>Period Three Implies Chaos</h3>
 <p>Feb 26, 2016
-<br />SZ162411 is trading more than 10% higher than its net value recently, the max premium as high as 17%, so the <a href="20160101.php">XOP and SZ162411 arbitrage</a> is not possible now.
+<br />SZ162411 is trading more than 10% higher than its net value recently, the max premium as high as 17%, so the <a href="20141016.php#2015">XOP and SZ162411 arbitrage</a> is not possible now.
 <br />Continuing to organzie the similar code, added <font color=olive>MysqlReference</font> and <font color=olive>MyStockReference</font> class.
 <font color=olive>FutureReference</font> and <font color=olive>ForexReference</font> are now extended from <font color=olive>MysqlReference</font>, same as the new <font color=olive>MyStockReference</font>.
 We called MySQL related function of <?php EchoPhpFileLink('/php/sql/sqlstock'); ?> in <font color=olive>MysqlReference</font> class, put history and calibration database operation in the same place.

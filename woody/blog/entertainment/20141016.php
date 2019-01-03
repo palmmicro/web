@@ -42,6 +42,14 @@ But my past experience taught me it mostly probably would be another bad big dec
 <br /><font color=grey>Just like I'd never gone, I knew the song. <a href="../../favorite.html#laislabonita">La Isla Bonita</a> <i>Madonna</i></font>
 <br /><img src=../photo/20141016.jpg alt="Screen shot of my Chinese A stock portfolio as of Oct 16 2014" />
 </p>
+
+<h3><a name="2015">2015</a> Summary</h3>
+<p>Jan 3, 2016
+<br />Full of hope, starting to record my 2016 XOP and SZ162411 arbitrage data.
+<br /><img src=../photo/20160101.jpg alt="Screen shot of my 2015 XOP and SZ162411 arbitrage data" />
+<br /><font color=grey>This could be Heaven or this could be Hell</font> <a href="../../favorite.html#californiahotel">California Hotel</a>
+</p>
+
 </div>
 
 <?php _LayoutBottom(false); ?>

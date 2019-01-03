@@ -147,7 +147,7 @@
 
 <h3>周期3意味着混沌</h3>
 <p>2016年2月26日
-<br />华宝油气持续溢价10%已经成了常态, 最近最高甚至到了17%, <a href="20160101cn.php">华宝油气和XOP套利</a>没法做了.
+<br />华宝油气持续溢价10%已经成了常态, 最近最高甚至到了17%, <a href="20141016cn.php#2015">华宝油气和XOP套利</a>没法做了.
 <br />继续整理同类代码, 这次下手目标是MySQL相关部分. 加入<font color=olive>MysqlReference</font>类继承自<font color=olive>StockReference</font>类. 集中代码处理历史记录和净值校准等数据库内容.
 再加入<font color=olive>MyStockReference</font>类继承自<font color=olive>MysqlReference</font>, 从此代替<font color=olive>StockReference</font>类作为股票数据实例.
 <font color=olive>FutureReference</font>类和<font color=olive>ForexReference</font>类同时也改为继承自<font color=olive>MysqlReference</font>.
