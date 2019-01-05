@@ -106,13 +106,6 @@ function GetCategorySoftwareLinks($arTitle, $strCategory, $bChinese)
     return $str;
 }
 
-function StockGetEditDeleteTransactionLink($strTransactionId, $bChinese)
-{
-    $strEdit = GetEditLink(STOCK_PATH.'editstocktransaction', $strTransactionId, $bChinese);
-    $strDelete = GetDeleteLink(STOCK_PHP_PATH.'_submittransaction.php?delete='.$strTransactionId, '交易记录', 'transaction', $bChinese);
-	return $strEdit.' '.$strDelete;
-}
-
 function StockGetTransactionLink($strGroupId, $strSymbol, $bChinese = false, $strDisplay = false, $strUs = false)
 {
     $strQuery = 'groupid='.$strGroupId;
@@ -164,12 +157,6 @@ function StockGetGroupTransactionLinks($strGroupId, $bChinese, $strCurSymbol = '
         $str .= ' ';
     }
     return rtrim($str, ' ');
-}
-
-// editstockgroupcn.php?edit=24
-function StockGetEditGroupLink($strGroupId, $bChinese)
-{
-    return GetEditLink(STOCK_PATH.'editstockgroup', $strGroupId, $bChinese);
 }
 
 // ****************************** Other internal link related functions *******************************************************

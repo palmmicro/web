@@ -9,11 +9,13 @@ function _echoTransactionTableItem($ref, $transaction, $bReadOnly, $bChinese)
     $strFees = round_display_str($transaction['fees']);
     if ($bReadOnly)
     {
-        $strEditDelete = '';
+        $strEdit = '';
+        $strDelete = '';
     }
     else
     {
-        $strEditDelete = StockGetEditDeleteTransactionLink($transaction['id'], $bChinese);
+    	$strEdit = GetEditLink(STOCK_PATH.'editstocktransaction', $transaction['id'], $bChinese);
+    	$strDelete = GetDeleteLink(STOCK_PHP_PATH.'_submittransaction.php?delete='.$transaction['id'], '交易记录', 'transaction', $bChinese);
     }
     
     echo <<<END
@@ -24,7 +26,7 @@ function _echoTransactionTableItem($ref, $transaction, $bReadOnly, $bChinese)
         <td class=c1>$strPrice</td>
         <td class=c1>$strFees</td>
         <td class=c1>{$transaction['remark']}</td>
-        <td class=c1>$strEditDelete</td>
+        <td class=c1>$strEdit $strDelete</td>
     </tr>
 END;
 }

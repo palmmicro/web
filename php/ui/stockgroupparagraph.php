@@ -27,8 +27,8 @@ function _echoStockGroupTableItem($strGroupId, $bChinese)
         $strDelete = '';
     }
     else
-    {
-        $strEdit = StockGetEditGroupLink($strGroupId, $bChinese);
+    {	// editstockgroupcn.php?edit=24
+    	$strEdit = GetEditLink(STOCK_PATH.'editstockgroup', $strGroupId, $bChinese);
         $strDelete = GetDeleteLink(STOCK_PHP_PATH.'_submitgroup.php?delete='.$strGroupId, '股票分组和相关交易记录', 'stock group and related stock transactions', $bChinese);
     }
     
@@ -44,6 +44,18 @@ function _echoStockGroupTableItem($strGroupId, $bChinese)
 END;
 }
 
+function _echoNewStockGroupTableItem($strSymbol, $bChinese)
+{
+   	$strStocks = GetMyStockLink($strSymbol, $bChinese);
+    echo <<<END
+    <tr>
+        <td class=c1></td>
+        <td class=c1>$strStocks</td>
+        <td class=c1></td>
+    </tr>
+END;
+}
+
 function _echoStockGroupTableData($bChinese)
 {
     if ($strGroupId = UrlGetQueryValue('groupid'))
@@ -53,10 +65,11 @@ function _echoStockGroupTableData($bChinese)
     }
 
     if ($strSymbol = UrlGetQueryValue('symbol'))
-    {	// in mystock page
+    {	// in pages like mystock
     	$strStockId = SqlGetStockId($strSymbol);
     }
     
+    $iTotal = 0;
 	$sql = new StockGroupSql(AcctGetMemberId());
 	if ($result = $sql->GetAll()) 
 	{
@@ -66,9 +79,15 @@ function _echoStockGroupTableData($bChinese)
 			if (($strSymbol == false) || SqlGroupHasStock($strGroupId, $strStockId))
 			{
 				_echoStockGroupTableItem($strGroupId, $bChinese);
+				$iTotal ++;
 			}
 		}
 		@mysql_free_result($result);
+	}
+	
+	if ($strSymbol && $iTotal == 0)
+	{
+		_echoNewStockGroupTableItem($strSymbol, $bChinese);
 	}
 }
 
@@ -76,7 +95,6 @@ function EchoStockGroupParagraph($bChinese)
 {
     $arColumn = GetStockGroupTableColumn($bChinese);
     $arColumn[0] = GetMyStockGroupLink($bChinese);
-    
     echo <<<END
     <p>
     <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="stockgroup">
