@@ -1,11 +1,9 @@
-<?php require_once('php/_stock.php'); ?>
-<?php require_once('php/_editgroupform.php'); ?>
-<?php AcctAuth(); ?>
+<?php require_once('php/_editstockgroup.php'); ?>
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<title>Update Stock Group</title>
-<meta name="description" content="This English web page works together with php/_submitgroup.php and php/_editgroupform.php to update a stock group.">
+<title><?php EchoTitle(false); ?></title>
+<meta name="description" content="<?php EchoMetaDescription(false); ?>">
 <link href="../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
 
@@ -13,8 +11,8 @@
 <?php _LayoutTopLeft(false); ?>
 
 <div>
-<h1>Update Stock Group</h1>
-<?php StockEditGroupForm(STOCK_GROUP_EDIT, false); ?>
+<h1><?php EchoHeadLine(false); ?></h1>
+<?php EchoAll(false); ?>
 </div>
 
 <?php LayoutTail(false); ?>

@@ -2,7 +2,7 @@
 
 function _GetAdjustLink($strSymbol, $strQuery, $bChinese)
 {
-    return GetPhpLink(STOCK_PATH.'editstockgroup', $bChinese, '校准', 'Adjust', $strQuery).' '.$strSymbol;
+    return GetPhpLink(STOCK_PATH.'editstockgroup', $bChinese, '校准', 'Adjust', 'adjust=1&'.$strQuery).' '.$strSymbol;
 }
 
 function _GetEtfAdjustString($ref, $etf_ref, $bChinese = true)

@@ -1,11 +1,9 @@
-<?php require_once('php/_stock.php'); ?>
-<?php require_once('php/_editgroupform.php'); ?>
-<?php AcctAuth(); ?>
+<?php require_once('php/_editstockgroup.php'); ?>
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<title>修改股票分组</title>
-<meta name="description" content="本中文页面文件跟/woody/res/php/_submitgroup.php和/woody/res/php/_editgroupform.php一起配合完成修改股票分组内容的功能.">
+<title><?php EchoTitle(); ?></title>
+<meta name="description" content="<?php EchoMetaDescription(); ?>">
 <link href="../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
 
@@ -13,8 +11,8 @@
 <?php _LayoutTopLeft(); ?>
 
 <div>
-<h1>修改股票分组</h1>
-<?php StockEditGroupForm(STOCK_GROUP_EDIT_CN, true); ?>
+<h1><?php EchoHeadLine(); ?></h1>
+<?php EchoAll(); ?>
 </div>
 
 <?php LayoutTail(); ?>

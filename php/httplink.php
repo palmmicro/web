@@ -158,6 +158,11 @@ function GetNavLink($strQueryId, $iTotal, $iStart, $iNum, $bChinese)
     return $str;
 }
 
+function GetNewLink($strPathTitle, $strNew, $bChinese)
+{
+    return GetPhpLink($strPathTitle, $bChinese, '新建', 'New', 'new='.$strNew);
+}
+
 function GetEditLink($strPathTitle, $strEdit, $bChinese)
 {
     return GetPhpLink($strPathTitle, $bChinese, '修改', 'Edit', 'edit='.$strEdit);

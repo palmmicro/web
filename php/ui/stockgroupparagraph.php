@@ -47,11 +47,12 @@ END;
 function _echoNewStockGroupTableItem($strSymbol, $bChinese)
 {
    	$strStocks = GetMyStockLink($strSymbol, $bChinese);
+   	$strNew = GetNewLink(STOCK_PATH.'editstockgroup', $strSymbol, $bChinese);
     echo <<<END
     <tr>
         <td class=c1></td>
         <td class=c1>$strStocks</td>
-        <td class=c1></td>
+        <td class=c1>$strNew</td>
     </tr>
 END;
 }
