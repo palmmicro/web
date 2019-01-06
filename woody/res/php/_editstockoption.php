@@ -2,15 +2,15 @@
 require_once('_stock.php');
 require_once('_editstockoptionform.php');
 
-function EchoTitle()
+function EchoTitle($bChinese = true)
 {
     global $g_strOptionType;
     echo $g_strOptionType;
 }
 
-function EchoHeadLine()
+function EchoHeadLine($bChinese = true)
 {
-	EchoTitle();
+	EchoTitle($bChinese);
 }
 
 function EchoMetaDescription($bChinese = true)
@@ -29,7 +29,7 @@ function EchoMetaDescription($bChinese = true)
     EchoMetaDescriptionText($str);
 }
 
-function EchoAll()
+function EchoAll($bChinese = true)
 {
     global $g_strOptionType;
     StockOptionEditForm($g_strOptionType);
