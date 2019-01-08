@@ -3,23 +3,35 @@ require_once('/php/account.php');
 require_once('/php/stock.php');
 require_once('/php/ui/htmlelement.php');
 
+define('STOCK_OPTION_ADJCLOSE', 'AdjClose by Dividend');
 define('STOCK_OPTION_ADJCLOSE_CN', '根据分红更新复权收盘价');
 
+define('STOCK_OPTION_ADR', 'ADR Stock Pair');
 define('STOCK_OPTION_ADR_CN', '修改港股对应ADR代码');
+
+define('STOCK_OPTION_AH', 'AH Stock Pair');
 define('STOCK_OPTION_AH_CN', '修改H股对应A股代码');
+
+define('STOCK_OPTION_ETF', 'ETF Pair');
 define('STOCK_OPTION_ETF_CN', '修改ETF对应跟踪代码');
+
+define('STOCK_OPTION_EMA', 'EMA 200/50');
 define('STOCK_OPTION_EMA_CN', '修改200/50天EMA');
+
+define('STOCK_OPTION_SPLIT', 'Split Stock');
 define('STOCK_OPTION_SPLIT_CN', '拆股或合股');
 
 define('STOCK_OPTION_EDIT', 'Edit Stock Description');
 define('STOCK_OPTION_EDIT_CN', '修改股票说明');
 
-define('STOCK_OPTION_AMOUNT', 'Set Fund Purchase Amount');
+define('STOCK_OPTION_AMOUNT', 'Amount of Fund Purchase');
 define('STOCK_OPTION_AMOUNT_CN', '设置基金申购金额');
 
 function _getStockOptionDate($strSubmit, $strStockId)
 {
-	if ($strSubmit == STOCK_OPTION_ADJCLOSE_CN || $strSubmit == STOCK_OPTION_SPLIT_CN || $strSubmit == STOCK_OPTION_EMA_CN)
+	if ($strSubmit == STOCK_OPTION_ADJCLOSE || $strSubmit == STOCK_OPTION_ADJCLOSE_CN 
+		|| $strSubmit == STOCK_OPTION_SPLIT || $strSubmit == STOCK_OPTION_SPLIT_CN 
+		|| $strSubmit == STOCK_OPTION_EMA || $strSubmit == STOCK_OPTION_EMA_CN)
 	{
 		$sql = new StockHistorySql($strStockId);
 		if ($strDate = $sql->GetDateNow())
@@ -119,23 +131,23 @@ function _getStockOptionEma($strStockId, $strDate)
 
 function _getStockOptionVal($strSubmit, $strSymbol, $strStockId, $strDate)
 {
-	if ($strSubmit == STOCK_OPTION_ADJCLOSE_CN)
+	if ($strSubmit == STOCK_OPTION_ADJCLOSE_CN || $strSubmit == STOCK_OPTION_ADJCLOSE)
 	{
 		return '0.01';
 	}
-	else if ($strSubmit == STOCK_OPTION_ADR_CN)
+	else if ($strSubmit == STOCK_OPTION_ADR_CN || $strSubmit == STOCK_OPTION_ADR)
 	{
 		return _getStockOptionAdr($strSymbol);
 	}
-	else if ($strSubmit == STOCK_OPTION_AH_CN)
+	else if ($strSubmit == STOCK_OPTION_AH_CN || $strSubmit == STOCK_OPTION_AH)
 	{
 		return _getStockOptionAh($strSymbol);
 	}
-	else if ($strSubmit == STOCK_OPTION_EMA_CN)
+	else if ($strSubmit == STOCK_OPTION_EMA_CN || $strSubmit == STOCK_OPTION_EMA)
 	{
 		return _getStockOptionEma($strStockId, $strDate);
 	}
-	else if ($strSubmit == STOCK_OPTION_ETF_CN)
+	else if ($strSubmit == STOCK_OPTION_ETF_CN || $strSubmit == STOCK_OPTION_ETF)
 	{
 		return _getStockOptionEtf($strSymbol);
 	}
@@ -143,7 +155,7 @@ function _getStockOptionVal($strSubmit, $strSymbol, $strStockId, $strDate)
 	{
 		return _getStockOptionDescription($strSubmit, $strSymbol);
 	}
-	else if ($strSubmit == STOCK_OPTION_SPLIT_CN)
+	else if ($strSubmit == STOCK_OPTION_SPLIT_CN || $strSubmit == STOCK_OPTION_SPLIT)
 	{
 		return '10:1';
 	}

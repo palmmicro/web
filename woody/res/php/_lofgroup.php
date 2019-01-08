@@ -137,7 +137,7 @@ class _LofGroup extends _StockGroup
 
     function EchoTestParagraph($bChinese)
     {
-        if (AcctIsTest($bChinese))
+        if (AcctIsAdmin())
         {
 	        $str = $this->_getAdjustString($bChinese);
             $str .= '<br />'._GetStockConfigDebugString(array($this->ref->est_ref), $bChinese);

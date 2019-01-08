@@ -2,21 +2,46 @@
 require_once('_stock.php');
 require_once('_editstockoptionform.php');
 
-function EchoTitle($bChinese = true)
+function _getOperationStr($bChinese)
 {
-    global $g_strOptionType;
-    echo $g_strOptionType;
+    if (UrlGetQueryValue('edit'))
+    {
+    	$str = $bChinese ? STOCK_OPTION_EDIT_CN : STOCK_OPTION_EDIT;
+    }
+    else if (UrlGetQueryValue('adr'))
+    {
+    	$str = $bChinese ? STOCK_OPTION_ADR_CN : STOCK_OPTION_ADR;
+    }
+    else if (UrlGetQueryValue('ah'))
+    {
+    	$str = $bChinese ? STOCK_OPTION_AH_CN : STOCK_OPTION_AH;
+    }
+    else if (UrlGetQueryValue('ema'))
+    {
+    	$str = $bChinese ? STOCK_OPTION_EMA_CN : STOCK_OPTION_EMA;
+    }
+    else if (UrlGetQueryValue('etf'))
+    {
+    	$str = $bChinese ? STOCK_OPTION_ETF_CN : STOCK_OPTION_ETF;
+    }
+    else if (UrlGetQueryValue('split'))
+    {
+    	$str = $bChinese ? STOCK_OPTION_SPLIT_CN : STOCK_OPTION_SPLIT;
+    }
+    else
+    {
+    	$str = $bChinese ? STOCK_OPTION_AMOUNT_CN : STOCK_OPTION_AMOUNT;
+    }
+    return $str;
 }
 
-function EchoHeadLine($bChinese = true)
+function EchoAll($bChinese = true)
 {
-	EchoTitle($bChinese);
+    StockOptionEditForm(_getOperationStr($bChinese));
 }
 
 function EchoMetaDescription($bChinese = true)
 {
-    global $g_strOptionType;
-
     if ($bChinese)
     {
         $str = '本中文页面文件跟/woody/res/php/_submitstockoptions.php和/woody/res/php/_editstockoptionform.php一起配合';
@@ -25,30 +50,20 @@ function EchoMetaDescription($bChinese = true)
     {
         $str = 'This English web page works together with php/_submitstockoptions.php and php/_editstockoptionform.php to ';
     }
-    $str .= $g_strOptionType;
+    $str .= _getOperationStr($bChinese);
     EchoMetaDescriptionText($str);
 }
 
-function EchoAll($bChinese = true)
+function EchoTitle($bChinese = true)
 {
-    global $g_strOptionType;
-    StockOptionEditForm($g_strOptionType);
+    echo _getOperationStr($bChinese);
 }
 
-function SetStockOptionType($strType)
+function EchoHeadLine($bChinese = true)
 {
-    global $g_strOptionType;
-    $g_strOptionType = $strType;
-    if ($strType == STOCK_OPTION_AMOUNT || $strType == STOCK_OPTION_AMOUNT_CN || $strType == STOCK_OPTION_EDIT || $strType == STOCK_OPTION_EDIT_CN)
-    {
-    }
-    else
-    {
-    	SetSwitchLanguage();
-    }
+	EchoTitle($bChinese);
 }
 
     AcctAuth();
-    $g_strOptionType = STOCK_OPTION_ADJCLOSE_CN;
     
 ?>

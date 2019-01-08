@@ -79,11 +79,11 @@ function EchoAll($bChinese = true)
     	{
     		$iStart = UrlGetQueryInt('start');
     		$iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
-    		$bTest = AcctIsTest($bChinese);
+    		$bTest = AcctIsAdmin();
     		_echoStockHistoryParagraph($strSymbol, $strStockId, $iStart, $iNum, $bTest, $bChinese);
     		if ($bTest && $iStart == 0)
     		{
-				StockOptionEditForm(STOCK_OPTION_ADJCLOSE_CN);
+				StockOptionEditForm($bChinese ? STOCK_OPTION_ADJCLOSE_CN : STOCK_OPTION_ADJCLOSE);
     		}
     	}
     }

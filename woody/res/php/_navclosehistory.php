@@ -101,7 +101,7 @@ function _echoNavCloseParagraph($strSymbol, $strStockId, $iStart, $iNum, $bChine
     </tr>
 END;
    
-    _echoNavCloseData($sql, $ref, $iStart, $iNum, AcctIsTest($bChinese));
+    _echoNavCloseData($sql, $ref, $iStart, $iNum, AcctIsAdmin());
     EchoTableParagraphEnd($strNavLink);
 
     _echoNavClosePool($strSymbol, $bChinese);

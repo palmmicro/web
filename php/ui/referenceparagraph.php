@@ -33,8 +33,8 @@ function _echoReferenceTableItem($ref, $bChinese, $callback = false)
     }
     else
     {
-    	if (AcctIsTest($bChinese))	$strDescription = $ref->DebugLink();
-    	else							$strDescription = RefGetDescription($ref, $bChinese, true);
+    	if (AcctIsAdmin())	$strDescription = $ref->DebugLink();
+    	else				$strDescription = RefGetDescription($ref, $bChinese, true);
         $strDisplayEx = GetTableColumnDisplay($strDescription);
     }
 

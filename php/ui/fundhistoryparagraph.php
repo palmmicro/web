@@ -148,7 +148,7 @@ function _echoFundHistoryParagraph($ref, $est_ref, $bChinese, $strDisplay = '', 
 function EchoFundHistoryParagraph($fund, $bChinese, $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
 {
 	$str = '';
-    if (AcctIsTest($bChinese))
+    if (AcctIsAdmin())
     {
     	$str .= ' '.$fund->DebugLink();
     }
@@ -158,7 +158,7 @@ function EchoFundHistoryParagraph($fund, $bChinese, $csv = false, $iStart = 0, $
 function EchoEtfHistoryParagraph($ref, $bChinese, $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
 {
 	$str = '';
-    if (AcctIsTest($bChinese))
+    if (AcctIsAdmin())
     {
     	if ($ref->IsSymbolA())	$str .= ' '.$ref->nv_ref->DebugLink();
     }

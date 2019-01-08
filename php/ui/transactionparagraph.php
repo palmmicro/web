@@ -103,7 +103,7 @@ function EchoTransactionParagraph($strGroupId, $bChinese, $ref = false, $iStart 
         $str = $strNavLink;
     }
     
-	if (AcctIsTest($bChinese))
+	if (AcctIsAdmin())
 	{
 		$str .= ' '.GetMyStockGroupLink($bChinese, $strGroupId);
 	}

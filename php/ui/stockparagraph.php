@@ -6,7 +6,7 @@ function _echoStockTableItem($strStockId, $strDisplay, $bChinese)
     $record = SqlGetStockById($strStockId);
 	$strSymbol = $record['name'];
 //	if (empty($strSymbol))	$strSymbol = '(Unknown)';
-	if (AcctIsTest($bChinese))
+	if (AcctIsAdmin())
 	{
 		$strLink = GetOnClickLink('/php/_submitdelete.php?stockid='.$strStockId, '确认删除股票'.$strSymbol.'?', $strSymbol);
 	}

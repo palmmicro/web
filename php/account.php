@@ -73,12 +73,6 @@ function AcctIsAdmin()
 	return false;
 }
 
-function AcctIsTest($bChinese)
-{
-    if ($bChinese == false)	return false;
-    return AcctIsAdmin();
-}
-
 function AcctIsLogin()
 {
 	// Check whether the session variable SESS_ID is present or not

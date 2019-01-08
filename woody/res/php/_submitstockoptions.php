@@ -216,23 +216,23 @@ function _updateStockOptionSplit($strSymbol, $strStockId, $strDate, $strVal)
    		$bTest = AcctIsAdmin();
 		$strSubmit = $_POST['submit'];
 		$strStockId = SqlGetStockId($strSymbol);
-		if ($strSubmit == STOCK_OPTION_ADJCLOSE_CN)
+		if ($strSubmit == STOCK_OPTION_ADJCLOSE_CN || $strSubmit == STOCK_OPTION_ADJCLOSE)
 		{
 			if ($bTest)	_updateStockHistoryAdjCloseByDividend($strSymbol, $strDate, $strVal);
 		}
-		else if ($strSubmit == STOCK_OPTION_ADR_CN)
+		else if ($strSubmit == STOCK_OPTION_ADR_CN || $strSubmit == STOCK_OPTION_ADR)
 		{
 			if ($bTest)	_updateStockOptionAdr($strSymbol, $strVal);
 		}
-		else if ($strSubmit == STOCK_OPTION_AH_CN)
+		else if ($strSubmit == STOCK_OPTION_AH_CN || $strSubmit == STOCK_OPTION_AH)
 		{
 			if ($bTest)	_updateStockOptionAdr($strSymbol, $strVal, TABLE_AH_STOCK);
 		}
-		else if ($strSubmit == STOCK_OPTION_EMA_CN)
+		else if ($strSubmit == STOCK_OPTION_EMA_CN || $strSubmit == STOCK_OPTION_EMA)
 		{
 			if ($bTest)	_updateStockOptionEma($strSymbol, $strStockId, $strDate, $strVal);
 		}
-		else if ($strSubmit == STOCK_OPTION_ETF_CN)
+		else if ($strSubmit == STOCK_OPTION_ETF_CN || $strSubmit == STOCK_OPTION_ETF)
 		{
 			if ($bTest)	_updateStockOptionEtf($strSymbol, $strVal);
 		}
@@ -240,7 +240,7 @@ function _updateStockOptionSplit($strSymbol, $strStockId, $strDate, $strVal)
 		{
 			if ($bTest)	_updateStockDescription($strSubmit, $strSymbol, $strVal);
 		}
-		else if ($strSubmit == STOCK_OPTION_SPLIT_CN)
+		else if ($strSubmit == STOCK_OPTION_SPLIT_CN || $strSubmit == STOCK_OPTION_SPLIT)
 		{
 			if ($bTest)	_updateStockOptionSplit($strSymbol, $strStockId, $strDate, $strVal);
 		}

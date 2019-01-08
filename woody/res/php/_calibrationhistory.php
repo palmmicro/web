@@ -29,7 +29,7 @@ END;
 
 function _echoCalibrationHistoryData($strStockId, $strSymbol, $iStart, $iNum, $bChinese)
 {
-    if (AcctIsTest($bChinese))
+    if (AcctIsAdmin())
     {
         $bReadOnly = false;
     }

@@ -60,7 +60,7 @@ function EchoCalibrationParagraph($strSymbol, $bChinese, $iStart = 0, $iNum = TA
     	$str .= ' '.$strNavLink;
     }
     
-    if ($bTest = AcctIsTest($bChinese))
+    if ($bTest = AcctIsAdmin())
     {
     	$str .= ' '.GetInternalLink('/php/_submitoperation.php?calibration='.$strSymbol, '手工校准');
     }

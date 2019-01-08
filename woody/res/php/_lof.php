@@ -74,7 +74,7 @@ function _getArbitrageQuantityName($bChinese, $bEditLink = false)
     
     if ($group->strGroupId && $bEditLink) 
     {
-    	$str .= GetStockSymbolLink('editfundamount', $group->ref->GetStockSymbol(), $bChinese, $strDisplay);
+    	$str .= GetStockSymbolLink('editstock', $group->ref->GetStockSymbol(), $bChinese, $strDisplay);
     }
     else
     {

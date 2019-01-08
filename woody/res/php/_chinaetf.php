@@ -29,9 +29,9 @@ class _ChinaEtfGroup extends _StockGroup
 
 function _echoTestParagraph($group, $bChinese)
 {
-    if (AcctIsTest($bChinese))
+    if (AcctIsAdmin())
     {
-        $str = _GetStockConfigDebugString(array($group->ref->pair_ref));
+        $str = _GetStockConfigDebugString(array($group->ref->pair_ref), $bChinese);
         EchoParagraph($str);
     }
 }

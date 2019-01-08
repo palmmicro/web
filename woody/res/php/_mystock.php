@@ -56,29 +56,31 @@ function _hasSmaDisplay($sym)
     return true;
 }
 
+function _getEditStockLink($bChinese, $strDisplay, $strUs)
+{
+	$ar = explode(' ', $strUs);
+    return GetPhpLink(STOCK_PATH.'editstock', $bChinese, $strDisplay, $strUs, strtolower($ar[0]).'=1&'.UrlGetQueryString());
+}
+
 function _getMyStockLinks($sym, $bChinese)
 {
 	$strSymbol = $sym->GetSymbol();
-	$strQuery = UrlGetQueryString();
-    $str = GetPhpLink(STOCK_PATH.'editstock', $bChinese, STOCK_OPTION_EDIT_CN, STOCK_OPTION_EDIT, $strQuery);
-    if ($bChinese)
+    $str = _getEditStockLink($bChinese, STOCK_OPTION_EDIT_CN, STOCK_OPTION_EDIT);
+   	$str .= ' '._getEditStockLink($bChinese, STOCK_OPTION_SPLIT_CN, STOCK_OPTION_SPLIT);
+   	if (SqlGetEtfPair($strSymbol) == false)
+   	{
+   		$str .= ' '._getEditStockLink($bChinese, STOCK_OPTION_EMA_CN, STOCK_OPTION_EMA);
+   	}
+    if ($sym->IsSymbolH())
     {
-    	$str .= ' '.GetPhpLink(STOCK_PATH.'editstocksplit', true, STOCK_OPTION_SPLIT_CN, false, $strQuery);
-    	if (SqlGetEtfPair($strSymbol) == false)
+    	$str .= ' '._getEditStockLink($bChinese, STOCK_OPTION_AH_CN, STOCK_OPTION_AH);
+    	$str .= ' '._getEditStockLink($bChinese, STOCK_OPTION_ADR_CN, STOCK_OPTION_ADR);
+    }
+    else
+    {
+    	if ($sym->IsTradable())
     	{
-    		$str .= ' '.GetPhpLink(STOCK_PATH.'editstockema', true, STOCK_OPTION_EMA_CN, false, $strQuery);
-    	}
-    	if ($sym->IsSymbolH())
-    	{
-    		$str .= ' '.GetPhpLink(STOCK_PATH.'editstockah', true, STOCK_OPTION_AH_CN, false, $strQuery);
-    		$str .= ' '.GetPhpLink(STOCK_PATH.'editstockadr', true, STOCK_OPTION_ADR_CN, false, $strQuery);
-    	}
-    	else
-    	{
-    		if ($sym->IsTradable())
-    		{
-    			$str .= ' '.GetPhpLink(STOCK_PATH.'editstocketf', true, STOCK_OPTION_ETF_CN, false, $strQuery);
-    		}
+    		$str .= ' '._getEditStockLink($bChinese, STOCK_OPTION_ETF_CN, STOCK_OPTION_ETF);
     	}
     }
     return $str;
@@ -147,7 +149,7 @@ function _echoMyStockData($strSymbol, $bChinese)
         _echoMyStockTransactions($strMemberId, $ref, $bChinese);
     }
     
-    if (AcctIsTest($bChinese))
+    if (AcctIsAdmin())
     {
      	$str = _getMyStockLinks($sym, $bChinese);
     	if (_hasSmaDisplay($sym))
@@ -186,7 +188,7 @@ function EchoMyStock($bChinese = true)
     }
     else
     {
-        if (AcctIsTest($bChinese))
+        if (AcctIsAdmin())
         {
         	_echoAllStock($bChinese);
         }
@@ -199,7 +201,7 @@ function EchoMyStockTitle($bChinese = true)
     if ($strSymbol = UrlGetQueryValue('symbol'))  
     {
         $str = $strSymbol;
-    	if (AcctIsTest($bChinese))
+    	if (AcctIsAdmin())
     	{
     		$str .= '('.SqlGetStockId($strSymbol).')';
     	}

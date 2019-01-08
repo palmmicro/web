@@ -24,9 +24,9 @@ function _getDeleteVisitorLink($strIp, $bChinese)
 {
     if ($strIp)
     {
-        if (AcctIsTest($bChinese))
+        if (AcctIsAdmin())
         {
-            return GetDeleteLink('/account/php/_submitvisitor.php?delete='.$strIp, '访问记录');
+            return GetDeleteLink('/account/php/_submitvisitor.php?delete='.$strIp, '访问记录', 'Visitor Record', $bChinese);
         }
     }
     return '';
