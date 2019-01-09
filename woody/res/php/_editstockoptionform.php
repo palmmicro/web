@@ -27,6 +27,40 @@ define('STOCK_OPTION_EDIT_CN', '修改股票说明');
 define('STOCK_OPTION_AMOUNT', 'Amount of Fund Purchase');
 define('STOCK_OPTION_AMOUNT_CN', '设置基金申购金额');
 
+function _getStockOptionSymbol($strSubmit)
+{
+	if ($strSubmit == STOCK_OPTION_ADJCLOSE_CN || $strSubmit == STOCK_OPTION_ADJCLOSE
+		|| $strSubmit == STOCK_OPTION_AMOUNT_CN || $strSubmit == STOCK_OPTION_AMOUNT)
+	{
+		return UrlGetQueryValue('symbol');
+	}
+	else if ($strSubmit == STOCK_OPTION_ADR_CN || $strSubmit == STOCK_OPTION_ADR)
+	{
+		return UrlGetQueryValue('adr');
+	}
+	else if ($strSubmit == STOCK_OPTION_AH_CN || $strSubmit == STOCK_OPTION_AH)
+	{
+		return UrlGetQueryValue('ah');
+	}
+	else if ($strSubmit == STOCK_OPTION_EMA_CN || $strSubmit == STOCK_OPTION_EMA)
+	{
+		return UrlGetQueryValue('ema');
+	}
+	else if ($strSubmit == STOCK_OPTION_ETF_CN || $strSubmit == STOCK_OPTION_ETF)
+	{
+		return UrlGetQueryValue('etf');
+	}
+	else if ($strSubmit == STOCK_OPTION_EDIT_CN || $strSubmit == STOCK_OPTION_EDIT)
+	{
+		return UrlGetQueryValue('edit');
+	}
+	else if ($strSubmit == STOCK_OPTION_SPLIT_CN || $strSubmit == STOCK_OPTION_SPLIT)
+	{
+		return UrlGetQueryValue('split');
+	}
+	return false;
+}
+
 function _getStockOptionDate($strSubmit, $strStockId)
 {
 	if ($strSubmit == STOCK_OPTION_ADJCLOSE || $strSubmit == STOCK_OPTION_ADJCLOSE_CN 
@@ -189,11 +223,12 @@ function _getStockOptionMemo($strSubmit)
 
 function StockOptionEditForm($strSubmit)
 {
+	$strSymbol = _getStockOptionSymbol($strSubmit);
+	if ($strSymbol == false)		return;
+	
+	$strStockId = SqlGetStockId($strSymbol);
     $strEmail = AcctGetEmail(); 
 	$strEmailReadonly = HtmlElementReadonly();
-	
-	$strSymbol = UrlGetQueryValue('symbol');
-	$strStockId = SqlGetStockId($strSymbol);
 	$strSymbolReadonly = HtmlElementReadonly();
 	
     $strDateDisabled = '';

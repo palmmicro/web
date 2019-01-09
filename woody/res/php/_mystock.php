@@ -56,36 +56,35 @@ function _hasSmaDisplay($sym)
     return true;
 }
 
-function _getEditStockLink($bChinese, $strDisplay, $strUs)
+function _getEditStockLink($bChinese, $strDisplay, $strUs, $strSymbol)
 {
 	$ar = explode(' ', $strUs);
-    return GetPhpLink(STOCK_PATH.'editstock', $bChinese, $strDisplay, $strUs, strtolower($ar[0]).'=1&'.UrlGetQueryString());
+    return GetPhpLink(STOCK_PATH.'editstock', $bChinese, $strDisplay, $strUs, strtolower($ar[0]).'='.$strSymbol);
 }
 
 function _getMyStockLinks($sym, $bChinese)
 {
 	$strSymbol = $sym->GetSymbol();
-    $str = _getEditStockLink($bChinese, STOCK_OPTION_EDIT_CN, STOCK_OPTION_EDIT);
-   	$str .= ' '._getEditStockLink($bChinese, STOCK_OPTION_SPLIT_CN, STOCK_OPTION_SPLIT);
+    $str = _getEditStockLink($bChinese, STOCK_OPTION_EDIT_CN, STOCK_OPTION_EDIT, $strSymbol);
+   	$str .= ' '._getEditStockLink($bChinese, STOCK_OPTION_SPLIT_CN, STOCK_OPTION_SPLIT, $strSymbol);
    	if (SqlGetEtfPair($strSymbol) == false)
    	{
-   		$str .= ' '._getEditStockLink($bChinese, STOCK_OPTION_EMA_CN, STOCK_OPTION_EMA);
+   		$str .= ' '._getEditStockLink($bChinese, STOCK_OPTION_EMA_CN, STOCK_OPTION_EMA, $strSymbol);
    	}
     if ($sym->IsSymbolH())
     {
-    	$str .= ' '._getEditStockLink($bChinese, STOCK_OPTION_AH_CN, STOCK_OPTION_AH);
-    	$str .= ' '._getEditStockLink($bChinese, STOCK_OPTION_ADR_CN, STOCK_OPTION_ADR);
+    	$str .= ' '._getEditStockLink($bChinese, STOCK_OPTION_AH_CN, STOCK_OPTION_AH, $strSymbol);
+    	$str .= ' '._getEditStockLink($bChinese, STOCK_OPTION_ADR_CN, STOCK_OPTION_ADR, $strSymbol);
     }
     else
     {
     	if ($sym->IsTradable())
     	{
-    		$str .= ' '._getEditStockLink($bChinese, STOCK_OPTION_ETF_CN, STOCK_OPTION_ETF);
+    		$str .= ' '._getEditStockLink($bChinese, STOCK_OPTION_ETF_CN, STOCK_OPTION_ETF, $strSymbol);
     	}
     }
     return $str;
 }
-
 
 function _echoMyStockData($strSymbol, $bChinese)
 {
