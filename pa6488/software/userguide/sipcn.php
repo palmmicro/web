@@ -40,6 +40,7 @@
 <tr><td class=THead><B>使用标准SIP协议跟Asterisk、X-Lte和IMSDroid配合工作</B></td></tr>
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
 <tr><td><B>1 Asterisk安装和设置</B></td></tr>
+<tr><td>1.0	在<a href="../../../woody/blog/entertainment/20120719cn.php#asterisk">腾讯云</a>安装CentOS和Asterisk</td></tr>
 <tr><td>1.1	安装linux系统</td></tr>
 <tr><td><p dir="ltr" style="margin-left: 20px; margin-right: 0px">安装虚拟机<a href="http://www.virtualbox.org/wiki/Downloads" target=_blank>VirtualBox</a>。
 <br />安装<a href="http://www.ubuntu.com/download/ubuntu/download" target=_blank>ubuntu</a>。ubuntu系统的安装过程非常简单，用户只需要设置登陆帐户(默认为：administrator)及其口令即可(见下图)。此外推荐用户选择语言选项为English(US)，必要时选择你安装的目标驱动器。

@@ -20,6 +20,11 @@
 <br /><a href="http://pubyun.com/" target=_blank>PubYun公云</a>就绅士多了, 免费的动态域名让我自己加上了palmmicro的前缀: palmmicro.f3322.net.
 <br />暂时先加这2个国内的免费动态域名作为备份.
 </p>
+
+<h3>放弃DDNS</h3>
+<p>2019年1月15日
+<br />改用<a href="../entertainment/20120719cn.php#asterisk">腾讯云</a>的公网IP.
+</p> 
 </div>
 
 <?php _LayoutBottom(); ?>

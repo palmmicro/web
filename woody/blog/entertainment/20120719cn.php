@@ -61,22 +61,24 @@
 
 <h3>又到腾讯云续费时间</h3>
 <p>2018年10月24日
-<br />大概2个月前, 平时偶尔做PHP测试的腾讯云突然罢工了, 给我出一堆PHP输出搞得我一筹莫展, 只好先把它扔一边.
+<br />大概2个月前, 平时偶尔做PHP测试的<a href="#qcloud">腾讯云</a>突然罢工了, 给我出一堆PHP输出搞得我一筹莫展, 只好先把它扔一边.
 <br /><font color=red>Warning: file_put_contents(/home/wwwroot/111.230.12.222/web/debug/debug.txt): failed to open stream: Permission denied in /home/wwwroot/111.230.12.222/web/php/debug.php on line 103</font>
 <br />最近腾讯开始各种渠道通知我又要缴费了, 还给了不少优惠券鼓励我续费. 搞得我很纠结, 其实我本来是想放弃这块的. 因为实在不知道怎么解决问题, 今天又硬着头皮重新装了一次系统, 安慰自己不要轻易放弃梦想.
 <br />梦想的代价: 1核CPU+1GB内存+1Mbps公网带宽, 1年费用打折后647.4元, 腾讯另外送了满600减300的折扣券, 实际支付347.4元.
 </p> 
 
-<h3>Asterisk</h3>
+<h3>在腾讯云安装<a name="asterisk">Asterisk</a></h3>
 <p>2019年1月14日
-<br /><?php EchoLink('https://www.asterisk.org'); ?>
+<br />由于免费<a href="../palmmicro/20160307cn.php">DDNS</a>太难用, Palmmicro的测试<a href="../../../contactus/pbxcn.html">IP-PBX</a>已经罢工很久了.
+最近有人找我测试SIP, 想起一直闲置的<a href="#qcloud">腾讯云</a>其实是有个公网IP的, 于是开始尝试在它上面安装Asterisk.
+<br />以下步骤基本上都来自于<?php EchoExternalLink('https://wiki.asterisk.org/wiki/display/AST/Installing+Asterisk+From+Source', '官网WIKI'); ?>, 附加一点自己搜索的疑难解决方法.
 </p> 
 <ol>
   <li>cd /usr/local/src</li>
   <li>wget https://downloads.asterisk.org/pub/telephony/asterisk/asterisk-16-current.tar.gz</li>
   <li>tar -zxvf asterisk-16-current.tar.gz</li>
   <li>cd asterisk-16.1.1</li>
-  <li>./configure <font color=red>Please install the 'libedit' development package</font></li>
+  <li>./configure 碰到的第一个问题: <font color=red>Please install the 'libedit' development package</font></li>
   <li>yum install libedit-devel</li>
   <li>./configure <font color=red>uuid support not found (this typically means the uuid development package is missing)</font></li>
   <li>yum install libuuid-devel</li>
@@ -105,6 +107,9 @@
   <li>/etc/init.d/asterisk status</li>
   <li>/etc/init.d/asterisk start</li>
 </ol>
+<p>账号和系统使用说明也来自于<?php EchoExternalLink('https://wiki.asterisk.org/wiki/display/AST/Super+Awesome+Company', 'WIKI'); ?>. 
+这么小心翼翼胆颤心惊折腾一趟下来, 感觉自己对Linux又多少熟悉了一点.
+</p> 
 
 </div>
 
