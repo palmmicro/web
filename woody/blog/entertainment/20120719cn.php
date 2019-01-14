@@ -32,7 +32,8 @@
 <br />不知道是不是被收购的原因, 最近从国内访问Yahoo的FTP服务器特别慢, 而且还经常被限制访问, 逼我被迫放弃自己写的<a href="20100529cn.php#ftps">网站工具</a>, 转而使用Yahoo提供的WEB工具上传文件.
 一下子修改测试<a href="20150818cn.php">华宝油气</a>净值计算工具PHP代码的效率变得特别低, 让我苦恼无比.
 <br />这两天刚好读了篇有关云服务的文章, 让我想到了干脆自己弄个云服务器, 自己搭建一个PHP测试环境, 测试好的代码再上传<a href="../palmmicro/20080326cn.php">palmmicro.com</a>.
-国内阿里/新浪/腾讯这些提供云服务的巨头中, 平时使用腾讯的QQ最多, 就此上了腾讯云的贼船, 再次开始了痛苦的Linux学习过程. 这一次是从最基础的软件安装学习起.
+国内阿里/新浪/腾讯这些提供云服务的巨头中, 平时使用腾讯的QQ最多, 就此上了<?php EchoExternalLink('https://cloud.tencent.com/login', '腾讯云'); ?>的贼船, 
+再次开始了痛苦的Linux学习过程. 这一次是从最基础的软件安装学习起.
 <br />还是一样, 好记性不如烂笔头, 在这里记录一下各种细节.
 </p>
 <ol>
@@ -65,6 +66,45 @@
 <br />最近腾讯开始各种渠道通知我又要缴费了, 还给了不少优惠券鼓励我续费. 搞得我很纠结, 其实我本来是想放弃这块的. 因为实在不知道怎么解决问题, 今天又硬着头皮重新装了一次系统, 安慰自己不要轻易放弃梦想.
 <br />梦想的代价: 1核CPU+1GB内存+1Mbps公网带宽, 1年费用打折后647.4元, 腾讯另外送了满600减300的折扣券, 实际支付347.4元.
 </p> 
+
+<h3>Asterisk</h3>
+<p>2019年1月14日
+<br /><?php EchoLink('https://www.asterisk.org'); ?>
+</p> 
+<ol>
+  <li>cd /usr/local/src</li>
+  <li>wget https://downloads.asterisk.org/pub/telephony/asterisk/asterisk-16-current.tar.gz</li>
+  <li>tar -zxvf asterisk-16-current.tar.gz</li>
+  <li>cd asterisk-16.1.1</li>
+  <li>./configure <font color=red>Please install the 'libedit' development package</font></li>
+  <li>yum install libedit-devel</li>
+  <li>./configure <font color=red>uuid support not found (this typically means the uuid development package is missing)</font></li>
+  <li>yum install libuuid-devel</li>
+  <li>./configure <font color=red>Please install the 'libjansson' development package or configure: *** use './configure --with-jansson-bundled</font>
+    <ol>  
+      <li>cd /usr/local/src/ && wget http://www.digip.org/jansson/releases/jansson-2.11.tar.gz</li>
+      <li>tar -zxf jansson-2.11.tar.gz</li>
+      <li>cd jansson-2.11</li>
+      <li>./configure -prefix=/usr/local/ && make clean && make && make install && ldconfig</li>
+      <li>cd /usr/local/src/asterisk-16.1.1</li>
+    </ol>
+  </li>
+  <li>./configure <font color=red>Asterisk now uses SQLite3 for the internal Asterisk database</font></li>
+  <li>yum install sqlite-devel</li>
+  <li>make distclean</li>
+  <li>./configure</li>
+  <li>cd contrib/scripts</li>
+  <li>./install_prereq install</li>
+  <li>cd /usr/local/src/asterisk-16.1.1</li>
+  <li>make menuselect</li>
+  <li>make</li>
+  <li>make install</li>
+  <li>make basic-pbx</li>
+  <li>make config</li>
+  <li>make install-logrotate</li>
+  <li>/etc/init.d/asterisk status</li>
+  <li>/etc/init.d/asterisk start</li>
+</ol>
 
 </div>
 

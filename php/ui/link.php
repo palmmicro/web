@@ -28,6 +28,12 @@ function EchoMyStockLink($strSymbol, $bChinese = true)
     echo $str;
 }
 
+function EchoExternalLink($strHttp, $strDisplay)
+{
+    $str = GetExternalLink($strHttp, $strDisplay);
+    echo $str;
+}
+
 function EchoPhpFileLink($strPathTitle)
 {
 //    $strTxtPathName = str_replace('.', '_', $strPathName).'.txt';
@@ -35,14 +41,12 @@ function EchoPhpFileLink($strPathTitle)
     $strTxtPathName = $strPathTitle.'.txt';
     $str = file_get_contents($strPathName);
     file_put_contents($strTxtPathName, DEBUG_UTF8_BOM.$str);
-    $str = GetExternalLink($strTxtPathName, $strPathName);
-    echo $str;
+    EchoExternalLink($strTxtPathName, $strPathName);
 }
 
 function EchoXueqieId($strId, $strDisplay)
 {
-    $str = GetExternalLink('https://xueqiu.com/u/'.$strId, $strDisplay);
-    echo $str;
+    EchoExternalLink('https://xueqiu.com/u/'.$strId, $strDisplay);
 }
 
 
