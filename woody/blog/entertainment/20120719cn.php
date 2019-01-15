@@ -107,7 +107,7 @@
   <li>/etc/init.d/asterisk status</li>
   <li>/etc/init.d/asterisk start</li>
 </ol>
-<p>账号和系统使用说明也来自于<?php EchoExternalLink('https://wiki.asterisk.org/wiki/display/AST/Super+Awesome+Company', 'WIKI'); ?>. 
+<p><a href="txt/pjsip_conf.txt" target=_blank>账号</a>和系统使用说明也来自于<?php EchoExternalLink('https://wiki.asterisk.org/wiki/display/AST/Super+Awesome+Company', 'WIKI'); ?>. 
 这么小心翼翼胆颤心惊折腾一趟下来, 感觉自己对Linux又多少熟悉了一点.
 </p> 
 
