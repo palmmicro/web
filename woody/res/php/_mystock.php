@@ -172,7 +172,7 @@ function _echoMyStockSymbol($strSymbol, $bChinese)
     EchoParagraph($str);
 }
 
-function EchoMyStock($bChinese = true)
+function EchoAll($bChinese = true)
 {
     if ($strSymbol = UrlGetQueryValue('symbol'))
     {
@@ -193,13 +193,36 @@ function EchoMyStock($bChinese = true)
         }
     }
     EchoPromotionHead($bChinese);
+    EchoStockCategory($bChinese);
 }
 
-function EchoMyStockTitle($bChinese = true)
+function EchoMetaDescription($bChinese = true)
+{
+    if ($strSymbol = UrlGetQueryValue('symbol'))
+    {
+    	$str = $strSymbol;
+    }
+    else if ($strStockId = UrlGetQueryValue('id'))
+    {
+    	$str = SqlGetStockSymbol($strStockId);
+    }
+    else
+    {
+        $str = _GetWhoseDisplay(AcctGetMemberId(), AcctIsLogin(), $bChinese);
+        $str .= _GetAllDisplay(false, $bChinese);
+    }
+    
+    if ($bChinese)  $str .= '参考数据, AH对比, SMA均线, 布林线, 净值估算等本网站提供的内容. 可以用来按代码查询股票基本情况, 登录状态下还显示相关股票分组中的用户交易记录.';
+    else             $str .= ' stock reference data, AH compare, SMA and EMA, Bollinger Bands and possible net value estimation.';
+    EchoMetaDescriptionText($str);
+}
+
+function EchoTitle($bChinese = true)
 {
     if ($strSymbol = UrlGetQueryValue('symbol'))  
     {
-        $str = $strSymbol;
+    	$str = $bChinese ? '' : 'My ';
+        $str .= $strSymbol;
     	if (AcctIsAdmin())
     	{
     		$str .= '('.SqlGetStockId($strSymbol).')';
@@ -210,6 +233,11 @@ function EchoMyStockTitle($bChinese = true)
     	$str = $bChinese ? '我的股票' : 'My Stock ';
     }
     echo $str;
+}
+
+function EchoHeadLine($bChinese = true)
+{
+	EchoTitle($bChinese);
 }
 
     AcctNoAuth();

@@ -13,6 +13,7 @@ function _onManualCalibrtion($strSymbol)
     if ($ref->GetPairSym())
     {
     	if ($fPairNav = $ref->pair_nv_ref->sql->GetClose($strDate))
+//    	if ($fPairNav = $ref->pair_nv_ref->sql->GetClosePrev($strDate))
     	{
     		$ref->sql->Write($strDate, strval($fPairNav / floatval($strNav)));
         }

@@ -9,11 +9,22 @@ function StockGroupIsReadOnly($strGroupId)
 
 function _stockGroupGetStockLinks($strGroupId, $bChinese)
 {
+	static $arSymbol = array();
+	
     $strStocks = '';
 	$arStock = SqlGetStocksArray($strGroupId);
 	foreach ($arStock as $strSymbol)
 	{
-	    $strStocks .= GetMyStockLink($strSymbol, $bChinese).', ';
+		if (in_array($strSymbol, $arSymbol))
+		{
+			$strStocks .= $strSymbol;
+		}
+		else
+		{
+			$strStocks .= GetMyStockLink($strSymbol, $bChinese);
+			$arSymbol[] = $strSymbol;
+		}
+		$strStocks .= ', ';
 	}
 	$strStocks = rtrim($strStocks, ', ');
 	return $strStocks;
