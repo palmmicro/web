@@ -11,6 +11,7 @@ require_once('/php/ui/hsharesmaparagraph.php');
 require_once('/php/ui/etfsmaparagraph.php');
 require_once('/php/ui/fundestparagraph.php');
 require_once('/php/ui/fundhistoryparagraph.php');
+require_once('/php/ui/stockhistoryparagraph.php');
 require_once('/php/ui/tradingparagraph.php');
 
 function _echoMyStockTransactions($strMemberId, $ref, $bChinese)
@@ -108,6 +109,7 @@ function _echoMyStockData($strSymbol, $bChinese)
     if ($ref->bHasData == false)		return;
     
     EchoReferenceParagraph(array($ref), $bChinese);
+    EchoStockHistoryParagraph($ref, $bChinese);
     if ($etf_ref)
     {
     	EchoEtfListParagraph(array($etf_ref), $bChinese);
