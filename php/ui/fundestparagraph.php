@@ -4,8 +4,7 @@ require_once('stocktable.php');
 // $ref from FundReference
 function _echoFundEstTableItem($ref, $bChinese)
 {
-    if ($ref == false)                  return;
-    if ($ref->bHasData == false)        return;
+    if (StockRefHasData($ref) == false)      return;
     
     $strLink = GetEastMoneyFundLink($ref->GetSym());
     $strOfficialPrice = $ref->GetPriceDisplay($ref->fOfficialNetValue, false);

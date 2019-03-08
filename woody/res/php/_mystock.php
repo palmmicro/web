@@ -106,7 +106,7 @@ function _echoMyStockData($strSymbol, $bChinese)
     	else if ($etf_ref = StockGetEtfReference($strSymbol))	$ref = $etf_ref;
    		else														$ref = StockGetReference($sym);
     }
-    if ($ref->bHasData == false)		return;
+    if ($ref->HasData() == false)		return;
     
     EchoReferenceParagraph(array($ref), $bChinese);
     EchoStockHistoryParagraph($ref, $bChinese);

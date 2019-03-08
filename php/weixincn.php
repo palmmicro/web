@@ -70,7 +70,7 @@ function _getExactMatch($strKey)
     if ($sym->IsSymbolA() || $sym->IsSymbolH())
     {
     	$ref = new MyStockReference($strSymbol);
-    	if ($ref->bHasData)	return $strSymbol;
+    	if ($ref->HasData())	return $strSymbol;
     }
     
     return false;

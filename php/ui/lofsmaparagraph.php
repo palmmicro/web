@@ -13,8 +13,7 @@ function _callbackLofSma($lof_ref, $fEst = false)
 function EchoLofSmaParagraph($lof_ref, $bChinese, $callback2 = false)
 {
 	$ref = $lof_ref->est_ref;
-    if ($ref == false) 				return;
-    if ($ref->bHasData == false) 	return;
+    if (StockRefHasData($ref) == false) 	return;
     
     EchoSmaParagraph($ref, $bChinese, false, $lof_ref, _callbackLofSma, $callback2);
 }

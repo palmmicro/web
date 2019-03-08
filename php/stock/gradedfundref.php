@@ -174,7 +174,7 @@ class GradedFundReference extends FundReference
     
     function EstFairNetValue()
     {
-        if ($this->m_ref->stock_ref->bHasData)
+        if ($this->m_ref->stock_ref->HasData())
         {
             $fPrice = $this->m_ref->stock_ref->fPrice;
         }

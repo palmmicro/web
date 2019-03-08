@@ -26,7 +26,7 @@ function TextFromExtendedTradingReferencce($ref)
 
 function TextFromStockReference($ref)
 {
-    if ($ref->bHasData == false)        return false;
+    if ($ref->HasData() == false)        return false;
 
     $str = RefGetDescription($ref).WX_EOL;
     $str .= $ref->GetExternalLink().WX_EOL;
@@ -59,7 +59,7 @@ function TextFromAhReference($ref, $hshare_ref)
 function _textPremium($stock_ref, $fEst)
 {
     $str = '估值:'.$stock_ref->GetPriceText($fEst);
-    if ($stock_ref->bHasData)
+    if ($stock_ref->HasData())
     {
         $str .= ' 溢价:'.$stock_ref->GetPercentageText($fEst);
     }
@@ -68,7 +68,7 @@ function _textPremium($stock_ref, $fEst)
 
 function TextFromFundReference($ref)
 {
-    if ($ref->bHasData == false)                return false;
+    if ($ref->HasData() == false)                return false;
 
     $strName = RefGetDescription($ref).WX_EOL.$ref->GetStockSymbol().WX_EOL;
     $stock_ref = $ref->stock_ref;

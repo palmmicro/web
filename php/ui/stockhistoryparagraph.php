@@ -33,43 +33,35 @@ function _echoStockHistoryData($sql, $iStart, $iNum)
     }
 }
 
-function EchoStockHistoryParagraph($ref, $bChinese, $csv = false, $iStart = 0, $iNum = 1)
+function EchoStockHistoryParagraph($ref, $bChinese, $str = '', $csv = false, $iStart = 0, $iNum = 1)
 {
-    if ($bChinese)  $arColumn = array('日期', '开盘价', '最高', '最低', '收盘价', '成交量', '复权收盘价');
-    else              $arColumn = array('Date', 'Open', 'High', 'Low', 'Close', 'Volume', 'Adj Close');
+	$arReference = GetReferenceTableColumn($bChinese);
+	$strPrice = $arReference[1];
+	$strDate = $arReference[3];
+    if ($bChinese)  $arColumn = array($strDate, '开盘价', '最高', '最低', $strPrice, '成交量', '复权收盘价');
+    else              $arColumn = array($strDate, 'Open',   'High', 'Low',  $strPrice, 'Volume', 'Adj Close');
 
-    $strStockId = $ref->GetStockId();
-	$sql = new StockHistorySql($strStockId);
-
+	$sql = new StockHistorySql($ref->GetStockId());
     if ($iStart == 0 && $iNum == 1)
     {
-    	$strLinks = '';
     	$strNavLink = '';
     }
     else
     {
-    	$sym = $ref->GetSym();
-    	$strLinks = GetStockHistoryLink($sym, $bChinese);
-    	if ($sym->IsTradable())			$strLinks .= ' '.GetStockDividendLink($sym, $bChinese);
-    	if (AcctIsAdmin())
-    	{
-    		$strLinks .= ' '.GetOnClickLink(STOCK_PHP_PATH.'_submithistory.php?id='.$strStockId, $bChinese ? '确认更新股票历史记录?' : 'Confirm update stock history?', $bChinese ? '更新历史记录' : 'Update History');
-    		$strLinks .= ' '.SqlCountTableDataString(TABLE_STOCK_HISTORY);
-    	}
-    	$strNavLink = StockGetNavLink($sym->GetSymbol(), $sql->Count(), $iStart, $iNum, $bChinese);
+    	$strNavLink = StockGetNavLink($ref->GetStockSymbol(), $sql->Count(), $iStart, $iNum, $bChinese);
     }
     
     echo <<<END
-    <p>$strNavLink $strLinks
+    <p>$strNavLink $str
     <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="stockhistory">
     <tr>
         <td class=c1 width=100 align=center>{$arColumn[0]}</td>
-        <td class=c1 width=80 align=center>{$arColumn[1]}</td>
-        <td class=c1 width=80 align=center>{$arColumn[2]}</td>
-        <td class=c1 width=80 align=center>{$arColumn[3]}</td>
-        <td class=c1 width=80 align=center>{$arColumn[4]}</td>
-        <td class=c1 width=110 align=center>{$arColumn[5]}</td>
-        <td class=c1 width=110 align=center>{$arColumn[6]}</td>
+        <td class=c1 width=70 align=center>{$arColumn[1]}</td>
+        <td class=c1 width=70 align=center>{$arColumn[2]}</td>
+        <td class=c1 width=70 align=center>{$arColumn[3]}</td>
+        <td class=c1 width=70 align=center>{$arColumn[4]}</td>
+        <td class=c1 width=130 align=center>{$arColumn[5]}</td>
+        <td class=c1 width=130 align=center>{$arColumn[6]}</td>
     </tr>
 END;
    

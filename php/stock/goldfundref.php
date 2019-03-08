@@ -64,7 +64,7 @@ class GoldFundReference extends FundReference
         if ($this->UpdateOfficialNetValue())
         {
             $est_ref = $this->est_ref;
-            if ($est_ref->bHasData == false)            return false;
+            if ($est_ref->HasData() == false)            return false;
             if ($this->strDate != $est_ref->strDate)    return false;
             
             $iHour = intval(substr($est_ref->strTime, 0, 2));

@@ -381,7 +381,7 @@ class StockReference
     function CheckAdjustFactorTime($etf_ref)
     {
         if ($etf_ref == false)                           return false;
-        if ($etf_ref->bHasData == false)                 return false;
+        if ($etf_ref->HasData() == false)                 return false;
         
         if ($this->strTimeZone == $etf_ref->strTimeZone)
         {
@@ -816,5 +816,11 @@ class YahooNetValueReference extends StockReference
     }
 }
 
+// ****************************** Public StockReference functions *******************************************************
+function StockRefHasData($ref)
+{
+	if ($ref == false)	return false;
+	return $ref->HasData();
+}
 
 ?>

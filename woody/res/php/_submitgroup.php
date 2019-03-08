@@ -76,7 +76,7 @@ function _getStockIdArray($strSymbols)
 	    if ($strStockId == false)
 	    {
             $ref = StockGetReference(new StockSymbol($strSymbol));
-            if ($ref->bHasData)
+            if ($ref->HasData())
             {
             	$strStockId = $ref->GetStockId();
             }

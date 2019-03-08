@@ -14,7 +14,7 @@ class _GradedFundGroup extends _StockGroup
         $this->ref = new GradedFundReference($strSymbol);
         
         $arRef = array($this->ref->stock_ref, $this->ref->b_ref->stock_ref);
-        $this->bCanTradeM = $this->ref->m_ref->stock_ref->bHasData; 
+        $this->bCanTradeM = $this->ref->m_ref->stock_ref->HasData(); 
         if ($this->bCanTradeM)
         {
             $arRef[] = $this->ref->m_ref->stock_ref;     
