@@ -109,7 +109,6 @@ function _echoMyStockData($strSymbol, $bChinese)
     if ($ref->HasData() == false)		return;
     
     EchoReferenceParagraph(array($ref), $bChinese);
-    EchoStockHistoryParagraph($ref, $bChinese);
     if ($etf_ref)
     {
     	EchoEtfListParagraph(array($etf_ref), $bChinese);
@@ -142,7 +141,14 @@ function _echoMyStockData($strSymbol, $bChinese)
     {
     	if ($hshare_ref)		EchoHShareSmaParagraph($ref, $hshare_ref, $bChinese);
     	else	        		EchoSmaParagraph($ref, $bChinese);
+    	$strHistoryLink = '';
     }
+    else
+    {
+    	$strHistoryLink = GetStockHistoryLink($ref->GetStockSymbol(), $bChinese);
+    }
+    
+    EchoStockHistoryParagraph($ref, $bChinese, $strHistoryLink);
     
     if ($strMemberId = AcctIsLogin())
     {

@@ -7,8 +7,12 @@ require_once('/php/ui/stockhistoryparagraph.php');
 function _getStockHistoryLinks($ref, $bTest, $bChinese)
 {
 	$sym = $ref->GetSym();
-    $strLinks = GetStockHistoryLink($sym, $bChinese);
-    if ($sym->IsTradable())			$strLinks .= ' '.GetStockDividendLink($sym, $bChinese);
+    $strLinks = GetExternalStockHistoryLink($sym, $bChinese);
+    if ($sym->IsTradable())
+    {
+    	$strLinks .= ' '.GetStockDividendLink($sym, $bChinese);
+    	$strLinks .= ' '.GetStockSymbolLink('navclosehistory', $ref->GetStockSymbol(), $bChinese, '净值和收盘价历史比较', 'NAV Close History Compare');
+    }
     if ($bTest)
     {
     	$strLinks .= ' '.GetOnClickLink(STOCK_PHP_PATH.'_submithistory.php?id='.$ref->GetStockId(), $bChinese ? '确认更新股票历史记录?' : 'Confirm update stock history?', $bChinese ? '更新历史记录' : 'Update History');
@@ -47,7 +51,7 @@ function EchoAll($bChinese = true)
 function EchoMetaDescription($bChinese = true)
 {
     $str = UrlGetQueryDisplay('symbol');
-    if ($bChinese)  $str .= '历史价格记录页面. 用于查看计算SMA的原始数据, 提供跟Yahoo历史数据同步的功能, 方便人工处理合股和拆股, 分红除权等价格处理问题.';
+    if ($bChinese)  $str .= '历史价格记录页面. 用于查看计算SMA的原始数据, 提供跟Yahoo或者Sina历史数据同步的功能, 方便人工处理合股和拆股, 分红除权等价格处理问题.';
     else             $str .= ' stock history page. View the data to calculate SMA here, with functions to get Yahoo stock history data.';
     EchoMetaDescriptionText($str);
 }

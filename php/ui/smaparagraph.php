@@ -172,7 +172,7 @@ function _getSmaParagraphMemo($his, $bChinese)
     {
         $str = "$strSymbolLink $strDate $strScore";
     }
-    $str .= ' '.GetStockSymbolLink('stockhistory', $his->GetStockSymbol(), $bChinese, '历史记录', 'History');
+    $str .= ' '.GetStockHistoryLink($his->GetStockSymbol(), $bChinese);
     return $str;
 }
 

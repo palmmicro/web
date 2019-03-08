@@ -20,6 +20,11 @@ function GetCalibrationLink($strSymbol, $bChinese)
     return GetStockSymbolLink('calibration', $strSymbol, $bChinese, '校准记录', 'Calibration History');
 }
 
+function GetStockHistoryLink($strSymbol, $bChinese = true)
+{
+    return GetStockSymbolLink('stockhistory', $strSymbol, $bChinese, '价格历史', 'Price History');
+}
+
 function GetNetValueHistoryLink($strSymbol, $bChinese = true)
 {
     return GetStockSymbolLink('netvaluehistory', $strSymbol, $bChinese, '净值历史', 'Net Value History');

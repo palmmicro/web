@@ -168,7 +168,7 @@ function GetSinaN8n8Link($sym = false, $bChinese = true)
     return GetExternalLink($strHttp, $strWeb);
 }
 
-function GetStockHistoryLink($sym, $bChinese)
+function GetExternalStockHistoryLink($sym, $bChinese)
 {
 	if ($sym->IsIndexA())
 	{

@@ -33,7 +33,7 @@ function _echoStockHistoryData($sql, $iStart, $iNum)
     }
 }
 
-function EchoStockHistoryParagraph($ref, $bChinese, $str = '', $csv = false, $iStart = 0, $iNum = 1)
+function EchoStockHistoryParagraph($ref, $bChinese, $str = '', $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
 {
 	$arReference = GetReferenceTableColumn($bChinese);
 	$strPrice = $arReference[1];
@@ -42,7 +42,7 @@ function EchoStockHistoryParagraph($ref, $bChinese, $str = '', $csv = false, $iS
     else              $arColumn = array($strDate, 'Open',   'High', 'Low',  $strPrice, 'Volume', 'Adj Close');
 
 	$sql = new StockHistorySql($ref->GetStockId());
-    if ($iStart == 0 && $iNum == 1)
+    if (IsTableCommonDisplay($iStart, $iNum))
     {
     	$strNavLink = '';
     }

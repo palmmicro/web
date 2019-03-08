@@ -21,6 +21,12 @@ function GetReferenceTablePrice($bChinese)
 	return $arReference[1];
 }
 
+function GetReferenceTableChange($bChinese)			
+{
+	$arReference = GetReferenceTableColumn($bChinese);
+	return $arReference[2];
+}
+
 function GetSmaTableColumn($bChinese)
 {
     if ($bChinese)  $arColumn = array('<font color=indigo>均线</font>', '<font color=magenta>估值</font>', '<font color=orange>溢价</font>');
@@ -45,11 +51,8 @@ function GetFundHistoryTableColumn($est_ref, $bChinese)
 {
     if ($est_ref)
     {
-		if ($est_ref->IsTradable())	$strSymbol = GetSymbolLink('navclosehistory', $est_ref->GetStockSymbol(), $bChinese);
-		else							$strSymbol = RefGetMyStockLink($est_ref, $bChinese);
-		
-        if ($bChinese)  $strChange = '涨跌';
-        else              $strChange = 'Change';
+		$strSymbol = RefGetMyStockLink($est_ref, $bChinese);
+        $strChange = GetReferenceTableChange($bChinese);
     }
     else
     {
