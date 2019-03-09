@@ -30,14 +30,9 @@ function GetNetValueHistoryLink($strSymbol, $bChinese = true)
     return GetStockSymbolLink('netvaluehistory', $strSymbol, $bChinese, '净值历史', 'Net Value History');
 }
 
-function GetSymbolLink($strTitle, $strSymbol, $bChinese = true)
-{
-    return GetTitleLink($strTitle, $bChinese, $strSymbol, false, 'symbol='.$strSymbol);
-}
-
 function GetMyStockLink($strSymbol, $bChinese = true)
 {
-    return GetSymbolLink('mystock', $strSymbol, $bChinese);
+    return GetTitleLink('mystock', $bChinese, $strSymbol, false, 'symbol='.$strSymbol);
 }
 
 function RefGetMyStockLink($ref, $bChinese = true)

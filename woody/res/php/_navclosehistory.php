@@ -3,6 +3,7 @@ require_once('_stock.php');
 require_once('/php/csvfile.php');
 require_once('/php/imagefile.php');
 require_once('/php/ui/pricepoolparagraph.php');
+require_once('/php/ui/navclosehistoryparagraph.php');
 
 class _NavCloseCsvFile extends PricePoolCsvFile
 {
@@ -29,83 +30,9 @@ function _echoNavCloseGraph($strSymbol, $bChinese)
     $jpg->Show($strPremium, $strSymbol, $csv->GetPathName());
 }
 
-function _echoNavCloseItem($csv, $strDate, $fNetValue, $ref, $strFundId)
+function _getNavCloseHistoryLinks($ref, $bChinese)
 {
-    $fChange = $ref->GetCurrentPercentage();
-    $strChange = $ref->GetCurrentPercentageDisplay();
-	
-    $strNetValue = strval($fNetValue);
-	$ref->SetPrice($strNetValue);
-    $strClose = $ref->GetCurrentPriceDisplay();
-   	$strPremium = $ref->GetCurrentPercentageDisplay();
-	$csv->Write($strDate, strval($fChange), strval($ref->GetCurrentPercentage()), $strNetValue);
-    
-    if ($strFundId)
-    {
-    	$strNetValue = GetOnClickLink('/php/_submitdelete.php?'.TABLE_NAV_HISTORY.'='.$strFundId, '确认删除'.$strDate.'净值记录'.$strNetValue.'?', $strNetValue);
-    }
-    
-    echo <<<END
-    <tr>
-        <td class=c1>$strDate</td>
-        <td class=c1>$strClose</td>
-        <td class=c1>$strNetValue</td>
-        <td class=c1>$strPremium</td>
-        <td class=c1>$strChange</td>
-    </tr>
-END;
-}
-
-function _echoNavCloseData($sql, $ref, $iStart, $iNum, $bTest)
-{
-    $stock_sql = new StockHistorySql($ref->GetStockId());
-    if ($result = $sql->GetAll($iStart, $iNum)) 
-    {
-     	$csv = new PageCsvFile();
-        while ($arFund = mysql_fetch_assoc($result)) 
-        {
-        	$fNetValue = floatval($arFund['close']);
-        	if (empty($fNetValue) == false)
-        	{
-        		$strDate = $arFund['date'];
-       			if ($stock_ref = RefGetDailyClose($ref, $stock_sql, $strDate))
-       			{
-       				_echoNavCloseItem($csv, $strDate, $fNetValue, $stock_ref, ($bTest ? $arFund['id'] : false));
-        		}
-        	}
-        }
-        $csv->Close();
-        @mysql_free_result($result);
-    }
-}
-
-function _echoNavCloseParagraph($strSymbol, $strStockId, $iStart, $iNum, $bChinese)
-{
-	$sql = new NavHistorySql($strStockId);
-	$iTotal = $sql->Count();
-	if ($iTotal == 0)		return;
-    $strNavLink = StockGetNavLink($strSymbol, $iTotal, $iStart, $iNum, $bChinese);
-
-    $ref = new MyStockReference($strSymbol);
-    $arColumn = GetFundHistoryTableColumn($ref, $bChinese);
-    
-    echo <<<END
-    <p>$strNavLink
-    <TABLE borderColor=#cccccc cellSpacing=0 width=500 border=1 class="text" id="navclosehistory">
-    <tr>
-        <td class=c1 width=100 align=center>{$arColumn[0]}</td>
-        <td class=c1 width=100 align=center>{$arColumn[4]}</td>
-        <td class=c1 width=100 align=center>{$arColumn[2]}</td>
-        <td class=c1 width=100 align=center>{$arColumn[3]}</td>
-        <td class=c1 width=100 align=center>{$arColumn[5]}</td>
-    </tr>
-END;
-   
-    _echoNavCloseData($sql, $ref, $iStart, $iNum, AcctIsAdmin());
-    EchoTableParagraphEnd($strNavLink);
-
-    _echoNavClosePool($strSymbol, $bChinese);
-    _echoNavCloseGraph($strSymbol, $bChinese);
+	return GetStockHistoryLink($ref->GetStockSymbol(), $bChinese);
 }
 
 function EchoAll($bChinese = true)
@@ -114,20 +41,42 @@ function EchoAll($bChinese = true)
     {
     	StockPrefetchData($strSymbol);
    		EchoStockGroupParagraph($bChinese);
-    	if ($strStockId = SqlGetStockId($strSymbol))
+   		
+   		$sym = new StockSymbol($strSymbol);
+        $ref = StockGetReference($sym);
+        if ($ref->HasData())
     	{
-   			$iStart = UrlGetQueryInt('start');
-   			$iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
-   			_echoNavCloseParagraph($strSymbol, $strStockId, $iStart, $iNum, $bChinese);
+    		$strLinks = _getNavCloseHistoryLinks($ref, $bChinese);
+    		$iStart = UrlGetQueryInt('start');
+    		$iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
+    		$csv = new PageCsvFile();
+			EchoNavCloseHistoryParagraph($ref, $bChinese, $strLinks, $csv, $iStart, $iNum);
+			$csv->Close();
+
+			_echoNavClosePool($strSymbol, $bChinese);
+			_echoNavCloseGraph($strSymbol, $bChinese);
     	}
     }
     EchoPromotionHead($bChinese);
     EchoStockCategory($bChinese);
 }
 
+function EchoMetaDescription($bChinese = true)
+{
+    $str = UrlGetQueryDisplay('symbol');
+    if ($bChinese)  $str .= '净值和收盘价历史比较页面. 观察每天净值和收盘价偏离的情况. 同时判断偏离是否跟当天涨跌相关, 总结规律以便提供可能的套利操作建议.';
+    else             $str .= ' NAV and close price compare page, check if the difference is related with daily change or not.';
+    EchoMetaDescriptionText($str);
+}
+
 function EchoTitle($bChinese = true)
 {
   	echo UrlGetQueryDisplay('symbol').($bChinese ? '净值和收盘价历史比较' : ' NAV Close History Compare');
+}
+
+function EchoHeadLine($bChinese = true)
+{
+	EchoTitle($bChinese);
 }
 
     AcctAuth();

@@ -27,6 +27,12 @@ function GetReferenceTableChange($bChinese)
 	return $arReference[2];
 }
 
+function GetReferenceTableDate($bChinese)		
+{
+	$arReference = GetReferenceTableColumn($bChinese);
+	return $arReference[3];
+}
+
 function GetSmaTableColumn($bChinese)
 {
     if ($bChinese)  $arColumn = array('<font color=indigo>均线</font>', '<font color=magenta>估值</font>', '<font color=orange>溢价</font>');
@@ -65,13 +71,14 @@ function GetFundHistoryTableColumn($est_ref, $bChinese)
 	$strNetValue = $arFundEst[7];
 	$arSma = GetSmaTableColumn($bChinese);
 	$strPremium = $arSma[2];
+	$strDate = GetReferenceTableDate($bChinese);
     if ($bChinese)     
     {
-        $arColumn = array('日期', '<font color=indigo>收盘价</font>', $strNetValue, $strPremium, $strSymbol, $strChange, $strOfficialEst, '估值时间', '误差');
+        $arColumn = array($strDate, '<font color=indigo>收盘价</font>', $strNetValue, $strPremium, $strSymbol, $strChange, $strOfficialEst, '估值时间', '误差');
     }
     else
     {
-        $arColumn = array('Date', '<font color=indigo>Close</font>', $strNetValue, $strPremium, $strSymbol, $strChange, $strOfficialEst, 'Est Time', 'Error');
+        $arColumn = array($strDate, '<font color=indigo>Close</font>', $strNetValue, $strPremium, $strSymbol, $strChange, $strOfficialEst, 'Est Time', 'Error');
     }
     return $arColumn;
 }

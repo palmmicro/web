@@ -12,6 +12,7 @@ require_once('/php/ui/etfsmaparagraph.php');
 require_once('/php/ui/fundestparagraph.php');
 require_once('/php/ui/fundhistoryparagraph.php');
 require_once('/php/ui/stockhistoryparagraph.php');
+require_once('/php/ui/navclosehistoryparagraph.php');
 require_once('/php/ui/tradingparagraph.php');
 
 function _echoMyStockTransactions($strMemberId, $ref, $bChinese)
@@ -134,6 +135,7 @@ function _echoMyStockData($strSymbol, $bChinese)
    			if ($hshare_ref)	EchoAhTradingParagraph($hshare_ref, $bChinese);
    			else 				EchoTradingParagraph($ref, $bChinese);
        	}
+       	EchoNavCloseHistoryParagraph($ref, $bChinese, GetStockSymbolLink('navclosehistory', $strSymbol, $bChinese, '净值和收盘价历史比较', 'NAV Close History Compare'));
     }
     
     if ($etf_ref)   			EchoEtfSmaParagraph($etf_ref, $bChinese);
@@ -145,7 +147,7 @@ function _echoMyStockData($strSymbol, $bChinese)
     }
     else
     {
-    	$strHistoryLink = GetStockHistoryLink($ref->GetStockSymbol(), $bChinese);
+    	$strHistoryLink = GetStockHistoryLink($strSymbol, $bChinese);
     }
     
     EchoStockHistoryParagraph($ref, $bChinese, $strHistoryLink);

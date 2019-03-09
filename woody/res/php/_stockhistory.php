@@ -11,7 +11,6 @@ function _getStockHistoryLinks($ref, $bTest, $bChinese)
     if ($sym->IsTradable())
     {
     	$strLinks .= ' '.GetStockDividendLink($sym, $bChinese);
-    	$strLinks .= ' '.GetStockSymbolLink('navclosehistory', $ref->GetStockSymbol(), $bChinese, '净值和收盘价历史比较', 'NAV Close History Compare');
     }
     if ($bTest)
     {
@@ -34,10 +33,12 @@ function EchoAll($bChinese = true)
         if ($ref->HasData())
     	{
     		$strLinks = _getStockHistoryLinks($ref, $bTest, $bChinese);
-    		$csv = new PageCsvFile();
     		$iStart = UrlGetQueryInt('start');
     		$iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
+    		$csv = new PageCsvFile();
 			EchoStockHistoryParagraph($ref, $bChinese, $strLinks, $csv, $iStart, $iNum);
+			$csv->Close();
+
     		if ($bTest && $iStart == 0)
     		{
 				StockOptionEditForm($bChinese ? STOCK_OPTION_ADJCLOSE_CN : STOCK_OPTION_ADJCLOSE);

@@ -1,33 +1,33 @@
 <?php
 require_once('stocktable.php');
 
-function _echoStockHistoryItem($history)
+function _echoStockHistoryItem($history, $ref, $csv)
 {
- 	$strOpen = GetTableColumnFloatDisplay($history['open']);
- 	$strHigh = GetTableColumnFloatDisplay($history['high']);
- 	$strLow = GetTableColumnFloatDisplay($history['low']);
- 	$strClose = GetTableColumnFloatDisplay($history['close']);
-	$strAdjClose = GetTableColumnFloatDisplay($history['adjclose']);
+	$strOpen = $ref->GetPriceDisplay(floatval($history['open']));
+ 	$strHigh = $ref->GetPriceDisplay(floatval($history['high']));
+ 	$strLow = $ref->GetPriceDisplay(floatval($history['low']));
+ 	$strClose = $ref->GetPriceDisplay(floatval($history['close']));
+	$strAdjClose = $ref->GetPriceDisplay(floatval($history['adjclose']));
     echo <<<END
     <tr>
         <td class=c1>{$history['date']}</td>
-        $strOpen
-        $strHigh
-        $strLow
-        $strClose
+        <td class=c1>$strOpen</td>
+        <td class=c1>$strHigh</td>
+        <td class=c1>$strLow</td>
+        <td class=c1>$strClose</td>
         <td class=c1>{$history['volume']}</td>
-        $strAdjClose
+        <td class=c1>$strAdjClose</td>
     </tr>
 END;
 }
 
-function _echoStockHistoryData($sql, $iStart, $iNum)
+function _echoStockHistoryData($sql, $ref, $csv, $iStart, $iNum)
 {
     if ($result = $sql->GetAll($iStart, $iNum)) 
     {
         while ($history = mysql_fetch_assoc($result)) 
         {
-            _echoStockHistoryItem($history);
+            _echoStockHistoryItem($history, $ref, $csv);
         }
         @mysql_free_result($result);
     }
@@ -35,12 +35,13 @@ function _echoStockHistoryData($sql, $iStart, $iNum)
 
 function EchoStockHistoryParagraph($ref, $bChinese, $str = '', $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
 {
-	$arReference = GetReferenceTableColumn($bChinese);
-	$strPrice = $arReference[1];
-	$strDate = $arReference[3];
-    if ($bChinese)  $arColumn = array($strDate, '开盘价', '最高', '最低', $strPrice, '成交量', '复权收盘价');
-    else              $arColumn = array($strDate, 'Open',   'High', 'Low',  $strPrice, 'Volume', 'Adj Close');
+	$strDate = GetReferenceTableDate($bChinese);
+    $arFundHistory = GetFundHistoryTableColumn(false, $bChinese);
+    $strClose = $arFundHistory[1];
+    if ($bChinese)  $arColumn = array($strDate, '开盘价', '最高', '最低', $strClose, '成交量', '复权'.$strClose);
+    else              $arColumn = array($strDate, 'Open',   'High', 'Low',  $strClose, 'Volume', 'Adj '.$strClose);
 
+    $strSymbol = $ref->GetStockSymbol();
 	$sql = new StockHistorySql($ref->GetStockId());
     if (IsTableCommonDisplay($iStart, $iNum))
     {
@@ -48,12 +49,12 @@ function EchoStockHistoryParagraph($ref, $bChinese, $str = '', $csv = false, $iS
     }
     else
     {
-    	$strNavLink = StockGetNavLink($ref->GetStockSymbol(), $sql->Count(), $iStart, $iNum, $bChinese);
+    	$strNavLink = StockGetNavLink($strSymbol, $sql->Count(), $iStart, $iNum, $bChinese);
     }
     
     echo <<<END
     <p>$strNavLink $str
-    <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="stockhistory">
+    <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="{$strSymbol}stockhistory">
     <tr>
         <td class=c1 width=100 align=center>{$arColumn[0]}</td>
         <td class=c1 width=70 align=center>{$arColumn[1]}</td>
@@ -65,7 +66,7 @@ function EchoStockHistoryParagraph($ref, $bChinese, $str = '', $csv = false, $iS
     </tr>
 END;
    
-    _echoStockHistoryData($sql, $iStart, $iNum);
+    _echoStockHistoryData($sql, $ref, $csv, $iStart, $iNum);
     EchoTableParagraphEnd($strNavLink);
 }
 

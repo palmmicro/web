@@ -20,9 +20,8 @@ END;
 
 function _echoPricePoolParagraph($pool, $bChinese, $strSymbol, $strTradingSymbol = '', $arColumnEx, $arRow)
 {
-	$strLink = GetMyStockLink($strSymbol, $bChinese);
-    if ($bChinese)	$arColumn = array($strLink.'交易',     '天数');
-    else		    	$arColumn = array($strLink.' Trading', 'Days');
+    if ($bChinese)	$arColumn = array($strSymbol.'交易',     '天数');
+    else		    	$arColumn = array($strSymbol.' Trading', 'Days');
 
     echo <<<END
     <p>
