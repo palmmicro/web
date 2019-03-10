@@ -64,8 +64,8 @@ function EchoAll($bChinese = true)
 function EchoMetaDescription($bChinese = true)
 {
     $str = UrlGetQueryDisplay('symbol');
-    if ($bChinese)  $str .= '净值和收盘价历史比较页面. 观察每天净值和收盘价偏离的情况. 同时判断偏离是否跟当天涨跌相关, 总结规律以便提供可能的套利操作建议.';
-    else             $str .= ' NAV and close price compare page, check if the difference is related with daily change or not.';
+    if ($bChinese)  $str .= '净值和收盘价历史比较页面. 观察每天净值和收盘价偏离的情况. 同时判断偏离的方向和大小是否跟当天涨跌以及交易量相关, 总结规律以便提供可能的套利操作建议.';
+    else             $str .= ' NAV and close price compare page, check if the difference is related with daily change and quantity or not.';
     EchoMetaDescriptionText($str);
 }
 

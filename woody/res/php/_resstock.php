@@ -42,30 +42,16 @@ function ResMenu($arLoop, $bChinese)
 	NavBegin();
 	WoodyMenuItem($iLevel, 'res', $bChinese);
 	NavContinueNewLine();
-	if ($arLoop[0] == 'ach')
-	{
-	    _menuItemClass($iLevel, 'adr', $bChinese);
-	}
-	else if ($arLoop[0] == 'sh501018')
-	{
-	    _menuItemClass($iLevel, 'lof', $bChinese);
-	}
-	else if ($arLoop[0] == 'sh501021')
-	{
-	    _menuItemClass($iLevel, 'lofhk', $bChinese);
-	}
-	else if ($arLoop[0] == 'sh518800')
-	{
-	    _menuItemClass($iLevel, 'goldetf', $bChinese);
-	}
-	else if ($arLoop[0] == 'sh510300')
-	{
-	    _menuItemClass($iLevel, 'chinaetf', $bChinese);
-	}
-	else if ($arLoop[0] == 'sh502004')
-	{
-	    _menuItemClass($iLevel, 'gradedfund', $bChinese);
-	}
+
+    $arFirst = array('adr' => 'ach',
+                      'chinaetf' => 'sh510300',
+                      'goldetf' => 'sh518800',
+                      'gradedfund' => 'sh502004',
+                      'lof' => 'sh501018',
+                      'lofhk' => 'sh501021',
+                     );
+    _menuItemClass($iLevel, array_search($arLoop[0], $arFirst), $bChinese);
+
     NavDirLoop($arLoop);
 	NavContinueNewLine();
     NavSwitchLanguage($bChinese);

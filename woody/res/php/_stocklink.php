@@ -73,16 +73,16 @@ function GetCategoryArray($strTitle)
         $ar = AdrGetSymbolArray();
         break;
         
-    case 'bricfund':
-        $ar = LofGetBricSymbolArray();
+    case 'adrhcompare':
+        $ar = SqlGetAdrhArray();
         break;
   
     case 'ahcompare':
         $ar = SqlGetAhArray();
         break;
   
-    case 'adrhcompare':
-        $ar = SqlGetAdrhArray();
+    case 'bricfund':
+        $ar = LofGetBricSymbolArray();
         break;
   
     case 'chinaetf':
@@ -128,10 +128,6 @@ function GetCategoryArray($strTitle)
         $ar = LofHkGetSymbolArray();
         break;
         
-    case 'spyfund':
-    	$ar = LofGetSpySymbolArray();
-        break;
-        
     case 'oilfund':
     	$ar = array('ptr', 'shi', 'snp');
     	$ar = array_merge($ar, LofGetOilEtfSymbolArray()
@@ -140,6 +136,10 @@ function GetCategoryArray($strTitle)
         
     case 'qqqfund':
         $ar = LofGetQqqSymbolArray(); 
+        break;
+
+    case 'spyfund':
+    	$ar = LofGetSpySymbolArray();
         break;
     }
     return $ar;
