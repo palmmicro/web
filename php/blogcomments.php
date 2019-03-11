@@ -40,15 +40,7 @@ function EchoBlogComments($bChinese)
 		_echoPreviousComments($strBlogId, $strMemberId, $bChinese);
 		if ($strMemberId) 
 		{
-	        if ($bChinese)
-	        {
-	            $strSubmit = BLOG_COMMENT_NEW_CN;
-	        }
-	        else
-	        {
-	            $strSubmit = BLOG_COMMENT_NEW;
-	        }
-	        EditCommentForm($strSubmit);
+	        EditCommentForm($bChinese ? BLOG_COMMENT_NEW_CN : BLOG_COMMENT_NEW);
 	    }
 	}
 }

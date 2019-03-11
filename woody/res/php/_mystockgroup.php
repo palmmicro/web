@@ -199,7 +199,7 @@ function _getMetaDescriptionStr($strTitle, $bChinese)
         
     case 'oilfund':
         if ($bChinese)  $str = '计算原油基金的净值, 目前包括南方原油(SH501018), 国泰商品(SZ160216), 嘉实原油(SZ160723)和原油基金(SZ161129). 跟踪原油期货的基金都有因为期货升水带来的损耗, 不能长期持有. 用油气公司行业ETF做长期投资是更好的选择.';
-        else              $str = 'Estimate the net value of oil fund in Chinese market. Investors should avoid to hold oil future related fund for a long period. Oil company ETF is a better way for long term investment.';
+        else              $str = 'Estimate the net value of oil fund in China. Must not hold oil future related fund for a long period. Oil company ETF is a better long term investment.';
         break;
         
     case 'qqqfund':

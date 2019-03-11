@@ -4,15 +4,7 @@ require_once('php/_editcommentform.php');
 
 function _getEditCommentSubmit($bChinese)
 {
-    if ($bChinese)
-    {
-        $str = BLOG_COMMENT_EDIT_CN;
-    }
-    else
-    {
-        $str = BLOG_COMMENT_EDIT;
-    }
-    return $str;
+    return $bChinese ? BLOG_COMMENT_EDIT_CN : BLOG_COMMENT_EDIT;
 }
 
 function EchoEditCommentTitle($bChinese = true)
@@ -23,8 +15,7 @@ function EchoEditCommentTitle($bChinese = true)
 
 function EchoEditComment($bChinese = true)
 {
-    $strSubmit = _getEditCommentSubmit($bChinese);
-    EditCommentForm($strSubmit);
+    EditCommentForm(_getEditCommentSubmit($bChinese));
 }
 
     AcctAuth();

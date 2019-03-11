@@ -1,4 +1,4 @@
 <?php
 require('php/_editstockoption.php');
-require('_edit.php');
+require('/php/ui/_edit.php');
 ?>

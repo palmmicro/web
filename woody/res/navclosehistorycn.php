@@ -1,4 +1,4 @@
 <?php
 require('php/_navclosehistory.php');
-require('_dispcn.php');
+require('/php/ui/_dispcn.php');
 ?>

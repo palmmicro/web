@@ -4,15 +4,7 @@ require_once('php/_editemailform.php');
 
 function _getCloseAccountSubmit($bChinese)
 {
-    if ($bChinese)
-    {
-        $str = EDIT_EMAIL_CLOSE_CN;
-    }
-    else
-    {
-        $str = EDIT_EMAIL_CLOSE;
-    }
-    return $str;
+    return $bChinese ? EDIT_EMAIL_CLOSE_CN : EDIT_EMAIL_CLOSE;
 }
 
 function EchoCloseAccountTitle($bChinese = true)

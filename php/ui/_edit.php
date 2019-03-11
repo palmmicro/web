@@ -3,10 +3,10 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title><?php EchoTitle(false); ?></title>
 <meta name="description" content="<?php EchoMetaDescription(false); ?>">
-<link href="../../common/style.css" rel="stylesheet" type="text/css" />
+<link href="/common/style.css" rel="stylesheet" type="text/css" />
 </head>
 
-<body bgproperties=fixed leftmargin=0 topmargin=0>
+<body bgproperties=fixed leftmargin=0 topmargin=0 onLoad=OnLoad()>
 <?php _LayoutTopLeft(false); ?>
 
 <div>
@@ -14,7 +14,7 @@
 <?php EchoAll(false); ?>
 </div>
 
-<?php LayoutTailLogin(false); ?>
+<?php LayoutTail(false); ?>
 
 </body>
 </html>

@@ -1,4 +1,4 @@
 <?php
 require('php/_editstockgroup.php');
-require('_editcn.php');
+require('/php/ui/_editcn.php');
 ?>

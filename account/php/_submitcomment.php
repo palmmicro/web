@@ -106,16 +106,20 @@ function _onNew($strMemberId, $strComment)
 	{
 		$strSubmit = $_POST['submit'];
 		$strComment = UrlCleanString($_POST['comment']);
-		if ($strSubmit == BLOG_COMMENT_NEW || $strSubmit == BLOG_COMMENT_NEW_CN)
-		{	// post new comment
+		switch ($strSubmit)
+		{
+		case BLOG_COMMENT_NEW:
+		case BLOG_COMMENT_NEW_CN:
 		    _onNew($strMemberId, $strComment);
-		}
-		else if ($strSubmit == BLOG_COMMENT_EDIT || $strSubmit == BLOG_COMMENT_EDIT_CN)
-		{	// edit comment
+		    break;
+
+		case BLOG_COMMENT_EDIT:
+		case BLOG_COMMENT_EDIT_CN:
 			if ($strId = UrlGetQueryValue('edit'))
 			{
 			    _onEdit($strId, $strMemberId, $strComment);
 			}
+			break;
 		}
 		unset($_POST['submit']);
 	}

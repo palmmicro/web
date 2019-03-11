@@ -395,31 +395,39 @@ function _closeAccount($strEmail)
 		$_SESSION['SESS_EMAIL_INPUT'] = $strEmail;
 		$strPassword = UrlCleanString($_POST['password']);
 		$strPassword2 = UrlCleanString($_POST['cpassword']);
-		if ($strSubmit == EDIT_EMAIL_LOGIN_CN || $strSubmit == EDIT_EMAIL_LOGIN)
-		{	// from login page
+		switch ($strSubmit)
+		{
+		case EDIT_EMAIL_LOGIN:
+		case EDIT_EMAIL_LOGIN_CN:
 			if ($strMsg = _loginAccount($strEmail, $strPassword))    SwitchToSess();
 			else                                                           SwitchTo('login');
-		}
-		else if ($strSubmit == EDIT_EMAIL_REGISTER_CN || $strSubmit == EDIT_EMAIL_REGISTER)
-		{	// from register page
+			break;
+
+		case EDIT_EMAIL_REGISTER:
+		case EDIT_EMAIL_REGISTER_CN:
 			if ($strMsg = _registerAccount($strEmail, $strPassword, $strPassword2))    SwitchToSess();
 			else                                                                			    SwitchTo('register');
-		}
-		else if ($strSubmit == EDIT_EMAIL_PASSWORD_CN || $strSubmit == EDIT_EMAIL_PASSWORD)
-		{
+			break;
+
+		case EDIT_EMAIL_PASSWORD:
+		case EDIT_EMAIL_PASSWORD_CN:
 			if (($strMsg = _changePassword($strPassword, $strPassword2)) == false)    SwitchTo('password');
-		}
-		else if ($strSubmit == EDIT_EMAIL_UPDATE_CN || $strSubmit == EDIT_EMAIL_UPDATE)
-		{
+			break;
+
+		case EDIT_EMAIL_UPDATE:
+		case EDIT_EMAIL_UPDATE_CN:
 			if (($strMsg = _updateLoginEmail($strEmail)) == false)    SwitchTo('updateemail');
-		}
-		else if ($strSubmit == EDIT_EMAIL_REMINDER_CN || $strSubmit == EDIT_EMAIL_REMINDER)
-		{
+			break;
+
+		case EDIT_EMAIL_REMINDER:
+		case EDIT_EMAIL_REMINDER_CN:
 			if (($strMsg = _remindPassword($strEmail)) == false)    SwitchTo('reminder');
-		}
-		else if ($strSubmit == EDIT_EMAIL_CLOSE_CN || $strSubmit == EDIT_EMAIL_CLOSE)
-		{
+			break;
+
+		case EDIT_EMAIL_CLOSE:
+		case EDIT_EMAIL_CLOSE_CN:
 			if (($strMsg = _closeAccount($strEmail)) == false)    SwitchTo('closeaccount');
+			break;
 		}
 	    $strMemberId = AcctIsLogin();
 	}

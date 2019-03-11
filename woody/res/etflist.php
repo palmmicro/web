@@ -1,4 +1,4 @@
 <?php
 require('php/_mystockgroup.php');
-require('_disp.php');
+require('/php/ui/_disp.php');
 ?>

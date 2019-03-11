@@ -43,13 +43,16 @@ function _disableEditPassword($strSubmit)
 
 function _readonlyEditEmail($strSubmit)
 {
-    if ($strSubmit == EDIT_EMAIL_PASSWORD_CN || $strSubmit == EDIT_EMAIL_PASSWORD)
-    {
+	switch ($strSubmit)
+	{
+	case EDIT_EMAIL_PASSWORD:
+	case EDIT_EMAIL_PASSWORD_CN:
         return true;
-    }
-    else if ($strSubmit == EDIT_EMAIL_CLOSE_CN || $strSubmit == EDIT_EMAIL_CLOSE)
-    {
+
+	case EDIT_EMAIL_CLOSE:
+	case EDIT_EMAIL_CLOSE_CN:
         if (AcctIsAdmin() == false)     return true;    // only admin can close other account
+        break;
     }
     return false;
 }

@@ -22,31 +22,21 @@ function _getEditComment($strMemberId)
 	return ''; 
 }
 
-function _getEditCommentTitle($strSubmit)
-{
-    $strTitle = '';
-    if ($strSubmit == BLOG_COMMENT_NEW_CN)
-    {
-        $strTitle = '有话想说?';
-    }
-    else if ($strSubmit == BLOG_COMMENT_NEW)
-    {
-        $strTitle = 'Any comment?';
-    }
-    return $strTitle;
-}
-
 function EditCommentForm($strSubmit)
 {
-    $strMemberId = AcctIsLogin();
+	$arTitle = array(BLOG_COMMENT_NEW => 'Any comment?', 
+					   BLOG_COMMENT_NEW_CN => '有话想说?',
+					   BLOG_COMMENT_EDIT => 'Clear to delete comment',
+					   BLOG_COMMENT_EDIT_CN => '清空可以删除评论',
+					   );
+	
     $strPassQuery = UrlPassQuery();
-    $strTitle = _getEditCommentTitle($strSubmit);
-	$strComment = _getEditComment($strMemberId); 
+	$strComment = _getEditComment(AcctIsLogin()); 
     
 	echo <<< END
 	<form id="commentForm" name="commentForm" method="post" action="/account/php/_submitcomment.php$strPassQuery">
         <div>
-		<p><font color=green>$strTitle</font>
+		<p><font color=green>{$arTitle[$strSubmit]}</font>
 	    <br /><textarea name="comment" rows="16" cols="75" id="comment">$strComment</textarea>
 	    <br /><input type="submit" name="submit" value="$strSubmit" />
 	    </p>
