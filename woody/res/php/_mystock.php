@@ -245,11 +245,6 @@ function EchoTitle($bChinese = true)
     echo $str;
 }
 
-function EchoHeadLine($bChinese = true)
-{
-	EchoTitle($bChinese);
-}
-
     AcctNoAuth();
 
 ?>

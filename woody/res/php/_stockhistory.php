@@ -62,11 +62,6 @@ function EchoTitle($bChinese = true)
   	echo UrlGetQueryDisplay('symbol').($bChinese ? '历史价格记录' : ' Historical Price');
 }
 
-function EchoHeadLine($bChinese = true)
-{
-	EchoTitle($bChinese);
-}
-
     AcctAuth();
 
 ?>

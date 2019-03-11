@@ -401,11 +401,6 @@ function EchoTitle($bChinese = true)
     echo $str;
 }
 
-function EchoHeadLine($bChinese = true)
-{
-	EchoTitle($bChinese);
-}
-
     AcctSessionStart();
     if (UrlGetTitle() == 'mystockgroup')
     {   // mystockgroupcn.php

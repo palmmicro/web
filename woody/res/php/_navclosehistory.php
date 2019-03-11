@@ -74,11 +74,6 @@ function EchoTitle($bChinese = true)
   	echo UrlGetQueryDisplay('symbol').($bChinese ? '净值和收盘价历史比较' : ' NAV Close History Compare');
 }
 
-function EchoHeadLine($bChinese = true)
-{
-	EchoTitle($bChinese);
-}
-
     AcctAuth();
 
 ?>

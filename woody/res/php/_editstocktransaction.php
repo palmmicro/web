@@ -39,11 +39,6 @@ function EchoTitle($bChinese = true)
     echo _getOperationStr($bChinese);
 }
 
-function EchoHeadLine($bChinese = true)
-{
-	EchoTitle($bChinese);
-}
-
     AcctAuth();
 
 ?>

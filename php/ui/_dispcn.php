@@ -10,7 +10,7 @@
 <?php _LayoutTopLeft(); ?>
 
 <div>
-<h1><?php EchoHeadLine(); ?></h1>
+<h1><?php EchoTitle(); ?></h1>
 <?php EchoAll(); ?>
 </div>
 
