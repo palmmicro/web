@@ -114,29 +114,33 @@ function AhWriteDatabase()
 
 function _getRatioAdrH($strSymbolAdr)
 {
-    if ($strSymbolAdr == 'ACH')         return 25.0;
-    else if ($strSymbolAdr == 'CEA')   return 50.0;
-    else if ($strSymbolAdr == 'CHU')   return 10.0;
-    else if ($strSymbolAdr == 'GSH')   return 50.0;
-    else if ($strSymbolAdr == 'LFC')   return 5.0;
-    else if ($strSymbolAdr == 'ZNH')   return 50.0;
-    else 
-        return 100.0;
+	switch ($strSymbolAdr)
+	{
+	case 'ACH':		return 25.0;
+	case 'CEA':		return 50.0;
+    case 'CHU':		return 10.0;
+    case 'GSH':		return 50.0;
+    case 'LFC':		return 5.0;
+    case 'ZNH':		return 50.0;
+    }
+    return 100.0;
 }
 
 function _getAdrSymbolA($strSymbolAdr)
 {
-    if ($strSymbolAdr == 'ACH')         return 'SH601600';
-    else if ($strSymbolAdr == 'CEA')   return 'SH600115';
-    else if ($strSymbolAdr == 'CHU')   return 'SH600050';
-    else if ($strSymbolAdr == 'GSH')   return 'SH601333';
-    else if ($strSymbolAdr == 'LFC')   return 'SH601628';
-    else if ($strSymbolAdr == 'PTR')   return 'SH601857';
-    else if ($strSymbolAdr == 'SHI')   return 'SH600688';
-    else if ($strSymbolAdr == 'SNP')   return 'SH600028';
-    else if ($strSymbolAdr == 'ZNH')   return 'SH600029';
-    else 
-        return false;
+    switch ($strSymbolAdr)
+    {
+    case 'ACH':   return 'SH601600';
+    case 'CEA':   return 'SH600115';
+    case 'CHU':   return 'SH600050';
+    case 'GSH':   return 'SH601333';
+    case 'LFC':   return 'SH601628';
+    case 'PTR':   return 'SH601857';
+    case 'SHI':   return 'SH600688';
+    case 'SNP':   return 'SH600028';
+    case 'ZNH':   return 'SH600029';
+    }
+    return false;
 }
 
 function AdrhWriteDatabase()

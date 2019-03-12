@@ -477,9 +477,16 @@ class StockSymbol
     {
     	if ($this->strSinaIndexH == false)
     	{
-    		$strSymbol = $this->strSymbol;
-    		if ($strSymbol == '^HSI')			$this->strSinaIndexH = 'HSI';
-    		else if ($strSymbol == '^HSCE')   $this->strSinaIndexH = 'HSCEI';
+    		switch ($this->strSymbol)
+    		{
+    		case '^HSI':
+    			$this->strSinaIndexH = 'HSI';
+    			break;
+    			
+    		case '^HSCE':
+    			$this->strSinaIndexH = 'HSCEI';
+    			break;
+    		}
     	}
     	return $this->strSinaIndexH;
     }
@@ -488,10 +495,20 @@ class StockSymbol
     {
     	if ($this->strSinaIndexUS == false)
     	{
-    		$strSymbol = $this->strSymbol;
-    		if ($strSymbol == '^DJI')     	  $this->strSinaIndexUS = 'dji';  
-            else if ($strSymbol == '^GSPC')    $this->strSinaIndexUS = 'inx';  
-            else if ($strSymbol == '^NDX')     $this->strSinaIndexUS = 'ndx';  
+    		switch ($this->strSymbol)
+    		{
+    		case '^DJI':
+    			$this->strSinaIndexUS = 'dji';
+    			break;
+    			
+    		case '^GSPC':
+    			$this->strSinaIndexUS = 'inx';
+    			break;
+    			
+    		case '^NDX':
+    			$this->strSinaIndexUS = 'ndx';
+    			break;
+    		}
     	}
     	return $this->strSinaIndexUS;
     }

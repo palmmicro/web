@@ -1,30 +1,33 @@
 <?php
 require_once('_account.php');
 require_once('php/_editemailform.php');
+require_once('/php/ui/table.php');
 
-function _getEmailRegisterSubmit($bChinese)
+function EchoAll($bChinese = true)
 {
+    $str = $bChinese ? '欢迎注册! 除非你主动要求, 否则我们不会给你发任何邮件.' : 'Welcome! We will NOT send you any email unless it is required by yourself.';
+   	EchoParagraph($str);
+    EditEmailForm(EditEmailGetSubmit($bChinese));
+}
+
+function EchoMetaDescription($bChinese = true)
+{
+	$str = EditEmailGetSubmit($bChinese);
     if ($bChinese)
     {
-        $str = EDIT_EMAIL_REGISTER_CN;
+    	$str = "本中文页面文件跟/account/php/_register.php和/account/php/_editemailform.php一起配合完成{$str}的功能.";
     }
     else
     {
-        $str = EDIT_EMAIL_REGISTER;
+    	$str = "This English web page works together with php/_register.php and php/_editemailform.php to $str.";
     }
-    return $str;
+    EchoMetaDescriptionText($str);
 }
 
-function EchoEmailRegisterTitle($bChinese = true)
+function EchoTitle($bChinese = true)
 {
-    $str = _getEmailRegisterSubmit($bChinese);
+    $str = EditEmailGetSubmit($bChinese);
     echo $str;
-}
-
-function EchoEmailRegister($bChinese = true)
-{
-    $strSubmit = _getEmailRegisterSubmit($bChinese);
-    EditEmailForm($strSubmit);
 }
 
     AcctNoAuth();

@@ -34,9 +34,20 @@ function GetXueQiuLink($sym)
 	$strXueQiu = $strSymbol;
     if ($sym->IsIndex())
     {
-    	if ($strSymbol == '^GSPC')			$strXueQiu = '.INX';
-    	else if ($strSymbol == '^HSI')		$strXueQiu = 'HKHSI';
-    	else if ($strSymbol == '^HSCE')		$strXueQiu = 'HKHSCEI';
+    	switch ($strSymbol)
+    	{
+    	case '^GSPC':
+			$strXueQiu = '.INX';
+			break;
+			
+		case '^HSI':
+			$strXueQiu = 'HKHSI';
+			break;
+			
+		case '^HSCE':
+			$strXueQiu = 'HKHSCEI';
+			break;
+		}
 	}
     $strHttp = 'https://xueqiu.com/S/'.$strXueQiu;
     return GetExternalLink($strHttp, $strSymbol);

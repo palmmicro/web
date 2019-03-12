@@ -81,10 +81,13 @@ function FutureGetSinaSymbol($strSymbol)
 
 function ForexGetEastMoneySymbol($strSymbol)
 {
-    if ($strSymbol == 'USDCNY')             return 'usdcny0';
-    else if ($strSymbol == 'USCNY')        return 'uscny0';
-    else if ($strSymbol == 'HKCNY')        return 'hkcny0';
-    else if ($strSymbol == 'USDHKD')       return 'usdhkd0';
+	switch ($strSymbol)
+	{
+	case 'USDCNY':       return 'usdcny0';
+    case 'USCNY':        return 'uscny0';
+    case 'HKCNY':        return 'hkcny0';
+    case 'USDHKD':       return 'usdhkd0';
+    }
     return false;
 }
 /*

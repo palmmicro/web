@@ -31,6 +31,7 @@ END;
 function _echoNavCloseData($sql, $ref, $csv, $iStart, $iNum, $bTest)
 {
     $stock_sql = new StockHistorySql($ref->GetStockId());
+	$clone_ref = clone $ref;
     if ($result = $sql->GetAll($iStart, $iNum)) 
     {
         while ($arFund = mysql_fetch_assoc($result)) 
@@ -39,7 +40,7 @@ function _echoNavCloseData($sql, $ref, $csv, $iStart, $iNum, $bTest)
         	if (empty($fNetValue) == false)
         	{
         		$strDate = $arFund['date'];
-       			if ($stock_ref = RefGetDailyClose($ref, $stock_sql, $strDate))
+       			if ($stock_ref = RefGetDailyClose($clone_ref, $stock_sql, $strDate))
        			{
        				_echoNavCloseItem($csv, $strDate, $fNetValue, $stock_ref, ($bTest ? $arFund['id'] : false));
         		}
