@@ -216,37 +216,47 @@ function _updateStockOptionSplit($strSymbol, $strStockId, $strDate, $strVal)
    		$bTest = AcctIsAdmin();
 		$strSubmit = $_POST['submit'];
 		$strStockId = SqlGetStockId($strSymbol);
-		if ($strSubmit == STOCK_OPTION_ADJCLOSE_CN || $strSubmit == STOCK_OPTION_ADJCLOSE)
+		switch ($strSubmit)
 		{
+		case STOCK_OPTION_ADJCLOSE_CN:
+		case STOCK_OPTION_ADJCLOSE:
 			if ($bTest)	_updateStockHistoryAdjCloseByDividend($strSymbol, $strDate, $strVal);
-		}
-		else if ($strSubmit == STOCK_OPTION_ADR_CN || $strSubmit == STOCK_OPTION_ADR)
-		{
+			break;
+			
+		case STOCK_OPTION_ADR_CN:
+		case STOCK_OPTION_ADR:
 			if ($bTest)	_updateStockOptionAdr($strSymbol, $strVal);
-		}
-		else if ($strSubmit == STOCK_OPTION_AH_CN || $strSubmit == STOCK_OPTION_AH)
-		{
+			break;
+			
+		case STOCK_OPTION_AH_CN:
+		case STOCK_OPTION_AH:
 			if ($bTest)	_updateStockOptionAdr($strSymbol, $strVal, TABLE_AH_STOCK);
-		}
-		else if ($strSubmit == STOCK_OPTION_EMA_CN || $strSubmit == STOCK_OPTION_EMA)
-		{
+			break;
+			
+		case STOCK_OPTION_EMA_CN:
+		case STOCK_OPTION_EMA:
 			if ($bTest)	_updateStockOptionEma($strSymbol, $strStockId, $strDate, $strVal);
-		}
-		else if ($strSubmit == STOCK_OPTION_ETF_CN || $strSubmit == STOCK_OPTION_ETF)
-		{
+			break;
+			
+		case STOCK_OPTION_ETF_CN:
+		case STOCK_OPTION_ETF:
 			if ($bTest)	_updateStockOptionEtf($strSymbol, $strVal);
-		}
-		else if ($strSubmit == STOCK_OPTION_EDIT_CN || $strSubmit == STOCK_OPTION_EDIT)
-		{
+			break;
+			
+		case STOCK_OPTION_EDIT_CN:
+		case STOCK_OPTION_EDIT:
 			if ($bTest)	_updateStockDescription($strSubmit, $strSymbol, $strVal);
-		}
-		else if ($strSubmit == STOCK_OPTION_SPLIT_CN || $strSubmit == STOCK_OPTION_SPLIT)
-		{
+			break;
+			
+		case STOCK_OPTION_SPLIT_CN:
+		case STOCK_OPTION_SPLIT:
 			if ($bTest)	_updateStockOptionSplit($strSymbol, $strStockId, $strDate, $strVal);
-		}
-		else if ($strSubmit == STOCK_OPTION_AMOUNT_CN || $strSubmit == STOCK_OPTION_AMOUNT)
-		{
+			break;
+			
+		case STOCK_OPTION_AMOUNT_CN:
+		case STOCK_OPTION_AMOUNT:
 			_updateFundPurchaseAmount($strEmail, $strSymbol, $strVal);
+			break;
 		}
 		unset($_POST['submit']);
 	}

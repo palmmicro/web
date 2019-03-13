@@ -201,7 +201,8 @@ function _onMergeTransaction()
     $strGroupItemId = false;
 	if (isset($_POST['submit']))
 	{
-		if ($_POST['submit'] == STOCK_TRANSACTION_MERGE || $_POST['submit'] == STOCK_TRANSACTION_MERGE_CN)
+		$strSubmit = $_POST['submit'];
+		if ($strSubmit == STOCK_TRANSACTION_MERGE || $strSubmit == STOCK_TRANSACTION_MERGE_CN)
 		{
 			_onMergeTransaction();
 			unset($_POST['submit']);
@@ -213,16 +214,20 @@ function _onMergeTransaction()
 		$strPrice = UrlCleanString($_POST['price']);
 	    $strCost = _getStockCost();
 		$strRemark = UrlCleanString($_POST['remark']);
-		if ($_POST['submit'] == STOCK_TRANSACTION_NEW || $_POST['submit'] == STOCK_TRANSACTION_NEW_CN)
-		{	// post new transaction
-		    $strGroupId = _onNew($strGroupItemId, $strQuantity, $strPrice, $strCost, $strRemark);
-		}
-		else if ($_POST['submit'] == STOCK_TRANSACTION_EDIT || $_POST['submit'] == STOCK_TRANSACTION_EDIT_CN)
+		switch ($strSubmit)
 		{
+		case STOCK_TRANSACTION_NEW:
+		case STOCK_TRANSACTION_NEW_CN:
+		    $strGroupId = _onNew($strGroupItemId, $strQuantity, $strPrice, $strCost, $strRemark);
+		    break;
+		    
+		case STOCK_TRANSACTION_EDIT:
+		case STOCK_TRANSACTION_EDIT_CN:
 		    if ($strId = UrlGetQueryValue('edit'))
 		    {
 		        $strGroupId = _onEdit($strId, $strGroupItemId, $strQuantity, $strPrice, $strCost, $strRemark);
 		    }
+		    break;
 		}
 		unset($_POST['submit']);
 	}

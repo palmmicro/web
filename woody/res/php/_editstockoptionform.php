@@ -29,33 +29,36 @@ define('STOCK_OPTION_AMOUNT_CN', '设置基金申购金额');
 
 function _getStockOptionSymbol($strSubmit)
 {
-	if ($strSubmit == STOCK_OPTION_ADJCLOSE_CN || $strSubmit == STOCK_OPTION_ADJCLOSE
-		|| $strSubmit == STOCK_OPTION_AMOUNT_CN || $strSubmit == STOCK_OPTION_AMOUNT)
+	switch ($strSubmit)
 	{
+	case STOCK_OPTION_ADJCLOSE_CN:
+	case STOCK_OPTION_ADJCLOSE:
+	case STOCK_OPTION_AMOUNT_CN:
+	case STOCK_OPTION_AMOUNT:
 		return UrlGetQueryValue('symbol');
-	}
-	else if ($strSubmit == STOCK_OPTION_ADR_CN || $strSubmit == STOCK_OPTION_ADR)
-	{
+
+	case STOCK_OPTION_ADR_CN:
+	case STOCK_OPTION_ADR:
 		return UrlGetQueryValue('adr');
-	}
-	else if ($strSubmit == STOCK_OPTION_AH_CN || $strSubmit == STOCK_OPTION_AH)
-	{
+
+	case STOCK_OPTION_AH_CN:
+	case STOCK_OPTION_AH:
 		return UrlGetQueryValue('ah');
-	}
-	else if ($strSubmit == STOCK_OPTION_EMA_CN || $strSubmit == STOCK_OPTION_EMA)
-	{
+
+	case STOCK_OPTION_EMA_CN:
+	case STOCK_OPTION_EMA:
 		return UrlGetQueryValue('ema');
-	}
-	else if ($strSubmit == STOCK_OPTION_ETF_CN || $strSubmit == STOCK_OPTION_ETF)
-	{
+
+	case STOCK_OPTION_ETF_CN:
+	case STOCK_OPTION_ETF:
 		return UrlGetQueryValue('etf');
-	}
-	else if ($strSubmit == STOCK_OPTION_EDIT_CN || $strSubmit == STOCK_OPTION_EDIT)
-	{
+
+	case STOCK_OPTION_EDIT_CN:
+	case STOCK_OPTION_EDIT:
 		return UrlGetQueryValue('edit');
-	}
-	else if ($strSubmit == STOCK_OPTION_SPLIT_CN || $strSubmit == STOCK_OPTION_SPLIT)
-	{
+
+	case STOCK_OPTION_SPLIT_CN:
+	case STOCK_OPTION_SPLIT:
 		return UrlGetQueryValue('split');
 	}
 	return false;
@@ -63,15 +66,20 @@ function _getStockOptionSymbol($strSubmit)
 
 function _getStockOptionDate($strSubmit, $strStockId)
 {
-	if ($strSubmit == STOCK_OPTION_ADJCLOSE || $strSubmit == STOCK_OPTION_ADJCLOSE_CN 
-		|| $strSubmit == STOCK_OPTION_SPLIT || $strSubmit == STOCK_OPTION_SPLIT_CN 
-		|| $strSubmit == STOCK_OPTION_EMA || $strSubmit == STOCK_OPTION_EMA_CN)
+	switch ($strSubmit)
 	{
+	case STOCK_OPTION_ADJCLOSE:
+	case STOCK_OPTION_ADJCLOSE_CN:
+	case STOCK_OPTION_SPLIT:
+	case STOCK_OPTION_SPLIT_CN:
+	case STOCK_OPTION_EMA:
+	case STOCK_OPTION_EMA_CN:
 		$sql = new StockHistorySql($strStockId);
 		if ($strDate = $sql->GetDateNow())
 		{
 			return $strDate;
 		}
+		break;
 	}
 	return '';
 }
@@ -165,36 +173,38 @@ function _getStockOptionEma($strStockId, $strDate)
 
 function _getStockOptionVal($strSubmit, $strSymbol, $strStockId, $strDate)
 {
-	if ($strSubmit == STOCK_OPTION_ADJCLOSE_CN || $strSubmit == STOCK_OPTION_ADJCLOSE)
+	switch ($strSubmit)
 	{
+	case STOCK_OPTION_ADJCLOSE_CN:
+	case STOCK_OPTION_ADJCLOSE:
 		return '0.01';
-	}
-	else if ($strSubmit == STOCK_OPTION_ADR_CN || $strSubmit == STOCK_OPTION_ADR)
-	{
+
+	case STOCK_OPTION_ADR_CN:
+	case STOCK_OPTION_ADR:
 		return _getStockOptionAdr($strSymbol);
-	}
-	else if ($strSubmit == STOCK_OPTION_AH_CN || $strSubmit == STOCK_OPTION_AH)
-	{
+
+	case STOCK_OPTION_AH_CN:
+	case STOCK_OPTION_AH:
 		return _getStockOptionAh($strSymbol);
-	}
-	else if ($strSubmit == STOCK_OPTION_EMA_CN || $strSubmit == STOCK_OPTION_EMA)
-	{
+
+	case STOCK_OPTION_EMA_CN:
+	case STOCK_OPTION_EMA:
 		return _getStockOptionEma($strStockId, $strDate);
-	}
-	else if ($strSubmit == STOCK_OPTION_ETF_CN || $strSubmit == STOCK_OPTION_ETF)
-	{
+
+	case STOCK_OPTION_ETF_CN:
+	case STOCK_OPTION_ETF:
 		return _getStockOptionEtf($strSymbol);
-	}
-	else if ($strSubmit == STOCK_OPTION_EDIT_CN || $strSubmit == STOCK_OPTION_EDIT)
-	{
+
+	case STOCK_OPTION_EDIT_CN:
+	case STOCK_OPTION_EDIT:
 		return _getStockOptionDescription($strSubmit, $strSymbol);
-	}
-	else if ($strSubmit == STOCK_OPTION_SPLIT_CN || $strSubmit == STOCK_OPTION_SPLIT)
-	{
+
+	case STOCK_OPTION_SPLIT_CN:
+	case STOCK_OPTION_SPLIT:
 		return '10:1';
-	}
-	else if ($strSubmit == STOCK_OPTION_AMOUNT_CN || $strSubmit == STOCK_OPTION_AMOUNT)
-	{
+
+	case STOCK_OPTION_AMOUNT_CN:
+	case STOCK_OPTION_AMOUNT:
 		return _getStockOptionAmount($strSymbol);
 	}
 	return '';
@@ -202,20 +212,19 @@ function _getStockOptionVal($strSubmit, $strSymbol, $strStockId, $strDate)
 
 function _getStockOptionMemo($strSubmit)
 {
-	if ($strSubmit == STOCK_OPTION_EMA_CN)
+	switch ($strSubmit)
 	{
+	case STOCK_OPTION_EMA_CN:
 		return '股票收盘后的第2天修改才会生效, 输入0/0删除全部EMA记录.';
-	}
-	else if ($strSubmit == STOCK_OPTION_ETF_CN)
-	{
+
+	case STOCK_OPTION_ETF_CN:
 		return '输入INDEX*0删除对应关系和全部校准记录.';
-	}
-	else if ($strSubmit == STOCK_OPTION_SPLIT_CN)
-	{
+
+	case STOCK_OPTION_SPLIT_CN:
 		return '输入1:10表示10股合1股, 10:1表示1股拆10股.';
-	}
-	else if ($strSubmit == STOCK_OPTION_ADR_CN || $strSubmit == STOCK_OPTION_AH_CN)
-	{
+
+	case STOCK_OPTION_ADR_CN:
+	case STOCK_OPTION_AH_CN:
 		return '输入SYMBOL/0删除对应关系.';
 	}
 	return '';

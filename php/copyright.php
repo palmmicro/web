@@ -24,17 +24,19 @@ function _getWoodyCopyright($strYear, $bChinese)
 
 function _getCompanyCopyright($strCompany, $strYear, $bChinese)
 {
-	if ($strCompany == 'btbond')
+	switch ($strCompany)
 	{
+	case 'btbond':
 	    $str = _getCopyright('藍邦科技有限公司', 'BTBOND', $bChinese, $strYear, '2014');
-	}
-	else if ($strCompany == 'cateyes')
-	{
+	    break;
+	    
+	case 'cateyes':
 	    $str = _getCopyright('西雅图夜猫眼', 'Cat Eyes in Seattle', $bChinese, $strYear, '2008');
-	}
-	else
-	{
+	    break;
+	    
+	default:
 	    $str = _getWoodyCopyright($strYear, $bChinese);
+	    break;
 	}
 	return $str;
 }
@@ -48,8 +50,9 @@ function EchoCopyRight($bMobile, $bChinese)
     $ar = explode('/', $strUri);
 	if ($ar[1] == 'woody')
 	{
-		if ($ar[2] == 'res')
+		switch ($ar[2])
 		{
+		case 'res':
 		    if (strpos($ar[3], '.') > 0)
 		    {
 			    $str = _getCompanyCopyright(UrlGetTitle(), $strYear, $bChinese);
@@ -58,14 +61,15 @@ function EchoCopyRight($bMobile, $bChinese)
 		    {
 			    $str = _getCompanyCopyright($ar[3], $strYear, $bChinese);
 		    }
-		}
-		else if ($ar[2] == 'sapphire')
-		{
+		    break;
+		    
+		case 'sapphire':
 		    $str = _getCopyright('林近岚', 'Sapphire', $bChinese, $strYear, '2014');
-		}
-		else
-		{
+		    break;
+
+		default:
 		    $str = _getWoodyCopyright($strYear, $bChinese);
+		    break;
 		}
 	}
 	else if ($ar[1] == 'chishin')
