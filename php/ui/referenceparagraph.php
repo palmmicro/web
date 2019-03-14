@@ -2,7 +2,7 @@
 require_once('stocktable.php');
 
 // $ref from StockReference
-function _echoReferenceTableItem($ref, $bChinese, $callback = false)
+function _echoReferenceTableItem($ref, $callback = false)
 {
     if ($ref == false)	return;
 
@@ -25,7 +25,7 @@ function _echoReferenceTableItem($ref, $bChinese, $callback = false)
     if ($callback)
     {
         $strDisplayEx = '';
-		$arDisplayEx = call_user_func($callback, $bChinese, $ref);
+		$arDisplayEx = call_user_func($callback, $ref);
 		foreach ($arDisplayEx as $str)
 		{
 			$strDisplayEx .= GetTableColumnDisplay($str);
@@ -34,7 +34,7 @@ function _echoReferenceTableItem($ref, $bChinese, $callback = false)
     else
     {
     	if (AcctIsAdmin())	$strDescription = $ref->DebugLink();
-    	else				$strDescription = RefGetDescription($ref, $bChinese, true);
+    	else				$strDescription = RefGetDescription($ref, true);
         $strDisplayEx = GetTableColumnDisplay($strDescription);
     }
 
@@ -50,14 +50,14 @@ function _echoReferenceTableItem($ref, $bChinese, $callback = false)
 END;
 }
 
-function _echoReferenceTableData($arRef, $callback, $bChinese)
+function _echoReferenceTableData($arRef, $callback)
 {
     foreach ($arRef as $ref)
     {
-   		_echoReferenceTableItem($ref, $bChinese, $callback);
+   		_echoReferenceTableItem($ref, $callback);
     	if ($callback == false)
     	{
-    		_echoReferenceTableItem($ref->extended_ref, $bChinese);
+    		_echoReferenceTableItem($ref->extended_ref);
     	}
     }
 }
@@ -83,20 +83,19 @@ END;
 	return '<span id="time"></span>';
 }
 
-function EchoReferenceParagraph($arRef, $bChinese, $callback = false, $str = false)
+function EchoReferenceParagraph($arRef, $callback = false, $str = false)
 {
 	if ($str == false)
 	{
-        $str = $bChinese ? '参考数据' : 'Reference data';
-        $str .= ' '.GetTimeDisplay();
+        $str = '参考数据 '.GetTimeDisplay();
     }
     
-	$arColumn = GetReferenceTableColumn($bChinese);
+	$arColumn = GetReferenceTableColumn();
 	$strId = 'reference';
 	if ($callback)
 	{
 		$strId .= $callback;
-		$arColumnEx = call_user_func($callback, $bChinese);
+		$arColumnEx = call_user_func($callback);
         $strColumnEx = ' ';
 		foreach ($arColumnEx as $strColumn)
 		{
@@ -121,7 +120,7 @@ function EchoReferenceParagraph($arRef, $bChinese, $callback = false, $str = fal
         </tr>
 END;
 
-	_echoReferenceTableData($arRef, $callback, $bChinese);
+	_echoReferenceTableData($arRef, $callback);
     EchoTableParagraphEnd();
 }
 

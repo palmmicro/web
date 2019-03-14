@@ -62,7 +62,7 @@ Following the developer's advice, I copied the code github and put it separately
 
 <h3>Expansion</h3>
 <p>Aug 27, 2015
-<br />The best way to organize the source code is to finish the <a href="../../res/sz162411.php">English</a> version and to write a few more similar LOF net value estimation software.
+<br />The best way to organize the source code is to write more similar LOF net value estimation software.
 I bought 2 HK ETF related LOF with recent stock market crash,
 and added <a href="../../res/sz159920.php">CHINA ASSET HANG SENG</a> and <a href="../../res/sh510900.php">E FUND H-Share</a> net value tool.
 Although I only watched US market crash, I still added <a href="../../res/sh513500.php">BOSERA S&P 500</a> net value tool for possible future usage.
@@ -101,10 +101,7 @@ And we make SZ162411 and XOP arbitrage analysis based on those record.
 
 <h3><a name="adr">ADR</a></h3>
 <p>Nov 7, 2015
-<p>Continue to use web tools to replace calculator works, add Hongkong <a href="../../res/adr.php">ADR</a> price comparing tool for <a href="../../res/ach.php">Aluminum Corporation of China</a>, <a href="../../res/chu.php">China Unicom</a>,
-<a href="../../res/gsh.php">Guangshen Railway</a>, <a href="../../res/lfc.php">China Life Insurance</a>, <a href="../../res/ptr.php">PETROCHINA</a>,
-<a href="../../res/snp.php">SINOPEC</a>, <a href="../../res/shi.php">Sinopec Shanghai Petrochemical</a>, <a href="../../res/cea.php">CEA</a> and 
-<a href="../../res/znh.php">CSN</a>.
+<p>Continue to use web tools to replace calculator works, add Hongkong <a href="../../res/adr.php">ADR</a> price comparing tools.
 <br />After <?php EchoPhpFileLink('/woody/res/php/_adr'); ?> file is added for ADR,
 the common stock data part of ADR and LOF is moved to <font color=olive>StockReference</font> class in file <?php EchoPhpFileLink('/php/stock/stockref'); ?>, 
 used in <font color=olive>_LofGroup</font> class in file <?php EchoPhpFileLink('/woody/res/php/_lof'); ?> and <font color=olive>_AdrGroup</font> class in file <?php EchoPhpFileLink('/woody/res/php/_adr'); ?>.

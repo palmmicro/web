@@ -24,7 +24,7 @@ class _GradedFundGroup extends _StockGroup
     } 
 } 
 
-function _gradedFundRefCallbackData($ref, $bChinese)
+function _gradedFundRefCallbackData($ref)
 {
    	$ar = array();
     $ar[] = strval($ref->fPrice);
@@ -33,19 +33,19 @@ function _gradedFundRefCallbackData($ref, $bChinese)
     return $ar;
 }
 
-function _gradedFundRefCallback($bChinese, $ref = false)
+function _gradedFundRefCallback($ref = false)
 {
     if ($ref)
     {
     	$sym = $ref->GetSym();
     	if ($sym->IsFundA())
     	{
-    		return _gradedFundRefCallbackData($ref->extended_ref, $bChinese);
+    		return _gradedFundRefCallbackData($ref->extended_ref);
     	}
     	return array('', '', '');
     }
     
-	$arFundEst = GetFundEstTableColumn($bChinese);
+	$arFundEst = GetFundEstTableColumn();
     return array($arFundEst[7], $arFundEst[1], $arFundEst[3]);
 }
 
@@ -64,7 +64,7 @@ function EchoAll($bChinese = true)
 	_set_extended_ref($ref);
 	_set_extended_ref($m_ref);
 	_set_extended_ref($b_ref);
-    EchoReferenceParagraph(array($ref->est_ref, $m_ref->stock_ref, $ref->stock_ref, $b_ref->stock_ref), $bChinese, _gradedFundRefCallback);
+    EchoReferenceParagraph(array($ref->est_ref, $m_ref->stock_ref, $ref->stock_ref, $b_ref->stock_ref), _gradedFundRefCallback);
     EchoFundTradingParagraph($ref, $bChinese);    
     EchoFundTradingParagraph($b_ref, $bChinese);    
     if ($group->bCanTradeM)
@@ -84,14 +84,14 @@ function EchoAll($bChinese = true)
         _EchoTransactionParagraph($group, $bChinese);
 	}
     
-    EchoPromotionHead($bChinese, 'gradedfund');
+    EchoPromotionHead('gradedfund');
 }
 
 function GradedFundEchoTitle($bChinese = true)
 {
     global $group;
     
-    $str = _GetStockDisplay($group->ref->stock_ref, $bChinese);
+    $str = _GetStockDisplay($group->ref->stock_ref);
     if ($bChinese)  $str .= '分析工具';
     else              $str .= ' Analysis Tool';
     echo $str;
@@ -101,7 +101,7 @@ function GradedFundEchoMetaDescription($bChinese = true)
 {
     global $group;
     
-    $str = _GetStockDisplay($group->ref->stock_ref, $bChinese);
+    $str = _GetStockDisplay($group->ref->stock_ref);
     if ($bChinese)  $str .= '和它相关的母基金以及分级B的净值分析计算网页工具. 分级基金是个奇葩设计, 简直就是故意给出套利机会, 让大家来交易增加流动性.';
     else              $str .= ' and its related funds net value calculation and analysis.';
     EchoMetaDescriptionText($str);

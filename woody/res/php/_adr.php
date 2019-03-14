@@ -75,10 +75,10 @@ class _AdrGroup extends _StockGroup
     }
 } 
 
-function _echoArbitrageParagraph($group, $bChinese)
+function _echoArbitrageParagraph($group)
 {
-    EchoParagraphBegin($bChinese ? '策略分析' : 'Arbitrage analysis');
-    EchoArbitrageTableBegin($bChinese);
+    EchoParagraphBegin('策略分析');
+    EchoArbitrageTableBegin();
 
     $cn_trans = $group->GetStockTransactionCN();
     $hk_trans = $group->GetStockTransactionHK();
@@ -112,13 +112,13 @@ function _echoArbitrageParagraph($group, $bChinese)
     EchoTableParagraphEnd();
 }
 
-function _echoTestParagraph($group, $bChinese)
+function _echoTestParagraph($group)
 {
-    $str = _GetStockConfigDebugString(array($group->hk_ref, $group->cn_ref), $bChinese);
+    $str = _GetStockConfigDebugString(array($group->hk_ref, $group->cn_ref));
     EchoParagraph($str);
 }
 
-function _adrStockRefCallbackData($ref, $bChinese)
+function _adrStockRefCallbackData($ref)
 {
     global $group;
     $cn_ref = $group->cn_ref;
@@ -150,42 +150,40 @@ function _adrStockRefCallbackData($ref, $bChinese)
 	return $ar;
 }
 
-function _adrStockRefCallback($bChinese, $ref = false)
+function _adrStockRefCallback($ref = false)
 {
     if ($ref)
     {
-        return _adrStockRefCallbackData($ref, $bChinese);
+        return _adrStockRefCallbackData($ref);
     }
     
-    if ($bChinese)  $arColumn = array('人民币￥', '港币$', '美元$');
-    else              $arColumn = array('RMB￥', 'HK$', 'US$');
-    return $arColumn;
+    return array('人民币￥', '港币$', '美元$');
 }
 
 function AdrEchoAll($bChinese = true)
 {
     global $group;
     
-    EchoReferenceParagraph($group->arStockRef, $bChinese, _adrStockRefCallback);
-	EchoAhTradingParagraph($group->hk_ref, $bChinese);
-    EchoHShareSmaParagraph($group->cn_ref, $group->hk_ref, $bChinese);
-    EchoHShareSmaParagraph($group->hk_ref, $group->hk_ref, $bChinese);
-//    EchoHShareSmaParagraph($group->us_ref, $group->hk_ref, $bChinese);
+    EchoReferenceParagraph($group->arStockRef, _adrStockRefCallback);
+	EchoAhTradingParagraph($group->hk_ref);
+    EchoHShareSmaParagraph($group->cn_ref, $group->hk_ref);
+    EchoHShareSmaParagraph($group->hk_ref, $group->hk_ref);
+//    EchoHShareSmaParagraph($group->us_ref, $group->hk_ref);
 
     if ($group->strGroupId) 
     {
-        _EchoTransactionParagraph($group, $bChinese);
+        _EchoTransactionParagraph($group);
         if ($group->GetTotalRecords() > 0)
         {
-            EchoMoneyParagraph($group, $bChinese, $group->fUSDCNY, $group->fHKDCNY);
-            _echoArbitrageParagraph($group, $bChinese);
+            EchoMoneyParagraph($group, $group->fUSDCNY, $group->fHKDCNY);
+            _echoArbitrageParagraph($group);
         }
 	}
     
-    EchoPromotionHead($bChinese, 'adr');
+    EchoPromotionHead('adr');
     if (AcctIsAdmin())
     {
-        _echoTestParagraph($group, $bChinese);
+        _echoTestParagraph($group);
     }
 }
 
@@ -193,15 +191,8 @@ function AdrEchoTitle($bChinese = true)
 {
     global $group;
     
-    $strDescription = _GetStockDisplay($group->us_ref, $bChinese);
-    if ($bChinese)
-    {
-        $str = '比较'.$strDescription.'美股, 港股和A股的价格';
-    }
-    else
-    {
-        $str = 'Comparing the Price of '.$strDescription;
-    }
+    $strDescription = _GetStockDisplay($group->us_ref);
+    $str = '比较'.$strDescription.'对应港股和A股的价格';
     echo $str;
 }
 
@@ -209,17 +200,10 @@ function AdrEchoMetaDescription($bChinese = true)
 {
     global $group;
     
-    $strAdr = _GetStockDisplay($group->us_ref, $bChinese);
-    $strA = _GetStockDisplay($group->cn_ref, $bChinese);
-    $strH = _GetStockDisplay($group->hk_ref, $bChinese);
-    if ($bChinese)
-    {
-        $str = '根据'.RefGetDescription($group->uscny_ref, $bChinese).'和'.RefGetDescription($group->hkcny_ref, $bChinese).'计算比较美股'.$strAdr.', A股'.$strA.'和港股'.$strH.'价格的网页工具, 提供不同市场下统一的交易记录和转换持仓盈亏等功能.';
-    }
-    else
-    {
-        $str = 'To compare the price of '.$strAdr.', '.$strA.' and '.$strH.' in US, China and Hongkong market.';
-    }
+    $strAdr = _GetStockDisplay($group->us_ref);
+    $strA = _GetStockDisplay($group->cn_ref);
+    $strH = _GetStockDisplay($group->hk_ref);
+    $str = '根据'.RefGetDescription($group->uscny_ref).'和'.RefGetDescription($group->hkcny_ref).'计算比较美股'.$strAdr.', A股'.$strA.'和港股'.$strH.'价格的网页工具, 提供不同市场下统一的交易记录和转换持仓盈亏等功能.';
     EchoMetaDescriptionText($str);
 }
 

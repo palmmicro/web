@@ -268,7 +268,7 @@ function _convertDescriptionDisplay($str, $strDisplay)
     return $strDisplay;
 }
 
-function RefGetDescription($ref, $bChinese = true, $bConvertDisplay = false)
+function RefGetDescription($ref, $bConvertDisplay = false)
 {
 	$str = $ref->GetDescription();
 	if ($str)
@@ -276,7 +276,7 @@ function RefGetDescription($ref, $bChinese = true, $bConvertDisplay = false)
 		$ar = array(STOCK_PRE_MARKET => '盘前交易', STOCK_POST_MARKET => '盘后交易', STOCK_NET_VALUE => '净值');
 		if (array_key_exists($str, $ar))
 		{
-			$strDisplay = $bChinese ? $ar[$str] : $str;
+			$strDisplay = $ar[$str];
 			if ($bConvertDisplay)
 			{
 				$strDisplay = _convertDescriptionDisplay($str, $strDisplay);
@@ -290,7 +290,7 @@ function RefGetDescription($ref, $bChinese = true, $bConvertDisplay = false)
 		$sql = new StockSql();
 		if ($stock = $sql->GetById($ref->GetStockId()))
 		{
-			$str = $bChinese ? $stock['cn'] : $stock['us'];
+			$str = $stock['cn'];
 			$ref->SetDescription($str);
 		}
 	}

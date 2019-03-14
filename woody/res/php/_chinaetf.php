@@ -31,12 +31,12 @@ function _echoTestParagraph($group, $bChinese)
 {
     if (AcctIsAdmin())
     {
-        $str = _GetStockConfigDebugString(array($group->ref->pair_ref), $bChinese);
+        $str = _GetStockConfigDebugString(array($group->ref->pair_ref));
         EchoParagraph($str);
     }
 }
 
-function _chinaEtfRefCallbackData($ref, $bChinese)
+function _chinaEtfRefCallbackData($ref)
 {
    	$ar = array();
     $ar[] = strval($ref->nv_ref->fPrice);
@@ -46,19 +46,19 @@ function _chinaEtfRefCallbackData($ref, $bChinese)
     return $ar;
 }
 
-function _chinaEtfRefCallback($bChinese, $ref = false)
+function _chinaEtfRefCallback($ref = false)
 {
     if ($ref)
     {
     	$sym = $ref->GetSym();
     	if ($sym->IsEtf())
     	{
-    		return _chinaEtfRefCallbackData($ref, $bChinese);
+    		return _chinaEtfRefCallbackData($ref);
     	}
     	return array('', '', '');
     }
     
-	$arFundEst = GetFundEstTableColumn($bChinese);
+	$arFundEst = GetFundEstTableColumn();
     return array($arFundEst[7], $arFundEst[1], $arFundEst[2]);
 }
 
@@ -66,7 +66,7 @@ function EchoAll($bChinese = true)
 {
     global $group;
     
-    EchoReferenceParagraph($group->arRef, $bChinese, _chinaEtfRefCallback);
+    EchoReferenceParagraph($group->arRef, _chinaEtfRefCallback);
     EchoEtfListParagraph(array($group->ref, $group->us_ref), $bChinese);
     EchoEtfTradingParagraph($group->ref, $bChinese);
     EchoEtfSmaParagraph($group->ref, $bChinese);
@@ -79,11 +79,11 @@ function EchoAll($bChinese = true)
         _EchoTransactionParagraph($group, $bChinese);
         if ($group->GetTotalRecords() > 0)
         {
-            EchoMoneyParagraph($group, $bChinese, $group->us_ref->cny_ref->fPrice);
+            EchoMoneyParagraph($group, $group->us_ref->cny_ref->fPrice);
        }
 	}
     
-    EchoPromotionHead($bChinese, 'chinaetf');
+    EchoPromotionHead('chinaetf');
     _echoTestParagraph($group, $bChinese);
 }
 
@@ -91,10 +91,10 @@ function EchoMetaDescription($bChinese = true)
 {
     global $group;
 
-    $strDescription = _GetStockDisplay($group->ref, $bChinese);
-    $strEst = _GetStockDisplay($group->ref->pair_nv_ref, $bChinese);
-    $strUS = _GetStockDisplay($group->us_ref, $bChinese);
-    $strCNY = _GetStockDisplay($group->us_ref->cny_ref, $bChinese);
+    $strDescription = _GetStockDisplay($group->ref);
+    $strEst = _GetStockDisplay($group->ref->pair_nv_ref);
+    $strUS = _GetStockDisplay($group->us_ref);
+    $strCNY = _GetStockDisplay($group->us_ref->cny_ref);
     if ($bChinese)  $str = "根据{$strEst}计算{$strDescription}净值的网页工具. 同时根据{$strUS}和{$strCNY}提供配对交易分析.";
     else             $str = "Web tool to estimate the net value of $strDescription based on $strEst."; // Providing arbitrage analysis based on $strUS and $strCNY.
     EchoMetaDescriptionText($str);
@@ -104,7 +104,7 @@ function EchoTitle($bChinese = true)
 {
     global $group;
     
-    $str = _GetStockDisplay($group->ref, $bChinese);
+    $str = _GetStockDisplay($group->ref);
     if ($bChinese)
     {
         $str .= '净值';

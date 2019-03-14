@@ -53,8 +53,8 @@ function ResMenu($arLoop, $bChinese)
     _menuItemClass($iLevel, array_search($arLoop[0], $arFirst), $bChinese);
 
     NavDirLoop($arLoop);
-	NavContinueNewLine();
-    NavSwitchLanguage($bChinese);
+//	NavContinueNewLine();
+//    NavSwitchLanguage($bChinese);
     NavEnd();
 }
 
@@ -66,13 +66,14 @@ function NavStockSoftware($bChinese)
 	WoodyMenuItem($iLevel, 'res', $bChinese);
 	NavContinueNewLine();
     NavMenuSet(GetMenuArray($bChinese));
-	NavContinueNewLine();
-    NavSwitchLanguage($bChinese);
+//	NavContinueNewLine();
+//    NavSwitchLanguage($bChinese);
     NavEnd();
 }
 
 function _LayoutTopLeft($bChinese = true)
 {
+    SetSwitchLanguage();
     LayoutTopLeft(NavStockSoftware, $bChinese);
 }
 
@@ -83,6 +84,7 @@ function NavLoopGradedFund($bChinese)
 
 function _LayoutGradedFundTopLeft($bChinese = true)
 {
+    SetSwitchLanguage();
     LayoutTopLeft(NavLoopGradedFund, $bChinese);
 }
 
@@ -93,6 +95,7 @@ function NavLoopGoldEtf($bChinese)
 
 function _LayoutGoldEtfTopLeft($bChinese = true)
 {
+    SetSwitchLanguage();
     LayoutTopLeft(NavLoopGoldEtf, $bChinese);
 }
 
@@ -103,6 +106,7 @@ function NavLoopChinaEtf($bChinese)
 
 function _LayoutChinaEtfTopLeft($bChinese = true)
 {
+    SetSwitchLanguage();
     LayoutTopLeft(NavLoopChinaEtf, $bChinese);
 }
 
@@ -113,6 +117,7 @@ function NavLoopLof($bChinese)
 
 function _LayoutLofTopLeft($bChinese = true)
 {
+    SetSwitchLanguage();
     LayoutTopLeft(NavLoopLof, $bChinese);
 }
 
@@ -123,6 +128,7 @@ function NavLoopLofHk($bChinese)
 
 function _LayoutLofHkTopLeft($bChinese = true)
 {
+    SetSwitchLanguage();
     LayoutTopLeft(NavLoopLofHk, $bChinese);
 }
 
@@ -133,6 +139,7 @@ function NavLoopAdr($bChinese)
 
 function _LayoutAdrTopLeft($bChinese = true)
 {
+    SetSwitchLanguage();
     LayoutTopLeft(NavLoopAdr, $bChinese);
 }
 

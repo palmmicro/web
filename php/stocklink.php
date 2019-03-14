@@ -5,29 +5,29 @@ require_once('httplink.php');
 require_once('ui/stocktable.php');
 
 // ****************************** Stock internal link functions *******************************************************
-function GetStockSymbolLink($strTitle, $strSymbol, $bChinese, $strDisplay, $strUs = false)
+function GetStockSymbolLink($strTitle, $strSymbol, $strDisplay)
 {
-    return GetPhpLink(STOCK_PATH.$strTitle, $bChinese, $strDisplay, $strUs, 'symbol='.$strSymbol);
+    return GetPhpLink(STOCK_PATH.$strTitle, true, $strDisplay, false, 'symbol='.$strSymbol);
 }
 
 function GetCalibrationHistoryLink($strSymbol, $bChinese)
 {
-    return GetStockSymbolLink('calibrationhistory', $strSymbol, $bChinese, '校准记录', 'Calibration History');
+    return GetStockSymbolLink('calibrationhistory', $strSymbol, '校准记录');
 }
 
 function GetCalibrationLink($strSymbol, $bChinese)
 {
-    return GetStockSymbolLink('calibration', $strSymbol, $bChinese, '校准记录', 'Calibration History');
+    return GetStockSymbolLink('calibration', $strSymbol, '校准记录');
 }
 
 function GetStockHistoryLink($strSymbol, $bChinese = true)
 {
-    return GetStockSymbolLink('stockhistory', $strSymbol, $bChinese, '价格历史', 'Price History');
+    return GetStockSymbolLink('stockhistory', $strSymbol, '价格历史');
 }
 
 function GetNetValueHistoryLink($strSymbol, $bChinese = true)
 {
-    return GetStockSymbolLink('netvaluehistory', $strSymbol, $bChinese, '净值历史', 'Net Value History');
+    return GetStockSymbolLink('netvaluehistory', $strSymbol, '净值历史');
 }
 
 function GetMyStockLink($strSymbol, $bChinese = true)
@@ -55,9 +55,9 @@ function GetMyPortfolioLink($bChinese)
     return GetTitleLink('myportfolio', $bChinese, '持仓盈亏', 'My Portfolio');
 }
 
-function GetAhCompareLink($bChinese, $strQuery = false)
+function GetAhCompareLink($strQuery = false)
 {
-    return GetTitleLink('ahcompare', $bChinese, 'AH对比', 'AH Compare', $strQuery);
+    return GetTitleLink('ahcompare', true, 'AH对比', 'AH Compare', $strQuery);
 }
 
 function GetAhHistoryLink($strSymbol, $bChinese)
@@ -80,7 +80,7 @@ function GetAdrhCompareLink($bChinese)
     return GetTitleLink('adrhcompare', $bChinese, 'ADR和H对比', 'ADR&H Compare');
 }
 
-function GetMyStockGroupLink($bChinese, $strGroupId = false)
+function GetMyStockGroupLink($strGroupId = false)
 {
 	if ($strGroupId)
 	{
@@ -89,11 +89,11 @@ function GetMyStockGroupLink($bChinese, $strGroupId = false)
 	}
 	else
 	{
-		$arColumn = GetStockGroupTableColumn($bChinese);
+		$arColumn = GetStockGroupTableColumn();
 		$strDisplay = $arColumn[0];
 		$strQuery = false;
 	}
-	return GetTitleLink('mystockgroup', $bChinese, $strDisplay, false, $strQuery);
+	return GetTitleLink('mystockgroup', true, $strDisplay, false, $strQuery);
 }
 
 function GetCategorySoftwareLinks($arTitle, $strCategory, $bChinese)
@@ -186,7 +186,7 @@ function GetStockGroupLink($strGroupId, $bChinese = true)
     	{
     		return $strLink; 
     	}
-    	return GetMyStockGroupLink($bChinese, $strGroupId);
+    	return GetMyStockGroupLink($strGroupId);
     }
     return '';
 }

@@ -150,20 +150,11 @@ function _echoSmaTableData($his, $ref, $callback, $callback2, $bChinese)
     }
 }
 
-function _selectSmaExternalLink($sym)
-{
-    if ($sym->IsStockA())
-    {
-        return GetSinaN8n8Link($sym);
-    }
-    return GetXueQiuLink($sym);
-}
-
 function _getSmaParagraphMemo($his, $bChinese)
 {
 	$strDate = $his->strDate;
 	$strScore = '<b>'.strval($his->iScore).'</b>';
-	$strSymbolLink = _selectSmaExternalLink($his->GetSym());
+	$strSymbolLink = GetXueQiuLink($his->GetSym());
     if ($bChinese)     
     {
         $str = "{$strSymbolLink} {$strDate}数据牛熊分数: {$strScore}";

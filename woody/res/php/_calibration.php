@@ -15,7 +15,7 @@ function EchoCalibration($bChinese = true)
     		EchoCalibrationParagraph($strSymbol, $bChinese, $iStart, $iNum);
     	}
     }
-    EchoPromotionHead($bChinese, 'calibration');
+    EchoPromotionHead('calibration');
 }    
 
 function EchoTitle($bChinese = true)

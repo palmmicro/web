@@ -111,7 +111,7 @@ function EchoAll($bChinese = true)
             DebugString($strSymbol.' Thanous Law: '.DebugGetStopWatchDisplay($fStart));
         }
     }
-    EchoPromotionHead($bChinese, 'thanouslaw');
+    EchoPromotionHead('thanouslaw');
     EchoStockCategory($bChinese);
 }
 

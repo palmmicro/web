@@ -15,7 +15,7 @@ define('STOCK_DEMO_SYMBOL', 'IQ');
 function EchoReferenceDemo($bChinese = true, $strSymbol = FUND_DEMO_SYMBOL)
 {
     $ref = new MyStockReference($strSymbol);
-    EchoReferenceParagraph(array($ref), $bChinese);
+    EchoReferenceParagraph(array($ref));
 }
 
 function EchoLofSmaDemo($bChinese = true, $strSymbol = FUND_DEMO_SYMBOL)

@@ -81,7 +81,7 @@ function _echoStockGroupArray($arStock, $bChinese)
     }
     
     StockHistoryUpdate($arRef);    
-    if (UrlGetQueryValue('sort') == false)	EchoReferenceParagraph($arRef, $bChinese);
+    if (UrlGetQueryValue('sort') == false)	EchoReferenceParagraph($arRef);
     if (count($arFund) > 0)     				EchoFundArrayEstParagraph($arFund, $bChinese);
     if (count($arHShareRef) > 0)			EchoAhParagraph($arHShareRef, $bChinese);
     if (count($arHAdrRef) > 0)				EchoAdrhParagraph($arHAdrRef, $bChinese);
@@ -250,7 +250,7 @@ function EchoAll($bChinese = true)
     	EchoParagraph($str);
         _echoStockGroupArray(StockGetArraySymbol(GetCategoryArray($strTitle)), $bChinese);
     }
-    EchoPromotionHead($bChinese, $strTitle);
+    EchoPromotionHead($strTitle);
     EchoStockCategory($bChinese);
 }
 

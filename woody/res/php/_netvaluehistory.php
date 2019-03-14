@@ -23,7 +23,7 @@ function _echoNetValueHistory($strSymbol, $iStart, $iNum, $bChinese)
     $str = '';
     if (in_arrayLof($strSymbol))
     {
-    	$str .= ' '.GetStockSymbolLink('thanouslaw', $strSymbol, $bChinese, '测试小心愿定律', 'Test Thanous Law');
+    	$str .= ' '.GetStockSymbolLink('thanouslaw', $strSymbol, '测试小心愿定律');
     }
    	EchoParagraph($str);
   
@@ -53,7 +53,7 @@ function EchoAll($bChinese = true)
    		$iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
    		_echoNetValueHistory($strSymbol, $iStart, $iNum, $bChinese);
     }
-    EchoPromotionHead($bChinese, 'netvalue');
+    EchoPromotionHead('netvalue');
     EchoStockCategory($bChinese);
 }
 

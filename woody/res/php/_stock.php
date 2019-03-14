@@ -102,17 +102,10 @@ function _echoGroupPortfolioParagraph($group, $bChinese)
 
 // ****************************** Money table *******************************************************
 
-function _EchoMoneyParagraphBegin($bChinese, $str = '')
+function _EchoMoneyParagraphBegin($str = '')
 {
-    $strGroupLink = GetMyStockGroupLink($bChinese);
-    if ($bChinese)     
-    {
-        $arColumn = array($strGroupLink, '持仓', '盈亏', '全部持仓', '全部盈亏', '货币');
-    }
-    else
-    {
-        $arColumn = array($strGroupLink, 'Value', 'Profit', 'All Value', 'All Profit', 'Money');
-    }
+    $strGroupLink = GetMyStockGroupLink();
+    $arColumn = array($strGroupLink, '持仓', '盈亏', '全部持仓', '全部盈亏', '货币');
     
     echo <<<END
     	<p>$str
@@ -163,63 +156,50 @@ function _EchoMoneyGroupData($group, $strLink, $fUSDCNY, $fHKDCNY)
 
 
 // ****************************** Premotion Headline *******************************************************
-function _getDevGuideLink($strVer, $bChinese)
+function _getDevGuideLink($strVer)
 {
-    $str = '/woody/blog/entertainment/20150818';
-    $str .= UrlGetPhp($bChinese);
+    $str = '/woody/blog/entertainment/20150818cn.php';
     if ($strVer)
     {
         $str .= '#'.$strVer;
     }
-    return GetInternalLink($str, $bChinese ? '开发记录' : 'Development Record');
+    return GetInternalLink($str, '开发记录');
 }
 
-function EchoPromotionHead($bChinese, $strVer = false)
+function EchoPromotionHead($strVer = false)
 {
-    if ($bChinese)  echo '<h3>讨论和建议</h3>';
-    else              echo '<h3>Discussions and Suggestions</h3>';
+    echo '<h3>讨论和建议</h3>';
     
-    if ($bChinese)
+    $iVal = rand(1, 3);
+    switch ($iVal)
     {
-        $iVal = rand(1, 3);
-        switch ($iVal)
-        {
-        case 1:
-        	LayoutQQgroupPromotion();
-        	break;
+    case 1:
+     	LayoutQQgroupPromotion();
+       	break;
         	
-        case 2:
-        	LayoutWeixinPromotion();
-        	break;
+    case 2:
+       	LayoutWeixinPromotion();
+       	break;
         	
-        case 3:
-        	LayoutMyPromotion();
-        	break;
-        }
+    case 3:
+       	LayoutMyPromotion();
+       	break;
     }
-    EchoParagraph(_getDevGuideLink($strVer, $bChinese));
+    EchoParagraph(_getDevGuideLink($strVer));
 }
 
 // ****************************** Money Paragraph *******************************************************
 
-function EchoMoneyParagraph($group, $bChinese, $fUSDCNY = false, $fHKDCNY = false)
+function EchoMoneyParagraph($group, $fUSDCNY = false, $fHKDCNY = false)
 {
-    if ($bChinese)     
-    {                                          
-        $str = '折算货币';
-    }
-    else
-    {
-        $str = 'Convert currency';
-    }
-    _EchoMoneyParagraphBegin($bChinese, $str);
+    _EchoMoneyParagraphBegin('折算货币');
     _EchoMoneyGroupData($group, $group->strName, $fUSDCNY, $fHKDCNY);
     EchoTableParagraphEnd();
 }
 
 // ****************************** Transaction Paragraph *******************************************************
 
-function _EchoTransactionParagraph($group, $bChinese)
+function _EchoTransactionParagraph($group, $bChinese = true)
 {
     $strGroupId = $group->strGroupId;
     
@@ -277,9 +257,9 @@ function _GetAllDisplay($str, $bChinese)
     return $str;
 }
 
-function _GetStockDisplay($ref, $bChinese)
+function _GetStockDisplay($ref)
 {
-    return RefGetDescription($ref, $bChinese).'('.$ref->GetStockSymbol().')';
+    return RefGetDescription($ref).'('.$ref->GetStockSymbol().')';
 }
 
 ?>

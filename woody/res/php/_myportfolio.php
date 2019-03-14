@@ -48,7 +48,7 @@ function _echoPortfolio($portfolio, $sql, $bChinese)
     {
     	RefSetExternalLinkMyStock($ref, $bChinese);
     }
-    EchoReferenceParagraph($arRef, $bChinese);
+    EchoReferenceParagraph($arRef);
 }
 
 function _echoMoneyParagraph($portfolio, $bChinese)
@@ -56,7 +56,7 @@ function _echoMoneyParagraph($portfolio, $bChinese)
     $fUSDCNY = SqlGetUSCNY();
     $fHKDCNY = SqlGetHKCNY();    
 
-    _EchoMoneyParagraphBegin($bChinese);
+    _EchoMoneyParagraphBegin();
     foreach ($portfolio->arStockGroup as $group)
     {
         _EchoMoneyGroupData($group, GetStockGroupLink($group->strGroupId, $bChinese), $fUSDCNY, $fHKDCNY);
@@ -88,7 +88,7 @@ function EchoMyFortfolio($bChinese = true)
     _echoPortfolio($portfolio, $sql, $bChinese);
     _echoMoneyParagraph($portfolio, $bChinese);
     
-    EchoPromotionHead($bChinese, 'portfolio');
+    EchoPromotionHead('portfolio');
 }
 
     AcctEmailAuth();

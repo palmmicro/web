@@ -124,7 +124,7 @@ function EchoAll($bChinese = true)
     		}
     	}
     }
-    EchoPromotionHead($bChinese);
+    EchoPromotionHead();
     EchoStockCategory($bChinese);
 }
 

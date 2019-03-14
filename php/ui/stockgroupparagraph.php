@@ -106,7 +106,7 @@ function _echoStockGroupTableData($bChinese)
 function EchoStockGroupParagraph($bChinese)
 {
     $arColumn = GetStockGroupTableColumn($bChinese);
-    $arColumn[0] = GetMyStockGroupLink($bChinese);
+    $arColumn[0] = GetMyStockGroupLink();
     
     echo <<<END
     <p>

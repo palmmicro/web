@@ -24,27 +24,25 @@ function _getEtfPairExternalLink($sym)
 	return $strLink;
 }
 
-function _etfListRefCallbackData($ref, $bChinese)
+function _etfListRefCallbackData($ref)
 {
 	$ar = array();
     $ar[] = _getEtfPairExternalLink($ref->GetPairSym());
     $ar[] = GetNumberDisplay($ref->fRatio);
     $strFactor = GetNumberDisplay($ref->fFactor);
-    $ar[] = GetStockSymbolLink('calibration', $ref->GetStockSymbol(), $bChinese, $strFactor);
+    $ar[] = GetStockSymbolLink('calibration', $ref->GetStockSymbol(), $strFactor);
 	return $ar;
 }
 
-function _etfListRefCallback($bChinese, $ref = false)
+function _etfListRefCallback($ref = false)
 {
     if ($ref)
     {
-        return _etfListRefCallbackData($ref, $bChinese);
+        return _etfListRefCallbackData($ref);
     }
     
-	$strSymbol = GetReferenceTableSymbol($bChinese);
-    if ($bChinese)  $arColumn = array('跟踪'.$strSymbol, '杠杆倍数', '校准值');
-    else              $arColumn = array('Follow '.$strSymbol, 'Ratio', 'Factor');
-    return $arColumn;
+	$strSymbol = GetReferenceTableSymbol();
+    return array('跟踪'.$strSymbol, '杠杆倍数', '校准值');
 }
 
 function EchoEtfListParagraph($arRef, $bChinese)
@@ -60,7 +58,7 @@ function EchoEtfListParagraph($arRef, $bChinese)
 		}
 	}
 	$str = GetEtfListLink($bChinese);
-    EchoReferenceParagraph($arRef, $bChinese, _etfListRefCallback, $str);
+    EchoReferenceParagraph($arRef, _etfListRefCallback, $str);
     
     // restore external link
     foreach ($arRef as $ref)

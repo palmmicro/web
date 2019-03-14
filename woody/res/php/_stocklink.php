@@ -404,7 +404,7 @@ function _getPersonalLinks($strMemberId, $bChinese)
 function _getStockGroupLinks($bChinese)
 {
     $str = '<br />'.GetCategoryLinks(GetMenuArray, $bChinese);
-    $str .= '<br />'.GetMyStockGroupLink($bChinese);	// .' '.GetAhCompareLink($bChinese).' '.GetAdrhCompareLink($bChinese);
+    $str .= '<br />'.GetMyStockGroupLink();	// .' '.GetAhCompareLink().' '.GetAdrhCompareLink($bChinese);
     $str .= '<br />'.GetMyPortfolioLink($bChinese);
     if ($strMemberId = AcctIsLogin())
     {

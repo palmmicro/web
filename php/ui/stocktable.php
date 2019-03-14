@@ -2,14 +2,14 @@
 require_once('table.php');
 
 // aqua, black, blue, fuchsia, gray, green, lime, maroon, navy, olive, purple, red, silver, teal, white, yellow
-function GetReferenceTableColumn($bChinese)			
+function GetReferenceTableColumn($bChinese = true)			
 {
     if ($bChinese)  $arColumn = array('<font color=maroon>代码</font>',   '<font color=blue>价格</font>', '涨跌', '日期', '时间', '名称');
     else              $arColumn = array('<font color=maroon>Symbol</font>', '<font color=blue>Price</font>', 'Change', 'Date', 'Time', 'Name');
     return $arColumn;
 }
 
-function GetReferenceTableSymbol($bChinese)			
+function GetReferenceTableSymbol($bChinese = true)			
 {
 	$arReference = GetReferenceTableColumn($bChinese);
 	return $arReference[0];
@@ -33,14 +33,14 @@ function GetReferenceTableDate($bChinese)
 	return $arReference[3];
 }
 
-function GetSmaTableColumn($bChinese)
+function GetSmaTableColumn($bChinese = true)
 {
     if ($bChinese)  $arColumn = array('<font color=indigo>均线</font>', '<font color=magenta>估值</font>', '<font color=orange>溢价</font>');
     else              $arColumn = array('<font color=indigo>SMA</font>',  '<font color=magenta>Est</font>',  '<font color=orange>Premium</font>');
     return $arColumn;
 }
 
-function GetFundEstTableColumn($bChinese)
+function GetFundEstTableColumn($bChinese = true)
 {
 	$strSymbol = GetReferenceTableSymbol($bChinese);
 	
@@ -83,7 +83,7 @@ function GetFundHistoryTableColumn($est_ref, $bChinese)
     return $arColumn;
 }
 
-function GetStockGroupTableColumn($bChinese)
+function GetStockGroupTableColumn($bChinese = true)
 {
 	$strSymbol = GetReferenceTableSymbol($bChinese);
 	
@@ -92,7 +92,7 @@ function GetStockGroupTableColumn($bChinese)
     return $arColumn;
 }
 
-function GetAhCompareTableColumn($bChinese)
+function GetAhCompareTableColumn($bChinese = true)
 {
 	$arReference = GetReferenceTableColumn($bChinese);
 	$strSymbol = $arReference[0];

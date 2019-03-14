@@ -74,7 +74,7 @@ function _getArbitrageQuantityName($bChinese, $bEditLink = false)
     
     if ($group->strGroupId && $bEditLink) 
     {
-    	$str .= GetStockSymbolLink('editstock', $group->ref->GetStockSymbol(), $bChinese, $strDisplay);
+    	$str .= GetStockSymbolLink('editstock', $group->ref->GetStockSymbol(), $strDisplay);
     }
     else
     {
@@ -122,7 +122,7 @@ function EchoAll($bChinese = true)
     $fund = $group->ref;
     
     EchoFundEstParagraph($fund, $bChinese);
-    EchoReferenceParagraph(array($fund->stock_ref, $fund->est_ref, $fund->future_ref, $group->oil_ref, $group->es_ref, $group->usd_ref, $group->cny_ref), $bChinese);
+    EchoReferenceParagraph(array($fund->stock_ref, $fund->est_ref, $fund->future_ref, $group->oil_ref, $group->es_ref, $group->usd_ref, $group->cny_ref));
     $group->EchoLeverageParagraph($bChinese);
     EchoFundTradingParagraph($fund, $bChinese, _onTradingUserDefined);    
 	EchoLofSmaParagraph($fund, $bChinese, _onSmaUserDefined);
@@ -134,12 +134,12 @@ function EchoAll($bChinese = true)
         _EchoTransactionParagraph($group, $bChinese);
         if ($group->GetTotalRecords() > 0)
         {
-            EchoMoneyParagraph($group, $bChinese, $fund->fCNY);
+            EchoMoneyParagraph($group, $fund->fCNY);
             $group->EchoArbitrageParagraph($bChinese);
         }
 	}
 	    
-    EchoPromotionHead($bChinese);
+    EchoPromotionHead();
     $group->EchoTestParagraph($bChinese);
 }
 

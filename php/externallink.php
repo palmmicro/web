@@ -160,25 +160,6 @@ function GetSinaForexLink($strSymbol)
     return GetExternalLink($strHttp, $strSymbol);
 }
 
-// http://vip.stock.finance.sina.com.cn/q/go.php/vDYData/kind/znzd/index.phtml?symbol=600028
-function GetSinaN8n8Link($sym = false, $bChinese = true)
-{
-    $strHttp = 'http://vip.stock.finance.sina.com.cn/q/go.php/vDYData/kind/znzd/index.phtml';
-    if ($sym)
-    {
-   		$strWeb = $sym->GetSymbol();
-    	if ($strDigit = $sym->IsSymbolA())
-    	{
-    		$strHttp .= "?symbol=$strDigit";
-    	}
-    }
-    else
-    {
-    	$strWeb = $bChinese ? '新浪' : 'Sina';
-    }
-    return GetExternalLink($strHttp, $strWeb);
-}
-
 function GetExternalStockHistoryLink($sym, $bChinese)
 {
 	if ($sym->IsIndexA())

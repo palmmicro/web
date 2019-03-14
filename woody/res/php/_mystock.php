@@ -109,7 +109,7 @@ function _echoMyStockData($strSymbol, $bChinese)
     }
     if ($ref->HasData() == false)		return;
     
-    EchoReferenceParagraph(array($ref), $bChinese);
+    EchoReferenceParagraph(array($ref));
     if ($etf_ref)
     {
     	EchoEtfListParagraph(array($etf_ref), $bChinese);
@@ -132,16 +132,16 @@ function _echoMyStockData($strSymbol, $bChinese)
         }
    		if ($sym->IsSymbolA())
    		{
-   			if ($hshare_ref)	EchoAhTradingParagraph($hshare_ref, $bChinese);
+   			if ($hshare_ref)	EchoAhTradingParagraph($hshare_ref);
    			else 				EchoTradingParagraph($ref, $bChinese);
        	}
-       	EchoNavCloseHistoryParagraph($ref, $bChinese, GetStockSymbolLink('navclosehistory', $strSymbol, $bChinese, '净值和收盘价历史比较', 'NAV Close History Compare'));
+       	EchoNavCloseHistoryParagraph($ref, $bChinese, GetStockSymbolLink('navclosehistory', $strSymbol, '净值和收盘价历史比较'));
     }
     
     if ($etf_ref)   			EchoEtfSmaParagraph($etf_ref, $bChinese);
     if (_hasSmaDisplay($sym))
     {
-    	if ($hshare_ref)		EchoHShareSmaParagraph($ref, $hshare_ref, $bChinese);
+    	if ($hshare_ref)		EchoHShareSmaParagraph($ref, $hshare_ref);
     	else	        		EchoSmaParagraph($ref, $bChinese);
     	$strHistoryLink = '';
     }
@@ -163,7 +163,7 @@ function _echoMyStockData($strSymbol, $bChinese)
      	$str = _getMyStockLinks($sym, $bChinese);
     	if (_hasSmaDisplay($sym))
     	{
-    		$str .= '<br />'._GetStockConfigDebugString(array($ref), $bChinese);
+    		$str .= '<br />'._GetStockConfigDebugString(array($ref));
     	}
     	EchoParagraph($str);
     }
@@ -202,7 +202,7 @@ function EchoAll($bChinese = true)
         	_echoAllStock($bChinese);
         }
     }
-    EchoPromotionHead($bChinese);
+    EchoPromotionHead();
     EchoStockCategory($bChinese);
 }
 

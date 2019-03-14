@@ -94,8 +94,8 @@ class _LofGroup extends _StockGroup
         $etf_convert_trans->AddTransaction($etf_trans->iTotalShares, $etf_trans->fTotalCost);
         $this->ConvertToEtfTransaction($etf_convert_trans, $lof_trans);
     
-        EchoParagraphBegin($bChinese ? '策略分析' : 'Arbitrage analysis');
-        EchoArbitrageTableBegin($bChinese);
+        EchoParagraphBegin('策略分析');
+        EchoArbitrageTableBegin();
         $sym = $this->arbi_trans->ref->sym;
         if ($sym->IsSymbolA())
         {
@@ -140,7 +140,7 @@ class _LofGroup extends _StockGroup
         if (AcctIsAdmin())
         {
 	        $str = $this->_getAdjustString($bChinese);
-            $str .= '<br />'._GetStockConfigDebugString(array($this->ref->est_ref), $bChinese);
+            $str .= '<br />'._GetStockConfigDebugString(array($this->ref->est_ref));
             EchoParagraph($str);
 	    }
     }
@@ -160,9 +160,9 @@ function EchoMetaDescription($bChinese = true)
     global $group;
     
     $fund = $group->ref;
-    $strDescription = _GetStockDisplay($fund->stock_ref, $bChinese);
-    $strBase = RefGetDescription($group->cny_ref, $bChinese);
-    if ($fund->est_ref)     $strBase .= '/'.RefGetDescription($fund->est_ref, $bChinese);
+    $strDescription = _GetStockDisplay($fund->stock_ref);
+    $strBase = RefGetDescription($group->cny_ref);
+    if ($fund->est_ref)     $strBase .= '/'.RefGetDescription($fund->est_ref);
     
     if ($bChinese)  $str = '根据'.$strBase.'等因素计算'.$strDescription.'实时净值的网页工具, 提供不同市场下统一的交易记录和转换持仓盈亏等功能.';
     else              $str = 'Net value of '.$strDescription.' based on '.$strBase.'.';

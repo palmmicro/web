@@ -26,7 +26,7 @@ function MyStockTransactionEchoAll($bChinese = true)
            	EchoTransactionParagraph($strGroupId, $bChinese, false, $iStart, $iNum);
         }
     }
-    EchoPromotionHead($bChinese, 'transaction');
+    EchoPromotionHead('transaction');
 }
 
 function MyStockTransactionEchoMetaDescription($bChinese = true)

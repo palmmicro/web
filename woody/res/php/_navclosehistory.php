@@ -57,7 +57,7 @@ function EchoAll($bChinese = true)
 			_echoNavCloseGraph($strSymbol, $bChinese);
     	}
     }
-    EchoPromotionHead($bChinese);
+    EchoPromotionHead();
     EchoStockCategory($bChinese);
 }
 

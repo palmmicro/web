@@ -11,33 +11,33 @@ function _getSortRatioLink($bChinese)
 	return CopyPhpLink(UrlAddQuery('sort=ratio'), $bChinese, '按比价排序', 'Sort by Ratio');
 }
 
-function _selectAhCompareLink($strSymbol, $bChinese)
+function _selectAhCompareLink($strSymbol)
 {
     if ($strSymbol == UrlGetQueryValue('symbol'))
     {   // in mystock.php
         return GetJisiluAhLink($strSymbol);
     }
-    return GetMyStockLink($strSymbol, $bChinese);
+    return GetMyStockLink($strSymbol);
 }
 
-function _ahStockRefCallbackData($ref, $bChinese)
+function _ahStockRefCallbackData($ref)
 {
 	$ar = array();
 	
     $strSymbolA = $ref->a_ref->GetStockSymbol();
-    $ar[] = _selectAhCompareLink($strSymbolA, $bChinese);
-    $ar[] = RefGetDescription($ref->a_ref, $bChinese);
+    $ar[] = _selectAhCompareLink($strSymbolA);
+    $ar[] = RefGetDescription($ref->a_ref);
     $ar[] = GetRatioDisplay(1.0 / $ref->GetAhRatio());
 	return $ar;
 }
 
-function _ahStockRefCallback($bChinese, $ref = false)
+function _ahStockRefCallback($ref = false)
 {
     if ($ref)
     {
-        return _ahStockRefCallbackData($ref, $bChinese);
+        return _ahStockRefCallbackData($ref);
     }
-    return GetAhCompareTableColumn($bChinese);
+    return GetAhCompareTableColumn();
 }
 
 function _refSortByRatio($arRef)
@@ -62,7 +62,7 @@ function _refSortByRatio($arRef)
 
 function EchoAhParagraph($arRef, $bChinese)
 {
-	$str = GetAhCompareLink($bChinese);
+	$str = GetAhCompareLink();
 	$iCount = count($arRef);
 	if ($iCount == 1)
 	{
@@ -87,25 +87,25 @@ function EchoAhParagraph($arRef, $bChinese)
 			$str .= ' '._getSortRatioLink($bChinese);
 		}
 	}
-    EchoReferenceParagraph($arRef, $bChinese, _ahStockRefCallback, $str);
+    EchoReferenceParagraph($arRef, _ahStockRefCallback, $str);
 }
 
-function _selectAdrhCompareLink($strSymbol, $bChinese)
+function _selectAdrhCompareLink($strSymbol)
 {
     if ($strSymbol == UrlGetQueryValue('symbol'))
     {   // in mystock.php
         return GetAdrLink($strSymbol);
     }
-    return GetMyStockLink($strSymbol, $bChinese);
+    return GetMyStockLink($strSymbol);
 }
 
-function _adrhStockRefCallbackData($ref, $bChinese)
+function _adrhStockRefCallbackData($ref)
 {
 	$ar = array();
 	
     $strSymbolAdr = $ref->adr_ref->GetStockSymbol();
-    $ar[] = _selectAdrhCompareLink($strSymbolAdr, $bChinese);
-/*    $ar[] = RefGetDescription($ref->adr_ref, $bChinese);
+    $ar[] = _selectAdrhCompareLink($strSymbolAdr);
+/*    $ar[] = RefGetDescription($ref->adr_ref);
     $ar[] = GetRatioDisplay(1.0 / $ref->GetAdrhRatio());
 */    
     $fAdrhRatio = $ref->GetAdrhRatio();
@@ -114,22 +114,20 @@ function _adrhStockRefCallbackData($ref, $bChinese)
 	return $ar;
 }
 
-function _adrhStockRefCallback($bChinese, $ref = false)
+function _adrhStockRefCallback($ref = false)
 {
     if ($ref)
     {
-        return _adrhStockRefCallbackData($ref, $bChinese);
+        return _adrhStockRefCallbackData($ref);
     }
     
-	$strSymbol = GetReferenceTableSymbol($bChinese);
-    if ($bChinese)  $arColumn = array('ADR'.$strSymbol, 'ADRH比价', 'HADR比价');
-    else              $arColumn = array('ADR '.$strSymbol, 'ADRH Ratio', 'HADR Ratio');
-/*	$arReference = GetReferenceTableColumn($bChinese);
+	$strSymbol = GetReferenceTableSymbol();
+    return array('ADR'.$strSymbol, 'ADRH比价', 'HADR比价');
+/*	$arReference = GetReferenceTableColumn();
 	$strSymbol = $arReference[0];
 	$strName = $arReference[5];
-    if ($bChinese)  $arColumn = array('ADR'.$strSymbol, $strName, 'HADR比价');
-    else              $arColumn = array('ADR '.$strSymbol, $strName, 'HADR Ratio');*/
-    return $arColumn;
+    return array('ADR'.$strSymbol, $strName, 'HADR比价');
+    */
 }
 
 function EchoAdrhParagraph($arRef, $bChinese)
@@ -149,7 +147,7 @@ function EchoAdrhParagraph($arRef, $bChinese)
 			$str .= ' '._getSortHLink($bChinese);
 		}
 	}
-    EchoReferenceParagraph($arRef, $bChinese, _adrhStockRefCallback, $str);
+    EchoReferenceParagraph($arRef, _adrhStockRefCallback, $str);
 }
 
 ?>

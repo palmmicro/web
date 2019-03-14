@@ -28,7 +28,7 @@ function EchoAll($bChinese = true)
     global $group;
     $fund = $group->ref;
     EchoFundEstParagraph($fund, $bChinese);
-    EchoReferenceParagraph(array($fund->est_ref, $fund->future_ref, $group->cny_ref, $fund->stock_ref), $bChinese);
+    EchoReferenceParagraph(array($fund->est_ref, $fund->future_ref, $group->cny_ref, $fund->stock_ref));
     EchoFundTradingParagraph($fund, $bChinese);    
     EchoFundHistoryParagraph($fund, $bChinese);
 
@@ -37,7 +37,7 @@ function EchoAll($bChinese = true)
         _EchoTransactionParagraph($group, $bChinese);
 	}
     
-    EchoPromotionHead($bChinese, 'goldetf');
+    EchoPromotionHead('goldetf');
     if (AcctIsAdmin())
     {
         _echoTestParagraph($group, $bChinese);
@@ -49,10 +49,10 @@ function EchoMetaDescription($bChinese = true)
     global $group;
 
     $fund = $group->ref;
-    $strDescription = _GetStockDisplay($fund->stock_ref, $bChinese);
-    $strEst = _GetStockDisplay($fund->est_ref, $bChinese);
-    $strFuture = _GetStockDisplay($fund->future_ref, $bChinese);
-    $strCNY = _GetStockDisplay($group->cny_ref, $bChinese);
+    $strDescription = _GetStockDisplay($fund->stock_ref);
+    $strEst = _GetStockDisplay($fund->est_ref);
+    $strFuture = _GetStockDisplay($fund->future_ref);
+    $strCNY = _GetStockDisplay($group->cny_ref);
     if ($bChinese)  $str = '根据'.$strEst.', '.$strFuture.'和'.$strCNY.'等因素计算'.$strDescription.'净值的网页工具.';
     else             $str = 'Web tool to estimate the net value of '.$strDescription.' based on '.$strEst.' and '.$strFuture.'.';
     EchoMetaDescriptionText($str);
