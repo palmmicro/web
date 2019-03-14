@@ -160,7 +160,7 @@ function _adrStockRefCallback($ref = false)
     return array('人民币￥', '港币$', '美元$');
 }
 
-function AdrEchoAll($bChinese = true)
+function AdrEchoAll()
 {
     global $group;
     
@@ -187,7 +187,7 @@ function AdrEchoAll($bChinese = true)
     }
 }
 
-function AdrEchoTitle($bChinese = true)
+function AdrEchoTitle()
 {
     global $group;
     
@@ -196,7 +196,7 @@ function AdrEchoTitle($bChinese = true)
     echo $str;
 }
 
-function AdrEchoMetaDescription($bChinese = true)
+function AdrEchoMetaDescription()
 {
     global $group;
     

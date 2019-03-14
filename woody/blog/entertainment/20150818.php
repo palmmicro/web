@@ -101,7 +101,7 @@ And we make SZ162411 and XOP arbitrage analysis based on those record.
 
 <h3><a name="adr">ADR</a></h3>
 <p>Nov 7, 2015
-<p>Continue to use web tools to replace calculator works, add Hongkong <a href="../../res/adr.php">ADR</a> price comparing tools.
+<p>Continue to use web tools to replace calculator works, add Hongkong ADR price comparing tools.
 <br />After <?php EchoPhpFileLink('/woody/res/php/_adr'); ?> file is added for ADR,
 the common stock data part of ADR and LOF is moved to <font color=olive>StockReference</font> class in file <?php EchoPhpFileLink('/php/stock/stockref'); ?>, 
 used in <font color=olive>_LofGroup</font> class in file <?php EchoPhpFileLink('/woody/res/php/_lof'); ?> and <font color=olive>_AdrGroup</font> class in file <?php EchoPhpFileLink('/woody/res/php/_adr'); ?>.
