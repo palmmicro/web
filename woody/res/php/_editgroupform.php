@@ -24,35 +24,39 @@ function _getStocksString($strGroupId)
     return '';
 }
 
-function StockEditGroupForm($str, $bChinese)
+function StockEditGroupForm($strSubmit, $bChinese)
 {
     $arColumn = GetStockGroupTableColumn($bChinese);
     $strPassQuery = UrlPassQuery();
-	$strSubmit = $str;
     $strGroupName = '';
     $strStocks = '';
     $strGroupNameDisabled = '1';
-    if ($strSubmit == STOCK_GROUP_EDIT_CN || $strSubmit == STOCK_GROUP_EDIT)
+    switch ($strSubmit)
     {
+    case STOCK_GROUP_EDIT_CN:
+    case STOCK_GROUP_EDIT:
         if ($strGroupId = UrlGetQueryValue('edit'))
         {
             $strGroupName = SqlGetStockGroupName($strGroupId);
             if (in_arrayAll($strGroupName) == false)     $strGroupNameDisabled = '0';
             $strStocks = _getStocksString($strGroupId);
         }
-    }
-    else if ($strSubmit == STOCK_GROUP_NEW_CN || $strSubmit == STOCK_GROUP_NEW)
-    {
+        break;
+    
+    case STOCK_GROUP_NEW_CN:
+    case STOCK_GROUP_NEW:
         if ($strSymbol = UrlGetQueryValue('new'))
         {
             $strGroupName = $strSymbol;
             $strGroupNameDisabled = '0';
             $strStocks = $strSymbol;
         }
-    }
-    else if ($strSubmit == STOCK_GROUP_ADJUST_CN || $strSubmit == STOCK_GROUP_ADJUST)
-    {
+        break;
+    
+    case STOCK_GROUP_ADJUST_CN:
+    case STOCK_GROUP_ADJUST:
         $strStocks = ltrim($strPassQuery, '?adjust=1&');
+        break;
     }
 	
 	echo <<< END

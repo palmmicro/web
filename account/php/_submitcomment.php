@@ -104,9 +104,8 @@ function _onNew($strMemberId, $strComment)
 	}
 	else if (isset($_POST['submit']))
 	{
-		$strSubmit = $_POST['submit'];
 		$strComment = UrlCleanString($_POST['comment']);
-		switch ($strSubmit)
+		switch ($_POST['submit'])
 		{
 		case BLOG_COMMENT_NEW:
 		case BLOG_COMMENT_NEW_CN:

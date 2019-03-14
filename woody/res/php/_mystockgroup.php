@@ -8,23 +8,6 @@ require_once('/php/ui/ahparagraph.php');
 require_once('/php/ui/etfparagraph.php');
 require_once('/php/ui/fundestparagraph.php');
 
-function _echoStockGroupParagraph($bChinese)
-{
-	EchoStockGroupParagraph($bChinese);	
-    if ($bReadOnly == false)
-    {
-    	if ($bChinese)
-    	{
-    		$strSubmit = STOCK_GROUP_NEW_CN;
-    	}
-    	else
-    	{
-    		$strSubmit = STOCK_GROUP_NEW;
-    	}
-        StockEditGroupForm($strSubmit, $bChinese);
-    }
-}
-
 function in_array_ref($strSymbol, $arRef)
 {
 	foreach ($arRef as $ref)
@@ -256,7 +239,8 @@ function EchoAll($bChinese = true)
         }
         else
         {
-            _echoStockGroupParagraph($bChinese);
+        	EchoStockGroupParagraph($bChinese);	
+        	StockEditGroupForm($bChinese ? STOCK_GROUP_NEW_CN : STOCK_GROUP_NEW, $bChinese);
         }
     }
     else

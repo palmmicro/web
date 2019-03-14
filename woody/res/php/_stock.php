@@ -182,9 +182,20 @@ function EchoPromotionHead($bChinese, $strVer = false)
     if ($bChinese)
     {
         $iVal = rand(1, 3);
-        if ($iVal == 1)          LayoutQQgroupPromotion();
-        else if ($iVal == 2)    LayoutWeixinPromotion();
-        else if ($iVal == 3)    LayoutMyPromotion();
+        switch ($iVal)
+        {
+        case 1:
+        	LayoutQQgroupPromotion();
+        	break;
+        	
+        case 2:
+        	LayoutWeixinPromotion();
+        	break;
+        	
+        case 3:
+        	LayoutMyPromotion();
+        	break;
+        }
     }
     EchoParagraph(_getDevGuideLink($strVer, $bChinese));
 }

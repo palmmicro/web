@@ -2,7 +2,7 @@
 require_once('debug.php');
 
 // 微信公众号公共模板, 返回输入信息
-define('WX_DEBUG_VER', '版本849');		
+define('WX_DEBUG_VER', '版本850');		
 
 define('WX_EOL', "\r\n");
 define('MAX_WX_MSG_LEN', 2048);
@@ -95,10 +95,17 @@ class WeixinCallback
 	{
 	    $strUserName = $postObj->FromUserName;
 	    $strType = $postObj->MsgType;
-	    if ($strType == WX_MSG_TYPE_TEXT)			        $str = $this->OnText(trim($postObj->Content), $strUserName);
-	    else if ($strType == WX_MSG_TYPE_VOICE)		    $str = $this->OnVoice(trim($postObj->Recognition), $strUserName);
-	    else if ($strType == WX_MSG_TYPE_EVENT)
+	    switch ($strType)
 	    {
+	    case WX_MSG_TYPE_TEXT:
+	    	$str = $this->OnText(trim($postObj->Content), $strUserName);
+	    	break;
+	    	
+	    case WX_MSG_TYPE_VOICE:
+	    	$str = $this->OnVoice(trim($postObj->Recognition), $strUserName);
+	    	break;
+	    	
+	    case WX_MSG_TYPE_EVENT:
 	        $strContents = trim($postObj->Event);
 	        if ($strContents == 'CLICK')
 	        {   // 自定义菜单点击事件
@@ -108,13 +115,32 @@ class WeixinCallback
 	        {
 	            $str = $this->OnEvent($strContents, $strUserName);
 	        }
+	        break;
+	    
+	    case WX_MSG_TYPE_IMAGE:
+	    	$str = $this->OnImage(trim($postObj->PicUrl), $strUserName);
+	    	break;
+	    	
+	    case WX_MSG_TYPE_SHORTVIDEO:
+	    	$str = $this->OnShortVideo('', $strUserName);
+	    	break;
+	    	
+	    case WX_MSG_TYPE_LOCATION:
+	        $str = $this->OnLocation('', $strUserName);
+	        break;
+	        
+	    case WX_MSG_TYPE_LINK:
+	    	$str = $this->OnLink('', $strUserName);
+	    	break;
+	    	
+	    case WX_MSG_TYPE_FILE:
+	    	$str = $this->OnFile('', $strUserName);
+	    	break;
+	    	
+	    default:
+	    	$str = $this->OnUnknownType($strType, $strUserName);
+	    	break;
 	    }
-	    else if ($strType == WX_MSG_TYPE_IMAGE)		        $str = $this->OnImage(trim($postObj->PicUrl), $strUserName);
-	    else if ($strType == WX_MSG_TYPE_SHORTVIDEO)	        $str = $this->OnShortVideo('', $strUserName);
-	    else if ($strType == WX_MSG_TYPE_LOCATION)	        $str = $this->OnLocation('', $strUserName);
-	    else if ($strType == WX_MSG_TYPE_LINK)		        $str = $this->OnLink('', $strUserName);
-	    else if ($strType == WX_MSG_TYPE_FILE)		        $str = $this->OnFile('', $strUserName);
-	    else											        $str = $this->OnUnknownType($strType, $strUserName);
         return $str.WX_DEBUG_VER;
     }
     
@@ -149,19 +175,18 @@ class WeixinCallback
 
     function OnEvent($strContents, $strUserName)
     {
-    	if ($strContents == 'subscribe')
+    	switch ($strContents)
     	{
+    	case 'subscribe':
     		return '欢迎订阅, 本账号为自动回复, 请用语音或者键盘输入要查找的内容.'.WX_EOL;
-    		$str .= $this->GetDefaultText();
-    	}
-    	else if ($strContents == 'unsubscribe')
-    	{
+
+    	case 'unsubscribe':
     		return '再见';
-    	}
-    	else if ($strContents == 'MASSSENDJOBFINISH')
-    	{  	 // Mass send job finish
+
+    	case 'MASSSENDJOBFINISH':		// Mass send job finish
     		return '收到群发完毕';
     	}
+    	return '未知'.$strContents;
     }
 
     function OnEventMenu($strMenu, $strUserName)

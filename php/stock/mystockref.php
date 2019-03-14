@@ -12,18 +12,20 @@ class MyStockReference extends MysqlReference
     		$sym = new StockSymbol($strSymbol);
     	}
     	
-        if (self::$strDataSource == STOCK_SINA_DATA)
+        switch (self::$strDataSource)
         {
+        case STOCK_SINA_DATA:
            	$this->LoadSinaData($sym);
    	        $this->bConvertGB2312 = true;     // Sina name is GB2312 coded
-        }
-        else if (self::$strDataSource == STOCK_YAHOO_DATA)
-        {
+   	        break;
+
+   	    case STOCK_YAHOO_DATA:
             $this->LoadYahooData($sym);
-        }
-        else if (self::$strDataSource == STOCK_GOOGLE_DATA)
-        {
+            break;
+
+        case STOCK_GOOGLE_DATA:
 			$this->LoadGoogleData($sym);
+			break;
         }
         
         parent::MysqlReference($sym);

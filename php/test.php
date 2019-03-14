@@ -124,19 +124,24 @@ function TestCmdLine()
     	$ref = new MyStockReference($strSymbol);
     	DebugString($ref->GetStockId());
     	$fStart = microtime(true);
-    	if ($strSrc == 'yahoo')		
+    	switch ($strSrc)
     	{
+    	case 'yahoo':		
     		$str = YahooGetWebData($ref);
-    	}
-    	else if ($strSrc == 'ft')	$str = TestFtStock($strSymbol);
-    	else if ($strSrc == 'sina')
-    	{
+    		break;
+    	
+    	case 'ft':
+    		$str = TestFtStock($strSymbol);
+    		break;
+    		
+    	case 'sina':
 //    		_debug_dividend($strSymbol);
 			$str = TestSinaStockHistory($strSymbol);
-    	}
-    	else if ($strSrc == 'nav')
-    	{
+			break;
+    	
+    	case 'nav':
 //    		$str = SaveHistoricalNav($strSymbol);
+			break;
     	}
     	if (empty($str))	$str = '(Not found)';
     	DebugString($strSymbol.':'.$str.DebugGetStopWatchDisplay($fStart));

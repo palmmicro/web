@@ -133,17 +133,21 @@ function _onNew($strMemberId, $strGroupName, $strSymbols)
 		$strGroupName = UrlCleanString($_POST['groupname']);
 
 		$strGroupId = UrlGetQueryValue('edit');
-		if ($_POST['submit'] == STOCK_GROUP_EDIT || $_POST['submit'] == STOCK_GROUP_EDIT_CN)
-		{	// edit group
+		switch ($_POST['submit'])
+		{
+		case STOCK_GROUP_ADJUST_CN:
+		    _onAdjust($strSymbols);
+		    break;
+
+		case STOCK_GROUP_EDIT:
+		case STOCK_GROUP_EDIT_CN:
 		    _onEdit($strMemberId, $strGroupId, $strGroupName, $strSymbols);
-		}
-		else if ($_POST['submit'] == STOCK_GROUP_ADJUST_CN)
-		{
-		    _onAdjust($strSymbols); 
-		}
-		else if ($_POST['submit'] == STOCK_GROUP_NEW || $_POST['submit'] == STOCK_GROUP_NEW_CN)
-		{
+		    break;
+
+		case STOCK_GROUP_NEW:
+		case STOCK_GROUP_NEW_CN:
 		    _onNew($strMemberId, $strGroupName, $strSymbols);
+		    break;
 		}
 		unset($_POST['submit']);
 	}
