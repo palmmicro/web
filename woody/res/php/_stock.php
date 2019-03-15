@@ -54,7 +54,7 @@ function _EchoPortfolioItem($strGroupId, $trans, $bChinese)
     else if ($sym->IsSymbolH())     $strMoney = $bChinese ? '港币$' : 'HK$';
     else                              $strMoney = '$';
     
-    $strTransactions = StockGetTransactionLink($strGroupId, $sym->GetSymbol(), $bChinese);
+    $strTransactions = StockGetTransactionLink($strGroupId, $sym->GetSymbol());
     if ($trans->iTotalShares == 0)
     {
         $strAvgCost = '';
@@ -205,9 +205,9 @@ function _EchoTransactionParagraph($group, $bChinese = true)
     
     if ($group->GetTotalRecords() > 0)
     {
-    	EchoTransactionParagraph($strGroupId, $bChinese);
+    	EchoTransactionParagraph($strGroupId);
     }
-    StockEditTransactionForm($bChinese, $strGroupId);
+    StockEditTransactionForm($strGroupId);
     _echoGroupPortfolioParagraph($group, $bChinese);
 }
 

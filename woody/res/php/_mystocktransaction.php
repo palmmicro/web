@@ -13,17 +13,17 @@ function MyStockTransactionEchoAll($bChinese = true)
         $iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
         if ($strSymbol = UrlGetQueryValue('symbol'))
         {   // Display transactions of a stock
-            $strAllLink = StockGetAllTransactionLink($strGroupId, $bChinese);
+            $strAllLink = StockGetAllTransactionLink($strGroupId);
             $strStockLinks = StockGetGroupTransactionLinks($strGroupId, $bChinese, $strSymbol);
             EchoParagraph($strGroupLink.' '.$strAllLink.' '.$strStockLinks);
-           	EchoTransactionParagraph($strGroupId, $bChinese, new MyStockReference($strSymbol), $iStart, $iNum);
+           	EchoTransactionParagraph($strGroupId, new MyStockReference($strSymbol), $iStart, $iNum);
         }
         else
         {   // Display transactions of the whole group
             $strCombineLink = GetPhpLink(STOCK_PATH.'combinetransaction', $bChinese, '合并记录', 'Combined Records', 'groupid='.$strGroupId);
             $strStockLinks = StockGetGroupTransactionLinks($strGroupId, $bChinese);
             EchoParagraph($strGroupLink.' '.$strCombineLink.' '.$strStockLinks);
-           	EchoTransactionParagraph($strGroupId, $bChinese, false, $iStart, $iNum);
+           	EchoTransactionParagraph($strGroupId, false, $iStart, $iNum);
         }
     }
     EchoPromotionHead('transaction');

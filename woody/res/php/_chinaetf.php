@@ -68,11 +68,11 @@ function EchoAll($bChinese = true)
     
     EchoReferenceParagraph($group->arRef, _chinaEtfRefCallback);
     EchoEtfListParagraph(array($group->ref, $group->us_ref));
-    EchoEtfTradingParagraph($group->ref, $bChinese);
-    EchoEtfSmaParagraph($group->ref, $bChinese);
-    EchoEtfSmaParagraph($group->us_ref, $bChinese, '');
-    EchoEtfHistoryParagraph($group->ref, $bChinese);
-    EchoEtfHistoryParagraph($group->us_ref, $bChinese);
+    EchoEtfTradingParagraph($group->ref);
+    EchoEtfSmaParagraph($group->ref);
+    EchoEtfSmaParagraph($group->us_ref, '');
+    EchoEtfHistoryParagraph($group->ref);
+    EchoEtfHistoryParagraph($group->us_ref);
 
     if ($group->strGroupId) 
     {

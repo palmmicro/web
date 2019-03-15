@@ -146,35 +146,27 @@ function _getTradingParagraphStr($arColumn, $bChinese = true)
     return $str;
 }
 
-function EchoFundTradingParagraph($fund, $bChinese, $callback = false)
+function EchoFundTradingParagraph($fund, $callback = false)
 {
     $ref = $fund->stock_ref;
-    $strSymbol = RefGetMyStockLink($ref, $bChinese);
+    $strSymbol = RefGetMyStockLink($ref);
     $strEstPrice = $ref->GetPriceDisplay($fund->fOfficialNetValue);
     if ($fund->fFairNetValue)       $strEstPrice .= '/'.$ref->GetPriceDisplay($fund->fFairNetValue);
     if ($fund->fRealtimeNetValue)   $strEstPrice .= '/'.$ref->GetPriceDisplay($fund->fRealtimeNetValue);
     
-	$arFundEst = GetFundEstTableColumn($bChinese);
-    $arColumn = _getTradingTableColumn($bChinese);
+	$arFundEst = GetFundEstTableColumn();
+    $arColumn = _getTradingTableColumn();
     $arColumn[] = $arFundEst[2];
     $arColumn[] = $arFundEst[4];
     $arColumn[] = $arFundEst[6];
-    if ($callback)     $arColumn[] = call_user_func($callback, $bChinese);
-    $strPrice = _getTradingParagraphStr($arColumn, $bChinese);
+    if ($callback)     $arColumn[] = call_user_func($callback, true);
+    $strPrice = _getTradingParagraphStr($arColumn);
     
-	$arSma = GetSmaTableColumn($bChinese);
+	$arSma = GetSmaTableColumn();
 	$strEst = $arSma[1];
 	$strPremium = $arSma[2];
-    if ($bChinese)     
-    {
-        $str = "{$strSymbol}{$strPrice}相对于各个{$strEst}{$strEstPrice}的{$strPremium}";
-    }
-    else
-    {
-        $str = "The $strPremium of $strPrice comparing with $strSymbol each $strEst net value $strEstPrice";
-    }
-    
-    _echoTradingParagraph($str, $arColumn, $ref, $bChinese, $fund->fOfficialNetValue, $fund->fFairNetValue, $fund->fRealtimeNetValue, $callback); 
+    $str = "{$strSymbol}{$strPrice}相对于各个{$strEst}{$strEstPrice}的{$strPremium}";
+    _echoTradingParagraph($str, $arColumn, $ref, true, $fund->fOfficialNetValue, $fund->fFairNetValue, $fund->fRealtimeNetValue, $callback); 
 }
 
 function EchoAhTradingParagraph($hshare_ref)
@@ -207,7 +199,7 @@ function EchoAhTradingParagraph($hshare_ref)
     _echoTradingParagraph($str, $arColumn, $ref, true, $hshare_ref->GetCnyPrice(), $fVal); 
 }
 
-function EchoEtfTradingParagraph($ref, $bChinese)
+function EchoEtfTradingParagraph($ref, $bChinese = true)
 {
 	if ($ref->IsSymbolA() == false)	return;
 	
@@ -226,11 +218,11 @@ function EchoEtfTradingParagraph($ref, $bChinese)
     _echoTradingParagraph($str, $arColumn, $ref, $bChinese, $ref->EstOfficialNetValue()); 
 }
 
-function EchoTradingParagraph($ref, $bChinese)
+function EchoTradingParagraph($ref)
 {
-    $arColumn = _getTradingTableColumn($bChinese);
-    $str = _getTradingParagraphStr($arColumn, $bChinese);
-    _echoTradingParagraph($str, $arColumn, $ref, $bChinese); 
+    $arColumn = _getTradingTableColumn();
+    $str = _getTradingParagraphStr($arColumn);
+    _echoTradingParagraph($str, $arColumn, $ref, true); 
 }
 
 ?>

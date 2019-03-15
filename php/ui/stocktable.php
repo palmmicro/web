@@ -27,7 +27,7 @@ function GetReferenceTableChange($bChinese)
 	return $arReference[2];
 }
 
-function GetReferenceTableDate($bChinese)		
+function GetReferenceTableDate($bChinese = true)		
 {
 	$arReference = GetReferenceTableColumn($bChinese);
 	return $arReference[3];
@@ -53,7 +53,7 @@ function GetFundEstTableColumn($bChinese = true)
     return $arColumn;
 }
 
-function GetFundHistoryTableColumn($est_ref, $bChinese)
+function GetFundHistoryTableColumn($est_ref, $bChinese = true)
 {
     if ($est_ref)
     {

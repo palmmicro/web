@@ -27,10 +27,10 @@ function EchoAll($bChinese = true)
 {
     global $group;
     $fund = $group->ref;
-    EchoFundEstParagraph($fund, $bChinese);
+    EchoFundEstParagraph($fund);
     EchoReferenceParagraph(array($fund->est_ref, $fund->future_ref, $group->cny_ref, $fund->stock_ref));
-    EchoFundTradingParagraph($fund, $bChinese);    
-    EchoFundHistoryParagraph($fund, $bChinese);
+    EchoFundTradingParagraph($fund);    
+    EchoFundHistoryParagraph($fund);
 
     if ($group->strGroupId) 
     {

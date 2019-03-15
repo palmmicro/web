@@ -2,7 +2,7 @@
 define('STOCK_TRANSACTION_MERGE', 'Merge Transaction');
 define('STOCK_TRANSACTION_MERGE_CN', '合并交易');
 
-function StockMergeTransactionForm($arGroup, $bChinese)
+function StockMergeTransactionForm($arGroup)
 {
     $arGroupName = array();
     $arGroupItemList = array();
@@ -12,16 +12,8 @@ function StockMergeTransactionForm($arGroup, $bChinese)
 	    $arGroupItemList[] = EditGetStockGroupItemList($strGroupId, $strGroupItemId);
 	}
 	
-	if ($bChinese)
-	{
-	    $strSubmit = STOCK_TRANSACTION_MERGE_CN;
-	    $arDirection = array('从', '合并到');
-	}
-	else
-	{
-	    $strSubmit = STOCK_TRANSACTION_MERGE;
-	    $arDirection = array('From', 'To');
-	}
+    $strSubmit = STOCK_TRANSACTION_MERGE_CN;
+    $arDirection = array('从', '合并到');
 
 	echo <<< END
 	<script type="text/javascript">

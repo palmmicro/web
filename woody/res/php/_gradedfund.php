@@ -65,18 +65,18 @@ function EchoAll($bChinese = true)
 	_set_extended_ref($m_ref);
 	_set_extended_ref($b_ref);
     EchoReferenceParagraph(array($ref->est_ref, $m_ref->stock_ref, $ref->stock_ref, $b_ref->stock_ref), _gradedFundRefCallback);
-    EchoFundTradingParagraph($ref, $bChinese);    
-    EchoFundTradingParagraph($b_ref, $bChinese);    
+    EchoFundTradingParagraph($ref);    
+    EchoFundTradingParagraph($b_ref);    
     if ($group->bCanTradeM)
     {
-        EchoFundTradingParagraph($m_ref, $bChinese);    
+        EchoFundTradingParagraph($m_ref);    
     }
 
-    EchoFundHistoryParagraph($ref, $bChinese);
-    EchoFundHistoryParagraph($b_ref, $bChinese);
+    EchoFundHistoryParagraph($ref);
+    EchoFundHistoryParagraph($b_ref);
     if ($group->bCanTradeM)
     {
-        EchoFundHistoryParagraph($m_ref, $bChinese);
+        EchoFundHistoryParagraph($m_ref);
     }
     
     if ($group->strGroupId) 

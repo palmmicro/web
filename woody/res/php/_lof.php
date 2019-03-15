@@ -31,7 +31,7 @@ class _LofUsGroup extends _LofGroup
     }
 } 
 
-function _onSmaUserDefinedVal($fVal, $bChinese)
+function _onSmaUserDefinedVal($fVal)
 {
     global $group;
     
@@ -52,26 +52,17 @@ function _onSmaUserDefinedVal($fVal, $bChinese)
     {
         $est_ref = $fund->est_ref;
         $strQuery = sprintf('groupid=%s&fundid=%s&amount=%.2f&netvalue=%.3f&arbitrageid=%s&quantity=%s&price=%.2f', $group->strGroupId, $fund->GetStockId(), $fAmount, $fund->fOfficialNetValue, $est_ref->GetStockId(), $strQuantity, $est_ref->fPrice);
-        return GetOnClickLink(STOCK_PHP_PATH.'_submittransaction.php?'.$strQuery, $bChinese ? '确认添加对冲申购记录?' : 'Confirm to add arbitrage fund purchase record?', $strQuantity);
+        return GetOnClickLink(STOCK_PHP_PATH.'_submittransaction.php?'.$strQuery, '确认添加对冲申购记录?', $strQuantity);
     }
     return $strQuantity;
 }
 
-function _getArbitrageQuantityName($bChinese, $bEditLink = false)
+function _getArbitrageQuantityName($bEditLink = false)
 {
     global $group;
 
-    if ($bChinese)
-    {
-    	$str = '申购对冲';
-    	$strDisplay = '数量';
-    }
-    else
-    {
-    	$str = 'Arbitrage ';
-    	$strDisplay = 'Quantity';
-    }
-    
+   	$str = '申购对冲';
+   	$strDisplay = '数量';
     if ($group->strGroupId && $bEditLink) 
     {
     	$str .= GetStockSymbolLink('editstock', $group->ref->GetStockSymbol(), $strDisplay);
@@ -83,17 +74,17 @@ function _getArbitrageQuantityName($bChinese, $bEditLink = false)
     return $str;
 }
 
-function _onSmaUserDefined($bChinese, $fVal = false, $fNext = false)
+function _onSmaUserDefined($fVal = false, $fNext = false)
 {
     if ($fVal === false)
     {
-    	return _getArbitrageQuantityName($bChinese);
+    	return _getArbitrageQuantityName();
     }
 
-    $str = _onSmaUserDefinedVal($fVal, $bChinese);
+    $str = _onSmaUserDefinedVal($fVal);
     if ($fNext)
     {
-       	$str .= '/'._onSmaUserDefinedVal($fNext, $bChinese);
+       	$str .= '/'._onSmaUserDefinedVal($fNext);
     }
     return $str;
 }
@@ -104,14 +95,14 @@ function _onTradingUserDefinedVal($fVal, $bChinese)
     
     $fund = $group->ref;
     $fEst = $fund->GetEstValue($fVal);
-    return _onSmaUserDefinedVal($fEst, $bChinese).'@'.$fund->est_ref->GetPriceDisplay($fEst, false);
+    return _onSmaUserDefinedVal($fEst).'@'.$fund->est_ref->GetPriceDisplay($fEst, false);
 }
 
 function _onTradingUserDefined($bChinese, $fVal = false)
 {
     if ($fVal === false)
     {
-    	return _getArbitrageQuantityName($bChinese, true);
+    	return _getArbitrageQuantityName(true);
     }
     return _onTradingUserDefinedVal($fVal, $bChinese);
 }
@@ -121,13 +112,13 @@ function EchoAll($bChinese = true)
     global $group;
     $fund = $group->ref;
     
-    EchoFundEstParagraph($fund, $bChinese);
+    EchoFundEstParagraph($fund);
     EchoReferenceParagraph(array($fund->stock_ref, $fund->est_ref, $fund->future_ref, $group->oil_ref, $group->es_ref, $group->usd_ref, $group->cny_ref));
     $group->EchoLeverageParagraph($bChinese);
-    EchoFundTradingParagraph($fund, $bChinese, _onTradingUserDefined);    
-	EchoLofSmaParagraph($fund, $bChinese, _onSmaUserDefined);
-    EchoEtfArraySmaParagraph($fund->est_ref, $group->GetLeverageRef(), $bChinese);
-    EchoFundHistoryParagraph($fund, $bChinese);
+    EchoFundTradingParagraph($fund, _onTradingUserDefined);    
+	EchoLofSmaParagraph($fund, _onSmaUserDefined);
+    EchoEtfArraySmaParagraph($fund->est_ref, $group->GetLeverageRef());
+    EchoFundHistoryParagraph($fund);
     
     if ($group->strGroupId) 
     {

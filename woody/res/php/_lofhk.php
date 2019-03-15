@@ -21,12 +21,12 @@ function EchoAll($bChinese = true)
     global $group;
     $fund = $group->ref;
     
-    EchoFundEstParagraph($fund, $bChinese);
+    EchoFundEstParagraph($fund);
     EchoReferenceParagraph(array($fund->stock_ref, $fund->est_ref, $group->cny_ref));
     $group->EchoLeverageParagraph($bChinese);
-    EchoFundTradingParagraph($fund, $bChinese);    
-	EchoLofSmaParagraph($fund, $bChinese);
-    EchoFundHistoryParagraph($fund, $bChinese);
+    EchoFundTradingParagraph($fund);    
+	EchoLofSmaParagraph($fund);
+    EchoFundHistoryParagraph($fund);
 
     if ($group->strGroupId) 
     {

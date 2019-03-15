@@ -50,7 +50,7 @@ function _echoNavCloseData($sql, $ref, $csv, $iStart, $iNum, $bTest)
     }
 }
 
-function EchoNavCloseHistoryParagraph($ref, $bChinese, $str = '', $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
+function EchoNavCloseHistoryParagraph($ref, $str = '', $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
 {
 	$sql = new NavHistorySql($ref->GetStockId());
 	$iTotal = $sql->Count();
@@ -63,10 +63,10 @@ function EchoNavCloseHistoryParagraph($ref, $bChinese, $str = '', $csv = false, 
     }
     else
     {
-    	$strNavLink = StockGetNavLink($strSymbol, $iTotal, $iStart, $iNum, $bChinese);
+    	$strNavLink = StockGetNavLink($strSymbol, $iTotal, $iStart, $iNum);
     }
 
-    $arColumn = GetFundHistoryTableColumn($ref, $bChinese);
+    $arColumn = GetFundHistoryTableColumn($ref);
     echo <<<END
     <p>$strNavLink $str
     <TABLE borderColor=#cccccc cellSpacing=0 width=500 border=1 class="text" id="{$strSymbol}navclosehistory">

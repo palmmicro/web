@@ -33,13 +33,12 @@ function _echoStockHistoryData($sql, $ref, $csv, $iStart, $iNum)
     }
 }
 
-function EchoStockHistoryParagraph($ref, $bChinese, $str = '', $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
+function EchoStockHistoryParagraph($ref, $str = '', $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
 {
-	$strDate = GetReferenceTableDate($bChinese);
-    $arFundHistory = GetFundHistoryTableColumn(false, $bChinese);
+	$strDate = GetReferenceTableDate();
+    $arFundHistory = GetFundHistoryTableColumn(false);
     $strClose = $arFundHistory[1];
-    if ($bChinese)  $arColumn = array($strDate, '开盘价', '最高', '最低', $strClose, '成交量', '复权'.$strClose);
-    else              $arColumn = array($strDate, 'Open',   'High', 'Low',  $strClose, 'Volume', 'Adj '.$strClose);
+    $arColumn = array($strDate, '开盘价', '最高', '最低', $strClose, '成交量', '复权'.$strClose);
 
     $strSymbol = $ref->GetStockSymbol();
 	$sql = new StockHistorySql($ref->GetStockId());
@@ -49,7 +48,7 @@ function EchoStockHistoryParagraph($ref, $bChinese, $str = '', $csv = false, $iS
     }
     else
     {
-    	$strNavLink = StockGetNavLink($strSymbol, $sql->Count(), $iStart, $iNum, $bChinese);
+    	$strNavLink = StockGetNavLink($strSymbol, $sql->Count(), $iStart, $iNum);
     }
     
     echo <<<END

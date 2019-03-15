@@ -145,24 +145,24 @@ function _echoFundHistoryParagraph($ref, $est_ref, $bChinese, $strDisplay = '', 
     EchoTableParagraphEnd($strNavLink);
 }
 
-function EchoFundHistoryParagraph($fund, $bChinese, $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
+function EchoFundHistoryParagraph($fund, $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
 {
 	$str = '';
     if (AcctIsAdmin())
     {
     	$str .= ' '.$fund->DebugLink();
     }
-    _echoFundHistoryParagraph($fund->stock_ref, $fund->est_ref, $bChinese, $str, $csv, $iStart, $iNum);
+    _echoFundHistoryParagraph($fund->stock_ref, $fund->est_ref, true, $str, $csv, $iStart, $iNum);
 }
 
-function EchoEtfHistoryParagraph($ref, $bChinese, $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
+function EchoEtfHistoryParagraph($ref, $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
 {
 	$str = '';
     if (AcctIsAdmin())
     {
     	if ($ref->IsSymbolA())	$str .= ' '.$ref->nv_ref->DebugLink();
     }
-    _echoFundHistoryParagraph($ref, $ref->pair_ref, $bChinese, $str, $csv, $iStart, $iNum);
+    _echoFundHistoryParagraph($ref, $ref->pair_ref, true, $str, $csv, $iStart, $iNum);
 }
 
 ?>

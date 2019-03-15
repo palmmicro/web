@@ -40,9 +40,9 @@ function RefGetMyStockLink($ref, $bChinese = true)
     return GetMyStockLink($ref->GetStockSymbol(), $bChinese);
 }
 
-function RefSetExternalLinkMyStock($ref, $bChinese)
+function RefSetExternalLinkMyStock($ref)
 {
-   	$ref->SetExternalLink(RefGetMyStockLink($ref, $bChinese));
+   	$ref->SetExternalLink(RefGetMyStockLink($ref));
 }
 
 function RefSetExternalLink($ref, $bChinese = true)
@@ -106,7 +106,7 @@ function GetCategorySoftwareLinks($arTitle, $strCategory, $bChinese)
     return $str;
 }
 
-function StockGetTransactionLink($strGroupId, $strSymbol, $bChinese = false, $strDisplay = false, $strUs = false)
+function StockGetTransactionLink($strGroupId, $strSymbol, $strDisplay = false)
 {
     $strQuery = 'groupid='.$strGroupId;
     if ($strSymbol)
@@ -117,12 +117,11 @@ function StockGetTransactionLink($strGroupId, $strSymbol, $bChinese = false, $st
     if ($strDisplay == false)
     {
     	$strDisplay = $strSymbol;
-    	$strUs = $strSymbol;
     }
-    return GetPhpLink(STOCK_PATH.'mystocktransaction', $bChinese, $strDisplay, $strUs, $strQuery);
+    return GetPhpLink(STOCK_PATH.'mystocktransaction', true, $strDisplay, false, $strQuery);
 }
 
-function StockGetAllTransactionLink($strGroupId, $bChinese, $ref = false)
+function StockGetAllTransactionLink($strGroupId, $ref = false)
 {
 	if ($ref)
 	{
@@ -132,7 +131,7 @@ function StockGetAllTransactionLink($strGroupId, $bChinese, $ref = false)
 	{
 		$strSymbol = false;
 	}
-    return StockGetTransactionLink($strGroupId, $strSymbol, $bChinese, '交易记录', 'Stock Transactions');
+    return StockGetTransactionLink($strGroupId, $strSymbol, '交易记录');
 }
 
 function StockGetGroupTransactionLinks($strGroupId, $bChinese, $strCurSymbol = '')
@@ -151,7 +150,7 @@ function StockGetGroupTransactionLinks($strGroupId, $bChinese, $strCurSymbol = '
         	$sym = new StockSymbol($strSymbol);
         	if ($sym->IsTradable())
         	{
-        		$str .= StockGetTransactionLink($strGroupId, $strSymbol, $bChinese);
+        		$str .= StockGetTransactionLink($strGroupId, $strSymbol);
         	}
         }
         $str .= ' ';
@@ -191,7 +190,7 @@ function GetStockGroupLink($strGroupId, $bChinese = true)
     return '';
 }
 
-function StockGetNavLink($strSymbol, $iTotal, $iStart, $iNum, $bChinese)
+function StockGetNavLink($strSymbol, $iTotal, $iStart, $iNum, $bChinese = true)
 {
     return GetNavLink('symbol='.$strSymbol, $iTotal, $iStart, $iNum, $bChinese);
 }

@@ -15,7 +15,7 @@ require_once('/php/ui/stockhistoryparagraph.php');
 require_once('/php/ui/navclosehistoryparagraph.php');
 require_once('/php/ui/tradingparagraph.php');
 
-function _echoMyStockTransactions($strMemberId, $ref, $bChinese)
+function _echoMyStockTransactions($strMemberId, $ref)
 {
     $arGroup = array();
     $strStockId = $ref->GetStockId();
@@ -37,16 +37,16 @@ function _echoMyStockTransactions($strMemberId, $ref, $bChinese)
 	if ($iCount == 0)    return;
 	foreach ($arGroup as $strGroupId => $strGroupItemId)
 	{
-		EchoTransactionParagraph($strGroupId, $bChinese, $ref);
+		EchoTransactionParagraph($strGroupId, $ref);
 	}
 	
 	if ($iCount == 1)
 	{
-	    StockEditTransactionForm($bChinese, $strGroupId, $strGroupItemId);
+	    StockEditTransactionForm($strGroupId, $strGroupItemId);
 	}
 	else
 	{
-	    StockMergeTransactionForm($arGroup, $bChinese);
+	    StockMergeTransactionForm($arGroup);
 	}
 }
 
@@ -58,37 +58,37 @@ function _hasSmaDisplay($sym)
     return true;
 }
 
-function _getEditStockLink($bChinese, $strDisplay, $strUs, $strSymbol)
+function _getEditStockLink($strDisplay, $strUs, $strSymbol)
 {
 	$ar = explode(' ', $strUs);
-    return GetPhpLink(STOCK_PATH.'editstock', $bChinese, $strDisplay, $strUs, strtolower($ar[0]).'='.$strSymbol);
+    return GetPhpLink(STOCK_PATH.'editstock', true, $strDisplay, $strUs, strtolower($ar[0]).'='.$strSymbol);
 }
 
-function _getMyStockLinks($sym, $bChinese)
+function _getMyStockLinks($sym)
 {
 	$strSymbol = $sym->GetSymbol();
-    $str = _getEditStockLink($bChinese, STOCK_OPTION_EDIT_CN, STOCK_OPTION_EDIT, $strSymbol);
-   	$str .= ' '._getEditStockLink($bChinese, STOCK_OPTION_SPLIT_CN, STOCK_OPTION_SPLIT, $strSymbol);
+    $str = _getEditStockLink(STOCK_OPTION_EDIT_CN, STOCK_OPTION_EDIT, $strSymbol);
+   	$str .= ' '._getEditStockLink(STOCK_OPTION_SPLIT_CN, STOCK_OPTION_SPLIT, $strSymbol);
    	if (SqlGetEtfPair($strSymbol) == false)
    	{
-   		$str .= ' '._getEditStockLink($bChinese, STOCK_OPTION_EMA_CN, STOCK_OPTION_EMA, $strSymbol);
+   		$str .= ' '._getEditStockLink(STOCK_OPTION_EMA_CN, STOCK_OPTION_EMA, $strSymbol);
    	}
     if ($sym->IsSymbolH())
     {
-    	$str .= ' '._getEditStockLink($bChinese, STOCK_OPTION_AH_CN, STOCK_OPTION_AH, $strSymbol);
-    	$str .= ' '._getEditStockLink($bChinese, STOCK_OPTION_ADR_CN, STOCK_OPTION_ADR, $strSymbol);
+    	$str .= ' '._getEditStockLink(STOCK_OPTION_AH_CN, STOCK_OPTION_AH, $strSymbol);
+    	$str .= ' '._getEditStockLink(STOCK_OPTION_ADR_CN, STOCK_OPTION_ADR, $strSymbol);
     }
     else
     {
     	if ($sym->IsTradable())
     	{
-    		$str .= ' '._getEditStockLink($bChinese, STOCK_OPTION_ETF_CN, STOCK_OPTION_ETF, $strSymbol);
+    		$str .= ' '._getEditStockLink(STOCK_OPTION_ETF_CN, STOCK_OPTION_ETF, $strSymbol);
     	}
     }
     return $str;
 }
 
-function _echoMyStockData($strSymbol, $bChinese)
+function _echoMyStockData($strSymbol)
 {
     StockPrefetchData($strSymbol);
     
@@ -113,54 +113,54 @@ function _echoMyStockData($strSymbol, $bChinese)
     if ($etf_ref)
     {
     	EchoEtfListParagraph(array($etf_ref));
-    	EchoEtfTradingParagraph($etf_ref, $bChinese);
-        EchoEtfHistoryParagraph($etf_ref, $bChinese);
+    	EchoEtfTradingParagraph($etf_ref);
+        EchoEtfHistoryParagraph($etf_ref);
     }
     else if ($sym->IsFundA())
     {
-        if ($fund->fOfficialNetValue)	EchoFundEstParagraph($fund, $bChinese);
-        EchoFundTradingParagraph($fund, $bChinese);
-        EchoFundHistoryParagraph($fund, $bChinese);
+        if ($fund->fOfficialNetValue)	EchoFundEstParagraph($fund);
+        EchoFundTradingParagraph($fund);
+        EchoFundHistoryParagraph($fund);
     }
     else
     {
         if ($hshare_ref)
         {
-        	if ($strSymbol != $hshare_ref->GetStockSymbol())	RefSetExternalLinkMyStock($hshare_ref, $bChinese);
+        	if ($strSymbol != $hshare_ref->GetStockSymbol())	RefSetExternalLinkMyStock($hshare_ref);
 			if ($hshare_ref->a_ref)								EchoAhParagraph(array($hshare_ref));
 			if ($hshare_ref->adr_ref)							EchoAdrhParagraph(array($hshare_ref));
         }
    		if ($sym->IsSymbolA())
    		{
    			if ($hshare_ref)	EchoAhTradingParagraph($hshare_ref);
-   			else 				EchoTradingParagraph($ref, $bChinese);
+   			else 				EchoTradingParagraph($ref);
        	}
-       	EchoNavCloseHistoryParagraph($ref, $bChinese, GetStockSymbolLink('navclosehistory', $strSymbol, '净值和收盘价历史比较'));
+       	EchoNavCloseHistoryParagraph($ref, GetStockSymbolLink('navclosehistory', $strSymbol, '净值和收盘价历史比较'));
     }
     
-    if ($etf_ref)   			EchoEtfSmaParagraph($etf_ref, $bChinese);
+    if ($etf_ref)   			EchoEtfSmaParagraph($etf_ref);
     if (_hasSmaDisplay($sym))
     {
     	if ($hshare_ref)		EchoHShareSmaParagraph($ref, $hshare_ref);
-    	else	        		EchoSmaParagraph($ref, $bChinese);
+    	else	        		EchoSmaParagraph($ref);
     	$strHistoryLink = '';
     }
     else
     {
-    	$strHistoryLink = GetStockHistoryLink($strSymbol, $bChinese);
+    	$strHistoryLink = GetStockHistoryLink($strSymbol);
     }
     
-    EchoStockHistoryParagraph($ref, $bChinese, $strHistoryLink);
+    EchoStockHistoryParagraph($ref, $strHistoryLink);
     
     if ($strMemberId = AcctIsLogin())
     {
     	EchoStockGroupParagraph();	
-        _echoMyStockTransactions($strMemberId, $ref, $bChinese);
+        _echoMyStockTransactions($strMemberId, $ref);
     }
     
     if (AcctIsAdmin())
     {
-     	$str = _getMyStockLinks($sym, $bChinese);
+     	$str = _getMyStockLinks($sym);
     	if (_hasSmaDisplay($sym))
     	{
     		$str .= '<br />'._GetStockConfigDebugString(array($ref));
@@ -169,44 +169,44 @@ function _echoMyStockData($strSymbol, $bChinese)
     }
 }
 
-function _echoAllStock($bChinese)
+function _echoAllStock()
 {
     $iStart = UrlGetQueryInt('start');
     $iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
-    EchoStockParagraph($iStart, $iNum, $bChinese);
+    EchoStockParagraph($iStart, $iNum);
 }
 
-function _echoMyStockSymbol($strSymbol, $bChinese)
+function _echoMyStockSymbol($strSymbol)
 {
-	$str = GetMyStockLink($strSymbol, $bChinese);
+	$str = GetMyStockLink($strSymbol);
     EchoParagraph($str);
 }
 
-function EchoAll($bChinese = true)
+function EchoAll()
 {
     if ($strSymbol = UrlGetQueryValue('symbol'))
     {
-    	_echoMyStockData($strSymbol, $bChinese);
+    	_echoMyStockData($strSymbol);
     }
     else if ($strStockId = UrlGetQueryValue('id'))
     {
     	if ($strSymbol = SqlGetStockSymbol($strStockId))
     	{
-    		_echoMyStockSymbol($strSymbol, $bChinese);
+    		_echoMyStockSymbol($strSymbol);
     	}
     }
     else
     {
         if (AcctIsAdmin())
         {
-        	_echoAllStock($bChinese);
+        	_echoAllStock();
         }
     }
     EchoPromotionHead();
     EchoStockCategory();
 }
 
-function EchoMetaDescription($bChinese = true)
+function EchoMetaDescription()
 {
     if ($strSymbol = UrlGetQueryValue('symbol'))
     {
@@ -218,21 +218,19 @@ function EchoMetaDescription($bChinese = true)
     }
     else
     {
-        $str = _GetWhoseDisplay(AcctGetMemberId(), AcctIsLogin(), $bChinese);
-        $str .= _GetAllDisplay(false, $bChinese);
+        $str = _GetWhoseDisplay(AcctGetMemberId(), AcctIsLogin());
+        $str .= _GetAllDisplay(false);
     }
     
-    if ($bChinese)  $str .= '参考数据, AH对比, SMA均线, 布林线, 净值估算等本网站提供的内容. 可以用来按代码查询股票基本情况, 登录状态下还显示相关股票分组中的用户交易记录.';
-    else             $str .= ' stock reference data, AH compare, SMA and EMA, Bollinger Bands and possible net value estimation.';
+	$str .= '参考数据, AH对比, SMA均线, 布林线, 净值估算等本网站提供的内容. 可以用来按代码查询股票基本情况, 登录状态下还显示相关股票分组中的用户交易记录.';
     EchoMetaDescriptionText($str);
 }
 
-function EchoTitle($bChinese = true)
+function EchoTitle()
 {
     if ($strSymbol = UrlGetQueryValue('symbol'))  
     {
-    	$str = $bChinese ? '' : 'My ';
-        $str .= $strSymbol;
+        $str = $strSymbol;
     	if (AcctIsAdmin())
     	{
     		$str .= '('.SqlGetStockId($strSymbol).')';
@@ -240,7 +238,7 @@ function EchoTitle($bChinese = true)
     }
     else
     {
-    	$str = $bChinese ? '我的股票' : 'My Stock ';
+    	$str = '我的股票';
     }
     echo $str;
 }

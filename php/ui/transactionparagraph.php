@@ -1,7 +1,7 @@
 <?php
 require_once('stockgroupparagraph.php');
 
-function _echoTransactionTableItem($ref, $transaction, $bReadOnly, $bChinese)
+function _echoTransactionTableItem($ref, $transaction, $bReadOnly)
 {
     $strSymbol = $ref->GetStockSymbol();
     $strDate = GetSqlTransactionDate($transaction);
@@ -14,8 +14,8 @@ function _echoTransactionTableItem($ref, $transaction, $bReadOnly, $bChinese)
     }
     else
     {
-    	$strEdit = GetEditLink(STOCK_PATH.'editstocktransaction', $transaction['id'], $bChinese);
-    	$strDelete = GetDeleteLink(STOCK_PHP_PATH.'_submittransaction.php?delete='.$transaction['id'], '交易记录', 'transaction', $bChinese);
+    	$strEdit = GetEditLink(STOCK_PATH.'editstocktransaction', $transaction['id']);
+    	$strDelete = GetDeleteLink(STOCK_PHP_PATH.'_submittransaction.php?delete='.$transaction['id'], '交易记录');
     }
     
     echo <<<END
@@ -31,19 +31,19 @@ function _echoTransactionTableItem($ref, $transaction, $bReadOnly, $bChinese)
 END;
 }
 
-function _echoSingleTransactionTableData($sql, $ref, $iStart, $iNum, $bReadOnly, $bChinese)
+function _echoSingleTransactionTableData($sql, $ref, $iStart, $iNum, $bReadOnly)
 {
 	if ($result = $sql->GetStockTransaction($ref->GetStockId(), $iStart, $iNum)) 
     {
         while ($transaction = mysql_fetch_assoc($result)) 
         {
-            _echoTransactionTableItem($ref, $transaction, $bReadOnly, $bChinese);
+            _echoTransactionTableItem($ref, $transaction, $bReadOnly);
         }
         @mysql_free_result($result);
     }
 }
 
-function _echoAllTransactionTableData($sql, $iStart, $iNum, $bReadOnly, $bChinese)
+function _echoAllTransactionTableData($sql, $iStart, $iNum, $bReadOnly)
 {
     $ar = array();
     if ($result = $sql->GetAllStockTransaction($iStart, $iNum)) 
@@ -62,30 +62,30 @@ function _echoAllTransactionTableData($sql, $iStart, $iNum, $bReadOnly, $bChines
         		$ref = new MyStockReference($strSymbol);
         		$ar[$strGroupItemId] = $ref;
         	}
-            _echoTransactionTableItem($ref, $transaction, $bReadOnly, $bChinese);
+            _echoTransactionTableItem($ref, $transaction, $bReadOnly);
         }
         @mysql_free_result($result);
     }
 }
 
-function _echoTransactionTableData($sql, $ref, $iStart, $iNum, $bReadOnly, $bChinese)
+function _echoTransactionTableData($sql, $ref, $iStart, $iNum, $bReadOnly)
 {
     if ($ref)
     {
-    	_echoSingleTransactionTableData($sql, $ref, $iStart, $iNum, $bReadOnly, $bChinese);
+    	_echoSingleTransactionTableData($sql, $ref, $iStart, $iNum, $bReadOnly);
     }
     else
     {
-    	_echoAllTransactionTableData($sql, $iStart, $iNum, $bReadOnly, $bChinese);
+    	_echoAllTransactionTableData($sql, $iStart, $iNum, $bReadOnly);
     }
 }
 
-function EchoTransactionParagraph($strGroupId, $bChinese, $ref = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
+function EchoTransactionParagraph($strGroupId, $ref = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
 {
 	$sql = new StockGroupItemSql($strGroupId);
     if (IsTableCommonDisplay($iStart, $iNum))
     {
-    	$str = StockGetAllTransactionLink($strGroupId, $bChinese, $ref);
+    	$str = StockGetAllTransactionLink($strGroupId, $ref);
         $strNavLink = '';
     }
     else
@@ -93,12 +93,12 @@ function EchoTransactionParagraph($strGroupId, $bChinese, $ref = false, $iStart 
     	if ($ref)
     	{
             $iTotal = $sql->CountStockTransaction($ref->GetStockId());
-           	$strNavLink = GetNavLink('groupid='.$strGroupId.'&symbol='.$ref->GetStockSymbol(), $iTotal, $iStart, $iNum, $bChinese);
+           	$strNavLink = GetNavLink('groupid='.$strGroupId.'&symbol='.$ref->GetStockSymbol(), $iTotal, $iStart, $iNum);
     	}
     	else
     	{
             $iTotal = $sql->CountAllStockTransaction();
-           	$strNavLink = GetNavLink('groupid='.$strGroupId, $iTotal, $iStart, $iNum, $bChinese);
+           	$strNavLink = GetNavLink('groupid='.$strGroupId, $iTotal, $iStart, $iNum);
         }
         $str = $strNavLink;
     }
@@ -108,11 +108,10 @@ function EchoTransactionParagraph($strGroupId, $bChinese, $ref = false, $iStart 
 		$str .= ' '.GetMyStockGroupLink($strGroupId);
 	}
 	
-	$arReference = GetReferenceTableColumn($bChinese);
+	$arReference = GetReferenceTableColumn();
 	$strSymbol = $arReference[0];
 	$strPrice = $arReference[1];
-    if ($bChinese)     $arColumn = array('日期', $strSymbol, '数量', $strPrice, '交易费用', '备注', '操作');
-    else		         $arColumn = array('Date', $strSymbol, 'Quantity', $strPrice, 'Fees', 'Remark', 'Operation');
+    $arColumn = array('日期', $strSymbol, '数量', $strPrice, '交易费用', '备注', '操作');
     
     echo <<<END
     <p>$str
@@ -128,7 +127,7 @@ function EchoTransactionParagraph($strGroupId, $bChinese, $ref = false, $iStart 
     </tr>
 END;
 
-    _echoTransactionTableData($sql, $ref, $iStart, $iNum, StockGroupIsReadOnly($strGroupId), $bChinese);
+    _echoTransactionTableData($sql, $ref, $iStart, $iNum, StockGroupIsReadOnly($strGroupId));
     EchoTableParagraphEnd($strNavLink);
 }
 

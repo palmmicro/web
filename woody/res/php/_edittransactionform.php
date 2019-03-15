@@ -5,7 +5,7 @@ define('STOCK_TRANSACTION_EDIT_CN', '修改股票交易');
 define('STOCK_TRANSACTION_NEW', 'New Stock Transaction');
 define('STOCK_TRANSACTION_NEW_CN', '新增股票交易');
 
-function StockEditTransactionForm($bChinese = false, $strGroupId = false, $strGroupItemId = false)
+function StockEditTransactionForm($strGroupId = false, $strGroupItemId = false)
 {
     $strQuantity = '';
     $strPrice = '';
@@ -17,7 +17,7 @@ function StockEditTransactionForm($bChinese = false, $strGroupId = false, $strGr
     
     if ($strGroupId)
     {
-        $strSubmit = $bChinese ? STOCK_TRANSACTION_NEW_CN : STOCK_TRANSACTION_NEW;
+        $strSubmit = STOCK_TRANSACTION_NEW_CN;
     }
     else
     {
@@ -26,7 +26,7 @@ function StockEditTransactionForm($bChinese = false, $strGroupId = false, $strGr
         if (($groupitem = SqlGetStockGroupItem($transaction['groupitem_id'])) == false)    return;
 
         $strGroupId = $groupitem['group_id'];
-        $strSubmit = $bChinese ? STOCK_TRANSACTION_EDIT_CN : STOCK_TRANSACTION_EDIT;
+        $strSubmit = STOCK_TRANSACTION_EDIT_CN;
         
         $strQuantity = $transaction['quantity'];
         if (intval($strQuantity) < 0)
@@ -41,18 +41,10 @@ function StockEditTransactionForm($bChinese = false, $strGroupId = false, $strGr
         $strSymbolIndex = $transaction['groupitem_id'];
     }
     
-    if ($bChinese)     
-    {
-        $arColumn = array('卖出', '买入', '数量', '价格', '佣金', '税费', '备注', '金额');
-    }
-    else
-    {
-        $arColumn = array('Sold', 'Bought', 'Quantity', 'Price', 'Commission', 'Tax and Fees', 'Remark', ' Amount');
-    }
-
     $strPassQuery = UrlPassQuery();
     $strSymbolsList = EditGetStockGroupItemList($strGroupId, $strGroupItemId);
     
+    $arColumn = array('卖出', '买入', '数量', '价格', '佣金', '税费', '备注', '金额');
 	echo <<< END
 	<script type="text/javascript">
 	    function OnLoad()

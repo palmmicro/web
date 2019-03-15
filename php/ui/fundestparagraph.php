@@ -102,7 +102,7 @@ END;
     EchoTableParagraphEnd();
 }
 
-function EchoFundEstParagraph($ref, $bChinese)
+function EchoFundEstParagraph($ref, $bChinese = true)
 {
     $str = _getFundParagraphStr($ref, $bChinese);
     EchoFundArrayEstParagraph(array($ref), $bChinese, $str);

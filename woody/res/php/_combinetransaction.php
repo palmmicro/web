@@ -130,7 +130,7 @@ function CombineTransactionEchoAll($bChinese = true)
    		EchoStockGroupParagraph();
 
         $str = StockGetGroupTransactionLinks($strGroupId, $bChinese);
-        $str .= ' '.StockGetAllTransactionLink($strGroupId, $bChinese);
+        $str .= ' '.StockGetAllTransactionLink($strGroupId);
         _echoCombinedTransactionParagraph($str, $strGroupId, 0, $bChinese);
     }
     EchoPromotionHead();

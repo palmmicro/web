@@ -103,7 +103,7 @@ function _getNavLinkQuery($strId, $iStart, $iNum)
     return $str;
 }
 
-function GetNavLink($strQueryId, $iTotal, $iStart, $iNum, $bChinese)
+function GetNavLink($strQueryId, $iTotal, $iStart, $iNum, $bChinese = true)
 {
 	$strTotal = strval($iTotal);
     $str = ($bChinese ? '总数' : 'Total').': ';	//.strval($iTotal).' ';
@@ -163,7 +163,7 @@ function GetNewLink($strPathTitle, $strNew, $bChinese)
     return GetPhpLink($strPathTitle, $bChinese, '新建', 'New', 'new='.$strNew);
 }
 
-function GetEditLink($strPathTitle, $strEdit, $bChinese)
+function GetEditLink($strPathTitle, $strEdit, $bChinese = true)
 {
     return GetPhpLink($strPathTitle, $bChinese, '修改', 'Edit', 'edit='.$strEdit);
 }

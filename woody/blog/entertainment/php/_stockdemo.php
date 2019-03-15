@@ -21,13 +21,13 @@ function EchoReferenceDemo($bChinese = true, $strSymbol = FUND_DEMO_SYMBOL)
 function EchoLofSmaDemo($bChinese = true, $strSymbol = FUND_DEMO_SYMBOL)
 {
 	$fund_ref = StockGetFundReference($strSymbol);
-	EchoLofSmaParagraph($fund_ref, $bChinese);
+	EchoLofSmaParagraph($fund_ref);
 }
 
 function EchoFundHistoryDemo($bChinese = true, $strSymbol = FUND_DEMO_SYMBOL)
 {
 	$fund_ref = StockGetFundReference($strSymbol);
-	EchoFundHistoryParagraph($fund_ref, $bChinese);
+	EchoFundHistoryParagraph($fund_ref);
 }
 
 function EchoFundEstDemo($bChinese = true, $strSymbol = FUND_DEMO_SYMBOL)

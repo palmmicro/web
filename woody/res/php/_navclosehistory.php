@@ -32,7 +32,7 @@ function _echoNavCloseGraph($strSymbol, $bChinese)
 
 function _getNavCloseHistoryLinks($ref, $bChinese)
 {
-	return GetStockHistoryLink($ref->GetStockSymbol(), $bChinese);
+	return GetStockHistoryLink($ref->GetStockSymbol());
 }
 
 function EchoAll($bChinese = true)
@@ -50,7 +50,7 @@ function EchoAll($bChinese = true)
     		$iStart = UrlGetQueryInt('start');
     		$iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
     		$csv = new PageCsvFile();
-			EchoNavCloseHistoryParagraph($ref, $bChinese, $strLinks, $csv, $iStart, $iNum);
+			EchoNavCloseHistoryParagraph($ref, $strLinks, $csv, $iStart, $iNum);
 			$csv->Close();
 
 			_echoNavClosePool($strSymbol, $bChinese);

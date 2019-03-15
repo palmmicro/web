@@ -36,7 +36,7 @@ function EchoAll($bChinese = true)
     		$iStart = UrlGetQueryInt('start');
     		$iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
     		$csv = new PageCsvFile();
-			EchoStockHistoryParagraph($ref, $bChinese, $strLinks, $csv, $iStart, $iNum);
+			EchoStockHistoryParagraph($ref, $strLinks, $csv, $iStart, $iNum);
 			$csv->Close();
 
     		if ($bTest && $iStart == 0)

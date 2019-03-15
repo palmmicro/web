@@ -79,7 +79,7 @@ function EchoHShareSmaParagraph($ref, $hshare_ref, $bChinese = true)
    			$callback2 = _callbackHAdrSmaUsd;
    			$callback = _callbackHAdrSmaAdr;
    		}
-		EchoSmaParagraph($ref, $bChinese, false, $hshare_ref, $callback2);
+		EchoSmaParagraph($ref, false, $hshare_ref, $callback2);
 		$str = '';
 	}
 	else if ($hshare_ref->a_ref)
@@ -93,7 +93,7 @@ function EchoHShareSmaParagraph($ref, $hshare_ref, $bChinese = true)
    		else				   		$callback = _callbackHAdrSmaAdr;
 	}
 	
-	EchoSmaParagraph($ref, $bChinese, $str, $hshare_ref, $callback);
+	EchoSmaParagraph($ref, $str, $hshare_ref, $callback);
 }
 
 ?>

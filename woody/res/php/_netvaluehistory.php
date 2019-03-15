@@ -32,11 +32,11 @@ function _echoNetValueHistory($strSymbol, $iStart, $iNum, $bChinese)
    	if ($sym->IsFundA())
    	{
    		$fund = StockGetFundReference($strSymbol);
-   		EchoFundHistoryParagraph($fund, $bChinese, $csv, $iStart, $iNum);
+   		EchoFundHistoryParagraph($fund, $csv, $iStart, $iNum);
    	}
    	else if ($ref = StockGetEtfReference($strSymbol))
    	{
-   		EchoEtfHistoryParagraph($ref, $bChinese, $csv, $iStart, $iNum);
+   		EchoEtfHistoryParagraph($ref, $csv, $iStart, $iNum);
    	}
     
     _echoNetValueHistoryGraph($strSymbol, $bChinese);

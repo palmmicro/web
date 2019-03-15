@@ -37,7 +37,7 @@ function _echoStockTableData($iStart, $iNum, $bChinese)
 	}
 }
 
-function EchoStockParagraph($iStart, $iNum, $bChinese)
+function EchoStockParagraph($iStart, $iNum, $bChinese = true)
 {
     $iTotal = SqlCountTableData(TABLE_STOCK);
     $strNavLink = GetNavLink(false, $iTotal, $iStart, $iNum, $bChinese);
