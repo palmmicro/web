@@ -106,7 +106,7 @@ And we make SZ162411 and XOP arbitrage analysis based on those record.
 the common stock data part of ADR and LOF is moved to <font color=olive>StockReference</font> class in file <?php EchoPhpFileLink('/php/stock/stockref'); ?>, 
 used in <font color=olive>_LofGroup</font> class in file <?php EchoPhpFileLink('/woody/res/php/_lof'); ?> and <font color=olive>_AdrGroup</font> class in file <?php EchoPhpFileLink('/woody/res/php/_adr'); ?>.
 </p>
-<br />Continue to organize code, add similar <a href="../../res/lof.php">LOF</a> net value tool for <a href="../../res/sh513100.php">GUOTAI NASDAQ-100</a>, <a href="../../res/sz159941.php">NASDAQ-100</a>,
+<br />Continue to organize code, add similar LOF net value tool for <a href="../../res/sh513100.php">GUOTAI NASDAQ-100</a>, <a href="../../res/sz159941.php">NASDAQ-100</a>,
 <a href="../../res/sz160717.php">JIASHI H-Share</a>, <a href="../../res/sz160216.php">GUOTAI COMMODITY</a>, <a href="../../res/sz165510.php">BRIC</a>, 
 <a href="../../res/sz163208.php">NUOAN Energy</a> and <a href="../../res/sz160416.php">HUAAN S&P GLOBAL OIL</a>.
 <br />Steps to add new LOF tools:
@@ -169,7 +169,7 @@ need to use <i>date_default_timezone_set('America/New_York')</i> or <i>date_defa
 
 <h3><a name="goldetf">Gold ETF</a></h3>
 <p>March 25, 2016
-<br />As Gold future GC is not trading on Easter holiday, I get the chance to adjust the net value estimation for Chinese <a href="../../res/goldetf.php">Gold ETF</a>, 
+<br />As Gold future GC is not trading on Easter holiday, I get the chance to adjust the net value estimation for Chinese Gold ETF, 
 including <a href="../../res/sh518800.php">GuoTai Gold ETF</a>, <a href="../../res/sh518880.php">HuaAn Gold ETF</a>, <a href="../../res/sz159934.php">E Fund Gold ETF</a>,
 <a href="../../res/sz159937.php">Bosera Gold ETF</a>, <a href="../../res/sz164701.php">Universal Gold LOF</a>, <a href="../../res/sz160719.php">Harvest Gold LOF</a> and <a href="../../res/sz161116.php">E Fund Gold LOF</a>.
 <br />The average page view of my net value pages in a normal trading day is around 1000 now, the max day is nearly 1700. I have been optimizing my software for more page views in the future.

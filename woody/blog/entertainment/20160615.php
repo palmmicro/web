@@ -13,7 +13,7 @@
 <div>
 <h1>The Interpretation of EastMoney Forex Data Interface</h1>
 <p>June 15, 2016
-<br />The forex data of <a href="20151225.php">Sina interface</a> is realtime trading data, but USDCNY reference rate is widely used in <a href="../../res/lof.php">LOF</a>,
+<br />The forex data of <a href="20151225.php">Sina interface</a> is realtime trading data, but USDCNY reference rate is widely used in LOF,
 so the <a href="20150818.php">SZ162411</a> net value calculation may have 0.1 cent of difference compared with final official data. 
 As the difference is so small, and I also believe the trading price will move to reference rate during the day, I was not changing it. After all, I will not trade based 0.1 cent any way.
 <br />Since this year, the manager of SZ160216 works very hard to keep the <a href="../../res/sz160216.php">SZ160216 net value</a> moves almost the same as USO, 
