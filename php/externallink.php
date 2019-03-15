@@ -160,7 +160,7 @@ function GetSinaForexLink($strSymbol)
     return GetExternalLink($strHttp, $strSymbol);
 }
 
-function GetExternalStockHistoryLink($sym, $bChinese)
+function GetExternalStockHistoryLink($sym)
 {
 	if ($sym->IsIndexA())
 	{
@@ -170,7 +170,7 @@ function GetExternalStockHistoryLink($sym, $bChinese)
 	{
 		$strHttp = YahooStockHistoryGetUrl($sym->GetYahooSymbol());
 	}
-    return GetExternalLink($strHttp, ($bChinese ? '历史数据' : 'History'));
+    return GetExternalLink($strHttp, '历史数据');
 }
 
 // http://vip.stock.finance.sina.com.cn/corp/go.php/vISSUE_ShareBonus/stockid/000028.phtml
@@ -190,10 +190,10 @@ function GetStockDividendUrl($sym)
     return YahooStockHistoryGetUrl($strSymbol).'?filter=div';
 }
 
-function GetStockDividendLink($sym, $bChinese)
+function GetStockDividendLink($sym)
 {
     $strHttp = GetStockDividendUrl($sym);
-    return GetExternalLink($strHttp, ($bChinese ? '分红数据' : 'Dividend'));
+    return GetExternalLink($strHttp, '分红数据');
 }
 
 // https://www.jisilu.cn/data/ha_history/600585

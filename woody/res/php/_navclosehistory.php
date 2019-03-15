@@ -13,29 +13,29 @@ class _NavCloseCsvFile extends PricePoolCsvFile
     }
 }
 
-function _echoNavClosePool($strSymbol, $bChinese)
+function _echoNavClosePool($strSymbol)
 {
    	$csv = new _NavCloseCsvFile();
    	$csv->Read();
-   	EchoPricePoolParagraph($csv->pool, $bChinese, $strSymbol);
+   	EchoPricePoolParagraph($csv->pool, $strSymbol);
 }
 
-function _echoNavCloseGraph($strSymbol, $bChinese)
+function _echoNavCloseGraph($strSymbol)
 {
    	$csv = new PageCsvFile();
     $jpg = new PageImageFile();
     $jpg->DrawDateArray($csv->ReadColumn(2));
     $jpg->DrawCompareArray($csv->ReadColumn(3));
-	$strPremium = $bChinese ? '溢价' : 'Premium';
+	$strPremium = '溢价';
     $jpg->Show($strPremium, $strSymbol, $csv->GetPathName());
 }
 
-function _getNavCloseHistoryLinks($ref, $bChinese)
+function _getNavCloseHistoryLinks($ref)
 {
 	return GetStockHistoryLink($ref->GetStockSymbol());
 }
 
-function EchoAll($bChinese = true)
+function EchoAll()
 {
     if ($strSymbol = UrlGetQueryValue('symbol'))
     {
@@ -46,32 +46,31 @@ function EchoAll($bChinese = true)
         $ref = StockGetReference($sym);
         if ($ref->HasData())
     	{
-    		$strLinks = _getNavCloseHistoryLinks($ref, $bChinese);
+    		$strLinks = _getNavCloseHistoryLinks($ref);
     		$iStart = UrlGetQueryInt('start');
     		$iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
     		$csv = new PageCsvFile();
 			EchoNavCloseHistoryParagraph($ref, $strLinks, $csv, $iStart, $iNum);
 			$csv->Close();
 
-			_echoNavClosePool($strSymbol, $bChinese);
-			_echoNavCloseGraph($strSymbol, $bChinese);
+			_echoNavClosePool($strSymbol);
+			_echoNavCloseGraph($strSymbol);
     	}
     }
     EchoPromotionHead();
     EchoStockCategory();
 }
 
-function EchoMetaDescription($bChinese = true)
+function EchoMetaDescription()
 {
     $str = UrlGetQueryDisplay('symbol');
-    if ($bChinese)  $str .= '净值和收盘价历史比较页面. 观察每天净值和收盘价偏离的情况. 同时判断偏离的方向和大小是否跟当天涨跌以及交易量相关, 总结规律以便提供可能的套利操作建议.';
-    else             $str .= ' NAV and close price compare page, check if the difference is related with daily change and quantity or not.';
+    $str .= '净值和收盘价历史比较页面. 观察每天净值和收盘价偏离的情况. 同时判断偏离的方向和大小是否跟当天涨跌以及交易量相关, 总结规律以便提供可能的套利操作建议.';
     EchoMetaDescriptionText($str);
 }
 
-function EchoTitle($bChinese = true)
+function EchoTitle()
 {
-  	echo UrlGetQueryDisplay('symbol').($bChinese ? '净值和收盘价历史比较' : ' NAV Close History Compare');
+  	echo UrlGetQueryDisplay('symbol').'净值和收盘价历史比较';
 }
 
     AcctAuth();

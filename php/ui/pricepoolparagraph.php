@@ -18,10 +18,9 @@ function _echoPricePoolItem($str, $goal)
 END;
 }
 
-function _echoPricePoolParagraph($pool, $bChinese, $strSymbol, $strTradingSymbol = '', $arColumnEx, $arRow)
+function _echoPricePoolParagraph($pool, $strSymbol, $strTradingSymbol = '', $arColumnEx, $arRow)
 {
-    if ($bChinese)	$arColumn = array($strSymbol.'交易',     '天数');
-    else		    	$arColumn = array($strSymbol.' Trading', 'Days');
+    $arColumn = array($strSymbol.'交易', '天数');
 
     echo <<<END
     <p>
@@ -41,26 +40,18 @@ END;
     EchoTableParagraphEnd();
 }
 
-function EchoPricePoolParagraph($pool, $bChinese, $strSymbol, $strTradingSymbol = '', $bTranspose = true)
+function EchoPricePoolParagraph($pool, $strSymbol, $strTradingSymbol = '', $bTranspose = true)
 {
-    if ($bChinese)
-    {
-    	$arColumnEx = array('涨', '不变', '跌');
-    	$arRow = array('溢价', '平价', '折价');
-    }
-    else
-    {
-    	$arColumnEx = array(' Higher', ' Unchanged', ' Lower');
-    	$arRow = array('Higher', 'Unchanged', 'Lower');
-    }
+   	$arColumnEx = array('涨', '不变', '跌');
+   	$arRow = array('溢价', '平价', '折价');
     
     if ($bTranspose)
     {
-    	_echoPricePoolParagraph($pool, $bChinese, $strSymbol, $strTradingSymbol, $arRow, $arColumnEx);
+    	_echoPricePoolParagraph($pool, $strSymbol, $strTradingSymbol, $arRow, $arColumnEx);
     }
     else
     {
-    	_echoPricePoolParagraph($pool, $bChinese, $strSymbol, $strTradingSymbol, $arColumnEx, $arRow);
+    	_echoPricePoolParagraph($pool, $strSymbol, $strTradingSymbol, $arColumnEx, $arRow);
     }
 }
 

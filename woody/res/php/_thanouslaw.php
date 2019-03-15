@@ -15,7 +15,7 @@ function _echoThanousLawPool($strSymbol, $strTradingSymbol, $bChinese)
 {
    	$csv = new _ThanousLawCsvFile();
    	$csv->Read();
-   	EchoPricePoolParagraph($csv->pool, $bChinese, $strSymbol, $strTradingSymbol, false);
+   	EchoPricePoolParagraph($csv->pool, $strSymbol, $strTradingSymbol, false);
 }
 
 function _echoThanousLawItem($csv, $strDate, $ref, $pair_ref)

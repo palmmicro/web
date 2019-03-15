@@ -4,23 +4,23 @@ require_once('_editstockoptionform.php');
 require_once('/php/csvfile.php');
 require_once('/php/ui/stockhistoryparagraph.php');
 
-function _getStockHistoryLinks($ref, $bTest, $bChinese)
+function _getStockHistoryLinks($ref, $bTest)
 {
 	$sym = $ref->GetSym();
-    $strLinks = GetExternalStockHistoryLink($sym, $bChinese);
+    $strLinks = GetExternalStockHistoryLink($sym);
     if ($sym->IsTradable())
     {
-    	$strLinks .= ' '.GetStockDividendLink($sym, $bChinese);
+    	$strLinks .= ' '.GetStockDividendLink($sym);
     }
     if ($bTest)
     {
-    	$strLinks .= ' '.GetOnClickLink(STOCK_PHP_PATH.'_submithistory.php?id='.$ref->GetStockId(), $bChinese ? '确认更新股票历史记录?' : 'Confirm update stock history?', $bChinese ? '更新历史记录' : 'Update History');
+    	$strLinks .= ' '.GetOnClickLink(STOCK_PHP_PATH.'_submithistory.php?id='.$ref->GetStockId(), '确认更新股票历史记录?', '更新历史记录');
     	$strLinks .= ' '.SqlCountTableDataString(TABLE_STOCK_HISTORY);
     }
     return $strLinks;
 }
 
-function EchoAll($bChinese = true)
+function EchoAll()
 {
 	$bTest = AcctIsAdmin();
     if ($strSymbol = UrlGetQueryValue('symbol'))
@@ -32,7 +32,7 @@ function EchoAll($bChinese = true)
         $ref = StockGetReference($sym);
         if ($ref->HasData())
     	{
-    		$strLinks = _getStockHistoryLinks($ref, $bTest, $bChinese);
+    		$strLinks = _getStockHistoryLinks($ref, $bTest);
     		$iStart = UrlGetQueryInt('start');
     		$iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
     		$csv = new PageCsvFile();
@@ -41,7 +41,7 @@ function EchoAll($bChinese = true)
 
     		if ($bTest && $iStart == 0)
     		{
-				StockOptionEditForm($bChinese ? STOCK_OPTION_ADJCLOSE_CN : STOCK_OPTION_ADJCLOSE);
+				StockOptionEditForm(STOCK_OPTION_ADJCLOSE_CN);
     		}
     	}
     }
@@ -49,17 +49,16 @@ function EchoAll($bChinese = true)
     EchoStockCategory();
 }
 
-function EchoMetaDescription($bChinese = true)
+function EchoMetaDescription()
 {
     $str = UrlGetQueryDisplay('symbol');
-    if ($bChinese)  $str .= '历史价格记录页面. 用于查看计算SMA的原始数据, 提供跟Yahoo或者Sina历史数据同步的功能, 方便人工处理合股和拆股, 分红除权等价格处理问题.';
-    else             $str .= ' stock history page. View the data to calculate SMA here, with functions to get Yahoo stock history data.';
+    $str .= '历史价格记录页面. 用于查看计算SMA的原始数据, 提供跟Yahoo或者Sina历史数据同步的功能, 方便人工处理合股和拆股, 分红除权等价格处理问题.';
     EchoMetaDescriptionText($str);
 }
 
-function EchoTitle($bChinese = true)
+function EchoTitle()
 {
-  	echo UrlGetQueryDisplay('symbol').($bChinese ? '历史价格记录' : ' Historical Price');
+  	echo UrlGetQueryDisplay('symbol').'历史价格记录';
 }
 
     AcctAuth();
