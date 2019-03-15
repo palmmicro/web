@@ -36,7 +36,7 @@ class _LofGroup extends _StockGroup
     {
     	if (count($this->ar_leverage_ref) > 0)
     	{
-            EchoEtfListParagraph($this->ar_leverage_ref, $bChinese);
+            EchoEtfListParagraph($this->ar_leverage_ref);
 //			DebugString('EchoEtfList');
         }
     }

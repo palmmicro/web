@@ -103,7 +103,7 @@ function _echoStockGroupTableData($bChinese)
 	}
 }
 
-function EchoStockGroupParagraph($bChinese)
+function EchoStockGroupParagraph($bChinese = true)
 {
     $arColumn = GetStockGroupTableColumn($bChinese);
     $arColumn[0] = GetMyStockGroupLink();

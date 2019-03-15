@@ -78,7 +78,7 @@ function _getFundParagraphStr($ref, $bChinese)
     return $str;
 }
 
-function EchoFundArrayEstParagraph($arRef, $bChinese, $str = '')
+function EchoFundArrayEstParagraph($arRef, $bChinese = true, $str = '')
 {
 	$arColumn = GetFundEstTableColumn($bChinese);
     echo <<<END

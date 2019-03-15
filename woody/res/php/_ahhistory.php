@@ -112,7 +112,7 @@ function EchoAll($bChinese = true)
     if ($strSymbol = UrlGetQueryValue('symbol'))
     {
     	StockPrefetchData($strSymbol);
-   		EchoStockGroupParagraph($bChinese);	
+   		EchoStockGroupParagraph();	
     	if ($strStockId = SqlGetStockId($strSymbol))
     	{
     		$sql = new PairStockSql($strStockId, TABLE_AH_STOCK);
@@ -125,7 +125,7 @@ function EchoAll($bChinese = true)
     	}
     }
     EchoPromotionHead();
-    EchoStockCategory($bChinese);
+    EchoStockCategory();
 }
 
 function EchoTitle($bChinese = true)

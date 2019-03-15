@@ -45,7 +45,7 @@ function _etfListRefCallback($ref = false)
     return array('跟踪'.$strSymbol, '杠杆倍数', '校准值');
 }
 
-function EchoEtfListParagraph($arRef, $bChinese)
+function EchoEtfListParagraph($arRef, $bChinese = true)
 {
 	$ar = array();
 	foreach ($arRef as $ref)

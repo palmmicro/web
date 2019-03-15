@@ -127,7 +127,7 @@ function CombineTransactionEchoAll($bChinese = true)
     {
         $arSymbol = SqlGetStocksArray($strGroupId);
         StockPrefetchArrayData($arSymbol);
-   		EchoStockGroupParagraph($bChinese);
+   		EchoStockGroupParagraph();
 
         $str = StockGetGroupTransactionLinks($strGroupId, $bChinese);
         $str .= ' '.StockGetAllTransactionLink($strGroupId, $bChinese);

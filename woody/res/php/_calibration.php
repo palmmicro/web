@@ -7,7 +7,7 @@ function EchoCalibration($bChinese = true)
     if ($strSymbol = UrlGetQueryValue('symbol'))
     {
     	StockPrefetchData($strSymbol);
-   		EchoStockGroupParagraph($bChinese);	
+   		EchoStockGroupParagraph();	
     	if ($strStockId = SqlGetStockId($strSymbol))
     	{
     		$iStart = UrlGetQueryInt('start');

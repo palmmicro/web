@@ -222,7 +222,7 @@ function _getMemberDisplay($strMemberId)
 	return $strName;
 }
 
-function _GetWhoseDisplay($strOwnerMemberId, $strMemberId, $bChinese)
+function _GetWhoseDisplay($strOwnerMemberId, $strMemberId, $bChinese = true)
 {
     if ($strOwnerMemberId == $strMemberId)
     {
@@ -238,7 +238,7 @@ function _GetWhoseDisplay($strOwnerMemberId, $strMemberId, $bChinese)
     return $str;
 }
 
-function _GetWhoseStockGroupDisplay($strMemberId, $strGroupId, $bChinese)
+function _GetWhoseStockGroupDisplay($strMemberId, $strGroupId, $bChinese = true)
 {
     if ($strGroupMemberId = SqlGetStockGroupMemberId($strGroupId))
     {
@@ -248,7 +248,7 @@ function _GetWhoseStockGroupDisplay($strMemberId, $strGroupId, $bChinese)
     return '';
 }
 
-function _GetAllDisplay($str, $bChinese)
+function _GetAllDisplay($str, $bChinese = true)
 {
     if ($str)   return $str;
     

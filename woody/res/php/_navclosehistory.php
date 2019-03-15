@@ -40,7 +40,7 @@ function EchoAll($bChinese = true)
     if ($strSymbol = UrlGetQueryValue('symbol'))
     {
     	StockPrefetchData($strSymbol);
-   		EchoStockGroupParagraph($bChinese);
+   		EchoStockGroupParagraph();
    		
    		$sym = new StockSymbol($strSymbol);
         $ref = StockGetReference($sym);
@@ -58,7 +58,7 @@ function EchoAll($bChinese = true)
     	}
     }
     EchoPromotionHead();
-    EchoStockCategory($bChinese);
+    EchoStockCategory();
 }
 
 function EchoMetaDescription($bChinese = true)

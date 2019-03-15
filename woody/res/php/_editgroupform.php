@@ -24,7 +24,7 @@ function _getStocksString($strGroupId)
     return '';
 }
 
-function StockEditGroupForm($strSubmit, $bChinese)
+function StockEditGroupForm($strSubmit, $bChinese = true)
 {
     $arColumn = GetStockGroupTableColumn($bChinese);
     $strPassQuery = UrlPassQuery();

@@ -112,7 +112,7 @@ function _echoMyStockData($strSymbol, $bChinese)
     EchoReferenceParagraph(array($ref));
     if ($etf_ref)
     {
-    	EchoEtfListParagraph(array($etf_ref), $bChinese);
+    	EchoEtfListParagraph(array($etf_ref));
     	EchoEtfTradingParagraph($etf_ref, $bChinese);
         EchoEtfHistoryParagraph($etf_ref, $bChinese);
     }
@@ -127,8 +127,8 @@ function _echoMyStockData($strSymbol, $bChinese)
         if ($hshare_ref)
         {
         	if ($strSymbol != $hshare_ref->GetStockSymbol())	RefSetExternalLinkMyStock($hshare_ref, $bChinese);
-			if ($hshare_ref->a_ref)								EchoAhParagraph(array($hshare_ref), $bChinese);
-			if ($hshare_ref->adr_ref)							EchoAdrhParagraph(array($hshare_ref), $bChinese);
+			if ($hshare_ref->a_ref)								EchoAhParagraph(array($hshare_ref));
+			if ($hshare_ref->adr_ref)							EchoAdrhParagraph(array($hshare_ref));
         }
    		if ($sym->IsSymbolA())
    		{
@@ -154,7 +154,7 @@ function _echoMyStockData($strSymbol, $bChinese)
     
     if ($strMemberId = AcctIsLogin())
     {
-    	EchoStockGroupParagraph($bChinese);	
+    	EchoStockGroupParagraph();	
         _echoMyStockTransactions($strMemberId, $ref, $bChinese);
     }
     
@@ -203,7 +203,7 @@ function EchoAll($bChinese = true)
         }
     }
     EchoPromotionHead();
-    EchoStockCategory($bChinese);
+    EchoStockCategory();
 }
 
 function EchoMetaDescription($bChinese = true)

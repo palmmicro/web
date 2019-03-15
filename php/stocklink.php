@@ -160,18 +160,18 @@ function StockGetGroupTransactionLinks($strGroupId, $bChinese, $strCurSymbol = '
 }
 
 // ****************************** Other internal link related functions *******************************************************
-function SelectStockLink($strSymbol, $bChinese)
+function SelectStockLink($strSymbol)
 {
     if (in_arrayAll($strSymbol))
     {
-    	return GetPhpLink(STOCK_PATH.strtolower($strSymbol), $bChinese, $strSymbol);
+    	return GetPhpLink(STOCK_PATH.strtolower($strSymbol), true, $strSymbol);
     }
     return false;
 }
 
 function GetStockLink($strSymbol, $bChinese)
 {
-   	if ($strLink = SelectStockLink($strSymbol, $bChinese))
+   	if ($strLink = SelectStockLink($strSymbol))
     {
     	return $strLink; 
     }
@@ -182,7 +182,7 @@ function GetStockGroupLink($strGroupId, $bChinese = true)
 {
     if ($strGroupName = SqlGetStockGroupName($strGroupId))
     {
-    	if ($strLink = SelectStockLink($strGroupName, $bChinese))
+    	if ($strLink = SelectStockLink($strGroupName))
     	{
     		return $strLink; 
     	}

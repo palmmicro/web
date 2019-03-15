@@ -60,7 +60,7 @@ function _refSortByRatio($arRef)
     return $arSort;
 }
 
-function EchoAhParagraph($arRef, $bChinese)
+function EchoAhParagraph($arRef, $bChinese = true)
 {
 	$str = GetAhCompareLink();
 	$iCount = count($arRef);
@@ -130,7 +130,7 @@ function _adrhStockRefCallback($ref = false)
     */
 }
 
-function EchoAdrhParagraph($arRef, $bChinese)
+function EchoAdrhParagraph($arRef, $bChinese = true)
 {
 	$str = GetAdrhCompareLink($bChinese);
 	if (count($arRef) > 2)

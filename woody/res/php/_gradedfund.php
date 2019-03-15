@@ -81,7 +81,7 @@ function EchoAll($bChinese = true)
     
     if ($group->strGroupId) 
     {
-        _EchoTransactionParagraph($group, $bChinese);
+        _EchoTransactionParagraph($group);
 	}
     
     EchoPromotionHead('gradedfund');

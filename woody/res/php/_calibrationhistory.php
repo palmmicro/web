@@ -84,7 +84,7 @@ function EchoCalibrationHistory($bChinese = true)
     if ($strSymbol = UrlGetQueryValue('symbol'))
     {
     	StockPrefetchData($strSymbol);
-   		EchoStockGroupParagraph($bChinese);
+   		EchoStockGroupParagraph();
    		
         $iStart = UrlGetQueryInt('start');
         $iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);

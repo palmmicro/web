@@ -47,14 +47,14 @@ function EchoAll($bChinese = true)
     if ($strSymbol = UrlGetQueryValue('symbol'))
     {
     	StockPrefetchData($strSymbol);
-   		EchoStockGroupParagraph($bChinese);	
+   		EchoStockGroupParagraph();	
 
    		$iStart = UrlGetQueryInt('start');
    		$iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
    		_echoNetValueHistory($strSymbol, $iStart, $iNum, $bChinese);
     }
     EchoPromotionHead('netvalue');
-    EchoStockCategory($bChinese);
+    EchoStockCategory();
 }
 
 function EchoTitle($bChinese = true)

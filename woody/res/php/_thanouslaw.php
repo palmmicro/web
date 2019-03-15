@@ -100,7 +100,7 @@ function EchoAll($bChinese = true)
     if ($strSymbol = UrlGetQueryValue('symbol'))
     {
     	StockPrefetchData($strSymbol);
-   		EchoStockGroupParagraph($bChinese);
+   		EchoStockGroupParagraph();
         if (in_arrayLof($strSymbol))
         {
    			$iStart = UrlGetQueryInt('start');
@@ -112,7 +112,7 @@ function EchoAll($bChinese = true)
         }
     }
     EchoPromotionHead('thanouslaw');
-    EchoStockCategory($bChinese);
+    EchoStockCategory();
 }
 
 function EchoTitle($bChinese = true)

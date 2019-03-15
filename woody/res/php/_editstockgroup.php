@@ -21,7 +21,7 @@ function _getOperationStr($bChinese)
 
 function EchoAll($bChinese = true)
 {
-	StockEditGroupForm(_getOperationStr($bChinese), $bChinese);
+	StockEditGroupForm(_getOperationStr($bChinese));
 }
 
 function EchoMetaDescription($bChinese = true)

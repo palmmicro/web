@@ -67,7 +67,7 @@ function EchoAll($bChinese = true)
     global $group;
     
     EchoReferenceParagraph($group->arRef, _chinaEtfRefCallback);
-    EchoEtfListParagraph(array($group->ref, $group->us_ref), $bChinese);
+    EchoEtfListParagraph(array($group->ref, $group->us_ref));
     EchoEtfTradingParagraph($group->ref, $bChinese);
     EchoEtfSmaParagraph($group->ref, $bChinese);
     EchoEtfSmaParagraph($group->us_ref, $bChinese, '');
@@ -76,7 +76,7 @@ function EchoAll($bChinese = true)
 
     if ($group->strGroupId) 
     {
-        _EchoTransactionParagraph($group, $bChinese);
+        _EchoTransactionParagraph($group);
         if ($group->GetTotalRecords() > 0)
         {
             EchoMoneyParagraph($group, $group->us_ref->cny_ref->fPrice);
