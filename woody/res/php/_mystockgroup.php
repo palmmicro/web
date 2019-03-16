@@ -252,7 +252,7 @@ function EchoTitle()
     		$str = _GetWhoseDisplay(AcctGetMemberId(), $strMemberId);
     		$str .= _GetAllDisplay(false);
     	}
-    	$str .= '股票分组';
+    	$str .= STOCK_GROUP_DISPLAY;
     }
     else
     {

@@ -52,13 +52,13 @@ function EchoAll()
 function EchoMetaDescription()
 {
     $str = UrlGetQueryDisplay('symbol');
-    $str .= '历史价格记录页面. 用于查看计算SMA的原始数据, 提供跟Yahoo或者Sina历史数据同步的功能, 方便人工处理合股和拆股, 分红除权等价格处理问题.';
+    $str .= STOCK_HISTORY_DISPLAY.'页面. 用于查看计算SMA的原始数据, 提供跟Yahoo或者Sina历史数据同步的功能, 方便人工处理合股和拆股, 分红除权等价格处理问题.';
     EchoMetaDescriptionText($str);
 }
 
 function EchoTitle()
 {
-  	echo UrlGetQueryDisplay('symbol').'历史价格记录';
+  	echo UrlGetQueryDisplay('symbol').STOCK_HISTORY_DISPLAY;
 }
 
     AcctAuth();

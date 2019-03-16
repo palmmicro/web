@@ -26,7 +26,6 @@ function _getStocksString($strGroupId)
 
 function StockEditGroupForm($strSubmit, $bChinese = true)
 {
-    $arColumn = GetStockGroupTableColumn($bChinese);
     $strPassQuery = UrlPassQuery();
     $strGroupName = '';
     $strStocks = '';
@@ -59,6 +58,8 @@ function StockEditGroupForm($strSubmit, $bChinese = true)
         break;
     }
 	
+    $strStockGroup = STOCK_GROUP_DISPLAY;
+	$strSymbol = GetReferenceTableSymbol();
 	echo <<< END
 	<script type="text/javascript">
 	    function OnLoad()
@@ -69,9 +70,9 @@ function StockEditGroupForm($strSubmit, $bChinese = true)
 	
 	<form id="groupForm" name="groupForm" method="post" action="/woody/res/php/_submitgroup.php$strPassQuery">
         <div>
-		<p>{$arColumn[0]}
+		<p>$strStockGroup
 		<br /><input name="groupname" value="$strGroupName" type="text" size="20" maxlength="32" class="textfield" id="groupname" />
-		<br />{$arColumn[1]}
+		<br />$strSymbol
 		<br /><textarea name="symbols" rows="8" cols="75" id="symbols">$strStocks</textarea>
 	    <br /><input type="submit" name="submit" value="$strSubmit" />
 	    </p>

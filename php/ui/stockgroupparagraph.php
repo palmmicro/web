@@ -105,16 +105,16 @@ function _echoStockGroupTableData($bChinese)
 
 function EchoStockGroupParagraph($bChinese = true)
 {
-    $arColumn = GetStockGroupTableColumn($bChinese);
-    $arColumn[0] = GetMyStockGroupLink();
+    $strStockGroup = GetMyStockGroupLink();
+	$strSymbol = GetReferenceTableSymbol();
     
     echo <<<END
     <p>
     <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="stockgroup">
     <tr>
-        <td class=c1 width=100 align=center>{$arColumn[0]}</td>
-        <td class=c1 width=440 align=center>{$arColumn[1]}</td>
-        <td class=c1 width=100 align=center>{$arColumn[2]}</td>
+        <td class=c1 width=100 align=center>$strStockGroup</td>
+        <td class=c1 width=440 align=center>$strSymbol</td>
+        <td class=c1 width=100 align=center></td>
     </tr>
 END;
 

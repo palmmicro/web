@@ -32,9 +32,10 @@ function GetCalibrationLink($strSymbol)
     return GetStockSymbolLink('calibration', $strSymbol, '校准记录');
 }
 
+define('STOCK_HISTORY_DISPLAY', '历史价格记录');
 function GetStockHistoryLink($strSymbol)
 {
-    return GetStockSymbolLink('stockhistory', $strSymbol, '价格历史');
+    return GetStockSymbolLink('stockhistory', $strSymbol, STOCK_HISTORY_DISPLAY);
 }
 
 define('NETVALUE_HISTORY_DISPLAY', '净值历史记录');
@@ -81,6 +82,7 @@ function GetAdrhCompareLink()
     return GetStockTitleLink('adrhcompare', 'ADR和H对比');
 }
 
+define('STOCK_GROUP_DISPLAY', '股票分组');
 function GetMyStockGroupLink($strGroupId = false)
 {
 	if ($strGroupId)
@@ -90,8 +92,7 @@ function GetMyStockGroupLink($strGroupId = false)
 	}
 	else
 	{
-		$arColumn = GetStockGroupTableColumn();
-		$strDisplay = $arColumn[0];
+		$strDisplay = STOCK_GROUP_DISPLAY;
 		$strQuery = false;
 	}
 	return GetStockTitleLink('mystockgroup', $strDisplay, $strQuery);

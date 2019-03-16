@@ -83,15 +83,6 @@ function GetFundHistoryTableColumn($est_ref, $bChinese = true)
     return $arColumn;
 }
 
-function GetStockGroupTableColumn($bChinese = true)
-{
-	$strSymbol = GetReferenceTableSymbol($bChinese);
-	
-    if ($bChinese)	$arColumn = array('股票分组', $strSymbol, '操作');
-    else		        $arColumn = array('Stock Group', $strSymbol.'s', 'Operation');
-    return $arColumn;
-}
-
 function GetAhCompareTableColumn()
 {
 	$strSymbol = GetReferenceTableSymbol();

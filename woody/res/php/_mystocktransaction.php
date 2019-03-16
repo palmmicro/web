@@ -33,8 +33,7 @@ function MyStockTransactionEchoMetaDescription($bChinese = true)
 {
     $str = _GetWhoseStockGroupDisplay(false, UrlGetQueryValue('groupid'), $bChinese);
     $strStock = _GetAllDisplay(UrlGetQueryValue('symbol'), $bChinese);
-    if ($bChinese)  $str .= '股票分组'.$strStock.'交易记录管理页面. 提供现有股票交易记录和编辑删除链接, 主要用于某组股票交易记录超过一定数量后的显示. 少量的股票交易记录一般直接显示在该股票页面而不是在这里.';
-    else             $str .= ' stock group '.$strStock.' transactions management, with edit and delete links and various data analysis tools.';
+    $str .= STOCK_GROUP_DISPLAY.$strStock.'交易记录管理页面. 提供现有股票交易记录和编辑删除链接, 主要用于某组股票交易记录超过一定数量后的显示. 少量的股票交易记录一般直接显示在该股票页面而不是在这里.';
     EchoMetaDescriptionText($str);
 }
 
@@ -42,8 +41,7 @@ function MyStockTransactionEchoTitle($bChinese = true)
 {
     $str = _GetWhoseStockGroupDisplay(AcctIsLogin(), UrlGetQueryValue('groupid'), $bChinese);
     $strStock = _GetAllDisplay(UrlGetQueryValue('symbol'), $bChinese);
-    if ($bChinese)  $str .= '股票分组'.$strStock.'交易记录';
-    else             $str .= ' Stock Group '.$strStock.' Transactions';
+    $str .= STOCK_GROUP_DISPLAY.$strStock.'交易记录';
     echo $str;
 }
 
