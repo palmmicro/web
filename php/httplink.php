@@ -168,7 +168,7 @@ function GetEditLink($strPathTitle, $strEdit, $bChinese = true)
     return GetPhpLink($strPathTitle, $bChinese, '修改', 'Edit', 'edit='.$strEdit);
 }
 
-function GetTitleLink($strTitle, $bChinese, $strDisplay, $strUs = false, $strQuery = false, $strPath = STOCK_PATH)
+function GetTitleLink($strPath, $strTitle, $bChinese, $strDisplay, $strUs = false, $strQuery = false)
 {
 	if ($strUs && ($bChinese == false))
 	{
@@ -188,7 +188,7 @@ function GetCategoryLinks($callback, $bChinese, $strPath = STOCK_PATH)
     $str = '';
     foreach ($arCategory as $strCategory => $strDisplay)
     {
-    	$str .= GetTitleLink($strCategory, $bChinese, $strDisplay, false, false, $strPath).' ';
+    	$str .= GetTitleLink($strPath, $strCategory, $bChinese, $strDisplay).' ';
     }
     return $str;
 }

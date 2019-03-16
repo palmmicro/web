@@ -63,7 +63,7 @@ function _getFundParagraphStr($ref, $bChinese)
 {
     $strDate = $ref->strOfficialDate;
     $strLastTime = SqlGetStockCalibrationTime($ref->GetStockId());
-    $strHistoryLink = GetCalibrationHistoryLink($ref->GetStockSymbol(), $bChinese);
+    $strHistoryLink = GetCalibrationHistoryLink($ref->GetStockSymbol());
 	$arColumn = GetFundEstTableColumn($bChinese);
 	$str = $arColumn[1];
     if ($bChinese)     

@@ -66,7 +66,7 @@ function EchoAhParagraph($arRef, $bChinese = true)
 	$iCount = count($arRef);
 	if ($iCount == 1)
 	{
-		$str .= ' '.GetAhHistoryLink($arRef[0]->a_ref->GetStockSymbol(), $bChinese);
+		$str .= ' '.GetAhHistoryLink($arRef[0]->a_ref->GetStockSymbol());
 	}
 	else if ($iCount > 2)
 	{
@@ -132,7 +132,7 @@ function _adrhStockRefCallback($ref = false)
 
 function EchoAdrhParagraph($arRef, $bChinese = true)
 {
-	$str = GetAdrhCompareLink($bChinese);
+	$str = GetAdrhCompareLink();
 	if (count($arRef) > 2)
 	{
 		if ($strSort = UrlGetQueryValue('sort'))

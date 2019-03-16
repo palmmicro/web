@@ -130,7 +130,7 @@ function EchoAll()
 function EchoMetaDescription()
 {
     $str = UrlGetQueryDisplay('symbol');
-    $str .= '中国A股和香港H股历史价格比较页面. 按A股交易日期排序显示. 同时显示港币人民币中间价历史, 提供跟Yahoo历史数据同步的功能.';
+    $str .= '中国A股和香港H股历史价格比较页面. 按A股交易日期排序显示. 同时显示港币人民币中间价历史, 提供跟Yahoo或者Sina历史数据同步的功能.';
     EchoMetaDescriptionText($str);
 }
 

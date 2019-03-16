@@ -57,7 +57,7 @@ function GetFundHistoryTableColumn($est_ref, $bChinese = true)
 {
     if ($est_ref)
     {
-		$strSymbol = RefGetMyStockLink($est_ref, $bChinese);
+		$strSymbol = RefGetMyStockLink($est_ref);
         $strChange = GetReferenceTableChange($bChinese);
     }
     else

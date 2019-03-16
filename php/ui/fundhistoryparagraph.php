@@ -130,7 +130,7 @@ function _echoFundHistoryParagraph($ref, $est_ref, $bChinese, $strDisplay = '', 
 	$sql = new NavHistorySql($ref->GetStockId());
     if (IsTableCommonDisplay($iStart, $iNum))
     {
-        $str .= ' '.GetNetValueHistoryLink($strSymbol, $bChinese);
+        $str .= ' '.GetNetValueHistoryLink($strSymbol);
         $strNavLink = '';
     }
     else

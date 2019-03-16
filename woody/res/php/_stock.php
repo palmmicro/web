@@ -88,7 +88,7 @@ function _echoGroupPortfolioParagraph($group, $bChinese)
 {
     if ($group->GetTotalRecords() > 0)
 	{
-	    _EchoPortfolioParagraphBegin(GetMyPortfolioLink($bChinese), $bChinese);    
+	    _EchoPortfolioParagraphBegin(GetMyPortfolioLink(), $bChinese);    
         foreach ($group->arStockTransaction as $trans)
         {
             if ($trans->iTotalRecords > 0)

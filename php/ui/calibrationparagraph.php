@@ -49,12 +49,12 @@ function EchoCalibrationParagraph($strSymbol, $bChinese, $iStart = 0, $iNum = TA
     $ref = new EtfReference($strSymbol);
     if (IsTableCommonDisplay($iStart, $iNum))
     {
-        $str = GetCalibrationLink($strSymbol, $bChinese);
+        $str = GetCalibrationLink($strSymbol);
         $strNavLink = '';
     }
     else
     {
-    	$str = GetEtfListLink($bChinese);
+    	$str = GetEtfListLink();
     	$iTotal = $ref->sql->Count();
     	$strNavLink = StockGetNavLink($strSymbol, $iTotal, $iStart, $iNum);
     	$str .= ' '.$strNavLink;

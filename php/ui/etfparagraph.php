@@ -57,7 +57,7 @@ function EchoEtfListParagraph($arRef, $bChinese = true)
 			$ref->SetExternalLink(GetEastMoneyFundRatioLink($sym));
 		}
 	}
-	$str = GetEtfListLink($bChinese);
+	$str = GetEtfListLink();
     EchoReferenceParagraph($arRef, _etfListRefCallback, $str);
     
     // restore external link

@@ -72,7 +72,7 @@ function _echoThanousLawParagraph($strSymbol, $iStart, $iNum, $bChinese)
 	$ref = new LofReference($strSymbol);
 	$est_ref = $ref->est_ref;
     $arColumn = GetFundHistoryTableColumn($est_ref, $bChinese);
- 	$str = GetNetValueHistoryLink($strSymbol, $bChinese);
+ 	$str = GetNetValueHistoryLink($strSymbol);
 
 	$sql = new NavHistorySql($ref->GetStockId());
    	$strNavLink = StockGetNavLink($strSymbol, $sql->Count(), $iStart, $iNum);

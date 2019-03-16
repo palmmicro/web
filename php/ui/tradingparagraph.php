@@ -203,8 +203,8 @@ function EchoEtfTradingParagraph($ref, $bChinese = true)
 {
 	if ($ref->IsSymbolA() == false)	return;
 	
-    $strSymbol = RefGetMyStockLink($ref, $bChinese);
-    $strPairSymbol = RefGetMyStockLink($ref->pair_nv_ref, $bChinese);
+    $strSymbol = RefGetMyStockLink($ref);
+    $strPairSymbol = RefGetMyStockLink($ref->pair_nv_ref);
 
     $arColumn = _getTradingTableColumn($bChinese);
 	$arFundEst = GetFundEstTableColumn($bChinese);

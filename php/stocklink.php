@@ -5,37 +5,44 @@ require_once('httplink.php');
 require_once('ui/stocktable.php');
 
 // ****************************** Stock internal link functions *******************************************************
+function GetStockTitleLink($strTitle, $strDisplay, $strQuery = false)
+{
+	return GetTitleLink(STOCK_PATH, $strTitle, true, $strDisplay, false, $strQuery);
+}
+
 function GetStockSymbolLink($strTitle, $strSymbol, $strDisplay)
 {
-    return GetPhpLink(STOCK_PATH.$strTitle, true, $strDisplay, false, 'symbol='.$strSymbol);
-}
-
-function GetCalibrationHistoryLink($strSymbol, $bChinese)
-{
-    return GetStockSymbolLink('calibrationhistory', $strSymbol, '校准记录');
-}
-
-function GetCalibrationLink($strSymbol, $bChinese)
-{
-    return GetStockSymbolLink('calibration', $strSymbol, '校准记录');
-}
-
-function GetStockHistoryLink($strSymbol, $bChinese = true)
-{
-    return GetStockSymbolLink('stockhistory', $strSymbol, '价格历史');
-}
-
-function GetNetValueHistoryLink($strSymbol, $bChinese = true)
-{
-    return GetStockSymbolLink('netvaluehistory', $strSymbol, '净值历史');
+	return GetStockTitleLink($strTitle, $strDisplay, 'symbol='.$strSymbol);
+//    return GetPhpLink(STOCK_PATH.$strTitle, true, $strDisplay, false, 'symbol='.$strSymbol);
 }
 
 function GetMyStockLink($strSymbol)
 {
-    return GetTitleLink('mystock', true, $strSymbol, false, 'symbol='.$strSymbol);
+	return GetStockSymbolLink('mystock', $strSymbol, $strSymbol);
+//    return GetStockTitleLink('mystock', $strSymbol, 'symbol='.$strSymbol);
 }
 
-function RefGetMyStockLink($ref, $bChinese = true)
+function GetCalibrationHistoryLink($strSymbol)
+{
+    return GetStockSymbolLink('calibrationhistory', $strSymbol, '校准记录');
+}
+
+function GetCalibrationLink($strSymbol)
+{
+    return GetStockSymbolLink('calibration', $strSymbol, '校准记录');
+}
+
+function GetStockHistoryLink($strSymbol)
+{
+    return GetStockSymbolLink('stockhistory', $strSymbol, '价格历史');
+}
+
+function GetNetValueHistoryLink($strSymbol)
+{
+    return GetStockSymbolLink('netvaluehistory', $strSymbol, '净值历史');
+}
+
+function RefGetMyStockLink($ref)
 {
     return GetMyStockLink($ref->GetStockSymbol());
 }
@@ -50,34 +57,34 @@ function RefSetExternalLink($ref)
 	$ref->SetExternalLink(GetStockLink($ref->GetStockSymbol()));
 }
 
-function GetMyPortfolioLink($bChinese)
+function GetMyPortfolioLink()
 {
-    return GetTitleLink('myportfolio', $bChinese, '持仓盈亏', 'My Portfolio');
+    return GetStockTitleLink('myportfolio', '持仓盈亏');
 }
 
 function GetAhCompareLink($strQuery = false)
 {
-    return GetTitleLink('ahcompare', true, 'AH对比', 'AH Compare', $strQuery);
+    return GetStockTitleLink('ahcompare', 'AH对比', $strQuery);
 }
 
-function GetAhHistoryLink($strSymbol, $bChinese)
+function GetAhHistoryLink($strSymbol)
 {
-    return GetTitleLink('ahhistory', $bChinese, 'AH历史', 'AH History', 'symbol='.$strSymbol);
+    return GetStockTitleLink('ahhistory', 'AH历史', 'symbol='.$strSymbol);
 }
 
-function GetBenfordLawLink($strSymbol, $bChinese)
+function GetBenfordLawLink($strSymbol)
 {
-    return GetTitleLink('benfordlaw', $bChinese, '本福特定律', 'Benford Law', 'symbol='.$strSymbol);
+    return GetStockTitleLink('benfordlaw', '本福特定律', 'symbol='.$strSymbol);
 }
 
-function GetEtfListLink($bChinese)
+function GetEtfListLink()
 {
-    return GetTitleLink('etflist', $bChinese, 'ETF对照表', 'ETF List');
+    return GetStockTitleLink('etflist', 'ETF对照表');
 }
 
-function GetAdrhCompareLink($bChinese)
+function GetAdrhCompareLink()
 {
-    return GetTitleLink('adrhcompare', $bChinese, 'ADR和H对比', 'ADR&H Compare');
+    return GetStockTitleLink('adrhcompare', 'ADR和H对比');
 }
 
 function GetMyStockGroupLink($strGroupId = false)
@@ -93,15 +100,15 @@ function GetMyStockGroupLink($strGroupId = false)
 		$strDisplay = $arColumn[0];
 		$strQuery = false;
 	}
-	return GetTitleLink('mystockgroup', true, $strDisplay, false, $strQuery);
+	return GetStockTitleLink('mystockgroup', $strDisplay, $strQuery);
 }
 
-function GetCategorySoftwareLinks($arTitle, $strCategory, $bChinese)
+function GetCategorySoftwareLinks($arTitle, $strCategory)
 {
     $str = '<br />'.$strCategory.' - ';
     foreach ($arTitle as $strTitle)
     {
-    	$str .= GetTitleLink($strTitle, $bChinese, StockGetSymbol($strTitle)).' ';
+    	$str .= GetStockTitleLink($strTitle, StockGetSymbol($strTitle)).' ';
     }
     return $str;
 }
@@ -134,7 +141,7 @@ function StockGetAllTransactionLink($strGroupId, $ref = false)
     return StockGetTransactionLink($strGroupId, $strSymbol, '交易记录');
 }
 
-function StockGetGroupTransactionLinks($strGroupId, $bChinese, $strCurSymbol = '')
+function StockGetGroupTransactionLinks($strGroupId, $strCurSymbol = '')
 {
     $str = '';
 	$sql = new StockGroupItemSql($strGroupId);
