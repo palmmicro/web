@@ -75,7 +75,7 @@ function _echoThanousLawParagraph($strSymbol, $iStart, $iNum, $bChinese)
  	$str = GetNetValueHistoryLink($strSymbol, $bChinese);
 
 	$sql = new NavHistorySql($ref->GetStockId());
-   	$strNavLink = StockGetNavLink($strSymbol, $sql->Count(), $iStart, $iNum, $bChinese);
+   	$strNavLink = StockGetNavLink($strSymbol, $sql->Count(), $iStart, $iNum);
     echo <<<END
     <p>$str $strNavLink
     <TABLE borderColor=#cccccc cellSpacing=0 width=600 border=1 class="text" id="thanouslaw">

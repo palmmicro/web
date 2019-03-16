@@ -59,7 +59,7 @@ function _echoMoneyParagraph($portfolio, $bChinese)
     _EchoMoneyParagraphBegin();
     foreach ($portfolio->arStockGroup as $group)
     {
-        _EchoMoneyGroupData($group, GetStockGroupLink($group->strGroupId, $bChinese), $fUSDCNY, $fHKDCNY);
+        _EchoMoneyGroupData($group, GetStockGroupLink($group->strGroupId), $fUSDCNY, $fHKDCNY);
     }
     _EchoMoneyGroupData($portfolio, ($bChinese ? '全部' : 'All'), $fUSDCNY, $fHKDCNY);
     EchoTableParagraphEnd();

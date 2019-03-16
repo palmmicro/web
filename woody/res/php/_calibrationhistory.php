@@ -59,7 +59,7 @@ function _echoCalibrationHistoryParagraph($strSymbol, $iStart, $iNum, $bChinese)
     else              $arColumn = array($strSymbolDisplay, $strPrice, 'Peer '.$strSymbolDisplay, 'Peer '.$strPrice, 'Factor', 'Time', 'More');
     
     $iTotal = SqlCountStockCalibration($strStockId);
-    $strNavLink = StockGetNavLink($strSymbol, $iTotal, $iStart, $iNum, $bChinese);
+    $strNavLink = StockGetNavLink($strSymbol, $iTotal, $iStart, $iNum);
     
     EchoParagraphBegin($strNavLink);
     echo <<<END

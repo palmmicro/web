@@ -4,7 +4,7 @@ require_once('stocktable.php');
 function _echoFundPurchaseTableItem($strStockId, $strAmount, $bChinese)
 {
     $strSymbol = SqlGetStockSymbol($strStockId);
-    $strLink = GetMyStockLink($strSymbol, $bChinese);
+    $strLink = GetMyStockLink($strSymbol);
 
     echo <<<END
     <tr>

@@ -38,9 +38,9 @@ function _echoCalibrationData($ref, $iStart, $iNum, $bTest)
 
 function EchoCalibrationParagraph($strSymbol, $bChinese, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
 {
-	$strSymbolLink = GetMyStockLink($strSymbol, $bChinese);
+	$strSymbolLink = GetMyStockLink($strSymbol);
 	$strPair = SqlGetEtfPair($strSymbol);
-	$strPairLink = GetMyStockLink($strPair, $bChinese);
+	$strPairLink = GetMyStockLink($strPair);
 	$arFundEst = GetFundEstTableColumn($bChinese);
 	$strNetValue = $arFundEst[7];
     if ($bChinese)  $arColumn = array($strSymbolLink.$strNetValue,     $strPairLink.$strNetValue,     '校准值', '日期');
@@ -56,7 +56,7 @@ function EchoCalibrationParagraph($strSymbol, $bChinese, $iStart = 0, $iNum = TA
     {
     	$str = GetEtfListLink($bChinese);
     	$iTotal = $ref->sql->Count();
-    	$strNavLink = StockGetNavLink($strSymbol, $iTotal, $iStart, $iNum, $bChinese);
+    	$strNavLink = StockGetNavLink($strSymbol, $iTotal, $iStart, $iNum);
     	$str .= ' '.$strNavLink;
     }
     

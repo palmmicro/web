@@ -21,7 +21,7 @@ function _stockGroupGetStockLinks($strGroupId, $bChinese)
 		}
 		else
 		{
-			$strStocks .= GetMyStockLink($strSymbol, $bChinese);
+			$strStocks .= GetMyStockLink($strSymbol);
 			$arSymbol[] = $strSymbol;
 		}
 		$strStocks .= ', ';
@@ -43,7 +43,7 @@ function _echoStockGroupTableItem($strGroupId, $bChinese)
         $strDelete = GetDeleteLink(STOCK_PHP_PATH.'_submitgroup.php?delete='.$strGroupId, '股票分组和相关交易记录', 'stock group and related stock transactions', $bChinese);
     }
     
-    $strLink = GetStockGroupLink($strGroupId, $bChinese);
+    $strLink = GetStockGroupLink($strGroupId);
     $strStocks = _stockGroupGetStockLinks($strGroupId, $bChinese);
     
     echo <<<END
@@ -57,7 +57,7 @@ END;
 
 function _echoNewStockGroupTableItem($strSymbol, $bChinese)
 {
-   	$strStocks = GetMyStockLink($strSymbol, $bChinese);
+   	$strStocks = GetMyStockLink($strSymbol);
    	$strNew = GetNewLink(STOCK_PATH.'editstockgroup', $strSymbol, $bChinese);
     echo <<<END
     <tr>

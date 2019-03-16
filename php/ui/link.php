@@ -24,7 +24,7 @@ function EchoSinaDebugLink($strSina)
 
 function EchoMyStockLink($strSymbol, $bChinese = true)
 {
-    $str = GetMyStockLink($strSymbol, $bChinese);
+    $str = GetMyStockLink($strSymbol);
     echo $str;
 }
 

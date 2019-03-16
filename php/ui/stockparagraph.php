@@ -12,7 +12,7 @@ function _echoStockTableItem($strStockId, $strDisplay, $bChinese)
 	}
 	else
 	{
-		$strLink = GetMyStockLink($strSymbol, $bChinese);
+		$strLink = GetMyStockLink($strSymbol);
 	}
     $strName = $bChinese ? $record['cn'] : $record['us'];
 

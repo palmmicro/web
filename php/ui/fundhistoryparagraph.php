@@ -117,7 +117,7 @@ function _echoFundHistoryParagraph($ref, $est_ref, $bChinese, $strDisplay = '', 
 {
     $arColumn = GetFundHistoryTableColumn($est_ref, $bChinese);
     $strSymbol = $ref->GetStockSymbol();
-    $strSymbolLink = GetMyStockLink($strSymbol, $bChinese);
+    $strSymbolLink = GetMyStockLink($strSymbol);
     if ($bChinese)     
     {
         $str = "{$strSymbolLink}历史{$arColumn[1]}相对于{$arColumn[2]}的{$arColumn[3]}";
@@ -136,7 +136,7 @@ function _echoFundHistoryParagraph($ref, $est_ref, $bChinese, $strDisplay = '', 
     else
     {
     	$iTotal = $sql->Count();
-    	$strNavLink = StockGetNavLink($strSymbol, $iTotal, $iStart, $iNum, $bChinese);
+    	$strNavLink = StockGetNavLink($strSymbol, $iTotal, $iStart, $iNum);
     }
 
     EchoParagraphBegin($str.' '.$strNavLink.' '.$strDisplay);

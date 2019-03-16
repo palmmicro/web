@@ -30,14 +30,14 @@ function GetNetValueHistoryLink($strSymbol, $bChinese = true)
     return GetStockSymbolLink('netvaluehistory', $strSymbol, '净值历史');
 }
 
-function GetMyStockLink($strSymbol, $bChinese = true)
+function GetMyStockLink($strSymbol)
 {
-    return GetTitleLink('mystock', $bChinese, $strSymbol, false, 'symbol='.$strSymbol);
+    return GetTitleLink('mystock', true, $strSymbol, false, 'symbol='.$strSymbol);
 }
 
 function RefGetMyStockLink($ref, $bChinese = true)
 {
-    return GetMyStockLink($ref->GetStockSymbol(), $bChinese);
+    return GetMyStockLink($ref->GetStockSymbol());
 }
 
 function RefSetExternalLinkMyStock($ref)
@@ -45,9 +45,9 @@ function RefSetExternalLinkMyStock($ref)
    	$ref->SetExternalLink(RefGetMyStockLink($ref));
 }
 
-function RefSetExternalLink($ref, $bChinese = true)
+function RefSetExternalLink($ref)
 {
-	$ref->SetExternalLink(GetStockLink($ref->GetStockSymbol(), $bChinese));
+	$ref->SetExternalLink(GetStockLink($ref->GetStockSymbol()));
 }
 
 function GetMyPortfolioLink($bChinese)
@@ -168,16 +168,16 @@ function SelectStockLink($strSymbol)
     return false;
 }
 
-function GetStockLink($strSymbol, $bChinese)
+function GetStockLink($strSymbol)
 {
    	if ($strLink = SelectStockLink($strSymbol))
     {
     	return $strLink; 
     }
-    return GetMyStockLink($strSymbol, $bChinese);
+    return GetMyStockLink($strSymbol);
 }
 
-function GetStockGroupLink($strGroupId, $bChinese = true)
+function GetStockGroupLink($strGroupId)
 {
     if ($strGroupName = SqlGetStockGroupName($strGroupId))
     {
@@ -190,9 +190,9 @@ function GetStockGroupLink($strGroupId, $bChinese = true)
     return '';
 }
 
-function StockGetNavLink($strSymbol, $iTotal, $iStart, $iNum, $bChinese = true)
+function StockGetNavLink($strSymbol, $iTotal, $iStart, $iNum)
 {
-    return GetNavLink('symbol='.$strSymbol, $iTotal, $iStart, $iNum, $bChinese);
+    return GetNavLink('symbol='.$strSymbol, $iTotal, $iStart, $iNum);
 }
 
 ?>

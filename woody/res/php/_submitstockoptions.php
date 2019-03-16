@@ -43,7 +43,7 @@ function _updateStockDescription($strSubmit, $strSymbol, $strVal)
         SqlUpdateStock($stock['id'], $strSymbol, $strVal, $stock['cn']);
         $bChinese = false;
     }
-    $strLink = GetMyStockLink($strSymbol, $bChinese);
+    $strLink = GetMyStockLink($strSymbol);
     EmailReport($strLink.' '.$strVal, $strSubmit);
 }
 

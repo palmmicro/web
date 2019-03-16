@@ -3,13 +3,13 @@ require_once('_stock.php');
 require_once('/php/csvfile.php');
 require_once('/php/imagefile.php');
 
-function _echoAhHistoryGraph($strSymbol, $bChinese)
+function _echoAhHistoryGraph($strSymbol)
 {
    	$csv = new PageCsvFile();
     $jpg = new PageImageFile();
     $jpg->DrawDateArray($csv->ReadColumn(4));
     $jpg->DrawCompareArray($csv->ReadColumn(1));
-	$arColumn = GetAhCompareTableColumn($bChinese);
+	$arColumn = GetAhCompareTableColumn();
     $jpg->Show($arColumn[1], $strSymbol, $csv->GetPathName());
 }
 
@@ -68,15 +68,14 @@ function _echoAhHistoryData($sql, $strPairId, $fRatio, $iStart, $iNum)
     }
 }
 
-function _echoAhHistoryParagraph($strSymbol, $strStockId, $strPairId, $fRatio, $iStart, $iNum, $bChinese)
+function _echoAhHistoryParagraph($strSymbol, $strStockId, $strPairId, $fRatio, $iStart, $iNum)
 {
-    if ($bChinese)  $arColumn = array('日期');
-    else              $arColumn = array('Date');
-    $arColumn[] = GetMyStockLink($strSymbol, $bChinese);
+    $arColumn = array('日期');
+    $arColumn[] = GetMyStockLink($strSymbol);
     $strPairSymbol = SqlGetStockSymbol($strPairId);
-    $arColumn[] = GetMyStockLink($strPairSymbol, $bChinese);
-	$arColumn = array_merge($arColumn, GetAhCompareTableColumn($bChinese));
-    $arColumn[3] = GetMyStockLink('HKCNY', $bChinese);
+    $arColumn[] = GetMyStockLink($strPairSymbol);
+	$arColumn = array_merge($arColumn, GetAhCompareTableColumn());
+    $arColumn[3] = GetMyStockLink('HKCNY');
 	
     $strUpdateLink = ''; 
     if (AcctIsAdmin())
@@ -86,10 +85,10 @@ function _echoAhHistoryParagraph($strSymbol, $strStockId, $strPairId, $fRatio, $
     }
 
 	$sql = new StockHistorySql($strStockId);
-    $strNavLink = StockGetNavLink($strSymbol, $sql->Count(), $iStart, $iNum, $bChinese);
+    $strNavLink = StockGetNavLink($strSymbol, $sql->Count(), $iStart, $iNum);
  
-    EchoParagraphBegin($strNavLink.' '.$strUpdateLink);
     echo <<<END
+    <p>$strNavLink $strUpdateLink
     <TABLE borderColor=#cccccc cellSpacing=0 width=530 border=1 class="text" id="ahhistory">
     <tr>
         <td class=c1 width=100 align=center>{$arColumn[0]}</td>
@@ -104,10 +103,10 @@ END;
     _echoAhHistoryData($sql, $strPairId, $fRatio, $iStart, $iNum);
     EchoTableParagraphEnd($strNavLink);
 
-    _echoAhHistoryGraph($strSymbol, $bChinese);
+    _echoAhHistoryGraph($strSymbol);
 }
 
-function EchoAll($bChinese = true)
+function EchoAll()
 {
     if ($strSymbol = UrlGetQueryValue('symbol'))
     {
@@ -120,7 +119,7 @@ function EchoAll($bChinese = true)
     		{
     			$iStart = UrlGetQueryInt('start');
     			$iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
-    			_echoAhHistoryParagraph($strSymbol, $strStockId, $strPairId, $sql->GetRatio(), $iStart, $iNum, $bChinese);
+    			_echoAhHistoryParagraph($strSymbol, $strStockId, $strPairId, $sql->GetRatio(), $iStart, $iNum);
     		}
     	}
     }
@@ -128,9 +127,16 @@ function EchoAll($bChinese = true)
     EchoStockCategory();
 }
 
-function EchoTitle($bChinese = true)
+function EchoMetaDescription()
 {
-  	echo UrlGetQueryDisplay('symbol').($bChinese ? '历史AH价格比较' : ' AH History Compare');
+    $str = UrlGetQueryDisplay('symbol');
+    $str .= '中国A股和香港H股历史价格比较页面. 按A股交易日期排序显示. 同时显示港币人民币中间价历史, 提供跟Yahoo历史数据同步的功能.';
+    EchoMetaDescriptionText($str);
+}
+
+function EchoTitle()
+{
+  	echo UrlGetQueryDisplay('symbol').'历史AH价格比较';
 }
 
     AcctAuth();

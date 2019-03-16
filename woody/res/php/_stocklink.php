@@ -18,7 +18,7 @@ function _getPersonalGroupLink($strGroupId, $bChinese)
     $arStockId = $sql->GetStockIdArray(true);
     if (count($arStockId) > 0)
     {
-		return GetStockGroupLink($strGroupId, $bChinese);
+		return GetStockGroupLink($strGroupId);
     }
     return '';
 }
