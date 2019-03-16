@@ -12,17 +12,6 @@ function _GetEtfAdjustString($ref, $etf_ref, $bChinese = true)
     return _GetAdjustLink($strSymbol, $strQuery, $bChinese);
 }
 
-function _getPersonalGroupLink($strGroupId, $bChinese)
-{
-	$sql = new StockGroupItemSql($strGroupId);
-    $arStockId = $sql->GetStockIdArray(true);
-    if (count($arStockId) > 0)
-    {
-		return GetStockGroupLink($strGroupId);
-    }
-    return '';
-}
-
 function _getCategoryArray($bChinese)
 {
     if ($bChinese)
@@ -377,7 +366,18 @@ function _checkPersonalGroupId($strGroupId)
     return false;
 }
 
-function _getPersonalLinks($strMemberId, $bChinese)
+function _getPersonalGroupLink($strGroupId)
+{
+	$sql = new StockGroupItemSql($strGroupId);
+    $arStockId = $sql->GetStockIdArray(true);
+    if (count($arStockId) > 0)
+    {
+		return GetStockGroupLink($strGroupId);
+    }
+    return '';
+}
+
+function _getPersonalLinks($strMemberId)
 {
     $str = '<br />';
 	$sql = new StockGroupSql($strMemberId);
@@ -388,7 +388,7 @@ function _getPersonalLinks($strMemberId, $bChinese)
 		    $strGroupId = $stockgroup['id'];
 		    if (_checkPersonalGroupId($strGroupId))
 		    {
-		        $str .= _getPersonalGroupLink($strGroupId, $bChinese).' ';
+		        $str .= _getPersonalGroupLink($strGroupId).' ';
 		    }
 		}
 		@mysql_free_result($result);
@@ -396,29 +396,29 @@ function _getPersonalLinks($strMemberId, $bChinese)
 	return $str;
 }
 
-function _getStockGroupLinks($bChinese)
+function _getStockGroupLinks()
 {
-    $str = '<br />'.GetCategoryLinks(GetMenuArray, $bChinese);
+    $str = '<br />'.GetCategoryLinks(GetMenuArray);
     $str .= '<br />'.GetMyStockGroupLink();	// .' '.GetAhCompareLink().' '.GetAdrhCompareLink();
     $str .= '<br />'.GetMyPortfolioLink();
     if ($strMemberId = AcctIsLogin())
     {
-        $str .= _getPersonalLinks($strMemberId, $bChinese);
+        $str .= _getPersonalLinks($strMemberId);
     }
     return $str;
 }
 
 function EchoStockGroupLinks($bChinese = true)
 {
-	$str = _getStockGroupLinks($bChinese);
+	$str = _getStockGroupLinks();
     echo $str;
 }
 
-function EchoStockCategory($bChinese = true)
+function EchoStockCategory()
 {
-	$str = $bChinese ? '相关软件' : 'Related software'; 
-    $str .= ':<br />'.GetCategoryLinks(_getCategoryArray, $bChinese);
-	$str .= _getStockGroupLinks($bChinese);
+	$str = '相关软件:<br />'; 
+    $str .= GetCategoryLinks(_getCategoryArray);
+	$str .= _getStockGroupLinks();
     EchoParagraph($str);
 }
 

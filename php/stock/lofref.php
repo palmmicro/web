@@ -158,7 +158,7 @@ class _LofReference extends FundReference
             if ($fCNY = $this->forex_sql->GetClose($strDate))
             {
                 $est_ref = $this->est_ref;
-                if (StockRefHasData($est_ref) == false)    return false;
+                if (RefHasData($est_ref) == false)    return false;
                 
                 $fEst = SqlGetNetValueByDate($this->est_ref->GetStockId(), $strDate);
                 if ($fEst == false)

@@ -71,7 +71,7 @@ function _echoAhHistoryData($sql, $strPairId, $fRatio, $iStart, $iNum)
 function _echoAhHistoryParagraph($strSymbol, $strStockId, $strPairId, $fRatio, $iStart, $iNum)
 {
     $arColumn = array('日期');
-    $arColumn[] = GetMyStockLink($strSymbol);
+    $arColumn[] = $strSymbol;
     $strPairSymbol = SqlGetStockSymbol($strPairId);
     $arColumn[] = GetMyStockLink($strPairSymbol);
 	$arColumn = array_merge($arColumn, GetAhCompareTableColumn());
@@ -136,7 +136,7 @@ function EchoMetaDescription()
 
 function EchoTitle()
 {
-  	echo UrlGetQueryDisplay('symbol').'历史AH价格比较';
+  	echo UrlGetQueryDisplay('symbol').AH_HISTORY_DISPLAY;
 }
 
     AcctAuth();

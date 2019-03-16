@@ -70,7 +70,7 @@ function EchoMetaDescription()
 
 function EchoTitle()
 {
-  	echo UrlGetQueryDisplay('symbol').'净值和收盘价历史比较';
+  	echo UrlGetQueryDisplay('symbol').NAVCLOSE_HISTORY_DISPLAY;
 }
 
     AcctAuth();

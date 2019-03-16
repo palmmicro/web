@@ -37,24 +37,28 @@ function GetStockHistoryLink($strSymbol)
     return GetStockSymbolLink('stockhistory', $strSymbol, '价格历史');
 }
 
+define('NETVALUE_HISTORY_DISPLAY', '净值历史记录');
 function GetNetValueHistoryLink($strSymbol)
 {
-    return GetStockSymbolLink('netvaluehistory', $strSymbol, '净值历史');
+    return GetStockSymbolLink('netvaluehistory', $strSymbol, NETVALUE_HISTORY_DISPLAY);
 }
 
-function RefGetMyStockLink($ref)
+define('NAVCLOSE_HISTORY_DISPLAY', '净值和收盘价历史比较');
+function GetNavCloseHistoryLink($strSymbol)
 {
-    return GetMyStockLink($ref->GetStockSymbol());
+	return GetStockSymbolLink('navclosehistory', $strSymbol, NAVCLOSE_HISTORY_DISPLAY);
 }
 
-function RefSetExternalLinkMyStock($ref)
+define('AH_HISTORY_DISPLAY', '历史AH价格比较');
+function GetAhHistoryLink($strSymbol)
 {
-   	$ref->SetExternalLink(RefGetMyStockLink($ref));
+    return GetStockSymbolLink('ahhistory', $strSymbol, AH_HISTORY_DISPLAY);
 }
 
-function RefSetExternalLink($ref)
+define('BENFORD_LAW_DISPLAY', '本福特定律');
+function GetBenfordLawLink($strSymbol)
 {
-	$ref->SetExternalLink(GetStockLink($ref->GetStockSymbol()));
+    return GetStockSymbolLink('benfordlaw', $strSymbol, BENFORD_LAW_DISPLAY);
 }
 
 function GetMyPortfolioLink()
@@ -65,16 +69,6 @@ function GetMyPortfolioLink()
 function GetAhCompareLink($strQuery = false)
 {
     return GetStockTitleLink('ahcompare', 'AH对比', $strQuery);
-}
-
-function GetAhHistoryLink($strSymbol)
-{
-    return GetStockTitleLink('ahhistory', 'AH历史', 'symbol='.$strSymbol);
-}
-
-function GetBenfordLawLink($strSymbol)
-{
-    return GetStockTitleLink('benfordlaw', '本福特定律', 'symbol='.$strSymbol);
 }
 
 function GetEtfListLink()
@@ -166,7 +160,7 @@ function StockGetGroupTransactionLinks($strGroupId, $strCurSymbol = '')
 }
 
 // ****************************** Other internal link related functions *******************************************************
-function SelectStockLink($strSymbol)
+function GetStockLink($strSymbol)
 {
     if (in_arrayAll($strSymbol))
     {
@@ -175,20 +169,11 @@ function SelectStockLink($strSymbol)
     return false;
 }
 
-function GetStockLink($strSymbol)
-{
-   	if ($strLink = SelectStockLink($strSymbol))
-    {
-    	return $strLink; 
-    }
-    return GetMyStockLink($strSymbol);
-}
-
 function GetStockGroupLink($strGroupId)
 {
     if ($strGroupName = SqlGetStockGroupName($strGroupId))
     {
-    	if ($strLink = SelectStockLink($strGroupName))
+    	if ($strLink = GetStockLink($strGroupName))
     	{
     		return $strLink; 
     	}

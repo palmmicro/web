@@ -67,7 +67,7 @@ function _echoStockGroupArray($arStock)
        		else	$ref = StockGetReference($sym);
         }
 
-        if ($strInternalLink = SelectStockLink($strSymbol))
+        if ($strInternalLink = GetStockLink($strSymbol))
         {
             $ref->SetExternalLink($strInternalLink);
             $ref->extended_ref = false;	// do not display extended trading information in adrcn.php page
@@ -133,6 +133,11 @@ function _getSimilarLinks($strTitle)
 {
     switch ($strTitle)
     {
+    case 'adr':
+    case 'adrhcompare':
+    	$str = GetExternalLink('http://www.aastocks.com/tc/market/adr.aspx', '阿思達克');
+        break;
+  
     case 'ahcompare':
     	$str = GetExternalLink('https://www.jisilu.cn/data/ha/', '集思录').' '.GetExternalLink('http://data.10jqka.com.cn/market/ahgbj/', '同花顺');
         break;

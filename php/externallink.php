@@ -196,18 +196,6 @@ function GetStockDividendLink($sym)
     return GetExternalLink($strHttp, '分红数据');
 }
 
-// https://www.jisilu.cn/data/ha_history/600585
-function GetJisiluAhLink($strSymbol)
-{
-    $sym = new StockSymbol($strSymbol);
-    if ($strDigit = $sym->IsSymbolA())
-    {
-        $strHttp = "https://www.jisilu.cn/data/ha_history/$strDigit";
-        return GetExternalLink($strHttp, $strSymbol);
-    }
-    return $strSymbol;
-}
-
 // https://www.jisilu.cn/data/sfnew/detail/502004
 function EchoJisiluGradedFund()
 {
@@ -231,12 +219,6 @@ function GetEastMoneyForexLink($strSymbol)
 function GetReferenceRateForexLink($strSymbol)
 {
     $strHttp = 'http://www.chinamoney.com.cn/index.html';
-    return GetExternalLink($strHttp, $strSymbol);
-}
-
-function GetAdrLink($strSymbol)
-{
-    $strHttp = 'http://www.aastocks.com/tc/market/adr.aspx';
     return GetExternalLink($strHttp, $strSymbol);
 }
 

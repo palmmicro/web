@@ -135,7 +135,7 @@ function _echoMyStockData($strSymbol)
    			if ($hshare_ref)	EchoAhTradingParagraph($hshare_ref);
    			else 				EchoTradingParagraph($ref);
        	}
-       	EchoNavCloseHistoryParagraph($ref, GetStockSymbolLink('navclosehistory', $strSymbol, '净值和收盘价历史比较'));
+       	EchoNavCloseHistoryParagraph($ref, GetNavCloseHistoryLink($strSymbol));
     }
     
     if ($etf_ref)   			EchoEtfSmaParagraph($etf_ref);

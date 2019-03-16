@@ -13,7 +13,7 @@
 <div>
 <h1>The Interpretation of Sina Realtime Stock Data Interface</h1>
 <p>Dec 25, 2015
-<br />I was planning to add the <a href="../../res/netvaluehistory.php?symbol=SZ162411">SZ162411 history</a> net value table,
+<br />I was planning to add the SZ162411 history net value table,
 and found that the I have almost forgotten the meanings of Sina Chinese stock data interface which was analysed 4 months ago.  
 In case I will forget them again, I am recording it here for future refernce.
 Current data got from <?php EchoSinaQuotesLink('sz162411'); ?> and saved in <?php EchoSinaDebugLink('sz162411'); ?> as following:

@@ -13,7 +13,7 @@ function _callbackLofSma($lof_ref, $fEst = false)
 function EchoLofSmaParagraph($lof_ref, $callback2 = false)
 {
 	$ref = $lof_ref->est_ref;
-    if (StockRefHasData($ref) == false) 	return;
+    if (RefHasData($ref) == false) 	return;
     
     EchoSmaParagraph($ref, false, $lof_ref, _callbackLofSma, $callback2);
 }

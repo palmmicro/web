@@ -182,7 +182,7 @@ function GetTitleLink($strPath, $strTitle, $bChinese, $strDisplay, $strUs = fals
     return GetPhpLink($strPath.$strTitle, $bChinese, $strDisplay, false, $strQuery);
 }
 
-function GetCategoryLinks($callback, $bChinese, $strPath = STOCK_PATH)
+function GetCategoryLinks($callback, $bChinese = true, $strPath = STOCK_PATH)
 {
 	$arCategory = call_user_func($callback, $bChinese);
     $str = '';
