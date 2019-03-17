@@ -42,7 +42,7 @@ function _echoMyStockTransactions($strMemberId, $ref)
 	
 	if ($iCount == 1)
 	{
-	    StockEditTransactionForm($strGroupId, $strGroupItemId);
+	    StockEditTransactionForm(STOCK_TRANSACTION_NEW, $strGroupId, $strGroupItemId);
 	}
 	else
 	{

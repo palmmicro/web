@@ -207,7 +207,7 @@ function _EchoTransactionParagraph($group, $bChinese = true)
     {
     	EchoTransactionParagraph($strGroupId);
     }
-    StockEditTransactionForm($strGroupId);
+    StockEditTransactionForm(STOCK_TRANSACTION_NEW, $strGroupId);
     _echoGroupPortfolioParagraph($group, $bChinese);
 }
 

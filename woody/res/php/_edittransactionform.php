@@ -1,33 +1,16 @@
 <?php
-define('STOCK_TRANSACTION_EDIT', 'Edit Stock Transaction');
-define('STOCK_TRANSACTION_EDIT_CN', '修改股票交易');
+define('STOCK_TRANSACTION_NEW', '新增股票交易');
+define('STOCK_TRANSACTION_EDIT', '修改股票交易');
 
-define('STOCK_TRANSACTION_NEW', 'New Stock Transaction');
-define('STOCK_TRANSACTION_NEW_CN', '新增股票交易');
-
-function StockEditTransactionForm($strGroupId = false, $strGroupItemId = false)
+function StockEditTransactionForm($strSubmit, $strGroupId = false, $strGroupItemId = false)
 {
-    $strQuantity = '';
-    $strPrice = '';
-    $strCost = '';
-    $strRemark = '';
     $strType = '1';
-    $strSymbolIndex = '0';
-    $strId = UrlGetQueryValue('edit');
-    
-    if ($strGroupId)
+    if ($strId = UrlGetQueryValue('edit'))
     {
-        $strSubmit = STOCK_TRANSACTION_NEW_CN;
-    }
-    else
-    {
-        if ($strId == false)                                                                                    return;
         if (($transaction = SqlGetStockTransaction($strId)) == false)                       return;
         if (($groupitem = SqlGetStockGroupItem($transaction['groupitem_id'])) == false)    return;
 
         $strGroupId = $groupitem['group_id'];
-        $strSubmit = STOCK_TRANSACTION_EDIT_CN;
-        
         $strQuantity = $transaction['quantity'];
         if (intval($strQuantity) < 0)
         {
@@ -40,11 +23,18 @@ function StockEditTransactionForm($strGroupId = false, $strGroupItemId = false)
         $strRemark = $transaction['remark'];
         $strSymbolIndex = $transaction['groupitem_id'];
     }
+    else
+    {
+    	$strQuantity = '';
+    	$strPrice = '';
+    	$strCost = '';
+    	$strRemark = '';
+    	$strSymbolIndex = '0';
+    }
     
     $strPassQuery = UrlPassQuery();
     $strSymbolsList = EditGetStockGroupItemList($strGroupId, $strGroupItemId);
     
-    $arColumn = array('卖出', '买入', '数量', '价格', '佣金', '税费', '备注', '金额');
 	echo <<< END
 	<script type="text/javascript">
 	    function OnLoad()
@@ -75,31 +65,31 @@ function StockEditTransactionForm($strGroupId = false, $strGroupItemId = false)
 	        }
 	    }
 	</script>
-	
+
     <table>
 	  <form id="transactionForm" name="transactionForm" method="post" action="/woody/res/php/_submittransaction.php$strPassQuery">
 		<tr>
 		    <td><SELECT name="symbol" size=1> $strSymbolsList </SELECT></td>
-		    <td><SELECT name="type" onChange=OnType() size=1> <OPTION value=0>{$arColumn[0]}</OPTION> <OPTION value=1>{$arColumn[1]}</OPTION> </SELECT></td>
+		    <td><SELECT name="type" onChange=OnType() size=1> <OPTION value=0>卖出</OPTION> <OPTION value=1>买入</OPTION> </SELECT></td>
 		</tr>
 		<tr>
-		    <td>{$arColumn[2]}</td>
+		    <td>数量</td>
 		    <td><input name="quantity" value="$strQuantity" type="text" size="20" maxlength="32" class="textfield" id="quantity" /></td>
 		</tr>
 		<tr>
-		    <td>{$arColumn[3]}</td>
+		    <td>价格</td>
 		    <td><input name="price" value="$strPrice" type="text" size="20" maxlength="32" class="textfield" id="price" /></td>
 		</tr>
 		<tr>
-		    <td><SELECT name="commissiontype" size=1> <OPTION value=0>{$arColumn[4]}{$arColumn[7]}</OPTION> <OPTION value=1>{$arColumn[4]}‰</OPTION> </SELECT></td>
+		    <td><SELECT name="commissiontype" size=1> <OPTION value=0>佣金金额</OPTION> <OPTION value=1>佣金‰</OPTION> </SELECT></td>
 		    <td><input name="commission" value="$strCost" type="text" size="20" maxlength="32" class="textfield" id="commission" /></td>
 		</tr>
 		<tr>
-		    <td><SELECT name="taxtype" size=1> <OPTION value=0>{$arColumn[5]}{$arColumn[7]}</OPTION> <OPTION value=1>{$arColumn[5]}‰</OPTION> </SELECT></td>
+		    <td><SELECT name="taxtype" size=1> <OPTION value=0>税费金额</OPTION> <OPTION value=1>税费‰</OPTION> </SELECT></td>
 		    <td><input name="tax" value="" type="text" size="20" maxlength="32" class="textfield" id="tax" /></td>
 		</tr>
 		<tr>
-		    <td>{$arColumn[6]}</td>
+		    <td>备注</td>
 	        <td><textarea name="remark" rows="8" cols="50" id="remark">$strRemark</textarea></td>
 	    </tr>
 	    <tr>

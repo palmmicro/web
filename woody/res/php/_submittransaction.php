@@ -217,12 +217,10 @@ function _onMergeTransaction()
 		switch ($strSubmit)
 		{
 		case STOCK_TRANSACTION_NEW:
-		case STOCK_TRANSACTION_NEW_CN:
 		    $strGroupId = _onNew($strGroupItemId, $strQuantity, $strPrice, $strCost, $strRemark);
 		    break;
 		    
 		case STOCK_TRANSACTION_EDIT:
-		case STOCK_TRANSACTION_EDIT_CN:
 		    if ($strId = UrlGetQueryValue('edit'))
 		    {
 		        $strGroupId = _onEdit($strId, $strGroupItemId, $strQuantity, $strPrice, $strCost, $strRemark);

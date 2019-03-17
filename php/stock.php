@@ -290,7 +290,7 @@ function RefGetDescription($ref, $bConvertDisplay = false)
 		$sql = new StockSql();
 		if ($stock = $sql->GetById($ref->GetStockId()))
 		{
-			$str = $stock['cn'];
+			$str = $stock['name'];
 			$ref->SetDescription($str);
 		}
 	}

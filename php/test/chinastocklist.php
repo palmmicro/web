@@ -35,7 +35,7 @@ function TestChinaFundList()
 //            DebugString($strSymbol.' '.$strName);
             if (SqlGetStock($strSymbol) == false)
             {
-                SqlInsertStock($strSymbol, $strName, $strName);
+                SqlInsertStock($strSymbol, $strName);
             }
         }
     }
@@ -59,7 +59,7 @@ function TestChinaStockList()
             DebugString($strSymbol.' '.$strName);
             if (SqlGetStock($strSymbol) == false)
             {
-                SqlInsertStock($strSymbol, $strName, $strName);
+                SqlInsertStock($strSymbol, $strName);
             }
         }
     }
@@ -89,11 +89,11 @@ function TestUsStockList()
             
             if ($stock = SqlGetStock($strSymbol))
             {
-                SqlUpdateStock($stock['id'], $strSymbol, $strEnglish, $strChinese);
+                SqlUpdateStock($stock['id'], $strSymbol, $strChinese);
             }
             else
             {
-                SqlInsertStock($strSymbol, $strEnglish, $strChinese);
+                SqlInsertStock($strSymbol, $strChinese);
             }
         }
     }

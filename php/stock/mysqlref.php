@@ -64,7 +64,7 @@ class MysqlReference extends StockReference
         {
             if ($this->bHasData)
             {
-                $sql->Insert($this->strSqlName, $this->GetEnglishName(), $this->GetChineseName());
+                $sql->Insert($this->strSqlName, $this->GetChineseName());
                 $this->strSqlId = $sql->GetId($this->strSqlName);
             }
         }

@@ -1,49 +1,41 @@
 <?php
 require_once('stocktable.php');
 
-function _echoStockTableItem($strStockId, $strDisplay, $bChinese)
+function _echoStockTableItem($strStockId, $strSymbol, $strName)
 {
-    $record = SqlGetStockById($strStockId);
-	$strSymbol = $record['name'];
-//	if (empty($strSymbol))	$strSymbol = '(Unknown)';
+	$strLink = GetMyStockLink($strSymbol);
 	if (AcctIsAdmin())
 	{
-		$strLink = GetOnClickLink('/php/_submitdelete.php?stockid='.$strStockId, '确认删除股票'.$strSymbol.'?', $strSymbol);
+        $strDelete = GetDeleteLink('/php/_submitdelete.php?stockid='.$strStockId, '股票'.$strSymbol);
 	}
-	else
-	{
-		$strLink = GetMyStockLink($strSymbol);
-	}
-    $strName = $bChinese ? $record['cn'] : $record['us'];
 
     echo <<<END
     <tr>
         <td class=c1>$strLink</td>
         <td class=c1>$strName</td>
-        <td class=c1>$strDisplay</td>
+        <td class=c1>$strDelete</td>
     </tr>
 END;
 }
 
-function _echoStockTableData($iStart, $iNum, $bChinese)
+function _echoStockTableData($iStart, $iNum)
 {
 	if ($result = SqlGetAllStock($iStart, $iNum)) 
 	{
 		while ($record = mysql_fetch_assoc($result)) 
 		{
-			_echoStockTableItem($record['id'], ($bChinese ? $record['us'] : $record['cn']), $bChinese);
+			_echoStockTableItem($record['id'], $record['symbol'], $record['name']);
 		}
 		@mysql_free_result($result);
 	}
 }
 
-function EchoStockParagraph($iStart, $iNum, $bChinese = true)
+function EchoStockParagraph($iStart, $iNum)
 {
-    $iTotal = SqlCountTableData(TABLE_STOCK);
-    $strNavLink = GetNavLink(false, $iTotal, $iStart, $iNum, $bChinese);
-    EchoParagraphBegin($strNavLink);
-	$arReference = GetReferenceTableColumn($bChinese);
+    $strNavLink = GetNavLink(false, SqlCountTableData(TABLE_STOCK), $iStart, $iNum);
+	$arReference = GetReferenceTableColumn();
     echo <<<END
+    	<p>$strNavLink
         <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="stock">
         <tr>
             <td class=c1 width=100 align=center>{$arReference[0]}</td>
@@ -52,7 +44,7 @@ function EchoStockParagraph($iStart, $iNum, $bChinese = true)
         </tr>
 END;
 
-	_echoStockTableData($iStart, $iNum, $bChinese);
+	_echoStockTableData($iStart, $iNum);
     EchoTableParagraphEnd($strNavLink);
 }
 

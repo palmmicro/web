@@ -35,13 +35,7 @@ function _updateStockDescription($strSubmit, $strSymbol, $strVal)
     $stock = SqlGetStock($strSymbol);
     if ($strSubmit == STOCK_OPTION_EDIT_CN)
     {
-        SqlUpdateStock($stock['id'], $strSymbol, $stock['us'], $strVal);
-        $bChinese = true;
-    }
-    else
-    {
-        SqlUpdateStock($stock['id'], $strSymbol, $strVal, $stock['cn']);
-        $bChinese = false;
+        SqlUpdateStock($stock['id'], $strSymbol, $strVal);
     }
     $strLink = GetMyStockLink($strSymbol);
     EmailReport($strLink.' '.$strVal, $strSubmit);

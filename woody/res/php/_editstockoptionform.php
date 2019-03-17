@@ -84,25 +84,33 @@ function _getStockOptionDate($strSubmit, $strStockId)
 	return '';
 }
 
-function _getStockOptionDescription($strSubmit, $strSymbol)
+function _getStockOptionNewName($ref, $strName)
+{
+	$str = '';
+	$strChinese = $ref->GetChineseName();
+	$strEnglish = $ref->GetEnglishName();
+	if ($strChinese != $strName)									$str .= '-'.$strChinese;
+    if ($strEnglish != $strName && $strEnglish != $strChinese)	$str .= '-'.$strEnglish;
+    return $str;
+}
+
+function _getStockOptionName($strSubmit, $strSymbol)
 {
     $sym = new StockSymbol($strSymbol);
 	$ref = StockGetReference($sym);
     $stock = SqlGetStock($strSymbol);
     if ($strSubmit == STOCK_OPTION_EDIT_CN)
     {
-        $strDescription = $stock['cn'].'-'.$ref->GetChineseName();
+    	$strName = $stock['name'];
+        $str = $strName;
+        $str .= _getStockOptionNewName($ref, $strName);
         if ($sym->IsFundA())
         {
             $fund_ref = new FundReference($strSymbol);
-            $strDescription .= '-'.$fund_ref->GetChineseName();
+            $str .= _getStockOptionNewName($fund_ref, $strName);
         }
     }
-    else
-    {
-        $strDescription = $stock['us'].'-'.$ref->GetEnglishName();
-    }
-    return $strDescription;
+    return $str;
 }
 
 function _getStockOptionAmount($strSymbol)
@@ -197,7 +205,7 @@ function _getStockOptionVal($strSubmit, $strSymbol, $strStockId, $strDate)
 
 	case STOCK_OPTION_EDIT_CN:
 	case STOCK_OPTION_EDIT:
-		return _getStockOptionDescription($strSubmit, $strSymbol);
+		return _getStockOptionName($strSubmit, $strSymbol);
 
 	case STOCK_OPTION_SPLIT_CN:
 	case STOCK_OPTION_SPLIT:

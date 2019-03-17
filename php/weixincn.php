@@ -89,9 +89,8 @@ function _getMatchSymbolArray($strKey)
     {
         while ($stock = mysql_fetch_assoc($result)) 
         {
-            $str = $stock['name'];
-//            if (strstr($str, $strKey) || strstr($stock['cn'], $strKey) || strstr(strtoupper($stock['us']), $strKey))
-            if (strstr($str, $strKey) || strstr($stock['cn'], $strKey))
+            $str = $stock['symbol'];
+            if (strstr($str, $strKey) || strstr($stock['name'], $strKey))
             {
                 $ar[] = $str;
                 if (count($ar) > MAX_WX_STOCK)	break;

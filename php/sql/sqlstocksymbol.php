@@ -12,65 +12,42 @@ class StockSql extends TableSql
 
     function Create()
     {
-    	$str = ' `name` VARCHAR( 32 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,'
-         	. ' `us` VARCHAR( 128 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,'
-         	. ' `cn` VARCHAR( 128 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,'
-         	. ' UNIQUE ( `name` )';
+    	$str = ' `symbol` VARCHAR( 32 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,'
+         	. ' `name` VARCHAR( 128 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,'
+         	. ' UNIQUE ( `symbol` )';
     	return $this->CreateTable($str);
     }
     
-    function Insert($strSymbol, $strEnglish, $strChinese)
+    function Insert($strSymbol, $strName)
     {
-    	$strEnglish = UrlCleanString($strEnglish);
-    	$strChinese = UrlCleanString($strChinese);
-    	return $this->InsertData("(id, name, us, cn) VALUES('0', '$strSymbol', '$strEnglish', '$strChinese')");
+    	$strName = UrlCleanString($strName);
+    	return $this->InsertData("(id, symbol, name) VALUES('0', '$strSymbol', '$strName')");
     }
 
     function Get($strSymbol)
     {
-    	return $this->GetSingleData(_SqlBuildWhere('name', $strSymbol));
+    	return $this->GetSingleData(_SqlBuildWhere('symbol', $strSymbol));
     }
 }
 
 // ****************************** Stock table *******************************************************
-/*
-function SqlCreateStockTable()
-{
-    $strQry = 'CREATE TABLE IF NOT EXISTS `camman`.`stock` ('
-         . ' `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,'
-         . ' `name` VARCHAR( 32 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,'
-         . ' `us` VARCHAR( 128 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,'
-         . ' `cn` VARCHAR( 128 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,'
-         . ' UNIQUE ( `name` )'
-         . ' ) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci '; 
-	return SqlDieByQuery($strQry, 'Create stock table failed');
-}
-*/
-
-function SqlInsertStock($strSymbol, $strEnglish, $strChinese)
+function SqlInsertStock($strSymbol, $strName)
 {
 	DebugString('SqlInsertStock '.$strSymbol);
 	$sql = new StockSql();
-	return $sql->Insert($strSymbol, $strEnglish, $strChinese);
-/*    $strEnglish = UrlCleanString($strEnglish);
-    $strChinese = UrlCleanString($strChinese);
-    
-	$strQry = "INSERT INTO stock(id, name, us, cn) VALUES('0', '$strSymbol', '$strEnglish', '$strChinese')";
-	return SqlDieByQuery($strQry, 'Insert stock table failed');*/
+	return $sql->Insert($strSymbol, $strName);
 }
 
-function SqlUpdateStock($strId, $strSymbol, $strEnglish, $strChinese)
+function SqlUpdateStock($strId, $strSymbol, $strName)
 {
-    $strEnglish = UrlCleanString($strEnglish);
-    $strChinese = UrlCleanString($strChinese);
-    
-	$strQry = "UPDATE stock SET name = '$strSymbol', us = '$strEnglish', cn = '$strChinese'  WHERE id = '$strId' LIMIT 1";
+    $strName = UrlCleanString($strName);
+	$strQry = "UPDATE stock SET symbol = '$strSymbol', name = '$strName' WHERE id = '$strId' LIMIT 1";
 	return SqlDieByQuery($strQry, 'Update stock table failed');
 }
 
 function SqlGetAllStock($iStart, $iNum)
 {
-    return SqlGetTableData(TABLE_STOCK, false, '`name` ASC', _SqlBuildLimit($iStart, $iNum));
+    return SqlGetTableData(TABLE_STOCK, false, '`symbol` ASC', _SqlBuildLimit($iStart, $iNum));
 }
 
 function SqlGetStock($strSymbol)
@@ -99,7 +76,7 @@ function SqlGetStockSymbol($strId)
 {
     if ($stock = SqlGetStockById($strId))
     {
-		return $stock['name'];
+		return $stock['symbol'];
     }
 	return false;
 }
@@ -127,16 +104,16 @@ function SqlUpdateStockChineseDescription($strSymbol, $strChinese)
     {
         if ($bTemp == false)
         {
-            if (strlen($strChinese) > strlen($stock['cn']))
+            if (strlen($strChinese) > strlen($stock['name']))
             {
-                SqlUpdateStock($stock['id'], $strSymbol, $stock['us'], $strChinese);
+                SqlUpdateStock($stock['id'], $strSymbol, $strChinese);
                 DebugString('UpdateStock:'.$strSymbol.' '.$strChinese);
             }
         }
     }
     else
     {
-        SqlInsertStock($strSymbol, $strChinese, $strChinese);
+        SqlInsertStock($strSymbol, $strChinese);
         DebugString('InsertStock:'.$strSymbol.' '.$strChinese);
     }
     return $bTemp;

@@ -2,41 +2,21 @@
 require_once('_stock.php');
 require_once('_edittransactionform.php');
 
-function _getOperationStr($bChinese)
+function EchoAll()
 {
-    if (UrlGetQueryValue('edit'))
-    {
-    	$str = $bChinese ? STOCK_TRANSACTION_EDIT_CN : STOCK_TRANSACTION_EDIT;
-    }
-    else
-    {
-    	$str = $bChinese ? STOCK_TRANSACTION_NEW_CN : STOCK_TRANSACTION_NEW;
-    }
-    return $str;
+	StockEditTransactionForm(STOCK_TRANSACTION_EDIT);
 }
 
-function EchoAll($bChinese = true)
+function EchoMetaDescription()
 {
-	StockEditTransactionForm();
-}
-
-function EchoMetaDescription($bChinese = true)
-{
-	$str = _getOperationStr($bChinese);
-    if ($bChinese)
-    {
-    	$str = "本中文页面文件跟/woody/res/php/_submittransaction.php和_edittransactionform.php一起配合完成{$str}的功能.";
-    }
-    else
-    {
-    	$str = "This page works together with php/_submittransaction.php and php/_edittransactionform.php to $str.";
-    }
+	$strSubmit = STOCK_TRANSACTION_EDIT;
+   	$str = "本中文页面文件跟/woody/res/php/_submittransaction.php和_edittransactionform.php一起配合完成{$strSubmit}的功能.";
     EchoMetaDescriptionText($str);
 }
 
-function EchoTitle($bChinese = true)
+function EchoTitle()
 {
-    echo _getOperationStr($bChinese);
+    echo STOCK_TRANSACTION_EDIT;
 }
 
     AcctAuth();

@@ -52,21 +52,21 @@ function CorrectBlogTable()
 /*
 function SqlInsertFuture()
 {
-    SqlInsertStock('hf_CL', 'NYMEX Oil Future', 'NYMEX原油期货');
-    SqlInsertStock('hf_GC', 'COMEX Gold Future', 'COMEX黄金期货');
-    SqlInsertStock('hf_NG', 'NYMEX Gas Future', 'NYMEX天然气期货');
-    SqlInsertStock('hf_OIL', 'Brent Oil Future', '布伦特原油期货');
-    SqlInsertStock('hf_SI', 'COMEX Silver Future', 'COMEX白银期货');
+    SqlInsertStock('hf_CL', 'NYMEX原油期货');
+    SqlInsertStock('hf_GC', 'COMEX黄金期货');
+    SqlInsertStock('hf_NG', 'NYMEX天然气期货');
+    SqlInsertStock('hf_OIL', 'Brent布伦特原油期货');
+    SqlInsertStock('hf_SI', 'COMEX白银期货');
 }
 
 function SqlInsertUSCNY()
 {
-    SqlInsertStock('USCNY', 'USD/CNY Reference Rate', '美元人民币中间价');
+    SqlInsertStock('USCNY', '美元人民币中间价');
 }
 
 function SqlInsertHKCNY()
 {
-    SqlInsertStock('HKCNY', 'HKD/CNY Reference Rate', '港币人民币中间价');
+    SqlInsertStock('HKCNY', '港币人民币中间价');
 }
 */
 
