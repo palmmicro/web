@@ -32,8 +32,8 @@ function LayoutMyPromotion()
 {
     echo <<<END
         <p>觉得这个网站有用? 可以打赏支持一下. 
-        <br /><img src=/woody/image/alipay.jpg alt="Small QRcode to pay Woody in Alipay" />
-        <br /><img src=/woody/image/wxpay.jpg alt="Small QRcode to pay 1 RMB to Woody in Weixin" />
+        <br /><img src=/woody/image/taobao.jpg alt="QRcode to pay Woody in Taobao" />
+        <br /><img src=/woody/image/wxpay.jpg alt="QRcode to pay 1 RMB to Woody in Weixin" />
         </p>
 END;
 }

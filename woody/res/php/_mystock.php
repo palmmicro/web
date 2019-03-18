@@ -58,31 +58,25 @@ function _hasSmaDisplay($sym)
     return true;
 }
 
-function _getEditStockLink($strDisplay, $strUs, $strSymbol)
-{
-	$ar = explode(' ', $strUs);
-    return GetPhpLink(STOCK_PATH.'editstock', true, $strDisplay, $strUs, strtolower($ar[0]).'='.$strSymbol);
-}
-
 function _getMyStockLinks($sym)
 {
 	$strSymbol = $sym->GetSymbol();
-    $str = _getEditStockLink(STOCK_OPTION_EDIT_CN, STOCK_OPTION_EDIT, $strSymbol);
-   	$str .= ' '._getEditStockLink(STOCK_OPTION_SPLIT_CN, STOCK_OPTION_SPLIT, $strSymbol);
+    $str = GetStockOptionLink(STOCK_OPTION_EDIT, $strSymbol);
+   	$str .= ' '.GetStockOptionLink(STOCK_OPTION_SPLIT, $strSymbol);
    	if (SqlGetEtfPair($strSymbol) == false)
    	{
-   		$str .= ' '._getEditStockLink(STOCK_OPTION_EMA_CN, STOCK_OPTION_EMA, $strSymbol);
+   		$str .= ' '.GetStockOptionLink(STOCK_OPTION_EMA, $strSymbol);
    	}
     if ($sym->IsSymbolH())
     {
-    	$str .= ' '._getEditStockLink(STOCK_OPTION_AH_CN, STOCK_OPTION_AH, $strSymbol);
-    	$str .= ' '._getEditStockLink(STOCK_OPTION_ADR_CN, STOCK_OPTION_ADR, $strSymbol);
+    	$str .= ' '.GetStockOptionLink(STOCK_OPTION_AH, $strSymbol);
+    	$str .= ' '.GetStockOptionLink(STOCK_OPTION_ADR, $strSymbol);
     }
     else
     {
     	if ($sym->IsTradable())
     	{
-    		$str .= ' '._getEditStockLink(STOCK_OPTION_ETF_CN, STOCK_OPTION_ETF, $strSymbol);
+    		$str .= ' '.GetStockOptionLink(STOCK_OPTION_ETF, $strSymbol);
     	}
     }
     return $str;

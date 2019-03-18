@@ -6,6 +6,7 @@ function _echoStockTableItem($strStockId, $strSymbol, $strName)
 	$strLink = GetMyStockLink($strSymbol);
 	if (AcctIsAdmin())
 	{
+		$strEdit = GetStockOptionLink(STOCK_OPTION_EDIT, $strSymbol);
         $strDelete = GetDeleteLink('/php/_submitdelete.php?stockid='.$strStockId, '股票'.$strSymbol);
 	}
 
@@ -13,7 +14,7 @@ function _echoStockTableItem($strStockId, $strSymbol, $strName)
     <tr>
         <td class=c1>$strLink</td>
         <td class=c1>$strName</td>
-        <td class=c1>$strDelete</td>
+        <td class=c1>$strEdit $strDelete</td>
     </tr>
 END;
 }

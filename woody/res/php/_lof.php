@@ -61,17 +61,11 @@ function _getArbitrageQuantityName($bEditLink = false)
 {
     global $group;
 
-   	$str = '申购对冲';
-   	$strDisplay = '数量';
     if ($group->strGroupId && $bEditLink) 
     {
-    	$str .= GetStockSymbolLink('editstock', $group->ref->GetStockSymbol(), $strDisplay);
+    	return GetStockOptionLink(STOCK_OPTION_AMOUNT, $group->ref->GetStockSymbol());
     }
-    else
-    {
-    	$str .= $strDisplay;
-    }
-    return $str;
+    return STOCK_OPTION_AMOUNT;
 }
 
 function _onSmaUserDefined($fVal = false, $fNext = false)

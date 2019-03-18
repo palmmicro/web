@@ -30,15 +30,13 @@ function _updateStockHistoryAdjCloseByDividend($strSymbol, $strYMD, $strDividend
     }
 }
 
-function _updateStockDescription($strSubmit, $strSymbol, $strVal)
+function _updateStockDescription($strSymbol, $strStockId, $strVal)
 {
-    $stock = SqlGetStock($strSymbol);
-    if ($strSubmit == STOCK_OPTION_EDIT_CN)
-    {
-        SqlUpdateStock($stock['id'], $strSymbol, $strVal);
-    }
-    $strLink = GetMyStockLink($strSymbol);
-    EmailReport($strLink.' '.$strVal, $strSubmit);
+	$sql = new StockSql();
+	if ($sql->Update($strStockId, $strSymbol, $strVal))
+	{
+		EmailReport(GetMyStockLink($strSymbol).' '.$strVal, $_POST['submit']);
+	}
 }
 
 function _updateFundPurchaseAmount($strEmail, $strSymbol, $strVal)
@@ -208,48 +206,39 @@ function _updateStockOptionSplit($strSymbol, $strStockId, $strDate, $strVal)
 		$strDate = UrlCleanString($_POST['date']);
 		$strVal = UrlCleanString($_POST['val']);
    		$bTest = AcctIsAdmin();
-		$strSubmit = $_POST['submit'];
 		$strStockId = SqlGetStockId($strSymbol);
-		switch ($strSubmit)
+		switch ($_POST['submit'])
 		{
-		case STOCK_OPTION_ADJCLOSE_CN:
 		case STOCK_OPTION_ADJCLOSE:
 			if ($bTest)	_updateStockHistoryAdjCloseByDividend($strSymbol, $strDate, $strVal);
 			break;
 			
-		case STOCK_OPTION_ADR_CN:
 		case STOCK_OPTION_ADR:
 			if ($bTest)	_updateStockOptionAdr($strSymbol, $strVal);
 			break;
 			
-		case STOCK_OPTION_AH_CN:
 		case STOCK_OPTION_AH:
 			if ($bTest)	_updateStockOptionAdr($strSymbol, $strVal, TABLE_AH_STOCK);
 			break;
 			
-		case STOCK_OPTION_EMA_CN:
+		case STOCK_OPTION_AMOUNT:
+			_updateFundPurchaseAmount($strEmail, $strSymbol, $strVal);
+			break;
+
+		case STOCK_OPTION_EDIT:
+			if ($bTest)	_updateStockDescription($strSymbol, $strStockId, $strVal);
+			break;
+			
 		case STOCK_OPTION_EMA:
 			if ($bTest)	_updateStockOptionEma($strSymbol, $strStockId, $strDate, $strVal);
 			break;
 			
-		case STOCK_OPTION_ETF_CN:
 		case STOCK_OPTION_ETF:
 			if ($bTest)	_updateStockOptionEtf($strSymbol, $strVal);
 			break;
 			
-		case STOCK_OPTION_EDIT_CN:
-		case STOCK_OPTION_EDIT:
-			if ($bTest)	_updateStockDescription($strSubmit, $strSymbol, $strVal);
-			break;
-			
-		case STOCK_OPTION_SPLIT_CN:
 		case STOCK_OPTION_SPLIT:
 			if ($bTest)	_updateStockOptionSplit($strSymbol, $strStockId, $strDate, $strVal);
-			break;
-			
-		case STOCK_OPTION_AMOUNT_CN:
-		case STOCK_OPTION_AMOUNT:
-			_updateFundPurchaseAmount($strEmail, $strSymbol, $strVal);
 			break;
 		}
 		unset($_POST['submit']);

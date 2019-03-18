@@ -41,7 +41,7 @@ function EchoAll()
 
     		if ($bTest && $iStart == 0)
     		{
-				StockOptionEditForm(STOCK_OPTION_ADJCLOSE_CN);
+				StockOptionEditForm(STOCK_OPTION_ADJCLOSE);
     		}
     	}
     }

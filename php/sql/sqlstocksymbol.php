@@ -48,9 +48,6 @@ function SqlUpdateStock($strId, $strSymbol, $strName)
 {
 	$sql = new StockSql();
 	return $sql->Update($strId, $strSymbol, $strName);
-/*    $strName = UrlCleanString($strName);
-	$strQry = "UPDATE stock SET symbol = '$strSymbol', name = '$strName' WHERE id = '$strId' LIMIT 1";
-	return SqlDieByQuery($strQry, 'Update stock table failed');*/
 }
 
 function SqlGetAllStock($iStart, $iNum)

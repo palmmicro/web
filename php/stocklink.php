@@ -62,6 +62,34 @@ function GetBenfordLawLink($strSymbol)
     return GetStockSymbolLink('benfordlaw', $strSymbol, BENFORD_LAW_DISPLAY);
 }
 
+define('STOCK_OPTION_ADJCLOSE', '根据分红更新复权收盘价');
+define('STOCK_OPTION_ADR', '修改港股对应ADR代码');
+define('STOCK_OPTION_AH', '修改H股对应A股代码');
+define('STOCK_OPTION_AMOUNT', '基金申购金额');
+define('STOCK_OPTION_EDIT', '修改股票说明');
+define('STOCK_OPTION_EMA', '修改200/50天EMA');
+define('STOCK_OPTION_ETF', '修改ETF对应跟踪代码');
+define('STOCK_OPTION_SPLIT', '拆股或合股');
+function GetStockOptionArray()
+{
+    $ar = array('editstock' => STOCK_OPTION_EDIT,
+                  'editstockadr' => STOCK_OPTION_ADR,
+                  'editstockah' => STOCK_OPTION_AH,
+                  'editstockamount' => STOCK_OPTION_AMOUNT,
+                  'editstockema' => STOCK_OPTION_EMA,
+                  'editstocketf' => STOCK_OPTION_ETF,
+                  'editstocksplit' => STOCK_OPTION_SPLIT,
+                 );
+	return $ar;
+}
+
+function GetStockOptionLink($strOption, $strSymbol)
+{
+    $ar = GetStockOptionArray();
+    $strTitle = array_search($strOption, $ar);
+    return GetStockSymbolLink($strTitle, $strSymbol, $strOption);
+}
+
 function GetMyPortfolioLink()
 {
     return GetStockTitleLink('myportfolio', '持仓盈亏');
