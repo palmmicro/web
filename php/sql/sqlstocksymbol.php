@@ -24,6 +24,12 @@ class StockSql extends TableSql
     	return $this->InsertData("(id, symbol, name) VALUES('0', '$strSymbol', '$strName')");
     }
 
+	function Update($strId, $strSymbol, $strName)
+    {
+    	$strName = UrlCleanString($strName);
+		return $this->UpdateById("symbol = '$strSymbol', name = '$strName'", $strId);
+	}
+	
     function Get($strSymbol)
     {
     	return $this->GetSingleData(_SqlBuildWhere('symbol', $strSymbol));
@@ -40,9 +46,11 @@ function SqlInsertStock($strSymbol, $strName)
 
 function SqlUpdateStock($strId, $strSymbol, $strName)
 {
-    $strName = UrlCleanString($strName);
+	$sql = new StockSql();
+	return $sql->Update($strId, $strSymbol, $strName);
+/*    $strName = UrlCleanString($strName);
 	$strQry = "UPDATE stock SET symbol = '$strSymbol', name = '$strName' WHERE id = '$strId' LIMIT 1";
-	return SqlDieByQuery($strQry, 'Update stock table failed');
+	return SqlDieByQuery($strQry, 'Update stock table failed');*/
 }
 
 function SqlGetAllStock($iStart, $iNum)
