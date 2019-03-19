@@ -16,6 +16,7 @@ define('MAX_WX_STOCK', 50);
 
 // ****************************** Wexin support functions *******************************************************
 
+// A股代码正则表达式 ^(?i)s[hz]\d{6}$
 function _getMarketMatch($strKey)
 {
     $str = $strKey;
@@ -76,65 +77,32 @@ function _getExactMatch($strKey)
     return false;
 }
 
-function _getMatchSymbolArray($strKey)
-{
-    $ar = array();
-    if ($strSymbol = _getExactMatch($strKey))
-    {   // exact match
-        $ar[] = $strSymbol;
-    }
-    
-    // check all
-    if ($result = SqlGetAllStock(0, 0)) 
-    {
-        while ($stock = mysql_fetch_assoc($result)) 
-        {
-            $str = $stock['symbol'];
-            if (strstr($str, $strKey) || strstr($stock['name'], $strKey))
-            {
-                $ar[] = $str;
-                if (count($ar) > MAX_WX_STOCK)	break;
-            }
-        }
-        @mysql_free_result($result);
-    }
-    return $ar;
-}
-
-// A股代码正则表达式 ^(?i)s[hz]\d{6}$
-function _splitContents($strContents)
-{
-    $str = str_replace('，', ' ', $strContents);
-    $str = str_replace('。', ' ', $str);
-    $str = str_replace('？', ' ', $str);
-    $str = str_replace('！', ' ', $str);
-    $str = str_replace(',', ' ', $str);
-//    $str = preg_replace("/[[:punct:]]/i", ' ', $str);
-//    $str = preg_replace("/[[:punct:]，。！]/i", ' ', $strContents);  // error replacement by ，。！
-//    DebugString('preg_replace:'.$str);
-    $arContents = explode(' ', $str); 
-    $ar = array();
-    foreach ($arContents as $str)
-    {
-        $arSplit = preg_split('/([A-Z0-9:^.]+)/', $str, 0, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE); // 分割字母数字和中文
-        $ar = array_merge($ar, $arSplit);
-    }
-    return array_unique($ar);
-}
-
 function _wxGetStockArray($strContents)
 {
-    $arContents = _splitContents($strContents);
+    $strKey = trim($strContents);
     $ar = array();
-    foreach ($arContents as $str)
+//  if (!empty($strKey))     // "0" (0 as a string) is considered to be empty
+    if (strlen($strKey) > 0)
     {
-        $str = trim($str);
-//        if (!empty($str))     // "0" (0 as a string) is considered to be empty
-        if (strlen($str) > 0)
-        {
-            $ar = array_merge($ar, _getMatchSymbolArray($str));
-            if (count($ar) > MAX_WX_STOCK)	break;
-        }
+    	if ($strSymbol = _getExactMatch($strKey))
+    	{   // exact match
+    		$ar[] = $strSymbol;
+    	}
+    
+    	// check all
+    	if ($result = SqlGetAllStock(0, 0)) 
+    	{
+    		while ($stock = mysql_fetch_assoc($result)) 
+    		{
+    			$str = $stock['symbol'];
+    			if (strstr($str, $strKey) || strstr($stock['name'], $strKey))
+    			{
+    				$ar[] = $str;
+    				if (count($ar) > MAX_WX_STOCK)	break;
+    			}
+    		}
+    		@mysql_free_result($result);
+    	}
     }
     return array_unique($ar);
 }

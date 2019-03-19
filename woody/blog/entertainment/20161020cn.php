@@ -20,7 +20,6 @@
 <ol>
   <li>查<a href="../../res/sz162411cn.php">华宝油气净值</a>: 语音输入<font color=grey>162411</font>, 或者键盘输入<font color=grey>sz162411</font>, <font color=grey>SZ162411</font>, <font color=grey>Sz162411</font>,
       <font color=grey>162411</font>, <font color=grey>华宝油气</font>等.</li>
-  <li>同时查华宝油气净值和<a href="../../res/sz160216cn.php">国泰商品净值</a>: 输入<font color=grey>sz162411 sz160216</font>, <font color=grey>162411 160216</font>, <font color=grey>华宝油气 国泰商品</font>等.</li>
   <li>查珠海炬力股票信息: 输入<font color=grey>acts</font>.</li>
 </ol>
 <p><img src=../photo/20161014_qrcode_small.jpg alt="Palmmicro wechat public account sz162411 small size QR code" />
@@ -43,6 +42,12 @@
 <br />得意之余再补记一下, 上周蹭雪球热点港股腾讯ADR代码<?php EchoMyStockLink('TCEHY'); ?>时加了<a href="20150818cn.php#adrhcompare">ADR和H股</a>对比后, 又继续把它集成到了微信查询中.
 <br />输入查<font color=grey>00700</font>或者<font color=grey>腾讯</font>试试看.
 <br /><img src=../photo/kingcrab.jpg alt="Jan 30, 2018. King crab, Woody and Sapphire in La Quinta Carlsbad." />
+</p>
+
+<h3>千人QQ群和QQ年费会员</h3>
+<p>2019年3月19日
+<br />两年半过去, 微信公众号上现有461个用户, QQ群里是496人, 感觉基本上体现了目前华宝油气套利群体的规模.
+<br />佛前五百罗汉, 田横五百士, QQ群超过五百人就要收费了. 二十年多来第一次给QQ缴费, 花了120块办了个年费会员, 把QQ群升级成了千人群.
 </p>
 
 </div>
