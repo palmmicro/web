@@ -4,11 +4,11 @@ require_once('/php/stock.php');
 require_once('/php/stocktrans.php');
 require_once('_editstockoptionform.php');
 
-function _updateStockHistoryAdjCloseByDividend($strSymbol, $strYMD, $strDividend)
+function _updateStockHistoryAdjCloseByDividend($strSymbol, $strStockId, $strYMD, $strDividend)
 {
     $ar = array();
     $ymd = new StringYMD($strYMD);
-	$sql = new StockHistorySql(SqlGetStockId($strSymbol));
+	$sql = new StockHistorySql($strStockId);
     if ($result = $sql->GetAll()) 
     {
         while ($history = mysql_fetch_assoc($result)) 
@@ -27,6 +27,19 @@ function _updateStockHistoryAdjCloseByDividend($strSymbol, $strYMD, $strDividend
     {
         $fAdjClose -= $fDividend;
         $sql->UpdateAdjClose($strId, strval($fAdjClose));
+    }
+    unlinkConfigFile($strSymbol);
+}
+
+function _updateStockHistoryClose($strSymbol, $strStockId, $strYMD, $strClose)
+{
+	$sql = new StockHistorySql($strStockId);
+    if ($history = $sql->Get($strYMD)) 
+    {
+    	if ($sql->Update($history['id'], $history['open'], $history['high'], $history['low'], $strClose, $history['volume'], $strClose))
+        {
+        	unlinkConfigFile($strSymbol);
+        }
     }
 }
 
@@ -210,7 +223,7 @@ function _updateStockOptionSplit($strSymbol, $strStockId, $strDate, $strVal)
 		switch ($_POST['submit'])
 		{
 		case STOCK_OPTION_ADJCLOSE:
-			if ($bTest)	_updateStockHistoryAdjCloseByDividend($strSymbol, $strDate, $strVal);
+			if ($bTest)	_updateStockHistoryAdjCloseByDividend($strSymbol, $strStockId, $strDate, $strVal);
 			break;
 			
 		case STOCK_OPTION_ADR:
@@ -225,6 +238,10 @@ function _updateStockOptionSplit($strSymbol, $strStockId, $strDate, $strVal)
 			_updateFundPurchaseAmount($strEmail, $strSymbol, $strVal);
 			break;
 
+		case STOCK_OPTION_CLOSE:
+			if ($bTest)	_updateStockHistoryClose($strSymbol, $strStockId, $strDate, $strVal);
+			break;
+			
 		case STOCK_OPTION_EDIT:
 			if ($bTest)	_updateStockDescription($strSymbol, $strStockId, $strVal);
 			break;

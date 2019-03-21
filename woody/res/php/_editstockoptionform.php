@@ -3,17 +3,24 @@ require_once('/php/account.php');
 require_once('/php/stock.php');
 require_once('/php/ui/htmlelement.php');
 
-function _getStockOptionDate($strSubmit, $strStockId)
+function _getStockOptionDate($strSubmit, $ref)
 {
+	$sql = new StockHistorySql($ref->GetStockId());
 	switch ($strSubmit)
 	{
 	case STOCK_OPTION_ADJCLOSE:
 	case STOCK_OPTION_SPLIT:
 	case STOCK_OPTION_EMA:
-		$sql = new StockHistorySql($strStockId);
 		if ($strDate = $sql->GetDateNow())
 		{
 			return $strDate;
+		}
+		break;
+
+	case STOCK_OPTION_CLOSE:
+		if ($history_prev = $sql->GetPrev($ref->GetDate()))
+		{
+			return $history_prev['date'];
 		}
 		break;
 	}
@@ -112,7 +119,7 @@ function _getStockOptionEma($strStockId, $strDate)
 	return 'EMA200/50';
 }
 
-function _getStockOptionVal($strSubmit, $strSymbol, $strStockId, $strDate)
+function _getStockOptionVal($strSubmit, $ref, $strSymbol, $strDate)
 {
 	switch ($strSubmit)
 	{
@@ -125,8 +132,11 @@ function _getStockOptionVal($strSubmit, $strSymbol, $strStockId, $strDate)
 	case STOCK_OPTION_AH:
 		return _getStockOptionAh($strSymbol);
 
+	case STOCK_OPTION_CLOSE:
+		return $ref->GetPrevPrice();
+
 	case STOCK_OPTION_EMA:
-		return _getStockOptionEma($strStockId, $strDate);
+		return _getStockOptionEma($ref->GetStockId(), $strDate);
 
 	case STOCK_OPTION_ETF:
 		return _getStockOptionEtf($strSymbol);
@@ -163,23 +173,21 @@ function _getStockOptionMemo($strSubmit)
 	return '';
 }
 
-function StockOptionEditForm($strSubmit)
+function StockOptionEditForm($ref, $strSubmit)
 {
-	$strSymbol = UrlGetQueryValue('symbol');
-	if ($strSymbol == false)		return;
-	
-	$strStockId = SqlGetStockId($strSymbol);
     $strEmail = AcctGetEmail(); 
 	$strEmailReadonly = HtmlElementReadonly();
+	
+	$strSymbol = $ref->GetStockSymbol();
 	$strSymbolReadonly = HtmlElementReadonly();
 	
     $strDateDisabled = '';
-    if (($strDate = _getStockOptionDate($strSubmit, $strStockId)) == '')
+    if (($strDate = _getStockOptionDate($strSubmit, $ref)) == '')
     {
     	$strDateDisabled = HtmlElementDisabled();
     }
     
-    $strVal = _getStockOptionVal($strSubmit, $strSymbol, $strStockId, $strDate);
+    $strVal = _getStockOptionVal($strSubmit, $ref, $strSymbol, $strDate);
     $strMemo = _getStockOptionMemo($strSubmit);
 	
 	echo <<< END

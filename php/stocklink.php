@@ -66,6 +66,7 @@ define('STOCK_OPTION_ADJCLOSE', '根据分红更新复权收盘价');
 define('STOCK_OPTION_ADR', '修改港股对应ADR代码');
 define('STOCK_OPTION_AH', '修改H股对应A股代码');
 define('STOCK_OPTION_AMOUNT', '基金申购金额');
+define('STOCK_OPTION_CLOSE', '更新收盘价');
 define('STOCK_OPTION_EDIT', '修改股票说明');
 define('STOCK_OPTION_EMA', '修改200/50天EMA');
 define('STOCK_OPTION_ETF', '修改ETF对应跟踪代码');
@@ -76,6 +77,7 @@ function GetStockOptionArray()
                   'editstockadr' => STOCK_OPTION_ADR,
                   'editstockah' => STOCK_OPTION_AH,
                   'editstockamount' => STOCK_OPTION_AMOUNT,
+                  'editstockclose' => STOCK_OPTION_CLOSE,
                   'editstockema' => STOCK_OPTION_EMA,
                   'editstocketf' => STOCK_OPTION_ETF,
                   'editstocksplit' => STOCK_OPTION_SPLIT,

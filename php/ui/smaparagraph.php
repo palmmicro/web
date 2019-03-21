@@ -153,10 +153,33 @@ function _getSmaParagraphMemo($his)
     return $str;
 }
 
+function _getSmaParagraphWarning($ref, $his = false)
+{
+	if (RefHasData($ref))
+	{
+		$sql = $his ? $his->sql : new StockHistorySql($ref->GetStockId());
+		if ($history_prev = $sql->GetPrev($ref->GetDate()))
+		{
+			if (abs(floatval($history_prev['adjclose']) - floatval($ref->GetPrevPrice())) > 0.0005)
+			{
+				$strSymbol = $ref->GetStockSymbol();
+				$str = '<br /><font color=red>'.$strSymbol.' '.$ref->GetDate().'前一日收盘价冲突</font>: '.$history_prev['adjclose'].' '.$ref->GetPrevPrice();
+				if (AcctIsAdmin())
+				{
+					$str .= ' '.GetStockOptionLink(STOCK_OPTION_CLOSE, $strSymbol);
+				}
+				return $str;
+			}
+		}
+	}
+	return '';
+}
+
 function EchoSmaParagraph($ref, $str = false, $cb_ref = false, $callback = false, $callback2 = false)
 {
 	$his = new StockHistory($ref);
 	if ($str === false)	$str = _getSmaParagraphMemo($his);
+	$str .= _getSmaParagraphWarning($ref, $his);
 
 	$arColumn = GetSmaTableColumn();
 	$strEst = $arColumn[1];
@@ -169,6 +192,7 @@ function EchoSmaParagraph($ref, $str = false, $cb_ref = false, $callback = false
 	if ($callback)
     {
     	$est_ref = call_user_func($callback, $cb_ref);
+    	$str .= _getSmaParagraphWarning($est_ref);
     	$strColumnEx = GetTableColumn(110, GetXueQiuLink($est_ref->GetSym()).$strEst);
     	$strColumnEx .= GetTableColumn(70, $strNextEst);
     	$iWidth += 180;

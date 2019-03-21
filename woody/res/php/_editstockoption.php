@@ -10,8 +10,17 @@ function _getEditStockOptionSubmit($strTitle)
 
 function EchoAll()
 {
-	$strTitle = UrlGetTitle();
-    StockOptionEditForm(_getEditStockOptionSubmit($strTitle));
+    if ($strSymbol = UrlGetQueryValue('symbol'))
+    {
+    	StockPrefetchData($strSymbol);
+    	
+        $ref = StockGetReference(new StockSymbol($strSymbol));
+        if ($ref->HasData())
+        {
+        	$strTitle = UrlGetTitle();
+        	StockOptionEditForm($ref, _getEditStockOptionSubmit($strTitle));
+        }
+    }
 }
 
 function EchoMetaDescription()

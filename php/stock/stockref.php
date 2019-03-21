@@ -366,7 +366,12 @@ class StockReference
             $this->strDate = strval($iYear).'-'.$ymd->arYMD[1].'-'.$ymd->arYMD[2];
         }
     }
-
+    
+    function GetDate()
+    {
+        return $this->strDate;
+    }
+    
     function GetDateTime()
     {
         return $this->strDate.' '.$this->strTime;
