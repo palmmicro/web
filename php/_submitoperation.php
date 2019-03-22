@@ -12,10 +12,9 @@ function _onManualCalibrtion($strSymbol)
 	$ref->nv_ref->sql->Write($strDate, $strNav);
     if ($ref->GetPairSym())
     {
-    	if ($fPairNav = $ref->pair_nv_ref->sql->GetClose($strDate))
-//    	if ($fPairNav = $ref->pair_nv_ref->sql->GetClosePrev($strDate))
+    	if ($strPairNav = $ref->pair_nv_ref->sql->GetClose($strDate))
     	{
-    		$ref->sql->Write($strDate, strval($fPairNav / floatval($strNav)));
+    		$ref->sql->Write($strDate, strval(floatval($strPairNav) / floatval($strNav)));
         }
     }
 }

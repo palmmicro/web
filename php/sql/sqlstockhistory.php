@@ -48,6 +48,11 @@ class StockHistorySql extends DailyStockSql
     	}
     }
     
+    function UpdateClose($strId, $strClose)
+    {
+		return $this->UpdateById("close = '$strClose', adjclose = '$strClose'", $strId);
+    }
+
     function UpdateAdjClose($strId, $strAdjClose)
     {
 		return $this->UpdateById("adjclose = '$strAdjClose'", $strId);

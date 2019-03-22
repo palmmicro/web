@@ -36,7 +36,8 @@ function _updateStockHistoryClose($strSymbol, $strStockId, $strYMD, $strClose)
 	$sql = new StockHistorySql($strStockId);
     if ($history = $sql->Get($strYMD)) 
     {
-    	if ($sql->Update($history['id'], $history['open'], $history['high'], $history['low'], $strClose, $history['volume'], $strClose))
+//    	if ($sql->Update($history['id'], $history['open'], $history['high'], $history['low'], $strClose, $history['volume'], $strClose))
+    	if ($sql->UpdateClose($history['id'], $strClose))
         {
         	unlinkConfigFile($strSymbol);
         }
@@ -184,7 +185,7 @@ function _updateStockOptionSplitGroupTransactions($strGroupId, $strStockId, $str
 function _updateStockOptionSplitTransactions($strStockId, $strDate, $fRatio)
 {
     $stock_sql = new StockHistorySql($strStockId);
-    $fPrice = $stock_sql->GetClosePrev($strDate);
+    $fPrice = floatval($stock_sql->GetClosePrev($strDate));
     
 	$sql = new TableSql(TABLE_STOCK_GROUP);
     if ($result = $sql->GetData())

@@ -105,7 +105,7 @@ function _getStockOptionEtf($strSymbol)
 function _getStockOptionEmaDays($strStockId, $strDate, $iDays)
 {
 	$sql = new StockEmaSql($strStockId, $iDays);
-	return $sql->GetCloseString($strDate);
+	return $sql->GetClose($strDate);
 }
 
 function _getStockOptionEma($strStockId, $strDate)

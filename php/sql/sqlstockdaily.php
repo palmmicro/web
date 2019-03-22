@@ -30,28 +30,14 @@ class DailyStockSql extends StockTableSql
     	return false;
     }
     
-    function _getClose($strDate, $callback)
-    {
-    	if ($str = $this->_getCloseString($strDate, $callback))
-    	{
-    		return floatval($str);
-    	}
-    	return false;
-    }
-    
     function Get($strDate)
     {
     	return $this->GetSingleData($this->BuildWhere_stock_date($strDate));
     }
     
-    function GetCloseString($strDate)
-    {
-    	return $this->_getCloseString($strDate, 'Get');
-    }
-
     function GetClose($strDate)
     {
-    	return $this->_getClose($strDate, 'Get');
+    	return $this->_getCloseString($strDate, 'Get');
     }
 
     function GetFromDate($strDate, $iNum)
@@ -64,14 +50,9 @@ class DailyStockSql extends StockTableSql
     	return $this->GetSingleData($this->BuildWhere_key()." AND date < '$strDate'", _SqlOrderByDate());
     }
 
-    function GetCloseStringPrev($strDate)
-    {
-    	return $this->_getCloseString($strDate, 'GetPrev');
-    }
-
     function GetClosePrev($strDate)
     {
-    	return $this->_getClose($strDate, 'GetPrev');
+    	return $this->_getCloseString($strDate, 'GetPrev');
     }
 
     function GetNow()
@@ -88,20 +69,11 @@ class DailyStockSql extends StockTableSql
     	return false;
     }
 
-    function GetCloseStringNow()
+    function GetCloseNow()
     {
     	if ($record = $this->GetNow())
     	{
     		return $record['close'];
-    	}
-    	return false;
-    }
-
-    function GetCloseNow()
-    {
-    	if ($str = $this->GetCloseStringNow())
-    	{
-    		return floatval($str);
     	}
     	return false;
     }
@@ -129,7 +101,7 @@ class DailyStockSql extends StockTableSql
 
     function Write($strDate, $strClose)
     {
-    	if ($strSaved = $this->GetCloseString($strDate))
+    	if ($strSaved = $this->GetClose($strDate))
     	{
     		if (abs(floatval($strSaved) - floatval($strClose)) > 0.000001)
     		{
@@ -201,13 +173,13 @@ class HkcnyHistorySql extends NavHistorySql
 function SqlGetHKCNY()
 {
 	$sql = new HkcnyHistorySql();
-	return $sql->GetCloseNow();
+	return floatval($sql->GetCloseNow());
 }
 
 function SqlGetUSCNY()
 {
 	$sql = new UscnyHistorySql();
-	return $sql->GetCloseNow();
+	return floatval($sql->GetCloseNow());
 }
 
 function SqlGetNetValueByDate($strStockId, $strDate)

@@ -16,20 +16,19 @@ function _echoAhHistoryGraph($strSymbol)
 function _echoAhHistoryItem($csv, $history, $pair_sql, $hkcny_sql, $fRatio)
 {
 	$strDate = $history['date'];
-	$fClose = floatval($history['close']);
-	$strClose = round_display($fClose);
+	$strClose = round_display_str($history['close']);
 	
-	if ($fHKCNY = $hkcny_sql->GetClose($strDate))		$strHKCNY = round_display($fHKCNY);
+	if ($strHKCNY = $hkcny_sql->GetClose($strDate))	$strHKCNY = round_display_str($strHKCNY);
 	else													$strHKCNY = '';
 	
 	$strAH = '';
 	$strHA = '';
-	if ($fPairClose = $pair_sql->GetClose($strDate))
+	if ($strPairClose = $pair_sql->GetClose($strDate))
 	{
-		$strPairClose = round_display($fPairClose);
-		if ($fHKCNY)
+		$strPairClose = round_display_str($strPairClose);
+		if ($strHKCNY)
 		{
-			$fAh = $fClose / HShareEstToCny($fPairClose, $fRatio, $fHKCNY);
+			$fAh = floatval($strClose) / HShareEstToCny(floatval($strPairClose), $fRatio, floatval($strHKCNY));
 			$strAH = GetRatioDisplay($fAh);
 			$strHA = GetRatioDisplay(1.0 / $fAh);
 			$csv->Write($strDate, $strClose, $strPairClose, $strHKCNY, round_display($fAh));

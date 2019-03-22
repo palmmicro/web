@@ -4,8 +4,8 @@ require_once('stocktable.php');
 function _echoCalibrationItem($ref, $arHistory, $bTest)
 {
    	$strDate = $arHistory['date'];
-    $strPrice = $ref->GetPriceDisplay($ref->nv_ref->sql->GetClose($strDate), false);
-    $strPairPrice = $ref->pair_ref->GetPriceDisplay($ref->pair_nv_ref->sql->GetClose($strDate), false);
+    $strPrice = $ref->GetPriceDisplay(floatval($ref->nv_ref->sql->GetClose($strDate)), false);
+    $strPairPrice = $ref->pair_ref->GetPriceDisplay(floatval($ref->pair_nv_ref->sql->GetClose($strDate)), false);
     
     $strClose = $arHistory['close'];
     if ($bTest)

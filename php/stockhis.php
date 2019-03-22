@@ -235,9 +235,9 @@ class StockHistory
     
     function _cfg_set_EMA($cfg, $iDays)
     {
-    	if ($fEma = $this->_getEMA($iDays))
+    	if ($strEma = $this->_getEMA($iDays))
 		{
-			$this->_cfg_set_SMA($cfg, 'EMA'.strval($iDays), $fEma);
+			$this->_cfg_set_SMA($cfg, 'EMA'.strval($iDays), floatval($strEma));
 		}
     }
     

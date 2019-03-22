@@ -752,7 +752,7 @@ class StockReference
        		
    			$this->strPrice = $history['close'];
    			$this->strDate = $history['date'];
-   			$this->strPrevPrice = $sql->GetCloseStringPrev($this->strDate);
+   			$this->strPrevPrice = $sql->GetClosePrev($this->strDate);
    		}
     }
 

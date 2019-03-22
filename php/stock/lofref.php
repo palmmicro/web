@@ -97,18 +97,18 @@ class _LofReference extends FundReference
 		$this->AdjustFactor();
         
         $strDate = $this->est_ref->strDate;
-        if ($fCNY = $this->forex_sql->GetClose($strDate))
+        if ($strCNY = $this->forex_sql->GetClose($strDate))
         {
-            $this->fCNY = $fCNY;
-            if ($fEstNetValue = SqlGetNetValueByDate($this->est_ref->GetStockId(), $strDate))
+            $this->fCNY = floatval($strCNY);
+            if ($strEstNetValue = SqlGetNetValueByDate($this->est_ref->GetStockId(), $strDate))
             {
-            	$fEst = $fEstNetValue;
+            	$fEst = floatval($strEstNetValue);
             }
             else
             {
             	$fEst = $this->est_ref->fPrice;
             }
-            $this->fOfficialNetValue = $this->GetLofValue($fEst, $fCNY);
+            $this->fOfficialNetValue = $this->GetLofValue($fEst, $this->fCNY);
             $this->strOfficialDate = $strDate;
             $this->UpdateEstNetValue();
         }
@@ -127,7 +127,7 @@ class _LofReference extends FundReference
 
     function EstRealtimeNetValue()
     {
-        $fCNY = $this->forex_sql->GetCloseNow();
+        $fCNY = floatval($this->forex_sql->GetCloseNow());
         if ($this->fCNY == false)
         {
             $this->fCNY = $fCNY;
@@ -155,13 +155,16 @@ class _LofReference extends FundReference
         if ($this->UpdateOfficialNetValue())
         {
             $strDate = $this->strDate;
-            if ($fCNY = $this->forex_sql->GetClose($strDate))
+            if ($strCNY = $this->forex_sql->GetClose($strDate))
             {
                 $est_ref = $this->est_ref;
                 if (RefHasData($est_ref) == false)    return false;
                 
-                $fEst = SqlGetNetValueByDate($this->est_ref->GetStockId(), $strDate);
-                if ($fEst == false)
+                if ($strEst = SqlGetNetValueByDate($this->est_ref->GetStockId(), $strDate))
+                {
+                	$fEst = floatval($strEst);
+                }
+                else
                 {
                 	// DebugString($strDate.' '.$this->est_ref->GetStockSymbol().' ETF net value not found, use close price.');
                 	$ymd = new StringYMD($strDate);
@@ -171,7 +174,7 @@ class _LofReference extends FundReference
                 	else	return false;
                 }
         
-                $this->fFactor = $fEst * $fCNY / $this->fPrice;
+                $this->fFactor = $fEst * floatval($strCNY) / $this->fPrice;
                 $this->InsertFundCalibration($est_ref, strval($fEst));
                 return $this->fFactor;
             }

@@ -120,14 +120,14 @@ class _LofGroup extends _StockGroup
         $est_ref = $ref->est_ref;
         $strSymbol = $ref->GetStockSymbol();
         $strDate = $ref->strDate;
-        $strCNY = $ref->forex_sql->GetCloseString($strDate);
+        $strCNY = $ref->forex_sql->GetClose($strDate);
         
        	$sql = new NavHistorySql($est_ref->GetStockId());
-       	$strEst = $sql->GetCloseString($strDate);
+       	$strEst = $sql->GetClose($strDate);
        	if ($strEst == false)
        	{
        		$stock_sql = new StockHistorySql($est_ref->GetStockId());
-       		$strEst = $stock_sql->GetCloseString($strDate);
+       		$strEst = $stock_sql->GetClose($strDate);
        		if ($strEst == false)	$strEst = $est_ref->strPrevPrice;
        	}
        	
