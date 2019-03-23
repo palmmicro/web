@@ -33,8 +33,7 @@ function _echoReferenceTableItem($ref, $callback = false)
     }
     else
     {
-    	if (AcctIsAdmin())	$strDescription = $ref->DebugLink();
-    	else				$strDescription = RefGetDescription($ref, true);
+		$strDescription = RefGetDescription($ref, true);
         $strDisplayEx = GetTableColumnDisplay($strDescription);
     }
 

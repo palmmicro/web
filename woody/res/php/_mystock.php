@@ -155,10 +155,11 @@ function _echoMyStockData($strSymbol)
     if (AcctIsAdmin())
     {
      	$str = _getMyStockLinks($sym);
-    	if (_hasSmaDisplay($sym))
-    	{
-    		$str .= '<br />'._GetStockConfigDebugString(array($ref));
-    	}
+    	$str .= '<br />'.$ref->DebugLink();
+    	if ($sym->IsFundA())			$str .= '<br />'.$fund->DebugLink();
+    	if (_hasSmaDisplay($sym)) 		$str .= '<br />'._GetStockConfigDebugString($ref);
+    	$str .= '<br />('.$ref->GetStockId().')';
+        $str .= '<br />'.GetFileDebugLink(DebugGetFile()).' '.GetFileDebugLink(DebugGetTestFile());
     	EchoParagraph($str);
     }
 }
@@ -225,10 +226,6 @@ function EchoTitle()
     if ($strSymbol = UrlGetQueryValue('symbol'))  
     {
         $str = $strSymbol;
-    	if (AcctIsAdmin())
-    	{
-    		$str .= '('.SqlGetStockId($strSymbol).')';
-    	}
     }
     else
     {

@@ -112,12 +112,6 @@ function _echoArbitrageParagraph($group)
     EchoTableParagraphEnd();
 }
 
-function _echoTestParagraph($group)
-{
-    $str = _GetStockConfigDebugString(array($group->hk_ref, $group->cn_ref));
-    EchoParagraph($str);
-}
-
 function _adrStockRefCallbackData($ref)
 {
     global $group;
@@ -181,10 +175,6 @@ function AdrEchoAll()
 	}
     
     EchoPromotionHead('adr');
-    if (AcctIsAdmin())
-    {
-        _echoTestParagraph($group);
-    }
 }
 
 function AdrEchoTitle()

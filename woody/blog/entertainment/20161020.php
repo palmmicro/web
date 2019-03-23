@@ -16,7 +16,7 @@
 <br />How to inquire <a href="20111112.php">ACTS</a> stock information and <a href="20150818.php">SZ162411</a> fund net value in Palmmicro <a href="../palmmicro/20161014.php">Wechat Public Account</a> sz162411. 
 This public account replies automatically by software. To discuss related topics with real people, please scan the QR code below to join QQ group 204836363.
 <br /><img src=../../image/qq.png alt="QQ group 204836363 scan QR code" />
-<br /><img src=../photo/20161014_qrcode_small.jpg alt="Palmmicro wechat public account sz162411 small size QR code" />
+<br /><img src=../../image/wx.jpg alt="Palmmicro wechat public account sz162411 small size QR code" />
 </p>
 
 </div>

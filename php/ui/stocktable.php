@@ -33,18 +33,16 @@ function GetReferenceTableDate($bChinese = true)
 	return $arReference[3];
 }
 
-function GetSmaTableColumn($bChinese = true)
+function GetSmaTableColumn()
 {
-    if ($bChinese)  $arColumn = array('<font color=indigo>均线</font>', '<font color=magenta>估值</font>', '<font color=orange>溢价</font>');
-    else              $arColumn = array('<font color=indigo>SMA</font>',  '<font color=magenta>Est</font>',  '<font color=orange>Premium</font>');
-    return $arColumn;
+    return array('<font color=indigo>均线</font>', '<font color=magenta>估值</font>', '<font color=orange>溢价</font>');
 }
 
 function GetFundEstTableColumn($bChinese = true)
 {
 	$strSymbol = GetReferenceTableSymbol($bChinese);
 	
-	$arSma = GetSmaTableColumn($bChinese);
+	$arSma = GetSmaTableColumn();
 	$strEst = $arSma[1];
 	$strPremium = $arSma[2];
 	
@@ -69,7 +67,7 @@ function GetFundHistoryTableColumn($est_ref, $bChinese = true)
 	$arFundEst = GetFundEstTableColumn($bChinese);
 	$strOfficialEst = $arFundEst[1];
 	$strNetValue = $arFundEst[7];
-	$arSma = GetSmaTableColumn($bChinese);
+	$arSma = GetSmaTableColumn();
 	$strPremium = $arSma[2];
 	$strDate = GetReferenceTableDate($bChinese);
     if ($bChinese)     

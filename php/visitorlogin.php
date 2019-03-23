@@ -7,15 +7,10 @@ require_once('httplink.php');
 
 function _echoLogin($str)
 {
-	$strDebugLink = '';
-    if (AcctIsAdmin())
-    {
-        $strDebugLink = GetFileDebugLink(DebugGetFile()).' '.GetFileDebugLink(DebugGetTestFile());
-    }
     $strServer = UrlGetServer();
     echo <<<END
     <div>
-        <p><font color=green>$str</font> $strDebugLink
+        <p><font color=green>$str</font>
            <a href="$strServer/ProjectHoneyPot/memorial.php" style="display: none;">metropolitan-tundra</a>
         </p>
     </div>

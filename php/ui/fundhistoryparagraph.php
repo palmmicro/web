@@ -95,10 +95,27 @@ function _echoHistoryTableData($sql, $csv, $ref, $est_ref, $iStart, $iNum)
     }
 }
 
-function _echoFundHistoryTableBegin($arColumn)
+function _echoFundHistoryParagraph($ref, $est_ref, $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
 {
+    $arColumn = GetFundHistoryTableColumn($est_ref);
+    $strSymbol = $ref->GetStockSymbol();
+    $strSymbolLink = GetMyStockLink($strSymbol);
+    $str = "{$strSymbolLink}历史{$arColumn[1]}相对于{$arColumn[2]}的{$arColumn[3]}";
+    
+	$sql = new NavHistorySql($ref->GetStockId());
+    if (IsTableCommonDisplay($iStart, $iNum))
+    {
+        $str .= ' '.GetNetValueHistoryLink($strSymbol);
+        $strNavLink = '';
+    }
+    else
+    {
+    	$strNavLink = StockGetNavLink($strSymbol, $sql->Count(), $iStart, $iNum);
+    }
+
     echo <<<END
-    <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="history">
+    <p>$str $strNavLink
+    <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="fundhistory">
     <tr>
         <td class=c1 width=100 align=center>{$arColumn[0]}</td>
         <td class=c1 width=60 align=center>{$arColumn[1]}</td>
@@ -111,58 +128,19 @@ function _echoFundHistoryTableBegin($arColumn)
         <td class=c1 width=60 align=center>{$arColumn[8]}</td>
     </tr>
 END;
-}
 
-function _echoFundHistoryParagraph($ref, $est_ref, $bChinese, $strDisplay = '', $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
-{
-    $arColumn = GetFundHistoryTableColumn($est_ref, $bChinese);
-    $strSymbol = $ref->GetStockSymbol();
-    $strSymbolLink = GetMyStockLink($strSymbol);
-    if ($bChinese)     
-    {
-        $str = "{$strSymbolLink}历史{$arColumn[1]}相对于{$arColumn[2]}的{$arColumn[3]}";
-    }
-    else
-    {
-        $str = "The {$arColumn[3]} history of $strSymbolLink {$arColumn[1]} price comparing with {$arColumn[2]}";
-    }
-    
-	$sql = new NavHistorySql($ref->GetStockId());
-    if (IsTableCommonDisplay($iStart, $iNum))
-    {
-        $str .= ' '.GetNetValueHistoryLink($strSymbol);
-        $strNavLink = '';
-    }
-    else
-    {
-    	$iTotal = $sql->Count();
-    	$strNavLink = StockGetNavLink($strSymbol, $iTotal, $iStart, $iNum);
-    }
-
-    EchoParagraphBegin($str.' '.$strNavLink.' '.$strDisplay);
-    _echoFundHistoryTableBegin($arColumn);
-    _echoHistoryTableData($sql, $csv, $ref, $est_ref, $iStart, $iNum);
+	_echoHistoryTableData($sql, $csv, $ref, $est_ref, $iStart, $iNum);
     EchoTableParagraphEnd($strNavLink);
 }
 
 function EchoFundHistoryParagraph($fund, $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
 {
-	$str = '';
-    if (AcctIsAdmin())
-    {
-    	$str .= ' '.$fund->DebugLink();
-    }
-    _echoFundHistoryParagraph($fund->stock_ref, $fund->est_ref, true, $str, $csv, $iStart, $iNum);
+    _echoFundHistoryParagraph($fund->stock_ref, $fund->est_ref, $csv, $iStart, $iNum);
 }
 
 function EchoEtfHistoryParagraph($ref, $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
 {
-	$str = '';
-    if (AcctIsAdmin())
-    {
-    	if ($ref->IsSymbolA())	$str .= ' '.$ref->nv_ref->DebugLink();
-    }
-    _echoFundHistoryParagraph($ref, $ref->pair_ref, true, $str, $csv, $iStart, $iNum);
+    _echoFundHistoryParagraph($ref, $ref->pair_ref, $csv, $iStart, $iNum);
 }
 
 ?>

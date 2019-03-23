@@ -27,15 +27,6 @@ class _ChinaEtfGroup extends _StockGroup
     }
 } 
 
-function _echoTestParagraph($group, $bChinese)
-{
-    if (AcctIsAdmin())
-    {
-        $str = _GetStockConfigDebugString(array($group->ref->pair_ref));
-        EchoParagraph($str);
-    }
-}
-
 function _chinaEtfRefCallbackData($ref)
 {
    	$ar = array();
@@ -84,7 +75,6 @@ function EchoAll($bChinese = true)
 	}
     
     EchoPromotionHead('chinaetf');
-    _echoTestParagraph($group, $bChinese);
 }
 
 function EchoMetaDescription($bChinese = true)

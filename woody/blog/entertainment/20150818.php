@@ -210,7 +210,7 @@ and it will become much faster when refresh. Not confident about my mysql skills
 I solved some obvious problems. For example, I extended the data field of original stockgroupitem table, made necessary calculation for all records with the same groupitem_id in stocktransaction table,
 and saved the result in stockgroupitem table, so to avoid query stocktransaction table and calculate every time.
 However, after all those changes, the speed was still slow. But the good news is, after reviewing the software again and again, I finally found the real reason.
-<br />After get <a href="../../res/mystockgroup.php?email=woody@palmmicro.com">stock group</a> from member_id in <a name="mystockgroup">stockgroup</a> table, 
+<br />After getting stock group from member_id in <a name="mystockgroup">stockgroup</a> table, 
 I will construct a <font color=olive>MyStockGroup</font> class instance for each stockgroup. 
 And in the original construct function of <font color=olive>MyStockGroup</font> class, it will construct a <font color=olive>MyStockTransaction</font> class instance for each stock in the stockgroup,
 Because <font color=olive>MyStockTransaction</font> class need <font color=olive>MyStockReference</font> class as parameter, 

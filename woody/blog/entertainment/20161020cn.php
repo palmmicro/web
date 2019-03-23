@@ -22,7 +22,7 @@
       <font color=grey>162411</font>, <font color=grey>华宝油气</font>等.</li>
   <li>查珠海炬力股票信息: 输入<font color=grey>acts</font>.</li>
 </ol>
-<p><img src=../photo/20161014_qrcode_small.jpg alt="Palmmicro wechat public account sz162411 small size QR code" />
+<p><img src=../../image/wx.jpg alt="Palmmicro wechat public account sz162411 small size QR code" />
 </p>
 
 <h3><a name="ahcompare">AH股</a>对比</h3>
