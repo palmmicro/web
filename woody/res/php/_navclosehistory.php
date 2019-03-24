@@ -26,8 +26,7 @@ function _echoNavCloseGraph($strSymbol)
     $jpg = new PageImageFile();
     $jpg->DrawDateArray($csv->ReadColumn(2));
     $jpg->DrawCompareArray($csv->ReadColumn(3));
-	$strPremium = '溢价';
-    $jpg->Show($strPremium, $strSymbol, $csv->GetPathName());
+    $jpg->Show(STOCK_DISP_PREMIUM, $strSymbol, $csv->GetPathName());
 }
 
 function _getNavCloseHistoryLinks($ref)

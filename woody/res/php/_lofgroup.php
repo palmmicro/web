@@ -140,7 +140,6 @@ class _LofGroup extends _StockGroup
         if (AcctIsAdmin())
         {
 	        $str = $this->_getAdjustString($bChinese);
-            $str .= '<br />'._GetStockConfigDebugString($this->ref->est_ref);
             EchoParagraph($str);
 	    }
     }

@@ -1,7 +1,28 @@
 <?php
+require_once('stockdisp.php');
 require_once('table.php');
 
 // aqua, black, blue, fuchsia, gray, green, lime, maroon, navy, olive, purple, red, silver, teal, white, yellow
+function _getTableColumnColor($strDisplay, $strColor)
+{
+    return "<font color=$strColor>$strDisplay</font>";
+}
+
+function GetTableColumnEst()
+{
+	return _getTableColumnColor(STOCK_DISP_EST, 'magenta');
+}
+
+function GetTableColumnPremium()
+{
+	return _getTableColumnColor(STOCK_DISP_PREMIUM, 'orange');
+}
+
+function GetTableColumnSma()
+{
+	return _getTableColumnColor(STOCK_DISP_SMA, 'indigo');
+}
+
 function GetReferenceTableColumn($bChinese = true)			
 {
     if ($bChinese)  $arColumn = array('<font color=maroon>代码</font>',   '<font color=blue>价格</font>', '涨跌', '日期', '时间', '名称');
@@ -33,18 +54,12 @@ function GetReferenceTableDate($bChinese = true)
 	return $arReference[3];
 }
 
-function GetSmaTableColumn()
-{
-    return array('<font color=indigo>均线</font>', '<font color=magenta>估值</font>', '<font color=orange>溢价</font>');
-}
-
 function GetFundEstTableColumn($bChinese = true)
 {
 	$strSymbol = GetReferenceTableSymbol($bChinese);
 	
-	$arSma = GetSmaTableColumn();
-	$strEst = $arSma[1];
-	$strPremium = $arSma[2];
+	$strEst = GetTableColumnEst();
+	$strPremium = GetTableColumnPremium();
 	
     if ($bChinese)	$arColumn = array($strSymbol, '官方'.$strEst,      '官方'.$strPremium,     '参考'.$strEst,   '参考'.$strPremium,  '实时'.$strEst,     '实时'.$strPremium,       '<font color=olive>净值</font>');
     else		        $arColumn = array($strSymbol, 'Official '.$strEst, 'Official '.$strPremium, 'Fair '.$strEst, 'Fair '.$strPremium, 'Realtime '.$strEst, 'Realtime '.$strPremium, '<font color=olive>Net Value</font>');
@@ -67,8 +82,7 @@ function GetFundHistoryTableColumn($est_ref, $bChinese = true)
 	$arFundEst = GetFundEstTableColumn($bChinese);
 	$strOfficialEst = $arFundEst[1];
 	$strNetValue = $arFundEst[7];
-	$arSma = GetSmaTableColumn();
-	$strPremium = $arSma[2];
+	$strPremium = GetTableColumnPremium();
 	$strDate = GetReferenceTableDate($bChinese);
     if ($bChinese)     
     {

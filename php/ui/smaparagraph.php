@@ -181,11 +181,10 @@ function EchoSmaParagraph($ref, $str = false, $cb_ref = false, $callback = false
 	if ($str === false)	$str = _getSmaParagraphMemo($his);
 	$str .= _getSmaParagraphWarning($ref, $his);
 
-	$arColumn = GetSmaTableColumn();
-	$strEst = $arColumn[1];
+	$strSma = GetTableColumnSma();
+	$strEst = GetTableColumnEst();
+	$strPremium = GetTableColumnPremium();
 	$strNextEst = 'T+1'.$strEst;
-	$arColumn[] = $strNextEst;
-	$arColumn[] = $arColumn[2];
 	
 	$iWidth = 360;
     $strColumnEx = '';
@@ -210,11 +209,11 @@ function EchoSmaParagraph($ref, $str = false, $cb_ref = false, $callback = false
     <p>$str
     <TABLE borderColor=#cccccc cellSpacing=0 width=$strWidth border=1 class="text" id="smatable">
     <tr>
-        <td class=c1 width=90 align=center>{$arColumn[0]}</td>
-        <td class=c1 width=70 align=center>{$arColumn[1]}</td>
-        <td class=c1 width=65 align=center>{$arColumn[2]}</td>
-        <td class=c1 width=70 align=center>{$arColumn[3]}</td>
-        <td class=c1 width=65 align=center>{$arColumn[4]}</td>
+        <td class=c1 width=90 align=center>$strSma</td>
+        <td class=c1 width=70 align=center>$strEst</td>
+        <td class=c1 width=65 align=center>$strPremium</td>
+        <td class=c1 width=70 align=center>$strNextEst</td>
+        <td class=c1 width=65 align=center>$strPremium</td>
         $strColumnEx
         $strUserDefined
     </tr>

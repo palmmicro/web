@@ -8,12 +8,6 @@ require_once('_edittransactionform.php');
 require_once('_stocklink.php');
 require_once('_stockgroup.php');
 
-function _GetStockConfigDebugString($ref)
-{
-	$arSma = GetSmaTableColumn();
-    return $arSma[0].' '.$ref->DebugConfigLink();
-}
-
 // ****************************** Portfolio table *******************************************************
 
 function _EchoPortfolioParagraphBegin($str, $bChinese)

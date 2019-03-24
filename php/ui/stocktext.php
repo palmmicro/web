@@ -1,4 +1,5 @@
 <?php
+require_once('stockdisp.php');
 
 // Text display UI
 
@@ -58,10 +59,10 @@ function TextFromAhReference($ref, $hshare_ref)
 
 function _textPremium($stock_ref, $fEst)
 {
-    $str = '估值:'.$stock_ref->GetPriceText($fEst);
+    $str = STOCK_DISP_EST.':'.$stock_ref->GetPriceText($fEst);
     if ($stock_ref->HasData())
     {
-        $str .= ' 溢价:'.$stock_ref->GetPercentageText($fEst);
+        $str .= ' '.STOCK_DISP_PREMIUM.':'.$stock_ref->GetPercentageText($fEst);
     }
     return $str;
 }

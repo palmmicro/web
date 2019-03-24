@@ -157,7 +157,7 @@ function _echoMyStockData($strSymbol)
      	$str = _getMyStockLinks($sym);
     	$str .= '<br />'.$ref->DebugLink();
     	if ($sym->IsFundA())			$str .= '<br />'.$fund->DebugLink();
-    	if (_hasSmaDisplay($sym)) 		$str .= '<br />'._GetStockConfigDebugString($ref);
+    	if (_hasSmaDisplay($sym)) 		$str .= '<br />'.GetTableColumnSma().' '.$ref->DebugConfigLink();
     	$str .= '<br />('.$ref->GetStockId().')';
         $str .= '<br />'.GetFileDebugLink(DebugGetFile()).' '.GetFileDebugLink(DebugGetTestFile());
     	EchoParagraph($str);

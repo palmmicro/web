@@ -162,9 +162,8 @@ function EchoFundTradingParagraph($fund, $callback = false)
     if ($callback)     $arColumn[] = call_user_func($callback, true);
     $strPrice = _getTradingParagraphStr($arColumn);
     
-	$arSma = GetSmaTableColumn();
-	$strEst = $arSma[1];
-	$strPremium = $arSma[2];
+	$strEst = GetTableColumnEst();
+	$strPremium = GetTableColumnPremium();
     $str = "{$strSymbol}{$strPrice}相对于各个{$strEst}{$strEstPrice}的{$strPremium}";
     _echoTradingParagraph($str, $arColumn, $ref, true, $fund->fOfficialNetValue, $fund->fFairNetValue, $fund->fRealtimeNetValue, $callback); 
 }
@@ -176,8 +175,7 @@ function EchoAhTradingParagraph($hshare_ref)
     $strSymbolH = RefGetMyStockLink($hshare_ref);
     $strPriceH = $hshare_ref->GetCurrentPriceDisplay();
    
-	$arSma = GetSmaTableColumn();
-	$strPremium = $arSma[2];
+	$strPremium = GetTableColumnPremium();
 	
     $arColumn = _getTradingTableColumn();
     $arColumn[] = GetAhCompareLink('sort=ratio').$strPremium;

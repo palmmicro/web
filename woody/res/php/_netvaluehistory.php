@@ -13,8 +13,7 @@ function _echoNetValueHistoryGraph($strSymbol)
    	{
    		$jpg->DrawDateArray($ar);
    		$jpg->DrawCompareArray($csv->ReadColumn(1));
-   		$strPremium = '溢价';
-   		$jpg->Show($strPremium, $strSymbol, $csv->GetPathName());
+   		$jpg->Show(STOCK_DISP_PREMIUM, $strSymbol, $csv->GetPathName());
    	}
 }
 
