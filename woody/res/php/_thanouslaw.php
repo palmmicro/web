@@ -11,7 +11,7 @@ class _ThanousLawCsvFile extends PricePoolCsvFile
     }
 }
 
-function _echoThanousLawPool($strSymbol, $strTradingSymbol, $bChinese)
+function _echoThanousLawPool($strSymbol, $strTradingSymbol)
 {
    	$csv = new _ThanousLawCsvFile();
    	$csv->Read();
@@ -39,7 +39,7 @@ function _echoThanousLawItem($csv, $strDate, $ref, $pair_ref)
 END;
 }
 
-function _echoThanousLawData($sql, $ref, $est_ref, $iStart, $iNum, $bChinese)
+function _echoThanousLawData($sql, $ref, $est_ref, $iStart, $iNum)
 {
     $stock_sql = new StockHistorySql($ref->GetStockId());
 	$est_sql = new StockHistorySql($est_ref->GetStockId());
@@ -67,11 +67,11 @@ function _echoThanousLawData($sql, $ref, $est_ref, $iStart, $iNum, $bChinese)
     }
 }
 
-function _echoThanousLawParagraph($strSymbol, $iStart, $iNum, $bChinese)
+function _echoThanousLawParagraph($strSymbol, $iStart, $iNum)
 {
 	$ref = new LofReference($strSymbol);
 	$est_ref = $ref->est_ref;
-    $arColumn = GetFundHistoryTableColumn($est_ref, $bChinese);
+    $arColumn = GetFundHistoryTableColumn($est_ref);
  	$str = GetNetValueHistoryLink($strSymbol);
 
 	$sql = new NavHistorySql($ref->GetStockId());
@@ -89,13 +89,13 @@ function _echoThanousLawParagraph($strSymbol, $iStart, $iNum, $bChinese)
     </tr>
 END;
 
-	_echoThanousLawData($sql, $ref->stock_ref, $est_ref, $iStart, $iNum, $bChinese);
+	_echoThanousLawData($sql, $ref->stock_ref, $est_ref, $iStart, $iNum);
     EchoTableParagraphEnd($strNavLink);
 
-    _echoThanousLawPool($strSymbol, $est_ref->GetStockSymbol(), $bChinese);
+    _echoThanousLawPool($strSymbol, $est_ref->GetStockSymbol());
 }
 
-function EchoAll($bChinese = true)
+function EchoAll()
 {
     if ($strSymbol = UrlGetQueryValue('symbol'))
     {
@@ -107,7 +107,7 @@ function EchoAll($bChinese = true)
    			$iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
    			
             $fStart = microtime(true);
-            _echoThanousLawParagraph($strSymbol, $iStart, $iNum, $bChinese);
+            _echoThanousLawParagraph($strSymbol, $iStart, $iNum);
             DebugString($strSymbol.' Thanous Law: '.DebugGetStopWatchDisplay($fStart));
         }
     }
@@ -115,9 +115,16 @@ function EchoAll($bChinese = true)
     EchoStockCategory();
 }
 
-function EchoTitle($bChinese = true)
+function EchoMetaDescription()
 {
-  	echo UrlGetQueryDisplay('symbol').($bChinese ? '小心愿定律测试' : ' Thanous Law Test');
+    $str = UrlGetQueryDisplay('symbol');
+    $str .= '测试小心愿定律. 仅用于华宝油气(SZ162411)等LOF基金. 看白天A股华宝油气的溢价或者折价交易是否可以预测晚上美股XOP的涨跌.';
+    EchoMetaDescriptionText($str);
+}
+
+function EchoTitle()
+{
+  	echo UrlGetQueryDisplay('symbol').THANOUS_LAW_DISPLAY;
 }
 
     AcctAuth();

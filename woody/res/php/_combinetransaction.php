@@ -97,10 +97,8 @@ function _echoCombinedTransactionTableData($strGroupId, $iMax, $bChinese)
 
 function _echoCombinedTransactionParagraph($str, $strGroupId, $iMax, $bChinese)
 {
-	$strSymbol = GetReferenceTableSymbol($bChinese);
-    if ($bChinese)	$arColumn = array('日期', $strSymbol, '合并数量', '折算数量', '平均成本', '折算成本', '备注');
-    else		        $arColumn = array('Date', $strSymbol, 'Combined Quantity', 'Converted Quantity', 'Avg Cost', 'Converted Cost', 'Remark');
-    
+	$strSymbol = GetTableColumnSymbol();
+    $arColumn = array(GetTableColumnDate(), $strSymbol, '合并数量', '折算数量', '平均成本', '折算成本', '备注');
     echo <<<END
     <p>$str
     <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="combined">

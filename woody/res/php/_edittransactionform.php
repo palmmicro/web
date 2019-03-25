@@ -35,6 +35,7 @@ function StockEditTransactionForm($strSubmit, $strGroupId = false, $strGroupItem
     $strPassQuery = UrlPassQuery();
     $strSymbolsList = EditGetStockGroupItemList($strGroupId, $strGroupItemId);
     
+    $arColumn = GetTransactionTableColumn();
 	echo <<< END
 	<script type="text/javascript">
 	    function OnLoad()
@@ -73,11 +74,11 @@ function StockEditTransactionForm($strSubmit, $strGroupId = false, $strGroupItem
 		    <td><SELECT name="type" onChange=OnType() size=1> <OPTION value=0>卖出</OPTION> <OPTION value=1>买入</OPTION> </SELECT></td>
 		</tr>
 		<tr>
-		    <td>数量</td>
+		    <td>{$arColumn[2]}</td>
 		    <td><input name="quantity" value="$strQuantity" type="text" size="20" maxlength="32" class="textfield" id="quantity" /></td>
 		</tr>
 		<tr>
-		    <td>价格</td>
+		    <td>{$arColumn[3]}</td>
 		    <td><input name="price" value="$strPrice" type="text" size="20" maxlength="32" class="textfield" id="price" /></td>
 		</tr>
 		<tr>
@@ -89,7 +90,7 @@ function StockEditTransactionForm($strSubmit, $strGroupId = false, $strGroupItem
 		    <td><input name="tax" value="" type="text" size="20" maxlength="32" class="textfield" id="tax" /></td>
 		</tr>
 		<tr>
-		    <td>备注</td>
+		    <td>{$arColumn[5]}</td>
 	        <td><textarea name="remark" rows="8" cols="50" id="remark">$strRemark</textarea></td>
 	    </tr>
 	    <tr>

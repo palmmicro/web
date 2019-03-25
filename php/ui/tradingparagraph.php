@@ -1,12 +1,9 @@
 <?php
 require_once('stocktable.php');
 
-function _getTradingTableColumn($bChinese = true)
+function _getTradingTableColumn()
 {
-	$strPrice = GetReferenceTablePrice($bChinese);
-    if ($bChinese)	$arColumn = array('交易', $strPrice, '数量(手)');
-    else		        $arColumn = array('Trading', $strPrice, 'Num(100)');
-    return $arColumn;
+    return array('交易', GetTableColumnPrice(), '数量(手)');
 }
 
 function _getTradingNumber($strNumber)
@@ -204,8 +201,8 @@ function EchoEtfTradingParagraph($ref, $bChinese = true)
     $strSymbol = RefGetMyStockLink($ref);
     $strPairSymbol = RefGetMyStockLink($ref->pair_nv_ref);
 
-    $arColumn = _getTradingTableColumn($bChinese);
-	$arFundEst = GetFundEstTableColumn($bChinese);
+    $arColumn = _getTradingTableColumn();
+	$arFundEst = GetFundEstTableColumn();
 	$strPremium = $arFundEst[2];
     $arColumn[] = $strPremium;
 

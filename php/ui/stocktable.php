@@ -8,9 +8,24 @@ function _getTableColumnColor($strDisplay, $strColor)
     return "<font color=$strColor>$strDisplay</font>";
 }
 
+function GetTableColumnChange()
+{
+	return _getTableColumnColor(STOCK_DISP_CHANGE, 'red');
+}
+
+function GetTableColumnDate()
+{
+	return STOCK_DISP_DATE;
+}
+
 function GetTableColumnEst()
 {
 	return _getTableColumnColor(STOCK_DISP_EST, 'magenta');
+}
+
+function GetTableColumnNav()
+{
+	return _getTableColumnColor(STOCK_DISP_NAV, 'olive');
 }
 
 function GetTableColumnPremium()
@@ -18,60 +33,41 @@ function GetTableColumnPremium()
 	return _getTableColumnColor(STOCK_DISP_PREMIUM, 'orange');
 }
 
+function GetTableColumnPrice()
+{
+	return _getTableColumnColor(STOCK_DISP_PRICE, 'blue');
+}
+
 function GetTableColumnSma()
 {
 	return _getTableColumnColor(STOCK_DISP_SMA, 'indigo');
 }
 
-function GetReferenceTableColumn($bChinese = true)			
+function GetTableColumnSymbol()
 {
-    if ($bChinese)  $arColumn = array('<font color=maroon>代码</font>',   '<font color=blue>价格</font>', '涨跌', '日期', '时间', '名称');
-    else              $arColumn = array('<font color=maroon>Symbol</font>', '<font color=blue>Price</font>', 'Change', 'Date', 'Time', 'Name');
-    return $arColumn;
+	return _getTableColumnColor(STOCK_DISP_SYMBOL, 'maroon');
 }
 
-function GetReferenceTableSymbol($bChinese = true)			
+function GetReferenceTableColumn()			
 {
-	$arReference = GetReferenceTableColumn($bChinese);
-	return $arReference[0];
+    return array(GetTableColumnSymbol(), GetTableColumnPrice(), GetTableColumnChange(), GetTableColumnDate(), '时间', '名称');
 }
 
-function GetReferenceTablePrice($bChinese)			
+function GetFundEstTableColumn()
 {
-	$arReference = GetReferenceTableColumn($bChinese);
-	return $arReference[1];
-}
-
-function GetReferenceTableChange($bChinese)			
-{
-	$arReference = GetReferenceTableColumn($bChinese);
-	return $arReference[2];
-}
-
-function GetReferenceTableDate($bChinese = true)		
-{
-	$arReference = GetReferenceTableColumn($bChinese);
-	return $arReference[3];
-}
-
-function GetFundEstTableColumn($bChinese = true)
-{
-	$strSymbol = GetReferenceTableSymbol($bChinese);
+	$strSymbol = GetTableColumnSymbol();
 	
 	$strEst = GetTableColumnEst();
 	$strPremium = GetTableColumnPremium();
-	
-    if ($bChinese)	$arColumn = array($strSymbol, '官方'.$strEst,      '官方'.$strPremium,     '参考'.$strEst,   '参考'.$strPremium,  '实时'.$strEst,     '实时'.$strPremium,       '<font color=olive>净值</font>');
-    else		        $arColumn = array($strSymbol, 'Official '.$strEst, 'Official '.$strPremium, 'Fair '.$strEst, 'Fair '.$strPremium, 'Realtime '.$strEst, 'Realtime '.$strPremium, '<font color=olive>Net Value</font>');
-    return $arColumn;
+    return array($strSymbol, '官方'.$strEst,      '官方'.$strPremium,     '参考'.$strEst,   '参考'.$strPremium,  '实时'.$strEst,     '实时'.$strPremium);
 }
 
-function GetFundHistoryTableColumn($est_ref, $bChinese = true)
+function GetFundHistoryTableColumn($est_ref)
 {
     if ($est_ref)
     {
 		$strSymbol = RefGetMyStockLink($est_ref);
-        $strChange = GetReferenceTableChange($bChinese);
+        $strChange = GetTableColumnChange();
     }
     else
     {
@@ -79,26 +75,22 @@ function GetFundHistoryTableColumn($est_ref, $bChinese = true)
         $strChange = '';
     }
     
-	$arFundEst = GetFundEstTableColumn($bChinese);
+	$arFundEst = GetFundEstTableColumn();
 	$strOfficialEst = $arFundEst[1];
-	$strNetValue = $arFundEst[7];
+	$strNetValue = GetTableColumnNav();
 	$strPremium = GetTableColumnPremium();
-	$strDate = GetReferenceTableDate($bChinese);
-    if ($bChinese)     
-    {
-        $arColumn = array($strDate, '<font color=indigo>收盘价</font>', $strNetValue, $strPremium, $strSymbol, $strChange, $strOfficialEst, '估值时间', '误差');
-    }
-    else
-    {
-        $arColumn = array($strDate, '<font color=indigo>Close</font>', $strNetValue, $strPremium, $strSymbol, $strChange, $strOfficialEst, 'Est Time', 'Error');
-    }
-    return $arColumn;
+	$strDate = GetTableColumnDate();
+	return array($strDate, '<font color=indigo>收盘价</font>', $strNetValue, $strPremium, $strSymbol, $strChange, $strOfficialEst, '估值时间', '误差');
 }
 
 function GetAhCompareTableColumn()
 {
-	$strSymbol = GetReferenceTableSymbol();
-    return array('A股'.$strSymbol, 'AH比价', 'HA比价');
+    return array('A股'.GetTableColumnSymbol(), 'AH比价', 'HA比价');
+}
+
+function GetTransactionTableColumn()
+{
+    return array(GetTableColumnDate(), GetTableColumnSymbol(), '数量', GetTableColumnPrice(), '交易费用', '备注', '操作');
 }
 
 ?>

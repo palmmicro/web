@@ -69,7 +69,7 @@ function _echoAhHistoryData($sql, $strPairId, $fRatio, $iStart, $iNum)
 
 function _echoAhHistoryParagraph($strSymbol, $strStockId, $strPairId, $fRatio, $iStart, $iNum)
 {
-    $arColumn = array('日期');
+    $arColumn = array(GetTableColumnDate());
     $arColumn[] = $strSymbol;
     $strPairSymbol = SqlGetStockSymbol($strPairId);
     $arColumn[] = GetMyStockLink($strPairSymbol);

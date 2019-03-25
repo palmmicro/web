@@ -5,11 +5,9 @@ require_once('stocktable.php');
 
 function EchoArbitrageTableBegin($bChinese = true)
 {
-	$arReference = GetReferenceTableColumn($bChinese);
-	$strSymbol = $arReference[0];
-	$strPrice = $arReference[1];
-    if ($bChinese)	$arColumn = array($strSymbol, '对冲数量', '对冲'.$strPrice, '折算数量', '折算'.$strPrice, '折算净值盈亏');
-    else		        $arColumn = array($strSymbol, 'Quantity', $strPrice, 'Convert Total', 'Convert Avg', 'Convert Profit');
+	$strSymbol = GetTableColumnSymbol();
+	$strPrice = GetTableColumnPrice();
+    $arColumn = array($strSymbol, '对冲数量', '对冲'.$strPrice, '折算数量', '折算'.$strPrice, '折算净值盈亏');
     
     echo <<<END
     <TABLE borderColor=#cccccc cellSpacing=0 width=510 border=1 class="text" id="arbitrage">

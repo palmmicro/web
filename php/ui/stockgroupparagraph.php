@@ -106,7 +106,7 @@ function _echoStockGroupTableData($bChinese)
 function EchoStockGroupParagraph($bChinese = true)
 {
     $strStockGroup = GetMyStockGroupLink();
-	$strSymbol = GetReferenceTableSymbol();
+	$strSymbol = GetTableColumnSymbol();
     
     echo <<<END
     <p>

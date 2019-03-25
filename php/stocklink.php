@@ -56,6 +56,12 @@ function GetAhHistoryLink($strSymbol)
     return GetStockSymbolLink('ahhistory', $strSymbol, AH_HISTORY_DISPLAY);
 }
 
+define('THANOUS_LAW_DISPLAY', '小心愿定律');
+function GetThanousLawLink($strSymbol)
+{
+    return GetStockSymbolLink('thanouslaw', $strSymbol, THANOUS_LAW_DISPLAY);
+}
+
 define('BENFORD_LAW_DISPLAY', '本福特定律');
 function GetBenfordLawLink($strSymbol)
 {

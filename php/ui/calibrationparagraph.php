@@ -41,10 +41,8 @@ function EchoCalibrationParagraph($strSymbol, $bChinese, $iStart = 0, $iNum = TA
 	$strSymbolLink = GetMyStockLink($strSymbol);
 	$strPair = SqlGetEtfPair($strSymbol);
 	$strPairLink = GetMyStockLink($strPair);
-	$arFundEst = GetFundEstTableColumn($bChinese);
-	$strNetValue = $arFundEst[7];
-    if ($bChinese)  $arColumn = array($strSymbolLink.$strNetValue,     $strPairLink.$strNetValue,     '校准值', '日期');
-    else              $arColumn = array($strSymbolLink.' '.$strNetValue, $strPairLink.' '.$strNetValue, 'Factor', 'Date');
+	$strNetValue = GetTableColumnNav();
+    $arColumn = array($strSymbolLink.$strNetValue,     $strPairLink.$strNetValue,     '校准值', GetTableColumnDate());
     
     $ref = new EtfReference($strSymbol);
     if (IsTableCommonDisplay($iStart, $iNum))

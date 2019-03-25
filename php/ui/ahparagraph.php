@@ -101,7 +101,7 @@ function _adrhStockRefCallback($ref = false)
         return _adrhStockRefCallbackData($ref);
     }
     
-	$strSymbol = GetReferenceTableSymbol();
+	$strSymbol = GetTableColumnSymbol();
     return array('ADR'.$strSymbol, 'ADRH比价', 'HADR比价');
 }
 

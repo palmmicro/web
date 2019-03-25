@@ -59,7 +59,7 @@ function StockEditGroupForm($strSubmit, $bChinese = true)
     }
 	
     $strStockGroup = STOCK_GROUP_DISPLAY;
-	$strSymbol = GetReferenceTableSymbol();
+	$strSymbol = GetTableColumnSymbol();
 	echo <<< END
 	<script type="text/javascript">
 	    function OnLoad()

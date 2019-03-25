@@ -64,23 +64,16 @@ function _getFundParagraphStr($ref, $bChinese)
     $strDate = $ref->strOfficialDate;
     $strLastTime = SqlGetStockCalibrationTime($ref->GetStockId());
     $strHistoryLink = GetCalibrationHistoryLink($ref->GetStockSymbol());
-	$arColumn = GetFundEstTableColumn($bChinese);
+	$arColumn = GetFundEstTableColumn();
 	$str = $arColumn[1];
-    if ($bChinese)     
-    {
-        $str .= '日期'.$strDate.", 校准时间($strHistoryLink)$strLastTime.";
-    }
-    else
-    {
-        $str .= ' date '.$strDate.", calibration($strHistoryLink) on $strLastTime.";
-    }
+    $str .= GetTableColumnDate().$strDate.", 校准时间($strHistoryLink)$strLastTime.";
     if ($ref->fRealtimeNetValue)   $str .= ' '._getFundRealtimeStr($ref, $arColumn[5], $bChinese);
     return $str;
 }
 
 function EchoFundArrayEstParagraph($arRef, $bChinese = true, $str = '')
 {
-	$arColumn = GetFundEstTableColumn($bChinese);
+	$arColumn = GetFundEstTableColumn();
     echo <<<END
     	<p>$str
         <TABLE borderColor=#cccccc cellSpacing=0 width=560 border=1 class="text" id="estimation">

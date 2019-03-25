@@ -273,7 +273,7 @@ function RefGetDescription($ref, $bConvertDisplay = false)
 	$str = $ref->GetDescription();
 	if ($str)
 	{
-		$ar = array(STOCK_PRE_MARKET => '盘前交易', STOCK_POST_MARKET => '盘后交易', STOCK_NET_VALUE => '净值');
+		$ar = array(STOCK_PRE_MARKET => '盘前交易', STOCK_POST_MARKET => '盘后交易', STOCK_NET_VALUE => STOCK_DISP_NAV);
 		if (array_key_exists($str, $ar))
 		{
 			$strDisplay = $ar[$str];

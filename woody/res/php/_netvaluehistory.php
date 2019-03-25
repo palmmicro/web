@@ -22,7 +22,7 @@ function _echoNetValueHistory($strSymbol, $iStart, $iNum)
     $str = '';
     if (in_arrayLof($strSymbol))
     {
-    	$str .= ' '.GetStockSymbolLink('thanouslaw', $strSymbol, '测试小心愿定律');
+    	$str .= ' '.GetThanousLawLink($strSymbol);
     }
    	EchoParagraph($str);
   

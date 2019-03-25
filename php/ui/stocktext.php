@@ -31,8 +31,8 @@ function TextFromStockReference($ref)
 
     $str = RefGetDescription($ref).WX_EOL;
     $str .= $ref->GetExternalLink().WX_EOL;
-    $str .= '现价:'.strval($ref->fPrice).' '.$ref->strDate.' '.GetTimeHM($ref->strTime).WX_EOL;
-    $str .= '涨跌:'.$ref->GetPercentageText($ref->fPrevPrice).WX_EOL;
+    $str .= STOCK_DISP_PRICE.':'.strval($ref->fPrice).' '.$ref->strDate.' '.GetTimeHM($ref->strTime).WX_EOL;
+    $str .= STOCK_DISP_CHANGE.':'.$ref->GetPercentageText($ref->fPrevPrice).WX_EOL;
     if ($ref->strOpen)		$str .= '开盘价:'.strval_float($ref->strOpen).WX_EOL;
     if ($ref->strHigh)		$str .= '最高:'.strval_float($ref->strHigh).WX_EOL;
     if ($ref->strLow)		$str .= '最低:'.strval_float($ref->strLow).WX_EOL;
@@ -85,18 +85,18 @@ function TextFromFundReference($ref)
         $str = $strName;
     }
     
-    $str .= '净值:'.strval($ref->fPrice).' '.$ref->strDate.WX_EOL;
+    $str .= STOCK_DISP_NAV.':'.strval($ref->fPrice).' '.$ref->strDate.WX_EOL;
     if ($ref->fOfficialNetValue)
     {
-        $str .= '官方'._textPremium($stock_ref, $ref->fOfficialNetValue).' '.$ref->strOfficialDate.WX_EOL;
+        $str .= STOCK_DISP_OFFICIAL._textPremium($stock_ref, $ref->fOfficialNetValue).' '.$ref->strOfficialDate.WX_EOL;
     }
     if ($ref->fFairNetValue)
     {
-        $str .= '参考'._textPremium($stock_ref, $ref->fFairNetValue).WX_EOL;
+        $str .= STOCK_DISP_FAIR._textPremium($stock_ref, $ref->fFairNetValue).WX_EOL;
     }
     if ($ref->fRealtimeNetValue)
     {
-        $str .= '实时'._textPremium($stock_ref, $ref->fRealtimeNetValue).WX_EOL;
+        $str .= STOCK_DISP_REALTIME._textPremium($stock_ref, $ref->fRealtimeNetValue).WX_EOL;
     }
     return $str;
 }

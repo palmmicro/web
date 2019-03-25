@@ -12,7 +12,7 @@ require_once('_stockgroup.php');
 
 function _EchoPortfolioParagraphBegin($str, $bChinese)
 {
-	$strSymbol = GetReferenceTableSymbol($bChinese);
+	$strSymbol = GetTableColumnSymbol();
     if ($bChinese)	$arColumn = array($strSymbol, '总数量', '平均价格', '百分比', '持仓', '盈亏', '货币');
     else		        $arColumn = array($strSymbol, 'Total', 'Avg', 'Percentage', 'Amount', 'Profit', 'Money');
     

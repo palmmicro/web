@@ -108,11 +108,7 @@ function EchoTransactionParagraph($strGroupId, $ref = false, $iStart = 0, $iNum 
 		$str .= ' '.GetMyStockGroupLink($strGroupId);
 	}
 	
-	$arReference = GetReferenceTableColumn();
-	$strSymbol = $arReference[0];
-	$strPrice = $arReference[1];
-    $arColumn = array('日期', $strSymbol, '数量', $strPrice, '交易费用', '备注', '操作');
-    
+    $arColumn = GetTransactionTableColumn();
     echo <<<END
     <p>$str
     <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="transaction">

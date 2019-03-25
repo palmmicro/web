@@ -28,9 +28,8 @@ function _echoFundPurchaseTableData($strMemberId, $iStart, $iNum, $bChinese)
 
 function EchoFundPurchaseParagraph($str, $strMemberId, $bChinese, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
 {
-	$strSymbol = GetReferenceTableSymbol($bChinese);
-    if ($bChinese)  $arColumn = array($strSymbol, '金额');
-    else              $arColumn = array($strSymbol, 'Amount');
+	$strSymbol = GetTableColumnSymbol();
+    $arColumn = array($strSymbol, '金额');
     
     echo <<<END
 	    <p>$str

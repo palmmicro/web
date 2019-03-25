@@ -9,15 +9,7 @@ function EchoTitle($bChinese = true)
 {
     global $group;
     
-    $str = _GetStockDisplay($group->ref->stock_ref);
-    if ($bChinese)
-    {
-        $str .= '净值';
-    }
-    else
-    {
-        $str .= ' Net Value';
-    }
+    $str = _GetStockDisplay($group->ref->stock_ref).STOCK_DISP_NAV;
     echo $str;
 }
 

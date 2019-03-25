@@ -50,7 +50,7 @@ function _chinaEtfRefCallback($ref = false)
     }
     
 	$arFundEst = GetFundEstTableColumn();
-    return array($arFundEst[7], $arFundEst[1], $arFundEst[2]);
+    return array(GetTableColumnNav(), $arFundEst[1], $arFundEst[2]);
 }
 
 function EchoAll($bChinese = true)
@@ -94,15 +94,7 @@ function EchoTitle($bChinese = true)
 {
     global $group;
     
-    $str = _GetStockDisplay($group->ref);
-    if ($bChinese)
-    {
-        $str .= '净值';
-    }
-    else
-    {
-        $str .= ' Net Value';
-    }
+    $str = _GetStockDisplay($group->ref).STOCK_DISP_NAV;
     echo $str;
 }
 
