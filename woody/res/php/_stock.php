@@ -10,11 +10,10 @@ require_once('_stockgroup.php');
 
 // ****************************** Portfolio table *******************************************************
 
-function _EchoPortfolioParagraphBegin($str, $bChinese)
+function _EchoPortfolioParagraphBegin($str)
 {
 	$strSymbol = GetTableColumnSymbol();
-    if ($bChinese)	$arColumn = array($strSymbol, '总数量', '平均价格', '百分比', '持仓', '盈亏', '货币');
-    else		        $arColumn = array($strSymbol, 'Total', 'Avg', 'Percentage', 'Amount', 'Profit', 'Money');
+    $arColumn = array($strSymbol, '总数量', '平均价格', '百分比', '持仓', '盈亏', '货币');
     
     echo <<<END
     	<p>$str
@@ -31,13 +30,13 @@ function _EchoPortfolioParagraphBegin($str, $bChinese)
 END;
 }
 
-function _EchoPortfolioItem($strGroupId, $trans, $bChinese)
+function _EchoPortfolioItem($strGroupId, $trans)
 {
     $ref = $trans->ref;
     $sym = $ref->GetSym();
     
     if ($sym->IsSymbolA())           $strMoney = '';
-    else if ($sym->IsSymbolH())     $strMoney = $bChinese ? '港币$' : 'HK$';
+    else if ($sym->IsSymbolH())     $strMoney = '港币$';
     else                              $strMoney = '$';
     
     $strTransactions = StockGetTransactionLink($strGroupId, $sym->GetSymbol());
@@ -70,16 +69,16 @@ function _EchoPortfolioItem($strGroupId, $trans, $bChinese)
 END;
 }
 
-function _echoGroupPortfolioParagraph($group, $bChinese)
+function _echoGroupPortfolioParagraph($group)
 {
     if ($group->GetTotalRecords() > 0)
 	{
-	    _EchoPortfolioParagraphBegin(GetMyPortfolioLink(), $bChinese);    
+	    _EchoPortfolioParagraphBegin(GetMyPortfolioLink());    
         foreach ($group->arStockTransaction as $trans)
         {
             if ($trans->iTotalRecords > 0)
             {
-                _EchoPortfolioItem($group->strGroupId, $trans, $bChinese);
+                _EchoPortfolioItem($group->strGroupId, $trans);
             }
 		}
 		EchoTableParagraphEnd();
@@ -185,7 +184,7 @@ function EchoMoneyParagraph($group, $fUSDCNY = false, $fHKDCNY = false)
 
 // ****************************** Transaction Paragraph *******************************************************
 
-function _EchoTransactionParagraph($group, $bChinese = true)
+function _EchoTransactionParagraph($group)
 {
     $strGroupId = $group->strGroupId;
     
@@ -194,7 +193,7 @@ function _EchoTransactionParagraph($group, $bChinese = true)
     	EchoTransactionParagraph($strGroupId);
     }
     StockEditTransactionForm(STOCK_TRANSACTION_NEW, $strGroupId);
-    _echoGroupPortfolioParagraph($group, $bChinese);
+    _echoGroupPortfolioParagraph($group);
 }
 
 // ****************************** String functions *******************************************************

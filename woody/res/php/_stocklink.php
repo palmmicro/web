@@ -1,6 +1,6 @@
 <?php
 
-function _GetAdjustLink($strSymbol, $strQuery, $bChinese)
+function _GetAdjustLink($strSymbol, $strQuery, $bChinese = true)
 {
     return GetPhpLink(STOCK_PATH.'editstockgroup', $bChinese, '校准', 'Adjust', 'adjust=1&'.$strQuery).' '.$strSymbol;
 }

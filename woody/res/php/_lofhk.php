@@ -23,7 +23,7 @@ function EchoAll($bChinese = true)
     
     EchoFundEstParagraph($fund);
     EchoReferenceParagraph(array($fund->stock_ref, $fund->est_ref, $group->cny_ref));
-    $group->EchoLeverageParagraph($bChinese);
+    $group->EchoLeverageParagraph();
     EchoFundTradingParagraph($fund);    
 	EchoLofSmaParagraph($fund);
     EchoFundHistoryParagraph($fund);
@@ -34,12 +34,12 @@ function EchoAll($bChinese = true)
         if ($group->GetTotalRecords() > 0)
         {
             EchoMoneyParagraph($group, false, $fund->fCNY);
-            $group->EchoArbitrageParagraph($bChinese);
+            $group->EchoArbitrageParagraph();
         }
 	}
 	    
     EchoPromotionHead();
-    $group->EchoTestParagraph($bChinese);
+    $group->EchoTestParagraph();
 }
 
     AcctNoAuth();

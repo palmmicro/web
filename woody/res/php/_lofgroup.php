@@ -32,7 +32,7 @@ class _LofGroup extends _StockGroup
     	return $this->ar_leverage_ref;
     }
     
-    function EchoLeverageParagraph($bChinese)
+    function EchoLeverageParagraph()
     {
     	if (count($this->ar_leverage_ref) > 0)
     	{
@@ -80,7 +80,7 @@ class _LofGroup extends _StockGroup
         $lof_convert_trans->AddTransaction($fund->GetLofQuantity($etf_trans->iTotalShares), $etf_trans->fTotalCost * $fund->fCNY);
     }
     
-    function EchoArbitrageParagraph($bChinese)
+    function EchoArbitrageParagraph()
     {
         $lof_trans = $this->GetStockTransactionCN();
         $etf_trans = $this->GetStockTransactionUS();
@@ -114,7 +114,7 @@ class _LofGroup extends _StockGroup
         EchoTableParagraphEnd();
     }
 
-    function _getAdjustString($bChinese)
+    function _getAdjustString()
     {
     	$ref = $this->ref;
         $est_ref = $ref->est_ref;
@@ -132,14 +132,14 @@ class _LofGroup extends _StockGroup
        	}
        	
         $strQuery = sprintf('%s=%s&%s=%s&CNY=%s', $strSymbol, $ref->strPrice, $est_ref->GetStockSymbol(), $strEst, $strCNY);
-        return _GetAdjustLink($strSymbol, $strQuery, $bChinese);
+        return _GetAdjustLink($strSymbol, $strQuery);
     }
 
-    function EchoTestParagraph($bChinese)
+    function EchoTestParagraph()
     {
         if (AcctIsAdmin())
         {
-	        $str = $this->_getAdjustString($bChinese);
+	        $str = $this->_getAdjustString();
             EchoParagraph($str);
 	    }
     }

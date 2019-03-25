@@ -83,7 +83,7 @@ function _onSmaUserDefined($fVal = false, $fNext = false)
     return $str;
 }
 
-function _onTradingUserDefinedVal($fVal, $bChinese)
+function _onTradingUserDefinedVal($fVal)
 {
     global $group;
     
@@ -92,13 +92,13 @@ function _onTradingUserDefinedVal($fVal, $bChinese)
     return _onSmaUserDefinedVal($fEst).'@'.$fund->est_ref->GetPriceDisplay($fEst, false);
 }
 
-function _onTradingUserDefined($bChinese, $fVal = false)
+function _onTradingUserDefined($fVal = false)
 {
     if ($fVal === false)
     {
     	return _getArbitrageQuantityName(true);
     }
-    return _onTradingUserDefinedVal($fVal, $bChinese);
+    return _onTradingUserDefinedVal($fVal);
 }
 
 function EchoAll($bChinese = true)
@@ -108,7 +108,7 @@ function EchoAll($bChinese = true)
     
     EchoFundEstParagraph($fund);
     EchoReferenceParagraph(array($fund->stock_ref, $fund->est_ref, $fund->future_ref, $group->oil_ref, $group->es_ref, $group->usd_ref, $group->cny_ref));
-    $group->EchoLeverageParagraph($bChinese);
+    $group->EchoLeverageParagraph();
     EchoFundTradingParagraph($fund, _onTradingUserDefined);    
 	EchoLofSmaParagraph($fund, _onSmaUserDefined);
     EchoEtfArraySmaParagraph($fund->est_ref, $group->GetLeverageRef());
@@ -120,12 +120,12 @@ function EchoAll($bChinese = true)
         if ($group->GetTotalRecords() > 0)
         {
             EchoMoneyParagraph($group, $fund->fCNY);
-            $group->EchoArbitrageParagraph($bChinese);
+            $group->EchoArbitrageParagraph();
         }
 	}
 	    
     EchoPromotionHead();
-    $group->EchoTestParagraph($bChinese);
+    $group->EchoTestParagraph();
 }
 
     AcctNoAuth();

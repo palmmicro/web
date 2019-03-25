@@ -118,7 +118,7 @@ function EchoAll()
 function EchoMetaDescription()
 {
     $str = UrlGetQueryDisplay('symbol');
-    $str .= '测试小心愿定律. 仅用于华宝油气(SZ162411)等LOF基金. 看白天A股华宝油气的溢价或者折价交易是否可以预测晚上美股XOP的涨跌.';
+    $str .= '测试小心愿定律. 仅用于华宝油气(SZ162411)等LOF基金. 看白天A股华宝油气的溢价或者折价交易是否可以像小心愿认为的那样预测晚上美股XOP的涨跌.';
     EchoMetaDescriptionText($str);
 }
 

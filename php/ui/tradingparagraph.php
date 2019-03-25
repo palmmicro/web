@@ -21,7 +21,7 @@ function _getTradingEstPercentageDisplay($ref, $fEstPrice, $strColor)
 	return '';
 }
 
-function _echoTradingTableItem($i, $strAskBid, $strPrice, $strQuantity, $ref, $fEstPrice, $fEstPrice2, $fEstPrice3, $callback, $bChinese)
+function _echoTradingTableItem($i, $strAskBid, $strPrice, $strQuantity, $ref, $fEstPrice, $fEstPrice2, $fEstPrice3, $callback)
 {
 	if ($strQuantity == '0')	return;
 	
@@ -40,7 +40,7 @@ function _echoTradingTableItem($i, $strAskBid, $strPrice, $strQuantity, $ref, $f
     $strUserDefined = '';  
     if ($callback && (empty($strPrice) == false))
     {
-    	$strUserDefined = GetTableColumnDisplay(call_user_func($callback, $bChinese, floatval($strPrice)), $strColor);
+    	$strUserDefined = GetTableColumnDisplay(call_user_func($callback, floatval($strPrice)), $strColor);
     }
 
     echo <<<END
@@ -54,20 +54,18 @@ function _echoTradingTableItem($i, $strAskBid, $strPrice, $strQuantity, $ref, $f
 END;
 }
 
-function _echoTradingTableData($ref, $fEstPrice, $fEstPrice2, $fEstPrice3, $callback, $bChinese)
+function _echoTradingTableData($ref, $fEstPrice, $fEstPrice2, $fEstPrice3, $callback)
 {
 	$strBackup = $ref->GetCurrentPrice();
 	
-	$strSell = $bChinese ? '卖' : 'Ask ';
     for ($i = TRADING_QUOTE_NUM - 1; $i >= 0; $i --)
     {
-        _echoTradingTableItem($i, $strSell.strval($i + 1), $ref->arAskPrice[$i], $ref->arAskQuantity[$i], $ref, $fEstPrice, $fEstPrice2, $fEstPrice3, $callback, $bChinese);
+        _echoTradingTableItem($i, '卖'.strval($i + 1), $ref->arAskPrice[$i], $ref->arAskQuantity[$i], $ref, $fEstPrice, $fEstPrice2, $fEstPrice3, $callback);
     }
 
-	$strBuy = $bChinese ? '买' : 'Bid ';
     for ($i = 0; $i < TRADING_QUOTE_NUM; $i ++)
     {
-        _echoTradingTableItem($i, $strBuy.strval($i + 1), $ref->arBidPrice[$i], $ref->arBidQuantity[$i], $ref, $fEstPrice, $fEstPrice2, $fEstPrice3, $callback, $bChinese);
+        _echoTradingTableItem($i, '买'.strval($i + 1), $ref->arBidPrice[$i], $ref->arBidQuantity[$i], $ref, $fEstPrice, $fEstPrice2, $fEstPrice3, $callback);
     }
     
     $ref->SetCurrentPrice($strBackup);
@@ -83,7 +81,7 @@ function _checkTradingQuantity($ref)
     return true;
 }
 
-function _echoTradingParagraph($str, $arColumn, $ref, $bChinese, $fEstPrice = false, $fEstPrice2 = false, $fEstPrice3 = false, $callback = false)
+function _echoTradingParagraph($str, $arColumn, $ref, $fEstPrice = false, $fEstPrice2 = false, $fEstPrice3 = false, $callback = false)
 {
 	if (_checkTradingQuantity($ref))	return;
 	
@@ -125,21 +123,14 @@ function _echoTradingParagraph($str, $arColumn, $ref, $bChinese, $fEstPrice = fa
         $strUserDefined
     </tr>
 END;
-    _echoTradingTableData($ref, $fEstPrice, $fEstPrice2, $fEstPrice3, $callback, $bChinese);
+    _echoTradingTableData($ref, $fEstPrice, $fEstPrice2, $fEstPrice3, $callback);
     EchoTableParagraphEnd();
 }
 
-function _getTradingParagraphStr($arColumn, $bChinese = true)
+function _getTradingParagraphStr($arColumn)
 {
 	$strPrice = $arColumn[1];
-    if ($bChinese)     
-    {
-        $str = "当前5档交易{$strPrice}";
-    }
-    else
-    {
-        $str = "Ask/Bid $strPrice";
-    }
+    $str = "当前5档交易{$strPrice}";
     return $str;
 }
 
@@ -156,13 +147,13 @@ function EchoFundTradingParagraph($fund, $callback = false)
     $arColumn[] = $arFundEst[2];
     $arColumn[] = $arFundEst[4];
     $arColumn[] = $arFundEst[6];
-    if ($callback)     $arColumn[] = call_user_func($callback, true);
+    if ($callback)     $arColumn[] = call_user_func($callback);
     $strPrice = _getTradingParagraphStr($arColumn);
     
 	$strEst = GetTableColumnEst();
 	$strPremium = GetTableColumnPremium();
     $str = "{$strSymbol}{$strPrice}相对于各个{$strEst}{$strEstPrice}的{$strPremium}";
-    _echoTradingParagraph($str, $arColumn, $ref, true, $fund->fOfficialNetValue, $fund->fFairNetValue, $fund->fRealtimeNetValue, $callback); 
+    _echoTradingParagraph($str, $arColumn, $ref, $fund->fOfficialNetValue, $fund->fFairNetValue, $fund->fRealtimeNetValue, $callback); 
 }
 
 function EchoAhTradingParagraph($hshare_ref)
@@ -191,10 +182,10 @@ function EchoAhTradingParagraph($hshare_ref)
     $strPrice = _getTradingParagraphStr($arColumn);
     $str = "{$strSymbol}{$strPrice}相对于{$strSymbolH}交易价格{$strPriceH}港币的{$strPremium}";
         
-    _echoTradingParagraph($str, $arColumn, $ref, true, $hshare_ref->GetCnyPrice(), $fVal); 
+    _echoTradingParagraph($str, $arColumn, $ref, $hshare_ref->GetCnyPrice(), $fVal); 
 }
 
-function EchoEtfTradingParagraph($ref, $bChinese = true)
+function EchoEtfTradingParagraph($ref)
 {
 	if ($ref->IsSymbolA() == false)	return;
 	
@@ -206,18 +197,17 @@ function EchoEtfTradingParagraph($ref, $bChinese = true)
 	$strPremium = $arFundEst[2];
     $arColumn[] = $strPremium;
 
-    $strPrice = _getTradingParagraphStr($arColumn, $bChinese);
-    if ($bChinese)     $str = "{$strSymbol}{$strPrice}相对于{$strPairSymbol}的{$strPremium}";
-    else				 $str = "The $strPremium of $strSymbol $strPrice comparing with $strPairSymbol";
+    $strPrice = _getTradingParagraphStr($arColumn);
+    $str = "{$strSymbol}{$strPrice}相对于{$strPairSymbol}的{$strPremium}";
         
-    _echoTradingParagraph($str, $arColumn, $ref, $bChinese, $ref->EstOfficialNetValue()); 
+    _echoTradingParagraph($str, $arColumn, $ref, $ref->EstOfficialNetValue()); 
 }
 
 function EchoTradingParagraph($ref)
 {
     $arColumn = _getTradingTableColumn();
     $str = _getTradingParagraphStr($arColumn);
-    _echoTradingParagraph($str, $arColumn, $ref, true); 
+    _echoTradingParagraph($str, $arColumn, $ref); 
 }
 
 ?>

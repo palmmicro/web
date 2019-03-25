@@ -29,8 +29,8 @@ function _echoCombinedTransactionTableItem($group, $strDate, $strGroupItemId, $c
         }
         else
         {
-            $strConvertedShares = $strShares; 
-            $strConvertedCost = $strCost; 
+            $strConvertedShares = ''; 
+            $strConvertedCost = ''; 
         }
     }
     
