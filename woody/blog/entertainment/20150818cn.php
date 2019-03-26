@@ -129,8 +129,7 @@
 <h3>历史<a name="netvalue">净值</a></h3>
 <p>2016年1月8日
 <br />在<?php EchoXueqieId('2091843424', '塔夫男'); ?>等人的建议下, 加入记录华宝油气历史净值表格. 
-最近几天的直接显示在当前页面, 同时增加<?php EchoPhpFileLink('/woody/res/netvaluehistory'); ?>, 
-<?php EchoPhpFileLink('/woody/res/netvaluehistorycn'); ?>和<?php EchoPhpFileLink('/woody/res/php/_netvaluehistory'); ?>显示全部历史数据.
+最近几天的直接显示在当前页面, 同时增加<?php EchoPhpFileLink('/woody/res/netvaluehistorycn'); ?>和<?php EchoPhpFileLink('/woody/res/php/_netvaluehistory'); ?>显示全部历史数据.
 </p>
 <?php EchoFundHistoryDemo(); ?>
 

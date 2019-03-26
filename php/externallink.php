@@ -65,12 +65,6 @@ function GetGoogleStockLink($sym)
     return GetExternalLink($strHttp, $sym->GetSymbol());
 }
 
-function GetSinaQuotesLink($strSinaSymbols)
-{
-	$strHttp = GetSinaQuotesUrl($strSinaSymbols);
-    return GetExternalLink($strHttp, $strSinaSymbols);
-}
-
 // http://finance.sina.com.cn/fund/quotes/162411/bc.shtml
 function GetSinaFundLink($sym)
 {

@@ -31,8 +31,8 @@
 Here the plate goes around so, and the reason it's two to one is . . ." and I showed him the accelerations.
 <br />He says, "Feynman, that's pretty interesting, but what's the importance of it? Why are you doing it?"
 <br />"Hah!" I say. "There's no importance whatsoever. I'm just doing it for the fun of it." His reaction didn't discourage me; I had made up my mind I was going to enjoy physics and do whatever I liked.
-<br />Page 67 <a href="../../favoritecn.html#surely">Surely You're Joking, Mr. Feynman!</a> <i>Richard P. Feynman</i>、<i>Ralph Leighton</i>笔录
-</font></blockquote>
+<br />Page 67</font> <a href="../../favoritecn.html#surely">Surely You're Joking, Mr. Feynman!</a>
+</blockquote>
 <p><img src=../photo/20100529.jpg alt="Screen shot of My First Visual C++ 2008 Application Woody's Web Tool" />
 </p>
 

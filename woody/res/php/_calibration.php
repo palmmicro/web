@@ -12,7 +12,7 @@ function EchoCalibration($bChinese = true)
     	{
     		$iStart = UrlGetQueryInt('start');
     		$iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
-    		EchoCalibrationParagraph($strSymbol, $bChinese, $iStart, $iNum);
+    		EchoCalibrationParagraph($strSymbol, $iStart, $iNum);
     	}
     }
     EchoPromotionHead('calibration');

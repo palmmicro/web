@@ -126,10 +126,9 @@ Now XOP data in file <?php EchoSinaDebugLink('gb_xop'); ?>. ^SPSIOP data still u
 <h3><a name="netvalue">Net Value</a> History</h3>
 <p>Jan 8, 2016
 <br />SZ162411 history net value table was added following the advice from <?php EchoXueqieId('2091843424', 'airwolf2026'); ?>. 
-The most recent a few records are displayed in the current page, add files <?php EchoPhpFileLink('/woody/res/netvaluehistory'); ?>,
-<?php EchoPhpFileLink('/woody/res/netvaluehistorycn'); ?> and <?php EchoPhpFileLink('/woody/res/php/_netvaluehistory'); ?> to display all history data.
+The most recent a few records are displayed in the current page, add files <?php EchoPhpFileLink('/woody/res/netvaluehistorycn'); ?> and <?php EchoPhpFileLink('/woody/res/php/_netvaluehistory'); ?> to display all history data.
 </p>
-<?php EchoFundHistoryDemo(false); ?>
+<?php EchoFundHistoryDemo(); ?>
 
 <h3>Unified Display</h3>
 <p>Jan 26, 2016
@@ -139,7 +138,7 @@ The original version omitted date display because I thougth it was obvious. And 
 The original <font color=olive>StockReference</font> class in <?php EchoPhpFileLink('/php/stock/stockref'); ?> is now a base class for <font color=olive>FutureReference</font> and <font color=olive>ForexReference</font>.
 In this way, the display is unified.
 </p>
-<?php EchoReferenceDemo(false); ?>
+<?php EchoReferenceDemo(); ?>
 
 <h3>Period Three Implies Chaos</h3>
 <p>Feb 26, 2016
@@ -228,7 +227,7 @@ I thought it was because the web server was in US and my major visitors were fro
 <p>Aug 18, 2016
 <br />Many people's Excel sheet has this one, so I added it too.
 </p>
-<?php EchoFundEstDemo(false); ?>
+<?php EchoFundEstDemo(); ?>
 
 <h3>Test <a name="thanouslaw">Thanous Law</a></h3>
 <p>Sep 18, 2016
@@ -248,18 +247,18 @@ I thought it was because the web server was in US and my major visitors were fro
 <h3><a name="ahcompare">AH</a> Compare</h3>
 <p>Jan 28, 2017
 </p>
-<?php EchoAhDemo(false); ?>
+<?php EchoAhDemo(); ?>
 
 <h3>Crazy <a name="nextsma">T+1</a> Moving Average</h3>
 <p>March 27, 2018
 </p>
-<?php EchoLofSmaDemo(false); ?>
+<?php EchoLofSmaDemo(); ?>
 
 <h3>Hongkong Stock and US <a name="adrhcompare">ADR</a> Compare</h3>
 <p>Apr 4, 2018
 <br />Similar with <a href="#ahcompare">AH Compare</a>.
 </p>
-<?php EchoAdrhDemo(false); ?>
+<?php EchoAdrhDemo(); ?>
 
 </div>
 

@@ -48,7 +48,7 @@ Although our main focus was voice products for many years, it was used now and t
 <br />With the coming of PA6488 based H.264 video products, we are providing <a href="../../../pa6488/software/camman.html">CamMan</a>(Palmmicro Camera Manager) as a PA6488 support tool.
 <i>CamMan</i> can use file to simulate a live camera, and in this way, it also can be used as a raw video and image viewer.
 </td></tr>
-<tr><td><font color=grey>If I had to do the same again, I would, my friend, Fernando. <a href="../../favorite.html#fernando">Fernando</a> <i>ABBA</i> </font></td></tr>
+<tr><td><font color=grey>If I had to do the same again, I would, my friend, Fernando.</font> <a href="../../favorite.html#fernando">Fernando</a></td></tr>
 <tr><td><img src=../photo/20100726.jpg alt="Screen shot of Speech Workshop, Raw Image Viewer and CamMan" /></td></tr>
 </table>
 

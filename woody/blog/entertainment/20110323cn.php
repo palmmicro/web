@@ -48,8 +48,7 @@
 而现在我唯一感到庆幸的, 就是当年没有用外部资金去做一个专用的WiFi网络电话芯片, 从而避免了更大的经济损失. 
 <br />2011是我们开发<a href="../../../pa6488/indexcn.html">PA6488</a>方案的第3个年头, 我对它的未来抱着谨慎乐观的态度. 正如20年前我初到北京的时候, 对未来一样是乐观的. 
 </td></tr>
-<tr><td><font color=grey>到京城来碰运气的人, 王小石是其中之一. 他年轻, 俊秀, 志大, 才高, 远道而来, 一贫如洗. 但他觉得金风细细, 烟雨迷迷, 眼前万里江山, 什么都阻不了他闯荡江湖的雄心壮志.
-<a href="../../favoritecn.html#knife">温柔一刀</a> <i>温瑞安</i></font></td></tr>
+<tr><td><font color=grey>到京城来碰运气的人, 王小石是其中之一. 他年轻, 俊秀, 志大, 才高, 远道而来, 一贫如洗. 但他觉得金风细细, 烟雨迷迷, 眼前万里江山, 什么都阻不了他闯荡江湖的雄心壮志.</font> <a href="../../favoritecn.html#knife">温柔一刀</a></td></tr>
 <tr><td><img src=../../myphoto/2011/wutong_s.jpg alt="tired smile on Shenzhen Wutong Mountain" /></td></tr>
 <tr><td>&nbsp;
 <br /><font color=magenta>2012年1月18日更新</font>

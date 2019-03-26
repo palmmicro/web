@@ -55,7 +55,7 @@ function _callbackHAdrSmaCny($ref, $fEst = false)
 	return $ref->FromCnyToUsd($fEst);
 }
 
-function EchoHShareSmaParagraph($ref, $hshare_ref, $bChinese = true)
+function EchoHShareSmaParagraph($ref, $hshare_ref)
 {
     if ($ref->HasData() == false) 	return;
     

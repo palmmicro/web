@@ -36,7 +36,7 @@ function _echoCalibrationData($ref, $iStart, $iNum, $bTest)
     }
 }
 
-function EchoCalibrationParagraph($strSymbol, $bChinese, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
+function EchoCalibrationParagraph($strSymbol, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
 {
 	$strSymbolLink = GetMyStockLink($strSymbol);
 	$strPair = SqlGetEtfPair($strSymbol);

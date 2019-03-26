@@ -39,7 +39,7 @@ But my past experience taught me it mostly probably would be another bad big dec
       until the total position meets the 3rd rule.</b></li>
 </ol>
 <p>I wish to get an average of 10% annual return based on those trading rules, hope it is real in the future. 
-<br /><font color=grey>Just like I'd never gone, I knew the song. <a href="../../favorite.html#laislabonita">La Isla Bonita</a> <i>Madonna</i></font>
+<br /><font color=grey>Just like I'd never gone, I knew the song.</font> <a href="../../favorite.html#laislabonita">La Isla Bonita</a>
 <br /><img src=../photo/20141016.jpg alt="Screen shot of my Chinese A stock portfolio as of Oct 16 2014" />
 </p>
 

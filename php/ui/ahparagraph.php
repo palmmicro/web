@@ -1,12 +1,12 @@
 <?php
 require_once('referenceparagraph.php');
 
-function _getSortHLink($bChinese)
+function _getSortHLink($bChinese = true)
 {
     return CopyPhpLink(UrlAddQuery('sort=hshare'), $bChinese, '按H股排序', 'Sort by H');
 }
 
-function _getSortRatioLink($bChinese)
+function _getSortRatioLink($bChinese = true)
 {
 	return CopyPhpLink(UrlAddQuery('sort=ratio'), $bChinese, '按比价排序', 'Sort by Ratio');
 }
@@ -52,7 +52,7 @@ function _refSortByRatio($arRef)
     return $arSort;
 }
 
-function EchoAhParagraph($arRef, $bChinese = true)
+function EchoAhParagraph($arRef)
 {
 	$str = GetAhCompareLink();
 	$iCount = count($arRef);
@@ -75,8 +75,8 @@ function EchoAhParagraph($arRef, $bChinese = true)
 		}
 		else
 		{
-			$str .= ' '._getSortHLink($bChinese);
-			$str .= ' '._getSortRatioLink($bChinese);
+			$str .= ' '._getSortHLink();
+			$str .= ' '._getSortRatioLink();
 		}
 	}
     EchoReferenceParagraph($arRef, _ahStockRefCallback, $str);
@@ -105,7 +105,7 @@ function _adrhStockRefCallback($ref = false)
     return array('ADR'.$strSymbol, 'ADRH比价', 'HADR比价');
 }
 
-function EchoAdrhParagraph($arRef, $bChinese = true)
+function EchoAdrhParagraph($arRef)
 {
 	$str = GetAdrhCompareLink();
 	if (count($arRef) > 2)
@@ -119,7 +119,7 @@ function EchoAdrhParagraph($arRef, $bChinese = true)
 		}
 		else
 		{
-			$str .= ' '._getSortHLink($bChinese);
+			$str .= ' '._getSortHLink();
 		}
 	}
     EchoReferenceParagraph($arRef, _adrhStockRefCallback, $str);

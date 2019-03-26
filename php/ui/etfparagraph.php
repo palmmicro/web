@@ -44,7 +44,7 @@ function _etfListRefCallback($ref = false)
     return array('跟踪'.GetTableColumnSymbol(), '杠杆倍数', '校准值');
 }
 
-function EchoEtfListParagraph($arRef, $bChinese = true)
+function EchoEtfListParagraph($arRef)
 {
 	$ar = array();
 	foreach ($arRef as $ref)

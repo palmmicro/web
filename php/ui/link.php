@@ -22,7 +22,7 @@ function EchoSinaDebugLink($strSina)
 	EchoFileLink('/debug/sina/'.$strSina.'.txt');
 }
 
-function EchoMyStockLink($strSymbol, $bChinese = true)
+function EchoMyStockLink($strSymbol)
 {
     $str = GetMyStockLink($strSymbol);
     echo $str;

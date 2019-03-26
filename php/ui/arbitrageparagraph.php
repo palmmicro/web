@@ -3,7 +3,7 @@ require_once('stocktable.php');
 
 // ****************************** Arbitrage table *******************************************************
 
-function EchoArbitrageTableBegin($bChinese = true)
+function EchoArbitrageTableBegin()
 {
 	$strSymbol = GetTableColumnSymbol();
 	$strPrice = GetTableColumnPrice();

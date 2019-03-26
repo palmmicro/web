@@ -7,45 +7,45 @@ require_once('/php/ui/fundestparagraph.php');
 require_once('/php/ui/fundhistoryparagraph.php');
 require_once('/php/ui/lofsmaparagraph.php');
 
+define('STOCK_DEMO_SYMBOL', 'XOP');
 define('FUND_DEMO_SYMBOL', 'SZ162411');
 define('AH_DEMO_SYMBOL', '00386');
 define('ADRH_DEMO_SYMBOL', '00700');
-define('STOCK_DEMO_SYMBOL', 'IQ');
 
-function EchoReferenceDemo($bChinese = true, $strSymbol = FUND_DEMO_SYMBOL)
+function EchoReferenceDemo($strSymbol = FUND_DEMO_SYMBOL)
 {
     $ref = new MyStockReference($strSymbol);
     EchoReferenceParagraph(array($ref));
 }
 
-function EchoLofSmaDemo($bChinese = true, $strSymbol = FUND_DEMO_SYMBOL)
+function EchoLofSmaDemo($strSymbol = FUND_DEMO_SYMBOL)
 {
 	$fund_ref = StockGetFundReference($strSymbol);
 	EchoLofSmaParagraph($fund_ref);
 }
 
-function EchoFundHistoryDemo($bChinese = true, $strSymbol = FUND_DEMO_SYMBOL)
+function EchoFundHistoryDemo($strSymbol = FUND_DEMO_SYMBOL)
 {
 	$fund_ref = StockGetFundReference($strSymbol);
 	EchoFundHistoryParagraph($fund_ref);
 }
 
-function EchoFundEstDemo($bChinese = true, $strSymbol = FUND_DEMO_SYMBOL)
+function EchoFundEstDemo($strSymbol = FUND_DEMO_SYMBOL)
 {
 	$fund_ref = StockGetFundReference($strSymbol);
-	EchoFundArrayEstParagraph(array($fund_ref), $bChinese);
+	EchoFundArrayEstParagraph(array($fund_ref));
 }
 
-function EchoAhDemo($bChinese = true, $strSymbol = AH_DEMO_SYMBOL)
+function EchoAhDemo($strSymbol = AH_DEMO_SYMBOL)
 {
    	$hshare_ref = new HShareReference($strSymbol);
-   	EchoAhParagraph(array($hshare_ref), $bChinese);
+   	EchoAhParagraph(array($hshare_ref));
 }
 
-function EchoAdrhDemo($bChinese = true, $strSymbol = ADRH_DEMO_SYMBOL)
+function EchoAdrhDemo($strSymbol = ADRH_DEMO_SYMBOL)
 {
    	$hshare_ref = new HShareReference($strSymbol);
-   	EchoAdrhParagraph(array($hshare_ref), $bChinese);
+   	EchoAdrhParagraph(array($hshare_ref));
 }
 
 ?>

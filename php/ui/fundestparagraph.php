@@ -2,7 +2,7 @@
 require_once('stocktable.php');
 
 // $ref from FundReference
-function _echoFundEstTableItem($ref, $bChinese)
+function _echoFundEstTableItem($ref)
 {
     if (RefHasData($ref) == false)      return;
     
@@ -27,39 +27,25 @@ function _echoFundEstTableItem($ref, $bChinese)
 END;
 }
 
-function _getFundRealtimeStr($ref, $strRealtimeEst, $bChinese)
+function _getFundRealtimeStr($ref, $strRealtimeEst)
 {
     $future_ref = $ref->future_ref;
     $future_etf_ref = $ref->future_etf_ref;
     $est_ref = $ref->est_ref;
     
     $strFutureSymbol = $future_ref->GetStockSymbol();
-    if ($bChinese)
-    {
-        $str = "期货{$strRealtimeEst}{$strFutureSymbol}关联程度按照100%估算";
-    }
-    else
-    {
-        $str = "Future $strRealtimeEst assume $strFutureSymbol 100%  related";
-    }
+    $str = "期货{$strRealtimeEst}{$strFutureSymbol}关联程度按照100%估算";
     
     if ($future_etf_ref && ($future_etf_ref != $est_ref))
     {
         $strEtfSymbol = $est_ref->GetStockSymbol();
         $strFutureEtfSymbol = $future_etf_ref->GetStockSymbol();
-        if ($bChinese)
-        {
-            $str .= ", {$strEtfSymbol}和{$strFutureEtfSymbol}关联程度按照100%估算";
-        }
-        else
-        {
-            $str .= ", assume $strEtfSymbol and $strFutureEtfSymbol 100% related";
-        }
+        $str .= ", {$strEtfSymbol}和{$strFutureEtfSymbol}关联程度按照100%估算";
     }
     return $str.'.';    
 }
 
-function _getFundParagraphStr($ref, $bChinese)
+function _getFundParagraphStr($ref)
 {
     $strDate = $ref->strOfficialDate;
     $strLastTime = SqlGetStockCalibrationTime($ref->GetStockId());
@@ -67,11 +53,11 @@ function _getFundParagraphStr($ref, $bChinese)
 	$arColumn = GetFundEstTableColumn();
 	$str = $arColumn[1];
     $str .= GetTableColumnDate().$strDate.", 校准时间($strHistoryLink)$strLastTime.";
-    if ($ref->fRealtimeNetValue)   $str .= ' '._getFundRealtimeStr($ref, $arColumn[5], $bChinese);
+    if ($ref->fRealtimeNetValue)   $str .= ' '._getFundRealtimeStr($ref, $arColumn[5]);
     return $str;
 }
 
-function EchoFundArrayEstParagraph($arRef, $bChinese = true, $str = '')
+function EchoFundArrayEstParagraph($arRef, $str = '')
 {
 	$arColumn = GetFundEstTableColumn();
     echo <<<END
@@ -90,15 +76,15 @@ END;
 
     foreach ($arRef as $ref)
     {
-        _echoFundEstTableItem($ref, $bChinese);
+        _echoFundEstTableItem($ref);
     }
     EchoTableParagraphEnd();
 }
 
-function EchoFundEstParagraph($ref, $bChinese = true)
+function EchoFundEstParagraph($ref)
 {
-    $str = _getFundParagraphStr($ref, $bChinese);
-    EchoFundArrayEstParagraph(array($ref), $bChinese, $str);
+    $str = _getFundParagraphStr($ref);
+    EchoFundArrayEstParagraph(array($ref), $str);
 }
 
 ?>

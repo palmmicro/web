@@ -21,9 +21,9 @@
 </p>
 <blockquote><font color=grey>茅十八道: "天地会保百姓, 杀鞑子, 做的是英雄好汉的勾当, 自然是英雄好汉了. 江湖上有言道: <strong>为人不识陈近南, 就称英雄也枉然.</strong> 陈近南陈总舵主, 便是天地会的头脑. 天地会的朋友们, 都是陈总舵主的手下, 岂有不是英雄好汉之理?"
 <br />吴大鹏道: "茅兄可识得陈总舵主么?"
-<br />茅十八怒道: "什么? 你讥笑我不是英雄吗?"
-<br />-- <a href="../../favoritecn.html#ludingji">鹿鼎记</a> 第二回 <em>绝世奇事传闻里 最好交情见面初</em>
-</font></blockquote>
+<br />茅十八怒道: "什么? 你讥笑我不是英雄吗?"</font>
+<br /><a href="../../favoritecn.html#ludingji">鹿鼎记</a>
+</blockquote>
 <p>英文名的网上说明:</p>
 <blockquote><font color=grey>The name <strong>Sapphire</strong> is of English origin and it means <em>Gemstone</em>. It's a name commonly given to girls.
 <br />According to the 2008 U.S. Social Security Administration data, the name Sapphire is not a popular baby girl's name in Florida. Imagine that, only 8 babies in Florida have the same name as you in 2008. 
