@@ -16,7 +16,7 @@
 <br /><img src=photo/20121111.jpg alt="Standard AR168R RoIP module photo by an user from Denmark." /></p>
 
 <p>8月11日 <a href="entertainment/20120811cn.php">E路航Z1 GPS</a>
-<br /><img src=photo/20120811.jpg></p>
+<br /><img src=photo/20120811.jpg alt="Eroda Z1 GPS and package." /></p>
 </div>
 
 <?php LayoutTailLogin(true); ?>
