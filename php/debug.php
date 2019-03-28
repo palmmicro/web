@@ -129,10 +129,12 @@ function DebugVal($iVal, $strPrefix = false)
 
 function DebugArray($ar)
 {
+	DebugString('DebugArray begin ...');
 	foreach ($ar as $str)
 	{
 		DebugString($str);
 	}
+	DebugString('DebugArray end.');
 }
 
 function DebugHere($iVal = false)

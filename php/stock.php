@@ -389,6 +389,7 @@ function StockPrefetchArrayData($ar)
     		$arAll = array_merge($arAll, _getAllSymbolArray($strSymbol));
     	}
     }
+//    DebugArray($arAll);
     PrefetchSinaStockData(array_unique($arAll));
 }
 

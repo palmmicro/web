@@ -27,7 +27,7 @@
                                    array('1', '2017-03-07', 'T-1 date'),
                                    array('2', '0.6267', 'T day estimated official net value'),
                                    array('3', '2017-03-08', 'T date'),
-                                   array('4', '0.6267', '<a href="20170305.php">The Fair Estimation of SZ162411</a>'),
+                                   array('4', '0.6267', 'Fair Estimation'),
                                    array('5', '0.6267', 'Realtime <a href="20150818.php#realtime">T+1 Estimation with Current CL Factor in</a>'),
                                    array('6', '0.643', 'Last trade')
                                    ), 'netvalue', false);

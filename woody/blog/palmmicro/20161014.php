@@ -43,7 +43,7 @@ providing customers a total solution of data collect, storage and enquire. Based
 <br />Although lack of real function at this time, please start using palmmicro wechat puablic account <font color=orange>sz162411</font> today by scanning the QR code for below.
 To use <font color=orange>sz162411</font> as wechat number can fit current data portfolio, but actually it is a second choice. 
 Because I love to use palmmicro too much, it was used as my private wechat account a long time ago.
-<br /><img src=../photo/20161014.jpg alt="430x430 big qrcode of palmmicro wechat public account sz162411" />
+<br /><img src=../../image/wx.jpg alt="Palmmicro wechat public account sz162411 small size QR code" />
 </p>
 </div>
 

@@ -12,7 +12,7 @@
 
 <div>
 <h1>微信接口访问数据</h1>
-<p>用于观察<a href="../woody/blog/entertainment/20161020cn.php">微信</a>接口的使用情况.</p>
+<p>用于观察<a href="../woody/blog/palmmicro/20161014cn.php">微信</a>接口的使用情况.</p>
 <?php EchoWeixinVisitor(); ?>
 </div>
 

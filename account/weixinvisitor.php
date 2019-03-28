@@ -12,7 +12,7 @@
 
 <div>
 <h1>Wechat Interface Visitor Data</h1>
-<p>Used to view special <a href="../woody/blog/entertainment/20161020.php">Wechat</a> interface visitor data.</p>
+<p>Used to view special <a href="../woody/blog/palmmicro/20161014.php">Wechat</a> interface visitor data.</p>
 <?php EchoWeixinVisitor(false); ?>
 </div>
 

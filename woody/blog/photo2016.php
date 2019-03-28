@@ -12,11 +12,10 @@
 
 <div>
 <h1>2016 Blog Pictures</h1>
-<p>Oct 20 <a href="entertainment/20161020.php">How to Inquire Fund Net Value in Wechat Public Account</a>
-<br /><img src=../image/qq.png alt="QQ group 204836363 scan QR code" /></p>
-
 <p>Oct 14 <a href="palmmicro/20161014.php">Palmmicro Wechat Public Account sz162411</a>
-<br /><img src=photo/20161014.jpg alt="430x430 big qrcode of palmmicro wechat public account sz162411" /></p>
+<br /><img src=../image/wx.jpg alt="Palmmicro wechat public account sz162411 small size QR code" />
+<br /><img src=../image/qq.png alt="QQ group 204836363 scan QR code" />
+</p>
 </div>
 
 <?php LayoutTailLogin(false); ?>

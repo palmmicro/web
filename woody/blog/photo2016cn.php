@@ -12,11 +12,10 @@
 
 <div>
 <h1>2016年网络日志图片</h1>
-<p>10月20日 <a href="entertainment/20161020cn.php">如何使用微信公众订阅号sz162411查基金净值</a>
-<br /><img src=../image/qq.png alt="QQ group 204836363 scan QR code" /></p>
-
 <p>10月14日 <a href="palmmicro/20161014cn.php">Palmmicro微信公众订阅号sz162411</a>
-<br /><img src=photo/20161014.jpg alt="430x430 big qrcode of palmmicro wechat public account sz162411" /></p>
+<br /><img src=../image/wx.jpg alt="Palmmicro wechat public account sz162411 small size QR code" />
+<br /><img src=../image/qq.png alt="QQ group 204836363 scan QR code" />
+</p>
 </div>
 
 <?php LayoutTailLogin(true); ?>
