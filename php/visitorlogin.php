@@ -36,7 +36,7 @@ function VisitorLogin($bChinese)
 	else
 	{
 	    $strLoginLink = GetLoginLink('登录', 'login', $bChinese);
-	    $strRegisterLink = GetPhpLink('/account/register', $bChinese, '注册', 'register');
+	    $strRegisterLink = GetPhpLink('/account/register', false, '注册', 'register', $bChinese);
 		if ($bChinese)
 		{
 		    _echoLogin('更多选项? 请先'.$strLoginLink.'或者'.$strRegisterLink.'.');

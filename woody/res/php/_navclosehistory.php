@@ -56,7 +56,7 @@ function EchoAll()
 			_echoNavCloseGraph($strSymbol);
     	}
     }
-    EchoPromotionHead();
+    EchoPromotionHead('navclose');
     EchoStockCategory();
 }
 

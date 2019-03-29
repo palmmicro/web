@@ -129,7 +129,7 @@ function _echoMyStockData($strSymbol)
    			if ($hshare_ref)	EchoAhTradingParagraph($hshare_ref);
    			else 				EchoTradingParagraph($ref);
        	}
-       	EchoNavCloseHistoryParagraph($ref, GetNavCloseHistoryLink($strSymbol));
+       	EchoNavCloseHistoryParagraph($ref);
     }
     
     if ($etf_ref)   			EchoEtfSmaParagraph($etf_ref);

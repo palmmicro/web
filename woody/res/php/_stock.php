@@ -207,39 +207,25 @@ function _getMemberDisplay($strMemberId)
 	return $strName;
 }
 
-function _GetWhoseDisplay($strOwnerMemberId, $strMemberId, $bChinese = true)
+function _GetWhoseDisplay($strOwnerMemberId, $strMemberId)
 {
-    if ($strOwnerMemberId == $strMemberId)
-    {
-        if ($bChinese)  $str = '我的';
-        else             $str = 'My ';
-    }
-    else
-    {
-	    $str = _getMemberDisplay($strOwnerMemberId);
-        if ($bChinese)  $str .= '的';
-        else             $str .= "'s ";
-    }
-    return $str;
+    $str = ($strOwnerMemberId == $strMemberId) ? '我' : _getMemberDisplay($strOwnerMemberId);
+    return $str.'的';
 }
 
-function _GetWhoseStockGroupDisplay($strMemberId, $strGroupId, $bChinese = true)
+function _GetWhoseStockGroupDisplay($strMemberId, $strGroupId)
 {
     if ($strGroupMemberId = SqlGetStockGroupMemberId($strGroupId))
     {
-    	$str = _GetWhoseDisplay($strGroupMemberId, $strMemberId, $bChinese); 
+    	$str = _GetWhoseDisplay($strGroupMemberId, $strMemberId); 
     	return $str.SqlGetStockGroupName($strGroupId);
     }
     return '';
 }
 
-function _GetAllDisplay($str, $bChinese = true)
+function _GetAllDisplay($str)
 {
-    if ($str)   return $str;
-    
-    if ($bChinese)  $str = '全部';
-    else             $str = 'All';
-    return $str;
+    return ($str) ? $str : '全部';
 }
 
 function _GetStockDisplay($ref)

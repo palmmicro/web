@@ -4,7 +4,7 @@ require_once('/php/ui/table.php');
 
 function GetVisitorTodayLink($iCount, $bChinese)
 {
-    return CopyPhpLink('start=0&num='.$iCount, $bChinese, '今日访问', 'Visitors of Today');
+	return ($iCount > 0)	? CopyPhpLink('start=0&num='.$iCount, '今日访问', 'Visitors of Today', $bChinese) : '';
 }
 
 function EchoVisitorItem($strContent, $strLink, $record)
@@ -32,24 +32,11 @@ function _getDeleteVisitorLink($strIp, $bChinese)
     return '';
 }
 
-function _getOrigVisitorLink($bChinese)
-{
-    if (UrlGetQueryString() == false)
-    {
-        $strOrigLink = '';
-    }
-    else
-    {
-        $strOrigLink = CopyPhpLink(false, $bChinese, '回访问首页', 'Back to Visitor Home');
-    }
-    return $strOrigLink;    
-}
-
 define('MAX_VISITOR_CONTENTS', 35);
 define('MAX_VISITOR_SRC', 16);
 function EchoVisitorParagraphBegin($arColumn, $strNavLink, $strSrc, $bChinese)
 {
-    $strOrigLink = _getOrigVisitorLink($bChinese);
+    $strOrigLink = UrlGetQueryString() ? CopyPhpLink(false, '回访问首页', 'Back to Visitor Home', $bChinese) : '';
     $strDeleteLink = _getDeleteVisitorLink($strSrc, $bChinese);
     EchoParagraphBegin($strNavLink.' '.$strOrigLink.' '.$strDeleteLink);
     
@@ -104,7 +91,7 @@ function _getCategoryArray($bChinese)
 
 function EchoVisitorCommonLinks($bChinese)
 {
-    $str = GetCategoryLinks(_getCategoryArray, $bChinese, '/account/');
+    $str = GetCategoryLinks(_getCategoryArray, '/account/', $bChinese);
     EchoParagraph($str);
 }
 

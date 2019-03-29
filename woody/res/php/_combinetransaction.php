@@ -136,17 +136,15 @@ function CombineTransactionEchoAll($bChinese = true)
 
 function CombineTransactionEchoMetaDescription($bChinese = true)
 {
-    $strWhose = _GetWhoseStockGroupDisplay(false, UrlGetQueryValue('groupid'), $bChinese);
-    if ($bChinese)  $str = '不同的数据显示方式可能会带来不同的思路和想法. 这里显示'.$strWhose.'股票分组内相同股票连续交易的合并交易结果, 并且对LOF等跨市场的分组进行了合并交易结果后相应的价格折算.';
-    else             $str = 'Displays the combined transaction in '.$strWhose.' stock group, to provide a different view of my stock transactions.';
+    $strWhose = _GetWhoseStockGroupDisplay(false, UrlGetQueryValue('groupid'));
+    $str = '不同的数据显示方式可能会带来不同的思路和想法. 这里显示'.$strWhose.'股票分组内相同股票连续交易的合并交易结果, 并且对LOF等跨市场的分组进行了合并交易结果后相应的价格折算.';
     EchoMetaDescriptionText($str);
 }
 
 function CombineTransactionEchoTitle($bChinese = true)
 {
-    $str = _GetWhoseStockGroupDisplay(AcctIsLogin(), UrlGetQueryValue('groupid'), $bChinese);
-    if ($bChinese)  $str .= '合并股票交易记录';
-    else             $str .= ' Combined Stock Transactions';
+    $str = _GetWhoseStockGroupDisplay(AcctIsLogin(), UrlGetQueryValue('groupid'));
+    $str .= '合并股票交易记录';
     echo $str;
 }
 

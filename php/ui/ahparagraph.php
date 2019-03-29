@@ -1,14 +1,14 @@
 <?php
 require_once('referenceparagraph.php');
 
-function _getSortHLink($bChinese = true)
+function _getSortHLink()
 {
-    return CopyPhpLink(UrlAddQuery('sort=hshare'), $bChinese, '按H股排序', 'Sort by H');
+    return CopyPhpLink(UrlAddQuery('sort=hshare'), '按H股排序');
 }
 
-function _getSortRatioLink($bChinese = true)
+function _getSortRatioLink()
 {
-	return CopyPhpLink(UrlAddQuery('sort=ratio'), $bChinese, '按比价排序', 'Sort by Ratio');
+	return CopyPhpLink(UrlAddQuery('sort=ratio'), '按比价排序');
 }
 
 function _ahStockRefCallbackData($ref)

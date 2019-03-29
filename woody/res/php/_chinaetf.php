@@ -85,8 +85,7 @@ function EchoMetaDescription($bChinese = true)
     $strEst = _GetStockDisplay($group->ref->pair_nv_ref);
     $strUS = _GetStockDisplay($group->us_ref);
     $strCNY = _GetStockDisplay($group->us_ref->cny_ref);
-    if ($bChinese)  $str = "根据{$strEst}计算{$strDescription}净值的网页工具. 同时根据{$strUS}和{$strCNY}提供配对交易分析.";
-    else             $str = "Web tool to estimate the net value of $strDescription based on $strEst."; // Providing arbitrage analysis based on $strUS and $strCNY.
+    $str = "根据{$strEst}计算{$strDescription}净值的网页工具. 同时根据{$strUS}和{$strCNY}提供配对交易分析.";
     EchoMetaDescriptionText($str);
 }
 

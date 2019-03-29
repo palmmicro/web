@@ -71,7 +71,7 @@ function GetFileDebugLink($strPathName)
     return "$strLink($strDelete)";
 }
 
-function GetPhpLink($strPathTitle, $bChinese, $strDisplay, $strUs = false, $strQuery = false)
+function GetPhpLink($strPathTitle, $strQuery, $strDisplay, $strUs = false, $bChinese = true)
 {
 	if ($strUs && ($bChinese == false))
 	{
@@ -87,9 +87,9 @@ function GetPhpLink($strPathTitle, $bChinese, $strDisplay, $strUs = false, $strQ
     return GetInternalLink($str, $strDisplay);
 }
 
-function CopyPhpLink($strQuery, $bChinese, $strCn, $strUs = false)
+function CopyPhpLink($strQuery, $strCn, $strUs = false, $bChinese = true)
 {
-	return GetPhpLink(UrlGetUriTitle(), $bChinese, $strCn, $strUs, $strQuery);
+	return GetPhpLink(UrlGetUriTitle(), $strQuery, $strCn, $strUs, $bChinese);
 }
 
 function _getNavLinkQuery($strId, $iStart, $iNum)
@@ -103,6 +103,13 @@ function _getNavLinkQuery($strId, $iStart, $iNum)
     return $str;
 }
 
+function _getNavDirLink($strDir, $strQueryId, $iStart, $iNum, $bChinese)
+{
+    $arDir = UrlGetNavDisplayArray();
+	$strQuery = _getNavLinkQuery($strQueryId, $iStart, $iNum);
+	return CopyPhpLink($strQuery, $arDir[$strDir], $strDir, $bChinese).' ';
+}
+
 function GetNavLink($strQueryId, $iTotal, $iStart, $iNum, $bChinese = true)
 {
 	$strTotal = strval($iTotal);
@@ -112,7 +119,7 @@ function GetNavLink($strQueryId, $iTotal, $iStart, $iNum, $bChinese = true)
     if ($iTotal > $iNum && $iTotal < 2000)
     {
     	$strQuery = _getNavLinkQuery($strQueryId, 0, $iTotal);
-    	$str .= CopyPhpLink($strQuery, $bChinese, $strTotal).' ';
+    	$str .= CopyPhpLink($strQuery, $strTotal, false, $bChinese).' ';
     }
     else
     {
@@ -123,72 +130,54 @@ function GetNavLink($strQueryId, $iTotal, $iStart, $iNum, $bChinese = true)
     if ($iLast > $iTotal)   $iLast = $iTotal;
     $str .= ($bChinese ? '当前显示' : 'Current').': '.strval($iStart + 1).'-'.strval($iLast).' ';
     
-    $arDir = UrlGetNavDisplayArray();
     if ($iStart > 0)
     {   // Prev
-        if ($iStart > $iNum)
-        {
-            $iPrevStart = $iStart - $iNum;
-        }
-        else
-        {
-            $iPrevStart = 0;
-        }
-        
+        $iPrevStart = ($iStart > $iNum) ? ($iStart - $iNum) : 0;
         if ($iPrevStart != 0)
         {   // First
-            $strQuery = _getNavLinkQuery($strQueryId, 0, $iNum);
-            $str .= CopyPhpLink($strQuery, $bChinese, $arDir[NAV_DIR_FIRST], NAV_DIR_FIRST).' ';
+            $str .= _getNavDirLink(NAV_DIR_FIRST, $strQueryId, 0, $iNum, $bChinese);
         }
-        $strQuery = _getNavLinkQuery($strQueryId, $iPrevStart, $iNum);
-        $str .= CopyPhpLink($strQuery, $bChinese, $arDir[NAV_DIR_PREV], NAV_DIR_PREV).' ';
+        $str .= _getNavDirLink(NAV_DIR_PREV, $strQueryId, $iPrevStart, $iNum, $bChinese);
     }
     
     $iNextStart = $iStart + $iNum;
     if ($iNextStart < $iTotal)
     {   // Next
-        $strQuery = _getNavLinkQuery($strQueryId, $iNextStart, $iNum);
-        $str .= CopyPhpLink($strQuery, $bChinese, $arDir[NAV_DIR_NEXT], NAV_DIR_NEXT).' ';
+        $str .= _getNavDirLink(NAV_DIR_NEXT, $strQueryId, $iNextStart, $iNum, $bChinese);
         if ($iNextStart + $iNum < $iTotal)
         {   // Last
-            $strQuery = _getNavLinkQuery($strQueryId, $iTotal - $iNum, $iNum);
-            $str .= CopyPhpLink($strQuery, $bChinese, $arDir[NAV_DIR_LAST], NAV_DIR_LAST);
+            $str .= _getNavDirLink(NAV_DIR_LAST, $strQueryId, $iTotal - $iNum, $iNum, $bChinese);
         }
     }
     return $str;
 }
 
-function GetNewLink($strPathTitle, $strNew, $bChinese)
+function GetNewLink($strPathTitle, $strNew, $bChinese = true)
 {
-    return GetPhpLink($strPathTitle, $bChinese, '新建', 'New', 'new='.$strNew);
+    return GetPhpLink($strPathTitle, 'new='.$strNew, '新建', 'New', $bChinese);
 }
 
 function GetEditLink($strPathTitle, $strEdit, $bChinese = true)
 {
-    return GetPhpLink($strPathTitle, $bChinese, '修改', 'Edit', 'edit='.$strEdit);
+    return GetPhpLink($strPathTitle, 'edit='.$strEdit, '修改', 'Edit', $bChinese);
 }
 
-function GetTitleLink($strPath, $strTitle, $bChinese, $strDisplay, $strUs = false, $strQuery = false)
+function GetTitleLink($strPath, $strTitle, $strQuery, $strDisplay, $bChinese = true)
 {
-	if ($strUs && ($bChinese == false))
-	{
-		$strDisplay = $strUs;
-	}
-	
     if ((UrlGetTitle() == $strTitle) && (UrlGetQueryString() == $strQuery))
     {
         return "<font color=blue>$strDisplay</font>";
     }
-    return GetPhpLink($strPath.$strTitle, $bChinese, $strDisplay, false, $strQuery);
+    return GetPhpLink($strPath.$strTitle, $strQuery, $strDisplay, false, $bChinese);
 }
 
-function GetCategoryLinks($callback, $bChinese = true, $strPath = STOCK_PATH)
+function GetCategoryLinks($callback, $strPath = STOCK_PATH, $bChinese = true)
 {
 	$arCategory = call_user_func($callback, $bChinese);
     $str = '';
     foreach ($arCategory as $strCategory => $strDisplay)
     {
-    	$str .= GetTitleLink($strPath, $strCategory, $bChinese, $strDisplay).' ';
+    	$str .= GetTitleLink($strPath, $strCategory, false, $strDisplay, $bChinese).' ';
     }
     return $str;
 }

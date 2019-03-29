@@ -17,9 +17,9 @@ class _GoldEtfGroup extends _StockGroup
     }
 } 
 
-function _echoTestParagraph($group, $bChinese)
+function _echoTestParagraph($group)
 {
-    $str = _GetEtfAdjustString($group->ref->stock_ref, $group->ref->est_ref, $bChinese);
+    $str = _GetEtfAdjustString($group->ref->stock_ref, $group->ref->est_ref);
     EchoParagraph($str);
 }
 
@@ -40,7 +40,7 @@ function EchoAll($bChinese = true)
     EchoPromotionHead('goldetf');
     if (AcctIsAdmin())
     {
-        _echoTestParagraph($group, $bChinese);
+        _echoTestParagraph($group);
     }
 }
 
@@ -53,8 +53,7 @@ function EchoMetaDescription($bChinese = true)
     $strEst = _GetStockDisplay($fund->est_ref);
     $strFuture = _GetStockDisplay($fund->future_ref);
     $strCNY = _GetStockDisplay($group->cny_ref);
-    if ($bChinese)  $str = '根据'.$strEst.', '.$strFuture.'和'.$strCNY.'等因素计算'.$strDescription.'净值的网页工具.';
-    else             $str = 'Web tool to estimate the net value of '.$strDescription.' based on '.$strEst.' and '.$strFuture.'.';
+    $str = '根据'.$strEst.', '.$strFuture.'和'.$strCNY.'等因素计算'.$strDescription.'净值的网页工具.';
     EchoMetaDescriptionText($str);
 }
 

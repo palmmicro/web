@@ -7,13 +7,13 @@ require_once('ui/stocktable.php');
 // ****************************** Stock internal link functions *******************************************************
 function GetStockTitleLink($strTitle, $strDisplay, $strQuery = false)
 {
-	return GetTitleLink(STOCK_PATH, $strTitle, true, $strDisplay, false, $strQuery);
+	return GetTitleLink(STOCK_PATH, $strTitle, $strQuery, $strDisplay);
 }
 
 function GetStockSymbolLink($strTitle, $strSymbol, $strDisplay)
 {
 	return GetStockTitleLink($strTitle, $strDisplay, 'symbol='.$strSymbol);
-//    return GetPhpLink(STOCK_PATH.$strTitle, true, $strDisplay, false, 'symbol='.$strSymbol);
+//    return GetPhpLink(STOCK_PATH.$strTitle, 'symbol='.$strSymbol, $strDisplay);
 }
 
 function GetMyStockLink($strSymbol)
@@ -156,7 +156,7 @@ function StockGetTransactionLink($strGroupId, $strSymbol, $strDisplay = false)
     {
     	$strDisplay = $strSymbol;
     }
-    return GetPhpLink(STOCK_PATH.'mystocktransaction', true, $strDisplay, false, $strQuery);
+    return GetPhpLink(STOCK_PATH.'mystocktransaction', $strQuery, $strDisplay);
 }
 
 function StockGetAllTransactionLink($strGroupId, $ref = false)
@@ -201,7 +201,7 @@ function GetStockLink($strSymbol)
 {
     if (in_arrayAll($strSymbol))
     {
-    	return GetPhpLink(STOCK_PATH.strtolower($strSymbol), true, $strSymbol);
+    	return GetPhpLink(STOCK_PATH.strtolower($strSymbol), false, $strSymbol);
     }
     return false;
 }
