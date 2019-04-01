@@ -220,8 +220,8 @@ function StockCompareEstResult($nav_sql, $strNetValue, $strDate, $strSymbol)
 {
     if ($nav_sql->Insert($strDate, $strNetValue))
     {
-       	$fund_sql = new FundHistorySql($nav_sql->GetKeyId());
-       	if ($strEstValue = $fund_sql->GetEstimated($strDate))
+       	$fund_sql = new FundEstSql($nav_sql->GetKeyId());
+       	if ($strEstValue = $fund_sql->GetClose($strDate))
        	{
        		$fPercentage = StockGetPercentage(floatval($strEstValue), floatval($strNetValue));
        		if (abs($fPercentage) > 1.0)
@@ -240,7 +240,7 @@ function StockUpdateEstResult($nav_sql, $fund_sql, $fNetValue, $strDate)
 {
 	if ($nav_sql->Get($strDate) == false)
     {   // Only update when net value is NOT ready
-		$fund_sql->UpdateEstValue($strDate, $fNetValue);
+		$fund_sql->Write($strDate, strval($fNetValue));
 	}
 }
 

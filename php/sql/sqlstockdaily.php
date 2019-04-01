@@ -94,19 +94,20 @@ class DailyStockSql extends StockTableSql
     	return $this->InsertData("(id, stock_id, date, close) VALUES('0', '$strStockId', '$strDate', '$strClose')");
     }
 
-    function Update($strDate, $strClose)
+    function Update($strId, $strClose)
     {
-    	return $this->UpdateData("close = '$strClose'", $this->BuildWhere_stock_date($strDate), '1');
+		return $this->UpdateById("close = '$strClose'", $strId);
+//    	return $this->UpdateData("close = '$strClose'", $this->BuildWhere_stock_date($strDate), '1');
     }
 
     function Write($strDate, $strClose)
     {
-    	if ($strSaved = $this->GetClose($strDate))
+    	if ($record = $this->Get($strDate))
     	{
-    		if (abs(floatval($strSaved) - floatval($strClose)) > 0.000001)
+//    		DebugString('DailyStockSql Write '.$record['close'].' '.$strClose);
+    		if (abs(floatval($record['close']) - floatval($strClose)) > 0.000001)
     		{
-//    			DebugString($strDate.' '.$strClose);
-    			$this->Update($strDate, $strClose);
+    			$this->Update($record['id'], $strClose);
     		}
     	}
     	else
@@ -124,6 +125,45 @@ class DailyStockSql extends StockTableSql
     {
     	$this->DeleteCountData("close = '0.000000'");
     }
+}
+
+// ****************************** FundEstSql class *******************************************************
+class FundEstSql extends DailyStockSql
+{
+    function FundEstSql($strStockId) 
+    {
+        parent::DailyStockSql($strStockId, TABLE_FUND_EST);
+        $this->Create();
+    }
+
+    function Create()
+    {
+    	$str = ' `stock_id` INT UNSIGNED NOT NULL ,'
+         	  . ' `date` DATE NOT NULL ,'
+         	  . ' `close` DOUBLE(13,6) NOT NULL ,'
+         	  . ' `time` TIME NOT NULL ,'
+         	  . ' FOREIGN KEY (`stock_id`) REFERENCES `stock`(`id`) ON DELETE CASCADE ,'
+         	  . ' UNIQUE ( `date`, `stock_id` )';
+    	return $this->CreateTable($str);
+    }
+    
+    function Insert($strDate, $strEstValue)
+    {
+//    	DebugString('FundEstSql Insert: '.$strDate.' '.$strEstValue);
+    	if ($strStockId = $this->GetKeyId())
+    	{
+    		list($strDummy, $strTime) = explodeDebugDateTime();
+    		return $this->InsertData("(id, stock_id, date, close, time) VALUES('0', '$strStockId', '$strDate', '$strEstValue', '$strTime')");
+    	}
+    	return false;
+    }
+    
+    function Update($strId, $strEstValue)
+    {
+//    	DebugString('FundEstSql Update: '.$strEstValue);
+        list($strDummy, $strTime) = explodeDebugDateTime();
+		return $this->UpdateById("close = '$strEstValue', time = '$strTime'", $strId);
+	}
 }
 
 // ****************************** StockEmaSql class *******************************************************

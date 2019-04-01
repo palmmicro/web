@@ -91,7 +91,7 @@ function _getCategoryArray($bChinese)
 
 function EchoVisitorCommonLinks($bChinese)
 {
-    $str = GetCategoryLinks(_getCategoryArray, '/account/', $bChinese);
+    $str = GetCategoryLinks(_getCategoryArray($bChinese), '/account/', $bChinese);
     EchoParagraph($str);
 }
 

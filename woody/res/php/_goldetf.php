@@ -32,7 +32,7 @@ function EchoAll($bChinese = true)
     EchoFundTradingParagraph($fund);    
     EchoFundHistoryParagraph($fund);
 
-    if ($group->strGroupId) 
+    if ($group->GetGroupId()) 
     {
         _EchoTransactionParagraph($group);
 	}

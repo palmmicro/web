@@ -28,7 +28,7 @@ function EchoAll($bChinese = true)
 	EchoLofSmaParagraph($fund);
     EchoFundHistoryParagraph($fund);
 
-    if ($group->strGroupId) 
+    if ($group->GetGroupId()) 
     {
         _EchoTransactionParagraph($group);
         if ($group->GetTotalRecords() > 0)

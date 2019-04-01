@@ -164,7 +164,7 @@ function AdrEchoAll()
     EchoHShareSmaParagraph($group->hk_ref, $group->hk_ref);
 //    EchoHShareSmaParagraph($group->us_ref, $group->hk_ref);
 
-    if ($group->strGroupId) 
+    if ($group->GetGroupId()) 
     {
         _EchoTransactionParagraph($group);
         if ($group->GetTotalRecords() > 0)

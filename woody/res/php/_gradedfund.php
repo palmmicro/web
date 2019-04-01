@@ -79,7 +79,7 @@ function EchoAll($bChinese = true)
         EchoFundHistoryParagraph($m_ref);
     }
     
-    if ($group->strGroupId) 
+    if ($group->GetGroupId()) 
     {
         _EchoTransactionParagraph($group);
 	}

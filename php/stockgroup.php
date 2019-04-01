@@ -6,16 +6,22 @@ require_once('class/multi_currency.php');
 
 class StockGroup 
 {
+    var $strGroupId = false;
+    
     var $multi_amount;
     var $multi_profit;
     
-    // constructor 
     function StockGroup() 
     {
         $this->multi_amount = new MultiCurrency();
         $this->multi_profit = new MultiCurrency();
     }
 
+    function GetGroupId()
+    {
+    	return $this->strGroupId;
+    }
+    
     function OnStockTransaction($trans)
     {
         $sym = $trans->ref->sym;
@@ -45,8 +51,6 @@ class StockGroup
 
 class MyStockGroup extends StockGroup
 {
-    var $strGroupId;
-    
     var $arStockTransaction = array();
     
     var $arbi_trans;
@@ -188,8 +192,7 @@ class MyStockGroup extends StockGroup
     
     function OnArbitrage()
     {
-        $strGroupId = $this->strGroupId;
-		$sql = new StockGroupItemSql($strGroupId);
+		$sql = new StockGroupItemSql($this->strGroupId);
         if ($result = $sql->GetAllStockTransaction()) 
         {   
             $arGroupItemSymbol = SqlGetStockGroupItemSymbolArray($sql);

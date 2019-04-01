@@ -78,7 +78,7 @@ function _echoGroupPortfolioParagraph($group)
         {
             if ($trans->iTotalRecords > 0)
             {
-                _EchoPortfolioItem($group->strGroupId, $trans);
+                _EchoPortfolioItem($group->GetGroupId(), $trans);
             }
 		}
 		EchoTableParagraphEnd();
@@ -186,7 +186,7 @@ function EchoMoneyParagraph($group, $fUSDCNY = false, $fHKDCNY = false)
 
 function _EchoTransactionParagraph($group)
 {
-    $strGroupId = $group->strGroupId;
+    $strGroupId = $group->GetGroupId();
     
     if ($group->GetTotalRecords() > 0)
     {
@@ -232,5 +232,14 @@ function _GetStockDisplay($ref)
 {
     return RefGetDescription($ref).'('.$ref->GetStockSymbol().')';
 }
+
+class EmptyGroup extends StockGroup
+{
+    function EmptyGroup() 
+    {
+        parent::StockGroup();
+    }
+}
+
 
 ?>

@@ -2,34 +2,21 @@
 require_once('/php/layout.php');
 require_once('/woody/php/_navwoody.php');
 
-function GetMenuArray($bChinese)
+function GetMenuArray()
 {
-    if ($bChinese)
-    {
-        return array('adr' => 'ADR工具',
+    return array('adr' => 'ADR工具',
                       'chinaetf' => 'A股ETF',
                       'goldetf' => '黄金ETF',
                       'gradedfund' => '分级基金',
                       'lof' => 'LOF工具',
                       'lofhk' => '香港LOF',
                      );
-    }
-    else
-    {
-         return array('adr' => 'ADR Tools',
-                      'chinaetf' => 'China ETF',
-                      'goldetf' => 'Gold ETF',
-                      'gradedfund' => 'Graded Fund',
-                      'lof' => 'LOF Tools',
-                      'lofhk' => 'HK LOF',
-                     );
-    }
 }
 
 function _menuItemClass($iLevel, $strClass, $bChinese)
 {
     $iLevel --;
-    $ar = GetMenuArray($bChinese);
+    $ar = GetMenuArray();
     $strDisp = $ar[$strClass];
    	NavWriteItemLink($iLevel, $strClass, UrlGetPhp($bChinese), $strDisp);
     NavContinueNewLine();
@@ -65,7 +52,7 @@ function NavStockSoftware($bChinese)
 	NavBegin();
 	WoodyMenuItem($iLevel, 'res', $bChinese);
 	NavContinueNewLine();
-    NavMenuSet(GetMenuArray($bChinese));
+    NavMenuSet(GetMenuArray());
 //	NavContinueNewLine();
 //    NavSwitchLanguage($bChinese);
     NavEnd();

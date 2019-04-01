@@ -37,7 +37,7 @@ function _onSmaUserDefinedVal($fVal)
     
     $fund = $group->ref;
     $strAmount = FUND_PURCHASE_AMOUNT;
-    if ($group->strGroupId) 
+    if ($group->GetGroupId()) 
     {
     	SqlCreateFundPurchaseTable();
     	if ($str = SqlGetFundPurchaseAmount(AcctIsLogin(), $fund->GetStockId()))
@@ -48,10 +48,10 @@ function _onSmaUserDefinedVal($fVal)
 	$fAmount = floatval($strAmount);
     $iQuantity = intval($fAmount / $fund->fCNY / $fVal);
     $strQuantity = strval($iQuantity);
-    if ($group->strGroupId) 
+    if ($strGroupId = $group->GetGroupId()) 
     {
         $est_ref = $fund->est_ref;
-        $strQuery = sprintf('groupid=%s&fundid=%s&amount=%.2f&netvalue=%.3f&arbitrageid=%s&quantity=%s&price=%.2f', $group->strGroupId, $fund->GetStockId(), $fAmount, $fund->fOfficialNetValue, $est_ref->GetStockId(), $strQuantity, $est_ref->fPrice);
+        $strQuery = sprintf('groupid=%s&fundid=%s&amount=%.2f&netvalue=%.3f&arbitrageid=%s&quantity=%s&price=%.2f', $strGroupId, $fund->GetStockId(), $fAmount, $fund->fOfficialNetValue, $est_ref->GetStockId(), $strQuantity, $est_ref->fPrice);
         return GetOnClickLink(STOCK_PHP_PATH.'_submittransaction.php?'.$strQuery, '确认添加对冲申购记录?', $strQuantity);
     }
     return $strQuantity;
@@ -61,7 +61,7 @@ function _getArbitrageQuantityName($bEditLink = false)
 {
     global $group;
 
-    if ($group->strGroupId && $bEditLink) 
+    if ($group->GetGroupId() && $bEditLink) 
     {
     	return GetStockOptionLink(STOCK_OPTION_AMOUNT, $group->ref->GetStockSymbol());
     }
@@ -114,7 +114,7 @@ function EchoAll($bChinese = true)
     EchoEtfArraySmaParagraph($fund->est_ref, $group->GetLeverageRef());
     EchoFundHistoryParagraph($fund);
     
-    if ($group->strGroupId) 
+    if ($group->GetGroupId()) 
     {
         _EchoTransactionParagraph($group);
         if ($group->GetTotalRecords() > 0)

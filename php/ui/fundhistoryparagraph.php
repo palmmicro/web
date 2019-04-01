@@ -19,7 +19,7 @@ function _echoFundHistoryTableItem($csv, $strDate, $arFund, $ref, $est_ref)
         $strPairChange = $est_ref->GetCurrentPercentageDisplay();
     }
 
-    $fEstValue = floatval($arFund['estimated']);
+    $fEstValue = floatval($arFund['close']);
     if (empty($fEstValue))
     {
     	$strEstError = ''; 
@@ -68,7 +68,7 @@ function _echoHistoryTableData($sql, $csv, $ref, $est_ref, $iStart, $iNum)
 	}
 	
 	$strStockId = $ref->GetStockId();
-	$fund_sql = new FundHistorySql($strStockId);
+	$fund_sql = new FundEstSql($strStockId);
     $stock_sql = new StockHistorySql($strStockId);
     if ($result = $sql->GetAll($iStart, $iNum)) 
     {

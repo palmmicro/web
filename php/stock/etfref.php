@@ -273,7 +273,7 @@ class EtfReference extends MyStockReference
     function EstOfficialNetValue()
     {
         $this->strOfficialDate = $this->pair_ref->strDate;
-   		$fund_sql = new FundHistorySql($this->nv_ref->GetStockId());
+   		$fund_sql = new FundEstSql($this->nv_ref->GetStockId());
         if ($this->cny_ref)
         {
         	if ($strCny = $this->cny_ref->GetClose($this->strOfficialDate))
@@ -285,7 +285,7 @@ class EtfReference extends MyStockReference
         		if ($history = $fund_sql->GetNow())
         		{
         			$this->strOfficialDate = $history['date'];
-        			return floatval($history['estimated']);
+        			return floatval($history['close']);
         		}
         	}
         }

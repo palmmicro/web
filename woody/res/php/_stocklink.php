@@ -12,7 +12,7 @@ function _GetEtfAdjustString($ref, $etf_ref)
     return _GetAdjustLink($strSymbol, $strQuery);
 }
 
-function _getCategoryArray($bChinese = true)
+function _getCategoryArray()
 {
     return array('oilfund' => '油气',
                       'commodity' => '商品',
@@ -346,7 +346,7 @@ function _checkPersonalGroupId($strGroupId)
     global $group;
     
     if ($group == false)                        return true;
-    if ($group->strGroupId != $strGroupId)    return true;
+    if ($group->GetGroupId() != $strGroupId)    return true;
     return false;
 }
 
@@ -382,7 +382,7 @@ function _getPersonalLinks($strMemberId)
 
 function _getStockGroupLinks()
 {
-    $str = '<br />'.GetCategoryLinks(GetMenuArray);
+    $str = '<br />'.GetCategoryLinks(GetMenuArray());
     $str .= '<br />'.GetMyStockGroupLink();	// .' '.GetAhCompareLink().' '.GetAdrhCompareLink();
     $str .= '<br />'.GetMyPortfolioLink();
     if ($strMemberId = AcctIsLogin())
@@ -401,7 +401,7 @@ function EchoStockGroupLinks($bChinese = true)
 function EchoStockCategory()
 {
 	$str = '相关软件:<br />'; 
-    $str .= GetCategoryLinks(_getCategoryArray);
+    $str .= GetCategoryLinks(_getCategoryArray());
 	$str .= _getStockGroupLinks();
     EchoParagraph($str);
 }

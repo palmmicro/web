@@ -8,7 +8,6 @@ class _MyPortfolio extends StockGroup
 {
     var $arStockGroup = array();
     
-    // constructor 
     function _MyPortfolio() 
     {
         parent::StockGroup();
@@ -59,7 +58,7 @@ function _echoMoneyParagraph($portfolio)
     _EchoMoneyParagraphBegin();
     foreach ($portfolio->arStockGroup as $group)
     {
-        _EchoMoneyGroupData($group, GetStockGroupLink($group->strGroupId), $fUSDCNY, $fHKDCNY);
+        _EchoMoneyGroupData($group, GetStockGroupLink($group->GetGroupId()), $fUSDCNY, $fHKDCNY);
     }
     _EchoMoneyGroupData($portfolio, '全部', $fUSDCNY, $fHKDCNY);
     EchoTableParagraphEnd();

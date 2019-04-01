@@ -1,7 +1,6 @@
 <?php
 require_once('sqlstockpair.php');
 //require_once('sqlstockdaily.php');
-require_once('sqlfundhistory.php');
 
 // ****************************** EtfCalibrationSql class *******************************************************
 class EtfCalibrationSql extends DailyStockSql

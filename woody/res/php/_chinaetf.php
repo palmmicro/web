@@ -65,7 +65,7 @@ function EchoAll($bChinese = true)
     EchoEtfHistoryParagraph($group->ref);
     EchoEtfHistoryParagraph($group->us_ref);
 
-    if ($group->strGroupId) 
+    if ($group->GetGroupId()) 
     {
         _EchoTransactionParagraph($group);
         if ($group->GetTotalRecords() > 0)

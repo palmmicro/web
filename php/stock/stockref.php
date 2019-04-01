@@ -744,12 +744,6 @@ class StockReference
     {
        	if ($history = $sql->GetNow())
        	{
-       		// if ($sql->IsEmptyNetValue($history))	// NavHistorySql class does NOT have IsEmptyNetValue function!
-       		while (IsEmptyFundValue($history['close']))
-       		{	// look further back
-       			$history = $sql->GetPrev($history['date']);
-       		}
-       		
    			$this->strPrice = $history['close'];
    			$this->strDate = $history['date'];
    			$this->strPrevPrice = $sql->GetClosePrev($this->strDate);
