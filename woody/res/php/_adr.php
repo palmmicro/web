@@ -29,7 +29,6 @@ class _AdrGroup extends _StockGroup
     var $us_convert;
     var $hk_convert;
     
-    // constructor
     function _AdrGroup($strSymbolAdr)
     {
         StockPrefetchData($strSymbolAdr);

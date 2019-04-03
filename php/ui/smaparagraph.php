@@ -73,7 +73,6 @@ class MaxMin
     var $fMax;
     var $fMin;
     
-    // constructor 
     function MaxMin() 
     {
         $this->fMax = false;
@@ -158,12 +157,12 @@ function _getSmaParagraphWarning($ref, $his = false)
 	if (RefHasData($ref))
 	{
 		$sql = $his ? $his->sql : new StockHistorySql($ref->GetStockId());
-		if ($history_prev = $sql->GetPrev($ref->GetDate()))
+		if ($prev_record = $sql->GetPrev($ref->GetDate()))
 		{
-			if (abs(floatval($history_prev['adjclose']) - floatval($ref->GetPrevPrice())) > 0.0005)
+			if (abs(floatval($prev_record['adjclose']) - floatval($ref->GetPrevPrice())) > 0.0005)
 			{
 				$strSymbol = $ref->GetStockSymbol();
-				$str = '<br /><font color=red>'.$strSymbol.' '.$history_prev['date'].'收盘价冲突</font>: '.$history_prev['adjclose'].' '.$ref->GetPrevPrice();
+				$str = '<br /><font color=red>'.$strSymbol.' '.$prev_record['date'].'收盘价冲突</font>: '.$prev_record['adjclose'].' '.$ref->GetPrevPrice();
 				if (AcctIsAdmin())
 				{
 					$str .= ' '.GetStockOptionLink(STOCK_OPTION_CLOSE, $strSymbol);

@@ -22,9 +22,9 @@ function _echoMyStockTransactions($strMemberId, $ref)
 	$sql = new StockGroupSql($strMemberId);
 	if ($result = $sql->GetAll()) 
 	{
-		while ($stockgroup = mysql_fetch_assoc($result)) 
+		while ($record = mysql_fetch_assoc($result)) 
 		{
-		    $strGroupId = $stockgroup['id'];
+		    $strGroupId = $record['id'];
 		    if ($strGroupItemId = SqlGroupHasStock($strGroupId, $strStockId, true))
 		    {
 		        $arGroup[$strGroupId] = $strGroupItemId;

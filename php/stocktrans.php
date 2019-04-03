@@ -7,7 +7,6 @@ class StockTransaction
     var $fTotalCost;            // Total cost of stock shares
     var $iTotalRecords;
 
-    // constructor 
     function StockTransaction() 
     {
         $this->Zero();
@@ -104,15 +103,15 @@ class MyStockTransaction extends StockTransaction
 }
 
 // ****************************** Stock Transaction functions *******************************************************
-function GetSqlTransactionDate($transaction)
+function GetSqlTransactionDate($record)
 {
-    return strstr($transaction['filled'], ' ', true);
+    return strstr($record['filled'], ' ', true);
 }
 
-function AddSqlTransaction($trans_class, $transaction)
+function AddSqlTransaction($trans_class, $record)
 {
-    $iQuantity = intval($transaction['quantity']);
-    $trans_class->AddTransaction($iQuantity, $iQuantity * floatval($transaction['price']) + floatval($transaction['fees']));
+    $iQuantity = intval($record['quantity']);
+    $trans_class->AddTransaction($iQuantity, $iQuantity * floatval($record['price']) + floatval($record['fees']));
 }
 
 function UpdateStockGroupItemTransaction($sql, $strGroupItemId)

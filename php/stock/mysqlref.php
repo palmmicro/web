@@ -105,11 +105,11 @@ class MysqlReference extends StockReference
     {
         $strClose = $this->strPrice;
         if ($this->_invalidHistoryData($strClose))  return false;
-        if ($history = $sql->Get($this->strDate)) 
+        if ($record = $sql->Get($this->strDate)) 
         {
-        	if (abs(floatval($history['close']) - $this->fPrice) > 0.0005)
+        	if (abs(floatval($record['close']) - $this->fPrice) > 0.0005)
         	{
-        		return $sql->UpdateClose($history['id'], $strClose);
+        		return $sql->UpdateClose($record['id'], $strClose);
         	}
         }
         return false;

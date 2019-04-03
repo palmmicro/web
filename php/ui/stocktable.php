@@ -23,9 +23,9 @@ function GetTableColumnEst()
 	return _getTableColumnColor(STOCK_DISP_EST, 'magenta');
 }
 
-function GetTableColumnNav()
+function GetTableColumnNetValue()
 {
-	return _getTableColumnColor(STOCK_DISP_NAV, 'olive');
+	return _getTableColumnColor(STOCK_DISP_NETVALUE, 'olive');
 }
 
 function GetTableColumnPremium()
@@ -77,7 +77,7 @@ function GetFundHistoryTableColumn($est_ref)
     
 	$arFundEst = GetFundEstTableColumn();
 	$strOfficialEst = $arFundEst[1];
-	$strNetValue = GetTableColumnNav();
+	$strNetValue = GetTableColumnNetValue();
 	$strPremium = GetTableColumnPremium();
 	$strDate = GetTableColumnDate();
 	return array($strDate, '<font color=indigo>收盘价</font>', $strNetValue, $strPremium, $strSymbol, $strChange, $strOfficialEst, '估值时间', '误差');

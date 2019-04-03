@@ -104,7 +104,6 @@ class GradedFundReference extends FundReference
     var $b_ref = false;
     var $m_ref = false;
     
-    // constructor 
     function GradedFundReference($strSymbol)
     {
         parent::FundReference($strSymbol);

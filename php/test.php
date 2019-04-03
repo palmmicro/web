@@ -10,7 +10,7 @@ require_once('sql/_sqltest.php');
 //require_once('test/chinastocklist.php');
 
 require_once('csvfile.php');
-require_once('test/XOP_HistoricalNav.php');
+require_once('test/XOP_Historical.php');
 
 // http://www.todayir.com/en/index.php HSFML25
 /*
@@ -139,8 +139,8 @@ function TestCmdLine()
 			$str = TestSinaStockHistory($strSymbol);
 			break;
     	
-    	case 'nav':
-//    		$str = SaveHistoricalNav($strSymbol);
+    	case 'netvalue':
+//    		$str = SaveHistoricalNetvalue($strSymbol);
 			break;
     	}
     	if (empty($str))	$str = '(Not found)';

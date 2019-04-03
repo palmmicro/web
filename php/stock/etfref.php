@@ -7,7 +7,7 @@ class NetValueReference extends StockReference
 	
     function NetValueReference($strStockId, $sym) 
     {
-       	$this->sql = new NavHistorySql($strStockId);
+       	$this->sql = new NetvalueHistorySql($strStockId);
         if ($sym->IsFundA())
         {
         	$this->LoadSinaFundData($sym);
@@ -157,8 +157,8 @@ class EtfReference extends MyStockReference
 			$this->fPairNetValue = $this->pair_ref->fPrice;
 			$this->fNetValue = $this->fPrice;
    			$this->_insertCalibartion($strDate);
-   			$this->nv_ref->sql->Insert($strDate, $this->fNetValue);
-   			$this->pair_nv_ref->sql->Insert($strDate, $this->fPairNetValue);
+   			$this->nv_ref->sql->Insert($strDate, strval($this->fNetValue));
+   			$this->pair_nv_ref->sql->Insert($strDate, strval($this->fPairNetValue));
    			return $strDate;
 		}
 		return $this->_loadCalibartion();
@@ -282,10 +282,10 @@ class EtfReference extends MyStockReference
         	}
         	else
         	{	// Load last value from database
-        		if ($history = $fund_sql->GetNow())
+        		if ($record = $fund_sql->GetNow())
         		{
-        			$this->strOfficialDate = $history['date'];
-        			return floatval($history['close']);
+        			$this->strOfficialDate = $record['date'];
+        			return floatval($record['close']);
         		}
         	}
         }

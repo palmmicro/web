@@ -20,9 +20,9 @@ function _echoPortfolio($portfolio, $sql)
     _EchoPortfolioParagraphBegin('个股盈亏');    
 	if ($result = $sql->GetAll()) 
 	{
-		while ($stockgroup = mysql_fetch_assoc($result)) 
+		while ($record = mysql_fetch_assoc($result)) 
 		{
-		    $group = new MyStockGroup($stockgroup['id'], array());
+		    $group = new MyStockGroup($record['id'], array());
 		    if ($group->GetTotalRecords() > 0)
 		    {
 		        $portfolio->arStockGroup[] = $group;
@@ -30,7 +30,7 @@ function _echoPortfolio($portfolio, $sql)
 		        {
 		            if ($trans->iTotalRecords > 0)
 		            {
-		                _EchoPortfolioItem($stockgroup['id'], $trans);
+		                _EchoPortfolioItem($record['id'], $trans);
 		                $portfolio->OnStockTransaction($trans);
 		                if (!in_array($trans->ref, $arRef))    $arRef[] = $trans->ref;
 		            }
@@ -69,9 +69,9 @@ function _onPrefetch($sql)
 	if ($result = $sql->GetAll()) 
 	{
 	    $arSymbol = array();
-		while ($stockgroup = mysql_fetch_assoc($result)) 
+		while ($record = mysql_fetch_assoc($result)) 
 		{
-		    $arSymbol = array_merge($arSymbol, SqlGetStocksArray($stockgroup['id'], true));
+		    $arSymbol = array_merge($arSymbol, SqlGetStocksArray($record['id'], true));
 		}
 		@mysql_free_result($result);
 	}

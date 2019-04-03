@@ -11,12 +11,12 @@ function _updateStockHistoryAdjCloseByDividend($strSymbol, $strStockId, $strYMD,
 	$sql = new StockHistorySql($strStockId);
     if ($result = $sql->GetAll()) 
     {
-        while ($history = mysql_fetch_assoc($result)) 
+        while ($record = mysql_fetch_assoc($result)) 
         {
-            $history_ymd = new StringYMD($history['date']);
+            $history_ymd = new StringYMD($record['date']);
             if ($history_ymd->GetTick() < $ymd->GetTick())
             {
-                $ar[$history['id']] = floatval($history['adjclose']);
+                $ar[$record['id']] = floatval($record['adjclose']);
             }
         }
         @mysql_free_result($result);
@@ -34,10 +34,10 @@ function _updateStockHistoryAdjCloseByDividend($strSymbol, $strStockId, $strYMD,
 function _updateStockHistoryClose($strSymbol, $strStockId, $strYMD, $strClose)
 {
 	$sql = new StockHistorySql($strStockId);
-    if ($history = $sql->Get($strYMD)) 
+    if ($record = $sql->Get($strYMD)) 
     {
-//    	if ($sql->Update($history['id'], $history['open'], $history['high'], $history['low'], $strClose, $history['volume'], $strClose))
-    	if ($sql->UpdateClose($history['id'], $strClose))
+//    	if ($sql->Update($record['id'], $record['open'], $record['high'], $record['low'], $strClose, $record['volume'], $strClose))
+    	if ($sql->UpdateClose($record['id'], $strClose))
         {
         	unlinkConfigFile($strSymbol);
         }
@@ -190,9 +190,9 @@ function _updateStockOptionSplitTransactions($strStockId, $strDate, $fRatio)
 	$sql = new TableSql(TABLE_STOCK_GROUP);
     if ($result = $sql->GetData())
     {
-        while ($stockgroup = mysql_fetch_assoc($result)) 
+        while ($record = mysql_fetch_assoc($result)) 
         {
-        	_updateStockOptionSplitGroupTransactions($stockgroup['id'], $strStockId, $strDate, $fRatio, $fPrice);
+        	_updateStockOptionSplitGroupTransactions($record['id'], $strStockId, $strDate, $fRatio, $fPrice);
         }
         @mysql_free_result($result);
     }

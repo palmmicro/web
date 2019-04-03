@@ -5,7 +5,6 @@ class TableSql
 {
 	var $strName;
 	
-    // constructor 
     function TableSql($strTableName) 
     {
     	$this->strName = $strTableName;
@@ -118,12 +117,12 @@ class TableSql
     	$ar = array();
     	if ($result = $this->GetAll()) 
     	{
-    		while ($history = mysql_fetch_assoc($result)) 
+    		while ($record = mysql_fetch_assoc($result)) 
     		{
     			$ymd = new OldestYMD();
-    			if ($ymd->IsInvalid($history['date']))
+    			if ($ymd->IsInvalid($record['date']))
     			{
-    				$ar[] = $history['id'];
+    				$ar[] = $record['id'];
     			}
     		}
     		@mysql_free_result($result);

@@ -14,7 +14,7 @@ function _echoNvCloseItem($csv, $strDate, $fNetValue, $ref, $strFundId)
     
     if ($strFundId)
     {
-    	$strNetValue = GetOnClickLink('/php/_submitdelete.php?'.TABLE_NAV_HISTORY.'='.$strFundId, '确认删除'.$strDate.'净值记录'.$strNetValue.'?', $strNetValue);
+    	$strNetValue = GetOnClickLink('/php/_submitdelete.php?'.TABLE_NETVALUE_HISTORY.'='.$strFundId, '确认删除'.$strDate.'净值记录'.$strNetValue.'?', $strNetValue);
     }
     
     echo <<<END
@@ -34,15 +34,15 @@ function _echoNvCloseData($sql, $ref, $csv, $iStart, $iNum, $bTest)
 	$clone_ref = clone $ref;
     if ($result = $sql->GetAll($iStart, $iNum)) 
     {
-        while ($arFund = mysql_fetch_assoc($result)) 
+        while ($record = mysql_fetch_assoc($result)) 
         {
-        	$fNetValue = floatval($arFund['close']);
+        	$fNetValue = floatval($record['close']);
         	if (empty($fNetValue) == false)
         	{
-        		$strDate = $arFund['date'];
+        		$strDate = $record['date'];
        			if ($stock_ref = RefGetDailyClose($clone_ref, $stock_sql, $strDate))
        			{
-       				_echoNvCloseItem($csv, $strDate, $fNetValue, $stock_ref, ($bTest ? $arFund['id'] : false));
+       				_echoNvCloseItem($csv, $strDate, $fNetValue, $stock_ref, ($bTest ? $record['id'] : false));
         		}
         	}
         }
@@ -52,7 +52,7 @@ function _echoNvCloseData($sql, $ref, $csv, $iStart, $iNum, $bTest)
 
 function EchoNvCloseHistoryParagraph($ref, $str = false, $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
 {
-	$sql = new NavHistorySql($ref->GetStockId());
+	$sql = new NetvalueHistorySql($ref->GetStockId());
 	$iTotal = $sql->Count();
 	if ($iTotal == 0)		return;
 	

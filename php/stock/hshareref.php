@@ -18,7 +18,6 @@ class HShareReference extends MyStockReference
     var $fUSDCNY;
     var $fHKDCNY;
     
-    // constructor 
     function HShareReference($strSymbol) 
     {
    		$this->fHKDCNY = SqlGetHKCNY();

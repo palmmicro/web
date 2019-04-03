@@ -85,9 +85,9 @@ function _echoStockGroupTableData()
 	$sql = new StockGroupSql(AcctGetMemberId());
 	if ($result = $sql->GetAll()) 
 	{
-		while ($stockgroup = mysql_fetch_assoc($result)) 
+		while ($record = mysql_fetch_assoc($result)) 
 		{
-			$strGroupId = $stockgroup['id'];
+			$strGroupId = $record['id'];
 			if (($strSymbol == false) || SqlGroupHasStock($strGroupId, $strStockId))
 			{
 				_echoStockGroupTableItem($strGroupId);

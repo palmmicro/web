@@ -87,9 +87,9 @@ function TestUsStockList()
             $strChinese = FromGB2312ToUTF8($arWord[$i]);
             DebugString($strSymbol.' '.$strEnglish.' '.$strChinese);
             
-            if ($stock = SqlGetStock($strSymbol))
+            if ($record = SqlGetStock($strSymbol))
             {
-                SqlUpdateStock($stock['id'], $strSymbol, $strChinese);
+                SqlUpdateStock($record['id'], $strSymbol, $strChinese);
             }
             else
             {

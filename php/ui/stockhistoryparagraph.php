@@ -1,21 +1,21 @@
 <?php
 require_once('stocktable.php');
 
-function _echoStockHistoryItem($history, $ref, $csv)
+function _echoStockHistoryItem($record, $ref, $csv)
 {
-	$strOpen = $ref->GetPriceDisplay(floatval($history['open']));
- 	$strHigh = $ref->GetPriceDisplay(floatval($history['high']));
- 	$strLow = $ref->GetPriceDisplay(floatval($history['low']));
- 	$strClose = $ref->GetPriceDisplay(floatval($history['close']));
-	$strAdjClose = $ref->GetPriceDisplay(floatval($history['adjclose']));
+	$strOpen = $ref->GetPriceDisplay(floatval($record['open']));
+ 	$strHigh = $ref->GetPriceDisplay(floatval($record['high']));
+ 	$strLow = $ref->GetPriceDisplay(floatval($record['low']));
+ 	$strClose = $ref->GetPriceDisplay(floatval($record['close']));
+	$strAdjClose = $ref->GetPriceDisplay(floatval($record['adjclose']));
     echo <<<END
     <tr>
-        <td class=c1>{$history['date']}</td>
+        <td class=c1>{$record['date']}</td>
         <td class=c1>$strOpen</td>
         <td class=c1>$strHigh</td>
         <td class=c1>$strLow</td>
         <td class=c1>$strClose</td>
-        <td class=c1>{$history['volume']}</td>
+        <td class=c1>{$record['volume']}</td>
         <td class=c1>$strAdjClose</td>
     </tr>
 END;
@@ -25,9 +25,9 @@ function _echoStockHistoryData($sql, $ref, $csv, $iStart, $iNum)
 {
     if ($result = $sql->GetAll($iStart, $iNum)) 
     {
-        while ($history = mysql_fetch_assoc($result)) 
+        while ($record = mysql_fetch_assoc($result)) 
         {
-            _echoStockHistoryItem($history, $ref, $csv);
+            _echoStockHistoryItem($record, $ref, $csv);
         }
         @mysql_free_result($result);
     }

@@ -250,12 +250,12 @@ class StockHistory
         $strNextDayYMD = false;
     	if ($result = $this->sql->GetFromDate($this->strDate, MAX_QUOTES_DAYS))
     	{
-    		while ($history = mysql_fetch_assoc($result)) 
+    		while ($record = mysql_fetch_assoc($result)) 
     		{
-    			$fClose = floatval($history['adjclose']);
+    			$fClose = floatval($record['adjclose']);
     			$afClose[] = $fClose;
             
-    			$strYMD = $history['date'];
+    			$strYMD = $record['date'];
     			if (_isWeekEnd($strYMD, $strNextDayYMD))	$afWeeklyClose[] = $fClose;
     			if (_isMonthEnd($strYMD, $strNextDayYMD))	$afMonthlyClose[] = $fClose;
     			$strNextDayYMD = $strYMD;
@@ -334,9 +334,9 @@ class StockHistory
     {
     	if ($result = $this->sql->GetAll(0, 2))
     	{
-    		while ($history = mysql_fetch_assoc($result)) 
+    		while ($record = mysql_fetch_assoc($result)) 
     		{
-    			$strDate = $history['date'];
+    			$strDate = $record['date'];
                 if (_ignoreCurrentTradingData($strDate, $this->stock_ref->sym))
                 {
                 	continue;

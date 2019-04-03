@@ -216,18 +216,18 @@ function StockGetPercentage($fPrice, $fPrice2)
     return ($fPrice/$fPrice2 - 1.0) * 100.0;
 }
 
-function StockCompareEstResult($nav_sql, $strNetValue, $strDate, $strSymbol)
+function StockCompareEstResult($nv_sql, $strNetValue, $strDate, $strSymbol)
 {
-    if ($nav_sql->Insert($strDate, $strNetValue))
+    if ($nv_sql->Insert($strDate, $strNetValue))
     {
-       	$fund_sql = new FundEstSql($nav_sql->GetKeyId());
+       	$fund_sql = new FundEstSql($nv_sql->GetKeyId());
        	if ($strEstValue = $fund_sql->GetClose($strDate))
        	{
        		$fPercentage = StockGetPercentage(floatval($strEstValue), floatval($strNetValue));
        		if (abs($fPercentage) > 1.0)
        		{
        			$strLink = GetNetValueHistoryLink($strSymbol);
-       			$str = sprintf('%s%s 实际值%s 估值%s 误差:%.2f%%, 从_compareEstResult函数调用.', $strSymbol, $strLink, $strNetValue, $strEstValue, $fPercentage); 
+       			$str = sprintf('%s%s 实际值%s 估值%s 误差:%.2f%%, 从StockCompareEstResult函数调用.', $strSymbol, $strLink, $strNetValue, $strEstValue, $fPercentage); 
        			EmailReport($str, 'Netvalue estimation error');
        		}
        	}
@@ -236,9 +236,9 @@ function StockCompareEstResult($nav_sql, $strNetValue, $strDate, $strSymbol)
     return false;
 }
 
-function StockUpdateEstResult($nav_sql, $fund_sql, $fNetValue, $strDate)
+function StockUpdateEstResult($nv_sql, $fund_sql, $fNetValue, $strDate)
 {
-	if ($nav_sql->Get($strDate) == false)
+	if ($nv_sql->Get($strDate) == false)
     {   // Only update when net value is NOT ready
 		$fund_sql->Write($strDate, strval($fNetValue));
 	}
@@ -273,7 +273,7 @@ function RefGetDescription($ref, $bConvertDisplay = false)
 	$str = $ref->GetDescription();
 	if ($str)
 	{
-		$ar = array(STOCK_PRE_MARKET => '盘前交易', STOCK_POST_MARKET => '盘后交易', STOCK_NET_VALUE => STOCK_DISP_NAV);
+		$ar = array(STOCK_PRE_MARKET => '盘前交易', STOCK_POST_MARKET => '盘后交易', STOCK_NET_VALUE => STOCK_DISP_NETVALUE);
 		if (array_key_exists($str, $ar))
 		{
 			$strDisplay = $ar[$str];
@@ -288,9 +288,9 @@ function RefGetDescription($ref, $bConvertDisplay = false)
 	{
 		$str = '';
 		$sql = new StockSql();
-		if ($stock = $sql->GetById($ref->GetStockId()))
+		if ($record = $sql->GetById($ref->GetStockId()))
 		{
-			$str = $stock['name'];
+			$str = $record['name'];
 			$ref->SetDescription($str);
 		}
 	}
@@ -319,11 +319,11 @@ function RefGetDailyClose($ref, $sql, $strDate)
 {
 	if ($ref)
 	{
-		if ($history = $sql->Get($strDate))
+		if ($record = $sql->Get($strDate))
 		{
-			if ($history_prev = $sql->GetPrev($strDate))
+			if ($prev_record = $sql->GetPrev($strDate))
 			{
-				$ref->SetPrice($history_prev['close'], $history['close']);
+				$ref->SetPrice($prev_record['close'], $record['close']);
 				return $ref;
 			}
 		}

@@ -72,12 +72,12 @@ function _echoHistoryTableData($sql, $csv, $ref, $est_ref, $iStart, $iNum)
     $stock_sql = new StockHistorySql($strStockId);
     if ($result = $sql->GetAll($iStart, $iNum)) 
     {
-        while ($arNav = mysql_fetch_assoc($result)) 
+        while ($record = mysql_fetch_assoc($result)) 
         {
-        	$fNetValue = floatval($arNav['close']);
+        	$fNetValue = floatval($record['close']);
         	if (empty($fNetValue) == false)
         	{
-        		$strDate = $arNav['date'];
+        		$strDate = $record['date'];
         		$arFund = $fund_sql->Get($strDate);
         		if ($bSameDayNetValue == false)
         		{
@@ -102,7 +102,7 @@ function _echoFundHistoryParagraph($ref, $est_ref, $csv = false, $iStart = 0, $i
     $strSymbolLink = GetMyStockLink($strSymbol);
     $str = "{$strSymbolLink}历史{$arColumn[1]}相对于{$arColumn[2]}的{$arColumn[3]}";
     
-	$sql = new NavHistorySql($ref->GetStockId());
+	$sql = new NetvalueHistorySql($ref->GetStockId());
     if (IsTableCommonDisplay($iStart, $iNum))
     {
         $str .= ' '.GetNetValueHistoryLink($strSymbol);

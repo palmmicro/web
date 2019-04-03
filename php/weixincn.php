@@ -92,10 +92,10 @@ function _wxGetStockArray($strContents)
     	// check all
     	if ($result = SqlGetAllStock(0, 0)) 
     	{
-    		while ($stock = mysql_fetch_assoc($result)) 
+    		while ($record = mysql_fetch_assoc($result)) 
     		{
-    			$str = $stock['symbol'];
-    			if (strstr($str, $strKey) || strstr($stock['name'], $strKey))
+    			$str = $record['symbol'];
+    			if (strstr($str, $strKey) || strstr($record['name'], $strKey))
     			{
     				$ar[] = $str;
     				if (count($ar) > MAX_WX_STOCK)	break;

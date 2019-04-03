@@ -192,9 +192,13 @@ function SqlAlterStockGroupItemTable()
 }
 */
 
-function SqlGetStockGroupItem($strGroupItemId)
+function SqlGetStockGroupId($strGroupItemId)
 {
-    return SqlGetTableDataById(TABLE_STOCK_GROUP_ITEM, $strGroupItemId);
+    if ($record = SqlGetTableDataById(TABLE_STOCK_GROUP_ITEM, $strGroupItemId))
+    {
+    	return $record['group_id'];
+    }
+    return false;
 }
 
 // ****************************** Stock Group functions *******************************************************
@@ -243,9 +247,9 @@ function SqlDeleteStockGroupByMemberId($strMemberId)
 	$sql = new StockGroupSql($strMemberId);
 	if ($result = $sql->GetAll()) 
 	{
-		while ($stockgroup = mysql_fetch_assoc($result)) 
+		while ($record = mysql_fetch_assoc($result)) 
 		{
-		    SqlDeleteStockGroupItemByGroupId($stockgroup['id']);
+		    SqlDeleteStockGroupItemByGroupId($record['id']);
 		}
 		@mysql_free_result($result);
 		$sql->DeleteAll();
@@ -257,9 +261,9 @@ function SqlDeleteStockGroupItemByGroupId($strGroupId)
 	$sql = new StockGroupItemSql($strGroupId);
 	if ($result = $sql->GetAll())
 	{
-		while ($stockgroupitem = mysql_fetch_assoc($result)) 
+		while ($record = mysql_fetch_assoc($result)) 
 		{
-            $sql->trans_sql->Delete($stockgroupitem['id']);
+            $sql->trans_sql->Delete($record['id']);
 		}
 		@mysql_free_result($result);
 		$sql->DeleteAll();
@@ -276,9 +280,9 @@ function SqlDeleteStockGroupByGroupName($strGroupName)
     
     if ($result = $sql->GetData($strWhere))
     {
-        while ($stockgroup = mysql_fetch_assoc($result)) 
+        while ($record = mysql_fetch_assoc($result)) 
         {
-            SqlDeleteStockGroupItemByGroupId($stockgroup['id']);
+            SqlDeleteStockGroupItemByGroupId($record['id']);
         }
         @mysql_free_result($result);
     }

@@ -179,12 +179,12 @@ class MyStockGroup extends StockGroup
         }
     }
     
-    function _onArbitrageTransaction($strSymbol, $transaction)
+    function _onArbitrageTransaction($strSymbol, $record)
     {
         $this->_checkArbitrage($strSymbol);
         if ($this->bCountArbitrage)
         {
-            AddSqlTransaction($this->arbi_trans, $transaction);
+            AddSqlTransaction($this->arbi_trans, $record);
             return true;
         }
         return false;
@@ -196,16 +196,15 @@ class MyStockGroup extends StockGroup
         if ($result = $sql->GetAllStockTransaction()) 
         {   
             $arGroupItemSymbol = SqlGetStockGroupItemSymbolArray($sql);
-            while ($transaction = mysql_fetch_assoc($result)) 
+            while ($record = mysql_fetch_assoc($result)) 
             {
-                $strSymbol = $arGroupItemSymbol[$transaction['groupitem_id']];
-                if ($this->_onArbitrageTransaction($strSymbol, $transaction) == false)  break;
+                $strSymbol = $arGroupItemSymbol[$record['groupitem_id']];
+                if ($this->_onArbitrageTransaction($strSymbol, $record) == false)  break;
             }
             @mysql_free_result($result);
         }
     }
     
-    // constructor 
     function MyStockGroup($strGroupId, $arRef) 
     {
         $this->strGroupId = $strGroupId;
@@ -220,11 +219,11 @@ class MyStockGroup extends StockGroup
         $sql = new StockGroupItemSql($strGroupId);
         if ($result = $sql->GetAll()) 
         {   
-            while ($groupitem = mysql_fetch_assoc($result)) 
+            while ($record = mysql_fetch_assoc($result)) 
             {
-                if (intval($groupitem['record']) > 0)
+                if (intval($record['record']) > 0)
                 {
-                    $this->SetValue(SqlGetStockSymbol($groupitem['stock_id']), intval($groupitem['record']), intval($groupitem['quantity']), floatval($groupitem['cost']));
+                    $this->SetValue(SqlGetStockSymbol($record['stock_id']), intval($record['record']), intval($record['quantity']), floatval($record['cost']));
                 }
             }
             @mysql_free_result($result);

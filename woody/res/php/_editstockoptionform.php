@@ -18,9 +18,9 @@ function _getStockOptionDate($strSubmit, $ref)
 		break;
 
 	case STOCK_OPTION_CLOSE:
-		if ($history_prev = $sql->GetPrev($ref->GetDate()))
+		if ($prev_record = $sql->GetPrev($ref->GetDate()))
 		{
-			return $history_prev['date'];
+			return $prev_record['date'];
 		}
 		break;
 	}
@@ -41,8 +41,8 @@ function _getStockOptionName($strSymbol)
 {
     $sym = new StockSymbol($strSymbol);
 	$ref = StockGetReference($sym);
-    $stock = SqlGetStock($strSymbol);
-   	$strName = $stock['name'];
+    $record = SqlGetStock($strSymbol);
+   	$strName = $record['name'];
     $str = $strName;
     $str .= _getStockOptionNewName($ref, $strName);
     if ($sym->IsFundA())

@@ -4,7 +4,6 @@ require_once('_fundgroup.php');
 
 class _GoldEtfGroup extends _StockGroup
 {
-    // constructor 
     function _GoldEtfGroup($strSymbol) 
     {
         StockPrefetchData($strSymbol);

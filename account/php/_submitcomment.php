@@ -17,9 +17,9 @@ function _emailBlogComment($strId, $strBlogId, $strSubject, $strComment)
 //	$arEmails[] = UrlGetEmail('support');					                                // always send to support@domain.com
 	if ($result = SqlGetBlogCommentByBlogId($strBlogId)) 
 	{
-		while ($comment = mysql_fetch_assoc($result)) 
+		while ($record = mysql_fetch_assoc($result)) 
 		{
-			$strNewEmail = SqlGetEmailById($comment['member_id']);
+			$strNewEmail = SqlGetEmailById($record['member_id']);
 			$bFound = false;
 			foreach($arEmails as $strEmail) 
 			{
@@ -47,9 +47,9 @@ function _canModifyComment($strId, $strMemberId)
 {
 	if (AcctIsAdmin())    return true;
 	
-    $comment = SqlGetBlogCommentById($strId);
-    if ($comment['member_id'] == $strMemberId)                          return true;    // I posted the comment
-    if (SqlGetMemberIdByBlogId($comment['blog_id']) == $strMemberId)   return true;     // I posted the blog
+    $record = SqlGetBlogCommentById($strId);
+    if ($record['member_id'] == $strMemberId)                          return true;    // I posted the comment
+    if (SqlGetMemberIdByBlogId($record['blog_id']) == $strMemberId)   return true;     // I posted the blog
     
     return false;
 }
@@ -73,8 +73,8 @@ function _onEdit($strId, $strMemberId, $strComment)
     	{
     	    if (SqlEditBlogComment($strId, $strComment))
     	    {
-    	        $comment = SqlGetBlogCommentById($strId);
-    	        _emailBlogComment($strMemberId, $comment['blog_id'], $_POST['submit'], $_POST['comment']);
+    	        $record = SqlGetBlogCommentById($strId);
+    	        _emailBlogComment($strMemberId, $record['blog_id'], $_POST['submit'], $_POST['comment']);
     	    }
     	}
 	}

@@ -85,7 +85,7 @@ function TextFromFundReference($ref)
         $str = $strName;
     }
     
-    $str .= STOCK_DISP_NAV.':'.strval($ref->fPrice).' '.$ref->strDate.WX_EOL;
+    $str .= STOCK_DISP_NETVALUE.':'.strval($ref->fPrice).' '.$ref->strDate.WX_EOL;
     if ($ref->fOfficialNetValue)
     {
         $str .= STOCK_DISP_OFFICIAL._textPremium($stock_ref, $ref->fOfficialNetValue).' '.$ref->strOfficialDate.WX_EOL;

@@ -2,7 +2,7 @@
 require_once('_stock.php');
 require_once('/php/ui/stocktable.php');
 
-function _echoCalibrationHistoryItem($strSymbol, $history, $bReadOnly, $bChinese)
+function _echoCalibrationHistoryItem($strSymbol, $record, $bReadOnly, $bChinese)
 {
     if ($bReadOnly)
     {
@@ -10,17 +10,17 @@ function _echoCalibrationHistoryItem($strSymbol, $history, $bReadOnly, $bChinese
     }
     else
     {
-        $strDelete = GetDeleteLink(STOCK_PHP_PATH.'_submitcalibration.php?delete='.$history['id'], '校准记录', 'calibration record', $bChinese);
+        $strDelete = GetDeleteLink(STOCK_PHP_PATH.'_submitcalibration.php?delete='.$record['id'], '校准记录', 'calibration record', $bChinese);
     }
     
-    $strTime = substr($history['filled'], 0, 16);
+    $strTime = substr($record['filled'], 0, 16);
     echo <<<END
     <tr>
         <td class=c1>$strSymbol</td>
-        <td class=c1>{$history['price']}</td>
-        <td class=c1>{$history['peername']}</td>
-        <td class=c1>{$history['peerprice']}</td>
-        <td class=c1>{$history['factor']}</td>
+        <td class=c1>{$record['price']}</td>
+        <td class=c1>{$record['peername']}</td>
+        <td class=c1>{$record['peerprice']}</td>
+        <td class=c1>{$record['factor']}</td>
         <td class=c1>$strTime</td>
         <td class=c1>$strDelete</td>
     </tr>
@@ -40,9 +40,9 @@ function _echoCalibrationHistoryData($strStockId, $strSymbol, $iStart, $iNum, $b
     
     if ($result = SqlGetStockCalibration($strStockId, $iStart, $iNum)) 
     {
-        while ($history = mysql_fetch_assoc($result)) 
+        while ($record = mysql_fetch_assoc($result)) 
         {
-            _echoCalibrationHistoryItem($strSymbol, $history, $bReadOnly, $bChinese);
+            _echoCalibrationHistoryItem($strSymbol, $record, $bReadOnly, $bChinese);
         }
         @mysql_free_result($result);
     }

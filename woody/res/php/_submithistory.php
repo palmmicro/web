@@ -91,11 +91,11 @@ function _cleanInvalidStockHistory($sql)
     $ar = array();
     if ($result = $sql->GetAll()) 
     {
-        while ($history = mysql_fetch_assoc($result)) 
+        while ($record = mysql_fetch_assoc($result)) 
         {
-            if (_isInvalidDate($history['date']))
+            if (_isInvalidDate($record['date']))
             {
-                $ar[] = $history['id'];
+                $ar[] = $record['id'];
             }
         }
         @mysql_free_result($result);
@@ -112,11 +112,11 @@ function _cleanInvalidHistory($strTableName)
     $ar = array();
     if ($result = SqlGetTableData($strTableName)) 
     {
-        while ($history = mysql_fetch_assoc($result)) 
+        while ($record = mysql_fetch_assoc($result)) 
         {
-            if (_isInvalidDate($history['date']))
+            if (_isInvalidDate($record['date']))
             {
-                $ar[] = $history['id'];
+                $ar[] = $record['id'];
             }
         }
         @mysql_free_result($result);

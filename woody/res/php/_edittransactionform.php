@@ -7,21 +7,20 @@ function StockEditTransactionForm($strSubmit, $strGroupId = false, $strGroupItem
     $strType = '1';
     if ($strId = UrlGetQueryValue('edit'))
     {
-        if (($transaction = SqlGetStockTransaction($strId)) == false)                       return;
-        if (($groupitem = SqlGetStockGroupItem($transaction['groupitem_id'])) == false)    return;
+        if (($record = SqlGetStockTransaction($strId)) == false)                       return;
+        if (($strGroupId = SqlGetStockGroupId($record['groupitem_id'])) == false)    return;
 
-        $strGroupId = $groupitem['group_id'];
-        $strQuantity = $transaction['quantity'];
+        $strQuantity = $record['quantity'];
         if (intval($strQuantity) < 0)
         {
             $strType = '0'; // sell
             $strQuantity = ltrim($strQuantity, '-');
         }
     
-        $strPrice = $transaction['price'];
-        $strCost = $transaction['fees'];
-        $strRemark = $transaction['remark'];
-        $strSymbolIndex = $transaction['groupitem_id'];
+        $strPrice = $record['price'];
+        $strCost = $record['fees'];
+        $strRemark = $record['remark'];
+        $strSymbolIndex = $record['groupitem_id'];
     }
     else
     {

@@ -34,13 +34,13 @@ class FundReference extends MysqlReference
         if ($strStockId = $this->GetStockId())
         {
         	if ($fVal = SqlGetStockCalibrationFactor($strStockId))		$this->fFactor = $fVal; 
-        	$this->sql = new NavHistorySql($strStockId);
+        	$this->sql = new NetvalueHistorySql($strStockId);
         }
     }
     
     function SetForex($strForex)
     {
-        $this->forex_sql = new NavHistorySql(SqlGetStockId($strForex));
+        $this->forex_sql = new NetvalueHistorySql(SqlGetStockId($strForex));
     }
 
     // Update database

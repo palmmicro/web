@@ -615,7 +615,6 @@ class StockSymbol
         return $this->strSymbol;
     }
     
-    // constructor 
     function StockSymbol($strSymbol)
     {
         $this->strSymbol = $strSymbol;

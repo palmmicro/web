@@ -38,9 +38,9 @@ class StockHistorySql extends DailyStockSql
 
     function Merge($strDate, $strOpen, $strHigh, $strLow, $strClose, $strVolume, $strAdjClose)
     {
-    	if ($history = $this->Get($strDate))
+    	if ($record = $this->Get($strDate))
     	{
-    		$this->Update($history['id'], $strOpen, $strHigh, $strLow, $strClose, $strVolume, $strAdjClose);
+    		$this->Update($record['id'], $strOpen, $strHigh, $strLow, $strClose, $strVolume, $strAdjClose);
     	}
     	else
     	{

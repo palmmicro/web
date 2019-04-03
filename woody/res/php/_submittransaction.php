@@ -14,9 +14,9 @@ function _updateStockGroupItem($strGroupId, $strGroupItemId)
 	$sql = new StockGroupItemSql($strGroupId);
 	if ($result = $sql->GetAll())
 	{
-		while ($stockgroupitem = mysql_fetch_assoc($result)) 
+		while ($record = mysql_fetch_assoc($result)) 
 		{
-		    UpdateStockGroupItemTransaction($sql, $stockgroupitem['id']);
+		    UpdateStockGroupItemTransaction($sql, $record['id']);
 		}
 		@mysql_free_result($result);
 	}
@@ -57,8 +57,7 @@ function _getStockCost()
 
 function _canModifyStockTransaction($strGroupItemId)
 {
-    $groupitem = SqlGetStockGroupItem($strGroupItemId);
-    $strGroupId = $groupitem['group_id'];
+    $strGroupId = SqlGetStockGroupId($strGroupItemId);
 	if (StockGroupIsReadOnly($strGroupId))
 	{
 		return false;
@@ -231,8 +230,8 @@ function _onMergeTransaction()
 	}
 	else if ($strId = UrlGetQueryValue('delete'))
 	{
-	    $transaction = SqlGetStockTransaction($strId);
-	    $strGroupItemId = $transaction['groupitem_id'];
+	    $record = SqlGetStockTransaction($strId);
+	    $strGroupItemId = $record['groupitem_id'];
 	    $strGroupId = _onDelete($strId, $strGroupItemId);
 	}
 	else if ($strGroupId = UrlGetQueryValue('groupid'))

@@ -13,10 +13,10 @@ function _echoAhHistoryGraph($strSymbol)
     $jpg->Show($arColumn[1], $strSymbol, $csv->GetPathName());
 }
 
-function _echoAhHistoryItem($csv, $history, $pair_sql, $hkcny_sql, $fRatio)
+function _echoAhHistoryItem($csv, $record, $pair_sql, $hkcny_sql, $fRatio)
 {
-	$strDate = $history['date'];
-	$strClose = round_display_str($history['close']);
+	$strDate = $record['date'];
+	$strClose = round_display_str($record['close']);
 	
 	if ($strHKCNY = $hkcny_sql->GetClose($strDate))	$strHKCNY = round_display_str($strHKCNY);
 	else													$strHKCNY = '';
@@ -58,9 +58,9 @@ function _echoAhHistoryData($sql, $strPairId, $fRatio, $iStart, $iNum)
     	$hkcny_sql = new HkcnyHistorySql();
     	$pair_sql = new StockHistorySql($strPairId);
      	$csv = new PageCsvFile();
-        while ($history = mysql_fetch_assoc($result)) 
+        while ($record = mysql_fetch_assoc($result)) 
         {
-            _echoAhHistoryItem($csv, $history, $pair_sql, $hkcny_sql, $fRatio);
+            _echoAhHistoryItem($csv, $record, $pair_sql, $hkcny_sql, $fRatio);
         }
         $csv->Close();
         @mysql_free_result($result);

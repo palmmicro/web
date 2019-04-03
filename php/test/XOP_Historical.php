@@ -1,14 +1,14 @@
 <?php
 
-class NavCsvFile extends CsvFile
+class NetValueCsvFile extends CsvFile
 {
 	var $sql;
 	var $oldest_ymd;
 	
-    function NavCsvFile($strPathName, $strSymbol) 
+    function NetValueCsvFile($strPathName, $strSymbol) 
     {
         parent::CsvFile($strPathName);
-        $this->sql = new NavHistorySql(SqlGetStockId($strSymbol));
+        $this->sql = new NetvalueHistorySql(SqlGetStockId($strSymbol));
 		$this->oldest_ymd = new OldestYMD();
     }
 
@@ -26,10 +26,10 @@ class NavCsvFile extends CsvFile
     }
 }
 
-function SaveHistoricalNav($strSymbol = 'XOP')
+function SaveHistoricalNetvalue($strSymbol = 'XOP')
 {
-	$strPathName = '/debug/'.$strSymbol.'_HistoricalNav.csv';
-	$csv = new NavCsvFile($strPathName, $strSymbol);
+	$strPathName = '/debug/'.$strSymbol.'_Historical.csv';
+	$csv = new NetValueCsvFile($strPathName, $strSymbol);
 	$csv->Read();
 	return $strPathName;
 }            

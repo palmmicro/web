@@ -122,7 +122,7 @@ class _LofGroup extends _StockGroup
         $strDate = $ref->strDate;
         $strCNY = $ref->forex_sql->GetClose($strDate);
         
-       	$sql = new NavHistorySql($est_ref->GetStockId());
+       	$sql = new NetvalueHistorySql($est_ref->GetStockId());
        	$strEst = $sql->GetClose($strDate);
        	if ($strEst == false)
        	{

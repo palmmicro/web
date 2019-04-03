@@ -67,26 +67,26 @@ function SqlGetStockCalibrationNow($strStockId)
 {
 	if ($result = SqlGetStockCalibration($strStockId, 0, 1))
 	{
-	    $history = mysql_fetch_assoc($result);
-	    return $history;
+	    $record = mysql_fetch_assoc($result);
+	    return $record;
 	}
 	return false;
 }
 
 function SqlGetStockCalibrationTime($strStockId)
 {
-    if ($history = SqlGetStockCalibrationNow($strStockId))
+    if ($record = SqlGetStockCalibrationNow($strStockId))
     {
-        return $history['filled']; 
+        return $record['filled']; 
     }
     return '';
 }
 
 function SqlGetStockCalibrationFactor($strStockId)
 {
-    if ($history = SqlGetStockCalibrationNow($strStockId))
+    if ($record = SqlGetStockCalibrationNow($strStockId))
     {
-        return floatval($history['factor']); 
+        return floatval($record['factor']); 
     }
     return false;
 }

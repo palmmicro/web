@@ -2,31 +2,31 @@
 
 define('MAX_COMMENT_DISPLAY', 5);
 
-function _getSingleCommentTime($comment, $bChinese)
+function _getSingleCommentTime($record, $bChinese)
 {
-    if ($comment['created'] == $comment['modified'])
+    if ($record['created'] == $record['modified'])
     {
-        if ($bChinese)    $str = '发表于'.$comment['created'];
-        else                $str = 'posted on '.$comment['created'];
+        if ($bChinese)    $str = '发表于'.$record['created'];
+        else                $str = 'posted on '.$record['created'];
     }
 	else
 	{
-	    if ($bChinese)    $str = '修改于'.$comment['modified'];
-	    else                $str = ' modified on '.$comment['modified'];
+	    if ($bChinese)    $str = '修改于'.$record['modified'];
+	    else                $str = ' modified on '.$record['modified'];
 	}
 	return $str;
 }
 
-function GetSingleCommentDescription($comment, $strWhere, $bChinese)
+function GetSingleCommentDescription($record, $strWhere, $bChinese)
 {
-    $strAuthor = GetMemberLink($comment['member_id'], $bChinese);
-    $strIp = GetIpLink($comment['ip'], $bChinese);
-    $strTime = _getSingleCommentTime($comment, $bChinese);
-    $strUri = SqlGetUriByBlogId($comment['blog_id']);
-    $strTimeLink = "<a href=\"$strUri#{$comment['id']}\">$strTime</a>";
+    $strAuthor = GetMemberLink($record['member_id'], $bChinese);
+    $strIp = GetIpLink($record['ip'], $bChinese);
+    $strTime = _getSingleCommentTime($record, $bChinese);
+    $strUri = SqlGetUriByBlogId($record['blog_id']);
+    $strTimeLink = "<a href=\"$strUri#{$record['id']}\">$strTime</a>";
     if (strstr($strWhere, 'blog_id'))
     {
-        $strTimeLink = "<b><a name=\"{$comment['id']}\">$strTime</a></b>";
+        $strTimeLink = "<b><a name=\"{$record['id']}\">$strTime</a></b>";
     }
     else if (strstr($strWhere, 'member_id'))
     {
@@ -40,30 +40,30 @@ function GetSingleCommentDescription($comment, $strWhere, $bChinese)
     return "$strAuthor $strTimeLink $strIp";
 }
 
-function _echoSingleCommentParagraph($comment, $strMemberId, $strWhere, $bChinese)
+function _echoSingleCommentParagraph($record, $strMemberId, $strWhere, $bChinese)
 {
 	$strEdit = '';
 	$strDelete = '';
     if (AcctIsReadOnly($strMemberId) == false)
     {
-        if ($comment['member_id'] == $strMemberId)
+        if ($record['member_id'] == $strMemberId)
         {	// I posted the comment
-            $strEdit = GetEditLink('/account/editcomment', $comment['id'], $bChinese);
+            $strEdit = GetEditLink('/account/editcomment', $record['id'], $bChinese);
         }
 
         // <a href="delete.page" onclick="return confirm('Are you sure you want to delete?')">Delete</a> 
-        if (SqlGetMemberIdByBlogId($comment['blog_id']) == $strMemberId || $comment['member_id'] == $strMemberId)
+        if (SqlGetMemberIdByBlogId($record['blog_id']) == $strMemberId || $record['member_id'] == $strMemberId)
         {	// I posted the blog or the comment
-            $strDelete = GetDeleteLink('/account/php/_submitcomment.php?delete='.$comment['id'], '评论', 'comment', $bChinese);
+            $strDelete = GetDeleteLink('/account/php/_submitcomment.php?delete='.$record['id'], '评论', 'comment', $bChinese);
         }
     }
 
-    $strDescription = GetSingleCommentDescription($comment, $strWhere, $bChinese);
-	$strComment = nl2br($comment['comment']);
+    $strDescription = GetSingleCommentDescription($record, $strWhere, $bChinese);
+	$strComment = nl2br($record['comment']);
 	
 	echo <<<END
 	<p>$strDescription $strDelete $strEdit 
-        <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="comment{$comment['id']}">
+        <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="comment{$record['id']}">
         <tr>
             <td class=c1 width=640 align=center>$strComment</td>
         </tr>
@@ -76,9 +76,9 @@ function EchoCommentParagraphs($strMemberId, $strWhere, $iStart, $iNum, $bChines
 {
 	if ($result = SqlGetBlogComment($strWhere, $iStart, $iNum)) 
 	{
-		while ($comment = mysql_fetch_assoc($result)) 
+		while ($record = mysql_fetch_assoc($result)) 
 		{
-			_echoSingleCommentParagraph($comment, $strMemberId, $strWhere, $bChinese);
+			_echoSingleCommentParagraph($record, $strMemberId, $strWhere, $bChinese);
 		}
 		@mysql_free_result($result);
 	}

@@ -11,11 +11,11 @@ function _getEditComment($strMemberId)
 {
 	if ($strId = UrlGetQueryValue('edit'))
 	{
-        if ($comment = SqlGetBlogCommentById($strId))
+        if ($record = SqlGetBlogCommentById($strId))
         {
-            if ($comment['member_id'] == $strMemberId) // check comment poster
+            if ($record['member_id'] == $strMemberId) // check comment poster
             {
-                return $comment['comment'];
+                return $record['comment'];
             }
 	    }
 	}

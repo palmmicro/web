@@ -1,16 +1,16 @@
 <?php
 require_once('stocktable.php');
 
-function _echoCalibrationItem($ref, $arHistory, $bTest)
+function _echoCalibrationItem($ref, $record, $bTest)
 {
-   	$strDate = $arHistory['date'];
+   	$strDate = $record['date'];
     $strPrice = $ref->GetPriceDisplay(floatval($ref->nv_ref->sql->GetClose($strDate)), false);
     $strPairPrice = $ref->pair_ref->GetPriceDisplay(floatval($ref->pair_nv_ref->sql->GetClose($strDate)), false);
     
-    $strClose = $arHistory['close'];
+    $strClose = $record['close'];
     if ($bTest)
     {
-    	$strDate = GetOnClickLink('/php/_submitdelete.php?'.TABLE_ETF_CALIBRATION.'='.$arHistory['id'], '确认删除'.$strDate.'校准记录'.$strClose.'?', $strDate);
+    	$strDate = GetOnClickLink('/php/_submitdelete.php?'.TABLE_ETF_CALIBRATION.'='.$record['id'], '确认删除'.$strDate.'校准记录'.$strClose.'?', $strDate);
     }
     
  	$strClose = GetTableColumnFloatDisplay($strClose);
@@ -28,9 +28,9 @@ function _echoCalibrationData($ref, $iStart, $iNum, $bTest)
 {
     if ($result = $ref->sql->GetAll($iStart, $iNum)) 
     {
-        while ($arHistory = mysql_fetch_assoc($result)) 
+        while ($record = mysql_fetch_assoc($result)) 
         {
-            _echoCalibrationItem($ref, $arHistory, $bTest);
+            _echoCalibrationItem($ref, $record, $bTest);
         }
         @mysql_free_result($result);
     }
@@ -41,7 +41,7 @@ function EchoCalibrationParagraph($strSymbol, $iStart = 0, $iNum = TABLE_COMMON_
 	$strSymbolLink = GetMyStockLink($strSymbol);
 	$strPair = SqlGetEtfPair($strSymbol);
 	$strPairLink = GetMyStockLink($strPair);
-	$strNetValue = GetTableColumnNav();
+	$strNetValue = GetTableColumnNetValue();
     $arColumn = array($strSymbolLink.$strNetValue,     $strPairLink.$strNetValue,     '校准值', GetTableColumnDate());
     
     $ref = new EtfReference($strSymbol);

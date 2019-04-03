@@ -12,7 +12,6 @@ class MultiCurrency
     var $fConvertHKD;
     var $fConvertUSD;
     
-    // constructor 
     function MultiCurrency() 
     {
         $this->fCNY = 0.0;

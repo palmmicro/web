@@ -151,9 +151,9 @@ function _ipLookupBlogCommentTable($strIp, $strNewLine, $bChinese)
     $str = $strNewLine;
 	if ($result = SqlGetBlogComment($strWhere, 0, MAX_COMMENT_DISPLAY)) 
     {
-        while ($comment = mysql_fetch_assoc($result)) 
+        while ($record = mysql_fetch_assoc($result)) 
         {
-            $str .= $strNewLine.GetSingleCommentDescription($comment, $strWhere, $bChinese);
+            $str .= $strNewLine.GetSingleCommentDescription($record, $strWhere, $bChinese);
         }
         @mysql_free_result($result);
     }

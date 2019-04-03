@@ -79,9 +79,9 @@ function SqlGetStockById($strId)
 
 function SqlGetStockSymbol($strId)
 {
-    if ($stock = SqlGetStockById($strId))
+    if ($record = SqlGetStockById($strId))
     {
-		return $stock['symbol'];
+		return $record['symbol'];
     }
 	return false;
 }
@@ -105,13 +105,13 @@ function SqlUpdateStockChineseDescription($strSymbol, $strChinese)
         $bTemp = true;
     }
     
-    if ($stock = SqlGetStock($strSymbol))
+    if ($record = SqlGetStock($strSymbol))
     {
         if ($bTemp == false)
         {
-            if (strlen($strChinese) > strlen($stock['name']))
+            if (strlen($strChinese) > strlen($record['name']))
             {
-                SqlUpdateStock($stock['id'], $strSymbol, $strChinese);
+                SqlUpdateStock($record['id'], $strSymbol, $strChinese);
                 DebugString('UpdateStock:'.$strSymbol.' '.$strChinese);
             }
         }

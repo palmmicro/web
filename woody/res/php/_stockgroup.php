@@ -6,7 +6,6 @@ class _StockGroup extends MyStockGroup
     var $ref;                
     var $strName;            //  Group name
     
-    // constructor 
     function _StockGroup($arRef) 
     {
         $this->strName = $arRef[0]->GetStockSymbol();

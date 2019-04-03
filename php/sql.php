@@ -10,7 +10,7 @@ define('TABLE_FUND_PURCHASE', 'fundpurchase');
 define('TABLE_GB2312', 'gb2312');
 define('TABLE_IP_ADDRESS', 'ipaddress');
 define('TABLE_MEMBER', 'member');
-define('TABLE_NAV_HISTORY', 'navhistory');
+define('TABLE_NETVALUE_HISTORY', 'netvaluehistory');
 define('TABLE_PROFILE', 'profile');
 define('TABLE_SPIDER_PARAMTER', 'spiderparameter');
 define('TABLE_STOCK', 'stock');

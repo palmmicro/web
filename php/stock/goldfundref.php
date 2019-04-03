@@ -21,7 +21,6 @@ function GoldEtfGetAllSymbolArray($strSymbol)
 
 class GoldFundReference extends FundReference
 {
-    // constructor 
     function GoldFundReference($strSymbol)
     {
         parent::FundReference($strSymbol);

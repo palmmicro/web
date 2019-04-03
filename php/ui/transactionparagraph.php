@@ -1,12 +1,12 @@
 <?php
 require_once('stockgroupparagraph.php');
 
-function _echoTransactionTableItem($ref, $transaction, $bReadOnly)
+function _echoTransactionTableItem($ref, $record, $bReadOnly)
 {
     $strSymbol = $ref->GetStockSymbol();
-    $strDate = GetSqlTransactionDate($transaction);
-    $strPrice = $ref->GetPriceDisplay(floatval($transaction['price']), false);
-    $strFees = round_display_str($transaction['fees']);
+    $strDate = GetSqlTransactionDate($record);
+    $strPrice = $ref->GetPriceDisplay(floatval($record['price']), false);
+    $strFees = round_display_str($record['fees']);
     if ($bReadOnly)
     {
         $strEdit = '';
@@ -14,18 +14,18 @@ function _echoTransactionTableItem($ref, $transaction, $bReadOnly)
     }
     else
     {
-    	$strEdit = GetEditLink(STOCK_PATH.'editstocktransaction', $transaction['id']);
-    	$strDelete = GetDeleteLink(STOCK_PHP_PATH.'_submittransaction.php?delete='.$transaction['id'], '交易记录');
+    	$strEdit = GetEditLink(STOCK_PATH.'editstocktransaction', $record['id']);
+    	$strDelete = GetDeleteLink(STOCK_PHP_PATH.'_submittransaction.php?delete='.$record['id'], '交易记录');
     }
     
     echo <<<END
     <tr>
         <td class=c1>$strDate</td>
         <td class=c1>$strSymbol</td>
-        <td class=c1>{$transaction['quantity']}</td>
+        <td class=c1>{$record['quantity']}</td>
         <td class=c1>$strPrice</td>
         <td class=c1>$strFees</td>
-        <td class=c1>{$transaction['remark']}</td>
+        <td class=c1>{$record['remark']}</td>
         <td class=c1>$strEdit $strDelete</td>
     </tr>
 END;
@@ -35,9 +35,9 @@ function _echoSingleTransactionTableData($sql, $ref, $iStart, $iNum, $bReadOnly)
 {
 	if ($result = $sql->GetStockTransaction($ref->GetStockId(), $iStart, $iNum)) 
     {
-        while ($transaction = mysql_fetch_assoc($result)) 
+        while ($record = mysql_fetch_assoc($result)) 
         {
-            _echoTransactionTableItem($ref, $transaction, $bReadOnly);
+            _echoTransactionTableItem($ref, $record, $bReadOnly);
         }
         @mysql_free_result($result);
     }
@@ -48,9 +48,9 @@ function _echoAllTransactionTableData($sql, $iStart, $iNum, $bReadOnly)
     $ar = array();
     if ($result = $sql->GetAllStockTransaction($iStart, $iNum)) 
     {
-        while ($transaction = mysql_fetch_assoc($result)) 
+        while ($record = mysql_fetch_assoc($result)) 
         {
-        	$strGroupItemId = $transaction['groupitem_id'];
+        	$strGroupItemId = $record['groupitem_id'];
         	if (array_key_exists($strGroupItemId, $ar))
         	{
         		$ref = $ar[$strGroupItemId];
@@ -62,7 +62,7 @@ function _echoAllTransactionTableData($sql, $iStart, $iNum, $bReadOnly)
         		$ref = new MyStockReference($strSymbol);
         		$ar[$strGroupItemId] = $ref;
         	}
-            _echoTransactionTableItem($ref, $transaction, $bReadOnly);
+            _echoTransactionTableItem($ref, $record, $bReadOnly);
         }
         @mysql_free_result($result);
     }

@@ -46,12 +46,12 @@ function _echoThanousLawData($sql, $ref, $est_ref, $iStart, $iNum)
     if ($result = $sql->GetAll($iStart, $iNum)) 
     {
      	$csv = new PageCsvFile();
-        while ($arFund = mysql_fetch_assoc($result)) 
+        while ($record = mysql_fetch_assoc($result)) 
         {
-        	$fNetValue = floatval($arFund['close']);
+        	$fNetValue = floatval($record['close']);
         	if (empty($fNetValue) == false)
         	{
-        		$strDate = GetNextTradingDayYMD($arFund['date']);
+        		$strDate = GetNextTradingDayYMD($record['date']);
         		if ($arStock = $stock_sql->Get($strDate))
         		{
         			if ($pair_ref = RefGetDailyClose($est_ref, $est_sql, $strDate))
@@ -74,7 +74,7 @@ function _echoThanousLawParagraph($strSymbol, $iStart, $iNum)
     $arColumn = GetFundHistoryTableColumn($est_ref);
  	$str = GetNetValueHistoryLink($strSymbol);
 
-	$sql = new NavHistorySql($ref->GetStockId());
+	$sql = new NetvalueHistorySql($ref->GetStockId());
    	$strNavLink = StockGetNavLink($strSymbol, $sql->Count(), $iStart, $iNum);
     echo <<<END
     <p>$str $strNavLink

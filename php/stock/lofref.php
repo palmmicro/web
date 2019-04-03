@@ -115,10 +115,10 @@ class _LofReference extends FundReference
         else
         {   // Load last value from database
 			$sql = new FundEstSql($this->GetStockId());
-            if ($history = $sql->GetNow())
+            if ($record = $sql->GetNow())
             {
-                $this->fOfficialNetValue = floatval($history['close']);
-                $this->strOfficialDate = $history['date'];
+                $this->fOfficialNetValue = floatval($record['close']);
+                $this->strOfficialDate = $record['date'];
             }
         }
         
@@ -206,7 +206,6 @@ class _LofReference extends FundReference
 
 class LofReference extends _LofReference
 {
-    // constructor 
     function LofReference($strSymbol)
     {
         parent::_LofReference($strSymbol, 'USCNY');
@@ -230,7 +229,6 @@ class LofReference extends _LofReference
 
 class LofHkReference extends _LofReference
 {
-    // constructor 
     function LofHkReference($strSymbol)
     {
         parent::_LofReference($strSymbol, 'HKCNY');

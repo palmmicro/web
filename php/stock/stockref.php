@@ -742,10 +742,10 @@ class StockReference
 
     function LoadSqlData($sql)
     {
-       	if ($history = $sql->GetNow())
+       	if ($record = $sql->GetNow())
        	{
-   			$this->strPrice = $history['close'];
-   			$this->strDate = $history['date'];
+   			$this->strPrice = $record['close'];
+   			$this->strDate = $record['date'];
    			$this->strPrevPrice = $sql->GetClosePrev($this->strDate);
    		}
     }

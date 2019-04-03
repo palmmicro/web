@@ -4,7 +4,6 @@ require_once('_lofgroup.php');
 
 class _LofHkGroup extends _LofGroup
 {
-    // constructor 
     function _LofHkGroup($strSymbol) 
     {
         $this->GetWebData(LofHkGetEstSymbol($strSymbol));

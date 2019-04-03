@@ -9,7 +9,7 @@ function EchoTitle($bChinese = true)
 {
     global $group;
     
-    $str = _GetStockDisplay($group->ref->stock_ref).STOCK_DISP_NAV;
+    $str = _GetStockDisplay($group->ref->stock_ref).STOCK_DISP_NETVALUE;
     echo $str;
 }
 

@@ -5,9 +5,9 @@ function _emailAll($strContents, $strSubject)
 {
 	if ($result = SqlGetMemberEmails()) 
 	{
-		while ($member = mysql_fetch_assoc($result)) 
+		while ($record = mysql_fetch_assoc($result)) 
 		{
-			EmailHtml($member['email'], $strSubject, $strContents);
+			EmailHtml($record['email'], $strSubject, $strContents);
 		}
 		@mysql_free_result($result);
 	}
