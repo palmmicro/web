@@ -7,7 +7,7 @@ class NetValueReference extends StockReference
 	
     function NetValueReference($strStockId, $sym) 
     {
-       	$this->sql = new NetvalueHistorySql($strStockId);
+       	$this->sql = new NetValueHistorySql($strStockId);
         if ($sym->IsFundA())
         {
         	$this->LoadSinaFundData($sym);

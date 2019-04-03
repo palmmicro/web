@@ -50,7 +50,7 @@ function _deleteStockById($strStockId)
 	else if (_deleteHasStockPair(TABLE_AH_STOCK, $strStockId))				return;
 	else if (_deleteHasStockPair(TABLE_ETF_PAIR, $strStockId))				return;
 	else if (_deleteHasStockHistory(new StockHistorySql($strStockId)))	return;
-	else if (_deleteHasStockHistory(new NetvalueHistorySql($strStockId)))	return;
+	else if (_deleteHasStockHistory(new NetValueHistorySql($strStockId)))	return;
 	else if (($iTotal = SqlCountTableData(TABLE_STOCK_GROUP_ITEM, _SqlBuildWhere_stock($strStockId))) > 0)
 	{
 		DebugVal($iTotal, 'Stock group item existed');

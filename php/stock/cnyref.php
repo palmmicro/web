@@ -32,7 +32,7 @@ class CnyReference extends MysqlReference
     function _loadDatabaseData($strSymbol)
     {
     	$this->strSqlId = SqlGetStockId($strSymbol);
-		$this->sql = new NetvalueHistorySql($this->strSqlId);
+		$this->sql = new NetValueHistorySql($this->strSqlId);
        	$this->LoadSqlData($this->sql);
    		$this->strTime = '09:15:00';
         $this->strFileName = DebugGetChinaMoneyFile();
@@ -47,7 +47,7 @@ class CnyReference extends MysqlReference
 			return;
 		}
     
-		$this->sql = new NetvalueHistorySql($this->strSqlId);
+		$this->sql = new NetValueHistorySql($this->strSqlId);
 		$this->sql->Insert($this->strDate, $this->strPrice);
 	}
 

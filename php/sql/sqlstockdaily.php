@@ -184,32 +184,32 @@ class StockSplitSql extends DailyStockSql
     }
 }
 
-// ****************************** NetvalueHistorySql class *******************************************************
-class NetvalueHistorySql extends DailyStockSql
+// ****************************** NetValueHistorySql class *******************************************************
+class NetValueHistorySql extends DailyStockSql
 {
-    function NetvalueHistorySql($strStockId) 
+    function NetValueHistorySql($strStockId) 
     {
         parent::DailyStockSql($strStockId, TABLE_NETVALUE_HISTORY);
     }
 }
 
-class UscnyHistorySql extends NetvalueHistorySql
+class UscnyHistorySql extends NetValueHistorySql
 {
     function UscnyHistorySql() 
     {
-        parent::NetvalueHistorySql(SqlGetStockId('USCNY'));
+        parent::NetValueHistorySql(SqlGetStockId('USCNY'));
     }
 }
 
-class HkcnyHistorySql extends NetvalueHistorySql
+class HkcnyHistorySql extends NetValueHistorySql
 {
     function HkcnyHistorySql() 
     {
-        parent::NetvalueHistorySql(SqlGetStockId('HKCNY'));
+        parent::NetValueHistorySql(SqlGetStockId('HKCNY'));
     }
 }
 
-// ****************************** Netvalue Support Functions *******************************************************
+// ****************************** Net Value Support Functions *******************************************************
 function SqlGetHKCNY()
 {
 	$sql = new HkcnyHistorySql();
@@ -224,7 +224,7 @@ function SqlGetUSCNY()
 
 function SqlGetNetValueByDate($strStockId, $strDate)
 {
-	$sql = new NetvalueHistorySql($strStockId);
+	$sql = new NetValueHistorySql($strStockId);
 	return $sql->GetClose($strDate);
 }
 

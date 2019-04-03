@@ -52,7 +52,7 @@ function _echoNvCloseData($sql, $ref, $csv, $iStart, $iNum, $bTest)
 
 function EchoNvCloseHistoryParagraph($ref, $str = false, $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
 {
-	$sql = new NetvalueHistorySql($ref->GetStockId());
+	$sql = new NetValueHistorySql($ref->GetStockId());
 	$iTotal = $sql->Count();
 	if ($iTotal == 0)		return;
 	

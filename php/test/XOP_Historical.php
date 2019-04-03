@@ -8,7 +8,7 @@ class NetValueCsvFile extends CsvFile
     function NetValueCsvFile($strPathName, $strSymbol) 
     {
         parent::CsvFile($strPathName);
-        $this->sql = new NetvalueHistorySql(SqlGetStockId($strSymbol));
+        $this->sql = new NetValueHistorySql(SqlGetStockId($strSymbol));
 		$this->oldest_ymd = new OldestYMD();
     }
 
@@ -26,7 +26,7 @@ class NetValueCsvFile extends CsvFile
     }
 }
 
-function SaveHistoricalNetvalue($strSymbol = 'XOP')
+function SaveHistoricalNetValue($strSymbol = 'XOP')
 {
 	$strPathName = '/debug/'.$strSymbol.'_Historical.csv';
 	$csv = new NetValueCsvFile($strPathName, $strSymbol);

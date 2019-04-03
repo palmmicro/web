@@ -140,7 +140,7 @@ function TestCmdLine()
 			break;
     	
     	case 'netvalue':
-//    		$str = SaveHistoricalNetvalue($strSymbol);
+//    		$str = SaveHistoricalNetValue($strSymbol);
 			break;
     	}
     	if (empty($str))	$str = '(Not found)';

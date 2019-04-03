@@ -102,7 +102,7 @@ function _echoFundHistoryParagraph($ref, $est_ref, $csv = false, $iStart = 0, $i
     $strSymbolLink = GetMyStockLink($strSymbol);
     $str = "{$strSymbolLink}历史{$arColumn[1]}相对于{$arColumn[2]}的{$arColumn[3]}";
     
-	$sql = new NetvalueHistorySql($ref->GetStockId());
+	$sql = new NetValueHistorySql($ref->GetStockId());
     if (IsTableCommonDisplay($iStart, $iNum))
     {
         $str .= ' '.GetNetValueHistoryLink($strSymbol);

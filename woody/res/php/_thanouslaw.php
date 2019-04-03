@@ -74,7 +74,7 @@ function _echoThanousLawParagraph($strSymbol, $iStart, $iNum)
     $arColumn = GetFundHistoryTableColumn($est_ref);
  	$str = GetNetValueHistoryLink($strSymbol);
 
-	$sql = new NetvalueHistorySql($ref->GetStockId());
+	$sql = new NetValueHistorySql($ref->GetStockId());
    	$strNavLink = StockGetNavLink($strSymbol, $sql->Count(), $iStart, $iNum);
     echo <<<END
     <p>$str $strNavLink
