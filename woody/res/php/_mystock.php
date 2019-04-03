@@ -12,7 +12,7 @@ require_once('/php/ui/etfsmaparagraph.php');
 require_once('/php/ui/fundestparagraph.php');
 require_once('/php/ui/fundhistoryparagraph.php');
 require_once('/php/ui/stockhistoryparagraph.php');
-require_once('/php/ui/navclosehistoryparagraph.php');
+require_once('/php/ui/nvclosehistoryparagraph.php');
 require_once('/php/ui/tradingparagraph.php');
 
 function _echoMyStockTransactions($strMemberId, $ref)
@@ -129,7 +129,7 @@ function _echoMyStockData($strSymbol)
    			if ($hshare_ref)	EchoAhTradingParagraph($hshare_ref);
    			else 				EchoTradingParagraph($ref);
        	}
-       	EchoNavCloseHistoryParagraph($ref);
+       	EchoNvCloseHistoryParagraph($ref);
     }
     
     if ($etf_ref)   			EchoEtfSmaParagraph($etf_ref);

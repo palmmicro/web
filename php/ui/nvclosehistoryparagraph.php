@@ -1,7 +1,7 @@
 <?php
 require_once('stocktable.php');
 
-function _echoNavCloseItem($csv, $strDate, $fNetValue, $ref, $strFundId)
+function _echoNvCloseItem($csv, $strDate, $fNetValue, $ref, $strFundId)
 {
     $fChange = $ref->GetCurrentPercentage();
     $strChange = $ref->GetCurrentPercentageDisplay();
@@ -28,7 +28,7 @@ function _echoNavCloseItem($csv, $strDate, $fNetValue, $ref, $strFundId)
 END;
 }
 
-function _echoNavCloseData($sql, $ref, $csv, $iStart, $iNum, $bTest)
+function _echoNvCloseData($sql, $ref, $csv, $iStart, $iNum, $bTest)
 {
     $stock_sql = new StockHistorySql($ref->GetStockId());
 	$clone_ref = clone $ref;
@@ -42,7 +42,7 @@ function _echoNavCloseData($sql, $ref, $csv, $iStart, $iNum, $bTest)
         		$strDate = $arFund['date'];
        			if ($stock_ref = RefGetDailyClose($clone_ref, $stock_sql, $strDate))
        			{
-       				_echoNavCloseItem($csv, $strDate, $fNetValue, $stock_ref, ($bTest ? $arFund['id'] : false));
+       				_echoNvCloseItem($csv, $strDate, $fNetValue, $stock_ref, ($bTest ? $arFund['id'] : false));
         		}
         	}
         }
@@ -50,7 +50,7 @@ function _echoNavCloseData($sql, $ref, $csv, $iStart, $iNum, $bTest)
     }
 }
 
-function EchoNavCloseHistoryParagraph($ref, $str = false, $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
+function EchoNvCloseHistoryParagraph($ref, $str = false, $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
 {
 	$sql = new NavHistorySql($ref->GetStockId());
 	$iTotal = $sql->Count();
@@ -58,12 +58,12 @@ function EchoNavCloseHistoryParagraph($ref, $str = false, $csv = false, $iStart 
 	
     $strSymbol = $ref->GetStockSymbol();
    	$strNavLink = IsTableCommonDisplay($iStart, $iNum) ? '' : StockGetNavLink($strSymbol, $iTotal, $iStart, $iNum);
-   	if ($str == false)	$str = GetNavCloseHistoryLink($strSymbol);
+   	if ($str == false)	$str = GetNvCloseHistoryLink($strSymbol);
 
     $arColumn = GetFundHistoryTableColumn($ref);
     echo <<<END
     <p>$strNavLink $str
-    <TABLE borderColor=#cccccc cellSpacing=0 width=500 border=1 class="text" id="{$strSymbol}navclosehistory">
+    <TABLE borderColor=#cccccc cellSpacing=0 width=500 border=1 class="text" id="{$strSymbol}nvclosehistory">
     <tr>
         <td class=c1 width=100 align=center>{$arColumn[0]}</td>
         <td class=c1 width=100 align=center>{$arColumn[1]}</td>
@@ -73,7 +73,7 @@ function EchoNavCloseHistoryParagraph($ref, $str = false, $csv = false, $iStart 
     </tr>
 END;
    
-    _echoNavCloseData($sql, $ref, $csv, $iStart, $iNum, AcctIsAdmin());
+    _echoNvCloseData($sql, $ref, $csv, $iStart, $iNum, AcctIsAdmin());
     EchoTableParagraphEnd($strNavLink);
 }
 

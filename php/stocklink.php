@@ -44,10 +44,10 @@ function GetNetValueHistoryLink($strSymbol)
     return GetStockSymbolLink('netvaluehistory', $strSymbol, NETVALUE_HISTORY_DISPLAY);
 }
 
-define('NAVCLOSE_HISTORY_DISPLAY', '净值和收盘价历史比较');
-function GetNavCloseHistoryLink($strSymbol)
+define('NVCLOSE_HISTORY_DISPLAY', '净值和收盘价历史比较');
+function GetNvCloseHistoryLink($strSymbol)
 {
-	return GetStockSymbolLink('navclosehistory', $strSymbol, NAVCLOSE_HISTORY_DISPLAY);
+	return GetStockSymbolLink('nvclosehistory', $strSymbol, NVCLOSE_HISTORY_DISPLAY);
 }
 
 define('AH_HISTORY_DISPLAY', '历史AH价格比较');

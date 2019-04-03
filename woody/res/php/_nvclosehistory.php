@@ -3,9 +3,9 @@ require_once('_stock.php');
 require_once('/php/csvfile.php');
 require_once('/php/imagefile.php');
 require_once('/php/ui/pricepoolparagraph.php');
-require_once('/php/ui/navclosehistoryparagraph.php');
+require_once('/php/ui/nvclosehistoryparagraph.php');
 
-class _NavCloseCsvFile extends PricePoolCsvFile
+class _NvCloseCsvFile extends PricePoolCsvFile
 {
     function OnLineArray($arWord)
     {
@@ -13,25 +13,20 @@ class _NavCloseCsvFile extends PricePoolCsvFile
     }
 }
 
-function _echoNavClosePool($strSymbol)
+function _echoNvClosePool($strSymbol)
 {
-   	$csv = new _NavCloseCsvFile();
+   	$csv = new _NvCloseCsvFile();
    	$csv->Read();
    	EchoPricePoolParagraph($csv->pool, $strSymbol);
 }
 
-function _echoNavCloseGraph($strSymbol)
+function _echoNvCloseGraph($strSymbol)
 {
    	$csv = new PageCsvFile();
     $jpg = new PageImageFile();
     $jpg->DrawDateArray($csv->ReadColumn(2));
     $jpg->DrawCompareArray($csv->ReadColumn(3));
     $jpg->Show(STOCK_DISP_PREMIUM, $strSymbol, $csv->GetPathName());
-}
-
-function _getNavCloseHistoryLinks($ref)
-{
-	return GetStockHistoryLink($ref->GetStockSymbol());
 }
 
 function EchoAll()
@@ -45,18 +40,18 @@ function EchoAll()
         $ref = StockGetReference($sym);
         if ($ref->HasData())
     	{
-    		$strLinks = _getNavCloseHistoryLinks($ref);
+    		$strLinks = GetStockHistoryLink($strSymbol);
     		$iStart = UrlGetQueryInt('start');
     		$iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
     		$csv = new PageCsvFile();
-			EchoNavCloseHistoryParagraph($ref, $strLinks, $csv, $iStart, $iNum);
+			EchoNvCloseHistoryParagraph($ref, $strLinks, $csv, $iStart, $iNum);
 			$csv->Close();
 
-			_echoNavClosePool($strSymbol);
-			_echoNavCloseGraph($strSymbol);
+			_echoNvClosePool($strSymbol);
+			_echoNvCloseGraph($strSymbol);
     	}
     }
-    EchoPromotionHead('navclose');
+    EchoPromotionHead('nvclose');
     EchoStockCategory();
 }
 
@@ -69,7 +64,7 @@ function EchoMetaDescription()
 
 function EchoTitle()
 {
-  	echo UrlGetQueryDisplay('symbol').NAVCLOSE_HISTORY_DISPLAY;
+  	echo UrlGetQueryDisplay('symbol').NVCLOSE_HISTORY_DISPLAY;
 }
 
     AcctAuth();

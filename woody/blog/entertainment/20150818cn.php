@@ -403,11 +403,11 @@ CL通常会在美股收盘后继续多交易一个小时, 此时实时估值也�
 </p>
 <?php EchoAdrhDemo(); ?>
 
-<h3>XOP<a name="navclose">收盘价和净值</a>的对比</h3>
+<h3>XOP<a name="nvclose">收盘价和净值</a>的对比</h3>
 <p>2018年5月3日
 <br />交易了几年XOP下来, 发现它的收盘价经常跟净值有个1分2分的偏差, 不知道这其中是否有套利机会.
 </p>
-<?php EchoNavCloseDemo(); ?>
+<?php EchoNvCloseDemo(); ?>
 
 <h3>删除英文版本</h3>
 <p>2019年3月14日

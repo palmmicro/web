@@ -7,7 +7,7 @@ require_once('/php/ui/ahparagraph.php');
 require_once('/php/ui/fundestparagraph.php');
 require_once('/php/ui/fundhistoryparagraph.php');
 require_once('/php/ui/lofsmaparagraph.php');
-require_once('/php/ui/navclosehistoryparagraph.php');
+require_once('/php/ui/nvclosehistoryparagraph.php');
 
 define('ADRH_DEMO_SYMBOL', '00700');
 define('AH_DEMO_SYMBOL', '00386');
@@ -43,10 +43,10 @@ function EchoFundEstDemo($strSymbol = FUND_DEMO_SYMBOL)
 	EchoFundArrayEstParagraph(array($fund_ref));
 }
 
-function EchoNavCloseDemo($strSymbol = STOCK_DEMO_SYMBOL)
+function EchoNvCloseDemo($strSymbol = STOCK_DEMO_SYMBOL)
 {
     $ref = new MyStockReference($strSymbol);
-   	EchoNavCloseHistoryParagraph($ref);
+   	EchoNvCloseHistoryParagraph($ref);
 }
 
 function EchoAhDemo($strSymbol = AH_DEMO_SYMBOL)
