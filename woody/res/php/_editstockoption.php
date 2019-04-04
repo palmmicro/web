@@ -13,8 +13,9 @@ function EchoAll()
     if ($strSymbol = UrlGetQueryValue('symbol'))
     {
     	StockPrefetchData($strSymbol);
+   		EchoStockGroupParagraph();
     	
-        $ref = StockGetReference(new StockSymbol($strSymbol));
+        $ref = StockGetReference($strSymbol);
         if ($ref->HasData())
         {
         	$strTitle = UrlGetTitle();

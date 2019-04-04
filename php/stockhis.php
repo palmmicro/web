@@ -163,7 +163,6 @@ class StockHistory
     var $strDate;		// 2014-11-13
     
     var $stock_ref;	// MyStockReference
-    var $sql;			// StockHistorySql				
     
     function _buildNextName($strName)
     {
@@ -248,7 +247,7 @@ class StockHistory
         $afMonthlyClose = array();
 
         $strNextDayYMD = false;
-    	if ($result = $this->sql->GetFromDate($this->strDate, MAX_QUOTES_DAYS))
+    	if ($result = $this->stock_ref->his_sql->GetFromDate($this->strDate, MAX_QUOTES_DAYS))
     	{
     		while ($record = mysql_fetch_assoc($result)) 
     		{
@@ -332,7 +331,7 @@ class StockHistory
     
     function _getStartDate()
     {
-    	if ($result = $this->sql->GetAll(0, 2))
+    	if ($result = $this->stock_ref->his_sql->GetAll(0, 2))
     	{
     		while ($record = mysql_fetch_assoc($result)) 
     		{
@@ -367,7 +366,6 @@ class StockHistory
     function StockHistory($ref) 
     {
         $this->stock_ref = $ref;
-		$this->sql = new StockHistorySql($this->GetStockId());
         $this->aiNum = array(5, 10, 20);
 		$this->strDate = $this->_getStartDate();
         $this->_configSMA();

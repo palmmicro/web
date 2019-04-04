@@ -99,7 +99,7 @@ function _echoMyStockData($strSymbol)
     {
     	if ($ref_ar = StockGetHShareReference($sym))				list($ref, $hshare_ref) = $ref_ar;
     	else if ($etf_ref = StockGetEtfReference($strSymbol))	$ref = $etf_ref;
-   		else														$ref = StockGetReference($sym);
+   		else														$ref = StockGetReference($strSymbol, $sym);
     }
     if ($ref->HasData() == false)		return;
     

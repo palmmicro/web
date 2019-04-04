@@ -36,7 +36,7 @@ class StockHistorySql extends DailyStockSql
 		return $this->UpdateById("open = '$strOpen', high = '$strHigh', low = '$strLow', close = '$strClose', volume = '$strVolume', adjclose = '$strAdjClose'", $strId);
     }
 
-    function Merge($strDate, $strOpen, $strHigh, $strLow, $strClose, $strVolume, $strAdjClose)
+    function Write($strDate, $strOpen, $strHigh, $strLow, $strClose, $strVolume, $strAdjClose)
     {
     	if ($record = $this->Get($strDate))
     	{

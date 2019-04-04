@@ -126,8 +126,7 @@ class _LofGroup extends _StockGroup
        	$strEst = $sql->GetClose($strDate);
        	if ($strEst == false)
        	{
-       		$stock_sql = new StockHistorySql($est_ref->GetStockId());
-       		$strEst = $stock_sql->GetClose($strDate);
+       		$strEst = $est_ref->his_sql->GetClose($strDate);
        		if ($strEst == false)	$strEst = $est_ref->strPrevPrice;
        	}
        	
@@ -139,8 +138,11 @@ class _LofGroup extends _StockGroup
     {
         if (AcctIsAdmin())
         {
-	        $str = $this->_getAdjustString();
-            EchoParagraph($str);
+        	if (RefHasData($this->ref->est_ref))
+        	{
+        		$str = $this->_getAdjustString();
+        		EchoParagraph($str);
+        	}
 	    }
     }
 } 

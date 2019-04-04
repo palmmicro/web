@@ -64,7 +64,7 @@ function _echoStockGroupArray($arStock)
        			}
        		}
 	    	else if ($ref = StockGetEtfReference($strSymbol))	$arEtfRef[] = $ref;
-       		else	$ref = StockGetReference($sym);
+       		else	$ref = StockGetReference($strSymbol, $sym);
         }
 
         if ($strInternalLink = GetStockLink($strSymbol))

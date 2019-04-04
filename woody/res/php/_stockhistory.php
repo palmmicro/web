@@ -28,8 +28,7 @@ function EchoAll()
     	StockPrefetchData($strSymbol);
    		EchoStockGroupParagraph();
    		
-   		$sym = new StockSymbol($strSymbol);
-        $ref = StockGetReference($sym);
+        $ref = StockGetReference($strSymbol);
         if ($ref->HasData())
     	{
     		$strLinks = _getStockHistoryLinks($ref, $bTest);

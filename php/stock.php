@@ -315,13 +315,13 @@ function RefSortBySymbol($arRef)
     return $arSort;
 }
 
-function RefGetDailyClose($ref, $sql, $strDate)
+function RefGetDailyClose($ref, $strDate)
 {
 	if ($ref)
 	{
-		if ($record = $sql->Get($strDate))
+		if ($record = $ref->his_sql->Get($strDate))
 		{
-			if ($prev_record = $sql->GetPrev($strDate))
+			if ($prev_record = $ref->his_sql->GetPrev($strDate))
 			{
 				$ref->SetPrice($prev_record['close'], $record['close']);
 				return $ref;
@@ -422,14 +422,15 @@ function StockGetFundReference($strSymbol)
     return $ref;
 }
 
-function StockGetReference($sym)
+function StockGetReference($strSymbol, $sym = false)
 {
-	$strSymbol = $sym->GetSymbol();
+	if ($sym == false)	$sym = new StockSymbol($strSymbol);
+
     if ($sym->IsSinaFund())							    	return new FundReference($strSymbol);
     else if ($strFutureSymbol = $sym->IsSinaFuture())   	return new FutureReference($strFutureSymbol);
     else if ($sym->IsSinaForex())   							return new ForexReference($strSymbol);
 	else if ($sym->IsEastMoneyForex())						return new CnyReference($strSymbol);
-    return new MyStockReference($strSymbol);
+    															return new MyStockReference($strSymbol);
 }
 
 function StockGetEtfReference($strSymbol)

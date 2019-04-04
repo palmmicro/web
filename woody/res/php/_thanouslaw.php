@@ -41,8 +41,6 @@ END;
 
 function _echoThanousLawData($sql, $ref, $est_ref, $iStart, $iNum)
 {
-    $stock_sql = new StockHistorySql($ref->GetStockId());
-	$est_sql = new StockHistorySql($est_ref->GetStockId());
     if ($result = $sql->GetAll($iStart, $iNum)) 
     {
      	$csv = new PageCsvFile();
@@ -52,11 +50,11 @@ function _echoThanousLawData($sql, $ref, $est_ref, $iStart, $iNum)
         	if (empty($fNetValue) == false)
         	{
         		$strDate = GetNextTradingDayYMD($record['date']);
-        		if ($arStock = $stock_sql->Get($strDate))
+        		if ($strClose = $ref->his_sql->GetClose($strDate))
         		{
-        			if ($pair_ref = RefGetDailyClose($est_ref, $est_sql, $strDate))
+        			if ($pair_ref = RefGetDailyClose($est_ref, $strDate))
         			{
-        				$ref->SetPrice(strval($fNetValue), $arStock['close']);
+        				$ref->SetPrice(strval($fNetValue), $strClose);
         				_echoThanousLawItem($csv, $strDate, $ref, $pair_ref);
         			}
                 }

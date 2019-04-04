@@ -5,22 +5,21 @@ require_once('/php/ui/htmlelement.php');
 
 function _getStockOptionDate($strSubmit, $ref)
 {
-	$sql = new StockHistorySql($ref->GetStockId());
 	switch ($strSubmit)
 	{
 	case STOCK_OPTION_ADJCLOSE:
 	case STOCK_OPTION_SPLIT:
 	case STOCK_OPTION_EMA:
-		if ($strDate = $sql->GetDateNow())
+		if ($strDate = $ref->his_sql->GetDateNow())
 		{
 			return $strDate;
 		}
 		break;
 
 	case STOCK_OPTION_CLOSE:
-		if ($prev_record = $sql->GetPrev($ref->GetDate()))
+		if ($record = $ref->his_sql->GetPrev($ref->GetDate()))
 		{
-			return $prev_record['date'];
+			return $record['date'];
 		}
 		break;
 	}
@@ -37,14 +36,13 @@ function _getStockOptionNewName($ref, $strName)
     return $str;
 }
 
-function _getStockOptionName($strSymbol)
+function _getStockOptionName($ref, $strSymbol)
 {
-    $sym = new StockSymbol($strSymbol);
-	$ref = StockGetReference($sym);
     $record = SqlGetStock($strSymbol);
    	$strName = $record['name'];
     $str = $strName;
-    $str .= _getStockOptionNewName($ref, $strName);
+   	$str .= _getStockOptionNewName($ref, $strName);
+    $sym = $ref->GetSym();
     if ($sym->IsFundA())
     {
         $fund_ref = new FundReference($strSymbol);
@@ -142,7 +140,7 @@ function _getStockOptionVal($strSubmit, $ref, $strSymbol, $strDate)
 		return _getStockOptionEtf($strSymbol);
 
 	case STOCK_OPTION_EDIT:
-		return _getStockOptionName($strSymbol);
+		return _getStockOptionName($ref, $strSymbol);
 
 	case STOCK_OPTION_SPLIT:
 		return '10:1';

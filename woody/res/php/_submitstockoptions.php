@@ -4,20 +4,14 @@ require_once('/php/stock.php');
 require_once('/php/stocktrans.php');
 require_once('_editstockoptionform.php');
 
-function _updateStockHistoryAdjCloseByDividend($strSymbol, $strStockId, $strYMD, $strDividend)
+function _updateStockHistoryAdjCloseByDividend($ref, $strSymbol, $strYMD, $strDividend)
 {
     $ar = array();
-    $ymd = new StringYMD($strYMD);
-	$sql = new StockHistorySql($strStockId);
-    if ($result = $sql->GetAll()) 
+    if ($result = $ref->his_sql->GetFromDate($strYMD)) 
     {
         while ($record = mysql_fetch_assoc($result)) 
         {
-            $history_ymd = new StringYMD($record['date']);
-            if ($history_ymd->GetTick() < $ymd->GetTick())
-            {
-                $ar[$record['id']] = floatval($record['adjclose']);
-            }
+            $ar[$record['id']] = floatval($record['adjclose']);
         }
         @mysql_free_result($result);
     }
@@ -26,18 +20,16 @@ function _updateStockHistoryAdjCloseByDividend($strSymbol, $strStockId, $strYMD,
     foreach ($ar as $strId => $fAdjClose)
     {
         $fAdjClose -= $fDividend;
-        $sql->UpdateAdjClose($strId, strval($fAdjClose));
+        $ref->his_sql->UpdateAdjClose($strId, strval($fAdjClose));
     }
     unlinkConfigFile($strSymbol);
 }
 
-function _updateStockHistoryClose($strSymbol, $strStockId, $strYMD, $strClose)
+function _updateStockHistoryClose($ref, $strSymbol, $strYMD, $strClose)
 {
-	$sql = new StockHistorySql($strStockId);
-    if ($record = $sql->Get($strYMD)) 
+    if ($record = $ref->his_sql->Get($strYMD)) 
     {
-//    	if ($sql->Update($record['id'], $record['open'], $record['high'], $record['low'], $strClose, $record['volume'], $strClose))
-    	if ($sql->UpdateClose($record['id'], $strClose))
+    	if ($ref->his_sql->UpdateClose($record['id'], $strClose))
         {
         	unlinkConfigFile($strSymbol);
         }
@@ -182,10 +174,9 @@ function _updateStockOptionSplitGroupTransactions($strGroupId, $strStockId, $str
     }
 }
 
-function _updateStockOptionSplitTransactions($strStockId, $strDate, $fRatio)
+function _updateStockOptionSplitTransactions($ref, $strStockId, $strDate, $fRatio)
 {
-    $stock_sql = new StockHistorySql($strStockId);
-    $fPrice = floatval($stock_sql->GetClosePrev($strDate));
+    $fPrice = floatval($ref->his_sql->GetClosePrev($strDate));
     
 	$sql = new TableSql(TABLE_STOCK_GROUP);
     if ($result = $sql->GetData())
@@ -198,7 +189,7 @@ function _updateStockOptionSplitTransactions($strStockId, $strDate, $fRatio)
     }
 }
 
-function _updateStockOptionSplit($strSymbol, $strStockId, $strDate, $strVal)
+function _updateStockOptionSplit($ref, $strSymbol, $strStockId, $strDate, $strVal)
 {
 	if (strstr($strVal, ':') == false)		return;
 	$ar = explode(':', $strVal);
@@ -208,7 +199,7 @@ function _updateStockOptionSplit($strSymbol, $strStockId, $strDate, $strVal)
 	$sql = new StockSplitSql($strStockId);
 	if ($sql->Insert($strDate, strval($fRatio)))
 	{
-		_updateStockOptionSplitTransactions($strStockId, $strDate, $fRatio);
+		_updateStockOptionSplitTransactions($ref, $strStockId, $strDate, $fRatio);
 	}
 }
 
@@ -221,10 +212,14 @@ function _updateStockOptionSplit($strSymbol, $strStockId, $strDate, $strVal)
 		$strVal = UrlCleanString($_POST['val']);
    		$bTest = AcctIsAdmin();
 		$strStockId = SqlGetStockId($strSymbol);
+		
+    	StockPrefetchData($strSymbol);
+        $ref = StockGetReference($strSymbol);
+        
 		switch ($_POST['submit'])
 		{
 		case STOCK_OPTION_ADJCLOSE:
-			if ($bTest)	_updateStockHistoryAdjCloseByDividend($strSymbol, $strStockId, $strDate, $strVal);
+			if ($bTest)	_updateStockHistoryAdjCloseByDividend($ref, $strSymbol, $strDate, $strVal);
 			break;
 			
 		case STOCK_OPTION_ADR:
@@ -240,7 +235,7 @@ function _updateStockOptionSplit($strSymbol, $strStockId, $strDate, $strVal)
 			break;
 
 		case STOCK_OPTION_CLOSE:
-			if ($bTest)	_updateStockHistoryClose($strSymbol, $strStockId, $strDate, $strVal);
+			if ($bTest)	_updateStockHistoryClose($ref, $strSymbol, $strDate, $strVal);
 			break;
 			
 		case STOCK_OPTION_EDIT:
@@ -256,7 +251,7 @@ function _updateStockOptionSplit($strSymbol, $strStockId, $strDate, $strVal)
 			break;
 			
 		case STOCK_OPTION_SPLIT:
-			if ($bTest)	_updateStockOptionSplit($strSymbol, $strStockId, $strDate, $strVal);
+			if ($bTest)	_updateStockOptionSplit($ref, $strSymbol, $strStockId, $strDate, $strVal);
 			break;
 		}
 		unset($_POST['submit']);

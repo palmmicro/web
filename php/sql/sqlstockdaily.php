@@ -40,7 +40,7 @@ class DailyStockSql extends StockTableSql
     	return $this->_getCloseString($strDate, 'Get');
     }
 
-    function GetFromDate($strDate, $iNum)
+    function GetFromDate($strDate, $iNum = 0)
     {
     	return $this->GetData($this->BuildWhere_key()." AND date <= '$strDate'", _SqlOrderByDate(), _SqlBuildLimit(0, $iNum));
     }

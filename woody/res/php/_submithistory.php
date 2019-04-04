@@ -20,7 +20,7 @@ function _webUpdateSinaHistory($sql, $sym)
         $arMatch = preg_match_sina_history($str);
         foreach ($arMatch as $ar)
         {
-        	$sql->Merge($ar[1], $ar[2], $ar[3], $ar[5], $ar[4], $ar[6], $ar[4]);
+        	$sql->Write($ar[1], $ar[2], $ar[3], $ar[5], $ar[4], $ar[6], $ar[4]);
         	$iTotal ++;
 		}
 		$iSeason --;
@@ -68,7 +68,7 @@ function _webUpdateYahooHistory($sql, $strYahooSymbol)
                 $ar[] = $strNoComma;
                 $str .= ' '.$strNoComma; 
             }
-            $sql->Merge($strDate, $ar[0], $ar[1], $ar[2], $ar[3], $ar[5], $ar[4]);
+            $sql->Write($strDate, $ar[0], $ar[1], $ar[2], $ar[3], $ar[5], $ar[4]);
         }
         $iTime = $iTimeBegin;
     }

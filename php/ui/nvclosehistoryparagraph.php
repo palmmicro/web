@@ -30,7 +30,6 @@ END;
 
 function _echoNvCloseData($sql, $ref, $csv, $iStart, $iNum, $bTest)
 {
-    $stock_sql = new StockHistorySql($ref->GetStockId());
 	$clone_ref = clone $ref;
     if ($result = $sql->GetAll($iStart, $iNum)) 
     {
@@ -40,7 +39,7 @@ function _echoNvCloseData($sql, $ref, $csv, $iStart, $iNum, $bTest)
         	if (empty($fNetValue) == false)
         	{
         		$strDate = $record['date'];
-       			if ($stock_ref = RefGetDailyClose($clone_ref, $stock_sql, $strDate))
+       			if ($stock_ref = RefGetDailyClose($clone_ref, $strDate))
        			{
        				_echoNvCloseItem($csv, $strDate, $fNetValue, $stock_ref, ($bTest ? $record['id'] : false));
         		}

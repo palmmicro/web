@@ -21,9 +21,9 @@ function _echoStockHistoryItem($record, $ref, $csv)
 END;
 }
 
-function _echoStockHistoryData($sql, $ref, $csv, $iStart, $iNum)
+function _echoStockHistoryData($ref, $csv, $iStart, $iNum)
 {
-    if ($result = $sql->GetAll($iStart, $iNum)) 
+    if ($result = $ref->his_sql->GetAll($iStart, $iNum)) 
     {
         while ($record = mysql_fetch_assoc($result)) 
         {
@@ -41,15 +41,7 @@ function EchoStockHistoryParagraph($ref, $str = '', $csv = false, $iStart = 0, $
     $arColumn = array($strDate, '开盘价', '最高', '最低', $strClose, '成交量', '复权'.$strClose);
 
     $strSymbol = $ref->GetStockSymbol();
-	$sql = new StockHistorySql($ref->GetStockId());
-    if (IsTableCommonDisplay($iStart, $iNum))
-    {
-    	$strNavLink = '';
-    }
-    else
-    {
-    	$strNavLink = StockGetNavLink($strSymbol, $sql->Count(), $iStart, $iNum);
-    }
+    $strNavLink = IsTableCommonDisplay($iStart, $iNum) ? '' : StockGetNavLink($strSymbol, $ref->his_sql->Count(), $iStart, $iNum);
     
     echo <<<END
     <p>$strNavLink $str
@@ -65,7 +57,7 @@ function EchoStockHistoryParagraph($ref, $str = '', $csv = false, $iStart = 0, $
     </tr>
 END;
    
-    _echoStockHistoryData($sql, $ref, $csv, $iStart, $iNum);
+    _echoStockHistoryData($ref, $csv, $iStart, $iNum);
     EchoTableParagraphEnd($strNavLink);
 }
 

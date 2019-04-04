@@ -9,6 +9,8 @@ class MysqlReference extends StockReference
 
     var $fFactor = 1.0;			// 'factor' field in old stockcalibration table or 'close' field in new etfcalibration table
     
+    var $his_sql = false;		// StockHistorySql
+    
     function MysqlReference($sym) 
     {
 		parent::StockReference($sym);
@@ -19,20 +21,13 @@ class MysqlReference extends StockReference
         $this->_loadSqlId();
         if ($this->strSqlId && $this->bHasData)
         {
-        	$sql = new StockHistorySql($this->strSqlId);
+        	$this->his_sql = new StockHistorySql($this->strSqlId);
         	$now_ymd = new NowYMD();
         	if ($now_ymd->GetYMD() == $this->strDate)
         	{
-        		$this->_updateStockHistory($sql);
+        		$this->_updateStockHistory();
         		$this->_updateStockEma($now_ymd);
         	}
-/*        	else
-        	{
-        		if ($this->_checkStockHistoryClose($sql))
-        		{
-        			unlinkConfigFile($this->GetStockSymbol());
-        		}
-        	}*/
         }
     }
 
@@ -88,7 +83,7 @@ class MysqlReference extends StockReference
         return false;
     }
     
-    function _updateStockHistory($sql)
+    function _updateStockHistory()
     {
         $strOpen = $this->strOpen;
         if ($this->_invalidHistoryData($strOpen))  return;
@@ -98,22 +93,8 @@ class MysqlReference extends StockReference
         if ($this->_invalidHistoryData($strLow))  return;
         $strClose = $this->strPrice;
         if ($this->_invalidHistoryData($strClose))  return;
-        $sql->Merge($this->strDate, $strOpen, $strHigh, $strLow, $strClose, $this->strVolume, $strClose);
+        $this->his_sql->Write($this->strDate, $strOpen, $strHigh, $strLow, $strClose, $this->strVolume, $strClose);
     }
-/*
-    function _checkStockHistoryClose($sql)
-    {
-        $strClose = $this->strPrice;
-        if ($this->_invalidHistoryData($strClose))  return false;
-        if ($record = $sql->Get($this->strDate)) 
-        {
-        	if (abs(floatval($record['close']) - $this->fPrice) > 0.0005)
-        	{
-        		return $sql->UpdateClose($record['id'], $strClose);
-        	}
-        }
-        return false;
-    }*/
     
     // En = k * X0 + (1 - k) * Em; 其中m = n - 1; k = 2 / (n + 1)
 	function CalculateEMA($fPrice, $fPrev, $iDays)

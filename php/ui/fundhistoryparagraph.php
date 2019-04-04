@@ -53,7 +53,7 @@ function _echoHistoryTableData($sql, $csv, $ref, $est_ref, $iStart, $iNum)
 {
 	$clone_ref = clone $ref;
 	$clone_est_ref = false;
-	if ($est_ref)
+	if (RefHasData($est_ref))
 	{
 		$bSameDayNetValue	 = true;
 		$sym = $est_ref->GetSym();
@@ -63,13 +63,11 @@ function _echoHistoryTableData($sql, $csv, $ref, $est_ref, $iStart, $iNum)
 			if ($ref->IsSymbolA())		$bSameDayNetValue	 = false;
 		}
 		
-		$est_sql = new StockHistorySql($est_ref->GetStockId());
 		$clone_est_ref = clone $est_ref;
 	}
 	
 	$strStockId = $ref->GetStockId();
 	$fund_sql = new FundEstSql($strStockId);
-    $stock_sql = new StockHistorySql($strStockId);
     if ($result = $sql->GetAll($iStart, $iNum)) 
     {
         while ($record = mysql_fetch_assoc($result)) 
@@ -84,10 +82,10 @@ function _echoHistoryTableData($sql, $csv, $ref, $est_ref, $iStart, $iNum)
         			$strDate = GetNextTradingDayYMD($strDate);
         		}
             
-        		if ($arStock = $stock_sql->Get($strDate))
+        		if ($strClose = $ref->his_sql->GetClose($strDate))
         		{
-       				$clone_ref->SetPrice(strval($fNetValue), $arStock['close']);
-        			_echoFundHistoryTableItem($csv, $strDate, $arFund, $clone_ref, RefGetDailyClose($clone_est_ref, $est_sql, $arFund['date']));
+       				$clone_ref->SetPrice(strval($fNetValue), $strClose);
+        			_echoFundHistoryTableItem($csv, $strDate, $arFund, $clone_ref, RefGetDailyClose($clone_est_ref, $arFund['date']));
         		}
         	}
         }
