@@ -19,9 +19,9 @@ function _echoStockTableItem($strStockId, $strSymbol, $strName)
 END;
 }
 
-function _echoStockTableData($iStart, $iNum)
+function _echoStockTableData($sql, $iStart, $iNum)
 {
-	if ($result = SqlGetAllStock($iStart, $iNum)) 
+	if ($result = $sql->GetAll($iStart, $iNum)) 
 	{
 		while ($record = mysql_fetch_assoc($result)) 
 		{
@@ -33,7 +33,8 @@ function _echoStockTableData($iStart, $iNum)
 
 function EchoStockParagraph($iStart, $iNum)
 {
-    $strNavLink = GetNavLink(false, SqlCountTableData(TABLE_STOCK), $iStart, $iNum);
+	$sql = new StockSql();
+    $strNavLink = GetNavLink(false, $sql->CountData(), $iStart, $iNum);
 	$arReference = GetReferenceTableColumn();
     echo <<<END
     	<p>$strNavLink
@@ -45,7 +46,7 @@ function EchoStockParagraph($iStart, $iNum)
         </tr>
 END;
 
-	_echoStockTableData($iStart, $iNum);
+	_echoStockTableData($sql, $iStart, $iNum);
     EchoTableParagraphEnd($strNavLink);
 }
 

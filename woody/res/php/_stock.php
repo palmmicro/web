@@ -233,13 +233,5 @@ function _GetStockDisplay($ref)
     return RefGetDescription($ref).'('.$ref->GetStockSymbol().')';
 }
 
-class EmptyGroup extends StockGroup
-{
-    function EmptyGroup() 
-    {
-        parent::StockGroup();
-    }
-}
-
 
 ?>

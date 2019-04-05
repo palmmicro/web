@@ -2,12 +2,20 @@
 require_once('stocktrans.php');
 require_once('class/multi_currency.php');
 
-// ****************************** StockGroup Class *******************************************************
-
-class StockGroup 
+class EmptyGroup
 {
     var $strGroupId = false;
     
+    function GetGroupId()
+    {
+    	return $this->strGroupId;
+    }
+}
+
+// ****************************** StockGroup Class *******************************************************
+
+class StockGroup extends EmptyGroup
+{
     var $multi_amount;
     var $multi_profit;
     
@@ -17,11 +25,6 @@ class StockGroup
         $this->multi_profit = new MultiCurrency();
     }
 
-    function GetGroupId()
-    {
-    	return $this->strGroupId;
-    }
-    
     function OnStockTransaction($trans)
     {
         $sym = $trans->ref->sym;

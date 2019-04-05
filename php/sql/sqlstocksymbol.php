@@ -34,6 +34,20 @@ class StockSql extends TableSql
     {
     	return $this->GetSingleData(_SqlBuildWhere('symbol', $strSymbol));
     }
+
+    function GetAll($iStart = 0, $iNum = 0)
+    {
+   		return $this->GetData(false, '`symbol` ASC', _SqlBuildLimit($iStart, $iNum));
+    }
+
+    function GetSymbol($strStockId)
+    {
+    	if ($record = $this->GetById($strStockId))
+    	{
+    		return $record['symbol'];
+    	}
+    	return false;
+    }
 }
 
 // ****************************** Stock table *******************************************************
@@ -48,11 +62,6 @@ function SqlUpdateStock($strId, $strSymbol, $strName)
 {
 	$sql = new StockSql();
 	return $sql->Update($strId, $strSymbol, $strName);
-}
-
-function SqlGetAllStock($iStart, $iNum)
-{
-    return SqlGetTableData(TABLE_STOCK, false, '`symbol` ASC', _SqlBuildLimit($iStart, $iNum));
 }
 
 function SqlGetStock($strSymbol)
@@ -72,23 +81,10 @@ function SqlGetStockId($strSymbol)
 	return false;
 }
 
-function SqlGetStockById($strId)
+function SqlGetStockSymbol($strStockId)
 {
-	return SqlGetTableDataById(TABLE_STOCK, $strId);
-}
-
-function SqlGetStockSymbol($strId)
-{
-    if ($record = SqlGetStockById($strId))
-    {
-		return $record['symbol'];
-    }
-	return false;
-}
-
-function SqlDeleteStock($strId)
-{
-	SqlDeleteTableDataById(TABLE_STOCK, $strId);
+	$sql = new StockSql();
+	return $sql->GetSymbol($strStockId);
 }
 
 // ****************************** Other SQL and stock related functions *******************************************************

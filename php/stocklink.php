@@ -16,10 +16,15 @@ function GetStockSymbolLink($strTitle, $strSymbol, $strDisplay)
 //    return GetPhpLink(STOCK_PATH.$strTitle, 'symbol='.$strSymbol, $strDisplay);
 }
 
-function GetMyStockLink($strSymbol)
+define('ALL_STOCK_DISPLAY', '全部股票代码');
+function GetMyStockLink($strSymbol = false)
 {
-	return GetStockSymbolLink('mystock', $strSymbol, $strSymbol);
-//    return GetStockTitleLink('mystock', $strSymbol, 'symbol='.$strSymbol);
+	$strTitle = 'mystock';
+	if ($strSymbol)
+	{
+		return GetStockSymbolLink($strTitle, $strSymbol, $strSymbol);
+	}
+	return GetStockTitleLink($strTitle, ALL_STOCK_DISPLAY);
 }
 
 function GetCalibrationHistoryLink($strSymbol)

@@ -90,7 +90,8 @@ function _wxGetStockArray($strContents)
     	}
     
     	// check all
-    	if ($result = SqlGetAllStock(0, 0)) 
+    	$sql = new StockSql();
+    	if ($result = $sql->GetAll()) 
     	{
     		while ($record = mysql_fetch_assoc($result)) 
     		{
@@ -209,11 +210,10 @@ function _wxEmailDebug($strUserName, $strText, $strSubject)
     EmailReport($str, $strSubject);
 }
 
-function _wxGetStockArrayText($arSymbol)
+function _wxGetStockArrayText($arSymbol, $str = '')
 {
 	sort($arSymbol);
     StockPrefetchArrayData($arSymbol);
-    $str = '';
     foreach ($arSymbol as $strSymbol)
     {
         if ($strText = _wxGetStockText($strSymbol))
@@ -265,9 +265,10 @@ class WeixinStock extends WeixinCallback
     
 		$strContents = strtoupper($strText);
 		$arSymbol = _wxGetStockArray($strContents);
-		if (count($arSymbol))
+		if ($iCount = count($arSymbol))
 		{
-			$str = _wxGetStockArrayText($arSymbol);
+			$str = ($iCount > 1) ? '至少发现'.strval($iCount).'个匹配'.WX_EOL : ''; 
+			$str = _wxGetStockArrayText($arSymbol, $str);
 		}
 		else
 		{

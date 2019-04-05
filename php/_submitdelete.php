@@ -41,7 +41,9 @@ function _deleteHasStockHistory($sql)
 
 function _deleteStockById($strStockId)
 {
-	$strSymbol = SqlGetStockSymbol($strStockId);
+	$sql = new StockSql();
+	$strSymbol = $sql->GetSymbol($strStockId);
+
 	DebugString('Deleting '.$strSymbol);
 	if (_deleteIsStockPair(TABLE_ADRH_STOCK, $strStockId))					return;
 	else if (_deleteIsStockPair(TABLE_AH_STOCK, $strStockId))				return;
@@ -66,7 +68,7 @@ function _deleteStockById($strStockId)
 		DebugVal($iTotal, 'Fund purchase existed');
 		return;
 	}
-	SqlDeleteStock($strStockId);
+	$sql->DeleteById($strStockId);
 }
 
 function _deleteTableDataById($strTableName)

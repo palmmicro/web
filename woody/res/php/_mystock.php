@@ -1,5 +1,6 @@
 <?php
 require_once('_stock.php');
+require_once('_emptygroup.php');
 require_once('_editmergeform.php');
 require_once('_editstockoptionform.php');
 require_once('/php/stockhis.php');
@@ -79,16 +80,15 @@ function _getMyStockLinks($sym)
     		$str .= ' '.GetStockOptionLink(STOCK_OPTION_ETF, $strSymbol);
     	}
     }
+   	$str .= ' '.GetMyStockLink();
     return $str;
 }
 
-function _echoMyStockData($strSymbol)
+function _echoMyStockData($ref, $strMemberId, $bAdmin)
 {
-    StockPrefetchData($strSymbol);
-    
     $hshare_ref = false;
     $etf_ref = false;
-    $sym = new StockSymbol($strSymbol);
+    $sym = $ref->GetSym();
     if ($sym->IsFundA())
     {
         $fund = StockGetFundReference($strSymbol);
@@ -99,7 +99,7 @@ function _echoMyStockData($strSymbol)
     {
     	if ($ref_ar = StockGetHShareReference($sym))				list($ref, $hshare_ref) = $ref_ar;
     	else if ($etf_ref = StockGetEtfReference($strSymbol))	$ref = $etf_ref;
-   		else														$ref = StockGetReference($strSymbol, $sym);
+//   		else														$ref = StockGetReference($strSymbol, $sym);
     }
     if ($ref->HasData() == false)		return;
     
@@ -146,13 +146,13 @@ function _echoMyStockData($strSymbol)
     
     EchoStockHistoryParagraph($ref, $strHistoryLink);
     
-    if ($strMemberId = AcctIsLogin())
+    if ($strMemberId)
     {
     	EchoStockGroupParagraph();	
         _echoMyStockTransactions($strMemberId, $ref);
     }
     
-    if (AcctIsAdmin())
+    if ($bAdmin)
     {
      	$str = _getMyStockLinks($sym);
     	$str .= '<br />'.$ref->DebugLink();
@@ -164,38 +164,21 @@ function _echoMyStockData($strSymbol)
     }
 }
 
-function _echoAllStock()
-{
-    $iStart = UrlGetQueryInt('start');
-    $iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
-    EchoStockParagraph($iStart, $iNum);
-}
-
-function _echoMyStockSymbol($strSymbol)
-{
-	$str = GetMyStockLink($strSymbol);
-    EchoParagraph($str);
-}
-
 function EchoAll()
 {
-    if ($strSymbol = UrlGetQueryValue('symbol'))
+	global $group;
+	
+	$bAdmin = $group->IsAdmin();
+	$ref = $group->GetRef();
+    if ($ref)
     {
-    	_echoMyStockData($strSymbol);
+    	_echoMyStockData($ref, $group->GetMemberId(), $bAdmin);
     }
-    else if ($strStockId = UrlGetQueryValue('id'))
+    else if ($bAdmin)
     {
-    	if ($strSymbol = SqlGetStockSymbol($strStockId))
-    	{
-    		_echoMyStockSymbol($strSymbol);
-    	}
-    }
-    else
-    {
-        if (AcctIsAdmin())
-        {
-        	_echoAllStock();
-        }
+    	$iStart = UrlGetQueryInt('start');
+    	$iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
+    	EchoStockParagraph($iStart, $iNum);
     }
     EchoPromotionHead();
     EchoStockCategory();
@@ -203,38 +186,25 @@ function EchoAll()
 
 function EchoMetaDescription()
 {
-    if ($strSymbol = UrlGetQueryValue('symbol'))
-    {
-    	$str = $strSymbol;
-    }
-    else if ($strStockId = UrlGetQueryValue('id'))
-    {
-    	$str = SqlGetStockSymbol($strStockId);
-    }
-    else
-    {
-        $str = _GetWhoseDisplay(AcctGetMemberId(), AcctIsLogin());
-        $str .= _GetAllDisplay(false);
-    }
-    
+	global $group;
+	
+	$ref = $group->GetRef();
+    $str = $ref ? $ref->GetStockSymbol() : _GetWhoseDisplay(AcctGetMemberId(), $group->GetMemberId())._GetAllDisplay(false);
 	$str .= '参考数据, AH对比, SMA均线, 布林线, 净值估算等本网站提供的内容. 可以用来按代码查询股票基本情况, 登录状态下还显示相关股票分组中的用户交易记录.';
     EchoMetaDescriptionText($str);
 }
 
 function EchoTitle()
 {
-    if ($strSymbol = UrlGetQueryValue('symbol'))  
-    {
-        $str = $strSymbol;
-    }
-    else
-    {
-    	$str = '我的股票';
-    }
+	global $group;
+	
+	$ref = $group->GetRef();
+    $str = $ref ? $ref->GetStockSymbol() : ALL_STOCK_DISPLAY;
     echo $str;
 }
 
-    AcctNoAuth();
+    $strMemberId = AcctNoAuth();
+    $group = new SymbolGroup($strMemberId);
 
 ?>
 
