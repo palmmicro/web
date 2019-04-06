@@ -297,6 +297,11 @@ function RefGetDescription($ref, $bConvertDisplay = false)
     return $str;
 }
 
+function RefGetStockDisplay($ref)
+{
+    return RefGetDescription($ref).'('.$ref->GetStockSymbol().')';
+}
+
 function RefSortBySymbol($arRef)
 {
     $ar = array();

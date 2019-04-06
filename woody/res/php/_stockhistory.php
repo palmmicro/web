@@ -50,7 +50,7 @@ function EchoMetaDescription()
 {
 	global $group;
 	
-  	$str = $group->GetSymbolDisplay().STOCK_HISTORY_DISPLAY;
+  	$str = $group->GetStockDisplay().STOCK_HISTORY_DISPLAY;
     $str .= '页面. 用于查看计算SMA的原始数据, 提供跟Yahoo或者Sina历史数据同步的功能, 方便人工处理合股和拆股, 分红除权等价格处理问题.';
     EchoMetaDescriptionText($str);
 }

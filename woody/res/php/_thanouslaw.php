@@ -1,5 +1,6 @@
 <?php
 require_once('_stock.php');
+require_once('_emptygroup.php');
 require_once('/php/csvfile.php');
 require_once('/php/ui/pricepoolparagraph.php');
 
@@ -95,10 +96,13 @@ END;
 
 function EchoAll()
 {
-    if ($strSymbol = UrlGetQueryValue('symbol'))
+	global $group;
+	
+    if ($ref = $group->GetRef())
     {
-    	StockPrefetchData($strSymbol);
    		EchoStockGroupParagraph();
+   		
+   		$strSymbol = $ref->GetStockSymbol();
         if (in_arrayLof($strSymbol))
         {
    			$iStart = UrlGetQueryInt('start');
@@ -109,23 +113,28 @@ function EchoAll()
             DebugString($strSymbol.' Thanous Law: '.DebugGetStopWatchDisplay($fStart));
         }
     }
-    EchoPromotionHead('thanouslaw');
-    EchoStockCategory();
+    $group->EchoLinks('thanouslaw');
 }
 
 function EchoMetaDescription()
 {
-    $str = UrlGetQueryDisplay('symbol');
-    $str .= '测试小心愿定律. 仅用于华宝油气(SZ162411)等LOF基金. 看白天A股华宝油气的溢价或者折价交易是否可以像小心愿认为的那样预测晚上美股XOP的涨跌.';
+	global $group;
+	
+  	$str = $group->GetStockDisplay().THANOUS_LAW_DISPLAY;
+    $str .= '测试. 仅用于华宝油气(SZ162411)等LOF基金. 看白天A股华宝油气的溢价或者折价交易是否可以像小心愿认为的那样预测晚上美股XOP的涨跌.';
     EchoMetaDescriptionText($str);
 }
 
 function EchoTitle()
 {
-  	echo UrlGetQueryDisplay('symbol').THANOUS_LAW_DISPLAY;
+	global $group;
+	
+  	$str = $group->GetSymbolDisplay().THANOUS_LAW_DISPLAY;
+  	echo $str;
 }
 
-    AcctAuth();
+    $strMemberId = AcctAuth();
+    $group = new StockSymbolPage($strMemberId);
 
 ?>
 

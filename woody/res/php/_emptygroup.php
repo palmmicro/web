@@ -50,7 +50,14 @@ class StockSymbolPage extends EmptyStockGroup
     
     function GetSymbolDisplay($strDefault = '')
     {
-        return $this->ref ? $this->ref->GetStockSymbol() : $strDefault;
+    	$ref = $this->GetRef();
+        return $ref ? $ref->GetStockSymbol() : $strDefault;
+    }
+
+    function GetStockDisplay($strDefault = '')
+    {
+    	$ref = $this->GetRef();
+        return $ref ? RefGetStockDisplay($ref) : $strDefault;
     }
 }
 

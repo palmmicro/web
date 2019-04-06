@@ -81,10 +81,10 @@ function EchoMetaDescription($bChinese = true)
 {
     global $group;
 
-    $strDescription = _GetStockDisplay($group->ref);
-    $strEst = _GetStockDisplay($group->ref->pair_nv_ref);
-    $strUS = _GetStockDisplay($group->us_ref);
-    $strCNY = _GetStockDisplay($group->us_ref->cny_ref);
+    $strDescription = RefGetStockDisplay($group->ref);
+    $strEst = RefGetStockDisplay($group->ref->pair_nv_ref);
+    $strUS = RefGetStockDisplay($group->us_ref);
+    $strCNY = RefGetStockDisplay($group->us_ref->cny_ref);
     $str = "根据{$strEst}计算{$strDescription}净值的网页工具. 同时根据{$strUS}和{$strCNY}提供配对交易分析.";
     EchoMetaDescriptionText($str);
 }
@@ -93,7 +93,7 @@ function EchoTitle($bChinese = true)
 {
     global $group;
     
-    $str = _GetStockDisplay($group->ref).STOCK_DISP_NETVALUE;
+    $str = RefGetStockDisplay($group->ref).STOCK_DISP_NETVALUE;
     echo $str;
 }
 

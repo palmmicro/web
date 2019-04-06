@@ -180,7 +180,7 @@ function AdrEchoTitle()
 {
     global $group;
     
-    $strDescription = _GetStockDisplay($group->us_ref);
+    $strDescription = RefGetStockDisplay($group->us_ref);
     $str = '比较'.$strDescription.'对应港股和A股的价格';
     echo $str;
 }
@@ -189,9 +189,9 @@ function AdrEchoMetaDescription()
 {
     global $group;
     
-    $strAdr = _GetStockDisplay($group->us_ref);
-    $strA = _GetStockDisplay($group->cn_ref);
-    $strH = _GetStockDisplay($group->hk_ref);
+    $strAdr = RefGetStockDisplay($group->us_ref);
+    $strA = RefGetStockDisplay($group->cn_ref);
+    $strH = RefGetStockDisplay($group->hk_ref);
     $str = '根据'.RefGetDescription($group->uscny_ref).'和'.RefGetDescription($group->hkcny_ref).'计算比较美股'.$strAdr.', A股'.$strA.'和港股'.$strH.'价格的网页工具, 提供不同市场下统一的交易记录和转换持仓盈亏等功能.';
     EchoMetaDescriptionText($str);
 }

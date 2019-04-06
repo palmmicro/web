@@ -161,7 +161,7 @@ function EchoMetaDescription($bChinese = true)
     global $group;
     
     $fund = $group->ref;
-    $strDescription = _GetStockDisplay($fund->stock_ref);
+    $strDescription = RefGetStockDisplay($fund->stock_ref);
     $strBase = RefGetDescription($group->cny_ref);
     if ($fund->est_ref)     $strBase .= '/'.RefGetDescription($fund->est_ref);
     

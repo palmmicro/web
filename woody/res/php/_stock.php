@@ -228,10 +228,5 @@ function _GetAllDisplay($str)
     return ($str) ? $str : '全部';
 }
 
-function _GetStockDisplay($ref)
-{
-    return RefGetDescription($ref).'('.$ref->GetStockSymbol().')';
-}
-
 
 ?>
