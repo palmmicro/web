@@ -89,6 +89,7 @@ function _echoMyStockData($ref, $strMemberId, $bAdmin)
     $hshare_ref = false;
     $etf_ref = false;
     $sym = $ref->GetSym();
+    $strSymbol = $sym->GetSymbol();
     if ($sym->IsFundA())
     {
         $fund = StockGetFundReference($strSymbol);
@@ -180,16 +181,14 @@ function EchoAll()
     	$iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
     	EchoStockParagraph($iStart, $iNum);
     }
-    EchoPromotionHead();
-    EchoStockCategory();
+    $group->EchoLinks();
 }
 
 function EchoMetaDescription()
 {
 	global $group;
 	
-	$ref = $group->GetRef();
-    $str = $ref ? $ref->GetStockSymbol() : _GetWhoseDisplay(AcctGetMemberId(), $group->GetMemberId())._GetAllDisplay(false);
+    $str = $group->GetSymbolDisplay(_GetWhoseDisplay(AcctGetMemberId(), $group->GetMemberId())._GetAllDisplay(false));
 	$str .= '参考数据, AH对比, SMA均线, 布林线, 净值估算等本网站提供的内容. 可以用来按代码查询股票基本情况, 登录状态下还显示相关股票分组中的用户交易记录.';
     EchoMetaDescriptionText($str);
 }
@@ -198,13 +197,12 @@ function EchoTitle()
 {
 	global $group;
 	
-	$ref = $group->GetRef();
-    $str = $ref ? $ref->GetStockSymbol() : ALL_STOCK_DISPLAY;
+    $str = $group->GetSymbolDisplay(ALL_STOCK_DISPLAY);
     echo $str;
 }
 
     $strMemberId = AcctNoAuth();
-    $group = new SymbolGroup($strMemberId);
+    $group = new StockSymbolPage($strMemberId);
 
 ?>
 

@@ -1,14 +1,14 @@
 <?php
 require_once('/php/stockgroup.php');
 
-class SymbolGroup extends EmptyGroup
+class StockSymbolPage extends EmptyStockGroup
 {
     var $ref = false;		// MysqlReference
     
     var $strMemberId;
     var $bAdmin;
     
-    function SymbolGroup($strMemberId) 
+    function StockSymbolPage($strMemberId) 
     {
     	if ($strSymbol = UrlGetQueryValue('symbol'))
     	{
@@ -40,6 +40,17 @@ class SymbolGroup extends EmptyGroup
     function IsAdmin()
     {
     	return $this->bAdmin;
+    }
+    
+    function EchoLinks($strVer = false)
+    {
+    	EchoPromotionHead($strVer);
+    	EchoStockCategory();
+    }
+    
+    function GetSymbolDisplay($strDefault = '')
+    {
+        return $this->ref ? $this->ref->GetStockSymbol() : $strDefault;
     }
 }
 

@@ -1,14 +1,14 @@
 <?php
 require_once('stocktable.php');
 
-function _echoCalibrationItem($ref, $record, $bTest)
+function _echoCalibrationItem($ref, $record, $bAdmin)
 {
    	$strDate = $record['date'];
     $strPrice = $ref->GetPriceDisplay(floatval($ref->nv_ref->sql->GetClose($strDate)), false);
     $strPairPrice = $ref->pair_ref->GetPriceDisplay(floatval($ref->pair_nv_ref->sql->GetClose($strDate)), false);
     
     $strClose = $record['close'];
-    if ($bTest)
+    if ($bAdmin)
     {
     	$strDate = GetOnClickLink('/php/_submitdelete.php?'.TABLE_ETF_CALIBRATION.'='.$record['id'], '确认删除'.$strDate.'校准记录'.$strClose.'?', $strDate);
     }
@@ -24,13 +24,13 @@ function _echoCalibrationItem($ref, $record, $bTest)
 END;
 }
 
-function _echoCalibrationData($ref, $iStart, $iNum, $bTest)
+function _echoCalibrationData($ref, $iStart, $iNum, $bAdmin)
 {
     if ($result = $ref->sql->GetAll($iStart, $iNum)) 
     {
         while ($record = mysql_fetch_assoc($result)) 
         {
-            _echoCalibrationItem($ref, $record, $bTest);
+            _echoCalibrationItem($ref, $record, $bAdmin);
         }
         @mysql_free_result($result);
     }
@@ -58,7 +58,7 @@ function EchoCalibrationParagraph($strSymbol, $iStart = 0, $iNum = TABLE_COMMON_
     	$str .= ' '.$strNavLink;
     }
     
-    if ($bTest = AcctIsAdmin())
+    if ($bAdmin = AcctIsAdmin())
     {
     	$str .= ' '.GetInternalLink('/php/_submitoperation.php?calibration='.$strSymbol, '手工校准');
     }
@@ -74,7 +74,7 @@ function EchoCalibrationParagraph($strSymbol, $iStart = 0, $iNum = TABLE_COMMON_
     </tr>
 END;
 
-    _echoCalibrationData($ref, $iStart, $iNum, $bTest);
+    _echoCalibrationData($ref, $iStart, $iNum, $bAdmin);
     EchoTableParagraphEnd($strNavLink);
 }
 

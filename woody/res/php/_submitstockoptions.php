@@ -210,7 +210,7 @@ function _updateStockOptionSplit($ref, $strSymbol, $strStockId, $strDate, $strVa
 		$strSymbol = UrlCleanString($_POST['symbol']);
 		$strDate = UrlCleanString($_POST['date']);
 		$strVal = UrlCleanString($_POST['val']);
-   		$bTest = AcctIsAdmin();
+   		$bAdmin = AcctIsAdmin();
 		$strStockId = SqlGetStockId($strSymbol);
 		
     	StockPrefetchData($strSymbol);
@@ -219,15 +219,15 @@ function _updateStockOptionSplit($ref, $strSymbol, $strStockId, $strDate, $strVa
 		switch ($_POST['submit'])
 		{
 		case STOCK_OPTION_ADJCLOSE:
-			if ($bTest)	_updateStockHistoryAdjCloseByDividend($ref, $strSymbol, $strDate, $strVal);
+			if ($bAdmin)	_updateStockHistoryAdjCloseByDividend($ref, $strSymbol, $strDate, $strVal);
 			break;
 			
 		case STOCK_OPTION_ADR:
-			if ($bTest)	_updateStockOptionAdr($strSymbol, $strVal);
+			if ($bAdmin)	_updateStockOptionAdr($strSymbol, $strVal);
 			break;
 			
 		case STOCK_OPTION_AH:
-			if ($bTest)	_updateStockOptionAdr($strSymbol, $strVal, TABLE_AH_STOCK);
+			if ($bAdmin)	_updateStockOptionAdr($strSymbol, $strVal, TABLE_AH_STOCK);
 			break;
 			
 		case STOCK_OPTION_AMOUNT:
@@ -235,23 +235,23 @@ function _updateStockOptionSplit($ref, $strSymbol, $strStockId, $strDate, $strVa
 			break;
 
 		case STOCK_OPTION_CLOSE:
-			if ($bTest)	_updateStockHistoryClose($ref, $strSymbol, $strDate, $strVal);
+			if ($bAdmin)	_updateStockHistoryClose($ref, $strSymbol, $strDate, $strVal);
 			break;
 			
 		case STOCK_OPTION_EDIT:
-			if ($bTest)	_updateStockDescription($strSymbol, $strStockId, $strVal);
+			if ($bAdmin)	_updateStockDescription($strSymbol, $strStockId, $strVal);
 			break;
 			
 		case STOCK_OPTION_EMA:
-			if ($bTest)	_updateStockOptionEma($strSymbol, $strStockId, $strDate, $strVal);
+			if ($bAdmin)	_updateStockOptionEma($strSymbol, $strStockId, $strDate, $strVal);
 			break;
 			
 		case STOCK_OPTION_ETF:
-			if ($bTest)	_updateStockOptionEtf($strSymbol, $strVal);
+			if ($bAdmin)	_updateStockOptionEtf($strSymbol, $strVal);
 			break;
 			
 		case STOCK_OPTION_SPLIT:
-			if ($bTest)	_updateStockOptionSplit($ref, $strSymbol, $strStockId, $strDate, $strVal);
+			if ($bAdmin)	_updateStockOptionSplit($ref, $strSymbol, $strStockId, $strDate, $strVal);
 			break;
 		}
 		unset($_POST['submit']);

@@ -2,7 +2,7 @@
 require_once('stocktrans.php');
 require_once('class/multi_currency.php');
 
-class EmptyGroup
+class EmptyStockGroup
 {
     var $strGroupId = false;
     
@@ -14,7 +14,7 @@ class EmptyGroup
 
 // ****************************** StockGroup Class *******************************************************
 
-class StockGroup extends EmptyGroup
+class StockGroup extends EmptyStockGroup
 {
     var $multi_amount;
     var $multi_profit;

@@ -28,7 +28,7 @@ function _echoNvCloseItem($csv, $strDate, $fNetValue, $ref, $strFundId)
 END;
 }
 
-function _echoNvCloseData($sql, $ref, $csv, $iStart, $iNum, $bTest)
+function _echoNvCloseData($sql, $ref, $csv, $iStart, $iNum, $bAdmin)
 {
 	$clone_ref = clone $ref;
     if ($result = $sql->GetAll($iStart, $iNum)) 
@@ -41,7 +41,7 @@ function _echoNvCloseData($sql, $ref, $csv, $iStart, $iNum, $bTest)
         		$strDate = $record['date'];
        			if ($stock_ref = RefGetDailyClose($clone_ref, $strDate))
        			{
-       				_echoNvCloseItem($csv, $strDate, $fNetValue, $stock_ref, ($bTest ? $record['id'] : false));
+       				_echoNvCloseItem($csv, $strDate, $fNetValue, $stock_ref, ($bAdmin ? $record['id'] : false));
         		}
         	}
         }
