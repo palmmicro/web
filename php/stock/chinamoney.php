@@ -21,6 +21,8 @@ function _chinaMoneyHasFile($now_ymd, $strFileName)
 
 function _chinaMoneyNeedData($ymd, $uscny_sql, $hkcny_sql)
 {
+	if ($ymd->IsWeekend())	return false;
+	
     $strDate = $ymd->GetYMD();
     if ($uscny_sql->Get($strDate) && $hkcny_sql->Get($strDate))
     {

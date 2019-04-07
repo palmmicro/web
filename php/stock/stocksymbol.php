@@ -1,5 +1,7 @@
 <?php
 
+define('MAX_STOCK_SYMBOL_LEN', 10);
+
 define('SINA_FUTURE_PREFIX', 'hf_');
 define('SINA_FUND_PREFIX', 'f_');
 define('SINA_HK_PREFIX', 'rt_hk');

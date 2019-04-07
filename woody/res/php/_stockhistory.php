@@ -26,21 +26,21 @@ function EchoAll()
 	global $group;
 	
 	$bAdmin = $group->IsAdmin();
-	$ref = $group->GetRef();
-    if (RefHasData($ref))
+    if ($ref = $group->EchoStockGroup())
     {
-   		EchoStockGroupParagraph();
-
-   		$strLinks = _getStockHistoryLinks($ref, $bAdmin);
-    	$iStart = UrlGetQueryInt('start');
-    	$iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
-    	$csv = new PageCsvFile();
-		EchoStockHistoryParagraph($ref, $strLinks, $csv, $iStart, $iNum);
-		$csv->Close();
-
-    	if ($bAdmin && $iStart == 0)
+    	if ($ref->HasData())
     	{
-			StockOptionEditForm($ref, STOCK_OPTION_ADJCLOSE);
+    		$strLinks = _getStockHistoryLinks($ref, $bAdmin);
+    		$iStart = UrlGetQueryInt('start');
+    		$iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
+    		$csv = new PageCsvFile();
+    		EchoStockHistoryParagraph($ref, $strLinks, $csv, $iStart, $iNum);
+    		$csv->Close();
+
+    		if ($bAdmin && $iStart == 0)
+    		{
+    			StockOptionEditForm($ref, STOCK_OPTION_ADJCLOSE);
+    		}
     	}
     }
     $group->EchoLinks();
@@ -63,7 +63,7 @@ function EchoTitle()
   	echo $str;
 }
 
-    $strMemberId = AcctAuth();
-    $group = new StockSymbolPage($strMemberId);
+    $strLoginId = AcctAuth();
+    $group = new StockSymbolPage($strLoginId);
 
 ?>

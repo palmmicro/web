@@ -55,18 +55,19 @@ function AcctLogout()
 	unset($_SESSION['SESS_ID']);
 }
 
-function AcctGetEmail()
+function AcctGetEmail($strLoginId = false)
 {
-    if ($strEmail = SqlGetEmailById($_SESSION['SESS_ID']))
+	if ($strLoginId == false)	$strLoginId = $_SESSION['SESS_ID'];
+    if ($strEmail = SqlGetEmailById($strLoginId))
 	{
 	    return $strEmail;
 	}
 	return '';
 }
 
-function AcctIsAdmin()
+function AcctIsAdmin($strLoginId = false)
 {
-    if (AcctGetEmail() == ADMIN_EMAIL)
+    if (AcctGetEmail($strLoginId) == ADMIN_EMAIL)
 	{
 	    return true;
 	}

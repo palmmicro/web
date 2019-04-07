@@ -15,7 +15,7 @@
 <p>12月4日 <a href="entertainment/20141204cn.php">林近岚的由来</a>
 <br /><img src=photo/20141204.jpg alt="Woody and Sapphire Lin are both worried!" /></p>
 
-<p>10月16日 <a href="entertainment/20141016cn.php">大道至简从上证大型国有股获利</a>
+<p>10月16日 <a href="entertainment/20141016cn.php">从上证大型国有股获利</a>
 <br /><img src=photo/20141016.jpg alt="Screen shot of my Chinese A stock portfolio as of Oct 16 2014." /></p>
 
 <p>6月15日 <a href="entertainment/20140615cn.php">升级到Visual Studio 2013</a>

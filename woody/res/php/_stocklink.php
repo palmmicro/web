@@ -380,14 +380,15 @@ function _getPersonalLinks($strMemberId)
 	return $str;
 }
 
-function _getStockGroupLinks()
+function _getStockGroupLinks($strLoginId = false)
 {
     $str = '<br />'.GetCategoryLinks(GetMenuArray());
     $str .= '<br />'.GetMyStockGroupLink();	// .' '.GetAhCompareLink().' '.GetAdrhCompareLink();
     $str .= '<br />'.GetMyPortfolioLink();
-    if ($strMemberId = AcctIsLogin())
+    if ($strLoginId == false)	$strLoginId = AcctIsLogin();
+    if ($strLoginId)
     {
-        $str .= _getPersonalLinks($strMemberId);
+        $str .= _getPersonalLinks($strLoginId);
     }
     return $str;
 }
@@ -398,11 +399,11 @@ function EchoStockGroupLinks($bChinese = true)
     echo $str;
 }
 
-function EchoStockCategory()
+function EchoStockCategory($strLoginId = false)
 {
 	$str = '相关软件:<br />'; 
     $str .= GetCategoryLinks(_getCategoryArray());
-	$str .= _getStockGroupLinks();
+	$str .= _getStockGroupLinks($strLoginId);
     EchoParagraph($str);
 }
 

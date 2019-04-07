@@ -5,15 +5,18 @@ class StockSymbolPage extends EmptyStockGroup
 {
     var $ref = false;		// MysqlReference
     
+    var $strLoginId;
     var $strMemberId;
-    var $bAdmin;
     
-    function StockSymbolPage($strMemberId) 
+    function StockSymbolPage($strLoginId) 
     {
     	if ($strSymbol = UrlGetQueryValue('symbol'))
     	{
-    		StockPrefetchData($strSymbol);
-    		$this->ref = StockGetReference($strSymbol);
+    		if (strlen($strSymbol) <= MAX_STOCK_SYMBOL_LEN)
+    		{
+    			StockPrefetchData($strSymbol);
+    			$this->ref = StockGetReference($strSymbol);
+    		}
     	}
 	   	else if ($strStockId = UrlGetQueryValue('id'))
 	   	{
@@ -23,8 +26,15 @@ class StockSymbolPage extends EmptyStockGroup
 	   		}
 	   	}
 	   	
-	   	$this->strMemberId = $strMemberId;
-	   	$this->bAdmin = AcctIsAdmin();
+	   	$this->strLoginId = $strLoginId;
+	   	if ($strEmail = UrlGetQueryValue('email'))
+	   	{
+	   		$this->strMemberId = SqlGetIdByEmail($strEmail); 
+	   	}
+	   	else
+	   	{
+	   		$this->strMemberId = $strLoginId;
+	   	}
     }
     
     function GetRef()
@@ -32,20 +42,32 @@ class StockSymbolPage extends EmptyStockGroup
     	return $this->ref;
     }
 
-    function GetMemberId()
+    function GetLoginId()
     {
-    	return $this->strMemberId;
+    	return $this->strLoginId;
     }
     
     function IsAdmin()
     {
-    	return $this->bAdmin;
+	   	return AcctIsAdmin($this->strLoginId);
     }
     
     function EchoLinks($strVer = false)
     {
     	EchoPromotionHead($strVer);
-    	EchoStockCategory();
+    	EchoStockCategory($this->strLoginId);
+    }
+    
+    function EchoStockGroup()
+    {
+    	if ($ref = $this->GetRef())
+    	{
+    		if ($strLoginId = $this->GetLoginId())
+    		{
+    			EchoAllStockGroupParagraph($this->GetGroupId(), $ref->GetStockId(), $this->strMemberId, $strLoginId);
+    		}
+    	}
+    	return $ref;
     }
     
     function GetSymbolDisplay($strDefault = '')
@@ -58,6 +80,11 @@ class StockSymbolPage extends EmptyStockGroup
     {
     	$ref = $this->GetRef();
         return $ref ? RefGetStockDisplay($ref) : $strDefault;
+    }
+
+    function GetWhoseDisplay()
+    {
+    	return _GetWhoseDisplay($this->strMemberId, $this->strLoginId);
     }
 }
 

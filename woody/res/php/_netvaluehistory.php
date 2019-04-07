@@ -46,10 +46,8 @@ function EchoAll()
 {
 	global $group;
 	
-    if ($ref = $group->GetRef())
+    if ($ref = $group->EchoStockGroup())
     {
-   		EchoStockGroupParagraph();	
-
    		$iStart = UrlGetQueryInt('start');
    		$iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
    		_echoNetValueHistory($ref->GetStockSymbol(), $iStart, $iNum);
@@ -74,8 +72,8 @@ function EchoTitle()
   	echo $str;
 }
 
-    $strMemberId = AcctAuth();
-    $group = new StockSymbolPage($strMemberId);
+    $strLoginId = AcctAuth();
+    $group = new StockSymbolPage($strLoginId);
 
 ?>
 

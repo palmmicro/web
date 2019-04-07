@@ -98,10 +98,8 @@ function EchoAll()
 {
 	global $group;
 	
-    if ($ref = $group->GetRef())
+    if ($ref = $group->EchoStockGroup())
     {
-   		EchoStockGroupParagraph();
-   		
    		$strSymbol = $ref->GetStockSymbol();
         if (in_arrayLof($strSymbol))
         {
@@ -133,8 +131,8 @@ function EchoTitle()
   	echo $str;
 }
 
-    $strMemberId = AcctAuth();
-    $group = new StockSymbolPage($strMemberId);
+    $strLoginId = AcctAuth();
+    $group = new StockSymbolPage($strLoginId);
 
 ?>
 

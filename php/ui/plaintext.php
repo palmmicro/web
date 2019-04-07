@@ -3,9 +3,9 @@ define('MAX_META_DESCRIPTION', 156);
 
 function _emailMetaDescriptionWarning($iLen, $strType, $str)
 {
-    $strText = GetCurLink().'<br />';
-    $strText .= sprintf('Length=%d', $iLen).'<br />';
-    $strText .= $str;
+    $strText = GetCurLink();
+    $strText .= '<br />Length='.strval($iLen);
+    $strText .= '<br />'.$str;
     EmailReport($strText, $strType.' Meta Description Warning');
 }
 

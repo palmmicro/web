@@ -30,7 +30,7 @@ function _stockGroupGetStockLinks($strGroupId)
 	return $strStocks;
 }
 
-function _echoStockGroupTableItem($strGroupId)
+function _echoStockGroupTableItem($strGroupId, $strLoginId = false)
 {
     if (StockGroupIsReadOnly($strGroupId))
     {
@@ -55,8 +55,9 @@ function _echoStockGroupTableItem($strGroupId)
 END;
 }
 
-function _echoNewStockGroupTableItem($strSymbol)
+function _echoNewStockGroupTableItem($strStockId)
 {
+	$strSymbol = SqlGetStockSymbol($strStockId);
    	$strStocks = GetMyStockLink($strSymbol);
    	$strNew = GetNewLink(STOCK_PATH.'editstockgroup', $strSymbol);
     echo <<<END
@@ -68,42 +69,31 @@ function _echoNewStockGroupTableItem($strSymbol)
 END;
 }
 
-function _echoStockGroupTableData()
+function _echoStockGroupTableData($strStockId, $strMemberId, $strLoginId)
 {
-    if ($strGroupId = UrlGetQueryValue('groupid'))
-    {
-		_echoStockGroupTableItem($strGroupId);
-		return;
-    }
-
-    if ($strSymbol = UrlGetQueryValue('symbol'))
-    {	// in pages like mystock
-    	$strStockId = SqlGetStockId($strSymbol);
-    }
-    
     $iTotal = 0;
-	$sql = new StockGroupSql(AcctGetMemberId());
+	$sql = new StockGroupSql($strMemberId);
 	if ($result = $sql->GetAll()) 
 	{
 		while ($record = mysql_fetch_assoc($result)) 
 		{
 			$strGroupId = $record['id'];
-			if (($strSymbol == false) || SqlGroupHasStock($strGroupId, $strStockId))
+			if (($strStockId == false) || SqlGroupHasStock($strGroupId, $strStockId))
 			{
-				_echoStockGroupTableItem($strGroupId);
+				_echoStockGroupTableItem($strGroupId, $strLoginId);
 				$iTotal ++;
 			}
 		}
 		@mysql_free_result($result);
 	}
-	
-	if ($strSymbol && $iTotal == 0)
+
+	if ($strStockId && $iTotal == 0)
 	{
-		_echoNewStockGroupTableItem($strSymbol);
+		_echoNewStockGroupTableItem($strStockId);
 	}
 }
 
-function EchoStockGroupParagraph()
+function EchoAllStockGroupParagraph($strGroupId = false, $strStockId = false, $strMemberId = false, $strLoginId = false)
 {
     $strStockGroup = GetMyStockGroupLink();
 	$strSymbol = GetTableColumnSymbol();
@@ -118,8 +108,34 @@ function EchoStockGroupParagraph()
     </tr>
 END;
 
-    _echoStockGroupTableData();
+	if ($strGroupId)
+	{
+		_echoStockGroupTableItem($strGroupId, $strLoginId);
+	}
+	else
+	{
+		_echoStockGroupTableData($strStockId, $strMemberId, $strLoginId);
+	}
     EchoTableParagraphEnd();
+}
+
+function EchoStockGroupParagraph()
+{
+	$strMemberId = AcctGetMemberId();
+	$strLoginId = AcctIsLogin();
+	
+    if ($strGroupId = UrlGetQueryValue('groupid'))
+    {
+    	EchoAllStockGroupParagraph($strGroupId, false, $strMemberId, $strLoginId);
+    }
+    else if ($strSymbol = UrlGetQueryValue('symbol'))
+    {	// in pages like mystock
+    	EchoAllStockGroupParagraph(false, SqlGetStockId($strSymbol), $strMemberId, $strLoginId);
+    }
+    else
+    {
+    	EchoAllStockGroupParagraph(false, false, $strMemberId, $strLoginId);
+    }
 }
 
 ?>
