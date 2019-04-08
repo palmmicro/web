@@ -1,5 +1,6 @@
 <?php
 require_once('_stock.php');
+require_once('_emptygroup.php');
 require_once('/php/csvfile.php');
 require_once('/php/imagefile.php');
 require_once('/php/ui/pricepoolparagraph.php');
@@ -31,15 +32,15 @@ function _echoNvCloseGraph($strSymbol)
 
 function EchoAll()
 {
-    if ($strSymbol = UrlGetQueryValue('symbol'))
+	global $group;
+	
+    if ($ref = $group->EchoStockGroup())
     {
-    	StockPrefetchData($strSymbol);
-   		EchoStockGroupParagraph();
-   		
-        $ref = StockGetReference($strSymbol);
         if ($ref->HasData())
     	{
+    		$strSymbol = $ref->GetStockSymbol();
     		$strLinks = GetStockHistoryLink($strSymbol);
+    		
     		$iStart = UrlGetQueryInt('start');
     		$iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
     		$csv = new PageCsvFile();
@@ -50,22 +51,26 @@ function EchoAll()
 			_echoNvCloseGraph($strSymbol);
     	}
     }
-    EchoPromotionHead('nvclose');
-    EchoStockCategory();
+    $group->EchoLinks('nvclose');
 }
 
 function EchoMetaDescription()
 {
-    $str = UrlGetQueryDisplay('symbol');
-    $str .= '净值和收盘价历史比较页面. 观察每天净值和收盘价偏离的情况. 同时判断偏离的方向和大小是否跟当天涨跌以及交易量相关, 总结规律以便提供可能的套利操作建议.';
+	global $group;
+	
+  	$str = $group->GetStockDisplay().NVCLOSE_HISTORY_DISPLAY;
+    $str .= '页面. 观察每天净值和收盘价偏离的情况. 同时判断偏离的方向和大小是否跟当天涨跌以及交易量相关, 总结规律以便提供可能的套利操作建议.';
     EchoMetaDescriptionText($str);
 }
 
 function EchoTitle()
 {
-  	echo UrlGetQueryDisplay('symbol').NVCLOSE_HISTORY_DISPLAY;
+	global $group;
+	
+  	$str = $group->GetSymbolDisplay().NVCLOSE_HISTORY_DISPLAY;
+  	echo $str;
 }
 
-    AcctAuth();
+    $group = new StockSymbolPage();
 
 ?>

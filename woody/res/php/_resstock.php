@@ -91,10 +91,10 @@ function NavLoopChinaEtf($bChinese)
     ResMenu(ChinaEtfGetSymbolArray(), $bChinese);
 }
 
-function _LayoutChinaEtfTopLeft($bChinese = true)
+function _LayoutChinaEtfTopLeft()
 {
     SetSwitchLanguage();
-    LayoutTopLeft(NavLoopChinaEtf, $bChinese);
+    LayoutTopLeft(NavLoopChinaEtf);
 }
 
 function NavLoopLof($bChinese)

@@ -131,8 +131,7 @@ function EchoTitle()
   	echo $str;
 }
 
-    $strLoginId = AcctAuth();
-    $group = new StockSymbolPage($strLoginId);
+    $group = new StockSymbolPage();
 
 ?>
 

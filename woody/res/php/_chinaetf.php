@@ -53,7 +53,7 @@ function _chinaEtfRefCallback($ref = false)
     return array(GetTableColumnNetValue(), $arFundEst[1], $arFundEst[2]);
 }
 
-function EchoAll($bChinese = true)
+function EchoAll()
 {
     global $group;
     
@@ -77,7 +77,7 @@ function EchoAll($bChinese = true)
     EchoPromotionHead('chinaetf');
 }
 
-function EchoMetaDescription($bChinese = true)
+function EchoMetaDescription()
 {
     global $group;
 
@@ -89,7 +89,7 @@ function EchoMetaDescription($bChinese = true)
     EchoMetaDescriptionText($str);
 }
 
-function EchoTitle($bChinese = true)
+function EchoTitle()
 {
     global $group;
     

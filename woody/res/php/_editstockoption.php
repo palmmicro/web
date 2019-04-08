@@ -1,5 +1,6 @@
 <?php
 require_once('_stock.php');
+require_once('_emptygroup.php');
 require_once('_editstockoptionform.php');
 
 function _getEditStockOptionSubmit($strTitle)
@@ -10,12 +11,10 @@ function _getEditStockOptionSubmit($strTitle)
 
 function EchoAll()
 {
-    if ($strSymbol = UrlGetQueryValue('symbol'))
+	global $group;
+	
+    if ($ref = $group->EchoStockGroup())
     {
-    	StockPrefetchData($strSymbol);
-   		EchoStockGroupParagraph();
-    	
-        $ref = StockGetReference($strSymbol);
         if ($ref->HasData())
         {
         	$strTitle = UrlGetTitle();
@@ -26,17 +25,22 @@ function EchoAll()
 
 function EchoMetaDescription()
 {
+	global $group;
+	
 	$strTitle = UrlGetTitle();
-    $str = '本中文页面文件跟/woody/res/php/_submitstockoptions.php和/woody/res/php/_editstockoptionform.php一起配合';
+    $str = '本中文页面文件跟/woody/res/php/_submitstockoptions.php和/woody/res/php/_editstockoptionform.php一起配合, 对'.$group->GetStockDisplay();
     $str .= _getEditStockOptionSubmit($strTitle);
     EchoMetaDescriptionText($str);
 }
 
 function EchoTitle()
 {
-    echo _getEditStockOptionSubmit(UrlGetTitle());
+	global $group;
+	
+  	$str = $group->GetSymbolDisplay()._getEditStockOptionSubmit(UrlGetTitle());
+    echo $str;
 }
 
-    AcctAuth();
+    $group = new StockSymbolPage();
     
 ?>

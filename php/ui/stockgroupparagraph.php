@@ -32,15 +32,15 @@ function _stockGroupGetStockLinks($strGroupId)
 
 function _echoStockGroupTableItem($strGroupId, $strLoginId = false)
 {
-    if (StockGroupIsReadOnly($strGroupId))
+    $strEdit = '';
+    $strDelete = GetDeleteLink(STOCK_PHP_PATH.'_submitgroup.php?delete='.$strGroupId, '股票分组和相关交易记录');
+    if (SqlGetStockGroupMemberId($strGroupId) == $strLoginId)
     {
-        $strEdit = '';
-        $strDelete = '';
-    }
-    else
-    {	// editstockgroupcn.php?edit=24
     	$strEdit = GetEditLink(STOCK_PATH.'editstockgroup', $strGroupId);
-        $strDelete = GetDeleteLink(STOCK_PHP_PATH.'_submitgroup.php?delete='.$strGroupId, '股票分组和相关交易记录');
+    }
+    else if (AcctIsAdmin($strLoginId) == false)
+    {
+        $strDelete = '';
     }
     
     $strLink = GetStockGroupLink($strGroupId);

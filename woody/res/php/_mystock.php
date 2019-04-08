@@ -199,8 +199,7 @@ function EchoTitle()
     echo $str;
 }
 
-    $strLoginId = AcctNoAuth();
-    $group = new StockSymbolPage($strLoginId);
-
+    $group = new StockSymbolPage(false);
+    
 ?>
 

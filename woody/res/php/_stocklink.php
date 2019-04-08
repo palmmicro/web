@@ -382,14 +382,17 @@ function _getPersonalLinks($strMemberId)
 
 function _getStockGroupLinks($strLoginId = false)
 {
-    $str = '<br />'.GetCategoryLinks(GetMenuArray());
-    $str .= '<br />'.GetMyStockGroupLink();	// .' '.GetAhCompareLink().' '.GetAdrhCompareLink();
-    $str .= '<br />'.GetMyPortfolioLink();
     if ($strLoginId == false)	$strLoginId = AcctIsLogin();
+    $str = '<br />'.GetCategoryLinks(GetMenuArray());
     if ($strLoginId)
     {
         $str .= _getPersonalLinks($strLoginId);
     }
+    else
+    {
+    	$str .= '<br />'.GetMyStockGroupLink();	// .' '.GetAhCompareLink().' '.GetAdrhCompareLink();
+    }
+    $str .= '<br />'.GetMyPortfolioLink();
     return $str;
 }
 

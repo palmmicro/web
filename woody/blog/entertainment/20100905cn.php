@@ -21,7 +21,14 @@
 现在用户已经可以在<a href="../../../account/registercn.php">这里</a>注册帐号测试. 由于基于PA6488的摄像头还没有面世, 用户可以先在这个网络日志上测试评论功能. 只有注册用户才能发表评论. 
 <br />这就是我的第一个PHP程序: 用户和网络日志评论的CRUD(Create创建/Retrieve读取/Update更新/Delete删除). 
 </p> 
-
+<blockquote><font color=grey>
+女神: 你能让这个论坛的人都吵起来, 我今晚就跟你走. 
+程序猿: PHP语言是最好的语言!
+论坛炸锅了, 各种吵架. 
+女神: 服了你了, 我们走吧, 你想干啥都行. 
+程序猿: 今天不行, 我一定要说服他们, PHP语言是最好的语言. 
+</font>
+</blockquote>
 </div>
 
 <?php _LayoutBottom(); ?>

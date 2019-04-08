@@ -123,7 +123,7 @@ END;
 END;*/
 }
 
-function LayoutTopLeft($callback, $bChinese)
+function LayoutTopLeft($callback, $bChinese = true)
 {
     EchoAnalyticsOptimize();
 //    EchoAnalytics();

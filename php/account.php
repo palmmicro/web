@@ -275,4 +275,46 @@ function AcctGetEmailFromBlogUri($strUri)
 	return ADMIN_EMAIL;
 }
 
+class AcctStart
+{
+    var $strLoginId;
+    var $strMemberId;
+    
+    function AcctStart($bMustLogin = true) 
+    {
+    	if ($bMustLogin)
+    	{
+    		$this->strLoginId = AcctAuth();
+    	}
+    	else
+    	{
+    		$this->strLoginId = AcctNoAuth();
+    	}
+
+	   	if ($strEmail = UrlGetQueryValue('email'))
+	   	{
+	   		$this->strMemberId = SqlGetIdByEmail($strEmail); 
+	   	}
+	   	else
+	   	{
+	   		$this->strMemberId = $this->strLoginId;
+	   	}
+    }
+    
+    function GetLoginId()
+    {
+    	return $this->strLoginId;
+    }
+    
+    function GetMemberId()
+    {
+    	return $this->strMemberId;
+    }
+
+    function IsAdmin()
+    {
+	   	return AcctIsAdmin($this->strLoginId);
+    }
+}
+
 ?>

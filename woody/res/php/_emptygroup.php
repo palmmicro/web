@@ -3,13 +3,13 @@ require_once('/php/stockgroup.php');
 
 class StockSymbolPage extends EmptyStockGroup
 {
-    var $ref = false;		// MysqlReference
+    var $acct;				// AcctStart class
+    var $ref = false;		// MysqlReference class
     
-    var $strLoginId;
-    var $strMemberId;
-    
-    function StockSymbolPage($strLoginId) 
+    function StockSymbolPage($bMustLogin = true) 
     {
+    	$this->acct = new AcctStart($bMustLogin);
+    	
     	if ($strSymbol = UrlGetQueryValue('symbol'))
     	{
     		if (strlen($strSymbol) <= MAX_STOCK_SYMBOL_LEN)
@@ -25,16 +25,6 @@ class StockSymbolPage extends EmptyStockGroup
 	   			SwitchToLink(UrlGetUri().'?'.UrlAddQuery('symbol='.$strSymbol));
 	   		}
 	   	}
-	   	
-	   	$this->strLoginId = $strLoginId;
-	   	if ($strEmail = UrlGetQueryValue('email'))
-	   	{
-	   		$this->strMemberId = SqlGetIdByEmail($strEmail); 
-	   	}
-	   	else
-	   	{
-	   		$this->strMemberId = $strLoginId;
-	   	}
     }
     
     function GetRef()
@@ -44,18 +34,23 @@ class StockSymbolPage extends EmptyStockGroup
 
     function GetLoginId()
     {
-    	return $this->strLoginId;
+    	return $this->acct->GetLoginId();
+    }
+    
+    function GetMemberId()
+    {
+    	return $this->acct->GetMemberId();
     }
     
     function IsAdmin()
     {
-	   	return AcctIsAdmin($this->strLoginId);
+	   	return $this->acct->IsAdmin();
     }
     
     function EchoLinks($strVer = false)
     {
     	EchoPromotionHead($strVer);
-    	EchoStockCategory($this->strLoginId);
+    	EchoStockCategory($this->GetLoginId());
     }
     
     function EchoStockGroup()
@@ -64,7 +59,7 @@ class StockSymbolPage extends EmptyStockGroup
     	{
     		if ($strLoginId = $this->GetLoginId())
     		{
-    			EchoAllStockGroupParagraph($this->GetGroupId(), $ref->GetStockId(), $this->strMemberId, $strLoginId);
+    			EchoAllStockGroupParagraph($this->GetGroupId(), $ref->GetStockId(), $this->GetMemberId(), $strLoginId);
     		}
     	}
     	return $ref;
@@ -84,7 +79,7 @@ class StockSymbolPage extends EmptyStockGroup
 
     function GetWhoseDisplay()
     {
-    	return _GetWhoseDisplay($this->strMemberId, $this->strLoginId);
+    	return _GetWhoseDisplay($this->GetMemberId(), $this->GetLoginId());
     }
 }
 
