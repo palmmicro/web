@@ -36,6 +36,11 @@ class MysqlReference extends StockReference
         return $this->strSqlId;
     }
     
+    function GetHistorySql()
+    {
+        return $this->his_sql;
+    }
+    
     function GetEnglishName()
     {
     	if ($this->bConvertGB2312)

@@ -15,7 +15,7 @@ function _getStockHistoryLinks($ref, $bAdmin)
     }
     if ($bAdmin)
     {
-    	$strLinks .= ' '.GetOnClickLink(STOCK_PHP_PATH.'_submithistory.php?id='.$ref->GetStockId(), '确认更新股票历史记录?', '更新历史记录');
+    	$strLinks .= ' '.GetUpdateStockHistoryLink($sym->GetSymbol(), '更新历史记录');
     	$strLinks .= ' '.SqlCountTableDataString(TABLE_STOCK_HISTORY);
     }
     return $strLinks;

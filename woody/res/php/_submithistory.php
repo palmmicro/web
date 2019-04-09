@@ -2,6 +2,7 @@
 require_once('/php/account.php');
 require_once('/php/stock.php');
 require_once('/php/stockhis.php');
+require_once('_emptygroup.php');
 
 // https://danjuanapp.com/djmodule/value-center
 
@@ -74,70 +75,15 @@ function _webUpdateYahooHistory($sql, $strYahooSymbol)
     }
     DebugVal($iTotal, $strYahooSymbol.' total');
 }
-/*
-function _isInvalidDate($strYMD)
-{
-    $ymd = new StringYMD($strYMD);
-    if ($ymd->IsWeekend())      return true;
-    if ($ymd->IsFuture())       return true;
-    
-    $oldest_ymd = new OldestYMD();
-    if ($ymd->GetTick() < $oldest_ymd->GetTick())                 return true;
-    return false;
-}
 
-function _cleanInvalidStockHistory($sql)
+function _submitStockHistory($ref)
 {
-    $ar = array();
-    if ($result = $sql->GetAll()) 
-    {
-        while ($record = mysql_fetch_assoc($result)) 
-        {
-            if (_isInvalidDate($record['date']))
-            {
-                $ar[] = $record['id'];
-            }
-        }
-        @mysql_free_result($result);
-    }
-
-    foreach ($ar as $strId)
-    {
-        $sql->DeleteById($strId);
-    }
-}
-
-function _cleanInvalidHistory($strTableName)
-{
-    $ar = array();
-    if ($result = SqlGetTableData($strTableName)) 
-    {
-        while ($record = mysql_fetch_assoc($result)) 
-        {
-            if (_isInvalidDate($record['date']))
-            {
-                $ar[] = $record['id'];
-            }
-        }
-        @mysql_free_result($result);
-    }
-
-    $iCount = count($ar);
-    DebugVal($iCount, $strTableName.' - invalid date'); 
-    foreach ($ar as $strId)
-    {
-        SqlDeleteTableDataById($strTableName, $strId);
-    }
-}
-*/
-function _submitStockHistory($strStockId, $strSymbol)
-{
-    if (AcctIsAdmin() == false)     return;
+	$sql = $ref->GetHistorySql();
+    $sym = $ref->GetSym();
+    $strSymbol = $sym->GetSymbol();
     
     unlinkConfigFile($strSymbol);
-    $sym = new StockSymbol($strSymbol);
     $sym->SetTimeZone();
-	$sql = new StockHistorySql($strStockId);
 	if ($sym->IsIndexA())
 	{
 		_webUpdateSinaHistory($sql, $sym);
@@ -156,19 +102,12 @@ function _submitStockHistory($strStockId, $strSymbol)
     $sql->DeleteInvalidDate();
 }
 
-    AcctNoAuth();
-	if ($strStockId = UrlGetQueryValue('id'))
+    $group = new StockSymbolPage();
+	if ($group->IsAdmin())
 	{
-	    if ($strSymbol = SqlGetStockSymbol($strStockId))
+	    if ($ref = $group->GetRef())
 	    {
-	        _submitStockHistory($strStockId, $strSymbol);
-	    }
-	}
-	else if ($strSymbol = UrlGetQueryValue('symbol'))
-	{
-	    if ($strStockId = SqlGetStockId($strSymbol))
-	    {
-	        _submitStockHistory($strStockId, $strSymbol);
+	        _submitStockHistory($ref);
 	    }
 	}
 	SwitchToSess();

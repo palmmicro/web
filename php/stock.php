@@ -324,9 +324,10 @@ function RefGetDailyClose($ref, $strDate)
 {
 	if ($ref)
 	{
-		if ($record = $ref->his_sql->Get($strDate))
+		$sql = $ref->GetHistorySql();
+		if ($record = $sql->Get($strDate))
 		{
-			if ($prev_record = $ref->his_sql->GetPrev($strDate))
+			if ($prev_record = $sql->GetPrev($strDate))
 			{
 				$ref->SetPrice($prev_record['close'], $record['close']);
 				return $ref;

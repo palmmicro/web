@@ -1,5 +1,6 @@
 <?php
 require_once('_stock.php');
+require_once('_emptygroup.php');
 require_once('/php/csvfile.php');
 require_once('/php/imagefile.php');
 
@@ -67,39 +68,38 @@ function _echoAhHistoryData($sql, $strPairId, $fRatio, $iStart, $iNum)
     }
 }
 
-function _echoAhHistoryParagraph($strSymbol, $strStockId, $strPairId, $fRatio, $iStart, $iNum)
+function _echoAhHistoryParagraph($ref, $strPairId, $fRatio, $iStart, $iNum, $bAdmin)
 {
-    $arColumn = array(GetTableColumnDate());
-    $arColumn[] = $strSymbol;
+	$strSymbol = $ref->GetStockSymbol();
     $strPairSymbol = SqlGetStockSymbol($strPairId);
-    $arColumn[] = GetMyStockLink($strPairSymbol);
-	$arColumn = array_merge($arColumn, GetAhCompareTableColumn());
-    $arColumn[3] = GetMyStockLink('HKCNY');
+ 	
+	$strDate = GetTableColumnDate();
+    $strHKCNY = GetMyStockLink('HKCNY');
+	$arColumn = GetAhCompareTableColumn();
 	
     $strUpdateLink = ''; 
-    if (AcctIsAdmin())
+    if ($bAdmin)
     {
-        $strUpdateLink = GetOnClickLink(STOCK_PHP_PATH.'_submithistory.php?id='.$strStockId, "确认更新$strSymbol历史记录?", $strSymbol);
-        $strUpdateLink .= ' '.GetOnClickLink(STOCK_PHP_PATH.'_submithistory.php?id='.$strPairId, "确认更新$strPairSymbol历史记录?", $strPairSymbol);
+        $strUpdateLink = GetUpdateStockHistoryLink($strSymbol);
+        $strUpdateLink .= ' '.GetUpdateStockHistoryLink($strPairSymbol);
     }
 
-	$sql = new StockHistorySql($strStockId);
-    $strNavLink = StockGetNavLink($strSymbol, $sql->Count(), $iStart, $iNum);
+    $strNavLink = StockGetNavLink($strSymbol, $ref->his_sql->Count(), $iStart, $iNum);
  
     echo <<<END
     <p>$strNavLink $strUpdateLink
     <TABLE borderColor=#cccccc cellSpacing=0 width=530 border=1 class="text" id="ahhistory">
     <tr>
-        <td class=c1 width=100 align=center>{$arColumn[0]}</td>
+        <td class=c1 width=100 align=center>$strDate</td>
+        <td class=c1 width=80 align=center>$strSymbol</td>
+        <td class=c1 width=80 align=center>$strPairSymbol</td>
+        <td class=c1 width=80 align=center>$strHKCNY</td>
         <td class=c1 width=80 align=center>{$arColumn[1]}</td>
-        <td class=c1 width=80 align=center>{$arColumn[2]}</td>
-        <td class=c1 width=80 align=center>{$arColumn[3]}</td>
-        <td class=c1 width=80 align=center>{$arColumn[4]}</td>
-        <td class=c1 width=110 align=center>{$arColumn[5]}</td>
+        <td class=c1 width=110 align=center>{$arColumn[2]}</td>
     </tr>
 END;
    
-    _echoAhHistoryData($sql, $strPairId, $fRatio, $iStart, $iNum);
+    _echoAhHistoryData($ref->his_sql, $strPairId, $fRatio, $iStart, $iNum);
     EchoTableParagraphEnd($strNavLink);
 
     _echoAhHistoryGraph($strSymbol);
@@ -107,37 +107,42 @@ END;
 
 function EchoAll()
 {
-    if ($strSymbol = UrlGetQueryValue('symbol'))
+	global $group;
+	
+	$bAdmin = $group->IsAdmin();
+    if ($ref = $group->EchoStockGroup())
     {
-    	StockPrefetchData($strSymbol);
-   		EchoStockGroupParagraph();	
-    	if ($strStockId = SqlGetStockId($strSymbol))
+    	if ($ref->HasData())
     	{
-    		$sql = new PairStockSql($strStockId, TABLE_AH_STOCK);
+    		$sql = new PairStockSql($ref->GetStockId(), TABLE_AH_STOCK);
     		if ($strPairId = $sql->GetPairId())
     		{
     			$iStart = UrlGetQueryInt('start');
     			$iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
-    			_echoAhHistoryParagraph($strSymbol, $strStockId, $strPairId, $sql->GetRatio(), $iStart, $iNum);
+    			_echoAhHistoryParagraph($ref, $strPairId, $sql->GetRatio(), $iStart, $iNum, $bAdmin);
     		}
     	}
     }
-    EchoPromotionHead();
-    EchoStockCategory();
+    $group->EchoLinks();
 }
 
 function EchoMetaDescription()
 {
-    $str = UrlGetQueryDisplay('symbol');
-    $str .= '中国A股和香港H股历史价格比较页面. 按A股交易日期排序显示. 同时显示港币人民币中间价历史, 提供跟Yahoo或者Sina历史数据同步的功能.';
+	global $group;
+	
+  	$str = $group->GetStockDisplay().AH_HISTORY_DISPLAY;
+    $str .= '页面. 按中国A股交易日期排序显示. 同时显示港币人民币中间价历史, 提供跟Yahoo或者Sina历史数据同步的功能.';
     EchoMetaDescriptionText($str);
 }
 
 function EchoTitle()
 {
-  	echo UrlGetQueryDisplay('symbol').AH_HISTORY_DISPLAY;
+	global $group;
+	
+  	$str = $group->GetSymbolDisplay().AH_HISTORY_DISPLAY;
+  	echo $str;
 }
 
-    AcctAuth();
+    $group = new StockSymbolPage();
 
 ?>

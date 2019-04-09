@@ -5,6 +5,7 @@ require_once('httplink.php');
 require_once('ui/stocktable.php');
 
 // ****************************** Stock internal link functions *******************************************************
+
 function GetStockTitleLink($strTitle, $strDisplay, $strQuery = false)
 {
 	return GetTitleLink(STOCK_PATH, $strTitle, $strQuery, $strDisplay);
@@ -32,9 +33,10 @@ function GetCalibrationHistoryLink($strSymbol)
     return GetStockSymbolLink('calibrationhistory', $strSymbol, '校准记录');
 }
 
-function GetCalibrationLink($strSymbol)
+define('CALIBRATION_HISTORY_DISPLAY', '校准历史记录');
+function GetCalibrationLink($strSymbol, $strDisplay = false)
 {
-    return GetStockSymbolLink('calibration', $strSymbol, '校准记录');
+    return GetStockSymbolLink('calibration', $strSymbol, ($strDisplay ? $strDisplay : CALIBRATION_HISTORY_DISPLAY));
 }
 
 define('STOCK_HISTORY_DISPLAY', '历史价格记录');
@@ -199,6 +201,11 @@ function StockGetGroupTransactionLinks($strGroupId, $strCurSymbol = '')
         $str .= ' ';
     }
     return rtrim($str, ' ');
+}
+
+function GetUpdateStockHistoryLink($strSymbol, $strDisplay = false)
+{
+	return GetOnClickLink(STOCK_PHP_PATH.'_submithistory.php?symbol='.$strSymbol, "确认更新{$strSymbol}历史记录?", ($strDisplay ? $strDisplay : $strSymbol));
 }
 
 // ****************************** Other internal link related functions *******************************************************

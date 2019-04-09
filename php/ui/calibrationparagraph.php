@@ -36,13 +36,12 @@ function _echoCalibrationData($ref, $iStart, $iNum, $bAdmin)
     }
 }
 
-function EchoCalibrationParagraph($strSymbol, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
+function EchoCalibrationParagraph($ref, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY, $bAdmin = false)
 {
-	$strSymbolLink = GetMyStockLink($strSymbol);
+	$strSymbol = $ref->GetStockSymbol();
 	$strPair = SqlGetEtfPair($strSymbol);
-	$strPairLink = GetMyStockLink($strPair);
 	$strNetValue = GetTableColumnNetValue();
-    $arColumn = array($strSymbolLink.$strNetValue,     $strPairLink.$strNetValue,     '校准值', GetTableColumnDate());
+    $arColumn = array($strSymbol.$strNetValue, $strPair.$strNetValue, '校准值', GetTableColumnDate());
     
     $ref = new EtfReference($strSymbol);
     if (IsTableCommonDisplay($iStart, $iNum))
@@ -55,16 +54,15 @@ function EchoCalibrationParagraph($strSymbol, $iStart = 0, $iNum = TABLE_COMMON_
     	$str = GetEtfListLink();
     	$iTotal = $ref->sql->Count();
     	$strNavLink = StockGetNavLink($strSymbol, $iTotal, $iStart, $iNum);
-    	$str .= ' '.$strNavLink;
     }
     
-    if ($bAdmin = AcctIsAdmin())
+    if ($bAdmin)
     {
     	$str .= ' '.GetInternalLink('/php/_submitoperation.php?calibration='.$strSymbol, '手工校准');
     }
     
     echo <<<END
-    <p>$str
+    <p>$str $strNavLink
     <TABLE borderColor=#cccccc cellSpacing=0 width=590 border=1 class="text" id="calibration">
     <tr>
         <td class=c1 width=170 align=center>{$arColumn[0]}</td>

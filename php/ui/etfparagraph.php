@@ -30,7 +30,7 @@ function _etfListRefCallbackData($ref)
     $ar[] = _getEtfPairExternalLink($ref->GetPairSym());
     $ar[] = GetNumberDisplay($ref->fRatio);
     $strFactor = GetNumberDisplay($ref->fFactor);
-    $ar[] = GetStockSymbolLink('calibration', $ref->GetStockSymbol(), $strFactor);
+    $ar[] = GetCalibrationLink($ref->GetStockSymbol(), $strFactor);
 	return $ar;
 }
 

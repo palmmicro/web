@@ -1,29 +1,43 @@
 <?php
 require_once('_stock.php');
+require_once('_emptygroup.php');
 require_once('/php/ui/calibrationparagraph.php');
 
-function EchoCalibration($bChinese = true)
+function EchoAll()
 {
-    if ($strSymbol = UrlGetQueryValue('symbol'))
+	global $group;
+	
+	$bAdmin = $group->IsAdmin();
+    if ($ref = $group->EchoStockGroup())
     {
-    	StockPrefetchData($strSymbol);
-   		EchoStockGroupParagraph();	
-    	if ($strStockId = SqlGetStockId($strSymbol))
+    	if ($ref->HasData())
     	{
     		$iStart = UrlGetQueryInt('start');
     		$iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
-    		EchoCalibrationParagraph($strSymbol, $iStart, $iNum);
+    		EchoCalibrationParagraph($ref, $iStart, $iNum, $bAdmin);
     	}
     }
-    EchoPromotionHead('calibration');
+    $group->EchoLinks('calibration');
 }    
 
-function EchoTitle($bChinese = true)
+function EchoMetaDescription()
 {
-  	echo UrlGetQueryDisplay('symbol').($bChinese ? '校准历史记录' : ' Calibration History');
+	global $group;
+	
+  	$str = $group->GetStockDisplay().CALIBRATION_HISTORY_DISPLAY;
+    $str .= '页面. 用于查看, 比较和调试估算的股票价格或者基金净值之间的校准情况. 最新的校准时间一般会直接显示在该股票或者基金的页面.';
+    EchoMetaDescriptionText($str);
 }
 
-    AcctAuth();
+function EchoTitle()
+{
+	global $group;
+	
+  	$str = $group->GetSymbolDisplay().CALIBRATION_HISTORY_DISPLAY;
+  	echo $str;
+}
+
+    $group = new StockSymbolPage();
 
 ?>
 
