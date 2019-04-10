@@ -46,7 +46,7 @@ class _LofGroup extends _StockGroup
         GetChinaMoney();
         YahooUpdateNetValue($strEstSymbol);
 
-        $sql = new PairStockSql(SqlGetStockId($strEstSymbol), TABLE_ETF_PAIR);
+        $sql = new EtfPairSql(SqlGetStockId($strEstSymbol));
         if ($strPairId = $sql->GetPairId())
         {
         	if ($strSymbol = SqlGetStockSymbol($strPairId))

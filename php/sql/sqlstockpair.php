@@ -70,6 +70,14 @@ class PairStockSql extends StockTableSql
 	}
 }
 
+class EtfPairSql extends PairStockSql
+{
+    function EtfPairSql($strStockId) 
+    {
+        parent::PairStockSql($strStockId, TABLE_ETF_PAIR);
+    }
+}
+
 // ****************************** Stock pair tables *******************************************************
 
 function SqlCreateStockPairTable($strTableName)

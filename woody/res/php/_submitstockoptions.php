@@ -139,19 +139,19 @@ function _updateStockOptionEtf($strSymbol, $strVal)
 	}
 	$strPairId = SqlGetStockId(StockGetSymbol($strIndex));
 	$strStockId = SqlGetStockId($strSymbol);
+    $pair_sql = new EtfPairSql($strStockId);
 	if ($strRatio == '0')
 	{
         $sql = new EtfCalibrationSql($strStockId);
         DebugVal($sql->Count(), 'Calibration');
         $sql->DeleteAll();
-        $sql->pair_sql->DeleteAll();
+        $pair_sql->DeleteAll();
 	}
 	else
 	{
-		$sql = new PairStockSql($strStockId, TABLE_ETF_PAIR);
-		if ($record = $sql->Get())
+		if ($record = $pair_sql->Get())
 		{
-			$sql->Update($record['id'], $strPairId, $strRatio);
+			$pair_sql->Update($record['id'], $strPairId, $strRatio);
 		}
 		else
 		{

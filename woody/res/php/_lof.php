@@ -107,7 +107,7 @@ function EchoAll($bChinese = true)
     $fund = $group->ref;
     
     EchoFundEstParagraph($fund);
-    EchoReferenceParagraph(array($fund->stock_ref, $fund->est_ref, $fund->future_ref, $group->oil_ref, $group->es_ref, $group->usd_ref, $group->cny_ref));
+    EchoReferenceParagraph(array_merge(array($fund->stock_ref, $fund->est_ref, $fund->future_ref, $group->oil_ref, $group->es_ref, $group->usd_ref, $group->cny_ref), $group->ar_leverage_ref));
     $group->EchoLeverageParagraph();
     EchoFundTradingParagraph($fund, _onTradingUserDefined);    
 	EchoLofSmaParagraph($fund, _onSmaUserDefined);

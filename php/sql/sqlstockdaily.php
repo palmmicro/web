@@ -166,6 +166,15 @@ class FundEstSql extends DailyStockSql
 	}
 }
 
+// ****************************** EtfCalibrationSql class *******************************************************
+class EtfCalibrationSql extends DailyStockSql
+{
+    function EtfCalibrationSql($strStockId)
+    {
+        parent::DailyStockSql($strStockId, TABLE_ETF_CALIBRATION);
+    }
+}
+
 // ****************************** StockEmaSql class *******************************************************
 class StockEmaSql extends DailyStockSql
 {
