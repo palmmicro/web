@@ -12,70 +12,9 @@ require_once('sql/sqlspider.php');
 require_once('sql/sqlweixin.php');
 
 define('WX_DEFAULT_SYMBOL', 'SZ162411');
-define('MAX_WX_STOCK', 20);
+define('MAX_WX_STOCK', 31);
 
 // ****************************** Wexin support functions *******************************************************
-
-// A股代码正则表达式 ^(?i)s[hz]\d{6}$
-function _getMarketMatch($strKey)
-{
-    $str = $strKey;
-    if (IsChineseStockDigit($strKey))
-    {
-        $str = StockBuildChineseSymbol($strKey);
-    }
-    else if (substr($strKey, 0, 5) == 'NYSE:')
-    {
-        $str = substr($strKey, 5);
-    }
-    else if (substr($strKey, 0, 7) == 'NASDAQ:')
-    {
-        $str = substr($strKey, 7);
-    }
-    else if (substr($strKey, 0, 3) == 'HK:')
-    {
-        $str = substr($strKey, 3);
-        if (strlen($str) == 4)
-        {
-            $str = '0'.$str;
-        }
-    }
-    else if (substr($strKey, 0, 3) == 'SH:')
-    {
-        $strDigit = substr($strKey, 3);
-        if (IsChineseStockDigit($strDigit))
-        {
-            $str = SHANGHAI_PREFIX.$strDigit;
-        }
-    }
-    else if (substr($strKey, 0, 3) == 'SZ:')
-    {
-        $strDigit = substr($strKey, 3);
-        if (IsChineseStockDigit($strDigit))
-        {
-            $str = SHENZHEN_PREFIX.$strDigit;
-        }
-    }
-    return $str;
-}
-
-function _getExactMatch($strKey)
-{
-    $strSymbol = _getMarketMatch($strKey);
-    if (SqlGetStock($strSymbol))
-    {
-        return $strSymbol; 
-    }
-    
-    $sym = new StockSymbol($strSymbol);
-    if ($sym->IsSymbolA() || $sym->IsSymbolH())
-    {
-    	$ref = new MyStockReference($strSymbol);
-    	if ($ref->HasData())	return $strSymbol;
-    }
-    
-    return false;
-}
 
 function _wxGetStockArray($strContents)
 {
@@ -83,13 +22,7 @@ function _wxGetStockArray($strContents)
     $ar = array();
 //  if (!empty($strKey))     // "0" (0 as a string) is considered to be empty
     if (strlen($strKey) > 0)
-    {
-    	if ($strSymbol = _getExactMatch($strKey))
-    	{   // exact match
-    		$ar[] = $strSymbol;
-    	}
-    
-    	// check all
+    {  	// check all
     	$sql = new StockSql();
     	if ($result = $sql->GetAll()) 
     	{
@@ -105,7 +38,7 @@ function _wxGetStockArray($strContents)
     		@mysql_free_result($result);
     	}
     }
-    return array_unique($ar);
+    return $ar;
 }
 
 function _getAhReferenceText($ref, $hshare_ref)
@@ -188,20 +121,6 @@ function _wxGetStockText($strSymbol)
     return $str;
 }
 
-// Try to stock stock information directly from stock data sources
-function _wxGetUnknownStockText($strContents)
-{
-    if (preg_match('/^[A-Z0-9:^.]+$/', $strContents))
-    {
-        $strSymbol = _getMarketMatch($strContents);
-        if ($str = _wxGetStockText($strSymbol))
-        {
-            return $str.WX_EOL.WX_EOL;
-        }
-    }
-    return false;
-}
-
 function _wxEmailDebug($strUserName, $strText, $strSubject)
 {   
 	$str = '<font color=blue>用户:</font>'.$strUserName;
@@ -253,7 +172,7 @@ class WeixinStock extends WeixinCallback
 	{
 		_wxEmailDebug($strUserName, "<font color=green>内容:</font>$strContents", 'Wechat message');
 		$str = $strContents.WX_EOL;
-		$str .= '本公众号目前只提供股票交易和净值估算自动查询. 因为没有匹配到信息, 此消息内容已经发往support@palmmicro.com邮箱, palmmicro会尽可能用电子邮件回复.'.WX_EOL;
+		$str .= '本公众号目前只提供部分股票交易和净值估算自动查询. 因为没有匹配到信息, 此消息内容已经发往support@palmmicro.com邮箱, palmmicro会尽快在公众号上回复.'.WX_EOL;
 		return $str.$this->GetDefaultText();
 	}
 
@@ -272,10 +191,7 @@ class WeixinStock extends WeixinCallback
 		}
 		else
 		{
-			if (($str = _wxGetUnknownStockText($strContents)) == false)
-			{
-				$str = $this->GetUnknownText($strText, $strUserName);
-			}
+			$str = $this->GetUnknownText($strText, $strUserName);
 		}
 		return $str;
 	}

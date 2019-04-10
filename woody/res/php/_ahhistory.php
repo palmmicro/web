@@ -14,7 +14,7 @@ function _echoAhHistoryGraph($strSymbol)
     $jpg->Show($arColumn[1], $strSymbol, $csv->GetPathName());
 }
 
-function _echoAhHistoryItem($csv, $record, $pair_sql, $hkcny_sql, $fRatio)
+function _echoAhHistoryItem($csv, $record, $h_sql, $hkcny_sql, $fRatio)
 {
 	$strDate = $record['date'];
 	$strClose = round_display_str($record['close']);
@@ -24,27 +24,27 @@ function _echoAhHistoryItem($csv, $record, $pair_sql, $hkcny_sql, $fRatio)
 	
 	$strAH = '';
 	$strHA = '';
-	if ($strPairClose = $pair_sql->GetClose($strDate))
+	if ($strCloseH = $h_sql->GetClose($strDate))
 	{
-		$strPairClose = round_display_str($strPairClose);
+		$strCloseH = round_display_str($strCloseH);
 		if ($strHKCNY)
 		{
-			$fAh = floatval($strClose) / HShareEstToCny(floatval($strPairClose), $fRatio, floatval($strHKCNY));
+			$fAh = floatval($strClose) / HShareEstToCny(floatval($strCloseH), $fRatio, floatval($strHKCNY));
 			$strAH = GetRatioDisplay($fAh);
 			$strHA = GetRatioDisplay(1.0 / $fAh);
-			$csv->Write($strDate, $strClose, $strPairClose, $strHKCNY, round_display($fAh));
+			$csv->Write($strDate, $strClose, $strCloseH, $strHKCNY, round_display($fAh));
 		}
 	}
 	else
 	{
-		$strPairClose = '';
+		$strCloseH = '';
 	}
 	
     echo <<<END
     <tr>
         <td class=c1>$strDate</td>
         <td class=c1>$strClose</td>
-        <td class=c1>$strPairClose</td>
+        <td class=c1>$strCloseH</td>
         <td class=c1>$strHKCNY</td>
         <td class=c1>$strAH</td>
         <td class=c1>$strHA</td>                                                                                              
@@ -52,26 +52,25 @@ function _echoAhHistoryItem($csv, $record, $pair_sql, $hkcny_sql, $fRatio)
 END;
 }
 
-function _echoAhHistoryData($sql, $strPairId, $fRatio, $iStart, $iNum)
+function _echoAhHistoryData($sql, $h_sql, $fRatio, $iStart, $iNum)
 {
     if ($result = $sql->GetAll($iStart, $iNum)) 
     {
     	$hkcny_sql = new HkcnyHistorySql();
-    	$pair_sql = new StockHistorySql($strPairId);
      	$csv = new PageCsvFile();
         while ($record = mysql_fetch_assoc($result)) 
         {
-            _echoAhHistoryItem($csv, $record, $pair_sql, $hkcny_sql, $fRatio);
+            _echoAhHistoryItem($csv, $record, $h_sql, $hkcny_sql, $fRatio);
         }
         $csv->Close();
         @mysql_free_result($result);
     }
 }
 
-function _echoAhHistoryParagraph($ref, $strPairId, $fRatio, $iStart, $iNum, $bAdmin)
+function _echoAhHistoryParagraph($ref, $h_ref, $iStart, $iNum, $bAdmin)
 {
 	$strSymbol = $ref->GetStockSymbol();
-    $strPairSymbol = SqlGetStockSymbol($strPairId);
+    $strSymbolH = $h_ref->GetStockSymbol();
  	
 	$strDate = GetTableColumnDate();
     $strHKCNY = GetMyStockLink('HKCNY');
@@ -81,10 +80,11 @@ function _echoAhHistoryParagraph($ref, $strPairId, $fRatio, $iStart, $iNum, $bAd
     if ($bAdmin)
     {
         $strUpdateLink = GetUpdateStockHistoryLink($strSymbol);
-        $strUpdateLink .= ' '.GetUpdateStockHistoryLink($strPairSymbol);
+        $strUpdateLink .= ' '.GetUpdateStockHistoryLink($strSymbolH);
     }
 
-    $strNavLink = StockGetNavLink($strSymbol, $ref->his_sql->Count(), $iStart, $iNum);
+    $sql = $ref->GetHistorySql();
+    $strNavLink = StockGetNavLink($strSymbol, $sql->Count(), $iStart, $iNum);
  
     echo <<<END
     <p>$strNavLink $strUpdateLink
@@ -92,14 +92,14 @@ function _echoAhHistoryParagraph($ref, $strPairId, $fRatio, $iStart, $iNum, $bAd
     <tr>
         <td class=c1 width=100 align=center>$strDate</td>
         <td class=c1 width=80 align=center>$strSymbol</td>
-        <td class=c1 width=80 align=center>$strPairSymbol</td>
+        <td class=c1 width=80 align=center>$strSymbolH</td>
         <td class=c1 width=80 align=center>$strHKCNY</td>
         <td class=c1 width=80 align=center>{$arColumn[1]}</td>
         <td class=c1 width=110 align=center>{$arColumn[2]}</td>
     </tr>
 END;
    
-    _echoAhHistoryData($ref->his_sql, $strPairId, $fRatio, $iStart, $iNum);
+    _echoAhHistoryData($sql, $h_ref->GetHistorySql(), SqlGetAhPairRatio($ref), $iStart, $iNum);
     EchoTableParagraphEnd($strNavLink);
 
     _echoAhHistoryGraph($strSymbol);
@@ -114,12 +114,12 @@ function EchoAll()
     {
     	if ($ref->HasData())
     	{
-    		$sql = new PairStockSql($ref->GetStockId(), TABLE_AH_STOCK);
-    		if ($strPairId = $sql->GetPairId())
+			if ($strSymbolH = SqlGetAhPair($ref->GetStockSymbol()))	
     		{
     			$iStart = UrlGetQueryInt('start');
     			$iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
-    			_echoAhHistoryParagraph($ref, $strPairId, $sql->GetRatio(), $iStart, $iNum, $bAdmin);
+    			$h_ref = new MyStockReference($strSymbolH);
+    			_echoAhHistoryParagraph($ref, $h_ref, $iStart, $iNum, $bAdmin);
     		}
     	}
     }

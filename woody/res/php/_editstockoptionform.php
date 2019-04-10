@@ -5,19 +5,20 @@ require_once('/php/ui/htmlelement.php');
 
 function _getStockOptionDate($strSubmit, $ref)
 {
+    $sql = $ref->GetHistorySql();
 	switch ($strSubmit)
 	{
 	case STOCK_OPTION_ADJCLOSE:
 	case STOCK_OPTION_SPLIT:
 	case STOCK_OPTION_EMA:
-		if ($strDate = $ref->his_sql->GetDateNow())
+		if ($strDate = $sql->GetDateNow())
 		{
 			return $strDate;
 		}
 		break;
 
 	case STOCK_OPTION_CLOSE:
-		if ($record = $ref->his_sql->GetPrev($ref->GetDate()))
+		if ($record = $sql->GetPrev($ref->GetDate()))
 		{
 			return $record['date'];
 		}
@@ -177,6 +178,7 @@ function StockOptionEditForm($ref, $strSubmit)
 	$strEmailReadonly = HtmlElementReadonly();
 	
 	$strSymbol = $ref->GetStockSymbol();
+//	$strSymbolReadonly = ($strSubmit == STOCK_OPTION_EDIT) ? '' : HtmlElementReadonly();
 	$strSymbolReadonly = HtmlElementReadonly();
 	
     $strDateDisabled = '';

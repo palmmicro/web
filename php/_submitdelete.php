@@ -2,75 +2,6 @@
 require_once('account.php');
 require_once('sql/sqlstock.php');
 
-function _deleteIsStockPair($strTableName, $strPairId)
-{
-	$sql = new PairStockSql($strPairId, $strTableName);
-	if ($strStockId = $sql->GetFirstStockId())
-	{
-		DebugString('Stock at least paired with: '.SqlGetStockSymbol($strStockId));
-		return true;
-	}
-	return false;
-}
-
-function _deleteHasStockPair($strTableName, $strStockId)
-{
-	$sql = new PairStockSql($strStockId, $strTableName);
-	if ($strPairId = $sql->GetPairId())
-	{
-		DebugString('Stock pair existed: '.SqlGetStockSymbol($strPairId));
-		return true;
-	}
-	return false;
-}
-
-function _deleteHasStockHistory($sql)
-{
-	$iTotal = $sql->Count();
-	if ($iTotal > 0)
-	{
-		DebugVal($iTotal, 'Stock history existed');
-/*		if ($iTotal > 100)	
-		{
-			return true;
-		}*/
-		$sql->DeleteAll();
-	}
-	return false;
-}
-
-function _deleteStockById($strStockId)
-{
-	$sql = new StockSql();
-	$strSymbol = $sql->GetSymbol($strStockId);
-
-	DebugString('Deleting '.$strSymbol);
-	if (_deleteIsStockPair(TABLE_ADRH_STOCK, $strStockId))					return;
-	else if (_deleteIsStockPair(TABLE_AH_STOCK, $strStockId))				return;
-	else if (_deleteIsStockPair(TABLE_ETF_PAIR, $strStockId))				return;
-	else if (_deleteHasStockPair(TABLE_ADRH_STOCK, $strStockId))				return;
-	else if (_deleteHasStockPair(TABLE_AH_STOCK, $strStockId))				return;
-	else if (_deleteHasStockPair(TABLE_ETF_PAIR, $strStockId))				return;
-	else if (_deleteHasStockHistory(new StockHistorySql($strStockId)))	return;
-	else if (_deleteHasStockHistory(new NetValueHistorySql($strStockId)))	return;
-	else if (($iTotal = SqlCountTableData(TABLE_STOCK_GROUP_ITEM, _SqlBuildWhere_stock($strStockId))) > 0)
-	{
-		DebugVal($iTotal, 'Stock group item existed');
-		return;
-	}
-	else if (($iTotal = SqlCountStockCalibration($strStockId)) > 0)
-	{
-		DebugVal($iTotal, 'Stock calibration existed');
-		return;
-	}
-	else if (($iTotal = SqlCountFundPurchaseByStockId($strStockId)) > 0)
-	{
-		DebugVal($iTotal, 'Fund purchase existed');
-		return;
-	}
-	$sql->DeleteById($strStockId);
-}
-
 function _deleteTableDataById($strTableName)
 {
 	if ($strId = UrlGetQueryValue($strTableName))
@@ -88,10 +19,6 @@ function _deleteTableDataById($strTableName)
 	    {
 	        unlinkEmptyFile($strPathName);
 	        EmailReport('Deleted file: '.GetFileLink($strPathName), 'Deleted debug file'); 
-	    }
-	    else if ($strStockId = UrlGetQueryValue('stockid'))
-	    {
-	    	_deleteStockById($strStockId);
 	    }
 	    else
 	    {

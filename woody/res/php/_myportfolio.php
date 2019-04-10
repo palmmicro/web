@@ -14,6 +14,25 @@ class _MyPortfolio extends StockGroup
     }
 }
 
+function _echoReference($arRef)
+{
+	$arA = array();
+	$arH = array();
+	$arUS = array();
+	
+    StockHistoryUpdate($arRef);    
+    $arRef = RefSortBySymbol($arRef);
+    foreach ($arRef as $ref)
+    {
+    	RefSetExternalLinkMyStock($ref);
+    	$sym = $ref->GetSym();
+    	if ($sym->IsSymbolA())		$arA[] = $ref;
+    	else if ($sym->IsSymbolH())	$arH[] = $ref;
+    	else							$arUS[] = $ref;
+    }
+    EchoReferenceParagraph(array_merge($arA, $arH, $arUS));
+}
+
 function _echoPortfolio($portfolio, $sql)
 {
     $arRef = array();
@@ -41,13 +60,7 @@ function _echoPortfolio($portfolio, $sql)
 	}
     EchoTableParagraphEnd();    
 
-    StockHistoryUpdate($arRef);    
-    $arRef = RefSortBySymbol($arRef);
-    foreach ($arRef as $ref)
-    {
-    	RefSetExternalLinkMyStock($ref);
-    }
-    EchoReferenceParagraph($arRef);
+    _echoReference($arRef);
 }
 
 function _echoMoneyParagraph($portfolio)

@@ -19,14 +19,17 @@ class MysqlReference extends StockReference
         	$this->strSqlName = $sym->GetSymbol();
         }
         $this->_loadSqlId();
-        if ($this->strSqlId && $this->bHasData)
+        if ($this->strSqlId)
         {
         	$this->his_sql = new StockHistorySql($this->strSqlId);
-        	$now_ymd = new NowYMD();
-        	if ($now_ymd->GetYMD() == $this->strDate)
+        	if ($this->bHasData)
         	{
-        		$this->_updateStockHistory();
-        		$this->_updateStockEma($now_ymd);
+        		$now_ymd = new NowYMD();
+        		if ($now_ymd->GetYMD() == $this->strDate)
+        		{
+        			$this->_updateStockHistory();
+        			$this->_updateStockEma($now_ymd);
+        		}
         	}
         }
     }

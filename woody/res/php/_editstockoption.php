@@ -15,11 +15,8 @@ function EchoAll()
 	
     if ($ref = $group->EchoStockGroup())
     {
-        if ($ref->HasData())
-        {
-        	$strTitle = UrlGetTitle();
-        	StockOptionEditForm($ref, _getEditStockOptionSubmit($strTitle));
-        }
+      	$strTitle = UrlGetTitle();
+       	StockOptionEditForm($ref, _getEditStockOptionSubmit($strTitle));
     }
 }
 

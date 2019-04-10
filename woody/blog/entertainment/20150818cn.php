@@ -68,7 +68,7 @@
 <p>2015年8月27日
 <br />整理代码最好的方式是多开发几个类似LOF基金估值软件.
 伴随最近抄底港股加入<a href="../../res/sz159920cn.php">恒生ETF</a>和<a href="../../res/sh510900cn.php">H股ETF</a>净值计算工具.
-观摩美股崩盘期间顺手加入了<a href="../../res/sh513500cn.php">博时标普500</a>(SH:513500)净值计算工具, 也许日后会用上.
+观摩美股崩盘期间顺手加入了<a href="../../res/sh513500cn.php">博时标普500</a>净值计算工具, 也许日后会用上.
 <br />原本单个的<?php EchoPhpFileLink('/woody/res/php/_lof'); ?>现在扩展成了3个文件:
 </p>
 <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="phpfile">

@@ -7,7 +7,8 @@ require_once('_editstockoptionform.php');
 function _updateStockHistoryAdjCloseByDividend($ref, $strSymbol, $strYMD, $strDividend)
 {
     $ar = array();
-    if ($result = $ref->his_sql->GetFromDate($strYMD)) 
+    $sql = $ref->GetHistorySql();
+    if ($result = $sql->GetFromDate($strYMD)) 
     {
         while ($record = mysql_fetch_assoc($result)) 
         {
@@ -20,16 +21,17 @@ function _updateStockHistoryAdjCloseByDividend($ref, $strSymbol, $strYMD, $strDi
     foreach ($ar as $strId => $fAdjClose)
     {
         $fAdjClose -= $fDividend;
-        $ref->his_sql->UpdateAdjClose($strId, strval($fAdjClose));
+        $sql->UpdateAdjClose($strId, strval($fAdjClose));
     }
     unlinkConfigFile($strSymbol);
 }
 
 function _updateStockHistoryClose($ref, $strSymbol, $strYMD, $strClose)
 {
-    if ($record = $ref->his_sql->Get($strYMD)) 
+    $sql = $ref->GetHistorySql();
+    if ($record = $sql->Get($strYMD)) 
     {
-    	if ($ref->his_sql->UpdateClose($record['id'], $strClose))
+    	if ($sql->UpdateClose($record['id'], $strClose))
         {
         	unlinkConfigFile($strSymbol);
         }

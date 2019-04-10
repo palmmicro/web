@@ -80,7 +80,6 @@ function _getMyStockLinks($sym)
     		$str .= ' '.GetStockOptionLink(STOCK_OPTION_ETF, $strSymbol);
     	}
     }
-   	$str .= ' '.GetMyStockLink();
     return $str;
 }
 
@@ -102,64 +101,68 @@ function _echoMyStockData($ref, $strMemberId, $bAdmin)
     	else if ($etf_ref = StockGetEtfReference($strSymbol))	$ref = $etf_ref;
 //   		else														$ref = StockGetReference($strSymbol, $sym);
     }
-    if ($ref->HasData() == false)		return;
     
-    EchoReferenceParagraph(array($ref));
-    if ($etf_ref)
+    if ($ref->HasData())
     {
-    	EchoEtfListParagraph(array($etf_ref));
-    	EchoEtfTradingParagraph($etf_ref);
-        EchoEtfHistoryParagraph($etf_ref);
-    }
-    else if ($sym->IsFundA())
-    {
-        if ($fund->fOfficialNetValue)	EchoFundEstParagraph($fund);
-        EchoFundTradingParagraph($fund);
-        EchoFundHistoryParagraph($fund);
-    }
-    else
-    {
-        if ($hshare_ref)
-        {
-        	if ($strSymbol != $hshare_ref->GetStockSymbol())	RefSetExternalLinkMyStock($hshare_ref);
-			if ($hshare_ref->a_ref)								EchoAhParagraph(array($hshare_ref));
-			if ($hshare_ref->adr_ref)							EchoAdrhParagraph(array($hshare_ref));
-        }
-   		if ($sym->IsSymbolA())
-   		{
-   			if ($hshare_ref)	EchoAhTradingParagraph($hshare_ref);
-   			else 				EchoTradingParagraph($ref);
-       	}
-       	EchoNvCloseHistoryParagraph($ref);
-    }
+    	EchoReferenceParagraph(array($ref));
+    	if ($etf_ref)
+    	{
+    		EchoEtfListParagraph(array($etf_ref));
+    		EchoEtfTradingParagraph($etf_ref);
+    		EchoEtfHistoryParagraph($etf_ref);
+    	}
+    	else if ($sym->IsFundA())
+    	{
+    		if ($fund->fOfficialNetValue)	EchoFundEstParagraph($fund);
+    		EchoFundTradingParagraph($fund);
+    		EchoFundHistoryParagraph($fund);
+    	}
+    	else
+    	{
+    		if ($hshare_ref)
+    		{
+    			if ($strSymbol != $hshare_ref->GetStockSymbol())	RefSetExternalLinkMyStock($hshare_ref);
+    			if ($hshare_ref->a_ref)								EchoAhParagraph(array($hshare_ref));
+    			if ($hshare_ref->adr_ref)							EchoAdrhParagraph(array($hshare_ref));
+    		}
+    		if ($sym->IsSymbolA())
+    		{
+    			if ($hshare_ref)	EchoAhTradingParagraph($hshare_ref);
+    			else 				EchoTradingParagraph($ref);
+    		}
+    		EchoNvCloseHistoryParagraph($ref);
+    	}
     
-    if ($etf_ref)   			EchoEtfSmaParagraph($etf_ref);
-    if (_hasSmaDisplay($sym))
-    {
-    	if ($hshare_ref)		EchoHShareSmaParagraph($ref, $hshare_ref);
-    	else	        		EchoSmaParagraph($ref);
-    	$strHistoryLink = '';
-    }
-    else
-    {
-    	$strHistoryLink = GetStockHistoryLink($strSymbol);
-    }
+    	if ($etf_ref)   			EchoEtfSmaParagraph($etf_ref);
+    	if (_hasSmaDisplay($sym))
+    	{
+    		if ($hshare_ref)		EchoHShareSmaParagraph($ref, $hshare_ref);
+    		else	        		EchoSmaParagraph($ref);
+    		$strHistoryLink = '';
+    	}
+    	else
+    	{
+    		$strHistoryLink = GetStockHistoryLink($strSymbol);
+    	}
+    	EchoStockHistoryParagraph($ref, $strHistoryLink);
     
-    EchoStockHistoryParagraph($ref, $strHistoryLink);
-    
-    if ($strMemberId)
-    {
-        _echoMyStockTransactions($strMemberId, $ref);
+    	if ($strMemberId)		_echoMyStockTransactions($strMemberId, $ref);
     }
     
     if ($bAdmin)
     {
-     	$str = _getMyStockLinks($sym);
-    	$str .= '<br />'.$ref->DebugLink();
-    	if ($sym->IsFundA())			$str .= '<br />'.$fund->DebugLink();
-    	if (_hasSmaDisplay($sym)) 		$str .= '<br />'.GetTableColumnSma().' '.$ref->DebugConfigLink();
-    	$str .= '<br />('.$ref->GetStockId().')';
-        $str .= '<br />'.GetFileDebugLink(DebugGetFile()).' '.GetFileDebugLink(DebugGetTestFile());
+     	$str = GetMyStockLink().'<br />'.GetFileDebugLink(DebugGetFile()).' '.GetFileDebugLink(DebugGetTestFile());
+    	if ($strStockId = $ref->GetStockId())
+    	{
+    		$str .= '<br />id='.$strStockId;
+    		$str .= '<br />'._getMyStockLinks($sym);
+    		if ($ref->HasData())
+    		{
+    			$str .= '<br />'.$ref->DebugLink();
+    			if ($sym->IsFundA())			$str .= '<br />'.$fund->DebugLink();
+    			if (_hasSmaDisplay($sym)) 		$str .= '<br />'.GetTableColumnSma().' '.$ref->DebugConfigLink();
+    		}
+    	}
     	EchoParagraph($str);
     }
 }

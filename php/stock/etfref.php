@@ -38,7 +38,7 @@ class IndexReference extends MyStockReference
     function IndexReference($strSymbol, $sym) 
     {
         parent::MyStockReference($strSymbol, $sym);
-       	$this->sql = new StockHistorySql($this->GetStockId());
+       	$this->sql = $this->his_sql;
     }
 }
 
