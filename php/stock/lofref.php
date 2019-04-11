@@ -188,9 +188,9 @@ class _LofReference extends FundReference
         return $this->AdjustPosition($fVal); 
     }
     
-    function GetEstValue($fLof)
+    function GetEstValue($strLof)
     {
-        return $fLof * $this->fFactor / $this->fCNY;
+        return strval(floatval($strLof) * $this->fFactor / $this->fCNY);
     }
     
     function GetEstQuantity($iLofQuantity)

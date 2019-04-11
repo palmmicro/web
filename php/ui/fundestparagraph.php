@@ -7,12 +7,12 @@ function _echoFundEstTableItem($ref)
     if (RefHasData($ref) == false)      return;
     
     $strLink = GetEastMoneyFundLink($ref->GetSym());
-    $strOfficialPrice = $ref->GetPriceDisplay($ref->fOfficialNetValue, false);
-    $strOfficialPremium = $ref->GetPercentageDisplay(strval($ref->fOfficialNetValue));
-    $strFairPrice = $ref->GetPriceDisplay($ref->fFairNetValue, false);
-    $strFairPremium = $ref->GetPercentageDisplay(strval($ref->fFairNetValue));
-    $strRealtimePrice = $ref->GetPriceDisplay($ref->fRealtimeNetValue, false);
-    $strRealtimePremium = $ref->GetPercentageDisplay(strval($ref->fRealtimeNetValue));
+    $strOfficialPrice = $ref->GetPriceDisplay($ref->GetOfficialNetValue(), false);
+    $strOfficialPremium = $ref->GetPercentageDisplay($ref->GetOfficialNetValue());
+    $strFairPrice = $ref->GetPriceDisplay($ref->GetFairNetValue(), false);
+    $strFairPremium = $ref->GetPercentageDisplay($ref->GetFairNetValue());
+    $strRealtimePrice = $ref->GetPriceDisplay($ref->GetRealtimeNetValue(), false);
+    $strRealtimePremium = $ref->GetPercentageDisplay($ref->GetRealtimeNetValue());
     
     echo <<<END
     <tr>

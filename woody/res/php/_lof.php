@@ -31,7 +31,7 @@ class _LofUsGroup extends _LofGroup
     }
 } 
 
-function _onSmaUserDefinedVal($fVal)
+function _onSmaUserDefinedVal($strVal)
 {
     global $group;
     
@@ -46,7 +46,7 @@ function _onSmaUserDefinedVal($fVal)
     	}
     }
 	$fAmount = floatval($strAmount);
-    $iQuantity = intval($fAmount / $fund->fCNY / $fVal);
+    $iQuantity = intval($fAmount / $fund->fCNY / floatval($strVal));
     $strQuantity = strval($iQuantity);
     if ($strGroupId = $group->GetGroupId()) 
     {
@@ -68,37 +68,32 @@ function _getArbitrageQuantityName($bEditLink = false)
     return STOCK_OPTION_AMOUNT;
 }
 
-function _onSmaUserDefined($fVal = false, $fNext = false)
+function _onSmaUserDefined($strVal = false, $strNext = false)
 {
-    if ($fVal === false)
+    if ($strVal === false)
     {
     	return _getArbitrageQuantityName();
     }
 
-    $str = _onSmaUserDefinedVal($fVal);
-    if ($fNext)
+    $str = _onSmaUserDefinedVal($strVal);
+    if ($strNext)
     {
-       	$str .= '/'._onSmaUserDefinedVal($fNext);
+       	$str .= '/'._onSmaUserDefinedVal($strNext);
     }
     return $str;
 }
 
-function _onTradingUserDefinedVal($fVal)
+function _onTradingUserDefined($strVal = false)
 {
-    global $group;
-    
-    $fund = $group->ref;
-    $fEst = $fund->GetEstValue($fVal);
-    return _onSmaUserDefinedVal($fEst).'@'.$fund->est_ref->GetPriceDisplay($fEst, false);
-}
-
-function _onTradingUserDefined($fVal = false)
-{
-    if ($fVal === false)
+    if ($strVal)
     {
-    	return _getArbitrageQuantityName(true);
+    	global $group;
+    
+    	$fund = $group->ref;
+    	$strEst = $fund->GetEstValue($strVal);
+    	return _onSmaUserDefinedVal($strEst).'@'.$fund->est_ref->GetPriceDisplay($strEst, false);
     }
-    return _onTradingUserDefinedVal($fVal);
+   	return _getArbitrageQuantityName(true);
 }
 
 function EchoAll($bChinese = true)

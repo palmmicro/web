@@ -27,9 +27,9 @@ class _GradedFundGroup extends _StockGroup
 function _gradedFundRefCallbackData($ref)
 {
    	$ar = array();
-    $ar[] = strval($ref->fPrice);
-    $ar[] = $ref->GetPriceDisplay($ref->fOfficialNetValue);
-    $ar[] = $ref->GetPriceDisplay($ref->fFairNetValue);
+    $ar[] = $ref->strPrice;
+    $ar[] = $ref->GetPriceDisplay($ref->GetOfficialNetValue());
+    $ar[] = $ref->GetPriceDisplay($ref->GetFairNetValue());
     return $ar;
 }
 

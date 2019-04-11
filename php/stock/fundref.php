@@ -38,6 +38,33 @@ class FundReference extends MysqlReference
         }
     }
     
+    function GetOfficialNetValue()
+    {
+    	if ($this->fOfficialNetValue)
+    	{
+    		return strval($this->fOfficialNetValue);
+    	}
+    	return false;
+    }
+    
+    function GetFairNetValue()
+    {
+    	if ($this->fFairNetValue)
+    	{
+    		return strval($this->fFairNetValue);
+    	}
+    	return false;
+    }
+    
+    function GetRealtimeNetValue()
+    {
+    	if ($this->fRealtimeNetValue)
+    	{
+    		return strval($this->fRealtimeNetValue);
+    	}
+    	return false;
+    }
+    
     function SetForex($strForex)
     {
         $this->forex_sql = new NetValueHistorySql(SqlGetStockId($strForex));
@@ -47,7 +74,7 @@ class FundReference extends MysqlReference
     function UpdateEstNetValue()
     {
        	$fund_sql = new FundEstSql($this->GetStockId());
-   		StockUpdateEstResult($this->sql, $fund_sql, $this->fOfficialNetValue, $this->strOfficialDate);
+   		StockUpdateEstResult($this->sql, $fund_sql, $this->GetOfficialNetValue(), $this->strOfficialDate);
     }
 
     function UpdateOfficialNetValue()
@@ -78,15 +105,15 @@ class FundReference extends MysqlReference
         return parent::GetStockId();
     }
 
-    function GetPriceDisplay($fVal, $bPrev = true)
+    function GetPriceDisplay($strVal, $bPrev = true)
     {
-    	if ($fVal)
+    	if ($strVal)
     	{
     		if ($this->stock_ref)
     		{
-    			return $this->stock_ref->GetPriceDisplay($fVal, $bPrev);
+    			return $this->stock_ref->GetPriceDisplay($strVal, $bPrev);
     		}
-    		return parent::GetPriceDisplay($fVal, $bPrev);
+    		return parent::GetPriceDisplay($strVal, $bPrev);
     	}
         return '';
     }

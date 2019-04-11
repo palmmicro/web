@@ -5,7 +5,7 @@ function _echoTransactionTableItem($ref, $record, $bReadOnly)
 {
     $strSymbol = $ref->GetStockSymbol();
     $strDate = GetSqlTransactionDate($record);
-    $strPrice = $ref->GetPriceDisplay(floatval($record['price']), false);
+    $strPrice = $ref->GetPriceDisplay($record['price'], false);
     $strFees = round_display_str($record['fees']);
     if ($bReadOnly)
     {

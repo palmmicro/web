@@ -327,14 +327,14 @@ class StockReference
         return $this->GetPercentageDisplay($this->strPrevPrice);
     }
     
-    function GetPriceDisplay($fPrice, $bPrev = true)
+    function GetPriceDisplay($strPrice, $bPrev = true)
     {
-        return StockGetPriceDisplay($fPrice, $bPrev ? $this->fPrevPrice : $this->fPrice);
+        return StockGetPriceDisplay($strPrice, $bPrev ? $this->strPrevPrice : $this->strPrice);
     }
 
     function GetCurrentPriceDisplay()
     {
-        return $this->GetPriceDisplay($this->fPrice);
+        return $this->GetPriceDisplay($this->strPrice);
     }
 
     function ConvertDateTime($iTime, $strTimeZone)

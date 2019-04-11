@@ -186,16 +186,18 @@ function round_display_str($str)
     return round_display(floatval($str));
 }
 
-function StockGetPriceDisplay($fCur, $fPre)
+function StockGetPriceDisplay($strCur, $strPre)
 {
-    if ($fCur)
+    if ($strCur)
     {
-        $strCur = round_display($fCur);
+    	$fCur = floatval($strCur);
+    	$fPre = floatval($strPre);
         
         if ($fCur > $fPre + MIN_FLOAT_VAL)         $strColor = 'red';
         else if ($fCur < $fPre - MIN_FLOAT_VAL)   $strColor = 'green';
         else                                         $strColor = 'black';
 
+        $strCur = round_display($fCur);
         return "<font color=$strColor>$strCur</font>";
     }
     return '';
@@ -203,12 +205,12 @@ function StockGetPriceDisplay($fCur, $fPre)
 
 function GetNumberDisplay($fVal)
 {
-    return StockGetPriceDisplay($fVal, 0.0);
+    return StockGetPriceDisplay(strval($fVal), '0');
 }
 
 function GetRatioDisplay($fVal)
 {
-    return StockGetPriceDisplay($fVal, 1.0);
+    return StockGetPriceDisplay(strval($fVal), '1');
 }
 
 function StockGetPercentage($strPrice, $strPrice2)
@@ -236,11 +238,11 @@ function StockCompareEstResult($nv_sql, $strNetValue, $strDate, $strSymbol)
     return false;
 }
 
-function StockUpdateEstResult($nv_sql, $fund_sql, $fNetValue, $strDate)
+function StockUpdateEstResult($nv_sql, $fund_sql, $strNetValue, $strDate)
 {
 	if ($nv_sql->Get($strDate) == false)
     {   // Only update when net value is NOT ready
-		$fund_sql->Write($strDate, strval($fNetValue));
+		$fund_sql->Write($strDate, $strNetValue);
 	}
 }
 

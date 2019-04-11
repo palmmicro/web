@@ -31,7 +31,7 @@ function _estSma($arF, $iAvg)
     {
         $f += $arF[$i];
     }
-    return $f / $iNum;
+    return strval($f / $iNum);
 }
 
 // axx + bx + c = 0
@@ -75,7 +75,7 @@ function _estBollingerBands($arF, $iAvg)
         list($x1, $x2) = $ar;
         $sigma1 = ($fSum - $iNum * $x1) / 2;
         $sigma2 = ($fSum - $iNum * $x2) / 2;
-        return array($x1 - 2 * $sigma1, $x2 - 2 * $sigma2);
+        return array(strval($x1 - 2 * $sigma1), strval($x2 - 2 * $sigma2));
     }
     return false;
 }
@@ -101,7 +101,7 @@ function _estNextBollingerBands($arF, $iAvg)
         list($x1, $x2) = $ar;
         $sigma1 = ($fSum - $iNum * $x1) / 4;
         $sigma2 = ($fSum - $iNum * $x2) / 4;
-        return array($x1 - 2 * $sigma1, $x2 - 2 * $sigma2);
+        return array(strval($x1 - 2 * $sigma1), strval($x2 - 2 * $sigma2));
     }
     return false;
 }
@@ -156,8 +156,8 @@ class StockHistory
 {
     var $aiNum;     // days/weeks/months 
     
-    var $afSMA = array();
-    var $afNext = array();
+    var $arSMA = array();
+    var $arNext = array();
     
     var $iScore;
     var $strDate;		// 2014-11-13
@@ -169,29 +169,29 @@ class StockHistory
         return $strName.'Next';
     }
     
-    function _cfg_set_SMA($cfg, $strName, $fSma, $fNext = false)
+    function _cfg_set_SMA($cfg, $strName, $strSma, $strNext = false)
     {
-        $this->afSMA[$strName] = $fSma;
-        $this->afNext[$strName] = $fNext;
+        $this->arSMA[$strName] = $strSma;
+        $this->arNext[$strName] = $strNext;
         
-        $cfg->set_var(SMA_SECTION, $strName, strval($fSma));
-        if ($fNext)
+        $cfg->set_var(SMA_SECTION, $strName, $strSma);
+        if ($strNext)
         {
-        	$cfg->set_var(SMA_SECTION, $this->_buildNextName($strName), strval($fNext));
+        	$cfg->set_var(SMA_SECTION, $this->_buildNextName($strName), $strNext);
         }
     }
     
     function _cfg_get_SMA($cfg, $strName)
     {
-        $this->afSMA[$strName] = floatval($cfg->read_var(SMA_SECTION, $strName));
+        $this->arSMA[$strName] = $cfg->read_var(SMA_SECTION, $strName);
         
         if ($str = $cfg->read_var(SMA_SECTION, $this->_buildNextName($strName)))
         {
-        	$this->afNext[$strName] = floatval($str);
+        	$this->arNext[$strName] = $str;
         }
         else
         {
-        	$this->afNext[$strName] = false;
+        	$this->arNext[$strName] = false;
         }
     }
 
@@ -236,7 +236,7 @@ class StockHistory
     {
     	if ($strEma = $this->_getEMA($iDays))
 		{
-			$this->_cfg_set_SMA($cfg, 'EMA'.strval($iDays), floatval($strEma));
+			$this->_cfg_set_SMA($cfg, 'EMA'.strval($iDays), $strEma);
 		}
     }
     
@@ -266,10 +266,10 @@ class StockHistory
         {
             $this->_cfg_set_SMA($cfg, 'D'.strval($i), _estSma($afClose, $i), _estSma($afClose, $i - 1));
         }
-        list($fUp, $fDown) = _estBollingerBands($afClose, BOLL_DAYS);
-        list($fUpNext, $fDownNext) = _estNextBollingerBands($afClose, BOLL_DAYS);
-        $this->_cfg_set_SMA($cfg, 'BOLLUP', $fUp, $fUpNext);
-        $this->_cfg_set_SMA($cfg, 'BOLLDN', $fDown, $fDownNext);
+        list($strUp, $strDown) = _estBollingerBands($afClose, BOLL_DAYS);
+        list($strUpNext, $strDownNext) = _estNextBollingerBands($afClose, BOLL_DAYS);
+        $this->_cfg_set_SMA($cfg, 'BOLLUP', $strUp, $strUpNext);
+        $this->_cfg_set_SMA($cfg, 'BOLLDN', $strDown, $strDownNext);
 
         foreach ($this->aiNum as $i)
         {
@@ -351,15 +351,20 @@ class StockHistory
     
     function _getScore()
     {
-    	$iScore = 0;
-    	$fPrice = $this->stock_ref->fPrice;
+    	$arKey = array();
     	foreach ($this->aiNum as $i)
         {
-        	$strKey = 'D'.strval($i);
-            if ($fPrice > $this->afSMA[$strKey])	$iScore ++;
+        	$arKey[] = 'D'.strval($i);
         }
-        if ($fPrice > $this->afSMA['BOLLUP'])		$iScore ++;
-        if ($fPrice > $this->afSMA['BOLLDN'])		$iScore ++;
+        $arKey[] = 'BOLLUP';
+        $arKey[] = 'BOLLDN';
+        
+    	$iScore = 0;
+    	$fPrice = floatval($this->stock_ref->GetCurrentPrice());
+    	foreach ($arKey as $strKey)
+    	{
+            if ($fPrice > floatval($this->arSMA[$strKey]))	$iScore ++;
+        }
     	return $iScore;
     }
     

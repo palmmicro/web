@@ -30,10 +30,10 @@ class _ChinaEtfGroup extends _StockGroup
 function _chinaEtfRefCallbackData($ref)
 {
    	$ar = array();
-    $ar[] = strval($ref->nv_ref->fPrice);
-    $fNetValue = $ref->EstOfficialNetValue();
-    $ar[] = $ref->GetPriceDisplay($fNetValue, false);
-    $ar[] = $ref->GetPercentageDisplay(strval($fNetValue));
+    $ar[] = $ref->nv_ref->strPrice;
+    $strNetValue = $ref->EstOfficialNetValue();
+    $ar[] = $ref->GetPriceDisplay($strNetValue, false);
+    $ar[] = $ref->GetPercentageDisplay($strNetValue);
     return $ar;
 }
 
