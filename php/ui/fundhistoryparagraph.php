@@ -19,8 +19,8 @@ function _echoFundHistoryTableItem($csv, $strDate, $arFund, $ref, $est_ref)
         $strPairChange = $est_ref->GetCurrentPercentageDisplay();
     }
 
-    $fEstValue = floatval($arFund['close']);
-    if (empty($fEstValue))
+    $strEstValue = $arFund['close'];
+    if (empty($strEstValue))
     {
     	$strEstError = ''; 
     	$strEstValue = '';
@@ -29,8 +29,8 @@ function _echoFundHistoryTableItem($csv, $strDate, $arFund, $ref, $est_ref)
     else
     {
         $ref->SetCurrentPrice($strNetValue);
-        $strEstError = $ref->GetPercentageDisplay($fEstValue);
-        $strEstValue = $ref->GetPriceDisplay($fEstValue, false);
+        $strEstError = $ref->GetPercentageDisplay($strEstValue);
+        $strEstValue = $ref->GetPriceDisplay(floatval($strEstValue), false);
         $strEstTime = $arFund['time'];
     }
     

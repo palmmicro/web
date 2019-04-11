@@ -211,9 +211,9 @@ function GetRatioDisplay($fVal)
     return StockGetPriceDisplay($fVal, 1.0);
 }
 
-function StockGetPercentage($fPrice, $fPrice2)
+function StockGetPercentage($strPrice, $strPrice2)
 {
-    return ($fPrice/$fPrice2 - 1.0) * 100.0;
+    return (floatval($strPrice)/floatval($strPrice2) - 1.0) * 100.0;
 }
 
 function StockCompareEstResult($nv_sql, $strNetValue, $strDate, $strSymbol)
@@ -223,7 +223,7 @@ function StockCompareEstResult($nv_sql, $strNetValue, $strDate, $strSymbol)
        	$fund_sql = new FundEstSql($nv_sql->GetKeyId());
        	if ($strEstValue = $fund_sql->GetClose($strDate))
        	{
-       		$fPercentage = StockGetPercentage(floatval($strEstValue), floatval($strNetValue));
+       		$fPercentage = StockGetPercentage($strEstValue, $strNetValue);
        		if (abs($fPercentage) > 1.0)
        		{
        			$strLink = GetNetValueHistoryLink($strSymbol);

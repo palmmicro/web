@@ -32,7 +32,7 @@ function TextFromStockReference($ref)
     $str = RefGetDescription($ref).WX_EOL;
     $str .= $ref->GetExternalLink().WX_EOL;
     $str .= STOCK_DISP_PRICE.':'.strval($ref->fPrice).' '.$ref->strDate.' '.GetTimeHM($ref->strTime).WX_EOL;
-    $str .= STOCK_DISP_CHANGE.':'.$ref->GetPercentageText($ref->fPrevPrice).WX_EOL;
+    $str .= STOCK_DISP_CHANGE.':'.$ref->GetPercentageText($ref->strPrevPrice).WX_EOL;
     if ($ref->strOpen)		$str .= '开盘价:'.strval_float($ref->strOpen).WX_EOL;
     if ($ref->strHigh)		$str .= '最高:'.strval_float($ref->strHigh).WX_EOL;
     if ($ref->strLow)		$str .= '最低:'.strval_float($ref->strLow).WX_EOL;
@@ -62,7 +62,7 @@ function _textPremium($stock_ref, $fEst)
     $str = STOCK_DISP_EST.':'.$stock_ref->GetPriceText($fEst);
     if ($stock_ref->HasData())
     {
-        $str .= ' '.STOCK_DISP_PREMIUM.':'.$stock_ref->GetPercentageText($fEst);
+        $str .= ' '.STOCK_DISP_PREMIUM.':'.$stock_ref->GetPercentageText(strval($fEst));
     }
     return $str;
 }

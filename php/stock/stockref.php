@@ -292,25 +292,25 @@ class StockReference
         return round_display($fVal);
     }
 
-    function GetPercentageText($fPrevPrice)
+    function GetPercentageText($strPrevPrice)
     {
-    	if (empty($fPrevPrice) || empty($this->fPrice))		return '';
+    	if (empty($strPrevPrice) || empty($this->strPrice))		return '';
     
-   		$fPercentage = StockGetPercentage($this->fPrice, $fPrevPrice);
+   		$fPercentage = StockGetPercentage($this->strPrice, $strPrevPrice);
    		return strval_round($fPercentage).'%';
     }
     
     // for display
-    function GetPercentageDisplay($fPrevPrice)
+    function GetPercentageDisplay($strPrevPrice)
     {
-    	if (abs($this->fPrice - $fPrevPrice) < 0.0005)
+    	if (abs($this->fPrice - floatval($strPrevPrice)) < 0.0005)
     	{
     		$strDisplay = '0';
     		$strColor = 'grey';
     	}
     	else
     	{
-    		$strDisplay = $this->GetPercentageText($fPrevPrice);
+    		$strDisplay = $this->GetPercentageText($strPrevPrice);
     		if (substr($strDisplay, 0, 1) == '-')	$strColor = 'red';
     		else                                   		$strColor = 'black';
     	}
@@ -319,12 +319,12 @@ class StockReference
     
     function GetCurrentPercentage()
     {
-        return StockGetPercentage($this->fPrice, $this->fPrevPrice);
+        return StockGetPercentage($this->strPrice, $this->strPrevPrice);
     }
     
     function GetCurrentPercentageDisplay()
     {
-        return $this->GetPercentageDisplay($this->fPrevPrice);
+        return $this->GetPercentageDisplay($this->strPrevPrice);
     }
     
     function GetPriceDisplay($fPrice, $bPrev = true)

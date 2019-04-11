@@ -21,11 +21,6 @@ function GetTableColumnDisplay($strDisplay, $strColor = false)
 	return "<td $strBackGround class=c1>$strDisplay</td>";
 }
 
-function GetTableColumnFloatDisplay($strFloat, $strColor = false)
-{
-	return GetTableColumnDisplay(strval_float($strFloat), $strColor);
-}
-
 function GetTableColumn($iWidth, $strDisplay)
 {
 	$strWidth = strval($iWidth);

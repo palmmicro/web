@@ -16,7 +16,7 @@ function _getTradingEstPercentageDisplay($ref, $fEstPrice, $strColor)
 {
 	if ($fEstPrice)
 	{
-		return GetTableColumnDisplay($ref->GetPercentageDisplay($fEstPrice), $strColor);
+		return GetTableColumnDisplay($ref->GetPercentageDisplay(strval($fEstPrice)), $strColor);
 	}
 	return '';
 }

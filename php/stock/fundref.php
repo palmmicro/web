@@ -91,15 +91,15 @@ class FundReference extends MysqlReference
         return '';
     }
     
-    function GetPercentageDisplay($fVal)
+    function GetPercentageDisplay($strVal)
     {
-    	if ($fVal)
+    	if ($strVal)
     	{
     		if ($this->stock_ref)
     		{
-    			return $this->stock_ref->GetPercentageDisplay($fVal);
+    			return $this->stock_ref->GetPercentageDisplay($strVal);
     		}
-    		return parent::GetPercentageDisplay($fVal);
+    		return parent::GetPercentageDisplay($strVal);
     	}
         return '';
     }

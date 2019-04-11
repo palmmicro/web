@@ -13,12 +13,11 @@ function _echoCalibrationItem($ref, $record, $bAdmin)
     	$strDate = GetOnClickLink('/php/_submitdelete.php?'.TABLE_ETF_CALIBRATION.'='.$record['id'], '确认删除'.$strDate.'校准记录'.$strClose.'?', $strDate);
     }
     
- 	$strClose = GetTableColumnFloatDisplay($strClose);
     echo <<<END
     <tr>
         <td class=c1>$strPrice</td>
         <td class=c1>$strPairPrice</td>
-        $strClose
+        <td class=c1>$strClose</td>
         <td class=c1>$strDate</td>
     </tr>
 END;

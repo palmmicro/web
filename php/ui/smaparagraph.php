@@ -32,11 +32,11 @@ function _echoSmaTableItem($his, $strKey, $fVal, $ref, $callback, $callback2, $s
     
     $strSma = _getSmaRow($strKey);
     $strPrice = $stock_ref->GetPriceDisplay($fVal, false);
-    $strPercentage = $stock_ref->GetPercentageDisplay($fVal);
+    $strPercentage = $stock_ref->GetPercentageDisplay(strval($fVal));
    	if ($fNext = $his->afNext[$strKey])
    	{
    		$strNextPrice = $stock_ref->GetPriceDisplay($fNext, false);
-   		$strNextPercentage = $stock_ref->GetPercentageDisplay($fNext);
+   		$strNextPercentage = $stock_ref->GetPercentageDisplay(strval($fNext));
    	}
    	else
    	{
