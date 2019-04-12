@@ -1,13 +1,9 @@
 <?php
 require_once('smaparagraph.php');
 
-function _callbackEtfSma($ref, $fEst = false)
+function _callbackEtfSma($ref, $strEst = false)
 {
-	if ($fEst === false)
-	{
-		return $ref;
-	}
-	return $ref->EstFromPair($fEst);
+	return $strEst ? $ref->EstFromPair($strEst) : $ref;
 }
 
 function EchoEtfArraySmaParagraph($ref, $arEtfRef, $callback2 = false)

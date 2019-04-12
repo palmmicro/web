@@ -1,13 +1,9 @@
 <?php
 require_once('smaparagraph.php');
 
-function _callbackLofSma($lof_ref, $fEst = false)
+function _callbackLofSma($lof_ref, $strEst = false)
 {
-	if ($fEst === false)
-	{
-		return $lof_ref->stock_ref;
-	}
-	return $lof_ref->GetLofValue($fEst, $lof_ref->fCNY);
+	return $strEst ? strval($lof_ref->GetLofValue($strEst, $lof_ref->fCNY)) : $lof_ref->stock_ref;
 }
 
 function EchoLofSmaParagraph($lof_ref, $callback2 = false)

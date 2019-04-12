@@ -14,19 +14,19 @@ function _getSmaRow($strKey)
 
 function _getSmaCallbackPriceDisplay($callback, $ref, $strVal, $strColor)
 {
-	if ($strVal === false)
+	if ($strVal)
 	{
-		$str = '';
+		$display_ref = call_user_func($callback, $ref);
+		$str = $display_ref->GetPriceDisplay(call_user_func($callback, $ref, $strVal), false);
 	}
 	else
 	{
-		$display_ref = call_user_func($callback, $ref);
-		$str = $display_ref->GetPriceDisplay(strval(call_user_func($callback, $ref, floatval($strVal))), false);
+		$str = '';
 	}
 	return GetTableColumnDisplay($str, $strColor);
 }
 
-function _echoSmaTableItem($his, $strKey, $strVal, $ref, $callback, $callback2, $strColor)
+function _echoSmaTableItem($his, $strKey, $strVal, $cb_ref, $callback, $callback2, $strColor)
 {
     $stock_ref = $his->stock_ref;
     
@@ -44,15 +44,8 @@ function _echoSmaTableItem($his, $strKey, $strVal, $ref, $callback, $callback2, 
    		$strNextPercentage = '';
    	}
    	
-    $strDisplayEx = '';
-    if ($callback)
-    {
-        $strDisplayEx = _getSmaCallbackPriceDisplay($callback, $ref, $strVal, $strColor);
-        $strDisplayEx .= _getSmaCallbackPriceDisplay($callback, $ref, $strNext, $strColor);
-    }
-
-    $strUserDefined = '';  
-    if ($callback2)    $strUserDefined = GetTableColumnDisplay(call_user_func($callback2, $strVal, $strNext), $strColor);
+    $strDisplayEx = $callback ? _getSmaCallbackPriceDisplay($callback, $cb_ref, $strVal, $strColor)._getSmaCallbackPriceDisplay($callback, $cb_ref, $strNext, $strColor) : '';
+    $strUserDefined = $callback2 ? GetTableColumnDisplay(call_user_func($callback2, $strVal, $strNext), $strColor) : '';
 
     $strBackGround = GetTableColumnColor($strColor);
     echo <<<END
@@ -101,7 +94,7 @@ class MaxMin
     }
 }
 
-function _echoSmaTableData($his, $ref, $callback, $callback2)
+function _echoSmaTableData($his, $cb_ref, $callback, $callback2)
 {
     $mm = new MaxMin();
     $mmB = new MaxMin();
@@ -139,7 +132,7 @@ function _echoSmaTableData($his, $ref, $callback, $callback2)
             else if ($mmB->Fit($fVal))  $strColor = 'silver';
             else 							$strColor = 'yellow';
         }
-        _echoSmaTableItem($his, $strKey, $strVal, $ref, $callback, $callback2, $strColor);
+        _echoSmaTableItem($his, $strKey, $strVal, $cb_ref, $callback, $callback2, $strColor);
     }
 }
 

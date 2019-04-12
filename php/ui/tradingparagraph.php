@@ -172,7 +172,7 @@ function EchoAhTradingParagraph($hshare_ref)
     {
     	$strAdrLink = RefGetMyStockLink($hshare_ref->adr_ref);
     	$arColumn[] = $strAdrLink.$strPremium;
-    	$strVal = strval($hshare_ref->FromUsdToCny($hshare_ref->adr_ref->fPrice));
+    	$strVal = $hshare_ref->FromUsdToCny($hshare_ref->adr_ref->GetCurrentPrice());
     }
     else
     {
@@ -183,7 +183,7 @@ function EchoAhTradingParagraph($hshare_ref)
     $strPrice = _getTradingParagraphStr($arColumn);
     $str = "{$strSymbol}{$strPrice}相对于{$strSymbolH}交易价格{$strPriceH}港币的{$strPremium}";
         
-    _echoTradingParagraph($str, $arColumn, $ref, strval($hshare_ref->GetCnyPrice()), $strVal); 
+    _echoTradingParagraph($str, $arColumn, $ref, $hshare_ref->GetCnyPrice(), $strVal); 
 }
 
 function EchoEtfTradingParagraph($ref)

@@ -35,11 +35,7 @@ class StockTransaction
     
     function GetAvgCost()
     {
-        if ($this->iTotalShares != 0)
-        {
-            return $this->fTotalCost / $this->iTotalShares;
-        }
-        return 0.0;
+		return ($this->iTotalShares != 0) ? strval($this->fTotalCost / $this->iTotalShares) : '';
     }
 }
 
@@ -75,7 +71,7 @@ class MyStockTransaction extends StockTransaction
     {
         if ($this->ref)
         {
-        	return $this->ref->GetPriceDisplay(strval($this->GetAvgCost()), false);
+        	return $this->ref->GetPriceDisplay($this->GetAvgCost(), false);
         }
         return '';
     }

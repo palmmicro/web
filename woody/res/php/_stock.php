@@ -50,7 +50,7 @@ function _EchoPortfolioItem($strGroupId, $trans)
     else
     {
         $strAvgCost = $trans->GetAvgCostDisplay();
-        $strPercentage = $ref->GetPercentageDisplay(strval($trans->GetAvgCost()));
+        $strPercentage = $ref->GetPercentageDisplay($trans->GetAvgCost());
         $strAmount = $trans->GetValueDisplay();
         $strTotalShares = strval($trans->iTotalShares); 
     }

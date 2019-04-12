@@ -36,79 +36,62 @@ class HShareReference extends MyStockReference
         parent::MyStockReference($strSymbol);
     }
     
-    function EstFromCny($fEst)
+    function EstFromCny($strEst)
     {
-    	if ($this->a_ref)
-    	{
-    		return $fEst / ($this->fRatio * $this->fHKDCNY);
-    	}
-    	return 0.0;
+  		return $this->a_ref ? strval(floatval($strEst) / ($this->fRatio * $this->fHKDCNY)) : '0';
     }
 
-    function EstToCny($fEst)
+    function EstToCny($strEst)
     {
-    	if ($this->a_ref)
-    	{
-//    		return $fEst * ($this->fRatio * $this->fHKDCNY);
-			return HShareEstToCny($fEst, $this->fRatio, $this->fHKDCNY);
-    	}
-    	return 0.0;
+		return $this->a_ref ? strval(HShareEstToCny(floatval($strEst), $this->fRatio, $this->fHKDCNY)) : '0';
     }
     
     function GetCnyPrice()
     {
-    	return $this->EstToCny($this->fPrice);
+    	return $this->EstToCny($this->strPrice);
     }
     
     function GetAhRatio()
     {
     	if ($this->a_ref)
     	{
-    		return $this->a_ref->fPrice / $this->GetCnyPrice();
+    		return $this->a_ref->fPrice / floatval($this->GetCnyPrice());
     	}
     	return 1.0;
     }
    
-    function EstFromUsd($fEst)
+    function EstFromUsd($strEst)
     {
-    	if ($this->adr_ref)
-    	{
-    		return $fEst / ($this->fAdrRatio * $this->fHKDUSD);
-    	}
-    	return 0.0;
+   		return $this->adr_ref ? strval(floatval($strEst) / ($this->fAdrRatio * $this->fHKDUSD)) : '0';
     }
 
-    function EstToUsd($fEst)
+    function EstToUsd($strEst)
     {
-    	if ($this->adr_ref)
-    	{
-    		return $fEst * ($this->fAdrRatio * $this->fHKDUSD);
-    	}
-    	return 0.0;
+   		return $this->adr_ref ? strval(floatval($strEst) * ($this->fAdrRatio * $this->fHKDUSD)) : '0';
     }
     
-    function FromUsdToCny($fEst)
+    function FromUsdToCny($strEst)
     {
-		$fHkd = $this->EstFromUsd($fEst);
-		return $this->EstToCny($fHkd);
+		$strHkd = $this->EstFromUsd($strEst);
+		return $this->EstToCny($strHkd);
 	}
 
-	function FromCnyToUsd($fEst, $ref)
+	function FromCnyToUsd($strEst)
 	{
-		$fHkd = $this->EstFromCny($fEst);
-		return $this->EstToUsd($fHkd);
+		$strHkd = $this->EstFromCny($strEst);
+		return $this->EstToUsd($strHkd);
 	}
     
     function GetUsdPrice()
     {
-    	return $this->EstToUsd($this->fPrice);
+    	return $this->EstToUsd($this->strPrice);
     }
     
     function GetAdrhRatio()
     {
     	if ($this->adr_ref)
     	{
-    		return $this->adr_ref->fPrice / $this->GetUsdPrice();
+    		return $this->adr_ref->fPrice / floatval($this->GetUsdPrice());
     	}
     	return 1.0;
     }

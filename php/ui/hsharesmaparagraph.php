@@ -1,58 +1,34 @@
 <?php
 require_once('smaparagraph.php');
 
-function _callbackHShareSmaA($ref, $fEst = false)
+function _callbackHShareSmaA($ref, $strEst = false)
 {
-	if ($fEst === false)
-	{
-		return $ref;
-	}
-	return $ref->EstFromCny($fEst);
+	return $strEst ? $ref->EstFromCny($strEst) : $ref;
 }
 
-function _callbackHShareSmaH($ref, $fEst = false)
+function _callbackHShareSmaH($ref, $strEst = false)
 {
-	if ($fEst === false)
-	{
-		return $ref->a_ref;
-	}
-	return $ref->EstToCny($fEst);
+	return $strEst ? $ref->EstToCny($strEst) : $ref->a_ref;
 }
 
-function _callbackHAdrSmaAdr($ref, $fEst = false)
+function _callbackHAdrSmaAdr($ref, $strEst = false)
 {
-	if ($fEst === false)
-	{
-		return $ref;
-	}
-	return $ref->EstFromUsd($fEst);
+	return $strEst ? $ref->EstFromUsd($strEst) : $ref;
 }
 
-function _callbackHAdrSmaH($ref, $fEst = false)
+function _callbackHAdrSmaH($ref, $strEst = false)
 {
-	if ($fEst === false)
-	{
-		return $ref->adr_ref;
-	}
-	return $ref->EstToUsd($fEst);
+	return $strEst ? $ref->EstToUsd($strEst) : $ref->adr_ref;
 }
 
-function _callbackHAdrSmaUsd($ref, $fEst = false)
+function _callbackHAdrSmaUsd($ref, $strEst = false)
 {
-	if ($fEst === false)
-	{
-		return $ref->a_ref;
-	}
-	return $ref->FromUsdToCny($fEst);
+	return $strEst ? $ref->FromUsdToCny($strEst) : $ref->a_ref;
 }
 
-function _callbackHAdrSmaCny($ref, $fEst = false)
+function _callbackHAdrSmaCny($ref, $strEst = false)
 {
-	if ($fEst === false)
-	{
-		return $ref->adr_ref;
-	}
-	return $ref->FromCnyToUsd($fEst);
+	return $strEst ? $ref->FromCnyToUsd($strEst) : $ref->adr_ref;
 }
 
 function EchoHShareSmaParagraph($ref, $hshare_ref)

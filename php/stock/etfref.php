@@ -233,13 +233,13 @@ class EtfReference extends MyStockReference
     			$fVal *= $fCny;
     		}
     	}
-    	return $fVal;
+    	return strval($fVal);
     }
     
     // (fEst - fPairNetValue)/(x - fNetValue) = fFactor / fRatio;
-    function EstFromPair($fEst, $fCny = false)
+    function EstFromPair($strEst, $fCny = false)
     {
-    	$fVal = ($fEst - $this->fPairNetValue) * $this->fRatio / $this->fFactor + $this->fNetValue;
+    	$fVal = (floatval($strEst) - $this->fPairNetValue) * $this->fRatio / $this->fFactor + $this->fNetValue;
     	return $this->_adjustByCny($fVal, $fCny, ($this->IsSymbolA() ? false : true));
     }
 
@@ -257,16 +257,12 @@ class EtfReference extends MyStockReference
     
     function _estOfficialNetValue($fund_sql, $fCny = false)
     {
-		if ($strEst = $this->pair_nv_ref->sql->GetClose($this->strOfficialDate))
+		if (($strEst = $this->pair_nv_ref->sql->GetClose($this->strOfficialDate)) == false)
 		{
-			$fEst = floatval($strEst);
-		}
-		else
-		{
-			$fEst = $this->pair_ref->fPrice;
+			$strEst = $this->pair_ref->GetCurrentPrice();
 		}
 		
-   		$strVal = strval($this->EstFromPair($fEst, $fCny));
+   		$strVal = $this->EstFromPair($strEst, $fCny);
    		StockUpdateEstResult($this->nv_ref->sql, $fund_sql, $strVal, $this->strOfficialDate);
         return $strVal;
     }

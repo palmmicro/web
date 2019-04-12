@@ -5,14 +5,12 @@ define('TABLE_COMMON_DISPLAY', 10);
 
 function IsTableCommonDisplay($iStart, $iNum)
 {
-	if (($iStart == 0) && ($iNum == TABLE_COMMON_DISPLAY))	return true;
-	return false;
+	return (($iStart == 0) && ($iNum == TABLE_COMMON_DISPLAY))	 ? true : false;
 }
 
 function GetTableColumnColor($strColor)
 {
-    if ($strColor)    return 'style="background-color:'.$strColor.'"';
-    return '';
+    return $strColor ? 'style="background-color:'.$strColor.'"' : '';
 }
 
 function GetTableColumnDisplay($strDisplay, $strColor = false)
