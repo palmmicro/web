@@ -11,7 +11,7 @@ function EchoEditInputForm($strTitle, $strInput, $bChinese)
 	<form id="inputForm" name="inputForm" method="post" action="/account/php/_submitinput.php">
         <div>
 		<p><font color=olive>$strTitle</font>
-	        <input name="$strName" value="$strInput" type="text" maxlength="32" class="textfield" id="$strName" />
+	        <input name="$strName" value="$strInput" type="text" maxlength="16" class="textfield" id="$strName" />
 	        <input type="submit" name="submit" value="$strSubmit" />
 	    </p>
         </div>

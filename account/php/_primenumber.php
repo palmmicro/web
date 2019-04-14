@@ -3,12 +3,12 @@ require_once('_account.php');
 require_once('_editinputform.php');
 require_once('/php/ui/table.php');
 
-function _calcPrimeNumber($strNumber, $bChinese)
+function _calcPrimeNumber($strNumber)
 {
     $fStart = microtime(true);
 	$iNum = intval($strNumber);
 	$aiPrime = array(2);
-	for ($i = 3; $i * $i <= $iNum; $i += 2)
+	for ($i = 3; ($i * $i) <= $iNum; $i += 2)
 	{
 		$bPrime = true;
 		foreach ($aiPrime as $iPrime)
@@ -24,26 +24,24 @@ function _calcPrimeNumber($strNumber, $bChinese)
 	}
 
 	$aiNum = array();
-	for($i = 0; $aiPrime[$i] * $aiPrime[$i] <= $iNum; $i ++)
+	foreach ($aiPrime as $iPrime)
 	{
-		while(($iNum % $aiPrime[$i]) == 0)
+		if ($iPrime * $iPrime > $iNum)	break;
+		while(($iNum % $iPrime) == 0)
 		{
-			$iNum /= $aiPrime[$i];
-			$aiNum[] = $aiPrime[$i];
+			$iNum /= $iPrime;
+			$aiNum[] = $iPrime;
 		}
 	}
 	if ($iNum > 1) 		$aiNum[] = $iNum;
 
-	$strCount = strval(count($aiPrime));
-	$str = $bChinese ? '找到'.$strCount.'个质数' : "Found $strCount prime number";
-	$str .= DebugGetStopWatchDisplay($fStart);
-	$str .= '<br />'.$strNumber.'=1';
+//	DebugString('找到'.strval(count($aiPrime)).'个质数');
+	$str = $strNumber.'=';
 	foreach ($aiNum as $iPrime)
 	{
-		$str .= '*'.strval($iPrime);
+		$str .= strval($iPrime).'*';
 	}
-//	return rtrim($str, '*');
-	return $str;
+	return rtrim($str, '*').DebugGetStopWatchDisplay($fStart);
 }
 
 function _getPrimeNumberStr($bChinese)
@@ -58,7 +56,7 @@ function EchoAll($bChinese = true)
         $strNumber = strval(time());
     }
     
-    $str = _calcPrimeNumber($strNumber, $bChinese);
+    $str = _calcPrimeNumber($strNumber);
     EchoParagraph($str);
     EchoEditInputForm(_getPrimeNumberStr($bChinese), $strNumber, $bChinese);
 }
