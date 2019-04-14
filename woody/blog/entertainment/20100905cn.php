@@ -21,14 +21,21 @@
 现在用户已经可以在<a href="../../../account/registercn.php">这里</a>注册帐号测试. 由于基于PA6488的摄像头还没有面世, 用户可以先在这个网络日志上测试评论功能. 只有注册用户才能发表评论. 
 <br />这就是我的第一个PHP程序: 用户和网络日志评论的CRUD(Create创建/Retrieve读取/Update更新/Delete删除). 
 </p> 
-<blockquote><font color=grey>
-女神: 你能让这个论坛的人都吵起来, 我今晚就跟你走. 
-程序猿: PHP语言是最好的语言!
-论坛炸锅了, 各种吵架. 
-女神: 服了你了, 我们走吧, 你想干啥都行. 
-程序猿: 今天不行, 我一定要说服他们, PHP语言是最好的语言. 
+<blockquote><font color=grey>女神: 你能让这个论坛的人都吵起来, 我今晚就跟你走. 
+<br />程序猿: PHP语言是最好的语言!
+<br />论坛炸锅了, 各种吵架. 
+<br />女神: 服了你了, 我们走吧, 你想干啥都行. 
+<br />程序猿: 今天不行, 我一定要说服他们, PHP语言是最好的语言. 
 </font>
 </blockquote>
+
+<h3>分解质因数</h3>
+<p>2019年4月12日
+<br />昨天是王小波忌日, 让我对自己的胸闷和牙疼症状充满了警惕. 最近整理<a href="20150818cn.php">华宝油气</a>净值软件真有种死去活来的感觉, 经常让我怀疑自己到底在干什么.
+今天刚好在我的QQ群204836363看到这个图片, 我觉得自己该做点简单的东西恢复一下信心, 就削尖铅笔写了这个<a href="../../../account/primenumbercn.php">分解质因数</a>的工具.
+<br /><img src=../photo/primenumber.jpg alt="The picture that encouraged me to write this prime nnumber tool." />
+</p>
+
 </div>
 
 <?php _LayoutBottom(); ?>

@@ -26,6 +26,12 @@ As PA6488 based camera is not available in market yet. Users can test the user m
 <br />And this is my first PHP application: user and blog comment CRUD (Create/Retrieve/Update/Delete).
 </p> 
 
+<h3>Prime Number Tool</h3>
+<p>Apr 12, 2019
+<br /><a href="../../../account/primenumber.php">Prime Number</a> tool.
+<br /><img src=../photo/primenumber.jpg alt="The picture that encouraged me to write this prime nnumber tool." />
+</p>
+
 </div>
 
 <?php _LayoutBottom(false); ?>

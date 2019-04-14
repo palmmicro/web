@@ -26,6 +26,11 @@ function SwitchSetSess()
 	$_SESSION['userurl'] = $_SERVER['REQUEST_URI'];
 }
 
+function SwitchGetSess()
+{
+	return $_SESSION['userurl'];
+}
+
 function SwitchToSess()
 {
     if (isset($_SESSION['userurl'])) 

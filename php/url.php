@@ -160,9 +160,13 @@ function UrlGetIp()
 }
 
 // /woody/blog/entertainment/20140615cn.php
-function UrlGetUri()
+function UrlGetUri($str = false)
 { 
-	$str = $_SERVER['REQUEST_URI'];
+	if ($str == false)
+	{
+		$str = $_SERVER['REQUEST_URI'];
+	}
+	
 	if ($iPos = strpos($str, '.'))
 	{
 	    if (substr($str, $iPos, 4) == URL_PHP)

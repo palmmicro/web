@@ -1,45 +1,39 @@
 <?php
 require_once('_account.php');
+require_once('_editinputform.php');
 require_once('/php/ui/table.php');
 
-function _echoEditIpForm($strIp, $bChinese)
+function _getCheckIpStr($bChinese)
 {
-    if ($bChinese)
-    {
-        $strTitle = '输入IP地址:';
-        $strSubmit =  '提交';
-    }
-    else
-    {
-        $strTitle = 'Input IP Address:';
-        $strSubmit =  'Submit';
-    }
-    
-	echo <<< END
-	<form id="ipForm" name="ipForm" method="post" action="/account/php/_submitip.php">
-        <div>
-		<p><font color=olive>$strTitle</font>
-	        <input name="ip" value="$strIp" type="text" maxlength="16" class="textfield" id="ip" />
-	        <input type="submit" name="submit" value="$strSubmit" />
-	    </p>
-        </div>
-    </form>
-END;
+	return $bChinese ? 'IP地址数据' : 'IP Address Data';
 }
 
-function EchoCheckIp($bChinese = true)
+function EchoAll($bChinese = true)
 {
-    $strIp = UrlGetQueryValue('ip');
-    if ($strIp == false)
+    if (($strIp = UrlGetQueryValue(EDIT_INPUT_NAME)) == false)
     {
         $strIp = UrlGetIp();
     }
     
     $str = IpLookupGetString($strIp, '<br />', $bChinese);
     EchoParagraph($str);
-    _echoEditIpForm($strIp, $bChinese);
+    EchoEditInputForm(_getCheckIpStr($bChinese), $strIp, $bChinese);
 }
 
-    AcctNoAuth();
+function EchoMetaDescription($bChinese = true)
+{
+  	$str = _getCheckIpStr($bChinese);
+    $str .= $bChinese ? '查询页面. 从淘宝和ipinfo.io等网站查询IP地址对应的国家, 城市, 网络运营商和公司等信息. 同时也从palmmicro.com的用户登录和评论中提取对应记录.'
+    					: 'page, display country, city, service provider and company information from Taobao and ipinfo.io.';
+    EchoMetaDescriptionText($str);
+}
+
+function EchoTitle($bChinese = true)
+{
+  	$str = _getCheckIpStr($bChinese);
+  	echo $str;
+}
+
+	$acct = new AcctStart(false);
 
 ?>

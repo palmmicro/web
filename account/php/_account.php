@@ -8,14 +8,12 @@ function _getMenuArray($bChinese)
     {
         return array('login' => '登录',
                       'profile' => '资料',
-                      'closeaccount' => '关闭账号',
                      );
     }
     else
     {
          return array('login' => 'Login',
                       'profile' => 'Profile',
-                      'closeaccount' => 'Close Account',
                      );
     }
 }

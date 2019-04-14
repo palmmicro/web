@@ -25,7 +25,7 @@ function EchoMetaDescription()
 	global $group;
 	
 	$strTitle = UrlGetTitle();
-    $str = '本中文页面文件跟/woody/res/php/_submitstockoptions.php和/woody/res/php/_editstockoptionform.php一起配合, 对'.$group->GetStockDisplay();
+    $str = '本中文页面文件跟/woody/res/php/_submitstockoptions.php和_editstockoptionform.php一起配合, 对'.$group->GetStockDisplay();
     $str .= _getEditStockOptionSubmit($strTitle);
     EchoMetaDescriptionText($str);
 }
