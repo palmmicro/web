@@ -65,4 +65,34 @@ function GetAllCommentLink($strQuery, $bChinese)
     return GetPhpLink(ACCT_PATH.'comment', $strQuery, '全部评论', 'All Comment', $bChinese);
 }
 
+define('ACCOUNT_TOOL_IP', 'IP Address Data');
+define('ACCOUNT_TOOL_PRIME', 'Prime Number');
+
+define('ACCOUNT_TOOL_IP_CN', 'IP地址数据');
+define('ACCOUNT_TOOL_PRIME_CN', '分解质因数');
+
+function GetAccountToolArray($bChinese)
+{
+	if ($bChinese)
+	{
+		$ar = array('ip' => ACCOUNT_TOOL_IP_CN,
+                      'primenumber' => ACCOUNT_TOOL_PRIME_CN,
+                 );
+    }
+    else
+	{
+		$ar = array('ip' => ACCOUNT_TOOL_IP,
+                      'primenumber' => ACCOUNT_TOOL_PRIME,
+                 );
+    }
+	return $ar;
+}
+
+function GetStockOptionLink($strTool, $bChinese)
+{
+    $ar = GetAccountToolArray($bChinese);
+    $strTitle = array_search($strTool, $ar);
+	return GetTitleLink(ACCT_PATH, $strTitle, false, $strTool, $bChinese);
+}
+
 ?>
