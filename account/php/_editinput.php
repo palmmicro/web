@@ -1,53 +1,44 @@
 <?php
 require_once('_account.php');
 require_once('_editinputform.php');
+require_once('/php/tutorial/primenumber.php');
 require_once('/php/ui/table.php');
 
-function _calcPrimeNumber($strNumber)
+define('ACCOUNT_TOOL_IP', 'IP Address Data');
+define('ACCOUNT_TOOL_PRIME', 'Prime Number');
+
+define('ACCOUNT_TOOL_IP_CN', 'IP地址数据');
+define('ACCOUNT_TOOL_PRIME_CN', '分解质因数');
+
+function _getAccountToolArray($bChinese)
 {
-    $fStart = microtime(true);
-	$iNum = intval($strNumber);
-	$aiPrime = array(2);
-	for ($i = 3; ($i * $i) <= $iNum; $i += 2)
+	if ($bChinese)
 	{
-		$bPrime = true;
-		foreach ($aiPrime as $iPrime)
-		{
-			if ($iPrime * $iPrime > $i)		break;
-			else if (($i % $iPrime) == 0)
-			{
-				$bPrime = false;
-				break;
-			}
-		}
-		if ($bPrime)	$aiPrime[] = $i;
-	}
-
-	$aiNum = array();
-	foreach ($aiPrime as $iPrime)
+		$ar = array('ip' => ACCOUNT_TOOL_IP_CN,
+                      'primenumber' => ACCOUNT_TOOL_PRIME_CN,
+                 );
+    }
+    else
 	{
-		if ($iPrime * $iPrime > $iNum)	break;
-		while(($iNum % $iPrime) == 0)
-		{
-			$iNum /= $iPrime;
-			$aiNum[] = $iPrime;
-		}
-	}
-	if ($iNum > 1) 		$aiNum[] = $iNum;
-
-//	DebugString('找到'.strval(count($aiPrime)).'个质数');
-	$str = $strNumber.'=';
-	foreach ($aiNum as $iPrime)
-	{
-		$str .= strval($iPrime).'*';
-	}
-	return rtrim($str, '*').DebugGetStopWatchDisplay($fStart);
+		$ar = array('ip' => ACCOUNT_TOOL_IP,
+                      'primenumber' => ACCOUNT_TOOL_PRIME,
+                 );
+    }
+	return $ar;
 }
 
 function _getAccountToolStr($strTitle, $bChinese)
 {
-    $ar = GetAccountToolArray($bChinese);
+    $ar = _getAccountToolArray($bChinese);
 	return $ar[$strTitle];
+}
+
+function _getAccountToolGuideLink($strTitle, $bChinese)
+{
+    $str = '/woody/blog/entertainment/20100905';
+    $str .= UrlGetPhp($bChinese);
+    $str .= '#'.$strTitle;
+    return GetDevGuideLink($str, $bChinese);
 }
 
 function EchoAll($bChinese = true)
@@ -76,10 +67,11 @@ function EchoAll($bChinese = true)
     	break;
     	
     case 'primenumber':
-    	$str = _calcPrimeNumber($strInput);
+    	$str = GetPrimeNumberString($strInput);
     	break;
     }
-    $str .= '<br />'.GetCategoryLinks(GetAccountToolArray($bChinese), ACCT_PATH, $bChinese);
+    $str .= '<br />'._getAccountToolGuideLink($strTitle, $bChinese);
+    $str .= '<br />'.GetCategoryLinks(_getAccountToolArray($bChinese), ACCT_PATH, $bChinese);
     EchoParagraph($str);
 }
 

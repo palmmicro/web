@@ -148,7 +148,7 @@ function _getDevGuideLink($strVer)
     {
         $str .= '#'.$strVer;
     }
-    return GetInternalLink($str, '开发记录');
+    return GetDevGuideLink($str);
 }
 
 function EchoPromotionHead($strVer = false)
