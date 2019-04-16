@@ -1,35 +1,77 @@
 <?php
 require_once('/php/debug.php');
+require_once('/php/sql/sqltable.php');
+
+class PrimeNumberSql extends TableSql
+{
+    function PrimeNumberSql() 
+    {
+        parent::TableSql('primenumber');
+        $this->Create();
+    }
+    
+    function Create()
+    {
+    	$str = ' `val` BIGINT UNSIGNED NOT NULL ,'
+         	. ' UNIQUE ( `val` )';
+    	return $this->CreateTable($str);
+    }
+    
+    function Insert($strVal)
+    {
+    	return $this->InsertData("(id, val) VALUES('0', '$strVal')");
+    }
+    
+    function Get($iMax)
+    {
+    	$strMax = strval($iMax);
+    	return $this->GetData("val <= '$strMax'", '`val` ASC');
+    }
+}
 
 function _lookUpPrimeNumber($iNum)
 {
-	$aiPrime = array(2);
-	for ($i = 3; ($i * $i) <= $iNum; $i += 2)
+	$sql = new PrimeNumberSql();
+	if ($sql->CountData() == 0)
 	{
-		$bPrime = true;
-		foreach ($aiPrime as $iPrime)
+		$aiPrime = array(2);
+		$sql->Insert('2');
+		for ($i = 3; ($i * $i) <= PHP_INT_MAX; $i += 2)
 		{
-			if ($iPrime * $iPrime > $i)		break;
-			else if (($i % $iPrime) == 0)
+			$bPrime = true;
+			foreach ($aiPrime as $iPrime)
 			{
-				$bPrime = false;
-				break;
+				if ($iPrime * $iPrime > $i)		break;
+				else if (($i % $iPrime) == 0)
+				{
+					$bPrime = false;
+					break;
+				}
+			}
+			if ($bPrime)
+			{
+				$aiPrime[] = $i;
+				$sql->Insert(strval($i));
 			}
 		}
-		if ($bPrime)	$aiPrime[] = $i;
 	}
 
 	$aiNum = array();
-	foreach ($aiPrime as $iPrime)
-	{
-		if ($iPrime * $iPrime > $iNum)	break;
-		while (($iNum % $iPrime) == 0)
-		{
-			$iNum /= $iPrime;
-			$aiNum[] = $iPrime;
-		}
-	}
-	if ($iNum > 1) 		$aiNum[] = $iNum;
+    if ($result = $sql->Get(sqrt($iNum))) 
+    {
+        while ($record = mysql_fetch_assoc($result)) 
+        {
+        	$iPrime = intval($record['val']);
+        	if ($iPrime * $iPrime > $iNum)	break;
+        	while (($iNum % $iPrime) == 0)
+        	{
+        		$iNum /= $iPrime;
+        		$aiNum[] = $iPrime;
+        	}
+        }
+        if ($iNum > 1) 		$aiNum[] = $iNum;
+        @mysql_free_result($result);
+    }
 	return $aiNum;
 }
 
@@ -63,7 +105,7 @@ function _getPrimeNumberString($callback, $strNumber)
 function GetPrimeNumberString($strNumber)
 {
 	$str = _getPrimeNumberString(_onePassPrimeNumber, $strNumber);
-//	$str .= '<br />'._getPrimeNumberString(_lookUpPrimeNumber, $strNumber);
+	$str .= '<br />'._getPrimeNumberString(_lookUpPrimeNumber, $strNumber);
 	return $str;
 }
 

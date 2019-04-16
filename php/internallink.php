@@ -12,9 +12,12 @@ define('DEFAULT_NAV_DISPLAY', 100);
 
 define('ACCT_PATH', '/account/');
 
-function GetDevGuideLink($strUri, $bChinese = true)
+function GetDevGuideLink($strPage, $strVer = false, $bChinese = true)
 {
-    return GetInternalLink($strUri, $bChinese ? '开发记录' : 'Development Record');
+    $str = '/woody/blog/entertainment/'.$strPage;
+    $str .= UrlGetPhp($bChinese);
+    if ($strVer)	$str .= '#'.$strVer;
+    return GetInternalLink($str, $bChinese ? '开发记录' : 'Development Record');
 }
 
 function GetBlogLink($strBlogId)

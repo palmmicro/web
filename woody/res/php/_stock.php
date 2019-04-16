@@ -141,16 +141,6 @@ function _EchoMoneyGroupData($group, $strLink, $fUSDCNY, $fHKDCNY)
 
 
 // ****************************** Premotion Headline *******************************************************
-function _getDevGuideLink($strVer)
-{
-    $str = '/woody/blog/entertainment/20150818cn.php';
-    if ($strVer)
-    {
-        $str .= '#'.$strVer;
-    }
-    return GetDevGuideLink($str);
-}
-
 function EchoPromotionHead($strVer = false)
 {
     echo '<h3>讨论和建议</h3>';
@@ -170,7 +160,7 @@ function EchoPromotionHead($strVer = false)
        	LayoutMyPromotion();
        	break;
     }
-    EchoParagraph(_getDevGuideLink($strVer));
+    EchoParagraph(GetDevGuideLink('20150818', $strVer));
 }
 
 // ****************************** Money Paragraph *******************************************************

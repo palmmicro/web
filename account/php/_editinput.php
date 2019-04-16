@@ -33,14 +33,6 @@ function _getAccountToolStr($strTitle, $bChinese)
 	return $ar[$strTitle];
 }
 
-function _getAccountToolGuideLink($strTitle, $bChinese)
-{
-    $str = '/woody/blog/entertainment/20100905';
-    $str .= UrlGetPhp($bChinese);
-    $str .= '#'.$strTitle;
-    return GetDevGuideLink($str, $bChinese);
-}
-
 function EchoAll($bChinese = true)
 {
 	$strTitle = UrlGetTitle();
@@ -70,7 +62,7 @@ function EchoAll($bChinese = true)
     	$str = GetPrimeNumberString($strInput);
     	break;
     }
-    $str .= '<br />'._getAccountToolGuideLink($strTitle, $bChinese);
+    $str .= '<br />'.GetDevGuideLink('20100905', $strTitle, $bChinese);
     $str .= '<br />'.GetCategoryLinks(_getAccountToolArray($bChinese), ACCT_PATH, $bChinese);
     EchoParagraph($str);
 }

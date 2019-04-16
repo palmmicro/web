@@ -40,8 +40,22 @@
 <br />昨天是王小波忌日, 让我对自己的胸闷和牙疼症状充满了警惕. 最近整理<a href="20150818cn.php">华宝油气</a>净值软件真有种死去活来的感觉, 经常让我怀疑自己到底在干什么.
 今天刚好在我的QQ群<a href="../palmmicro/20161014cn.php#qqgroup">204836363</a>看到这个图片, 我觉得自己该做点简单的东西恢复一下信心, 就削尖铅笔写了这个<a href="../../../account/primenumbercn.php">分解质因数</a>的工具.
 <br /><img src=../photo/primenumber.jpg alt="The picture that encouraged me to write this prime nnumber tool." />
-<br />看看这些有关质数的文章: <?php EchoLink('https://taodaling.github.io/blog/blog/2019/04/03/Pollard-Rho-%E5%9B%A0%E5%BC%8F%E5%88%86%E8%A7%A3/'); ?>
-<br />是不是很容易觉得自己很白痴?
+<br />分解质因数可以用最直接的方式实现, 对指定的数字n, 从2开始一个个反复除到n的平方根为止就行了. 下面用数字68举个具体的例子.
+</p>
+<ol>
+  <li>68的平方根在8和9之间, 我们从2到8都除一遍就可以了. 68/2=34, 68=2*?.</li>
+  <li>因为34还是偶数, 继续来除2. 34/2=17, 68=2*2*?.</li>
+  <li>17不是3的整数倍数.</li>
+  <li>17不是4的整数倍数. 这里可以看到, 虽然原来68是4的整数倍数, 但是我们已经在前面处理过了.</li>
+  <li>对数字5来说, 因为5*5已经比17大, 我们不用继续除下去了, 最终结果就是68=2*2*17.</li>
+</ol>
+<p>接下来一个最直接的优化想法, 就是先把一定范围内的已知质数算出来, 这样我们在进行上面的计算时, 就不用算17是不是4的整数倍数了.
+基于<a href="20101107cn.php#gb2312">GB2312</a>大数组的教训, 我这次直接把前4972个质数存到了MySQL的表中. 不过结果让我很失望, 查MySQL已知质数表的结果反而要比直接算慢很多倍.
+<br />当然还有像Pollard Rho这种效率更高的分解质因数算法, 不过看看这些有关质数的文章: <?php EchoLink('https://taodaling.github.io/blog/blog/2019/04/03/Pollard-Rho-%E5%9B%A0%E5%BC%8F%E5%88%86%E8%A7%A3/'); ?>
+<br />是不是很容易觉得自己是数学白痴?
+<br />不过我还是很积极的在php下新建了一个子目录tutorial, 把这个新文件<?php EchoPhpFileLink('/php/tutorial/primenumber'); ?>放了进去. 
+同时开始憧憬万一几年后我真的开始自己做软硬件课件教<a href="20141204cn.php">林近岚</a>编程序的话, 今天这些工作可以做为其中的一节软件课. 
+<br /><font color=grey>做人要是没有梦想, 跟咸鱼有什么两样?</font>
 </p>
 
 </div>

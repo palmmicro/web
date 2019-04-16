@@ -71,7 +71,7 @@ function DebugGetFileTimeDisplay($strPathName)
 
 function DebugGetStopWatchDisplay($fStart)
 {
-    return ' ('.strval_round(microtime(true) - $fStart).'s)';
+    return ' ('.strval_round(microtime(true) - $fStart, 4).'s)';
 }
 
 function _checkDebugPath()
