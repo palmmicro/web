@@ -1,28 +1,35 @@
 <?php
+require_once('sqltable.php');
 
-function SqlCreateGB2312Table()
+class GB2312Sql extends TableSql
 {
-    $str = 'CREATE TABLE IF NOT EXISTS `camman`.`gb2312` ('
-         . ' `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,'
-         . ' `gb` VARCHAR( 5 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,'
-         . ' `utf` VARCHAR( 5 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,'
-         . ' UNIQUE ( `gb` )'
-         . ' ) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci '; 
-	return SqlDieByQuery($str, 'Create gb2312 table failed');
-}
-
-function SqlInsertGB2312($strGB, $strUTF)
-{
-	$strQry = "INSERT INTO gb2312(id, gb, utf) VALUES('0', '$strGB', '$strUTF')";
-	return SqlDieByQuery($strQry, 'Insert gb2312 failed');
-}
-
-function SqlGetUTF($strGB)
-{
-	if ($record = SqlGetSingleTableData(TABLE_GB2312, _SqlBuildWhere('gb', $strGB)))
-	{
-        return $record['utf'];
-	}
+    function GB2312Sql() 
+    {
+        parent::TableSql('gb2312');
+        $this->Create();
+    }
+    
+    function Create()
+    {
+    	$str = ' `gb` CHAR( 4 ) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL ,'
+         	  . ' `utf` CHAR( 4 ) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL ,'
+         	  . ' UNIQUE ( `gb` )';
+    	return $this->CreateTable($str);
+    }
+    
+    function Insert($strGB, $strUTF)
+    {
+    	return $this->InsertData(array('gb' => $strGB, 'utf' => $strUTF));
+    }
+    
+    function GetUTF($strGB)
+    {
+    	if ($record = $this->GetSingleData(_SqlBuildWhere('gb', $strGB)))
+    	{
+    		return $record['utf'];
+    	}
+    	return false;
+    }
 }
 
 ?>

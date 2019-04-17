@@ -22,8 +22,9 @@ class StockGroupSql extends MemberTableSql
     
     function Insert($strGroupName)
     {
-    	$strMemberId = $this->GetKeyId(); 
-    	return $this->InsertData("(id, member_id, groupname) VALUES('0', '$strMemberId', '$strGroupName')");
+    	$ar = $this->GetFieldKeyId();
+    	$ar['groupname'] = $strGroupName;
+    	return $this->InsertData($ar);
     }
     
     function Update($strId, $strGroupName)
@@ -117,8 +118,7 @@ class StockGroupItemSql extends StockGroupTableSql
     
     function Insert($strStockId)
     {
-    	$strGroupId = $this->GetKeyId(); 
-    	return $this->InsertData("(id, group_id, stock_id, quantity, cost, record) VALUES('0', '$strGroupId', '$strStockId', '0', '0.0', '0')");
+    	return $this->InsertData(array_merge($this->GetFieldKeyId(), array('stock_id' => $strStockId, 'quantity' => '0', 'cost' => '0.0', 'record' => '0')));
     }
 
     function Update($strId, $strQuantity, $strCost, $strRecord)

@@ -35,9 +35,19 @@ class TableSql
         return $this->_query($strQuery, 'drop table failed');
     }
     
-    function InsertData($str)
+    function InsertData($ar)
     {
-	    $strQuery = 'INSERT INTO '.$this->strName.$str;
+//    	$ar = func_get_args();
+    	$strKeyAll = '';
+    	$strValAll = '';
+    	foreach ($ar as $strKey => $strVal)
+    	{
+    		$strKeyAll .= $strKey.', ';
+    		$strValAll .= "'$strVal', ";
+    	}
+    	$strKeyAll = rtrim($strKeyAll, ', ');
+    	$strValAll = rtrim($strValAll, ', ');
+ 		$strQuery = 'INSERT INTO '.$this->strName."(id, $strKeyAll) VALUES('0', $strValAll)";
         return $this->_query($strQuery, 'insert data failed');
     }
     
@@ -177,14 +187,14 @@ class KeyTableSql extends TableSql
 	var $strKey;
 	var $strKeyId;
 	
-    function BuildWhere_key_extra($strKey, $strVal)
+    function GetKeyId()
     {
-		return _SqlBuildWhereAndArray(array($this->strKey => $this->strKeyId, $strKey => $strVal));
+    	return $this->strKeyId;
     }
     
-    function BuildWhere_key_stock($strStockId)
+    function GetFieldKeyId()
     {
-		return $this->BuildWhere_key_extra('stock_id', $strStockId);
+    	return array($this->strKey => $this->strKeyId);
     }
     
     function BuildWhere_key()
@@ -192,9 +202,16 @@ class KeyTableSql extends TableSql
     	return _SqlBuildWhere($this->strKey, $this->strKeyId);
     }
     
-    function GetKeyId()
+    function BuildWhere_key_extra($strKey, $strVal)
     {
-    	return $this->strKeyId;
+    	$ar = $this->GetFieldKeyId();
+    	$ar[$strKey] = $strVal;
+		return _SqlBuildWhereAndArray($ar);
+    }
+    
+    function BuildWhere_key_stock($strStockId)
+    {
+		return $this->BuildWhere_key_extra('stock_id', $strStockId);
     }
     
     function KeyTableSql($strKeyId, $strKeyPrefix, $strTableName) 

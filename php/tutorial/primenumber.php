@@ -19,7 +19,7 @@ class PrimeNumberSql extends TableSql
     
     function Insert($strVal)
     {
-    	return $this->InsertData("(id, val) VALUES('0', '$strVal')");
+    	return $this->InsertData(array('val' => $strVal));
     }
     
     function Get($iMax)

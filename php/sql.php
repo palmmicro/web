@@ -7,7 +7,6 @@ define('TABLE_DIVIDEND_PARAMETER', 'dividendparameter');
 define('TABLE_ETF_CALIBRATION', 'etfcalibration');
 define('TABLE_FUND_EST', 'fundest');
 define('TABLE_FUND_PURCHASE', 'fundpurchase');
-define('TABLE_GB2312', 'gb2312');
 define('TABLE_IP_ADDRESS', 'ipaddress');
 define('TABLE_MEMBER', 'member');
 define('TABLE_NETVALUE_HISTORY', 'netvaluehistory');

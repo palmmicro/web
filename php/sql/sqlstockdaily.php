@@ -21,6 +21,16 @@ class DailyStockSql extends StockTableSql
     	return $this->CreateTable($str);
     }
 
+    function _getPrivateFieldArray($strDate, $strClose)
+    {
+    	return array('date' => $strDate, 'close' => $strClose);
+    }
+    
+    function GetFieldArray($strDate, $strClose)
+    {
+    	return array_merge($this->GetFieldKeyId(), $this->_getPrivateFieldArray($strDate, $strClose));
+    }
+    
     function _getCloseString($strDate, $callback)
     {
     	if ($record = $this->$callback($strDate))
@@ -90,8 +100,7 @@ class DailyStockSql extends StockTableSql
         $ymd = new StringYMD($strDate);
         if ($ymd->IsWeekend())     			return false;   // sina fund may provide false weekend data
         
-    	$strStockId = $this->GetKeyId(); 
-    	return $this->InsertData("(id, stock_id, date, close) VALUES('0', '$strStockId', '$strDate', '$strClose')");
+    	return $this->InsertData($this->GetFieldArray($strDate, $strClose));
     }
 
     function Update($strId, $strClose)
@@ -149,13 +158,10 @@ class FundEstSql extends DailyStockSql
     
     function Insert($strDate, $strEstValue)
     {
-//    	DebugString('FundEstSql Insert: '.$strDate.' '.$strEstValue);
-    	if ($strStockId = $this->GetKeyId())
-    	{
-    		list($strDummy, $strTime) = explodeDebugDateTime();
-    		return $this->InsertData("(id, stock_id, date, close, time) VALUES('0', '$strStockId', '$strDate', '$strEstValue', '$strTime')");
-    	}
-    	return false;
+   		$ar = $this->GetFieldArray($strDate, $strEstValue);
+   		list($strDummy, $strTime) = explodeDebugDateTime();
+   		$ar['time'] = $strTime;
+   		return $this->InsertData($ar);
     }
     
     function Update($strId, $strEstValue)

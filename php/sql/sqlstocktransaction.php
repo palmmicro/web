@@ -60,7 +60,8 @@ class StockTransactionSql extends TableSql
     
     function Insert($strGroupItemId, $strQuantity, $strPrice, $strFees = '', $strRemark = '')
     {
-    	return $this->InsertData("(id, groupitem_id, quantity, price, fees, filled, remark) VALUES('0', '$strGroupItemId', '$strQuantity', '$strPrice', '$strFees', NOW(), '$strRemark')");
+    	list($strDate, $strTime) = explodeDebugDateTime();
+    	return $this->InsertData(array('groupitem_id' => $strGroupItemId, 'quantity' => $strQuantity, 'price' => $strPrice, 'fees' => $strFees, 'filled' => $strDate.' '.$strTime, 'remark' => $strRemark));
     }
 
     function Update($strId, $strGroupItemId, $strQuantity, $strPrice, $strCost, $strRemark)

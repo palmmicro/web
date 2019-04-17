@@ -18,10 +18,16 @@ class StockSql extends TableSql
     	return $this->CreateTable($str);
     }
     
+    function _getFieldArray($strSymbol, $strName)
+    {
+    	return array('symbol' => $strSymbol,
+    				   'name' => $strName);
+    }
+    
     function Insert($strSymbol, $strName)
     {
     	$strName = UrlCleanString($strName);
-    	return $this->InsertData("(id, symbol, name) VALUES('0', '$strSymbol', '$strName')");
+    	return $this->InsertData($this->_getFieldArray($strSymbol, $strName));
     }
 
 	function Update($strId, $strSymbol, $strName)

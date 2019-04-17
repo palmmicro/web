@@ -4,12 +4,11 @@ require_once('gb2312_unicode.php');
 function GB2312WriteDatabase()
 {
 	$arGB2312 = GB2312GetArray();
-	SqlCreateGB2312Table();
+    $sql = new GB2312Sql();
     foreach ($arGB2312 as $strGB => $strUTF)
     {
-    	SqlInsertGB2312($strGB, $strUTF);
+    	$sql->Insert($strGB, $strUTF);
     }
 }
 
 ?>
-
