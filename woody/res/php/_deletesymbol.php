@@ -25,9 +25,9 @@ function _deleteHasStockPair($strTableName, $strStockId)
 	return false;
 }
 
-function _deleteHasStockHistory($sql)
+function _deleteHasStockHistory($his_sql)
 {
-	$iTotal = $sql->Count();
+	$iTotal = $his_sql->Count();
 	if ($iTotal > 0)
 	{
 		DebugVal($iTotal, 'Stock history existed');
@@ -35,7 +35,7 @@ function _deleteHasStockHistory($sql)
 		{
 			return true;
 		}*/
-		$sql->DeleteAll();
+		$his_sql->DeleteAll();
 	}
 	return false;
 }

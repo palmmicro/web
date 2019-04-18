@@ -57,23 +57,31 @@ class StockTransactionSql extends TableSql
     		$this->DeleteData($strWhere);
     	}
     }
-    
-    function Insert($strGroupItemId, $strQuantity, $strPrice, $strFees = '', $strRemark = '')
+
+    function _getPrivateFieldArray($strGroupItemId, $strQuantity, $strPrice, $strFees, $strRemark)
     {
     	list($strDate, $strTime) = explodeDebugDateTime();
-    	return $this->InsertData(array('groupitem_id' => $strGroupItemId, 'quantity' => $strQuantity, 'price' => $strPrice, 'fees' => $strFees, 'filled' => $strDate.' '.$strTime, 'remark' => $strRemark));
+    	return array('groupitem_id' => $strGroupItemId, 'quantity' => $strQuantity, 'price' => $strPrice, 'fees' => $strFees, 'filled' => $strDate.' '.$strTime, 'remark' => $strRemark);
     }
 
-    function Update($strId, $strGroupItemId, $strQuantity, $strPrice, $strCost, $strRemark)
+    function Insert($strGroupItemId, $strQuantity, $strPrice, $strFees = '', $strRemark = '')
     {
-		return $this->UpdateById("groupitem_id = '$strGroupItemId', quantity = '$strQuantity', price = '$strPrice', fees = '$strCost', remark = '$strRemark'", $strId);
+    	return $this->InsertData($this->_getPrivateFieldArray($strGroupItemId, $strQuantity, $strPrice, $strFees, $strRemark));
+    }
+
+    function Update($strId, $strGroupItemId, $strQuantity, $strPrice, $strFees, $strRemark)
+    {
+    	$ar = $this->_getPrivateFieldArray($strGroupItemId, $strQuantity, $strPrice, $strFees, $strRemark);
+    	unset($ar['filled']);
+//    	DebugKeyArray($ar);
+		return $this->UpdateById($ar, $strId);
 	}
 	
     function Merge($strSrcGroupItemId, $strDstGroupItemId)
     {
     	if ($strWhere = $this->_buildWhere_groupitem($strSrcGroupItemId))
     	{
-    		return $this->UpdateData("groupitem_id = '$strDstGroupItemId'", $strWhere);
+    		return $this->UpdateData(array('groupitem_id' => $strDstGroupItemId), $strWhere);
     	}
     	return false;
     }

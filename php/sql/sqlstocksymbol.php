@@ -20,20 +20,19 @@ class StockSql extends TableSql
     
     function _getFieldArray($strSymbol, $strName)
     {
+    	$strName = UrlCleanString($strName);
     	return array('symbol' => $strSymbol,
     				   'name' => $strName);
     }
     
     function Insert($strSymbol, $strName)
     {
-    	$strName = UrlCleanString($strName);
     	return $this->InsertData($this->_getFieldArray($strSymbol, $strName));
     }
 
 	function Update($strId, $strSymbol, $strName)
     {
-    	$strName = UrlCleanString($strName);
-		return $this->UpdateById("symbol = '$strSymbol', name = '$strName'", $strId);
+		return $this->UpdateById($this->_getFieldArray($strSymbol, $strName), $strId);
 	}
 	
     function Get($strSymbol)

@@ -24,48 +24,48 @@ class StockHistorySql extends DailyStockSql
          	  . ' UNIQUE ( `date`, `stock_id` )';
     	return $this->CreateTable($str);
     }
-    
-    function _getPrivateFieldArray($strDate, $strOpen, $strHigh, $strLow, $strClose, $strVolume, $strAdjClose)
+
+    function Write($strDate, $strOpen, $strHigh, $strLow, $strClose, $strVolume, $strAdjClose)
     {
-    	return array('date' => $strDate,
+    	$ar = array('date' => $strDate,
     				   'open' => $strOpen,
     				   'high' => $strHigh,
     				   'low' => $strLow,
     				   'close' => $strClose,
     				   'volume' => $strVolume,
     				   'adjclose' => $strAdjClose);
-    }
-    
-    function Insert($strDate, $strOpen, $strHigh, $strLow, $strClose, $strVolume, $strAdjClose)
-    {
-    	return $this->InsertData(array_merge($this->GetFieldKeyId(), $this->_getPrivateFieldArray($strDate, $strOpen, $strHigh, $strLow, $strClose, $strVolume, $strAdjClose)));
-    }
-    
-    function Update($strId, $strOpen, $strHigh, $strLow, $strClose, $strVolume, $strAdjClose)
-    {
-		return $this->UpdateById("open = '$strOpen', high = '$strHigh', low = '$strLow', close = '$strClose', volume = '$strVolume', adjclose = '$strAdjClose'", $strId);
-    }
-
-    function Write($strDate, $strOpen, $strHigh, $strLow, $strClose, $strVolume, $strAdjClose)
-    {
+    	
     	if ($record = $this->Get($strDate))
     	{
-    		$this->Update($record['id'], $strOpen, $strHigh, $strLow, $strClose, $strVolume, $strAdjClose);
+    		unset($ar['date']);
+    		if (abs(floatval($record['open']) - floatval($strOpen)) < 0.001)				unset($ar['open']);
+    		if (abs(floatval($record['high']) - floatval($strHigh)) < 0.001)				unset($ar['high']);
+    		if (abs(floatval($record['low']) - floatval($strLow)) < 0.001)					unset($ar['low']);
+    		if (abs(floatval($record['close']) - floatval($strClose)) < 0.001)				unset($ar['close']);
+    		if ($record['volume'] == $strVolume)												unset($ar['volume']);
+    		if (abs(floatval($record['adjclose']) - floatval($strAdjClose)) < 0.000001)	unset($ar['adjclose']);
+    		
+    		if (count($ar) > 0)
+    		{
+//    			DebugKeyArray($ar);
+    			return $this->UpdateById($ar, $record['id']);
+    		}
     	}
     	else
     	{
-    		$this->Insert($strDate, $strOpen, $strHigh, $strLow, $strClose, $strVolume, $strAdjClose);
+    		return $this->InsertData(array_merge($this->GetFieldKeyId(), $ar));
     	}
+    	return false;
     }
     
     function UpdateClose($strId, $strClose)
     {
-		return $this->UpdateById("close = '$strClose', adjclose = '$strClose'", $strId);
+		return $this->UpdateById(array('close' => $strClose, 'adjclose' => $strClose), $strId);
     }
 
     function UpdateAdjClose($strId, $strAdjClose)
     {
-		return $this->UpdateById("adjclose = '$strAdjClose'", $strId);
+		return $this->UpdateById(array('adjclose' => $strAdjClose), $strId);
     }
 
     function DeleteByZeroVolume()

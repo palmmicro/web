@@ -14,7 +14,7 @@ function _echoAhHistoryGraph($strSymbol)
     $jpg->Show($arColumn[1], $strSymbol, $csv->GetPathName());
 }
 
-function _echoAhHistoryItem($csv, $record, $h_sql, $hkcny_sql, $fRatio)
+function _echoAhHistoryItem($csv, $record, $h_his_sql, $hkcny_sql, $fRatio)
 {
 	$strDate = $record['date'];
 	$strClose = round_display_str($record['close']);
@@ -24,7 +24,7 @@ function _echoAhHistoryItem($csv, $record, $h_sql, $hkcny_sql, $fRatio)
 	
 	$strAH = '';
 	$strHA = '';
-	if ($strCloseH = $h_sql->GetClose($strDate))
+	if ($strCloseH = $h_his_sql->GetClose($strDate))
 	{
 		$strCloseH = round_display_str($strCloseH);
 		if ($strHKCNY)
@@ -52,15 +52,15 @@ function _echoAhHistoryItem($csv, $record, $h_sql, $hkcny_sql, $fRatio)
 END;
 }
 
-function _echoAhHistoryData($sql, $h_sql, $fRatio, $iStart, $iNum)
+function _echoAhHistoryData($his_sql, $h_his_sql, $fRatio, $iStart, $iNum)
 {
-    if ($result = $sql->GetAll($iStart, $iNum)) 
+    if ($result = $his_sql->GetAll($iStart, $iNum)) 
     {
     	$hkcny_sql = new HkcnyHistorySql();
      	$csv = new PageCsvFile();
         while ($record = mysql_fetch_assoc($result)) 
         {
-            _echoAhHistoryItem($csv, $record, $h_sql, $hkcny_sql, $fRatio);
+            _echoAhHistoryItem($csv, $record, $h_his_sql, $hkcny_sql, $fRatio);
         }
         $csv->Close();
         @mysql_free_result($result);
@@ -83,8 +83,8 @@ function _echoAhHistoryParagraph($ref, $h_ref, $iStart, $iNum, $bAdmin)
         $strUpdateLink .= ' '.GetUpdateStockHistoryLink($strSymbolH);
     }
 
-    $sql = $ref->GetHistorySql();
-    $strNavLink = StockGetNavLink($strSymbol, $sql->Count(), $iStart, $iNum);
+    $his_sql = $ref->GetHistorySql();
+    $strNavLink = StockGetNavLink($strSymbol, $his_sql->Count(), $iStart, $iNum);
  
     echo <<<END
     <p>$strNavLink $strUpdateLink
@@ -99,7 +99,7 @@ function _echoAhHistoryParagraph($ref, $h_ref, $iStart, $iNum, $bAdmin)
     </tr>
 END;
    
-    _echoAhHistoryData($sql, $h_ref->GetHistorySql(), SqlGetAhPairRatio($ref), $iStart, $iNum);
+    _echoAhHistoryData($his_sql, $h_ref->GetHistorySql(), SqlGetAhPairRatio($ref), $iStart, $iNum);
     EchoTableParagraphEnd($strNavLink);
 
     _echoAhHistoryGraph($strSymbol);

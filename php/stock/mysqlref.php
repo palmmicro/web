@@ -27,8 +27,10 @@ class MysqlReference extends StockReference
         		$now_ymd = new NowYMD();
         		if ($now_ymd->GetYMD() == $this->strDate)
         		{
-        			$this->_updateStockHistory();
-        			$this->_updateStockEma($now_ymd);
+        			if ($this->_updateStockHistory())
+        			{
+        				$this->_updateStockEma($now_ymd);
+        			}
         		}
         	}
         }
@@ -101,7 +103,7 @@ class MysqlReference extends StockReference
         if ($this->_invalidHistoryData($strLow))  return;
         $strClose = $this->strPrice;
         if ($this->_invalidHistoryData($strClose))  return;
-        $this->his_sql->Write($this->strDate, $strOpen, $strHigh, $strLow, $strClose, $this->strVolume, $strClose);
+        return $this->his_sql->Write($this->strDate, $strOpen, $strHigh, $strLow, $strClose, $this->strVolume, $strClose);
     }
     
     // En = k * X0 + (1 - k) * Em; 其中m = n - 1; k = 2 / (n + 1)

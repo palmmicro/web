@@ -66,7 +66,7 @@ class PairStockSql extends StockTableSql
 
 	function Update($strId, $strPairId, $strRatio)
     {
-		return $this->UpdateById("pair_id = '$strPairId', ratio = '$strRatio'", $strId);
+		return $this->UpdateById(array('pair_id' => $strPairId, 'ratio' => $strRatio), $strId);
 	}
 }
 

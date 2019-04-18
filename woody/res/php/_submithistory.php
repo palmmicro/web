@@ -6,7 +6,7 @@ require_once('_emptygroup.php');
 
 // https://danjuanapp.com/djmodule/value-center
 
-function _webUpdateSinaHistory($sql, $sym)
+function _webUpdateSinaHistory($his_sql, $sym)
 {
     $oldest_ymd = new OldestYMD();
     $iYearOldest = $oldest_ymd->GetYear();
@@ -21,7 +21,7 @@ function _webUpdateSinaHistory($sql, $sym)
         $arMatch = preg_match_sina_history($str);
         foreach ($arMatch as $ar)
         {
-        	$sql->Write($ar[1], $ar[2], $ar[3], $ar[5], $ar[4], $ar[6], $ar[4]);
+        	$his_sql->Write($ar[1], $ar[2], $ar[3], $ar[5], $ar[4], $ar[6], $ar[4]);
         	$iTotal ++;
 		}
 		$iSeason --;
@@ -35,7 +35,7 @@ function _webUpdateSinaHistory($sql, $sym)
     DebugVal($iTotal, $sym->GetSymbol().' total');
 }
 
-function _webUpdateYahooHistory($sql, $strYahooSymbol)
+function _webUpdateYahooHistory($his_sql, $strYahooSymbol)
 {
     $iTime = time();
     $iTotal = 0;
@@ -69,7 +69,7 @@ function _webUpdateYahooHistory($sql, $strYahooSymbol)
                 $ar[] = $strNoComma;
                 $str .= ' '.$strNoComma; 
             }
-            $sql->Write($strDate, $ar[0], $ar[1], $ar[2], $ar[3], $ar[5], $ar[4]);
+            $his_sql->Write($strDate, $ar[0], $ar[1], $ar[2], $ar[3], $ar[5], $ar[4]);
         }
         $iTime = $iTimeBegin;
     }
@@ -78,7 +78,7 @@ function _webUpdateYahooHistory($sql, $strYahooSymbol)
 
 function _submitStockHistory($ref)
 {
-	$sql = $ref->GetHistorySql();
+	$his_sql = $ref->GetHistorySql();
     $sym = $ref->GetSym();
     $strSymbol = $sym->GetSymbol();
     
@@ -86,20 +86,20 @@ function _submitStockHistory($ref)
     $sym->SetTimeZone();
 	if ($sym->IsIndexA())
 	{
-		_webUpdateSinaHistory($sql, $sym);
+		_webUpdateSinaHistory($his_sql, $sym);
 	}
 	else
 	{
-		_webUpdateYahooHistory($sql, $sym->GetYahooSymbol());
+		_webUpdateYahooHistory($his_sql, $sym->GetYahooSymbol());
 		if ($sym->IsSymbolA() || $sym->IsSymbolH())
 		{   // Yahoo has wrong Chinese and Hongkong holiday record with '0' volume 
 			if ($sym->IsIndex() == false)
 			{
-				$sql->DeleteByZeroVolume();
+				$his_sql->DeleteByZeroVolume();
 			}
 		}
 	}
-    $sql->DeleteInvalidDate();
+    $his_sql->DeleteInvalidDate();
 }
 
     $group = new StockSymbolPage();

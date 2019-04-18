@@ -37,7 +37,6 @@ class TableSql
     
     function InsertData($ar)
     {
-//    	$ar = func_get_args();
     	$strKeyAll = '';
     	$strValAll = '';
     	foreach ($ar as $strKey => $strVal)
@@ -51,17 +50,23 @@ class TableSql
         return $this->_query($strQuery, 'insert data failed');
     }
     
-    function UpdateData($str, $strWhere, $strLimit = false)
+    function UpdateData($ar, $strWhere, $strLimit = false)
     {
+    	$str = '';
+    	foreach ($ar as $strKey => $strVal)
+    	{
+    		$str .= _SqlBuildWhere($strKey, $strVal).', ';
+    	}
+    	$str = rtrim($str, ', ');
     	$strQuery = 'UPDATE '.$this->strName.' SET '.$str._SqlAddWhere($strWhere)._SqlAddLimit($strLimit);
         return $this->_query($strQuery, 'update data failed');
     }
     
-    function UpdateById($str, $strId)
+    function UpdateById($ar, $strId)
     {
     	if ($strWhere = _SqlBuildWhere_id($strId))
     	{
-    		return $this->UpdateData($str, $strWhere, '1');
+    		return $this->UpdateData($ar, $strWhere, '1');
     	}
     	return false;
     }

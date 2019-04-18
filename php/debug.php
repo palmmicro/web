@@ -137,6 +137,16 @@ function DebugArray($ar)
 	DebugString('DebugArray end.');
 }
 
+function DebugKeyArray($ar)
+{
+	DebugString('DebugKeyArray begin ...');
+	foreach ($ar as $strKey => $strVal)
+	{
+		DebugString($strKey.' => '.$strVal);
+	}
+	DebugString('DebugKeyArray end.');
+}
+
 function DebugHere($iVal = false)
 {
    	static $iDebugVal = 0;

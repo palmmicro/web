@@ -29,7 +29,7 @@ class StockGroupSql extends MemberTableSql
     
     function Update($strId, $strGroupName)
     {
-		return $this->UpdateById("groupname = '$strGroupName'", $strId);
+		return $this->UpdateById(array('groupname' => $strGroupName), $strId);
     }
 }
 
@@ -115,15 +115,20 @@ class StockGroupItemSql extends StockGroupTableSql
     {
     	return $this->GetSingleData($this->BuildWhere_key_stock($strStockId));
     }
+
+    function _getPrivateFieldArray($strQuantity = '0', $strCost = '0.0', $strRecord = '0')
+    {
+		return array('quantity' => $strQuantity, 'cost' => $strCost, 'record' => $strRecord);
+    }
     
     function Insert($strStockId)
     {
-    	return $this->InsertData(array_merge($this->GetFieldKeyId(), array('stock_id' => $strStockId, 'quantity' => '0', 'cost' => '0.0', 'record' => '0')));
+    	return $this->InsertData(array_merge($this->GetFieldKeyId(), array('stock_id' => $strStockId), $this->_getPrivateFieldArray()));
     }
 
     function Update($strId, $strQuantity, $strCost, $strRecord)
     {
-		return $this->UpdateById("quantity = '$strQuantity', cost = '$strCost', record = '$strRecord'", $strId);
+		return $this->UpdateById($this->_getPrivateFieldArray($strQuantity, $strCost, $strRecord), $strId);
 	}
     
     function CountStockTransaction($strStockId)

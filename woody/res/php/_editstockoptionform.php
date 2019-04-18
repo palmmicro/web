@@ -5,20 +5,20 @@ require_once('/php/ui/htmlelement.php');
 
 function _getStockOptionDate($strSubmit, $ref)
 {
-    $sql = $ref->GetHistorySql();
+    $his_sql = $ref->GetHistorySql();
 	switch ($strSubmit)
 	{
 	case STOCK_OPTION_ADJCLOSE:
 	case STOCK_OPTION_SPLIT:
 	case STOCK_OPTION_EMA:
-		if ($strDate = $sql->GetDateNow())
+		if ($strDate = $his_sql->GetDateNow())
 		{
 			return $strDate;
 		}
 		break;
 
 	case STOCK_OPTION_CLOSE:
-		if ($record = $sql->GetPrev($ref->GetDate()))
+		if ($record = $his_sql->GetPrev($ref->GetDate()))
 		{
 			return $record['date'];
 		}

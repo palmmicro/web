@@ -105,15 +105,13 @@ class DailyStockSql extends StockTableSql
 
     function Update($strId, $strClose)
     {
-		return $this->UpdateById("close = '$strClose'", $strId);
-//    	return $this->UpdateData("close = '$strClose'", $this->BuildWhere_stock_date($strDate), '1');
+		return $this->UpdateById(array('close' => $strClose), $strId);
     }
 
     function Write($strDate, $strClose)
     {
     	if ($record = $this->Get($strDate))
     	{
-//    		DebugString('DailyStockSql Write '.$record['close'].' '.$strClose);
     		if (abs(floatval($record['close']) - floatval($strClose)) > 0.000001)
     		{
     			$this->Update($record['id'], $strClose);
@@ -166,9 +164,8 @@ class FundEstSql extends DailyStockSql
     
     function Update($strId, $strEstValue)
     {
-//    	DebugString('FundEstSql Update: '.$strEstValue);
         list($strDummy, $strTime) = explodeDebugDateTime();
-		return $this->UpdateById("close = '$strEstValue', time = '$strTime'", $strId);
+		return $this->UpdateById(array('close' => $strEstValue, 'time' => $strTime), $strId);
 	}
 }
 
