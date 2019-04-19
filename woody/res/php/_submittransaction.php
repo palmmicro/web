@@ -65,16 +65,6 @@ function _canModifyStockTransaction($strGroupItemId)
 	return $strGroupId;
 }
 
-function _onDelete($strId, $strGroupItemId)
-{
-    if ($strGroupId = _canModifyStockTransaction($strGroupItemId))
-    {
-    	$sql = new StockTransactionSql();
-    	$sql->DeleteById($strId);
-    }
-    return $strGroupId;
-}
-
 function _getGroupOwnerLink($strGroupId)
 {
     $strMemberId = SqlGetStockGroupMemberId($strGroupId);
@@ -230,9 +220,15 @@ function _onMergeTransaction()
 	}
 	else if ($strId = UrlGetQueryValue('delete'))
 	{
-	    $record = SqlGetStockTransaction($strId);
-	    $strGroupItemId = $record['groupitem_id'];
-	    $strGroupId = _onDelete($strId, $strGroupItemId);
+		$trans_sql = new StockTransactionSql();
+		if ($record = $trans_sql->GetById($strId))
+		{
+			$strGroupItemId = $record['groupitem_id'];
+			if ($strGroupId = _canModifyStockTransaction($strGroupItemId))
+			{
+				$trans_sql->DeleteById($strId);
+			}
+		}
 	}
 	else if ($strGroupId = UrlGetQueryValue('groupid'))
 	{

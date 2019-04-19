@@ -1,6 +1,6 @@
 <?php
 require_once('/php/account.php');
-require_once('_editinputform.php');
+require_once('/php/ui/editinputform.php');
 
     AcctSessionStart();
     if (isset($_POST['submit']))

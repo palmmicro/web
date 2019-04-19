@@ -5,9 +5,10 @@ define('STOCK_TRANSACTION_EDIT', '修改股票交易');
 function StockEditTransactionForm($strSubmit, $strGroupId = false, $strGroupItemId = false)
 {
     $strType = '1';
+	$trans_sql = new StockTransactionSql();
     if ($strId = UrlGetQueryValue('edit'))
     {
-        if (($record = SqlGetStockTransaction($strId)) == false)                       return;
+        if (($record = $trans_sql->GetById($strId)) == false)                       return;
         if (($strGroupId = SqlGetStockGroupId($record['groupitem_id'])) == false)    return;
 
         $strQuantity = $record['quantity'];

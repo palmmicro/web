@@ -17,8 +17,6 @@ define('TABLE_STOCK_CALIBRATION', 'stockcalibration');
 define('TABLE_STOCK_GROUP', 'stockgroup');
 define('TABLE_STOCK_GROUP_ITEM', 'stockgroupitem');
 define('TABLE_STOCK_SPLIT', 'stocksplit');
-define('TABLE_STOCK_TRANSACTION', 'stocktransaction');
-define('TABLE_STOCK_HISTORY', 'stockhistory');
 define('TABLE_WEIXIN', 'weixin');
 
 require_once('debug.php');
@@ -118,17 +116,12 @@ function SqlDeleteTableDataById($strTableName, $strId)
     return SqlDeleteTableData($strTableName, _SqlBuildWhere_id($strId), '1');
 }
 
-function SqlCountTableDataString($strTableName, $strWhere = false)
+function SqlCountTableData($strTableName, $strWhere = false)
 {
 	$strQry = "SELECT count(*) as total FROM $strTableName"._SqlAddWhere($strWhere);
 	$result = mysql_query($strQry);
 	$record = mysql_fetch_array($result);
-	return $record['total'];
-}
-
-function SqlCountTableData($strTableName, $strWhere = false)
-{
-	return intval(SqlCountTableDataString($strTableName, $strWhere));
+	return intval($record['total']);
 }
 
 function SqlCountTableByDate($strTableName, $strDate)

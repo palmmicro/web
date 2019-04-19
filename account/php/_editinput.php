@@ -1,7 +1,7 @@
 <?php
 require_once('_account.php');
-require_once('_editinputform.php');
 require_once('/php/tutorial/primenumber.php');
+require_once('/php/ui/editinputform.php');
 require_once('/php/ui/table.php');
 
 define('ACCOUNT_TOOL_IP', 'IP Address Data');
@@ -50,7 +50,7 @@ function EchoAll($bChinese = true)
     	}
     }
     
-    EchoEditInputForm(_getAccountToolStr($bChinese), $strInput, $bChinese);
+    EchoEditInputForm(_getAccountToolStr($strTitle, $bChinese), $strInput, $bChinese);
     
     switch ($strTitle)
     {
@@ -62,7 +62,7 @@ function EchoAll($bChinese = true)
     	$str = GetPrimeNumberString($strInput);
     	break;
     }
-    $str .= '<br />'.GetDevGuideLink('20100905', $strTitle, $bChinese);
+    $str .= '<br /><br />'.GetDevGuideLink('20100905', $strTitle, $bChinese);
     $str .= '<br />'.GetCategoryLinks(_getAccountToolArray($bChinese), ACCT_PATH, $bChinese);
     EchoParagraph($str);
 }

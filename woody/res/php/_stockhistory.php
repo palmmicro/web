@@ -16,7 +16,6 @@ function _getStockHistoryLinks($ref, $bAdmin)
     if ($bAdmin)
     {
     	$strLinks .= ' '.GetUpdateStockHistoryLink($sym->GetSymbol(), '更新历史记录');
-    	$strLinks .= ' '.SqlCountTableDataString(TABLE_STOCK_HISTORY);
     }
     return $strLinks;
 }

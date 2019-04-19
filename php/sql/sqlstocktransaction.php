@@ -6,7 +6,7 @@ class StockTransactionSql extends TableSql
 {
     function StockTransactionSql()
     {
-        parent::TableSql(TABLE_STOCK_TRANSACTION);
+        parent::TableSql('stocktransaction');
     }
     
     function _buildWhereOr_groupitem($arGroupItemId)
@@ -105,11 +105,5 @@ function SqlCreateStockTransactionTable()
 	if (!$result)	die('Create stocktransaction table failed');
 }
 */
-
-function SqlGetStockTransaction($strTransactionId)
-{
-	$sql = new StockTransactionSql();
-	return $sql->GetById($strTransactionId);
-}
 
 ?>
