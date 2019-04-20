@@ -8,7 +8,6 @@ class DailyStockSql extends StockTableSql
     function DailyStockSql($strStockId, $strTableName) 
     {
         parent::StockTableSql($strStockId, $strTableName);
-        $this->Create();
     }
     
     function Create()
@@ -140,7 +139,6 @@ class FundEstSql extends DailyStockSql
     function FundEstSql($strStockId) 
     {
         parent::DailyStockSql($strStockId, TABLE_FUND_EST);
-        $this->Create();
     }
 
     function Create()

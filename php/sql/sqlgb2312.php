@@ -6,7 +6,6 @@ class GB2312Sql extends TableSql
     function GB2312Sql() 
     {
         parent::TableSql('gb2312');
-        $this->Create();
     }
     
     function Create()

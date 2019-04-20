@@ -2,40 +2,13 @@
 require_once('/php/debug.php');
 require_once('/php/sql/sqltable.php');
 
-class PrimeNumberSql extends TableSql
-{
-    function PrimeNumberSql() 
-    {
-        parent::TableSql('primenumber');
-        $this->Create();
-    }
-    
-    function Create()
-    {
-    	$str = ' `val` BIGINT UNSIGNED NOT NULL ,'
-         	. ' UNIQUE ( `val` )';
-    	return $this->CreateTable($str);
-    }
-    
-    function Insert($strVal)
-    {
-    	return $this->InsertData(array('val' => $strVal));
-    }
-    
-    function Get($iMax)
-    {
-    	$strMax = strval($iMax);
-    	return $this->GetData("val <= '$strMax'", '`val` ASC');
-    }
-}
-
 function _lookUpPrimeNumber($iNum)
 {
-	$sql = new PrimeNumberSql();
+	$sql = new TableSql('primenumber');
 	if ($sql->CountData() == 0)
 	{
 		$aiPrime = array(2);
-		$sql->Insert('2');
+		$sql->InsertId('2');
 		for ($i = 3; ($i * $i) <= PHP_INT_MAX; $i += 2)
 		{
 			$bPrime = true;
@@ -51,17 +24,17 @@ function _lookUpPrimeNumber($iNum)
 			if ($bPrime)
 			{
 				$aiPrime[] = $i;
-				$sql->Insert(strval($i));
+				$sql->InsertId(strval($i));
 			}
 		}
 	}
 
 	$aiNum = array();
-    if ($result = $sql->Get(sqrt($iNum))) 
+    if ($result = $sql->Get(intval(sqrt($iNum))))
     {
         while ($record = mysql_fetch_assoc($result)) 
         {
-        	$iPrime = intval($record['val']);
+        	$iPrime = intval($record['id']);
         	if ($iPrime * $iPrime > $iNum)	break;
         	while (($iNum % $iPrime) == 0)
         	{
@@ -99,7 +72,7 @@ function _getPrimeNumberString($callback, $strNumber)
 	{
 		$str .= strval($iPrime).'*';
 	}
-	return rtrim($str, '*').DebugGetStopWatchDisplay($fStart);
+	return rtrim($str, '*').DebugGetStopWatchDisplay($fStart, 4);
 }
 
 function GetPrimeNumberString($strNumber)

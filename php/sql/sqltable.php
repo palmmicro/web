@@ -8,20 +8,34 @@ class TableSql
     function TableSql($strTableName) 
     {
     	$this->strName = $strTableName;
+        $this->Create();
     }
 
+    function Create()
+    {
+    	return $this->CreateTable();
+    }
+    
     function _query($strQuery, $strDie)
     {
 //    	DebugString($strQuery);
         return SqlDieByQuery($strQuery, $this->strName.' ['.$strQuery.'] '.$strDie);
 	}
 	
-    function CreateTable($str)
+    function CreateTable($str = false)
     {
+    	if ($str)
+    	{
+        	$str = ' `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,'.$str;
+    	}
+    	else
+    	{
+        	$str = ' `id` INT UNSIGNED NOT NULL PRIMARY KEY';
+    	}
+    	
     	$strQuery = 'CREATE TABLE IF NOT EXISTS `camman`.`'
         	 . $this->strName
         	 . '` ('
-        	 . ' `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,'
         	 . $str
         	 . ' ) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci '; 
         return $this->_query($strQuery, 'create table failed');
@@ -35,6 +49,17 @@ class TableSql
         return $this->_query($strQuery, 'drop table failed');
     }
     
+    function _insert($str)
+    {
+ 		$strQuery = 'INSERT INTO '.$this->strName.$str;
+        return $this->_query($strQuery, 'insert data failed');
+    }
+    
+    function InsertId($strId)
+    {
+        return $this->_insert("(id) VALUES($strId)");
+    }
+    
     function InsertData($ar)
     {
     	$strKeyAll = '';
@@ -46,8 +71,7 @@ class TableSql
     	}
     	$strKeyAll = rtrim($strKeyAll, ', ');
     	$strValAll = rtrim($strValAll, ', ');
- 		$strQuery = 'INSERT INTO '.$this->strName."(id, $strKeyAll) VALUES('0', $strValAll)";
-        return $this->_query($strQuery, 'insert data failed');
+        return $this->_insert("(id, $strKeyAll) VALUES('0', $strValAll)");
     }
     
     function UpdateData($ar, $strWhere, $strLimit = false)
@@ -81,6 +105,12 @@ class TableSql
     	return SqlGetTableData($this->strName, $strWhere, $strOrderBy, $strLimit);
     }
 
+    function Get($iMax)
+    {
+    	$strMax = strval($iMax);
+    	return $this->GetData("id <= '$strMax'", '`id` ASC');
+    }
+    
     function GetSingleData($strWhere = false, $strOrderBy = false)
     {
     	return SqlGetSingleTableData($this->strName, $strWhere, $strOrderBy);
@@ -193,9 +223,8 @@ class KeyNameSql extends TableSql
 	
     function KeyNameSql($strTableName, $iMaxKeyLen = 32)
     {
-        parent::TableSql($strTableName);
         $this->iMaxLen = $iMaxKeyLen;
-        $this->Create();
+        parent::TableSql($strTableName);
     }
 
     function Create()

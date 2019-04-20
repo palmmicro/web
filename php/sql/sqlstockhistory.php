@@ -7,7 +7,6 @@ class StockHistorySql extends DailyStockSql
     function StockHistorySql($strStockId) 
     {
         parent::DailyStockSql($strStockId, 'stockhistory');
-        $this->Create();
     }
 
     function Create()

@@ -69,9 +69,9 @@ function DebugGetFileTimeDisplay($strPathName)
     return '';
 }
 
-function DebugGetStopWatchDisplay($fStart)
+function DebugGetStopWatchDisplay($fStart, $iPrecision = 2)
 {
-    return ' ('.strval_round(microtime(true) - $fStart, 3).'s)';
+    return ' ('.strval_round(microtime(true) - $fStart, $iPrecision).'s)';
 }
 
 function _checkDebugPath()
