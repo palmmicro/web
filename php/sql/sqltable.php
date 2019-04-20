@@ -186,6 +186,45 @@ class TableSql
     }
 }
 
+// ****************************** KeyNameSql class *******************************************************
+class KeyNameSql extends TableSql
+{
+	var $iMaxLen;
+	
+    function KeyNameSql($strTableName, $iMaxKeyLen = 32)
+    {
+        parent::TableSql($strTableName);
+        $this->iMaxLen = $iMaxKeyLen;
+        $this->Create();
+    }
+
+    function Create()
+    {
+    	$str = ' `keyname` VARCHAR( '.strval($this->iMaxLen).' ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,'
+         	. ' UNIQUE ( `keyname` )';
+    	return $this->CreateTable($str);
+    }
+
+    function Get($strKeyName)
+    {
+    	return $this->GetSingleData(_SqlBuildWhere('keyname', $strKeyName));
+    }
+
+    function GetAll($iStart = 0, $iNum = 0)
+    {
+   		return $this->GetData(false, '`keyname` ASC', _SqlBuildLimit($iStart, $iNum));
+    }
+	
+    function GetKeyName($strId)
+    {
+    	if ($record = $this->GetById($strId))
+    	{
+    		return $record['keyname'];
+    	}
+    	return false;
+    }
+}
+
 // ****************************** KeyTableSql class *******************************************************
 class KeyTableSql extends TableSql
 {

@@ -36,36 +36,28 @@ class YearMonthDay
     
     function IsNewFile($strFileName)
     {
-        if ($this->GetTick() < (filemtime($strFileName) + SECONDS_IN_MIN))
-        {
-//        	DebugString($strFileName.' in a minute');
-        	return true;
-        }
-        return false;
+    	$iInterval = $this->IsWeekDay() ? SECONDS_IN_MIN : SECONDS_IN_HOUR;
+   		return ($this->GetTick() < (filemtime($strFileName) + $iInterval)) ? true : false;
     }
     
     function IsFuture() 
     {
-        if ($this->GetTick() > time())     return true;
-        return false;
+        return ($this->GetTick() > time()) ? true : false;
     }
     
     function IsFriday() 
     {
-        if ($this->local[6] == 5)     return true;
-        return false;
+        return ($this->local[6] == 5) ? true : false;
     }
     
     function IsSaturday() 
     {
-        if ($this->local[6] == 6)     return true;
-        return false;
+        return ($this->local[6] == 6) ? true : false;
     }
     
     function IsWeekDay()
     {
-        if ($this->local[6] == 0 || $this->local[6] == 6)     return false;
-        return true;
+        return ($this->local[6] == 0 || $this->local[6] == 6) ? false : true;
     }
     
     function GetDayOfWeek()
@@ -75,8 +67,7 @@ class YearMonthDay
     
     function IsWeekend()
     {
-        if ($this->IsWeekDay())     return false;
-        return true;
+        return $this->IsWeekDay() ? false : true;
     }
     
     function GetYear()
@@ -125,20 +116,17 @@ class YearMonthDay
     
     function IsSameMonth($ymd) 
     {
-        if ($ymd->local[4] == $this->local[4])     return true;
-        return false;
+        return ($ymd->local[4] == $this->local[4]) ? true : false;
     }
     
     function IsSameDay($ymd) 
     {
-        if ($ymd->local[3] == $this->local[3])     return true;
-        return false;
+        return ($ymd->local[3] == $this->local[3]) ? true : false;
     }
     
     function IsSameHour($ymd) 
     {
-        if ($ymd->local[2] == $this->local[2])     return true;
-        return false;
+        return ($ymd->local[2] == $this->local[2]) ? true : false;
     }
     
     function GetNextTradingDayTick()

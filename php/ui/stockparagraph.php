@@ -25,7 +25,7 @@ function _echoStockTableData($sql, $iStart, $iNum)
 	{
 		while ($record = mysql_fetch_assoc($result)) 
 		{
-			_echoStockTableItem($record['id'], $record['symbol'], $record['name']);
+			_echoStockTableItem($record['id'], $record['keyname'], $record['name']);
 		}
 		@mysql_free_result($result);
 	}

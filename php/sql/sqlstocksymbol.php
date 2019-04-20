@@ -2,26 +2,25 @@
 require_once('sqltable.php');
 
 // ****************************** StockSql class *******************************************************
-class StockSql extends TableSql
+class StockSql extends KeyNameSql
 {
     function StockSql()
     {
-        parent::TableSql(TABLE_STOCK);
-        $this->Create();
+        parent::KeyNameSql('stock');
     }
 
     function Create()
     {
-    	$str = ' `symbol` VARCHAR( 32 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,'
+    	$str = ' `keyname` VARCHAR( 32 ) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL ,'
          	. ' `name` VARCHAR( 128 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,'
-         	. ' UNIQUE ( `symbol` )';
+         	. ' UNIQUE ( `keyname` )';
     	return $this->CreateTable($str);
     }
     
     function _getFieldArray($strSymbol, $strName)
     {
     	$strName = UrlCleanString($strName);
-    	return array('symbol' => $strSymbol,
+    	return array('keyname' => $strSymbol,
     				   'name' => $strName);
     }
     
@@ -34,25 +33,6 @@ class StockSql extends TableSql
     {
 		return $this->UpdateById($this->_getFieldArray($strSymbol, $strName), $strId);
 	}
-	
-    function Get($strSymbol)
-    {
-    	return $this->GetSingleData(_SqlBuildWhere('symbol', $strSymbol));
-    }
-
-    function GetAll($iStart = 0, $iNum = 0)
-    {
-   		return $this->GetData(false, '`symbol` ASC', _SqlBuildLimit($iStart, $iNum));
-    }
-
-    function GetSymbol($strStockId)
-    {
-    	if ($record = $this->GetById($strStockId))
-    	{
-    		return $record['symbol'];
-    	}
-    	return false;
-    }
 }
 
 // ****************************** Stock table *******************************************************
@@ -89,7 +69,7 @@ function SqlGetStockId($strSymbol)
 function SqlGetStockSymbol($strStockId)
 {
 	$sql = new StockSql();
-	return $sql->GetSymbol($strStockId);
+	return $sql->GetKeyName($strStockId);
 }
 
 // ****************************** Other SQL and stock related functions *******************************************************

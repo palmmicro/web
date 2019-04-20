@@ -28,7 +28,7 @@ function _wxGetStockArray($strContents)
     	{
     		while ($record = mysql_fetch_assoc($result)) 
     		{
-    			$str = $record['symbol'];
+    			$str = $record['keyname'];
     			if (strstr($str, $strKey) || strstr($record['name'], $strKey))
     			{
     				$ar[] = $str;
