@@ -17,11 +17,15 @@ function UrlGetNavDisplayArray()
     return array(NAV_DIR_FIRST => '第一页', NAV_DIR_PREV => '上一页', NAV_DIR_NEXT => '下一页', NAV_DIR_LAST => '最后一页');
 }
 
-function url_get_contents($strUrl)
+function url_get_contents($strUrl, $strCookie = false)
 {
     $ch = curl_init();  
     $timeout = 2;  
     curl_setopt($ch, CURLOPT_URL, $strUrl);  
+    if ($strCookie)
+    {
+    	curl_setopt($ch, CURLOPT_COOKIE, $strCookie);  
+    }
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);  
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);  
     curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
@@ -31,6 +35,7 @@ function url_get_contents($strUrl)
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
     }
+    	
     $img = curl_exec($ch);
     if ($img == false)
     {

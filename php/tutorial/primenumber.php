@@ -4,12 +4,11 @@ require_once('/php/sql/sqltable.php');
 
 function _lookUpPrimeNumber($iNum)
 {
-	$sql = new TableSql('primenumber');
-	if ($sql->CountData() == 0)
+	$pn_sql = new TableSql('primenumber');
+	if ($pn_sql->CountData() == 0)
 	{
-		$aiPrime = array(2);
-		$sql->InsertId('2');
-		for ($i = 3; ($i * $i) <= PHP_INT_MAX; $i += 2)
+		$aiPrime = array();
+		for ($i = 2; ($i * $i) <= PHP_INT_MAX; $i ++)
 		{
 			$bPrime = true;
 			foreach ($aiPrime as $iPrime)
@@ -24,13 +23,13 @@ function _lookUpPrimeNumber($iNum)
 			if ($bPrime)
 			{
 				$aiPrime[] = $i;
-				$sql->InsertId(strval($i));
+				$pn_sql->InsertId(strval($i));
 			}
 		}
 	}
 
 	$aiNum = array();
-    if ($result = $sql->Get(intval(sqrt($iNum))))
+    if ($result = $pn_sql->Get(intval(sqrt($iNum))))
     {
         while ($record = mysql_fetch_assoc($result)) 
         {

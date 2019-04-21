@@ -1,12 +1,15 @@
 <?php
 require_once('_account.php');
+require_once('/php/tutorial/editinput.php');
 require_once('/php/tutorial/primenumber.php');
 require_once('/php/ui/editinputform.php');
 require_once('/php/ui/table.php');
 
+define('ACCOUNT_TOOL_EDIT', 'Temporary Test');
 define('ACCOUNT_TOOL_IP', 'IP Address Data');
 define('ACCOUNT_TOOL_PRIME', 'Prime Number');
 
+define('ACCOUNT_TOOL_EDIT_CN', '临时测试');
 define('ACCOUNT_TOOL_IP_CN', 'IP地址数据');
 define('ACCOUNT_TOOL_PRIME_CN', '分解质因数');
 
@@ -14,13 +17,15 @@ function _getAccountToolArray($bChinese)
 {
 	if ($bChinese)
 	{
-		$ar = array('ip' => ACCOUNT_TOOL_IP_CN,
+		$ar = array('editinput' => ACCOUNT_TOOL_EDIT_CN,
+                      'ip' => ACCOUNT_TOOL_IP_CN,
                       'primenumber' => ACCOUNT_TOOL_PRIME_CN,
                  );
     }
     else
 	{
-		$ar = array('ip' => ACCOUNT_TOOL_IP,
+		$ar = array('editinput' => ACCOUNT_TOOL_EDIT,
+					  'ip' => ACCOUNT_TOOL_IP,
                       'primenumber' => ACCOUNT_TOOL_PRIME,
                  );
     }
@@ -40,6 +45,10 @@ function EchoAll($bChinese = true)
     {
     	switch ($strTitle)
     	{
+    	case 'editinput':
+    		$strInput = GetEditInputDefault();
+    		break;
+
     	case 'ip':
     		$strInput = UrlGetIp();
     		break;
@@ -54,6 +63,10 @@ function EchoAll($bChinese = true)
     
     switch ($strTitle)
     {
+    case 'editinput':
+    	$str = GetEditInputString($strInput);
+    	break;
+    		
     case 'ip':
     	$str = IpLookupGetString($strInput, '<br />', $bChinese);
     	break;
@@ -73,6 +86,11 @@ function EchoMetaDescription($bChinese = true)
   	$str = _getAccountToolStr($strTitle, $bChinese);
   	switch ($strTitle)
   	{
+  	case 'editinput':
+  		$str .= $bChinese ? '页面. 测试代码在/php/tutorial/editinput.php中, 测试成熟后再分配具体长期使用的工具页面. 不成功的测试就可以直接放弃了.'
+    						: 'page, testing source code in /php/tutorial/editinput.php.';
+  		break;
+  		
   	case 'ip':
   		$str .= $bChinese ? '查询页面. 从淘宝和ipinfo.io等网站查询IP地址对应的国家, 城市, 网络运营商和公司等信息. 同时也从palmmicro.com的用户登录和评论中提取对应记录.'
     						: 'page, display country, city, service provider and company information from Taobao and ipinfo.io.';

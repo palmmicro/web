@@ -14,7 +14,7 @@ class StockSql extends KeyNameSql
     	$str = ' `keyname` VARCHAR( 32 ) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL ,'
          	. ' `name` VARCHAR( 128 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,'
          	. ' UNIQUE ( `keyname` )';
-    	return $this->CreateTable($str);
+    	return $this->CreateIdTable($str);
     }
     
     function _getFieldArray($strSymbol, $strName)

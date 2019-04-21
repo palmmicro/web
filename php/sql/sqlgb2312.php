@@ -10,20 +10,19 @@ class GB2312Sql extends TableSql
     
     function Create()
     {
-    	$str = ' `gb` CHAR( 4 ) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL ,'
-         	  . ' `utf` CHAR( 4 ) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL ,'
-         	  . ' UNIQUE ( `gb` )';
+    	$str = ' `id` CHAR( 4 ) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL PRIMARY KEY,'
+         	  . ' `utf` CHAR( 4 ) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL';
     	return $this->CreateTable($str);
     }
     
     function Insert($strGB, $strUTF)
     {
-    	return $this->InsertData(array('gb' => $strGB, 'utf' => $strUTF));
+    	return $this->InsertData(array('id' => $strGB, 'utf' => $strUTF));
     }
     
     function GetUTF($strGB)
     {
-    	if ($record = $this->GetSingleData(_SqlBuildWhere('gb', $strGB)))
+    	if ($record = $this->GetById($strGB))
     	{
     		return $record['utf'];
     	}

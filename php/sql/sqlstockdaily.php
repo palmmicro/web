@@ -17,7 +17,7 @@ class DailyStockSql extends StockTableSql
          	  . ' `close` DOUBLE(13,6) NOT NULL ,'
          	  . ' FOREIGN KEY (`stock_id`) REFERENCES `stock`(`id`) ON DELETE CASCADE ,'
          	  . ' UNIQUE ( `date`, `stock_id` )';
-    	return $this->CreateTable($str);
+    	return $this->CreateIdTable($str);
     }
 
     function _getPrivateFieldArray($strDate, $strClose)
@@ -149,7 +149,7 @@ class FundEstSql extends DailyStockSql
          	  . ' `time` TIME NOT NULL ,'
          	  . ' FOREIGN KEY (`stock_id`) REFERENCES `stock`(`id`) ON DELETE CASCADE ,'
          	  . ' UNIQUE ( `date`, `stock_id` )';
-    	return $this->CreateTable($str);
+    	return $this->CreateIdTable($str);
     }
     
     function Insert($strDate, $strEstValue)

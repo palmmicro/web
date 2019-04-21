@@ -21,7 +21,7 @@ class StockHistorySql extends DailyStockSql
          	  . ' `adjclose` DOUBLE(13,6) NOT NULL ,'
          	  . ' FOREIGN KEY (`stock_id`) REFERENCES `stock`(`id`) ON DELETE CASCADE ,'
          	  . ' UNIQUE ( `date`, `stock_id` )';
-    	return $this->CreateTable($str);
+    	return $this->CreateIdTable($str);
     }
 
     function Write($strDate, $strOpen, $strHigh, $strLow, $strClose, $strVolume, $strAdjClose)

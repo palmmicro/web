@@ -13,7 +13,7 @@ class TableSql
 
     function Create()
     {
-    	return $this->CreateTable();
+    	return $this->CreateTable(' `id` INT UNSIGNED NOT NULL PRIMARY KEY');
     }
     
     function _query($strQuery, $strDie)
@@ -22,17 +22,13 @@ class TableSql
         return SqlDieByQuery($strQuery, $this->strName.' ['.$strQuery.'] '.$strDie);
 	}
 	
-    function CreateTable($str = false)
+    function CreateIdTable($str)
     {
-    	if ($str)
-    	{
-        	$str = ' `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,'.$str;
-    	}
-    	else
-    	{
-        	$str = ' `id` INT UNSIGNED NOT NULL PRIMARY KEY';
-    	}
-    	
+       	return $this->CreateTable(' `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,'.$str);
+    }
+
+    function CreateTable($str)
+    {
     	$strQuery = 'CREATE TABLE IF NOT EXISTS `camman`.`'
         	 . $this->strName
         	 . '` ('
@@ -49,21 +45,19 @@ class TableSql
         return $this->_query($strQuery, 'drop table failed');
     }
     
-    function _insert($str)
-    {
- 		$strQuery = 'INSERT INTO '.$this->strName.$str;
-        return $this->_query($strQuery, 'insert data failed');
-    }
-    
-    function InsertId($strId)
-    {
-        return $this->_insert("(id) VALUES($strId)");
-    }
-    
     function InsertData($ar)
     {
-    	$strKeyAll = '';
-    	$strValAll = '';
+		if (array_key_exists('id', $ar))
+		{
+			$strKeyAll = '';
+			$strValAll = '';
+		}
+		else
+		{
+			$strKeyAll = 'id, ';
+			$strValAll = "'0', ";
+		}
+		
     	foreach ($ar as $strKey => $strVal)
     	{
     		$strKeyAll .= $strKey.', ';
@@ -71,7 +65,13 @@ class TableSql
     	}
     	$strKeyAll = rtrim($strKeyAll, ', ');
     	$strValAll = rtrim($strValAll, ', ');
-        return $this->_insert("(id, $strKeyAll) VALUES('0', $strValAll)");
+ 		$strQuery = 'INSERT INTO '.$this->strName."($strKeyAll) VALUES($strValAll)";
+        return $this->_query($strQuery, 'insert data failed');
+    }
+    
+    function InsertId($strId)
+    {
+        return $this->InsertData(array('id' => $strId));
     }
     
     function UpdateData($ar, $strWhere, $strLimit = false)
@@ -231,7 +231,7 @@ class KeyNameSql extends TableSql
     {
     	$str = ' `keyname` VARCHAR( '.strval($this->iMaxLen).' ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,'
          	. ' UNIQUE ( `keyname` )';
-    	return $this->CreateTable($str);
+    	return $this->CreateIdTable($str);
     }
 
     function Get($strKeyName)
