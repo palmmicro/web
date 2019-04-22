@@ -88,7 +88,7 @@ function EchoMetaDescription($bChinese = true)
   	{
   	case 'editinput':
   		$str .= $bChinese ? '页面. 测试代码在/php/tutorial/editinput.php中, 测试成熟后再分配具体长期使用的工具页面. 不成功的测试就可以直接放弃了.'
-    						: 'page, testing source code in /php/tutorial/editinput.php.';
+    						: 'page, testing source code in /php/tutorial/editinput.php. Functions will be moved to permanent pages after test.';
   		break;
   		
   	case 'ip':

@@ -11,6 +11,7 @@ require_once('sql/_sqltest.php');
 
 require_once('csvfile.php');
 require_once('test/XOP_Historical.php');
+require_once('test/xueqiu.php');
 
 // http://www.todayir.com/en/index.php HSFML25
 /*
@@ -141,6 +142,10 @@ function TestCmdLine()
     	
     	case 'netvalue':
 //    		$str = SaveHistoricalNetValue($strSymbol);
+			break;
+    	
+    	case 'xueqiu':
+    		$str = GetXueqiuId(GetXueqiuDefault());
 			break;
     	}
     	if (empty($str))	$str = '(Not found)';

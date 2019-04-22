@@ -28,32 +28,32 @@ function GetEastMoneyFundRatioLink($sym)
     return $strSymbol;
 }
 
-function GetXueQiuLink($sym)
+function GetXueqiuLink($sym)
 {
     $strSymbol = $sym->GetSymbol();
-	$strXueQiu = $strSymbol;
+	$strXueqiu = $strSymbol;
     if ($sym->IsIndex())
     {
     	switch ($strSymbol)
     	{
     	case '^GSPC':
-			$strXueQiu = '.INX';
+			$strXueqiu = '.INX';
 			break;
 			
 		case '^HSI':
-			$strXueQiu = 'HKHSI';
+			$strXueqiu = 'HKHSI';
 			break;
 			
 		case '^HSCE':
-			$strXueQiu = 'HKHSCEI';
+			$strXueqiu = 'HKHSCEI';
 			break;
 		}
 	}
-    $strHttp = 'https://xueqiu.com/S/'.$strXueQiu;
+    $strHttp = 'https://xueqiu.com/S/'.$strXueqiu;
     return GetExternalLink($strHttp, $strSymbol);
 }
 
-function GetXueQiuIdLink($strId, $strDisplay)
+function GetXueqiuIdLink($strId, $strDisplay)
 {
     return GetExternalLink('https://xueqiu.com/u/'.$strId, $strDisplay);
 }

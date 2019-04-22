@@ -46,7 +46,7 @@ function EchoPhpFileLink($strPathTitle)
 
 function EchoXueqieId($strId, $strDisplay)
 {
-    $str = GetXueQiuIdLink($strId, $strDisplay);
+    $str = GetXueqiuIdLink($strId, $strDisplay);
     echo $str;
 }
 
