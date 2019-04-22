@@ -53,6 +53,11 @@ function GetXueQiuLink($sym)
     return GetExternalLink($strHttp, $strSymbol);
 }
 
+function GetXueQiuIdLink($strId, $strDisplay)
+{
+    return GetExternalLink('https://xueqiu.com/u/'.$strId, $strDisplay);
+}
+
 function GetYahooStockLink($sym)
 {
     $strHttp = YahooStockGetUrl($sym->GetYahooSymbol());

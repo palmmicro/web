@@ -46,7 +46,8 @@ function EchoPhpFileLink($strPathTitle)
 
 function EchoXueqieId($strId, $strDisplay)
 {
-    EchoExternalLink('https://xueqiu.com/u/'.$strId, $strDisplay);
+    $str = GetXueQiuIdLink($strId, $strDisplay);
+    echo $str;
 }
 
 

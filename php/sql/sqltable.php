@@ -152,7 +152,7 @@ class TableSql
     {
     	if ($strWhere = _SqlBuildWhere_id($strId))
     	{
-    		return $this->DeleteData($strWhere, '1');
+    		return $this->DeleteData($strWhere);
     	}
     	return false;
     }
