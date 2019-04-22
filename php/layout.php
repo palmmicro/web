@@ -38,6 +38,17 @@ function LayoutMyPromotion()
 END;
 }
 
+function LayoutHuataiPromotion()
+{
+    echo <<<END
+        <p><a href="https://m.zhangle.com/h5Account/mobile-h5/index.htm?ly=HTC1-9000008608&param1=011979" target=_blank>华泰证券开户</a>
+        <br />佣金股票万1.6, 场内基金万1, 债券十万分之一. 人工支持微信号18651870837. 
+        扫码开户后在第一步显示佣金的地方一定要核对工号<b>011979</b>
+        <br /><img src=/woody/image/huataiaccount.png alt="Huatai open account scan QR code, agent id 011979" />
+        </p>
+END;
+}
+
 function LayoutIsMobilePhone()
 {
     $detect = new Mobile_Detect;
@@ -154,6 +165,7 @@ function _layoutTail($iWidth, $bMobile, $bChinese, $bAdsense = true)
     			LayoutMyPromotion();
     			LayoutWeixinPromotion();
     			LayoutQQgroupPromotion();
+    			LayoutHuataiPromotion();
     		}
     	}
         echo '</td></table>';
