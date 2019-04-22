@@ -72,6 +72,7 @@ function _main()
     echo $strOutput;    
 }
 
-    _main();
+//    _main();
+	echo 'SINA data error';
     
 ?>

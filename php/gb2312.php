@@ -8,8 +8,8 @@ function _lookupUnicodeTable($iChar, $iCharNext)
 //    global $arGB2312;
 //    $arGB2312 = GB2312GetArray();
     $strGB2312 = sprintf('%02X%02X', $iChar, $iCharNext);
-    $sql = new GB2312Sql();
-    return $sql->GetUTF($strGB2312);
+    $gb_sql = new GB2312Sql();
+    return $gb_sql->Get($strGB2312);
 //    return $arGB2312[$strGB2312];
 }
 

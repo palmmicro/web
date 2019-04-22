@@ -13,6 +13,52 @@ require_once('/php/sql/sqltable.php');
 {"subscribeable":false,"remark":null,"common_count":0,"recommend_reason":null,"verified_infos":null,"st_color":"1","name":null,"location":null,"id":5150399568,"type":"1","followers_count":4,"recommend":null,"domain":null,"intro":null,"follow_me":false,"blocking":false,"stock_status_count":null,"description":"","friends_count":221,"verified":false,"status":0,"profile":"/5150399568","stocks_count":273,"screen_name":"高黎明","step":"null","allow_all_stock":false,"blog_description":null,"city":"烟台","donate_count":0,"gender":"m","last_status_id":124618450,"status_count":6,"province":"山东","url":null,"verified_description":null,"verified_type":0,"following":false,"group_ids":null,"name_pinyin":null,"screenname_pinyin":null,"photo_domain":"//xavatar.imedao.com/","profile_image_url":"community/20159/1445865830399-1445865831971.jpg,community/20159/1445865830399-1445865831971.jpg!180x180.png,community/20159/1445865830399-1445865831971.jpg!50x50.png,community/20159/1445865830399-1445865831971.jpg!30x30.png","privacy_agreement":null,"cube_count":0,"verified_realname":false},
 */
 
+class XueqiuIdSql extends TableSql
+{
+    function XueqiuIdSql() 
+    {
+        parent::TableSql('xueqiuid');
+    }
+    
+    function Create()
+    {
+    	$str = ' `id` BIGINT UNSIGNED NOT NULL PRIMARY KEY,'
+         	  . ' `name` VARCHAR( 64 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,'
+         	  . ' `friend` INT UNSIGNED NOT NULL ,'
+         	  . ' `follower` INT UNSIGNED NOT NULL ,'
+         	  . ' `status` INT UNSIGNED NOT NULL ,'
+         	  . ' INDEX ( `status` )';
+    	return $this->CreateTable($str);
+    }
+
+    function Write($strId, $strName, $strFriend, $strFollower, $strStatus)
+    {
+    	$ar = array('id' => $strId,
+    				  'name' => $strName,
+    				  'friend' => $strFriend,
+    				  'follower' => $strFollower,
+    				  'status' => $strStatus);
+    	
+    	if ($record = $this->GetById($strId))
+    	{
+    		unset($ar['id']);
+    		if ($record['name'] == $strName)			unset($ar['name']);
+    		if ($record['friend'] == $strFriend)		unset($ar['friend']);
+    		if ($record['follower'] == $strFollower)	unset($ar['follower']);
+    		if ($record['status'] == $strStatus)		unset($ar['status']);
+    		if (count($ar) > 0)
+    		{
+    			return $this->UpdateById($ar, $strId);
+    		}
+    	}
+    	else
+    	{
+    		return $this->InsertData($ar);
+    	}
+    	return false;
+    }
+}
+
 function GetEditInputDefault()
 {
 	return '2244868365';
@@ -26,11 +72,13 @@ function GetEditInputString($strInput)
 	$str = url_get_contents($strUrl, $strCookie);
     $ar = json_decode($str, true);
     
-    $str = '';
+    $xq_sql = new XueqiuIdSql();
+	$str = '';
     $arUsers = $ar['users'];
     foreach ($arUsers as $arCur)
     {
     	$str .= $arCur['id'].' '.$arCur['screen_name'].'<br />';
+    	$xq_sql->Write($arCur['id'], $arCur['screen_name'], $arCur['friends_count'], $arCur['followers_count'], $arCur['status_count']);
     }
 /*    $iCount = intval($ar['count']);
     for ($i = 0; $i < $iCount; $i ++)
