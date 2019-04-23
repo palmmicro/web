@@ -134,11 +134,33 @@ END;
 END;*/
 }
 
-function LayoutTopLeft($callback, $bChinese = true)
+//<TR><TD><A class=A2 HREF="logincn.php"><img src=../image/zh.jpg alt="Switch to Chinese" />Chinese</A></TD></TR>
+//<TR><TD><A class=A2 HREF="login.php"><img src=../image/us.gif alt="Switch to English" />English</A></TD></TR>
+function GetSwitchLanguageLink($bChinese)
+{
+	if ($_SESSION['switchlanguage'] == false)	return '';
+
+	// /woody/blog/entertainment/20140615cn.php ==> 20140615.php
+    $str = UrlGetTitle();
+    $str .= UrlGetPhp(UrlIsEnglish());
+    $str .= UrlPassQuery();
+    if ($bChinese)
+    {
+    	return "<A class=A2 HREF=\"$str\"><img src=/image/us.gif alt=\"Switch to English\" />English</A>";
+    }
+    else
+    {
+    	return "<A class=A2 HREF=\"$str\"><img src=/image/zh.jpg alt=\"Switch to Chinese\" />中文</A>";
+    }
+}
+
+function LayoutTopLeft($callback = false, $bSwitchLanguage = false, $bChinese = true)
 {
     EchoAnalyticsOptimize();
 //    EchoAnalytics();
-    if (!LayoutIsMobilePhone())
+	$_SESSION['switchlanguage'] = $bSwitchLanguage;
+	$_SESSION['mobile'] = $callback ? LayoutIsMobilePhone() : true;
+    if ($_SESSION['mobile'] == false)
     {
         _layoutBanner($bChinese);
         
@@ -149,9 +171,9 @@ function LayoutTopLeft($callback, $bChinese = true)
     }
 }
 
-function _layoutTail($iWidth, $bMobile, $bChinese, $bAdsense = true)
+function _layoutTail($iWidth, $bChinese, $bAdsense = true)
 {
-    if ($bMobile == false)
+    if ($_SESSION['mobile'] == false)
     {
     	if ($iWidth)
     	{
@@ -172,12 +194,12 @@ function _layoutTail($iWidth, $bMobile, $bChinese, $bAdsense = true)
 //        echo '    </div>';
 //        echo '</div>';
     }
-    EchoCopyRight($bMobile, $bChinese);
+    EchoCopyRight($_SESSION['mobile'], $bChinese);
 }
 
 function LayoutTail($bChinese = true)
 {
-	_layoutTail(LayoutScreenWidthOk(), LayoutIsMobilePhone(), $bChinese, false);	// According to google policy, do NOT show Adsense in pages with no contents, such as input pages
+	_layoutTail(LayoutScreenWidthOk(), $bChinese, false);	// According to google policy, do NOT show Adsense in pages with no contents, such as input pages
 }
 
 function LayoutTailLogin($bChinese = true)
@@ -185,12 +207,11 @@ function LayoutTailLogin($bChinese = true)
     VisitorLogin($bChinese);
     
     $iWidth = LayoutScreenWidthOk();
-    $bMobile = LayoutIsMobilePhone();
-	if ($bMobile || ($iWidth == false))
+	if ($_SESSION['mobile'] || ($iWidth == false))
 	{
 		AdsenseWoodyBlog();
 	}    
-	_layoutTail($iWidth, $bMobile, $bChinese);
+	_layoutTail($iWidth, $bChinese);
 }
 
 ?>

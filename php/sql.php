@@ -188,7 +188,7 @@ function SqlCreateDatabase($strDb)
 
 function SqlConnectDatabase()
 {
-    if (UrlGetDomain() == 'palmmicro.com')
+    if (UrlIsPalmmicroDomain())
     {
         $strHost = 'mysql';
         $strUser = 'woody';

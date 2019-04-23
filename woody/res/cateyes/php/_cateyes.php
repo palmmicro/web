@@ -32,7 +32,7 @@ function NavLoopCateyes($bChinese)
 
 function _LayoutTopLeft($bChinese = true)
 {
-    LayoutTopLeft(NavLoopCateyes, $bChinese);
+    LayoutTopLeft(NavLoopCateyes, true, $bChinese);
 }
 
     AcctNoAuth();

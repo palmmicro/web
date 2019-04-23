@@ -165,13 +165,9 @@ function UrlGetIp()
 }
 
 // /woody/blog/entertainment/20140615cn.php
-function UrlGetUri($str = false)
+function UrlGetUri()
 { 
-	if ($str == false)
-	{
-		$str = $_SERVER['REQUEST_URI'];
-	}
-	
+	$str = $_SERVER['REQUEST_URI'];
 	if ($iPos = strpos($str, '.'))
 	{
 	    if (substr($str, $iPos, 4) == URL_PHP)
@@ -280,6 +276,11 @@ function UrlGetDomain()
 		return substr($strDomain, 4);
 	}
 	return strtolower($strDomain);
+}
+
+function UrlIsPalmmicroDomain()
+{
+    return (UrlGetDomain() == 'palmmicro.com') ? true : false;
 }
 
 function UrlGetEmail($strName)

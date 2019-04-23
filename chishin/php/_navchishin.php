@@ -13,17 +13,16 @@ function ChishinNavigateBlogGroup($bChinese)
     NavEnd();
 }
 
-function _ChishinLayoutTopLeft($bChinese = true)
+function _ChishinLayoutTopLeft()
 {
     AcctNoAuth();
-    SetSwitchLanguage();
-    LayoutTopLeft(ChishinNavigateBlogGroup, $bChinese);
+    LayoutTopLeft(ChishinNavigateBlogGroup);
 }
 
-function _ChishinLayoutBottom($bChinese = true)
+function _ChishinLayoutBottom()
 {
-    EchoBlogComments($bChinese);
-    LayoutTailLogin($bChinese);
+    EchoBlogComments();
+    LayoutTailLogin();
 }
 
 ?>

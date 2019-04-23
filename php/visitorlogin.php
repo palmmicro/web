@@ -20,6 +20,8 @@ END;
 function VisitorLogin($bChinese)
 {
 	SwitchSetSess();
+    if (UrlIsPalmmicroDomain() == false)	return;
+    
 	if ($strMemberId = AcctIsLogin()) 
 	{
 	    $strLink = GetMemberLink($strMemberId, $bChinese);

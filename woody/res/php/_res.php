@@ -23,7 +23,7 @@ function NavLoopCompany($bChinese)
 
 function _LayoutTopLeft($bChinese = true)
 {
-    LayoutTopLeft(NavLoopCompany, $bChinese);
+    LayoutTopLeft(NavLoopCompany, true, $bChinese);
 }
 
     AcctNoAuth();

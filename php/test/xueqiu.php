@@ -96,15 +96,32 @@ class XueqiuFriendSql extends TableSql
 }
 */
 
+function _getXueqiuIdLinks($str, $ar, $xq_sql)
+{
+	$iCount = count($ar);
+	if ($iCount == 0)	return '';
+	
+	$str = strval($iCount).'个'.$str.'的:<br />';
+	foreach ($ar as $strId)
+	{
+    	if ($record = $xq_sql->GetById($strId))
+    	{
+    		$strName = (strlen($record['name']) > 0) ? $record['name'] : '用户'.$strId;
+			$str .= GetXueqiuIdLink($strId, $strName).'&nbsp;&nbsp;';
+		}
+	}
+	return $str.'<br />';
+}
+
 function GetXueqiuDefault()
 {
 //	return '2244868365';	// Woody
 	return '1426381781';
 }
 
-function GetXueqiuId($strId)
+function GetXueqiuFriend($strId, $strToken = false)
 {
-	$strCookie = 'xq_a_token=962201de99e24d9a442fce1d50f9087657d6fa26'; //;'
+	$strCookie = 'xq_a_token='.($strToken ? $strToken : '962201de99e24d9a442fce1d50f9087657d6fa26');
 //				  .'xq_is_login=1;'
 //				  .'xq_is_login.sig=J3LxgPVPUzbBg3Kee_PquUfih7Q;'
 //				  .'remember=1;'
@@ -112,12 +129,16 @@ function GetXueqiuId($strId)
 //				  .'u.sig=J1YjyGI_Jp4UGXqCZeYDGtcfrwY;'
 //				  .'u='.$strId;
 	$strUrl = 'https://xueqiu.com/friendships/groups/members.json?gid=0&uid='.$strId;
-	$strDisp = '';
+	if ($strToken)	$arFollowMe = array();
+	$arFriend = array();
+	$arStatus = array();
+	$arStock = array();	// stocks_count
     $xq_sql = new XueqiuIdSql();
 	
     $fStart = microtime(true);
-	$iCount = 0;
+    $iCount = 0;
 	$iPage = 1;
+//	DebugVal($iPage, 'Page');
 	do
 	{
 		$str = url_get_contents($strUrl.'&page='.strval($iPage), $strCookie);
@@ -129,17 +150,29 @@ function GetXueqiuId($strId)
 			$arUsers = $ar['users'];
 			foreach ($arUsers as $arCur)
 			{
-				if ($arCur['follow_me'] == false)
+				if ($strToken)
 				{
-					$strDisp .= GetXueqiuIdLink($arCur['id'], $arCur['screen_name']).'<br />';	// .' '.$arCur['follow_me'].' '.$arCur['following']
-					$iCount ++;
+					if ($arCur['follow_me'] == false)	$arFollowMe[] = $arCur['id'];
 				}
+				if ($arCur['friends_count'] > 1990)	$arFriend[] = $arCur['id'];
+				if ($arCur['status_count'] == 0)		$arStatus[] = $arCur['id'];
+//				if ($arCur['stocks_count'] == 0)		$arStock[] = $arCur['id'];
 				$xq_sql->Write($arCur['id'], $arCur['screen_name'], $arCur['friends_count'], $arCur['followers_count'], $arCur['status_count']);
+				$iCount ++;
 			}
 		}
 		$iPage ++;
 	} while ($iPage <= intval($ar['maxPage']));
-	return $strDisp.strval($iCount).DebugGetStopWatchDisplay($fStart);
+	
+	$str = '读到'.strval($iCount).'个关注<br />';
+	if ($strToken)
+	{
+		$str .= _getXueqiuIdLinks('没关注我', $arFollowMe, $xq_sql);
+	}
+	$str .= _getXueqiuIdLinks('不发言', $arStatus, $xq_sql);
+	$str .= _getXueqiuIdLinks('没自选股', $arStock, $xq_sql);
+	$str .= _getXueqiuIdLinks('可能需要这个软件', $arFriend, $xq_sql);
+	return $str.DebugGetStopWatchDisplay($fStart);
 }
 
 ?>

@@ -143,10 +143,6 @@ function TestCmdLine()
     	case 'netvalue':
 //    		$str = SaveHistoricalNetValue($strSymbol);
 			break;
-    	
-    	case 'xueqiu':
-    		$str = GetXueqiuId(GetXueqiuDefault());
-			break;
     	}
     	if (empty($str))	$str = '(Not found)';
     	DebugString($strSymbol.':'.$str.DebugGetStopWatchDisplay($fStart));

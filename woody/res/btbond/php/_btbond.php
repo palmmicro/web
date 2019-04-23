@@ -27,7 +27,7 @@ function NavLoopBtbond($bChinese)
 
 function _LayoutTopLeft($bChinese = true)
 {
-    LayoutTopLeft(NavLoopBtbond, $bChinese);
+    LayoutTopLeft(NavLoopBtbond, true, $bChinese);
 }
 
     AcctNoAuth();

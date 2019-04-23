@@ -31,7 +31,7 @@ function AccountMenu($bChinese)
 
 function _LayoutTopLeft($bChinese = true)
 {
-    LayoutTopLeft(AccountMenu, $bChinese);
+    LayoutTopLeft(AccountMenu, true, $bChinese);
 }
 
 ?>

@@ -17,7 +17,7 @@ function NavigateSapphirePhoto($bChinese)
 
 function _LayoutLinksSapphirePhoto($bChinese = true)
 {
-    LayoutTopLeft(NavigateSapphirePhoto, $bChinese);
+    LayoutTopLeft(NavigateSapphirePhoto, true, $bChinese);
 }
 
 	AcctAuth();

@@ -60,8 +60,7 @@ function NavStockSoftware($bChinese)
 
 function _LayoutTopLeft($bChinese = true)
 {
-    SetSwitchLanguage();
-    LayoutTopLeft(NavStockSoftware, $bChinese);
+    LayoutTopLeft(NavStockSoftware);
 }
 
 function NavLoopGradedFund($bChinese)
@@ -71,8 +70,7 @@ function NavLoopGradedFund($bChinese)
 
 function _LayoutGradedFundTopLeft($bChinese = true)
 {
-    SetSwitchLanguage();
-    LayoutTopLeft(NavLoopGradedFund, $bChinese);
+    LayoutTopLeft(NavLoopGradedFund);
 }
 
 function NavLoopGoldEtf($bChinese)
@@ -82,8 +80,7 @@ function NavLoopGoldEtf($bChinese)
 
 function _LayoutGoldEtfTopLeft($bChinese = true)
 {
-    SetSwitchLanguage();
-    LayoutTopLeft(NavLoopGoldEtf, $bChinese);
+    LayoutTopLeft(NavLoopGoldEtf);
 }
 
 function NavLoopChinaEtf($bChinese)
@@ -93,7 +90,6 @@ function NavLoopChinaEtf($bChinese)
 
 function _LayoutChinaEtfTopLeft()
 {
-    SetSwitchLanguage();
     LayoutTopLeft(NavLoopChinaEtf);
 }
 
@@ -104,8 +100,7 @@ function NavLoopLof($bChinese)
 
 function _LayoutLofTopLeft($bChinese = true)
 {
-    SetSwitchLanguage();
-    LayoutTopLeft(NavLoopLof, $bChinese);
+    LayoutTopLeft(NavLoopLof);
 }
 
 function NavLoopLofHk($bChinese)
@@ -115,8 +110,7 @@ function NavLoopLofHk($bChinese)
 
 function _LayoutLofHkTopLeft($bChinese = true)
 {
-    SetSwitchLanguage();
-    LayoutTopLeft(NavLoopLofHk, $bChinese);
+    LayoutTopLeft(NavLoopLofHk);
 }
 
 function NavLoopAdr($bChinese)
@@ -126,8 +120,7 @@ function NavLoopAdr($bChinese)
 
 function _LayoutAdrTopLeft($bChinese = true)
 {
-    SetSwitchLanguage();
-    LayoutTopLeft(NavLoopAdr, $bChinese);
+    LayoutTopLeft(NavLoopAdr);
 }
 
 ?>

@@ -31,7 +31,7 @@ function _echoPreviousComments($strBlogId, $strMemberId, $bChinese)
     echo '</div>';
 }
 
-function EchoBlogComments($bChinese)
+function EchoBlogComments($bChinese = true)
 {
 //    $strMemberId = AcctNoAuth();
     $strMemberId = AcctIsLogin();
