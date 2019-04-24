@@ -60,6 +60,13 @@
 <br /><font color=grey>做人要是没有梦想, 跟咸鱼有什么两样?</font>
 </p>
 
+<h3>查询<a name="xueqiufriend">雪球关注</a>的人</h3>
+<p>2019年4月24日
+<br />做完<a href="#primenumber">分解质因数</a>后自我感觉很好, 所以我很快又给自己找了个新的小目标, 挽起袖子写了个<a href="../../../php/xueqiufriend.php">雪球关注工具</a>.
+<br /><img src=../photo/xueqiu20190424.jpg alt="Apr 24, 2019. Xueqiu woody1234 page and chrome Cookie entry." />
+<br /><img src=../photo/xueqiucookie.jpg alt="Chrome Cookie settings where to find xueqiu.com xq_a_token value." />
+</p>
+
 </div>
 
 <?php _LayoutBottom(); ?>

@@ -131,6 +131,7 @@ function GetXueqiuFriend($strId, $strToken = false)
 	$strUrl = 'https://xueqiu.com/friendships/groups/members.json?gid=0&uid='.$strId;
 	if ($strToken)	$arFollowMe = array();
 	$arFriend = array();
+	$arFollower = array();
 	$arStatus = array();
 	$arStock = array();	// stocks_count
     $xq_sql = new XueqiuIdSql();
@@ -154,7 +155,8 @@ function GetXueqiuFriend($strId, $strToken = false)
 				{
 					if ($arCur['follow_me'] == false)	$arFollowMe[] = $arCur['id'];
 				}
-				if ($arCur['friends_count'] > 1990)	$arFriend[] = $arCur['id'];
+				if ($arCur['friends_count'] > 1980)	$arFriend[] = $arCur['id'];
+				if ($arCur['followers_count'] <= 1)	$arFollower[] = $arCur['id'];
 				if ($arCur['status_count'] == 0)		$arStatus[] = $arCur['id'];
 //				if ($arCur['stocks_count'] == 0)		$arStock[] = $arCur['id'];
 				$xq_sql->Write($arCur['id'], $arCur['screen_name'], $arCur['friends_count'], $arCur['followers_count'], $arCur['status_count']);
@@ -169,6 +171,7 @@ function GetXueqiuFriend($strId, $strToken = false)
 	{
 		$str .= _getXueqiuIdLinks('没关注我', $arFollowMe, $xq_sql);
 	}
+	$str .= _getXueqiuIdLinks('只有我关注了', $arFollower, $xq_sql);
 	$str .= _getXueqiuIdLinks('不发言', $arStatus, $xq_sql);
 	$str .= _getXueqiuIdLinks('没自选股', $arStock, $xq_sql);
 	$str .= _getXueqiuIdLinks('可能需要这个软件', $arFriend, $xq_sql);

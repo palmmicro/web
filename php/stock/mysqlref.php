@@ -27,10 +27,8 @@ class MysqlReference extends StockReference
         		$now_ymd = new NowYMD();
         		if ($now_ymd->GetYMD() == $this->strDate)
         		{
-        			if ($this->_updateStockHistory())
-        			{
-        				$this->_updateStockEma($now_ymd);
-        			}
+        			$this->_updateStockHistory();
+       				$this->_updateStockEma($now_ymd);
         		}
         	}
         }

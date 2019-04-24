@@ -21,6 +21,10 @@ function EchoAll()
    	}
     EchoEditInputForm(XUEQIU_FRIEND_TOOL, $str);
     $str = GetXueqiuFriend($str, UrlGetQueryValue('token'));
+    if (UrlIsPalmmicroDomain())
+    {
+    	$str .= '<br /><br />'.GetDevGuideLink('20100905', UrlGetTitle());
+    }
     EchoParagraph($str);
 }
 
