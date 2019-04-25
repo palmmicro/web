@@ -107,7 +107,7 @@ function _getXueqiuIdLinks($str, $ar, $xq_sql)
     	if ($record = $xq_sql->GetById($strId))
     	{
     		$strName = (strlen($record['name']) > 0) ? $record['name'] : '用户'.$strId;
-			$str .= GetXueqiuIdLink($strId, $strName).'&nbsp;&nbsp;';
+			$str .= GetXueqiuIdLink($strId, $strName).' ';
 		}
 	}
 	return $str.'<br />';
@@ -119,15 +119,20 @@ function GetXueqiuDefault()
 	return '1426381781';
 }
 
-function GetXueqiuFriend($strId, $strToken = false)
+function _getXueqiuCookie($strToken)
 {
-	$strCookie = 'xq_a_token='.($strToken ? $strToken : '962201de99e24d9a442fce1d50f9087657d6fa26');
+	return 'xq_a_token='.($strToken ? $strToken : '962201de99e24d9a442fce1d50f9087657d6fa26');
 //				  .'xq_is_login=1;'
 //				  .'xq_is_login.sig=J3LxgPVPUzbBg3Kee_PquUfih7Q;'
 //				  .'remember=1;'
 //				  .'remember.sig=K4F3faYzmVuqC0iXIERCQf55g2Y;'
 //				  .'u.sig=J1YjyGI_Jp4UGXqCZeYDGtcfrwY;'
 //				  .'u='.$strId;
+}
+
+function GetXueqiuFriend($strId, $strToken = false)
+{
+	$strCookie = _getXueqiuCookie($strToken);
 	$strUrl = 'https://xueqiu.com/friendships/groups/members.json?gid=0&uid='.$strId;
 	if ($strToken)	$arFollowMe = array();
 	$arFriend = array();
@@ -139,7 +144,6 @@ function GetXueqiuFriend($strId, $strToken = false)
     $fStart = microtime(true);
     $iCount = 0;
 	$iPage = 1;
-//	DebugVal($iPage, 'Page');
 	do
 	{
 		$str = url_get_contents($strUrl.'&page='.strval($iPage), $strCookie);
@@ -175,6 +179,46 @@ function GetXueqiuFriend($strId, $strToken = false)
 	$str .= _getXueqiuIdLinks('不发言', $arStatus, $xq_sql);
 	$str .= _getXueqiuIdLinks('没自选股', $arStock, $xq_sql);
 	$str .= _getXueqiuIdLinks('可能需要这个软件', $arFriend, $xq_sql);
+	return $str.DebugGetStopWatchDisplay($fStart);
+}
+
+/* {"subscribeable":false,"remark":null,"common_count":0,"recommend_reason":null,"verified_infos":null,"st_color":"1","domain":null,"name":null,"location":null,"id":2234222010,"type":"1","intro":null,
+"follow_me":true,"blocking":false,"stock_status_count":null,"recommend":null,"verified":false,"description":"。，。，。，。，。，。，。","status":0,
+"followers_count":1,"profile":"/2234222010","stocks_count":12,
+"screen_name":"阿修罗w","step":"null","allow_all_stock":false,"blog_description":null,"city":"南京","donate_count":0,
+"friends_count":36,"gender":"m","last_status_id":125536605,
+"status_count":8,"province":"江苏","url":null,"verified_description":null,"verified_type":0,"following":true,"group_ids":null,"name_pinyin":null,"screenname_pinyin":null,"photo_domain":"//xavatar.imedao.com/","profile_image_url":"community/20193/1554784900509-1554784900638.jpeg,community/20193/1554784900509-1554784900638.jpeg!180x180.png,community/20193/1554784900509-1554784900638.jpeg!50x50.png,community/20193/1554784900509-1554784900638.jpeg!30x30.png","privacy_agreement":null,"cube_count":0,"verified_realname":false},
+*/
+function GetXueqiuFollower($strId, $strToken)
+{
+	$strCookie = _getXueqiuCookie($strToken);
+	$strUrl = 'https://xueqiu.com/friendships/followers.json?uid='.$strId;
+	$arFollowing = array();
+    $xq_sql = new XueqiuIdSql();
+	
+    $fStart = microtime(true);
+    $iCount = 0;
+	$iPage = 1;
+	do
+	{
+		$str = url_get_contents($strUrl.'&pageNo='.strval($iPage), $strCookie);
+		$ar = json_decode($str, true);
+		
+		if (intval($ar['count']) > 0)
+		{
+			$arUsers = $ar['followers'];
+			foreach ($arUsers as $arCur)
+			{
+				if (($arCur['following'] == false) && ($arCur['status_count'] > 0) && ($arCur['followers_count'] > 0))		$arFollowing[] = $arCur['id'];
+				$xq_sql->Write($arCur['id'], $arCur['screen_name'], $arCur['friends_count'], $arCur['followers_count'], $arCur['status_count']);
+				$iCount ++;
+			}
+		}
+		$iPage ++;
+	} while ($iPage <= intval($ar['maxPage']));
+	
+	$str = '读到'.strval($iCount).'个粉丝<br />';
+	$str .= _getXueqiuIdLinks('有发言有粉丝但是没关注', $arFollowing, $xq_sql);
 	return $str.DebugGetStopWatchDisplay($fStart);
 }
 

@@ -164,10 +164,15 @@ function UrlGetIp()
 	return trim($_SERVER['REMOTE_ADDR']);
 }
 
+function UrlGetCur()
+{ 
+	return $_SERVER['REQUEST_URI'];
+}
+
 // /woody/blog/entertainment/20140615cn.php
 function UrlGetUri()
 { 
-	$str = $_SERVER['REQUEST_URI'];
+	$str = UrlGetCur();
 	if ($iPos = strpos($str, '.'))
 	{
 	    if (substr($str, $iPos, 4) == URL_PHP)
@@ -181,15 +186,6 @@ function UrlGetUri()
 	}
 */	
 	return $str;
-}
-
-// http://www.palmmicro.com/woody/blog/entertainment/20140615cn.php
-function UrlGetCur()
-{
-    $strUrl = UrlGetServer();
-    $strUrl .= UrlGetUri();
-    $strUrl .= UrlPassQuery();
-    return $strUrl;
 }
 
 function _cnEndString($str)

@@ -22,8 +22,7 @@ function SwitchTo($strTitle)
 
 function SwitchSetSess()
 {
-//    $_SESSION['userurl'] = UrlGetUri();
-	$_SESSION['userurl'] = $_SERVER['REQUEST_URI'];
+	$_SESSION['userurl'] = UrlGetCur();
 }
 
 function SwitchGetSess()

@@ -49,7 +49,7 @@ function GetHttpLink($strHttp)
 
 function GetCurLink()
 {
-    $strHttp = UrlGetCur();
+    $strHttp = UrlGetServer().UrlGetCur();
     return GetHttpLink($strHttp);
 }
 
