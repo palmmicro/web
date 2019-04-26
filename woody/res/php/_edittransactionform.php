@@ -2,12 +2,46 @@
 define('STOCK_TRANSACTION_NEW', '新增股票交易');
 define('STOCK_TRANSACTION_EDIT', '修改股票交易');
 
+function _getGroupItemPriceArray($strGroupId)
+{
+    $ar = array();
+	$item_sql = new StockGroupItemSql($strGroupId);
+    if ($arStockId = $item_sql->GetStockIdArray())
+    {
+    	foreach ($arStockId as $str => $strStockId)
+    	{
+    		$his_sql = new StockHistorySql($strStockId);
+    		$ar[$str] = strval_float($his_sql->GetCloseNow());
+    	}
+    }
+//	DebugKeyArray($ar);
+    return $ar;
+}
+
+function _getFirstGroupItem($strGroupId)
+{
+	$item_sql = new StockGroupItemSql($strGroupId);
+	$ar = SqlGetStockGroupItemSymbolArray($item_sql);
+	reset($ar);
+	return key($ar);
+}
+
+function _getJsArray($ar)
+{
+	$str = '';
+	foreach ($ar as $strId => $strVal)
+	{
+		$str .= $strId.':"'.$strVal.'", ';
+	}
+	return rtrim($str, ', ');
+}
+
 function StockEditTransactionForm($strSubmit, $strGroupId = false, $strGroupItemId = false)
 {
     $strType = '1';
-	$trans_sql = new StockTransactionSql();
     if ($strId = UrlGetQueryValue('edit'))
     {
+    	$trans_sql = new StockTransactionSql();
         if (($record = $trans_sql->GetById($strId)) == false)                       return;
         if (($strGroupId = SqlGetStockGroupId($record['groupitem_id'])) == false)    return;
 
@@ -18,32 +52,34 @@ function StockEditTransactionForm($strSubmit, $strGroupId = false, $strGroupItem
             $strQuantity = ltrim($strQuantity, '-');
         }
     
-        $strPrice = $record['price'];
-        $strCost = $record['fees'];
+        $strPrice = strval_float($record['price']);
+        $strCost = strval_float($record['fees']);
         $strRemark = $record['remark'];
         $strSymbolIndex = $record['groupitem_id'];
     }
-    else
+    $arPrice = _getGroupItemPriceArray($strGroupId);
+    if ($strId == false)	// else
     {
     	$strQuantity = '';
-    	$strPrice = '';
     	$strCost = '';
     	$strRemark = '';
-    	$strSymbolIndex = '0';
+    	$strSymbolIndex = _getFirstGroupItem($strGroupId);
+    	$strPrice = $arPrice[$strSymbolIndex];
     }
     
     $strPassQuery = UrlPassQuery();
     $strSymbolsList = EditGetStockGroupItemList($strGroupId, $strGroupItemId);
-    
+	$strPriceArray = _getJsArray($arPrice);    
     $arColumn = GetTransactionTableColumn();
 	echo <<< END
 	<script type="text/javascript">
 	    function OnLoad()
 	    {
 	        document.transactionForm.type.value = $strType;
-	        document.transactionForm.symbol.value = $strSymbolIndex;
 	        OnType();
-	    }
+	        document.transactionForm.symbol.value = $strSymbolIndex;
+	        document.transactionForm.remarktype.value = "0";
+		}
 	    
 	    function OnType()
 	    {
@@ -65,39 +101,56 @@ function StockEditTransactionForm($strSubmit, $strGroupId = false, $strGroupItem
 	            break;    
 	        }
 	    }
+	    
+	    function OnSymbol()
+	    {
+	    	var price = { $strPriceArray };
+	        var symbol_value;
+	        symbol_value = document.transactionForm.symbol.value;
+	        document.transactionForm.price.value = price[symbol_value];
+	    }
+	    
+	    function OnRemarkType()
+	    {
+	        var type_value;
+	        type_value = document.transactionForm.remarktype.value;
+	        switch (type_value)
+	        {
+	            case "1":
+	            document.transactionForm.remark.value = "{";
+	            break;
+	            
+	            case "2":
+	            document.transactionForm.remark.value = "}";
+	            break;
+
+	            case "3":
+	            document.transactionForm.remark.value = "";
+	            break;
+
+	            default:
+	            break;    
+	        }
+	    }
 	</script>
 
-    <table>
-	  <form id="transactionForm" name="transactionForm" method="post" action="/woody/res/php/_submittransaction.php$strPassQuery">
-		<tr>
-		    <td><SELECT name="symbol" size=1> $strSymbolsList </SELECT></td>
-		    <td><SELECT name="type" onChange=OnType() size=1> <OPTION value=0>卖出</OPTION> <OPTION value=1>买入</OPTION> </SELECT></td>
-		</tr>
-		<tr>
-		    <td>{$arColumn[2]}</td>
-		    <td><input name="quantity" value="$strQuantity" type="text" size="20" maxlength="32" class="textfield" id="quantity" /></td>
-		</tr>
-		<tr>
-		    <td>{$arColumn[3]}</td>
-		    <td><input name="price" value="$strPrice" type="text" size="20" maxlength="32" class="textfield" id="price" /></td>
-		</tr>
-		<tr>
-		    <td><SELECT name="commissiontype" size=1> <OPTION value=0>佣金金额</OPTION> <OPTION value=1>佣金‰</OPTION> </SELECT></td>
-		    <td><input name="commission" value="$strCost" type="text" size="20" maxlength="32" class="textfield" id="commission" /></td>
-		</tr>
-		<tr>
-		    <td><SELECT name="taxtype" size=1> <OPTION value=0>税费金额</OPTION> <OPTION value=1>税费‰</OPTION> </SELECT></td>
-		    <td><input name="tax" value="" type="text" size="20" maxlength="32" class="textfield" id="tax" /></td>
-		</tr>
-		<tr>
-		    <td>{$arColumn[5]}</td>
-	        <td><textarea name="remark" rows="8" cols="50" id="remark">$strRemark</textarea></td>
-	    </tr>
-	    <tr>
-	        <td><input type="submit" name="submit" value="$strSubmit" /></td>
-	    </tr>
-      </form>
-	</table>
+	<form id="transactionForm" name="transactionForm" method="post" action="/woody/res/php/_submittransaction.php$strPassQuery">
+        <div>
+		<p><SELECT name="symbol" onChange=OnSymbol() size=1> $strSymbolsList </SELECT> 
+			<SELECT name="type" onChange=OnType() size=1> <OPTION value=0>卖出</OPTION> <OPTION value=1>买入</OPTION> </SELECT>
+		   {$arColumn[3]} <input name="price" value="$strPrice" type="text" size="20" maxlength="32" class="textfield" id="price" />
+		<br />{$arColumn[2]}
+		<br /><input name="quantity" value="$strQuantity" type="text" size="20" maxlength="32" class="textfield" id="quantity" />
+		<br /><SELECT name="commissiontype" size=1> <OPTION value=0>佣金金额</OPTION> <OPTION value=1>佣金‰</OPTION> </SELECT>
+		<br /><input name="commission" value="$strCost" type="text" size="20" maxlength="32" class="textfield" id="commission" />
+		<br /><SELECT name="taxtype" size=1> <OPTION value=0>税费金额</OPTION> <OPTION value=1>税费‰</OPTION> </SELECT>
+		<br /><input name="tax" value="" type="text" size="20" maxlength="32" class="textfield" id="tax" />
+		<br /><SELECT name="remarktype" onChange=OnRemarkType() size=4> <OPTION value=0>{$arColumn[5]}</OPTION> <OPTION value=1>{</OPTION> <OPTION value=2>}</OPTION> <OPTION value=3>清空</OPTION> </SELECT>
+	    	  <textarea name="remark" rows="4" cols="50" id="remark">$strRemark</textarea>
+		<br /><input type="submit" name="submit" value="$strSubmit" />
+	    </p>
+        </div>
+	</form>
 END;
 }
 

@@ -192,11 +192,7 @@ function StockGetGroupTransactionLinks($strGroupId, $strCurSymbol = '')
         }
         else
         {
-        	$sym = new StockSymbol($strSymbol);
-        	if ($sym->IsTradable())
-        	{
-        		$str .= StockGetTransactionLink($strGroupId, $strSymbol);
-        	}
+       		$str .= StockGetTransactionLink($strGroupId, $strSymbol);
         }
         $str .= ' ';
     }

@@ -750,11 +750,6 @@ class StockReference
    		}
     }
 
-    function IsTradable()
-    {
-    	return $this->sym->IsTradable();
-    }
-    
     function IsSymbolA()
     {
     	return $this->sym->IsSymbolA();

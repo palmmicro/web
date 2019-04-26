@@ -196,9 +196,10 @@ class MyStockGroup extends StockGroup
     function OnArbitrage()
     {
 		$sql = new StockGroupItemSql($this->strGroupId);
+        $arGroupItemSymbol = SqlGetStockGroupItemSymbolArray($sql);
+//        DebugKeyArray($arGroupItemSymbol);
         if ($result = $sql->GetAllStockTransaction()) 
         {   
-            $arGroupItemSymbol = SqlGetStockGroupItemSymbolArray($sql);
             while ($record = mysql_fetch_assoc($result)) 
             {
                 $strSymbol = $arGroupItemSymbol[$record['groupitem_id']];

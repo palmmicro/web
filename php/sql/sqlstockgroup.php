@@ -211,13 +211,25 @@ function SqlGetStockGroupItemSymbolArray($sql)
 {
     if ($arStockId = $sql->GetStockIdArray())
     {
-    	$ar = array();
-    	foreach ($arStockId as $str => $strStockId)
+    	$arA = array();
+    	$arH = array();
+    	$arUS = array();
+     	foreach ($arStockId as $str => $strStockId)
     	{
-    		$ar[$str] = SqlGetStockSymbol($strStockId);
+    		$strSymbol = SqlGetStockSymbol($strStockId);
+    		$sym = new StockSymbol($strSymbol);
+    		if ($sym->IsTradable())
+    		{
+    			if ($sym->IsSymbolA())		$arA[$str] = $strSymbol;
+    			else if ($sym->IsSymbolH())	$arH[$str] = $strSymbol;
+    			else							$arUS[$str] = $strSymbol;
+    		}
     	}
-		asort($ar);
-    	return $ar;
+		asort($arA);
+		asort($arH);
+		asort($arUS);
+        return $arA + $arH + $arUS;
+//    	return array_merge($arA, $arH, $arUS);	// Can NOT use array_merge for all-digit keys
     }
     return false;
 }

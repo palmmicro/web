@@ -76,9 +76,6 @@ class _AdrGroup extends _StockGroup
 
 function _echoArbitrageParagraph($group)
 {
-    EchoParagraphBegin('策略分析');
-    EchoArbitrageTableBegin();
-
     $cn_trans = $group->GetStockTransactionCN();
     $hk_trans = $group->GetStockTransactionHK();
     $us_trans = $group->GetStockTransactionUS();
@@ -87,6 +84,10 @@ function _echoArbitrageParagraph($group)
     $cn_ref = $group->cn_ref;
     $hk_ref = $group->hk_ref;
     $us_ref = $group->us_ref;
+    if ($group->arbi_trans == false)		return;
+    
+    EchoParagraphBegin('策略分析');
+    EchoArbitrageTableBegin();
 	$sym = $group->arbi_trans->ref->sym;
     if ($sym->IsSymbolA())
     {
