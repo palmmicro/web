@@ -171,22 +171,7 @@ function ForexAndFutureGetTimezone()
     return 'GMT';
 }
 
-define('MIN_FLOAT_VAL', 0.0000001);
-
-function round_display($fCur)
-{
-    if (abs($fCur) > (10 - MIN_FLOAT_VAL))        $fCur = round($fCur, 2);
-    else if (abs($fCur) > (2 - MIN_FLOAT_VAL))   $fCur = round($fCur, 3);
-    else                                            $fCur = round($fCur, 4);
-    return strval($fCur);
-}
-
-function round_display_str($str)
-{
-    return round_display(floatval($str));
-}
-
-function StockGetPriceDisplay($strCur, $strPre)
+function StockGetPriceDisplay($strCur, $strPre, $iPrecision = false)
 {
     if ($strCur)
     {
@@ -197,7 +182,7 @@ function StockGetPriceDisplay($strCur, $strPre)
         else if ($fCur < $fPre - MIN_FLOAT_VAL)   $strColor = 'green';
         else                                         $strColor = 'black';
 
-        $strCur = round_display($fCur);
+        $strCur = strval_round($fCur, $iPrecision);
         return "<font color=$strColor>$strCur</font>";
     }
     return '';

@@ -15,14 +15,22 @@ define('SECONDS_IN_MIN', 60);
 define('SECONDS_IN_HOUR', 3600);
 define('SECONDS_IN_DAY', 86400);
 
+define('MIN_FLOAT_VAL', 0.0000001);
+
+function strval_round($fVal, $iPrecision = false)
+{
+	if ($iPrecision == false)
+	{
+		if (abs($fVal) > (10 - MIN_FLOAT_VAL))		$iPrecision = 2;
+		else if (abs($fVal) > (2 - MIN_FLOAT_VAL))   $iPrecision = 3;
+		else                                           $iPrecision = 4;
+    }
+	return strval(round($fVal, $iPrecision));
+}
+
 function strval_float($str)
 {
 	return strval(floatval($str));
-}
-
-function strval_round($fVal, $iPrecision = 2)
-{
-	return strval(round($fVal, $iPrecision));
 }
 
 function unlinkEmptyFile($strFileName)

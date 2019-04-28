@@ -145,8 +145,10 @@ function StockEditTransactionForm($strSubmit, $strGroupId = false, $strGroupItem
 		<br /><input name="commission" value="$strCost" type="text" size="20" maxlength="32" class="textfield" id="commission" />
 		<br /><SELECT name="taxtype" size=1> <OPTION value=0>税费金额</OPTION> <OPTION value=1>税费‰</OPTION> </SELECT>
 		<br /><input name="tax" value="" type="text" size="20" maxlength="32" class="textfield" id="tax" />
-		<br /><SELECT name="remarktype" onChange=OnRemarkType() size=4> <OPTION value=0>{$arColumn[5]}</OPTION> <OPTION value=1>{</OPTION> <OPTION value=2>}</OPTION> <OPTION value=3>清空</OPTION> </SELECT>
-	    	  <textarea name="remark" rows="4" cols="50" id="remark">$strRemark</textarea>
+		<br /><SELECT name="remarktype" onChange=OnRemarkType() size=1> 
+			  	<OPTION value=0>{$arColumn[5]}</OPTION> <OPTION value=1>{</OPTION> <OPTION value=2>}</OPTION> <OPTION value=3>清空</OPTION> 
+			  </SELECT>
+	    <br /><textarea name="remark" rows="4" cols="50" id="remark">$strRemark</textarea>
 		<br /><input type="submit" name="submit" value="$strSubmit" />
 	    </p>
         </div>

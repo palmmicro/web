@@ -52,8 +52,8 @@ function TextFromAhReference($ref, $hshare_ref)
 	$str .= 'H股代码:'.RefGetMyStockLink($hshare_ref).WX_EOL;
 	if ($hshare_ref->a_ref)		$str .= 'A股代码:'.RefGetMyStockLink($hshare_ref->a_ref).WX_EOL;
 	if ($hshare_ref->adr_ref)	$str .= 'ADR代码:'.RefGetMyStockLink($hshare_ref->adr_ref).WX_EOL;
-	if ($hshare_ref->a_ref)		$str .= 'AH比价:'.round_display($hshare_ref->GetAhRatio()).WX_EOL;
-	if ($hshare_ref->adr_ref)	$str .= 'ADRH比价:'.round_display($hshare_ref->GetAdrhRatio()).WX_EOL;
+	if ($hshare_ref->a_ref)		$str .= 'AH比价:'.strval_round($hshare_ref->GetAhRatio()).WX_EOL;
+	if ($hshare_ref->adr_ref)	$str .= 'ADRH比价:'.strval_round($hshare_ref->GetAdrhRatio()).WX_EOL;
 	return $str;
 }
 

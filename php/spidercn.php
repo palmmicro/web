@@ -11,7 +11,7 @@ function _getNetValueString($fNetValue)
 {
     if ($fNetValue)
     {
-        return round_display($fNetValue).',';
+        return strval_round($fNetValue).',';
     }
 	return '0.0,';
 }

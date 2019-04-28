@@ -285,11 +285,19 @@ class StockReference
     {
         return $this->sym;
     }
+
+    function _getPrecision()
+    {
+    	$sym = $this->GetSym();
+    	if ($sym->IsSinaFund() || $sym->IsFundA())   	return 3;
+    	else if ($sym->IsForex())   					return 4;
+    	return 2;
+    }
     
     // for weixin text
     function GetPriceText($fVal)
     {
-        return round_display($fVal);
+        return strval_round($fVal, $this->_getPrecision());
     }
 
     function GetPercentageText($strPrevPrice)
@@ -297,7 +305,7 @@ class StockReference
     	if (empty($strPrevPrice) || empty($this->strPrice))		return '';
     
    		$fPercentage = StockGetPercentage($this->strPrice, $strPrevPrice);
-   		return strval_round($fPercentage).'%';
+   		return strval_round($fPercentage, 2).'%';
     }
     
     // for display
@@ -329,7 +337,7 @@ class StockReference
     
     function GetPriceDisplay($strPrice, $bPrev = true)
     {
-        return StockGetPriceDisplay($strPrice, $bPrev ? $this->strPrevPrice : $this->strPrice);
+        return StockGetPriceDisplay($strPrice, ($bPrev ? $this->strPrevPrice : $this->strPrice), $this->_getPrecision());
     }
 
     function GetCurrentPriceDisplay()
