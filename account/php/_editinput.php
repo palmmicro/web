@@ -41,7 +41,12 @@ function _getAccountToolStr($strTitle, $bChinese)
 function EchoAll($bChinese = true)
 {
 	$strTitle = UrlGetTitle();
-    if (($strInput = UrlGetQueryValue(EDIT_INPUT_NAME)) == false)
+    if (isset($_POST['submit']))
+	{
+		unset($_POST['submit']);
+		$strInput = UrlCleanString($_POST[EDIT_INPUT_NAME]);
+	}
+    else
     {
     	switch ($strTitle)
     	{
@@ -60,7 +65,6 @@ function EchoAll($bChinese = true)
     }
     
     EchoEditInputForm(_getAccountToolStr($strTitle, $bChinese), $strInput, $bChinese);
-    
     switch ($strTitle)
     {
     case 'editinput':

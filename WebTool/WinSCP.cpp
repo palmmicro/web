@@ -80,7 +80,8 @@ int WinSCP::UpLoad(CString strExe, CString strScript, CString strLog, CString st
 	}
 	else
 	{   //	open ftp ://admin:woody3178@111.230.12.222/
-		strOpenCmd = _T("open ftp://") + strUserName + _T(":") + strPassword + _T("@") + strDomain + _T("/ -passive=0");
+//		strOpenCmd = _T("open ftp://") + strUserName + _T(":") + strPassword + _T("@") + strDomain + _T("/ -passive=0");
+		strOpenCmd = _T("open ftp://") + strUserName + _T(":") + strPassword + _T("@") + strDomain;
 	}
 	m_listScript.AddHead(strOpenCmd);
 
