@@ -31,10 +31,24 @@ As PA6488 based camera is not available in market yet. Users can test the user m
 <br /><a href="../../../account/ip.php">IP Address Data</a> tool.
 </p>
 
+<h3>Temporary <a name="editinput">Test</a> User Interface</h3>
+<p>Apr 10, 2017
+<br /><a href="../../../account/editinput.php">urldecode</a>.
+</p>
+
 <h3><a name="primenumber">Prime</a> Number Tool</h3>
 <p>Apr 12, 2019
 <br /><a href="../../../account/primenumber.php">Prime Number</a> tool.
 <br /><img src=../photo/primenumber.jpg alt="The picture that encouraged me to write this prime nnumber tool." />
+</p>
+
+<h3><a name="xueqiufriend">Snowball</a> Friends</h3>
+<p>Apr 24, 2019
+<br /><a href="../../../php/xueqiufriend.php">Snowball Friends</a> tool.
+<br /><?php EchoLink('http://111.230.12.222/php/xueqiufriend.php'); ?>.
+<br /><img src=../photo/xueqiu20190424.jpg alt="Apr 24, 2019. Xueqiu woody1234 page and chrome Cookie entry." />
+<br /><img src=../photo/xueqiucookie.jpg alt="Chrome Cookie settings where to find xueqiu.com xq_a_token value." />
+<br /><font color=grey>Life is like a snowball. The important thing is finding wet snow and a really long hill. — Warren Buffett</font>
 </p>
 
 </div>

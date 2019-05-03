@@ -35,13 +35,17 @@
 <br />而今天在处理完<a href="20170309cn.php">网络爬虫</a>的问题后, 我突然意识到查询公网IP已经成了现成的副产品, 激动之余写了这个<a href="../../../account/ipcn.php">IP地址数据</a>的工具.
 </p>
 
+<h3>临时<a name="editinput">测试</a>用户界面</h3>
+<p>2017年4月10日
+<br />做完<a href="#ip">IP地址</a>这个最简单的单行输入然后把输入显示出来的用户界面后, 发现自己无意中实现了一个副产品.
+一直有人用各种参数试探攻击我的网页, 所以我早就想解码这些%3A%2F%2F然后显示出来看看到底是些什么参数, 没想到这个界面调用urldecode后就直接实现了这个<a href="../../../account/editinputcn.php">功能</a>.
+</p>
+
 <h3>分解<a name="primenumber">质因数</a></h3>
 <p>2019年4月12日
 <br />昨天是王小波忌日, 让我对自己的胸闷和牙疼症状充满了警惕. 最近整理<a href="20150818cn.php">华宝油气</a>净值软件真有种死去活来的感觉, 经常让我怀疑自己到底在干什么.
 今天刚好在我的QQ群<a href="../palmmicro/20161014cn.php#qqgroup">204836363</a>看到这个图片, 我觉得自己该做点简单的东西恢复一下信心, 就削尖铅笔写了这个<a href="../../../account/primenumbercn.php">分解质因数</a>的工具.
 <br /><img src=../photo/primenumber.jpg alt="The picture that encouraged me to write this prime nnumber tool." />
-<br />做完这个最简单的单行输入然后把输入显示出来的用户界面后, 发现自己无意中实现了一个副产品.
-一直有人用各种参数试探攻击我的网页, 所以我早就想解码这些%3A%2F%2F然后显示出来看看到底是些什么参数, 没想到这个界面直接实现了这个功能, 甚至都不用调用urldecode.
 <br />分解质因数可以用最直接的方式实现, 对指定的数字n, 从2开始一个个反复除到n的平方根为止就行了. 下面用数字68举个具体的例子.
 </p>
 <ol>
@@ -72,7 +76,8 @@
 <br /><img src=../photo/xueqiu20190424.jpg alt="Apr 24, 2019. Xueqiu woody1234 page and chrome Cookie entry." />
 <br />然后点进去在下图中找到xq_a_token对应的值, 肯定不会是现在显示的这个.
 <br /><img src=../photo/xueqiucookie.jpg alt="Chrome Cookie settings where to find xueqiu.com xq_a_token value." />
-<br />然后手工把它放在链接中: <?php EchoLink('http://111.230.12.222/php/xueqiufriend.php?token=962201de99e24d9a442fce1d50f9087657d6fa26'); ?>
+<br />然后手工把它放在对应的输入框中即可.
+<br /><font color=grey>Life is like a snowball. The important thing is finding wet snow and a really long hill. — Warren Buffett</font>
 </p>
 
 </div>

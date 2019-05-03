@@ -11,7 +11,7 @@ function GetEditInputDefault()
 
 function GetEditInputString($strInput)
 {
-    return $strInput;
+    return urldecode($strInput);
 }
 
 ?>
