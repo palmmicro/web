@@ -79,7 +79,7 @@ function EchoAhParagraph($arRef)
 			$str .= ' '._getSortRatioLink();
 		}
 	}
-    EchoReferenceParagraph($arRef, _ahStockRefCallback, $str);
+    EchoReferenceParagraph($arRef, '_ahStockRefCallback', $str);
 }
 
 function _adrhStockRefCallbackData($ref)
@@ -122,7 +122,7 @@ function EchoAdrhParagraph($arRef)
 			$str .= ' '._getSortHLink();
 		}
 	}
-    EchoReferenceParagraph($arRef, _adrhStockRefCallback, $str);
+    EchoReferenceParagraph($arRef, '_adrhStockRefCallback', $str);
 }
 
 ?>

@@ -233,7 +233,7 @@ function _prefetchSinaData($arSym)
         $strFileName = DebugGetSinaFileName($str);
 		if ($sym->IsSinaFund())
         {   // fund, IsSinaFund must be called before IsSinaFuture
-            if (IsNewDailyQuotes($sym, $strFileName, _GetFundQuotesYMD))       continue;
+            if (IsNewDailyQuotes($sym, $strFileName, '_GetFundQuotesYMD'))       continue;
         }
         else if ($sym->IsSinaFuture() || $sym->IsSinaForex())
         {   // forex and future

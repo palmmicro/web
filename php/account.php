@@ -77,10 +77,10 @@ function AcctIsAdmin($strLoginId = false)
 function AcctIsLogin()
 {
 	// Check whether the session variable SESS_ID is present or not
-    $strMemberId = $_SESSION['SESS_ID'];
-	if (!isset($strMemberId) || (trim($strMemberId) == '')) 
+    $strMemberId = isset($_SESSION['SESS_ID']) ? $_SESSION['SESS_ID'] : false;
+	if ($strMemberId)
 	{
-		return false;
+		if (trim($strMemberId) == '')	return false;
 	}
 	return $strMemberId;
 }
@@ -101,9 +101,19 @@ function AcctIsReadOnly($strMemberId)
     return true;
 }
 
+function _errorHandler($errno, $errstr, $errfile, $errline)
+{
+	$str = "<b>Custom error:</b> [$errno] $errstr";
+    $str .= "<br />Error on line $errline in $errfile";
+    dieDebugString(DEBUG_UTF8_BOM.$str);
+}
+
+ // 设置用户定义的错误处理函数
 function AcctSessionStart()
 {
 	error_reporting(E_ALL);
+//	set_error_handler('_errorHandler');
+//	trigger_error('系统调试暂停访问');
 	session_start();
     SqlConnectDatabase();
 }

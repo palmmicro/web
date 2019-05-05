@@ -57,7 +57,7 @@ function EchoAll()
 {
     global $group;
     
-    EchoReferenceParagraph($group->arRef, _chinaEtfRefCallback);
+    EchoReferenceParagraph($group->arRef, '_chinaEtfRefCallback');
     EchoEtfListParagraph(array($group->ref, $group->us_ref));
     EchoEtfTradingParagraph($group->ref);
     EchoEtfSmaParagraph($group->ref);

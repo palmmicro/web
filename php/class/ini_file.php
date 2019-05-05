@@ -53,6 +53,7 @@ class  INIFile {
 		$fp = fopen($inifilename, 'r+');
 		$contents = fread($fp, filesize($inifilename));
 		$ini_data = split("\n",$contents);
+//		$ini_data = explode("\n",$contents);
 		
 		while(list($key, $data) = each($ini_data))
 		{
@@ -65,6 +66,7 @@ class  INIFile {
 	function parse_data($data)
 	{
 		if(ereg("\[([[:alnum:]]+)\]",$data,$out))
+//		if(preg_match("/^\[([[:alnum:]]+)\]/",$data,$out))
 		{
 			$this->CURRENT_GROUP=$out[1];
 //			$this->GROUPS[$this->CURRENT_GROUP] = array();
@@ -72,6 +74,7 @@ class  INIFile {
 		else
 		{
 			$split_data = split('=', $data);
+//			$split_data = explode('=', $data);
 			$this->GROUPS[$this->CURRENT_GROUP][$split_data[0]]=$split_data[1];
 		}
 	}

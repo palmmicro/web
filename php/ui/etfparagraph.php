@@ -49,28 +49,20 @@ function EchoEtfListParagraph($arRef)
 	$ar = array();
 	foreach ($arRef as $ref)
 	{
-//		$sym = $ref->GetSym();
-//		if ($strDigit = $sym->IsFundA())
-//		{
-			$ar[$strDigit] = $ref->GetExternalLink();
-//			$ref->SetExternalLink(GetEastMoneyFundRatioLink($sym));
-			RefSetExternalLinkMyStock($ref);
-//		}
+		$ar[$ref->GetStockSymbol()] = $ref->GetExternalLink();
+		RefSetExternalLinkMyStock($ref);
 	}
 	$str = GetEtfListLink();
-    EchoReferenceParagraph($arRef, _etfListRefCallback, $str);
+    EchoReferenceParagraph($arRef, '_etfListRefCallback', $str);
     
     // restore external link
     foreach ($arRef as $ref)
     {
-//		$sym = $ref->GetSym();
-//		if ($strDigit = $sym->IsFundA())
-//		{
-			if (array_key_exists($strDigit, $ar))
-			{
-				$ref->SetExternalLink($ar[$strDigit]);
-			}
-//		}
+    	$strSymbol = $ref->GetStockSymbol();
+		if (array_key_exists($strSymbol, $ar))
+		{
+			$ref->SetExternalLink($ar[$strSymbol]);
+		}
     }
 }
 

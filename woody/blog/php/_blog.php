@@ -35,7 +35,7 @@ function NavigateBlogGroup($bChinese)
 function _LayoutTopLeft($bChinese = true)
 {
     AcctNoAuth();
-    LayoutTopLeft(NavigateBlogGroup, true, $bChinese);
+    LayoutTopLeft('NavigateBlogGroup', true, $bChinese);
 }
 
 function _LayoutBottom($bChinese = true)

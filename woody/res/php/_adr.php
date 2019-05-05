@@ -160,7 +160,7 @@ function AdrEchoAll()
 {
     global $group;
     
-    EchoReferenceParagraph($group->arStockRef, _adrStockRefCallback);
+    EchoReferenceParagraph($group->arStockRef, '_adrStockRefCallback');
 	EchoAhTradingParagraph($group->hk_ref);
     EchoHShareSmaParagraph($group->cn_ref, $group->hk_ref);
     EchoHShareSmaParagraph($group->hk_ref, $group->hk_ref);

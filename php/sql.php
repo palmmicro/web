@@ -3,7 +3,6 @@ define('DB_DATABASE', 'camman');
 
 define('TABLE_BLOG', 'blog');
 define('TABLE_CALIBRATION', 'calibration');
-define('TABLE_DIVIDEND_PARAMETER', 'dividendparameter');
 define('TABLE_ETF_CALIBRATION', 'etfcalibration');
 define('TABLE_FUND_EST', 'fundest');
 define('TABLE_FUND_PURCHASE', 'fundpurchase');
@@ -153,10 +152,6 @@ function SqlCreateDatabase($strDb)
 	$result = @mysql_query($str);
 	if (!$result)	die('Create member table failed');
 
-	$str = "CREATE TABLE `$strDb`.`blacklist` (`id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, `email` VARCHAR(128) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL, `ip` VARCHAR(16) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL, `created` DATETIME NOT NULL, `reason` INT UNSIGNED NOT NULL, INDEX (`ip`), UNIQUE (`email`)) ENGINE = MyISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci"; 
-	$result = @mysql_query($str);
-	if (!$result)	die('Create blacklist table failed');
-
 	$str = "CREATE TABLE `$strDb`.`profile` (`id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, `member_id` INT UNSIGNED NOT NULL, `name` VARCHAR(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL, `phone` VARCHAR(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL, `address` VARCHAR(128) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL, `web` VARCHAR(128) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL, `signature` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL, FOREIGN KEY (`member_id`) REFERENCES `member`(`id`) ON DELETE CASCADE) ENGINE = MyISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci";
 	$result = @mysql_query($str);
 	if (!$result)	die('Create profile table failed');
@@ -168,10 +163,6 @@ function SqlCreateDatabase($strDb)
  	$str = "CREATE TABLE `$strDb`.`blogcomment` (`id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, `member_id` INT UNSIGNED NOT NULL, `blog_id` INT UNSIGNED NOT NULL, `comment` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL, `ip` VARCHAR(16) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL, `created` DATETIME NOT NULL, `modified` DATETIME NOT NULL, FOREIGN KEY (`member_id`) REFERENCES `member`(`id`) ON DELETE CASCADE, FOREIGN KEY (`blog_id`) REFERENCES `blog`(`id`) ON DELETE CASCADE, INDEX (`ip`)) ENGINE = MyISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci";
 	$result = @mysql_query($str);
 	if (!$result)	die('Create blogcomment table failed');
-
- 	$str = "CREATE TABLE `$strDb`.`device` (`id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, `member_id` INT UNSIGNED NOT NULL, `hardware` VARCHAR(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL, `software` VARCHAR(16) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL, `service` VARCHAR(128) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL, `number` VARCHAR(16) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL, `name` VARCHAR(128) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL, `pstn` VARCHAR(16) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL, `address` VARCHAR(128) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL, FOREIGN KEY (`member_id`) REFERENCES `member`(`id`) ON DELETE CASCADE, INDEX (`address`)) ENGINE = MyISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci";
-	$result = @mysql_query($str);
-	if (!$result)	die('Create device table failed');
 */
 	$db = mysql_select_db($strDb);		// Select database again
 	if (!$db) 

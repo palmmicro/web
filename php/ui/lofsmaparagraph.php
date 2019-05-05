@@ -11,7 +11,7 @@ function EchoLofSmaParagraph($lof_ref, $callback2 = false)
 	$ref = $lof_ref->est_ref;
     if (RefHasData($ref) == false) 	return;
     
-    EchoSmaParagraph($ref, false, $lof_ref, _callbackLofSma, $callback2);
+    EchoSmaParagraph($ref, false, $lof_ref, '_callbackLofSma', $callback2);
 }
 
 ?>

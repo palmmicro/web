@@ -667,7 +667,7 @@ class StockReference
         $strFileName = DebugGetSinaFileName($strFundSymbol);
         $this->strFileName = $strFileName;
 
-        if (($str = IsNewDailyQuotes($sym, $strFileName, _GetFundQuotesYMD)) === false)
+        if (($str = IsNewDailyQuotes($sym, $strFileName, '_GetFundQuotesYMD')) === false)
         {
         	$str = GetSinaQuotes($strFundSymbol);
         	if ($str)   file_put_contents($strFileName, $str);

@@ -48,9 +48,9 @@ function url_get_contents($strUrl, $strCookie = false)
 function UrlGetServer()
 {
     $strServer = 'http';
-    if ($_SERVER['HTTPS'] == 'on')
+    if (isset($_SERVER['HTTPS']))
     {
-        $strServer .= 's';
+    	if ($_SERVER['HTTPS'] == 'on')	$strServer .= 's';
     }
     $strServer .= '://';
     if ($_SERVER['SERVER_PORT'] != '80')    

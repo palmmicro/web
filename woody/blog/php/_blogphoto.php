@@ -19,7 +19,7 @@ function _navLoopBlogPhoto($bChinese)
 
 function _LayoutTopLeft($bChinese = true)
 {
-    LayoutTopLeft(_navLoopBlogPhoto, true, $bChinese);
+    LayoutTopLeft('_navLoopBlogPhoto', true, $bChinese);
 }
 
     AcctNoAuth();

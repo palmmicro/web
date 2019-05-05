@@ -220,35 +220,37 @@ class TableSql
 class KeyNameSql extends TableSql
 {
 	var $iMaxLen;
+	var $strKeyName;
 	
-    function KeyNameSql($strTableName, $iMaxKeyLen = 32)
+    function KeyNameSql($strTableName, $strKeyName, $iMaxKeyLen = 32)
     {
         $this->iMaxLen = $iMaxKeyLen;
+        $this->strKeyName = $strKeyName;
         parent::TableSql($strTableName);
     }
 
     function Create()
     {
-    	$str = ' `keyname` VARCHAR( '.strval($this->iMaxLen).' ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,'
-         	. ' UNIQUE ( `keyname` )';
+    	$str = ' `'.$this->strKeyName.'` VARCHAR( '.strval($this->iMaxLen).' ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,'
+         	. ' UNIQUE ( `'.$this->strKeyName.'` )';
     	return $this->CreateIdTable($str);
     }
 
     function Get($strKeyName)
     {
-    	return $this->GetSingleData(_SqlBuildWhere('keyname', $strKeyName));
+    	return $this->GetSingleData(_SqlBuildWhere($this->strKeyName, $strKeyName));
     }
 
     function GetAll($iStart = 0, $iNum = 0)
     {
-   		return $this->GetData(false, '`keyname` ASC', _SqlBuildLimit($iStart, $iNum));
+   		return $this->GetData(false, '`'.$this->strKeyName.'` ASC', _SqlBuildLimit($iStart, $iNum));
     }
 	
     function GetKeyName($strId)
     {
     	if ($record = $this->GetById($strId))
     	{
-    		return $record['keyname'];
+    		return $record[$this->strKeyName];
     	}
     	return false;
     }

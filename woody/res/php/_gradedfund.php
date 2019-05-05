@@ -64,7 +64,7 @@ function EchoAll($bChinese = true)
 	_set_extended_ref($ref);
 	_set_extended_ref($m_ref);
 	_set_extended_ref($b_ref);
-    EchoReferenceParagraph(array($ref->est_ref, $m_ref->stock_ref, $ref->stock_ref, $b_ref->stock_ref), _gradedFundRefCallback);
+    EchoReferenceParagraph(array($ref->est_ref, $m_ref->stock_ref, $ref->stock_ref, $b_ref->stock_ref), '_gradedFundRefCallback');
     EchoFundTradingParagraph($ref);    
     EchoFundTradingParagraph($b_ref);    
     if ($group->bCanTradeM)

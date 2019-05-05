@@ -16,18 +16,6 @@ UNIQUE (
 )
 ) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci
 
- CREATE TABLE `camman`.`blacklist` (
-`id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,
-`email` VARCHAR( 128 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
-`ip` VARCHAR( 16 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
-`created` DATETIME NOT NULL ,
-`reason` INT UNSIGNED NOT NULL ,
-INDEX ( `ip` ) ,
-UNIQUE (
-`email`
-)
-) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci 
-
  CREATE TABLE `camman`.`profile` (
 `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,
 `member_id` INT UNSIGNED NOT NULL ,
@@ -39,19 +27,6 @@ UNIQUE (
 FOREIGN KEY (`member_id`) REFERENCES `member`(`id`) ON DELETE CASCADE
 ) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci 
 
- CREATE TABLE `camman`.`device` (
-`id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,
-`member_id` INT UNSIGNED NOT NULL ,
-`hardware` VARCHAR( 32 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL ,
-`software` VARCHAR( 16 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL ,
-`service` VARCHAR( 128 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL ,
-`number` VARCHAR( 16 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL ,
-`name` VARCHAR( 128 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL ,
-`pstn` VARCHAR( 16 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL ,
-`address` VARCHAR( 128 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL ,
-FOREIGN KEY (`member_id`) REFERENCES `member`(`id`) ON DELETE CASCADE ,
-INDEX ( `address` )
-) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci 
 */
 
 // ****************************** Member table *******************************************************

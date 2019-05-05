@@ -19,9 +19,9 @@ define('INDEXCBOE_PREFIX', 'INDEXCBOE:');
 define('STOCK_TIME_ZONE_CN', 'PRC');
 define('STOCK_TIME_ZONE_US', 'America/New_York');
 
-function in_array_lower($strSymbol, $callback)
+function in_array_lower($strSymbol, $ar)
 {
-    return in_array(strtolower($strSymbol), call_user_func($callback));
+    return in_array(strtolower($strSymbol), $ar);
 }
 
 function ChinaEtfGetSymbolArray()
@@ -31,7 +31,7 @@ function ChinaEtfGetSymbolArray()
 
 function in_arrayChinaEtf($strSymbol)
 {
-    return in_array_lower($strSymbol, ChinaEtfGetSymbolArray);
+    return in_array_lower($strSymbol, ChinaEtfGetSymbolArray());
 }
 
 function AdrGetSymbolArray()
@@ -46,7 +46,7 @@ function GoldEtfGetSymbolArray()
 
 function in_arrayGoldEtf($strSymbol)
 {
-    return in_array_lower($strSymbol, GoldEtfGetSymbolArray);
+    return in_array_lower($strSymbol, GoldEtfGetSymbolArray());
 }
 
 function GradedFundGetSymbolArray()
@@ -56,7 +56,7 @@ function GradedFundGetSymbolArray()
 
 function in_arrayGradedFund($strSymbol)
 {
-    return in_array_lower($strSymbol, GradedFundGetSymbolArray);
+    return in_array_lower($strSymbol, GradedFundGetSymbolArray());
 }
 
 function LofGetChinaInternetSymbolArray()
@@ -66,7 +66,7 @@ function LofGetChinaInternetSymbolArray()
 
 function in_arrayChinaInternetLof($strSymbol)
 {
-    return in_array_lower($strSymbol, LofGetChinaInternetSymbolArray);
+    return in_array_lower($strSymbol, LofGetChinaInternetSymbolArray());
 }
 
 function LofGetGoldSymbolArray()
@@ -76,7 +76,7 @@ function LofGetGoldSymbolArray()
 
 function in_arrayGoldLof($strSymbol)
 {
-    return in_array_lower($strSymbol, LofGetGoldSymbolArray);
+    return in_array_lower($strSymbol, LofGetGoldSymbolArray());
 }
 
 function LofGetOilSymbolArray()
@@ -86,7 +86,7 @@ function LofGetOilSymbolArray()
 
 function in_arrayOilLof($strSymbol)
 {
-    return in_array_lower($strSymbol, LofGetOilSymbolArray);
+    return in_array_lower($strSymbol, LofGetOilSymbolArray());
 }
 
 function LofGetOilEtfSymbolArray()
@@ -96,7 +96,7 @@ function LofGetOilEtfSymbolArray()
 
 function in_arrayOilEtfLof($strSymbol)
 {
-    return in_array_lower($strSymbol, LofGetOilEtfSymbolArray);
+    return in_array_lower($strSymbol, LofGetOilEtfSymbolArray());
 }
 
 function LofGetBricSymbolArray()
@@ -106,7 +106,7 @@ function LofGetBricSymbolArray()
 
 function in_arrayBricLof($strSymbol)
 {
-    return in_array_lower($strSymbol, LofGetBricSymbolArray);
+    return in_array_lower($strSymbol, LofGetBricSymbolArray());
 }
 
 function LofGetCommoditySymbolArray()
@@ -121,7 +121,7 @@ function LofGetQqqSymbolArray()
 
 function in_arrayQqqLof($strSymbol)
 {
-    return in_array_lower($strSymbol, LofGetQqqSymbolArray);
+    return in_array_lower($strSymbol, LofGetQqqSymbolArray());
 }
 
 function LofGetSpySymbolArray()
@@ -131,7 +131,7 @@ function LofGetSpySymbolArray()
 
 function in_arraySpyLof($strSymbol)
 {
-    return in_array_lower($strSymbol, LofGetSpySymbolArray);
+    return in_array_lower($strSymbol, LofGetSpySymbolArray());
 }
 
 function LofGetSymbolArray()
@@ -151,7 +151,7 @@ function LofGetSymbolArray()
 
 function in_arrayLof($strSymbol)
 {
-    return in_array_lower($strSymbol, LofGetSymbolArray);
+    return in_array_lower($strSymbol, LofGetSymbolArray());
 }
 
 function LofHkGetHSharesSymbolArray()
@@ -161,7 +161,7 @@ function LofHkGetHSharesSymbolArray()
 
 function in_arrayHSharesLofHk($strSymbol)
 {
-    return in_array_lower($strSymbol, LofHkGetHSharesSymbolArray);
+    return in_array_lower($strSymbol, LofHkGetHSharesSymbolArray());
 }
 
 function LofHkGetHangSengSymbolArray()
@@ -171,7 +171,7 @@ function LofHkGetHangSengSymbolArray()
 
 function in_arrayHangSengLofHk($strSymbol)
 {
-    return in_array_lower($strSymbol, LofHkGetHangSengSymbolArray);
+    return in_array_lower($strSymbol, LofHkGetHangSengSymbolArray());
 }
 
 function LofHkGetSymbolArray()
@@ -185,7 +185,7 @@ function LofHkGetSymbolArray()
 
 function in_arrayLofHk($strSymbol)
 {
-    return in_array_lower($strSymbol, LofHkGetSymbolArray);
+    return in_array_lower($strSymbol, LofHkGetSymbolArray());
 }
 
 function GetAllSymbolArray()
@@ -201,7 +201,7 @@ function GetAllSymbolArray()
 
 function in_arrayAll($strSymbol)
 {
-    return in_array_lower($strSymbol, GetAllSymbolArray);
+    return in_array_lower($strSymbol, GetAllSymbolArray());
 }
 
 function IsChineseStockDigit($strDigit)

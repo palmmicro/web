@@ -6,21 +6,21 @@ class StockSql extends KeyNameSql
 {
     function StockSql()
     {
-        parent::KeyNameSql('stock');
+        parent::KeyNameSql('stock', 'symbol');
     }
 
     function Create()
     {
-    	$str = ' `keyname` VARCHAR( 32 ) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL ,'
+    	$str = ' `symbol` VARCHAR( 32 ) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL ,'
          	. ' `name` VARCHAR( 128 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,'
-         	. ' UNIQUE ( `keyname` )';
+         	. ' UNIQUE ( `symbol` )';
     	return $this->CreateIdTable($str);
     }
     
     function _getFieldArray($strSymbol, $strName)
     {
     	$strName = UrlCleanString($strName);
-    	return array('keyname' => $strSymbol,
+    	return array('symbol' => $strSymbol,
     				   'name' => $strName);
     }
     

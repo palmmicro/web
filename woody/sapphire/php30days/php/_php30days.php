@@ -27,7 +27,7 @@ function NavLoop30Days($bChinese)
 
 function _LayoutTopLeft($bChinese = true)
 {
-    LayoutTopLeft(NavLoop30Days, true, $bChinese);
+    LayoutTopLeft('NavLoop30Days', true, $bChinese);
 }
 
     AcctNoAuth();
