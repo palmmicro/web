@@ -641,7 +641,7 @@ class StockReference
     {
         $this->strExternalLink = GetSinaFutureLink($strSymbol);
         $this->strFileName = DebugGetSinaFileName($strSinaSymbol);
-        $ar = _GetForexAndFutureArray($strSinaSymbol, $this->strFileName, ForexAndFutureGetTimezone(), GetSinaQuotes);
+        $ar = _GetForexAndFutureArray($strSinaSymbol, $this->strFileName, ForexAndFutureGetTimezone(), 'GetSinaQuotes');
         if (count($ar) < 13)
         {
             $this->bHasData = false;
@@ -721,7 +721,7 @@ class StockReference
     {
         $this->strExternalLink = GetSinaForexLink($strSymbol);
         $this->strFileName = DebugGetSinaFileName($strSymbol);
-        $ar = _GetForexAndFutureArray($strSymbol, $this->strFileName, ForexAndFutureGetTimezone(), GetSinaQuotes);
+        $ar = _GetForexAndFutureArray($strSymbol, $this->strFileName, ForexAndFutureGetTimezone(), 'GetSinaQuotes');
         if (count($ar) < 10)
         {
             $this->bHasData = false;
@@ -739,7 +739,7 @@ class StockReference
     {
         $this->strExternalLink = GetEastMoneyForexLink($strSymbol);
         $this->strFileName = DebugGetEastMoneyFileName($strSymbol);
-        $ar = _GetForexAndFutureArray(ForexGetEastMoneySymbol($strSymbol), $this->strFileName, ForexAndFutureGetTimezone(), GetEastMoneyQuotes);
+        $ar = _GetForexAndFutureArray(ForexGetEastMoneySymbol($strSymbol), $this->strFileName, ForexAndFutureGetTimezone(), 'GetEastMoneyQuotes');
         if (count($ar) < 27)
         {
             $this->bHasData = false;

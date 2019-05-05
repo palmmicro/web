@@ -4,8 +4,6 @@ require_once('stocktable.php');
 // $ref from StockReference
 function _echoReferenceTableItem($ref, $callback = false)
 {
-    if ($ref == false)	return;
-
    	$strLink = $ref->GetExternalLink();
     if ($ref->HasData())
     {
@@ -53,10 +51,13 @@ function _echoReferenceTableData($arRef, $callback)
 {
     foreach ($arRef as $ref)
     {
-   		_echoReferenceTableItem($ref, $callback);
-    	if ($callback == false)
+    	if ($ref)
     	{
-    		_echoReferenceTableItem($ref->extended_ref);
+    		_echoReferenceTableItem($ref, $callback);
+    		if ($callback == false)
+    		{
+    			if ($ref->extended_ref)	_echoReferenceTableItem($ref->extended_ref);
+    		}
     	}
     }
 }

@@ -61,10 +61,13 @@ function LayoutIsMobilePhone()
 
 function LayoutScreenWidthOk()
 {
-	if ($strWidth = $_COOKIE['screen'])
-	{	// cookie in _layoutBanner worked 
-		$iWidth = intval($strWidth) - 20;	// 假设右侧垂直滚动条是20像素
-		if ($iWidth >= MIN_SCRREN_WIDTH)	return $iWidth;
+	if (isset($_COOKIE['screen']))
+	{
+		if ($strWidth = $_COOKIE['screen'])
+		{	// cookie in _layoutBanner worked 
+			$iWidth = intval($strWidth) - 20;	// 假设右侧垂直滚动条是20像素
+			if ($iWidth >= MIN_SCRREN_WIDTH)	return $iWidth;
+		}
 	}
 	return false;
 }

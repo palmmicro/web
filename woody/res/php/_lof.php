@@ -104,8 +104,8 @@ function EchoAll($bChinese = true)
     EchoFundEstParagraph($fund);
     EchoReferenceParagraph(array_merge(array($fund->stock_ref, $fund->est_ref, $fund->future_ref, $group->oil_ref, $group->es_ref, $group->usd_ref, $group->cny_ref), $group->ar_leverage_ref));
     $group->EchoLeverageParagraph();
-    EchoFundTradingParagraph($fund, _onTradingUserDefined);    
-	EchoLofSmaParagraph($fund, _onSmaUserDefined);
+    EchoFundTradingParagraph($fund, '_onTradingUserDefined');    
+	EchoLofSmaParagraph($fund, '_onSmaUserDefined');
     EchoEtfArraySmaParagraph($fund->est_ref, $group->GetLeverageRef());
     EchoFundHistoryParagraph($fund);
     

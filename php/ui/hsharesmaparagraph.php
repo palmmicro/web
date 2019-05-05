@@ -42,31 +42,31 @@ function EchoHShareSmaParagraph($ref, $hshare_ref)
 	{
    		if ($sym->IsSymbolA())
    		{
-   			$callback2 = _callbackHAdrSmaCny;
-   			$callback = _callbackHShareSmaA;
+   			$callback2 = '_callbackHAdrSmaCny';
+   			$callback = '_callbackHShareSmaA';
    		}
    		else if ($sym->IsSymbolH())
    		{
-   			$callback2 = _callbackHAdrSmaH;
-   			$callback = _callbackHShareSmaH;
+   			$callback2 = '_callbackHAdrSmaH';
+   			$callback = '_callbackHShareSmaH';
    		}
    		else
    		{
-   			$callback2 = _callbackHAdrSmaUsd;
-   			$callback = _callbackHAdrSmaAdr;
+   			$callback2 = '_callbackHAdrSmaUsd';
+   			$callback = '_callbackHAdrSmaAdr';
    		}
 		EchoSmaParagraph($ref, false, $hshare_ref, $callback2);
 		$str = '';
 	}
 	else if ($hshare_ref->a_ref)
 	{
-   		if ($sym->IsSymbolA())	$callback = _callbackHShareSmaA;
-   		else				   		$callback = _callbackHShareSmaH;
+   		if ($sym->IsSymbolA())	$callback = '_callbackHShareSmaA';
+   		else				   		$callback = '_callbackHShareSmaH';
 	}
 	else if ($hshare_ref->adr_ref)
 	{
-   		if ($sym->IsSymbolH())	$callback = _callbackHAdrSmaH;
-   		else				   		$callback = _callbackHAdrSmaAdr;
+   		if ($sym->IsSymbolH())	$callback = '_callbackHAdrSmaH';
+   		else				   		$callback = '_callbackHAdrSmaAdr';
 	}
 	
 	EchoSmaParagraph($ref, $str, $hshare_ref, $callback);

@@ -57,10 +57,14 @@ function AcctLogout()
 
 function AcctGetEmail($strLoginId = false)
 {
-	if ($strLoginId == false)	$strLoginId = $_SESSION['SESS_ID'];
-    if ($strEmail = SqlGetEmailById($strLoginId))
+	if ($strLoginId == false)
 	{
-	    return $strEmail;
+		if (isset($_SESSION['SESS_ID']))		$strLoginId = $_SESSION['SESS_ID'];
+	}
+	
+	if ($strLoginId)
+	{
+		if ($strEmail = SqlGetEmailById($strLoginId))	return $strEmail;
 	}
 	return '';
 }
@@ -103,16 +107,19 @@ function AcctIsReadOnly($strMemberId)
 
 function _errorHandler($errno, $errstr, $errfile, $errline)
 {
+	if ($errfile == '/php/class/ini_file.php')	return;
+	
 	$str = "<b>Custom error:</b> [$errno] $errstr";
     $str .= "<br />Error on line $errline in $errfile";
-    dieDebugString(DEBUG_UTF8_BOM.$str);
+//    dieDebugString(DEBUG_UTF8_BOM.$str);
+    DebugString($str);
 }
 
  // 设置用户定义的错误处理函数
 function AcctSessionStart()
 {
 	error_reporting(E_ALL);
-//	set_error_handler('_errorHandler');
+	set_error_handler('_errorHandler');
 //	trigger_error('系统调试暂停访问');
 	session_start();
     SqlConnectDatabase();

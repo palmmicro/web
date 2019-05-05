@@ -393,8 +393,8 @@ function _closeAccount($strEmail)
 		unset($_POST['submit']);
 		$strEmail = UrlCleanString($_POST['login']);
 		$_SESSION['SESS_EMAIL_INPUT'] = $strEmail;
-		$strPassword = UrlCleanString($_POST['password']);
-		$strPassword2 = UrlCleanString($_POST['cpassword']);
+		$strPassword = isset($_POST['password']) ? UrlCleanString($_POST['password']) : '';
+		$strPassword2 = isset($_POST['cpassword']) ? UrlCleanString($_POST['cpassword']) : '';
 		switch ($strSubmit)
 		{
 		case EDIT_EMAIL_CLOSE:

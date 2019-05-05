@@ -1,5 +1,5 @@
 <?php
-require_once('/php/blogcomments.php');
+require_once('/php/_blogcomments.php');
 require_once('/php/layout.php');
 require_once('/php/stocklink.php');
 require_once('/php/externallink.php');
@@ -34,7 +34,6 @@ function NavigateBlogGroup($bChinese)
 
 function _LayoutTopLeft($bChinese = true)
 {
-    AcctNoAuth();
     LayoutTopLeft('NavigateBlogGroup', true, $bChinese);
 }
 
