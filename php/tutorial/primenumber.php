@@ -29,7 +29,7 @@ function _lookUpPrimeNumber($iNum)
 	}
 
 	$aiNum = array();
-    if ($result = $pn_sql->Get(intval(sqrt($iNum))))
+    if ($result = $pn_sql->GetByMaxId(intval(sqrt($iNum))))
     {
         while ($record = mysql_fetch_assoc($result)) 
         {
@@ -76,8 +76,8 @@ function _getPrimeNumberString($callback, $strNumber)
 
 function GetPrimeNumberString($strNumber)
 {
-	$str = _getPrimeNumberString(_onePassPrimeNumber, $strNumber);
-	$str .= '<br />'._getPrimeNumberString(_lookUpPrimeNumber, $strNumber);
+	$str = _getPrimeNumberString('_onePassPrimeNumber', $strNumber);
+	$str .= '<br />'._getPrimeNumberString('_lookUpPrimeNumber', $strNumber);
 	return $str;
 }
 

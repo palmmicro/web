@@ -24,7 +24,7 @@ class StockHistorySql extends DailyStockSql
     	return $this->CreateIdTable($str);
     }
 
-    function Write($strDate, $strOpen, $strHigh, $strLow, $strClose, $strVolume, $strAdjClose)
+    function WriteHistory($strDate, $strOpen, $strHigh, $strLow, $strClose, $strVolume, $strAdjClose)
     {
     	$ar = array('date' => $strDate,
     				   'open' => $strOpen,

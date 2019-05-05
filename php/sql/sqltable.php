@@ -105,7 +105,7 @@ class TableSql
     	return SqlGetTableData($this->strName, $strWhere, $strOrderBy, $strLimit);
     }
 
-    function Get($iMax)
+    function GetByMaxId($iMax)
     {
     	$strMax = strval($iMax);
     	return $this->GetData("id <= '$strMax'", '`id` ASC');

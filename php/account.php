@@ -100,7 +100,10 @@ function AcctIsReadOnly($strMemberId)
     if (AcctIsAdmin())  return false;
     if ($strMemberId)
     {
-        if ($strMemberId == $_SESSION['SESS_ID'])   return false;
+    	if (isset($_SESSION['SESS_ID']))
+    	{
+    		if ($strMemberId == $_SESSION['SESS_ID'])   return false;
+    	}
     }
     return true;
 }
