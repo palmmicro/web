@@ -24,6 +24,4 @@ function _ChishinLayoutBottom()
     LayoutTailLogin();
 }
 
-    AcctNoAuth();
-
 ?>

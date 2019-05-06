@@ -25,11 +25,16 @@ function _ignoreCurrentTradingData($strDate, $sym)
 function _estSma($arF, $iAvg)
 {
     $f = 0.0;
-    $iNum = $iAvg - 1;
 //    $iNum = $iAvg;
-    for ($i = 0; $i < $iNum; $i ++)
+    $iNum = $iAvg - 1;
+    
+    $iCount = 0;
+//    for ($i = 0; $i < $iNum; $i ++)
+    foreach ($arF as $fVal)
     {
-        $f += $arF[$i];
+        $f += $fVal;
+        $iCount ++;
+        if ($iCount == $iNum)	break;
     }
     return strval($f / $iNum);
 }
@@ -59,11 +64,15 @@ function _estBollingerBands($arF, $iAvg)
     $fSum = 0.0;
     $fQuadraticSum = 0.0;
     $iNum = $iAvg - 1;
-    for ($i = 0; $i < $iNum; $i ++)
+    $iCount = 0;
+//    for ($i = 0; $i < $iNum; $i ++)
+    foreach ($arF as $fVal)
     {
-        $fVal = $arF[$i];
+//        $fVal = $arF[$i];
         $fSum += $fVal;
         $fQuadraticSum += $fVal * $fVal;
+        $iCount ++;
+        if ($iCount == $iNum)	break;
     }
     $f = 1.0 * ($iAvg - 4);
     $a = $f * $iNum * $iNum - 4 * $iNum;
@@ -85,11 +94,15 @@ function _estNextBollingerBands($arF, $iAvg)
     $fSum = 0.0;
     $fQuadraticSum = 0.0;
     $iNum = $iAvg - 2;
-    for ($i = 0; $i < $iNum; $i ++)
+    $iCount = 0;
+//    for ($i = 0; $i < $iNum; $i ++)
+    foreach ($arF as $fVal)
     {
-        $fVal = $arF[$i];
+//        $fVal = $arF[$i];
         $fSum += $fVal;
         $fQuadraticSum += $fVal * $fVal;
+        $iCount ++;
+        if ($iCount == $iNum)	break;
     }
     $f = 1.0 * ($iAvg - 8);
     $a = $f * $iNum * $iNum - 16 * $iNum;

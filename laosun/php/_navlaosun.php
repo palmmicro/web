@@ -23,5 +23,4 @@ function _LaosunLayoutBottom()
     LayoutTailLogin();
 }
 
-    AcctNoAuth();
 ?>

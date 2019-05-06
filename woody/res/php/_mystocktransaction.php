@@ -15,14 +15,14 @@ function MyStockTransactionEchoAll($bChinese = true)
         {   // Display transactions of a stock
             $strAllLink = StockGetAllTransactionLink($strGroupId);
             $strStockLinks = StockGetGroupTransactionLinks($strGroupId, $strSymbol);
-            EchoParagraph($strGroupLink.' '.$strAllLink.' '.$strStockLinks);
+            EchoParagraph($strAllLink.' '.$strStockLinks);
            	EchoTransactionParagraph($strGroupId, new MyStockReference($strSymbol), $iStart, $iNum);
         }
         else
         {   // Display transactions of the whole group
             $strCombineLink = GetPhpLink(STOCK_PATH.'combinetransaction', 'groupid='.$strGroupId, '合并记录');
             $strStockLinks = StockGetGroupTransactionLinks($strGroupId);
-            EchoParagraph($strGroupLink.' '.$strCombineLink.' '.$strStockLinks);
+            EchoParagraph($strCombineLink.' '.$strStockLinks);
            	EchoTransactionParagraph($strGroupId, false, $iStart, $iNum);
         }
     }
