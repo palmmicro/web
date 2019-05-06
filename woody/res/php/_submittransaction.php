@@ -43,13 +43,20 @@ function _getStockCost()
 	    $fCommission = floatval($_POST['quantity']) * floatval($_POST['price']) * floatval($_POST['commission']) / 1000.0;
 	}
 
-	if ($_POST['taxtype'] == '0')    // amount
+	if (isset($_POST['taxtype']))
 	{
-	    $fTax = floatval($_POST['tax']);
+		if ($_POST['taxtype'] == '0')    // amount
+		{
+			$fTax = floatval($_POST['tax']);
+		}
+		else // if ($_POST['taxtype'] == '1')    // percentage
+		{
+			$fTax = floatval($_POST['quantity']) * floatval($_POST['price']) * floatval($_POST['tax']) / 1000.0;
+		}
 	}
-	else // if ($_POST['taxtype'] == '1')    // percentage
+	else
 	{
-	    $fTax = floatval($_POST['quantity']) * floatval($_POST['price']) * floatval($_POST['tax']) / 1000.0;
+		$fTax = 0.0;
 	}
 	
 	return strval_round($fCommission + $fTax, 3);

@@ -15,7 +15,6 @@ function ChishinNavigateBlogGroup($bChinese)
 
 function _ChishinLayoutTopLeft()
 {
-    AcctNoAuth();
     LayoutTopLeft('ChishinNavigateBlogGroup');
 }
 
@@ -24,5 +23,7 @@ function _ChishinLayoutBottom()
     EchoBlogComments();
     LayoutTailLogin();
 }
+
+    AcctNoAuth();
 
 ?>

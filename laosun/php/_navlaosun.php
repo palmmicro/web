@@ -14,7 +14,6 @@ function LaosunNavigateBlogGroup($bChinese)
 
 function _LaosunLayoutTopLeft()
 {
-    AcctNoAuth();
     LayoutTopLeft('LaosunNavigateBlogGroup');
 }
 
@@ -24,4 +23,5 @@ function _LaosunLayoutBottom()
     LayoutTailLogin();
 }
 
+    AcctNoAuth();
 ?>

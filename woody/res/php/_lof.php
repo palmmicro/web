@@ -35,6 +35,8 @@ function _onSmaUserDefinedVal($strVal)
 {
     global $group;
     
+    if (empty($strVal))	return '';
+    
     $fund = $group->ref;
     $strAmount = FUND_PURCHASE_AMOUNT;
     if ($group->GetGroupId()) 
