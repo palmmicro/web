@@ -3,73 +3,25 @@
 require_once('sqlstocktransaction.php');
 
 // ****************************** StockGroupSql class *******************************************************
-class StockGroupSql extends MemberTableSql
+class StockGroupSql extends KeyValSql
 {
-    function StockGroupSql($strMemberId) 
+    function StockGroupSql($strMemberId = false) 
     {
-        parent::MemberTableSql($strMemberId, TABLE_STOCK_GROUP);
-    }
-    
-    function Get($strGroupName)
-    {
-    	return $this->GetSingleData($this->BuildWhere_key_extra('groupname', $strGroupName));
-    }
-
-    function GetAll()
-    {
-    	return $this->GetData($this->BuildWhere_key(), '`groupname` ASC');
-    }
-    
-    function Insert($strGroupName)
-    {
-    	$ar = $this->GetFieldKeyId();
-    	$ar['groupname'] = $strGroupName;
-    	return $this->InsertData($ar);
-    }
-    
-    function Update($strId, $strGroupName)
-    {
-		return $this->UpdateById(array('groupname' => $strGroupName), $strId);
+        parent::KeyValSql($strMemberId, 'member', TABLE_STOCK_GROUP, 'groupname', 64);
     }
 }
 
 // ****************************** Stock Group table *******************************************************
-/*
-function SqlCreateStockGroupTable()
-{
-    $str = 'CREATE TABLE IF NOT EXISTS `camman`.`stockgroup` ('
-         . ' `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,'
-         . ' `member_id` INT UNSIGNED NOT NULL ,'
-         . ' `groupname` VARCHAR( 64 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,'
-         . ' FOREIGN KEY (`member_id`) REFERENCES `member`(`id`) ON DELETE CASCADE ,'
-         . ' UNIQUE ( `groupname`, `member_id` )'
-         . ' ) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci '; 
-	$result = @mysql_query($str);
-	if (!$result)	die('Create stockgroup table failed');
-}
-*/
-
-function SqlGetStockGroup($strGroupId)
-{
-    return SqlGetTableDataById(TABLE_STOCK_GROUP, $strGroupId);
-}
-
 function SqlGetStockGroupName($strGroupId)
 {
-    if ($group = SqlGetStockGroup($strGroupId))
-    {
-        return $group['groupname'];
-    }
-	return false;
+	$group_sql = new StockGroupSql();
+	return $group_sql->GetVal($strGroupId);
 }
 
 function SqlGetStockGroupMemberId($strGroupId)
 {
-    if ($group = SqlGetStockGroup($strGroupId))
-    {
-        return $group['member_id'];
-    }
-    return false;
+	$group_sql = new StockGroupSql();
+	return $group_sql->GetKeyId($strGroupId);
 }
 
 // ****************************** StockGroupItemSql class *******************************************************

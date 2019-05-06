@@ -2,14 +2,17 @@
 require_once('_account.php');
 require_once('/php/tutorial/editinput.php');
 require_once('/php/tutorial/primenumber.php');
+require_once('/php/sql/sqlcommonphrase.php');
 require_once('/php/ui/editinputform.php');
 require_once('/php/ui/table.php');
 
 define('ACCOUNT_TOOL_EDIT', 'Temporary Test');
+define('ACCOUNT_TOOL_PHRASE', 'Common Phrase');
 define('ACCOUNT_TOOL_IP', 'IP Address Data');
 define('ACCOUNT_TOOL_PRIME', 'Prime Number');
 
 define('ACCOUNT_TOOL_EDIT_CN', '临时测试');
+define('ACCOUNT_TOOL_PHRASE_CN', '个人常用短语');
 define('ACCOUNT_TOOL_IP_CN', 'IP地址数据');
 define('ACCOUNT_TOOL_PRIME_CN', '分解质因数');
 
@@ -18,6 +21,7 @@ function _getAccountToolArray($bChinese)
 	if ($bChinese)
 	{
 		$ar = array('editinput' => ACCOUNT_TOOL_EDIT_CN,
+                      'commonphrase' => ACCOUNT_TOOL_PHRASE_CN,
                       'ip' => ACCOUNT_TOOL_IP_CN,
                       'primenumber' => ACCOUNT_TOOL_PRIME_CN,
                  );
@@ -25,6 +29,7 @@ function _getAccountToolArray($bChinese)
     else
 	{
 		$ar = array('editinput' => ACCOUNT_TOOL_EDIT,
+                      'commonphrase' => ACCOUNT_TOOL_PHRASE,
 					  'ip' => ACCOUNT_TOOL_IP,
                       'primenumber' => ACCOUNT_TOOL_PRIME,
                  );
@@ -38,9 +43,24 @@ function _getAccountToolStr($strTitle, $bChinese)
 	return $ar[$strTitle];
 }
 
+function _getCommonPhraseString($strInput, $strMemberId)
+{
+	if (empty($strInput) == false)
+	{
+		$phrase_sql = new CommonPhraseSql($strMemberId);
+		$phrase_sql->Insert($strInput);
+		trigger_error(ACCOUNT_TOOL_PHRASE_CN.' -- '.$strInput);
+	}
+	return $strInput;
+}
+
 function EchoAll($bChinese = true)
 {
-	$strTitle = UrlGetTitle();
+	global $acct;
+	
+	$strTitle = $acct->GetTitle();
+	$strMemberId = $acct->GetLoginId();
+	
     if (isset($_POST['submit']))
 	{
 		unset($_POST['submit']);
@@ -61,6 +81,10 @@ function EchoAll($bChinese = true)
     	case 'primenumber':
     		$strInput = strval(time());
     		break;
+    		
+    	default:
+    		$strInput = '';
+    		break;
     	}
     }
     
@@ -69,6 +93,10 @@ function EchoAll($bChinese = true)
     {
     case 'editinput':
     	$str = GetEditInputString($strInput);
+    	break;
+    		
+    case 'commonphrase':
+    	$str = _getCommonPhraseString($strInput, $strMemberId);
     	break;
     		
     case 'ip':
@@ -86,13 +114,20 @@ function EchoAll($bChinese = true)
 
 function EchoMetaDescription($bChinese = true)
 {
-	$strTitle = UrlGetTitle();
+	global $acct;
+	
+	$strTitle = $acct->GetTitle();
   	$str = _getAccountToolStr($strTitle, $bChinese);
   	switch ($strTitle)
   	{
   	case 'editinput':
   		$str .= $bChinese ? '页面. 测试代码在/php/tutorial/editinput.php中, 测试成熟后再分配具体长期使用的工具页面. 不成功的测试就可以直接放弃了.'
     						: 'page, testing source code in /php/tutorial/editinput.php. Functions will be moved to permanent pages after test.';
+  		break;
+  		
+  	case 'commonphrase':
+  		$str .= $bChinese ? '页面. 输入, 显示, 修改和删除个人常用短语. 用在股票交易记录等处, 方便快速输入和修改个人评论. 限制每条短语最长32个字, 每个用户最多20条短语.'
+    						: 'page, input, display, edit and delete personal common phrases, used in places like stock transaction records.';
   		break;
   		
   	case 'ip':
@@ -110,10 +145,30 @@ function EchoMetaDescription($bChinese = true)
 
 function EchoTitle($bChinese = true)
 {
-  	$str = _getAccountToolStr(UrlGetTitle(), $bChinese);
+	global $acct;
+	
+	$strTitle = $acct->GetTitle();
+  	$str = _getAccountToolStr($strTitle, $bChinese);
   	echo $str;
 }
 
-	$acct = new AcctStart(false);
+class TitleAcctStart extends AcctStart
+{
+	var $strTitle;
+	
+    function TitleAcctStart($arMustLoginTitle) 
+    {
+    	$this->strTitle = UrlGetTitle();
+    	$bMustLogin = in_array($this->strTitle, $arMustLoginTitle) ? true : false;
+        parent::AcctStart($bMustLogin);
+    }
+    
+    function GetTitle()
+    {
+    	return $this->strTitle;
+    }
+}
+
+	$acct = new TitleAcctStart(array('commonphrase'));
 
 ?>

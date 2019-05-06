@@ -57,7 +57,7 @@ function _getFundClass($group)
     		return new LofReference($strSymbol);
     	}
     }
-    return $false;
+    return false;
 }
 
 function _echoCombinedTransactionTableData($strGroupId, $iMax, $bChinese)

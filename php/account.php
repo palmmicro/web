@@ -116,6 +116,7 @@ function _errorHandler($errno, $errstr, $errfile, $errline)
     $str .= "<br />Error on line $errline in $errfile";
 //    dieDebugString(DEBUG_UTF8_BOM.$str);
     DebugString($str);
+	EmailHtml(ADMIN_EMAIL, '用户定义的错误处理函数', $str.'<br />'.GetVisitorLink(UrlGetIp()));
 }
 
  // 设置用户定义的错误处理函数

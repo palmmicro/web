@@ -30,7 +30,7 @@ function GetBlogLink($strBlogId)
     return '';
 }
 
-function GetMemberLink($strMemberId, $bChinese = false)
+function GetMemberLink($strMemberId, $bChinese = true)
 {
 	if ($strEmail = SqlGetEmailById($strMemberId))
 	{

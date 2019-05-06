@@ -260,10 +260,19 @@ class KeyNameSql extends TableSql
 class KeyTableSql extends TableSql
 {
 	var $strKey;
+	var $strKeyPrefix;
 	var $strKeyId;
 	
-    function GetKeyId()
+    function GetKeyId($strId = false)
     {
+    	if ($strId)
+    	{
+    		if ($record = $this->GetById($strId))
+    		{
+    			return $record[$this->strKey];
+    		}
+    		return false;
+    	}
     	return $this->strKeyId;
     }
     
@@ -292,6 +301,7 @@ class KeyTableSql extends TableSql
     function KeyTableSql($strKeyId, $strKeyPrefix, $strTableName) 
     {
     	$this->strKeyId = $strKeyId;
+    	$this->strKeyPrefix = $strKeyPrefix;
     	$this->strKey = $strKeyPrefix.'_id';
         parent::TableSql($strTableName);
     }
@@ -325,6 +335,60 @@ class KeyTableSql extends TableSql
     {
     	return $this->DeleteData($this->BuildWhere_key());
     }  
+}
+
+// ****************************** KeyValSql class *******************************************************
+class KeyValSql extends KeyTableSql
+{
+	var $iMaxLen;
+	var $strValName;
+	
+    function KeyValSql($strKeyId, $strKeyPrefix, $strTableName, $strValName = 'val', $iMaxValLen = 32)
+    {
+        $this->iMaxLen = $iMaxValLen;
+        $this->strValName = $strValName;
+        parent::KeyTableSql($strKeyId, $strKeyPrefix, $strTableName);
+    }
+
+    function Create()
+    {
+    	$str = ' `'.$this->strKey.'` INT UNSIGNED NOT NULL ,'
+    		  . ' `'.$this->strValName.'` VARCHAR( '.strval($this->iMaxLen).' ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,'
+         	  . ' FOREIGN KEY (`'.$this->strKey.'`) REFERENCES `'.$this->strKeyPrefix.'`(`id`) ON DELETE CASCADE ,'
+         	  . ' UNIQUE ( `'.$this->strValName.'`, `'.$this->strKey.'` )';
+    	return $this->CreateIdTable($str);
+    }
+    
+    function Get($strVal)
+    {
+    	return $this->GetSingleData($this->BuildWhere_key_extra($this->strValName, $strVal));
+    }
+
+    function GetAll()
+    {
+    	return $this->GetData($this->BuildWhere_key(), '`'.$this->strValName.'` ASC');
+    }
+    
+    function Insert($strVal)
+    {
+    	$ar = $this->GetFieldKeyId();
+    	$ar[$this->strValName] = $strVal;
+    	return $this->InsertData($ar);
+    }
+    
+    function Update($strId, $strVal)
+    {
+		return $this->UpdateById(array($this->strValName => $strVal), $strId);
+    }
+    
+    function GetVal($strId)
+    {
+    	if ($record = $this->GetById($strId))
+    	{
+    		return $record[$this->strValName];
+    	}
+    	return false;
+    }
 }
 
 // ****************************** StockTableSql class *******************************************************
