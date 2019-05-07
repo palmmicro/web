@@ -128,7 +128,6 @@ function AcctSessionStart()
 {
 	error_reporting(E_ALL);
 	set_error_handler('_errorHandler');
-//	trigger_error('系统调试暂停访问');
 	session_start();
     SqlConnectDatabase();
 }

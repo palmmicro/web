@@ -140,9 +140,13 @@ class _LofReference extends FundReference
             }
             $this->future_ref->LoadEtfFactor($this->future_etf_ref);
             
-            $fRealtime = $this->est_ref->fPrice;
-            $fRealtime *= $this->future_ref->fPrice / $this->future_ref->EstByEtf($this->future_etf_ref->fPrice);
-            $this->fRealtimeNetValue = $this->GetLofValue(strval($fRealtime), $fCNY);
+            $strFutureEtfPrice = $this->future_etf_ref->GetCurrentPrice();
+            if (empty($strFutureEtfPrice) == false)
+            {
+            	$fRealtime = $this->est_ref->fPrice;
+            	$fRealtime *= $this->future_ref->fPrice / $this->future_ref->EstByEtf(floatval($strFutureEtfPrice));
+            	$this->fRealtimeNetValue = $this->GetLofValue(strval($fRealtime), $fCNY);
+            }
         }
     }
 

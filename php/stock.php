@@ -214,8 +214,8 @@ function StockCompareEstResult($nv_sql, $strNetValue, $strDate, $strSymbol)
        		if (abs($fPercentage) > 1.0)
        		{
        			$strLink = GetNetValueHistoryLink($strSymbol);
-       			$str = sprintf('%s%s 实际值%s 估值%s 误差:%.2f%%, 从StockCompareEstResult函数调用.', $strSymbol, $strLink, $strNetValue, $strEstValue, $fPercentage); 
-       			EmailReport($str, 'Net value estimation error');
+       			$str = sprintf('%s%s 实际值%s 估值%s 误差:%.2f%%', $strSymbol, $strLink, $strNetValue, $strEstValue, $fPercentage); 
+       			trigger_error('Net value estimation error '.$str);
        		}
        	}
     	return true;

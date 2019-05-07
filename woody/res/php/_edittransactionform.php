@@ -68,6 +68,7 @@ function StockEditTransactionForm($strSubmit, $strGroupId = false, $strGroupItem
     }
     
     $strPassQuery = UrlPassQuery();
+    $strRemarkLink = GetCommonPhraseLink();
     $strSymbolsList = EditGetStockGroupItemList($strGroupId, $strGroupItemId);
 	$strPriceArray = _getJsArray($arPrice);    
     $arColumn = GetTransactionTableColumn();
@@ -114,24 +115,34 @@ function StockEditTransactionForm($strSubmit, $strGroupId = false, $strGroupItem
 	    {
 	        var type_value;
 	        type_value = document.transactionForm.remarktype.value;
-	        switch (type_value)
+	        if (type_value != "0")
 	        {
-	            case "1":
-	            document.transactionForm.remark.value = "{";
-	            break;
+	            switch (type_value)
+	            {
+	            	case "1":
+	            	document.transactionForm.remark.value = "{";
+	            	break;
 	            
-	            case "2":
-	            document.transactionForm.remark.value = "}";
-	            break;
+	            	case "2":
+	            	document.transactionForm.remark.value = "}";
+	            	break;
 
-	            case "3":
-	            document.transactionForm.remark.value = "";
-	            break;
-
-	            default:
-	            break;    
+	            	case "3":
+	            	document.transactionForm.remark.value = "";
+	            	break;
+	            }
+	        }
+	        else
+	        {
+	        	document.transactionForm.remarktype.value = "0";
 	        }
 	    }
+	    
+	    function OnRemark()
+	    {
+	        document.transactionForm.remarktype.value = "0";
+	    }
+	    
 	</script>
 
 	<form id="transactionForm" name="transactionForm" method="post" action="/woody/res/php/_submittransaction.php$strPassQuery">
@@ -147,8 +158,8 @@ function StockEditTransactionForm($strSubmit, $strGroupId = false, $strGroupItem
 		<br /><input name="tax" value="" type="text" size="20" maxlength="32" class="textfield" id="tax" />
 		<br /><SELECT name="remarktype" onChange=OnRemarkType() size=1> 
 			  	<OPTION value=0>{$arColumn[5]}</OPTION> <OPTION value=1>{</OPTION> <OPTION value=2>}</OPTION> <OPTION value=3>清空</OPTION> 
-			  </SELECT>
-	    <br /><textarea name="remark" rows="4" cols="50" id="remark">$strRemark</textarea>
+			  </SELECT> $strRemarkLink
+	    <br /><textarea name="remark" onChange=OnRemark() rows="4" cols="50" id="remark">$strRemark</textarea>
 		<br /><input type="submit" name="submit" value="$strSubmit" />
 	    </p>
         </div>

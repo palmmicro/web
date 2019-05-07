@@ -36,6 +36,11 @@ As PA6488 based camera is not available in market yet. Users can test the user m
 <br /><a href="../../../account/editinput.php">urldecode</a>.
 </p>
 
+<h3>Common <a name="commonphrase">Phrase</a></h3>
+<p>Dec 26, 2017
+<br /><a href="../../../account/commonphrase.php">Common Phrase</a>.
+</p>
+
 <h3><a name="primenumber">Prime</a> Number Tool</h3>
 <p>Apr 12, 2019
 <br /><a href="../../../account/primenumber.php">Prime Number</a> tool.

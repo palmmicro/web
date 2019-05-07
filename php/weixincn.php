@@ -121,12 +121,12 @@ function _wxGetStockText($strSymbol)
     return $str;
 }
 
-function _wxEmailDebug($strUserName, $strText, $strSubject)
+function _wxDebug($strUserName, $strText, $strSubject)
 {   
 	$str = '<font color=blue>用户:</font>'.$strUserName;
 	$str .= '<br />'.$strText;
 	$str .= '<br />'.GetWeixinLink();
-    EmailReport($str, $strSubject);
+    trigger_error($strSubject.'<br />'.$str);
 }
 
 function _wxGetStockArrayText($arSymbol, $str = '')
@@ -170,7 +170,7 @@ class WeixinStock extends WeixinCallback
 
 	function GetUnknownText($strContents, $strUserName)
 	{
-		_wxEmailDebug($strUserName, "<font color=green>内容:</font>$strContents", 'Wechat message');
+		_wxDebug($strUserName, "<font color=green>内容:</font>$strContents", 'Wechat message');
 		$str = $strContents.WX_EOL;
 		$str .= '本公众号目前只提供部分股票交易和净值估算自动查询. 因为没有匹配到信息, 此消息内容已经发往support@palmmicro.com邮箱, palmmicro会尽快在公众号上回复.'.WX_EOL;
 		return $str.$this->GetDefaultText();
@@ -211,7 +211,7 @@ class WeixinStock extends WeixinCallback
 		{	// Mass send job finish
 			$str = '收到群发完毕';
 		}
-		_wxEmailDebug($strUserName, $str, 'Wechat '.$strContents);
+		_wxDebug($strUserName, $str, 'Wechat '.$strContents);
 		return $str;
 	}
 

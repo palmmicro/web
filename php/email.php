@@ -26,15 +26,12 @@ function EmailHtml($strWho, $strSubject, $strContents)
     }
 }
 
-function EmailReport($strText, $strSubject, $strWho = false) 
+function EmailReport($strText, $strSubject, $strWho) 
 {
-    if ($strWho)		$str = $strWho.':<br />'.$strSubject;
-    else               $str = $strSubject;
-    
+	$str = $strWho.':<br />'.$strSubject;
     if ($strText)		$str .= '<br />'.$strText;
-
-	EmailHtml(ADMIN_EMAIL, $strSubject, $str.'<br />'.GetVisitorLink(UrlGetIp()));
-	if ($strWho)    EmailHtml($strWho, $strSubject, $str);
+	EmailHtml($strWho, $strSubject, $str);
+	trigger_error($strSubject.'<br />'.$str);
 }
 
 ?>

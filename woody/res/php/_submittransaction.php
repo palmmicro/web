@@ -84,27 +84,25 @@ function _getStockTransactionLink($strGroupId, $strStockId)
     return StockGetTransactionLink($strGroupId, $strSymbol); 
 }
 
-function _emailStockTransaction($strStockId, $strGroupId, $strQuantity, $strPrice, $strCost, $strRemark)
+function _debugStockTransaction($strStockId, $strGroupId, $strQuantity, $strPrice, $strCost, $strRemark)
 {
 	if (strlen($strRemark) == 0)	return;
 	
-    $strSubject = 'Stock Transaction: '.$_POST['submit'];
-	$str = _getGroupOwnerLink($strGroupId);
+	$str = _getGroupOwnerLink($strGroupId).$_POST['submit'];
     $str .= '<br />Symbol: '._getStockTransactionLink($strGroupId, $strStockId); 
     $str .= '<br />Quantity: '.$strQuantity; 
     $str .= '<br />Price: '.$strPrice; 
     $str .= '<br />Cost: '.$strCost; 
     $str .= '<br />Remark: '.$strRemark; 
-    EmailReport($str, $strSubject); 
+    trigger_error($str); 
 }
 
-function _emailFundPurchase($strGroupId, $strFundId, $strArbitrageId)
+function _debugFundPurchase($strGroupId, $strFundId, $strArbitrageId)
 {
-    $strSubject = 'Arbitrage Fund Purchase';
-	$str = _getGroupOwnerLink($strGroupId);
+	$str = _getGroupOwnerLink($strGroupId).' Arbitrage Fund Purchase';
     $str .= '<br />Fund: '._getStockTransactionLink($strGroupId, $strFundId); 
     $str .= '<br />Arbitrage: '._getStockTransactionLink($strGroupId, $strArbitrageId); 
-    EmailReport($str, $strSubject); 
+    trigger_error($str); 
 }
 
 function _onArbitrageCost($strQuantity, $strPrice)
@@ -134,7 +132,7 @@ function _onAddFundPurchase($strGroupId)
 	    {
 	        $sql->trans_sql->Insert($strGroupItemId, '-'.$strQuantity, $strPrice, _onArbitrageCost($strQuantity, $strPrice), '}');
 	    }
-	    _emailFundPurchase($strGroupId, $strFundId, $strArbitrageId);
+	    _debugFundPurchase($strGroupId, $strFundId, $strArbitrageId);
 	}
     return $strGroupItemId;
 }
@@ -146,7 +144,7 @@ function _onEdit($strId, $strGroupItemId, $strQuantity, $strPrice, $strCost, $st
     	$sql = new StockGroupItemSql($strGroupId);
         if ($sql->trans_sql->Update($strId, $strGroupItemId, $strQuantity, $strPrice, $strCost, $strRemark))
         {
-            _emailStockTransaction($sql->GetStockId($strGroupItemId), $strGroupId, $strQuantity, $strPrice, $strCost, $strRemark);
+            _debugStockTransaction($sql->GetStockId($strGroupItemId), $strGroupId, $strQuantity, $strPrice, $strCost, $strRemark);
         }
     }
     return $strGroupId;
@@ -159,7 +157,7 @@ function _onNew($strGroupItemId, $strQuantity, $strPrice, $strCost, $strRemark)
     	$sql = new StockGroupItemSql($strGroupId);
     	if ($sql->trans_sql->Insert($strGroupItemId, $strQuantity, $strPrice, $strCost, $strRemark))
     	{
-    		_emailStockTransaction($sql->GetStockId($strGroupItemId), $strGroupId, $strQuantity, $strPrice, $strCost, $strRemark);
+    		_debugStockTransaction($sql->GetStockId($strGroupItemId), $strGroupId, $strQuantity, $strPrice, $strCost, $strRemark);
     	}
     }
     return $strGroupId;

@@ -43,6 +43,53 @@ function GetMemberLink($strMemberId, $bChinese = true)
     return '';
 }
 
+define('ACCOUNT_TOOL_EDIT', 'Temporary Test');
+define('ACCOUNT_TOOL_PHRASE', 'Common Phrase');
+define('ACCOUNT_TOOL_IP', 'IP Address Data');
+define('ACCOUNT_TOOL_PRIME', 'Prime Number');
+
+define('ACCOUNT_TOOL_EDIT_CN', '临时测试');
+define('ACCOUNT_TOOL_PHRASE_CN', '个人常用短语');
+define('ACCOUNT_TOOL_IP_CN', 'IP地址数据');
+define('ACCOUNT_TOOL_PRIME_CN', '分解质因数');
+
+function GetAccountToolArray($bChinese)
+{
+	if ($bChinese)
+	{
+		$ar = array('editinput' => ACCOUNT_TOOL_EDIT_CN,
+                      'commonphrase' => ACCOUNT_TOOL_PHRASE_CN,
+                      'ip' => ACCOUNT_TOOL_IP_CN,
+                      'primenumber' => ACCOUNT_TOOL_PRIME_CN,
+                 );
+    }
+    else
+	{
+		$ar = array('editinput' => ACCOUNT_TOOL_EDIT,
+                      'commonphrase' => ACCOUNT_TOOL_PHRASE,
+					  'ip' => ACCOUNT_TOOL_IP,
+                      'primenumber' => ACCOUNT_TOOL_PRIME,
+                 );
+    }
+	return $ar;
+}
+
+function GetAccountToolStr($strTitle, $bChinese)
+{
+    $ar = GetAccountToolArray($bChinese);
+	return $ar[$strTitle];
+}
+
+function _getAccountToolLink($strTitle, $bChinese)
+{
+    return GetPhpLink(ACCT_PATH.$strTitle, false, GetAccountToolStr($strTitle, $bChinese), false, $bChinese);
+}
+
+function GetCommonPhraseLink($bChinese = true)
+{
+    return _getAccountToolLink('commonphrase', $bChinese);
+}
+
 function _getIpLink($strTitle, $strIp, $bChinese)
 {
     return GetPhpLink(ACCT_PATH.$strTitle, 'ip='.$strIp, $strIp, false, $bChinese);

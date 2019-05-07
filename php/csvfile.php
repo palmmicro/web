@@ -67,7 +67,6 @@ class CsvFile
     		}
     		$this->Close();
     	}
-    	return $ar;
     }
 }
 

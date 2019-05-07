@@ -6,52 +6,30 @@ require_once('/php/sql/sqlcommonphrase.php');
 require_once('/php/ui/editinputform.php');
 require_once('/php/ui/table.php');
 
-define('ACCOUNT_TOOL_EDIT', 'Temporary Test');
-define('ACCOUNT_TOOL_PHRASE', 'Common Phrase');
-define('ACCOUNT_TOOL_IP', 'IP Address Data');
-define('ACCOUNT_TOOL_PRIME', 'Prime Number');
-
-define('ACCOUNT_TOOL_EDIT_CN', '临时测试');
-define('ACCOUNT_TOOL_PHRASE_CN', '个人常用短语');
-define('ACCOUNT_TOOL_IP_CN', 'IP地址数据');
-define('ACCOUNT_TOOL_PRIME_CN', '分解质因数');
-
-function _getAccountToolArray($bChinese)
+function _getCommonPhraseString($strInput, $strMemberId, $bChinese)
 {
-	if ($bChinese)
-	{
-		$ar = array('editinput' => ACCOUNT_TOOL_EDIT_CN,
-                      'commonphrase' => ACCOUNT_TOOL_PHRASE_CN,
-                      'ip' => ACCOUNT_TOOL_IP_CN,
-                      'primenumber' => ACCOUNT_TOOL_PRIME_CN,
-                 );
-    }
-    else
-	{
-		$ar = array('editinput' => ACCOUNT_TOOL_EDIT,
-                      'commonphrase' => ACCOUNT_TOOL_PHRASE,
-					  'ip' => ACCOUNT_TOOL_IP,
-                      'primenumber' => ACCOUNT_TOOL_PRIME,
-                 );
-    }
-	return $ar;
-}
-
-function _getAccountToolStr($strTitle, $bChinese)
-{
-    $ar = _getAccountToolArray($bChinese);
-	return $ar[$strTitle];
-}
-
-function _getCommonPhraseString($strInput, $strMemberId)
-{
+	$sql = new CommonPhraseSql($strMemberId);
 	if (empty($strInput) == false)
 	{
-		$phrase_sql = new CommonPhraseSql($strMemberId);
-		$phrase_sql->Insert($strInput);
-		trigger_error(ACCOUNT_TOOL_PHRASE_CN.' -- '.$strInput);
+		if ($sql->Get($strInput) == false)
+		{
+			$sql->Insert($strInput);
+			trigger_error(ACCOUNT_TOOL_PHRASE_CN.' -- '.$strInput);
+		}
 	}
-	return $strInput;
+	
+	$strConfirm = $bChinese ? '确认删除' : 'Confirm Delete';
+	$str = '';
+	if ($result = $sql->GetAll()) 
+	{
+		while ($record = mysql_fetch_assoc($result)) 
+		{
+			$strVal = $record['val'];
+		    $str .= GetOnClickLink('/account/php/_submitcommonphrase.php?delete='.$record['id'], $strConfirm.': '.$strVal.'?', $strVal).'<br />';
+		}
+		@mysql_free_result($result);
+	}
+	return $str;
 }
 
 function EchoAll($bChinese = true)
@@ -88,7 +66,7 @@ function EchoAll($bChinese = true)
     	}
     }
     
-    EchoEditInputForm(_getAccountToolStr($strTitle, $bChinese), $strInput, $bChinese);
+    EchoEditInputForm(GetAccountToolStr($strTitle, $bChinese), $strInput, $bChinese);
     switch ($strTitle)
     {
     case 'editinput':
@@ -96,7 +74,7 @@ function EchoAll($bChinese = true)
     	break;
     		
     case 'commonphrase':
-    	$str = _getCommonPhraseString($strInput, $strMemberId);
+    	$str = _getCommonPhraseString($strInput, $strMemberId, $bChinese);
     	break;
     		
     case 'ip':
@@ -108,7 +86,7 @@ function EchoAll($bChinese = true)
     	break;
     }
     $str .= '<br /><br />'.GetDevGuideLink('20100905', $strTitle, $bChinese);
-    $str .= '<br />'.GetCategoryLinks(_getAccountToolArray($bChinese), ACCT_PATH, $bChinese);
+    $str .= '<br />'.GetCategoryLinks(GetAccountToolArray($bChinese), ACCT_PATH, $bChinese);
     EchoParagraph($str);
 }
 
@@ -117,7 +95,7 @@ function EchoMetaDescription($bChinese = true)
 	global $acct;
 	
 	$strTitle = $acct->GetTitle();
-  	$str = _getAccountToolStr($strTitle, $bChinese);
+  	$str = GetAccountToolStr($strTitle, $bChinese);
   	switch ($strTitle)
   	{
   	case 'editinput':
@@ -148,7 +126,7 @@ function EchoTitle($bChinese = true)
 	global $acct;
 	
 	$strTitle = $acct->GetTitle();
-  	$str = _getAccountToolStr($strTitle, $bChinese);
+  	$str = GetAccountToolStr($strTitle, $bChinese);
   	echo $str;
 }
 

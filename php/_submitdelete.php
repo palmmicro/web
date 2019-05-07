@@ -18,7 +18,7 @@ function _deleteTableDataById($strTableName)
 	    if ($strPathName = UrlGetQueryValue('file'))
 	    {
 	        unlinkEmptyFile($strPathName);
-	        EmailReport('Deleted file: '.GetFileLink($strPathName), 'Deleted debug file'); 
+	        trigger_error('Deleted debug file: '.GetFileLink($strPathName)); 
 	    }
 	    else
 	    {

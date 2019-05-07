@@ -43,7 +43,7 @@ function _updateStockDescription($strSymbol, $strStockId, $strVal)
 	$sql = new StockSql();
 	if ($sql->Update($strStockId, $strSymbol, $strVal))
 	{
-		EmailReport(GetMyStockLink($strSymbol).' '.$strVal, $_POST['submit']);
+		trigger_error($_POST['submit'].' '.GetMyStockLink($strSymbol).' '.$strVal);
 	}
 }
 
@@ -210,7 +210,7 @@ function _updateStockOptionSplit($ref, $strSymbol, $strStockId, $strDate, $strVa
 	{
 		$strEmail = UrlCleanString($_POST['login']);
 		$strSymbol = UrlCleanString($_POST['symbol']);
-		$strDate = UrlCleanString($_POST['date']);
+		$strDate = isset($_POST['date']) ? UrlCleanString($_POST['date']) : '';
 		$strVal = UrlCleanString($_POST['val']);
    		$bAdmin = AcctIsAdmin();
 		$strStockId = SqlGetStockId($strSymbol);

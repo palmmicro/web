@@ -57,13 +57,12 @@ function _onDelete($strGroupId)
     SqlDeleteTableDataById(TABLE_STOCK_GROUP, $strGroupId);
 }
 
-function _emailStockGroup($strMemberId, $strGroupId, $strSymbols)
+function _debugStockGroup($strGroupId, $strSymbols)
 {
-    $strSubject = 'Stock Group: '.$_POST['submit'];
-	$str = GetMemberLink($strMemberId);
+    $str = 'Stock Group: '.$_POST['submit'];
     $str .= '<br />GroupName: '.GetStockGroupLink($strGroupId); 
     $str .= '<br />Symbols: '.$strSymbols; 
-    EmailReport($str, $strSubject); 
+    trigger_error($str); 
 }
 
 function _getStockIdArray($strSymbols)
@@ -102,7 +101,7 @@ function _onEdit($strMemberId, $strGroupId, $strGroupName, $strSymbols)
     {
     	SqlUpdateStockGroup($strGroupId, _getStockIdArray($strSymbols));
     }
-    _emailStockGroup($strMemberId, $strGroupId, $strSymbols);
+    _debugStockGroup($strGroupId, $strSymbols);
 }
 
 function _onNew($strMemberId, $strGroupName, $strSymbols)
@@ -118,7 +117,7 @@ function _onNew($strMemberId, $strGroupName, $strSymbols)
         	$item_sql->Insert($strStockId);
         }
     }
-    _emailStockGroup($strMemberId, $strGroupId, $strSymbols);
+    _debugStockGroup($strGroupId, $strSymbols);
 }
 
     $strMemberId = AcctAuth();
