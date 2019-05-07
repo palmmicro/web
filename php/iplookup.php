@@ -3,24 +3,6 @@
 require_once('debug.php');
 require_once('ui/commentparagraph.php');
 
-define('TAOBAO_IP_URL', 'http://ip.taobao.com/service/getIpInfo.php?ip=');
-function _getTaobaoIpLookUpUrl($strIp)
-{
-    return TAOBAO_IP_URL.$strIp;
-}
-
-function TaobaoIpLookUp($strIp)
-{
-    $strUrl = _getTaobaoIpLookUpUrl($strIp);
-    $str = url_get_contents($strUrl); 
-    $json = json_decode($str);
-    if ((string)$json->code == '1')
-    {
-        return array('country' => '', 'area' => '', 'region' => '', 'city' => '', 'isp' => '');
-    }
-    return (array)$json->data;    
-}
-
 define('IPINFO_IO_IP_URL', 'http://ipinfo.io/');
 function _getIpInfoIpLookUpUrl($strIp)
 {
@@ -72,7 +54,7 @@ function ProjectHoneyPotCheckSearchEngine($strIp)
         {
             $arSearchEngine = ProjectHoneyPotGetSearchEngineArray();
             $iIndex = intval($ar[2]);
-            AcctEmailSpiderReport($strIp, 'Known ProjectHoneyPot Search Engine - '.$arSearchEngine[$iIndex], 'Known spider');
+            trigger_error('Known ProjectHoneyPot Search Engine - '.$arSearchEngine[$iIndex]);
             return true;
         }
     }
@@ -122,7 +104,7 @@ function DnsCheckSearchEngine($strIp)
             || strstr($str, 'yse.yahoo.net')
             )
         {
-            AcctEmailSpiderReport($strIp, 'Known DNS: '.$str, 'Known spider');
+            trigger_error('Known DNS: '.$str);
             return true;
         }
     }
@@ -186,33 +168,17 @@ function _ipLookupLocalDatabase($strIp, $strNewLine, $bChinese)
     return $str;
 }
 
-function _convertTaobaoIp($str)
+function _ipLookupHttp($strIp, $strNewLine)
 {
-	if ($str == 'XX')	return '';
-	return $str.' ';
-}
-
-function _ipLookupHttp($strIp, $strNewLine, $bChinese)
-{
-    $str = '';
-    if ($bChinese)
-    {
-        $fStart = microtime(true);
-        $arTaobao = TaobaoIpLookUp($strIp);
-        $str .= $strNewLine.GetExternalLink(_getTaobaoIpLookUpUrl($strIp), '淘宝数据').': ';
-        $str .= _convertTaobaoIp($arTaobao['country'])._convertTaobaoIp($arTaobao['area'])._convertTaobaoIp($arTaobao['region'])._convertTaobaoIp($arTaobao['city'])._convertTaobaoIp($arTaobao['county'])._convertTaobaoIp($arTaobao['isp']);
-        $str .= DebugGetStopWatchDisplay($fStart);
-    }
-    
     $fStart = microtime(true);
+    
     $arIpInfo = IpInfoIpLookUp($strIp);
-    $str .= $strNewLine.GetExternalLink(_getIpInfoIpLookUpUrl($strIp), 'ipinfo.io').': ';
+    $str = $strNewLine.GetExternalLink(_getIpInfoIpLookUpUrl($strIp), 'ipinfo.io').': ';
     $str .= $arIpInfo['country'].' '.$arIpInfo['region'].' '.$arIpInfo['city'].' ['.$arIpInfo['loc'].'] '.$arIpInfo['org'];
     if (isset($arIpInfo['postal']))		$str .= ' '.$arIpInfo['postal'];
     if (isset($arIpInfo['hostname']))	$str .= ' '.$arIpInfo['hostname'];
     
     $str .= DebugGetStopWatchDisplay($fStart);
-    
     return $str;
 }
  
@@ -220,7 +186,7 @@ function IpLookupGetString($strIp, $strNewLine, $bChinese)
 {
     $strIpId = SqlMustGetIpId($strIp);
     
-    $str = $strIp._ipLookupHttp($strIp, $strNewLine, $bChinese);
+    $str = $strIp._ipLookupHttp($strIp, $strNewLine);
     if ($ar = ProjectHoneyPotIpLookUp($strIp))
     {
         $str .= $strNewLine.GetExternalLink(PROJECT_HONEY_POT_URL.$strIp, 'projecthoneypot.org').': '._getProjectHoneyPotIpLookUpString($ar);

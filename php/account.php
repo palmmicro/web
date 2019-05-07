@@ -112,11 +112,15 @@ function _errorHandler($errno, $errstr, $errfile, $errline)
 {
 	if ($errfile == '/php/class/ini_file.php')	return;
 	
-	$str = "<b>Custom error:</b> [$errno] $errstr";
-    $str .= "<br />Error on line $errline in $errfile";
+	$strSubject = "用户定义错误: [$errno]";
+	$str =  $errstr.'<br />位于'.$errfile.'第'.$errline.'行';
 //    dieDebugString(DEBUG_UTF8_BOM.$str);
-    DebugString($str);
-	EmailHtml(ADMIN_EMAIL, '用户定义的错误处理函数', $str.'<br />'.GetVisitorLink(UrlGetIp()));
+    DebugString($strSubject.' '.$str);
+    
+    $str .= '<br />'.GetCurLink();
+	if (isset($_SESSION['SESS_ID']))		$str .= '<br />'.GetMemberLink($_SESSION['SESS_ID']);
+    $str .= '<br />'.GetVisitorLink(UrlGetIp());
+	EmailHtml(ADMIN_EMAIL, $strSubject, $str);
 }
 
  // 设置用户定义的错误处理函数
@@ -145,11 +149,6 @@ function AcctAuth()
     return AcctMustLogin();
 }
 
-function AcctEmailSpiderReport($strIp, $strText, $strSubject)
-{
-    EmailReport($strText, $strSubject.' from '.$strIp); 
-}
-
 function AcctGetBlogVisitor($strIp, $iStart = 0, $iNum = 0)
 {
     return SqlGetVisitor(VISITOR_TABLE, SqlGetIpAddressId($strIp), $iStart, $iNum);
@@ -176,7 +175,7 @@ function _checkSearchEngineSpider($strIp, $iCount)
     $str = strtolower($arIpInfo['org']);
     if (strstr($str, 'microsoft') || strstr($str, 'yahoo') || strstr($str, 'yandex'))
     {
-        AcctEmailSpiderReport($strIp, 'Known company: '.$arIpInfo['org'], 'Known spider');
+        trigger_error('Known company: '.$arIpInfo['org']);
         return true;
     }
     else
@@ -185,14 +184,14 @@ function _checkSearchEngineSpider($strIp, $iCount)
 	    $strText = $arIpInfo['hostname'].' '.$arIpInfo['org'].' '.strval($iCount).' '.strval($iPageCount);
 	    if ($iPageCount >= 10)
 	    {
-	        AcctEmailSpiderReport($strIp, $strText, 'Unknown spider');
+	        trigger_error('Unknown spider<br />'.$strText);
 	        return true;
 	    }
         if ($record = SqlGetIpAddressRecord($strIp))
         {
             if ($record['status'] == IP_STATUS_NORMAL)
             {
-                AcctEmailSpiderReport($strIp, $strText, 'Blocked spider');
+                trigger_error('Blocked spider<br />'.$strText);
                 SqlSetIpStatus($strIp, IP_STATUS_BLOCKED);
             }
         }

@@ -2,17 +2,16 @@
 require_once('/php/account.php');
 require_once('_editprofileform.php');
 
-function _emailProfile($strMemberId, $strName, $strPhone, $strAddress, $strWeb, $strSignature, $strStatus)
+function _onProfileChanged($strName, $strPhone, $strAddress, $strWeb, $strSignature, $strStatus)
 {
-    $strSubject = 'Profile Changed';
-	$str = GetMemberLink($strMemberId);
+    $str = 'Profile Changed';
     $str .= '<br />Name: '.$strName; 
     $str .= '<br />Phone: '.$strPhone; 
     $str .= '<br />Address: '.$strAddress; 
     $str .= '<br />Web: '.$strWeb; 
     $str .= '<br />Signature: '.$strSignature; 
     $str .= '<br />Status: '.$strStatus; 
-    EmailReport($str, $strSubject); 
+    trigger_error($str); 
 }
 
 function _onEdit($strMemberId)
@@ -35,7 +34,7 @@ function _onEdit($strMemberId)
 		return false;
 	}
 	
-	_emailProfile($strMemberId, $strName, $strPhone, $strAddress, $strWeb, $strSignature, $strStatus);
+	_onProfileChanged($strName, $strPhone, $strAddress, $strWeb, $strSignature, $strStatus);
 	return true;
 }
 
