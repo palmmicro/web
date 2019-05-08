@@ -21,4 +21,24 @@ function HtmlElementReadonly()
     return $str;
 }
 
+function HtmlGetOption($ar)
+{
+    $str = '';
+    foreach ($ar as $strKey => $strVal)
+    {
+       	$str .= "<OPTION value=$strKey>$strVal</OPTION>";
+    }
+    return $str;
+}
+
+function HtmlGetJsArray($ar)
+{
+	$str = '';
+	foreach ($ar as $strId => $strVal)
+	{
+		$str .= $strId.':"'.$strVal.'", ';
+	}
+	return rtrim($str, ', ');
+}
+
 ?>

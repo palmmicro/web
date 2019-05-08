@@ -34,7 +34,7 @@ function _getStockQuantity()
 
 function _getStockCost()
 {
-	if ($_POST['commissiontype'] == '0')    // amount
+	if ($_POST['commissionselect'] == '0')    // amount
 	{
 	    $fCommission = floatval($_POST['commission']);
 	}
@@ -43,13 +43,13 @@ function _getStockCost()
 	    $fCommission = floatval($_POST['quantity']) * floatval($_POST['price']) * floatval($_POST['commission']) / 1000.0;
 	}
 
-	if (isset($_POST['taxtype']))
+	if (isset($_POST['taxselect']))
 	{
-		if ($_POST['taxtype'] == '0')    // amount
+		if ($_POST['taxselect'] == '0')    // amount
 		{
 			$fTax = floatval($_POST['tax']);
 		}
-		else // if ($_POST['taxtype'] == '1')    // percentage
+		else // if ($_POST['taxselect'] == '1')    // percentage
 		{
 			$fTax = floatval($_POST['quantity']) * floatval($_POST['price']) * floatval($_POST['tax']) / 1000.0;
 		}
@@ -72,12 +72,6 @@ function _canModifyStockTransaction($strGroupItemId)
 	return $strGroupId;
 }
 
-function _getGroupOwnerLink($strGroupId)
-{
-    $strMemberId = SqlGetStockGroupMemberId($strGroupId);
-	return GetMemberLink($strMemberId);
-}
-
 function _getStockTransactionLink($strGroupId, $strStockId)
 {
     $strSymbol = SqlGetStockSymbol($strStockId);
@@ -88,7 +82,7 @@ function _debugStockTransaction($strStockId, $strGroupId, $strQuantity, $strPric
 {
 	if (strlen($strRemark) == 0)	return;
 	
-	$str = _getGroupOwnerLink($strGroupId).$_POST['submit'];
+	$str = $_POST['submit'];
     $str .= '<br />Symbol: '._getStockTransactionLink($strGroupId, $strStockId); 
     $str .= '<br />Quantity: '.$strQuantity; 
     $str .= '<br />Price: '.$strPrice; 
@@ -99,7 +93,7 @@ function _debugStockTransaction($strStockId, $strGroupId, $strQuantity, $strPric
 
 function _debugFundPurchase($strGroupId, $strFundId, $strArbitrageId)
 {
-	$str = _getGroupOwnerLink($strGroupId).' Arbitrage Fund Purchase';
+	$str = 'Arbitrage Fund Purchase';
     $str .= '<br />Fund: '._getStockTransactionLink($strGroupId, $strFundId); 
     $str .= '<br />Arbitrage: '._getStockTransactionLink($strGroupId, $strArbitrageId); 
     trigger_error($str); 

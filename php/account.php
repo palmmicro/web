@@ -112,7 +112,7 @@ function _errorHandler($errno, $errstr, $errfile, $errline)
 {
 	if ($errfile == '/php/class/ini_file.php')	return;
 	
-	$strSubject = "用户定义错误: [$errno]";
+	$strSubject = ($errno == 1024) ? '调试消息' : "PHP错误: [$errno]";
 	$str =  $errstr.'<br />位于'.$errfile.'第'.$errline.'行';
 //    dieDebugString(DEBUG_UTF8_BOM.$str);
     DebugString($strSubject.' '.$str);
