@@ -169,10 +169,23 @@ function UrlGetCur()
 	return $_SERVER['REQUEST_URI'];
 }
 
+function UrlIsValid($str)
+{
+   	if (substr($str, 0, 2) == '//')			return false;
+   	if (strpos($str, '/.') !== false)		return false;
+   	if (strpos($str, URL_PHP) === false)	return false;
+   	return true;
+}
+
 // /woody/blog/entertainment/20140615cn.php
 function UrlGetUri()
 { 
 	$str = UrlGetCur();
+   	if (UrlIsValid($str) == false)
+   	{
+   		dieDebugString('Unknown URI: '.$str);
+   	}
+   	
 	if ($iPos = strpos($str, '.'))
 	{
 	    if (substr($str, $iPos, 4) == URL_PHP)
@@ -267,9 +280,9 @@ function UrlGetPhp($bChinese)
 function UrlGetDomain()
 {
 	$strDomain = $_SERVER['SERVER_NAME'];
-	if (strstr($strDomain, URL_WWW))
+	if (strpos($strDomain, URL_WWW) !== false)
 	{
-		return substr($strDomain, 4);
+		$strDomain = substr($strDomain, 4);
 	}
 	return strtolower($strDomain);
 }

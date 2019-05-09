@@ -1,11 +1,14 @@
 <?php
 require_once('debug.php');
+require_once('account.php');
 require_once('stock.php');
 require_once('stock/ftstock.php');
 require_once('stock/marketwatch.php');
 
 //require_once('ahstockarray.php');
 require_once('sql/_sqltest.php');
+require_once('sql/sqlblog.php');
+require_once('sql/sqlvisitor.php');
 //require_once('gb2312/gb2312_tools.php');
 //require_once('test/chinastocklist.php');
 
@@ -103,12 +106,44 @@ function test_stock_dividend()
     }
 }
 
+function _checkBlogTable()
+{
+	$ar = array();
+	$sql = new BlogSql();
+    if ($result = $sql->GetAll()) 
+    {   
+    	$iTotal = 0;
+        while ($record = mysql_fetch_assoc($result)) 
+        {
+        	$strId = $record['id'];
+        	$strUri = $record['uri'];
+        	$strMemberId = $record['member_id'];
+        	if ((UrlIsValid($strUri) == false) || ($strMemberId != AcctGetMemberIdFromBlogUri($strUri)))          		             
+            {
+            	$ar[] = $strId;
+            	$iCount = SqlDeleteVisitorByBlogId($strId);
+            	DebugString($strMemberId.' '.$strUri.' '.strval($iCount));
+            	$iTotal ++;
+            }
+        }
+        @mysql_free_result($result);
+        DebugVal($iTotal, 'BlogSql');
+    }
+
+	foreach ($ar as $strId)
+	{
+		$sql->DeleteById($strId);
+	}
+}
+
 function SysInit()
 {
 	if (SqlConnectDatabase())
 	{
 	    DebugString('connect database ok');
 	}
+	
+//	_checkBlogTable();
 	
 //	GB2312WriteDatabase();
 //	AhWriteDatabase();		

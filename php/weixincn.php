@@ -29,7 +29,7 @@ function _wxGetStockArray($strContents)
     		while ($record = mysql_fetch_assoc($result)) 
     		{
     			$str = $record['symbol'];
-    			if (strstr($str, $strKey) || strstr($record['name'], $strKey))
+    			if ((strpos($str, $strKey) !== false) || (strpos($record['name'], $strKey) !== false))
     			{
     				$ar[] = $str;
     				if (count($ar) > MAX_WX_STOCK)	break;

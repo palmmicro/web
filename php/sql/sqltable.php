@@ -37,6 +37,16 @@ class TableSql
         return $this->_query($strQuery, 'create table failed');
     }
 
+    // ALTER TABLE这个写法每次只能加一个
+    function AlterTable($str)
+    {
+    	$strQuery = 'ALTER TABLE `camman`.`'
+        	 . $this->strName
+        	 . '` ADD '
+        	 . $str;
+        return $this->_query($strQuery, 'alter table failed');
+    }
+         
     function DropTable()
     {
     	$strQuery = 'DROP TABLE IF EXISTS `camman`.`'

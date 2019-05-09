@@ -1,4 +1,5 @@
 <?php
+require_once('sqltable.php');
 
 /*
  CREATE TABLE `camman`.`blog` (
@@ -31,6 +32,15 @@ INDEX ( `ip` )
 	$result = @mysql_query($str);
 	if (!$result)	die("Create blogcomment table failed");
 */
+
+// ****************************** BlogSql class *******************************************************
+class BlogSql extends KeyValSql
+{
+    function BlogSql($strMemberId = false) 
+    {
+        parent::KeyValSql($strMemberId, 'member', 'blog', 'uri', 128);
+    }
+}
 
 // ****************************** Blog table *******************************************************
 

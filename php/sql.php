@@ -133,15 +133,6 @@ function SqlCountTableToday($strTableName)
     return SqlCountTableByDate($strTableName, $strDate);
 }
 
-/*
-function SqlAlterStockHistoryTable()
-{    
-    $strQry = 'ALTER TABLE `camman`.`stockhistory` ADD '
-         . ' `adjclose` DOUBLE(13,6) NOT NULL';   // ALTER TABLE这个写法每次只能改一个
-	return SqlDieByQuery($strQry, 'Alter stockhistory table failed');
-}
-*/
-
 function SqlCreateDatabase($strDb)
 {
 	$str = "CREATE DATABASE `$strDb` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci";

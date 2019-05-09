@@ -14,7 +14,7 @@ function GetGoogleQuotes($strSymbols)
     $str = url_get_contents($strUrl);
 //    DebugString('Google:'.$strSymbols);
 //    DebugString('Google:'.$strUrl);
-    if (strstr($str, 'Response Code 400'))      return false;   // Google returns error in text 'httpserver.cc: Response Code 400'
+    if (strpos($str, 'Response Code 400') !== false)      return false;   // Google returns error in text 'httpserver.cc: Response Code 400'
     $str = ltrim($str, "\n// [ ");
     $str = rtrim($str, "\n]");
 //    DebugString($str);

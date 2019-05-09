@@ -113,7 +113,7 @@ END;
 function _getWebLink($strWeb)
 {
 	$str = $strWeb;
-	if (!strstr($strWeb, 'http'))
+	if (strpos($strWeb, 'http') === false)
 	{
 		$str = 'http://'.$strWeb;
 	}

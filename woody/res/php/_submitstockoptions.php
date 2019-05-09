@@ -69,7 +69,7 @@ function _updateFundPurchaseAmount($strEmail, $strSymbol, $strVal)
 
 function _updateStockOptionAdr($strSymbol, $strVal, $strTable = TABLE_ADRH_STOCK)
 {
-	if (strstr($strVal, '/'))
+	if (strpos($strVal, '/') !== false)
 	{
 		$ar = explode('/', $strVal);
 		$strAdr = $ar[0];
@@ -117,7 +117,7 @@ function _updateStockOptionEmaDays($strStockId, $iDays, $strDate, $strVal)
 
 function _updateStockOptionEma($strSymbol, $strStockId, $strDate, $strVal)
 {
-	if (strstr($strVal, '/') == false)		return;
+	if (strpos($strVal, '/') === false)		return;
 	$ar = explode('/', $strVal);
 	_updateStockOptionEmaDays($strStockId, 200, $strDate, $ar[0]);
 	_updateStockOptionEmaDays($strStockId, 50, $strDate, $ar[1]);
@@ -126,7 +126,7 @@ function _updateStockOptionEma($strSymbol, $strStockId, $strDate, $strVal)
 
 function _updateStockOptionEtf($strSymbol, $strVal)
 {
-	if (strstr($strVal, '*'))
+	if (strpos($strVal, '*') !== false)
 	{
 		$ar = explode('*', $strVal);
 		$strIndex = $ar[0];
@@ -193,7 +193,7 @@ function _updateStockOptionSplitTransactions($ref, $strStockId, $strDate, $fRati
 
 function _updateStockOptionSplit($ref, $strSymbol, $strStockId, $strDate, $strVal)
 {
-	if (strstr($strVal, ':') == false)		return;
+	if (strpos($strVal, ':') === false)		return;
 	$ar = explode(':', $strVal);
 	$fRatio = floatval($ar[0])/floatval($ar[1]);
 //	DebugVal($fRatio, $strSymbol);

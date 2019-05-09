@@ -172,7 +172,7 @@ function _checkSearchEngineSpider($strIp, $iCount)
 {
     $arIpInfo = IpInfoIpLookUp($strIp);
     $str = strtolower($arIpInfo['org']);
-    if (strstr($str, 'microsoft') || strstr($str, 'yahoo') || strstr($str, 'yandex'))
+    if (strpos($str, 'microsoft') || strpos($str, 'yahoo') || strpos($str, 'yandex'))
     {
         trigger_error('Known company: '.$arIpInfo['org']);
         return true;
@@ -224,8 +224,7 @@ function AcctGetBlogId()
     $strUri = UrlGetUri();	                        // /woody/blog/entertainment/20140615cn.php
 	if (($strBlogId = SqlGetBlogIdByUri($strUri)) == false)
 	{    // This uri not in blog table yet, insert it
-		$strEmail = AcctGetEmailFromBlogUri($strUri);
-		if ($strAuthorId = SqlGetIdByEmail($strEmail))                		             
+		if ($strAuthorId = AcctGetMemberIdFromBlogUri($strUri))                		             
 		{
 			$strBlogId = SqlInsertBlog($strAuthorId, $strUri);
 		}
@@ -293,6 +292,12 @@ function AcctGetEmailFromBlogUri($strUri)
 	    return UrlGetEmail($strName);
 	}
 	return ADMIN_EMAIL;
+}
+
+function AcctGetMemberIdFromBlogUri($strUri)
+{
+	$strEmail = AcctGetEmailFromBlogUri($strUri);
+	return SqlGetIdByEmail($strEmail);           		             
 }
 
 class AcctStart

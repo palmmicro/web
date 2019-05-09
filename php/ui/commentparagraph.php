@@ -24,15 +24,15 @@ function GetSingleCommentDescription($record, $strWhere, $bChinese)
     $strTime = _getSingleCommentTime($record, $bChinese);
     $strUri = SqlGetUriByBlogId($record['blog_id']);
     $strTimeLink = "<a href=\"$strUri#{$record['id']}\">$strTime</a>";
-    if (strstr($strWhere, 'blog_id'))
+    if (strpos($strWhere, 'blog_id') !== false)
     {
         $strTimeLink = "<b><a name=\"{$record['id']}\">$strTime</a></b>";
     }
-    else if (strstr($strWhere, 'member_id'))
+    else if (strpos($strWhere, 'member_id') !== false)
     {
         $strAuthor = '';
     }
-    else if (strstr($strWhere, 'ip'))
+    else if (strpos($strWhere, 'ip') !== false)
     {
         $strIp = '';
     }
