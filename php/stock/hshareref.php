@@ -92,7 +92,8 @@ class HShareReference extends MyStockReference
     {
     	if ($this->adr_ref)
     	{
-    		return $this->adr_ref->fPrice / floatval($this->GetUsdPrice());
+    		$strPrice = $this->GetUsdPrice();
+    		if (empty($strPrice) == false)		return $this->adr_ref->fPrice / floatval($strPrice);
     	}
     	return 1.0;
     }

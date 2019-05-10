@@ -2,16 +2,6 @@
 require_once('sqltable.php');
 
 /*
- CREATE TABLE `camman`.`blog` (
-`id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,
-`member_id` INT UNSIGNED NOT NULL ,
-`uri` VARCHAR( 128 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
-FOREIGN KEY (`member_id`) REFERENCES `member`(`id`) ON DELETE CASCADE ,
-UNIQUE (
-`uri`
-)
-) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci 
-
  CREATE TABLE `camman`.`blogcomment` (
 `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,
 `member_id` INT UNSIGNED NOT NULL ,
@@ -42,65 +32,34 @@ class BlogSql extends KeyValSql
     }
 }
 
-// ****************************** Blog table *******************************************************
-
-function SqlCreateBlogTable()
-{
-    $strQry = 'CREATE TABLE IF NOT EXISTS `camman`.`blog` ('
-         . '`id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,'
-         . '`member_id` INT UNSIGNED NOT NULL ,'
-         . '`uri` VARCHAR( 128 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,'
-         . 'FOREIGN KEY (`member_id`) REFERENCES `member`(`id`) ON DELETE CASCADE ,'
-         . 'UNIQUE (`uri`)'
-         . ') ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci'; 
-	return SqlDieByQuery($strQry, 'Create blog table failed');
-}
-
-function SqlGetBlogIdByUri($strUri)
-{
-	if ($blog = SqlGetSingleTableData(TABLE_BLOG, _SqlBuildWhere('uri', $strUri)))
-	{
-	    return $blog['id'];
-	}
-	return false;
-}
-
+// ****************************** Blog table support functions *******************************************************
 function SqlGetUriByBlogId($strId)
 {
-    if ($blog = SqlGetTableDataById(TABLE_BLOG, $strId))
+	$sql = new BlogSql();
+	if ($record = $sql->GetById($strId))
 	{
-		return $blog['uri'];
+		return $record['uri'];
 	}
 	return false;
 }
 
 function SqlGetMemberIdByBlogId($strId)
 {
-    if ($blog = SqlGetTableDataById(TABLE_BLOG, $strId))
-	{
-		return $blog['member_id'];
-	}
-	return false;
-}
-
-function SqlInsertBlog($strMemberId, $strUri)
-{
-	$strQry = "INSERT INTO blog(id, member_id, uri) VALUES('0', '$strMemberId', '$strUri')";
-	if (SqlDieByQuery($strQry, 'Insert blog failed'))
-	{
-	    return SqlGetBlogIdByUri($strUri);
-	}
-	return false;
+	$sql = new BlogSql();
+	return $sql->GetKeyId($strId);
 }
 
 function SqlDeleteBlog($strUri)
 {
-    $strBlogId = SqlGetBlogIdByUri($strUri);
-    if ($strBlogId)
-    {
-        SqlDeleteBlogCommentByBlogId($strBlogId);
-        SqlDeleteTableDataById(TABLE_BLOG, $strBlogId);
-    }
+	if ($strAuthorId = AcctGetMemberIdFromBlogUri($strUri))
+	{
+		$sql = new BlogSql($strAuthorId);
+		if ($strBlogId = $sql->GetId($strUri))
+		{
+			SqlDeleteBlogCommentByBlogId($strBlogId);
+			$sql->DeleteById($strBlogId);
+		}
+	}
 }
 
 // ****************************** Blog Comment table *******************************************************

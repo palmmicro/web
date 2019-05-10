@@ -27,28 +27,6 @@ function ValidateTableIpField($strTableName)
     }
 }
 
-function CorrectBlogTable()
-{
-    $ar = array();
-    if ($result = SqlGetTableData(TABLE_BLOG)) 
-    {
-        while ($record = mysql_fetch_assoc($result)) 
-        {
-            if (substr($record['uri'], 0, 2) == '//')
-            {
-                $ar[] = $record['id'];
-            }
-        }
-        @mysql_free_result($result);
-    }
-    DebugVal(count($ar));
-    
-    foreach ($ar as $str)
-    {
-        SqlDeleteTableDataById(TABLE_BLOG, $str);
-    }
-}
-
 /*
 function SqlInsertFuture()
 {

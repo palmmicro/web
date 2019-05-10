@@ -86,13 +86,20 @@ function _onEdit($strId, $strMemberId, $strComment)
 
 function _onNew($strMemberId, $strComment)
 {
-    $strBlogId = SqlGetBlogIdByUri($_SESSION['userurl']);
-	if ($strBlogId && $strComment != '')
-    {
-	    if (SqlInsertBlogComment($strMemberId, $strBlogId, $strComment))
+    $strUri = SwitchGetSess();
+	if ($strAuthorId = AcctGetMemberIdFromBlogUri($strUri))
+	{
+		$sql = new BlogSql($strAuthorId);
+		if ($strBlogId = $sql->GetId($strUri))
 		{
-			SqlChangeActivity($strMemberId, 1);
-			_emailBlogComment($strMemberId, $strBlogId, $_POST['submit'], $_POST['comment']);
+			if ($strComment != '')
+			{
+				if (SqlInsertBlogComment($strMemberId, $strBlogId, $strComment))
+				{
+					SqlChangeActivity($strMemberId, 1);
+					_emailBlogComment($strMemberId, $strBlogId, $_POST['submit'], $_POST['comment']);
+				}
+			}
 		}
 	}
 }

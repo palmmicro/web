@@ -43,7 +43,14 @@
 
 <h3>个人常用<a name="commonphrase">短语</a></h3>
 <p>2017年12月26日
-<br />用来方便股票交易记录的<a href="../../../account/commonphrasecn.php">输入</a>.
+<br />记得2000年刚到硅谷工作, 去电影院的时候总会在正片播放前看到一段让我自我感觉膨胀的广告. 大意是如果你知道一个等号和两个等号的区别, 就可以在我们这里找份工作了!
+写PHP还需要知道三个等号跟前两个的区别. 事实上对习惯了C语言的人来说是个坑, 我今天就不幸踩了一个.
+<br />在修改用来方便股票交易记录的<a href="../../../account/commonphrasecn.php">输入</a>代码的时候, 我无意中在<?php EchoLink('https://www.php.net/'); ?>上看到有关<i>strstr</i>的一个信息:
+<br /><font color=gray>如果你仅仅想确定needle是否存在于haystack中, 请使用速度更快, 耗费内存更少的<i>strpos</i>函数.</font>
+<br />我马上如获至宝当即改用了几十个<i>strpos</i>, 却发现有些像<font color=gray><code>if (strpos($str, 'www.'))</code></font>的代码变得不工作了. 
+原因是<i>strpos</i>会返回位置0, 这时候要写成<font color=gray><code>if (strpos($str, 'www.') !== false)</code></font>, 才跟原来<font color=gray><code>if (strstr($str, 'www.'))</code></font>的代码效果一致.
+<br />不过这不是我碰到的最深的PHP坑. 最坑人的PHP函数是<i>array_merge</i>, 它在全数字下标的时候居然会把所有数字下标从头开始排序!
+这时候要把<font color=gray><code>$ar = array_merge($arA, $arH, $arUS);</code></font>简单的写成<font color=gray><code>$ar = $arA + $arH + $arUS;</code></font>
 </p>
 
 <h3>分解<a name="primenumber">质因数</a></h3>

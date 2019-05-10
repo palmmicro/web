@@ -220,16 +220,23 @@ function _checkSpiderBehaviour($strIp, $strIpId)
 
 function AcctGetBlogId()
 {
-    SqlCreateBlogTable();
     $strUri = UrlGetUri();	                        // /woody/blog/entertainment/20140615cn.php
-	if (($strBlogId = SqlGetBlogIdByUri($strUri)) == false)
-	{    // This uri not in blog table yet, insert it
-		if ($strAuthorId = AcctGetMemberIdFromBlogUri($strUri))                		             
+	if ($strAuthorId = AcctGetMemberIdFromBlogUri($strUri))
+	{
+		$sql = new BlogSql($strAuthorId);
+		if ($strBlogId = $sql->GetId($strUri))
 		{
-			$strBlogId = SqlInsertBlog($strAuthorId, $strUri);
+			return $strBlogId;
+		}
+		else
+		{
+			if ($sql->Insert($strUri))
+			{
+				return $sql->GetId($strUri);
+			}
 		}
 	}
-    return $strBlogId;
+	return false;
 }
 
 function AcctCheckLogin()
@@ -245,8 +252,10 @@ function AcctCheckLogin()
 	    }
 	    else
 	    {
-	        $strBlogId = AcctGetBlogId();
-	        SqlInsertVisitor(VISITOR_TABLE, $strBlogId, $strIpId);
+	        if ($strBlogId = AcctGetBlogId())
+	        {
+	        	SqlInsertVisitor(VISITOR_TABLE, $strBlogId, $strIpId);
+	        }
 	    }
 	}
     return $strMemberId;	

@@ -110,6 +110,7 @@ function _checkBlogTable()
 {
 	$ar = array();
 	$sql = new BlogSql();
+//	$sql->AlterTable('UNIQUE ( `uri`, `member_id` )');
     if ($result = $sql->GetAll()) 
     {   
     	$iTotal = 0;

@@ -151,7 +151,7 @@ function _echoMyStockData($ref, $strMemberId, $bAdmin)
     
     if ($bAdmin)
     {
-     	$str = GetMyStockLink().'<br />'.GetFileDebugLink(DebugGetFile()).' '.GetFileDebugLink(DebugGetTestFile());
+     	$str = GetMyStockLink();
     	if ($strStockId = $ref->GetStockId())
     	{
     		$str .= '<br />id='.$strStockId;

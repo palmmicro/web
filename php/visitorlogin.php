@@ -26,7 +26,9 @@ function VisitorLogin($bChinese)
 	    $strLoginLink = GetLoginLink('切换', 'Change', $bChinese);
 		if ($bChinese)
 		{
-		    _echoLogin($strLoginLink.'登录账号'.$strLink);
+			$str = $strLoginLink.'登录账号'.$strLink;
+			if (AcctIsAdmin())		$str .= ' '.GetFileDebugLink(DebugGetFile()).' '.GetFileDebugLink(DebugGetTestFile());
+		    _echoLogin($str);
 	    }
 	    else
 	    {

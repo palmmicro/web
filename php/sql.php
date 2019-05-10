@@ -1,7 +1,6 @@
 <?php
 define('DB_DATABASE', 'camman');
 
-define('TABLE_BLOG', 'blog');
 define('TABLE_CALIBRATION', 'calibration');
 define('TABLE_ETF_CALIBRATION', 'etfcalibration');
 define('TABLE_FUND_EST', 'fundest');
