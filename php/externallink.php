@@ -146,16 +146,29 @@ function GetSinaStockLink($sym)
   	return GetSinaUsStockLink($sym);
 }
 
-function GetSinaFutureLink($strSymbol)
+function GetSinaFutureLink($sym)
 {
-	if (substr($strSymbol, 0, 3) == SINA_FUTURE_PREFIX)		$strSymbol = substr($strSymbol, 3);
+	if ($strSymbol = $sym->IsSinaFutureUs())
+	{
+	}
+	else
+	{
+		$strSymbol = $sym->GetSymbol();
+	}
     $strHttp = SINA_FINANCE_URL."futures/quotes/$strSymbol.shtml";
     return GetExternalLink($strHttp, $strSymbol);
 }
 
-function GetSinaForexLink($strSymbol)
+function GetSinaForexLink($sym)
 {
-	if (substr($strSymbol, 0, 4) == SINA_FOREX_PREFIX)		$strSymbol = strtoupper(substr($strSymbol, 4));
+	if ($str = $sym->IsNewSinaForex())
+	{
+		$strSymbol = strtoupper($str);
+	}
+	else
+	{
+		$strSymbol = $sym->GetSymbol();
+	}
     $strHttp = SINA_FINANCE_URL."money/forex/hq/$strSymbol.shtml";
     return GetExternalLink($strHttp, $strSymbol);
 }

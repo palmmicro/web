@@ -20,6 +20,12 @@ define('INDEXCBOE_PREFIX', 'INDEXCBOE:');
 define('STOCK_TIME_ZONE_CN', 'PRC');
 define('STOCK_TIME_ZONE_US', 'America/New_York');
 
+function StrHasPrefix($str, $strPrefix)
+{
+	$iLen = strlen($strPrefix);
+	return (strncmp($str, $strPrefix, $iLen) == 0) ? substr($str, $iLen) : false; 
+}
+
 function in_array_lower($strSymbol, $ar)
 {
     return in_array(strtolower($strSymbol), $ar);
@@ -389,15 +395,26 @@ class StockSymbol
         return false;
     }
     
-    function IsSinaForex()
+    function IsNewSinaForex()
+    {
+    	return StrHasPrefix($this->strSymbol, SINA_FOREX_PREFIX); 
+    }
+    
+    function IsOldSinaForex()
     {
         switch ($this->strSymbol)
         {
         case 'DINIW':
-        case 'fx_susdcnh':
             return true;
         }
         return false;
+    }
+    
+    function IsSinaForex()
+    {
+    	if ($this->IsNewSinaForex())	return true;
+    	if ($this->IsOldSinaForex())	return true;
+    	return false;
     }
     
     function IsForex()
@@ -410,17 +427,15 @@ class StockSymbol
     // f_240019
     function IsSinaFund()
     {
-    	$strSinaSymbol = $this->strSymbol;
-        if (substr($strSinaSymbol, 0, 2) == SINA_FUND_PREFIX)
+        if ($strDigit = StrHasPrefix($this->strSymbol, SINA_FUND_PREFIX))
         {
-            $strDigit = substr($strSinaSymbol, 2);
             return IsChineseStockDigit($strDigit);
         }
         return false;
     }
     
     // AUO, AG1712
-    function IsFutureCn()
+    function IsSinaFutureCn()
     {
         if ($this->IsSymbolA())                   return false;
 
@@ -431,10 +446,15 @@ class StockSymbol
         return false;
     }
 
+    function IsSinaFutureUs()
+    {
+    	return StrHasPrefix($this->strSymbol, SINA_FUTURE_PREFIX); 
+    }
+    
     function IsSinaFuture()
     {
-        if ($this->IsFutureCn())					                   	return true;
-        if (substr($this->strSymbol, 0, 3) == SINA_FUTURE_PREFIX)   return true;
+        if ($this->IsSinaFutureCn())	return true;
+        if ($this->IsSinaFutureUs())	return true;
         return false;
     }
     

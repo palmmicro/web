@@ -100,7 +100,7 @@ function DnsCheckSearchEngine($strIp)
     if ($str = DnsIpLookUp($strIp))
     {
         $str = strtolower($str);
-        if (strpos($str, 'google') || strpos($str, 'baidu') || strpos($str, 'yandex') || strpos($str, 'msn') || strpos($str, 'sogou') || strpos($str, 'yahoo'))
+        if (stripos($str, 'google') || stripos($str, 'baidu') || stripos($str, 'yandex') || stripos($str, 'msn') || stripos($str, 'sogou') || stripos($str, 'yahoo'))
         {
             trigger_error('Known DNS: '.$str);
             return true;

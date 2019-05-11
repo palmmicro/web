@@ -8,16 +8,17 @@ class ForexReference extends MysqlReference
 
     function ForexReference($strSymbol)
     {
+    	$sym = new StockSymbol($strSymbol);
         if (self::$strDataSource == STOCK_SINA_DATA)
         {
-            $this->LoadSinaForexData($strSymbol);
+            $this->LoadSinaForexData($sym);
             $this->bConvertGB2312 = true;     // Sina name is GB2312 coded
         }
         else // if (self::$strDataSource == STOCK_EASTMONEY_DATA)
         {
             $this->LoadEastMoneyForexData($strSymbol);
         }
-        parent::MysqlReference(new StockSymbol($strSymbol));
+        parent::MysqlReference($sym);
     }       
 }
 

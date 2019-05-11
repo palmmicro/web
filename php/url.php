@@ -173,7 +173,7 @@ function UrlIsValid($str)
 {
    	if (substr($str, 0, 2) == '//')			return false;
    	if (strpos($str, '/.') !== false)		return false;
-   	if (strpos($str, URL_PHP) === false)	return false;
+   	if (stripos($str, URL_PHP) === false)	return false;
    	return true;
 }
 

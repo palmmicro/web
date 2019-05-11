@@ -9,7 +9,7 @@ function EchoSinaStockLink($strSymbol)
 
 function EchoSinaFutureLink($strSymbol)
 {
-	echo GetSinaFutureLink($strSymbol);
+	echo GetSinaFutureLink(new StockSymbol($strSymbol));
 }
 
 ?>

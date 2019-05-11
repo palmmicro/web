@@ -629,9 +629,10 @@ class StockReference
         $this->strVolume = $ar[14];
     }
     
-    function LoadSinaFutureData($strSymbol)
+    function LoadSinaFutureData($sym)
     {
-        $this->strExternalLink = GetSinaFutureLink($strSymbol);
+        $this->strExternalLink = GetSinaFutureLink($sym);
+        $strSymbol = $sym->GetSymbol();
         $this->strFileName = DebugGetSinaFileName($strSymbol);
         $ar = _GetForexAndFutureArray($strSymbol, $this->strFileName, ForexAndFutureGetTimezone(), 'GetSinaQuotes');
         if (count($ar) < 13)
@@ -640,7 +641,7 @@ class StockReference
             return;
         }
         
-        if (substr($strSymbol, 0, 3) == SINA_FUTURE_PREFIX)
+        if ($sym->IsSinaFutureUs())
         {
             $this->_onSinaFuture($ar);
         }
@@ -709,9 +710,10 @@ class StockReference
         $this->strExternalLink = GetReferenceRateForexLink($strSymbol);
     }
     
-    function LoadSinaForexData($strSymbol)
+    function LoadSinaForexData($sym)
     {
-        $this->strExternalLink = GetSinaForexLink($strSymbol);
+        $this->strExternalLink = GetSinaForexLink($sym);
+    	$strSymbol = $sym->GetSymbol();
         $this->strFileName = DebugGetSinaFileName($strSymbol);
         $ar = _GetForexAndFutureArray($strSymbol, $this->strFileName, ForexAndFutureGetTimezone(), 'GetSinaQuotes');
         if (count($ar) < 10)

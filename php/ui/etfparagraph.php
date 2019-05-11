@@ -10,7 +10,7 @@ function _getEtfPairExternalLink($sym)
 	
 	if ($sym->IsSinaFuture())
 	{
-		$strLink = GetSinaFutureLink($strSymbol);
+		$strLink = GetSinaFutureLink($sym);
 	}
 	else if ($sym->IsSymbolUs())
 	{
