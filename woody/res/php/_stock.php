@@ -161,7 +161,7 @@ function EchoPromotionHead($strVer = false)
        	break;
         	
     case 4:
-       	LayoutHuataiPromotion();
+       	LayoutBrokerPromotion();
        	break;
     }
     EchoParagraph(GetDevGuideLink('20150818', $strVer));

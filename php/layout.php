@@ -38,10 +38,12 @@ function LayoutMyPromotion()
 END;
 }
 
-function LayoutHuataiPromotion()
+function LayoutBrokerPromotion()
 {
+	$strSnowball = AcctIsAdmin() ? GetExternalLink('https://www.snowballsecurities.com/external-channel/invite', '管理') : '';	
     echo <<<END
-        <p><a href="https://m.zhangle.com/h5Account/mobile-h5/index.htm?ly=HTC1-9000008608&param1=011979" target=_blank>华泰证券开户</a>
+        <p><a href="https://www.snowballsecurities.com/ib-account-open/web?r=50001003008" target=_blank>雪盈证券开户</a> $strSnowball
+        <br /><a href="https://m.zhangle.com/h5Account/mobile-h5/index.htm?ly=HTC1-9000008608&param1=011979" target=_blank>华泰证券开户</a>
         <br />佣金股票万1.6, 场内基金万1, 债券十万分之一. 人工支持微信号18651870837. 
         扫码开户后在第一步显示佣金的地方一定要核对工号<b>011979</b>
         <br /><img src=/woody/image/huataiaccount.png alt="Huatai open account scan QR code, agent id 011979" />
@@ -190,7 +192,7 @@ function _layoutTail($iWidth, $bChinese, $bAdsense = true)
     			LayoutMyPromotion();
     			LayoutWeixinPromotion();
     			LayoutQQgroupPromotion();
-    			LayoutHuataiPromotion();
+    			LayoutBrokerPromotion();
     		}
     	}
         echo '</td></table>';
