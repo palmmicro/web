@@ -7,26 +7,26 @@ class _LofUsGroup extends _LofGroup
     var $oil_ref = false;
     var $es_ref = false;
     var $usd_ref;
+    var $cnh_ref;
 
     function _LofUsGroup($strSymbol) 
     {
-        if (LofGetFutureSymbol($strSymbol) == 'CL')	$strOil = 'OIL';
-        else											$strOil = false;
-        
+        $strOil = (LofGetFutureSymbol($strSymbol) == 'hf_CL') ? 'hf_OIL' : false;
         $strEst = LofGetEstSymbol($strSymbol);
-        if ($strEst == '^GSPC')						$strES = 'ES';
-        else											$strES = false;
+        $strES = ($strEst == '^GSPC') ? 	'hf_ES' : false;
         
         $this->GetWebData($strEst);
 
         $strUSD = 'DINIW';
-        StockPrefetchArrayData(array_merge($this->GetLeverage(), array($strSymbol, FutureGetSinaSymbol($strOil), FutureGetSinaSymbol($strES), $strUSD)));
+        $strCNH = 'fx_susdcnh';
+        StockPrefetchArrayData(array_merge($this->GetLeverage(), array($strSymbol, $strOil, $strES, $strUSD, $strCNH)));
         
         $this->cny_ref = new CnyReference('USCNY');	// Always create CNY Forex class instance first!
         $this->ref = new LofReference($strSymbol);
         if ($strOil)	$this->oil_ref = new FutureReference($strOil);
         if ($strES)	$this->es_ref = new FutureReference($strES);
         $this->usd_ref = new ForexReference($strUSD);
+        $this->cnh_ref = new ForexReference($strCNH);
         parent::_LofGroup();
     }
 } 
@@ -104,7 +104,7 @@ function EchoAll($bChinese = true)
     $fund = $group->ref;
     
     EchoFundEstParagraph($fund);
-    EchoReferenceParagraph(array_merge(array($fund->stock_ref, $fund->est_ref, $fund->future_ref, $group->oil_ref, $group->es_ref, $group->usd_ref, $group->cny_ref), $group->ar_leverage_ref));
+    EchoReferenceParagraph(array_merge(array($fund->stock_ref, $fund->est_ref, $fund->future_ref, $group->oil_ref, $group->es_ref, $group->usd_ref, $group->cnh_ref, $group->cny_ref), $group->ar_leverage_ref));
     $group->EchoLeverageParagraph();
     EchoFundTradingParagraph($fund, '_onTradingUserDefined');    
 	EchoLofSmaParagraph($fund, '_onSmaUserDefined');

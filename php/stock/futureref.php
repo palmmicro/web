@@ -5,12 +5,9 @@ class FutureReference extends MysqlReference
 {
     function FutureReference($strSymbol) 
     {
-    	$sym = new StockSymbol($strSymbol);
-    	$strSinaSymbol = $sym->GetSinaFutureSymbol();
-        $this->strSqlName = $strSinaSymbol;
-        $this->LoadSinaFutureData($strSymbol, $strSinaSymbol);
+        $this->LoadSinaFutureData($strSymbol);
         $this->bConvertGB2312 = true;     // Sina name is GB2312 coded
-        parent::MysqlReference(new StockSymbol($strSinaSymbol));
+        parent::MysqlReference(new StockSymbol($strSymbol));
     }
     
     function InsertStockCalibration($etf_ref)

@@ -5,6 +5,8 @@ require_once('httplink.php');
 require_once('stock/stocksymbol.php');
 require_once('stock/googlestock.php');
 
+define('SINA_FINANCE_URL', 'https://finance.sina.com.cn/');
+
 // ****************************** External link functions *******************************************************
 function GetEastMoneyFundLink($sym)
 {
@@ -88,11 +90,10 @@ function GetSinaFundLink($sym)
     return $strSymbol;
 }
 
-// http://finance.sina.com.cn/realstock/company/sh600028/nc.shtml
 function GetSinaCnStockLink($strSymbol)
 {
     $strLower = strtolower($strSymbol);
-    $strHttp = "http://finance.sina.com.cn/realstock/company/$strLower/nc.shtml";
+    $strHttp = SINA_FINANCE_URL."realstock/company/$strLower/nc.shtml";
     return GetExternalLink($strHttp, $strSymbol);
 }
 
@@ -145,17 +146,17 @@ function GetSinaStockLink($sym)
   	return GetSinaUsStockLink($sym);
 }
 
-// http://finance.sina.com.cn/futures/quotes/CL.shtml
 function GetSinaFutureLink($strSymbol)
 {
-    $strHttp = "http://finance.sina.com.cn/futures/quotes/$strSymbol.shtml";
+	if (substr($strSymbol, 0, 3) == SINA_FUTURE_PREFIX)		$strSymbol = substr($strSymbol, 3);
+    $strHttp = SINA_FINANCE_URL."futures/quotes/$strSymbol.shtml";
     return GetExternalLink($strHttp, $strSymbol);
 }
 
-// http://finance.sina.com.cn/money/forex/hq/USDCNY.shtml
 function GetSinaForexLink($strSymbol)
 {
-    $strHttp = "http://finance.sina.com.cn/money/forex/hq/$strSymbol.shtml";
+	if (substr($strSymbol, 0, 4) == SINA_FOREX_PREFIX)		$strSymbol = strtoupper(substr($strSymbol, 4));
+    $strHttp = SINA_FINANCE_URL."money/forex/hq/$strSymbol.shtml";
     return GetExternalLink($strHttp, $strSymbol);
 }
 

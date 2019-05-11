@@ -71,14 +71,6 @@ function StockGetSymbolArray($strSymbols)
     return StockGetArraySymbol($ar);
 }
 
-function FutureGetSinaSymbol($strSymbol)
-{
-    if ($strSymbol == false)    return false;
-    
-    $sym = new StockSymbol($strSymbol);
-    return $sym->GetSinaFutureSymbol();
-}
-
 function ForexGetEastMoneySymbol($strSymbol)
 {
 	switch ($strSymbol)
@@ -419,11 +411,11 @@ function StockGetReference($strSymbol, $sym = false)
 {
 	if ($sym == false)	$sym = new StockSymbol($strSymbol);
 
-    if ($sym->IsSinaFund())							    	return new FundReference($strSymbol);
-    else if ($strFutureSymbol = $sym->IsSinaFuture())   	return new FutureReference($strFutureSymbol);
-    else if ($sym->IsSinaForex())   							return new ForexReference($strSymbol);
-	else if ($sym->IsEastMoneyForex())						return new CnyReference($strSymbol);
-    															return new MyStockReference($strSymbol);
+    if ($sym->IsSinaFund())				return new FundReference($strSymbol);
+    else if ($sym->IsSinaFuture())   		return new FutureReference($strSymbol);
+    else if ($sym->IsSinaForex())   		return new ForexReference($strSymbol);
+	else if ($sym->IsEastMoneyForex())	return new CnyReference($strSymbol);
+    										return new MyStockReference($strSymbol);
 }
 
 function StockGetEtfReference($strSymbol)

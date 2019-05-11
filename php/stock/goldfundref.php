@@ -8,15 +8,15 @@ function GoldEtfGetCnFutureSymbol($strSymbol)
 
 function GoldEtfGetFutureSymbol($strSymbol)
 {
-    if ($strSymbol == 'SZ161226')   return 'SI';
-    return 'GC';
+    if ($strSymbol == 'SZ161226')   return 'hf_SI';
+    return 'hf_GC';
 }
 
 function GoldEtfGetAllSymbolArray($strSymbol)
 {
     $strCnFutureSymbol = GoldEtfGetCnFutureSymbol($strSymbol);
     $strFutureSymbol = GoldEtfGetFutureSymbol($strSymbol);
-    return array($strSymbol, FutureGetSinaSymbol($strCnFutureSymbol), FutureGetSinaSymbol($strFutureSymbol));
+    return array($strSymbol, $strCnFutureSymbol, $strFutureSymbol);
 }
 
 class GoldFundReference extends FundReference
@@ -50,7 +50,7 @@ class GoldFundReference extends FundReference
     function EstRealtimeNetValue()
     {
 		$fEst = $this->future_ref->fPrice * floatval($this->forex_sql->GetCloseNow()) / 31.1035;
-		if ($this->future_ref->GetStockSymbol() == 'SI')
+		if ($this->future_ref->GetStockSymbol() == 'hf_SI')
 		{
 //			DebugString('Silver');
 			$fEst *= 1000.0;

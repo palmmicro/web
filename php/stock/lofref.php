@@ -35,8 +35,8 @@ function LofGetFutureEtfSymbol($strSymbol)
 
 function LofGetFutureSymbol($strSymbol)
 {
-    if ((LofGetFutureEtfSymbol($strSymbol) == 'USO') || (LofGetEstSymbol($strSymbol) == 'USO'))     return 'CL';
-    else if (LofGetEstSymbol($strSymbol) == 'GLD')                                                     return 'GC';
+    if ((LofGetFutureEtfSymbol($strSymbol) == 'USO') || (LofGetEstSymbol($strSymbol) == 'USO'))     return 'hf_CL';
+    else if (LofGetEstSymbol($strSymbol) == 'GLD')                                                     return 'hf_GC';
     return false;
 }
 
@@ -51,7 +51,7 @@ function LofGetAllSymbolArray($strSymbol)
     }
     if ($strFutureSymbol = LofGetFutureSymbol($strSymbol))
     {
-        $ar[] = FutureGetSinaSymbol($strFutureSymbol); 
+        $ar[] = $strFutureSymbol; 
     }
     if ($strFutureEtfSymbol = LofGetFutureEtfSymbol($strSymbol))
     {

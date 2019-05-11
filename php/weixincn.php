@@ -29,7 +29,7 @@ function _wxGetStockArray($strContents)
     		while ($record = mysql_fetch_assoc($result)) 
     		{
     			$str = $record['symbol'];
-    			if ((strpos($str, $strKey) !== false) || (strpos($record['name'], $strKey) !== false))
+    			if ((stripos($str, $strKey) !== false) || (stripos($record['name'], $strKey) !== false))
     			{
     				$ar[] = $str;
     				if (count($ar) > MAX_WX_STOCK)	break;
@@ -74,9 +74,9 @@ function _wxGetStockText($strSymbol)
         $ref = new FundReference($strSymbol);
         $str = _getFundReferenceText($ref); 
     }
-    else if ($strFutureSymbol = $sym->IsSinaFuture())
+    else if ($sym->IsSinaFuture())
     {
-        $ref = new FutureReference($strFutureSymbol);
+        $ref = new FutureReference($strSymbol);
         $str = _getStockReferenceText($ref); 
     }
     else if ($sym->IsSinaForex())
@@ -182,8 +182,7 @@ class WeixinStock extends WeixinCallback
 		$strText = UrlCleanString($strText);
 		_updateWeixinTables($strText, $strUserName);
     
-		$strContents = strtoupper($strText);
-		$arSymbol = _wxGetStockArray($strContents);
+		$arSymbol = _wxGetStockArray($strText);
 		if ($iCount = count($arSymbol))
 		{
 			$str = ($iCount > 1) ? '至少发现'.strval($iCount).'个匹配'.WX_EOL : ''; 

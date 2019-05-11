@@ -166,7 +166,7 @@ function UrlGetIp()
 
 function UrlGetCur()
 { 
-	return $_SERVER['REQUEST_URI'];
+	return strtolower($_SERVER['REQUEST_URI']);
 }
 
 function UrlIsValid($str)
@@ -280,7 +280,7 @@ function UrlGetPhp($bChinese)
 function UrlGetDomain()
 {
 	$strDomain = $_SERVER['SERVER_NAME'];
-	if (strpos($strDomain, URL_WWW) !== false)
+	if (stripos($strDomain, URL_WWW) !== false)
 	{
 		$strDomain = substr($strDomain, 4);
 	}

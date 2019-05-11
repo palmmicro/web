@@ -2,6 +2,7 @@
 
 define('MAX_STOCK_SYMBOL_LEN', 10);
 
+define('SINA_FOREX_PREFIX', 'fx_s');
 define('SINA_FUTURE_PREFIX', 'hf_');
 define('SINA_FUND_PREFIX', 'f_');
 define('SINA_HK_PREFIX', 'rt_hk');
@@ -379,9 +380,10 @@ class StockSymbol
     
     function IsEastMoneyForex()
     {
-        $strSymbol = $this->strSymbol;
-        if ($strSymbol == 'USCNY' || $strSymbol == 'HKCNY')
+        switch ($this->strSymbol)
         {
+        case 'USCNY':
+        case 'HKCNY':
             return true;
         }
         return false;
@@ -389,9 +391,10 @@ class StockSymbol
     
     function IsSinaForex()
     {
-        $strSymbol = $this->strSymbol;
-        if ($strSymbol == 'DINIW')
+        switch ($this->strSymbol)
         {
+        case 'DINIW':
+        case 'fx_susdcnh':
             return true;
         }
         return false;
@@ -430,20 +433,9 @@ class StockSymbol
 
     function IsSinaFuture()
     {
-    	$strSinaSymbol = $this->strSymbol;
-        if ($this->IsFutureCn())					                   return $strSinaSymbol;
-        if (substr($strSinaSymbol, 0, 3) == SINA_FUTURE_PREFIX)    return substr($strSinaSymbol, 3);
+        if ($this->IsFutureCn())					                   	return true;
+        if (substr($this->strSymbol, 0, 3) == SINA_FUTURE_PREFIX)   return true;
         return false;
-    }
-    
-    function GetSinaFutureSymbol()
-    {
-    	$strSymbol = $this->strSymbol;
-    	if ($this->IsFutureCn())
-    	{   // AU0
-    		return $strSymbol;
-    	}
-    	return SINA_FUTURE_PREFIX.$strSymbol;
     }
     
     function IsTradable()
@@ -610,6 +602,13 @@ class StockSymbol
         }*/
 //        return $strSymbol;
         return false;
+    }
+    
+    function GetPrecision()
+    {
+    	if ($this->IsSinaFund() || $this->IsFundA())   	return 3;
+    	else if ($this->IsForex())   					return 4;
+    	return 2;
     }
     
     function GetSymbol()

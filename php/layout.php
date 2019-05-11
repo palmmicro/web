@@ -40,9 +40,12 @@ END;
 
 function LayoutBrokerPromotion()
 {
-	$strSnowball = AcctIsAdmin() ? GetExternalLink('https://www.snowballsecurities.com/external-channel/invite', '管理') : '';	
+	$strSnowball = GetXueqiuIdLink('7489073227', '技术支持');
+	if (AcctIsAdmin())		$strSnowball .= ' '.GetExternalLink('https://www.snowballsecurities.com/external-channel/invite', '管理');
+	
     echo <<<END
-        <p><a href="https://www.snowballsecurities.com/ib-account-open/web?r=50001003008" target=_blank>雪盈证券开户</a> $strSnowball
+        <p><a href="https://www.snowballsecurities.com/ib-account-open/web?r=50001003008" target=_blank>雪盈证券开户</a>
+        <br />美股佣金$0.002/股, 最低$0.99/笔. 平台使用费$0.003/股, 最低$1.00/笔.  $strSnowball
         <br /><a href="https://m.zhangle.com/h5Account/mobile-h5/index.htm?ly=HTC1-9000008608&param1=011979" target=_blank>华泰证券开户</a>
         <br />佣金股票万1.6, 场内基金万1, 债券十万分之一. 人工支持微信号18651870837. 
         扫码开户后在第一步显示佣金的地方一定要核对工号<b>011979</b>

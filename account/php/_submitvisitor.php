@@ -11,11 +11,11 @@ require_once('/php/sql/sqlweixin.php');
 	        if (isset($_SESSION['userurl'])) 
 	        {
 	            $str = $_SESSION['userurl'];
-	            if (strpos($str, SPIDER_VISITOR_TABLE))
+	            if (stripos($str, SPIDER_VISITOR_TABLE) !== false)
 	            {
 	                SqlDeleteVisitor(SPIDER_VISITOR_TABLE, SqlGetIpAddressId($strSrc));
 	            }
-	            else if (strpos($str, WEIXIN_VISITOR_TABLE))
+	            else if (stripos($str, WEIXIN_VISITOR_TABLE) !== false)
 	            {
 	                SqlDeleteVisitor(WEIXIN_VISITOR_TABLE, SqlGetWeixinId($strSrc));
 	            }

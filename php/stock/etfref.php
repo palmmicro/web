@@ -76,10 +76,10 @@ class EtfReference extends MyStockReference
 	{
 		$strSymbol = SqlGetStockSymbol($strStockId);
 		$sym = new StockSymbol($strSymbol);
-		if ($strFutureSymbol = $sym->IsSinaFuture())
+		if ($sym->IsSinaFuture())
 		{
         	$this->pair_nv_ref = new NetValueReference($strStockId, $sym);
-			$this->pair_ref = new FutureReference($strFutureSymbol);
+			$this->pair_ref = new FutureReference($strSymbol);
 			return false;
 		}
 		else if ($sym->IsEtf())

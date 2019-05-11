@@ -4,7 +4,6 @@
 class MysqlReference extends StockReference
 {
     var $strSqlId = false;      // ID in mysql database
-    var $strSqlName = false;
 	var $bConvertGB2312 = false;
 
     var $fFactor = 1.0;			// 'factor' field in old stockcalibration table or 'close' field in new etfcalibration table
@@ -14,11 +13,7 @@ class MysqlReference extends StockReference
     function MysqlReference($sym) 
     {
 		parent::StockReference($sym);
-        if ($this->strSqlName == false)
-        {
-        	$this->strSqlName = $sym->GetSymbol();
-        }
-        $this->_loadSqlId();
+        $this->_loadSqlId($sym->GetSymbol());
         if ($this->strSqlId)
         {
         	$this->his_sql = new StockHistorySql($this->strSqlId);
@@ -67,19 +62,20 @@ class MysqlReference extends StockReference
     	return $this->strChineseName;
     }
     
-    function _loadSqlId()
+    function _loadSqlId($strSymbol)
     {
     	if ($this->strSqlId)	return;	// Already set, like in CnyReference
     	
     	$sql = new StockSql();
-    	$this->strSqlId = $sql->GetId($this->strSqlName);
-//    	DebugString($this->strSqlName);
+    	$this->strSqlId = $sql->GetId($strSymbol);
+//    	DebugString($strSymbol.' '.$this->strSqlId);
         if ($this->strSqlId == false)
         {
             if ($this->bHasData)
             {
-                $sql->Insert($this->strSqlName, $this->GetChineseName());
-                $this->strSqlId = $sql->GetId($this->strSqlName);
+            	DebugString('Insert: '.$strSymbol.' '.$this->GetChineseName());
+                $sql->Insert($strSymbol, $this->GetChineseName());
+                $this->strSqlId = $sql->GetId($strSymbol);
             }
         }
     }

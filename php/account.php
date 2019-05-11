@@ -171,8 +171,8 @@ function AcctGetSpiderPageCount($strIp)
 function _checkSearchEngineSpider($strIp, $iCount)
 {
     $arIpInfo = IpInfoIpLookUp($strIp);
-    $str = strtolower($arIpInfo['org']);
-    if (strpos($str, 'microsoft') || strpos($str, 'yahoo') || strpos($str, 'yandex'))
+    $str = $arIpInfo['org'];
+    if (stripos($str, 'microsoft') || stripos($str, 'yahoo') || stripos($str, 'yandex'))
     {
         trigger_error('Known company: '.$arIpInfo['org']);
         return true;

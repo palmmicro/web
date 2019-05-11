@@ -286,18 +286,10 @@ class StockReference
         return $this->sym;
     }
 
-    function _getPrecision()
-    {
-    	$sym = $this->GetSym();
-    	if ($sym->IsSinaFund() || $sym->IsFundA())   	return 3;
-    	else if ($sym->IsForex())   					return 4;
-    	return 2;
-    }
-    
     // for weixin text
     function GetPriceText($fVal)
     {
-        return strval_round($fVal, $this->_getPrecision());
+        return strval_round($fVal, $this->sym->GetPrecision());
     }
 
     function GetPercentageText($strPrevPrice)
@@ -337,7 +329,7 @@ class StockReference
     
     function GetPriceDisplay($strPrice, $bPrev = true)
     {
-        return StockGetPriceDisplay($strPrice, ($bPrev ? $this->strPrevPrice : $this->strPrice), $this->_getPrecision());
+        return StockGetPriceDisplay($strPrice, ($bPrev ? $this->strPrevPrice : $this->strPrice), $this->sym->GetPrecision());
     }
 
     function GetCurrentPriceDisplay()
@@ -637,24 +629,24 @@ class StockReference
         $this->strVolume = $ar[14];
     }
     
-    function LoadSinaFutureData($strSymbol, $strSinaSymbol)
+    function LoadSinaFutureData($strSymbol)
     {
         $this->strExternalLink = GetSinaFutureLink($strSymbol);
-        $this->strFileName = DebugGetSinaFileName($strSinaSymbol);
-        $ar = _GetForexAndFutureArray($strSinaSymbol, $this->strFileName, ForexAndFutureGetTimezone(), 'GetSinaQuotes');
+        $this->strFileName = DebugGetSinaFileName($strSymbol);
+        $ar = _GetForexAndFutureArray($strSymbol, $this->strFileName, ForexAndFutureGetTimezone(), 'GetSinaQuotes');
         if (count($ar) < 13)
         {
             $this->bHasData = false;
             return;
         }
         
-        if ($strSinaSymbol == $strSymbol)
+        if (substr($strSymbol, 0, 3) == SINA_FUTURE_PREFIX)
         {
-            $this->_onSinaFutureCN($ar);
+            $this->_onSinaFuture($ar);
         }
         else
         {
-            $this->_onSinaFuture($ar);
+            $this->_onSinaFutureCN($ar);
         }
     }
     
@@ -732,7 +724,8 @@ class StockReference
         $this->strPrevPrice = $ar[3];
         $this->strPrice = $ar[8];
     	$this->strName = $ar[9];
-        $this->strDate = $ar[10];
+//        $this->strDate = $ar[10];
+		$this->strDate = end($ar);
     }       
 
     function LoadEastMoneyForexData($strSymbol)

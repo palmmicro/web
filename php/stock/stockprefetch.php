@@ -265,7 +265,7 @@ function PrefetchSinaStockData($arSymbol)
         {
             $sym = new StockSymbol($strSymbol);
             if ($sym->IsSinaFund() || $sym->IsSinaForex())
-            {   // IsSinaFund must be called before IsSinaFuture
+            {  	// IsSinaFund must be called before IsSinaFuture
                 $arPrefetch[$strSymbol] = $sym;
             }
             else if ($sym->IsSinaFuture())

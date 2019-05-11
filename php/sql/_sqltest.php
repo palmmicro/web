@@ -27,27 +27,6 @@ function ValidateTableIpField($strTableName)
     }
 }
 
-/*
-function SqlInsertFuture()
-{
-    SqlInsertStock('hf_CL', 'NYMEX原油期货');
-    SqlInsertStock('hf_GC', 'COMEX黄金期货');
-    SqlInsertStock('hf_NG', 'NYMEX天然气期货');
-    SqlInsertStock('hf_OIL', 'Brent布伦特原油期货');
-    SqlInsertStock('hf_SI', 'COMEX白银期货');
-}
-
-function SqlInsertUSCNY()
-{
-    SqlInsertStock('USCNY', '美元人民币中间价');
-}
-
-function SqlInsertHKCNY()
-{
-    SqlInsertStock('HKCNY', '港币人民币中间价');
-}
-*/
-
 function WriteForexDataFromFile()
 {
 	$uscny_sql = new UscnyHistorySql();
