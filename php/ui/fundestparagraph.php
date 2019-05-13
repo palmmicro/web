@@ -7,6 +7,7 @@ function _echoFundEstTableItem($ref)
     if (RefHasData($ref) == false)      return;
     
     $strLink = GetEastMoneyFundLink($ref->GetSym());
+    $strPrice = $ref->GetCurrentPrice();
     $strOfficialPrice = $ref->GetPriceDisplay($ref->GetOfficialNetValue(), false);
     $strOfficialPremium = $ref->GetPercentageDisplay($ref->GetOfficialNetValue());
     $strFairPrice = $ref->GetPriceDisplay($ref->GetFairNetValue(), false);
@@ -17,6 +18,7 @@ function _echoFundEstTableItem($ref)
     echo <<<END
     <tr>
         <td class=c1>$strLink</td>
+        <td class=c1>$strPrice</td>
         <td class=c1>$strOfficialPrice</td>
         <td class=c1>$strOfficialPremium</td>
         <td class=c1>$strFairPrice</td>
@@ -50,19 +52,18 @@ function _getFundParagraphStr($ref)
     $strDate = $ref->strOfficialDate;
     $strLastTime = SqlGetStockCalibrationTime($ref->GetStockId());
     $strHistoryLink = GetCalibrationHistoryLink($ref->GetStockSymbol());
-	$arColumn = GetFundEstTableColumn();
-	$str = $arColumn[1];
+	$str = GetTableColumnOfficalEst();
     $str .= GetTableColumnDate().$strDate.", 校准时间($strHistoryLink)$strLastTime.";
-    if ($ref->fRealtimeNetValue)   $str .= ' '._getFundRealtimeStr($ref, $arColumn[5]);
+    if ($ref->fRealtimeNetValue)   $str .= ' '._getFundRealtimeStr($ref, GetTableColumnRealtimeEst());
     return $str;
 }
 
 function EchoFundArrayEstParagraph($arRef, $str = '')
 {
-	$arColumn = GetFundEstTableColumn();
+	$arColumn = array(GetTableColumnSymbol(), GetTableColumnNetValue(), GetTableColumnOfficalEst(), GetTableColumnOfficalPremium(), GetTableColumnFairEst(), GetTableColumnFairPremium(), GetTableColumnRealtimeEst(), GetTableColumnRealtimePremium());
     echo <<<END
     	<p>$str
-        <TABLE borderColor=#cccccc cellSpacing=0 width=560 border=1 class="text" id="estimation">
+        <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="estimation">
         <tr>
             <td class=c1 width=80 align=center>{$arColumn[0]}</td>
             <td class=c1 width=80 align=center>{$arColumn[1]}</td>
@@ -71,6 +72,7 @@ function EchoFundArrayEstParagraph($arRef, $str = '')
             <td class=c1 width=80 align=center>{$arColumn[4]}</td>
             <td class=c1 width=80 align=center>{$arColumn[5]}</td>
             <td class=c1 width=80 align=center>{$arColumn[6]}</td>
+            <td class=c1 width=80 align=center>{$arColumn[7]}</td>
         </tr>
 END;
 

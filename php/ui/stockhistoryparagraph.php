@@ -35,10 +35,8 @@ function _echoStockHistoryData($ref, $csv, $iStart, $iNum)
 
 function EchoStockHistoryParagraph($ref, $str = '', $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
 {
-	$strDate = GetTableColumnDate();
-    $arFundHistory = GetFundHistoryTableColumn(false);
-    $strClose = $arFundHistory[1];
-    $arColumn = array($strDate, '开盘价', '最高', '最低', $strClose, '成交量', '复权'.$strClose);
+    $strClose = GetTableColumnClose();
+    $arColumn = array(GetTableColumnDate(), '开盘价', '最高', '最低', $strClose, '成交量', '复权'.$strClose);
 
     $strSymbol = $ref->GetStockSymbol();
     $strNavLink = IsTableCommonDisplay($iStart, $iNum) ? '' : StockGetNavLink($strSymbol, $ref->his_sql->Count(), $iStart, $iNum);

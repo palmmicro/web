@@ -45,8 +45,7 @@ function _gradedFundRefCallback($ref = false)
     	return array('', '', '');
     }
     
-	$arFundEst = GetFundEstTableColumn();
-    return array(GetTableColumnNetValue(), $arFundEst[1], $arFundEst[3]);
+    return array(GetTableColumnNetValue(), GetTableColumnOfficalEst(), GetTableColumnFairEst());
 }
 
 function _set_extended_ref($ref)

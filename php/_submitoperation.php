@@ -7,6 +7,8 @@ function _onManualCalibrtion($strSymbol)
 	StockPrefetchData($strSymbol);
    	$ref = new EtfReference($strSymbol);
    	$ar = explode(' ', YahooGetWebData($ref));
+   	if (count($ar) < 3)	return;
+   	
    	$strNetValue = $ar[0];
    	$strDate = $ar[2];
 	$ref->nv_ref->sql->Write($strDate, $strNetValue);

@@ -143,11 +143,10 @@ function EchoFundTradingParagraph($fund, $callback = false)
     if ($strFair = $fund->GetFairNetValue())       		$strEstPrice .= '/'.$ref->GetPriceDisplay($strFair);
     if ($strRealtime = $fund->GetRealtimeNetValue())	$strEstPrice .= '/'.$ref->GetPriceDisplay($strRealtime);
     
-	$arFundEst = GetFundEstTableColumn();
     $arColumn = _getTradingTableColumn();
-    $arColumn[] = $arFundEst[2];
-    $arColumn[] = $arFundEst[4];
-    $arColumn[] = $arFundEst[6];
+    $arColumn[] = GetTableColumnOfficalPremium();
+    $arColumn[] = GetTableColumnFairPremium();
+    $arColumn[] = GetTableColumnRealtimePremium();
     if ($callback)     $arColumn[] = call_user_func($callback);
     $strPrice = _getTradingParagraphStr($arColumn);
     
@@ -194,8 +193,7 @@ function EchoEtfTradingParagraph($ref)
     $strPairSymbol = RefGetMyStockLink($ref->pair_nv_ref);
 
     $arColumn = _getTradingTableColumn();
-	$arFundEst = GetFundEstTableColumn();
-	$strPremium = $arFundEst[2];
+	$strPremium = GetTableColumnOfficalPremium();
     $arColumn[] = $strPremium;
 
     $strPrice = _getTradingParagraphStr($arColumn);

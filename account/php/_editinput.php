@@ -44,6 +44,7 @@ function EchoAll($bChinese = true)
 		unset($_POST['submit']);
 		$strInput = UrlCleanString($_POST[EDIT_INPUT_NAME]);
 	}
+	else if ($strInput = UrlGetQueryValue($strTitle))	{}
     else
     {
     	switch ($strTitle)
@@ -109,8 +110,8 @@ function EchoMetaDescription($bChinese = true)
   		break;
   		
   	case 'ip':
-  		$str .= $bChinese ? '查询页面. 从淘宝和ipinfo.io等网站查询IP地址对应的国家, 城市, 网络运营商和公司等信息. 同时也从palmmicro.com的用户登录和评论中提取对应记录.'
-    						: 'page, display country, city, service provider and company information from Taobao and ipinfo.io.';
+  		$str .= $bChinese ? '查询页面. 从ipinfo.io等网站查询IP地址对应的国家, 城市, 网络运营商和公司等信息. 同时也从palmmicro.com的用户登录和评论中提取对应记录.'
+    						: 'page, display country, city, service provider and company information from ipinfo.io.';
   		break;
   		
   	case 'primenumber':

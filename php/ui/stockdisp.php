@@ -1,5 +1,6 @@
 <?php
 define('STOCK_DISP_CHANGE', '涨跌');
+define('STOCK_DISP_CLOSE', '收盘价');
 define('STOCK_DISP_DATE', '日期');
 define('STOCK_DISP_EST', '估值');
 define('STOCK_DISP_FAIR', '参考');

@@ -166,14 +166,14 @@ function UrlGetIp()
 
 function UrlGetCur()
 { 
-	return strtolower($_SERVER['REQUEST_URI']);
+	return $_SERVER['REQUEST_URI'];
 }
 
 function UrlIsValid($str)
 {
    	if (substr($str, 0, 2) == '//')			return false;
    	if (strpos($str, '/.') !== false)		return false;
-   	if (stripos($str, URL_PHP) === false)	return false;
+   	if (strpos($str, URL_PHP) === false)	return false;
    	return true;
 }
 
@@ -247,7 +247,7 @@ function UrlGetPageName()
 function _getTitle($str)
 {
     $strType = UrlGetType();
-   	$iPos = strpos($str, $strType);
+   	$iPos = stripos($str, $strType);
    	if ($iPos > 0)
    	{
    	    return substr($str, 0, $iPos);

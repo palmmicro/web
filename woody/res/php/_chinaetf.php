@@ -11,26 +11,27 @@ require_once('/php/ui/etfparagraph.php');
 class _ChinaEtfGroup extends _StockGroup
 {
 	var $us_ref;
-	var $arRef;
+	var $a50_ref;
 	
     function _ChinaEtfGroup($strSymbol) 
     {
     	$strUS = 'ASHR';
-        StockPrefetchData($strSymbol, $strUS);
+    	$strA50 = 'hf_CHA50CFD';
+        StockPrefetchData($strSymbol, $strUS, $strA50);
         GetChinaMoney();
         YahooUpdateNetValue($strUS);
 
         $this->ref = new EtfReference($strSymbol);
         $this->us_ref = new EtfReference($strUS);
-        $this->arRef = array($this->ref, $this->us_ref, $this->ref->pair_nv_ref);
-        parent::_StockGroup($this->arRef);
+        $this->a50_ref = new FutureReference($strA50);
+        parent::_StockGroup(array($this->ref, $this->us_ref, $this->ref->pair_nv_ref));
     }
 } 
 
 function _chinaEtfRefCallbackData($ref)
 {
    	$ar = array();
-    $ar[] = $ref->nv_ref->strPrice;
+    $ar[] = $ref->nv_ref->GetCurrentPrice();
     $strNetValue = $ref->EstOfficialNetValue();
     $ar[] = $ref->GetPriceDisplay($strNetValue, false);
     $ar[] = $ref->GetPercentageDisplay($strNetValue);
@@ -49,15 +50,15 @@ function _chinaEtfRefCallback($ref = false)
     	return array('', '', '');
     }
     
-	$arFundEst = GetFundEstTableColumn();
-    return array(GetTableColumnNetValue(), $arFundEst[1], $arFundEst[2]);
+    return array(GetTableColumnNetValue(), GetTableColumnOfficalEst(), GetTableColumnOfficalPremium());
 }
 
 function EchoAll()
 {
     global $group;
     
-    EchoReferenceParagraph($group->arRef, '_chinaEtfRefCallback');
+    EchoReferenceParagraph(array($group->ref, $group->us_ref), '_chinaEtfRefCallback', GetTableColumnOfficalEst());
+    EchoReferenceParagraph(array($group->ref->pair_nv_ref, $group->ref, $group->us_ref, $group->a50_ref));
     EchoEtfListParagraph(array($group->ref, $group->us_ref));
     EchoEtfTradingParagraph($group->ref);
     EchoEtfSmaParagraph($group->ref);

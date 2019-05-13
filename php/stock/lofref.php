@@ -96,6 +96,7 @@ class _LofReference extends FundReference
     {
 		$this->AdjustFactor();
         
+        if ($this->est_ref == false)    return;
         $strDate = $this->est_ref->strDate;
         if ($strCNY = $this->forex_sql->GetClose($strDate))
         {
@@ -117,8 +118,6 @@ class _LofReference extends FundReference
                 $this->strOfficialDate = $record['date'];
             }
         }
-        
-        $this->EstRealtimeNetValue();
     }
 
     function EstRealtimeNetValue()
@@ -224,6 +223,7 @@ class LofReference extends _LofReference
         }
         
         $this->EstNetValue();
+        $this->EstRealtimeNetValue();
     }
 }
 
@@ -238,6 +238,7 @@ class LofHkReference extends _LofReference
             $this->est_ref = new MyStockReference($strEstSymbol);
         }
         $this->EstNetValue();
+        $this->EstRealtimeNetValue();
     }
 }
 

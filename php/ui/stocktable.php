@@ -13,6 +13,11 @@ function GetTableColumnChange()
 	return _getTableColumnColor(STOCK_DISP_CHANGE, 'red');
 }
 
+function GetTableColumnClose()
+{
+	return _getTableColumnColor(STOCK_DISP_CLOSE, 'indigo');
+}
+
 function GetTableColumnDate()
 {
 	return STOCK_DISP_DATE;
@@ -53,13 +58,34 @@ function GetReferenceTableColumn()
     return array(GetTableColumnSymbol(), GetTableColumnPrice(), GetTableColumnChange(), GetTableColumnDate(), '时间', '名称');
 }
 
-function GetFundEstTableColumn()
+function GetTableColumnOfficalEst()
 {
-	$strSymbol = GetTableColumnSymbol();
-	
-	$strEst = GetTableColumnEst();
-	$strPremium = GetTableColumnPremium();
-    return array($strSymbol, '官方'.$strEst,      '官方'.$strPremium,     '参考'.$strEst,   '参考'.$strPremium,  '实时'.$strEst,     '实时'.$strPremium);
+	return STOCK_DISP_OFFICIAL.GetTableColumnEst();
+}
+
+function GetTableColumnOfficalPremium()
+{
+	return STOCK_DISP_OFFICIAL.GetTableColumnPremium();
+}
+
+function GetTableColumnFairEst()
+{
+	return STOCK_DISP_FAIR.GetTableColumnEst();
+}
+
+function GetTableColumnFairPremium()
+{
+	return STOCK_DISP_FAIR.GetTableColumnPremium();
+}
+
+function GetTableColumnRealtimeEst()
+{
+	return STOCK_DISP_REALTIME.GetTableColumnEst();
+}
+
+function GetTableColumnRealtimePremium()
+{
+	return STOCK_DISP_REALTIME.GetTableColumnPremium();
 }
 
 function GetFundHistoryTableColumn($est_ref)
@@ -75,12 +101,7 @@ function GetFundHistoryTableColumn($est_ref)
         $strChange = '';
     }
     
-	$arFundEst = GetFundEstTableColumn();
-	$strOfficialEst = $arFundEst[1];
-	$strNetValue = GetTableColumnNetValue();
-	$strPremium = GetTableColumnPremium();
-	$strDate = GetTableColumnDate();
-	return array($strDate, '<font color=indigo>收盘价</font>', $strNetValue, $strPremium, $strSymbol, $strChange, $strOfficialEst, '估值时间', '误差');
+	return array(GetTableColumnDate(), GetTableColumnClose(), GetTableColumnNetValue(), GetTableColumnPremium(), $strSymbol, $strChange, GetTableColumnOfficalEst(), GetTableColumnEst().'时间', '误差');
 }
 
 function GetAhCompareTableColumn()
