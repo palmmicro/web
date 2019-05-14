@@ -9,6 +9,11 @@ function _getHtmlElement($str)
 
 // ****************************** Common Functions *******************************************************
 
+function HtmlElementSelected()
+{
+    return _getHtmlElement('selected');
+}
+
 function HtmlElementDisabled()
 {
     return _getHtmlElement('disabled');
@@ -21,12 +26,13 @@ function HtmlElementReadonly()
     return $str;
 }
 
-function HtmlGetOption($ar)
+function HtmlGetOption($ar, $strCompare = false)
 {
     $str = '';
     foreach ($ar as $strKey => $strVal)
     {
-       	$str .= "<OPTION value=$strKey>$strVal</OPTION>";
+    	$strSelected = ($strVal == $strCompare) ? ' '.HtmlElementSelected() : '';
+       	$str .= "<OPTION value={$strKey}{$strSelected}>$strVal</OPTION>";
     }
     return $str;
 }

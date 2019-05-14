@@ -20,6 +20,41 @@ function _getGroupItemPriceArray($strGroupId)
     return $ar;
 }
 
+function _getPriceOption($str, $strPrice)
+{
+    $item_sql = new StockGroupItemSql();
+	$strStockId = $item_sql->GetStockId($str);
+    $strSymbol = SqlGetStockSymbol($strStockId);
+    $sym = new StockSymbol($strSymbol);
+    if ($sym->IsTradable())
+    {
+    	$ar = array();
+    	$iPrecision = $sym->GetPrecision();
+    	$fPrice = round($strPrice, $iPrecision);
+    	for ($i = -5; $i <= 5; $i ++)
+    	{
+    		$f = floatval($i);
+    		for ($j = 0; $j < $iPrecision; $j ++)	$f /= 10.0;
+    		$ar[] = strval($fPrice + $f);
+    	}
+    	return $ar;
+    }
+    return false;
+}
+
+function _getPriceOptionJsArray($arPrice)
+{
+    $ar = array();
+    foreach ($arPrice as $str => $strPrice)
+    {
+    	if ($arOption = _getPriceOption($str, $strPrice))
+    	{
+    		$ar[$str] = implode(',', $arOption);
+    	}
+    }
+	return HtmlGetJsArray($ar);
+}
+
 function _getGroupCommonPhrase($strGroupId)
 {
     $strMemberId = SqlGetStockGroupMemberId($strGroupId);
@@ -71,9 +106,13 @@ function StockEditTransactionForm($strSubmit, $strGroupId = false, $strGroupItem
     	$strQuantity = '';
     	$strCost = '';
     	$strRemark = '';
-    	$strSymbolIndex = _getFirstGroupItem($strGroupId);
+    	$strSymbolIndex = $strGroupItemId ? $strGroupItemId : _getFirstGroupItem($strGroupId);
     	$strPrice = $arPrice[$strSymbolIndex];
     }
+
+	$strPriceArray = HtmlGetJsArray($arPrice);
+	$strPriceOptionArray = _getPriceOptionJsArray($arPrice);
+   	$strPriceOption = HtmlGetOption(_getPriceOption($strSymbolIndex, $strPrice), $strPrice);
     
     $strRemarkLink = GetCommonPhraseLink();
     $arCommonPhrase = _getGroupCommonPhrase($strGroupId);
@@ -82,58 +121,84 @@ function StockEditTransactionForm($strSubmit, $strGroupId = false, $strGroupItem
     
     $strPassQuery = UrlPassQuery();
     $strSymbolsList = EditGetStockGroupItemList($strGroupId, $strGroupItemId);
-	$strPriceArray = HtmlGetJsArray($arPrice);    
     $arColumn = GetTransactionTableColumn();
 	echo <<< END
 	<script type="text/javascript">
 	    function OnLoad()
 	    {
-	        document.transactionForm.type.value = $strType;
+	    	var form = document.transactionForm;
+	    	
+	        form.type.value = $strType;
 	        OnType();
-	        document.transactionForm.symbol.value = $strSymbolIndex;
+	        form.symbol.value = $strSymbolIndex;
 		}
 	    
 	    function OnType()
 	    {
-	        var type_value;
-	        type_value = document.transactionForm.type.value;
+	    	var form = document.transactionForm;
+	    	var tax = form.tax;
+	    	var taxselect = form.taxselect;
+	        var type_value = form.type.value;
+	        
 	        switch (type_value)
 	        {
 	            case "0":
-	            document.transactionForm.tax.disabled = 0;
-	            document.transactionForm.taxselect.disabled = 0;
+	            tax.disabled = 0;
+	            taxselect.disabled = 0;
 	            break;
 	            
 	            case "1":
-	            document.transactionForm.tax.disabled = 1;
-	            document.transactionForm.taxselect.disabled = 1;
+	            tax.disabled = 1;
+	            taxselect.disabled = 1;
 	            break;
-
-	            default:
-	            break;    
 	        }
 	    }
 	    
 	    function OnSymbol()
 	    {
-	    	var price = { $strPriceArray };
-	        var symbol_value;
-	        symbol_value = document.transactionForm.symbol.value;
-	        document.transactionForm.price.value = price[symbol_value];
+	    	var form = document.transactionForm;
+	        var options = form.priceselect.options;
+	    	var price_array = { $strPriceArray };
+	        var symbol_value = form.symbol.value;
+	        var price_value = price_array[symbol_value];
+
+	        var price_option_array = { $strPriceOptionArray };
+	        var option_str = price_option_array[symbol_value];
+	        var option_array = option_str.split(",");
+	        
+	        form.price.value = price_value;
+	        options.length = 0;
+	        for (var i in option_array)
+	        {
+	        	var val = option_array[i];
+	        	options.add(new Option(val, i));
+	        	if (val == price_value)	form.priceselect.selectedIndex = i;
+	        }
+	    }
+	    
+	    function OnPrice()
+	    {
+	    	var form = document.transactionForm;
+	    	var priceselect = form.priceselect;
+	    	var selected_value = priceselect.selectedIndex;
+	    	
+	    	form.price.value = priceselect.options[selected_value].text;
 	    }
 	    
 	    function OnRemark()
 	    {
-	    	var remark = { $strRemarkArray };
-	        var type_value;
-	        type_value = document.transactionForm.remarkselect.value;
+	    	var form = document.transactionForm;
+	    	var remark = form.remark;
+	    	var remark_array = { $strRemarkArray };
+	        var type_value = document.transactionForm.remarkselect.value;
+	        
 	        if (type_value == "0")
 	        {
-            	document.transactionForm.remark.value = "";
+            	remark.value = "";
             }
-            else
+            else if (type_value != "")
             {
-            	document.transactionForm.remark.value = remark[type_value];
+            	remark.value = remark_array[type_value];
 	        }
 	    }
 	</script>
@@ -141,8 +206,10 @@ function StockEditTransactionForm($strSubmit, $strGroupId = false, $strGroupItem
 	<form id="transactionForm" name="transactionForm" method="post" action="/woody/res/php/_submittransaction.php$strPassQuery">
         <div>
 		<p><SELECT name="symbol" onChange=OnSymbol() size=1> $strSymbolsList </SELECT> 
-			<SELECT name="type" onChange=OnType() size=1> <OPTION value=0>卖出</OPTION> <OPTION value=1>买入</OPTION> </SELECT>
-		   {$arColumn[3]} <input name="price" value="$strPrice" type="text" size="20" maxlength="32" class="textfield" id="price" />
+			  <SELECT name="type" onChange=OnType() size=1> <OPTION value=0>卖出</OPTION> <OPTION value=1>买入</OPTION> </SELECT>
+			  {$arColumn[3]} 
+		      <input name="price" value="$strPrice" type="text" size="20" maxlength="32" class="textfield" id="price" />
+		      <SELECT name="priceselect" onChange=OnPrice() size=1> $strPriceOption </SELECT>
 		<br />{$arColumn[2]}
 		<br /><input name="quantity" value="$strQuantity" type="text" size="20" maxlength="32" class="textfield" id="quantity" />
 		<br /><SELECT name="commissionselect" size=1> <OPTION value=0>佣金金额</OPTION> <OPTION value=1>佣金‰</OPTION> </SELECT>
@@ -151,7 +218,7 @@ function StockEditTransactionForm($strSubmit, $strGroupId = false, $strGroupItem
 		<br /><input name="tax" value="" type="text" size="20" maxlength="32" class="textfield" id="tax" />
 		<br />{$arColumn[5]} $strRemarkLink 
 			  <SELECT name="remarkselect" onChange=OnRemark() size=1> 
-			  	<OPTION value=0>清空</OPTION> $strRemarkOption 
+			  	<OPTION value="" style="background:#CCCCCC;">---请选择---</OPTION>	<OPTION value=0>清空</OPTION> $strRemarkOption 
 			  </SELECT>
 	    <br /><textarea name="remark" rows="4" cols="50" id="remark">$strRemark</textarea>
 		<br /><input type="submit" name="submit" value="$strSubmit" />
@@ -160,5 +227,4 @@ function StockEditTransactionForm($strSubmit, $strGroupId = false, $strGroupItem
 	</form>
 END;
 }
-
 ?>

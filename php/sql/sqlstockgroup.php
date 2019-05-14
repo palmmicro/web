@@ -29,7 +29,7 @@ class StockGroupItemSql extends StockGroupTableSql
 {
 	var $trans_sql;	// StockTransactionSql
 	
-    function StockGroupItemSql($strGroupId) 
+    function StockGroupItemSql($strGroupId = false) 
     {
         parent::StockGroupTableSql($strGroupId, TABLE_STOCK_GROUP_ITEM);
         $this->trans_sql = new StockTransactionSql();
