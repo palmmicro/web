@@ -148,18 +148,6 @@ In this way, the display is unified.
 We called MySQL related function of <?php EchoPhpFileLink('/php/sql/sqlstock'); ?> in <font color=olive>MysqlReference</font> class, put history and calibration database operation in the same place.
 </p>
 
-<h3><a name="gradedfund">Graded Fund</a></h3>
-<p>March 11, 2016
-<br />As Chinese stock going down frequently, I feel more and more unsafe for SZ150022 now. Added <a href="../../res/sz150022.php">Shenzhen Index A</a> page to calculate it more carefully.
-And added another similar graded fund <a href="../../res/sz150175.php">H Shares A</a> at the same time as well.
-<br />Different users have been suggesting to add estimation value in the <a href="#netvalue">net value history</a> table of SZ162411.
-Except for not willing to show my possible error directly, I did not add it because the change is realtime, and I don't know when to record it, after US market close or Chinese market close?
-<br />In the LOF code, the variable for estimation value was originally in <font color=olive>_LofGroup</font> class.
-With my new <font color=olive>_GradedFundGroup</font> class in file <?php EchoPhpFileLink('/woody/res/php/_gradedfund'); ?> having 3 class member of <font color=olive>FundReference</font> class in file <?php EchoPhpFileLink('/php/stock/fundref'); ?>,
-naturally I moved the estimation value to <font color=olive>FundReference</font> class. And when estimaation value and net value variable are put together, the data structure leads my mind again,
-suddenly I realized that it is most reasonable to record the estimation value in the same time when the current day net value is recorded!
-</p>
-
 <h3>US Daylight Saving Time</h3>
 <p>March 14, 2016
 <br />A bug is found as US enter daylight saving time: <i>date_default_timezone_set('EST')</i> is not considering daylight saving,
@@ -171,6 +159,12 @@ need to use <i>date_default_timezone_set('America/New_York')</i> or <i>date_defa
 <br />As Gold future GC is not trading on Easter holiday, I get the chance to adjust the net value estimation for Chinese Gold ETF, 
 including <a href="../../res/sh518800.php">GuoTai Gold ETF</a>, <a href="../../res/sh518880.php">HuaAn Gold ETF</a>, <a href="../../res/sz159934.php">E Fund Gold ETF</a>,
 <a href="../../res/sz159937.php">Bosera Gold ETF</a>, <a href="../../res/sz164701.php">Universal Gold LOF</a>, <a href="../../res/sz160719.php">Harvest Gold LOF</a> and <a href="../../res/sz161116.php">E Fund Gold LOF</a>.
+<br />Different users have been suggesting to add estimation value in the <a href="#netvalue">net value history</a> table of SZ162411.
+Except for not willing to show my possible error directly, I did not add it because the change is realtime, and I don't know when to record it, after US market close or Chinese market close?
+<br />In the LOF code, the variable for estimation value was originally in <font color=olive>_LofGroup</font> class.
+With my new <font color=olive>_GoldEtfGroup</font> class in file <?php EchoPhpFileLink('/woody/res/php/_goldetf'); ?> again having the same class member of <font color=olive>FundReference</font> class in file <?php EchoPhpFileLink('/php/stock/fundref'); ?>,
+naturally I moved the estimation value to <font color=olive>FundReference</font> class. And when estimaation value and net value variable are put together, the data structure leads my mind again,
+suddenly I realized that it is most reasonable to record the estimation value in the same time when the current day net value is recorded!
 <br />The average page view of my net value pages in a normal trading day is around 1000 now, the max day is nearly 1700. I have been optimizing my software for more page views in the future.
 As the <a href="#sma">SMA</a> caculation only need to be done once in a day, it is natural to save the result instead of calculate it with every page view.
 I have been thinking about it but never did anything, until I finished the adjustment of 7 gold ETF, I realized that the SMA of GLD need to be calculated in 8 pages including the GC gold future page.

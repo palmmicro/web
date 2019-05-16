@@ -82,7 +82,7 @@ function GetYahooQuotes($strSymbols)
 function IsYahooStrError($str)
 {
     $str = trim($str);
-    if (strlen($str) == 0 || strpos($str, 'html') || strpos($str, 'head'))
+    if (strlen($str) == 0 || strstr_array($str, array('html', 'head')))
     {
         return true;
     }

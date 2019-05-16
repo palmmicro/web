@@ -209,19 +209,6 @@ function GetStockDividendLink($sym)
     return GetExternalLink($strHttp, '分红数据');
 }
 
-// https://www.jisilu.cn/data/sfnew/detail/502004
-function EchoJisiluGradedFund()
-{
-    $strSymbol = UrlGetTitle();
-    $sym = new StockSymbol($strSymbol);
-    if ($strDigit = $sym->IsFundA())
-    {
-        $strHttp = "https://www.jisilu.cn/data/sfnew/detail/$strDigit";
-        $str = GetExternalLink($strHttp, '集思录');
-        echo $str;
-    }
-}
-
 // http://quote.eastmoney.com/forex/USDCNY.html
 function GetEastMoneyForexLink($strSymbol)
 {

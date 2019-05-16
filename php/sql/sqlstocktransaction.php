@@ -73,7 +73,6 @@ class StockTransactionSql extends TableSql
     {
     	$ar = $this->_getPrivateFieldArray($strGroupItemId, $strQuantity, $strPrice, $strFees, $strRemark);
     	unset($ar['filled']);
-//    	DebugKeyArray($ar);
 		return $this->UpdateById($ar, $strId);
 	}
 	

@@ -197,7 +197,6 @@ class MyStockGroup extends StockGroup
     {
 		$sql = new StockGroupItemSql($this->strGroupId);
         $arGroupItemSymbol = SqlGetStockGroupItemSymbolArray($sql);
-//        DebugKeyArray($arGroupItemSymbol);
         if ($result = $sql->GetAllStockTransaction()) 
         {   
             while ($record = mysql_fetch_assoc($result)) 

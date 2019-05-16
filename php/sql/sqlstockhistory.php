@@ -46,7 +46,6 @@ class StockHistorySql extends DailyStockSql
     		
     		if (count($ar) > 0)
     		{
-//    			DebugKeyArray($ar);
     			return $this->UpdateById($ar, $record['id']);
     		}
     	}

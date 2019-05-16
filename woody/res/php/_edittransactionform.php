@@ -16,7 +16,6 @@ function _getGroupItemPriceArray($strGroupId)
     		$ar[$str] = strval_float($his_sql->GetCloseNow());
     	}
     }
-//	DebugKeyArray($ar);
     return $ar;
 }
 

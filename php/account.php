@@ -172,7 +172,7 @@ function _checkSearchEngineSpider($strIp, $iCount)
 {
     $arIpInfo = IpInfoIpLookUp($strIp);
     $str = $arIpInfo['org'];
-    if (stripos($str, 'microsoft') || stripos($str, 'yahoo') || stripos($str, 'yandex'))
+    if (strstr_array($str, array('microsoft', 'yahoo', 'yandex')))
     {
         trigger_error('Known company: '.$arIpInfo['org']);
         return true;

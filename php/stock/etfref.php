@@ -181,21 +181,22 @@ class EtfReference extends MyStockReference
 
 	function _load_cny_ref($strDate)
 	{
-    	if ($sym = $this->GetPairSym())
+		$sym = $this->GetSym();
+    	if ($pair_sym = $this->GetPairSym())
     	{
     		$strCNY = false;
-    		if ($sym->IsSymbolA())
+    		if ($pair_sym->IsSymbolA())
     		{
-    			if ($this->sym->IsSymbolUS())			$strCNY = 'USCNY';
-    			else if ($this->sym->IsSymbolH())	$strCNY = 'HKCNY';
+    			if ($sym->IsSymbolUS())			$strCNY = 'USCNY';
+    			else if ($sym->IsSymbolH())		$strCNY = 'HKCNY';
     		}
-    		else if ($sym->IsSymbolH())
+    		else if ($pair_sym->IsSymbolH())
     		{
-    			if ($this->IsSymbolA())				$strCNY = 'HKCNY';
+    			if ($sym->IsSymbolA())			$strCNY = 'HKCNY';
     		}
     		else
     		{
-    			if ($this->IsSymbolA())				$strCNY = 'USCNY';
+    			if ($sym->IsSymbolA())			$strCNY = 'USCNY';
     		}
     		
     		if ($strCNY)
@@ -240,14 +241,14 @@ class EtfReference extends MyStockReference
     function EstFromPair($strEst, $fCny = false)
     {
     	$fVal = (floatval($strEst) - $this->fPairNetValue) * $this->fRatio / $this->fFactor + $this->fNetValue;
-    	return $this->_adjustByCny($fVal, $fCny, ($this->IsSymbolA() ? false : true));
+    	return $this->_adjustByCny($fVal, $fCny, ($this->sym->IsSymbolA() ? false : true));
     }
 
     // (x - fPairNetValue)/(fEsts - fNetValue) = fFactor / fRatio;
     function EstToPair($fEst, $fCny = false)
     {
     	$fVal = ($fEst - $this->fNetValue) * $this->fFactor / $this->fRatio + $this->fPairNetValue;
-    	return $this->_adjustByCny($fVal, $fCny, $this->IsSymbolA());
+    	return $this->_adjustByCny($fVal, $fCny, $this->sym->IsSymbolA());
     }
 
     function GetOfficialDate()

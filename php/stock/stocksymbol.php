@@ -56,16 +56,6 @@ function in_arrayGoldEtf($strSymbol)
     return in_array_lower($strSymbol, GoldEtfGetSymbolArray());
 }
 
-function GradedFundGetSymbolArray()
-{
-    return array('sh502004', 'sz150022', 'sz150152', 'sz150169', 'sz150175', 'sz150181', 'sz150186', 'sz150200', 'sz150205', 'sz150209', 'sz150223', 'sz150277', 'sz150287'); 
-}
-
-function in_arrayGradedFund($strSymbol)
-{
-    return in_array_lower($strSymbol, GradedFundGetSymbolArray());
-}
-
 function LofGetChinaInternetSymbolArray()
 {
     return array('sh513050', 'sz164906');
@@ -199,7 +189,6 @@ function GetAllSymbolArray()
 {
 	$ar = LofGetSymbolArray();
 	$ar = array_merge($ar, LofHkGetSymbolArray()
-							, GradedFundGetSymbolArray()
 							, GoldEtfGetSymbolArray()
 							, ChinaEtfGetSymbolArray()
 							, AdrGetSymbolArray());

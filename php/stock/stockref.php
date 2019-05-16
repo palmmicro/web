@@ -753,11 +753,6 @@ class StockReference
    		}
     }
 
-    function IsSymbolA()
-    {
-    	return $this->sym->IsSymbolA();
-    }
-    
     function Debug($iVal = false)
     {
     	if (empty($this->sym))

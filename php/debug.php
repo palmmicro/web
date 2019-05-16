@@ -21,9 +21,10 @@ function strval_round($fVal, $iPrecision = false)
 {
 	if ($iPrecision == false)
 	{
-		if (abs($fVal) > (10 - MIN_FLOAT_VAL))		$iPrecision = 2;
-		else if (abs($fVal) > (2 - MIN_FLOAT_VAL))   $iPrecision = 3;
-		else                                           $iPrecision = 4;
+		$f = abs($fVal);
+		if ($f > (10 - MIN_FLOAT_VAL))		$iPrecision = 2;
+		else if ($f > (2 - MIN_FLOAT_VAL))   $iPrecision = 3;
+		else                                   $iPrecision = 4;
     }
 	return strval(round($fVal, $iPrecision));
 }
@@ -35,10 +36,13 @@ function strval_float($str)
 
 function unlinkEmptyFile($strFileName)
 {
-    if (!unlink($strFileName))
-    {
-        file_put_contents($strFileName, '');
-    }
+	if (file_exists($strFileName))
+	{
+		if (!unlink($strFileName))
+		{
+			file_put_contents($strFileName, '');
+		}
+	}
 }
 
 function _getTimeDisplay($iTime, $strTimeZone)
@@ -138,21 +142,11 @@ function DebugVal($iVal, $strPrefix = false)
 function DebugArray($ar)
 {
 	DebugString('DebugArray begin ...');
-	foreach ($ar as $str)
-	{
-		DebugString($str);
-	}
-	DebugString('DebugArray end.');
-}
-
-function DebugKeyArray($ar)
-{
-	DebugString('DebugKeyArray begin ...');
 	foreach ($ar as $strKey => $strVal)
 	{
 		DebugString($strKey.' => '.$strVal);
 	}
-	DebugString('DebugKeyArray end.');
+	DebugString('DebugArray end.');
 }
 
 function DebugHere($iVal = false)

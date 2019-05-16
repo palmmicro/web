@@ -22,7 +22,6 @@ require_once('stock/mystockref.php');
 require_once('stock/fundref.php');
 require_once('stock/lofref.php');
 require_once('stock/goldfundref.php');
-require_once('stock/gradedfundref.php');
 
 require_once('stock/cnyref.php');
 require_once('stock/forexref.php');
@@ -331,9 +330,6 @@ function _getAllSymbolArray($strSymbol)
         else if (in_arrayLofHk($strSymbol))							return LofHkGetAllSymbolArray($strSymbol);
         else if (in_arrayGoldEtf($strSymbol))						return GoldEtfGetAllSymbolArray($strSymbol);
         else if (in_arrayChinaEtf($strSymbol))						return EtfGetAllSymbolArray($strSymbol);
-        else if (in_arrayGradedFund($strSymbol))						return GradedFundGetAllSymbolArray($strSymbol);
-        else if ($strSymbolA = in_arrayGradedFundB($strSymbol))	return GradedFundGetAllSymbolArray($strSymbolA);
-        else if ($strSymbolA = in_arrayGradedFundM($strSymbol))	return GradedFundGetAllSymbolArray($strSymbolA);
         else 															return array($strSymbol);
     }
     
@@ -374,7 +370,6 @@ function StockPrefetchArrayData($ar)
     		$arAll = array_merge($arAll, _getAllSymbolArray($strSymbol));
     	}
     }
-//    DebugArray($arAll);
     PrefetchSinaStockData(array_unique($arAll));
 }
 
@@ -389,17 +384,6 @@ function StockGetFundReference($strSymbol)
     else if (in_arrayLofHk($strSymbol))         $ref = new LofHkReference($strSymbol);
     else if (in_arrayGoldEtf($strSymbol))       $ref = new GoldFundReference($strSymbol);
 //    else if (in_arrayChinaEtf($strSymbol))       $ref = new EtfReference($strSymbol);
-    else if (in_arrayGradedFund($strSymbol))    $ref = new GradedFundReference($strSymbol);
-    else if ($strSymbolA = in_arrayGradedFundB($strSymbol))
-    {
-        $a_ref = new GradedFundReference($strSymbolA);
-        $ref = $a_ref->b_ref;
-    }
-    else if ($strSymbolA = in_arrayGradedFundM($strSymbol))
-    {
-        $a_ref = new GradedFundReference($strSymbolA);
-        $ref = $a_ref->m_ref;
-    }
     else
     {
         $ref = new FundReference($strSymbol);

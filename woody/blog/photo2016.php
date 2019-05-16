@@ -14,7 +14,7 @@
 <h1>2016 Blog Pictures</h1>
 <p>Oct 14 <a href="palmmicro/20161014.php">Palmmicro Wechat Public Account sz162411</a>
 <br /><img src=../image/wx.jpg alt="Palmmicro wechat public account sz162411 small size QR code" />
-<br /><img src=../image/qq.png alt="QQ group 204836363 scan QR code" />
+<br /><img src=../image/qq_group.png alt="QQ group 149406511 scan QR code" />
 </p>
 </div>
 

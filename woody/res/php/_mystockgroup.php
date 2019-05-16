@@ -117,7 +117,6 @@ function _getMetaDescriptionStr($strTitle)
 				  'commodity' => '计算商品基金的净值, 目前包括大致对应跟踪GSG的信诚商品(SZ165513)和大致对应跟踪DBC的银华通胀(SZ161815). 跟踪商品期货的基金都有因为期货升水带来的损耗, 不能长期持有.',
 				  'etflist' => '各个工具中用到的ETF跟指数对照表, 包括杠杆倍数和校准值快照, 同时提供链接查看具体校准情况. 有些指数不容易拿到数据, 就用1倍ETF代替指数给其它杠杆ETF做对照.',
 				  'goldetf' => '中国A股的交易者普遍不理性, 当A股大跌的时候, 完全不相关的黄金ETF也经常会跟着跌, 这样会产生套利机会. 这个工具箱计算各种黄金ETF的净值, 同时分析比较各种套利对冲方案, 提供交易建议.',
-				  'gradedfund' => '中国A股分级基金是个奇葩设计, 简直就是故意给出套利机会, 让大家来交易增加流动性. 这个工具箱计算各种分级基金的净值, 同时分析比较各种套利对冲方案, 提供交易建议.',
 				  'hangseng' => '计算恒生指数基金的净值, 目前包括恒生ETF(SZ159920), 恒指LOF(SZ160924)和恒生通(SH513660). 使用恒生指数(^HSI)进行估值, 恒生指数盈富基金(02800)仅作为参考.',
 				  'hshares' => '计算H股基金的净值, 目前包括H股ETF(SH510900)和恒生H股(SZ160717).使用恒生中国企业指数(^HSCE)估值, 恒生H股ETF(02828)仅用于参考.',
 				  'lof' => '中国A股的LOF基金是个奇葩设计, 加上A股交易者普遍的不理性, 产生了很多套利机会. 这个工具箱计算各种LOF的净值, 同时分析比较各种套利对冲方案, 提供交易建议.',
@@ -144,10 +143,6 @@ function _getSimilarLinks($strTitle)
   
     case 'goldetf':
 		$str = GetExternalLink('https://www.jisilu.cn/data/etf/#tlink_1', '集思录');
-        break;
-        
-    case 'gradedfund':
-		$str = GetExternalLink('https://www.jisilu.cn/data/sfnew/#tlink_3', '集思录');
         break;
         
     case 'lof':
@@ -225,7 +220,6 @@ function _getTitleStr($strTitle)
 			  	  'commodity' => '商品基金净值计算工具',
 			  	  'etflist' => 'ETF对照表',
 			  	  'goldetf' => 'A股黄金ETF净值计算工具',
-			  	  'gradedfund' => 'A股分级基金计算工具',
 			  	  'hangseng' => '恒生指数基金净值计算工具',
 			  	  'hshares' => 'H股基金净值计算工具',
 			  	  'lof'	=> 'A股LOF基金净值计算工具',

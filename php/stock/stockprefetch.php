@@ -256,7 +256,6 @@ function _prefetchSinaData($arSym)
 
 function PrefetchSinaStockData($arSymbol)
 {
-	// DebugArray($arSymbol);
     $arUnknown = array();
     $arPrefetch = array();
     foreach ($arSymbol as $strSymbol)

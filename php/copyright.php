@@ -48,7 +48,6 @@ function EchoCopyRight($bMobile, $bChinese)
     
 	$strUri = UrlGetUri();	            // /woody/res/sz162411cn.php
     $ar = explode('/', $strUri);
-//	DebugArray($ar);
 	if ($ar[1] == 'woody')
 	{
 		switch ($ar[2])

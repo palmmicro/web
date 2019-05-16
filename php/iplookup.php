@@ -93,14 +93,22 @@ function DnsIpLookUp($strIp)
     return false;
 }
 
+function strstr_array($strHaystack, $arNeedle)
+{
+	foreach ($arNeedle as $strNeedle)
+	{
+		if (stripos($strHaystack, $strNeedle) !== false)		return true;
+	}
+	return false;
+}
+
 // http://unitymediagroup.de/
 // yandex.com
 function DnsCheckSearchEngine($strIp)
 {
     if ($str = DnsIpLookUp($strIp))
     {
-        $str = strtolower($str);
-        if (stripos($str, 'google') || stripos($str, 'baidu') || stripos($str, 'yandex') || stripos($str, 'msn') || stripos($str, 'sogou') || stripos($str, 'yahoo'))
+        if (strstr_array($str, array('google', 'baidu', 'yandex', 'msn', 'sogou', 'yahoo')))
         {
             trigger_error('Known DNS: '.$str);
             return true;
@@ -182,6 +190,8 @@ function _ipLookupHttp($strIp, $strNewLine)
  
 function IpLookupGetString($strIp, $strNewLine, $bChinese)
 {
+	if (filter_valid_ip($strIp) == false)	return '';
+	
     $strIpId = SqlMustGetIpId($strIp);
     
     $str = $strIp._ipLookupHttp($strIp, $strNewLine);

@@ -153,16 +153,6 @@
 从<font color=olive>MysqlReference</font>开始调用了<?php EchoPhpFileLink('/php/sql/sqlstock'); ?>中的数据库相关函数.
 </p>
 
-<h3><a name="gradedfund">分级基金</a></h3>
-<p>2016年3月11日
-<br />A股屡次大跌, 原本觉得安全的SZ150022越来越不敢买了. 增加<a href="../../res/sz150022cn.php">深成指A</a>页面细算一下, 同时顺手加了<a href="../../res/sz150175cn.php">H股A</a>.
-<br />一直有用户建议我在华宝油气等LOF的<a href="#netvalue">历史净值</a>表格上加入预估净值比较栏目. 除了不愿意直接打自己嘴巴外的心理因素外, 我迟迟没有加上它的原因主要是估值是实时变化的.
-我一直想不清楚是该加在美股收盘后的预估净值还是A股收盘后的.
-<br />在LOF的代码中, 单独的预估净值变量原本放在<font color=olive>_LofGroup</font>类中.
-而在新的分级基金<?php EchoPhpFileLink('/woody/res/php/_gradedfund'); ?>中的<font color=olive>_GradedFundGroup</font>类中用到了3个<?php EchoPhpFileLink('/php/stock/fundref'); ?>中<font color=olive>FundReference</font>类的成员变量. 
-自然而然的, 我把预估净值的变量挪到了<font color=olive>FundReference</font>类中. 当预估净值和当日净值的变量排列在一起后, 突然之间数据结构引导思维方式的例子再次爆发, 没有比在记录当日净值的时候同时记录预估净值更合理的了!
-</p>
-
 <h3>美国夏令时</h3>
 <p>2016年3月14日
 <br />美国进入夏令时, 发现一个bug: <i>date_default_timezone_set('EST')</i>是没有夏令时的, 要用<i>date_default_timezone_set('America/New_York')</i>或者<i>date_default_timezone_set('EDT')</i>.
@@ -173,6 +163,11 @@
 <br />趁复活节假日黄金期货GC停止交易, 校准</a>A股<a href="../../res/goldetfcn.php">黄金ETF</a>系列的净值计算工具. 目前包括<a href="../../res/sh518800cn.php">国泰黄金ETF</a>,
 <a href="../../res/sh518880cn.php">华安黄金ETF</a>, <a href="../../res/sz159934cn.php">易方达黄金ETF</a>, <a href="../../res/sz159937cn.php">博时黄金ETF</a>, <a href="../../res/sz164701cn.php">添富贵金LOF</a>, 
 <a href="../../res/sz160719cn.php">嘉实黄金LOF</a>和<a href="../../res/sz161116cn.php">易方达黄金LOF</a>.
+<br />一直有用户建议我在华宝油气等LOF的<a href="#netvalue">历史净值</a>表格上加入预估净值比较栏目. 除了不愿意直接打自己嘴巴外的心理因素外, 我迟迟没有加上它的原因主要是估值是实时变化的.
+我一直想不清楚是该加在美股收盘后的预估净值还是A股收盘后的.
+<br />在LOF的代码中, 单独的预估净值变量原本放在<font color=olive>_LofGroup</font>类中.
+而在新的黄金ETF<?php EchoPhpFileLink('/woody/res/php/_goldetf'); ?>中的<font color=olive>_GoldEtfGroup</font>类中又用到了<?php EchoPhpFileLink('/php/stock/fundref'); ?>中<font color=olive>FundReference</font>类. 
+自然而然的, 我把预估净值的变量挪到了<font color=olive>FundReference</font>类中. 当预估净值和当日净值的变量排列在一起后, 突然之间数据结构引导思维方式的例子再次爆发, 没有比在记录当日净值的时候同时记录预估净值更合理的了!
 <br />由于在股票交易日的净值系列页面访问量已经稳定在了1000左右, 最高的一天有接近1700, 我一直在琢磨如何优化页面应对以后可能的更大的访问量高峰.
 把只会每天变化一次的<a href="#sma">SMA</a>计算结果保存下来是很容易想到的, 但是之前一直没有做. 在搞完7个黄金ETF的校准后, 我意识到同一个GLD要在包括GC黄金期货的8个页面各算一遍, 觉得不能再忍下去了.
 <br />基于之前在网上找<a href="#mobiledetect">Mobile-Detect</a>代码的经验, 我极大的低估了找一个现成的读写配置文件的php类的难度. 比较容易找到的是一个要收费5美元的, 号称同时支持文件和mysql读写配置.
@@ -275,7 +270,7 @@ CL通常会在美股收盘后继续多交易一个小时, 此时实时估值也�
 也有<?php EchoXueqieId('8871221437', '老孙'); ?>这种数学爱好者回测验证一下在群里公布能赚个年化10%后就袖手旁观的,
 还有常胜将军<?php EchoXueqieId('1980527278', 'Billyye'); ?>这种觉得华宝油气可以看成无非是XOP延长了的盘前盘后交易没有多少套利意义的. 
 最气人的是thanous这种, 总是喜欢说大资金如何牛, 如果白天华宝油气在大交易量下溢价, 晚上XOP必然是要涨的, 彻底否定套利的根基.
-<br />最近几个月华宝油气折价多溢价少, 经历了几次溢价的情况后, 发现<?php EchoXueqieId('5421738073', 'thanous'); ?>的说法基本靠谱, 我于是开始按他在QQ群204836363里的名字命名为小心愿定律. 中秋节前最后一个交易日华宝油气又溢价了, 
+<br />最近几个月华宝油气折价多溢价少, 经历了几次溢价的情况后, 发现<?php EchoXueqieId('5421738073', 'thanous'); ?>的说法基本靠谱, 我于是开始按他在QQ群149406511里的名字命名为小心愿定律. 中秋节前最后一个交易日华宝油气又溢价了, 
 <?php EchoXueqieId('6900406005', '大熊宝宝--林某人'); ?>建议我实际测算一下, 正好放假闲着也是闲着, 就削尖铅笔搞了个新页面测试<a href="../../res/thanouslawcn.php?symbol=SZ162411">小心愿定律</a>.
 我网站记录了从去年底以来所有的华宝油气数据, 跑了下从去年底到现在的统计结果没有觉得小心愿定律能成立. 但是去掉春节前后华宝油气因为停止申购导致的长期溢价的影响, 只考虑最近100个交易日的情况后, 
 有趣的结果出现了:

@@ -60,7 +60,7 @@ function _echoHistoryTableData($sql, $csv, $ref, $est_ref, $iStart, $iNum)
 		if ($sym->IsSinaFuture())			{}
 		else if ($sym->IsSymbolUS())
 		{
-			if ($ref->IsSymbolA())		$bSameDayNetValue	 = false;
+			if ($ref->sym->IsSymbolA())		$bSameDayNetValue	 = false;
 		}
 		
 		$clone_est_ref = clone $est_ref;

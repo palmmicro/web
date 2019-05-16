@@ -7,7 +7,6 @@ function GetMenuArray()
     return array('adr' => 'ADR工具',
                       'chinaetf' => 'A股ETF',
                       'goldetf' => '黄金ETF',
-                      'gradedfund' => '分级基金',
                       'lof' => 'LOF工具',
                       'lofhk' => '香港LOF',
                      );
@@ -33,7 +32,6 @@ function ResMenu($arLoop, $bChinese)
     $arFirst = array('adr' => 'ach',
                       'chinaetf' => 'sh510300',
                       'goldetf' => 'sh518800',
-                      'gradedfund' => 'sh502004',
                       'lof' => 'sh501018',
                       'lofhk' => 'sh501021',
                      );
@@ -61,16 +59,6 @@ function NavStockSoftware($bChinese)
 function _LayoutTopLeft($bChinese = true)
 {
     LayoutTopLeft('NavStockSoftware');
-}
-
-function NavLoopGradedFund($bChinese)
-{
-    ResMenu(GradedFundGetSymbolArray(), $bChinese);
-}
-
-function _LayoutGradedFundTopLeft($bChinese = true)
-{
-    LayoutTopLeft('NavLoopGradedFund');
 }
 
 function NavLoopGoldEtf($bChinese)

@@ -12,9 +12,8 @@ define('MIN_SCRREN_WIDTH', DEFAULT_DISPLAY_WIDTH + 15 + DEFAULT_ADSENSE_WIDTH);	
 function LayoutQQgroupPromotion()
 {
     echo <<<END
-        <p>请扫二维码或者点击链接加入Woody创建的QQ群204836363
-        <a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=2eb90427cf5fc1c14f4ebd8f72351d4a09e259cf48f137e312cd54163bd5c165"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="Alcoholic Anonymus" title="Alcoholic Anonymus"></a>
-        <br /><img src=/woody/image/qq.jpg alt="QQ group 204836363 scan QR code" />
+        <p>请扫二维码加入Woody创建的QQ群149406511
+        <br /><img src=/woody/image/qq_group.png alt="QQ group 149406511 scan QR code" />
         </p>
 END;
 }
@@ -31,8 +30,8 @@ END;
 function LayoutMyPromotion()
 {
     echo <<<END
-        <p>觉得这个网站有用? 可以打赏支持一下. 
-        <br /><img src=/woody/image/taobao.jpg alt="QRcode to pay Woody in Taobao" />
+        <p>觉得这个网站有用? 可以用支付宝或者微信打赏支持一下.
+        <br /><img src=/woody/image/alipay.jpg alt="QRcode to pay Woody in Taobao" />
         <br /><img src=/woody/image/wxpay.jpg alt="QRcode to pay 1 RMB to Woody in Weixin" />
         </p>
 END;
@@ -193,9 +192,8 @@ function _layoutTail($iWidth, $bChinese, $bAdsense = true)
     		else
     		{
     			LayoutMyPromotion();
-    			LayoutWeixinPromotion();
     			LayoutQQgroupPromotion();
-    			LayoutBrokerPromotion();
+    			LayoutWeixinPromotion();
     		}
     	}
         echo '</td></table>';
