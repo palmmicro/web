@@ -78,15 +78,10 @@ class MyStockTransaction extends StockTransaction
     
     function GetValue()
     {
-        if ($this->ref)     return $this->iTotalShares * $this->ref->fPrice;
+        if ($this->ref)     return $this->iTotalShares * floatval($this->ref->GetCurPrice());
         return 0.0;
     }
 
-    function GetValueDisplay()
-    {
-        return GetNumberDisplay($this->GetValue());
-    }
-    
     function GetProfit()
     {
         return $this->GetValue() - $this->fTotalCost;

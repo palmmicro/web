@@ -113,7 +113,7 @@ class MysqlReference extends StockReference
 		$strDate = $this->strDate;
 		if ($strPrev = $sql->GetClosePrev($strDate))
 		{
-			$fCur = $this->CalculateEMA($this->fPrice, floatval($strPrev), $iDays);
+			$fCur = $this->CalculateEMA(floatval($this->strPrice), floatval($strPrev), $iDays);
 			$sql->Write($strDate, strval($fCur));
 		}
 	}

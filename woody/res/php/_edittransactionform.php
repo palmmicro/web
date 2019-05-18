@@ -13,7 +13,7 @@ function _getGroupItemPriceArray($strGroupId)
     	foreach ($arStockId as $str => $strStockId)
     	{
     		$his_sql = new StockHistorySql($strStockId);
-    		$ar[$str] = strval_float($his_sql->GetCloseNow());
+    		$ar[$str] = $his_sql->GetCloseNow();
     	}
     }
     return $ar;
@@ -94,8 +94,8 @@ function StockEditTransactionForm($strSubmit, $strGroupId = false, $strGroupItem
             $strQuantity = ltrim($strQuantity, '-');
         }
     
-        $strPrice = strval_float($record['price']);
-        $strCost = strval_float($record['fees']);
+        $strPrice = rtrim0($record['price']);
+        $strCost = rtrim0($record['fees']);
         $strRemark = $record['remark'];
         $strSymbolIndex = $record['groupitem_id'];
     }

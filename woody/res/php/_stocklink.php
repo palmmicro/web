@@ -7,23 +7,23 @@ function _GetAdjustLink($strSymbol, $strQuery)
 
 function _GetEtfAdjustString($ref, $etf_ref)
 {
-    $strSymbol = $ref->GetStockSymbol();
-    $strQuery = sprintf('%s=%.3f&%s=%.3f', $strSymbol, $ref->fPrice, $etf_ref->GetStockSymbol(), $etf_ref->fPrice);
+	$strSymbol = $ref->GetStockSymbol();
+    $strQuery = sprintf('%s=%s&%s=%s', $strSymbol, $ref->GetCurPrice(), $etf_ref->GetStockSymbol(), $etf_ref->GetCurPrice());
     return _GetAdjustLink($strSymbol, $strQuery);
 }
 
 function _getCategoryArray()
 {
     return array('oilfund' => '油气',
-                      'commodity' => '商品',
-                      'goldetf' => '金银',
-                      'chinainternet' => '海外中国互联网',
-                      'qqqfund' => '纳斯达克100',
-                      'spyfund' => '标普500',
-                      'bricfund' => '金砖四国',
-                      'hangseng' => '恒生指数',
-                      'hshares' => 'H股国企指数',
-                     );
+                   'commodity' => '商品',
+                   'goldetf' => '金银',
+                   'chinainternet' => '海外中国互联网',
+                   'qqqfund' => '纳斯达克100',
+                   'spyfund' => '标普500',
+                   'bricfund' => '金砖四国',
+                   'hangseng' => '恒生指数',
+                   'hshares' => 'H股国企指数',
+                   );
 }
 
 function _getCategoryLink($strCategory)

@@ -29,7 +29,7 @@ function _echoTradingTableItem($i, $strAskBid, $strPrice, $strQuantity, $ref, $s
     if ($i == 0)    $strColor = 'yellow';
     $strBackGround = GetTableColumnColor($strColor);
     
-    $ref->SetCurrentPrice($strPrice);
+    $ref->SetCurPrice($strPrice);
     $strPriceDisplay = $ref->GetCurrentPriceDisplay();
     $strTradingNumber = _getTradingNumber($strQuantity);
     
@@ -56,7 +56,7 @@ END;
 
 function _echoTradingTableData($ref, $strEstPrice, $strEstPrice2, $strEstPrice3, $callback)
 {
-	$strBackup = $ref->GetCurrentPrice();
+	$strBackup = $ref->GetCurPrice();
 	
     for ($i = TRADING_QUOTE_NUM - 1; $i >= 0; $i --)
     {
@@ -68,7 +68,7 @@ function _echoTradingTableData($ref, $strEstPrice, $strEstPrice2, $strEstPrice3,
         _echoTradingTableItem($i, '买'.strval($i + 1), $ref->arBidPrice[$i], $ref->arBidQuantity[$i], $ref, $strEstPrice, $strEstPrice2, $strEstPrice3, $callback);
     }
     
-    $ref->SetCurrentPrice($strBackup);
+    $ref->SetCurPrice($strBackup);
 }
 
 function _checkTradingQuantity($ref)
@@ -171,7 +171,7 @@ function EchoAhTradingParagraph($hshare_ref)
     {
     	$strAdrLink = RefGetMyStockLink($hshare_ref->adr_ref);
     	$arColumn[] = $strAdrLink.$strPremium;
-    	$strVal = $hshare_ref->FromUsdToCny($hshare_ref->adr_ref->GetCurrentPrice());
+    	$strVal = $hshare_ref->FromUsdToCny($hshare_ref->adr_ref->GetCurPrice());
     }
     else
     {

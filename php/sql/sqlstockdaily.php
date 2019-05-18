@@ -34,7 +34,7 @@ class DailyStockSql extends StockTableSql
     {
     	if ($record = $this->$callback($strDate))
     	{
-    		return $record['close'];
+    		return rtrim0($record['close']);
     	}
     	return false;
     }
@@ -82,7 +82,7 @@ class DailyStockSql extends StockTableSql
     {
     	if ($record = $this->GetNow())
     	{
-    		return $record['close'];
+    		return rtrim0($record['close']);
     	}
     	return false;
     }

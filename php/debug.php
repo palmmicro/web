@@ -29,8 +29,9 @@ function strval_round($fVal, $iPrecision = false)
 	return strval(round($fVal, $iPrecision));
 }
 
-function strval_float($str)
+function rtrim0($str)
 {
+//	return rtrim($str, '0');
 	return strval(floatval($str));
 }
 

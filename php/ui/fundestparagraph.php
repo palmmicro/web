@@ -7,7 +7,7 @@ function _echoFundEstTableItem($ref)
     if (RefHasData($ref) == false)      return;
     
     $strLink = GetEastMoneyFundLink($ref->GetSym());
-    $strPrice = $ref->GetCurrentPrice();
+    $strPrice = $ref->GetCurPrice();
     $strOfficialPrice = $ref->GetPriceDisplay($ref->GetOfficialNetValue(), false);
     $strOfficialPremium = $ref->GetPercentageDisplay($ref->GetOfficialNetValue());
     $strFairPrice = $ref->GetPriceDisplay($ref->GetFairNetValue(), false);

@@ -7,7 +7,7 @@ function _echoNvCloseItem($csv, $strDate, $fNetValue, $ref, $strFundId)
     $strChange = $ref->GetCurrentPercentageDisplay();
 	
     $strNetValue = strval($fNetValue);
-	$ref->SetPrice($strNetValue);
+	$ref->SetPrevPrice($strNetValue);
     $strClose = $ref->GetCurrentPriceDisplay();
    	$strPremium = $ref->GetCurrentPercentageDisplay();
    	if ($csv)	$csv->Write($strDate, strval($fChange), strval($ref->GetCurrentPercentage()), $strNetValue);

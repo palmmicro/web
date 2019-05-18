@@ -191,6 +191,7 @@ function GetRatioDisplay($fVal)
 
 function StockGetPercentage($strPrice, $strPrice2)
 {
+	if (empty($strPrice2))	return 0;
     return (floatval($strPrice)/floatval($strPrice2) - 1.0) * 100.0;
 }
 
@@ -307,7 +308,8 @@ function RefGetDailyClose($ref, $strDate)
 		{
 			if ($prev_record = $his_sql->GetPrev($strDate))
 			{
-				$ref->SetPrice($prev_record['close'], $record['close']);
+				$ref->SetPrevPrice($prev_record['close']);
+				$ref->SetCurPrice($record['close']);
 				return $ref;
 			}
 		}

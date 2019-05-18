@@ -28,7 +28,7 @@ function _echoFundHistoryTableItem($csv, $strDate, $arFund, $ref, $est_ref)
     }
     else
     {
-        $ref->SetCurrentPrice($strNetValue);
+        $ref->SetCurPrice($strNetValue);
         $strEstError = $ref->GetPercentageDisplay($strEstValue);
         $strEstValue = $ref->GetPriceDisplay($strEstValue, false);
         $strEstTime = $arFund['time'];
@@ -84,7 +84,8 @@ function _echoHistoryTableData($sql, $csv, $ref, $est_ref, $iStart, $iNum)
             
         		if ($strClose = $ref->his_sql->GetClose($strDate))
         		{
-       				$clone_ref->SetPrice(strval($fNetValue), $strClose);
+       				$clone_ref->SetPrevPrice(strval($fNetValue));
+       				$clone_ref->SetCurPrice($strClose);
         			_echoFundHistoryTableItem($csv, $strDate, $arFund, $clone_ref, RefGetDailyClose($clone_est_ref, $arFund['date']));
         		}
         	}

@@ -16,15 +16,13 @@ function _echoAhHistoryGraph($strSymbol)
 
 function _echoAhHistoryItem($hshare_ref, $csv, $record, $h_his_sql, $hkcny_sql)
 {
-	$strClose = strval_float($record['close']);
+	$strClose = rtrim0($record['close']);
 	$strDate = $record['date'];
 	$strHKCNY = $hkcny_sql->GetClose($strDate);
 	if ($strHKCNY == false)	return;
-	$strHKCNY = strval_float($strHKCNY);
 	
 	if ($strCloseH = $h_his_sql->GetClose($strDate))
 	{
-		$strCloseH = strval_float($strCloseH);
 		$fAh = floatval($strClose) / floatval($hshare_ref->EstToCny($strCloseH, $strHKCNY));
 		$strAH = GetRatioDisplay($fAh);
 		$strHA = GetRatioDisplay(1.0 / $fAh);

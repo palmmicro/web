@@ -31,7 +31,7 @@ class _ChinaEtfGroup extends _StockGroup
 function _chinaEtfRefCallbackData($ref)
 {
    	$ar = array();
-    $ar[] = $ref->nv_ref->GetCurrentPrice();
+    $ar[] = $ref->GetNetValue();
     $strNetValue = $ref->EstOfficialNetValue();
     $ar[] = $ref->GetPriceDisplay($strNetValue, false);
     $ar[] = $ref->GetPercentageDisplay($strNetValue);
@@ -71,7 +71,7 @@ function EchoAll()
         _EchoTransactionParagraph($group);
         if ($group->GetTotalRecords() > 0)
         {
-            EchoMoneyParagraph($group, $group->us_ref->cny_ref->GetCurrentPrice());
+            EchoMoneyParagraph($group, $group->us_ref->cny_ref->GetCurPrice());
        }
 	}
     

@@ -193,9 +193,6 @@ class StockReference
     var $arAskPrice = array();
     var $arAskQuantity = array();
 
-    // converted float point date
-    var $fPrice;                 // Current trading price
-    
     var $bHasData = true;
     var $extended_ref = false;          // US stock extended trading StockReference
     
@@ -203,8 +200,9 @@ class StockReference
     {
    		$this->sym = $sym;
         $this->strConfigName = DebugGetConfigFileName($sym->GetSymbol());
-        
-        $this->_convertPrice();
+
+        $this->strPrice = rtrim0($this->strPrice);
+        $this->strPrevPrice = rtrim0($this->strPrevPrice);
     }
 
     function HasData()
@@ -212,33 +210,19 @@ class StockReference
     	return $this->bHasData;
     }
     
-    function _convertPrice()
+    function SetCurPrice($strPrice)
     {
-        $this->fPrice = floatval($this->strPrice);
-        $this->strPrice = strval($this->fPrice);
-        
-        $this->strPrevPrice = strval_float($this->strPrevPrice);
+   		$this->strPrice = rtrim0($strPrice);
     }
     
-    function SetPrice($strPrevPrice, $strPrice = false)
-    {
-    	if ($strPrice)
-    	{
-    		$this->strPrice = $strPrice;
-    	}
-    	$this->strPrevPrice = $strPrevPrice;
-        $this->_convertPrice();
-    }
-    
-    function SetCurrentPrice($strPrice)
-    {
-   		$this->strPrice = $strPrice;
-        $this->_convertPrice();
-    }
-    
-    function GetCurrentPrice()
+    function GetCurPrice()
     {
         return $this->strPrice;
+    }
+    
+    function SetPrevPrice($strPrevPrice)
+    {
+    	$this->strPrevPrice = rtrim0($strPrevPrice);
     }
     
     function GetPrevPrice()

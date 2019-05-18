@@ -55,7 +55,8 @@ function _echoThanousLawData($sql, $ref, $est_ref, $iStart, $iNum)
         		{
         			if ($pair_ref = RefGetDailyClose($est_ref, $strDate))
         			{
-        				$ref->SetPrice(strval($fNetValue), $strClose);
+        				$ref->SetPrevPrice(strval($fNetValue));
+        				$ref->SetCurPrice($strClose);
         				_echoThanousLawItem($csv, $strDate, $ref, $pair_ref);
         			}
                 }
