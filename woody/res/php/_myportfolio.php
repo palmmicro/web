@@ -65,15 +65,15 @@ function _echoPortfolio($portfolio, $sql)
 
 function _echoMoneyParagraph($portfolio)
 {
-    $fUSDCNY = SqlGetUSCNY();
-    $fHKDCNY = SqlGetHKCNY();    
+    $strUSDCNY = SqlGetUSCNY();
+    $strHKDCNY = SqlGetHKCNY();    
 
     _EchoMoneyParagraphBegin();
     foreach ($portfolio->arStockGroup as $group)
     {
-        _EchoMoneyGroupData($group, GetStockGroupLink($group->GetGroupId()), $fUSDCNY, $fHKDCNY);
+        _EchoMoneyGroupData($group, GetStockGroupLink($group->GetGroupId()), $strUSDCNY, $strHKDCNY);
     }
-    _EchoMoneyGroupData($portfolio, '全部', $fUSDCNY, $fHKDCNY);
+    _EchoMoneyGroupData($portfolio, '全部', $strUSDCNY, $strHKDCNY);
     EchoTableParagraphEnd();
 }
 

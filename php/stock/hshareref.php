@@ -1,10 +1,5 @@
 <?php
 
-function HShareEstToCny($fEst, $fRatio, $fHKCNY)
-{
-	return $fEst * $fRatio * $fHKCNY;
-}
-
 // ****************************** HShareReference class *******************************************************
 class HShareReference extends MyStockReference
 {
@@ -20,7 +15,7 @@ class HShareReference extends MyStockReference
     
     function HShareReference($strSymbol) 
     {
-   		$this->fHKDCNY = SqlGetHKCNY();
+   		$this->fHKDCNY = floatval(SqlGetHKCNY());
         if ($strSymbolA = SqlGetHaPair($strSymbol))
         {
         	$this->a_ref = new MyStockReference($strSymbolA);
@@ -30,10 +25,25 @@ class HShareReference extends MyStockReference
         {
         	$this->adr_ref = new MyStockReference($strSymbolAdr);
     		$this->fAdrRatio = SqlGetAdrhPairRatio($this->adr_ref);
-    		$this->fUSDCNY = SqlGetUSCNY();
+    		$this->fUSDCNY = floatval(SqlGetUSCNY());
     		$this->fHKDUSD = $this->fHKDCNY / $this->fUSDCNY;
     	}
         parent::MyStockReference($strSymbol);
+    }
+    
+    function GetRatio()
+    {
+    	return $this->fRatio;
+    }
+    
+    function GetAdrRatio()
+    {
+    	return $this->fAdrRatio;
+    }
+    
+    function GetSymbolA()
+    {
+    	return $this->a_ref ? $this->a_ref->GetStockSymbol() : false;
     }
     
     function EstFromCny($strEst)
@@ -41,9 +51,10 @@ class HShareReference extends MyStockReference
   		return $this->a_ref ? strval(floatval($strEst) / ($this->fRatio * $this->fHKDCNY)) : '0';
     }
 
-    function EstToCny($strEst)
+    function EstToCny($strEst, $strHKDCNY = false)
     {
-		return $this->a_ref ? strval(HShareEstToCny(floatval($strEst), $this->fRatio, $this->fHKDCNY)) : '0';
+    	$fHKDCNY = $strHKDCNY ? floatval($strHKDCNY) : $this->fHKDCNY;
+		return $this->a_ref ? strval(floatval($strEst) * $this->fRatio * $fHKDCNY) : '0';
     }
     
     function GetCnyPrice()
@@ -51,7 +62,7 @@ class HShareReference extends MyStockReference
     	return $this->EstToCny($this->strPrice);
     }
     
-    function GetAhRatio()
+    function GetAhPriceRatio()
     {
     	if ($this->a_ref)
     	{
@@ -88,7 +99,7 @@ class HShareReference extends MyStockReference
     	return $this->EstToUsd($this->strPrice);
     }
     
-    function GetAdrhRatio()
+    function GetAdrhPriceRatio()
     {
     	if ($this->adr_ref)
     	{

@@ -41,14 +41,14 @@ class _AdrGroup extends _StockGroup
         $this->cn_ref = $this->hk_ref->a_ref;
         $this->us_ref = $this->hk_ref->adr_ref;
 
-        $this->fUSDCNY = $this->uscny_ref->fPrice;
-        $this->fHKDCNY = $this->hkcny_ref->fPrice;
+        $this->fUSDCNY = floatval($this->uscny_ref->GetCurrentPrice());
+        $this->fHKDCNY = floatval($this->hkcny_ref->GetCurrentPrice());
         $this->fUSDHKD = $this->fUSDCNY / $this->fHKDCNY;
 
         $this->arStockRef = array($this->us_ref, $this->hk_ref, $this->cn_ref);
        
-        $this->fRatioAdrH = $this->hk_ref->fAdrRatio;
-        $this->fRatioAH = $this->hk_ref->fRatio;
+        $this->fRatioAdrH = $this->hk_ref->GetAdrRatio();
+        $this->fRatioAH = $this->hk_ref->GetRatio();
 
         parent::_StockGroup($this->arStockRef);
     }
@@ -171,7 +171,7 @@ function AdrEchoAll()
         _EchoTransactionParagraph($group);
         if ($group->GetTotalRecords() > 0)
         {
-            EchoMoneyParagraph($group, $group->fUSDCNY, $group->fHKDCNY);
+            EchoMoneyParagraph($group, $group->uscny_ref->GetCurrentPrice(), $group->hkcny_ref->GetCurrentPrice());
             _echoArbitrageParagraph($group);
         }
 	}

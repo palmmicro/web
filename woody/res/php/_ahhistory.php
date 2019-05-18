@@ -14,30 +14,27 @@ function _echoAhHistoryGraph($strSymbol)
     $jpg->Show($arColumn[1], $strSymbol, $csv->GetPathName());
 }
 
-function _echoAhHistoryItem($csv, $record, $h_his_sql, $hkcny_sql, $fRatio)
+function _echoAhHistoryItem($hshare_ref, $csv, $record, $h_his_sql, $hkcny_sql)
 {
+	$strClose = strval_float($record['close']);
 	$strDate = $record['date'];
-	$strClose = strval_round(floatval($record['close']));
+	$strHKCNY = $hkcny_sql->GetClose($strDate);
+	if ($strHKCNY == false)	return;
+	$strHKCNY = strval_float($strHKCNY);
 	
-	if ($strHKCNY = $hkcny_sql->GetClose($strDate))		$strHKCNY = strval_round(floatval($strHKCNY));
-	else													$strHKCNY = '';
-	
-	$strAH = '';
-	$strHA = '';
 	if ($strCloseH = $h_his_sql->GetClose($strDate))
 	{
-		$strCloseH = strval_round(floatval($strCloseH));
-		if ($strHKCNY)
-		{
-			$fAh = floatval($strClose) / HShareEstToCny(floatval($strCloseH), $fRatio, floatval($strHKCNY));
-			$strAH = GetRatioDisplay($fAh);
-			$strHA = GetRatioDisplay(1.0 / $fAh);
-			$csv->Write($strDate, $strClose, $strCloseH, $strHKCNY, strval_round($fAh));
-		}
+		$strCloseH = strval_float($strCloseH);
+		$fAh = floatval($strClose) / floatval($hshare_ref->EstToCny($strCloseH, $strHKCNY));
+		$strAH = GetRatioDisplay($fAh);
+		$strHA = GetRatioDisplay(1.0 / $fAh);
+		$csv->Write($strDate, $strClose, $strCloseH, $strHKCNY, strval_round($fAh));
 	}
 	else
 	{
 		$strCloseH = '';
+		$strAH = '';
+		$strHA = '';
 	}
 	
     echo <<<END
@@ -52,25 +49,26 @@ function _echoAhHistoryItem($csv, $record, $h_his_sql, $hkcny_sql, $fRatio)
 END;
 }
 
-function _echoAhHistoryData($his_sql, $h_his_sql, $fRatio, $iStart, $iNum)
+function _echoAhHistoryData($hshare_ref, $his_sql, $iStart, $iNum)
 {
+	$h_his_sql = $hshare_ref->GetHistorySql();
     if ($result = $his_sql->GetAll($iStart, $iNum)) 
     {
     	$hkcny_sql = new HkcnyHistorySql();
      	$csv = new PageCsvFile();
         while ($record = mysql_fetch_assoc($result)) 
         {
-            _echoAhHistoryItem($csv, $record, $h_his_sql, $hkcny_sql, $fRatio);
+            _echoAhHistoryItem($hshare_ref, $csv, $record, $h_his_sql, $hkcny_sql);
         }
         $csv->Close();
         @mysql_free_result($result);
     }
 }
 
-function _echoAhHistoryParagraph($ref, $h_ref, $iStart, $iNum, $bAdmin)
+function _echoAhHistoryParagraph($hshare_ref, $iStart, $iNum, $bAdmin)
 {
-	$strSymbol = $ref->GetStockSymbol();
-    $strSymbolH = $h_ref->GetStockSymbol();
+	$strSymbol = $hshare_ref->GetSymbolA();
+    $strSymbolH = $hshare_ref->GetStockSymbol();
  	
 	$strDate = GetTableColumnDate();
     $strHKCNY = GetMyStockLink('HKCNY');
@@ -83,7 +81,7 @@ function _echoAhHistoryParagraph($ref, $h_ref, $iStart, $iNum, $bAdmin)
         $strUpdateLink .= ' '.GetUpdateStockHistoryLink($strSymbolH);
     }
 
-    $his_sql = $ref->GetHistorySql();
+    $his_sql = $hshare_ref->a_ref->GetHistorySql();
     $strNavLink = StockGetNavLink($strSymbol, $his_sql->Count(), $iStart, $iNum);
  
     echo <<<END
@@ -99,7 +97,7 @@ function _echoAhHistoryParagraph($ref, $h_ref, $iStart, $iNum, $bAdmin)
     </tr>
 END;
    
-    _echoAhHistoryData($his_sql, $h_ref->GetHistorySql(), SqlGetAhPairRatio($ref), $iStart, $iNum);
+    _echoAhHistoryData($hshare_ref, $his_sql, $iStart, $iNum);
     EchoTableParagraphEnd($strNavLink);
 
     _echoAhHistoryGraph($strSymbol);
@@ -118,8 +116,8 @@ function EchoAll()
     		{
     			$iStart = UrlGetQueryInt('start');
     			$iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
-    			$h_ref = new MyStockReference($strSymbolH);
-    			_echoAhHistoryParagraph($ref, $h_ref, $iStart, $iNum, $bAdmin);
+    			$hshare_ref = new HShareReference($strSymbolH);
+    			_echoAhHistoryParagraph($hshare_ref, $iStart, $iNum, $bAdmin);
     		}
     	}
     }

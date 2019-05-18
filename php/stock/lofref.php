@@ -84,7 +84,7 @@ function LofHkGetAllSymbolArray($strSymbol)
 
 class _LofReference extends FundReference
 {
-    var $fCNY = false;
+    var $strCNY = false;
     
     function _LofReference($strSymbol, $strForex)
     {
@@ -100,12 +100,12 @@ class _LofReference extends FundReference
         $strDate = $this->est_ref->strDate;
         if ($strCNY = $this->forex_sql->GetClose($strDate))
         {
-            $this->fCNY = floatval($strCNY);
+            $this->strCNY = strval_float($strCNY);
             if (($strEstNetValue = SqlGetNetValueByDate($this->est_ref->GetStockId(), $strDate)) == false)
             {
             	$strEstNetValue = $this->est_ref->GetCurrentPrice();
             }
-            $this->fOfficialNetValue = $this->GetLofValue($strEstNetValue, $this->fCNY);
+            $this->fOfficialNetValue = $this->GetLofValue($strEstNetValue, $this->strCNY);
             $this->strOfficialDate = $strDate;
             $this->UpdateEstNetValue();
         }
@@ -122,14 +122,14 @@ class _LofReference extends FundReference
 
     function EstRealtimeNetValue()
     {
-        $fCNY = floatval($this->forex_sql->GetCloseNow());
-        if ($this->fCNY == false)
+        $strCNY = strval_float($this->forex_sql->GetCloseNow());
+        if ($this->strCNY == false)
         {
-            $this->fCNY = $fCNY;
+            $this->strCNY = $strCNY;
         }
         
         if ($this->est_ref == false)    return;
-        $this->fFairNetValue = $this->GetLofValue($this->est_ref->GetCurrentPrice(), $fCNY);
+        $this->fFairNetValue = $this->GetLofValue($this->est_ref->GetCurrentPrice(), $strCNY);
         
         if ($this->future_ref)
         {
@@ -144,7 +144,7 @@ class _LofReference extends FundReference
             {
             	$fRealtime = $this->est_ref->fPrice;
             	$fRealtime *= $this->future_ref->fPrice / $this->future_ref->EstByEtf(floatval($strFutureEtfPrice));
-            	$this->fRealtimeNetValue = $this->GetLofValue(strval($fRealtime), $fCNY);
+            	$this->fRealtimeNetValue = $this->GetLofValue(strval($fRealtime), $strCNY);
             }
         }
     }
@@ -169,7 +169,7 @@ class _LofReference extends FundReference
                 	$ymd = new StringYMD($strDate);
                 	$est_ymd = new StringYMD($est_ref->strDate);
                 	if ($strDate == $est_ref->strDate)	                   				$fEst = $est_ref->fPrice;
-                	else if ($ymd->GetNextTradingDayTick() == $est_ymd->GetTick())		$fEst = $est_ref->fPrevPrice;
+                	else if ($ymd->GetNextTradingDayTick() == $est_ymd->GetTick())		$fEst = floatval($est_ref->GetPrevPrice());
                 	else	return false;
                 }
         
@@ -181,15 +181,15 @@ class _LofReference extends FundReference
         return false;
     }
 
-    function GetLofValue($strEst, $fCNY)
+    function GetLofValue($strEst, $strCNY)
     {
-        $fVal = floatval($strEst) * $fCNY / $this->fFactor;
+        $fVal = floatval($strEst) * floatval($strCNY) / $this->fFactor;
         return $this->AdjustPosition($fVal); 
     }
     
     function GetEstValue($strLof)
     {
-        return strval(floatval($strLof) * $this->fFactor / $this->fCNY);
+        return strval(floatval($strLof) * $this->fFactor / floatval($this->strCNY));
     }
     
     function GetEstQuantity($iLofQuantity)

@@ -45,10 +45,10 @@ class StockGroup extends EmptyStockGroup
         }
     }
     
-    function ConvertCurrency($fUSDCNY, $fHKDCNY) 
+    function ConvertCurrency($strUSDCNY, $strHKDCNY) 
     {
-        $this->multi_amount->Convert($fUSDCNY, $fHKDCNY);
-        $this->multi_profit->Convert($fUSDCNY, $fHKDCNY);
+        $this->multi_amount->Convert($strUSDCNY, $strHKDCNY);
+        $this->multi_profit->Convert($strUSDCNY, $strHKDCNY);
     }
 }
 
@@ -91,6 +91,15 @@ class MyStockGroup extends StockGroup
         foreach ($this->arStockTransaction as $trans)
         {
             if ($trans->ref->sym->IsSymbolA())     return $trans;
+        }
+        return false;
+    }
+
+    function GetStockTransactionNoneCN()
+    {
+        foreach ($this->arStockTransaction as $trans)
+        {
+            if ($trans->ref->sym->IsSymbolA() == false)     return $trans;
         }
         return false;
     }

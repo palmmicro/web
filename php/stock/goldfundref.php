@@ -74,7 +74,7 @@ class GoldFundReference extends FundReference
             }
             else
             {
-                $this->fFactor = $est_ref->fPrevPrice / $this->fPrice;
+                $this->fFactor = floatval($est_ref->GetPrevPrice()) / $this->fPrice;
                 $this->InsertFundCalibration($est_ref, $est_ref->strPrevPrice);
             }
             return $this->fFactor;

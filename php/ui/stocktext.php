@@ -20,7 +20,7 @@ function _textVolume($strVolume)
 
 function TextFromExtendedTradingReferencce($ref)
 {
-    $str = RefGetDescription($ref).':'.strval($ref->fPrice).' '.$ref->strDate.' '.GetTimeHM($ref->strTime).WX_EOL;
+    $str = RefGetDescription($ref).':'.$ref->GetCurrentPrice().' '.$ref->strDate.' '.GetTimeHM($ref->strTime).WX_EOL;
     if ($ref->strVolume)	$str .= _textVolume($ref->strVolume);
     return $str;
 }
@@ -31,7 +31,7 @@ function TextFromStockReference($ref)
 
     $str = RefGetDescription($ref).WX_EOL;
     $str .= $ref->GetExternalLink().WX_EOL;
-    $str .= STOCK_DISP_PRICE.':'.strval($ref->fPrice).' '.$ref->strDate.' '.GetTimeHM($ref->strTime).WX_EOL;
+    $str .= STOCK_DISP_PRICE.':'.$ref->GetCurrentPrice().' '.$ref->strDate.' '.GetTimeHM($ref->strTime).WX_EOL;
     $str .= STOCK_DISP_CHANGE.':'.$ref->GetPercentageText($ref->strPrevPrice).WX_EOL;
     if ($ref->strOpen)		$str .= '开盘价:'.strval_float($ref->strOpen).WX_EOL;
     if ($ref->strHigh)		$str .= '最高:'.strval_float($ref->strHigh).WX_EOL;
@@ -52,8 +52,8 @@ function TextFromAhReference($ref, $hshare_ref)
 	$str .= 'H股代码:'.RefGetMyStockLink($hshare_ref).WX_EOL;
 	if ($hshare_ref->a_ref)		$str .= 'A股代码:'.RefGetMyStockLink($hshare_ref->a_ref).WX_EOL;
 	if ($hshare_ref->adr_ref)	$str .= 'ADR代码:'.RefGetMyStockLink($hshare_ref->adr_ref).WX_EOL;
-	if ($hshare_ref->a_ref)		$str .= 'AH比价:'.strval_round($hshare_ref->GetAhRatio()).WX_EOL;
-	if ($hshare_ref->adr_ref)	$str .= 'ADRH比价:'.strval_round($hshare_ref->GetAdrhRatio()).WX_EOL;
+	if ($hshare_ref->a_ref)		$str .= 'AH比价:'.strval_round($hshare_ref->GetAhPriceRatio()).WX_EOL;
+	if ($hshare_ref->adr_ref)	$str .= 'ADRH比价:'.strval_round($hshare_ref->GetAdrhPriceRatio()).WX_EOL;
 	return $str;
 }
 
@@ -85,7 +85,7 @@ function TextFromFundReference($ref)
         $str = $strName;
     }
     
-    $str .= STOCK_DISP_NETVALUE.':'.strval($ref->fPrice).' '.$ref->strDate.WX_EOL;
+    $str .= STOCK_DISP_NETVALUE.':'.$ref->GetCurrentPrice().' '.$ref->strDate.WX_EOL;
     if ($ref->fOfficialNetValue)
     {
         $str .= STOCK_DISP_OFFICIAL._textPremium($stock_ref, $ref->fOfficialNetValue).' '.$ref->strOfficialDate.WX_EOL;

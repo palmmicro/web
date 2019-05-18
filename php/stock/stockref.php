@@ -195,8 +195,6 @@ class StockReference
 
     // converted float point date
     var $fPrice;                 // Current trading price
-    var $fPrevPrice;            // Previous close price
-    var $fPercentage;           // $fPrice / $fPrevPrice
     
     var $bHasData = true;
     var $extended_ref = false;          // US stock extended trading StockReference
@@ -207,8 +205,6 @@ class StockReference
         $this->strConfigName = DebugGetConfigFileName($sym->GetSymbol());
         
         $this->_convertPrice();
-        if (empty($this->fPrevPrice))	$this->fPercentage = 0.0;
-        else								$this->fPercentage = $this->fPrice / $this->fPrevPrice;		
     }
 
     function HasData()
@@ -221,8 +217,7 @@ class StockReference
         $this->fPrice = floatval($this->strPrice);
         $this->strPrice = strval($this->fPrice);
         
-        $this->fPrevPrice = floatval($this->strPrevPrice);
-        $this->strPrevPrice = strval($this->fPrevPrice);
+        $this->strPrevPrice = strval_float($this->strPrevPrice);
     }
     
     function SetPrice($strPrevPrice, $strPrice = false)
@@ -303,7 +298,7 @@ class StockReference
     // for display
     function GetPercentageDisplay($strPrevPrice)
     {
-    	if (abs($this->fPrice - floatval($strPrevPrice)) < 0.0005)
+    	if (abs(floatval($this->strPrice) - floatval($strPrevPrice)) < 0.0005)
     	{
     		$strDisplay = '0';
     		$strColor = 'grey';

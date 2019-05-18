@@ -125,9 +125,9 @@ function _echoMoneyItem($strGroup, $strMoney, $fValue, $fProfit, $fConvertValue,
 END;
 }
 
-function _EchoMoneyGroupData($group, $strLink, $fUSDCNY, $fHKDCNY)
+function _EchoMoneyGroupData($group, $strLink, $strUSDCNY, $strHKDCNY)
 {
-    $group->ConvertCurrency($fUSDCNY, $fHKDCNY);
+    $group->ConvertCurrency($strUSDCNY, $strHKDCNY);
     _echoMoneyItem($strLink, '', $group->multi_amount->fCNY, $group->multi_profit->fCNY, $group->multi_amount->fConvertCNY, $group->multi_profit->fConvertCNY);
     if ((empty($group->multi_amount->fUSD) == false) || (empty($group->multi_profit->fUSD) == false))
     {
@@ -169,10 +169,10 @@ function EchoPromotionHead($strVer = false)
 
 // ****************************** Money Paragraph *******************************************************
 
-function EchoMoneyParagraph($group, $fUSDCNY = false, $fHKDCNY = false)
+function EchoMoneyParagraph($group, $strUSDCNY = false, $strHKDCNY = false)
 {
     _EchoMoneyParagraphBegin('折算货币');
-    _EchoMoneyGroupData($group, $group->strName, $fUSDCNY, $fHKDCNY);
+    _EchoMoneyGroupData($group, $group->strName, $strUSDCNY, $strHKDCNY);
     EchoTableParagraphEnd();
 }
 

@@ -223,13 +223,13 @@ class HkcnyHistorySql extends NetValueHistorySql
 function SqlGetHKCNY()
 {
 	$sql = new HkcnyHistorySql();
-	return floatval($sql->GetCloseNow());
+	return $sql->GetCloseNow();
 }
 
 function SqlGetUSCNY()
 {
 	$sql = new UscnyHistorySql();
-	return floatval($sql->GetCloseNow());
+	return $sql->GetCloseNow();
 }
 
 function SqlGetNetValueByDate($strStockId, $strDate)

@@ -71,7 +71,7 @@ function EchoAll()
         _EchoTransactionParagraph($group);
         if ($group->GetTotalRecords() > 0)
         {
-            EchoMoneyParagraph($group, $group->us_ref->cny_ref->fPrice);
+            EchoMoneyParagraph($group, $group->us_ref->cny_ref->GetCurrentPrice());
        }
 	}
     

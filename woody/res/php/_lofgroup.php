@@ -71,19 +71,19 @@ class _LofGroup extends _StockGroup
     function ConvertToEtfTransaction($etf_convert_trans, $lof_trans)
     {
         $fund = $this->ref;
-        $etf_convert_trans->AddTransaction($fund->GetEstQuantity($lof_trans->iTotalShares), $lof_trans->fTotalCost / $fund->fCNY);
+        $etf_convert_trans->AddTransaction($fund->GetEstQuantity($lof_trans->iTotalShares), $lof_trans->fTotalCost / floatval($fund->strCNY));
     }
     
     function ConvertToLofTransaction($lof_convert_trans, $etf_trans)
     {
         $fund = $this->ref;
-        $lof_convert_trans->AddTransaction($fund->GetLofQuantity($etf_trans->iTotalShares), $etf_trans->fTotalCost * $fund->fCNY);
+        $lof_convert_trans->AddTransaction($fund->GetLofQuantity($etf_trans->iTotalShares), $etf_trans->fTotalCost * floatval($fund->strCNY));
     }
     
     function EchoArbitrageParagraph()
     {
         $lof_trans = $this->GetStockTransactionCN();
-        $etf_trans = $this->GetStockTransactionUS();
+        $etf_trans = $this->GetStockTransactionNoneCN();
         $this->OnArbitrage();
         
         $lof_convert_trans = new MyStockTransaction($this->ref->stock_ref, $this->strGroupId);

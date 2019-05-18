@@ -15,9 +15,9 @@ function _ahStockRefCallbackData($ref)
 {
 	$ar = array();
 	
-    $strSymbolA = $ref->a_ref->GetStockSymbol();
+    $strSymbolA = $ref->GetSymbolA();
     $ar[] = GetMyStockLink($strSymbolA);
-    $fAhRatio = $ref->GetAhRatio();
+    $fAhRatio = $ref->GetAhPriceRatio();
     $ar[] = GetRatioDisplay($fAhRatio);
     $ar[] = GetRatioDisplay(1.0 / $fAhRatio);
 	return $ar;
@@ -40,7 +40,7 @@ function _refSortByRatio($arRef)
     {
         $strSymbol = $ref->GetStockSymbol();
         $ar[$strSymbol] = $ref;
-        $arRatio[$strSymbol] = $ref->GetAhRatio();
+        $arRatio[$strSymbol] = $ref->GetAhPriceRatio();
     }
     asort($arRatio, SORT_NUMERIC);
     
@@ -58,7 +58,7 @@ function EchoAhParagraph($arRef)
 	$iCount = count($arRef);
 	if ($iCount == 1)
 	{
-		$str .= ' '.GetAhHistoryLink($arRef[0]->a_ref->GetStockSymbol());
+		$str .= ' '.GetAhHistoryLink($arRef[0]->GetSymbolA());
 	}
 	else if ($iCount > 2)
 	{
@@ -88,7 +88,7 @@ function _adrhStockRefCallbackData($ref)
 	
     $strSymbolAdr = $ref->adr_ref->GetStockSymbol();
     $ar[] = GetMyStockLink($strSymbolAdr);
-    $fAdrhRatio = $ref->GetAdrhRatio();
+    $fAdrhRatio = $ref->GetAdrhPriceRatio();
     $ar[] = GetRatioDisplay($fAdrhRatio);
     $ar[] = GetRatioDisplay(1.0 / $fAdrhRatio);
 	return $ar;

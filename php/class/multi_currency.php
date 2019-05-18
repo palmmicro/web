@@ -19,17 +19,14 @@ class MultiCurrency
         $this->fUSD = 0.0;
     }
 
-    function Convert($fUSDCNY, $fHKDCNY = false) 
+    function Convert($strUSDCNY, $strHKDCNY = false) 
     {
         $this->fConvertCNY = $this->fCNY;
-        if ($fUSDCNY)   $this->fConvertCNY += $this->fUSD * $fUSDCNY;    
-        if ($fHKDCNY)   $this->fConvertCNY += $this->fHKD * $fHKDCNY;
+        if ($strUSDCNY)   $this->fConvertCNY += $this->fUSD * floatval($strUSDCNY);    
+        if ($strHKDCNY)   $this->fConvertCNY += $this->fHKD * floatval($strHKDCNY);
 
-        if ($fUSDCNY)   $this->fConvertUSD = $this->fConvertCNY / $fUSDCNY;
-        else              $this->fConvertUSD = 0.0;  
-        
-        if ($fHKDCNY)   $this->fConvertHKD = $this->fConvertCNY / $fHKDCNY;
-        else              $this->fConvertHKD = 0.0;  
+        $this->fConvertUSD = $strUSDCNY ? $this->fConvertCNY / floatval($strUSDCNY) : 0.0;
+        $this->fConvertHKD = $strHKDCNY ? $this->fConvertCNY / floatval($strHKDCNY) : 0.0;
     }
 }
 

@@ -48,7 +48,7 @@ function _onSmaUserDefinedVal($strVal)
     	}
     }
 	$fAmount = floatval($strAmount);
-    $iQuantity = intval($fAmount / $fund->fCNY / floatval($strVal));
+    $iQuantity = intval($fAmount / floatval($fund->strCNY) / floatval($strVal));
     $strQuantity = strval($iQuantity);
     if ($strGroupId = $group->GetGroupId()) 
     {
@@ -116,7 +116,7 @@ function EchoAll($bChinese = true)
         _EchoTransactionParagraph($group);
         if ($group->GetTotalRecords() > 0)
         {
-            EchoMoneyParagraph($group, $fund->fCNY);
+            EchoMoneyParagraph($group, $fund->strCNY);
             $group->EchoArbitrageParagraph();
         }
 	}
