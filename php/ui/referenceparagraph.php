@@ -7,8 +7,8 @@ function _echoReferenceTableItem($ref, $callback = false)
    	$strLink = $ref->GetExternalLink();
     if ($ref->HasData())
     {
-    	$strPriceDisplay = $ref->GetCurrentPriceDisplay();
-    	$strPercentageDisplay = $ref->GetCurrentPercentageDisplay();
+    	$strPriceDisplay = $ref->GetCurPriceDisplay();
+    	$strPercentageDisplay = $ref->GetCurPercentageDisplay();
     	$strDate = $ref->strDate;
     	$strTime = GetTimeHM($ref->strTime);
     }

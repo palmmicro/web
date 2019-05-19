@@ -22,11 +22,11 @@ function _echoThanousLawPool($strSymbol, $strTradingSymbol)
 function _echoThanousLawItem($csv, $strDate, $ref, $pair_ref)
 {
     $strNetValue = $ref->GetPrevPrice();
-    $strClose = $ref->GetCurrentPriceDisplay();
-    $strPremium = $ref->GetCurrentPercentageDisplay();
-    $strPairClose = $pair_ref->GetCurrentPriceDisplay();
-    $strPairChange = $pair_ref->GetCurrentPercentageDisplay();
-   	$csv->Write($strDate, strval($pair_ref->GetCurrentPercentage()), strval($ref->GetCurrentPercentage()), $strNetValue);
+    $strClose = $ref->GetCurPriceDisplay();
+    $strPremium = $ref->GetCurPercentageDisplay();
+    $strPairClose = $pair_ref->GetCurPriceDisplay();
+    $strPairChange = $pair_ref->GetCurPercentageDisplay();
+   	$csv->Write($strDate, strval($pair_ref->GetCurPercentage()), strval($ref->GetCurPercentage()), $strNetValue);
 
     echo <<<END
     <tr>
@@ -47,15 +47,15 @@ function _echoThanousLawData($sql, $ref, $est_ref, $iStart, $iNum)
      	$csv = new PageCsvFile();
         while ($record = mysql_fetch_assoc($result)) 
         {
-        	$fNetValue = floatval($record['close']);
-        	if (empty($fNetValue) == false)
+        	$strNetValue = $record['close'];
+        	if (empty($strNetValue) == false)
         	{
         		$strDate = GetNextTradingDayYMD($record['date']);
         		if ($strClose = $ref->his_sql->GetClose($strDate))
         		{
         			if ($pair_ref = RefGetDailyClose($est_ref, $strDate))
         			{
-        				$ref->SetPrevPrice(strval($fNetValue));
+        				$ref->SetPrevPrice($strNetValue);
         				$ref->SetCurPrice($strClose);
         				_echoThanousLawItem($csv, $strDate, $ref, $pair_ref);
         			}

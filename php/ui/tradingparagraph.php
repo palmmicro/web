@@ -30,7 +30,7 @@ function _echoTradingTableItem($i, $strAskBid, $strPrice, $strQuantity, $ref, $s
     $strBackGround = GetTableColumnColor($strColor);
     
     $ref->SetCurPrice($strPrice);
-    $strPriceDisplay = $ref->GetCurrentPriceDisplay();
+    $strPriceDisplay = $ref->GetCurPriceDisplay();
     $strTradingNumber = _getTradingNumber($strQuantity);
     
     $strDisplayEx = _getTradingEstPercentageDisplay($ref, $strEstPrice, $strColor);
@@ -161,7 +161,7 @@ function EchoAhTradingParagraph($hshare_ref)
 	$ref = $hshare_ref->a_ref;
     $strSymbol = RefGetMyStockLink($ref); 
     $strSymbolH = RefGetMyStockLink($hshare_ref);
-    $strPriceH = $hshare_ref->GetCurrentPriceDisplay();
+    $strPriceH = $hshare_ref->GetCurPriceDisplay();
    
 	$strPremium = GetTableColumnPremium();
 	

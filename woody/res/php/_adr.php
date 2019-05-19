@@ -121,7 +121,7 @@ function _adrStockRefCallbackData($ref)
     $hk_ref = $group->hk_ref;
     $us_ref = $group->us_ref;
     
-    $strPriceDisplay = $ref->GetCurrentPriceDisplay();
+    $strPriceDisplay = $ref->GetCurPriceDisplay();
     $strPrice = $ref->GetCurPrice();
 	$ar = array();
     $sym = $ref->GetSym();

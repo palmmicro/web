@@ -32,7 +32,7 @@ function TextFromStockReference($ref)
     $str = RefGetDescription($ref).WX_EOL;
     $str .= $ref->GetExternalLink().WX_EOL;
     $str .= STOCK_DISP_PRICE.':'.$ref->GetCurPrice().' '.$ref->strDate.' '.GetTimeHM($ref->strTime).WX_EOL;
-    $str .= STOCK_DISP_CHANGE.':'.$ref->GetPercentageText($ref->strPrevPrice).WX_EOL;
+    $str .= STOCK_DISP_CHANGE.':'.$ref->GetPercentageText($ref->GetPrevPrice()).WX_EOL;
     if ($ref->strOpen)		$str .= '开盘价:'.rtrim0($ref->strOpen).WX_EOL;
     if ($ref->strHigh)		$str .= '最高:'.rtrim0($ref->strHigh).WX_EOL;
     if ($ref->strLow)		$str .= '最低:'.rtrim0($ref->strLow).WX_EOL;

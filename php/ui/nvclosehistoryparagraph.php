@@ -3,14 +3,14 @@ require_once('stocktable.php');
 
 function _echoNvCloseItem($csv, $strDate, $fNetValue, $ref, $strFundId)
 {
-    $fChange = $ref->GetCurrentPercentage();
-    $strChange = $ref->GetCurrentPercentageDisplay();
+    $fChange = $ref->GetCurPercentage();
+    $strChange = $ref->GetCurPercentageDisplay();
 	
     $strNetValue = strval($fNetValue);
 	$ref->SetPrevPrice($strNetValue);
-    $strClose = $ref->GetCurrentPriceDisplay();
-   	$strPremium = $ref->GetCurrentPercentageDisplay();
-   	if ($csv)	$csv->Write($strDate, strval($fChange), strval($ref->GetCurrentPercentage()), $strNetValue);
+    $strClose = $ref->GetCurPriceDisplay();
+   	$strPremium = $ref->GetCurPercentageDisplay();
+   	if ($csv)	$csv->Write($strDate, strval($fChange), strval($ref->GetCurPercentage()), $strNetValue);
     
     if ($strFundId)
     {

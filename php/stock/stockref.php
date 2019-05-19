@@ -296,12 +296,12 @@ class StockReference
     	return "<font color=$strColor>$strDisplay</font>";
     }
     
-    function GetCurrentPercentage()
+    function GetCurPercentage()
     {
         return StockGetPercentage($this->strPrice, $this->strPrevPrice);
     }
     
-    function GetCurrentPercentageDisplay()
+    function GetCurPercentageDisplay()
     {
         return $this->GetPercentageDisplay($this->strPrevPrice);
     }
@@ -311,7 +311,7 @@ class StockReference
         return StockGetPriceDisplay($strPrice, ($bPrev ? $this->strPrevPrice : $this->strPrice), $this->sym->GetPrecision());
     }
 
-    function GetCurrentPriceDisplay()
+    function GetCurPriceDisplay()
     {
         return $this->GetPriceDisplay($this->strPrice);
     }

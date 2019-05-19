@@ -38,6 +38,11 @@ class FundReference extends MysqlReference
         }
     }
     
+    function GetNetValue()
+    {
+    	return $this->GetCurPrice();
+    }
+    
     function GetOfficialNetValue()
     {
     	if ($this->fOfficialNetValue)

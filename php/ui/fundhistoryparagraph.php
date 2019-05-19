@@ -4,19 +4,19 @@ require_once('stocktable.php');
 function _echoFundHistoryTableItem($csv, $strDate, $arFund, $ref, $est_ref)
 {
     $strNetValue = $ref->GetPrevPrice();
-    $strClose = $ref->GetCurrentPriceDisplay();
-    $strPremium = $ref->GetCurrentPercentageDisplay();
+    $strClose = $ref->GetCurPriceDisplay();
+    $strPremium = $ref->GetCurPercentageDisplay();
     if ($csv)
     {
-    	$csv->Write($strDate, $strNetValue, strval($ref->GetCurrentPercentage()));
+    	$csv->Write($strDate, $strNetValue, strval($ref->GetCurPercentage()));
     }
     
     $strPairClose = ''; 
     $strPairChange = '';
     if ($est_ref)
     {
-        $strPairClose = $est_ref->GetCurrentPriceDisplay();
-        $strPairChange = $est_ref->GetCurrentPercentageDisplay();
+        $strPairClose = $est_ref->GetCurPriceDisplay();
+        $strPairChange = $est_ref->GetCurPercentageDisplay();
     }
 
     $strEstValue = $arFund['close'];
@@ -72,8 +72,8 @@ function _echoHistoryTableData($sql, $csv, $ref, $est_ref, $iStart, $iNum)
     {
         while ($record = mysql_fetch_assoc($result)) 
         {
-        	$fNetValue = floatval($record['close']);
-        	if (empty($fNetValue) == false)
+        	$strNetValue = $record['close'];
+        	if (empty($strNetValue) == false)
         	{
         		$strDate = $record['date'];
         		$arFund = $fund_sql->Get($strDate);
@@ -84,7 +84,7 @@ function _echoHistoryTableData($sql, $csv, $ref, $est_ref, $iStart, $iNum)
             
         		if ($strClose = $ref->his_sql->GetClose($strDate))
         		{
-       				$clone_ref->SetPrevPrice(strval($fNetValue));
+       				$clone_ref->SetPrevPrice($strNetValue);
        				$clone_ref->SetCurPrice($strClose);
         			_echoFundHistoryTableItem($csv, $strDate, $arFund, $clone_ref, RefGetDailyClose($clone_est_ref, $arFund['date']));
         		}

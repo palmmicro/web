@@ -127,7 +127,7 @@ class _LofGroup extends _StockGroup
        	if ($strEst == false)
        	{
        		$strEst = $est_ref->his_sql->GetClose($strDate);
-       		if ($strEst == false)	$strEst = $est_ref->strPrevPrice;
+       		if ($strEst == false)	$strEst = $est_ref->GetPrevPrice();
        	}
        	
         $strQuery = sprintf('%s=%s&%s=%s&CNY=%s', $strSymbol, $ref->strPrice, $est_ref->GetStockSymbol(), $strEst, $strCNY);
