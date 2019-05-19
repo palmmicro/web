@@ -12,11 +12,11 @@ function _getTradingNumber($strNumber)
     return strval(intval($fNum));
 }
 
-function _getTradingEstPercentageDisplay($ref, $strEstPrice, $strColor)
+function _getTradingEstPercentageDisplay($ref, $strPrice, $strEstPrice, $strColor)
 {
 	if ($strEstPrice)
 	{
-		return GetTableColumnDisplay($ref->GetPercentageDisplay($strEstPrice), $strColor);
+		return GetTableColumnDisplay($ref->GetPercentageDisplay($strEstPrice, $strPrice), $strColor);
 	}
 	return '';
 }
@@ -29,13 +29,12 @@ function _echoTradingTableItem($i, $strAskBid, $strPrice, $strQuantity, $ref, $s
     if ($i == 0)    $strColor = 'yellow';
     $strBackGround = GetTableColumnColor($strColor);
     
-    $ref->SetCurPrice($strPrice);
-    $strPriceDisplay = $ref->GetCurPriceDisplay();
+    $strPriceDisplay = $ref->GetPriceDisplay($strPrice, $ref->GetPrevPrice());
     $strTradingNumber = _getTradingNumber($strQuantity);
     
-    $strDisplayEx = _getTradingEstPercentageDisplay($ref, $strEstPrice, $strColor);
-    $strDisplayEx .= _getTradingEstPercentageDisplay($ref, $strEstPrice2, $strColor);
-    $strDisplayEx .= _getTradingEstPercentageDisplay($ref, $strEstPrice3, $strColor);
+    $strDisplayEx = _getTradingEstPercentageDisplay($ref, $strPrice, $strEstPrice, $strColor);
+    $strDisplayEx .= _getTradingEstPercentageDisplay($ref, $strPrice, $strEstPrice2, $strColor);
+    $strDisplayEx .= _getTradingEstPercentageDisplay($ref, $strPrice, $strEstPrice3, $strColor);
 
     $strUserDefined = '';  
     if ($callback && (empty($strPrice) == false))
@@ -56,8 +55,6 @@ END;
 
 function _echoTradingTableData($ref, $strEstPrice, $strEstPrice2, $strEstPrice3, $callback)
 {
-	$strBackup = $ref->GetCurPrice();
-	
     for ($i = TRADING_QUOTE_NUM - 1; $i >= 0; $i --)
     {
         _echoTradingTableItem($i, '卖'.strval($i + 1), $ref->arAskPrice[$i], $ref->arAskQuantity[$i], $ref, $strEstPrice, $strEstPrice2, $strEstPrice3, $callback);
@@ -67,8 +64,6 @@ function _echoTradingTableData($ref, $strEstPrice, $strEstPrice2, $strEstPrice3,
     {
         _echoTradingTableItem($i, '买'.strval($i + 1), $ref->arBidPrice[$i], $ref->arBidQuantity[$i], $ref, $strEstPrice, $strEstPrice2, $strEstPrice3, $callback);
     }
-    
-    $ref->SetCurPrice($strBackup);
 }
 
 function _checkTradingQuantity($ref)
@@ -138,10 +133,11 @@ function EchoFundTradingParagraph($fund, $callback = false)
 {
     $ref = $fund->stock_ref;
     $strSymbol = RefGetMyStockLink($ref);
+	$strPrev = $ref->GetPrevPrice();
     $strOfficial = $fund->GetOfficialNetValue();
-    $strEstPrice = $ref->GetPriceDisplay($strOfficial);
-    if ($strFair = $fund->GetFairNetValue())       		$strEstPrice .= '/'.$ref->GetPriceDisplay($strFair);
-    if ($strRealtime = $fund->GetRealtimeNetValue())	$strEstPrice .= '/'.$ref->GetPriceDisplay($strRealtime);
+    $strEstPrice = $ref->GetPriceDisplay($strOfficial, $strPrev);
+    if ($strFair = $fund->GetFairNetValue())       		$strEstPrice .= '/'.$ref->GetPriceDisplay($strFair, $strPrev);
+    if ($strRealtime = $fund->GetRealtimeNetValue())	$strEstPrice .= '/'.$ref->GetPriceDisplay($strRealtime, $strPrev);
     
     $arColumn = _getTradingTableColumn();
     $arColumn[] = GetTableColumnOfficalPremium();
@@ -161,7 +157,7 @@ function EchoAhTradingParagraph($hshare_ref)
 	$ref = $hshare_ref->a_ref;
     $strSymbol = RefGetMyStockLink($ref); 
     $strSymbolH = RefGetMyStockLink($hshare_ref);
-    $strPriceH = $hshare_ref->GetCurPriceDisplay();
+    $strPriceH = $hshare_ref->GetPriceDisplay();
    
 	$strPremium = GetTableColumnPremium();
 	

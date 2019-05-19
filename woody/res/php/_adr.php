@@ -93,21 +93,21 @@ function _echoArbitrageParagraph($group)
     {
         $cn_arbi = $group->arbi_trans;
         EchoArbitrageTableItem2($cn_arbi, $group->cn_convert); 
-        EchoArbitrageTableItem(intval(-1.0 * $cn_arbi->iTotalShares * $group->fRatioAH), $hk_ref->GetPriceDisplay($hk_ref->EstFromCny($cn_arbi->GetAvgCost()), false), $group->hk_convert); 
-        EchoArbitrageTableItem(intval(-1.0 * $cn_arbi->iTotalShares * $group->fRatioAH / $group->fRatioAdrH), $us_ref->GetPriceDisplay($hk_ref->FromCnyToUsd($cn_arbi->GetAvgCost()), false), $group->us_convert); 
+        EchoArbitrageTableItem(intval(-1.0 * $cn_arbi->iTotalShares * $group->fRatioAH), $hk_ref->GetPriceDisplay($hk_ref->EstFromCny($cn_arbi->GetAvgCost())), $group->hk_convert); 
+        EchoArbitrageTableItem(intval(-1.0 * $cn_arbi->iTotalShares * $group->fRatioAH / $group->fRatioAdrH), $us_ref->GetPriceDisplay($hk_ref->FromCnyToUsd($cn_arbi->GetAvgCost())), $group->us_convert); 
     }
     else if ($sym->IsSymbolH())
     {
         $hk_arbi = $group->arbi_trans;
-        EchoArbitrageTableItem(intval(-1.0 * $hk_arbi->iTotalShares / $group->fRatioAH), $cn_ref->GetPriceDisplay($hk_ref->EstToCny($hk_arbi->GetAvgCost()), false), $group->cn_convert); 
+        EchoArbitrageTableItem(intval(-1.0 * $hk_arbi->iTotalShares / $group->fRatioAH), $cn_ref->GetPriceDisplay($hk_ref->EstToCny($hk_arbi->GetAvgCost())), $group->cn_convert); 
         EchoArbitrageTableItem2($hk_arbi, $group->hk_convert); 
-        EchoArbitrageTableItem(intval(-1.0 * $hk_arbi->iTotalShares / $group->fRatioAdrH), $us_ref->GetPriceDisplay($hk_ref->EstToUsd($hk_arbi->GetAvgCost()), false), $group->us_convert); 
+        EchoArbitrageTableItem(intval(-1.0 * $hk_arbi->iTotalShares / $group->fRatioAdrH), $us_ref->GetPriceDisplay($hk_ref->EstToUsd($hk_arbi->GetAvgCost())), $group->us_convert); 
     }
     else
     {
         $us_arbi = $group->arbi_trans;
-        EchoArbitrageTableItem(intval(-1.0 * $us_arbi->iTotalShares * $group->fRatioAdrH / $group->fRatioAH), $cn_ref->GetPriceDisplay($hk_ref->FromUsdToCny($us_arbi->GetAvgCost()), false), $group->cn_convert); 
-        EchoArbitrageTableItem(intval(-1.0 * $us_arbi->iTotalShares * $group->fRatioAdrH), $hk_ref->GetPriceDisplay($hk_ref->EstFromUsd($us_arbi->GetAvgCost()), false), $group->hk_convert); 
+        EchoArbitrageTableItem(intval(-1.0 * $us_arbi->iTotalShares * $group->fRatioAdrH / $group->fRatioAH), $cn_ref->GetPriceDisplay($hk_ref->FromUsdToCny($us_arbi->GetAvgCost())), $group->cn_convert); 
+        EchoArbitrageTableItem(intval(-1.0 * $us_arbi->iTotalShares * $group->fRatioAdrH), $hk_ref->GetPriceDisplay($hk_ref->EstFromUsd($us_arbi->GetAvgCost())), $group->hk_convert); 
         EchoArbitrageTableItem2($us_arbi, $group->us_convert); 
     }
     
@@ -121,26 +121,26 @@ function _adrStockRefCallbackData($ref)
     $hk_ref = $group->hk_ref;
     $us_ref = $group->us_ref;
     
-    $strPriceDisplay = $ref->GetCurPriceDisplay();
+    $strPriceDisplay = $ref->GetPriceDisplay();
     $strPrice = $ref->GetCurPrice();
 	$ar = array();
     $sym = $ref->GetSym();
     if ($sym->IsSymbolA())
     {
         $ar[] = $strPriceDisplay;
-        $ar[] = $hk_ref->GetPriceDisplay($hk_ref->EstFromCny($strPrice));
-        $ar[] = $us_ref->GetPriceDisplay($hk_ref->FromCnyToUsd($strPrice));
+        $ar[] = $hk_ref->GetPriceDisplay($hk_ref->EstFromCny($strPrice), $hk_ref->GetPrevPrice());
+        $ar[] = $us_ref->GetPriceDisplay($hk_ref->FromCnyToUsd($strPrice), $us_ref->GetPrevPrice());
     }
     else if ($sym->IsSymbolH())
     {
-        $ar[] = $cn_ref->GetPriceDisplay($hk_ref->EstToCny($strPrice));
+        $ar[] = $cn_ref->GetPriceDisplay($hk_ref->EstToCny($strPrice), $cn_ref->GetPrevPrice());
         $ar[] = $strPriceDisplay;
-        $ar[] = $us_ref->GetPriceDisplay($hk_ref->EstToUsd($strPrice));
+        $ar[] = $us_ref->GetPriceDisplay($hk_ref->EstToUsd($strPrice), $us_ref->GetPrevPrice());
     }
     else
     {
-        $ar[] = $cn_ref->GetPriceDisplay($hk_ref->FromUsdToCny($strPrice));
-        $ar[] = $hk_ref->GetPriceDisplay($hk_ref->EstFromUsd($strPrice));
+        $ar[] = $cn_ref->GetPriceDisplay($hk_ref->FromUsdToCny($strPrice), $cn_ref->GetPrevPrice());
+        $ar[] = $hk_ref->GetPriceDisplay($hk_ref->EstFromUsd($strPrice), $hk_ref->GetPrevPrice());
         $ar[] = $strPriceDisplay;
     }
 	return $ar;

@@ -110,30 +110,22 @@ class FundReference extends MysqlReference
         return parent::GetStockId();
     }
 
-    function GetPriceDisplay($strVal, $bPrev = true)
+    function GetPriceDisplay($strDisp = false, $strPrev = false)
     {
-    	if ($strVal)
-    	{
-    		if ($this->stock_ref)
-    		{
-    			return $this->stock_ref->GetPriceDisplay($strVal, $bPrev);
-    		}
-    		return parent::GetPriceDisplay($strVal, $bPrev);
-    	}
-        return '';
+   		if ($this->stock_ref)
+   		{
+   			return $this->stock_ref->GetPriceDisplay($strDisp, $strPrev);
+   		}
+   		return parent::GetPriceDisplay($strDisp, $strPrev);
     }
     
-    function GetPercentageDisplay($strVal)
+    function GetPercentageDisplay($strDivisor = false, $strDividend = false)
     {
-    	if ($strVal)
-    	{
-    		if ($this->stock_ref)
-    		{
-    			return $this->stock_ref->GetPercentageDisplay($strVal);
-    		}
-    		return parent::GetPercentageDisplay($strVal);
-    	}
-        return '';
+   		if ($this->stock_ref)
+   		{
+   			return $this->stock_ref->GetPercentageDisplay($strDivisor, $strDividend);
+   		}
+   		return parent::GetPercentageDisplay($strDivisor, $strDividend);
     }
     
     function AdjustPosition($fVal)

@@ -8,11 +8,11 @@ function _echoFundEstTableItem($ref)
     
     $strLink = GetEastMoneyFundLink($ref->GetSym());
     $strPrice = $ref->GetNetValue();
-    $strOfficialPrice = $ref->GetPriceDisplay($ref->GetOfficialNetValue(), false);
+    $strOfficialPrice = $ref->GetPriceDisplay($ref->GetOfficialNetValue());
     $strOfficialPremium = $ref->GetPercentageDisplay($ref->GetOfficialNetValue());
-    $strFairPrice = $ref->GetPriceDisplay($ref->GetFairNetValue(), false);
+    $strFairPrice = $ref->GetPriceDisplay($ref->GetFairNetValue());
     $strFairPremium = $ref->GetPercentageDisplay($ref->GetFairNetValue());
-    $strRealtimePrice = $ref->GetPriceDisplay($ref->GetRealtimeNetValue(), false);
+    $strRealtimePrice = $ref->GetPriceDisplay($ref->GetRealtimeNetValue());
     $strRealtimePremium = $ref->GetPercentageDisplay($ref->GetRealtimeNetValue());
     
     echo <<<END

@@ -33,7 +33,7 @@ function _chinaEtfRefCallbackData($ref)
    	$ar = array();
     $ar[] = $ref->GetNetValue();
     $strNetValue = $ref->EstOfficialNetValue();
-    $ar[] = $ref->GetPriceDisplay($strNetValue, false);
+    $ar[] = $ref->GetPriceDisplay($strNetValue);
     $ar[] = $ref->GetPercentageDisplay($strNetValue);
     return $ar;
 }

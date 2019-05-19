@@ -271,49 +271,50 @@ class StockReference
         return strval_round($fVal, $this->sym->GetPrecision());
     }
 
-    function GetPercentageText($strPrevPrice)
+    function GetPercentage($strDivisor = false, $strDividend = false)
     {
-    	if (empty($strPrevPrice) || empty($this->strPrice))		return '';
+    	if ($strDivisor == false)	$strDivisor = $this->strPrevPrice;
+    	if ($strDividend == false)	$strDividend = $this->strPrice;
+        return StockGetPercentage($strDivisor, $strDividend);
+    }
     
-   		$fPercentage = StockGetPercentage($this->strPrice, $strPrevPrice);
+    function GetPercentageText($strDivisor = false, $strDividend = false)
+    {
+   		$fPercentage = $this->GetPercentage($strDivisor, $strDividend);
+   		if ($fPercentage === false)		return '';
+   		if (abs($fPercentage) < 0.1)	return '0';
    		return strval_round($fPercentage, 2).'%';
     }
     
     // for display
-    function GetPercentageDisplay($strPrevPrice)
+    function GetPercentageDisplay($strDivisor = false, $strDividend = false)
     {
-    	if (abs(floatval($this->strPrice) - floatval($strPrevPrice)) < 0.0005)
+   		$strDisp = $this->GetPercentageText($strDivisor, $strDividend);
+   		if ($strDisp == '')	return '';
+   		
+   		if ($strDisp == '0')
+   		{
+   			$strColor = 'grey';
+   		}
+   		else
+   		{
+   			$strColor = (substr($strDisp, 0, 1) == '-') ? 'red' : 'black';
+   		}
+    	return "<font color=$strColor>$strDisp</font>";
+    }
+    
+    function GetPriceDisplay($strDisp = false, $strPrev = false)
+    {
+    	if ($strDisp == false)
     	{
-    		$strDisplay = '0';
-    		$strColor = 'grey';
+    		$strDisp = $this->strPrice;
+    		$strPrev = $this->strPrevPrice;
     	}
-    	else
+    	else if ($strPrev == false)
     	{
-    		$strDisplay = $this->GetPercentageText($strPrevPrice);
-    		if (substr($strDisplay, 0, 1) == '-')	$strColor = 'red';
-    		else                                   		$strColor = 'black';
+    		$strPrev = $this->strPrice;
     	}
-    	return "<font color=$strColor>$strDisplay</font>";
-    }
-    
-    function GetCurPercentage()
-    {
-        return StockGetPercentage($this->strPrice, $this->strPrevPrice);
-    }
-    
-    function GetCurPercentageDisplay()
-    {
-        return $this->GetPercentageDisplay($this->strPrevPrice);
-    }
-    
-    function GetPriceDisplay($strPrice, $bPrev = true)
-    {
-        return StockGetPriceDisplay($strPrice, ($bPrev ? $this->strPrevPrice : $this->strPrice), $this->sym->GetPrecision());
-    }
-
-    function GetCurPriceDisplay()
-    {
-        return $this->GetPriceDisplay($this->strPrice);
+        return StockGetPriceDisplay($strDisp, $strPrev, $this->sym->GetPrecision());
     }
 
     function ConvertDateTime($iTime, $strTimeZone)

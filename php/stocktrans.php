@@ -71,7 +71,7 @@ class MyStockTransaction extends StockTransaction
     {
         if ($this->ref)
         {
-        	return $this->ref->GetPriceDisplay($this->GetAvgCost(), false);
+        	return $this->ref->GetPriceDisplay($this->GetAvgCost());
         }
         return '';
     }

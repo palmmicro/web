@@ -162,19 +162,19 @@ function ForexAndFutureGetTimezone()
     return 'GMT';
 }
 
-function StockGetPriceDisplay($strCur, $strPre, $iPrecision = false)
+function StockGetPriceDisplay($strDisp, $strPrev, $iPrecision = false)
 {
-    if ($strCur)
+    if ($strDisp)
     {
-    	$fCur = floatval($strCur);
-    	$fPre = floatval($strPre);
+    	$fDisp = floatval($strDisp);
+    	$fPrev = floatval($strPrev);
         
-        if ($fCur > $fPre + MIN_FLOAT_VAL)         $strColor = 'red';
-        else if ($fCur < $fPre - MIN_FLOAT_VAL)   $strColor = 'green';
+        if ($fDisp > $fPrev + MIN_FLOAT_VAL)         $strColor = 'red';
+        else if ($fDisp < $fPrev - MIN_FLOAT_VAL)   $strColor = 'green';
         else                                         $strColor = 'black';
 
-        $strCur = strval_round($fCur, $iPrecision);
-        return "<font color=$strColor>$strCur</font>";
+        $strDisp = strval_round($fDisp, $iPrecision);
+        return "<font color=$strColor>$strDisp</font>";
     }
     return '';
 }
@@ -189,10 +189,10 @@ function GetRatioDisplay($fVal)
     return StockGetPriceDisplay(strval($fVal), '1');
 }
 
-function StockGetPercentage($strPrice, $strPrice2)
+function StockGetPercentage($strDivisor, $strDividend)
 {
-	if (empty($strPrice2))	return 0;
-    return (floatval($strPrice)/floatval($strPrice2) - 1.0) * 100.0;
+	if (empty($strDivisor) || empty($strDividend))	return false;
+    return (floatval($strDividend)/floatval($strDivisor) - 1.0) * 100.0;
 }
 
 function StockCompareEstResult($nv_sql, $strNetValue, $strDate, $strSymbol)
@@ -202,8 +202,8 @@ function StockCompareEstResult($nv_sql, $strNetValue, $strDate, $strSymbol)
        	$fund_sql = new FundEstSql($nv_sql->GetKeyId());
        	if ($strEstValue = $fund_sql->GetClose($strDate))
        	{
-       		$fPercentage = StockGetPercentage($strEstValue, $strNetValue);
-       		if (abs($fPercentage) > 1.0)
+       		$fPercentage = StockGetPercentage($strNetValue, $strEstValue);
+       		if (($fPercentage !== false) && (abs($fPercentage) > 1.0))
        		{
        			$strLink = GetNetValueHistoryLink($strSymbol);
        			$str = sprintf('%s%s 实际值%s 估值%s 误差:%.2f%%', $strSymbol, $strLink, $strNetValue, $strEstValue, $fPercentage); 

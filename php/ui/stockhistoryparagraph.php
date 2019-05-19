@@ -3,11 +3,12 @@ require_once('stocktable.php');
 
 function _echoStockHistoryItem($record, $ref, $csv)
 {
-	$strOpen = $ref->GetPriceDisplay($record['open']);
- 	$strHigh = $ref->GetPriceDisplay($record['high']);
- 	$strLow = $ref->GetPriceDisplay($record['low']);
- 	$strClose = $ref->GetPriceDisplay($record['close']);
-	$strAdjClose = $ref->GetPriceDisplay($record['adjclose']);
+	$strPrev = $ref->GetPrevPrice();
+	$strOpen = $ref->GetPriceDisplay($record['open'], $strPrev);
+ 	$strHigh = $ref->GetPriceDisplay($record['high'], $strPrev);
+ 	$strLow = $ref->GetPriceDisplay($record['low'], $strPrev);
+ 	$strClose = $ref->GetPriceDisplay($record['close'], $strPrev);
+	$strAdjClose = $ref->GetPriceDisplay($record['adjclose'], $strPrev);
     echo <<<END
     <tr>
         <td class=c1>{$record['date']}</td>

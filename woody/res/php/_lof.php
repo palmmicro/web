@@ -93,7 +93,7 @@ function _onTradingUserDefined($strVal = false)
     
     	$fund = $group->ref;
     	$strEst = $fund->GetEstValue($strVal);
-    	return _onSmaUserDefinedVal($strEst).'@'.$fund->est_ref->GetPriceDisplay($strEst, false);
+    	return _onSmaUserDefinedVal($strEst).'@'.$fund->est_ref->GetPriceDisplay($strEst);
     }
    	return _getArbitrageQuantityName(true);
 }

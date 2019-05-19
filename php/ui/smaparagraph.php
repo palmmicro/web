@@ -17,7 +17,7 @@ function _getSmaCallbackPriceDisplay($callback, $ref, $strVal, $strColor)
 	if ($strVal)
 	{
 		$display_ref = call_user_func($callback, $ref);
-		$str = $display_ref->GetPriceDisplay(call_user_func($callback, $ref, $strVal), false);
+		$str = $display_ref->GetPriceDisplay(call_user_func($callback, $ref, $strVal));
 	}
 	else
 	{
@@ -31,11 +31,11 @@ function _echoSmaTableItem($his, $strKey, $strVal, $cb_ref, $callback, $callback
     $stock_ref = $his->stock_ref;
     
     $strSma = _getSmaRow($strKey);
-    $strPrice = $stock_ref->GetPriceDisplay($strVal, false);
+    $strPrice = $stock_ref->GetPriceDisplay($strVal);
     $strPercentage = $stock_ref->GetPercentageDisplay($strVal);
    	if ($strNext = $his->arNext[$strKey])
    	{
-   		$strNextPrice = $stock_ref->GetPriceDisplay($strNext, false);
+   		$strNextPrice = $stock_ref->GetPriceDisplay($strNext);
    		$strNextPercentage = $stock_ref->GetPercentageDisplay($strNext);
    	}
    	else

@@ -24,14 +24,14 @@ function _echoCombinedTransactionTableItem($group, $strDate, $strGroupItemId, $c
         if ($fund && $fund->GetStockSymbol() == $strSymbol)
         {
             $strConvertedShares = strval($fund->GetEstQuantity($combined_trans->iTotalShares));
-            $strConvertedCost = $fund->est_ref->GetPriceDisplay($fund->GetEstValue($strCost), false);
+            $strConvertedCost = $fund->est_ref->GetPriceDisplay($fund->GetEstValue($strCost));
         }
         else
         {
             $strConvertedShares = ''; 
             $strConvertedCost = ''; 
         }
-        $strCost = $trans->ref->GetPriceDisplay($strCost, false);
+        $strCost = $trans->ref->GetPriceDisplay($strCost);
     }
     
     echo <<<END
