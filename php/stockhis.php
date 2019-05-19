@@ -373,7 +373,7 @@ class StockHistory
         $arKey[] = 'BOLLDN';
         
     	$iScore = 0;
-    	$fPrice = floatval($this->stock_ref->GetCurPrice());
+    	$fPrice = floatval($this->stock_ref->GetPrice());
     	foreach ($arKey as $strKey)
     	{
             if ($fPrice > floatval($this->arSMA[$strKey]))	$iScore ++;

@@ -167,7 +167,7 @@ function EchoAhTradingParagraph($hshare_ref)
     {
     	$strAdrLink = RefGetMyStockLink($hshare_ref->adr_ref);
     	$arColumn[] = $strAdrLink.$strPremium;
-    	$strVal = $hshare_ref->FromUsdToCny($hshare_ref->adr_ref->GetCurPrice());
+    	$strVal = $hshare_ref->FromUsdToCny($hshare_ref->adr_ref->GetPrice());
     }
     else
     {

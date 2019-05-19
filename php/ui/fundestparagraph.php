@@ -8,12 +8,32 @@ function _echoFundEstTableItem($ref)
     
     $strLink = GetEastMoneyFundLink($ref->GetSym());
     $strPrice = $ref->GetNetValue();
-    $strOfficialPrice = $ref->GetPriceDisplay($ref->GetOfficialNetValue());
-    $strOfficialPremium = $ref->GetPercentageDisplay($ref->GetOfficialNetValue());
-    $strFairPrice = $ref->GetPriceDisplay($ref->GetFairNetValue());
-    $strFairPremium = $ref->GetPercentageDisplay($ref->GetFairNetValue());
-    $strRealtimePrice = $ref->GetPriceDisplay($ref->GetRealtimeNetValue());
-    $strRealtimePremium = $ref->GetPercentageDisplay($ref->GetRealtimeNetValue());
+    
+    $strOfficialPrice = $ref->GetOfficialNetValue();
+    $strOfficialPremium = $ref->GetPercentageDisplay($strOfficialPrice);
+    $strOfficialPrice = $ref->GetPriceDisplay($strOfficialPrice);
+    
+    if ($strFairPrice = $ref->GetFairNetValue())
+    {
+    	$strFairPremium = $ref->GetPercentageDisplay($strFairPrice);
+    	$strFairPrice = $ref->GetPriceDisplay($strFairPrice);
+    }
+    else
+    {
+    	$strFairPremium = '';
+    	$strFairPrice =  '';
+    }
+    
+    if ($strRealtimePrice = $ref->GetRealtimeNetValue())
+    {
+    	$strRealtimePremium = $ref->GetPercentageDisplay($strRealtimePrice);
+    	$strRealtimePrice = $ref->GetPriceDisplay($strRealtimePrice);
+    }
+    else
+    {
+    	$strRealtimePremium = '';
+    	$strRealtimePrice =  '';
+    }
     
     echo <<<END
     <tr>

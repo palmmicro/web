@@ -20,7 +20,7 @@ function _textVolume($strVolume)
 
 function TextFromExtendedTradingReferencce($ref)
 {
-    $str = RefGetDescription($ref).':'.$ref->GetCurPrice().' '.$ref->strDate.' '.GetTimeHM($ref->strTime).WX_EOL;
+    $str = RefGetDescription($ref).':'.$ref->GetPrice().' '.$ref->strDate.' '.GetTimeHM($ref->strTime).WX_EOL;
     if ($ref->strVolume)	$str .= _textVolume($ref->strVolume);
     return $str;
 }
@@ -31,7 +31,7 @@ function TextFromStockReference($ref)
 
     $str = RefGetDescription($ref).WX_EOL;
     $str .= $ref->GetExternalLink().WX_EOL;
-    $str .= STOCK_DISP_PRICE.':'.$ref->GetCurPrice().' '.$ref->strDate.' '.GetTimeHM($ref->strTime).WX_EOL;
+    $str .= STOCK_DISP_PRICE.':'.$ref->GetPrice().' '.$ref->strDate.' '.GetTimeHM($ref->strTime).WX_EOL;
     $str .= STOCK_DISP_CHANGE.':'.$ref->GetPercentageText($ref->GetPrevPrice()).WX_EOL;
     if ($ref->strOpen)		$str .= '开盘价:'.rtrim0($ref->strOpen).WX_EOL;
     if ($ref->strHigh)		$str .= '最高:'.rtrim0($ref->strHigh).WX_EOL;
@@ -85,7 +85,7 @@ function TextFromFundReference($ref)
         $str = $strName;
     }
     
-    $str .= STOCK_DISP_NETVALUE.':'.$ref->GetCurPrice().' '.$ref->strDate.WX_EOL;
+    $str .= STOCK_DISP_NETVALUE.':'.$ref->GetPrice().' '.$ref->strDate.WX_EOL;
     if ($ref->fOfficialNetValue)
     {
         $str .= STOCK_DISP_OFFICIAL._textPremium($stock_ref, $ref->fOfficialNetValue).' '.$ref->strOfficialDate.WX_EOL;

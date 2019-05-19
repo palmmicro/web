@@ -210,19 +210,9 @@ class StockReference
     	return $this->bHasData;
     }
     
-    function SetCurPrice($strPrice)
-    {
-   		$this->strPrice = rtrim0($strPrice);
-    }
-    
-    function GetCurPrice()
+    function GetPrice()
     {
         return $this->strPrice;
-    }
-    
-    function SetPrevPrice($strPrevPrice)
-    {
-    	$this->strPrevPrice = rtrim0($strPrevPrice);
     }
     
     function GetPrevPrice()

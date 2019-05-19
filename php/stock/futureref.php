@@ -49,7 +49,7 @@ class FutureReference extends MysqlReference
     {
         if ($this->CheckAdjustFactorTime($etf_ref))
         {
-            $this->fFactor = floatval($this->GetCurPrice()) / floatval($etf_ref->GetCurPrice());
+            $this->fFactor = floatval($this->GetPrice()) / floatval($etf_ref->GetPrice());
             $this->InsertStockCalibration($etf_ref);
             return true;
         }

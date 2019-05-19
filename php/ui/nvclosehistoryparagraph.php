@@ -1,16 +1,18 @@
 <?php
 require_once('stocktable.php');
 
-function _echoNvCloseItem($csv, $strDate, $fNetValue, $ref, $strFundId)
+function _echoNvCloseItem($csv, $strDate, $strNetValue, $ref, $strFundId)
 {
-    $fChange = $ref->GetPercentage();
-    $strChange = $ref->GetPercentageDisplay();
+	$his_sql = $ref->GetHistorySql();
+	$strClose = $his_sql->GetClose($strDate);
+	$strClosePrev = $his_sql->GetClosePrev($strDate);
+	if (($strClose === false) || ($strClosePrev === false))	return;
 	
-    $strNetValue = strval($fNetValue);
-	$ref->SetPrevPrice($strNetValue);
-    $strClose = $ref->GetPriceDisplay();
-   	$strPremium = $ref->GetPercentageDisplay();
-   	if ($csv)	$csv->Write($strDate, strval($fChange), strval($ref->GetPercentage()), $strNetValue);
+   	if ($csv)	$csv->Write($strDate, strval($ref->GetPercentage($strClosePrev, $strClose)), strval($ref->GetPercentage($strNetValue, $strClose)), $strNetValue);
+   	
+    $strChange = $ref->GetPercentageDisplay($strClosePrev, $strClose);
+   	$strPremium = $ref->GetPercentageDisplay($strNetValue, $strClose);
+    $strClose = $ref->GetPriceDisplay($strClose, $strNetValue);
     
     if ($strFundId)
     {
@@ -30,19 +32,14 @@ END;
 
 function _echoNvCloseData($sql, $ref, $csv, $iStart, $iNum, $bAdmin)
 {
-	$clone_ref = clone $ref;
     if ($result = $sql->GetAll($iStart, $iNum)) 
     {
         while ($record = mysql_fetch_assoc($result)) 
         {
-        	$fNetValue = floatval($record['close']);
-        	if (empty($fNetValue) == false)
+        	$strNetValue = rtrim0($record['close']);
+        	if (empty($strNetValue) == false)
         	{
-        		$strDate = $record['date'];
-       			if ($stock_ref = RefGetDailyClose($clone_ref, $strDate))
-       			{
-       				_echoNvCloseItem($csv, $strDate, $fNetValue, $stock_ref, ($bAdmin ? $record['id'] : false));
-        		}
+   				_echoNvCloseItem($csv, $record['date'], $strNetValue, $ref, ($bAdmin ? $record['id'] : false));
         	}
         }
         @mysql_free_result($result);
@@ -61,7 +58,7 @@ function EchoNvCloseHistoryParagraph($ref, $str = false, $csv = false, $iStart =
 
     $arColumn = GetFundHistoryTableColumn($ref);
     echo <<<END
-    <p>$strNavLink $str
+    <p>$str $strNavLink
     <TABLE borderColor=#cccccc cellSpacing=0 width=500 border=1 class="text" id="{$strSymbol}nvclosehistory">
     <tr>
         <td class=c1 width=100 align=center>{$arColumn[0]}</td>

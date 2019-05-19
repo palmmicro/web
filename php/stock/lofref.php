@@ -102,7 +102,7 @@ class _LofReference extends FundReference
         {
             if (($strEstNetValue = SqlGetNetValueByDate($this->est_ref->GetStockId(), $strDate)) == false)
             {
-            	$strEstNetValue = $this->est_ref->GetCurPrice();
+            	$strEstNetValue = $this->est_ref->GetPrice();
             }
             $this->fOfficialNetValue = $this->GetLofValue($strEstNetValue, $this->strCNY);
             $this->strOfficialDate = $strDate;
@@ -128,9 +128,9 @@ class _LofReference extends FundReference
         }
         
         if ($this->est_ref == false)    return;
-        $this->fFairNetValue = $this->GetLofValue($this->est_ref->GetCurPrice(), $strCNY);
+        $this->fFairNetValue = $this->GetLofValue($this->est_ref->GetPrice(), $strCNY);
         
-        if ($this->future_ref)
+		if ($this->future_ref)
         {
             if ($this->future_etf_ref == false)
             {
@@ -138,11 +138,11 @@ class _LofReference extends FundReference
             }
             $this->future_ref->LoadEtfFactor($this->future_etf_ref);
             
-            $strFutureEtfPrice = $this->future_etf_ref->GetCurPrice();
+            $strFutureEtfPrice = $this->future_etf_ref->GetPrice();
             if (empty($strFutureEtfPrice) == false)
             {
-            	$fRealtime = floatval($this->est_ref->GetCurPrice());
-            	$fRealtime *= floatval($this->future_ref->GetCurPrice()) / $this->future_ref->EstByEtf(floatval($strFutureEtfPrice));
+            	$fRealtime = floatval($this->est_ref->GetPrice());
+            	$fRealtime *= floatval($this->future_ref->GetPrice()) / $this->future_ref->EstByEtf(floatval($strFutureEtfPrice));
             	$this->fRealtimeNetValue = $this->GetLofValue(strval($fRealtime), $strCNY);
             }
         }
@@ -166,12 +166,12 @@ class _LofReference extends FundReference
                 	// DebugString($strDate.' '.$this->est_ref->GetStockSymbol().' ETF net value not found, use close price.');
                 	$ymd = new StringYMD($strDate);
                 	$est_ymd = new StringYMD($est_ref->strDate);
-                	if ($strDate == $est_ref->strDate)	                   				$strEst = $est_ref->GetCurPrice();
+                	if ($strDate == $est_ref->strDate)	                   				$strEst = $est_ref->GetPrice();
                 	else if ($ymd->GetNextTradingDayTick() == $est_ymd->GetTick())		$strEst = $est_ref->GetPrevPrice();
                 	else	return false;
                 }
         
-                $this->fFactor = floatval($strEst) * floatval($strCNY) / floatval($this->GetCurPrice());
+                $this->fFactor = floatval($strEst) * floatval($strCNY) / floatval($this->GetPrice());
                 $this->InsertFundCalibration($est_ref, $strEst);
                 return $this->fFactor;
             }

@@ -40,7 +40,7 @@ class GoldFundReference extends FundReference
     {
         $this->AdjustFactor();
         
-        $this->fOfficialNetValue = $this->_estGoldEtf(floatval($this->est_ref->GetCurPrice()));
+        $this->fOfficialNetValue = $this->_estGoldEtf(floatval($this->est_ref->GetPrice()));
         $this->strOfficialDate = $this->est_ref->strDate;
         $this->UpdateEstNetValue();
 
@@ -49,7 +49,7 @@ class GoldFundReference extends FundReference
 
     function EstRealtimeNetValue()
     {
-		$fEst = floatval($this->future_ref->GetCurPrice()) * floatval($this->forex_sql->GetCloseNow()) / 31.1035;
+		$fEst = floatval($this->future_ref->GetPrice()) * floatval($this->forex_sql->GetCloseNow()) / 31.1035;
 		if ($this->future_ref->GetStockSymbol() == 'hf_SI')
 		{
 //			DebugString('Silver');
@@ -69,12 +69,12 @@ class GoldFundReference extends FundReference
             $iHour = intval(substr($est_ref->strTime, 0, 2));
             if ($iHour >= 9 && $iHour <= 15)
             {
-                $this->fFactor = floatval($est_ref->GetCurPrice()) / floatval($this->GetCurPrice());
+                $this->fFactor = floatval($est_ref->GetPrice()) / floatval($this->GetPrice());
                 $this->InsertFundCalibration($est_ref, $est_ref->strPrice);
             }
             else
             {
-                $this->fFactor = floatval($est_ref->GetPrevPrice()) / floatval($this->GetCurPrice());
+                $this->fFactor = floatval($est_ref->GetPrevPrice()) / floatval($this->GetPrice());
                 $this->InsertFundCalibration($est_ref, $est_ref->GetPrevPrice());
             }
             return $this->fFactor;

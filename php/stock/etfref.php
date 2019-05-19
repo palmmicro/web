@@ -131,7 +131,7 @@ class EtfReference extends MyStockReference
        	$strDate = $this->nv_ref->strDate;
        	if (empty($strDate) == false)
        	{
-        	$this->strNetValue = $this->nv_ref->GetCurPrice();
+        	$this->strNetValue = $this->nv_ref->GetPrice();
         	if ($strFactor = $this->sql->GetClose($strDate))
         	{
         		$this->fFactor = floatval($strFactor);
@@ -158,8 +158,8 @@ class EtfReference extends MyStockReference
 		if ($this->CheckAdjustFactorTime($this->pair_ref))
 		{
 			$strDate = $this->strDate;
-			$this->strPairNetValue = $this->pair_ref->GetCurPrice();
-			$this->strNetValue = $this->GetCurPrice();
+			$this->strPairNetValue = $this->pair_ref->GetPrice();
+			$this->strNetValue = $this->GetPrice();
    			$this->_insertCalibartion($strDate);
    			$this->nv_ref->sql->Insert($strDate, $this->strNetValue);
    			$this->pair_nv_ref->sql->Insert($strDate, $this->strPairNetValue);
@@ -225,7 +225,7 @@ class EtfReference extends MyStockReference
     {
     	if ($this->cny_ref)
     	{
-    		$fCny = $strCny ? floatval($strCny) : floatval($this->cny_ref->GetCurPrice());
+    		$fCny = $strCny ? floatval($strCny) : floatval($this->cny_ref->GetPrice());
     		if ($bSymbolA)
     		{
     			$fVal *= $this->fCnyValue;
@@ -263,7 +263,7 @@ class EtfReference extends MyStockReference
     {
 		if (($strEst = $this->pair_nv_ref->sql->GetClose($this->strOfficialDate)) == false)
 		{
-			$strEst = $this->pair_ref->GetCurPrice();
+			$strEst = $this->pair_ref->GetPrice();
 		}
 		
    		$strVal = $this->EstFromPair($strEst, $strCny);

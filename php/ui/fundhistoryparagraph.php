@@ -10,12 +10,19 @@ function _echoFundHistoryTableItem($csv, $strNetValue, $strClose, $strDate, $arF
     $strPremium = $ref->GetPercentageDisplay($strNetValue, $strClose);
     $strClose = $ref->GetPriceDisplay($strClose, $strNetValue);
     
-    $strPairClose = ''; 
-    $strPairChange = '';
+   	$strEstClose = ''; 
+   	$strEstChange = '';
     if ($est_ref)
     {
-        $strPairClose = $est_ref->GetPriceDisplay();
-        $strPairChange = $est_ref->GetPercentageDisplay();
+		$strEstDate = $arFund['date'];
+		$his_sql = $est_ref->GetHistorySql();
+		$strEstClose = $his_sql->GetClose($strEstDate);
+		$strEstClosePrev = $his_sql->GetClosePrev($strEstDate);
+		if ($strEstClose && $strEstClosePrev)
+		{
+			$strEstChange = $est_ref->GetPercentageDisplay($strEstClosePrev, $strEstClose);
+			$strEstClose = $est_ref->GetPriceDisplay($strEstClose, $strEstClosePrev);
+		}
     }
 
     $strEstValue = $arFund['close'];
@@ -38,8 +45,8 @@ function _echoFundHistoryTableItem($csv, $strNetValue, $strClose, $strDate, $arF
         <td class=c1>$strClose</td>
         <td class=c1>$strNetValue</td>
         <td class=c1>$strPremium</td>
-        <td class=c1>$strPairClose</td>
-        <td class=c1>$strPairChange</td>
+        <td class=c1>$strEstClose</td>
+        <td class=c1>$strEstChange</td>
         <td class=c1>$strEstValue</td>
         <td class=c1>$strEstTime</td>
         <td class=c1>$strEstError</td>
@@ -49,7 +56,6 @@ END;
 
 function _echoHistoryTableData($sql, $csv, $ref, $est_ref, $iStart, $iNum)
 {
-	$clone_est_ref = false;
 	$bSameDayNetValue	 = true;
 	if (RefHasData($est_ref))
 	{
@@ -59,8 +65,10 @@ function _echoHistoryTableData($sql, $csv, $ref, $est_ref, $iStart, $iNum)
 		{
 			if ($ref->sym->IsSymbolA())		$bSameDayNetValue	 = false;
 		}
-		
-		$clone_est_ref = clone $est_ref;
+	}
+	else
+	{
+		$est_ref = false;
 	}
 	
 	$strStockId = $ref->GetStockId();
@@ -81,7 +89,7 @@ function _echoHistoryTableData($sql, $csv, $ref, $est_ref, $iStart, $iNum)
             
         		if ($strClose = $ref->his_sql->GetClose($strDate))
         		{
-        			_echoFundHistoryTableItem($csv, $strNetValue, $strClose, $strDate, $arFund, $ref, RefGetDailyClose($clone_est_ref, $arFund['date']));
+        			_echoFundHistoryTableItem($csv, $strNetValue, $strClose, $strDate, $arFund, $ref, $est_ref);
         		}
         	}
         }

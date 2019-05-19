@@ -19,14 +19,20 @@ function _echoThanousLawPool($strSymbol, $strTradingSymbol)
    	EchoPricePoolParagraph($csv->pool, $strSymbol, $strTradingSymbol, false);
 }
 
-function _echoThanousLawItem($csv, $strNetValue, $strClose, $strDate, $ref, $pair_ref)
+function _echoThanousLawItem($csv, $strNetValue, $strClose, $strDate, $ref, $est_ref)
 {
-   	$csv->Write($strDate, strval($pair_ref->GetPercentage()), strval($ref->GetPercentage($strNetValue, $strClose)), $strNetValue);
+	$his_sql = $est_ref->GetHistorySql();
+	$strEstClose = $his_sql->GetClose($strDate);
+	$strEstClosePrev = $his_sql->GetClosePrev($strDate);
+	if (($strEstClose == false) || ($strEstClosePrev == false))		return;
+	
+   	$csv->Write($strDate, strval($est_ref->GetPercentage($strEstClosePrev, $strEstClose)), strval($ref->GetPercentage($strNetValue, $strClose)), $strNetValue);
    	
     $strPremium = $ref->GetPercentageDisplay($strNetValue, $strClose);
     $strClose = $ref->GetPriceDisplay($strClose, $strNetValue);
-    $strPairClose = $pair_ref->GetPriceDisplay();
-    $strPairChange = $pair_ref->GetPercentageDisplay();
+    
+    $strEstChange = $est_ref->GetPercentageDisplay($strEstClosePrev, $strEstClose);
+    $strEstClose = $est_ref->GetPriceDisplay($strEstClose, $strEstClosePrev);
 
     echo <<<END
     <tr>
@@ -34,8 +40,8 @@ function _echoThanousLawItem($csv, $strNetValue, $strClose, $strDate, $ref, $pai
         <td class=c1>$strClose</td>
         <td class=c1>$strNetValue</td>
         <td class=c1>$strPremium</td>
-        <td class=c1>$strPairClose</td>
-        <td class=c1>$strPairChange</td>
+        <td class=c1>$strEstClose</td>
+        <td class=c1>$strEstChange</td>
     </tr>
 END;
 }
@@ -53,10 +59,7 @@ function _echoThanousLawData($sql, $ref, $est_ref, $iStart, $iNum)
         		$strDate = GetNextTradingDayYMD($record['date']);
         		if ($strClose = $ref->his_sql->GetClose($strDate))
         		{
-        			if ($pair_ref = RefGetDailyClose($est_ref, $strDate))
-        			{
-        				_echoThanousLawItem($csv, $strNetValue, $strClose, $strDate, $ref, $pair_ref);
-        			}
+       				_echoThanousLawItem($csv, $strNetValue, $strClose, $strDate, $ref, $est_ref);
                 }
             }
         }
@@ -70,7 +73,7 @@ function _echoThanousLawParagraph($strSymbol, $iStart, $iNum)
 	$ref = new LofReference($strSymbol);
 	$est_ref = $ref->est_ref;
     $arColumn = GetFundHistoryTableColumn($est_ref);
- 	$str = GetNetValueHistoryLink($strSymbol);
+ 	$str = GetNetValueHistoryLink($strSymbol).' '.GetStockHistoryLink($strSymbol);
 
 	$sql = new NetValueHistorySql($ref->GetStockId());
    	$strNavLink = StockGetNavLink($strSymbol, $sql->Count(), $iStart, $iNum);

@@ -20,7 +20,7 @@ function _echoNetValueHistoryGraph($strSymbol)
 
 function _echoNetValueHistory($strSymbol, $iStart, $iNum)
 {
-    $str = '';
+    $str = GetStockHistoryLink($strSymbol);
     if (in_arrayLof($strSymbol))
     {
     	$str .= ' '.GetThanousLawLink($strSymbol);
