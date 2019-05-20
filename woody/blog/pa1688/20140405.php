@@ -3,7 +3,6 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>The Good, the Bad and the Ugly</title>
-<meta name="keywords" content="eHOG Mystery">
 <meta name="description" content="While trying to work out a software for eHOG 1-port FXS gateway, I sadly found out how ugly our PA1688 software was designed again.">
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>

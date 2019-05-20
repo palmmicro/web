@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>Sending PTT via RFC 2833</title>
-<meta name="keywords" content="RFC 2833, PTT">
+<meta name="description" content="RFC 2833, PTT">
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>
 <script src="../../../js/copyright.js"></script>

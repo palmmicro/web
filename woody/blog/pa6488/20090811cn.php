@@ -3,7 +3,6 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>从PA1688到PA6488 - 软件工作目录</title>
-<meta name="keywords" content="PalmH323, SDCC, PA6488">
 <meta name="description" content="通过比较PA1688, AR1688和PA6488不同的软件工作目录, 可以看到Palmmicro在试图逐渐完善软件开发组织工作. 虽然只是名字上的改进, 好歹是个好的开始!">
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>

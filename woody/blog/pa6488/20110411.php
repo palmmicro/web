@@ -3,7 +3,6 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>From PA1688 to PA6488 - UART Function in Product Evolution</title>
-<meta name="keywords" content="PA6488, UART">
 <meta name="description" content="The introduction of how we used UART in Palmmicro solutions including PA1688, AR1688 and PA6488. With the story of how we started VoIP module business.">
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>

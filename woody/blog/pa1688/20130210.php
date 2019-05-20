@@ -3,7 +3,6 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>Redial Key as Mute Key</title>
-<meta name="keywords" content="Redial Key, Mute Key">
 <meta name="description" content="Based on an user's software change on his 5111PHONE, we now use redial key as mute key in standard PA1688 software.">
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>

@@ -3,7 +3,6 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>告别RTL8019AS</title>
-<meta name="keywords" content="RTL8019AS, DM9003, RTL8305">
 <meta name="description" content="我们尝试在AR1688方案中使用DM9003替换RTL8019AS和RTL8305. 一开始看上去充满希望, 不过经过几个月的测试后还是失望而归. 不要使用DM9003!">
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>

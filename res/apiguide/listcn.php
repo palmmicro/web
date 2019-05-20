@@ -3,7 +3,6 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>Palmmicro软件API开发指南 - 使用T_LIST相关函数</title>
-<meta name="keywords" content="Palmmicro API, T_LIST相关函数">
 <meta name="description" content="介绍Palmmicro软件API中T_LIST相关数据结构和函数, T_BUF_LIST, F_LIST_ITERATE, ListIterate, ListRemoveItem等.">
 <link href="../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../js/filetype.js"></script>

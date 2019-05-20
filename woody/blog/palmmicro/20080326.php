@@ -3,7 +3,6 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>The History of Palmmicro.com Domain</title>
-<meta name="keywords" content="Palmmicro.com History">
 <meta name="description" content="Records of Palmmicro.com history. From 1999 when Dr Wang started the orginal Palmmicro company, to 2008 when I finally registered the domain under my name.">
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>

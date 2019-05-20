@@ -3,7 +3,6 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>Palmmicro Software API Guide - Using T_LIST Functions</title>
-<meta name="keywords" content="Palmmicro API, T_LIST Functions">
 <meta name="description" content="Introduce T_LIST related data structure and function in Palmmicro software API. Including T_BUF_LIST, F_LIST_ITERATE, ListIterate, ListRemoveItem etc.">
 <link href="../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../js/filetype.js"></script>

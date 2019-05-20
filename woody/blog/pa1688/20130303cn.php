@@ -3,7 +3,6 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>伊朗新做的PA168M板子</title>
-<meta name="keywords" content="PA168M, 伊朗">
 <meta name="description" content="一个勤奋的伊朗工程师完全漠视我们网站上的PA1688停产告示, 在完全没有跟我们联系的情况下自己动手做了一块PA168M板子. 现在他找过来了, 因为发现板子不能启动.">
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>

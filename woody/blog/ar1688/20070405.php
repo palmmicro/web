@@ -3,7 +3,6 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>Regional and Language Options</title>
-<meta name="keywords" content="AR1688 Multiple Language Support">
 <meta name="description" content="Same as PA1688, AR1688 customers around the world helped us to add multiple language support based on our software API.">
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>

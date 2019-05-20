@@ -3,7 +3,6 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>No Proprietary Forks</title>
-<meta name="keywords" content="Palmmicro Never Forks Software">
 <meta name="description" content="To reduce software support work, Palmmicro never forks software. To keep a single version, we only roll back our software when something is seriously wrong.">
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>

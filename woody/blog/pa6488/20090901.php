@@ -3,7 +3,6 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>From PA1688 to PA6488 - TFTP Performance</title>
-<meta name="keywords" content="TFTP Performance">
 <meta name="description" content="Comparing the TFTP performance of AR1688, PA6488 and PA3288. We are merging common TCPIP code of PA3288 and PA6488.">
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>

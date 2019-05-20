@@ -3,7 +3,6 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>拯救PA168Q的合理步骤</title>
-<meta name="keywords" content="拯救PA168Q">
 <meta name="description" content="如何挽救二手PA168Q的具体步骤. 希望这能够给缺乏耐心的Palmmicro老产品的新用户一点帮助. PA1688的产品能够在世界上一直沿用这么多年, 我们一直都很骄傲.">
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>

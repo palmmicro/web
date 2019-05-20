@@ -3,7 +3,6 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>拒绝软件分叉</title>
-<meta name="keywords" content="Palmmicro不支持软件分叉">
 <meta name="description" content="为了减少无谓的软件维护工作, Palmmicro不支持软件分叉, 而且只在实在出了大问题的时候才会返回老版本. 最近我们就被迫做了一次这种可悲的事情, 把DSP一年多来的工作给废弃了.">
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>

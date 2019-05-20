@@ -2,7 +2,6 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>PA3288 Developer's Guide - Quick Start</title>
-<meta name="keywords" content="PA3288 Quick Start">
 <meta name="description" content="Palmmicro PA3288 quick start information, include software directory structure, software compiler information, and software compile command line.">
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>

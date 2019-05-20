@@ -198,7 +198,7 @@ and modified an actually unrelated code, what should be <i>$iHours = STOCK_HOUR_
 <p>June 5, 2016
 <br />Wang Xiaobo always says that he is writing his books using software editer programmed by himself. I was laughing at the idea 20 years ago.
 To my own surprise, I began to write my own stock software after all those years. People think differently in different age.
-<br />When <a href="../../res/myportfolio.php?email=woody@palmmicro.com">My Portfolio</a> function first online, the page load speed was very slow,
+<br />When <a href="../../res/myportfoliocn.php?email=woody@palmmicro.com">My Portfolio</a> function first online, the page load speed was very slow,
 and it will become much faster when refresh. Not confident about my mysql skills, I started optimizing database at once.
 I solved some obvious problems. For example, I extended the data field of original stockgroupitem table, made necessary calculation for all records with the same groupitem_id in stocktransaction table,
 and saved the result in stockgroupitem table, so to avoid query stocktransaction table and calculate every time.

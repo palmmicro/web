@@ -2,7 +2,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>PA3288开发指南 - 数据结构</title>
-<meta name="keywords" content="PA3288数据结构">
+<meta name="description" content="PA3288数据结构">
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>
 <script src="../../../js/copyright.js"></script>

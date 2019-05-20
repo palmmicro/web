@@ -3,7 +3,6 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>SDCC编译器2.9.0</title>
-<meta name="keywords" content="SDCC 2.9.0">
 <meta name="description" content="在2006年的时候, 我们最初的AR1688软件API使用的是SDCC 2.6.0. 现在3年过去, 在软件版本0.44中, 已经是SDCC 2.9.0. 除了其中的Z80部分, 也开始用8051部分了.">
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>

@@ -2,7 +2,6 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>PA3288开发指南 - 快速上手</title>
-<meta name="keywords" content="PA3288快速上手">
 <meta name="description" content="Palmmicro PA3288方案快速上手, 包括软件目录结构, 软件编译器和编译命令行等具体内容. 用户可以依靠本页的内容完整的编译软件API和更新程序查看效果.">
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>

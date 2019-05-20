@@ -3,7 +3,6 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>Palmmicro软件API开发指南</title>
-<meta name="keywords" content="Palmmicro API, 软件开发指南">
 <meta name="description" content="PA3288方案和PA6488方案公用的Palmmicro软件API开发指南. 包括部分AR1688方案参与公用的内容. 所有Palmmicro的软件API都基于BSD版权协议.">
 <link href="../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../js/filetype.js"></script>

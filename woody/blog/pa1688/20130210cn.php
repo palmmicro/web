@@ -3,7 +3,6 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>用重拨键当静音键</title>
-<meta name="keywords" content="重拨键, 静音键">
 <meta name="description" content="基于一个5111PHONE用户所做的软件修改, 我们现在在标准PA1688软件中用重拨键当静音键. 能显示我们的进步的地方是, 所有AR1688电话设计都有单独的静音键.">
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>

@@ -66,7 +66,7 @@ class GoldFundReference extends FundReference
             if ($est_ref->HasData() == false)            return false;
             if ($this->strDate != $est_ref->strDate)    return false;
             
-            $iHour = intval(substr($est_ref->strTime, 0, 2));
+            $iHour = $est_ref->GetHour();
             if ($iHour >= 9 && $iHour <= 15)
             {
                 $this->fFactor = floatval($est_ref->GetPrice()) / floatval($this->GetPrice());

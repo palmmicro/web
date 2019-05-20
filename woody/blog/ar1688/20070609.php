@@ -3,7 +3,6 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>How to Compile AR1688 API with Linux</title>
-<meta name="keywords" content="Compile AR1688 API with Linux">
 <meta name="description" content="Since the first day we provided AR1688 software API, customers bagan to ask if it can be compiled with Linux. Alex Vangelov finally finished the work.">
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>

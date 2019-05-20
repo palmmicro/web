@@ -3,7 +3,6 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>A New PA168M Board Made in Iran</title>
-<meta name="keywords" content="PA168M, Iran">
 <meta name="description" content="A hard working engineer in Iran build a PA168M board without checking the discontinued notice on our web site.">
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>

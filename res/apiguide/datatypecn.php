@@ -3,7 +3,6 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>Palmmicro软件API开发指南 - 数据类型</title>
-<meta name="keywords" content="Palmmicro软件API, 数据类型">
 <meta name="description" content="介绍PA3288方案和PA6488方案公用的Palmmicro软件API中基本的数据类型和命名规则, UCHAR, USHORT, UINT, BOOLEAN等.">
 <link href="../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../js/filetype.js"></script>

@@ -3,7 +3,6 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>Palmmicro Software API Development Guide</title>
-<meta name="keywords" content="Palmmicro Software API, Development Guide">
 <meta name="description" content="This is the development guide of PA3288 solution and PA6488 solution shared Palmmicro API. All Palmmicro software API are based on BSD license.">
 <link href="../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../js/filetype.js"></script>

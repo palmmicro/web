@@ -360,6 +360,11 @@ class StockReference
         return $this->strDate.' '.$this->strTime;
     }
     
+    function GetHour()
+    {
+        return intval(substr($this->strTime, 0, 2));
+    }
+    
     function _totime($strTimeZone)
     {
         date_default_timezone_set($strTimeZone);
@@ -763,10 +768,8 @@ class ExtendedTradingReference extends StockReference
 //        $this->strVolume = $ar[27];
         $this->strVolume = strstr($ar[27], '.', true);
 
-        $iHour = intval(substr($this->strTime, 0, 2));
-        
         parent::StockReference($sym);
-        if ($iHour <= STOCK_HOUR_BEGIN)
+        if ($this->GetHour() <= STOCK_HOUR_BEGIN)
         {
             $this->strDescription = STOCK_PRE_MARKET;
         }

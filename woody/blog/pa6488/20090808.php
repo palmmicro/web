@@ -3,7 +3,6 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>From PA1688 to PA6488 - Ping Response Time</title>
-<meta name="keywords" content="Ping 1472 Bytes">
 <meta name="description" content="Comparing the response time of ping 1472 bytes from PA1688, AR1688 and PA6488, Palmmicro is saying goodbye to 8-bit controller now.">
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>

@@ -2,7 +2,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>PA3288 Developer's Guide - USB Software</title>
-<meta name="keywords" content="PA3288 USB Software">
+<meta name="description" content="PA3288 USB Software">
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>
 <script src="../../../js/copyright.js"></script>

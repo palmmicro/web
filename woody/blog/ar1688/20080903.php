@@ -3,7 +3,6 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>GPIO Control</title>
-<meta name="keywords" content="AR1688 GPIO Control">
 <meta name="description" content="GPIO control source code description for Palmmicro AR1688 software API. Keep in mind that software changes more frequently than blog.">
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>

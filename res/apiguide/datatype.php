@@ -3,7 +3,6 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>Palmmicro Software API Guide - Data Type</title>
-<meta name="keywords" content="Palmmicro Software API, Data Type">
 <meta name="description" content="Introducce the common basic data type and name rules of Palmmicro software API used in PA3288 and PA6488.">
 <link href="../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../js/filetype.js"></script>

@@ -3,7 +3,6 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>JPEG Story</title>
-<meta name="keywords" content="JPEG">
 <meta name="description" content="When JPEG was needed in PA6488 voice and video over IP solution, I wrote this about how the Rie Miyazawa files educated my software development since 1992.">
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>

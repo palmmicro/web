@@ -44,7 +44,7 @@ function EchoAll($bChinese = true)
 		unset($_POST['submit']);
 		$strInput = UrlCleanString($_POST[EDIT_INPUT_NAME]);
 	}
-	else if ($strInput = UrlGetQueryValue($strTitle))	{}
+	else if ($strInput = $acct->GetQuery())	{}
     else
     {
     	switch ($strTitle)
@@ -91,12 +91,19 @@ function EchoAll($bChinese = true)
     EchoParagraph($str);
 }
 
+function _getAccountToolTitle($strTitle, $strQuery, $bChinese)
+{
+	$str = $strQuery ? $strQuery.' ' : '';
+	$str .= GetAccountToolStr($strTitle, $bChinese);
+	return $str;
+}
+
 function EchoMetaDescription($bChinese = true)
 {
 	global $acct;
 	
 	$strTitle = $acct->GetTitle();
-  	$str = GetAccountToolStr($strTitle, $bChinese);
+  	$str = _getAccountToolTitle($strTitle, $acct->GetQuery(), $bChinese);
   	switch ($strTitle)
   	{
   	case 'editinput':
@@ -127,24 +134,32 @@ function EchoTitle($bChinese = true)
 	global $acct;
 	
 	$strTitle = $acct->GetTitle();
-  	$str = GetAccountToolStr($strTitle, $bChinese);
+  	$str = _getAccountToolTitle($strTitle, $acct->GetQuery(), $bChinese);
   	echo $str;
 }
 
 class TitleAcctStart extends AcctStart
 {
 	var $strTitle;
+	var $strQuery;
 	
     function TitleAcctStart($arMustLoginTitle) 
     {
     	$this->strTitle = UrlGetTitle();
     	$bMustLogin = in_array($this->strTitle, $arMustLoginTitle) ? true : false;
         parent::AcctStart($bMustLogin);
+        
+        $this->strQuery = UrlGetQueryValue($this->strTitle);
     }
     
     function GetTitle()
     {
     	return $this->strTitle;
+    }
+    
+    function GetQuery()
+    {
+    	return $this->strQuery;
     }
 }
 

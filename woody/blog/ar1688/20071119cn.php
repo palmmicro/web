@@ -3,7 +3,6 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>简单串口</title>
-<meta name="keywords" content="AR1688 串口">
 <meta name="description" content="由于来自用户的需求日渐增加，我们开始在AR1688软件API中提供简单串口支持。串口软件可以用OEM_UART的选项编译。目前串口配置为19200bps波特率、8位数据、1位停止位、无奇偶校验位。">
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>

@@ -2,7 +2,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>PA3288开发指南 - 芯片支持库csl</title>
-<meta name="keywords" content="PA3288芯片支持库csl">
+<meta name="description" content="PA3288芯片支持库csl">
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>
 <script src="../../../js/copyright.js"></script>

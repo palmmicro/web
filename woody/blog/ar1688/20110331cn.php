@@ -4,7 +4,6 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>AR1688编程第一课</title>
 <meta name="description" content="在Palmmicro AR1688方案卖了4年多后来写编程第一课实在是太晚了, 不过晚总比没有好. 内容有: 如何改变显示类型, 增加一个c语言源文件, 增加G.729语音提示.">
-<meta name="keywords" content="User-Agent, 增加文件, G.729语音提示">
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>
 <script src="../../../js/copyright.js"></script>
