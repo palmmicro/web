@@ -220,6 +220,11 @@ class StockReference
         return $this->strPrevPrice;
     }
     
+    function GetVolume()
+    {
+    	return $this->strVolume;
+    }
+    
     function EmptyFile()
     {
         unlinkEmptyFile($this->strFileName);
@@ -272,7 +277,15 @@ class StockReference
     {
    		$fPercentage = $this->GetPercentage($strDivisor, $strDividend);
    		if ($fPercentage === false)		return '';
-   		if (abs($fPercentage) < 0.1)	return '0';
+   		
+   		if ($strDivisor === false)
+   		{
+//   			if (abs($fPercentage) < 0.001)	return '0';
+   		}
+   		else
+   		{
+   			if (abs($fPercentage * floatval($strDivisor)) < 0.05)	return '0';
+   		}
    		return strval_round($fPercentage, 2).'%';
     }
     

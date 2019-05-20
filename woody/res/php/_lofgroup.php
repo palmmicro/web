@@ -119,7 +119,7 @@ class _LofGroup extends _StockGroup
     	$ref = $this->ref;
         $est_ref = $ref->est_ref;
         $strSymbol = $ref->GetStockSymbol();
-        $strDate = $ref->strDate;
+        $strDate = $ref->GetDate();
         $strCNY = $ref->forex_sql->GetClose($strDate);
         
        	$sql = new NetValueHistorySql($est_ref->GetStockId());
@@ -130,7 +130,7 @@ class _LofGroup extends _StockGroup
        		if ($strEst == false)	$strEst = $est_ref->GetPrevPrice();
        	}
        	
-        $strQuery = sprintf('%s=%s&%s=%s&CNY=%s', $strSymbol, $ref->strPrice, $est_ref->GetStockSymbol(), $strEst, $strCNY);
+        $strQuery = sprintf('%s=%s&%s=%s&CNY=%s', $strSymbol, $ref->GetPrice(), $est_ref->GetStockSymbol(), $strEst, $strCNY);
         return _GetAdjustLink($strSymbol, $strQuery);
     }
 

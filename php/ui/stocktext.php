@@ -4,25 +4,20 @@ require_once('stockdisp.php');
 // Text display UI
 
 // ****************************** MyStockReference class functions *******************************************************
-
-function _textVolume($strVolume)
+function _textPriceVolume($ref)
 {
+    $str = ':'.$ref->GetPrice().' '.$ref->GetDate().' '.GetTimeHM($ref->strTime).WX_EOL;
+    $strVolume = $ref->GetVolume();
     if (intval($strVolume) > 0)
     {
-        $str = '成交量:'.$strVolume.'股'.WX_EOL;
-    }
-    else
-    {
-        $str = '';
+        $str .= '成交量:'.$strVolume.'股'.WX_EOL;
     }
     return $str;
 }
 
 function TextFromExtendedTradingReferencce($ref)
 {
-    $str = RefGetDescription($ref).':'.$ref->GetPrice().' '.$ref->strDate.' '.GetTimeHM($ref->strTime).WX_EOL;
-    if ($ref->strVolume)	$str .= _textVolume($ref->strVolume);
-    return $str;
+    return RefGetDescription($ref)._textPriceVolume($ref);
 }
 
 function TextFromStockReference($ref)
@@ -31,18 +26,12 @@ function TextFromStockReference($ref)
 
     $str = RefGetDescription($ref).WX_EOL;
     $str .= $ref->GetExternalLink().WX_EOL;
-    $str .= STOCK_DISP_PRICE.':'.$ref->GetPrice().' '.$ref->strDate.' '.GetTimeHM($ref->strTime).WX_EOL;
+    $str .= STOCK_DISP_PRICE._textPriceVolume($ref);
     $str .= STOCK_DISP_CHANGE.':'.$ref->GetPercentageText($ref->GetPrevPrice()).WX_EOL;
-    if ($ref->strOpen)		$str .= '开盘价:'.rtrim0($ref->strOpen).WX_EOL;
-    if ($ref->strHigh)		$str .= '最高:'.rtrim0($ref->strHigh).WX_EOL;
-    if ($ref->strLow)		$str .= '最低:'.rtrim0($ref->strLow).WX_EOL;
-    if ($ref->strVolume)	$str .= _textVolume($ref->strVolume);
-    
-    if ($ref->extended_ref)
-    {
-        $str .= TextFromExtendedTradingReferencce($ref->extended_ref);
-    }
-    
+    if ($ref->strOpen)			$str .= '开盘价:'.rtrim0($ref->strOpen).WX_EOL;
+    if ($ref->strHigh)			$str .= '最高:'.rtrim0($ref->strHigh).WX_EOL;
+    if ($ref->strLow)			$str .= '最低:'.rtrim0($ref->strLow).WX_EOL;
+    if ($ref->extended_ref)	$str .= TextFromExtendedTradingReferencce($ref->extended_ref);
     return $str;
 }
 
@@ -85,7 +74,7 @@ function TextFromFundReference($ref)
         $str = $strName;
     }
     
-    $str .= STOCK_DISP_NETVALUE.':'.$ref->GetPrice().' '.$ref->strDate.WX_EOL;
+    $str .= STOCK_DISP_NETVALUE.':'.$ref->GetPrice().' '.$ref->GetDate().WX_EOL;
     if ($ref->fOfficialNetValue)
     {
         $str .= STOCK_DISP_OFFICIAL._textPremium($stock_ref, $ref->fOfficialNetValue).' '.$ref->strOfficialDate.WX_EOL;

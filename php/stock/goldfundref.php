@@ -70,7 +70,7 @@ class GoldFundReference extends FundReference
             if ($iHour >= 9 && $iHour <= 15)
             {
                 $this->fFactor = floatval($est_ref->GetPrice()) / floatval($this->GetPrice());
-                $this->InsertFundCalibration($est_ref, $est_ref->strPrice);
+                $this->InsertFundCalibration($est_ref, $est_ref->GetPrice());
             }
             else
             {
