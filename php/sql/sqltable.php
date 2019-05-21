@@ -273,20 +273,25 @@ class KeyTableSql extends TableSql
 	var $strKeyPrefix;
 	var $strKeyId;
 	
-    function GetKeyId($strId = false)
+    function KeyTableSql($strKeyId, $strKeyPrefix, $strTableName) 
     {
-    	if ($strId)
-    	{
-    		if ($record = $this->GetById($strId))
-    		{
-    			return $record[$this->strKey];
-    		}
-    		return false;
-    	}
-    	return $this->strKeyId;
+    	$this->strKeyId = $strKeyId;
+    	$this->strKeyPrefix = $strKeyPrefix;
+    	$this->strKey = $strKeyPrefix.'_id';
+        parent::TableSql($strTableName);
     }
     
-    function GetFieldKeyId()
+    function ComposeKeyStr()
+    {
+    	return ' `'.$this->strKey.'` INT UNSIGNED NOT NULL ,';
+    }
+
+    function ComposeForeignKeyStr()
+    {
+		return ' FOREIGN KEY (`'.$this->strKey.'`) REFERENCES `'.$this->strKeyPrefix.'`(`id`) ON DELETE CASCADE ,';
+    }
+    
+    function MakeFieldKeyId()
     {
     	return array($this->strKey => $this->strKeyId);
     }
@@ -298,7 +303,7 @@ class KeyTableSql extends TableSql
     
     function BuildWhere_key_extra($strKey, $strVal)
     {
-    	$ar = $this->GetFieldKeyId();
+    	$ar = $this->MakeFieldKeyId();
     	$ar[$strKey] = $strVal;
 		return _SqlBuildWhereAndArray($ar);
     }
@@ -308,12 +313,17 @@ class KeyTableSql extends TableSql
 		return $this->BuildWhere_key_extra('stock_id', $strStockId);
     }
     
-    function KeyTableSql($strKeyId, $strKeyPrefix, $strTableName) 
+    function GetKeyId($strId = false)
     {
-    	$this->strKeyId = $strKeyId;
-    	$this->strKeyPrefix = $strKeyPrefix;
-    	$this->strKey = $strKeyPrefix.'_id';
-        parent::TableSql($strTableName);
+    	if ($strId)
+    	{
+    		if ($record = $this->GetById($strId))
+    		{
+    			return $record[$this->strKey];
+    		}
+    		return false;
+    	}
+    	return $this->strKeyId;
     }
     
     function Count()
@@ -344,7 +354,7 @@ class KeyTableSql extends TableSql
     function DeleteAll()
     {
     	return $this->DeleteData($this->BuildWhere_key());
-    }  
+    }
 }
 
 // ****************************** KeyValSql class *******************************************************
@@ -362,9 +372,9 @@ class KeyValSql extends KeyTableSql
 
     function Create()
     {
-    	$str = ' `'.$this->strKey.'` INT UNSIGNED NOT NULL ,'
+    	$str = $this->ComposeKeyStr()
     		  . ' `'.$this->strValName.'` VARCHAR( '.strval($this->iMaxLen).' ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,'
-         	  . ' FOREIGN KEY (`'.$this->strKey.'`) REFERENCES `'.$this->strKeyPrefix.'`(`id`) ON DELETE CASCADE ,'
+         	  . $this->ComposeForeignKeyStr()
          	  . ' UNIQUE ( `'.$this->strValName.'`, `'.$this->strKey.'` )';
     	return $this->CreateIdTable($str);
     }
@@ -381,7 +391,7 @@ class KeyValSql extends KeyTableSql
     
     function Insert($strVal)
     {
-    	$ar = $this->GetFieldKeyId();
+    	$ar = $this->MakeFieldKeyId();
     	$ar[$this->strValName] = $strVal;
     	return $this->InsertData($ar);
     }
@@ -404,11 +414,6 @@ class KeyValSql extends KeyTableSql
 // ****************************** StockTableSql class *******************************************************
 class StockTableSql extends KeyTableSql
 {
-    function BuildWhere_stock_date($strDate)
-    {
-		return $this->BuildWhere_key_extra('date', $strDate);
-    }
-    
     function StockTableSql($strStockId, $strTableName) 
     {
         parent::KeyTableSql($strStockId, 'stock', $strTableName);

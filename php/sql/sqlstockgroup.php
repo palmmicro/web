@@ -68,19 +68,19 @@ class StockGroupItemSql extends StockGroupTableSql
     	return $this->GetSingleData($this->BuildWhere_key_stock($strStockId));
     }
 
-    function _getPrivateFieldArray($strQuantity = '0', $strCost = '0.0', $strRecord = '0')
+    function _makePrivateFieldArray($strQuantity = '0', $strCost = '0.0', $strRecord = '0')
     {
 		return array('quantity' => $strQuantity, 'cost' => $strCost, 'record' => $strRecord);
     }
     
     function Insert($strStockId)
     {
-    	return $this->InsertData(array_merge($this->GetFieldKeyId(), array('stock_id' => $strStockId), $this->_getPrivateFieldArray()));
+    	return $this->InsertData(array_merge($this->MakeFieldKeyId(), array('stock_id' => $strStockId), $this->_makePrivateFieldArray()));
     }
 
     function Update($strId, $strQuantity, $strCost, $strRecord)
     {
-		return $this->UpdateById($this->_getPrivateFieldArray($strQuantity, $strCost, $strRecord), $strId);
+		return $this->UpdateById($this->_makePrivateFieldArray($strQuantity, $strCost, $strRecord), $strId);
 	}
     
     function CountStockTransaction($strStockId)

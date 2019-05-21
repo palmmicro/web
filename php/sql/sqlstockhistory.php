@@ -51,7 +51,7 @@ class StockHistorySql extends DailyStockSql
     	}
     	else
     	{
-    		return $this->InsertData(array_merge($this->GetFieldKeyId(), $ar));
+    		return $this->InsertData(array_merge($this->MakeFieldKeyId(), $ar));
     	}
     	return false;
     }

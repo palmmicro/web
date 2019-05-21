@@ -9,27 +9,47 @@ class DailyStockSql extends StockTableSql
     {
         parent::StockTableSql($strStockId, $strTableName);
     }
+
+    function ComposeDailyStr()
+    {
+    	return $this->ComposeKeyStr()
+         	  . ' `date` DATE NOT NULL ,'
+         	  . ' `close` DOUBLE(13,6) NOT NULL ,';
+    }
+    
+    function ComposeDailyIndexStr()
+    {
+    	return $this->ComposeForeignKeyStr()
+         	  . ' UNIQUE ( `date`, `stock_id` )';
+    }
     
     function Create()
     {
-    	$str = ' `stock_id` INT UNSIGNED NOT NULL ,'
-         	  . ' `date` DATE NOT NULL ,'
-         	  . ' `close` DOUBLE(13,6) NOT NULL ,'
-         	  . ' FOREIGN KEY (`stock_id`) REFERENCES `stock`(`id`) ON DELETE CASCADE ,'
-         	  . ' UNIQUE ( `date`, `stock_id` )';
+        $str = $this->ComposeDailyStr()
+        	  . $this->ComposeDailyIndexStr();
     	return $this->CreateIdTable($str);
     }
 
-    function _getPrivateFieldArray($strDate, $strClose)
+    function BuildWhere_stock_date($strDate)
     {
-    	return array('date' => $strDate, 'close' => $strClose);
+		return $this->BuildWhere_key_extra('date', $strDate);
     }
     
-    function GetFieldArray($strDate, $strClose)
+    function Get($strDate)
     {
-    	return array_merge($this->GetFieldKeyId(), $this->_getPrivateFieldArray($strDate, $strClose));
+    	return $this->GetSingleData($this->BuildWhere_stock_date($strDate));
     }
     
+    function GetFromDate($strDate, $iNum = 0)
+    {
+    	return $this->GetData($this->BuildWhere_key()." AND date <= '$strDate'", _SqlOrderByDate(), _SqlBuildLimit(0, $iNum));
+    }
+    
+    function GetPrev($strDate)
+    {
+    	return $this->GetSingleData($this->BuildWhere_key()." AND date < '$strDate'", _SqlOrderByDate());
+    }
+
     function _getCloseString($strDate, $callback)
     {
     	if ($record = $this->$callback($strDate))
@@ -39,24 +59,9 @@ class DailyStockSql extends StockTableSql
     	return false;
     }
     
-    function Get($strDate)
-    {
-    	return $this->GetSingleData($this->BuildWhere_stock_date($strDate));
-    }
-    
     function GetClose($strDate)
     {
     	return $this->_getCloseString($strDate, 'Get');
-    }
-
-    function GetFromDate($strDate, $iNum = 0)
-    {
-    	return $this->GetData($this->BuildWhere_key()." AND date <= '$strDate'", _SqlOrderByDate(), _SqlBuildLimit(0, $iNum));
-    }
-    
-    function GetPrev($strDate)
-    {
-    	return $this->GetSingleData($this->BuildWhere_key()." AND date < '$strDate'", _SqlOrderByDate());
     }
 
     function GetClosePrev($strDate)
@@ -92,6 +97,16 @@ class DailyStockSql extends StockTableSql
     	return $this->GetData($this->BuildWhere_key(), _SqlOrderByDate(), _SqlBuildLimit($iStart, $iNum));
     }
 
+    function _makePrivateFieldArray($strDate, $strClose)
+    {
+    	return array('date' => $strDate, 'close' => $strClose);
+    }
+    
+    function MakeFieldArray($strDate, $strClose)
+    {
+    	return array_merge($this->MakeFieldKeyId(), $this->_makePrivateFieldArray($strDate, $strClose));
+    }
+    
     function Insert($strDate, $strClose)
     {
         if ($this->Get($strDate))			return false;
@@ -99,7 +114,7 @@ class DailyStockSql extends StockTableSql
         $ymd = new StringYMD($strDate);
         if ($ymd->IsWeekend())     			return false;   // sina fund may provide false weekend data
         
-    	return $this->InsertData($this->GetFieldArray($strDate, $strClose));
+    	return $this->InsertData($this->MakeFieldArray($strDate, $strClose));
     }
 
     function Update($strId, $strClose)
@@ -136,25 +151,28 @@ class DailyStockSql extends StockTableSql
 // ****************************** FundEstSql class *******************************************************
 class FundEstSql extends DailyStockSql
 {
-    function FundEstSql($strStockId) 
+    function FundEstSql($strStockId = false) 
     {
         parent::DailyStockSql($strStockId, TABLE_FUND_EST);
     }
 
     function Create()
     {
-    	$str = ' `stock_id` INT UNSIGNED NOT NULL ,'
+/*    	$str = ' `stock_id` INT UNSIGNED NOT NULL ,'
          	  . ' `date` DATE NOT NULL ,'
          	  . ' `close` DOUBLE(13,6) NOT NULL ,'
          	  . ' `time` TIME NOT NULL ,'
          	  . ' FOREIGN KEY (`stock_id`) REFERENCES `stock`(`id`) ON DELETE CASCADE ,'
-         	  . ' UNIQUE ( `date`, `stock_id` )';
+         	  . ' UNIQUE ( `date`, `stock_id` )';*/
+        $str = $this->ComposeDailyStr()
+         	  . ' `time` TIME NOT NULL ,'
+        	  . $this->ComposeDailyIndexStr();
     	return $this->CreateIdTable($str);
     }
     
     function Insert($strDate, $strEstValue)
     {
-   		$ar = $this->GetFieldArray($strDate, $strEstValue);
+   		$ar = $this->MakeFieldArray($strDate, $strEstValue);
    		list($strDummy, $strTime) = explodeDebugDateTime();
    		$ar['time'] = $strTime;
    		return $this->InsertData($ar);
@@ -188,7 +206,7 @@ class StockEmaSql extends DailyStockSql
 // ****************************** StockSplitSql class *******************************************************
 class StockSplitSql extends DailyStockSql
 {
-    function StockSplitSql($strStockId) 
+    function StockSplitSql($strStockId = false) 
     {
         parent::DailyStockSql($strStockId, TABLE_STOCK_SPLIT);
     }

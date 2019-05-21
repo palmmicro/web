@@ -12,7 +12,7 @@ define('MIN_SCRREN_WIDTH', DEFAULT_DISPLAY_WIDTH + 15 + DEFAULT_ADSENSE_WIDTH);	
 function LayoutQQgroupPromotion()
 {
     echo <<<END
-        <p>请扫二维码加入Woody创建的QQ群149406511
+        <p>请扫二维码加入Woody创建的QQ群149406511. 本群目前权限受限制, 正在申诉中, 暂时无法通过搜索群号的方式加入.
         <br /><img src=/woody/image/qq_group.png alt="QQ group 149406511 scan QR code" />
         </p>
 END;

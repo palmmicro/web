@@ -58,7 +58,7 @@ class StockTransactionSql extends TableSql
     	}
     }
 
-    function _getPrivateFieldArray($strGroupItemId, $strQuantity, $strPrice, $strFees, $strRemark)
+    function _makePrivateFieldArray($strGroupItemId, $strQuantity, $strPrice, $strFees, $strRemark)
     {
     	list($strDate, $strTime) = explodeDebugDateTime();
     	return array('groupitem_id' => $strGroupItemId, 'quantity' => $strQuantity, 'price' => $strPrice, 'fees' => $strFees, 'filled' => $strDate.' '.$strTime, 'remark' => $strRemark);
@@ -66,12 +66,12 @@ class StockTransactionSql extends TableSql
 
     function Insert($strGroupItemId, $strQuantity, $strPrice, $strFees = '', $strRemark = '')
     {
-    	return $this->InsertData($this->_getPrivateFieldArray($strGroupItemId, $strQuantity, $strPrice, $strFees, $strRemark));
+    	return $this->InsertData($this->_makePrivateFieldArray($strGroupItemId, $strQuantity, $strPrice, $strFees, $strRemark));
     }
 
     function Update($strId, $strGroupItemId, $strQuantity, $strPrice, $strFees, $strRemark)
     {
-    	$ar = $this->_getPrivateFieldArray($strGroupItemId, $strQuantity, $strPrice, $strFees, $strRemark);
+    	$ar = $this->_makePrivateFieldArray($strGroupItemId, $strQuantity, $strPrice, $strFees, $strRemark);
     	unset($ar['filled']);
 		return $this->UpdateById($ar, $strId);
 	}

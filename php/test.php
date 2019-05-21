@@ -9,6 +9,7 @@ require_once('stock/marketwatch.php');
 require_once('sql/_sqltest.php');
 require_once('sql/sqlblog.php');
 require_once('sql/sqlvisitor.php');
+require_once('sql/sqlstockdaily.php');
 //require_once('gb2312/gb2312_tools.php');
 //require_once('test/chinastocklist.php');
 
@@ -144,6 +145,7 @@ function SysInit()
 	    DebugString('connect database ok');
 	}
 	
+//   	$sql = new FundEstSql();
 //	_checkBlogTable();
 	
 //	GB2312WriteDatabase();
