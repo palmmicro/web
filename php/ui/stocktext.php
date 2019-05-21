@@ -6,7 +6,7 @@ require_once('stockdisp.php');
 // ****************************** MyStockReference class functions *******************************************************
 function _textPriceVolume($ref)
 {
-    $str = ':'.$ref->GetPrice().' '.$ref->GetDate().' '.GetTimeHM($ref->strTime).WX_EOL;
+    $str = ':'.$ref->GetPrice().' '.$ref->GetDate().' '.$ref->GetTimeHM().WX_EOL;
     $strVolume = $ref->GetVolume();
     if (intval($strVolume) > 0)
     {

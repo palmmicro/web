@@ -54,7 +54,7 @@ function _echoCalibrationHistoryParagraph($strSymbol, $iStart, $iNum, $bChinese)
     
 	$strSymbolDisplay = GetTableColumnSymbol();
 	$strPrice = GetTableColumnPrice();
-	$arColumn = array($strSymbolDisplay, $strPrice, '对方'.$strSymbolDisplay, '对方'.$strPrice, '校准值', '时间', '操作');
+	$arColumn = array($strSymbolDisplay, $strPrice, '对方'.$strSymbolDisplay, '对方'.$strPrice, '校准值', GetTableColumnTime(), '操作');
     
     $iTotal = SqlCountStockCalibration($strStockId);
     $strNavLink = StockGetNavLink($strSymbol, $iTotal, $iStart, $iNum);

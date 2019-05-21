@@ -36,7 +36,7 @@ function _echoFundHistoryTableItem($csv, $strNetValue, $strClose, $strDate, $arF
     {
         $strEstError = $ref->GetPercentageDisplay($strNetValue, $strEstValue);
         $strEstValue = $ref->GetPriceDisplay($strEstValue, $strNetValue);
-        $strEstTime = $arFund['time'];
+        $strEstTime = $ref->GetTimeHM($arFund['time']);
     }
     
     echo <<<END
@@ -120,13 +120,13 @@ function _echoFundHistoryParagraph($ref, $est_ref, $csv = false, $iStart = 0, $i
     <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="fundhistory">
     <tr>
         <td class=c1 width=100 align=center>{$arColumn[0]}</td>
-        <td class=c1 width=60 align=center>{$arColumn[1]}</td>
-        <td class=c1 width=60 align=center>{$arColumn[2]}</td>
+        <td class=c1 width=70 align=center>{$arColumn[1]}</td>
+        <td class=c1 width=70 align=center>{$arColumn[2]}</td>
         <td class=c1 width=70 align=center>{$arColumn[3]}</td>
         <td class=c1 width=80 align=center>{$arColumn[4]}</td>
-        <td class=c1 width=60 align=center>{$arColumn[5]}</td>
+        <td class=c1 width=70 align=center>{$arColumn[5]}</td>
         <td class=c1 width=70 align=center>{$arColumn[6]}</td>
-        <td class=c1 width=80 align=center>{$arColumn[7]}</td>
+        <td class=c1 width=50 align=center>{$arColumn[7]}</td>
         <td class=c1 width=60 align=center>{$arColumn[8]}</td>
     </tr>
 END;

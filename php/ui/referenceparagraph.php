@@ -9,8 +9,8 @@ function _echoReferenceTableItem($ref, $callback = false)
     {
     	$strPriceDisplay = $ref->GetPriceDisplay();
     	$strPercentageDisplay = $ref->GetPercentageDisplay();
-    	$strDate = $ref->strDate;
-    	$strTime = GetTimeHM($ref->strTime);
+    	$strDate = $ref->GetDate();
+    	$strTime = $ref->GetTimeHM();
     }
     else
     {

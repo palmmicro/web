@@ -12,11 +12,6 @@ define('STOCK_PRE_MARKET', 'Pre-Market Trading');
 define('STOCK_POST_MARKET', 'Post-Market Trading');
 
 // ****************************** Public functions *******************************************************
-// 06:56:22 => 06:56
-function GetTimeHM($strHMS)
-{
-    return substr($strHMS, 0, 5);
-}
 
 // 11:11pm, 10:59PM
 function GetHourFromStrEndWithPM($strEndWithPM)
@@ -365,6 +360,13 @@ class StockReference
         return intval(substr($this->strTime, 0, 2));
     }
     
+// 06:56:22 => 06:56
+	function GetTimeHM($strHMS = false)
+	{
+		$strTime = $strHMS ? $strHMS : $this->strTime;
+		return substr($strTime, 0, 5);
+	}
+	
     function _totime($strTimeZone)
     {
         date_default_timezone_set($strTimeZone);
@@ -386,8 +388,8 @@ class StockReference
             $iTime = $this->_totime($this->strTimeZone);
             list($strDate, $strTime) = explodeDateTime($iTime, $etf_ref->strTimeZone);
         }
-        if ($strDate != $etf_ref->strDate)                          return false;
-        if (GetTimeHM($strTime) != GetTimeHM($etf_ref->strTime))    return false;
+        if ($strDate != $etf_ref->GetDate())                      return false;
+        if ($this->GetTimeHM($strTime) != $etf_ref->GetTimeHM())	return false;
         
         return true;
     }

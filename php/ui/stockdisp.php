@@ -11,5 +11,6 @@ define('STOCK_DISP_PRICE', '价格');
 define('STOCK_DISP_REALTIME', '实时');
 define('STOCK_DISP_SMA', '均线');
 define('STOCK_DISP_SYMBOL', '代码');
+define('STOCK_DISP_TIME', '时间');
 
 ?>

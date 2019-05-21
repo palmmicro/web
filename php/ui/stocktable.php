@@ -53,9 +53,14 @@ function GetTableColumnSymbol()
 	return _getTableColumnColor(STOCK_DISP_SYMBOL, 'maroon');
 }
 
+function GetTableColumnTime()
+{
+	return STOCK_DISP_TIME;
+}
+
 function GetReferenceTableColumn()			
 {
-    return array(GetTableColumnSymbol(), GetTableColumnPrice(), GetTableColumnChange(), GetTableColumnDate(), '时间', '名称');
+    return array(GetTableColumnSymbol(), GetTableColumnPrice(), GetTableColumnChange(), GetTableColumnDate(), GetTableColumnTime(), '名称');
 }
 
 function GetTableColumnOfficalEst()
@@ -101,7 +106,7 @@ function GetFundHistoryTableColumn($est_ref)
         $strChange = '';
     }
     
-	return array(GetTableColumnDate(), GetTableColumnClose(), GetTableColumnNetValue(), GetTableColumnPremium(), $strSymbol, $strChange, GetTableColumnOfficalEst(), GetTableColumnEst().'时间', '误差');
+	return array(GetTableColumnDate(), GetTableColumnClose(), GetTableColumnNetValue(), GetTableColumnPremium(), $strSymbol, $strChange, GetTableColumnOfficalEst(), GetTableColumnTime(), '误差');
 }
 
 function GetAhCompareTableColumn()
