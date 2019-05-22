@@ -2,7 +2,7 @@
 require_once('_stock.php');
 require_once('/php/ui/stocktable.php');
 
-function _echoCalibrationHistoryItem($strSymbol, $record, $bReadOnly, $bChinese)
+function _echoCalibrationHistoryItem($strSymbol, $record, $bReadOnly)
 {
     if ($bReadOnly)
     {
@@ -10,7 +10,7 @@ function _echoCalibrationHistoryItem($strSymbol, $record, $bReadOnly, $bChinese)
     }
     else
     {
-        $strDelete = GetDeleteLink(STOCK_PHP_PATH.'_submitcalibration.php?delete='.$record['id'], '校准记录', 'calibration record', $bChinese);
+        $strDelete = GetDeleteLink(STOCK_PHP_PATH.'_submitcalibration.php?delete='.$record['id'], '校准记录');
     }
     
     $strTime = substr($record['filled'], 0, 16);
@@ -27,7 +27,7 @@ function _echoCalibrationHistoryItem($strSymbol, $record, $bReadOnly, $bChinese)
 END;
 }
 
-function _echoCalibrationHistoryData($strStockId, $strSymbol, $iStart, $iNum, $bChinese)
+function _echoCalibrationHistoryData($strStockId, $strSymbol, $iStart, $iNum)
 {
     if (AcctIsAdmin())
     {
@@ -42,13 +42,13 @@ function _echoCalibrationHistoryData($strStockId, $strSymbol, $iStart, $iNum, $b
     {
         while ($record = mysql_fetch_assoc($result)) 
         {
-            _echoCalibrationHistoryItem($strSymbol, $record, $bReadOnly, $bChinese);
+            _echoCalibrationHistoryItem($strSymbol, $record, $bReadOnly);
         }
         @mysql_free_result($result);
     }
 }
 
-function _echoCalibrationHistoryParagraph($strSymbol, $iStart, $iNum, $bChinese)
+function _echoCalibrationHistoryParagraph($strSymbol, $iStart, $iNum)
 {
     if (($strStockId = SqlGetStockId($strSymbol)) == false)  return;
     
@@ -73,11 +73,11 @@ function _echoCalibrationHistoryParagraph($strSymbol, $iStart, $iNum, $bChinese)
     </tr>
 END;
    
-    _echoCalibrationHistoryData($strStockId, $strSymbol, $iStart, $iNum, $bChinese);
+    _echoCalibrationHistoryData($strStockId, $strSymbol, $iStart, $iNum);
     EchoTableParagraphEnd($strNavLink);
 }
 
-function EchoCalibrationHistory($bChinese = true)
+function EchoCalibrationHistory()
 {
     if ($strSymbol = UrlGetQueryValue('symbol'))
     {
@@ -86,12 +86,12 @@ function EchoCalibrationHistory($bChinese = true)
    		
         $iStart = UrlGetQueryInt('start');
         $iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
-        _echoCalibrationHistoryParagraph($strSymbol, $iStart, $iNum, $bChinese);
+        _echoCalibrationHistoryParagraph($strSymbol, $iStart, $iNum);
     }
     EchoPromotionHead('calibration');
 }
 
-function EchoTitle($bChinese = true)
+function EchoTitle()
 {
     EchoUrlSymbol();
     if ($bChinese)  echo '校准历史记录';

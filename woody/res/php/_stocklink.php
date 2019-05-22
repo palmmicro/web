@@ -114,59 +114,59 @@ function _echoCategorySoftwareLinks($strCategory)
     echo GetCategorySoftwareLinks($ar, $strLink);
 }
 
-function EchoOilSoftwareLinks($bChinese = true)
+function EchoOilSoftwareLinks()
 {
     _echoCategorySoftwareLinks('oilfund');
 }
 
-function EchoGoldSoftwareLinks($bChinese = true)
+function EchoGoldSoftwareLinks()
 {
     _echoCategorySoftwareLinks('goldetf');
 }
 
-function EchoCommoditySoftwareLinks($bChinese = true)
+function EchoCommoditySoftwareLinks()
 {
     _echoCategorySoftwareLinks('commodity');
 }
 
-function EchoQqqSoftwareLinks($bChinese = true)
+function EchoQqqSoftwareLinks()
 {
     _echoCategorySoftwareLinks('qqqfund');
 }
 
-function EchoSpySoftwareLinks($bChinese = true)
+function EchoSpySoftwareLinks()
 {
     _echoCategorySoftwareLinks('spyfund');
 }
 
-function EchoHangSengSoftwareLinks($bChinese = true)
+function EchoHangSengSoftwareLinks()
 {
     _echoCategorySoftwareLinks('hangseng');
 }
 
-function EchoHSharesSoftwareLinks($bChinese = true)
+function EchoHSharesSoftwareLinks()
 {
     _echoCategorySoftwareLinks('hshares');
 }
 
-function EchoASharesSoftwareLinks($bChinese = true)
+function EchoASharesSoftwareLinks()
 {
    	$ar = ChinaEtfGetSymbolArray();
     $str = GetCategorySoftwareLinks($ar, 'A股');
     echo $str;
 }
 
-function EchoBricSoftwareLinks($bChinese = true)
+function EchoBricSoftwareLinks()
 {
     _echoCategorySoftwareLinks('bricfund');
 }
 
-function EchoChinaInternetSoftwareLinks($bChinese = true)
+function EchoChinaInternetSoftwareLinks()
 {
     _echoCategorySoftwareLinks('chinainternet');
 }
 
-function EchoBoseraSoftwareLinks($bChinese = true)
+function EchoBoseraSoftwareLinks()
 {
     $ar = array('sh513500', 'sz159937');
     $strLink = GetExternalLink('http://www.bosera.com', '博时基金');
@@ -174,7 +174,7 @@ function EchoBoseraSoftwareLinks($bChinese = true)
     echo $str;                 
 }
 
-function EchoBocomSchroderSoftwareLinks($bChinese = true)
+function EchoBocomSchroderSoftwareLinks()
 {
     $ar = array('sz164906');
     $strLink = GetExternalLink('http://www.fund001.com', '交银施罗德基金');
@@ -182,7 +182,7 @@ function EchoBocomSchroderSoftwareLinks($bChinese = true)
     echo $str;                 
 }
 
-function EchoChinaAmcSoftwareLinks($bChinese = true)
+function EchoChinaAmcSoftwareLinks()
 {
     $ar = array('sh510330', 'sh513660', 'sz159920');
     $strLink = GetExternalLink('http://www.chinaamc.com', '华夏基金');
@@ -190,7 +190,7 @@ function EchoChinaAmcSoftwareLinks($bChinese = true)
     echo $str;                 
 }
 
-function EchoCiticPruSoftwareLinks($bChinese = true)
+function EchoCiticPruSoftwareLinks()
 {
     $ar = array('sz165510', 'sz165513');
     $strLink = GetExternalLink('http://www.citicprufunds.com.cn', '信诚基金');
@@ -198,7 +198,7 @@ function EchoCiticPruSoftwareLinks($bChinese = true)
     echo $str;                 
 }
 
-function EchoCmfSoftwareLinks($bChinese = true)
+function EchoCmfSoftwareLinks()
 {
     $ar = array('sz161714');
     $strLink = GetExternalLink('http://www.cmfchina.com/main/index/index.shtml', '招商基金');
@@ -206,7 +206,7 @@ function EchoCmfSoftwareLinks($bChinese = true)
     echo $str;                 
 }
 
-function EchoDaChengSoftwareLinks($bChinese = true)
+function EchoDaChengSoftwareLinks()
 {
     $ar = array('sz160924');
     $strLink = GetExternalLink('http://www.dcfund.com.cn', '大成基金');
@@ -214,7 +214,7 @@ function EchoDaChengSoftwareLinks($bChinese = true)
     echo $str;                 
 }
 
-function EchoEFundSoftwareLinks($bChinese = true)
+function EchoEFundSoftwareLinks()
 {
     $ar = array('sh510900', 'sh513050', 'sz159934', 'sz161116', 'sz161125', 'sz161126', 'sz161127', 'sz161128', 'sz161129');
     $strLink = GetExternalLink('http://www.efunds.com.cn', '易方达基金');
@@ -222,7 +222,7 @@ function EchoEFundSoftwareLinks($bChinese = true)
     echo $str;                 
 }
 
-function EchoFortuneSoftwareLinks($bChinese = true)
+function EchoFortuneSoftwareLinks()
 {
     $ar = array('sh501021', 'sz162411', 'sz162415');
     $strLink = GetExternalLink('http://www.fsfund.com', '华宝基金');
@@ -230,7 +230,7 @@ function EchoFortuneSoftwareLinks($bChinese = true)
     echo $str;                 
 }
 
-function EchoGuangFaSoftwareLinks($bChinese = true)
+function EchoGuangFaSoftwareLinks()
 {
     $ar = array('sz159941', 'sz162719');
     $strLink = GetExternalLink('http://www.gffunds.com.cn', '广发基金');
@@ -238,7 +238,7 @@ function EchoGuangFaSoftwareLinks($bChinese = true)
     echo $str;                 
 }
 
-function EchoGuoTaiSoftwareLinks($bChinese = true)
+function EchoGuoTaiSoftwareLinks()
 {
     $ar = array('sh513100', 'sh518800', 'sz160216');
     $strLink = GetExternalLink('http://www.gtfund.com', '国泰基金');
@@ -246,7 +246,7 @@ function EchoGuoTaiSoftwareLinks($bChinese = true)
     echo $str;                 
 }
 
-function EchoHarvestSoftwareLinks($bChinese = true)
+function EchoHarvestSoftwareLinks()
 {
     $ar = array('sz159919', 'sz160717', 'sz160719', 'sz160723');
     $strLink = GetExternalLink('http://www.jsfund.cn', '嘉实基金');
@@ -254,7 +254,7 @@ function EchoHarvestSoftwareLinks($bChinese = true)
     echo $str;                 
 }
 
-function EchoHuaAnSoftwareLinks($bChinese = true)
+function EchoHuaAnSoftwareLinks()
 {
     $ar = array('sh513030', 'sh518880', 'sz160416');
     $strLink = GetExternalLink('http://www.huaan.com.cn', '华安基金');
@@ -262,7 +262,7 @@ function EchoHuaAnSoftwareLinks($bChinese = true)
     echo $str;                 
 }
 
-function EchoHuaTaiSoftwareLinks($bChinese = true)
+function EchoHuaTaiSoftwareLinks()
 {
     $ar = array('sh510300');
     $strLink = GetExternalLink('http://www.huatai-pb.com', '华泰柏瑞');
@@ -270,7 +270,7 @@ function EchoHuaTaiSoftwareLinks($bChinese = true)
     echo $str;                 
 }
 
-function EchoPenghuaSoftwareLinks($bChinese = true)
+function EchoPenghuaSoftwareLinks()
 {
     $ar = array('sh501025');
     $strLink = GetExternalLink('http://www.phfund.com.cn', '鹏华基金');
@@ -278,7 +278,7 @@ function EchoPenghuaSoftwareLinks($bChinese = true)
     echo $str;                 
 }
 
-function EchoSouthernSoftwareLinks($bChinese = true)
+function EchoSouthernSoftwareLinks()
 {
     $ar = array('sh501018', 'sz160140');
     $strLink = GetExternalLink('http://www.nffund.com', '南方基金');
@@ -286,7 +286,7 @@ function EchoSouthernSoftwareLinks($bChinese = true)
     echo $str;                 
 }
 
-function EchoUniversalSoftwareLinks($bChinese = true)
+function EchoUniversalSoftwareLinks()
 {
     $ar = array('sz164701');
     $strLink = GetExternalLink('http://www.99fund.com', '汇添富基金');
@@ -294,7 +294,7 @@ function EchoUniversalSoftwareLinks($bChinese = true)
     echo $str;                 
 }
 
-function EchoYinHuaSoftwareLinks($bChinese = true)
+function EchoYinHuaSoftwareLinks()
 {
     $ar = array('sz161815');
     $strLink = GetExternalLink('http://www.yhfund.com.cn', '银华基金');
@@ -359,7 +359,7 @@ function _getStockGroupLinks($strLoginId = false)
     return $str;
 }
 
-function EchoStockGroupLinks($bChinese = true)
+function EchoStockGroupLinks()
 {
 	$str = _getStockGroupLinks();
     echo $str;

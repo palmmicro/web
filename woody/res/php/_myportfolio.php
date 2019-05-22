@@ -91,7 +91,7 @@ function _onPrefetch($sql)
     StockPrefetchArrayData($arSymbol);
 }
 
-function EchoMyFortfolio($bChinese = true)
+function EchoMyFortfolio()
 {
 	$sql = new StockGroupSql(AcctGetMemberId());
     _onPrefetch($sql);

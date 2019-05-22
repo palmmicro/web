@@ -230,17 +230,10 @@ function UrlGetType()
     return URL_PHP;
 }
 
+// /woody/blog/entertainment/20140615cn.php ==> 20140615cn.php
 function UrlGetFileName($strPathName)
 {
     return substr($strPathName, strrpos($strPathName, "/") + 1);
-}
-
-// /woody/blog/entertainment/20140615cn.php ==> 20140615cn.php
-function UrlGetPageName() 
-{
-//    return substr($_SERVER["SCRIPT_NAME"], strrpos($_SERVER["SCRIPT_NAME"], "/") + 1);
-    $str = UrlGetUri();
-    return UrlGetFileName($str);
 }
 
 // /woody/blog/entertainment/20140615cn.php ==> 20140615
@@ -264,7 +257,8 @@ function _getTitle($str)
 
 function UrlGetTitle()
 {
-    return _getTitle(UrlGetPageName());
+    $str = UrlGetUri();
+    return _getTitle(UrlGetFileName($str));
 }
 
 function UrlGetUriTitle()
@@ -272,7 +266,7 @@ function UrlGetUriTitle()
     return _getTitle(UrlGetUri());
 }
 
-function UrlGetPhp($bChinese)
+function UrlGetPhp($bChinese = true)
 {
     return $bChinese ? URL_CNPHP : URL_PHP;
 }

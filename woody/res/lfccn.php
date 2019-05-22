@@ -8,7 +8,7 @@
 </head>
 
 <body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _LayoutAdrTopLeft(); ?>
+<?php _LayoutTopLeft(); ?>
 
 <div>
 <h1><?php AdrEchoTitle(); ?></h1>

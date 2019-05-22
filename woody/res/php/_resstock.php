@@ -12,35 +12,13 @@ function GetMenuArray()
                      );
 }
 
-function _menuItemClass($iLevel, $strClass, $bChinese)
+function _menuItemClass($iLevel, $strClass)
 {
     $iLevel --;
     $ar = GetMenuArray();
     $strDisp = $ar[$strClass];
-   	NavWriteItemLink($iLevel, $strClass, UrlGetPhp($bChinese), $strDisp);
+   	NavWriteItemLink($iLevel, $strClass, UrlGetPhp(), $strDisp);
     NavContinueNewLine();
-}
-
-function ResMenu($arLoop, $bChinese)
-{
-    $iLevel = 1;
-    
-	NavBegin();
-	WoodyMenuItem($iLevel, 'res', $bChinese);
-	NavContinueNewLine();
-
-    $arFirst = array('adr' => 'ach',
-                      'chinaetf' => 'sh510300',
-                      'goldetf' => 'sh518800',
-                      'lof' => 'sh501018',
-                      'lofhk' => 'sh501021',
-                     );
-    _menuItemClass($iLevel, array_search($arLoop[0], $arFirst), $bChinese);
-
-    NavDirLoop($arLoop);
-//	NavContinueNewLine();
-//    NavSwitchLanguage($bChinese);
-    NavEnd();
 }
 
 function NavStockSoftware($bChinese)
@@ -48,67 +26,35 @@ function NavStockSoftware($bChinese)
     $iLevel = 1;
     
 	NavBegin();
-	WoodyMenuItem($iLevel, 'res', $bChinese);
+	WoodyMenuItem($iLevel, 'res');
 	NavContinueNewLine();
+
+	$strTitle = UrlGetTitle();
+    $arFunction = array('adr' => 'AdrGetSymbolArray',
+                      'chinaetf' => 'ChinaEtfGetSymbolArray',
+                      'goldetf' => 'GoldEtfGetSymbolArray',
+                      'lof' => 'LofGetSymbolArray',
+                      'lofhk' => 'LofHkGetSymbolArray',
+                     );
+    foreach ($arFunction as $strKey => $strFunction)
+    {
+    	$arSymbol = call_user_func($strFunction);
+    	if (in_array($strTitle, $arSymbol))
+    	{
+    		_menuItemClass($iLevel, $strKey);
+    		NavDirLoop($arSymbol);
+    		NavEnd();
+    		return;
+    	}
+    }
+    
     NavMenuSet(GetMenuArray());
-//	NavContinueNewLine();
-//    NavSwitchLanguage($bChinese);
     NavEnd();
 }
 
-function _LayoutTopLeft($bChinese = true)
+function _LayoutTopLeft()
 {
     LayoutTopLeft('NavStockSoftware');
-}
-
-function NavLoopGoldEtf($bChinese)
-{
-    ResMenu(GoldEtfGetSymbolArray(), $bChinese);
-}
-
-function _LayoutGoldEtfTopLeft($bChinese = true)
-{
-    LayoutTopLeft('NavLoopGoldEtf');
-}
-
-function NavLoopChinaEtf($bChinese)
-{
-    ResMenu(ChinaEtfGetSymbolArray(), $bChinese);
-}
-
-function _LayoutChinaEtfTopLeft()
-{
-    LayoutTopLeft('NavLoopChinaEtf');
-}
-
-function NavLoopLof($bChinese)
-{
-    ResMenu(LofGetSymbolArray(), $bChinese);
-}
-
-function _LayoutLofTopLeft($bChinese = true)
-{
-    LayoutTopLeft('NavLoopLof');
-}
-
-function NavLoopLofHk($bChinese)
-{
-    ResMenu(LofHkGetSymbolArray(), $bChinese);
-}
-
-function _LayoutLofHkTopLeft($bChinese = true)
-{
-    LayoutTopLeft('NavLoopLofHk');
-}
-
-function NavLoopAdr($bChinese)
-{
-    ResMenu(AdrGetSymbolArray(), $bChinese);
-}
-
-function _LayoutAdrTopLeft($bChinese = true)
-{
-    LayoutTopLeft('NavLoopAdr');
 }
 
 ?>

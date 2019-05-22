@@ -120,11 +120,11 @@ function _onAddFundPurchase($strGroupId)
 	
 	$sql = new StockGroupItemSql($strGroupId);
 	if (($strGroupItemId = $sql->GetId($strFundId)) == false)    return false;
-	if ($sql->trans_sql->Insert($strGroupItemId, strval(intval(floatval($strAmount) / floatval($strNetValue))), $strNetValue, '', '{'))
+	if ($sql->trans_sql->Insert($strGroupItemId, strval(intval(floatval($strAmount) / floatval($strNetValue))), $strNetValue))
 	{
 	    if ($strGroupItemId = $sql->GetId($strArbitrageId))
 	    {
-	        $sql->trans_sql->Insert($strGroupItemId, '-'.$strQuantity, $strPrice, _onArbitrageCost($strQuantity, $strPrice), '}');
+	        $sql->trans_sql->Insert($strGroupItemId, '-'.$strQuantity, $strPrice, _onArbitrageCost($strQuantity, $strPrice));
 	    }
 	    _debugFundPurchase($strGroupId, $strFundId, $strArbitrageId);
 	}
