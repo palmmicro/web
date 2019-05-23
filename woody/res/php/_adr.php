@@ -156,7 +156,7 @@ function _adrStockRefCallback($ref = false)
     return array('人民币￥', '港币$', '美元$');
 }
 
-function AdrEchoAll()
+function EchoAll()
 {
     global $group;
     
@@ -179,7 +179,7 @@ function AdrEchoAll()
     EchoPromotionHead('adr');
 }
 
-function AdrEchoTitle()
+function EchoTitle()
 {
     global $group;
     
@@ -188,7 +188,7 @@ function AdrEchoTitle()
     echo $str;
 }
 
-function AdrEchoMetaDescription()
+function EchoMetaDescription()
 {
     global $group;
     

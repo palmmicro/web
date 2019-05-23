@@ -107,11 +107,16 @@ function GetCategoryArray($strTitle)
     return $ar;
 }
 
-function _echoCategorySoftwareLinks($strCategory)
+function _getCategorySoftwareLinks($strCategory)
 {
     $ar = GetCategoryArray($strCategory);
     $strLink = _getCategoryLink($strCategory);
-    echo GetCategorySoftwareLinks($ar, $strLink);
+    return GetCategorySoftwareLinks($ar, $strLink);
+}
+
+function _echoCategorySoftwareLinks($strCategory)
+{
+	echo _getCategorySoftwareLinks($strCategory);
 }
 
 function EchoOilSoftwareLinks()
@@ -134,6 +139,11 @@ function EchoQqqSoftwareLinks()
     _echoCategorySoftwareLinks('qqqfund');
 }
 
+function GetSpySoftwareLinks()
+{
+    return _getCategorySoftwareLinks('spyfund');
+}
+
 function EchoSpySoftwareLinks()
 {
     _echoCategorySoftwareLinks('spyfund');
@@ -149,11 +159,16 @@ function EchoHSharesSoftwareLinks()
     _echoCategorySoftwareLinks('hshares');
 }
 
-function EchoASharesSoftwareLinks()
+function GetASharesSoftwareLinks()
 {
    	$ar = ChinaEtfGetSymbolArray();
     $str = GetCategorySoftwareLinks($ar, 'A股');
-    echo $str;
+    return $str;
+}
+
+function EchoASharesSoftwareLinks()
+{
+    echo GetASharesSoftwareLinks();
 }
 
 function EchoBricSoftwareLinks()
@@ -182,12 +197,16 @@ function EchoBocomSchroderSoftwareLinks()
     echo $str;                 
 }
 
-function EchoChinaAmcSoftwareLinks()
+function GetChinaAmcSoftwareLinks()
 {
     $ar = array('sh510330', 'sh513660', 'sz159920');
     $strLink = GetExternalLink('http://www.chinaamc.com', '华夏基金');
-    $str = GetCategorySoftwareLinks($ar, $strLink);
-    echo $str;                 
+    return GetCategorySoftwareLinks($ar, $strLink);
+}
+
+function EchoChinaAmcSoftwareLinks()
+{
+	echo GetChinaAmcSoftwareLinks();
 }
 
 function EchoCiticPruSoftwareLinks()
@@ -246,12 +265,16 @@ function EchoGuoTaiSoftwareLinks()
     echo $str;                 
 }
 
-function EchoHarvestSoftwareLinks()
+function GetHarvestSoftwareLinks()
 {
     $ar = array('sz159919', 'sz160717', 'sz160719', 'sz160723');
     $strLink = GetExternalLink('http://www.jsfund.cn', '嘉实基金');
-    $str = GetCategorySoftwareLinks($ar, $strLink);
-    echo $str;                 
+    return GetCategorySoftwareLinks($ar, $strLink);
+}
+
+function EchoHarvestSoftwareLinks()
+{
+	echo GetHarvestSoftwareLinks();
 }
 
 function EchoHuaAnSoftwareLinks()
@@ -262,12 +285,16 @@ function EchoHuaAnSoftwareLinks()
     echo $str;                 
 }
 
-function EchoHuaTaiSoftwareLinks()
+function GetHuaTaiSoftwareLinks()
 {
     $ar = array('sh510300');
     $strLink = GetExternalLink('http://www.huatai-pb.com', '华泰柏瑞');
-    $str = GetCategorySoftwareLinks($ar, $strLink);
-    echo $str;                 
+    return GetCategorySoftwareLinks($ar, $strLink);
+}
+
+function EchoHuaTaiSoftwareLinks()
+{
+	echo GetHuaTaiSoftwareLinks();
 }
 
 function EchoPenghuaSoftwareLinks()
@@ -343,7 +370,7 @@ function _getPersonalLinks($strMemberId)
 	return $str;
 }
 
-function _getStockGroupLinks($strLoginId = false)
+function GetStockGroupLinks($strLoginId = false)
 {
     if ($strLoginId == false)	$strLoginId = AcctIsLogin();
     $str = '<br />'.GetCategoryLinks(GetMenuArray());
@@ -361,15 +388,14 @@ function _getStockGroupLinks($strLoginId = false)
 
 function EchoStockGroupLinks()
 {
-	$str = _getStockGroupLinks();
+	$str = GetStockGroupLinks();
     echo $str;
 }
 
 function EchoStockCategory($strLoginId = false)
 {
-	$str = '相关软件:<br />'; 
-    $str .= GetCategoryLinks(_getCategoryArray());
-	$str .= _getStockGroupLinks($strLoginId);
+    $str = GetCategoryLinks(_getCategoryArray());
+	$str .= GetStockGroupLinks($strLoginId);
     EchoParagraph($str);
 }
 

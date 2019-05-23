@@ -84,7 +84,7 @@
       </tr>
       <tr>
         <td class=c1 align="center">_lof.php</td>
-        <td class=c1 align="center">/woody/res/<a href="../../res/sz162411.php">sz162411.php</a>, <a href="../../res/sz162411cn.php">sz162411cn.php</a>, <a href="../../res/sz159920.php">sz159920.php</a>, <a href="../../res/sz159920cn.php">sz159920cn.php</a>等</td>
+        <td class=c1 align="center"><a href="../../res/sz162411cn.php">sz162411cn.php</a>, <a href="../../res/sz159920cn.php">sz159920cn.php</a>等</td>
         <td class=c1 align="center">跟LOF相关的公共函数代码</td>
       </tr>
       <tr>

@@ -23,21 +23,12 @@ After debugging for a whole night I realized it was because <a href="../entertai
 <br />As I had used <a href="../entertainment/20110509.php">Google Analytics</a> for site statistics for many years, I always feel the new function Yahoo added nearly 2 years ago was unnecessary and made my web pages slow,
 now I have plenty of reasons to get rid of it. After a lot of search in Yahoo Small Business's new web site <a href="https://www.luminate.com/" target=_blank>Aabaco Small Business</a> I finally disabled the function.
 The link <?php EchoPhpFileLink('/php/weixincn'); ?> was then successfully submited.
-<br />Then I added some real function for it. The most wanted is to use wechat to check <a href="../../res/sz162411.php">SZ162411 Net Value</a>. 
+<br />Then I added some real function for it. The most wanted is to use wechat to check SZ162411 Net Value. 
 In the conversation, by voice or keypad, after user input <font color=grey>sz162411</font>, <font color=grey>SZ162411</font>, <font color=grey>162411</font>,
 <font color=grey>411</font> or <font color=grey>Fortune</font>, the last estimated SZ162411 offical net value and real time net value stored in palmmicro.com and the estimation time will be returned.
 If user only input <font color=grey>1</font>, there will be too many fund to match, due to the 2048 bytes limit of wechat message, only part of those matched results will be displayed.
 The wechat voice recognition might need a little training, when you say <font color=grey>162411</font> first, the result might not be good.
 But if you input <font color=grey>162411</font> first and then say it, it will keep work well from now on.
-<!--
-<br />During the wechat converation the estimation process will not be triggered, user can click the link of SZ162411 in the returned message, using wechat browser to visit and refresh the estimation page from palmmicro.com. 
-After every refresh, other wechat user can get the updated result later as well. This sounds unnecessary stupid, but it is because of the 5 seconds response time limit of wechat.  
-According to the response data provided by wechat, with current simple method, the average reply time was 1 second and max was 4 seconds. 
-If we were to do net value estimation before wechat message reply, we might have to visit 3 other different web site: Yahoo and <a href="../entertainment/20151225.php">Sina Stock Data</a>,
-East Money <a href="../entertainment/20160615.php">USD/CNY Reference Rate</a>.
-According to <a href="../entertainment/20101107.php">Google Analytics</a>, during the 5934 visit of SZ162411 net value page in the past 30 days, the Page Timings average was 10 seconds, 
-so it was a rather high chance to exceed the 5 seconds limitation of wechat and cause message failure.
--->
 <br />Back to the product of Palmmicro, this wechat public account and palmmicro.com works as an example for our developing <a href="../../../pa3288/index.html">PA3288</a> IoT module, 
 providing customers a total solution of data collect, storage and enquire. Based on this, we can provide both hareware product and support software for users to build their own IoT data analysis systems.
 <br />Although lack of real function at this time, please start using palmmicro wechat puablic account <font color=orange>sz162411</font> today by scanning the QR code for below.

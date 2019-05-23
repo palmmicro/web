@@ -18,7 +18,7 @@
 <br />As my <a href="20141016.php">CSR</a> stock is turning into cash soon, I am considering to use the USD to trade XOP while using my other CNY to trade SZ162411 together. 
 I was watching stock quotations on Yahoo and Sina everyday, and always need to click on the calculator application to convert the price between XOP and SZ162411, soon I got bored. 
 <br />Later I thought of my first <a href="20100905.php">PHP</a> application 5 years ago, and decided to write my second PHP application.
-It was planned to put all the usual stock quotations together, and to estimate <a href="../../res/sz162411.php">SZ162411 net value</a> based on XOP, ^SPSIOP and USDCNY exchange rate.
+It was planned to put all the usual stock quotations together, and to estimate SZ162411 net value based on XOP, ^SPSIOP and USDCNY exchange rate.
 Today the first version is released, and I am writing this record of programming details for future reference.
 <br />Using Yahoo Finance API for US stocks (<a href="#usstock">Discontinued</a>).
 <br />Using Sina realtime source for Chinese stocks, oil futures and forex: <?php EchoSinaQuotesLink('sz162411,hf_CL,USDCNY'); ?>
@@ -63,9 +63,8 @@ Following the developer's advice, I copied the code github and put it separately
 <h3>Expansion</h3>
 <p>Aug 27, 2015
 <br />The best way to organize the source code is to write more similar LOF net value estimation software.
-I bought 2 HK ETF related LOF with recent stock market crash,
-and added <a href="../../res/sz159920.php">CHINA ASSET HANG SENG</a> and <a href="../../res/sh510900.php">E FUND H-Share</a> net value tool.
-Although I only watched US market crash, I still added <a href="../../res/sh513500.php">BOSERA S&P 500</a> net value tool for possible future usage.
+I bought 2 HK ETF related LOF with recent stock market crash and added them.
+Although I only watched US market crash, I still added BOSERA S&P 500 net value tool for possible future usage.
 <br />The original one file <?php EchoPhpFileLink('/woody/res/php/_lof'); ?> now becomes 3 files:
 </p>
 <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="table1">
@@ -81,7 +80,7 @@ Although I only watched US market crash, I still added <a href="../../res/sh5135
       </tr>
       <tr>
         <td class=c1 align="center">_lof.php</td>
-        <td class=c1 align="center">/woody/res/<a href="../../res/sz162411.php">sz162411.php</a>, <a href="../../res/sz162411cn.php">sz162411cn.php</a>, <a href="../../res/sz159920.php">sz159920.php</a>, <a href="../../res/sz159920cn.php">sz159920cn.php</a> etc</td>
+        <td class=c1 align="center"><a href="../../res/sz162411cn.php">sz162411cn.php</a>, <a href="../../res/sz159920cn.php">sz159920cn.php</a> etc</td>
         <td class=c1 align="center">LOF related functions</td>
       </tr>
       <tr>
@@ -106,9 +105,7 @@ And we make SZ162411 and XOP arbitrage analysis based on those record.
 the common stock data part of ADR and LOF is moved to <font color=olive>StockReference</font> class in file <?php EchoPhpFileLink('/php/stock/stockref'); ?>, 
 used in <font color=olive>_LofGroup</font> class in file <?php EchoPhpFileLink('/woody/res/php/_lof'); ?> and <font color=olive>_AdrGroup</font> class in file <?php EchoPhpFileLink('/woody/res/php/_adr'); ?>.
 </p>
-<br />Continue to organize code, add similar LOF net value tool for <a href="../../res/sh513100.php">GUOTAI NASDAQ-100</a>, <a href="../../res/sz159941.php">NASDAQ-100</a>,
-<a href="../../res/sz160717.php">JIASHI H-Share</a>, <a href="../../res/sz160216.php">GUOTAI COMMODITY</a>, <a href="../../res/sz165510.php">BRIC</a>, 
-<a href="../../res/sz163208.php">NUOAN Energy</a> and <a href="../../res/sz160416.php">HUAAN S&P GLOBAL OIL</a>.
+<br />Continue to organize code, add other similar LOF net value tool.
 <br />Steps to add new LOF tools:
 </p>
 <ol>
@@ -156,9 +153,7 @@ need to use <i>date_default_timezone_set('America/New_York')</i> or <i>date_defa
 
 <h3><a name="goldetf">Gold ETF</a></h3>
 <p>March 25, 2016
-<br />As Gold future GC is not trading on Easter holiday, I get the chance to adjust the net value estimation for Chinese Gold ETF, 
-including <a href="../../res/sh518800.php">GuoTai Gold ETF</a>, <a href="../../res/sh518880.php">HuaAn Gold ETF</a>, <a href="../../res/sz159934.php">E Fund Gold ETF</a>,
-<a href="../../res/sz159937.php">Bosera Gold ETF</a>, <a href="../../res/sz164701.php">Universal Gold LOF</a>, <a href="../../res/sz160719.php">Harvest Gold LOF</a> and <a href="../../res/sz161116.php">E Fund Gold LOF</a>.
+<br />As Gold future GC is not trading on Easter holiday, I get the chance to adjust the net value estimation for Chinese Gold ETF.
 <br />Different users have been suggesting to add estimation value in the <a href="#netvalue">net value history</a> table of SZ162411.
 Except for not willing to show my possible error directly, I did not add it because the change is realtime, and I don't know when to record it, after US market close or Chinese market close?
 <br />In the LOF code, the variable for estimation value was originally in <font color=olive>_LofGroup</font> class.
@@ -262,7 +257,7 @@ I thought it was because the web server was in US and my major visitors were fro
 
 <h3>Automatic and manual <a name="calibration">calibration</a> history</h3>
 <p>Oct 6, 2016
-<br />SZ162411 <a href="../../res/calibrationhistory.php?symbol=SZ162411">calibration history</a>.
+<br />SZ162411 calibration history.
 </p>
 
 <h3><a name="ahcompare">AH</a> Compare</h3>

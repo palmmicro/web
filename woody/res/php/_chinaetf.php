@@ -76,6 +76,15 @@ function EchoAll()
 	}
     
     EchoPromotionHead('chinaetf');
+    EchoRelated();
+}
+
+function GetChinaEtfLinks()
+{
+	$str = GetExternalLink('https://dws.com/US/EN/Product-Detail-Page/ASHR', 'ASHR官网');
+	$str .= GetASharesSoftwareLinks();
+	$str .= GetSpySoftwareLinks();
+	return $str.GetStockGroupLinks();
 }
 
 function EchoMetaDescription()

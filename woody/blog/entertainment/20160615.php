@@ -16,7 +16,7 @@
 <br />The forex data of <a href="20151225.php">Sina interface</a> is realtime trading data, but USDCNY reference rate is widely used in LOF,
 so the <a href="20150818.php">SZ162411</a> net value calculation may have 0.1 cent of difference compared with final official data. 
 As the difference is so small, and I also believe the trading price will move to reference rate during the day, I was not changing it. After all, I will not trade based 0.1 cent any way.
-<br />Since this year, the manager of SZ160216 works very hard to keep the <a href="../../res/sz160216.php">SZ160216 net value</a> moves almost the same as USO, 
+<br />Since this year, the manager of SZ160216 works very hard to keep its net value moves almost the same as USO, 
 and triggered huge amount of arbitrage between SZ160216 and CL future. One of them, <?php EchoXueqieId('6706948861', 'zzzzv'); ?>, is trading for 0.05 cent profit now, so the use of USDCNY reference rate is necessary.
 Based on his long term experience, he also confirmed me that the trading price will not move to the USDCNY reference rate.
 He also provided the <a href="http://hq2gjqh.eastmoney.com/EM_Futures2010NumericApplication/Index.aspx?type=z&ids=usdcny0" target=_blank>USDCNY reference rate interface</a> from Easy Money <?php EchoEastMoneyForexLink('USDCNY'); ?>,
@@ -50,7 +50,7 @@ The data as following:
 
 <h3><a name="uscny">USCNY and USDCNY</a></h3>
 <p>June 16, 2016
-<br />The auto calibration last night used data from East Money, but today's <a href="../../res/sz162411.php">SZ162411 net value</a> still has small difference compared with offical data.
+<br />The auto calibration last night used data from East Money, but today's SZ162411 net value still has small difference compared with offical data.
 Continue to get advise from zzzzv, I found that the USDCNY data from East Money is actually the same USDCNY data from Sian, they are both trading data.
 To get USDCNY reference rate from East Money, symbol <a href="http://hq2gjqh.eastmoney.com/EM_Futures2010NumericApplication/Index.aspx?type=z&ids=uscny0" target=_blank>USCNY</a> is needed. 
 Data saved in <?php EchoFileLink('/debug/eastmoney/uscny.txt'); ?>.
