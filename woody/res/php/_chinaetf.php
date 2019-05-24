@@ -82,9 +82,10 @@ function EchoAll()
 function GetChinaEtfLinks()
 {
 	$str = GetExternalLink('https://dws.com/US/EN/Product-Detail-Page/ASHR', 'ASHR官网');
+	$str .= GetStockGroupLinks();
 	$str .= GetASharesSoftwareLinks();
 	$str .= GetSpySoftwareLinks();
-	return $str.GetStockGroupLinks();
+	return $str;
 }
 
 function EchoMetaDescription()

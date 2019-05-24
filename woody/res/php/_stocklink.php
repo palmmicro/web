@@ -119,6 +119,11 @@ function _echoCategorySoftwareLinks($strCategory)
 	echo _getCategorySoftwareLinks($strCategory);
 }
 
+function GetOilSoftwareLinks()
+{
+    return _getCategorySoftwareLinks('oilfund');
+}
+
 function EchoOilSoftwareLinks()
 {
     _echoCategorySoftwareLinks('oilfund');
@@ -127,6 +132,11 @@ function EchoOilSoftwareLinks()
 function EchoGoldSoftwareLinks()
 {
     _echoCategorySoftwareLinks('goldetf');
+}
+
+function GetCommoditySoftwareLinks()
+{
+    return _getCategorySoftwareLinks('commodity');
 }
 
 function EchoCommoditySoftwareLinks()
@@ -353,7 +363,7 @@ function _getPersonalGroupLink($strGroupId)
 
 function _getPersonalLinks($strMemberId)
 {
-    $str = '<br />';
+    $str = ' - ';
 	$sql = new StockGroupSql($strMemberId);
 	if ($result = $sql->GetAll()) 
 	{
@@ -374,6 +384,7 @@ function GetStockGroupLinks($strLoginId = false)
 {
     if ($strLoginId == false)	$strLoginId = AcctIsLogin();
     $str = '<br />'.GetCategoryLinks(GetMenuArray());
+    $str .= '<br />'.GetMyPortfolioLink();
     if ($strLoginId)
     {
         $str .= _getPersonalLinks($strLoginId);
@@ -382,7 +393,6 @@ function GetStockGroupLinks($strLoginId = false)
     {
     	$str .= '<br />'.GetMyStockGroupLink();	// .' '.GetAhCompareLink().' '.GetAdrhCompareLink();
     }
-    $str .= '<br />'.GetMyPortfolioLink();
     return $str;
 }
 

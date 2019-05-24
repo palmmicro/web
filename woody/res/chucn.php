@@ -1,27 +1,17 @@
-<?php require_once('php/_adr.php'); ?>
-<html>
-<head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<title><?php EchoTitle(); ?></title>
-<meta name="description" content="<?php EchoMetaDescription(); ?>">
-<link href="../../common/style.css" rel="stylesheet" type="text/css" />
-</head>
+<?php 
+require('php/_adr.php');
 
-<body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _LayoutTopLeft(); ?>
+function EchoRelated()
+{
+	$strGroup = GetAdrLinks();
+	$str = GetExternalLink('http://stock.hexun.com/2017-08-22/190530561.html', '中国联通A股和港股的关系');
+	
+	echo <<< END
+	<p> $str
+	<br />$strGroup
+	</p>
+END;
+}
 
-<div>
-<h1><?php EchoTitle(); ?></h1>
-<?php EchoAll(); ?>
-<p><a href="http://www.kekegold.com/stock/hm/2015-04-23/344386.html" target=_blank>中国联通A股和港股的关系</a>
-<br />相关软件: 
-<?php
-    EchoStockGroupLinks();
+require('/php/ui/_dispcn.php');
 ?>
-</p>
-</div>
-
-<?php LayoutTailLogin(); ?>
-
-</body>
-</html>

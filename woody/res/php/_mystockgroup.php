@@ -134,7 +134,7 @@ function _getSimilarLinks($strTitle)
     {
     case 'adr':
     case 'adrhcompare':
-    	$str = GetExternalLink('http://www.aastocks.com/tc/market/adr.aspx', '阿思達克');
+    	$str = GetAastocksAdrLink();
         break;
   
     case 'ahcompare':

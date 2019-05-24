@@ -244,4 +244,9 @@ function GetWeixinLink($bChinese = true)
     return GetExternalLink($strHttp, ($bChinese ? '微信公众平台' : 'Wechat Public Platform'));
 }
 
+function GetAastocksAdrLink()
+{
+	return GetExternalLink('http://www.aastocks.com/tc/market/adr.aspx', '阿思達克');
+}
+
 ?>

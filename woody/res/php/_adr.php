@@ -177,6 +177,14 @@ function EchoAll()
 	}
     
     EchoPromotionHead('adr');
+    EchoRelated();
+}
+
+function GetAdrLinks()
+{
+	$str = GetAastocksAdrLink();
+	$str .= GetStockGroupLinks();
+	return $str;
 }
 
 function EchoTitle()
