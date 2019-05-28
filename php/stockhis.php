@@ -221,36 +221,63 @@ class StockHistory
 			$this->_cfg_get_SMA($cfg, 'EMA'.strval($iDays));
 		}
     }
-    
-    function _loadConfigSMA($cfg)
-    {
-        foreach ($this->aiNum as $i)
-        {
-            $this->_cfg_get_SMA($cfg, 'D'.strval($i));
-        }
-        $this->_cfg_get_SMA($cfg, 'BOLLUP');
-        $this->_cfg_get_SMA($cfg, 'BOLLDN');
-        
-        foreach ($this->aiNum as $i)
-        {
-            $this->_cfg_get_SMA($cfg, 'W'.strval($i));
-        }
-        
-        foreach ($this->aiNum as $i)
-        {
-            $this->_cfg_get_SMA($cfg, 'M'.strval($i));
-        }
-        
-        $this->_cfg_get_EMA($cfg, 50);
-        $this->_cfg_get_EMA($cfg, 200);
-    }
-    
-    function _cfg_set_EMA($cfg, $iDays)
+
+    // En = k * X0 + (1 - k) * Em; 其中m = n - 1; k = 2 / (n + 1)
+	function _calcEMA($iDays, $afClose)
+	{
+		$iCount = count($afClose);
+		$iStart = ($iCount > $iDays * 2) ? $iDays * 2 : $iCount - 1;
+		
+		$fVal = $afClose[$iStart];
+		if ($iStart > 0)
+		{
+			$f = 2.0 / ($iDays + 1);
+			for ($i = $iStart - 1; $i >= 0; $i --)
+			{
+				$fVal = $f * $afClose[$i] + (1.0 - $f) * $fVal;
+			}
+		}
+		return strval($fVal);
+	}
+	
+    function _cfg_set_EMA($cfg, $iDays, $afClose)
     {
     	if ($strEma = $this->_getEMA($iDays))
 		{
-			$this->_cfg_set_SMA($cfg, 'EMA'.strval($iDays), $strEma);
+			$this->_cfg_set_SMA($cfg, 'EMA'.strval($iDays), $strEma, $this->_calcEMA($iDays, $afClose));
 		}
+    }
+    
+    function _cfg_set_SMAs($cfg, $strPrefix, $afClose)
+    {
+        foreach ($this->aiNum as $i)
+        {
+            $this->_cfg_set_SMA($cfg, $strPrefix.strval($i), _estSma($afClose, $i), _estSma($afClose, $i - 1));
+        }
+        list($strUp, $strDown) = _estBollingerBands($afClose, BOLL_DAYS);
+        list($strUpNext, $strDownNext) = _estNextBollingerBands($afClose, BOLL_DAYS);
+        $this->_cfg_set_SMA($cfg, $strPrefix.'BOLLUP', $strUp, $strUpNext);
+        $this->_cfg_set_SMA($cfg, $strPrefix.'BOLLDN', $strDown, $strDownNext);
+    }
+    
+    function _cfg_get_SMAs($cfg, $strPrefix)
+    {
+        foreach ($this->aiNum as $i)
+        {
+            $this->_cfg_get_SMA($cfg, $strPrefix.strval($i));
+        }
+        $this->_cfg_get_SMA($cfg, $strPrefix.'BOLLUP');
+        $this->_cfg_get_SMA($cfg, $strPrefix.'BOLLDN');
+    }
+    
+    function _loadConfigSMA($cfg)
+    {
+	    $this->_cfg_get_SMAs($cfg, 'D');
+	    $this->_cfg_get_SMAs($cfg, 'W');
+	    $this->_cfg_get_SMAs($cfg, 'M');
+        
+        $this->_cfg_get_EMA($cfg, 50);
+        $this->_cfg_get_EMA($cfg, 200);
     }
     
     function _saveConfigSMA($cfg)
@@ -274,28 +301,13 @@ class StockHistory
     		}
     		@mysql_free_result($result);
     	}
-        
-        foreach ($this->aiNum as $i)
-        {
-            $this->_cfg_set_SMA($cfg, 'D'.strval($i), _estSma($afClose, $i), _estSma($afClose, $i - 1));
-        }
-        list($strUp, $strDown) = _estBollingerBands($afClose, BOLL_DAYS);
-        list($strUpNext, $strDownNext) = _estNextBollingerBands($afClose, BOLL_DAYS);
-        $this->_cfg_set_SMA($cfg, 'BOLLUP', $strUp, $strUpNext);
-        $this->_cfg_set_SMA($cfg, 'BOLLDN', $strDown, $strDownNext);
 
-        foreach ($this->aiNum as $i)
-        {
-            $this->_cfg_set_SMA($cfg, 'W'.strval($i), _estSma($afWeeklyClose, $i), _estSma($afWeeklyClose, $i - 1));
-        }
-            
-        foreach ($this->aiNum as $i)
-        {
-            $this->_cfg_set_SMA($cfg, 'M'.strval($i), _estSma($afMonthlyClose, $i), _estSma($afMonthlyClose, $i - 1));
-        }
+	    $this->_cfg_set_SMAs($cfg, 'D', $afClose);
+	    $this->_cfg_set_SMAs($cfg, 'W', $afWeeklyClose);
+	    $this->_cfg_set_SMAs($cfg, 'M', $afMonthlyClose);
         
-        $this->_cfg_set_EMA($cfg, 50);
-        $this->_cfg_set_EMA($cfg, 200);
+        $this->_cfg_set_EMA($cfg, 50, $afClose);
+        $this->_cfg_set_EMA($cfg, 200, $afClose);
 
         $cfg->save_data();
     }
@@ -369,8 +381,8 @@ class StockHistory
         {
         	$arKey[] = 'D'.strval($i);
         }
-        $arKey[] = 'BOLLUP';
-        $arKey[] = 'BOLLDN';
+        $arKey[] = 'DBOLLUP';
+        $arKey[] = 'DBOLLDN';
         
     	$iScore = 0;
     	$fPrice = floatval($this->stock_ref->GetPrice());

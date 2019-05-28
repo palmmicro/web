@@ -197,7 +197,7 @@ function TestCmdLine()
 //	WriteForexDataFromFile();
 //	MarketWatchGetData('^SPSIOP');
 //	test_stock_dividend();
-//	SqlDeleteStockGroupByGroupName('SINA');
+//	SqlDeleteStockGroupByGroupName('SZ150022');
 //  TestGoogleHistory();
 	phpinfo();
 

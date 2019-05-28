@@ -5,11 +5,14 @@ function _getSmaRow($strKey)
 {
     $arRow = array('D' => '日', 'W' => '周', 'M' => '月', 'BOLLUP' => '布林上轨', 'BOLLDN' => '布林下轨', 'EMA50' => '小牛熊分界', 'EMA200' => '牛熊分界');
     $strFirst = substr($strKey, 0, 1);
-    if ($strFirst != 'B' && $strFirst != 'E')
+    if ($strFirst == 'E')		return $arRow[$strKey];
+
+   	$strRest = substr($strKey, 1, strlen($strKey) - 1);
+    if (substr($strKey, 1, 1) == 'B')
     {
-        return substr($strKey, 1, strlen($strKey) - 1).$arRow[$strFirst];
+    	return ($strFirst == 'D') ? $arRow[$strRest] : $arRow[$strFirst].$arRow[$strRest];
     }
-    return $arRow[$strKey];
+    return $strRest.$arRow[$strFirst];
 }
 
 function _getSmaCallbackPriceDisplay($callback, $ref, $strVal, $strColor)
@@ -109,27 +112,20 @@ function _echoSmaTableData($his, $cb_ref, $callback, $callback2)
             $mm->Init(0.0, 10000000.0);
             $mm->Set($fVal);
         }
-        else if ($strFirst == 'B')
-        {
-            $mmB->Init($mm->fMax, $mm->fMin);
-            $mmB->Set($fVal);
-        }
         else if ($strFirst == 'W')
         {
             $mmW->Init($mm->fMax, $mm->fMin);
             $mmW->Set($fVal);
-            if ($mm->Fit($fVal))         $strColor = 'gray';
-            else if ($mmB->Fit($fVal))  $strColor = 'silver';
+            if ($mm->Fit($fVal))         $strColor = 'silver';
         }
         else if ($strFirst == 'M')
         {
-            if ($mmW->Fit($fVal))        $strColor = 'gray';
-            else if ($mmB->Fit($fVal))  $strColor = 'silver';
+            if ($mm->Fit($fVal))         $strColor = 'silver';
+            else if ($mmW->Fit($fVal))  $strColor = 'gray';
         }
-        else if ($strFirst == 'E')
+        else	// if ($strFirst == 'E')
         {
-            if ($mm->Fit($fVal))         $strColor = 'gray';
-            else if ($mmB->Fit($fVal))  $strColor = 'silver';
+            if ($mm->Fit($fVal))         $strColor = 'silver';
             else 							$strColor = 'yellow';
         }
         _echoSmaTableItem($his, $strKey, $strVal, $cb_ref, $callback, $callback2, $strColor);

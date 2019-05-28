@@ -173,7 +173,7 @@ function in_arrayHangSengLofHk($strSymbol)
 
 function LofHkGetSymbolArray()
 {
-    $ar = array('sh501021', 'sh501025'); 
+    $ar = array('sh501025'); 
     $ar = array_merge($ar, LofHkGetHSharesSymbolArray()
     						, LofHkGetHangSengSymbolArray());
     sort($ar);

@@ -253,7 +253,7 @@ function EchoEFundSoftwareLinks()
 
 function EchoFortuneSoftwareLinks()
 {
-    $ar = array('sh501021', 'sz162411', 'sz162415');
+    $ar = array('sz162411', 'sz162415');
     $strLink = GetExternalLink('http://www.fsfund.com', '华宝基金');
     $str = GetCategorySoftwareLinks($ar, $strLink);
     echo $str;                 
