@@ -13,7 +13,6 @@ require_once('stock/stocksymbol.php');
 require_once('stock/chinamoney.php');
 require_once('stock/yahoostock.php');
 require_once('stock/sinastock.php');
-require_once('stock/googlestock.php');
 require_once('stock/stockprefetch.php');
 require_once('stock/stockref.php');
 

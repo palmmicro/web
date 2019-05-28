@@ -22,10 +22,6 @@ class MyStockReference extends MysqlReference
    	    case STOCK_YAHOO_DATA:
             $this->LoadYahooData($sym);
             break;
-
-        case STOCK_GOOGLE_DATA:
-			$this->LoadGoogleData($sym);
-			break;
         }
         
         parent::MysqlReference($sym);

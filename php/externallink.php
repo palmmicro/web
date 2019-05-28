@@ -3,7 +3,6 @@
 //require_once('debug.php');
 require_once('httplink.php');
 require_once('stock/stocksymbol.php');
-require_once('stock/googlestock.php');
 
 define('SINA_FINANCE_URL', 'https://finance.sina.com.cn/');
 
@@ -63,12 +62,6 @@ function GetXueqiuIdLink($strId, $strDisplay)
 function GetYahooStockLink($sym)
 {
     $strHttp = YahooStockGetUrl($sym->GetYahooSymbol());
-    return GetExternalLink($strHttp, $sym->GetSymbol());
-}
-
-function GetGoogleStockLink($sym)
-{
-    $strHttp = GOOGLE_QUOTES_URL.$sym->GetGoogleSymbol();
     return GetExternalLink($strHttp, $sym->GetSymbol());
 }
 

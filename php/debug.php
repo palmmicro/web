@@ -214,16 +214,6 @@ function DebugGetSinaFileName($strSymbol)
     return _getDebugFileName('sina', $strSymbol);
 }
 
-function DebugGetGoogleFileName($strSymbol)
-{
-    return _getDebugFileName('google', $strSymbol);
-}
-
-function DebugGetGoogleHistoryFileName($strSymbol)
-{
-    return _getDebugFileName('googlehistory', $strSymbol);
-}
-
 function DebugGetEastMoneyFileName($strSymbol)
 {
     return _getDebugFileName('eastmoney', $strSymbol);

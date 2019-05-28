@@ -3,7 +3,6 @@ define('TRADING_QUOTE_NUM', 5);
 
 define('STOCK_SINA_DATA', 'Sina Data');
 define('STOCK_YAHOO_DATA', 'Yahoo Data (possible 15 min delay)');
-define('STOCK_GOOGLE_DATA', 'Google Data');
 define('STOCK_EASTMONEY_DATA', 'East Money Data');
 define('STOCK_MYSQL_DATA', 'Data from MySQL');
 
@@ -116,31 +115,6 @@ function _getSinaArray($sym, $strSinaSymbol, $strFileName)
         $str = file_get_contents($strFileName);
     }
     return explodeQuote($str);
-}
-
-function _getGoogleFile($strGoogleSymbol, $strFileName)
-{
-    $str = GetGoogleQuotes($strGoogleSymbol);
-    if ($str)   file_put_contents($strFileName, $str);
-    else         $str = file_get_contents($strFileName);
-    return $str;
-}
-
-function _getGoogleArray($sym, $strGoogleSymbol, $strFileName)
-{
-    if (StockNeedNewQuotes($sym, $strFileName))
-    {
-        $str = _getGoogleFile($strGoogleSymbol, $strFileName);
-    }
-    else
-    {
-        $str = file_get_contents($strFileName);
-        if (strlen($str) < 10)
-        {
-            $str = _getGoogleFile($strGoogleSymbol, $strFileName);
-        }
-    }
-    return json_decode($str, true);
 }
 
 function _getYahooStr($sym, $strYahooSymbol, $strFileName)
@@ -460,39 +434,6 @@ class StockReference
             $iTime = mktime(16, 1, 0, $ymd->GetMonth(), $ymd->GetDay(), $ymd->GetYear());
         }
         $this->ConvertDateTime($iTime, $this->strTimeZone);
-    }
-    
-    function LoadGoogleData($sym)
-    {
-   		$this->strExternalLink = GetGoogleStockLink($sym);
-    	if ($strGoogleSymbol = $sym->GetGoogleSymbol())
-    	{
-    		$this->strFileName = DebugGetGoogleFileName($sym->GetSymbol());
-    		$ar = _getGoogleArray($sym, $strGoogleSymbol, $this->strFileName);
-
-    		$this->strPrice = str_replace(',', '', $ar['l']);
-    		$strChange = str_replace(',', '', $ar['c']);
-    		$this->strPrevPrice = strval(floatval($this->strPrice) - floatval($strChange));
-    		$this->_generateUsTradingDateTime();
-    		return;
-    	}
-        $this->bHasData = false;
-        
-//        $this->strPrice = $ar['l_fix'];
-//        $this->strPrevPrice = $ar['pcls_fix'];
-//        $this->_convertDateTimeFromUS($ar['lt']);
-/*      can not use this because google has CDT timezone data!
-        // 2017-04-10T16:35:52Z
-        list($this->strDate, $strTime) = explode('T', $ar['lt_dts']);
-        $this->strTime = rtrim($strTime, 'Z');
-        if ($sym->IsSymbolUS())
-        {
-            $this->strTimeZone = STOCK_TIME_ZONE_US;
-        }
-        else
-        {   // to do ...
-        }
-*/        
     }
     
     function _onSinaDataHK($ar)

@@ -132,52 +132,6 @@ function _writePrefetchFiles($arFileName, $arLine, $iCount)
     }
 }
 /*
-function _prefetchGoogleData($arSymbol)
-{
-    $strSymbols = '';
-    $arFileName = array();
-    
-    foreach ($arSymbol as $str => $strSymbol)
-    {
-        $strFileName = DebugGetGoogleFileName($strSymbol);
-        $sym = new StockSymbol($strSymbol);
-        if (StockNeedNewQuotes($sym, $strFileName) == false)  continue;
-        $arFileName[] = $strFileName; 
-        $strSymbols .= $str.',';
-    }
-    if (($iCount = count($arFileName)) < 2)    return;
-    $strSymbols = rtrim($strSymbols, ',');
-    
-    if (($str = GetGoogleQuotes($strSymbols)) == false)   return;
-    $ar = explode(',{', $str);
-    for ($i = 0; $i < $iCount; $i ++)
-    {
-        $str = $ar[$i];
-        if (substr($str, 0, 1) != '{')  $str = '{'.$str;
-        file_put_contents($arFileName[$i], $str);
-    }
-}
-
-function PrefetchGoogleStockData($arSymbol)
-{
-    $arUnknown = array();
-    $arPrefetch = array();
-    foreach ($arSymbol as $strSymbol)
-    {
-        $sym = new StockSymbol($strSymbol);
-        if ($strGoogleSymbol = $sym->GetGoogleSymbol())
-        {
-            $arPrefetch[$strGoogleSymbol] = $strSymbol;
-        }
-        else
-        {
-            $arUnknown[] = $strSymbol;
-        }
-    }
-//    _prefetchGoogleData($arPrefetch); bug to be fixed for this function
-    return $arUnknown;
-}
-
 function PrefetchYahooData($arSymbol)
 {
     $strSymbols = '';

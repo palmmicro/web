@@ -3,7 +3,6 @@ require_once('debug.php');
 require_once('account.php');
 require_once('stock.php');
 require_once('stock/ftstock.php');
-require_once('stock/marketwatch.php');
 
 //require_once('ahstockarray.php');
 require_once('sql/_sqltest.php');
@@ -18,21 +17,6 @@ require_once('test/XOP_Historical.php');
 require_once('test/xueqiu.php');
 
 // http://www.todayir.com/en/index.php HSFML25
-/*
-function TestGoogleHistory()
-{
-//    $strSymbol = 'NASDAQ:ADBE';
-//    $strSymbol = '^SPSIOP';
-//    $strSymbol = '^GSPC';
-    $strSymbol = 'XOP';
-    $sym = new StockSymbol($strSymbol);
-    $str = StockGetGoogleHistoryQuotes($sym->GetGoogleSymbol(), 'Jan+01%2C+2009', 'Aug+2%2C+2012');
-    $strFileName = DebugGetGoogleHistoryFileName($strSymbol);
-    file_put_contents($strFileName, $str);
-    $strLink = GetFileDebugLink($strFileName);
-    DebugString($strLink);
-}
-*/
 
 function _debug_dividend($strSymbol)
 {
@@ -195,10 +179,8 @@ function TestCmdLine()
 
 	TestCmdLine();
 //	WriteForexDataFromFile();
-//	MarketWatchGetData('^SPSIOP');
 //	test_stock_dividend();
 //	SqlDeleteStockGroupByGroupName('SZ150022');
-//  TestGoogleHistory();
 	phpinfo();
 
 ?>

@@ -13,10 +13,6 @@ define('SHENZHEN_PREFIX', 'SZ');
 
 define('YAHOO_INDEX_CHAR', '^');
 
-define('INDEXSP_PREFIX', 'INDEXSP:');
-define('INDEXDJX_PREFIX', 'INDEXDJX:');
-define('INDEXCBOE_PREFIX', 'INDEXCBOE:');
-
 define('STOCK_TIME_ZONE_CN', 'PRC');
 define('STOCK_TIME_ZONE_US', 'America/New_York');
 
@@ -292,7 +288,7 @@ class StockSymbol
         $strSymbol = $this->strSymbol;
         if ($this->IsIndex())
         {
-            if ($strSymbol == '^HSI' || $strSymbol == '^HSCE' || $strSymbol == '^SPHCMSHP')
+            if ($strSymbol == '^HSI' || $strSymbol == '^HSCE')
             {
                 $this->iDigitH = 0;
                 return true;
@@ -585,31 +581,6 @@ class StockSymbol
         	else if ($this->strSymbol == '^DJSOEP')											return $this->strOthers.':DJI';
         	else if ($this->strSymbol == '^IXY')												return $this->strOthers.':PSE';
         }
-        return false;
-    }
-    
-/* 
-    function GetMarketWatchSymbol()
-    {
-        if ($this->IsIndex())
-        {
-            return strtolower($this->strOthers);   // index ^SPSIOP
-        }
-        return false;
-    }
-*/    
-    function GetGoogleSymbol()
-    {
-/*        $strSymbol = $this->strSymbol;
-        if ($this->IsIndex())
-        {
-            $str = $this->strOthers;
-            if ($strSymbol == '^GSPC')  return INDEXSP_PREFIX.'.INX';
-            else if ($strSymbol == '^SPSIOP' || $strSymbol == '^SPGOGUP' || $strSymbol == '^SPBRICNTR' || $strSymbol == '^IXY')  return INDEXSP_PREFIX.$str;
-            else if ($strSymbol == '^VIX')      return INDEXCBOE_PREFIX.$str;
-            else if ($strSymbol == '^DJSOEP')   return INDEXDJX_PREFIX.$str;
-        }*/
-//        return $strSymbol;
         return false;
     }
     
