@@ -9,11 +9,18 @@ require_once('class/Mobile_Detect.php');
 define('DEFAULT_DISPLAY_WIDTH', 900);
 define('MIN_SCRREN_WIDTH', DEFAULT_DISPLAY_WIDTH + 15 + DEFAULT_ADSENSE_WIDTH);		// 隔15个像素再显示最右边的广告, 见下面width=15
 
+/*
+        客户支持微信号yhzqjn(银河证券济南首字母), QQ号3452099724(魔女小豌豆2). 开户后联系时记得说明是Woody介绍的, 调整最优惠佣金. 
+        场内基金1折申购, 赎回资金提前一日可用, 提高一倍资金利用率的套利利器. 
+        本群目前权限受限制, 正在申诉中, 暂时无法通过搜索群号的方式加入.
+*/
+
 function LayoutQQgroupPromotion()
 {
     echo <<<END
-        <p>请扫二维码加入Woody创建的QQ群149406511. 本群目前权限受限制, 正在申诉中, 暂时无法通过搜索群号的方式加入.
-        <br /><img src=/woody/image/qq_group.png alt="QQ group 149406511 scan QR code" />
+        <p>请扫二维码加入Woody创建的QQ群762560467. 
+        <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=685ba1f3ba5edf7fc1814e5d4f299bb6b0a732fb0e93b6e6bf46e11266fcee16"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="华宝油气套利群" title="华宝油气套利群"></a>
+        <br /><img src=/woody/image/group_qq.png alt="QQ group 762560467 scan QR code" />
         </p>
 END;
 }
@@ -43,12 +50,19 @@ function LayoutBrokerPromotion()
 	if (AcctIsAdmin())		$strSnowball .= ' '.GetExternalLink('https://www.snowballsecurities.com/external-channel/invite', '管理');
 	
     echo <<<END
-        <p><a href="https://www.snowballsecurities.com/ib-account-open/web?r=50001003008" target=_blank>雪盈证券开户</a>
-        <br />美股佣金$0.002/股, 最低$0.99/笔. 平台使用费$0.003/股, 最低$1.00/笔.  $strSnowball
+        <p>低风险文艺券商, 套利神器. 
+        <br />★场内基金申购全部一折, 场外app申购大部分1折.
+        <br />★场内赎回, 老分级基金公司取走后, 剩余部分5折, 新基金按基金新规执行.
+        <br />★赎回资金预解冻, 比正常赎回提前一天资金到账, 提高资金利用率.
+        <br />★可转债交易, 费率不会让你失望. 
+        <br />★具体详情可以咨询qq: 2531998595
+        <br /><img src=/woody/image/yinheaccount.png alt="Yinhe open account scan QR code, agent qq：2531998595" />
         <br /><a href="https://m.zhangle.com/h5Account/mobile-h5/index.htm?ly=HTC1-9000008608&param1=011979" target=_blank>华泰证券开户</a>
-        <br />佣金股票万1.6, 场内基金万1, 债券十万分之一. 人工支持微信号18651870837. 
+        <br />佣金股票万1.6, 场内基金万1, 债券十万分之一. 客户支持微信号18651870837. 
         扫码开户后在第一步显示佣金的地方一定要核对工号<b>011979</b>
         <br /><img src=/woody/image/huataiaccount.png alt="Huatai open account scan QR code, agent id 011979" />
+        <br /><a href="https://www.snowballsecurities.com/ib-account-open/web?r=50001003008" target=_blank>雪盈证券开户</a>
+        <br />美股佣金$0.002/股, 最低$0.99/笔. 平台使用费$0.003/股, 最低$1.00/笔.  $strSnowball
         </p>
 END;
 }

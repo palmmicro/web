@@ -65,11 +65,11 @@
 然后继续写代码完成数据更新, 从此再也不怕被查.
 </p>
 
-<h3><a name="qqgroup">QQ群</a>149406511</h3>
+<h3><a name="qqgroup">QQ群</a>762560467</h3>
 <p>2016年10月30日
 <br />发现大家喜欢在微信公众号上问各种类似于<font color=grey><a href="../entertainment/20150818cn.php#realtime">参考估值</a>和实时估值有什么不同</font>的问题.
 此公众号不聊天, 想咨询和讨论网站相关问题的请扫描下面二维码加入QQ群149406511.
-<br /><img src=../../image/qq_group.png alt="QQ group 149406511 scan QR code" />
+<br /><img src=../../image/group_qq.png alt="QQ group 762560467 scan QR code" />
 </p>
 
 <h3><a name="chishin">微信公众号的原创文章</a></h3>
