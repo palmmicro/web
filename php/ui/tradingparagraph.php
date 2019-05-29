@@ -1,6 +1,8 @@
 <?php
 require_once('stocktable.php');
 
+define('TRADING_QUOTE_NUM', 5);
+
 function _getTradingTableColumn()
 {
     return array('交易', GetTableColumnPrice(), '数量(手)');

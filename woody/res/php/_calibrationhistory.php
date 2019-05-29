@@ -94,8 +94,7 @@ function EchoCalibrationHistory()
 function EchoTitle()
 {
     EchoUrlSymbol();
-    if ($bChinese)  echo '校准历史记录';
-    else              echo ' Calibration History';
+    echo '校准历史记录';
 }
 
     AcctAuth();
