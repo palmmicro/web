@@ -239,25 +239,6 @@ function SqlDeleteStockGroupItemByGroupId($strGroupId)
 	}
 }
 
-function SqlDeleteStockGroupByGroupName($strGroupName)
-{
-	$sql = new StockGroupSql();
-    $strWhere = _SqlBuildWhere('groupname', $strGroupName);
-    $iCount = $sql->CountData($strWhere);
-    DebugVal($iCount, 'GroupName: '.$strGroupName.' total');
-    if ($iCount == 0)   return true;
-    
-    if ($result = $sql->GetData($strWhere))
-    {
-        while ($record = mysql_fetch_assoc($result)) 
-        {
-            SqlDeleteStockGroupItemByGroupId($record['id']);
-        }
-        @mysql_free_result($result);
-    }
-    return $sql->DeleteData($strWhere);
-}
-
 function SqlUpdateStockGroup($strGroupId, $arNew)
 {
 	$sql = new StockGroupItemSql($strGroupId);

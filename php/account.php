@@ -351,4 +351,36 @@ class AcctStart
     }
 }
 
+class TitleAcctStart extends AcctStart
+{
+	var $strTitle;
+	var $strQuery;
+	
+    function TitleAcctStart($arMustLoginTitle = false) 
+    {
+    	$this->strTitle = UrlGetTitle();
+    	if ($arMustLoginTitle)
+    	{
+    		$bMustLogin = in_array($this->strTitle, $arMustLoginTitle) ? true : false;
+    	}
+    	else
+    	{
+    		$bMustLogin = true;
+    	}
+        parent::AcctStart($bMustLogin);
+        
+        $this->strQuery = UrlGetQueryValue($this->strTitle);
+    }
+    
+    function GetTitle()
+    {
+    	return $this->strTitle;
+    }
+    
+    function GetQuery()
+    {
+    	return $this->strQuery;
+    }
+}
+
 ?>

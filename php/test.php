@@ -180,7 +180,6 @@ function TestCmdLine()
 	TestCmdLine();
 //	WriteForexDataFromFile();
 //	test_stock_dividend();
-//	SqlDeleteStockGroupByGroupName('SZ150022');
 	phpinfo();
 
 ?>
