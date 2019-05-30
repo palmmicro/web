@@ -142,7 +142,7 @@ function _getSimilarLinks($strTitle)
         break;
   
     case 'goldetf':
-		$str = GetExternalLink('https://www.jisilu.cn/data/etf/#tlink_1', '集思录');
+		$str = GetJisiluGoldLink();
         break;
         
     case 'lof':

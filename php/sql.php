@@ -17,6 +17,7 @@ define('TABLE_STOCK_SPLIT', 'stocksplit');
 define('TABLE_WEIXIN', 'weixin');
 
 require_once('debug.php');
+require_once('email.php');
 require_once('_private.php');
 require_once('class/year_month_day.php');
 require_once('sql/_sqlcommon.php');
@@ -167,8 +168,27 @@ function SqlCreateDatabase($strDb)
 	SqlInsertMember($strEmail, $strEmail);*/
 }
 
+function _errorHandler($errno, $errstr, $errfile, $errline)
+{
+	if ($errfile == '/php/class/ini_file.php')	return;
+	
+	$strSubject = ($errno == 1024) ? '调试消息' : "PHP错误: [$errno]";
+	$str =  $errstr.'<br />位于'.$errfile.'第'.$errline.'行';
+//    dieDebugString(DEBUG_UTF8_BOM.$str);
+    DebugString($strSubject.' '.$str);
+    
+    $str .= '<br />'.GetCurLink();
+	if (isset($_SESSION['SESS_ID']))		$str .= '<br />'.GetMemberLink($_SESSION['SESS_ID']);
+    $str .= '<br />'.GetVisitorLink(UrlGetIp());
+	EmailHtml(ADMIN_EMAIL, $strSubject, $str);
+}
+
 function SqlConnectDatabase()
 {
+	// 设置用户定义的错误处理函数
+	error_reporting(E_ALL);
+	set_error_handler('_errorHandler');
+	
     if (UrlIsPalmmicroDomain())
     {
         $strHost = 'mysql';

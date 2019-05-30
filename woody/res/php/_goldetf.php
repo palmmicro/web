@@ -41,6 +41,16 @@ function EchoAll($bChinese = true)
     {
         _echoTestParagraph($group);
     }
+    EchoRelated();
+}
+
+function GetGoldEtfLinks()
+{
+	$str = GetJisiluGoldLink();
+	$str .= GetGoldSoftwareLinks();
+	$str .= GetCommoditySoftwareLinks();
+	$str .= GetStockGroupLinks();
+	return $str;
 }
 
 function EchoMetaDescription($bChinese = true)

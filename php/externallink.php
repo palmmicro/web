@@ -242,4 +242,9 @@ function GetAastocksAdrLink()
 	return GetExternalLink('http://www.aastocks.com/tc/market/adr.aspx', '阿思達克');
 }
 
+function GetJisiluGoldLink()
+{
+	return GetExternalLink('https://www.jisilu.cn/data/etf/#tlink_1', '集思录');
+}
+
 ?>

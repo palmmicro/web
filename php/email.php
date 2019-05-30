@@ -29,9 +29,10 @@ function EmailHtml($strWho, $strSubject, $strContents)
 function EmailReport($strText, $strSubject, $strWho) 
 {
 	$str = $strWho.':<br />'.$strSubject;
-    if ($strText)		$str .= '<br />'.$strText;
+    if ($strText)							$str .= '<br />'.$strText;
+    if (stripos($strWho, '@qq.com'))		$str .= DebugGetQqGroupText(UrlGetServer());
 	EmailHtml($strWho, $strSubject, $str);
-	trigger_error($strSubject.'<br />'.$str);
+	trigger_error($str);
 }
 
 ?>

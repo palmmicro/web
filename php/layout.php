@@ -15,21 +15,13 @@ define('MIN_SCRREN_WIDTH', DEFAULT_DISPLAY_WIDTH + 15 + DEFAULT_ADSENSE_WIDTH);	
         本群目前权限受限制, 正在申诉中, 暂时无法通过搜索群号的方式加入.
 */
 
-function LayoutQQgroupPromotion()
-{
-    echo <<<END
-        <p>请扫二维码加入Woody创建的QQ群762560467. 
-        <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=685ba1f3ba5edf7fc1814e5d4f299bb6b0a732fb0e93b6e6bf46e11266fcee16"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="华宝油气套利群" title="华宝油气套利群"></a>
-        <br /><img src=/woody/image/group_qq.png alt="QQ group 762560467 scan QR code" />
-        </p>
-END;
-}
-
 function LayoutWeixinPromotion()
 {
+	$strQqGroup = DebugGetQqGroupText();
     echo <<<END
         <p>请扫二维码关注Palmmicro<a href="/woody/blog/palmmicro/20161014cn.php">微信公众订阅号</a>sz162411. 
         <br /><img src=/woody/image/wx.jpg alt="Palmmicro wechat public account sz162411 small size QR code" />
+        $strQqGroup
         </p>
 END;
 }
@@ -206,7 +198,6 @@ function _layoutTail($iWidth, $bChinese, $bAdsense = true)
     		else
     		{
     			LayoutMyPromotion();
-    			LayoutQQgroupPromotion();
     			LayoutWeixinPromotion();
     		}
     	}

@@ -138,31 +138,6 @@ function EchoTitle($bChinese = true)
   	echo $str;
 }
 
-class TitleAcctStart extends AcctStart
-{
-	var $strTitle;
-	var $strQuery;
-	
-    function TitleAcctStart($arMustLoginTitle) 
-    {
-    	$this->strTitle = UrlGetTitle();
-    	$bMustLogin = in_array($this->strTitle, $arMustLoginTitle) ? true : false;
-        parent::AcctStart($bMustLogin);
-        
-        $this->strQuery = UrlGetQueryValue($this->strTitle);
-    }
-    
-    function GetTitle()
-    {
-    	return $this->strTitle;
-    }
-    
-    function GetQuery()
-    {
-    	return $this->strQuery;
-    }
-}
-
 	$acct = new TitleAcctStart(array('commonphrase'));
 
 ?>

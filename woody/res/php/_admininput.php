@@ -101,7 +101,7 @@ function EchoMetaDescription()
   	switch ($strTitle)
   	{
   	case 'admintest':
-  		$str .= '页面. 测试代码在_getAdminTestStr()函数中, 测试成熟后再分配具体长期使用的工具页面. 不成功的测试就可以直接放弃了.';
+  		$str .= '页面. 用于测试代码的暂时放在_getAdminTestStr()函数中, 测试成熟后再分配具体长期使用的工具页面. 不成功的测试就可以直接放弃了.';
   		break;
   		
   	case 'delstockgroup':

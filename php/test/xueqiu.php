@@ -121,7 +121,7 @@ function GetXueqiuDefault()
 
 function _getXueqiuCookie($strToken)
 {
-	return 'xq_a_token='.($strToken ? $strToken : '9ef8ff9f408b3d96d2fc73aa8de776fef21bab5b');
+	return 'xq_a_token='.($strToken ? $strToken : '4ccb2f3c0a06ff5b31f14a59640d789ec8e2fa51');
 //				  .'xq_is_login=1;'
 //				  .'xq_is_login.sig=J3LxgPVPUzbBg3Kee_PquUfih7Q;'
 //				  .'remember=1;'
@@ -148,6 +148,7 @@ function GetXueqiuFriend($strId, $strToken = false)
 	{
 		$str = url_get_contents($strUrl.'&page='.strval($iPage), $strCookie);
 		$ar = json_decode($str, true);
+		if (isset($ar['page']) == false)	break;
 		if ($iPage != intval($ar['page']))	break;
 		
 		if (intval($ar['count']) > 0)

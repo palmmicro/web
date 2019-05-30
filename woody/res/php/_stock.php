@@ -145,11 +145,11 @@ function EchoPromotionHead($strVer = false)
 {
     echo '<h3>讨论和建议</h3>';
     
-    $iVal = rand(1, 4);
+    $iVal = rand(1, 3);
     switch ($iVal)
     {
     case 1:
-     	LayoutQQgroupPromotion();
+       	LayoutBrokerPromotion();
        	break;
         	
     case 2:
@@ -158,10 +158,6 @@ function EchoPromotionHead($strVer = false)
         	
     case 3:
        	LayoutMyPromotion();
-       	break;
-        	
-    case 4:
-       	LayoutBrokerPromotion();
        	break;
     }
     EchoParagraph(GetDevGuideLink('20150818', $strVer));
