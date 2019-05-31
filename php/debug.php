@@ -244,11 +244,11 @@ function unlinkConfigFile($strSymbol)
 	unlinkEmptyFile(DebugGetConfigFileName($strSymbol));
 }
 
-function DebugGetQqGroupText($strDomain = '')
+function DebugGetQqGroupText()
 {
 	return '<br />请扫二维码加入Woody创建的QQ群762560467. ' 
            .'<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=685ba1f3ba5edf7fc1814e5d4f299bb6b0a732fb0e93b6e6bf46e11266fcee16"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="华宝油气套利群" title="华宝油气套利群"></a>'
-           .'<br /><img src='.$strDomain.'/woody/image/group_qq.png alt="QQ group 762560467 scan QR code" />';
+           .'<br /><img src='.UrlGetServer().'/woody/image/group_qq.png alt="QQ group 762560467 scan QR code" />';
 }
 
 ?>

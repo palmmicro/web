@@ -9,12 +9,6 @@ require_once('class/Mobile_Detect.php');
 define('DEFAULT_DISPLAY_WIDTH', 900);
 define('MIN_SCRREN_WIDTH', DEFAULT_DISPLAY_WIDTH + 15 + DEFAULT_ADSENSE_WIDTH);		// 隔15个像素再显示最右边的广告, 见下面width=15
 
-/*
-        客户支持微信号yhzqjn(银河证券济南首字母), QQ号3452099724(魔女小豌豆2). 开户后联系时记得说明是Woody介绍的, 调整最优惠佣金. 
-        场内基金1折申购, 赎回资金提前一日可用, 提高一倍资金利用率的套利利器. 
-        本群目前权限受限制, 正在申诉中, 暂时无法通过搜索群号的方式加入.
-*/
-
 function LayoutWeixinPromotion()
 {
 	$strQqGroup = DebugGetQqGroupText();
@@ -49,12 +43,20 @@ function LayoutBrokerPromotion()
         <br />★可转债交易, 费率不会让你失望. 
         <br />★具体详情可以咨询qq: 2531998595
         <br /><img src=/woody/image/yinheaccount.png alt="Yinhe open account scan QR code, agent qq：2531998595" />
+        
         <br /><a href="https://m.zhangle.com/h5Account/mobile-h5/index.htm?ly=HTC1-9000008608&param1=011979" target=_blank>华泰证券开户</a>
         <br />佣金股票万1.6, 场内基金万1, 债券十万分之一. 客户支持微信号18651870837. 
         扫码开户后在第一步显示佣金的地方一定要核对工号<b>011979</b>
         <br /><img src=/woody/image/huataiaccount.png alt="Huatai open account scan QR code, agent id 011979" />
+        
         <br /><a href="https://www.snowballsecurities.com/ib-account-open/web?r=50001003008" target=_blank>雪盈证券开户</a>
+        	  <a href="https://www.snowballsecurities.com/activity/bank-card-booking?r=50001003008" target=_blank>雪盈境外卡开户</a>
+        <br />雪盈证券(Snowball Securities)是新西兰金融注册服务商, 雪球集团成员企业. 
+        	  通过强大的互联网科技和雄厚的金融实力, 为全球华人提供包括港股, 美股和中国A股在内的全球证券经纪服务.
+        	  为您提供极具市场竞争力的佣金和融资利率, 支持全球交易品类, 毫秒级的下单速度, 免费实时行情, 交易时段专属中文客服服务.
         <br />美股佣金$0.002/股, 最低$0.99/笔. 平台使用费$0.003/股, 最低$1.00/笔.  $strSnowball
+        <br /><img src=/woody/image/xueyingaccount.png alt="Xueying open account scan QR code" />
+        <br /><img src=/woody/image/xueying_s.jpg alt="Xueying security banner" />
         </p>
 END;
 }
