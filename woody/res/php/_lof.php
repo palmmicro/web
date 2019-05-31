@@ -98,7 +98,7 @@ function _onTradingUserDefined($strVal = false)
    	return _getArbitrageQuantityName(true);
 }
 
-function EchoAll($bChinese = true)
+function EchoAll()
 {
     global $group;
     $fund = $group->ref;

@@ -150,7 +150,7 @@ function _getSimilarLinks($strTitle)
         break;
         
     case 'lofhk':
-		$str = GetExternalLink('https://www.jisilu.cn/data/lof/#index', '集思录');
+		$str = GetJisiluLofHkLink();
         break;
         
     default:

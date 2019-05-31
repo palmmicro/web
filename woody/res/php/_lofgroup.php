@@ -156,7 +156,7 @@ function EchoEstSymbol()
     }
 }
 
-function EchoMetaDescription($bChinese = true)
+function EchoMetaDescription()
 {
     global $group;
     

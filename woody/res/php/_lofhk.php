@@ -15,7 +15,7 @@ class _LofHkGroup extends _LofGroup
     } 
 } 
 
-function EchoAll($bChinese = true)
+function EchoAll()
 {
     global $group;
     $fund = $group->ref;
@@ -39,6 +39,17 @@ function EchoAll($bChinese = true)
 	    
     EchoPromotionHead();
     $group->EchoTestParagraph();
+    EchoRelated();
+}
+
+function GetLofHkLinks()
+{
+	$str = GetExternalLink('https://www.hkex.com.hk/market-data/securities-prices/exchange-traded-products', '港股ETF汇总');
+	$str .= ' '.GetJisiluLofHkLink();
+	$str .= GetStockGroupLinks();
+	$str .= GetHangSengSoftwareLinks();
+	$str .= GetASharesSoftwareLinks();
+	return $str;
 }
 
     AcctNoAuth();

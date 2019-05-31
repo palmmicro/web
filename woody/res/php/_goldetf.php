@@ -22,7 +22,7 @@ function _echoTestParagraph($group)
     EchoParagraph($str);
 }
 
-function EchoAll($bChinese = true)
+function EchoAll()
 {
     global $group;
     $fund = $group->ref;
@@ -47,13 +47,13 @@ function EchoAll($bChinese = true)
 function GetGoldEtfLinks()
 {
 	$str = GetJisiluGoldLink();
+	$str .= GetStockGroupLinks();
 	$str .= GetGoldSoftwareLinks();
 	$str .= GetCommoditySoftwareLinks();
-	$str .= GetStockGroupLinks();
 	return $str;
 }
 
-function EchoMetaDescription($bChinese = true)
+function EchoMetaDescription()
 {
     global $group;
 

@@ -247,4 +247,9 @@ function GetJisiluGoldLink()
 	return GetExternalLink('https://www.jisilu.cn/data/etf/#tlink_1', '集思录');
 }
 
+function GetJisiluLofHkLink()
+{
+	return GetExternalLink('https://www.jisilu.cn/data/lof/#index', '集思录');
+}
+
 ?>

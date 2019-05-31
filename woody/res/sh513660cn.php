@@ -1,33 +1,21 @@
-<?php require_once('php/_lofhk.php'); ?>
-<html>
-<head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<title><?php EchoTitle(); ?></title>
-<meta name="description" content="<?php EchoMetaDescription(); ?>">
-<link href="../../common/style.css" rel="stylesheet" type="text/css" />
-</head>
+<?php 
+require('php/_lofhk.php');
 
-<body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _LayoutTopLeft(); ?>
+function EchoRelated()
+{
+	$strGroup = GetLofHkLinks();
+	$strSpy = GetSpySoftwareLinks();
+	$strQqq = GetQqqSoftwareLinks();
+	$strCompany = GetSouthernSoftwareLinks();
+	
+	echo <<< END
+	<p> $strGroup
+		$strSpy
+		$strQqq
+		$strCompany
+	</p>
+END;
+}
 
-
-<div>
-<h1><?php EchoTitle(); ?></h1>
-<?php EchoAll(); ?>
-<p>相关软件:
-<?php
-    EchoHangSengSoftwareLinks();
-    EchoHSharesSoftwareLinks();
-    EchoASharesSoftwareLinks();
-    EchoSpySoftwareLinks();
-    EchoQqqSoftwareLinks();
-    EchoChinaAmcSoftwareLinks();
-    EchoStockGroupLinks();
+require('/php/ui/_dispcn.php');
 ?>
-</p>
-</div>
-
-<?php LayoutTailLogin(); ?>
-
-</body>
-</html>

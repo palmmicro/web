@@ -149,6 +149,11 @@ function EchoCommoditySoftwareLinks()
     _echoCategorySoftwareLinks('commodity');
 }
 
+function GetQqqSoftwareLinks()
+{
+    return _getCategorySoftwareLinks('qqqfund');
+}
+
 function EchoQqqSoftwareLinks()
 {
     _echoCategorySoftwareLinks('qqqfund');
@@ -164,9 +169,19 @@ function EchoSpySoftwareLinks()
     _echoCategorySoftwareLinks('spyfund');
 }
 
+function GetHangSengSoftwareLinks()
+{
+    return _getCategorySoftwareLinks('hangseng');
+}
+
 function EchoHangSengSoftwareLinks()
 {
     _echoCategorySoftwareLinks('hangseng');
+}
+
+function GetHSharesSoftwareLinks()
+{
+    return _getCategorySoftwareLinks('hshares');
 }
 
 function EchoHSharesSoftwareLinks()
@@ -218,14 +233,9 @@ function EchoBocomSchroderSoftwareLinks()
 
 function GetChinaAmcSoftwareLinks()
 {
-    $ar = array('sh510330', 'sh513660', 'sz159920');
+    $ar = array('sh510330', 'sz159920');
     $strLink = GetExternalLink('http://www.chinaamc.com', '华夏基金');
     return GetCategorySoftwareLinks($ar, $strLink);
-}
-
-function EchoChinaAmcSoftwareLinks()
-{
-	echo GetChinaAmcSoftwareLinks();
 }
 
 function EchoCiticPruSoftwareLinks()
@@ -244,12 +254,11 @@ function EchoCmfSoftwareLinks()
     echo $str;                 
 }
 
-function EchoDaChengSoftwareLinks()
+function GetDaChengSoftwareLinks()
 {
     $ar = array('sz160924');
     $strLink = GetExternalLink('http://www.dcfund.com.cn', '大成基金');
-    $str = GetCategorySoftwareLinks($ar, $strLink);
-    echo $str;                 
+    return GetCategorySoftwareLinks($ar, $strLink);
 }
 
 function GetEFundSoftwareLinks()
@@ -328,20 +337,23 @@ function EchoHuaTaiSoftwareLinks()
 	echo GetHuaTaiSoftwareLinks();
 }
 
-function EchoPenghuaSoftwareLinks()
+function GetPenghuaSoftwareLinks()
 {
     $ar = array('sh501025');
     $strLink = GetExternalLink('http://www.phfund.com.cn', '鹏华基金');
-    $str = GetCategorySoftwareLinks($ar, $strLink);
-    echo $str;                 
+    return GetCategorySoftwareLinks($ar, $strLink);
+}
+
+function GetSouthernSoftwareLinks()
+{
+    $ar = array('sh501018', 'sh513660', 'sz160140');
+    $strLink = GetExternalLink('http://www.nffund.com', '南方基金');
+    return GetCategorySoftwareLinks($ar, $strLink);
 }
 
 function EchoSouthernSoftwareLinks()
 {
-    $ar = array('sh501018', 'sz160140');
-    $strLink = GetExternalLink('http://www.nffund.com', '南方基金');
-    $str = GetCategorySoftwareLinks($ar, $strLink);
-    echo $str;                 
+    echo GetSouthernSoftwareLinks();                 
 }
 
 function GetUbsSdicSoftwareLinks()
