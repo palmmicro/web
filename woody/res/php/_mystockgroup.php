@@ -146,7 +146,7 @@ function _getSimilarLinks($strTitle)
         break;
         
     case 'lof':
-		$str = GetExternalLink('https://www.jisilu.cn/data/qdii/', '集思录');
+		$str = GetJisiluLofLink();
         break;
         
     case 'lofhk':
@@ -171,7 +171,7 @@ function EchoAll()
         else
         {
         	EchoStockGroupParagraph();	
-        	StockEditGroupForm(STOCK_GROUP_NEW_CN);
+        	StockEditGroupForm(STOCK_GROUP_NEW);
         }
     }
     else

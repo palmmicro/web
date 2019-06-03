@@ -100,6 +100,7 @@ function StockEditTransactionForm($strSubmit, $strGroupId = false, $strGroupItem
         $strSymbolIndex = $record['groupitem_id'];
     }
     $arPrice = _getGroupItemPriceArray($strGroupId);
+    if (count($arPrice) == 0)	return;
     if ($strId == false)	// else
     {
     	$strQuantity = '';

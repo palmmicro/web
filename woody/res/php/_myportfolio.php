@@ -79,9 +79,9 @@ function _echoMoneyParagraph($portfolio)
 
 function _onPrefetch($sql) 
 {
+    $arSymbol = array();
 	if ($result = $sql->GetAll()) 
 	{
-	    $arSymbol = array();
 		while ($record = mysql_fetch_assoc($result)) 
 		{
 		    $arSymbol = array_merge($arSymbol, SqlGetStocksArray($record['id'], true));

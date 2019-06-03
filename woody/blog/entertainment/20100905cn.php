@@ -56,7 +56,7 @@
 <h3>分解<a name="primenumber">质因数</a></h3>
 <p>2019年4月12日
 <br />昨天是王小波忌日, 让我对自己的胸闷和牙疼症状充满了警惕. 最近整理<a href="20150818cn.php">华宝油气</a>净值软件真有种死去活来的感觉, 经常让我怀疑自己到底在干什么.
-今天刚好在我的QQ群<a href="../palmmicro/20161014cn.php#qqgroup">762560467</a>看到这个图片, 我觉得自己该做点简单的东西恢复一下信心, 就削尖铅笔写了这个<a href="../../../account/primenumbercn.php">分解质因数</a>的工具.
+今天看到这个图片, 我觉得自己该做点简单的东西恢复一下信心, 就削尖铅笔写了这个<a href="../../../account/primenumbercn.php">分解质因数</a>的工具.
 <br /><img src=../photo/primenumber.jpg alt="The picture that encouraged me to write this prime nnumber tool." />
 <br />分解质因数可以用最直接的方式实现, 对指定的数字n, 从2开始一个个反复除到n的平方根为止就行了. 下面用数字68举个具体的例子.
 </p>

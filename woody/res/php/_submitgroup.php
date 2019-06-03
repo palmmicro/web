@@ -134,17 +134,15 @@ function _onNew($strMemberId, $strGroupName, $strSymbols)
 		$strGroupId = UrlGetQueryValue('edit');
 		switch ($_POST['submit'])
 		{
-		case STOCK_GROUP_ADJUST_CN:
+		case STOCK_GROUP_ADJUST:
 		    _onAdjust($strSymbols);
 		    break;
 
 		case STOCK_GROUP_EDIT:
-		case STOCK_GROUP_EDIT_CN:
 		    _onEdit($strMemberId, $strGroupId, $strGroupName, $strSymbols);
 		    break;
 
 		case STOCK_GROUP_NEW:
-		case STOCK_GROUP_NEW_CN:
 		    _onNew($strMemberId, $strGroupName, $strSymbols);
 		    break;
 		}

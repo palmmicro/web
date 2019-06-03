@@ -252,4 +252,9 @@ function GetJisiluLofHkLink()
 	return GetExternalLink('https://www.jisilu.cn/data/lof/#index', '集思录');
 }
 
+function GetJisiluLofLink()
+{
+	return GetExternalLink('https://www.jisilu.cn/data/qdii/', '集思录');
+}
+
 ?>

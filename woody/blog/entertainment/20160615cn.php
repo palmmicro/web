@@ -16,7 +16,7 @@
 <br />因为<a href="20151225cn.php">新浪接口</a>提供的是实时交易数据, 而<a href="../../res/lofcn.php">LOF</a>普遍使用的美元人民币中间价,
 在<a href="20150818cn.php">华宝油气</a>净值计算中跟最终官方数据相比有时候会出现0.1分的误差. 考虑到误差不大, 我也不会去做0.1分钱的套利, 而且我还相信交易值总会往中间价靠拢, 所以我一直没有去改它.
 <br />今年以来国泰商品的基金经理费心费力, 在国内监管部门要求多个不同美股ETF持仓的条件下, 居然一直维持了<a href="../../res/sz160216cn.php">国泰商品净值</a>和<?php EchoMyStockLink('USO'); ?>几乎完全相同的变动,
-由此在白天引发了大量跟原油期货CL的套利交易. 在我QQ群149406511中的高手<?php EchoXueqieId('6706948861', 'zzzzv'); ?>已经做到了0.05分的套利, 这样就必须使用中间价了. zzzzv根据长期经验给我确认了交易值不会往中间价靠拢,
+由此在白天引发了大量跟原油期货CL的套利交易. 高手像<?php EchoXueqieId('6706948861', 'zzzzv'); ?>已经做到了0.05分的套利, 这样就必须使用中间价了. zzzzv根据长期经验给我确认了交易值不会往中间价靠拢,
 并且给我提供了他手头的Excel+VBA工具中使用的东方财富人民币美元<?php EchoEastMoneyForexLink('USDCNY'); ?>的<a href="http://hq2gjqh.eastmoney.com/EM_Futures2010NumericApplication/Index.aspx?type=z&ids=usdcny0" target=_blank>中间价接口</a>.
 <br />先写这个格式文档, 然后再改我的<font color=olive>ForexReference</font>类.
 拿到的数据如下:
@@ -54,11 +54,11 @@
 
 <h3><a name="chinamoney">中国外汇交易中心的中间价接口</a></h3>
 <p>2018年4月13日
-<br />不知道是不是没有人用, 去年东方财富的中间价数据接口混乱了2个月, 总是给个老数据出来, 偶尔才冒个当天的新数据. 这样吊着我的胃口, 害我一直在没当天新数据的时候手工更新数据库. 我的导师zzzzv退群了, 也没有人可以问.
+<br />不知道是不是没有人用, 去年东方财富的中间价数据接口混乱了2个月, 总是给个老数据出来, 偶尔才冒个当天的新数据. 这样吊着我的胃口, 害我一直在没当天新数据的时候手工更新数据库.
 己所不欲勿施于人, 我也就一直不愿意用<a href="20170309cn.php">爬虫</a>抓取其它网站的数据. 
 而等我下定决心克服自己的爬虫洁癖打算去<?php EchoLink('http://www.chinamoney.com.cn/r/cms/www/chinamoney/html/cn/latestRMBParityCn.html'); ?>爬数据后, 东方财富的中间价接口却又奇迹般恢复正常了.
-<br />前天晚上的时候东方财富又出错了, 这次不是给老数据, 而是干脆就没有数据了. 昨天白天我在群里抱怨了一下, 正打算重新挽起袖子写爬虫.
-没想到群里的海风突然告诉我他找到了中国外汇交易中心的中间价接口<?php EchoLink('http://www.chinamoney.com.cn/r/cms/www/chinamoney/data/fx/ccpr.json'); ?>.
+<br />前天晚上的时候东方财富又出错了, 这次不是给老数据, 而是干脆就没有数据了. 昨天白天我抱怨了一下, 正打算重新挽起袖子写爬虫.
+没想到海风突然告诉我他找到了中国外汇交易中心的中间价接口<?php EchoLink('http://www.chinamoney.com.cn/r/cms/www/chinamoney/data/fx/ccpr.json'); ?>.
 <br />真是个天大的利好啊, 我赶快把手头的微信小程序和IB自动交易编程放在一边, 在晚上炒美股的时候改写了本来为爬虫准备的<?php EchoPhpFileLink('/php/stock/chinamoney'); ?>, 过几个小时就能用上了.
 基于中国外汇交易中心的第一手数据, 这样能够有效的在每天9点15后就拿到当天的中间价, 从而可以根据按当天中间价调整后的华宝油气<a href="20150818cn.php#realtime">参考估值</a>决定是否要在9点20前撤销掉集合竞价的买卖单.
 <br />软件总是会越写越乱. 在2年前的结构设计中, 放在<font color=lime>/php/stock/</font>目录下的文件本来是打算只放跟MySQL数据库无关的基本股票数据采集处理代码的.

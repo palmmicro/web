@@ -14,7 +14,6 @@
 <h1>2016年网络日志图片</h1>
 <p>10月14日 <a href="palmmicro/20161014cn.php">Palmmicro微信公众订阅号sz162411</a>
 <br /><img src=../image/wx.jpg alt="Palmmicro wechat public account sz162411 small size QR code" />
-<br /><img src=../image/group_qq.png alt="QQ group 762560467 scan QR code" />
 </p>
 </div>
 

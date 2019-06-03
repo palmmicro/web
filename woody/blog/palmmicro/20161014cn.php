@@ -58,18 +58,11 @@
 
 <h3><a name="chinafund">用微信公众号查询A股基金数据</a></h3>
 <p>2016年10月28日
-<br />昨天让我广发证券网上开户的经理在他的QQ群211389159帮忙宣传一下微信公众号</a><font color=orange>sz162411</font>查股票数据, 随即加进来2个人, 其中一个上来就查<font color=grey>159915</font>,
+<br />昨天让我广发证券网上开户的经理帮忙宣传一下微信公众号</a><font color=orange>sz162411</font>查股票数据, 随即加进来2个人, 其中一个上来就查<font color=grey>159915</font>,
 发现没有数据后立马取消了订阅, 又刺激了我给数据库加上所有A股基金数据.
 <br />从<a href="http://fund.eastmoney.com/allfund.html" target=_blank>http://fund.eastmoney.com/allfund.html</a>找到了基金列表, 没想到全市场居然有5000多基金. 
 这个网页的源码存下来有5M多字节, 往最近一直访问特别慢的Yahoo服务器上传了好几次都没成功. 只好动用很久没有用过的UltraEdit玩命替换文本, 把缩小了20倍的文本存在了<?php EchoFileLink('/debug/chinafundlist.txt'); ?>中.
 然后继续写代码完成数据更新, 从此再也不怕被查.
-</p>
-
-<h3><a name="qqgroup">QQ群</a>762560467</h3>
-<p>2016年10月30日
-<br />发现大家喜欢在微信公众号上问各种类似于<font color=grey><a href="../entertainment/20150818cn.php#realtime">参考估值</a>和实时估值有什么不同</font>的问题.
-此公众号不聊天, 想咨询和讨论网站相关问题的请扫描下面二维码加入QQ群149406511.
-<br /><img src=../../image/group_qq.png alt="QQ group 762560467 scan QR code" />
 </p>
 
 <h3><a name="chishin">微信公众号的原创文章</a></h3>
@@ -97,10 +90,10 @@
 <!--<br /><img src=../photo/kingcrab.jpg alt="Jan 30, 2018. King crab, Woody and Sapphire in La Quinta Carlsbad." />-->
 </p>
 
-<h3>千人QQ群和QQ年费会员</h3>
-<p>2019年3月19日
-<br />两年半过去, 微信公众号上现有461个用户, <a href="#qqgroup">QQ群</a>里是496人, 感觉基本上体现了目前华宝油气套利群体的规模.
-<br />佛前五百罗汉, 田横五百士, QQ群超过五百人就要收费了. 二十年多来第一次给QQ缴费, 花了120块办了个年费会员, 把QQ群升级成了千人群.
+<h3>微信流量主</h3>
+<p>2019年6月1日
+<br />两年多过去, 微信公众号上现有517个用户, 感觉基本上体现了目前华宝油气套利群体的规模.
+<br />佛前五百罗汉, 田横五百士, 微信用户超过五百人就可以开通流量主收广告费了.
 </p>
 
 </div>

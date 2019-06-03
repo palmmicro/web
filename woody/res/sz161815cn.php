@@ -1,32 +1,25 @@
-<?php require_once('php/_lof.php'); ?>
-<html>
-<head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<title><?php EchoTitle(); ?></title>
-<meta name="description" content="<?php EchoMetaDescription(); ?>">
-<link href="../../common/style.css" rel="stylesheet" type="text/css" />
-</head>
+<?php 
+require('php/_lof.php');
 
-<body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _LayoutTopLeft(); ?>
+function EchoRelated()
+{
+	$strGroup = GetLofLinks();
+	$strOil = GetOilSoftwareLinks();
+	$strCommodity = GetCommoditySoftwareLinks();
+	$strGold = GetGoldSoftwareLinks();
+	$strCompany = GetYinHuaSoftwareLinks();
+	
+	echo <<< END
+	<p><b>SZ161815大致对应跟踪DBC, 此处估算结果仅供参考.</b>
+	<p><a href="https://xueqiu.com/4206051491/69865145" target=_blank>DBC和GSG的区别</a></p>
+	<p> $strGroup
+		$strOil
+		$strCommodity
+		$strGold
+		$strCompany
+	</p>
+END;
+}
 
-<div>
-<h1><?php EchoTitle(); ?></h1>
-<p><b><?php EchoShortName(); ?>大致对应跟踪<?php EchoEstSymbol(); ?>, 此处估算结果仅供参考.</b></p>
-<?php EchoAll(); ?>
-<p><a href="https://xueqiu.com/4206051491/69865145" target=_blank>DBC和GSG的区别</a>
-<br />相关软件:
-<?php
-    EchoCommoditySoftwareLinks();
-    EchoOilSoftwareLinks();
-    EchoGoldSoftwareLinks();
-    EchoYinHuaSoftwareLinks();
-    EchoStockGroupLinks();
+require('/php/ui/_dispcn.php');
 ?>
-</p>
-</div>
-
-<?php LayoutTailLogin(); ?>
-
-</body>
-</html>

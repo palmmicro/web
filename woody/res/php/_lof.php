@@ -123,6 +123,15 @@ function EchoAll()
 	    
     EchoPromotionHead();
     $group->EchoTestParagraph();
+    EchoRelated();
+}
+
+function GetLofLinks()
+{
+	$str = GetJisiluLofLink();
+	$str .= GetStockGroupLinks();
+	$str .= GetASharesSoftwareLinks();
+	return $str;
 }
 
     AcctNoAuth();

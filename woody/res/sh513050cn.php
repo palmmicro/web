@@ -1,32 +1,29 @@
-<?php require_once('php/_lof.php'); ?>
-<html>
-<head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<title><?php EchoTitle(); ?></title>
-<meta name="description" content="<?php EchoMetaDescription(); ?>">
-<link href="../../common/style.css" rel="stylesheet" type="text/css" />
-</head>
+<?php 
+require('php/_lof.php');
 
-<body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _LayoutTopLeft(); ?>
+function EchoRelated()
+{
+	$strGroup = GetLofLinks();
+	$strSpy = GetSpySoftwareLinks();
+	$strQqq = GetQqqSoftwareLinks();
+	$strHangSeng = GetHangSengSoftwareLinks();
+	$strChinaInternet = GetChinaInternetSoftwareLinks();
+	$strCompany = GetEFundSoftwareLinks();
+	
+	echo <<< END
+	<p><b>注意KWEB和SH513050跟踪的指数可能不同, 此处估算结果仅供参考.</b></p>
+	<p>
+		<a href="https://xueqiu.com/6827215131/80361226" target=_blank>中国互联VS中国互联50</a>
+	</p>
+	<p> $strGroup
+		$strSpy
+		$strQqq
+		$strHangSeng
+		$strChinaInternet
+		$strCompany
+	</p>
+END;
+}
 
-<div>
-<h1><?php EchoTitle(); ?></h1>
-<p><b>注意<?php EchoEstSymbol(); ?>和<?php EchoShortName(); ?>跟踪的指数可能不同, 此处估算结果仅供参考.</b></p>
-<?php EchoAll(); ?>
-<p><a href="https://xueqiu.com/6827215131/80361226" target=_blank>中国互联VS中国互联50</a>
-<br />相关软件: 
-<?php
-    EchoChinaInternetSoftwareLinks();
-    EchoSpySoftwareLinks();
-    EchoASharesSoftwareLinks();
-    EchoEFundSoftwareLinks();
-    EchoStockGroupLinks();
+require('/php/ui/_dispcn.php');
 ?>
-</p>
-</div>
-
-<?php LayoutTailLogin(); ?>
-
-</body>
-</html>

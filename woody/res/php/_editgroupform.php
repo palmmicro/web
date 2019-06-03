@@ -1,14 +1,9 @@
 <?php
 require_once('/php/ui/stocktable.php');
 
-define('STOCK_GROUP_NEW', 'New Stock Group');
-define('STOCK_GROUP_NEW_CN', '新建股票分组');
-
-define('STOCK_GROUP_EDIT', 'Edit Stock Group');
-define('STOCK_GROUP_EDIT_CN', '修改股票分组');
-
-define('STOCK_GROUP_ADJUST', 'Adjust');
-define('STOCK_GROUP_ADJUST_CN', '校准');
+define('STOCK_GROUP_NEW', '新建股票分组');
+define('STOCK_GROUP_EDIT', '修改股票分组');
+define('STOCK_GROUP_ADJUST', '校准');
 
 function _getStocksString($strGroupId)
 {
@@ -24,7 +19,7 @@ function _getStocksString($strGroupId)
     return '';
 }
 
-function StockEditGroupForm($strSubmit, $bChinese = true)
+function StockEditGroupForm($strSubmit)
 {
     $strPassQuery = UrlPassQuery();
     $strGroupName = '';
@@ -32,7 +27,6 @@ function StockEditGroupForm($strSubmit, $bChinese = true)
     $strGroupNameDisabled = '1';
     switch ($strSubmit)
     {
-    case STOCK_GROUP_EDIT_CN:
     case STOCK_GROUP_EDIT:
         if ($strGroupId = UrlGetQueryValue('edit'))
         {
@@ -42,7 +36,6 @@ function StockEditGroupForm($strSubmit, $bChinese = true)
         }
         break;
     
-    case STOCK_GROUP_NEW_CN:
     case STOCK_GROUP_NEW:
         if ($strSymbol = UrlGetQueryValue('new'))
         {
@@ -52,7 +45,6 @@ function StockEditGroupForm($strSubmit, $bChinese = true)
         }
         break;
     
-    case STOCK_GROUP_ADJUST_CN:
     case STOCK_GROUP_ADJUST:
         $strStocks = ltrim($strPassQuery, '?adjust=1&');
         break;

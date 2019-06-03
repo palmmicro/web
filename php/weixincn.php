@@ -198,7 +198,7 @@ class WeixinStock extends WeixinCallback
 	{
 		if ($strContents == 'subscribe')
 		{
-			$str = '欢迎订阅, 本账号为自动回复, 请用语音或者键盘输入要查找的内容. 想聊天的请加QQ群149406511'.WX_EOL;
+			$str = '欢迎订阅, 本账号为自动回复, 请用语音或者键盘输入要查找的内容.'.WX_EOL;
 			$str .= $this->GetDefaultText();
 		}
 		else if ($strContents == 'unsubscribe')
