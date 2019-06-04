@@ -1,7 +1,7 @@
 <?php
 require_once('_stock.php');
 
-function MyStockTransactionEchoAll()
+function EchoAll()
 {
     if ($strGroupId = UrlGetQueryValue('groupid'))
     {
@@ -27,9 +27,10 @@ function MyStockTransactionEchoAll()
         }
     }
     EchoPromotionHead('transaction');
+    EchoStockCategory();
 }
 
-function MyStockTransactionEchoMetaDescription()
+function EchoMetaDescription()
 {
     $str = _GetWhoseStockGroupDisplay(false, UrlGetQueryValue('groupid'));
     $strStock = _GetAllDisplay(UrlGetQueryValue('symbol'));
@@ -37,7 +38,7 @@ function MyStockTransactionEchoMetaDescription()
     EchoMetaDescriptionText($str);
 }
 
-function MyStockTransactionEchoTitle()
+function EchoTitle()
 {
     $str = _GetWhoseStockGroupDisplay(AcctIsLogin(), UrlGetQueryValue('groupid'));
     $strStock = _GetAllDisplay(UrlGetQueryValue('symbol'));

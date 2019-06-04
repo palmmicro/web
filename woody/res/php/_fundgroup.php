@@ -13,13 +13,4 @@ function EchoTitle()
     echo $str;
 }
 
-function EchoShortName()
-{
-    global $group;
-    
-    $ar = explode('-', RefGetDescription($group->ref->stock_ref));
-    $str = $ar[0];
-    echo $str;
-}
-
 ?>

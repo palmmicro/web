@@ -91,7 +91,7 @@ function _onPrefetch($sql)
     StockPrefetchArrayData($arSymbol);
 }
 
-function EchoMyFortfolio()
+function EchoAll()
 {
 	$sql = new StockGroupSql(AcctGetMemberId());
     _onPrefetch($sql);
@@ -101,6 +101,18 @@ function EchoMyFortfolio()
     _echoMoneyParagraph($portfolio);
     
     EchoPromotionHead('portfolio');
+    EchoStockCategory();
+}
+
+function EchoTitle()
+{
+    echo '我的证券投资组合';
+}
+
+function EchoMetaDescription()
+{
+    $str = '证券投资组合汇总页面. 根据用户输入的交易详情汇总信息, 显示包括单个股票的盈亏情况, 分组投资盈亏情况以及总体盈亏情况等内容. 用来跟踪和记录自己的长期投资表现.';
+    EchoMetaDescriptionText($str);
 }
 
     AcctEmailAuth();

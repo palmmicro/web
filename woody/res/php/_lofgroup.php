@@ -147,15 +147,6 @@ class _LofGroup extends _StockGroup
     }
 } 
 
-function EchoEstSymbol()
-{
-    global $group;
-    if ($group->ref->est_ref)
-    {
-        echo $group->ref->est_ref->GetStockSymbol();
-    }
-}
-
 function EchoMetaDescription()
 {
     global $group;

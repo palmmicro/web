@@ -60,7 +60,7 @@ function _getFundClass($group)
     return false;
 }
 
-function _echoCombinedTransactionTableData($strGroupId, $iMax, $bChinese)
+function _echoCombinedTransactionTableData($strGroupId, $iMax)
 {
     $group = new MyStockGroup($strGroupId, array());
 	$sql = new StockGroupItemSql($strGroupId);
@@ -95,7 +95,7 @@ function _echoCombinedTransactionTableData($strGroupId, $iMax, $bChinese)
     }
 }
 
-function _echoCombinedTransactionParagraph($str, $strGroupId, $iMax, $bChinese)
+function _echoCombinedTransactionParagraph($str, $strGroupId, $iMax)
 {
 	$strSymbol = GetTableColumnSymbol();
     $arColumn = array(GetTableColumnDate(), $strSymbol, '合并数量', '折算数量', '平均成本', '折算成本', '备注');
@@ -113,13 +113,13 @@ function _echoCombinedTransactionParagraph($str, $strGroupId, $iMax, $bChinese)
     </tr>
 END;
 
-    _echoCombinedTransactionTableData($strGroupId, $iMax, $bChinese);
+    _echoCombinedTransactionTableData($strGroupId, $iMax);
     EchoTableParagraphEnd();
 }
 
 // ****************************** Public *******************************************************
 
-function CombineTransactionEchoAll($bChinese = true)
+function EchoAll()
 {
     if ($strGroupId = UrlGetQueryValue('groupid'))
     {
@@ -129,19 +129,20 @@ function CombineTransactionEchoAll($bChinese = true)
 
         $str = StockGetGroupTransactionLinks($strGroupId);
         $str .= ' '.StockGetAllTransactionLink($strGroupId);
-        _echoCombinedTransactionParagraph($str, $strGroupId, 0, $bChinese);
+        _echoCombinedTransactionParagraph($str, $strGroupId, 0);
     }
     EchoPromotionHead();
+    EchoStockCategory();
 }
 
-function CombineTransactionEchoMetaDescription($bChinese = true)
+function EchoMetaDescription()
 {
     $strWhose = _GetWhoseStockGroupDisplay(false, UrlGetQueryValue('groupid'));
     $str = '不同的数据显示方式可能会带来不同的思路和想法. 这里显示'.$strWhose.'股票分组内相同股票连续交易的合并交易结果, 并且对LOF等跨市场的分组进行了合并交易结果后相应的价格折算.';
     EchoMetaDescriptionText($str);
 }
 
-function CombineTransactionEchoTitle($bChinese = true)
+function EchoTitle()
 {
     $str = _GetWhoseStockGroupDisplay(AcctIsLogin(), UrlGetQueryValue('groupid'));
     $str .= '合并股票交易记录';
