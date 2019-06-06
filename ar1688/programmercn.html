@@ -34,18 +34,18 @@
 <table>
 <tr><td class=THead><B>AR168D和AR168DS程序烧录器</B></td></tr>
 <tr><td>&nbsp;
-<br />每卖一片AR1688芯片我们都搭配一片程序存储器芯片。AR168D和AR168DS<a href="../woody/blog/ar1688/20101202cn.php">程序烧录器</a>最开始是设计为内部使用的，但是现在越来越多的生产客户们也在使用了。  
-<br />AR168D和AR168DS都使用<a href="../woody/blog/ar1688/20080615cn.php">RTL8019AS</a>网络芯片，配<a href="../woody/blog/ar1688/20080216cn.php">2x16 LCD</a>显示屏。AR168D用于40脚的MT28F016S5程序存储器芯片。AR168DS用于48脚的SST39VF1681和MX29LV160CB。 
-<br />AR168D和AR168DS<a href="faqcn.html#programmer">常见问题</a>。
-<br />按照以下步骤使用AR168DS为<a href="modulecn.html">AR168MS</a>模块烧录：
-<br />1. 下载压缩的<a href="software/049/ar168ms_sip_us_049016_all.zip">ar168ms_sip_us_049016_all.bin</a>文件，或者你自己<a href="faqcn.html#bin">生成</a>它。
-<br />2. 启动AR168DS编程器，得到它的IP地址，例如192.168.1.142。
-<br />3. 用Windows命令行"tftp -i 192.168.1.142 put ar168ms_sip_us_049016_all.bin"把该文件写入AR168DS，注意<a href="../woody/blog/ar1688/20080811cn.php">UDP调试</a>输出的任何错误信息。
-<br />4. 用网页浏览器访问192.168.1.142，在"IAX2 Protocol"部分，找到"User Name"并且把例如"00-18-1F-01-CB-B0"的MAC写人，保存设置。
-<br />5. 在关机的情况下，把SST39VF1681或者MX29LV160CB程序存储器放入插座，每次最多可以烧录3片。
-<br />6. AR168DS上面有2个键。一个是'*'、另外一个是'#'，用键组合"***#"开始烧录。
-<br />7. 在烧录过程中密切注意LCD显示和UDP调试信息输出，有任何问题的话返回第4步，重新设置MAC后重新开始。MX29LV160CB程序存储器擦除时间很长，需要耐心。另外AR168DS上的插座因为使用次数过多，经常需要清洁一下保证接触良好。
-<br />8. 结束后，插座2中的程序存储器MAC是"00-18-1F-01-CB-B0"、插座3是"00-18-1F-01-CB-B1"、插座4是"00-18-1F-01-CB-B2"。并且"User Name"设置自动增加到了"00-18-1F-01-CB-B3"，可以再次使用。返回第5步烧录3片新的。
+<br />每卖一片AR1688芯片我们都搭配一片程序存储器芯片. AR168D和AR168DS<a href="../woody/blog/ar1688/20101202cn.php">程序烧录器</a>最开始是设计为内部使用的, 但是现在越来越多的生产客户们也在使用了.   
+<br />AR168D和AR168DS都使用<a href="../woody/blog/ar1688/20080615cn.php">RTL8019AS</a>网络芯片, 配<a href="../woody/blog/ar1688/20080216cn.php">2x16 LCD</a>显示屏. AR168D用于40脚的MT28F016S5程序存储器芯片. AR168DS用于48脚的SST39VF1681和MX29LV160CB.  
+<br />AR168D和AR168DS<a href="faqcn.html#programmer">常见问题</a>. 
+<br />按照以下步骤使用AR168DS为<a href="modulecn.html">AR168MS</a>模块烧录: 
+<br />1. 下载压缩的<a href="software/049/ar168ms_sip_us_049016_all.zip">ar168ms_sip_us_049016_all.bin</a>文件, 或者你自己<a href="faqcn.html#bin">生成</a>它. 
+<br />2. 启动AR168DS编程器, 得到它的IP地址, 例如192.168.1.142. 
+<br />3. 用Windows命令行"tftp -i 192.168.1.142 put ar168ms_sip_us_049016_all.bin"把该文件写入AR168DS, 注意<a href="../woody/blog/ar1688/20080811cn.php">UDP调试</a>输出的任何错误信息. 
+<br />4. 用网页浏览器访问192.168.1.142, 在"IAX2 Protocol"部分, 找到"User Name"并且把例如"00-18-1F-01-CB-B0"的MAC写人, 保存设置. 
+<br />5. 在关机的情况下, 把SST39VF1681或者MX29LV160CB程序存储器放入插座, 每次最多可以烧录3片. 
+<br />6. AR168DS上面有2个键. 一个是'*'、另外一个是'#', 用键组合"***#"开始烧录. 
+<br />7. 在烧录过程中密切注意LCD显示和UDP调试信息输出, 有任何问题的话返回第4步, 重新设置MAC后重新开始. MX29LV160CB程序存储器擦除时间很长, 需要耐心. 另外AR168DS上的插座因为使用次数过多, 经常需要清洁一下保证接触良好. 
+<br />8. 结束后, 插座2中的程序存储器MAC是"00-18-1F-01-CB-B0"、插座3是"00-18-1F-01-CB-B1"、插座4是"00-18-1F-01-CB-B2". 并且"User Name"设置自动增加到了"00-18-1F-01-CB-B3", 可以再次使用. 返回第5步烧录3片新的. 
 </td></tr>
 <tr><td>AR168D <a href="programmer/large/ar168d.jpg" target=_blank>大图</a></td></tr>
 <tr><td><img src=programmer/ar168d.jpg></td></tr>

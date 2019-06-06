@@ -52,7 +52,7 @@
 </p></td></tr>
 <tr><td>1.3	Cinfigure asterisk</td></tr>
 <tr><td><p dir="ltr" style="margin-left: 20px; margin-right: 0px">
-All the configuration files are located at directory：/etc/asterisk. Proper backup is suggested befor any modification.
+All the configuration files are located at directory: /etc/asterisk. Proper backup is suggested befor any modification.
 <br />
 <br />Step 1: Configure sip. The sip configuration information is in the file of sip.conf. You can modify based on the original sip.conf, or you can creat your own sip.conf. Below is a very simple example of sip.conf, which set up 3 account numbers(6001-6003), supporting both audio and video communication.
 <br /><img src="files/sipconf.jpg" alt="sip config">
@@ -64,7 +64,7 @@ All the configuration files are located at directory：/etc/asterisk. Proper bac
 <br />Run the following command to switch to the asterisk command line interface(CLI>):
 <br /><i>sudo asterisk –r</i>
 <br />
-<br />Reload sip and dialplan at astersik CLI：
+<br />Reload sip and dialplan at astersik CLI: 
 <br /><i>CLI> sip reload</i>
 <br /><i>CLI> dialplan reload</i>
 <br />Notice: Always to reload the corresponding system after modifing their configuration.
@@ -82,7 +82,7 @@ All the configuration files are located at directory：/etc/asterisk. Proper bac
 <br />Notice: You can try different versions if you have any problem.
 </p></td></tr>
 <tr><td>2.2 Configuration</td></tr>
-<tr><td><p dir="ltr" style="margin-left: 20px; margin-right: 0px">Click icon"IMSDroid" to enter IMSDroid home page as follows：
+<tr><td><p dir="ltr" style="margin-left: 20px; margin-right: 0px">Click icon"IMSDroid" to enter IMSDroid home page as follows: 
 <br /><img src="files/imshome.png" alt="home">
 <br />Click icon"Options", then icon "Identity" at home page, you can find the identity configuration page as follows. The contents in the black color are actual settings, while the contents in blue collor are comments. Please go back to home page after finishing the settings.
 <br /><img src="files/imsidentity.png" alt="identity">

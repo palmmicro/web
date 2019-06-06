@@ -40,7 +40,7 @@ function LayoutBrokerPromotion()
         <br />★赎回资金预解冻, 比正常赎回提前一天资金到账, 提高资金利用率.
         <br />★可转债交易, 费率不会让你失望. 
         <br />★具体详情可以咨询qq: 2531998595
-        <br /><img src=/woody/image/yinheaccount.png alt="Yinhe open account scan QR code, agent qq：2531998595" />
+        <br /><img src=/woody/image/yinheaccount.png alt="Yinhe open account scan QR code, agent qq: 2531998595" />
         
         <br /><a href="https://m.zhangle.com/h5Account/mobile-h5/index.htm?ly=HTC1-9000008608&param1=011979" target=_blank>华泰证券开户</a>
         <br />佣金股票万1.6, 场内基金万1, 债券十万分之一. 客户支持微信号18651870837. 

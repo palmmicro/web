@@ -41,7 +41,7 @@
 <br />见Palmmicro软件API<a href="../../../res/apiguide/datatypecn.php">数据类型</a>.
 <br />&nbsp;
 <br /><font color=grey>相关信息</font>
-<br />PA6488的<a href="../../../pa6488/software/devguide/datastructurecn.html">数据结构</a>。
+<br />PA6488的<a href="../../../pa6488/software/devguide/datastructurecn.html">数据结构</a>. 
 </td></tr>
 </table>
 

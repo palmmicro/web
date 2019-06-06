@@ -37,11 +37,11 @@
 <tr><td class=THead><B>PA3288开发指南</B></td></tr>
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
 <tr><td><font color=grey>目录</font>
-<br />快速<a href="devguide/quickstartcn.php">上手</a>。
-<br />数据<a href="devguide/datastructurecn.php">结构</a>。
-<br />函数<a href="devguide/functionoverviewcn.php">概览</a>。
-<br />使用<a href="devguide/cslcn.php">芯片支持库csl</a>相关函数。
-<br /><a href="devguide/usbcn.php">USB</a>软件。
+<br />快速<a href="devguide/quickstartcn.php">上手</a>. 
+<br />数据<a href="devguide/datastructurecn.php">结构</a>. 
+<br />函数<a href="devguide/functionoverviewcn.php">概览</a>. 
+<br />使用<a href="devguide/cslcn.php">芯片支持库csl</a>相关函数. 
+<br /><a href="devguide/usbcn.php">USB</a>软件. 
 </td></tr>
 </table>
 

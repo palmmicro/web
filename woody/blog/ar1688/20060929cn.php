@@ -52,7 +52,7 @@ AR1688只需要按住*键上电一次即可进入192.168.1.200. 为什么不是1
 <br />&nbsp;
 <br /><font color=magenta>2014年8月3日更新</font>
 <br />Yves指出:
-<br /><b>Unix(Linux, MacOSX, Solaris or any BSD)用户注意要用TFTP非文本模式传输文件, linux命令行应该是： tftp xxx.xxx.xxx.xxx -m binary -c put ar168e_sip_cn_000543.bin</b>
+<br /><b>Unix(Linux, MacOSX, Solaris or any BSD)用户注意要用TFTP非文本模式传输文件, linux命令行应该是:  tftp xxx.xxx.xxx.xxx -m binary -c put ar168e_sip_cn_000543.bin</b>
 </td></tr>
 </table>
 

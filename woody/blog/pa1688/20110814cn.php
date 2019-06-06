@@ -38,12 +38,12 @@
 <tr><td class=THead><B>拯救PA168Q的合理步骤</B></td></tr>
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
 <tr><td>2011年8月14日</td></tr>
-<tr><td>上周比较随意的跟一个二手的不工作的<a href="../../../pa1688/user/pa168qcn.html">PA168Q</a>主人来往了几封邮件后, 他爆发了：
+<tr><td>上周比较随意的跟一个二手的不工作的<a href="../../../pa1688/user/pa168qcn.html">PA168Q</a>主人来往了几封邮件后, 他爆发了: 
 <font color=grey>Where is the start point and the end point? How am I supposed to find my way in all these links?? Which one is relevant to my case and which is not?
 Then, How to send the bin file to the device. I appreciate the help, but it needs to be logical.</font>
 <br />刚开始我对自己的PA1688网页工作觉得很沮丧, 后来我意识到了可能还有其它新的PA1688二手设备用户跟他有同样的抱怨. 
 根据Google <a href="../entertainment/20101107cn.php">Analytics</a>的统计, 在过去5个中, 我们网页的新用户比例从61.01%增加到了74.07%(见下图). 
-<br />如果我刚接触PA1688, 可能合理的步骤是：
+<br />如果我刚接触PA1688, 可能合理的步骤是: 
 <br />1. 找一台Windows PC, 把PC和PA168Q接到同一个局域网, 设置局域网内DHCP服务器地址为192.168.1.1, 确认192.168.1.100地址没有被使用. 
 <br />2. 下载软件API和PA168Q升级文件, 当前的正式版本是<a href="../../../pa1688/software/sw166cn.html">1.66</a>. 解开软件API包到C:\Palmh323、PA168Q升级文件<b>pa168q_sip_us_166000.bin</b>到C:\Palmh323\bin. 
 <br />3. 从C:\Palmh323\bin运行Run <a href="../../../pa1688/software/palmtoolcn.html">PalmTool</a>, 点击<font color=blue>开始调试</font>按钮打开UDP调试信息窗口, 把192.168.1.100填到<font color=blue>片上IP地址</font>控件中. 

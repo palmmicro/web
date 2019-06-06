@@ -60,7 +60,7 @@ function utf8_str_to_unicode($utf8_str) {
 function unicode_to_utf8($unicode_str) {
     $utf8_str = '';
     $code = intval(hexdec($unicode_str));
-    //这里注意转换出来的code一定得是整形，这样才会正确的按位操作
+    //这里注意转换出来的code一定得是整形, 这样才会正确的按位操作
     $ord_1 = decbin(0xe0 | ($code >> 12));
     $ord_2 = decbin(0x80 | (($code >> 6) & 0x3f));
     $ord_3 = decbin(0x80 | ($code & 0x3f));

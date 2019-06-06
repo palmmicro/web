@@ -3,7 +3,7 @@ require_once('weixin.php');
 require_once('sql.php');
 
 /*
-微信号： gh_8cc21bca9f7a  
+微信号:  gh_8cc21bca9f7a  
 appID wxd82dc9182c3ee1ac
 appsecret d843db031f2131f72ae12c346ae0cda0
 */

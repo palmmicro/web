@@ -38,7 +38,7 @@
 <tr><td class=THead><B>用重拨键当静音键</B></td></tr>
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
 <tr><td>2013年2月10日</td></tr>
-<tr><td>上个月我收到一封邮件：
+<tr><td>上个月我收到一封邮件: 
 <br /><font color=grey>First, let me thank you for making the pa1688 source code available. (首先, 谢谢你们pa1688源代码公开的举措.)
 <br />I have a few 5111PHONE units, and they've been working quite well for nearly ten years. However, I have often wished that they had a mute button. (我手头有几台5111PHONE电话, 在过去接近10年中一直工作得相当好. 但是, 我经常希望它们有一个静音键.)
 <br />I spend a lot of time on conference calls, and I like to put them on speaker while I half-listen. It is usually a good idea to mute the microphone for obvious reasons ... 

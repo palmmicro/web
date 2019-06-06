@@ -33,7 +33,7 @@
 <p>5月9日 <a href="entertainment/20110509cn.php">Google投放的广告</a>
 <br /><img src=photo/20120505.jpg alt="Adsense anniversary summary and analytics statistics." /></p>
 
-<p>4月20日 <a href="pa1688/20110420cn.php">额的神啊！AT323话机居然LM386一直在工作！</a>
+<p>4月20日 <a href="pa1688/20110420cn.php">额的神啊! AT323话机居然LM386一直在工作! </a>
 <br /><img src=../../pa1688/user/at323/whitepcb_s.jpg alt="ATCOM IP PHONE AT323 internal PCB image." /></p>
 
 <p>4月11日 <a href="pa6488/20110411cn.php">从PA1688到PA6488 - 产品演化过程中的串口功能</a>

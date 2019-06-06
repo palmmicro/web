@@ -37,7 +37,7 @@
 <tr><td class=THead><B>在AR1688软件中添加ISO 8859-2字库的具体步骤</B></td></tr>
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
 <tr><td>2008年2月22日</td></tr>
-<tr><td>基于<a href="../../../ar1688/indexcn.html">AR1688</a> 0.28版本软件：
+<tr><td>基于<a href="../../../ar1688/indexcn.html">AR1688</a> 0.28版本软件: 
 <br />1. 下载字库<a href="20080216cn.php">文件</a>, 拷贝5x8.bdf, 7x14.bdf和MAPPINGS\8859-2.txt到SDCC\bin
 <br />2. 运行命令行SDCC\bin\font.exe 5x8.bdf -t5. 产生array.txt文件
 <br />3. 运行命令行SDCC\bin\font.exe 8859-2.txt -i. 产生font.txt, 这是给<a href="20070604cn.php">2x16</a> LCD扩展CGRAM显示用的5x8字库 

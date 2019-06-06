@@ -37,22 +37,22 @@
 <table>
 <tr><td class=THead><B>AR1688开发指南 - 用户界面协议</B></td></tr>
 <tr><td>&nbsp;
-<br />AR1688和外部控制器之间目前有7中基于字符串的高层<a href="../../../woody/blog/ar1688/20080329cn.php">用户界面协议</a>：
-<br />1. 键盘输入。格式"KEY x"，其中'x'来自<b>mcs51\hook.c</b>和<b>mcs51\key.c</b>，指示外部控制器有键盘输入或者摘挂机。AR1688收到这个字符串后交给<b>function.c</b>中的函数<i>UI_HandleKeys</i>处理。
-<br />2. LCD显示。格式"LCD lxxxxxxxxxxxxxxxx"，其中'l'指示显示在第几行，'0'显示在第一行，'1'在第2行，可能出现的'2'和'3'分别表示第3行和第4行。"xxxxxxxxxxxxxxx"是需要显示的字符串，由AR1688发送给外部控制器显示。
-<br />3. LCD光标。格式"LCDClps"，跟上面一样'l'指示第几行，'p'表示光标位置，从'0'开始。's'表示光标状态，'0'为隐藏，'1'为显示。跟上面2相同，这个命令也是由AR1688发送给外部控制器。
-<br />4. LED。格式"LED ts"，'t'是下面指示的LED类型，'s'表示状态，'0' - 亮、'1' - 灭、'2'- 闪烁。这个命令也由AR1688发送给外部控制器。LED类型(<b>mcs51\led.c</b>, <b>inc\bank1.h</b>)：
+<br />AR1688和外部控制器之间目前有7中基于字符串的高层<a href="../../../woody/blog/ar1688/20080329cn.php">用户界面协议</a>: 
+<br />1. 键盘输入. 格式"KEY x", 其中'x'来自<b>mcs51\hook.c</b>和<b>mcs51\key.c</b>, 指示外部控制器有键盘输入或者摘挂机. AR1688收到这个字符串后交给<b>function.c</b>中的函数<i>UI_HandleKeys</i>处理. 
+<br />2. LCD显示. 格式"LCD lxxxxxxxxxxxxxxxx", 其中'l'指示显示在第几行, '0'显示在第一行, '1'在第2行, 可能出现的'2'和'3'分别表示第3行和第4行. "xxxxxxxxxxxxxxx"是需要显示的字符串, 由AR1688发送给外部控制器显示. 
+<br />3. LCD光标. 格式"LCDClps", 跟上面一样'l'指示第几行, 'p'表示光标位置, 从'0'开始. 's'表示光标状态, '0'为隐藏, '1'为显示. 跟上面2相同, 这个命令也是由AR1688发送给外部控制器. 
+<br />4. LED. 格式"LED ts", 't'是下面指示的LED类型, 's'表示状态, '0' - 亮、'1' - 灭、'2'- 闪烁. 这个命令也由AR1688发送给外部控制器. LED类型(<b>mcs51\led.c</b>, <b>inc\bank1.h</b>): 
 <br /> '0' - LCD背光
 <br /> '1' - 键盘背光
 <br /> '2' - 消息指示
 <br /> '3' - 静音
 <br /> '4' - 呼叫保持
 <br /> '5' - 呼叫转移
-<br />5. 循环测试。格式"LOOPXXXXXXXXXXX"，指示对方循环送回"XXXXXXXXXXX"。
-<br />6. 状态报告。格式为"STATxxx"，指示AR1688的状态变化。其中"xxx"来自<b>include\core.h</b>中定义在函数<i>TaskUIHandler</i>上面的<b><i>UI_YYYY_ZZZZ</i></b>。
-<br />以"登录成功"为例，AR1688会发送"STAT10"给对方，因为<b><i>UI_LOGON_OK</i></b>在<b>core.h</b>中定义为"10"。跟"LCD "、"LCDC"和"LED "这些命令相同，"STAT"同样是仅从AR1688发送给外部控制器。
-<br />7. 文本交换。格式为"TEXTxxx"，其中"xxx"是用户实际要交换的文本。
-<br />跟"LOOP"命令一样，这个命令也是双向使用的。当外部控制器从<a href="../../../woody/blog/ar1688/20071119cn.php">串口</a>发送"TEXTxxx"给AR1688后，AR1688会通过标准SIP协议中的MESSAGE request把"TEXTxxx"发给通话中对方的AR1688。接收方会<a href="../../../woody/blog/ar1688/20080512cn.php">显示</a>它，并且用同样的命令通过串口把文本传送给它自己的外部控制器。
+<br />5. 循环测试. 格式"LOOPXXXXXXXXXXX", 指示对方循环送回"XXXXXXXXXXX". 
+<br />6. 状态报告. 格式为"STATxxx", 指示AR1688的状态变化. 其中"xxx"来自<b>include\core.h</b>中定义在函数<i>TaskUIHandler</i>上面的<b><i>UI_YYYY_ZZZZ</i></b>. 
+<br />以"登录成功"为例, AR1688会发送"STAT10"给对方, 因为<b><i>UI_LOGON_OK</i></b>在<b>core.h</b>中定义为"10". 跟"LCD "、"LCDC"和"LED "这些命令相同, "STAT"同样是仅从AR1688发送给外部控制器. 
+<br />7. 文本交换. 格式为"TEXTxxx", 其中"xxx"是用户实际要交换的文本. 
+<br />跟"LOOP"命令一样, 这个命令也是双向使用的. 当外部控制器从<a href="../../../woody/blog/ar1688/20071119cn.php">串口</a>发送"TEXTxxx"给AR1688后, AR1688会通过标准SIP协议中的MESSAGE request把"TEXTxxx"发给通话中对方的AR1688. 接收方会<a href="../../../woody/blog/ar1688/20080512cn.php">显示</a>它, 并且用同样的命令通过串口把文本传送给它自己的外部控制器. 
 </td></tr>
 </table>
 

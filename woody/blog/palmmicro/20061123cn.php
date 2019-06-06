@@ -39,7 +39,7 @@
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
 <tr><td>2006年11月23日</td></tr>
 <tr><td><font color=indigo>原创总是很难的. 今天读了老孙一篇大作后我决定把它从中文翻译成英文, 放在这里滥竽充数. </font>
-<br />有人说华人在voip行业太差, 只能用开源的东西搞搞, 其实大错特错, 在硬件终端领域, 华人取得的成就是辉煌的, 而且一直影响到现在的市场格局, 而且这几个鼻祖之间有着非常特殊的人际关系. 先看几份简历：
+<br />有人说华人在voip行业太差, 只能用开源的东西搞搞, 其实大错特错, 在硬件终端领域, 华人取得的成就是辉煌的, 而且一直影响到现在的市场格局, 而且这几个鼻祖之间有着非常特殊的人际关系. 先看几份简历: 
 <br /><b>Chi-Shin Wang</b>
 <br />1976~1981: 任职惠普
 <br />1981~1986: 创办Weitek  Vice President of Engineering, 97年上市
@@ -64,7 +64,7 @@
 <br />2000~200?: Komodo被Cisco 1.25亿美金收购, 任职Cisco
 <br />2003~:     创办Sipura, 2005年被Cisco 6800万美金收购
 <br />Mr. Fandrianto the University of California at Berkeley学士, Stanford University博士. 
-<br /><em>总结一下就是：</em>
+<br /><em>总结一下就是: </em>
 <br />1．Wang和Sing的大学都是在台湾国立大学读的
 <br />2．Sing的研究生和Jan的本科都是在Berkeley读的
 <br />3．Wang的博士和Jan的硕士都是在斯坦福读的
