@@ -33,22 +33,25 @@ class StockSql extends KeyNameSql
     {
 		return $this->UpdateById($this->_getFieldArray($strSymbol, $strName), $strId);
 	}
+	
+    function Write($strSymbol, $strName)
+    {
+    	if ($record = $this->Get($strSymbol))
+    	{
+    		if ((strpos($record['name'], '-') === false) && ($strName != $record['name']))
+    		{
+    			return $this->Update($record['id'], $strSymbol, $strName);
+    		}
+    	}
+    	else
+    	{
+    		return $this->Insert($strSymbol, $strName);
+    	}
+    	return false;
+    }
 }
 
 // ****************************** Stock table *******************************************************
-function SqlInsertStock($strSymbol, $strName)
-{
-	DebugString('SqlInsertStock '.$strSymbol);
-	$sql = new StockSql();
-	return $sql->Insert($strSymbol, $strName);
-}
-
-function SqlUpdateStock($strId, $strSymbol, $strName)
-{
-	$sql = new StockSql();
-	return $sql->Update($strId, $strSymbol, $strName);
-}
-
 function SqlGetStock($strSymbol)
 {
 	$sql = new StockSql();
@@ -70,39 +73,6 @@ function SqlGetStockSymbol($strStockId)
 {
 	$sql = new StockSql();
 	return $sql->GetKeyName($strStockId);
-}
-
-// ****************************** Other SQL and stock related functions *******************************************************
-
-function SqlUpdateStockChineseDescription($strSymbol, $strChinese)
-{
-    $bTemp = false;
-    $strChinese = trim($strChinese);
-    $str = substr($strChinese, 0, 2); 
-    if ($str == 'XD' || $str == 'XR' || $str == 'DR') 
-    {
-        DebugString($strChinese);
-        $strChinese = substr($strChinese, 2);
-        $bTemp = true;
-    }
-    
-    if ($record = SqlGetStock($strSymbol))
-    {
-        if ($bTemp == false)
-        {
-            if (strlen($strChinese) > strlen($record['name']))
-            {
-                SqlUpdateStock($record['id'], $strSymbol, $strChinese);
-                DebugString('UpdateStock:'.$strSymbol.' '.$strChinese);
-            }
-        }
-    }
-    else
-    {
-        SqlInsertStock($strSymbol, $strChinese);
-        DebugString('InsertStock:'.$strSymbol.' '.$strChinese);
-    }
-    return $bTemp;
 }
 
 ?>

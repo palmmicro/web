@@ -10,7 +10,6 @@ require_once('sql/sqlblog.php');
 require_once('sql/sqlvisitor.php');
 require_once('sql/sqlstockdaily.php');
 //require_once('gb2312/gb2312_tools.php');
-//require_once('test/chinastocklist.php');
 
 require_once('csvfile.php');
 require_once('test/XOP_Historical.php');
@@ -62,8 +61,6 @@ function test_stock_dividend()
 	$arOutput = array();
     foreach ($arSymbolData as $strSymbol => $arData)
     {
-        SqlUpdateStockChineseDescription($strSymbol, $arData['name']);
-        
         $fPer = floatval($arData['per']);
         $fPb = floatval($arData['pb']);
         if ($fPer > 0.0 && $fPer < 10.0 && $fPb < 10.0)

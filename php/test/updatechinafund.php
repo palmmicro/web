@@ -1,112 +1,52 @@
 <?php
-require_once('/php/ui/_admincmd.php');
-require_once('/php/sql/sqlstock.php');
+require_once('/php/account.php');
+require_once('/php/externalurl.php');
+require_once('/php/regexp.php');
+require_once('/php/gb2312.php');
+require_once('/php/stock/stocksymbol.php');
+require_once('/php/sql/sqlstocksymbol.php');
 
 /*
-function StockBuildChineseFundSymbol($strDigit)
-{
-    if (IsChineseStockDigit($strDigit))
-    {
-        $iDigit = intval($strDigit);
-        if (_isShanghaiFundDigit($iDigit))
-        {
-            return SHANGHAI_PREFIX.$strDigit;
-        }
-        else if (_isShenzhenFundDigit($iDigit))
-        {
-            return SHENZHEN_PREFIX.$strDigit;
-        }
-    }
-    return false;
-}            
-
-function TestChinaFundList()
-{
-    $file = fopen('/debug/chinafundlist.txt', 'r');
-//    $strLine = fgets($file);   // bypass first line
-    while (!feof($file))
-    {
-        $strLine = fgets($file);
-        if ($strLeft = strstr($strLine, '<span>', true))
-        {
-            $strName = FromGB2312ToUTF8(substr($strLeft, 6));
-            $strNumber = substr($strLeft, 0, 6);
-            if (($strSymbol = StockBuildChineseFundSymbol($strNumber)) == false)
-            {
-                $strSymbol = 'f_'.$strNumber;
-            }
-//            DebugString($strSymbol.' '.$strName);
-            if (SqlGetStock($strSymbol) == false)
-            {
-                SqlInsertStock($strSymbol, $strName);
-            }
-        }
-    }
-    fclose($file);
-}
-
-function TestChinaStockList()
-{
-    $file = fopen('/debug/chinastocklist.txt', 'r');
-    $strLine = fgets($file);   // bypass first line
-    while (!feof($file))
-    {
-        $strLine = fgets($file);
-        $arWord = explode("\t", $strLine);
-        $str = $arWord[0];
-        
-        if (IsChineseStockDigit($str))
-        {
-            $strSymbol = StockBuildChineseSymbol($str);
-            $strName = FromGB2312ToUTF8($arWord[1]);
-            DebugString($strSymbol.' '.$strName);
-            if (SqlGetStock($strSymbol) == false)
-            {
-                SqlInsertStock($strSymbol, $strName);
-            }
-        }
-    }
-    fclose($file);
-}
-
-define('US_STOCK_SEPARATER', ',');
-function TestUsStockList()
-{
-    $file = fopen('/debug/usstocklist.txt', 'r');
-    while (!feof($file))
-    {
-        $strLine = fgets($file);
-        if ($str = strstr($strLine, 'title='))
-        {
-            $str = RemoveDoubleQuotationMarks($str);
-            $arWord = explode(US_STOCK_SEPARATER, $str);
-            $strSymbol = $arWord[0];
-//            $strEnglish = str_replace("'", "''", $arWord[1]);   // mysql use 2 continues single quotes for 1
-            $strEnglish = $arWord[1];
-            for ($i = 2; $i < count($arWord) - 1; $i ++)
-            {   // English name might have explode separater ','
-                $strEnglish .= US_STOCK_SEPARATER.$arWord[$i];
-            }
-            $strChinese = FromGB2312ToUTF8($arWord[$i]);
-            DebugString($strSymbol.' '.$strEnglish.' '.$strChinese);
-            
-            if ($record = SqlGetStock($strSymbol))
-            {
-                SqlUpdateStock($record['id'], $strSymbol, $strChinese);
-            }
-            else
-            {
-                SqlInsertStock($strSymbol, $strChinese);
-            }
-        }
-    }
-    fclose($file);
-}
+<li class="b"><div><a href="http://fund.eastmoney.com/000001.html">（000001）华夏成长</a> | <a href="http://jijinba.eastmoney.com/topic,000001.html">基金吧</a> | <a href="http://fundf10.eastmoney.com/000001.html">档案</a></div></li>
+<li class="b"><div><a href="http://fund.eastmoney.com/000003.html">（000003）中海可转债债券A</a> | <a href="http://jijinba.eastmoney.com/topic,000003.html">基金吧</a> | <a href="http://fundf10.eastmoney.com/000003.html">档案</a></div></li>
+<li class="b"><div><a href="http://fund.eastmoney.com/000004.html">（000004）中海可转债债券C</a> | <a href="http://jijinba.eastmoney.com/topic,000004.html">基金吧</a> | <a href="http://fundf10.eastmoney.com/000004.html">档案</a></div></li>
+<li><div><a href="http://fund.eastmoney.com/000005.html">（000005）嘉实增强信用定期债券</a> | <a href="http://jijinba.eastmoney.com/topic,000005.html">基金吧</a> | <a href="http://fundf10.eastmoney.com/000005.html">档案</a></div></li>
+<li><div><a href="http://fund.eastmoney.com/000006.html">（000006）西部利得量化成长混合</a> | <a href="http://jijinba.eastmoney.com/topic,000006.html">基金吧</a> | <a href="http://fundf10.eastmoney.com/000006.html">档案</a></div></li>
 */
 
-function AdminCommand()
+function _updateChinaFund()
 {
-	DebugString('admin cmd in updatechinafund.php');
+    $strUrl = GetEastMoneyFundListUrl();
+    $str = url_get_contents($strUrl);
+    $str = FromGB2312ToUTF8($str);
+//	DebugString($str);
+
+    $strBoundary = RegExpBoundary();
+    $strPattern = $strBoundary;
+    $strPattern .= RegExpParenthesis('html">（', '[^<]*', '</a>');
+    $strPattern .= $strBoundary;
+    
+    $arMatch = array();
+    preg_match_all($strPattern, $str, $arMatch, PREG_SET_ORDER);
+    DebugVal(count($arMatch), '_updateChinaFund');
+    $iCount = 0;
+	$sql = new StockSql();
+   	foreach ($arMatch as $arItem)
+   	{
+   		$ar = explode('）', $arItem[1]);
+   		if ($strSymbol = BuildChineseFundSymbol($ar[0]))
+   		{
+   			$strName = $ar[1];
+   			if ($sql->Write($strSymbol, $strName))
+   			{
+   				DebugString($strSymbol.' '.$strName);
+   				$iCount ++;
+   			}
+   		}
+   	}
+    DebugVal($iCount, 'updated');
 }
+	
+	AcctAdminCommand('_updateChinaFund');
 
 ?>

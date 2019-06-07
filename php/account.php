@@ -273,6 +273,16 @@ function AcctEmailAuth()
     return AcctEmailQueryLogin();
 }
 
+function AcctAdminCommand($callback)
+{
+	AcctNoAuth();
+	if (AcctIsAdmin())
+	{
+		call_user_func($callback);
+	}
+	SwitchToSess();
+}
+
 function AcctGetEmailFromBlogUri($strUri)
 {
 	$iPos = strpos($strUri, '/', 1);

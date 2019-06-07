@@ -33,15 +33,6 @@ require_once('stock/etfref.php');
 
 // ****************************** Stock symbol functions *******************************************************
 
-function StockBuildChineseSymbol($strDigit)
-{
-    if (intval($strDigit) < 500000)
-    {
-        return SHENZHEN_PREFIX.$strDigit;
-    }
-    return SHANGHAI_PREFIX.$strDigit;
-}            
-
 function StockGetSymbol($str)
 {
     return strtoupper(trim($str));
@@ -277,7 +268,7 @@ function RefGetDescription($ref, $bConvertDisplay = false)
 
 function RefGetStockDisplay($ref)
 {
-    return RefGetDescription($ref).'('.$ref->GetStockSymbol().')';
+    return RefGetDescription($ref).'['.$ref->GetStockSymbol().']';
 }
 
 function RefSortBySymbol($arRef)

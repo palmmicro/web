@@ -232,6 +232,30 @@ function _isShanghaiIndexDigit($iDigit)
     return false;
 }
 
+function BuildChineseFundSymbol($strDigit)
+{
+    if (IsChineseStockDigit($strDigit))
+    {
+        $iDigit = intval($strDigit);
+        if (_isShanghaiFundDigit($iDigit))		$strPrefix = SHANGHAI_PREFIX;
+        else if (_isShenzhenFundDigit($iDigit))	$strPrefix = SHENZHEN_PREFIX;
+        else										$strPrefix = SINA_FUND_PREFIX;
+        return $strPrefix.$strDigit;
+    }
+    return false;
+}            
+
+function BuildChineseStockSymbol($strDigit)
+{
+    if (IsChineseStockDigit($strDigit))
+    {
+        $iDigit = intval($strDigit);
+        if (($iDigit < 100000) || ($iDigit >= 300000 && $iDigit < 400000))	return SHENZHEN_PREFIX.$strDigit;
+        else if ($iDigit >= 600000 && $iDigit < 700000)							return SHANGHAI_PREFIX.$strDigit;
+    }
+    return false;
+}            
+
 // ****************************** StockSymbol Class *******************************************************
 
 class StockSymbol

@@ -49,20 +49,18 @@
   <li>输入34（也就是点击系统—数据导出）, 在【文本文件】, 【EXCEL】或者【图像】选择一个数据处理方式.</li>
   <li>点击【报表中所有数据】, 在【存盘文件名】选择储存位置, 自行设定一个文件名, 点击【导出】即可.</li>
 </ol>
-<p>我依葫芦画瓢把数据存在了<?php EchoFileLink('/debug/chinastocklist.txt'); ?>中. 然后在<?php EchoPhpFileLink('/php/test/chinastocklist'); ?>中写了一小段代码处理它, 
-现在所有A股股民们都能使用微信公众号<font color=orange>sz162411</font>了.
-<br />继续给数据库中加美股代码, 
-把<a href="http://vip.stock.finance.sina.com.cn/usstock/ustotal.php" target=_blank>http://vip.stock.finance.sina.com.cn/usstock/ustotal.php</a>的网页源码中有关部分存在了<?php EchoFileLink('/debug/usstocklist.txt'); ?>中,
-类似处理一下, 希望这个不完整的美股单子能满足绝大多数中国用户的查询<a href="../entertainment/20111112cn.php">ACTS</a>这种股票了.
+<p>我依葫芦画瓢把数据存了下来. 不过这样每次要手动保存和上传, 更新起来不方便.
+<br />接下来我又找到了<?php EchoLink(GetEastMoneyStockListUrl()); ?>, 现在所有A股用户都能使用微信公众号<font color=orange>sz162411</font>了.
+<?php EchoUpdateChinaStockLink(); ?>
+<br />继续给数据库中加美股代码, 希望<?php EchoLink(GetSinaUsStockListUrl()); ?>这个不完整的美股单子能满足绝大多数中国用户的查询<a href="../entertainment/20111112cn.php">ACTS</a>这种股票了.
+<?php EchoUpdateUsStockLink(); ?>
 </p>
 
 <h3><a name="chinafund">用微信公众号查询A股基金数据</a></h3>
 <p>2016年10月28日
 <br />昨天让我广发证券网上开户的经理帮忙宣传一下微信公众号</a><font color=orange>sz162411</font>查股票数据, 随即加进来2个人, 其中一个上来就查<font color=grey>159915</font>,
 发现没有数据后立马取消了订阅, 又刺激了我给数据库加上所有A股基金数据.
-<br />从<?php EchoLink(GetEastMoneyAllFundUrl()); ?>找到了基金列表, 没想到全市场居然有5000多基金. 
-这个网页的源码存下来有5M多字节, 往最近一直访问特别慢的Yahoo服务器上传了好几次都没成功. 只好动用很久没有用过的UltraEdit玩命替换文本, 把缩小了20倍的文本存在了<?php EchoFileLink('/debug/chinafundlist.txt'); ?>中.
-然后继续写代码完成数据更新, 从此再也不怕被查.
+<br />从<?php EchoLink(GetEastMoneyFundListUrl()); ?>找到了基金列表, 没想到全市场居然有快一万基金. 然后继续写代码完成数据更新, 从此再也不怕被查.
 <?php EchoUpdateChinaFundLink(); ?>
 </p>
 
