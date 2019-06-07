@@ -138,7 +138,7 @@ function _getSimilarLinks($strTitle)
         break;
   
     case 'ahcompare':
-    	$str = GetExternalLink('https://www.jisilu.cn/data/ha/', '集思录').' '.GetExternalLink('http://data.10jqka.com.cn/market/ahgbj/', '同花顺');
+    	$str = GetExternalLink(GetJisiluDataUrl().'ha/', '集思录').' '.GetExternalLink('http://data.10jqka.com.cn/market/ahgbj/', '同花顺');
         break;
   
     case 'goldetf':

@@ -1,5 +1,10 @@
 <?php
 
+function EchoInternalLink($strPath, $strDisplay)
+{
+	echo GetInternalLink($strPath, $strDisplay);
+}
+
 function EchoLink($strHttp)
 {
     $str = GetHttpLink($strHttp);

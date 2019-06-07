@@ -76,10 +76,6 @@ function EchoCopyRight($bMobile, $bChinese)
 	{
 	    $str = _getCopyright('王继行', 'Chi-Shin Wang', $bChinese, $strYear);
 	}
-	else if ($ar[1] == 'laosun')
-	{
-	    $str = _getCopyright('孙老湿', 'Teacher Sun', $bChinese, $strYear);
-	}
 	else
 	{
 	    $str = _getCopyright('深圳迪迈特', 'Palmmicro Communications Inc', $bChinese, $strYear, '2006');

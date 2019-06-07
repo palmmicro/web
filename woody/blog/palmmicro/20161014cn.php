@@ -1,4 +1,4 @@
-<?php require_once('php/_palmmicro.php'); ?>
+<?php require_once('php/_20161014.php'); ?>
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -60,9 +60,10 @@
 <p>2016年10月28日
 <br />昨天让我广发证券网上开户的经理帮忙宣传一下微信公众号</a><font color=orange>sz162411</font>查股票数据, 随即加进来2个人, 其中一个上来就查<font color=grey>159915</font>,
 发现没有数据后立马取消了订阅, 又刺激了我给数据库加上所有A股基金数据.
-<br />从<a href="http://fund.eastmoney.com/allfund.html" target=_blank>http://fund.eastmoney.com/allfund.html</a>找到了基金列表, 没想到全市场居然有5000多基金. 
+<br />从<?php EchoLink(GetEastMoneyAllFundUrl()); ?>找到了基金列表, 没想到全市场居然有5000多基金. 
 这个网页的源码存下来有5M多字节, 往最近一直访问特别慢的Yahoo服务器上传了好几次都没成功. 只好动用很久没有用过的UltraEdit玩命替换文本, 把缩小了20倍的文本存在了<?php EchoFileLink('/debug/chinafundlist.txt'); ?>中.
 然后继续写代码完成数据更新, 从此再也不怕被查.
+<?php EchoUpdateChinaFundLink(); ?>
 </p>
 
 <h3><a name="ahcompare">AH股</a>对比</h3>

@@ -1,10 +1,9 @@
 <?php
 //require_once('url.php');
 //require_once('debug.php');
+require_once('externalurl.php');
 require_once('httplink.php');
 require_once('stock/stocksymbol.php');
-
-define('SINA_FINANCE_URL', 'https://finance.sina.com.cn/');
 
 // ****************************** External link functions *******************************************************
 function GetEastMoneyFundLink($sym)
@@ -12,7 +11,7 @@ function GetEastMoneyFundLink($sym)
     $strSymbol = $sym->GetSymbol();
     if ($strDigit = $sym->IsFundA())
     {
-        $strHttp = "http://fund.eastmoney.com/$strDigit.html";
+        $strHttp = GetEastMoneyFundUrl().$strDigit.'.html';
         return GetExternalLink($strHttp, $strSymbol);
     }
     return $strSymbol;
@@ -23,7 +22,7 @@ function GetEastMoneyFundRatioLink($sym)
     $strSymbol = $sym->GetSymbol();
     if ($strDigit = $sym->IsFundA())
     {
-        $strHttp = "http://fund.eastmoney.com/f10/zcpz_$strDigit.html";
+        $strHttp = GetEastMoneyFundUrl()."f10/zcpz_$strDigit.html";
         return GetExternalLink($strHttp, $strSymbol);
     }
     return $strSymbol;
@@ -50,13 +49,13 @@ function GetXueqiuLink($sym)
 			break;
 		}
 	}
-    $strHttp = 'https://xueqiu.com/S/'.$strXueqiu;
+    $strHttp = GetXueqiuUrl().'S/'.$strXueqiu;
     return GetExternalLink($strHttp, $strSymbol);
 }
 
 function GetXueqiuIdLink($strId, $strDisplay)
 {
-    return GetExternalLink('https://xueqiu.com/u/'.$strId, $strDisplay);
+    return GetExternalLink(GetXueqiuUrl().'u/'.$strId, $strDisplay);
 }
 
 function GetYahooStockLink($sym)
@@ -86,7 +85,7 @@ function GetSinaFundLink($sym)
 function GetSinaCnStockLink($strSymbol)
 {
     $strLower = strtolower($strSymbol);
-    $strHttp = SINA_FINANCE_URL."realstock/company/$strLower/nc.shtml";
+    $strHttp = GetSinaFinanceUrl()."realstock/company/$strLower/nc.shtml";
     return GetExternalLink($strHttp, $strSymbol);
 }
 
@@ -148,7 +147,7 @@ function GetSinaFutureLink($sym)
 	{
 		$strSymbol = $sym->GetSymbol();
 	}
-    $strHttp = SINA_FINANCE_URL."futures/quotes/$strSymbol.shtml";
+    $strHttp = GetSinaFinanceUrl()."futures/quotes/$strSymbol.shtml";
     return GetExternalLink($strHttp, $strSymbol);
 }
 
@@ -162,7 +161,7 @@ function GetSinaForexLink($sym)
 	{
 		$strSymbol = $sym->GetSymbol();
 	}
-    $strHttp = SINA_FINANCE_URL."money/forex/hq/$strSymbol.shtml";
+    $strHttp = GetSinaFinanceUrl()."money/forex/hq/$strSymbol.shtml";
     return GetExternalLink($strHttp, $strSymbol);
 }
 
@@ -230,7 +229,6 @@ function GetStockChartsLink($strSymbol)
     return GetExternalLink($strHttp, $strSymbol);
 }
 
-// https://mp.weixin.qq.com/
 function GetWeixinLink($bChinese = true)
 {
     $strHttp = 'https://mp.weixin.qq.com';
@@ -244,17 +242,17 @@ function GetAastocksAdrLink()
 
 function GetJisiluGoldLink()
 {
-	return GetExternalLink('https://www.jisilu.cn/data/etf/#tlink_1', '集思录');
+	return GetExternalLink(GetJisiluDataUrl().'etf/#tlink_1', '集思录');
 }
 
 function GetJisiluLofHkLink()
 {
-	return GetExternalLink('https://www.jisilu.cn/data/lof/#index', '集思录');
+	return GetExternalLink(GetJisiluDataUrl().'lof/#index', '集思录');
 }
 
 function GetJisiluLofLink()
 {
-	return GetExternalLink('https://www.jisilu.cn/data/qdii/', '集思录');
+	return GetExternalLink(GetJisiluDataUrl().'qdii/', '集思录');
 }
 
 ?>

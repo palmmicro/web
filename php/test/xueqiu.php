@@ -133,7 +133,7 @@ function _getXueqiuCookie($strToken)
 function GetXueqiuFriend($strId, $strToken = false)
 {
 	$strCookie = _getXueqiuCookie($strToken);
-	$strUrl = 'https://xueqiu.com/friendships/groups/members.json?gid=0&uid='.$strId;
+	$strUrl = GetXueqiuUrl().'friendships/groups/members.json?gid=0&uid='.$strId;
 	if ($strToken)	$arFollowMe = array();
 	$arFriend = array();
 	$arFollower = array();
@@ -193,7 +193,7 @@ function GetXueqiuFriend($strId, $strToken = false)
 function GetXueqiuFollower($strId, $strToken)
 {
 	$strCookie = _getXueqiuCookie($strToken);
-	$strUrl = 'https://xueqiu.com/friendships/followers.json?uid='.$strId;
+	$strUrl = GetXueqiuUrl().'friendships/followers.json?uid='.$strId;
 	$arFollowing = array();
     $xq_sql = new XueqiuIdSql();
 	

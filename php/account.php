@@ -277,7 +277,7 @@ function AcctGetEmailFromBlogUri($strUri)
 {
 	$iPos = strpos($strUri, '/', 1);
 	$strName = substr($strUri, 1, $iPos - 1);
-	if ($strName == 'woody' || $strName == 'chishin' || $strName == 'laosun' || $strName == 'tangli')
+	if ($strName == 'woody' || $strName == 'chishin' || $strName == 'tangli')
 	{
 	    return UrlGetEmail($strName);
 	}
