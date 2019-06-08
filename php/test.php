@@ -9,7 +9,6 @@ require_once('sql/_sqltest.php');
 require_once('sql/sqlblog.php');
 require_once('sql/sqlvisitor.php');
 require_once('sql/sqlstockdaily.php');
-//require_once('gb2312/gb2312_tools.php');
 
 require_once('csvfile.php');
 require_once('test/XOP_Historical.php');
@@ -129,7 +128,6 @@ function SysInit()
 //   	$sql = new FundEstSql();
 //	_checkBlogTable();
 	
-//	GB2312WriteDatabase();
 //	AhWriteDatabase();		
 //	AdrhWriteDatabase();
 }

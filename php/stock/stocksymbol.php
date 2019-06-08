@@ -250,8 +250,8 @@ function BuildChineseStockSymbol($strDigit)
     if (IsChineseStockDigit($strDigit))
     {
         $iDigit = intval($strDigit);
-        if (($iDigit < 100000) || ($iDigit >= 300000 && $iDigit < 400000))	return SHENZHEN_PREFIX.$strDigit;
-        else if ($iDigit >= 600000 && $iDigit < 700000)							return SHANGHAI_PREFIX.$strDigit;
+        if (($iDigit < 100000) || ($iDigit >= 200000 && $iDigit < 400000))	return SHENZHEN_PREFIX.$strDigit;
+        else if ($iDigit >= 600000)												return SHANGHAI_PREFIX.$strDigit;
     }
     return false;
 }            

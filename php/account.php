@@ -278,7 +278,9 @@ function AcctAdminCommand($callback)
 	AcctNoAuth();
 	if (AcctIsAdmin())
 	{
+        $fStart = microtime(true);
 		call_user_func($callback);
+        DebugString($callback.DebugGetStopWatchDisplay($fStart));
 	}
 	SwitchToSess();
 }

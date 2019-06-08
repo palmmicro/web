@@ -1,16 +1,12 @@
 <?php
-//require_once('gb2312/gb2312_unicode.php');
 require_once('sql.php');
 require_once('sql/sqlgb2312.php');
 
 function _lookupUnicodeTable($iChar, $iCharNext)
 {
-//    global $arGB2312;
-//    $arGB2312 = GB2312GetArray();
     $strGB2312 = sprintf('%02X%02X', $iChar, $iCharNext);
     $gb_sql = new GB2312Sql();
     return $gb_sql->Get($strGB2312);
-//    return $arGB2312[$strGB2312];
 }
 
 function FromGB2312ToUTF8($str)
@@ -22,7 +18,8 @@ function FromGB2312ToUTF8($str)
     {
         $strChar = substr($str, $i++, 1);
         $iChar = ord($strChar);
-        if ($iChar < 0xA1)
+//        if ($iChar < 0xA1)
+        if ($iChar < 0x80)
         {
             $strUtf8 .= $strChar;
         }
@@ -67,84 +64,5 @@ function unicode_to_utf8($unicode_str) {
     $utf8_str = chr(bindec($ord_1)) . chr(bindec($ord_2)) . chr(bindec($ord_3));
     return $utf8_str;
 }
-
-
-/*
-function _buildUtf8Table()
-{
-    global $arGB2312;
-    
-    $fileW = fopen('/php/gb2312/gb2312_utf8.php', 'w');
-    fputs($fileW, "<?php\r\n");
-    fputs($fileW, '$arGB2312 = array(');
-    fputs($fileW, "\n");
-    
-    foreach ($arGB2312 as $strGB2312 => $strUnicode)
-    {
-        $strUtf8 = unicode_to_utf8($strUnicode);
-        $str = "'$strGB2312' => '$strUtf8',\n";
-        fputs($fileW, $str);
-    }
-    
-    fputs($fileW, ");\r\n");
-    fputs($fileW, "?>\r\n");
-    fclose($fileW);
-}
-*/
-
-/*
-function _sortUnicodeTable()
-{
-    global $arGB2312;
-    
-    $fileW = fopen('/php/gb2312/gb2312_unicode.php', 'w');
-    fputs($fileW, "<?php\r\n");
-    fputs($fileW, '$arGB2312 = array(');
-    fputs($fileW, "\n");
-
-    ksort($arGB2312);
-    foreach ($arGB2312 as $strGB2312 => $strUnicode)
-    {
-        $str = "'$strGB2312' => '$strUnicode',\n";
-        fputs($fileW, $str);
-    }
-    
-    fputs($fileW, ");\r\n");
-    fputs($fileW, "?>\r\n");
-    fclose($fileW);
-}
-*/
-
-/*
-function _buildUnicodeTable()
-{
-    $fileR = fopen('/php/gb2312/unicode_gb2312.txt', 'r');
-    $fileW = fopen('/php/gb2312/unicode_gb2312.php', 'w');
-    
-    fputs($fileW, "<?php\r\n");
-    fputs($fileW, '$arGB2312 = array(');
-    fputs($fileW, "\n");
-    
-    $strLine = fgets($fileR);   // bypass first line 'unicode GB2312'
-    while (!feof($fileR))
-    {
-        $strLine = fgets($fileR);
-        $ar = explode(' ', $strLine);
-        $strUnicode = trim($ar[0]);
-        if ($strUnicode != '')
-        {
-            $strGB2312 = trim($ar[1]);
-            $str = "'$strGB2312' => '$strUnicode',\n";
-            fputs($fileW, $str);
-        }
-    }
-                     
-    fputs($fileW, ");\r\n");
-    fputs($fileW, "?>\r\n");
-    
-    fclose($fileR);
-    fclose($fileW);
-}
-*/
 
 ?>

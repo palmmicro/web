@@ -1,10 +1,5 @@
 <?php
-require_once('/php/account.php');
-require_once('/php/externalurl.php');
-require_once('/php/regexp.php');
-require_once('/php/gb2312.php');
-require_once('/php/stock/stocksymbol.php');
-require_once('/php/sql/sqlstocksymbol.php');
+require_once('_commonupdatestock.php');
 
 /*
 <li><a target="_blank" href="http://quote.eastmoney.com/sh204001.html">GC001(204001)</a></li>

@@ -37,8 +37,9 @@ class StockSql extends KeyNameSql
     function Write($strSymbol, $strName)
     {
     	if ($record = $this->Get($strSymbol))
-    	{
-    		if ((strpos($record['name'], '-') === false) && ($strName != $record['name']))
+    	{	// 股票说明中带'-'的是手工修改的, 防止在自动更新中被覆盖.
+    		$strOrig = $record['name'];
+    		if ((strpos($strOrig, '-') === false) && ($strName != $strOrig))
     		{
     			return $this->Update($record['id'], $strSymbol, $strName);
     		}
@@ -52,12 +53,6 @@ class StockSql extends KeyNameSql
 }
 
 // ****************************** Stock table *******************************************************
-function SqlGetStock($strSymbol)
-{
-	$sql = new StockSql();
-	return $sql->Get($strSymbol);
-}
-
 function SqlGetStockId($strSymbol)
 {
 	$sql = new StockSql();

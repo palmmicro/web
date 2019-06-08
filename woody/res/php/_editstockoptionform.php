@@ -39,7 +39,8 @@ function _getStockOptionNewName($ref, $strName)
 
 function _getStockOptionName($ref, $strSymbol)
 {
-    $record = SqlGetStock($strSymbol);
+	$sql = new StockSql();
+	$record = $sql->Get($strSymbol);
    	$strName = $record['name'];
     $str = $strName;
    	$str .= _getStockOptionNewName($ref, $strName);

@@ -1,10 +1,5 @@
 <?php
-require_once('/php/account.php');
-require_once('/php/externalurl.php');
-require_once('/php/regexp.php');
-require_once('/php/gb2312.php');
-require_once('/php/stock/stocksymbol.php');
-require_once('/php/sql/sqlstocksymbol.php');
+require_once('_commonupdatestock.php');
 
 /*
 <a href="http://stock.finance.sina.com.cn/usstock/quotes/FXB.html" rel="suggest" title="FXB,Invesco CurrencyShares British Pound Sterling Trust,CurrencyShares追踪英镑币值ETF">英镑ETF(FXB)</a>

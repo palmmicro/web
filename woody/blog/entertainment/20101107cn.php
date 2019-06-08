@@ -1,9 +1,9 @@
-<?php require_once('php/_entertainment.php'); ?>
+<?php require_once('php/_20101107.php'); ?>
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>网络日志搬家 - GB18030和GB2312</title>
-<meta name="description" content="记录把MSN网络日志从aredfox.spaces.live.com搬家到Palmmicro网站的过程, 从GB2312到UTF-8的领悟, 以及后知后觉开始学习开发网站软件的经历.">
+<meta name="description" content="记录把MSN网络日志从aredfox.spaces.live.com搬家到Palmmicro网站的过程, 从GB2312, GB18030到UTF-8的领悟, 以及后知后觉开始学习开发网站软件的经历.">
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
 
@@ -59,41 +59,45 @@
 
 <h3>用UTF-8替换GB2312</h3>
 <p>2012年3月8日
-<br .>在<a href="../ar1688/20080216cn.php">GB2312</a>的伴随中长大, 过去2年中又被微软的双字节<a href="20100529cn.php">unicode</a>搞得困惑不已, 我在绝大多数时间都没有重视过UTF-8.
+<br .>在<a href="../ar1688/20080216cn.php">GB2312</a>的伴随中长大, 过去2年中又被微软的双字节unicode搞得困惑不已, 我在绝大多数时间都没有重视过UTF-8.
 可笑的是在2010年末的时候我还在比较GB18030和GB2312. 随着在过去的一年中我收到了越来越多iPad上发出来的用UTF-8编码的中文邮件, 考虑到苹果一直吹嘘它的产品的易用性, 我开始觉得UTF-8肯定很重要.
 <br />进一步的调查让我吃惊. 在我经常访问的数十个网站中, 目前仅有<a href="http://www.newsmth.net/" target=_blank>SMTH</a>和<a href="http://tianya.cn/" target=_blank>天涯</a>的论坛部分没有使用UTF-8.
 为了与时俱进,我从上周末开始把Palmmicro网站从GB2312转换到UTF-8编码.
 <br />跟平常一样, 这个工作量又超过了我的预计. 我花了些时间修改<a href="20100529cn.php">Woody的网站工具</a>, 以及更多的时间学习设置VC2008的编辑器来编辑UTF-8编码的文件.
 这个愚蠢的编辑器永远需要手工把文件另存为UTF-8 without signature.
-<br />再一次我抛弃了不少原来存成了GB2312编码的网络日志评论. 仍然还是一个<a href="20100905cn.php">PHP/MySQL</a>编程新手,
+<br />再一次我抛弃了不少原来存成了GB2312编码的网络日志评论. 仍然还是一个<a href="20100905cn.php">PHP</a>和MySQL编程新手,
 我没有找到一个类似Windows下的<i>MultiByteToWideChar</i>函数这样简单的办法转换目前MySQL数据库中的GB2312数据, 只好用这种野蛮方式草草结束工作.
 </p>
 
-<h3>用PHP把GB2312编码字符串转换成UTF-8</h3>
+<h3>用PHP把GB2312编码字符串转换成<a name="utf8">UTF-8</a></h3>
 <p>2016年6月9日
-<br .>最近一直在扩展<a href="20150818cn.php">华宝油气</a>净值计算工具的功能. 陆陆续续改了这么多年网页,
-原本计划的<a href="../../../pa6488/indexcn.html">PA6488</a>和<a href="../../../pa3288/indexcn.html">PA3288</a>产品都还没有用上互联网管理功能, palmmicro.com却眼看要成为业余股票网站了.
+<br .>最近一直在扩展<a href="20150818cn.php">华宝油气</a>净值计算工具的功能. 
+陆陆续续改了这么多年网页, 原本计划的<a href="../../../pa6488/indexcn.html">PA6488</a>和<a href="../../../pa3288/indexcn.html">PA3288</a>产品都还没有用上互联网管理功能, palmmicro.com却眼看要成为业余股票网站了.
 <br .>随着涉及的股票越来越多, 我打算用直接采用<a href="20151225cn.php">新浪股票数据</a>中的股票名称和说明, 避免手工一个个输入. 结果四年前碰到的问题又回来了, 新浪的数据还在用GB2312编码,
-而我反复折腾<i>mb_detect_encoding</i>和<i>iconv</i>等PHP函数都无法把GB2312转换成UTF8.
-<br .>不过我已经不是当年的吴下阿蒙了. 我先上网找来了GB2312和UNICODE的<a href="http://blog.csdn.net/longronglin/article/details/1355890" target=_blank>对应码表</a>,
-存到了<?php EchoFileLink('/php/gb2312/unicode_gb2312.txt'); ?>文件中. 然后在<?php EchoPhpFileLink('/php/gb2312'); ?>文件中写了个转换工具,
-生成了按照GB2312作为key排序后的对应数组$arGB2312, 放在了<?php EchoPhpFileLink('/php/gb2312/gb2312_unicode'); ?>文件中. 
+而我反复折腾<i>mb_detect_encoding</i>和<i>iconv</i>等PHP函数都无法把GB2312转换成UTF-8.
+<br .>不过我已经不是当年的吴下阿蒙了. 我先上网找来了GB2312和UNICODE的<a href="http://blog.csdn.net/longronglin/article/details/1355890" target=_blank>对应码表</a>, 
+然后写了个转换工具, 生成了按照GB2312作为key排序后的对应数组$arGB2312, 
 最后在函数<i>FromGB2312ToUTF8</i>中把从$arGB2312查表得到的UNICODE调用网上找来的小函数<a href="https://segmentfault.com/a/1190000003020776" target=_blank><i>unicode_to_utf8</i></a>转换成UTF8.
 整个过程耗时一个晚上一气呵成, 感觉好极了!
 </p>
 
 <h3>从MySQL表中查找<a name="gb2312">GB2312</a>对应的UNICODE</h3>
 <p>2018年2月16日
-<br />随着我的网站软件越来越多的使用$arGB2312查表, 对网站的访问也越来越不稳定, 经常需要重新刷新一次才能正常显示页面.
-很久以来我一直认为是从中国访问在美国的<a href="20100905cn.php">Yahoo网站服务</a>不稳定造成的, 也就一直没有深究.
-<br />这个春节在圣地亚哥溜娃一个月, 我很悲哀的发现, 在美国访问网站也经常需要重新刷新.
-联想到Google总是利用Chrome浏览器的输入抢先我一步爬一下我要访问的网页的坏习惯, 我意识到一定是程序哪里出现了执行效率问题, 不能正确反应2个几乎同时的页面请求.
+<br />随着我的股票网站软件功能越来越繁多, 对网站的访问也越来越不稳定, 经常需要重新刷新一次才能正常显示页面. 很久以来我一直认为是从中国访问在美国的Yahoo网站服务不稳定造成的, 也就一直没有深究.
+<br />这个春节在圣地亚哥溜娃一个月, 我很悲哀的发现, 在美国访问网站也经常需要重新刷新. 联想到Google总是利用Chrome浏览器的输入抢先一步爬一下我要访问的网页的坏习惯, 我意识到一定是程序哪里出现了执行效率问题, 不能正确回应2个几乎同时的页面请求.
 庞大的$arGB2312全局数组马上成了最大的疑犯.
-<br />在我把全局数组放进<i>GB2312GetArray</i>函数后, 情况更加恶化了.
-需要重新刷新的情况看上去像是少了一点, 却出现了<?php EchoPhpFileLink('/php/switch'); ?>文件中<b>$_SESSION['userurl']</b>这种全局数据被莫名其妙的冲掉的问题.
-<br />好在经过这么多年后, 我对MySQL已经没有那么畏惧, 在溜娃间隙中削尖铅笔在<?php EchoPhpFileLink('/php/sql/sqlgb2312'); ?>文件中增加了一个GB2312和UNICODE的对应表, 
-把查内存中的大数组改成了查数据库, 终于解决了这个困扰了我一年半的刷新问题.
+<br />在我把全局数组放进函数后, 情况更加恶化了. 需要重新刷新的情况看上去像是少了一点, 却出现了<?php EchoPhpFileLink('/php/switch'); ?>文件中<b>$_SESSION['userurl']</b>这种全局数据被莫名其妙的冲掉的问题.
+<br />好在经过这么多年后, 我对MySQL已经没有那么畏惧, 在溜娃间隙中削尖铅笔在<?php EchoPhpFileLink('/php/sql/sqlgb2312'); ?>文件中增加了一个GB2312和UNICODE的对应表, 把查内存中的大数组改成了查数据库, 终于解决了这个困扰了我一年半的刷新问题.
 <br /><img src=../photo/mermaid.jpg alt="Feb 3, 2018. Mermaid and Sapphire in SeaWorld San Diego." />
+</p>
+
+<h3>终究躲不过去的<a name="gb18030">GB18030</a></h3>
+<p>2018年4月16日
+<br />在给Palmmicro<a href="../palmmicro/20161014cn.php">微信公众号</a>增加了B股的数据后, 意外发现<?php EchoMyStockLink('SZ200168'); ?>股票名字中的<b>喆</b>字在GB2312转<a href="#utf8">UTF-8</a>后成了乱码.
+发现了一只蟑螂就说明有一窝. 我把数据库中所有股票名字查看了一遍后, 果然发现了<?php EchoMyStockLink('SZ002752'); ?>和<?php EchoMyStockLink('SZ300208'); ?>中的<b>昇</b>字也是乱码.
+<br />产生乱码的原因很明显, 这2个生僻字本身就不在只有6000多汉字的GB2312中. 这意味着我需要一个GB18030和UNICODE的对应码表来扩展我的MySQL数据表: <?php EchoLink('http://icu-project.org/repos/icu/data/trunk/charset/source/gb18030/gbkuni30.txt'); ?>.
+花了差不多一天功夫做完这些几乎算是推倒重来的修补后, 我不禁又有了一种神功已成的感觉. 
+<?php EchoUpdateGbUtfLink(); ?>
 </p>
 
 </div>

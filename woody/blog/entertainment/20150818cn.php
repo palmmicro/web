@@ -96,7 +96,7 @@
 
 <h3>股票<a name="transaction">交易</a>记录</h3>
 <p>2015年9月13日
-<br />跟我的第一个<a href="20100905cn.php">PHP</a>程序结合起来, 用户登录后可以输入相关股票交易记录. 根据交易记录计算华宝油气和XOP对冲交易策略和数据.
+<br />跟我的第一个PHP程序结合起来, 用户登录后可以输入相关股票交易记录. 根据交易记录计算华宝油气和XOP对冲交易策略和数据.
 <br />交易记录的输入和处理分别在文件<?php EchoPhpFileLink('/woody/res/php/_edittransactionform'); ?>和<?php EchoPhpFileLink('/woody/res/php/_submittransaction'); ?>. 
 同时修改<a href="20100529cn.php">Woody的网站工具</a>对_editXXXform.php名字格式的自动生成对应的_submitXXX.php文件. 
 </p>

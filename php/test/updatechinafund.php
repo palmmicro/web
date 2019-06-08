@@ -1,10 +1,5 @@
 <?php
-require_once('/php/account.php');
-require_once('/php/externalurl.php');
-require_once('/php/regexp.php');
-require_once('/php/gb2312.php');
-require_once('/php/stock/stocksymbol.php');
-require_once('/php/sql/sqlstocksymbol.php');
+require_once('_commonupdatestock.php');
 
 /*
 <li class="b"><div><a href="http://fund.eastmoney.com/000001.html">（000001）华夏成长</a> | <a href="http://jijinba.eastmoney.com/topic,000001.html">基金吧</a> | <a href="http://fundf10.eastmoney.com/000001.html">档案</a></div></li>
