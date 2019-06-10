@@ -13,7 +13,7 @@
 <div>
 <h1>记录Palmmicro.com的被屏蔽历史</h1>
 <p>2010年4月27日
-<br />在上周五2010年4月23日, 我们停止中国公司网站<a href="20100330cn.php">www.palmmicro.com.cn</a>服务整整2个月后, 纯技术内容的<a href="20080326cn.php">www.palmmicro.com</a>再次在祖国大陆被屏蔽. 
+<br />在上周五2010年4月23日, 我们停止中国公司网站<a href="20100330cn.php">www.palmmicro.com.cn</a>服务整整2个月后, 纯技术内容的<a href="20080326cn.php">Palmmicro</a>.com再次在祖国大陆被屏蔽. 
 美国和香港的用户仍旧能够正常访问, 但是中国用户访问时候会得到例如<font color=red>The server at www.palmmicro.com is taking too long to respond</font>之类的错误信息. 
 <br />今天是被屏蔽的第5天, 依旧没有任何好转. 我查了当前服务器的IP地址, 记录在此: 216.39.57.104. 
 <br />我们不打算再单独搞个国内网站服务国内客户了, 访问不了我们网页资源的国内客户请都发信到<a href="mailto:support@palmmicro.com">support@palmmicro.com</a>跟我们联系吧. 还好邮件从来都没有被屏蔽过. 

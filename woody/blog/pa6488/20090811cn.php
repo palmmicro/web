@@ -46,7 +46,7 @@
 <br /><a href="../../../pa3288/indexcn.html">PA3288</a>采用软件工作目录C:\PA3288.
 <br />&nbsp;
 <br /><font color=magenta>2015年2月10日更新</font>
-<br />启用C:\Palmmicro, 用于PA3288和PA6488公用的代码.
+<br />启用C:\Palmmicro, 用于<a href="../palmmicro/20080326cn.php">Palmmicro</a>的PA3288和PA6488公用的代码.
 </td></tr>
 </table>
 

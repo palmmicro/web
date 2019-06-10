@@ -47,7 +47,8 @@ But anyway, I believe in release versions, so we will release AR1688 <a href="..
 <br />As usual, the SDCC compiler is located in our software <a href="20061211.php">API</a> SDCC\bin. It is smaller than those binary files directly downloaded from SourceForge because we only have Z80 and 8051 compiled in. 
 (Download SDCC 2.9.0 VC6 modified source code <a href="../../../ar1688/download/misc/vc6sdcc.rar">here</a>)
 <br />We need open source 8051 compiler too because our <a href="../../../ar1688/module.html">AR168M</a> VoIP demo application was built on a 8051 controller.
-<br />To keep up with my 64-bit Windows Vista, I will not learn any other 8-bit CPU besides Z80 (in AR1688) and 8051 (in <a href="../../../pa1688/index.html">PA1688</a>) any more. Palmmicro is also moving into 64-bit in 2009.
+<br />To keep up with my 64-bit Windows Vista, I will not learn any other 8-bit CPU besides Z80 (in AR1688) and 8051 (in <a href="../../../pa1688/index.html">PA1688</a>) any more.
+<a href="../palmmicro/20080326.php">Palmmicro</a> is also moving into 64-bit in 2009.
 </td></tr>
 </table>
 

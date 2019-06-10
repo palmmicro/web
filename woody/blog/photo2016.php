@@ -12,7 +12,7 @@
 
 <div>
 <h1>2016 Blog Pictures</h1>
-<p>Oct 14 <a href="palmmicro/20161014.php">Palmmicro Wechat Public Account sz162411</a>
+<p>Oct 14 Palmmicro <a href="palmmicro/20161014.php">Wechat Public Account</a> sz162411
 <br /><img src=../image/wx.jpg alt="Palmmicro wechat public account sz162411 small size QR code" />
 </p>
 </div>

@@ -38,7 +38,7 @@
 <tr><td class=THead><B>The Good, the Bad and the Ugly</B></td></tr>
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
 <tr><td>Apr 5, 2014</td></tr>
-<tr><td>Inspired by the success stories of Dr Wang, nearly all Palmmicro early employees started their own businesses after leaving Centrality, <a href="../entertainment/20070813.php">SiRF</a> or <a href="../entertainment/20090219.php">CSR</a>.
+<tr><td>Inspired by the success stories of Dr Wang, nearly all <a href="../palmmicro/20080326.php">Palmmicro</a> early employees started their own businesses after leaving Centrality, <a href="../entertainment/20070813.php">SiRF</a> or <a href="../entertainment/20090219.php">CSR</a>.
 Tang Rui was the latest one to join this unsuccessful road. After losing money for a whole year, he asked me one question last month: why <a href="../pa6488/20101225.php">Palm1</a> failed in the mp3 business? 
 <br />I had already thought over the question a few years ago, so I can answer him immediately, it was because we wrote the software too bad.
 My recent attempt to modify the Palm1/PA1688 software showed just how ugly the software structure was built by myself.

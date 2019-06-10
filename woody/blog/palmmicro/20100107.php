@@ -40,7 +40,7 @@
 <tr><td>On Jun 23, 2000, I regisitered www.aredfox.com domain in east.net, who was also my first email service provider back in 1996.
 <br />On Sep 10, 2008, My registeration expired. Another company called ENOM took it at once and put it with trojan.
 <br />Today I visited it again and found it had become a search source making traffic money from Google. It is still in ENOM's hand, but I guess it is a bad business for ENOM to keep it. The Alexa traffic rank for aredfox.com is now 24,246,365, maybe just a little better than a blank page.
-<br />Palmmicro users, please visit <a href="20080326.php">www.palmmicro.com</a>, we have a new look now. 
+<br />Palmmicro users, please visit <a href="20080326.php">Palmmicro</a>.com, we have a new look now. 
 </td></tr>
 </table>
 

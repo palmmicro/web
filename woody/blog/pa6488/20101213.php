@@ -44,7 +44,7 @@ Then we came to the idea of using our DSP developers data of G.723.1 and <a href
 we were using <a href="../ar1688/20101202.php">AR168DS</a> programmer, which has 4pcs extra program flash, to run the G.729 test vectors.
 <br />Now we need to test both DSP speed and DDR2 DRAM interface with <a href="../../../pa6488/index.html">PA6488</a> devices. Although we have no plan to use G.729 with PA6488 devices, 
 we still have decided to use its <a href="../../../pa6488/software/devguide/testvectors.html">test vectors</a> in our hardware test, mostly because I like to do repeated jobs. As it is the 3rd time to do the same job, I have finished the calling interfaces and testing process very quickly. 
-<br />However, I am never an algorithm guy. What I know about G.729 is only those calling interfaces. All Palmmicro G.729 implementations were done by Ph.D candidates in the past 12 years.
+<br />However, I am never an algorithm guy. What I know about G.729 is only those calling interfaces. All <a href="../palmmicro/20080326.php">Palmmicro</a> G.729 implementations were done by Ph.D candidates in the past 12 years.
 </td></tr>
 </table>
 

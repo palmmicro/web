@@ -37,7 +37,7 @@
 <tr><td class=THead><B>PA648C视频压缩模块</B></td></tr>
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
 <tr><td>2009年8月19日</td></tr>
-<tr><td><a href="../../../pa6488/indexcn.html">PA6488</a>是Palmmicro第3代网络视频和语音平台, PA648C是第一个基于它的产品. PA648C视频压缩模块为现有的模拟视频内容提供了一个快速和廉价的上网方式. 
+<tr><td><a href="../../../pa6488/indexcn.html">PA6488</a>是<a href="../palmmicro/20080326cn.php">Palmmicro</a>第3代网络视频和语音平台, PA648C是第一个基于它的产品. PA648C视频压缩模块为现有的模拟视频内容提供了一个快速和廉价的上网方式. 
 <br />硬件接口: 
 <br />1 单路模拟视频输入. 
 <br />2 数字压缩视频数据通过10/100Mbps单RJ45网口通信. 

@@ -37,7 +37,7 @@
 <tr><td class=THead><B>EFSL File System</B></td></tr>
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
 <tr><td>Dec 25, 2010</td></tr>
-<tr><td>In 1999 I wrote my first none PC software, a FAT file system to manage the SDRAM of Palm1, which we later called it <a href="../../../pa1688/index.html">PA1688</a>. The software used UART to exchange files with PC.
+<tr><td>In 1999 I wrote my first none PC software, a FAT file system to manage the SDRAM of <a href="../palmmicro/20080326.php">Palmmicro</a> Palm1, which we later called it <a href="../../../pa1688/index.html">PA1688</a>. The software used UART to exchange files with PC.
 <br />Palm1 was designed for mp3 player and digital camera, this was why we need to manage and exchange files with PC. From hardware point of view Palm1 had the right architecture at least for mp3 player, 
 the successful story of many later mp3 chips with the same 8-bit controller and ADSP2181 compatible DSP had proven it. The failure of Palm1 based mp3 player was due to the software weakness of us, including the clumsy software of my FAT.
 <br />In the end of 2003, after the new year dinner, when only 4 of us were still on the table, <a href="../palmmicro/20061123.php">Dr Wang</a> said to Wang, Qin and me: All my successful start-up story is going to end with you. Although he seemed to be joking, 

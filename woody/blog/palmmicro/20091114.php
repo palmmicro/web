@@ -37,9 +37,12 @@
 <tr><td class=THead><B>Palmmicro MAC Address</B></td></tr>
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
 <tr><td>Nov 14, 2009</td></tr>
-<tr><td>PA1688 related enquiry is gradually faded out over the years. The question style is also changing. Instead of "I opened the box and saw a <a href="../ar1688/20061014.php">PA1688PQ</a> chip there", now most of the questions start with "I have a device with MAC address 00-09-45-xx-xx-xx which is registered by your company".
-<br />I always answer "please send pictures of your device, with views from both outside and inside". Actually none of those device with Palmmicro <a href="../ar1688/20070827.php">MAC</a> is related with any Palmmicro products. I guess some old <a href="../../../pa1688/index.html">PA1688</a> manufacturers are still using 00-09-45 MAC on their TI and Infineon chip based VoIP products.
-<br />Also I have to say that 00-09-45 MAC is not related with us any more since about 4 years ago. Instead, we applied 00-18-1f-xx-xx-xx MAC address from IEEE for new Palmmicro products. This is why the default MAC in <a href="../pa6488/20090927.php">safe mode</a> for PA1688 devices is 00-09-45-00-00-00, and the default MAC in safe mode for <a href="../../../ar1688/index.html">AR1688</a> and <a href="../../../pa6488/index.html">PA6488</a> devices is 00-18-1f-00-00-00. 
+<tr><td>PA1688 related enquiry is gradually faded out over the years. The question style is also changing. Instead of "I opened the box and saw a <a href="../ar1688/20061014.php">PA1688PQ</a> chip there",
+now most of the questions start with "I have a device with MAC address 00-09-45-xx-xx-xx which is registered by your company".
+<br />I always answer "please send pictures of your device, with views from both outside and inside". Actually none of those device with Palmmicro <a href="../ar1688/20070827.php">MAC</a> is related with any Palmmicro products. 
+I guess some old <a href="../../../pa1688/index.html">PA1688</a> manufacturers are still using 00-09-45 MAC on their TI and Infineon chip based VoIP products.
+<br />Also I have to say that 00-09-45 MAC is not related with us any more since about 4 years ago. Instead, we applied 00-18-1f-xx-xx-xx MAC address from IEEE for new <a href="20080326cn.php">Palmmicro</a> products.
+This is why the default MAC in <a href="../pa6488/20090927.php">safe mode</a> for PA1688 devices is 00-09-45-00-00-00, and the default MAC in safe mode for <a href="../../../ar1688/index.html">AR1688</a> and <a href="../../../pa6488/index.html">PA6488</a> devices is 00-18-1f-00-00-00. 
 </td></tr>
 </table>
 

@@ -15,7 +15,7 @@
 <p>2010年11月7日
 <br />微软宣布把MSN网络日志搬家到wordpress的时候我正好在美国, 点了几下鼠标就顺利完成了搬家工作.
 等我回到北京后却发现打不开<?php EchoLink('https://woody1234.wordpress.com'); ?>的页面, 于是决定把我的MSN网络日志手工搬迁到我的Palmmicro网络日志上来.
-<br />在一个月见缝插针的陆续工作后, 到今天我已经搬了37篇日志过来, 同时把<a href="../palmmicro/20080326cn.php">Palmmicro.com</a>到aredfox.spaces.live.com的链接从130个减少到了10个.
+<br />在一个月见缝插针的陆续工作后, 到今天我已经搬了37篇日志过来, 同时把<a href="../palmmicro/20080326cn.php">Palmmicro</a>.com到aredfox.spaces.live.com的链接从130个减少到了10个.
 <br />今天晚上我在检查搬家效果, 发现1/5的中文日志在我64位英文版Windows Vista下用英文版IE8看的时候偶尔会有乱码, 但是同一台笔记本下运行的Firefox和Chrome都能正常浏览.
 进一步测试发现如果我把IE8菜单中的Encoding改成GB2312就能正常工作, 并且即使再次改回原来的GB18030也能显示正确.
 <br />在把我所有中文页面的meta部分中charset=gb18030改为charset=gb2312后, 所有3个浏览器都能正常看我全部的中文页面了.

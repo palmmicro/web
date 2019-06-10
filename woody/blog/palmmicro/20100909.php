@@ -40,7 +40,8 @@ a new password will be generated and sent to the registered email address.
 <br />Why generate a new password instead of send the old password back? Because we do not have the password in the database.
 What we actually store in database password field is a string encrypted by MD5 based on the password. In theory MD5 cannot be decrypted, this means we can not get original password from the encrypted one.
 <br />Finally I have to admit that although this blog is partly enlightened by an AR1688 user who wish to hack the password,
-the major purpose is to suggest people to try my newly written <a href="../entertainment/20100905.php">PHP</a> software: register account on our web site and publish blog comments. This is why it is put in "Palmmicro" category.
+the major purpose is to suggest people to try my newly written <a href="../entertainment/20100905.php">PHP</a> software: register account on our web site and publish blog comments.
+This is why it is put in <a href="20080326.php">Palmmicro</a> category.
 </p>
 </div>
 

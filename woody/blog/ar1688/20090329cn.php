@@ -47,7 +47,7 @@
 <br />跟往常一样, SDCC编译器会在<a href="20061211cn.php">API</a>的SDCC\bin的目录下. 跟直接从SourceForge下载的Windows可执行文件相比, 我们单独编译的版本会小些, 因为它只包括了Z80和8051的部分.
 (在<a href="../../../ar1688/download/misc/vc6sdcc.rar">这里</a>下载修改过的SDCC 2.9.0 VC6源代码)
 <br />我们需要开放源代码的8051编译器, 因为我们在<a href="../../../ar1688/modulecn.html">AR168M</a>网络电话模块的示例软硬件中使用了一个8051.
-为了与时俱进跟上我的64位的Windows Vista, 我决心不再学习Z80(AR1688)和8051(<a href="../../../pa1688/indexcn.html">PA1688</a>)以外的其它8位CPU了. Palmmicro也要在2009年加入到64位的时代潮流中. 
+为了与时俱进跟上我的64位的Windows Vista, 我决心不再学习Z80(AR1688)和8051(<a href="../../../pa1688/indexcn.html">PA1688</a>)以外的其它8位CPU了. <a href="../palmmicro/20080326cn.php">Palmmicro</a>也要在2009年加入到64位的时代潮流中. 
 </td></tr>
 </table>
 

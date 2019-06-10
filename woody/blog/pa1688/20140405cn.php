@@ -38,7 +38,7 @@
 <tr><td class=THead><B>好的坏的和丑陋的</B></td></tr>
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
 <tr><td>2014年4月5日</td></tr>
-<tr><td>在王老板成功故事的影响下, 差不多所有Palmmicro的早期员工都在离开Centrality, <a href="../entertainment/20070813cn.php">SiRF</a>或者<a href="../entertainment/20090219cn.php">CSR</a>后开了自己的公司.
+<tr><td>在王老板成功故事的影响下, 差不多所有<a href="../palmmicro/20080326cn.php">Palmmicro</a>的早期员工都在离开Centrality, <a href="../entertainment/20070813cn.php">SiRF</a>或者<a href="../entertainment/20090219cn.php">CSR</a>后开了自己的公司.
 唐锐是最后一个踏上这条失败路的. 在赔了整整一年的钱后, 上个月他问我: 为什么当初<a href="../pa6488/20101225cn.php">Palm1</a>的mp3生意失败了?
 <br />这个问题我早几年前就仔细思考过了. 所以我能够立刻回答他, 是因为我们的软件写得太差了. 我最近试图修改Palm1/PA1688软件的经历就充分说明了我当年亲手构架的软件结构有多么丑陋.
 <br />一个用户给我们发了几张他手头<a href="../../../pa1688/user/ehogcn.html">eHOG</a>的图片, 找我们要升级软件.

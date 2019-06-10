@@ -47,7 +47,7 @@ although SIP and other protocols were added later.
 <br />Set <a href="../../../pa3288/index.html">PA3288</a> software working directory to C:\PA3288.
 <br />&nbsp;
 <br /><font color=magenta>Updated on Feb 10, 2015</font>
-<br />Create a new C:\Palmmicro directory for common software code used in PA6488 and PA3288.
+<br />Create a new C:\Palmmicro directory for common software code used in <a href="../palmmicro/20080326.php">Palmmicro</a> PA6488 and PA3288.
 </td></tr>
 </table>
 

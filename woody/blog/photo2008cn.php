@@ -24,7 +24,7 @@
 <p>6月15日 <a href="ar1688/20080615cn.php">告别RTL8019AS</a>
 <br /><img src=../../pa1688/user/pb35/rtl8019as.jpg alt="RTL8019AS chip on China Roby PB-35 IP phone inside PCB board." /></p>
 
-<p>3月26日 <a href="palmmicro/20080326cn.php">Palmmicro.com域名的历史</a>
+<p>3月26日 <a href="palmmicro/20080326cn.php">Palmmicro</a>.com域名的历史
 <br /><img src=../groupphoto/company/20070920.jpg alt="Chi-Shin Wang, Tang Li and me in Half Moon Bay." /></p>
 </div>
 

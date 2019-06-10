@@ -14,7 +14,7 @@
 <h1>The Blocking History of Palmmicro.com</h1>
 <p>Apr 27, 2010
 <br />On last Friday, Apr 23, two months exactly after we discontinued our Chinese web site <a href="20100330.php">www.palmmicro.com.cn</a> service,
-our technical only web site <a href="20080326.php">www.palmmicro.com</a> was blocked in mainland China again.
+our technical only web site <a href="20080326.php">Palmmicro</a>.com was blocked in mainland China again.
 People in US and Hongkong (A special Chinese region where normal Chinese like me need to enter with special permit) can still visit it,
 but in China users will get error information like <font color=red>The server at www.palmmicro.com is taking too long to respond</font>.
 <br />Today, after 5 days of blocking, things are still the same.  I checked the current server IP address, which is 216.39.57.104.

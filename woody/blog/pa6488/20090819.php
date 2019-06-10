@@ -37,7 +37,7 @@
 <tr><td class=THead><B>PA648C Video Compression Module</B></td></tr>
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
 <tr><td>Aug 19, 2009</td></tr>
-<tr><td>PA648C is the first product based on <a href="../../../pa6488/index.html">PA6488</a>, the third generation video and voice over IP platform from Palmmicro. The video compression module provides a quick and low cost way to put existing analog video source to the internet.
+<tr><td>PA648C is the first product based on <a href="../../../pa6488/index.html">PA6488</a>, the third generation video and voice over IP platform from <a href="../palmmicro/20080326.php">Palmmicro</a>. The video compression module provides a quick and low cost way to put existing analog video source to the internet.
 <br />Hardware interface:
 <br />1 Analog video from 1 composite video input.
 <br />2 Digital compressed video data communication by 10/100Mbps ethernet with 1 RJ45 port.

@@ -39,7 +39,7 @@
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
 <tr><td>Aug 31, 2013</td></tr>
 <tr><td>Designed as a MP3 and digital camera chip, <a href="../../../pa1688/index.html">PA1688</a> has built in USB 1.1 device, but we had never used it in our VoIP software.
-<br />In 2004 a new CEO replaced Dr Wang at <a href="../palmmicro/20080326.php">Centrality</a>.
+<br />In 2004 a new CEO replaced Dr Wang at Centrality.
 After the new CEO's visit to Beijing at the end of the year, I knew it clearly that we had to go on VoIP business by ourselves at any time.
 <br />I was very actively planning what to do next in 2005 and finally decided to develop an USB FXS gateway solution first, as an extra VoIP product for our existing customers.
 And then a WiFi VoIP solution to replace PA1688 later.

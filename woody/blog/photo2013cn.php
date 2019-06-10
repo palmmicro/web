@@ -12,9 +12,6 @@
 
 <div>
 <h1>2013年网络日志图片</h1>
-<p>3月3日 <a href="pa1688/20130303cn.php">伊朗新做的PA168M板子</a>
-<br /><img src=../../pa1688/user/pb35/pa1688pq.jpg alt="PA1688PQ chip on China Roby PB-35 IP phone inside PCB board." /></p>
-
 <p>2月10日 <a href="pa1688/20130210cn.php">用重拨键当静音键</a>
 <br /><img src=../../pa1688/user/5111phone/ib_302.jpg alt="The official picture of 5111PHONE provided by 5111SOFT." /></p>
 </div>

@@ -2,8 +2,8 @@
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<title>Palmmicro微信公众订阅号sz162411</title>
-<meta name="description" content="作为一个搞了16年互联网产品的公司, Palmmicro居然一直没有开发自己的手机App. 世界变化快, 现在貌似也不用自己开发, 用Palmmicro微信公众订阅号sz162411就够了.">
+<title>Palmmicro微信公众号sz162411</title>
+<meta name="description" content="作为一个搞了16年互联网产品的公司, Palmmicro居然一直没有开发自己的手机App. 世界变化快, 现在貌似也不用自己开发, 用Palmmicro微信公众号sz162411就够了.">
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
 
@@ -11,7 +11,7 @@
 <?php _LayoutTopLeft(); ?>
 
 <div>
-<h1>Palmmicro微信公众订阅号sz162411</h1>
+<h1>Palmmicro微信公众号sz162411</h1>
 <p>2016年10月14日
 <br />作为一个搞了16年互联网产品的公司, <a href="20080326cn.php">Palmmicro</a>居然一直没有开发自己的手机App. 世界变化快, 现在貌似也不用自己开发App, 大多数的需求用微信公众号就足够满足.
 <br />因为一年多前做<a href="../entertainment/20150818cn.php">华宝油气</a>估值页面的时候就跟提供QDII基金估值的微信公众号小飞猪<font color=orange>flyingpig33</font>交流过, 我一直觉得加微信公众号是件非常简单的事情,

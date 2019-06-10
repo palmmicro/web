@@ -16,7 +16,7 @@
 <br />为避免标题党的嫌疑, 这篇的名字没有写成<font color=grey>我的第一个苹果手机程序</font>或者<font color=grey>我的第一个Android程序</font>. 
 <br />从1992年开始用Turbo C写PC上的程序开始, 直到1996年我还在用Borland C++. 但是在1997年终于投降了Visual C ++ 4.2. 1999我紧跟微软脚步升级到了VC6, 这一下用了10年.
 <br />2009年初我改用新的<a href="../pa6488/20090808cn.php">Sony VGN-FW235J</a>后, 终于要面对Windows Vista不支持VC6的现实了. 我被迫安装了这个VC9(Visual C++ 2008), 不过接下来的一年中基本上只是当个编辑器在用.
-<br />今年年初我开始给公司网站从<a href="../palmmicro/20100330cn.php">palmmicro.com.cn</a>搬家到<a href="../palmmicro/20080326cn.php">palmmicro.com</a>,
+<br />今年年初我开始给公司网站从<a href="../palmmicro/20100330cn.php">palmmicro.com.cn</a>搬家到<a href="../palmmicro/20080326cn.php">Palmmicro</a>.com,
 我开始写这第一个程序, 名字叫做<b>Woody的网站工具</b>, 主要作用是把重复的拷贝粘贴和上传的工作自动完成. 现在网站搬家结束, 程序也宣告完成.
 <br />在开发过程中, 我几次考虑要不要升级到Visual C++ 2010. 上个月碰了一个专业软件公司的程序员, 得知人家依然在用VC9, 这样我就不考虑升级了. 
 <br />跟VC6比较, VC9给我印象深的有以下几点:

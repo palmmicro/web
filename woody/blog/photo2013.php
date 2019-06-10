@@ -12,9 +12,6 @@
 
 <div>
 <h1>2013 Blog Pictures</h1>
-<p>March 3 <a href="pa1688/20130303.php">A New PA168M Board Made in Iran</a>
-<br /><img src=../../pa1688/user/pb35/pa1688pq.jpg alt="PA1688PQ chip on China Roby PB-35 IP phone inside PCB board." /></p>
-
 <p>Feb 10 <a href="pa1688/20130210.php">Redial Key as Mute Key</a>
 <br /><img src=../../pa1688/user/5111phone/ib_302.jpg alt="The official picture of 5111PHONE provided by 5111SOFT." /></p>
 </div>

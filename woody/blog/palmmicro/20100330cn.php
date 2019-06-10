@@ -41,7 +41,7 @@
 <br />随着原来的Palmmicro在2002年改名为Centrality, palmmicro.com.cn在2003年注册过期了. 
 <br />2004年2月23日, 我重新注册了这个域名, 然后把它指向了aredfox.com, 我们当时的中国网页. 在过去的很多年中, 像palmmicro.com这样的普通美国公司网页在中国都访问不到, 我们被迫搞一个单独的网页服务国内客户. 
 <br />2008年9月10日, 我们停止了<a href="20100107cn.php">aredfox.com</a>的服务, 正式启用palmmicro.com.cn作为我们的中国网页. 
-<br />2010年2月23日, 在从中国连续正常访问palmmicro.com一年多以后, 我们决定停止palmmicro.com.cn的服务, 从此开始专心使用<a href="20080326cn.php">palmmicro.com</a>. 
+<br />2010年2月23日, 在从中国连续正常访问palmmicro.com一年多以后, 我们决定停止palmmicro.com.cn的服务, 从此开始专心使用<a href="20080326cn.php">Palmmicro</a>.com. 
 <br />老的技术支持邮件support@palmmicro.com.cn同时停用, 请发信到<a href="mailto:support@palmmicro.com">support@palmmicro.com</a>联系我们. 
 </td></tr>
 </table>

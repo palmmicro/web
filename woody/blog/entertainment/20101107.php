@@ -16,7 +16,7 @@
 <br />I was in US when Microsoft announced the MSN blog moving plan to wordpress, and I finished the moving with a few mouse clicks.
 But when I got back to Beijing, I found that I can not open <?php EchoLink('https://woody1234.wordpress.com'); ?> web pages,
 then I decided to move my MSN blog to my blog in Palmmicro web site manually.
-<br />After one month of casual work, I have moved 37 old blogs so far, and reduced <a href="../palmmicro/20080326.php">Palmmicro.com</a> links to aredfox.spaces.live.com from 130 to 10.
+<br />After one month of casual work, I have moved 37 old blogs so far, and reduced <a href="../palmmicro/20080326.php">Palmmicro</a>.com links to aredfox.spaces.live.com from 130 to 10.
 <br />When I was checking the result tonight, I found that 1/5 of the Chinese blog pages had small display errors with my English IE8 running on 64-bit English Windows Vista,
 but Firefox and Chrome running on the same laptop work well. Further testing showed that if I change the <i>Encoding</i> to <i>GB2312</i> in IE8 menu, it will also display correctly,
 and keep displaying correctly even if I change <i>Encoding</i> back to <i>GB18030</i>.

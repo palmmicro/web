@@ -40,7 +40,7 @@
 <tr><td>2000年6月23日, 我在东方网景注册了www.aredfox.com域名. 东方网景也是我第一个电子邮件服务商, 那是在1996年. 
 <br />2008年9月10日, 我的注册过期了. 一个叫ENOM的公司立刻抢注了它并且放上去了木马病毒. 
 <br />今天我再次访问aredfox.com. 发现它已经成了一个靠为Google吸引流量赚钱的页面. 它还在ENOM的手上, 但是我估计对ENOM来说是个赔钱生意. 它的Alexa流量排名现在是24,246,365, 可能仅仅比一个空白页面稍微强一点. 
-<br />Palmmicro的用户们, 请访问<a href="20080326cn.php">www.palmmicro.com</a>看看, 我们又有个新页面了. 
+<br />Palmmicro的用户们, 请访问<a href="20080326cn.php">Palmmicro</a>.com看看, 我们又有个新页面了. 
 </td></tr>
 </table>
 
