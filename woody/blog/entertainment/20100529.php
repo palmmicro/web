@@ -47,7 +47,7 @@ one day he suddenly told me that he had just written his first C# application, i
 <br />As usual, I was slow on everything. Even I had read about it online frequently and heard Wang Tian's feeling good experience,
 C# was not in my mind at all when I started to write <b>Woody's Web Tool</b> in 2010.
 I used my familiar MFC and CFtpConnection class to upload files to my web sites.
-<br />Starting from last year, <a href="20100905.php">Yahoo Web Hosting</a> began to inform me its moveing to only supporting FTPS, the dead line is today.
+<br />Starting from last year, Yahoo Web Hosting began to inform me its moveing to only supporting FTPS, the dead line is today.
 Since then, I have been learning about FTPS and trying to find an easy solution for my application. The answer is quite simple, FtpWebRequest is ready as early as Microsoft .NET Framework 2.0.
 <br />However, the native way to use FtpWebRequest is C#. I spent many time learning how to call it in my <a href="../ar1688/20070609.php">MFC</a> application,
 including a lot of VC2008 compiler opition changes. Finally I got my FTPS working today just in time, with lots of exceptions unhandled.

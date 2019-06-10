@@ -43,7 +43,7 @@ Here the plate goes around so, and the reason it's two to one is . . ." and I sh
 <br />王田可能是我认识的人中唯一一个跟我一样把编程序当成娱乐的. 几年前当他还在微软工作的时候, 有一天他突然跟我说, 他刚刚写了自己的第一个C#程序, 感觉很好.
 <br />跟通常一样我总是后知后觉. 尽管我在网上读了不少, 而且听过王田感觉很好的亲身经历, 在2010年我开始写<b>Woody的网站工具</b>的时候我完全没有考虑C#.
 而是用了我熟悉的MFC, 沾沾自喜的使用CFtpConnection类上传文件到我的网站.
-<br /><a href="20100905cn.php">Yahoo网站服务</a>从去年开始不断提示我它要转换成只支持FTPS, 最后期限就是今天. 从那时开始, 我就一直在琢磨怎么简单的把我的程序改成FTPS.
+<br />Yahoo网站服务从去年开始不断提示我它要转换成只支持FTPS, 最后期限就是今天. 从那时开始, 我就一直在琢磨怎么简单的把我的程序改成FTPS.
 其实答案很简单, 早在Microsoft .NET Framework 2.0中就已经有了FtpWebRequest的支持.
 <br />但是, FtpWebRequest是基于C#的. 我于是花了很多时间学习如何在我的<a href="../ar1688/20070609cn.php">MFC</a>程序中调用它, 包括修改了一大堆VC2008的编译器选项.
 终于在今天及时让我的FTPS工作了起来, 留下了一大堆没有处理的程序异常.
@@ -53,8 +53,8 @@ Here the plate goes around so, and the reason it's two to one is . . ." and I sh
 
 <h3>调用WinSCP</h3>
 <p>2018年1月18日
-<br />去年的某一天, C#的FtpWebRequest突然罢工了. 它前一次罢工的时候, 我通过升级Windows系统和编译器解决了问题. 但是这一次, 最新的Windows 10和Visual Studio 2017都没能帮上忙.
-<br />那段时间刚好Yahoo的FTP也特别慢, 无奈之下我在<a href="20120719cn.php#qcloud">腾讯云</a>弄了个虚拟主机方便调试PHP代码, 于是开始使用WinSCP开始跟虚拟主机同步文件.
+<br />去年的某一天, C#的FtpWebRequest突然罢工了. 它前一次罢工的时候, 我通过升级Windows系统和编译器解决了问题. 但是这一次, 最新的Windows 10和<a href="20140615cn.php">Visual Studio</a> 2017都没能帮上忙.
+<br />那段时间刚好Yahoo的FTP也特别慢, 无奈之下我在腾讯云弄了个<a href="20120719cn.php">Linux</a>虚拟主机方便调试<a href="20100905cn.php">PHP</a>代码, 于是开始使用WinSCP开始用SCP协议跟虚拟主机同步文件.
 <br />上周WinSCP提示我有更新, 正巧更新又特别慢, 无聊之下我第一次扫了一眼它的文档, 结果发现竟然可以从命令行调用它. 这下我的问题解决了, 赶快削尖铅笔在我的工具中直接调用WinSCP完成FTP的工作.
 </p> 
 

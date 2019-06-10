@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<title>新浪股票实时数据接口的字段意义</title>
+<title>新浪股票数据接口的字段意义</title>
 <meta name="description" content="记录和分析新浪A股(http://hq.sinajs.cn/list=sz162411), 港股, 美股(http://hq.sinajs.cn/list=gb_xop), 期货和汇率等实时数据接口的字段意义.">
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
@@ -11,7 +11,7 @@
 <?php _LayoutTopLeft(); ?>
 
 <div>
-<h1>新浪股票实时数据接口的字段意义</h1>
+<h1>新浪股票数据接口的字段意义</h1>
 <p>2015年12月25日
 <br />在<?php EchoXueqieId('2091843424', '塔夫男'); ?>等人的建议下, 最近打算加入记录<a href="../../res/netvaluehistorycn.php?symbol=SZ162411">华宝油气历史净值</a>的表格.
 开始动手后发现4个多月前分析的新浪A股实时数据接口的字段意义已经差不多忘光了. 好记性不如烂笔头, 本着磨刀不误砍柴工的精神, 先在这里完整记录一下, 以便日后查阅.
@@ -24,7 +24,7 @@
 <br />跟<?php EchoSinaStockLink('SZ162411'); ?>的显示数据比较, 去掉前后双引号后, 按逗号','分隔的各个字段意义如下表.
 </p>
 <?php
-    EchoInterpretationParagraph(array(array('0', '华宝油气', '<a href="20101107cn.php#gb2312">GB2312</a>编码的股票名字'),
+    EchoInterpretationParagraph(array(array('0', '华宝油气', '<a href="20101107cn.php">GB2312</a>编码的股票名字'),
                                    array('1', '0.502', '今日开盘价'),
                                    array('2', '0.482', '昨日收盘价'),
                                    array('3', '0.500', '当前价格, 收盘后数据可以当成今日收盘价?'),
@@ -75,7 +75,7 @@
 
 <h3>新浪<a name="fund">基金</a>数据接口的字段意义</h3>
 <p>2016年2月16日
-<br />晚上9点多的时候, <?php EchoXueqieId('5240589924', 'uqot'); ?>跟我说<a href="20150818cn.php">华宝油气</a>净值计算出问题了. 我看了一下调试信息, 发现8点的时候做了一次自动校准,
+<br />晚上9点多的时候, <?php EchoXueqieId('5240589924', 'uqot'); ?>跟我说<a href="20150818cn.php">华宝油气</a>估值出问题了. 我看了一下调试信息, 发现8点的时候做了一次自动校准,
 从<?php EchoSinaQuotesLink('f_162411'); ?>拿到后记录在<?php EchoSinaDebugLink('f_162411'); ?>中的数据如下:
 <br /><font color=grey>var hq_str_f_162411="华宝兴业标普油气上游股票(QDII-LOF),
 0.406,0.406,0.435,2016-02-15,66.2444";</font>
@@ -162,7 +162,7 @@
 
 <h3>新浪实时<a name="stockus">美股</a>数据接口的字段意义</h3>
 <p>2016年10月17日
-<br />最近在股票交易中对<a href="20150818cn.php#sma">均线</a>的依赖越来越严重, 而同时Yahoo的负面用户体验和甩卖消息越来越多, 让我比较担心哪一天Yahoo突然不提供历史数据了, 毕竟是一个非公开的东西.
+<br />最近在<a href="20141016cn.php">股票</a>交易中对均线的依赖越来越严重, 而同时Yahoo的负面用户体验和甩卖消息越来越多, 让我比较担心哪一天Yahoo突然不提供历史数据了, 毕竟是一个非公开的东西.
 于是下决心自己开始记录历史数据, 刚开始改程序就发现去年底写的读取新浪实时美股数据的代码中缺Yahoo历史数据中提供的的开盘价, 最高价, 最低价和成交量. 又要重新开始看数据接口的字段意义.
 从<?php EchoSinaQuotesLink('gb_xop'); ?>拿到后记录在<?php EchoSinaDebugLink('gb_xop'); ?>中的数据如下:
 <br /><font color=grey>var hq_str_gb_xop="油气开采指数ETF-SPDR S&P,37.66,-1.08,2016-10-15 08:18:14,-0.41,

@@ -37,7 +37,8 @@
 <tr><td class=THead><B>Short Message Display</B></td></tr>
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
 <tr><td>May 12, 2008</td></tr>
-<tr><td>The simplest way to explain why VoIP is a <a href="../entertainment/20070722.php">bad business</a>, is to compare it with mobile phone. In an age when Nokia is planning to put GPS in every mobile phone, just as digital camera feature, we still have frequent questions about how to display short text message on IP phone!
+<tr><td>The simplest way to explain why VoIP <a href="../entertainment/20070722.php">Business Sucks</a>, is to compare it with mobile phone.
+In an age when Nokia is planning to put GPS in every mobile phone, just as digital camera feature, we still have frequent questions about how to display short text message on IP phone!
 <br />Here is the answer for all <a href="../../../ar1688/index.html">AR1688</a> based device with a LCD:
 <br />1. <a href="20060929.php">SIP</a> protocol, server can send text to AR1688 in standard MESSAGE request
 <br />2. <a href="20071110.php">IAX2</a> protocol, Asterisk has standard command SendText("Hello, world!"), we can understand the command and will display the text

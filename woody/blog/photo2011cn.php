@@ -12,7 +12,7 @@
 
 <div>
 <h1>2011年网络日志图片</h1>
-<p>11月12日 <a href="entertainment/20111112cn.php">技术派</a>
+<p>11月12日 <a href="entertainment/20111112cn.php">ACTS</a>技术派
 <br /><img src=photo/20111112.jpg alt="ACTS stock price from Jun 2006 to Nov 2011." /></p>
 
 <p>11月4日 <a href="pa1688/20111104cn.php">升级老PA168F的步骤</a>
@@ -21,7 +21,7 @@
 <p>8月14日 <a href="pa1688/20110814cn.php">拯救PA168Q的合理步骤</a>
 <br /><img src=photo/20110814.jpg alt="Palmmicro.com visitor overview from Google Analytics on Aug 12, 2011." /></p>
 
-<p>6月8日 <a href="entertainment/20110608cn.php">Ethernet转WiFi</a>
+<p>6月8日 Ethernet转<a href="entertainment/20110608cn.php">WiFi</a>
 <br /><img src=photo/20110608.jpg alt="WiFi Ethernet bridge WDS settings screenshot." /></p>
 
 <p>5月24日 <a href="pa6488/20110524cn.php">兼容H.263</a>
@@ -30,7 +30,7 @@
 <p>5月16日 <a href="pa6488/20110516cn.php">JPEG总动员</a>
 <br /><img src=photo/20110516.jpg alt="Test interpolation algorithm with Rie Miyazawa Santa Fe JPEG file." /></p>
 
-<p>5月9日 <a href="entertainment/20110509cn.php">Google投放的广告</a>
+<p>5月9日 <a href="entertainment/20110509cn.php">Google</a>投放的广告
 <br /><img src=photo/20120505.jpg alt="Adsense anniversary summary and analytics statistics." /></p>
 
 <p>4月20日 <a href="pa1688/20110420cn.php">额的神啊! AT323话机居然LM386一直在工作! </a>

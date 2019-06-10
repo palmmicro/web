@@ -23,7 +23,7 @@
 
 <h3>放弃DDNS</h3>
 <p>2019年1月15日
-<br />改用<a href="../entertainment/20120719cn.php#asterisk">腾讯云</a>的公网IP.
+<br />改用腾讯云<a href="../entertainment/20120719cn.php">Linux</a>虚拟机的公网IP.
 </p> 
 </div>
 

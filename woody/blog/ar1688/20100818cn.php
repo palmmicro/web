@@ -37,7 +37,9 @@
 <tr><td class=THead><B>用VC2008编译AR1688 Windows下工具</B></td></tr>
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
 <tr><td>2010年8月18日</td></tr>
-<tr><td>20个月前我换下老的Sony PCG-K23, 开始用Sony VGN-FW235J. 但是老机器一直没有停止维护使用, 因为我需要<a href="../entertainment/20100529cn.php">VC6</a>编译AR1688和<a href="../../../pa1688/indexcn.html">PA1688</a> Windows下的工具. 在这个过程中, 执着的微软自动升级终于成功地把我的老机器改造成了光跑VC6一个程序都嫌太慢的废物. 我不得不开始用新机器上的VC2008来编译AR1688工具.  
+<tr><td>20个月前我换下老的Sony PCG-K23, 开始用Sony VGN-FW235J. 
+但是老机器一直没有停止维护使用, 因为我需要<a href="../entertainment/20100529cn.php">Visual C++</a> 6.0编译AR1688和<a href="../../../pa1688/indexcn.html">PA1688</a> Windows下的工具. 
+在这个过程中, 执着的微软自动升级终于成功地把我的老机器改造成了光跑VC6一个程序都嫌太慢的废物. 我不得不开始用新机器上的VC2008来编译AR1688工具.  
 <br>很快我发现已经有人做过了这个升级工作, 所有工具都能在multi-byte设置下成功编译, 但是最明显的问题是, 在我64位Vista系统下, Manager.exe的调试信息输出不正常. 
 <br>我决定全部改用缺省的新的unicode选项编译. 结果这个工作大大超出了我的预期时间. 原来代码中混合使用memcpy/strcmp和CString的编程方式在unicode下带来了无穷无尽的麻烦问题. 
 <br>从目前测试来看升级结果还算好. 尤其让我觉得有趣的是, 用multi-byte编译时, 所有hex2bin.exe这样的命令行工具都比以前小了30%, 而改用unicode后又减小了10%. 图形界面的Manager.exe也比以前小了一点点. 结果现在总的压缩后软件API小了10%, 从2.4M字节降到了2.2M字节. 

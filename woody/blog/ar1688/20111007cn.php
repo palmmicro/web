@@ -69,7 +69,7 @@ Philipp建议<font color=grey>Try --max-allocs-per-node 100000000 (recommended: 
 <br />昨天我开始编译全部的AR1688升级文件, 没想到的是, 原来有GB2312编码汉字的源程序居然全部不能编译了!
 <br />&nbsp;
 <br /><font color=magenta><a name="20120813">2012年8月13日</a>更新</font>
-<br />在Philipp的建议下, SDCC的开发人员提前了今年的3.2.0版本发布, 希望能有个稳定版本. 当时我在忙着学习<a href="../entertainment/20120719cn.php">Linux编程</a>.
+<br />在Philipp的建议下, SDCC的开发人员提前了今年的3.2.0版本发布, 希望能有个稳定版本. 当时我在忙着学习<a href="../entertainment/20120719cn.php">Linux</a>编程.
 上周我完成AR1688 <a href="../../../ar1688/software/sw058cn.html">0.58</a>软件发布的测试后, 想到的第一件事情就是测试SDCC的新版本. 
 <br />刚开始我挺高兴, 3.1.0版本中2个让我恼火的问题, <font color=red>Caught signal 11: SIGSEGV</font>和<font color=blue>--max-allocs-per-node</font>, 居然都解决了.
 但是测试了更多的AR1688设备后, 我又新发现了至少3个问题. 看来在相当一段时间内, 我们还要继续使用老的<a href="20101123cn.php#20101208">3.0.1 #6078</a>版本.

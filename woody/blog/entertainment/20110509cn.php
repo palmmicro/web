@@ -15,7 +15,7 @@
 <p>2011年5月9日
 <br />随着我博客中内容增多, 有时候我发现有必要搜索曾经写过什么题材和内容. 我记得大约一年多前看到过绿野一个摄影爱好者搞的莫非时光(moftime.com现在已经不能访问)网站上有个Google搜索框.
 我找到了Google Site Search却放弃了, 因为它每年要收至少100美元的服务费.
-<br />在我使用<a href="20101107cn.php">Google Analytics</a>和Google Webmaster的过去这一年中, 我经常会看到AdSense和AdWords的链接. 
+<br />在我使用Google Analytics和Google Webmaster的过去这一年中, 我经常会看到AdSense和AdWords的链接. 
 但是直到上周我从北京到深圳的路上读了篇有关<a href="http://www.360buy.com/" target=_blank>京东商城</a>如何做网络推广的文章后, 才理解这2个服务的意思.
 <br />随后我注册了AdSense服务, Google用了一周批准我的帐户. 现在我把Google的搜索框(它叫AdSense for Search)以及投放的广告(AdSense for Content)放到了我所有的博客上, 就像本页最下面显示的一样.
 </p>
@@ -38,7 +38,7 @@
 <p>2016年1月22日
 <br />收到来自billing-noreply@google.com的一封信说<font color=gray>Good news! On Jan 21, 2016, we sent you a payment for your Google AdSense earnings.</font>
 去我的Bank of America的账户看, 果然有一笔108.11美元的收款了.
-<br />第一笔Adsense收入比2012年时候预计的来得早了3年, 主要是因为过去几个月我的<a href="20150818cn.php">华宝油气</a>净值计算</a>页面吸引了很多股票用户.
+<br />第一笔Adsense收入比2012年时候预计的来得早了3年, 主要是因为过去几个月我的<a href="20150818cn.php">华宝油气</a>估值页面吸引了很多<a href="20141016cn.php">股票</a>用户.
 现在差不多每天有1000次广告展示了.
 </p>
 

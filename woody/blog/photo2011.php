@@ -12,7 +12,7 @@
 
 <div>
 <h1>2011 Blog Pictures</h1>
-<p>Nov 12 <a href="entertainment/20111112.php">Technology Matters</a>
+<p>Nov 12 <a href="entertainment/20111112.php">ACTS</a> Technology Matters
 <br /><img src=photo/20111112.jpg alt="ACTS stock price from Jun 2006 to Nov 2011." /></p>
 
 <p>Nov 4 <a href="pa1688/20111104.php">Steps to Upgrade an Old PA168F</a>
@@ -21,7 +21,7 @@
 <p>Aug 14 <a href="pa1688/20110814.php">The Logical Steps to Rescue a PA168Q</a>
 <br /><img src=photo/20110814.jpg alt="Palmmicro.com visitor overview from Google Analytics on Aug 12, 2011." /></p>
 
-<p>June 8 <a href="entertainment/20110608.php">WiFi Ethernet Bridge</a>
+<p>June 8 <a href="entertainment/20110608.php">WiFi</a> Ethernet Bridge
 <br /><img src=photo/20110608.jpg alt="WiFi Ethernet bridge WDS settings screenshot." /></p>
 
 <p>May 24 <a href="pa6488/20110524.php">H.263 Compatibility</a>
@@ -30,7 +30,7 @@
 <p>May 16 <a href="pa6488/20110516.php">JPEG Story</a>
 <br /><img src=photo/20110516.jpg alt="Test interpolation algorithm with Rie Miyazawa Santa Fe JPEG file." /></p>
 
-<p>May 9 <a href="entertainment/20110509.php">Google AdSense</a>
+<p>May 9 <a href="entertainment/20110509.php">Google</a> AdSense
 <br /><img src=photo/20120505.jpg alt="Adsense anniversary summary and analytics statistics." /></p>
 
 <p>Apr 20 <a href="pa1688/20110420.php">My God the LM386 in AT323 Phone is Working ALL the Time!</a>

@@ -63,7 +63,7 @@
 可笑的是在2010年末的时候我还在比较GB18030和GB2312. 随着在过去的一年中我收到了越来越多iPad上发出来的用UTF-8编码的中文邮件, 考虑到苹果一直吹嘘它的产品的易用性, 我开始觉得UTF-8肯定很重要.
 <br />进一步的调查让我吃惊. 在我经常访问的数十个网站中, 目前仅有<a href="http://www.newsmth.net/" target=_blank>SMTH</a>和<a href="http://tianya.cn/" target=_blank>天涯</a>的论坛部分没有使用UTF-8.
 为了与时俱进,我从上周末开始把Palmmicro网站从GB2312转换到UTF-8编码.
-<br />跟平常一样, 这个工作量又超过了我的预计. 我花了些时间修改<a href="20100529cn.php">Woody的网站工具</a>, 以及更多的时间学习设置VC2008的编辑器来编辑UTF-8编码的文件.
+<br />跟平常一样, 这个工作量又超过了我的预计. 我花了些时间修改<a href="20100529cn.php">Visual C++</a>写的Woody的网站工具, 以及更多的时间学习设置VC2008的编辑器来编辑UTF-8编码的文件.
 这个愚蠢的编辑器永远需要手工把文件另存为UTF-8 without signature.
 <br />再一次我抛弃了不少原来存成了GB2312编码的网络日志评论. 仍然还是一个<a href="20100905cn.php">PHP</a>和MySQL编程新手,
 我没有找到一个类似Windows下的<i>MultiByteToWideChar</i>函数这样简单的办法转换目前MySQL数据库中的GB2312数据, 只好用这种野蛮方式草草结束工作.
@@ -71,8 +71,8 @@
 
 <h3>用PHP把GB2312编码字符串转换成<a name="utf8">UTF-8</a></h3>
 <p>2016年6月9日
-<br .>最近一直在扩展<a href="20150818cn.php">华宝油气</a>净值计算工具的功能. 
-陆陆续续改了这么多年网页, 原本计划的<a href="../../../pa6488/indexcn.html">PA6488</a>和<a href="../../../pa3288/indexcn.html">PA3288</a>产品都还没有用上互联网管理功能, palmmicro.com却眼看要成为业余股票网站了.
+<br .>最近一直在扩展<a href="20150818cn.php">华宝油气</a>估值工具的功能. 
+陆陆续续改了这么多年网页, 原本计划的<a href="../../../pa6488/indexcn.html">PA6488</a>和<a href="../../../pa3288/indexcn.html">PA3288</a>产品都还没有用上互联网管理功能, palmmicro.com却眼看要成为业余<a href="20141016cn.php">股票</a>网站了.
 <br .>随着涉及的股票越来越多, 我打算用直接采用<a href="20151225cn.php">新浪股票数据</a>中的股票名称和说明, 避免手工一个个输入. 结果四年前碰到的问题又回来了, 新浪的数据还在用GB2312编码,
 而我反复折腾<i>mb_detect_encoding</i>和<i>iconv</i>等PHP函数都无法把GB2312转换成UTF-8.
 <br .>不过我已经不是当年的吴下阿蒙了. 我先上网找来了GB2312和UNICODE的<a href="http://blog.csdn.net/longronglin/article/details/1355890" target=_blank>对应码表</a>, 
@@ -98,6 +98,7 @@
 <br />产生乱码的原因很明显, 这2个生僻字本身就不在只有6000多汉字的GB2312中. 这意味着我需要一个GB18030和UNICODE的对应码表来扩展我的MySQL数据表: <?php EchoLink('http://icu-project.org/repos/icu/data/trunk/charset/source/gb18030/gbkuni30.txt'); ?>.
 花了差不多一天功夫做完这些几乎算是推倒重来的修补后, 我不禁又有了一种神功已成的感觉. 
 <?php EchoUpdateGbUtfLink(); ?>
+<br /><font color=grey>欲练神功, 必先自宫. 虽然自宫, 未必成功. 如不自宫, 也可成功.</font>
 </p>
 
 </div>

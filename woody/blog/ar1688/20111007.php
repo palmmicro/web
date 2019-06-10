@@ -73,7 +73,7 @@ After Philipp fixed the 2 <font color=blue>--oldralloc</font> bugs I filed, I gu
 <br />Yesterday I began to build all my AR1688 binary files, and was shocked to find that all our source files with GB2312 coded Chinese characters can not be compiled any more!
 <br />&nbsp;
 <br /><font color=magenta>Updated on <a name="20120813">Aug 13, 2012</a></font>
-<br />With suggestion from Philipp, SDCC team released 3.2.0 earlier than usual this year in the hope of a steady version. I was busy learning <a href="../entertainment/20120719.php">Linux programming</a> when it was released.
+<br />With suggestion from Philipp, SDCC team released 3.2.0 earlier than usual this year in the hope of a steady version. I was busy learning <a href="../entertainment/20120719.php">Linux</a> programming when it was released.
 After I finished the test of AR1688 software release <a href="../../../ar1688/software/sw058.html">0.58</a> last week, the first thing in my mind was to test the new SDCC version.
 <br />At first I was very happy, the 2 annoying bugs in 3.1.0, <font color=red>Caught signal 11: SIGSEGV</font> and <font color=blue>--max-allocs-per-node</font>, were gone. But more tests with different AR1688 devices showed at least 3 more bugs.
 Seems that we have to continue to use old <a href="20101123.php#20101208">3.0.1 #6078</a> for quite some time.

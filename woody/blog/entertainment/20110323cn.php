@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<title>失败者之歌</title>
+<title>VoIP失败者之歌</title>
 <meta name="description" content="电影海角七号让我检讨了一下过去十年失败的经历. 也很庆幸5年前没有融资开发WiFi VoIP的方案. 电影The Way让我自我安慰自己失败也是可贵的人生经历. You don't choose a life, you live one.">
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
@@ -11,7 +11,7 @@
 <?php _LayoutTopLeft(); ?>
 
 <div>
-<h1>失败者之歌</h1>
+<h1>VoIP失败者之歌</h1>
 <p>2011年3月23日
 <br />大家都在问为什么我用了这么个疲惫不堪的头像. 因为我喜欢这张2月份拍的相片, 几个月来我脸上一直都挂着这种疲惫无奈的笑容. 
 <br />同样在2月份, 我在收藏页面中加了一首失败者之歌<a href="../../favoritecn.html#south">国境之南</a>. 它是电影<a href="../../favoritecn.html#cape">海角七号</a>中的歌曲.

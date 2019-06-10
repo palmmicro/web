@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<title>Simple Rules for Giant Chinese State-owned Stocks</title>
+<title>Rules for Giant Chinese State-owned Stock</title>
 <meta name="description" content="On the day Qualcomm agreed to buy CSR, Woody wrote his simple rules to trade and benefit from Chinese A stock market after years of loss in US stock market.">
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
@@ -11,12 +11,12 @@
 <?php _LayoutTopLeft(false); ?>
 
 <div>
-<h1>Simple Rules for Giant Chinese State-owned Stocks</h1>
+<h1>Rules for Giant Chinese State-owned Stock</h1>
 <p>Oct 16, 2014</p>
 <p>Yesterday was a lucky day for me. The news of Qualcomm agreed to buy <a href="20090219.php">CSR</a> in cash pushed my only UK stock 30% higher. 
 And Air China (SH601111), my only heavily owned Chinese A stock at this time, rose 10% to the max of changes allowed in a trading day in China.  
-<br />I have been trading stocks in US market since year 2000. It is never a good <a href="20111112.php">investment</a> for me.
-I always sell a stock as soon as it starts to rise and watch it gets higher and higher for a long period, but hold a stock for years when in deep loss.
+<br />I have been trading stocks in US market since year 2000. It is never a good investment for me.
+I always sell a stock as soon as it starts to rise and watch it gets higher and higher for a long period, but hold stock like <a href="20111112.php">ACTS</a> for years when in deep loss.
 After my green card was <b>voluntarily</b> given up in June this year, as no longer needed to worry about tax, I have been thinking of selling my CSR stocks because it rose a lot in recent years.
 But my past experience taught me it mostly probably would be another bad big decision again. Finally, thanks Qualcomm for making the choice for me. 
 </p>

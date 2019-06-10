@@ -2,8 +2,8 @@
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<title>Never be a Rocket</title>
-<meta name="description" content="Never be a Rocket. Never call youself as some-rocket, because most rockets will drop to ground after going up sky-high.">
+<title>Rocket Business Sucks</title>
+<meta name="description" content="Rocket Business Sucks. Never call youself as some-rocket, because most rockets will drop to ground after going up sky-high.">
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
 
@@ -11,7 +11,7 @@
 <?php _LayoutTopLeft(false); ?>
 
 <div>
-<h1>Never be a Rocket</h1>
+<h1>Rocket Business Sucks</h1>
 <p>July 22, 2007
 <br />After spending 100 millions USD, SunRocket closed its internet phone service last week. Now its 200,000 customers need to find new service providers, and I believe many of them will never consider VoIP again. 
 Never call youself as some-rocket, because most rockets will drop to ground after going up sky-high.

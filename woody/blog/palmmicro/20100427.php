@@ -38,7 +38,7 @@ a large number of websites including my favorite <a href="http://www.priceline.c
 as I expected after receiving the email, palmmicro.com is set free in China now.
 <br />My first guess for the unblock reason was because of Independence Day, then I thought it might be the result of a general free movement after July 1.
 After I checked with <a href="http://www.who.is" target=_blank>www.who.is</a>, I found the real reason, 
-<a href="../entertainment/20100905.php">Yahoo Web Hosting</a> moved palmmicro.com to a new IP address 98.136.92.206 sometime earlier.
+Yahoo Web Hosting moved palmmicro.com to a new IP address 98.136.92.206 sometime earlier.
 <br />Over the past year when palmmicro.com is blocked, I have collected 4 IP in the black list: 216.39.57.104, 216.39.62.189, 216.39.62.190 and 216.39.62.191.
 I never believe IPv6 is necessary, especially in China, we can simple reuse those IP in the black list.
 </p>

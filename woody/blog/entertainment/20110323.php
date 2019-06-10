@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<title>Loser's Songs</title>
+<title>VoIP Loser's Songs</title>
 <meta name="description" content="The movie Cape No.7 reminds me the failure experience of my business in the past 10 years, also feel lucky that we did not build a dedicated WiFi VoIP chip.">
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
@@ -11,7 +11,7 @@
 <?php _LayoutTopLeft(false); ?>
 
 <div>
-<h1>Loser's Songs</h1>
+<h1>VoIP Loser's Songs</h1>
 <p>March 23, 2011
 <br />People are asking why I uploaded such a tired image as my display picture. Because I like this picture taken on Feb, I always wear a tired smile in recent months.
 <br />Also in Feb, I added a loser's song <b>South of the Border</b> on my Chinese favorite page. It was from <b>Cape No.7</b> movie.

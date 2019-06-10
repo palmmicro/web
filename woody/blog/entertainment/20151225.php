@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<title>The Interpretation of Sina Realtime Stock Data Interface</title>
+<title>The Interpretation of Sina Stock Data Interface</title>
 <meta name="description" content="The interpretation of Sina Chinese stock (http://hq.sinajs.cn/list=sz162411) and US stock (http://hq.sinajs.cn/list=gb_xop) data interface.">
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
@@ -11,7 +11,7 @@
 <?php _LayoutTopLeft(false); ?>
 
 <div>
-<h1>The Interpretation of Sina Realtime Stock Data Interface</h1>
+<h1>The Interpretation of Sina Stock Data Interface</h1>
 <p>Dec 25, 2015
 <br />I was planning to add the SZ162411 history net value table,
 and found that the I have almost forgotten the meanings of Sina Chinese stock data interface which was analysed 4 months ago.  
@@ -25,7 +25,7 @@ Current data got from <?php EchoSinaQuotesLink('sz162411'); ?> and saved in <?ph
 <br />After removed double quotation marks, separated by ',', the interpretation of words in the next table.
 </p>
 <?php
-    EchoInterpretationParagraph(array(array('0', '华宝油气', 'GB2312 coded stock name'),
+    EchoInterpretationParagraph(array(array('0', '华宝油气', '<a href="20101107.php">GB2312</a> coded stock name'),
                                    array('1', '0.502', 'Today open'),
                                    array('2', '0.482', 'Previous close'),
                                    array('3', '0.500', 'Current price, used as today close after market close?'),

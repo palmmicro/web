@@ -15,7 +15,7 @@
 <p>Mar 9, 2017
 <br />Example data from <?php EchoLink('http://palmmicro.com/php/spidercn.php?list=sz162411,SZ160216,Sz160416,sH501018'); ?>:
 <font color=grey>
-<br />SZ162411_net_value=0.645,2017-03-07,0.6267,2017-03-08,0.6267,0.6267,0.643
+<br /><a href="20150818.php">SZ162411</a>_net_value=0.645,2017-03-07,0.6267,2017-03-08,0.6267,0.6267,0.643
 <br />SZ160216_net_value=0.445,2017-03-07,0.4312,2017-03-08,0.4312,0.4312,0.440
 <br />SZ160416_net_value=0.968,2017-03-07,0.9541,2017-03-08,0.9541,0.9541,0.965
 <br />SH501018_net_value=1.0185,2017-03-07,0.9869,2017-03-08,0.9869,0.9869,1.004
@@ -28,7 +28,7 @@
                                    array('2', '0.6267', 'T day estimated official net value'),
                                    array('3', '2017-03-08', 'T date'),
                                    array('4', '0.6267', 'Fair Estimation'),
-                                   array('5', '0.6267', 'Realtime <a href="20150818.php#realtime">T+1 Estimation with Current CL Factor in</a>'),
+                                   array('5', '0.6267', 'Realtime T+1 Estimation with Current CL Factor in'),
                                    array('6', '0.643', 'Last trade')
                                    ), 'netvalue', false);
 ?>

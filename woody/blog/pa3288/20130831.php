@@ -52,7 +52,7 @@ the decision of discontinuing PA1688 shocked me. I had to give up the USB chip a
 <br />As a quick replacement, we developed <a href="../../../ar1688/index.html">AR1688</a> solution based on a popular MP3 chip in 2006. It has built in USB 2.0 device,
 but we had never used it in our VoIP software neither.
 <br />Things are different with PA3288 now. With USB 2.0 OTG, it is almost the chip of my dream back in 2005.
-We are planning to add WiFi USB dongle support to it and build a low cost <a href="../entertainment/20110323.php">WiFi VoIP</a> solution. As a first step, I found out the updated version of MCB2140 USBMem examples from Keil,
+We are planning to add WiFi USB dongle support to it and build a low cost WiFi <a href="../entertainment/20110323.php">VoIP</a> solution. As a first step, I found out the updated version of MCB2140 USBMem examples from Keil,
 Tang Li put it together with open source <a href="../pa6488/20101225.php">EFSL</a> file system,
 now PA328A board can work as a standard FAT16 <a href="../../../pa3288/software/devguide/usb.php">USB</a> storage class disk for debug purpose.
 </td></tr>

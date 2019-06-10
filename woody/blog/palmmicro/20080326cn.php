@@ -40,7 +40,8 @@
 <tr><td>2008年3月26日</td></tr>
 <tr><td><a href="20061123cn.php">王老板</a>1999年初在Santa Clara创建Palmmicro公司, 开始使用Palmmicro.com. 
 <br />2002年末的时候, Palmmicro改名Centrality, Palmmicro.com的注册在2003年过期. 
-<br />一个域名买卖公司从2003年12月25日到2007年12月25日注册了这个域名. 在此期间, Centrality停止了它的<a href="../../../pa1688/indexcn.html">PA1688</a> VoIP生意, 后来被SiRF<a href="../entertainment/20070813cn.php">收购</a>, 我们重新在北京创建了Palmmicro, 用新的<a href="../../../ar1688/indexcn.html">AR1688</a>芯片继续我们的VoIP小生意. 
+<br />一个域名买卖公司从2003年12月25日到2007年12月25日注册了这个域名. 在此期间, Centrality停止了它的<a href="../../../pa1688/indexcn.html">PA1688</a> VoIP生意, 后来被<a href="../entertainment/20070813cn.php">SiRF</a>收购.
+我们重新在北京创建了Palmmicro, 用新的<a href="../../../ar1688/indexcn.html">AR1688</a>芯片继续我们的VoIP小生意. 
 <br />2008年2月5日, 过期的域名状态变成<i>Redemption Period</i>. 
 <br />3月6日, 域名状态变成<i>Pending Delete</i>. 
 <br />3月13日, 一个Oregon买卖域名公司貌似注册了这个域名, 我当时十分失望. 

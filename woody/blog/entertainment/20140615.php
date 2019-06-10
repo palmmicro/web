@@ -13,14 +13,14 @@
 <div>
 <h1>Upgrade to Visual Studio 2013</h1>
 <p>June 15, 2014
-<br />I was planning to replace my 5 year old <a href="20100529.php">Sony VGN-FW235J</a> early this year, but the news of Sony selling its VAIO PC business stopped me from an immediate action.
+<br />I was planning to replace my 5 year old Sony VGN-FW235J early this year, but the news of Sony selling its VAIO PC business stopped me from an immediate action.
 I have been using Sony laptops since 2000 and do not know what to buy next, so I continued to use it until its hard disk crashed recently. 
 <br />My VS2008/VC9 crashed away with the hard disk. I felt very uncomfortable without a VC compiler in hand, so I started installing VS2013/VC12 on my another Sony VPCEG.
 It was the first time I was installing Visual Studio software online, after I finally downloaded the nearly 3G bytes package, also for the first time,
 I selected installing all components instead of my usual option of VC compiler only.
-<br />The 12G bytes software installation went on smoothly. After it finished, I tried to load <a href="20100529.php">Woody's Web Tool</a> project at once. 
+<br />The 12G bytes software installation went on smoothly. After it finished, I tried to load Woody's Web Tool written in <a href="20100529.php">Visual C++</a> 2008 project at once. 
 With only about 10 warnings, the upgrade from VC9 to VC12 was so easy that I even had not noticed the project file name had been changed from .vcproj to .vcxproj.  
-<br /><a href="20100726.php">CamMan</a> was the second to upgrade, the 2 projects in the .sln were converted with about the same 10 warnings at the same time. I made some usual test, everything was great.   
+<br />CamMan in <a href="20100726.php">Raw Video Viewers</a> was the second to upgrade, the 2 projects in the .sln were converted with about the same 10 warnings at the same time. I made some usual test, everything was great.   
 <br />Finally I started to upgrade <a href="../ar1688/20100818.php">AR1688 Windows Tools</a>. As I did not know clearly how to test some of the DSP development related projects,
 I decided to convert only the Manager.exe at first. Which proved to be a mistake. I had to manually delete old .vcproj file and add new .vcxproj file for each project not converted at first time.
 I think it might be a bug for the version <b>Visual Studio 2013 Update 2</b>. 

@@ -28,7 +28,7 @@ After inline function and loop unroll compiler option optimization, it reduced t
 When I was going to continue to do more optimization work, I found the compiler I got was too old to compile the new DSP-like instructions which the router chip actually supported.
 I sent out email for help of newer compiler tools but did not got any response in nearly 2 weeks. So I stopped waiting and began to write this summary.
 <br />At first I was planning to put this summary under PA6488 category, but changed my mind considering there might be little chance to see PA6488 actually working with this router chip in a future product,
-better to treat it as my entertainment of <a href="20100905.php">programming</a> at this time.
+better to treat it as my entertainment of programming with <a href="20100905.php">PHP</a> together at this time.
 <br /><img src=../../myphoto/1997/ess.jpg alt="My first digit photo taken at ESS office in Fremont" />
 </p>
 </div>

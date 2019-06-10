@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<title>Technology Matters</title>
+<title>ACTS Technology Matters</title>
 <meta name="description" content="Why I added ACTS stock to my position, and what I am expecting Palmmicro would be.">
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
@@ -11,9 +11,9 @@
 <?php _LayoutTopLeft(false); ?>
 
 <div>
-<h1>Technology Matters</h1>
+<h1>ACTS Technology Matters</h1>
 <p>Nov 12, 2011
-<br />Buying the stock of <a href="http://www.actions-semi.com/" target=_blank>Actions Semiconductor</a> in the past 6 years was one of the <a href="20110323.php">worst investment</a> in my life,
+<br />Buying the stock of <a href="http://www.actions-semi.com/" target=_blank>Actions Semiconductor</a> in the past 6 years was one of the worst investment in my life,
 resulted huge financial loss, but I still keep an eye on it.
 Last week they announced CEO transition and sparked sell-off, and I added ACTS to my position again yesterday.
 <br />Because of his technology background, obviously most people do not believe the new CEO Dr.Zhenyu Zhou can improve the shrinking multimedia chip business.
@@ -28,7 +28,7 @@ And hope to bring <a href="../palmmicro/20080326.php">Palmmicro</a> all the way 
 
 <h3>ACTS Delisted</h3>
 <p>June 12, 2018
-<br />Since I began writing the <a href="20150818.php">SZ162411</a> net value calculation software, I have been cleanning the PHP code all the time.
+<br />Since I began writing the <a href="20150818.php">SZ162411</a> net value calculation software, I have been cleanning the <a href="20100905.php">PHP</a> code all the time.
 And I always uses the symbol ACTS to test in functions such as Palmmicro <a href="../palmmicro/20161014.php">Wechat Public Account</a>.
 <br />As ACTS delisted, its <a href="20151225.php">Sina Stock Data</a> is not available now, and I lost one of my most familiar stock symbol.
 </p>

@@ -40,7 +40,8 @@
 <tr><td>March 26, 2008</td></tr>
 <tr><td>In early 1999, <a href="20061123.php">Dr Wang</a> founded Palmmicro in Santa Clara and began to use www.palmmicro.com.
 <br />In late 2002, Palmmicro changed its name to Centrality. Palmmicro.com registration expired in 2003.
-<br />A domain trading company owned palmmicro.com from Dec 25, 2003 to Dec 25, 2007. During this period, Centrality discontinued its <a href="../../../pa1688/index.html">PA1688</a> VoIP business and later <a href="../entertainment/20070813.php">merged</a> with SiRF, we founded Palmmicro again in Beijing, continue our small VoIP business with the new <a href="../../../ar1688/index.html">AR1688</a> chip.
+<br />A domain trading company owned palmmicro.com from Dec 25, 2003 to Dec 25, 2007. During this period, Centrality discontinued its <a href="../../../pa1688/index.html">PA1688</a> VoIP business and later acquired by <a href="../entertainment/20070813.php">SiRF</a>.
+We founded Palmmicro again in Beijing, continue our small VoIP business with the new <a href="../../../ar1688/index.html">AR1688</a> chip.
 <br />On Feb 5, 2008, the expired domain name came into <i>Redemption Period</i>.
 <br />On March 6, the domain name became <i>Pending Delete</i>.
 <br />On March 13, the domain was strangely registered by an Oregon domain trading company. I was so disappointed at that time.

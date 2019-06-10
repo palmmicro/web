@@ -15,7 +15,7 @@
 <p>Dec 2 <a href="ar1688/20101202.php">Writing Program Flash</a>
 <br /><img src=photo/20101202.jpg></p>
 
-<p>Nov 7 <a href="entertainment/20101107.php">Moving Blog - GB18030 and GB2312</a>
+<p>Nov 7 Moving Blog - GB18030 and <a href="entertainment/20101107.php">GB2312</a>
 <br /><img src=photo/20101114.jpg alt="Google Analytics reports of Palmmicro.com visitor location information on Oct, 2010." /></p>
 
 <p>Sep 7 <a href="pa1688/20100907.php">A Hard Day's Night</a>
@@ -24,7 +24,7 @@
 <p>July 26 <a href="entertainment/20100726.php">Raw Video Viewers</a>
 <br /><img src=photo/20100726.jpg alt="Screen shot of Speech Workshop, Raw Image Viewer and CamMan" /></p>
 
-<p>May 29 <a href="entertainment/20100529.php">My First Visual C++ 2008 Application</a>
+<p>May 29 My First <a href="entertainment/20100529.php">Visual C++</a> 2008 Application
 <br /><img src=photo/20100529.jpg alt="Screen shot of My First Visual C++ 2008 Application Woody's Web Tool" /></p>
 
 <p>Apr 27 <a href="palmmicro/20100427.php">The Blocking History of Palmmicro.com</a>

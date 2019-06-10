@@ -54,7 +54,7 @@
 <br />从<a href="20100818cn.php">0.48</a>版本开始SDCC\bin下工具的编译器升级到VC2008. 
 <br />&nbsp;
 <br /><font color=magenta>2014年6月15日更新</font>
-<br />SDCC\bin下工具的编译器升级到<a href="../entertainment/20140615cn.php">Visual Studio 2013</a>. 
+<br />SDCC\bin下工具的编译器升级到<a href="../entertainment/20140615cn.php">Visual Studio</a> 2013. 
 </td></tr>
 </table>
 

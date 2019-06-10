@@ -15,7 +15,7 @@
 <div>
 <h1>PHP Application to Estimate the Net Value of SZ162411</h1>
 <p>Aug 18, 2015
-<br />As my <a href="20141016.php">CSR</a> stock is turning into cash soon, I am considering to use the USD to trade XOP while using my other CNY to trade SZ162411 together. 
+<br />As my CSR <a href="20141016.php">Stock</a> is turning into cash soon, I am considering to use the USD to trade XOP while using my other CNY to trade SZ162411 together. 
 I was watching stock quotations on Yahoo and Sina everyday, and always need to click on the calculator application to convert the price between XOP and SZ162411, soon I got bored. 
 <br />Later I thought of my first <a href="20100905.php">PHP</a> application 5 years ago, and decided to write my second PHP application.
 It was planned to put all the usual stock quotations together, and to estimate SZ162411 net value based on XOP, ^SPSIOP and USDCNY exchange rate.
@@ -54,7 +54,7 @@ As I do not konw when the data will be updated, I update it once an hour stupidl
 
 <h3><a name="mobiledetect">Mobile Detect</a></h3>
 <p>Aug 21, 2015
-<br />After released the link of this tool, I checked the data of <a href="20101107.php">Google Analytics</a> yesterday. During the 3 days there are 584 visits from 289 different IP address.
+<br />After released the link of this tool, I checked the data of <a href="20110509.php">Google</a> Analytics yesterday. During the 3 days there are 584 visits from 289 different IP address.
 Unlike the usual <a href="../palmmicro/20080326.php">Palmmicro</a> visitors, 1/3 of the tool visitors used mobile phone. So I added the UI optimization for mobile phone in a hurry.
 <br />Using <a href="http://mobiledetect.net/" target=_blank>Mobile-Detect</a> to detect if it is a mobile phone visit.
 Following the developer's advice, I copied the code github and put it separately in <?php EchoPhpFileLink('/php/class/Mobile_Detect'); ?>.
@@ -92,10 +92,9 @@ Although I only watched US market crash, I still added BOSERA S&P 500 net value 
 
 <h3>Stock <a name="transaction">Transaction</a></h3>
 <p>Sep 13, 2015
-<br />Integrated with my first <a href="20100905.php">PHP</a> application. After login, user can now input related stock transaction record.
-And we make SZ162411 and XOP arbitrage analysis based on those record.
+<br />After login, user can now input related stock transaction record. And we make SZ162411 and XOP arbitrage analysis based on those record.
 <br />The input and handling of stock transaction record is in file <?php EchoPhpFileLink('/woody/res/php/_edittransactionform'); ?> and <?php EchoPhpFileLink('/woody/res/php/_submittransaction'); ?>. 
-<a href="20100529.php">Woody's Web Tool</a> is modified to generate _submitXXX.php file automatically when insert copy of a _editXXXform.php file. 
+<a href="20100529.php">Visual C++</a> coded Woody's Web Tool is modified to generate _submitXXX.php file automatically when insert copy of a _editXXXform.php file. 
 </p>
 
 <h3><a name="adr">ADR</a></h3>
@@ -139,7 +138,7 @@ In this way, the display is unified.
 
 <h3>Period Three Implies Chaos</h3>
 <p>Feb 26, 2016
-<br />SZ162411 is trading more than 10% higher than its net value recently, the max premium as high as 17%, so the <a href="20141016.php#2015">XOP and SZ162411 arbitrage</a> is not possible now.
+<br />SZ162411 is trading more than 10% higher than its net value recently, the max premium as high as 17%, so the XOP and SZ162411 arbitrage is not possible now.
 <br />Continuing to organzie the similar code, added <font color=olive>MysqlReference</font> and <font color=olive>MyStockReference</font> class.
 <font color=olive>FutureReference</font> and <font color=olive>ForexReference</font> are now extended from <font color=olive>MysqlReference</font>, same as the new <font color=olive>MyStockReference</font>.
 We called MySQL related function of <?php EchoPhpFileLink('/php/sql/sqlstock'); ?> in <font color=olive>MysqlReference</font> class, put history and calibration database operation in the same place.
@@ -174,7 +173,7 @@ The class only support config read and write on an existing file, still as a PHP
 <h3>Sina Realtime HK Stock Data</h3>
 <p>Apr 23, 2016
 <br />With the help of <?php EchoXueqieId('5174320624', 'rdcheju'); ?>,
-now using Sina realtime HK stock data(<?php EchoSinaQuotesLink('rt_hk02828'); ?>) to replace original <a href="20151225.php#hongkong">Sina HK data</a> which has 15 minutes delay.
+now using Sina realtime HK stock data(<?php EchoSinaQuotesLink('rt_hk02828'); ?>) to replace original <a href="20151225.php">Sina Stock Data</a> which has 15 minutes delay.
 <br />On last Thursday the total page view of my net value pages was over 2200, this encouraged me to do more page speed optimization.
 </p>
 
@@ -183,7 +182,7 @@ now using Sina realtime HK stock data(<?php EchoSinaQuotesLink('rt_hk02828'); ?>
 <br />Last week USDCNY was rising significantly again, and a new bug of SZ162411 net value estimation floated on water. On Friday, May 13, my estimation was about 1% higher than the official data.
 I began to check the problem yesterday, found that the last automatic calibration was done on the evening of May 12, after the official net value of May 11 data released.
 And the automatic calibration on May 13 was not done yet. In other words, the calibration was one day late for quite some time now, but when USDCNY had little change, the problem was ignored.
-<br />It was easy to find the bug, I used the simplest way to fix the estimation bug (mentioned in <a href="20151225.php#fund">Sina fund data</a>) caused by continue Chinese and USA market close after Chinese New Year.
+<br />It was easy to find the bug, I used the simplest way to fix the estimation bug caused by continue Chinese and USA market close after Chinese New Year.
 Because only Hongkong LOF would have the chance of official LOF net value newer than ETF, I rewrote part of the code by checking if it was HK LOF,
 and modified an actually unrelated code, what should be <i>$iHours = STOCK_HOUR_END + ($this->usdhkd_ref ? 0 : 24);</i> was written as <i>$iHours = STOCK_HOUR_END + ($this->usdhkd_ref) ? 0 : 24;</i>
 <br />But this bug made me feel very bad, this time I can not say I am still a 6 years <font color=red>new</font> PHP programmer. As a proud 25 years C programmer, this is also a very stupid bug in C language!
@@ -231,13 +230,13 @@ I thought it was because the web server was in US and my major visitors were fro
         <td class=c1 align="center">XOP</td>
       </tr>
       <tr>
-        <td class=c1 align="center">T+1 day <a href="20151225.php#future">CL</a> future</td>
+        <td class=c1 align="center">T+1 day CL future</td>
         <td class=c1 align="center">N</td>
         <td class=c1 align="center">N</td>
         <td class=c1 align="center">Y</td>
       </tr>
       <tr>
-        <td class=c1 align="center"><a href="20160615.php">USDCNY reference rate</a></td>
+        <td class=c1 align="center"><a href="20160615.php">USDCNY Reference Rate</a></td>
         <td class=c1 align="center">T day</td>
         <td class=c1 align="center">T+1 day</td>
         <td class=c1 align="center">T+1 day</td>

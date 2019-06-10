@@ -32,7 +32,7 @@
 <br />因为觉得毫无指望, 我已经很久没有尝试过从国内访问palmmicro.com. 就在刚过去的光辉7月1日, 一大批网站, 包括我常用的<a href="http://www.priceline.com" target=_blank>priceline.com</a>都在国内被屏蔽, 到第二天才恢复正常. 
 <br />当我今天看到有个来自北京交通大学xxx@bjtu.edu.cn的palmmicro注册邮件的时候吃了一惊. 然后我从长沙正常访问到了palmmicro.com. 正如我收到邮件后预料的那样, palmmicro.com解放了. 
 <br />我首先猜想解放的原因是因为美国独立日, 然后觉得太离谱, 猜想是在7月1号后的解放中搭了顺风车. 在我查了<a href="http://www.who.is" target=_blank>www.who.is</a>后找到了真正的原因.
-<a href="../entertainment/20100905cn.php">Yahoo网站服务</a>早些时候给palmmicro.com换到了一个新IP地址: 98.136.92.206. 
+Yahoo网站服务早些时候给palmmicro.com换到了一个新IP地址: 98.136.92.206. 
 <br />在过去1年多的palmmicro.com被屏蔽过程中, 我收集了4个黑名单上的IP地址: 216.39.57.104、216.39.62.189、216.39.62.190和216.39.62.191. 我从来都不认为IPv6有什么必要, 尤其在我们中国, 直接重复利用黑名单上的地址就够了. 
 </p>
 

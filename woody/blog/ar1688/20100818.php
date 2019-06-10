@@ -37,7 +37,9 @@
 <tr><td class=THead><B>AR1688 Windows Tools Compiled with VC2008</B></td></tr>
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
 <tr><td>Aug 18, 2010</td></tr>
-<tr><td>I replaced my 3.5 year old Sony PCG-K23 with current Sony VGN-FW235J 20 months ago, but I still kept the old system updated as I need <a href="../entertainment/20100529.php">VC6</a> to compile AR1688 and <a href="../../../pa1688/index.html">PA1688</a> Windows tools. During the period the MS automatic updating had successfully made it slow enough even when running VC6 as the only application, I had to switch AR1688 tools to compile with VC2008 finally. 
+<tr><td>I replaced my 3.5 year old Sony PCG-K23 with current Sony VGN-FW235J 20 months ago,
+but I still kept the old system updated as I need <a href="../entertainment/20100529.php">Visual C++</a> 6.0 to compile AR1688 and <a href="../../../pa1688/index.html">PA1688</a> Windows tools.
+During the period the MS automatic updating had successfully made it slow enough even when running VC6 as the only application, I had to switch AR1688 tools to compile with VC2008 finally. 
 <br>After I started the work, I found that someone else had already done the switch before, all tools can be compiled successfully with multi-byte character set, but most obviously Manager.exe debug output becomes strange on my 64-bit Vista system.
 <br>I decided to compile everything with the new default unicode option. This task took much more time than I expected. The mixed using of memcpy/strcmp and CString caused a lot of problems in unicode. 
 <br>The test result looks ok so far. The most interesting part is, all of the command line tools like hex2bin.exe are about 30% smaller than before with multi-byte compile, and reduced 10% more in size with unicode. GUI based Manager.exe is also a little smaller than before. And the total zipped software API package reduced about 10% in size, from 2.4M bytes to 2.2M bytes.

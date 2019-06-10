@@ -44,7 +44,7 @@
 <br />* special sdcc keywords which are not preceded by a double underscore are deprecated in sdcc version 3.0.0 and higher. See section ANSI-Compliance in sdccman
 <br />* asxxxx / aslink renamed to sdas / sdld and synchronized with ASXXXX V2.0
 </font>
-<br />Obviously those changes mean lots of changes in our source code and related makefiles. Partly because of I was busy with <a href="../../../pa6488/index.html">PA6488</a> work and <a href="../entertainment/20101107.php">moving</a> my blog, 
+<br />Obviously those changes mean lots of changes in our source code and related makefiles. Partly because of I was busy with <a href="../../../pa6488/index.html">PA6488</a> work, 
 partly because of I was lazy to <a href="20100715.php">fork</a> a test version, I ignored the test phase of release candidate 1 & 2. But as soon as I started testing 3.0.0, I realized that I had made a mistake.
 <br />Most other Z80 users in the world are as lazy as me! So the Z80 port was not tested as good as the 8051 port. The first problem I met was inline asm not working any more, the SDCC mailing list soon replied it was a known bug already, 
 and fixed in recent snapshot. Then I met another known problem, sometimes jp instruction was optimized into jr incorrectly, this time no ready fix yet, although somebody had already posted a workaround in the bug tracking system.

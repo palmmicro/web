@@ -67,15 +67,15 @@ let us see browsers used by Palmmicro web visitors according to Google in the im
 
 <h3>Replacing GB2312 with UTF-8</h3>
 <p>March 8, 2012
-<br />Growing up with <a href="../ar1688/20080216.php">GB2312</a>, and puzzled by Microsoft's 2 bytes <a href="20100529.php">unicode</a> in the past 2 years, I was ignoring UTF-8 for most of the time.
+<br />Growing up with <a href="../ar1688/20080216.php">GB2312</a>, and puzzled by Microsoft's 2 bytes unicode in the past 2 years, I was ignoring UTF-8 for most of the time.
 It is funny that I was still debugging GB18030 and GB2312 in late 2010. However, as I was getting more and more UTF-8 encoded Chinese emails sent from iPads during the past year,
 I began to think it must be important, since Apple always boasts of the easy to use of its products.
 <br />More investigation on the usage of UTF-8 shocked me. Among those tens of websites I usually visit,
 only <a href="http://www.newsmth.net/" target=_blank>SMTH</a> and the forum part of <a href="http://tianya.cn/" target=_blank>TianYa</a> NOT using UTF-8 now.
 Better late than never, I started to convert Palmmicro web from GB2312 to UTF-8 since last weekend.
-<br />As always, the work took me longer than expected. I spent some time modifying <a href="20100529.php">Woody's Web Tool</a>, and more time on learning the VC2008 editor settings to edit UTF-8 files.
+<br />As always, the work took me longer than expected. I spent some time modifying Woody's Web Tool written in <a href="20100529.php">Visual C++</a>, and more time on learning the VC2008 editor settings to edit UTF-8 files.
 The stupid editor always need to save as <i>UTF-8 without signature</i>.
-<br />And again I had to discard many blog comments previous saved in GB2312 coding, still a new <a href="20100905.php">PHP/MySQL</a> programmer,
+<br />And again I had to discard many blog comments previous saved in GB2312 coding, still a new <a href="20100905.php">PHP</a> and MySQL programmer,
 I can not figure out an easy way to convert them in current MySQL database.
 </p>
 
@@ -84,7 +84,7 @@ I can not figure out an easy way to convert them in current MySQL database.
 <br .>I have been adding more features for <a href="20150818.php">SZ162411</a> net value tool recently. Working on web page now and then for so many years, 
 my original planned <a href="../../../pa6488/index.html">PA6488</a> and <a href="../../../pa3288/index.html">PA3288</a> products web management is still unavailable,
 and palmmicro.com is becoming an amateur stock web site.
-<br .>As more and more stocks are involved, I plan to use the stock information in <a href="20151225.php">Sina stock data</a> directly instead of input them by hand.
+<br .>As more and more stocks are involved, I plan to use the stock information in <a href="20151225.php">Sina Stock Data</a> directly instead of input them by hand.
 Now the problem of 4 years ago comes back, the data from Sina is still GB2312 encoded, and I still can not convert them from GB2312 to UTF8 by native PHP functions like <i>mb_detect_encoding</i> and <i>iconv</i>.
 <br .>But I am much more experienced in PHP now. First I downloaded the GB2312 and UNICODE converting <a href="http://blog.csdn.net/longronglin/article/details/1355890" target=_blank>table</a> from internet,
 Then I wrote a converting tool to generate an array $arGB2312 sorted by GB2312 as key, and finallly function <i>FromGB2312ToUTF8</i> searched UNICODE from $arGB2312 table,

@@ -12,7 +12,7 @@
 
 <div>
 <h1>Web Crawler Interface Visitor Data</h1>
-<p>Used to view special <a href="../woody/blog/entertainment/20170309.php">web crawler</a> interface visitor data.</p>
+<p>Used to view special <a href="../woody/blog/entertainment/20170309.php">Web Crawler</a> interface visitor data.</p>
 <?php EchoSpiderVisitor(false); ?>
 </div>
 
