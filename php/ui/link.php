@@ -33,20 +33,29 @@ function EchoMyStockLink($strSymbol)
     echo $str;
 }
 
-function EchoExternalLink($strHttp, $strDisplay)
+function GetPhpFileLink($strPathTitle)
 {
-    $str = GetExternalLink($strHttp, $strDisplay);
-    echo $str;
+    $strPhp = $strPathTitle.'.php';
+    $strTxt = $strPathTitle.'.txt';
+    
+    $bCopyFile = true;
+    if (file_exists($strTxt))
+    {
+    	clearstatcache(true, $strTxt);
+    	if (filemtime($strTxt) > filemtime($strPhp))		$bCopyFile = false;
+	}
+	
+	if ($bCopyFile)
+	{
+		$str = file_get_contents($strPhp);
+		file_put_contents($strTxt, DEBUG_UTF8_BOM.$str);
+	}
+    return GetExternalLink($strTxt, $strPhp);
 }
 
 function EchoPhpFileLink($strPathTitle)
 {
-//    $strTxtPathName = str_replace('.', '_', $strPathName).'.txt';
-    $strPathName = $strPathTitle.'.php';
-    $strTxtPathName = $strPathTitle.'.txt';
-    $str = file_get_contents($strPathName);
-    file_put_contents($strTxtPathName, DEBUG_UTF8_BOM.$str);
-    EchoExternalLink($strTxtPathName, $strPathName);
+	echo GetPhpFileLink($strPathTitle);
 }
 
 function EchoXueqieId($strId, $strDisplay)

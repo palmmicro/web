@@ -128,28 +128,6 @@ function _wxDebug($strUserName, $strText, $strSubject)
     trigger_error($strSubject.'<br />'.$str);
 }
 
-function _wxGetStockArrayText($arSymbol, $str = '')
-{
-	sort($arSymbol);
-    StockPrefetchArrayData($arSymbol);
-    foreach ($arSymbol as $strSymbol)
-    {
-        if ($strText = _wxGetStockText($strSymbol))
-        {
-//            DebugString($strText);
-            if (strlen($str.$strText.WX_EOL.WX_DEBUG_VER) < MAX_WX_MSG_LEN)
-            {
-                $str .= $strText.WX_EOL;
-            }
-            else
-            {
-                break;
-            }
-        }
-    }
-    return $str;
-}
-
 function _updateWeixinTables($strText, $strUserName)
 {
     SqlCreateVisitorTable(WEIXIN_VISITOR_TABLE);
@@ -162,9 +140,36 @@ function _updateWeixinTables($strText, $strUserName)
 
 class WeixinStock extends WeixinCallback
 {
+	function _getStockArrayText($arSymbol, $str = '')
+	{
+		$strVer = $this->GetVersion();
+		sort($arSymbol);
+		StockPrefetchArrayData($arSymbol);
+		foreach ($arSymbol as $strSymbol)
+		{
+			if ($strText = _wxGetStockText($strSymbol))
+			{
+				if (strlen($str.$strText.WX_EOL.$strVer) < MAX_WX_MSG_LEN)
+				{
+					$str .= $strText.WX_EOL;
+				}
+				else
+				{
+					break;
+				}
+			}
+		}
+		return $str;
+	}
+
+    function GetVersion()
+    {
+    	return WX_DEBUG_VER.' '.GetInternalLink('/woody/blog/palmmicro/20161014cn.php', '使用说明');
+    }
+    
 	function GetDefaultText()
 	{
-		return _wxGetStockArrayText(array(WX_DEFAULT_SYMBOL));
+		return $this->_getStockArrayText(array(WX_DEFAULT_SYMBOL));
 	}
 
 	function GetUnknownText($strContents, $strUserName)
@@ -185,7 +190,7 @@ class WeixinStock extends WeixinCallback
 		if ($iCount = count($arSymbol))
 		{
 			$str = ($iCount > 1) ? '至少发现'.strval($iCount).'个匹配'.WX_EOL : ''; 
-			$str = _wxGetStockArrayText($arSymbol, $str);
+			$str = $this->_getStockArrayText($arSymbol, $str);
 		}
 		else
 		{
@@ -247,5 +252,4 @@ function _main()
 }
 
     _main();
-    
 ?>

@@ -10,6 +10,8 @@
 <body bgproperties=fixed leftmargin=0 topmargin=0>
 <?php _LayoutTopLeft(false); ?>
 
+<?php DemoPrefetchData(); ?>
+
 <div>
 <h1>Palmmicro Wechat Public Account sz162411</h1>
 <p>Oct 14, 2016
@@ -22,20 +24,28 @@ Using the very simple <a href="../entertainment/20100905.php">PHP</a> example co
 After debugging for a whole night I realized it was because Yahoo Web Hosting appended some javascript for site statistics after my every web page. 
 <br />As I had used <a href="../entertainment/20110509.php">Google</a> Analytics for site statistics for many years, I always feel the new function Yahoo added nearly 2 years ago was unnecessary and made my web pages slow,
 now I have plenty of reasons to get rid of it. After a lot of search in Yahoo Small Business's new web site <a href="https://www.luminate.com/" target=_blank>Aabaco Small Business</a> I finally disabled the function.
-The link <?php EchoPhpFileLink('/php/weixincn'); ?> was then successfully submited.
+The link <?php EchoPhp_weixincn(); ?> was then successfully submited.
 <br />Then I added some real function for it. The most wanted is to use wechat to check SZ162411 Net Value. 
-In the conversation, by voice or keypad, after user input <font color=grey>sz162411</font>, <font color=grey>SZ162411</font>, <font color=grey>162411</font>,
-<font color=grey>411</font> or <font color=grey>Fortune</font>, the last estimated SZ162411 offical net value and real time net value stored in palmmicro.com and the estimation time will be returned.
-If user only input <font color=grey>1</font>, there will be too many fund to match, due to the 2048 bytes limit of wechat message, only part of those matched results will be displayed.
+In the conversation, by voice or keypad, after user input <font color=grey>162411</font> or <font color=grey>华宝油气</font>, the various estimated net value the estimation time will be returned.
+</p>
+<?php EchoFundEstDemo(); ?>
+<p>If user only input <font color=grey>1</font>, there will be too many fund to match, due to the 2048 bytes limit of wechat message, only part of those matched results will be displayed.
 The wechat voice recognition might need a little training, when you say <font color=grey>162411</font> first, the result might not be good.
 But if you input <font color=grey>162411</font> first and then say it, it will keep work well from now on.
-<br />Back to the product of Palmmicro, this wechat public account and palmmicro.com works as an example for our developing <a href="../../../pa3288/index.html">PA3288</a> IoT module, 
+<br />Back to the product of our company, this wechat public account and web site works as an example for our developing <a href="../../../pa3288/index.html">PA3288</a> IoT module, 
 providing customers a total solution of data collect, storage and enquire. Based on this, we can provide both hareware product and support software for users to build their own IoT data analysis systems.
 <br />Although lack of real function at this time, please start using palmmicro wechat puablic account <font color=orange>sz162411</font> today by scanning the QR code for below.
 To use <font color=orange>sz162411</font> as wechat number can fit current data portfolio, but actually it is a second choice. 
 Because I love to use palmmicro too much, it was used as my private wechat account a long time ago.
 <br /><img src=../../image/wx.jpg alt="Palmmicro wechat public account sz162411 small size QR code" />
 </p>
+
+<h3><a name="ahcompare">AH</a> Compare</h3>
+<p>Jan 30, 2017
+<br />Try to input <font color=grey>600028</font> or <font color=grey>00386</font>.
+</p>
+<?php EchoAhDemo(); ?>
+
 </div>
 
 <?php _LayoutBottom(false); ?>

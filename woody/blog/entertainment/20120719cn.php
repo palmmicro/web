@@ -32,7 +32,7 @@
 <br />不知道是不是被收购的原因, 最近从国内访问Yahoo的FTP服务器特别慢, 而且还经常被限制访问, 逼我被迫放弃自己用<a href="20100529cn.php">Visual C++</a>写的Woody的网站工具, 转而使用Yahoo提供的WEB工具上传文件.
 一下子修改测试<a href="20150818cn.php">华宝油气</a>估值工具PHP代码的效率变得特别低, 让我苦恼无比.
 <br />这两天刚好读了篇有关云服务的文章, 让我想到了干脆自己弄个云服务器, 自己搭建一个PHP测试环境, 测试好的代码再上传<a href="../palmmicro/20080326cn.php">Palmmicro</a>.com.
-国内阿里/新浪/腾讯这些提供云服务的巨头中, 平时使用腾讯的QQ最多, 就此上了<?php EchoExternalLink('https://cloud.tencent.com/login', '腾讯云'); ?>的贼船, 
+国内阿里/新浪/腾讯这些提供云服务的巨头中, 平时使用腾讯的QQ最多, 就此上了<?php echo GetExternalLink('https://cloud.tencent.com/login', '腾讯云'); ?>的贼船, 
 再次开始了痛苦的Linux学习过程. 这一次是从最基础的软件安装学习起.
 <br />还是一样, 好记性不如烂笔头, 在这里记录一下各种细节.
 </p>
@@ -71,7 +71,7 @@
 <p>2019年1月14日
 <br />由于免费<a href="../palmmicro/20160307cn.php">DDNS</a>太难用, Palmmicro的测试<a href="../../../contactus/pbxcn.html">IP-PBX</a>已经罢工很久了.
 最近有人找我测试SIP, 想起一直闲置的<a href="#qcloud">腾讯云</a>其实是有个公网IP的, 于是开始尝试在它上面安装Asterisk.
-<br />以下步骤基本上都来自于<?php EchoExternalLink('https://wiki.asterisk.org/wiki/display/AST/Installing+Asterisk+From+Source', '官网WIKI'); ?>, 附加一点自己搜索的疑难解决方法.
+<br />以下步骤基本上都来自于<?php echo GetExternalLink('https://wiki.asterisk.org/wiki/display/AST/Installing+Asterisk+From+Source', '官网WIKI'); ?>, 附加一点自己搜索的疑难解决方法.
 </p> 
 <ol>
   <li>cd /usr/local/src</li>
@@ -107,7 +107,7 @@
   <li>/etc/init.d/asterisk status</li>
   <li>/etc/init.d/asterisk start</li>
 </ol>
-<p><a href="txt/pjsip_conf.txt" target=_blank>账号</a>和系统使用说明也来自于<?php EchoExternalLink('https://wiki.asterisk.org/wiki/display/AST/Super+Awesome+Company', 'WIKI'); ?>. 
+<p><a href="txt/pjsip_conf.txt" target=_blank>账号</a>和系统使用说明也来自于<?php echo GetExternalLink('https://wiki.asterisk.org/wiki/display/AST/Super+Awesome+Company', 'WIKI'); ?>. 
 这么小心翼翼胆颤心惊折腾一趟下来, 感觉自己对Linux又多少熟悉了一点.
 </p> 
 
