@@ -149,34 +149,45 @@ function AcctGetSpiderPageCount($strIp)
 	return count($ar);
 }
 
+function _checkSearchEnginePageCount($strIp, $iCount, $strText = false)
+{
+	$strDebug = $strText ? $strText : $strIp;
+	$iPageCount = AcctGetSpiderPageCount($strIp);
+    $strDebug .= ' '.strval($iCount).' '.strval($iPageCount);
+    if ($iPageCount >= 10)
+    {
+    	trigger_error('Unknown spider<br />'.$strDebug);
+    	return true;
+    }
+    if ($record = SqlGetIpAddressRecord($strIp))
+    {
+    	if ($record['status'] == IP_STATUS_NORMAL)
+    	{
+    		trigger_error('Blocked spider<br />'.$strDebug);
+    		SqlSetIpStatus($strIp, IP_STATUS_BLOCKED);
+    	}
+    }
+    return false;
+}
+
 function _checkSearchEngineSpider($strIp, $iCount)
 {
     $arIpInfo = IpInfoIpLookUp($strIp);
-    $str = $arIpInfo['org'];
-    if (strstr_array($str, array('microsoft', 'yahoo', 'yandex')))
+    if (isset($arIpInfo['org']))
     {
-        trigger_error('Known company: '.$arIpInfo['org']);
-        return true;
-    }
-    else
-    {
-	    $iPageCount = AcctGetSpiderPageCount($strIp);
-	    $strText = $arIpInfo['hostname'].' '.$arIpInfo['org'].' '.strval($iCount).' '.strval($iPageCount);
-	    if ($iPageCount >= 10)
-	    {
-	        trigger_error('Unknown spider<br />'.$strText);
-	        return true;
-	    }
-        if ($record = SqlGetIpAddressRecord($strIp))
-        {
-            if ($record['status'] == IP_STATUS_NORMAL)
-            {
-                trigger_error('Blocked spider<br />'.$strText);
-                SqlSetIpStatus($strIp, IP_STATUS_BLOCKED);
-            }
+    	$strOrg = $arIpInfo['org'];
+    	if (strstr_array($strOrg, array('microsoft', 'yahoo', 'yandex')))
+    	{
+    		trigger_error('Known company: '.$strOrg);
+    		return true;
+    	}
+    	else
+    	{
+    		if (isset($arIpInfo['hostname'])	)	$strOrg .= ' '.$arIpInfo['hostname'];
+    		return _checkSearchEnginePageCount($strIp, $iCount, $strOrg);
         }
     }
-    return false;
+	return _checkSearchEnginePageCount($strIp, $iCount);
 }
 
 function AcctCountBlogVisitor($strIp)

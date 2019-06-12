@@ -28,7 +28,7 @@ And hope to bring <a href="../palmmicro/20080326.php">Palmmicro</a> all the way 
 
 <h3>ACTS Delisted</h3>
 <p>June 12, 2018
-<br />Since I began writing the <a href="20150818.php">SZ162411</a> net value calculation software, I have been cleanning the <a href="20100905.php">PHP</a> code all the time.
+<br />Since I began writing the <a href="20150818.php">SZ162411 Net Value</a> software, I have been cleanning the <a href="20100905.php">PHP</a> code all the time.
 And I always uses the symbol ACTS to test in functions such as Palmmicro <a href="../palmmicro/20161014.php">Wechat Public Account</a>.
 <br />As ACTS delisted, its <a href="20151225.php">Sina Stock Data</a> is not available now, and I lost one of my most familiar stock symbol.
 </p>

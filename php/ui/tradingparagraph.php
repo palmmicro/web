@@ -59,12 +59,18 @@ function _echoTradingTableData($ref, $strEstPrice, $strEstPrice2, $strEstPrice3,
 {
     for ($i = TRADING_QUOTE_NUM - 1; $i >= 0; $i --)
     {
-        _echoTradingTableItem($i, '卖'.strval($i + 1), $ref->arAskPrice[$i], $ref->arAskQuantity[$i], $ref, $strEstPrice, $strEstPrice2, $strEstPrice3, $callback);
+    	if (isset($ref->arAskQuantity[$i]))
+    	{
+    		_echoTradingTableItem($i, '卖'.strval($i + 1), $ref->arAskPrice[$i], $ref->arAskQuantity[$i], $ref, $strEstPrice, $strEstPrice2, $strEstPrice3, $callback);
+    	}
     }
 
     for ($i = 0; $i < TRADING_QUOTE_NUM; $i ++)
     {
-        _echoTradingTableItem($i, '买'.strval($i + 1), $ref->arBidPrice[$i], $ref->arBidQuantity[$i], $ref, $strEstPrice, $strEstPrice2, $strEstPrice3, $callback);
+    	if (isset($ref->arBidQuantity[$i]))
+    	{
+    		_echoTradingTableItem($i, '买'.strval($i + 1), $ref->arBidPrice[$i], $ref->arBidQuantity[$i], $ref, $strEstPrice, $strEstPrice2, $strEstPrice3, $callback);
+    	}
     }
 }
 

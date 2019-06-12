@@ -17,7 +17,7 @@
 <p>2015年8月18日
 <br />眼看Qualcomm收购CSR<a href="20141016cn.php">股票</a>的现金快要到账, 最近我在琢磨在A股华宝油气和和美股XOP之间套利. 每天看Yahoo新浪等网站的股票行情, 时不时还要用鼠标点开计算器算算转换价格, 时间长了后有点烦.
 <br />后来我想起来5年前学习的<a href="20100905cn.php">PHP</a>, 于是打算写我的第二个PHP程序, 统一把套利需要常看的行情显示在一起, 同时根据SPDR标普油气开采指数ETF(XOP), 标普油气开采指数(^SPSIOP),
-以及美元对人民币的汇率计算<a href="../../res/sz162411cn.php">华宝油气净值</a>. 今天出了第一版, 记录下相关开发过程以备日后查阅.
+以及美元对人民币的汇率计算<a href="../../res/sz162411cn.php">华宝油气</a>净值. 今天出了第一版, 记录下相关开发过程以备日后查阅.
 <br />美股用Yahoo股票数据接口(<a href="#usstock">已停用</a>).
 <br />A股, 期货和汇率都用新浪实时的数据接口: <?php EchoSinaQuotesLink('sz162411,hf_CL,USDCNY'); ?>
 <br />一开始发现无论怎么弄<i>fopen</i>打开这些链接都会失败, 估计是我用的Yahoo网站服务不支持<i>allow_url_fopen</i>. 
@@ -84,7 +84,7 @@
       </tr>
       <tr>
         <td class=c1 align="center">_lof.php</td>
-        <td class=c1 align="center"><a href="../../res/sz162411cn.php">sz162411cn.php</a>, <a href="../../res/sz159920cn.php">sz159920cn.php</a>等</td>
+        <td class=c1 align="center">sz162411cn.php, sz159920cn.php等</td>
         <td class=c1 align="center">跟LOF相关的公共函数代码</td>
       </tr>
       <tr>
@@ -410,6 +410,7 @@ CL通常会在美股收盘后继续多交易一个小时, 此时实时估值也�
 <blockquote><code>echo UrlGetQueryDisplay('symbol').($bChinese ? '净值和收盘价历史比较' :  ' NetValue Close History Compare');</code></blockquote>
 <p>从软件开发的角度来说, 遍布我PHP代码的1000多个$bChinese肯定意味着某种代码结构缺陷, 希望这次代码清理完成后能让我醒悟过来.
 <br />冷静下来后仔细想想, 发现自己早有停止英文版的意图背后其实有个更深层的原因. 四年来的各种跨市场套利经历, 让我深深体会到了对手盘的重要性和A股韭菜的可贵, 从而不愿意留个英文版让外面的世界进来抢着割这么嫩的韭菜.
+<br /><font color=grey>If you've been playing poker for half an hour and you still don't know who the patsy is, you're the patsy. — Warren Buffett</font>
 </p>
 
 </div>

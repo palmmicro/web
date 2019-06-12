@@ -38,7 +38,7 @@
 <p>2016年1月22日
 <br />收到来自billing-noreply@google.com的一封信说<font color=gray>Good news! On Jan 21, 2016, we sent you a payment for your Google AdSense earnings.</font>
 去我的Bank of America的账户看, 果然有一笔108.11美元的收款了.
-<br />第一笔Adsense收入比2012年时候预计的来得早了3年, 主要是因为过去几个月我的<a href="20150818cn.php">华宝油气</a>估值页面吸引了很多<a href="20141016cn.php">股票</a>用户.
+<br />第一笔Adsense收入比2012年时候预计的来得早了3年, 主要是因为过去几个月我的<a href="20150818cn.php">华宝油气净值</a>页面吸引了很多<a href="20141016cn.php">股票</a>用户.
 现在差不多每天有1000次广告展示了.
 </p>
 

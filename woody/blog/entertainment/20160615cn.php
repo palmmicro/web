@@ -14,7 +14,7 @@
 <h1>东方财富美元人民币中间价汇率实时数据接口的字段意义</h1>
 <p>2016年6月15日
 <br />因为<a href="20151225cn.php">新浪股票数据</a>提供的是实时交易数据, 而<a href="../../res/lofcn.php">LOF</a>普遍使用的美元人民币中间价,
-在<a href="20150818cn.php">华宝油气</a>估值中跟最终官方数据相比有时候会出现0.1分的误差. 考虑到误差不大, 我也不会去做0.1分钱的套利, 而且我还相信交易值总会往中间价靠拢, 所以我一直没有去改它.
+在<a href="20150818cn.php">华宝油气净值</a>估算中跟最终官方数据相比有时候会出现0.1分的误差. 考虑到误差不大, 我也不会去做0.1分钱的套利, 而且我还相信交易值总会往中间价靠拢, 所以我一直没有去改它.
 <br />今年以来国泰商品的基金经理费心费力, 在国内监管部门要求多个不同美股ETF持仓的条件下, 居然一直维持了<a href="../../res/sz160216cn.php">国泰商品净值</a>和<?php EchoMyStockLink('USO'); ?>几乎完全相同的变动,
 由此在白天引发了大量跟原油期货CL的套利交易. 高手像<?php EchoXueqieId('6706948861', 'zzzzv'); ?>已经做到了0.05分的套利, 这样就必须使用中间价了. zzzzv根据长期经验给我确认了交易值不会往中间价靠拢,
 并且给我提供了他手头的Excel+VBA工具中使用的东方财富人民币美元<?php EchoEastMoneyForexLink('USDCNY'); ?>的<a href="http://hq2gjqh.eastmoney.com/EM_Futures2010NumericApplication/Index.aspx?type=z&ids=usdcny0" target=_blank>中间价接口</a>.
@@ -47,7 +47,7 @@
 
 <h3><a name="uscny">USCNY和USDCNY</a></h3>
 <p>2016年6月16日
-<br />昨晚自动校准用的东方财富的数据, 但是今天估算的<a href="../../res/sz162411cn.php">华宝油气净值</a>跟官方数据还是有偏差. 继续向zzzzv请教, 发现昨天用的东方财富USDCNY数据跟新浪USDCNY数据一样也是交易数据,
+<br />昨晚自动校准用的东方财富的数据, 但是今天估算的<a href="../../res/sz162411cn.php">华宝油气</a>净值跟官方数据还是有偏差. 继续向zzzzv请教, 发现昨天用的东方财富USDCNY数据跟新浪USDCNY数据一样也是交易数据,
 东方财富人民币美元中间价要用<a href="http://hq2gjqh.eastmoney.com/EM_Futures2010NumericApplication/Index.aspx?type=z&ids=uscny0" target=_blank>USCNY</a>.
 数据保存在<?php EchoFileLink('/debug/eastmoney/uscny.txt'); ?>.
 </p>

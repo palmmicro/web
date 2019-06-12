@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<title>PHP Application to Estimate the Net Value of SZ162411</title>
+<title>PHP Application to Estimate SZ162411 Net Value</title>
 <meta name="description" content="My second PHP application, to estimate the net value of SZ162411 based on XOP, ^SPSIOP and USDCNY exchange rate.">
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
@@ -13,7 +13,7 @@
 <?php DemoPrefetchData(); ?>
 
 <div>
-<h1>PHP Application to Estimate the Net Value of SZ162411</h1>
+<h1>PHP Application to Estimate SZ162411 Net Value</h1>
 <p>Aug 18, 2015
 <br />As my CSR <a href="20141016.php">Stock</a> is turning into cash soon, I am considering to use the USD to trade XOP while using my other CNY to trade SZ162411 together. 
 I was watching stock quotations on Yahoo and Sina everyday, and always need to click on the calculator application to convert the price between XOP and SZ162411, soon I got bored. 
@@ -80,7 +80,7 @@ Although I only watched US market crash, I still added BOSERA S&P 500 net value 
       </tr>
       <tr>
         <td class=c1 align="center">_lof.php</td>
-        <td class=c1 align="center"><a href="../../res/sz162411cn.php">sz162411cn.php</a>, <a href="../../res/sz159920cn.php">sz159920cn.php</a> etc</td>
+        <td class=c1 align="center">sz162411cn.php, sz159920cn.php etc</td>
         <td class=c1 align="center">LOF related functions</td>
       </tr>
       <tr>

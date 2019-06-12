@@ -81,7 +81,7 @@ I can not figure out an easy way to convert them in current MySQL database.
 
 <h3>Converting GB2312 Encoded String to UTF-8 Using PHP</h3>
 <p>June 9, 2016
-<br .>I have been adding more features for <a href="20150818.php">SZ162411</a> net value tool recently. Working on web page now and then for so many years, 
+<br .>I have been adding more features for <a href="20150818.php">SZ162411 Net Value</a> tool recently. Working on web page now and then for so many years, 
 my original planned <a href="../../../pa6488/index.html">PA6488</a> and <a href="../../../pa3288/index.html">PA3288</a> products web management is still unavailable,
 and palmmicro.com is becoming an amateur stock web site.
 <br .>As more and more stocks are involved, I plan to use the stock information in <a href="20151225.php">Sina Stock Data</a> directly instead of input them by hand.

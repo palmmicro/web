@@ -16,14 +16,14 @@
 <h1>Palmmicro微信公众号sz162411</h1>
 <p>2016年10月14日
 <br />作为一个搞了16年互联网产品的公司, <a href="20080326cn.php">Palmmicro</a>居然一直没有开发自己的手机App. 世界变化快, 现在貌似也不用自己开发App, 大多数的需求用微信公众号就足够满足.
-<br />因为一年多前做<a href="../entertainment/20150818cn.php">华宝油气</a>估值页面的时候就跟提供QDII基金估值的微信公众号小飞猪<font color=orange>flyingpig33</font>学习过, 我一直觉得加微信公众号是件非常简单的事情,
+<br />因为一年多前做<a href="../entertainment/20150818cn.php">华宝油气净值</a>估算页面的时候就跟提供QDII基金估值的微信公众号小飞猪<font color=orange>flyingpig33</font>学习过, 我一直觉得加微信公众号是件非常简单的事情,
 没想到在启用<?php echo GetWeixinLink(); ?>开发模式消息接口的时候就碰到了问题.
 采用几乎是一目了然的微信示例<a href="../entertainment/20100905cn.php">PHP</a>程序, 我在设置服务器链接的时候不断被提示<font color=red>Token验证失败</font>.
 反复调试一整晚后才意识到是因为Yahoo网站服务在我的每个页面后都加了一段javascript统计代码. 
 <br />因为我早就在用<a href="../entertainment/20110509cn.php">Google</a> Analytics做网站统计, 其实我一直觉得Yahoo前两年加的这个功能是个累赘, 没有提供什么新功能, 反而拖累了网页反应速度, 
 这下我就有了充分理由去掉它了. 在Yahoo Small Business的新网站<a href="https://www.luminate.com/" target=_blank>Aabaco Small Business</a>里面又找了好半天, 终于关闭了它.
 <?php EchoPhp_weixincn(); ?>链接提交成功.
-<br />接下来增加功能, 现在最直接的需求就是用微信查<a href="../../res/sz162411cn.php">华宝油气净值</a>. 采用对话方式,
+<br />接下来增加功能, 现在最直接的需求就是用微信查<a href="../../res/sz162411cn.php">华宝油气</a>净值. 采用对话方式,
 在消息中用语音或者键盘输入<font color=grey>162411</font>或者<font color=grey>华宝油气</font>等获取它的各种估值以及具体估值的时间.
 </p>
 <?php EchoFundEstDemo(); ?>
@@ -42,17 +42,9 @@
 
 <h3><a name="chinastock">用微信公众号查询A股交易数据</a></h3>
 <p>2016年10月20日
-<br />今天发现有个微信公众号用户用语音查询<font color=grey>交通银行</font>, 没查到因为数据库表stock中根本没有它. 不过因此刺激了我给加上查询所有<a href="../entertainment/20141016cn.php">股票</a>交易数据的功能.
-<br />首先我要把A股3000只左右的股票都加到数据库中. 开始我想直接开个大循环从000001到699999从新浪拿数据, 后来觉得太蠢了, 还担心新浪的数据接口把我列入黑名单. 网上查了下, 发现自己太不了解几乎每天都用的A股股票软件了.
-</p>
-<ol>
-  <li>打开股票行情软件.</li>
-  <li>在键盘输入60, 按【ENTER】, 显示所有股票的从涨到跌的排名.</li>
-  <li>输入34（也就是点击系统—数据导出）, 在【文本文件】, 【EXCEL】或者【图像】选择一个数据处理方式.</li>
-  <li>点击【报表中所有数据】, 在【存盘文件名】选择储存位置, 自行设定一个文件名, 点击【导出】即可.</li>
-</ol>
-<p>我依葫芦画瓢把数据存了下来. 不过这样每次要手动保存和上传, 更新起来不方便.
-<br />接下来我又找到了<?php EchoLink(GetEastMoneyStockListUrl()); ?>, 现在所有A股用户都能使用微信公众号<font color=orange>sz162411</font>了.
+<br />今天发现有个微信公众号用户用语音查询<font color=grey>交通银行</font>, 没查到因为数据库中根本没有它. 不过因此刺激了我给加上查询所有<a href="../entertainment/20141016cn.php">股票</a>交易数据的功能.
+<br />首先我要把A股3000多只股票都加到数据库中. 开始我想直接开个大循环从000001到699999从新浪拿数据, 后来觉得太蠢了, 还担心新浪的数据接口把我列入黑名单.
+接下来我又找到了<?php EchoLink(GetEastMoneyStockListUrl()); ?>, 现在所有A股用户都能使用微信公众号<font color=orange>sz162411</font>了.
 <?php EchoUpdateChinaStockLink(); ?>
 <br />继续给数据库中加美股代码, 希望<?php EchoLink(GetSinaUsStockListUrl()); ?>这个不完整的美股单子能满足绝大多数中国用户的查询<a href="../entertainment/20111112cn.php">ACTS</a>这种股票了.
 <?php EchoUpdateUsStockLink(); ?>

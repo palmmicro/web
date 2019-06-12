@@ -76,7 +76,7 @@ So the stock interface recorded last time was usaful this time. But I had to rev
 
 <h3>The Interpretation of Sina Realtime <a name="fund">Fund</a> Data Interface</h3>
 <p>Feb 16, 2016
-<br />On 9pm, <?php EchoXueqieId('5240589924', 'uqot'); ?> told me the net value calculation of <a href="20150818.php">SZ162411</a> was wrong now. 
+<br />On 9pm, <?php EchoXueqieId('5240589924', 'uqot'); ?> told me the calculation of <a href="20150818.php">SZ162411 Net Value</a> was wrong now. 
 I checked the debug information, and found that automatic calibration was done on 8pm.
 Current data got from <?php EchoSinaQuotesLink('f_162411'); ?> and saved in <?php EchoSinaDebugLink('f_162411'); ?> as following:
 <br /><font color=grey>var hq_str_f_162411="华宝兴业标普油气上游股票(QDII-LOF),

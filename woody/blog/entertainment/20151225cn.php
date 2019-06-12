@@ -48,7 +48,7 @@
 
 <h3>新浪外盘<a name="future">期货</a>实时数据接口的字段意义</h3>
 <p>2016年1月28日
-<br />最近在<?php EchoXueqieId('8907500725', 'oldwain'); ?>的建议下, 在<a href="../../res/sz162411cn.php">华宝油气净值</a>计算页面中相关价格记录的时间中加入日期显示.
+<br />最近在<?php EchoXueqieId('8907500725', 'oldwain'); ?>的建议下, 在<a href="../../res/sz162411cn.php">华宝油气</a>净值计算页面中相关价格记录的时间中加入日期显示.
 这下上次的股票接口记录就派上用场了. 不过期货的格式又重新看了一遍, 加个记录以防以后还要用.
 <br />目前从<?php EchoSinaQuotesLink('hf_CL'); ?>拿到后记录在<?php EchoSinaDebugLink('hf_cl'); ?>中的数据如下:
 <br /><font color=grey>var hq_str_hf_CL="31.85,1.2719,31.85,31.86,31.88,30.14,
@@ -75,7 +75,7 @@
 
 <h3>新浪<a name="fund">基金</a>数据接口的字段意义</h3>
 <p>2016年2月16日
-<br />晚上9点多的时候, <?php EchoXueqieId('5240589924', 'uqot'); ?>跟我说<a href="20150818cn.php">华宝油气</a>估值出问题了. 我看了一下调试信息, 发现8点的时候做了一次自动校准,
+<br />晚上9点多的时候, <?php EchoXueqieId('5240589924', 'uqot'); ?>跟我说<a href="20150818cn.php">华宝油气净值</a>出问题了. 我看了一下调试信息, 发现8点的时候做了一次自动校准,
 从<?php EchoSinaQuotesLink('f_162411'); ?>拿到后记录在<?php EchoSinaDebugLink('f_162411'); ?>中的数据如下:
 <br /><font color=grey>var hq_str_f_162411="华宝兴业标普油气上游股票(QDII-LOF),
 0.406,0.406,0.435,2016-02-15,66.2444";</font>

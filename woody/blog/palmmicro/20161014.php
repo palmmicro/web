@@ -17,7 +17,7 @@
 <p>Oct 14, 2016
 <br />Although <a href="20080326.php">Palmmicro</a> has been providing internet product for over 16 years, we don't have a mobile app.
 The world is changing fast, now it seems it is not necessary to develop mobile app, using wechat public account is enough for most applications
-<br />Back a year ago, when I started <a href="../entertainment/20150818.php">SZ162411</a> net value calculation web tool development,
+<br />Back a year ago, when I started <a href="../entertainment/20150818.php">SZ162411 Net Value</a> calculation web tool development,
 I talked with a wechat public account <font color=orange>flyingpig33</font> owner who was using wechat to provide QDII LOF net value estimation, it gave me the impression that to use wechat public account was very easy.
 However, I ran into serious trouble when I tried to enable message interface development mode in <?php echo GetWeixinLink(false); ?>.
 Using the very simple <a href="../entertainment/20100905.php">PHP</a> example code from wechat, I was prompted <font color=red>Token checked failed</font> again and again when I tried to set the server URL.

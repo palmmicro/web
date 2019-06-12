@@ -41,7 +41,7 @@ For better customer experience, I removed the search box from all other pages, o
 <p>Jan 22, 2016
 <br />Received an email from billing-noreply@google.com: <font color=gray>Good news! On Jan 21, 2016, we sent you a payment for your Google AdSense earnings.</font>
 Then I found the 108.11 USD payment proceeding status was already in my Bank of America account.
-<br />The first payment from Adsense comes 3 years earlier than I expected in 2012, it is mainly because my <a href="20150818.php">SZ162411</a> net value page attracted many stock visitors in the past months.
+<br />The first payment from Adsense comes 3 years earlier than I expected in 2012, it is mainly because my <a href="20150818.php">SZ162411 Net Value</a> page attracted many stock visitors in the past months.
 Now the Adsense advertisement page can be show almost 1000 time a day.
 </p>
 
