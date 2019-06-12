@@ -162,13 +162,16 @@ void CLeftView::OnTvnEndlabeledit(NMHDR *pNMHDR, LRESULT *pResult)
 	*pResult = 0;
 //	OutputDebugString(_T("End label edit"));
 
-	CTreeCtrl & ctrl = GetTreeCtrl();
-	HTREEITEM hItem = ctrl.GetSelectedItem();
-	if (ctrl.GetItemText(hItem) != pTVDispInfo->item.pszText)
+	if (pTVDispInfo->item.pszText != NULL)
 	{
-		ctrl.SetItemText(hItem, pTVDispInfo->item.pszText);
-		GetDocument()->OnItemSelected();
-		GetDocument()->SetModifiedFlag(TRUE);
+		CTreeCtrl & ctrl = GetTreeCtrl();
+		HTREEITEM hItem = ctrl.GetSelectedItem();
+		if (ctrl.GetItemText(hItem) != pTVDispInfo->item.pszText)
+		{
+			ctrl.SetItemText(hItem, pTVDispInfo->item.pszText);
+			GetDocument()->OnItemSelected();
+			GetDocument()->SetModifiedFlag(TRUE);
+		}
 	}
 }
 

@@ -105,11 +105,6 @@ function GetVisitorLink($strIp, $bChinese = true)
     return _getIpLink(VISITOR_TABLE, $strIp, $bChinese);
 }
 
-function GetSpiderVisitorLink($strIp, $bChinese)
-{
-    return _getIpLink(SPIDER_VISITOR_TABLE, $strIp, $bChinese);
-}
-
 function GetLoginLink($strCn, $strUs, $bChinese)
 {
     return GetPhpLink(ACCT_PATH.'login', false, $strCn, $strUs, $bChinese);

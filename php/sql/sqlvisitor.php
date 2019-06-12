@@ -3,7 +3,6 @@
 // ****************************** Visitor tables *******************************************************
 
 define('VISITOR_TABLE', 'visitor');
-define('SPIDER_VISITOR_TABLE', 'spidervisitor');
 define('WEIXIN_VISITOR_TABLE', 'weixinvisitor');
 
 function SqlDeleteVisitorByBlogId($strBlogId)

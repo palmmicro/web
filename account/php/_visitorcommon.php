@@ -76,14 +76,12 @@ function _getCategoryArray($bChinese)
     if ($bChinese)
     {
         return array(VISITOR_TABLE => '访问数据',
-                      SPIDER_VISITOR_TABLE => '爬虫接口访问数据',
                       WEIXIN_VISITOR_TABLE => '微信访问数据',
                      );
     }
     else
     {
         return array(VISITOR_TABLE => 'Visitor Information',
-                      SPIDER_VISITOR_TABLE => 'Crawler Interface Visitor',
                       WEIXIN_VISITOR_TABLE => 'Weixin Visitor',
                      );
     }

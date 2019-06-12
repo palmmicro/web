@@ -12,8 +12,7 @@
 
 <div>
 <h1>Visitor Data</h1>
-<p>Used to view unusual <a href="../woody/blog/entertainment/20170309.php">web crawler</a> IP attacks. 
-The detailed user information is still using Google Analytics and <a href="../woody/blog/entertainment/20110509.php">Google</a> Adsense.</p>
+<p>Used to view unusual web crawler IP attacks. The detailed user information is still using Google Analytics and <a href="../woody/blog/entertainment/20110509.php">Google</a> Adsense.</p>
 <?php EchoBlogVisitor(false); ?>
 </div>
 

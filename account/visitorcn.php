@@ -12,8 +12,7 @@
 
 <div>
 <h1>用户访问数据</h1>
-<p>用于观察<a href="../woody/blog/entertainment/20170309cn.php">网络爬虫</a>IP攻击的异常状况, 会定期在满足一定条件如用户登录后自动清除该IP之前的记录.
-具体的用户统计工作还是由Google Analytics和<a href="../woody/blog/entertainment/20110509cn.php">Google</a> Adsense完成.</p>
+<p>用于观察网络爬虫IP攻击的异常状况, 会定期在满足一定条件如用户登录后自动清除该IP之前的记录. 具体的用户统计工作还是由Google Analytics和<a href="../woody/blog/entertainment/20110509cn.php">Google</a> Adsense完成.</p>
 <?php EchoBlogVisitor(); ?>
 </div>
 
