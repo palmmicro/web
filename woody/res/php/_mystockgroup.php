@@ -161,10 +161,12 @@ function _getSimilarLinks($strTitle)
 
 function EchoAll()
 {
-    $strTitle = UrlGetTitle();
+	global $acct;
+	
+	$strTitle = $acct->GetTitle();
     if ($strTitle == 'mystockgroup')
     {
-        if ($strGroupId = UrlGetQueryValue('groupid'))
+        if ($strGroupId = $acct->GetQuery())
         {
             _echoMyStockGroup($strGroupId);
         }
@@ -187,19 +189,20 @@ function EchoAll()
 
 function EchoMetaDescription()
 {
-    $strTitle = UrlGetTitle();
+	global $acct;
+	
+	$strTitle = $acct->GetTitle();
     if ($strTitle == 'mystockgroup')
     {
-    	if ($strGroupId = UrlGetQueryValue('groupid'))
+    	if ($strGroupId = $acct->GetQuery())
     	{
     		$str = _GetWhoseStockGroupDisplay(false, $strGroupId);
     	}
     	else
     	{
-    		$str = _GetWhoseDisplay(AcctGetMemberId(), AcctIsLogin());
+    		$str = _GetWhoseDisplay($acct->GetMemberId(), $acct->GetLoginId());
     		$str .= _GetAllDisplay(false);
     	}
-
         $str .= '股票分组管理页面. 提供现有股票分组列表和编辑删除链接, 以及新增加股票分组的输入控件. 跟php/_editgroupform.php和php/_submitgroup.php配合使用.';
     }
     else
@@ -233,17 +236,19 @@ function _getTitleStr($strTitle)
 
 function EchoTitle()
 {
-    $strTitle = UrlGetTitle();
+	global $acct;
+	
+	$strTitle = $acct->GetTitle();
     if ($strTitle == 'mystockgroup')
     {
-    	$strMemberId = AcctIsLogin(); 
-    	if ($strGroupId = UrlGetQueryValue('groupid'))
+    	$strLoginId = $acct->GetLoginId(); 
+    	if ($strGroupId = $acct->GetQuery())
     	{
-    		$str = _GetWhoseStockGroupDisplay($strMemberId, $strGroupId);
+    		$str = _GetWhoseStockGroupDisplay($strLoginId, $strGroupId);
     	}
     	else
     	{
-    		$str = _GetWhoseDisplay(AcctGetMemberId(), $strMemberId);
+    		$str = _GetWhoseDisplay($acct->GetMemberId(), $strLoginId);
     		$str .= _GetAllDisplay(false);
     	}
     	$str .= STOCK_GROUP_DISPLAY;
@@ -256,29 +261,17 @@ function EchoTitle()
     echo $str;
 }
 
-    AcctSessionStart();
-    if (UrlGetTitle() == 'mystockgroup')
-    {   // mystockgroupcn.php
-        if (UrlGetQueryValue('groupid'))
-        {
-            AcctCheckLogin();
-        }
-        else
-        {
-            if (UrlGetQueryValue('email'))
-            {
-                AcctCheckLogin();
-            }
-            else
-            {
-                AcctMustLogin();
-            }
-        }
-    }
-    else
-    {
-        AcctCheckLogin();
-    }
+	$acct = new TitleAcctStart('groupid');
+	if ($acct->GetTitle() == 'mystockgroup')
+	{
+		if ($acct->GetQuery() == false)
+		{
+			if ($acct->GetMemberId() == false)
+			{
+				$acct->Auth();
+			}
+		}
+	}
 
 ?>
 

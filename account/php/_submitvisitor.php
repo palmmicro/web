@@ -18,6 +18,7 @@ require_once('/php/sql/sqlweixin.php');
 	            else
 	            {
 	                AcctDeleteBlogVisitorByIp($strSrc);
+	                SqlSetIpStatus($strSrc, IP_STATUS_NORMAL);
 	            }
 	        }
 	    }

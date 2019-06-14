@@ -207,9 +207,7 @@ function _loginAccount($strEmail, $strPassword)
 	}
 	SqlUpdateLoginField($strEmail);
 	
-	$strIp = UrlGetIp();
-    AcctDeleteBlogVisitorByIp($strIp);
-    SqlIncIpLogin($strIp);
+    SqlIncIpLogin(UrlGetIp());
 	return PROFILE_LOGIN_ACCOUNT;
 }
 

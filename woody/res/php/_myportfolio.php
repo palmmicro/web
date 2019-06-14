@@ -93,7 +93,9 @@ function _onPrefetch($sql)
 
 function EchoAll()
 {
-	$sql = new StockGroupSql(AcctGetMemberId());
+	global $acct;
+	
+	$sql = new StockGroupSql($acct->GetMemberId());
     _onPrefetch($sql);
 
     $portfolio = new _MyPortfolio();
@@ -115,7 +117,12 @@ function EchoMetaDescription()
     EchoMetaDescriptionText($str);
 }
 
-    AcctEmailAuth();
+//    AcctEmailAuth();
+	$acct = new AcctStart();
+	if ($acct->GetMemberId() == false)
+	{
+		$acct->Auth();
+	}
 
 ?>
 

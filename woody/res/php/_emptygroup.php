@@ -8,7 +8,11 @@ class StockSymbolPage extends EmptyStockGroup
     
     function StockSymbolPage($bMustLogin = true) 
     {
-    	$this->acct = new AcctStart($bMustLogin);
+    	$this->acct = new AcctStart();
+    	if ($bMustLogin)
+    	{
+    		$this->acct->Auth();
+    	}
     	
     	if ($strSymbol = UrlGetQueryValue('symbol'))
     	{

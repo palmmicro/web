@@ -13,19 +13,18 @@ require_once('sql/sqlipaddress.php');
 require_once('sql/sqlstockgroup.php');
 require_once('sql/sqlfundpurchase.php');
 
-function _deleteVisitor($strIp, $strIpId, $iCount)
+function AcctCountBlogVisitor($strIp)
 {
-    SqlAddIpVisit($strIp, $iCount);
-    return SqlDeleteVisitor(VISITOR_TABLE, $strIpId);
+    return SqlCountVisitor(VISITOR_TABLE, SqlGetIpAddressId($strIp));
 }
 
 function AcctDeleteBlogVisitorByIp($strIp)
 {
     if ($strIpId = SqlGetIpAddressId($strIp))
     {
-        $iCount = SqlCountVisitor(VISITOR_TABLE, $strIpId);
-        SqlSetIpStatus($strIp, IP_STATUS_NORMAL);
-        _deleteVisitor($strIp, $strIpId, $iCount);
+        $iCount = AcctCountBlogVisitor($strIp);
+        SqlAddIpVisit($strIp, $iCount);
+        SqlDeleteVisitor(VISITOR_TABLE, $strIpId);
     }
 }
 
@@ -107,28 +106,6 @@ function AcctIsReadOnly($strMemberId)
     return true;
 }
 
-function AcctSessionStart()
-{
-	session_start();
-    SqlConnectDatabase();
-}
-
-function AcctMustLogin()
-{
-    $strMemberId = AcctIsLogin(); 
-    if ($strMemberId == false) 
-    {
-        AcctSwitchToLogin();
-    }
-	return $strMemberId;
-}
-
-function AcctAuth()
-{
-    AcctSessionStart();
-    return AcctMustLogin();
-}
-
 function AcctGetBlogVisitor($strIp, $iStart = 0, $iNum = 0)
 {
     return SqlGetVisitor(VISITOR_TABLE, SqlGetIpAddressId($strIp), $iStart, $iNum);
@@ -149,11 +126,8 @@ function AcctGetSpiderPageCount($strIp)
 	return count($ar);
 }
 
-function _checkSearchEnginePageCount($strIp, $iCount, $strText = false)
+function _checkSearchEnginePageCount($strIp, $iCount, $iPageCount, $strDebug)
 {
-	$strDebug = $strText ? $strText : $strIp;
-	$iPageCount = AcctGetSpiderPageCount($strIp);
-    $strDebug .= ' '.strval($iCount).' '.strval($iPageCount);
     if ($iPageCount >= 10)
     {
     	trigger_error('Unknown spider<br />'.$strDebug);
@@ -170,7 +144,7 @@ function _checkSearchEnginePageCount($strIp, $iCount, $strText = false)
     return false;
 }
 
-function _checkSearchEngineSpider($strIp, $iCount)
+function _checkSearchEngineSpider($strIp, $iCount, $iPageCount, $strDebug)
 {
     $arIpInfo = IpInfoIpLookUp($strIp);
     if (isset($arIpInfo['org']))
@@ -184,30 +158,10 @@ function _checkSearchEngineSpider($strIp, $iCount)
     	else
     	{
     		if (isset($arIpInfo['hostname'])	)	$strOrg .= ' '.$arIpInfo['hostname'];
-    		return _checkSearchEnginePageCount($strIp, $iCount, $strOrg);
+    		return _checkSearchEnginePageCount($strIp, $iCount, $iPageCount, $strOrg.' '.$strDebug);
         }
     }
-	return _checkSearchEnginePageCount($strIp, $iCount);
-}
-
-function AcctCountBlogVisitor($strIp)
-{
-    return SqlCountVisitor(VISITOR_TABLE, SqlGetIpAddressId($strIp));
-}
-
-function _checkSpiderBehaviour($strIp, $strIpId)
-{
-	$iCount = AcctCountBlogVisitor($strIp);
-	if ($iCount >= 1000)
-	{
-	    if (ProjectHoneyPotCheckSearchEngine($strIp) || DnsCheckSearchEngine($strIp) || _checkSearchEngineSpider($strIp, $iCount))
-	    {
-	        _deleteVisitor($strIp, $strIpId, $iCount);
-	        return false;
-	    }
-	    return true;
-	}
-	return false;
+	return _checkSearchEnginePageCount($strIp, $iCount, $iPageCount, $strDebug);
 }
 
 function AcctGetBlogId()
@@ -231,23 +185,40 @@ function AcctGetBlogId()
 	return false;
 }
 
-function AcctCheckLogin()
+function AcctSessionStart()
 {
-	if (($strMemberId = AcctIsLogin()) == false)
+	session_start();
+    SqlConnectDatabase();
+
+    SqlCreateVisitorTable(VISITOR_TABLE);
+	$strIp = UrlGetIp();
+	$strIpId = SqlMustGetIpId($strIp); 
+    if ($strBlogId = AcctGetBlogId())
+    {
+       	SqlInsertVisitor(VISITOR_TABLE, $strBlogId, $strIpId);
+    }
+
+	$strMemberId = AcctIsLogin();
+	$iCount = AcctCountBlogVisitor($strIp);
+	if ($iCount >= 1000)
 	{
-	    SqlCreateVisitorTable(VISITOR_TABLE);
-	    $strIp = UrlGetIp();
-	    $strIpId = SqlMustGetIpId($strIp); 
-	    if (_checkSpiderBehaviour($strIp, $strIpId))
-	    {
-	        AcctSwitchToLogin();
+		$iPageCount = AcctGetSpiderPageCount($strIp);
+		$strDebug = strval($iCount).' '.strval($iPageCount);
+		if ($strMemberId)
+		{
+    		trigger_error('Possible logined spider: '.$strDebug);
+	        AcctDeleteBlogVisitorByIp($strIp);
 	    }
 	    else
 	    {
-	        if ($strBlogId = AcctGetBlogId())
-	        {
-	        	SqlInsertVisitor(VISITOR_TABLE, $strBlogId, $strIpId);
-	        }
+	    	if (ProjectHoneyPotCheckSearchEngine($strIp) || DnsCheckSearchEngine($strIp) || _checkSearchEngineSpider($strIp, $iCount, $iPageCount, $strDebug))
+	    	{
+	    		AcctDeleteBlogVisitorByIp($strIp);
+	    	}
+	    	else
+	    	{
+	    		AcctSwitchToLogin();
+	    	}
 	    }
 	}
     return $strMemberId;	
@@ -255,8 +226,7 @@ function AcctCheckLogin()
 
 function AcctNoAuth()
 {
-    AcctSessionStart();
-    return AcctCheckLogin();
+    return AcctSessionStart();
 }
 
 function AcctGetMemberId()
@@ -268,20 +238,19 @@ function AcctGetMemberId()
     return AcctIsLogin();
 }
 
-function AcctEmailQueryLogin()
-{
-    if ($strEmail = UrlGetQueryValue('email'))
-    {
-        AcctCheckLogin();
-        return SqlGetIdByEmail($strEmail); 
-    }
-    return AcctMustLogin();
-}
-
 function AcctEmailAuth()
 {
-    AcctSessionStart();
-    return AcctEmailQueryLogin();
+    $strMemberId = AcctSessionStart();
+    if ($strEmail = UrlGetQueryValue('email'))
+    {
+        return SqlGetIdByEmail($strEmail); 
+    }
+   
+    if ($strMemberId == false) 
+    {
+        AcctSwitchToLogin();
+    }
+	return $strMemberId;
 }
 
 function AcctAdminCommand($callback)
@@ -310,6 +279,7 @@ function AcctGetEmailFromBlogUri($strUri)
 function AcctGetMemberIdFromBlogUri($strUri)
 {
 	$strEmail = AcctGetEmailFromBlogUri($strUri);
+	if ($strEmail == ADMIN_EMAIL)		return '1';
 	return SqlGetIdByEmail($strEmail);           		             
 }
 
@@ -318,17 +288,9 @@ class AcctStart
     var $strLoginId;
     var $strMemberId;
     
-    function AcctStart($bMustLogin = true) 
+    function AcctStart() 
     {
-    	if ($bMustLogin)
-    	{
-    		$this->strLoginId = AcctAuth();
-    	}
-    	else
-    	{
-    		$this->strLoginId = AcctNoAuth();
-    	}
-
+   		$this->strLoginId = AcctSessionStart();
 	   	if ($strEmail = UrlGetQueryValue('email'))
 	   	{
 	   		$this->strMemberId = SqlGetIdByEmail($strEmail); 
@@ -337,6 +299,14 @@ class AcctStart
 	   	{
 	   		$this->strMemberId = $this->strLoginId;
 	   	}
+    }
+    
+    function Auth()
+    {
+    	if ($this->strLoginId == false) 
+    	{
+    		AcctSwitchToLogin();
+    	}
     }
     
     function GetLoginId()
@@ -355,25 +325,37 @@ class AcctStart
     }
 }
 
+function AcctAuth()
+{
+/*    $strMemberId = AcctSessionStart();
+    if ($strMemberId == false) 
+    {
+        AcctSwitchToLogin();
+    }
+	return $strMemberId;*/
+   	$acct = new AcctStart();
+	$acct->Auth();
+	return $acct->GetLoginId();
+}
+
 class TitleAcctStart extends AcctStart
 {
 	var $strTitle;
 	var $strQuery;
 	
-    function TitleAcctStart($arMustLoginTitle = false) 
+    function TitleAcctStart($strQueryItem = false, $arMustLoginTitle = false) 
     {
+        parent::AcctStart();
     	$this->strTitle = UrlGetTitle();
     	if ($arMustLoginTitle)
     	{
-    		$bMustLogin = in_array($this->strTitle, $arMustLoginTitle) ? true : false;
+    		if (in_array($this->strTitle, $arMustLoginTitle))
+    		{
+    			$this->Auth();
+    		}
     	}
-    	else
-    	{
-    		$bMustLogin = true;
-    	}
-        parent::AcctStart($bMustLogin);
         
-        $this->strQuery = UrlGetQueryValue($this->strTitle);
+        $this->strQuery = UrlGetQueryValue($strQueryItem ? $strQueryItem : $this->strTitle);
     }
     
     function GetTitle()

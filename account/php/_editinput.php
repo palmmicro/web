@@ -138,6 +138,6 @@ function EchoTitle($bChinese = true)
   	echo $str;
 }
 
-	$acct = new TitleAcctStart(array('commonphrase'));
+	$acct = new TitleAcctStart(false, array('commonphrase'));
 
 ?>

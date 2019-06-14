@@ -344,14 +344,11 @@ function GetStockGroupLinks($strLoginId = false)
 {
     if ($strLoginId == false)	$strLoginId = AcctIsLogin();
     $str = '<br />'.GetCategoryLinks(GetMenuArray());
+   	$str .= '<br />'.GetMyStockGroupLink();	// .' '.GetAhCompareLink().' '.GetAdrhCompareLink();
     $str .= '<br />'.GetMyPortfolioLink();
     if ($strLoginId)
     {
         $str .= _getPersonalLinks($strLoginId);
-    }
-    else
-    {
-    	$str .= '<br />'.GetMyStockGroupLink();	// .' '.GetAhCompareLink().' '.GetAdrhCompareLink();
     }
     return $str;
 }

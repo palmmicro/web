@@ -93,7 +93,7 @@ function SqlIncIpLogin($strIp)
 
 function SqlMustGetIpId($strIp)
 {
-//    SqlCreateIpAddressTable();
+    SqlCreateIpAddressTable();
     $strIpId = SqlGetIpAddressId($strIp);
     if ($strIpId == false)
     {
