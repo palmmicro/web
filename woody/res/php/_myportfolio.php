@@ -117,7 +117,6 @@ function EchoMetaDescription()
     EchoMetaDescriptionText($str);
 }
 
-//    AcctEmailAuth();
 	$acct = new AcctStart();
 	if ($acct->GetMemberId() == false)
 	{

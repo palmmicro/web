@@ -44,18 +44,10 @@ function _echoAccountProfileLinks($bChinese)
 	if ($bChinese)
 	{
 		$strLink = "修改<a href=\"passwordcn.php\">密码</a> 更新<a href=\"updateemailcn.php\">登录电子邮件</a> 更新<a href=\"editprofilecn.php\">资料</a>";
-		if (AcctIsAdmin())
-		{
-			$strLink .= " <a href=\"visitorcn.php\">用户访问数据</a>";
-		}
 	}
 	else
 	{
 		$strLink = "Change <a href=\"password.php\">password</a>, update <a href=\"updateemail.php\">login email</a>, update <a href=\"editprofile.php\">profile</a>";
-		if (AcctIsAdmin())
-		{
-			$strLink .= ", send <a href=\"sendemail.php\">email</a>";
-		}
 	}
     EchoParagraph($strLink);
 }
@@ -151,10 +143,11 @@ function _echoAccountFundAmount($strMemberId, $bChinese)
 
 function EchoAccountProfile($bChinese = true)
 {
-    global $strMemberId;
+    global $acct;
     global $strMsg;
 
     if ($strMsg)    _echoAccountProfileMsg($strMsg, $bChinese);
+   	$strMemberId = $acct->GetMemberId();
     if ($strMemberId == false)  return;
 
     if (AcctIsReadOnly($strMemberId) == false)  _echoAccountProfileLinks($bChinese);
@@ -383,10 +376,9 @@ function _closeAccount($strEmail)
 }
 
 	$strMsg = false;
-	$strMemberId = false;
+	$acct = new AcctStart();
 	if (isset($_POST['submit']))
 	{
-	    AcctSessionStart();
 		$strSubmit = $_POST['submit'];
 		unset($_POST['submit']);
 		$strEmail = UrlCleanString($_POST['login']);
@@ -427,11 +419,13 @@ function _closeAccount($strEmail)
 			if (($strMsg = _updateLoginEmail($strEmail)) == false)    SwitchTo('updateemail');
 			break;
 		}
-	    $strMemberId = AcctIsLogin();
 	}
 	else
 	{
-	    $strMemberId = AcctEmailAuth();
+		if ($acct->GetMemberId() == false)
+		{
+			$acct->Auth();
+		}
 	}
 	
 ?>

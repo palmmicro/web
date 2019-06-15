@@ -4,7 +4,8 @@ require_once('/php/ui/commentparagraph.php');
 
 function EchoUserComment($bChinese = true)
 {
-    global $strMemberId;
+    global $acct;
+    $strMemberId = $acct->GetLoginId();
     
     if ($str = UrlGetQueryValue('blog_id'))
     {
@@ -38,6 +39,6 @@ function EchoUserComment($bChinese = true)
     EchoParagraph($strNavLink);
 }
 
-    $strMemberId = AcctNoAuth();
+   	$acct = new AcctStart();
     
 ?>

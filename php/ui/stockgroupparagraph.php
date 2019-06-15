@@ -121,8 +121,8 @@ END;
 
 function EchoStockGroupParagraph()
 {
-	$strMemberId = AcctGetMemberId();
 	$strLoginId = AcctIsLogin();
+	$strMemberId = ($strEmail = UrlGetQueryValue('email')) ? SqlGetIdByEmail($strEmail) : $strLoginId; 
 	
     if ($strGroupId = UrlGetQueryValue('groupid'))
     {

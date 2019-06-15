@@ -9,7 +9,8 @@ function EchoPhp_weixincn()
 
 function EchoUpdateUsStockLink()
 {
-	if (AcctIsAdmin())
+    global $acct;
+   	if ($acct->IsAdmin())
 	{
 		EchoInternalLink('/php/test/updateusstock.php', '更新美股数据');
 	}
@@ -17,7 +18,8 @@ function EchoUpdateUsStockLink()
 
 function EchoUpdateChinaStockLink()
 {
-	if (AcctIsAdmin())
+    global $acct;
+   	if ($acct->IsAdmin())
 	{
 		EchoInternalLink('/php/test/updatechinastock.php', '更新A股数据');
 	}
@@ -25,7 +27,8 @@ function EchoUpdateChinaStockLink()
 
 function EchoUpdateChinaFundLink()
 {
-	if (AcctIsAdmin())
+    global $acct;
+   	if ($acct->IsAdmin())
 	{
 		EchoInternalLink('/php/test/updatechinafund.php', '更新A股基金数据');
 	}

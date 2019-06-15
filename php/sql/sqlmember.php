@@ -80,12 +80,12 @@ function SqlGetIdByEmail($strEmail)
 	}
 	return false;
 }
-
+/*
 function SqlGetMemberEmails()
 {
     return SqlGetTableData(TABLE_MEMBER, "status = '2'");
 }
-
+*/
 function SqlGetMemberById($strId)
 {
     return SqlGetTableDataById(TABLE_MEMBER, $strId);

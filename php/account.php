@@ -224,47 +224,6 @@ function AcctSessionStart()
     return $strMemberId;	
 }
 
-function AcctNoAuth()
-{
-    return AcctSessionStart();
-}
-
-function AcctGetMemberId()
-{
-    if ($strEmail = UrlGetQueryValue('email'))
-    {
-        return SqlGetIdByEmail($strEmail); 
-    }
-    return AcctIsLogin();
-}
-
-function AcctEmailAuth()
-{
-    $strMemberId = AcctSessionStart();
-    if ($strEmail = UrlGetQueryValue('email'))
-    {
-        return SqlGetIdByEmail($strEmail); 
-    }
-   
-    if ($strMemberId == false) 
-    {
-        AcctSwitchToLogin();
-    }
-	return $strMemberId;
-}
-
-function AcctAdminCommand($callback)
-{
-	AcctNoAuth();
-	if (AcctIsAdmin())
-	{
-        $fStart = microtime(true);
-		call_user_func($callback);
-        DebugString($callback.DebugGetStopWatchDisplay($fStart));
-	}
-	SwitchToSess();
-}
-
 function AcctGetEmailFromBlogUri($strUri)
 {
 	$iPos = strpos($strUri, '/', 1);
@@ -325,17 +284,28 @@ class AcctStart
     }
 }
 
+function AcctNoAuth()
+{
+   	$acct = new AcctStart();
+}
+
 function AcctAuth()
 {
-/*    $strMemberId = AcctSessionStart();
-    if ($strMemberId == false) 
-    {
-        AcctSwitchToLogin();
-    }
-	return $strMemberId;*/
    	$acct = new AcctStart();
 	$acct->Auth();
 	return $acct->GetLoginId();
+}
+
+function AcctAdminCommand($callback)
+{
+   	$acct = new AcctStart();
+   	if ($acct->IsAdmin())
+	{
+        $fStart = microtime(true);
+		call_user_func($callback);
+        DebugString($callback.DebugGetStopWatchDisplay($fStart));
+	}
+	SwitchToSess();
 }
 
 class TitleAcctStart extends AcctStart
