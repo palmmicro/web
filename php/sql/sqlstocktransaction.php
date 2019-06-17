@@ -60,8 +60,8 @@ class StockTransactionSql extends TableSql
 
     function _makePrivateFieldArray($strGroupItemId, $strQuantity, $strPrice, $strFees, $strRemark)
     {
-    	list($strDate, $strTime) = explodeDebugDateTime();
-    	return array('groupitem_id' => $strGroupItemId, 'quantity' => $strQuantity, 'price' => $strPrice, 'fees' => $strFees, 'filled' => $strDate.' '.$strTime, 'remark' => $strRemark);
+    	$strDateTime = DebugGetDateTime();
+    	return array('groupitem_id' => $strGroupItemId, 'quantity' => $strQuantity, 'price' => $strPrice, 'fees' => $strFees, 'filled' => $strDateTime, 'remark' => $strRemark);
     }
 
     function Insert($strGroupItemId, $strQuantity, $strPrice, $strFees = '', $strRemark = '')

@@ -89,7 +89,7 @@ class FundReference extends MysqlReference
 
     function InsertFundCalibration($est_ref, $strEstPrice)
     {
-        return SqlInsertStockCalibration($this->GetStockId(), $est_ref->GetStockSymbol(), $this->strPrice, $strEstPrice, $this->fFactor, DebugGetTimeDisplay());
+        return SqlInsertStockCalibration($this->GetStockId(), $est_ref->GetStockSymbol(), $this->strPrice, $strEstPrice, $this->fFactor, DebugGetDateTime());
     }
 
     function GetStockSymbol()

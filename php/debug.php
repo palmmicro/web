@@ -46,30 +46,25 @@ function unlinkEmptyFile($strFileName)
 	}
 }
 
-function _getTimeDisplay($iTime, $strTimeZone)
+function DebugFormat_date($strFormat, $iTime = false, $strTimeZone = DEBUG_TIME_ZONE)
 {
     date_default_timezone_set($strTimeZone);
-    return date(DEBUG_DATE_FORMAT.' '.DEBUG_TIME_FORMAT, $iTime);
+    return date($strFormat, ($iTime ? $iTime : time()));
 }
 
-function explodeDateTime($iTime, $strTimeZone)
+function DebugGetDateTime($iTime = false, $strTimeZone = DEBUG_TIME_ZONE)
 {
-    return explode(' ', _getTimeDisplay($iTime, $strTimeZone)); 
+	return DebugFormat_date(DEBUG_DATE_FORMAT.' '.DEBUG_TIME_FORMAT, $iTime, $strTimeZone);
 }
 
-function explodeDebugDateTime()
+function DebugGetDate($iTime = false, $strTimeZone = DEBUG_TIME_ZONE)
 {
-    return explodeDateTime(time(), DEBUG_TIME_ZONE);
+	return DebugFormat_date(DEBUG_DATE_FORMAT, $iTime, $strTimeZone);
 }
 
-function _getTimeDisplayPRC($iTime)
+function DebugGetTime($iTime = false, $strTimeZone = DEBUG_TIME_ZONE)
 {
-    return _getTimeDisplay($iTime, DEBUG_TIME_ZONE);
-}
-
-function DebugGetTimeDisplay()
-{
-    return _getTimeDisplayPRC(time());
+	return DebugFormat_date(DEBUG_TIME_FORMAT, $iTime, $strTimeZone);
 }
 
 function DebugGetFileTimeDisplay($strPathName)
@@ -77,7 +72,7 @@ function DebugGetFileTimeDisplay($strPathName)
     clearstatcache(true, $strPathName);
     if (file_exists($strPathName))
     {
-        return _getTimeDisplayPRC(filemtime($strPathName));
+        return DebugGetDateTime(filemtime($strPathName));
     }
     return '';
 }
@@ -120,7 +115,7 @@ function DebugString($str)
 {
 	if ($str == false)	$str = '(false)';
     $strTimeZone = date_default_timezone_get();
-    file_put_contents(DebugGetFile(), UrlGetCur().' '.DebugGetTimeDisplay().':'.$str.PHP_EOL, FILE_APPEND);     // DebugGetTimeDisplay will change timezone!
+    file_put_contents(DebugGetFile(), UrlGetCur().' '.DebugGetDateTime().':'.$str.PHP_EOL, FILE_APPEND);     // DebugGetDateTime will change timezone!
     date_default_timezone_set($strTimeZone);
 }
 

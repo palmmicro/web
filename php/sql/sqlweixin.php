@@ -16,7 +16,8 @@ function SqlCreateWeixinImageTable()
 
 function SqlInsertWeixinImage($strOpenId)
 {
-    list($strDate, $strTime) = explodeDebugDateTime();
+    $strDate = DebugGetDate();
+    $strTime = DebugGetTime();
 	$strQry = "INSERT INTO weixinimage(id, open_id, date, time) VALUES('0', '$strOpenId', '$strDate', '$strTime')";
 	return SqlDieByQuery($strQry, 'Insert weixinimage failed');
 }

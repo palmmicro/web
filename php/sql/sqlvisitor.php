@@ -34,7 +34,8 @@ function SqlInsertVisitor($strTableName, $strDstId, $strSrcId)
 {
     if ($strDstId == false)    return false;
     
-    list($strDate, $strTime) = explodeDebugDateTime();
+    $strDate = DebugGetDate();
+    $strTime = DebugGetTime();
 	$strQry = 'INSERT INTO '.$strTableName."(id, dst_id, src_id, date, time) VALUES('0', '$strDstId', '$strSrcId', '$strDate', '$strTime')";
 	return SqlDieByQuery($strQry, $strTableName.' insert visitor failed');
 }

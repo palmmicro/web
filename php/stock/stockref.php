@@ -289,7 +289,8 @@ class StockReference
 
     function ConvertDateTime($iTime, $strTimeZone)
     {
-        list($this->strDate, $this->strTime) = explodeDateTime($iTime, $strTimeZone);
+        $this->strDate = DebugGetDate($iTime, $strTimeZone);
+        $this->strTime = DebugGetTime($iTime, $strTimeZone);
     }
     
     function DebugLink()
@@ -358,7 +359,8 @@ class StockReference
         else
         {
             $iTime = $this->_totime($this->strTimeZone);
-            list($strDate, $strTime) = explodeDateTime($iTime, $etf_ref->strTimeZone);
+            $strDate = DebugGetDate($iTime, $etf_ref->strTimeZone);
+            $strTime = DebugGetTime($iTime, $etf_ref->strTimeZone);
         }
         if ($strDate != $etf_ref->GetDate())                      return false;
         if ($this->GetTimeHM($strTime) != $etf_ref->GetTimeHM())	return false;

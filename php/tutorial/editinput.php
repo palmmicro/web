@@ -11,6 +11,10 @@ function GetEditInputDefault()
 
 function GetEditInputString($strInput)
 {
+	if (is_numeric($strInput))
+	{
+		return DebugGetDateTime($strInput);
+	}
     return urldecode($strInput);
 }
 

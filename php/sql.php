@@ -129,7 +129,7 @@ function SqlCountTableByDate($strTableName, $strDate)
 
 function SqlCountTableToday($strTableName)
 {
-    list($strDate, $strTime) = explodeDebugDateTime();
+    $strDate = DebugGetDate();
     return SqlCountTableByDate($strTableName, $strDate);
 }
 

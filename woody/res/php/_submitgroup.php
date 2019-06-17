@@ -46,7 +46,7 @@ function _onAdjust($strSymbols)
     
     if ($fFactor !== false)
     {
-        SqlInsertStockCalibration(SqlGetStockId($strSymbol), ' ', $ar0[1], $ar1[1], $fFactor, DebugGetTimeDisplay());
+        SqlInsertStockCalibration(SqlGetStockId($strSymbol), ' ', $ar0[1], $ar1[1], $fFactor, DebugGetDateTime());
     }
 }
 

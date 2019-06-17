@@ -173,14 +173,13 @@ class FundEstSql extends DailyStockSql
     function Insert($strDate, $strEstValue)
     {
    		$ar = $this->MakeFieldArray($strDate, $strEstValue);
-   		list($strDummy, $strTime) = explodeDebugDateTime();
-   		$ar['time'] = $strTime;
+   		$ar['time'] = DebugGetTime();
    		return $this->InsertData($ar);
     }
     
     function Update($strId, $strEstValue)
     {
-        list($strDummy, $strTime) = explodeDebugDateTime();
+        $strTime = DebugGetTime();
 		return $this->UpdateById(array('close' => $strEstValue, 'time' => $strTime), $strId);
 	}
 }
