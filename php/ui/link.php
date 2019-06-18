@@ -27,12 +27,6 @@ function EchoSinaDebugLink($strSina)
 	EchoFileLink('/debug/sina/'.$strSina.'.txt');
 }
 
-function EchoMyStockLink($strSymbol)
-{
-    $str = GetMyStockLink($strSymbol);
-    echo $str;
-}
-
 function GetPhpFileLink($strPathTitle)
 {
     $strPhp = $strPathTitle.'.php';

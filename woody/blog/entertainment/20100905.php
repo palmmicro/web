@@ -21,9 +21,10 @@ For the second time, I realized that PHP was in my life.
 <br />Two months ago I got to know an E-Commercial startup, when I asked what development language they were using, again I had PHP in the answers.
 I was so happy that I was not completely blank on the phrase, at least I had heard it twice before.
 <br />With so many knowledge about PHP, when <a href="../../../pa6488/index.html">PA6488</a> camera manager software <a href="../../../pa6488/software/camman.html">CamMan</a> need user management function,
-I started with PHP on our website at once. Now users can register account <a href="../../../account/register.php">here</a>.
+I started with PHP on our website at once. Now users can register account to test.
 As PA6488 based camera is not available in market yet. Users can test the user management function by posting comments on this blog right now. Only registered user can post comment.
 <br />And this is my first PHP application: user and blog comment CRUD (Create/Retrieve/Update/Delete).
+<br /><img src=../photo/phpisbest.jpg alt="PHP is the best programming language in the world!" />
 </p> 
 
 <h3>Public <a name="ip">IP</a> Address</h3>
