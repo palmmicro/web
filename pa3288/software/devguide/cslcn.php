@@ -47,8 +47,8 @@
 <br /><font color=grey>SPI</font>
 <br />通常在系统启动时调用一次<i>SPI_Init</i>. 头一个参数设置SPI的工作频率(Mhz). 带另外一个函数指针参数, 用于<i>SPI_AsyncWrite</i>回调. 
 <br /><i>SPI_AsyncWrite</i>可以不需要CPU等待, 利用DMA写数据, 所有DMA结束后会调用回调函数. 
-<br />虽然我们支持多个SPI设备, 但是只支持单个SPI设备用DMA写数据. 所有其它SPI操作都需要在CPU等待方式下完成. 基本的函数是<i>SPI_EnableClock</i>、<i>SPI_DisableClock</i>、<i>SPI_SyncWrite</i>、<i>SPI_SyncRead</i>和<i>SPI_SyncReadWrite</i>. 
-<br /><i>SPI_BulkWrite</i>和<i>SPI_BulkReadWrite</i>提供一个简单的SPI接口. 例如<i>SPI_BulkWrite</i>只是简单的依次调用了<i>SPI_EnableClock</i>、<i>SPI_SyncWrite</i>和<i>SPI_DisableClock</i>.  
+<br />虽然我们支持多个SPI设备, 但是只支持单个SPI设备用DMA写数据. 所有其它SPI操作都需要在CPU等待方式下完成. 基本的函数是<i>SPI_EnableClock</i>, <i>SPI_DisableClock</i>, <i>SPI_SyncWrite</i>, <i>SPI_SyncRead</i>和<i>SPI_SyncReadWrite</i>. 
+<br /><i>SPI_BulkWrite</i>和<i>SPI_BulkReadWrite</i>提供一个简单的SPI接口. 例如<i>SPI_BulkWrite</i>只是简单的依次调用了<i>SPI_EnableClock</i>, <i>SPI_SyncWrite</i>和<i>SPI_DisableClock</i>.  
 <br /><i>SPI_Write</i>和<i>SPI_ReadWrite</i>通过调用<i>SPI_BulkWrite</i>和<i>SPI_BulkReadWrite</i>, 为数据长度不超过4字节的操作提供了更加简单的接口. 
 <br /><font color=indigo>bsl\</font><b>flash.c</b>中有最完整的各种SPI函数调用的例子．
 <br />&nbsp;

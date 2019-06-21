@@ -13,6 +13,7 @@ function IpInfoIpLookUp($strIp)
 { 
     $strUrl = _getIpInfoIpLookUpUrl($strIp); 
     $str = url_get_contents($strUrl);
+    DebugString($str);
     $ar = json_decode($str, true);
     if (isset($ar['hostname']))
     {
@@ -178,12 +179,14 @@ function _ipLookupHttp($strIp, $strNewLine)
 {
     $fStart = microtime(true);
     
-    $arIpInfo = IpInfoIpLookUp($strIp);
     $str = $strNewLine.GetExternalLink(_getIpInfoIpLookUpUrl($strIp), 'ipinfo.io').': ';
-    $str .= $arIpInfo['country'].' '.$arIpInfo['region'].' '.$arIpInfo['city'].' ['.$arIpInfo['loc'].'] '.$arIpInfo['org'];
-    if (isset($arIpInfo['postal']))		$str .= ' '.$arIpInfo['postal'];
-    if (isset($arIpInfo['hostname']))	$str .= ' '.$arIpInfo['hostname'];
-    
+    $arIpInfo = IpInfoIpLookUp($strIp);
+    if (isset($arIpInfo['error']) == false)
+    {
+    	$str .= $arIpInfo['country'].' '.$arIpInfo['region'].' '.$arIpInfo['city'].' ['.$arIpInfo['loc'].'] '.$arIpInfo['org'];
+    	if (isset($arIpInfo['postal']))		$str .= ' '.$arIpInfo['postal'];
+    	if (isset($arIpInfo['hostname']))	$str .= ' '.$arIpInfo['hostname'];
+    }
     $str .= DebugGetStopWatchDisplay($fStart);
     return $str;
 }

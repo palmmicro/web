@@ -35,7 +35,16 @@
 <table>
 <tr><td class=THead><B>GP1266 and GP1260 IP Phones</B></td></tr>
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-<tr><td>Digitmat Technology GP1266 and GP1260(AR168G) IP phones were designed specially by Palmmicro. GP1266 and GP1260 <a href="../../woody/blog/ar1688/20070903.php">differences</a>. Compared with GP1260(<a href="../../woody/blog/ar1688/20070127.php">AR168G</a>), GP1266 has much lower hardware board noise and more steady function keys.</td></tr>
+<tr><td>Digitmat Technology GP1266 and GP1260(AR168G) IP phones were designed specially by Palmmicro, they used same phone case.
+Because of different hardware design, the 2 IP phones can not use the same firmware to upgrade. 
+GP1266 use upgrade files like <font color=grey>gp1266_sip_us_018000.bin</font> and AR168G(GP1260) use files like <font color=grey>ar168g_iax2_us_018000.bin</font>.
+It does not matter when you try to upgrade one phone with another's firmware, web interface will tell you upgrade failed, and TFTP command line update will go very fast, about 9 seconds, while a normal update takes about 24 seconds.
+<br />There are a lot of methods to decide which <a href="../../woody/blog/ar1688/20061014.php">hardware type</a> it is.
+The most easy way is to check the back light when you pick up: GP1266 uses green back light, and AR168G(GP1260) uses blue back light.
+<br />Compared with GP1260(AR168G), GP1266 has much lower hardware board noise and more steady function keys.
+<br />Unlike <a href="../../woody/blog/ar1688/20061213.php">AR168F</a>, GP1260(AR168G) and GP1266 both used 132x64 dot matrix display, the software can be more fancy than 2x16 character LCD display, and can support Chinese and other special chars not included in standard ASCII table.
+They also support more keys, for example, max 10 speed dial.
+</td></tr>
 <tr><td>GP1266 SIP user <a href="../download/us_pdf/GP1266SIPUserManual_US.pdf" target=_blank>manual</a>, GP1266 IAX2 user <a href="../download/us_pdf/GP1266IAX2UserManual_US.pdf" target=_blank>manual</a>, GP1260 SIP user <a href="../download/us_pdf/GP1260SIPUserManual_US.pdf" target=_blank>manual</a>, GP1260 IAX2 user <a href="../download/us_pdf/GP1260IAX2UserManual_US.pdf" target=_blank>manual</a>.</td></tr>
 <tr><td><a href="gp1266/large/package_01.jpg" target=_blank>Large</a></td></tr>
 <tr><td><img src=gp1266/package_01.jpg></td></tr>

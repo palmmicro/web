@@ -45,7 +45,7 @@ Then, How to send the bin file to the device. I appreciate the help, but it need
 根据<a href="../entertainment/20110509cn.php">Google</a> Analytics的统计, 在过去5个月中, 我们网页的新用户比例从61.01%增加到了74.07%(见下图). 
 <br />如果我刚接触PA1688, 可能合理的步骤是: 
 <br />1. 找一台Windows PC, 把PC和PA168Q接到同一个局域网, 设置局域网内DHCP服务器地址为192.168.1.1, 确认192.168.1.100地址没有被使用. 
-<br />2. 下载软件API和PA168Q升级文件, 当前的正式版本是<a href="../../../pa1688/software/sw166cn.html">1.66</a>. 解开软件API包到C:\Palmh323、PA168Q升级文件<b>pa168q_sip_us_166000.bin</b>到C:\Palmh323\bin. 
+<br />2. 下载软件API和PA168Q升级文件, 当前的正式版本是<a href="../../../pa1688/software/sw166cn.html">1.66</a>. 解开软件API包到C:\Palmh323, PA168Q升级文件<b>pa168q_sip_us_166000.bin</b>到C:\Palmh323\bin. 
 <br />3. 从C:\Palmh323\bin运行Run <a href="../../../pa1688/software/palmtoolcn.html">PalmTool</a>, 点击<font color=blue>开始调试</font>按钮打开UDP调试信息窗口, 把192.168.1.100填到<font color=blue>片上IP地址</font>控件中. 
 <br />4. 在按下PA168Q上唯一一个键的同时加电启动开机, 至少重复2次, 直到它进入<a href="../pa6488/20090927cn.php">安全模式</a>. 进入安全模式后, 不同版本的软件会在调试信息窗口中有不同的输出. 
 同时PC可以ping PA168Q的地址192.168.1.100, <a href="../palmmicro/20091114cn.php">MAC</a>地址是00-09-45-00-00-00. 

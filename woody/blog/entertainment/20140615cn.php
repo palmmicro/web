@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>升级到Visual Studio 2013</title>
-<meta name="description" content="把过去几年在Microsoft Visual Studio 2008 (VS2008/VC9)下开发的几个软件升级到Microsoft Visual Studio 2013 (VS2013/VC12), 包括Woody's Web Tool、CamMan、AR1688 Manager.exe和其它工具.">
+<meta name="description" content="把过去几年在Microsoft Visual Studio 2008 (VS2008/VC9)下开发的几个软件升级到Microsoft Visual Studio 2013 (VS2013/VC12), 包括Woody's Web Tool, CamMan, AR1688 Manager.exe和其它工具.">
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

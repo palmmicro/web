@@ -39,7 +39,7 @@
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
 <tr><td>March 31, 2011</td></tr>
 <tr><td>I know it is too late to write AR1688 lesson 101 after it is in market over 4 years. But late is better than never. 
-Every now and then there are people asking <font color=grey>How can I change that <a href="20070903.php">GP1266</a> LCD display to my own string</font>?
+Every now and then there are people asking <font color=grey>How can I change that <a href="../../../ar1688/user/gp1266.html">GP1266</a> LCD display to my own string</font>?
 I started this article because I read an email asking it again just now.
 <br />Actually this article is to be very short. In software <a href="../pa6488/20090811.php">API</a> sdcc\src\<B>ui_str.c</B>, there is a <i>LoadString</i> function,
 and there are already several <a href="../pa6488/20090816.php">OEM_XXXX</a> changes made to display different strings. 

@@ -43,7 +43,7 @@
 <br />&nbsp;
 <br /><font color=grey><a name="csl">芯片支持库csl</a></font>
 <br />所有芯片支持库中的函数命名都类似于<i>ABCD_Eabc</i>. 例如, 从函数名<i>GPIO_Write</i>几乎可以肯定它声明在<b>csl.h</b>中, 实现在<font color=indigo>csl\</font><b>gpio.c</b>中. 
-<br />所有csl中的.c文件都独立于<b>version.h</b>, 也就是说它们只和PA3288芯片相关, 独立于具体的<a href="../../../woody/blog/ar1688/20061014cn.php">硬件型号</a>. 通常它们只需要include <b>type.h</b>、<b>csl.h</b>和内部的<font color=indigo>csl\</font><b>reg.h</b>. 
+<br />所有csl中的.c文件都独立于<b>version.h</b>, 也就是说它们只和PA3288芯片相关, 独立于具体的<a href="../../../woody/blog/ar1688/20061014cn.php">硬件型号</a>. 通常它们只需要include <b>type.h</b>, <b>csl.h</b>和内部的<font color=indigo>csl\</font><b>reg.h</b>. 
 <br />如果你需要使用"复杂的"函数如<i>strcmp</i>, 考虑把这部分代码移出csl. 绝大部分这里的代码都只跟芯片寄存器操作相关. 
 <br />在<i>main</i>函数开始的时候<i>ABCD_Init</i>函数的调用次序很重要. 不要改变它, 除非你真的有100%的把握知道你在做什么. 
 <br />&nbsp;

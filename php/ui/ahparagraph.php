@@ -1,14 +1,17 @@
 <?php
 require_once('referenceparagraph.php');
 
-function _getSortHLink()
+function GetSortString($strQuery)
 {
-    return CopyPhpLink(UrlAddQuery('sort=hshare'), '按H股排序');
+    $ar = array('hshare' => '按H股排序',
+                  'ratio' => '按比价排序',
+                 );
+	return $ar[$strQuery];
 }
 
-function _getSortRatioLink()
+function _getSortLink($strQuery = 'hshare')
 {
-	return CopyPhpLink(UrlAddQuery('sort=ratio'), '按比价排序');
+    return CopyPhpLink(UrlAddQuery('sort='.$strQuery), GetSortString($strQuery));
 }
 
 function _ahStockRefCallbackData($ref)
@@ -32,7 +35,7 @@ function _ahStockRefCallback($ref = false)
     return GetAhCompareTableColumn();
 }
 
-function _refSortByRatio($arRef)
+function _refSortByRatio($arRef, $bAh = true)
 {
     $ar = array();
     $arRatio = array();
@@ -40,7 +43,7 @@ function _refSortByRatio($arRef)
     {
         $strSymbol = $ref->GetStockSymbol();
         $ar[$strSymbol] = $ref;
-        $arRatio[$strSymbol] = $ref->GetAhPriceRatio();
+        $arRatio[$strSymbol] = ($bAh ? $ref->GetAhPriceRatio() : $ref->GetAdrhPriceRatio()); 
     }
     asort($arRatio, SORT_NUMERIC);
     
@@ -75,8 +78,8 @@ function EchoAhParagraph($arRef)
 		}
 		else
 		{
-			$str .= ' '._getSortHLink();
-			$str .= ' '._getSortRatioLink();
+			$str .= ' '._getSortLink();
+			$str .= ' '._getSortLink('ratio');
 		}
 	}
     EchoReferenceParagraph($arRef, '_ahStockRefCallback', $str);
@@ -116,10 +119,14 @@ function EchoAdrhParagraph($arRef)
 			{
 				$arRef = RefSortBySymbol($arRef);
 			}
+			else if ($strSort == 'ratio')
+			{
+				$arRef = _refSortByRatio($arRef, false);
+			}
 		}
 		else
 		{
-			$str .= ' '._getSortHLink();
+			$str .= ' '._getSortLink();
 		}
 	}
     EchoReferenceParagraph($arRef, '_adrhStockRefCallback', $str);

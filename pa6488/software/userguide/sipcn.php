@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>使用标准SIP协议</title>
-<meta name="description" content="使用标准SIP协议跟Asterisk、X-Lte和IMSDroid配合工作">
+<meta name="description" content="使用标准SIP协议跟Asterisk, X-Lte和IMSDroid配合工作">
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>
 <script src="../../../js/copyright.js"></script>
@@ -37,7 +37,7 @@
 
 
 <table>
-<tr><td class=THead><B>使用标准SIP协议跟Asterisk、X-Lte和IMSDroid配合工作</B></td></tr>
+<tr><td class=THead><B>使用标准SIP协议跟Asterisk, X-Lte和IMSDroid配合工作</B></td></tr>
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
 <tr><td><B>1 Asterisk安装和设置</B></td></tr>
 <tr><td>1.0	在腾讯云安装<a href="../../../woody/blog/entertainment/20120719cn.php">Linux</a> CentOS和Asterisk</td></tr>
@@ -62,7 +62,7 @@
 <br />第二步: 配置拨号规则. 在extensions.conf文件中, 增加以下内容: 
 <br /><img src="files/dialplan.jpg" alt="dialplan">
 <br />
-<br />第三步: 重载sip、dialplan. 
+<br />第三步: 重载sip, dialplan. 
 <br />执行下面的命令, 可以查看asterisk的运行状态, 同时切换到asterisk控制台下(*CLI>): 
 <br /><i>sudo asterisk –r</i>
 <br />
@@ -85,11 +85,11 @@
 <tr><td>2.2 设置</td></tr>
 <tr><td><p dir="ltr" style="margin-left: 20px; margin-right: 0px">首先点击"IMSDroid"图标, 进入下图所示的IMSDroid主界面: 
 <br /><img src="files/imshome.png" alt="home">
-<br />然后依次点击"Options"、"Identity"图标, 进入如下图所示的帐号设置界面. 图中红色框内为设置实例, 粉红框内蓝色文字为参考说明. 设置完成后请返回主界面. 
+<br />然后依次点击"Options", "Identity"图标, 进入如下图所示的帐号设置界面. 图中红色框内为设置实例, 粉红框内蓝色文字为参考说明. 设置完成后请返回主界面. 
 <br /><img src="files/imsidentity.png" alt="identity">
-<br />点击"Options"、"Network"图标, 进入如下图所示的网络设置界面, 参考图中设置实例和说明进行设置. 设置完成后请返回到主界面（注: 网络可以多选, IP协议只能单选）. 
+<br />点击"Options", "Network"图标, 进入如下图所示的网络设置界面, 参考图中设置实例和说明进行设置. 设置完成后请返回到主界面（注: 网络可以多选, IP协议只能单选）. 
 <br /><img src="files/imsnetwork.png" alt="network">
-<br />点击"Options"、"Codecs"图标, 进入如下图所示的Codec设置界面. 设置你需要的codec类型. 设置完成后请返回到主界面. 
+<br />点击"Options", "Codecs"图标, 进入如下图所示的Codec设置界面. 设置你需要的codec类型. 设置完成后请返回到主界面. 
 <br /><img src="files/imscodec.png" alt="codec">
 <br />点击"Sign in"图标开始注册服务器, 完成注册后, 主界面的显示如下图所示: 
 <br /><img src="files/imshomesignin.png" alt="signin">

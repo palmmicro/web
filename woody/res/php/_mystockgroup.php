@@ -208,6 +208,10 @@ function EchoMetaDescription()
     else
     {
     	$str = _getMetaDescriptionStr($strTitle);
+    	if ($strQuery = UrlGetQueryValue('sort'))
+    	{
+    		$str .= ' '.GetSortString($strQuery).'.';
+    	}
     }
     EchoMetaDescriptionText($str);
 }
@@ -231,7 +235,12 @@ function _getTitleStr($strTitle)
 			  	  'qqqfund'	=> '纳斯达克100基金净值计算工具',
 			  	  'spyfund'	=> '标普500基金净值计算工具',
 			  	  );
-    return $ar[$strTitle];
+    $str = $ar[$strTitle];
+	if ($strQuery = UrlGetQueryValue('sort'))
+	{
+		$str .= '('.GetSortString($strQuery).')';
+	}
+    return $str;
 }
 
 function EchoTitle()

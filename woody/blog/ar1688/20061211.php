@@ -39,8 +39,13 @@
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
 <tr><td>Dec 11, 2006</td></tr>
 <tr><td>We provide software API for all <a href="../../../ar1688/index.html">AR1688</a> IP phone manufacturers and end users. The API includes part of source codes and part of object files.
-Those source codes are provided under GPL license. Based on the API, users can make their own customized upgrade binary files for their IP phones.
+Based on the API, users can make their own customized upgrade binary files for their IP phones.
 We do not provide fully open source software because we do not encourage those implementations to be transferred to another chip to compete with AR1688.
+DSP part are provided in binary .dat file and low-level register control, ethernet mac layer, IP layer and basic UDP and TCP connection implementations are provided in SDCC object .o files. 
+<br />We use open source SDCC compiler to build the software and release software API under GPL license, in the hope of helping end users make more out of their IP phones. 
+For me, it is fun to modify the software and see it working immediately, and I believe it is true for others too. 
+When everyone can modify something with his or her own IP phone, we also hope that this will reduce our supporting work of customizations. 
+And most important, with so many gifted programmers keeping an eye on our software and make improvements, we are more likely to do a better job than keep all the coding to ourselves.
 <br />The API is provided as SDCC.rar file. It will decompress SDCC directory and files. We assume SDCC directory is decompressed to drive D:. If it is not, you will need to change the first line of sdcc\src\<b>makefile</b>.
 <br />Currently there are following 5 directories under SDCC:
 <br />1. bin - <a href="../../../res/index.html#sdcc">SDCC</a> open source compiler binary files and our own special tools binary files. We are using SDCC 2.6.0 steady version. You can also download those files directly from SDCC official website.

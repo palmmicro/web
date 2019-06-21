@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>火箭不是好生意</title>
-<meta name="description" content="火箭不是好生意. 火箭般的康柏, 流星般的坠落. 千万别叫你自己什么什么火箭, 因为火箭上天后总是会落到地上来.">
+<meta name="description" content="火箭不是好生意. 火箭般的康柏, 流星般的坠落. 千万别叫你自己什么什么火箭, 因为火箭上天后总是会落到地上来. 对于制造商来说, 以后只能考虑全功能的手机了.">
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

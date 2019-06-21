@@ -39,7 +39,7 @@
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
 <tr><td>2011年3月31日</td></tr>
 <tr><td>在AR1688卖了4年多后来写编程第一课实在是太晚了, 不过晚总比没有好. 
-总是有人问<font color=grey>怎么把显示屏上的<a href="20070903cn.php">GP1266</a>字样改成我自己的字符串</font>? 刚刚我又读了一封这种邮件, 于是开始写这篇文章. 
+总是有人问<font color=grey>怎么把显示屏上的<a href="../../../ar1688/user/gp1266cn.html">GP1266</a>字样改成我自己的字符串</font>? 刚刚我又读了一封这种邮件, 于是开始写这篇文章. 
 <br />其实这篇文章没有多少可写的内容. 在软件<a href="../pa6488/20090811cn.php">API</a>的sdcc\src\<B>ui_str.c</B>中有个叫<i>LoadString</i>的函数, 
 其中已经有了好几个<a href="../pa6488/20090816cn.php">OEM_XXXX</a>特殊显示的字符串的改动了.  
 <br />要注意的是, 改<i>LoadString</i>不仅会改动显示屏内容, 同时也会改变SIP消息<b>User-Agent</b>中的内容. 

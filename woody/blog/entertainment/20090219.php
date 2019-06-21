@@ -23,7 +23,7 @@ During those years, <a href="../palmmicro/20080326.php">Palmmicro</a> became Cen
 <br /><img src=../../myphoto/1997/ess.jpg alt="My first digit photo taken at ESS office in Fremont" />
 </p>
 
-<h1>Ten Years of <a name="another">Another</a> Man</h1>
+<h3>Ten Years of <a name="another">Another</a> Man</h3>
 <p>March 3, 2009
 <br />Only old people like to talk about history.
 <br />I sat in front of him, did not find much changes on him. He is still thin and full of energy. It was 12 years ago when I first met him, and we had not made much contact all those years.

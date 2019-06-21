@@ -14,7 +14,7 @@
 <h1>藍邦科技有限公司</h1>
 <p>公司<a href="http://www.btbond.com" target=_blank>网站</a>
 <br />台北市南港區三重路19-11號E棟4樓
-<br />台湾、ROC
+<br />台湾, ROC
 <br />电话: (+886)02-2655-0220
 <br />电子邮件: sales@btbond.com
 </p>

@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<title>The Interpretation of EastMoney USDCNY Reference Rate Data Interface</title>
+<title>EastMoney USDCNY Reference Rate Data Interface</title>
 <meta name="description" content="The interpretation of EastMoney USDCNY (http://hq2gjqh.eastmoney.com/EM_Futures2010NumericApplication/Index.aspx?type=z&ids=usdcny0) data interface.">
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
@@ -11,7 +11,7 @@
 <?php _LayoutTopLeft(false); ?>
 
 <div>
-<h1>The Interpretation of EastMoney USDCNY Reference Rate Data Interface</h1>
+<h1>EastMoney USDCNY Reference Rate Data Interface</h1>
 <p>June 15, 2016
 <br />The forex data of <a href="20151225.php">Sina Stock Data</a> is realtime trading data, but USDCNY reference rate is widely used in LOF,
 so the <a href="20150818.php">SZ162411 Net Value</a> calculation may have 0.1 cent of difference compared with final official data. 
