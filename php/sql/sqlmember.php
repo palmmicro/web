@@ -31,10 +31,8 @@ FOREIGN KEY (`member_id`) REFERENCES `member`(`id`) ON DELETE CASCADE
 
 // ****************************** Member table *******************************************************
 
-function SqlUpdateLoginField($strEmail)
+function SqlUpdateLoginField($strEmail, $strIp)
 {
-	$strIp = UrlGetIp();
-
 	// Create UPDATE query
 	$strQry = "UPDATE member SET ip = '$strIp', login = NOW() WHERE email = '$strEmail' LIMIT 1";
 	return SqlDieByQuery($strQry, 'Update member login time failed');

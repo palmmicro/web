@@ -1,6 +1,7 @@
 <?php
 require_once('_stock.php');
 require_once('/php/ui/editinputform.php');
+require_once('/php/class/PHPExcel/IOFactory.php');
 
 function _getAdminInputArray()
 {
@@ -15,8 +16,57 @@ function _getAdminInputStr($strTitle)
 	return $ar[$strTitle];
 }
 
+function _readXlsFile($strPathName)
+{
+	date_default_timezone_set(DEBUG_TIME_ZONE);
+	// 读取excel文件
+	try 
+	{
+		$inputFileType = PHPExcel_IOFactory::identify($strPathName);
+		$objReader = PHPExcel_IOFactory::createReader($inputFileType);
+		$objPHPExcel = $objReader->load($strPathName);
+	} 
+	catch(Exception $e) 
+	{
+		die('加载文件发生错误: "'.pathinfo($strPathName,PATHINFO_BASENAME).'": '.$e->getMessage());
+	}
+
+	// 确定要读取的sheet，什么是sheet，看excel的右下角，真的不懂去百度吧
+	$sheet = $objPHPExcel->getSheet(0);
+	$highestRow = $sheet->getHighestRow();
+	DebugString($highestRow);
+	$highestColumn = $sheet->getHighestColumn();
+	DebugString($highestColumn);
+
+	// 获取一行的数据
+	for ($row = 1; $row <= $highestRow; $row++)
+	{
+		// Read a row of data into an array
+		$rowData = $sheet->rangeToArray('A'.$row.':'.$highestColumn.$row, null, true, false);
+		//这里得到的rowData都是一行的数据，得到数据后自行处理，我们这里只打出来看看效果
+//		DebugArray($rowData[0]);
+//		var_dump($rowData);
+		$ar = $rowData[0];
+		if ($iTick = strtotime($ar[0]))
+		{
+//			DebugString($ar[0].' '.$ar[1]);
+		}
+	}
+}
+
+// https://us.spdrs.com/site-content/xls/XOP_HistoricalNav.xls
 function _getAdminTestStr($strInput)
 {
+	if ($strInput == 'XLE' || $strInput == 'XOP')
+	{
+		$strFileName = $strInput.'_HistoricalNav.xls';
+		$strUrl = 'https://us.spdrs.com/site-content/xls/'.$strFileName;
+		$str = url_get_contents($strUrl);
+//		DebugString($str);
+		$strPathName = DebugGetPathName($strFileName);
+		file_put_contents($strPathName, $str);
+		_readXlsFile($strPathName);
+	}
 	return $strInput;
 }
 

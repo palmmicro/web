@@ -198,9 +198,6 @@ function _loginAccount($strEmail, $strPassword)
 		EditEmailErrOcurred($arErrMsg);
 		return false;
 	}
-	SqlUpdateLoginField($strEmail);
-	
-    SqlIncIpLogin(UrlGetIp());
 	return PROFILE_LOGIN_ACCOUNT;
 }
 

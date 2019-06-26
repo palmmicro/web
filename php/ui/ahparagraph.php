@@ -6,7 +6,7 @@ function GetSortString($strQuery)
     $ar = array('hshare' => '按H股排序',
                   'ratio' => '按比价排序',
                  );
-	return $ar[$strQuery];
+	return isset($ar[$strQuery]) ? $ar[$strQuery] : '';
 }
 
 function _getSortLink($strQuery = 'hshare')

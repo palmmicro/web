@@ -43,6 +43,10 @@ function AcctLogin($strEmail, $strPassword)
     {
 		session_regenerate_id();
 		$_SESSION['SESS_ID'] = $strMemberId;
+		
+		$strIp = UrlGetIp();
+		SqlUpdateLoginField($strEmail, $strIp);
+		SqlIncIpLogin($strIp);
     }
     return $strMemberId;
 }
