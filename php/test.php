@@ -11,7 +11,6 @@ require_once('sql/sqlvisitor.php');
 require_once('sql/sqlstockdaily.php');
 
 require_once('csvfile.php');
-require_once('test/XOP_Historical.php');
 require_once('test/xueqiu.php');
 
 // http://www.todayir.com/en/index.php HSFML25
@@ -154,10 +153,6 @@ function TestCmdLine()
     	case 'sina':
 //    		_debug_dividend($strSymbol);
 			$str = TestSinaStockHistory($strSymbol);
-			break;
-    	
-    	case 'netvalue':
-//    		$str = SaveHistoricalNetValue($strSymbol);
 			break;
     	}
     	if (empty($str))	$str = '(Not found)';

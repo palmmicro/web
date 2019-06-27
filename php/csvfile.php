@@ -17,6 +17,11 @@ class CsvFile
     	return $this->strPathName;
     }
     
+    function HasFile()
+    {
+    	return file_exists($this->strPathName);
+    }
+    
     function _open($strMode)
     {
     	if ($this->file == false)

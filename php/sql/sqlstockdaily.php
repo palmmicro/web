@@ -128,13 +128,14 @@ class DailyStockSql extends StockTableSql
     	{
     		if (abs(floatval($record['close']) - floatval($strClose)) > 0.000001)
     		{
-    			$this->Update($record['id'], $strClose);
+    			return $this->Update($record['id'], $strClose);
     		}
     	}
     	else
     	{
-    		$this->Insert($strDate, $strClose);
+    		return $this->Insert($strDate, $strClose);
     	}
+    	return false;
     }
     
     function DeleteByDate($strDate)

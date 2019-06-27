@@ -47,8 +47,11 @@ function EchoAll()
 			EchoNvCloseHistoryParagraph($ref, $strLinks, $csv, $iStart, $iNum);
 			$csv->Close();
 
-			_echoNvClosePool($strSymbol);
-			_echoNvCloseGraph($strSymbol);
+			if ($csv->HasFile())
+			{
+				_echoNvClosePool($strSymbol);
+				_echoNvCloseGraph($strSymbol);
+			}
     	}
     }
     $group->EchoLinks('nvclose');
