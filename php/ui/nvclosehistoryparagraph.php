@@ -1,7 +1,7 @@
 <?php
 require_once('stocktable.php');
 
-function _echoNvCloseItem($csv, $strDate, $strNetValue, $ref, $strFundId)
+function _echoNvCloseItem($csv, $shares_sql, $strDate, $strNetValue, $ref, $strFundId)
 {
 	$his_sql = $ref->GetHistorySql();
 	$strClose = $his_sql->GetClose($strDate);
@@ -19,6 +19,18 @@ function _echoNvCloseItem($csv, $strDate, $strNetValue, $ref, $strFundId)
     	$strNetValue = GetOnClickLink('/php/_submitdelete.php?'.TABLE_NETVALUE_HISTORY.'='.$strFundId, '确认删除'.$strDate.'净值记录'.$strNetValue.'?', $strNetValue);
     }
     
+    if ($strShares = $shares_sql->GetClose($strDate))
+    {
+    	$strShares = rtrim0($strShares);
+    	$fVolume = floatval($his_sql->GetVolume($strDate));
+    	$strChangeRate = strval_round(100.0 * $fVolume / (floatval($strShares * 10000.0)));
+    }
+    else
+    {
+    	$strShares = '';
+    	$strChangeRate = '';
+    }
+    
     echo <<<END
     <tr>
         <td class=c1>$strDate</td>
@@ -26,11 +38,13 @@ function _echoNvCloseItem($csv, $strDate, $strNetValue, $ref, $strFundId)
         <td class=c1>$strNetValue</td>
         <td class=c1>$strPremium</td>
         <td class=c1>$strChange</td>
+        <td class=c1>$strShares</td>
+        <td class=c1>$strChangeRate</td>
     </tr>
 END;
 }
 
-function _echoNvCloseData($sql, $ref, $csv, $iStart, $iNum, $bAdmin)
+function _echoNvCloseData($sql, $shares_sql, $ref, $csv, $iStart, $iNum, $bAdmin)
 {
     if ($result = $sql->GetAll($iStart, $iNum)) 
     {
@@ -39,7 +53,7 @@ function _echoNvCloseData($sql, $ref, $csv, $iStart, $iNum, $bAdmin)
         	$strNetValue = rtrim0($record['close']);
         	if (empty($strNetValue) == false)
         	{
-   				_echoNvCloseItem($csv, $record['date'], $strNetValue, $ref, ($bAdmin ? $record['id'] : false));
+   				_echoNvCloseItem($csv, $shares_sql, $record['date'], $strNetValue, $ref, ($bAdmin ? $record['id'] : false));
         	}
         }
         @mysql_free_result($result);
@@ -48,10 +62,11 @@ function _echoNvCloseData($sql, $ref, $csv, $iStart, $iNum, $bAdmin)
 
 function EchoNvCloseHistoryParagraph($ref, $str = false, $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
 {
-	$sql = new NetValueHistorySql($ref->GetStockId());
+	$strStockId = $ref->GetStockId();
+	$sql = new NetValueHistorySql($strStockId);
 	$iTotal = $sql->Count();
 	if ($iTotal == 0)		return;
-	
+
     $strSymbol = $ref->GetStockSymbol();
    	$strNavLink = IsTableCommonDisplay($iStart, $iNum) ? '' : StockGetNavLink($strSymbol, $iTotal, $iStart, $iNum);
    	if ($str == false)	$str = GetNvCloseHistoryLink($strSymbol);
@@ -59,17 +74,20 @@ function EchoNvCloseHistoryParagraph($ref, $str = false, $csv = false, $iStart =
     $arColumn = GetFundHistoryTableColumn($ref);
     echo <<<END
     <p>$str $strNavLink
-    <TABLE borderColor=#cccccc cellSpacing=0 width=500 border=1 class="text" id="{$strSymbol}nvclosehistory">
+    <TABLE borderColor=#cccccc cellSpacing=0 width=590 border=1 class="text" id="{$strSymbol}nvclosehistory">
     <tr>
         <td class=c1 width=100 align=center>{$arColumn[0]}</td>
-        <td class=c1 width=100 align=center>{$arColumn[1]}</td>
-        <td class=c1 width=100 align=center>{$arColumn[2]}</td>
-        <td class=c1 width=100 align=center>{$arColumn[3]}</td>
-        <td class=c1 width=100 align=center>{$arColumn[5]}</td>
+        <td class=c1 width=70 align=center>{$arColumn[1]}</td>
+        <td class=c1 width=90 align=center>{$arColumn[2]}</td>
+        <td class=c1 width=70 align=center>{$arColumn[3]}</td>
+        <td class=c1 width=70 align=center>{$arColumn[5]}</td>
+        <td class=c1 width=100 align=center>流通股数(万)</td>
+        <td class=c1 width=90 align=center>换手率(%)</td>
     </tr>
 END;
    
-    _echoNvCloseData($sql, $ref, $csv, $iStart, $iNum, AcctIsAdmin());
+	$shares_sql = new EtfSharesHistorySql($strStockId);
+    _echoNvCloseData($sql, $shares_sql, $ref, $csv, $iStart, $iNum, AcctIsAdmin());
     EchoTableParagraphEnd($strNavLink);
 }
 

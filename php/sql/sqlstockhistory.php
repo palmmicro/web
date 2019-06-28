@@ -70,6 +70,15 @@ class StockHistorySql extends DailyStockSql
     {
     	return $this->DeleteData("volume = '0' AND ".$this->BuildWhere_key());
     }
+
+    function GetVolume($strDate)
+    {
+    	if ($record = $this->Get($strDate))
+    	{
+    		return $record['volume'];
+    	}
+    	return '0';
+    }
 }
 
 ?>

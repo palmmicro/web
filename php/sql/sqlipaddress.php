@@ -56,6 +56,15 @@ function SqlGetIpAddressId($strIp)
 	return false;
 }
 
+function SqlGetIpStatus($strIp)
+{
+    if ($record = SqlGetIpAddressRecord($strIp))
+    {
+        return $record['status'];
+    }
+	return false;
+}
+
 function SqlSetIpStatus($strIp, $strStatus)
 {
     if ($record = SqlGetIpAddressRecord($strIp))

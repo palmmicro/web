@@ -1,7 +1,7 @@
 <?php
 require_once('/php/class/PHPExcel/IOFactory.php');
 
-function _readXlsFile($strPathName, $sql)
+function _readXlsFile($strPathName, $sql, $shares_sql)
 {
 	date_default_timezone_set(STOCK_TIME_ZONE_US);
 	try 
@@ -24,12 +24,12 @@ function _readXlsFile($strPathName, $sql)
 	
 	// 获取一行的数据
 	$iCount = 0;
+	$iSharesCount = 0;
 	for ($row = 1; $row <= $highestRow; $row++)
 	{
 		// Read a row of data into an array
 		$rowData = $sheet->rangeToArray('A'.$row.':'.$highestColumn.$row, null, true, false);
 		//这里得到的rowData都是一行的数据，得到数据后自行处理，我们这里只打出来看看效果
-//		var_dump($rowData);
 		$ar = $rowData[0];
 		if ($iTick = strtotime($ar[0]))
 		{
@@ -37,15 +37,18 @@ function _readXlsFile($strPathName, $sql)
     		$strDate = $ymd->GetYMD();
    			if ($oldest_ymd->IsInvalid($strDate) == false)
    			{
-//   				DebugString($strDate.' '.$ar[1]);
   				if ($sql->Write($strDate, $ar[1]))
   				{
   					$iCount ++;
   				}
+  				if ($shares_sql->Write($strDate, strval(floatval($ar[2]) / 10000.0)))
+  				{
+  					$iSharesCount ++;
+  				}
    			}
 		}
 	}
-	return '更新'.strval($iCount).'条数据';
+	return '更新'.strval($iCount).'条净值和'.strval($iSharesCount).'条流通股数';
 }
 
 // https://us.spdrs.com/site-content/xls/XOP_HistoricalNav.xls
@@ -62,8 +65,10 @@ function GetSpdrNavXlsStr($strSymbol)
 		$strPathName = DebugGetPathName($strFileName);
 		file_put_contents($strPathName, $str);
 		
-        $sql = new NetValueHistorySql($record['id']);
-		return _readXlsFile($strPathName, $sql);
+		$strStockId = $record['id'];
+        $sql = new NetValueHistorySql($strStockId);
+        $shares_sql = new EtfSharesHistorySql($strStockId);
+		return _readXlsFile($strPathName, $sql, $shares_sql);
 	}
 	return $strSymbol.'不是SPDR的ETF';
 }

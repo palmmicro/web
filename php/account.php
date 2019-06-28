@@ -26,6 +26,7 @@ function AcctDeleteBlogVisitorByIp($strIp)
         SqlAddIpVisit($strIp, $iCount);
         SqlDeleteVisitor(VISITOR_TABLE, $strIpId);
     }
+    SqlSetIpStatus($strIp, IP_STATUS_NORMAL);
 }
 
 function AcctDeleteMember($strMemberId)
@@ -137,14 +138,9 @@ function _checkSearchEnginePageCount($strIp, $iCount, $iPageCount, $strDebug)
     	trigger_error('Unknown spider<br />'.$strDebug);
     	return true;
     }
-    if ($record = SqlGetIpAddressRecord($strIp))
-    {
-    	if ($record['status'] == IP_STATUS_NORMAL)
-    	{
-    		trigger_error('Blocked spider<br />'.$strDebug);
-    		SqlSetIpStatus($strIp, IP_STATUS_BLOCKED);
-    	}
-    }
+    
+	trigger_error('Blocked spider<br />'.$strDebug);
+	SqlSetIpStatus($strIp, IP_STATUS_BLOCKED);
     return false;
 }
 
@@ -201,7 +197,8 @@ function AcctSessionStart()
     {
        	SqlInsertVisitor(VISITOR_TABLE, $strBlogId, $strIpId);
     }
-
+    if (SqlGetIpStatus($strIp) == IP_STATUS_BLOCKED)	AcctSwitchToLogin();
+    
 	$strMemberId = AcctIsLogin();
 	$iCount = AcctCountBlogVisitor($strIp);
 	if ($iCount >= 1000)

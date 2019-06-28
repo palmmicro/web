@@ -161,8 +161,11 @@ function _ipLookupIpAddressTable($strIp, $strNewLine, $bChinese)
         $iVisit = intval($record['visit']);
         $iVisit += AcctCountBlogVisitor($strIp);
         $str .= $strNewLine.($bChinese ? '普通网页总访问次数' : 'Total normal page visit').': '.intval($iVisit);
-        
         $str .= $strNewLine.($bChinese ? '总登录次数' : 'Total login').': '.$record['login'];
+        if ($record['status'] == IP_STATUS_BLOCKED)
+        {
+        	$str .= $strNewLine.'<font color=red>'.($bChinese ? '被禁止访问' : 'Blocked').'</font>';
+        }
     }
     return $str;
 }

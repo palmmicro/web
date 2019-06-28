@@ -79,14 +79,14 @@ function _echoThanousLawParagraph($strSymbol, $iStart, $iNum)
    	$strNavLink = StockGetNavLink($strSymbol, $sql->Count(), $iStart, $iNum);
     echo <<<END
     <p>$str $strNavLink
-    <TABLE borderColor=#cccccc cellSpacing=0 width=600 border=1 class="text" id="thanouslaw">
+    <TABLE borderColor=#cccccc cellSpacing=0 width=460 border=1 class="text" id="thanouslaw">
     <tr>
         <td class=c1 width=100 align=center>{$arColumn[0]}</td>
-        <td class=c1 width=100 align=center>{$arColumn[1]}</td>
-        <td class=c1 width=100 align=center>{$arColumn[2]}</td>
-        <td class=c1 width=100 align=center>{$arColumn[3]}</td>
-        <td class=c1 width=100 align=center>{$arColumn[4]}</td>
-        <td class=c1 width=100 align=center>{$arColumn[5]}</td>
+        <td class=c1 width=70 align=center>{$arColumn[1]}</td>
+        <td class=c1 width=70 align=center>{$arColumn[2]}</td>
+        <td class=c1 width=70 align=center>{$arColumn[3]}</td>
+        <td class=c1 width=80 align=center>{$arColumn[4]}</td>
+        <td class=c1 width=70 align=center>{$arColumn[5]}</td>
     </tr>
 END;
 
