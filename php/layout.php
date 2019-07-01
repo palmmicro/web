@@ -32,7 +32,8 @@ function LayoutBrokerPromotion()
 {
 	$strSnowball = GetXueqiuIdLink('7489073227', '技术支持');
 	if (AcctIsAdmin())		$strSnowball .= ' '.GetExternalLink('https://www.snowballsecurities.com/external-channel/invite', '管理');
-
+/*        <br /><img src=/woody/image/xueyingaccount.png alt="Xueying open account scan QR code" />
+*/
     echo <<<END
         <p>低风险文艺券商, 套利神器. 
         <br />★场内基金申购全部一折, 场外app申购大部分1折.
@@ -49,12 +50,10 @@ function LayoutBrokerPromotion()
         
         <br /><a href="https://www.snowballsecurities.com/ib-account-open/web?r=50001003008" target=_blank>雪盈证券开户</a>
         	  <a href="https://www.snowballsecurities.com/activity/bank-card-booking?r=50001003008" target=_blank>雪盈境外卡开户</a>
-        <br />雪盈证券(Snowball Securities)是新西兰金融注册服务商, 雪球集团成员企业. 
-        	  通过强大的互联网科技和雄厚的金融实力, 为全球华人提供包括港股, 美股和中国A股在内的全球证券经纪服务.
-        	  为您提供极具市场竞争力的佣金和融资利率, 支持全球交易品类, 毫秒级的下单速度, 免费实时行情, 交易时段专属中文客服服务.
-        <br />美股佣金$0.002/股, 最低$0.99/笔. 平台使用费$0.003/股, 最低$1.00/笔. $strSnowball
-        <br /><img src=/woody/image/xueyingaccount.png alt="Xueying open account scan QR code" />
-        <br /><img src=/woody/image/xueying_s.jpg alt="Xueying security banner" />
+        <br />雪球旗下港美股券商——雪盈证券, 极低佣金利率, 毫秒级下单速度, 免费实时行情! 
+        	  更有开户入金新手豪礼等着你, 最高1066港币+热门股票+高级行情, 点击链接, 开户领豪礼. 
+		        $strSnowball
+        <br /><img src=/woody/image/xueying.png alt="Xueying security new banner" />
         </p>
 END;
 }
