@@ -129,7 +129,7 @@ function in_arraySpyLof($strSymbol)
 
 function LofGetSymbolArray()
 {
-    $ar = array('sh513030', 'sz160140', 'sz161126', 'sz161127', 'sz161128', 'sz162415'); 
+    $ar = array('sh513030', 'sz160140', 'sz161126', 'sz161127', 'sz161128', 'sz162415', 'sz164824'); 
     $ar = array_merge($ar, LofGetChinaInternetSymbolArray()
     						, LofGetGoldSymbolArray()
     						, LofGetOilSymbolArray()

@@ -15,6 +15,7 @@ function LofGetEstSymbol($strSymbol)
     else if ($strSymbol == 'SZ161128')   return 'XLK';
     else if ($strSymbol == 'SZ161815')   return 'DBC';
     else if ($strSymbol == 'SZ163208')   return 'XLE';
+    else if ($strSymbol == 'SZ164824')   return 'INDA';
     else if (in_arrayChinaInternetLof($strSymbol))   return 'KWEB';
     else if (in_arrayBricLof($strSymbol))   return 'BKF';	// '^SPBRICNTR'
     else if ($strSymbol == 'SZ165513')   return 'GSG';

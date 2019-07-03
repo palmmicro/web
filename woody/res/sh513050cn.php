@@ -4,7 +4,6 @@ require('php/_lof.php');
 function EchoRelated()
 {
 	$strGroup = GetLofLinks();
-	$strSpy = GetSpySoftwareLinks();
 	$strQqq = GetQqqSoftwareLinks();
 	$strHangSeng = GetHangSengSoftwareLinks();
 	$strChinaInternet = GetChinaInternetSoftwareLinks();
@@ -17,7 +16,6 @@ function EchoRelated()
 	<p> $strXueqiuKweb
 	</p>
 	<p> $strGroup
-		$strSpy
 		$strQqq
 		$strHangSeng
 		$strChinaInternet

@@ -4,7 +4,6 @@ require('php/_lof.php');
 function EchoRelated()
 {
 	$strGroup = GetLofLinks();
-	$strSpy = GetSpySoftwareLinks();
 	$strQqq = GetQqqSoftwareLinks();
 	$strHangSeng = GetHangSengSoftwareLinks();
 	$strChinaInternet = GetChinaInternetSoftwareLinks();
@@ -17,7 +16,6 @@ function EchoRelated()
 		<a href="https://xueqiu.com/6827215131/68185067" target=_blank>中证海外中国互联网指数</a>
 	</p>
 	<p> $strGroup
-		$strSpy
 		$strQqq
 		$strHangSeng
 		$strChinaInternet

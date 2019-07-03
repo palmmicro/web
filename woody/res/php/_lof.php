@@ -131,6 +131,7 @@ function GetLofLinks()
 	$str = GetJisiluLofLink();
 	$str .= GetStockGroupLinks();
 	$str .= GetASharesSoftwareLinks();
+	$str .= GetSpySoftwareLinks();
 	return $str;
 }
 

@@ -257,6 +257,13 @@ function GetHuaTaiSoftwareLinks()
     return GetCategorySoftwareLinks($ar, $strLink);
 }
 
+function GetIcbcCsSoftwareLinks()
+{
+    $ar = array('sz164824');
+    $strLink = GetExternalLink('http://www.icbccs.com.cn', '工银瑞信');
+    return GetCategorySoftwareLinks($ar, $strLink);
+}
+
 function GetLionSoftwareLinks()
 {
     $ar = array('sz163208');
