@@ -134,6 +134,30 @@ function GetSinaQuotes($strSinaSymbols)
 /*
 http://hq2gjqh.eastmoney.com/EM_Futures2010NumericApplication/Index.aspx?type=z&ids=usdcny0
 http://hq2gjqh.eastmoney.com/EM_Futures2010NumericApplication/Index.aspx?type=z&ids=uscny0
+http://hq2gjqh.eastmoney.com/EM_Futures2010NumericApplication/Index.aspx?type=z&ids=USDCNY0,JPYCNY0,jpcny0,USDEUR0
+http://hq2gjqh.eastmoney.com/EM_Futures2010NumericApplication/index.aspx?type=z&ids=GLNC0,SLNC0 美黄金白银
+http://hq2gjqh.eastmoney.com/EM_Futures2010NumericApplication/index.aspx?type=z&ids=CONM0,HONJ0,GLNM0,SLNV0,CRCN0,SBCN0,WHCN0,CRCK0,SMCN0,SOCN0,CTNN0,LCPS0,LALS0,LZNS0,LTNS0,LNKS0,LLDS0
+http://hq2gjqh.eastmoney.com/em_futures2010numericapplication/index.aspx?type=f&id=CONC0
+http://hq2gnqh.eastmoney.com/EM_Futures2010NumericApplication/index.aspx?type=z&ids=AUM1 沪主力金
+http://hq2gjgp.eastmoney.com/EM_Quote2010NumericApplication/Index.aspx?type=f&id=SPX7
+//美元指数
+var AjaxDataMYZSUrl = 'http://hq2gjqh.eastmoney.com/em_futures2010numericapplication/index.aspx?type=f&jsName=DataMYZS&id=DINI0';
+//汇率
+var AjaxDataWHHLUrl = 'http://hq2gjqh.eastmoney.com/EM_Futures2010NumericApplication/Index.aspx?type=z&jsName=DataWHHL&ids=USDCNY0,JPYCNY0,jpcny0,USDEUR0';
+//道琼斯
+var AjaxDataDQSUrl = 'http://hq2gjgp.eastmoney.com/EM_Quote2010NumericApplication/Index.aspx?jsName=DataDQS&reference=rtj&type=f&id=INDU7';
+//纳斯达克
+var AjaxDataNSDKUrl = 'http://hq2gjgp.eastmoney.com/EM_Quote2010NumericApplication/Index.aspx?jsName=DataNSDK&reference=rtj&type=f&id=CCMP7';
+//标准500
+var AjaxDataBZ500Url = 'http://hq2gjgp.eastmoney.com/EM_Quote2010NumericApplication/Index.aspx?jsName=DataBZ500&reference=rtj&type=f&id=SPX7';
+//港股
+var AjaxDataGGUrl = 'http://hq2hk.eastmoney.com/EM_Quote2010NumericApplication/Index.aspx?reference=rtj&type=z&jsName=DataGG&ids=1100005,1100105,1100305';
+//原油
+var AjaxDataYYUrl = 'http://hq2gjqh.eastmoney.com/em_futures2010numericapplication/index.aspx?type=f&jsName=DataYY&id=CONC0';
+//IF
+var AjaxDataIFUrl = 'http://hq2gnqh.eastmoney.com/EM_Futures2010NumericApplication/index.aspx?type=s&jsName=DataIF&style=12&sortType=A&sortRule=1&page=1&pageSize=2';
+//A股
+var AjaxDataAGUrl = 'http://hqdigi2.eastmoney.com/EM_Quote2010NumericApplication/Index.aspx?type=z&sortType=C&sortRule=-1&jsSort=1&jsName=DataAG&ids=0000011,3990012,0003001,3990052,3990062';
 */
 define('EASTMONEY_QUOTES_URL', 'http://hq2gjqh.eastmoney.com/EM_Futures2010NumericApplication/Index.aspx?type=z&ids=');
 function GetEastMoneyQuotes($strSymbols)
