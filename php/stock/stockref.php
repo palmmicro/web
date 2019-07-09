@@ -237,12 +237,8 @@ class StockReference
     {
     	if ($strDivisor == false)	$strDivisor = $this->strPrevPrice;
     	if ($strDividend == false)	$strDividend = $this->strPrice;
-        return StockGetPercentage($strDivisor, $strDividend);
-    }
-    
-    function GetPercentageText($strDivisor = false, $strDividend = false)
-    {
-   		$fPercentage = $this->GetPercentage($strDivisor, $strDividend);
+    	
+   		$fPercentage = StockGetPercentage($strDivisor, $strDividend);
    		if ($fPercentage === false)		return '';
    		
    		if ($strDivisor === false)
@@ -251,15 +247,15 @@ class StockReference
    		}
    		else
    		{
-   			if (abs($fPercentage * floatval($strDivisor)) < 0.05)	return '0';
+   			if (abs($fPercentage * floatval($strDivisor)) < (50.0 / pow(10, $this->sym->GetPrecision())))	return '0';
    		}
-   		return strval_round($fPercentage, 2).'%';
+   		return strval_round($fPercentage, 2);
     }
     
     // for display
     function GetPercentageDisplay($strDivisor = false, $strDividend = false)
     {
-   		$strDisp = $this->GetPercentageText($strDivisor, $strDividend);
+   		$strDisp = $this->GetPercentage($strDivisor, $strDividend);
    		if ($strDisp == '')	return '';
    		
    		if ($strDisp == '0')
@@ -268,6 +264,7 @@ class StockReference
    		}
    		else
    		{
+   			$strDisp .= '%';
    			$strColor = (substr($strDisp, 0, 1) == '-') ? 'red' : 'black';
    		}
     	return "<font color=$strColor>$strDisp</font>";

@@ -15,15 +15,13 @@
 <div>
 <h1>华宝油气净值估算的PHP程序</h1>
 <p>2015年8月18日
-<br />眼看Qualcomm收购CSR<a href="20141016cn.php">股票</a>的现金快要到账, 最近我在琢磨在A股华宝油气和和美股XOP之间套利. 每天看Yahoo新浪等网站的股票行情, 时不时还要用鼠标点开计算器算算转换价格, 时间长了后有点烦.
+<br />眼看Qualcomm收购CSR<a href="20141016cn.php">股票</a>的现金快要到账, 最近我在琢磨在A股中国特色的LOF基金华宝油气和美股XOP之间套利. 每天看Yahoo新浪等网站的股票行情, 时不时还要用鼠标点开计算器算算转换价格, 时间长了后有点烦.
 <br />后来我想起来5年前学习的<a href="20100905cn.php">PHP</a>, 于是打算写我的第二个PHP程序, 统一把套利需要常看的行情显示在一起, 同时根据SPDR标普油气开采指数ETF(XOP), 标普油气开采指数(^SPSIOP),
 以及美元对人民币的汇率计算<a href="../../res/sz162411cn.php">华宝油气</a>净值. 今天出了第一版, 记录下相关开发过程以备日后查阅.
 <br />美股用Yahoo股票数据接口(<a href="#usstock">已停用</a>).
 <br />A股, 期货和汇率都用新浪实时的数据接口: <?php EchoSinaQuotesLink('sz162411,hf_CL,USDCNY'); ?>
 <br />一开始发现无论怎么弄<i>fopen</i>打开这些链接都会失败, 估计是我用的Yahoo网站服务不支持<i>allow_url_fopen</i>. 
-在网上找解决方法, 发现应该用早就有的curl. 抄了2段curl代码, 仿照<i>file_get_contents</i>函数的名字在<?php EchoPhpFileLink('/php/url'); ?>中加了个<i>url_get_contents</i>函数.
-<br />使用<i>url_get_contents</i>读取股票等数据, 显示绿涨红跌的股票价格等函数放在新文件<?php EchoPhpFileLink('/php/stock'); ?>中.
-<br />专门供本页面使用的其它php代码放在新文件<?php EchoPhpFileLink('/woody/res/php/_lof'); ?>中. 取这个名字是因为华宝油气是一个中国特色的LOF基金.
+在网上找解决方法, 发现应该用早就有的curl. 抄了2段curl代码, 仿照<i>file_get_contents</i>函数的名字加了个<i>url_get_contents</i>函数.
 <br />为提高页面反应速度, 使用2个文件xop.txt和<?php EchoSinaDebugLink('sz162411'); ?>分别保存最后更新的Yahoo和新浪股票数据,
 实施以下优化:
 </p>
@@ -52,8 +50,7 @@
 这样算出来的不动点是极限值, 所以我整天装神弄鬼说XOP过了什么什么均线算强势, 没过什么什么均线算弱势. 而这些装神弄鬼的背后, 其实用到的都是小学数学.
 <br />XOP历史数据每天只需要更新一次, 采用Yahoo股票历史数据: <?php EchoLink(YahooStockHistoryGetUrl('XOP')); ?>,
 <br />同样每天只需要更新一次的还有华宝油气基金官方净值, 来自于<?php EchoSinaQuotesLink('f_162411'); ?>,
-使用文件<?php EchoSinaDebugLink('f_162411'); ?>缓存, 读取基金数据的代码在<?php EchoPhpFileLink('/php/stock/fundref'); ?>中.
-因为不知道什么时候更新当日数据, 只好采用一个小时更新一次的笨办法.
+使用文件<?php EchoSinaDebugLink('f_162411'); ?>缓存, 因为不知道什么时候更新当日数据, 只好采用一个小时更新一次的笨办法.
 <br />增加调试文件<?php EchoFileLink(DebugGetFile()); ?>用于临时查看数据.
 </p>
 
@@ -61,43 +58,20 @@
 <p>2015年8月21日
 <br />发了这个工具小软件链接后, 昨天翻墙出去看了一下<a href="20110509cn.php">Google</a> Analytics的统计. 上线3天, 总共289个IP访问了584次.
 跟<a href="../palmmicro/20080326cn.php">Palmmicro</a>通常的客户访问网站极大不同的是, 访问这个工具的有1/3用的是手机. 于是匆忙加上为手机用户优化显示界面的代码.
-<br />使用<a href="http://mobiledetect.net/" target=_blank>Mobile-Detect</a>判断是否手机用户访问, 代码从github复制下来按照原开发者的建议单独放在<?php EchoPhpFileLink('/php/class/Mobile_Detect'); ?>中.
+<br />使用<a href="http://mobiledetect.net/" target=_blank>Mobile-Detect</a>判断是否手机用户访问, 代码从github复制下来按照原开发者的建议单独放在/php/class/<b>Mobile_Detect.php</b>中.
 </p>
 
 <h3>扩大规模</h3>
 <p>2015年8月27日
 <br />整理代码最好的方式是多开发几个类似LOF基金估值软件.
 伴随最近抄底港股加入<a href="../../res/sz159920cn.php">恒生ETF</a>和<a href="../../res/sh510900cn.php">H股ETF</a>净值计算工具.
-观摩美股崩盘期间顺手加入了<a href="../../res/sh513500cn.php">博时标普500</a>净值计算工具, 也许日后会用上.
-<br />原本单个的<?php EchoPhpFileLink('/woody/res/php/_lof'); ?>现在扩展成了3个文件:
+观摩美股崩盘期间顺手加入了<a href="../../res/sh513500cn.php">标普500</a>净值计算工具, 也许日后会用上.
 </p>
-<TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="phpfile">
-       <tr>
-        <td class=c1 width=160 align=center>文件名称</td>
-        <td class=c1 width=200 align=center>此文件被谁使用</td>
-        <td class=c1 width=280 align=center>用处</td>
-      </tr>
-      <tr>
-        <td class=c1 align="center">_stock.php</td>
-        <td class=c1 align="center">_lof.php</td>
-        <td class=c1 align="center">集中放置跟html无关的php代码</td>
-      </tr>
-      <tr>
-        <td class=c1 align="center">_lof.php</td>
-        <td class=c1 align="center">sz162411cn.php, sz159920cn.php等</td>
-        <td class=c1 align="center">跟LOF相关的公共函数代码</td>
-      </tr>
-      <tr>
-        <td class=c1 align="center">_stocklink.php</td>
-        <td class=c1 align="center">_stock.php</td>
-        <td class=c1 align="center">用于产生页面链接的代码</td>
-      </tr>
-</TABLE>
 
 <h3>股票<a name="transaction">交易</a>记录</h3>
 <p>2015年9月13日
 <br />跟我的第一个PHP程序结合起来, 用户登录后可以输入相关股票交易记录. 根据交易记录计算华宝油气和XOP对冲交易策略和数据.
-<br />交易记录的输入和处理分别在文件<?php EchoPhpFileLink('/woody/res/php/_edittransactionform'); ?>和<?php EchoPhpFileLink('/woody/res/php/_submittransaction'); ?>. 
+<br />交易记录的输入和处理分别在文件/woody/res/php/<b>_edittransactionform.php</b>和/woody/res/php/<b>_submittransaction.php</b>. 
 同时修改<a href="20100529cn.php">Visual C++</a>的Woody的网站工具对_editXXXform.php名字格式的自动生成对应的_submitXXX.php文件. 
 </p>
 
@@ -106,30 +80,22 @@
 <br />继续用网页工具代替手工按计算器的工作, 为港股在美股的<a href="../../res/adrcn.php">ADR</a>加入<a href="../../res/achcn.php">中国铝业</a>, <a href="../../res/chucn.php">中国联通</a>, <a href="../../res/gshcn.php">广深铁路</a>,
 <a href="../../res/lfccn.php">中国人寿</a>, <a href="../../res/ptrcn.php">中国石油</a>, <a href="../../res/snpcn.php">中国石化</a>, <a href="../../res/shicn.php">上海石化</a>,
 <a href="../../res/ceacn.php">东方航空</a>和<a href="../../res/znhcn.php">南方航空</a>等价格比较工具.
-<br />加入ADR后, 把ADR和LOF用到的共同股票数据部分放到<?php EchoPhpFileLink('/php/stock/stockref'); ?>中的<font color=olive>StockReference</font>类中,
-用在<?php EchoPhpFileLink('/woody/res/php/_lof'); ?>中<font color=olive>_LofGroup</font>类和<?php EchoPhpFileLink('/woody/res/php/_adr'); ?>中<font color=olive>_AdrGroup</font>类中.
-<br />继续整理代码, 为热心吃螃蟹的用户们增加<a href="../../res/sh513100cn.php">国泰纳斯达克100</a>, <a href="../../res/sz159941cn.php">广发纳指100</a>,
-<a href="../../res/sz160717cn.php">恒生H股</a>, <a href="../../res/sz160216cn.php">国泰商品</a>, <a href="../../res/sz160416cn.php">华安石油</a>, 
+<br />加入ADR后, 把ADR和LOF用到的共同股票数据部分放到<font color=olive>StockReference</font>类中, 用在<font color=olive>_LofGroup</font>类和<font color=olive>_AdrGroup</font>类中.
+<br />继续整理代码, 为热心吃螃蟹的用户们增加<a href="../../res/sh513100cn.php">纳指ETF</a>, <a href="../../res/sz160717cn.php">恒生H股</a>, <a href="../../res/sz160216cn.php">国泰商品</a>, <a href="../../res/sz160416cn.php">石油基金</a>, 
 <a href="../../res/sz163208cn.php">诺安油气</a>和<a href="../../res/sz165510cn.php">信诚四国</a>等<a href="../../res/lofcn.php">LOF</a>净值计算工具.
-<br />以后新加入同类LOF工具的修改步骤:
 </p>
-<ol>
-  <li>在函数<i>LofGetSymbolArray</i>加入新的LOF代码, 用于同类工具中的循环导航链接.</li>
-  <li>在函数<i>LofGetEstSymbol</i>中加上LOF对应的估值代码.</li>
-</ol>
 
 <h3>新浪实时<a name="usstock">美股</a>数据</h3>
 <p>2015年12月13日
 <br />在<?php EchoXueqieId('6188729918', 'abkoooo'); ?>的帮助下使用新浪实时美股数据<?php EchoSinaQuotesLink('gb_xop'); ?>替代原来延迟15分钟的Yahoo数据.
 现在XOP数据在<?php EchoSinaDebugLink('gb_xop'); ?>中. ^SPSIOP数据还是用Yahoo的, 分开在_spsiop.txt中.
 有人知道新浪怎么查像^SPSIOP这样的指数数据吗?
-<br /><?php EchoPhpFileLink('/php/stock/stockref'); ?>中的<font color=olive>StockReference</font>类越改越乱, 开始怀疑以后要看不懂了.
+<br /><font color=olive>StockReference</font>类越改越乱, 开始怀疑以后要看不懂了.
 </p>
 
 <h3>历史<a name="netvalue">净值</a></h3>
 <p>2016年1月8日
-<br />在<?php EchoXueqieId('2091843424', '塔夫男'); ?>等人的建议下, 加入记录华宝油气历史净值表格. 
-最近几天的直接显示在当前页面, 同时增加<?php EchoPhpFileLink('/woody/res/netvaluehistorycn'); ?>和<?php EchoPhpFileLink('/woody/res/php/_netvaluehistory'); ?>显示全部历史数据.
+<br />在<?php EchoXueqieId('2091843424', '塔夫男'); ?>等人的建议下, 加入记录华宝油气历史净值表格. 最近几天的直接显示在当前页面, 同时增加单独显示全部历史数据的页面.
 </p>
 <?php EchoFundHistoryDemo(); ?>
 
@@ -138,7 +104,7 @@
 <br />在<?php EchoXueqieId('8907500725', 'oldwain'); ?>的建议下, 在相关价格记录的时间中加入日期显示.
 原来版本中没有它是因为自己觉得交易日期很明显, 完全没有必要出来占地方. 不过既然有人觉得有问题, 我就效仿白居易写诗先读给妇孺听的优良传统改了.
 估计跟我从2000年开始就在美股赔钱不同, 很多人还是不熟悉美国股市交易时间. 而在这里, 美股数据后面跟的是美东日期和时间.
-<br />虽说是个小的分离数据和显示改动, 但是忍不住哗啦哗啦又整理优化了一大片代码. 把原来<?php EchoPhpFileLink('/php/stock/stockref'); ?>中的<font color=olive>StockReference</font>类作为基础类,
+<br />虽说是个小的分离数据和显示改动, 但是忍不住哗啦哗啦又整理优化了一大片代码. 把原来的<font color=olive>StockReference</font>类作为基础类,
 原来期货和汇率数据读取分别改为继承自它的<font color=olive>FutureReference</font>类和<font color=olive>ForexReference</font>类, 达到统一数据显示格式的目的.
 <br /><font color=grey>夜深忽梦少年事 梦啼妆泪红阑干</font>
 </p>
@@ -150,7 +116,7 @@
 <br />继续整理同类代码, 这次下手目标是MySQL相关部分. 加入<font color=olive>MysqlReference</font>类继承自<font color=olive>StockReference</font>类. 集中代码处理历史记录和净值校准等数据库内容.
 再加入<font color=olive>MyStockReference</font>类继承自<font color=olive>MysqlReference</font>, 从此代替<font color=olive>StockReference</font>类作为股票数据实例.
 <font color=olive>FutureReference</font>类和<font color=olive>ForexReference</font>类同时也改为继承自<font color=olive>MysqlReference</font>.
-从<font color=olive>MysqlReference</font>开始调用了<?php EchoPhpFileLink('/php/sql/sqlstock'); ?>中的数据库相关函数.
+从<font color=olive>MysqlReference</font>开始调用了数据库相关函数.
 </p>
 
 <h3>美国夏令时</h3>
@@ -165,14 +131,13 @@
 <a href="../../res/sz160719cn.php">嘉实黄金LOF</a>和<a href="../../res/sz161116cn.php">易方达黄金LOF</a>.
 <br />一直有用户建议我在华宝油气等LOF的<a href="#netvalue">历史净值</a>表格上加入预估净值比较栏目. 除了不愿意直接打自己嘴巴外的心理因素外, 我迟迟没有加上它的原因主要是估值是实时变化的.
 我一直想不清楚是该加在美股收盘后的预估净值还是A股收盘后的.
-<br />在LOF的代码中, 单独的预估净值变量原本放在<font color=olive>_LofGroup</font>类中.
-而在新的黄金ETF<?php EchoPhpFileLink('/woody/res/php/_goldetf'); ?>中的<font color=olive>_GoldEtfGroup</font>类中又用到了<?php EchoPhpFileLink('/php/stock/fundref'); ?>中<font color=olive>FundReference</font>类. 
+<br />在LOF的代码中, 单独的预估净值变量原本放在<font color=olive>_LofGroup</font>类中. 而在新的黄金ETF<font color=olive>_GoldEtfGroup</font>类中又用到了<font color=olive>FundReference</font>类. 
 自然而然的, 我把预估净值的变量挪到了<font color=olive>FundReference</font>类中. 当预估净值和当日净值的变量排列在一起后, 突然之间数据结构引导思维方式的例子再次爆发, 没有比在记录当日净值的时候同时记录预估净值更合理的了!
 <br />由于在股票交易日的净值系列页面访问量已经稳定在了1000左右, 最高的一天有接近1700, 我一直在琢磨如何优化页面应对以后可能的更大的访问量高峰.
 把只会每天变化一次的<a href="#sma">SMA</a>计算结果保存下来是很容易想到的, 但是之前一直没有做. 在搞完7个黄金ETF的校准后, 我意识到同一个GLD要在包括GC黄金期货的8个页面各算一遍, 觉得不能再忍下去了.
 <br />基于之前在网上找<a href="#mobiledetect">Mobile-Detect</a>代码的经验, 我极大的低估了找一个现成的读写配置文件的php类的难度. 比较容易找到的是一个要收费5美元的, 号称同时支持文件和mysql读写配置.
-而我就是不想多搞mysql的表才想用文件存的, 不免觉得这5美元有点浪费. 最后好不容易才翻到免费的<a href="http://px.sklar.com/code.html?id=142&fmt=pl" target=_blank>INIFile</a>, 
-放到<?php EchoPhpFileLink('/php/class/ini_file'); ?>中. 这个类原本只支持在已经存在的配置文件上修改, 让我这个PHP新手折腾改了好几个小时才顺利用上.
+而我就是不想多搞mysql的表才想用文件存的, 不免觉得这5美元有点浪费. 最后好不容易才翻到免费的<a href="http://px.sklar.com/code.html?id=142&fmt=pl" target=_blank>INIFile</a>.
+这个类原本只支持在已经存在的配置文件上修改, 让我这个PHP新手折腾改了好几个小时才顺利用上.
 </p>
 
 <h3>新浪实时港股数据</h3>
@@ -204,9 +169,7 @@
 会马上对该stockgroup中的每个stock构建一个<font color=olive>MyStockTransaction</font>类, 而<font color=olive>MyStockTransaction</font>的构造函数又需要这个stock的<font color=olive>MyStockReference</font>类作为参数,
 如果没有现成的<font color=olive>MyStockReference</font>类的实例可用, 就会新构造一个. 结果就是在首次统计持仓盈亏的过程中, 我会把几乎所有股票的数据都去新浪拿一遍, 难怪那么慢. 
 <br />找到问题就好办了, 首先判断stockgroup中stock对应的groupitem_id到底有没有交易记录, 没有的话就不去构造<font color=olive>MyStockTransaction</font>类. 另外预先统计好有交易记录的stock, 统一去预取一下新浪数据.
-预取数据的代码放在了新文件<?php EchoPhpFileLink('/php/stock/stockprefetch'); ?>中.
-<br />随后我把预取数据的思路用在了所有需要读取新浪数据的地方, 包括华宝油气净值计算在内, 所有的页面反应速度都有不同程度的提升.
-原来我说因为网站服务器在美国所以访问慢的理由看来并不是那么准确的.
+<br />随后我把预取数据的思路用在了所有需要读取新浪数据的地方, 包括华宝油气净值计算在内, 所有的页面反应速度都有不同程度的提升. 原来我说因为网站服务器在美国所以访问慢的理由看来并不是那么准确的.
 </p> 
 
 <h3>考虑当日CL交易情况后的<a name="realtime">T+1</a>估值</h3>
@@ -298,7 +261,7 @@ CL通常会在美股收盘后继续多交易一个小时, 此时实时估值也�
 <h3><a name="ahcompare">AH股</a>对比</h3>
 <p>2017年1月28日
 <br />为了有效配合今年的打新计划, 我打算扩大中国石化外的门票范围, 但是同时沿用AH股价格比较的思路, 只选取A股价格低于H股的作为门票.
-<br />替选股增加个对比页面, 同时把原来<a href="#adr">ADR</a>中用到的AH关联数组统一放到<?php EchoPhpFileLink('/php/ahstockarray'); ?>中.
+<br />替选股增加个对比页面, 同时把原来<a href="#adr">ADR</a>中用到的AH关联数组统一放到/php/<b>ahstockarray.php</b>中.
 </p>
 <?php EchoAhDemo(); ?>
 
@@ -348,7 +311,7 @@ CL通常会在美股收盘后继续多交易一个小时, 此时实时估值也�
 <h3>把<a name="aharray">AH股数组</a>放MySQL表中</h3>
 <p>2018年2月18日
 <br />发现<a href="20101107cn.php">GB2312</a>和UNICODE的对应表放在函数内返回可能会冲掉全局数据后, 我想起了<a href="#ahcompare">AH对比</a>中也用到了一个不小的数组.
-赶快把它挪到了<?php EchoPhpFileLink('/php/sql/sqlstockpair'); ?>文件中的ahstock表.
+赶快把它挪到了/php/sql/<b>sqlstockpair.php</b>文件中的ahstock表.
 <br />发现帮助傻瓜编程的PHP也对程序优化有要求还是挺让我兴奋的, 觉得这么多年来的优化软件经验终于又有用武之地了.
 <!--<br /><img src=../photo/solitaire.jpg alt="Jan 29, 2018. Solitaire Sapphire in LEGOLAND CALIFORNIA." />-->
 </p>

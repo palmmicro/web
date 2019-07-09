@@ -24,7 +24,6 @@ Using the very simple <a href="../entertainment/20100905.php">PHP</a> example co
 After debugging for a whole night I realized it was because Yahoo Web Hosting appended some javascript for site statistics after my every web page. 
 <br />As I had used <a href="../entertainment/20110509.php">Google</a> Analytics for site statistics for many years, I always feel the new function Yahoo added nearly 2 years ago was unnecessary and made my web pages slow,
 now I have plenty of reasons to get rid of it. After a lot of search in Yahoo Small Business's new web site <a href="https://www.luminate.com/" target=_blank>Aabaco Small Business</a> I finally disabled the function.
-The link <?php EchoPhp_weixincn(); ?> was then successfully submited.
 <br />Then I added some real function for it. The most wanted is to use wechat to check SZ162411 Net Value. 
 In the conversation, by voice or keypad, after user input <font color=grey>162411</font> or <font color=grey>华宝油气</font>, the various estimated net value the estimation time will be returned.
 </p>

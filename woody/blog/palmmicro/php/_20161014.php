@@ -2,11 +2,6 @@
 require_once('_palmmicro.php');
 require_once('/woody/blog/php/_stockdemo.php');
 
-function EchoPhp_weixincn()
-{
-	echo GetPhpFileLink('/php/weixincn');
-}
-
 function EchoUpdateUsStockLink()
 {
     global $acct;

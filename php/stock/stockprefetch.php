@@ -44,8 +44,9 @@ function _GetEastMoneyQuotesYMD($str)
 
 function _GetFundQuotesYMD($str)
 {
-    $arWords = explode(',', $str);
-    return $arWords[4];
+    $ar = explode(',', $str);
+    if (count($ar) > 4)	return $ar[4];
+    return false;
 }
 
 function IsNewDailyQuotes($sym, $strFileName, $callback)

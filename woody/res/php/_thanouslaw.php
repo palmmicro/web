@@ -26,7 +26,7 @@ function _echoThanousLawItem($csv, $strNetValue, $strClose, $strDate, $ref, $est
 	$strEstClosePrev = $his_sql->GetClosePrev($strDate);
 	if (($strEstClose == false) || ($strEstClosePrev == false))		return;
 	
-   	$csv->Write($strDate, strval($est_ref->GetPercentage($strEstClosePrev, $strEstClose)), strval($ref->GetPercentage($strNetValue, $strClose)), $strNetValue);
+   	$csv->Write($strDate, $est_ref->GetPercentage($strEstClosePrev, $strEstClose), $ref->GetPercentage($strNetValue, $strClose), $strNetValue);
    	
     $strPremium = $ref->GetPercentageDisplay($strNetValue, $strClose);
     $strClose = $ref->GetPriceDisplay($strClose, $strNetValue);

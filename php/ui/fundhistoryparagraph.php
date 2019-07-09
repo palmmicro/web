@@ -5,7 +5,7 @@ function _echoFundHistoryTableItem($csv, $strNetValue, $strClose, $strDate, $arF
 {
     if ($csv)
     {
-    	$csv->Write($strDate, $strNetValue, strval($ref->GetPercentage($strNetValue, $strClose)));
+    	$csv->Write($strDate, $strNetValue, $ref->GetPercentage($strNetValue, $strClose));
     }
     $strPremium = $ref->GetPercentageDisplay($strNetValue, $strClose);
     $strClose = $ref->GetPriceDisplay($strClose, $strNetValue);

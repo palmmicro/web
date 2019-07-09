@@ -79,7 +79,7 @@
 基于<a href="20101107cn.php">GB2312</a>大数组的教训, 我这次直接把前4972个质数存到了MySQL的表中. 不过结果让我很失望, 查MySQL已知质数表的结果反而要比直接算慢很多倍.
 <br />当然还有像Pollard Rho这种效率更高的分解质因数算法, 不过看看这些有关质数的文章: <?php EchoLink('https://taodaling.github.io/blog/2019/04/03/Pollard-Rho-%E5%9B%A0%E5%BC%8F%E5%88%86%E8%A7%A3/'); ?>
 <br />是不是很容易觉得自己是数学白痴?
-<br />不过我还是很积极的在php下新建了一个子目录tutorial, 把这个新文件<?php echo GetPhpFileLink('/php/tutorial/primenumber'); ?>放了进去. 
+<br />不过我还是很积极的在php下新建了一个子目录tutorial, 把这个新文件<b>primenumber.php</b>放了进去. 
 同时开始憧憬万一几年后我真的开始自己做软硬件课件教<a href="20141204cn.php">林近岚</a>编程序的话, 今天这些工作可以做为其中的一节软件课. 
 <br /><font color=grey>做人要是没有梦想, 跟咸鱼有什么两样?</font>
 </p>

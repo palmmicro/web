@@ -30,10 +30,10 @@ function _getPriceOption($str, $strPrice)
     	$ar = array();
     	$iPrecision = $sym->GetPrecision();
     	$fPrice = round($strPrice, $iPrecision);
+    	$iPow = pow(10, $iPrecision);
     	for ($i = -5; $i <= 5; $i ++)
     	{
-    		$f = floatval($i);
-    		for ($j = 0; $j < $iPrecision; $j ++)	$f /= 10.0;
+    		$f = floatval($i) / $iPow;
     		$ar[] = strval($fPrice + $f);
     	}
     	return $ar;

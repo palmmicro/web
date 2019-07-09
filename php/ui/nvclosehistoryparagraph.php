@@ -8,7 +8,7 @@ function _echoNvCloseItem($csv, $shares_sql, $strDate, $strNetValue, $ref, $strF
 	$strClosePrev = $his_sql->GetClosePrev($strDate);
 	if (($strClose === false) || ($strClosePrev === false))	return;
 	
-   	if ($csv)	$csv->Write($strDate, strval($ref->GetPercentage($strClosePrev, $strClose)), strval($ref->GetPercentage($strNetValue, $strClose)), $strNetValue);
+   	if ($csv)	$csv->Write($strDate, $ref->GetPercentage($strClosePrev, $strClose), $ref->GetPercentage($strNetValue, $strClose), $strNetValue);
    	
     $strChange = $ref->GetPercentageDisplay($strClosePrev, $strClose);
    	$strPremium = $ref->GetPercentageDisplay($strNetValue, $strClose);
