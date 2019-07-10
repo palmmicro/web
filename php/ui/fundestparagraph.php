@@ -80,7 +80,8 @@ function _getFundParagraphStr($ref)
 
 function EchoFundArrayEstParagraph($arRef, $str = '')
 {
-	$arColumn = array(GetTableColumnSymbol(), GetTableColumnNetValue(), GetTableColumnOfficalEst(), GetTableColumnOfficalPremium(), GetTableColumnFairEst(), GetTableColumnFairPremium(), GetTableColumnRealtimeEst(), GetTableColumnRealtimePremium());
+	$strPremium = GetTableColumnPremium();
+	$arColumn = array(GetTableColumnSymbol(), GetTableColumnNetValue(), GetTableColumnOfficalEst(), $strPremium, GetTableColumnFairEst(), $strPremium, GetTableColumnRealtimeEst(), $strPremium);
     echo <<<END
     	<p>$str
         <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="estimation">

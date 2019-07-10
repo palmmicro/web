@@ -8,54 +8,181 @@ function _getTableColumnColor($strDisplay, $strColor)
     return "<font color=$strColor>$strDisplay</font>";
 }
 
+class TableColumn
+{
+	var $strText;
+	var $strDisplay;
+	var $iWidth;
+	
+	function TableColumn($strText, $iWidth = 80, $strColor = false, $strUnit = false)
+	{
+		$this->strText = $strText;
+		$this->iWidth = $iWidth;
+		$this->strDisplay = $strColor ? _getTableColumnColor($strText, $strColor) : $strText;
+		if ($strUnit)
+		{
+			$this->strDisplay .= '('.$strUnit.')'; 
+		}
+	}
+	
+	function GetDisplay()
+	{
+		return $this->strDisplay;
+	}
+}
+
+class TableColumnChange extends TableColumn
+{
+	function TableColumnChange()
+	{
+        parent::TableColumn(STOCK_DISP_CHANGE, 70, 'red', '%');
+	}
+}
+
 function GetTableColumnChange()
 {
-	return _getTableColumnColor(STOCK_DISP_CHANGE, 'red');
+	$col = new TableColumnChange();
+	return $col->GetDisplay();
+}
+
+class TableColumnClose extends TableColumn
+{
+	function TableColumnClose()
+	{
+        parent::TableColumn('收盘价', 70, 'purple');
+	}
 }
 
 function GetTableColumnClose()
 {
-	return _getTableColumnColor(STOCK_DISP_CLOSE, 'indigo');
+	$col = new TableColumnClose();
+	return $col->GetDisplay();
+}
+
+class TableColumnDate extends TableColumn
+{
+	function TableColumnDate()
+	{
+        parent::TableColumn('日期', 100);
+	}
 }
 
 function GetTableColumnDate()
 {
-	return STOCK_DISP_DATE;
+	$col = new TableColumnDate();
+	return $col->GetDisplay();
+}
+
+class TableColumnError extends TableColumn
+{
+	function TableColumnError()
+	{
+        parent::TableColumn('误差', 60, false, '%');
+	}
+}
+
+function GetTableColumnError()
+{
+	$col = new TableColumnError();
+	return $col->GetDisplay();
+}
+
+class TableColumnEst extends TableColumn
+{
+	function TableColumnEst()
+	{
+        parent::TableColumn(STOCK_DISP_EST, 80, 'magenta');
+	}
 }
 
 function GetTableColumnEst()
 {
-	return _getTableColumnColor(STOCK_DISP_EST, 'magenta');
+	$col = new TableColumnEst();
+	return $col->GetDisplay();
+}
+
+class TableColumnNetValue extends TableColumn
+{
+	function TableColumnNetValue()
+	{
+        parent::TableColumn(STOCK_DISP_NETVALUE, 80, 'olive');
+	}
 }
 
 function GetTableColumnNetValue()
 {
-	return _getTableColumnColor(STOCK_DISP_NETVALUE, 'olive');
+	$col = new TableColumnNetValue();
+	return $col->GetDisplay();
+}
+
+class TableColumnPremium extends TableColumn
+{
+	function TableColumnPremium()
+	{
+        parent::TableColumn(STOCK_DISP_PREMIUM, 80, 'orange', '%');
+	}
 }
 
 function GetTableColumnPremium()
 {
-	return _getTableColumnColor(STOCK_DISP_PREMIUM, 'orange');
+	$col = new TableColumnPremium();
+	return $col->GetDisplay();
+}
+
+class TableColumnPrice extends TableColumn
+{
+	function TableColumnPrice()
+	{
+        parent::TableColumn(STOCK_DISP_PRICE, 70, 'blue');
+	}
 }
 
 function GetTableColumnPrice()
 {
-	return _getTableColumnColor(STOCK_DISP_PRICE, 'blue');
+	$col = new TableColumnPrice();
+	return $col->GetDisplay();
+}
+
+class TableColumnSma extends TableColumn
+{
+	function TableColumnSma()
+	{
+        parent::TableColumn('均线', 90, 'indigo');
+	}
 }
 
 function GetTableColumnSma()
 {
-	return _getTableColumnColor(STOCK_DISP_SMA, 'indigo');
+	$col = new TableColumnSma();
+	return $col->GetDisplay();
+}
+
+class TableColumnSymbol extends TableColumn
+{
+	function TableColumnSymbol()
+	{
+        parent::TableColumn('代码', 80, 'maroon');
+	}
 }
 
 function GetTableColumnSymbol()
 {
-	return _getTableColumnColor(STOCK_DISP_SYMBOL, 'maroon');
+	$col = new TableColumnSymbol();
+	return $col->GetDisplay();
+}
+
+class TableColumnTime extends TableColumn
+{
+	function TableColumnTime()
+	{
+        parent::TableColumn('时间', 50);
+	}
 }
 
 function GetTableColumnTime()
 {
-	return STOCK_DISP_TIME;
+	$col = new TableColumnTime();
+	return $col->GetDisplay();
 }
 
 function GetReferenceTableColumn()			
@@ -106,7 +233,7 @@ function GetFundHistoryTableColumn($est_ref)
         $strChange = '';
     }
     
-	return array(GetTableColumnDate(), GetTableColumnClose(), GetTableColumnNetValue(), GetTableColumnPremium(), $strSymbol, $strChange, GetTableColumnOfficalEst(), GetTableColumnTime(), '误差');
+	return array(GetTableColumnDate(), GetTableColumnClose(), GetTableColumnNetValue(), GetTableColumnPremium(), $strSymbol, $strChange, GetTableColumnOfficalEst(), GetTableColumnTime(), GetTableColumnError());
 }
 
 function GetAhCompareTableColumn()

@@ -264,7 +264,7 @@ class StockReference
    		}
    		else
    		{
-   			$strDisp .= '%';
+//   			$strDisp .= '%';
    			$strColor = (substr($strDisp, 0, 1) == '-') ? 'red' : 'black';
    		}
     	return "<font color=$strColor>$strDisp</font>";

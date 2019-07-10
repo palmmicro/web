@@ -50,7 +50,7 @@ function _chinaEtfRefCallback($ref = false)
     	return array('', '', '');
     }
     
-    return array(GetTableColumnNetValue(), GetTableColumnOfficalEst(), GetTableColumnOfficalPremium());
+    return array(GetTableColumnNetValue(), GetTableColumnOfficalEst(), GetTableColumnPremium());
 }
 
 function EchoAll()
