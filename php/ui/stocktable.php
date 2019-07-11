@@ -2,40 +2,12 @@
 require_once('stockdisp.php');
 require_once('table.php');
 
-// aqua, black, blue, fuchsia, gray, green, lime, maroon, navy, olive, purple, red, silver, teal, white, yellow
-function _getTableColumnColor($strDisplay, $strColor)
-{
-    return "<font color=$strColor>$strDisplay</font>";
-}
-
-class TableColumn
-{
-	var $strText;
-	var $strDisplay;
-	var $iWidth;
-	
-	function TableColumn($strText, $iWidth = 80, $strColor = false, $strUnit = false)
-	{
-		$this->strText = $strText;
-		$this->iWidth = $iWidth;
-		$this->strDisplay = $strColor ? _getTableColumnColor($strText, $strColor) : $strText;
-		if ($strUnit)
-		{
-			$this->strDisplay .= '('.$strUnit.')'; 
-		}
-	}
-	
-	function GetDisplay()
-	{
-		return $this->strDisplay;
-	}
-}
-
 class TableColumnChange extends TableColumn
 {
 	function TableColumnChange()
 	{
-        parent::TableColumn(STOCK_DISP_CHANGE, 70, 'red', '%');
+        parent::TableColumn(STOCK_DISP_CHANGE, 70, 'red');
+        $this->AddUnit();
 	}
 }
 
@@ -77,7 +49,8 @@ class TableColumnError extends TableColumn
 {
 	function TableColumnError()
 	{
-        parent::TableColumn('误差', 60, false, '%');
+        parent::TableColumn('误差', 60);
+        $this->AddUnit();
 	}
 }
 
@@ -119,7 +92,8 @@ class TableColumnPremium extends TableColumn
 {
 	function TableColumnPremium()
 	{
-        parent::TableColumn(STOCK_DISP_PREMIUM, 80, 'orange', '%');
+        parent::TableColumn(STOCK_DISP_PREMIUM, 80, 'orange');
+        $this->AddUnit();
 	}
 }
 
@@ -198,11 +172,6 @@ function GetTableColumnOfficalEst()
 function GetTableColumnOfficalPremium()
 {
 	return STOCK_DISP_OFFICIAL.GetTableColumnPremium();
-}
-
-function GetTableColumnFairEst()
-{
-	return STOCK_DISP_FAIR.GetTableColumnEst();
 }
 
 function GetTableColumnFairPremium()

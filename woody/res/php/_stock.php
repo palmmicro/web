@@ -12,8 +12,7 @@ require_once('_stockgroup.php');
 
 function _EchoPortfolioParagraphBegin($str)
 {
-	$strSymbol = GetTableColumnSymbol();
-    $arColumn = array($strSymbol, '总数量', '平均价格', '百分比', '持仓', '盈亏', '货币');
+    $arColumn = array(GetTableColumnSymbol(), '总数量', '平均价格', GetTableColumnChange(), '持仓', '盈亏', '货币');
     
     echo <<<END
     	<p>$str

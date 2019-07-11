@@ -86,7 +86,6 @@ function _echoArbitrageParagraph($group)
     $us_ref = $group->us_ref;
     if ($group->arbi_trans == false)		return;
     
-    EchoParagraphBegin('策略分析');
     EchoArbitrageTableBegin();
 	$sym = $group->arbi_trans->ref->sym;
     if ($sym->IsSymbolA())

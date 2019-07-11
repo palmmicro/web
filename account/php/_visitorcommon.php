@@ -38,9 +38,9 @@ function EchoVisitorParagraphBegin($arColumn, $strNavLink, $strSrc, $bChinese)
 {
     $strOrigLink = UrlGetQueryString() ? CopyPhpLink(false, '回访问首页', 'Back to Visitor Home', $bChinese) : '';
     $strDeleteLink = _getDeleteVisitorLink($strSrc, $bChinese);
-    EchoParagraphBegin($strNavLink.' '.$strOrigLink.' '.$strDeleteLink);
     
     echo <<<END
+   	<p>$strNavLink $strOrigLink $strDeleteLink
     <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="visitor">
     <tr>
         <td class=c1 width=350 align=center>{$arColumn[0]}</td>

@@ -80,22 +80,24 @@ function _getFundParagraphStr($ref)
 
 function EchoFundArrayEstParagraph($arRef, $str = '')
 {
-	$strPremium = GetTableColumnPremium();
-	$arColumn = array(GetTableColumnSymbol(), GetTableColumnNetValue(), GetTableColumnOfficalEst(), $strPremium, GetTableColumnFairEst(), $strPremium, GetTableColumnRealtimeEst(), $strPremium);
-    echo <<<END
-    	<p>$str
-        <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="estimation">
-        <tr>
-            <td class=c1 width=80 align=center>{$arColumn[0]}</td>
-            <td class=c1 width=80 align=center>{$arColumn[1]}</td>
-            <td class=c1 width=80 align=center>{$arColumn[2]}</td>
-            <td class=c1 width=80 align=center>{$arColumn[3]}</td>
-            <td class=c1 width=80 align=center>{$arColumn[4]}</td>
-            <td class=c1 width=80 align=center>{$arColumn[5]}</td>
-            <td class=c1 width=80 align=center>{$arColumn[6]}</td>
-            <td class=c1 width=80 align=center>{$arColumn[7]}</td>
-        </tr>
-END;
+	$offical_col = new TableColumnEst();
+	$offical_col->AddPrefix(STOCK_DISP_OFFICIAL);
+
+	$fair_col = new TableColumnEst();
+	$fair_col->AddPrefix(STOCK_DISP_FAIR);
+
+	$realtime_col = new TableColumnEst();
+	$realtime_col->AddPrefix(STOCK_DISP_REALTIME);
+
+	$premium_col = new TableColumnPremium();
+	EchoTableParagraphBegin(array(new TableColumnSymbol(),
+								   new TableColumnNetValue(),
+								   $offical_col,
+								   $premium_col,
+								   $fair_col,
+								   $premium_col,
+								   $realtime_col,
+								   $premium_col), 'estimation', $str);
 
     foreach ($arRef as $ref)
     {

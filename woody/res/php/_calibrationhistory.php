@@ -59,8 +59,8 @@ function _echoCalibrationHistoryParagraph($strSymbol, $iStart, $iNum)
     $iTotal = SqlCountStockCalibration($strStockId);
     $strNavLink = StockGetNavLink($strSymbol, $iTotal, $iStart, $iNum);
     
-    EchoParagraphBegin($strNavLink);
     echo <<<END
+   	<p>$strNavLink
     <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="history">
     <tr>
         <td class=c1 width=90 align=center>{$arColumn[0]}</td>

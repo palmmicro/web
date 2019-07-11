@@ -94,7 +94,6 @@ class _LofGroup extends _StockGroup
         $etf_convert_trans->AddTransaction($etf_trans->iTotalShares, $etf_trans->fTotalCost);
         $this->ConvertToEtfTransaction($etf_convert_trans, $lof_trans);
     
-        EchoParagraphBegin('策略分析');
         EchoArbitrageTableBegin();
         $sym = $this->arbi_trans->ref->sym;
         if ($sym->IsSymbolA())

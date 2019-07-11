@@ -10,6 +10,7 @@ function EchoArbitrageTableBegin()
     $arColumn = array($strSymbol, '对冲数量', '对冲'.$strPrice, '折算数量', '折算'.$strPrice, '折算净值盈亏');
     
     echo <<<END
+   	<p>策略分析
     <TABLE borderColor=#cccccc cellSpacing=0 width=510 border=1 class="text" id="arbitrage">
     <tr>
         <td class=c1 width=80 align=center>{$arColumn[0]}</td>
