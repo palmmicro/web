@@ -84,6 +84,15 @@
 <br />佛前五百罗汉, 田横五百士, 微信用户超过五百人就可以开通流量主收广告费了.
 </p>
 
+<h3><a name="chinabond">用微信公众号查询A股债券数据</a></h3>
+<p>2019年7月13日
+<br />昨天有人在微信公众号上查<font color=grey>019547</font>没有匹配. 看了一下<?php EchoSinaQuotesLink('sh019547'); ?>, 发现居然是国债.
+软件工具有人用终归是好事情, 所以再次削尖铅笔给我的数据库加上所有A股债券数据.
+<br /><?php EchoLink(GetJrjBondListUrl()); ?>      <?php EchoUpdateChinaBondLink(); ?>
+<br /><?php EchoLink(GetJrjBondListUrl('qz')); ?>  <?php EchoUpdateChinaBondLink('qz'); ?>
+<br /><?php EchoLink(GetJrjBondListUrl('kzz')); ?> <?php EchoUpdateChinaBondLink('kzz'); ?>
+</p>
+
 </div>
 
 <?php _LayoutBottom(); ?>

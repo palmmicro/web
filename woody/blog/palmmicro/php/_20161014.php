@@ -29,4 +29,14 @@ function EchoUpdateChinaFundLink()
 	}
 }
 
+function EchoUpdateChinaBondLink($strType = 'gz')
+{
+    global $acct;
+   	if ($acct->IsAdmin())
+	{
+		$ar = array('gz' => '国债', 'qz' => '企债', 'kzz' => '可转债');
+		EchoInternalLink('/php/test/updatechinabond.php?type='.$strType, '更新A股'.$ar[$strType].'数据');
+	}
+}
+
 ?>

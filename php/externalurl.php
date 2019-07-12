@@ -5,6 +5,11 @@ function GetSinaFinanceUrl()
 	return 'https://finance.sina.com.cn/';
 }
 
+function GetSinaUsStockListUrl()
+{
+	return 'http://vip.stock.finance.sina.com.cn/usstock/ustotal.php';
+}
+
 function GetEastMoneyFundUrl()
 {
 	return 'http://fund.eastmoney.com/';
@@ -20,9 +25,12 @@ function GetEastMoneyStockListUrl()
 	return 'http://quote.eastmoney.com/stock_list.html';
 }
 
-function GetSinaUsStockListUrl()
+// http://bond.jrj.com.cn/data/gz.shtml
+// http://bond.jrj.com.cn/data/qz.shtml
+// http://bond.jrj.com.cn/data/kzz.shtml
+function GetJrjBondListUrl($strType = 'gz')
 {
-	return 'http://vip.stock.finance.sina.com.cn/usstock/ustotal.php';
+	return 'http://bond.jrj.com.cn/data/'.$strType.'.shtml';
 }
 
 function GetXueqiuUrl()
