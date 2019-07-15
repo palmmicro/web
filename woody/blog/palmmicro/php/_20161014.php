@@ -20,6 +20,24 @@ function EchoUpdateChinaStockLink()
 	}
 }
 
+function EchoUpdateAdrLink()
+{
+    global $acct;
+   	if ($acct->IsAdmin())
+	{
+		EchoInternalLink('/php/test/updateadr.php', '更新H股ADR数据');
+	}
+}
+
+function EchoUpdateAhLink()
+{
+    global $acct;
+   	if ($acct->IsAdmin())
+	{
+		EchoInternalLink('/php/test/updateah.php', '更新AH股数据');
+	}
+}
+
 function EchoUpdateChinaFundLink()
 {
     global $acct;

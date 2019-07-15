@@ -33,6 +33,13 @@ function GetJrjBondListUrl($strType = 'gz')
 	return 'http://bond.jrj.com.cn/data/'.$strType.'.shtml';
 }
 
+// http://www.aastocks.com/tc/market/adr.aspx
+// http://www.aastocks.com/tc/market/ah.aspx
+function GetAastocksUrl($strType = 'adr')
+{
+	return 'http://www.aastocks.com/tc/market/'.$strType.'.aspx';
+}
+
 function GetXueqiuUrl()
 {
 	return 'https://xueqiu.com/';

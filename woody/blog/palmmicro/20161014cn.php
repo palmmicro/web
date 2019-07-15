@@ -61,6 +61,7 @@
 <p>2017年1月30日
 <br />微信公众号搞了几个月, 使用者寥寥. 不过开发微信公众号的过程中有个意外收获, 帮助我彻底区分了净值计算和用户显示界面的代码.
 <br />为了充分利用这个好处, 在帮助有效配合今年打新加入AH股对比后, 我马上把它也包括在了微信公众号的查询结果中.
+<br />数据来源: <?php EchoLink(GetAastocksUrl('ah')); ?>		<?php EchoUpdateAhLink(); ?>
 <br />输入查<font color=grey>600028</font>或者<font color=grey>00386</font>试试看.
 </p>
 <?php EchoAhDemo(); ?>
@@ -73,6 +74,7 @@
 <br />因为微信查找中我没有做中文分词, 因此<font color=grey>人民币汇率</font>这种5个字的长查询其实是很难匹配的. 
 为了保证下次用户能查到, 我还特意手工把数据库中USCNY的说明从<font color=grey>美元人民币中间价</font>改成了<font color=grey>美元人民币汇率中间价</font>.
 <br />得意之余再补记一下, 上周蹭雪球热点港股腾讯ADR代码TCEHY时加了ADR和H股对比后, 又继续把它集成到了微信查询中.
+<br />数据来源: <?php EchoLink(GetAastocksUrl()); ?>		<?php EchoUpdateAdrLink(); ?>
 <br />输入查<font color=grey>00700</font>或者<font color=grey>腾讯</font>试试看.
 <!--<br /><img src=../photo/kingcrab.jpg alt="Jan 30, 2018. King crab, Woody and Sapphire in La Quinta Carlsbad." />-->
 </p>
@@ -88,6 +90,7 @@
 <p>2019年7月13日
 <br />昨天有人在微信公众号上查<font color=grey>019547</font>没有匹配. 看了一下<?php EchoSinaQuotesLink('sh019547'); ?>, 发现居然是国债.
 软件工具有人用终归是好事情, 所以再次削尖铅笔给我的数据库加上所有A股债券数据.
+<br />数据来源: 
 <br /><?php EchoLink(GetJrjBondListUrl()); ?>      <?php EchoUpdateChinaBondLink(); ?>
 <br /><?php EchoLink(GetJrjBondListUrl('qz')); ?>  <?php EchoUpdateChinaBondLink('qz'); ?>
 <br /><?php EchoLink(GetJrjBondListUrl('kzz')); ?> <?php EchoUpdateChinaBondLink('kzz'); ?>

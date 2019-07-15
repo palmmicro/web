@@ -134,11 +134,11 @@ function _getSimilarLinks($strTitle)
     {
     case 'adr':
     case 'adrhcompare':
-    	$str = GetAastocksAdrLink();
+    	$str = GetAastocksLink();
         break;
   
     case 'ahcompare':
-    	$str = GetExternalLink(GetJisiluDataUrl().'ha/', '集思录').' '.GetExternalLink('http://data.10jqka.com.cn/market/ahgbj/', '同花顺');
+    	$str = GetExternalLink(GetJisiluDataUrl().'ha/', '集思录').' '.GetExternalLink('http://data.10jqka.com.cn/market/ahgbj/', '同花顺').' '.GetAastocksLink('ah');
         break;
   
     case 'goldetf':

@@ -56,19 +56,31 @@ function _updateChinaBond()
 	$sql = new StockSql();
    	foreach ($arMatch as $arItem)
    	{
-   		$strFirst = substr($arItem[1], 0, 1);
+   		$ar = explode('/', $arItem[1]);
+   		$strFirst = $ar[0];
    		if ($strFirst == '1')				$strPrefix = SHENZHEN_PREFIX;
    		else if ($strFirst == '2')		$strPrefix = SHANGHAI_PREFIX;
    		else								continue;
    		
-   		$ar = explode(' ', $arItem[2]);
-		$strName = $ar[0];
-		$strSymbol = $strPrefix.$ar[1];
-		if ($sql->Write($strSymbol, $strName))
-		{
-			DebugString($strSymbol.' '.$strName);
-			$iCount ++;
-		}
+   		$strDigit = $ar[1];
+   		if (IsChineseStockDigit($strDigit))
+   		{
+   			$ar = explode(' ', $arItem[2]);
+   			if ($strDigit == $ar[1])
+   			{
+   				$strName = $ar[0];
+   				$strSymbol = $strPrefix.$strDigit;
+   				if ($sql->Write($strSymbol, $strName))
+   				{
+   					DebugString($strSymbol.' '.$strName);
+   					$iCount ++;
+   				}
+   			}
+   		}
+   		else
+   		{
+   			DebugString($arItem[0]);
+   		}
    	}
     DebugVal($iCount, 'updated');
 }

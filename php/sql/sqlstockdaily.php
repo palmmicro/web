@@ -12,14 +12,14 @@ class DailyStockSql extends StockTableSql
 
     function ComposeDailyStr()
     {
-    	return $this->ComposeKeyStr()
+    	return $this->ComposeKeyStr().','
          	  . ' `date` DATE NOT NULL ,'
          	  . ' `close` DOUBLE(13,6) NOT NULL ,';
     }
     
     function ComposeDailyIndexStr()
     {
-    	return $this->ComposeForeignKeyStr()
+    	return $this->ComposeForeignKeyStr().','
          	  . ' UNIQUE ( `date`, `stock_id` )';
     }
     

@@ -11,22 +11,27 @@ class TableSql
         $this->Create();
     }
 
+    function ComposeIdStr()
+    {
+    	return ' `id` INT UNSIGNED NOT NULL PRIMARY KEY';
+    }
+
     function Create()
     {
-    	return $this->CreateTable(' `id` INT UNSIGNED NOT NULL PRIMARY KEY');
+    	return $this->CreateTable($this->ComposeIdStr());
     }
     
+    function CreateIdTable($str)
+    {
+       	return $this->CreateTable(' `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,'.$str);
+    }
+
     function _query($strQuery, $strDie)
     {
 //    	DebugString($strQuery);
         return SqlDieByQuery($strQuery, $this->strName.' ['.$strQuery.'] '.$strDie);
 	}
 	
-    function CreateIdTable($str)
-    {
-       	return $this->CreateTable(' `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,'.$str);
-    }
-
     function CreateTable($str)
     {
     	$strQuery = 'CREATE TABLE IF NOT EXISTS `camman`.`'
@@ -283,12 +288,12 @@ class KeyTableSql extends TableSql
     
     function ComposeKeyStr()
     {
-    	return ' `'.$this->strKey.'` INT UNSIGNED NOT NULL ,';
+    	return ' `'.$this->strKey.'` INT UNSIGNED NOT NULL ';
     }
 
     function ComposeForeignKeyStr()
     {
-		return ' FOREIGN KEY (`'.$this->strKey.'`) REFERENCES `'.$this->strKeyPrefix.'`(`id`) ON DELETE CASCADE ,';
+		return ' FOREIGN KEY (`'.$this->strKey.'`) REFERENCES `'.$this->strKeyPrefix.'`(`id`) ON DELETE CASCADE ';
     }
     
     function MakeFieldKeyId()
@@ -357,6 +362,23 @@ class KeyTableSql extends TableSql
     }
 }
 
+// ****************************** KeyPairSql class *******************************************************
+class KeyPairSql extends KeyTableSql
+{
+    function KeyPairSql($strKeyId, $strKeyPrefix, $strTableName)
+    {
+        parent::KeyTableSql($strKeyId, $strKeyPrefix, $strTableName);
+    }
+
+    function Create()
+    {
+    	$str = $this->ComposeIdStr().','
+    		  . $this->ComposeKeyStr().','
+         	  . $this->ComposeForeignKeyStr();
+    	return $this->CreateTable($str);
+    }
+}
+
 // ****************************** KeyValSql class *******************************************************
 class KeyValSql extends KeyTableSql
 {
@@ -372,9 +394,9 @@ class KeyValSql extends KeyTableSql
 
     function Create()
     {
-    	$str = $this->ComposeKeyStr()
+    	$str = $this->ComposeKeyStr().','
     		  . ' `'.$this->strValName.'` VARCHAR( '.strval($this->iMaxLen).' ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,'
-         	  . $this->ComposeForeignKeyStr()
+         	  . $this->ComposeForeignKeyStr().','
          	  . ' UNIQUE ( `'.$this->strValName.'`, `'.$this->strKey.'` )';
     	return $this->CreateIdTable($str);
     }

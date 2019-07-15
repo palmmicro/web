@@ -181,7 +181,7 @@ function EchoAll()
 
 function GetAdrLinks()
 {
-	$str = GetAastocksAdrLink();
+	$str = GetAastocksLink();
 	$str .= GetStockGroupLinks();
 	return $str;
 }

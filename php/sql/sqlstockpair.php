@@ -5,6 +5,24 @@ define('TABLE_AH_STOCK', 'ahstock');
 define('TABLE_ADRH_STOCK', 'adrhstock');
 define('TABLE_ETF_PAIR', 'etfpair');
 
+// ****************************** StockPairSql class *******************************************************
+class StockPairSql extends KeyPairSql
+{
+    function StockPairSql($strStockId, $strTableName) 
+    {
+        parent::KeyPairSql($strStockId, 'stock', $strTableName);
+    }
+}
+
+// ****************************** AhPairSql class *******************************************************
+class AhPairSql extends StockPairSql
+{
+    function AhPairSql($strStockId = false) 
+    {
+        parent::StockPairSql($strStockId, 'ahpair');
+    }
+}
+
 // ****************************** PairStockSql class *******************************************************
 class PairStockSql extends StockTableSql
 {
