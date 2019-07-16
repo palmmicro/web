@@ -73,7 +73,6 @@ class MysqlReference extends StockReference
         {
             if ($this->bHasData)
             {
-            	DebugString('Insert: '.$strSymbol.' '.$this->GetChineseName());
                 $sql->Insert($strSymbol, $this->GetChineseName());
                 $this->strSqlId = $sql->GetId($strSymbol);
             }

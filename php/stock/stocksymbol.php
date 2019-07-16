@@ -39,7 +39,7 @@ function in_arrayChinaEtf($strSymbol)
 
 function AdrGetSymbolArray()
 {
-    return array('ach', 'cea', 'chu', 'gsh', 'hnp', 'lfc', 'ptr', 'shi', 'snp', 'znh');
+    return array('ach', 'cea', 'gsh', 'hnp', 'lfc', 'ptr', 'shi', 'snp', 'znh');
 }
 
 function GoldEtfGetSymbolArray()

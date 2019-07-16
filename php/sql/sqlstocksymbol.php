@@ -26,6 +26,7 @@ class StockSql extends KeyNameSql
     
     function Insert($strSymbol, $strName)
     {
+       	DebugString('Insert Stock: '.$strSymbol.' '.$strName);
     	return $this->InsertData($this->_getFieldArray($strSymbol, $strName));
     }
 

@@ -23,7 +23,6 @@ class _AdrGroup extends _StockGroup
     var $arStockRef;
     
     var $fRatioAdrH;
-    var $fRatioAH;
 
     var $cn_convert;
     var $us_convert;
@@ -48,7 +47,6 @@ class _AdrGroup extends _StockGroup
         $this->arStockRef = array($this->us_ref, $this->hk_ref, $this->cn_ref);
        
         $this->fRatioAdrH = $this->hk_ref->GetAdrRatio();
-        $this->fRatioAH = $this->hk_ref->GetRatio();
 
         parent::_StockGroup($this->arStockRef);
     }
@@ -59,17 +57,17 @@ class _AdrGroup extends _StockGroup
 
         $this->cn_convert = new MyStockTransaction($this->cn_ref, $this->strGroupId);
         $this->cn_convert->AddTransaction($cn_trans->iTotalShares, $cn_trans->fTotalCost);
-        $this->cn_convert->AddTransaction(intval($hk_trans->iTotalShares / $this->fRatioAH), $hk_trans->fTotalCost * $this->fHKDCNY);
-        $this->cn_convert->AddTransaction(intval($us_trans->iTotalShares * $this->fRatioAdrH / $this->fRatioAH), $us_trans->fTotalCost * $this->fUSDCNY);
+        $this->cn_convert->AddTransaction($hk_trans->iTotalShares, $hk_trans->fTotalCost * $this->fHKDCNY);
+        $this->cn_convert->AddTransaction(intval($us_trans->iTotalShares * $this->fRatioAdrH), $us_trans->fTotalCost * $this->fUSDCNY);
         
         $this->hk_convert = new MyStockTransaction($this->hk_ref, $this->strGroupId);
         $this->hk_convert->AddTransaction($hk_trans->iTotalShares, $hk_trans->fTotalCost);
-        $this->hk_convert->AddTransaction(intval($cn_trans->iTotalShares * $this->fRatioAH), $cn_trans->fTotalCost / $this->fHKDCNY);
+        $this->hk_convert->AddTransaction($cn_trans->iTotalShares, $cn_trans->fTotalCost / $this->fHKDCNY);
         $this->hk_convert->AddTransaction(intval($us_trans->iTotalShares * $this->fRatioAdrH), $us_trans->fTotalCost * $this->fUSDHKD);
         
         $this->us_convert = new MyStockTransaction($this->us_ref, $this->strGroupId);
         $this->us_convert->AddTransaction($us_trans->iTotalShares, $us_trans->fTotalCost);
-        $this->us_convert->AddTransaction(intval($cn_trans->iTotalShares * $this->fRatioAH / $this->fRatioAdrH), $cn_trans->fTotalCost / $this->fUSDCNY);
+        $this->us_convert->AddTransaction(intval($cn_trans->iTotalShares / $this->fRatioAdrH), $cn_trans->fTotalCost / $this->fUSDCNY);
         $this->us_convert->AddTransaction(intval($hk_trans->iTotalShares / $this->fRatioAdrH), $hk_trans->fTotalCost / $this->fUSDHKD);
     }
 } 
@@ -92,20 +90,20 @@ function _echoArbitrageParagraph($group)
     {
         $cn_arbi = $group->arbi_trans;
         EchoArbitrageTableItem2($cn_arbi, $group->cn_convert); 
-        EchoArbitrageTableItem(intval(-1.0 * $cn_arbi->iTotalShares * $group->fRatioAH), $hk_ref->GetPriceDisplay($hk_ref->EstFromCny($cn_arbi->GetAvgCost())), $group->hk_convert); 
-        EchoArbitrageTableItem(intval(-1.0 * $cn_arbi->iTotalShares * $group->fRatioAH / $group->fRatioAdrH), $us_ref->GetPriceDisplay($hk_ref->FromCnyToUsd($cn_arbi->GetAvgCost())), $group->us_convert); 
+        EchoArbitrageTableItem(-1 * $cn_arbi->iTotalShares, $hk_ref->GetPriceDisplay($hk_ref->EstFromCny($cn_arbi->GetAvgCost())), $group->hk_convert); 
+        EchoArbitrageTableItem(intval(-1.0 * $cn_arbi->iTotalShares / $group->fRatioAdrH), $us_ref->GetPriceDisplay($hk_ref->FromCnyToUsd($cn_arbi->GetAvgCost())), $group->us_convert); 
     }
     else if ($sym->IsSymbolH())
     {
         $hk_arbi = $group->arbi_trans;
-        EchoArbitrageTableItem(intval(-1.0 * $hk_arbi->iTotalShares / $group->fRatioAH), $cn_ref->GetPriceDisplay($hk_ref->EstToCny($hk_arbi->GetAvgCost())), $group->cn_convert); 
+        EchoArbitrageTableItem(-1 * $hk_arbi->iTotalShares, $cn_ref->GetPriceDisplay($hk_ref->EstToCny($hk_arbi->GetAvgCost())), $group->cn_convert); 
         EchoArbitrageTableItem2($hk_arbi, $group->hk_convert); 
         EchoArbitrageTableItem(intval(-1.0 * $hk_arbi->iTotalShares / $group->fRatioAdrH), $us_ref->GetPriceDisplay($hk_ref->EstToUsd($hk_arbi->GetAvgCost())), $group->us_convert); 
     }
     else
     {
         $us_arbi = $group->arbi_trans;
-        EchoArbitrageTableItem(intval(-1.0 * $us_arbi->iTotalShares * $group->fRatioAdrH / $group->fRatioAH), $cn_ref->GetPriceDisplay($hk_ref->FromUsdToCny($us_arbi->GetAvgCost())), $group->cn_convert); 
+        EchoArbitrageTableItem(intval(-1.0 * $us_arbi->iTotalShares * $group->fRatioAdrH), $cn_ref->GetPriceDisplay($hk_ref->FromUsdToCny($us_arbi->GetAvgCost())), $group->cn_convert); 
         EchoArbitrageTableItem(intval(-1.0 * $us_arbi->iTotalShares * $group->fRatioAdrH), $hk_ref->GetPriceDisplay($hk_ref->EstFromUsd($us_arbi->GetAvgCost())), $group->hk_convert); 
         EchoArbitrageTableItem2($us_arbi, $group->us_convert); 
     }

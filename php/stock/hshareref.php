@@ -6,7 +6,6 @@ class HShareReference extends MyStockReference
     var $a_ref = false;
     var $adr_ref = false;
 
-    var $fRatio = 1.0;
     var $fAdrRatio = 1.0;
     
     var $fHKDUSD;
@@ -19,7 +18,6 @@ class HShareReference extends MyStockReference
         if ($strSymbolA = SqlGetHaPair($strSymbol))
         {
         	$this->a_ref = new MyStockReference($strSymbolA);
-    		$this->fRatio = SqlGetAhPairRatio($this->a_ref);
     	}
         if ($strSymbolAdr = SqlGetHadrPair($strSymbol))
         {
@@ -29,11 +27,6 @@ class HShareReference extends MyStockReference
     		$this->fHKDUSD = $this->fHKDCNY / $this->fUSDCNY;
     	}
         parent::MyStockReference($strSymbol);
-    }
-    
-    function GetRatio()
-    {
-    	return $this->fRatio;
     }
     
     function GetAdrRatio()
@@ -48,13 +41,13 @@ class HShareReference extends MyStockReference
     
     function EstFromCny($strEst)
     {
-  		return $this->a_ref ? strval(floatval($strEst) / ($this->fRatio * $this->fHKDCNY)) : '0';
+  		return $this->a_ref ? strval(floatval($strEst) / $this->fHKDCNY) : '0';
     }
 
     function EstToCny($strEst, $strHKDCNY = false)
     {
     	$fHKDCNY = $strHKDCNY ? floatval($strHKDCNY) : $this->fHKDCNY;
-		return $this->a_ref ? strval(floatval($strEst) * $this->fRatio * $fHKDCNY) : '0';
+		return $this->a_ref ? strval(floatval($strEst) * $fHKDCNY) : '0';
     }
     
     function GetCnyPrice()

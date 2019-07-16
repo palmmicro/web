@@ -147,7 +147,17 @@ function _sqlGetStockPairArray($strTableName)
 
 function SqlGetAhArray()
 {
-	return _sqlGetStockPairArray(TABLE_AH_STOCK);
+	$arSymbol = array();
+	$sql = new StockSql();
+	$pair_sql = new AhPairSql();
+	
+	$ar = $pair_sql->GetAllId();
+	foreach ($ar as $strStockId)
+	{
+		$arSymbol[] = $sql->GetKeyName($strStockId);
+	}
+    sort($arSymbol);
+	return $arSymbol;
 }
 
 function SqlGetAdrhArray()
@@ -158,11 +168,6 @@ function SqlGetAdrhArray()
 function SqlGetEtfPairArray()
 {
 	return _sqlGetStockPairArray(TABLE_ETF_PAIR);
-}
-
-function SqlGetAhPairRatio($a_ref)
-{
-	return SqlGetStockPairRatio(TABLE_AH_STOCK, $a_ref->GetStockId());
 }
 
 function SqlGetAdrhPairRatio($adr_ref)

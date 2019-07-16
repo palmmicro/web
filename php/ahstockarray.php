@@ -132,7 +132,6 @@ function _getAdrSymbolA($strSymbolAdr)
     {
     case 'ACH':   return 'SH601600';
     case 'CEA':   return 'SH600115';
-    case 'CHU':   return 'SH600050';
     case 'GSH':   return 'SH601333';
     case 'LFC':   return 'SH601628';
     case 'PTR':   return 'SH601857';

@@ -148,6 +148,20 @@ class TableSql
     	return false;
     }
     
+    function GetAllId()
+    {
+    	$ar = array();
+    	if ($result = $this->GetData()) 
+    	{	
+    		while ($record = mysql_fetch_assoc($result)) 
+    		{
+    			$ar[] = $record['id'];
+    		}
+    		@mysql_free_result($result);
+    	}
+    	return $ar;
+    }
+    
     function DeleteData($strWhere, $strLimit = false)
     {
     	return SqlDeleteTableData($this->strName, $strWhere, $strLimit);
@@ -376,6 +390,11 @@ class KeyPairSql extends KeyTableSql
     		  . $this->ComposeKeyStr().','
          	  . $this->ComposeForeignKeyStr();
     	return $this->CreateTable($str);
+    }
+    
+    function Insert($strId, $strPairId)
+    {
+    	return $this->InsertData(array('id' => $strId, $this->strKey => $strPairId));
     }
 }
 

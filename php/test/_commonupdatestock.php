@@ -6,4 +6,6 @@ require_once('/php/gb2312.php');
 require_once('/php/stock/stocksymbol.php');
 require_once('/php/sql/sqlstocksymbol.php');
 
+require_once('/php/sql/sqlstockpair.php');
+
 ?>
