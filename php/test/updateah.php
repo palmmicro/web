@@ -56,7 +56,16 @@ function _updateAh()
    					}
    					if ($strStockIdH)
    					{
-   						if ($pair_sql->GetById($strStockIdA) == false)
+   						if ($strIdH = $pair_sql->GetKeyId($strStockIdA))
+   						{
+   							if ($strIdH != $strStockIdH)
+   							{
+   								$pair_sql->Update($strStockIdA, $strStockIdH);
+   								DebugString('Unusual Update: '.$strSymbolH.' '.$strSymbolA);
+   								$iCount ++;
+   							}
+   						}
+   						else
    						{
    							$pair_sql->Insert($strStockIdA, $strStockIdH);
    							DebugString($arItem[1].' '.$strSymbolH.' '.$strSymbolA);

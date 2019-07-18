@@ -89,6 +89,7 @@ function EchoAll()
     }
     $str .= '<br /><br />'.GetCategoryLinks(_getAdminInputArray());
     EchoParagraph($str);
+    EchoStockCategory();
 }
 
 function _getAdminInputTitle($strTitle, $strQuery)

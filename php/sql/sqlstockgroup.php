@@ -103,7 +103,7 @@ class StockGroupItemSql extends StockGroupTableSql
     
     function CountAllStockTransaction()
     {
-    	if ($ar = $this->GetTableIdArray())
+    	if ($ar = $this->GetIdArray())
     	{
    			return $this->trans_sql->CountAll($ar);
     	}
@@ -112,7 +112,7 @@ class StockGroupItemSql extends StockGroupTableSql
     
     function GetAllStockTransaction($iStart = 0, $iNum = 0)
     {
-    	if ($ar = $this->GetTableIdArray())
+    	if ($ar = $this->GetIdArray())
     	{
     		return $this->trans_sql->GetAll($ar, $iStart, $iNum);
     	}

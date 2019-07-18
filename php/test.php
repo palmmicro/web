@@ -4,7 +4,6 @@ require_once('account.php');
 require_once('stock.php');
 require_once('stock/ftstock.php');
 
-//require_once('ahstockarray.php');
 require_once('sql/_sqltest.php');
 require_once('sql/sqlblog.php');
 require_once('sql/sqlvisitor.php');
@@ -126,9 +125,6 @@ function SysInit()
 	
 //   	$sql = new FundEstSql();
 //	_checkBlogTable();
-	
-//	AhWriteDatabase();		
-//	AdrhWriteDatabase();
 }
 
 function TestCmdLine()

@@ -77,15 +77,20 @@ function _getStockOptionAdr($strSymbol)
 
 function _getStockOptionAh($strSymbol)
 {
+	if ($strH = SqlGetAhPair($strSymbol))
+	{
+		return $strH;
+	}
+	return 'H';
+}
+
+function _getStockOptionHa($strSymbol)
+{
 	if ($strA = SqlGetHaPair($strSymbol))
 	{
-		if ($fRatio = SqlGetStockPairRatio(TABLE_AH_STOCK, SqlGetStockId($strA)))
-		{
-			return $strA.'/'.strval($fRatio);
-		}
 		return $strA;
 	}
-	return 'A/1';
+	return 'A';
 }
 
 function _getStockOptionEtf($strSymbol)
@@ -144,6 +149,9 @@ function _getStockOptionVal($strSubmit, $ref, $strSymbol, $strDate)
 	case STOCK_OPTION_EDIT:
 		return _getStockOptionName($ref, $strSymbol);
 
+	case STOCK_OPTION_HA:
+		return _getStockOptionHa($strSymbol);
+
 	case STOCK_OPTION_SPLIT:
 		return '10:1';
 
@@ -157,18 +165,23 @@ function _getStockOptionMemo($strSubmit)
 {
 	switch ($strSubmit)
 	{
+	case STOCK_OPTION_ADR:
+		return '输入SYMBOL/0删除对应ADR.';
+		
+	case STOCK_OPTION_AH:
+		return '清空输入删除对应H股.';
+		
 	case STOCK_OPTION_EMA:
 		return '股票收盘后的第2天修改才会生效, 输入0/0删除全部EMA记录.';
 
 	case STOCK_OPTION_ETF:
 		return '输入INDEX*0删除对应关系和全部校准记录.';
 
+	case STOCK_OPTION_HA:
+		return '清空输入删除对应A股.';
+
 	case STOCK_OPTION_SPLIT:
 		return '输入1:10表示10股合1股, 10:1表示1股拆10股.';
-
-	case STOCK_OPTION_ADR:
-	case STOCK_OPTION_AH:
-		return '输入SYMBOL/0删除对应关系.';
 	}
 	return '';
 }

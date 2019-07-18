@@ -88,6 +88,7 @@
 庞大的$arGB2312全局数组马上成了最大的疑犯.
 <br />在我把全局数组放进函数后, 情况更加恶化了. 需要重新刷新的情况看上去像是少了一点, 却出现了/php/<b>switch.php</b>文件中<b>$_SESSION['userurl']</b>这种全局数据被莫名其妙的冲掉的问题.
 <br />好在经过这么多年后, 我对MySQL已经没有那么畏惧, 在溜娃间隙中削尖铅笔在/php/sql/<b>sqlgb2312.php</b>文件中增加了一个GB2312和UNICODE的对应表, 把查内存中的大数组改成了查数据库, 终于解决了这个困扰了我一年半的刷新问题.
+<br />发现帮助傻瓜编程的PHP也对程序优化有要求还是挺让我兴奋的, 觉得这么多年来的优化软件经验终于又有用武之地了.
 <br /><img src=../photo/mermaid.jpg alt="Feb 3, 2018. Mermaid and Sapphire in SeaWorld San Diego." />
 </p>
 
@@ -99,6 +100,7 @@
 花了差不多一天功夫做完这些几乎算是推倒重来的修补后, 我不禁又有了一种神功已成的感觉. 
 <?php EchoUpdateGbUtfLink(); ?>
 <br /><font color=grey>欲练神功, 必先自宫. 虽然自宫, 未必成功. 如不自宫, 也可成功.</font>
+<br /><img src=../photo/solitaire.jpg alt="Jan 29, 2018. Solitaire Sapphire in LEGOLAND CALIFORNIA." />
 </p>
 
 </div>

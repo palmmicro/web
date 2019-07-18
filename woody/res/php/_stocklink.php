@@ -46,7 +46,8 @@ function GetCategoryArray($strTitle)
         break;
   
     case 'ahcompare':
-        $ar = SqlGetAhArray();
+   		$pair_sql = new AhPairSql();
+        $ar = $pair_sql->GetSymbolArray();
         break;
   
     case 'bricfund':

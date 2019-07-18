@@ -261,7 +261,7 @@ CL通常会在美股收盘后继续多交易一个小时, 此时实时估值也�
 <h3><a name="ahcompare">AH股</a>对比</h3>
 <p>2017年1月28日
 <br />为了有效配合今年的打新计划, 我打算扩大中国石化外的门票范围, 但是同时沿用AH股价格比较的思路, 只选取A股价格低于H股的作为门票.
-<br />替选股增加个对比页面, 同时把原来<a href="#adr">ADR</a>中用到的AH关联数组统一放到/php/<b>ahstockarray.php</b>中.
+<br />替选股增加个对比页面.
 </p>
 <?php EchoAhDemo(); ?>
 
@@ -306,14 +306,6 @@ CL通常会在美股收盘后继续多交易一个小时, 此时实时估值也�
 <br />用En表示今天的n天EMA值, 其它沿用前面的符号, 
 <br />En = k * X0 + (1 - k) * Em; 其中m = n - 1; k = 2 / (n + 1)
 <br />不动点En = X0, 得到En = Em, 就是说今天的不动点就是昨天的值. 所以唯一要做的就是每天收盘后算一下当天的EMA.
-</p>
-
-<h3>把<a name="aharray">AH股数组</a>放MySQL表中</h3>
-<p>2018年2月18日
-<br />发现<a href="20101107cn.php">GB2312</a>和UNICODE的对应表放在函数内返回可能会冲掉全局数据后, 我想起了<a href="#ahcompare">AH对比</a>中也用到了一个不小的数组.
-赶快把它挪到了/php/sql/<b>sqlstockpair.php</b>文件中的ahstock表.
-<br />发现帮助傻瓜编程的PHP也对程序优化有要求还是挺让我兴奋的, 觉得这么多年来的优化软件经验终于又有用武之地了.
-<!--<br /><img src=../photo/solitaire.jpg alt="Jan 29, 2018. Solitaire Sapphire in LEGOLAND CALIFORNIA." />-->
 </p>
 
 <h3>走火入魔的<a name="nextsma">T+1</a>均线</h3>

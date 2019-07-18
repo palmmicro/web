@@ -40,6 +40,10 @@ function EchoAll()
     	{
     		$strSymbol = $ref->GetStockSymbol();
     		$strLinks = GetStockHistoryLink($strSymbol);
+    		if ($group->IsAdmin())
+    		{
+    			$strLinks .= ' '.GetPhpLink(STOCK_PATH.'spdrnavxls', false, '更新净值');
+    		}
     		
     		$iStart = UrlGetQueryInt('start');
     		$iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);

@@ -102,6 +102,63 @@ function _updateStockOptionAdr($strSymbol, $strVal, $strTable = TABLE_ADRH_STOCK
 	}
 }
 
+function _updateStockOptionHa($strSymbolH, $strSymbolA)
+{
+	$pair_sql = new AhPairSql();
+	if ($strA = $pair_sql->GetSymbol($strSymbolH))
+	{
+		if (empty($strSymbolA))
+		{
+			$pair_sql->DeleteBySymbol($strSymbolH);
+		}
+		else
+		{
+			if ($strSymbolA != $strA)
+			{
+				$pair_sql->DeleteBySymbol($strSymbolH);
+				if ($strH = $pair_sql->GetPairSymbol($strSymbolA))
+				{
+					if ($strSymbolH != $strH)
+					{
+						$pair_sql->UpdateSymbol($strSymbolA, $strSymbolH);
+					}
+				}
+				else
+				{
+					$pair_sql->InsertSymbol($strSymbolA, $strSymbolH);
+				}
+			}
+		}
+	}
+	else
+	{
+		$pair_sql->InsertSymbol($strSymbolA, $strSymbolH);
+	}
+}
+
+function _updateStockOptionAh($strSymbolA, $strSymbolH)
+{
+	$pair_sql = new AhPairSql();
+	if ($strH = $pair_sql->GetPairSymbol($strSymbolA))
+	{
+		if (empty($strSymbolH))
+		{
+			$pair_sql->DeleteBySymbol($strH);
+		}
+		else
+		{
+			if ($strSymbolH != $strH)
+			{
+				$pair_sql->UpdateSymbol($strSymbolA, $strSymbolH);
+			}
+		}
+	}
+	else
+	{
+		$pair_sql->InsertSymbol($strSymbolA, $strSymbolH);
+	}
+}
+
 function _updateStockOptionEmaDays($strStockId, $iDays, $strDate, $strVal)
 {
 	$sql = new StockEmaSql($strStockId, $iDays);
@@ -229,7 +286,7 @@ function _updateStockOptionSplit($ref, $strSymbol, $strStockId, $strDate, $strVa
 			break;
 			
 		case STOCK_OPTION_AH:
-			if ($bAdmin)	_updateStockOptionAdr($strSymbol, $strVal, TABLE_AH_STOCK);
+			if ($bAdmin)	_updateStockOptionAh($strSymbol, $strVal);
 			break;
 			
 		case STOCK_OPTION_AMOUNT:
@@ -250,6 +307,10 @@ function _updateStockOptionSplit($ref, $strSymbol, $strStockId, $strDate, $strVa
 			
 		case STOCK_OPTION_ETF:
 			if ($bAdmin)	_updateStockOptionEtf($strSymbol, $strVal);
+			break;
+			
+		case STOCK_OPTION_HA:
+			if ($bAdmin)	_updateStockOptionHa($strSymbol, $strVal);
 			break;
 			
 		case STOCK_OPTION_SPLIT:

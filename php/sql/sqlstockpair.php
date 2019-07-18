@@ -1,17 +1,88 @@
 <?php
 require_once('sqltable.php');
 
-define('TABLE_AH_STOCK', 'ahstock');
 define('TABLE_ADRH_STOCK', 'adrhstock');
 define('TABLE_ETF_PAIR', 'etfpair');
 
 // ****************************** StockPairSql class *******************************************************
 class StockPairSql extends KeyPairSql
 {
+	var $stock_sql;
+	
     function StockPairSql($strStockId, $strTableName) 
     {
         parent::KeyPairSql($strStockId, 'stock', $strTableName);
+        $this->stock_sql = new StockSql();
     }
+    
+    function GetSymbolArray()
+    {
+		$arSymbol = array();
+		$ar = $this->GetIdArray('GetData');
+		foreach ($ar as $strStockId)
+		{
+			$arSymbol[] = $this->stock_sql->GetKeyName($strStockId);
+		}
+		sort($arSymbol);
+		return $arSymbol;
+	}
+	
+	function GetSymbol($strPairSymbol)
+	{
+		if ($strPairId = $this->stock_sql->GetId($strPairSymbol))
+		{
+			if ($strStockId = $this->GetId($strPairId))
+			{
+				return $this->stock_sql->GetKeyName($strStockId);
+			}
+		}
+		return false;
+	}
+	
+	function GetPairSymbol($strSymbol)
+	{
+		if ($strStockId = $this->stock_sql->GetId($strSymbol))
+		{
+			if ($strPairId = $this->GetKeyId($strStockId))
+			{
+				return $this->stock_sql->GetKeyName($strPairId);
+			}
+		}
+		return false;
+	}
+
+	function InsertSymbol($strSymbol, $strPairSymbol)
+	{
+		if ($strStockId = $this->stock_sql->GetId($strSymbol))
+		{
+			if ($strPairId = $this->stock_sql->GetId($strPairSymbol))
+			{
+				return $this->Insert($strStockId, $strPairId);
+			}
+		}
+		return false;
+	}
+	
+	function UpdateSymbol($strSymbol, $strPairSymbol)
+	{
+		if ($strStockId = $this->stock_sql->GetId($strSymbol))
+		{
+			if ($strPairId = $this->stock_sql->GetId($strPairSymbol))
+			{
+				return $this->Update($strStockId, $strPairId);
+			}
+		}
+		return false;
+	}
+	
+	function DeleteBySymbol($strPairSymbol)
+	{
+		if ($strPairId = $this->stock_sql->GetId($strPairSymbol))
+		{
+			return $this->Delete($strPairId);
+		}
+		return false;
+	}
 }
 
 // ****************************** AhPairSql class *******************************************************
@@ -145,21 +216,6 @@ function _sqlGetStockPairArray($strTableName)
 	return $ar;
 }
 
-function SqlGetAhArray()
-{
-	$arSymbol = array();
-	$sql = new StockSql();
-	$pair_sql = new AhPairSql();
-	
-	$ar = $pair_sql->GetAllId();
-	foreach ($ar as $strStockId)
-	{
-		$arSymbol[] = $sql->GetKeyName($strStockId);
-	}
-    sort($arSymbol);
-	return $arSymbol;
-}
-
 function SqlGetAdrhArray()
 {
 	return _sqlGetStockPairArray(TABLE_ADRH_STOCK);
@@ -200,7 +256,8 @@ function SqlGetEtfPair($strEtf)
 
 function SqlGetAhPair($strSymbolA)
 {
-	return _sqlGetPair(TABLE_AH_STOCK, $strSymbolA, 'GetPairId');
+	$pair_sql = new AhPairSql();
+	return $pair_sql->GetPairSymbol($strSymbolA);
 }
 
 function SqlGetAdrhPair($strSymbolAdr)
@@ -218,7 +275,8 @@ function SqlGetIndexPair($strIndex)
 
 function SqlGetHaPair($strSymbolH)
 {
-	return _sqlGetPair(TABLE_AH_STOCK, $strSymbolH, 'GetFirstStockId');
+	$pair_sql = new AhPairSql();
+	return $pair_sql->GetSymbol($strSymbolH);
 }
 
 function SqlGetHadrPair($strSymbolH)

@@ -25,6 +25,22 @@ function _deleteHasStockPair($strTableName, $strStockId)
 	return false;
 }
 
+function _deleteHasAhPair($strSymbol)
+{
+	$sql = new AhPairSql();
+	if ($strSymbolH = $sql->GetPairSymbol($strSymbol))
+	{
+		DebugString('H stock existed: '.$strSymbolH);
+		return true;
+	}
+	else if ($strSymbolA = $sql->GetSymbol($strSymbol))
+	{
+		DebugString('A stock existed: '.$strSymbolA);
+		return true;
+	}
+	return false;
+}
+
 function _deleteHasStockHistory($his_sql)
 {
 	$iTotal = $his_sql->Count();
@@ -47,11 +63,10 @@ function _deleteStockSymbol($ref)
 
 	DebugString('Deleting... '.$strSymbol);
 	if (_deleteIsStockPair(TABLE_ADRH_STOCK, $strStockId))					return;
-	else if (_deleteIsStockPair(TABLE_AH_STOCK, $strStockId))				return;
 	else if (_deleteIsStockPair(TABLE_ETF_PAIR, $strStockId))				return;
 	else if (_deleteHasStockPair(TABLE_ADRH_STOCK, $strStockId))				return;
-	else if (_deleteHasStockPair(TABLE_AH_STOCK, $strStockId))				return;
 	else if (_deleteHasStockPair(TABLE_ETF_PAIR, $strStockId))				return;
+	else if (_deleteHasAhPair($strSymbol))									return;
 	else if (_deleteHasStockHistory($ref->GetHistorySql()))					return;
 	else if (_deleteHasStockHistory(new NetValueHistorySql($strStockId)))	return;
 	else if (($iTotal = SqlCountTableData(TABLE_STOCK_GROUP_ITEM, _SqlBuildWhere_stock($strStockId))) > 0)

@@ -68,9 +68,20 @@ function _getMyStockLinks($sym)
    	{
    		$str .= ' '.GetStockOptionLink(STOCK_OPTION_EMA, $strSymbol);
    	}
-    if ($sym->IsSymbolH())
+   	if ($sym->IsSymbolA())
+   	{
+    	if ($sym->IsFundA())
+    	{
+    		$str .= ' '.GetStockOptionLink(STOCK_OPTION_ETF, $strSymbol);
+    	}
+    	else if ($sym->IsTradable())
+    	{
+    		$str .= ' '.GetStockOptionLink(STOCK_OPTION_AH, $strSymbol);
+    	}
+   	}
+    else if ($sym->IsSymbolH())
     {
-    	$str .= ' '.GetStockOptionLink(STOCK_OPTION_AH, $strSymbol);
+    	$str .= ' '.GetStockOptionLink(STOCK_OPTION_HA, $strSymbol);
     	$str .= ' '.GetStockOptionLink(STOCK_OPTION_ADR, $strSymbol);
     }
     else

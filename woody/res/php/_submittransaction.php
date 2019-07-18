@@ -122,10 +122,10 @@ function _onAddFundPurchase($strGroupId)
 	if (($strGroupItemId = $sql->GetId($strFundId)) == false)    return false;
 	if ($sql->trans_sql->Insert($strGroupItemId, strval(intval(floatval($strAmount) / floatval($strNetValue))), $strNetValue))
 	{
-	    if ($strGroupItemId = $sql->GetId($strArbitrageId))
+/*	    if ($strGroupItemId = $sql->GetId($strArbitrageId))
 	    {
 	        $sql->trans_sql->Insert($strGroupItemId, '-'.$strQuantity, $strPrice, _onArbitrageCost($strQuantity, $strPrice));
-	    }
+	    }*/
 	    _debugFundPurchase($strGroupId, $strFundId, $strArbitrageId);
 	}
     return $strGroupItemId;

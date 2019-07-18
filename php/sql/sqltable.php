@@ -119,7 +119,7 @@ class TableSql
     {
     	return SqlGetTableData($this->strName, $strWhere, $strOrderBy, $strLimit);
     }
-
+    
     function GetByMaxId($iMax)
     {
     	$strMax = strval($iMax);
@@ -148,18 +148,22 @@ class TableSql
     	return false;
     }
     
-    function GetAllId()
+    function GetIdArray($callback = 'GetAll')
     {
-    	$ar = array();
-    	if ($result = $this->GetData()) 
-    	{	
-    		while ($record = mysql_fetch_assoc($result)) 
+    	if (method_exists($this, $callback))
+    	{
+    		if ($result = $this->$callback())
     		{
-    			$ar[] = $record['id'];
+    			$ar = array();
+    			while ($record = mysql_fetch_assoc($result)) 
+    			{
+    				$ar[] = $record['id'];
+    			}
+    			@mysql_free_result($result);
+    			return $ar;
     		}
-    		@mysql_free_result($result);
     	}
-    	return $ar;
+    	return false;
     }
     
     function DeleteData($strWhere, $strLimit = false)
@@ -355,21 +359,6 @@ class KeyTableSql extends TableSql
     	return $this->GetData($this->BuildWhere_key());
     }
 
-    function GetTableIdArray()
-    {
-    	if ($result = $this->GetAll())
-    	{
-    		$ar = array();
-    		while ($record = mysql_fetch_assoc($result)) 
-    		{
-    			$ar[] = $record['id'];
-    		}
-    		@mysql_free_result($result);
-    		return $ar;
-    	}
-    	return false;
-    }
-    
     function DeleteAll()
     {
     	return $this->DeleteData($this->BuildWhere_key());
@@ -395,6 +384,21 @@ class KeyPairSql extends KeyTableSql
     function Insert($strId, $strPairId)
     {
     	return $this->InsertData(array('id' => $strId, $this->strKey => $strPairId));
+    }
+
+    function Update($strId, $strPairId)
+    {
+		return $this->UpdateById(array($this->strKey => $strPairId), $strId);
+    }
+    
+    function Get($strPairId)
+    {
+    	return $this->GetSingleData(_SqlBuildWhere($this->strKey, $strPairId));
+    }
+
+    function Delete($strPairId)
+    {
+    	return $this->DeleteData(_SqlBuildWhere($this->strKey, $strPairId));
     }
 }
 
