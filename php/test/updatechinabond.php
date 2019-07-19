@@ -58,8 +58,8 @@ function _updateChinaBond()
    	{
    		$ar = explode('/', $arItem[1]);
    		$strFirst = $ar[0];
-   		if ($strFirst == '1')				$strPrefix = SHENZHEN_PREFIX;
-   		else if ($strFirst == '2')		$strPrefix = SHANGHAI_PREFIX;
+   		if ($strFirst == '1')				$strPrefix = SZ_PREFIX;
+   		else if ($strFirst == '2')		$strPrefix = SH_PREFIX;
    		else								continue;
    		
    		$strDigit = $ar[1];

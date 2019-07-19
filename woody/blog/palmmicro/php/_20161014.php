@@ -20,6 +20,16 @@ function EchoUpdateChinaStockLink()
 	}
 }
 
+function EchoUpdateAbLink($strType = 'sh')
+{
+    global $acct;
+   	if ($acct->IsAdmin())
+	{
+		$ar = array('sh' => '上海', 'sz' => '深圳');
+		EchoInternalLink('/php/test/updateab.php?type='.$strType, '更新'.$ar[$strType].'AB股数据');
+	}
+}
+
 function EchoUpdateAdrLink()
 {
     global $acct;

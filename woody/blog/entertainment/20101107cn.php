@@ -94,7 +94,7 @@
 
 <h3>终究躲不过去的<a name="gb18030">GB18030</a></h3>
 <p>2018年4月16日
-<br />在给Palmmicro<a href="../palmmicro/20161014cn.php">微信公众号</a>增加了B股的数据后, 意外发现SZ200168股票名字中的<b>喆</b>字在GB2312转<a href="#utf8">UTF-8</a>后成了乱码.
+<br />在给Palmmicro<a href="../palmmicro/20161014cn.php#abcompare">微信公众号</a>增加了B股的数据后, 意外发现SZ200168股票名字中的<b>喆</b>字在GB2312转<a href="#utf8">UTF-8</a>后成了乱码.
 发现了一只蟑螂就说明有一窝. 我把数据库中所有股票名字查看了一遍后, 果然发现了SZ002752和SZ300208中的<b>昇</b>字也是乱码.
 <br />产生乱码的原因很明显, 这2个生僻字本身就不在只有6000多汉字的GB2312中. 这意味着我需要一个GB18030和UNICODE的对应码表来扩展我的MySQL数据表: <?php EchoLink('http://icu-project.org/repos/icu/data/trunk/charset/source/gb18030/gbkuni30.txt'); ?>.
 花了差不多一天功夫做完这些几乎算是推倒重来的修补后, 我不禁又有了一种神功已成的感觉. 

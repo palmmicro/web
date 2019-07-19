@@ -40,6 +40,13 @@ function GetAastocksUrl($strType = 'adr')
 	return 'http://www.aastocks.com/tc/market/'.$strType.'.aspx';
 }
 
+// http://data.cnstock.com/thematic/szAbShare.html
+// http://data.cnstock.com/thematic/shAbShare.html
+function GetCnstocksUrl($strType = 'sh')
+{
+	return 'http://data.cnstock.com/thematic/'.$strType.'AbShare.html';
+}
+
 function GetXueqiuUrl()
 {
 	return 'https://xueqiu.com/';

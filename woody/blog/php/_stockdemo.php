@@ -8,6 +8,7 @@ require_once('/php/ui/fundhistoryparagraph.php');
 require_once('/php/ui/lofsmaparagraph.php');
 require_once('/php/ui/nvclosehistoryparagraph.php');
 
+define('AB_DEMO_SYMBOL', 'SZ200488');
 define('ADRH_DEMO_SYMBOL', '00700');
 define('AH_DEMO_SYMBOL', '00386');
 define('FUND_DEMO_SYMBOL', 'SZ162411');
@@ -15,7 +16,7 @@ define('STOCK_DEMO_SYMBOL', 'XOP');
 
 function DemoPrefetchData()
 {
-    StockPrefetchData(ADRH_DEMO_SYMBOL, AH_DEMO_SYMBOL, FUND_DEMO_SYMBOL, STOCK_DEMO_SYMBOL);
+    StockPrefetchData(AB_DEMO_SYMBOL, ADRH_DEMO_SYMBOL, AH_DEMO_SYMBOL, FUND_DEMO_SYMBOL, STOCK_DEMO_SYMBOL);
 }
 
 function EchoReferenceDemo($strSymbol = FUND_DEMO_SYMBOL)
@@ -46,6 +47,10 @@ function EchoNvCloseDemo($strSymbol = STOCK_DEMO_SYMBOL)
 {
     $ref = new MyStockReference($strSymbol);
    	EchoNvCloseHistoryParagraph($ref);
+}
+
+function EchoAbDemo($strSymbol = AB_DEMO_SYMBOL)
+{
 }
 
 function EchoAhDemo($strSymbol = AH_DEMO_SYMBOL)

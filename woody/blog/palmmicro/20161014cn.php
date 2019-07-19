@@ -20,7 +20,7 @@
 没想到在启用<?php echo GetWeixinLink(); ?>开发模式消息接口的时候就碰到了问题.
 采用几乎是一目了然的微信示例<a href="../entertainment/20100905cn.php">PHP</a>程序, 我在设置服务器链接的时候不断被提示<font color=red>Token验证失败</font>.
 反复调试一整晚后才意识到是因为Yahoo网站服务在我的每个页面后都加了一段javascript统计代码. 
-<br />因为我早就在用<a href="../entertainment/20110509cn.php">Google</a> Analytics做网站统计, 其实我一直觉得Yahoo前两年加的这个功能是个累赘, 没有提供什么新功能, 反而拖累了网页反应速度, 
+<br />因为我早就在用<a href="../entertainment/20110509cn.php">Google</a> Analytics做网站统计, 其实我一直觉得Yahoo前两年加的这个功能是个累赘, 没有提供什么新功能, 反而拖累了网页反应速度.
 这下我就有了充分理由去掉它了. 在Yahoo Small Business的新网站<a href="https://www.luminate.com/" target=_blank>Aabaco Small Business</a>里面又找了好半天, 终于关闭了它.
 <br />接下来增加功能, 现在最直接的需求就是用微信查<a href="../../res/sz162411cn.php">华宝油气</a>净值. 采用对话方式,
 在消息中用语音或者键盘输入<font color=grey>162411</font>或者<font color=grey>华宝油气</font>等获取它的各种估值以及具体估值的时间.
@@ -34,7 +34,7 @@
 只好挽起袖子搞优化, 尽可能的多在本地存数据, 减少每次查询中对外部网站的访问. 最后勉强把最长的回应时间控制在了4228毫秒, 总算满足了要求.
 <br />回到公司的产品上来, 这个微信公众号和本网站一起作为一个具体应用实例, 为开发中的<a href="../../../pa3288/indexcn.html">PA3288</a>物联网IoT模块提供一个数据采集, 存储和查询的总体解决方案. 
 在这个基础上, 我们可以提供全套的产品和软硬件技术, 帮助客户建立自己的物联网数据管理分析应用系统.
-<br />虽然目前还没有多少功能, 大家已经可以扫描下面的二维码添加Palmmicro微信公众订阅号<font color=orange>sz162411</font>. 让我们定个小目标, 先来一万用户吧.
+<br />虽然目前还没有多少功能, 大家已经可以扫描下面的二维码添加Palmmicro微信公众订阅号.
 选用<font color=orange>sz162411</font>作为微信号既符合目前提供的数据, 又是个没有办法的选择, 因为我太喜欢用palmmicro这个名字, 以至于它早早就被我自己的私人晒娃微信号占用了. 
 <br /><img src=../../image/wx.jpg alt="Palmmicro wechat public account sz162411 small size QR code" />
 </p>
@@ -43,7 +43,7 @@
 <p>2016年10月20日
 <br />今天发现有个微信公众号用户用语音查询<font color=grey>交通银行</font>, 没查到因为数据库中根本没有它. 不过因此刺激了我给加上查询所有<a href="../entertainment/20141016cn.php">股票</a>交易数据的功能.
 <br />首先我要把A股3000多只股票都加到数据库中. 开始我想直接开个大循环从000001到699999从新浪拿数据, 后来觉得太蠢了, 还担心新浪的数据接口把我列入黑名单.
-接下来我又找到了<?php EchoLink(GetEastMoneyStockListUrl()); ?>, 现在所有A股用户都能使用微信公众号<font color=orange>sz162411</font>了.
+不过接下来我从<?php EchoLink(GetEastMoneyStockListUrl()); ?>找到了所有A股数据.
 <?php EchoUpdateChinaStockLink(); ?>
 <br />继续给数据库中加美股代码, 希望<?php EchoLink(GetSinaUsStockListUrl()); ?>这个不完整的美股单子能满足绝大多数中国用户的查询<a href="../entertainment/20111112cn.php">ACTS</a>这种股票了.
 <?php EchoUpdateUsStockLink(); ?>
@@ -51,8 +51,8 @@
 
 <h3><a name="chinafund">用微信公众号查询A股基金数据</a></h3>
 <p>2016年10月28日
-<br />昨天让我广发证券网上开户的经理帮忙宣传一下微信公众号</a><font color=orange>sz162411</font>查股票数据, 随即加进来2个人, 其中一个上来就查<font color=grey>159915</font>,
-发现没有数据后立马取消了订阅, 又刺激了我给数据库加上所有A股基金数据.
+<br />昨天让我广发证券网上开户的经理帮忙宣传一下微信公众号查股票数据, 随即加进来2个人. 
+其中一个上来就查<font color=grey>159915</font>, 发现没有数据后立马取消了订阅, 又刺激了我给数据库加上所有A股基金数据.
 <br />从<?php EchoLink(GetEastMoneyFundListUrl()); ?>找到了基金列表, 没想到全市场居然有快一万基金. 然后继续写代码完成数据更新, 从此再也不怕被查.
 <?php EchoUpdateChinaFundLink(); ?>
 </p>
@@ -66,7 +66,7 @@
 </p>
 <?php EchoAhDemo(); ?>
 
-<h3><a name="uscny">人民币</a>汇率</h3>
+<h3><a name="uscny">人民币</a>汇率以及ADR和H股对比</h3>
 <p>2018年4月10日
 <br />沉寂已久的微信公众号在清明假期中突然有人来查了下<font color=grey>人民币汇率</font>, 因为没有任何匹配, 这个查询通知到了我的电子邮件中, 让我感觉一下子打了鸡血, 学习微信小程序开发的劲头一下子足了好多.
 <br />微信订阅号中查不到用来估值的人民币汇率的确有点奇怪. 原因是为了加快反应时间, 向微信发的查询是不会去拿东方财富网每天更新一次的人民币中间价数据的.
@@ -79,6 +79,16 @@
 <!--<br /><img src=../photo/kingcrab.jpg alt="Jan 30, 2018. King crab, Woody and Sapphire in La Quinta Carlsbad." />-->
 </p>
 <?php EchoAdrhDemo(); ?>
+
+<h3><a name="abcompare">AB股</a>对比</h3>
+<p>2018年4月15日
+<br />折腾完H股后觉得意犹未尽, 一鼓作气继续加上AB股对比.
+<br />数据来源: 
+<br /><?php EchoLink(GetCnstocksUrl()); ?>		<?php EchoUpdateAbLink(); ?>
+<br /><?php EchoLink(GetCnstocksUrl('sz')); ?>	<?php EchoUpdateAbLink('sz'); ?>
+<br />输入查<font color=grey>000488</font>或者<font color=grey>200488</font>试试看.
+</p>
+<?php EchoAbDemo(); ?>
 
 <h3>微信流量主</h3>
 <p>2019年6月1日

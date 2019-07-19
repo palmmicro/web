@@ -8,8 +8,8 @@ define('SINA_FUND_PREFIX', 'f_');
 define('SINA_HK_PREFIX', 'rt_hk');
 define('SINA_US_PREFIX', 'gb_');
 
-define('SHANGHAI_PREFIX', 'SH');
-define('SHENZHEN_PREFIX', 'SZ');
+define('SH_PREFIX', 'SH');
+define('SZ_PREFIX', 'SZ');
 
 define('YAHOO_INDEX_CHAR', '^');
 
@@ -208,28 +208,34 @@ function IsChineseStockDigit($strDigit)
     return false;
 }
 
-function _isShenzhenFundDigit($iDigit)
+function _isDigitShenzhenFund($iDigit)
 {
-    if ($iDigit >= 100000 && $iDigit < 200000)  return true;
-    return false;
+    return ($iDigit >= 100000 && $iDigit < 200000) ? true : false;
 }
 
-function _isShanghaiFundDigit($iDigit)
+function _isDigitShanghaiFund($iDigit)
 {
-    if ($iDigit >= 500000 && $iDigit < 600000)  return true;
-    return false;
+    return ($iDigit >= 500000 && $iDigit < 600000) ? true : false;
 }
 
-function _isShenzhenIndexDigit($iDigit)
+function _isDigitShenzhenB($iDigit)
 {
-    if ($iDigit >= 390000 && $iDigit < 400000)  return true;
-    return false;
+    return ($iDigit >= 200000 && $iDigit < 300000) ? true : false;
 }
 
-function _isShanghaiIndexDigit($iDigit)
+function _isDigitShanghaiB($iDigit)
 {
-    if ($iDigit >= 000000 && $iDigit < 100000)  return true;
-    return false;
+    return ($iDigit >= 900000 && $iDigit < 1000000) ? true : false;
+}
+
+function _isDigitShenzhenIndex($iDigit)
+{
+    return ($iDigit >= 390000 && $iDigit < 400000) ? true : false;
+}
+
+function _isDigitShanghaiIndex($iDigit)
+{
+    return ($iDigit >= 000000 && $iDigit < 100000) ? true : false;
 }
 
 function BuildChineseFundSymbol($strDigit)
@@ -237,8 +243,8 @@ function BuildChineseFundSymbol($strDigit)
     if (IsChineseStockDigit($strDigit))
     {
         $iDigit = intval($strDigit);
-        if (_isShanghaiFundDigit($iDigit))		$strPrefix = SHANGHAI_PREFIX;
-        else if (_isShenzhenFundDigit($iDigit))	$strPrefix = SHENZHEN_PREFIX;
+        if (_isDigitShanghaiFund($iDigit))		$strPrefix = SH_PREFIX;
+        else if (_isDigitShenzhenFund($iDigit))	$strPrefix = SZ_PREFIX;
         else										$strPrefix = SINA_FUND_PREFIX;
         return $strPrefix.$strDigit;
     }
@@ -250,8 +256,8 @@ function BuildChineseStockSymbol($strDigit)
     if (IsChineseStockDigit($strDigit))
     {
         $iDigit = intval($strDigit);
-        if (($iDigit < 100000) || ($iDigit >= 200000 && $iDigit < 400000))	return SHENZHEN_PREFIX.$strDigit;
-        else if ($iDigit >= 600000)												return SHANGHAI_PREFIX.$strDigit;
+        if (($iDigit < 100000) || ($iDigit >= 200000 && $iDigit < 400000))	return SZ_PREFIX.$strDigit;
+        else if ($iDigit >= 600000)												return SH_PREFIX.$strDigit;
     }
     return false;
 }            
@@ -341,7 +347,7 @@ class StockSymbol
         if (IsChineseStockDigit($strDigit))
         {
             $strPrefix = strtoupper(substr($strSymbol, 0, 2));
-            if ($strPrefix == SHANGHAI_PREFIX || $strPrefix == SHENZHEN_PREFIX)
+            if ($strPrefix == SH_PREFIX || $strPrefix == SZ_PREFIX)
             {
                 $this->strPrefixA = $strPrefix;
                 $this->iDigitA = intval($strDigit);
@@ -359,8 +365,8 @@ class StockSymbol
             if ($this->IsSymbolA() == false)    return false;
         }
         
-        if ($this->strPrefixA == SHENZHEN_PREFIX && _isShenzhenFundDigit($this->iDigitA))   return $this->strDigitA;
-        if ($this->strPrefixA == SHANGHAI_PREFIX && _isShanghaiFundDigit($this->iDigitA))   return $this->strDigitA;
+        if ($this->strPrefixA == SZ_PREFIX && _isDigitShenzhenFund($this->iDigitA))   return $this->strDigitA;
+        if ($this->strPrefixA == SH_PREFIX && _isDigitShanghaiFund($this->iDigitA))   return $this->strDigitA;
         return false;
     }
     
@@ -371,25 +377,36 @@ class StockSymbol
             if ($this->IsSymbolA() == false)    return false;
         }
         
-        if ($this->strPrefixA == SHENZHEN_PREFIX && _isShenzhenIndexDigit($this->iDigitA))   return $this->strDigitA;
-        if ($this->strPrefixA == SHANGHAI_PREFIX && _isShanghaiIndexDigit($this->iDigitA))   return $this->strDigitA;
+        if ($this->strPrefixA == SZ_PREFIX && _isDigitShenzhenIndex($this->iDigitA))   return $this->strDigitA;
+        if ($this->strPrefixA == SH_PREFIX && _isDigitShanghaiIndex($this->iDigitA))   return $this->strDigitA;
         return false;
     }
     
-    function IsStockA()
+    function IsStockB()
     {
-    	if ($this->IsSymbolA())
-    	{
-    		if ($this->IsIndexA())	return false;
-    		if ($this->IsFundA())		return false;
-    		return true;
-    	}
-    	return false;
+        if ($this->strDigitA == false)
+        {
+            if ($this->IsSymbolA() == false)    return false;
+        }
+        
+        if ($this->strPrefixA == SZ_PREFIX && _isDigitShenzhenB($this->iDigitA))   return $this->strDigitA;
+        if ($this->strPrefixA == SH_PREFIX && _isDigitShanghaiB($this->iDigitA))   return $this->strDigitA;
+        return false;
     }
     
     function IsEtf()
     {
-    	if ($this->IsIndex() || $this->IsIndexA())	return false;
+    	if ($this->IsSymbolA())
+    	{
+    		if ($this->IsIndexA())	return false;
+    		if ($this->IsStockB())	return false;
+    		
+    		if ($this->IsFundA())		return true;
+    	}
+    	else
+    	{
+    		if ($this->IsIndex())		return false;
+    	}
     	return true;
     }
     
@@ -584,11 +601,11 @@ class StockSymbol
         }
         else if ($this->IsSymbolA())
         {
-            if ($this->strPrefixA == SHANGHAI_PREFIX)
+            if ($this->strPrefixA == SH_PREFIX)
             {
                 return $this->strDigitA.'.ss';   // Shanghai market
             }
-            else if ($this->strPrefixA == SHENZHEN_PREFIX)
+            else if ($this->strPrefixA == SZ_PREFIX)
             {
                 return $this->strDigitA.'.sz';   // Shenzhen market
             }
