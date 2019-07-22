@@ -35,14 +35,26 @@ function TextFromStockReference($ref)
     return $str;
 }
 
-function TextFromAhReference($ref, $hshare_ref)
+function TextFromAhReference($hshare_ref)
 {
-	$str = TextFromStockReference($ref);
-	$str .= 'H股代码:'.RefGetMyStockLink($hshare_ref).WX_EOL;
+	$str = 'H股代码:'.RefGetMyStockLink($hshare_ref).WX_EOL;
 	if ($hshare_ref->a_ref)		$str .= 'A股代码:'.RefGetMyStockLink($hshare_ref->a_ref).WX_EOL;
 	if ($hshare_ref->adr_ref)	$str .= 'ADR代码:'.RefGetMyStockLink($hshare_ref->adr_ref).WX_EOL;
 	if ($hshare_ref->a_ref)		$str .= 'AH比价:'.strval_round($hshare_ref->GetAhPriceRatio()).WX_EOL;
 	if ($hshare_ref->adr_ref)	$str .= 'ADRH比价:'.strval_round($hshare_ref->GetAdrhPriceRatio()).WX_EOL;
+	return $str;
+}
+
+function TextFromAbReference($ab_ref, $bStockA = true)
+{
+	if ($bStockA)
+	{
+		$str = 'B股代码:'.RefGetMyStockLink($ab_ref->GetPairRef()).WX_EOL;
+	}
+	else
+	{
+		$str = 'A股代码:'.RefGetMyStockLink($ab_ref).WX_EOL;
+	}
 	return $str;
 }
 

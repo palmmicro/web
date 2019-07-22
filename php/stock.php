@@ -335,6 +335,10 @@ function _getAllSymbolArray($strSymbol)
     if ($strPairSymbol = SqlGetEtfPair($strSymbol))			$ar[] = $strPairSymbol;
     if ($sym->IsSymbolA())
     {
+    	$ab_sql = new AbPairSql();
+    	if ($strSymbolB = $ab_sql->GetPairSymbol($strSymbol))		$ar[] = $strSymbolB;
+    	else if ($strSymbolA = $ab_sql->GetSymbol($strSymbol))	$ar[] = $strSymbolA;
+    		
         if ($strSymbolH = SqlGetAhPair($strSymbol))	
         {
           	$ar[] = $strSymbolH;

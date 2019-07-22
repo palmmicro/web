@@ -75,6 +75,16 @@ class StockPairSql extends KeyPairSql
 		return false;
 	}
 	
+	function WriteSymbol($strSymbol, $strPairSymbol)
+	{
+		if ($str = $this->GetPairSymbol($strSymbol))
+		{
+			if ($str == $strPairSymbol)		return false;
+			return $this->UpdateSymbol($strSymbol, $strPairSymbol);
+		}
+		return $this->InsertSymbol($strSymbol, $strPairSymbol);
+	}
+	
 	function DeleteBySymbol($strPairSymbol)
 	{
 		if ($strPairId = $this->stock_sql->GetId($strPairSymbol))
@@ -91,6 +101,15 @@ class AhPairSql extends StockPairSql
     function AhPairSql($strStockId = false) 
     {
         parent::StockPairSql($strStockId, 'ahpair');
+    }
+}
+
+// ****************************** AbPairSql class *******************************************************
+class AbPairSql extends StockPairSql
+{
+    function AbPairSql($strStockId = false) 
+    {
+        parent::StockPairSql($strStockId, 'abpair');
     }
 }
 
@@ -256,8 +275,8 @@ function SqlGetEtfPair($strEtf)
 
 function SqlGetAhPair($strSymbolA)
 {
-	$pair_sql = new AhPairSql();
-	return $pair_sql->GetPairSymbol($strSymbolA);
+	$ah_sql = new AhPairSql();
+	return $ah_sql->GetPairSymbol($strSymbolA);
 }
 
 function SqlGetAdrhPair($strSymbolAdr)

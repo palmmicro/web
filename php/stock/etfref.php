@@ -1,5 +1,37 @@
 <?php
 
+// ****************************** MyPairReference class *******************************************************
+class MyPairReference extends MyStockReference
+{
+    var $pair_ref = false;
+
+    function MyPairReference($strSymbol) 
+    {
+        parent::MyStockReference($strSymbol);
+    }
+    
+    function GetPairRef()
+    {
+    	return $this->pair_ref;
+    }
+}
+
+// ****************************** AbPairReference class *******************************************************
+class AbPairReference extends MyPairReference
+{
+    var $ab_sql;
+
+    function AbPairReference($strSymbolA) 
+    {
+        parent::MyPairReference($strSymbolA);
+        $ab_sql = new AbPairSql();
+    	if ($strSymbolB = $ab_sql->GetPairSymbol($strSymbolA))
+    	{
+    		$this->pair_ref = new MyStockReference($strSymbolB);
+    	}
+    }
+}
+
 // ****************************** NetValueReference class *******************************************************
 class NetValueReference extends StockReference
 {

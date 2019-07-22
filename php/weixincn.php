@@ -40,13 +40,6 @@ function _wxGetStockArray($strContents)
     return $ar;
 }
 
-function _getAhReferenceText($ref, $hshare_ref)
-{
-	RefSetExternalLink($ref);
-    $str = TextFromAhReference($ref, $hshare_ref);
-    return $str;
-}
-
 function _getStockReferenceText($ref)
 {
 	RefSetExternalLink($ref);
@@ -100,16 +93,26 @@ function _wxGetStockText($strSymbol)
     }
     else
     {
+       	$ref = new MyStockReference($strSymbol);
+       	$str = _getStockReferenceText($ref);
+       	
+    	$ab_sql = new AbPairSql();
+    	if ($ab_sql->GetPairSymbol($strSymbol))
+    	{
+    		$ab_ref = new AbPairReference($strSymbol);
+			$str .= TextFromAbReference($ab_ref);
+    	}
+    	else if ($strSymbolA = $ab_sql->GetSymbol($strSymbol))
+    	{
+    		$ab_ref = new AbPairReference($strSymbolA);
+			$str .= TextFromAbReference($ab_ref, false);
+    	}
+    	
     	if ($ref_ar = StockGetHShareReference($sym))
     	{
-    		list($ref, $hshare_ref) = $ref_ar;
-			$str = _getAhReferenceText($ref, $hshare_ref);
+    		list($dummy, $hshare_ref) = $ref_ar;
+			$str .= TextFromAhReference($hshare_ref);
     	}
-        else
-        {
-        	$ref = new MyStockReference($strSymbol);
-        	$str = _getStockReferenceText($ref);
-        }
     }
    	if ($str == false)
    	{
