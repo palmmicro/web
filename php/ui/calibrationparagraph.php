@@ -5,7 +5,9 @@ function _echoCalibrationItem($ref, $record, $bAdmin)
 {
    	$strDate = $record['date'];
     $strPrice = $ref->GetPriceDisplay($ref->nv_ref->sql->GetClose($strDate));
-    $strPairPrice = $ref->pair_ref->GetPriceDisplay($ref->pair_nv_ref->sql->GetClose($strDate));
+    
+    $pair_ref = $ref->GetPairRef();
+    $strPairPrice = $pair_ref->GetPriceDisplay($ref->pair_nv_ref->sql->GetClose($strDate));
     
     $strClose = $record['close'];
     if ($bAdmin)

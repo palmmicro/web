@@ -142,7 +142,7 @@ function EchoFundHistoryParagraph($fund, $csv = false, $iStart = 0, $iNum = TABL
 
 function EchoEtfHistoryParagraph($ref, $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
 {
-    _echoFundHistoryParagraph($ref, $ref->pair_ref, $csv, $iStart, $iNum);
+    _echoFundHistoryParagraph($ref, $ref->GetPairRef(), $csv, $iStart, $iNum);
 }
 
 ?>

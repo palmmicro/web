@@ -24,10 +24,26 @@ class AbPairReference extends MyPairReference
     function AbPairReference($strSymbolA) 
     {
         parent::MyPairReference($strSymbolA);
-        $ab_sql = new AbPairSql();
-    	if ($strSymbolB = $ab_sql->GetPairSymbol($strSymbolA))
+        $this->ab_sql = new AbPairSql();
+    	if ($strSymbolB = $this->ab_sql->GetPairSymbol($strSymbolA))
     	{
     		$this->pair_ref = new MyStockReference($strSymbolB);
+    	}
+    }
+}
+
+// ****************************** AhPairReference class *******************************************************
+class AhPairReference extends MyPairReference
+{
+    var $ah_sql;
+
+    function AhPairReference($strSymbolA) 
+    {
+        parent::MyPairReference($strSymbolA);
+        $this->ah_sql = new AhPairSql();
+    	if ($strSymbolH = $this->ah_sql->GetPairSymbol($strSymbolA))
+    	{
+    		$this->pair_ref = new MyStockReference($strSymbolH);
     	}
     }
 }
@@ -75,11 +91,10 @@ class IndexReference extends MyStockReference
 }
 
 // ****************************** EtfReference class *******************************************************
-class EtfReference extends MyStockReference
+class EtfReference extends MyPairReference
 {
 	var $nv_ref;
     var $pair_nv_ref = false;
-    var $pair_ref;
     var $cny_ref = false;
 
     var $sql;
@@ -94,7 +109,7 @@ class EtfReference extends MyStockReference
  
     function EtfReference($strSymbol) 
     {
-        parent::MyStockReference($strSymbol);
+        parent::MyPairReference($strSymbol);
         $strStockId = $this->GetStockId();
        	$this->nv_ref = new NetValueReference($strStockId, $this->GetSym());
         $this->sql = new EtfCalibrationSql($strStockId);
@@ -122,7 +137,7 @@ class EtfReference extends MyStockReference
 		else if ($sym->IsEtf())
 		{
         	$this->pair_nv_ref = new NetValueReference($strStockId, $sym);
-			$this->pair_ref = new MyStockReference($strSymbol, $sym);
+			$this->pair_ref = new MyPairReference($strSymbol, $sym);
 		}
 		else
 		{

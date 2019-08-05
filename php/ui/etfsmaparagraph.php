@@ -16,7 +16,7 @@ function EchoEtfArraySmaParagraph($ref, $arEtfRef, $callback2 = false)
 
 function EchoEtfSmaParagraph($ref, $str = false, $callback2 = false)
 {
-	EchoSmaParagraph($ref->pair_ref, $str, $ref, '_callbackEtfSma', $callback2);
+	EchoSmaParagraph($ref->GetPairRef(), $str, $ref, '_callbackEtfSma', $callback2);
 }
 
 ?>
