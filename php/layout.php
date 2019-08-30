@@ -14,14 +14,7 @@ function LayoutWeixinPromotion()
     echo <<<END
         <p>请扫二维码关注Palmmicro<a href="/woody/blog/palmmicro/20161014cn.php">微信公众号</a>sz162411. 
         <br /><img src=/woody/image/wx.jpg alt="Palmmicro wechat public account sz162411 small size QR code" />
-        </p>
-END;
-}
-
-function LayoutMyPromotion()
-{
-    echo <<<END
-        <p>觉得这个网站有用? 可以用支付宝或者微信打赏支持一下.
+        <br /><b>觉得这个网站有用? 可以用支付宝或者微信打赏支持一下.</b>
         <br /><img src=/woody/image/alipay.jpg alt="QRcode to pay Woody in Taobao" />
         <br /><img src=/woody/image/wxpay.jpg alt="QRcode to pay 1 RMB to Woody in Weixin" />
         </p>
@@ -48,7 +41,7 @@ function LayoutBrokerPromotion()
         扫码开户后在第一步显示佣金的地方一定要核对工号<b>011979</b>
         <br /><img src=/woody/image/huataiaccount.png alt="Huatai open account scan QR code, agent id 011979" />
         
-        <br /><a href="https://www.snowballsecurities.com/ib-account-open/web?r=50001003008" target=_blank>雪盈证券开户</a>
+        <br /><a href="https://www.snowballsecurities.com/activity/open/open-v10?r=50001003008" target=_blank>雪盈证券开户</a>
         	  <a href="https://www.snowballsecurities.com/activity/bank-card-booking?r=50001003008" target=_blank>雪盈境外卡开户</a>
         <br />雪球旗下港美股券商——雪盈证券, 极低佣金利率, 毫秒级下单速度, 免费实时行情! 
         	  更有开户入金新手豪礼等着你, 最高1066港币+热门股票+高级行情, 点击链接, 开户领豪礼. 

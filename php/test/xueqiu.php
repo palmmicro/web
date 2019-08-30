@@ -91,13 +91,12 @@ function _getXueqiuIdLinks($str, $ar, $xq_sql)
 
 function GetXueqiuDefault()
 {
-//	return '2244868365';	// Woody
-	return '1426381781';
+	return '2244868365';	// Woody
 }
 
 function _getXueqiuCookie($strToken)
 {
-	return 'xq_a_token='.($strToken ? $strToken : '38724b9c3fd8412f883daf6884a7bfb8d9dd2bf1');
+	return 'xq_a_token='.($strToken ? $strToken : '7c90e9734b15f44ff121ca00cf068fb623a84079');
 //				  .'xq_is_login=1;'
 //				  .'xq_is_login.sig=J3LxgPVPUzbBg3Kee_PquUfih7Q;'
 //				  .'remember=1;'
@@ -113,6 +112,7 @@ function GetXueqiuFriend($strId, $strToken = false)
 	if ($strToken)	$arFollowMe = array();
 	$arFriend = array();
 	$arFollower = array();
+	$arFriendFollower = array();
 	$arStatus = array();
 	$arStock = array();	// stocks_count
     $xq_sql = new XueqiuIdSql();
@@ -138,6 +138,7 @@ function GetXueqiuFriend($strId, $strToken = false)
 				}
 				if ($arCur['friends_count'] > 1980)										$arFriend[] = $arCur['id'];
 				if ($arCur['followers_count'] <= 1)										$arFollower[] = $arCur['id'];
+				if (($arCur['followers_count'] * 50) < $arCur['friends_count'])			$arFriendFollower[] = $arCur['id'];
 				if ($arCur['status_count'] == 0)											$arStatus[] = $arCur['id'];
 				if (($arCur['stocks_count'] == 0) && ($arCur['cube_count'] == 0))		$arStock[] = $arCur['id'];
 				$xq_sql->Write($arCur['id'], $arCur['screen_name'], $arCur['friends_count'], $arCur['followers_count'], $arCur['status_count']);
@@ -153,6 +154,7 @@ function GetXueqiuFriend($strId, $strToken = false)
 		$str .= _getXueqiuIdLinks('没关注我', $arFollowMe, $xq_sql);
 	}
 	$str .= _getXueqiuIdLinks('只有我关注了', $arFollower, $xq_sql);
+	$str .= _getXueqiuIdLinks('关注比例悬殊', $arFriendFollower, $xq_sql);
 	$str .= _getXueqiuIdLinks('不发言', $arStatus, $xq_sql);
 	$str .= _getXueqiuIdLinks('既没自选股也没组合', $arStock, $xq_sql);
 	$str .= _getXueqiuIdLinks('可能需要这个软件', $arFriend, $xq_sql);
@@ -171,6 +173,7 @@ function GetXueqiuFollower($strId, $strToken)
 	$strCookie = _getXueqiuCookie($strToken);
 	$strUrl = GetXueqiuUrl().'friendships/followers.json?uid='.$strId;
 	$arFollowing = array();
+	$arNoFollower = array();
     $xq_sql = new XueqiuIdSql();
 	
     $fStart = microtime(true);
@@ -186,7 +189,11 @@ function GetXueqiuFollower($strId, $strToken)
 			$arUsers = $ar['followers'];
 			foreach ($arUsers as $arCur)
 			{
-				if (($arCur['following'] == false) && ($arCur['status_count'] > 0) && ($arCur['followers_count'] > 0))		$arFollowing[] = $arCur['id'];
+				if (($arCur['following'] == false) && ($arCur['status_count'] > 0))
+				{
+					if ($arCur['followers_count'] == 0)	$arNoFollower[] = $arCur['id'];
+					else									$arFollowing[] = $arCur['id'];
+				}
 				$xq_sql->Write($arCur['id'], $arCur['screen_name'], $arCur['friends_count'], $arCur['followers_count'], $arCur['status_count']);
 				$iCount ++;
 			}
@@ -195,7 +202,8 @@ function GetXueqiuFollower($strId, $strToken)
 	} while ($iPage <= intval($ar['maxPage']));
 	
 	$str = '读到'.strval($iCount).'个粉丝<br />';
-	$str .= _getXueqiuIdLinks('有发言有粉丝但是没关注', $arFollowing, $xq_sql);
+	$str .= _getXueqiuIdLinks('无粉丝有发言但是没关注', $arNoFollower, $xq_sql);
+	$str .= _getXueqiuIdLinks('有粉丝有发言但是没关注', $arFollowing, $xq_sql);
 	return $str.DebugGetStopWatchDisplay($fStart);
 }
 
