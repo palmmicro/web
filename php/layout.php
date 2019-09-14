@@ -25,8 +25,7 @@ function LayoutBrokerPromotion()
 {
 	$strSnowball = GetXueqiuIdLink('7489073227', '技术支持');
 	if (AcctIsAdmin())		$strSnowball .= ' '.GetExternalLink('https://www.snowballsecurities.com/external-channel/invite', '管理');
-/*        <br /><img src=/woody/image/xueyingaccount.png alt="Xueying open account scan QR code" />
-*/
+
     echo <<<END
         <p>低风险文艺券商, 套利神器. 
         <br />★场内基金申购全部一折, 场外app申购大部分1折.
@@ -39,7 +38,7 @@ function LayoutBrokerPromotion()
         <br /><a href="https://m.zhangle.com/h5Account/mobile-h5/index.htm?ly=HTC1-9000008608&param1=011979" target=_blank>华泰证券开户</a>
         <br />佣金股票万1.6, 场内基金万1, 债券十万分之一. 客户支持微信号18651870837. 
         扫码开户后在第一步显示佣金的地方一定要核对工号<b>011979</b>
-        <br /><img src=/woody/image/huataiaccount.png alt="Huatai open account scan QR code, agent id 011979" />
+        <br /><img src=/woody/image/huatai20190906.png alt="Huatai open account scan QR code updated on 20190906, agent id 011979" />
         
         <br /><a href="https://www.snowballsecurities.com/activity/open/open-v10?r=50001003008" target=_blank>雪盈证券开户</a>
         	  <a href="https://www.snowballsecurities.com/activity/bank-card-booking?r=50001003008" target=_blank>雪盈境外卡开户</a>

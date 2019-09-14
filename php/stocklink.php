@@ -69,6 +69,12 @@ function GetThanousLawLink($strSymbol)
     return GetStockSymbolLink('thanouslaw', $strSymbol, THANOUS_LAW_DISPLAY);
 }
 
+define('FUND_ACCOUNT_DISPLAY', '基金申购账户统计');
+function GetFundAccountLink($strSymbol)
+{
+    return GetStockSymbolLink('fundaccount', $strSymbol, FUND_ACCOUNT_DISPLAY);
+}
+
 define('BENFORD_LAW_DISPLAY', '本福特定律');
 function GetBenfordLawLink($strSymbol)
 {
