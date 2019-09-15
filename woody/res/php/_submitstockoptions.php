@@ -217,6 +217,19 @@ function _updateStockOptionEtf($strSymbol, $strVal)
 	}
 }
 
+function _updateStockOptionSharesDiff($strStockId, $strDate, $strVal)
+{
+	$sql = new EtfSharesDiffSql($strStockId);
+    if ($strVal == '0')
+    {
+//   		$sql->DeleteAll();
+    }
+    else
+    {
+   		$sql->Write($strDate, $strVal);
+    }
+}
+
 function _updateStockOptionSplitGroupTransactions($strGroupId, $strStockId, $strDate, $fRatio, $fPrice)
 {
 	$sql = new StockGroupItemSql($strGroupId);
@@ -311,6 +324,10 @@ function _updateStockOptionSplit($ref, $strSymbol, $strStockId, $strDate, $strVa
 			
 		case STOCK_OPTION_HA:
 			if ($bAdmin)	_updateStockOptionHa($strSymbol, $strVal);
+			break;
+			
+		case STOCK_OPTION_SHARES_DIFF:
+			if ($bAdmin)	_updateStockOptionSharesDiff($strStockId, $strDate, $strVal);
 			break;
 			
 		case STOCK_OPTION_SPLIT:

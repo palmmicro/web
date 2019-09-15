@@ -221,6 +221,15 @@ class EtfSharesHistorySql extends DailyStockSql
     }
 }
 
+// ****************************** EtfSharesDiffSql class *******************************************************
+class EtfSharesDiffSql extends DailyStockSql
+{
+    function EtfSharesDiffSql($strStockId = false) 
+    {
+        parent::DailyStockSql($strStockId, 'etfsharesdiff');
+    }
+}
+
 // ****************************** NetValueHistorySql class *******************************************************
 class NetValueHistorySql extends DailyStockSql
 {

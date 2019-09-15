@@ -9,8 +9,9 @@ function _getStockOptionDate($strSubmit, $ref)
 	switch ($strSubmit)
 	{
 	case STOCK_OPTION_ADJCLOSE:
-	case STOCK_OPTION_SPLIT:
 	case STOCK_OPTION_EMA:
+	case STOCK_OPTION_SHARES_DIFF:
+	case STOCK_OPTION_SPLIT:
 		if ($strDate = $his_sql->GetDateNow())
 		{
 			return $strDate;
