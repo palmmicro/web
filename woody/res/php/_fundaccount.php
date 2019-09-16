@@ -3,16 +3,19 @@ require_once('_stock.php');
 require_once('_emptygroup.php');
 require_once('/php/csvfile.php');
 
-function _echoFundAccountItem($csv, $strDate, $strSharesDiff, $ref)
+function _echoFundAccountItem($csv, $strDate, $strSharesDiff, $ref, $nv_sql)
 {
-	$strClose = '';
-	$strNetValue = '';
-	$strPremium = '';
+	$strClose = $ref->his_sql->GetClosePrev3($strDate);
+	$strNetValue = $nv_sql->GetClosePrev4($strDate);
+	$strPremium = $ref->GetPercentageDisplay($strNetValue, $strClose);
+	$fAccount = floatval($strSharesDiff) * 10000.0 / (985.0 / floatval($nv_sql->GetClosePrev3($strDate)));
+	$strAccount = strval(intval($fAccount));
 	
     echo <<<END
     <tr>
         <td class=c1>$strDate</td>
         <td class=c1>$strSharesDiff</td>
+        <td class=c1>$strAccount</td>
         <td class=c1>-></td>
         <td class=c1>$strClose</td>
         <td class=c1>$strNetValue</td>
@@ -24,6 +27,8 @@ END;
 function _echoFundAccountData($ref)
 {
 	$strStockId = $ref->GetStockId();
+	$nv_sql = new NetValueHistorySql($strStockId);
+	
 	$sql = new EtfSharesDiffSql($strStockId);
     if ($result = $sql->GetAll()) 
     {
@@ -31,7 +36,7 @@ function _echoFundAccountData($ref)
         while ($record = mysql_fetch_assoc($result)) 
         {
        		$strDate = $record['date'];
-       		_echoFundAccountItem($csv, $strDate, rtrim0($record['close']), $ref);
+       		_echoFundAccountItem($csv, $strDate, rtrim0($record['close']), $ref, $nv_sql);
         }
         $csv->Close();
         @mysql_free_result($result);
@@ -48,7 +53,8 @@ function _echoFundAccountParagraph($ref, $strSymbol, $bAdmin)
 	
 	EchoTableParagraphBegin(array(new TableColumnDate(),
 								   new TableColumn(STOCK_OPTION_SHARES_DIFF, 110),
-								   new TableColumn('场内申购日->', 110),
+								   new TableColumn('场内申购账户', 100),
+								   new TableColumn('场内申购日->', 100),
 								   new TableColumnClose(),
 								   new TableColumnNetValue(),
 								   new TableColumnPremium()

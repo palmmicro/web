@@ -50,6 +50,35 @@ class DailyStockSql extends StockTableSql
     	return $this->GetSingleData($this->BuildWhere_key()." AND date < '$strDate'", _SqlOrderByDate());
     }
 
+    function GetPrevPrev($strDate, $iDays)
+    {
+    	$iDays ++;
+    	if ($result = $this->GetFromDate($strDate, $iDays)) 
+    	{
+    		for ($i = 0; $i < $iDays; $i ++)
+    		{
+    			$record = mysql_fetch_assoc($result);
+    		}
+    		@mysql_free_result($result);
+    	}
+    	return $record;
+    }
+
+    function GetPrev2($strDate)
+    {
+    	return $this->GetPrevPrev($strDate, 2);
+    }
+
+    function GetPrev3($strDate)
+    {
+    	return $this->GetPrevPrev($strDate, 3);
+    }
+    
+    function GetPrev4($strDate)
+    {
+    	return $this->GetPrevPrev($strDate, 4);
+    }
+    
     function _getCloseString($strDate, $callback)
     {
     	if ($record = $this->$callback($strDate))
@@ -67,6 +96,21 @@ class DailyStockSql extends StockTableSql
     function GetClosePrev($strDate)
     {
     	return $this->_getCloseString($strDate, 'GetPrev');
+    }
+
+    function GetClosePrev2($strDate)
+    {
+    	return $this->_getCloseString($strDate, 'GetPrev2');
+    }
+
+    function GetClosePrev3($strDate)
+    {
+    	return $this->_getCloseString($strDate, 'GetPrev3');
+    }
+
+    function GetClosePrev4($strDate)
+    {
+    	return $this->_getCloseString($strDate, 'GetPrev4');
     }
 
     function GetNow()
