@@ -221,13 +221,12 @@ class PageImageFile extends ImageFile
     	}
     }
 
-    function Show($strName, $strCompare, $strCsv)
+    function Show($strName, $strCompare, $strLinks)
     {
     	$this->SaveFile();
     	$strRand = strval(rand());
-    	$strCsvLink = GetFileLink($strCsv);
     	echo <<< END
-    		<p><font color={$this->strLineColor}>$strName</font> <font color={$this->strCompareColor}>$strCompare</font> $strCsvLink
+    		<p><font color={$this->strLineColor}>$strName</font> <font color={$this->strCompareColor}>$strCompare</font> $strLinks
     		<br /><img src={$this->strPathName}?$strRand alt="$strRand automatical generated image, do NOT link" />
     		</p>
 END;

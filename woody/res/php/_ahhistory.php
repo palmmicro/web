@@ -11,7 +11,7 @@ function _echoAhHistoryGraph($strSymbol)
     $jpg->DrawDateArray($csv->ReadColumn(4));
     $jpg->DrawCompareArray($csv->ReadColumn(1));
 	$arColumn = GetAhCompareTableColumn();
-    $jpg->Show($arColumn[1], $strSymbol, $csv->GetPathName());
+    $jpg->Show($arColumn[1], $strSymbol, $csv->GetLink());
 }
 
 function _echoAhHistoryItem($hshare_ref, $csv, $record, $h_his_sql, $hkcny_sql)

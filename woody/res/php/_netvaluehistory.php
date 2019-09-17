@@ -14,7 +14,7 @@ function _echoNetValueHistoryGraph($strSymbol)
    	{
    		$jpg->DrawDateArray($ar);
    		$jpg->DrawCompareArray($csv->ReadColumn(1));
-   		$jpg->Show(STOCK_DISP_PREMIUM, $strSymbol, $csv->GetPathName());
+   		$jpg->Show(STOCK_DISP_PREMIUM, $strSymbol, $csv->GetLink());
    	}
 }
 

@@ -3,6 +3,67 @@ require_once('_stock.php');
 require_once('_emptygroup.php');
 require_once('/php/csvfile.php');
 
+class LinearRegression
+{
+    var $fA;
+    var $fB;
+    var $fR;
+
+    function Mean($arF)
+    {
+    	$f = 0.0;
+    	$iCount = count($arF);
+    	if ($iCount > 0)
+    	{
+    		foreach ($arF as $fVal)
+    		{
+    			$f += $fVal;
+    		}
+    		$f /= $iCount;
+    	}
+    	return $f;
+    }
+    
+    function SquareSum($arF)
+    {
+    	$f = 0.0;
+    	foreach ($arF as $fVal)
+    	{
+    		$f += $fVal * $fVal;
+    	}
+    	return $f;
+    }
+    
+    function LinearRegression($arX, $arY) 
+    {
+    	$iCount = count($arX);
+    	$fMeanX = $this->Mean($arX);
+    	DebugVal($fMeanX, 'Mean X');
+    	$fMeanY = $this->Mean($arY);
+    	DebugVal($fMeanY, 'Mean Y');
+    	
+    	$fSxx = $this->SquareSum($arX) - $iCount * $fMeanX * $fMeanX;
+    	DebugVal($fSxx, 'Sxx');
+    	$fSyy = $this->SquareSum($arY) - $iCount * $fMeanY * $fMeanY;
+    	DebugVal($fSyy, 'Syy');
+    	
+    	$fSxy = 0.0;
+    	foreach ($arX as $strKey => $fX)
+    	{
+    		$fSxy += $fX * $arY[$strKey];
+    	}
+    	$fSxy -= $iCount * $fMeanX * $fMeanY;
+    	DebugVal($fSxy, 'Sxy');
+    	
+    	$this->fB = $fSxy / $fSxx;
+    	DebugVal($this->fB, 'B');
+    	$this->fA = $fMeanY - $this->fB * $fMeanX;
+    	DebugVal($this->fA, 'A');
+    	$this->fR = $fSxy / sqrt($fSxx) / sqrt($fSyy);
+    	DebugVal($this->fR, 'R');
+    }
+}
+
 function _echoFundAccountItem($csv, $strDate, $strSharesDiff, $ref, $nv_sql)
 {
 	$strClose = $ref->his_sql->GetClosePrev3($strDate);
@@ -10,6 +71,8 @@ function _echoFundAccountItem($csv, $strDate, $strSharesDiff, $ref, $nv_sql)
 	$strPremium = $ref->GetPercentageDisplay($strNetValue, $strClose);
 	$fAccount = floatval($strSharesDiff) * 10000.0 / (985.0 / floatval($nv_sql->GetClosePrev3($strDate)));
 	$strAccount = strval(intval($fAccount));
+
+   	$csv->Write($strDate, $strSharesDiff, $strAccount, $strClose, $strNetValue, $ref->GetPercentage($strNetValue, $strClose));
 	
     echo <<<END
     <tr>
@@ -24,7 +87,7 @@ function _echoFundAccountItem($csv, $strDate, $strSharesDiff, $ref, $nv_sql)
 END;
 }
 
-function _echoFundAccountData($ref)
+function _echoFundAccountData($csv, $ref)
 {
 	$strStockId = $ref->GetStockId();
 	$nv_sql = new NetValueHistorySql($strStockId);
@@ -32,7 +95,6 @@ function _echoFundAccountData($ref)
 	$sql = new EtfSharesDiffSql($strStockId);
     if ($result = $sql->GetAll()) 
     {
-     	$csv = new PageCsvFile();
         while ($record = mysql_fetch_assoc($result)) 
         {
        		$strDate = $record['date'];
@@ -43,7 +105,7 @@ function _echoFundAccountData($ref)
     }
 }
 
-function _echoFundAccountParagraph($ref, $strSymbol, $bAdmin)
+function _echoFundAccountParagraph($csv, $ref, $strSymbol, $bAdmin)
 {
  	$str = GetNetValueHistoryLink($strSymbol).' '.GetStockHistoryLink($strSymbol);
 	if ($bAdmin)
@@ -60,8 +122,19 @@ function _echoFundAccountParagraph($ref, $strSymbol, $bAdmin)
 								   new TableColumnPremium()
 								   ), 'fundaccount', $str);
 	
-	_echoFundAccountData($ref);
+	_echoFundAccountData($csv, $ref);
     EchoTableParagraphEnd();
+}
+
+function _echoLinearRegressionParagraph($csv)
+{
+	$arX = $csv->ReadColumn(5);
+	$arY = $csv->ReadColumn(2);
+	$lr = new LinearRegression($arX, $arY);
+	
+	$str = $csv->GetLink();
+	$str .= ' '.strval(intval($lr->fA)).' '.strval(intval($lr->fB)).' '.strval($lr->fR);
+    EchoParagraph($str);
 }
 
 function EchoAll()
@@ -74,7 +147,12 @@ function EchoAll()
    		$strSymbol = $ref->GetStockSymbol();
         if (in_arrayLof($strSymbol))
         {
-            _echoFundAccountParagraph($ref, $strSymbol, $bAdmin);
+        	$csv = new PageCsvFile();
+            _echoFundAccountParagraph($csv, $ref, $strSymbol, $bAdmin);
+            if ($csv->HasFile())
+            {
+            	_echoLinearRegressionParagraph($csv);
+            }
         }
     }
     $group->EchoLinks();

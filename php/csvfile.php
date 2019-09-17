@@ -17,6 +17,11 @@ class CsvFile
     	return $this->strPathName;
     }
     
+    function GetLink()
+    {
+    	return GetFileLink($this->strPathName);
+    }
+    
     function HasFile()
     {
     	return file_exists($this->strPathName);
