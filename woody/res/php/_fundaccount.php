@@ -2,66 +2,38 @@
 require_once('_stock.php');
 require_once('_emptygroup.php');
 require_once('/php/csvfile.php');
+require_once('/php/imagefile.php');
 
-class LinearRegression
+function SquareSum($arF)
 {
-    var $fA;
-    var $fB;
-    var $fR;
-
-    function Mean($arF)
-    {
-    	$f = 0.0;
-    	$iCount = count($arF);
-    	if ($iCount > 0)
-    	{
-    		foreach ($arF as $fVal)
-    		{
-    			$f += $fVal;
-    		}
-    		$f /= $iCount;
-    	}
-    	return $f;
-    }
+  	$f = 0.0;
+   	foreach ($arF as $fVal)
+   	{
+   		$f += pow($fVal, 2);
+   	}
+   	return $f;
+}
     
-    function SquareSum($arF)
-    {
-    	$f = 0.0;
-    	foreach ($arF as $fVal)
-    	{
-    		$f += $fVal * $fVal;
-    	}
-    	return $f;
-    }
-    
-    function LinearRegression($arX, $arY) 
-    {
-    	$iCount = count($arX);
-    	$fMeanX = $this->Mean($arX);
-    	DebugVal($fMeanX, 'Mean X');
-    	$fMeanY = $this->Mean($arY);
-    	DebugVal($fMeanY, 'Mean Y');
+function LinearRegression($arX, $arY)
+{
+   	$iCount = count($arX);
+   	$fMeanX = array_sum($arX) / $iCount;
+   	$fMeanY = array_sum($arY) / $iCount;
     	
-    	$fSxx = $this->SquareSum($arX) - $iCount * $fMeanX * $fMeanX;
-    	DebugVal($fSxx, 'Sxx');
-    	$fSyy = $this->SquareSum($arY) - $iCount * $fMeanY * $fMeanY;
-    	DebugVal($fSyy, 'Syy');
+   	$fSxx = SquareSum($arX) - $iCount * pow($fMeanX, 2);
+   	$fSyy = SquareSum($arY) - $iCount * pow($fMeanY, 2);
     	
-    	$fSxy = 0.0;
-    	foreach ($arX as $strKey => $fX)
-    	{
-    		$fSxy += $fX * $arY[$strKey];
-    	}
-    	$fSxy -= $iCount * $fMeanX * $fMeanY;
-    	DebugVal($fSxy, 'Sxy');
+   	$fSxy = 0.0;
+   	foreach ($arX as $strKey => $fX)
+   	{
+   		$fSxy += $fX * $arY[$strKey];
+   	}
+   	$fSxy -= $iCount * $fMeanX * $fMeanY;
     	
-    	$this->fB = $fSxy / $fSxx;
-    	DebugVal($this->fB, 'B');
-    	$this->fA = $fMeanY - $this->fB * $fMeanX;
-    	DebugVal($this->fA, 'A');
-    	$this->fR = $fSxy / sqrt($fSxx) / sqrt($fSyy);
-    	DebugVal($this->fR, 'R');
-    }
+   	$fB = $fSxy / $fSxx;
+   	$fA = $fMeanY - $fB * $fMeanX;
+    $fR = $fSxy / sqrt($fSxx) / sqrt($fSyy);
+	return array($fA, $fB, $fR);
 }
 
 function _echoFundAccountItem($csv, $strDate, $strSharesDiff, $ref, $nv_sql)
@@ -115,7 +87,7 @@ function _echoFundAccountParagraph($csv, $ref, $strSymbol, $bAdmin)
 	
 	EchoTableParagraphBegin(array(new TableColumnDate(),
 								   new TableColumn(STOCK_OPTION_SHARES_DIFF, 110),
-								   new TableColumn('场内申购账户', 100),
+								   new TableColumn(STOCK_DISP_ACCOUNT, 100),
 								   new TableColumn('场内申购日->', 100),
 								   new TableColumnClose(),
 								   new TableColumnNetValue(),
@@ -126,15 +98,19 @@ function _echoFundAccountParagraph($csv, $ref, $strSymbol, $bAdmin)
     EchoTableParagraphEnd();
 }
 
-function _echoLinearRegressionParagraph($csv)
+function _echoLinearRegressionGraph($csv)
 {
 	$arX = $csv->ReadColumn(5);
 	$arY = $csv->ReadColumn(2);
-	$lr = new LinearRegression($arX, $arY);
+	list($fA, $fB, $fR) = LinearRegression($arX, $arY);
 	
 	$str = $csv->GetLink();
-	$str .= ' '.strval(intval($lr->fA)).' '.strval(intval($lr->fB)).' '.strval($lr->fR);
-    EchoParagraph($str);
+	$str .= '<br />Y('.STOCK_DISP_ACCOUNT.') = '.strval(intval($fA)).' + '.strval(intval($fB)).' * X('.STOCK_DISP_PREMIUM.'); r =  '.strval_round($fR);
+//    EchoParagraph($str);
+
+    $jpg = new LinearImageFile();
+    $jpg->Draw($arX, $arY, $fA, $fB);
+    $jpg->EchoFile($str);
 }
 
 function EchoAll()
@@ -151,7 +127,7 @@ function EchoAll()
             _echoFundAccountParagraph($csv, $ref, $strSymbol, $bAdmin);
             if ($csv->HasFile())
             {
-            	_echoLinearRegressionParagraph($csv);
+            	_echoLinearRegressionGraph($csv);
             }
         }
     }

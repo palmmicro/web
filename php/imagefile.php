@@ -108,6 +108,17 @@ class ImageFile
         imagedestroy($this->image);
     }
     
+    function EchoFile($str)
+    {
+    	$this->SaveFile();
+    	$strRand = strval(rand());
+    	echo <<< END
+    		<p>$str
+    		<br /><img src={$this->strPathName}?$strRand alt="$strRand automatical generated image, do NOT link" />
+    		</p>
+END;
+	}
+	
     function GetPathName()
     {
     	return $this->strPathName;
@@ -116,12 +127,51 @@ class ImageFile
 
 class PageImageFile extends ImageFile
 {
-	var $iBottom;
-	var $iTextHeight;
-	
     function PageImageFile() 
     {
         parent::ImageFile(DebugGetImageName(UrlGetUniqueString()), 640, 480);
+    }
+}
+
+class LinearImageFile extends PageImageFile
+{
+    function LinearImageFile() 
+    {
+        parent::PageImageFile();
+    }
+
+    function _getPosX($fX, $fMaxX)
+    {
+		return intval($this->iWidth * ($fX / $fMaxX));
+    }
+    
+    function _getPosY($fY, $fMaxY)
+    {
+		return intval($this->iHeight * (1.0 - $fY / $fMaxY));
+    }
+    
+    function Draw($arX, $arY, $fA, $fB)
+    {
+    	$fMaxX = max($arX) * 1.05;
+    	$fMaxY = max($arY) * 1.05;
+    	
+    	// y = A + B * x;
+    	$this->Line($this->_getPosX(0.0, $fMaxX), $this->_getPosY($fA, $fMaxY), $this->_getPosX($fMaxX, $fMaxX), $this->_getPosY($fA + $fB * $fMaxX, $fMaxY));
+    	foreach ($arX as $strKey => $fX)
+    	{
+    		$this->Pixel($this->_getPosX($fX, $fMaxX), $this->_getPosY($arY[$strKey], $fMaxY));
+    	}
+    }
+}
+
+class DateImageFile extends PageImageFile
+{
+	var $iBottom;
+	var $iTextHeight;
+	
+    function DateImageFile() 
+    {
+        parent::PageImageFile();
     }
     
     function _textDateVal($x, $y, $strDate, $fVal)
@@ -223,13 +273,9 @@ class PageImageFile extends ImageFile
 
     function Show($strName, $strCompare, $strLinks)
     {
-    	$this->SaveFile();
-    	$strRand = strval(rand());
-    	echo <<< END
-    		<p><font color={$this->strLineColor}>$strName</font> <font color={$this->strCompareColor}>$strCompare</font> $strLinks
-    		<br /><img src={$this->strPathName}?$strRand alt="$strRand automatical generated image, do NOT link" />
-    		</p>
-END;
+    	$strLinks .= '<br />';
+    	$strLinks .= "<font color={$this->strLineColor}>$strName</font> <font color={$this->strCompareColor}>$strCompare</font>";
+    	$this->EchoFile($strLinks);
 	}
 }
 

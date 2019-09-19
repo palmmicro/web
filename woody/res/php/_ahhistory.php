@@ -7,7 +7,7 @@ require_once('/php/imagefile.php');
 function _echoAhHistoryGraph($strSymbol)
 {
    	$csv = new PageCsvFile();
-    $jpg = new PageImageFile();
+    $jpg = new DateImageFile();
     $jpg->DrawDateArray($csv->ReadColumn(4));
     $jpg->DrawCompareArray($csv->ReadColumn(1));
 	$arColumn = GetAhCompareTableColumn();

@@ -24,7 +24,7 @@ function _echoNvClosePool($strSymbol)
 function _echoNvCloseGraph($strSymbol)
 {
    	$csv = new PageCsvFile();
-    $jpg = new PageImageFile();
+    $jpg = new DateImageFile();
     $jpg->DrawDateArray($csv->ReadColumn(2));
     $jpg->DrawCompareArray($csv->ReadColumn(3));
     $jpg->Show(STOCK_DISP_PREMIUM, $strSymbol, $csv->GetLink());

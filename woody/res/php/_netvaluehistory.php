@@ -8,7 +8,7 @@ require_once('/php/ui/fundhistoryparagraph.php');
 function _echoNetValueHistoryGraph($strSymbol)
 {
    	$csv = new PageCsvFile();
-    $jpg = new PageImageFile();
+    $jpg = new DateImageFile();
     $ar = $csv->ReadColumn(2);
    	if (count($ar) > 0)
    	{
