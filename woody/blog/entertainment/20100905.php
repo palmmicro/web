@@ -50,7 +50,6 @@ As PA6488 based camera is not available in market yet. Users can test the user m
 
 <h3><a name="xueqiufriend">Snowball</a> Friends</h3>
 <p>Apr 24, 2019
-<br /><a href="../../../php/xueqiufriend.php">Snowball Friends</a> tool.
 <br /><?php EchoLink('http://111.230.12.222/php/xueqiufriend.php'); ?>.
 <br /><img src=../photo/xueqiu20190424.jpg alt="Apr 24, 2019. Xueqiu woody1234 page and chrome Cookie entry." />
 <br /><img src=../photo/xueqiucookie.jpg alt="Chrome Cookie settings where to find xueqiu.com xq_a_token value." />

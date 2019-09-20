@@ -737,18 +737,28 @@ class YahooNetValueReference extends StockReference
 // ****************************** Public StockReference functions *******************************************************
 function RefHasData($ref)
 {
-	if ($ref == false)	return false;
-	return $ref->HasData();
+	if ($ref)
+	{
+		return $ref->HasData();
+	}
+	return false;
 }
 
 function RefGetMyStockLink($ref)
 {
-    return GetMyStockLink($ref->GetStockSymbol());
+	if ($ref)
+	{
+		return GetMyStockLink($ref->GetStockSymbol());
+	}
+	return '';
 }
 
 function RefSetExternalLinkMyStock($ref)
 {
-   	$ref->SetExternalLink(RefGetMyStockLink($ref));
+	if ($ref)
+	{
+		$ref->SetExternalLink(RefGetMyStockLink($ref));
+	}
 }
 
 function RefSetExternalLink($ref)

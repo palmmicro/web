@@ -74,6 +74,15 @@ function GetTableColumnEst()
 	return $col->GetDisplay();
 }
 
+class TableColumnOfficalEst extends TableColumnEst
+{
+	function TableColumnOfficalEst()
+	{
+        parent::TableColumnEst();
+        $this->AddPrefix(STOCK_DISP_OFFICIAL);
+	}
+}
+
 class TableColumnNetValue extends TableColumn
 {
 	function TableColumnNetValue()
@@ -189,20 +198,12 @@ function GetTableColumnRealtimePremium()
 	return STOCK_DISP_REALTIME.GetTableColumnPremium();
 }
 
-function GetFundHistoryTableColumn($est_ref)
+class TableColumnMyStock extends TableColumn
 {
-    if ($est_ref)
-    {
-		$strSymbol = RefGetMyStockLink($est_ref);
-        $strChange = GetTableColumnChange();
-    }
-    else
-    {
-        $strSymbol = '';
-        $strChange = '';
-    }
-    
-	return array(GetTableColumnDate(), GetTableColumnClose(), GetTableColumnNetValue(), GetTableColumnPremium(), $strSymbol, $strChange, GetTableColumnOfficalEst(), GetTableColumnTime(), GetTableColumnError());
+	function TableColumnMyStock($ref)
+	{
+        parent::TableColumn(RefGetMyStockLink($ref));
+	}
 }
 
 function GetAhCompareTableColumn()

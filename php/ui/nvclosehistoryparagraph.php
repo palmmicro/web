@@ -71,21 +71,16 @@ function EchoNvCloseHistoryParagraph($ref, $str = false, $csv = false, $iStart =
    	$strNavLink = IsTableCommonDisplay($iStart, $iNum) ? '' : StockGetNavLink($strSymbol, $iTotal, $iStart, $iNum);
    	if ($str == false)	$str = GetNvCloseHistoryLink($strSymbol);
 
-    $arColumn = GetFundHistoryTableColumn($ref);
-    echo <<<END
-    <p>$str $strNavLink
-    <TABLE borderColor=#cccccc cellSpacing=0 width=590 border=1 class="text" id="{$strSymbol}nvclosehistory">
-    <tr>
-        <td class=c1 width=100 align=center>{$arColumn[0]}</td>
-        <td class=c1 width=70 align=center>{$arColumn[1]}</td>
-        <td class=c1 width=90 align=center>{$arColumn[2]}</td>
-        <td class=c1 width=70 align=center>{$arColumn[3]}</td>
-        <td class=c1 width=70 align=center>{$arColumn[5]}</td>
-        <td class=c1 width=100 align=center>流通股数(万)</td>
-        <td class=c1 width=90 align=center>换手率(%)</td>
-    </tr>
-END;
-   
+	$str .= ' '.$strNavLink;
+	EchoTableParagraphBegin(array(new TableColumnDate(),
+								   new TableColumnClose(),
+								   new TableColumnNetValue(),
+								   new TableColumnPremium(),
+								   new TableColumnChange(),
+								   new TableColumn('流通股数(万)', 100),
+								   new TableColumn('换手率(%)', 90)
+								   ), $strSymbol.'nvclosehistory', $str);
+
 	$shares_sql = new EtfSharesHistorySql($strStockId);
     _echoNvCloseData($sql, $shares_sql, $ref, $csv, $iStart, $iNum, AcctIsAdmin());
     EchoTableParagraphEnd($strNavLink);
