@@ -80,8 +80,8 @@ function _getFundParagraphStr($ref)
 
 function EchoFundArrayEstParagraph($arRef, $str = '')
 {
-	$offical_col = new TableColumnEst();
-	$offical_col->AddPrefix(STOCK_DISP_OFFICIAL);
+//	$offical_col = new TableColumnEst();
+//	$offical_col->AddPrefix(STOCK_DISP_OFFICIAL);
 
 	$fair_col = new TableColumnEst();
 	$fair_col->AddPrefix(STOCK_DISP_FAIR);
@@ -92,7 +92,7 @@ function EchoFundArrayEstParagraph($arRef, $str = '')
 	$premium_col = new TableColumnPremium();
 	EchoTableParagraphBegin(array(new TableColumnSymbol(),
 								   new TableColumnNetValue(),
-								   $offical_col,
+								   new TableColumnOfficalEst(),
 								   $premium_col,
 								   $fair_col,
 								   $premium_col,
