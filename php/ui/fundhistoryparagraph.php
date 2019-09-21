@@ -39,18 +39,7 @@ function _echoFundHistoryTableItem($csv, $strNetValue, $strClose, $strDate, $arF
         $strEstTime = $ref->GetTimeHM($arFund['time']);
     }
     
-    echo <<<END
-    <tr>
-        <td class=c1>$strDate</td>
-        <td class=c1>$strClose</td>
-        <td class=c1>$strNetValue</td>
-        <td class=c1>$strPremium</td>
-        <td class=c1>$strEstValue</td>
-        <td class=c1>$strEstTime</td>
-        <td class=c1>$strEstError</td>
-        <td class=c1>$strEstClose</td>
-    </tr>
-END;
+    EchoTableColumn(array($strDate, $strClose, $strNetValue, $strPremium, $strEstValue, $strEstTime, $strEstError, $strEstClose));
 }
 
 function _echoHistoryTableData($sql, $csv, $ref, $est_ref, $iStart, $iNum)

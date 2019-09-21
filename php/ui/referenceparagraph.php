@@ -4,47 +4,33 @@ require_once('stocktable.php');
 // $ref from StockReference
 function _echoReferenceTableItem($ref, $callback = false)
 {
-   	$strLink = $ref->GetExternalLink();
+	$ar = array();
+   	$ar[] = $ref->GetExternalLink();
     if ($ref->HasData())
     {
-    	$strPriceDisplay = $ref->GetPriceDisplay();
-    	$strPercentageDisplay = $ref->GetPercentageDisplay();
-    	$strDate = $ref->GetDate();
-    	$strTime = $ref->GetTimeHM();
+    	$ar[] = $ref->GetPriceDisplay();
+    	$ar[] = $ref->GetPercentageDisplay();
+    	$ar[] = $ref->GetDate();
+    	$ar[] = $ref->GetTimeHM();
     }
     else
     {
-    	$strPriceDisplay = '';
-    	$strPercentageDisplay = '';
-    	$strDate = '';
-    	$strTime = '';
+    	$ar[] = '';
+    	$ar[] = '';
+    	$ar[] = '';
+    	$ar[] = '';
     }
     
     if ($callback)
     {
-        $strDisplayEx = '';
-		$arDisplayEx = call_user_func($callback, $ref);
-		foreach ($arDisplayEx as $str)
-		{
-			$strDisplayEx .= GetTableColumnDisplay($str);
-		}
+		$ar = array_merge($ar, call_user_func($callback, $ref));
     }
     else
     {
-		$strDescription = RefGetDescription($ref, true);
-        $strDisplayEx = GetTableColumnDisplay($strDescription);
+		$ar[] = RefGetDescription($ref, true);
     }
-
-    echo <<<END
-    <tr>
-        <td class=c1>$strLink</td>
-        <td class=c1>$strPriceDisplay</td>
-        <td class=c1>$strPercentageDisplay</td>
-        <td class=c1>$strDate</td>
-        <td class=c1>$strTime</td>
-        $strDisplayEx
-    </tr>
-END;
+    
+    EchoTableColumn($ar);
 }
 
 function _echoReferenceTableData($arRef, $callback)

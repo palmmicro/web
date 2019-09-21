@@ -14,45 +14,24 @@ function _getTradingNumber($strNumber)
     return strval(intval($fNum));
 }
 
-function _getTradingEstPercentageDisplay($ref, $strPrice, $strEstPrice, $strColor)
-{
-	if ($strEstPrice)
-	{
-		return GetTableColumnDisplay($ref->GetPercentageDisplay($strEstPrice, $strPrice), $strColor);
-	}
-	return '';
-}
-
 function _echoTradingTableItem($i, $strAskBid, $strPrice, $strQuantity, $ref, $strEstPrice, $strEstPrice2, $strEstPrice3, $callback)
 {
 	if ($strQuantity == '0')	return;
 	
-    $strColor = false;
-    if ($i == 0)    $strColor = 'yellow';
-    $strBackGround = GetTableColumnColor($strColor);
+    $ar = array($strAskBid);
+    $ar[] = $ref->GetPriceDisplay($strPrice, $ref->GetPrevPrice());
+    $ar[] = _getTradingNumber($strQuantity);
     
-    $strPriceDisplay = $ref->GetPriceDisplay($strPrice, $ref->GetPrevPrice());
-    $strTradingNumber = _getTradingNumber($strQuantity);
-    
-    $strDisplayEx = _getTradingEstPercentageDisplay($ref, $strPrice, $strEstPrice, $strColor);
-    $strDisplayEx .= _getTradingEstPercentageDisplay($ref, $strPrice, $strEstPrice2, $strColor);
-    $strDisplayEx .= _getTradingEstPercentageDisplay($ref, $strPrice, $strEstPrice3, $strColor);
+	if ($strEstPrice)		$ar[] = $ref->GetPercentageDisplay($strEstPrice, $strPrice);
+	if ($strEstPrice2)	$ar[] = $ref->GetPercentageDisplay($strEstPrice2, $strPrice);
+	if ($strEstPrice3)	$ar[] = $ref->GetPercentageDisplay($strEstPrice3, $strPrice);
 
-    $strUserDefined = '';  
     if ($callback && (empty($strPrice) == false))
     {
-    	$strUserDefined = GetTableColumnDisplay(call_user_func($callback, $strPrice), $strColor);
+    	$ar[] = call_user_func($callback, $strPrice);
     }
-
-    echo <<<END
-    <tr>
-        <td $strBackGround class=c1>$strAskBid</td>
-        <td $strBackGround class=c1>$strPriceDisplay</td>
-        <td $strBackGround class=c1>$strTradingNumber</td>
-        $strDisplayEx
-        $strUserDefined
-    </tr>
-END;
+    
+    EchoTableColumn($ar, ($i == 0) ? 'yellow' : false);
 }
 
 function _echoTradingTableData($ref, $strEstPrice, $strEstPrice2, $strEstPrice3, $callback)

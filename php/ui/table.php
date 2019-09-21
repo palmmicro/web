@@ -8,17 +8,6 @@ function IsTableCommonDisplay($iStart, $iNum)
 	return (($iStart == 0) && ($iNum == TABLE_COMMON_DISPLAY))	 ? true : false;
 }
 
-function GetTableColumnColor($strColor)
-{
-    return $strColor ? 'style="background-color:'.$strColor.'"' : '';
-}
-
-function GetTableColumnDisplay($strDisplay, $strColor = false)
-{
-    $strBackGround = GetTableColumnColor($strColor);
-	return "<td $strBackGround class=c1>$strDisplay</td>";
-}
-
 function GetTableColumn($iWidth, $strDisplay)
 {
 	$strWidth = strval($iWidth);
@@ -56,6 +45,11 @@ class TableColumn
 	{
 		return $this->iWidth;
 	}
+	
+	function GetEchoString()
+	{
+		return GetTableColumn($this->iWidth, $this->strDisplay);
+	}
 }
 
 // ****************************** Common Table Functions *******************************************************
@@ -74,12 +68,8 @@ function EchoTableParagraphBegin($ar, $strId, $str = '')
 	$iTotal = 0;
 	foreach ($ar as $col)
 	{
-		$iWidth = $col->GetWidth();
-		$iTotal += $iWidth;
-		
-		$strWidth = strval($iWidth);
-		$strDisplay = $col->GetDisplay();
-		$strColumn .= "<td class=c1 width=$strWidth align=center>$strDisplay</td>";
+		$iTotal += $col->GetWidth();
+		$strColumn .= $col->GetEchoString();
 	}
     $strWidth = strval($iTotal);
 	if ($iTotal > 640)	trigger_error('Table too wide: '.$strWidth);
@@ -87,6 +77,22 @@ function EchoTableParagraphBegin($ar, $strId, $str = '')
     echo <<<END
     	<p>$str
         <TABLE borderColor=#cccccc cellSpacing=0 width=$strWidth border=1 class="text" id="$strId">
+        <tr>
+            $strColumn
+        </tr>
+END;
+}
+
+function EchoTableColumn($ar, $strColor = false)
+{
+    $strBackGround = $strColor ? 'style="background-color:'.$strColor.'"' : '';
+    $strColumn = '';
+	foreach ($ar as $str)
+	{
+		$strColumn .= "<td $strBackGround class=c1>$str</td>";
+	}
+
+    echo <<<END
         <tr>
             $strColumn
         </tr>

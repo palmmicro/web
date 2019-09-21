@@ -15,53 +15,44 @@ function _getSmaRow($strKey)
     return $strRest.$arRow[$strFirst];
 }
 
-function _getSmaCallbackPriceDisplay($callback, $ref, $strVal, $strColor)
+function _getSmaCallbackPriceDisplay($callback, $ref, $strVal)
 {
 	if ($strVal)
 	{
 		$display_ref = call_user_func($callback, $ref);
-		$str = $display_ref->GetPriceDisplay(call_user_func($callback, $ref, $strVal));
+		return $display_ref->GetPriceDisplay(call_user_func($callback, $ref, $strVal));
 	}
-	else
-	{
-		$str = '';
-	}
-	return GetTableColumnDisplay($str, $strColor);
+	return '';
 }
 
 function _echoSmaTableItem($his, $strKey, $strVal, $cb_ref, $callback, $callback2, $strColor)
 {
     $stock_ref = $his->stock_ref;
-    
-    $strSma = _getSmaRow($strKey);
-    $strPrice = $stock_ref->GetPriceDisplay($strVal);
-    $strPercentage = $stock_ref->GetPercentageDisplay($strVal);
+
+    $ar = array();
+    $ar[] = _getSmaRow($strKey);
+    $ar[] = $stock_ref->GetPriceDisplay($strVal);
+    $ar[] = $stock_ref->GetPercentageDisplay($strVal);
    	if ($strNext = $his->arNext[$strKey])
    	{
-   		$strNextPrice = $stock_ref->GetPriceDisplay($strNext);
-   		$strNextPercentage = $stock_ref->GetPercentageDisplay($strNext);
+   		$ar[] = $stock_ref->GetPriceDisplay($strNext);
+   		$ar[] = $stock_ref->GetPercentageDisplay($strNext);
    	}
    	else
    	{
-   		$strNextPrice = '';
-   		$strNextPercentage = '';
+   		$ar[] = '';
+   		$ar[] = '';
    	}
    	
-    $strDisplayEx = $callback ? _getSmaCallbackPriceDisplay($callback, $cb_ref, $strVal, $strColor)._getSmaCallbackPriceDisplay($callback, $cb_ref, $strNext, $strColor) : '';
-    $strUserDefined = $callback2 ? GetTableColumnDisplay(call_user_func($callback2, $strVal, $strNext), $strColor) : '';
-
-    $strBackGround = GetTableColumnColor($strColor);
-    echo <<<END
-    <tr>
-        <td $strBackGround class=c1>$strSma</td>
-        <td $strBackGround class=c1>$strPrice</td>
-        <td $strBackGround class=c1>$strPercentage</td>
-        <td $strBackGround class=c1>$strNextPrice</td>
-        <td $strBackGround class=c1>$strNextPercentage</td>
-        $strDisplayEx
-        $strUserDefined
-    </tr>
-END;
+    if ($callback)
+    {
+    	$ar[] = _getSmaCallbackPriceDisplay($callback, $cb_ref, $strVal);
+    	$ar[] = _getSmaCallbackPriceDisplay($callback, $cb_ref, $strNext);
+    }
+    
+    if ($callback2)	$ar[] = call_user_func($callback2, $strVal, $strNext);
+    
+    EchoTableColumn($ar, $strColor);
 }
 
 class MaxMin
