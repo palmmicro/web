@@ -7,58 +7,61 @@ require_once('/php/ui/tradingparagraph.php');
 require_once('/php/ui/fundhistoryparagraph.php');
 require_once('/php/ui/etfsmaparagraph.php');
 require_once('/php/ui/etfparagraph.php');
+require_once('/php/ui/fundestparagraph.php');
 
 class _ChinaEtfGroup extends _StockGroup
 {
 	var $us_ref;
 	var $a50_ref;
+    var $cnh_ref;
 	
     function _ChinaEtfGroup($strSymbol) 
     {
     	$strUS = 'ASHR';
     	$strA50 = 'hf_CHA50CFD';
-        StockPrefetchData($strSymbol, $strUS, $strA50);
+        $strCNH = 'fx_susdcnh';
+        StockPrefetchData($strSymbol, $strUS, $strA50, $strCNH);
         GetChinaMoney();
         YahooUpdateNetValue($strUS);
 
         $this->ref = new EtfReference($strSymbol);
         $this->us_ref = new EtfReference($strUS);
         $this->a50_ref = new FutureReference($strA50);
+        $this->cnh_ref = new ForexReference($strCNH);
+        
+		$sql = new EtfCnhSql($this->us_ref->GetStockId());
+		$strDate = $this->us_ref->GetDate();
+		$strPrice = $this->cnh_ref->GetPrice();
+		if ($strCnh = $sql->GetClose($strDate))
+		{
+			if (abs(floatval($strCnh) - floatval($strPrice)) > 0.001)
+			{
+				if ($strNetValue = EtfRefManualCalibrtion($this->us_ref))
+				{
+					$sql->Write($strDate, $strPrice);
+					DebugString($strPrice);
+					if ($strNetValue != $this->us_ref->GetNetValue())
+					{
+						$this->us_ref = new EtfReference($strUS);
+					}
+				}
+			}
+		}
+		else
+		{
+			$sql->Insert($strDate, $strPrice);
+		}
+		
         parent::_StockGroup(array($this->ref, $this->us_ref, $this->ref->pair_nv_ref));
     }
-} 
-
-function _chinaEtfRefCallbackData($ref)
-{
-   	$ar = array();
-    $ar[] = $ref->GetNetValue();
-    $strNetValue = $ref->EstOfficialNetValue();
-    $ar[] = $ref->GetPriceDisplay($strNetValue);
-    $ar[] = $ref->GetPercentageDisplay($strNetValue);
-    return $ar;
-}
-
-function _chinaEtfRefCallback($ref = false)
-{
-    if ($ref)
-    {
-    	$sym = $ref->GetSym();
-    	if ($sym->IsEtf())
-    	{
-    		return _chinaEtfRefCallbackData($ref);
-    	}
-    	return array('', '', '');
-    }
-    
-    return array(GetTableColumnNetValue(), GetTableColumnOfficalEst(), GetTableColumnPremium());
 }
 
 function EchoAll()
 {
     global $group;
     
-    EchoReferenceParagraph(array($group->ref, $group->us_ref), '_chinaEtfRefCallback', GetTableColumnOfficalEst());
-    EchoReferenceParagraph(array($group->ref->pair_nv_ref, $group->ref, $group->us_ref, $group->a50_ref));
+	EchoFundArrayEstParagraph(array($group->ref, $group->us_ref));
+    EchoReferenceParagraph(array($group->ref->pair_nv_ref, $group->ref, $group->us_ref, $group->a50_ref, $group->cnh_ref));
     EchoEtfListParagraph(array($group->ref, $group->us_ref));
     EchoEtfTradingParagraph($group->ref);
     EchoEtfSmaParagraph($group->ref);

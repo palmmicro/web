@@ -182,7 +182,7 @@ function EchoEtfTradingParagraph($ref)
     $strPrice = _getTradingParagraphStr($arColumn);
     $str = "{$strSymbol}{$strPrice}相对于{$strPairSymbol}的{$strPremium}";
         
-    _echoTradingParagraph($str, $arColumn, $ref, $ref->EstOfficialNetValue()); 
+    _echoTradingParagraph($str, $arColumn, $ref, $ref->GetOfficialNetValue()); 
 }
 
 function EchoTradingParagraph($ref)

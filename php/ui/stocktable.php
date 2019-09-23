@@ -62,9 +62,13 @@ function GetTableColumnError()
 
 class TableColumnEst extends TableColumn
 {
-	function TableColumnEst()
+	function TableColumnEst($strPrefix = false)
 	{
         parent::TableColumn(STOCK_DISP_EST, 80, 'magenta');
+        if ($strPrefix)
+        {
+        	$this->AddPrefix($strPrefix);
+        }
 	}
 }
 
@@ -78,8 +82,7 @@ class TableColumnOfficalEst extends TableColumnEst
 {
 	function TableColumnOfficalEst()
 	{
-        parent::TableColumnEst();
-        $this->AddPrefix(STOCK_DISP_OFFICIAL);
+        parent::TableColumnEst(STOCK_DISP_OFFICIAL);
 	}
 }
 

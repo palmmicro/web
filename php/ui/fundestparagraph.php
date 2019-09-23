@@ -2,51 +2,50 @@
 require_once('stocktable.php');
 
 // $ref from FundReference
-function _echoFundEstTableItem($ref)
+function _echoFundEstTableItem($ref, $bFair, $bRealtime)
 {
     if (RefHasData($ref) == false)      return;
-    
-    $strLink = GetEastMoneyFundLink($ref->GetSym());
-    $strPrice = $ref->GetNetValue();
-    
-    $strOfficialPrice = $ref->GetOfficialNetValue();
-    $strOfficialPremium = $ref->GetPercentageDisplay($strOfficialPrice);
-    $strOfficialPrice = $ref->GetPriceDisplay($strOfficialPrice);
-    
-    if ($strFairPrice = $ref->GetFairNetValue())
+
+    $sym = $ref->GetSym();
+    if ($sym->IsFundA())
     {
-    	$strFairPremium = $ref->GetPercentageDisplay($strFairPrice);
-    	$strFairPrice = $ref->GetPriceDisplay($strFairPrice);
+    	$strLink = GetEastMoneyFundLink($sym);
     }
     else
     {
-    	$strFairPremium = '';
-    	$strFairPrice =  '';
+    	$strLink = GetYahooStockLink($sym);
+    }
+
+    $ar = array($strLink);
+    $ar[] = $ref->GetNetValue();
+    
+    $strOfficialPrice = $ref->GetOfficialNetValue();
+    $ar[] = $ref->GetPriceDisplay($strOfficialPrice);
+    $ar[] = $ref->GetPercentageDisplay($strOfficialPrice);
+    
+    if ($strFairPrice = $ref->GetFairNetValue())
+    {
+    	$ar[] = $ref->GetPriceDisplay($strFairPrice);
+    	$ar[] = $ref->GetPercentageDisplay($strFairPrice);
+    }
+    else if ($bFair)
+    {
+    	$ar[] = '';
+    	$ar[] =  '';
     }
     
     if ($strRealtimePrice = $ref->GetRealtimeNetValue())
     {
-    	$strRealtimePremium = $ref->GetPercentageDisplay($strRealtimePrice);
-    	$strRealtimePrice = $ref->GetPriceDisplay($strRealtimePrice);
+    	$ar[] = $ref->GetPriceDisplay($strRealtimePrice);
+    	$ar[] = $ref->GetPercentageDisplay($strRealtimePrice);
     }
-    else
+    else if ($bRealtime)
     {
-    	$strRealtimePremium = '';
-    	$strRealtimePrice =  '';
+    	$ar[] = '';
+    	$ar[] =  '';
     }
     
-    echo <<<END
-    <tr>
-        <td class=c1>$strLink</td>
-        <td class=c1>$strPrice</td>
-        <td class=c1>$strOfficialPrice</td>
-        <td class=c1>$strOfficialPremium</td>
-        <td class=c1>$strFairPrice</td>
-        <td class=c1>$strFairPremium</td>
-        <td class=c1>$strRealtimePrice</td>
-        <td class=c1>$strRealtimePremium</td>
-    </tr>
-END;
+    EchoTableColumn($ar);
 }
 
 function _getFundRealtimeStr($ref, $strRealtimeEst)
@@ -80,28 +79,40 @@ function _getFundParagraphStr($ref)
 
 function EchoFundArrayEstParagraph($arRef, $str = '')
 {
-//	$offical_col = new TableColumnEst();
-//	$offical_col->AddPrefix(STOCK_DISP_OFFICIAL);
-
-	$fair_col = new TableColumnEst();
-	$fair_col->AddPrefix(STOCK_DISP_FAIR);
-
-	$realtime_col = new TableColumnEst();
-	$realtime_col->AddPrefix(STOCK_DISP_REALTIME);
-
 	$premium_col = new TableColumnPremium();
-	EchoTableParagraphBegin(array(new TableColumnSymbol(),
-								   new TableColumnNetValue(),
-								   new TableColumnOfficalEst(),
-								   $premium_col,
-								   $fair_col,
-								   $premium_col,
-								   $realtime_col,
-								   $premium_col), 'estimation', $str);
-
+	$ar = array(new TableColumnSymbol(),
+				  new TableColumnNetValue(),
+				  new TableColumnOfficalEst(),
+				  $premium_col);
+	
+	$bFair = false;
     foreach ($arRef as $ref)
     {
-        _echoFundEstTableItem($ref);
+        if ($ref->GetFairNetValue())
+        {
+        	$bFair = true;
+        	$ar[] = new TableColumnEst(STOCK_DISP_FAIR);
+        	$ar[] = $premium_col;
+        	break;
+        }
+    }
+	
+	$bRealtime = false;
+    foreach ($arRef as $ref)
+    {
+        if ($ref->GetRealtimeNetValue())
+        {
+        	$bRealtime = true;
+        	$ar[] = new TableColumnEst(STOCK_DISP_REALTIME);
+        	$ar[] = $premium_col;
+        	break;
+        }
+    }
+	
+	EchoTableParagraphBegin($ar, 'estimation', $str);
+    foreach ($arRef as $ref)
+    {
+        _echoFundEstTableItem($ref, $bFair, $bRealtime);
     }
     EchoTableParagraphEnd();
 }

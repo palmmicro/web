@@ -318,7 +318,7 @@ class EtfReference extends MyPairReference
         return $strVal;
     }
     
-    function EstOfficialNetValue()
+    function GetOfficialNetValue()
     {
         $this->strOfficialDate = $this->pair_ref->strDate;
    		$fund_sql = new FundEstSql($this->nv_ref->GetStockId());
@@ -340,6 +340,36 @@ class EtfReference extends MyPairReference
 
         return $this->_estOfficialNetValue($fund_sql);
     }
+
+    function GetFairNetValue()
+    {
+    	return false;
+    }
+    
+    function GetRealtimeNetValue()
+    {
+    	return false;
+    }
+}
+
+function EtfRefManualCalibrtion($ref)
+{
+   	$ar = explode(' ', YahooGetWebData($ref));
+   	if (count($ar) < 3)	return false;
+   	
+   	$strNetValue = $ar[0];
+   	$strDate = $ar[2];
+	$ref->nv_ref->sql->Write($strDate, $strNetValue);
+	DebugString($ref->GetStockSymbol().' netvalue '.$strNetValue);
+	
+    if ($ref->GetPairSym())
+    {
+    	if ($strPairNetValue = $ref->pair_nv_ref->sql->GetClose($strDate))
+    	{
+    		$ref->sql->Write($strDate, strval(floatval($strPairNetValue) / floatval($strNetValue)));
+        }
+    }
+    return $strNetValue;
 }
 
 ?>
