@@ -2,6 +2,14 @@
 require_once('stockdisp.php');
 require_once('table.php');
 
+class TableColumnCalibration extends TableColumn
+{
+	function TableColumnCalibration()
+	{
+        parent::TableColumn('校准值', 100);
+	}
+}
+
 class TableColumnChange extends TableColumn
 {
 	function TableColumnChange()
@@ -14,7 +22,7 @@ class TableColumnChange extends TableColumn
 function GetTableColumnChange()
 {
 	$col = new TableColumnChange();
-	return $col->GetDisplay();
+	return $col->GetText();
 }
 
 class TableColumnClose extends TableColumn
@@ -28,7 +36,7 @@ class TableColumnClose extends TableColumn
 function GetTableColumnClose()
 {
 	$col = new TableColumnClose();
-	return $col->GetDisplay();
+	return $col->GetText();
 }
 
 class TableColumnDate extends TableColumn
@@ -42,7 +50,7 @@ class TableColumnDate extends TableColumn
 function GetTableColumnDate()
 {
 	$col = new TableColumnDate();
-	return $col->GetDisplay();
+	return $col->GetText();
 }
 
 class TableColumnError extends TableColumn
@@ -57,25 +65,21 @@ class TableColumnError extends TableColumn
 function GetTableColumnError()
 {
 	$col = new TableColumnError();
-	return $col->GetDisplay();
+	return $col->GetText();
 }
 
 class TableColumnEst extends TableColumn
 {
 	function TableColumnEst($strPrefix = false)
 	{
-        parent::TableColumn(STOCK_DISP_EST, 80, 'magenta');
-        if ($strPrefix)
-        {
-        	$this->AddPrefix($strPrefix);
-        }
+        parent::TableColumn(STOCK_DISP_EST, 80, 'magenta', $strPrefix);
 	}
 }
 
 function GetTableColumnEst()
 {
 	$col = new TableColumnEst();
-	return $col->GetDisplay();
+	return $col->GetText();
 }
 
 class TableColumnOfficalEst extends TableColumnEst
@@ -97,7 +101,7 @@ class TableColumnNetValue extends TableColumn
 function GetTableColumnNetValue()
 {
 	$col = new TableColumnNetValue();
-	return $col->GetDisplay();
+	return $col->GetText();
 }
 
 class TableColumnPremium extends TableColumn
@@ -112,7 +116,7 @@ class TableColumnPremium extends TableColumn
 function GetTableColumnPremium()
 {
 	$col = new TableColumnPremium();
-	return $col->GetDisplay();
+	return $col->GetText();
 }
 
 class TableColumnPrice extends TableColumn
@@ -126,7 +130,15 @@ class TableColumnPrice extends TableColumn
 function GetTableColumnPrice()
 {
 	$col = new TableColumnPrice();
-	return $col->GetDisplay();
+	return $col->GetText();
+}
+
+class TableColumnRatio extends TableColumn
+{
+	function TableColumnRatio($strPrefix = false)
+	{
+        parent::TableColumn(STOCK_DISP_RATIO, 80, false, $strPrefix);
+	}
 }
 
 class TableColumnSma extends TableColumn
@@ -140,21 +152,21 @@ class TableColumnSma extends TableColumn
 function GetTableColumnSma()
 {
 	$col = new TableColumnSma();
-	return $col->GetDisplay();
+	return $col->GetText();
 }
 
 class TableColumnSymbol extends TableColumn
 {
-	function TableColumnSymbol()
+	function TableColumnSymbol($strPrefix = false)
 	{
-        parent::TableColumn('代码', 80, 'maroon');
+        parent::TableColumn('代码', 80, 'maroon', $strPrefix);
 	}
 }
 
 function GetTableColumnSymbol()
 {
 	$col = new TableColumnSymbol();
-	return $col->GetDisplay();
+	return $col->GetText();
 }
 
 class TableColumnTime extends TableColumn
@@ -168,7 +180,7 @@ class TableColumnTime extends TableColumn
 function GetTableColumnTime()
 {
 	$col = new TableColumnTime();
-	return $col->GetDisplay();
+	return $col->GetText();
 }
 
 function GetReferenceTableColumn()			

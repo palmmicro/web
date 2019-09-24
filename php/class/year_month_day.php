@@ -207,16 +207,6 @@ class TickYMD extends YearMonthDay
     	return $this->strHMS;
     }
     
-    function GetDisplay()
-    {
-    	return $this->strYMD.' '.$this->strHMS;
-    }
-    
-    function Debug()
-    {
-    	DebugString($this->GetDisplay());
-    }
-
     function IsTradingHourEnd()
     {
     	if ($this->GetHour() <= STOCK_HOUR_END)	return false;

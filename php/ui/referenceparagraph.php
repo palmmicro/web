@@ -2,10 +2,11 @@
 require_once('stocktable.php');
 
 // $ref from StockReference
-function _echoReferenceTableItem($ref, $callback = false)
+function _echoReferenceTableItem($ref)
 {
 	$ar = array();
    	$ar[] = $ref->GetExternalLink();
+   	
     if ($ref->HasData())
     {
     	$ar[] = $ref->GetPriceDisplay();
@@ -21,29 +22,18 @@ function _echoReferenceTableItem($ref, $callback = false)
     	$ar[] = '';
     }
     
-    if ($callback)
-    {
-		$ar = array_merge($ar, call_user_func($callback, $ref));
-    }
-    else
-    {
-		$ar[] = RefGetDescription($ref, true);
-    }
-    
+	$ar[] = RefGetDescription($ref, true);
     EchoTableColumn($ar);
 }
 
-function _echoReferenceTableData($arRef, $callback)
+function _echoReferenceTableData($arRef)
 {
     foreach ($arRef as $ref)
     {
     	if ($ref)
     	{
-    		_echoReferenceTableItem($ref, $callback);
-    		if ($callback == false)
-    		{
-    			if ($ref->extended_ref)	_echoReferenceTableItem($ref->extended_ref);
-    		}
+    		_echoReferenceTableItem($ref);
+   			if ($ref->extended_ref)	_echoReferenceTableItem($ref->extended_ref);
     	}
     }
 }
@@ -69,44 +59,22 @@ END;
 	return '<span id="time"></span>';
 }
 
-function EchoReferenceParagraph($arRef, $callback = false, $str = false)
+function EchoReferenceParagraph($arRef, $str = false)
 {
 	if ($str == false)
 	{
         $str = '参考数据 '.GetTimeDisplay();
     }
-    
-	$arColumn = GetReferenceTableColumn();
-	$strId = 'reference';
-	if ($callback)
-	{
-		$strId .= $callback;
-		$arColumnEx = call_user_func($callback);
-        $strColumnEx = ' ';
-		foreach ($arColumnEx as $strColumn)
-		{
-            $strColumnEx .= GetTableColumn(90, $strColumn);
-		}
-	}
-	else
-	{
-		$strColumnEx = GetTableColumn(270, $arColumn[5]);
-	}
-    
-    echo <<<END
-    	<p>$str
-        <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="$strId">
-        <tr>
-            <td class=c1 width=80 align=center>{$arColumn[0]}</td>
-            <td class=c1 width=70 align=center>{$arColumn[1]}</td>
-            <td class=c1 width=70 align=center>{$arColumn[2]}</td>
-            <td class=c1 width=100 align=center>{$arColumn[3]}</td>
-            <td class=c1 width=50 align=center>{$arColumn[4]}</td>
-            $strColumnEx
-        </tr>
-END;
 
-	_echoReferenceTableData($arRef, $callback);
+	EchoTableParagraphBegin(array(new TableColumnSymbol(),
+								   new TableColumnPrice(),
+								   new TableColumnChange(),
+								   new TableColumnDate(),
+								   new TableColumnTime(),
+								   new TableColumn('名称', 270)
+								   ), 'reference', $str);
+
+	_echoReferenceTableData($arRef);
     EchoTableParagraphEnd();
 }
 

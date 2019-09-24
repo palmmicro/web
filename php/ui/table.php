@@ -17,13 +17,19 @@ function GetTableColumn($iWidth, $strDisplay)
 // aqua, black, blue, fuchsia, gray, green, lime, maroon, navy, olive, purple, red, silver, teal, white, yellow
 class TableColumn
 {
+	var $strText;
 	var $strDisplay;
 	var $iWidth;
 	
-	function TableColumn($strText, $iWidth = 80, $strColor = false)
+	function TableColumn($strText, $iWidth = 80, $strColor = false, $strPrefix = false)
 	{
 		$this->iWidth = $iWidth;
-		$this->strDisplay = $strColor ? "<font color=$strColor>$strText</font>" : $strText;
+		$this->strText = $strColor ? "<font color=$strColor>$strText</font>" : $strText;
+        if ($strPrefix)
+        {
+        	$this->strText = $strPrefix.$this->strText; 
+        }
+        $this->strDisplay = $this->strText;
 	}
 	
 	function AddUnit($strUnit = '%')
@@ -31,14 +37,9 @@ class TableColumn
 		$this->strDisplay .= '('.$strUnit.')'; 
 	}
 	
-	function AddPrefix($strPrefix)
+	function GetText()
 	{
-		$this->strDisplay = $strPrefix.$this->strDisplay; 
-	}
-	
-	function GetDisplay()
-	{
-		return $this->strDisplay;
+		return $this->strText;
 	}
 	
 	function GetWidth()

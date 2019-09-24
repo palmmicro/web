@@ -111,16 +111,18 @@ function _echoArbitrageParagraph($group)
     EchoTableParagraphEnd();
 }
 
-function _adrStockRefCallbackData($ref)
+function _echoAdrPriceItem($ref)
 {
     global $group;
     $cn_ref = $group->cn_ref;
     $hk_ref = $group->hk_ref;
     $us_ref = $group->us_ref;
     
+	$ar = array();
+	$ar[] = RefGetMyStockLink($ref);
+	
     $strPriceDisplay = $ref->GetPriceDisplay();
     $strPrice = $ref->GetPrice();
-	$ar = array();
     $sym = $ref->GetSym();
     if ($sym->IsSymbolA())
     {
@@ -140,28 +142,34 @@ function _adrStockRefCallbackData($ref)
         $ar[] = $hk_ref->GetPriceDisplay($hk_ref->EstFromUsd($strPrice), $hk_ref->GetPrevPrice());
         $ar[] = $strPriceDisplay;
     }
-	return $ar;
+    
+    EchoTableColumn($ar);
 }
 
-function _adrStockRefCallback($ref = false)
+function _echoAdrPriceParagraph($arRef)
 {
-    if ($ref)
-    {
-        return _adrStockRefCallbackData($ref);
-    }
-    
-    return array('人民币￥', '港币$', '美元$');
+	EchoTableParagraphBegin(array(new TableColumnSymbol(),
+								   new TableColumn('人民币￥'),
+								   new TableColumn('港币$'),
+								   new TableColumn('美元$')
+								   ), 'adrprice');
+	
+	foreach ($arRef as $ref)
+	{
+		_echoAdrPriceItem($ref);
+	}
+    EchoTableParagraphEnd();
 }
 
 function EchoAll()
 {
     global $group;
     
-    EchoReferenceParagraph($group->arStockRef, '_adrStockRefCallback');
+    _echoAdrPriceParagraph($group->arStockRef);
+    EchoReferenceParagraph($group->arStockRef);
 	EchoAhTradingParagraph($group->hk_ref);
     EchoHShareSmaParagraph($group->cn_ref, $group->hk_ref);
     EchoHShareSmaParagraph($group->hk_ref, $group->hk_ref);
-//    EchoHShareSmaParagraph($group->us_ref, $group->hk_ref);
 
     if ($group->GetGroupId()) 
     {

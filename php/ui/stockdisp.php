@@ -7,6 +7,7 @@ define('STOCK_DISP_NETVALUE', '净值');
 define('STOCK_DISP_OFFICIAL', '官方');
 define('STOCK_DISP_PREMIUM', '溢价');
 define('STOCK_DISP_PRICE', '价格');
+define('STOCK_DISP_RATIO', '比价');
 define('STOCK_DISP_REALTIME', '实时');
 
 ?>

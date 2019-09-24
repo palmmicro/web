@@ -36,7 +36,7 @@ class _ChinaEtfGroup extends _StockGroup
 		{
 			if (abs(floatval($strCnh) - floatval($strPrice)) > 0.001)
 			{
-				if ($strNetValue = EtfRefManualCalibrtion($this->us_ref))
+				if ($strNetValue = EtfRefManualCalibration($this->us_ref))
 				{
 					$sql->Write($strDate, $strPrice);
 					DebugString($strPrice);

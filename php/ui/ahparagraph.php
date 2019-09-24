@@ -1,5 +1,4 @@
 <?php
-require_once('referenceparagraph.php');
 
 function GetSortString($strQuery)
 {
@@ -14,25 +13,20 @@ function _getSortLink($strQuery = 'hshare')
     return CopyPhpLink(UrlAddQuery('sort='.$strQuery), GetSortString($strQuery));
 }
 
-function _ahStockRefCallbackData($ref)
+function _echoAhItem($ref)
 {
 	$ar = array();
 	
+   	$ar[] = RefGetMyStockLink($ref);
+   	
     $strSymbolA = $ref->GetSymbolA();
     $ar[] = GetMyStockLink($strSymbolA);
+    
     $fAhRatio = $ref->GetAhPriceRatio();
     $ar[] = GetRatioDisplay($fAhRatio);
     $ar[] = GetRatioDisplay(1.0 / $fAhRatio);
-	return $ar;
-}
-
-function _ahStockRefCallback($ref = false)
-{
-    if ($ref)
-    {
-        return _ahStockRefCallbackData($ref);
-    }
-    return GetAhCompareTableColumn();
+    
+    EchoTableColumn($ar);
 }
 
 function _refSortByRatio($arRef, $bAh = true)
@@ -82,30 +76,34 @@ function EchoAhParagraph($arRef)
 			$str .= ' '._getSortLink('ratio');
 		}
 	}
-    EchoReferenceParagraph($arRef, '_ahStockRefCallback', $str);
+
+	EchoTableParagraphBegin(array(new TableColumnSymbol(),
+								   new TableColumnSymbol('A股'),
+								   new TableColumnRatio('AH'),
+								   new TableColumnRatio('HA')
+								   ), 'ah', $str);
+
+	foreach ($arRef as $ref)
+	{
+		_echoAhItem($ref);
+	}
+    EchoTableParagraphEnd();
 }
 
-function _adrhStockRefCallbackData($ref)
+function _echoAdrhItem($ref)
 {
 	$ar = array();
 	
+   	$ar[] = RefGetMyStockLink($ref);
+   	
     $strSymbolAdr = $ref->adr_ref->GetStockSymbol();
     $ar[] = GetMyStockLink($strSymbolAdr);
+    
     $fAdrhRatio = $ref->GetAdrhPriceRatio();
     $ar[] = GetRatioDisplay($fAdrhRatio);
     $ar[] = GetRatioDisplay(1.0 / $fAdrhRatio);
-	return $ar;
-}
-
-function _adrhStockRefCallback($ref = false)
-{
-    if ($ref)
-    {
-        return _adrhStockRefCallbackData($ref);
-    }
     
-	$strSymbol = GetTableColumnSymbol();
-    return array('ADR'.$strSymbol, 'ADRH比价', 'HADR比价');
+    EchoTableColumn($ar);
 }
 
 function EchoAdrhParagraph($arRef)
@@ -129,7 +127,18 @@ function EchoAdrhParagraph($arRef)
 			$str .= ' '._getSortLink();
 		}
 	}
-    EchoReferenceParagraph($arRef, '_adrhStockRefCallback', $str);
+
+	EchoTableParagraphBegin(array(new TableColumnSymbol(),
+								   new TableColumnSymbol('ADR'),
+								   new TableColumnRatio('ADRH'),
+								   new TableColumnRatio('HADR')
+								   ), 'adrh', $str);
+
+	foreach ($arRef as $ref)
+	{
+		_echoAdrhItem($ref);
+	}
+    EchoTableParagraphEnd();
 }
 
 ?>

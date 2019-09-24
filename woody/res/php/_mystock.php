@@ -4,7 +4,7 @@ require_once('_emptygroup.php');
 require_once('_editmergeform.php');
 require_once('_editstockoptionform.php');
 require_once('/php/stockhis.php');
-//require_once('/php/ui/referenceparagraph.php');
+require_once('/php/ui/referenceparagraph.php');
 require_once('/php/ui/stockparagraph.php');
 require_once('/php/ui/ahparagraph.php');
 require_once('/php/ui/etfparagraph.php');

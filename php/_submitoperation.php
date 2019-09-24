@@ -2,10 +2,10 @@
 require_once('account.php');
 require_once('stock.php');
 
-function _onManualCalibrtion($strSymbol)
+function _onManualCalibration($strSymbol)
 {
 	StockPrefetchData($strSymbol);
-	EtfRefManualCalibrtion(new EtfReference($strSymbol));
+	EtfRefManualCalibration(new EtfReference($strSymbol));
 }
 
     AcctNoAuth();
@@ -13,7 +13,7 @@ function _onManualCalibrtion($strSymbol)
 	{
 	    if ($strSymbol = UrlGetQueryValue('calibration'))
 	    {
-	        _onManualCalibrtion($strSymbol);
+	        _onManualCalibration($strSymbol);
 	    }
 	}
 	

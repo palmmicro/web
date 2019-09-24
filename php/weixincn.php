@@ -120,11 +120,11 @@ function _wxGetStockText($strSymbol)
    		DebugString($str);
    		$str .= WX_EOL;
    	}
-
+/*
 	if ($strSymbol == 'SZ162411')
 	{
 		$str .= '2019年9月20日星期五, XOP季度分红除权. 因为现在采用XOP净值替代SPSIOP做华宝油气估值, 23日的估值不准, 要等华宝油气20日实际净值出来自动校准后恢复正常.'.WX_EOL;
-	}
+	}*/
     return $str;
 }
 

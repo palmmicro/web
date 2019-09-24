@@ -352,7 +352,7 @@ class EtfReference extends MyPairReference
     }
 }
 
-function EtfRefManualCalibrtion($ref)
+function EtfRefManualCalibration($ref)
 {
    	$ar = explode(' ', YahooGetWebData($ref));
    	if (count($ar) < 3)	return false;

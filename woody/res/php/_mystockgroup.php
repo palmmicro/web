@@ -3,7 +3,7 @@ require_once('_stock.php');
 require_once('_editgroupform.php');
 require_once('/php/stockhis.php');
 //require_once('/php/stockgroup.php');
-//require_once('/php/ui/referenceparagraph.php');
+require_once('/php/ui/referenceparagraph.php');
 require_once('/php/ui/ahparagraph.php');
 require_once('/php/ui/etfparagraph.php');
 require_once('/php/ui/fundestparagraph.php');
