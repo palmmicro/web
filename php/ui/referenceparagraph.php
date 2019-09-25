@@ -71,7 +71,7 @@ function EchoReferenceParagraph($arRef, $str = false)
 								   new TableColumnChange(),
 								   new TableColumnDate(),
 								   new TableColumnTime(),
-								   new TableColumn('名称', 270)
+								   new TableColumnName()
 								   ), 'reference', $str);
 
 	_echoReferenceTableData($arRef);

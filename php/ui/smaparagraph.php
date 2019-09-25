@@ -160,44 +160,24 @@ function EchoSmaParagraph($ref, $str = false, $cb_ref = false, $callback = false
 	if ($str === false)	$str = _getSmaParagraphMemo($his);
 	$str .= _getSmaParagraphWarning($ref);
 
-	$strSma = GetTableColumnSma();
-	$strEst = GetTableColumnEst();
-	$strPremium = GetTableColumnPremium();
-	$strNextEst = 'T+1'.$strEst;
-	
-	$iWidth = 360;
-    $strColumnEx = '';
+	$premium_col = new TableColumnPremium();
+	$next_col = new TableColumnEst('T+1');
+	$ar = array(new TableColumnSma(), new TableColumnEst(), $premium_col, $next_col, $premium_col);
 	if ($callback)
     {
     	$est_ref = call_user_func($callback, $cb_ref);
     	$str .= _getSmaParagraphWarning($est_ref);
-    	$strColumnEx = GetTableColumn(110, GetXueqiuLink($est_ref->GetSym()).$strEst);
-    	$strColumnEx .= GetTableColumn(70, $strNextEst);
-    	$iWidth += 180;
+
+    	$ar[] = new TableColumnEst(GetXueqiuLink($est_ref->GetSym()));
+    	$ar[] = $next_col;
     }
     
-    $strUserDefined = '';  
     if ($callback2)
     {
-    	$strUserDefined = GetTableColumn(100, call_user_func($callback2));
-    	$iWidth += 100;
+    	$ar[] = new TableColumn(call_user_func($callback2), 90);
     }
-    
-    $strWidth = strval($iWidth);
-    echo <<<END
-    <p>$str
-    <TABLE borderColor=#cccccc cellSpacing=0 width=$strWidth border=1 class="text" id="smatable">
-    <tr>
-        <td class=c1 width=90 align=center>$strSma</td>
-        <td class=c1 width=70 align=center>$strEst</td>
-        <td class=c1 width=65 align=center>$strPremium</td>
-        <td class=c1 width=70 align=center>$strNextEst</td>
-        <td class=c1 width=65 align=center>$strPremium</td>
-        $strColumnEx
-        $strUserDefined
-    </tr>
-END;
 
+	EchoTableParagraphBegin($ar, 'smatable', $str);
     _echoSmaTableData($his, $cb_ref, $callback, $callback2);
     EchoTableParagraphEnd();
 }

@@ -3,20 +3,22 @@ require_once('stocktable.php');
 
 function _echoStockTableItem($strStockId, $strSymbol, $strName)
 {
-	$strLink = GetMyStockLink($strSymbol);
+	$ar = array();
+	
+	$ar[] = GetMyStockLink($strSymbol);
+	$ar[] = $strName;
 	if (AcctIsAdmin())
 	{
 		$strEdit = GetStockOptionLink(STOCK_OPTION_EDIT, $strSymbol);
         $strDelete = GetDeleteLink(STOCK_PHP_PATH.'_deletesymbol.php?symbol='.$strSymbol, '股票'.$strSymbol);
+        $ar[] = $strEdit.' '.$strDelete;
+	}
+	else
+	{
+		$ar[] = '';
 	}
 
-    echo <<<END
-    <tr>
-        <td class=c1>$strLink</td>
-        <td class=c1>$strName</td>
-        <td class=c1>$strEdit $strDelete</td>
-    </tr>
-END;
+	EchoTableColumn($ar);
 }
 
 function _echoStockTableData($sql, $iStart, $iNum)
@@ -35,20 +37,13 @@ function EchoStockParagraph($iStart, $iNum)
 {
 	$sql = new StockSql();
     $strNavLink = GetNavLink(false, $sql->CountData(), $iStart, $iNum);
-	$arReference = GetReferenceTableColumn();
-    echo <<<END
-    	<p>$strNavLink
-        <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="stock">
-        <tr>
-            <td class=c1 width=100 align=center>{$arReference[0]}</td>
-            <td class=c1 width=270 align=center>{$arReference[5]}</td>
-            <td class=c1 width=270 align=center></td>
-        </tr>
-END;
+	EchoTableParagraphBegin(array(new TableColumnSymbol(),
+								   new TableColumnName(),
+								   new TableColumn('', 270)
+								   ), 'stock', $strNavLink);
 
 	_echoStockTableData($sql, $iStart, $iNum);
     EchoTableParagraphEnd($strNavLink);
 }
-
 
 ?>

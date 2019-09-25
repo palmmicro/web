@@ -90,6 +90,14 @@ class TableColumnOfficalEst extends TableColumnEst
 	}
 }
 
+class TableColumnName extends TableColumn
+{
+	function TableColumnName()
+	{
+        parent::TableColumn('名称', 270);
+	}
+}
+
 class TableColumnNetValue extends TableColumn
 {
 	function TableColumnNetValue()
@@ -108,7 +116,7 @@ class TableColumnPremium extends TableColumn
 {
 	function TableColumnPremium()
 	{
-        parent::TableColumn(STOCK_DISP_PREMIUM, 80, 'orange');
+        parent::TableColumn(STOCK_DISP_PREMIUM, 70, 'orange');
         $this->AddUnit();
 	}
 }
@@ -181,11 +189,6 @@ function GetTableColumnTime()
 {
 	$col = new TableColumnTime();
 	return $col->GetText();
-}
-
-function GetReferenceTableColumn()			
-{
-    return array(GetTableColumnSymbol(), GetTableColumnPrice(), GetTableColumnChange(), GetTableColumnDate(), GetTableColumnTime(), '名称');
 }
 
 function GetTableColumnOfficalEst()
