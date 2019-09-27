@@ -40,15 +40,16 @@ function EchoAll()
     	{
     		$strSymbol = $ref->GetStockSymbol();
     		$strLinks = GetStockHistoryLink($strSymbol);
-    		if ($group->IsAdmin())
+    		if ($bAdmin = $group->IsAdmin())
     		{
-    			$strLinks .= ' '.GetPhpLink(STOCK_PATH.'spdrnavxls', false, '更新净值');
+//    			$strLinks .= ' '.GetPhpLink(STOCK_PATH.'spdrnavxls', false, '更新净值');
+    			$strLinks .= ' '.GetOnClickLink(STOCK_PHP_PATH.'_submitspdrnav.php?symbol='.$strSymbol, "确认更新{$strSymbol}净值历史记录?", '更新净值');
     		}
     		
     		$iStart = UrlGetQueryInt('start');
     		$iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
     		$csv = new PageCsvFile();
-			EchoNvCloseHistoryParagraph($ref, $strLinks, $csv, $iStart, $iNum);
+			EchoNvCloseHistoryParagraph($ref, $strLinks, $csv, $iStart, $iNum, $bAdmin);
 			$csv->Close();
 
 			if ($csv->HasFile())

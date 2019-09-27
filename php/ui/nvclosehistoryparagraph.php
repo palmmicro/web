@@ -60,7 +60,7 @@ function _echoNvCloseData($sql, $shares_sql, $ref, $csv, $iStart, $iNum, $bAdmin
     }
 }
 
-function EchoNvCloseHistoryParagraph($ref, $str = false, $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
+function EchoNvCloseHistoryParagraph($ref, $str = false, $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY, $bAdmin = false)
 {
 	$strStockId = $ref->GetStockId();
 	$sql = new NetValueHistorySql($strStockId);
@@ -82,7 +82,7 @@ function EchoNvCloseHistoryParagraph($ref, $str = false, $csv = false, $iStart =
 								   ), $strSymbol.'nvclosehistory', $str);
 
 	$shares_sql = new EtfSharesHistorySql($strStockId);
-    _echoNvCloseData($sql, $shares_sql, $ref, $csv, $iStart, $iNum, AcctIsAdmin());
+    _echoNvCloseData($sql, $shares_sql, $ref, $csv, $iStart, $iNum, $bAdmin);
     EchoTableParagraphEnd($strNavLink);
 }
 

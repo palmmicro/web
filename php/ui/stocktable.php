@@ -102,7 +102,7 @@ class TableColumnNetValue extends TableColumn
 {
 	function TableColumnNetValue()
 	{
-        parent::TableColumn(STOCK_DISP_NETVALUE, 80, 'olive');
+        parent::TableColumn(STOCK_DISP_NETVALUE, 100, 'olive');
 	}
 }
 

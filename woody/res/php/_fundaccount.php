@@ -88,7 +88,7 @@ function _echoFundAccountParagraph($csv, $ref, $strSymbol, $bAdmin)
 	EchoTableParagraphBegin(array(new TableColumnDate(),
 								   new TableColumn(STOCK_OPTION_SHARES_DIFF, 110),
 								   new TableColumn(STOCK_DISP_ACCOUNT, 100),
-								   new TableColumn('场内申购日->', 100),
+								   new TableColumn('申购日->', 70),
 								   new TableColumnClose(),
 								   new TableColumnNetValue(),
 								   new TableColumnPremium()

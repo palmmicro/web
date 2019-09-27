@@ -2,7 +2,7 @@
 require_once('debug.php');
 
 // 微信公众号公共模板, 返回输入信息
-define('WX_DEBUG_VER', '版本897');		
+define('WX_DEBUG_VER', '版本899');		
 
 define('WX_EOL', "\r\n");
 define('MAX_WX_MSG_LEN', 2048);
@@ -129,7 +129,7 @@ class WeixinCallback
 	        break;
 	        
 	    case WX_MSG_TYPE_LINK:
-	    	$str = $this->OnLink('', $strUserName);
+	    	$str = $this->OnLink(trim($postObj->Url), $strUserName);
 	    	break;
 	    	
 	    case WX_MSG_TYPE_FILE:
@@ -215,6 +215,7 @@ class WeixinCallback
 
     function OnLink($strContents, $strUserName)
     {
+    	DebugString($strContents);
     	return $this->GetUnknownText('未知链接', $strUserName);
     }
 
