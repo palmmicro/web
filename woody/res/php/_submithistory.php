@@ -110,6 +110,6 @@ function _submitStockHistory($ref)
 	        _submitStockHistory($ref);
 	    }
 	}
-	SwitchToSess();
+	$group->Back();
 	
 ?>

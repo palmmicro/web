@@ -98,6 +98,6 @@ function _deleteStockSymbol($ref)
 	        _deleteStockSymbol($ref);
 	    }
 	}
-	SwitchToSess();
+	$group->Back();
 	
 ?>

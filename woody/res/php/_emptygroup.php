@@ -51,6 +51,11 @@ class StockSymbolPage extends EmptyStockGroup
 	   	return $this->acct->IsAdmin();
     }
     
+    function Back()
+    {
+	   	$this->acct->Back();
+    }
+    
     function EchoLinks($strVer = false)
     {
     	EchoPromotionHead($strVer);

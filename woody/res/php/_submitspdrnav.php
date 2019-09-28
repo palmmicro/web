@@ -13,6 +13,6 @@ require_once('_emptygroup.php');
 	        DebugString($str);
 	    }
 	}
-	SwitchToSess();
+	$group->Back();
 	
 ?>

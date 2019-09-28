@@ -283,6 +283,11 @@ class AcctStart
     {
 	   	return AcctIsAdmin($this->strLoginId);
     }
+
+    function Back()
+    {
+    	SwitchToSess();
+    }
 }
 
 function AcctNoAuth()
@@ -306,7 +311,7 @@ function AcctAdminCommand($callback)
 		call_user_func($callback);
         DebugString($callback.DebugGetStopWatchDisplay($fStart));
 	}
-	SwitchToSess();
+	$acct->Back();
 }
 
 class TitleAcctStart extends AcctStart

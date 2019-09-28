@@ -228,16 +228,17 @@ class StockHistory
 		$iCount = count($afClose);
 		$iStart = ($iCount > $iDays * 2) ? $iDays * 2 : $iCount - 1;
 		
-		$fVal = $afClose[$iStart];
 		if ($iStart > 0)
 		{
+			$fVal = $afClose[$iStart];
 			$f = 2.0 / ($iDays + 1);
 			for ($i = $iStart - 1; $i >= 0; $i --)
 			{
 				$fVal = $f * $afClose[$i] + (1.0 - $f) * $fVal;
 			}
+			return strval($fVal);
 		}
-		return strval($fVal);
+		return false;
 	}
 	
     function _cfg_set_EMA($cfg, $iDays, $afClose)
