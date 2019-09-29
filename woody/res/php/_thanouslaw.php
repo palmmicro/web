@@ -29,22 +29,13 @@ function _echoThanousLawItem($csv, $strNetValue, $strClose, $strDate, $ref, $est
 	
    	$csv->Write($strDate, $est_ref->GetPercentage($strEstClosePrev, $strEstClose), $ref->GetPercentage($strNetValue, $strClose), $strNetValue);
    	
-    $strPremium = $ref->GetPercentageDisplay($strNetValue, $strClose);
-    $strClose = $ref->GetPriceDisplay($strClose, $strNetValue);
-    
-    $strEstChange = $est_ref->GetPercentageDisplay($strEstClosePrev, $strEstClose);
-    $strEstClose = $est_ref->GetPriceDisplay($strEstClose, $strEstClosePrev);
-
-    echo <<<END
-    <tr>
-        <td class=c1>$strDate</td>
-        <td class=c1>$strClose</td>
-        <td class=c1>$strNetValue</td>
-        <td class=c1>$strPremium</td>
-        <td class=c1>$strEstClose</td>
-        <td class=c1>$strEstChange</td>
-    </tr>
-END;
+   	$ar = array($strDate);
+   	$ar[] = $ref->GetPriceDisplay($strClose, $strNetValue);
+   	$ar[] = $strNetValue;
+	$ar[] = $ref->GetPercentageDisplay($strNetValue, $strClose);
+    $ar[] = $est_ref->GetPriceDisplay($strEstClose, $strEstClosePrev);
+    $ar[] = $est_ref->GetPercentageDisplay($strEstClosePrev, $strEstClose);
+	EchoTableColumn($ar);
 }
 
 function _echoThanousLawData($sql, $ref, $est_ref, $iStart, $iNum)
@@ -74,7 +65,7 @@ function _echoThanousLawParagraph($strSymbol, $iStart, $iNum)
 	$ref = new LofReference($strSymbol);
 	$est_ref = $ref->est_ref;
 
- 	$str = GetNetValueHistoryLink($strSymbol).' '.GetStockHistoryLink($strSymbol);
+ 	$str = GetFundLinks($strSymbol);
 
 	$sql = new NetValueHistorySql($ref->GetStockId());
    	$strNavLink = StockGetNavLink($strSymbol, $sql->Count(), $iStart, $iNum);

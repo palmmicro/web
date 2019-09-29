@@ -7,39 +7,44 @@ function _echoFundHistoryTableItem($csv, $strNetValue, $strClose, $strDate, $arF
     {
     	$csv->Write($strDate, $strNetValue, $ref->GetPercentage($strNetValue, $strClose));
     }
-    $strPremium = $ref->GetPercentageDisplay($strNetValue, $strClose);
-    $strClose = $ref->GetPriceDisplay($strClose, $strNetValue);
-    
-   	$strEstClose = ''; 
-//   	$strEstChange = '';
+
+   	$ar = array($strDate);
+   	$ar[] = $ref->GetPriceDisplay($strClose, $strNetValue);
+   	$ar[] = $strNetValue;
+	$ar[] = $ref->GetPercentageDisplay($strNetValue, $strClose);
+
     if ($est_ref)
     {
-		$strEstDate = $arFund['date'];
+    	$strEstValue = $arFund['close'];
+    	if (empty($strEstValue))
+    	{
+    		$ar[] = ''; 
+    		$ar[] = '';
+    		$ar[] = '';
+    	}
+    	else
+    	{
+    		$ar[] = $ref->GetPriceDisplay($strEstValue, $strNetValue);
+    		$ar[] = $ref->GetTimeHM($arFund['time']);
+    		$ar[] = $ref->GetPercentageDisplay($strNetValue, $strEstValue);
+    	}
+		
+    	$strEstDate = $arFund['date'];
 		$his_sql = $est_ref->GetHistorySql();
 		$strEstClose = $his_sql->GetClose($strEstDate);
 		$strEstClosePrev = $his_sql->GetClosePrev($strEstDate);
 		if ($strEstClose && $strEstClosePrev)
 		{
 //			$strEstChange = $est_ref->GetPercentageDisplay($strEstClosePrev, $strEstClose);
-			$strEstClose = $est_ref->GetPriceDisplay($strEstClose, $strEstClosePrev);
+			$ar[] = $est_ref->GetPriceDisplay($strEstClose, $strEstClosePrev);
+		}
+		else
+		{
+			$ar[] = '';
 		}
     }
-
-    $strEstValue = $arFund['close'];
-    if (empty($strEstValue))
-    {
-    	$strEstError = ''; 
-    	$strEstValue = '';
-        $strEstTime = '';
-    }
-    else
-    {
-        $strEstError = $ref->GetPercentageDisplay($strNetValue, $strEstValue);
-        $strEstValue = $ref->GetPriceDisplay($strEstValue, $strNetValue);
-        $strEstTime = $ref->GetTimeHM($arFund['time']);
-    }
     
-    EchoTableColumn(array($strDate, $strClose, $strNetValue, $strPremium, $strEstValue, $strEstTime, $strEstError, $strEstClose));
+    EchoTableColumn($ar);
 }
 
 function _echoHistoryTableData($sql, $csv, $ref, $est_ref, $iStart, $iNum)
@@ -97,7 +102,7 @@ function _echoFundHistoryParagraph($ref, $est_ref, $csv = false, $iStart = 0, $i
 	$sql = new NetValueHistorySql($ref->GetStockId());
     if (IsTableCommonDisplay($iStart, $iNum))
     {
-        $str .= ' '.GetNetValueHistoryLink($strSymbol);
+        $str .= ' '.GetFundHistoryLink($strSymbol);
         $strNavLink = '';
     }
     else
@@ -106,15 +111,15 @@ function _echoFundHistoryParagraph($ref, $est_ref, $csv = false, $iStart = 0, $i
     }
 
 	$str .= ' '.$strNavLink;
-	EchoTableParagraphBegin(array(new TableColumnDate(),
-								   $close_col,
-								   $nv_col,
-								   $premium_col,
-								   new TableColumnOfficalEst(),
-								   new TableColumnTime(),
-								   new TableColumnError(),
-								   new TableColumnMyStock($est_ref)
-								   ), $strSymbol.'fundhistory', $str);
+	$ar = array(new TableColumnDate(), $close_col, $nv_col, $premium_col);
+	if ($est_ref)
+	{
+		$ar[] = new TableColumnOfficalEst();
+		$ar[] = new TableColumnTime();
+		$ar[] = new TableColumnError();
+		$ar[] = new TableColumnMyStock($est_ref);
+	}
+	EchoTableParagraphBegin($ar, $strSymbol.'fundhistory', $str);
 	
 	_echoHistoryTableData($sql, $csv, $ref, $est_ref, $iStart, $iNum);
     EchoTableParagraphEnd($strNavLink);

@@ -45,10 +45,21 @@ function GetStockHistoryLink($strSymbol)
     return GetStockSymbolLink('stockhistory', $strSymbol, STOCK_HISTORY_DISPLAY);
 }
 
+define('FUND_HISTORY_DISPLAY', '基金历史记录');
+function GetFundHistoryLink($strSymbol)
+{
+    return GetStockSymbolLink('fundhistory', $strSymbol, FUND_HISTORY_DISPLAY);
+}
+
 define('NETVALUE_HISTORY_DISPLAY', '净值历史记录');
 function GetNetValueHistoryLink($strSymbol)
 {
     return GetStockSymbolLink('netvaluehistory', $strSymbol, NETVALUE_HISTORY_DISPLAY);
+}
+
+function GetFundLinks($strSymbol)
+{
+	return GetFundHistoryLink($strSymbol).' '.GetNetValueHistoryLink($strSymbol).' '.GetStockHistoryLink($strSymbol);
 }
 
 define('NVCLOSE_HISTORY_DISPLAY', '净值和收盘价历史比较');

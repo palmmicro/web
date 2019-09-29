@@ -40,23 +40,17 @@ function _echoFundAccountItem($csv, $strDate, $strSharesDiff, $ref, $nv_sql)
 {
 	$strClose = $ref->his_sql->GetClosePrev3($strDate);
 	$strNetValue = $nv_sql->GetClosePrev4($strDate);
-	$strPremium = $ref->GetPercentageDisplay($strNetValue, $strClose);
+	
 	$fAccount = floatval($strSharesDiff) * 10000.0 / (985.0 / floatval($nv_sql->GetClosePrev3($strDate)));
 	$strAccount = strval(intval($fAccount));
 
    	$csv->Write($strDate, $strSharesDiff, $strAccount, $strClose, $strNetValue, $ref->GetPercentage($strNetValue, $strClose));
 	
-    echo <<<END
-    <tr>
-        <td class=c1>$strDate</td>
-        <td class=c1>$strSharesDiff</td>
-        <td class=c1>$strAccount</td>
-        <td class=c1>-></td>
-        <td class=c1>$strClose</td>
-        <td class=c1>$strNetValue</td>
-        <td class=c1>$strPremium</td>
-    </tr>
-END;
+   	$ar = array($strDate, $strSharesDiff, $strAccount, '->');
+   	$ar[] = $ref->GetPriceDisplay($strClose, $strNetValue);
+   	$ar[] = $strNetValue;
+	$ar[] = $ref->GetPercentageDisplay($strNetValue, $strClose);
+	EchoTableColumn($ar);
 }
 
 function _echoFundAccountData($csv, $ref)
@@ -79,7 +73,7 @@ function _echoFundAccountData($csv, $ref)
 
 function _echoFundAccountParagraph($csv, $ref, $strSymbol, $bAdmin)
 {
- 	$str = GetNetValueHistoryLink($strSymbol).' '.GetStockHistoryLink($strSymbol);
+ 	$str = GetFundLinks($strSymbol);
 	if ($bAdmin)
 	{
 		$str .= ' '.GetStockOptionLink(STOCK_OPTION_SHARES_DIFF, $strSymbol);

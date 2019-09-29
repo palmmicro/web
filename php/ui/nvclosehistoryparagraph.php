@@ -9,39 +9,35 @@ function _echoNvCloseItem($csv, $shares_sql, $strDate, $strNetValue, $ref, $strF
 	if (($strClose === false) || ($strClosePrev === false))	return;
 	
    	if ($csv)	$csv->Write($strDate, $ref->GetPercentage($strClosePrev, $strClose), $ref->GetPercentage($strNetValue, $strClose), $strNetValue);
+
+   	$ar = array($strDate);
+   	$ar[] = $ref->GetPriceDisplay($strClose, $strNetValue);
    	
-    $strChange = $ref->GetPercentageDisplay($strClosePrev, $strClose);
-   	$strPremium = $ref->GetPercentageDisplay($strNetValue, $strClose);
-    $strClose = $ref->GetPriceDisplay($strClose, $strNetValue);
-    
     if ($strFundId)
     {
-    	$strNetValue = GetOnClickLink('/php/_submitdelete.php?'.TABLE_NETVALUE_HISTORY.'='.$strFundId, '确认删除'.$strDate.'净值记录'.$strNetValue.'?', $strNetValue);
-    }
-    
-    if ($strShares = $shares_sql->GetClose($strDate))
-    {
-    	$strShares = rtrim0($strShares);
-    	$fVolume = floatval($his_sql->GetVolume($strDate));
-    	$strChangeRate = strval_round(100.0 * $fVolume / (floatval($strShares * 10000.0)));
+    	$ar[] = GetOnClickLink('/php/_submitdelete.php?'.TABLE_NETVALUE_HISTORY.'='.$strFundId, '确认删除'.$strDate.'净值记录'.$strNetValue.'?', $strNetValue);
     }
     else
     {
-    	$strShares = '';
-    	$strChangeRate = '';
+    	$ar[] = $strNetValue;
     }
     
-    echo <<<END
-    <tr>
-        <td class=c1>$strDate</td>
-        <td class=c1>$strClose</td>
-        <td class=c1>$strNetValue</td>
-        <td class=c1>$strPremium</td>
-        <td class=c1>$strChange</td>
-        <td class=c1>$strShares</td>
-        <td class=c1>$strChangeRate</td>
-    </tr>
-END;
+	$ar[] = $ref->GetPercentageDisplay($strNetValue, $strClose);
+   	$ar[] = $ref->GetPercentageDisplay($strClosePrev, $strClose);
+    
+    if ($strShares = $shares_sql->GetClose($strDate))
+    {
+    	$ar[] = rtrim0($strShares);
+    	$fVolume = floatval($his_sql->GetVolume($strDate));
+    	$ar[] = strval_round(100.0 * $fVolume / (floatval($strShares * 10000.0)));
+    }
+    else
+    {
+    	$ar[] = '';
+    	$ar[] = '';
+    }
+    
+    EchoTableColumn($ar);
 }
 
 function _echoNvCloseData($sql, $shares_sql, $ref, $csv, $iStart, $iNum, $bAdmin)

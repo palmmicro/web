@@ -9,36 +9,68 @@ function _echoNetValueHistoryGraph($strSymbol)
 {
    	$csv = new PageCsvFile();
     $jpg = new DateImageFile();
-    $ar = $csv->ReadColumn(2);
+    $ar = $csv->ReadColumn(1);
    	if (count($ar) > 0)
    	{
    		$jpg->DrawDateArray($ar);
-   		$jpg->DrawCompareArray($csv->ReadColumn(1));
-   		$jpg->Show(STOCK_DISP_PREMIUM, $strSymbol, $csv->GetLink());
+   		$jpg->Show($strSymbol, '', $csv->GetLink());
    	}
 }
 
-function _echoNetValueHistory($strSymbol, $iStart, $iNum)
+function _echoNetValueItem($csv, $strNetValue, $strDate, $ref)
 {
-    $str = GetStockHistoryLink($strSymbol);
+   	$csv->Write($strDate, $strNetValue);
+   	
+	$ar = array($strDate);
+	if ($strClose = $ref->his_sql->GetClose($strDate))
+	{
+		$ar[] = $ref->GetPriceDisplay($strClose, $strNetValue);
+	}
+	else
+	{
+		$ar[] = '';
+	}
+
+	$ar[] = $strNetValue;
+	EchoTableColumn($ar);
+}
+
+function _echoNetValueData($sql, $ref, $iStart, $iNum)
+{
+    if ($result = $sql->GetAll($iStart, $iNum)) 
+    {
+     	$csv = new PageCsvFile();
+        while ($record = mysql_fetch_assoc($result)) 
+        {
+			_echoNetValueItem($csv, rtrim0($record['close']), $record['date'], $ref);
+        }
+        $csv->Close();
+        @mysql_free_result($result);
+    }
+}
+
+function _echoNetValueHistory($ref, $iStart, $iNum)
+{
+	$strSymbol = $ref->GetStockSymbol();
+    $str = GetFundHistoryLink($strSymbol);
+    $str .= ' '.GetStockHistoryLink($strSymbol);
     if (in_arrayLof($strSymbol))
     {
     	$str .= ' '.GetThanousLawLink($strSymbol);
     	$str .= ' '.GetFundAccountLink($strSymbol);
     }
-   	EchoParagraph($str);
-  
-   	$csv = new PageCsvFile();
-   	$sym = new StockSymbol($strSymbol);
-   	if ($sym->IsFundA())
-   	{
-   		$fund = StockGetFundReference($strSymbol);
-   		EchoFundHistoryParagraph($fund, $csv, $iStart, $iNum);
-   	}
-   	else if ($ref = StockGetEtfReference($strSymbol))
-   	{
-   		EchoEtfHistoryParagraph($ref, $csv, $iStart, $iNum);
-   	}
+    
+	$sql = new NetValueHistorySql($ref->GetStockId());
+   	$strNavLink = StockGetNavLink($strSymbol, $sql->Count(), $iStart, $iNum);
+	$str .= ' '.$strNavLink;
+
+	EchoTableParagraphBegin(array(new TableColumnDate(),
+								   new TableColumnClose(),
+								   new TableColumnNetValue()
+								   ), 'netvalue', $str);
+
+	_echoNetValueData($sql, $ref, $iStart, $iNum);
+    EchoTableParagraphEnd($strNavLink);
     
     _echoNetValueHistoryGraph($strSymbol);
 }
@@ -51,7 +83,7 @@ function EchoAll()
     {
    		$iStart = UrlGetQueryInt('start');
    		$iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
-   		_echoNetValueHistory($ref->GetStockSymbol(), $iStart, $iNum);
+   		_echoNetValueHistory($ref, $iStart, $iNum);
     }
     $acct->EchoLinks('netvalue');
 }

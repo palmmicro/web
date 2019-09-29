@@ -157,10 +157,14 @@ class LinearImageFile extends PageImageFile
     	
     	// y = A + B * x;
     	$this->Line($this->_getPosX(0.0, $fMaxX), $this->_getPosY($fA, $fMaxY), $this->_getPosX($fMaxX, $fMaxX), $this->_getPosY($fA + $fB * $fMaxX, $fMaxY));
+    	
+    	$bStar = (count($arX) < $this->iWidth / 2) ? true : false;
     	foreach ($arX as $strKey => $fX)
     	{
-//    		$this->Pixel($this->_getPosX($fX, $fMaxX), $this->_getPosY($arY[$strKey], $fMaxY));
-    		$this->Text($this->_getPosX($fX, $fMaxX), $this->_getPosY($arY[$strKey], $fMaxY), '*');
+    		$x = $this->_getPosX($fX, $fMaxX);
+    		$y = $this->_getPosY($arY[$strKey], $fMaxY);
+			if ($bStar)	$this->Text($x, $y, '*');
+			else			$this->Pixel($x, $y);
     	}
     }
 }
