@@ -96,9 +96,9 @@ function _echoThanousLawParagraph($strSymbol, $iStart, $iNum)
 
 function EchoAll()
 {
-	global $group;
+	global $acct;
 	
-    if ($ref = $group->EchoStockGroup())
+    if ($ref = $acct->EchoStockGroup())
     {
    		$strSymbol = $ref->GetStockSymbol();
         if (in_arrayLof($strSymbol))
@@ -111,27 +111,27 @@ function EchoAll()
             DebugString($strSymbol.' Thanous Law: '.DebugGetStopWatchDisplay($fStart));
         }
     }
-    $group->EchoLinks('thanouslaw');
+    $acct->EchoLinks('thanouslaw');
 }
 
 function EchoMetaDescription()
 {
-	global $group;
+	global $acct;
 	
-  	$str = $group->GetStockDisplay().THANOUS_LAW_DISPLAY;
+  	$str = $acct->GetStockDisplay().THANOUS_LAW_DISPLAY;
     $str .= '测试. 仅用于华宝油气(SZ162411)等LOF基金. 看白天A股华宝油气的溢价或者折价交易是否可以像小心愿认为的那样预测晚上美股XOP的涨跌.';
     EchoMetaDescriptionText($str);
 }
 
 function EchoTitle()
 {
-	global $group;
+	global $acct;
 	
-  	$str = $group->GetSymbolDisplay().THANOUS_LAW_DISPLAY;
+  	$str = $acct->GetSymbolDisplay().THANOUS_LAW_DISPLAY;
   	echo $str;
 }
 
-    $group = new StockSymbolPage();
+    $acct = new SymbolAcctStart();
 
 ?>
 

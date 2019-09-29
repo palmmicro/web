@@ -1,17 +1,15 @@
 <?php
-require_once('/php/stockgroup.php');
 
-class StockSymbolPage extends EmptyStockGroup
+class SymbolAcctStart extends AcctStart
 {
-    var $acct;				// AcctStart class
     var $ref = false;		// MysqlReference class
     
-    function StockSymbolPage($bMustLogin = true) 
+    function SymbolAcctStart($bMustLogin = true) 
     {
-    	$this->acct = new AcctStart();
+        parent::AcctStart();
     	if ($bMustLogin)
     	{
-    		$this->acct->Auth();
+    		$this->Auth();
     	}
     	
     	if ($strSymbol = UrlGetQueryValue('symbol'))
@@ -36,26 +34,6 @@ class StockSymbolPage extends EmptyStockGroup
     	return $this->ref;
     }
 
-    function GetLoginId()
-    {
-    	return $this->acct->GetLoginId();
-    }
-    
-    function GetMemberId()
-    {
-    	return $this->acct->GetMemberId();
-    }
-    
-    function IsAdmin()
-    {
-	   	return $this->acct->IsAdmin();
-    }
-    
-    function Back()
-    {
-	   	$this->acct->Back();
-    }
-    
     function EchoLinks($strVer = false)
     {
     	EchoPromotionHead($strVer);
@@ -68,7 +46,7 @@ class StockSymbolPage extends EmptyStockGroup
     	{
     		if ($strLoginId = $this->GetLoginId())
     		{
-    			EchoAllStockGroupParagraph($this->GetGroupId(), $ref->GetStockId(), $this->GetMemberId(), $strLoginId);
+    			EchoAllStockGroupParagraph(false, $ref->GetStockId(), $this->GetMemberId(), $strLoginId);
     		}
     	}
     	return $ref;

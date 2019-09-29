@@ -180,12 +180,12 @@ function _echoMyStockData($ref, $strMemberId, $bAdmin)
 
 function EchoAll()
 {
-	global $group;
+	global $acct;
 	
-	$bAdmin = $group->IsAdmin();
-    if ($ref = $group->EchoStockGroup())
+	$bAdmin = $acct->IsAdmin();
+    if ($ref = $acct->EchoStockGroup())
     {
-    	_echoMyStockData($ref, $group->GetLoginId(), $bAdmin);
+    	_echoMyStockData($ref, $acct->GetLoginId(), $bAdmin);
     }
     else if ($bAdmin)
     {
@@ -193,27 +193,27 @@ function EchoAll()
     	$iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
     	EchoStockParagraph($iStart, $iNum);
     }
-    $group->EchoLinks();
+    $acct->EchoLinks();
 }
 
 function EchoMetaDescription()
 {
-	global $group;
+	global $acct;
 	
-    $str = $group->GetSymbolDisplay($group->GetWhoseDisplay()._GetAllDisplay(false));
+    $str = $acct->GetSymbolDisplay($acct->GetWhoseDisplay()._GetAllDisplay(false));
 	$str .= '参考数据, AH对比, SMA均线, 布林线, 净值估算等本网站提供的内容. 可以用来按代码查询股票基本情况, 登录状态下还显示相关股票分组中的用户交易记录.';
     EchoMetaDescriptionText($str);
 }
 
 function EchoTitle()
 {
-	global $group;
+	global $acct;
 	
-    $str = $group->GetSymbolDisplay(ALL_STOCK_DISPLAY);
+    $str = $acct->GetSymbolDisplay(ALL_STOCK_DISPLAY);
     echo $str;
 }
 
-    $group = new StockSymbolPage(false);
+    $acct = new SymbolAcctStart(false);
     
 ?>
 

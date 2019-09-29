@@ -103,10 +103,10 @@ END;
 
 function EchoAll()
 {
-	global $group;
+	global $acct;
 	
-	$bAdmin = $group->IsAdmin();
-    if ($ref = $group->EchoStockGroup())
+	$bAdmin = $acct->IsAdmin();
+    if ($ref = $acct->EchoStockGroup())
     {
     	if ($ref->HasData())
     	{
@@ -119,26 +119,26 @@ function EchoAll()
     		}
     	}
     }
-    $group->EchoLinks();
+    $acct->EchoLinks();
 }
 
 function EchoMetaDescription()
 {
-	global $group;
+	global $acct;
 	
-  	$str = $group->GetStockDisplay().AH_HISTORY_DISPLAY;
+  	$str = $acct->GetStockDisplay().AH_HISTORY_DISPLAY;
     $str .= '页面. 按中国A股交易日期排序显示. 同时显示港币人民币中间价历史, 提供跟Yahoo或者Sina历史数据同步的功能.';
     EchoMetaDescriptionText($str);
 }
 
 function EchoTitle()
 {
-	global $group;
+	global $acct;
 	
-  	$str = $group->GetSymbolDisplay().AH_HISTORY_DISPLAY;
+  	$str = $acct->GetSymbolDisplay().AH_HISTORY_DISPLAY;
   	echo $str;
 }
 
-    $group = new StockSymbolPage();
+    $acct = new SymbolAcctStart();
 
 ?>

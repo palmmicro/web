@@ -2,22 +2,14 @@
 require_once('stocktrans.php');
 require_once('class/multi_currency.php');
 
-class EmptyStockGroup
-{
-    var $strGroupId = false;
-    
-    function GetGroupId()
-    {
-    	return $this->strGroupId;
-    }
-}
-
 // ****************************** StockGroup Class *******************************************************
 
-class StockGroup extends EmptyStockGroup
+class StockGroup
 {
     var $multi_amount;
     var $multi_profit;
+    
+    var $strGroupId = false;
     
     function StockGroup() 
     {
@@ -25,6 +17,11 @@ class StockGroup extends EmptyStockGroup
         $this->multi_profit = new MultiCurrency();
     }
 
+    function GetGroupId()
+    {
+    	return $this->strGroupId;
+    }
+    
     function OnStockTransaction($trans)
     {
         $sym = $trans->ref->sym;
@@ -219,14 +216,14 @@ class MyStockGroup extends StockGroup
     
     function MyStockGroup($strGroupId, $arRef) 
     {
+        parent::StockGroup();
+        
         $this->strGroupId = $strGroupId;
         $this->arbi_trans = false;
-        
         foreach ($arRef as $ref)
         {
             $this->_addTransaction($ref);
         }
-        parent::StockGroup();
         
         $sql = new StockGroupItemSql($strGroupId);
         if ($result = $sql->GetAll()) 

@@ -4,15 +4,15 @@ require_once('/php/stock.php');
 require_once('_spdrnavxls.php');
 require_once('_emptygroup.php');
 
-    $group = new StockSymbolPage();
-	if ($group->IsAdmin())
+    $acct = new SymbolAcctStart();
+	if ($acct->IsAdmin())
 	{
-	    if ($ref = $group->GetRef())
+	    if ($ref = $acct->GetRef())
 	    {
 	        $str = GetSpdrNavXlsStr($ref->GetStockSymbol());
 	        DebugString($str);
 	    }
 	}
-	$group->Back();
+	$acct->Back();
 	
 ?>

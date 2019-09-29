@@ -102,14 +102,14 @@ function _submitStockHistory($ref)
     $his_sql->DeleteInvalidDate();
 }
 
-    $group = new StockSymbolPage();
-	if ($group->IsAdmin())
+    $acct = new SymbolAcctStart();
+	if ($acct->IsAdmin())
 	{
-	    if ($ref = $group->GetRef())
+	    if ($ref = $acct->GetRef())
 	    {
 	        _submitStockHistory($ref);
 	    }
 	}
-	$group->Back();
+	$acct->Back();
 	
 ?>

@@ -90,14 +90,14 @@ function _deleteStockSymbol($ref)
 	$sql->DeleteById($strStockId);
 }
 
-    $group = new StockSymbolPage();
-	if ($group->IsAdmin())
+    $acct = new SymbolAcctStart();
+	if ($acct->IsAdmin())
 	{
-	    if ($ref = $group->GetRef())
+	    if ($ref = $acct->GetRef())
 	    {
 	        _deleteStockSymbol($ref);
 	    }
 	}
-	$group->Back();
+	$acct->Back();
 	
 ?>

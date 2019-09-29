@@ -22,10 +22,10 @@ function _getStockHistoryLinks($ref, $bAdmin)
 
 function EchoAll()
 {
-	global $group;
+	global $acct;
 	
-	$bAdmin = $group->IsAdmin();
-    if ($ref = $group->EchoStockGroup())
+	$bAdmin = $acct->IsAdmin();
+    if ($ref = $acct->EchoStockGroup())
     {
     	if ($ref->HasData())
     	{
@@ -42,26 +42,26 @@ function EchoAll()
     		}
     	}
     }
-    $group->EchoLinks();
+    $acct->EchoLinks();
 }
 
 function EchoMetaDescription()
 {
-	global $group;
+	global $acct;
 	
-  	$str = $group->GetStockDisplay().STOCK_HISTORY_DISPLAY;
+  	$str = $acct->GetStockDisplay().STOCK_HISTORY_DISPLAY;
     $str .= '页面. 用于查看计算SMA的原始数据, 提供跟Yahoo或者Sina历史数据同步的功能, 方便人工处理合股和拆股, 分红除权等价格处理问题.';
     EchoMetaDescriptionText($str);
 }
 
 function EchoTitle()
 {
-	global $group;
+	global $acct;
 	
-  	$str = $group->GetSymbolDisplay().STOCK_HISTORY_DISPLAY;
+  	$str = $acct->GetSymbolDisplay().STOCK_HISTORY_DISPLAY;
   	echo $str;
 }
 
-    $group = new StockSymbolPage();
+    $acct = new SymbolAcctStart();
 
 ?>

@@ -115,10 +115,10 @@ function _echoLinearRegressionGraph($csv)
 
 function EchoAll()
 {
-	global $group;
+	global $acct;
 	
-	$bAdmin = $group->IsAdmin();
-    if ($ref = $group->EchoStockGroup())
+	$bAdmin = $acct->IsAdmin();
+    if ($ref = $acct->EchoStockGroup())
     {
    		$strSymbol = $ref->GetStockSymbol();
         if (in_arrayLof($strSymbol))
@@ -131,27 +131,27 @@ function EchoAll()
             }
         }
     }
-    $group->EchoLinks();
+    $acct->EchoLinks();
 }
 
 function EchoMetaDescription()
 {
-	global $group;
+	global $acct;
 	
-  	$str = $group->GetStockDisplay().FUND_ACCOUNT_DISPLAY;
+  	$str = $acct->GetStockDisplay().FUND_ACCOUNT_DISPLAY;
     $str .= '. 仅用于华宝油气(SZ162411)等LOF基金. 利用2019年8月开始华宝油气限购1000块人民币的机会测算A股LOF溢价申购套利的群体规模. 充分了解交易对手, 做到知己知彼百战不殆.';
     EchoMetaDescriptionText($str);
 }
 
 function EchoTitle()
 {
-	global $group;
+	global $acct;
 	
-  	$str = $group->GetSymbolDisplay().FUND_ACCOUNT_DISPLAY;
+  	$str = $acct->GetSymbolDisplay().FUND_ACCOUNT_DISPLAY;
   	echo $str;
 }
 
-    $group = new StockSymbolPage(false);
+    $acct = new SymbolAcctStart(false);
 
 ?>
 

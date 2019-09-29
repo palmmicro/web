@@ -32,15 +32,15 @@ function _echoNvCloseGraph($strSymbol)
 
 function EchoAll()
 {
-	global $group;
+	global $acct;
 	
-    if ($ref = $group->EchoStockGroup())
+    if ($ref = $acct->EchoStockGroup())
     {
         if ($ref->HasData())
     	{
     		$strSymbol = $ref->GetStockSymbol();
     		$strLinks = GetStockHistoryLink($strSymbol);
-    		if ($bAdmin = $group->IsAdmin())
+    		if ($bAdmin = $acct->IsAdmin())
     		{
 //    			$strLinks .= ' '.GetPhpLink(STOCK_PATH.'spdrnavxls', false, '更新净值');
     			$strLinks .= ' '.GetOnClickLink(STOCK_PHP_PATH.'_submitspdrnav.php?symbol='.$strSymbol, "确认更新{$strSymbol}净值历史记录?", '更新净值');
@@ -59,26 +59,26 @@ function EchoAll()
 			}
     	}
     }
-    $group->EchoLinks('nvclose');
+    $acct->EchoLinks('nvclose');
 }
 
 function EchoMetaDescription()
 {
-	global $group;
+	global $acct;
 	
-  	$str = $group->GetStockDisplay().NVCLOSE_HISTORY_DISPLAY;
+  	$str = $acct->GetStockDisplay().NVCLOSE_HISTORY_DISPLAY;
     $str .= '页面. 观察每天净值和收盘价偏离的情况. 同时判断偏离的方向和大小是否跟当天涨跌以及交易量相关, 总结规律以便提供可能的套利操作建议.';
     EchoMetaDescriptionText($str);
 }
 
 function EchoTitle()
 {
-	global $group;
+	global $acct;
 	
-  	$str = $group->GetSymbolDisplay().NVCLOSE_HISTORY_DISPLAY;
+  	$str = $acct->GetSymbolDisplay().NVCLOSE_HISTORY_DISPLAY;
   	echo $str;
 }
 
-    $group = new StockSymbolPage();
+    $acct = new SymbolAcctStart();
 
 ?>

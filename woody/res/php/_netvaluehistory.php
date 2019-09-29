@@ -45,35 +45,35 @@ function _echoNetValueHistory($strSymbol, $iStart, $iNum)
 
 function EchoAll()
 {
-	global $group;
+	global $acct;
 	
-    if ($ref = $group->EchoStockGroup())
+    if ($ref = $acct->EchoStockGroup())
     {
    		$iStart = UrlGetQueryInt('start');
    		$iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
    		_echoNetValueHistory($ref->GetStockSymbol(), $iStart, $iNum);
     }
-    $group->EchoLinks('netvalue');
+    $acct->EchoLinks('netvalue');
 }
 
 function EchoMetaDescription()
 {
-	global $group;
+	global $acct;
 	
-  	$str = $group->GetStockDisplay().NETVALUE_HISTORY_DISPLAY;
+  	$str = $acct->GetStockDisplay().NETVALUE_HISTORY_DISPLAY;
     $str .= '页面. 用于某基金历史净值超过一定数量后的显示. 最近的基金净值记录一般会直接显示在该基金页面. 目前仅用于华宝油气(SZ162411)等LOF基金.';
     EchoMetaDescriptionText($str);
 }
 
 function EchoTitle()
 {
-	global $group;
+	global $acct;
 	
-  	$str = $group->GetSymbolDisplay().NETVALUE_HISTORY_DISPLAY;
+  	$str = $acct->GetSymbolDisplay().NETVALUE_HISTORY_DISPLAY;
   	echo $str;
 }
 
-    $group = new StockSymbolPage();
+    $acct = new SymbolAcctStart();
 
 ?>
 

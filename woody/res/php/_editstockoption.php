@@ -11,9 +11,9 @@ function _getEditStockOptionSubmit($strTitle)
 
 function EchoAll()
 {
-	global $group;
+	global $acct;
 	
-    if ($ref = $group->EchoStockGroup())
+    if ($ref = $acct->EchoStockGroup())
     {
       	$strTitle = UrlGetTitle();
        	StockOptionEditForm($ref, _getEditStockOptionSubmit($strTitle));
@@ -22,22 +22,22 @@ function EchoAll()
 
 function EchoMetaDescription()
 {
-	global $group;
+	global $acct;
 	
 	$strTitle = UrlGetTitle();
-    $str = '本中文页面文件跟/woody/res/php/_submitstockoptions.php和_editstockoptionform.php一起配合, 对'.$group->GetStockDisplay();
+    $str = '本中文页面文件跟/woody/res/php/_submitstockoptions.php和_editstockoptionform.php一起配合, 对'.$acct->GetStockDisplay();
     $str .= _getEditStockOptionSubmit($strTitle);
     EchoMetaDescriptionText($str);
 }
 
 function EchoTitle()
 {
-	global $group;
+	global $acct;
 	
-  	$str = $group->GetSymbolDisplay()._getEditStockOptionSubmit(UrlGetTitle());
+  	$str = $acct->GetSymbolDisplay()._getEditStockOptionSubmit(UrlGetTitle());
     echo $str;
 }
 
-    $group = new StockSymbolPage();
+    $acct = new SymbolAcctStart();
     
 ?>
