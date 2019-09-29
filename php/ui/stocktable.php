@@ -100,9 +100,9 @@ class TableColumnName extends TableColumn
 
 class TableColumnNetValue extends TableColumn
 {
-	function TableColumnNetValue()
+	function TableColumnNetValue($strPrefix = false)
 	{
-        parent::TableColumn(STOCK_DISP_NETVALUE, 100, 'olive');
+        parent::TableColumn(STOCK_DISP_NETVALUE, 100, 'olive', $strPrefix);
 	}
 }
 

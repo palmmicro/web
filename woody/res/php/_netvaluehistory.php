@@ -3,7 +3,6 @@ require_once('_stock.php');
 require_once('_emptygroup.php');
 require_once('/php/csvfile.php');
 require_once('/php/imagefile.php');
-require_once('/php/ui/fundhistoryparagraph.php');
 
 function _echoNetValueHistoryGraph($strSymbol)
 {
@@ -17,32 +16,87 @@ function _echoNetValueHistoryGraph($strSymbol)
    	}
 }
 
-function _echoNetValueItem($csv, $strNetValue, $strDate, $ref)
+function _echoNetValueItem($csv, $sql, $est_sql, $cny_sql, $strNetValue, $strDate, $ref, $est_ref, $cny_ref)
 {
    	$csv->Write($strDate, $strNetValue);
    	
-	$ar = array($strDate);
-	if ($strClose = $ref->his_sql->GetClose($strDate))
+	$ar = array($strDate, $strNetValue);
+	if ($strPrev = $sql->GetClosePrev($strDate))
 	{
-		$ar[] = $ref->GetPriceDisplay($strClose, $strNetValue);
+		$ar[] = $ref->GetPercentageDisplay($strPrev, $strNetValue);
 	}
 	else
 	{
 		$ar[] = '';
 	}
 
-	$ar[] = $strNetValue;
+	if ($est_sql)
+	{
+		$strCny = $cny_sql->GetClose($strDate);
+		$ar[] = $strCny;
+		if ($strCnyPrev = $cny_sql->GetClosePrev($strDate))
+		{
+			$ar[] = $cny_ref->GetPercentageDisplay($strCnyPrev, $strCny);
+		}
+		else
+		{
+			$ar[] = '';
+		}
+		
+		if ($strEst = $est_sql->GetClose($strDate))
+		{
+			$ar[] = $strEst;
+			if ($strEstPrev = $est_sql->GetClosePrev($strDate))
+			{
+				$ar[] = $est_ref->GetPercentageDisplay($strEstPrev, $strEst);
+				
+				$fEst = StockGetPercentage($strEstPrev, $strEst);
+				if (abs($fEst) > 2.0)
+				{
+					$fVal = (StockGetPercentage($strPrev, $strNetValue) - StockGetPercentage($strCnyPrev, $strCny)) / $fEst;
+					$ar[] = strval_round($fVal, 2);
+				}
+				else
+				{
+					$ar[] = '';
+				}
+			}
+			else
+			{
+				$ar[] = '';
+				$ar[] = '';
+			}
+		}
+		else
+		{
+			$ar[] = '';
+			$ar[] = '';
+			$ar[] = '';
+		}
+	}
+	
 	EchoTableColumn($ar);
 }
 
-function _echoNetValueData($sql, $ref, $iStart, $iNum)
+function _echoNetValueData($sql, $ref, $est_ref, $cny_ref, $iStart, $iNum)
 {
+	if ($est_ref)
+	{
+		$est_sql = new NetValueHistorySql($est_ref->GetStockId());
+		$cny_sql = new UscnyHistorySql();
+	}
+	else
+	{
+		$est_sql = false;
+		$cny_sql = false;
+	}
+
     if ($result = $sql->GetAll($iStart, $iNum)) 
     {
      	$csv = new PageCsvFile();
         while ($record = mysql_fetch_assoc($result)) 
         {
-			_echoNetValueItem($csv, rtrim0($record['close']), $record['date'], $ref);
+			_echoNetValueItem($csv, $sql, $est_sql, $cny_sql, rtrim0($record['close']), $record['date'], $ref, $est_ref, $cny_ref);
         }
         $csv->Close();
         @mysql_free_result($result);
@@ -58,18 +112,33 @@ function _echoNetValueHistory($ref, $iStart, $iNum)
     {
     	$str .= ' '.GetThanousLawLink($strSymbol);
     	$str .= ' '.GetFundAccountLink($strSymbol);
+    	
+        $cny_ref = new CnyReference('USCNY');	// Always create CNY Forex class instance first!
+    	$ref = new LofReference($strSymbol);
+    	$est_ref = $ref->est_ref;
+    }
+    else
+    {
+    	$cny_ref = false;
+    	$est_ref = false;
     }
     
 	$sql = new NetValueHistorySql($ref->GetStockId());
    	$strNavLink = StockGetNavLink($strSymbol, $sql->Count(), $iStart, $iNum);
 	$str .= ' '.$strNavLink;
 
-	EchoTableParagraphBegin(array(new TableColumnDate(),
-								   new TableColumnClose(),
-								   new TableColumnNetValue()
-								   ), 'netvalue', $str);
-
-	_echoNetValueData($sql, $ref, $iStart, $iNum);
+	$change_col = new TableColumnChange();
+	$ar = array(new TableColumnDate(), new TableColumnNetValue(), $change_col);
+	if ($est_ref)
+	{
+		$ar[] = new TableColumn(GetMyStockLink('USCNY'), 70);
+		$ar[] = $change_col;
+		$ar[] = new TableColumnNetValue($est_ref->GetStockSymbol());
+		$ar[] = $change_col;
+		$ar[] = new TableColumn('仓位(%)', 60);
+	}
+	EchoTableParagraphBegin($ar, 'netvalue', $str);
+	_echoNetValueData($sql, $ref, $est_ref, $cny_ref, $iStart, $iNum);
     EchoTableParagraphEnd($strNavLink);
     
     _echoNetValueHistoryGraph($strSymbol);
