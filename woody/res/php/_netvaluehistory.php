@@ -114,11 +114,11 @@ function _echoNetValueHistory($ref, $iStart, $iNum)
 	$ar = array(new TableColumnDate(), new TableColumnNetValue(), $change_col);
 	if ($est_ref)
 	{
-		$ar[] = new TableColumn(GetMyStockLink('USCNY'), 70);
+		$ar[] = new TableColumnMyStock('USCNY');
 		$ar[] = $change_col;
 		$ar[] = new TableColumnNetValue($est_ref->GetStockSymbol());
 		$ar[] = $change_col;
-		$ar[] = new TableColumn('仓位(%)', 60);
+		$ar[] = new TableColumn('仓位(%)', 70);
 	}
 	EchoTableParagraphBegin($ar, 'netvalue', $str);
 	_echoNetValueData($sql, $ref, $est_ref, $cny_ref, $iStart, $iNum);
@@ -133,9 +133,7 @@ function EchoAll()
 	
     if ($ref = $acct->EchoStockGroup())
     {
-   		$iStart = UrlGetQueryInt('start');
-   		$iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
-   		_echoNetValueHistory($ref, $iStart, $iNum);
+   		_echoNetValueHistory($ref, $acct->GetStart(), $acct->GetNum());
     }
     $acct->EchoLinks('netvalue');
 }

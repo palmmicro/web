@@ -79,8 +79,8 @@ function EchoAhParagraph($arRef)
 
 	EchoTableParagraphBegin(array(new TableColumnSymbol(),
 								   new TableColumnSymbol('A股'),
-								   new TableColumnRatio('AH'),
-								   new TableColumnRatio('HA')
+								   new TableColumnAhRatio(),
+								   new TableColumnHaRatio()
 								   ), 'ah', $str);
 
 	foreach ($arRef as $ref)

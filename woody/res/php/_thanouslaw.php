@@ -64,6 +64,7 @@ function _echoThanousLawParagraph($strSymbol, $iStart, $iNum)
 {
 	$ref = new LofReference($strSymbol);
 	$est_ref = $ref->est_ref;
+	$strEstSymbol = $est_ref->GetStockSymbol();
 
  	$str = GetFundLinks($strSymbol);
 
@@ -75,14 +76,14 @@ function _echoThanousLawParagraph($strSymbol, $iStart, $iNum)
 								   new TableColumnClose(),
 								   new TableColumnNetValue(),
 								   new TableColumnPremium(),
-								   new TableColumnMyStock($est_ref),
+								   new TableColumnMyStock($strEstSymbol),
 								   new TableColumnChange()
 								   ), 'thanouslaw', $str);
 
 	_echoThanousLawData($sql, $ref->stock_ref, $est_ref, $iStart, $iNum);
     EchoTableParagraphEnd($strNavLink);
 
-    _echoThanousLawPool($strSymbol, $est_ref->GetStockSymbol());
+    _echoThanousLawPool($strSymbol, $strEstSymbol);
 }
 
 function EchoAll()

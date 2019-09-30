@@ -319,13 +319,13 @@ class TitleAcctStart extends AcctStart
 	var $strTitle;
 	var $strQuery;
 	
-    function TitleAcctStart($strQueryItem = false, $arMustLoginTitle = false) 
+    function TitleAcctStart($strQueryItem = false, $arLoginTitle = false) 
     {
         parent::AcctStart();
     	$this->strTitle = UrlGetTitle();
-    	if ($arMustLoginTitle)
+    	if ($arLoginTitle)
     	{
-    		if (in_array($this->strTitle, $arMustLoginTitle))
+    		if (in_array($this->strTitle, $arLoginTitle))
     		{
     			$this->Auth();
     		}
@@ -342,6 +342,36 @@ class TitleAcctStart extends AcctStart
     function GetQuery()
     {
     	return $this->strQuery;
+    }
+}
+
+class NavAcctStart extends AcctStart
+{
+    var $iStart;
+    var $iNum;
+    
+    function NavAcctStart($bLogin = true) 
+    {
+        parent::AcctStart();
+   		$this->iStart = UrlGetQueryInt('start');
+   		$this->iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
+    	if ($bLogin)
+    	{
+    		if (($this->iStart != 0) || ($this->iNum != 0))
+    		{
+    			$this->Auth();
+    		}
+    	}
+    }
+    
+    function GetStart()
+    {
+    	return $this->iStart;
+    }
+    
+    function GetNum()
+    {
+    	return $this->iNum;
     }
 }
 

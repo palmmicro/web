@@ -113,8 +113,8 @@ function _getNavDirLink($strDir, $strQueryId, $iStart, $iNum, $bChinese)
 function GetNavLink($strQueryId, $iTotal, $iStart, $iNum, $bChinese = true)
 {
 	$strTotal = strval($iTotal);
-    $str = ($bChinese ? '总数' : 'Total').': ';	//.strval($iTotal).' ';
-    if ($iTotal <= 0)		return $str.$strTotal;
+    $str = ($bChinese ? '总数' : 'Total').': ';
+    if ($iTotal <= 0 || ($iStart == 0 && $iNum == 0))		return $str.$strTotal;
 
     if ($iTotal > $iNum && $iTotal < 2000)
     {

@@ -93,7 +93,7 @@ function _echoFundHistoryParagraph($ref, $est_ref, $csv = false, $iStart = 0, $i
 	$premium_col = new TableColumnPremium();
 	
     $strSymbol = $ref->GetStockSymbol();
-    $str = GetMyStockLink($strSymbol).'的历史'.$close_col->GetText().'相对于'.$nv_col->GetText().'的'.$premium_col->GetText();
+    $str = GetMyStockLink($strSymbol).'的历史'.$close_col->GetDisplay().'相对于'.$nv_col->GetDisplay().'的'.$premium_col->GetDisplay();
     
 	$sql = new NetValueHistorySql($ref->GetStockId());
     if (IsTableCommonDisplay($iStart, $iNum))
@@ -113,7 +113,7 @@ function _echoFundHistoryParagraph($ref, $est_ref, $csv = false, $iStart = 0, $i
 		$ar[] = new TableColumnOfficalEst();
 		$ar[] = new TableColumnTime();
 		$ar[] = new TableColumnError();
-		$ar[] = new TableColumnMyStock($est_ref);
+		$ar[] = new TableColumnMyStock($est_ref->GetStockSymbol());
 	}
 	EchoTableParagraphBegin($ar, $strSymbol.'fundhistory', $str);
 	

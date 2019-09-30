@@ -37,7 +37,7 @@ class TableColumn
 		$this->strDisplay .= '('.$strUnit.')'; 
 	}
 	
-	function GetText()
+	function GetDisplay()
 	{
 		return $this->strText;
 	}

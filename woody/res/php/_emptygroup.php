@@ -1,16 +1,12 @@
 <?php
 
-class SymbolAcctStart extends AcctStart
+class SymbolAcctStart extends NavAcctStart
 {
     var $ref = false;		// MysqlReference class
     
-    function SymbolAcctStart($bMustLogin = true) 
+    function SymbolAcctStart($bLogin = true) 
     {
-        parent::AcctStart();
-    	if ($bMustLogin)
-    	{
-    		$this->Auth();
-    	}
+        parent::NavAcctStart($bLogin);
     	
     	if ($strSymbol = UrlGetQueryValue('symbol'))
     	{

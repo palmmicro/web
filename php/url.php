@@ -103,7 +103,7 @@ function UrlGetQueryValue($strQueryItem)
 
 function UrlGetQueryDisplay($strQueryItem, $strDefault = '')
 { 
-    if ($str = UrlGetQueryValue($strQueryItem))
+    if (($str = UrlGetQueryValue($strQueryItem)) !== false)
     {
         return $str;
     }
@@ -112,12 +112,11 @@ function UrlGetQueryDisplay($strQueryItem, $strDefault = '')
 
 function UrlGetQueryInt($strQueryItem, $iDefault = 0)
 { 
-    $iNum = $iDefault;
-    if ($strNum = UrlGetQueryValue($strQueryItem))
+    if (($strNum = UrlGetQueryValue($strQueryItem)) !== false)
     {
-        $iNum = intval($strNum);
+        return intval($strNum);
     }
-    return $iNum;
+    return $iDefault;
 }
 
 function UrlPassQuery()

@@ -22,7 +22,7 @@ class TableColumnChange extends TableColumn
 function GetTableColumnChange()
 {
 	$col = new TableColumnChange();
-	return $col->GetText();
+	return $col->GetDisplay();
 }
 
 class TableColumnClose extends TableColumn
@@ -36,7 +36,7 @@ class TableColumnClose extends TableColumn
 function GetTableColumnClose()
 {
 	$col = new TableColumnClose();
-	return $col->GetText();
+	return $col->GetDisplay();
 }
 
 class TableColumnDate extends TableColumn
@@ -50,7 +50,7 @@ class TableColumnDate extends TableColumn
 function GetTableColumnDate()
 {
 	$col = new TableColumnDate();
-	return $col->GetText();
+	return $col->GetDisplay();
 }
 
 class TableColumnError extends TableColumn
@@ -65,7 +65,7 @@ class TableColumnError extends TableColumn
 function GetTableColumnError()
 {
 	$col = new TableColumnError();
-	return $col->GetText();
+	return $col->GetDisplay();
 }
 
 class TableColumnEst extends TableColumn
@@ -79,7 +79,7 @@ class TableColumnEst extends TableColumn
 function GetTableColumnEst()
 {
 	$col = new TableColumnEst();
-	return $col->GetText();
+	return $col->GetDisplay();
 }
 
 class TableColumnOfficalEst extends TableColumnEst
@@ -102,14 +102,14 @@ class TableColumnNetValue extends TableColumn
 {
 	function TableColumnNetValue($strPrefix = false)
 	{
-        parent::TableColumn(STOCK_DISP_NETVALUE, 100, 'olive', $strPrefix);
+        parent::TableColumn(STOCK_DISP_NETVALUE, 90, 'olive', $strPrefix);
 	}
 }
 
 function GetTableColumnNetValue()
 {
 	$col = new TableColumnNetValue();
-	return $col->GetText();
+	return $col->GetDisplay();
 }
 
 class TableColumnPremium extends TableColumn
@@ -124,7 +124,7 @@ class TableColumnPremium extends TableColumn
 function GetTableColumnPremium()
 {
 	$col = new TableColumnPremium();
-	return $col->GetText();
+	return $col->GetDisplay();
 }
 
 class TableColumnPrice extends TableColumn
@@ -138,7 +138,7 @@ class TableColumnPrice extends TableColumn
 function GetTableColumnPrice()
 {
 	$col = new TableColumnPrice();
-	return $col->GetText();
+	return $col->GetDisplay();
 }
 
 class TableColumnRatio extends TableColumn
@@ -146,6 +146,22 @@ class TableColumnRatio extends TableColumn
 	function TableColumnRatio($strPrefix = false)
 	{
         parent::TableColumn(STOCK_DISP_RATIO, 80, false, $strPrefix);
+	}
+}
+
+class TableColumnAhRatio extends TableColumnRatio
+{
+	function TableColumnAhRatio()
+	{
+        parent::TableColumnRatio('AH');
+	}
+}
+
+class TableColumnHaRatio extends TableColumnRatio
+{
+	function TableColumnHaRatio()
+	{
+        parent::TableColumnRatio('HA');
 	}
 }
 
@@ -160,7 +176,7 @@ class TableColumnSma extends TableColumn
 function GetTableColumnSma()
 {
 	$col = new TableColumnSma();
-	return $col->GetText();
+	return $col->GetDisplay();
 }
 
 class TableColumnSymbol extends TableColumn
@@ -174,7 +190,7 @@ class TableColumnSymbol extends TableColumn
 function GetTableColumnSymbol()
 {
 	$col = new TableColumnSymbol();
-	return $col->GetText();
+	return $col->GetDisplay();
 }
 
 class TableColumnTime extends TableColumn
@@ -188,7 +204,7 @@ class TableColumnTime extends TableColumn
 function GetTableColumnTime()
 {
 	$col = new TableColumnTime();
-	return $col->GetText();
+	return $col->GetDisplay();
 }
 
 function GetTableColumnOfficalEst()
@@ -218,15 +234,10 @@ function GetTableColumnRealtimePremium()
 
 class TableColumnMyStock extends TableColumn
 {
-	function TableColumnMyStock($ref)
+	function TableColumnMyStock($strSymbol)
 	{
-        parent::TableColumn(RefGetMyStockLink($ref));
+        parent::TableColumn(GetMyStockLink($strSymbol));
 	}
-}
-
-function GetAhCompareTableColumn()
-{
-    return array('A股'.GetTableColumnSymbol(), 'AH比价', 'HA比价');
 }
 
 function GetTransactionTableColumn()

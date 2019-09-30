@@ -10,41 +10,31 @@ function _echoAhHistoryGraph($strSymbol)
     $jpg = new DateImageFile();
     $jpg->DrawDateArray($csv->ReadColumn(4));
     $jpg->DrawCompareArray($csv->ReadColumn(1));
-	$arColumn = GetAhCompareTableColumn();
-    $jpg->Show($arColumn[1], $strSymbol, $csv->GetLink());
+    
+    $col = new TableColumnAhRatio();
+    $jpg->Show($col->GetDisplay(), $strSymbol, $csv->GetLink());
 }
 
 function _echoAhHistoryItem($hshare_ref, $csv, $record, $h_his_sql, $hkcny_sql)
 {
-	$strClose = rtrim0($record['close']);
 	$strDate = $record['date'];
-	$strHKCNY = $hkcny_sql->GetClose($strDate);
-	if ($strHKCNY == false)	return;
-	
-	if ($strCloseH = $h_his_sql->GetClose($strDate))
+	if ($strHKCNY = $hkcny_sql->GetClose($strDate))
 	{
-		$fAh = floatval($strClose) / floatval($hshare_ref->EstToCny($strCloseH, $strHKCNY));
-		$strAH = GetRatioDisplay($fAh);
-		$strHA = GetRatioDisplay(1.0 / $fAh);
-		$csv->Write($strDate, $strClose, $strCloseH, $strHKCNY, strval_round($fAh));
+		$strClose = rtrim0($record['close']);
+		$ar = array($strDate, $strHKCNY, $strClose);
+		
+		if ($strCloseH = $h_his_sql->GetClose($strDate))
+		{
+			$fAh = floatval($strClose) / floatval($hshare_ref->EstToCny($strCloseH, $strHKCNY));
+			$csv->Write($strDate, $strClose, $strCloseH, $strHKCNY, strval_round($fAh));
+			
+			$ar[] = $strCloseH;
+			$ar[] = GetRatioDisplay($fAh);
+			$ar[] = GetRatioDisplay(1.0 / $fAh);
+		}
+		
+		EchoTableColumn($ar);
 	}
-	else
-	{
-		$strCloseH = '';
-		$strAH = '';
-		$strHA = '';
-	}
-	
-    echo <<<END
-    <tr>
-        <td class=c1>$strDate</td>
-        <td class=c1>$strClose</td>
-        <td class=c1>$strCloseH</td>
-        <td class=c1>$strHKCNY</td>
-        <td class=c1>$strAH</td>
-        <td class=c1>$strHA</td>                                                                                              
-    </tr>
-END;
 }
 
 function _echoAhHistoryData($hshare_ref, $his_sql, $iStart, $iNum)
@@ -68,33 +58,23 @@ function _echoAhHistoryParagraph($hshare_ref, $iStart, $iNum, $bAdmin)
 	$strSymbol = $hshare_ref->GetSymbolA();
     $strSymbolH = $hshare_ref->GetStockSymbol();
  	
-	$strDate = GetTableColumnDate();
-    $strHKCNY = GetMyStockLink('HKCNY');
-	$arColumn = GetAhCompareTableColumn();
-	
-    $strUpdateLink = ''; 
-    if ($bAdmin)
-    {
-        $strUpdateLink = GetUpdateStockHistoryLink($strSymbol);
-        $strUpdateLink .= ' '.GetUpdateStockHistoryLink($strSymbolH);
-    }
-
     $his_sql = $hshare_ref->a_ref->GetHistorySql();
     $strNavLink = StockGetNavLink($strSymbol, $his_sql->Count(), $iStart, $iNum);
- 
-    echo <<<END
-    <p>$strNavLink $strUpdateLink
-    <TABLE borderColor=#cccccc cellSpacing=0 width=530 border=1 class="text" id="ahhistory">
-    <tr>
-        <td class=c1 width=100 align=center>$strDate</td>
-        <td class=c1 width=80 align=center>$strSymbol</td>
-        <td class=c1 width=80 align=center>$strSymbolH</td>
-        <td class=c1 width=80 align=center>$strHKCNY</td>
-        <td class=c1 width=80 align=center>{$arColumn[1]}</td>
-        <td class=c1 width=110 align=center>{$arColumn[2]}</td>
-    </tr>
-END;
-   
+    $str = $strNavLink; 
+    if ($bAdmin)
+    {
+        $str .= ' '.GetUpdateStockHistoryLink($strSymbol);
+        $str .= ' '.GetUpdateStockHistoryLink($strSymbolH);
+    }
+
+	EchoTableParagraphBegin(array(new TableColumnDate(),
+								   new TableColumnMyStock('HKCNY'),
+								   new TableColumn($strSymbol),
+								   new TableColumn($strSymbolH),
+								   new TableColumnAhRatio(),
+								   new TableColumnHaRatio()
+								   ), $strSymbol.'ahhistory', $str);
+
     _echoAhHistoryData($hshare_ref, $his_sql, $iStart, $iNum);
     EchoTableParagraphEnd($strNavLink);
 
@@ -112,10 +92,8 @@ function EchoAll()
     	{
 			if ($strSymbolH = SqlGetAhPair($ref->GetStockSymbol()))	
     		{
-    			$iStart = UrlGetQueryInt('start');
-    			$iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
     			$hshare_ref = new HShareReference($strSymbolH);
-    			_echoAhHistoryParagraph($hshare_ref, $iStart, $iNum, $bAdmin);
+    			_echoAhHistoryParagraph($hshare_ref, $acct->GetStart(), $acct->GetNum(), $bAdmin);
     		}
     	}
     }
