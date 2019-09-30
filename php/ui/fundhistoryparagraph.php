@@ -38,10 +38,6 @@ function _echoFundHistoryTableItem($csv, $strNetValue, $strClose, $strDate, $arF
 //			$strEstChange = $est_ref->GetPercentageDisplay($strEstClosePrev, $strEstClose);
 			$ar[] = $est_ref->GetPriceDisplay($strEstClose, $strEstClosePrev);
 		}
-		else
-		{
-			$ar[] = '';
-		}
     }
     
     EchoTableColumn($ar);

@@ -39,11 +39,6 @@ function _echoFundEstTableItem($ref, $bFair, $bRealtime)
     	$ar[] = $ref->GetPriceDisplay($strRealtimePrice);
     	$ar[] = $ref->GetPercentageDisplay($strRealtimePrice);
     }
-    else if ($bRealtime)
-    {
-    	$ar[] = '';
-    	$ar[] =  '';
-    }
     
     EchoTableColumn($ar);
 }

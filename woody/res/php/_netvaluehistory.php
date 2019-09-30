@@ -21,57 +21,40 @@ function _echoNetValueItem($csv, $sql, $est_sql, $cny_sql, $strNetValue, $strDat
    	$csv->Write($strDate, $strNetValue);
    	
 	$ar = array($strDate, $strNetValue);
-	if ($strPrev = $sql->GetClosePrev($strDate))
-	{
+	if ($record = $sql->GetPrev($strDate))
+    {
+    	$strPrevDate = $record['date'];
+    	$strPrev = rtrim0($record['close']);
 		$ar[] = $ref->GetPercentageDisplay($strPrev, $strNetValue);
-	}
-	else
-	{
-		$ar[] = '';
-	}
 
-	if ($est_sql)
-	{
-		$strCny = $cny_sql->GetClose($strDate);
-		$ar[] = $strCny;
-		if ($strCnyPrev = $cny_sql->GetClosePrev($strDate))
+		if ($est_sql)
 		{
-			$ar[] = $cny_ref->GetPercentageDisplay($strCnyPrev, $strCny);
-		}
-		else
-		{
-			$ar[] = '';
-		}
-		
-		if ($strEst = $est_sql->GetClose($strDate))
-		{
-			$ar[] = $strEst;
-			if ($strEstPrev = $est_sql->GetClosePrev($strDate))
+			$strCny = $cny_sql->GetClose($strDate);
+			$ar[] = $strCny;
+			if ($strCnyPrev = $cny_sql->GetClose($strPrevDate))
 			{
-				$ar[] = $est_ref->GetPercentageDisplay($strEstPrev, $strEst);
-				
-				$fEst = StockGetPercentage($strEstPrev, $strEst);
-				if (abs($fEst) > 2.0)
-				{
-					$fVal = (StockGetPercentage($strPrev, $strNetValue) - StockGetPercentage($strCnyPrev, $strCny)) / $fEst;
-					$ar[] = strval_round($fVal, 2);
-				}
-				else
-				{
-					$ar[] = '';
-				}
+				$ar[] = $cny_ref->GetPercentageDisplay($strCnyPrev, $strCny);
 			}
 			else
 			{
 				$ar[] = '';
-				$ar[] = '';
 			}
-		}
-		else
-		{
-			$ar[] = '';
-			$ar[] = '';
-			$ar[] = '';
+		
+			if ($strEst = $est_sql->GetClose($strDate))
+			{
+				$ar[] = $strEst;
+				if ($strEstPrev = $est_sql->GetClose($strPrevDate))
+				{
+					$ar[] = $est_ref->GetPercentageDisplay($strEstPrev, $strEst);
+				
+					$fEst = StockGetPercentage($strEstPrev, $strEst);
+					if (abs($fEst) > 2.0 && $strCnyPrev)
+					{
+						$fVal = (StockGetPercentage($strPrev, $strNetValue) - StockGetPercentage($strCnyPrev, $strCny)) / $fEst;
+						$ar[] = strval_round($fVal, 2);
+					}
+				}
+			}
 		}
 	}
 	

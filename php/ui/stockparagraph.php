@@ -13,10 +13,6 @@ function _echoStockTableItem($strStockId, $strSymbol, $strName)
         $strDelete = GetDeleteLink(STOCK_PHP_PATH.'_deletesymbol.php?symbol='.$strSymbol, '股票'.$strSymbol);
         $ar[] = $strEdit.' '.$strDelete;
 	}
-	else
-	{
-		$ar[] = '';
-	}
 
 	EchoTableColumn($ar);
 }

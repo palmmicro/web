@@ -31,11 +31,6 @@ function _echoNvCloseItem($csv, $shares_sql, $strDate, $strNetValue, $ref, $strF
     	$fVolume = floatval($his_sql->GetVolume($strDate));
     	$ar[] = strval_round(100.0 * $fVolume / (floatval($strShares * 10000.0)));
     }
-    else
-    {
-    	$ar[] = '';
-    	$ar[] = '';
-    }
     
     EchoTableColumn($ar);
 }
