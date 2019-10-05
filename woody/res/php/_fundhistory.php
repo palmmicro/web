@@ -21,9 +21,9 @@ function _echoFundHistoryGraph($strSymbol)
 function _echoFundHistory($strSymbol, $iStart, $iNum)
 {
     $str = GetStockHistoryLink($strSymbol);
+   	$str .= ' '.GetNetValueHistoryLink($strSymbol);
     if (in_arrayLof($strSymbol))
     {
-    	$str .= ' '.GetNetValueHistoryLink($strSymbol);
     	$str .= ' '.GetThanousLawLink($strSymbol);
     	$str .= ' '.GetFundAccountLink($strSymbol);
     }
@@ -50,9 +50,7 @@ function EchoAll()
 	
     if ($ref = $acct->EchoStockGroup())
     {
-   		$iStart = UrlGetQueryInt('start');
-   		$iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
-   		_echoFundHistory($ref->GetStockSymbol(), $iStart, $iNum);
+   		_echoFundHistory($ref->GetStockSymbol(), $acct->GetStart(), $acct->GetNum());
     }
     $acct->EchoLinks();
 }

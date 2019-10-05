@@ -68,7 +68,7 @@ function GetNvCloseHistoryLink($strSymbol)
 	return GetStockSymbolLink('nvclosehistory', $strSymbol, NVCLOSE_HISTORY_DISPLAY);
 }
 
-define('AH_HISTORY_DISPLAY', '历史AH价格比较');
+define('AH_HISTORY_DISPLAY', 'AH历史价格比较');
 function GetAhHistoryLink($strSymbol)
 {
     return GetStockSymbolLink('ahhistory', $strSymbol, AH_HISTORY_DISPLAY);

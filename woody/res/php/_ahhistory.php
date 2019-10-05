@@ -85,7 +85,6 @@ function EchoAll()
 {
 	global $acct;
 	
-	$bAdmin = $acct->IsAdmin();
     if ($ref = $acct->EchoStockGroup())
     {
     	if ($ref->HasData())
@@ -93,7 +92,7 @@ function EchoAll()
 			if ($strSymbolH = SqlGetAhPair($ref->GetStockSymbol()))	
     		{
     			$hshare_ref = new HShareReference($strSymbolH);
-    			_echoAhHistoryParagraph($hshare_ref, $acct->GetStart(), $acct->GetNum(), $bAdmin);
+    			_echoAhHistoryParagraph($hshare_ref, $acct->GetStart(), $acct->GetNum(), $acct->IsAdmin());
     		}
     	}
     }

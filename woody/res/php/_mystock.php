@@ -189,9 +189,7 @@ function EchoAll()
     }
     else if ($bAdmin)
     {
-    	$iStart = UrlGetQueryInt('start');
-    	$iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
-    	EchoStockParagraph($iStart, $iNum);
+    	EchoStockParagraph($acct->GetStart(), $acct->GetNum());
     }
     $acct->EchoLinks();
 }

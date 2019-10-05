@@ -22,9 +22,11 @@ function _echoAhItem($ref)
     $strSymbolA = $ref->GetSymbolA();
     $ar[] = GetMyStockLink($strSymbolA);
     
-    $fAhRatio = $ref->GetAhPriceRatio();
-    $ar[] = GetRatioDisplay($fAhRatio);
-    $ar[] = GetRatioDisplay(1.0 / $fAhRatio);
+    if ($fAhRatio = $ref->GetAhPriceRatio())
+    {
+    	$ar[] = GetRatioDisplay($fAhRatio);
+    	$ar[] = GetRatioDisplay(1.0 / $fAhRatio);
+    }
     
     EchoTableColumn($ar);
 }
@@ -99,9 +101,11 @@ function _echoAdrhItem($ref)
     $strSymbolAdr = $ref->adr_ref->GetStockSymbol();
     $ar[] = GetMyStockLink($strSymbolAdr);
     
-    $fAdrhRatio = $ref->GetAdrhPriceRatio();
-    $ar[] = GetRatioDisplay($fAdrhRatio);
-    $ar[] = GetRatioDisplay(1.0 / $fAdrhRatio);
+    if ($fAdrhRatio = $ref->GetAdrhPriceRatio())
+    {
+    	$ar[] = GetRatioDisplay($fAdrhRatio);
+    	$ar[] = GetRatioDisplay(1.0 / $fAdrhRatio);
+    }
     
     EchoTableColumn($ar);
 }

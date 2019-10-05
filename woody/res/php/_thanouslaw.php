@@ -95,11 +95,8 @@ function EchoAll()
    		$strSymbol = $ref->GetStockSymbol();
         if (in_arrayLof($strSymbol))
         {
-   			$iStart = UrlGetQueryInt('start');
-   			$iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
-   			
             $fStart = microtime(true);
-            _echoThanousLawParagraph($strSymbol, $iStart, $iNum);
+            _echoThanousLawParagraph($strSymbol, $acct->GetStart(), $acct->GetNum());
             DebugString($strSymbol.' Thanous Law: '.DebugGetStopWatchDisplay($fStart));
         }
     }

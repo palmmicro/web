@@ -30,10 +30,9 @@ function EchoAll()
     	if ($ref->HasData())
     	{
     		$strLinks = _getStockHistoryLinks($ref, $bAdmin);
-    		$iStart = UrlGetQueryInt('start');
-    		$iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
+    		$iStart = $acct->GetStart();
     		$csv = new PageCsvFile();
-    		EchoStockHistoryParagraph($ref, $strLinks, $csv, $iStart, $iNum);
+    		EchoStockHistoryParagraph($ref, $strLinks, $csv, $iStart, $acct->GetNum());
     		$csv->Close();
 
     		if ($bAdmin && $iStart == 0)

@@ -7,14 +7,11 @@ function EchoAll()
 {
 	global $acct;
 	
-	$bAdmin = $acct->IsAdmin();
     if ($ref = $acct->EchoStockGroup())
     {
     	if ($ref->HasData())
     	{
-    		$iStart = UrlGetQueryInt('start');
-    		$iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
-    		EchoCalibrationParagraph($ref, $iStart, $iNum, $bAdmin);
+    		EchoCalibrationParagraph($ref, $acct->GetStart(), $acct->GetNum(), $acct->IsAdmin());
     	}
     }
     $acct->EchoLinks('calibration');

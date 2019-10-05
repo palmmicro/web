@@ -46,10 +46,8 @@ function EchoAll()
     			$strLinks .= ' '.GetOnClickLink(STOCK_PHP_PATH.'_submitspdrnav.php?symbol='.$strSymbol, "确认更新{$strSymbol}净值历史记录?", '更新净值');
     		}
     		
-    		$iStart = UrlGetQueryInt('start');
-    		$iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
     		$csv = new PageCsvFile();
-			EchoNvCloseHistoryParagraph($ref, $strLinks, $csv, $iStart, $iNum, $bAdmin);
+			EchoNvCloseHistoryParagraph($ref, $strLinks, $csv, $acct->GetStart(), $acct->GetNum(), $bAdmin);
 			$csv->Close();
 
 			if ($csv->HasFile())
