@@ -24,6 +24,15 @@ function _getStockOptionDate($strSubmit, $ref)
 			return $record['date'];
 		}
 		break;
+
+	case STOCK_OPTION_NETVALUE:
+		$sql = new NetValueHistorySql($ref->GetStockId());
+		if ($strDate = $sql->GetDateNow())
+		{
+			return $strDate;
+		}
+		break;
+
 	}
 	return '';
 }
@@ -125,8 +134,15 @@ function _getStockOptionEma($strStockId, $strDate)
 	return 'EMA200/50';
 }
 
+function _getStockOptionNetValue($strStockId, $strDate)
+{
+	$sql = new NetValueHistorySql($strStockId);
+	return $sql->GetClose($strDate);
+}
+
 function _getStockOptionVal($strSubmit, $ref, $strSymbol, $strDate)
 {
+	$strStockId = $ref->GetStockId();
 	switch ($strSubmit)
 	{
 	case STOCK_OPTION_ADJCLOSE:
@@ -142,7 +158,7 @@ function _getStockOptionVal($strSubmit, $ref, $strSymbol, $strDate)
 		return $ref->GetPrevPrice();
 
 	case STOCK_OPTION_EMA:
-		return _getStockOptionEma($ref->GetStockId(), $strDate);
+		return _getStockOptionEma($strStockId, $strDate);
 
 	case STOCK_OPTION_ETF:
 		return _getStockOptionEtf($strSymbol);
@@ -152,6 +168,9 @@ function _getStockOptionVal($strSubmit, $ref, $strSymbol, $strDate)
 
 	case STOCK_OPTION_HA:
 		return _getStockOptionHa($strSymbol);
+
+	case STOCK_OPTION_NETVALUE:
+		return _getStockOptionNetValue($strStockId, $strDate);
 
 	case STOCK_OPTION_SPLIT:
 		return '10:1';
@@ -180,6 +199,9 @@ function _getStockOptionMemo($strSubmit)
 
 	case STOCK_OPTION_HA:
 		return '清空输入删除对应A股.';
+
+	case STOCK_OPTION_NETVALUE:
+		return '清空输入删除对应日期净值.';
 
 	case STOCK_OPTION_SPLIT:
 		return '输入1:10表示10股合1股, 10:1表示1股拆10股.';

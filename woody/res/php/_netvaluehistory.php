@@ -118,7 +118,7 @@ function _echoNetValueHistory($ref, $iStart, $iNum)
 		$ar[] = $change_col;
 		$ar[] = new TableColumnNetValue($est_ref->GetStockSymbol());
 		$ar[] = $change_col;
-		$ar[] = new TableColumn('仓位(%)', 70);
+		$ar[] = new TableColumn('仓位', 70);
 	}
 	EchoTableParagraphBegin($ar, 'netvalue', $str);
 	_echoNetValueData($sql, $ref, $est_ref, $cny_ref, $iStart, $iNum);

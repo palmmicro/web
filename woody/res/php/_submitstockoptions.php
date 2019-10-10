@@ -217,6 +217,19 @@ function _updateStockOptionEtf($strSymbol, $strVal)
 	}
 }
 
+function _updateStockOptionNetValue($strStockId, $strDate, $strVal)
+{
+	$sql = new NetValueHistorySql($strStockId);
+    if (empty($strVal))
+    {
+   		$sql->DeleteByDate($strDate);
+    }
+    else
+    {
+   		$sql->Write($strDate, $strVal);
+    }
+}
+
 function _updateStockOptionSharesDiff($strStockId, $strDate, $strVal)
 {
 	$sql = new EtfSharesDiffSql($strStockId);
@@ -324,6 +337,10 @@ function _updateStockOptionSplit($ref, $strSymbol, $strStockId, $strDate, $strVa
 			
 		case STOCK_OPTION_HA:
 			if ($bAdmin)	_updateStockOptionHa($strSymbol, $strVal);
+			break;
+			
+		case STOCK_OPTION_NETVALUE:
+			if ($bAdmin)	_updateStockOptionNetValue($strStockId, $strDate, $strVal);
 			break;
 			
 		case STOCK_OPTION_SHARES_DIFF:

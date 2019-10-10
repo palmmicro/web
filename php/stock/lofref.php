@@ -181,8 +181,12 @@ class _LofReference extends FundReference
 
     function GetLofValue($strEst, $strCNY)
     {
-        $fVal = floatval($strEst) * floatval($strCNY) / $this->fFactor;
-        return $this->AdjustPosition($fVal); 
+    	if ($this->fFactor)
+    	{
+    		$fVal = floatval($strEst) * floatval($strCNY) / $this->fFactor;
+    		return $this->AdjustPosition($fVal);
+    	}
+    	return 0.0;
     }
     
     function GetEstValue($strLof)
