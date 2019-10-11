@@ -38,18 +38,42 @@ function LinearRegression($arX, $arY)
 
 function _echoFundAccountItem($csv, $strDate, $strSharesDiff, $ref, $nv_sql)
 {
-	$strClose = $ref->his_sql->GetClosePrev3($strDate);
-	$strNetValue = $nv_sql->GetClosePrev4($strDate);
-	
-	$fAccount = floatval($strSharesDiff) * 10000.0 / (985.0 / floatval($nv_sql->GetClosePrev3($strDate)));
+    $iCount = 0;
+    $his_sql = $ref->GetHistorySql();
+    if ($result = $his_sql->GetFromDate($strDate, 5)) 
+    {
+        while ($record = mysql_fetch_assoc($result)) 
+        {
+            if ($iCount == 3)
+            {
+            	$strClose = rtrim0($record['close']);
+            	$strPurchaseDate = $record['date'];
+            }
+            else if ($iCount == 4)
+            {
+            	$strNetValueDate = $record['date'];
+            }
+            
+            $iCount ++;
+        }
+        @mysql_free_result($result);
+    }
+    
+	$strPurchaseValue = $nv_sql->GetClose($strPurchaseDate);
+	$fAccount = floatval($strSharesDiff) * 10000.0 / (985.0 / floatval($strPurchaseValue));
 	$strAccount = strval(intval($fAccount));
 
-   	$csv->Write($strDate, $strSharesDiff, $strAccount, $strClose, $strNetValue, $ref->GetPercentage($strNetValue, $strClose));
+   	$ar = array($strDate, $strSharesDiff, $strAccount, $strPurchaseDate);
+    if ($strPurchaseDate == GetNextTradingDayYMD($strNetValueDate))
+    {
+    	$strNetValue = $nv_sql->GetClose($strNetValueDate);
+    	
+    	$ar[] = $ref->GetPriceDisplay($strClose, $strNetValue);
+    	$ar[] = $strNetValue;
+    	$ar[] = $ref->GetPercentageDisplay($strNetValue, $strClose);
+    	$csv->Write($strDate, $strSharesDiff, $strAccount, $strClose, $strNetValue, $ref->GetPercentage($strNetValue, $strClose));
+    }
 	
-   	$ar = array($strDate, $strSharesDiff, $strAccount, '->');
-   	$ar[] = $ref->GetPriceDisplay($strClose, $strNetValue);
-   	$ar[] = $strNetValue;
-	$ar[] = $ref->GetPercentageDisplay($strNetValue, $strClose);
 	EchoTableColumn($ar);
 }
 
@@ -82,7 +106,7 @@ function _echoFundAccountParagraph($csv, $ref, $strSymbol, $bAdmin)
 	EchoTableParagraphBegin(array(new TableColumnDate(),
 								   new TableColumn(STOCK_OPTION_SHARES_DIFF, 110),
 								   new TableColumn(STOCK_DISP_ACCOUNT, 100),
-								   new TableColumn('申购日->', 70),
+								   new TableColumnDate('申购'),
 								   new TableColumnClose(),
 								   new TableColumnNetValue(),
 								   new TableColumnPremium()
@@ -123,6 +147,8 @@ function EchoAll()
             {
             	_echoLinearRegressionGraph($csv);
             }
+            
+            EchoRemarks($strSymbol);
         }
     }
     $acct->EchoLinks();

@@ -41,9 +41,9 @@ function GetTableColumnClose()
 
 class TableColumnDate extends TableColumn
 {
-	function TableColumnDate()
+	function TableColumnDate($strPrefix = false)
 	{
-        parent::TableColumn('日期', 100);
+        parent::TableColumn('日期', 100, false, $strPrefix);
 	}
 }
 

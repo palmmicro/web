@@ -134,9 +134,8 @@ function _getStockOptionEma($strStockId, $strDate)
 	return 'EMA200/50';
 }
 
-function _getStockOptionNetValue($strStockId, $strDate)
+function _getStockOptionDaily($sql, $strDate)
 {
-	$sql = new NetValueHistorySql($strStockId);
 	return $sql->GetClose($strDate);
 }
 
@@ -170,7 +169,10 @@ function _getStockOptionVal($strSubmit, $ref, $strSymbol, $strDate)
 		return _getStockOptionHa($strSymbol);
 
 	case STOCK_OPTION_NETVALUE:
-		return _getStockOptionNetValue($strStockId, $strDate);
+		return _getStockOptionDaily(new NetValueHistorySql($strStockId), $strDate);
+
+	case STOCK_OPTION_SHARES_DIFF:
+		return _getStockOptionDaily(new EtfSharesDiffSql($strStockId), $strDate);
 
 	case STOCK_OPTION_SPLIT:
 		return '10:1';
@@ -201,6 +203,7 @@ function _getStockOptionMemo($strSubmit)
 		return '清空输入删除对应A股.';
 
 	case STOCK_OPTION_NETVALUE:
+	case STOCK_OPTION_SHARES_DIFF:
 		return '清空输入删除对应日期净值.';
 
 	case STOCK_OPTION_SPLIT:
