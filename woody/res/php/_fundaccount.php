@@ -106,11 +106,11 @@ function _echoFundAccountParagraph($csv, $ref, $strSymbol, $bAdmin)
 	EchoTableParagraphBegin(array(new TableColumnDate(),
 								   new TableColumn(STOCK_OPTION_SHARES_DIFF, 110),
 								   new TableColumn(STOCK_DISP_ACCOUNT, 100),
-								   new TableColumnDate('申购'),
+								   new TableColumnDate('场内申购'),
 								   new TableColumnClose(),
 								   new TableColumnNetValue(),
 								   new TableColumnPremium()
-								   ), 'fundaccount', $str);
+								   ), FUND_ACCOUNT_PAGE, $str);
 	
 	_echoFundAccountData($csv, $ref);
     EchoTableParagraphEnd();
@@ -151,7 +151,7 @@ function EchoAll()
             EchoRemarks($strSymbol);
         }
     }
-    $acct->EchoLinks();
+    $acct->EchoLinks(FUND_ACCOUNT_PAGE);
 }
 
 function EchoMetaDescription()

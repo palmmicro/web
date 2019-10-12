@@ -188,6 +188,12 @@ A股同涨同跌的特点多少年都没有变过, 不过我想随着市场上�
 <br /><img src=../photo/20190101.png alt="Screen shot of woody's 2018 stock profit data" />
 </p>
 
+<h3>人生如逆旅我亦是行人 - <a name="2019">2019</a>总结</h3>
+<p>2020年1月1日
+<br /><font color=teal>想到一个好标题, 先占坑.</font>
+<br /><font color=grey>You can check out any time you like, but you can never leave.</font> <a href="../../favoritecn.html#californiahotel">California Hotel</a>
+</p>
+
 </div>
                                   
 <?php _LayoutBottom(); ?>

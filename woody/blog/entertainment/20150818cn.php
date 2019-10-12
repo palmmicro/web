@@ -368,6 +368,13 @@ CL通常会在美股收盘后继续多交易一个小时, 此时实时估值也�
 <br /><font color=grey>If you've been playing poker for half an hour and you still don't know who the patsy is, you're the patsy. — Warren Buffett</font>
 </p>
 
+<h3>用线性回归的方法在华宝油气溢价套利时进行<?php EchoNameLink(FUND_ACCOUNT_PAGE, FUND_ACCOUNT_DISPLAY); ?></h3>
+<p>2019年9月20日
+<br />限额申购统计.
+<br /><?php echo GetFundAccountLink(FUND_DEMO_SYMBOL); ?>
+<br /><img src=../photo/20190824.jpg alt="Linear regression calculation steps" />
+</p>
+
 </div>
 
 <?php _LayoutBottom(); ?>

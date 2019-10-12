@@ -81,9 +81,10 @@ function GetThanousLawLink($strSymbol)
 }
 
 define('FUND_ACCOUNT_DISPLAY', '基金申购账户统计');
+define('FUND_ACCOUNT_PAGE', 'fundaccount');
 function GetFundAccountLink($strSymbol)
 {
-    return GetStockSymbolLink('fundaccount', $strSymbol, FUND_ACCOUNT_DISPLAY);
+    return GetStockSymbolLink(FUND_ACCOUNT_PAGE, $strSymbol, FUND_ACCOUNT_DISPLAY);
 }
 
 define('BENFORD_LAW_DISPLAY', '本福特定律');
