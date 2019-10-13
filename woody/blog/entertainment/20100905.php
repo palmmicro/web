@@ -56,6 +56,12 @@ As PA6488 based camera is not available in market yet. Users can test the user m
 <br /><font color=grey>Life is like a snowball. The important thing is finding wet snow and a really long hill. — Warren Buffett</font>
 </p>
 
+<h3>Simple <a name="linearregression">Linear Regression</a> Tool</h3>
+<p>Sep 20, 2019
+<br />Simple <a href="../../../account/linearregression.php">Linear Regression</a> tool.
+<br /><img src=../photo/20190824.jpg alt="Linear regression calculation steps" />
+</p>
+
 </div>
 
 <?php _LayoutBottom(false); ?>

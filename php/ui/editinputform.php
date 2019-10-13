@@ -12,8 +12,8 @@ function EchoEditInputForm($strTitle, $strInput = '', $bChinese = true)
 	<form id="inputForm" name="inputForm" method="post" action="$strCur">
         <div>
 		<p><font color=olive>$strTitle</font>
-	        <input name="$strName" value="$strInput" type="text" style="width:320px;" maxlength="240" class="textfield" id="$strName" />
-	        <input type="submit" name="submit" value="$strSubmit" />
+	        <br /><input name="$strName" value="$strInput" type="text" style="width:640px;" maxlength="240" class="textfield" id="$strName" />
+	        <br /><input type="submit" name="submit" value="$strSubmit" />
 	    </p>
         </div>
     </form>

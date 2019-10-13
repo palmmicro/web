@@ -108,15 +108,17 @@ class ImageFile
         imagedestroy($this->image);
     }
     
-    function EchoFile($str)
+    function GetLink()
     {
     	$this->SaveFile();
     	$strRand = strval(rand());
-    	echo <<< END
-    		<p>$str
-    		<br /><img src={$this->strPathName}?$strRand alt="$strRand automatical generated image, do NOT link" />
-    		</p>
-END;
+		return '<img src='.$this->strPathName.'?'.$strRand.' alt="'.$strRand.' automatical generated image, do NOT link" />';
+    }
+    
+    function EchoFile($str)
+    {
+    	$strLink = $this->GetLink();
+    	EchoParagraph($str.'<br />'.$strLink);
 	}
 	
     function GetPathName()
@@ -135,6 +137,8 @@ class PageImageFile extends ImageFile
 
 class LinearImageFile extends PageImageFile
 {
+    var $strEquation;
+
     function LinearImageFile() 
     {
         parent::PageImageFile();
@@ -150,8 +154,10 @@ class LinearImageFile extends PageImageFile
 		return intval($this->iHeight * (1.0 - $fY / $fMaxY));
     }
     
-    function Draw($arX, $arY, $fA, $fB)
+    function Draw($arX, $arY, $fA, $fB, $fR)
     {
+    	$this->strEquation = 'Y = '.strval_round($fA).' + '.strval_round($fB).' * X; R =  '.strval_round($fR);
+    	
     	$fMaxX = max($arX) * 1.05;
     	$fMaxY = max($arY) * 1.05;
     	
@@ -166,6 +172,11 @@ class LinearImageFile extends PageImageFile
 			if ($bStar)	$this->Text($x, $y, '*');
 			else			$this->Pixel($x, $y);
     	}
+    }
+    
+    function GetEquation()
+    {
+    	return $this->strEquation;
     }
 }
 

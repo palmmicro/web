@@ -100,6 +100,12 @@
 <br /><font color=grey>Life is like a snowball. The important thing is finding wet snow and a really long hill. — Warren Buffett</font>
 </p>
 
+<h3>一元<a name="linearregression">线性回归</a>工具</h3>
+<p>2019年9月20日
+<br />用<a href="../../../account/linearregressioncn.php">线性回归</a>统计完华宝油气限额申购下溢价套利的<a href="20150818cn.php#fundaccount">账户</a>数后, 顺便把它做成了一个通用工具.
+<br /><img src=../photo/20190824.jpg alt="Linear regression calculation steps" />
+</p>
+
 </div>
 
 <?php _LayoutBottom(); ?>

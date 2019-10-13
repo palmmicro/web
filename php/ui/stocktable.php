@@ -114,9 +114,9 @@ function GetTableColumnNetValue()
 
 class TableColumnPremium extends TableColumn
 {
-	function TableColumnPremium()
+	function TableColumnPremium($strPrefix = false)
 	{
-        parent::TableColumn(STOCK_DISP_PREMIUM, 70, 'orange');
+        parent::TableColumn(STOCK_DISP_PREMIUM, 70, 'orange', $strPrefix);
         $this->AddUnit();
 	}
 }

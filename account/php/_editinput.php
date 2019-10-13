@@ -1,7 +1,9 @@
 <?php
 require_once('_account.php');
+require_once('/php/imagefile.php');
 require_once('/php/tutorial/editinput.php');
 require_once('/php/tutorial/primenumber.php');
+require_once('/php/tutorial/math.php');
 require_once('/php/sql/sqlcommonphrase.php');
 require_once('/php/ui/editinputform.php');
 require_once('/php/ui/table.php');
@@ -32,6 +34,34 @@ function _getCommonPhraseString($strInput, $strMemberId, $bChinese)
 	return $str;
 }
 
+function _getLinearRegressionString($strInput, $bChinese)
+{
+	$arX = array();
+	$arY = array();
+	$ar = explode(';', $strInput);
+	foreach ($ar as $str)
+	{
+		$str = trim($str);
+		$arXY = explode(',', $str);
+		if (count($arXY) == 2)
+		{
+			$arX[] = floatval($arXY[0]);
+			$arY[] = floatval($arXY[1]);
+		}
+	}
+	list($fA, $fB, $fR) = LinearRegression($arX, $arY);
+
+    $jpg = new LinearImageFile();
+    $jpg->Draw($arX, $arY, $fA, $fB, $fR);
+	
+	$str = 'X = {'.implode(',', $arX).'}';
+	$str .= '<br />Y = {'.implode(',', $arY).'}';
+	$str .= '<br />'.$jpg->GetEquation();
+	$str .= '<br />'.$jpg->GetLink();
+	$str .= '<br /><img src=/woody/blog/photo/20190824.jpg alt="Linear regression calculation steps" />';
+	return $str;
+}
+
 function EchoAll($bChinese = true)
 {
 	global $acct;
@@ -57,6 +87,10 @@ function EchoAll($bChinese = true)
     		$strInput = UrlGetIp();
     		break;
     		
+    	case 'linearregression':
+    		$strInput = '1,3; 2,4; 5,6; 7,8; 9,10';
+    		break;
+    		
     	case 'primenumber':
     		$strInput = strval(time());
     		break;
@@ -80,6 +114,10 @@ function EchoAll($bChinese = true)
     		
     case 'ip':
     	$str = IpLookupGetString($strInput, '<br />', $bChinese);
+    	break;
+    	
+   	case 'linearregression':
+    	$str = _getLinearRegressionString($strInput, $bChinese);
     	break;
     	
     case 'primenumber':
@@ -119,6 +157,11 @@ function EchoMetaDescription($bChinese = true)
   	case 'ip':
   		$str .= $bChinese ? '查询页面. 从ipinfo.io等网站查询IP地址对应的国家, 城市, 网络运营商和公司等信息. 同时也从palmmicro.com的用户登录和评论中提取对应记录.'
     						: 'page, display country, city, service provider and company information from ipinfo.io.';
+  		break;
+  		
+   	case 'linearregression':
+  		$str .= $bChinese ? '计算页面. 通过最小二乘法计算出结果为 Y = A + B * X 的直线和相关系数R, 并且显示出原始数据点和计算结果直线示意图. 附带算法步骤图作为参考. '
+    						: 'calculation, display the Y = A + B * X result and correlation coefficient R, together with algorithm steps image.';
   		break;
   		
   	case 'primenumber':
