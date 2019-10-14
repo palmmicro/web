@@ -1,5 +1,6 @@
 <?php
 require_once('_commonupdatestock.php');
+//require_once('/php/csvfile.php');
 
 /*
 <li><a target="_blank" href="http://quote.eastmoney.com/sh204001.html">GC001(204001)</a></li>
@@ -28,6 +29,10 @@ function _updateChinaStock()
     $arMatch = array();
     preg_match_all($strPattern, $str, $arMatch, PREG_SET_ORDER);
     DebugVal(count($arMatch), '_updateChinaStock');
+    
+//   	$csv = new PageCsvFile();
+//   	DebugString($csv->GetPathName());
+    
     $iCount = 0;
 	$sql = new StockSql();
    	foreach ($arMatch as $arItem)
@@ -41,8 +46,10 @@ function _updateChinaStock()
    				DebugString($strSymbol.' '.$strName);
    				$iCount ++;
    			}
+//    		$csv->Write($strSymbol, $strName);
 		}
    	}
+//    $csv->Close();
     DebugVal($iCount, 'updated');
 }
 	

@@ -32,4 +32,17 @@ function LinearRegression($arX, $arY)
 	return array($fA, $fB, $fR);
 }
 
+function CramersRule($fA1, $fB1, $fC1, $fA2, $fB2, $fC2)
+{
+	$f = $fA1 * $fB2 - $fB1 * $fA2;
+	if (empty($f))
+	{
+		return false;
+	}
+	
+	$fX = ($fC1 * $fB2 - $fB1 * $fC2) / $f;
+	$fY = ($fA1 * $fC2 - $fC1 * $fA2) / $f;
+	return array($fX, $fY);
+}
+
 ?>

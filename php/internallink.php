@@ -44,12 +44,14 @@ function GetMemberLink($strMemberId, $bChinese = true)
 }
 
 define('ACCOUNT_TOOL_EDIT', 'Temporary Test');
+define('ACCOUNT_TOOL_CRAMER', 'Cramer\'s Rule');
 define('ACCOUNT_TOOL_PHRASE', 'Common Phrase');
 define('ACCOUNT_TOOL_IP', 'IP Address Data');
 define('ACCOUNT_TOOL_LINEAR', 'Linear Regression');
 define('ACCOUNT_TOOL_PRIME', 'Prime Number');
 
 define('ACCOUNT_TOOL_EDIT_CN', '临时测试');
+define('ACCOUNT_TOOL_CRAMER_CN', '解二元一次方程组');
 define('ACCOUNT_TOOL_PHRASE_CN', '个人常用短语');
 define('ACCOUNT_TOOL_IP_CN', 'IP地址数据');
 define('ACCOUNT_TOOL_LINEAR_CN', '线性回归');
@@ -61,6 +63,7 @@ function GetAccountToolArray($bChinese)
 	{
 		$ar = array('editinput' => ACCOUNT_TOOL_EDIT_CN,
                       'commonphrase' => ACCOUNT_TOOL_PHRASE_CN,
+                      'cramersrule' => ACCOUNT_TOOL_CRAMER_CN,
                       'ip' => ACCOUNT_TOOL_IP_CN,
                       'linearregression' => ACCOUNT_TOOL_LINEAR_CN,
                       'primenumber' => ACCOUNT_TOOL_PRIME_CN,
@@ -70,6 +73,7 @@ function GetAccountToolArray($bChinese)
 	{
 		$ar = array('editinput' => ACCOUNT_TOOL_EDIT,
                       'commonphrase' => ACCOUNT_TOOL_PHRASE,
+                      'cramersrule' => ACCOUNT_TOOL_CRAMER,
 					  'ip' => ACCOUNT_TOOL_IP,
                       'linearregression' => ACCOUNT_TOOL_LINEAR,
                       'primenumber' => ACCOUNT_TOOL_PRIME,

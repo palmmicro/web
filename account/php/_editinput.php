@@ -62,6 +62,40 @@ function _getLinearRegressionString($strInput, $bChinese)
 	return $str;
 }
 
+function _getLinearEquationString($strA, $strB, $strC)
+{
+	return $strA.' * x + '.$strB.' * y = '.$strC;
+}
+
+function _getCramersLawString($strInput, $bChinese)
+{
+	$ar = explode(';', $strInput);
+	if (count($ar) == 2)
+	{
+		list($strA1, $strB1, $strC1) = explode(',', trim($ar[0]));
+		list($strA2, $strB2, $strC2) = explode(',', trim($ar[1]));
+		$str = _getLinearEquationString($strA1, $strB1, $strC1);
+		$str .= '<br />'._getLinearEquationString($strA2, $strB2, $strC2);
+		
+		if ($arXY = CramersRule(floatval($strA1), floatval($strB1), floatval($strC1), floatval($strA2), floatval($strB2), floatval($strC2)))
+		{
+			list($fX, $fY) = $arXY;
+			$str .= '<br />x = '.strval($fX);
+			$str .= '<br />y = '.strval($fY);
+		}
+		else
+		{
+			$str .= '<br />'.($bChinese ? '无解' : 'No answer');
+		}
+	}
+	else
+	{
+		$str = '';
+	}
+	$str .= '<br /><img src=/woody/blog/photo/20190815.jpg alt="Cramer\'s law calculation steps" />';
+	return $str;
+}
+
 function EchoAll($bChinese = true)
 {
 	global $acct;
@@ -83,12 +117,16 @@ function EchoAll($bChinese = true)
     		$strInput = GetEditInputDefault();
     		break;
 
+    	case 'cramersrule':
+    		$strInput = '0.2506,2.487,1099; 2.450,2.557,7408';
+    		break;
+    		
     	case 'ip':
     		$strInput = UrlGetIp();
     		break;
     		
     	case 'linearregression':
-    		$strInput = '1,3; 2,4; 5,6; 7,8; 9,10';
+    		$strInput = '1.02,5069; 0.51,3081; 2.92,6936; 3.47,7846; 2.07,5583';
     		break;
     		
     	case 'primenumber':
@@ -112,6 +150,10 @@ function EchoAll($bChinese = true)
     	$str = _getCommonPhraseString($strInput, $strMemberId, $bChinese);
     	break;
     		
+   	case 'cramersrule':
+    	$str = _getCramersLawString($strInput, $bChinese);
+    	break;
+    	
     case 'ip':
     	$str = IpLookupGetString($strInput, '<br />', $bChinese);
     	break;
@@ -152,6 +194,11 @@ function EchoMetaDescription($bChinese = true)
   	case 'commonphrase':
   		$str .= $bChinese ? '页面. 输入, 显示, 修改和删除个人常用短语. 用在股票交易记录等处, 方便快速输入和修改个人评论. 限制每条短语最长32个字, 每个用户最多20条短语.'
     						: 'page, input, display, edit and delete personal common phrases, used in places like stock transaction records.';
+  		break;
+  		
+   	case 'cramersrule':
+  		$str .= $bChinese ? '计算页面. Cramer法则求解二元一次方程组 a1 * X + b1 * Y = c1; a2 * X + b2 * Y = c2; 附带算法步骤图作为参考. '
+    						: 'calculation, use Cramer\'s rule to solve a linear system of 2x2 equations, together with algorithm steps image.';
   		break;
   		
   	case 'ip':

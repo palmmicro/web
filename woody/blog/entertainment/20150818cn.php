@@ -370,6 +370,7 @@ CL通常会在美股收盘后继续多交易一个小时, 此时实时估值也�
 
 <h3>用线性回归的方法在华宝油气溢价套利时进行<?php EchoNameLink(FUND_ACCOUNT_PAGE, FUND_ACCOUNT_DISPLAY); ?></h3>
 <p>2019年9月20日
+<br /><img src=../photo/20190815.jpg alt="Cramer's law calculation steps" />
 <br />限额申购统计.
 <br /><?php echo GetFundAccountLink(FUND_DEMO_SYMBOL); ?>
 <br />顺便做一个通用一元<a href="../../../account/linearregressioncn.php">线性回归</a>工具.
