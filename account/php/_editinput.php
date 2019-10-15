@@ -1,7 +1,6 @@
 <?php
 require_once('_account.php');
 require_once('/php/imagefile.php');
-require_once('/php/tutorial/editinput.php');
 require_once('/php/tutorial/primenumber.php');
 require_once('/php/tutorial/math.php');
 require_once('/php/sql/sqlcommonphrase.php');
@@ -56,7 +55,7 @@ function _getLinearRegressionString($strInput, $bChinese)
 	
 	$str = 'X = {'.implode(',', $arX).'}';
 	$str .= '<br />Y = {'.implode(',', $arY).'}';
-	$str .= '<br />'.$jpg->GetEquation();
+	$str .= '<br /><br /><b>'.$jpg->GetEquation().'</b>';
 	$str .= '<br />'.$jpg->GetLink();
 	$str .= '<br /><img src=/woody/blog/photo/20190824.jpg alt="Linear regression calculation steps" />';
 	return $str;
@@ -80,19 +79,19 @@ function _getCramersLawString($strInput, $bChinese)
 		if ($arXY = CramersRule(floatval($strA1), floatval($strB1), floatval($strC1), floatval($strA2), floatval($strB2), floatval($strC2)))
 		{
 			list($fX, $fY) = $arXY;
-			$str .= '<br />x = '.strval($fX);
-			$str .= '<br />y = '.strval($fY);
+			$str .= '<br /><br /><b>x = '.strval_round($fX);
+			$str .= '; y = '.strval_round($fY).'</b>';
 		}
 		else
 		{
-			$str .= '<br />'.($bChinese ? '无解' : 'No answer');
+			$str .= '<br />'.($bChinese ? '无解' : 'No solution');
 		}
 	}
 	else
 	{
 		$str = '';
 	}
-	$str .= '<br /><img src=/woody/blog/photo/20190815.jpg alt="Cramer\'s law calculation steps" />';
+	$str .= '<br /><img src=/woody/blog/photo/20190815.jpg alt="Cramer\'s rule calculation steps" />';
 	return $str;
 }
 
@@ -113,10 +112,10 @@ function EchoAll($bChinese = true)
     {
     	switch ($strTitle)
     	{
-    	case 'editinput':
-    		$strInput = GetEditInputDefault();
+    	case 'commonphrase':
+    		$str = '';
     		break;
-
+    		
     	case 'cramersrule':
     		$strInput = '0.2506,2.487,1099; 2.450,2.557,7408';
     		break;
@@ -129,12 +128,8 @@ function EchoAll($bChinese = true)
     		$strInput = '1.02,5069; 0.51,3081; 2.92,6936; 3.47,7846; 2.07,5583';
     		break;
     		
-    	case 'primenumber':
-    		$strInput = strval(time());
-    		break;
-    		
     	default:
-    		$strInput = '';
+    		$strInput = strval(time());
     		break;
     	}
     }
@@ -143,7 +138,7 @@ function EchoAll($bChinese = true)
     switch ($strTitle)
     {
     case 'editinput':
-    	$str = GetEditInputString($strInput);
+    	$str = is_numeric($strInput) ? DebugGetDateTime($strInput) : urldecode($strInput);
     	break;
     		
     case 'commonphrase':
@@ -187,8 +182,8 @@ function EchoMetaDescription($bChinese = true)
   	switch ($strTitle)
   	{
   	case 'editinput':
-  		$str .= $bChinese ? '页面. 测试代码在/php/tutorial/editinput.php中, 测试成熟后再分配具体长期使用的工具页面. 不成功的测试就可以直接放弃了.'
-    						: 'page, testing source code in /php/tutorial/editinput.php. Functions will be moved to permanent pages after test.';
+  		$str .= $bChinese ? '页面. 测试代码暂时放在/account/_editinput.php中, 测试成熟后再分配具体长期使用的工具页面. 不成功的测试就可以直接放弃了.'
+    						: 'page, testing source code in /account/_editinput.php first. Functions will be moved to permanent pages after test.';
   		break;
   		
   	case 'commonphrase':
