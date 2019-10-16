@@ -3,7 +3,6 @@ require_once('_stock.php');
 require_once('_emptygroup.php');
 require_once('/php/csvfile.php');
 require_once('/php/imagefile.php');
-require_once('/php/tutorial/math.php');
 
 function _echoFundAccountItem($csv, $strDate, $strSharesDiff, $ref, $nv_sql)
 {
@@ -95,7 +94,7 @@ function _echoFundAccountParagraph($csv, $ref, $strSymbol, $strStockId, $nv_sql,
     EchoTableParagraphEnd();
 }
 
-function _echoFundAccountPredictData($ref, $nv_sql, $fA, $fB)
+function _echoFundAccountPredictData($ref, $nv_sql, $jpg)
 {
     date_default_timezone_set(STOCK_TIME_ZONE_CN);
     $now_ymd = new NowYMD();
@@ -132,7 +131,7 @@ function _echoFundAccountPredictData($ref, $nv_sql, $fA, $fB)
    		{
    			$strPurchaseValue = $nv_sql->GetClose($strPurchaseDate);
    			$strNetValue = $nv_sql->GetClose($strNetValueDate);
-   			$fAccount = $fA + $fB * floatval($ref->GetPercentage($strNetValue, $strClose));
+   			$fAccount = $jpg->GetY(floatval($ref->GetPercentage($strNetValue, $strClose)));
    			$fSharesDiff = $fAccount * (985.0 / floatval($strPurchaseValue)) / 10000.0;
    			$ar[] = intval($fSharesDiff);
    			$ar[] = intval($fAccount);
@@ -155,19 +154,14 @@ function _echoFundAccountPredictData($ref, $nv_sql, $fA, $fB)
 
 function _echoLinearRegressionGraph($csv, $ref, $nv_sql)
 {
-	$str = $csv->GetLink();
-	$arX = $csv->ReadColumn(5);
-	$arY = $csv->ReadColumn(2);
-	list($fA, $fB, $fR) = LinearRegression($arX, $arY);
-
     $jpg = new LinearImageFile();
-    $jpg->Draw($arX, $arY, $fA, $fB, $fR);
-	$str .= ' '.$jpg->GetEquation();
+    $jpg->Draw($csv->ReadColumn(5), $csv->ReadColumn(2));
+	$str = $csv->GetLink().' '.$jpg->GetEquation();
 	$str .= '<br />'.$jpg->GetLink();
 	$str .= '<br />下一交易日预测, '.STOCK_OPTION_SHARES_DIFF.'按限购1000块人民币计算.';
 
 	EchoTableParagraphBegin(_getFundAccountTableColumnArray(), 'predict'.FUND_ACCOUNT_PAGE, $str);
-	_echoFundAccountPredictData($ref, $nv_sql, $fA, $fB);
+	_echoFundAccountPredictData($ref, $nv_sql, $jpg);
     EchoTableParagraphEnd();
 }
 

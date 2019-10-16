@@ -21,9 +21,14 @@ function _echoNvClosePool($strSymbol)
    	EchoPricePoolParagraph($csv->pool, $strSymbol);
 }
 
-function _echoNvCloseGraph($strSymbol)
+function _echoNvCloseGraph($strSymbol, $csv)
 {
-   	$csv = new PageCsvFile();
+/*    $jpg = new LinearImageFile();
+    $jpg->Draw($csv->ReadColumn(1), $csv->ReadColumn(2));
+	$str = $csv->GetLink().' '.$jpg->GetEquation();
+	$str .= '<br />'.$jpg->GetLink();
+   	EchoParagraph($str);
+*/	
     $jpg = new DateImageFile();
     $jpg->DrawDateArray($csv->ReadColumn(2));
     $jpg->DrawCompareArray($csv->ReadColumn(3));
@@ -53,7 +58,7 @@ function EchoAll()
 			if ($csv->HasFile())
 			{
 				_echoNvClosePool($strSymbol);
-				_echoNvCloseGraph($strSymbol);
+				_echoNvCloseGraph($strSymbol, $csv);
 			}
     	}
     }

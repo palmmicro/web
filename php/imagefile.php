@@ -1,4 +1,5 @@
 <?php
+require_once('tutorial/math.php');
 
 // ****************************** ImageFile class  *******************************************************
 class ImageFile
@@ -137,38 +138,63 @@ class PageImageFile extends ImageFile
 
 class LinearImageFile extends PageImageFile
 {
-    var $strEquation;
+    var $fA;
+    var $fB;
+    var $fR;
 
     function LinearImageFile() 
     {
         parent::PageImageFile();
     }
 
-    function _getPosX($fX, $fMaxX)
+    function _getPos($f, $fMax, $fMin)
     {
-		return intval($this->iWidth * ($fX / $fMaxX));
+    	return ($f - $fMin) / ($fMax - $fMin);
     }
     
-    function _getPosY($fY, $fMaxY)
+    function _getPosX($fX, $fMaxX, $fMinX)
     {
-		return intval($this->iHeight * (1.0 - $fY / $fMaxY));
+		return intval($this->iWidth * $this->_getPos($fX, $fMaxX, $fMinX));
     }
     
-    function Draw($arX, $arY, $fA, $fB, $fR)
+    function _getPosY($fY, $fMaxY, $fMinY)
     {
-    	$this->strEquation = 'Y = '.strval_round($fA).' + '.strval_round($fB).' * X; R =  '.strval_round($fR);
+		return intval($this->iHeight * (1.0 - $this->_getPos($fY, $fMaxY, $fMinY)));
+    }
+    
+    function Draw($arX, $arY)
+    {
+    	list($this->fA, $this->fB, $this->fR) = LinearRegression($arX, $arY);
     	
-    	$fMaxX = max($arX) * 1.05;
-    	$fMaxY = max($arY) * 1.05;
+    	$fScale = 1.05;
+    	$fMaxX = max($arX) * $fScale;
+    	if ($fMaxX < 0.0)		$fMaxX = 0.0;
+    	$fMinX = min($arX) * $fScale;
+    	if ($fMinX > 0.0)		$fMinX = 0.0;
+    	if ($fMaxX > 0.0 && $fMinX < 0.0)
+    	{
+    		$iPosX = $this->_getPosX(0.0, $fMaxX, $fMinX);
+    		$this->DashedLine($iPosX, 0, $iPosX, $this->iHeight);
+    	}
+    	
+    	$fMaxY = max($arY) * $fScale;
+    	if ($fMaxY < 0.0)		$fMaxY = 0.0;
+    	$fMinY = min($arY) * $fScale;
+    	if ($fMinY > 0.0)		$fMinY = 0.0;
+    	if ($fMaxY > 0.0 && $fMinY < 0.0)
+    	{
+    		$iPosY = $this->_getPosY(0.0, $fMaxY, $fMinY);
+    		$this->DashedLine(0, $iPosY, $this->iWidth, $iPosY);
+    	}
     	
     	// y = A + B * x;
-    	$this->Line($this->_getPosX(0.0, $fMaxX), $this->_getPosY($fA, $fMaxY), $this->_getPosX($fMaxX, $fMaxX), $this->_getPosY($fA + $fB * $fMaxX, $fMaxY));
+    	$this->Line($this->_getPosX($fMinX, $fMaxX, $fMinX), $this->_getPosY($this->GetY($fMinX), $fMaxY, $fMinY), $this->_getPosX($fMaxX, $fMaxX, $fMinX), $this->_getPosY($this->GetY($fMaxX), $fMaxY, $fMinY));
     	
     	$bStar = (count($arX) < $this->iWidth / 2) ? true : false;
     	foreach ($arX as $strKey => $fX)
     	{
-    		$x = $this->_getPosX($fX, $fMaxX);
-    		$y = $this->_getPosY($arY[$strKey], $fMaxY);
+    		$x = $this->_getPosX($fX, $fMaxX, $fMinX);
+    		$y = $this->_getPosY($arY[$strKey], $fMaxY, $fMinY);
 			if ($bStar)	$this->Text($x, $y, '*');
 			else			$this->Pixel($x, $y);
     	}
@@ -176,7 +202,20 @@ class LinearImageFile extends PageImageFile
     
     function GetEquation()
     {
-    	return $this->strEquation;
+    	$str = 'Y = '.strval_round($this->fA);
+    	if ($this->fB < 0.0)
+    	{
+    	}
+    	else
+    	{
+    		$str .= ' + ';
+    	}
+    	return $str.strval_round($this->fB).' * X; R =  '.strval_round($this->fR);
+    }
+    
+    function GetY($fX)
+    {
+    	return $this->fA + $this->fB * $fX;
     }
 }
 

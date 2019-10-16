@@ -2,7 +2,6 @@
 require_once('_account.php');
 require_once('/php/imagefile.php');
 require_once('/php/tutorial/primenumber.php');
-require_once('/php/tutorial/math.php');
 require_once('/php/sql/sqlcommonphrase.php');
 require_once('/php/ui/editinputform.php');
 require_once('/php/ui/table.php');
@@ -48,10 +47,9 @@ function _getLinearRegressionString($strInput, $bChinese)
 			$arY[] = floatval($arXY[1]);
 		}
 	}
-	list($fA, $fB, $fR) = LinearRegression($arX, $arY);
 
     $jpg = new LinearImageFile();
-    $jpg->Draw($arX, $arY, $fA, $fB, $fR);
+    $jpg->Draw($arX, $arY);
 	
 	$str = 'X = {'.implode(',', $arX).'}';
 	$str .= '<br />Y = {'.implode(',', $arY).'}';
