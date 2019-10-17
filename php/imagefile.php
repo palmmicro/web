@@ -130,9 +130,47 @@ class ImageFile
 
 class PageImageFile extends ImageFile
 {
+    var $fMaxX;
+    var $fMinX;
+    var $fMaxY;
+    var $fMinY;
+
     function PageImageFile() 
     {
         parent::ImageFile(DebugGetImageName(UrlGetUniqueString()), 640, 480);
+    }
+
+    function _getPos($f, $fMax, $fMin)
+    {
+    	return ($f - $fMin) / ($fMax - $fMin);
+    }
+    
+    function _getPosX($fX)
+    {
+		return intval($this->iWidth * $this->_getPos($fX, $this->fMaxX, $this->fMinX));
+    }
+    
+    function _getPosY($fY)
+    {
+		return intval($this->iHeight * (1.0 - $this->_getPos($fY, $this->fMaxY, $this->fMinY)));
+    }
+    
+    function _drawAxisX()
+    {
+    	if ($this->fMaxX > 0.0 && $this->fMinX < 0.0)
+    	{
+    		$iPosX = $this->_getPosX(0.0);
+    		$this->DashedLine($iPosX, 0, $iPosX, $this->iHeight);
+    	}
+    }
+    
+    function _drawAxisY()
+    {
+    	if ($this->fMaxY > 0.0 && $this->fMinY < 0.0)
+    	{
+    		$iPosY = $this->_getPosY(0.0);
+    		$this->DashedLine(0, $iPosY, $this->iWidth, $iPosY);
+    	}
     }
 }
 
@@ -141,60 +179,36 @@ class LinearImageFile extends PageImageFile
     var $fA;
     var $fB;
     var $fR;
-
+    
     function LinearImageFile() 
     {
         parent::PageImageFile();
     }
 
-    function _getPos($f, $fMax, $fMin)
-    {
-    	return ($f - $fMin) / ($fMax - $fMin);
-    }
-    
-    function _getPosX($fX, $fMaxX, $fMinX)
-    {
-		return intval($this->iWidth * $this->_getPos($fX, $fMaxX, $fMinX));
-    }
-    
-    function _getPosY($fY, $fMaxY, $fMinY)
-    {
-		return intval($this->iHeight * (1.0 - $this->_getPos($fY, $fMaxY, $fMinY)));
-    }
-    
     function Draw($arX, $arY)
     {
     	list($this->fA, $this->fB, $this->fR) = LinearRegression($arX, $arY);
     	
-    	$fScale = 1.05;
-    	$fMaxX = max($arX) * $fScale;
-    	if ($fMaxX < 0.0)		$fMaxX = 0.0;
-    	$fMinX = min($arX) * $fScale;
-    	if ($fMinX > 0.0)		$fMinX = 0.0;
-    	if ($fMaxX > 0.0 && $fMinX < 0.0)
-    	{
-    		$iPosX = $this->_getPosX(0.0, $fMaxX, $fMinX);
-    		$this->DashedLine($iPosX, 0, $iPosX, $this->iHeight);
-    	}
+    	$this->fMaxX = max($arX);
+    	if ($this->fMaxX < 0.0)		$this->fMaxX = 0.0;
+    	$this->fMinX = min($arX);
+    	if ($this->fMinX > 0.0)		$this->fMinX = 0.0;
+    	$this->_drawAxisX();
     	
-    	$fMaxY = max($arY) * $fScale;
-    	if ($fMaxY < 0.0)		$fMaxY = 0.0;
-    	$fMinY = min($arY) * $fScale;
-    	if ($fMinY > 0.0)		$fMinY = 0.0;
-    	if ($fMaxY > 0.0 && $fMinY < 0.0)
-    	{
-    		$iPosY = $this->_getPosY(0.0, $fMaxY, $fMinY);
-    		$this->DashedLine(0, $iPosY, $this->iWidth, $iPosY);
-    	}
+    	$this->fMaxY = max($arY);
+    	if ($this->fMaxY < 0.0)		$this->fMaxY = 0.0;
+    	$this->fMinY = min($arY);
+    	if ($this->fMinY > 0.0)		$this->fMinY = 0.0;
+    	$this->_drawAxisY();
     	
     	// y = A + B * x;
-    	$this->Line($this->_getPosX($fMinX, $fMaxX, $fMinX), $this->_getPosY($this->GetY($fMinX), $fMaxY, $fMinY), $this->_getPosX($fMaxX, $fMaxX, $fMinX), $this->_getPosY($this->GetY($fMaxX), $fMaxY, $fMinY));
+    	$this->Line($this->_getPosX($this->fMinX), $this->_getPosY($this->GetY($this->fMinX)), $this->_getPosX($this->fMaxX), $this->_getPosY($this->GetY($this->fMaxX)));
     	
     	$bStar = (count($arX) < $this->iWidth / 2) ? true : false;
     	foreach ($arX as $strKey => $fX)
     	{
-    		$x = $this->_getPosX($fX, $fMaxX, $fMinX);
-    		$y = $this->_getPosY($arY[$strKey], $fMaxY, $fMinY);
+    		$x = $this->_getPosX($fX);
+    		$y = $this->_getPosY($arY[$strKey]);
 			if ($bStar)	$this->Text($x, $y, '*');
 			else			$this->Pixel($x, $y);
     	}
@@ -221,80 +235,45 @@ class LinearImageFile extends PageImageFile
 
 class DateImageFile extends PageImageFile
 {
-	var $iBottom;
-	var $iTextHeight;
+	var $strText;
 	
     function DateImageFile() 
     {
         parent::PageImageFile();
+        $this->strText = '';
     }
     
-    function _textDateVal($x, $y, $strDate, $fVal)
+    function _textDateVal($str, $strDate, $fVal)
     {
-		return $this->Text($x, $y, substr($strDate, 2).' '.strval_round($fVal, 2));
-    }
-    
-    function _getVertialPos($fVal, $fMax, $fMin)
-    {
-		return intval(($this->iBottom - $this->iTextHeight) * ($fVal - $fMax) / ($fMin - $fMax)) + $this->iTextHeight;
-    }
-    
-    function _drawDashedLine($fVal, $fMax, $fMin)
-    {
-    	if ($fMax > $fVal && $fMin < $fVal)
-    	{
-    		$y = $this->_getVertialPos($fVal, $fMax, $fMin);
-    		$this->DashedLine(0, $y, $this->iWidth, $y);
-    		return true;
-    	}
-    	return false;
-    }
-    
-    function _drawDashedGrid($fMax, $fMin)
-    {
-    	$iStep = 80;
-    	for ($x = $iStep; $x < $this->iWidth; $x += $iStep)
-    	{
-    		$this->DashedLine($x, 0, $x, $this->iHeight);
-    	}
-    	$this->_drawDashedLine(0.0, $fMax, $fMin);
-   		$this->_drawDashedLine(1.0, $fMax, $fMin);
-   		$this->_drawDashedLine(-1.0, $fMax, $fMin);
+		$this->strText .= $str.': '.$strDate.' '.strval($fVal).'<br />';
     }
     
     function DrawDateArray($ar)
     {
     	$ar = array_reverse($ar);	// ksort($ar);
     	reset($ar);
-    	$this->_textDateVal(0, $this->iHeight, key($ar), current($ar));
+    	$this->_textDateVal('开始', key($ar), current($ar));
     	end($ar);
-    	$arPos = $this->_textDateVal($this->iWidth, $this->iHeight, key($ar), current($ar));
-    	$this->iBottom = min($arPos[5], $arPos[7]);
-    	$this->iTextHeight = $this->iHeight - $this->iBottom + 1;
-    	
-    	$fMax = max($ar);
-    	$fMin = min($ar);
-    	$this->iBottom -= $this->iTextHeight;
-    	$this->_drawDashedGrid($fMax, $fMin);
+    	$this->_textDateVal('结束', key($ar), current($ar));
 
-    	$iCount = count($ar);
+    	$this->fMaxX = count($ar);
+    	$this->fMinX = 0.0;
+    	
+    	$this->fMaxY = max($ar);
+		$this->_textDateVal('最大', array_search($this->fMaxY, $ar), $this->fMaxY);
+    	if ($this->fMaxY < 0.0)		$this->fMaxY = 0.0;
+    	$this->fMinY = min($ar);
+		$this->_textDateVal('最小', array_search($this->fMinY, $ar), $this->fMinY);
+    	if ($this->fMinY > 0.0)		$this->fMinY = 0.0;
+    	$this->_drawAxisY();
+
     	$iCur = 0;
     	$iMaxPos = false;
     	$iMinPos = false;
     	foreach ($ar as $strDate => $fVal)
     	{
-    		$x = intval($this->iWidth * $iCur / $iCount);                                                                 
-    		$y = $this->_getVertialPos($fVal, $fMax, $fMin);
-   			if ($iMaxPos == false && abs($fVal - $fMax) < 0.000001)
-    		{
-   				$this->_textDateVal($x, 0, $strDate, $fVal);
-   				$iMaxPos = $iCur;
-    		}
-    		if ($iMinPos == false && abs($fVal - $fMin) < 0.000001)
-    		{
-   				$this->_textDateVal($x, $this->iBottom, $strDate, $fVal);
-   				$iMinPos = $iCur;
-    		}
+			$x = $this->_getPosX($iCur);
+    		$y = $this->_getPosY($fVal);
     		
    			if ($iCur != 0)
    			{
@@ -308,14 +287,18 @@ class DateImageFile extends PageImageFile
 
     function DrawCompareArray($ar)
     {
+    	$this->fMaxX = count($ar);
+    	$this->fMinX = 0.0;
+    	$this->fMaxY = max($ar);
+    	$this->fMinY = 0.0;
+
     	$ar = array_reverse($ar);
-    	$fMax = max($ar);
-    	$iCount = count($ar);
     	$iCur = 0;
     	foreach ($ar as $strDate => $fVal)
     	{
-    		$x = intval($this->iWidth * $iCur / $iCount);                                                                 
-    		$y = $this->_getVertialPos($fVal, $fMax, 0.0);
+    		$x = $this->_getPosX($iCur);                                                                 
+    		$y = $this->_getPosY($fVal);
+    		
    			if ($iCur != 0)
    			{
    				$this->CompareLine($x1, $y1, $x, $y);
@@ -328,7 +311,7 @@ class DateImageFile extends PageImageFile
 
     function Show($strName, $strCompare, $strLinks)
     {
-    	$strLinks .= '<br />';
+    	$strLinks .= '<br />'.$this->strText;
     	$strLinks .= "<font color={$this->strLineColor}>$strName</font> <font color={$this->strCompareColor}>$strCompare</font>";
     	$this->EchoFile($strLinks);
 	}
