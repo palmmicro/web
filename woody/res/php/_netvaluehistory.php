@@ -4,22 +4,9 @@ require_once('_emptygroup.php');
 require_once('/php/csvfile.php');
 require_once('/php/imagefile.php');
 
-function _echoNetValueHistoryGraph($strSymbol)
-{
-   	$csv = new PageCsvFile();
-    $jpg = new DateImageFile();
-    $ar = $csv->ReadColumn(1);
-   	if (count($ar) > 0)
-   	{
-   		$jpg->DrawDateArray($ar);
-   		$jpg->Show($strSymbol, '', $csv->GetLink());
-   	}
-}
-
 function _echoNetValueItem($csv, $sql, $est_sql, $cny_sql, $strNetValue, $strDate, $ref, $est_ref, $cny_ref)
 {
-   	$csv->Write($strDate, $strNetValue);
-   	
+	$bWritten = false;
 	$ar = array($strDate, $strNetValue);
 	if ($record = $sql->GetPrev($strDate))
     {
@@ -48,20 +35,24 @@ function _echoNetValueItem($csv, $sql, $est_sql, $cny_sql, $strNetValue, $strDat
 					$ar[] = $est_ref->GetPercentageDisplay($strEstPrev, $strEst);
 				
 					$fEst = StockGetPercentage($strEstPrev, $strEst);
-					if (abs($fEst) > 2.0 && $strCnyPrev)
+					if (abs($fEst) > 4.0 && $strCnyPrev)
 					{
 						$fVal = (StockGetPercentage($strPrev, $strNetValue) - StockGetPercentage($strCnyPrev, $strCny)) / $fEst;
-						$ar[] = strval_round($fVal, 2);
+						$strVal = strval_round($fVal, 2);
+						$bWritten = true;
+						$csv->Write($strDate, $strNetValue, $strVal);
+						$ar[] = $strVal;
 					}
 				}
 			}
 		}
 	}
 	
+	if ($bWritten == false)		$csv->Write($strDate, $strNetValue);
 	EchoTableColumn($ar);
 }
 
-function _echoNetValueData($sql, $ref, $est_ref, $cny_ref, $iStart, $iNum)
+function _echoNetValueData($csv, $sql, $ref, $est_ref, $cny_ref, $iStart, $iNum)
 {
 	if ($est_ref)
 	{
@@ -76,12 +67,10 @@ function _echoNetValueData($sql, $ref, $est_ref, $cny_ref, $iStart, $iNum)
 
     if ($result = $sql->GetAll($iStart, $iNum)) 
     {
-     	$csv = new PageCsvFile();
         while ($record = mysql_fetch_assoc($result)) 
         {
 			_echoNetValueItem($csv, $sql, $est_sql, $cny_sql, rtrim0($record['close']), $record['date'], $ref, $est_ref, $cny_ref);
         }
-        $csv->Close();
         @mysql_free_result($result);
     }
 }
@@ -121,10 +110,19 @@ function _echoNetValueHistory($ref, $iStart, $iNum)
 		$ar[] = new TableColumn('仓位', 70);
 	}
 	EchoTableParagraphBegin($ar, 'netvalue', $str);
-	_echoNetValueData($sql, $ref, $est_ref, $cny_ref, $iStart, $iNum);
-    EchoTableParagraphEnd($strNavLink);
+	
+   	$csv = new PageCsvFile();
+	_echoNetValueData($csv, $sql, $ref, $est_ref, $cny_ref, $iStart, $iNum);
+    $csv->Close();
     
-    _echoNetValueHistoryGraph($strSymbol);
+    $str = $strNavLink;
+    if ($csv->HasFile())
+    {
+    	$jpg = new DateImageFile();
+   		$jpg->Draw($csv->ReadColumn(2), $csv->ReadColumn(1));
+   		$str .= '<br />'.$csv->GetLink().'<br />'.$jpg->GetAll(($est_ref ? '仓位' : ''), $strSymbol);
+   	}
+    EchoTableParagraphEnd($str);
 }
 
 function EchoAll()

@@ -115,13 +115,7 @@ class ImageFile
     	$strRand = strval(rand());
 		return '<img src='.$this->strPathName.'?'.$strRand.' alt="'.$strRand.' automatical generated image, do NOT link" />';
     }
-    
-    function EchoFile($str)
-    {
-    	$strLink = $this->GetLink();
-    	EchoParagraph($str.'<br />'.$strLink);
-	}
-	
+
     function GetPathName()
     {
     	return $this->strPathName;
@@ -155,7 +149,7 @@ class PageImageFile extends ImageFile
 		return intval($this->iHeight * (1.0 - $this->_getPos($fY, $this->fMaxY, $this->fMinY)));
     }
     
-    function _drawAxisX()
+    function _drawAxisY()
     {
     	if ($this->fMaxX > 0.0 && $this->fMinX < 0.0)
     	{
@@ -164,7 +158,7 @@ class PageImageFile extends ImageFile
     	}
     }
     
-    function _drawAxisY()
+    function _drawAxisX()
     {
     	if ($this->fMaxY > 0.0 && $this->fMinY < 0.0)
     	{
@@ -193,13 +187,13 @@ class LinearImageFile extends PageImageFile
     	if ($this->fMaxX < 0.0)		$this->fMaxX = 0.0;
     	$this->fMinX = min($arX);
     	if ($this->fMinX > 0.0)		$this->fMinX = 0.0;
-    	$this->_drawAxisX();
+    	$this->_drawAxisY();
     	
     	$this->fMaxY = max($arY);
     	if ($this->fMaxY < 0.0)		$this->fMaxY = 0.0;
     	$this->fMinY = min($arY);
     	if ($this->fMinY > 0.0)		$this->fMinY = 0.0;
-    	$this->_drawAxisY();
+    	$this->_drawAxisX();
     	
     	// y = A + B * x;
     	$this->Line($this->_getPosX($this->fMinX), $this->_getPosY($this->GetY($this->fMinX)), $this->_getPosX($this->fMaxX), $this->_getPosY($this->GetY($this->fMaxX)));
@@ -248,53 +242,29 @@ class DateImageFile extends PageImageFile
 		$this->strText .= $str.': '.$strDate.' '.strval($fVal).'<br />';
     }
     
-    function DrawDateArray($ar)
+    function _textCurDateVal($str, $ar)
     {
-    	$ar = array_reverse($ar);	// ksort($ar);
-    	reset($ar);
-    	$this->_textDateVal('开始', key($ar), current($ar));
-    	end($ar);
-    	$this->_textDateVal('结束', key($ar), current($ar));
-
-    	$this->fMaxX = count($ar);
-    	$this->fMinX = 0.0;
-    	
-    	$this->fMaxY = max($ar);
-		$this->_textDateVal('最大', array_search($this->fMaxY, $ar), $this->fMaxY);
-    	if ($this->fMaxY < 0.0)		$this->fMaxY = 0.0;
-    	$this->fMinY = min($ar);
-		$this->_textDateVal('最小', array_search($this->fMinY, $ar), $this->fMinY);
-    	if ($this->fMinY > 0.0)		$this->fMinY = 0.0;
-    	$this->_drawAxisY();
-
-    	$iCur = 0;
-    	$iMaxPos = false;
-    	$iMinPos = false;
-    	foreach ($ar as $strDate => $fVal)
-    	{
-			$x = $this->_getPosX($iCur);
-    		$y = $this->_getPosY($fVal);
-    		
-   			if ($iCur != 0)
-   			{
-   				$this->Line($x1, $y1, $x, $y);
-   			}
-   			$x1 = $x;
-   			$y1 = $y;
-    		$iCur ++;
-    	}
+    	$this->_textDateVal($str, key($ar), current($ar));
     }
-
-    function DrawCompareArray($ar)
+    
+    function _textSearchDateVal($str, $ar, $fVal)
     {
-    	$this->fMaxX = count($ar);
+    	$this->_textDateVal($str, array_search($fVal, $ar), $fVal);
+    }
+    
+    function Draw($arFocus, $arBase)
+    {
+    	$iCount = count($arBase);
+    	if ($iCount < 2)		return;
+    	
+    	$this->fMaxX = $iCount;
     	$this->fMinX = 0.0;
-    	$this->fMaxY = max($ar);
+    	$this->fMaxY = max($arBase);
     	$this->fMinY = 0.0;
 
-    	$ar = array_reverse($ar);
+    	$arBase = array_reverse($arBase);
     	$iCur = 0;
-    	foreach ($ar as $strDate => $fVal)
+    	foreach ($arBase as $strDate => $fVal)
     	{
     		$x = $this->_getPosX($iCur);                                                                 
     		$y = $this->_getPosY($fVal);
@@ -307,13 +277,50 @@ class DateImageFile extends PageImageFile
    			$y1 = $y;
     		$iCur ++;
     	}
+
+    	if (count($arFocus) < 2)		return;
+    	
+    	$arFocus = array_reverse($arFocus);	// ksort($arFocus);
+    	reset($arFocus);
+    	$this->_textCurDateVal('开始日期', $arFocus);
+    	end($arFocus);
+    	$this->_textCurDateVal('结束日期', $arFocus);
+
+    	$this->fMaxY = max($arFocus);
+		$this->_textSearchDateVal('最大值', $arFocus, $this->fMaxY);
+    	if ($this->fMaxY < 0.0)		$this->fMaxY = 0.0;
+    	$this->fMinY = min($arFocus);
+		$this->_textSearchDateVal('最小值', $arFocus, $this->fMinY);
+    	if ($this->fMinY > 0.0)		$this->fMinY = 0.0;
+    	$this->_drawAxisX();
+
+    	$iCur = 0;
+    	$bFirst = true;
+    	foreach ($arBase as $strDate => $fVal)
+    	{
+    		if (isset($arFocus[$strDate]))
+    		{
+    			$x = $this->_getPosX($iCur);
+    			$y = $this->_getPosY($arFocus[$strDate]);
+    		
+    			if ($bFirst == false)
+    			{
+    				$this->Line($x1, $y1, $x, $y);
+    			}
+    			$x1 = $x;
+    			$y1 = $y;
+    			$bFirst = false;
+    		}
+   			$iCur ++;
+    	}
     }
 
-    function Show($strName, $strCompare, $strLinks)
+    function GetAll($strName, $strCompare)
     {
-    	$strLinks .= '<br />'.$this->strText;
-    	$strLinks .= "<font color={$this->strLineColor}>$strName</font> <font color={$this->strCompareColor}>$strCompare</font>";
-    	$this->EchoFile($strLinks);
+    	$str = $this->strText;
+    	$str .= "<font color={$this->strLineColor}>$strName</font> <font color={$this->strCompareColor}>$strCompare</font>";
+    	$str .= '<br />'.$this->GetLink();
+    	return $str;
 	}
 }
 

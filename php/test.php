@@ -10,7 +10,6 @@ require_once('sql/sqlvisitor.php');
 require_once('sql/sqlstockdaily.php');
 
 require_once('csvfile.php');
-require_once('test/xueqiu.php');
 
 // http://www.todayir.com/en/index.php HSFML25
 

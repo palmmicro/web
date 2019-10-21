@@ -5,19 +5,6 @@ require_once('/php/csvfile.php');
 require_once('/php/imagefile.php');
 require_once('/php/ui/fundhistoryparagraph.php');
 
-function _echoFundHistoryGraph($strSymbol)
-{
-   	$csv = new PageCsvFile();
-    $jpg = new DateImageFile();
-    $ar = $csv->ReadColumn(2);
-   	if (count($ar) > 0)
-   	{
-   		$jpg->DrawDateArray($ar);
-   		$jpg->DrawCompareArray($csv->ReadColumn(1));
-   		$jpg->Show(STOCK_DISP_PREMIUM, $strSymbol, $csv->GetLink());
-   	}
-}
-
 function _echoFundHistory($strSymbol, $iStart, $iNum)
 {
     $str = GetStockHistoryLink($strSymbol);
@@ -40,8 +27,14 @@ function _echoFundHistory($strSymbol, $iStart, $iNum)
    	{
    		EchoEtfHistoryParagraph($ref, $csv, $iStart, $iNum);
    	}
+    $csv->Close();
     
-    _echoFundHistoryGraph($strSymbol);
+    if ($csv->HasFile())
+    {
+    	$jpg = new DateImageFile();
+   		$jpg->Draw($csv->ReadColumn(2), $csv->ReadColumn(1));
+   		EchoParagraph($csv->GetLink().'<br />'.$jpg->GetAll(STOCK_DISP_PREMIUM, $strSymbol));
+   	}
 }
 
 function EchoAll()

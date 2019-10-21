@@ -30,9 +30,8 @@ function _echoNvCloseGraph($strSymbol, $csv)
    	EchoParagraph($str);
 */	
     $jpg = new DateImageFile();
-    $jpg->DrawDateArray($csv->ReadColumn(2));
-    $jpg->DrawCompareArray($csv->ReadColumn(3));
-    $jpg->Show(STOCK_DISP_PREMIUM, $strSymbol, $csv->GetLink());
+    $jpg->Draw($csv->ReadColumn(2), $csv->ReadColumn(3));
+    EchoParagraph($csv->GetLink().'<br />'.$jpg->GetAll(STOCK_DISP_PREMIUM, $strSymbol));
 }
 
 function EchoAll()

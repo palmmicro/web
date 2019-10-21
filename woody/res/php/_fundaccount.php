@@ -64,7 +64,6 @@ function _echoFundAccountData($csv, $ref, $strStockId, $nv_sql)
        		$strDate = $record['date'];
        		_echoFundAccountItem($csv, $strDate, rtrim0($record['close']), $ref, $nv_sql);
         }
-        $csv->Close();
         @mysql_free_result($result);
     }
 }
@@ -132,7 +131,7 @@ function _echoFundAccountPredictData($ref, $nv_sql, $jpg)
    			$strPurchaseValue = $nv_sql->GetClose($strPurchaseDate);
    			$strNetValue = $nv_sql->GetClose($strNetValueDate);
    			$fAccount = $jpg->GetY(floatval($ref->GetPercentage($strNetValue, $strClose)));
-   			$fSharesDiff = $fAccount * (985.0 / floatval($strPurchaseValue)) / 10000.0;
+   			$fSharesDiff = empty($strPurchaseValue) ? 0.0 : $fAccount * (985.0 / floatval($strPurchaseValue)) / 10000.0;
    			$ar[] = intval($fSharesDiff);
    			$ar[] = intval($fAccount);
     		$ar[] = $strPurchaseDate;
@@ -180,6 +179,7 @@ function EchoAll()
         	
         	$csv = new PageCsvFile();
             _echoFundAccountParagraph($csv, $ref, $strSymbol, $strStockId, $nv_sql, $bAdmin);
+            $csv->Close();
             if ($csv->HasFile())
             {
             	_echoLinearRegressionGraph($csv, $ref, $nv_sql);

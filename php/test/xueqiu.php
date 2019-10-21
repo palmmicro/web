@@ -138,7 +138,7 @@ function GetXueqiuFriend($strId, $strToken = false)
 				}
 				if ($arCur['friends_count'] > 1980)										$arFriend[] = $arCur['id'];
 				if ($arCur['followers_count'] <= 1)										$arFollower[] = $arCur['id'];
-				if (($arCur['followers_count'] * 50) < $arCur['friends_count'])			$arFriendFollower[] = $arCur['id'];
+				if (($arCur['followers_count'] * 25) < $arCur['friends_count'])			$arFriendFollower[] = $arCur['id'];
 				if ($arCur['status_count'] == 0)											$arStatus[] = $arCur['id'];
 				if (($arCur['stocks_count'] == 0) && ($arCur['cube_count'] == 0))		$arStock[] = $arCur['id'];
 				$xq_sql->Write($arCur['id'], $arCur['screen_name'], $arCur['friends_count'], $arCur['followers_count'], $arCur['status_count']);

@@ -4,17 +4,6 @@ require_once('_emptygroup.php');
 require_once('/php/csvfile.php');
 require_once('/php/imagefile.php');
 
-function _echoAhHistoryGraph($strSymbol)
-{
-   	$csv = new PageCsvFile();
-    $jpg = new DateImageFile();
-    $jpg->DrawDateArray($csv->ReadColumn(4));
-    $jpg->DrawCompareArray($csv->ReadColumn(1));
-    
-    $col = new TableColumnAhRatio();
-    $jpg->Show($col->GetDisplay(), $strSymbol, $csv->GetLink());
-}
-
 function _echoAhHistoryItem($hshare_ref, $csv, $record, $h_his_sql, $hkcny_sql)
 {
 	$strDate = $record['date'];
@@ -37,18 +26,16 @@ function _echoAhHistoryItem($hshare_ref, $csv, $record, $h_his_sql, $hkcny_sql)
 	}
 }
 
-function _echoAhHistoryData($hshare_ref, $his_sql, $iStart, $iNum)
+function _echoAhHistoryData($csv, $hshare_ref, $his_sql, $iStart, $iNum)
 {
 	$h_his_sql = $hshare_ref->GetHistorySql();
     if ($result = $his_sql->GetAll($iStart, $iNum)) 
     {
     	$hkcny_sql = new HkcnyHistorySql();
-     	$csv = new PageCsvFile();
         while ($record = mysql_fetch_assoc($result)) 
         {
             _echoAhHistoryItem($hshare_ref, $csv, $record, $h_his_sql, $hkcny_sql);
         }
-        $csv->Close();
         @mysql_free_result($result);
     }
 }
@@ -67,18 +54,27 @@ function _echoAhHistoryParagraph($hshare_ref, $iStart, $iNum, $bAdmin)
         $str .= ' '.GetUpdateStockHistoryLink($strSymbolH);
     }
 
+    $ah_col = new TableColumnAhRatio();
 	EchoTableParagraphBegin(array(new TableColumnDate(),
 								   new TableColumnMyStock('HKCNY'),
 								   new TableColumn($strSymbol),
 								   new TableColumn($strSymbolH),
-								   new TableColumnAhRatio(),
+								   $ah_col,
 								   new TableColumnHaRatio()
 								   ), $strSymbol.'ahhistory', $str);
 
-    _echoAhHistoryData($hshare_ref, $his_sql, $iStart, $iNum);
-    EchoTableParagraphEnd($strNavLink);
-
-    _echoAhHistoryGraph($strSymbol);
+   	$csv = new PageCsvFile();
+    _echoAhHistoryData($csv, $hshare_ref, $his_sql, $iStart, $iNum);
+    $csv->Close();
+    
+    $str = $strNavLink;
+    if ($csv->HasFile())
+    {
+    	$jpg = new DateImageFile();
+    	$jpg->Draw($csv->ReadColumn(4), $csv->ReadColumn(1));
+    	$str .= '<br />'.$csv->GetLink().'<br />'.$jpg->GetAll($ah_col->GetDisplay(), $strSymbol);
+    }
+    EchoTableParagraphEnd($str);
 }
 
 function EchoAll()
