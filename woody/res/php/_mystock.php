@@ -150,13 +150,8 @@ function _echoMyStockData($ref, $strMemberId, $bAdmin)
     	{
     		if ($hshare_ref)		EchoHShareSmaParagraph($ref, $hshare_ref);
     		else	        		EchoSmaParagraph($ref);
-    		$strHistoryLink = '';
     	}
-    	else
-    	{
-    		$strHistoryLink = GetStockHistoryLink($strSymbol);
-    	}
-    	EchoStockHistoryParagraph($ref, $strHistoryLink);
+    	EchoStockHistoryParagraph($ref);
     
     	if ($strMemberId)		_echoMyStockTransactions($strMemberId, $ref);
     }

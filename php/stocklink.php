@@ -42,19 +42,20 @@ function GetCalibrationLink($strSymbol, $strDisplay = false)
 define('STOCK_HISTORY_DISPLAY', '历史价格记录');
 function GetStockHistoryLink($strSymbol)
 {
-    return GetStockSymbolLink('stockhistory', $strSymbol, STOCK_HISTORY_DISPLAY);
+    return GetStockSymbolLink(TABLE_STOCK_HISTORY, $strSymbol, STOCK_HISTORY_DISPLAY);
 }
 
 define('FUND_HISTORY_DISPLAY', '基金历史记录');
+define('FUND_HISTORY_PAGE', 'fundhistory');
 function GetFundHistoryLink($strSymbol)
 {
-    return GetStockSymbolLink('fundhistory', $strSymbol, FUND_HISTORY_DISPLAY);
+    return GetStockSymbolLink(FUND_HISTORY_PAGE, $strSymbol, FUND_HISTORY_DISPLAY);
 }
 
 define('NETVALUE_HISTORY_DISPLAY', '净值历史记录');
 function GetNetValueHistoryLink($strSymbol)
 {
-    return GetStockSymbolLink('netvaluehistory', $strSymbol, NETVALUE_HISTORY_DISPLAY);
+    return GetStockSymbolLink(TABLE_NETVALUE_HISTORY, $strSymbol, NETVALUE_HISTORY_DISPLAY);
 }
 
 function GetFundLinks($strSymbol)

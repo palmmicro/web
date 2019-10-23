@@ -34,27 +34,20 @@ function _echoStockHistoryData($ref, $csv, $iStart, $iNum)
     }
 }
 
-function EchoStockHistoryParagraph($ref, $str = '', $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
+function EchoStockHistoryParagraph($ref, $str = false, $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
 {
-    $strClose = GetTableColumnClose();
-    $arColumn = array(GetTableColumnDate(), '开盘价', '最高', '最低', $strClose, '成交量', '复权'.$strClose);
-
     $strSymbol = $ref->GetStockSymbol();
+	if ($str == false)	$str = GetStockHistoryLink($strSymbol);
     $strNavLink = IsTableCommonDisplay($iStart, $iNum) ? '' : StockGetNavLink($strSymbol, $ref->his_sql->Count(), $iStart, $iNum);
     
-    echo <<<END
-    <p>$strNavLink $str
-    <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="{$strSymbol}stockhistory">
-    <tr>
-        <td class=c1 width=100 align=center>{$arColumn[0]}</td>
-        <td class=c1 width=70 align=center>{$arColumn[1]}</td>
-        <td class=c1 width=70 align=center>{$arColumn[2]}</td>
-        <td class=c1 width=70 align=center>{$arColumn[3]}</td>
-        <td class=c1 width=70 align=center>{$arColumn[4]}</td>
-        <td class=c1 width=130 align=center>{$arColumn[5]}</td>
-        <td class=c1 width=130 align=center>{$arColumn[6]}</td>
-    </tr>
-END;
+	EchoTableParagraphBegin(array(new TableColumnDate(),
+								   new TableColumn(STOCK_DISP_OPEN),
+								   new TableColumn(STOCK_DISP_HIGH),
+								   new TableColumn(STOCK_DISP_LOW),
+								   new TableColumnClose(),
+								   new TableColumn(STOCK_DISP_QUANTITY, 130),
+								   new TableColumnClose('复权')
+								   ), $strSymbol.TABLE_STOCK_HISTORY, $strNavLink.' '.$str);
    
     _echoStockHistoryData($ref, $csv, $iStart, $iNum);
     EchoTableParagraphEnd($strNavLink);

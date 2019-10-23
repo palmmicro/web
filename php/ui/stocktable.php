@@ -27,16 +27,10 @@ function GetTableColumnChange()
 
 class TableColumnClose extends TableColumn
 {
-	function TableColumnClose()
+	function TableColumnClose($strPrefix = false)
 	{
-        parent::TableColumn('收盘价', 70, 'purple');
+        parent::TableColumn('收盘价', 80, 'purple', $strPrefix);
 	}
-}
-
-function GetTableColumnClose()
-{
-	$col = new TableColumnClose();
-	return $col->GetDisplay();
 }
 
 class TableColumnDate extends TableColumn

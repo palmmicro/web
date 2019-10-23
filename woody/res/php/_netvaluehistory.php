@@ -107,9 +107,10 @@ function _echoNetValueHistory($ref, $iStart, $iNum)
 		$ar[] = $change_col;
 		$ar[] = new TableColumnNetValue($est_ref->GetStockSymbol());
 		$ar[] = $change_col;
-		$ar[] = new TableColumn('仓位', 70);
+		$position_col = new TableColumn('仓位', 70);
+		$ar[] = $position_col;
 	}
-	EchoTableParagraphBegin($ar, 'netvalue', $str);
+	EchoTableParagraphBegin($ar, TABLE_NETVALUE_HISTORY, $str);
 	
    	$csv = new PageCsvFile();
 	_echoNetValueData($csv, $sql, $ref, $est_ref, $cny_ref, $iStart, $iNum);
@@ -120,7 +121,7 @@ function _echoNetValueHistory($ref, $iStart, $iNum)
     {
     	$jpg = new DateImageFile();
    		$jpg->Draw($csv->ReadColumn(2), $csv->ReadColumn(1));
-   		$str .= '<br />'.$csv->GetLink().'<br />'.$jpg->GetAll(($est_ref ? '仓位' : ''), $strSymbol);
+   		$str .= '<br />'.$csv->GetLink().'<br />'.$jpg->GetAll(($est_ref ? $position_col->GetDisplay() : ''), $strSymbol);
    	}
     EchoTableParagraphEnd($str);
 }
@@ -133,7 +134,7 @@ function EchoAll()
     {
    		_echoNetValueHistory($ref, $acct->GetStart(), $acct->GetNum());
     }
-    $acct->EchoLinks('netvalue');
+    $acct->EchoLinks(TABLE_NETVALUE_HISTORY);
 }
 
 function EchoMetaDescription()

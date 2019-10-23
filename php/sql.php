@@ -13,6 +13,7 @@ define('TABLE_SPIDER_PARAMTER', 'spiderparameter');
 define('TABLE_STOCK_CALIBRATION', 'stockcalibration');
 define('TABLE_STOCK_GROUP', 'stockgroup');
 define('TABLE_STOCK_GROUP_ITEM', 'stockgroupitem');
+define('TABLE_STOCK_HISTORY', 'stockhistory');
 define('TABLE_STOCK_SPLIT', 'stocksplit');
 define('TABLE_WEIXIN', 'weixin');
 

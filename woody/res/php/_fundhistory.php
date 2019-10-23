@@ -45,7 +45,7 @@ function EchoAll()
     {
    		_echoFundHistory($ref->GetStockSymbol(), $acct->GetStart(), $acct->GetNum());
     }
-    $acct->EchoLinks();
+    $acct->EchoLinks(FUND_HISTORY_PAGE);
 }
 
 function EchoMetaDescription()

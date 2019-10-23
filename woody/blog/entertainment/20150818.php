@@ -83,10 +83,10 @@ Now XOP data in file <?php EchoSinaDebugLink('gb_xop'); ?>. ^SPSIOP data still u
 <br />The code of <font color=olive>StockReference</font> class is a mess now, I doubt if I can still understand it in the future.
 </p>
 
-<h3><a name="netvalue">Net Value</a> History</h3>
+<h3><a name="fundhistory">Fund</a> History</h3>
 <p>Jan 8, 2016
-<br />SZ162411 history net value table was added following the advice from <?php EchoXueqieId('2091843424', 'airwolf2026'); ?>. 
-The most recent a few records are displayed in the current page, and another page to display all history data is added.
+<br />SZ162411 fund history table was added following the advice from <?php EchoXueqieId('2091843424', 'airwolf2026'); ?>. 
+The most recent records are displayed in the current page, and another page to display all history data.
 </p>
 <?php EchoFundHistoryDemo(); ?>
 
@@ -117,7 +117,7 @@ need to use <i>date_default_timezone_set('America/New_York')</i> or <i>date_defa
 <h3><a name="goldetf">Gold ETF</a></h3>
 <p>March 25, 2016
 <br />As Gold future GC is not trading on Easter holiday, I get the chance to adjust the net value estimation for Chinese Gold ETF.
-<br />Different users have been suggesting to add estimation value in the <a href="#netvalue">net value history</a> table of SZ162411.
+<br />Different users have been suggesting to add estimation value in the <a href="#fundhistory">fund history</a> table of SZ162411.
 Except for not willing to show my possible error directly, I did not add it because the change is realtime, and I don't know when to record it, after US market close or Chinese market close?
 <br />In the LOF code, the variable for estimation value was originally in <font color=olive>_LofGroup</font> class.
 With my new <font color=olive>_GoldEtfGroup</font> class again having the same class member of <font color=olive>FundReference</font> class,

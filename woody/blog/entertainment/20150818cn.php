@@ -61,6 +61,12 @@
 <br />使用<a href="http://mobiledetect.net/" target=_blank>Mobile-Detect</a>判断是否手机用户访问, 代码从github复制下来按照原开发者的建议单独放在/php/class/<b>Mobile_Detect.php</b>中.
 </p>
 
+<h3>增加<?php EchoNameLink(TABLE_STOCK_HISTORY, STOCK_HISTORY_DISPLAY); ?>页面</h3>
+<p>2015年8月24日
+<br />每次进<?php EchoLink('http://palmmicro.com/apps/phpMyAdmin'); ?>去看历史数据虽然不算麻烦, 但是毕竟还是用自己写的网页看更有成就感!
+</p>
+<?php EchoStockHistoryDemo(); ?>
+
 <h3>扩大规模</h3>
 <p>2015年8月27日
 <br />整理代码最好的方式是多开发几个类似LOF基金估值软件.
@@ -93,9 +99,9 @@
 <br /><font color=olive>StockReference</font>类越改越乱, 开始怀疑以后要看不懂了.
 </p>
 
-<h3>历史<a name="netvalue">净值</a></h3>
+<h3><a name="fundhistory">基金历史</a>记录</h3>
 <p>2016年1月8日
-<br />在<?php EchoXueqieId('2091843424', '塔夫男'); ?>等人的建议下, 加入记录华宝油气历史净值表格. 最近几天的直接显示在当前页面, 同时增加单独显示全部历史数据的页面.
+<br />在<?php EchoXueqieId('2091843424', '塔夫男'); ?>等人的建议下, 加入记录华宝油气基金历史表格. 最近几天的直接显示在当前页面, 同时增加单独显示全部历史数据的页面.
 </p>
 <?php EchoFundHistoryDemo(); ?>
 
@@ -129,7 +135,7 @@
 <br />趁复活节假日黄金期货GC停止交易, 校准</a>A股<a href="../../res/goldetfcn.php">黄金ETF</a>系列的净值计算工具. 目前包括<a href="../../res/sh518800cn.php">国泰黄金ETF</a>,
 <a href="../../res/sh518880cn.php">华安黄金ETF</a>, <a href="../../res/sz159934cn.php">易方达黄金ETF</a>, <a href="../../res/sz159937cn.php">博时黄金ETF</a>, <a href="../../res/sz164701cn.php">添富贵金LOF</a>, 
 <a href="../../res/sz160719cn.php">嘉实黄金LOF</a>和<a href="../../res/sz161116cn.php">易方达黄金LOF</a>.
-<br />一直有用户建议我在华宝油气等LOF的<a href="#netvalue">历史净值</a>表格上加入预估净值比较栏目. 除了不愿意直接打自己嘴巴外的心理因素外, 我迟迟没有加上它的原因主要是估值是实时变化的.
+<br />一直有用户建议我在华宝油气等LOF的<a href="#fundhistory">基金历史</a>表格上加入预估净值比较栏目. 除了不愿意直接打自己嘴巴外的心理因素外, 我迟迟没有加上它的原因主要是估值是实时变化的.
 我一直想不清楚是该加在美股收盘后的预估净值还是A股收盘后的.
 <br />在LOF的代码中, 单独的预估净值变量原本放在<font color=olive>_LofGroup</font>类中. 而在新的黄金ETF<font color=olive>_GoldEtfGroup</font>类中又用到了<font color=olive>FundReference</font>类. 
 自然而然的, 我把预估净值的变量挪到了<font color=olive>FundReference</font>类中. 当预估净值和当日净值的变量排列在一起后, 突然之间数据结构引导思维方式的例子再次爆发, 没有比在记录当日净值的时候同时记录预估净值更合理的了!
@@ -376,6 +382,18 @@ CL通常会在美股收盘后继续多交易一个小时, 此时实时估值也�
 <br /><?php echo GetFundAccountLink(FUND_DEMO_SYMBOL); ?>
 <br />顺便做一个通用一元<a href="../../../account/linearregressioncn.php">线性回归</a>工具.
 <br /><img src=../photo/20190824.jpg alt="Linear regression calculation steps" />
+</p>
+
+<h3><?php EchoNameLink(TABLE_NETVALUE_HISTORY, NETVALUE_HISTORY_DISPLAY); ?>和股票持仓仓位比例估算</h3>
+<p>2019年10月22日
+<br />华宝油气在国庆假期后持续高溢价, 到今天已经连续第10个交易日. 吃瓜群众们充分利用华宝油气限购1000的机会, 开始了新开1+6拖拉机账户溢价申购套利的狂欢之旅, 从10月11号到现在测算的申购账户数一直在创历史新高.
+不断新开的账户把我<a href="#fundaccount">线性回归统计溢价申购套利规模</a>的结果活生生搞成了非线性.
+<br />今天场内新增了5766万股, 对应限购1000人民币下场内满额申购了22127户, 全部份额已经接近65亿股. 好几个人看到迅速增加的份额后都问我华宝油气会不会继续把限额降到100块或者是彻底关门.
+我暗自一笑, 回答说你们想多了. 华宝基金有对它来说更聪明应对方式, 其实在8月份刚开始限额申购后的那一轮溢价申购时已经表现出来了.
+<br />这个聪明方法是主动降低股票持仓仓位比例, 把大家新申购的人民币拿在手里除了收管理费以外什么都不做. 
+我<a href="../../res/netvaluehistorycn.php?symbol=SZ162411&num=0">统计</a>了过去4年来的华宝油气仓位估算结果, 可以看出在今年8月份之前, 基本上都是稳定维持在基金说明书中写的95%附近. 
+8月份降到了85%-90%, 9月份经过连续11个交易日折价大量赎回后, 9月底时仓位又回到了95%.
+<br />为了避免一般的华宝油气官方估值的误差来源的影响, 我只选择了XOP当晚净值涨跌幅度大于4%的日子进行仓位估算, 因此目前华宝油气的具体仓位依然是个谜. 下一个XOP大涨或者大跌后不出意外的话, 肯定是会再次看到华宝油气上涨跟不上涨幅, 下跌也跟不上跌幅的.
 </p>
 
 </div>

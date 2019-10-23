@@ -115,7 +115,7 @@ function _echoFundHistoryParagraph($ref, $est_ref, $csv = false, $iStart = 0, $i
 		$ar[] = new TableColumnError();
 		$ar[] = new TableColumnMyStock($est_ref->GetStockSymbol());
 	}
-	EchoTableParagraphBegin($ar, $strSymbol.'fundhistory', $str);
+	EchoTableParagraphBegin($ar, $strSymbol.FUND_HISTORY_PAGE, $str);
 	
 	_echoHistoryTableData($sql, $csv, $ref, $est_ref, $iStart, $iNum);
     EchoTableParagraphEnd($strNavLink);

@@ -10,7 +10,7 @@ function _textPriceVolume($ref)
     $strVolume = $ref->GetVolume();
     if (intval($strVolume) > 0)
     {
-        $str .= '成交量:'.$strVolume.'股'.WX_EOL;
+        $str .= STOCK_DISP_QUANTITY.':'.$strVolume.'股'.WX_EOL;
     }
     return $str;
 }
@@ -28,9 +28,9 @@ function TextFromStockReference($ref)
     $str .= $ref->GetExternalLink().WX_EOL;
     $str .= STOCK_DISP_PRICE._textPriceVolume($ref);
     $str .= STOCK_DISP_CHANGE.':'.$ref->GetPercentage($ref->GetPrevPrice()).'%'.WX_EOL;
-    if ($ref->strOpen)			$str .= '开盘价:'.rtrim0($ref->strOpen).WX_EOL;
-    if ($ref->strHigh)			$str .= '最高:'.rtrim0($ref->strHigh).WX_EOL;
-    if ($ref->strLow)			$str .= '最低:'.rtrim0($ref->strLow).WX_EOL;
+    if ($ref->strOpen)			$str .= STOCK_DISP_OPEN.':'.rtrim0($ref->strOpen).WX_EOL;
+    if ($ref->strHigh)			$str .= STOCK_DISP_HIGH.':'.rtrim0($ref->strHigh).WX_EOL;
+    if ($ref->strLow)			$str .= STOCK_DISP_LOW.':'.rtrim0($ref->strLow).WX_EOL;
     if ($ref->extended_ref)	$str .= TextFromExtendedTradingReferencce($ref->extended_ref);
     return $str;
 }

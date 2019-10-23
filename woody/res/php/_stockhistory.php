@@ -41,7 +41,7 @@ function EchoAll()
     		}
     	}
     }
-    $acct->EchoLinks();
+    $acct->EchoLinks(TABLE_STOCK_HISTORY);
 }
 
 function EchoMetaDescription()

@@ -7,6 +7,7 @@ require_once('/php/ui/fundestparagraph.php');
 require_once('/php/ui/fundhistoryparagraph.php');
 require_once('/php/ui/lofsmaparagraph.php');
 require_once('/php/ui/nvclosehistoryparagraph.php');
+require_once('/php/ui/stockhistoryparagraph.php');
 
 define('AB_DEMO_SYMBOL', 'SZ200488');
 define('ADRH_DEMO_SYMBOL', '00700');
@@ -29,6 +30,12 @@ function EchoLofSmaDemo($strSymbol = FUND_DEMO_SYMBOL)
 {
 	$fund_ref = StockGetFundReference($strSymbol);
 	EchoLofSmaParagraph($fund_ref);
+}
+
+function EchoStockHistoryDemo($strSymbol = STOCK_DEMO_SYMBOL)
+{
+    $ref = new MyStockReference($strSymbol);
+   	EchoStockHistoryParagraph($ref);
 }
 
 function EchoFundHistoryDemo($strSymbol = FUND_DEMO_SYMBOL)
