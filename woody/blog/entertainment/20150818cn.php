@@ -396,6 +396,11 @@ CL通常会在美股收盘后继续多交易一个小时, 此时实时估值也�
 <br />为了避免一般的华宝油气官方估值的误差来源的影响, 我只选择了XOP当晚净值涨跌幅度大于4%的日子进行仓位估算, 因此目前华宝油气的具体仓位依然是个谜. 下一个XOP大涨或者大跌后不出意外的话, 肯定是会再次看到华宝油气上涨跟不上涨幅, 下跌也跟不上跌幅的.
 </p>
 
+<h3><?php EchoNameLink(FUND_POSITION_PAGE, FUND_POSITION_DISPLAY); ?></h3>
+<p>2019年10月25日
+<br /><?php echo GetFundPositionLink(FUND_DEMO_SYMBOL); ?>
+</p>
+
 </div>
 
 <?php _LayoutBottom(); ?>

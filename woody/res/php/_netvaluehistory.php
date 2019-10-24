@@ -82,8 +82,7 @@ function _echoNetValueHistory($ref, $iStart, $iNum)
     $str .= ' '.GetStockHistoryLink($strSymbol);
     if (in_arrayLof($strSymbol))
     {
-    	$str .= ' '.GetThanousLawLink($strSymbol);
-    	$str .= ' '.GetFundAccountLink($strSymbol);
+    	$str .= ' '.GetLofAnalysisLinks($strSymbol);
     	
         $cny_ref = new CnyReference('USCNY');	// Always create CNY Forex class instance first!
     	$ref = new LofReference($strSymbol);
@@ -97,17 +96,17 @@ function _echoNetValueHistory($ref, $iStart, $iNum)
     
 	$sql = new NetValueHistorySql($ref->GetStockId());
    	$strNavLink = StockGetNavLink($strSymbol, $sql->Count(), $iStart, $iNum);
-	$str .= ' '.$strNavLink;
+	$str .= '<br />'.$strNavLink;
 
 	$change_col = new TableColumnChange();
 	$ar = array(new TableColumnDate(), new TableColumnNetValue(), $change_col);
 	if ($est_ref)
 	{
-		$ar[] = new TableColumnMyStock('USCNY');
+		$ar[] = new TableColumnUSCNY();
 		$ar[] = $change_col;
 		$ar[] = new TableColumnNetValue($est_ref->GetStockSymbol());
 		$ar[] = $change_col;
-		$position_col = new TableColumn('仓位', 70);
+		$position_col = new TableColumnPosition();
 		$ar[] = $position_col;
 	}
 	EchoTableParagraphBegin($ar, TABLE_NETVALUE_HISTORY, $str);

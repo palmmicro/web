@@ -106,6 +106,14 @@ function GetTableColumnNetValue()
 	return $col->GetDisplay();
 }
 
+class TableColumnPosition extends TableColumn
+{
+	function TableColumnPosition()
+	{
+        parent::TableColumn('仓位', 70);
+	}
+}
+
 class TableColumnPremium extends TableColumn
 {
 	function TableColumnPremium($strPrefix = false)
@@ -231,6 +239,22 @@ class TableColumnMyStock extends TableColumn
 	function TableColumnMyStock($strSymbol)
 	{
         parent::TableColumn(GetMyStockLink($strSymbol));
+	}
+}
+
+class TableColumnUSCNY extends TableColumnMyStock
+{
+	function TableColumnUSCNY()
+	{
+        parent::TableColumnMyStock('USCNY');
+	}
+}
+
+class TableColumnHKCNY extends TableColumnMyStock
+{
+	function TableColumnHKCNY()
+	{
+        parent::TableColumnMyStock('HKCNY');
 	}
 }
 

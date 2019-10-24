@@ -88,6 +88,18 @@ function GetFundAccountLink($strSymbol)
     return GetStockSymbolLink(FUND_ACCOUNT_PAGE, $strSymbol, FUND_ACCOUNT_DISPLAY);
 }
 
+define('FUND_POSITION_DISPLAY', '基金仓位估算');
+define('FUND_POSITION_PAGE', 'fundposition');
+function GetFundPositionLink($strSymbol)
+{
+    return GetStockSymbolLink(FUND_POSITION_PAGE, $strSymbol, FUND_POSITION_DISPLAY);
+}
+
+function GetLofAnalysisLinks($strSymbol)
+{
+	return GetThanousLawLink($strSymbol).' '.GetFundAccountLink($strSymbol).' '.GetFundPositionLink($strSymbol);
+}
+
 define('BENFORD_LAW_DISPLAY', '本福特定律');
 function GetBenfordLawLink($strSymbol)
 {

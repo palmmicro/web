@@ -11,8 +11,7 @@ function _echoFundHistory($strSymbol, $iStart, $iNum)
    	$str .= ' '.GetNetValueHistoryLink($strSymbol);
     if (in_arrayLof($strSymbol))
     {
-    	$str .= ' '.GetThanousLawLink($strSymbol);
-    	$str .= ' '.GetFundAccountLink($strSymbol);
+    	$str .= ' '.GetLofAnalysisLinks($strSymbol);
     }
    	EchoParagraph($str);
   
