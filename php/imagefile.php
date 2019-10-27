@@ -158,11 +158,11 @@ class PageImageFile extends ImageFile
     	}
     }
     
-    function _drawAxisX()
+    function _drawAxisX($fVal = 0.0)
     {
-    	if ($this->fMaxY > 0.0 && $this->fMinY < 0.0)
+    	if ($this->fMaxY > $fVal && $this->fMinY < $fVal)
     	{
-    		$iPosY = $this->_getPosY(0.0);
+    		$iPosY = $this->_getPosY($fVal);
     		$this->DashedLine(0, $iPosY, $this->iWidth, $iPosY);
     	}
     }
@@ -239,7 +239,7 @@ class DateImageFile extends PageImageFile
     
     function _textDateVal($str, $strDate, $fVal)
     {
-		$this->strText .= $str.': '.$strDate.' '.strval($fVal).'<br />';
+		$this->strText .= $str.': '.$strDate.' <font color='.$this->strLineColor.'>'.strval($fVal).'</font><br />';
     }
     
     function _textCurDateVal($str, $ar)
@@ -293,6 +293,8 @@ class DateImageFile extends PageImageFile
 		$this->_textSearchDateVal('最小值', $arFocus, $this->fMinY);
     	if ($this->fMinY > 0.0)		$this->fMinY = 0.0;
     	$this->_drawAxisX();
+    	$this->_drawAxisX(1.0);
+    	$this->_drawAxisX(-1.0);
 
     	$iCur = 0;
     	$bFirst = true;

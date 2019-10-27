@@ -101,6 +101,8 @@ class PageCsvFile extends CsvFile
     function ReadColumn($iColumn)
     {
     	unset($this->arColumn);	// array_splice($this->arColumn, 0);
+    	
+    	$this->arColumn = array();
     	$this->iColumn = $iColumn;
     	$this->Read();
     	return $this->arColumn;

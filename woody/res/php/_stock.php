@@ -144,16 +144,19 @@ function EchoPromotionHead($strVer = false)
 {
     echo '<h3>讨论和建议</h3>';
     
-    $iVal = rand(1, 2);
-    switch ($iVal)
-    {
-    case 1:
-       	LayoutBrokerPromotion();
-       	break;
+    if (AcctGetEmail() != WOODY_EMAIL)
+	{
+		$iVal = rand(1, 2);
+		switch ($iVal)
+		{
+		case 1:
+			LayoutBrokerPromotion();
+			break;
         	
-    case 2:
-       	LayoutWeixinPromotion();
-       	break;
+		case 2:
+			LayoutWeixinPromotion();
+			break;
+		}
     }
     EchoParagraph(GetDevGuideLink('20150818', $strVer));
 }

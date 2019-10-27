@@ -131,6 +131,11 @@ function AcctGetSpiderPageCount($strIp)
 	return count($ar);
 }
 
+function _onBlockedIp($strIp)
+{
+    die('Please contact support@palmmicro.com to unblock your IP address '.$strIp);
+}
+
 function _checkSearchEnginePageCount($strIp, $iCount, $iPageCount, $strDebug)
 {
     if ($iPageCount >= 10)
@@ -141,6 +146,7 @@ function _checkSearchEnginePageCount($strIp, $iCount, $iPageCount, $strDebug)
     
 	trigger_error('Blocked spider<br />'.$strDebug);
 	SqlSetIpStatus($strIp, IP_STATUS_BLOCKED);
+	_onBlockedIp($strIp);
     return false;
 }
 
@@ -197,7 +203,7 @@ function AcctSessionStart()
     {
        	SqlInsertVisitor(VISITOR_TABLE, $strBlogId, $strIpId);
     }
-    if (SqlGetIpStatus($strIp) == IP_STATUS_BLOCKED)	AcctSwitchToLogin();
+    if (SqlGetIpStatus($strIp) == IP_STATUS_BLOCKED)		_onBlockedIp($strIp);
     
 	$strMemberId = AcctIsLogin();
 	$iCount = AcctCountBlogVisitor($strIp);
