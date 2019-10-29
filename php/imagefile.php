@@ -149,11 +149,11 @@ class PageImageFile extends ImageFile
 		return intval($this->iHeight * (1.0 - $this->_getPos($fY, $this->fMaxY, $this->fMinY)));
     }
     
-    function _drawAxisY()
+    function _drawAxisY($fVal = 0.0)
     {
-    	if ($this->fMaxX > 0.0 && $this->fMinX < 0.0)
+    	if ($this->fMaxX > $fVal && $this->fMinX < $fVal)
     	{
-    		$iPosX = $this->_getPosX(0.0);
+    		$iPosX = $this->_getPosX($fVal);
     		$this->DashedLine($iPosX, 0, $iPosX, $this->iHeight);
     	}
     }
@@ -259,6 +259,8 @@ class DateImageFile extends PageImageFile
     	
     	$this->fMaxX = $iCount;
     	$this->fMinX = 0.0;
+    	for ($i = 1; $i < 10; $i ++)		$this->_drawAxisY($i * $iCount / 10.0);
+    	
     	$this->fMaxY = max($arBase);
     	$this->fMinY = 0.0;
 

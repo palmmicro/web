@@ -77,14 +77,20 @@ function _getXueqiuIdLinks($str, $ar, $xq_sql)
 	$iCount = count($ar);
 	if ($iCount == 0)	return '';
 	
-	$str = strval($iCount).'个'.$str.'的:<br />';
+	$arIdName = array();
 	foreach ($ar as $strId)
 	{
     	if ($record = $xq_sql->GetById($strId))
     	{
-    		$strName = (strlen($record['name']) > 0) ? $record['name'] : '用户'.$strId;
-			$str .= GetXueqiuIdLink($strId, $strName).' ';
+    		$arIdName[$strId] = (strlen($record['name']) > 0) ? $record['name'] : '用户'.$strId;
 		}
+	}
+ 	asort($arIdName);
+	
+	$str = strval($iCount).'个'.$str.'的:<br />';
+	foreach ($arIdName as $strId => $strName)
+	{
+		$str .= GetXueqiuIdLink($strId, $strName).' ';
 	}
 	return $str.'<br />';
 }

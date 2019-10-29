@@ -140,21 +140,37 @@ function _EchoMoneyGroupData($group, $strLink, $strUSDCNY, $strHKDCNY)
 
 
 // ****************************** Premotion Headline *******************************************************
-function EchoPromotionHead($strVer = false)
+function EchoPromotionHead($strVer = false, $strLoginId = false)
 {
     echo '<h3>讨论和建议</h3>';
     
-    if (AcctGetEmail() != WOODY_EMAIL)
+    if (AcctNoAdv($strLoginId) == false)
 	{
-		$iVal = rand(1, 2);
+		$iVal = rand(1, 6);
 		switch ($iVal)
 		{
 		case 1:
-			LayoutBrokerPromotion();
+			LayoutWeixinPromotion();
 			break;
         	
 		case 2:
-			LayoutWeixinPromotion();
+			LayoutWeixinPay();
+			break;
+        	
+		case 3:
+   			LayoutAliPay();
+			break;
+
+		case 4:
+			LayoutBrokerYinhe();
+			break;
+
+		case 5:
+			LayoutBrokerHuatai();
+			break;
+
+		case 6:
+			LayoutBrokerXueying();
 			break;
 		}
     }

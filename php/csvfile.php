@@ -38,6 +38,7 @@ class CsvFile
     function Write()
     {
     	$this->_open('w');
+    	if ($this->file == false)	return;
     	
     	$strLine = '';
     	foreach (func_get_args() as $str)

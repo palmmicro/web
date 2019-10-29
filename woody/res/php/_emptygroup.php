@@ -32,8 +32,9 @@ class SymbolAcctStart extends NavAcctStart
 
     function EchoLinks($strVer = false)
     {
-    	EchoPromotionHead($strVer);
-    	EchoStockCategory($this->GetLoginId());
+    	$strLoginId = $this->GetLoginId();
+    	EchoPromotionHead($strVer, $strLoginId);
+    	EchoStockCategory($strLoginId);
     }
     
     function EchoStockGroup()

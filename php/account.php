@@ -72,6 +72,15 @@ function AcctGetEmail($strLoginId = false)
 	return '';
 }
 
+function AcctNoAdv($strLoginId = false)
+{
+    if (AcctGetEmail($strLoginId) == WOODY_EMAIL)
+	{
+	    return true;
+	}
+	return false;
+}
+
 function AcctIsAdmin($strLoginId = false)
 {
     if (AcctGetEmail($strLoginId) == ADMIN_EMAIL)

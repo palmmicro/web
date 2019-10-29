@@ -14,18 +14,30 @@ function LayoutWeixinPromotion()
     echo <<<END
         <p>请扫二维码关注Palmmicro<a href="/woody/blog/palmmicro/20161014cn.php">微信公众号</a>sz162411. 
         <br /><img src=/woody/image/wx.jpg alt="Palmmicro wechat public account sz162411 small size QR code" />
-        <br /><b>觉得这个网站有用? 可以用支付宝或者微信打赏支持一下.</b>
-        <br /><img src=/woody/image/alipay.jpg alt="QRcode to pay Woody in Taobao" />
+        </p>
+END;
+}
+
+function LayoutWeixinPay()
+{
+    echo <<<END
+        <p>觉得这个网站有用? 可以用微信打赏支持一下.
         <br /><img src=/woody/image/wxpay.jpg alt="QRcode to pay 1 RMB to Woody in Weixin" />
         </p>
 END;
 }
 
-function LayoutBrokerPromotion()
+function LayoutAliPay()
 {
-	$strSnowball = GetXueqiuIdLink('7489073227', '技术支持');
-	if (AcctIsAdmin())		$strSnowball .= ' '.GetExternalLink('https://www.snowballsecurities.com/external-channel/invite', '管理');
+    echo <<<END
+        <p>觉得这个网站有用? 可以用支付宝打赏支持一下.
+        <br /><img src=/woody/image/alipay.jpg alt="QRcode to pay Woody in Taobao" />
+        </p>
+END;
+}
 
+function LayoutBrokerYinhe()
+{
     echo <<<END
         <p>低风险文艺券商, 套利神器. 
         <br />★场内基金申购全部一折, 场外app申购大部分1折.
@@ -34,13 +46,28 @@ function LayoutBrokerPromotion()
         <br />★可转债交易, 费率不会让你失望. 
         <br />★具体详情可以咨询qq: 2531998595
         <br /><img src=/woody/image/yinheaccount.png alt="Yinhe open account scan QR code, agent qq: 2531998595" />
-        
-        <br /><a href="https://m.zhangle.com/h5Account/mobile-h5/index.htm?ly=HTC1-9000008608&param1=011979" target=_blank>华泰证券开户</a>
+        </p>
+END;
+}
+
+function LayoutBrokerHuatai()
+{
+	echo <<<END
+        <p><a href="https://m.zhangle.com/h5Account/mobile-h5/index.htm?ly=HTC1-9000008608&param1=011979" target=_blank>华泰证券开户</a>
         <br />佣金股票万1.6, 场内基金万1, 债券十万分之一. 客户支持微信号18651870837. 
         扫码开户后在第一步显示佣金的地方一定要核对工号<b>011979</b>
         <br /><img src=/woody/image/huatai20190906.png alt="Huatai open account scan QR code updated on 20190906, agent id 011979" />
-        
-        <br /><a href="https://www.snowballsecurities.com/activity/open/open-v10?r=50001003008" target=_blank>雪盈证券开户</a>
+        </p>
+END;
+}
+
+function LayoutBrokerXueying()
+{
+	$strSnowball = GetXueqiuIdLink('7489073227', '技术支持');
+	if (AcctIsAdmin())		$strSnowball .= ' '.GetExternalLink('https://www.snowballsecurities.com/external-channel/invite', '管理');
+
+    echo <<<END
+        <p><a href="https://www.snowballsecurities.com/activity/open/open-v10?r=50001003008" target=_blank>雪盈证券开户</a>
         	  <a href="https://www.snowballsecurities.com/activity/bank-card-booking?r=50001003008" target=_blank>雪盈境外卡开户</a>
         <br />雪球旗下港美股券商——雪盈证券, 极低佣金利率, 毫秒级下单速度, 免费实时行情! 
         	  更有开户入金新手豪礼等着你, 最高1066港币+热门股票+高级行情, 点击链接, 开户领豪礼. 
@@ -189,6 +216,7 @@ function _layoutTail($iWidth, $bChinese, $bAdsense = true)
     		else
     		{
     			LayoutWeixinPromotion();
+    			LayoutWeixinPay();
     		}
     	}
         echo '</td></table>';

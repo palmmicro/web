@@ -171,12 +171,34 @@ function SqlCreateDatabase($strDb)
 
 function _errorHandler($errno, $errstr, $errfile, $errline)
 {
+	if (isset($GLOBALS['SESS_ERR_NO'])) 
+	{
+		if ($errno == $GLOBALS['SESS_ERR_NO'])
+		{
+			$iCount = $GLOBALS['SESS_ERR_COUNT'];
+			$iCount ++;
+			if ($iCount > 10)		return;	// to much repeated errors
+			
+			$GLOBALS['SESS_ERR_COUNT'] = $iCount;
+		}
+		else
+		{
+			$GLOBALS['SESS_ERR_NO'] = $errno;
+			$GLOBALS['SESS_ERR_COUNT'] = 1;
+		}
+	}
+	else
+	{
+		$GLOBALS['SESS_ERR_NO'] = $errno;
+		$GLOBALS['SESS_ERR_COUNT'] = 1;
+	}
+
 	if ($errfile == '/php/class/ini_file.php')	return;
 	
 	$strSubject = ($errno == 1024) ? '调试消息' : "PHP错误: [$errno]";
 	$str =  $errstr.'<br />位于'.$errfile.'第'.$errline.'行';
 //    dieDebugString(DEBUG_UTF8_BOM.$str);
-    DebugString($strSubject.' '.$str);
+    DebugString($strSubject.' '.$str.' ('.strval($GLOBALS['SESS_ERR_COUNT']).')');
     
     $str .= '<br />'.GetCurLink();
 	if (isset($_SESSION['SESS_ID']))		$str .= '<br />'.GetMemberLink($_SESSION['SESS_ID']);
