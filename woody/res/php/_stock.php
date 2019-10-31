@@ -174,7 +174,10 @@ function EchoPromotionHead($strVer = false, $strLoginId = false)
 			break;
 		}
     }
-    EchoParagraph(GetDevGuideLink('20150818', $strVer));
+    
+    $str = GetDevGuideLink('20150818', $strVer);
+    $str .= ' '.GetInternalLink('/woody/blog/entertainment/20110509cn.php#other', '广告说明');
+    EchoParagraph($str);
 }
 
 // ****************************** Money Paragraph *******************************************************

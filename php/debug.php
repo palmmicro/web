@@ -175,10 +175,6 @@ function DebugGetImageName($str)
 
 function DebugGetCsvName($str)
 {
-	if (strlen($str) > 100)
-	{
-		$str = substr($str, 0, 100);
-	}
     $strPath = _getDebugPath('csv');
     return "$strPath/$str.csv";
 }

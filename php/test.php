@@ -9,8 +9,6 @@ require_once('sql/sqlblog.php');
 require_once('sql/sqlvisitor.php');
 require_once('sql/sqlstockdaily.php');
 
-require_once('csvfile.php');
-
 // http://www.todayir.com/en/index.php HSFML25
 
 function _debug_dividend($strSymbol)

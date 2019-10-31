@@ -19,6 +19,7 @@ define('TABLE_WEIXIN', 'weixin');
 
 require_once('debug.php');
 require_once('email.php');
+require_once('csvfile.php');
 require_once('_private.php');
 require_once('class/year_month_day.php');
 require_once('sql/_sqlcommon.php');
@@ -169,41 +170,65 @@ function SqlCreateDatabase($strDb)
 	SqlInsertMember($strEmail, $strEmail);*/
 }
 
+class ErrorHandlerFile extends CsvFile
+{
+	var $strError = false;
+	var $iCount = 0;
+	
+    function ErrorHandlerFile() 
+    {
+        parent::CsvFile(DebugGetCsvName('errorhandler'));
+    }
+
+    function OnLineArray($arWord)
+    {
+    	if (count($arWord) == 2)
+    	{
+    		// $errno,count
+    		$this->strError = $arWord[0];
+    		$this->iCount  = intval($arWord[1]);
+    		DebugVal($this->iCount, $this->strError.' OnLineArray');
+    	}
+    }
+    
+    function OnError($errno)
+    {
+    	$this->Read();
+    	if ($errno == $this->strError)
+    	{
+    		if ($iCount > 10)		return false;		// too many same error occured!
+    		else
+    		{
+    			$this->iCount ++;
+    		}
+    	}
+    	else
+    	{
+    		$this->iCount = 1;
+    	}
+    	
+   		$this->Write($errno, strval($this->iCount));
+   		$this->Close();
+    	return $this->iCount;
+    }
+}
+
 function _errorHandler($errno, $errstr, $errfile, $errline)
 {
-	if (isset($GLOBALS['SESS_ERR_NO'])) 
-	{
-		if ($errno == $GLOBALS['SESS_ERR_NO'])
-		{
-			$iCount = $GLOBALS['SESS_ERR_COUNT'];
-			$iCount ++;
-			if ($iCount > 10)		return;	// to much repeated errors
-			
-			$GLOBALS['SESS_ERR_COUNT'] = $iCount;
-		}
-		else
-		{
-			$GLOBALS['SESS_ERR_NO'] = $errno;
-			$GLOBALS['SESS_ERR_COUNT'] = 1;
-		}
-	}
-	else
-	{
-		$GLOBALS['SESS_ERR_NO'] = $errno;
-		$GLOBALS['SESS_ERR_COUNT'] = 1;
-	}
-
 	if ($errfile == '/php/class/ini_file.php')	return;
 	
-	$strSubject = ($errno == 1024) ? '调试消息' : "PHP错误: [$errno]";
-	$str =  $errstr.'<br />位于'.$errfile.'第'.$errline.'行';
-//    dieDebugString(DEBUG_UTF8_BOM.$str);
-    DebugString($strSubject.' '.$str.' ('.strval($GLOBALS['SESS_ERR_COUNT']).')');
+   	$csv = new ErrorHandlerFile();
+   	if ($iCount = $csv->OnError($errno))
+   	{
+   		$strSubject = ($errno == 1024) ? '调试消息' : "PHP错误: [$errno]";
+   		$str =  $errstr.'<br />位于'.$errfile.'第'.$errline.'行';
+   		DebugString($strSubject.' '.$str.' ('.strval($iCount).')');
     
-    $str .= '<br />'.GetCurLink();
-	if (isset($_SESSION['SESS_ID']))		$str .= '<br />'.GetMemberLink($_SESSION['SESS_ID']);
-    $str .= '<br />'.GetVisitorLink(UrlGetIp());
-	EmailHtml(ADMIN_EMAIL, $strSubject, $str);
+   		$str .= '<br />'.GetCurLink();
+   		if (isset($_SESSION['SESS_ID']))		$str .= '<br />'.GetMemberLink($_SESSION['SESS_ID']);
+   		$str .= '<br />'.GetVisitorLink(UrlGetIp());
+   		EmailHtml(ADMIN_EMAIL, $strSubject, $str);
+   	}
 }
 
 function SqlConnectDatabase()

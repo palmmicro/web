@@ -44,7 +44,7 @@ function LayoutBrokerYinhe()
         <br />★场内赎回, 老分级基金公司取走后, 剩余部分5折, 新基金按基金新规执行.
         <br />★赎回资金预解冻, 比正常赎回提前一天资金到账, 提高资金利用率.
         <br />★可转债交易, 费率不会让你失望. 
-        <br />★具体详情可以咨询qq: 2531998595
+        <br />★具体详情可以咨询QQ: 2531998595(魔女小豌豆3)或者1700177971(魔女小豌豆4)
         <br /><img src=/woody/image/yinheaccount.png alt="Yinhe open account scan QR code, agent qq: 2531998595" />
         </p>
 END;

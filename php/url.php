@@ -304,7 +304,7 @@ function UrlIsEnglish()
 
 function UrlGetUniqueString()
 {
-	$str = UrlGetTitle();
+	$str = '';
     if ($strQuery = UrlGetQueryString())
     {
     	$ar = explode('&', $strQuery);
@@ -313,7 +313,8 @@ function UrlGetUniqueString()
     		$str .= str_replace('=', '', $strItem);
     	}
     }
-	return $str;
+    if (strlen($str) > 32)	$str = md5($str); 
+	return UrlGetTitle().$str;
 }
 
 ?>

@@ -1,7 +1,6 @@
 <?php
 require_once('_stock.php');
 require_once('_emptygroup.php');
-require_once('/php/csvfile.php');
 require_once('/php/ui/pricepoolparagraph.php');
 
 class _ThanousLawCsvFile extends PricePoolCsvFile

@@ -1,7 +1,6 @@
 <?php
 require_once('_stock.php');
 require_once('_emptygroup.php');
-require_once('/php/csvfile.php');
 require_once('/php/imagefile.php');
 
 function _echoNetValueItem($csv, $sql, $est_sql, $cny_sql, $strNetValue, $strDate, $ref, $est_ref, $cny_ref)
