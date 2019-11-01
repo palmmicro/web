@@ -187,29 +187,25 @@ class ErrorHandlerFile extends CsvFile
     		// $errno,count
     		$this->strError = $arWord[0];
     		$this->iCount  = intval($arWord[1]);
-    		DebugVal($this->iCount, $this->strError.' OnLineArray');
     	}
     }
     
     function OnError($errno)
     {
     	$this->Read();
+    	$iCount = $this->iCount;
     	if ($errno == $this->strError)
     	{
-    		if ($iCount > 10)		return false;		// too many same error occured!
-    		else
-    		{
-    			$this->iCount ++;
-    		}
+   			$iCount ++;
     	}
     	else
     	{
-    		$this->iCount = 1;
+    		$iCount = 1;
     	}
     	
-   		$this->Write($errno, strval($this->iCount));
+   		$this->Write($errno, strval($iCount));
    		$this->Close();
-    	return $this->iCount;
+    	return $iCount;
     }
 }
 
@@ -217,10 +213,12 @@ function _errorHandler($errno, $errstr, $errfile, $errline)
 {
 	if ($errfile == '/php/class/ini_file.php')	return;
 	
+	$bDebug = ($errno == 1024) ? true : false;
    	$csv = new ErrorHandlerFile();
-   	if ($iCount = $csv->OnError($errno))
+   	$iCount = $csv->OnError($errno);
+   	if ($iCount <= 10 || $bDebug)
    	{
-   		$strSubject = ($errno == 1024) ? '调试消息' : "PHP错误: [$errno]";
+   		$strSubject = $bDebug ? '调试消息' : "PHP错误: [$errno]";
    		$str =  $errstr.'<br />位于'.$errfile.'第'.$errline.'行';
    		DebugString($strSubject.' '.$str.' ('.strval($iCount).')');
     
@@ -229,6 +227,7 @@ function _errorHandler($errno, $errstr, $errfile, $errline)
    		$str .= '<br />'.GetVisitorLink(UrlGetIp());
    		EmailHtml(ADMIN_EMAIL, $strSubject, $str);
    	}
+//	DebugVal($iCount, $errno.' _errorHandler');
 }
 
 function SqlConnectDatabase()

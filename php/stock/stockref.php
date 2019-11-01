@@ -249,23 +249,30 @@ class StockReference
    		{
    			if (abs($fPercentage * floatval($strDivisor)) < (50.0 / pow(10, $this->sym->GetPrecision())))	return '0';
    		}
-   		return strval_round($fPercentage, 2);
+   		return strval($fPercentage);
     }
-    
+
     // for display
+    function GetPercentageText($strDivisor = false, $strDividend = false)
+    {
+   		$str = $this->GetPercentage($strDivisor, $strDividend);
+   		if ($str != '' && $str != '0')
+   		{
+   			$str = strval_round(floatval($str), 2).'%';
+   		}
+   		return $str;
+   	}
+   	
     function GetPercentageDisplay($strDivisor = false, $strDividend = false)
     {
-   		$strDisp = $this->GetPercentage($strDivisor, $strDividend);
-   		if ($strDisp == '')	return '';
-   		
-   		if ($strDisp == '0')
+   		$strDisp = $this->GetPercentageText($strDivisor, $strDividend);
+   		if (substr($strDisp, -1, 1) == '%')
    		{
-   			$strColor = 'grey';
+   			$strColor = (substr($strDisp, 0, 1) == '-') ? 'red' : 'black';
    		}
    		else
    		{
-//   			$strDisp .= '%';
-   			$strColor = (substr($strDisp, 0, 1) == '-') ? 'red' : 'black';
+   			$strColor = 'grey';
    		}
     	return "<font color=$strColor>$strDisp</font>";
     }

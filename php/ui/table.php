@@ -18,7 +18,6 @@ function GetTableColumn($iWidth, $strDisplay)
 class TableColumn
 {
 	var $strText;
-	var $strDisplay;
 	var $iWidth;
 	
 	function TableColumn($strText, $iWidth = 80, $strColor = false, $strPrefix = false)
@@ -29,12 +28,6 @@ class TableColumn
         {
         	$this->strText = $strPrefix.$this->strText; 
         }
-        $this->strDisplay = $this->strText;
-	}
-	
-	function AddUnit($strUnit = '%')
-	{
-		$this->strDisplay .= '('.$strUnit.')'; 
 	}
 	
 	function GetDisplay()
@@ -49,7 +42,7 @@ class TableColumn
 	
 	function GetEchoString()
 	{
-		return GetTableColumn($this->iWidth, $this->strDisplay);
+		return GetTableColumn($this->iWidth, $this->strText);
 	}
 }
 

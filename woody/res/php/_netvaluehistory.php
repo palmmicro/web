@@ -32,12 +32,8 @@ function _echoNetValueItem($csv, $sql, $est_sql, $cny_sql, $strNetValue, $strDat
 				if ($strEstPrev = $est_sql->GetClose($strPrevDate))
 				{
 					$ar[] = $est_ref->GetPercentageDisplay($strEstPrev, $strEst);
-				
-					$fEst = StockGetPercentage($strEstPrev, $strEst);
-					if (abs($fEst) > 4.0 && $strCnyPrev)
+					if ($strVal = LofGetStockPosition($strEstPrev, $strEst, $strPrev, $strNetValue, $strCnyPrev, $strCny))
 					{
-						$fVal = (StockGetPercentage($strPrev, $strNetValue) - StockGetPercentage($strCnyPrev, $strCny)) / $fEst;
-						$strVal = strval_round($fVal, 2);
 						$bWritten = true;
 						$csv->Write($strDate, $strNetValue, $strVal);
 						$ar[] = $strVal;

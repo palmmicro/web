@@ -1,5 +1,16 @@
 <?php
 
+function LofGetStockPosition($strEstPrev, $strEst, $strPrev, $strNetValue, $strCnyPrev, $strCny)
+{
+	$fEst = StockGetPercentage($strEstPrev, $strEst);
+	if (abs($fEst) > 4.0 && $strCnyPrev)
+	{
+		$fVal = (StockGetPercentage($strPrev, $strNetValue) - StockGetPercentage($strCnyPrev, $strCny)) / $fEst;
+		return strval_round($fVal, 2);
+	}
+	return false;
+}
+
 // https://markets.ft.com/data/indices/tearsheet/charts?s=SPGOGUP:REU
 function LofGetEstSymbol($strSymbol)
 {

@@ -27,7 +27,7 @@ function TextFromStockReference($ref)
     $str = RefGetDescription($ref).WX_EOL;
     $str .= $ref->GetExternalLink().WX_EOL;
     $str .= STOCK_DISP_PRICE._textPriceVolume($ref);
-    $str .= STOCK_DISP_CHANGE.':'.$ref->GetPercentage($ref->GetPrevPrice()).'%'.WX_EOL;
+    $str .= STOCK_DISP_CHANGE.':'.$ref->GetPercentageText($ref->GetPrevPrice()).WX_EOL;
     if ($ref->strOpen)			$str .= STOCK_DISP_OPEN.':'.rtrim0($ref->strOpen).WX_EOL;
     if ($ref->strHigh)			$str .= STOCK_DISP_HIGH.':'.rtrim0($ref->strHigh).WX_EOL;
     if ($ref->strLow)			$str .= STOCK_DISP_LOW.':'.rtrim0($ref->strLow).WX_EOL;
@@ -63,7 +63,7 @@ function _textPremium($stock_ref, $fEst)
     $str = STOCK_DISP_EST.':'.$stock_ref->GetPriceText($fEst);
     if ($stock_ref->HasData())
     {
-        $str .= ' '.STOCK_DISP_PREMIUM.':'.$stock_ref->GetPercentage(strval($fEst)).'%';
+        $str .= ' '.STOCK_DISP_PREMIUM.':'.$stock_ref->GetPercentageText(strval($fEst));
     }
     return $str;
 }

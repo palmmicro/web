@@ -15,7 +15,6 @@ class TableColumnChange extends TableColumn
 	function TableColumnChange()
 	{
         parent::TableColumn(STOCK_DISP_CHANGE, 70, 'red');
-        $this->AddUnit();
 	}
 }
 
@@ -51,8 +50,7 @@ class TableColumnError extends TableColumn
 {
 	function TableColumnError()
 	{
-        parent::TableColumn('误差', 60);
-        $this->AddUnit();
+        parent::TableColumn('误差', 70);
 	}
 }
 
@@ -119,7 +117,6 @@ class TableColumnPremium extends TableColumn
 	function TableColumnPremium($strPrefix = false)
 	{
         parent::TableColumn(STOCK_DISP_PREMIUM, 70, 'orange', $strPrefix);
-        $this->AddUnit();
 	}
 }
 
