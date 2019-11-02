@@ -5,6 +5,11 @@ function EchoInternalLink($strPath, $strDisplay)
 	echo GetInternalLink($strPath, $strDisplay);
 }
 
+function EchoNameTag($strName, $strDisplay)
+{
+	echo GetNameTag($strName, $strDisplay);
+}
+
 function EchoNameLink($strName, $strDisplay)
 {
 	echo GetNameLink($strName, $strDisplay);

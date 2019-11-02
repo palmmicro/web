@@ -9,12 +9,6 @@ require_once('/php/ui/lofsmaparagraph.php');
 require_once('/php/ui/nvclosehistoryparagraph.php');
 require_once('/php/ui/stockhistoryparagraph.php');
 
-define('AB_DEMO_SYMBOL', 'SZ200488');
-define('ADRH_DEMO_SYMBOL', '00700');
-define('AH_DEMO_SYMBOL', '00386');
-define('FUND_DEMO_SYMBOL', 'SZ162411');
-define('STOCK_DEMO_SYMBOL', 'XOP');
-
 function DemoPrefetchData()
 {
     StockPrefetchData(AB_DEMO_SYMBOL, ADRH_DEMO_SYMBOL, AH_DEMO_SYMBOL, FUND_DEMO_SYMBOL, STOCK_DEMO_SYMBOL);

@@ -7,9 +7,14 @@ define('STOCK_PHP_PATH', '/woody/res/php/');
 
 define('DEFAULT_NAV_DISPLAY', 100);
 
-function GetNameLink($strName, $strDisplay)
+function GetNameTag($strName, $strDisplay)
 {
 	return '<a name="'.$strName.'">'.$strDisplay.'</a>';
+}
+
+function GetNameLink($strName, $strDisplay)
+{
+	return '<a href="#'.$strName.'">'.$strDisplay.'</a>';
 }
 
 function GetOnClickLink($strPath, $strQuestion, $strDisplay)

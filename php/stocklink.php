@@ -4,6 +4,12 @@
 require_once('httplink.php');
 require_once('ui/stocktable.php');
 
+define('AB_DEMO_SYMBOL', 'SZ200488');
+define('ADRH_DEMO_SYMBOL', '00700');
+define('AH_DEMO_SYMBOL', '00386');
+define('FUND_DEMO_SYMBOL', 'SZ162411');
+define('STOCK_DEMO_SYMBOL', 'XOP');
+
 // ****************************** Stock internal link functions *******************************************************
 
 function GetStockTitleLink($strTitle, $strDisplay, $strQuery = false)
@@ -11,10 +17,14 @@ function GetStockTitleLink($strTitle, $strDisplay, $strQuery = false)
 	return GetTitleLink(STOCK_PATH, $strTitle, $strQuery, $strDisplay);
 }
 
-function GetStockSymbolLink($strTitle, $strSymbol, $strDisplay)
+function GetStockSymbolLink($strTitle, $strSymbol, $strDisplay, $strExtraQuery = false)
 {
-	return GetStockTitleLink($strTitle, $strDisplay, 'symbol='.$strSymbol);
-//    return GetPhpLink(STOCK_PATH.$strTitle, 'symbol='.$strSymbol, $strDisplay);
+	$strQuery = 'symbol='.$strSymbol;
+	if ($strExtraQuery)
+	{
+		$strQuery .= '&'.$strExtraQuery;
+	}
+	return GetStockTitleLink($strTitle, $strDisplay, $strQuery);
 }
 
 define('ALL_STOCK_DISPLAY', '全部股票代码');
@@ -47,18 +57,19 @@ function GetStockHistoryLink($strSymbol)
 
 define('FUND_HISTORY_DISPLAY', '基金历史记录');
 define('FUND_HISTORY_PAGE', 'fundhistory');
-function GetFundHistoryLink($strSymbol)
+function GetFundHistoryLink($strSymbol = FUND_DEMO_SYMBOL)
 {
     return GetStockSymbolLink(FUND_HISTORY_PAGE, $strSymbol, FUND_HISTORY_DISPLAY);
 }
 
 define('NETVALUE_HISTORY_DISPLAY', '净值历史记录');
-function GetNetValueHistoryLink($strSymbol)
+function GetNetValueHistoryLink($strSymbol, $strExtraQuery = false, $strExtraDisplay = false)
 {
-    return GetStockSymbolLink(TABLE_NETVALUE_HISTORY, $strSymbol, NETVALUE_HISTORY_DISPLAY);
+	$strDisplay = $strExtraQuery ? $strExtraDisplay : NETVALUE_HISTORY_DISPLAY;
+    return GetStockSymbolLink(TABLE_NETVALUE_HISTORY, $strSymbol, $strDisplay, $strExtraQuery);
 }
 
-function GetFundLinks($strSymbol)
+function GetFundLinks($strSymbol = FUND_DEMO_SYMBOL)
 {
 	return GetFundHistoryLink($strSymbol).' '.GetNetValueHistoryLink($strSymbol).' '.GetStockHistoryLink($strSymbol);
 }
@@ -83,14 +94,14 @@ function GetThanousLawLink($strSymbol)
 
 define('FUND_ACCOUNT_DISPLAY', '基金申购账户统计');
 define('FUND_ACCOUNT_PAGE', 'fundaccount');
-function GetFundAccountLink($strSymbol)
+function GetFundAccountLink($strSymbol = FUND_DEMO_SYMBOL)
 {
     return GetStockSymbolLink(FUND_ACCOUNT_PAGE, $strSymbol, FUND_ACCOUNT_DISPLAY);
 }
 
 define('FUND_POSITION_DISPLAY', '基金仓位估算');
 define('FUND_POSITION_PAGE', 'fundposition');
-function GetFundPositionLink($strSymbol)
+function GetFundPositionLink($strSymbol = FUND_DEMO_SYMBOL)
 {
     return GetStockSymbolLink(FUND_POSITION_PAGE, $strSymbol, FUND_POSITION_DISPLAY);
 }
