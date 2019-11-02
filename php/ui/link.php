@@ -43,4 +43,24 @@ function EchoXueqieId($strId, $strDisplay)
     echo $str;
 }
 
+function EchoLinearRegressionLink($bChinese = true)
+{
+	echo GetLinearRegressionLink($bChinese);
+}
+
+function EchoCramersRuleLink($bChinese = true)
+{
+	echo GetCramersRuleLink($bChinese);
+}
+
+function EchoPrimeNumberLink($bChinese = true)
+{
+	echo GetPrimeNumberLink($bChinese);
+}
+
+function EchoCommonPhraseLink($bChinese = true)
+{
+	echo GetCommonPhraseLink($bChinese);
+}
+
 ?>

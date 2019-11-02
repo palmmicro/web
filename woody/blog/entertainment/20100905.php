@@ -37,14 +37,14 @@ As PA6488 based camera is not available in market yet. Users can test the user m
 <br /><a href="../../../account/editinput.php">urldecode</a>.
 </p>
 
-<h3>Common <a name="commonphrase">Phrase</a></h3>
+<h3><?php EchoNameTag(TABLE_COMMON_PHRASE, ACCOUNT_TOOL_PHRASE); ?></h3>
 <p>Dec 26, 2017
-<br /><a href="../../../account/commonphrase.php">Common Phrase</a>.
+<br /><?php EchoCommonPhraseLink(false); ?>
 </p>
 
-<h3><a name="primenumber">Prime</a> Number Tool</h3>
+<h3><?php EchoNameTag('primenumber', ACCOUNT_TOOL_PRIME); ?> Tool</h3>
 <p>Apr 12, 2019
-<br /><a href="../../../account/primenumber.php">Prime Number</a> tool.
+<br /><?php EchoPrimeNumberLink(false); ?> tool.
 <br /><img src=../photo/primenumber.jpg alt="The picture that encouraged me to write this prime nnumber tool." />
 </p>
 
@@ -56,15 +56,15 @@ As PA6488 based camera is not available in market yet. Users can test the user m
 <br /><font color=grey>Life is like a snowball. The important thing is finding wet snow and a really long hill. — Warren Buffett</font>
 </p>
 
-<h3>Using <a name="cramersrule">Cramer's Rule</a> to Solve a Linear System of 2x2 Equations</h3>
+<h3>Using <?php EchoNameTag('cramersrule', ACCOUNT_TOOL_CRAMER); ?> to Solve a Linear System of 2x2 Equations</h3>
 <p>Sep 5, 2019
-<br />Tool to use <a href="../../../account/cramersrule.php">Cramer's rule</a> to solve a linear system of 2x2 equations.
+<br />Tool to use <?php EchoCramersRuleLink(false); ?> to solve a linear system of 2x2 equations.
 <br /><img src=../photo/20190815.jpg alt="Cramer's rule calculation steps" />
 </p>
 
-<h3>Simple <a name="linearregression">Linear Regression</a> Tool</h3>
+<h3>Simple <?php EchoNameTag('linearregression', ACCOUNT_TOOL_LINEAR); ?> Tool</h3>
 <p>Sep 20, 2019
-<br />Simple <a href="../../../account/linearregression.php">Linear Regression</a> tool.
+<br />Simple <?php EchoLinearRegressionLink(false); ?> tool.
 <br /><img src=../photo/20190824.jpg alt="Linear regression calculation steps" />
 </p>
 

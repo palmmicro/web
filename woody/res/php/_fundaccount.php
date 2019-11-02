@@ -81,7 +81,7 @@ function _getFundAccountTableColumnArray()
 
 function _echoFundAccountParagraph($csv, $ref, $strSymbol, $strStockId, $nv_sql, $bAdmin)
 {
- 	$str = GetFundLinks($strSymbol);
+ 	$str = GetFundLinks($strSymbol).' '.GetLinearRegressionLink();
 	if ($bAdmin)
 	{
 		$str .= ' '.GetStockOptionLink(STOCK_OPTION_SHARES_DIFF, $strSymbol);

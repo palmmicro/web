@@ -49,11 +49,11 @@
 <br />另外一个我一直想解码显示的是从1970年1月1日开始所有秒数Unix的时间戳, 也顺手加了is_numeric区分后显示出来.
 </p>
 
-<h3>个人常用<a name="commonphrase">短语</a></h3>
+<h3><?php EchoNameTag(TABLE_COMMON_PHRASE, ACCOUNT_TOOL_PHRASE_CN); ?></h3>
 <p>2017年12月26日
 <br />记得2000年刚到硅谷工作, 去电影院的时候总会在正片播放前看到一段让我自我感觉膨胀的广告. 大意是如果你知道一个等号和两个等号的区别, 就可以在我们这里找份工作了!
 写PHP还需要知道三个等号跟前两个的区别. 事实上对习惯了C语言的人来说是个坑, 我今天就不幸踩了一个.
-<br />在修改用来方便<a href="20141016cn.php">股票</a>交易记录的<a href="../../../account/commonphrasecn.php">输入</a>代码的时候, 我无意中在<?php EchoLink('https://www.php.net/'); ?>上看到有关<i>strstr</i>的一个信息:
+<br />在修改用来方便<a href="20141016cn.php">股票</a>交易记录的<?php EchoCommonPhraseLink(); ?>代码的时候, 我无意中在<?php EchoLink('https://www.php.net/'); ?>上看到有关<i>strstr</i>的一个信息:
 <br /><font color=gray>如果你仅仅想确定needle是否存在于haystack中, 请使用速度更快, 耗费内存更少的<i>strpos</i>函数.</font>
 <br />我马上如获至宝当即改用了几十个<i>strpos</i>, 却发现有些像<font color=gray><code>if (strpos($str, 'www.'))</code></font>的代码变得不工作了. 
 原因是<i>strpos</i>会返回位置0, 这时候要写成<font color=gray><code>if (strpos($str, 'www.') !== false)</code></font>, 才跟原来<font color=gray><code>if (strstr($str, 'www.'))</code></font>的代码效果一致.
@@ -61,10 +61,10 @@
 这时候要把<font color=gray><code>$ar = array_merge($arA, $arH, $arUS);</code></font>简单的写成<font color=gray><code>$ar = $arA + $arH + $arUS;</code></font>
 </p>
 
-<h3>分解<a name="primenumber">质因数</a></h3>
+<h3><?php EchoNameTag('primenumber', ACCOUNT_TOOL_PRIME_CN); ?></h3>
 <p>2019年4月12日
 <br />昨天是王小波忌日, 让我对自己的胸闷和牙疼症状充满了警惕. 最近整理<a href="20150818cn.php">华宝油气净值</a>的软件代码真有种死去活来的感觉, 经常让我怀疑自己到底在干什么.
-今天看到这个图片, 我觉得自己该做点简单的东西恢复一下信心, 就削尖铅笔写了这个<a href="../../../account/primenumbercn.php">分解质因数</a>的工具.
+今天看到这个图片, 我觉得自己该做点简单的东西恢复一下信心, 就削尖铅笔写了这个<?php EchoPrimeNumberLink(); ?>的工具.
 <br /><img src=../photo/primenumber.jpg alt="The picture that encouraged me to write this prime nnumber tool." />
 <br />分解质因数可以用最直接的方式实现, 对指定的数字n, 从2开始一个个反复除到n的平方根为止就行了. 下面用数字68举个具体的例子.
 </p>
@@ -86,7 +86,7 @@
 
 <h3>查询<a name="xueqiufriend">雪球关注</a>的人</h3>
 <p>2019年4月24日
-<br />做完<a href="#primenumber">分解质因数</a>后自我感觉很好, 所以我很快又给自己找了个新的小目标, 挽起袖子写了个雪球关注工具.
+<br />做完<?php EchoNameLink('primenumber', ACCOUNT_TOOL_PRIME_CN); ?>后自我感觉很好, 所以我很快又给自己找了个新的小目标, 挽起袖子写了个雪球关注工具.
 <br />雪球有关注人数2000的上限, 对于一个像我这样乐于相互关注的人来说, 经常会碰到想新关注一个人的时候不知道该取消关注谁的问题. 雪球上可以查看关注的人, 每页显示20个, 查看所有2000个关注需要翻页100次.
 我因此写了这个软件来自动做这100次翻页, 从中挑出从来不发言的人, 除我关注外没有其它粉丝的人, 以及跟我一样有接近2000关注的人. 本来我还挑出了没有自选股的人, 不过这个数据不准, 经常点进去用户雪球页面后发现有一堆自选股, 我就放弃了.
 从我的Yahoo服务器跨越太平洋访问雪球, 每次要接近2秒时间, 连续100次就会慢的让人不可忍受. 
@@ -100,7 +100,7 @@
 <br /><font color=grey>Life is like a snowball. The important thing is finding wet snow and a really long hill. — Warren Buffett</font>
 </p>
 
-<h3>用<a name="cramersrule">Cramer法则</a>解二元一次方程组</h3>
+<h3>用Cramer法则<?php EchoNameTag('cramersrule', ACCOUNT_TOOL_CRAMER_CN); ?></h3>
 <p>2019年9月5日
 <br />过去2个月XOP持续暴跌吸引了大量抄底华宝油气的, 在很短时间内耗光了华宝基金公司的外汇额度. 华宝油气从7月31日起单日单个基金账户累计申购金额上限设置为10万, 8月2日周五限额变成了1万, 8月9日限额变成1000元人民币.
 就像超新星爆发给天文学家提供了难得的测距参考一样, 限购给我提供了少有的观察套利者的机会, 所以我每天都在乐此不疲的追踪相关数据.
@@ -120,15 +120,15 @@
 <br />(985/0.393/10000) * x + (9998.5/0.402/10000) * y = 1099
 <br />保留4位有效数字合并常数后得到第二个方程:
 <br />0.2506 * x + 2.487 * y = 1099
-<br />使用<a href="../../../account/cramersrulecn.php">Cramer法则</a>解二元一次方程组的通用工具, 得到场内申购户数 x = 2864, 场外申购户数 y = 153.
+<br />使用Cramer法则<?php EchoCramersRuleLink(); ?>的通用工具, 得到场内申购户数 x = 2864, 场外申购户数 y = 153.
 <br />原则上来说按我的假设, 任何2天的数据都可以用来联立一个2元一次方程组, 解出场内申购和场外申购的账户数. 
 我一定要选择从限购1万到限购1000的变化时2天的数据来估算是出于计算精度的考虑, 为了避免2个大数字相减后得到一个跟误差范围同一数量级的小数字, 让整个结论失去意义.
 <br /><img src=../photo/20190815.jpg alt="Cramer's rule calculation steps" />
 </p>
 
-<h3>一元<a name="linearregression">线性回归</a>工具</h3>
+<h3>一元<?php EchoNameTag('linearregression', ACCOUNT_TOOL_LINEAR_CN); ?>工具</h3>
 <p>2019年9月20日
-<br />用<a href="../../../account/linearregressioncn.php">线性回归</a>统计完华宝油气限额申购下溢价套利的<a href="20150818cn.php#fundaccount">账户</a>数后, 顺便把它做成了一个通用工具.
+<br />用<?php EchoLinearRegressionLink(); ?>统计完华宝油气限额申购下溢价套利的<a href="20150818cn.php#fundaccount">账户</a>数后, 顺便把它做成了一个通用工具.
 <br /><img src=../photo/20190824.jpg alt="Linear regression calculation steps" />
 </p>
 

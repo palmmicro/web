@@ -110,7 +110,7 @@ function EchoAll($bChinese = true)
     {
     	switch ($strTitle)
     	{
-    	case 'commonphrase':
+    	case TABLE_COMMON_PHRASE:
     		$str = '';
     		break;
     		
@@ -139,7 +139,7 @@ function EchoAll($bChinese = true)
     	$str = is_numeric($strInput) ? DebugGetDateTime($strInput) : urldecode($strInput);
     	break;
     		
-    case 'commonphrase':
+    case TABLE_COMMON_PHRASE:
     	$str = _getCommonPhraseString($strInput, $strMemberId, $bChinese);
     	break;
     		
@@ -184,7 +184,7 @@ function EchoMetaDescription($bChinese = true)
     						: 'page, testing source code in /account/_editinput.php first. Functions will be moved to permanent pages after test.';
   		break;
   		
-  	case 'commonphrase':
+  	case TABLE_COMMON_PHRASE:
   		$str .= $bChinese ? '页面. 输入, 显示, 修改和删除个人常用短语. 用在股票交易记录等处, 方便快速输入和修改个人评论. 限制每条短语最长32个字, 每个用户最多20条短语.'
     						: 'page, input, display, edit and delete personal common phrases, used in places like stock transaction records.';
   		break;
@@ -221,6 +221,6 @@ function EchoTitle($bChinese = true)
   	echo $str;
 }
 
-	$acct = new TitleAcctStart(false, array('commonphrase', 'ip'));
+	$acct = new TitleAcctStart(false, array(TABLE_COMMON_PHRASE, 'ip'));
 
 ?>

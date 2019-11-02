@@ -62,7 +62,7 @@ function GetAccountToolArray($bChinese)
 	if ($bChinese)
 	{
 		$ar = array('editinput' => ACCOUNT_TOOL_EDIT_CN,
-                      'commonphrase' => ACCOUNT_TOOL_PHRASE_CN,
+                      TABLE_COMMON_PHRASE => ACCOUNT_TOOL_PHRASE_CN,
                       'cramersrule' => ACCOUNT_TOOL_CRAMER_CN,
                       'ip' => ACCOUNT_TOOL_IP_CN,
                       'linearregression' => ACCOUNT_TOOL_LINEAR_CN,
@@ -72,7 +72,7 @@ function GetAccountToolArray($bChinese)
     else
 	{
 		$ar = array('editinput' => ACCOUNT_TOOL_EDIT,
-                      'commonphrase' => ACCOUNT_TOOL_PHRASE,
+                      TABLE_COMMON_PHRASE => ACCOUNT_TOOL_PHRASE,
                       'cramersrule' => ACCOUNT_TOOL_CRAMER,
 					  'ip' => ACCOUNT_TOOL_IP,
                       'linearregression' => ACCOUNT_TOOL_LINEAR,
@@ -95,7 +95,22 @@ function _getAccountToolLink($strTitle, $bChinese)
 
 function GetCommonPhraseLink($bChinese = true)
 {
-    return _getAccountToolLink('commonphrase', $bChinese);
+    return _getAccountToolLink(TABLE_COMMON_PHRASE, $bChinese);
+}
+
+function GetLinearRegressionLink($bChinese = true)
+{
+    return _getAccountToolLink('linearregression', $bChinese);
+}
+
+function GetCramersRuleLink($bChinese = true)
+{
+    return _getAccountToolLink('cramersrule', $bChinese);
+}
+
+function GetPrimeNumberLink($bChinese = true)
+{
+    return _getAccountToolLink('primenumber', $bChinese);
 }
 
 function _getIpLink($strTitle, $strIp, $bChinese)

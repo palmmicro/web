@@ -6,7 +6,7 @@ class CommonPhraseSql extends KeyValSql
 {
     function CommonPhraseSql($strMemberId = false) 
     {
-        parent::KeyValSql($strMemberId, 'member', 'commonphrase');
+        parent::KeyValSql($strMemberId, 'member', TABLE_COMMON_PHRASE);
     }
 }
 
