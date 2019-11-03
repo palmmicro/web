@@ -42,10 +42,10 @@
 <br />而今天在处理完网络爬虫的问题后, 我突然意识到查询公网IP已经成了现成的副产品, 激动之余写了这个<a href="../../../account/ipcn.php">IP地址数据</a>的工具.
 </p>
 
-<h3>临时<a name="editinput">测试</a>用户界面</h3>
+<h3><?php EchoNameTag('editinput', ACCOUNT_TOOL_EDIT_CN); ?>用户界面</h3>
 <p>2017年4月10日
 <br />做完<a href="#ip">IP地址</a>这个最简单的单行输入然后把输入显示出来的用户界面后, 发现自己无意中实现了一个副产品.
-一直有人用各种参数试探攻击我的网页, 所以我早就想解码这些%3A%2F%2F然后显示出来看看到底是些什么参数, 没想到这个界面调用urldecode后就直接实现了这个<a href="../../../account/editinputcn.php">功能</a>.
+一直有人用各种参数试探攻击我的网页, 所以我早就想解码这些%3A%2F%2F然后显示出来看看到底是些什么参数, 没想到这个界面调用urldecode后就直接实现了这个<?php EchoEditInputLink(); ?>功能.
 <br />另外一个我一直想解码显示的是从1970年1月1日开始所有秒数Unix的时间戳, 也顺手加了is_numeric区分后显示出来.
 </p>
 
@@ -61,7 +61,7 @@
 这时候要把<font color=gray><code>$ar = array_merge($arA, $arH, $arUS);</code></font>简单的写成<font color=gray><code>$ar = $arA + $arH + $arUS;</code></font>
 </p>
 
-<h3><?php EchoNameTag('primenumber', ACCOUNT_TOOL_PRIME_CN); ?></h3>
+<h3><?php EchoNameTag(TABLE_PRIME_NUMBER, ACCOUNT_TOOL_PRIME_CN); ?></h3>
 <p>2019年4月12日
 <br />昨天是王小波忌日, 让我对自己的胸闷和牙疼症状充满了警惕. 最近整理<a href="20150818cn.php">华宝油气净值</a>的软件代码真有种死去活来的感觉, 经常让我怀疑自己到底在干什么.
 今天看到这个图片, 我觉得自己该做点简单的东西恢复一下信心, 就削尖铅笔写了这个<?php EchoPrimeNumberLink(); ?>的工具.
@@ -86,7 +86,7 @@
 
 <h3>查询<a name="xueqiufriend">雪球关注</a>的人</h3>
 <p>2019年4月24日
-<br />做完<?php EchoNameLink('primenumber', ACCOUNT_TOOL_PRIME_CN); ?>后自我感觉很好, 所以我很快又给自己找了个新的小目标, 挽起袖子写了个雪球关注工具.
+<br />做完<?php EchoNameLink(TABLE_PRIME_NUMBER, ACCOUNT_TOOL_PRIME_CN); ?>后自我感觉很好, 所以我很快又给自己找了个新的小目标, 挽起袖子写了个雪球关注工具.
 <br />雪球有关注人数2000的上限, 对于一个像我这样乐于相互关注的人来说, 经常会碰到想新关注一个人的时候不知道该取消关注谁的问题. 雪球上可以查看关注的人, 每页显示20个, 查看所有2000个关注需要翻页100次.
 我因此写了这个软件来自动做这100次翻页, 从中挑出从来不发言的人, 除我关注外没有其它粉丝的人, 以及跟我一样有接近2000关注的人. 本来我还挑出了没有自选股的人, 不过这个数据不准, 经常点进去用户雪球页面后发现有一堆自选股, 我就放弃了.
 从我的Yahoo服务器跨越太平洋访问雪球, 每次要接近2秒时间, 连续100次就会慢的让人不可忍受. 
@@ -124,11 +124,15 @@
 <br />原则上来说按我的假设, 任何2天的数据都可以用来联立一个2元一次方程组, 解出场内申购和场外申购的账户数. 
 我一定要选择从限购1万到限购1000的变化时2天的数据来估算是出于计算精度的考虑, 为了避免2个大数字相减后得到一个跟误差范围同一数量级的小数字, 让整个结论失去意义.
 <br /><img src=../photo/20190815.jpg alt="Cramer's rule calculation steps" />
+<br /><font color=grey>And what in heaven's name brought you to Casablanca?
+<br />My health. I came to Casablanca for the waters.
+<br />The waters? What waters? We're in the desert.
+<br />I was misinformed. - Hm.</font>
 </p>
 
 <h3>一元<?php EchoNameTag('linearregression', ACCOUNT_TOOL_LINEAR_CN); ?>工具</h3>
 <p>2019年9月20日
-<br />用<?php EchoLinearRegressionLink(); ?>统计完华宝油气限额申购下溢价套利的<a href="20150818cn.php#fundaccount">账户</a>数后, 顺便把它做成了一个通用工具.
+<br />用<?php EchoLinearRegressionLink(); ?>计算完华宝油气限额申购下溢价套利的<?php EchoNameLink(FUND_ACCOUNT_PAGE, FUND_ACCOUNT_DISPLAY, '20150818cn.php'); ?>后, 顺便把它做成了一个通用工具.
 <br /><img src=../photo/20190824.jpg alt="Linear regression calculation steps" />
 </p>
 

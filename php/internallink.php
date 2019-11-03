@@ -66,7 +66,7 @@ function GetAccountToolArray($bChinese)
                       'cramersrule' => ACCOUNT_TOOL_CRAMER_CN,
                       'ip' => ACCOUNT_TOOL_IP_CN,
                       'linearregression' => ACCOUNT_TOOL_LINEAR_CN,
-                      'primenumber' => ACCOUNT_TOOL_PRIME_CN,
+                      TABLE_PRIME_NUMBER => ACCOUNT_TOOL_PRIME_CN,
                  );
     }
     else
@@ -76,7 +76,7 @@ function GetAccountToolArray($bChinese)
                       'cramersrule' => ACCOUNT_TOOL_CRAMER,
 					  'ip' => ACCOUNT_TOOL_IP,
                       'linearregression' => ACCOUNT_TOOL_LINEAR,
-                      'primenumber' => ACCOUNT_TOOL_PRIME,
+                      TABLE_PRIME_NUMBER => ACCOUNT_TOOL_PRIME,
                  );
     }
 	return $ar;
@@ -108,9 +108,14 @@ function GetCramersRuleLink($bChinese = true)
     return _getAccountToolLink('cramersrule', $bChinese);
 }
 
+function GetEditInputLink($bChinese = true)
+{
+    return _getAccountToolLink('editinput', $bChinese);
+}
+
 function GetPrimeNumberLink($bChinese = true)
 {
-    return _getAccountToolLink('primenumber', $bChinese);
+    return _getAccountToolLink(TABLE_PRIME_NUMBER, $bChinese);
 }
 
 function _getIpLink($strTitle, $strIp, $bChinese)

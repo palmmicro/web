@@ -385,7 +385,7 @@ CL通常会在美股收盘后继续多交易一个小时, 此时实时估值也�
 
 <h3>用线性回归的方法在华宝油气溢价套利时进行<?php EchoNameTag(FUND_ACCOUNT_PAGE, FUND_ACCOUNT_DISPLAY); ?></h3>
 <p>2019年9月20日
-<br />在使用<a href="20100905cn.php#cramersrule">Cramer</a>法则<?php EchoCramersRuleLink(); ?>得到华宝油气场内和场外申购账户数后, 其实真正有帮助的结论只是场外申购账户比场内申购账户少一个数量级. 
+<br />在使用Cramer法则<?php EchoNameLink('cramersrule', ACCOUNT_TOOL_CRAMER_CN, '20100905cn.php'); ?>得到华宝油气场内和场外申购账户数后, 其实真正有帮助的结论只是场外申购账户比场内申购账户少一个数量级. 
 因为其中我只区分了折价和溢价2种情况进行数据分析, 但是实际上不同溢价时申购账户的区别其实是很大的.
 <br />因为场外账户远少于场内账户, 我可以放心的忽略2者在申购不同日期下不同净值等细节, 把所有申购都假设成为场内申购计算. 把限购1000人民币以来所有溢价申购日期数据统一做线性回归, 可以得到下面的结果:
 <br /><?php echo GetFundAccountLink(); ?>

@@ -155,7 +155,7 @@ function EchoAll($bChinese = true)
     	$str = _getLinearRegressionString($strInput, $bChinese);
     	break;
     	
-    case 'primenumber':
+    case TABLE_PRIME_NUMBER:
     	$str = GetPrimeNumberString($strInput);
     	break;
     }
@@ -204,7 +204,7 @@ function EchoMetaDescription($bChinese = true)
     						: 'calculation, display the Y = A + B * X result and correlation coefficient R, together with algorithm steps image.';
   		break;
   		
-  	case 'primenumber':
+  	case TABLE_PRIME_NUMBER:
   		$str .= $bChinese ? '页面. 质数又称素数, 该数除了1和它本身以外不再有其他的因数, 否则称为合数. 每个合数都可以写成几个质数相乘的形式. 其中每个质数都是这个合数的因数, 叫做这个合数的分解质因数.'
     						: ' page. A prime number (or a prime) is a natural number greater than 1 that has no positive divisors other than 1 and itself.';	//  A natural number greater than 1 that is not a prime number is called a composite number
     	break;

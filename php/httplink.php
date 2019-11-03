@@ -12,9 +12,9 @@ function GetNameTag($strName, $strDisplay)
 	return '<a name="'.$strName.'">'.$strDisplay.'</a>';
 }
 
-function GetNameLink($strName, $strDisplay)
+function GetNameLink($strName, $strDisplay, $strPage = '')
 {
-	return '<a href="#'.$strName.'">'.$strDisplay.'</a>';
+	return '<a href="'.$strPage.'#'.$strName.'">'.$strDisplay.'</a>';
 }
 
 function GetOnClickLink($strPath, $strQuestion, $strDisplay)

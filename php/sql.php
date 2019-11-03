@@ -9,6 +9,7 @@ define('TABLE_FUND_PURCHASE', 'fundpurchase');
 define('TABLE_IP_ADDRESS', 'ipaddress');
 define('TABLE_MEMBER', 'member');
 define('TABLE_NETVALUE_HISTORY', 'netvaluehistory');
+define('TABLE_PRIME_NUMBER', 'primenumber');
 define('TABLE_PROFILE', 'profile');
 define('TABLE_SPIDER_PARAMTER', 'spiderparameter');
 define('TABLE_STOCK_CALIBRATION', 'stockcalibration');

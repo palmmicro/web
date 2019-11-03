@@ -10,9 +10,9 @@ function EchoNameTag($strName, $strDisplay)
 	echo GetNameTag($strName, $strDisplay);
 }
 
-function EchoNameLink($strName, $strDisplay)
+function EchoNameLink($strName, $strDisplay, $strPage = '')
 {
-	echo GetNameLink($strName, $strDisplay);
+	echo GetNameLink($strName, $strDisplay, $strPage);
 }
 
 function EchoLink($strHttp)
@@ -51,6 +51,11 @@ function EchoLinearRegressionLink($bChinese = true)
 function EchoCramersRuleLink($bChinese = true)
 {
 	echo GetCramersRuleLink($bChinese);
+}
+
+function EchoEditInputLink($bChinese = true)
+{
+	echo GetEditInputLink($bChinese);
 }
 
 function EchoPrimeNumberLink($bChinese = true)
