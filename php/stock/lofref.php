@@ -102,20 +102,27 @@ class _LofReference extends FundReference
         parent::FundReference($strSymbol);
         $this->SetForex($strForex);
     }
+    
+    function _getEstVal()
+    {
+       	$est_ref = $this->GetEstRef();
+		if ($str = SqlGetNetValueByDate($est_ref->GetStockId(), $est_ref->GetDate()))
+        {
+        	return $str;
+        }
+        return $est_ref->GetPrice();
+    }
 
     function EstNetValue()
     {
 		$this->AdjustFactor();
         
-        if ($this->est_ref == false)    return;
-        $strDate = $this->est_ref->strDate;
+       	$est_ref = $this->GetEstRef();
+        if ($est_ref == false)    return;
+        $strDate = $est_ref->GetDate();
         if ($this->strCNY = $this->forex_sql->GetClose($strDate))
         {
-            if (($strEstNetValue = SqlGetNetValueByDate($this->est_ref->GetStockId(), $strDate)) == false)
-            {
-            	$strEstNetValue = $this->est_ref->GetPrice();
-            }
-            $this->fOfficialNetValue = $this->GetLofValue($strEstNetValue, $this->strCNY);
+            $this->fOfficialNetValue = $this->GetLofValue($this->_getEstVal(), $this->strCNY);
             $this->strOfficialDate = $strDate;
             $this->UpdateEstNetValue();
         }
@@ -138,21 +145,24 @@ class _LofReference extends FundReference
             $this->strCNY = $strCNY;
         }
         
-        if ($this->est_ref == false)    return;
-        $this->fFairNetValue = $this->GetLofValue($this->est_ref->GetPrice(), $strCNY);
+       	$est_ref = $this->GetEstRef();
+        if ($est_ref == false)    return;
+        
+        $strEst = $this->_getEstVal();
+        $this->fFairNetValue = $this->GetLofValue($strEst, $strCNY);
         
 		if ($this->future_ref)
         {
             if ($this->future_etf_ref == false)
             {
-                $this->future_etf_ref = $this->est_ref;
+                $this->future_etf_ref = $est_ref;
             }
             $this->future_ref->LoadEtfFactor($this->future_etf_ref);
             
             $strFutureEtfPrice = $this->future_etf_ref->GetPrice();
             if (empty($strFutureEtfPrice) == false)
             {
-            	$fRealtime = floatval($this->est_ref->GetPrice());
+            	$fRealtime = floatval($strEst);
             	$fRealtime *= floatval($this->future_ref->GetPrice()) / $this->future_ref->EstByEtf(floatval($strFutureEtfPrice));
             	$this->fRealtimeNetValue = $this->GetLofValue(strval($fRealtime), $strCNY);
             }
@@ -166,15 +176,14 @@ class _LofReference extends FundReference
             $strDate = $this->strDate;
             if ($strCNY = $this->forex_sql->GetClose($strDate))
             {
-                $est_ref = $this->est_ref;
+            	$est_ref = $this->GetEstRef();
                 if (RefHasData($est_ref) == false)    return false;
                 
-                if ($strEst = SqlGetNetValueByDate($this->est_ref->GetStockId(), $strDate))
+                if ($strEst = SqlGetNetValueByDate($est_ref->GetStockId(), $strDate))
                 {
                 }
                 else
                 {
-                	// DebugString($strDate.' '.$this->est_ref->GetStockSymbol().' ETF net value not found, use close price.');
                 	$ymd = new StringYMD($strDate);
                 	$est_ymd = new StringYMD($est_ref->strDate);
                 	if ($strDate == $est_ref->strDate)	                   				$strEst = $est_ref->GetPrice();

@@ -134,7 +134,7 @@ function _echoFundPositionData($csv, $ref, $cny_ref, $est_ref)
 
 function _echoFundPositionParagraph($ref, $cny_ref, $strSymbol)
 {
-	$est_ref = $ref->est_ref;
+	$est_ref = $ref->GetEstRef();
 	
  	$str = GetFundLinks($strSymbol);
 	$change_col = new TableColumnChange();

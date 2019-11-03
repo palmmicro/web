@@ -81,7 +81,7 @@ function _echoNetValueHistory($ref, $iStart, $iNum)
     	
         $cny_ref = new CnyReference('USCNY');	// Always create CNY Forex class instance first!
     	$ref = new LofReference($strSymbol);
-    	$est_ref = $ref->est_ref;
+    	$est_ref = $ref->GetEstRef();
     }
     else
     {

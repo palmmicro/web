@@ -62,7 +62,7 @@ function _echoThanousLawData($sql, $ref, $est_ref, $iStart, $iNum)
 function _echoThanousLawParagraph($strSymbol, $iStart, $iNum)
 {
 	$ref = new LofReference($strSymbol);
-	$est_ref = $ref->est_ref;
+	$est_ref = $ref->GetEstRef();
 	$strEstSymbol = $est_ref->GetStockSymbol();
 
  	$str = GetFundLinks($strSymbol);

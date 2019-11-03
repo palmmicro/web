@@ -18,7 +18,7 @@ class _GoldEtfGroup extends _StockGroup
 
 function _echoTestParagraph($group)
 {
-    $str = _GetEtfAdjustString($group->ref->stock_ref, $group->ref->est_ref);
+    $str = _GetEtfAdjustString($group->ref->stock_ref, $group->ref->GetEstRef());
     EchoParagraph($str);
 }
 
@@ -27,7 +27,7 @@ function EchoAll()
     global $group;
     $fund = $group->ref;
     EchoFundEstParagraph($fund);
-    EchoReferenceParagraph(array($fund->est_ref, $fund->future_ref, $group->cny_ref, $fund->stock_ref));
+    EchoReferenceParagraph(array($fund->GetEstRef(), $fund->future_ref, $group->cny_ref, $fund->stock_ref));
     EchoFundTradingParagraph($fund);    
     EchoFundHistoryParagraph($fund);
 
@@ -59,7 +59,7 @@ function EchoMetaDescription()
 
     $fund = $group->ref;
     $strDescription = RefGetStockDisplay($fund->stock_ref);
-    $strEst = RefGetStockDisplay($fund->est_ref);
+    $strEst = RefGetStockDisplay($fund->GetEstRef());
     $strFuture = RefGetStockDisplay($fund->future_ref);
     $strCNY = RefGetStockDisplay($group->cny_ref);
     $str = '根据'.$strEst.', '.$strFuture.'和'.$strCNY.'等因素计算'.$strDescription.'净值的网页工具.';

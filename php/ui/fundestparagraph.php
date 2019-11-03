@@ -47,7 +47,7 @@ function _getFundRealtimeStr($ref, $strRealtimeEst)
 {
     $future_ref = $ref->future_ref;
     $future_etf_ref = $ref->future_etf_ref;
-    $est_ref = $ref->est_ref;
+   	$est_ref = $ref->GetEstRef();
     
     $strFutureSymbol = $future_ref->GetStockSymbol();
     $str = "期货{$strRealtimeEst}{$strFutureSymbol}关联程度按照100%估算";

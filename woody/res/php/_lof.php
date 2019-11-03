@@ -52,7 +52,7 @@ function _onSmaUserDefinedVal($strVal)
     $strQuantity = strval($iQuantity);
     if ($strGroupId = $group->GetGroupId()) 
     {
-        $est_ref = $fund->est_ref;
+        $est_ref = $fund->GetEstRef();
         $strQuery = sprintf('groupid=%s&fundid=%s&amount=%.2f&netvalue=%.3f&arbitrageid=%s&quantity=%s&price=%s', $strGroupId, $fund->GetStockId(), $fAmount, $fund->fOfficialNetValue, $est_ref->GetStockId(), $strQuantity, $est_ref->GetPrice());
         return GetOnClickLink(STOCK_PHP_PATH.'_submittransaction.php?'.$strQuery, '确认添加对冲申购记录?', $strQuantity);
     }
@@ -93,7 +93,8 @@ function _onTradingUserDefined($strVal = false)
     
     	$fund = $group->ref;
     	$strEst = $fund->GetEstValue($strVal);
-    	return _onSmaUserDefinedVal($strEst).'@'.$fund->est_ref->GetPriceDisplay($strEst);
+    	$est_ref = $fund->GetEstRef();
+    	return _onSmaUserDefinedVal($strEst).'@'.$est_ref->GetPriceDisplay($strEst);
     }
    	return _getArbitrageQuantityName(true);
 }
@@ -104,11 +105,11 @@ function EchoAll()
     $fund = $group->ref;
     
     EchoFundEstParagraph($fund);
-    EchoReferenceParagraph(array_merge(array($fund->stock_ref, $fund->est_ref, $fund->future_ref, $group->oil_ref, $group->es_ref, $group->usd_ref, $group->cnh_ref, $group->cny_ref), $group->ar_leverage_ref));
+    EchoReferenceParagraph(array_merge(array($fund->stock_ref, $fund->GetEstRef(), $fund->future_ref, $group->oil_ref, $group->es_ref, $group->usd_ref, $group->cnh_ref, $group->cny_ref), $group->ar_leverage_ref));
     $group->EchoLeverageParagraph();
     EchoFundTradingParagraph($fund, '_onTradingUserDefined');    
 	EchoLofSmaParagraph($fund, '_onSmaUserDefined');
-    EchoEtfArraySmaParagraph($fund->est_ref, $group->GetLeverageRef());
+    EchoEtfArraySmaParagraph($fund->GetEstRef(), $group->GetLeverageRef());
     EchoFundHistoryParagraph($fund);
     
     if ($group->GetGroupId()) 

@@ -123,7 +123,7 @@ function _echoFundHistoryParagraph($ref, $est_ref, $csv = false, $iStart = 0, $i
 
 function EchoFundHistoryParagraph($fund, $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
 {
-    _echoFundHistoryParagraph($fund->stock_ref, $fund->est_ref, $csv, $iStart, $iNum);
+    _echoFundHistoryParagraph($fund->stock_ref, $fund->GetEstRef(), $csv, $iStart, $iNum);
 }
 
 function EchoEtfHistoryParagraph($ref, $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)

@@ -68,4 +68,9 @@ function EchoCommonPhraseLink($bChinese = true)
 	echo GetCommonPhraseLink($bChinese);
 }
 
+function EchoIpAddressLink($bChinese = true)
+{
+	echo GetIpAddressLink($bChinese);
+}
+
 ?>

@@ -118,6 +118,11 @@ function GetPrimeNumberLink($bChinese = true)
     return _getAccountToolLink(TABLE_PRIME_NUMBER, $bChinese);
 }
 
+function GetIpAddressLink($bChinese = true)
+{
+    return _getAccountToolLink('ip', $bChinese);
+}
+
 function _getIpLink($strTitle, $strIp, $bChinese)
 {
     return GetPhpLink(ACCT_PATH.$strTitle, 'ip='.$strIp, $strIp, false, $bChinese);

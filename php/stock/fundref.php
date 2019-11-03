@@ -128,9 +128,22 @@ class FundReference extends MysqlReference
    		return parent::GetPercentageDisplay($strDivisor, $strDividend);
     }
     
+    function GetEstRef()
+    {
+    	return $this->est_ref;
+    }
+    
     function AdjustPosition($fVal)
     {
-        return $fVal * FUND_POSITION_RATIO + floatval($this->GetPrice()) * (1.0 - FUND_POSITION_RATIO);
+    	if ($this->GetStockSymbol() == 'SZ162411')
+    	{
+    		$fRatio = 0.9;
+    	}
+    	else
+    	{
+    		$fRatio = FUND_POSITION_RATIO;
+    	}
+        return $fVal * $fRatio + floatval($this->GetPrice()) * (1.0 - $fRatio);
     }
 }
 
