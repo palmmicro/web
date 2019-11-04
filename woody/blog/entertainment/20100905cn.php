@@ -27,8 +27,7 @@
 <br />论坛炸锅了, 各种吵架. 
 <br />女神: 服了你了, 我们走吧, 你想干啥都行. 
 <br />程序猿: 今天不行, 我一定要说服他们, PHP语言是最好的语言. 
-</font>
-</blockquote>
+</font></blockquote>
 
 <h3>查询公网<?php EchoNameTag('ip', ACCOUNT_TOOL_IP_CN); ?></h3>
 <p>2017年3月9日
@@ -124,11 +123,12 @@
 <br />原则上来说按我的假设, 任何2天的数据都可以用来联立一个2元一次方程组, 解出场内申购和场外申购的账户数. 
 我一定要选择从限购1万到限购1000的变化时2天的数据来估算是出于计算精度的考虑, 为了避免2个大数字相减后得到一个跟误差范围同一数量级的小数字, 让整个结论失去意义.
 <br /><img src=../photo/20190815.jpg alt="Cramer's rule calculation steps" />
-<br /><font color=grey>And what in heaven's name brought you to Casablanca?
+</p> 
+<blockquote><font color=grey>And what in heaven's name brought you to Casablanca?
 <br />My health. I came to Casablanca for the waters.
 <br />The waters? What waters? We're in the desert.
-<br />I was misinformed. - Hm.</font>
-</p>
+<br />I was misinformed.
+</font></blockquote>
 
 <h3>一元<?php EchoNameTag('linearregression', ACCOUNT_TOOL_LINEAR_CN); ?>工具</h3>
 <p>2019年9月20日

@@ -75,9 +75,10 @@ function GetFundLinks($strSymbol = FUND_DEMO_SYMBOL)
 }
 
 define('NVCLOSE_HISTORY_DISPLAY', '净值和收盘价历史比较');
+define('NVCLOSE_HISTORY_PAGE', 'nvclosehistory');
 function GetNvCloseHistoryLink($strSymbol)
 {
-	return GetStockSymbolLink('nvclosehistory', $strSymbol, NVCLOSE_HISTORY_DISPLAY);
+	return GetStockSymbolLink(NVCLOSE_HISTORY_PAGE, $strSymbol, NVCLOSE_HISTORY_DISPLAY);
 }
 
 define('AH_HISTORY_DISPLAY', 'AH历史价格比较');
@@ -87,9 +88,10 @@ function GetAhHistoryLink($strSymbol)
 }
 
 define('THANOUS_LAW_DISPLAY', '小心愿定律');
-function GetThanousLawLink($strSymbol)
+define('THANOUS_LAW_PAGE', 'thanouslaw');
+function GetThanousLawLink($strSymbol = FUND_DEMO_SYMBOL)
 {
-    return GetStockSymbolLink('thanouslaw', $strSymbol, THANOUS_LAW_DISPLAY);
+    return GetStockSymbolLink(THANOUS_LAW_PAGE, $strSymbol, THANOUS_LAW_DISPLAY);
 }
 
 define('FUND_ACCOUNT_DISPLAY', '基金申购账户统计');

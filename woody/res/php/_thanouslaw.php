@@ -77,7 +77,7 @@ function _echoThanousLawParagraph($strSymbol, $iStart, $iNum)
 								   new TableColumnPremium(),
 								   new TableColumnMyStock($strEstSymbol),
 								   new TableColumnChange()
-								   ), 'thanouslaw', $str);
+								   ), THANOUS_LAW_PAGE, $str);
 
 	_echoThanousLawData($sql, $ref->stock_ref, $est_ref, $iStart, $iNum);
     EchoTableParagraphEnd($strNavLink);
@@ -99,7 +99,7 @@ function EchoAll()
             DebugString($strSymbol.' Thanous Law: '.DebugGetStopWatchDisplay($fStart));
         }
     }
-    $acct->EchoLinks('thanouslaw');
+    $acct->EchoLinks(THANOUS_LAW_PAGE);
 }
 
 function EchoMetaDescription()

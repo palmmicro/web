@@ -70,7 +70,7 @@ function EchoNvCloseHistoryParagraph($ref, $str = false, $csv = false, $iStart =
 								   new TableColumnChange(),
 								   new TableColumn('流通股数(万)', 100),
 								   new TableColumn('换手率(%)', 90)
-								   ), $strSymbol.'nvclosehistory', $str);
+								   ), $strSymbol.NVCLOSE_HISTORY_PAGE, $str);
 
 	$shares_sql = new EtfSharesHistorySql($strStockId);
     _echoNvCloseData($sql, $shares_sql, $ref, $csv, $iStart, $iNum, $bAdmin);

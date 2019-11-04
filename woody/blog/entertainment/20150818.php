@@ -20,16 +20,16 @@ I was watching stock quotations on Yahoo and Sina everyday, and always need to c
 <br />Later I thought of my first <a href="20100905.php">PHP</a> application 5 years ago, and decided to write my second PHP application.
 It was planned to put all the usual stock quotations together, and to estimate SZ162411 net value based on XOP, ^SPSIOP and USDCNY exchange rate.
 Today the first version is released, and I am writing this record of programming details for future reference.
-<br />Using Yahoo Finance API for US stocks (<a href="#usstock">Discontinued</a>).
-<br />Using Sina realtime source for Chinese stocks, oil futures and forex: <?php EchoSinaQuotesLink('sz162411,hf_CL,USDCNY'); ?>
+<br />Thanks <?php EchoXueqieId('6188729918', 'abkoooo'); ?> for Sina realtime US stock data format.
+<br />Using Sina realtime source for US and Chinese stocks, oil futures and forex: <?php EchoSinaQuotesLink('gb_xop,sz162411,hf_CL,USDCNY'); ?>
 <br />At first I found that <i>fopen</i> will always fail to open those urls, maybe my Yahoo Web Hosting does not support <i>allow_url_fopen</i>. 
 I searched and found curl to solve this problem, copied some curl code to my <i>url_get_contents</i> function with name similar as <i>file_get_contents</i>.
-<br />To optimize web response time, I used 2 files xop.txt and <?php EchoSinaDebugLink('sz162411'); ?> to save last updated Yahoo and Sina stock data.
+<br />To optimize web response time, I used 2 files <?php EchoSinaDebugLink('gb_xop'); ?> and <?php EchoSinaDebugLink('sz162411'); ?> to save last updated stock data.
 The following are checked:
 </p>
 <ol>
   <li>New request in the same minute using data in original files directly.</li>
-  <li>Using xop.txt for US stock data after US market closed.</li>
+  <li>Using gb_xop.txt for US stock data after US market closed.</li>
   <li>Using sz162411.txt for Chinese stock data after Chinese market closed.</li>
 </ol>
 <p>Similarly, oil future data is stored in file <?php EchoSinaDebugLink('hf_cl'); ?>, and USDCNY forex data in usdcny.txt.
@@ -51,7 +51,7 @@ as I do not konw when the data will be updated, I update it once an hour stupidl
 <p>Aug 21, 2015
 <br />After released the link of this tool, I checked the data of <a href="20110509.php">Google</a> Analytics yesterday. During the 3 days there are 584 visits from 289 different IP address.
 Unlike the usual <a href="../palmmicro/20080326.php">Palmmicro</a> visitors, 1/3 of the tool visitors used mobile phone. So I added the UI optimization for mobile phone in a hurry.
-<br />Using <a href="http://mobiledetect.net/" target=_blank>Mobile-Detect</a> to detect if it is a mobile phone visit.
+<br />Using <?php EchoLink('http://mobiledetect.net/'); ?> to detect if it is a mobile phone visit.
 Following the developer's advice, I copied the code github and put it separately in /php/class/<b>Mobile_Detect.php</b>.
 </p>
 
@@ -74,13 +74,6 @@ Although I only watched US market crash, I still added BOSERA S&P 500 net value 
 <br />Continue to use web tools to replace calculator works, add Hongkong ADR price comparing tools.
 <br />The common stock data part of ADR and LOF is moved to <font color=olive>StockReference</font> class, used in <font color=olive>_LofGroup</font> class and <font color=olive>_AdrGroup</font> class.
 <br />Continue to organize code, add other similar LOF net value tool.
-</p>
-
-<h3>Sina Realtime <a name="usstock">US Stock</a> Data</h3>
-<p>Dec 13, 2015
-<br />With the help of <?php EchoXueqieId('6188729918', 'abkoooo'); ?>, now using Sina realtime US stock data (<?php EchoSinaQuotesLink('gb_xop'); ?>) to replace original Yahoo data which has 15 minutes delay.
-Now XOP data in file <?php EchoSinaDebugLink('gb_xop'); ?>. ^SPSIOP data still uses Yahoo and in a separated file _spsiop.txt.
-<br />The code of <font color=olive>StockReference</font> class is a mess now, I doubt if I can still understand it in the future.
 </p>
 
 <h3><a name="fundhistory">Fund</a> History</h3>
@@ -205,11 +198,6 @@ I thought it was because the web server was in US and my major visitors were fro
         <td class=c1 align="center">T+1 day</td>
       </tr>
 </TABLE>
-</p>
-
-<h3>Test <a name="thanouslaw">Thanous Law</a></h3>
-<p>Sep 18, 2016
-<br /><img src=../photo/20160918.jpg alt="Screen shot of test Thanous Law on Sep 18, 2016" />
 </p>
 
 <h3>How to <a name="precise">Precisely</a> Estimate the Net Value of SZ162411</h3>

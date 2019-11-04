@@ -18,16 +18,16 @@
 <br />眼看Qualcomm收购CSR<a href="20141016cn.php">股票</a>的现金快要到账, 最近我在琢磨在A股中国特色的LOF基金华宝油气和美股XOP之间套利. 每天看Yahoo新浪等网站的股票行情, 时不时还要用鼠标点开计算器算算转换价格, 时间长了后有点烦.
 <br />后来我想起来5年前学习的<a href="20100905cn.php">PHP</a>, 于是打算写我的第二个PHP程序, 统一把套利需要常看的行情显示在一起, 同时根据SPDR标普油气开采指数ETF(XOP), 标普油气开采指数(^SPSIOP),
 以及美元对人民币的汇率计算<a href="../../res/sz162411cn.php">华宝油气</a>净值. 今天出了第一版, 记录下相关开发过程以备日后查阅.
-<br />美股用Yahoo股票数据接口(<a href="#usstock">已停用</a>).
-<br />A股, 期货和汇率都用新浪实时的数据接口: <?php EchoSinaQuotesLink('sz162411,hf_CL,USDCNY'); ?>
+<br />谢谢<?php EchoXueqieId('6188729918', 'abkoooo'); ?>帮助提供了新浪实时美股数据接口的格式.
+美股, A股, 期货和汇率都用新浪实时的数据接口: <?php EchoSinaQuotesLink('gb_xop,sz162411,hf_CL,USDCNY'); ?>
 <br />一开始发现无论怎么弄<i>fopen</i>打开这些链接都会失败, 估计是我用的Yahoo网站服务不支持<i>allow_url_fopen</i>. 
 在网上找解决方法, 发现应该用早就有的curl. 抄了2段curl代码, 仿照<i>file_get_contents</i>函数的名字加了个<i>url_get_contents</i>函数.
-<br />为提高页面反应速度, 使用2个文件xop.txt和<?php EchoSinaDebugLink('sz162411'); ?>分别保存最后更新的Yahoo和新浪股票数据,
+<br />为提高页面反应速度, 使用2个文件<?php EchoSinaDebugLink('gb_xop'); ?>和<?php EchoSinaDebugLink('sz162411'); ?>分别保存最后更新的股票数据,
 实施以下优化:
 </p>
 <ol>
   <li>跟文件时间在同一分钟内的页面请求直接使用原来文件内的数据.</li>
-  <li>美股闭市后的页面请求直接使用xop.txt内的美股数据.</li>
+  <li>美股盘后交易结束后的页面请求直接使用gb_xop.txt内的美股数据.</li>
   <li>A股闭市后的页面请求直接使用sz162411.txt内的A股数据.</li>
 </ol>
 <p>类似的, 原油期货数据缓存在文件<?php EchoSinaDebugLink('hf_cl'); ?>. 美元人民币汇率数据在usdcny.txt.
@@ -58,7 +58,7 @@
 <p>2015年8月21日
 <br />发了这个工具小软件链接后, 昨天翻墙出去看了一下<a href="20110509cn.php">Google</a> Analytics的统计. 上线3天, 总共289个IP访问了584次.
 跟<a href="../palmmicro/20080326cn.php">Palmmicro</a>通常的客户访问网站极大不同的是, 访问这个工具的有1/3用的是手机. 于是匆忙加上为手机用户优化显示界面的代码.
-<br />使用<a href="http://mobiledetect.net/" target=_blank>Mobile-Detect</a>判断是否手机用户访问, 代码从github复制下来按照原开发者的建议单独放在/php/class/<b>Mobile_Detect.php</b>中.
+<br />使用<?php EchoLink('http://mobiledetect.net/'); ?>判断是否手机用户访问, 代码从github复制下来按照原开发者的建议单独放在/php/class/<b>Mobile_Detect.php</b>中.
 </p>
 
 <h3>增加<?php EchoNameTag(TABLE_STOCK_HISTORY, STOCK_HISTORY_DISPLAY); ?>页面</h3>
@@ -83,20 +83,12 @@
 
 <h3><a name="adr">ADR</a></h3>
 <p>2015年11月7日
-<br />继续用网页工具代替手工按计算器的工作, 为港股在美股的<a href="../../res/adrcn.php">ADR</a>加入<a href="../../res/achcn.php">中国铝业</a>, <a href="../../res/chucn.php">中国联通</a>, <a href="../../res/gshcn.php">广深铁路</a>,
+<br />继续用网页工具代替手工按计算器的工作, 为港股在美股的<a href="../../res/adrcn.php">ADR</a>加入<a href="../../res/achcn.php">中国铝业</a>, <a href="../../res/gshcn.php">广深铁路</a>,
 <a href="../../res/lfccn.php">中国人寿</a>, <a href="../../res/ptrcn.php">中国石油</a>, <a href="../../res/snpcn.php">中国石化</a>, <a href="../../res/shicn.php">上海石化</a>,
 <a href="../../res/ceacn.php">东方航空</a>和<a href="../../res/znhcn.php">南方航空</a>等价格比较工具.
 <br />加入ADR后, 把ADR和LOF用到的共同股票数据部分放到<font color=olive>StockReference</font>类中, 用在<font color=olive>_LofGroup</font>类和<font color=olive>_AdrGroup</font>类中.
 <br />继续整理代码, 为热心吃螃蟹的用户们增加<a href="../../res/sh513100cn.php">纳指ETF</a>, <a href="../../res/sz160717cn.php">恒生H股</a>, <a href="../../res/sz160216cn.php">国泰商品</a>, <a href="../../res/sz160416cn.php">石油基金</a>, 
 <a href="../../res/sz163208cn.php">诺安油气</a>和<a href="../../res/sz165510cn.php">信诚四国</a>等<a href="../../res/lofcn.php">LOF</a>净值计算工具.
-</p>
-
-<h3>新浪实时<a name="usstock">美股</a>数据</h3>
-<p>2015年12月13日
-<br />在<?php EchoXueqieId('6188729918', 'abkoooo'); ?>的帮助下使用新浪实时美股数据<?php EchoSinaQuotesLink('gb_xop'); ?>替代原来延迟15分钟的Yahoo数据.
-现在XOP数据在<?php EchoSinaDebugLink('gb_xop'); ?>中. ^SPSIOP数据还是用Yahoo的, 分开在_spsiop.txt中.
-有人知道新浪怎么查像^SPSIOP这样的指数数据吗?
-<br /><font color=olive>StockReference</font>类越改越乱, 开始怀疑以后要看不懂了.
 </p>
 
 <h3>增加<?php EchoNameTag(FUND_HISTORY_PAGE, FUND_HISTORY_DISPLAY); ?>页面</h3>
@@ -241,14 +233,14 @@ CL通常会在美股收盘后继续多交易一个小时, 此时实时估值也�
   <li>做跟美油期货CL配对交易的, 看实时估值.</li>
 </ol>
 
-<h3>验证<a name="thanouslaw">小心愿定律</a></h3>
+<h3>验证<?php EchoNameTag(THANOUS_LAW_PAGE, THANOUS_LAW_DISPLAY); ?></h3>
 <p>2016年9月18日
 <br />不知不觉中宣传和实践华宝油气和XOP跨市场套利已经快2年了. 期间碰到过<?php EchoXueqieId('4389829893', 'LIFEFORCE'); ?>这种自己动手回测验证一下能赚钱就果断开干的, 
 也有<?php EchoXueqieId('8871221437', '老孙'); ?>这种数学爱好者回测验证一下能赚个年化10%后就袖手旁观的,
 还有常胜将军<?php EchoXueqieId('1980527278', 'Billyye'); ?>这种觉得华宝油气可以看成无非是XOP延长了的盘前盘后交易没有多少套利意义的. 
 最气人的是thanous这种, 总是喜欢说大资金如何牛, 如果白天华宝油气在大交易量下溢价, 晚上XOP必然是要涨的, 彻底否定套利的根基.
 <br />最近几个月华宝油气折价多溢价少, 经历了几次溢价的情况后, 发现<?php EchoXueqieId('5421738073', 'thanous'); ?>的说法基本靠谱, 我于是开始按他的名字命名为小心愿定律. 中秋节前最后一个交易日华宝油气又溢价了, 
-<?php EchoXueqieId('6900406005', '大熊宝宝--林某人'); ?>建议我实际测算一下, 正好放假闲着也是闲着, 就削尖铅笔搞了个新页面测试<a href="../../res/thanouslawcn.php?symbol=SZ162411">小心愿定律</a>.
+<?php EchoXueqieId('6900406005', '大熊宝宝--林某人'); ?>建议我实际测算一下, 正好放假闲着也是闲着, 就削尖铅笔搞了个新页面测试<?php echo GetThanousLawLink(); ?>.
 我网站记录了从去年底以来所有的华宝油气数据, 跑了下从去年底到现在的统计结果没有觉得小心愿定律能成立. 但是去掉春节前后华宝油气因为停止申购导致的长期溢价的影响, 只考虑最近100个交易日的情况后, 
 有趣的结果出现了:
 <br /><img src=../photo/20160918.jpg alt="Screen shot of test Thanous Law on Sep 18, 2016" />
@@ -367,19 +359,16 @@ CL通常会在美股收盘后继续多交易一个小时, 此时实时估值也�
 </p>
 <?php EchoAdrhDemo(); ?>
 
-<h3>XOP<a name="nvclose">收盘价和净值</a>的对比</h3>
+<h3><?php EchoNameTag(NVCLOSE_HISTORY_PAGE, NVCLOSE_HISTORY_DISPLAY); ?></h3>
 <p>2018年5月3日
 <br />交易了几年XOP下来, 发现它的收盘价经常跟净值有个1分2分的偏差, 不知道这其中是否有套利机会.
 </p>
 <?php EchoNvCloseDemo(); ?>
-
-<h3>删除英文版本</h3>
-<p>2019年3月14日
-<br />压死骆驼的最后一根稻草是这行代码, 混在其中的中文冒号让我恶向胆边生, 彻底放弃了本来就几乎没有什么浏览量的英文版本股票软件.
+<p>增加这个页面倒是让我突然下了决心删除英文版本. 压死骆驼的最后一根稻草是这行代码, 混在其中的中文冒号让我恶向胆边生, 彻底放弃了本来就几乎没有什么浏览量的英文版本股票软件.
 </p>
 <blockquote><code>echo UrlGetQueryDisplay('symbol').($bChinese ? '净值和收盘价历史比较' :  ' NetValue Close History Compare');</code></blockquote>
 <p>从软件开发的角度来说, 遍布我PHP代码的1000多个$bChinese肯定意味着某种代码结构缺陷, 希望这次代码清理完成后能让我醒悟过来.
-<br />冷静下来后仔细想想, 发现自己早有停止英文版的意图背后其实有个更深层的原因. 四年来的各种跨市场套利经历, 让我深深体会到了对手盘的重要性和A股韭菜的可贵, 从而不愿意留个英文版让外面的世界进来抢着割这么嫩的韭菜.
+<br />冷静下来后仔细想想, 发现自己早有停止英文版的意图背后其实有个更深层的原因. 三年来的各种跨市场套利经历, 让我深深体会到了对手盘的重要性和A股韭菜的可贵, 从而不愿意留个英文版让外面的世界进来抢着割这么嫩的韭菜.
 <br /><font color=grey>If you've been playing poker for half an hour and you still don't know who the patsy is, you're the patsy. — Warren Buffett</font>
 </p>
 

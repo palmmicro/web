@@ -60,7 +60,7 @@ function EchoAll()
 			}
     	}
     }
-    $acct->EchoLinks('nvclose');
+    $acct->EchoLinks(NVCLOSE_HISTORY_PAGE);
 }
 
 function EchoMetaDescription()
