@@ -3,7 +3,9 @@ require_once('stocktable.php');
 
 function _echoFundPurchaseTableItem($strStockId, $strAmount, $bChinese)
 {
-    $strSymbol = SqlGetStockSymbol($strStockId);
+	$strSymbol = SqlGetStockSymbol($strStockId);
+    EchoTableColumn(array(GetMyStockLink($strSymbol), $strAmount));
+/*    
     $strLink = GetMyStockLink($strSymbol);
 
     echo <<<END
@@ -11,7 +13,7 @@ function _echoFundPurchaseTableItem($strStockId, $strAmount, $bChinese)
         <td class=c1>$strLink</td>
         <td class=c1>$strAmount</td>
     </tr>
-END;
+END;*/
 }
 
 function _echoFundPurchaseTableData($strMemberId, $iStart, $iNum, $bChinese)
@@ -28,7 +30,7 @@ function _echoFundPurchaseTableData($strMemberId, $iStart, $iNum, $bChinese)
 
 function EchoFundPurchaseParagraph($str, $strMemberId, $bChinese, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
 {
-	$strSymbol = GetTableColumnSymbol();
+/*	$strSymbol = GetTableColumnSymbol();
     $arColumn = array($strSymbol, '金额');
     
     echo <<<END
@@ -39,6 +41,10 @@ function EchoFundPurchaseParagraph($str, $strMemberId, $bChinese, $iStart = 0, $
             <td class=c1 width=100 align=center>{$arColumn[1]}</td>
         </tr>
 END;
+*/
+	EchoTableParagraphBegin(array(new TableColumnSymbol(),
+								   new TableColumnAmount()
+								   ), 'fund', $str);
 
 	_echoFundPurchaseTableData($strMemberId, $iStart, $iNum, $bChinese);
     EchoTableParagraphEnd();

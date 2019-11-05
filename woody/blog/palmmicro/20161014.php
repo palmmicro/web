@@ -39,12 +39,6 @@ Because I love to use palmmicro too much, it was used as my private wechat accou
 <br /><img src=../../image/wx.jpg alt="Palmmicro wechat public account sz162411 small size QR code" />
 </p>
 
-<h3><a name="ahcompare">AH</a> Compare</h3>
-<p>Jan 30, 2017
-<br />Try to input <font color=grey>600028</font> or <font color=grey>00386</font>.
-</p>
-<?php EchoAhDemo(); ?>
-
 </div>
 
 <?php _LayoutBottom(false); ?>

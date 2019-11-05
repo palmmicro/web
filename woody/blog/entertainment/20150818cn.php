@@ -81,7 +81,7 @@
 同时修改<a href="20100529cn.php">Visual C++</a>的Woody的网站工具对_editXXXform.php名字格式的自动生成对应的_submitXXX.php文件. 
 </p>
 
-<h3><a name="adr">ADR</a></h3>
+<h3><?php EchoNameTag(ADR_PAGE, ADR_DISPLAY); ?></h3>
 <p>2015年11月7日
 <br />继续用网页工具代替手工按计算器的工作, 为港股在美股的<a href="../../res/adrcn.php">ADR</a>加入<a href="../../res/achcn.php">中国铝业</a>, <a href="../../res/gshcn.php">广深铁路</a>,
 <a href="../../res/lfccn.php">中国人寿</a>, <a href="../../res/ptrcn.php">中国石油</a>, <a href="../../res/snpcn.php">中国石化</a>, <a href="../../res/shicn.php">上海石化</a>,
@@ -165,10 +165,10 @@
 <br />不过这个bug严重打击了我的自信心. 这一次我没法用自己是个6年的PHP<font color=red>新手</font>来自嘲了, 在我自豪的写了25年的C语言中, 这同样是个超级低级的错误!
 </p>
 
-<h3><a name="portfolio">持仓盈亏</a></h3>
+<h3>验证<?php EchoNameTag(MY_PORTFOLIO_PAGE, MY_PORTFOLIO_DISPLAY); ?></h3>
 <p>2016年6月5日
 <br />王小波总是不忘记唠叨他写了自己用的编辑软件, 在20年前我是暗自嘲笑的. 没想到过了这么些年以后, 我也开始写自己用的炒股软件了. 不同的年龄段心态是完全不同的.
-<br /><a href="../../res/myportfoliocn.php?email=woody@palmmicro.com">持仓盈亏</a>功能刚完成的时候页面出来得奇慢无比, 而接下来刷新就会快很多. 因为对自己的mysql水平没有自信心, 我一头扎进了优化数据库的工作中.
+<br /><?php echo GetMyPortfolioLink('email=woody@palmmicro.com'); ?>功能刚完成的时候页面出来得奇慢无比, 而接下来刷新就会快很多. 因为对自己的mysql水平没有自信心, 我一头扎进了优化数据库的工作中.
 优化了一些明显的问题, 例如扩展了stockgroupitem表的内容, 把stocktransaction表中groupitem_id相同的交易预先统计好存在stockgroupitem表中, 避免每次都重新查询stocktransaction表然后重新计算一次.
 不过折腾了一大圈后并没有明显的改善, 倒是在这个过程中理清了原来闭着眼睛写的代码的内在逻辑, 看出来了问题的根源.
 <br />在按member_id查询<a name="mystockgroup">stockgroup</a>表找到这个人所有的<a href="../../res/mystockgroupcn.php?email=woody@palmmicro.com">股票分组</a>后,
@@ -265,7 +265,7 @@ CL通常会在美股收盘后继续多交易一个小时, 此时实时估值也�
 这2者的记录就多得多了, 只要有人访问页面, 拿到的2个相关数据是在同一分钟, 就会自动校准一次并且记录下来. 这2个校准时间都是记录的美股时间.
 </p>
 
-<h3><a name="ahcompare">AH股</a>对比</h3>
+<h3><?php EchoNameTag(AH_COMPARE_PAGE, AH_COMPARE_DISPLAY); ?></h3>
 <p>2017年1月28日
 <br />为了有效配合今年的打新计划, 我打算扩大中国石化外的门票范围, 但是同时沿用AH股价格比较的思路, 只选取A股价格低于H股的作为门票.
 <br />替选股增加个对比页面.
@@ -349,13 +349,13 @@ CL通常会在美股收盘后继续多交易一个小时, 此时实时估值也�
 </p>
 <?php EchoLofSmaDemo(); ?>
 
-<h3>美股<a name="adrhcompare">ADR</a>跟港股对比</h3>
+<h3><?php EchoNameTag(ADRH_COMPARE_PAGE, ADRH_COMPARE_DISPLAY); ?></h3>
 <p>2018年4月4日
 <br />雪球创始人方三文, 自称<?php EchoXueqieId('1955602780', '不明真相的群众'); ?>, 平时总是苦口婆心的把盈亏同源放在嘴边, 鼓动大家通过雪球资管做资产配置.
 但是他却认为自己对互联网企业有深刻理解, 在推销自己的私募的时候总是鼓吹腾讯和FB, 又把盈亏同源抛在脑后了.
 <br />最近2个月腾讯结束了屡创新高的行情, 开始跟FB一起下跌, 引发了大家抄底雪球方丈的热情.
-不仅港股腾讯00700每天巨量交易, 就连它在美股粉单市场的<a href="#adr">ADR</a>在雪球上都热闹非凡.
-这吸引了我的注意力, 然后发现港股还有其它不少股票也有美股粉单市场的ADR, 于是我按照原来<a href="#ahcompare">AH对比</a>的套路增加了个页面蹭一下热度.
+不仅港股腾讯00700每天巨量交易, 就连它在美股粉单市场的ADR在雪球上都热闹非凡.
+这吸引了我的注意力, 然后发现除了在<?php EchoNameLink(ADR_PAGE, ADR_DISPLAY); ?>中已经包括的外, 港股还有其它不少股票也有美股市场的ADR, 于是我按照原来<?php EchoNameLink(AH_COMPARE_PAGE, AH_COMPARE_DISPLAY); ?>的套路增加了个页面蹭一下热度.
 </p>
 <?php EchoAdrhDemo(); ?>
 

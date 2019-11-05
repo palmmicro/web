@@ -37,15 +37,15 @@ function GetCategoryArray($strTitle)
     $ar = array();
     switch ($strTitle)
     {
-    case 'adr':
+    case ADR_PAGE:
         $ar = AdrGetSymbolArray();
         break;
         
-    case 'adrhcompare':
+    case ADRH_COMPARE_PAGE:
         $ar = SqlGetAdrhArray();
         break;
   
-    case 'ahcompare':
+    case AH_COMPARE_PAGE:
    		$pair_sql = new AhPairSql();
         $ar = $pair_sql->GetSymbolArray();
         break;
@@ -351,7 +351,7 @@ function _getPersonalLinks($strMemberId)
 function GetStockGroupLinks($strLoginId = false)
 {
     if ($strLoginId == false)	$strLoginId = AcctIsLogin();
-    $str = '<br />'.GetCategoryLinks(GetMenuArray());
+    $str = '<br />'.GetCategoryLinks(GetStockMenuArray());
    	$str .= '<br />'.GetMyStockGroupLink();	// .' '.GetAhCompareLink().' '.GetAdrhCompareLink();
     $str .= '<br />'.GetMyPortfolioLink();
     if ($strLoginId)

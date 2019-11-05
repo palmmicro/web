@@ -2,6 +2,14 @@
 require_once('stockdisp.php');
 require_once('table.php');
 
+class TableColumnAmount extends TableColumn
+{
+	function TableColumnAmount($strPrefix = false)
+	{
+        parent::TableColumn('金额', 120, false, $strPrefix);
+	}
+}
+
 class TableColumnCalibration extends TableColumn
 {
 	function TableColumnCalibration()
@@ -16,12 +24,6 @@ class TableColumnChange extends TableColumn
 	{
         parent::TableColumn(STOCK_DISP_CHANGE, 70, 'red');
 	}
-}
-
-function GetTableColumnChange()
-{
-	$col = new TableColumnChange();
-	return $col->GetDisplay();
 }
 
 class TableColumnClose extends TableColumn
@@ -128,9 +130,9 @@ function GetTableColumnPremium()
 
 class TableColumnPrice extends TableColumn
 {
-	function TableColumnPrice()
+	function TableColumnPrice($strPrefix = false)
 	{
-        parent::TableColumn(STOCK_DISP_PRICE, 70, 'blue');
+        parent::TableColumn(STOCK_DISP_PRICE, 70, 'blue', $strPrefix);
 	}
 }
 

@@ -2,8 +2,9 @@
 require_once('_stock.php');
 require_once('_emptygroup.php');
 require_once('/php/imagefile.php');
+require_once('/php/ui/editinputform.php');
 
-function _echoFundPositionItem($csv, $ref, $cny_ref, $est_ref, $strDate, $strNetValue, $strPrevDate, $sql, $cny_sql, $est_sql)
+function _echoFundPositionItem($csv, $ref, $cny_ref, $est_ref, $strDate, $strNetValue, $strPrevDate, $sql, $cny_sql, $est_sql, $strInput)
 {
 	$bWritten = false;
 	$ar = array($strDate, $strNetValue);
@@ -27,7 +28,7 @@ function _echoFundPositionItem($csv, $ref, $cny_ref, $est_ref, $strDate, $strNet
 		if ($strEstPrev = $est_sql->GetClose($strPrevDate))
 		{
 			$ar[] = $est_ref->GetPercentageDisplay($strEstPrev, $strEst);
-			if ($strVal = LofGetStockPosition($strEstPrev, $strEst, $strPrev, $strNetValue, $strCnyPrev, $strCny))
+			if ($strVal = LofGetStockPosition($strEstPrev, $strEst, $strPrev, $strNetValue, $strCnyPrev, $strCny, $strInput))
 			{
 				$bWritten = true;
 				$csv->Write($strDate, $strNetValue, $strVal);
@@ -94,7 +95,7 @@ function _getSwitchDateArray($sql, $est_sql)
     return $arDate;
 }
 	
-function _echoFundPositionData($csv, $ref, $cny_ref, $est_ref)
+function _echoFundPositionData($csv, $ref, $cny_ref, $est_ref, $strInput)
 {
    	$sql = new NetValueHistorySql($ref->GetStockId());
 	$est_sql = new NetValueHistorySql($est_ref->GetStockId());
@@ -115,7 +116,7 @@ function _echoFundPositionData($csv, $ref, $cny_ref, $est_ref)
        			$iIndex ++;
        			if (isset($arDate[$iIndex]))
        			{
-       				_echoFundPositionItem($csv, $ref, $cny_ref, $est_ref, $strDate, $strNetValue, $arDate[$iIndex], $sql, $cny_sql, $est_sql);
+       				_echoFundPositionItem($csv, $ref, $cny_ref, $est_ref, $strDate, $strNetValue, $arDate[$iIndex], $sql, $cny_sql, $est_sql, $strInput);
        			}
        			else
        			{
@@ -132,7 +133,7 @@ function _echoFundPositionData($csv, $ref, $cny_ref, $est_ref)
     }
 }
 
-function _echoFundPositionParagraph($ref, $cny_ref, $strSymbol)
+function _echoFundPositionParagraph($ref, $cny_ref, $strSymbol, $strInput)
 {
 	$est_ref = $ref->GetEstRef();
 	
@@ -150,7 +151,7 @@ function _echoFundPositionParagraph($ref, $cny_ref, $strSymbol)
 								   ), FUND_POSITION_PAGE, $str);
 	
    	$csv = new PageCsvFile();
-	_echoFundPositionData($csv, $ref, $cny_ref, $est_ref);
+	_echoFundPositionData($csv, $ref, $cny_ref, $est_ref, $strInput);
     $csv->Close();
 	
     $str = '';
@@ -167,13 +168,24 @@ function EchoAll()
 {
 	global $acct;
 	
+    if (isset($_POST['submit']))
+	{
+		unset($_POST['submit']);
+		$strInput = UrlCleanString($_POST[EDIT_INPUT_NAME]);
+	}
+    else
+    {
+   		$strInput = '4.0';
+    }
+    EchoEditInputForm('进行估算的涨跌阈值', $strInput);
+    
     if ($ref = $acct->EchoStockGroup())
     {
    		$strSymbol = $ref->GetStockSymbol();
         if (in_arrayLof($strSymbol))
         {
         	$cny_ref = new CnyReference('USCNY');	// Always create CNY Forex class instance first!
-            _echoFundPositionParagraph(new LofReference($strSymbol), $cny_ref, $strSymbol);
+            _echoFundPositionParagraph(new LofReference($strSymbol), $cny_ref, $strSymbol, $strInput);
         }
     }
     $acct->EchoLinks(FUND_POSITION_PAGE);

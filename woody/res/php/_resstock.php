@@ -1,21 +1,12 @@
 <?php
 require_once('/php/layout.php');
+require_once('/php/stocklink.php');
 require_once('/woody/php/_navwoody.php');
-
-function GetMenuArray()
-{
-    return array('adr' => 'ADR工具',
-                      'chinaetf' => 'A股ETF',
-                      'goldetf' => '黄金ETF',
-                      'lof' => 'LOF工具',
-                      'lofhk' => '香港LOF',
-                     );
-}
 
 function _menuItemClass($iLevel, $strClass)
 {
     $iLevel --;
-    $ar = GetMenuArray();
+    $ar = GetStockMenuArray();
     $strDisp = $ar[$strClass];
    	NavWriteItemLink($iLevel, $strClass, UrlGetPhp(), $strDisp);
     NavContinueNewLine();
@@ -30,7 +21,7 @@ function NavStockSoftware($bChinese)
 	NavContinueNewLine();
 
 	$strTitle = UrlGetTitle();
-    $arFunction = array('adr' => 'AdrGetSymbolArray',
+    $arFunction = array(ADR_PAGE => 'AdrGetSymbolArray',
                       'chinaetf' => 'ChinaEtfGetSymbolArray',
                       'goldetf' => 'GoldEtfGetSymbolArray',
                       'lof' => 'LofGetSymbolArray',
@@ -48,7 +39,7 @@ function NavStockSoftware($bChinese)
     	}
     }
     
-    NavMenuSet(GetMenuArray());
+    NavMenuSet(GetStockMenuArray());
     NavEnd();
 }
 

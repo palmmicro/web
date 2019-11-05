@@ -1,9 +1,9 @@
 <?php
 
-function LofGetStockPosition($strEstPrev, $strEst, $strPrev, $strNetValue, $strCnyPrev, $strCny)
+function LofGetStockPosition($strEstPrev, $strEst, $strPrev, $strNetValue, $strCnyPrev, $strCny, $strInput = '4.0')
 {
 	$fEst = StockGetPercentage($strEstPrev, $strEst);
-	if (abs($fEst) > 4.0 && $strCnyPrev)
+	if (abs($fEst) > floatval($strInput) && $strCnyPrev)
 	{
 		$fVal = (StockGetPercentage($strPrev, $strNetValue) - StockGetPercentage($strCnyPrev, $strCny)) / $fEst;
 		return strval_round($fVal, 2);

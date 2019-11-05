@@ -69,20 +69,6 @@ Although I only watched US market crash, I still added BOSERA S&P 500 net value 
 <a href="20100529.php">Visual C++</a> coded Woody's Web Tool is modified to generate _submitXXX.php file automatically when insert copy of a _editXXXform.php file. 
 </p>
 
-<h3><a name="adr">ADR</a></h3>
-<p>Nov 7, 2015
-<br />Continue to use web tools to replace calculator works, add Hongkong ADR price comparing tools.
-<br />The common stock data part of ADR and LOF is moved to <font color=olive>StockReference</font> class, used in <font color=olive>_LofGroup</font> class and <font color=olive>_AdrGroup</font> class.
-<br />Continue to organize code, add other similar LOF net value tool.
-</p>
-
-<h3><a name="fundhistory">Fund</a> History</h3>
-<p>Jan 8, 2016
-<br />SZ162411 fund history table was added following the advice from <?php EchoXueqieId('2091843424', 'airwolf2026'); ?>. 
-The most recent records are displayed in the current page, and another page to display all history data.
-</p>
-<?php EchoFundHistoryDemo(); ?>
-
 <h3>Unified Display</h3>
 <p>Jan 26, 2016
 <br />Add date display in related price time items following the advice from <?php EchoXueqieId('8907500725', 'oldwain'); ?>.
@@ -145,28 +131,6 @@ and modified an actually unrelated code, what should be <i>$iHours = STOCK_HOUR_
 <br />But this bug made me feel very bad, this time I can not say I am still a 6 years <font color=red>new</font> PHP programmer. As a proud 25 years C programmer, this is also a very stupid bug in C language!
 </p>
 
-<h3>My <a name="portfolio">Portfolio</a></h3>
-<p>June 5, 2016
-<br />Wang Xiaobo always says that he is writing his books using software editer programmed by himself. I was laughing at the idea 20 years ago.
-To my own surprise, I began to write my own stock software after all those years. People think differently in different age.
-<br />When <a href="../../res/myportfoliocn.php?email=woody@palmmicro.com">My Portfolio</a> function first online, the page load speed was very slow,
-and it will become much faster when refresh. Not confident about my mysql skills, I started optimizing database at once.
-I solved some obvious problems. For example, I extended the data field of original stockgroupitem table, made necessary calculation for all records with the same groupitem_id in stocktransaction table,
-and saved the result in stockgroupitem table, so to avoid query stocktransaction table and calculate every time.
-However, after all those changes, the speed was still slow. But the good news is, after reviewing the software again and again, I finally found the real reason.
-<br />After getting stock group from member_id in <a name="mystockgroup">stockgroup</a> table, 
-I will construct a <font color=olive>MyStockGroup</font> class instance for each stockgroup. 
-And in the original construct function of <font color=olive>MyStockGroup</font> class, it will construct a <font color=olive>MyStockTransaction</font> class instance for each stock in the stockgroup,
-Because <font color=olive>MyStockTransaction</font> class need <font color=olive>MyStockReference</font> class as parameter, 
-if no existing <font color=olive>MyStockReference</font> instance for the stock, it will construct a new one.
-The result was, when I was getting my portfolio in the first time, I would download nearly all stock data from Sina, no wonder it was so slow.
-<br />The problem is easy to solve, first I will not construct <font color=olive>MyStockTransaction</font> class instance if there is no stock transaction at all,
-then I will group all stock when has transaction, and to prefetch all the data from Sina at the same time.
-<br />Finally I used the prefetch method in all places when need to download data from Sina, including the SZ162411 net value calculation of course.
-All page speed is improved in some way. It seems that I was wrong to explain why my net value pages were slow some time earlier, 
-I thought it was because the web server was in US and my major visitors were from China.
-</p> 
-
 <h3>T+1 <a name="realtime">Estimation</a> with Current CL Factor in</h3>
 <p>Aug 18, 2016
 <br />Many people's Excel sheet has this one, so I added it too. Here is the difference between offical estimation, fair estimation and realtime estimation of SZ162411 net value.
@@ -210,21 +174,10 @@ I thought it was because the web server was in US and my major visitors were fro
 <br />SZ162411 calibration history.
 </p>
 
-<h3><a name="ahcompare">AH</a> Compare</h3>
-<p>Jan 28, 2017
-</p>
-<?php EchoAhDemo(); ?>
-
 <h3>Crazy <a name="nextsma">T+1</a> Moving Average</h3>
 <p>March 27, 2018
 </p>
 <?php EchoLofSmaDemo(); ?>
-
-<h3>Hongkong Stock and US <a name="adrhcompare">ADR</a> Compare</h3>
-<p>Apr 4, 2018
-<br />Similar with <a href="#ahcompare">AH Compare</a>.
-</p>
-<?php EchoAdrhDemo(); ?>
 
 </div>
 

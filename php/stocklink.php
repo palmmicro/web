@@ -10,6 +10,19 @@ define('AH_DEMO_SYMBOL', '00386');
 define('FUND_DEMO_SYMBOL', 'SZ162411');
 define('STOCK_DEMO_SYMBOL', 'XOP');
 
+define('ADR_DISPLAY', 'ADR工具');
+define('ADR_PAGE', 'adr');
+
+function GetStockMenuArray()
+{
+    return array(ADR_PAGE => ADR_DISPLAY,
+                      'chinaetf' => 'A股ETF',
+                      'goldetf' => '黄金ETF',
+                      'lof' => 'LOF工具',
+                      'lofhk' => '香港LOF',
+                     );
+}
+
 // ****************************** Stock internal link functions *******************************************************
 
 function GetStockTitleLink($strTitle, $strDisplay, $strQuery = false)
@@ -120,7 +133,7 @@ function GetBenfordLawLink($strSymbol)
 }
 
 define('STOCK_OPTION_ADJCLOSE', '根据分红更新复权收盘价');
-define('STOCK_OPTION_ADR', '修改港股对应ADR代码');
+define('STOCK_OPTION_ADR', '修改H股对应ADR代码');
 define('STOCK_OPTION_AH', '修改A股对应H股代码');
 define('STOCK_OPTION_AMOUNT', '基金申购金额');
 define('STOCK_OPTION_CLOSE', '更新收盘价');
@@ -155,14 +168,18 @@ function GetStockOptionLink($strOption, $strSymbol)
     return GetStockSymbolLink($strTitle, $strSymbol, $strOption);
 }
 
-function GetMyPortfolioLink()
+define('MY_PORTFOLIO_DISPLAY', '持仓盈亏');
+define('MY_PORTFOLIO_PAGE', 'myportfolio');
+function GetMyPortfolioLink($strQuery = false)
 {
-    return GetStockTitleLink('myportfolio', '持仓盈亏');
+    return GetStockTitleLink(MY_PORTFOLIO_PAGE, MY_PORTFOLIO_DISPLAY, $strQuery);
 }
 
+define('AH_COMPARE_DISPLAY', 'A股和H股对比');
+define('AH_COMPARE_PAGE', 'ahcompare');
 function GetAhCompareLink($strQuery = false)
 {
-    return GetStockTitleLink('ahcompare', 'AH对比', $strQuery);
+    return GetStockTitleLink(AH_COMPARE_PAGE, AH_COMPARE_DISPLAY, $strQuery);
 }
 
 function GetEtfListLink()
@@ -170,9 +187,11 @@ function GetEtfListLink()
     return GetStockTitleLink('etflist', 'ETF对照表');
 }
 
+define('ADRH_COMPARE_DISPLAY', 'ADR和H股对比');
+define('ADRH_COMPARE_PAGE', 'adrhcompare');
 function GetAdrhCompareLink()
 {
-    return GetStockTitleLink('adrhcompare', 'ADR和H对比');
+    return GetStockTitleLink(ADRH_COMPARE_PAGE, ADRH_COMPARE_DISPLAY);
 }
 
 define('STOCK_GROUP_DISPLAY', '股票分组');

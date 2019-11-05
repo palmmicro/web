@@ -181,7 +181,7 @@ function EchoAll()
         }
 	}
     
-    EchoPromotionHead('adr');
+    EchoPromotionHead(ADR_PAGE);
     EchoRelated();
 }
 

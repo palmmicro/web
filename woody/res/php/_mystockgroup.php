@@ -107,9 +107,9 @@ function _echoMyStockGroup($strGroupId)
 
 function _getMetaDescriptionStr($strTitle)
 {
-	$ar = array('adr' => '通过比较中国企业在美国发行的American Depositary Receipt(ADR)的中国A股价格, 港股价格和美股价格, 分析各种套利对冲方案, 提供交易建议.',
-				  'adrhcompare' => '美股ADR和香港H股全面价格比较工具, 按ADR股票代码排序. 主要显示H股交易情况, 同时计算AdrH价格比和HAdr价格比. H股是指获中国证监会批核到香港上市的国有企业, 也称国企股.',
-				  'ahcompare' => '中国A股和香港H股全面价格比较工具, 按A股股票代码排序. 主要显示H股交易情况, 同时计算AH价格比和HA价格比. H股是指获中国证监会批核到香港上市的国有企业, 也称国企股.',
+	$ar = array(ADR_PAGE => '通过比较中国企业在美国发行的American Depositary Receipt(ADR)的中国A股价格, 港股价格和美股价格, 分析各种套利对冲方案, 提供交易建议.',
+				  ADRH_COMPARE_PAGE => ADRH_COMPARE_DISPLAY.'工具, 按ADR股票代码排序. 主要显示H股交易情况, 同时计算AdrH价格比和HAdr价格比. H股是指获中国证监会批核到香港上市的国有企业, 也称国企股.',
+				  AH_COMPARE_PAGE => AH_COMPARE_DISPLAY.'工具, 按A股股票代码排序. 主要显示H股交易情况, 同时计算AH价格比和HA价格比. H股是指获中国证监会批核到香港上市的国有企业, 也称国企股.',
 				  'bricfund' => '计算金砖四国基金的净值, 目前包括信诚四国(SZ165510)和招商金砖(SZ161714). 招商金砖跟标普金砖四国40指数(^SPBRICNTR)比较一致.',
 				  'chinaetf' => '这个工具箱计算各种中国A股指数ETF的净值, 同时分析比较各种套利对冲方案, 提供交易建议. 包括美股ASHR和多家国内基金公司的A股沪深300指数ETF的配对交易等.',
 				  'chinainternet' => '计算中国互联网指数基金的净值, 目前包括跟踪中证海外中国互联网指数的中国互联(SZ164906)和跟踪中证海外中国互联网50指数的中概互联(SH513050).',
@@ -131,12 +131,12 @@ function _getSimilarLinks($strTitle)
 {
     switch ($strTitle)
     {
-    case 'adr':
-    case 'adrhcompare':
+    case ADR_PAGE:
+    case ADRH_COMPARE_PAGE:
     	$str = GetAastocksLink();
         break;
   
-    case 'ahcompare':
+    case AH_COMPARE_PAGE:
     	$str = GetExternalLink(GetJisiluDataUrl().'ha/', '集思录').' '.GetExternalLink('http://data.10jqka.com.cn/market/ahgbj/', '同花顺').' '.GetAastocksLink('ah');
         break;
   
@@ -217,9 +217,9 @@ function EchoMetaDescription()
 
 function _getTitleStr($strTitle)
 {
-	$ar = array('adr' => '美股ADR价格比较工具',
-				  'adrhcompare' =>  '美股ADR和H股价格比较工具',
-			  	  'ahcompare' => 'AH股价格比较工具',
+	$ar = array(ADR_PAGE => ADR_DISPLAY,
+				  ADRH_COMPARE_PAGE => ADRH_COMPARE_DISPLAY,
+			  	  AH_COMPARE_PAGE => AH_COMPARE_DISPLAY,
 			  	  'bricfund' => '金砖四国基金净值计算工具',
 			  	  'chinaetf' => 'A股指数ETF净值计算工具',
 			  	  'chinainternet' => '中国互联网指数基金净值计算工具',

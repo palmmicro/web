@@ -12,60 +12,36 @@ require_once('_stockgroup.php');
 
 function _EchoPortfolioParagraphBegin($str)
 {
-    $arColumn = array(GetTableColumnSymbol(), '总数量', '平均价格', GetTableColumnChange(), '持仓', '盈亏', '货币');
-    
-    echo <<<END
-    	<p>$str
-        <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="portfolio">
-        <tr>
-            <td class=c1 width=100 align=center>{$arColumn[0]}</td>
-            <td class=c1 width=90 align=center>{$arColumn[1]}</td>
-            <td class=c1 width=90 align=center>{$arColumn[2]}</td>
-            <td class=c1 width=100 align=center>{$arColumn[3]}</td>
-            <td class=c1 width=120 align=center>{$arColumn[4]}</td>
-            <td class=c1 width=90 align=center>{$arColumn[5]}</td>
-            <td class=c1 width=50 align=center>{$arColumn[6]}</td>
-        </tr>
-END;
+	EchoTableParagraphBegin(array(new TableColumnSymbol(),
+								   new TableColumnAmount('盈亏'),
+								   new TableColumnAmount('持仓'),
+								   new TableColumn('总数量', 90),
+								   new TableColumnPrice('平均'),
+								   new TableColumnChange()
+								   ), MY_PORTFOLIO_PAGE, $str);
 }
 
 function _EchoPortfolioItem($strGroupId, $trans)
 {
+	$ar = array();
+	
     $ref = $trans->ref;
     $sym = $ref->GetSym();
-    
     if ($sym->IsSymbolA())           $strMoney = '';
     else if ($sym->IsSymbolH())     $strMoney = '港币$';
-    else                              $strMoney = '$';
+    else                               $strMoney = '$';
     
-    $strTransactions = StockGetTransactionLink($strGroupId, $sym->GetSymbol());
-    if ($trans->iTotalShares == 0)
+    $ar[] = StockGetTransactionLink($strGroupId, $sym->GetSymbol());
+    $ar[] = $trans->GetProfitDisplay().$strMoney;
+    if ($trans->iTotalShares != 0)
     {
-        $strAvgCost = '';
-        $strPercentage = '';
-        $strAmount = '';
-        $strTotalShares = '';
+        $ar[] = GetNumberDisplay($trans->GetValue()).$strMoney;
+        $ar[] = strval($trans->iTotalShares); 
+        $ar[] = $trans->GetAvgCostDisplay();
+        $ar[] = $ref->GetPercentageDisplay($trans->GetAvgCost());
     }
-    else
-    {
-        $strAvgCost = $trans->GetAvgCostDisplay();
-        $strPercentage = $ref->GetPercentageDisplay($trans->GetAvgCost());
-        $strAmount = GetNumberDisplay($trans->GetValue());
-        $strTotalShares = strval($trans->iTotalShares); 
-    }
-    $strProfit = $trans->GetProfitDisplay();
-    
-    echo <<<END
-    <tr>
-        <td class=c1>$strTransactions</td>
-        <td class=c1>$strTotalShares</td>
-        <td class=c1>$strAvgCost</td>
-        <td class=c1>$strPercentage</td>
-        <td class=c1>$strAmount</td>
-        <td class=c1>$strProfit</td>
-        <td class=c1>$strMoney</td>
-    </tr>
-END;
+
+    EchoTableColumn($ar);
 }
 
 function _echoGroupPortfolioParagraph($group)

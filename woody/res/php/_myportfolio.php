@@ -101,7 +101,7 @@ function EchoAll()
     _echoPortfolio($portfolio, $sql);
     _echoMoneyParagraph($portfolio);
     
-    EchoPromotionHead('portfolio');
+    EchoPromotionHead(MY_PORTFOLIO_PAGE);
     EchoStockCategory();
 }
 
