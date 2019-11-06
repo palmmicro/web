@@ -34,8 +34,9 @@ function _echoReference($arRef)
 
 function _echoPortfolio($portfolio, $sql)
 {
+	$arTrans = array();
     $arRef = array();
-    _EchoPortfolioParagraphBegin('个股盈亏');    
+
 	if ($result = $sql->GetAll()) 
 	{
 		while ($record = mysql_fetch_assoc($result)) 
@@ -46,20 +47,22 @@ function _echoPortfolio($portfolio, $sql)
 		        $portfolio->arStockGroup[] = $group;
 		        foreach ($group->arStockTransaction as $trans)
 		        {
-		            if ($trans->iTotalRecords > 0)
+		            if ($trans->GetTotalRecords() > 0)
 		            {
-		                _EchoPortfolioItem($record['id'], $trans);
 		                $portfolio->OnStockTransaction($trans);
-		                if (!in_array($trans->ref, $arRef))    $arRef[] = $trans->ref;
+		                $arTrans[] = $trans;
+		                
+		                $ref = $trans->GetRef();
+		                if (!in_array($ref, $arRef))    $arRef[] = $ref;
 		            }
 		        }
 		    }
 		}
 		@mysql_free_result($result);
 	}
-    EchoTableParagraphEnd();    
 
     _echoReference($arRef);
+	EchoPortfolioParagraph('个股盈亏', $arTrans);
 }
 
 function _echoMoneyParagraph($portfolio)
@@ -107,7 +110,7 @@ function EchoAll()
 
 function EchoTitle()
 {
-    echo '我的证券投资组合';
+    echo '我的'.MY_PORTFOLIO_DISPLAY;
 }
 
 function EchoMetaDescription()

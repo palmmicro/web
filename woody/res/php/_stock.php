@@ -2,63 +2,12 @@
 require_once('_resstock.php');
 require_once('/php/stock.php');
 //require_once('/php/ui/stocktable.php');
+require_once('/php/ui/portfolioparagraph.php');
 require_once('/php/ui/transactionparagraph.php');
 require_once('_editformcommon.php');
 require_once('_edittransactionform.php');
 require_once('_stocklink.php');
 require_once('_stockgroup.php');
-
-// ****************************** Portfolio table *******************************************************
-
-function _EchoPortfolioParagraphBegin($str)
-{
-	EchoTableParagraphBegin(array(new TableColumnSymbol(),
-								   new TableColumnAmount('盈亏'),
-								   new TableColumnAmount('持仓'),
-								   new TableColumn('总数量', 90),
-								   new TableColumnPrice('平均'),
-								   new TableColumnChange()
-								   ), MY_PORTFOLIO_PAGE, $str);
-}
-
-function _EchoPortfolioItem($strGroupId, $trans)
-{
-	$ar = array();
-	
-    $ref = $trans->ref;
-    $sym = $ref->GetSym();
-    if ($sym->IsSymbolA())           $strMoney = '';
-    else if ($sym->IsSymbolH())     $strMoney = '港币$';
-    else                               $strMoney = '$';
-    
-    $ar[] = StockGetTransactionLink($strGroupId, $sym->GetSymbol());
-    $ar[] = $trans->GetProfitDisplay().$strMoney;
-    if ($trans->iTotalShares != 0)
-    {
-        $ar[] = GetNumberDisplay($trans->GetValue()).$strMoney;
-        $ar[] = strval($trans->iTotalShares); 
-        $ar[] = $trans->GetAvgCostDisplay();
-        $ar[] = $ref->GetPercentageDisplay($trans->GetAvgCost());
-    }
-
-    EchoTableColumn($ar);
-}
-
-function _echoGroupPortfolioParagraph($group)
-{
-    if ($group->GetTotalRecords() > 0)
-	{
-	    _EchoPortfolioParagraphBegin(GetMyPortfolioLink());    
-        foreach ($group->arStockTransaction as $trans)
-        {
-            if ($trans->iTotalRecords > 0)
-            {
-                _EchoPortfolioItem($group->GetGroupId(), $trans);
-            }
-		}
-		EchoTableParagraphEnd();
-	}
-}
 
 // ****************************** Money table *******************************************************
 
@@ -171,12 +120,12 @@ function _EchoTransactionParagraph($group)
 {
     $strGroupId = $group->GetGroupId();
     
+    StockEditTransactionForm(STOCK_TRANSACTION_NEW, $strGroupId);
     if ($group->GetTotalRecords() > 0)
     {
     	EchoTransactionParagraph($strGroupId);
-    }
-    StockEditTransactionForm(STOCK_TRANSACTION_NEW, $strGroupId);
-    _echoGroupPortfolioParagraph($group);
+		EchoPortfolioParagraph(GetMyPortfolioLink(), $group->GetStockTransactionArray());
+	}
 }
 
 // ****************************** String functions *******************************************************

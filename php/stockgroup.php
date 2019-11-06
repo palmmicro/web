@@ -56,6 +56,11 @@ class MyStockGroup extends StockGroup
     var $arbi_trans;
     var $bCountArbitrage;
     
+    function GetStockTransactionArray()
+    {
+    	return $this->arStockTransaction;
+    }
+    
     function GetStockTransactionByStockGroupItemId($strStockGroupItemId)
     {
         foreach ($this->arStockTransaction as $trans)
@@ -163,7 +168,7 @@ class MyStockGroup extends StockGroup
         $iTotal = 0;
         foreach ($this->arStockTransaction as $trans)
         {
-            $iTotal += $trans->iTotalRecords;
+            $iTotal += $trans->GetTotalRecords();
         }
         return $iTotal;
     }

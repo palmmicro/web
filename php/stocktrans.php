@@ -12,6 +12,11 @@ class StockTransaction
         $this->Zero();
     }
 
+    function GetTotalRecords()
+    {
+        return $this->iTotalRecords;
+    }
+    
     function Zero()
     {
         $this->fTotalCost = 0.0;
@@ -42,11 +47,14 @@ class StockTransaction
 class MyStockTransaction extends StockTransaction
 {
     var $ref;                       // MyStockReference
+    
+    var $strGroupId;
     var $strStockGroupItemId;
     
     function MyStockTransaction($ref, $strGroupId) 
     {
         $this->ref = $ref;
+        $this->strGroupId = $strGroupId;
         if ($strGroupId)
         {
             if ($ref)
@@ -58,6 +66,16 @@ class MyStockTransaction extends StockTransaction
         parent::StockTransaction();
     }
 
+    function GetRef()
+    {
+    	return $this->ref;
+    }
+    
+    function GetGroupId()
+    {
+    	return $this->strGroupId;
+    }
+    
     function GetStockSymbol()
     {
         if ($this->ref)
