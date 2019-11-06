@@ -252,18 +252,20 @@ function StockGetGroupTransactionLinks($strGroupId, $strCurSymbol = '')
 {
     $str = '';
 	$sql = new StockGroupItemSql($strGroupId);
-    $arGroupItemSymbol = SqlGetStockGroupItemSymbolArray($sql);
-    foreach ($arGroupItemSymbol as $strGroupItemId => $strSymbol)
+    if ($arGroupItemSymbol = SqlGetStockGroupItemSymbolArray($sql))
     {
-        if ($strSymbol == $strCurSymbol)
-        {
-            $str .= "<font color=indigo>$strSymbol</font>";
-        }
-        else
-        {
-       		$str .= StockGetTransactionLink($strGroupId, $strSymbol);
-        }
-        $str .= ' ';
+    	foreach ($arGroupItemSymbol as $strGroupItemId => $strSymbol)
+    	{
+    		if ($strSymbol == $strCurSymbol)
+    		{
+    			$str .= "<font color=indigo>$strSymbol</font>";
+    		}	
+    		else
+    		{
+    			$str .= StockGetTransactionLink($strGroupId, $strSymbol);
+    		}
+    		$str .= ' ';
+    	}
     }
     return rtrim($str, ' ');
 }

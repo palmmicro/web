@@ -102,7 +102,6 @@ function _echoMyStockGroup($strGroupId)
         $group = new MyStockGroup($strGroupId, $arTransactionRef);
         _EchoTransactionParagraph($group);
     }
-    EchoStockGroupParagraph();
 }
 
 function _getMetaDescriptionStr($strTitle)
@@ -165,7 +164,7 @@ function EchoAll()
 	$strTitle = $acct->GetTitle();
     if ($strTitle == 'mystockgroup')
     {
-        if ($strGroupId = $acct->GetQuery())
+        if ($strGroupId = $acct->EchoStockGroup())
         {
             _echoMyStockGroup($strGroupId);
         }
@@ -182,8 +181,7 @@ function EchoAll()
     	EchoParagraph($str);
         _echoStockGroupArray(StockGetArraySymbol(GetCategoryArray($strTitle)));
     }
-    EchoPromotionHead($strTitle);
-    EchoStockCategory();
+    $acct->EchoLinks($strTitle);
 }
 
 function EchoMetaDescription()
@@ -193,15 +191,7 @@ function EchoMetaDescription()
 	$strTitle = $acct->GetTitle();
     if ($strTitle == 'mystockgroup')
     {
-    	if ($strGroupId = $acct->GetQuery())
-    	{
-    		$str = _GetWhoseStockGroupDisplay(false, $strGroupId);
-    	}
-    	else
-    	{
-    		$str = _GetWhoseDisplay($acct->GetMemberId(), $acct->GetLoginId());
-    		$str .= _GetAllDisplay(false);
-    	}
+   		$str = $acct->GetWhoseGroupDisplay();
         $str .= '股票分组管理页面. 提供现有股票分组列表和编辑删除链接, 以及新增加股票分组的输入控件. 跟php/_editgroupform.php和php/_submitgroup.php配合使用.';
     }
     else
@@ -249,17 +239,7 @@ function EchoTitle()
 	$strTitle = $acct->GetTitle();
     if ($strTitle == 'mystockgroup')
     {
-    	$strLoginId = $acct->GetLoginId(); 
-    	if ($strGroupId = $acct->GetQuery())
-    	{
-    		$str = _GetWhoseStockGroupDisplay($strLoginId, $strGroupId);
-    	}
-    	else
-    	{
-    		$str = _GetWhoseDisplay($acct->GetMemberId(), $strLoginId);
-    		$str .= _GetAllDisplay(false);
-    	}
-    	$str .= STOCK_GROUP_DISPLAY;
+   		$str = $acct->GetWhoseGroupDisplay().STOCK_GROUP_DISPLAY;
     }
     else
     {
@@ -269,7 +249,7 @@ function EchoTitle()
     echo $str;
 }
 
-	$acct = new TitleAcctStart('groupid');
+	$acct = new _GroupAcctStart();
 	if ($acct->GetTitle() == 'mystockgroup')
 	{
 		if ($acct->GetQuery() == false)

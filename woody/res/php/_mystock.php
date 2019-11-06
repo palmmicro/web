@@ -194,7 +194,7 @@ function EchoMetaDescription()
 {
 	global $acct;
 	
-    $str = $acct->GetSymbolDisplay($acct->GetWhoseDisplay()._GetAllDisplay(false));
+    $str = $acct->GetSymbolDisplay($acct->GetWhoseAllDisplay());
 	$str .= '参考数据, AH对比, SMA均线, 布林线, 净值估算等本网站提供的内容. 可以用来按代码查询股票基本情况, 登录状态下还显示相关股票分组中的用户交易记录.';
     EchoMetaDescriptionText($str);
 }
@@ -207,7 +207,7 @@ function EchoTitle()
     echo $str;
 }
 
-    $acct = new SymbolAcctStart(false);
+    $acct = new SymbolAcctStart();
     
 ?>
 

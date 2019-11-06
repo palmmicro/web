@@ -4,11 +4,11 @@ require_once('/php/ui/htmlelement.php');
 function EditGetStockGroupItemList($strGroupId, $strCurGroupItemId)
 {
 	$sql = new StockGroupItemSql($strGroupId);
-    $ar = SqlGetStockGroupItemSymbolArray($sql);
-    if ($ar == false)   return '';
-
-    if ($strCurGroupItemId)		return HtmlGetOption(array($strCurGroupItemId => $ar[$strCurGroupItemId]));
-    return HtmlGetOption($ar);
+    if($ar = SqlGetStockGroupItemSymbolArray($sql))
+    {
+    	return HtmlGetOption($strCurGroupItemId ? array($strCurGroupItemId => $ar[$strCurGroupItemId]) : $ar);
+    }
+    return '';
 }
 
 ?>

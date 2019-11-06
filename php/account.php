@@ -258,6 +258,11 @@ function AcctGetMemberIdFromBlogUri($strUri)
 	return SqlGetIdByEmail($strEmail);           		             
 }
 
+function _GetAllDisplay($str = false)
+{
+    return ($str) ? $str : '全部';
+}
+
 class AcctStart
 {
     var $strLoginId;
@@ -282,6 +287,23 @@ class AcctStart
     	{
     		AcctSwitchToLogin();
     	}
+    }
+    
+    function GetWhoseDisplay($strMemberId = false)
+    {
+    	if ($strMemberId == false)		$strMemberId = $this->strMemberId;
+
+    	if (($strName = SqlGetNameByMemberId($strMemberId)) == false)
+    	{
+    		$strName = SqlGetEmailById($strMemberId);
+    	}
+    	$str = ($strMemberId == $this->strLoginId) ? '我' : $strName;
+    	return $str.'的';
+    }
+    
+    function GetWhoseAllDisplay()
+    {
+    	return $this->GetWhoseDisplay()._GetAllDisplay();
     }
     
     function GetLoginId()
@@ -334,6 +356,9 @@ class TitleAcctStart extends AcctStart
 	var $strTitle;
 	var $strQuery;
 	
+    var $iStart;
+    var $iNum;
+    
     function TitleAcctStart($strQueryItem = false, $arLoginTitle = false) 
     {
         parent::AcctStart();
@@ -346,6 +371,13 @@ class TitleAcctStart extends AcctStart
     		}
     	}
         
+   		$this->iStart = UrlGetQueryInt('start');
+   		$this->iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
+   		if (($this->iStart != 0) && ($this->iNum != 0))
+   		{
+   			$this->Auth();
+   		}
+   		
         $this->strQuery = UrlGetQueryValue($strQueryItem ? $strQueryItem : $this->strTitle);
     }
     
@@ -357,26 +389,6 @@ class TitleAcctStart extends AcctStart
     function GetQuery()
     {
     	return $this->strQuery;
-    }
-}
-
-class NavAcctStart extends AcctStart
-{
-    var $iStart;
-    var $iNum;
-    
-    function NavAcctStart($bLogin = true) 
-    {
-        parent::AcctStart();
-   		$this->iStart = UrlGetQueryInt('start');
-   		$this->iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
-    	if ($bLogin)
-    	{
-    		if (($this->iStart != 0) || ($this->iNum != 0))
-    		{
-    			$this->Auth();
-    		}
-    	}
     }
     
     function GetStart()

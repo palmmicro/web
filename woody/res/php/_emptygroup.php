@@ -1,14 +1,14 @@
 <?php
 
-class SymbolAcctStart extends NavAcctStart
+class SymbolAcctStart extends _StockAcctStart
 {
     var $ref = false;		// MysqlReference class
     
-    function SymbolAcctStart($bLogin = true) 
+    function SymbolAcctStart() 
     {
-        parent::NavAcctStart($bLogin);
+        parent::_StockAcctStart('symbol');
     	
-    	if ($strSymbol = UrlGetQueryValue('symbol'))
+    	if ($strSymbol = $this->GetQuery())
     	{
     		if (strlen($strSymbol) <= MAX_STOCK_SYMBOL_LEN)
     		{
@@ -30,13 +30,6 @@ class SymbolAcctStart extends NavAcctStart
     	return $this->ref;
     }
 
-    function EchoLinks($strVer = false)
-    {
-    	$strLoginId = $this->GetLoginId();
-    	EchoPromotionHead($strVer, $strLoginId);
-    	EchoStockCategory($strLoginId);
-    }
-    
     function EchoStockGroup()
     {
     	if ($ref = $this->GetRef())
@@ -59,11 +52,6 @@ class SymbolAcctStart extends NavAcctStart
     {
     	$ref = $this->GetRef();
         return $ref ? RefGetStockDisplay($ref) : $strDefault;
-    }
-
-    function GetWhoseDisplay()
-    {
-    	return _GetWhoseDisplay($this->GetMemberId(), $this->GetLoginId());
     }
 }
 

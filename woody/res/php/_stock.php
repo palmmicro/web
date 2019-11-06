@@ -128,36 +128,50 @@ function _EchoTransactionParagraph($group)
 	}
 }
 
-// ****************************** String functions *******************************************************
 
-function _getMemberDisplay($strMemberId)
+class _StockAcctStart extends TitleAcctStart
 {
-	if (($strName = SqlGetNameByMemberId($strMemberId)) == false)
-	{
-	    return SqlGetEmailById($strMemberId);
-	}
-	return $strName;
-}
-
-function _GetWhoseDisplay($strOwnerMemberId, $strMemberId)
-{
-    $str = ($strOwnerMemberId == $strMemberId) ? '我' : _getMemberDisplay($strOwnerMemberId);
-    return $str.'的';
-}
-
-function _GetWhoseStockGroupDisplay($strMemberId, $strGroupId)
-{
-    if ($strGroupMemberId = SqlGetStockGroupMemberId($strGroupId))
+    function _StockAcctStart($strQueryItem = false, $arLoginTitle = false) 
     {
-    	$str = _GetWhoseDisplay($strGroupMemberId, $strMemberId); 
-    	return $str.SqlGetStockGroupName($strGroupId);
+        parent::TitleAcctStart($strQueryItem, $arLoginTitle);
     }
-    return '';
-}
 
-function _GetAllDisplay($str)
+    function EchoLinks($strVer = false)
+    {
+    	$strLoginId = $this->GetLoginId();
+    	EchoPromotionHead($strVer, $strLoginId);
+    	EchoStockCategory($strLoginId);
+    }
+}    
+
+class _GroupAcctStart extends _StockAcctStart
 {
-    return ($str) ? $str : '全部';
+    function _GroupAcctStart() 
+    {
+        parent::_StockAcctStart('groupid');
+    }
+    
+    function EchoStockGroup()
+    {
+    	if ($strGroupId = $this->GetQuery())
+    	{
+    		EchoAllStockGroupParagraph($strGroupId, false, $this->GetMemberId(), $this->GetLoginId());
+    	}
+    	return $strGroupId;
+    }
+    
+    function GetWhoseGroupDisplay()
+    {
+    	if ($strGroupId = $this->GetQuery())
+    	{
+    		if ($strMemberId = SqlGetStockGroupMemberId($strGroupId))
+    		{
+    			return $this->GetWhoseDisplay($strMemberId).SqlGetStockGroupName($strGroupId); 
+    		}
+    		return '';
+    	}
+    	return $this->GetWhoseAllDisplay();
+    }
 }
 
 

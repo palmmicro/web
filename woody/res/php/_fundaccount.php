@@ -207,7 +207,7 @@ function EchoTitle()
   	echo $str;
 }
 
-    $acct = new SymbolAcctStart(false);
+    $acct = new SymbolAcctStart();
 
 ?>
 

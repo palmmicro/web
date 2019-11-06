@@ -120,35 +120,39 @@ END;
 
 function EchoAll()
 {
-    if ($strGroupId = UrlGetQueryValue('groupid'))
+	global $acct;
+	
+    if ($strGroupId = $acct->EchoStockGroup())
     {
         $arSymbol = SqlGetStocksArray($strGroupId);
         StockPrefetchArrayData($arSymbol);
-   		EchoStockGroupParagraph();
 
         $str = StockGetGroupTransactionLinks($strGroupId);
         $str .= ' '.StockGetAllTransactionLink($strGroupId);
         _echoCombinedTransactionParagraph($str, $strGroupId, 0);
     }
-    EchoPromotionHead();
-    EchoStockCategory();
+    $acct->EchoLinks();
 }
 
 function EchoMetaDescription()
 {
-    $strWhose = _GetWhoseStockGroupDisplay(false, UrlGetQueryValue('groupid'));
-    $str = '不同的数据显示方式可能会带来不同的思路和想法. 这里显示'.$strWhose.'股票分组内相同股票连续交易的合并交易结果, 并且对LOF等跨市场的分组进行了合并交易结果后相应的价格折算.';
+	global $acct;
+	
+	$str = $acct->GetWhoseGroupDisplay();
+    $str = '不同的数据显示方式可能会带来不同的思路和想法. 这里显示'.$str.'股票分组内相同股票连续交易的合并交易结果, 并且对LOF等跨市场的分组进行了合并交易结果后相应的价格折算.';
     EchoMetaDescriptionText($str);
 }
 
 function EchoTitle()
 {
-    $str = _GetWhoseStockGroupDisplay(AcctIsLogin(), UrlGetQueryValue('groupid'));
+	global $acct;
+	
+	$str = $acct->GetWhoseGroupDisplay();
     $str .= '合并股票交易记录';
     echo $str;
 }
 
-    AcctAuth();
+	$acct = new _GroupAcctStart();
 
 ?>
 
