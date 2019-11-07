@@ -111,6 +111,10 @@ class YearMonthDay
         {   // New Years Day is not a trading day everywhere
             return true;
         }
+        if ($this->IsWeekend())
+        {	// check weekend again for daylight saving bug
+        	return true;
+        }
         return false;
     }
     

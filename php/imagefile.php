@@ -136,7 +136,12 @@ class PageImageFile extends ImageFile
 
     function _getPos($f, $fMax, $fMin)
     {
-    	return ($f - $fMin) / ($fMax - $fMin);
+    	$fDiff = $fMax - $fMin;
+    	if (abs($fDiff) > 0.000001)
+    	{
+    		return ($f - $fMin) / $fDiff;
+    	}
+    	return 0.0;
     }
     
     function _getPosX($fX)

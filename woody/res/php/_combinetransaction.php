@@ -1,5 +1,6 @@
 <?php
 require_once('_stock.php');
+require_once('_idgroup.php');
 require_once('/php/ui/stocktable.php');
 
 // ****************************** Combined group transaction table *******************************************************
@@ -152,7 +153,7 @@ function EchoTitle()
     echo $str;
 }
 
-	$acct = new _GroupAcctStart();
+	$acct = new GroupAcctStart();
 
 ?>
 

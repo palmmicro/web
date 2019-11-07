@@ -1,7 +1,6 @@
 <?php
 require_once('_stock.php');
-require_once('/php/stockhis.php');
-require_once('/php/stocktrans.php');
+require_once('_stockgroup.php');
 require_once('/php/ui/arbitrageparagraph.php');
 require_once('/php/ui/referenceparagraph.php');
 require_once('/php/ui/hsharesmaparagraph.php');

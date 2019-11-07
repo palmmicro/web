@@ -1,5 +1,6 @@
 <?php
 require_once('_stock.php');
+require_once('/php/stockgroup.php');
 require_once('/php/stockhis.php');
 require_once('/php/ui/referenceparagraph.php');
 
@@ -75,7 +76,7 @@ function _echoMoneyParagraph($portfolio)
     {
         _EchoMoneyGroupData($group, GetStockGroupLink($group->GetGroupId()), $strUSDCNY, $strHKDCNY);
     }
-    _EchoMoneyGroupData($portfolio, '全部', $strUSDCNY, $strHKDCNY);
+    _EchoMoneyGroupData($portfolio, STOCK_DISP_ALL, $strUSDCNY, $strHKDCNY);
     EchoTableParagraphEnd();
 }
 

@@ -7,14 +7,13 @@ require_once('/php/ui/transactionparagraph.php');
 require_once('_editformcommon.php');
 require_once('_edittransactionform.php');
 require_once('_stocklink.php');
-require_once('_stockgroup.php');
 
 // ****************************** Money table *******************************************************
 
 function _EchoMoneyParagraphBegin($str = '')
 {
     $strGroupLink = GetMyStockGroupLink();
-    $arColumn = array($strGroupLink, '持仓', '盈亏', '全部持仓', '全部盈亏', '货币');
+    $arColumn = array($strGroupLink, '持仓', '盈亏', STOCK_DISP_ALL.'持仓', STOCK_DISP_ALL.'盈亏', '货币');
     
     echo <<<END
     	<p>$str
@@ -129,9 +128,9 @@ function _EchoTransactionParagraph($group)
 }
 
 
-class _StockAcctStart extends TitleAcctStart
+class StockAcctStart extends TitleAcctStart
 {
-    function _StockAcctStart($strQueryItem = false, $arLoginTitle = false) 
+    function StockAcctStart($strQueryItem = false, $arLoginTitle = false) 
     {
         parent::TitleAcctStart($strQueryItem, $arLoginTitle);
     }
@@ -143,36 +142,5 @@ class _StockAcctStart extends TitleAcctStart
     	EchoStockCategory($strLoginId);
     }
 }    
-
-class _GroupAcctStart extends _StockAcctStart
-{
-    function _GroupAcctStart() 
-    {
-        parent::_StockAcctStart('groupid');
-    }
-    
-    function EchoStockGroup()
-    {
-    	if ($strGroupId = $this->GetQuery())
-    	{
-    		EchoAllStockGroupParagraph($strGroupId, false, $this->GetMemberId(), $this->GetLoginId());
-    	}
-    	return $strGroupId;
-    }
-    
-    function GetWhoseGroupDisplay()
-    {
-    	if ($strGroupId = $this->GetQuery())
-    	{
-    		if ($strMemberId = SqlGetStockGroupMemberId($strGroupId))
-    		{
-    			return $this->GetWhoseDisplay($strMemberId).SqlGetStockGroupName($strGroupId); 
-    		}
-    		return '';
-    	}
-    	return $this->GetWhoseAllDisplay();
-    }
-}
-
 
 ?>

@@ -1,5 +1,6 @@
 <?php
 require_once('/php/stockgroup.php');
+require_once('/php/stockhis.php');
 
 class _StockGroup extends MyStockGroup
 {

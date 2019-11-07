@@ -1,6 +1,5 @@
 <?php
-require_once('/php/account.php');
-require_once('/php/stock.php');
+require_once('_stock.php');
 require_once('_emptygroup.php');
 
 function _deleteIsStockPair($strTableName, $strPairId)

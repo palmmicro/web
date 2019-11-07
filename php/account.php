@@ -258,11 +258,6 @@ function AcctGetMemberIdFromBlogUri($strUri)
 	return SqlGetIdByEmail($strEmail);           		             
 }
 
-function _GetAllDisplay($str = false)
-{
-    return ($str) ? $str : '全部';
-}
-
 class AcctStart
 {
     var $strLoginId;
@@ -303,7 +298,7 @@ class AcctStart
     
     function GetWhoseAllDisplay()
     {
-    	return $this->GetWhoseDisplay()._GetAllDisplay();
+    	return $this->GetWhoseDisplay().STOCK_DISP_ALL;
     }
     
     function GetLoginId()

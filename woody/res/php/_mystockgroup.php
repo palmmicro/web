@@ -1,5 +1,6 @@
 <?php
 require_once('_stock.php');
+require_once('_idgroup.php');
 require_once('_editgroupform.php');
 require_once('/php/stockhis.php');
 require_once('/php/ui/referenceparagraph.php');
@@ -249,7 +250,7 @@ function EchoTitle()
     echo $str;
 }
 
-	$acct = new _GroupAcctStart();
+	$acct = new GroupAcctStart();
 	if ($acct->GetTitle() == 'mystockgroup')
 	{
 		if ($acct->GetQuery() == false)

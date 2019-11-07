@@ -1,8 +1,7 @@
 <?php
-require_once('/php/account.php');
-require_once('/php/stock.php');
-require_once('/php/stockhis.php');
+require_once('_stock.php');
 require_once('_emptygroup.php');
+require_once('/php/stockhis.php');
 
 // https://danjuanapp.com/djmodule/value-center
 

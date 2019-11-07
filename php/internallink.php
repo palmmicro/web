@@ -1,12 +1,8 @@
 <?php
-//require_once('url.php');
-//require_once('debug.php');
 require_once('httplink.php');
 require_once('sql/sqlblog.php');
 require_once('sql/sqlmember.php');
 require_once('sql/sqlvisitor.php');
-
-define('DEFAULT_NAV_DISPLAY', 100);
 
 // ****************************** Internal none-stock link functions *******************************************************
 

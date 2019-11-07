@@ -1,5 +1,6 @@
 <?php
 require_once('_stock.php');
+require_once('_idgroup.php');
 
 function EchoAll()
 {
@@ -10,9 +11,9 @@ function EchoAll()
         $arSymbol = SqlGetStocksArray($strGroupId, true);
         StockPrefetchArrayData($arSymbol);
 
-        $iStart = UrlGetQueryInt('start');
-        $iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
-        if ($strSymbol = UrlGetQueryValue('symbol'))
+        $iStart = $acct->GetStart();
+        $iNum = $acct->GetNum();
+        if ($strSymbol = $acct->GetSymbol())
         {   // Display transactions of a stock
             $strAllLink = StockGetAllTransactionLink($strGroupId);
             $strStockLinks = StockGetGroupTransactionLinks($strGroupId, $strSymbol);
@@ -34,9 +35,8 @@ function EchoMetaDescription()
 {
 	global $acct;
 	
-	$str = $acct->GetWhoseGroupDisplay();
-    $strStock = _GetAllDisplay(UrlGetQueryValue('symbol'));
-    $str .= STOCK_GROUP_DISPLAY.$strStock.'交易记录管理页面. 提供现有股票交易记录和编辑删除链接, 主要用于某组股票交易记录超过一定数量后的显示. 少量的股票交易记录一般直接显示在该股票页面而不是在这里.';
+	$str = $acct->GetDescription();
+    $str .= '管理页面. 提供现有股票交易记录和编辑删除链接, 主要用于某组股票交易记录超过一定数量后的显示. 少量的股票交易记录一般直接显示在该股票页面而不是在这里.';
     EchoMetaDescriptionText($str);
 }
 
@@ -44,13 +44,34 @@ function EchoTitle()
 {
 	global $acct;
 	
-	$str = $acct->GetWhoseGroupDisplay();
-    $strStock = _GetAllDisplay(UrlGetQueryValue('symbol'));
-    $str .= STOCK_GROUP_DISPLAY.$strStock.'交易记录';
-    echo $str;
+	echo $acct->GetDescription();
 }
 
-	$acct = new _GroupAcctStart();
+class _TransAcctStart extends GroupAcctStart
+{
+	var $strSymbol;
+	
+    function _TransAcctStart() 
+    {
+        parent::GroupAcctStart();
+        
+        $this->strSymbol = UrlGetQueryValue('symbol');
+    }
+    
+    function GetSymbol()
+    {
+    	return $this->strSymbol;
+    }
+    
+    function GetDescription()
+    {
+    	$str = $this->GetWhoseGroupDisplay().STOCK_GROUP_DISPLAY;
+    	$str .= ($this->strSymbol) ? $this->strSymbol : STOCK_DISP_ALL;
+    	$str .= '交易记录';
+    	return $str;
+    }
+}
+
+	$acct = new _TransAcctStart();
 
 ?>
-

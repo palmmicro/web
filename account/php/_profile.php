@@ -136,7 +136,7 @@ function _echoAccountFundAmount($strMemberId, $bChinese)
     $str = $bChinese ? '申购金额' : 'Fund Amount';
     if ($iTotal > TABLE_COMMON_DISPLAY)
     {
-        $str .= ' '.GetPhpLink(STOCK_PATH.'fundpurchaseamount', 'member_id='.$strMemberId, '全部', 'All', $bChinese);
+        $str .= ' '.GetPhpLink(STOCK_PATH.'fundpurchaseamount', 'member_id='.$strMemberId, STOCK_DISP_ALL, 'All', $bChinese);
     }
     EchoFundPurchaseParagraph($str, $strMemberId, $bChinese);
 }
