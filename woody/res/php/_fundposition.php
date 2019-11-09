@@ -102,7 +102,7 @@ function _echoFundPositionData($csv, $ref, $cny_ref, $est_ref, $strInput)
 	$cny_sql = new UscnyHistorySql();
 
 	$arDate = _getSwitchDateArray($sql, $est_sql);
- //    DebugArray($arDate);
+	if (count($arDate) == 0)		return;
  
  	$iIndex = 0;
     if ($result = $sql->GetAll()) 

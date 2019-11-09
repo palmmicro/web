@@ -47,7 +47,7 @@ function EchoStockHistoryParagraph($ref, $str = false, $csv = false, $iStart = 0
 								   new TableColumnClose(),
 								   new TableColumn(STOCK_DISP_QUANTITY, 130),
 								   new TableColumnClose('复权')
-								   ), $strSymbol.TABLE_STOCK_HISTORY, $strNavLink.' '.$str);
+								   ), $strSymbol.TABLE_STOCK_HISTORY, $str.'<br />'.$strNavLink);
    
     _echoStockHistoryData($ref, $csv, $iStart, $iNum);
     EchoTableParagraphEnd($strNavLink);

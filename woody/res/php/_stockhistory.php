@@ -7,14 +7,21 @@ require_once('/php/ui/stockhistoryparagraph.php');
 function _getStockHistoryLinks($ref, $bAdmin)
 {
 	$sym = $ref->GetSym();
-    $strLinks = GetExternalStockHistoryLink($sym);
+	$strSymbol = $sym->GetSymbol();
+	
+	$strLinks = '相关链接:';
+    if ($sym->IsFundA())
+    {
+    	$strLinks .= ' '.GetNetValueHistoryLink($strSymbol).' '.GetFundHistoryLink($strSymbol);
+    }
+    $strLinks .= ' '.GetExternalStockHistoryLink($sym);
     if ($sym->IsTradable())
     {
     	$strLinks .= ' '.GetStockDividendLink($sym);
     }
     if ($bAdmin)
     {
-    	$strLinks .= ' '.GetUpdateStockHistoryLink($sym->GetSymbol(), '更新历史记录');
+    	$strLinks .= ' '.GetUpdateStockHistoryLink($strSymbol, '更新历史记录');
     }
     return $strLinks;
 }
@@ -48,7 +55,7 @@ function EchoMetaDescription()
 	global $acct;
 	
   	$str = $acct->GetStockDisplay().STOCK_HISTORY_DISPLAY;
-    $str .= '页面. 用于查看计算SMA的原始数据, 提供跟Yahoo或者Sina历史数据同步的功能, 方便人工处理合股和拆股, 分红除权等价格处理问题.';
+    $str .= '页面. 用于查看计算SMA的原始数据, 提供跟Yahoo或者Sina历史数据同步的功能, 方便人工处理合股和拆股, 分红除权等价格问题. 附带简单的图形显示数据.';
     EchoMetaDescriptionText($str);
 }
 
