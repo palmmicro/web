@@ -81,7 +81,7 @@ function _getFundAccountTableColumnArray()
 
 function _echoFundAccountParagraph($csv, $ref, $strSymbol, $strStockId, $nv_sql, $bAdmin)
 {
- 	$str = GetFundLinks($strSymbol).' '.GetLinearRegressionLink();
+ 	$str = GetFundLinks($strSymbol);
 	if ($bAdmin)
 	{
 		$str .= ' '.GetStockOptionLink(STOCK_OPTION_SHARES_DIFF, $strSymbol);
@@ -154,8 +154,8 @@ function _echoLinearRegressionGraph($csv, $ref, $nv_sql)
 {
     $jpg = new LinearImageFile();
     $jpg->Draw($csv->ReadColumn(5), $csv->ReadColumn(2));
-	$str = $csv->GetLink().' '.$jpg->GetEquation();
-	$str .= '<br />'.$jpg->GetLink();
+	$str = $csv->GetLink();
+	$str .= '<br />'.$jpg->GetAllLinks();
 	$str .= '<br />下一交易日预测, '.STOCK_OPTION_SHARES_DIFF.'按限购1000块人民币计算.';
 
 	EchoTableParagraphBegin(_getFundAccountTableColumnArray(), 'predict'.FUND_ACCOUNT_PAGE, $str);

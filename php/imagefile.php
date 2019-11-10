@@ -213,6 +213,11 @@ class LinearImageFile extends PageImageFile
     	}
     }
     
+    function GetY($fX)
+    {
+    	return $this->fA + $this->fB * $fX;
+    }
+    
     function GetEquation()
     {
     	$str = 'Y = '.strval_round($this->fA);
@@ -226,9 +231,9 @@ class LinearImageFile extends PageImageFile
     	return $str.strval_round($this->fB).' * X; R =  '.strval_round($this->fR);
     }
     
-    function GetY($fX)
+    function GetAllLinks()
     {
-    	return $this->fA + $this->fB * $fX;
+    	return GetLinearRegressionLink().'<br />'.$this->GetEquation().'<br />'.$this->GetLink();
     }
 }
 

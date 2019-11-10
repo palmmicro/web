@@ -20,17 +20,13 @@ function _echoNvClosePool($strSymbol)
    	EchoPricePoolParagraph($csv->pool, $strSymbol);
 }
 
-function _echoNvCloseGraph($strSymbol, $csv)
+function _echoNvCloseGraph($csv)
 {
-/*    $jpg = new LinearImageFile();
+    $jpg = new LinearImageFile();
     $jpg->Draw($csv->ReadColumn(1), $csv->ReadColumn(2));
-	$str = $csv->GetLink().' '.$jpg->GetEquation();
-	$str .= '<br />'.$jpg->GetLink();
+	$str = $csv->GetLink();
+	$str .= '<br />'.$jpg->GetAllLinks();
    	EchoParagraph($str);
-*/	
-    $jpg = new DateImageFile();
-    $jpg->Draw($csv->ReadColumn(2), $csv->ReadColumn(3));
-    EchoParagraph($csv->GetLink().'<br />'.$jpg->GetAll(STOCK_DISP_PREMIUM, $strSymbol));
 }
 
 function EchoAll()
@@ -56,7 +52,7 @@ function EchoAll()
 			if ($csv->HasFile())
 			{
 				_echoNvClosePool($strSymbol);
-				_echoNvCloseGraph($strSymbol, $csv);
+				_echoNvCloseGraph($csv);
 			}
     	}
     }

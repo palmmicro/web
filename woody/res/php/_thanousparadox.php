@@ -1,9 +1,10 @@
 <?php
 require_once('_stock.php');
 require_once('_emptygroup.php');
+require_once('/php/imagefile.php');
 require_once('/php/ui/pricepoolparagraph.php');
 
-class _ThanousLawCsvFile extends PricePoolCsvFile
+class _ThanousParadoxCsvFile extends PricePoolCsvFile
 {
     function OnLineArray($arWord)
     {
@@ -11,15 +12,23 @@ class _ThanousLawCsvFile extends PricePoolCsvFile
     }
 }
 
-function _echoThanousLawPool($strSymbol, $strTradingSymbol)
+function _echoThanousParadoxPool($strSymbol, $strTradingSymbol)
 {
-   	$csv = new _ThanousLawCsvFile();
+   	$csv = new _ThanousParadoxCsvFile();
    	$csv->Read();
-   	EchoParagraph($csv->GetLink());
    	EchoPricePoolParagraph($csv->pool, $strSymbol, $strTradingSymbol, false);
 }
 
-function _echoThanousLawItem($csv, $strNetValue, $strClose, $strDate, $ref, $est_ref)
+function _echoThanousParadoxGraph($csv)
+{
+    $jpg = new LinearImageFile();
+    $jpg->Draw($csv->ReadColumn(2), $csv->ReadColumn(1));
+	$str = $csv->GetLink();
+	$str .= '<br />'.$jpg->GetAllLinks();
+   	EchoParagraph($str);
+}
+
+function _echoThanousParadoxItem($csv, $strNetValue, $strClose, $strDate, $ref, $est_ref)
 {
 	$his_sql = $est_ref->GetHistorySql();
 	$strEstClose = $his_sql->GetClose($strDate);
@@ -37,11 +46,10 @@ function _echoThanousLawItem($csv, $strNetValue, $strClose, $strDate, $ref, $est
 	EchoTableColumn($ar);
 }
 
-function _echoThanousLawData($sql, $ref, $est_ref, $iStart, $iNum)
+function _echoThanousParadoxData($csv, $sql, $ref, $est_ref, $iStart, $iNum)
 {
     if ($result = $sql->GetAll($iStart, $iNum)) 
     {
-     	$csv = new PageCsvFile();
         while ($record = mysql_fetch_assoc($result)) 
         {
         	$strNetValue = rtrim0($record['close']);
@@ -50,16 +58,15 @@ function _echoThanousLawData($sql, $ref, $est_ref, $iStart, $iNum)
         		$strDate = GetNextTradingDayYMD($record['date']);
         		if ($strClose = $ref->his_sql->GetClose($strDate))
         		{
-       				_echoThanousLawItem($csv, $strNetValue, $strClose, $strDate, $ref, $est_ref);
+       				_echoThanousParadoxItem($csv, $strNetValue, $strClose, $strDate, $ref, $est_ref);
                 }
             }
         }
-        $csv->Close();
         @mysql_free_result($result);
     }
 }
 
-function _echoThanousLawParagraph($strSymbol, $iStart, $iNum)
+function _echoThanousParadoxParagraph($strSymbol, $iStart, $iNum)
 {
 	$ref = new LofReference($strSymbol);
 	$est_ref = $ref->GetEstRef();
@@ -74,15 +81,21 @@ function _echoThanousLawParagraph($strSymbol, $iStart, $iNum)
 	EchoTableParagraphBegin(array(new TableColumnDate(),
 								   new TableColumnClose(),
 								   new TableColumnNetValue(),
-								   new TableColumnPremium(),
+								   new TableColumnPremium('X'),
 								   new TableColumnMyStock($strEstSymbol),
-								   new TableColumnChange()
-								   ), THANOUS_LAW_PAGE, $str);
+								   new TableColumnChange('Y')
+								   ), THANOUS_PARADOX_PAGE, $str);
 
-	_echoThanousLawData($sql, $ref->stock_ref, $est_ref, $iStart, $iNum);
+   	$csv = new PageCsvFile();
+	_echoThanousParadoxData($csv, $sql, $ref->stock_ref, $est_ref, $iStart, $iNum);
+    $csv->Close();
     EchoTableParagraphEnd($strNavLink);
 
-    _echoThanousLawPool($strSymbol, $strEstSymbol);
+	if ($csv->HasFile())
+	{
+		_echoThanousParadoxPool($strSymbol, $strEstSymbol);
+		_echoThanousParadoxGraph($csv);
+	}
 }
 
 function EchoAll()
@@ -95,18 +108,18 @@ function EchoAll()
         if (in_arrayLof($strSymbol))
         {
             $fStart = microtime(true);
-            _echoThanousLawParagraph($strSymbol, $acct->GetStart(), $acct->GetNum());
-            DebugString($strSymbol.' Thanous Law: '.DebugGetStopWatchDisplay($fStart));
+            _echoThanousParadoxParagraph($strSymbol, $acct->GetStart(), $acct->GetNum());
+            DebugString($strSymbol.' Thanous Paradox: '.DebugGetStopWatchDisplay($fStart));
         }
     }
-    $acct->EchoLinks(THANOUS_LAW_PAGE);
+    $acct->EchoLinks(THANOUS_PARADOX_PAGE);
 }
 
 function EchoMetaDescription()
 {
 	global $acct;
 	
-  	$str = $acct->GetStockDisplay().THANOUS_LAW_DISPLAY;
+  	$str = $acct->GetStockDisplay().THANOUS_PARADOX_DISPLAY;
     $str .= '测试. 仅用于华宝油气(SZ162411)等LOF基金. 看白天A股华宝油气的溢价或者折价交易是否可以像小心愿认为的那样预测晚上美股XOP的涨跌.';
     EchoMetaDescriptionText($str);
 }
@@ -115,7 +128,7 @@ function EchoTitle()
 {
 	global $acct;
 	
-  	$str = $acct->GetSymbolDisplay().THANOUS_LAW_DISPLAY;
+  	$str = $acct->GetSymbolDisplay().THANOUS_PARADOX_DISPLAY;
   	echo $str;
 }
 

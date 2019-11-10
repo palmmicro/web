@@ -20,9 +20,9 @@ class TableColumnCalibration extends TableColumn
 
 class TableColumnChange extends TableColumn
 {
-	function TableColumnChange()
+	function TableColumnChange($strPrefix = false)
 	{
-        parent::TableColumn(STOCK_DISP_CHANGE, 70, 'red');
+        parent::TableColumn(STOCK_DISP_CHANGE, 70, 'red', $strPrefix);
 	}
 }
 

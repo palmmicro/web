@@ -100,11 +100,11 @@ function GetAhHistoryLink($strSymbol)
     return GetStockSymbolLink('ahhistory', $strSymbol, AH_HISTORY_DISPLAY);
 }
 
-define('THANOUS_LAW_DISPLAY', '小心愿定律');
-define('THANOUS_LAW_PAGE', 'thanouslaw');
-function GetThanousLawLink($strSymbol = FUND_DEMO_SYMBOL)
+define('THANOUS_PARADOX_DISPLAY', '小心愿佯谬');
+define('THANOUS_PARADOX_PAGE', 'thanousparadox');
+function GetThanousParadoxLink($strSymbol = FUND_DEMO_SYMBOL)
 {
-    return GetStockSymbolLink(THANOUS_LAW_PAGE, $strSymbol, THANOUS_LAW_DISPLAY);
+    return GetStockSymbolLink(THANOUS_PARADOX_PAGE, $strSymbol, THANOUS_PARADOX_DISPLAY);
 }
 
 define('FUND_ACCOUNT_DISPLAY', '基金申购账户统计');
@@ -123,7 +123,7 @@ function GetFundPositionLink($strSymbol = FUND_DEMO_SYMBOL)
 
 function GetLofAnalysisLinks($strSymbol)
 {
-	return GetThanousLawLink($strSymbol).' '.GetFundAccountLink($strSymbol).' '.GetFundPositionLink($strSymbol);
+	return GetThanousParadoxLink($strSymbol).' '.GetFundAccountLink($strSymbol).' '.GetFundPositionLink($strSymbol);
 }
 
 define('BENFORD_LAW_DISPLAY', '本福特定律');
