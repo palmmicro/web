@@ -29,9 +29,7 @@ function EchoMetaDescription()
 function EchoTitle()
 {
 	global $acct;
-	
-  	$str = $acct->GetSymbolDisplay().CALIBRATION_HISTORY_DISPLAY;
-  	echo $str;
+  	echo $acct->GetSymbolDisplay().CALIBRATION_HISTORY_DISPLAY;
 }
 
     $acct = new SymbolAcctStart();

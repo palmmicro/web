@@ -26,6 +26,8 @@ function LinearRegression($arX, $arY)
    	}
    	$fSxy -= $iCount * $fMeanX * $fMeanY;
     	
+   	if (empty($fSxx) || empty($fSyy))	return array(0.0, 0.0, 0.0);
+   	
    	$fB = $fSxy / $fSxx;
    	$fA = $fMeanY - $fB * $fMeanX;
     $fR = $fSxy / sqrt($fSxx) / sqrt($fSyy);

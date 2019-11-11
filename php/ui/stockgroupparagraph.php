@@ -42,31 +42,26 @@ function _echoStockGroupTableItem($strGroupId, $strLoginId = false)
     {
         $strDelete = '';
     }
-    
-    $strLink = GetStockGroupLink($strGroupId);
-    $strStocks = _stockGroupGetStockLinks($strGroupId);
-    
-    echo <<<END
-    <tr>
-        <td class=c1>$strLink</td>
-        <td class=c1>$strStocks</td>
-        <td class=c1>$strEdit $strDelete</td>
-    </tr>
-END;
+
+    $ar = array();
+    $ar[] = GetStockGroupLink($strGroupId);
+    $ar[] = _stockGroupGetStockLinks($strGroupId);
+    $ar[] = $strEdit.' '.$strDelete;
+    EchoTableColumn($ar);
 }
 
-function _echoNewStockGroupTableItem($strStockId)
+function _echoNewStockGroupTableItem($strStockId, $strLoginId = false)
 {
+    $ar = array();
+    
 	$strSymbol = SqlGetStockSymbol($strStockId);
-   	$strStocks = GetMyStockLink($strSymbol);
-   	$strNew = GetNewLink(STOCK_PATH.'editstockgroup', $strSymbol);
-    echo <<<END
-    <tr>
-        <td class=c1></td>
-        <td class=c1>$strStocks</td>
-        <td class=c1>$strNew</td>
-    </tr>
-END;
+	$ar[] = ($strLoginId) ? '' : GetStockLink($strSymbol);
+   	$ar[] = GetMyStockLink($strSymbol);
+   	if ($strLoginId)
+   	{
+   		$ar[] = GetNewLink(STOCK_PATH.'editstockgroup', $strSymbol);
+   	}
+    EchoTableColumn($ar);
 }
 
 function _echoStockGroupTableData($strStockId, $strMemberId, $strLoginId)
@@ -89,7 +84,7 @@ function _echoStockGroupTableData($strStockId, $strMemberId, $strLoginId)
 
 	if ($strStockId && $iTotal == 0)
 	{
-		_echoNewStockGroupTableItem($strStockId);
+		_echoNewStockGroupTableItem($strStockId, $strLoginId);
 	}
 }
 
@@ -114,28 +109,16 @@ END;
 	}
 	else
 	{
-		_echoStockGroupTableData($strStockId, $strMemberId, $strLoginId);
+   		if ($strLoginId)
+    	{
+    		_echoStockGroupTableData($strStockId, $strMemberId, $strLoginId);
+    	}
+    	else
+    	{
+    		_echoNewStockGroupTableItem($strStockId);
+    	}
 	}
     EchoTableParagraphEnd();
-}
-
-function EchoStockGroupParagraph()
-{
-	$strLoginId = AcctIsLogin();
-	$strMemberId = ($strEmail = UrlGetQueryValue('email')) ? SqlGetIdByEmail($strEmail) : $strLoginId; 
-	
-    if ($strGroupId = UrlGetQueryValue('groupid'))
-    {
-    	EchoAllStockGroupParagraph($strGroupId, false, $strMemberId, $strLoginId);
-    }
-    else if ($strSymbol = UrlGetQueryValue('symbol'))
-    {	// in pages like mystock
-    	EchoAllStockGroupParagraph(false, SqlGetStockId($strSymbol), $strMemberId, $strLoginId);
-    }
-    else
-    {
-    	EchoAllStockGroupParagraph(false, false, $strMemberId, $strLoginId);
-    }
 }
 
 ?>

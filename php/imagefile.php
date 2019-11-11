@@ -228,7 +228,7 @@ class LinearImageFile extends PageImageFile
     	{
     		$str .= ' + ';
     	}
-    	return $str.strval_round($this->fB).' * X; R =  '.strval_round($this->fR);
+    	return $str.strval_round($this->fB).' * X; r =  '.strval_round($this->fR);
     }
     
     function GetAllLinks()

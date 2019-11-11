@@ -313,6 +313,7 @@ function UrlGetUniqueString()
     		$str .= str_replace('=', '', $strItem);
     	}
     }
+	$str = str_replace('%', '', $str);
     if (strlen($str) > 32)	$str = md5($str); 
 	return UrlGetTitle().$str;
 }

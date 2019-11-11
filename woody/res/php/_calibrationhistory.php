@@ -1,5 +1,6 @@
 <?php
 require_once('_stock.php');
+require_once('_emptygroup.php');
 require_once('/php/ui/stocktable.php');
 
 function _echoCalibrationHistoryItem($strSymbol, $record, $bReadOnly)
@@ -27,9 +28,9 @@ function _echoCalibrationHistoryItem($strSymbol, $record, $bReadOnly)
 END;
 }
 
-function _echoCalibrationHistoryData($strStockId, $strSymbol, $iStart, $iNum)
+function _echoCalibrationHistoryData($strStockId, $strSymbol, $iStart, $iNum, $bAdmin)
 {
-    if (AcctIsAdmin())
+    if ($bAdmin)
     {
         $bReadOnly = false;
     }
@@ -48,7 +49,7 @@ function _echoCalibrationHistoryData($strStockId, $strSymbol, $iStart, $iNum)
     }
 }
 
-function _echoCalibrationHistoryParagraph($strSymbol, $iStart, $iNum)
+function _echoCalibrationHistoryParagraph($strSymbol, $iStart, $iNum, $bAdmin)
 {
     if (($strStockId = SqlGetStockId($strSymbol)) == false)  return;
     
@@ -73,31 +74,40 @@ function _echoCalibrationHistoryParagraph($strSymbol, $iStart, $iNum)
     </tr>
 END;
    
-    _echoCalibrationHistoryData($strStockId, $strSymbol, $iStart, $iNum);
+    _echoCalibrationHistoryData($strStockId, $strSymbol, $iStart, $iNum, $bAdmin);
     EchoTableParagraphEnd($strNavLink);
 }
 
-function EchoCalibrationHistory()
+function EchoAll()
 {
-    if ($strSymbol = UrlGetQueryValue('symbol'))
+	global $acct;
+	
+    if ($ref = $acct->EchoStockGroup())
     {
-    	StockPrefetchData($strSymbol);
-   		EchoStockGroupParagraph();
-   		
-        $iStart = UrlGetQueryInt('start');
-        $iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
-        _echoCalibrationHistoryParagraph($strSymbol, $iStart, $iNum);
+    	if ($ref->HasData())
+    	{
+    		_echoCalibrationHistoryParagraph($ref->GetStockSymbol(), $acct->GetStart(), $acct->GetNum(), $acct->IsAdmin());
+    	}
     }
-    EchoPromotionHead('calibration');
+    $acct->EchoLinks('calibration');
+}    
+
+function EchoMetaDescription()
+{
+	global $acct;
+	
+  	$str = $acct->GetStockDisplay().CALIBRATION_HISTORY_DISPLAY;
+    $str .= '页面. 用于查看, 比较和调试估算的股票价格或者基金净值之间的校准情况. 最新的校准时间一般会直接显示在该股票或者基金的页面.';
+    EchoMetaDescriptionText($str);
 }
 
 function EchoTitle()
 {
-    EchoUrlSymbol();
-    echo '校准历史记录';
+	global $acct;
+  	echo $acct->GetSymbolDisplay().CALIBRATION_HISTORY_DISPLAY;
 }
 
-    AcctAuth();
+    $acct = new SymbolAcctStart();
 
 ?>
 

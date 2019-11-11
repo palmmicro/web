@@ -34,10 +34,7 @@ class SymbolAcctStart extends StockAcctStart
     {
     	if ($ref = $this->GetRef())
     	{
-    		if ($strLoginId = $this->GetLoginId())
-    		{
-    			EchoAllStockGroupParagraph(false, $ref->GetStockId(), $this->GetMemberId(), $strLoginId);
-    		}
+   			EchoAllStockGroupParagraph(false, $ref->GetStockId(), $this->GetMemberId(), $this->GetLoginId());
     	}
     	return $ref;
     }
