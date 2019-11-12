@@ -36,6 +36,13 @@ function _getLinearRegressionString($strInput, $bChinese)
 {
 	$arX = array();
 	$arY = array();
+	
+	if ($strFunction = strstr($strInput, '(', true))
+	{
+		$strInput = ltrim($strInput, $strFunction.'(');
+		$strInput = rtrim($strInput, ')');
+	}
+	
 	$ar = explode(';', $strInput);
 	foreach ($ar as $str)
 	{
@@ -44,15 +51,16 @@ function _getLinearRegressionString($strInput, $bChinese)
 		if (count($arXY) == 2)
 		{
 			$arX[] = floatval($arXY[0]);
-			$arY[] = floatval($arXY[1]);
+			$fY = floatval($arXY[1]);
+			$arY[] = $strFunction ? call_user_func($strFunction, $fY) : $fY;
 		}
 	}
 
     $jpg = new LinearImageFile();
     $jpg->Draw($arX, $arY);
 	
-	$str = 'X = {'.implode(',', $arX).'}';
-	$str .= '<br />Y = {'.implode(',', $arY).'}';
+	$str = 'x = {'.implode(',', $arX).'}';
+	$str .= '<br />y = {'.($strFunction ? strval_round_implode($arY) : implode(',', $arY)).'}';
 	$str .= '<br /><br /><b>'.$jpg->GetEquation().'</b>';
 	$str .= '<br />'.$jpg->GetLink();
 	$str .= '<br /><img src=/woody/blog/photo/20190824.jpg alt="Linear regression calculation steps" />';
@@ -123,7 +131,8 @@ function EchoAll($bChinese = true)
     		break;
     		
     	case 'linearregression':
-    		$strInput = '1.02,5069; 0.51,3081; 2.92,6936; 3.47,7846; 2.07,5583';
+//    		$strInput = '1.02,5069; 0.51,3081; 2.92,6936; 3.47,7846; 2.07,5583';
+    		$strInput = 'sqrt(0,0.5; 1,9.36; 2,52; 3,191; 4,352; 5,571; 6,912; 7,1207; 8,1682.69; 9,2135; 10,2684)';
     		break;
     		
     	default:
@@ -159,9 +168,10 @@ function EchoAll($bChinese = true)
     	$str = GetPrimeNumberString($strInput);
     	break;
     }
-    $str .= '<br /><br />'.GetDevGuideLink('20100905', $strTitle, $bChinese);
-    $str .= '<br />'.GetCategoryLinks(GetAccountToolArray($bChinese), ACCT_PATH, $bChinese);
+    
     EchoParagraph($str);
+    EchoRelated();
+    EchoParagraph(GetDevGuideLink('20100905', $strTitle, $bChinese).'<br />'.GetCategoryLinks(GetAccountToolArray($bChinese), ACCT_PATH, $bChinese));
 }
 
 function _getAccountToolTitle($strTitle, $strQuery, $bChinese)

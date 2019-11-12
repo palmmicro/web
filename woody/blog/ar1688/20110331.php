@@ -39,7 +39,7 @@
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
 <tr><td>March 31, 2011</td></tr>
 <tr><td>I know it is too late to write AR1688 lesson 101 after it is in market over 4 years. But late is better than never. 
-Every now and then there are people asking <font color=grey>How can I change that <a href="../../../ar1688/user/gp1266.html">GP1266</a> LCD display to my own string</font>?
+Every now and then there are people asking <font color=gray>How can I change that <a href="../../../ar1688/user/gp1266.html">GP1266</a> LCD display to my own string</font>?
 I started this article because I read an email asking it again just now.
 <br />Actually this article is to be very short. In software <a href="../pa6488/20090811.php">API</a> sdcc\src\<B>ui_str.c</B>, there is a <i>LoadString</i> function,
 and there are already several <a href="../pa6488/20090816.php">OEM_XXXX</a> changes made to display different strings. 
@@ -55,7 +55,7 @@ Each connection implementation is in a separate file with AR1688 software. This 
   <li>Modify the two .c file related locations in sdcc\src\<a href="20070609.php">makefile</a>.</li>
   <li>Add the new .rel file to sdcc\src\<b>linkmain.lnk</b>. Do NOT put it in the end of the file, MUST put it together with other .rel files in the same bank,
       otherwise compile message like <font color=red>Error: banked code exceeded bank 7 end (default 0xe000)</font> will occur. Or worse, the error message do not occur but we get wrong link results.</li>
-  <li>Do NOT do any global var initialization like <font color=grey>UDP_SOCKET _pTestSocket = NULL;</font> in the new file (and do NOT add any in old files as well),
+  <li>Do NOT do any global var initialization like <font color=gray>UDP_SOCKET _pTestSocket = NULL;</font> in the new file (and do NOT add any in old files as well),
       do var initialization in functions like <i>SntpInit</i>. Otherwise compile message like <font color=red>Error: sram code exceeded code end (default 0x2000)</font> will occur.
       <a href="20101123.php">SDCC</a> can not put the initialization code in (correct) address we need with our banked software structure.</li>
 </ol>
@@ -73,7 +73,7 @@ The G.729 source code used in PalmTool was downloaded from <a href="http://www.i
 PA1688 <a href="../../../pa1688/ring.html">ring tone</a> is the combination of G.723.1 and G.729 compressed data, the first 2/5 is G.723.1 and the rest 3/5 is in G.729 format.
 I downloaded PA1688 ring tone <b>alice.dat</b>, renamed it to <b>font_alice.dat</b> and saved it to sdcc\src\res.
 <br />Next we need to save the G.729 data to flash. Same as PCMU, we still use the <a href="20070605.php">font page</a> of 8-11.
-To make things simple, now we support command line like <font color=grey>tftp -i xxx.xxx.xxx.xxx put font_alice.dat</font> to upgrade font and IVR directly.
+To make things simple, now we support command line like <font color=gray>tftp -i xxx.xxx.xxx.xxx put font_alice.dat</font> to upgrade font and IVR directly.
 <br />Then we need to read the G.729 data and send to peer during a call. As the data is stored on flash, the code to read it needs to run on <a href="20080706.php">SRAM</a> instead of flash,
 <B>main.c</B> is a good choice for it. We also need an easy way to send the data periodically, as <i>TaskOutgoingData</i> function in <B>main.c</B> is usually called by DSP at regular intervals,
 it is a good point to replace the DSP compressed G.729 data with our data read from flash. The demo code is grouped with <B><i>SYS_IVR_G729</i></B> define,

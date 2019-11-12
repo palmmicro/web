@@ -46,7 +46,7 @@
 <br />It was close to midnight when all those optimization and test work finished. I uploaded the newly built PA168V files to <a href="../../../pa1688/software/sw165.html">web site</a> and sent email notification to the <a href="../../../pa1688/user/ag168v.html#soyo">Soyo G1681</a> PA168V owner,
 who recently bought the device on internet for 6 USD each. Compared with his previous purchase of 50 "Soyo G668" <a href="../../../pa1688/user/pa168s.html">PA168S</a> ip phone for a total 150 USD, the 1-port FXS PA168V had magically doubled the price. 
 </td></tr>
-<tr><td><font color=grey>It's been a hard day's night, and I been working like a dog.</font> <a href="../../favorite.html#night">A Hard Day's Night</a></td></tr>
+<tr><td><font color=gray>It's been a hard day's night, and I been working like a dog.</font> <a href="../../favorite.html#night">A Hard Day's Night</a></td></tr>
 <tr><td><img src=../../../pa1688/user/g1681/soyo.jpg alt="Soyo G1681 (PA168V/AG-168V) 1-port FXS gateway front view." /></td></tr>
 <tr><td><img src=../../../pa1688/user/g1681/back.jpg alt="Soyo G1681 (PA168V/AG-168V) 1-port FXS gateway back view." /></td></tr>
 </table>

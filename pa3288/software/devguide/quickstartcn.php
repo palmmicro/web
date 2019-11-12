@@ -37,12 +37,12 @@
 <table>
 <tr><td class=THead><B>PA3288开发指南 - 快速上手</B></td></tr>
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-<tr><td><font color=grey>软件工作目录</font>
+<tr><td><font color=gray>软件工作目录</font>
 <br />PA3288的<a href="../../../woody/blog/pa6488/20090811cn.php">软件工作目录</a>在C:\PA3288. 举例来说, PA6488和PA3288公用的外部include文件在C:\Palmmicro\include, 和PA3288相关的外部include文件在C:\PA3288\include.
 在本开发指南以后部分, 我们都会用include\<b>csl.h</b>来代替C:\PA3288\include\<b>csl.h</b>. 
 <br />Keil ARM编译器要安装在C:\KeilARM. 我们开发PC上缺省的C:\Keil子目录被<a href="../../../pa1688/indexcn.html">PA1688</a>上的8051需要使用的一个老版本Keil占据了. 
 <br />&nbsp;
-<br /><font color=grey>相关信息</font>
+<br /><font color=gray>相关信息</font>
 <br />PA6488的<a href="../../../pa6488/software/devguide/quickstartcn.html">快速上手</a>. 
 </td></tr>
 </table>

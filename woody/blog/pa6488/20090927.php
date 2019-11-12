@@ -58,7 +58,7 @@ As AR1688's Z80 controller also need code bank switching, we still put factory t
 All PA6488 device will enter and stay in safe mode when power up with hook up. For PA648C analog video module which has no hook, we also put the same GPIO as a jumper.
 As we finally get rid of code bank switching, we no longer put factory test codes in safe mode any more. In fact, to reduce safe mode code size, even LCD support is moved out of safe mode software.
 <br />&nbsp;
-<br /><font color=grey>The only 'IP' key in this <a href="../../../pa1688/user/ag168v.html">AG168V</a> back view is the key to enter the safemode of a PA1688 gateway.</font>
+<br /><font color=gray>The only 'IP' key in this <a href="../../../pa1688/user/ag168v.html">AG168V</a> back view is the key to enter the safemode of a PA1688 gateway.</font>
 </td></tr>
 <tr><td><img src=../../../pa1688/user/g1681/back.jpg alt="Soyo G1681 (PA168V/AG-168V) 1-port FXS gateway back view." /></td></tr>
 <tr><td>

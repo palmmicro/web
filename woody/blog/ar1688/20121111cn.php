@@ -43,13 +43,13 @@
 <br />当我们交换了更多的电子邮件后, 发现了更多有关AR168R混淆误导的内容. 由于我们缺乏必要的文档, 我收集了这些内容在这里, 为其它客户以及我自己避免日后猜谜用. 
 <br />1) 我们标准的AR168R软件在没有<a href="20070604cn.php">LCD</a>的情况下不会工作.
 要让AR168R在没有LCD的时候工作, 必须把sdcc\include\<b>version.h</b>文件中#ifdef <b><i>VER_AR168R</b></i>部分内的<b><i>LCD_HY1602</b></i>定义去掉后重新编译软件.  
-<br />2) 标准AR168R软件中没有包括<a href="20071119cn.php">串口</a>功能. 要使用串口功能, 必须用<b><i>OEM_UART</b></i>选项重新编译软件. 命令行可以用<font color=grey>mk ar168r sip us uart</font>.
+<br />2) 标准AR168R软件中没有包括<a href="20071119cn.php">串口</a>功能. 要使用串口功能, 必须用<b><i>OEM_UART</b></i>选项重新编译软件. 命令行可以用<font color=gray>mk ar168r sip us uart</font>.
 不需要安装额外的编译器, <a href="20101123cn.php">SDCC</a>编译器已经包括在软件API中, 在sdcc\bin目录下.
 <br />3) 在我们的示例串口<a href="20080329cn.php">协议</a>中, 所有的字符串都必须象在C语言中那样以'\0'(ascii 0x00)结尾.
 否则AR1688不能正确处理收到的命令, 可能会在sdcc\bin\<b>manager.exe</b>的调试信息窗口中输出信息<a href="../../../ar1688/faqcn.html#module">UART data lost</a>.  
-<br />4) 在示例协议中, <font color=grey>KEY Z</font>用来给AR1688指示挂机, <font color=grey>KEY z</font>指示摘机. 
+<br />4) 在示例协议中, <font color=gray>KEY Z</font>用来给AR1688指示挂机, <font color=gray>KEY z</font>指示摘机. 
 <br />从2010年<a href="../../../ar1688/modulecn.html">AR168M</a> VoIP模块卖<a href="20100625cn.php">断货</a>后, 我们采用了各种<a href="20111205cn.php">不寻常的方法</a>帮助客户测试模块功能.
-幸运的是这样的日子快完了, 我们可能会较快收到一个100片的AR168M订单. 到时候我们会多生产一些供日后其它客户测试. 而目前烦人的<font color=grey>把AR168R当AR168M使用</font>也可以停止了.    
+幸运的是这样的日子快完了, 我们可能会较快收到一个100片的AR168M订单. 到时候我们会多生产一些供日后其它客户测试. 而目前烦人的<font color=gray>把AR168R当AR168M使用</font>也可以停止了.    
 </td></tr>
 <tr><td><a href="../photo/large/20121111.jpg" target=_blank>大图</a></td></tr>
 <tr><td><img src=../photo/20121111.jpg alt="Standard AR168R RoIP module photo by an user from Denmark." /></td></tr>

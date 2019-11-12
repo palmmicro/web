@@ -37,10 +37,10 @@
 <table>
 <tr><td class=THead><B>PA6488开发指南 - G.729测试序列</B></td></tr>
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-<tr><td><font color=grey>为什么</font>
+<tr><td><font color=gray>为什么</font>
 <br />PA6488用G.729<a href="../../../woody/blog/pa6488/20101213cn.php">测试序列</a>测试硬件稳定性. 
 <br />&nbsp;
-<br /><font color=grey>怎么测试</font>
+<br /><font color=gray>怎么测试</font>
 <br />从pa6488\bin运行"g729put.bat xxx.xxx.xxx.xxx", 用TFTP把全部需要的文件传输到PA6488设备. 
 <br />在PA6488设备上, 使用组合键"#9*0"开始G.729测试, 更到的<a href="../userguide/keytestcn.php">键盘测试</a>信息在pa6488\doc\test.txt. 
 <br />G.729测试结束后, 从pa6488\bin运行"g729get.bat xxx.xxx.xxx.xxx"用TFTP把产生的文件传到PC. 
@@ -48,13 +48,13 @@
 <br />在只测试G.729编码的情况下, 提供了批处理文件"g729encget.bat"和"g729encfc.bat". 
 <br />并非所有软件都包括这个测试, 密切注意输出的UDP调试信息. 
 <br />&nbsp;
-<br /><font color=grey>细节</font>
+<br /><font color=gray>细节</font>
 <br />测试代码在pa6488\test\testg729ab.c. 
 <br />G.729函数说明在pa6488\include\g729ab.h, 函数库在pa6488\lib\g729ab.lib. 软件API中不包括源程序. 
 <br />采用<a href="http://www.itu.int/rec/T-REC-G.729/e" target= _blank>ITU G.729</a> 2007年1月的1.5版本, 包括了全部G.729A和G.729B的测试序列. 
 <br />PA6488上的G.729仅用于测试, 不能用在实际产品上, 因为我们没有必要的算法授权. 
 <br />&nbsp;
-<br /><font color=grey>相关信息</font>
+<br /><font color=gray>相关信息</font>
 <br /><a href="http://www.adaptivedigital.com/product/vocoders/g729.htm" target=_blank>Adaptive Digital</a>的性能参考. 
 </td></tr>
 </table>

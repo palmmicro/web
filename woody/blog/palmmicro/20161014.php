@@ -25,12 +25,12 @@ After debugging for a whole night I realized it was because Yahoo Web Hosting ap
 <br />As I had used <a href="../entertainment/20110509.php">Google</a> Analytics for site statistics for many years, I always feel the new function Yahoo added nearly 2 years ago was unnecessary and made my web pages slow,
 now I have plenty of reasons to get rid of it. After a lot of search in Yahoo Small Business's new web site <a href="https://www.luminate.com/" target=_blank>Aabaco Small Business</a> I finally disabled the function.
 <br />Then I added some real function for it. The most wanted is to use wechat to check SZ162411 Net Value. 
-In the conversation, by voice or keypad, after user input <font color=grey>162411</font> or <font color=grey>华宝油气</font>, the various estimated net value the estimation time will be returned.
+In the conversation, by voice or keypad, after user input <font color=gray>162411</font> or <font color=gray>华宝油气</font>, the various estimated net value the estimation time will be returned.
 </p>
 <?php EchoFundEstDemo(); ?>
-<p>If user only input <font color=grey>1</font>, there will be too many fund to match, due to the 2048 bytes limit of wechat message, only part of those matched results will be displayed.
-The wechat voice recognition might need a little training, when you say <font color=grey>162411</font> first, the result might not be good.
-But if you input <font color=grey>162411</font> first and then say it, it will keep work well from now on.
+<p>If user only input <font color=gray>1</font>, there will be too many fund to match, due to the 2048 bytes limit of wechat message, only part of those matched results will be displayed.
+The wechat voice recognition might need a little training, when you say <font color=gray>162411</font> first, the result might not be good.
+But if you input <font color=gray>162411</font> first and then say it, it will keep work well from now on.
 <br />Back to the product of our company, this wechat public account and web site works as an example for our developing <a href="../../../pa3288/index.html">PA3288</a> IoT module, 
 providing customers a total solution of data collect, storage and enquire. Based on this, we can provide both hareware product and support software for users to build their own IoT data analysis systems.
 <br />Although lack of real function at this time, please start using palmmicro wechat puablic account <font color=orange>sz162411</font> today by scanning the QR code for below.

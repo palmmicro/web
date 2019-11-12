@@ -50,7 +50,7 @@ Why not also 100? Because we are hoping to avoid a PA1688 and an AR1688 into saf
 We have used difference program flash space for the currently running program and the currently writing new firmware.
 <br />3) The native method to upgrade changed from private protocol <a href="../../../pa1688/software/palmtool.html">PalmTool</a> to TFTP.
 We have been asked too many times for Linux version PalmTool in the past years. Sure Linux user will not need TFTP client program from us.
-With Windows envionment, the command line for upgrade is like: <font color=grey>tftp -i xxx.xxx.xxx.xxx put ar168e_sip_cn_000543.bin</font>
+With Windows envionment, the command line for upgrade is like: <font color=gray>tftp -i xxx.xxx.xxx.xxx put ar168e_sip_cn_000543.bin</font>
 <br />4) Yes, the file name used the same format as <a href="../../../pa1688/index.html">PA1688</a>,
 above file name means to upgrade an AR168E IP phone with SIP protocol, Chinese resource, and 0.00.543 firmware, the current stable demo version.
 <br />5) The native upgrade speed is much more faster. With PA1688, PalmTool need 68 seconds to upgrade the 960k bytes upgrade file.

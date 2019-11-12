@@ -24,7 +24,7 @@
 <br /><img src=emerald/594/grs.jpg alt="GRS report for emerald cat eye 5.94ct" /></p>
 <p>From <a href="http://www.realgems.org/list_of_gemstones/beryl.html" target=_blank>realgems.org</a>:
 </p>
-<blockquote><font color=grey>
+<blockquote><font color=gray>
 <br />Formula Emerald: Be3Al2Si6O18 
 <br />Agee, Emerald, Émeraude, Esmeralda, Smaragdas, Smaragdi, Smaragds, Smarald, Smeraldo, Szmaragd, Zamrud, Zümrüt, Ngọc lục bảo, Изумруд, 綠寶石, زمرد, ברקת, มรกต, エメラルド 
 <br />Mineral class: silicates 

@@ -23,7 +23,7 @@ instead of starting his own third company again some time later and sell it for 
 <br />For myself, I do not like to repeat the company selling experiences of Dr Zhou and <a href="../palmmicro/20061123.php">Dr Wang</a>.
 And hope to bring <a href="../palmmicro/20080326.php">Palmmicro</a> all the way to the top by myself.
 <br /><img src=../photo/20111112.jpg alt="ACTS stock price from Jun 2006 to Nov 2011" />
-<br /><font color=grey>And the good times that had makes today seem rather sad</font> <a href="../../favorite.html#yesterdayoncemore">Yesterday Once More</a>
+<br /><font color=gray>And the good times that had makes today seem rather sad</font> <a href="../../favorite.html#yesterdayoncemore">Yesterday Once More</a>
 </p>
 
 <h3>ACTS Delisted</h3>

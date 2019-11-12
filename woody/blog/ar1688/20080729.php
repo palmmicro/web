@@ -104,7 +104,7 @@ The <a href="20080607.php">command line</a> to make those special software is li
 When using device from other manufacturers without clear indication, users can get port-1 and port-2 position by plug in and out the network cable into both RJ45,
 the <a href="20080811.php">syslog</a> standard based debug message will display port plug in and out status. Again, this is new function based on DM9003 and KSZ8842.
 RTL8019AS can not check link status without 93C46 EEPROM on board, which we saved from the first day without hesitation to save overall cost.
-<br /><font color=grey>The LAN1 and LAN2 interface of GP1260(AR168G)/GP1266/GP2268(AR168P) IP phones.</font>
+<br /><font color=gray>The LAN1 and LAN2 interface of GP1260(AR168G)/GP1266/GP2268(AR168P) IP phones.</font>
 </td></tr>
 <tr><td><img src=../../../ar1688/user/gp1266/03.jpg alt="GP1266 IP phone POWER, LAN1 and LAN2 interface." /></td></tr>
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>

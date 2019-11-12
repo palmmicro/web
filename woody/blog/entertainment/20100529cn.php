@@ -13,7 +13,7 @@
 <div>
 <h1>我的第一个Visual C++ 2008程序</h1>
 <p>2010年5月29日
-<br />为避免标题党的嫌疑, 这篇的名字没有写成<font color=grey>我的第一个苹果手机程序</font>或者<font color=grey>我的第一个Android程序</font>. 
+<br />为避免标题党的嫌疑, 这篇的名字没有写成<font color=gray>我的第一个苹果手机程序</font>或者<font color=gray>我的第一个Android程序</font>. 
 <br />从1992年开始用Turbo C写PC上的程序开始, 直到1996年我还在用Borland C++. 但是在1997年终于投降了Visual C ++ 4.2. 1999我紧跟微软脚步升级到了VC6, 这一下用了10年.
 <br />2009年初我改用新的<a href="../pa6488/20090808cn.php">Sony VGN-FW235J</a>后, 终于要面对Windows Vista不支持VC6的现实了. 我被迫安装了这个VC9(Visual C++ 2008), 不过接下来的一年中基本上只是当个编辑器在用.
 <br />今年年初我开始给公司网站从<a href="../palmmicro/20100330cn.php">palmmicro.com.cn</a>搬家到<a href="../palmmicro/20080326cn.php">Palmmicro</a>.com,
@@ -31,7 +31,7 @@
 <br />费曼在曼哈顿计划结束后到康奈尔大学教物理, 中间有一段时间他觉得整天都很累, 没有精力搞他后来得了诺贝尔奖的理论物理研究.
 晚年的时候他回顾说, 其实一部分原因是当时他低估了教大学生物理所耗费的精力. 也正因为这样, 我们今天才能幸运的读到经典的三大本费曼物理学讲义. 但在当时, 却是对一个小盘子的转动方式的关注把他从低谷中拉了起来.
 </p>
-<blockquote><font color=grey>I still remember going to Hans Bethe and saying, "Hey, Hans! I noticed something interesting.
+<blockquote><font color=gray>I still remember going to Hans Bethe and saying, "Hey, Hans! I noticed something interesting.
 Here the plate goes around so, and the reason it's two to one is . . ." and I showed him the accelerations.
 <br />He says, "Feynman, that's pretty interesting, but what's the importance of it? Why are you doing it?"
 <br />"Hah!" I say. "There's no importance whatsoever. I'm just doing it for the fun of it." His reaction didn't discourage me; I had made up my mind I was going to enjoy physics and do whatever I liked.

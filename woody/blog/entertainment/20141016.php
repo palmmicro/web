@@ -39,7 +39,7 @@ But my past experience taught me it mostly probably would be another bad big dec
       until the total position meets the 3rd rule.</b></li>
 </ol>
 <p>I wish to get an average of 10% annual return based on those trading rules, hope it is real in the future. 
-<br /><font color=grey>Just like I'd never gone, I knew the song.</font> <a href="../../favorite.html#laislabonita">La Isla Bonita</a>
+<br /><font color=gray>Just like I'd never gone, I knew the song.</font> <a href="../../favorite.html#laislabonita">La Isla Bonita</a>
 <br /><img src=../photo/20141016.jpg alt="Screen shot of my Chinese A stock portfolio as of Oct 16 2014" />
 </p>
 
@@ -47,7 +47,7 @@ But my past experience taught me it mostly probably would be another bad big dec
 <p>Jan 3, 2016
 <br />Full of hope, starting to record my 2016 XOP and SZ162411 arbitrage data.
 <br /><img src=../photo/20160101.jpg alt="Screen shot of my 2015 XOP and SZ162411 arbitrage data" />
-<br /><font color=grey>This could be Heaven or this could be Hell</font> <a href="../../favorite.html#californiahotel">California Hotel</a>
+<br /><font color=gray>This could be Heaven or this could be Hell</font> <a href="../../favorite.html#californiahotel">California Hotel</a>
 </p>
 
 </div>

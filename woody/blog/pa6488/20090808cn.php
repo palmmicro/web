@@ -72,7 +72,7 @@ AR1688内部的Z80跑24Mhz的时候, 采用RTL8019AS的设备需要16毫秒, 采
 <br />跟AR1688一样, PA3288没有外部SDRAM存储器, 我尽量去掉无关代码, 在内部SRAM中挤出一个足够大的heap来测试ping 65500字节.
 CPU跑96Mhz的时候, 反应时间是139毫秒. CPU跑192Mhz的时候, 反应时间是136毫秒. 对应大约7.8Mbps的实际数据传输率, 对一个10Mbps的网络芯片来说已经够好了.
 <br />&nbsp;
-<br /><font color=grey>PA1688软件中被浪费的1x16 SDRAM.</font>
+<br /><font color=gray>PA1688软件中被浪费的1x16 SDRAM.</font>
 </td></tr>
 <tr><td><img src=../../../pa1688/user/pb35/m12l16161a.jpg alt="ESMT 1Mx16-bit SDRAM chip on China Roby PB-35 IP phone inside PCB board." /></td></tr>
 </table>

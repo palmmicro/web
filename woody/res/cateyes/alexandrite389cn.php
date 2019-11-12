@@ -28,7 +28,7 @@
 <br /><img src=alexandrite/389/grs.jpg alt="GRS report for alexandrite cat eye 3.89ct" /></p>
 <p>引用亚洲宝石协会(GIG)研究报告:
 </p>
-<blockquote><font color=grey>
+<blockquote><font color=gray>
 变石的英文名称为Alexandrite, 俄文名称"Александрит", 音译为"亚历山大石". 变石古称紫翠玉.
 </font></blockquote>
 </div>

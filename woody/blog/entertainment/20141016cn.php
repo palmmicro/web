@@ -32,16 +32,16 @@
       反之当上证指数下降的时候, 如果压力位的价格比最后一次卖出的价格低5%就下买单, 当压力位不变或者下降时持续买入, 直到总仓位达到规则3的标准.</b></li>
 </ol>
 <p>基于以上规则, 我希望能带来平均每年10%的收益, 但愿未来能够成功.  
-<br /><font color=grey>当你为朋友立传时, 一定要做得像你在为他报仇雪恨那样.</font> <a href="../../favoritecn.html#flaubertsparret">福楼拜的鹦鹉</a>
+<br /><font color=gray>当你为朋友立传时, 一定要做得像你在为他报仇雪恨那样.</font> <a href="../../favoritecn.html#flaubertsparret">福楼拜的鹦鹉</a>
 <br /><img src=../photo/20141016.jpg alt="Screen shot of my Chinese A stock portfolio as of Oct 16 2014" />
-<br /><font color=grey>Just like I'd never gone, I knew the song.</font> <a href="../../favoritecn.html#laislabonita">La Isla Bonita</a>
+<br /><font color=gray>Just like I'd never gone, I knew the song.</font> <a href="../../favoritecn.html#laislabonita">La Isla Bonita</a>
 </p>
 
 <h3><a name="2014">2014</a>总结</h3>
 <p>2015年1月1日
 <br />2014年买入47笔, 卖出85笔, 总交易132笔, 总交易金额大约130万. 5月持仓最高约48万, 年末持仓最低约21万. 最后2个月上证指数涨得实在太快, 完全没有机会按照我的规则卖出. 否则早卖光了.
 全年账面盈利增加约17万, 按照年初计划的100万资金投入, 算上国债逆回购和利息收入, 全年收益率大约21%. 
-<br />2015年继续计划100万资金投入, 交易规则不变, 继续上证指数每上升100点减仓5万股票. 每下降100点增仓5万. 按照目前的指数和持仓调整参考仓位公式为<font color=grey>(22.5-5*(上证指数-3200)/100)*10000</font>.
+<br />2015年继续计划100万资金投入, 交易规则不变, 继续上证指数每上升100点减仓5万股票. 每下降100点增仓5万. 按照目前的指数和持仓调整参考仓位公式为<font color=gray>(22.5-5*(上证指数-3200)/100)*10000</font>.
 </p>
 
 <h3><a name="A">分级A交易规则</a></h3>
@@ -63,7 +63,7 @@
 <p>今年以来上证指数大幅波动, 按照它调整仓位成了个笑话, 调仓规则和公式早已经统统弃用. 中国打头的股票在持续不断的上升过程中几乎已经卖光.
 但是因为仓位太低, 靠国企股票估计难维持去年整体21%的收益率, 希望分级A能够助一臂之力. 
 <br />因为分级A可能会替代掉银行理财的地位, 去掉100万的上限资金限制, 看在我的交易规则下能够最多买到多少.
-<br /><font color=grey>中间是勤奋好学而且乐于分享的老孙. </font>
+<br /><font color=gray>中间是勤奋好学而且乐于分享的老孙. </font>
 <br /><img src=../../groupphoto/customer/laosun.jpg alt="Li Jing, Sun Yanhong and me in central park, NYC." />
 </p>
 
@@ -100,7 +100,7 @@
 <br /><img src=../photo/20160101.jpg alt="Screen shot of my 2015 XOP and SZ162411 arbitrage data" />
 <br />剩下10%的交易金额主要是我的大型国企中国国航, 中国石化, 中国联通和中国银行等交易, 受益于上证指数今年10%的上涨, 盈利5万左右.
 <br />2016年计划继续100万的投入, 主要用于华宝油气和XOP的套利交易, 向云蒙女神学习, 继续加大交易量, 增加套利效率. 同时逐步放弃中国国航和中国联通等比H股贵太多的A股的交易.
-<br /><font color=grey>This could be Heaven or this could be Hell</font> <a href="../../favoritecn.html#californiahotel">California Hotel</a>
+<br /><font color=gray>This could be Heaven or this could be Hell</font> <a href="../../favoritecn.html#californiahotel">California Hotel</a>
 </p>
 
 <h3>华宝油气和XOP套利更新</h3>
@@ -142,7 +142,7 @@ Trump当选后美股又开始涨, 不死心继续买VXX, 再次崩溃, 12月30�
 <p>2017年12月30日
 <br />说多了都是泪. 先上图记录一下.
 <br /><img src=../photo/20180102.jpg alt="Screen shot of woody's 2017 stock profit data" />
-<br />在跟寒号鸟一样喊了好几年<font color=grey>同是天涯沦落人走投无路来炒股</font>后, 2017年算是我最接近全职投资的一年.
+<br />在跟寒号鸟一样喊了好几年<font color=gray>同是天涯沦落人走投无路来炒股</font>后, 2017年算是我最接近全职投资的一年.
 全职不光意味着跟前些年一样整天没有别的鸟事可做, 还意味着今年所有的钱都放到股市中来赌博了. 虽然操了卖粉的心, 却连白菜钱都没有赚到.
 美元人民币一起本金大约350万人民币, 一年下来只有16万人民币的利润, 不到5%的收益率, 放银行闭着眼睛买理财一样能拿这么多钱. 
 <br />年初在<?php EchoXueqieId('3724438413', '爱吐槽的骑姐'); ?>的感召下弄了几个HA价格差不多的A股门票打新, 很快就跟去年一样人品爆棚中了一个新股SH603089赚了3万多.
@@ -191,7 +191,7 @@ A股同涨同跌的特点多少年都没有变过, 不过我想随着市场上�
 <h3>人生如逆旅我亦是行人 - <a name="2019">2019</a>总结</h3>
 <p>2020年1月1日
 <br /><font color=teal>想到一个好标题, 先占坑.</font>
-<br /><font color=grey>You can check out any time you like, but you can never leave.</font> <a href="../../favoritecn.html#californiahotel">California Hotel</a>
+<br /><font color=gray>You can check out any time you like, but you can never leave.</font> <a href="../../favoritecn.html#californiahotel">California Hotel</a>
 </p>
 
 </div>

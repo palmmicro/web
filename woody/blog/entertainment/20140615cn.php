@@ -46,7 +46,7 @@
 <p>2015年8月3日
 <br />今天有个老用户抱怨无法编译新的软件API, 让我很惭愧, 觉得自己的中文表达能力太差了. 
 </p>
-<blockquote><font color=grey>
+<blockquote><font color=gray>
 我上个版本是ar168m_sip_cn_062000 . 
 看了你的一大片文章, 还是不知道怎么办, 我只要编译模块能用的软件就行. 我的环境: 32位win7. 
 </font></blockquote>

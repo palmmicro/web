@@ -45,7 +45,7 @@
 AR1688只需要按住*键上电一次即可进入192.168.1.200. 为什么不是100? 因为我们希望避免PA1688和AR1688同时进入安全模式时出现问题. 
 <br />2) 使用AR1688话机死机的概率大大降低. 跟PA1688不同, AR1688话机即使在升级的过程中掉电也不会死机, 因为我们对于当前正在运行的程序和正在更新的软件使用了不同的程序存储器地址空间. 
 <br />3) "本地"升级方法从使用私有协议的<a href="../../../pa1688/software/palmtoolcn.html">PalmTool</a>改为TFTP. 在过去的多年中我们经常被要求提供Linux下的PalmTool版本. 而Linux用户不必找我们要TFTP客户端程序.
-在Windows环境中命令行升级方法: <font color=grey>tftp -i xxx.xxx.xxx.xxx put ar168e_sip_cn_000543.bin</font>. 
+在Windows环境中命令行升级方法: <font color=gray>tftp -i xxx.xxx.xxx.xxx put ar168e_sip_cn_000543.bin</font>. 
 <br />4) 是的, 文件名使用和<a href="../../../pa1688/indexcn.html">PA1688</a>一样的格式, 以上的文件名意思是用SIP协议, 中文资源的0.00.543版本(当前稳定的演示版)升级一个AR168E话机. 
 <br />5) "本地"升级的速度快多了. PA1688使用PalmTool升级960k字节的文件需要68秒. AR1688使用TFTP方式可以在16秒内升级640k字节的文件. 
 <br />6) 两个芯片都支持HTTP升级, AR1688升级的速度就提高得更多了. 

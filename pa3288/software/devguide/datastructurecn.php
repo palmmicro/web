@@ -37,10 +37,10 @@
 <table>
 <tr><td class=THead><B>PA3288开发指南 - 数据结构</B></td></tr>
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-<tr><td><font color=grey>数据类型</font>
+<tr><td><font color=gray>数据类型</font>
 <br />见Palmmicro软件API<a href="../../../res/apiguide/datatypecn.php">数据类型</a>.
 <br />&nbsp;
-<br /><font color=grey>相关信息</font>
+<br /><font color=gray>相关信息</font>
 <br />PA6488的<a href="../../../pa6488/software/devguide/datastructurecn.html">数据结构</a>. 
 </td></tr>
 </table>

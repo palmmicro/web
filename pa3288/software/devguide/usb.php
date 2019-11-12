@@ -37,12 +37,12 @@
 <table>
 <tr><td class=THead><B>PA3288 Developer's Guide - USB Software</B></td></tr>
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-<tr><td><font color=grey>Overview</font>
+<tr><td><font color=gray>Overview</font>
 <br />PA3288 has built in USB 2.0 OTG controller. 
 <br />&nbsp;
-<br /><font color=grey>USB Host</font>
+<br /><font color=gray>USB Host</font>
 <br />&nbsp;
-<br /><font color=grey>USB Slave</font>
+<br /><font color=gray>USB Slave</font>
 <br /><a href="../../../woody/blog/pa6488/20090927.php">Safe mode</a> software is compiled when <i><b>CALL_NONE</b></i> is defined in <font color=indigo>include\</font><b>version.h</b>.
 USB mass storage device software is included in safe mode software by default. A standard FAT16 disk will appear when it connects to an USB host, for example a PC.  
 <br />FAT16 software located in <font color=indigo>fat\</font> comes from open source <a href="../../../pa6488/software/devguide/filesystem.html">EFSL</a> 0.2.8, we removed FAT12 and FAT32 support for smaller code size. 

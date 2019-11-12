@@ -37,10 +37,10 @@
 <table>
 <tr><td class=THead><B>PA3288 Developer's Guide - Data Structure</B></td></tr>
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-<tr><td><font color=grey>Data Type</font>
+<tr><td><font color=gray>Data Type</font>
 <br />See in Palmmicro software API <a href="../../../res/apiguide/datatype.php">data type</a>.
 <br />&nbsp;
-<br /><font color=grey>Related Information</font>
+<br /><font color=gray>Related Information</font>
 <br /><a href="../../../pa6488/software/devguide/datastructure.html">Data structure</a> of PA6488.
 </td></tr>
 </table>

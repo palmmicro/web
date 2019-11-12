@@ -20,7 +20,7 @@
 并且给我提供了他手头的Excel+VBA工具中使用的东方财富人民币美元<?php EchoEastMoneyForexLink('USDCNY'); ?>的<a href="http://hq2gjqh.eastmoney.com/EM_Futures2010NumericApplication/Index.aspx?type=z&ids=usdcny0" target=_blank>中间价接口</a>.
 <br />先写这个格式文档, 然后再改我的<font color=olive>ForexReference</font>类.
 拿到的数据如下:
-<br /><font color=grey>var js={futures:["USDCNY0,USDCNY,美元人民币,6.5842,6.5835,6.5966,6.5966,6.5804,0,1,
+<br /><font color=gray>var js={futures:["USDCNY0,USDCNY,美元人民币,6.5842,6.5835,6.5966,6.5966,6.5804,0,1,
 0.0000,0,0,6.5842,0.0000,0,0,0.0124,0.19%,0.0000,
 0,0,0,0,0,0.0024,0.0000,2016-06-14 23:45:00,3"]}</font>
 <br />去掉前后双引号后, 按逗号','分隔的各个字段意义如下表.

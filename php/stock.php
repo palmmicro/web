@@ -235,9 +235,9 @@ function StockUpdateEstResult($nv_sql, $fund_sql, $strNetValue, $strDate)
 }
 
 // ****************************** StockReference public functions *******************************************************
-function _greyString($str)
+function _grayString($str)
 {
-    return '<font color=grey>'.$str.'</font>';
+    return '<font color=gray>'.$str.'</font>';
 }
 
 function _italicString($str)
@@ -252,7 +252,7 @@ function _boldString($str)
 
 function _convertDescriptionDisplay($str, $strDisplay)
 {
-    if ($str == STOCK_PRE_MARKET || $str == STOCK_POST_MARKET)	return _greyString($strDisplay);
+    if ($str == STOCK_PRE_MARKET || $str == STOCK_POST_MARKET)	return _grayString($strDisplay);
     if ($str == STOCK_NET_VALUE)									return _boldString($strDisplay);
     if ($str == STOCK_SINA_DATA || $str == STOCK_YAHOO_DATA)		return _italicString($strDisplay);
     return $strDisplay;

@@ -39,7 +39,7 @@
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
 <tr><td>Nov 23, 2010</td></tr>
 <tr><td>It took the <a href="../../../res/index.html#sdcc">SDCC</a> team 19 months travelling from <a href="20090329.php">2.9.0</a> to 3.0.0 release on Nov 1, seems that they had done many house keeping work during this time. The items in release note directly related with our AR1688 Z80 are:
-<font color=grey>
+<font color=gray>
 <br />* changed z80 and gb targets object file extension to .rel
 <br />* special sdcc keywords which are not preceded by a double underscore are deprecated in sdcc version 3.0.0 and higher. See section ANSI-Compliance in sdccman
 <br />* asxxxx / aslink renamed to sdas / sdld and synchronized with ASXXXX V2.0
@@ -55,8 +55,8 @@ I started to learn other ways to compile SDCC on my Windows Vista.
 Then I downloaded <a href="http://www.daemon-tools.cc/eng/products/dtLite" target=_blank>DAEMON Tools Lite</a> to simulate DVD drive and <a href="http://www.ubuntu.com/" target=_blank>ubuntu</a>-10.10-dvd-i386.iso as Linux install file.
 The installation process was smoother than I expected. After another several hours time I was able to compile and try the workaround myself. Finally I used a safer workaround, which is now working together with AR1688 software 0.49.007.
 <br />The result is good, SDCC 3.0.0 generated 5% less code than 2.9.0, with Z80 usually it means 5% performance improve as well. 
-<br />SDCC 3.0.0 hates bad code. I added hundreds of <font color=grey>(UCHAR)</font> before const char like <font color=grey>'T'</font>, and adjusted many const string point declare.
-In <b>rc4.c</b>, a line originally as <font color=grey>x = x + something</font> can not be compiled until I change it to <font color=grey>x += something</font>. 
+<br />SDCC 3.0.0 hates bad code. I added hundreds of <font color=gray>(UCHAR)</font> before const char like <font color=gray>'T'</font>, and adjusted many const string point declare.
+In <b>rc4.c</b>, a line originally as <font color=gray>x = x + something</font> can not be compiled until I change it to <font color=gray>x += something</font>. 
 The most fatal experience was with my own <b>crt0.s</b>, an empty call was made to a non used section, it works on 2.9.0 but 3.0.0 compiled the call to an unexpected address and destroyed <a href="../pa6488/20090927.php">safe mode</a> booting process. 
 I lost 2 phones before I figured out the problem.
 <br />With so many changes along with SDCC 3.0.0, we plan to release 0.50 software in the near future. Software API 0.49.007 as 0.50 release candidate 1 is available at the <a href="../../../ar1688/software/snapshot.html">snapshot</a> part now. 
@@ -83,8 +83,8 @@ To my surprise, the compiled code was larger than before. Then I made test and c
 When as <font color=olive>_Bool</font>, using bit related instructions, this function need 167ms to run. 
 Again we can see that for Z80, smaller code usually means faster code. As the C99 <font color=olive>bool</font> resulted with larger code and slower speed, I decided not to use it now.
 <br />Here are other updated information about SDCC 3.0.0 compared with 2 weeks ago:
-<br />1. The <font color=grey>jp to jr</font> optimization bug and <b>rc4.c</b> <font color=grey>x = x + something</font> bug fixed by Philipp.
-<br />2. Another active developer Borut pointed out <font color=grey>Cygwin contains both gcc-3 (the good old version with -mno-cygwin) and gcc-4. You probably installed gcc-4. You can also install both versions and switch between then using set-gcc-default-3.sh and set-gcc-default-4.sh commands.</font> 
+<br />1. The <font color=gray>jp to jr</font> optimization bug and <b>rc4.c</b> <font color=gray>x = x + something</font> bug fixed by Philipp.
+<br />2. Another active developer Borut pointed out <font color=gray>Cygwin contains both gcc-3 (the good old version with -mno-cygwin) and gcc-4. You probably installed gcc-4. You can also install both versions and switch between then using set-gcc-default-3.sh and set-gcc-default-4.sh commands.</font> 
 As I am glad with the Linux virtual machine, I did not try Cygwin further more.
 <br />3. I did not use MinGW strip tool when talking about <b>sdcc.exe</b> size, I ignored it because it was a coincidence that download snapshot build with all ports and my own built with Z80 and 8051 only are both 2.3M bytes. 
 After strip, Z80 and 8051 build only is 1.0M bytes, just slightly larger than 2.9.0 VC6 build.

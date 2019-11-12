@@ -46,7 +46,7 @@
 在我带4G内存的Sony <a href="../pa6488/20090808cn.php">VGN-FW235J</a>上, 编译一次全部AR1688软件的时间由原来的2分钟左右增加到了差不多半个小时. 
 <br />9月份Borut宣布了64位Windows上的64位SDCC支持. 我作为第一个报告了结果的用户抢先做了测试, 希望能够减少编译时间. 但是结果令人失望, 在我64位Windows Vista上, 32位和64位的SDCC实际上并没有表现出明显的性能区别. 
 <br />我在SDCC邮件列表上问, 64位的SDCC到底有什么好处呢?
-Philipp建议<font color=grey>Try --max-allocs-per-node 100000000 (recommended: At least 64 GB of RAM) or even just --max-allocs-per-node 8000000 (recommended: At least 6GB of RAM). It won't work with the 32-bit version unless you use PAE.</font>
+Philipp建议<font color=gray>Try --max-allocs-per-node 100000000 (recommended: At least 64 GB of RAM) or even just --max-allocs-per-node 8000000 (recommended: At least 6GB of RAM). It won't work with the 32-bit version unless you use PAE.</font>
 <br />我接着为我的机器问4GB内存下建议的<font color=blue>--max-allocs-per-node</font>参数是多少? 这次Philipp没有像往常那样立刻回答.
 当天晚上梦中, 我才意识到我问了一个<a href="20110826cn.php">愚蠢</a>的问题. 4G内存是32位系统能支持的最大值, 因此同样也不会有什么不同. 
 <br />&nbsp;
@@ -59,11 +59,11 @@ Philipp建议<font color=grey>Try --max-allocs-per-node 100000000 (recommended: 
 <br /><font color=magenta>2012年3月17日更新</font>
 <br />去年SDCC开发团队发布了3.1.0版本, 在过了快5个月后, 它编译AR1688软件时仍然表现得一团糟. 
 <br />当SDCC在2009年发布<a href="20090329cn.php">2.9.0</a>的时候我们几乎没有碰到什么问题. 2010年的SDCC 3.0.0让我们花了2个星期追赶新版本.
-至今的<a href="../../../ar1688/software/sw057cn.html">0.57</a>测试版本仍然在沿用<font color=grey>SDCC 3.0.1 #6078 (Dec 7 2010) (MINGW32)</font>. 
+至今的<a href="../../../ar1688/software/sw057cn.html">0.57</a>测试版本仍然在沿用<font color=gray>SDCC 3.0.1 #6078 (Dec 7 2010) (MINGW32)</font>. 
 <br />SDCC 3.1.0则是一开始就不对头, 它正式发布的时候就没有解决我提交的第4个<font color=blue>--max-allocs-per-node</font>编译错误.
-虽然我欣赏其中的新特性<font color=grey>new register allocator in the z80 and gbz80 ports (optimal when using --opt-code-size and a sufficiently high value for --max-allocs-per-node for the z80 port)</font>,
+虽然我欣赏其中的新特性<font color=gray>new register allocator in the z80 and gbz80 ports (optimal when using --opt-code-size and a sufficiently high value for --max-allocs-per-node for the z80 port)</font>,
 我一直被<font color=red>Caught signal 11: SIGSEGV</font>的程序崩溃困扰.
-我在另外的地方读到<font color=grey>Almost all signal 11 crashes (segment faults) are caused by a reference to the object of a null pointer</font>, 我猜想新寄存器分配方案的实现中肯定还有不少潜在问题. 
+我在另外的地方读到<font color=gray>Almost all signal 11 crashes (segment faults) are caused by a reference to the object of a null pointer</font>, 我猜想新寄存器分配方案的实现中肯定还有不少潜在问题. 
 <br />Philipp提供了另外一个选项<font color=blue>--oldralloc</font>来使用老的寄存器分配方案. 在很多次对新方案失望后, 我开始测试使用老分配方案的3.1.0版本, 没想到也是错误一堆.
 在Philipp修改好我提交的2个<font color=blue>--oldralloc</font>编译错误后, 我想我终于找到了一个更新到3.1.0的方式. 
 <br />昨天我开始编译全部的AR1688升级文件, 没想到的是, 原来有GB2312编码汉字的源程序居然全部不能编译了!
@@ -73,7 +73,7 @@ Philipp建议<font color=grey>Try --max-allocs-per-node 100000000 (recommended: 
 上周我完成AR1688 <a href="../../../ar1688/software/sw058cn.html">0.58</a>软件发布的测试后, 想到的第一件事情就是测试SDCC的新版本. 
 <br />刚开始我挺高兴, 3.1.0版本中2个让我恼火的问题, <font color=red>Caught signal 11: SIGSEGV</font>和<font color=blue>--max-allocs-per-node</font>, 居然都解决了.
 但是测试了更多的AR1688设备后, 我又新发现了至少3个问题. 看来在相当一段时间内, 我们还要继续使用老的<a href="20101123cn.php#20101208">3.0.1 #6078</a>版本.
-<br />下表中总结了测试结果. 代码大小和编译时间使用命令行<font color=grey>mk ar168g sip us</font>和标准编译器选项<font color=blue>-mz80 -c --std-c99</font>产生.   
+<br />下表中总结了测试结果. 代码大小和编译时间使用命令行<font color=gray>mk ar168g sip us</font>和标准编译器选项<font color=blue>-mz80 -c --std-c99</font>产生.   
 </td></tr>
 </table>
 

@@ -19,7 +19,7 @@
 <br />而对周博士自己来说, 我相信把炬力领导到某个程度, 比他再去开第3家公司强. 再开一家公司的话, 无非还是在几年后再卖给一家<a href="../../myphoto/photo1997cn.html">ESS</a>这样迟早退市的公司. 
 <br />对我自己来说, 我不喜欢周博士和<a href="../palmmicro/20061123cn.php">王博士</a>一次次卖掉公司的经历. 而是希望<a href="../palmmicro/20080326cn.php">Palmmicro</a>在我手中一直成长下去. 
 <br /><img src=../photo/20111112.jpg alt="ACTS stock price from Jun 2006 to Nov 2011" />
-<br /><font color=grey>And the good times that had makes today seem rather sad</font> <a href="../../favoritecn.html#yesterdayoncemore">Yesterday Once More</a>
+<br /><font color=gray>And the good times that had makes today seem rather sad</font> <a href="../../favoritecn.html#yesterdayoncemore">Yesterday Once More</a>
 </p>
 
 <h3>ACTS退市</h3>

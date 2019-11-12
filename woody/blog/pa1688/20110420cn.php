@@ -46,7 +46,7 @@
 <br />事实上他不是第一个发现这个LM386问题的. <a href="../../../pa1688/user/pa168scn.html">PA168S</a>用户们早在2003年就指出了这个问题, 我们在随后的2004年PA168T设计上做了改进.
 随着最近几天这个硬件高手指出和解决问题的过程深入, 我再一次回想起这个典型的用户驱动<a href="../palmmicro/20080326cn.php">Palmmicro</a>产品改进故事. 
 </td></tr>
-<tr><td><font color=grey>今年是1Q84年. 空气变了, 风景变了. 我必须尽快适应这个带着问号的世界. 像被放进陌生森林中的动物一样, 为了生存下去, 得尽快了解并顺应这里的规则.</font> <a href="../../favoritecn.html#1q84">1Q84</a></td></tr>
+<tr><td><font color=gray>今年是1Q84年. 空气变了, 风景变了. 我必须尽快适应这个带着问号的世界. 像被放进陌生森林中的动物一样, 为了生存下去, 得尽快了解并顺应这里的规则.</font> <a href="../../favoritecn.html#1q84">1Q84</a></td></tr>
 <tr><td><img src=../../../pa1688/user/at323/whitepcb_s.jpg alt="ATCOM IP PHONE AT323 internal PCB image" /></td></tr>
 <tr><td>LM386是<b>ATCOM IP PHONE</b>字符串<b>E</b>上方的那个8脚芯片. <a href="../../../pa1688/user/at323/whitepcb.jpg" target=_blank>大图</a></td></tr>
 </table>

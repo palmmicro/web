@@ -50,7 +50,7 @@
 然后邮件通知日前从网上花6美元一个购买来这个<a href="../../../pa1688/user/ag168vcn.html#soyo">Soyo G1681</a> PA168V的主人.
 跟他上次花150美元购买的50个"Soyo G668" <a href="../../../pa1688/user/pa168scn.html">PA168S</a>网络电话相比, 这个单口网关居然贵得翻了一倍的价格.  
 </td></tr>
-<tr><td><font color=grey>It's been a hard day's night, and I been working like a dog.</font> <a href="../../favoritecn.html#night">A Hard Day's Night</a></td></tr>
+<tr><td><font color=gray>It's been a hard day's night, and I been working like a dog.</font> <a href="../../favoritecn.html#night">A Hard Day's Night</a></td></tr>
 <tr><td><img src=../../../pa1688/user/g1681/soyo.jpg alt="Soyo G1681 (PA168V/AG-168V) 1-port FXS gateway front view." /></td></tr>
 <tr><td><img src=../../../pa1688/user/g1681/back.jpg alt="Soyo G1681 (PA168V/AG-168V) 1-port FXS gateway back view." /></td></tr>
 </table>

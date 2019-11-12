@@ -59,26 +59,26 @@ user need to port <a href="../../../pa1688/software/palmtool.html">PalmTool</a> 
 <br />&nbsp;
 <br /><font color=magenta>Updated on Mar 10, 2013</font>
 <br />After nearly 6 years, recently this work was finally done by Alex Vangelov,
-who had the same thought about programming and wrote in his email starting with <font color=grey>Just for fun</font>.
+who had the same thought about programming and wrote in his email starting with <font color=gray>Just for fun</font>.
 <br />As I am new to <a href="../entertainment/20120719.php">Linux</a> programming, I took special interest in merging it into our AR1688 software code base, and kept a few notes:
-<br />1) <font color=grey>Ne2000.h is renamed to ne2000.h, unix is case sensitive.</font> Also changed are many <b>stdafx.h</b> related files in sdcc\tool.
+<br />1) <font color=gray>Ne2000.h is renamed to ne2000.h, unix is case sensitive.</font> Also changed are many <b>stdafx.h</b> related files in sdcc\tool.
 Although I can not remember why <b>Ne2000.h</b> was the only file with mixed case letter in sdcc\include,
 I know very clearly that <a href="20100818.php">Visual Studio</a> generated all those <b>StdAfx.h</b> automatically and included them in source files as <b>stdafx.h</b>. 
 Looks like a way of Microsoft to show its difference from Unix.
-<br />2) <font color=grey>Path notation changed from "\\" to "/" in some files for compatibility.</font> This is obviously another way to show Microsoft's difference. 
+<br />2) <font color=gray>Path notation changed from "\\" to "/" in some files for compatibility.</font> This is obviously another way to show Microsoft's difference. 
 The result is, not only cross platform compilers like <a href="20101123.php">SDCC</a> knows how to handle the mess, VC2008 can do it as well.
 During my debug, I even found that the VC2008 can handle file path and name like C:\sdcc\src/settings/<b>default_sip.txt</b> correctly!
 <br />3) File <b>mfc2std.h</b> is added in sdcc\tool\common, to replace those heavily used MFC class like CString. Although I do not think I will write my next PC application using ansi C only for compatibility,
 I will definitely remember to put all MFC related code in separate places.
-<br />4) <font color=grey>relink tool generates linkmain_unix.lnk with linux paths, instead rewriting the existing file.</font>
-<br />5) <font color=grey>Tested on Fedora and Gentoo linux with sdcc version 3.2.0.</font> Be <font color=red>CAREFUL</font> here! As SDCC 3.2.0 has known hidden <a href="20111007.php#20120813">bugs</a>!
+<br />4) <font color=gray>relink tool generates linkmain_unix.lnk with linux paths, instead rewriting the existing file.</font>
+<br />5) <font color=gray>Tested on Fedora and Gentoo linux with sdcc version 3.2.0.</font> Be <font color=red>CAREFUL</font> here! As SDCC 3.2.0 has known hidden <a href="20111007.php#20120813">bugs</a>!
 <br />So the good news is, we <a href="../../../ar1688/software/sw061.html">now</a> have the house tools to compile AR1688 API with Linux. And the bad news is, we do not have the right SDCC to do it!
 The <a href="20101123.php#20101208">3.0.1 #6078</a> version we are using now is a different from 3.0.0, but we did not keep the source file at that time, so we can not compile a Linux version to use today.
 And both 3.1.0 and 3.2.0 have hidden bugs. I had to begin to debug the current SDCC snapshot again, in the hope of a new workable version. I filed my 23rd bug report on SDCC web site last Friday.
 <br />&nbsp;
 <br /><font color=magenta>Updated on March 11, 2013</font>
 <br />Alex pointed out that #6078 source code was available on SourceForge svn, and modified sdcc\<b>Makefile</b> again to include the download and compile of SDCC #6078.
-<br /><font color=grey>attached modified Makefile with new action "make sdcc",
+<br /><font color=gray>attached modified Makefile with new action "make sdcc",
 that downloads sdcc revision #6078 from https://sdcc.svn.sourceforge.net/svnroot/sdcc/trunk/sdcc (only z80 related files) in folder ./sdcc_6078.
 executes configure && make and creates symbolic links of compiled sdcc tools in ./bin folder
 <br />* svn command required

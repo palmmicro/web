@@ -39,7 +39,7 @@
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
 <tr><td>Aug 14, 2011</td></tr>
 <tr><td>After several casual emails with a new user who had a second-hand dead <a href="../../../pa1688/user/pa168q.html">PA168Q</a> last week, he finally wrote:
-<font color=grey>Where is the start point and the end point? How am I supposed to find my way in all these links?? Which one is relevant to my case and which is not?
+<font color=gray>Where is the start point and the end point? How am I supposed to find my way in all these links?? Which one is relevant to my case and which is not?
 Then, How to send the bin file to the device. I appreciate the help, but it needs to be logical.</font>
 <br />I felt frustrated of my PA1688 web work at first, then I realized there must be other new users with second-hand PA1688 devices feeling the same like him.
 According to <a href="../entertainment/20110509.php">Google</a> Analytics, the new visitors percentage in our web site rose from 61.01% to 74.07% in the past 5 months (see image below).

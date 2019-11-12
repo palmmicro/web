@@ -41,7 +41,7 @@
 <tr><td>一年一度的, 开放源代码编译器<a href="../../../res/indexcn.html#sdcc">SDCC</a>(英文对应的意思是给小处理器用的C语言编译器)的开发团队会更新一个主要版本. 今年的2.9.0在3月22号正式发布.
 <br />这个编译器在Windows下的执行程序仍旧是用MSVC 6.0编译的. 不过Windows Vista已经不再支持10年前的MSVC 6.0了. 由于上周我几乎一直带着我的Windows Vista笔记本在外面跑, 一直拖到这个周末才有条件来测试这个新版本. 
 <br />在2.9.0的新功能说明中只有一条跟AR1688用的Z80有关,
-<font color=grey>many optimizations to reduce code size and increase speed in the Z80 backend (对Z80进行了大量编译优化工作, 减小了代码量, 加快了执行速度)</font>.
+<font color=gray>many optimizations to reduce code size and increase speed in the Z80 backend (对Z80进行了大量编译优化工作, 减小了代码量, 加快了执行速度)</font>.
 跟2008年5月发布的2.8.0相比, 代码量的确减小了些. 但是2.9.0编译出来的代码量其实是大于AR1688从去年11月0.40软件开始使用的2.8.3测试版本.
 无论如何, 我相信正式发布的2.9.0会比2.8.3好, 因此我们打算在AR1688 <a href="../../../ar1688/software/sw044cn.html">0.44</a>的软件发布中包括SDCC 2.9.0. 
 <br />跟往常一样, SDCC编译器会在<a href="20061211cn.php">API</a>的SDCC\bin的目录下. 跟直接从SourceForge下载的Windows可执行文件相比, 我们单独编译的版本会小些, 因为它只包括了Z80和8051的部分.

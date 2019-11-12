@@ -81,9 +81,9 @@ function _echoThanousParadoxParagraph($strSymbol, $iStart, $iNum)
 	EchoTableParagraphBegin(array(new TableColumnDate(),
 								   new TableColumnClose(),
 								   new TableColumnNetValue(),
-								   new TableColumnPremium('X'),
+								   new TableColumnPremium('x'),
 								   new TableColumnMyStock($strEstSymbol),
-								   new TableColumnChange('Y')
+								   new TableColumnChange('y')
 								   ), THANOUS_PARADOX_PAGE, $str);
 
    	$csv = new PageCsvFile();

@@ -23,12 +23,12 @@
 <br />因为我早就在用<a href="../entertainment/20110509cn.php">Google</a> Analytics做网站统计, 其实我一直觉得Yahoo前两年加的这个功能是个累赘, 没有提供什么新功能, 反而拖累了网页反应速度.
 这下我就有了充分理由去掉它了. 在Yahoo Small Business的新网站<a href="https://www.luminate.com/" target=_blank>Aabaco Small Business</a>里面又找了好半天, 终于关闭了它.
 <br />接下来增加功能, 现在最直接的需求就是用微信查<a href="../../res/sz162411cn.php">华宝油气</a>净值. 采用对话方式,
-在消息中用语音或者键盘输入<font color=grey>162411</font>或者<font color=grey>华宝油气</font>等获取它的各种估值以及具体估值的时间.
+在消息中用语音或者键盘输入<font color=gray>162411</font>或者<font color=gray>华宝油气</font>等获取它的各种估值以及具体估值的时间.
 </p>
 <?php EchoFundEstDemo(); ?>
-<p>用户如果只输入<font color=grey>1</font>, 会匹配到大量的基金. 受微信消息长度2048字节的限制, 只会显示匹配靠前的一部分出来.
-如果直接用微信语音的话, 微信自带的语音识别貌似要小小的训练一下. 例如, 如果一开始就说<font color=grey>162411</font>, 识别的结果可能不如人意, 
-但是如果先用键盘输入一次<font color=grey>162411</font>, 以后的语音识别就畅通无阻了. 
+<p>用户如果只输入<font color=gray>1</font>, 会匹配到大量的基金. 受微信消息长度2048字节的限制, 只会显示匹配靠前的一部分出来.
+如果直接用微信语音的话, 微信自带的语音识别貌似要小小的训练一下. 例如, 如果一开始就说<font color=gray>162411</font>, 识别的结果可能不如人意, 
+但是如果先用键盘输入一次<font color=gray>162411</font>, 以后的语音识别就畅通无阻了. 
 <br />开发过程中碰到了一个问题, 微信消息有必须在5秒之内返回的限制. 而根据Google Analytics对过去30天5934次对华宝油气估值页面的Page Timings统计, 平均反应时间是10秒, 这样大概率会超过微信的5秒限制, 导致消息回应失败.
 反应时间慢的主要原因是估值前可能需要先访问<a href="../entertainment/20151225cn.php">新浪股票数据</a>和<a href="../entertainment/20160615cn.php">美元人民币中间价</a>等不同网站.
 只好挽起袖子搞优化, 尽可能的多在本地存数据, 减少每次查询中对外部网站的访问. 最后勉强把最长的回应时间控制在了4228毫秒, 总算满足了要求.
@@ -41,7 +41,7 @@
 
 <h3><a name="chinastock">用微信公众号查询A股交易数据</a></h3>
 <p>2016年10月20日
-<br />今天发现有个微信公众号用户用语音查询<font color=grey>交通银行</font>, 没查到因为数据库中根本没有它. 不过因此刺激了我给加上查询所有<a href="../entertainment/20141016cn.php">股票</a>交易数据的功能.
+<br />今天发现有个微信公众号用户用语音查询<font color=gray>交通银行</font>, 没查到因为数据库中根本没有它. 不过因此刺激了我给加上查询所有<a href="../entertainment/20141016cn.php">股票</a>交易数据的功能.
 <br />首先我要把A股3000多只股票都加到数据库中. 开始我想直接开个大循环从000001到699999从新浪拿数据, 后来觉得太蠢了, 还担心新浪的数据接口把我列入黑名单.
 不过接下来我从<?php EchoLink(GetEastMoneyStockListUrl()); ?>找到了所有A股数据.
 <?php EchoUpdateChinaStockLink(); ?>
@@ -52,7 +52,7 @@
 <h3><a name="chinafund">用微信公众号查询A股基金数据</a></h3>
 <p>2016年10月28日
 <br />昨天让我广发证券网上开户的经理帮忙宣传一下微信公众号查股票数据, 随即加进来2个人. 
-其中一个上来就查<font color=grey>159915</font>, 发现没有数据后立马取消了订阅, 又刺激了我给数据库加上所有A股基金数据.
+其中一个上来就查<font color=gray>159915</font>, 发现没有数据后立马取消了订阅, 又刺激了我给数据库加上所有A股基金数据.
 <br />从<?php EchoLink(GetEastMoneyFundListUrl()); ?>找到了基金列表, 没想到全市场居然有快一万基金. 然后继续写代码完成数据更新, 从此再也不怕被查.
 <?php EchoUpdateChinaFundLink(); ?>
 </p>
@@ -62,20 +62,20 @@
 <br />微信公众号搞了几个月, 使用者寥寥. 不过开发微信公众号的过程中有个意外收获, 帮助我彻底区分了净值计算和用户显示界面的代码.
 <br />为了充分利用这个好处, 在帮助有效配合今年打新加入<?php EchoNameLink(AH_COMPARE_PAGE, AH_COMPARE_DISPLAY, '../entertainment/20150818cn.php'); ?>后, 我马上把它也包括在了微信公众号的查询结果中.
 <br />数据来源: <?php EchoLink(GetAastocksUrl('ah')); ?>		<?php EchoUpdateAhLink(); ?>
-<br />输入查<font color=grey>600028</font>或者<font color=grey>00386</font>试试看.
+<br />输入查<font color=gray>600028</font>或者<font color=gray>00386</font>试试看.
 </p>
 <?php EchoAhDemo(); ?>
 
 <h3><a name="uscny">人民币</a>汇率以及ADR和H股对比</h3>
 <p>2018年4月10日
-<br />沉寂已久的微信公众号在清明假期中突然有人来查了下<font color=grey>人民币汇率</font>, 因为没有任何匹配, 这个查询通知到了我的电子邮件中, 让我感觉一下子打了鸡血, 学习微信小程序开发的劲头一下子足了好多.
+<br />沉寂已久的微信公众号在清明假期中突然有人来查了下<font color=gray>人民币汇率</font>, 因为没有任何匹配, 这个查询通知到了我的电子邮件中, 让我感觉一下子打了鸡血, 学习微信小程序开发的劲头一下子足了好多.
 <br />微信订阅号中查不到用来估值的人民币汇率的确有点奇怪. 原因是为了加快反应时间, 向微信发的查询是不会去拿东方财富网每天更新一次的人民币中间价数据的.
 <br />当然这现在已经难不倒我了, 我可以依旧从数据库中把最近2天的中间价找出来, 拼成跟其他数据类似的格式提供给客户. 按惯例, 又全面整理了几天代码, 直到今天才完工.
-<br />因为微信查找中我没有做中文分词, 因此<font color=grey>人民币汇率</font>这种5个字的长查询其实是很难匹配的. 
-为了保证下次用户能查到, 我还特意手工把数据库中USCNY的说明从<font color=grey>美元人民币中间价</font>改成了<font color=grey>美元人民币汇率中间价</font>.
+<br />因为微信查找中我没有做中文分词, 因此<font color=gray>人民币汇率</font>这种5个字的长查询其实是很难匹配的. 
+为了保证下次用户能查到, 我还特意手工把数据库中USCNY的说明从<font color=gray>美元人民币中间价</font>改成了<font color=gray>美元人民币汇率中间价</font>.
 <br />得意之余再补记一下, 上周蹭雪球热点港股腾讯ADR代码TCEHY时加了<?php EchoNameLink(ADRH_COMPARE_PAGE, ADRH_COMPARE_DISPLAY, '../entertainment/20150818cn.php'); ?>后, 又继续把它集成到了微信查询中.
 <br />数据来源: <?php EchoLink(GetAastocksUrl()); ?>		<?php EchoUpdateAdrLink(); ?>
-<br />输入查<font color=grey>00700</font>或者<font color=grey>腾讯</font>试试看.
+<br />输入查<font color=gray>00700</font>或者<font color=gray>腾讯</font>试试看.
 <!--<br /><img src=../photo/kingcrab.jpg alt="Jan 30, 2018. King crab, Woody and Sapphire in La Quinta Carlsbad." />-->
 </p>
 <?php EchoAdrhDemo(); ?>
@@ -86,7 +86,7 @@
 <br />数据来源: 
 <br /><?php EchoLink(GetCnstocksUrl()); ?>		<?php EchoUpdateAbLink(); ?>
 <br /><?php EchoLink(GetCnstocksUrl('sz')); ?>	<?php EchoUpdateAbLink('sz'); ?>
-<br />输入查<font color=grey>000488</font>或者<font color=grey>200488</font>试试看.
+<br />输入查<font color=gray>000488</font>或者<font color=gray>200488</font>试试看.
 </p>
 <?php EchoAbDemo(); ?>
 
@@ -98,7 +98,7 @@
 
 <h3><a name="chinabond">用微信公众号查询A股债券数据</a></h3>
 <p>2019年7月13日
-<br />昨天有人在微信公众号上查<font color=grey>019547</font>没有匹配. 看了一下<?php EchoSinaQuotesLink('sh019547'); ?>, 发现居然是国债.
+<br />昨天有人在微信公众号上查<font color=gray>019547</font>没有匹配. 看了一下<?php EchoSinaQuotesLink('sh019547'); ?>, 发现居然是国债.
 软件工具有人用终归是好事情, 所以再次削尖铅笔给我的数据库加上所有A股债券数据.
 <br />数据来源: 
 <br /><?php EchoLink(GetJrjBondListUrl()); ?>      <?php EchoUpdateChinaBondLink(); ?>

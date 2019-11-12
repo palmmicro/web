@@ -66,8 +66,8 @@ function EchoNvCloseHistoryParagraph($ref, $str = false, $csv = false, $iStart =
 	EchoTableParagraphBegin(array(new TableColumnDate(),
 								   new TableColumnClose(),
 								   new TableColumnNetValue(),
-								   new TableColumnPremium('Y'),
-								   new TableColumnChange('X'),
+								   new TableColumnPremium('y'),
+								   new TableColumnChange('x'),
 								   new TableColumn('流通股数(万)', 100),
 								   new TableColumn('换手率(%)', 90)
 								   ), $strSymbol.NVCLOSE_HISTORY_PAGE, $str);

@@ -89,7 +89,7 @@ VLAN交换机上的3个口都使用同样VLAN标签. 毕竟我们是设计网络
 <br />迪迈特GP2268(AR168P)网络电话使用GP1260和GP1266同样的机壳, 上面靠近电源插座的<i>LAN1</i>标记端口1. 当使用其它生产厂商没有明显标记的设备时, 可以在2个RJ45口上插拔网线确定端口1和端口2的位置, 
 基于<a href="20080811cn.php">syslog</a>标准的调试信息会指示端口连接情况. 
 这个新功能也是DM9003和KSZ8842话机特有的, 在RTL8019AS上, 因为我们从一开始就毫不犹豫地节省了93C46 EEPROM, 所以无法检测网络连接情况. 
-<br /><font color=grey>GP1260(AR168G)/GP1266/GP2268(AR168P)网络电话LAN1和LAN2接口.</font>
+<br /><font color=gray>GP1260(AR168G)/GP1266/GP2268(AR168P)网络电话LAN1和LAN2接口.</font>
 </td></tr>
 <tr><td><img src=../../../ar1688/user/gp1266/03.jpg alt="GP1266 IP phone POWER, LAN1 and LAN2 interface." /></td></tr>
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>

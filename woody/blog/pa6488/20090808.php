@@ -78,7 +78,7 @@ The SPI interface is the performance bottleneck, although I have set its working
 <br />Same as AR1688, PA3288 does not use external SDRAM memory. I removed as much unrelated code as I could, made room for a big enough heap in the internal SRAM test ping 65500 bytes.
 When CPU runs at 96Mhz, the response time is 139ms, when CPU runs at 192Mhz, the response time is 136ms, this means about 7.8Mbps actual data rate, good enough for a 10Mbps ethernent chip.
 <br />&nbsp;
-<br /><font color=grey>The wasted 1x16 SDRAM in PA1688 software.</font>
+<br /><font color=gray>The wasted 1x16 SDRAM in PA1688 software.</font>
 </td></tr>
 <tr><td><img src=../../../pa1688/user/pb35/m12l16161a.jpg alt="ESMT 1Mx16-bit SDRAM chip on China Roby PB-35 IP phone inside PCB board." /></td></tr>
 </table>

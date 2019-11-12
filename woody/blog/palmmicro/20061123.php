@@ -83,7 +83,7 @@
 <br />Tigerjet: The first VoIP hardware terminal product, Quicknet PCI card used chip from Tigerjet. And the first USB phone chip provider. All Digium cards use Tigerjet chips today. When Intel provides its first VoIP card, it also uses old TJ320 from Tigerjet
 <br /><font color=indigo>-End of original article.</font>
 <br />&nbsp;
-<br /><font color=grey>Li Jing, the author of this article <a href="../../../pa1688/user/atcom.html">ATCOM</a> Mr Sun and me.</font>
+<br /><font color=gray>Li Jing, the author of this article <a href="../../../pa1688/user/atcom.html">ATCOM</a> Mr Sun and me.</font>
 </td></tr>
 <tr><td><img src=../../groupphoto/customer/laosun.jpg alt="Li Jing, Sun Yanhong and me in central park, NYC." /></td></tr>
 </table>

@@ -36,14 +36,14 @@
 <table>
 <tr><td class=THead><B>Palmmicro Software API Guide - Using T_LIST Functions</B></td></tr>
 <tr><td>&nbsp;
-<br /><font color=grey>Overview</font>
+<br /><font color=gray>Overview</font>
 <br /><font color=olive>T_LIST</font> related data structures and funtions are used extensively in Palmmicro TCP/IP implementation. This description is to help API users to use them in more places.
 <br /><font color=olive>T_LIST</font> data structure is defined in include\<b>p_list.h</b>.
 <font color=olive>T_LIST</font> works as the base type of all <font color=olive>T_XXXX_LIST</font> struct where ptNext is the first element, and the struct itself is malloced from heap.
 <br />Related <i>ListXyyy</i> functions are in list\<b>list.c</b> and include\<b>p_list.h</b>.
 <br /><font color=olive>T_BUF_LIST</font> with list\<b>buflist.c</b> is the most direct example of using <font color=olive>T_LIST</font> functions.
 <br />&nbsp;
-<br /><font color=grey>Details</font>
+<br /><font color=gray>Details</font>
 <br /><i>ListIterate</i> runs every list item with <font color=olive>F_LIST_ITERATE</font> <i>f</i> function, <i>f</i> returns TRUE to abort iteration, the stopped list ptr is returned by <i>ListIterate</i>,
 or NULL if <i>f</i> always returns FALSE. 
 <br /><i>ListRemoveItem</i> can be safely called in <font color=olive>F_LIST_ITERATER</font> function to remove an item.

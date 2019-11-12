@@ -56,16 +56,16 @@
 <br />从SDCC版本<a href="20101123.php">3.0.0</a>开始Z80编译和链接工具名字改为<b>sdasz80.exe</b>和<b>sdld.exe</b>. 
 <br />&nbsp;
 <br /><font color=magenta>2013年3月10日更新</font>
-<br />差不多六年后, 最近Alex Vangelov终于完成了它. 显然他对于编程序的想法和我一致, 在他的邮件开头赫然写着<font color=grey>Just for fun(仅仅是娱乐)</font>.
+<br />差不多六年后, 最近Alex Vangelov终于完成了它. 显然他对于编程序的想法和我一致, 在他的邮件开头赫然写着<font color=gray>Just for fun(仅仅是娱乐)</font>.
 <br />由于我是一个<a href="../entertainment/20120719cn.php">Linux</a>编程新手, 我特别有兴趣的把他的代码合并到了我们AR1688软件代码数据库中, 并且做了如下记录:
-<br />1) <font color=grey>Ne2000.h is renamed to ne2000.h, unix is case sensitive. (Ne2000.h重新命名为ne2000.h, unix区分大小写.)</font> 类似的还修改了很多sdcc\tool下<b>stdafx.h</b>有关的文件.
+<br />1) <font color=gray>Ne2000.h is renamed to ne2000.h, unix is case sensitive. (Ne2000.h重新命名为ne2000.h, unix区分大小写.)</font> 类似的还修改了很多sdcc\tool下<b>stdafx.h</b>有关的文件.
 虽然我已经不记得为什么<b>Ne2000.h</b>成为了sdcc\include下唯一混合了大小写的文件, 我很清楚是<a href="20100818cn.php">Visual Studio</a>自动产生了这些<b>StdAfx.h</b>, 并且以<b>stdafx.h</b>的名字包含在不同的文件中.
 看上去象是微软显示自己跟Unix不同的一种方式.
-<br />2) <font color=grey>Path notation changed from "\\" to "/" in some files for compatibility. (为了兼容性, 某些文件中的路径记号"\\"改为"/".)</font> 这显然是微软显示自己不同的另外一个方式.
+<br />2) <font color=gray>Path notation changed from "\\" to "/" in some files for compatibility. (为了兼容性, 某些文件中的路径记号"\\"改为"/".)</font> 这显然是微软显示自己不同的另外一个方式.
 其结果是, 现在不仅象<a href="20101123cn.php">SDCC</a>这样的跨平台编译器知道如何处理这总混乱局面, 事实上VC2008也能. 在我的调试过程中, 我甚至发现VC2008能正确处理路径名写成C:\sdcc\src/settings/<b>default_sip.txt</b>的文件! 
 <br />3) 在sdcc\tool\common下增加了<b>mfc2std.h</b>文件, 用来替代常用的MFC类库如CString. 虽然我不认为我会为了兼容性而完全使用标准C来写下一个PC程序, 我至少会记住把所有MFC相关的代码放在单独不同的地方.
-<br />4) <font color=grey>relink tool generates linkmain_unix.lnk with linux paths, instead rewriting the existing file. (relink工具在Linux下产生新的linkmain_unix.lnk文件,而不是覆盖原有文件.)</font>
-<br />5) <font color=grey>Tested on Fedora and Gentoo linux with sdcc version 3.2.0. (在Fedora和Gentoo linux下使用sdcc版本3.2.0测试通过.)</font>
+<br />4) <font color=gray>relink tool generates linkmain_unix.lnk with linux paths, instead rewriting the existing file. (relink工具在Linux下产生新的linkmain_unix.lnk文件,而不是覆盖原有文件.)</font>
+<br />5) <font color=gray>Tested on Fedora and Gentoo linux with sdcc version 3.2.0. (在Fedora和Gentoo linux下使用sdcc版本3.2.0测试通过.)</font>
 这里就需要特别<font color=red>小心</font>了! 因为SDCC 3.2.0有已知的潜在<a href="20111007cn.php#20120813">问题</a>!
 <br />所以好消息是, 我们<a href="../../../ar1688/software/sw061cn.html">现在</a>有了自己的在Linux下编译AR1688 API的工具. 但是坏消息是, 我们没有合适的SDCC版本!
 目前使用的<a href="20101123cn.php#20101208">3.0.1 #6078</a>不同于3.0.0, 而且我们没有保存这个临时版本的源代码, 所以无法基于它编译一个Linux版本来使用.
@@ -74,7 +74,7 @@
 </td></tr>
 <tr><td class=Update>2013年3月11日更新</td></tr>
 <tr><td>Alex指出可以在SourceForge svn中下载#6078源代码. 同时他再次修改了sdcc\<b>Makefile</b>, 包括了下载和编译SDCC #6078版本的步骤. 
-<br /><font color=grey>attached modified Makefile with new action "make sdcc", that downloads sdcc revision #6078 from https://sdcc.svn.sourceforge.net/svnroot/sdcc/trunk/sdcc (only z80 related files) in folder ./sdcc_6078.
+<br /><font color=gray>attached modified Makefile with new action "make sdcc", that downloads sdcc revision #6078 from https://sdcc.svn.sourceforge.net/svnroot/sdcc/trunk/sdcc (only z80 related files) in folder ./sdcc_6078.
 executes configure && make and creates symbolic links of compiled sdcc tools in ./bin folder
 <br />* svn command required
 <br />result:

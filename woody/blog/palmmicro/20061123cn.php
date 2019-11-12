@@ -82,7 +82,7 @@
 <br />Tigerjet: 世界第一个VoIP的硬件终端产品, 美国Quicknet的PCI卡, 采用的是Tigerjet的芯片, USB Phone芯片的先驱, 目前如日中天的Digium的几乎全线板卡采用Tigerjet的芯片, Intel刚刚出了第一个VoIP的破卡, 竟然也是用的Tigerjet老掉牙的TJ320. 
 <br /><font color=indigo>-原文完.</font>
 <br />&nbsp;
-<br /><font color=grey>李敬, 本文作者<a href="../../../pa1688/user/atcomcn.html">ATCOM</a>老孙和我. </font>
+<br /><font color=gray>李敬, 本文作者<a href="../../../pa1688/user/atcomcn.html">ATCOM</a>老孙和我. </font>
 </td></tr>
 <tr><td><img src=../../groupphoto/customer/laosun.jpg alt="Li Jing, Sun Yanhong and me in central park, NYC." /></td></tr>
 </table>

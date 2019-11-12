@@ -47,8 +47,8 @@
 <br />&nbsp;
 <br /><b>快速上手:</b>
 <br />1) 按照参考设置<a href="settings/roip_sip_cn.html" target=_blank>roip_sip_cn.html</a>配置AR168R使用<a href="../contactus/pbxcn.html">Palmmicro PBX</a>测试号码223. 
-<br />2) 按<font color=grey>SW1</font>键(RJ45插座旁边)呼叫<font color=blue>热线号码</font>设置中的号码222. 
-<br />3) 按<font color=grey>SW1</font>键应答来电, 或者使用设置中的<font color=blue>自动应答</font>功能. 
+<br />2) 按<font color=gray>SW1</font>键(RJ45插座旁边)呼叫<font color=blue>热线号码</font>设置中的号码222. 
+<br />3) 按<font color=gray>SW1</font>键应答来电, 或者使用设置中的<font color=blue>自动应答</font>功能. 
 <br /><b>熟悉<a href="hardware/AR168R_v1.1.pdf" target=_blank>板子</a>接插件和跳线: </b>
 <br />1) J3外接一个<a href="../woody/blog/ar1688/20070604cn.php">2x16字符型LCD</a>. 
 <br />2) J4(<font color=red>红色</font>) MIC仅用于AR168R当成AR168M使用时, 跟AR168M本身一样, 如果J7(DB9)上没有正常连接外部控制器的串口的话, 语音通信可能会<a href="../woody/blog/ar1688/20120213cn.php">中断</a>.
@@ -65,7 +65,7 @@
 <br /><b>特殊设置: </b>
 <br />1) 当不使用<font color=blue>VAD</font>选项的时候, 我们会使用SIP MESSAGE方式发送<a href="../woody/blog/ar1688/20120430cn.php">PTT/COR</a>信号,
 参考<a href="settings/iptel_sip_cn.html" target=_blank>iptel_sip_cn.html</a>的设置. 
-<br />2) 当GPIOB5为高电平时(可以拉到3.3v或者简单的用跳线跟GPIOA0连在一起), 我们进入<font color=grey>保持连接</font>模式.
+<br />2) 当GPIOB5为高电平时(可以拉到3.3v或者简单的用跳线跟GPIOA0连在一起), 我们进入<font color=gray>保持连接</font>模式.
 当不使用<font color=blue>自动应答</font>选项时, AR168R会在注册成功后自动拨打<font color=blue>热线号码</font>, 没连通的话会每隔30秒拨打一次. 
 <br /><b>特殊行为: </b>
 <br />1) 在通话中如果有对AR168R的<a href="../woody/blog/pa6488/20100109cn.php">网页</a>访问, 该通话会被自动断开. 

@@ -22,7 +22,7 @@
 <br />这就是我的第一个PHP程序: 用户和网络日志评论的CRUD(Create创建/Retrieve读取/Update更新/Delete删除). 
 <br /><img src=../photo/phpisbest.jpg alt="PHP is the best programming language in the world!" />
 </p> 
-<blockquote><font color=grey>女神: 你能让这个论坛的人都吵起来, 我今晚就跟你走. 
+<blockquote><font color=gray>女神: 你能让这个论坛的人都吵起来, 我今晚就跟你走. 
 <br />程序猿: PHP语言是最好的语言!
 <br />论坛炸锅了, 各种吵架. 
 <br />女神: 服了你了, 我们走吧, 你想干啥都行. 
@@ -80,7 +80,7 @@
 <br />是不是很容易觉得自己是数学白痴?
 <br />不过我还是很积极的在php下新建了一个子目录tutorial, 把这个新文件<b>primenumber.php</b>放了进去. 
 同时开始憧憬万一几年后我真的开始自己做软硬件课件教<a href="20141204cn.php">林近岚</a>编程序的话, 今天这些工作可以做为其中的一节软件课. 
-<br /><font color=grey>做人要是没有梦想, 跟咸鱼有什么两样?</font>
+<br /><font color=gray>做人要是没有梦想, 跟咸鱼有什么两样?</font>
 </p>
 
 <h3>查询<a name="xueqiufriend">雪球关注</a>的人</h3>
@@ -96,7 +96,7 @@
 <br />然后点进去在下图中找到xq_a_token对应的值, 肯定不会是现在显示的这个.
 <br /><img src=../photo/xueqiucookie.jpg alt="Chrome Cookie settings where to find xueqiu.com xq_a_token value." />
 <br />然后手工把它放在对应的输入框中即可.
-<br /><font color=grey>Life is like a snowball. The important thing is finding wet snow and a really long hill. — Warren Buffett</font>
+<br /><font color=gray>Life is like a snowball. The important thing is finding wet snow and a really long hill. — Warren Buffett</font>
 </p>
 
 <h3>用Cramer法则<?php EchoNameTag('cramersrule', ACCOUNT_TOOL_CRAMER_CN); ?></h3>
@@ -124,7 +124,7 @@
 我一定要选择从限购1万到限购1000的变化时2天的数据来估算是出于计算精度的考虑, 为了避免2个大数字相减后得到一个跟误差范围同一数量级的小数字, 让整个结论失去意义.
 <br /><img src=../photo/20190815.jpg alt="Cramer's rule calculation steps" />
 </p> 
-<blockquote><font color=grey>And what in heaven's name brought you to Casablanca?
+<blockquote><font color=gray>And what in heaven's name brought you to Casablanca?
 <br />My health. I came to Casablanca for the waters.
 <br />The waters? What waters? We're in the desert.
 <br />I was misinformed.

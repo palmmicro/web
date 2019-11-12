@@ -220,7 +220,7 @@ class LinearImageFile extends PageImageFile
     
     function GetEquation()
     {
-    	$str = 'Y = '.strval_round($this->fA);
+    	$str = 'y = '.strval_round($this->fA);
     	if ($this->fB < 0.0)
     	{
     	}
@@ -228,7 +228,7 @@ class LinearImageFile extends PageImageFile
     	{
     		$str .= ' + ';
     	}
-    	return $str.strval_round($this->fB).' * X; r =  '.strval_round($this->fR);
+    	return $str.strval_round($this->fB).' * x; r =  '.strval_round($this->fR);
     }
     
     function GetAllLinks()

@@ -55,7 +55,7 @@ Besides running Z80 on higher speed, we also plan to do more assembly optimizati
 <br />Why I am always talking about performance and optimization? Maybe because it is the only thing I know how to do it right.
 </td></tr>
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-<tr><td><font color=grey>"We should forget about small efficiencies, say about 97% of the time:
+<tr><td><font color=gray>"We should forget about small efficiencies, say about 97% of the time:
 <br />premature optimization is the root of all evil." - Donald Knuth "Structured
 <br />Programming with go to Statements" Computing Surveys, Vol. 6, No. 4,
 <br />December, 1974, page 268.

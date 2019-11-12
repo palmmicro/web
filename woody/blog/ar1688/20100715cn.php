@@ -45,7 +45,7 @@
 现在只好承认<a href="../../../ar1688/indexcn.html">AR1688</a>还是只能做一个低端的VoIP产品, 跟<a href="../../../pa1688/indexcn.html">PA1688</a>一样.
 希望在不久的将来, <a href="../../../pa6488/indexcn.html">PA6488</a>方案会让我们翻身. 
 </td></tr>
-<tr><td><font color=grey>我不能答应你 我是否会再回来 不回头 不回头的走下去</font> <a href="../../favoritecn.html#goodbye">再见</a></td></tr>
+<tr><td><font color=gray>我不能答应你 我是否会再回来 不回头 不回头的走下去</font> <a href="../../favoritecn.html#goodbye">再见</a></td></tr>
 </table>
 
 <?php BlogComments(); ?>

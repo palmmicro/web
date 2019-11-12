@@ -13,7 +13,7 @@
 <div>
 <h1>My First Visual C++ 2008 Application</h1>
 <p>May 29, 2010
-<br />This title would be cool if it read like like <font color=grey>My First iPhone Application</font> or <font color=grey>My First Android Application</font>.
+<br />This title would be cool if it read like like <font color=gray>My First iPhone Application</font> or <font color=gray>My First Android Application</font>.
 <br />I started with Turbo C for PC applications in 1992. Before 1996 I was using Borland C++, but finally surrendered to Visual C ++ 4.2 in 1997.
 In 1999 I upgraded to VC6 with Microsoft and stayed with the version for 10 years.
 <br />After I changed to use my <a href="../pa6488/20090808.php">Sony VGN-FW235J</a> in early 2009, finally I had to face the problem that VC6 is not supported in Windows Vista any more.
@@ -31,7 +31,7 @@ so I feel comfortable to stay with this version now.
   <li>New CHtmlView class makes it so easy to view web files in application.</li>
   <li>New CFtpConnection class also makes it very easy to upload files to FTP servers.</li>
 </ol>
-<blockquote><font color=grey>I still remember going to Hans Bethe and saying, "Hey, Hans! I noticed something interesting.
+<blockquote><font color=gray>I still remember going to Hans Bethe and saying, "Hey, Hans! I noticed something interesting.
 Here the plate goes around so, and the reason it's two to one is . . ." and I showed him the accelerations.
 <br />He says, "Feynman, that's pretty interesting, but what's the importance of it? Why are you doing it?"
 <br />"Hah!" I say. "There's no importance whatsoever. I'm just doing it for the fun of it." His reaction didn't discourage me; I had made up my mind I was going to enjoy physics and do whatever I liked.

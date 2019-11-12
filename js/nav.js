@@ -54,7 +54,7 @@ function NavWriteLink(strTitle, strType, strDisp, strOutput)
     	break;
     	
     case _strOutputDisabled:
-        document.write("<p><font color=grey style=\"font-size:10pt; font-weight:bold\">" + strDisp + "</font></p>");
+        document.write("<p><font color=gray style=\"font-size:10pt; font-weight:bold\">" + strDisp + "</font></p>");
         break;
         
     case _strOutputEnabled:

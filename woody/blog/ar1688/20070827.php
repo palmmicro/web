@@ -57,7 +57,7 @@ you can skip the rest.
 </ol>
 <br />After those steps, you can use and upgrade normal firmware in the future with MAC address changed.
 <br />&nbsp;
-<br /><font color=grey>A typical PA1688 00-09-45 MAC address on an Infineon 21553 IP phone.</font>
+<br /><font color=gray>A typical PA1688 00-09-45 MAC address on an Infineon 21553 IP phone.</font>
 </td></tr>
 <tr><td><img src=../../../pa1688/user/jr168/2s.jpg alt="A typical PA1688 00-09-45 MAC address on an Infineon 21553 IP phone." /></td></tr>
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>

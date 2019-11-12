@@ -45,7 +45,7 @@ the requests from all around the world to buy AR168M samples surged during the p
 <br>We have to say sorry to those interested in AR168M. We might not run new production of it unless existing customers place quantity orders in the future.
 However, as we provide full hardware design of it, users can still buy AR1688 chip and build the module by themselves.
 </td></tr>
-<tr><td><font color=grey>I can make it, I know I can.</font> <a href="../../favorite.html#stelmosfire">St Elmo's Fire</a></td></tr>
+<tr><td><font color=gray>I can make it, I know I can.</font> <a href="../../favorite.html#stelmosfire">St Elmo's Fire</a></td></tr>
 <tr><td><img src=../../../ar1688/user/ar168m/AR1688.jpg alt="AR1688 side of a customer made AR168M VoIP module" /></td></tr>
 <tr><td><img src=../../../ar1688/user/ar168m/RTL8019AS_MT28F016S5.jpg alt="RTL8019AS and MT28F016S5 side of a customer made AR168M VoIP module" /></td></tr>
 </table>

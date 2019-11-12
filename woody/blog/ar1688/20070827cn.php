@@ -53,7 +53,7 @@
 </ol>
 <br />完成以上步骤后MAC地址已经改好了, 你可以升级回普通的软件后正常工作. 
 <br />&nbsp;
-<br /><font color=grey>一个基于Infineon 21553芯片的网络电话上使用的典型的PA1688 00-09-45 MAC地址.</font>
+<br /><font color=gray>一个基于Infineon 21553芯片的网络电话上使用的典型的PA1688 00-09-45 MAC地址.</font>
 </td></tr>
 <tr><td><img src=../../../pa1688/user/jr168/2s.jpg alt="A typical PA1688 00-09-45 MAC address on an Infineon 21553 IP phone." /></td></tr>
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>

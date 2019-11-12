@@ -39,7 +39,7 @@
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
 <tr><td>2010年11月23日</td></tr>
 <tr><td><a href="../../../res/indexcn.html#sdcc">SDCC</a>开发团队用了19个月的时间从<a href="20090329cn.php">2.9.0</a>升级到11月1号发布的3.0.0. 看起来这段时间内做了不少内务整理工作. 发布特性列表中跟我们AR1688中Z80直接相关的有:
-<font color=grey>
+<font color=gray>
 <br />* changed z80 and gb targets object file extension to .rel (z80和gb目标文件后缀改为.rel)
 <br />* special sdcc keywords which are not preceded by a double underscore are deprecated in sdcc version 3.0.0 and higher. See section ANSI-Compliance in sdccman (版本3.0.0以及以后, 特殊sdcc关键字都统一到以双下划线开头, 参见sdccman的ANSI-Compliance部分)
 <br />* asxxxx / aslink renamed to sdas / sdld and synchronized with ASXXXX V2.0 (asxxxx/aslink名字改为sdas/sdld, 跟ASXXXX V2.0同步)
@@ -53,8 +53,8 @@
 <br />我先安装了Cygwin, 经过几个小时后我看到了错误信息<font color=red>gcc options -mno-cygwin not used any more (gcc选项-mno-cygwin已经不再使用)</font>. 我意识到Cygwin上的编译也跟MSVC上的编译一样被放弃了. 现在唯一的办法只能是在Linux上用MinGW编译. 
 <br />我下载了<a href="http://www.virtualbox.org/" target=_blank>VirtualBox</a>并且安装了它. 当我试图增加一个Linux虚拟机的时候它提示我要Linux DVD安装盘. 然后我下载了<a href="http://www.daemon-tools.cc/eng/products/dtLite" target=_blank>DAEMON Tools Lite</a>虚拟光驱和<a href="http://www.ubuntu.com/" target=_blank>ubuntu</a>-10.10-dvd-i386.iso文件作为Linux安装盘. 整个安装过程比我预想的顺利. 另外几个小时后我可以编译和测试了. 最终我用了一个更加安全的临时解决方法, 用它编译了现在的AR1688软件0.49.007. 
 <br />结果很好, SDCC 3.0.0比2.9.0编译出来的代码小了5%. 对Z80来说, 这通常也意味着5%性能上的提高. 
-<br />SDCC 3.0.0痛恨垃圾代码. 我在类似于<font color=grey>'T'</font>的常量前加了几百个<font color=grey>(UCHAR)</font>, 并且调整了不少const的字符串指针声明.
-在<b>rc4.c</b>中, 原来写成<font color=grey>x = x + something</font>的会编译不了, 改成<font color=grey>x += something</font>才能编译.
+<br />SDCC 3.0.0痛恨垃圾代码. 我在类似于<font color=gray>'T'</font>的常量前加了几百个<font color=gray>(UCHAR)</font>, 并且调整了不少const的字符串指针声明.
+在<b>rc4.c</b>中, 原来写成<font color=gray>x = x + something</font>的会编译不了, 改成<font color=gray>x += something</font>才能编译.
 最要命的经历来自我自己的<b>crt0.s</b>, 其中有一个空函数调用到了一个没有用的部分, 在2.9.0中没有问题但是3.0.0把这个函数调用编译到了一个我没想到的地址, 彻底毁了<a href="../pa6488/20090927cn.php">安全模式</a>的启动过程. 我在搞坏2台网络电话后才找到问题所在. 
 <br />因为SDCC 3.0.0而带来了这么多改动, 我们计划在近期发布0.50版本软件. 软件API 0.49.007作为0.50的第一个预览版本, 现在已经可以在网上<a href="../../../ar1688/software/snapshotcn.html">下载</a>.
 希望我们的客户不像SDCC Z80用户一样懒于测试预览版本. 因为有很多文件名的改动, 我建议把原来的API彻底删除后在解开新的<a href="20061211cn.php">API</a>压缩包.
@@ -79,8 +79,8 @@
 <br />当<font color=olive>BOOLEAN</font>定义成<font color=olive>unsigned char</font>时, 函数执行时间是137毫秒, 产生的代码小4字节. 当定义成<font color=olive>_Bool</font>, 使用bit相关指令时, 函数执行时间是167毫秒.
 在这里我们再次看到了对Z80来说, 较小的代码通常意味着较快的速度. 因为C99 <font color=olive>bool</font>导致大代码和慢速度, 我决定先不用它. 
 <br />跟2周前比较, 下面是有关SDCC 3.0.0的其它更新信息:
-<br />1. <font color=grey>jp to jr</font>优化问题和<b>rc4.c</b> <font color=grey>x = x + something</font>编译错误都已经由Philipp解决. 
-<br />2. 另外一个活跃开发人员Borut指出<font color=grey>Cygwin contains both gcc-3 (the good old version with -mno-cygwin) and gcc-4. You probably installed gcc-4. You can also install both versions and switch between then using set-gcc-default-3.sh and set-gcc-default-4.sh commands.</font>
+<br />1. <font color=gray>jp to jr</font>优化问题和<b>rc4.c</b> <font color=gray>x = x + something</font>编译错误都已经由Philipp解决. 
+<br />2. 另外一个活跃开发人员Borut指出<font color=gray>Cygwin contains both gcc-3 (the good old version with -mno-cygwin) and gcc-4. You probably installed gcc-4. You can also install both versions and switch between then using set-gcc-default-3.sh and set-gcc-default-4.sh commands.</font>
 因为我满意我的Linux虚拟机, 就没有进一步尝试Cygwin了. 
 <br />3. 当谈论<b>sdcc.exe</b>的大小的时候我没有用MinGW的strip工具. 我忽略了它的原因是一个巧合, 下载的包括全部CPU支持的版本和我编译的只有Z80和8051支持版本的刚好都是2.3M字节.
 使用strip后只包括Z80和8051支持的版本是1.0M字节, 只比2.9.0 VC6下编译的大一点点. 

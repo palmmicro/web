@@ -36,7 +36,7 @@
 <table>
 <tr><td class=THead><B>Palmmicro Software API Development Guide</B></td></tr>
 <tr><td>&nbsp;
-<br /><font color=grey>Index</font>
+<br /><font color=gray>Index</font>
 <br />Data <a href="apiguide/datatype.php">Type</a>
 <br />Using <a href="apiguide/list.php">T_LIST</a> Functions
 </td></tr>

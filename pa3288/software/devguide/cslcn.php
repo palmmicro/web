@@ -37,14 +37,14 @@
 <table>
 <tr><td class=THead><B>PA3288开发指南 - 芯片支持库csl</B></td></tr>
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-<tr><td><font color=grey>概览</font>
+<tr><td><font color=gray>概览</font>
 <br />&nbsp;
-<br /><font color=grey>GPIO</font>
+<br /><font color=gray>GPIO</font>
 <br />&nbsp;
-<br /><font color=grey>PLL</font>
+<br /><font color=gray>PLL</font>
 <br />所有CSL函数中的时钟频率参数都是以Mhz为单位. 通常在系统启动时调用一次<i>PLL_Init</i>. 第一个参数设置系统PLL时钟, 例如384表示384000000Hz. 第二个BOOLEAN参数选择CPU速度. 在典型情况下, 当PLL时钟为384Mhz时, 当bCPU2X为FALSE时CPU速度是96Mhz,  当bCPU2X为TRUE时CPU速度是192Mhz. 
 <br />&nbsp;
-<br /><font color=grey>SPI</font>
+<br /><font color=gray>SPI</font>
 <br />通常在系统启动时调用一次<i>SPI_Init</i>. 头一个参数设置SPI的工作频率(Mhz). 带另外一个函数指针参数, 用于<i>SPI_AsyncWrite</i>回调. 
 <br /><i>SPI_AsyncWrite</i>可以不需要CPU等待, 利用DMA写数据, 所有DMA结束后会调用回调函数. 
 <br />虽然我们支持多个SPI设备, 但是只支持单个SPI设备用DMA写数据. 所有其它SPI操作都需要在CPU等待方式下完成. 基本的函数是<i>SPI_EnableClock</i>, <i>SPI_DisableClock</i>, <i>SPI_SyncWrite</i>, <i>SPI_SyncRead</i>和<i>SPI_SyncReadWrite</i>. 
@@ -52,9 +52,9 @@
 <br /><i>SPI_Write</i>和<i>SPI_ReadWrite</i>通过调用<i>SPI_BulkWrite</i>和<i>SPI_BulkReadWrite</i>, 为数据长度不超过4字节的操作提供了更加简单的接口. 
 <br /><font color=indigo>bsl\</font><b>flash.c</b>中有最完整的各种SPI函数调用的例子．
 <br />&nbsp;
-<br /><font color=grey>TIMER</font>
+<br /><font color=gray>TIMER</font>
 <br />&nbsp;
-<br /><font color=grey>USB</font>
+<br /><font color=gray>USB</font>
 <br />&nbsp;
 </td></tr>
 </table>

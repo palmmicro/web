@@ -28,7 +28,7 @@
 <br /><img src=alexandrite/389/grs.jpg alt="GRS report for alexandrite cat eye 3.89ct" /></p>
 <p>From <a href="http://www.realgems.org/list_of_gemstones/alexandrite.html" target=_blank>realgems.org</a>:
 </p>
-<blockquote><font color=grey>
+<blockquote><font color=gray>
 <br />Formula: BeAl2O4 
 <br />Mineral class: oxides 
 <br />Crystal system: orthorhombic 

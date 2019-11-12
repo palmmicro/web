@@ -38,13 +38,13 @@
 <tr><td class=THead><B>Email Records: the Death of an AudioPlus VOIP616 IP Phone</B></td></tr>
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
 <tr><td>Feb 10, 2012</td></tr>
-<tr><td><font color=grey>2012/2/6 17:41 ezfy </font>I have a <a href="../../../pa1688/user/voip616.html">phone</a> like <a href="http://bbs.chinavoip.net/dispbbs.asp?BoardID=1&replyID=592334&ID=138569&skin=1" target=_blank>this</a> one in hand. The original firmware was PA168T 1.38.009. Last night I tried to upgrade new software and it got stuck at "<a href="../../../pa1688/faq.html#booting">Booting</a> ...". Now I can still enter safe mode. Do you have correct firmware there? Thanks.
+<tr><td><font color=gray>2012/2/6 17:41 ezfy </font>I have a <a href="../../../pa1688/user/voip616.html">phone</a> like <a href="http://bbs.chinavoip.net/dispbbs.asp?BoardID=1&replyID=592334&ID=138569&skin=1" target=_blank>this</a> one in hand. The original firmware was PA168T 1.38.009. Last night I tried to upgrade new software and it got stuck at "<a href="../../../pa1688/faq.html#booting">Booting</a> ...". Now I can still enter safe mode. Do you have correct firmware there? Thanks.
 <br /><font color=orange>2012/2/6 17:50 woody </font><I>Please send the complete detail image of your PCB board to support@palmmicro.com, we will figure out what upgrade software to use.</I>
-<br /><font color=grey>2012/2/6 21:40 ezfy </font>I opened it and shot the pictures, please check attachment.
+<br /><font color=gray>2012/2/6 21:40 ezfy </font>I opened it and shot the pictures, please check attachment.
 <br /><font color=orange>2012/2/6 22:07 woody </font><I>Try to download PA168T <a href="../../../pa1688/software/sw168.html">1.68</a> software, and upgrade it from <a href="../pa6488/20090927.php">safe mode</a>.</I>
-<br /><font color=grey>2012/2/6 22:30 ezfy </font>I was using the same firmware and it got stuck.
+<br /><font color=gray>2012/2/6 22:30 ezfy </font>I was using the same firmware and it got stuck.
 <br /><font color=orange>2012/2/6 23:42 woody </font><I>Go to <a href="../../../pa1688/software/sw169.html">1.69</a> page and download PA168T 1.69.001 safe mode file, then update it using <a href="../../../pa1688/software/palmtool.html">PalmTool</a>. Find similar steps <a href="20111104.php">here</a>.</I>
-<br /><font color=grey>2012/2/7 19:39 ezfy </font>After I updated the safe mode file you provided, the LCD showed 100% all the time. I waited for a long time before power down and reboot, now I can not even enter safe mode. Crying ... it looks like completely dead.
+<br /><font color=gray>2012/2/7 19:39 ezfy </font>After I updated the safe mode file you provided, the LCD showed 100% all the time. I waited for a long time before power down and reboot, now I can not even enter safe mode. Crying ... it looks like completely dead.
 <br /><font color=orange>2012/2/7 20:26 woody </font><I>From the pictures I thought it was PA168T. However, from what you tested, I guess it is another <a href="20080806.php">none standard</a> device based on <a href="../../../pa1688/index.html">PA1688</a>.</I>
 </td></tr>
 <tr><td><img src=../../../pa1688/user/voip616/front.jpg></td></tr>

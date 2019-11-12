@@ -18,7 +18,7 @@
 So I just named her with the most straightforward one,
 because I believe her <a href="../../res/cateyes.php">jewelry mania</a> mother got pregnant after she bought two cornflower blue sapphire stones from a small shop in World Trade Center of Colombo, Sri Lanka.
 </p>
-<blockquote><font color=grey>The name <strong>Sapphire</strong> is of English origin and it means <em>Gemstone</em>. It's a name commonly given to girls.
+<blockquote><font color=gray>The name <strong>Sapphire</strong> is of English origin and it means <em>Gemstone</em>. It's a name commonly given to girls.
 <br />According to the 2008 U.S. Social Security Administration data, the name Sapphire is not a popular baby girl's name in Florida. Imagine that, only 8 babies in Florida have the same name as you in 2008. 
 Across the entire United States a total of only 94 babies also bear the same first name during the same year. From 1880 to 2013, the highest recorded use of the name Sapphire was in 2013 with a total of 131 babies.
 Since 1880 up to 2013, your name was recorded 2,469 times in the American baby names history.

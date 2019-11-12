@@ -17,7 +17,7 @@
 and found that the I have almost forgotten the meanings of Sina Chinese stock data interface which was analysed 4 months ago.  
 In case I will forget them again, I am recording it here for future refernce.
 Current data got from <?php EchoSinaQuotesLink('sz162411'); ?> and saved in <?php EchoSinaDebugLink('sz162411'); ?> as following:
-<br /><font color=grey>var hq_str_sz162411="华宝油气,
+<br /><font color=gray>var hq_str_sz162411="华宝油气,
 0.502,0.482,0.500,0.503,0.499,0.499,0.500,811593355,406232297.465,
 31772194,0.499,4024600,0.498,771800,0.497,854000,0.496,308800,0.495,
 6062158,0.500,47389213,0.501,11186263,0.502,13222780,0.503,4471351,0.504,
@@ -52,7 +52,7 @@ Current data got from <?php EchoSinaQuotesLink('sz162411'); ?> and saved in <?ph
 <br />Recently I added date display in the time field of SZ162411 net value page following the advice of <?php EchoXueqieId('8907500725', 'oldwain'); ?>.
 So the stock interface recorded last time was usaful this time. But I had to review the future interface format again, and adding this record for future use.
 <br />Current data got from <?php EchoSinaQuotesLink('hf_CL'); ?> and saved in file <?php EchoSinaDebugLink('hf_cl'); ?> as following:
-<br /><font color=grey>var hq_str_hf_CL="31.85,1.2719,31.85,31.86,31.88,30.14,
+<br /><font color=gray>var hq_str_hf_CL="31.85,1.2719,31.85,31.86,31.88,30.14,
 00:24:20,31.45,30.52,40629,0,0,2016-01-28,NYMEX原油";</font>
 <br />After removed double quotation marks, separated by ',', the interpretation of words in the next table.
 </p>
@@ -79,7 +79,7 @@ So the stock interface recorded last time was usaful this time. But I had to rev
 <br />On 9pm, <?php EchoXueqieId('5240589924', 'uqot'); ?> told me the calculation of <a href="20150818.php">SZ162411 Net Value</a> was wrong now. 
 I checked the debug information, and found that automatic calibration was done on 8pm.
 Current data got from <?php EchoSinaQuotesLink('f_162411'); ?> and saved in <?php EchoSinaDebugLink('f_162411'); ?> as following:
-<br /><font color=grey>var hq_str_f_162411="华宝兴业标普油气上游股票(QDII-LOF),
+<br /><font color=gray>var hq_str_f_162411="华宝兴业标普油气上游股票(QDII-LOF),
 0.406,0.406,0.435,2016-02-15,66.2444";</font>
 <br />According to the automatic calibration process in php/<b>_lof.php</b>, when we got the Feb 15 net value of SZ1682411, we would do calibration with the close price of XOP on Feb 15.
 But US market was closed because of President Day, this process was not done. Net step, we will use the previous trading day data to do the calibration. 

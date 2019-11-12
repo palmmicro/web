@@ -39,7 +39,7 @@
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
 <tr><td>2013年2月10日</td></tr>
 <tr><td>上个月我收到一封邮件: 
-<br /><font color=grey>First, let me thank you for making the pa1688 source code available. (首先, 谢谢你们pa1688源代码公开的举措.)
+<br /><font color=gray>First, let me thank you for making the pa1688 source code available. (首先, 谢谢你们pa1688源代码公开的举措.)
 <br />I have a few 5111PHONE units, and they've been working quite well for nearly ten years. However, I have often wished that they had a mute button. (我手头有几台5111PHONE电话, 在过去接近10年中一直工作得相当好. 但是, 我经常希望它们有一个静音键.)
 <br />I spend a lot of time on conference calls, and I like to put them on speaker while I half-listen. It is usually a good idea to mute the microphone for obvious reasons ... 
 (我在会议电话中度过了很多时间, 当我只是在听的时候, 我喜欢把电话放到免提上. 由于显而易见的原因, 把麦克风静音会是个好主意 ...)
@@ -53,7 +53,7 @@
 <br />由于<b>重拨</b>键更为常见, 而且通常占据着更好的位置, 我把这个功能用在了所有PA1688电话的<a href="../../../pa1688/software/sw169cn.html">1.69</a>后软件版本中.
 <br />然后我检查了<a href="../../../ar1688/indexcn.html">AR1688</a>电话, 很欣慰的发现它们全部都有一个单独的<b>静音</b>键. 显然在我们7年前设计AR1688方案的时候, 还是多少有了些长进的!
 <br />&nbsp;
-<br /><font color=grey>上海五川提供的官方<a href="../../../pa1688/user/5111phonecn.html">5111PHONE</a>图片.</font>
+<br /><font color=gray>上海五川提供的官方<a href="../../../pa1688/user/5111phonecn.html">5111PHONE</a>图片.</font>
 </td></tr>
 <tr><td><img src=../../../pa1688/user/5111phone/ib_302.jpg alt="The official picture of 5111PHONE provided by 5111SOFT." /></td></tr>
 </table>

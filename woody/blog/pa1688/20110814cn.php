@@ -39,7 +39,7 @@
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
 <tr><td>2011年8月14日</td></tr>
 <tr><td>上周比较随意的跟一个二手的不工作的<a href="../../../pa1688/user/pa168qcn.html">PA168Q</a>主人来往了几封邮件后, 他爆发了: 
-<font color=grey>Where is the start point and the end point? How am I supposed to find my way in all these links?? Which one is relevant to my case and which is not?
+<font color=gray>Where is the start point and the end point? How am I supposed to find my way in all these links?? Which one is relevant to my case and which is not?
 Then, How to send the bin file to the device. I appreciate the help, but it needs to be logical.</font>
 <br />刚开始我对自己的PA1688网页工作觉得很沮丧, 后来我意识到了可能还有其它新的PA1688二手设备用户跟他有同样的抱怨. 
 根据<a href="../entertainment/20110509cn.php">Google</a> Analytics的统计, 在过去5个月中, 我们网页的新用户比例从61.01%增加到了74.07%(见下图). 

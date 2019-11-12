@@ -48,7 +48,7 @@ The total AR1688 software compilation time had increased from 2 minutes to about
 <br />In Sep, Borut announced the 64-bit SDCC support on 64-bit Windows. I tested it as the first reported-result user, hoping it can reduce the compilation time.
 But the result was disappointing, the 32-bit and 64-bit SDCC actually had no obvious performance changes on my 64-bit Windows Vista.
 <br />In SDCC mailing list I asked what was the good for the 64-bit?
-Philipp suggested <font color=grey>Try --max-allocs-per-node 100000000 (recommended: At least 64 GB of RAM) or even just --max-allocs-per-node 8000000 (recommended: At least 6GB of RAM). It won't work with the 32-bit version unless you use PAE.</font>
+Philipp suggested <font color=gray>Try --max-allocs-per-node 100000000 (recommended: At least 64 GB of RAM) or even just --max-allocs-per-node 8000000 (recommended: At least 6GB of RAM). It won't work with the 32-bit version unless you use PAE.</font>
 <br />Then I asked how much recommended <font color=blue>--max-allocs-per-node</font> with 4GB RAM for my own computer, this time Philipp did not reply as fast as he usually does.
 During the dream of that night, I realized that I asked a <a href="20110826.php">stupid</a> question, because 4G RAM is the max of 32-bit system can support, there is no difference too.
 <br />&nbsp;
@@ -63,11 +63,11 @@ To avoid another 10 hours of bug tracking, I will round up the usual suspects fi
 <br /><font color=magenta>Updated on March 17, 2012</font>
 <br />Last year SDCC team released 3.1.0 version. However, after nearly 5 months, it is still a mess when compiling AR1688 software.
 <br />We did not have much problem when SDCC <a href="20090329.php">2.9.0</a> released on 2009. When SDCC 3.0.0 was released on 2010, it took us about 2 weeks to catch up with the new version.
-With today's <a href="../../../ar1688/software/sw057.html">0.57</a> test software, we are still using <font color=grey>SDCC 3.0.1 #6078 (Dec 7 2010) (MINGW32)</font>.
+With today's <a href="../../../ar1688/software/sw057.html">0.57</a> test software, we are still using <font color=gray>SDCC 3.0.1 #6078 (Dec 7 2010) (MINGW32)</font>.
 <br />It had a bad start as SDCC 3.1.0 was released with the 4th of my filed <font color=blue>--max-allocs-per-node</font> bug open.
-Although I like the feature of <font color=grey>new register allocator in the z80 and gbz80 ports (optimal when using --opt-code-size and a sufficiently high value for --max-allocs-per-node for the z80 port)</font>,
+Although I like the feature of <font color=gray>new register allocator in the z80 and gbz80 ports (optimal when using --opt-code-size and a sufficiently high value for --max-allocs-per-node for the z80 port)</font>,
 I was haunted by <font color=red>Caught signal 11: SIGSEGV</font> crash all the time.
-I read <font color=grey>Almost all signal 11 crashes (segment faults) are caused by a reference to the object of a null pointer</font> somewhere else, and I guess there must be some more hidden bugs in the new register allocator implementation.
+I read <font color=gray>Almost all signal 11 crashes (segment faults) are caused by a reference to the object of a null pointer</font> somewhere else, and I guess there must be some more hidden bugs in the new register allocator implementation.
 <br />Philipp provided another option <font color=blue>--oldralloc</font> to use the old register allocator. After so many times of disappointment of the new one, I turned to test 3.1.0 with old allocator. However there were bugs too.
 After Philipp fixed the 2 <font color=blue>--oldralloc</font> bugs I filed, I guessed that I had finally found a way to live with 3.1.0.
 <br />Yesterday I began to build all my AR1688 binary files, and was shocked to find that all our source files with GB2312 coded Chinese characters can not be compiled any more!
@@ -77,7 +77,7 @@ After Philipp fixed the 2 <font color=blue>--oldralloc</font> bugs I filed, I gu
 After I finished the test of AR1688 software release <a href="../../../ar1688/software/sw058.html">0.58</a> last week, the first thing in my mind was to test the new SDCC version.
 <br />At first I was very happy, the 2 annoying bugs in 3.1.0, <font color=red>Caught signal 11: SIGSEGV</font> and <font color=blue>--max-allocs-per-node</font>, were gone. But more tests with different AR1688 devices showed at least 3 more bugs.
 Seems that we have to continue to use old <a href="20101123.php#20101208">3.0.1 #6078</a> for quite some time.
-<br />The table below summarizes the test results. Code size and compile time results are generated with command line <font color=grey>mk ar168g sip us</font> and standard compiler option <font color=blue>-mz80 -c --std-c99</font>.  
+<br />The table below summarizes the test results. Code size and compile time results are generated with command line <font color=gray>mk ar168g sip us</font> and standard compiler option <font color=blue>-mz80 -c --std-c99</font>.  
 </td></tr>
 </table>
 

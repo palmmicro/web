@@ -37,13 +37,13 @@
 <table>
 <tr><td class=THead><B>PA3288 Developer's Guide - Quick Start</B></td></tr>
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-<tr><td><font color=grey>Software Working Directory</font>
+<tr><td><font color=gray>Software Working Directory</font>
 <br />PA3288 <a href="../../../woody/blog/pa6488/20090811.php">software working directory</a> is in C:\PA3288.
 For example, common external include files used in PA6488 and PA3288 are located in C:\Palmmicro, and PA3288 related external include files are located in C:\PA3288\include.
 We will use include\<b>csl.h</b> for C:\PA3288\include\<b>csl.h</b> in the rest part of this guide.
 <br />Keil ARM commpiler need to be installed to C:\KeilARM, as the default C:\Keil directory in our development PC is used by an older Keil version for the 8051 inside <a href="../../../pa1688/index.html">PA1688</a>.
 <br />&nbsp;
-<br /><font color=grey>Related Information</font>
+<br /><font color=gray>Related Information</font>
 <br /><a href="../../../pa6488/software/devguide/quickstart.html">Quick Start</a> of PA6488.
 </td></tr>
 </table>

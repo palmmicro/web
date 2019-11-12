@@ -36,7 +36,7 @@
 <table>
 <tr><td class=THead><B>Palmmicro Software API Guide - Data Type</B></td></tr>
 <tr><td>&nbsp;
-<br /><font color=grey>Name Rules</font>
+<br /><font color=gray>Name Rules</font>
 <br />8-bit <font color=olive>UCHAR</font> and <font color=olive>char</font> begin with c, example: tcpip\<b>arp.c</b> <font color=olive>UCHAR</font> cHardwareLen;
 <br />16-bit <font color=olive>USHORT</font> and <font color=olive>short</font> begin with s, example: tcpip\<b>ip.c</b> <font color=olive>USHORT</font> sCheckSum;
 <br />32-bit <font color=olive>UINT</font> and <font color=olive>int</font> begin with i, example: tcpip\<b>icmp.c</b> <font color=olive>UINT</font> iMustBeZero;
@@ -53,7 +53,7 @@
 <br />None const global data begins with g_, example: <font color=olive>UINT</font> g_iCurrentTime;
 <br />Data only used within the source file begins with _, example: <font color=olive>BOOLEAN</font> _bTimer;
 <br />&nbsp;
-<br /><font color=grey>Related Information</font>
+<br /><font color=gray>Related Information</font>
 <br /><a href="../../pa3288/software/devguide/datastructure.php">Data structure</a> of PA3288.
 <br /><a href="../../pa6488/software/devguide/datastructure.html">Data structure</a> of PA6488.
 </td></tr>

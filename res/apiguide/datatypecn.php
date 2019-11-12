@@ -36,7 +36,7 @@
 <table>
 <tr><td class=THead><B>Palmmicro软件API开发指南 - 数据类型</B></td></tr>
 <tr><td>&nbsp;
-<br /><font color=grey>命名规则</font>
+<br /><font color=gray>命名规则</font>
 <br />8位<font color=olive>UCHAR</font>和<font color=olive>char</font>用c开头, 例如: tcpip\<b>arp.c</b>中<font color=olive>UCHAR</font> cHardwareLen;
 <br />16位<font color=olive>USHORT</font>和<font color=olive>short</font>用s开头, 例如: tcpip\<b>ip.c</b>中<font color=olive>USHORT</font> sCheckSum;
 <br />32位<font color=olive>UINT</font>和<font color=olive>int</font>用i开头, 例如: tcpip\<b>icmp.c</b>中<font color=olive>UINT</font> iMustBeZero;
@@ -53,7 +53,7 @@
 <br />非常量的全局变量用g_开头, 例如: <font color=olive>UINT</font> g_iCurrentTime;
 <br />仅在模块内使用的数据用_开头, 例如: <font color=olive>BOOLEAN</font> _bTimer;
 <br />&nbsp;
-<br /><font color=grey>相关信息</font>
+<br /><font color=gray>相关信息</font>
 <br />PA3288的<a href="../../pa3288/software/devguide/datastructurecn.php">数据结构</a>.
 <br />PA6488的<a href="../../pa6488/software/devguide/datastructurecn.html">数据结构</a>.
 </td></tr>

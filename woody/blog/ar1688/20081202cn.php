@@ -52,7 +52,7 @@
 <br />为什么我一直在谈论性能和优化? 可能这是我唯一知道自己能做好的事情吧. 
 </td></tr>
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-<tr><td><font color=grey>"We should forget about small efficiencies, say about 97% of the time:
+<tr><td><font color=gray>"We should forget about small efficiencies, say about 97% of the time:
 <br />premature optimization is the root of all evil." - Donald Knuth "Structured
 <br />Programming with go to Statements" Computing Surveys, Vol. 6, No. 4,
 <br />December, 1974, page 268.

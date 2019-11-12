@@ -46,14 +46,14 @@ I am collecting them here as a reminder to avoid the puzzles for future customer
 <br />1) Our standard AR168R software will not work if <a href="20070604.php">LCD</a> is absent.
 To use AR168R without LCD, the software must be compiled with <b><i>LCD_HY1602</b></i> undefined in #ifdef <b><i>VER_AR168R</b></i> section in sdcc\include\<b>version.h</b>. 
 <br />2) The standard AR168R software has not included <a href="20071119.php">UART</a> function. To use UART function, the software must be compiled with option <b><i>OEM_UART</b></i>,
-as in command line <font color=grey>mk ar168r sip us uart</font>. No extra compiler installation is needed, the <a href="20101123.php">SDCC</a> compiler is included in the software API package, in sdcc\bin directory.  
+as in command line <font color=gray>mk ar168r sip us uart</font>. No extra compiler installation is needed, the <a href="20101123.php">SDCC</a> compiler is included in the software API package, in sdcc\bin directory.  
 <br />3) In our demo UART <a href="20080329.php">protocols</a>, all strings must be ended with '\0'(ascii 0x00) like in C programming.
 Otherwise AR1688 will not be able to handle the command sent to it, and may output debug message like <a href="../../../ar1688/faq.html#module">UART data lost</a> in sdcc\bin\<b>manager.exe</b> debug window. 
-<br />4) In the demo protocols, <font color=grey>KEY Z</font> is for hook down indication to AR1688, and <font color=grey>KEY z</font> for hook up.
+<br />4) In the demo protocols, <font color=gray>KEY Z</font> is for hook down indication to AR1688, and <font color=gray>KEY z</font> for hook up.
 <br />Since <a href="../../../ar1688/module.html">AR168M</a> VoIP module went <a href="20100625.php">out of stock</a> in 2010,
 we have developed various <a href="20111205.php">unusual ways</a> for people to test the module functions.
 Fortunately the puzzle may end in the near future, as we may receive an order of 100pcs AR168M soon.
-We will prepare more boards for other future customers at the time of manufacturing, and end the annoying practice of <font color=grey>using AR168R as AR168M</font>.   
+We will prepare more boards for other future customers at the time of manufacturing, and end the annoying practice of <font color=gray>using AR168R as AR168M</font>.   
 </td></tr>
 <tr><td><a href="../photo/large/20121111.jpg" target=_blank>Large</a></td></tr>
 <tr><td><img src=../photo/20121111.jpg alt="Standard AR168R RoIP module photo by an user from Denmark." /></td></tr>

@@ -23,7 +23,7 @@ He also provided the <a href="http://hq2gjqh.eastmoney.com/EM_Futures2010Numeric
 which was used in his Excel+VBA tools.
 <br />Document first, then to implement my <font color=olive>ForexReference</font> class.
 The data as following:
-<br /><font color=grey>var js={futures:["USDCNY0,USDCNY,美元人民币,6.5842,6.5835,6.5966,6.5966,6.5804,0,1,
+<br /><font color=gray>var js={futures:["USDCNY0,USDCNY,美元人民币,6.5842,6.5835,6.5966,6.5966,6.5804,0,1,
 0.0000,0,0,6.5842,0.0000,0,0,0.0124,0.19%,0.0000,
 0,0,0,0,0,0.0024,0.0000,2016-06-14 23:45:00,3"]}</font>
 <br />After removed double quotation marks, separated by ',', the interpretation of words in the next table.

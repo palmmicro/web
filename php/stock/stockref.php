@@ -272,7 +272,7 @@ class StockReference
    		}
    		else
    		{
-   			$strColor = 'grey';
+   			$strColor = 'gray';
    		}
     	return "<font color=$strColor>$strDisp</font>";
     }

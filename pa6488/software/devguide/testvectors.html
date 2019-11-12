@@ -37,10 +37,10 @@
 <table>
 <tr><td class=THead><B>PA6488 Developer's Guide - G.729 Test Vectors</B></td></tr>
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-<tr><td><font color=grey>Why</font>
+<tr><td><font color=gray>Why</font>
 <br />We are using G.729 <a href="../../../woody/blog/pa6488/20101213.php">test vectors</a> to test if PA6488 hardware is stable.
 <br />&nbsp;
-<br /><font color=grey>How</font>
+<br /><font color=gray>How</font>
 <br />Run "g729put.bat xxx.xxx.xxx.xxx" from pa6488\bin, all necessary files will be transfer to PA6488 device by TFTP.
 <br />On PA6488 device, press key "#9*0" to start G.729 tests, more <a href="../userguide/keytest.php">key test</a> information can be found in pa6488\doc\test.txt.
 <br />After G.729 tests finished, run "g729get.bat xxx.xxx.xxx.xxx" from pa6488\bin, all generate files will be transfer to PC by TFTP.
@@ -48,13 +48,13 @@
 <br />Additional batch files "g729encget.bat" and "g729encfc.bat" are used in G.729 encode only tests.
 <br />This test is not included in all software version, watch for UDP debug message output carefully.
 <br />&nbsp;
-<br /><font color=grey>Details</font>
+<br /><font color=gray>Details</font>
 <br />Test implementation in pa6488\test\testg729ab.c.
 <br />G.729 functions prototype in pa6488\include\g729ab.h, lib in pa6488\lib\g729ab.lib, source files not provided with software API.
 <br /><a href="http://www.itu.int/rec/T-REC-G.729/e" target= _blank>ITU G.729</a> Jan 2007 version 1.5 is used, all G.729A and G.729B test vectors are covered.
 <br />G.729 on PA6488 is for test ONLY. Can NOT be used in final product as we do not have the related algorithm license.
 <br />&nbsp;
-<br /><font color=grey>Related Information</font>
+<br /><font color=gray>Related Information</font>
 <br />Reference performance from <a href="http://www.adaptivedigital.com/product/vocoders/g729.htm" target=_blank>Adaptive Digital</a>.
 </td></tr>
 </table>

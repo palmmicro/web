@@ -71,11 +71,11 @@ function _getFundAccountTableColumnArray()
 {
 	return array(new TableColumnDate(),
 				   new TableColumn(STOCK_OPTION_SHARES_DIFF, 110),
-				   new TableColumn('Y申购账户', 90),
+				   new TableColumn('y申购账户', 90),
 				   new TableColumnDate('场内申购'),
 				   new TableColumnClose(),
 				   new TableColumnNetValue(),
-				   new TableColumnPremium('X')
+				   new TableColumnPremium('x')
 				   );
 }
 

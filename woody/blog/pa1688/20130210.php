@@ -39,7 +39,7 @@
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
 <tr><td>Feb 10, 2013</td></tr>
 <tr><td>I received an email last month:
-<br /><font color=grey>First, let me thank you for making the pa1688 source code available.
+<br /><font color=gray>First, let me thank you for making the pa1688 source code available.
 <br />I have a few 5111PHONE units, and they've been working quite well for nearly ten years. However, I have often wished that they had a mute button.
 <br />I spend a lot of time on conference calls, and I like to put them on speaker while I half-listen. It is usually a good idea to mute the microphone for obvious reasons ...
 <br />... so I have assigned a mute function to the redial button. It's not likely that I will need to redial the previous number while on a call, so it seemed the logical thing to do.
@@ -51,7 +51,7 @@ Soon I found that in our standard <a href="../../../pa1688/user/pa168s.html">PA1
 <br />As <b>Redial</b> key is much more common, and usually occupies a better position, I applied the changes into <a href="../../../pa1688/software/sw169.html">1.69</a> software for all PA1688 phones. 
 <br />Then I checked <a href="../../../ar1688/index.html">AR1688</a> phones, and found that each one had a separate <b>Mute</b> key. Obviously we had made some sort of progress when we design AR1688 solution 7 years ago!
 <br />&nbsp;
-<br /><font color=grey>The official picture of <a href="../../../pa1688/user/5111phone.html">5111PHONE</a> provided by 5111SOFT.</font>
+<br /><font color=gray>The official picture of <a href="../../../pa1688/user/5111phone.html">5111PHONE</a> provided by 5111SOFT.</font>
 </td></tr>
 <tr><td><img src=../../../pa1688/user/5111phone/ib_302.jpg alt="The official picture of 5111PHONE provided by 5111SOFT." /></td></tr>
 </table>

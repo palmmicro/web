@@ -52,7 +52,7 @@ AR168M网络语音模块有个跳线区分是否进入安全模式. 这个跳线
 PA648C模拟视频压缩模块没有摘挂机, 我们把摘挂机用的GPIO同样设计成了一个跳线. 由于我们终于摆脱了代码页面切换, 出厂测试的代码就不再放到安全模式部分了.
 事实上, 为了充分减小安全模式的代码, 连LCD显示都从安全模式代码中分了出来.
 <br />&nbsp;
-<br /><font color=grey>这个<a href="../../../pa1688/user/ag168vcn.html">AG168V</a>背面图中唯一的'IP'键就是PA1688网关中用来进入安全模式的按键.</font>
+<br /><font color=gray>这个<a href="../../../pa1688/user/ag168vcn.html">AG168V</a>背面图中唯一的'IP'键就是PA1688网关中用来进入安全模式的按键.</font>
 </td></tr>
 <tr><td><img src=../../../pa1688/user/g1681/back.jpg alt="Soyo G1681 (PA168V/AG-168V) 1-port FXS gateway back view." /></td></tr>
 <tr><td>

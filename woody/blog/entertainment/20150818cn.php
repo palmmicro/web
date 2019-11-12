@@ -31,7 +31,7 @@
   <li>A股闭市后的页面请求直接使用sz162411.txt内的A股数据.</li>
 </ol>
 <p>类似的, 原油期货数据缓存在文件<?php EchoSinaDebugLink('hf_cl'); ?>. 美元人民币汇率数据在usdcny.txt.
-<br /><font color=grey>所有的代码最终都会烂到无法维护, 成功的项目就是在烂掉之前发布出去的.</font>
+<br /><font color=gray>所有的代码最终都会烂到无法维护, 成功的项目就是在烂掉之前发布出去的.</font>
 </p>
 
 <h3><a name="sma">SMA</a></h3>
@@ -104,7 +104,7 @@
 估计跟我从2000年开始就在美股赔钱不同, 很多人还是不熟悉美国股市交易时间. 而在这里, 美股数据后面跟的是美东日期和时间.
 <br />虽说是个小的分离数据和显示改动, 但是忍不住哗啦哗啦又整理优化了一大片代码. 把原来的<font color=olive>StockReference</font>类作为基础类,
 原来期货和汇率数据读取分别改为继承自它的<font color=olive>FutureReference</font>类和<font color=olive>ForexReference</font>类, 达到统一数据显示格式的目的.
-<br /><font color=grey>夜深忽梦少年事 梦啼妆泪红阑干</font>
+<br /><font color=gray>夜深忽梦少年事 梦啼妆泪红阑干</font>
 </p>
 <?php EchoReferenceDemo(); ?>
 
@@ -305,7 +305,7 @@ CL通常会在美股收盘后继续多交易一个小时, 此时实时估值也�
 事实上, 因为考虑的都是极限因素, 20天布林上下轨不动点的开口要比只算前19天的布林上下轨大, 就是说, 下轨更低一点而上轨更高一点.
 <br /><img src=../photo/20170402.jpg alt="Script for bollinger quadratic equation with one unknown" />
 <br />感觉好久没做这么复杂的数学了, 把计算过程拍了个照片留念一下.
-<br /><font color=grey>你永远比你想象中更勇敢</font> <a href="../../favoritecn.html#dream">相信梦想</a>
+<br /><font color=gray>你永远比你想象中更勇敢</font> <a href="../../favoritecn.html#dream">相信梦想</a>
 </p>
 
 <h3>200天和50天<a name="ema">EMA</a>均线</h3>
@@ -370,7 +370,7 @@ CL通常会在美股收盘后继续多交易一个小时, 此时实时估值也�
 <blockquote><code>echo UrlGetQueryDisplay('symbol').($bChinese ? '净值和收盘价历史比较' :  ' NetValue Close History Compare');</code></blockquote>
 <p>从软件开发的角度来说, 遍布我PHP代码的1000多个$bChinese肯定意味着某种代码结构缺陷, 希望这次代码清理完成后能让我醒悟过来.
 <br />冷静下来后仔细想想, 发现自己早有停止英文版的意图背后其实有个更深层的原因. 三年来的各种跨市场套利经历, 让我深深体会到了对手盘的重要性和A股韭菜的可贵, 从而不愿意留个英文版让外面的世界进来抢着割这么嫩的韭菜.
-<br /><font color=grey>If you've been playing poker for half an hour and you still don't know who the patsy is, you're the patsy. — Warren Buffett</font>
+<br /><font color=gray>If you've been playing poker for half an hour and you still don't know who the patsy is, you're the patsy. — Warren Buffett</font>
 </p>
 
 <h3>用线性回归的方法在华宝油气溢价套利时进行<?php EchoNameTag(FUND_ACCOUNT_PAGE, FUND_ACCOUNT_DISPLAY); ?></h3>

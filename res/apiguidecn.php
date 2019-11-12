@@ -36,7 +36,7 @@
 <table>
 <tr><td class=THead><B>Palmmicro软件API开发指南</B></td></tr>
 <tr><td>&nbsp;
-<br /><font color=grey>目录</font>
+<br /><font color=gray>目录</font>
 <br />数据<a href="apiguide/datatypecn.php">类型</a>
 <br />使用<a href="apiguide/listcn.php">T_LIST</a>相关函数
 </td></tr>

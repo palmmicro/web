@@ -99,7 +99,7 @@
 <br />产生乱码的原因很明显, 这2个生僻字本身就不在只有6000多汉字的GB2312中. 这意味着我需要一个GB18030和UNICODE的对应码表来扩展我的MySQL数据表: <?php EchoLink('http://icu-project.org/repos/icu/data/trunk/charset/source/gb18030/gbkuni30.txt'); ?>.
 花了差不多一天功夫做完这些几乎算是推倒重来的修补后, 我不禁又有了一种神功已成的感觉. 
 <?php EchoUpdateGbUtfLink(); ?>
-<br /><font color=grey>欲练神功, 必先自宫. 虽然自宫, 未必成功. 如不自宫, 也可成功.</font>
+<br /><font color=gray>欲练神功, 必先自宫. 虽然自宫, 未必成功. 如不自宫, 也可成功.</font>
 <br /><img src=../photo/solitaire.jpg alt="Jan 29, 2018. Solitaire Sapphire in LEGOLAND CALIFORNIA." />
 </p>
 

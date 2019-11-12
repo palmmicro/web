@@ -53,7 +53,7 @@ As PA6488 based camera is not available in market yet. Users can test the user m
 <br /><?php EchoLink('http://111.230.12.222/php/xueqiufriend.php'); ?>.
 <br /><img src=../photo/xueqiu20190424.jpg alt="Apr 24, 2019. Xueqiu woody1234 page and chrome Cookie entry." />
 <br /><img src=../photo/xueqiucookie.jpg alt="Chrome Cookie settings where to find xueqiu.com xq_a_token value." />
-<br /><font color=grey>Life is like a snowball. The important thing is finding wet snow and a really long hill. — Warren Buffett</font>
+<br /><font color=gray>Life is like a snowball. The important thing is finding wet snow and a really long hill. — Warren Buffett</font>
 </p>
 
 <h3>Using <?php EchoNameTag('cramersrule', ACCOUNT_TOOL_CRAMER); ?> to Solve a Linear System of 2x2 Equations</h3>

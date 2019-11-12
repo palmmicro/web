@@ -24,7 +24,7 @@
 在我打算进一步优化时, 发现我手头的编译器太老, 无法编译路由器芯片中支持的新的仿DSP方式工作指令集. 我发了封电子邮件询问新版本的编译工具问题, 不过近2周了一直没得到答复. 于是我不再等了, 开始写这个小结. 
 <br />本来我想把这个小结分类在PA6488下, 后来改了主意. 考虑到以后真把PA6488和这个路由器芯片合在一起做产品的机会不大, 现在还是把它归类在我的个人编程娱乐类跟<a href="20100905cn.php">PHP</a>放一起比较合适. 
 <br /><img src=../../myphoto/1997/ess.jpg alt="My first digit photo taken at ESS office in Fremont" />
-<br /><font color=grey>The truth is I never left you</font> <a href="../../favoritecn.html#donotcryformeargentin">Don't Cry for Me Argentina</a>
+<br /><font color=gray>The truth is I never left you</font> <a href="../../favoritecn.html#donotcryformeargentin">Don't Cry for Me Argentina</a>
 </p>
 
 <h3>在<a name="qcloud">腾讯云</a>上安装PHP调试环境</h3>

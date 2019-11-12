@@ -41,7 +41,7 @@
 <tr><td>Once a year, the open source <a href="../../../res/index.html#sdcc">SDCC</a> development team will update a major version. On March 22 they released 2.9.0.
 <br />The Windows SDCC binary files still use MSVC 6.0 to compile. But the 10 years old MSVC 6.0 can not run with Windows Vista any more.
 As I was out most of the time in last week with my Windows Vista laptop, I was not able to try it until this weekend.
-<br />The only thing related with our AR1688 Z80 in the 2.9.0 release note is <font color=grey>many optimizations to reduce code size and increase speed in the Z80 backend</font>.
+<br />The only thing related with our AR1688 Z80 in the 2.9.0 release note is <font color=gray>many optimizations to reduce code size and increase speed in the Z80 backend</font>.
 This statement is true compared with 2.8.0 release on May 2008. But actually the code size is larger than 2.8.3 test version which we started to use on Nov 2008 (with AR1688 0.40 software release).
 But anyway, I believe in release versions, so we will release AR1688 <a href="../../../ar1688/software/sw044.html">0.44</a> software based on SDCC 2.9.0.
 <br />As usual, the SDCC compiler is located in our software <a href="20061211.php">API</a> SDCC\bin. It is smaller than those binary files directly downloaded from SourceForge because we only have Z80 and 8051 compiled in. 

@@ -29,6 +29,16 @@ function strval_round($fVal, $iPrecision = false)
 	return strval(round($fVal, $iPrecision));
 }
 
+function strval_round_implode($arVal)
+{
+	$str = '';
+	foreach ($arVal as $fVal)
+	{
+		$str .= strval_round($fVal).', ';
+	}
+	return rtrim($str, ', ');
+}
+
 function rtrim0($str)
 {
 //	return rtrim($str, '0');

@@ -36,7 +36,7 @@
 <table>
 <tr><td class=THead><B>PA3288 Developer's Guide</B></td></tr>
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-<tr><td><font color=grey>Index</font>
+<tr><td><font color=gray>Index</font>
 <br />Quick <a href="devguide/quickstart.php">start</a>.
 <br />Data <a href="devguide/datastructure.php">structure</a>.
 <br />Function <a href="devguide/functionoverview.php">overview</a>.
