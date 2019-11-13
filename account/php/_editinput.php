@@ -1,6 +1,6 @@
 <?php
 require_once('_account.php');
-require_once('/php/imagefile.php');
+require_once('/php/linearimagefile.php');
 require_once('/php/tutorial/primenumber.php');
 require_once('/php/sql/sqlcommonphrase.php');
 require_once('/php/ui/editinputform.php');

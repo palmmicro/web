@@ -171,7 +171,7 @@ function EchoAll()
         }
         else
         {
-        	EchoAllStockGroupParagraph(false, false, $acct->GetMemberId(), $acct->GetLoginId());
+        	$acct->EchoStockGroupParagraph();
         	StockEditGroupForm(STOCK_GROUP_NEW);
         }
     }

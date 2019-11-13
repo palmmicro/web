@@ -1,7 +1,7 @@
 <?php
 require_once('_stock.php');
 require_once('_emptygroup.php');
-require_once('/php/imagefile.php');
+require_once('/php/dateimagefile.php');
 
 function _echoAhHistoryItem($hshare_ref, $csv, $record, $h_his_sql, $hkcny_sql)
 {

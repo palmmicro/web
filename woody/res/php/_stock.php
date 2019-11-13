@@ -127,7 +127,6 @@ function _EchoTransactionParagraph($group)
 	}
 }
 
-
 class StockAcctStart extends TitleAcctStart
 {
     function StockAcctStart($strQueryItem = false, $arLoginTitle = false) 
@@ -140,6 +139,11 @@ class StockAcctStart extends TitleAcctStart
     	$strLoginId = $this->GetLoginId();
     	EchoPromotionHead($strVer, $strLoginId);
     	EchoStockCategory($strLoginId);
+    }
+    
+    function EchoStockGroupParagraph($strGroupId = false, $strStockId = false)
+    {
+    	EchoAllStockGroupParagraph($strGroupId, $strStockId, $this->GetMemberId(), $this->GetLoginId());
     }
 }    
 

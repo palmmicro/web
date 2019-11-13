@@ -12,7 +12,7 @@ class GroupAcctStart extends StockAcctStart
     {
     	if ($strGroupId = $this->GetQuery())
     	{
-    		EchoAllStockGroupParagraph($strGroupId, false, $this->GetMemberId(), $this->GetLoginId());
+    		$this->EchoStockGroupParagraph($strGroupId);
     	}
     	return $strGroupId;
     }

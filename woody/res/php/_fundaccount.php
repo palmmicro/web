@@ -1,7 +1,7 @@
 <?php
 require_once('_stock.php');
 require_once('_emptygroup.php');
-require_once('/php/imagefile.php');
+require_once('/php/linearimagefile.php');
 
 function _echoFundAccountItem($csv, $strDate, $strSharesDiff, $ref, $nv_sql)
 {
