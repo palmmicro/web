@@ -126,12 +126,6 @@ function GetLofAnalysisLinks($strSymbol)
 	return GetThanousParadoxLink($strSymbol).' '.GetFundAccountLink($strSymbol).' '.GetFundPositionLink($strSymbol);
 }
 
-define('BENFORD_LAW_DISPLAY', '本福特定律');
-function GetBenfordLawLink($strSymbol)
-{
-    return GetStockSymbolLink('benfordlaw', $strSymbol, BENFORD_LAW_DISPLAY);
-}
-
 define('STOCK_OPTION_ADJCLOSE', '根据分红更新复权收盘价');
 define('STOCK_OPTION_ADR', '修改H股对应ADR代码');
 define('STOCK_OPTION_AH', '修改A股对应H股代码');

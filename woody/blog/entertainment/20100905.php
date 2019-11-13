@@ -68,6 +68,12 @@ As PA6488 based camera is not available in market yet. Users can test the user m
 <br /><img src=../photo/20190824.jpg alt="Linear regression calculation steps" />
 </p>
 
+<h3><?php EchoNameTag('benfordslaw', ACCOUNT_TOOL_BENFORD); ?></h3>
+<p>Nov 14, 2019
+<br /><?php EchoBenfordsLawLink(false); ?>
+<br /><img src=../photo/benfordslaw.jpg alt="Benford's Law equation" />
+</p>
+
 </div>
 
 <?php _LayoutBottom(false); ?>

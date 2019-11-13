@@ -43,6 +43,7 @@ function _getLinearRegressionString($strInput, $bChinese)
 		$strInput = rtrim($strInput, ')');
 	}
 	
+	$fCount = 0.0;
 	$ar = explode(';', $strInput);
 	foreach ($ar as $str)
 	{
@@ -50,17 +51,26 @@ function _getLinearRegressionString($strInput, $bChinese)
 		$arXY = explode(',', $str);
 		if (count($arXY) == 2)
 		{
-			$arX[] = floatval($arXY[0]);
+			$fX = floatval($arXY[0]);
+			$fCount = $fX;
 			$fY = floatval($arXY[1]);
-			$arY[] = $strFunction ? call_user_func($strFunction, $fY) : $fY;
 		}
+		else
+		{
+			$fX = $fCount;
+			$fY = floatval($str);
+		}
+		$fCount += 1.0;
+		
+		$arX[] = $fX;
+		$arY[] = empty($strFunction) ? $fY : call_user_func($strFunction, $fY);
 	}
 
     $jpg = new LinearImageFile();
     $jpg->Draw($arX, $arY);
 	
 	$str = 'x = {'.implode(',', $arX).'}';
-	$str .= '<br />y = {'.($strFunction ? strval_round_implode($arY) : implode(',', $arY)).'}';
+	$str .= '<br />y = {'.(empty($strFunction) ? implode(',', $arY) : strval_round_implode($arY)).'}';
 	$str .= '<br /><br /><b>'.$jpg->GetEquation().'</b>';
 	$str .= '<br />'.$jpg->GetLink();
 	$str .= '<br /><img src=/woody/blog/photo/20190824.jpg alt="Linear regression calculation steps" />';
@@ -101,6 +111,16 @@ function _getCramersLawString($strInput, $bChinese)
 	return $str;
 }
 
+function GetTaobaoDouble11Data()
+{
+	return '0.5; 9.36; 52; 191; 352; 571; 912; 1207; 1682.69; 2135; 2684';
+}
+
+function GetTaobaoDouble11SqrtData()
+{
+	return 'sqrt('.GetTaobaoDouble11Data().')';
+}
+
 function EchoAll($bChinese = true)
 {
 	global $acct;
@@ -118,6 +138,10 @@ function EchoAll($bChinese = true)
     {
     	switch ($strTitle)
     	{
+    	case 'benfordslaw':
+    		$strInput = GetTaobaoDouble11Data();
+    		break;
+    		
     	case TABLE_COMMON_PHRASE:
     		$str = '';
     		break;
@@ -132,7 +156,7 @@ function EchoAll($bChinese = true)
     		
     	case 'linearregression':
 //    		$strInput = '1.02,5069; 0.51,3081; 2.92,6936; 3.47,7846; 2.07,5583';
-    		$strInput = 'sqrt(0,0.5; 1,9.36; 2,52; 3,191; 4,352; 5,571; 6,912; 7,1207; 8,1682.69; 9,2135; 10,2684)';
+    		$strInput = GetTaobaoDouble11SqrtData();
     		break;
     		
     	default:
@@ -144,6 +168,10 @@ function EchoAll($bChinese = true)
     EchoEditInputForm(GetAccountToolStr($strTitle, $bChinese), $strInput, $bChinese);
     switch ($strTitle)
     {
+   	case 'benfordslaw':
+   		$str = 'benford test';
+   		break;
+    		
     case 'editinput':
     	$str = is_numeric($strInput) ? DebugGetDateTime($strInput) : urldecode($strInput);
     	break;
@@ -189,6 +217,11 @@ function EchoMetaDescription($bChinese = true)
   	$str = _getAccountToolTitle($strTitle, $acct->GetQuery(), $bChinese);
   	switch ($strTitle)
   	{
+   	case 'benfordslaw':
+  		$str .= $bChinese ? '页面. 用Benford定律检验数据是否造假, 画出实际数字出现的概率分布和理论概率分布的比较图. 最后用卡方检验(Pearson\'s chi-squared test)统一结果.'
+    						: 'page, testing data using Benford\'s law, draw compare images, and run Pearson\'s chi-squared test in the end.';
+   		break;
+    		
   	case 'editinput':
   		$str .= $bChinese ? '页面. 测试代码暂时放在/account/_editinput.php中, 测试成熟后再分配具体长期使用的工具页面. 不成功的测试就可以直接放弃了.'
     						: 'page, testing source code in /account/_editinput.php first. Functions will be moved to permanent pages after test.';

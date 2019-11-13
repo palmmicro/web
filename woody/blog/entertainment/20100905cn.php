@@ -136,6 +136,12 @@
 <br /><img src=../photo/20190824.jpg alt="Linear regression calculation steps" />
 </p>
 
+<h3><?php EchoNameTag('benfordslaw', ACCOUNT_TOOL_BENFORD_CN); ?></h3>
+<p>2019年11月14日
+<br /><?php EchoBenfordsLawLink(); ?>
+<br /><img src=../photo/benfordslaw.jpg alt="Benford's Law equation" />
+</p>
+
 </div>
 
 <?php _LayoutBottom(); ?>

@@ -39,6 +39,7 @@ function GetMemberLink($strMemberId, $bChinese = true)
     return '';
 }
 
+define('ACCOUNT_TOOL_BENFORD', 'Benford\'s Law');
 define('ACCOUNT_TOOL_EDIT', 'Temporary Test');
 define('ACCOUNT_TOOL_CRAMER', 'Cramer\'s Rule');
 define('ACCOUNT_TOOL_PHRASE', 'Common Phrase');
@@ -46,6 +47,7 @@ define('ACCOUNT_TOOL_IP', 'IP Address Data');
 define('ACCOUNT_TOOL_LINEAR', 'Linear Regression');
 define('ACCOUNT_TOOL_PRIME', 'Prime Number');
 
+define('ACCOUNT_TOOL_BENFORD_CN', '本福特定律');
 define('ACCOUNT_TOOL_EDIT_CN', '临时测试');
 define('ACCOUNT_TOOL_CRAMER_CN', '解二元一次方程组');
 define('ACCOUNT_TOOL_PHRASE_CN', '个人常用短语');
@@ -57,7 +59,8 @@ function GetAccountToolArray($bChinese)
 {
 	if ($bChinese)
 	{
-		$ar = array('editinput' => ACCOUNT_TOOL_EDIT_CN,
+		$ar = array('benfordslaw' => ACCOUNT_TOOL_BENFORD_CN,
+					  'editinput' => ACCOUNT_TOOL_EDIT_CN,
                       TABLE_COMMON_PHRASE => ACCOUNT_TOOL_PHRASE_CN,
                       'cramersrule' => ACCOUNT_TOOL_CRAMER_CN,
                       'ip' => ACCOUNT_TOOL_IP_CN,
@@ -67,7 +70,8 @@ function GetAccountToolArray($bChinese)
     }
     else
 	{
-		$ar = array('editinput' => ACCOUNT_TOOL_EDIT,
+		$ar = array('benfordslaw' => ACCOUNT_TOOL_BENFORD,
+					  'editinput' => ACCOUNT_TOOL_EDIT,
                       TABLE_COMMON_PHRASE => ACCOUNT_TOOL_PHRASE,
                       'cramersrule' => ACCOUNT_TOOL_CRAMER,
 					  'ip' => ACCOUNT_TOOL_IP,
@@ -97,6 +101,11 @@ function GetCommonPhraseLink($bChinese = true)
 function GetLinearRegressionLink($bChinese = true)
 {
     return _getAccountToolLink('linearregression', $bChinese);
+}
+
+function GetBenfordsLawLink($bChinese = true)
+{
+    return _getAccountToolLink('benfordslaw', $bChinese);
 }
 
 function GetCramersRuleLink($bChinese = true)

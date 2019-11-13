@@ -48,6 +48,11 @@ function EchoLinearRegressionLink($bChinese = true)
 	echo GetLinearRegressionLink($bChinese);
 }
 
+function EchoBenfordsLawLink($bChinese = true)
+{
+	echo GetBenfordsLawLink($bChinese);
+}
+
 function EchoCramersRuleLink($bChinese = true)
 {
 	echo GetCramersRuleLink($bChinese);
