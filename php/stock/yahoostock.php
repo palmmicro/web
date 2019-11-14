@@ -238,7 +238,7 @@ function _preg_match_yahoo_stock($str)
     
     $arMatch = array();
     preg_match_all($strPattern, $str, $arMatch, PREG_SET_ORDER);
-    if (RegExpDebug($arMatch, 'Yahoo stock', 16) == 0)	return false;
+    if (RegExpDebug($arMatch, 'Yahoo stock', 17) == 0)	return false;
     return $arMatch;
 }
 

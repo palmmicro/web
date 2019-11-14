@@ -142,6 +142,13 @@
 <br /><img src=../photo/benfordslaw.jpg alt="Benford's Law equation" />
 </p>
 
+<h3><?php EchoNameTag('chisquaredtest', ACCOUNT_TOOL_CHI_CN); ?></h3>
+<p>2019年11月15日
+<br /><?php EchoChiSquaredTestLink(); ?>
+<br /><img src=../photo/chisquaredtest.jpg alt="Pearson's Chi-squared Test equation and curve" />
+</p>
+
+
 </div>
 
 <?php _LayoutBottom(); ?>

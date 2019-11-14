@@ -40,6 +40,27 @@ function _getBenfordsLawString($strInput, $bChinese)
     return $jpg->GetLink();
 }
 
+function _getChiSquaredTestString($strInput, $bChinese)
+{
+	$ar = explode(';', $strInput);
+	if (count($ar) == 2)
+	{
+		$strExpected = trim($ar[0]);
+		$strObserved = trim($ar[1]);
+		$str = ($bChinese ? '期望值' : 'Expected').': '.$strExpected;
+		$str .= '<br />'.($bChinese ? '观察值' : 'Observed').': '.$strObserved;
+		
+		$f = PearsonChiSquaredTest(explode_float($strExpected), explode_float($strObserved));
+		$str .= '<br />'.($bChinese ? '符合期望的概率' : 'P value').': '.strval_round($f);
+	}
+	else
+	{
+		$str = '';
+	}
+	$str .= '<br /><img src=/woody/blog/photo/chisquaredtest.jpg alt="Pearson\'s Chi-squared Test equation and curve" />';
+	return $str;
+}
+
 function _getLinearRegressionString($strInput, $bChinese)
 {
 	$arX = array();
@@ -136,7 +157,7 @@ function EchoAll($bChinese = true)
 	$strTitle = $acct->GetTitle();
 	$strMemberId = $acct->GetLoginId();
 	
-    if (isset($_POST['submit']))
+    if (isset($_POST['submit']) && isset($_POST[EDIT_INPUT_NAME]))
 	{
 		unset($_POST['submit']);
 		$strInput = UrlCleanString($_POST[EDIT_INPUT_NAME]);
@@ -148,6 +169,10 @@ function EchoAll($bChinese = true)
     	{
     	case 'benfordslaw':
     		$strInput = GetTaobaoDouble11Data();
+    		break;
+    		
+    	case 'chisquaredtest':
+    		$strInput = '200,200,200,200,200,200; 215,210,185,195,190,205';
     		break;
     		
     	case TABLE_COMMON_PHRASE:
@@ -180,10 +205,10 @@ function EchoAll($bChinese = true)
    		$str = _getBenfordsLawString($strInput, $bChinese);
    		break;
     		
-    case 'editinput':
-    	$str = is_numeric($strInput) ? DebugGetDateTime($strInput) : urldecode($strInput);
+    case 'chisquaredtest':
+    	$str = _getChiSquaredTestString($strInput, $bChinese);
     	break;
-    		
+    	
     case TABLE_COMMON_PHRASE:
     	$str = _getCommonPhraseString($strInput, $strMemberId, $bChinese);
     	break;
@@ -192,6 +217,10 @@ function EchoAll($bChinese = true)
     	$str = _getCramersLawString($strInput, $bChinese);
     	break;
     	
+    case 'editinput':
+    	$str = is_numeric($strInput) ? DebugGetDateTime($strInput) : urldecode($strInput);
+    	break;
+    		
     case 'ip':
     	$str = IpLookupGetString($strInput, '<br />', $bChinese);
     	break;
@@ -226,13 +255,13 @@ function EchoMetaDescription($bChinese = true)
   	switch ($strTitle)
   	{
    	case 'benfordslaw':
-  		$str .= $bChinese ? '页面. 用Benford定律检验数据是否造假, 画出实际数字出现的概率分布和理论概率分布的比较图. 最后用卡方检验(Pearson\'s chi-squared test)统一结果.'
-    						: 'page, testing data using Benford\'s law, draw compare images, and run Pearson\'s chi-squared test in the end.';
+  		$str .= $bChinese ? '页面. 用Benford定律检验数据是否造假, 画出实际数字出现的概率分布和理论概率分布的比较图. 最后用卡方检验(Pearson\'s Chi-squared Test)统一结果.'
+    						: 'page, testing data using Benford\'s law, draw compare images, and run Pearson\'s Chi-squared Test in the end.';
    		break;
     		
-  	case 'editinput':
-  		$str .= $bChinese ? '页面. 测试代码暂时放在/account/_editinput.php中, 测试成熟后再分配具体长期使用的工具页面. 不成功的测试就可以直接放弃了.'
-    						: 'page, testing source code in /account/_editinput.php first. Functions will be moved to permanent pages after test.';
+    case 'chisquaredtest':
+  		$str .= $bChinese ? '页面. 用Pearson卡方检验(Chi-squared Test)统计样本的实际观测值与理论推断值之间的偏离程度. 实际观测值与理论推断值之间的偏离程度就决定卡方值的大小. 卡方值为0表明理论值完全符合.'
+    						: ' page, run to determine whether there is a significant difference between the expected frequencies and the observed frequencies.';
   		break;
   		
   	case TABLE_COMMON_PHRASE:
@@ -243,6 +272,11 @@ function EchoMetaDescription($bChinese = true)
    	case 'cramersrule':
   		$str .= $bChinese ? '计算页面. Cramer法则求解二元一次方程组 a1 * X + b1 * Y = c1; a2 * X + b2 * Y = c2; 附带算法步骤图作为参考. '
     						: 'calculation, use Cramer\'s rule to solve a linear system of 2x2 equations, together with algorithm steps image.';
+  		break;
+  		
+  	case 'editinput':
+  		$str .= $bChinese ? '页面. 测试代码暂时放在/account/_editinput.php中, 测试成熟后再分配具体长期使用的工具页面. 不成功的测试就可以直接放弃了.'
+    						: 'page, testing source code in /account/_editinput.php first. Functions will be moved to permanent pages after test.';
   		break;
   		
   	case 'ip':

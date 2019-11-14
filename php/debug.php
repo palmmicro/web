@@ -39,6 +39,17 @@ function strval_round_implode($arVal, $strSeparator = ', ')
 	return rtrim($str, $strSeparator);
 }
 
+function explode_float($str, $strSeparator = ',')
+{
+	$arF = array();
+	$ar = explode($strSeparator, $str);
+	foreach ($ar as $str)
+	{
+		$arF[] = floatval(trim($str));
+	}
+	return $arF;
+}
+
 function rtrim0($str)
 {
 //	return rtrim($str, '0');

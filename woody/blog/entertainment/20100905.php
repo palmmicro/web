@@ -74,6 +74,12 @@ As PA6488 based camera is not available in market yet. Users can test the user m
 <br /><img src=../photo/benfordslaw.jpg alt="Benford's Law equation" />
 </p>
 
+<h3><?php EchoNameTag('chisquaredtest', ACCOUNT_TOOL_CHI); ?></h3>
+<p>Nov 15, 2019
+<br /><?php EchoChiSquaredTestLink(false); ?>
+<br /><img src=../photo/chisquaredtest.jpg alt="Pearson's Chi-squared Test equation and curve" />
+</p>
+
 </div>
 
 <?php _LayoutBottom(false); ?>

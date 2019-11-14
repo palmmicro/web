@@ -32,7 +32,9 @@ class GoldFundReference extends FundReference
 
     function _estGoldEtf($fEst)
     {
-        $fVal = $fEst / $this->fFactor;
+    	if (empty($this->fFactor))	return 0.0;
+    	
+   		$fVal = $fEst / $this->fFactor;
         return $this->AdjustPosition($fVal); 
     }
     

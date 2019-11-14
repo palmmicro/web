@@ -53,6 +53,11 @@ function EchoBenfordsLawLink($bChinese = true)
 	echo GetBenfordsLawLink($bChinese);
 }
 
+function EchoChiSquaredTestLink($bChinese = true)
+{
+	echo GetChiSquaredTestLink($bChinese);
+}
+
 function EchoCramersRuleLink($bChinese = true)
 {
 	echo GetCramersRuleLink($bChinese);
