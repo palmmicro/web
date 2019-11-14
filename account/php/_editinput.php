@@ -1,5 +1,6 @@
 <?php
 require_once('_account.php');
+require_once('/php/benfordimagefile.php');
 require_once('/php/linearimagefile.php');
 require_once('/php/tutorial/primenumber.php');
 require_once('/php/sql/sqlcommonphrase.php');
@@ -30,6 +31,13 @@ function _getCommonPhraseString($strInput, $strMemberId, $bChinese)
 		@mysql_free_result($result);
 	}
 	return $str;
+}
+
+function _getBenfordsLawString($strInput, $bChinese)
+{
+    $jpg = new BenfordImageFile();
+    $jpg->Draw(explode(';', $strInput));
+    return $jpg->GetLink();
 }
 
 function _getLinearRegressionString($strInput, $bChinese)
@@ -169,7 +177,7 @@ function EchoAll($bChinese = true)
     switch ($strTitle)
     {
    	case 'benfordslaw':
-   		$str = 'benford test';
+   		$str = _getBenfordsLawString($strInput, $bChinese);
    		break;
     		
     case 'editinput':

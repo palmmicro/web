@@ -29,14 +29,14 @@ function strval_round($fVal, $iPrecision = false)
 	return strval(round($fVal, $iPrecision));
 }
 
-function strval_round_implode($arVal)
+function strval_round_implode($arVal, $strSeparator = ', ')
 {
 	$str = '';
 	foreach ($arVal as $fVal)
 	{
-		$str .= strval_round($fVal).', ';
+		$str .= strval_round($fVal).$strSeparator;
 	}
-	return rtrim($str, ', ');
+	return rtrim($str, $strSeparator);
 }
 
 function rtrim0($str)
