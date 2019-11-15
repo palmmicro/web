@@ -13,8 +13,7 @@ class DailyStockSql extends StockTableSql
     function ComposeDailyStr()
     {
     	return $this->ComposeKeyStr().','
-         	  . ' `date` DATE NOT NULL ,'
-         	  . ' `close` DOUBLE(13,6) NOT NULL ,';
+         	  . ' `date` DATE NOT NULL ,';
     }
     
     function ComposeDailyIndexStr()
@@ -23,13 +22,6 @@ class DailyStockSql extends StockTableSql
          	  . ' UNIQUE ( `date`, `stock_id` )';
     }
     
-    function Create()
-    {
-        $str = $this->ComposeDailyStr()
-        	  . $this->ComposeDailyIndexStr();
-    	return $this->CreateIdTable($str);
-    }
-
     function BuildWhere_stock_date($strDate)
     {
 		return $this->BuildWhere_key_extra('date', $strDate);
@@ -107,6 +99,73 @@ class DailyStockSql extends StockTableSql
     	return array_merge($this->MakeFieldKeyId(), $this->_makePrivateFieldArray($strDate, $strClose));
     }
     
+    function Update($strId, $strClose)
+    {
+		return $this->UpdateById(array('close' => $strClose), $strId);
+    }
+}
+
+// ****************************** DailyStockValSql class *******************************************************
+class DailyStockStrSql extends DailyStockSql
+{
+    function DailyStockStrSql($strStockId, $strTableName) 
+    {
+        parent::DailyStockSql($strStockId, $strTableName);
+    }
+
+    function Create()
+    {
+        $str = $this->ComposeDailyStr()
+         	  . ' `close` VARCHAR( 2048 ) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL ,'
+        	  . $this->ComposeDailyIndexStr();
+    	return $this->CreateIdTable($str);
+    }
+    
+    function Insert($strDate, $strClose)
+    {
+        if ($this->Get($strDate))			return false;
+        
+    	return $this->InsertData($this->MakeFieldArray($strDate, $strClose));
+    }
+
+    function Write($strDate, $strClose)
+    {
+    	if ($record = $this->Get($strDate))
+    	{
+    		if ($record['close'] != $strClose)
+    		{
+    			return $this->Update($record['id'], $strClose);
+    		}
+    	}
+    	else
+    	{
+    		return $this->Insert($strDate, $strClose);
+    	}
+    	return false;
+    }
+}
+                                               
+// ****************************** DailyStockValSql class *******************************************************
+class DailyStockValSql extends DailyStockSql
+{
+    function DailyStockValSql($strStockId, $strTableName) 
+    {
+        parent::DailyStockSql($strStockId, $strTableName);
+    }
+
+    function ComposeDailyValStr()
+    {
+    	return $this->ComposeDailyStr()
+         	  . ' `close` DOUBLE(13,6) NOT NULL ,';
+    }
+    
+    function Create()
+    {
+        $str = $this->ComposeDailyValStr()
+        	  . $this->ComposeDailyIndexStr();
+    	return $this->CreateIdTable($str);
+    }
+
     function Insert($strDate, $strClose)
     {
         if ($this->Get($strDate))			return false;
@@ -115,11 +174,6 @@ class DailyStockSql extends StockTableSql
         if ($ymd->IsWeekend())     			return false;   // sina fund may provide false weekend data
         
     	return $this->InsertData($this->MakeFieldArray($strDate, $strClose));
-    }
-
-    function Update($strId, $strClose)
-    {
-		return $this->UpdateById(array('close' => $strClose), $strId);
     }
 
     function Write($strDate, $strClose)
@@ -138,11 +192,6 @@ class DailyStockSql extends StockTableSql
     	return false;
     }
     
-    function DeleteByDate($strDate)
-    {
-    	return $this->DeleteData($this->BuildWhere_stock_date($strDate), '1');
-    }
-    
     function DeleteZeroData()
     {
     	$this->DeleteCountData("close = '0.000000'");
@@ -150,22 +199,16 @@ class DailyStockSql extends StockTableSql
 }
 
 // ****************************** FundEstSql class *******************************************************
-class FundEstSql extends DailyStockSql
+class FundEstSql extends DailyStockValSql
 {
     function FundEstSql($strStockId = false) 
     {
-        parent::DailyStockSql($strStockId, TABLE_FUND_EST);
+        parent::DailyStockValSql($strStockId, TABLE_FUND_EST);
     }
 
     function Create()
     {
-/*    	$str = ' `stock_id` INT UNSIGNED NOT NULL ,'
-         	  . ' `date` DATE NOT NULL ,'
-         	  . ' `close` DOUBLE(13,6) NOT NULL ,'
-         	  . ' `time` TIME NOT NULL ,'
-         	  . ' FOREIGN KEY (`stock_id`) REFERENCES `stock`(`id`) ON DELETE CASCADE ,'
-         	  . ' UNIQUE ( `date`, `stock_id` )';*/
-        $str = $this->ComposeDailyStr()
+        $str = $this->ComposeDailyValStr()
          	  . ' `time` TIME NOT NULL ,'
         	  . $this->ComposeDailyIndexStr();
     	return $this->CreateIdTable($str);
@@ -186,65 +229,65 @@ class FundEstSql extends DailyStockSql
 }
 
 // ****************************** EtfCalibrationSql class *******************************************************
-class EtfCalibrationSql extends DailyStockSql
+class EtfCalibrationSql extends DailyStockValSql
 {
     function EtfCalibrationSql($strStockId)
     {
-        parent::DailyStockSql($strStockId, TABLE_ETF_CALIBRATION);
+        parent::DailyStockValSql($strStockId, TABLE_ETF_CALIBRATION);
     }
 }
 
 // ****************************** StockEmaSql class *******************************************************
-class StockEmaSql extends DailyStockSql
+class StockEmaSql extends DailyStockValSql
 {
     function StockEmaSql($strStockId, $iDays) 
     {
-        parent::DailyStockSql($strStockId, 'stockema'.strval($iDays));
+        parent::DailyStockValSql($strStockId, 'stockema'.strval($iDays));
     }
 }
 
 // ****************************** StockSplitSql class *******************************************************
-class StockSplitSql extends DailyStockSql
+class StockSplitSql extends DailyStockValSql
 {
     function StockSplitSql($strStockId = false) 
     {
-        parent::DailyStockSql($strStockId, TABLE_STOCK_SPLIT);
+        parent::DailyStockValSql($strStockId, TABLE_STOCK_SPLIT);
     }
 }
 
 // ****************************** EtfSharesHistorySql class *******************************************************
-class EtfSharesHistorySql extends DailyStockSql
+class EtfSharesHistorySql extends DailyStockValSql
 {
     function EtfSharesHistorySql($strStockId = false) 
     {
-        parent::DailyStockSql($strStockId, 'etfshareshistory');
+        parent::DailyStockValSql($strStockId, 'etfshareshistory');
     }
 }
 
 // ****************************** EtfSharesDiffSql class *******************************************************
-class EtfSharesDiffSql extends DailyStockSql
+class EtfSharesDiffSql extends DailyStockValSql
 {
     function EtfSharesDiffSql($strStockId = false) 
     {
-        parent::DailyStockSql($strStockId, 'etfsharesdiff');
+        parent::DailyStockValSql($strStockId, 'etfsharesdiff');
     }
 }
 
 // ****************************** EtfCnhSql class *******************************************************
-class EtfCnhSql extends DailyStockSql
+class EtfCnhSql extends DailyStockValSql
 {
     function EtfCnhSql($strStockId) 
     {
-        parent::DailyStockSql($strStockId, 'etfcnh');
+        parent::DailyStockValSql($strStockId, 'etfcnh');
     }
 }
 
 // ****************************** NetValueHistorySql class *******************************************************
-class NetValueHistorySql extends DailyStockSql
+class NetValueHistorySql extends DailyStockValSql
 {
     function NetValueHistorySql($strStockId) 
     {
-        parent::DailyStockSql($strStockId, TABLE_NETVALUE_HISTORY);
+        parent::DailyStockValSql($strStockId, TABLE_NETVALUE_HISTORY);
     }
 }
 
@@ -281,6 +324,15 @@ function SqlGetNetValueByDate($strStockId, $strDate)
 {
 	$sql = new NetValueHistorySql($strStockId);
 	return $sql->GetClose($strDate);
+}
+
+// ****************************** AnnualIncomeSql class *******************************************************
+class AnnualIncomeStrSql extends DailyStockStrSql
+{
+    function AnnualIncomeStrSql($strStockId = false) 
+    {
+        parent::DailyStockStrSql($strStockId, 'annualincomestr');
+    }
 }
 
 ?>

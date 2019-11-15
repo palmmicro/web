@@ -124,9 +124,9 @@ class ImageFile
 class PageImageFile extends ImageFile
 {
     var $fMaxX;
-    var $fMinX;
+    var $fMinX = 0.0;
     var $fMaxY;
-    var $fMinY;
+    var $fMinY = 0.0;
 
     function PageImageFile() 
     {
@@ -143,12 +143,12 @@ class PageImageFile extends ImageFile
     	return 0.0;
     }
     
-    function GetPosX($fX)
+    function GetPosX($fX = 0.0)
     {
 		return intval($this->iWidth * $this->_getPos($fX, $this->fMaxX, $this->fMinX));
     }
     
-    function GetPosY($fY)
+    function GetPosY($fY = 0.0)
     {
 		return intval($this->iHeight * (1.0 - $this->_getPos($fY, $this->fMaxY, $this->fMinY)));
     }
@@ -169,6 +169,29 @@ class PageImageFile extends ImageFile
     		$iPosY = $this->GetPosY($fVal);
     		$this->DashedLine(0, $iPosY, $this->iWidth, $iPosY);
     	}
+    }
+    
+    function DrawPolyLine($ar, $callback = 'Line')
+    {
+    	$iCur = 0;
+    	foreach ($ar as $strKey => $fVal)
+    	{
+    		$x = $this->GetPosX($iCur);                                                                 
+    		$y = $this->GetPosY($fVal);
+    		
+   			if ($iCur != 0)
+   			{
+   				$this->$callback($x1, $y1, $x, $y);
+   			}
+   			$x1 = $x;
+   			$y1 = $y;
+    		$iCur ++;
+    	}
+    }
+    
+    function DrawComparePolyLine($ar)
+    {
+    	return $this->DrawPolyLine($ar, 'CompareLine');
     }
 }
 

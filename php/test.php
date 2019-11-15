@@ -120,7 +120,7 @@ function SysInit()
 	    DebugString('connect database ok');
 	}
 	
-//   	$sql = new FundEstSql();
+   	$sql = new AnnualIncomeStrSql();
 //	_checkBlogTable();
 }
 

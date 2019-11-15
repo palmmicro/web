@@ -2,11 +2,11 @@
 require_once('sqlstockdaily.php');
 
 // ****************************** StockHistorySql class *******************************************************
-class StockHistorySql extends DailyStockSql
+class StockHistorySql extends DailyStockValSql
 {
     function StockHistorySql($strStockId) 
     {
-        parent::DailyStockSql($strStockId, TABLE_STOCK_HISTORY);
+        parent::DailyStockValSql($strStockId, TABLE_STOCK_HISTORY);
     }
 
     function Create()

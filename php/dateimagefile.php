@@ -32,27 +32,12 @@ class DateImageFile extends PageImageFile
     	if ($iCount < 2)		return;
     	
     	$this->fMaxX = $iCount;
-    	$this->fMinX = 0.0;
+    	$this->fMaxY = max($arBase);
+
     	for ($i = 1; $i < 10; $i ++)		$this->DrawAxisY($i * $iCount / 10.0);
     	
-    	$this->fMaxY = max($arBase);
-    	$this->fMinY = 0.0;
-
     	$arBase = array_reverse($arBase);
-    	$iCur = 0;
-    	foreach ($arBase as $strDate => $fVal)
-    	{
-    		$x = $this->GetPosX($iCur);                                                                 
-    		$y = $this->GetPosY($fVal);
-    		
-   			if ($iCur != 0)
-   			{
-   				$this->CompareLine($x1, $y1, $x, $y);
-   			}
-   			$x1 = $x;
-   			$y1 = $y;
-    		$iCur ++;
-    	}
+    	$this->DrawComparePolyLine($arBase);
 
     	if (count($arFocus) < 2)		return;
     	

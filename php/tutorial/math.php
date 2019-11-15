@@ -63,13 +63,18 @@ function PearsonChiSquaredTest($arExpected, $arObserved)
 								);
 	
 	$iCount = count($arExpected);
+	if ($iCount > 10)		return false;
+	
 	$arProbability = $arDistribution[0];
 	$arVal = $arDistribution[$iCount - 1];
 	
 	$fSum = 0.0;
 	for ($i = 0; $i < $iCount; $i ++)
-	{                                     
-		$fSum += pow($arObserved[$i] - $arExpected[$i], 2) / $arExpected[$i];
+	{
+		$fExpected = $arExpected[$i];
+		if (empty($fExpected))	return false;
+		
+		$fSum += pow($arObserved[$i] - $fExpected, 2) / $fExpected;
 	}
 	
 	if ($fSum < $arVal[0])			return 1.0;

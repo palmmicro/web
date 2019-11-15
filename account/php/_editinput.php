@@ -37,7 +37,7 @@ function _getBenfordsLawString($strInput, $bChinese)
 {
     $jpg = new BenfordImageFile();
     $jpg->Draw(explode(';', $strInput));
-    return $jpg->GetLink();
+    return $jpg->GetAll();
 }
 
 function _getChiSquaredTestString($strInput, $bChinese)
@@ -50,8 +50,14 @@ function _getChiSquaredTestString($strInput, $bChinese)
 		$str = ($bChinese ? '期望值' : 'Expected').': '.$strExpected;
 		$str .= '<br />'.($bChinese ? '观察值' : 'Observed').': '.$strObserved;
 		
-		$f = PearsonChiSquaredTest(explode_float($strExpected), explode_float($strObserved));
-		$str .= '<br />'.($bChinese ? '符合期望的概率' : 'P value').': '.strval_round($f);
+		if ($f = PearsonChiSquaredTest(explode_float($strExpected), explode_float($strObserved)))
+		{
+			$str .= '<br />'.($bChinese ? '符合期望的概率' : 'P value').': '.strval_round($f);
+		}
+		else
+		{
+			$str .= '<br />'.($bChinese ? '无法计算' : 'Can not calculate');
+		}
 	}
 	else
 	{
