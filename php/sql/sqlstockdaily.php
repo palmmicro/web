@@ -116,7 +116,7 @@ class DailyStockStrSql extends DailyStockSql
     function Create()
     {
         $str = $this->ComposeDailyStr()
-         	  . ' `close` VARCHAR( 2048 ) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL ,'
+         	  . ' `close` VARCHAR( 2048 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,'
         	  . $this->ComposeDailyIndexStr();
     	return $this->CreateIdTable($str);
     }

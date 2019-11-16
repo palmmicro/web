@@ -179,6 +179,7 @@ function EchoAll($bChinese = true)
     		
     	case 'chisquaredtest':
     		$strInput = '200,200,200,200,200,200; 215,210,185,195,190,205';
+//    		$strInput = '164,96,68,53,43,36,32,28,25; 168,97,64,55,39,29,30,37,25';
     		break;
     		
     	case TABLE_COMMON_PHRASE:

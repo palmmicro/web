@@ -47,8 +47,93 @@ function CramersRule($fA1, $fB1, $fC1, $fA2, $fB2, $fC2)
 	return array($fX, $fY);
 }
 
+function FactorialFunction($iNum)
+{
+    // array_product 计算并返回数组的乘积
+    // range 创建一个包含指定范围的元素的数组
+    return array_product(range(1, $iNum));
+}
+
+define('SQRT2PI', 2.5066282746310005024157652848110452530069867406099);
+function GammaFunction($data)
+{
+//	DebugVal($fAlpha, 'GammaFunction');
+//	if (empty($fAlpha - intval($fAlpha)))
+//	{
+//		return FactorialFunction(intval($fAlpha) - 1);
+//	}
+//	return 1;
+        if ($data == 0.0) {
+            return 0;
+        }
+
+        static $p0 = 1.000000000190015;
+        static $p = array(
+            1 => 76.18009172947146,
+            2 => -86.50532032941677,
+            3 => 24.01409824083091,
+            4 => -1.231739572450155,
+            5 => 1.208650973866179e-3,
+            6 => -5.395239384953e-6
+        );
+
+        $y = $x = $data;
+        $tmp = $x + 5.5;
+        $tmp -= ($x + 0.5) * log($tmp);
+
+        $summer = $p0;
+        for ($j=1; $j<=6; ++$j) {
+            $summer += ($p[$j] / ++$y);
+        }
+        return exp(0 - $tmp + log(SQRT2PI * $summer / $x));
+}
+
+function GammaDistribution($f, $fAlpha, $fBeta)
+{
+	$fGamma = GammaFunction($fAlpha);
+//	DebugVal($fGamma, 'GammaDistribution');
+//	return pow($f, $fAlpha - 1) * exp(0 - ($f / $fBeta)) / pow($fBeta, $fAlpha) / $fGamma;
+
+	$a = $fAlpha;
+	$x = $f / $fBeta;
+	
+        static $max = 32;
+        $summer = 0;
+        for ($n=0; $n<=$max; ++$n) {
+            $divisor = $a;
+            for ($i=1; $i<=$n; ++$i) {
+                $divisor *= ($a + $i);
+            }
+            $summer += (pow($x, $n) / $divisor);
+        }
+        return pow($x, $a) * exp(0-$x) * $summer / $fGamma;
+}
+
+function ChiSquaredDistribution($f, $iNum)
+{
+	return 1.0 - GammaDistribution($f, $iNum / 2.0, 2.0);
+}
+
 function PearsonChiSquaredTest($arExpected, $arObserved)
 {
+	$iCount = count($arExpected);
+	
+	$fSum = 0.0;
+	for ($i = 0; $i < $iCount; $i ++)
+	{
+		$fExpected = $arExpected[$i];
+		if (empty($fExpected))	return false;
+		
+		$fSum += pow($arObserved[$i] - $fExpected, 2) / $fExpected;
+	}
+//	DebugVal($fSum, 'PearsonChiSquaredTest');
+
+//	if ($iCount % 2)	
+//	{
+//		return	stats_cdf_chisquare($fSum, $iCount - 1, 1);
+		return	ChiSquaredDistribution($fSum, $iCount - 1);
+//	}
+/*		
 	$arDistribution = array(array(0.95, 0.90, 0.80, 0.70, 0.50, 0.30, 0.20, 0.10, 0.05, 0.01, 0.001),
 								array(0.004, 0.02, 0.06, 0.15, 0.46, 	1.07, 1.64, 2.71, 3.84, 6.64, 10.83),
 								array(0.10, 0.21, 	0.45, 0.71, 1.39, 2.41, 3.22, 	4.60, 5.99, 9.21, 13.82),
@@ -62,20 +147,9 @@ function PearsonChiSquaredTest($arExpected, $arObserved)
 								array(3.94, 4.86, 	6.18, 7.27, 9.34, 11.78, 13.44, 15.99, 18.31, 23.21, 	29.59)
 								);
 	
-	$iCount = count($arExpected);
 	if ($iCount > 10)		return false;
-	
 	$arProbability = $arDistribution[0];
 	$arVal = $arDistribution[$iCount - 1];
-	
-	$fSum = 0.0;
-	for ($i = 0; $i < $iCount; $i ++)
-	{
-		$fExpected = $arExpected[$i];
-		if (empty($fExpected))	return false;
-		
-		$fSum += pow($arObserved[$i] - $fExpected, 2) / $fExpected;
-	}
 	
 	if ($fSum < $arVal[0])			return 1.0;
 	else if ($fSum > $arVal[10])		return 0.0;
@@ -88,7 +162,7 @@ function PearsonChiSquaredTest($arExpected, $arObserved)
 		}
 	}
 	
-	return $arProbability[$i] + ($arProbability[$i + 1] - $arProbability[$i]) * ($fSum - $arVal[$i]) / ($arVal[$i + 1] - $arVal[$i]);
+	return $arProbability[$i] + ($arProbability[$i + 1] - $arProbability[$i]) * ($fSum - $arVal[$i]) / ($arVal[$i + 1] - $arVal[$i]);*/
 }
 
 ?>
