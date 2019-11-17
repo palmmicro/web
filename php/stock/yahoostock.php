@@ -424,4 +424,84 @@ function YahooUpdateNetValue($strSymbol)
     }
 }
 
+/*
+"incomeStatementHistoryQuarterly":
+{"incomeStatementHistory":[{
+"researchDevelopment":{"raw":10938000000,"fmt":"10.94B","longFmt":"10,938,000,000"},
+"effectOfAccountingCharges":{},
+"incomeBeforeTax":{"raw":73563000000,"fmt":"73.56B","longFmt":"73,563,000,000"},
+"minorityInterest":{"raw":117432000000,"fmt":"117.43B","longFmt":"117,432,000,000"},
+"netIncome":{"raw":72591000000,"fmt":"72.59B","longFmt":"72,591,000,000"},
+"sellingGeneralAdministrative":{"raw":18587000000,"fmt":"18.59B","longFmt":"18,587,000,000"},
+"grossProfit":{"raw":53471000000,"fmt":"53.47B","longFmt":"53,471,000,000"},
+"ebit":{"raw":20940000000,"fmt":"20.94B","longFmt":"20,940,000,000"},
+"endDate":{"raw":1569801600,"fmt":"2019-09-30"},
+"operatingIncome":{"raw":20940000000,"fmt":"20.94B","longFmt":"20,940,000,000"},
+"otherOperatingExpenses":{},
+"interestExpense":{"raw":-1360000000,"fmt":"-1.36B","longFmt":"-1,360,000,000"},
+"extraordinaryItems":{},
+"nonRecurring":{},
+"otherItems":{},
+"incomeTaxExpense":{"raw":2815000000,"fmt":"2.81B","longFmt":"2,815,000,000"},
+"totalRevenue":{"raw":119017000000,"fmt":"119.02B","longFmt":"119,017,000,000"},
+"totalOperatingExpenses":{"raw":98077000000,"fmt":"98.08B","longFmt":"98,077,000,000"},
+"costOfRevenue":{"raw":65546000000,"fmt":"65.55B","longFmt":"65,546,000,000"},
+"totalOtherIncomeExpenseNet":{"raw":52623000000,"fmt":"52.62B","longFmt":"52,623,000,000"},
+"maxAge":1,
+"discontinuedOperations":{},
+"netIncomeFromContinuingOps":{"raw":70748000000,"fmt":"70.75B","longFmt":"70,748,000,000"},
+"netIncomeApplicableToCommonShares":{"raw":72540000000,"fmt":"72.54B","longFmt":"72,540,000,000"}
+}*/
+
+function _preg_match_yahoo_financials($str)
+{
+    $strBoundary = RegExpBoundary();
+    
+    $strPattern = $strBoundary;
+    $strPattern .= RegExpParenthesis('{"raw":'.RegExpNumber().',"fmt":"', RegExpFmtNumber(), '","longFmt":"');
+    $strPattern .= $strBoundary;
+    
+    $arMatch = array();
+    preg_match_all($strPattern, $str, $arMatch, PREG_SET_ORDER);
+    return $arMatch;
+}
+
+function _preg_match_yahoo_financials_date($str)
+{
+    $strBoundary = RegExpBoundary();
+    $strAll = RegExpAll();
+    
+    $strPattern = $strBoundary;
+    $strPattern .= RegExpParenthesis('researchDevelopment'.$strAll, RegExpDate(), $strAll.'netIncomeApplicableToCommonShares');
+    $strPattern .= $strBoundary;
+    
+    $arMatch = array();
+    preg_match_all($strPattern, $str, $arMatch, PREG_SET_ORDER);
+    return $arMatch;
+}
+
+function YahooUpdateFinancials($ref)
+{
+   	$sym = $ref->GetSym();
+   	$strUrl = YahooStockGetUrl($sym->GetYahooSymbol()).'/financials';
+    if (($str = url_get_contents($strUrl)) == false)							return false;
+    if (($arMatchDate = _preg_match_yahoo_financials_date($str)) == false)		return false;
+
+	$ar = array();
+   	foreach ($arMatchDate as $arDate)
+   	{
+   		$strDate = $arDate[1];
+		DebugString('YahooUpdateFinancials '.$strDate);
+		$arMatch = _preg_match_yahoo_financials($arDate[0]);
+		foreach ($arMatch as $arVal)
+		{
+			$strVal = $arVal[1];
+			if (isset($ar[$strDate]))	$ar[$strDate] .= ','.$strVal;
+			else							$ar[$strDate] = $strVal;
+		}
+    }
+    DebugArray($ar);
+    return $ar;
+}
+
 ?>

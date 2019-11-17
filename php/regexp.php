@@ -33,7 +33,7 @@ function RegExpNumber()
 
 function RegExpFmtNumber()
 {
-    return '[\d,.-]*';
+    return '[\d,.-KMB]*';
 }
 
 function RegExpDate()

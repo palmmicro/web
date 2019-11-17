@@ -66,6 +66,12 @@ function GammaFunction($data)
         if ($data == 0.0) {
             return 0;
         }
+        else if ($data == intval($data))
+        {
+        	$iNum = intval($data) - 1;
+        	DebugVal($iNum, 'GammaFunction');
+        	return FactorialFunction($iNum);
+        }
 
         static $p0 = 1.000000000190015;
         static $p = array(
@@ -88,14 +94,20 @@ function GammaFunction($data)
         return exp(0 - $tmp + log(SQRT2PI * $summer / $x));
 }
 
+function GammaDensity($f, $fAlpha, $fBeta)
+{
+	$fVal = $f * $fBeta;
+	return pow($fVal, $fAlpha - 1) * exp(0 - $fVal) / GammaFunction($fAlpha);
+}
+
 function GammaDistribution($f, $fAlpha, $fBeta)
 {
-	$fGamma = GammaFunction($fAlpha);
+//	$fGamma = GammaFunction($fAlpha);
 //	DebugVal($fGamma, 'GammaDistribution');
 //	return pow($f, $fAlpha - 1) * exp(0 - ($f / $fBeta)) / pow($fBeta, $fAlpha) / $fGamma;
 
 	$a = $fAlpha;
-	$x = $f / $fBeta;
+	$x = $f * $fBeta;
 	
         static $max = 32;
         $summer = 0;
@@ -106,12 +118,13 @@ function GammaDistribution($f, $fAlpha, $fBeta)
             }
             $summer += (pow($x, $n) / $divisor);
         }
-        return pow($x, $a) * exp(0-$x) * $summer / $fGamma;
+//        return pow($x, $a) * exp(0-$x) * $summer / $fGamma;
+	return GammaDensity($f, $fAlpha, $fBeta) * $summer * $x;
 }
 
 function ChiSquaredDistribution($f, $iNum)
 {
-	return 1.0 - GammaDistribution($f, $iNum / 2.0, 2.0);
+	return 1.0 - GammaDistribution($f, $iNum / 2.0, 0.5);
 }
 
 function PearsonChiSquaredTest($arExpected, $arObserved)

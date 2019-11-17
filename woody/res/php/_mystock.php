@@ -4,6 +4,7 @@ require_once('_emptygroup.php');
 require_once('_editmergeform.php');
 require_once('_editstockoptionform.php');
 require_once('/php/stockhis.php');
+require_once('/php/benfordimagefile.php');
 require_once('/php/ui/referenceparagraph.php');
 require_once('/php/ui/stockparagraph.php');
 require_once('/php/ui/ahparagraph.php');
@@ -15,6 +16,49 @@ require_once('/php/ui/fundhistoryparagraph.php');
 require_once('/php/ui/stockhistoryparagraph.php');
 require_once('/php/ui/nvclosehistoryparagraph.php');
 require_once('/php/ui/tradingparagraph.php');
+
+function _echoBenfordParagraph($ref)
+{
+	$sym = $ref->GetSym();
+	if ($sym->IsTradable() == false)		return;
+//	if ($sym->IsSymbolUS() == false)		return;
+	
+	$sql = new AnnualIncomeStrSql($ref->GetStockId());
+	if ($str = $sql->GetCloseNow())
+	{
+		if ($str == 'NODATA')		return;
+	}
+	else
+	{
+		if ($ar = YahooUpdateFinancials($ref))
+		{
+			foreach ($ar as $strDate => $strVal)
+			{
+				$sql->Write($strDate, $strVal);
+			}
+		}
+		else
+		{
+			$ymd = new NowYMD();
+			$sql->Write($ymd->GetYMD(), 'NODATA');
+			return;
+		}
+	}
+
+   	if ($result = $sql->GetAll()) 
+   	{
+   		$ar = array();
+   		while ($record = mysql_fetch_assoc($result)) 
+   		{
+			$ar = array_merge($ar, explode(',', $record['close']));
+    	}
+   		@mysql_free_result($result);
+
+    	$jpg = new BenfordImageFile();
+    	$jpg->Draw($ar);
+    	EchoParagraph($jpg->GetAll());
+    }
+}
 
 function _echoMyStockTransactions($strMemberId, $ref)
 {
@@ -152,6 +196,8 @@ function _echoMyStockData($ref, $strMemberId, $bAdmin)
     		else	        		EchoSmaParagraph($ref);
     	}
     	EchoStockHistoryParagraph($ref);
+    	
+    	_echoBenfordParagraph($ref);
     
     	if ($strMemberId)		_echoMyStockTransactions($strMemberId, $ref);
     }

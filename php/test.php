@@ -120,7 +120,7 @@ function SysInit()
 	    DebugString('connect database ok');
 	}
 	
-   	$sql = new AnnualIncomeStrSql();
+//   	$sql = new AnnualIncomeStrSql();
 //	_checkBlogTable();
 }
 
@@ -131,7 +131,7 @@ function TestCmdLine()
     {
     	$strSrc = UrlGetQueryDisplay('src', 'yahoo');
     	$ref = new MyStockReference($strSymbol);
-    	DebugString($ref->GetStockId());
+    	DebugString('Stock ID '.$ref->GetStockId());
     	$fStart = microtime(true);
     	switch ($strSrc)
     	{

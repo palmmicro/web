@@ -46,6 +46,7 @@ function GetBenfordData($ar)
 class BenfordImageFile extends PageImageFile
 {
 	var $fP;
+	var $iTotal;
 	
     function BenfordImageFile() 
     {
@@ -57,10 +58,15 @@ class BenfordImageFile extends PageImageFile
     	return $this->fP;
     }
     
+    function GetTotal()
+    {
+    	return $this->iTotal;
+    }
+    
     function Draw($arTarget)
     {
-    	list($iTotal, $ar) = GetBenfordData($arTarget);
-    	$arStandard = GetStandardBenfordArray($iTotal);
+    	list($this->iTotal, $ar) = GetBenfordData($arTarget);
+    	$arStandard = GetStandardBenfordArray($this->iTotal);
     	
     	$this->fP = PearsonChiSquaredTest($arStandard, $ar);
     	
@@ -81,15 +87,13 @@ class BenfordImageFile extends PageImageFile
 
     function GetAll()
     {
+   		$str = strval($this->GetTotal());
     	if ($fP = $this->GetP())
     	{
-    		$str = 'P = '.strval_round($fP).'<br />';
+    		$str .= '<br />P = '.strval_round($fP);
     	}
-    	else
-    	{
-    		$str = '';
-    	}
-    	return $str.$this->GetLink();
+    	$str .= '<br />'.$this->GetLink();
+    	return $str;
 	}
 }
 
