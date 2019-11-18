@@ -15,6 +15,9 @@ class ImageFile
     var $linecolor;
     var $comparecolor;
     
+    var $strTextColor;
+    var $strPixelColor;
+    var $strDashedColor;
     var $strLineColor;
     var $strCompareColor;
     
@@ -30,9 +33,9 @@ class ImageFile
         $this->iHeight = $iHeight;
         $this->image = imagecreatetruecolor($iWidth, $iHeight);
         
-        $this->textcolor = imagecolorallocate($this->image, 255, 255, 255);
-        $this->pixelcolor = imagecolorallocate($this->image, 0, 255, 255);
-        $this->dashedcolor = imagecolorallocate($this->image, 255, 0, 255);
+        $this->_set_text_color(255, 255, 255);
+        $this->_set_pixel_color(0, 255, 255);
+        $this->_set_dashed_color(255, 0, 255);
         $this->_set_line_color(255, 0, 0);
         $this->_set_compare_color(0, 255, 0);
         
@@ -45,6 +48,24 @@ class ImageFile
     function _getColorString($r, $g, $b)
     {
         return sprintf('#%02x%02x%02x', $r, $g, $b);
+    }
+        
+    function _set_text_color($r, $g, $b)
+    {
+        $this->textcolor = imagecolorallocate($this->image, $r, $g, $b);
+        $this->strTextColor = $this->_getColorString($r, $g, $b);
+    }
+    
+    function _set_pixel_color($r, $g, $b)
+    {
+        $this->pixelcolor = imagecolorallocate($this->image, $r, $g, $b);
+        $this->strPixelColor = $this->_getColorString($r, $g, $b);
+    }
+    
+    function _set_dashed_color($r, $g, $b)
+    {
+        $this->dashedcolor = imagecolorallocate($this->image, $r, $g, $b);
+        $this->strDashedColor = $this->_getColorString($r, $g, $b);
     }
     
     function _set_line_color($r, $g, $b)
@@ -94,6 +115,11 @@ class ImageFile
     	$arStyle = array($this->dashedcolor, $this->dashedcolor, IMG_COLOR_TRANSPARENT, IMG_COLOR_TRANSPARENT, IMG_COLOR_TRANSPARENT, IMG_COLOR_TRANSPARENT);
     	imagesetstyle($this->image, $arStyle);
     	imageline($this->image, $x1, $y1, $x, $y, IMG_COLOR_STYLED);
+    }
+    
+    function PixelLine($x1, $y1, $x, $y)
+    {
+    	$this->_line($x1, $y1, $x, $y, $this->pixelcolor);
     }
     
  	function Pixel($x, $y)
@@ -192,6 +218,16 @@ class PageImageFile extends ImageFile
     function DrawComparePolyLine($ar)
     {
     	return $this->DrawPolyLine($ar, 'CompareLine');
+    }
+    
+    function DrawPixelPolyLine($ar)
+    {
+    	return $this->DrawPolyLine($ar, 'PixelLine');
+    }
+    
+    function DrawDashedPolyLine($ar)
+    {
+    	return $this->DrawPolyLine($ar, 'DashedLine');
     }
 }
 

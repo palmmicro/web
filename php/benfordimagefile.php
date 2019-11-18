@@ -46,52 +46,86 @@ function GetBenfordData($ar)
 class BenfordImageFile extends PageImageFile
 {
 	var $fP;
+	var $fP2;
+	var $fP3;
+	
 	var $iTotal;
+	var $iTotal2;
+	var $iTotal3;
 	
     function BenfordImageFile() 
     {
         parent::PageImageFile();
     }
     
-    function GetP()
-    {
-    	return $this->fP;
-    }
-    
-    function GetTotal()
-    {
-    	return $this->iTotal;
-    }
-    
-    function Draw($arTarget)
+    function Draw($arTarget, $arTarget2 = false)
     {
     	list($this->iTotal, $ar) = GetBenfordData($arTarget);
-    	$arStandard = GetStandardBenfordArray($this->iTotal);
+    	$this->fP = PearsonChiSquaredTest(GetStandardBenfordArray($this->iTotal), $ar);
+    	if ($arTarget2)
+    	{
+    		list($this->iTotal2, $ar2) = GetBenfordData($arTarget2);
+    		$this->fP2 = PearsonChiSquaredTest(GetStandardBenfordArray($this->iTotal2), $ar2);
+    		
+    		list($this->iTotal3, $ar3) = GetBenfordData(array_merge($arTarget, $arTarget2));
+    		$this->fP3 = PearsonChiSquaredTest(GetStandardBenfordArray($this->iTotal3), $ar3);
+    	}
     	
-    	$this->fP = PearsonChiSquaredTest($arStandard, $ar);
+    	for ($i = 0; $i < 9; $i ++)
+    	{
+			$ar[$i] /= 1.0 * $this->iTotal;
+			if ($arTarget2)
+			{
+				$ar2[$i] /= 1.0 * $this->iTotal2;
+				$ar3[$i] /= 1.0 * $this->iTotal3;
+			}
+    	}
     	
     	$this->fMaxX = 8.0;
     	$this->fMaxY = max($ar);
+    	if ($arTarget2)
+    	{
+    		$fMax2 = max(max($ar2), max($ar3));
+    		if ($this->fMaxY < $fMax2)	$this->fMaxY = $fMax2;	
+    	}
+    	$arStandard = GetStandardBenfordArray();
     	if ($this->fMaxY < $arStandard[0])	$this->fMaxY = $arStandard[0];	
 
     	for ($i = 0; $i < 9; $i ++)
     	{
-    		$x = $this->GetPosX($i);
-			$this->Text($x, $this->GetPosY(), strval($i + 1));
-			$this->Text($x, $this->GetPosY($this->fMaxY), $ar[$i]);
+			$this->Text($this->GetPosX($i), $this->GetPosY(), strval($i + 1));
     	}
     	
-    	$this->DrawComparePolyLine($arStandard);
+    	$this->DrawDashedPolyLine($arStandard);
     	$this->DrawPolyLine($ar);
+    	if ($arTarget2)
+    	{
+    		$this->DrawComparePolyLine($ar2);
+    		$this->DrawPixelPolyLine($ar3);
+    	}
     }
 
-    function GetAll()
+    function _getText($strLine, $strColor, $iTotal, $fP)
     {
-   		$str = strval($this->GetTotal());
-    	if ($fP = $this->GetP())
-    	{
-    		$str .= '<br />P = '.strval_round($fP);
-    	}
+		$str = '<font color='.$strColor.'>'.$strLine.'('.strval($iTotal).')</font>';
+   		if ($fP)
+   		{
+   			$str .= ' P = '.strval_round($fP);
+   		}
+   		return $str;
+    }
+    
+    function GetAll($strLine = '', $strCompare = false, $strCombine = false)
+    {
+		$str = $this->_getText($strLine, $this->strLineColor, $this->iTotal, $this->fP);
+   		if ($strCompare)
+   		{
+   			$str .= '<br />'.$this->_getText($strCompare, $this->strCompareColor, $this->iTotal2, $this->fP2);
+   			if ($strCombine)
+   			{
+   				$str .= '<br />'.$this->_getText($strCombine, $this->strPixelColor, $this->iTotal3, $this->fP3);
+   			}
+   		}
     	$str .= '<br />'.$this->GetLink();
     	return $str;
 	}

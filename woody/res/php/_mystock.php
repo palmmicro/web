@@ -42,44 +42,20 @@ function _echoBenfordParagraph($ref)
 		else
 		{
 			$ymd = new NowYMD();
-			$sql->Write($ymd->GetYMD(), 'NODATA');
+			$a_sql->Write($ymd->GetYMD(), 'NODATA');
 			return;
 		}
 	}
 
-	$ar = array();
-   	if ($result = $a_sql->GetAll()) 
-   	{
-   		while ($record = mysql_fetch_assoc($result)) 
-   		{
-   			$arClose = explode(',', $record['close']);
-			$ar = array_merge($ar, array_unique($arClose));
-    	}
-   		@mysql_free_result($result);
-   	}
-   	
-   	if ($result = $q_sql->GetAll()) 
-   	{
-   		while ($record = mysql_fetch_assoc($result)) 
-   		{
-   			$arClose = explode(',', $record['close']);
-			$ar = array_merge($ar, array_unique($arClose));
-    	}
-   		@mysql_free_result($result);
-   	}
-
-   	if (count($ar) > 100)
-   	{
-   		$str = GetBenfordsLawLink();
-    	$jpg = new BenfordImageFile();
-    	$jpg->Draw($ar);
-    	$str .= ' 数据总数:'.$jpg->GetAll();
-    	EchoParagraph($str);
-    }
+	$str = GetBenfordsLawLink();
+   	$jpg = new BenfordImageFile();
+   	$jpg->Draw($a_sql->GetUniqueCloseArray(), $q_sql->GetUniqueCloseArray());
+   	$str .= '<br />'.$jpg->GetAll('年报', '季报', '合并');
+   	EchoParagraph($str);
 }
 
 function _echoMyStockTransactions($strMemberId, $ref)
-{
+{                         
     $arGroup = array();
     $strStockId = $ref->GetStockId();
 	$sql = new StockGroupSql($strMemberId);

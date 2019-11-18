@@ -147,6 +147,21 @@ class DailyStockStrSql extends DailyStockSql
     	}
     	return false;
     }
+    
+    function GetUniqueCloseArray()
+    {
+    	$ar = array();
+    	if ($result = $this->GetAll()) 
+    	{
+    		while ($record = mysql_fetch_assoc($result)) 
+    		{
+    			$arClose = explode(',', $record['close']);
+    			$ar = array_merge($ar, array_unique($arClose));
+    		}
+    		@mysql_free_result($result);
+    	}
+    	return $ar;
+    }
 }
                                             
 // ****************************** DailyStockValSql class *******************************************************

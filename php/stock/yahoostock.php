@@ -585,6 +585,7 @@ function YahooUpdateFinancials($ref)
     	_updateYahooFinancialsData(&$arAnnual, $str, 'balanceSheetHistory', 'balanceSheetStatements');
     	_updateYahooFinancialsData(&$arAnnual, $str, 'cashflowStatementHistory', 'cashflowStatements');
 //    	DebugArray($arAnnual);
+		if (count($arAnnual) == 0)	return false;
 
     	$arQuarter = array();
     	_updateYahooFinancialsData(&$arQuarter, $str, 'incomeStatementHistoryQuarterly', 'incomeStatementHistory');
