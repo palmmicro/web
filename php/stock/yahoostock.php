@@ -453,6 +453,62 @@ function YahooUpdateNetValue($strSymbol)
 "netIncomeApplicableToCommonShares":{"raw":72540000000,"fmt":"72.54B","longFmt":"72,540,000,000"}
 }*/
 
+/*
+"balanceSheetHistoryQuarterly":
+{"balanceSheetStatements":[{
+"intangibleAssets":{"raw":66100000000,"fmt":"66.1B","longFmt":"66,100,000,000"},
+"capitalSurplus":{"raw":246073000000,"fmt":"246.07B","longFmt":"246,073,000,000"},
+"totalLiab":{"raw":439346000000,"fmt":"439.35B","longFmt":"439,346,000,000"},
+"totalStockholderEquity":{"raw":602799000000,"fmt":"602.8B","longFmt":"602,799,000,000"},
+"minorityInterest":{"raw":117432000000,"fmt":"117.43B","longFmt":"117,432,000,000"},
+"otherCurrentLiab":{"raw":71690000000,"fmt":"71.69B","longFmt":"71,690,000,000"},
+"totalAssets":{"raw":1159577000000,"fmt":"1.16T","longFmt":"1,159,577,000,000"},
+"endDate":{"raw":1569801600,"fmt":"2019-09-30"},
+"commonStock":{"raw":1000000,"fmt":"1M","longFmt":"1,000,000"},
+"otherCurrentAssets":{"raw":94677000000,"fmt":"94.68B","longFmt":"94,677,000,000"},
+"retainedEarnings":{"raw":356993000000,"fmt":"356.99B","longFmt":"356,993,000,000"},
+"otherLiab":{"raw":73875000000,"fmt":"73.88B","longFmt":"73,875,000,000"},
+"goodWill":{"raw":276633000000,"fmt":"276.63B","longFmt":"276,633,000,000"},
+"treasuryStock":{"raw":-268000000,"fmt":"-268M","longFmt":"-268,000,000"},
+"otherAssets":{"raw":49299000000,"fmt":"49.3B","longFmt":"49,299,000,000"},
+"cash":{"raw":234177000000,"fmt":"234.18B","longFmt":"234,177,000,000"},
+"totalCurrentLiabilities":{"raw":243949000000,"fmt":"243.95B","longFmt":"243,949,000,000"},
+"shortLongTermDebt":{"raw":16019000000,"fmt":"16.02B","longFmt":"16,019,000,000"},
+"otherStockholderEquity":{"raw":-268000000,"fmt":"-268M","longFmt":"-268,000,000"},
+"propertyPlantEquipment":{"raw":100907000000,"fmt":"100.91B","longFmt":"100,907,000,000"},
+"totalCurrentAssets":{"raw":335687000000,"fmt":"335.69B","longFmt":"335,687,000,000"},
+"longTermInvestments":{"raw":330951000000,"fmt":"330.95B","longFmt":"330,951,000,000"},
+"netTangibleAssets":{"raw":260066000000,"fmt":"260.07B","longFmt":"260,066,000,000"},
+"shortTermInvestments":{"raw":6833000000,"fmt":"6.83B","longFmt":"6,833,000,000"},
+"maxAge":1,
+"longTermDebt":{"raw":121522000000,"fmt":"121.52B","longFmt":"121,522,000,000"}
+}*/
+
+/*
+"cashflowStatementHistoryQuarterly":
+{"cashflowStatements":[{
+"investments":{"raw":-65965000000,"fmt":"-65.97B","longFmt":"-65,965,000,000"},
+"changeToLiabilities":{"raw":8639000000,"fmt":"8.64B","longFmt":"8,639,000,000"},
+"totalCashflowsFromInvestingActivities":{"raw":-151060000000,"fmt":"-151.06B","longFmt":"-151,060,000,000"},
+"netBorrowings":{"raw":-4231000000,"fmt":"-4.23B","longFmt":"-4,231,000,000"},
+"totalCashFromFinancingActivities":{"raw":-7392000000,"fmt":"-7.39B","longFmt":"-7,392,000,000"},
+"changeToOperatingActivities":{"raw":20551000000,"fmt":"20.55B","longFmt":"20,551,000,000"},
+"issuanceOfStock":{"raw":354000000,"fmt":"354M","longFmt":"354,000,000"},
+"netIncome":{"raw":87886000000,"fmt":"87.89B","longFmt":"87,886,000,000"},
+"changeInCash":{"raw":-4232000000,"fmt":"-4.23B","longFmt":"-4,232,000,000"},
+"endDate":{"raw":1553990400,"fmt":"2019-03-31"},
+"repurchaseOfStock":{"raw":-10872000000,"fmt":"-10.87B","longFmt":"-10,872,000,000"},
+"effectOfExchangeRate":{"raw":3245000000,"fmt":"3.25B","longFmt":"3,245,000,000"},
+"totalCashFromOperatingActivities":{"raw":150975000000,"fmt":"150.97B","longFmt":"150,975,000,000"},
+"depreciation":{"raw":36936000000,"fmt":"36.94B","longFmt":"36,936,000,000"},
+"otherCashflowsFromInvestingActivities":{"raw":-8000000,"fmt":"-8M","longFmt":"-8,000,000"},
+"otherCashflowsFromFinancingActivities":{"raw":7357000000,"fmt":"7.36B","longFmt":"7,357,000,000"},
+"maxAge":1,
+"changeToNetincome":{"raw":-6241000000,"fmt":"-6.24B","longFmt":"-6,241,000,000"},
+"capitalExpenditures":{"raw":-35482000000,"fmt":"-35.48B","longFmt":"-35,482,000,000"}
+}
+*/
+
 function _preg_match_yahoo_financials($str)
 {
     $strBoundary = RegExpBoundary();
@@ -472,7 +528,7 @@ function _preg_match_yahoo_financials_date($str)
     $strAll = RegExpAll();
     
     $strPattern = $strBoundary;
-    $strPattern .= RegExpParenthesis('researchDevelopment'.$strAll, RegExpDate(), $strAll.'netIncomeApplicableToCommonShares');
+    $strPattern .= RegExpParenthesis('{"'.$strAll, RegExpDate(), $strAll.'"}}');
     $strPattern .= $strBoundary;
     
     $arMatch = array();
@@ -480,28 +536,66 @@ function _preg_match_yahoo_financials_date($str)
     return $arMatch;
 }
 
+function _preg_match_yahoo_financials_block($str, $strWhen, $strWhat)
+{
+    $strBoundary = RegExpBoundary();
+    
+    $strPattern = $strBoundary;
+    $strPattern .= RegExpParenthesis('"'.$strWhen.'":{"'.$strWhat.'":\[', '[^\]]*', '\]');
+    $strPattern .= $strBoundary;
+    
+    $arMatch = array();
+    preg_match_all($strPattern, $str, $arMatch, PREG_SET_ORDER);
+    return $arMatch;
+}
+
+function _updateYahooFinancialsData(&$ar, $str, $strWhen, $strWhat)
+{
+	if ($arMatchBlock = _preg_match_yahoo_financials_block($str, $strWhen, $strWhat))
+	{
+		foreach ($arMatchBlock as $arBlock)
+		{
+			if ($arMatchDate = _preg_match_yahoo_financials_date($arBlock[1]))
+			{
+				foreach ($arMatchDate as $arDate)
+				{
+					$strDate = $arDate[1];
+					DebugString($strWhen.' '.$strWhat.' '.$strDate);
+					$arMatch = _preg_match_yahoo_financials($arDate[0]);
+					foreach ($arMatch as $arVal)
+					{
+						$strVal = $arVal[1];
+						if (isset($ar[$strDate]))	$ar[$strDate] .= ','.$strVal;
+						else							$ar[$strDate] = $strVal;
+					}
+				}
+			}
+		}
+	}
+}
+
 function YahooUpdateFinancials($ref)
 {
    	$sym = $ref->GetSym();
    	$strUrl = YahooStockGetUrl($sym->GetYahooSymbol()).'/financials';
-    if (($str = url_get_contents($strUrl)) == false)							return false;
-    if (($arMatchDate = _preg_match_yahoo_financials_date($str)) == false)		return false;
+    if ($str = url_get_contents($strUrl))
+    {
+    	$arAnnual = array();
+    	_updateYahooFinancialsData(&$arAnnual, $str, 'incomeStatementHistory', 'incomeStatementHistory');
+    	_updateYahooFinancialsData(&$arAnnual, $str, 'balanceSheetHistory', 'balanceSheetStatements');
+    	_updateYahooFinancialsData(&$arAnnual, $str, 'cashflowStatementHistory', 'cashflowStatements');
+//    	DebugArray($arAnnual);
 
-	$ar = array();
-   	foreach ($arMatchDate as $arDate)
-   	{
-   		$strDate = $arDate[1];
-		DebugString('YahooUpdateFinancials '.$strDate);
-		$arMatch = _preg_match_yahoo_financials($arDate[0]);
-		foreach ($arMatch as $arVal)
-		{
-			$strVal = $arVal[1];
-			if (isset($ar[$strDate]))	$ar[$strDate] .= ','.$strVal;
-			else							$ar[$strDate] = $strVal;
-		}
+    	$arQuarter = array();
+    	_updateYahooFinancialsData(&$arQuarter, $str, 'incomeStatementHistoryQuarterly', 'incomeStatementHistory');
+    	_updateYahooFinancialsData(&$arQuarter, $str, 'balanceSheetHistoryQuarterly', 'balanceSheetStatements');
+    	_updateYahooFinancialsData(&$arQuarter, $str, 'cashflowStatementHistoryQuarterly', 'cashflowStatements');
+//    	DebugArray($arQuarter);
+    	return array($arAnnual, $arQuarter);
     }
-    DebugArray($ar);
-    return $ar;
+    	
+   	DebugString('YahooUpdateFinancials url_get_contents failed');
+   	return false;
 }
 
 ?>

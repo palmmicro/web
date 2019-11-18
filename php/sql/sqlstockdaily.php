@@ -99,6 +99,14 @@ class DailyStockSql extends StockTableSql
     {
 		return $this->UpdateById(array('close' => $strClose), $strId);
     }
+
+    function WriteArray($ar)
+    {
+		foreach ($ar as $strDate => $strClose)
+		{
+			$this->Write($strDate, $strClose);
+		}
+    }
 }
 
 // ****************************** DailyStockValSql class *******************************************************
@@ -112,7 +120,7 @@ class DailyStockStrSql extends DailyStockSql
     function Create()
     {
         $str = $this->ComposeDailyStr()
-         	  . ' `close` VARCHAR( 2048 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,'
+         	  . ' `close` VARCHAR( 8192 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,'
         	  . $this->ComposeDailyIndexStr();
     	return $this->CreateIdTable($str);
     }
@@ -140,7 +148,7 @@ class DailyStockStrSql extends DailyStockSql
     	return false;
     }
 }
-                                               
+                                            
 // ****************************** DailyStockValSql class *******************************************************
 class DailyStockValSql extends DailyStockSql
 {
@@ -322,12 +330,21 @@ function SqlGetNetValueByDate($strStockId, $strDate)
 	return $sql->GetClose($strDate);
 }
 
-// ****************************** AnnualIncomeSql class *******************************************************
+// ****************************** AnnualIncomeStrSql class *******************************************************
 class AnnualIncomeStrSql extends DailyStockStrSql
 {
     function AnnualIncomeStrSql($strStockId = false) 
     {
         parent::DailyStockStrSql($strStockId, 'annualincomestr');
+    }
+}
+
+// ****************************** QuarterIncomeStrSql class *******************************************************
+class QuarterIncomeStrSql extends DailyStockStrSql
+{
+    function QuarterIncomeStrSql($strStockId = false) 
+    {
+        parent::DailyStockStrSql($strStockId, 'quarterincomestr');
     }
 }
 

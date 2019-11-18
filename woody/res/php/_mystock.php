@@ -21,10 +21,13 @@ function _echoBenfordParagraph($ref)
 {
 	$sym = $ref->GetSym();
 	if ($sym->IsTradable() == false)		return;
-//	if ($sym->IsSymbolUS() == false)		return;
+	if ($sym->IsFundA())					return;
 	
-	$sql = new AnnualIncomeStrSql($ref->GetStockId());
-	if ($str = $sql->GetCloseNow())
+	$strStockId = $ref->GetStockId();
+	$a_sql = new AnnualIncomeStrSql($strStockId);
+	$q_sql = new QuarterIncomeStrSql($strStockId);
+	
+	if ($str = $a_sql->GetCloseNow())
 	{
 		if ($str == 'NODATA')		return;
 	}
@@ -32,10 +35,9 @@ function _echoBenfordParagraph($ref)
 	{
 		if ($ar = YahooUpdateFinancials($ref))
 		{
-			foreach ($ar as $strDate => $strVal)
-			{
-				$sql->Write($strDate, $strVal);
-			}
+			list($arAnnual, $arQuarter) = $ar;
+			$a_sql->WriteArray($arAnnual);
+			$q_sql->WriteArray($arQuarter);
 		}
 		else
 		{
@@ -45,18 +47,34 @@ function _echoBenfordParagraph($ref)
 		}
 	}
 
-   	if ($result = $sql->GetAll()) 
+	$ar = array();
+   	if ($result = $a_sql->GetAll()) 
    	{
-   		$ar = array();
    		while ($record = mysql_fetch_assoc($result)) 
    		{
-			$ar = array_merge($ar, explode(',', $record['close']));
+   			$arClose = explode(',', $record['close']);
+			$ar = array_merge($ar, array_unique($arClose));
     	}
    		@mysql_free_result($result);
+   	}
+   	
+   	if ($result = $q_sql->GetAll()) 
+   	{
+   		while ($record = mysql_fetch_assoc($result)) 
+   		{
+   			$arClose = explode(',', $record['close']);
+			$ar = array_merge($ar, array_unique($arClose));
+    	}
+   		@mysql_free_result($result);
+   	}
 
+   	if (count($ar) > 100)
+   	{
+   		$str = GetBenfordsLawLink();
     	$jpg = new BenfordImageFile();
     	$jpg->Draw($ar);
-    	EchoParagraph($jpg->GetAll());
+    	$str .= ' 数据总数:'.$jpg->GetAll();
+    	EchoParagraph($str);
     }
 }
 
