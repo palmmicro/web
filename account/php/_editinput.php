@@ -1,5 +1,6 @@
 <?php
 require_once('_account.php');
+require_once('/php/stocklink.php');
 require_once('/php/benfordimagefile.php');
 require_once('/php/linearimagefile.php');
 require_once('/php/tutorial/primenumber.php');
@@ -37,7 +38,7 @@ function _getBenfordsLawString($strInput, $bChinese)
 {
     $jpg = new BenfordImageFile();
     $jpg->Draw(explode(';', $strInput));
-    return $jpg->GetAll();
+    return $jpg->GetAll($bChinese ? '总数' : 'Total');
 }
 
 function _getChiSquaredTestString($strInput, $bChinese)
@@ -63,7 +64,7 @@ function _getChiSquaredTestString($strInput, $bChinese)
 	{
 		$str = '';
 	}
-	$str .= '<br /><img src=/woody/blog/photo/chisquaredtest.jpg alt="Pearson\'s Chi-squared Test equation and curve" />';
+	$str .= '<br /><img src=/woody/blog/photo/chi2PValue.gif alt="Pearson\'s Chi-squared Test equation and curve gif" />';
 	return $str;
 }
 
@@ -154,6 +155,16 @@ function GetTaobaoDouble11Data()
 function GetTaobaoDouble11SqrtData()
 {
 	return 'sqrt('.GetTaobaoDouble11Data().')';
+}
+
+function GetTaobaoSalesData()
+{
+	return '66.7; 119; 200; 345; 525; 762; 1011; 1583; 2503; 3768';
+}
+
+function GetTaobaoSalesLogData()
+{
+	return 'log('.GetTaobaoSalesData().')';
 }
 
 function EchoAll($bChinese = true)

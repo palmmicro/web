@@ -75,5 +75,20 @@ function RegExpDebug($arMatch, $strSrc, $iMin)
     return $iCount;
 }
 
+function PregMatchSquareBracket($strPrefix, $str)
+{
+    $strBoundary = RegExpBoundary();
+    
+    $strPattern = $strBoundary;
+    $strPattern .= RegExpParenthesis($strPrefix.'\[', '[^\]]*', '\]');
+    $strPattern .= $strBoundary;
+    
+    $arMatch = array();
+    if (preg_match($strPattern, $str, $arMatch) == 1)
+    {
+    	return $arMatch[1];
+    }
+    return false;
+}
 
 ?>

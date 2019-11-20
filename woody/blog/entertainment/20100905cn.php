@@ -145,9 +145,8 @@
 <h3><?php EchoNameTag('chisquaredtest', ACCOUNT_TOOL_CHI_CN); ?></h3>
 <p>2019年11月15日
 <br /><?php EchoChiSquaredTestLink(); ?>
-<br /><img src=../photo/chisquaredtest.jpg alt="Pearson's Chi-squared Test equation and curve" />
+<br /><img src=../photo/chi2PValue.gif alt="Pearson\'s Chi-squared Test equation and curve gif" />';
 </p>
-
 
 </div>
 

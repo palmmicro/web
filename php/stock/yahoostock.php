@@ -536,38 +536,22 @@ function _preg_match_yahoo_financials_date($str)
     return $arMatch;
 }
 
-function _preg_match_yahoo_financials_block($str, $strWhen, $strWhat)
-{
-    $strBoundary = RegExpBoundary();
-    
-    $strPattern = $strBoundary;
-    $strPattern .= RegExpParenthesis('"'.$strWhen.'":{"'.$strWhat.'":\[', '[^\]]*', '\]');
-    $strPattern .= $strBoundary;
-    
-    $arMatch = array();
-    preg_match_all($strPattern, $str, $arMatch, PREG_SET_ORDER);
-    return $arMatch;
-}
-
 function _updateYahooFinancialsData(&$ar, $str, $strWhen, $strWhat)
 {
-	if ($arMatchBlock = _preg_match_yahoo_financials_block($str, $strWhen, $strWhat))
+	if ($strBlock = PregMatchSquareBracket('"'.$strWhen.'":{"'.$strWhat.'":', $str))
 	{
-		foreach ($arMatchBlock as $arBlock)
+		if ($arMatchDate = _preg_match_yahoo_financials_date($strBlock))
 		{
-			if ($arMatchDate = _preg_match_yahoo_financials_date($arBlock[1]))
+			foreach ($arMatchDate as $arDate)
 			{
-				foreach ($arMatchDate as $arDate)
+				$strDate = $arDate[1];
+//				DebugString($strWhen.' '.$strWhat.' '.$strDate);
+				$arMatch = _preg_match_yahoo_financials($arDate[0]);
+				foreach ($arMatch as $arVal)
 				{
-					$strDate = $arDate[1];
-					DebugString($strWhen.' '.$strWhat.' '.$strDate);
-					$arMatch = _preg_match_yahoo_financials($arDate[0]);
-					foreach ($arMatch as $arVal)
-					{
-						$strVal = $arVal[1];
-						if (isset($ar[$strDate]))	$ar[$strDate] .= ','.$strVal;
-						else							$ar[$strDate] = $strVal;
-					}
+					$strVal = $arVal[1];
+					if (isset($ar[$strDate]))	$ar[$strDate] .= ','.$strVal;
+					else							$ar[$strDate] = $strVal;
 				}
 			}
 		}

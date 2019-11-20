@@ -57,19 +57,12 @@ function FactorialFunction($iNum)
 define('SQRT2PI', 2.5066282746310005024157652848110452530069867406099);
 function GammaFunction($data)
 {
-//	DebugVal($fAlpha, 'GammaFunction');
-//	if (empty($fAlpha - intval($fAlpha)))
-//	{
-//		return FactorialFunction(intval($fAlpha) - 1);
-//	}
-//	return 1;
         if ($data == 0.0) {
             return 0;
         }
         else if ($data == intval($data))
         {
         	$iNum = intval($data) - 1;
-        	DebugVal($iNum, 'GammaFunction');
         	return FactorialFunction($iNum);
         }
 
