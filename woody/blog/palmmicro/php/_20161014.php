@@ -67,4 +67,14 @@ function EchoUpdateChinaBondLink($strType = 'gz')
 	}
 }
 
+function EchoUpdateDowJonesLink()
+{
+    global $acct;
+   	if ($acct->IsAdmin())
+	{
+		EchoInternalLink('/php/test/updatedowjones.php', '更新道琼斯成分股');
+	}
+}
+
+
 ?>

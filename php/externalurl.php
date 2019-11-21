@@ -1,5 +1,10 @@
 <?php
 
+function GetYahooComponentsUrl($strYahooSymbol = '%5EDJI')
+{
+   	return YahooStockGetUrl($strYahooSymbol).'/components';
+}
+
 function GetSinaFinanceUrl()
 {
 	return 'https://finance.sina.com.cn/';

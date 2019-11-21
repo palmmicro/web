@@ -106,6 +106,12 @@
 <br /><?php EchoLink(GetJrjBondListUrl('kzz')); ?> <?php EchoUpdateChinaBondLink('kzz'); ?>
 </p>
 
+<h3><?php EchoNameTag(TABLE_DOW_JONES, '道琼斯成分股'); ?></h3>
+<p>2019年11月22日
+<br />数据来源: 
+<br /><?php EchoLink(GetYahooComponentsUrl()); ?>	<?php EchoUpdateDowJonesLink(); ?>
+</p>
+
 </div>
 
 <?php _LayoutBottom(); ?>

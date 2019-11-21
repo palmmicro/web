@@ -424,6 +424,23 @@ function YahooUpdateNetValue($strSymbol)
     }
 }
 
+// "components":{"components":["AAPL","CSCO","CVX","VZ","JPM","JNJ","MRK","PFE","UNH","MSFT","IBM","V","WBA","UTX","TRV","KO","NKE","MMM","GS","DOW","MCD","DIS","INTC","CAT","XOM","PG","AXP","HD","BA","WMT"],"maxAge":1}}
+function YahooUpdateComponents($strSymbol)
+{
+    $sym = new StockSymbol($strSymbol);
+    if ($sym->IsIndex() == false)	return false;
+
+   	$strUrl = GetYahooComponentsUrl($sym->GetYahooSymbol());
+    if ($str = url_get_contents($strUrl))
+    {
+    	if ($strBlock = PregMatchSquareBracket('"components":{"components":', $str))
+    	{
+    		return explode('","', trim($strBlock, '"'));
+    	}
+    }
+    return false;
+}
+
 /*
 "incomeStatementHistoryQuarterly":
 {"incomeStatementHistory":[{
