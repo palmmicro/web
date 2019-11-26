@@ -11,6 +11,11 @@ function LofGetStockPosition($strEstPrev, $strEst, $strPrev, $strNetValue, $strC
 	return false;
 }
 
+function LofGetStockCalibration($strEst, $strNetValue, $strCny, $strPosition)
+{
+	return strval(intval(floatval($strCny) * floatval($strEst) / floatval($strNetValue) / floatval($strPosition), 0));
+}
+
 // https://markets.ft.com/data/indices/tearsheet/charts?s=SPGOGUP:REU
 function LofGetEstSymbol($strSymbol)
 {

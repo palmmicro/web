@@ -188,6 +188,13 @@ class WeixinStock extends WeixinCallback
 		return $str.$this->GetDefaultText();
 	}
 
+	function GetQqGroupText()
+	{
+		$str = '华宝油气套利群5: <a href="https://jq.qq.com/?_wv=1027&k=58jfWg5">552032726</a>'.WX_EOL;
+    	$str .= GetInternalLink('/woody/image/group5.png', '二维码链接').WX_EOL;
+		return $str;
+	}
+	
 	function OnText($strText, $strUserName)
 	{
 //		DebugString($strText);
@@ -197,6 +204,8 @@ class WeixinStock extends WeixinCallback
 		$strText = UrlCleanString($strText);
 		_updateWeixinTables($strText, $strUserName);
     
+        if (stripos($strText, 'q群') !== false)	return $this->GetQqGroupText();
+
 		$arSymbol = _wxGetStockArray($strText);
 		if ($iCount = count($arSymbol))
 		{

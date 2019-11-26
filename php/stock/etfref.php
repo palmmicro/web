@@ -97,8 +97,6 @@ class EtfReference extends MyPairReference
     var $pair_nv_ref = false;
     var $cny_ref = false;
 
-    var $sql;
-    
     var $strNetValue = '0';
     var $strPairNetValue = '0';
     var $fCnyValue = 1.0;
@@ -112,7 +110,6 @@ class EtfReference extends MyPairReference
         parent::MyPairReference($strSymbol);
         $strStockId = $this->GetStockId();
        	$this->nv_ref = new NetValueReference($strStockId, $this->GetSym());
-        $this->sql = new EtfCalibrationSql($strStockId);
        	if ($strFactorDate = $this->_onCalibration())
        	{
        		$this->_load_cny_ref($strFactorDate);
@@ -151,52 +148,28 @@ class EtfReference extends MyPairReference
 		return true;
 	}
     
-	function _insertCalibartion($strFactorDate)
-	{
-		$this->fFactor = floatval($this->strPairNetValue) / floatval($this->strNetValue);
-		$this->sql->Write($strFactorDate, strval($this->fFactor));
-	}
-	
-	function _loadCalibartion()
-	{
-		if ($calibration = $this->sql->GetNow())
-		{
-			$this->fFactor = floatval($calibration['close']); 
-			$strDate = $calibration['date'];
-			$this->strNetValue = $this->nv_ref->sql->GetClose($strDate);
-			$this->strPairNetValue = $this->pair_nv_ref->sql->GetClose($strDate);
-			return $strDate;
-		}
-
-		// This is NOT normal
-        DebugString('Missing calibration record');
-        return false;
+ 	function GetFactor($strPairNetValue, $strNetValue)
+ 	{
+		return floatval($strPairNetValue) / floatval($strNetValue);
  	}
-	
+ 	
 	function _onNormalEtfCalibration()
 	{
-       	$strDate = $this->nv_ref->strDate;
-       	if (empty($strDate) == false)
-       	{
-        	$this->strNetValue = $this->nv_ref->GetPrice();
-        	if ($strFactor = $this->sql->GetClose($strDate))
-        	{
-        		$this->fFactor = floatval($strFactor);
-        		$this->strPairNetValue = $this->pair_nv_ref->sql->GetClose($strDate);
-        	}
-        	else
-        	{
+    	if ($result = $this->nv_ref->sql->GetAll()) 
+    	{
+    		while ($record = mysql_fetch_assoc($result)) 
+    		{
+    			$strDate = $record['date'];
         		if ($this->strPairNetValue = $this->pair_nv_ref->sql->GetClose($strDate))
         		{
-        			$this->_insertCalibartion($strDate);
+        			$this->strNetValue = rtrim0($record['close']);
+        			$this->fFactor = $this->GetFactor($this->strPairNetValue, $this->strNetValue);
+        			@mysql_free_result($result);
+        			return $strDate;
         		}
-        		else
-        		{
-        			$strDate = $this->_loadCalibartion();
-        		}
-        	}
-        	return $strDate;
-        }
+    		}
+    		@mysql_free_result($result);
+    	}
         return false;
 	}
 	
@@ -205,14 +178,10 @@ class EtfReference extends MyPairReference
 		if ($this->CheckAdjustFactorTime($this->pair_ref))
 		{
 			$strDate = $this->strDate;
-			$this->strPairNetValue = $this->pair_ref->GetPrice();
-			$this->strNetValue = $this->GetPrice();
-   			$this->_insertCalibartion($strDate);
-   			$this->nv_ref->sql->Insert($strDate, $this->strNetValue);
-   			$this->pair_nv_ref->sql->Insert($strDate, $this->strPairNetValue);
-   			return $strDate;
+   			$this->nv_ref->sql->Write($strDate, $this->GetPrice());
+   			$this->pair_nv_ref->sql->Write($strDate, $this->pair_ref->GetPrice());
 		}
-		return $this->_loadCalibartion();
+		return $this->_onNormalEtfCalibration();
 	}
 	
 	function _onCalibration()
@@ -361,14 +330,6 @@ function EtfRefManualCalibration($ref)
    	$strDate = $ar[2];
 	$ref->nv_ref->sql->Write($strDate, $strNetValue);
 	DebugString($ref->GetStockSymbol().' netvalue '.$strNetValue);
-	
-    if ($ref->GetPairSym())
-    {
-    	if ($strPairNetValue = $ref->pair_nv_ref->sql->GetClose($strDate))
-    	{
-    		$ref->sql->Write($strDate, strval(floatval($strPairNetValue) / floatval($strNetValue)));
-        }
-    }
     return $strNetValue;
 }
 

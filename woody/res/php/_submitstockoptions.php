@@ -199,9 +199,6 @@ function _updateStockOptionEtf($strSymbol, $strVal)
     $pair_sql = new EtfPairSql($strStockId);
 	if ($strRatio == '0')
 	{
-        $sql = new EtfCalibrationSql($strStockId);
-        DebugVal($sql->Count(), 'Calibration');
-        $sql->DeleteAll();
         $pair_sql->DeleteAll();
 	}
 	else

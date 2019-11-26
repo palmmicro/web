@@ -23,7 +23,6 @@ function _deleteTableDataById($strTableName)
 	    else
 	    {
 	    	if (_deleteTableDataById(TABLE_NETVALUE_HISTORY))			{}
-	    	else if (_deleteTableDataById(TABLE_ETF_CALIBRATION))	{}
 	    }
 	}
 	

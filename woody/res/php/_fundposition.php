@@ -28,11 +28,12 @@ function _echoFundPositionItem($csv, $ref, $cny_ref, $est_ref, $strDate, $strNet
 		if ($strEstPrev = $est_sql->GetClose($strPrevDate))
 		{
 			$ar[] = $est_ref->GetPercentageDisplay($strEstPrev, $strEst);
-			if ($strVal = LofGetStockPosition($strEstPrev, $strEst, $strPrev, $strNetValue, $strCnyPrev, $strCny, $strInput))
+			if ($strPosition = LofGetStockPosition($strEstPrev, $strEst, $strPrev, $strNetValue, $strCnyPrev, $strCny, $strInput))
 			{
 				$bWritten = true;
-				$csv->Write($strDate, $strNetValue, $strVal);
-				$ar[] = $strVal;
+				$strCalibration = LofGetStockCalibration($strEst, $strNetValue, $strCny, $strPosition);
+				$csv->Write($strDate, $strNetValue, $strPosition, $strCalibration);
+				$ar[] = $strPosition.'/'.$strCalibration;
 			}
 		}
 	}

@@ -2,7 +2,7 @@
 require_once('debug.php');
 
 // 微信公众号公共模板, 返回输入信息
-define('WX_DEBUG_VER', '版本903');		
+define('WX_DEBUG_VER', '版本907');		
 
 define('WX_EOL', "\r\n");
 define('MAX_WX_MSG_LEN', 2048);
@@ -40,6 +40,7 @@ class WeixinCallback
         }
     }
 
+    
     private function responseMsg()
     {
 		$postStr = $GLOBALS['HTTP_RAW_POST_DATA'];		//get post data, May be due to the different environments
@@ -50,13 +51,13 @@ class WeixinCallback
             $fromUsername = $postObj->FromUserName;
             $toUsername = $postObj->ToUserName;
             $time = time();
+//						<FuncFlag>0</FuncFlag>
             $textTpl = '<xml>
     					<ToUserName><![CDATA[%s]]></ToUserName>
 						<FromUserName><![CDATA[%s]]></FromUserName>
 						<CreateTime>%s</CreateTime>
 						<MsgType><![CDATA[%s]]></MsgType>
 						<Content><![CDATA[%s]]></Content>
-						<FuncFlag>0</FuncFlag>
 						</xml>';             
            	$msgType = WX_MSG_TYPE_TEXT;
             $contentStr = $this->handleMessage($postObj);
