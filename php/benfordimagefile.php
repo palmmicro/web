@@ -53,9 +53,9 @@ class BenfordImageFile extends PageImageFile
 	var $iTotal2;
 	var $iTotal3;
 	
-    function BenfordImageFile() 
+    function BenfordImageFile($strIndex = '1') 
     {
-        parent::PageImageFile();
+        parent::PageImageFile($strIndex);
     }
     
     function Draw($arTarget, $arTarget2 = false)

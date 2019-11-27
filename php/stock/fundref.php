@@ -137,7 +137,7 @@ class FundReference extends MysqlReference
     {
     	if ($this->GetStockSymbol() == 'SZ162411')
     	{
-    		$fRatio = 0.87;
+    		$fRatio = 0.82;
     	}
     	else
     	{

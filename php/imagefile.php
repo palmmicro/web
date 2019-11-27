@@ -154,9 +154,9 @@ class PageImageFile extends ImageFile
     var $fMaxY;
     var $fMinY = 0.0;
 
-    function PageImageFile() 
+    function PageImageFile($strIndex = '1') 
     {
-        parent::ImageFile(DebugGetImageName(UrlGetUniqueString()), 640, 480);
+        parent::ImageFile(DebugGetImageName(UrlGetUniqueString().$strIndex), 640, 480);
     }
 
     function _getPos($f, $fMax, $fMin)

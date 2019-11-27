@@ -551,8 +551,8 @@ class StockReference
     
     function _onSinaFutureCN($ar)
     {
-//        $this->strPrice = $ar[8];
-        $this->strPrice = $ar[9];
+        $this->strPrice = $ar[8];
+//        $this->strPrice = $ar[9];
         $this->strTime = substr($ar[1], 0, 2).':'.substr($ar[1], 2, 2).':'.substr($ar[1], 4, 2);
         $this->strPrevPrice = $ar[10];
         $this->strDate = $ar[17];
