@@ -24,7 +24,7 @@ class StockGroup
     
     function OnStockTransaction($trans)
     {
-        $sym = $trans->ref->sym;
+        $sym = $trans->ref;
         if ($sym->IsSymbolA())
         {
             $this->multi_amount->fCNY += $trans->GetValue();
@@ -83,7 +83,7 @@ class MyStockGroup extends StockGroup
     {
         foreach ($this->arStockTransaction as $trans)
         {
-            if ($trans->GetStockSymbol() == $strSymbol)   return $trans;
+            if ($trans->GetSymbol() == $strSymbol)   return $trans;
         }
         return false;
     }
@@ -92,7 +92,7 @@ class MyStockGroup extends StockGroup
     {
         foreach ($this->arStockTransaction as $trans)
         {
-            if ($trans->ref->sym->IsSymbolA())     return $trans;
+            if ($trans->ref->IsSymbolA())     return $trans;
         }
         return false;
     }
@@ -101,7 +101,7 @@ class MyStockGroup extends StockGroup
     {
         foreach ($this->arStockTransaction as $trans)
         {
-            if ($trans->ref->sym->IsSymbolA() == false)     return $trans;
+            if ($trans->ref->IsSymbolA() == false)     return $trans;
         }
         return false;
     }
@@ -110,7 +110,7 @@ class MyStockGroup extends StockGroup
     {
         foreach ($this->arStockTransaction as $trans)
         {
-            if ($trans->ref->sym->IsSymbolH())     return $trans;
+            if ($trans->ref->IsSymbolH())     return $trans;
         }
         return false;
     }
@@ -119,7 +119,7 @@ class MyStockGroup extends StockGroup
     {
         foreach ($this->arStockTransaction as $trans)
         {
-            if ($trans->ref->sym->IsSymbolUS())     return $trans;
+            if ($trans->ref->IsSymbolUS())     return $trans;
         }
         return false;
     }
@@ -141,7 +141,7 @@ class MyStockGroup extends StockGroup
         $this->_checkSymbol($strSymbol);
         foreach ($this->arStockTransaction as $trans)
         {
-            if ($trans->GetStockSymbol() == $strSymbol)
+            if ($trans->GetSymbol() == $strSymbol)
             {
                 $trans->AddTransaction($iShares, $fCost);
                 break;
@@ -154,7 +154,7 @@ class MyStockGroup extends StockGroup
         $this->_checkSymbol($strSymbol);
         foreach ($this->arStockTransaction as $trans)
         {
-            if ($trans->GetStockSymbol() == $strSymbol)
+            if ($trans->GetSymbol() == $strSymbol)
             {
                 $trans->SetValue($iTotalRecords, $iTotalShares, $fTotalCost);
                 $this->OnStockTransaction($trans);
@@ -177,7 +177,7 @@ class MyStockGroup extends StockGroup
     {
         if ($this->arbi_trans)
         {
-            if ($this->arbi_trans->GetStockSymbol() != $strSymbol)
+            if ($this->arbi_trans->GetSymbol() != $strSymbol)
             {
                 $this->bCountArbitrage = false;
             }

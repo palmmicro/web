@@ -48,11 +48,10 @@ function _echoHistoryTableData($sql, $csv, $ref, $est_ref, $iStart, $iNum)
 	$bSameDayNetValue	 = true;
 	if (RefHasData($est_ref))
 	{
-		$sym = $est_ref->GetSym();
-		if ($sym->IsSinaFuture())			{}
-		else if ($sym->IsSymbolUS())
+		if ($est_ref->IsSinaFuture())			{}
+		else if ($est_ref->IsSymbolUS())
 		{
-			if ($ref->sym->IsSymbolA())		$bSameDayNetValue	 = false;
+			if ($ref->IsSymbolA())		$bSameDayNetValue	 = false;
 		}
 	}
 	else
@@ -92,7 +91,7 @@ function _echoFundHistoryParagraph($ref, $est_ref, $csv = false, $iStart = 0, $i
 	$nv_col = new TableColumnNetValue();
 	$premium_col = new TableColumnPremium();
 	
-    $strSymbol = $ref->GetStockSymbol();
+    $strSymbol = $ref->GetSymbol();
     $str = GetMyStockLink($strSymbol).'的历史'.$close_col->GetDisplay().'相对于'.$nv_col->GetDisplay().'的'.$premium_col->GetDisplay();
     
 	$sql = new NetValueHistorySql($ref->GetStockId());
@@ -113,7 +112,7 @@ function _echoFundHistoryParagraph($ref, $est_ref, $csv = false, $iStart = 0, $i
 		$ar[] = new TableColumnOfficalEst();
 		$ar[] = new TableColumnTime();
 		$ar[] = new TableColumnError();
-		$ar[] = new TableColumnMyStock($est_ref->GetStockSymbol());
+		$ar[] = new TableColumnMyStock($est_ref->GetSymbol());
 	}
 	EchoTableParagraphBegin($ar, $strSymbol.FUND_HISTORY_PAGE, $str);
 	

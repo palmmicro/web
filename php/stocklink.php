@@ -233,7 +233,7 @@ function StockGetAllTransactionLink($strGroupId, $ref = false)
 {
 	if ($ref)
 	{
-		$strSymbol = $ref->GetStockSymbol();
+		$strSymbol = $ref->GetSymbol();
 	}
 	else
 	{

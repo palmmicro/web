@@ -18,9 +18,9 @@ function _echoCombinedTransactionTableItem($group, $strDate, $strGroupItemId, $c
     $trans = $group->GetStockTransactionByStockGroupItemId($strGroupItemId);
     if ($trans)
     {
-        $strSymbol = $trans->GetStockSymbol();
+        $strSymbol = $trans->GetSymbol();
         $strCost = $combined_trans->GetAvgCost();
-        if ($fund && $fund->GetStockSymbol() == $strSymbol)
+        if ($fund && $fund->GetSymbol() == $strSymbol)
         {
             $strConvertedShares = strval($fund->GetEstQuantity($combined_trans->iTotalShares));
             $est_ref = $fund->GetEstRef();
@@ -51,7 +51,7 @@ function _getFundClass($group)
 {
     if ($trans = $group->GetStockTransactionCN())
     {
-    	$strSymbol = $trans->GetStockSymbol();
+    	$strSymbol = $trans->GetSymbol();
     	if (in_arrayLof($strSymbol))
     	{
     		return new LofReference($strSymbol);

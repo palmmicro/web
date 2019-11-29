@@ -53,22 +53,23 @@ class NetValueReference extends StockReference
 {
 	var $sql;
 	
-    function NetValueReference($strStockId, $sym) 
+    function NetValueReference($strSymbol) 
     {
-       	$this->sql = new NetValueHistorySql($strStockId);
-        if ($sym->IsFundA())
+        parent::StockReference($strSymbol);
+        
+       	$this->sql = new NetValueHistorySql(SqlGetStockId($strSymbol));
+        if ($this->IsFundA())
         {
-        	$this->LoadSinaFundData($sym);
+        	$this->LoadSinaFundData();
         }
         else
         {
         	$this->LoadSqlData($this->sql);
         }
 
-        parent::StockReference($sym);
-        if ($sym->IsFundA())
+        if ($this->IsFundA())
         {
-       		StockCompareEstResult($this->sql, $this->strPrice, $this->strDate, $this->GetStockSymbol());
+       		StockCompareEstResult($this->sql, $this->GetPrice(), $this->GetDate(), $this->GetSymbol());
         }
     }
     
@@ -83,9 +84,9 @@ class IndexReference extends MyStockReference
 {
 	var $sql;
 	
-    function IndexReference($strSymbol, $sym) 
+    function IndexReference($strSymbol) 
     {
-        parent::MyStockReference($strSymbol, $sym);
+        parent::MyStockReference($strSymbol);
        	$this->sql = $this->his_sql;
     }
 }
@@ -108,8 +109,7 @@ class EtfReference extends MyPairReference
     function EtfReference($strSymbol) 
     {
         parent::MyPairReference($strSymbol);
-        $strStockId = $this->GetStockId();
-       	$this->nv_ref = new NetValueReference($strStockId, $this->GetSym());
+       	$this->nv_ref = new NetValueReference($strSymbol);
        	if ($strFactorDate = $this->_onCalibration())
        	{
        		$this->_load_cny_ref($strFactorDate);
@@ -127,21 +127,21 @@ class EtfReference extends MyPairReference
 		$sym = new StockSymbol($strSymbol);
 		if ($sym->IsSinaFuture())
 		{
-        	$this->pair_nv_ref = new NetValueReference($strStockId, $sym);
+        	$this->pair_nv_ref = new NetValueReference($strSymbol);
 			$this->pair_ref = new FutureReference($strSymbol);
 			return false;
 		}
 		else if ($sym->IsEtf())
 		{
-        	$this->pair_nv_ref = new NetValueReference($strStockId, $sym);
-			$this->pair_ref = new MyPairReference($strSymbol, $sym);
+        	$this->pair_nv_ref = new NetValueReference($strSymbol);
+			$this->pair_ref = new MyPairReference($strSymbol);
 		}
 		else
 		{
-			$this->pair_nv_ref = new IndexReference($strSymbol, $sym);
+			$this->pair_nv_ref = new IndexReference($strSymbol);
 			if ($this->pair_nv_ref->HasData() == false)
 			{
-				$this->pair_nv_ref = new NetValueReference($strStockId, $sym);
+				$this->pair_nv_ref = new NetValueReference($strSymbol);
 			}
 			$this->pair_ref = $this->pair_nv_ref;
 		}
@@ -201,22 +201,21 @@ class EtfReference extends MyPairReference
 
 	function _load_cny_ref($strDate)
 	{
-		$sym = $this->GetSym();
     	if ($pair_sym = $this->GetPairSym())
     	{
     		$strCNY = false;
     		if ($pair_sym->IsSymbolA())
     		{
-    			if ($sym->IsSymbolUS())			$strCNY = 'USCNY';
-    			else if ($sym->IsSymbolH())		$strCNY = 'HKCNY';
+    			if ($this->IsSymbolUS())			$strCNY = 'USCNY';
+    			else if ($this->IsSymbolH())		$strCNY = 'HKCNY';
     		}
     		else if ($pair_sym->IsSymbolH())
     		{
-    			if ($sym->IsSymbolA())			$strCNY = 'HKCNY';
+    			if ($this->IsSymbolA())			$strCNY = 'HKCNY';
     		}
     		else
     		{
-    			if ($sym->IsSymbolA())			$strCNY = 'USCNY';
+    			if ($this->IsSymbolA())			$strCNY = 'USCNY';
     		}
     		
     		if ($strCNY)
@@ -231,7 +230,7 @@ class EtfReference extends MyPairReference
     {
     	if ($this->pair_nv_ref)
     	{
-    		return $this->pair_nv_ref->GetSym();
+    		return $this->pair_nv_ref;
     	}
     	DebugString('pair_nv_ref NOT set');
     	return false;
@@ -257,17 +256,19 @@ class EtfReference extends MyPairReference
     }
     
     // (fEst - fPairNetValue)/(x - fNetValue) = fFactor / fRatio;
+    // fRatio * (cny_now * fEst - cny * fPairNetValue)/(x - fNetValue) = cny * fPairNetValue / fNetValue 
+    // x = (fRatio * (cny_now * fEst - cny * fPairNetValue) / (cny * fPairNetValue) + 1) * fNetValue;
     function EstFromPair($strEst, $strCny = false)
     {
     	$fVal = (floatval($strEst) - floatval($this->strPairNetValue)) * $this->fRatio / $this->fFactor + floatval($this->strNetValue);
-    	return $this->_adjustByCny($fVal, $strCny, ($this->sym->IsSymbolA() ? false : true));
+    	return $this->_adjustByCny($fVal, $strCny, ($this->IsSymbolA() ? false : true));
     }
 
     // (x - fPairNetValue)/(fEsts - fNetValue) = fFactor / fRatio;
     function EstToPair($fEst, $strCny = false)
     {
     	$fVal = ($fEst - floatval($this->strNetValue)) * $this->fFactor / $this->fRatio + floatval($this->strPairNetValue);
-    	return $this->_adjustByCny($fVal, $strCny, $this->sym->IsSymbolA());
+    	return $this->_adjustByCny($fVal, $strCny, $this->IsSymbolA());
     }
 
     function GetOfficialDate()
@@ -329,7 +330,7 @@ function EtfRefManualCalibration($ref)
    	$strNetValue = $ar[0];
    	$strDate = $ar[2];
 	$ref->nv_ref->sql->Write($strDate, $strNetValue);
-	DebugString($ref->GetStockSymbol().' netvalue '.$strNetValue);
+	DebugString($ref->GetSymbol().' netvalue '.$strNetValue);
     return $strNetValue;
 }
 

@@ -94,7 +94,7 @@ class _LofGroup extends _StockGroup
         $this->ConvertToEtfTransaction($etf_convert_trans, $lof_trans);
     
         EchoArbitrageTableBegin();
-        $sym = $this->arbi_trans->ref->sym;
+        $sym = $this->arbi_trans->ref;
         if ($sym->IsSymbolA())
         {
             $arbi_convert_trans = new MyStockTransaction($this->ref->GetEstRef(), $this->strGroupId);
@@ -116,7 +116,7 @@ class _LofGroup extends _StockGroup
     {
     	$ref = $this->ref;
         $est_ref = $ref->GetEstRef();
-        $strSymbol = $ref->GetStockSymbol();
+        $strSymbol = $ref->GetSymbol();
         $strDate = $ref->GetDate();
         $strCNY = $ref->forex_sql->GetClose($strDate);
         
@@ -128,7 +128,7 @@ class _LofGroup extends _StockGroup
        		if ($strEst == false)	$strEst = $est_ref->GetPrevPrice();
        	}
        	
-        $strQuery = sprintf('%s=%s&%s=%s&CNY=%s', $strSymbol, $ref->GetPrice(), $est_ref->GetStockSymbol(), $strEst, $strCNY);
+        $strQuery = sprintf('%s=%s&%s=%s&CNY=%s', $strSymbol, $ref->GetPrice(), $est_ref->GetSymbol(), $strEst, $strCNY);
         return _GetAdjustLink($strSymbol, $strQuery);
     }
 

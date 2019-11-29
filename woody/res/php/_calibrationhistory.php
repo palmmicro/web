@@ -86,7 +86,7 @@ function EchoAll()
     {
     	if ($ref->HasData())
     	{
-    		_echoCalibrationHistoryParagraph($ref->GetStockSymbol(), $acct->GetStart(), $acct->GetNum(), $acct->IsAdmin());
+    		_echoCalibrationHistoryParagraph($ref->GetSymbol(), $acct->GetStart(), $acct->GetNum(), $acct->IsAdmin());
     	}
     }
     $acct->EchoLinks('calibration');

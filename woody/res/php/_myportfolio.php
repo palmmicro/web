@@ -25,9 +25,8 @@ function _echoReference($arRef)
     foreach ($arRef as $ref)
     {
     	RefSetExternalLinkMyStock($ref);
-    	$sym = $ref->GetSym();
-    	if ($sym->IsSymbolA())		$arA[] = $ref;
-    	else if ($sym->IsSymbolH())	$arH[] = $ref;
+    	if ($ref->IsSymbolA())		$arA[] = $ref;
+    	else if ($ref->IsSymbolH())	$arH[] = $ref;
     	else							$arUS[] = $ref;
     }
     EchoReferenceParagraph(array_merge($arA, $arH, $arUS));

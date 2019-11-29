@@ -9,7 +9,7 @@ class _StockGroup extends MyStockGroup
     
     function _StockGroup($arRef) 
     {
-        $this->strName = $arRef[0]->GetStockSymbol();
+        $this->strName = $arRef[0]->GetSymbol();
         $strMemberId = AcctIsLogin();
         if ($strMemberId == false)     return;
         

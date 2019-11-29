@@ -289,7 +289,7 @@ function RefGetDescription($ref, $bConvertDisplay = false)
 
 function RefGetStockDisplay($ref)
 {
-    return RefGetDescription($ref).'【'.$ref->GetStockSymbol().'】';
+    return RefGetDescription($ref).'【'.$ref->GetSymbol().'】';
 }
 
 function RefSortBySymbol($arRef)
@@ -297,7 +297,7 @@ function RefSortBySymbol($arRef)
     $ar = array();
     foreach ($arRef as $ref)
     {
-        $strSymbol = $ref->GetStockSymbol();
+        $strSymbol = $ref->GetSymbol();
         $ar[$strSymbol] = $ref; 
     }
     ksort($ar);

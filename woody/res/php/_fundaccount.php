@@ -170,7 +170,7 @@ function EchoAll()
 	$bAdmin = $acct->IsAdmin();
     if ($ref = $acct->EchoStockGroup())
     {
-   		$strSymbol = $ref->GetStockSymbol();
+   		$strSymbol = $ref->GetSymbol();
         if (in_arrayLof($strSymbol))
         {
         	$strStockId = $ref->GetStockId();

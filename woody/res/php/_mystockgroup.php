@@ -12,7 +12,7 @@ function in_array_ref($strSymbol, $arRef)
 {
 	foreach ($arRef as $ref)
 	{
-		if ($ref->GetStockSymbol() == $strSymbol)
+		if ($ref->GetSymbol() == $strSymbol)
 		{
 			return $ref;
 		}
@@ -55,11 +55,11 @@ function _echoStockGroupArray($arStock)
        			{
        				if ($hshare_ref->a_ref)
        				{
-       					if (in_array_ref($hshare_ref->GetStockSymbol(), $arHShareRef) == false)		$arHShareRef[] = $hshare_ref;
+       					if (in_array_ref($hshare_ref->GetSymbol(), $arHShareRef) == false)		$arHShareRef[] = $hshare_ref;
        				}
        				if ($hshare_ref->adr_ref)
        				{
-       					if (in_array_ref($hshare_ref->GetStockSymbol(), $arHAdrRef) == false)			$arHAdrRef[] = $hshare_ref;
+       					if (in_array_ref($hshare_ref->GetSymbol(), $arHAdrRef) == false)			$arHAdrRef[] = $hshare_ref;
        				}
        			}
        		}

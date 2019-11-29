@@ -37,7 +37,7 @@ function _refSortByRatio($arRef, $bAh = true)
     $arRatio = array();
     foreach ($arRef as $ref)
     {
-        $strSymbol = $ref->GetStockSymbol();
+        $strSymbol = $ref->GetSymbol();
         $ar[$strSymbol] = $ref;
         $arRatio[$strSymbol] = ($bAh ? $ref->GetAhPriceRatio() : $ref->GetAdrhPriceRatio()); 
     }
@@ -98,7 +98,7 @@ function _echoAdrhItem($ref)
 	
    	$ar[] = RefGetMyStockLink($ref);
    	
-    $strSymbolAdr = $ref->adr_ref->GetStockSymbol();
+    $strSymbolAdr = $ref->adr_ref->GetSymbol();
     $ar[] = GetMyStockLink($strSymbolAdr);
     
     if ($fAdrhRatio = $ref->GetAdrhPriceRatio())

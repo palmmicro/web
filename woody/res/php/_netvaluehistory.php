@@ -72,7 +72,7 @@ function _echoNetValueData($csv, $sql, $ref, $est_ref, $cny_ref, $iStart, $iNum)
 
 function _echoNetValueHistory($ref, $iStart, $iNum)
 {
-	$strSymbol = $ref->GetStockSymbol();
+	$strSymbol = $ref->GetSymbol();
     $str = GetFundHistoryLink($strSymbol);
     $str .= ' '.GetStockHistoryLink($strSymbol);
     if (in_arrayLof($strSymbol))
@@ -99,7 +99,7 @@ function _echoNetValueHistory($ref, $iStart, $iNum)
 	{
 		$ar[] = new TableColumnUSCNY();
 		$ar[] = $change_col;
-		$ar[] = new TableColumnNetValue($est_ref->GetStockSymbol());
+		$ar[] = new TableColumnNetValue($est_ref->GetSymbol());
 		$ar[] = $change_col;
 		$position_col = new TableColumnPosition();
 		$ar[] = $position_col;

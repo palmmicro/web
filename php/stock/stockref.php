@@ -1,4 +1,6 @@
 <?php
+require_once('stocksymbol.php');
+
 define('STOCK_SINA_DATA', 'Sina Data');
 define('STOCK_YAHOO_DATA', 'Yahoo Data (possible 15 min delay)');
 define('STOCK_EASTMONEY_DATA', 'East Money Data');
@@ -131,9 +133,8 @@ function _getYahooStr($sym, $strYahooSymbol, $strFileName)
 
 // ****************************** StockReference Class *******************************************************
 
-class StockReference
+class StockReference extends StockSymbol
 {
-    var $sym = false;                  // StockSymbol class
     var $strDescription = false;     // Stock description
     
     var $strFileName;                       // File to store original data
@@ -163,13 +164,10 @@ class StockReference
     var $bHasData = true;
     var $extended_ref = false;          // US stock extended trading StockReference
     
-    function StockReference($sym)
+    function StockReference($strSymbol)
     {
-   		$this->sym = $sym;
-        $this->strConfigName = DebugGetConfigFileName($sym->GetSymbol());
-
-        $this->strPrice = rtrim0($this->strPrice);
-        $this->strPrevPrice = rtrim0($this->strPrevPrice);
+		parent::StockSymbol($strSymbol);
+        $this->strConfigName = DebugGetConfigFileName($this->GetSymbol());
     }
 
     function HasData()
@@ -179,12 +177,12 @@ class StockReference
     
     function GetPrice()
     {
-        return $this->strPrice;
+        return rtrim0($this->strPrice);
     }
     
     function GetPrevPrice()
     {
-        return $this->strPrevPrice;
+        return rtrim0($this->strPrevPrice);
     }
     
     function GetVolume()
@@ -197,11 +195,6 @@ class StockReference
         unlinkEmptyFile($this->strFileName);
     }
     
-    function GetStockSymbol()
-    {
-        return $this->sym->GetSymbol();
-    }
-
     function GetExternalLink()
     {
         return $this->strExternalLink;
@@ -222,15 +215,10 @@ class StockReference
     	$this->strDescription = $str;
     }
     
-    function GetSym()
-    {
-        return $this->sym;
-    }
-
     // for weixin text
     function GetPriceText($fVal)
     {
-        return strval_round($fVal, $this->sym->GetPrecision());
+        return strval_round($fVal, $this->GetPrecision());
     }
 
     function GetPercentage($strDivisor = false, $strDividend = false)
@@ -247,7 +235,7 @@ class StockReference
    		}
    		else
    		{
-   			if (abs($fPercentage * floatval($strDivisor)) < (50.0 / pow(10, $this->sym->GetPrecision())))	return '0';
+   			if (abs($fPercentage * floatval($strDivisor)) < (50.0 / pow(10, $this->GetPrecision())))	return '0';
    		}
    		return strval($fPercentage);
     }
@@ -288,7 +276,7 @@ class StockReference
     	{
     		$strPrev = $this->strPrice;
     	}
-        return StockGetPriceDisplay($strDisp, $strPrev, $this->sym->GetPrecision());
+        return StockGetPriceDisplay($strDisp, $strPrev, $this->GetPrecision());
     }
 
     function ConvertDateTime($iTime, $strTimeZone)
@@ -372,13 +360,13 @@ class StockReference
         return true;
     }
     
-    function LoadYahooData($sym)
+    function LoadYahooData()
     {
-        $strSymbol = $sym->GetSymbol();
+        $strSymbol = $this->GetSymbol();
         $this->strFileName = DebugGetYahooFileName($strSymbol);
-        $this->strExternalLink = GetYahooStockLink($sym);
-        $strYahooSymbol = $sym->GetYahooSymbol();
-        $str = _getYahooStr($sym, $strYahooSymbol, $this->strFileName);
+        $this->strExternalLink = GetYahooStockLink($this);
+        $strYahooSymbol = $this->GetYahooSymbol();
+        $str = _getYahooStr($this, $strYahooSymbol, $this->strFileName);
         if (IsYahooStrError($str))
         {
 //            $this->EmptyFile();
@@ -400,7 +388,7 @@ class StockReference
         $this->strPrevPrice = $ar[5];         // p
         $this->strDate = _convertYahooDate($ar[4]);
         $this->strTime = _convertYahooTime($ar[1]);
-        if ($sym->IsSymbolUS())
+        if ($this->IsSymbolUS())
         {
             $this->strTimeZone = STOCK_TIME_ZONE_US;
         }
@@ -460,7 +448,7 @@ class StockReference
         $this->strChineseName = $ar[1];
     }
     
-    function _onSinaDataUS($ar, $sym)
+    function _onSinaDataUS($ar)
     {
         $this->strName = $ar[0];
         $this->strPrice = $ar[1];
@@ -481,7 +469,7 @@ class StockReference
         
 		if (!empty($ar[24]))
 		{
-			$this->extended_ref = new ExtendedTradingReference($ar, $sym);
+			$this->extended_ref = new ExtendedTradingReference($ar, $this->GetSymbol());
 			$this->extended_ref->strFileName = $this->strFileName;
 		}
     }
@@ -508,26 +496,26 @@ class StockReference
         }
     }
     
-    function LoadSinaData($sym)
+    function LoadSinaData()
     {
-    	$this->strExternalLink = GetSinaStockLink($sym);
-        if ($strSinaSymbol = $sym->GetSinaSymbol())
+    	$this->strExternalLink = GetSinaStockLink($this);
+        if ($strSinaSymbol = $this->GetSinaSymbol())
         {
         	$this->strFileName = DebugGetSinaFileName($strSinaSymbol);
-        	$ar = _getSinaArray($sym, $strSinaSymbol, $this->strFileName);
+        	$ar = _getSinaArray($this, $strSinaSymbol, $this->strFileName);
         	if (count($ar) >= 18)
         	{
-        		if ($sym->IsSymbolA())
+        		if ($this->IsSymbolA())
         		{
         			$this->_onSinaDataCN($ar);
         			return;
         		}
-        		else if ($sym->IsSymbolH())
+        		else if ($this->IsSymbolH())
         		{
         			$this->_onSinaDataHK($ar);
         			return;
         		}
-       			$this->_onSinaDataUS($ar, $sym);
+       			$this->_onSinaDataUS($ar);
        			return;
         	}
         }
@@ -564,10 +552,10 @@ class StockReference
         $this->strVolume = $ar[14];
     }
     
-    function LoadSinaFutureData($sym)
+    function LoadSinaFutureData()
     {
-        $this->strExternalLink = GetSinaFutureLink($sym);
-        $strSymbol = $sym->GetSymbol();
+        $this->strExternalLink = GetSinaFutureLink($this);
+        $strSymbol = $this->GetSymbol();
         $this->strFileName = DebugGetSinaFileName($strSymbol);
         $ar = _GetForexAndFutureArray($strSymbol, $this->strFileName, ForexAndFutureGetTimezone(), 'GetSinaQuotes');
         if (count($ar) < 13)
@@ -576,7 +564,7 @@ class StockReference
             return;
         }
         
-        if ($sym->IsSinaFutureUs())
+        if ($this->IsSinaFutureUs())
         {
             $this->_onSinaFuture($ar);
         }
@@ -586,16 +574,16 @@ class StockReference
         }
     }
     
-    function LoadSinaFundData($sym)
+    function LoadSinaFundData()
     {
-        $this->strExternalLink = GetSinaFundLink($sym);
-        if ($sym->IsSinaFund())	$strFundSymbol = $sym->GetSymbol();
-        else						$strFundSymbol = $sym->GetSinaFundSymbol();
+        $this->strExternalLink = GetSinaFundLink($this);
+        if ($this->IsSinaFund())	$strFundSymbol = $this->GetSymbol();
+        else						$strFundSymbol = $this->GetSinaFundSymbol();
         
         $strFileName = DebugGetSinaFileName($strFundSymbol);
         $this->strFileName = $strFileName;
 
-        if (($str = IsNewDailyQuotes($sym, $strFileName, '_GetFundQuotesYMD')) === false)
+        if (($str = IsNewDailyQuotes($this, $strFileName, '_GetFundQuotesYMD')) === false)
         {
         	$str = GetSinaQuotes($strFundSymbol);
         	if ($str)   file_put_contents($strFileName, $str);
@@ -626,11 +614,11 @@ class StockReference
     	list($this->strDate, $this->strTime) = GetEastMoneyForexDateTime($ar); 
     }
     
-    function LoadEastMoneyCnyData($sym)
+    function LoadEastMoneyCnyData()
     {
-		$strSymbol = $sym->GetSymbol();
+		$strSymbol = $this->GetSymbol();
         $this->strFileName = DebugGetEastMoneyFileName($strSymbol);
-        if (($str = IsNewDailyQuotes($sym, $this->strFileName, _GetEastMoneyQuotesYMD)) === false)
+        if (($str = IsNewDailyQuotes($this, $this->strFileName, _GetEastMoneyQuotesYMD)) === false)
         {
             $str = GetEastMoneyQuotes(ForexGetEastMoneySymbol($strSymbol));
             if ($str)   file_put_contents($this->strFileName, $str);
@@ -645,10 +633,10 @@ class StockReference
         $this->strExternalLink = GetReferenceRateForexLink($strSymbol);
     }
     
-    function LoadSinaForexData($sym)
+    function LoadSinaForexData()
     {
-        $this->strExternalLink = GetSinaForexLink($sym);
-    	$strSymbol = $sym->GetSymbol();
+        $this->strExternalLink = GetSinaForexLink($this);
+    	$strSymbol = $this->GetSymbol();
         $this->strFileName = DebugGetSinaFileName($strSymbol);
         $ar = _GetForexAndFutureArray($strSymbol, $this->strFileName, ForexAndFutureGetTimezone(), 'GetSinaQuotes');
         if (count($ar) < 10)
@@ -665,8 +653,10 @@ class StockReference
 		$this->strDate = end($ar);
     }       
 
-    function LoadEastMoneyForexData($strSymbol)
+    function LoadEastMoneyForexData()
     {
+    	$strSymbol = $this->GetSymbol();
+    	
         $this->strExternalLink = GetEastMoneyForexLink($strSymbol);
         $this->strFileName = DebugGetEastMoneyFileName($strSymbol);
         $ar = _GetForexAndFutureArray(ForexGetEastMoneySymbol($strSymbol), $this->strFileName, ForexAndFutureGetTimezone(), 'GetEastMoneyQuotes');
@@ -693,16 +683,17 @@ class StockReference
 
 class ExtendedTradingReference extends StockReference
 {
-    function ExtendedTradingReference($ar, $sym)
+    function ExtendedTradingReference($ar, $strSymbol)
     {
-        $this->strExternalLink = GetYahooStockLink($sym);
+        parent::StockReference($strSymbol);
+        
+        $this->strExternalLink = GetYahooStockLink($this);
         $this->strPrice = $ar[21];
         $this->_convertDateTimeFromUS($ar[24]);
         $this->strPrevPrice = $ar[26];
 //        $this->strVolume = $ar[27];
         $this->strVolume = strstr($ar[27], '.', true);
 
-        parent::StockReference($sym);
         if ($this->GetHour() <= STOCK_HOUR_BEGIN)
         {
             $this->strDescription = STOCK_PRE_MARKET;
@@ -715,19 +706,18 @@ class ExtendedTradingReference extends StockReference
 }
 
 // ****************************** YahooNetValueReference Class *******************************************************
-
+/*
 class YahooNetValueReference extends StockReference
 {
     function YahooNetValueReference($strStockSymbol)
     {
     	$strSymbol = GetYahooNetValueSymbol($strStockSymbol);
-		$sym = new StockSymbol($strSymbol);
-        $this->LoadYahooData($sym);
-        parent::StockReference($sym);
+        parent::StockReference($strSymbol);
+        $this->LoadYahooData();
         $this->strDescription = STOCK_NET_VALUE;
     }
 }
-
+*/
 // ****************************** Public StockReference functions *******************************************************
 function RefHasData($ref)
 {
@@ -742,7 +732,7 @@ function RefGetMyStockLink($ref)
 {
 	if ($ref)
 	{
-		return GetMyStockLink($ref->GetStockSymbol());
+		return GetMyStockLink($ref->GetSymbol());
 	}
 	return '';
 }
@@ -757,7 +747,7 @@ function RefSetExternalLinkMyStock($ref)
 
 function RefSetExternalLink($ref)
 {
-	$strSymbol = $ref->GetStockSymbol();
+	$strSymbol = $ref->GetSymbol();
 	$strLink = GetStockLink($strSymbol);
    	if ($strLink == false)
     {

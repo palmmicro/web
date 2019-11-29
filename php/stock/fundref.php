@@ -22,12 +22,9 @@ class FundReference extends MysqlReference
     
     function FundReference($strSymbol) 
     {
-		$sym = new StockSymbol($strSymbol);
-        $this->LoadSinaFundData($sym);
-        $this->bConvertGB2312 = true;     // Sina name is GB2312 coded
-        parent::MysqlReference($sym);
+        parent::MysqlReference($strSymbol);
 
-        if ($this->sym->IsFundA())
+        if ($this->IsFundA())
         {
             $this->stock_ref = new MyStockReference($strSymbol);
         }
@@ -36,6 +33,12 @@ class FundReference extends MysqlReference
         	if ($fVal = SqlGetStockCalibrationFactor($strStockId))		$this->fFactor = $fVal; 
         	$this->sql = new NetValueHistorySql($strStockId);
         }
+    }
+
+    function LoadData()
+    {
+        $this->LoadSinaFundData();
+        $this->bConvertGB2312 = true;     // Sina name is GB2312 coded
     }
     
     function GetNetValue()
@@ -84,21 +87,21 @@ class FundReference extends MysqlReference
 
     function UpdateOfficialNetValue()
     {
-		return StockCompareEstResult($this->sql, $this->strPrice, $this->strDate, $this->GetStockSymbol());
+		return StockCompareEstResult($this->sql, $this->GetPrice(), $this->GetDate(), $this->GetSymbol());
     }
 
     function InsertFundCalibration($est_ref, $strEstPrice)
     {
-        return SqlInsertStockCalibration($this->GetStockId(), $est_ref->GetStockSymbol(), $this->strPrice, $strEstPrice, $this->fFactor, DebugGetDateTime());
+        return SqlInsertStockCalibration($this->GetStockId(), $est_ref->GetSymbol(), $this->GetPrice(), $strEstPrice, $this->fFactor, DebugGetDateTime());
     }
 
-    function GetStockSymbol()
+    function GetSymbol()
     {
         if ($this->stock_ref)
         {
-            return $this->stock_ref->GetStockSymbol();
+            return $this->stock_ref->GetSymbol();
         }
-        return parent::GetStockSymbol();
+        return parent::GetSymbol();
     }
 
     function GetStockId()
@@ -135,7 +138,7 @@ class FundReference extends MysqlReference
     
     function AdjustPosition($fVal)
     {
-    	if ($this->GetStockSymbol() == 'SZ162411')
+    	if ($this->GetSymbol() == 'SZ162411')
     	{
     		$fRatio = 0.82;
     	}

@@ -72,7 +72,7 @@ function TextFromFundReference($ref)
 {
     if ($ref->HasData() == false)                return false;
 
-    $strName = RefGetDescription($ref).WX_EOL.$ref->GetStockSymbol().WX_EOL;
+    $strName = RefGetDescription($ref).WX_EOL.$ref->GetSymbol().WX_EOL;
     $stock_ref = $ref->stock_ref;
     if ($stock_ref)
     {

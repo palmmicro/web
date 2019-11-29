@@ -129,7 +129,7 @@ function _getSmaParagraphMemo($his)
 	$strScore = '<b>'.strval($his->iScore).'</b>';
 	$strSymbolLink = GetXueqiuLink($his->GetSym());
     $str = "{$strSymbolLink} {$strDate}数据牛熊分数: {$strScore}";
-    $str .= ' '.GetStockHistoryLink($his->GetStockSymbol());
+    $str .= ' '.GetStockHistoryLink($his->GetSymbol());
     return $str;
 }
 
@@ -141,7 +141,7 @@ function _getSmaParagraphWarning($ref)
 		{
 			if (abs(floatval($record['adjclose']) - floatval($ref->GetPrevPrice())) > 0.0005)
 			{
-				$strSymbol = $ref->GetStockSymbol();
+				$strSymbol = $ref->GetSymbol();
 				$str = '<br /><font color=red>'.$strSymbol.' '.$record['date'].'收盘价冲突</font>: '.$record['adjclose'].' '.$ref->GetPrevPrice();
 				if (AcctIsAdmin())
 				{
@@ -168,7 +168,7 @@ function EchoSmaParagraph($ref, $str = false, $cb_ref = false, $callback = false
     	$est_ref = call_user_func($callback, $cb_ref);
     	$str .= _getSmaParagraphWarning($est_ref);
 
-    	$ar[] = new TableColumnEst(GetXueqiuLink($est_ref->GetSym()));
+    	$ar[] = new TableColumnEst(GetXueqiuLink($est_ref));
     	$ar[] = $next_col;
     }
     

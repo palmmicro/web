@@ -57,7 +57,7 @@ function _deleteHasStockHistory($his_sql)
 
 function _deleteStockSymbol($ref)
 {
-	$strSymbol = $ref->GetStockSymbol();
+	$strSymbol = $ref->GetSymbol();
 	$strStockId = $ref->GetStockId();
 
 	DebugString('Deleting... '.$strSymbol);

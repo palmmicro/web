@@ -34,7 +34,7 @@ function _echoCalibrationData($ref, $sql, $iStart, $iNum, $bAdmin)
 
 function EchoCalibrationParagraph($ref, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY, $bAdmin = false)
 {
-	$strSymbol = $ref->GetStockSymbol();
+	$strSymbol = $ref->GetSymbol();
     
     $ref = new EtfReference($strSymbol);
     $sql = $ref->nv_ref->sql;

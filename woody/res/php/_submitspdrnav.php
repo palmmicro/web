@@ -8,7 +8,7 @@ require_once('_emptygroup.php');
 	{
 	    if ($ref = $acct->GetRef())
 	    {
-	        $str = GetSpdrNavXlsStr($ref->GetStockSymbol());
+	        $str = GetSpdrNavXlsStr($ref->GetSymbol());
 	        DebugString($str);
 	    }
 	}

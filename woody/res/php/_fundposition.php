@@ -146,7 +146,7 @@ function _echoFundPositionParagraph($ref, $cny_ref, $strSymbol, $strInput)
 								   $change_col,
 								   new TableColumnUSCNY(),
 								   $change_col,
-								   new TableColumnNetValue($est_ref->GetStockSymbol()),
+								   new TableColumnNetValue($est_ref->GetSymbol()),
 								   $change_col,
 								   $position_col
 								   ), FUND_POSITION_PAGE, $str);
@@ -188,7 +188,7 @@ function EchoAll()
     
     if ($ref = $acct->EchoStockGroup())
     {
-   		$strSymbol = $ref->GetStockSymbol();
+   		$strSymbol = $ref->GetSymbol();
         if (in_arrayLof($strSymbol))
         {
         	$cny_ref = new CnyReference('USCNY');	// Always create CNY Forex class instance first!

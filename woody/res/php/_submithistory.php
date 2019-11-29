@@ -78,21 +78,20 @@ function _webUpdateYahooHistory($his_sql, $strYahooSymbol)
 function _submitStockHistory($ref)
 {
 	$his_sql = $ref->GetHistorySql();
-    $sym = $ref->GetSym();
-    $strSymbol = $sym->GetSymbol();
+    $strSymbol = $ref->GetSymbol();
     
     unlinkConfigFile($strSymbol);
-    $sym->SetTimeZone();
-	if ($sym->IsIndexA())
+    $ref->SetTimeZone();
+	if ($ref->IsIndexA())
 	{
-		_webUpdateSinaHistory($his_sql, $sym);
+		_webUpdateSinaHistory($his_sql, $ref);
 	}
 	else
 	{
-		_webUpdateYahooHistory($his_sql, $sym->GetYahooSymbol());
-		if ($sym->IsSymbolA() || $sym->IsSymbolH())
+		_webUpdateYahooHistory($his_sql, $ref->GetYahooSymbol());
+		if ($ref->IsSymbolA() || $ref->IsSymbolH())
 		{   // Yahoo has wrong Chinese and Hongkong holiday record with '0' volume 
-			if ($sym->IsIndex() == false)
+			if ($ref->IsIndex() == false)
 			{
 				$his_sql->DeleteByZeroVolume();
 			}

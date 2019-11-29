@@ -3,7 +3,7 @@ require_once('stockgroupparagraph.php');
 
 function _echoTransactionTableItem($ref, $record, $bReadOnly)
 {
-    $strSymbol = $ref->GetStockSymbol();
+    $strSymbol = $ref->GetSymbol();
     $strDate = GetSqlTransactionDate($record);
     $strPrice = $ref->GetPriceDisplay($record['price']);
     $strFees = strval_round(floatval($record['fees']), 2);
@@ -93,7 +93,7 @@ function EchoTransactionParagraph($strGroupId, $ref = false, $iStart = 0, $iNum 
     	if ($ref)
     	{
             $iTotal = $sql->CountStockTransaction($ref->GetStockId());
-           	$strNavLink = GetNavLink('groupid='.$strGroupId.'&symbol='.$ref->GetStockSymbol(), $iTotal, $iStart, $iNum);
+           	$strNavLink = GetNavLink('groupid='.$strGroupId.'&symbol='.$ref->GetSymbol(), $iTotal, $iStart, $iNum);
     	}
     	else
     	{

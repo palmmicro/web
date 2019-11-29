@@ -294,10 +294,9 @@ function _yahooStockGetData($strSymbol, $strStockId)
 function YahooGetWebData($ref)
 {
 	date_default_timezone_set(STOCK_TIME_ZONE_US);
-    $sym = $ref->GetSym();
-    $strSymbol = $sym->GetSymbol();
+    $strSymbol = $ref->GetSymbol();
     $strStockId = $ref->GetStockId();
-    if ($sym->IsIndex())
+    if ($ref->IsIndex())
     {
    		$str = _yahooStockGetData($strSymbol, $strStockId);
    	}
@@ -577,8 +576,7 @@ function _updateYahooFinancialsData(&$ar, $str, $strWhen, $strWhat)
 
 function YahooUpdateFinancials($ref)
 {
-   	$sym = $ref->GetSym();
-   	$strUrl = YahooStockGetUrl($sym->GetYahooSymbol()).'/financials';
+   	$strUrl = YahooStockGetUrl($ref->GetYahooSymbol()).'/financials';
     if ($str = url_get_contents($strUrl))
     {
     	$arAnnual = array();

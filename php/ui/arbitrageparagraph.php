@@ -40,8 +40,7 @@ function _selectArbitrageExternalLink($sym)
 
 function EchoArbitrageTableItem($iQuantity, $strPrice, $trans)
 {
-//    $strSymbol = $trans->GetStockSymbol();
-	$strSymbol = _selectArbitrageExternalLink($trans->ref->sym);
+	$strSymbol = _selectArbitrageExternalLink($trans->ref);
     $strQuantity = strval($iQuantity); 
     $strConvertTotal = strval($trans->iTotalShares); 
     $strConvertPrice = $trans->GetAvgCostDisplay();

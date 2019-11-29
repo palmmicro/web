@@ -42,7 +42,7 @@ function _echoAhHistoryData($csv, $hshare_ref, $his_sql, $iStart, $iNum)
 function _echoAhHistoryParagraph($hshare_ref, $iStart, $iNum, $bAdmin)
 {
 	$strSymbol = $hshare_ref->GetSymbolA();
-    $strSymbolH = $hshare_ref->GetStockSymbol();
+    $strSymbolH = $hshare_ref->GetSymbol();
  	
     $his_sql = $hshare_ref->a_ref->GetHistorySql();
     $strNavLink = StockGetNavLink($strSymbol, $his_sql->Count(), $iStart, $iNum);
@@ -84,7 +84,7 @@ function EchoAll()
     {
     	if ($ref->HasData())
     	{
-			if ($strSymbolH = SqlGetAhPair($ref->GetStockSymbol()))	
+			if ($strSymbolH = SqlGetAhPair($ref->GetSymbol()))	
     		{
     			$hshare_ref = new HShareReference($strSymbolH);
     			_echoAhHistoryParagraph($hshare_ref, $acct->GetStart(), $acct->GetNum(), $acct->IsAdmin());

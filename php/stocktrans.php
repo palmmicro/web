@@ -76,11 +76,11 @@ class MyStockTransaction extends StockTransaction
     	return $this->strGroupId;
     }
     
-    function GetStockSymbol()
+    function GetSymbol()
     {
         if ($this->ref)
         {
-            return $this->ref->GetStockSymbol();
+            return $this->ref->GetSymbol();
         }
         return false;
     }

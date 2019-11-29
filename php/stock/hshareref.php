@@ -36,7 +36,7 @@ class HShareReference extends MyStockReference
     
     function GetSymbolA()
     {
-    	return $this->a_ref ? $this->a_ref->GetStockSymbol() : false;
+    	return $this->a_ref ? $this->a_ref->GetSymbol() : false;
     }
     
     function EstFromCny($strEst)
@@ -52,7 +52,7 @@ class HShareReference extends MyStockReference
     
     function GetCnyPrice()
     {
-    	return $this->EstToCny($this->strPrice);
+    	return $this->EstToCny($this->GetPrice());
     }
     
     function GetAhPriceRatio()
@@ -89,7 +89,7 @@ class HShareReference extends MyStockReference
     
     function GetUsdPrice()
     {
-    	return $this->EstToUsd($this->strPrice);
+    	return $this->EstToUsd($this->GetPrice());
     }
     
     function GetAdrhPriceRatio()

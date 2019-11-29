@@ -5,15 +5,18 @@ class FutureReference extends MysqlReference
 {
     function FutureReference($strSymbol) 
     {
-    	$sym = new StockSymbol($strSymbol);
-        $this->LoadSinaFutureData($sym);
+        parent::MysqlReference($strSymbol);
+    }
+    
+    function LoadData()
+    {
+        $this->LoadSinaFutureData();
         $this->bConvertGB2312 = true;     // Sina name is GB2312 coded
-        parent::MysqlReference($sym);
     }
     
     function InsertStockCalibration($etf_ref)
     {
-        return SqlInsertStockCalibration($this->strSqlId, $etf_ref->GetStockSymbol(), $this->strPrice, $etf_ref->strPrice, $this->fFactor, $etf_ref->GetDateTime());
+        return SqlInsertStockCalibration($this->strSqlId, $etf_ref->GetSymbol(), $this->GetPrice(), $etf_ref->GetPrice(), $this->fFactor, $etf_ref->GetDateTime());
     }
 
     // ETF Factor functions

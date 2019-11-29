@@ -58,7 +58,7 @@ function EchoNvCloseHistoryParagraph($ref, $str = false, $csv = false, $iStart =
 	$iTotal = $sql->Count();
 	if ($iTotal == 0)		return;
 
-    $strSymbol = $ref->GetStockSymbol();
+    $strSymbol = $ref->GetSymbol();
    	$strNavLink = IsTableCommonDisplay($iStart, $iNum) ? '' : StockGetNavLink($strSymbol, $iTotal, $iStart, $iNum);
    	if ($str == false)	$str = GetNvCloseHistoryLink($strSymbol);
 

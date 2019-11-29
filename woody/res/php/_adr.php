@@ -84,7 +84,7 @@ function _echoArbitrageParagraph($group)
     if ($group->arbi_trans == false)		return;
     
     EchoArbitrageTableBegin();
-	$sym = $group->arbi_trans->ref->sym;
+	$sym = $group->arbi_trans->ref;
     if ($sym->IsSymbolA())
     {
         $cn_arbi = $group->arbi_trans;
@@ -122,14 +122,13 @@ function _echoAdrPriceItem($ref)
 	
     $strPriceDisplay = $ref->GetPriceDisplay();
     $strPrice = $ref->GetPrice();
-    $sym = $ref->GetSym();
-    if ($sym->IsSymbolA())
+    if ($ref->IsSymbolA())
     {
         $ar[] = $strPriceDisplay;
         $ar[] = $hk_ref->GetPriceDisplay($hk_ref->EstFromCny($strPrice), $hk_ref->GetPrevPrice());
         $ar[] = $us_ref->GetPriceDisplay($hk_ref->FromCnyToUsd($strPrice), $us_ref->GetPrevPrice());
     }
-    else if ($sym->IsSymbolH())
+    else if ($ref->IsSymbolH())
     {
         $ar[] = $cn_ref->GetPriceDisplay($hk_ref->EstToCny($strPrice), $cn_ref->GetPrevPrice());
         $ar[] = $strPriceDisplay;

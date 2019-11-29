@@ -37,7 +37,7 @@ function EchoAll()
     {
         if ($ref->HasData())
     	{
-    		$strSymbol = $ref->GetStockSymbol();
+    		$strSymbol = $ref->GetSymbol();
     		$strLinks = GetStockHistoryLink($strSymbol);
     		if ($bAdmin = $acct->IsAdmin())
     		{

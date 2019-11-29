@@ -42,7 +42,7 @@ class SymbolAcctStart extends StockAcctStart
     function GetSymbolDisplay($strDefault = '')
     {
     	$ref = $this->GetRef();
-        return $ref ? $ref->GetStockSymbol() : $strDefault;
+        return $ref ? $ref->GetSymbol() : $strDefault;
     }
 
     function GetStockDisplay($strDefault = '')

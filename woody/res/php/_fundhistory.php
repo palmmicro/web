@@ -41,7 +41,7 @@ function EchoAll()
 	
     if ($ref = $acct->EchoStockGroup())
     {
-   		_echoFundHistory($ref->GetStockSymbol(), $acct->GetStart(), $acct->GetNum());
+   		_echoFundHistory($ref->GetSymbol(), $acct->GetStart(), $acct->GetNum());
     }
     $acct->EchoLinks(FUND_HISTORY_PAGE);
 }

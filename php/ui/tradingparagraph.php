@@ -170,7 +170,7 @@ function EchoAhTradingParagraph($hshare_ref)
 
 function EchoEtfTradingParagraph($ref)
 {
-	if ($ref->sym->IsSymbolA() == false)		return;
+	if ($ref->IsSymbolA() == false)		return;
 	
     $strSymbol = RefGetMyStockLink($ref);
     $strPairSymbol = RefGetMyStockLink($ref->pair_nv_ref);

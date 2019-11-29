@@ -6,14 +6,13 @@ function _echoFundEstTableItem($ref, $bFair, $bRealtime)
 {
     if (RefHasData($ref) == false)      return;
 
-    $sym = $ref->GetSym();
-    if ($sym->IsFundA())
+    if ($ref->IsFundA())
     {
-    	$strLink = GetEastMoneyFundLink($sym);
+    	$strLink = GetEastMoneyFundLink($ref);
     }
     else
     {
-    	$strLink = GetYahooStockLink($sym);
+    	$strLink = GetYahooStockLink($ref);
     }
 
     $ar = array($strLink);
@@ -49,13 +48,13 @@ function _getFundRealtimeStr($ref, $strRealtimeEst)
     $future_etf_ref = $ref->future_etf_ref;
    	$est_ref = $ref->GetEstRef();
     
-    $strFutureSymbol = $future_ref->GetStockSymbol();
+    $strFutureSymbol = $future_ref->GetSymbol();
     $str = "期货{$strRealtimeEst}{$strFutureSymbol}关联程度按照100%估算";
     
     if ($future_etf_ref && ($future_etf_ref != $est_ref))
     {
-        $strEtfSymbol = $est_ref->GetStockSymbol();
-        $strFutureEtfSymbol = $future_etf_ref->GetStockSymbol();
+        $strEtfSymbol = $est_ref->GetSymbol();
+        $strFutureEtfSymbol = $future_etf_ref->GetSymbol();
         $str .= ", {$strEtfSymbol}和{$strFutureEtfSymbol}关联程度按照100%估算";
     }
     return $str.'.';    
@@ -65,7 +64,7 @@ function _getFundParagraphStr($ref)
 {
     $strDate = $ref->strOfficialDate;
     $strLastTime = SqlGetStockCalibrationTime($ref->GetStockId());
-    $strHistoryLink = GetCalibrationHistoryLink($ref->GetStockSymbol());
+    $strHistoryLink = GetCalibrationHistoryLink($ref->GetSymbol());
 	$str = GetTableColumnOfficalEst();
     $str .= GetTableColumnDate().$strDate.", 校准时间($strHistoryLink)$strLastTime.";
     if ($ref->fRealtimeNetValue)   $str .= ' '._getFundRealtimeStr($ref, GetTableColumnRealtimeEst());

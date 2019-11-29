@@ -4,11 +4,14 @@
 function LofGetStockPosition($strEstPrev, $strEst, $strPrev, $strNetValue, $strCnyPrev, $strCny, $strInput = '4.0')
 {
 	$fEst = StockGetPercentage($strEstPrev, $strEst);
-	if (abs($fEst) > floatval($strInput) && $strCnyPrev)
+	if (abs($fEst) > floatval($strInput))
 	{
-//		$fVal = (StockGetPercentage($strPrev, $strNetValue) - StockGetPercentage($strCnyPrev, $strCny)) / $fEst;
-		$fVal = StockGetPercentage($strPrev, $strNetValue) / StockGetPercentage(strval(floatval($strEstPrev) * floatval($strCnyPrev)), strval(floatval($strEst) * floatval($strCny)));
-		return strval_round($fVal, 2);
+		$f = StockGetPercentage(strval(floatval($strEstPrev) * floatval($strCnyPrev)), strval(floatval($strEst) * floatval($strCny)));
+		if (empty($f) == false)
+		{
+			$fVal = StockGetPercentage($strPrev, $strNetValue) / $f;
+			return strval_round($fVal, 2);
+		}
 	}
 	return false;
 }

@@ -6,18 +6,17 @@ require_once('/php/ui/stockhistoryparagraph.php');
 
 function _getStockHistoryLinks($ref, $bAdmin)
 {
-	$sym = $ref->GetSym();
-	$strSymbol = $sym->GetSymbol();
+	$strSymbol = $ref->GetSymbol();
 	
 	$strLinks = '相关链接:';
-    if ($sym->IsFundA())
+    if ($ref->IsFundA())
     {
     	$strLinks .= ' '.GetNetValueHistoryLink($strSymbol).' '.GetFundHistoryLink($strSymbol);
     }
-    $strLinks .= ' '.GetExternalStockHistoryLink($sym);
-    if ($sym->IsTradable())
+    $strLinks .= ' '.GetExternalStockHistoryLink($ref);
+    if ($ref->IsTradable())
     {
-    	$strLinks .= ' '.GetStockDividendLink($sym);
+    	$strLinks .= ' '.GetStockDividendLink($ref);
     }
     if ($bAdmin)
     {

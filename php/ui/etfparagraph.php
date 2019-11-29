@@ -31,7 +31,7 @@ function _echoEtfListItem($ref)
     $ar[] = _getEtfPairExternalLink($ref->GetPairSym());
     $ar[] = GetNumberDisplay($ref->fRatio);
     $strFactor = GetNumberDisplay($ref->fFactor);
-    $ar[] = GetCalibrationLink($ref->GetStockSymbol(), $strFactor);
+    $ar[] = GetCalibrationLink($ref->GetSymbol(), $strFactor);
     
     EchoTableColumn($ar);
 }

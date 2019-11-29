@@ -54,8 +54,7 @@ function _getStockOptionName($ref, $strSymbol)
    	$strName = $record['name'];
     $str = $strName;
    	$str .= _getStockOptionNewName($ref, $strName);
-    $sym = $ref->GetSym();
-    if ($sym->IsFundA())
+    if ($ref->IsFundA())
     {
         $fund_ref = new FundReference($strSymbol);
         $str .= _getStockOptionNewName($fund_ref, $strName);
@@ -217,7 +216,7 @@ function StockOptionEditForm($ref, $strSubmit)
     $strEmail = AcctGetEmail(); 
 	$strEmailReadonly = HtmlElementReadonly();
 	
-	$strSymbol = $ref->GetStockSymbol();
+	$strSymbol = $ref->GetSymbol();
 //	$strSymbolReadonly = ($strSubmit == STOCK_OPTION_EDIT) ? '' : HtmlElementReadonly();
 	$strSymbolReadonly = HtmlElementReadonly();
 	

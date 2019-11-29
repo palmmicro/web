@@ -36,7 +36,7 @@ function _echoStockHistoryData($ref, $csv, $iStart, $iNum)
 
 function EchoStockHistoryParagraph($ref, $str = false, $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
 {
-    $strSymbol = $ref->GetStockSymbol();
+    $strSymbol = $ref->GetSymbol();
 	if ($str == false)	$str = GetStockHistoryLink($strSymbol);
     $strNavLink = IsTableCommonDisplay($iStart, $iNum) ? '' : StockGetNavLink($strSymbol, $ref->his_sql->Count(), $iStart, $iNum);
     

@@ -19,9 +19,8 @@ require_once('/php/ui/tradingparagraph.php');
 
 function _echoBenfordParagraph($ref)
 {
-	$sym = $ref->GetSym();
-	if ($sym->IsTradable() == false)		return;
-	if ($sym->IsFundA())					return;
+	if ($ref->IsTradable() == false)		return;
+	if ($ref->IsFundA())					return;
 	
 	$strStockId = $ref->GetStockId();
 	$a_sql = new AnnualIncomeStrSql($strStockId);
@@ -137,9 +136,8 @@ function _echoMyStockData($ref, $strMemberId, $bAdmin)
 {
     $hshare_ref = false;
     $etf_ref = false;
-    $sym = $ref->GetSym();
-    $strSymbol = $sym->GetSymbol();
-    if ($sym->IsFundA())
+    $strSymbol = $ref->GetSymbol();
+    if ($ref->IsFundA())
     {
         $fund = StockGetFundReference($strSymbol);
         $ref = $fund->stock_ref; 
@@ -147,9 +145,9 @@ function _echoMyStockData($ref, $strMemberId, $bAdmin)
     }
     else
     {
-    	if ($ref_ar = StockGetHShareReference($sym))				list($ref, $hshare_ref) = $ref_ar;
+    	if ($ref_ar = StockGetHShareReference($ref))				list($ref, $hshare_ref) = $ref_ar;
     	else if ($etf_ref = StockGetEtfReference($strSymbol))	$ref = $etf_ref;
-//   		else														$ref = StockGetReference($strSymbol, $sym);
+//   		else														$ref = StockGetReference($strSymbol, $ref);
     }
     
     if ($ref->HasData())
@@ -161,7 +159,7 @@ function _echoMyStockData($ref, $strMemberId, $bAdmin)
     		EchoEtfTradingParagraph($etf_ref);
     		EchoEtfHistoryParagraph($etf_ref);
     	}
-    	else if ($sym->IsFundA())
+    	else if ($ref->IsFundA())
     	{
     		if ($fund->fOfficialNetValue)	EchoFundEstParagraph($fund);
     		EchoFundTradingParagraph($fund);
@@ -171,11 +169,11 @@ function _echoMyStockData($ref, $strMemberId, $bAdmin)
     	{
     		if ($hshare_ref)
     		{
-    			if ($strSymbol != $hshare_ref->GetStockSymbol())	RefSetExternalLinkMyStock($hshare_ref);
+    			if ($strSymbol != $hshare_ref->GetSymbol())	RefSetExternalLinkMyStock($hshare_ref);
     			if ($hshare_ref->a_ref)								EchoAhParagraph(array($hshare_ref));
     			if ($hshare_ref->adr_ref)							EchoAdrhParagraph(array($hshare_ref));
     		}
-    		if ($sym->IsSymbolA())
+    		if ($ref->IsSymbolA())
     		{
     			if ($hshare_ref)	EchoAhTradingParagraph($hshare_ref);
     			else 				EchoTradingParagraph($ref);
@@ -184,7 +182,7 @@ function _echoMyStockData($ref, $strMemberId, $bAdmin)
     	}
     
     	if ($etf_ref)   			EchoEtfSmaParagraph($etf_ref);
-    	if (_hasSmaDisplay($sym))
+    	if (_hasSmaDisplay($ref))
     	{
     		if ($hshare_ref)		EchoHShareSmaParagraph($ref, $hshare_ref);
     		else	        		EchoSmaParagraph($ref);
@@ -202,12 +200,12 @@ function _echoMyStockData($ref, $strMemberId, $bAdmin)
     	if ($strStockId = $ref->GetStockId())
     	{
     		$str .= '<br />id='.$strStockId;
-    		$str .= '<br />'._getMyStockLinks($sym);
+    		$str .= '<br />'._getMyStockLinks($ref);
     		if ($ref->HasData())
     		{
     			$str .= '<br />'.$ref->DebugLink();
-    			if ($sym->IsFundA())			$str .= '<br />'.$fund->DebugLink();
-    			if (_hasSmaDisplay($sym)) 		$str .= '<br />'.GetTableColumnSma().' '.$ref->DebugConfigLink();
+    			if ($ref->IsFundA())			$str .= '<br />'.$fund->DebugLink();
+    			if (_hasSmaDisplay($ref)) 		$str .= '<br />'.GetTableColumnSma().' '.$ref->DebugConfigLink();
     		}
     	}
     	EchoParagraph($str);

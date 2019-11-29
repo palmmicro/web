@@ -10,10 +10,12 @@ class MysqlReference extends StockReference
     
     var $his_sql = false;		// StockHistorySql
     
-    function MysqlReference($sym) 
+    function MysqlReference($strSymbol) 
     {
-		parent::StockReference($sym);
-        $this->_loadSqlId($sym->GetSymbol());
+        parent::StockReference($strSymbol);
+        $this->LoadData();
+
+        $this->_loadSqlId($this->GetSymbol());
         if ($this->strSqlId)
         {
         	$this->his_sql = new StockHistorySql($this->strSqlId);
@@ -27,6 +29,10 @@ class MysqlReference extends StockReference
         		}
         	}
         }
+    }
+    
+    function LoadData()
+    {
     }
 
     function GetStockId()
@@ -94,7 +100,7 @@ class MysqlReference extends StockReference
         if ($this->_invalidHistoryData($strHigh))  return;
         $strLow = $this->strLow;
         if ($this->_invalidHistoryData($strLow))  return;
-        $strClose = $this->strPrice;
+        $strClose = $this->GetPrice();
         if ($this->_invalidHistoryData($strClose))  return;
         return $this->his_sql->WriteHistory($this->strDate, $strOpen, $strHigh, $strLow, $strClose, $this->strVolume, $strClose);
     }
@@ -112,7 +118,7 @@ class MysqlReference extends StockReference
 		$strDate = $this->strDate;
 		if ($strPrev = $sql->GetClosePrev($strDate))
 		{
-			$fCur = $this->CalculateEMA(floatval($this->strPrice), floatval($strPrev), $iDays);
+			$fCur = $this->CalculateEMA(floatval($this->GetPrice()), floatval($strPrev), $iDays);
 			$sql->Write($strDate, strval($fCur));
 		}
 	}

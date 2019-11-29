@@ -70,7 +70,7 @@ function _echoThanousParadoxParagraph($strSymbol, $iStart, $iNum)
 {
 	$ref = new LofReference($strSymbol);
 	$est_ref = $ref->GetEstRef();
-	$strEstSymbol = $est_ref->GetStockSymbol();
+	$strEstSymbol = $est_ref->GetSymbol();
 
  	$str = GetFundLinks($strSymbol);
 
@@ -104,7 +104,7 @@ function EchoAll()
 	
     if ($ref = $acct->EchoStockGroup())
     {
-   		$strSymbol = $ref->GetStockSymbol();
+   		$strSymbol = $ref->GetSymbol();
         if (in_arrayLof($strSymbol))
         {
             $fStart = microtime(true);

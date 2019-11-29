@@ -65,7 +65,7 @@ function _getArbitrageQuantityName($bEditLink = false)
 
     if ($group->GetGroupId() && $bEditLink) 
     {
-    	return GetStockOptionLink(STOCK_OPTION_AMOUNT, $group->ref->GetStockSymbol());
+    	return GetStockOptionLink(STOCK_OPTION_AMOUNT, $group->ref->GetSymbol());
     }
     return STOCK_OPTION_AMOUNT;
 }

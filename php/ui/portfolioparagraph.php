@@ -6,12 +6,11 @@ function _echoPortfolioTableItem($trans)
 	$ar = array();
 	
     $ref = $trans->ref;
-    $sym = $ref->GetSym();
-    if ($sym->IsSymbolA())           $strMoney = '';
-    else if ($sym->IsSymbolH())     $strMoney = '港币$';
+    if ($ref->IsSymbolA())           $strMoney = '';
+    else if ($ref->IsSymbolH())     $strMoney = '港币$';
     else                               $strMoney = '$';
     
-    $ar[] = StockGetTransactionLink($trans->GetGroupId(), $sym->GetSymbol());
+    $ar[] = StockGetTransactionLink($trans->GetGroupId(), $ref->GetSymbol());
     $ar[] = $trans->GetProfitDisplay().$strMoney;
     if ($trans->iTotalShares != 0)
     {

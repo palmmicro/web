@@ -342,12 +342,12 @@ class StockHistory
     
     function GetSym()
     {
-        return $this->stock_ref->GetSym();
+        return $this->stock_ref;
     }
     
-    function GetStockSymbol()
+    function GetSymbol()
     {
-        return $this->stock_ref->GetStockSymbol();
+        return $this->stock_ref->GetSymbol();
     }
 
     function GetStockId()
@@ -362,7 +362,7 @@ class StockHistory
     		while ($record = mysql_fetch_assoc($result)) 
     		{
     			$strDate = $record['date'];
-                if (_ignoreCurrentTradingData($strDate, $this->stock_ref->sym))
+                if (_ignoreCurrentTradingData($strDate, $this->stock_ref))
                 {
                 	continue;
                 }

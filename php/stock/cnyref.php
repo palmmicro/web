@@ -10,16 +10,8 @@ class CnyReference extends MysqlReference
     
     function CnyReference($strSymbol)
     {
-        $sym = new StockSymbol($strSymbol);
-        if (self::$strDataSource == STOCK_EASTMONEY_DATA)
-        {
-        	$this->LoadEastMoneyCnyData($sym);
-        }
-        else
-        {
-            $this->_loadDatabaseData($strSymbol);
-        }
-        parent::MysqlReference($sym);
+        parent::MysqlReference($strSymbol);
+        
         if (self::$strDataSource != STOCK_MYSQL_DATA)
         {
         	if ($this->strSqlId)
@@ -28,9 +20,23 @@ class CnyReference extends MysqlReference
         	}
         }
     }
-    
-    function _loadDatabaseData($strSymbol)
+
+    function LoadData()
     {
+        if (self::$strDataSource == STOCK_EASTMONEY_DATA)
+        {
+        	$this->LoadEastMoneyCnyData();
+        }
+        else
+        {
+            $this->_loadDatabaseData();
+        }
+    }
+    
+    function _loadDatabaseData()
+    {
+    	$strSymbol = $this->GetSymbol();
+    	
     	$this->strSqlId = SqlGetStockId($strSymbol);
 		$this->sql = new NetValueHistorySql($this->strSqlId);
        	$this->LoadSqlData($this->sql);
@@ -48,7 +54,7 @@ class CnyReference extends MysqlReference
 		}
     
 		$this->sql = new NetValueHistorySql($this->strSqlId);
-		$this->sql->Insert($this->strDate, $this->strPrice);
+		$this->sql->Insert($this->strDate, $this->GetPrice());
 	}
 
 	function GetClose($strDate)

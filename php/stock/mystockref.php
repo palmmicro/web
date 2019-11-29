@@ -5,26 +5,24 @@ class MyStockReference extends MysqlReference
 {
     public static $strDataSource = STOCK_SINA_DATA;
 
-    function MyStockReference($strSymbol, $sym = false) 
+    function MyStockReference($strSymbol) 
     {
-    	if ($sym == false)
-    	{
-    		$sym = new StockSymbol($strSymbol);
-    	}
-    	
+        parent::MysqlReference($strSymbol);
+    }
+    
+    function LoadData()
+    {
         switch (self::$strDataSource)
         {
         case STOCK_SINA_DATA:
-           	$this->LoadSinaData($sym);
+           	$this->LoadSinaData();
    	        $this->bConvertGB2312 = true;     // Sina name is GB2312 coded
    	        break;
 
    	    case STOCK_YAHOO_DATA:
-            $this->LoadYahooData($sym);
+            $this->LoadYahooData();
             break;
         }
-        
-        parent::MysqlReference($sym);
     }
 }
 
