@@ -22,7 +22,7 @@ class MysqlReference extends StockReference
         	if ($this->bHasData)
         	{
         		$now_ymd = new NowYMD();
-        		if ($now_ymd->GetYMD() == $this->strDate)
+        		if ($now_ymd->GetYMD() == $this->GetDate())
         		{
         			$this->_updateStockHistory();
        				$this->_updateStockEma($now_ymd);
@@ -102,7 +102,7 @@ class MysqlReference extends StockReference
         if ($this->_invalidHistoryData($strLow))  return;
         $strClose = $this->GetPrice();
         if ($this->_invalidHistoryData($strClose))  return;
-        return $this->his_sql->WriteHistory($this->strDate, $strOpen, $strHigh, $strLow, $strClose, $this->strVolume, $strClose);
+        return $this->his_sql->WriteHistory($this->GetDate(), $strOpen, $strHigh, $strLow, $strClose, $this->strVolume, $strClose);
     }
     
     // En = k * X0 + (1 - k) * Em; 其中m = n - 1; k = 2 / (n + 1)
@@ -115,7 +115,7 @@ class MysqlReference extends StockReference
 	function _updateStockEmaDays($iDays)
 	{
 		$sql = new StockEmaSql($this->strSqlId, $iDays);
-		$strDate = $this->strDate;
+		$strDate = $this->GetDate();
 		if ($strPrev = $sql->GetClosePrev($strDate))
 		{
 			$fCur = $this->CalculateEMA(floatval($this->GetPrice()), floatval($strPrev), $iDays);

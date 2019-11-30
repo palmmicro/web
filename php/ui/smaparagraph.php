@@ -125,8 +125,8 @@ function _echoSmaTableData($his, $cb_ref, $callback, $callback2)
 
 function _getSmaParagraphMemo($his)
 {
-	$strDate = $his->strDate;
-	$strScore = '<b>'.strval($his->iScore).'</b>';
+	$strDate = $his->GetStartDate();
+	$strScore = '<b>'.strval($his->GetScore()).'</b>';
 	$strSymbolLink = GetXueqiuLink($his->GetSym());
     $str = "{$strSymbolLink} {$strDate}数据牛熊分数: {$strScore}";
     $str .= ' '.GetStockHistoryLink($his->GetSymbol());

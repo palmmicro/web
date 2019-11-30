@@ -67,7 +67,7 @@ class GoldFundReference extends FundReference
         {
         	$est_ref = $this->GetEstRef();
             if ($est_ref->HasData() == false)            return false;
-            if ($this->strDate != $est_ref->strDate)    return false;
+            if ($this->GetDate() != $est_ref->GetDate())    return false;
             
             $iHour = $est_ref->GetHour();
             if ($iHour >= 9 && $iHour <= 15)

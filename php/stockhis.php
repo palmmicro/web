@@ -172,10 +172,14 @@ class StockHistory
     var $arSMA = array();
     var $arNext = array();
     
-    var $iScore;
-    var $strDate;		// 2014-11-13
+    var $strStartDate;		// 2014-11-13
     
     var $stock_ref;	// MyStockReference
+    
+    function GetStartDate()
+    {
+    	return $this->strStartDate;
+    }
     
     function _buildNextName($strName)
     {
@@ -211,7 +215,7 @@ class StockHistory
     function _getEMA($iDays)
     {
     	$sql = new StockEmaSql($this->GetStockId(), $iDays);
-    	return $sql->GetClose($this->strDate);
+    	return $sql->GetClose($this->strStartDate);
     }
     
     function _cfg_get_EMA($cfg, $iDays)
@@ -288,7 +292,7 @@ class StockHistory
         $afMonthlyClose = array();
 
         $strNextDayYMD = false;
-    	if ($result = $this->stock_ref->his_sql->GetFromDate($this->strDate, MAX_QUOTES_DAYS))
+    	if ($result = $this->stock_ref->his_sql->GetFromDate($this->strStartDate, MAX_QUOTES_DAYS))
     	{
     		while ($record = mysql_fetch_assoc($result)) 
     		{
@@ -316,7 +320,7 @@ class StockHistory
     function _configSMA()
     {
         $cfg = new INIFile($this->stock_ref->strConfigName);
-        $strCurDate = $this->strDate;
+        $strCurDate = $this->strStartDate;
         if ($cfg->group_exists(SMA_SECTION))
         {
             $strDate = $cfg->read_var(SMA_SECTION, 'Date');
@@ -375,7 +379,7 @@ class StockHistory
         return false;
     }
     
-    function _getScore()
+    function GetScore()
     {
     	$arKey = array();
     	foreach ($this->aiNum as $i)
@@ -398,9 +402,8 @@ class StockHistory
     {
         $this->stock_ref = $ref;
         $this->aiNum = array(5, 10, 20);
-		$this->strDate = $this->_getStartDate();
+		$this->strStartDate = $this->_getStartDate();
         $this->_configSMA();
-		$this->iScore = $this->_getScore();
     }
 }
 

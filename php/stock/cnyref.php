@@ -54,7 +54,7 @@ class CnyReference extends MysqlReference
 		}
     
 		$this->sql = new NetValueHistorySql($this->strSqlId);
-		$this->sql->Insert($this->strDate, $this->GetPrice());
+		$this->sql->Insert($this->GetDate(), $this->GetPrice());
 	}
 
 	function GetClose($strDate)

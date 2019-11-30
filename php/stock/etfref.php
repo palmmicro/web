@@ -177,7 +177,7 @@ class EtfReference extends MyPairReference
 	{
 		if ($this->CheckAdjustFactorTime($this->pair_ref))
 		{
-			$strDate = $this->strDate;
+			$strDate = $this->GetDate();
    			$this->nv_ref->sql->Write($strDate, $this->GetPrice());
    			$this->pair_nv_ref->sql->Write($strDate, $this->pair_ref->GetPrice());
 		}
@@ -290,7 +290,7 @@ class EtfReference extends MyPairReference
     
     function GetOfficialNetValue()
     {
-        $this->strOfficialDate = $this->pair_ref->strDate;
+        $this->strOfficialDate = $this->pair_ref->GetDate();
    		$fund_sql = new FundEstSql($this->nv_ref->GetStockId());
         if ($this->cny_ref)
         {

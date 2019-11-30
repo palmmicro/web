@@ -183,7 +183,7 @@ class _LofReference extends FundReference
     {
         if ($this->UpdateOfficialNetValue())
         {
-            $strDate = $this->strDate;
+            $strDate = $this->GetDate();
             if ($strCNY = $this->forex_sql->GetClose($strDate))
             {
             	$est_ref = $this->GetEstRef();
@@ -195,8 +195,8 @@ class _LofReference extends FundReference
                 else
                 {
                 	$ymd = new StringYMD($strDate);
-                	$est_ymd = new StringYMD($est_ref->strDate);
-                	if ($strDate == $est_ref->strDate)	                   				$strEst = $est_ref->GetPrice();
+                	$est_ymd = new StringYMD($est_ref->GetDate());
+                	if ($strDate == $est_ref->GetDate())	                   				$strEst = $est_ref->GetPrice();
                 	else if ($ymd->GetNextTradingDayTick() == $est_ymd->GetTick())		$strEst = $est_ref->GetPrevPrice();
                 	else	return false;
                 }
