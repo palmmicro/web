@@ -7,7 +7,7 @@ function _echoPortfolioTableItem($trans)
 	
     $ref = $trans->ref;
     if ($ref->IsSymbolA())           $strMoney = '';
-    else if ($ref->IsSymbolH())     $strMoney = '港币$';
+    else if ($ref->IsSymbolH())     $strMoney = 'HK$';
     else                               $strMoney = '$';
     
     $ar[] = StockGetTransactionLink($trans->GetGroupId(), $ref->GetSymbol());
