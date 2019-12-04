@@ -14,14 +14,56 @@ class _MyPortfolio extends StockGroup
     }
 }
 
+function _transSortBySymbol($arTrans)
+{
+    $ar = array();
+    foreach ($arTrans as $trans)
+    {
+    	$ref = $trans->GetRef();
+        $strSymbol = $ref->GetSymbol();
+        if (isset($ar[$strSymbol]))
+        {
+        	array_push($ar[$strSymbol], $trans);
+        }
+        else
+        {
+        	$ar[$strSymbol] = array($trans);
+        }
+    }
+    ksort($ar);
+    
+    $arSort = array();
+    foreach ($ar as $str => $arTrans)
+    {
+        $arSort = array_merge($arSort, $arTrans);
+    }
+    return $arSort;
+}
+
+function _transEchoReferenceParagraph($arTrans)
+{
+	$arRef = array();
+	$arSymbol = array();
+	foreach ($arTrans as $trans)
+	{
+		$ref = $trans->GetRef();
+		$strSymbol = $ref->GetSymbol();
+       	if (!in_array($strSymbol, $arSymbol))
+       	{
+            RefSetExternalLinkMyStock($ref);
+       		$arRef[] = $ref;
+       		$arSymbol[] = $strSymbol;
+       	}
+	}
+    StockHistoryUpdate($arRef);    
+    EchoReferenceParagraph($arRef);
+}
+
 function _echoPortfolio($portfolio, $sql)
 {
 	$arTransA = array();
 	$arTransH = array();
 	$arTransUS = array();
-    $arRefA = array();
-    $arRefH = array();
-    $arRefUS = array();
 
 	if ($result = $sql->GetAll()) 
 	{
@@ -36,24 +78,11 @@ function _echoPortfolio($portfolio, $sql)
 		            if ($trans->GetTotalRecords() > 0)
 		            {
 		                $portfolio->OnStockTransaction($trans);
-		                $ref = $trans->GetRef();
-		                RefSetExternalLinkMyStock($ref);
 		                
-		                if ($ref->IsSymbolA())
-		                {
-		                	if (!in_array($ref, $arRefA))    $arRefA[] = $ref;
-		                	$arTransA[] = $trans;
-		                }
-		                else if ($ref->IsSymbolH())
-		                {
-		                	if (!in_array($ref, $arRefH))    $arRefH[] = $ref;
-		                	$arTransH[] = $trans;
-		                }
-		                else
-		                {
-		                	if (!in_array($ref, $arRefUS))    $arRefUS[] = $ref;
-		                	$arTransUS[] = $trans;
-		                }
+		                $ref = $trans->GetRef();
+		                if ($ref->IsSymbolA())	       	$arTransA[] = $trans;
+		                else if ($ref->IsSymbolH())      	$arTransH[] = $trans;
+		                else			                	$arTransUS[] = $trans;
 		            }
 		        }
 		    }
@@ -61,10 +90,9 @@ function _echoPortfolio($portfolio, $sql)
 		@mysql_free_result($result);
 	}
 
-	$arRef = array_merge(RefSortBySymbol($arRefA), RefSortBySymbol($arRefH), RefSortBySymbol($arRefUS));
-    StockHistoryUpdate($arRef);    
-    EchoReferenceParagraph($arRef);
-	EchoPortfolioParagraph('个股盈亏', array_merge(TransSortBySymbol($arTransA), TransSortBySymbol($arTransH), TransSortBySymbol($arTransUS)));
+	$arTrans = array_merge(_transSortBySymbol($arTransA), _transSortBySymbol($arTransH), _transSortBySymbol($arTransUS));
+    _transEchoReferenceParagraph($arTrans);
+	EchoPortfolioParagraph('个股盈亏', $arTrans);
 }
 
 function _echoMoneyParagraph($portfolio)

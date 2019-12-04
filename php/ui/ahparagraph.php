@@ -51,6 +51,24 @@ function _refSortByRatio($arRef, $bAh = true)
     return $arSort;
 }
 
+function _refSortBySymbol($arRef)
+{
+    $ar = array();
+    foreach ($arRef as $ref)
+    {
+        $strSymbol = $ref->GetSymbol();
+        $ar[$strSymbol] = $ref; 
+    }
+    ksort($ar);
+    
+    $arSort = array();
+    foreach ($ar as $str => $ref)
+    {
+        $arSort[] = $ref;
+    }
+    return $arSort;
+}
+
 function EchoAhParagraph($arRef)
 {
 	$str = GetAhCompareLink();
@@ -65,7 +83,7 @@ function EchoAhParagraph($arRef)
 		{
 			if ($strSort == 'hshare')
 			{
-				$arRef = RefSortBySymbol($arRef);
+				$arRef = _refSortBySymbol($arRef);
 			}
 			else if ($strSort == 'ratio')
 			{
@@ -119,7 +137,7 @@ function EchoAdrhParagraph($arRef)
 		{
 			if ($strSort == 'hshare')
 			{
-				$arRef = RefSortBySymbol($arRef);
+				$arRef = _refSortBySymbol($arRef);
 			}
 			else if ($strSort == 'ratio')
 			{

@@ -292,43 +292,6 @@ function RefGetStockDisplay($ref)
     return RefGetDescription($ref).'【'.$ref->GetSymbol().'】';
 }
 
-function RefSortBySymbol($arRef)
-{
-    $ar = array();
-    foreach ($arRef as $ref)
-    {
-        $strSymbol = $ref->GetSymbol();
-        $ar[$strSymbol] = $ref; 
-    }
-    ksort($ar);
-    
-    $arSort = array();
-    foreach ($ar as $str => $ref)
-    {
-        $arSort[] = $ref;
-    }
-    return $arSort;
-}
-
-function TransSortBySymbol($arTrans)
-{
-    $ar = array();
-    foreach ($arTrans as $trans)
-    {
-    	$ref = $trans->GetRef();
-        $strSymbol = $ref->GetSymbol();
-        $ar[$strSymbol] = $trans; 
-    }
-    ksort($ar);
-    
-    $arSort = array();
-    foreach ($ar as $str => $trans)
-    {
-        $arSort[] = $trans;
-    }
-    return $arSort;
-}
-
 // ****************************** Stock final integration functions *******************************************************
 function EtfGetAllSymbolArray($strSymbol)
 {
