@@ -51,7 +51,7 @@ class _ChinaEtfGroup extends _StockGroup
 			$sql->Insert($strDate, $strPrice);
 		}
 		
-        parent::_StockGroup(array($this->ref, $this->us_ref, $this->ref->pair_nv_ref));
+        parent::_StockGroup(array($this->ref, $this->us_ref, $this->ref->GetPairNvRef()));
     }
 }
 
@@ -60,7 +60,7 @@ function EchoAll()
     global $group;
     
 	EchoFundArrayEstParagraph(array($group->ref, $group->us_ref));
-    EchoReferenceParagraph(array($group->ref->pair_nv_ref, $group->ref, $group->us_ref, $group->a50_ref, $group->cnh_ref));
+    EchoReferenceParagraph(array($group->ref->GetPairNvRef(), $group->ref, $group->us_ref, $group->a50_ref, $group->cnh_ref));
     EchoEtfListParagraph(array($group->ref, $group->us_ref));
     EchoEtfTradingParagraph($group->ref);
     EchoEtfSmaParagraph($group->ref);
@@ -95,7 +95,7 @@ function EchoMetaDescription()
     global $group;
 
     $strDescription = RefGetStockDisplay($group->ref);
-    $strEst = RefGetStockDisplay($group->ref->pair_nv_ref);
+    $strEst = RefGetStockDisplay($group->ref->GetPairNvRef());
     $strUS = RefGetStockDisplay($group->us_ref);
     $strCNY = RefGetStockDisplay($group->us_ref->cny_ref);
     $str = "根据{$strEst}计算{$strDescription}净值的网页工具. 同时根据{$strUS}和{$strCNY}提供配对交易分析.";

@@ -116,6 +116,11 @@ class EtfReference extends MyPairReference
        	}
     }
     
+    function GetPairNvRef()
+    {
+    	return $this->pair_nv_ref;
+    }
+    
     function GetNetValue()
     {
     	return $this->strNetValue;

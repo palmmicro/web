@@ -1,5 +1,8 @@
 <?php
 
+define('FRIENDS_FOLLOWERS_RATIO', 9);
+define('STATUS_FOLLOWERS_RATIO', 15);
+
 /*
 {"subscribeable":false,"remark":null,"common_count":0,"recommend_reason":null,"verified_infos":[{"verified_type":"5","verified_desc":"用户已完成实名身份认证"}],"st_color":"1","name":null,"location":null,"id":1352803596,"type":"1","followers_count":33,"recommend":null,"domain":null,"intro":null,"follow_me":false,"blocking":false,"stock_status_count":null,"description":"价值投资实践中","friends_count":427,"verified":false,"status":1,"profile":"/1352803596","stocks_count":51,"screen_name":"夜雨声烦","step":"three","allow_all_stock":false,"blog_description":null,"city":"朝阳区","donate_count":0,"gender":"m","last_status_id":124285811,"status_count":471,"province":"北京","url":null,"verified_description":null,"verified_type":0,"following":false,"group_ids":null,"name_pinyin":null,"screenname_pinyin":null,"photo_domain":"//xavatar.imedao.com/","profile_image_url":"community/20181/1517494875003-1517494875490.jpg,community/20181/1517494875003-1517494875490.jpg!180x180.png,community/20181/1517494875003-1517494875490.jpg!50x50.png,community/20181/1517494875003-1517494875490.jpg!30x30.png","privacy_agreement":null,"cube_count":2,"verified_realname":true},
 {"subscribeable":false,"remark":null,"common_count":0,"recommend_reason":null,"verified_infos":[{"verified_type":"5","verified_desc":"用户已完成实名身份认证"}],"st_color":"1","name":null,"location":null,"id":1512427742,"type":"1","followers_count":45,"recommend":null,"domain":null,"intro":null,"follow_me":false,"blocking":false,"stock_status_count":null,"description":"寂寞深山雪, 清贫瑶池奴. （.*? ）","friends_count":306,"verified":false,"status":2,"profile":"/1512427742","stocks_count":42,"screen_name":"集韵","step":"null","allow_all_stock":false,"blog_description":null,"city":"","donate_count":0,"gender":"n","last_status_id":125246450,"status_count":529,"province":"","url":null,"verified_description":null,"verified_type":0,"following":false,"group_ids":null,"name_pinyin":null,"screenname_pinyin":null,"photo_domain":"//xavatar.imedao.com/","profile_image_url":"community/20187/1534327350426-1534327350715.jpg,community/20187/1534327350426-1534327350715.jpg!180x180.png,community/20187/1534327350426-1534327350715.jpg!50x50.png,community/20187/1534327350426-1534327350715.jpg!30x30.png","privacy_agreement":null,"cube_count":4,"verified_realname":true},
@@ -118,7 +121,8 @@ function GetXueqiuFriend($strId, $strToken = false)
 	if ($strToken)	$arFollowMe = array();
 	$arFriend = array();
 	$arFollower = array();
-	$arFriendFollower = array();
+//	$arFriendFollower = array();
+	$arStatusFollower = array();
 	$arStatus = array();
 	$arStock = array();	// stocks_count
     $xq_sql = new XueqiuIdSql();
@@ -144,8 +148,12 @@ function GetXueqiuFriend($strId, $strToken = false)
 				}
 				if ($arCur['friends_count'] > 1980)										$arFriend[] = $arCur['id'];
 				if ($arCur['followers_count'] <= 1)										$arFollower[] = $arCur['id'];
-				if (($arCur['followers_count'] * 25) < $arCur['friends_count'])			$arFriendFollower[] = $arCur['id'];
+//				if (($arCur['followers_count'] * FRIENDS_FOLLOWERS_RATIO) < $arCur['friends_count'])			$arFriendFollower[] = $arCur['id'];
 				if ($arCur['status_count'] == 0)											$arStatus[] = $arCur['id'];
+				else
+				{
+					if (($arCur['followers_count'] * STATUS_FOLLOWERS_RATIO) < $arCur['status_count'])			$arStatusFollower[] = $arCur['id'];
+				}
 				if (($arCur['stocks_count'] == 0) && ($arCur['cube_count'] == 0))		$arStock[] = $arCur['id'];
 				$xq_sql->Write($arCur['id'], $arCur['screen_name'], $arCur['friends_count'], $arCur['followers_count'], $arCur['status_count']);
 				$iCount ++;
@@ -160,7 +168,8 @@ function GetXueqiuFriend($strId, $strToken = false)
 		$str .= _getXueqiuIdLinks('没关注我', $arFollowMe, $xq_sql);
 	}
 	$str .= _getXueqiuIdLinks('只有我关注了', $arFollower, $xq_sql);
-	$str .= _getXueqiuIdLinks('关注比例悬殊', $arFriendFollower, $xq_sql);
+//	$str .= _getXueqiuIdLinks('关注比例悬殊', $arFriendFollower, $xq_sql);
+	$str .= _getXueqiuIdLinks('关注和发言比例悬殊', $arStatusFollower, $xq_sql);
 	$str .= _getXueqiuIdLinks('不发言', $arStatus, $xq_sql);
 	$str .= _getXueqiuIdLinks('既没自选股也没组合', $arStock, $xq_sql);
 	$str .= _getXueqiuIdLinks('可能需要这个软件', $arFriend, $xq_sql);
@@ -180,6 +189,7 @@ function GetXueqiuFollower($strId, $strToken)
 	$strUrl = GetXueqiuUrl().'friendships/followers.json?uid='.$strId;
 	$arFollowing = array();
 	$arNoFollower = array();
+	$arFriendFollower = array();
     $xq_sql = new XueqiuIdSql();
 	
     $fStart = microtime(true);
@@ -198,7 +208,11 @@ function GetXueqiuFollower($strId, $strToken)
 				if (($arCur['following'] == false) && ($arCur['status_count'] > 0))
 				{
 					if ($arCur['followers_count'] == 0)	$arNoFollower[] = $arCur['id'];
-					else									$arFollowing[] = $arCur['id'];
+					else
+					{
+						if (($arCur['friends_count'] * FRIENDS_FOLLOWERS_RATIO) < $arCur['followers_count'])		$arFriendFollower[] = $arCur['id'];
+						else																	$arFollowing[] = $arCur['id'];
+					}
 				}
 				$xq_sql->Write($arCur['id'], $arCur['screen_name'], $arCur['friends_count'], $arCur['followers_count'], $arCur['status_count']);
 				$iCount ++;
@@ -208,8 +222,10 @@ function GetXueqiuFollower($strId, $strToken)
 	} while ($iPage <= intval($ar['maxPage']));
 	
 	$str = '读到'.strval($iCount).'个粉丝<br />';
-	$str .= _getXueqiuIdLinks('无粉丝有发言但是没关注', $arNoFollower, $xq_sql);
-	$str .= _getXueqiuIdLinks('有粉丝有发言但是没关注', $arFollowing, $xq_sql);
+	$str .= '我没关注的<br />';
+	$str .= _getXueqiuIdLinks('关注比例悬殊', $arFriendFollower, $xq_sql);
+	$str .= _getXueqiuIdLinks('无粉丝有发言', $arNoFollower, $xq_sql);
+	$str .= _getXueqiuIdLinks('有粉丝有发言', $arFollowing, $xq_sql);
 	return $str.DebugGetStopWatchDisplay($fStart);
 }
 

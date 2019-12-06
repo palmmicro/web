@@ -434,10 +434,6 @@ class StockReference extends StockSymbol
         $this->strPrice = $ar[6];
         $this->strDate = str_replace('/', '-', $ar[17]);    // 2016/03/02
         $this->strTime = $ar[18];
-/*        if (_HasSinaRealtimeHkData($strSymbol) == false)
-        {   // 16:01
-            $this->strTime .= ':00';
-        }*/
 
         $this->strOpen = $ar[2];
         $this->strHigh = $ar[4];

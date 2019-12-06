@@ -3,7 +3,8 @@ require_once('stocktable.php');
 
 function _echoCalibrationItem($ref, $sql, $strNetValue, $strDate, $bAdmin)
 {
-    if ($strPairNetValue = $ref->pair_nv_ref->sql->GetClose($strDate))
+	$pair_nv_ref = $ref->GetPairNvRef();
+    if ($strPairNetValue = $pair_nv_ref->sql->GetClose($strDate))
     {
     	$ar = array($strDate);
    		$ar[] = $ref->GetPriceDisplay($strNetValue);
@@ -37,6 +38,8 @@ function EchoCalibrationParagraph($ref, $iStart = 0, $iNum = TABLE_COMMON_DISPLA
 	$strSymbol = $ref->GetSymbol();
     
     $ref = new EtfReference($strSymbol);
+    if ($ref->GetPairNvRef() == false)	return;
+    
     $sql = $ref->nv_ref->sql;
     
 	if (IsTableCommonDisplay($iStart, $iNum))

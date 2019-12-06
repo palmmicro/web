@@ -68,12 +68,6 @@ function ForexGetEastMoneySymbol($strSymbol)
     }
     return false;
 }
-/*
-function _HasSinaRealtimeHkData($strSymbol)
-{
-    return true;
-}
-*/
 
 function GetYahooNetValueSymbol($strEtfSymbol)
 {
@@ -126,6 +120,7 @@ function GetSinaQuotes($strSinaSymbols)
 //    DebugString('Sina:'.$strSymbols);
     if (strlen($str) < 10)      return false;   // Sina returns error in an empty file
     return $str;
+//    return false;
 }
 
 /*

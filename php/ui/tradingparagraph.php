@@ -173,7 +173,7 @@ function EchoEtfTradingParagraph($ref)
 	if ($ref->IsSymbolA() == false)		return;
 	
     $strSymbol = RefGetMyStockLink($ref);
-    $strPairSymbol = RefGetMyStockLink($ref->pair_nv_ref);
+    $strPairSymbol = RefGetMyStockLink($ref->GetPairNvRef());
 
     $arColumn = _getTradingTableColumn();
 	$strPremium = GetTableColumnOfficalPremium();
