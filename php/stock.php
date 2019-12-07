@@ -7,6 +7,7 @@ require_once('externallink.php');
 //require_once('sql.php');
 require_once('gb2312.php');
 
+require_once('sql/sqlipaddress.php');
 require_once('sql/sqlstock.php');
 
 require_once('stock/stocksymbol.php');
@@ -114,13 +115,19 @@ function GetSinaQuotesUrl($strSinaSymbols)
 }	
 
 function GetSinaQuotes($strSinaSymbols)
-{ 
+{
+	$strIp = UrlGetIp();
+	if (SqlGetIpStatus($strIp) == IP_STATUS_CRAWL)
+	{
+		DebugString('Ignore crawler: '.gethostbyaddr($strIp).' '.$strSinaSymbols);
+		return false;
+	}
+	
     $strUrl = GetSinaQuotesUrl($strSinaSymbols);
     $str = url_get_contents($strUrl);
 //    DebugString('Sina:'.$strSymbols);
     if (strlen($str) < 10)      return false;   // Sina returns error in an empty file
     return $str;
-//    return false;
 }
 
 /*

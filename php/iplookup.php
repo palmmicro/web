@@ -3,6 +3,15 @@
 require_once('debug.php');
 require_once('ui/commentparagraph.php');
 
+function IpSetCrawler($strIp, $strRemark)
+{
+   	if (strstr_array($strRemark, array('ahrefs.com', 'bot', 'crawl', 'spider')))
+   	{
+   		DebugString($strIp.' marked as crawler: '.$strRemark);
+   		SqlSetIpStatus($strIp, IP_STATUS_CRAWL);
+   	}
+}
+
 define('IPINFO_IO_IP_URL', 'http://ipinfo.io/');
 function _getIpInfoIpLookUpUrl($strIp)
 {
@@ -17,15 +26,18 @@ function IpInfoIpLookUp($strIp)
     $ar = json_decode($str, true);
     if (isset($ar['hostname']))
     {
-    	if ($ar['hostname'] == 'No Hostname')  unset($ar['hostname']);
+    	if ($ar['hostname'] == 'No Hostname')		unset($ar['hostname']);
+    	else										IpSetCrawler($strIp, $ar['hostname']);
     }
+    
     return $ar;
 }
 
 // http://www.projecthoneypot.org/httpbl_api.php
 define('PROJECT_HONEY_POT_URL', 'http://www.projecthoneypot.org/ip_');
-function ProjectHoneyPotGetSearchEngineArray()
+function ProjectHoneyPotGetSearchEngineArray($strIp)
 {
+    SqlSetIpStatus($strIp, IP_STATUS_CRAWL);
     return array('Undocumented', 'AltaVista', 'Ask', 'Baidu', 'Excite', 'Google', 'Looksmart', 'Lycos', 'MSN', 'Yahoo', 'Cuil', 'InfoSeek', 'Miscellaneous', '(13)', 'Yandex');
 }
 
@@ -53,7 +65,7 @@ function ProjectHoneyPotCheckSearchEngine($strIp)
     {
         if ($ar[3] == '0')
         {
-            $arSearchEngine = ProjectHoneyPotGetSearchEngineArray();
+            $arSearchEngine = ProjectHoneyPotGetSearchEngineArray($strIp);
             $iIndex = intval($ar[2]);
             trigger_error('Known ProjectHoneyPot Search Engine - '.$arSearchEngine[$iIndex]);
             return true;
@@ -62,11 +74,11 @@ function ProjectHoneyPotCheckSearchEngine($strIp)
     return false;
 }
 
-function _getProjectHoneyPotIpLookUpString($ar)
+function _getProjectHoneyPotIpLookUpString($strIp, $ar)
 {
     if ($ar[3] == '0')
     {
-        $arSearchEngine = ProjectHoneyPotGetSearchEngineArray();
+        $arSearchEngine = ProjectHoneyPotGetSearchEngineArray($strIp);
         $iIndex = intval($ar[2]);
         return 'Search Engine - '.$arSearchEngine[$iIndex].'('.$ar[2].')';
     }
@@ -88,6 +100,7 @@ function DnsIpLookUp($strIp)
     {
         if ($strHostName != $strIp)
         {
+        	IpSetCrawler($strIp, $strHostName);
             return $strHostName;
         }
     }
@@ -166,6 +179,10 @@ function _ipLookupIpAddressTable($strIp, $strNewLine, $bChinese)
         {
         	$str .= $strNewLine.'<font color=red>'.($bChinese ? '被禁止访问' : 'Blocked').'</font>';
         }
+        else if ($record['status'] == IP_STATUS_CRAWL)
+        {
+        	$str .= $strNewLine.'<font color=green>'.($bChinese ? '已标注爬虫' : 'Marked crawler').'</font>';
+        }
     }
     return $str;
 }
@@ -203,7 +220,7 @@ function IpLookupGetString($strIp, $strNewLine, $bChinese)
     $str = $strIp._ipLookupHttp($strIp, $strNewLine);
     if ($ar = ProjectHoneyPotIpLookUp($strIp))
     {
-        $str .= $strNewLine.GetExternalLink(PROJECT_HONEY_POT_URL.$strIp, 'projecthoneypot.org').': '._getProjectHoneyPotIpLookUpString($ar);
+        $str .= $strNewLine.GetExternalLink(PROJECT_HONEY_POT_URL.$strIp, 'projecthoneypot.org').': '._getProjectHoneyPotIpLookUpString($strIp, $ar);
     }
     
     if ($strDns = DnsIpLookUp($strIp))

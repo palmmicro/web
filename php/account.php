@@ -26,7 +26,7 @@ function AcctDeleteBlogVisitorByIp($strIp)
         SqlAddIpVisit($strIp, $iCount);
         SqlDeleteVisitor(VISITOR_TABLE, $strIpId);
     }
-    SqlSetIpStatus($strIp, IP_STATUS_NORMAL);
+    if (SqlGetIpStatus($strIp) == IP_STATUS_BLOCKED)		SqlSetIpStatus($strIp, IP_STATUS_NORMAL);
 }
 
 function AcctDeleteMember($strMemberId)
