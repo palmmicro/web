@@ -5,6 +5,8 @@ function _echoBlogVisitorData($strIp, $iStart, $iNum, $bChinese)
 {
     $arBlogId = array();
     $arIpId = array();
+    
+	$ip_sql = new IpSql();
     if ($result = AcctGetBlogVisitor($strIp, $iStart, $iNum)) 
     {
         while ($record = mysql_fetch_assoc($result)) 
@@ -23,7 +25,7 @@ function _echoBlogVisitorData($strIp, $iStart, $iNum, $bChinese)
             else
             {
                 $strIpId = $record['src_id'];
-                $str = SqlGetIpAddress($strIpId);
+				$str = $ip_sql->GetKeyName($strIpId);
                 if (in_array($strIpId, $arIpId))    $strIpLink = $str;
                 else
                 {

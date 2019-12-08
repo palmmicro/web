@@ -63,7 +63,7 @@ class StockGroupItemSql extends StockGroupTableSql
     	return false;
     }
 
-    function Get($strStockId)
+    function GetRecord($strStockId)
     {
     	return $this->GetSingleData($this->BuildWhere_key_stock($strStockId));
     }
@@ -96,7 +96,7 @@ class StockGroupItemSql extends StockGroupTableSql
     {
     	if ($strId = $this->GetId($strStockId))
     	{
-    		return $this->trans_sql->Get($strId, $iStart, $iNum);
+    		return $this->trans_sql->GetRecord($strId, $iStart, $iNum);
     	}
     	return false;
     }

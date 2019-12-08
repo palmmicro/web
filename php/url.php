@@ -91,12 +91,6 @@ function UrlGetRootDir()
     return $strRoot;
 }
 
-function UrlGetQueryString()
-{ 
-	if (isset($_SERVER['QUERY_STRING']))	    return $_SERVER['QUERY_STRING'];
-	return false;
-}
-
 // Function to sanitize values received from the form. Prevents SQL injection
 function UrlCleanString($str) 
 {
@@ -106,6 +100,12 @@ function UrlCleanString($str)
 		$str = stripslashes($str);
 	}
 	return mysql_real_escape_string($str);
+}
+
+function UrlGetQueryString()
+{ 
+	if (isset($_SERVER['QUERY_STRING']))	    return UrlCleanString($_SERVER['QUERY_STRING']);
+	return false;
 }
 
 function UrlGetQueryValue($strQueryItem)

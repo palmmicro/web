@@ -121,14 +121,14 @@ class PairStockSql extends StockTableSql
         parent::StockTableSql($strStockId, $strTableName);
     }
     
-    function Get()
+    function GetRecord()
     {
     	return $this->GetSingleData($this->BuildWhere_key());
     }
 
     function GetRatio()
     {
-    	if ($record = $this->Get())
+    	if ($record = $this->GetRecord())
     	{
     		return floatval($record['ratio']);
     	}
@@ -137,7 +137,7 @@ class PairStockSql extends StockTableSql
 
     function GetPairId()
     {
-    	if ($record = $this->Get())
+    	if ($record = $this->GetRecord())
     	{
     		return $record['pair_id'];
     	}	

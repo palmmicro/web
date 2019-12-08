@@ -24,7 +24,7 @@ function _chinaMoneyNeedData($ymd, $uscny_sql, $hkcny_sql)
 //	if ($ymd->IsWeekend())	return false;
 	
     $strDate = $ymd->GetYMD();
-    if ($uscny_sql->Get($strDate) && $hkcny_sql->Get($strDate))
+    if ($uscny_sql->GetRecord($strDate) && $hkcny_sql->GetRecord($strDate))
     {
 //    	DebugString('Database entry existed');
     	return false;

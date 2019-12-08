@@ -136,13 +136,16 @@ class TableSql
     	return $this->GetSingleData(_SqlBuildWhere_id($strId));
     }
     
-    function GetId($strVal, $callback = 'Get')
+    function GetId($strVal, $callback = 'GetRecord')
     {
-    	if (method_exists($this, $callback))
+    	if ($strVal)
     	{
-    		if ($record = $this->$callback($strVal))
+    		if (method_exists($this, $callback))
     		{
-    			return $record['id'];
+    			if ($record = $this->$callback($strVal))
+    			{
+    				return $record['id'];
+    			}
     		}
     	}
     	return false;
@@ -269,7 +272,7 @@ class KeyNameSql extends TableSql
     	return $this->CreateIdTable($str);
     }
 
-    function Get($strKeyName)
+    function GetRecord($strKeyName)
     {
     	return $this->GetSingleData(_SqlBuildWhere($this->strKeyName, $strKeyName));
     }
@@ -391,7 +394,7 @@ class KeyPairSql extends KeyTableSql
 		return $this->UpdateById(array($this->strKey => $strPairId), $strId);
     }
     
-    function Get($strPairId)
+    function GetRecord($strPairId)
     {
     	return $this->GetSingleData(_SqlBuildWhere($this->strKey, $strPairId));
     }
@@ -424,7 +427,7 @@ class KeyValSql extends KeyTableSql
     	return $this->CreateIdTable($str);
     }
     
-    function Get($strVal)
+    function GetRecord($strVal)
     {
     	return $this->GetSingleData($this->BuildWhere_key_extra($this->strValName, $strVal));
     }

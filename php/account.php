@@ -15,18 +15,21 @@ require_once('sql/sqlfundpurchase.php');
 
 function AcctCountBlogVisitor($strIp)
 {
-    return SqlCountVisitor(VISITOR_TABLE, SqlGetIpAddressId($strIp));
+   	$sql = new IpSql();
+    return SqlCountVisitor(VISITOR_TABLE, $sql->GetId($strIp));
 }
 
 function AcctDeleteBlogVisitorByIp($strIp)
 {
-    if ($strIpId = SqlGetIpAddressId($strIp))
+   	$sql = new IpSql();
+    if ($strId = $sql->GetId($strIp))
     {
         $iCount = AcctCountBlogVisitor($strIp);
-        SqlAddIpVisit($strIp, $iCount);
-        SqlDeleteVisitor(VISITOR_TABLE, $strIpId);
+//        SqlAddIpVisit($strIp, $iCount);
+		$sql->AddVisit($strIp, $iCount);
+        SqlDeleteVisitor(VISITOR_TABLE, $strId);
     }
-    if (SqlGetIpStatus($strIp) == IP_STATUS_BLOCKED)		SqlSetIpStatus($strIp, IP_STATUS_NORMAL);
+    if ($sql->GetStatus($strIp) == IP_STATUS_BLOCKED)		$sql->SetStatus($strIp, IP_STATUS_NORMAL);
 }
 
 function AcctDeleteMember($strMemberId)
@@ -47,7 +50,9 @@ function AcctLogin($strEmail, $strPassword)
 		
 		$strIp = UrlGetIp();
 		SqlUpdateLoginField($strEmail, $strIp);
-		SqlIncIpLogin($strIp);
+		
+		$sql = new IpSql();
+		$sql->IncLogin($strIp);
     }
     return $strMemberId;
 }
@@ -122,7 +127,8 @@ function AcctIsReadOnly($strMemberId)
 
 function AcctGetBlogVisitor($strIp, $iStart = 0, $iNum = 0)
 {
-    return SqlGetVisitor(VISITOR_TABLE, SqlGetIpAddressId($strIp), $iStart, $iNum);
+   	$sql = new IpSql();
+    return SqlGetVisitor(VISITOR_TABLE, $sql->GetId($strIp), $iStart, $iNum);
 }
 
 function AcctGetSpiderPageCount($strIp)
@@ -145,7 +151,7 @@ function _onBlockedIp($strIp)
     die('Please contact support@palmmicro.com to unblock your IP address '.$strIp);
 }
 
-function _checkSearchEnginePageCount($strIp, $iCount, $iPageCount, $strDebug)
+function _checkSearchEnginePageCount($sql, $strIp, $iCount, $iPageCount, $strDebug)
 {
     if ($iPageCount >= 10)
     {
@@ -154,12 +160,12 @@ function _checkSearchEnginePageCount($strIp, $iCount, $iPageCount, $strDebug)
     }
     
 	trigger_error('Blocked spider<br />'.$strDebug);
-	SqlSetIpStatus($strIp, IP_STATUS_BLOCKED);
+	$sql->SetStatus($strIp, IP_STATUS_BLOCKED);
 	_onBlockedIp($strIp);
     return false;
 }
 
-function _checkSearchEngineSpider($strIp, $iCount, $iPageCount, $strDebug)
+function _checkSearchEngineSpider($sql, $strIp, $iCount, $iPageCount, $strDebug)
 {
     $arIpInfo = IpInfoIpLookUp($strIp);
     if (isset($arIpInfo['org']))
@@ -173,10 +179,23 @@ function _checkSearchEngineSpider($strIp, $iCount, $iPageCount, $strDebug)
     	else
     	{
     		if (isset($arIpInfo['hostname'])	)	$strOrg .= ' '.$arIpInfo['hostname'];
-    		return _checkSearchEnginePageCount($strIp, $iCount, $iPageCount, $strOrg.' '.$strDebug);
+    		return _checkSearchEnginePageCount($sql, $strIp, $iCount, $iPageCount, $strOrg.' '.$strDebug);
         }
     }
-	return _checkSearchEnginePageCount($strIp, $iCount, $iPageCount, $strDebug);
+	return _checkSearchEnginePageCount($sql, $strIp, $iCount, $iPageCount, $strDebug);
+}
+
+function _checkSearchEngineDns($strIp)
+{
+    if ($str = DnsIpLookUp($strIp))
+    {
+        if (strstr_array($str, array('baidu', 'bytedance', 'google', 'msn', 'sogou', 'yahoo', 'yandex')))
+        {
+            trigger_error('Known DNS: '.$str);
+            return true;
+        }
+    }
+    return false;
 }
 
 function AcctGetBlogId()
@@ -207,12 +226,15 @@ function AcctSessionStart()
 
     SqlCreateVisitorTable(VISITOR_TABLE);
 	$strIp = UrlGetIp();
-	$strIpId = SqlMustGetIpId($strIp); 
+	
+	$sql = new IpSql();
+	if ($sql->InsertIp($strIp))	DebugString('Acct New IP: '.$strIp);
+	
     if ($strBlogId = AcctGetBlogId())
     {
-       	SqlInsertVisitor(VISITOR_TABLE, $strBlogId, $strIpId);
+       	SqlInsertVisitor(VISITOR_TABLE, $strBlogId, $sql->GetId($strIp));
     }
-    if (SqlGetIpStatus($strIp) == IP_STATUS_BLOCKED)		_onBlockedIp($strIp);
+    if ($sql->GetStatus($strIp) == IP_STATUS_BLOCKED)		_onBlockedIp($strIp);
     
 	$strMemberId = AcctIsLogin();
 	$iCount = AcctCountBlogVisitor($strIp);
@@ -227,7 +249,7 @@ function AcctSessionStart()
 	    }
 	    else
 	    {
-	    	if (ProjectHoneyPotCheckSearchEngine($strIp) || DnsCheckSearchEngine($strIp) || _checkSearchEngineSpider($strIp, $iCount, $iPageCount, $strDebug))
+	    	if (ProjectHoneyPotCheckSearchEngine($strIp) || _checkSearchEngineDns($strIp) || _checkSearchEngineSpider($sql, $strIp, $iCount, $iPageCount, $strDebug))
 	    	{
 	    		AcctDeleteBlogVisitorByIp($strIp);
 	    	}

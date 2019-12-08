@@ -369,7 +369,7 @@ function YahooUpdateNetValue($strSymbol)
     date_default_timezone_set(STOCK_TIME_ZONE_US);
     $now_ymd = new NowYMD();
     $strDate = $now_ymd->GetYMD();
-    if ($sql->Get($strDate))								return;
+    if ($sql->GetRecord($strDate))								return;
     if ($now_ymd->IsTradingDay())
     {
     	if ($now_ymd->GetTick() < (strtotime($strDate) + _getNetValueDelayTick()))
@@ -402,7 +402,7 @@ function YahooUpdateNetValue($strSymbol)
     {
     	$ymd = _yahooStockMatchGetYmd($arMatch, $strNetValueSymbol);
     	$strDate = $ymd->GetYMD();
-    	if ($sql->Get($strDate))		return;
+    	if ($sql->GetRecord($strDate))		return;
     	foreach ($arMatch as $ar)
     	{
     		$strMatchSymbol = $ar[4];

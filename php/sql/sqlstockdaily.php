@@ -27,7 +27,7 @@ class DailyStockSql extends StockTableSql
 		return $this->BuildWhere_key_extra('date', $strDate);
     }
     
-    function Get($strDate)
+    function GetRecord($strDate)
     {
     	return $this->GetSingleData($this->BuildWhere_stock_date($strDate));
     }
@@ -53,7 +53,7 @@ class DailyStockSql extends StockTableSql
     
     function GetClose($strDate)
     {
-    	return $this->_getCloseString('Get', $strDate);
+    	return $this->_getCloseString('GetRecord', $strDate);
     }
 
     function GetClosePrev($strDate)
@@ -127,14 +127,14 @@ class DailyStockStrSql extends DailyStockSql
     
     function Insert($strDate, $strClose)
     {
-        if ($this->Get($strDate))			return false;
+        if ($this->GetRecord($strDate))			return false;
         
     	return $this->InsertData($this->MakeFieldArray($strDate, $strClose));
     }
 
     function Write($strDate, $strClose)
     {
-    	if ($record = $this->Get($strDate))
+    	if ($record = $this->GetRecord($strDate))
     	{
     		if ($record['close'] != $strClose)
     		{
@@ -187,7 +187,7 @@ class DailyStockValSql extends DailyStockSql
 
     function Insert($strDate, $strClose)
     {
-        if ($this->Get($strDate))			return false;
+        if ($this->GetRecord($strDate))			return false;
         
         $ymd = new StringYMD($strDate);
         if ($ymd->IsWeekend())     			return false;   // sina fund may provide false weekend data
@@ -197,7 +197,7 @@ class DailyStockValSql extends DailyStockSql
 
     function Write($strDate, $strClose)
     {
-    	if ($record = $this->Get($strDate))
+    	if ($record = $this->GetRecord($strDate))
     	{
     		if (abs(floatval($record['close']) - floatval($strClose)) > 0.000001)
     		{

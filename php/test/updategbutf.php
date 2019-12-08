@@ -25,7 +25,7 @@ function _updateGbUtf()
         	if (strlen($strGb) >= 4)
         	{
         		$strGb = substr($strGb, 0, 4);
-        		if ($strOld = $sql->Get($strGb))
+        		if ($strOld = $sql->GetUTF($strGb))
         		{
         			if ($strOld != $strUtf)	DebugString($strGb.'?'.$strOld.':'.$strUtf);
         		}

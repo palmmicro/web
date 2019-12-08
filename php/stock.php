@@ -117,9 +117,10 @@ function GetSinaQuotesUrl($strSinaSymbols)
 function GetSinaQuotes($strSinaSymbols)
 {
 	$strIp = UrlGetIp();
-	if (SqlGetIpStatus($strIp) == IP_STATUS_CRAWL)
+   	$sql = new IpSql();
+	if ($sql->GetStatus($strIp) == IP_STATUS_CRAWL)
 	{
-		DebugString('Ignore crawler: '.gethostbyaddr($strIp).' '.$strSinaSymbols);
+		DebugString('Ignore: '.gethostbyaddr($strIp).' '.$strSinaSymbols);
 		return false;
 	}
 	
@@ -230,7 +231,7 @@ function StockCompareEstResult($nv_sql, $strNetValue, $strDate, $strSymbol)
 
 function StockUpdateEstResult($nv_sql, $fund_sql, $strNetValue, $strDate)
 {
-	if ($nv_sql->Get($strDate) == false)
+	if ($nv_sql->GetRecord($strDate) == false)
     {   // Only update when net value is NOT ready
 		$fund_sql->Write($strDate, $strNetValue);
 	}

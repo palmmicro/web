@@ -126,7 +126,7 @@ function AddSqlTransaction($trans_class, $record)
 function UpdateStockGroupItemTransaction($sql, $strGroupItemId)
 {
     $trans = new StockTransaction();
-    if ($result = $sql->trans_sql->Get($strGroupItemId)) 
+    if ($result = $sql->trans_sql->GetRecord($strGroupItemId)) 
     {
         while ($record = mysql_fetch_assoc($result)) 
         {

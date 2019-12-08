@@ -6,7 +6,7 @@ function _lookupUnicodeTable($iChar, $iCharNext)
 {
     $strGB2312 = sprintf('%02X%02X', $iChar, $iCharNext);
     $gb_sql = new GB2312Sql();
-    return $gb_sql->Get($strGB2312);
+    return $gb_sql->GetUTF($strGB2312);
 }
 
 function FromGB2312ToUTF8($str)

@@ -34,7 +34,7 @@ class StockHistorySql extends DailyStockValSql
     				   'volume' => $strVolume,
     				   'adjclose' => $strAdjClose);
     	
-    	if ($record = $this->Get($strDate))
+    	if ($record = $this->GetRecord($strDate))
     	{
     		unset($ar['date']);
     		if (abs(floatval($record['open']) - floatval($strOpen)) < 0.001)				unset($ar['open']);
@@ -73,7 +73,7 @@ class StockHistorySql extends DailyStockValSql
 
     function GetVolume($strDate)
     {
-    	if ($record = $this->Get($strDate))
+    	if ($record = $this->GetRecord($strDate))
     	{
     		return $record['volume'];
     	}

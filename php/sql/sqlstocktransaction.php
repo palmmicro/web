@@ -28,7 +28,7 @@ class StockTransactionSql extends TableSql
     	return false;
     }
 
-    function Get($strGroupItemId, $iStart = 0, $iNum = 0)
+    function GetRecord($strGroupItemId, $iStart = 0, $iNum = 0)
     {
     	return $this->GetAll(array($strGroupItemId), $iStart, $iNum);
     }

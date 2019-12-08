@@ -29,7 +29,7 @@ function _updateStockHistoryAdjCloseByDividend($ref, $strSymbol, $strYMD, $strDi
 function _updateStockHistoryClose($ref, $strSymbol, $strYMD, $strClose)
 {
     $his_sql = $ref->GetHistorySql();
-    if ($record = $his_sql->Get($strYMD)) 
+    if ($record = $his_sql->GetRecord($strYMD)) 
     {
     	if ($his_sql->UpdateClose($record['id'], $strClose))
         {
@@ -91,7 +91,7 @@ function _updateStockOptionAdr($strSymbol, $strVal, $strTable = TABLE_ADRH_STOCK
 	}
 	else
 	{
-		if ($record = $sql->Get())
+		if ($record = $sql->GetRecord())
 		{
 			$sql->Update($record['id'], $strPairId, $strRatio);
 		}
@@ -203,7 +203,7 @@ function _updateStockOptionEtf($strSymbol, $strVal)
 	}
 	else
 	{
-		if ($record = $pair_sql->Get())
+		if ($record = $pair_sql->GetRecord())
 		{
 			$pair_sql->Update($record['id'], $strPairId, $strRatio);
 		}
@@ -232,7 +232,7 @@ function _updateStockOptionSplitGroupTransactions($strGroupId, $strStockId, $str
     $arStockId = $sql->GetStockIdArray(true);
     if (in_array($strStockId, $arStockId))
     {
-    	$record = $sql->Get($strStockId);
+    	$record = $sql->GetRecord($strStockId);
 //    	$strGroupItemId = $sql->GetId($strStockId);
     	$strGroupItemId = $record['id'];
     	$iQuantity = intval($record['quantity']);

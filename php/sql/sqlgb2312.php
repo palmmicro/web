@@ -20,7 +20,7 @@ class GB2312Sql extends TableSql
     	return $this->InsertData(array('id' => $strGB, 'utf' => $strUTF));
     }
     
-    function Get($strGB)
+    function GetUTF($strGB)
     {
     	if ($record = $this->GetById($strGB))
     	{

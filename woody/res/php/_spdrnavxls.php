@@ -55,7 +55,7 @@ function _readXlsFile($strPathName, $sql, $shares_sql)
 function GetSpdrNavXlsStr($strSymbol)
 {
 	$stock_sql = new StockSql();
-	$record = $stock_sql->Get($strSymbol);
+	$record = $stock_sql->GetRecord($strSymbol);
    	if (stripos($record['name'], 'spdr') !== false)
 	{
 		$strFileName = $strSymbol.'_HistoricalNav.xls';

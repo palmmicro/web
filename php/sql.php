@@ -6,7 +6,6 @@ define('TABLE_COMMON_PHRASE', 'commonphrase');
 define('TABLE_DOW_JONES', 'dowjones');
 define('TABLE_FUND_EST', 'fundest');
 define('TABLE_FUND_PURCHASE', 'fundpurchase');
-//define('TABLE_IP_ADDRESS', 'ipaddress');
 define('TABLE_MEMBER', 'member');
 define('TABLE_NETVALUE_HISTORY', 'netvaluehistory');
 define('TABLE_PRIME_NUMBER', 'primenumber');

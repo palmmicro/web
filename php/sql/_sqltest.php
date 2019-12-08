@@ -1,32 +1,6 @@
 <?php
 
 // ****************************** Sql database maintenance functions *******************************************************
-function ValidateTableIpField($strTableName)
-{
-    $ar = array();
-    if ($result = SqlGetTableData($strTableName)) 
-    {
-        while ($record = mysql_fetch_assoc($result)) 
-        {
-            if (!filter_valid_ip($record['ip']))
-            {
-                $ar[] = $record['id'];
-            }
-        }
-        @mysql_free_result($result);
-    }
-    
-    $iCount = count($ar);
-    DebugVal($iCount, $strTableName.': invalid ip number'); 
-    if ($iCount > 0)
-    {
-        foreach ($ar as $strId)
-        {
-            SqlDeleteTableDataById($strTableName, $strId);
-        }
-    }
-}
-
 function WriteForexDataFromFile()
 {
 	$uscny_sql = new UscnyHistorySql();

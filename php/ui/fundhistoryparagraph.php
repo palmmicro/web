@@ -69,7 +69,7 @@ function _echoHistoryTableData($sql, $csv, $ref, $est_ref, $iStart, $iNum)
         	if (empty($strNetValue) == false)
         	{
         		$strDate = $record['date'];
-        		$arFund = $fund_sql->Get($strDate);
+        		$arFund = $fund_sql->GetRecord($strDate);
         		if ($bSameDayNetValue == false)
         		{
         			$strDate = GetNextTradingDayYMD($strDate);

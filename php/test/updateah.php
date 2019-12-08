@@ -42,7 +42,7 @@ function _updateAh()
    		if (count($ar) == 2)
    		{
    			$strSymbolA = $ar[1].$ar[0];
-   			if ($record = $sql->Get($strSymbolA))
+   			if ($record = $sql->GetRecord($strSymbolA))
    			{
    				if (strpos($record['name'], '退市') === false)
    				{

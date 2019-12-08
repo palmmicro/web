@@ -13,7 +13,7 @@ function _getCommonPhraseString($strInput, $strMemberId, $bChinese)
 	$sql = new CommonPhraseSql($strMemberId);
 	if (empty($strInput) == false)
 	{
-		if ($sql->Get($strInput) == false)
+		if ($sql->GetRecord($strInput) == false)
 		{
 			$sql->Insert($strInput);
 			trigger_error(ACCOUNT_TOOL_PHRASE_CN.' -- '.$strInput);

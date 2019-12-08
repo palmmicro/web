@@ -7,8 +7,9 @@ function IpSetCrawler($strIp, $strRemark)
 {
    	if (strstr_array($strRemark, array('ahrefs.com', 'bot', 'crawl', 'spider')))
    	{
-   		DebugString($strIp.' marked as crawler: '.$strRemark);
-   		SqlSetIpStatus($strIp, IP_STATUS_CRAWL);
+   		DebugString($strIp.' crawler: '.$strRemark);
+   		$sql = new IpSql();
+   		$sql->SetStatus($strIp, IP_STATUS_CRAWL);
    	}
 }
 
@@ -37,7 +38,8 @@ function IpInfoIpLookUp($strIp)
 define('PROJECT_HONEY_POT_URL', 'http://www.projecthoneypot.org/ip_');
 function ProjectHoneyPotGetSearchEngineArray($strIp)
 {
-    SqlSetIpStatus($strIp, IP_STATUS_CRAWL);
+	$sql = new IpSql();
+    $sql->SetStatus($strIp, IP_STATUS_CRAWL);
     return array('Undocumented', 'AltaVista', 'Ask', 'Baidu', 'Excite', 'Google', 'Looksmart', 'Lycos', 'MSN', 'Yahoo', 'Cuil', 'InfoSeek', 'Miscellaneous', '(13)', 'Yandex');
 }
 
@@ -116,21 +118,6 @@ function strstr_array($strHaystack, $arNeedle)
 	return false;
 }
 
-// http://unitymediagroup.de/
-// yandex.com
-function DnsCheckSearchEngine($strIp)
-{
-    if ($str = DnsIpLookUp($strIp))
-    {
-        if (strstr_array($str, array('google', 'baidu', 'yandex', 'msn', 'sogou', 'yahoo')))
-        {
-            trigger_error('Known DNS: '.$str);
-            return true;
-        }
-    }
-    return false;
-}
-
 function _ipLookupMemberTable($strIp, $strNewLine, $bChinese)
 {
     $str = '';
@@ -169,7 +156,8 @@ function _ipLookupBlogCommentTable($strIp, $strNewLine, $bChinese)
 function _ipLookupIpAddressTable($strIp, $strNewLine, $bChinese)
 {
     $str = '';
-    if ($record = SqlGetIpAddressRecord($strIp))
+   	$sql = new IpSql();
+    if ($record = $sql->GetRecord($strIp))
     {
         $iVisit = intval($record['visit']);
         $iVisit += AcctCountBlogVisitor($strIp);
@@ -195,11 +183,17 @@ function _ipLookupLocalDatabase($strIp, $strNewLine, $bChinese)
     return $str;
 }
 
-function _ipLookupHttp($strIp, $strNewLine)
+function IpLookupGetString($strIp, $strNewLine, $bChinese)
 {
-    $fStart = microtime(true);
+	if (filter_valid_ip($strIp) == false)	return '';
+	
+	$sql = new IpSql();
+	if ($sql->InsertIp($strIp))	DebugString('New IP: '.$strIp);
+	
+    $str = $strIp;
     
-    $str = $strNewLine.GetExternalLink(_getIpInfoIpLookUpUrl($strIp), 'ipinfo.io').': ';
+    $fStart = microtime(true);
+    $str .= $strNewLine.GetExternalLink(_getIpInfoIpLookUpUrl($strIp), 'ipinfo.io').': ';
     $arIpInfo = IpInfoIpLookUp($strIp);
     if (isset($arIpInfo['error']) == false)
     {
@@ -208,24 +202,18 @@ function _ipLookupHttp($strIp, $strNewLine)
     	if (isset($arIpInfo['hostname']))	$str .= ' '.$arIpInfo['hostname'];
     }
     $str .= DebugGetStopWatchDisplay($fStart);
-    return $str;
-}
- 
-function IpLookupGetString($strIp, $strNewLine, $bChinese)
-{
-	if (filter_valid_ip($strIp) == false)	return '';
-	
-    $strIpId = SqlMustGetIpId($strIp);
     
-    $str = $strIp._ipLookupHttp($strIp, $strNewLine);
+    if (isset($arIpInfo['org']) == false)
+    {
+    	if ($strDns = DnsIpLookUp($strIp))
+    	{
+    		$str .= $strNewLine.'DNS: '.$strDns;
+    	}
+    }
+    
     if ($ar = ProjectHoneyPotIpLookUp($strIp))
     {
         $str .= $strNewLine.GetExternalLink(PROJECT_HONEY_POT_URL.$strIp, 'projecthoneypot.org').': '._getProjectHoneyPotIpLookUpString($strIp, $ar);
-    }
-    
-    if ($strDns = DnsIpLookUp($strIp))
-    {
-        $str .= $strNewLine.'DNS: '.$strDns;
     }
     
     $str .= _ipLookupLocalDatabase($strIp, $strNewLine, $bChinese);

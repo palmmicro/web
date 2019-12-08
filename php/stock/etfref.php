@@ -192,7 +192,7 @@ class EtfReference extends MyPairReference
 	function _onCalibration()
 	{
         $pair_sql = new EtfPairSql($this->GetStockId());
-        if ($record = $pair_sql->Get())
+        if ($record = $pair_sql->GetRecord())
         {
         	$this->fRatio = floatval($record['ratio']);
 			if ($this->_load_pair_ref($record['pair_id']))
