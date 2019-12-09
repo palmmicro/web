@@ -139,7 +139,7 @@ class _LofReference extends FundReference
         else
         {   // Load last value from database
 			$sql = new FundEstSql($this->GetStockId());
-            if ($record = $sql->GetNow())
+            if ($record = $sql->GetRecordNow())
             {
                 $this->fOfficialNetValue = floatval($record['close']);
                 $this->strOfficialDate = $record['date'];

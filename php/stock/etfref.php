@@ -305,7 +305,7 @@ class EtfReference extends MyPairReference
         	}
         	else
         	{	// Load last value from database
-        		if ($record = $fund_sql->GetNow())
+        		if ($record = $fund_sql->GetRecordNow())
         		{
         			$this->strOfficialDate = $record['date'];
         			return $record['close'];

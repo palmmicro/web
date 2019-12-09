@@ -56,7 +56,7 @@ class StockGroupItemSql extends StockGroupTableSql
     
     function GetStockId($strId)
     {
-    	if ($record = $this->GetById($strId))
+    	if ($record = $this->GetRecordById($strId))
     	{
     		return $record['stock_id'];
     	}

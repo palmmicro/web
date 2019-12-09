@@ -120,7 +120,7 @@ function GetSinaQuotes($strSinaSymbols)
    	$sql = new IpSql();
 	if ($sql->GetStatus($strIp) == IP_STATUS_CRAWL)
 	{
-		DebugString('Ignore: '.gethostbyaddr($strIp).' '.$strSinaSymbols);
+//		DebugString('Ignore: '.gethostbyaddr($strIp).' '.$strSinaSymbols);
 		return false;
 	}
 	
@@ -281,7 +281,7 @@ function RefGetDescription($ref, $bConvertDisplay = false)
 	{
 		$str = '';
 		$sql = new StockSql();
-		if ($record = $sql->GetById($ref->GetStockId()))
+		if ($record = $sql->GetRecordById($ref->GetStockId()))
 		{
 			$str = $record['name'];
 			$ref->SetDescription($str);

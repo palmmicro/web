@@ -220,7 +220,7 @@ function _onMergeTransaction()
 	else if ($strId = UrlGetQueryValue('delete'))
 	{
 		$trans_sql = new StockTransactionSql();
-		if ($record = $trans_sql->GetById($strId))
+		if ($record = $trans_sql->GetRecordById($strId))
 		{
 			$strGroupItemId = $record['groupitem_id'];
 			if ($strGroupId = _canModifyStockTransaction($strGroupItemId))

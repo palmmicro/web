@@ -7,7 +7,7 @@ function _echoNetValueItem($csv, $sql, $est_sql, $cny_sql, $strNetValue, $strDat
 {
 	$bWritten = false;
 	$ar = array($strDate, $strNetValue);
-	if ($record = $sql->GetPrev($strDate))
+	if ($record = $sql->GetRecordPrev($strDate))
     {
     	$strPrevDate = $record['date'];
     	$strPrev = rtrim0($record['close']);

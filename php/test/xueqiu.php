@@ -55,7 +55,7 @@ class XueqiuIdSql extends TableSql
     				  'follower' => $strFollower,
     				  'status' => $strStatus);
     	
-    	if ($record = $this->GetById($strId))
+    	if ($record = $this->GetRecordById($strId))
     	{
     		unset($ar['id']);
     		if ($record['name'] == $strName)			unset($ar['name']);
@@ -83,7 +83,7 @@ function _getXueqiuIdLinks($str, $ar, $xq_sql)
 	$arIdName = array();
 	foreach ($ar as $strId)
 	{
-    	if ($record = $xq_sql->GetById($strId))
+    	if ($record = $xq_sql->GetRecordById($strId))
     	{
     		$arIdName[$strId] = (strlen($record['name']) > 0) ? $record['name'] : '用户'.$strId;
 		}

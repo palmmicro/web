@@ -25,7 +25,7 @@ function _echoBlogVisitorData($strIp, $iStart, $iNum, $bChinese)
             else
             {
                 $strIpId = $record['src_id'];
-				$str = $ip_sql->GetKeyName($strIpId);
+				$str = $ip_sql->GetKey($strIpId);
                 if (in_array($strIpId, $arIpId))    $strIpLink = $str;
                 else
                 {

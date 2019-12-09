@@ -22,7 +22,7 @@ class GB2312Sql extends TableSql
     
     function GetUTF($strGB)
     {
-    	if ($record = $this->GetById($strGB))
+    	if ($record = $this->GetRecordById($strGB))
     	{
     		return $record['utf'];
     	}

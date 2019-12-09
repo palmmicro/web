@@ -84,7 +84,7 @@ function StockEditTransactionForm($strSubmit, $strGroupId = false, $strGroupItem
     if ($strId = UrlGetQueryValue('edit'))
     {
     	$trans_sql = new StockTransactionSql();
-        if (($record = $trans_sql->GetById($strId)) == false)                       return;
+        if (($record = $trans_sql->GetRecordById($strId)) == false)                       return;
         if (($strGroupId = SqlGetStockGroupId($record['groupitem_id'])) == false)    return;
 
         $strQuantity = $record['quantity'];

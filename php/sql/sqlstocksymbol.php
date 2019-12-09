@@ -68,7 +68,7 @@ function SqlGetStockId($strSymbol)
 function SqlGetStockSymbol($strStockId)
 {
 	$sql = new StockSql();
-	return $sql->GetKeyName($strStockId);
+	return $sql->GetKey($strStockId);
 }
 
 ?>

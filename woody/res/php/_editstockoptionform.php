@@ -19,7 +19,7 @@ function _getStockOptionDate($strSubmit, $ref)
 		break;
 
 	case STOCK_OPTION_CLOSE:
-		if ($record = $his_sql->GetPrev($ref->GetDate()))
+		if ($record = $his_sql->GetRecordPrev($ref->GetDate()))
 		{
 			return $record['date'];
 		}

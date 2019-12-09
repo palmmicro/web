@@ -27,21 +27,21 @@ class DailyStockSql extends StockTableSql
 		return $this->BuildWhere_key_extra('date', $strDate);
     }
     
-    function GetRecord($strDate)
-    {
-    	return $this->GetSingleData($this->BuildWhere_stock_date($strDate));
-    }
-    
     function GetFromDate($strDate, $iNum = 0)
     {
     	return $this->GetData($this->BuildWhere_key()." AND date <= '$strDate'", _SqlOrderByDate(), _SqlBuildLimit(0, $iNum));
     }
     
-    function GetPrev($strDate)
+    function GetRecordPrev($strDate)
     {
     	return $this->GetSingleData($this->BuildWhere_key()." AND date < '$strDate'", _SqlOrderByDate());
     }
 
+    function GetRecord($strDate)
+    {
+    	return $this->GetSingleData($this->BuildWhere_stock_date($strDate));
+    }
+    
     function _getCloseString($callback, $strDate = false)
     {
     	if ($record = $this->$callback($strDate))
@@ -58,17 +58,17 @@ class DailyStockSql extends StockTableSql
 
     function GetClosePrev($strDate)
     {
-    	return $this->_getCloseString('GetPrev', $strDate);
+    	return $this->_getCloseString('GetRecordPrev', $strDate);
     }
 
-    function GetNow($strDate = false)
+    function GetRecordNow($strDate = false)
     {
     	return $this->GetSingleData($this->BuildWhere_key(), _SqlOrderByDate());
     }
     
     function GetDateNow()
     {
-    	if ($record = $this->GetNow())
+    	if ($record = $this->GetRecordNow())
     	{
     		return $record['date'];
     	}
@@ -77,7 +77,7 @@ class DailyStockSql extends StockTableSql
 
     function GetCloseNow()
     {
-    	return $this->_getCloseString('GetNow');
+    	return $this->_getCloseString('GetRecordNow');
     }
 
     function GetAll($iStart = 0, $iNum = 0)

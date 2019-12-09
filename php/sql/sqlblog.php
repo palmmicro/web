@@ -36,7 +36,7 @@ class BlogSql extends KeyValSql
 function SqlGetUriByBlogId($strId)
 {
 	$sql = new BlogSql();
-	if ($record = $sql->GetById($strId))
+	if ($record = $sql->GetRecordById($strId))
 	{
 		return $record['uri'];
 	}

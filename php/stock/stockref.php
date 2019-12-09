@@ -666,7 +666,7 @@ class StockReference extends StockSymbol
 
     function LoadSqlData($sql)
     {
-       	if ($record = $sql->GetNow())
+       	if ($record = $sql->GetRecordNow())
        	{
    			$this->strPrice = $record['close'];
    			$this->strDate = $record['date'];

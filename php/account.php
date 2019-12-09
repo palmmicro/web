@@ -228,7 +228,7 @@ function AcctSessionStart()
 	$strIp = UrlGetIp();
 	
 	$sql = new IpSql();
-	if ($sql->InsertIp($strIp))	DebugString('Acct New IP: '.$strIp);
+	$sql->InsertIp($strIp);
 	
     if ($strBlogId = AcctGetBlogId())
     {

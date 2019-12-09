@@ -21,7 +21,7 @@ class StockPairSql extends KeyPairSql
 		$ar = $this->GetIdArray('GetData');
 		foreach ($ar as $strStockId)
 		{
-			$arSymbol[] = $this->stock_sql->GetKeyName($strStockId);
+			$arSymbol[] = $this->stock_sql->GetKey($strStockId);
 		}
 		sort($arSymbol);
 		return $arSymbol;
@@ -33,7 +33,7 @@ class StockPairSql extends KeyPairSql
 		{
 			if ($strStockId = $this->GetId($strPairId))
 			{
-				return $this->stock_sql->GetKeyName($strStockId);
+				return $this->stock_sql->GetKey($strStockId);
 			}
 		}
 		return false;
@@ -45,7 +45,7 @@ class StockPairSql extends KeyPairSql
 		{
 			if ($strPairId = $this->GetKeyId($strStockId))
 			{
-				return $this->stock_sql->GetKeyName($strPairId);
+				return $this->stock_sql->GetKey($strPairId);
 			}
 		}
 		return false;
