@@ -32,7 +32,7 @@ function _updateChinaFund()
    		if ($strSymbol = BuildChineseFundSymbol($ar[0]))
    		{
    			$strName = $ar[1];
-   			if ($sql->Write($strSymbol, $strName))
+   			if ($sql->WriteSymbol($strSymbol, $strName))
    			{
    				DebugString($strSymbol.' '.$strName);
    				$iCount ++;

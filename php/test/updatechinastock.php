@@ -39,7 +39,7 @@ function _updateChinaStock()
    		if ($strSymbol = BuildChineseStockSymbol(rtrim($ar[1], ')')))
    		{
    			$strName = $ar[0];
-   			if ($sql->Write($strSymbol, $strName))
+   			if ($sql->WriteSymbol($strSymbol, $strName))
    			{
    				DebugString($strSymbol.' '.$strName);
    				$iCount ++;

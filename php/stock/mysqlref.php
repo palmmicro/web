@@ -35,6 +35,18 @@ class MysqlReference extends StockReference
     {
     }
 
+    function _loadSqlId($strSymbol)
+    {
+    	if ($this->strSqlId)	return;	// Already set, like in CnyReference
+    	
+    	$sql = new StockSql();
+        if ($this->bHasData)
+        {
+            $sql->InsertSymbol($strSymbol, $this->GetChineseName());
+        }
+    	$this->strSqlId = $sql->GetId($strSymbol);
+    }
+    
     function GetStockId()
     {
         return $this->strSqlId;
@@ -68,23 +80,6 @@ class MysqlReference extends StockReference
     	return $this->strChineseName;
     }
     
-    function _loadSqlId($strSymbol)
-    {
-    	if ($this->strSqlId)	return;	// Already set, like in CnyReference
-    	
-    	$sql = new StockSql();
-    	$this->strSqlId = $sql->GetId($strSymbol);
-//    	DebugString($strSymbol.' '.$this->strSqlId);
-        if ($this->strSqlId == false)
-        {
-            if ($this->bHasData)
-            {
-                $sql->Insert($strSymbol, $this->GetChineseName());
-                $this->strSqlId = $sql->GetId($strSymbol);
-            }
-        }
-    }
-
     function _invalidHistoryData($str)
     {
         if (empty($str))    return true;

@@ -48,12 +48,9 @@ function _updateAh()
    				{
    					$strStockIdA = $record['id'];
    					$strSymbolH = rtrim($arItem[2], '.HK');
+   					
+					$sql->InsertSymbol($strSymbolH, $arItem[1]);
    					$strStockIdH = $sql->GetId($strSymbolH);
-   					if ($strStockIdH == false)
-   					{
-   						$sql->Insert($strSymbolH, $arItem[1]);
-   						$strStockIdH = $sql->GetId($strSymbolH);
-   					}
    					if ($strStockIdH)
    					{
    						if ($strIdH = $pair_sql->GetKeyId($strStockIdA))

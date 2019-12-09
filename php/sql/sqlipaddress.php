@@ -16,10 +16,10 @@ class IpSql extends KeyNameSql
     function Create()
     {
     	$str = ' `address` VARCHAR( 16 ) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL ,'
-         	. ' `visit` INT UNSIGNED NOT NULL ,'
-         	. ' `login` INT UNSIGNED NOT NULL ,'
-         	. ' `status` INT UNSIGNED NOT NULL ,'
-         	. ' UNIQUE ( `address` )';
+         	  . ' `visit` INT UNSIGNED NOT NULL ,'
+         	  . ' `login` INT UNSIGNED NOT NULL ,'
+         	  . ' `status` INT UNSIGNED NOT NULL ,'
+         	  . ' UNIQUE ( `address` )';
     	return $this->CreateIdTable($str);
     }
     
@@ -103,66 +103,5 @@ class IpSql extends KeyNameSql
     	return false;
     }
 }
-
-// ****************************** IP Address table *******************************************************
-/*
-function SqlGetIpAddressId($strIp)
-{
-    if ($strIp)
-    {
-    	$sql = new IpSql();
-    	return $sql->GetId($strIp);
-    }
-	return false;
-}
-
-function SqlGetIpStatus($strIp)
-{
-   	$sql = new IpSql();
-	if ($record = $sql->GetRecord($strIp))
-    {
-        return $record['status'];
-    }
-	return false;
-}
-
-function SqlSetIpStatus($strIp, $strStatus)
-{
-   	$sql = new IpSql();
-	if ($record = $sql->GetRecord($strIp))
-    {
-        if ($record['status'] != $strStatus)
-        {
-			return $sql->WriteIp($strIp, $record['visit'], $record['login'], $strStatus);
-        }
-        return true;
-    }
-	return false;
-}
-
-function SqlAddIpVisit($strIp, $iCount)
-{
-   	$sql = new IpSql();
-	if ($record = $sql->GetRecord($strIp))
-    {
-        $iVal = intval($record['visit']);
-        $iVal += $iCount;
-		return $sql->WriteIp($strIp, strval($iVal), $record['login'], $record['status']);
-    }
-	return false;
-}
-
-function SqlMustGetIpId($strIp)
-{
-	$sql = new IpSql();
-	if ($strId = $sql->GetId($strIp))
-	{
-		return $strId;
-	}
-	
-	$sql->WriteIp($strIp);
-	return $sql->GetId($strIp);
-}
-*/
 
 ?>

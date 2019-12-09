@@ -16,7 +16,7 @@ class StockSql extends KeyNameSql
          	. ' UNIQUE ( `symbol` )';
     	return $this->CreateIdTable($str);
     }
-    
+/*    
     function _getFieldArray($strSymbol, $strName)
     {
     	$strName = UrlCleanString($strName);
@@ -34,20 +34,34 @@ class StockSql extends KeyNameSql
     {
 		return $this->UpdateById($this->_getFieldArray($strSymbol, $strName), $strId);
 	}
-	
-    function Write($strSymbol, $strName)
+*/	
+    function WriteSymbol($strSymbol, $strName)
     {
+    	$strName = UrlCleanString($strName);
+    	$ar = array('symbol' => $strSymbol,
+    				  'name' => $strName);
+    	
     	if ($record = $this->GetRecord($strSymbol))
-    	{	// 股票说明中带'-'的是手工修改的, 防止在自动更新中被覆盖.
+    	{	
+    		unset($ar['symbol']);
     		$strOrig = $record['name'];
     		if ((strpos($strOrig, '-') === false) && ($strName != $strOrig))
-    		{
-    			return $this->Update($record['id'], $strSymbol, $strName);
+    		{	// 股票说明中带'-'的是手工修改的, 防止在自动更新中被覆盖.
+    			return $this->UpdateById($ar, $record['id']);
     		}
     	}
     	else
     	{
-    		return $this->Insert($strSymbol, $strName);
+    		return $this->InsertData($ar);
+    	}
+    	return false;
+    }
+    
+    function InsertSymbol($strSymbol, $strName)
+    {
+    	if ($this->GetRecord($strSymbol) == false)
+    	{
+    		return $this->WriteSymbol($strSymbol, $strName);
     	}
     	return false;
     }

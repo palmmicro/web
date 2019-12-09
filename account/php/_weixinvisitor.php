@@ -6,7 +6,8 @@ require_once('/php/sql/sqlweixin.php');
 function _echoWeixinVisitorData($strOpenId, $iStart, $iNum, $bChinese)
 {
     $arId = array();
-    if ($result = SqlGetVisitor(WEIXIN_VISITOR_TABLE, SqlGetWeixinId($strOpenId), $iStart, $iNum)) 
+	$sql = new WeixinSql();
+    if ($result = SqlGetVisitor(WEIXIN_VISITOR_TABLE, $sql->GetId($strOpenId), $iStart, $iNum)) 
     {
         while ($record = mysql_fetch_assoc($result)) 
         {
@@ -17,7 +18,8 @@ function _echoWeixinVisitorData($strOpenId, $iStart, $iNum, $bChinese)
             else
             {
                 $strId = $record['src_id'];
-                $str = SqlGetWeixin($strId);
+//                $str = SqlGetWeixin($strId);
+				$str = $sql->GetKey($strId);
                 $strDisplay = GetVisitorSrcDisplay($str);
                 if (in_array($strId, $arId))    $strLink = $strDisplay;
                 else
@@ -38,7 +40,8 @@ function _getNavWeixinVisitorLink($strOpenId, $iStart, $iNum, $bChinese)
     if ($strOpenId)
     {
         $strId = 'id='.$strOpenId;
-        $iTotal = SqlCountVisitor(WEIXIN_VISITOR_TABLE, SqlGetWeixinId($strOpenId));
+        $sql = new WeixinSql();
+        $iTotal = SqlCountVisitor(WEIXIN_VISITOR_TABLE, $sql->GetId($strOpenId));
     }
     else
     {

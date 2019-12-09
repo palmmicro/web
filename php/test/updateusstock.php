@@ -28,7 +28,7 @@ function _updateUsStock()
    		$ar = explode(',', $arItem[1]);
    		$strSymbol = reset($ar);
    		$strName = end($ar);
-   		if ($sql->Write($strSymbol, $strName))
+   		if ($sql->WriteSymbol($strSymbol, $strName))
    		{
    			DebugString($strSymbol.' '.$strName);
    			$iCount ++;

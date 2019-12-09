@@ -141,7 +141,9 @@ function _updateWeixinTables($strText, $strUserName)
     SqlCreateVisitorTable(WEIXIN_VISITOR_TABLE);
     if ($strDstId = MustGetSpiderParameterId($strText))
     {
-        $strSrcId = MustGetWeixinId($strUserName);
+		$sql = new WeixinSql();
+		$sql->InsertUser($strUserName);
+		$strSrcId = $sql->GetId($strUserName);
         SqlInsertVisitor(WEIXIN_VISITOR_TABLE, $strDstId, $strSrcId);
     }
 }
@@ -242,22 +244,16 @@ class WeixinStock extends WeixinCallback
 	{
 		$strContents = '未知图像信息';
     
-		SqlCreateWeixinImageTable();
-		$strOpenId = MustGetWeixinId($strUserName);
-		SqlInsertWeixinImage($strOpenId);
-		if ($str = SqlGetWeixinImageNow($strOpenId))
-		{
-			$img = url_get_contents($strUrl);    
-			$size = strlen($img);
-			$strFileName = DebugGetImageName($str); 
-			$fp = @fopen($strFileName, 'w');  
-			fwrite($fp, $img);  
-			fclose($fp);  
-//      	unset($img, $url);
+		$img = url_get_contents($strUrl);    
+		$size = strlen($img);
+		$strFileName = DebugGetImageName($strUserName); 
+		$fp = @fopen($strFileName, 'w');  
+		fwrite($fp, $img);  
+		fclose($fp);  
+//      unset($img, $url);
 
-        	$strLink = GetInternalLink($strFileName, $strFileName);
-        	$strContents .= "(已经保存到{$strLink})";
-        }
+        $strLink = GetInternalLink($strFileName, $strFileName);
+        $strContents .= "(已经保存到{$strLink})";
     
         return $this->GetUnknownText($strContents, $strUserName);
     }

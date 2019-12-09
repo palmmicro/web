@@ -13,7 +13,8 @@ require_once('/php/sql/sqlweixin.php');
 	            $str = $_SESSION['userurl'];
 	            if (stripos($str, WEIXIN_VISITOR_TABLE) !== false)
 	            {
-	                SqlDeleteVisitor(WEIXIN_VISITOR_TABLE, SqlGetWeixinId($strSrc));
+           	        $sql = new WeixinSql();
+	                SqlDeleteVisitor(WEIXIN_VISITOR_TABLE, $sql->GetId($strSrc));
 	            }
 	            else
 	            {

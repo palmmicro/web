@@ -38,10 +38,10 @@ function _updateStockHistoryClose($ref, $strSymbol, $strYMD, $strClose)
     }
 }
 
-function _updateStockDescription($strSymbol, $strStockId, $strVal)
+function _updateStockDescription($strSymbol, $strVal)
 {
 	$sql = new StockSql();
-	if ($sql->Update($strStockId, $strSymbol, $strVal))
+	if ($sql->WriteSymbol($strSymbol, $strVal))
 	{
 		trigger_error($_POST['submit'].' '.GetMyStockLink($strSymbol).' '.$strVal);
 	}
@@ -307,7 +307,7 @@ function _updateStockOptionSplit($ref, $strSymbol, $strStockId, $strDate, $strVa
 			break;
 			
 		case STOCK_OPTION_EDIT:
-			if ($bAdmin)	_updateStockDescription($strSymbol, $strStockId, $strVal);
+			if ($bAdmin)	_updateStockDescription($strSymbol, $strVal);
 			break;
 			
 		case STOCK_OPTION_EMA:

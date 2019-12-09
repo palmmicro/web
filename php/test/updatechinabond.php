@@ -70,7 +70,7 @@ function _updateChinaBond()
    			{
    				$strName = $ar[0];
    				$strSymbol = $strPrefix.$strDigit;
-   				if ($sql->Write($strSymbol, $strName))
+   				if ($sql->WriteSymbol($strSymbol, $strName))
    				{
    					DebugString($strSymbol.' '.$strName);
    					$iCount ++;
