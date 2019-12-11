@@ -49,4 +49,23 @@ class WeixinSql extends KeyNameSql
     }
 }
 
+// ****************************** WeixinTextSql class *******************************************************
+class WeixinTextSql extends KeyNameSql
+{
+    function WeixinTextSql()
+    {
+        parent::KeyNameSql('weixintext');
+    }
+    
+    function IsUnused($record)
+    {
+    	return false;
+    }
+    
+    function DeleteUnused()
+    {
+    	return $this->DeleteInvalid('IsUnused');
+    }
+}
+
 ?>

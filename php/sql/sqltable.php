@@ -193,15 +193,14 @@ class TableSql
     	return false;
     }
 
-    function DeleteInvalidDate()
+    function DeleteInvalid($callback)
     {
     	$ar = array();
     	if ($result = $this->GetAll()) 
     	{
     		while ($record = mysql_fetch_assoc($result)) 
     		{
-    			$ymd = new OldestYMD();
-    			if ($ymd->IsInvalid($record['date']))
+    			if ($this->$callback($record))
     			{
     				$ar[] = $record['id'];
     			}
@@ -212,12 +211,12 @@ class TableSql
     	$iCount = count($ar);
     	if ($iCount > 0)
     	{
-    		DebugVal($iCount, $this->strName.' - invalid date'); 
     		foreach ($ar as $strId)
     		{
     			$this->DeleteById($strId);
     		}
     	}
+    	return $iCount;
     }
     
     function GetTableSchema()
@@ -255,20 +254,18 @@ class TableSql
 // ****************************** KeyNameSql class *******************************************************
 class KeyNameSql extends TableSql
 {
-	var $iMaxLen;
 	var $strKeyName;
 	
-    function KeyNameSql($strTableName, $strKeyName, $iMaxKeyLen = 32)
+    function KeyNameSql($strTableName, $strKeyName = 'parameter')
     {
-        $this->iMaxLen = $iMaxKeyLen;
         $this->strKeyName = $strKeyName;
         parent::TableSql($strTableName);
     }
 
     function Create()
     {
-    	$str = ' `'.$this->strKeyName.'` VARCHAR( '.strval($this->iMaxLen).' ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,'
-         	. ' UNIQUE ( `'.$this->strKeyName.'` )';
+    	$str = ' `'.$this->strKeyName.'` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,'
+         	. ' UNIQUE ( `'.$this->strKeyName.'` (255) )';
     	return $this->CreateIdTable($str);
     }
 
@@ -277,16 +274,25 @@ class KeyNameSql extends TableSql
    		return $this->GetData(false, '`'.$this->strKeyName.'` ASC', _SqlBuildLimit($iStart, $iNum));
     }
 
-    function GetRecord($strKey)
-    {
-    	return $this->GetSingleData(_SqlBuildWhere($this->strKeyName, $strKey));
-    }
-
     function GetKey($strId)
     {
     	if ($record = $this->GetRecordById($strId))
     	{
     		return $record[$this->strKeyName];
+    	}
+    	return false;
+    }
+
+    function GetRecord($strKey)
+    {
+    	return $this->GetSingleData(_SqlBuildWhere($this->strKeyName, $strKey));
+    }
+
+    function InsertKey($strKey)
+    {
+    	if ($this->GetRecord($strKey) == false)
+    	{
+    		return $this->InsertData(array($this->strKeyName => $strKey));
     	}
     	return false;
     }

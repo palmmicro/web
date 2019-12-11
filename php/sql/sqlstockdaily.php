@@ -107,6 +107,17 @@ class DailyStockSql extends StockTableSql
 			$this->Write($strDate, $strClose);
 		}
     }
+    
+    function IsInvalidDate($record)
+    {
+		$ymd = new OldestYMD();
+    	return $ymd->IsInvalid($record['date']);
+    }
+    
+    function DeleteInvalidDate()
+    {
+    	return $this->DeleteInvalid('IsInvalidDate');
+    }
 }
 
 // ****************************** DailyStockValSql class *******************************************************

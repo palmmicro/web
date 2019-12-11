@@ -16,25 +16,7 @@ class StockSql extends KeyNameSql
          	. ' UNIQUE ( `symbol` )';
     	return $this->CreateIdTable($str);
     }
-/*    
-    function _getFieldArray($strSymbol, $strName)
-    {
-    	$strName = UrlCleanString($strName);
-    	return array('symbol' => $strSymbol,
-    				   'name' => $strName);
-    }
-    
-    function Insert($strSymbol, $strName)
-    {
-       	DebugString('Insert Stock: '.$strSymbol.' '.$strName);
-    	return $this->InsertData($this->_getFieldArray($strSymbol, $strName));
-    }
 
-	function Update($strId, $strSymbol, $strName)
-    {
-		return $this->UpdateById($this->_getFieldArray($strSymbol, $strName), $strId);
-	}
-*/	
     function WriteSymbol($strSymbol, $strName)
     {
     	$strName = UrlCleanString($strName);
@@ -67,7 +49,7 @@ class StockSql extends KeyNameSql
     }
 }
 
-// ****************************** Stock table *******************************************************
+// ****************************** Stock symbol functionse *******************************************************
 function SqlGetStockId($strSymbol)
 {
 	$sql = new StockSql();

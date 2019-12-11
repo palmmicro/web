@@ -1,6 +1,5 @@
 <?php
 require_once('/php/account.php');
-require_once('/php/sql/sqlspider.php');
 require_once('/php/sql/sqlweixin.php');
 
     AcctSessionStart();

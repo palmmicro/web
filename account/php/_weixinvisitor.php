@@ -1,24 +1,23 @@
 <?php
 require_once('_visitorcommon.php');
-require_once('/php/sql/sqlspider.php');
 require_once('/php/sql/sqlweixin.php');
 
 function _echoWeixinVisitorData($strOpenId, $iStart, $iNum, $bChinese)
 {
     $arId = array();
 	$sql = new WeixinSql();
+	$text_sql = new WeixinTextSql();
     if ($result = SqlGetVisitor(WEIXIN_VISITOR_TABLE, $sql->GetId($strOpenId), $iStart, $iNum)) 
     {
         while ($record = mysql_fetch_assoc($result)) 
         {
-            $strContent = SqlGetSpiderParameter($record['dst_id']);
+            $strContent = $text_sql->GetKey($record['dst_id']);
             $strContent = GetVisitorContentsDisplay($strContent);
             
             if ($strOpenId)     $strLink = GetVisitorSrcDisplay($strOpenId);
             else
             {
                 $strId = $record['src_id'];
-//                $str = SqlGetWeixin($strId);
 				$str = $sql->GetKey($strId);
                 $strDisplay = GetVisitorSrcDisplay($str);
                 if (in_array($strId, $arId))    $strLink = $strDisplay;

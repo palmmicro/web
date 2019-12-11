@@ -97,7 +97,9 @@ function _submitStockHistory($ref)
 			}
 		}
 	}
-    $his_sql->DeleteInvalidDate();
+	
+    $iCount = $his_sql->DeleteInvalidDate();
+	DebugVal($iCount, 'Invalid date'); 
 }
 
     $acct = new SymbolAcctStart();

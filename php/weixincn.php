@@ -7,7 +7,6 @@ require_once('stock.php');
 require_once('ui/stocktext.php');
 
 //require_once('sql/sqlvisitor.php');
-require_once('sql/sqlspider.php');
 require_once('sql/sqlweixin.php');
 
 define('WX_DEFAULT_SYMBOL', 'SZ162411');
@@ -139,13 +138,16 @@ function _wxDebug($strUserName, $strText, $strSubject)
 function _updateWeixinTables($strText, $strUserName)
 {
     SqlCreateVisitorTable(WEIXIN_VISITOR_TABLE);
-    if ($strDstId = MustGetSpiderParameterId($strText))
-    {
-		$sql = new WeixinSql();
-		$sql->InsertUser($strUserName);
-		$strSrcId = $sql->GetId($strUserName);
-        SqlInsertVisitor(WEIXIN_VISITOR_TABLE, $strDstId, $strSrcId);
-    }
+    
+	$text_sql = new WeixinTextSql();
+	$text_sql->InsertKey($strText);
+	$strDstId = $text_sql->GetId($strText);
+
+	$sql = new WeixinSql();
+	$sql->InsertUser($strUserName);
+	$strSrcId = $sql->GetId($strUserName);
+	
+    SqlInsertVisitor(WEIXIN_VISITOR_TABLE, $strDstId, $strSrcId);
 }
 
 class WeixinStock extends WeixinCallback
