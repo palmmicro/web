@@ -22,7 +22,10 @@ function GetSingleCommentDescription($record, $strWhere, $bChinese)
     $strAuthor = GetMemberLink($record['member_id'], $bChinese);
     $strIp = GetIpLink($record['ip'], $bChinese);
     $strTime = _getSingleCommentTime($record, $bChinese);
-    $strUri = SqlGetUriByBlogId($record['blog_id']);
+    
+	$sql = new PageSql();
+	$strUri = $sql->GetKey($record['blog_id']);
+	
     $strTimeLink = "<a href=\"$strUri#{$record['id']}\">$strTime</a>";
     if (strpos($strWhere, 'blog_id') !== false)
     {
@@ -52,8 +55,8 @@ function _echoSingleCommentParagraph($record, $strMemberId, $strWhere, $bChinese
         }
 
         // <a href="delete.page" onclick="return confirm('Are you sure you want to delete?')">Delete</a> 
-        if (SqlGetMemberIdByBlogId($record['blog_id']) == $strMemberId || $record['member_id'] == $strMemberId)
-        {	// I posted the blog or the comment
+        if (AcctIsAdmin() || $record['member_id'] == $strMemberId)
+        {
             $strDelete = GetDeleteLink('/account/php/_submitcomment.php?delete='.$record['id'], '评论', 'comment', $bChinese);
         }
     }

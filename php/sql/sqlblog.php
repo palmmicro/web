@@ -23,43 +23,21 @@ INDEX ( `ip` )
 	if (!$result)	die("Create blogcomment table failed");
 */
 
-// ****************************** BlogSql class *******************************************************
-class BlogSql extends KeyValSql
+// ****************************** PageSql class *******************************************************
+
+class PageSql extends KeyNameSql
 {
-    function BlogSql($strMemberId = false) 
+    function PageSql()
     {
-        parent::KeyValSql($strMemberId, 'member', 'blog', 'uri', 128);
+        parent::KeyNameSql('page', 'uri');
     }
-}
 
-// ****************************** Blog table support functions *******************************************************
-function SqlGetUriByBlogId($strId)
-{
-	$sql = new BlogSql();
-	if ($record = $sql->GetRecordById($strId))
-	{
-		return $record['uri'];
-	}
-	return false;
-}
-
-function SqlGetMemberIdByBlogId($strId)
-{
-	$sql = new BlogSql();
-	return $sql->GetKeyId($strId);
-}
-
-function SqlDeleteBlog($strUri)
-{
-	if ($strAuthorId = AcctGetMemberIdFromBlogUri($strUri))
-	{
-		$sql = new BlogSql($strAuthorId);
-		if ($strBlogId = $sql->GetId($strUri))
-		{
-			SqlDeleteBlogCommentByBlogId($strBlogId);
-			$sql->DeleteById($strBlogId);
-		}
-	}
+    function Create()
+    {
+    	$str = ' `uri` VARCHAR( 128 ) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL ,'
+         	  . ' UNIQUE ( `uri` )';
+    	return $this->CreateIdTable($str);
+    }
 }
 
 // ****************************** Blog Comment table *******************************************************

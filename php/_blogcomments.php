@@ -31,15 +31,15 @@ function _echoPreviousComments($strBlogId, $strMemberId, $bChinese)
 
 function EchoBlogComments($bChinese = true)
 {
+	$sql = new PageSql();
+	$strBlogId = $sql->GetId(UrlGetUri());
+
     $strMemberId = AcctIsLogin();
-	if ($strBlogId = AcctGetBlogId())
-	{	
-		_echoPreviousComments($strBlogId, $strMemberId, $bChinese);
-		if ($strMemberId) 
-		{
-	        EditCommentForm($bChinese ? BLOG_COMMENT_NEW_CN : BLOG_COMMENT_NEW);
-	    }
-	}
+	_echoPreviousComments($strBlogId, $strMemberId, $bChinese);
+	if ($strMemberId) 
+	{
+        EditCommentForm($bChinese ? BLOG_COMMENT_NEW_CN : BLOG_COMMENT_NEW);
+    }
 }
 
 

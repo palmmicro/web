@@ -18,8 +18,8 @@ function GetDevGuideLink($strPage, $strVer = false, $bChinese = true)
 
 function GetBlogLink($strBlogId)
 {
-    $strBlogUri = SqlGetUriByBlogId($strBlogId);
-    if ($strBlogUri)
+	$sql = new PageSql();
+    if ($strBlogUri = $sql->GetKey($strBlogId))
     {
         return GetInternalLink($strBlogUri, $strBlogUri);
     }

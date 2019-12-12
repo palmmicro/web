@@ -201,22 +201,9 @@ function _checkSearchEngineDns($strIp)
 function AcctGetBlogId()
 {
     $strUri = UrlGetUri();	                        // /woody/blog/entertainment/20140615cn.php
-	if ($strAuthorId = AcctGetMemberIdFromBlogUri($strUri))
-	{
-		$sql = new BlogSql($strAuthorId);
-		if ($strBlogId = $sql->GetId($strUri))
-		{
-			return $strBlogId;
-		}
-		else
-		{
-			if ($sql->Insert($strUri))
-			{
-				return $sql->GetId($strUri);
-			}
-		}
-	}
-	return false;
+	$sql = new PageSql();
+	$sql->InsertKey($strUri);
+	return $sql->GetId($strUri);
 }
 
 function AcctSessionStart()
@@ -260,24 +247,6 @@ function AcctSessionStart()
 	    }
 	}
     return $strMemberId;	
-}
-
-function AcctGetEmailFromBlogUri($strUri)
-{
-	$iPos = strpos($strUri, '/', 1);
-	$strName = substr($strUri, 1, $iPos - 1);
-	if ($strName == 'woody' || $strName == 'chishin' || $strName == 'tangli')
-	{
-	    return UrlGetEmail($strName);
-	}
-	return ADMIN_EMAIL;
-}
-
-function AcctGetMemberIdFromBlogUri($strUri)
-{
-	$strEmail = AcctGetEmailFromBlogUri($strUri);
-	if ($strEmail == ADMIN_EMAIL)		return '1';
-	return SqlGetIdByEmail($strEmail);           		             
 }
 
 class AcctStart

@@ -7,12 +7,13 @@ function _echoBlogVisitorData($strIp, $iStart, $iNum, $bChinese)
     $arIpId = array();
     
 	$ip_sql = new IpSql();
+	$page_sql = new PageSql();
     if ($result = AcctGetBlogVisitor($strIp, $iStart, $iNum)) 
     {
         while ($record = mysql_fetch_assoc($result)) 
         {
             $strBlogId = $record['dst_id'];
-            $strUri = SqlGetUriByBlogId($strBlogId);
+			$strUri = $page_sql->GetKey($strBlogId);
             $strUriLink = ltrim($strUri, '/');
             $strUriLink = GetVisitorContentsDisplay($strUriLink);
             if (!in_array($strBlogId, $arBlogId))

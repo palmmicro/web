@@ -5,15 +5,6 @@
 define('VISITOR_TABLE', 'visitor');
 define('WEIXIN_VISITOR_TABLE', 'weixinvisitor');
 
-function SqlDeleteVisitorByBlogId($strBlogId)
-{
-	$sql = new TableSql(VISITOR_TABLE);
-	$strWhere = _SqlBuildWhere('dst_id', $strBlogId);
-    $iCount = $sql->CountData($strWhere);
-    $sql->DeleteData($strWhere);
-    return $iCount;
-}
-
 function SqlCreateVisitorTable($strTableName)
 {
     $str = 'CREATE TABLE IF NOT EXISTS `camman`.`'

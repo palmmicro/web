@@ -4,8 +4,6 @@ require_once('_editcommentform.php');
 
 function _emailBlogComment($strId, $strBlogId, $strSubject, $strComment)
 {
-	$strBlogUri = SqlGetUriByBlogId($strBlogId);
-	
 	// build email contents
 	$str = SqlGetEmailById($strId);
 	$str .= " $strSubject:<br />$strComment<br />";
@@ -13,8 +11,7 @@ function _emailBlogComment($strId, $strBlogId, $strSubject, $strComment)
 
 	// build mailing list
 	$arEmails = array();				                                                    // Array to store emails addresses to send to
-	$arEmails[] = AcctGetEmailFromBlogUri($strBlogUri);                                 // always send to blog writer
-//	$arEmails[] = UrlGetEmail('support');					                                // always send to support@domain.com
+	$arEmails[] = UrlGetEmail('support');					                                // always send to support@domain.com
 	if ($result = SqlGetBlogCommentByBlogId($strBlogId)) 
 	{
 		while ($record = mysql_fetch_assoc($result)) 
@@ -48,8 +45,7 @@ function _canModifyComment($strId, $strMemberId)
 	if (AcctIsAdmin())    return true;
 	
     $record = SqlGetBlogCommentById($strId);
-    if ($record['member_id'] == $strMemberId)                          return true;    // I posted the comment
-    if (SqlGetMemberIdByBlogId($record['blog_id']) == $strMemberId)   return true;     // I posted the blog
+    if ($record['member_id'] == $strMemberId)	return true;    // I posted the comment
     
     return false;
 }
@@ -87,18 +83,15 @@ function _onEdit($strId, $strMemberId, $strComment)
 function _onNew($strMemberId, $strComment)
 {
     $strUri = SwitchGetSess();
-	if ($strAuthorId = AcctGetMemberIdFromBlogUri($strUri))
+	$sql = new PageSql();
+	if ($strBlogId = $sql->GetId($strUri))
 	{
-		$sql = new BlogSql($strAuthorId);
-		if ($strBlogId = $sql->GetId($strUri))
+		if ($strComment != '')
 		{
-			if ($strComment != '')
+			if (SqlInsertBlogComment($strMemberId, $strBlogId, $strComment))
 			{
-				if (SqlInsertBlogComment($strMemberId, $strBlogId, $strComment))
-				{
-					SqlChangeActivity($strMemberId, 1);
-					_emailBlogComment($strMemberId, $strBlogId, $_POST['submit'], $_POST['comment']);
-				}
+				SqlChangeActivity($strMemberId, 1);
+				_emailBlogComment($strMemberId, $strBlogId, $_POST['submit'], $_POST['comment']);
 			}
 		}
 	}

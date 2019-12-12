@@ -82,47 +82,6 @@ function test_stock_dividend()
     }
 }
 
-function _checkBlogTable()
-{
-	$ar = array();
-	$sql = new BlogSql();
-//	$sql->AlterTable('UNIQUE ( `uri`, `member_id` )');
-    if ($result = $sql->GetAll()) 
-    {   
-    	$iTotal = 0;
-        while ($record = mysql_fetch_assoc($result)) 
-        {
-        	$strId = $record['id'];
-        	$strUri = $record['uri'];
-        	$strMemberId = $record['member_id'];
-        	if ((UrlIsValid($strUri) == false) || ($strMemberId != AcctGetMemberIdFromBlogUri($strUri)))          		             
-            {
-            	$ar[] = $strId;
-            	$iCount = SqlDeleteVisitorByBlogId($strId);
-            	DebugString($strMemberId.' '.$strUri.' '.strval($iCount));
-            	$iTotal ++;
-            }
-        }
-        @mysql_free_result($result);
-        DebugVal($iTotal, 'BlogSql');
-    }
-
-	foreach ($ar as $strId)
-	{
-		$sql->DeleteById($strId);
-	}
-}
-
-function SysInit()
-{
-	if (SqlConnectDatabase())
-	{
-	    DebugString('connect database ok');
-	}
-	
-//	_checkBlogTable();
-}
-
 function TestCmdLine()
 {
 	DebugString('cmd line test '.UrlGetQueryString());
@@ -156,7 +115,10 @@ function TestCmdLine()
     DebugClear();
 	DebugString($_SERVER['DOCUMENT_ROOT']);
 	DebugString(phpversion());
-	SysInit();
+	if (SqlConnectDatabase())
+	{
+	    DebugString('connect database ok');
+	}
 	echo strval(rand()).' Hello, world!';
 
 	TestCmdLine();
