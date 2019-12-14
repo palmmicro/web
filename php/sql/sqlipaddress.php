@@ -1,11 +1,10 @@
 <?php
-require_once('sqltable.php');
+require_once('sqlkeyname.php');
 
 define('IP_STATUS_NORMAL', '0');
 define('IP_STATUS_BLOCKED', '1');
 define('IP_STATUS_CRAWL', '2');
 
-// ****************************** IpSql class *******************************************************
 class IpSql extends KeyNameSql
 {
     function IpSql()

@@ -205,8 +205,12 @@ function GetRatioDisplay($fVal)
 
 function StockGetPercentage($strDivisor, $strDividend)
 {
-	if (empty($strDivisor) || empty($strDividend))	return false;
-    return (floatval($strDividend)/floatval($strDivisor) - 1.0) * 100.0;
+	$f = floatval($strDivisor);
+	if ($f == 0.0)
+	{
+		return false;
+	}
+    return (floatval($strDividend)/$f - 1.0) * 100.0;
 }
 
 function StockCompareEstResult($nv_sql, $strNetValue, $strDate, $strSymbol)

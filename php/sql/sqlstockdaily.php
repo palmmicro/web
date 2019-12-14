@@ -1,13 +1,12 @@
 <?php
-require_once('sqltable.php');
 require_once('sqlstocksymbol.php');
 
 // ****************************** DailyStockSql class *******************************************************
 class DailyStockSql extends StockTableSql
 {
-    function DailyStockSql($strStockId, $strTableName) 
+    function DailyStockSql($strTableName, $strStockId) 
     {
-        parent::StockTableSql($strStockId, $strTableName);
+        parent::StockTableSql($strTableName, $strStockId);
     }
 
     function ComposeDailyStr()
@@ -120,12 +119,12 @@ class DailyStockSql extends StockTableSql
     }
 }
 
-// ****************************** DailyStockValSql class *******************************************************
+// ****************************** DailyStockStrSql class *******************************************************
 class DailyStockStrSql extends DailyStockSql
 {
-    function DailyStockStrSql($strStockId, $strTableName) 
+    function DailyStockStrSql($strTableName, $strStockId) 
     {
-        parent::DailyStockSql($strStockId, $strTableName);
+        parent::DailyStockSql($strTableName, $strStockId);
     }
 
     function Create()
@@ -178,9 +177,9 @@ class DailyStockStrSql extends DailyStockSql
 // ****************************** DailyStockValSql class *******************************************************
 class DailyStockValSql extends DailyStockSql
 {
-    function DailyStockValSql($strStockId, $strTableName) 
+    function DailyStockValSql($strTableName, $strStockId) 
     {
-        parent::DailyStockSql($strStockId, $strTableName);
+        parent::DailyStockSql($strTableName, $strStockId);
     }
 
     function ComposeDailyValStr()
@@ -233,7 +232,7 @@ class FundEstSql extends DailyStockValSql
 {
     function FundEstSql($strStockId = false) 
     {
-        parent::DailyStockValSql($strStockId, TABLE_FUND_EST);
+        parent::DailyStockValSql(TABLE_FUND_EST, $strStockId);
     }
 
     function Create()
@@ -263,7 +262,7 @@ class StockEmaSql extends DailyStockValSql
 {
     function StockEmaSql($strStockId, $iDays) 
     {
-        parent::DailyStockValSql($strStockId, 'stockema'.strval($iDays));
+        parent::DailyStockValSql('stockema'.strval($iDays), $strStockId);
     }
 }
 
@@ -272,7 +271,7 @@ class StockSplitSql extends DailyStockValSql
 {
     function StockSplitSql($strStockId = false) 
     {
-        parent::DailyStockValSql($strStockId, TABLE_STOCK_SPLIT);
+        parent::DailyStockValSql(TABLE_STOCK_SPLIT, $strStockId);
     }
 }
 
@@ -281,7 +280,7 @@ class EtfSharesHistorySql extends DailyStockValSql
 {
     function EtfSharesHistorySql($strStockId = false) 
     {
-        parent::DailyStockValSql($strStockId, 'etfshareshistory');
+        parent::DailyStockValSql('etfshareshistory', $strStockId);
     }
 }
 
@@ -290,7 +289,7 @@ class EtfSharesDiffSql extends DailyStockValSql
 {
     function EtfSharesDiffSql($strStockId = false) 
     {
-        parent::DailyStockValSql($strStockId, 'etfsharesdiff');
+        parent::DailyStockValSql('etfsharesdiff', $strStockId);
     }
 }
 
@@ -299,7 +298,7 @@ class EtfCnhSql extends DailyStockValSql
 {
     function EtfCnhSql($strStockId) 
     {
-        parent::DailyStockValSql($strStockId, 'etfcnh');
+        parent::DailyStockValSql('etfcnh', $strStockId);
     }
 }
 
@@ -308,7 +307,7 @@ class NetValueHistorySql extends DailyStockValSql
 {
     function NetValueHistorySql($strStockId) 
     {
-        parent::DailyStockValSql($strStockId, TABLE_NETVALUE_HISTORY);
+        parent::DailyStockValSql(TABLE_NETVALUE_HISTORY, $strStockId);
     }
 }
 
@@ -352,7 +351,7 @@ class AnnualIncomeStrSql extends DailyStockStrSql
 {
     function AnnualIncomeStrSql($strStockId = false) 
     {
-        parent::DailyStockStrSql($strStockId, 'annualincomestr');
+        parent::DailyStockStrSql('annualincomestr', $strStockId);
     }
 }
 
@@ -361,7 +360,7 @@ class QuarterIncomeStrSql extends DailyStockStrSql
 {
     function QuarterIncomeStrSql($strStockId = false) 
     {
-        parent::DailyStockStrSql($strStockId, 'quarterincomestr');
+        parent::DailyStockStrSql('quarterincomestr', $strStockId);
     }
 }
 

@@ -84,7 +84,7 @@ function _updateStockOptionAdr($strSymbol, $strVal, $strTable = TABLE_ADRH_STOCK
 	
 	$adr_ref = new MyStockReference(StockGetSymbol($strAdr)); 
 	$strStockId = $adr_ref->GetStockId();
-	$sql = new PairStockSql($strStockId, $strTable);
+	$sql = new PairStockSql($strTable, $strStockId);
 	if ($strRatio == '0')
 	{
 		$sql->DeleteAll();

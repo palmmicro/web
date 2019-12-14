@@ -29,8 +29,8 @@ function _echoFundAccountItem($csv, $strDate, $strSharesDiff, $ref, $nv_sql)
    	$ar = array($strDate, $strSharesDiff);
     if ($iCount == 5)
     {
-    	$strPurchaseValue = $nv_sql->GetClose($strPurchaseDate);
-    	$fAccount = floatval($strSharesDiff) * 10000.0 / (985.0 / floatval($strPurchaseValue));
+    	$fPurchaseValue = floatval($nv_sql->GetClose($strPurchaseDate));
+    	$fAccount = floatval($strSharesDiff) * 10000.0 / (985.0 / $fPurchaseValue);
     	$strAccount = strval(intval($fAccount));
     	$ar[] = $strAccount;
     	$ar[] = $strPurchaseDate;
@@ -127,10 +127,10 @@ function _echoFundAccountPredictData($ref, $nv_sql, $jpg)
    	{
    		if ($strPurchaseDate == GetNextTradingDayYMD($strNetValueDate))
    		{
-   			$strPurchaseValue = $nv_sql->GetClose($strPurchaseDate);
+   			$fPurchaseValue = floatval($nv_sql->GetClose($strPurchaseDate));
    			$strNetValue = $nv_sql->GetClose($strNetValueDate);
    			$fAccount = $jpg->GetY(floatval($ref->GetPercentage($strNetValue, $strClose)));
-   			$fSharesDiff = empty($strPurchaseValue) ? 0.0 : $fAccount * (985.0 / floatval($strPurchaseValue)) / 10000.0;
+   			$fSharesDiff = ($fPurchaseValue == 0.0) ? 0.0 : $fAccount * (985.0 / $fPurchaseValue) / 10000.0;
    			$ar[] = intval($fSharesDiff);
    			$ar[] = intval($fAccount);
     		$ar[] = $strPurchaseDate;

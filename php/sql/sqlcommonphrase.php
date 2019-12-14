@@ -1,12 +1,11 @@
 <?php
-require_once('sqltable.php');
+require_once('sqlkeyval.php');
 
-// ****************************** CommonPhraseSql class *******************************************************
 class CommonPhraseSql extends KeyValSql
 {
     function CommonPhraseSql($strMemberId = false) 
     {
-        parent::KeyValSql($strMemberId, 'member', TABLE_COMMON_PHRASE);
+        parent::KeyValSql(TABLE_COMMON_PHRASE, $strMemberId, 'member');
     }
 }
 

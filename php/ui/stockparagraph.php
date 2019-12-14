@@ -36,7 +36,7 @@ function EchoStockParagraph($iStart, $iNum)
 	EchoTableParagraphBegin(array(new TableColumnSymbol(),
 								   new TableColumnName(),
 								   new TableColumn('', 270)
-								   ), 'stock', $strNavLink);
+								   ), TABLE_STOCK, $strNavLink);
 
 	_echoStockTableData($sql, $iStart, $iNum);
     EchoTableParagraphEnd($strNavLink);

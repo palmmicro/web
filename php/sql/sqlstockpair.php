@@ -1,5 +1,6 @@
 <?php
-require_once('sqltable.php');
+require_once('sqlstocksymbol.php');
+require_once('sqlkeypair.php');
 
 define('TABLE_ADRH_STOCK', 'adrhstock');
 define('TABLE_ETF_PAIR', 'etfpair');
@@ -9,9 +10,9 @@ class StockPairSql extends KeyPairSql
 {
 	var $stock_sql;
 	
-    function StockPairSql($strStockId, $strTableName) 
+    function StockPairSql($strTableName, $strStockId) 
     {
-        parent::KeyPairSql($strStockId, 'stock', $strTableName);
+        parent::KeyPairSql($strTableName, $strStockId, TABLE_STOCK);
         $this->stock_sql = new StockSql();
     }
     
@@ -100,7 +101,7 @@ class AhPairSql extends StockPairSql
 {
     function AhPairSql($strStockId = false) 
     {
-        parent::StockPairSql($strStockId, 'ahpair');
+        parent::StockPairSql('ahpair', $strStockId);
     }
 }
 
@@ -109,16 +110,16 @@ class AbPairSql extends StockPairSql
 {
     function AbPairSql($strStockId = false) 
     {
-        parent::StockPairSql($strStockId, 'abpair');
+        parent::StockPairSql('abpair', $strStockId);
     }
 }
 
 // ****************************** PairStockSql class *******************************************************
 class PairStockSql extends StockTableSql
 {
-    function PairStockSql($strStockId, $strTableName) 
+    function PairStockSql($strTableName, $strStockId) 
     {
-        parent::StockTableSql($strStockId, $strTableName);
+        parent::StockTableSql($strTableName, $strStockId);
     }
     
     function GetRecord()
@@ -182,7 +183,7 @@ class EtfPairSql extends PairStockSql
 {
     function EtfPairSql($strStockId) 
     {
-        parent::PairStockSql($strStockId, TABLE_ETF_PAIR);
+        parent::PairStockSql(TABLE_ETF_PAIR, $strStockId);
     }
 }
 
@@ -213,7 +214,7 @@ function SqlInsertStockPair($strTableName, $strStockId, $strPairId, $strRatio)
 
 function SqlGetStockPairRatio($strTableName, $strStockId)
 {
-	$sql = new PairStockSql($strStockId, $strTableName);
+	$sql = new PairStockSql($strTableName, $strStockId);
 	return $sql->GetRatio();
 }
 
@@ -250,16 +251,11 @@ function SqlGetAdrhPairRatio($adr_ref)
 	return SqlGetStockPairRatio(TABLE_ADRH_STOCK, $adr_ref->GetStockId());
 }
 
-function SqlGetEtfPairRatio($strEtfId)
-{
-	return SqlGetStockPairRatio(TABLE_ETF_PAIR, $strEtfId);
-}
-
 function _sqlGetPair($strTableName, $strSymbol, $callback)
 {
 	if ($strStockId = SqlGetStockId($strSymbol))
 	{
-		$sql = new PairStockSql($strStockId, $strTableName);
+		$sql = new PairStockSql($strTableName, $strStockId);
 		if ($strPairId = $sql->$callback())
 		{
 			return SqlGetStockSymbol($strPairId);
@@ -283,14 +279,6 @@ function SqlGetAdrhPair($strSymbolAdr)
 {
 	return _sqlGetPair(TABLE_ADRH_STOCK, $strSymbolAdr, 'GetPairId');
 }
-
-// Use GetAllStockId() for all Index matches
-/*
-function SqlGetIndexPair($strIndex)
-{
-	return _sqlGetPair(TABLE_ETF_PAIR, $strIndex, 'GetFirstStockId');
-}
-*/
 
 function SqlGetHaPair($strSymbolH)
 {

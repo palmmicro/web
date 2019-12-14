@@ -1,5 +1,5 @@
 <?php
-require_once('sqltable.php');
+require_once('sqlkeyname.php');
 
 /*
  CREATE TABLE `camman`.`blogcomment` (
@@ -22,8 +22,6 @@ INDEX ( `ip` )
 	$result = @mysql_query($str);
 	if (!$result)	die("Create blogcomment table failed");
 */
-
-// ****************************** PageSql class *******************************************************
 
 class PageSql extends KeyNameSql
 {

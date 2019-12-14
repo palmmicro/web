@@ -1,5 +1,6 @@
 <?php
-//require_once('sqltable.php');
+//require_once('sqlkeytable.php');
+require_once('sqlkeyval.php');
 require_once('sqlstocktransaction.php');
 
 // ****************************** StockGroupSql class *******************************************************
@@ -7,7 +8,7 @@ class StockGroupSql extends KeyValSql
 {
     function StockGroupSql($strMemberId = false) 
     {
-        parent::KeyValSql($strMemberId, 'member', TABLE_STOCK_GROUP, 'groupname', 64);
+        parent::KeyValSql(TABLE_STOCK_GROUP, $strMemberId, 'member', 'groupname', 64);
     }
 }
 
@@ -24,6 +25,15 @@ function SqlGetStockGroupMemberId($strGroupId)
 	return $group_sql->GetKeyId($strGroupId);
 }
 
+// ****************************** StockGroupTableSql class *******************************************************
+class StockGroupTableSql extends KeyTableSql
+{
+    function StockGroupTableSql($strTableName, $strGroupId) 
+    {
+        parent::KeyTableSql($strTableName, $strGroupId, 'group');
+    }
+}
+
 // ****************************** StockGroupItemSql class *******************************************************
 class StockGroupItemSql extends StockGroupTableSql
 {
@@ -31,7 +41,7 @@ class StockGroupItemSql extends StockGroupTableSql
 	
     function StockGroupItemSql($strGroupId = false) 
     {
-        parent::StockGroupTableSql($strGroupId, TABLE_STOCK_GROUP_ITEM);
+        parent::StockGroupTableSql(TABLE_STOCK_GROUP_ITEM, $strGroupId);
         $this->trans_sql = new StockTransactionSql();
     }
 

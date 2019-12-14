@@ -4,7 +4,7 @@ require_once('_emptygroup.php');
 
 function _deleteIsStockPair($strTableName, $strPairId)
 {
-	$sql = new PairStockSql($strPairId, $strTableName);
+	$sql = new PairStockSql($strTableName, $strPairId);
 	if ($strStockId = $sql->GetFirstStockId())
 	{
 		DebugString('Stock at least paired with: '.SqlGetStockSymbol($strStockId));
@@ -15,7 +15,7 @@ function _deleteIsStockPair($strTableName, $strPairId)
 
 function _deleteHasStockPair($strTableName, $strStockId)
 {
-	$sql = new PairStockSql($strStockId, $strTableName);
+	$sql = new PairStockSql($strTableName, $strStockId);
 	if ($strPairId = $sql->GetPairId())
 	{
 		DebugString('Stock pair existed: '.SqlGetStockSymbol($strPairId));

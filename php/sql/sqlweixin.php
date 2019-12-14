@@ -1,7 +1,6 @@
 <?php
-require_once('sqltable.php');
+require_once('sqlkeyname.php');
 
-// ****************************** WeixinSql class *******************************************************
 class WeixinSql extends KeyNameSql
 {
     function WeixinSql()
@@ -49,7 +48,6 @@ class WeixinSql extends KeyNameSql
     }
 }
 
-// ****************************** WeixinTextSql class *******************************************************
 class WeixinTextSql extends KeyNameSql
 {
     function WeixinTextSql()

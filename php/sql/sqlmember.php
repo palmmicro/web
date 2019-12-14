@@ -1,4 +1,5 @@
 <?php
+require_once('sqlkeytable.php');
 
 /*
  CREATE TABLE `camman`.`member` (
@@ -122,6 +123,16 @@ function SqlUpdateStatus($strId, $iNewStatus)
 	// Create UPDATE query
 	$strQry = "UPDATE member SET status = '$iNewStatus' WHERE id = '$strId' LIMIT 1";
 	return SqlDieByQuery($strQry, 'Update member status failed');
+}
+
+
+// ****************************** MemberTableSql class *******************************************************
+class MemberTableSql extends KeyTableSql
+{
+    function MemberTableSql($strMemberId, $strTableName) 
+    {
+        parent::KeyTableSql($strTableName, $strMemberId, 'member');
+    }
 }
 
 // ****************************** Profile table *******************************************************

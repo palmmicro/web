@@ -1,12 +1,12 @@
 <?php
-require_once('sqltable.php');
+require_once('sqlkeyname.php');
+require_once('sqlkeytable.php');
 
-// ****************************** StockSql class *******************************************************
 class StockSql extends KeyNameSql
 {
     function StockSql()
     {
-        parent::KeyNameSql('stock', 'symbol');
+        parent::KeyNameSql(TABLE_STOCK, 'symbol');
     }
 
     function Create()
@@ -65,6 +65,15 @@ function SqlGetStockSymbol($strStockId)
 {
 	$sql = new StockSql();
 	return $sql->GetKey($strStockId);
+}
+
+// ****************************** StockTableSql class *******************************************************
+class StockTableSql extends KeyTableSql
+{
+    function StockTableSql($strTableName, $strStockId) 
+    {
+        parent::KeyTableSql($strTableName, $strStockId, TABLE_STOCK);
+    }
 }
 
 ?>

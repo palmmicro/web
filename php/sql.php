@@ -10,6 +10,7 @@ define('TABLE_MEMBER', 'member');
 define('TABLE_NETVALUE_HISTORY', 'netvaluehistory');
 define('TABLE_PRIME_NUMBER', 'primenumber');
 define('TABLE_PROFILE', 'profile');
+define('TABLE_STOCK', 'stock');
 define('TABLE_STOCK_CALIBRATION', 'stockcalibration');
 define('TABLE_STOCK_GROUP', 'stockgroup');
 define('TABLE_STOCK_GROUP_ITEM', 'stockgroupitem');

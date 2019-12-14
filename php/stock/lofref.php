@@ -4,10 +4,10 @@
 function LofGetStockPosition($strEstPrev, $strEst, $strPrev, $strNetValue, $strCnyPrev, $strCny, $strInput = '4.0')
 {
 	$fEst = StockGetPercentage($strEstPrev, $strEst);
-	if (abs($fEst) > floatval($strInput))
+	if (($fEst !== false) && (abs($fEst) > floatval($strInput)))
 	{
 		$f = StockGetPercentage(strval(floatval($strEstPrev) * floatval($strCnyPrev)), strval(floatval($strEst) * floatval($strCny)));
-		if (empty($f) == false)
+		if (($f !== false) && ($f != 0.0))
 		{
 			$fVal = StockGetPercentage($strPrev, $strNetValue) / $f;
 			return strval_round($fVal, 2);
@@ -169,11 +169,11 @@ class _LofReference extends FundReference
             }
             $this->future_ref->LoadEtfFactor($this->future_etf_ref);
             
-            $strFutureEtfPrice = $this->future_etf_ref->GetPrice();
-            if (empty($strFutureEtfPrice) == false)
+            $fFutureEtfPrice = floatval($this->future_etf_ref->GetPrice());
+            if ($fFutureEtfPrice != 0.0)
             {
             	$fRealtime = floatval($strEst);
-            	$fRealtime *= floatval($this->future_ref->GetPrice()) / $this->future_ref->EstByEtf(floatval($strFutureEtfPrice));
+            	$fRealtime *= floatval($this->future_ref->GetPrice()) / $this->future_ref->EstByEtf($fFutureEtfPrice);
             	$this->fRealtimeNetValue = $this->GetLofValue(strval($fRealtime), $strCNY);
             }
         }
