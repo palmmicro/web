@@ -29,7 +29,7 @@
 <br />程序猿: 今天不行, 我一定要说服他们, PHP语言是最好的语言. 
 </font></blockquote>
 
-<h3>查询公网<?php EchoNameTag('ip', ACCOUNT_TOOL_IP_CN); ?></h3>
+<h3>查询公网<?php EchoNameTag(TABLE_IP, ACCOUNT_TOOL_IP_CN); ?></h3>
 <p>2017年3月9日
 <br />因为偶然注意到^SPSIOP和XOP自动校准的数据异乎寻常的多, 让我发现了从去年11月中旬开始, 就有一个网络爬虫从相连的2个IP地址以每秒2次的频率自动爬<a href="../../res/sz162411cn.php">华宝油气</a>等4个页面, 持续爬了快4个月了.
 在惊讶之余, 我的第一反应是每个月9.99美元的跑PHP代码的Yahoo网站服务太值了, 处理如此辛勤的爬虫, 竟然没有让我这种最常用用户感觉到任何性能上的变化, 看来未来即使正常访问量提高100倍都能应付过来.
@@ -43,7 +43,7 @@
 
 <h3><?php EchoNameTag('editinput', ACCOUNT_TOOL_EDIT_CN); ?>用户界面</h3>
 <p>2017年4月10日
-<br />做完<?php EchoNameLink('ip', ACCOUNT_TOOL_IP_CN); ?>这个最简单的单行输入然后把输入显示出来的用户界面后, 发现自己无意中实现了一个副产品.
+<br />做完<?php EchoNameLink(TABLE_IP, ACCOUNT_TOOL_IP_CN); ?>这个最简单的单行输入然后把输入显示出来的用户界面后, 发现自己无意中实现了一个副产品.
 一直有人用各种参数试探攻击我的网页, 所以我早就想解码这些%3A%2F%2F然后显示出来看看到底是些什么参数, 没想到这个界面调用urldecode后就直接实现了这个<?php EchoEditInputLink(); ?>功能.
 <br />另外一个我一直想解码显示的是从1970年1月1日开始所有秒数Unix的时间戳, 也顺手加了is_numeric区分后显示出来.
 </p>

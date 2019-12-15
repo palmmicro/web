@@ -3,7 +3,6 @@
 // ****************************** Visitor tables *******************************************************
 
 define('VISITOR_TABLE', 'visitor');
-define('WEIXIN_VISITOR_TABLE', 'weixinvisitor');
 
 function SqlCreateVisitorTable($strTableName)
 {

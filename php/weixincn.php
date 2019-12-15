@@ -137,17 +137,19 @@ function _wxDebug($strUserName, $strText, $strSubject)
 
 function _updateWeixinTables($strText, $strUserName)
 {
-    SqlCreateVisitorTable(WEIXIN_VISITOR_TABLE);
+//    SqlCreateVisitorTable(TABLE_WEIXIN_VISITOR);
     
 	$text_sql = new WeixinTextSql();
 	$text_sql->InsertKey($strText);
-	$strDstId = $text_sql->GetId($strText);
+//	$strDstId = $text_sql->GetId($strText);
 
 	$sql = new WeixinSql();
 	$sql->InsertUser($strUserName);
-	$strSrcId = $sql->GetId($strUserName);
+//	$strSrcId = $sql->GetId($strUserName);
 	
-    SqlInsertVisitor(WEIXIN_VISITOR_TABLE, $strDstId, $strSrcId);
+	$visitor_sql = new WeixinVisitorSql($strUserName);
+	$visitor_sql->InsertLog($strText);
+//    SqlInsertVisitor(TABLE_WEIXIN_VISITOR, $strDstId, $strSrcId);
 }
 
 class WeixinStock extends WeixinCallback

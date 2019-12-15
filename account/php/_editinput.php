@@ -201,7 +201,7 @@ function EchoAll($bChinese = true)
     		$strInput = '0.2506,2.487,1099; 2.450,2.557,7408';
     		break;
     		
-    	case 'ip':
+    	case TABLE_IP:
     		$strInput = UrlGetIp();
     		break;
     		
@@ -239,7 +239,7 @@ function EchoAll($bChinese = true)
     	$str = is_numeric($strInput) ? DebugGetDateTime($strInput) : urldecode($strInput);
     	break;
     		
-    case 'ip':
+    case TABLE_IP:
     	$str = IpLookupGetString($strInput, '<br />', $bChinese);
     	break;
     	
@@ -297,7 +297,7 @@ function EchoMetaDescription($bChinese = true)
     						: 'page, testing source code in /account/_editinput.php first. Functions will be moved to permanent pages after test.';
   		break;
   		
-  	case 'ip':
+  	case TABLE_IP:
   		$str .= $bChinese ? '查询页面. 从ipinfo.io等网站查询IP地址对应的国家, 城市, 网络运营商和公司等信息. 同时也从palmmicro.com的用户登录和评论中提取对应记录.'
     						: 'page, display country, city, service provider and company information from ipinfo.io.';
   		break;
@@ -324,6 +324,6 @@ function EchoTitle($bChinese = true)
   	echo $str;
 }
 
-	$acct = new TitleAcctStart(false, array(TABLE_COMMON_PHRASE, 'ip'));
+	$acct = new TitleAcctStart(false, array(TABLE_COMMON_PHRASE, TABLE_IP));
 
 ?>

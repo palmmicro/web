@@ -9,7 +9,7 @@ class IpSql extends KeyNameSql
 {
     function IpSql()
     {
-        parent::KeyNameSql('ip', 'address');
+        parent::KeyNameSql(TABLE_IP, 'address');
     }
 
     function Create()

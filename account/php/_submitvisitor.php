@@ -10,10 +10,10 @@ require_once('/php/sql/sqlweixin.php');
 	        if (isset($_SESSION['userurl'])) 
 	        {
 	            $str = $_SESSION['userurl'];
-	            if (stripos($str, WEIXIN_VISITOR_TABLE) !== false)
+	            if (stripos($str, TABLE_WEIXIN_VISITOR) !== false)
 	            {
-           	        $sql = new WeixinSql();
-	                SqlDeleteVisitor(WEIXIN_VISITOR_TABLE, $sql->GetId($strSrc));
+           	        $sql = new WeixinVisitorSql($strSrc);
+	                $sql->DeleteAll();
 	            }
 	            else
 	            {

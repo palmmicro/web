@@ -8,6 +8,7 @@ require_once('externallink.php');
 require_once('gb2312.php');
 
 require_once('sql/sqlipaddress.php');
+require_once('sql/sqlsina.php');
 require_once('sql/sqlstock.php');
 
 require_once('stock/stocksymbol.php');
@@ -123,6 +124,21 @@ function GetSinaQuotes($strSinaSymbols)
 //		DebugString('Ignore: '.gethostbyaddr($strIp).' '.$strSinaSymbols);
 		return false;
 	}
+	
+	$sina_sql = new SinaSql($strIp);
+   	if ($record = $sina_sql->GetRecordNow())
+    {
+    	date_default_timezone_set(DEBUG_TIME_ZONE);
+    	if (time() - strtotime($record['date'].' '.$record['time']) < 30)
+    	{
+    		DebugString('Ignore: '.$strSinaSymbols);
+    		return false;
+    	}
+    }
+    
+	$sinatext_sql = new SinaTextSql();
+	$sinatext_sql->InsertKey($strSinaSymbols);
+	$sina_sql->InsertLog($strSinaSymbols);
 	
     $strUrl = GetSinaQuotesUrl($strSinaSymbols);
     $str = url_get_contents($strUrl);
@@ -358,7 +374,9 @@ function StockPrefetchArrayData($ar)
     		$arAll = array_merge($arAll, _getAllSymbolArray($strSymbol));
     	}
     }
-    PrefetchSinaStockData(array_unique($arAll));
+    $arAll = array_unique($arAll);
+    sort($arAll);
+    PrefetchSinaStockData($arAll);
 }
 
 function StockPrefetchData()

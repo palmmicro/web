@@ -1,11 +1,11 @@
 <?php
-require_once('sqlkeyname.php');
+require_once('sqlkeylog.php');
 
 class WeixinSql extends KeyNameSql
 {
     function WeixinSql()
     {
-        parent::KeyNameSql('weixin', 'user');
+        parent::KeyNameSql(TABLE_WEIXIN, 'user');
     }
 
     function Create()
@@ -48,11 +48,19 @@ class WeixinSql extends KeyNameSql
     }
 }
 
+class WeixinVisitorSql extends KeyLogSql
+{
+    function WeixinVisitorSql($strUser)
+    {
+        parent::KeyLogSql(TABLE_WEIXIN_VISITOR, $strUser, TABLE_WEIXIN, TABLE_WEIXIN_TEXT);
+    }
+}
+
 class WeixinTextSql extends KeyNameSql
 {
     function WeixinTextSql()
     {
-        parent::KeyNameSql('weixintext');
+        parent::KeyNameSql(TABLE_WEIXIN_TEXT);
     }
     
     function IsUnused($record)

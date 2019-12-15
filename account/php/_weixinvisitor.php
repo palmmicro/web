@@ -2,23 +2,30 @@
 require_once('_visitorcommon.php');
 require_once('/php/sql/sqlweixin.php');
 
-function _echoWeixinVisitorData($strOpenId, $iStart, $iNum, $bChinese)
+function _echoWeixinVisitorData($strUser, $iStart, $iNum, $bChinese)
 {
     $arId = array();
-	$sql = new WeixinSql();
-	$text_sql = new WeixinTextSql();
-    if ($result = SqlGetVisitor(WEIXIN_VISITOR_TABLE, $sql->GetId($strOpenId), $iStart, $iNum)) 
+//	$sql = new WeixinSql();
+//	$text_sql = new WeixinTextSql();
+	$sql = new WeixinVisitorSql($strUser);
+	$key_sql = $sql->GetKeySql();
+	$log_sql = $sql->GetLogSql();
+//    if ($result = SqlGetVisitor(TABLE_WEIXIN_VISITOR, $sql->GetId($strUser), $iStart, $iNum)) 
+    if ($result = $sql->GetAll($iStart, $iNum)) 
     {
         while ($record = mysql_fetch_assoc($result)) 
         {
-            $strContent = $text_sql->GetKey($record['dst_id']);
+//            $strContent = $text_sql->GetKey($record['dst_id']);
+            $strContent = $log_sql->GetKey($record['weixintext_id']);
             $strContent = GetVisitorContentsDisplay($strContent);
             
-            if ($strOpenId)     $strLink = GetVisitorSrcDisplay($strOpenId);
+            if ($strUser)     $strLink = GetVisitorSrcDisplay($strUser);
             else
             {
-                $strId = $record['src_id'];
-				$str = $sql->GetKey($strId);
+//                $strId = $record['src_id'];
+//				$str = $sql->GetKey($strId);
+                $strId = $record['weixin_id'];
+				$str = $key_sql->GetKey($strId);
                 $strDisplay = GetVisitorSrcDisplay($str);
                 if (in_array($strId, $arId))    $strLink = $strDisplay;
                 else
@@ -34,23 +41,26 @@ function _echoWeixinVisitorData($strOpenId, $iStart, $iNum, $bChinese)
     }
 }
 
-function _getNavWeixinVisitorLink($strOpenId, $iStart, $iNum, $bChinese)
+function _getNavWeixinVisitorLink($strUser, $iStart, $iNum, $bChinese)
 {
-    if ($strOpenId)
+    if ($strUser)
     {
-        $strId = 'id='.$strOpenId;
-        $sql = new WeixinSql();
-        $iTotal = SqlCountVisitor(WEIXIN_VISITOR_TABLE, $sql->GetId($strOpenId));
+        $strId = 'id='.$strUser;
+//        $sql = new WeixinSql();
+//        $iTotal = SqlCountVisitor(TABLE_WEIXIN_VISITOR, $sql->GetId($strUser));
     }
     else
     {
         $strId = false;
-        $iTotal = SqlCountTableData(WEIXIN_VISITOR_TABLE);
+//        $iTotal = SqlCountTableData(TABLE_WEIXIN_VISITOR);
     }
+    
+   	$sql = new WeixinVisitorSql($strUser);
+    $iTotal = $sql->Count(); 
     return GetNavLink($strId, $iTotal, $iStart, $iNum, $bChinese);
 }
 
-function _echoWeixinVisitorParagraph($strOpenId, $iStart, $iNum, $bChinese)
+function _echoWeixinVisitorParagraph($strUser, $iStart, $iNum, $bChinese)
 {
     if ($bChinese)     
     {
@@ -61,28 +71,29 @@ function _echoWeixinVisitorParagraph($strOpenId, $iStart, $iNum, $bChinese)
         $arColumn = array('Parameter', 'OpenID', 'Date', 'Time');
     }
     
-    $strNavLink = _getNavWeixinVisitorLink($strOpenId, $iStart, $iNum, $bChinese);
-    EchoVisitorParagraphBegin($arColumn, $strNavLink, $strOpenId, $bChinese);
-    _echoWeixinVisitorData($strOpenId, $iStart, $iNum, $bChinese);
+    $strNavLink = _getNavWeixinVisitorLink($strUser, $iStart, $iNum, $bChinese);
+    EchoVisitorParagraphBegin($arColumn, $strNavLink, $strUser, $bChinese);
+    _echoWeixinVisitorData($strUser, $iStart, $iNum, $bChinese);
     EchoTableParagraphEnd($strNavLink);
 }
 
 function EchoWeixinVisitor($bChinese = true)
 {
-    $strOpenId = UrlGetQueryValue('id');
-    if ($strOpenId)
+    $strUser = UrlGetQueryValue('id');
+    if ($strUser)
     {
-        $str = $strOpenId;
+        $str = $strUser;
     }
     else
     {
-        $str = GetVisitorTodayLink(SqlCountTableToday(WEIXIN_VISITOR_TABLE), $bChinese);
+//        $str = GetVisitorTodayLink(SqlCountTableToday(TABLE_WEIXIN_VISITOR), $bChinese);
+        $str = '';
     }
     EchoParagraph($str);
     
     $iStart = UrlGetQueryInt('start');
     $iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
-    _echoWeixinVisitorParagraph($strOpenId, $iStart, $iNum, $bChinese);
+    _echoWeixinVisitorParagraph($strUser, $iStart, $iNum, $bChinese);
     EchoVisitorCommonLinks($bChinese);
 }
 

@@ -9,6 +9,14 @@ class KeyNameSql extends TableSql
     {
         $this->strKeyName = $strKeyName;
         parent::TableSql($strTableName);
+        
+    	$ar = $this->GetTableColumn();
+//    	DebugArray($ar);
+    	if ($ar[1] != $strKeyName)
+    	{
+    		$this->strKeyName = $ar[1];
+//    		DebugString($this->strKeyName.' vs '.$strKeyName);
+    	}
     }
 
     function Create()

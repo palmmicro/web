@@ -27,10 +27,15 @@ class KeyValSql extends KeyTableSql
     	return $this->GetSingleData($this->BuildWhere_key_extra($this->strValName, $strVal));
     }
 
-    function GetAll()
+    function BuildOrderBy()
+    {
+    	return '`'.$this->strValName.'` ASC';
+    }
+    
+/*    function GetAll()
     {
     	return $this->GetData($this->BuildWhere_key(), '`'.$this->strValName.'` ASC');
-    }
+    }*/
     
     function Insert($strVal)
     {

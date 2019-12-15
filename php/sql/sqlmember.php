@@ -131,7 +131,7 @@ class MemberTableSql extends KeyTableSql
 {
     function MemberTableSql($strMemberId, $strTableName) 
     {
-        parent::KeyTableSql($strTableName, $strMemberId, 'member');
+        parent::KeyTableSql($strTableName, $strMemberId, TABLE_MEMBER);
     }
 }
 

@@ -1,18 +1,27 @@
 <?php
-require_once('sqltable.php');
+require_once('sqlkeyname.php');
 
 class KeyTableSql extends TableSql
 {
+	var $key_sql;
+	
 	var $strKey;
-	var $strKeyPrefix;
+//	var $strKeyPrefix;
 	var $strKeyId;
 	
     function KeyTableSql($strTableName, $strKeyId, $strKeyPrefix) 
     {
+    	$this->key_sql = new KeyNameSql($strKeyPrefix);
+    	
     	$this->strKeyId = $strKeyId;
-    	$this->strKeyPrefix = $strKeyPrefix;
+//    	$this->strKeyPrefix = $strKeyPrefix;
     	$this->strKey = $strKeyPrefix.'_id';
         parent::TableSql($strTableName);
+    }
+    
+    function GetKeySql()
+    {
+    	return $this->key_sql;
     }
     
     function ComposeKeyStr()
@@ -22,12 +31,18 @@ class KeyTableSql extends TableSql
 
     function ComposeForeignKeyStr()
     {
-		return ' FOREIGN KEY (`'.$this->strKey.'`) REFERENCES `'.$this->strKeyPrefix.'`(`id`) ON DELETE CASCADE ';
+//		return ' FOREIGN KEY (`'.$this->strKey.'`) REFERENCES `'.$this->strKeyPrefix.'`(`id`) ON DELETE CASCADE ';
+		return ' FOREIGN KEY (`'.$this->strKey.'`) REFERENCES `'.$this->key_sql->GetTableName().'`(`id`) ON DELETE CASCADE ';
     }
     
     function MakeFieldKeyId()
     {
     	return array($this->strKey => $this->strKeyId);
+    }
+    
+    function BuildOrderBy()
+    {
+    	return false;
     }
     
     function BuildWhere_key()
@@ -64,15 +79,24 @@ class KeyTableSql extends TableSql
     {
     	return $this->CountData($this->BuildWhere_key());
     }
-    
-    function GetAll()
+
+    function GetAll($iStart = 0, $iNum = 0)
     {
-    	return $this->GetData($this->BuildWhere_key());
+   		return $this->GetData($this->BuildWhere_key(), $this->BuildOrderBy(), _SqlBuildLimit($iStart, $iNum));
     }
 
+    function GetRecordNow($strDummy = false)
+    {
+    	return $this->GetSingleData($this->BuildWhere_key(), $this->BuildOrderBy());
+    }
+    
     function DeleteAll()
     {
-    	return $this->DeleteData($this->BuildWhere_key());
+    	if ($this->strKeyId !== false)
+    	{
+    		return $this->DeleteData($this->BuildWhere_key());
+    	}
+    	return false;
     }
 }
 

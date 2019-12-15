@@ -10,6 +10,11 @@ class TableSql
         $this->Create();
     }
 
+    function GetTableName()
+    {
+    	return $this->strName;
+    }
+    
     function ComposeIdStr()
     {
     	return ' `id` INT UNSIGNED NOT NULL PRIMARY KEY';

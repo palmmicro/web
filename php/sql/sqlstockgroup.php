@@ -8,7 +8,7 @@ class StockGroupSql extends KeyValSql
 {
     function StockGroupSql($strMemberId = false) 
     {
-        parent::KeyValSql(TABLE_STOCK_GROUP, $strMemberId, 'member', 'groupname', 64);
+        parent::KeyValSql(TABLE_STOCK_GROUP, $strMemberId, TABLE_MEMBER, 'groupname', 64);
     }
 }
 
@@ -30,7 +30,7 @@ class StockGroupTableSql extends KeyTableSql
 {
     function StockGroupTableSql($strTableName, $strGroupId) 
     {
-        parent::KeyTableSql($strTableName, $strGroupId, 'group');
+        parent::KeyTableSql($strTableName, $strGroupId, TABLE_STOCK_GROUP);
     }
 }
 
@@ -136,14 +136,14 @@ function SqlCreateStockGroupItemTable()
 {
     $str = 'CREATE TABLE IF NOT EXISTS `camman`.`stockgroupitem` ('
          . ' `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,'
-         . ' `group_id` INT UNSIGNED NOT NULL ,'
+         . ' `stockgroup_id` INT UNSIGNED NOT NULL ,'
          . ' `stock_id` INT UNSIGNED NOT NULL ,'
          . ' `quantity` INT NOT NULL ,'
          . ' `cost` DOUBLE(10,3) NOT NULL ,'
          . ' `record` INT NOT NULL ,'
          . ' INDEX ( `record` ),'
-         . ' FOREIGN KEY (`group_id`) REFERENCES `stockgroup`(`id`) ON DELETE CASCADE ,'
-         . ' UNIQUE ( `stock_id`, `group_id` )'
+         . ' FOREIGN KEY (`stockgroup_id`) REFERENCES `stockgroup`(`id`) ON DELETE CASCADE ,'
+         . ' UNIQUE ( `stock_id`, `stockgroup_id` )'
          . ' ) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci '; 
 	$result = @mysql_query($str);
 	if (!$result)	die('Create stockgroupitem table failed');
@@ -163,7 +163,7 @@ function SqlGetStockGroupId($strGroupItemId)
 {
     if ($record = SqlGetTableDataById(TABLE_STOCK_GROUP_ITEM, $strGroupItemId))
     {
-    	return $record['group_id'];
+    	return $record['stockgroup_id'];
     }
     return false;
 }

@@ -66,7 +66,7 @@ function GetAccountToolArray($bChinese)
                       TABLE_COMMON_PHRASE => ACCOUNT_TOOL_PHRASE_CN,
                       'cramersrule' => ACCOUNT_TOOL_CRAMER_CN,
 					  'editinput' => ACCOUNT_TOOL_EDIT_CN,
-                      'ip' => ACCOUNT_TOOL_IP_CN,
+                      TABLE_IP => ACCOUNT_TOOL_IP_CN,
                       'linearregression' => ACCOUNT_TOOL_LINEAR_CN,
                       TABLE_PRIME_NUMBER => ACCOUNT_TOOL_PRIME_CN,
                  );
@@ -78,7 +78,7 @@ function GetAccountToolArray($bChinese)
                       TABLE_COMMON_PHRASE => ACCOUNT_TOOL_PHRASE,
                       'cramersrule' => ACCOUNT_TOOL_CRAMER,
 					  'editinput' => ACCOUNT_TOOL_EDIT,
-					  'ip' => ACCOUNT_TOOL_IP,
+					  TABLE_IP => ACCOUNT_TOOL_IP,
                       'linearregression' => ACCOUNT_TOOL_LINEAR,
                       TABLE_PRIME_NUMBER => ACCOUNT_TOOL_PRIME,
                  );
@@ -134,7 +134,7 @@ function GetPrimeNumberLink($bChinese = true)
 
 function GetIpAddressLink($bChinese = true)
 {
-    return _getAccountToolLink('ip', $bChinese);
+    return _getAccountToolLink(TABLE_IP, $bChinese);
 }
 
 function _getIpLink($strTitle, $strIp, $bChinese)
@@ -144,7 +144,7 @@ function _getIpLink($strTitle, $strIp, $bChinese)
 
 function GetIpLink($strIp, $bChinese)
 {
-    return _getIpLink('ip', $strIp, $bChinese);
+    return _getIpLink(TABLE_IP, $strIp, $bChinese);
 }
 
 function GetVisitorLink($strIp, $bChinese = true)
