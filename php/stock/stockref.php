@@ -44,28 +44,6 @@ function _GetForexAndFutureArray($strSymbol, $strFileName, $strTimeZone, $callba
 
 define('COMMA_REPLACEMENT', '*');
 
-//  "Actions Semiconductor Co., Ltd." ==> "Actions Semiconductor Co.* Ltd."
-function _replaceCommaInsideQuotationMarks($str)
-{
-    $strNew = '';
-    $bQuotation = false;
-   
-    for ($i = 0; $i < strlen($str); $i ++)
-    {
-        $strChar = substr($str, $i, 1);
-        if ($strChar == '"')
-        {
-            if ($bQuotation)   $bQuotation = false;
-            else                 $bQuotation = true; 
-        }
-        else if ($strChar == ',')
-        {
-            if ($bQuotation)   $strChar = COMMA_REPLACEMENT;
-        }
-        $strNew .= $strChar;
-    }
-    return $strNew;
-}
 
 // "+2.3%", "-11.37%", "N/A"
 function _convertYahooPercentage($strChange)
@@ -75,31 +53,6 @@ function _convertYahooPercentage($strChange)
     
     if (substr($str, 0, 1) == '+')   $str = ltrim($str, '+');
     return floatval(rtrim($str, '%')) / 100.0;
-}
-
-// "9:59am" "11:11pm"
-function _convertYahooTime($strAmpm)
-{
-	if ($strAmpm == 'N/A')		return '';
-    $str = RemoveDoubleQuotationMarks($strAmpm);
-    $iHour = GetHourFromStrEndWithPM($str);
-    $str = strstr($str, ':');
-    $iMin = intval(substr($str, 1, 2));
-    
-    return sprintf('%02d:%02d:00', $iHour, $iMin);
-}
-
-// "1/26/2016"
-function _convertYahooDate($strMdy)
-{
-	if ($strMdy == 'N/A')		return '';
-    $str = RemoveDoubleQuotationMarks($strMdy);
-    $ar = explode('/', $str);
-    $strMonth = $ar[0];
-    if (intval($strMonth) < 10)     $strMonth = '0'.$strMonth;
-    $strDay = $ar[1];
-    if (intval($strDay) < 10)     $strDay = '0'.$strDay;
-    return $ar[2].'-'.$strMonth.'-'.$strDay;
 }
 
 function _getSinaArray($sym, $strSinaSymbol, $strFileName)
@@ -115,20 +68,6 @@ function _getSinaArray($sym, $strSinaSymbol, $strFileName)
         $str = file_get_contents($strFileName);
     }
     return explodeQuote($str);
-}
-
-function _getYahooStr($sym, $strYahooSymbol, $strFileName)
-{
-    if (StockNeedNewQuotes($sym, $strFileName))
-    {
-        $str = GetYahooQuotes($strYahooSymbol);
-        file_put_contents($strFileName, $str);
-    }
-    else
-    {
-        $str = file_get_contents($strFileName);
-    }
-    return $str;
 }
 
 // ****************************** StockReference Class *******************************************************
@@ -360,50 +299,6 @@ class StockReference extends StockSymbol
         return true;
     }
     
-    function LoadYahooData()
-    {
-        $strSymbol = $this->GetSymbol();
-        $this->strFileName = DebugGetYahooFileName($strSymbol);
-        $this->strExternalLink = GetYahooStockLink($this);
-        $strYahooSymbol = $this->GetYahooSymbol();
-        $str = _getYahooStr($this, $strYahooSymbol, $this->strFileName);
-        if (IsYahooStrError($str))
-        {
-//            $this->EmptyFile();
-            $this->bHasData = false;
-            return;
-        }
-        $str = _replaceCommaInsideQuotationMarks($str);
-        
-        $ar = explode(',', $str);
-        if ($ar[0] == 'N/A' && $ar[1] == 'N/A' && $ar[2] == 'N/A' && $ar[3] == 'N/A' && $ar[4] == 'N/A')
-        {
-            $this->bHasData = false;
-            return;
-        }
-        $this->strName = str_replace(COMMA_REPLACEMENT, ',', RemoveDoubleQuotationMarks($ar[3]));
-        
-        $this->strPrice = $ar[0];
-//        $this->strPrevPrice = strval(floatval($this->strPrice) / (1 + _convertYahooPercentage($ar[2])));
-        $this->strPrevPrice = $ar[5];         // p
-        $this->strDate = _convertYahooDate($ar[4]);
-        $this->strTime = _convertYahooTime($ar[1]);
-        if ($this->IsSymbolUS())
-        {
-            $this->strTimeZone = STOCK_TIME_ZONE_US;
-        }
-        else
-        {
-            $iTime = $this->_totime(STOCK_TIME_ZONE_US);
-            $this->ConvertDateTime($iTime, STOCK_TIME_ZONE_CN);
-        }
-        
-        $this->strOpen = $ar[6];               // o
-        $this->strLow = $ar[7];                // g
-        $this->strHigh = $ar[8];               // h
-        $this->strVolume = $ar[9];             // v
-    }
-
     function _generateUsTradingDateTime()
     {
         $this->strTimeZone = STOCK_TIME_ZONE_US;
@@ -701,19 +596,6 @@ class ExtendedTradingReference extends StockReference
     }
 }
 
-// ****************************** YahooNetValueReference Class *******************************************************
-/*
-class YahooNetValueReference extends StockReference
-{
-    function YahooNetValueReference($strStockSymbol)
-    {
-    	$strSymbol = GetYahooNetValueSymbol($strStockSymbol);
-        parent::StockReference($strSymbol);
-        $this->LoadYahooData();
-        $this->strDescription = STOCK_NET_VALUE;
-    }
-}
-*/
 // ****************************** Public StockReference functions *******************************************************
 function RefHasData($ref)
 {

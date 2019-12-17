@@ -39,6 +39,7 @@ function EchoAll()
     	{
     		$strSymbol = $ref->GetSymbol();
     		$strLinks = GetStockHistoryLink($strSymbol);
+    		$strLinks .= ' '.GetSpdrNavLink($strSymbol);
     		if ($bAdmin = $acct->IsAdmin())
     		{
 //    			$strLinks .= ' '.GetPhpLink(STOCK_PATH.'spdrnavxls', false, '更新净值');
@@ -64,7 +65,7 @@ function EchoMetaDescription()
 	global $acct;
 	
   	$str = $acct->GetStockDisplay().NVCLOSE_HISTORY_DISPLAY;
-    $str .= '页面. 观察每天净值和收盘价偏离的情况. 同时判断偏离的方向和大小是否跟当天涨跌以及交易量相关, 总结规律以便提供可能的套利操作建议.';
+    $str .= '页面. 观察ETF每天净值和收盘价偏离的情况. 同时判断偏离的方向和大小是否跟当天涨跌以及交易量相关, 总结规律以便提供可能的套利操作建议.';
     EchoMetaDescriptionText($str);
 }
 

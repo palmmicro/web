@@ -1,13 +1,9 @@
 <?php
 require_once('weixin.php');
-//require_once('url.php');
 require_once('debug.php');
 require_once('stock.php');
-
-require_once('ui/stocktext.php');
-
-//require_once('sql/sqlvisitor.php');
 require_once('sql/sqlweixin.php');
+require_once('ui/stocktext.php');
 
 define('WX_DEFAULT_SYMBOL', 'SZ162411');
 define('MAX_WX_STOCK', 31);
@@ -87,7 +83,10 @@ function _wxGetStockText($strSymbol)
         if (in_arrayLof($strSymbol))
         {
         	$uscny_ref = new CnyReference('USCNY');
-	        $str .= _getStockReferenceText($uscny_ref); 
+	        $str .= WX_EOL._getStockReferenceText($uscny_ref); 
+	        
+	        $etf_ref = new MyStockReference(LofGetEstSymbol($strSymbol));
+	        $str .= WX_EOL._getStockReferenceText($etf_ref); 
         }
     }
     else
@@ -137,19 +136,17 @@ function _wxDebug($strUserName, $strText, $strSubject)
 
 function _updateWeixinTables($strText, $strUserName)
 {
-//    SqlCreateVisitorTable(TABLE_WEIXIN_VISITOR);
+	$ip_sql = new IpSql();
+	$ip_sql->InsertIp(UrlGetIp());
     
 	$text_sql = new WeixinTextSql();
 	$text_sql->InsertKey($strText);
-//	$strDstId = $text_sql->GetId($strText);
 
 	$sql = new WeixinSql();
 	$sql->InsertUser($strUserName);
-//	$strSrcId = $sql->GetId($strUserName);
 	
 	$visitor_sql = new WeixinVisitorSql($strUserName);
 	$visitor_sql->InsertLog($strText);
-//    SqlInsertVisitor(TABLE_WEIXIN_VISITOR, $strDstId, $strSrcId);
 }
 
 class WeixinStock extends WeixinCallback
@@ -248,16 +245,18 @@ class WeixinStock extends WeixinCallback
 	{
 		$strContents = '未知图像信息';
     
-		$img = url_get_contents($strUrl);    
-		$size = strlen($img);
-		$strFileName = DebugGetImageName($strUserName); 
-		$fp = @fopen($strFileName, 'w');  
-		fwrite($fp, $img);  
-		fclose($fp);  
-//      unset($img, $url);
+		if ($img = url_get_contents($strUrl))
+		{
+			$size = strlen($img);
+			$strFileName = DebugGetImageName($strUserName); 
+			$fp = @fopen($strFileName, 'w');  
+			fwrite($fp, $img);  
+			fclose($fp);  
+//      	unset($img, $url);
 
-        $strLink = GetInternalLink($strFileName, $strFileName);
-        $strContents .= "(已经保存到{$strLink})";
+        	$strLink = GetInternalLink($strFileName, $strFileName);
+        	$strContents .= "(已经保存到{$strLink})";
+        }
     
         return $this->GetUnknownText($strContents, $strUserName);
     }

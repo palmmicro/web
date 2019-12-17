@@ -15,7 +15,7 @@ class KeyLogSql extends KeyTableSql
         parent::KeyTableSql($strTableName, false, $strKeyPrefix);
         
         // temp op, move to KeyTableSql later
-		$this->strKeyId = $this->key_sql->GetId($strKey);
+		$this->SetKeyVal($strKey);
     }
 
     function Create()

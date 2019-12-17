@@ -118,33 +118,36 @@ function GetSinaQuotesUrl($strSinaSymbols)
 function GetSinaQuotes($strSinaSymbols)
 {
 	$strIp = UrlGetIp();
-   	$sql = new IpSql();
-	if ($sql->GetStatus($strIp) == IP_STATUS_CRAWL)
+   	$ip_sql = new IpSql();
+	if ($ip_sql->GetStatus($strIp) == IP_STATUS_CRAWL)
 	{
 //		DebugString('Ignore: '.gethostbyaddr($strIp).' '.$strSinaSymbols);
 		return false;
 	}
 	
-	$sina_sql = new SinaSql($strIp);
-   	if ($record = $sina_sql->GetRecordNow())
+	$sql = new SinaLogSql();
+   	if ($record = $sql->GetRecordNow())
     {
     	date_default_timezone_set(DEBUG_TIME_ZONE);
     	if (time() - strtotime($record['date'].' '.$record['time']) < 30)
     	{
-    		DebugString('Ignore: '.$strSinaSymbols);
+//    		DebugString('Ignore: '.$strSinaSymbols);
     		return false;
     	}
     }
     
 	$sinatext_sql = new SinaTextSql();
 	$sinatext_sql->InsertKey($strSinaSymbols);
-	$sina_sql->InsertLog($strSinaSymbols);
 	
-    $strUrl = GetSinaQuotesUrl($strSinaSymbols);
-    $str = url_get_contents($strUrl);
-//    DebugString('Sina:'.$strSymbols);
-    if (strlen($str) < 10)      return false;   // Sina returns error in an empty file
-    return $str;
+	$sql->SetKeyVal($strIp);
+	$sql->InsertLog($strSinaSymbols);
+	
+    if ($str = url_get_contents(GetSinaQuotesUrl($strSinaSymbols)))
+    {
+    	if (strlen($str) < 10)      return false;   // Sina returns error in an empty file
+    	return $str;
+    }
+    return false;
 }
 
 /*
@@ -178,11 +181,12 @@ var AjaxDataAGUrl = 'http://hqdigi2.eastmoney.com/EM_Quote2010NumericApplication
 define('EASTMONEY_QUOTES_URL', 'http://hq2gjqh.eastmoney.com/EM_Futures2010NumericApplication/Index.aspx?type=z&ids=');
 function GetEastMoneyQuotes($strSymbols)
 { 
-    $strUrl = EASTMONEY_QUOTES_URL.$strSymbols;
-    $str = url_get_contents($strUrl);
-//    DebugString('EastMoney:'.$strSymbols);
-    if (strlen($str) < 10)      return false;   // Check if it is an empty file
-    return $str;
+    if ($str = url_get_contents(EASTMONEY_QUOTES_URL.$strSymbols))
+    {
+    	if (strlen($str) < 10)      return false;   // Check if it is an empty file
+    	return $str;
+    }
+    return false;
 }
 
 // ****************************** Stock display functions *******************************************************

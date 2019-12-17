@@ -11,7 +11,7 @@ define('TABLE_MEMBER', 'member');
 define('TABLE_NETVALUE_HISTORY', 'netvaluehistory');
 define('TABLE_PRIME_NUMBER', 'primenumber');
 define('TABLE_PROFILE', 'profile');
-define('TABLE_SINA', 'sina');
+define('TABLE_SINA_LOG', 'sinalog');
 define('TABLE_SINA_TEXT', 'sinatext');
 define('TABLE_STOCK', 'stock');
 define('TABLE_STOCK_CALIBRATION', 'stockcalibration');

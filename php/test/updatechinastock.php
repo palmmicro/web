@@ -18,6 +18,8 @@ function _updateChinaStock()
 {
     $strUrl = GetEastMoneyStockListUrl();
     $str = url_get_contents($strUrl);
+    if ($str == false)	return;
+
     $str = FromGB2312ToUTF8($str);
 
     $strBoundary = RegExpBoundary();

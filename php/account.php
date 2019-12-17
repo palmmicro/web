@@ -8,7 +8,6 @@ require_once('ui/table.php');
 
 //require_once('sql/sqlmember.php');
 //require_once('sql/sqlblog.php');
-require_once('sql/sqlipaddress.php');
 //require_once('sql/sqlvisitor.php');
 require_once('sql/sqlstockgroup.php');
 require_once('sql/sqlfundpurchase.php');
@@ -151,20 +150,6 @@ function _onBlockedIp($strIp)
     die('Please contact support@palmmicro.com to unblock your IP address '.$strIp);
 }
 
-function _checkSearchEnginePageCount($sql, $strIp, $iCount, $iPageCount, $strDebug)
-{
-    if ($iPageCount >= 10)
-    {
-    	trigger_error('Unknown spider<br />'.$strDebug);
-    	return true;
-    }
-    
-	trigger_error('Blocked spider<br />'.$strDebug);
-	$sql->SetStatus($strIp, IP_STATUS_BLOCKED);
-	_onBlockedIp($strIp);
-    return false;
-}
-
 function _checkSearchEngineSpider($sql, $strIp, $iCount, $iPageCount, $strDebug)
 {
     $arIpInfo = IpInfoIpLookUp($strIp);
@@ -176,25 +161,29 @@ function _checkSearchEngineSpider($sql, $strIp, $iCount, $iPageCount, $strDebug)
     		trigger_error('Known company: '.$strOrg);
     		return true;
     	}
-    	else
-    	{
-    		if (isset($arIpInfo['hostname'])	)	$strOrg .= ' '.$arIpInfo['hostname'];
-    		return _checkSearchEnginePageCount($sql, $strIp, $iCount, $iPageCount, $strOrg.' '.$strDebug);
-        }
+    	$strDebug .= '<br />'.$strOrg;
     }
-	return _checkSearchEnginePageCount($sql, $strIp, $iCount, $iPageCount, $strDebug);
-}
-
-function _checkSearchEngineDns($strIp)
-{
-    if ($str = DnsIpLookUp($strIp))
+    
+    if (isset($arIpInfo['hostname']))
     {
-        if (strstr_array($str, array('baidu', 'bytedance', 'google', 'msn', 'sogou', 'yahoo', 'yandex')))
-        {
-            trigger_error('Known DNS: '.$str);
-            return true;
-        }
+    	$strDns = $arIpInfo['hostname'];
+   		if (strstr_array($strDns, array('baidu', 'bytedance', 'google', 'msn', 'sogou', 'yahoo', 'yandex')))
+   		{
+   			trigger_error('Known DNS: '.$strDns);
+   			return true;
+   		}
+    	$strDebug .= '<br />'.$strDns;
+   	}
+   	
+    if ($iPageCount >= 10)
+    {
+    	trigger_error('Unknown spider<br />'.$strDebug);
+    	return true;
     }
+    
+	trigger_error('Blocked spider<br />'.$strDebug);
+	$sql->SetStatus($strIp, IP_STATUS_BLOCKED);
+	_onBlockedIp($strIp);
     return false;
 }
 
@@ -216,7 +205,6 @@ function AcctSessionStart()
 	
 	$sql = new IpSql();
 	$sql->InsertIp($strIp);
-	
     if ($strBlogId = AcctGetBlogId())
     {
        	SqlInsertVisitor(VISITOR_TABLE, $strBlogId, $sql->GetId($strIp));
@@ -236,14 +224,14 @@ function AcctSessionStart()
 	    }
 	    else
 	    {
-	    	if (ProjectHoneyPotCheckSearchEngine($strIp) || _checkSearchEngineDns($strIp) || _checkSearchEngineSpider($sql, $strIp, $iCount, $iPageCount, $strDebug))
+	    	if (_checkSearchEngineSpider($sql, $strIp, $iCount, $iPageCount, $strDebug))
 	    	{
 	    		AcctDeleteBlogVisitorByIp($strIp);
 	    	}
-	    	else
+/*	    	else
 	    	{
 	    		AcctSwitchToLogin();
-	    	}
+	    	}*/
 	    }
 	}
     return $strMemberId;	

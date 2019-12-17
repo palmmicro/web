@@ -56,7 +56,7 @@ function url_get_contents($strUrl, $strCookie = false)
     $img = curl_exec($ch);
     if ($img == false)
     {
-    	dieDebugString('url_get_contents - from '.UrlGetIp().' '.$strUrl.' '.curl_error($ch));
+    	DebugString(UrlGetIp().' '.$strUrl.' '.curl_error($ch));
     }
     curl_close($ch);
     return $img;

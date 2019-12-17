@@ -7,11 +7,9 @@ require_once('httplink.php');
 
 function _echoLogin($str)
 {
-    $strServer = UrlGetServer();
     echo <<<END
     <div>
         <p><font color=green>$str</font>
-           <a href="$strServer/ProjectHoneyPot/memorial.php" style="display: none;">metropolitan-tundra</a>
         </p>
     </div>
 END;

@@ -18,10 +18,6 @@ class MyStockReference extends MysqlReference
            	$this->LoadSinaData();
    	        $this->bConvertGB2312 = true;     // Sina name is GB2312 coded
    	        break;
-
-   	    case STOCK_YAHOO_DATA:
-            $this->LoadYahooData();
-            break;
         }
     }
 }

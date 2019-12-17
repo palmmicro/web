@@ -13,6 +13,8 @@ function _updateChinaFund()
 {
     $strUrl = GetEastMoneyFundListUrl();
     $str = url_get_contents($strUrl);
+    if ($str == false)	return;
+
     $str = FromGB2312ToUTF8($str);
 //	DebugString($str);
 

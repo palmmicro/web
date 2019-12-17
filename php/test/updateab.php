@@ -33,6 +33,7 @@ function _updateAb()
     $strType = UrlGetQueryValue('type');
     $strUrl = GetCnstocksUrl($strType);
     $str = url_get_contents($strUrl);
+    if ($str == false)	return;
 
     $strPrefix = ($strType == 'sh') ? SH_PREFIX : SZ_PREFIX;
     

@@ -235,11 +235,6 @@ function DebugGetEastMoneyFileName($strSymbol)
     return _getDebugFileName('eastmoney', $strSymbol);
 }
 
-function DebugGetYahooFileName($strSymbol)
-{
-    return _getDebugFileName('yahoo', $strSymbol);
-}
-
 function DebugGetYahooWebFileName($strSymbol)
 {
     return _getDebugFileName('yahooweb', $strSymbol);

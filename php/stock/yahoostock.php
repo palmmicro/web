@@ -1,94 +1,5 @@
 <?php
 
-/*
-Yahoo Finance API tags:
-Pricing                              Dividends 
-a: Ask                               y: Dividend Yield 
-b: Bid                               d: Dividend per Share 
-b2: Ask (Realtime)                   r1: Dividend Pay Date 
-b3: Bid (Realtime)                   q: Ex-Dividend Date 
-p: Previous Close  
-o: Open  
-                                     Date 
-c1: Change                           d1: Last Trade Date 
-c: Change & Percent Change           d2: Trade Date 
-c6: Change (Realtime)                t1: Last Trade Time 
-k2: Change Percent (Realtime)  
-p2: Change in Percent  
-                                     Averages 
-c8: After Hours Change (Realtime)    m5: Change From 200 Day Moving Average 
-c3: Commission                       m6: Percent Change From 200 Day Moving Average 
-g: Day's Low                         m7: Change From 50 Day Moving Average 
-h: Day's High                        m8: Percent Change From 50 Day Moving Average 
-k1: Last Trade (Realtime) With Time  m3: 50 Day Moving Average 
-l: Last Trade (With Time)            m4: 200 Day Moving Average 
-l1: Last Trade (Price Only)  
-t8: 1 yr Target Price  
-                                     Misc 
-w1: Day’s Value Change              g1: Holdings Gain Percent 
-w4: Day’s Value Change (Realtime)   g3: Annualized Gain 
-p1: Price Paid                       g4: Holdings Gain 
-m: Day’s Range                      g5: Holdings Gain Percent (Realtime) 
-m2: Day’s Range (Realtime)          g6: Holdings Gain (Realtime) 
-52 Week Pricing Symbol Info 
-k: 52 Week High                      v: More Info 
-j: 52 week Low                       j1: Market Capitalization 
-j5: Change From 52 Week Low          j3: Market Cap (Realtime) 
-k4: Change From 52 week High         f6: Float Shares 
-j6: Percent Change From 52 week Low  n: Name 
-k5: Percent Change From 52 week High n4: Notes 
-w: 52 week Range                     s: Symbol 
-s1: Shares Owned 
-x: Stock Exchange 
-j2: Shares Outstanding 
-Volume 
-v: Volume  
-a5: Ask Size  
-b6: Bid Size Misc 
-k3: Last Trade Size                  t7: Ticker Trend 
-a2: Average Daily Volume             t6: Trade Links 
-i5: Order Book (Realtime) 
-Ratios
-l2: High Limit 
-e: Earnings per Share                l3: Low Limit 
-e7: EPS Estimate Current Year        v1: Holdings Value 
-e8: EPS Estimate Next Year           v7: Holdings Value (Realtime) 
-e9: EPS Estimate Next Quarter        s6 Revenue 
-b4: Book Value  
-j4: EBITDA  
-p5: Price / Sales  
-p6: Price / Book  
-r: P/E Ratio  
-r2: P/E Ratio (Realtime)  
-r5: PEG Ratio  
-r6: Price / EPS Estimate Current Year  
-r7: Price / EPS Estimate Next Year  
-s7: Short Ratio 
-*/
-
-define('YAHOO_QUOTES_FLAGS', 'l1t1p2nd1poghvn4');
-// l1-Last Trade (Price Only), t1-Last Trade Time, p2-Change in Percent, n-Name, d1-Last Trade Date, p-Previous Close, o-Open, g-Day's Low, h-Day's High, v-Volume, n4-Notes
-define('YAHOO_QUOTES_URL', 'https://finance.yahoo.com/d/quotes.csv?');
-function GetYahooQuotes($strSymbols)
-{ 
-    $strUrl = YAHOO_QUOTES_URL."s=$strSymbols&f=".YAHOO_QUOTES_FLAGS;   // .'&e=.csv'; 
-//    $strUrl = 'https://finance.yahoo.com/d/quotes.csv?s=XOP+%5ESPSIOP&f=l1t1p2nd1p';
-    $str = url_get_contents($strUrl);
-//    DebugString('Yahoo:'.$strSymbols);
-//    DebugString($str);
-    return $str;
-}
-
-function IsYahooStrError($str)
-{
-    $str = trim($str);
-    if (strlen($str) == 0 || strstr_array($str, array('html', 'head')))
-    {
-        return true;
-    }
-    return false;
-}
-
 // https://finance.yahoo.com/quote/XOP/history?period1=1467122442&period2=1498658442&interval=1d&filter=history&frequency=1d 
 define('YAHOO_STOCK_QUOTES_URL', 'https://finance.yahoo.com/quote/');
 function YahooStockHistoryGetUrl($strYahooSymbol, $iTimeBegin = false, $iTimeEnd = false)
@@ -105,8 +16,7 @@ function YahooGetStockHistory($strYahooSymbol, $iTimeBegin, $iTimeEnd)
 {
     $strUrl = YahooStockHistoryGetUrl($strYahooSymbol, $iTimeBegin, $iTimeEnd);
 //    DebugString($strUrl);
-    $str = url_get_contents($strUrl); 
-    return $str;
+    return url_get_contents($strUrl); 
 }
 
 /*
@@ -272,22 +182,24 @@ function _yahooStockGetData($strSymbol, $strStockId)
 { 
 	$sym = new StockSymbol($strSymbol);
     $strUrl = YahooStockGetUrl($sym->GetYahooSymbol());
-    $str = url_get_contents($strUrl);
-	if ($arMatch = _preg_match_yahoo_stock($str))
-	{
-		foreach ($arMatch as $ar)
-		{
-			if ($ar[4] == $strSymbol)
-			{
-				$strMatchPrice = $ar[3];
-				$ymd = new TickYMD($ar[1]);
-				$strDate = $ymd->GetYMD();
-    			$sql = new NetValueHistorySql($strStockId);
-    			$sql->Write($strDate, $strMatchPrice);
-				return $strMatchPrice.' '.$ar[2].' '.$strDate.' '.$ymd->GetHMS();
-			}
-		}
-	}
+    if ($str = url_get_contents($strUrl))
+    {
+    	if ($arMatch = _preg_match_yahoo_stock($str))
+    	{
+    		foreach ($arMatch as $ar)
+    		{
+    			if ($ar[4] == $strSymbol)
+    			{
+    				$strMatchPrice = $ar[3];
+    				$ymd = new TickYMD($ar[1]);
+    				$strDate = $ymd->GetYMD();
+    				$sql = new NetValueHistorySql($strStockId);
+    				$sql->Write($strDate, $strMatchPrice);
+    				return $strMatchPrice.' '.$ar[2].' '.$strDate.' '.$ymd->GetHMS();
+    			}
+    		}
+    	}
+    }
     return false;
 }
 
@@ -594,7 +506,6 @@ function YahooUpdateFinancials($ref)
     	return array($arAnnual, $arQuarter);
     }
     	
-   	DebugString('YahooUpdateFinancials url_get_contents failed');
    	return false;
 }
 

@@ -1,11 +1,11 @@
 <?php
 require_once('sqlkeylog.php');
 
-class SinaSql extends KeyLogSql
+class SinaLogSql extends KeyLogSql
 {
-    function SinaSql($strIp)
+    function SinaLogSql($strIp = false)
     {
-        parent::KeyLogSql(TABLE_SINA, $strIp, TABLE_IP, TABLE_SINA_TEXT);
+        parent::KeyLogSql(TABLE_SINA_LOG, $strIp, TABLE_IP, TABLE_SINA_TEXT);
     }
 }
 

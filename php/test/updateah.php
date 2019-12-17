@@ -18,6 +18,7 @@ function _updateAh()
 {
     $strUrl = GetAastocksUrl('ah');
     $str = url_get_contents($strUrl);
+    if ($str == false)	return;
 
     $strBoundary = RegExpBoundary();
     $strAll = RegExpAll();

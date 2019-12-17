@@ -1,112 +1,12 @@
 <?php
-//require_once('url.php');
 require_once('debug.php');
+require_once('sql/sqlipaddress.php');
 require_once('ui/commentparagraph.php');
-
-function IpSetCrawler($strIp, $strRemark)
-{
-   	if (strstr_array($strRemark, array('ahrefs.com', 'bot', 'crawl', 'spider')))
-   	{
-   		DebugString($strIp.' crawler: '.$strRemark);
-   		$sql = new IpSql();
-   		$sql->SetStatus($strIp, IP_STATUS_CRAWL);
-   	}
-}
 
 define('IPINFO_IO_IP_URL', 'http://ipinfo.io/');
 function _getIpInfoIpLookUpUrl($strIp)
 {
     return IPINFO_IO_IP_URL.$strIp.'/json';
-}
-
-function IpInfoIpLookUp($strIp)
-{ 
-    $strUrl = _getIpInfoIpLookUpUrl($strIp); 
-    $str = url_get_contents($strUrl);
-    DebugString($str);
-    $ar = json_decode($str, true);
-    if (isset($ar['hostname']))
-    {
-    	if ($ar['hostname'] == 'No Hostname')		unset($ar['hostname']);
-    	else										IpSetCrawler($strIp, $ar['hostname']);
-    }
-    
-    return $ar;
-}
-
-// http://www.projecthoneypot.org/httpbl_api.php
-define('PROJECT_HONEY_POT_URL', 'http://www.projecthoneypot.org/ip_');
-function ProjectHoneyPotGetSearchEngineArray($strIp)
-{
-	$sql = new IpSql();
-    $sql->SetStatus($strIp, IP_STATUS_CRAWL);
-    return array('Undocumented', 'AltaVista', 'Ask', 'Baidu', 'Excite', 'Google', 'Looksmart', 'Lycos', 'MSN', 'Yahoo', 'Cuil', 'InfoSeek', 'Miscellaneous', '(13)', 'Yandex');
-}
-
-define('PROJECT_HONEY_POT_KEY', 'qvcumkhjlcik');
-define('HTTPBL_ORG_URL', '.dnsbl.httpbl.org');
-function ProjectHoneyPotIpLookUp($strIp)
-{
-    $ar = explode('.', $strIp);
-    $strDns = PROJECT_HONEY_POT_KEY.'.'.$ar[3].'.'.$ar[2].'.'.$ar[1].'.'.$ar[0].HTTPBL_ORG_URL;
-    $str = gethostbyname($strDns);
-    if ($str != $strDns)
-    {
-        $ar = explode('.', $str);
-        if ($ar[0] == '127')
-        {
-            return $ar;
-        }
-    }
-    return false;
-}
-
-function ProjectHoneyPotCheckSearchEngine($strIp)
-{
-    if ($ar = ProjectHoneyPotIpLookUp($strIp))
-    {
-        if ($ar[3] == '0')
-        {
-            $arSearchEngine = ProjectHoneyPotGetSearchEngineArray($strIp);
-            $iIndex = intval($ar[2]);
-            trigger_error('Known ProjectHoneyPot Search Engine - '.$arSearchEngine[$iIndex]);
-            return true;
-        }
-    }
-    return false;
-}
-
-function _getProjectHoneyPotIpLookUpString($strIp, $ar)
-{
-    if ($ar[3] == '0')
-    {
-        $arSearchEngine = ProjectHoneyPotGetSearchEngineArray($strIp);
-        $iIndex = intval($ar[2]);
-        return 'Search Engine - '.$arSearchEngine[$iIndex].'('.$ar[2].')';
-    }
-    
-    $iVal = intval($ar[3]);
-    $str = '';
-    if ($iVal & 1)          $str .= 'Suspicious,';
-    else if ($iVal & 2)     $str .= 'Harvester,';
-    else if ($iVal & 4)     $str .= 'Comment Spammer,';
-    
-    $str .= 'Threat score: '.$ar[2].'. Last seen: '.$ar[1].' days ago';
-    return $str;
-}
-
-function DnsIpLookUp($strIp)
-{
-    $strHostName = gethostbyaddr($strIp);
-    if ($strHostName)
-    {
-        if ($strHostName != $strIp)
-        {
-        	IpSetCrawler($strIp, $strHostName);
-            return $strHostName;
-        }
-    }
-    return false;
 }
 
 function strstr_array($strHaystack, $arNeedle)
@@ -116,6 +16,30 @@ function strstr_array($strHaystack, $arNeedle)
 		if (stripos($strHaystack, $strNeedle) !== false)		return true;
 	}
 	return false;
+}
+
+function IpInfoIpLookUp($strIp)
+{ 
+	$ar = array();
+    $strUrl = _getIpInfoIpLookUpUrl($strIp); 
+    if ($str = url_get_contents($strUrl))
+    {
+    	DebugString($str);
+    	$ar = json_decode($str, true);
+    	if (isset($ar['hostname']))
+    	{
+    		if ($ar['hostname'] == 'No Hostname')		unset($ar['hostname']);
+    		else
+    		{
+    			if (strstr_array($ar['hostname'], array('ahrefs.com', 'bot', 'crawl', 'spider')))
+    			{
+					$sql = new IpSql();
+					$sql->SetStatus($strIp, IP_STATUS_CRAWL);
+				}
+			}
+    	}
+    }
+    return $ar;
 }
 
 function _ipLookupMemberTable($strIp, $strNewLine, $bChinese)
@@ -202,19 +126,6 @@ function IpLookupGetString($strIp, $strNewLine, $bChinese)
     	if (isset($arIpInfo['hostname']))	$str .= ' '.$arIpInfo['hostname'];
     }
     $str .= DebugGetStopWatchDisplay($fStart);
-    
-    if (isset($arIpInfo['org']) == false)
-    {
-    	if ($strDns = DnsIpLookUp($strIp))
-    	{
-    		$str .= $strNewLine.'DNS: '.$strDns;
-    	}
-    }
-    
-    if ($ar = ProjectHoneyPotIpLookUp($strIp))
-    {
-        $str .= $strNewLine.GetExternalLink(PROJECT_HONEY_POT_URL.$strIp, 'projecthoneypot.org').': '._getProjectHoneyPotIpLookUpString($strIp, $ar);
-    }
     
     $str .= _ipLookupLocalDatabase($strIp, $strNewLine, $bChinese);
     return $str;

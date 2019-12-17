@@ -132,52 +132,7 @@ function _writePrefetchFiles($arFileName, $arLine, $iCount)
         file_put_contents($arFileName[$i], $arLine[$i]);
     }
 }
-/*
-function PrefetchYahooData($arSymbol)
-{
-    $strSymbols = '';
-    $arFileName = array();
-    
-    foreach ($arSymbol as $strSymbol)
-    {
-        $strFileName = DebugGetYahooFileName($strSymbol);
-        $sym = new StockSymbol($strSymbol);
-        if (StockNeedNewQuotes($sym, $strFileName) == false)  continue;
-        $arFileName[] = $strFileName; 
-        $strSymbols .= $sym->GetYahooSymbol().'+';
-    }
-    if (($iCount = count($arFileName)) < 2)    return;
-    $strSymbols = rtrim($strSymbols, '+');
-    
-    if (($str = GetYahooQuotes($strSymbols)) == false)   return;
-    $arLine = explode("\n", $str);
-    _writePrefetchFiles($arFileName, $arLine, $iCount);
-}
 
-function PrefetchEastMoneyData($arSymbol)
-{
-    $strSymbols = '';
-    $arFileName = array();
-    
-    foreach ($arSymbol as $strSymbol)
-    {
-        $strFileName = DebugGetEastMoneyFileName($strSymbol);
-        $sym = new StockSymbol($strSymbol);
-        if ($sym->IsEastMoneyForex())
-        {   // forex reference rate USCNY/HKCNY
-            if (IsNewDailyQuotes($sym, $strFileName, _GetEastMoneyQuotesYMD))   continue;
-        }
-        $arFileName[] = $strFileName; 
-        $strSymbols .= ForexGetEastMoneySymbol($strSymbol).','; 
-    }
-    if (($iCount = count($arFileName)) < 2)    return;
-    $strSymbols = rtrim($strSymbols, ',');
-    
-    if (($str = GetEastMoneyQuotes($strSymbols)) == false)   return;
-    $arLine = explode('",', $str);
-    _writePrefetchFiles($arFileName, $arLine, $iCount);
-}
-*/
 function _prefetchSinaData($arSym)
 {
     $strSymbols = '';

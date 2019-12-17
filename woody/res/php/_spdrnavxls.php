@@ -12,7 +12,7 @@ function _readXlsFile($strPathName, $sql, $shares_sql)
 	} 
 	catch(Exception $e) 
 	{
-		die('加载文件发生错误: "'.pathinfo($strPathName, PATHINFO_BASENAME).'": '.$e->getMessage());
+		die('Load excel file error: "'.pathinfo($strPathName, PATHINFO_BASENAME).'": '.$e->getMessage());
 	}
 
 	// 确定要读取的sheet，什么是sheet，看excel的右下角
@@ -51,21 +51,18 @@ function _readXlsFile($strPathName, $sql, $shares_sql)
 	return '更新'.strval($iCount).'条净值和'.strval($iSharesCount).'条流通股数';
 }
 
-// https://us.spdrs.com/site-content/xls/XOP_HistoricalNav.xls
 function GetSpdrNavXlsStr($strSymbol)
 {
-	$stock_sql = new StockSql();
-	$record = $stock_sql->GetRecord($strSymbol);
-   	if (stripos($record['name'], 'spdr') !== false)
+   	if ($strUrl = GetSpdrNavUrl($strSymbol))
 	{
-		$strFileName = $strSymbol.'_HistoricalNav.xls';
-		$strUrl = 'https://us.spdrs.com/site-content/xls/'.$strFileName;
 		$str = url_get_contents($strUrl);
-//		DebugString($str);
+		if ($str == false)	return '没读到数据';
+		
+		$strFileName = UrlGetFileName($strUrl);
 		$strPathName = DebugGetPathName($strFileName);
 		file_put_contents($strPathName, $str);
 		
-		$strStockId = $record['id'];
+		$strStockId = SqlGetStockId($strSymbol);
         $sql = new NetValueHistorySql($strStockId);
         $shares_sql = new EtfSharesHistorySql($strStockId);
 		return _readXlsFile($strPathName, $sql, $shares_sql);
