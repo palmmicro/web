@@ -7,18 +7,18 @@ define('IP_STATUS_CRAWL', '2');
 
 class IpSql extends KeyNameSql
 {
-    function IpSql()
+    function IpSql($strIp = false)
     {
-        parent::KeyNameSql(TABLE_IP, 'address');
+        parent::KeyNameSql(TABLE_IP, $strIp, 'ip');
     }
 
     function Create()
     {
-    	$str = ' `address` VARCHAR( 16 ) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL ,'
+    	$str = ' `ip` VARCHAR( 16 ) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL ,'
          	  . ' `visit` INT UNSIGNED NOT NULL ,'
          	  . ' `login` INT UNSIGNED NOT NULL ,'
          	  . ' `status` INT UNSIGNED NOT NULL ,'
-         	  . ' UNIQUE ( `address` )';
+         	  . ' UNIQUE ( `ip` )';
     	return $this->CreateIdTable($str);
     }
     
@@ -26,14 +26,14 @@ class IpSql extends KeyNameSql
     {
     	if (filter_valid_ip($strIp) == false)	return false;
     	
-    	$ar = array('address' => $strIp,
+    	$ar = array('ip' => $strIp,
     				  'visit' => $strVisit,
     				  'login' => $strLogin,
     				  'status' => $strStatus);
     	
     	if ($record = $this->GetRecord($strIp))
     	{	
-    		unset($ar['address']);
+    		unset($ar['ip']);
     		if ($record['visit'] == $strVisit)		unset($ar['visit']);
     		if ($record['login'] == $strLogin)		unset($ar['login']);
     		if ($record['status'] == $strStatus)	unset($ar['status']);

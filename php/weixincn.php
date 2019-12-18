@@ -139,14 +139,11 @@ function _updateWeixinTables($strText, $strUserName)
 	$ip_sql = new IpSql();
 	$ip_sql->InsertIp(UrlGetIp());
     
-	$text_sql = new WeixinTextSql();
-	$text_sql->InsertKey($strText);
-
 	$sql = new WeixinSql();
 	$sql->InsertUser($strUserName);
 	
 	$visitor_sql = new WeixinVisitorSql($strUserName);
-	$visitor_sql->InsertLog($strText);
+	$visitor_sql->InsertLog(new WeixinTextSql($strText));
 }
 
 class WeixinStock extends WeixinCallback

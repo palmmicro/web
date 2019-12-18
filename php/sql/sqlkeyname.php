@@ -3,10 +3,13 @@ require_once('sqltable.php');
 
 class KeyNameSql extends TableSql
 {
+	var $strKey;
+	var $strKeyId = false;
 	var $strKeyName;
 	
-    function KeyNameSql($strTableName, $strKeyName = 'parameter')
+    function KeyNameSql($strTableName, $strKey = false, $strKeyName = 'parameter')
     {
+        $this->strKey = $strKey;
         $this->strKeyName = $strKeyName;
         parent::TableSql($strTableName);
         
@@ -19,18 +22,38 @@ class KeyNameSql extends TableSql
     	}
     }
 
+    function InsertKey()
+    {
+   		if ($this->strKey)
+   		{
+   			$this->strKeyId = $this->GetId($this->strKey);
+   			if ($this->strKeyId == false)
+   			{
+   				if ($this->InsertData(array($this->strKeyName => $this->strKey)))
+   				{
+   					DebugString('New key: '.$this->strKey);
+   					$this->strKeyId = $this->GetId($this->strKey);
+   				}
+   			}
+   		}
+    }
+    
     function Create()
     {
-    	$str = ' `'.$this->strKeyName.'` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,'
-         	. ' UNIQUE ( `'.$this->strKeyName.'` (255) )';
-    	return $this->CreateIdTable($str);
+    	$str = ' `'.$this->strKeyName.'` TEXT CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL ,'
+         	. ' FULLTEXT ( `'.$this->strKeyName.'` )';
+    	if ($b = $this->CreateIdTable($str))
+    	{
+    		$this->InsertKey();
+    	}
+    	return $b;
     }
 
-    function GetAll($iStart = 0, $iNum = 0)
+    function GetKeyId()
     {
-   		return $this->GetData(false, '`'.$this->strKeyName.'` ASC', _SqlBuildLimit($iStart, $iNum));
+    	return $this->strKeyId;
     }
-
+    
     function GetKey($strId)
     {
     	if ($record = $this->GetRecordById($strId))
@@ -45,13 +68,9 @@ class KeyNameSql extends TableSql
     	return $this->GetSingleData(_SqlBuildWhere($this->strKeyName, $strKey));
     }
 
-    function InsertKey($strKey)
+    function GetAll($iStart = 0, $iNum = 0)
     {
-    	if ($this->GetRecord($strKey) == false)
-    	{
-    		return $this->InsertData(array($this->strKeyName => $strKey));
-    	}
-    	return false;
+   		return $this->GetData(false, '`'.$this->strKeyName.'` ASC', _SqlBuildLimit($iStart, $iNum));
     }
 }
 

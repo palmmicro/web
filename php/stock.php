@@ -136,11 +136,8 @@ function GetSinaQuotes($strSinaSymbols)
     	}
     }
     
-	$sinatext_sql = new SinaTextSql();
-	$sinatext_sql->InsertKey($strSinaSymbols);
-	
 	$sql->SetKeyVal($strIp);
-	$sql->InsertLog($strSinaSymbols);
+	$sql->InsertLog(new SinaTextSql($strSinaSymbols));
 	
     if ($str = url_get_contents(GetSinaQuotesUrl($strSinaSymbols)))
     {

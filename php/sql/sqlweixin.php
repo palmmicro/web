@@ -3,9 +3,9 @@ require_once('sqlkeylog.php');
 
 class WeixinSql extends KeyNameSql
 {
-    function WeixinSql()
+    function WeixinSql($strUser = false)
     {
-        parent::KeyNameSql(TABLE_WEIXIN, 'user');
+        parent::KeyNameSql(TABLE_WEIXIN, $strUser, 'user');
     }
 
     function Create()
@@ -58,9 +58,9 @@ class WeixinVisitorSql extends KeyLogSql
 
 class WeixinTextSql extends KeyNameSql
 {
-    function WeixinTextSql()
+    function WeixinTextSql($strText = false)
     {
-        parent::KeyNameSql(TABLE_WEIXIN_TEXT);
+        parent::KeyNameSql(TABLE_WEIXIN_TEXT, $strText);
     }
     
     function IsUnused($record)

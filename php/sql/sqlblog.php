@@ -25,16 +25,20 @@ INDEX ( `ip` )
 
 class PageSql extends KeyNameSql
 {
-    function PageSql()
+    function PageSql($strUri = false)
     {
-        parent::KeyNameSql('page', 'uri');
+        parent::KeyNameSql('page', $strUri, 'uri');
     }
 
     function Create()
     {
     	$str = ' `uri` VARCHAR( 128 ) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL ,'
          	  . ' UNIQUE ( `uri` )';
-    	return $this->CreateIdTable($str);
+    	if ($b = $this->CreateIdTable($str))
+    	{
+    		$this->InsertKey();
+    	}
+    	return $b;
     }
 }
 

@@ -189,10 +189,8 @@ function _checkSearchEngineSpider($sql, $strIp, $iCount, $iPageCount, $strDebug)
 
 function AcctGetBlogId()
 {
-    $strUri = UrlGetUri();	                        // /woody/blog/entertainment/20140615cn.php
-	$sql = new PageSql();
-	$sql->InsertKey($strUri);
-	return $sql->GetId($strUri);
+	$sql = new PageSql(UrlGetUri());
+	return $sql->GetKeyId();
 }
 
 function AcctSessionStart()

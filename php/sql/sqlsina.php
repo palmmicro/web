@@ -11,9 +11,9 @@ class SinaLogSql extends KeyLogSql
 
 class SinaTextSql extends KeyNameSql
 {
-    function SinaTextSql()
+    function SinaTextSql($strText = false)
     {
-        parent::KeyNameSql(TABLE_SINA_TEXT);
+        parent::KeyNameSql(TABLE_SINA_TEXT, $strText);
     }
 }
 

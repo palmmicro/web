@@ -39,10 +39,10 @@ class KeyLogSql extends KeyTableSql
     	return _SqlOrderByDateTime();
     }
     
-    function InsertLog($strLog)
+    function InsertLog($log_sql)
     {
     	$ar = $this->MakeFieldKeyId();
-    	$ar[$this->strLog] = $this->log_sql->GetId($strLog);
+    	$ar[$this->strLog] = $log_sql->GetKeyId();
     	$ar['date'] = DebugGetDate();
 	    $ar['time'] = DebugGetTime();
     	return $this->InsertData($ar);

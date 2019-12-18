@@ -4,9 +4,9 @@ require_once('sqlkeytable.php');
 
 class StockSql extends KeyNameSql
 {
-    function StockSql()
+    function StockSql($strSymbol = false)
     {
-        parent::KeyNameSql(TABLE_STOCK, 'symbol');
+        parent::KeyNameSql(TABLE_STOCK, $strSymbol, 'symbol');
     }
 
     function Create()
