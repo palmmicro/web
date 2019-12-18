@@ -139,7 +139,7 @@ class DailyStockStrSql extends DailyStockSql
     {
         if ($this->GetRecord($strDate))			return false;
         
-    	return $this->InsertData($this->MakeFieldArray($strDate, $strClose));
+    	return $this->InsertArray($this->MakeFieldArray($strDate, $strClose));
     }
 
     function Write($strDate, $strClose)
@@ -202,7 +202,7 @@ class DailyStockValSql extends DailyStockSql
         $ymd = new StringYMD($strDate);
         if ($ymd->IsWeekend())     			return false;   // sina fund may provide false weekend data
         
-    	return $this->InsertData($this->MakeFieldArray($strDate, $strClose));
+    	return $this->InsertArray($this->MakeFieldArray($strDate, $strClose));
     }
 
     function Write($strDate, $strClose)
@@ -247,7 +247,7 @@ class FundEstSql extends DailyStockValSql
     {
    		$ar = $this->MakeFieldArray($strDate, $strEstValue);
    		$ar['time'] = DebugGetTime();
-   		return $this->InsertData($ar);
+   		return $this->InsertArray($ar);
     }
     
     function Update($strId, $strEstValue)

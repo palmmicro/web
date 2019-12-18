@@ -45,7 +45,7 @@ class KeyLogSql extends KeyTableSql
     	$ar[$this->strLog] = $log_sql->GetKeyId();
     	$ar['date'] = DebugGetDate();
 	    $ar['time'] = DebugGetTime();
-    	return $this->InsertData($ar);
+    	return $this->InsertArray($ar);
     }
 }
 

@@ -69,7 +69,7 @@ class XueqiuIdSql extends TableSql
     	}
     	else
     	{
-    		return $this->InsertData($ar);
+    		return $this->InsertArray($ar);
     	}
     	return false;
     }

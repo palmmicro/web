@@ -40,7 +40,7 @@ function _getDelStockGroupStr($strGroupName)
     		}
     		@mysql_free_result($result);
     	}
-    	$sql->DeleteData($strWhere);
+    	$sql->DeleteRecord($strWhere);
     }
 
 	return $str;

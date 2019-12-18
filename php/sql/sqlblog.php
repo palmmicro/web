@@ -34,11 +34,7 @@ class PageSql extends KeyNameSql
     {
     	$str = ' `uri` VARCHAR( 128 ) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL ,'
          	  . ' UNIQUE ( `uri` )';
-    	if ($b = $this->CreateIdTable($str))
-    	{
-    		$this->InsertKey();
-    	}
-    	return $b;
+        return $this->CreateKeyNameTable($str);
     }
 }
 

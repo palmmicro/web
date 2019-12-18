@@ -85,7 +85,7 @@ class StockGroupItemSql extends StockGroupTableSql
     
     function Insert($strStockId)
     {
-    	return $this->InsertData(array_merge($this->MakeFieldKeyId(), array('stock_id' => $strStockId), $this->_makePrivateFieldArray()));
+    	return $this->InsertArray(array_merge($this->MakeFieldKeyId(), array('stock_id' => $strStockId), $this->_makePrivateFieldArray()));
     }
 
     function Update($strId, $strQuantity, $strCost, $strRecord)

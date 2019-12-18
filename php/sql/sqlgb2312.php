@@ -17,7 +17,7 @@ class GB2312Sql extends TableSql
     
     function Insert($strGB, $strUTF)
     {
-    	return $this->InsertData(array('id' => $strGB, 'utf' => $strUTF));
+    	return $this->InsertArray(array('id' => $strGB, 'utf' => $strUTF));
     }
     
     function GetUTF($strGB)

@@ -18,7 +18,7 @@ class KeyPairSql extends KeyTableSql
     
     function Insert($strId, $strPairId)
     {
-    	return $this->InsertData(array('id' => $strId, $this->strKey => $strPairId));
+    	return $this->InsertArray(array('id' => $strId, $this->strKey => $strPairId));
     }
 
     function Update($strId, $strPairId)
@@ -33,7 +33,7 @@ class KeyPairSql extends KeyTableSql
 
     function Delete($strPairId)
     {
-    	return $this->DeleteData(_SqlBuildWhere($this->strKey, $strPairId));
+    	return $this->DeleteRecord(_SqlBuildWhere($this->strKey, $strPairId));
     }
 }
 

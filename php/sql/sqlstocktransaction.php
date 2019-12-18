@@ -54,7 +54,7 @@ class StockTransactionSql extends TableSql
     {
     	if ($strWhere = $this->_buildWhere_groupitem($strGroupItemId))
     	{
-    		$this->DeleteData($strWhere);
+    		$this->DeleteRecord($strWhere);
     	}
     }
 
@@ -66,7 +66,7 @@ class StockTransactionSql extends TableSql
 
     function Insert($strGroupItemId, $strQuantity, $strPrice, $strFees = '', $strRemark = '')
     {
-    	return $this->InsertData($this->_makePrivateFieldArray($strGroupItemId, $strQuantity, $strPrice, $strFees, $strRemark));
+    	return $this->InsertArray($this->_makePrivateFieldArray($strGroupItemId, $strQuantity, $strPrice, $strFees, $strRemark));
     }
 
     function Update($strId, $strGroupItemId, $strQuantity, $strPrice, $strFees, $strRemark)
@@ -80,7 +80,7 @@ class StockTransactionSql extends TableSql
     {
     	if ($strWhere = $this->_buildWhere_groupitem($strSrcGroupItemId))
     	{
-    		return $this->UpdateData(array('groupitem_id' => $strDstGroupItemId), $strWhere);
+    		return $this->UpdateArray(array('groupitem_id' => $strDstGroupItemId), $strWhere);
     	}
     	return false;
     }

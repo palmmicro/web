@@ -64,7 +64,7 @@ class TableSql
         return $this->_query($strQuery, 'drop table failed');
     }
     
-    function InsertData($ar)
+    function InsertArray($ar)
     {
 		if (array_key_exists('id', $ar))
 		{
@@ -90,10 +90,10 @@ class TableSql
     
     function InsertId($strId)
     {
-        return $this->InsertData(array('id' => $strId));
+        return $this->InsertArray(array('id' => $strId));
     }
     
-    function UpdateData($ar, $strWhere, $strLimit = false)
+    function UpdateArray($ar, $strWhere, $strLimit = false)
     {
     	$str = '';
     	foreach ($ar as $strKey => $strVal)
@@ -109,7 +109,7 @@ class TableSql
     {
     	if ($strWhere = _SqlBuildWhere_id($strId))
     	{
-    		return $this->UpdateData($ar, $strWhere, '1');
+    		return $this->UpdateArray($ar, $strWhere, '1');
     	}
     	return false;
     }
@@ -173,7 +173,7 @@ class TableSql
     	return false;
     }
     
-    function DeleteData($strWhere, $strLimit = false)
+    function DeleteRecord($strWhere, $strLimit = false)
     {
     	return SqlDeleteTableData($this->strName, $strWhere, $strLimit);
     }
@@ -184,7 +184,7 @@ class TableSql
     	if ($iCount > 0)
     	{
     		DebugVal($iCount, 'DeleteCountData table '.$this->strName.' WHERE '.$strWhere);
-    		$this->DeleteData($strWhere);
+    		$this->DeleteRecord($strWhere);
     	}
     }
     
@@ -192,7 +192,7 @@ class TableSql
     {
     	if ($strWhere = _SqlBuildWhere_id($strId))
     	{
-    		return $this->DeleteData($strWhere);
+    		return $this->DeleteRecord($strWhere);
     	}
     	return false;
     }

@@ -33,7 +33,7 @@ class WeixinSql extends KeyNameSql
     	}
     	else
     	{
-    		return $this->InsertData($ar);
+    		return $this->InsertArray($ar);
     	}
     	return false;
     }

@@ -51,7 +51,7 @@ class StockHistorySql extends DailyStockValSql
     	}
     	else
     	{
-    		return $this->InsertData(array_merge($this->MakeFieldKeyId(), $ar));
+    		return $this->InsertArray(array_merge($this->MakeFieldKeyId(), $ar));
     	}
     	return false;
     }
@@ -68,7 +68,7 @@ class StockHistorySql extends DailyStockValSql
 
     function DeleteByZeroVolume()
     {
-    	return $this->DeleteData("volume = '0' AND ".$this->BuildWhere_key());
+    	return $this->DeleteRecord("volume = '0' AND ".$this->BuildWhere_key());
     }
 
     function GetVolume($strDate)

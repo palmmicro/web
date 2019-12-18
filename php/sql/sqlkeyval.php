@@ -41,7 +41,7 @@ class KeyValSql extends KeyTableSql
     {
     	$ar = $this->MakeFieldKeyId();
     	$ar[$this->strValName] = $strVal;
-    	return $this->InsertData($ar);
+    	return $this->InsertArray($ar);
     }
     
     function Update($strId, $strVal)

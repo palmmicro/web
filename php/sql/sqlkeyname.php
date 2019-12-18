@@ -22,6 +22,11 @@ class KeyNameSql extends TableSql
     	}
     }
 
+    function MakeInsertArray()
+    {
+    	return array($this->strKeyName => $this->strKey);
+    }
+    
     function InsertKey()
     {
    		if ($this->strKey)
@@ -29,7 +34,7 @@ class KeyNameSql extends TableSql
    			$this->strKeyId = $this->GetId($this->strKey);
    			if ($this->strKeyId == false)
    			{
-   				if ($this->InsertData(array($this->strKeyName => $this->strKey)))
+   				if ($this->InsertArray($this->MakeInsertArray()))
    				{
    					DebugString('New key: '.$this->strKey);
    					$this->strKeyId = $this->GetId($this->strKey);
@@ -38,15 +43,20 @@ class KeyNameSql extends TableSql
    		}
     }
     
-    function Create()
+    function CreateKeyNameTable($str)
     {
-    	$str = ' `'.$this->strKeyName.'` TEXT CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL ,'
-         	. ' FULLTEXT ( `'.$this->strKeyName.'` )';
     	if ($b = $this->CreateIdTable($str))
     	{
     		$this->InsertKey();
     	}
     	return $b;
+    }
+    
+    function Create()
+    {
+    	$str = ' `'.$this->strKeyName.'` TEXT CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL ,'
+         	. ' FULLTEXT ( `'.$this->strKeyName.'` )';
+        return $this->CreateKeyNameTable($str);
     }
 
     function GetKeyId()
