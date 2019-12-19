@@ -33,8 +33,8 @@ function IpInfoIpLookUp($strIp)
     		{
     			if (strstr_array($ar['hostname'], array('ahrefs.com', 'bot', 'crawl', 'spider')))
     			{
-					$sql = new IpSql();
-					$sql->SetStatus($strIp, IP_STATUS_CRAWL);
+					$sql = new IpSql($strIp);
+					$sql->SetStatus(IP_STATUS_CRAWL);
 				}
 			}
     	}
@@ -111,9 +111,7 @@ function IpLookupGetString($strIp, $strNewLine, $bChinese)
 {
 	if (filter_valid_ip($strIp) == false)	return '';
 	
-	$sql = new IpSql();
-	if ($sql->InsertIp($strIp))	DebugString('New IP: '.$strIp);
-	
+	$sql = new IpSql($strIp);
     $str = $strIp;
     
     $fStart = microtime(true);

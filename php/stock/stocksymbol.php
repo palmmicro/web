@@ -484,28 +484,6 @@ class StockSymbol
         return false;
     }
     
-    function IsTradable()
-    {
-    	if ($this->IsIndex())			return false;
-    	if ($this->IsIndexA())		return false;
-    	if ($this->IsForex())			return false;
-    	if ($this->IsSinaFuture())	return false;
-    	return true;
-    }
-    
-    function SetTimeZone()
-    {
-        if ($this->IsSymbolA() || $this->IsSymbolH() || $this->IsEastMoneyForex() || $this->IsSinaFund())
-        {
-            $strTimeZone = STOCK_TIME_ZONE_CN;
-        }
-        else
-        {
-            $strTimeZone = STOCK_TIME_ZONE_US;
-        }
-        date_default_timezone_set($strTimeZone);
-    }
-
     function GetSinaFundSymbol()
     {
         if ($this->IsFundA())   return SINA_FUND_PREFIX.$this->strDigitA;
@@ -613,18 +591,6 @@ class StockSymbol
         return $strSymbol;
     }
     
-    function GetFtSymbol()
-    {
-        if ($this->IsIndex())
-        {
-        	if ($this->strSymbol == '^SPSIOP')												return $this->strOthers.':IOM';
-        	else if ($this->strSymbol == '^SPGOGUP' || $this->strSymbol == '^SPBRICNTR')	return $this->strOthers.':REU';
-        	else if ($this->strSymbol == '^DJSOEP')											return $this->strOthers.':DJI';
-        	else if ($this->strSymbol == '^IXY')												return $this->strOthers.':PSE';
-        }
-        return false;
-    }
-    
     function GetPrecision()
     {
     	if ($this->IsSinaFund() || $this->IsFundA())   	return 3;
@@ -632,6 +598,53 @@ class StockSymbol
     	return 2;
     }
     
+    function IsTradable()
+    {
+    	if ($this->IsIndex())			return false;
+    	if ($this->IsIndexA())		return false;
+    	if ($this->IsForex())			return false;
+    	if ($this->IsSinaFuture())	return false;
+    	return true;
+    }
+    
+    function IsMarketTrading($ymd)
+    {
+    	if ($ymd->IsTradingDay())
+    	{
+    		$iHour = $ymd->GetHour(); 
+    		if ($this->IsSymbolA())
+    		{
+    			if ($iHour < STOCK_HOUR_BEGIN || $iHour > 15)     return false;
+    		}
+    		else if ($this->IsSymbolH())
+    		{
+    			if ($iHour < STOCK_HOUR_BEGIN || $iHour > STOCK_HOUR_END)     return false;
+    		}
+    		else
+    		{   // US extended hours trading from 4am to 8pm
+    			if ($iHour < 4 || $iHour > 20)     return false;
+    		}
+    	}
+    	else 
+    	{
+    		return false;   // do not trade on holiday and weekend
+    	}
+    	return true;
+    }
+    
+    function SetTimeZone()
+    {
+        if ($this->IsSymbolA() || $this->IsSymbolH() || $this->IsEastMoneyForex() || $this->IsSinaFund())
+        {
+            $strTimeZone = STOCK_TIME_ZONE_CN;
+        }
+        else
+        {
+            $strTimeZone = STOCK_TIME_ZONE_US;
+        }
+        date_default_timezone_set($strTimeZone);
+    }
+
     function GetSymbol()
     {
         return $this->strSymbol;

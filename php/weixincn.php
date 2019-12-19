@@ -136,8 +136,7 @@ function _wxDebug($strUserName, $strText, $strSubject)
 
 function _updateWeixinTables($strText, $strUserName)
 {
-	$ip_sql = new IpSql();
-	$ip_sql->InsertIp(UrlGetIp());
+	$ip_sql = new IpSql(UrlGetIp());
     
 	$sql = new WeixinSql();
 	$sql->InsertUser($strUserName);

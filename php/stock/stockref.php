@@ -61,7 +61,7 @@ function _getSinaArray($sym, $strSinaSymbol, $strFileName)
     {
         $str = GetSinaQuotes($strSinaSymbol);
         if ($str)   file_put_contents($strFileName, $str);
-        else         $str = file_get_contents($strFileName);
+        else         $str = file_exists($strFileName) ? file_get_contents($strFileName) : '';
     }
     else
     {

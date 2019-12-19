@@ -107,9 +107,9 @@ function EchoAll()
    		$strSymbol = $ref->GetSymbol();
         if (in_arrayLof($strSymbol))
         {
-            $fStart = microtime(true);
+//            $fStart = microtime(true);
             _echoThanousParadoxParagraph($strSymbol, $acct->GetStart(), $acct->GetNum());
-            DebugString($strSymbol.' Thanous Paradox: '.DebugGetStopWatchDisplay($fStart));
+//            DebugString($strSymbol.' Thanous Paradox: '.DebugGetStopWatchDisplay($fStart));
         }
     }
     $acct->EchoLinks(THANOUS_PARADOX_PAGE);

@@ -20,15 +20,14 @@ function AcctCountBlogVisitor($strIp)
 
 function AcctDeleteBlogVisitorByIp($strIp)
 {
-   	$sql = new IpSql();
-    if ($strId = $sql->GetId($strIp))
+   	$sql = new IpSql($strIp);
+    if ($strId = $sql->GetKeyId())
     {
         $iCount = AcctCountBlogVisitor($strIp);
-//        SqlAddIpVisit($strIp, $iCount);
-		$sql->AddVisit($strIp, $iCount);
+		$sql->AddVisit($iCount);
         SqlDeleteVisitor(VISITOR_TABLE, $strId);
     }
-    if ($sql->GetStatus($strIp) == IP_STATUS_BLOCKED)		$sql->SetStatus($strIp, IP_STATUS_NORMAL);
+    if ($sql->GetStatus() == IP_STATUS_BLOCKED)		$sql->SetStatus(IP_STATUS_NORMAL);
 }
 
 function AcctDeleteMember($strMemberId)
@@ -50,8 +49,8 @@ function AcctLogin($strEmail, $strPassword)
 		$strIp = UrlGetIp();
 		SqlUpdateLoginField($strEmail, $strIp);
 		
-		$sql = new IpSql();
-		$sql->IncLogin($strIp);
+		$sql = new IpSql($strIp);
+		$sql->IncLogin();
     }
     return $strMemberId;
 }
@@ -182,7 +181,7 @@ function _checkSearchEngineSpider($sql, $strIp, $iCount, $iPageCount, $strDebug)
     }
     
 	trigger_error('Blocked spider<br />'.$strDebug);
-	$sql->SetStatus($strIp, IP_STATUS_BLOCKED);
+	$sql->SetStatus(IP_STATUS_BLOCKED);
 	_onBlockedIp($strIp);
     return false;
 }
@@ -201,13 +200,12 @@ function AcctSessionStart()
     SqlCreateVisitorTable(VISITOR_TABLE);
 	$strIp = UrlGetIp();
 	
-	$sql = new IpSql();
-	$sql->InsertIp($strIp);
+	$sql = new IpSql($strIp);
     if ($strBlogId = AcctGetBlogId())
     {
-       	SqlInsertVisitor(VISITOR_TABLE, $strBlogId, $sql->GetId($strIp));
+       	SqlInsertVisitor(VISITOR_TABLE, $strBlogId, $sql->GetKeyId());
     }
-    if ($sql->GetStatus($strIp) == IP_STATUS_BLOCKED)		_onBlockedIp($strIp);
+    if ($sql->GetStatus() == IP_STATUS_BLOCKED)		_onBlockedIp($strIp);
     
 	$strMemberId = AcctIsLogin();
 	$iCount = AcctCountBlogVisitor($strIp);

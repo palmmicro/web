@@ -19,21 +19,26 @@ class IpSql extends KeyNameSql
          	  . ' `login` INT UNSIGNED NOT NULL ,'
          	  . ' `status` INT UNSIGNED NOT NULL ,'
          	  . ' UNIQUE ( `ip` )';
-    	return $this->CreateIdTable($str);
+        return $this->CreateKeyNameTable($str);
     }
-    
-    function WriteIp($strIp, $strVisit = '0', $strLogin = '0', $strStatus = '0')
+
+    function _makeUpdateArray($strVisit = '0', $strLogin = '0', $strStatus = '0')
     {
-    	if (filter_valid_ip($strIp) == false)	return false;
-    	
-    	$ar = array('ip' => $strIp,
-    				  'visit' => $strVisit,
+    	return array('visit' => $strVisit,
     				  'login' => $strLogin,
     				  'status' => $strStatus);
-    	
+    }
+    
+    function MakeInsertArray()
+    {
+    	return array_merge($this->MakeKeyArray(), $this->_makeUpdateArray());
+    }
+    
+    function UpdateIp($strIp, $strVisit = '0', $strLogin = '0', $strStatus = '0')
+    {
+    	$ar = $this->_makeUpdateArray($strVisit, $strLogin, $strStatus);
     	if ($record = $this->GetRecord($strIp))
     	{	
-    		unset($ar['ip']);
     		if ($record['visit'] == $strVisit)		unset($ar['visit']);
     		if ($record['login'] == $strLogin)		unset($ar['login']);
     		if ($record['status'] == $strStatus)	unset($ar['status']);
@@ -42,58 +47,45 @@ class IpSql extends KeyNameSql
     			return $this->UpdateById($ar, $record['id']);
     		}
     	}
-    	else
-    	{
-    		return $this->InsertArray($ar);
-    	}
     	return false;
     }
 
-    function InsertIp($strIp)
-    {
-    	if ($this->GetRecord($strIp) == false)
-    	{
-    		return $this->WriteIp($strIp);
-    	}
-    	return false;
-    }
-    
-    function IncLogin($strIp)
+    function IncLogin($strIp = false)
     {
     	if ($record = $this->GetRecord($strIp))
     	{
     		$iVal = intval($record['login']);
     		$iVal ++;
-    		return $this->WriteIp($strIp, $record['visit'], strval($iVal), $record['status']);
+    		return $this->UpdateIp($strIp, $record['visit'], strval($iVal), $record['status']);
     	}
     	return false;
     }
 
-    function AddVisit($strIp, $iCount)
+    function AddVisit($iCount, $strIp = false)
     {
     	if ($record = $this->GetRecord($strIp))
     	{
     		$iVal = intval($record['visit']);
     		$iVal += $iCount;
-    		return $this->WriteIp($strIp, strval($iVal), $record['login'], $record['status']);
+    		return $this->UpdateIp($strIp, strval($iVal), $record['login'], $record['status']);
     	}
     	return false;
     }
 
-    function SetStatus($strIp, $strStatus)
+    function SetStatus($strStatus, $strIp = false)
     {
     	if ($record = $this->GetRecord($strIp))
     	{
     		if ($record['status'] != $strStatus)
     		{
-    			return $this->WriteIp($strIp, $record['visit'], $record['login'], $strStatus);
+    			return $this->UpdateIp($strIp, $record['visit'], $record['login'], $strStatus);
     		}
     		return true;
     	}
     	return false;
     }
     
-    function GetStatus($strIp)
+    function GetStatus($strIp = false)
     {
     	if ($record = $this->GetRecord($strIp))
     	{

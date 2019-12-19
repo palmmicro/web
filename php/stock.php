@@ -118,8 +118,8 @@ function GetSinaQuotesUrl($strSinaSymbols)
 function GetSinaQuotes($strSinaSymbols)
 {
 	$strIp = UrlGetIp();
-   	$ip_sql = new IpSql();
-	if ($ip_sql->GetStatus($strIp) == IP_STATUS_CRAWL)
+   	$ip_sql = new IpSql($strIp);
+	if ($ip_sql->GetStatus() == IP_STATUS_CRAWL)
 	{
 //		DebugString('Ignore: '.gethostbyaddr($strIp).' '.$strSinaSymbols);
 		return false;

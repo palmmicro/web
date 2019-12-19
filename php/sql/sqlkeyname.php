@@ -22,9 +22,14 @@ class KeyNameSql extends TableSql
     	}
     }
 
-    function MakeInsertArray()
+    function MakeKeyArray()
     {
     	return array($this->strKeyName => $this->strKey);
+    }
+    
+    function MakeInsertArray()
+    {
+    	return $this->MakeKeyArray();
     }
     
     function InsertKey()
@@ -36,7 +41,7 @@ class KeyNameSql extends TableSql
    			{
    				if ($this->InsertArray($this->MakeInsertArray()))
    				{
-   					DebugString('New key: '.$this->strKey);
+  					DebugString('New key: '.$this->strKey);
    					$this->strKeyId = $this->GetId($this->strKey);
    				}
    			}
@@ -73,9 +78,9 @@ class KeyNameSql extends TableSql
     	return false;
     }
 
-    function GetRecord($strKey)
+    function GetRecord($strKey = false)
     {
-    	return $this->GetSingleData(_SqlBuildWhere($this->strKeyName, $strKey));
+    	return $strKey ? $this->GetSingleData(_SqlBuildWhere($this->strKeyName, $strKey)) : $this->GetRecordById($this->GetKeyId());
     }
 
     function GetAll($iStart = 0, $iNum = 0)

@@ -28,20 +28,34 @@ class _ChinaEtfGroup extends _StockGroup
         $this->a50_ref = new FutureReference($strA50);
         $this->cnh_ref = new ForexReference($strCNH);
         
-		$sql = new EtfCnhSql($this->us_ref->GetStockId());
-		$strDate = $this->us_ref->GetDate();
+        if ($this->_updateNetValueByCnh())
+        {
+        	$this->us_ref = new EtfReference($strUS);
+        }
+        
+        parent::_StockGroup(array($this->ref, $this->us_ref, $this->ref->GetPairNvRef()));
+    }
+    
+    function _updateNetValueByCnh()
+    {
+    	$ref = $this->us_ref;
+    	$ref->SetTimeZone();
+    	if ($ref->IsMarketTrading(new NowYMD()) == false)	return false;
+    	
+		$sql = new EtfCnhSql($ref->GetStockId());
+		$strDate = $ref->GetDate();
 		$strPrice = $this->cnh_ref->GetPrice();
 		if ($strCnh = $sql->GetClose($strDate))
 		{
 			if (abs(floatval($strCnh) - floatval($strPrice)) > 0.001)
 			{
-				if ($strNetValue = EtfRefManualCalibration($this->us_ref))
+				if ($strNetValue = EtfRefManualCalibration($ref))
 				{
 					$sql->Write($strDate, $strPrice);
 					DebugString($strPrice);
-					if ($strNetValue != $this->us_ref->GetNetValue())
+					if ($strNetValue != $ref->GetNetValue())
 					{
-						$this->us_ref = new EtfReference($strUS);
+						return true;
 					}
 				}
 			}
@@ -50,8 +64,7 @@ class _ChinaEtfGroup extends _StockGroup
 		{
 			$sql->Insert($strDate, $strPrice);
 		}
-		
-        parent::_StockGroup(array($this->ref, $this->us_ref, $this->ref->GetPairNvRef()));
+		return false;
     }
 }
 

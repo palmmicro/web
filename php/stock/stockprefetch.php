@@ -1,31 +1,5 @@
 <?php
 
-function _isMarketTrading($sym, $iTime)
-{
-    $ymd = new TickYMD($iTime);
-    if ($ymd->IsTradingDay())
-    {
-        $iHour = $ymd->GetHour(); 
-        if ($sym->IsSymbolA())
-        {
-            if ($iHour < STOCK_HOUR_BEGIN || $iHour > 15)     return false;
-        }
-        else if ($sym->IsSymbolH())
-        {
-            if ($iHour < STOCK_HOUR_BEGIN || $iHour > STOCK_HOUR_END)     return false;
-        }
-        else
-        {   // US extended hours trading from 4am to 8pm
-            if ($iHour < 4 || $iHour > 20)     return false;
-        }
-    }
-    else 
-    {
-        return false;   // do not trade on holiday and weekend
-    }
-    return true;
-}
-
 function GetEastMoneyForexDateTime($ar)
 {
     return explode(' ', $ar[27]);
@@ -93,11 +67,11 @@ function StockNeedNewQuotes($sym, $strFileName)
 		$iCurTime = $ymd->GetTick();
         if ($iCurTime > ($iFileTime + 6 * SECONDS_IN_HOUR))     return true;   // always update after 6 hours
         
-        if (_isMarketTrading($sym, $iFileTime))    return true;
+        if ($sym->IsMarketTrading(new TickYMD($iFileTime)))    return true;
         else 
         {
-            if (_isMarketTrading($sym, $iCurTime))    return true;
-            else                                return false;
+            if ($sym->IsMarketTrading($ymd))    					return true;
+            else                                					return false;
         }
     }
     return true;
