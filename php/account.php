@@ -12,18 +12,16 @@ require_once('ui/table.php');
 require_once('sql/sqlstockgroup.php');
 require_once('sql/sqlfundpurchase.php');
 
-function AcctCountBlogVisitor($strIp)
+function AcctCountBlogVisitor($sql)
 {
-   	$sql = new IpSql();
-    return SqlCountVisitor(VISITOR_TABLE, $sql->GetId($strIp));
+    return SqlCountVisitor(VISITOR_TABLE, $sql->GetKeyId());
 }
 
-function AcctDeleteBlogVisitorByIp($strIp)
+function AcctDeleteBlogVisitorByIp($sql)
 {
-   	$sql = new IpSql($strIp);
     if ($strId = $sql->GetKeyId())
     {
-        $iCount = AcctCountBlogVisitor($strIp);
+        $iCount = AcctCountBlogVisitor($sql);
 		$sql->AddVisit($iCount);
         SqlDeleteVisitor(VISITOR_TABLE, $strId);
     }
@@ -123,16 +121,15 @@ function AcctIsReadOnly($strMemberId)
     return true;
 }
 
-function AcctGetBlogVisitor($strIp, $iStart = 0, $iNum = 0)
+function AcctGetBlogVisitor($sql, $iStart = 0, $iNum = 0)
 {
-   	$sql = new IpSql();
-    return SqlGetVisitor(VISITOR_TABLE, $sql->GetId($strIp), $iStart, $iNum);
+    return SqlGetVisitor(VISITOR_TABLE, $sql->GetKeyId(), $iStart, $iNum);
 }
 
-function AcctGetSpiderPageCount($strIp)
+function AcctGetSpiderPageCount($sql)
 {
     $ar = array();
-	if ($result = AcctGetBlogVisitor($strIp)) 
+	if ($result = AcctGetBlogVisitor($sql)) 
 	{
 	    while ($record = mysql_fetch_assoc($result)) 
 	    {
@@ -144,17 +141,17 @@ function AcctGetSpiderPageCount($strIp)
 	return count($ar);
 }
 
-function _onBlockedIp($strIp)
+function _onBlockedIp($sql)
 {
-    die('Please contact support@palmmicro.com to unblock your IP address '.$strIp);
+    die('Please contact support@palmmicro.com to unblock your IP address '.$sql->GetKey());
 }
 
-function _checkSearchEngineSpider($sql, $strIp, $iCount, $iPageCount, $strDebug)
+function _checkSearchEngineSpider($sql, $iCount, $iPageCount, $strDebug)
 {
-    $arIpInfo = IpInfoIpLookUp($strIp);
-    if (isset($arIpInfo['org']))
+    $arInfo = IpInfoIpLookUp($sql);
+    if (isset($arInfo['org']))
     {
-    	$strOrg = $arIpInfo['org'];
+    	$strOrg = $arInfo['org'];
     	if (strstr_array($strOrg, array('microsoft', 'yahoo', 'yandex')))
     	{
     		trigger_error('Known company: '.$strOrg);
@@ -163,9 +160,9 @@ function _checkSearchEngineSpider($sql, $strIp, $iCount, $iPageCount, $strDebug)
     	$strDebug .= '<br />'.$strOrg;
     }
     
-    if (isset($arIpInfo['hostname']))
+    if (isset($arInfo['hostname']))
     {
-    	$strDns = $arIpInfo['hostname'];
+    	$strDns = $arInfo['hostname'];
    		if (strstr_array($strDns, array('baidu', 'bytedance', 'google', 'msn', 'sogou', 'yahoo', 'yandex')))
    		{
    			trigger_error('Known DNS: '.$strDns);
@@ -182,7 +179,7 @@ function _checkSearchEngineSpider($sql, $strIp, $iCount, $iPageCount, $strDebug)
     
 	trigger_error('Blocked spider<br />'.$strDebug);
 	$sql->SetStatus(IP_STATUS_BLOCKED);
-	_onBlockedIp($strIp);
+	_onBlockedIp($sql);
     return false;
 }
 
@@ -205,24 +202,24 @@ function AcctSessionStart()
     {
        	SqlInsertVisitor(VISITOR_TABLE, $strBlogId, $sql->GetKeyId());
     }
-    if ($sql->GetStatus() == IP_STATUS_BLOCKED)		_onBlockedIp($strIp);
+    if ($sql->GetStatus() == IP_STATUS_BLOCKED)		_onBlockedIp($sql);
     
 	$strMemberId = AcctIsLogin();
-	$iCount = AcctCountBlogVisitor($strIp);
+	$iCount = AcctCountBlogVisitor($sql);
 	if ($iCount >= 1000)
 	{
-		$iPageCount = AcctGetSpiderPageCount($strIp);
+		$iPageCount = AcctGetSpiderPageCount($sql);
 		$strDebug = strval($iCount).' '.strval($iPageCount);
 		if ($strMemberId)
 		{
     		trigger_error('Possible logined spider: '.$strDebug);
-	        AcctDeleteBlogVisitorByIp($strIp);
+	        AcctDeleteBlogVisitorByIp($sql);
 	    }
 	    else
 	    {
-	    	if (_checkSearchEngineSpider($sql, $strIp, $iCount, $iPageCount, $strDebug))
+	    	if (_checkSearchEngineSpider($sql, $iCount, $iPageCount, $strDebug))
 	    	{
-	    		AcctDeleteBlogVisitorByIp($strIp);
+	    		AcctDeleteBlogVisitorByIp($sql);
 	    	}
 /*	    	else
 	    	{

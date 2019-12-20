@@ -41,7 +41,7 @@ class KeyNameSql extends TableSql
    			{
    				if ($this->InsertArray($this->MakeInsertArray()))
    				{
-  					DebugString('New key: '.$this->strKey);
+//  					DebugString('New key: '.$this->strKey);
    					$this->strKeyId = $this->GetId($this->strKey);
    				}
    			}
@@ -69,13 +69,17 @@ class KeyNameSql extends TableSql
     	return $this->strKeyId;
     }
     
-    function GetKey($strId)
+    function GetKey($strId = false)
     {
-    	if ($record = $this->GetRecordById($strId))
+    	if ($strId)
     	{
-    		return $record[$this->strKeyName];
+    		if ($record = $this->GetRecordById($strId))
+    		{
+    			return $record[$this->strKeyName];
+    		}
+    		return false;
     	}
-    	return false;
+    	return $this->strKey;
     }
 
     function GetRecord($strKey = false)

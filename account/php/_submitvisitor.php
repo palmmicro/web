@@ -17,7 +17,7 @@ require_once('/php/sql/sqlweixin.php');
 	            }
 	            else
 	            {
-	                AcctDeleteBlogVisitorByIp($strSrc);
+	                AcctDeleteBlogVisitorByIp(new IpSql($strSrc));
 	            }
 	        }
 	    }

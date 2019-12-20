@@ -14,35 +14,27 @@ class WeixinSql extends KeyNameSql
 	          . ' `member_id` INT UNSIGNED NOT NULL ,'
 	          . ' FOREIGN KEY (`member_id`) REFERENCES `member`(`id`) ON DELETE CASCADE ,'
           	  . ' UNIQUE ( `user` )';
-    	return $this->CreateIdTable($str);
-    }
-    
-    function WriteUser($strUser, $strMemberId = '0')
-    {
-    	$ar = array('user' => $strUser,
-    				  'member_id' => $strMemberId);
-    	
-    	if ($record = $this->GetRecord($strUser))
-    	{	
-    		unset($ar['user']);
-    		if ($record['member_id'] == $strMemberId)		unset($ar['member_id']);
-    		if (count($ar) > 0)
-    		{
-    			return $this->UpdateById($ar, $record['id']);
-    		}
-    	}
-    	else
-    	{
-    		return $this->InsertArray($ar);
-    	}
-    	return false;
+        return $this->CreateKeyNameTable($str);
     }
 
-    function InsertUser($strUser)
+    function _makeUpdateArray($strMemberId = '0')
     {
-    	if ($this->GetRecord($strUser) == false)
-    	{
-    		return $this->WriteUser($strUser);
+    	return array('member_id' => $strMemberId);
+    }
+    
+    function MakeInsertArray()
+    {
+    	return array_merge($this->MakeKeyArray(), $this->_makeUpdateArray());
+    }
+    
+    function UpdateUser($strUser, $strMemberId = '0')
+    {
+    	if ($record = $this->GetRecord($strUser))
+    	{	
+    		if ($record['member_id'] != $strMemberId)
+    		{
+    			return $this->UpdateById($this->_makeUpdateArray($strMemberId), $record['id']);
+    		}
     	}
     	return false;
     }

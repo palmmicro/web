@@ -4,9 +4,9 @@ require_once('sql/sqlipaddress.php');
 require_once('ui/commentparagraph.php');
 
 define('IPINFO_IO_IP_URL', 'http://ipinfo.io/');
-function _getIpInfoIpLookUpUrl($strIp)
+function _getIpInfoIpLookUpUrl($sql)
 {
-    return IPINFO_IO_IP_URL.$strIp.'/json';
+    return IPINFO_IO_IP_URL.$sql->GetKey().'/json';
 }
 
 function strstr_array($strHaystack, $arNeedle)
@@ -18,11 +18,10 @@ function strstr_array($strHaystack, $arNeedle)
 	return false;
 }
 
-function IpInfoIpLookUp($strIp)
+function IpInfoIpLookUp($sql)
 { 
 	$ar = array();
-    $strUrl = _getIpInfoIpLookUpUrl($strIp); 
-    if ($str = url_get_contents($strUrl))
+    if ($str = url_get_contents(_getIpInfoIpLookUpUrl($sql)))
     {
     	DebugString($str);
     	$ar = json_decode($str, true);
@@ -33,7 +32,6 @@ function IpInfoIpLookUp($strIp)
     		{
     			if (strstr_array($ar['hostname'], array('ahrefs.com', 'bot', 'crawl', 'spider')))
     			{
-					$sql = new IpSql($strIp);
 					$sql->SetStatus(IP_STATUS_CRAWL);
 				}
 			}
@@ -77,14 +75,13 @@ function _ipLookupBlogCommentTable($strIp, $strNewLine, $bChinese)
     return $str;
 }
 
-function _ipLookupIpAddressTable($strIp, $strNewLine, $bChinese)
+function _ipLookupIpAddressTable($sql, $strNewLine, $bChinese)
 {
     $str = '';
-   	$sql = new IpSql();
-    if ($record = $sql->GetRecord($strIp))
+    if ($record = $sql->GetRecord())
     {
         $iVisit = intval($record['visit']);
-        $iVisit += AcctCountBlogVisitor($strIp);
+        $iVisit += AcctCountBlogVisitor($sql);
         $str .= $strNewLine.($bChinese ? '普通网页总访问次数' : 'Total normal page visit').': '.intval($iVisit);
         $str .= $strNewLine.($bChinese ? '总登录次数' : 'Total login').': '.$record['login'];
         if ($record['status'] == IP_STATUS_BLOCKED)
@@ -99,33 +96,25 @@ function _ipLookupIpAddressTable($strIp, $strNewLine, $bChinese)
     return $str;
 }
 
-function _ipLookupLocalDatabase($strIp, $strNewLine, $bChinese)
+function IpLookupGetString($sql, $strNewLine, $bChinese)
 {
-    $str = _ipLookupMemberTable($strIp, $strNewLine, $bChinese);        // Search member login
-    $str .= _ipLookupBlogCommentTable($strIp, $strNewLine, $bChinese);  // Search blog comment
-    $str .= _ipLookupIpAddressTable($strIp, $strNewLine, $bChinese);  // Search blog comment
-    return $str;
-}
-
-function IpLookupGetString($strIp, $strNewLine, $bChinese)
-{
-	if (filter_valid_ip($strIp) == false)	return '';
-	
-	$sql = new IpSql($strIp);
-    $str = $strIp;
+    $strIp = $sql->GetKey();
+	if ($strIp == false)	return '';
     
     $fStart = microtime(true);
-    $str .= $strNewLine.GetExternalLink(_getIpInfoIpLookUpUrl($strIp), 'ipinfo.io').': ';
-    $arIpInfo = IpInfoIpLookUp($strIp);
-    if (isset($arIpInfo['error']) == false)
+    $str = $strIp.$strNewLine.GetExternalLink(_getIpInfoIpLookUpUrl($sql), 'ipinfo.io').': ';
+    $arInfo = IpInfoIpLookUp($sql);
+    if (isset($arInfo['error']) == false)
     {
-    	$str .= $arIpInfo['country'].' '.$arIpInfo['region'].' '.$arIpInfo['city'].' ['.$arIpInfo['loc'].'] '.$arIpInfo['org'];
-    	if (isset($arIpInfo['postal']))		$str .= ' '.$arIpInfo['postal'];
-    	if (isset($arIpInfo['hostname']))	$str .= ' '.$arIpInfo['hostname'];
+    	$str .= $arInfo['country'].' '.$arInfo['region'].' '.$arInfo['city'].' ['.$arInfo['loc'].'] '.$arInfo['org'];
+    	if (isset($arInfo['postal']))	$str .= ' '.$arInfo['postal'];
+    	if (isset($arInfo['hostname']))	$str .= ' '.$arInfo['hostname'];
     }
     $str .= DebugGetStopWatchDisplay($fStart);
     
-    $str .= _ipLookupLocalDatabase($strIp, $strNewLine, $bChinese);
+    $str .= _ipLookupMemberTable($strIp, $strNewLine, $bChinese);        // Search member login
+    $str .= _ipLookupBlogCommentTable($strIp, $strNewLine, $bChinese);  // Search blog comment
+    $str .= _ipLookupIpAddressTable($sql, $strNewLine, $bChinese);
     return $str;
 }
 

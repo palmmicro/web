@@ -138,9 +138,7 @@ function _updateWeixinTables($strText, $strUserName)
 {
 	$ip_sql = new IpSql(UrlGetIp());
     
-	$sql = new WeixinSql();
-	$sql->InsertUser($strUserName);
-	
+	$sql = new WeixinSql($strUserName);
 	$visitor_sql = new WeixinVisitorSql($strUserName);
 	$visitor_sql->InsertLog(new WeixinTextSql($strText));
 }

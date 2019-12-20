@@ -1,14 +1,14 @@
 <?php
 require_once('_visitorcommon.php');
 
-function _echoBlogVisitorData($strIp, $iStart, $iNum, $bChinese)
+function _echoBlogVisitorData($sql, $iStart, $iNum, $bChinese)
 {
     $arBlogId = array();
     $arIpId = array();
-    
-	$ip_sql = new IpSql();
+
+    $strIp = $sql->GetKey();    
 	$page_sql = new PageSql();
-    if ($result = AcctGetBlogVisitor($strIp, $iStart, $iNum)) 
+    if ($result = AcctGetBlogVisitor($sql, $iStart, $iNum)) 
     {
         while ($record = mysql_fetch_assoc($result)) 
         {
@@ -26,7 +26,7 @@ function _echoBlogVisitorData($strIp, $iStart, $iNum, $bChinese)
             else
             {
                 $strIpId = $record['src_id'];
-				$str = $ip_sql->GetKey($strIpId);
+				$str = $sql->GetKey($strIpId);
                 if (in_array($strIpId, $arIpId))    $strIpLink = $str;
                 else
                 {
@@ -41,12 +41,12 @@ function _echoBlogVisitorData($strIp, $iStart, $iNum, $bChinese)
     }
 }
 
-function _getNavVisitorLink($strIp, $iStart, $iNum, $bChinese)
+function _getNavVisitorLink($sql, $iStart, $iNum, $bChinese)
 {
-    if ($strIp)
+    if ($strIp = $sql->GetKey())
     {
         $strId = 'ip='.$strIp;
-        $iTotal = AcctCountBlogVisitor($strIp);
+        $iTotal = AcctCountBlogVisitor($sql);
     }
     else
     {
@@ -56,7 +56,7 @@ function _getNavVisitorLink($strIp, $iStart, $iNum, $bChinese)
     return GetNavLink($strId, $iTotal, $iStart, $iNum, $bChinese);
 }
 
-function _echoBlogVisitorParagraph($strIp, $iStart, $iNum, $bChinese)
+function _echoBlogVisitorParagraph($sql, $iStart, $iNum, $bChinese)
 {
     if ($bChinese)     
     {
@@ -67,19 +67,20 @@ function _echoBlogVisitorParagraph($strIp, $iStart, $iNum, $bChinese)
         $arColumn = array('Page', 'IP', 'Date', 'Time');
     }
     
-    $strNavLink = _getNavVisitorLink($strIp, $iStart, $iNum, $bChinese);
-    EchoVisitorParagraphBegin($arColumn, $strNavLink, $strIp, $bChinese);
-    _echoBlogVisitorData($strIp, $iStart, $iNum, $bChinese);
+    $strNavLink = _getNavVisitorLink($sql, $iStart, $iNum, $bChinese);
+    EchoVisitorParagraphBegin($arColumn, $strNavLink, $sql->GetKey(), $bChinese);
+    _echoBlogVisitorData($sql, $iStart, $iNum, $bChinese);
     EchoTableParagraphEnd($strNavLink);
 }
 
 function EchoBlogVisitor($bChinese = true)
 {
     $strIp = UrlGetQueryValue('ip');
-    if ($strIp)
+    $sql = new IpSql($strIp);
+    if ($strIp = $sql->GetKey())
     {
-        $str = IpLookupGetString($strIp, '<br />', $bChinese);
-        $iPageCount = AcctGetSpiderPageCount($strIp);
+        $str = IpLookupGetString($sql, '<br />', $bChinese);
+        $iPageCount = AcctGetSpiderPageCount($sql);
         $str .= '<br />'.($bChinese ? '保存的不同页面数量' : 'Saved unique page number').': '.strval($iPageCount);
     }
     else
@@ -90,7 +91,7 @@ function EchoBlogVisitor($bChinese = true)
     
     $iStart = UrlGetQueryInt('start');
     $iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
-    _echoBlogVisitorParagraph($strIp, $iStart, $iNum, $bChinese);
+    _echoBlogVisitorParagraph($sql, $iStart, $iNum, $bChinese);
     EchoVisitorCommonLinks($bChinese);
 }
 

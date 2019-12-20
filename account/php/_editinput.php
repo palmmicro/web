@@ -240,7 +240,7 @@ function EchoAll($bChinese = true)
     	break;
     		
     case TABLE_IP:
-    	$str = IpLookupGetString($strInput, '<br />', $bChinese);
+    	$str = IpLookupGetString(new IpSql($strInput), '<br />', $bChinese);
     	break;
     	
    	case 'linearregression':
