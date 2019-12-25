@@ -59,6 +59,7 @@
 	LayoutBrokerYinhe();
 	LayoutBrokerHuatai();
 	LayoutBrokerXueying();
+	LayoutQqGroup();
 ?>
 
 </div>

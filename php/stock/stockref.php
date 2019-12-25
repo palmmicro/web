@@ -55,13 +55,21 @@ function _convertYahooPercentage($strChange)
     return floatval(rtrim($str, '%')) / 100.0;
 }
 
+function _getSinaQuotesStr($strSinaSymbol, $strFileName)
+{
+    if ($str = GetSinaQuotes($strSinaSymbol))
+    {
+      	file_put_contents($strFileName, $str);
+      	return $str;
+    }
+	return file_exists($strFileName) ? file_get_contents($strFileName) : '';
+}
+
 function _getSinaArray($sym, $strSinaSymbol, $strFileName)
 {
     if (StockNeedNewQuotes($sym, $strFileName))
     {
-        $str = GetSinaQuotes($strSinaSymbol);
-        if ($str)   file_put_contents($strFileName, $str);
-        else         $str = file_exists($strFileName) ? file_get_contents($strFileName) : '';
+    	$str = _getSinaQuotesStr($strSinaSymbol, $strFileName);
     }
     else
     {
@@ -476,9 +484,7 @@ class StockReference extends StockSymbol
 
         if (($str = IsNewDailyQuotes($this, $strFileName, '_GetFundQuotesYMD')) === false)
         {
-        	$str = GetSinaQuotes($strFundSymbol);
-        	if ($str)   file_put_contents($strFileName, $str);
-        	else         $str = file_get_contents($strFileName);
+        	$str = _getSinaQuotesStr($strFundSymbol, $strFileName);
         }
         
         $ar = explodeQuote($str);

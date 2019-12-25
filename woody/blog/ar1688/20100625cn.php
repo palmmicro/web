@@ -44,7 +44,7 @@
 <br />对没买到AR168M的客户我们只能说抱歉, 除非现有客户中有后续的批量订单给我们做, 我们不太可能会再去特别生产一批样品卖了.
 不过请记住我们提供全部的硬件设计, 感兴趣的客户还是可以购买AR1688芯片, 自己来做这个模块. 
 </td></tr>
-<tr><td><font color=gray>I can make it, I know I can.</font> <a href="../../favoritecn.html#stelmosfire">St Elmo's Fire</a></td></tr>
+<tr><td><font color=gray>I can make it, I know I can. -- St Elmo's Fire</font></td></tr>
 <tr><td><img src=../../../ar1688/user/ar168m/AR1688.jpg alt="AR1688 side of a customer made AR168M VoIP module" /></td></tr>
 <tr><td><img src=../../../ar1688/user/ar168m/RTL8019AS_MT28F016S5.jpg alt="RTL8019AS and MT28F016S5 side of a customer made AR168M VoIP module" /></td></tr>
 </table>

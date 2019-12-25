@@ -8,6 +8,11 @@ require_once('sql/sqlvisitor.php');
 
 define('ACCT_PATH', '/account/');
 
+function GetWeixinDevLink($strDisp = '微信公众号')
+{
+	return GetInternalLink('/woody/blog/palmmicro/20161014cn.php', $strDisp);
+}
+
 function GetDevGuideLink($strPage, $strVer = false, $bChinese = true)
 {
     $str = '/woody/blog/entertainment/'.$strPage;

@@ -9,10 +9,21 @@ require_once('class/Mobile_Detect.php');
 define('DEFAULT_DISPLAY_WIDTH', 900);
 define('MIN_SCRREN_WIDTH', DEFAULT_DISPLAY_WIDTH + 15 + DEFAULT_ADSENSE_WIDTH);		// 隔15个像素再显示最右边的广告, 见下面width=15
 
+function LayoutQqGroup()
+{
+	$strWeixin = GetWeixinDevLink();
+    echo <<<END
+        <p>加入QQ群反馈网站和{$strWeixin}的问题.
+        <br /><img src=/woody/image/group5.png alt="QQ group 5 QR code" />
+        </p>
+END;
+}
+
 function LayoutWeixinPromotion()
 {
+	$strWeixin = GetWeixinDevLink();
     echo <<<END
-        <p>请扫二维码关注Palmmicro<a href="/woody/blog/palmmicro/20161014cn.php">微信公众号</a>sz162411. 
+        <p>请扫二维码关注Palmmicro{$strWeixin}sz162411. 
         <br /><img src=/woody/image/wx.jpg alt="Palmmicro wechat public account sz162411 small size QR code" />
         </p>
 END;

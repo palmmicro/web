@@ -14,10 +14,9 @@
 <h1>VoIP Loser's Songs</h1>
 <p>March 23, 2011
 <br />People are asking why I uploaded such a tired image as my display picture. Because I like this picture taken on Feb, I always wear a tired smile in recent months.
-<br />Also in Feb, I added a loser's song <b>South of the Border</b> on my Chinese favorite page. It was from <b>Cape No.7</b> movie.
+<br />Also in Feb, I was listening a loser's song <b>South of the Border</b> again and again. It was from <b>Cape No.7</b> movie.
 In the movie, several losers in a small Taiwan town formed a local band to perform with a visiting Japanese super star.
 Yesterday when I was walking near Shenzhen office building, all of a sudden an old melody came up. It was another loser's song <b>Sail Back</b> I used to hear in the spring 20 years ago.
-I added it to my favorite page too.
 <br />When we started <a href="../../../pa1688/index.html">PA1688</a> VoIP business 10 years ago, we were right that PSTN was to be replaced.
 However, we were wrong that it was not replaced by VoIP, but by mobile phone.
 <br />It was rather clear that mobile phone would win the market when we started <a href="../../../ar1688/index.html">AR1688</a> business 5 years ago.
@@ -31,7 +30,7 @@ Just as 20 years ago when I first came in Beijing, optimistic about my future.
 <h3>The Way</h3>
 <p>Jan 18, 2012
 <br /><i><b>The life we live and the life we choose</i></b> 
-<br />I watched the movie <a href="../../favorite.html#way">The Way</a> on a flight several days ago.
+<br />I watched the movie <b>The Way</b> on a flight several days ago.
 A few years ago there was another Chinese movie on the same topic of a sorry father trying to finish the task of his dead son, but I like this one more because it has something more. 
 <br />We all need a way to solve our own problems, walking the Camino de Santiago (The Way of Saint James) might be the way.
 But in the end, I am glad to see the Dutchman failed to reduce fat and still need to buy a new suit, and the Canadian women failed to quit smoking. This is the life we live. 

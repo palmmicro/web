@@ -21,8 +21,8 @@
 </p>
 <blockquote><font color=gray>茅十八道: "天地会保百姓, 杀鞑子, 做的是英雄好汉的勾当, 自然是英雄好汉了. 江湖上有言道: <strong>为人不识陈近南, 就称英雄也枉然.</strong> 陈近南陈总舵主, 便是天地会的头脑. 天地会的朋友们, 都是陈总舵主的手下, 岂有不是英雄好汉之理?"
 <br />吴大鹏道: "茅兄可识得陈总舵主么?"
-<br />茅十八怒道: "什么? 你讥笑我不是英雄吗?"</font>
-<br /><a href="../../favoritecn.html#ludingji">鹿鼎记</a>
+<br />茅十八怒道: "什么? 你讥笑我不是英雄吗?"
+<br />-- 鹿鼎记</font>
 </blockquote>
 <p>英文名的网上说明:</p>
 <blockquote><font color=gray>The name <strong>Sapphire</strong> is of English origin and it means <em>Gemstone</em>. It's a name commonly given to girls.
@@ -32,7 +32,7 @@ Since 1880 up to 2013, your name was recorded 2,469 times in the American baby n
 <br />-- 摘自<a href="http://www.themeaningofnames.org/?n=Sapphire&m=11&d=8&y=1966&go=Go" target=_blank>themeaningofnames.org</a>
 </font></blockquote>
 <p><img src=../photo/20141204.jpg alt="Woody and Sapphire Lin are both worried!" />
-<br /><font color=gray>给我舞台我就能华丽登场</font> <a href="../../favoritecn.html#dgldq">叮咯咙咚呛</a>
+<br /><font color=gray>给我舞台我就能华丽登场 -- 叮咯咙咚呛</font>
 </p>
 
 <h3>林蓉榕和林九霞</h3>

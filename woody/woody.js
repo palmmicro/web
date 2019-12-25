@@ -1,7 +1,7 @@
-var _iTotalMenu0 = 6;
-var _arMenu0 = new Array("blog", "image", "favorite", "res", "", "contact"); 
-var _arMenu0Names = new Array("Blog", "Image", "Favorite", "Resources", "", "Contact"); 
-var _arMenu0CnNames = new Array("网络日志", "相片", "收藏", "资源共享", "", "联系我"); 
+var _iTotalMenu0 = 5;
+var _arMenu0 = new Array("blog", "image", "res", "", "contact"); 
+var _arMenu0Names = new Array("Blog", "Image", "Resources", "", "Contact"); 
+var _arMenu0CnNames = new Array("网络日志", "相片", "资源共享", "", "联系我"); 
 
 function WoodyMenu()
 {

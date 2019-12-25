@@ -20,7 +20,6 @@ function strstr_array($strHaystack, $arNeedle)
 
 function IpInfoIpLookUp($sql)
 { 
-	$ar = array();
     if ($str = url_get_contents(_getIpInfoIpLookUpUrl($sql)))
     {
     	DebugString($str);
@@ -36,8 +35,9 @@ function IpInfoIpLookUp($sql)
 				}
 			}
     	}
+    	return $ar;
     }
-    return $ar;
+    return false;
 }
 
 function _ipLookupMemberTable($strIp, $strNewLine, $bChinese)
@@ -98,17 +98,18 @@ function _ipLookupIpAddressTable($sql, $strNewLine, $bChinese)
 
 function IpLookupGetString($sql, $strNewLine, $bChinese)
 {
-    $strIp = $sql->GetKey();
-	if ($strIp == false)	return '';
+    if (($strIp = $sql->GetKey()) === false)	return '';
     
     $fStart = microtime(true);
     $str = $strIp.$strNewLine.GetExternalLink(_getIpInfoIpLookUpUrl($sql), 'ipinfo.io').': ';
-    $arInfo = IpInfoIpLookUp($sql);
-    if (isset($arInfo['error']) == false)
+    if ($arInfo = IpInfoIpLookUp($sql))
     {
-    	$str .= $arInfo['country'].' '.$arInfo['region'].' '.$arInfo['city'].' ['.$arInfo['loc'].'] '.$arInfo['org'];
-    	if (isset($arInfo['postal']))	$str .= ' '.$arInfo['postal'];
-    	if (isset($arInfo['hostname']))	$str .= ' '.$arInfo['hostname'];
+    	if (isset($arInfo['error']) == false)
+    	{
+    		$str .= $arInfo['country'].' '.$arInfo['region'].' '.$arInfo['city'].' ['.$arInfo['loc'].'] '.$arInfo['org'];
+    		if (isset($arInfo['postal']))	$str .= ' '.$arInfo['postal'];
+    		if (isset($arInfo['hostname']))	$str .= ' '.$arInfo['hostname'];
+    	}
     }
     $str .= DebugGetStopWatchDisplay($fStart);
     

@@ -34,7 +34,7 @@
 <br />昨天见到他, 知道了更多的情况. 他在三个月前刚刚结束了跟一家上市公司另外一个三年的合同, 现在在自己开公司做产品设计. 当年的GPS产品因为技不如人没有做成功.
 很多年没有再回美国, 他的绿卡早已经被移民局收走. 他说<font color=gray>一旦回来后就再也不可能回去了</font>. 
 <br />我没有问他这十年的感受, 不过我想体会大体是差不多的. 虽然这十年我们做得不算成功, 但是并不后悔每一步的选择. 
-<br /><font color=gray>前行步步怀自信 风吹雨打不退让</font> <a href="../../favoritecn.html#who">谁能明白我</a>
+<br /><font color=gray>前行步步怀自信 风吹雨打不退让 -- 谁能明白我</font>
 <br /><img src=../../myphoto/2008/head_s.jpg alt="Dinner at a restaurant near Beijing Olympic Park" />
 </p>
 

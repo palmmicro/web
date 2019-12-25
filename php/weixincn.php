@@ -169,7 +169,7 @@ class WeixinStock extends WeixinCallback
 
     function GetVersion()
     {
-    	return WX_DEBUG_VER.' '.GetInternalLink('/woody/blog/palmmicro/20161014cn.php', '使用说明');
+    	return WX_DEBUG_VER.' '.GetWeixinDevLink('使用说明');
     }
     
 	function GetDefaultText()

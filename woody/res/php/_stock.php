@@ -70,7 +70,7 @@ function EchoPromotionHead($strVer = false, $strLoginId = false)
     
     if (AcctNoAdv($strLoginId) == false)
 	{
-		$iVal = rand(1, 6);
+		$iVal = rand(1, 7);
 		switch ($iVal)
 		{
 		case 1:
@@ -95,6 +95,10 @@ function EchoPromotionHead($strVer = false, $strLoginId = false)
 
 		case 6:
 			LayoutBrokerXueying();
+			break;
+			
+		case 7:
+			LayoutQqGroup();
 			break;
 		}
     }

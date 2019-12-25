@@ -148,28 +148,30 @@ function _onBlockedIp($sql)
 
 function _checkSearchEngineSpider($sql, $iCount, $iPageCount, $strDebug)
 {
-    $arInfo = IpInfoIpLookUp($sql);
-    if (isset($arInfo['org']))
+    if ($arInfo = IpInfoIpLookUp($sql))
     {
-    	$strOrg = $arInfo['org'];
-    	if (strstr_array($strOrg, array('microsoft', 'yahoo', 'yandex')))
+    	if (isset($arInfo['org']))
     	{
-    		trigger_error('Known company: '.$strOrg);
-    		return true;
+    		$strOrg = $arInfo['org'];
+    		if (strstr_array($strOrg, array('microsoft', 'yahoo', 'yandex')))
+    		{
+    			trigger_error('Known company: '.$strOrg);
+    			return true;
+    		}
+    		$strDebug .= '<br />'.$strOrg;
     	}
-    	$strDebug .= '<br />'.$strOrg;
-    }
     
-    if (isset($arInfo['hostname']))
-    {
-    	$strDns = $arInfo['hostname'];
-   		if (strstr_array($strDns, array('baidu', 'bytedance', 'google', 'msn', 'sogou', 'yahoo', 'yandex')))
-   		{
-   			trigger_error('Known DNS: '.$strDns);
-   			return true;
-   		}
-    	$strDebug .= '<br />'.$strDns;
-   	}
+    	if (isset($arInfo['hostname']))
+    	{
+    		$strDns = $arInfo['hostname'];
+    		if (strstr_array($strDns, array('baidu', 'bytedance', 'google', 'msn', 'sogou', 'yahoo', 'yandex')))
+    		{
+    			trigger_error('Known DNS: '.$strDns);
+    			return true;
+    		}
+    		$strDebug .= '<br />'.$strDns;
+    	}
+    }
    	
     if ($iPageCount >= 10)
     {

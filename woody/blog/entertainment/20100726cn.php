@@ -20,7 +20,7 @@
 虽然在过去的很多年我们的产品都集中在语音方向上, 这个软件依然还是时不时会被用到一下.  
 <br />随着PA6488方案H.264视频产品的推出, 我们同时给客户提供<a href="../../../pa6488/software/cammancn.html">CamMan</a>(<a href="../palmmicro/20080326cn.php">Palmmicro</a> Camera Manager)辅助工具.
 <i>CamMan</i>能够用文件仿真摄像头工作, 因此它也可以当成原始视频播放器使用. 
-<br /><font color=gray>If I had to do the same again, I would, my friend, Fernando.</font> <a href="../../favoritecn.html#fernando">Fernando</a>
+<br /><font color=gray>If I had to do the same again, I would, my friend, Fernando. -- Fernando</font>
 <br /><img src=../photo/20100726.jpg alt="Screen shot of Speech Workshop, Raw Image Viewer and CamMan" />
 </p>
 
