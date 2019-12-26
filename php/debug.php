@@ -136,7 +136,7 @@ function DebugString($str)
 {
 	if ($str == false)	$str = '(false)';
     $strTimeZone = date_default_timezone_get();
-    file_put_contents(DebugGetFile(), UrlGetCur().' '.DebugGetDateTime().':'.$str.PHP_EOL, FILE_APPEND);     // DebugGetDateTime will change timezone!
+    file_put_contents(DebugGetFile(), UrlGetCur().' '.DebugGetTime().':'.$str.PHP_EOL, FILE_APPEND);     // DebugGetTime will change timezone!
     date_default_timezone_set($strTimeZone);
 }
 

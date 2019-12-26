@@ -6,7 +6,7 @@ function NavigatePalmmicro()
     var iLevel = 2;
     
 	NavBegin();
-	WoodyMenuItem(iLevel, "blog");
+	WoodyMenuItem(iLevel, "index");
 	NavContinueNewLine();
 	BlogMenuItem(iLevel - 1, "palmmicro");
 	NavContinueNewLine();

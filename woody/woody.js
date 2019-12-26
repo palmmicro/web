@@ -1,7 +1,7 @@
-var _iTotalMenu0 = 5;
-var _arMenu0 = new Array("blog", "image", "res", "", "contact"); 
-var _arMenu0Names = new Array("Blog", "Image", "Resources", "", "Contact"); 
-var _arMenu0CnNames = new Array("网络日志", "相片", "资源共享", "", "联系我"); 
+var _iTotalMenu0 = 3;
+var _arMenu0 = new Array("index", "image", "res"); 
+var _arMenu0Names = new Array("Blog", "Image", "Resources"); 
+var _arMenu0CnNames = new Array("网络日志", "相片", "资源共享"); 
 
 function WoodyMenu()
 {
@@ -11,7 +11,7 @@ function WoodyMenu()
     NavSwitchLanguage(1);
     NavEnd();
 }
-                
+              
 function WoodyMenuItem(iLevel, strItem)
 {
 	var i;

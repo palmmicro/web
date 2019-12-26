@@ -8,7 +8,7 @@ function BlogMenu()
     var iLevel = 1;
     
 	NavBegin();
-	WoodyMenuItem(iLevel, "blog");
+	WoodyMenuItem(iLevel, "index");
 	NavContinueNewLine();
     NavMenuSet(_iTotalMenus, _arMenus, _arNames, _arCnNames);
 	NavContinueNewLine();
@@ -46,7 +46,7 @@ function NavLoopBlogPhoto()
     var iLevel = 1;
     
 	NavBegin();
-	WoodyMenuItem(iLevel, "blog");
+	WoodyMenuItem(iLevel, "index");
 	NavContinue();
 	WoodyMenuItem(iLevel, "image");
 	NavContinueNewLine();

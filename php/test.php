@@ -52,10 +52,9 @@ function TestCmdLine()
     echo '<meta http-equiv="content-type" content="text/html; charset=UTF-8">';
     DebugClear();
 	DebugString($_SERVER['DOCUMENT_ROOT']);
-	DebugString(phpversion());
 	if (SqlConnectDatabase())
 	{
-	    DebugString('connect database ok');
+		DebugString(phpversion());
 	}
 	echo strval(rand()).' Hello, world!';
 

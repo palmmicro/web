@@ -22,7 +22,7 @@ function NavigateBlogGroup($bChinese)
     $iLevel = 2;
     
 	NavBegin();
-	WoodyMenuItem($iLevel, 'blog', $bChinese);
+	WoodyMenuItem($iLevel, 'index', $bChinese);
 	NavContinueNewLine();
 	_blogMenuItem($iLevel - 1, BLOG_GROUP, $bChinese);
 	NavContinueNewLine();

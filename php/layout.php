@@ -115,14 +115,13 @@ function LayoutScreenWidthOk()
 function _layoutBanner($bChinese)
 {
     $ar = explode('/', UrlGetUri());
+    $strHome = $bChinese ? 'indexcn.html' : 'index.html';
 	if ($ar[1] == 'woody')
 	{
-	    $strHome = $bChinese ? 'woody/indexcn.html' : 'woody/index.html';
 	    $strImage = 'img src=/woody/image/image.jpg alt="Woody Home Page" /';
 	}
 	else
 	{
-	    $strHome = $bChinese ? 'indexcn.html' : 'index.html';
 	    $strImage = 'img src=/image/image_palmmicro.jpg alt="Palmmicro Name Logo" /';
 	}
     

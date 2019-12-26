@@ -50,6 +50,13 @@ Since 1880 up to 2013, your name was recorded 2,469 times in the American baby n
 <br /><img src=../../groupphoto/highschool/guangzhou_s.jpg alt="Dec 2005, Woody, Peng Sui, Li Yue and Tan Ji in Guangzhou." />
 </p>
 
+<h3>长沙</h3>
+<p>2015年4月26日
+<br />毛主席说: 火宫殿的臭豆腐, 闻起来臭, 吃起来香.
+<br /><img src=../../sapphire/2015/20150426.jpg alt="Sapphire Lin's first trip to Changsha." />
+<br /><img src=../../myphoto/1973/100days_s.jpg alt="Woody's 100 days photo." />
+</p>
+
 <h3>居然还是有重名!</h3>
 <p>2015年7月11日
 <br />今天google了一下林近岚, 大吃一惊, <a href="http://www.szxlxx.com/studentdetail_46_5723.html" target=_blank>深圳市西丽小学五(5)班</a>居然已经有一个重名的了!

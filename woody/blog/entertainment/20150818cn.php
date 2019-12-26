@@ -165,7 +165,7 @@
 <br />不过这个bug严重打击了我的自信心. 这一次我没法用自己是个6年的PHP<font color=red>新手</font>来自嘲了, 在我自豪的写了25年的C语言中, 这同样是个超级低级的错误!
 </p>
 
-<h3>验证<?php EchoNameTag(MY_PORTFOLIO_PAGE, MY_PORTFOLIO_DISPLAY); ?></h3>
+<h3><?php EchoNameTag(MY_PORTFOLIO_PAGE, MY_PORTFOLIO_DISPLAY); ?></h3>
 <p>2016年6月5日
 <br />王小波总是不忘记唠叨他写了自己用的编辑软件, 在20年前我是暗自嘲笑的. 没想到过了这么些年以后, 我也开始写自己用的炒股软件了. 不同的年龄段心态是完全不同的.
 <br /><?php echo GetMyPortfolioLink('email=woody@palmmicro.com'); ?>功能刚完成的时候页面出来得奇慢无比, 而接下来刷新就会快很多. 因为对自己的mysql水平没有自信心, 我一头扎进了优化数据库的工作中.

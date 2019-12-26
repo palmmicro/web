@@ -52,7 +52,7 @@ class _ChinaEtfGroup extends _StockGroup
 				if ($strNetValue = EtfRefManualCalibration($ref))
 				{
 					$sql->Write($strDate, $strPrice);
-					DebugString($strPrice);
+//					DebugString($strPrice);
 					if ($strNetValue != $ref->GetNetValue())
 					{
 						return true;
