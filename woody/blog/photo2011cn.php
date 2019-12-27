@@ -12,9 +12,6 @@
 
 <div>
 <h1>2011年网络日志图片</h1>
-<p>11月12日 <a href="entertainment/20111112cn.php">ACTS</a>技术派
-<br /><img src=photo/20111112.jpg alt="ACTS stock price from Jun 2006 to Nov 2011." /></p>
-
 <p>11月4日 <a href="pa1688/20111104cn.php">升级老PA168F的步骤</a>
 <br /><img src=photo/20111104.jpg></p>
 

@@ -67,8 +67,8 @@ function GetChinaMoney()
     $strDate = _chinaMoneyNeedData(new TickYMD(strtotime($arData['lastDate'])), $uscny_sql, $hkcny_sql);		// 2018-04-12 9:15
     if ($strDate == false)		return;
 
-    $arRecord = $ar['records'];
-    foreach ($arRecord as $arPair)
+    if (isset($ar['records']) == false)	return;
+    foreach ($ar['records'] as $arPair)
     {
     	$strPair = $arPair['vrtEName'];
     	$strPrice = $arPair['price'];

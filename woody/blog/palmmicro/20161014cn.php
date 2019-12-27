@@ -45,7 +45,7 @@
 <br />首先我要把A股3000多只股票都加到数据库中. 开始我想直接开个大循环从000001到699999从新浪拿数据, 后来觉得太蠢了, 还担心新浪的数据接口把我列入黑名单.
 不过接下来我从<?php EchoLink(GetEastMoneyStockListUrl()); ?>找到了所有A股数据.
 <?php EchoUpdateChinaStockLink(); ?>
-<br />继续给数据库中加美股代码, 希望<?php EchoLink(GetSinaUsStockListUrl()); ?>这个不完整的美股单子能满足绝大多数中国用户的查询<a href="../entertainment/20111112cn.php">ACTS</a>这种股票了.
+<br />继续给数据库中加美股代码, 希望<?php EchoLink(GetSinaUsStockListUrl()); ?>这个不完整的美股单子能满足绝大多数中国用户的查询.
 <?php EchoUpdateUsStockLink(); ?>
 </p>
 

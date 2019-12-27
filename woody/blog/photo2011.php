@@ -12,9 +12,6 @@
 
 <div>
 <h1>2011 Blog Pictures</h1>
-<p>Nov 12 <a href="entertainment/20111112.php">ACTS</a> Technology Matters
-<br /><img src=photo/20111112.jpg alt="ACTS stock price from Jun 2006 to Nov 2011." /></p>
-
 <p>Nov 4 <a href="pa1688/20111104.php">Steps to Upgrade an Old PA168F</a>
 <br /><img src=photo/20111104.jpg></p>
 
