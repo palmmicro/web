@@ -37,7 +37,7 @@
 <tr><td class=THead><B>显示短消息</B></td></tr>
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
 <tr><td>2008年5月12日</td></tr>
-<tr><td>用最简单的方式解释为什么VoIP<a href="../entertainment/20070722cn.php">不是好生意</a>, 就是把它跟手机做比较. 在这个Nokia打算像数码相机那样把GPS作为手机标配的年代, 还不断有人问我们如何在网络电话上显示短消息! 
+<tr><td>用最简单的方式解释为什么VoIP不是好生意, 就是把它跟手机做比较. 在这个Nokia打算像数码相机那样把GPS作为手机标配的年代, 还不断有人问我们如何在网络电话上显示短消息! 
 <br />这里是给所有带LCD的<a href="../../../ar1688/indexcn.html">AR1688</a>设备的答案: 
 <br />1. <a href="20060929cn.php">SIP</a>协议, 服务器可以发送标准的MESSAGE request给AR1688
 <br />2. <a href="20071110cn.php">IAX2</a>协议, Asterisk有标准命令SendText("Hello, world!"), AR1688懂得这个命令并且会显示相应文本

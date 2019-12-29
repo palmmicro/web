@@ -1,5 +1,5 @@
-var _arMyPhotos = new Array("photo1975", "photo1976", "photo1977", "photo2002", "photo2005", "photo2006", "photo2007", "photo2008", "photo2009", "photo2010", "photo2011", "photo2012", "photo2014", "photo2015"); 
-var _iTotalMyPhotos = 14;
+var _arMyPhotos = new Array("photo2006", "photo2007", "photo2008", "photo2009", "photo2010", "photo2011", "photo2012", "photo2014", "photo2015"); 
+var _iTotalMyPhotos = 9;
 
 function NavigateMyPhoto()
 {

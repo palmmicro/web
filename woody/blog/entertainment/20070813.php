@@ -18,7 +18,7 @@ And there are also people guessing that we are on big holidays since the merger 
 <br />50 days ago I was in Shenzhen, China. My routes were Shenzhen-Beijing-Shenzhen-Shanghai-Beijing-Shenzhen, and 50 days later I am in Shenzhen again, another sleepless programming night in Shenzhen just as the night I got the merger news on June 22.
 <br />Centrality's decision of discontinue VoIP business and <a href="../../../pa1688/index.html">PA1688</a> chip is obviously a correct one. Focusing on GPS business, the merger comes in 18 months later. 
 Meanwhile, in those 18 months we were bringing AR1688 into VoIP market, so far still a very small business.
-Facing chip performance limitations and the whole VoIP <a href="20070722.php">Business Sucks</a>, I need to save the around-the-world-money and use it on the surviving of our small business.
+Facing chip performance limitations and the whole VoIP business sucks, I need to save the around-the-world-money and use it on the surviving of our small business.
 </p>
 
 </div>
