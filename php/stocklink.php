@@ -41,12 +41,12 @@ function GetStockSymbolLink($strTitle, $strSymbol, $strDisplay, $strExtraQuery =
 }
 
 define('ALL_STOCK_DISPLAY', '全部股票代码');
-function GetMyStockLink($strSymbol = false)
+function GetMyStockLink($strSymbol = false, $strDisplay = false)
 {
 	$strTitle = 'mystock';
 	if ($strSymbol)
 	{
-		return GetStockSymbolLink($strTitle, $strSymbol, $strSymbol);
+		return GetStockSymbolLink($strTitle, $strSymbol, ($strDisplay ? $strDisplay : $strSymbol));
 	}
 	return GetStockTitleLink($strTitle, ALL_STOCK_DISPLAY);
 }

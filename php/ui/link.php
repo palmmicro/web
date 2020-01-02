@@ -37,10 +37,14 @@ function EchoSinaDebugLink($strSina)
 	EchoFileLink('/debug/sina/'.$strSina.'.txt');
 }
 
+function EchoMyStockLink($strSymbol, $strDisplay = false)
+{
+	echo GetMyStockLink($strSymbol, $strDisplay);
+}
+
 function EchoXueqieId($strId, $strDisplay)
 {
-    $str = GetXueqiuIdLink($strId, $strDisplay);
-    echo $str;
+    echo GetXueqiuIdLink($strId, $strDisplay);
 }
 
 function EchoLinearRegressionLink($bChinese = true)
