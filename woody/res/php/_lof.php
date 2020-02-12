@@ -132,6 +132,7 @@ function GetLofLinks()
 	$str = GetJisiluLofLink();
 	$str .= GetStockGroupLinks();
 	$str .= GetASharesSoftwareLinks();
+	$str .= GetChinaInternetSoftwareLinks();
 	$str .= GetSpySoftwareLinks();
 	return $str;
 }

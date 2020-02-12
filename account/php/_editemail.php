@@ -38,8 +38,8 @@ function EchoAll($bChinese = true)
 		break;
 
 	case 'login':
-		$str = $bChinese ? '欢迎回来! 在过去12个月中没有登录过的账户会被自动清除. 你可以<a href="registercn.php">注册</a>新帐号. 忘记密码了? 点击<a href="remindercn.php">这里</a>.' 
-                       		: 'Welcome back! Account not login during the past 12 months is automatically removed. You can <a href="register.php">register</a> here. Forgot password? Click <a href="reminder.php">here</a>.';
+		$str = $bChinese ? '欢迎回来! 你可以<a href="registercn.php">注册</a>新帐号. 忘记密码了? 点击<a href="remindercn.php">这里</a>.' 
+                       		: 'Welcome back! You can <a href="register.php">register</a> here. Forgot password? Click <a href="reminder.php">here</a>.';
 		break;
 		
 	case 'password':

@@ -15,6 +15,7 @@ function EchoRelated()
 	    <li>2016年12月22日星期四, IXC股息除权, 导致23日全天估值不正常. 这个问题会涉及到所有没有参考指数数据, 而只能使用ETF估值的LOF.</li>
     </ol>
     <p>
+    	<a href="https://www.ishares.com/us/products/239741/ishares-global-energy-etf" target=_blank>IXC官网</a>
     	<a href="https://us.spindices.com/indices/equity/sp-global-oil-index" target=_blank>SPGOGUP官网</a>
     </p> 
 	<p> $strGroup

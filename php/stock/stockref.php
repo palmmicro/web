@@ -300,6 +300,7 @@ class StockReference extends StockSymbol
             $iTime = $this->_totime($this->strTimeZone);
             $strDate = DebugGetDate($iTime, $etf_ref->strTimeZone);
             $strTime = DebugGetTime($iTime, $etf_ref->strTimeZone);
+//            DebugString('CheckAdjustFactorTime: '.$etf_ref->GetSymbol().' '.$etf_ref->GetDate().' '.$etf_ref->GetTimeHM().' vs '.$strDate.' '.$strTime);
         }
         if ($strDate != $etf_ref->GetDate())                      return false;
         if ($this->GetTimeHM($strTime) != $etf_ref->GetTimeHM())	return false;

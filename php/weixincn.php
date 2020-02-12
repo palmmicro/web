@@ -114,10 +114,10 @@ function _wxGetStockText($strSymbol)
     }
    	if ($str == false)
    	{
-   		$str = "($strSymbol:无数据)";
-   		DebugString($str);
-   		$str .= WX_EOL;
+   		DebugString("($strSymbol:无数据)");
+   		return false;
    	}
+   	
 /*
 	if ($strSymbol == 'SZ162411')
 	{
@@ -163,6 +163,10 @@ class WeixinStock extends WeixinCallback
 					break;
 				}
 			}
+			else
+			{	// something is wrong, break to avoid timeout
+				break;
+			}
 		}
 		return $str;
 	}
@@ -187,8 +191,7 @@ class WeixinStock extends WeixinCallback
 
 	function GetQqGroupText()
 	{
-		$str = '华宝油气套利群5: <a href="https://jq.qq.com/?_wv=1027&k=58jfWg5">552032726</a>'.WX_EOL;
-    	$str .= GetInternalLink('/woody/image/group5.png', '二维码链接').WX_EOL;
+		$str = 'Palmmicro群7的'.GetInternalLink('/woody/image/group7.png', '二维码链接').WX_EOL;
 		return $str;
 	}
 	

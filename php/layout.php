@@ -14,7 +14,7 @@ function LayoutQqGroup()
 	$strWeixin = GetWeixinDevLink();
     echo <<<END
         <p>加入QQ群反馈网站和{$strWeixin}的问题.
-        <br /><img src=/woody/image/group5.png alt="QQ group 5 QR code" />
+        <br /><img src=/woody/image/group7.png alt="QQ group 7 QR code" />
         </p>
 END;
 }

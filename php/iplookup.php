@@ -29,7 +29,7 @@ function IpInfoIpLookUp($sql)
     		if ($ar['hostname'] == 'No Hostname')		unset($ar['hostname']);
     		else
     		{
-    			if (strstr_array($ar['hostname'], array('ahrefs.com', 'bot', 'crawl', 'spider')))
+    			if (strstr_array($ar['hostname'], array('ahrefs.com', 'bot', 'crawl', 'spider', 'webmeup.com')))
     			{
 					$sql->SetStatus(IP_STATUS_CRAWL);
 				}

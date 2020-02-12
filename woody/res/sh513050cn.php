@@ -6,7 +6,7 @@ function EchoRelated()
 	$strGroup = GetLofLinks();
 	$strQqq = GetQqqSoftwareLinks();
 	$strHangSeng = GetHangSengSoftwareLinks();
-	$strChinaInternet = GetChinaInternetSoftwareLinks();
+//	$strChinaInternet = GetChinaInternetSoftwareLinks();
 	$strCompany = GetEFundSoftwareLinks();
 	
 	$strXueqiuKweb = GetExternalLink(GetXueqiuUrl().'6827215131/80361226', '中国互联VS中国互联50');
@@ -18,7 +18,6 @@ function EchoRelated()
 	<p> $strGroup
 		$strQqq
 		$strHangSeng
-		$strChinaInternet
 		$strCompany
 	</p>
 END;

@@ -1,6 +1,6 @@
 <?php
 
-define('FRIENDS_FOLLOWERS_RATIO', 8);
+define('FRIENDS_FOLLOWERS_RATIO', 7);
 define('STATUS_FOLLOWERS_RATIO', 7);
 
 /*
@@ -105,7 +105,7 @@ function GetXueqiuDefault()
 
 function _getXueqiuCookie($strToken)
 {
-	return 'xq_a_token='.($strToken ? $strToken : 'e17225958ac971495aed7cfbc7069a8439b76dbd');
+	return 'xq_a_token='.($strToken ? $strToken : 'd461a928937d403feb8c71ef6a764b028418bc7e');
 //				  .'xq_is_login=1;'
 //				  .'xq_is_login.sig=J3LxgPVPUzbBg3Kee_PquUfih7Q;'
 //				  .'remember=1;'
