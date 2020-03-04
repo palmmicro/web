@@ -109,7 +109,7 @@ function LofGetCommoditySymbolArray()
 
 function LofGetQqqSymbolArray()
 {
-    return array('sh513100', 'sz159941'); 
+    return array('sh513100', 'sz159941', 'sz161130'); 
 }
 
 function in_arrayQqqLof($strSymbol)

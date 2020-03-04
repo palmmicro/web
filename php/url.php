@@ -69,14 +69,14 @@ function UrlGetServer()
     	if ($_SERVER['HTTPS'] == 'on')	$strServer .= 's';
     }
     $strServer .= '://';
-    if ($_SERVER['SERVER_PORT'] != '80')    
+/*    if ($_SERVER['SERVER_PORT'] != '80')    
     {
         $strServer .= $_SERVER['SERVER_NAME'].':'.$_SERVER['SERVER_PORT'];
     }
     else
-    {
+    {*/
         $strServer .= $_SERVER['SERVER_NAME'];
-    }
+//    }
     return $strServer;
 }
 

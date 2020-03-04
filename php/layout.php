@@ -51,15 +51,19 @@ END;
 function LayoutBrokerYinhe()
 {
     echo <<<END
+        <p>广告位招租, 请联系support@palmmicro.com, 加QQ群或者Palmmicro公众号也可以.
+        </p>
+END;
+/*    echo <<<END
         <p>低风险文艺券商, 套利神器. 
         <br />★场内基金申购全部一折, 场外app申购大部分1折.
         <br />★场内赎回, 老分级基金公司取走后, 剩余部分5折, 新基金按基金新规执行.
         <br />★赎回资金预解冻, 比正常赎回提前一天资金到账, 提高资金利用率.
         <br />★可转债交易, 费率不会让你失望. 
         <br />★具体详情可以咨询QQ: 2531998595(魔女小豌豆3)
-        <br /><img src=/woody/image/yinheaccount.png alt="Yinhe open account scan QR code, agent qq: 2531998595" />
+        <br /><img src=/woody/image/yinhe.png alt="Yinhe open account scan QR code y001118, agent qq: 2531998595" />
         </p>
-END;
+END;*/
 }
 
 function LayoutBrokerHuatai()

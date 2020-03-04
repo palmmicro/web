@@ -80,6 +80,7 @@ function GetYahooNetValueSymbol($strEtfSymbol)
 // ****************************** Stock data functions *******************************************************
 
 /* Sina data
+nf_IC2006
 http://hq.sinajs.cn/list=s_sh000001 上证指数
 http://hq.sinajs.cn/list=s_sz399001 深证成指
 http://hq.sinajs.cn/list=int_hangseng 恒生指数
