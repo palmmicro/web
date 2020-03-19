@@ -134,6 +134,7 @@ function _wxDebug($strUserName, $strText, $strSubject)
     trigger_error($strSubject.'<br />'.$str);
 }
 
+/*
 function _updateWeixinTables($strText, $strUserName)
 {
 	$ip_sql = new IpSql(UrlGetIp());
@@ -142,6 +143,7 @@ function _updateWeixinTables($strText, $strUserName)
 	$visitor_sql = new WeixinVisitorSql($strUserName);
 	$visitor_sql->InsertLog(new WeixinTextSql($strText));
 }
+*/
 
 class WeixinStock extends WeixinCallback
 {
@@ -201,10 +203,15 @@ class WeixinStock extends WeixinCallback
 		$strText = trim($strText);
 //		$strText = trim($strText, ',?:.，？：。');
 		$strText = rtrim($strText, '。');
-		$strText = UrlCleanString($strText);
-		_updateWeixinTables($strText, $strUserName);
     
         if (stripos($strText, 'q群') !== false)	return $this->GetQqGroupText();
+
+        if (_ConnectDatabase() == false)
+        {
+        	return '服务器繁忙, 请稍后再试.'.WX_EOL;
+        }
+
+		$strText = UrlCleanString($strText);
 
 		$arSymbol = _wxGetStockArray($strText);
 		if ($iCount = count($arSymbol))
@@ -221,6 +228,11 @@ class WeixinStock extends WeixinCallback
 
 	function OnEvent($strContents, $strUserName)
 	{
+        if (_ConnectDatabase() == false)
+        {
+        	return '服务器繁忙, 请稍后再试.'.WX_EOL;
+        }
+
 		if ($strContents == 'subscribe')
 		{
 			$str = '欢迎订阅, 本账号为自动回复, 请用语音或者键盘输入要查找的内容.'.WX_EOL;
@@ -240,6 +252,11 @@ class WeixinStock extends WeixinCallback
 
 	function OnImage($strUrl, $strUserName)
 	{
+        if (_ConnectDatabase() == false)
+        {
+        	return '服务器繁忙, 请稍后再试.'.WX_EOL;
+        }
+
 		$strContents = '未知图像信息';
     
 		if ($img = url_get_contents($strUrl))
@@ -261,7 +278,8 @@ class WeixinStock extends WeixinCallback
 
 function _main()
 {
-    SqlConnectDatabase();
+//    SqlConnectDatabase();
+	_SetErrorHandler();
 
     $wx = new WeixinStock();
     $wx->Run();

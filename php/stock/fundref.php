@@ -138,13 +138,43 @@ class FundReference extends MysqlReference
     
     function AdjustPosition($fVal)
     {
-    	if ($this->GetSymbol() == 'SZ162411')
+    	switch ($this->GetSymbol())
     	{
-    		$fRatio = 0.83;
-    	}
-    	else
-    	{
+    	case 'SH501018':
+    		$fRatio = 0.57;
+    		break;
+    		
+    	case 'SZ160216':
+    		$fRatio = 0.7;
+    		break;
+    		
+    	case 'SZ160416':
+    		$fRatio = 0.25;
+    		break;
+    		
+    	case 'SZ160723':
+    		$fRatio = 0.33;
+    		break;
+    		
+    	case 'SZ161129':
+    		$fRatio = 0.56;
+    		break;
+    		
+    	case 'SZ162411':
+    		$fRatio = 0.78;
+    		break;
+    		
+    	case 'SZ162719':
+    		$fRatio = 0.48;
+    		break;
+    		
+    	case 'SZ163208':
+    		$fRatio = 0.54;
+    		break;
+    		
+    	default:
     		$fRatio = FUND_POSITION_RATIO;
+    		break;
     	}
         return $fVal * $fRatio + floatval($this->GetPrice()) * (1.0 - $fRatio);
     }

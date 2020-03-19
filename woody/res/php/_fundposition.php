@@ -98,13 +98,18 @@ function _getSwitchDateArray($sql, $est_sql)
 	
 function _echoFundPositionData($csv, $ref, $cny_ref, $est_ref, $strInput)
 {
-   	$sql = new NetValueHistorySql($ref->GetStockId());
-	$est_sql = new NetValueHistorySql($est_ref->GetStockId());
-	$cny_sql = new UscnyHistorySql();
+	$strEstId = $est_ref->GetStockId();
+	$est_sql = new NetValueHistorySql($strEstId);
+	if ($est_sql->Count() == 0)
+	{
+		$est_sql = new StockHistorySql($strEstId);
+	}
 
+   	$sql = new NetValueHistorySql($ref->GetStockId());
 	$arDate = _getSwitchDateArray($sql, $est_sql);
 	if (count($arDate) == 0)		return;
  
+	$cny_sql = new UscnyHistorySql();
  	$iIndex = 0;
     if ($result = $sql->GetAll()) 
     {

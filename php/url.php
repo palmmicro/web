@@ -99,6 +99,7 @@ function UrlCleanString($str)
 		$str = stripslashes($str);
 	}
 	return mysql_real_escape_string($str);
+//	return $str;
 }
 
 function UrlGetQueryString()

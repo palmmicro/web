@@ -222,7 +222,7 @@ function _errorHandler($errno, $errstr, $errfile, $errline)
 	$bDebug = ($errno == 1024) ? true : false;
    	$csv = new ErrorHandlerFile();
    	$iCount = $csv->OnError($errno);
-   	if ($iCount <= 10 || $bDebug)
+   	if ($iCount <= 5 || $bDebug)
    	{
    		$strSubject = $bDebug ? '调试消息' : "PHP错误: [$errno]";
    		$str =  $errstr.'<br />位于'.$errfile.'第'.$errline.'行';
@@ -236,12 +236,24 @@ function _errorHandler($errno, $errstr, $errfile, $errline)
 //	DebugVal($iCount, $errno.' _errorHandler');
 }
 
-function SqlConnectDatabase()
+function _SetErrorHandler()
 {
 	// 设置用户定义的错误处理函数
 	error_reporting(E_ALL);
 	set_error_handler('_errorHandler');
-	
+/*	
+	if (UrlGetQueryInt('admin') != 1)
+	{
+		die('Failed to connect to server');
+	}*/
+/*	if (UrlGetIp() != '203.121.16.131')
+	{
+		die('Failed to connect to server');
+	}*/
+}
+
+function _ConnectDatabase()
+{
     if (UrlIsPalmmicroDomain())
     {
         $strHost = 'mysql';
@@ -256,7 +268,7 @@ function SqlConnectDatabase()
 	$link = mysql_connect($strHost, $strUser, DB_PASSWORD);	// Connect to mysql server
 	if (!$link) 
 	{
-		die('Failed to connect to server: ' . mysql_error());
+		return false;
 	}
 	
 	$db = mysql_select_db(DB_DATABASE);		// Select database
@@ -266,6 +278,15 @@ function SqlConnectDatabase()
 		SqlCreateDatabase(DB_DATABASE);
 	}
 	return true;
+}
+
+function SqlConnectDatabase()
+{
+	_SetErrorHandler();
+	if (_ConnectDatabase() == false)
+	{
+		die('Failed to connect to server: ' . mysql_error());
+	}
 }
 
 ?>

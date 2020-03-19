@@ -163,9 +163,13 @@ class StringYMD extends YearMonthDay
         $this->arYMD = explode('-', $strYMD);
         if (count($this->arYMD) != 3)
         {
-        	dieDebugString('Invalid StringYMD input: '.$strYMD);
+        	DebugString('Invalid StringYMD input: '.$strYMD);
+        	$iTick = time();
         }
-        $iTick = mktime(0, 0, 0, intval($this->arYMD[1]), intval($this->arYMD[2]), intval($this->arYMD[0]));
+        else
+        {
+        	$iTick = mktime(0, 0, 0, intval($this->arYMD[1]), intval($this->arYMD[2]), intval($this->arYMD[0]));
+        }
         parent::YearMonthDay($iTick);
     }
 }

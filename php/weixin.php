@@ -2,7 +2,7 @@
 require_once('debug.php');
 
 // 微信公众号公共模板, 返回输入信息
-define('WX_DEBUG_VER', '版本922');		
+define('WX_DEBUG_VER', '版本931');		
 
 define('WX_EOL', "\r\n");
 define('MAX_WX_MSG_LEN', 2048);
@@ -39,7 +39,6 @@ class WeixinCallback
             }
         }
     }
-
     
     private function responseMsg()
     {
