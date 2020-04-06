@@ -55,7 +55,7 @@ function EchoAll()
     if (isset($_POST['submit']))
 	{
 		unset($_POST['submit']);
-		$strInput = UrlCleanString($_POST[EDIT_INPUT_NAME]);
+		$strInput = SqlCleanString($_POST[EDIT_INPUT_NAME]);
 	}
 	else if ($strInput = $acct->GetQuery())	{}
     else

@@ -1,15 +1,24 @@
 <?php 
 require('php/_lof.php');
 
-function EchoRelated()
+function EchoLofRelated($ref)
 {
 	$strGroup = GetLofLinks();
 	$strOil = GetOilSoftwareLinks();
 	$strCommodity = GetCommoditySoftwareLinks();
 	$strGold = GetGoldSoftwareLinks();
-	$strCompany = GetHarvestSoftwareLinks();
+	$strCompany = GetJiaShiSoftwareLinks();
+
+	$strOfficial = GetJiaShiOfficialLink($ref->GetDigitA());
+	$strShenZhen = GetShenZhenLofOfficialLink();
+	$strFutures = GetEastMoneyGlobalFuturesLink();
 	
 	echo <<< END
+    <p>
+    	$strOfficial
+    	$strShenZhen
+    	$strFutures
+    </p>
 	<p> $strGroup
 		$strOil
 		$strCommodity

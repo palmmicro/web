@@ -24,7 +24,7 @@ function _updateStockGroupItem($strGroupId, $strGroupItemId)
 
 function _getStockQuantity()
 {
-	$strQuantity = UrlCleanString($_POST['quantity']);
+	$strQuantity = SqlCleanString($_POST['quantity']);
 	if ($_POST['type'] == '0')    // sell
 	{
 	    $strQuantity = '-'.$strQuantity;
@@ -199,9 +199,9 @@ function _onMergeTransaction()
 		
 	    $strGroupItemId = $_POST['symbol'];
 	    $strQuantity = _getStockQuantity();
-		$strPrice = UrlCleanString($_POST['price']);
+		$strPrice = SqlCleanString($_POST['price']);
 	    $strCost = _getStockCost();
-		$strRemark = UrlCleanString($_POST['remark']);
+		$strRemark = SqlCleanString($_POST['remark']);
 		switch ($strSubmit)
 		{
 		case STOCK_TRANSACTION_NEW:

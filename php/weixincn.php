@@ -211,7 +211,7 @@ class WeixinStock extends WeixinCallback
         	return '服务器繁忙, 请稍后再试.'.WX_EOL;
         }
 
-		$strText = UrlCleanString($strText);
+		$strText = SqlCleanString($strText);
 
 		$arSymbol = _wxGetStockArray($strText);
 		if ($iCount = count($arSymbol))

@@ -128,8 +128,8 @@ function _onNew($strMemberId, $strGroupName, $strSymbols)
 	}
 	else if (isset($_POST['submit']))
 	{
-		$strSymbols = UrlCleanString($_POST['symbols']);
-		$strGroupName = isset($_POST['groupname']) ? UrlCleanString($_POST['groupname']) : '';
+		$strSymbols = SqlCleanString($_POST['symbols']);
+		$strGroupName = isset($_POST['groupname']) ? SqlCleanString($_POST['groupname']) : '';
 
 		$strGroupId = UrlGetQueryValue('edit');
 		switch ($_POST['submit'])

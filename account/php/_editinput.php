@@ -177,7 +177,7 @@ function EchoAll($bChinese = true)
     if (isset($_POST['submit']) && isset($_POST[EDIT_INPUT_NAME]))
 	{
 		unset($_POST['submit']);
-		$strInput = UrlCleanString($_POST[EDIT_INPUT_NAME]);
+		$strInput = SqlCleanString($_POST[EDIT_INPUT_NAME]);
 	}
 	else if ($strInput = $acct->GetQuery())	{}
     else

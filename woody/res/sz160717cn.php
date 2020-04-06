@@ -5,7 +5,7 @@ function EchoRelated()
 {
 	$strGroup = GetLofHkLinks();
 	$strHShares = GetHSharesSoftwareLinks();
-	$strCompany = GetHarvestSoftwareLinks();
+	$strCompany = GetJiaShiSoftwareLinks();
 	
 	echo <<< END
 	<p> $strGroup

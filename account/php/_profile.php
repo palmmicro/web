@@ -378,10 +378,10 @@ function _closeAccount($strEmail)
 	{
 		$strSubmit = $_POST['submit'];
 		unset($_POST['submit']);
-		$strEmail = UrlCleanString($_POST['login']);
+		$strEmail = SqlCleanString($_POST['login']);
 		$_SESSION['SESS_EMAIL_INPUT'] = $strEmail;
-		$strPassword = isset($_POST['password']) ? UrlCleanString($_POST['password']) : '';
-		$strPassword2 = isset($_POST['cpassword']) ? UrlCleanString($_POST['cpassword']) : '';
+		$strPassword = isset($_POST['password']) ? SqlCleanString($_POST['password']) : '';
+		$strPassword2 = isset($_POST['cpassword']) ? SqlCleanString($_POST['cpassword']) : '';
 		switch ($strSubmit)
 		{
 		case EDIT_EMAIL_CLOSE:

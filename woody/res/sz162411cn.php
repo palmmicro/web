@@ -1,7 +1,7 @@
 <?php 
 require('php/_lof.php');
 
-function EchoRelated()
+function EchoLofRelated($ref)
 {
 	$strGroup = GetLofLinks();
 	$strOil = GetOilSoftwareLinks();
@@ -16,7 +16,8 @@ function EchoRelated()
 	    <li>2016年12月17日星期五, XOP季度分红除权. 这里显示的涨跌幅跟新浪和Yahoo等不一致, 它们都已经把昨天的收盘价减掉分红的0.08美元了. SMA均线数值也需要手工调整.</li>
     </ol>
     <p>
-    	<a href="https://www.ssga.com/us/en/individual/etfs/funds/spdr-sp-oil-gas-exploration-production-etf-xop" target=_blank>XOP官网</a>
+    	<a href="http://www.fsfund.com/funds/162411/index.shtml" target=_blank>华宝油气官网</a>
+       	<a href="https://www.ssga.com/us/en/individual/etfs/funds/spdr-sp-oil-gas-exploration-production-etf-xop" target=_blank>XOP官网</a>
     	<a href="https://xueqiu.com/2244868365/60702370" target=_blank>华宝油气和XOP套利交易Q&A</a>
     	<a href="https://xueqiu.com/2244868365/81340659" target=_blank>一种根据XOP均线进行华宝油气和XOP联动交易的方法</a>
     	<a href="http://quote.eastmoney.com/center/gridlist.html#futures_global" target=_blank>原油期货汇总</a>

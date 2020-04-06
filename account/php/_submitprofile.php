@@ -17,18 +17,18 @@ function _onProfileChanged($strName, $strPhone, $strAddress, $strWeb, $strSignat
 function _onEdit($strMemberId)
 {
 	// Sanitize the POST values
-	$strName = UrlCleanString($_POST['name']);
-	$strPhone = UrlCleanString($_POST['phone']);
-	$strAddress = UrlCleanString($_POST['address']);
-	$strWeb = UrlCleanString($_POST['web']);
-	$strSignature = UrlCleanString($_POST['signature']);
+	$strName = SqlCleanString($_POST['name']);
+	$strPhone = SqlCleanString($_POST['phone']);
+	$strAddress = SqlCleanString($_POST['address']);
+	$strWeb = SqlCleanString($_POST['web']);
+	$strSignature = SqlCleanString($_POST['signature']);
 
 	if (!SqlUpdateProfile($strMemberId, $strName, $strPhone, $strAddress, $strWeb, $strSignature))
 	{	
 		return false;
 	}
 
-	$strStatus = UrlCleanString($_POST['status']);
+	$strStatus = SqlCleanString($_POST['status']);
 	if (!SqlUpdateStatus($strMemberId, $strStatus))
 	{    
 		return false;

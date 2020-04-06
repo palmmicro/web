@@ -21,6 +21,7 @@ function _updateStockHistoryAdjCloseByDividend($ref, $strSymbol, $strYMD, $strDi
     foreach ($ar as $strId => $fAdjClose)
     {
         $fAdjClose -= $fDividend;
+//        $fAdjClose *= 4;
         $his_sql->UpdateAdjClose($strId, strval($fAdjClose));
     }
     unlinkConfigFile($strSymbol);
@@ -274,10 +275,10 @@ function _updateStockOptionSplit($ref, $strSymbol, $strStockId, $strDate, $strVa
 	AcctAuth();
 	if (isset($_POST['submit']))
 	{
-		$strEmail = UrlCleanString($_POST['login']);
-		$strSymbol = UrlCleanString($_POST['symbol']);
-		$strDate = isset($_POST['date']) ? UrlCleanString($_POST['date']) : '';
-		$strVal = UrlCleanString($_POST['val']);
+		$strEmail = SqlCleanString($_POST['login']);
+		$strSymbol = SqlCleanString($_POST['symbol']);
+		$strDate = isset($_POST['date']) ? SqlCleanString($_POST['date']) : '';
+		$strVal = SqlCleanString($_POST['val']);
    		$bAdmin = AcctIsAdmin();
 		$strStockId = SqlGetStockId($strSymbol);
 		

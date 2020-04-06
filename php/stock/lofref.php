@@ -1,7 +1,9 @@
 <?php
 
+define('POSITION_EST_LEVEL', '4.0');
+
 // (est * cny / estPrev * cnyPrev - 1) * position = (nv / nvPrev - 1) 
-function LofGetStockPosition($strEstPrev, $strEst, $strPrev, $strNetValue, $strCnyPrev, $strCny, $strInput = '4.0')
+function LofGetStockPosition($strEstPrev, $strEst, $strPrev, $strNetValue, $strCnyPrev, $strCny, $strInput = POSITION_EST_LEVEL)
 {
 	$fEst = StockGetPercentage($strEstPrev, $strEst);
 	if (($fEst !== false) && (abs($fEst) > floatval($strInput)))
@@ -18,7 +20,12 @@ function LofGetStockPosition($strEstPrev, $strEst, $strPrev, $strNetValue, $strC
 
 function LofGetStockCalibration($strEst, $strNetValue, $strCny, $strPosition)
 {
-	return strval(intval(floatval($strCny) * floatval($strEst) / floatval($strNetValue) / floatval($strPosition), 0));
+	$fDivisor = floatval($strNetValue) * floatval($strPosition);
+	if ($fDivisor == 0.0)
+	{
+		return '0';
+	}
+	return strval(intval(floatval($strCny) * floatval($strEst) / $fDivisor, 0));
 }
 
 // https://markets.ft.com/data/indices/tearsheet/charts?s=SPGOGUP:REU

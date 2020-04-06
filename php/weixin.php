@@ -2,7 +2,7 @@
 require_once('debug.php');
 
 // 微信公众号公共模板, 返回输入信息
-define('WX_DEBUG_VER', '版本931');		
+define('WX_DEBUG_VER', '版本936');		
 
 define('WX_EOL', "\r\n");
 define('MAX_WX_MSG_LEN', 2048);
@@ -71,10 +71,19 @@ class WeixinCallback
         if (!defined('TOKEN')) {
             throw new Exception('TOKEN is not defined!');
         }
+/*        
+        if (isset($_GET['signature']))	$signature = $_GET['signature'];
+        else								return false;
+        	
+        if (isset($_GET['timestamp']))	$timestamp = $_GET['timestamp'];
+        else								return false;
         
-        $signature = $_GET['signature'];
-        $timestamp = $_GET['timestamp'];
-        $nonce = $_GET['nonce'];
+        if (isset($_GET['nonce']))		$nonce = $_GET['nonce'];
+        else								return false;*/
+        
+        if (($signature = UrlGetQueryValue('signature')) == false)	return false;
+        if (($timestamp = UrlGetQueryValue('timestamp')) == false)	return false;
+        if (($nonce = UrlGetQueryValue('nonce')) == false)			return false;
         		
 		$token = TOKEN;
 		$tmpArr = array($token, $timestamp, $nonce);

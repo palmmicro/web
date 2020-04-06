@@ -3,7 +3,7 @@ require_once('_stock.php');
 require_once('_emptygroup.php');
 require_once('/php/linearimagefile.php');
 
-function _echoFundAccountItem($csv, $strDate, $strSharesDiff, $ref, $nv_sql)
+function _echoFundAccountItem($csv, $strDate, $strSharesDiff, $ref, $nv_sql, $fAmount)
 {
     $iCount = 0;
     $his_sql = $ref->GetHistorySql();
@@ -30,7 +30,7 @@ function _echoFundAccountItem($csv, $strDate, $strSharesDiff, $ref, $nv_sql)
     if ($iCount == 5)
     {
     	$fPurchaseValue = floatval($nv_sql->GetClose($strPurchaseDate));
-    	$fAccount = floatval($strSharesDiff) * 10000.0 / (985.0 / $fPurchaseValue);
+    	$fAccount = floatval($strSharesDiff) * 10000.0 / ($fAmount / $fPurchaseValue);
     	$strAccount = strval(intval($fAccount));
     	$ar[] = $strAccount;
     	$ar[] = $strPurchaseDate;
@@ -53,7 +53,7 @@ function _echoFundAccountItem($csv, $strDate, $strSharesDiff, $ref, $nv_sql)
 	EchoTableColumn($ar);
 }
 
-function _echoFundAccountData($csv, $ref, $strStockId, $nv_sql)
+function _echoFundAccountData($csv, $ref, $strStockId, $nv_sql, $fAmount)
 {
 	$sql = new EtfSharesDiffSql($strStockId);
     if ($result = $sql->GetAll()) 
@@ -61,7 +61,7 @@ function _echoFundAccountData($csv, $ref, $strStockId, $nv_sql)
         while ($record = mysql_fetch_assoc($result)) 
         {
        		$strDate = $record['date'];
-       		_echoFundAccountItem($csv, $strDate, rtrim0($record['close']), $ref, $nv_sql);
+       		_echoFundAccountItem($csv, $strDate, rtrim0($record['close']), $ref, $nv_sql, $fAmount);
         }
         @mysql_free_result($result);
     }
@@ -79,7 +79,7 @@ function _getFundAccountTableColumnArray()
 				   );
 }
 
-function _echoFundAccountParagraph($csv, $ref, $strSymbol, $strStockId, $nv_sql, $bAdmin)
+function _echoFundAccountParagraph($csv, $ref, $strSymbol, $strStockId, $nv_sql, $fAmount, $bAdmin)
 {
  	$str = GetFundLinks($strSymbol);
 	if ($bAdmin)
@@ -88,11 +88,11 @@ function _echoFundAccountParagraph($csv, $ref, $strSymbol, $strStockId, $nv_sql,
 	}
 	
 	EchoTableParagraphBegin(_getFundAccountTableColumnArray(), FUND_ACCOUNT_PAGE, $str);
-	_echoFundAccountData($csv, $ref, $strStockId, $nv_sql);
+	_echoFundAccountData($csv, $ref, $strStockId, $nv_sql, $fAmount);
     EchoTableParagraphEnd();
 }
 
-function _echoFundAccountPredictData($ref, $nv_sql, $jpg)
+function _echoFundAccountPredictData($ref, $nv_sql, $jpg, $fAmount)
 {
     date_default_timezone_set(STOCK_TIME_ZONE_CN);
     $now_ymd = new NowYMD();
@@ -130,7 +130,7 @@ function _echoFundAccountPredictData($ref, $nv_sql, $jpg)
    			$fPurchaseValue = floatval($nv_sql->GetClose($strPurchaseDate));
    			$strNetValue = $nv_sql->GetClose($strNetValueDate);
    			$fAccount = $jpg->GetY(floatval($ref->GetPercentage($strNetValue, $strClose)));
-   			$fSharesDiff = ($fPurchaseValue == 0.0) ? 0.0 : $fAccount * (985.0 / $fPurchaseValue) / 10000.0;
+   			$fSharesDiff = ($fPurchaseValue == 0.0) ? 0.0 : $fAccount * ($fAmount / $fPurchaseValue) / 10000.0;
    			$ar[] = intval($fSharesDiff);
    			$ar[] = intval($fAccount);
     		$ar[] = $strPurchaseDate;
@@ -150,17 +150,30 @@ function _echoFundAccountPredictData($ref, $nv_sql, $jpg)
 	EchoTableColumn($ar);
 }
 
-function _echoLinearRegressionGraph($csv, $ref, $nv_sql)
+function _echoLinearRegressionGraph($csv, $ref, $nv_sql, $fAmount)
 {
     $jpg = new LinearImageFile();
     $jpg->Draw($csv->ReadColumn(5), $csv->ReadColumn(2));
 	$str = $csv->GetLink();
 	$str .= '<br />'.$jpg->GetAllLinks();
-	$str .= '<br />下一交易日预测, '.STOCK_OPTION_SHARES_DIFF.'按限购1000块人民币计算.';
+	$str .= '<br />下一交易日'.STOCK_OPTION_SHARES_DIFF.'预测';
 
 	EchoTableParagraphBegin(_getFundAccountTableColumnArray(), 'predict'.FUND_ACCOUNT_PAGE, $str);
-	_echoFundAccountPredictData($ref, $nv_sql, $jpg);
+	_echoFundAccountPredictData($ref, $nv_sql, $jpg, $fAmount);
     EchoTableParagraphEnd();
+}
+
+function _getFundAmount($strSymbol)
+{
+	switch ($strSymbol)
+	{
+	case 'SH501018':
+		return 2000.0 * 0.988;
+		
+	case 'SZ161129':
+		return 500.0 * 0.988;
+	}
+	return 1000.0 * 0.985;
 }
 
 function EchoAll()
@@ -176,12 +189,14 @@ function EchoAll()
         	$strStockId = $ref->GetStockId();
         	$nv_sql = new NetValueHistorySql($strStockId);
         	
+        	$fAmount = _getFundAmount($strSymbol);
+        	
         	$csv = new PageCsvFile();
-            _echoFundAccountParagraph($csv, $ref, $strSymbol, $strStockId, $nv_sql, $bAdmin);
+            _echoFundAccountParagraph($csv, $ref, $strSymbol, $strStockId, $nv_sql, $fAmount, $bAdmin);
             $csv->Close();
             if ($csv->HasFile())
             {
-            	_echoLinearRegressionGraph($csv, $ref, $nv_sql);
+            	_echoLinearRegressionGraph($csv, $ref, $nv_sql, $fAmount);
             }
             
             EchoRemarks($strSymbol);

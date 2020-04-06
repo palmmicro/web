@@ -1,7 +1,7 @@
 <?php 
 require('php/_lof.php');
 
-function EchoRelated()
+function EchoLofRelated($ref)
 {
 	$strGroup = GetLofLinks();
 	$strCompany = GetFortuneSoftwareLinks();

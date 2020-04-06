@@ -98,8 +98,7 @@ function UrlCleanString($str)
 	{
 		$str = stripslashes($str);
 	}
-	return mysql_real_escape_string($str);
-//	return $str;
+	return $str;
 }
 
 function UrlGetQueryString()
@@ -113,7 +112,9 @@ function UrlGetQueryValue($strQueryItem)
 	$query = $_GET;
 	if (isset($query[$strQueryItem]))
 	{
-	    return UrlCleanString($query[$strQueryItem]);
+		$str = $query[$strQueryItem];
+		$str = str_replace('=', '', $str);
+	    return UrlCleanString($str);
 	}
 	return false;
 }

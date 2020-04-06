@@ -338,6 +338,11 @@ class StockSymbol
         return false;
     }
     
+    function GetDigitA()
+    {
+        return $this->strDigitA;
+    }
+    
     function IsSymbolA()
     {
         if ($this->strDigitA)   return $this->strDigitA;

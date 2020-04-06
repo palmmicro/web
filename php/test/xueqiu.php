@@ -1,7 +1,7 @@
 <?php
 
-define('FRIENDS_FOLLOWERS_RATIO', 15);
-define('STATUS_FOLLOWERS_RATIO', 15);
+define('FRIENDS_FOLLOWERS_RATIO', 50);
+define('STATUS_FOLLOWERS_RATIO', 50);
 
 /*
 {"subscribeable":false,"remark":null,"common_count":0,"recommend_reason":null,"verified_infos":[{"verified_type":"5","verified_desc":"用户已完成实名身份认证"}],"st_color":"1","name":null,"location":null,"id":1352803596,"type":"1","followers_count":33,"recommend":null,"domain":null,"intro":null,"follow_me":false,"blocking":false,"stock_status_count":null,"description":"价值投资实践中","friends_count":427,"verified":false,"status":1,"profile":"/1352803596","stocks_count":51,"screen_name":"夜雨声烦","step":"three","allow_all_stock":false,"blog_description":null,"city":"朝阳区","donate_count":0,"gender":"m","last_status_id":124285811,"status_count":471,"province":"北京","url":null,"verified_description":null,"verified_type":0,"following":false,"group_ids":null,"name_pinyin":null,"screenname_pinyin":null,"photo_domain":"//xavatar.imedao.com/","profile_image_url":"community/20181/1517494875003-1517494875490.jpg,community/20181/1517494875003-1517494875490.jpg!180x180.png,community/20181/1517494875003-1517494875490.jpg!50x50.png,community/20181/1517494875003-1517494875490.jpg!30x30.png","privacy_agreement":null,"cube_count":2,"verified_realname":true},
@@ -105,7 +105,7 @@ function GetXueqiuDefault()
 
 function _getXueqiuCookie($strToken)
 {
-	return 'xq_a_token='.($strToken ? $strToken : '9087848724e6da7e744acd571a97599445b9513b');
+	return 'xq_a_token='.($strToken ? $strToken : '5d1e47de38c075c06c9da9ca3279d758b8f76f62');
 //				  .'xq_is_login=1;'
 //				  .'xq_is_login.sig=J3LxgPVPUzbBg3Kee_PquUfih7Q;'
 //				  .'remember=1;'

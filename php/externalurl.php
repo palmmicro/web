@@ -62,4 +62,14 @@ function GetJisiluDataUrl()
 	return 'https://www.jisilu.cn/data/';
 }
 
+function GetJiaShiFundUrl()
+{
+	return 'http://www.jsfund.cn';
+}
+
+function GetGuoTaiFundUrl()
+{
+	return 'https://e.gtfund.com';
+}
+
 ?>

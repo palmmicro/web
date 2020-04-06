@@ -6,6 +6,41 @@ require_once('httplink.php');
 require_once('stock/stocksymbol.php');
 
 // ****************************** External link functions *******************************************************
+function GetOfficialLink($strHttp, $strDisplay)
+{
+    return GetExternalLink($strHttp, $strDisplay.'官网');
+}
+
+function GetGuoTaiOfficialLink($strDigitA)
+{
+    return GetOfficialLink(GetGuoTaiFundUrl().'/Etrade/Jijin/view/id/'.$strDigitA, $strDigitA);
+}
+
+function GetJiaShiOfficialLink($strDigitA)
+{
+    return GetOfficialLink(GetJiaShiFundUrl().'/Services/cn/html/product/index.shtml?fundcode='.$strDigitA, $strDigitA);
+}
+
+function GetShangHaiEtfOfficialLink()
+{
+    return GetExternalLink('http://www.sse.com.cn/market/funddata/volumn/etfvolumn/', '上交所官网ETF规模数据');
+}
+
+function GetShangHaiLofOfficialLink()
+{
+    return GetExternalLink('http://www.sse.com.cn/assortment/fund/lof/scale/', '上交所官网LOF规模数据');
+}
+
+function GetShenZhenLofOfficialLink()
+{
+    return GetExternalLink('http://www.szse.cn/market/fund/list/lofFundList/index.html', '深交所官网LOF数据');
+}
+
+function GetEastMoneyGlobalFuturesLink()
+{
+    return GetExternalLink('http://quote.eastmoney.com/center/gridlist.html#futures_global', '东方财富外盘期货汇总');
+}
+
 function GetEastMoneyFundLink($sym)
 {
     $strSymbol = $sym->GetSymbol();

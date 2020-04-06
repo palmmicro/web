@@ -242,11 +242,7 @@ function _SetErrorHandler()
 	error_reporting(E_ALL);
 	set_error_handler('_errorHandler');
 /*	
-	if (UrlGetQueryInt('admin') != 1)
-	{
-		die('Failed to connect to server');
-	}*/
-/*	if (UrlGetIp() != '203.121.16.131')
+	if (UrlGetIp() != '222.125.92.104')
 	{
 		die('Failed to connect to server');
 	}*/
@@ -278,6 +274,12 @@ function _ConnectDatabase()
 		SqlCreateDatabase(DB_DATABASE);
 	}
 	return true;
+}
+
+function SqlCleanString($str) 
+{
+	$str = UrlCleanString($str);
+	return mysql_real_escape_string($str);
 }
 
 function SqlConnectDatabase()

@@ -233,14 +233,14 @@ function GetGuangFaSoftwareLinks()
 function GetGuoTaiSoftwareLinks()
 {
     $ar = array('sh513100', 'sh518800', 'sz160216');
-    $strLink = GetExternalLink('http://www.gtfund.com', '国泰基金');
+    $strLink = GetExternalLink(GetGuoTaiFundUrl(), '国泰基金');
     return GetCategorySoftwareLinks($ar, $strLink);
 }
 
-function GetHarvestSoftwareLinks()
+function GetJiaShiSoftwareLinks()
 {
     $ar = array('sz159919', 'sz160717', 'sz160719', 'sz160723');
-    $strLink = GetExternalLink('http://www.jsfund.cn', '嘉实基金');
+    $strLink = GetExternalLink(GetJiaShiFundUrl(), '嘉实基金');
     return GetCategorySoftwareLinks($ar, $strLink);
 }
 

@@ -117,6 +117,15 @@ class DailyStockSql extends StockTableSql
     {
     	return $this->DeleteInvalid('IsInvalidDate');
     }
+    
+    function DeleteByDate($strDate)
+    {
+    	if ($strWhere = $this->BuildWhere_stock_date($strDate))
+    	{
+    		return $this->DeleteRecord($strWhere);
+    	}
+    	return false;
+    }
 }
 
 // ****************************** DailyStockStrSql class *******************************************************

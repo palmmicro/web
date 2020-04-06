@@ -7,7 +7,10 @@ require_once('/php/ui/editinputform.php');
 function _echoFundPositionItem($csv, $ref, $cny_ref, $est_ref, $strDate, $strNetValue, $strPrevDate, $sql, $cny_sql, $est_sql, $strInput)
 {
 	$bWritten = false;
-	$ar = array($strDate, $strNetValue);
+	$ar = array();
+	$ar[] = $csv ? $strDate : $strPrevDate;
+	$ar[] = $strNetValue;
+	
    	$strPrev = $sql->GetClose($strPrevDate);
 	$ar[] = $ref->GetPercentageDisplay($strPrev, $strNetValue);
 
@@ -32,13 +35,16 @@ function _echoFundPositionItem($csv, $ref, $cny_ref, $est_ref, $strDate, $strNet
 			{
 				$bWritten = true;
 				$strCalibration = LofGetStockCalibration($strEst, $strNetValue, $strCny, $strPosition);
-				$csv->Write($strDate, $strNetValue, $strPosition, $strCalibration);
+				if ($csv)	$csv->Write($strDate, $strNetValue, $strPosition, $strCalibration);
 				$ar[] = $strPosition.'/'.$strCalibration;
 			}
 		}
 	}
 
-	if ($bWritten == false)		$csv->Write($strDate, $strNetValue);
+	if ($bWritten == false)
+	{
+		if ($csv)	$csv->Write($strDate, $strNetValue);
+	}
 	EchoTableColumn($ar);
 }
 
@@ -119,20 +125,32 @@ function _echoFundPositionData($csv, $ref, $cny_ref, $est_ref, $strInput)
        		$strNetValue = rtrim0($record['close']);
        		if ($strDate == $arDate[$iIndex])
        		{
-       			$iIndex ++;
-       			if (isset($arDate[$iIndex]))
+   				$iIndex ++;
+       			if ($csv)
        			{
-       				_echoFundPositionItem($csv, $ref, $cny_ref, $est_ref, $strDate, $strNetValue, $arDate[$iIndex], $sql, $cny_sql, $est_sql, $strInput);
+       				if (isset($arDate[$iIndex]))
+       				{
+       					_echoFundPositionItem($csv, $ref, $cny_ref, $est_ref, $strDate, $strNetValue, $arDate[$iIndex], $sql, $cny_sql, $est_sql, $strInput);
+       				}
+       				else
+       				{
+       					$csv->Write($strDate, $strNetValue);
+       					break;
+       				}
        			}
        			else
        			{
-       				$csv->Write($strDate, $strNetValue);
+       				while (isset($arDate[$iIndex]))
+       				{
+       					_echoFundPositionItem($csv, $ref, $cny_ref, $est_ref, $strDate, $strNetValue, $arDate[$iIndex], $sql, $cny_sql, $est_sql, $strInput);
+       					$iIndex ++;
+       				}
        				break;
        			}
        		}
        		else
        		{
-       			$csv->Write($strDate, $strNetValue);
+       			if ($csv)	$csv->Write($strDate, $strNetValue);
        		}
         }
         @mysql_free_result($result);
@@ -156,22 +174,33 @@ function _echoFundPositionParagraph($ref, $cny_ref, $strSymbol, $strInput)
 								   $position_col
 								   ), FUND_POSITION_PAGE, $str);
 	
-   	$csv = new PageCsvFile();
+	if ($strInput == '0')
+	{
+		$csv = false;
+		$strInput = POSITION_EST_LEVEL;
+	}
+	else
+	{
+		$csv = new PageCsvFile();
+	}
 	_echoFundPositionData($csv, $ref, $cny_ref, $est_ref, $strInput);
-    $csv->Close();
 	
     $str = '';
-    if ($csv->HasFile())
-    {
-   		$str .= '<br />'.$csv->GetLink();
+	if ($csv)
+	{
+		$csv->Close();
+		if ($csv->HasFile())
+		{
+			$str .= '<br />'.$csv->GetLink();
 
-    	$jpg = new DateImageFile();
-   		$jpg->Draw($csv->ReadColumn(2), $csv->ReadColumn(1));
-   		$str .= '<br />'.$jpg->GetAll($position_col->GetDisplay(), $strSymbol);
+			$jpg = new DateImageFile();
+			$jpg->Draw($csv->ReadColumn(2), $csv->ReadColumn(1));
+			$str .= '<br />'.$jpg->GetAll($position_col->GetDisplay(), $strSymbol);
 
-    	$jpg2 = new DateImageFile(2);
-   		$jpg2->Draw($csv->ReadColumn(3), $csv->ReadColumn(1));
-   		$str .= '<br />&nbsp;<br />'.$jpg2->GetAll('对冲值', $strSymbol);
+			$jpg2 = new DateImageFile(2);
+			$jpg2->Draw($csv->ReadColumn(3), $csv->ReadColumn(1));
+			$str .= '<br />&nbsp;<br />'.$jpg2->GetAll('对冲值', $strSymbol);
+		}
    	}
     EchoTableParagraphEnd($str);
 }
@@ -183,11 +212,11 @@ function EchoAll()
     if (isset($_POST['submit']))
 	{
 		unset($_POST['submit']);
-		$strInput = UrlCleanString($_POST[EDIT_INPUT_NAME]);
+		$strInput = SqlCleanString($_POST[EDIT_INPUT_NAME]);
 	}
     else
     {
-   		$strInput = '4.0';
+   		$strInput = POSITION_EST_LEVEL;
     }
     EchoEditInputForm('进行估算的涨跌阈值', $strInput);
     

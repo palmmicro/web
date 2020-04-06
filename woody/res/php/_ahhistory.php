@@ -99,7 +99,7 @@ function EchoMetaDescription()
 	global $acct;
 	
   	$str = $acct->GetStockDisplay().AH_HISTORY_DISPLAY;
-    $str .= '页面. 按中国A股交易日期排序显示. 同时显示港币人民币中间价历史, 提供跟Yahoo或者Sina历史数据同步的功能.';
+    $str .= '页面. 按中国A股交易日期排序显示. 同时显示港币人民币中间价历史, 提供跟Yahoo或者Sina历史数据同步的功能. 仅包括2014-01-01以后的数据.';
     EchoMetaDescriptionText($str);
 }
 

@@ -103,9 +103,10 @@ function EchoAll()
 {
     global $group;
     $fund = $group->ref;
+    $stock_ref = $fund->stock_ref;
     
     EchoFundEstParagraph($fund);
-    EchoReferenceParagraph(array_merge(array($fund->stock_ref, $fund->GetEstRef(), $fund->future_ref, $group->oil_ref, $group->es_ref, $group->usd_ref, $group->cnh_ref, $group->cny_ref), $group->ar_leverage_ref));
+    EchoReferenceParagraph(array_merge(array($stock_ref, $fund->GetEstRef(), $fund->future_ref, $group->oil_ref, $group->es_ref, $group->usd_ref, $group->cnh_ref, $group->cny_ref), $group->ar_leverage_ref));
     $group->EchoLeverageParagraph();
     EchoFundTradingParagraph($fund, '_onTradingUserDefined');    
 	EchoLofSmaParagraph($fund, '_onSmaUserDefined');
@@ -124,7 +125,7 @@ function EchoAll()
 	    
     EchoPromotionHead();
     $group->EchoTestParagraph();
-    EchoRelated();
+    EchoLofRelated($stock_ref);
 }
 
 function GetLofLinks()

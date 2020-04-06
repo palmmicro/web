@@ -19,7 +19,7 @@ class StockSql extends KeyNameSql
 
     function WriteSymbol($strSymbol, $strName)
     {
-    	$strName = UrlCleanString($strName);
+    	$strName = SqlCleanString($strName);
     	$ar = array('symbol' => $strSymbol,
     				  'name' => $strName);
     	

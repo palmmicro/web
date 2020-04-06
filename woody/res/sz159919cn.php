@@ -4,7 +4,7 @@ require('php/_chinaetf.php');
 function EchoRelated()
 {
 	$strGroup = GetChinaEtfLinks();
-	$strCompany = GetHarvestSoftwareLinks();
+	$strCompany = GetJiaShiSoftwareLinks();
 	
 	echo <<< END
 	<p>$strGroup

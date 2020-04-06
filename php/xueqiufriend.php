@@ -67,7 +67,7 @@ function EchoAll()
 		$strCookie = $_POST['cookie'];
 		if ($strCookie == '0')
 		{
-			$strToken = UrlCleanString($_POST['token']);
+			$strToken = SqlCleanString($_POST['token']);
 			$strType = $_POST['type'];
 		}
 		else
@@ -75,7 +75,7 @@ function EchoAll()
 			$strToken = UrlGetQueryValue('token');
 			$strType = '0';
 		}
-		$strId = UrlCleanString($_POST['xueqiuid']);
+		$strId = SqlCleanString($_POST['xueqiuid']);
 	}
     else
     {
