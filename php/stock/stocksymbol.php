@@ -363,6 +363,16 @@ class StockSymbol
         return false;
     }
     
+    function IsShenZhenA()
+    {
+		return ($this->strPrefixA == SZ_PREFIX) ? true : false;
+	}
+	
+    function IsShangHaiA()
+    {
+		return ($this->strPrefixA == SH_PREFIX) ? true : false;
+	}
+    
     function IsFundA()
     {
         if ($this->strDigitA == false)

@@ -212,7 +212,7 @@ function GetDaChengSoftwareLinks()
 function GetEFundSoftwareLinks()
 {
     $ar = array('sh510900', 'sh513050', 'sz159934', 'sz161116', 'sz161125', 'sz161126', 'sz161127', 'sz161128', 'sz161129', 'sz161130');
-    $strLink = GetExternalLink('http://www.efunds.com.cn', '易方达基金');
+    $strLink = GetExternalLink(GetEFundUrl(), '易方达基金');
     return GetCategorySoftwareLinks($ar, $strLink);
 }
 

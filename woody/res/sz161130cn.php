@@ -3,12 +3,17 @@ require('php/_lof.php');
 
 function EchoLofRelated($ref)
 {
-	$strGroup = GetLofLinks();
+	$strGroup = GetLofLinks($ref);
 	$strQqq = GetQqqSoftwareLinks();
 	$strHangSeng = GetHangSengSoftwareLinks();
 	$strCompany = GetEFundSoftwareLinks();
 	
+	$strOfficial = GetEFundOfficialLink($ref->GetDigitA());
+	
 	echo <<< END
+    <p>
+    	$strOfficial
+    </p>
 	<p> $strGroup
 		$strQqq
 		$strHangSeng

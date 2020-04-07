@@ -8,21 +8,17 @@ require('php/_lof.php');
 
 function EchoLofRelated($ref)
 {
-	$strGroup = GetLofLinks();
+	$strGroup = GetLofLinks($ref);
 	$strOil = GetOilSoftwareLinks();
 	$strCommodity = GetCommoditySoftwareLinks();
 	$strCompany = GetJiaShiSoftwareLinks();
 	
 	$strOfficial = GetJiaShiOfficialLink($ref->GetDigitA());
-	$strShenZhen = GetShenZhenLofOfficialLink();
-	$strFutures = GetEastMoneyGlobalFuturesLink();
 	
 	echo <<< END
 	<p><b>注意USO其实只是SZ160723可能跟踪的标的之一, 此处估算结果仅供参考.</b></p>
     <p>
     	$strOfficial
-    	$strShenZhen
-    	$strFutures
     </p>
 	<p> $strGroup
 		$strOil

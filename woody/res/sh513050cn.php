@@ -3,17 +3,20 @@ require('php/_lof.php');
 
 function EchoLofRelated($ref)
 {
-	$strGroup = GetLofLinks();
+	$strGroup = GetLofLinks($ref);
 	$strQqq = GetQqqSoftwareLinks();
 	$strHangSeng = GetHangSengSoftwareLinks();
 //	$strChinaInternet = GetChinaInternetSoftwareLinks();
 	$strCompany = GetEFundSoftwareLinks();
 	
+	$strOfficial = GetEFundOfficialLink($ref->GetDigitA());
 	$strXueqiuKweb = GetExternalLink(GetXueqiuUrl().'6827215131/80361226', '中国互联VS中国互联50');
 		
 	echo <<< END
 	<p><b>注意KWEB和SH513050跟踪的指数可能不同, 此处估算结果仅供参考.</b></p>
-	<p> $strXueqiuKweb
+	<p> 
+		$strOfficial
+		$strXueqiuKweb
 	</p>
 	<p> $strGroup
 		$strQqq

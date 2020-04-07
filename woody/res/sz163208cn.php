@@ -3,7 +3,7 @@ require('php/_lof.php');
 
 function EchoLofRelated($ref)
 {
-	$strGroup = GetLofLinks();
+	$strGroup = GetLofLinks($ref);
 	$strOil = GetOilSoftwareLinks();
 	$strCommodity = GetCommoditySoftwareLinks();
 	$strCompany = GetLionSoftwareLinks();

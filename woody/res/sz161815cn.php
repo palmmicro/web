@@ -3,7 +3,7 @@ require('php/_lof.php');
 
 function EchoLofRelated($ref)
 {
-	$strGroup = GetLofLinks();
+	$strGroup = GetLofLinks($ref);
 	$strOil = GetOilSoftwareLinks();
 	$strCommodity = GetCommoditySoftwareLinks();
 	$strGold = GetGoldSoftwareLinks();
@@ -17,7 +17,6 @@ function EchoLofRelated($ref)
     	<a href="http://www.spdrgoldshares.com/usa/" target=_blank>GLD官网</a>
     	<a href="https://www.invesco.com/us/financial-products/etfs/product-detail?productId=DBO" target=_blank>DBO官网</a>
     	<a href="http://www.uscfinvestments.com/bno" target=_blank>BNO官网</a>
-    	<a href="http://www.szse.cn/market/fund/list/lofFundList/index.html" target=_blank>深交所官网LOF数据</a>
     	<a href="http://quote.eastmoney.com/center/gridlist.html#futures_global" target=_blank>原油期货汇总</a>
     	<a href="https://xueqiu.com/4206051491/69865145" target=_blank>DBC和GSG的区别</a>
     </p>

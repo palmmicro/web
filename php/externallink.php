@@ -11,6 +11,11 @@ function GetOfficialLink($strHttp, $strDisplay)
     return GetExternalLink($strHttp, $strDisplay.'官网');
 }
 
+function GetEFundOfficialLink($strDigitA)
+{
+    return GetOfficialLink(GetEFundUrl().'/html/fund/'.$strDigitA.'_fundinfo.htm', $strDigitA);
+}
+
 function GetGuoTaiOfficialLink($strDigitA)
 {
     return GetOfficialLink(GetGuoTaiFundUrl().'/Etrade/Jijin/view/id/'.$strDigitA, $strDigitA);

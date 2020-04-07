@@ -72,4 +72,9 @@ function GetGuoTaiFundUrl()
 	return 'https://e.gtfund.com';
 }
 
+function GetEFundUrl()
+{
+	return 'http://www.efunds.com.cn';
+}
+
 ?>

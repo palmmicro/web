@@ -128,9 +128,14 @@ function EchoAll()
     EchoLofRelated($stock_ref);
 }
 
-function GetLofLinks()
+function GetLofLinks($ref)
 {
 	$str = GetJisiluLofLink();
+	if ($ref->IsShenZhenA())		$str .= ' '.GetShenZhenLofOfficialLink();
+	else							$str .= ' '.((intval($ref->GetDigitA()) >= 510000) ? GetShangHaiEtfOfficialLink() : GetShangHaiLofOfficialLink());
+	if (LofGetFutureSymbol($ref->GetSymbol()))	$str .= ' '.GetEastMoneyGlobalFuturesLink();
+	$str .= '<br />&nbsp';
+	
 	$str .= GetStockGroupLinks();
 	$str .= GetASharesSoftwareLinks();
 	$str .= GetChinaInternetSoftwareLinks();
