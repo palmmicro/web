@@ -188,10 +188,10 @@ function GetChinaAmcSoftwareLinks()
     return GetCategorySoftwareLinks($ar, $strLink);
 }
 
-function GetCiticPruSoftwareLinks()
+function GetXinChengSoftwareLinks()
 {
     $ar = array('sz165510', 'sz165513');
-    $strLink = GetExternalLink('http://www.citicprufunds.com.cn', '信诚基金');
+    $strLink = GetExternalLink(GetXinChengFundUrl(), '信诚基金');
     return GetCategorySoftwareLinks($ar, $strLink);
 }
 
@@ -303,7 +303,7 @@ function GetUniversalSoftwareLinks()
 function GetYinHuaSoftwareLinks()
 {
     $ar = array('sz161815');
-    $strLink = GetExternalLink('http://www.yhfund.com.cn', '银华基金');
+    $strLink = GetExternalLink(GetYinHuaFundUrl(), '银华基金');
     return GetCategorySoftwareLinks($ar, $strLink);
 }
 

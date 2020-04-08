@@ -26,6 +26,21 @@ function GetJiaShiOfficialLink($strDigitA)
     return GetOfficialLink(GetJiaShiFundUrl().'/Services/cn/html/product/index.shtml?fundcode='.$strDigitA, $strDigitA);
 }
 
+function GetXinChengOfficialLink($strDigitA)
+{
+    return GetOfficialLink(GetXinChengFundUrl().'/pc/productDetail?fundcode='.$strDigitA, $strDigitA);
+}
+
+function GetYinHuaOfficialLink($strDigitA)
+{
+    return GetOfficialLink(GetYinHuaFundUrl().'/main/qxjj/'.$strDigitA.'/fndFacts.shtml', $strDigitA);
+}
+
+function GetOfficialLinkGSG()
+{
+	return GetOfficialLink('https://www.ishares.com/us/products/239757/GSG', 'GSG');
+}
+
 function GetShangHaiEtfOfficialLink()
 {
     return GetExternalLink('http://www.sse.com.cn/market/funddata/volumn/etfvolumn/', '上交所官网ETF规模数据');

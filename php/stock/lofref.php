@@ -41,14 +41,14 @@ function LofGetEstSymbol($strSymbol)
 //    else if ($strSymbol == 'F001092')   return 'IBB';
     else if ($strSymbol == 'SZ161127')   return 'XBI';
     else if ($strSymbol == 'SZ161128')   return 'XLK';
-    else if ($strSymbol == 'SZ161815')   return 'DBC';
+//    else if ($strSymbol == 'SZ161815')   return 'DBC';
     else if ($strSymbol == 'SZ163208')   return 'XLE';
     else if ($strSymbol == 'SZ164824')   return 'INDA';
     else if (in_arrayChinaInternetLof($strSymbol))   return 'KWEB';
-    else if (in_arrayBricLof($strSymbol))   return 'BKF';	// '^SPBRICNTR'
-    else if ($strSymbol == 'SZ165513')   return 'GSG';
-    else if (in_arraySpyLof($strSymbol))   return '^GSPC';	// 'SPY';
-    else if (in_arrayQqqLof($strSymbol))   return '^NDX';	// 'QQQ';
+    else if (in_arrayBricLof($strSymbol))			return 'BKF';	// '^SPBRICNTR'
+    else if (in_arrayCommodityLof($strSymbol))		return 'GSG';
+    else if (in_arraySpyLof($strSymbol))				return '^GSPC';	// 'SPY';
+    else if (in_arrayQqqLof($strSymbol))				return '^NDX';	// 'QQQ';
 //    else if ($strSymbol == 'SH513030')   return ;
     else if ($strSymbol == 'SH513030')   return 'DAX';		// 'EWG'
     else if (in_arrayGoldLof($strSymbol))   return 'GLD';

@@ -107,6 +107,11 @@ function LofGetCommoditySymbolArray()
     return array('sz161815', 'sz165513'); 
 }
 
+function in_arrayCommodityLof($strSymbol)
+{
+    return in_array_lower($strSymbol, LofGetCommoditySymbolArray());
+}
+
 function LofGetQqqSymbolArray()
 {
     return array('sh513100', 'sz159941', 'sz161130'); 

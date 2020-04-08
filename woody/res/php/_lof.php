@@ -130,10 +130,11 @@ function EchoAll()
 
 function GetLofLinks($ref)
 {
+	$strSymbol = $ref->GetSymbol();
 	$str = GetJisiluLofLink();
-	if ($ref->IsShenZhenA())		$str .= ' '.GetShenZhenLofOfficialLink();
-	else							$str .= ' '.((intval($ref->GetDigitA()) >= 510000) ? GetShangHaiEtfOfficialLink() : GetShangHaiLofOfficialLink());
-	if (LofGetFutureSymbol($ref->GetSymbol()))	$str .= ' '.GetEastMoneyGlobalFuturesLink();
+	if ($ref->IsShenZhenA())														$str .= ' '.GetShenZhenLofOfficialLink();
+	else																			$str .= ' '.((intval($ref->GetDigitA()) >= 510000) ? GetShangHaiEtfOfficialLink() : GetShangHaiLofOfficialLink());
+	if (LofGetFutureSymbol($strSymbol) || in_arrayCommodityLof($strSymbol))	$str .= ' '.GetEastMoneyGlobalFuturesLink();
 	$str .= '<br />&nbsp';
 	
 	$str .= GetStockGroupLinks();

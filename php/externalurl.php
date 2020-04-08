@@ -77,4 +77,14 @@ function GetEFundUrl()
 	return 'http://www.efunds.com.cn';
 }
 
+function GetXinChengFundUrl()
+{
+	return 'http://www.citicprufunds.com.cn';
+}
+
+function GetYinHuaFundUrl()
+{
+	return 'http://www.yhfund.com.cn';
+}
+
 ?>

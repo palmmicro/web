@@ -11,7 +11,6 @@ function EchoLofRelated($ref)
 	echo <<< END
     <p>
     	<a href="http://www.gffunds.com.cn/funds/?fundcode=162719" target=_blank>广发石油官网</a>
-    	<a href="http://quote.eastmoney.com/center/gridlist.html#futures_global" target=_blank>原油期货汇总</a>
     </p>
 	<p> $strGroup
 		$strOil
