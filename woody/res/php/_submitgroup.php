@@ -65,10 +65,18 @@ function _debugStockGroup($strGroupId, $strSymbols)
     trigger_error($str); 
 }
 
+function _stockGetSymbolArray($strSymbols)
+{
+	$str = str_replace(' ', '', $strSymbols);
+	$str = str_replace('，', ',', $str);
+    $ar = explode(',', $str);
+    return StockGetArraySymbol($ar);
+}
+
 function _getStockIdArray($strSymbols)
 {
 	$arStockId = array();
-    $arSymbol = StockGetSymbolArray($strSymbols);
+    $arSymbol = _stockGetSymbolArray($strSymbols);
 	foreach ($arSymbol as $strSymbol)
 	{
 	    $strStockId = SqlGetStockId($strSymbol);

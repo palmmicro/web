@@ -63,43 +63,79 @@ function _EchoMoneyGroupData($group, $strLink, $strUSDCNY, $strHKDCNY)
 }
 
 
-// ****************************** Premotion Headline *******************************************************
+// ****************************** Promotion Headline *******************************************************
+
+function _echoRandomPromotion()
+{
+	$iVal = rand(1, 7);
+	switch ($iVal)
+	{
+	case 1:
+		LayoutWeixinPromotion();
+		break;
+        	
+	case 2:
+		LayoutWeixinPay();
+		break;
+        	
+	case 3:
+		LayoutAliPay();
+		break;
+
+	case 4:
+		LayoutBrokerYinhe();
+		break;
+
+	case 5:
+		LayoutBrokerHuatai();
+		break;
+
+	case 6:
+		LayoutBrokerXueying();
+		break;
+			
+	case 7:
+		LayoutQqGroup();
+		break;
+	}
+}
+
+function _isFromWeixin()
+{
+	if ($strFrom = UrlGetQueryValue('from'))
+	{
+		switch ($strFrom)
+		{
+		case 'groupmessage':
+			DebugString('微信群');
+			break;
+			
+		case 'singlemessage':
+			DebugString('好友分享');
+			break;
+
+		case 'timeline':
+			DebugString('朋友圈');
+			break;
+		}
+		return true;
+	}
+	return false;
+}
+
 function EchoPromotionHead($strVer = false, $strLoginId = false)
 {
     echo '<h3>讨论和建议</h3>';
     
     if (AcctNoAdv($strLoginId) == false)
 	{
-		$iVal = rand(1, 7);
-		switch ($iVal)
+		if (_isFromWeixin())
 		{
-		case 1:
-			LayoutWeixinPromotion();
-			break;
-        	
-		case 2:
 			LayoutWeixinPay();
-			break;
-        	
-		case 3:
-   			LayoutAliPay();
-			break;
-
-		case 4:
-			LayoutBrokerYinhe();
-			break;
-
-		case 5:
-			LayoutBrokerHuatai();
-			break;
-
-		case 6:
-			LayoutBrokerXueying();
-			break;
-			
-		case 7:
-			LayoutQqGroup();
-			break;
+		}
+		else
+		{
+			_echoRandomPromotion();
 		}
     }
     

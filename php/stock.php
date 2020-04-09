@@ -34,7 +34,14 @@ require_once('stock/etfref.php');
 
 function StockGetSymbol($str)
 {
-    return strtoupper(trim($str));
+	$str = trim($str);
+	if (strpos($str, '_') === false)	$str = strtoupper($str);
+    if (IsChineseStockDigit($str))
+    {
+        if (intval($str) >= 600000)	$str = SH_PREFIX.$str;
+        else							$str = SZ_PREFIX.$str;
+    }
+    return $str;
 }
 
 function StockGetSymbolByUrl()
@@ -50,13 +57,6 @@ function StockGetArraySymbol($ar)
         $arSymbol[] = StockGetSymbol($str); 
     }
     return $arSymbol;
-}
-
-function StockGetSymbolArray($strSymbols)
-{
-	$str = str_replace(', ', ',', $strSymbols);
-    $ar = explode(',', $str);
-    return StockGetArraySymbol($ar);
 }
 
 function ForexGetEastMoneySymbol($strSymbol)
