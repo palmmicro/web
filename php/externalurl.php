@@ -87,4 +87,21 @@ function GetYinHuaFundUrl()
 	return 'http://www.yhfund.com.cn';
 }
 
+// https://www.ssga.com/us/en/individual/etfs/library-content/products/fund-data/etfs/us/navhist-us-en-xop.xlsx
+function GetSpdrNavUrl($strSymbol)
+{
+	$sql = new StockSql();
+	$record = $sql->GetRecord($strSymbol);
+   	if (stripos($record['name'], 'spdr') !== false)
+	{
+		return 'https://www.ssga.com/us/en/individual/etfs/library-content/products/fund-data/etfs/us/navhist-us-en-'.strtolower($strSymbol).'.xlsx';
+	}
+	return false;
+}
+
+function GetMacroTrendsUrl()
+{
+	return 'https://www.macrotrends.net';
+}
+
 ?>

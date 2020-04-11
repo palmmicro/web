@@ -128,13 +128,19 @@ function EchoAll()
     EchoLofRelated($stock_ref);
 }
 
-function GetLofLinks($ref)
+function GetLofLinks($ref, $strExternalLinks = false)
 {
 	$strSymbol = $ref->GetSymbol();
+	$strFutureSymbol = LofGetFutureSymbol($strSymbol);
+	
 	$str = GetJisiluLofLink();
-	if ($ref->IsShenZhenA())														$str .= ' '.GetShenZhenLofOfficialLink();
-	else																			$str .= ' '.((intval($ref->GetDigitA()) >= 510000) ? GetShangHaiEtfOfficialLink() : GetShangHaiLofOfficialLink());
-	if (LofGetFutureSymbol($strSymbol) || in_arrayCommodityLof($strSymbol))	$str .= ' '.GetEastMoneyGlobalFuturesLink();
+	if ($ref->IsShenZhenA())												$str .= ' '.GetShenZhenLofOfficialLink();
+	else																	$str .= ' '.((intval($ref->GetDigitA()) >= 510000) ? GetShangHaiEtfOfficialLink() : GetShangHaiLofOfficialLink());
+	if ($strFutureSymbol || in_arrayCommodityLof($strSymbol))			$str .= ' '.GetEastMoneyGlobalFuturesLink();
+	if ($strFutureSymbol == 'hf_CL' || $strFutureSymbol == 'hf_GC')	$str .= ' '.GetMacroTrendsGoldOilRatioLink();
+	if ($strFutureSymbol == 'hf_GC')										$str .= ' '.GetMacroTrendsFutureLink('gold');
+	else if ($strFutureSymbol == 'hf_CL')								$str .= ' '.GetDailyFxCrudeOilLink();
+	if ($strExternalLinks)												$str .= ' '.$strExternalLinks;
 	$str .= '<br />&nbsp';
 	
 	$str .= GetStockGroupLinks();

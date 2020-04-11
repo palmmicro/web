@@ -7,7 +7,9 @@ require('php/_lof.php');
 
 function EchoLofRelated($ref)
 {
-	$strGroup = GetLofLinks($ref);
+	$strCattleFuture = GetMacroTrendsFutureLink('cattle');
+	
+	$strGroup = GetLofLinks($ref, $strCattleFuture);
 	$strOil = GetOilSoftwareLinks();
 	$strCommodity = GetCommoditySoftwareLinks();
 	$strGold = GetGoldSoftwareLinks();

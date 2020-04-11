@@ -107,14 +107,18 @@ function _isFromWeixin()
 		switch ($strFrom)
 		{
 		case 'groupmessage':
+			LayoutQqGroup();
 			DebugString('微信群');
 			break;
 			
 		case 'singlemessage':
+			LayoutQqGroup();
+			LayoutWeixinPromotion();
 			DebugString('好友分享');
 			break;
 
 		case 'timeline':
+			LayoutWeixinPromotion();
 			DebugString('朋友圈');
 			break;
 		}

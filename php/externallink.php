@@ -310,18 +310,6 @@ function GetJisiluLofLink()
 	return GetExternalLink(GetJisiluDataUrl().'qdii/', '集思录');
 }
 
-// https://www.ssga.com/us/en/individual/etfs/library-content/products/fund-data/etfs/us/navhist-us-en-xop.xlsx
-function GetSpdrNavUrl($strSymbol)
-{
-	$sql = new StockSql();
-	$record = $sql->GetRecord($strSymbol);
-   	if (stripos($record['name'], 'spdr') !== false)
-	{
-		return 'https://www.ssga.com/us/en/individual/etfs/library-content/products/fund-data/etfs/us/navhist-us-en-'.strtolower($strSymbol).'.xlsx';
-	}
-	return false;
-}
-
 function GetSpdrNavLink($strSymbol)
 {
 	if ($strUrl = GetSpdrNavUrl($strSymbol))
@@ -329,6 +317,21 @@ function GetSpdrNavLink($strSymbol)
 		return GetExternalLink($strUrl, 'SPDR净值文件');
 	}
 	return '';
+}
+
+function GetMacroTrendsGoldOilRatioLink()
+{
+	return GetExternalLink(GetMacroTrendsUrl().'/1380/gold-to-oil-ratio-historical-chart', '金油比');
+}
+
+function GetMacroTrendsFutureLink($str)
+{
+	return GetExternalLink(GetMacroTrendsUrl().'/futures/'.$str, $str.'期货');
+}
+
+function GetDailyFxCrudeOilLink()
+{
+	return GetExternalLink('https://www.dailyfx.com/crude-oil', '原油期货');
 }
 
 ?>
