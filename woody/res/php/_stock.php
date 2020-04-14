@@ -67,7 +67,7 @@ function _EchoMoneyGroupData($group, $strLink, $strUSDCNY, $strHKDCNY)
 
 function _echoRandomPromotion()
 {
-	$iVal = rand(1, 7);
+	$iVal = rand(1, 4);
 	switch ($iVal)
 	{
 	case 1:
@@ -83,18 +83,6 @@ function _echoRandomPromotion()
 		break;
 
 	case 4:
-		LayoutBrokerYinhe();
-		break;
-
-	case 5:
-		LayoutBrokerHuatai();
-		break;
-
-	case 6:
-		LayoutBrokerXueying();
-		break;
-			
-	case 7:
 		LayoutQqGroup();
 		break;
 	}
@@ -112,13 +100,12 @@ function _isFromWeixin()
 			break;
 			
 		case 'singlemessage':
-			LayoutQqGroup();
 			LayoutWeixinPromotion();
 			DebugString('好友分享');
 			break;
 
 		case 'timeline':
-			LayoutWeixinPromotion();
+			LayoutWeixinPay();
 			DebugString('朋友圈');
 			break;
 		}
@@ -131,20 +118,12 @@ function EchoPromotionHead($strVer = false, $strLoginId = false)
 {
     echo '<h3>讨论和建议</h3>';
     
-    if (AcctNoAdv($strLoginId) == false)
+	if (_isFromWeixin() == false)
 	{
-		if (_isFromWeixin())
-		{
-			LayoutWeixinPay();
-		}
-		else
-		{
-			_echoRandomPromotion();
-		}
+		_echoRandomPromotion();
     }
     
     $str = GetDevGuideLink('20150818', $strVer);
-    $str .= ' '.GetInternalLink('/woody/blog/entertainment/20110509cn.php#other', '广告说明');
     EchoParagraph($str);
 }
 

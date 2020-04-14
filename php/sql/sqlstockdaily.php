@@ -208,7 +208,9 @@ class DailyStockValSql extends DailyStockSql
     {
         if ($this->GetRecord($strDate))			return false;
         
+//        DebugString('StringYMD in DailyStockValSql->Insert');
         $ymd = new StringYMD($strDate);
+        
         if ($ymd->IsWeekend())     			return false;   // sina fund may provide false weekend data
         
     	return $this->InsertArray($this->MakeFieldArray($strDate, $strClose));

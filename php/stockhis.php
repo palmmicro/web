@@ -122,9 +122,11 @@ function _estNextBollingerBands($arF, $iAvg)
 // ****************************** Private functions *******************************************************
 function _isWeekEnd($strYMD, $strNextDayYMD)
 {
+//    DebugString('StringYMD in _isWeekEnd 1');
     $ymd = new StringYMD($strYMD);
     if ($strNextDayYMD)
     {
+//    	DebugString('StringYMD in _isWeekEnd 2');
         $next_ymd = new StringYMD($strNextDayYMD);
         if ($ymd->GetDayOfWeek() >= $next_ymd->GetDayOfWeek())     return true;
     }
@@ -148,9 +150,11 @@ function _isWeekEnd($strYMD, $strNextDayYMD)
 
 function _isMonthEnd($strYMD, $strNextDayYMD)
 {
+//    DebugString('StringYMD in _isMonthEnd 1');
     $ymd = new StringYMD($strYMD);
     if ($strNextDayYMD)
     {
+//    	DebugString('StringYMD in _isMonthEnd 2');
         $next_ymd = new StringYMD($strNextDayYMD);
     }
     else

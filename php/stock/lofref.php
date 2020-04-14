@@ -201,8 +201,12 @@ class _LofReference extends FundReference
                 }
                 else
                 {
+//                	DebugString('StringYMD in _LofReference->AdjustFactor 1');
                 	$ymd = new StringYMD($strDate);
+
+//                	DebugString('StringYMD in _LofReference->AdjustFactor 2');
                 	$est_ymd = new StringYMD($est_ref->GetDate());
+                	
                 	if ($strDate == $est_ref->GetDate())	                   				$strEst = $est_ref->GetPrice();
                 	else if ($ymd->GetNextTradingDayTick() == $est_ymd->GetTick())		$strEst = $est_ref->GetPrevPrice();
                 	else	return false;

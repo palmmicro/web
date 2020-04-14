@@ -31,6 +31,8 @@ function IsNewDailyQuotes($sym, $strFileName, $callback)
     {
         $str = file_get_contents($strFileName);
         if (($strYMD = call_user_func($callback, $str)) == false)  return false;
+        
+//        DebugString('StringYMD in IsNewDailyQuotes');
         $ymd = new StringYMD($strYMD);
         
         $now_ymd = new NowYMD();

@@ -248,6 +248,7 @@ class StockReference extends StockSymbol
         $this->ConvertDateTime(strtotime($strDateTime), STOCK_TIME_ZONE_US);
         $this->strTimeZone = STOCK_TIME_ZONE_US;
         
+//        DebugString('StringYMD in StockReference->_convertDateTimeFromUS');
         $ymd = new StringYMD($this->strDate);
         if ($ymd->IsFuture())
         {   // Dec 30 04:00PM EST, an extra year bug caused by strtotime function
@@ -279,6 +280,32 @@ class StockReference extends StockSymbol
 		return substr($strTime, 0, 5);
 	}
 	
+	function IsExtendedMarket()
+	{
+		if ($this->extended_ref)	return true;
+		
+		$ar = explode(':', $this->strTime);
+		if (count($ar) == 3)
+		{
+			$iVal = intval($ar[0]);
+			$iVal *= 100;
+			$iVal += intval($ar[1]);
+			$strDebug = $this->GetSymbol().' ';
+			if ($iVal < 930)
+			{
+				DebugVal($iVal, $strDebug.STOCK_PRE_MARKET);
+				return true;
+			}
+			else if ($iVal > 1600)
+			{
+				DebugVal($iVal, $strDebug.STOCK_POST_MARKET);
+				return true;
+			}
+		}
+		
+		return false;
+	}
+
     function _totime($strTimeZone)
     {
         date_default_timezone_set($strTimeZone);
@@ -287,8 +314,9 @@ class StockReference extends StockSymbol
     
     function CheckAdjustFactorTime($etf_ref)
     {
-        if ($etf_ref == false)                           return false;
-        if ($etf_ref->HasData() == false)                 return false;
+        if ($etf_ref == false)					return false;
+        if ($etf_ref->HasData() == false)		return false;
+        if ($etf_ref->IsExtendedMarket())				return false;
         
         if ($this->strTimeZone == $etf_ref->strTimeZone)
         {

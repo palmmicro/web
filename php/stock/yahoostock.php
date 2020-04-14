@@ -235,9 +235,16 @@ function _yahooNetValueHasFile($now_ymd, $strFileName, $strNetValueSymbol)
         
         if ($arMatch)
         {
-        	$strDate = _yahooStockMatchGetDate($arMatch, $strNetValueSymbol);
-        	$ymd = new StringYMD($strDate);
-        	if (($ymd->GetNextTradingDayTick() + _getNetValueDelayTick()) <= $now_ymd->GetTick())	return false;		// need update
+        	if ($strDate = _yahooStockMatchGetDate($arMatch, $strNetValueSymbol))
+        	{
+//        		DebugString('StringYMD in _yahooNetValueHasFile');
+        		$ymd = new StringYMD($strDate);
+        		if (($ymd->GetNextTradingDayTick() + _getNetValueDelayTick()) <= $now_ymd->GetTick())	return false;		// need update
+        	}
+        	else
+        	{
+        		return false;
+        	}
         }
         else
         {

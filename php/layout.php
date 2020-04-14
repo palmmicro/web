@@ -47,52 +47,6 @@ function LayoutAliPay()
 END;
 }
 
-// 或者1700177971(魔女小豌豆4)
-function LayoutBrokerYinhe()
-{
-    echo <<<END
-        <p>广告位招租, 请联系support@palmmicro.com, 加QQ群或者Palmmicro公众号也可以.
-        </p>
-END;
-/*    echo <<<END
-        <p>低风险文艺券商, 套利神器. 
-        <br />★场内基金申购全部一折, 场外app申购大部分1折.
-        <br />★场内赎回, 老分级基金公司取走后, 剩余部分5折, 新基金按基金新规执行.
-        <br />★赎回资金预解冻, 比正常赎回提前一天资金到账, 提高资金利用率.
-        <br />★可转债交易, 费率不会让你失望. 
-        <br />★具体详情可以咨询QQ: 2531998595(魔女小豌豆3)
-        <br /><img src=/woody/image/yinhe.png alt="Yinhe open account scan QR code y001118, agent qq: 2531998595" />
-        </p>
-END;*/
-}
-
-function LayoutBrokerHuatai()
-{
-	echo <<<END
-        <p><a href="https://m.zhangle.com/h5Account/mobile-h5/index.htm?ly=HTC1-9000008608&param1=011979" target=_blank>华泰证券开户</a>
-        <br />佣金股票万1.6, 场内基金万1, 债券十万分之一. 客户支持微信号18651870837. 
-        扫码开户后在第一步显示佣金的地方一定要核对工号<b>011979</b>
-        <br /><img src=/woody/image/huatai20190906.png alt="Huatai open account scan QR code updated on 20190906, agent id 011979" />
-        </p>
-END;
-}
-
-function LayoutBrokerXueying()
-{
-	$strSnowball = GetXueqiuIdLink('7489073227', '技术支持');
-	if (AcctIsAdmin())		$strSnowball .= ' '.GetExternalLink('https://www.snowballsecurities.com/external-channel/invite', '管理');
-
-    echo <<<END
-        <p><a href="https://www.snowballsecurities.com/activity/open/open-v10?r=50001003008" target=_blank>雪盈证券开户</a>
-        	  <a href="https://www.snowballsecurities.com/activity/bank-card-booking?r=50001003008" target=_blank>雪盈境外卡开户</a>
-        <br />雪球旗下港美股券商——雪盈证券, 极低佣金利率, 毫秒级下单速度, 免费实时行情! 
-        	  更有开户入金新手豪礼等着你, 最高1066港币+热门股票+高级行情, 点击链接, 开户领豪礼. 
-		        $strSnowball
-        <br /><img src=/woody/image/xueying.png alt="Xueying security new banner" />
-        </p>
-END;
-}
-
 function LayoutIsMobilePhone()
 {
     $detect = new Mobile_Detect;

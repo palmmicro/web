@@ -4,8 +4,6 @@
 
 function EchoAnalyticsOptimize()
 {
-    if (AcctNoAdv())	return;
-    
     echo <<< END
 <style>.async-hide { opacity: 0 !important} </style>
 <script>(function(a,s,y,n,c,h,i,d,e){s.className+=' '+y;h.start=1*new Date;

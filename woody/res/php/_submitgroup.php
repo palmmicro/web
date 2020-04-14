@@ -69,6 +69,11 @@ function _stockGetSymbolArray($strSymbols)
 {
 	$str = str_replace(' ', '', $strSymbols);
 	$str = str_replace('，', ',', $str);
+	
+//	$str = str_replace(PHP_EOL, ",", $str);
+	$str = str_replace(array("\\n", "\\r", "\\r\\n"), ',', $str);
+//	$str = preg_replace('//s*/', ',', $str);
+
     $ar = explode(',', $str);
     return StockGetArraySymbol($ar);
 }

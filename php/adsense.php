@@ -20,8 +20,6 @@ END;
 
 function AdsenseUnit($strUnit, $strSlot, $iHeight, $iWidth = DEFAULT_ADSENSE_WIDTH)
 {
-    if (AcctNoAdv())	return;
-    
 	$strHeight = strval($iHeight).'px';
 	$strWidth = strval($iWidth).'px';
     echo <<< END
