@@ -33,7 +33,7 @@ function _getDeleteVisitorLink($strIp, $bChinese)
 }
 
 define('MAX_VISITOR_CONTENTS', 35);
-define('MAX_VISITOR_SRC', 16);
+
 function EchoVisitorParagraphBegin($arColumn, $strNavLink, $strSrc, $bChinese)
 {
     $strOrigLink = UrlGetQueryString() ? CopyPhpLink(false, '回访问首页', 'Back to Visitor Home', $bChinese) : '';
@@ -51,16 +51,6 @@ function EchoVisitorParagraphBegin($arColumn, $strNavLink, $strSrc, $bChinese)
 END;
 }
 
-function GetVisitorSrcDisplay($strSrc)
-{
-    if (strlen($strSrc) > MAX_VISITOR_SRC)
-    {
-        $iLen = MAX_VISITOR_SRC - 3;
-        return '...'.substr($strSrc, 0 - $iLen, $iLen);
-    }
-    return $strSrc;
-}
-
 function GetVisitorContentsDisplay($strContents)
 {
     if (strlen($strContents) > MAX_VISITOR_CONTENTS)
@@ -69,28 +59,6 @@ function GetVisitorContentsDisplay($strContents)
         return substr($strContents, 0, $iLen).'...';
     }
     return $strContents;
-}
-
-function _getCategoryArray($bChinese)
-{
-    if ($bChinese)
-    {
-        return array(VISITOR_TABLE => '访问数据',
-                      TABLE_WEIXIN_VISITOR => '微信访问数据',
-                     );
-    }
-    else
-    {
-        return array(VISITOR_TABLE => 'Visitor Information',
-                      TABLE_WEIXIN_VISITOR => 'Weixin Visitor',
-                     );
-    }
-}
-
-function EchoVisitorCommonLinks($bChinese)
-{
-    $str = GetCategoryLinks(_getCategoryArray($bChinese), ACCT_PATH, $bChinese);
-    EchoParagraph($str);
 }
 
 ?>

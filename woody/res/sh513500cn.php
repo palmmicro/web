@@ -6,9 +6,14 @@ function EchoLofRelated($ref)
 	$strGroup = GetLofLinks($ref);
 	$strQqq = GetQqqSoftwareLinks();
 	$strHangSeng = GetHangSengSoftwareLinks();
-	$strCompany = GetBoseraSoftwareLinks();
+	$strCompany = GetBoShiSoftwareLinks();
+	
+	$strOfficial = GetBoShiOfficialLink($ref->GetDigitA());
 	
 	echo <<< END
+    <p>
+    	$strOfficial
+    </p>
 	<p> $strGroup
 		$strQqq
 		$strHangSeng

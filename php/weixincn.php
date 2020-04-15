@@ -2,7 +2,6 @@
 require_once('weixin.php');
 require_once('debug.php');
 require_once('stock.php');
-require_once('sql/sqlweixin.php');
 require_once('ui/stocktext.php');
 
 define('WX_DEFAULT_SYMBOL', 'SZ162411');
@@ -133,17 +132,6 @@ function _wxDebug($strUserName, $strText, $strSubject)
 	$str .= '<br />'.GetWeixinLink();
     trigger_error($strSubject.'<br />'.$str);
 }
-
-/*
-function _updateWeixinTables($strText, $strUserName)
-{
-	$ip_sql = new IpSql(UrlGetIp());
-    
-	$sql = new WeixinSql($strUserName);
-	$visitor_sql = new WeixinVisitorSql($strUserName);
-	$visitor_sql->InsertLog(new WeixinTextSql($strText));
-}
-*/
 
 class WeixinStock extends WeixinCallback
 {

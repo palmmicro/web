@@ -36,6 +36,7 @@ function EchoTitle()
     echo _getOperationStr();
 }
 
-    AcctAuth();
+   	$acct = new AcctStart();
+	$acct->Auth();
 
 ?>

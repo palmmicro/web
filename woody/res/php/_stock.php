@@ -114,11 +114,31 @@ function _isFromWeixin()
 	return false;
 }
 
+function _isFromQq()
+{
+	if ($strFrom = UrlGetQueryValue('tdsourcetag'))
+	{
+		switch ($strFrom)
+		{
+		case 's_pcqq_aiomsg':
+			DebugString('QQ消息');
+			break;
+			
+		case 's_pctim_aiomsg':
+			DebugString('TIM消息');
+			break;
+		}
+		LayoutQqGroup();
+		return true;
+	}
+	return false;
+}
+
 function EchoPromotionHead($strVer = false, $strLoginId = false)
 {
     echo '<h3>讨论和建议</h3>';
     
-	if (_isFromWeixin() == false)
+	if ((_isFromWeixin() == false) && (_isFromQq() == false))
 	{
 		_echoRandomPromotion();
     }

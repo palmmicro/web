@@ -3,6 +3,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title><?php EchoTitle(false); ?></title>
 <meta name="description" content="<?php EchoMetaDescription(false); ?>">
+<link rel="canonical" href="<?php EchoCanonical(); ?>" />
 <link href="../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

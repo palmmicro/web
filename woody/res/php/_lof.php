@@ -134,12 +134,23 @@ function GetLofLinks($ref, $strExternalLinks = false)
 	$strFutureSymbol = LofGetFutureSymbol($strSymbol);
 	
 	$str = GetJisiluLofLink();
+	
 	if ($ref->IsShenZhenA())												$str .= ' '.GetShenZhenLofOfficialLink();
 	else																	$str .= ' '.((intval($ref->GetDigitA()) >= 510000) ? GetShangHaiEtfOfficialLink() : GetShangHaiLofOfficialLink());
+	
+	$str .= ' '.GetEastMoneyQdiiLink();
 	if ($strFutureSymbol || in_arrayCommodityLof($strSymbol))			$str .= ' '.GetEastMoneyGlobalFuturesLink();
+	
+	if (in_arraySpyLof($strSymbol) || in_arrayQqqLof($strSymbol))		$str .= ' '.GetCmeEquityIndexLink();
+	
 	if ($strFutureSymbol == 'hf_CL' || $strFutureSymbol == 'hf_GC')	$str .= ' '.GetMacroTrendsGoldOilRatioLink();
 	if ($strFutureSymbol == 'hf_GC')										$str .= ' '.GetMacroTrendsFutureLink('gold');
-	else if ($strFutureSymbol == 'hf_CL')								$str .= ' '.GetDailyFxCrudeOilLink();
+	else if ($strFutureSymbol == 'hf_CL')								
+	{
+		$str .= ' '.GetCmeCrudeOilLink();
+		$str .= ' '.GetDailyFxCrudeOilLink();
+	}
+	
 	if ($strExternalLinks)												$str .= ' '.$strExternalLinks;
 	$str .= '<br />&nbsp';
 	

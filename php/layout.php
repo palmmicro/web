@@ -9,6 +9,13 @@ require_once('class/Mobile_Detect.php');
 define('DEFAULT_DISPLAY_WIDTH', 900);
 define('MIN_SCRREN_WIDTH', DEFAULT_DISPLAY_WIDTH + 15 + DEFAULT_ADSENSE_WIDTH);		// 隔15个像素再显示最右边的广告, 见下面width=15
 
+function EchoCanonical()
+{
+	$str = str_replace('www.', '', UrlGetServer());
+	$str .= UrlGetUri();
+	echo $str;
+}
+
 function LayoutQqGroup()
 {
 	$strWeixin = GetWeixinDevLink();

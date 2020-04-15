@@ -134,13 +134,10 @@ class _LofGroup extends _StockGroup
 
     function EchoTestParagraph()
     {
-        if (AcctIsAdmin())
-        {
-        	if (RefHasData($this->ref->GetEstRef()))
-        	{
-        		$str = $this->_getAdjustString();
-        		EchoParagraph($str);
-        	}
+       	if (RefHasData($this->ref->GetEstRef()))
+       	{
+       		$str = $this->_getAdjustString();
+       		EchoParagraph($str);
 	    }
     }
 } 

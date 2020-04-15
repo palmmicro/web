@@ -4,7 +4,7 @@ require('php/_goldetf.php');
 function EchoRelated()
 {
 	$strGroup = GetGoldEtfLinks();
-	$strCompany = GetBoseraSoftwareLinks();
+	$strCompany = GetBoShiSoftwareLinks();
 	
 	echo <<< END
 	<p> $strGroup

@@ -38,10 +38,7 @@ function EchoAll()
 	}
     
     EchoPromotionHead('goldetf');
-    if (AcctIsAdmin())
-    {
-        _echoTestParagraph($group);
-    }
+    _echoTestParagraph($group);
     EchoRelated();
 }
 

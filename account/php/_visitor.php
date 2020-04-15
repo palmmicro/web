@@ -92,7 +92,6 @@ function EchoBlogVisitor($bChinese = true)
     $iStart = UrlGetQueryInt('start');
     $iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
     _echoBlogVisitorParagraph($sql, $iStart, $iNum, $bChinese);
-    EchoVisitorCommonLinks($bChinese);
 }
 
     AcctAuth();

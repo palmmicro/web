@@ -25,7 +25,6 @@ function VisitorLogin($bChinese)
 		if ($bChinese)
 		{
 			$str = $strLoginLink.'登录账号'.$strLink;
-			if (AcctIsAdmin())		$str .= ' '.GetFileDebugLink(DebugGetFile()).' '.GetFileDebugLink(DebugGetTestFile());
 		    _echoLogin($str);
 	    }
 	    else

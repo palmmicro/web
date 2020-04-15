@@ -62,6 +62,11 @@ function GetJisiluDataUrl()
 	return 'https://www.jisilu.cn/data/';
 }
 
+function GetBoShiFundUrl()
+{
+	return 'http://www.bosera.com';
+}
+
 function GetJiaShiFundUrl()
 {
 	return 'http://www.jsfund.cn';
@@ -103,5 +108,11 @@ function GetMacroTrendsUrl()
 {
 	return 'https://www.macrotrends.net';
 }
+
+function GetCmeTradingUrl()
+{
+	return 'https://www.cmegroup.com/trading/';
+}
+
 
 ?>

@@ -167,10 +167,10 @@ function GetChinaInternetSoftwareLinks()
     return _getCategorySoftwareLinks('chinainternet');
 }
 
-function GetBoseraSoftwareLinks()
+function GetBoShiSoftwareLinks()
 {
     $ar = array('sh513500', 'sz159937');
-    $strLink = GetExternalLink('http://www.bosera.com', '博时基金');
+    $strLink = GetExternalLink(GetBoShiFundUrl(), '博时基金');
     return GetCategorySoftwareLinks($ar, $strLink);
 }
 

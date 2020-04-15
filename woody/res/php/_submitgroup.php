@@ -133,7 +133,9 @@ function _onNew($strMemberId, $strGroupName, $strSymbols)
     _debugStockGroup($strGroupId, $strSymbols);
 }
 
-    $strMemberId = AcctAuth();
+   	$acct = new AcctStart();
+	$acct->Auth();
+	$strMemberId = $acct->GetLoginId();
 
 	if ($strGroupId = UrlGetQueryValue('delete'))
 	{
@@ -148,7 +150,7 @@ function _onNew($strMemberId, $strGroupName, $strSymbols)
 		switch ($_POST['submit'])
 		{
 		case STOCK_GROUP_ADJUST:
-		    _onAdjust($strSymbols);
+			if ($acct->IsAdmin())		_onAdjust($strSymbols);
 		    break;
 
 		case STOCK_GROUP_EDIT:
@@ -162,5 +164,5 @@ function _onNew($strMemberId, $strGroupName, $strSymbols)
 		unset($_POST['submit']);
 	}
 
-	SwitchToSess();
+	$acct->Back();
 ?>

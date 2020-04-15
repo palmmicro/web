@@ -21,6 +21,11 @@ function GetGuoTaiOfficialLink($strDigitA)
     return GetOfficialLink(GetGuoTaiFundUrl().'/Etrade/Jijin/view/id/'.$strDigitA, $strDigitA);
 }
 
+function GetBoShiOfficialLink($strDigitA)
+{
+    return GetOfficialLink(GetBoShiFundUrl().'/fund/'.$strDigitA.'.html', $strDigitA);
+}
+
 function GetJiaShiOfficialLink($strDigitA)
 {
     return GetOfficialLink(GetJiaShiFundUrl().'/Services/cn/html/product/index.shtml?fundcode='.$strDigitA, $strDigitA);
@@ -81,6 +86,11 @@ function GetEastMoneyFundRatioLink($sym)
         return GetExternalLink($strHttp, $strSymbol);
     }
     return $strSymbol;
+}
+
+function GetEastMoneyQdiiLink()
+{
+    return GetExternalLink(GetEastMoneyFundUrl().'/QDII_jzzzl.html', '东方财富QDII汇总');
 }
 
 function GetXueqiuLink($sym)
@@ -332,6 +342,16 @@ function GetMacroTrendsFutureLink($str)
 function GetDailyFxCrudeOilLink()
 {
 	return GetExternalLink('https://www.dailyfx.com/crude-oil', '原油期货');
+}
+
+function GetCmeCrudeOilLink()
+{
+	return GetOfficialLink(GetCmeTradingUrl().'energy/crude-oil/light-sweet-crude.html', '芝商所CL');
+}
+
+function GetCmeEquityIndexLink()
+{
+	return GetOfficialLink(GetCmeTradingUrl().'equity-index/', '芝商所股指期货'); 
 }
 
 ?>
