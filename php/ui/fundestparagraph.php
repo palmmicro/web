@@ -6,17 +6,7 @@ function _echoFundEstTableItem($ref, $bFair, $bRealtime)
 {
     if (RefHasData($ref) == false)      return;
 
-    if ($ref->IsFundA())
-    {
-    	$strLink = GetEastMoneyFundLink($ref);
-    }
-    else
-    {
-    	$strLink = GetYahooStockLink($ref);
-    }
-
-    $ar = array($strLink);
-    $ar[] = $ref->GetNetValue();
+    $ar = array(RefGetMyStockLink($ref), $ref->GetNetValue());
     
     $strOfficialPrice = $ref->GetOfficialNetValue();
     $ar[] = $ref->GetPriceDisplay($strOfficialPrice);

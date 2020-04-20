@@ -354,4 +354,9 @@ function GetCmeEquityIndexLink()
 	return GetOfficialLink(GetCmeTradingUrl().'equity-index/', '芝商所股指期货'); 
 }
 
+function GetUscfLink()
+{
+	return GetOfficialLink('http://www.uscfinvestments.com', 'USO/USL/BNO'); 
+}
+
 ?>

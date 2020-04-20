@@ -77,7 +77,7 @@
 而我反复折腾<i>mb_detect_encoding</i>和<i>iconv</i>等PHP函数都无法把GB2312转换成UTF-8.
 <br .>不过我已经不是当年的吴下阿蒙了. 我先上网找来了GB2312和UNICODE的<a href="http://blog.csdn.net/longronglin/article/details/1355890" target=_blank>对应码表</a>, 
 然后写了个转换工具, 生成了按照GB2312作为key排序后的对应数组$arGB2312, 
-最后在函数<i>FromGB2312ToUTF8</i>中把从$arGB2312查表得到的UNICODE调用网上找来的小函数<a href="https://segmentfault.com/a/1190000003020776" target=_blank><i>unicode_to_utf8</i></a>转换成UTF8.
+最后在函数<i>GbToUtf8</i>中把从$arGB2312查表得到的UNICODE调用网上找来的小函数<a href="https://segmentfault.com/a/1190000003020776" target=_blank><i>unicode_to_utf8</i></a>转换成UTF8.
 整个过程耗时一个晚上一气呵成, 感觉好极了!
 </p>
 

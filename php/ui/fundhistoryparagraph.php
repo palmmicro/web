@@ -91,10 +91,18 @@ function _echoFundHistoryParagraph($ref, $est_ref, $csv = false, $iStart = 0, $i
 	$nv_col = new TableColumnNetValue();
 	$premium_col = new TableColumnPremium();
 	
-    $strSymbol = $ref->GetSymbol();
-    $str = GetMyStockLink($strSymbol).'的历史'.$close_col->GetDisplay().'相对于'.$nv_col->GetDisplay().'的'.$premium_col->GetDisplay();
+    if ($ref->IsFundA())
+    {
+    	$str = GetEastMoneyFundLink($ref);
+    }
+    else
+    {
+    	$str = GetYahooStockLink($ref);
+    }
+    $str .= '的历史'.$close_col->GetDisplay().'相对于'.$nv_col->GetDisplay().'的'.$premium_col->GetDisplay();
     
 	$sql = new NetValueHistorySql($ref->GetStockId());
+    $strSymbol = $ref->GetSymbol();
     if (IsTableCommonDisplay($iStart, $iNum))
     {
         $str .= ' '.GetFundHistoryLink($strSymbol);

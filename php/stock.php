@@ -323,7 +323,7 @@ function EtfGetAllSymbolArray($strSymbol)
     return array($strSymbol, SqlGetEtfPair($strSymbol));
 }
 
-function _getAllSymbolArray($strSymbol)
+function _getAllSymbolArray($strSymbol, $strStockId)
 {
    	$sym = new StockSymbol($strSymbol);
     if ($sym->IsFundA())
@@ -368,12 +368,22 @@ function _getAllSymbolArray($strSymbol)
 
 function StockPrefetchArrayData($ar)
 {
+	$sql = new StockSql();
     $arAll = array();
+    
     foreach ($ar as $strSymbol)
     {
     	if ($strSymbol)
     	{
-    		$arAll = array_merge($arAll, _getAllSymbolArray($strSymbol));
+    		if ($strStockId = $sql->GetId($strSymbol))
+    		{
+    			$arAll = array_merge($arAll, _getAllSymbolArray($strSymbol, $strStockId));
+    		}
+    		else
+    		{
+    			$arAll[] = $strSymbol;
+    			DebugString($strSymbol.' new stock symbol');
+    		}
     	}
     }
     $arAll = array_unique($arAll);

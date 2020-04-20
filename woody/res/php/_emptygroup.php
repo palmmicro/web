@@ -34,9 +34,13 @@ class SymbolAcctStart extends StockAcctStart
     {
     	if ($ref = $this->GetRef())
     	{
-   			$this->EchoStockGroupParagraph(false, $ref->GetStockId());
+    		if ($ref->HasData())
+    		{
+    			$this->EchoStockGroupParagraph(false, $ref->GetStockId());
+    			return $ref;
+    		}
     	}
-    	return $ref;
+    	return false;
     }
     
     function GetSymbolDisplay($strDefault = '')

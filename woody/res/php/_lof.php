@@ -147,6 +147,7 @@ function GetLofLinks($ref, $strExternalLinks = false)
 	if ($strFutureSymbol == 'hf_GC')										$str .= ' '.GetMacroTrendsFutureLink('gold');
 	else if ($strFutureSymbol == 'hf_CL')								
 	{
+		$str .= ' '.GetUscfLink();
 		$str .= ' '.GetCmeCrudeOilLink();
 		$str .= ' '.GetDailyFxCrudeOilLink();
 	}

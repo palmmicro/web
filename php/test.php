@@ -59,6 +59,7 @@ function TestCmdLine()
 	echo strval(rand()).' Hello, world!';
 
 	TestCmdLine();
+	
 //	WriteForexDataFromFile();
 	phpinfo();
 

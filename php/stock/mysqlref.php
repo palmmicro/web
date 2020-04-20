@@ -61,7 +61,7 @@ class MysqlReference extends StockReference
     {
     	if ($this->bConvertGB2312)
     	{
-    		return FromGB2312ToUTF8($this->strName);
+    		return GbToUtf8($this->strName);
     	}
    		return $this->strName;
     }
@@ -75,7 +75,7 @@ class MysqlReference extends StockReference
 
     	if ($this->bConvertGB2312)
     	{
-    		return FromGB2312ToUTF8($this->strChineseName);
+    		return GbToUtf8($this->strChineseName);
     	}
     	return $this->strChineseName;
     }

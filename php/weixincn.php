@@ -9,23 +9,40 @@ define('MAX_WX_STOCK', 31);
 
 // ****************************** Wexin support functions *******************************************************
 
-function _wxGetStockArray($strContents)
+function _wxGetStockArray($strKey)
 {
-    $strKey = trim($strContents);
     $ar = array();
+    
 //  if (!empty($strKey))     // "0" (0 as a string) is considered to be empty
-    if (strlen($strKey) > 0)
-    {  	// check all
+	$iLen = strlen($strKey); 
+    if ($iLen > 0)
+    {
+    	$bPinYin = false;
+    	if ($iLen == 4)
+    	{
+    		if (preg_match('#[A-Za-z]+#', $strKey))
+    		{
+    			DebugString('拼音简称:'.$strKey);
+//    			$gb_sql = new GB2312Sql();
+    			$bPinYin = true;
+    		}
+    	}
+    	
     	$sql = new StockSql();
     	if ($result = $sql->GetAll()) 
     	{
     		while ($record = mysql_fetch_assoc($result)) 
     		{
-    			$str = $record['symbol'];
-    			if ((stripos($str, $strKey) !== false) || (stripos($record['name'], $strKey) !== false))
+    			$strSymbol = $record['symbol'];
+    			$strName = $record['name'];
+    			if ((stripos($strSymbol, $strKey) !== false) 
+    				|| (stripos($strName, $strKey) !== false)
+//    				|| ($bPinYin && (stripos($gb_sql->GetStockPinYinName($strName), $strKey) !== false))
+    				)
     			{
-    				$ar[] = $str;
-    				if (count($ar) > MAX_WX_STOCK)	break;
+    				$ar[] = $strSymbol;
+//    				if (count($ar) > MAX_WX_STOCK)	
+    					break;
     			}
     		}
     		@mysql_free_result($result);
@@ -188,9 +205,11 @@ class WeixinStock extends WeixinCallback
 	function OnText($strText, $strUserName)
 	{
 //		DebugString($strText);
+		$strText = str_replace('【', '', $strText);
+		$strText = str_replace('】', '', $strText);
+		$strText = str_replace('，', '', $strText);
+		$strText = str_replace('。', '', $strText);
 		$strText = trim($strText);
-//		$strText = trim($strText, ',?:.，？：。');
-		$strText = rtrim($strText, '。');
     
         if (stripos($strText, 'q群') !== false)	return $this->GetQqGroupText();
 

@@ -36,7 +36,7 @@ function _updateChinaBond()
     $str = url_get_contents($strUrl);
     if ($str == false)	return;
     
-    $str = FromGB2312ToUTF8($str);
+    $str = GbToUtf8($str);
 //	DebugString($str);
 
     $strBoundary = RegExpBoundary();

@@ -150,49 +150,46 @@ function _echoMyStockData($ref, $strMemberId, $bAdmin)
 //   		else														$ref = StockGetReference($strSymbol, $ref);
     }
     
-    if ($ref->HasData())
-    {
-    	EchoReferenceParagraph(array($ref));
-    	if ($etf_ref)
-    	{
-    		EchoEtfListParagraph(array($etf_ref));
-    		EchoEtfTradingParagraph($etf_ref);
-    		EchoEtfHistoryParagraph($etf_ref);
-    	}
-    	else if ($ref->IsFundA())
-    	{
-    		if ($fund->fOfficialNetValue)	EchoFundEstParagraph($fund);
-    		EchoFundTradingParagraph($fund);
-    		EchoFundHistoryParagraph($fund);
-    	}
-    	else
-    	{
-    		if ($hshare_ref)
-    		{
-    			if ($strSymbol != $hshare_ref->GetSymbol())	RefSetExternalLinkMyStock($hshare_ref);
-    			if ($hshare_ref->a_ref)								EchoAhParagraph(array($hshare_ref));
-    			if ($hshare_ref->adr_ref)							EchoAdrhParagraph(array($hshare_ref));
-    		}
-    		if ($ref->IsSymbolA())
-    		{
-    			if ($hshare_ref)	EchoAhTradingParagraph($hshare_ref);
-    			else 				EchoTradingParagraph($ref);
-    		}
-    		EchoNvCloseHistoryParagraph($ref);
-    	}
+   	EchoReferenceParagraph(array($ref));
+   	if ($etf_ref)
+   	{
+   		EchoEtfListParagraph(array($etf_ref));
+   		EchoEtfTradingParagraph($etf_ref);
+   		EchoEtfHistoryParagraph($etf_ref);
+   	}
+   	else if ($ref->IsFundA())
+   	{
+   		if ($fund->fOfficialNetValue)	EchoFundEstParagraph($fund);
+   		EchoFundTradingParagraph($fund);
+   		EchoFundHistoryParagraph($fund);
+   	}
+   	else
+   	{
+   		if ($hshare_ref)
+   		{
+   			if ($strSymbol != $hshare_ref->GetSymbol())	RefSetExternalLinkMyStock($hshare_ref);
+   			if ($hshare_ref->a_ref)								EchoAhParagraph(array($hshare_ref));
+   			if ($hshare_ref->adr_ref)							EchoAdrhParagraph(array($hshare_ref));
+   		}
+   		if ($ref->IsSymbolA())
+   		{
+   			if ($hshare_ref)	EchoAhTradingParagraph($hshare_ref);
+   			else 				EchoTradingParagraph($ref);
+   		}
+   		EchoNvCloseHistoryParagraph($ref);
+   	}
     
-    	if ($etf_ref)   			EchoEtfSmaParagraph($etf_ref);
-    	if (_hasSmaDisplay($ref))
-    	{
-    		if ($hshare_ref)		EchoHShareSmaParagraph($ref, $hshare_ref);
-    		else	        		EchoSmaParagraph($ref);
-    	}
-    	EchoStockHistoryParagraph($ref);
+   	if ($etf_ref)   			EchoEtfSmaParagraph($etf_ref);
+   	if (_hasSmaDisplay($ref))
+   	{
+   		if ($hshare_ref)		EchoHShareSmaParagraph($ref, $hshare_ref);
+   		else	        		EchoSmaParagraph($ref);
+   	}
+   	EchoStockHistoryParagraph($ref);
     	
-    	_echoBenfordParagraph($ref);
+   	_echoBenfordParagraph($ref);
     
-    	if ($strMemberId)		_echoMyStockTransactions($strMemberId, $ref);
-    }
+   	if ($strMemberId)		_echoMyStockTransactions($strMemberId, $ref);
     
     if ($bAdmin)
     {
@@ -201,12 +198,9 @@ function _echoMyStockData($ref, $strMemberId, $bAdmin)
     	{
     		$str .= '<br />id='.$strStockId;
     		$str .= '<br />'._getMyStockLinks($ref);
-    		if ($ref->HasData())
-    		{
-    			$str .= '<br />'.$ref->DebugLink();
-    			if ($ref->IsFundA())			$str .= '<br />'.$fund->DebugLink();
-    			if (_hasSmaDisplay($ref)) 		$str .= '<br />'.GetTableColumnSma().' '.$ref->DebugConfigLink();
-    		}
+   			$str .= '<br />'.$ref->DebugLink();
+   			if ($ref->IsFundA())			$str .= '<br />'.$fund->DebugLink();
+   			if (_hasSmaDisplay($ref)) 		$str .= '<br />'.GetTableColumnSma().' '.$ref->DebugConfigLink();
     	}
     	EchoParagraph($str);
     }

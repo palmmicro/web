@@ -12,7 +12,10 @@ function LofGetStockPosition($strEstPrev, $strEst, $strPrev, $strNetValue, $strC
 		if (($f !== false) && ($f != 0.0))
 		{
 			$fVal = StockGetPercentage($strPrev, $strNetValue) / $f;
-			return strval_round($fVal, 2);
+			if ($fVal > 0.1)
+			{
+				return strval_round($fVal, 2);
+			}
 		}
 	}
 	return false;

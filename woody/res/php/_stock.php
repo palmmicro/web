@@ -97,18 +97,26 @@ function _isFromWeixin()
 		case 'groupmessage':
 			LayoutQqGroup();
 			DebugString('微信群');
-			break;
+			return true;
 			
 		case 'singlemessage':
 			LayoutWeixinPromotion();
 			DebugString('好友分享');
-			break;
+			return true;
 
 		case 'timeline':
-			LayoutWeixinPay();
 			DebugString('朋友圈');
 			break;
+			
+		case 'androidqq':
+		case 'message':
+			break;
+
+		default:
+			DebugString('未知WX消息 - '.$strFrom);
+			break;
 		}
+		LayoutWeixinPay();
 		return true;
 	}
 	return false;
@@ -118,6 +126,7 @@ function _isFromQq()
 {
 	if ($strFrom = UrlGetQueryValue('tdsourcetag'))
 	{
+		LayoutQqGroup();
 		switch ($strFrom)
 		{
 		case 's_pcqq_aiomsg':
@@ -127,8 +136,11 @@ function _isFromQq()
 		case 's_pctim_aiomsg':
 			DebugString('TIM消息');
 			break;
+			
+		default:
+			DebugString('未知QQ消息 - '.$strFrom);
+			break;
 		}
-		LayoutQqGroup();
 		return true;
 	}
 	return false;

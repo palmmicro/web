@@ -94,7 +94,7 @@ function SinaGetStockDividendA($strSymbol)
     $strUrl = GetStockDividendUrl($sym);
     if ($str = url_get_contents($strUrl))
     {
-    	$str = FromGB2312ToUTF8($str);
+    	$str = GbToUtf8($str);
 
     	$strBoundary = RegExpBoundary();
     	$strSpace = RegExpSpace();

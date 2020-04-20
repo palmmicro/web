@@ -17,7 +17,7 @@ class StockSql extends KeyNameSql
     	return $this->CreateIdTable($str);
     }
 
-    function WriteSymbol($strSymbol, $strName)
+    function WriteSymbol($strSymbol, $strName, $bCheck = true)
     {
     	$strName = SqlCleanString($strName);
     	$ar = array('symbol' => $strSymbol,
@@ -27,9 +27,12 @@ class StockSql extends KeyNameSql
     	{	
     		unset($ar['symbol']);
     		$strOrig = $record['name'];
-    		if ((strpos($strOrig, '-') === false) && ($strName != $strOrig))
-    		{	// 股票说明中带'-'的是手工修改的, 防止在自动更新中被覆盖.
-    			return $this->UpdateById($ar, $record['id']);
+    		if ($strName != $strOrig)
+    		{
+    			if (($bCheck == false) || (strpos($strOrig, '-') === false))
+    			{	// 股票说明中带'-'的是手工修改的, 防止在自动更新中被覆盖.
+    				return $this->UpdateById($ar, $record['id']);
+    			}
     		}
     	}
     	else
