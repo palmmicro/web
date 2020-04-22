@@ -216,10 +216,10 @@ function GetEFundSoftwareLinks()
     return GetCategorySoftwareLinks($ar, $strLink);
 }
 
-function GetFortuneSoftwareLinks()
+function GetHuaBaoSoftwareLinks()
 {
     $ar = array('sz162411', 'sz162415');
-    $strLink = GetExternalLink('http://www.fsfund.com', '华宝基金');
+    $strLink = GetExternalLink(GetHuaBaoFundUrl(), '华宝基金');
     return GetCategorySoftwareLinks($ar, $strLink);
 }
 

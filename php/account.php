@@ -134,6 +134,7 @@ function AcctGetSpiderPageCount($sql)
 
 function _onBlockedIp($sql)
 {
+    mysql_close();
     die('Please contact support@palmmicro.com to unblock your IP address '.$sql->GetKey());
 }
 

@@ -67,6 +67,11 @@ function GetBoShiFundUrl()
 	return 'http://www.bosera.com';
 }
 
+function GetHuaBaoFundUrl()
+{
+	return 'http://www.fsfund.com';
+}
+
 function GetJiaShiFundUrl()
 {
 	return 'http://www.jsfund.cn';

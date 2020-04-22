@@ -141,7 +141,11 @@ function GetLofLinks($ref, $strExternalLinks = false)
 	$str .= ' '.GetEastMoneyQdiiLink();
 	if ($strFutureSymbol || in_arrayCommodityLof($strSymbol))			$str .= ' '.GetEastMoneyGlobalFuturesLink();
 	
-	if (in_arraySpyLof($strSymbol) || in_arrayQqqLof($strSymbol))		$str .= ' '.GetCmeEquityIndexLink();
+	if (in_arraySpyLof($strSymbol) || in_arrayQqqLof($strSymbol))
+	{
+		$str .= ' '.GetCmeEquityIndexLink();
+		$str .= ' '.GetBuffettIndicatorLink();
+	}
 	
 	if ($strFutureSymbol == 'hf_CL' || $strFutureSymbol == 'hf_GC')	$str .= ' '.GetMacroTrendsGoldOilRatioLink();
 	if ($strFutureSymbol == 'hf_GC')										$str .= ' '.GetMacroTrendsFutureLink('gold');

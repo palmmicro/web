@@ -199,6 +199,7 @@ function _layoutTail($iWidth, $bChinese, $bAdsense = true)
 //        echo '</div>';
     }
     EchoCopyRight($_SESSION['mobile'], $bChinese);
+    mysql_close();
 }
 
 function LayoutTail($bChinese = true)

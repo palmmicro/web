@@ -26,6 +26,11 @@ function GetBoShiOfficialLink($strDigitA)
     return GetOfficialLink(GetBoShiFundUrl().'/fund/'.$strDigitA.'.html', $strDigitA);
 }
 
+function GetHuaBaoOfficialLink($strDigitA)
+{
+    return GetOfficialLink(GetHuaBaoFundUrl().'/funds/'.$strDigitA.'/index.shtml', $strDigitA);
+}
+
 function GetJiaShiOfficialLink($strDigitA)
 {
     return GetOfficialLink(GetJiaShiFundUrl().'/Services/cn/html/product/index.shtml?fundcode='.$strDigitA, $strDigitA);
@@ -342,6 +347,11 @@ function GetMacroTrendsFutureLink($str)
 function GetDailyFxCrudeOilLink()
 {
 	return GetExternalLink('https://www.dailyfx.com/crude-oil', '原油期货');
+}
+
+function GetBuffettIndicatorLink()
+{
+	return GetExternalLink('https://www.longtermtrends.net/market-cap-to-gdp/', '巴菲特指标');
 }
 
 function GetCmeCrudeOilLink()

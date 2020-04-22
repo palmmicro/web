@@ -145,8 +145,6 @@ function SqlCreateStockGroupItemTable()
          . ' FOREIGN KEY (`stockgroup_id`) REFERENCES `stockgroup`(`id`) ON DELETE CASCADE ,'
          . ' UNIQUE ( `stock_id`, `stockgroup_id` )'
          . ' ) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci '; 
-	$result = @mysql_query($str);
-	if (!$result)	die('Create stockgroupitem table failed');
 }
 
 function SqlAlterStockGroupItemTable()

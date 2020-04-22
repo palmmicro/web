@@ -16,16 +16,12 @@ function SqlCreateStockCalibrationTable()
          . ' UNIQUE ( `filled`, `stock_id` ),'
          . ' FOREIGN KEY (`stock_id`) REFERENCES `stock`(`id`) ON DELETE CASCADE'
          . ' ) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci '; 
-	$result = @mysql_query($str);
-	if (!$result)	die('Create stockcalibration table failed');
 }
 
 function SqlAlterStockCalibrationTable()
 {    
     $str = 'ALTER TABLE `camman`.`stockcalibration` ADD '
          . ' UNIQUE ( `filled`, `stock_id` )';
-	$result = @mysql_query($str);
-	if (!$result)	die('Alter stockcalibration table failed');
 }
 */
 

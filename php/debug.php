@@ -137,6 +137,7 @@ function DebugString($str)
 function dieDebugString($str)
 {
     DebugString($str);
+    mysql_close();
     die($str);
 }
 

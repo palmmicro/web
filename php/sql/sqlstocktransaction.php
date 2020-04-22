@@ -100,8 +100,6 @@ function SqlCreateStockTransactionTable()
         . '`remark` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL ,'
         . ' FOREIGN KEY (`groupitem_id`) REFERENCES `stockgroupitem`(`id`) ON DELETE CASCADE'
         . ') ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci'; 
-	$result = @mysql_query($str);
-	if (!$result)	die('Create stocktransaction table failed');
 }
 */
 

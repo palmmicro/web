@@ -2,7 +2,7 @@
 require_once('debug.php');
 
 // 微信公众号公共模板, 返回输入信息
-define('WX_DEBUG_VER', '版本949');		
+define('WX_DEBUG_VER', '版本952');		
 
 define('WX_EOL', "\r\n");
 define('MAX_WX_MSG_LEN', 2048);
@@ -149,16 +149,11 @@ class WeixinCallback
     	return WX_DEBUG_VER;
     }
     
-    function GetDefaultText()
-    {
-    	return '测试账号'.WX_EOL;
-    }
-
     function GetUnknownText($strContents, $strUserName)
     {
     	$str = $strContents.WX_EOL;
-    	$str .= '没有匹配到信息.'.WX_EOL;
-    	return $str.$this->GetDefaultText();
+    	$str .= '没有匹配到信息.';
+    	return $str;
     }
 
     function OnText($strText, $strUserName)

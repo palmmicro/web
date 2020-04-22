@@ -203,6 +203,8 @@ function GetXueqiuFollower($strId, $strToken)
 		if ($str == false)	break;
 
 		$ar = json_decode($str, true);
+		if (isset($ar['count']) == false)		break;
+		if (isset($ar['maxPage']) == false)		break;
 		
 		if (intval($ar['count']) > 0)
 		{

@@ -234,12 +234,6 @@ function UrlGetType()
     return URL_PHP;
 }
 
-// /woody/blog/entertainment/20140615cn.php ==> 20140615cn.php
-function UrlGetFileName($strPathName)
-{
-    return substr($strPathName, strrpos($strPathName, "/") + 1);
-}
-
 // /woody/blog/entertainment/20140615cn.php ==> 20140615
 function _getTitle($str)
 {
@@ -257,6 +251,12 @@ function _getTitle($str)
    	    return substr($str, 0, strlen($str) - 2);
    	}
    	return $str;
+}
+
+// /woody/blog/entertainment/20140615cn.php ==> 20140615cn.php
+function UrlGetFileName($strPathName)
+{
+    return substr($strPathName, strrpos($strPathName, "/") + 1);
 }
 
 function UrlGetTitle()

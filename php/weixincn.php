@@ -4,7 +4,6 @@ require_once('debug.php');
 require_once('stock.php');
 require_once('ui/stocktext.php');
 
-define('WX_DEFAULT_SYMBOL', 'SZ162411');
 define('MAX_WX_STOCK', 31);
 
 // ****************************** Wexin support functions *******************************************************
@@ -183,11 +182,6 @@ class WeixinStock extends WeixinCallback
     	return WX_DEBUG_VER.' '.GetWeixinDevLink('使用说明');
     }
     
-	function GetDefaultText()
-	{
-		return $this->_getStockArrayText(array(WX_DEFAULT_SYMBOL));
-	}
-
 	function GetQqGroupText()
 	{
 		$str = 'Palmmicro群7的'.GetInternalLink('/woody/image/group7.png', '二维码链接').WX_EOL;
@@ -199,7 +193,7 @@ class WeixinStock extends WeixinCallback
 		_wxDebug($strUserName, "<font color=green>内容:</font>$strContents", 'Wechat message');
 		$str = $strContents.WX_EOL;
 		$str .= '本公众号目前只提供部分股票交易和净值估算自动查询. 因为没有匹配到信息, 此消息内容已经发往support@palmmicro.com邮箱, palmmicro会尽快在公众号上回复, 也欢迎在QQ群中咨询.'.WX_EOL;
-		return $str.$this->GetQqGroupText().$this->GetDefaultText();
+		return $str.$this->GetQqGroupText();
 	}
 
 	function OnText($strText, $strUserName)
@@ -230,40 +224,37 @@ class WeixinStock extends WeixinCallback
 		{
 			$str = $this->GetUnknownText($strText, $strUserName);
 		}
+		
+		mysql_close();
 		return $str;
 	}
 
 	function OnEvent($strContents, $strUserName)
 	{
-        if (_ConnectDatabase() == false)
-        {
-        	return '服务器繁忙, 请稍后再试.'.WX_EOL;
-        }
-
-		if ($strContents == 'subscribe')
+		switch ($strContents)
 		{
-			$str = '欢迎订阅, 本账号为自动回复, 请用语音或者键盘输入要查找的内容.'.WX_EOL;
-			$str .= $this->GetDefaultText();
-		}
-		else if ($strContents == 'unsubscribe')
-		{
+		case 'subscribe':
+			$str = '欢迎订阅, 本账号为自动回复, 请用语音或者键盘输入要查找的内容.';
+			break;
+			
+		case 'unsubscribe':
 			$str = '再见';
-		}
-		else if ($strContents == 'MASSSENDJOBFINISH')
-		{	// Mass send job finish
-			$str = '收到群发完毕';
+			break;
+			
+		case 'MASSSENDJOBFINISH':
+			$str = '收到群发完毕';		// Mass send job finish
+			break;
+			
+		default:
+			$str = '(未知Event)';
+			break;
 		}
 		_wxDebug($strUserName, $str, 'Wechat '.$strContents);
-		return $str;
+		return $str.WX_EOL;
 	}
 
 	function OnImage($strUrl, $strUserName)
 	{
-        if (_ConnectDatabase() == false)
-        {
-        	return '服务器繁忙, 请稍后再试.'.WX_EOL;
-        }
-
 		$strContents = '未知图像信息';
     
 		if ($img = url_get_contents($strUrl))

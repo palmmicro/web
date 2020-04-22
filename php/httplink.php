@@ -65,7 +65,7 @@ function GetCurLink()
 
 function GetFileLink($strPathName)
 {
-	$strFileName = UrlGetFileName($strPathName);
+	$strFileName = basename($strPathName);
 /*	if (strlen($strFileName) > 10)
 	{
 		$strFileName = substr($strFileName, -10, 10);

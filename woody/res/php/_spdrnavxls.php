@@ -12,7 +12,7 @@ function _readXlsFile($strPathName, $sql, $shares_sql)
 	} 
 	catch(Exception $e) 
 	{
-		die('Load excel file error: "'.pathinfo($strPathName, PATHINFO_BASENAME).'": '.$e->getMessage());
+		dieDebugString('Load excel file error: "'.pathinfo($strPathName, PATHINFO_BASENAME).'": '.$e->getMessage());
 	}
 
 	// 确定要读取的sheet，什么是sheet，看excel的右下角
@@ -58,7 +58,7 @@ function GetSpdrNavXlsStr($strSymbol)
 		$str = url_get_contents($strUrl);
 		if ($str == false)	return '没读到数据';
 		
-		$strFileName = UrlGetFileName($strUrl);
+		$strFileName = basename($strUrl);
 		$strPathName = DebugGetPathName($strFileName);
 		file_put_contents($strPathName, $str);
 		

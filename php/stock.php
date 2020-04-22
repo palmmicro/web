@@ -8,7 +8,6 @@ require_once('externallink.php');
 require_once('gb2312.php');
 
 require_once('sql/sqlipaddress.php');
-require_once('sql/sqlsina.php');
 require_once('sql/sqlstock.php');
 
 require_once('stock/stocksymbol.php');
@@ -125,26 +124,26 @@ function GetSinaQuotes($strSinaSymbols)
 //		DebugString('Ignore: '.gethostbyaddr($strIp).' '.$strSinaSymbols);
 		return false;
 	}
-	
-	$sql = new SinaLogSql();
-   	if ($record = $sql->GetRecordNow())
+
+	$strFileName = DebugGetPathName('debugsinaquotes.txt');
+    if (file_exists($strFileName))
     {
-    	date_default_timezone_set(DEBUG_TIME_ZONE);
-    	if (time() - strtotime($record['date'].' '.$record['time']) < 30)
+    	if (time() - filemtime($strFileName) < 30)
     	{
-//    		DebugString('Ignore: '.$strSinaSymbols);
+//    		DebugString('Ignored: '.$strSinaSymbols);
     		return false;
     	}
     }
-    
-	$sql->SetKeyVal($strIp);
-	$sql->InsertLog(new SinaTextSql($strSinaSymbols));
-	
+
     if ($str = url_get_contents(GetSinaQuotesUrl($strSinaSymbols)))
     {
-    	if (strlen($str) < 10)      return false;   // Sina returns error in an empty file
-    	return $str;
+    	$iLen = strlen($str);
+//    	DebugVal($iLen, basename(__FILE__));
+    	if ($iLen < 10)      return false;   // Sina returns error in an empty file
+		return $str;
     }
+
+   	file_put_contents($strFileName, $strSinaSymbols);
     return false;
 }
 

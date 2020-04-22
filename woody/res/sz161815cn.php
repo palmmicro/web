@@ -20,7 +20,6 @@ function EchoLofRelated($ref)
     	<a href="https://www.invesco.com/us/financial-products/etfs/product-detail?productId=DBC" target=_blank>DBC官网</a>
     	<a href="http://www.spdrgoldshares.com/usa/" target=_blank>GLD官网</a>
     	<a href="https://www.invesco.com/us/financial-products/etfs/product-detail?productId=DBO" target=_blank>DBO官网</a>
-    	<a href="https://xueqiu.com/4206051491/69865145" target=_blank>DBC和GSG的区别</a>
     </p>
 	<p> $strGroup
 		$strOil
