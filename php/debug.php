@@ -1,8 +1,6 @@
 <?php
 require_once('url.php');
 
-define('DEBUG_UTF8_BOM', "\xef\xbb\xbf");
-
 define('DEBUG_FILE_PATH', 'debug');
 define('DEBUG_FILE_NAME', 'debug.txt');
 
@@ -119,11 +117,6 @@ function DebugGetPathName($strFileName)
 function DebugGetFile()
 {
     return DebugGetPathName(DEBUG_FILE_NAME);
-}
-
-function DebugClear()
-{
-	file_put_contents(DebugGetFile(), DEBUG_UTF8_BOM.'Start debug:'.PHP_EOL);
 }
 
 function DebugString($str)

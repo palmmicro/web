@@ -385,9 +385,7 @@ function StockPrefetchArrayData($ar)
     		}
     	}
     }
-    $arAll = array_unique($arAll);
-    sort($arAll);
-    PrefetchSinaStockData($arAll);
+    PrefetchSinaStockData(array_unique($arAll));
 }
 
 function StockPrefetchData()

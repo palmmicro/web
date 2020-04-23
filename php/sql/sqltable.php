@@ -222,7 +222,7 @@ class TableSql
     	}
     	return $iCount;
     }
-    
+/*    
     function GetTableSchema()
     {
     	$strQry = "SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = 'camman' AND "._SqlBuildWhere('TABLE_NAME', $this->strName);
@@ -240,7 +240,7 @@ class TableSql
     	return false;
     }
     
-    function GetTableColumn()
+    function GetTableColumnName()
     {
     	$ar = array();
     	if ($result = $this->GetTableSchema()) 
@@ -252,7 +252,7 @@ class TableSql
     		@mysql_free_result($result);
     	}
     	return $ar;
-    }
+    }*/
 }
 
 ?>

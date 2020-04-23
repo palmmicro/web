@@ -3,26 +3,26 @@ require_once('sqlkeyname.php');
 
 class KeyTableSql extends TableSql
 {
-	var $key_sql;
+//	var $key_sql;
 	
 	var $strKey;
-//	var $strKeyPrefix;
+	var $strKeyPrefix;
 	var $strKeyId;
 	
     function KeyTableSql($strTableName, $strKeyId, $strKeyPrefix) 
     {
-    	$this->key_sql = new KeyNameSql($strKeyPrefix);
+//    	$this->key_sql = new KeyNameSql($strKeyPrefix);
     	
     	$this->strKeyId = $strKeyId;
-//    	$this->strKeyPrefix = $strKeyPrefix;
+    	$this->strKeyPrefix = $strKeyPrefix;
     	$this->strKey = $strKeyPrefix.'_id';
         parent::TableSql($strTableName);
     }
-    
+/*    
     function SetKeyVal($strVal)
     {
 		$this->strKeyId = $this->key_sql->GetId($strVal);
-    }
+    }*/
     
     function GetKeySql()
     {
@@ -36,8 +36,8 @@ class KeyTableSql extends TableSql
 
     function ComposeForeignKeyStr()
     {
-//		return ' FOREIGN KEY (`'.$this->strKey.'`) REFERENCES `'.$this->strKeyPrefix.'`(`id`) ON DELETE CASCADE ';
-		return ' FOREIGN KEY (`'.$this->strKey.'`) REFERENCES `'.$this->key_sql->GetTableName().'`(`id`) ON DELETE CASCADE ';
+		return ' FOREIGN KEY (`'.$this->strKey.'`) REFERENCES `'.$this->strKeyPrefix.'`(`id`) ON DELETE CASCADE ';
+//		return ' FOREIGN KEY (`'.$this->strKey.'`) REFERENCES `'.$this->key_sql->GetTableName().'`(`id`) ON DELETE CASCADE ';
     }
     
     function MakeFieldKeyId()

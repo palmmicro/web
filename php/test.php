@@ -8,6 +8,8 @@ require_once('sql/sqlblog.php');
 require_once('sql/sqlvisitor.php');
 require_once('sql/sqlstockdaily.php');
 
+define('DEBUG_UTF8_BOM', "\xef\xbb\xbf");
+
 // http://www.todayir.com/en/index.php HSFML25
 
 function _debug_dividend($strSymbol)
@@ -50,7 +52,8 @@ function TestCmdLine()
 }
 
     echo '<meta http-equiv="content-type" content="text/html; charset=UTF-8">';
-    DebugClear();
+
+	file_put_contents(DebugGetFile(), DEBUG_UTF8_BOM.'Start debug:'.PHP_EOL);
 	DebugString($_SERVER['DOCUMENT_ROOT']);
 	if (SqlConnectDatabase())
 	{

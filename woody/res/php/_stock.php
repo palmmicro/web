@@ -94,22 +94,17 @@ function _isFromWeixin()
 	{
 		switch ($strFrom)
 		{
-		case 'groupmessage':
+		case 'groupmessage':	// 微信群
 			LayoutQqGroup();
-			DebugString('微信群');
 			return true;
 			
-		case 'singlemessage':
+		case 'singlemessage':	// 好友分享
 			LayoutWeixinPromotion();
-			DebugString('好友分享');
 			return true;
 
-		case 'timeline':
-			DebugString('朋友圈');
-			break;
-			
-		case 'androidqq':
-		case 'message':
+		case 'timeline':		// 朋友圈
+		case 'androidqq':		// ?
+		case 'message':			// ?
 			break;
 
 		default:
@@ -129,12 +124,8 @@ function _isFromQq()
 		LayoutQqGroup();
 		switch ($strFrom)
 		{
-		case 's_pcqq_aiomsg':
-			DebugString('QQ消息');
-			break;
-			
-		case 's_pctim_aiomsg':
-			DebugString('TIM消息');
+		case 's_pcqq_aiomsg':	// QQ消息
+		case 's_pctim_aiomsg':	// TIM消息?
 			break;
 			
 		default:

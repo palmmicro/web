@@ -7,19 +7,19 @@ class KeyNameSql extends TableSql
 	var $strKeyId = false;
 	var $strKeyName;
 	
-    function KeyNameSql($strTableName, $strKey = false, $strKeyName = 'parameter')
+    function KeyNameSql($strTableName, $strKeyName = 'parameter', $strKey = false)
     {
         $this->strKey = $strKey;
         $this->strKeyName = $strKeyName;
         parent::TableSql($strTableName);
-        
-    	$ar = $this->GetTableColumn();
+/*       
+    	$ar = $this->GetTableColumnName();
 //    	DebugArray($ar);
     	if ($ar[1] != $strKeyName)
     	{
     		$this->strKeyName = $ar[1];
 //    		DebugString($this->strKeyName.' vs '.$strKeyName);
-    	}
+    	}*/
     }
 
     function MakeKeyArray()

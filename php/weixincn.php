@@ -4,7 +4,7 @@ require_once('debug.php');
 require_once('stock.php');
 require_once('ui/stocktext.php');
 
-define('MAX_WX_STOCK', 31);
+define('MAX_WX_STOCK', 10);
 
 // ****************************** Wexin support functions *******************************************************
 
@@ -40,7 +40,7 @@ function _wxGetStockArray($strKey)
     				)
     			{
     				$ar[] = $strSymbol;
-//    				if (count($ar) > MAX_WX_STOCK)	
+    				if (count($ar) >= MAX_WX_STOCK)	
     					break;
     			}
     		}
@@ -151,16 +151,16 @@ function _wxDebug($strUserName, $strText, $strSubject)
 
 class WeixinStock extends WeixinCallback
 {
-	function _getStockArrayText($arSymbol, $str = '')
+	function _getStockArrayText($arSymbol, $str)
 	{
-		$strVer = $this->GetVersion();
-		sort($arSymbol);
+		$iMaxLen = MAX_WX_MSG_LEN - strlen($this->GetVersion());
 		StockPrefetchArrayData($arSymbol);
+		
 		foreach ($arSymbol as $strSymbol)
 		{
 			if ($strText = _wxGetStockText($strSymbol))
 			{
-				if (strlen($str.$strText.WX_EOL.$strVer) < MAX_WX_MSG_LEN)
+				if (strlen($str.$strText.WX_EOL) < $iMaxLen)
 				{
 					$str .= $strText.WX_EOL;
 				}
@@ -174,6 +174,7 @@ class WeixinStock extends WeixinCallback
 				break;
 			}
 		}
+//		DebugVal(strlen($str));
 		return $str;
 	}
 
@@ -217,7 +218,16 @@ class WeixinStock extends WeixinCallback
 		$arSymbol = _wxGetStockArray($strText);
 		if ($iCount = count($arSymbol))
 		{
-			$str = ($iCount > 1) ? '至少发现'.strval($iCount).'个匹配'.WX_EOL : ''; 
+			if ($iCount > 1)
+			{
+				$str = '(至少发现'.strval($iCount).'个匹配)';
+//				DebugString($strText.$str);
+				$str .= WX_EOL.WX_EOL;
+			}
+			else
+			{
+				$str = '';
+			}
 			$str = $this->_getStockArrayText($arSymbol, $str);
 		}
 		else

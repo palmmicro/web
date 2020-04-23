@@ -8,9 +8,17 @@ define('TABLE_ETF_PAIR', 'etfpair');
 // ****************************** StockPairSql class *******************************************************
 class StockPairSql extends KeyPairSql
 {
+	var $key_sql;
+	
     function StockPairSql($strTableName, $strStockId) 
     {
         parent::KeyPairSql($strTableName, $strStockId, TABLE_STOCK);
+    	$this->key_sql = new StockSql();
+    }
+
+    function GetKeySql()
+    {
+    	return $this->key_sql;
     }
     
     function GetSymbolArray()

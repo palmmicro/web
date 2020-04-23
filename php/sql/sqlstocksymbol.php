@@ -6,7 +6,7 @@ class StockSql extends KeyNameSql
 {
     function StockSql($strSymbol = false)
     {
-        parent::KeyNameSql(TABLE_STOCK, $strSymbol, 'symbol');
+        parent::KeyNameSql(TABLE_STOCK, 'symbol', $strSymbol);
     }
 
     function Create()

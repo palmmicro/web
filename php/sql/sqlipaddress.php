@@ -9,7 +9,7 @@ class IpSql extends KeyNameSql
 {
     function IpSql($strIp = false)
     {
-        parent::KeyNameSql(TABLE_IP, (filter_valid_ip($strIp) ? $strIp : false), 'ip');
+        parent::KeyNameSql(TABLE_IP, 'ip', (filter_valid_ip($strIp) ? $strIp : false));
     }
 
     function Create()
