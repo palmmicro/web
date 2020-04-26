@@ -1,7 +1,5 @@
 <?php
 
-define('MAX_STOCK_SYMBOL_LEN', 10);
-
 define('SINA_FOREX_PREFIX', 'fx_s');
 define('SINA_FUTURE_PREFIX', 'hf_');
 define('SINA_FUND_PREFIX', 'f_');
@@ -15,6 +13,14 @@ define('YAHOO_INDEX_CHAR', '^');
 
 define('STOCK_TIME_ZONE_CN', 'PRC');
 define('STOCK_TIME_ZONE_US', 'America/New_York');
+
+define('MAX_STOCK_SYMBOL_LEN', 10);
+
+function StockCheckSymbol($str)
+{
+	if (strlen($str) > MAX_STOCK_SYMBOL_LEN)		return false;
+	return $str;
+}
 
 function StrHasPrefix($str, $strPrefix)
 {

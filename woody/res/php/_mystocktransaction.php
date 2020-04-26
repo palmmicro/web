@@ -55,7 +55,7 @@ class _TransAcctStart extends GroupAcctStart
     {
         parent::GroupAcctStart();
         
-        $this->strSymbol = UrlGetQueryValue('symbol');
+        $this->strSymbol = StockCheckSymbol(UrlGetQueryValue('symbol'));
     }
     
     function GetSymbol()

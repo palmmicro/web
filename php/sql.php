@@ -213,7 +213,7 @@ function _errorHandler($errno, $errstr, $errfile, $errline)
    		DebugString($strSubject.' '.$str.' ('.strval($iCount).')');
     
    		$str .= '<br />'.GetCurLink();
-   		if (isset($_SESSION['SESS_ID']))		$str .= '<br />'.GetMemberLink($_SESSION['SESS_ID']);
+//   		if (isset($_SESSION['SESS_ID']))		$str .= '<br />'.GetMemberLink($_SESSION['SESS_ID']);	// need MySQL successful
    		$str .= '<br />'.GetVisitorLink(UrlGetIp());
    		EmailHtml(ADMIN_EMAIL, $strSubject, $str);
    	}

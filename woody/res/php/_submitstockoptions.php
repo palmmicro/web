@@ -272,18 +272,20 @@ function _updateStockOptionSplit($ref, $strSymbol, $strStockId, $strDate, $strVa
 	}
 }
 
-	AcctAuth();
-	if (isset($_POST['submit']))
+   	$acct = new AcctStart();
+	
+   	if ($acct->GetLoginId() && isset($_POST['submit']))
 	{
+   		$bAdmin = $acct->IsAdmin();
+   		
 		$strEmail = SqlCleanString($_POST['login']);
 		$strSymbol = SqlCleanString($_POST['symbol']);
 		$strDate = isset($_POST['date']) ? SqlCleanString($_POST['date']) : '';
 		$strVal = SqlCleanString($_POST['val']);
-   		$bAdmin = AcctIsAdmin();
-		$strStockId = SqlGetStockId($strSymbol);
 		
     	StockPrefetchData($strSymbol);
         $ref = StockGetReference($strSymbol);
+		$strStockId = $ref->GetStockId();
         
 		switch ($_POST['submit'])
 		{
@@ -338,5 +340,5 @@ function _updateStockOptionSplit($ref, $strSymbol, $strStockId, $strDate, $strVa
 		unset($_POST['submit']);
 	}
 
-	SwitchToSess();
+	$acct->Back();
 ?>

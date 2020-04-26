@@ -53,7 +53,10 @@ function StockGetArraySymbol($ar)
     $arSymbol = array();
     foreach ($ar as $str)
     {
-        $arSymbol[] = StockGetSymbol($str); 
+    	if (!empty($str))
+    	{
+    		$arSymbol[] = StockGetSymbol($str);
+    	}
     }
     return $arSymbol;
 }

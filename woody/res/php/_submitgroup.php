@@ -67,14 +67,8 @@ function _debugStockGroup($strGroupId, $strSymbols)
 
 function _stockGetSymbolArray($strSymbols)
 {
-	$str = str_replace(' ', '', $strSymbols);
-	$str = str_replace('，', ',', $str);
-	
-//	$str = str_replace(PHP_EOL, ",", $str);
-	$str = str_replace(array("\\n", "\\r", "\\r\\n"), ',', $str);
-//	$str = preg_replace('//s*/', ',', $str);
-
-    $ar = explode(',', $str);
+	$str = str_replace(array(',', '，', "\\n", "\\r", "\\r\\n"), ' ', $strSymbols);
+    $ar = explode(' ', $str);
     return StockGetArraySymbol($ar);
 }
 
@@ -134,35 +128,37 @@ function _onNew($strMemberId, $strGroupName, $strSymbols)
 }
 
    	$acct = new AcctStart();
-	$acct->Auth();
-	$strMemberId = $acct->GetLoginId();
-
-	if ($strGroupId = UrlGetQueryValue('delete'))
+	
+   	if ($strMemberId = $acct->GetLoginId())
 	{
-	    _onDelete($strGroupId);
-	}
-	else if (isset($_POST['submit']))
-	{
-		$strSymbols = SqlCleanString($_POST['symbols']);
-		$strGroupName = isset($_POST['groupname']) ? SqlCleanString($_POST['groupname']) : '';
-
-		$strGroupId = UrlGetQueryValue('edit');
-		switch ($_POST['submit'])
+		if ($strGroupId = UrlGetQueryValue('delete'))
 		{
-		case STOCK_GROUP_ADJUST:
-			if ($acct->IsAdmin())		_onAdjust($strSymbols);
-		    break;
-
-		case STOCK_GROUP_EDIT:
-		    _onEdit($strMemberId, $strGroupId, $strGroupName, $strSymbols);
-		    break;
-
-		case STOCK_GROUP_NEW:
-		    _onNew($strMemberId, $strGroupName, $strSymbols);
-		    break;
+			_onDelete($strGroupId);
 		}
-		unset($_POST['submit']);
-	}
+		else if (isset($_POST['submit']))
+		{
+			$strSymbols = SqlCleanString($_POST['symbols']);
+			$strGroupName = isset($_POST['groupname']) ? SqlCleanString($_POST['groupname']) : '';
+			if (empty($strGroupName))	$strGroupName = '@'.md5(strval(rand()));
 
+			$strGroupId = UrlGetQueryValue('edit');
+			switch ($_POST['submit'])
+			{
+			case STOCK_GROUP_ADJUST:
+				if ($acct->IsAdmin())		_onAdjust($strSymbols);
+				break;
+
+			case STOCK_GROUP_EDIT:
+				_onEdit($strMemberId, $strGroupId, $strGroupName, $strSymbols);
+				break;
+
+			case STOCK_GROUP_NEW:
+				_onNew($strMemberId, $strGroupName, $strSymbols);
+				break;
+			}
+			unset($_POST['submit']);
+		}
+	}
+	
 	$acct->Back();
 ?>

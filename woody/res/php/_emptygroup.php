@@ -8,13 +8,10 @@ class SymbolAcctStart extends StockAcctStart
     {
         parent::StockAcctStart('symbol');
     	
-    	if ($strSymbol = $this->GetQuery())
+    	if ($strSymbol = StockCheckSymbol($this->GetQuery()))
     	{
-    		if (strlen($strSymbol) <= MAX_STOCK_SYMBOL_LEN)
-    		{
-    			StockPrefetchData($strSymbol);
-    			$this->ref = StockGetReference($strSymbol);
-    		}
+   			StockPrefetchData($strSymbol);
+   			$this->ref = StockGetReference($strSymbol);
     	}
 	   	else if ($strStockId = UrlGetQueryValue('id'))
 	   	{

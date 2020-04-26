@@ -8,9 +8,17 @@ class GroupAcctStart extends StockAcctStart
         parent::StockAcctStart('groupid');
     }
     
+    function GetStockGroupId()
+    {
+    	$strGroupId = $this->GetQuery();
+    	if (is_numeric($strGroupId) == false)		return false;
+    	
+    	return $strGroupId; 
+    }
+    
     function EchoStockGroup()
     {
-    	if ($strGroupId = $this->GetQuery())
+    	if ($strGroupId = $this->GetStockGroupId())
     	{
     		$this->EchoStockGroupParagraph($strGroupId);
     	}
@@ -19,7 +27,7 @@ class GroupAcctStart extends StockAcctStart
     
     function GetWhoseGroupDisplay()
     {
-    	if ($strGroupId = $this->GetQuery())
+    	if ($strGroupId = $this->GetStockGroupId())
     	{
     		if ($strMemberId = SqlGetStockGroupMemberId($strGroupId))
     		{
