@@ -14,11 +14,10 @@ define('YAHOO_INDEX_CHAR', '^');
 define('STOCK_TIME_ZONE_CN', 'PRC');
 define('STOCK_TIME_ZONE_US', 'America/New_York');
 
-define('MAX_STOCK_SYMBOL_LEN', 10);
-
 function StockCheckSymbol($str)
 {
-	if (strlen($str) > MAX_STOCK_SYMBOL_LEN)		return false;
+	if (strlen($str) > 10)				return false;
+	if (strpos($str, "'") !== false)	return false;
 	return $str;
 }
 

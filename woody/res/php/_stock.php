@@ -137,11 +137,23 @@ function _isFromQq()
 	return false;
 }
 
+// xueqiu_status_id=145895182&xueqiu_status_source=ptl_recommend
+function _isFromXueQiu()
+{
+	if ($str = UrlGetQueryValue('xueqiu_status_id'))
+	{
+		DebugString('雪球'.$str);
+		LayoutQqGroup();
+		return true;
+	}
+	return false;
+}
+
 function EchoPromotionHead($strVer = false, $strLoginId = false)
 {
     echo '<h3>讨论和建议</h3>';
     
-	if ((_isFromWeixin() == false) && (_isFromQq() == false))
+	if ((_isFromWeixin() == false) && (_isFromQq() == false) && (_isFromXueQiu() == false))
 	{
 		_echoRandomPromotion();
     }

@@ -27,7 +27,6 @@ function EchoEditProfile($bChinese = true)
     EditProfileForm($strSubmit);
 }
 
-    AcctAuth();
-    
+   	$acct = new AcctStart();
+	$acct->Auth();
 ?>
-

@@ -11,6 +11,5 @@ function BlogComments()
 	AdsenseWoodyBlog();
 }
 
-    AcctNoAuth();
-
+   	$acct = new AcctStart();
 ?>

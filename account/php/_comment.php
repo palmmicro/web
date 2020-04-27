@@ -30,8 +30,8 @@ function EchoUserComment($bChinese = true)
 
     $strWhere = SqlWhereFromUrlQuery($strQuery);
     $iTotal = SqlCountBlogComment($strWhere);
-    $iStart = UrlGetQueryInt('start');
-    $iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
+    $iStart = $acct->GetStart();
+    $iNum = $acct->GetNum();
     $strNavLink = GetNavLink($strQuery, $iTotal, $iStart, $iNum, $bChinese);
     
     EchoParagraph($strLink.' '.$strNavLink);

@@ -82,20 +82,18 @@ function EchoTitle($bChinese = true)
     $str = _getEditEmailSubmit(UrlGetTitle(), $bChinese);
     echo $str;
 }
-	
-	
+
+   	$acct = new AcctStart();
 	$strTitle = UrlGetTitle();
 	switch ($strTitle)
 	{
 	case 'login':
 	case 'register':
 	case 'reminder':
-	    AcctNoAuth();
 		break;
 		
 	default:
-		AcctAuth();
+		$acct->Auth();
 		break;
     }
-    
 ?>

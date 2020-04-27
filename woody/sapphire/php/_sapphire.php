@@ -20,10 +20,6 @@ function _LayoutLinksSapphirePhoto($bChinese = true)
     LayoutTopLeft('NavigateSapphirePhoto', true, $bChinese);
 }
 
-	AcctAuth();
-	if (!AcctIsAdmin())
-	{
-        AcctSwitchToLogin();
-  	}
-
+	$acct = new AcctStart();
+	$acct->AuthAdmin();
 ?>

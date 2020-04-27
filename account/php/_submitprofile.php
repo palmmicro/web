@@ -38,8 +38,9 @@ function _onEdit($strMemberId)
 	return true;
 }
 
-    $strMemberId = AcctAuth();
-	if (isset($_POST['submit']))
+   	$acct = new AcctStart();
+	$strMemberId = $acct->GetLoginId();
+	if ($strMemberId && isset($_POST['submit']))
 	{
 		$strSubmit = $_POST['submit'];
 		if ($strSubmit == ACCOUNT_PROFILE_EDIT || $strSubmit == ACCOUNT_PROFILE_EDIT_CN)
@@ -58,5 +59,5 @@ function _onEdit($strMemberId)
 		}
 	}
 
-	SwitchToSess();
+	$acct->Back();
 ?>

@@ -22,6 +22,5 @@ function _LayoutTopLeft($bChinese = true)
     LayoutTopLeft('_navLoopBlogPhoto', true, $bChinese);
 }
 
-    AcctNoAuth();
-
+   	$acct = new AcctStart();
 ?>

@@ -35,6 +35,5 @@ function _LayoutTopLeft($bChinese = true)
     LayoutTopLeft('NavLoopCateyes', true, $bChinese);
 }
 
-    AcctNoAuth();
-
+   	$acct = new AcctStart();
 ?>

@@ -132,9 +132,5 @@ function EchoTitle()
 }
 
 	$acct = new TitleAcctStart();
-	if ($acct->IsAdmin() == false)
-	{
-        AcctSwitchToLogin();
-	}
-
+	$acct->AuthAdmin();
 ?>

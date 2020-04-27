@@ -5,8 +5,6 @@ require_once('debug.php');
 define('STOCK_PATH', '/woody/res/');
 define('STOCK_PHP_PATH', '/woody/res/php/');
 
-define('DEFAULT_NAV_DISPLAY', 100);
-
 function GetNameTag($strName, $strDisplay)
 {
 	return '<a name="'.$strName.'">'.$strDisplay.'</a>';

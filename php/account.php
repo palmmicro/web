@@ -93,12 +93,6 @@ function AcctIsLogin()
 	return $strMemberId;
 }
 
-function AcctSwitchToLogin()
-{
-    SwitchSetSess();
-    SwitchTo('/account/login');
-}
-
 function AcctIsReadOnly($strMemberId)
 {
     if (AcctIsAdmin())  return false;
@@ -215,10 +209,6 @@ function AcctSessionStart()
 	    	{
 	    		AcctDeleteBlogVisitorByIp($sql);
 	    	}
-/*	    	else
-	    	{
-	    		AcctSwitchToLogin();
-	    	}*/
 	    }
 	}
     return $strMemberId;	
@@ -228,6 +218,9 @@ class AcctStart
 {
     var $strLoginId;
     var $strMemberId;
+    
+    var $iStart;
+    var $iNum;
     
     function AcctStart() 
     {
@@ -240,13 +233,34 @@ class AcctStart
 	   	{
 	   		$this->strMemberId = $this->strLoginId;
 	   	}
+        
+   		$this->iStart = UrlGetQueryInt('start');
+   		$this->iNum = UrlGetQueryInt('num', 100);
+   		if (($this->iStart != 0) && ($this->iNum != 0))
+   		{
+   			$this->Auth();
+   		}
     }
     
+    function _switchToLogin()
+    {
+    	SwitchSetSess();
+    	SwitchTo('/account/login');
+    }
+
     function Auth()
     {
     	if ($this->strLoginId == false) 
     	{
-    		AcctSwitchToLogin();
+    		$this->_switchToLogin();
+    	}
+    }
+    
+    function AuthAdmin()
+    {
+    	if ($this->IsAdmin() == false) 
+    	{
+    		$this->_switchToLogin();
     	}
     }
     
@@ -286,18 +300,21 @@ class AcctStart
     {
     	SwitchToSess();
     }
+    
+    function GetStart()
+    {
+    	return $this->iStart;
+    }
+    
+    function GetNum()
+    {
+    	return $this->iNum;
+    }
 }
 
 function AcctNoAuth()
 {
    	$acct = new AcctStart();
-}
-
-function AcctAuth()
-{
-   	$acct = new AcctStart();
-	$acct->Auth();
-	return $acct->GetLoginId();
 }
 
 function AcctAdminCommand($callback)
@@ -317,9 +334,6 @@ class TitleAcctStart extends AcctStart
 	var $strTitle;
 	var $strQuery;
 	
-    var $iStart;
-    var $iNum;
-    
     function TitleAcctStart($strQueryItem = false, $arLoginTitle = false) 
     {
         parent::AcctStart();
@@ -331,13 +345,6 @@ class TitleAcctStart extends AcctStart
     			$this->Auth();
     		}
     	}
-        
-   		$this->iStart = UrlGetQueryInt('start');
-   		$this->iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
-   		if (($this->iStart != 0) && ($this->iNum != 0))
-   		{
-   			$this->Auth();
-   		}
    		
         $this->strQuery = UrlGetQueryValue($strQueryItem ? $strQueryItem : $this->strTitle);
     }
@@ -350,16 +357,6 @@ class TitleAcctStart extends AcctStart
     function GetQuery()
     {
     	return $this->strQuery;
-    }
-    
-    function GetStart()
-    {
-    	return $this->iStart;
-    }
-    
-    function GetNum()
-    {
-    	return $this->iNum;
     }
 }
 

@@ -30,6 +30,5 @@ function _LayoutTopLeft($bChinese = true)
     LayoutTopLeft('NavLoopBtbond', true, $bChinese);
 }
 
-    AcctNoAuth();
-
+   	$acct = new AcctStart();
 ?>

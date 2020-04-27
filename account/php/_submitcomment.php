@@ -97,31 +97,34 @@ function _onNew($strMemberId, $strComment)
 	}
 }
 
-    $strMemberId = AcctAuth();
-	if ($strId = UrlGetQueryValue('delete'))
+   	$acct = new AcctStart();
+	if ($strMemberId = $acct->GetLoginId())
 	{
-	    _onDelete($strId, $strMemberId);
-	}
-	else if (isset($_POST['submit']))
-	{
-		$strComment = SqlCleanString($_POST['comment']);
-		switch ($_POST['submit'])
+		if ($strId = UrlGetQueryValue('delete'))
 		{
-		case BLOG_COMMENT_NEW:
-		case BLOG_COMMENT_NEW_CN:
-		    _onNew($strMemberId, $strComment);
-		    break;
-
-		case BLOG_COMMENT_EDIT:
-		case BLOG_COMMENT_EDIT_CN:
-			if ($strId = UrlGetQueryValue('edit'))
-			{
-			    _onEdit($strId, $strMemberId, $strComment);
-			}
-			break;
+			_onDelete($strId, $strMemberId);
 		}
-		unset($_POST['submit']);
+		else if (isset($_POST['submit']))
+		{
+			$strComment = SqlCleanString($_POST['comment']);
+			switch ($_POST['submit'])
+			{
+			case BLOG_COMMENT_NEW:
+			case BLOG_COMMENT_NEW_CN:
+				_onNew($strMemberId, $strComment);
+				break;
+
+			case BLOG_COMMENT_EDIT:
+			case BLOG_COMMENT_EDIT_CN:
+				if ($strId = UrlGetQueryValue('edit'))
+				{
+					_onEdit($strId, $strMemberId, $strComment);
+				}
+				break;
+			}
+			unset($_POST['submit']);
+		}
 	}
 
-	SwitchToSess();
+	$acct->Back();
 ?>

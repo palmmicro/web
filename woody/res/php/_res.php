@@ -26,6 +26,5 @@ function _LayoutTopLeft($bChinese = true)
     LayoutTopLeft('NavLoopCompany', true, $bChinese);
 }
 
-    AcctNoAuth();
-
+   	$acct = new AcctStart();
 ?>

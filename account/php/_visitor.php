@@ -75,6 +75,8 @@ function _echoBlogVisitorParagraph($sql, $iStart, $iNum, $bChinese)
 
 function EchoBlogVisitor($bChinese = true)
 {
+    global $acct;
+    
     $strIp = UrlGetQueryValue('ip');
     $sql = new IpSql($strIp);
     if ($strIp = $sql->GetKey())
@@ -89,11 +91,9 @@ function EchoBlogVisitor($bChinese = true)
     }
     EchoParagraph($str);
     
-    $iStart = UrlGetQueryInt('start');
-    $iNum = UrlGetQueryInt('num', DEFAULT_NAV_DISPLAY);
-    _echoBlogVisitorParagraph($sql, $iStart, $iNum, $bChinese);
+    _echoBlogVisitorParagraph($sql, $acct->GetStart(), $acct->GetNum(), $bChinese);
 }
 
-    AcctAuth();
-    
+   	$acct = new AcctStart();
+	$acct->Auth();
 ?>
