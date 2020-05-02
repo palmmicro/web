@@ -324,6 +324,6 @@ function EchoTitle($bChinese = true)
   	echo $str;
 }
 
-	$acct = new TitleAcctStart(false, array(TABLE_COMMON_PHRASE, TABLE_IP));
+	$acct = new TitleAccount(false, array(TABLE_COMMON_PHRASE, TABLE_IP));
 
 ?>

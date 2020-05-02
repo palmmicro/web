@@ -47,13 +47,13 @@ function EchoTitle()
 	echo $acct->GetDescription();
 }
 
-class _TransAcctStart extends GroupAcctStart
+class _TransAccount extends GroupIdAccount
 {
 	var $strSymbol;
 	
-    function _TransAcctStart() 
+    function _TransAccount() 
     {
-        parent::GroupAcctStart();
+        parent::GroupIdAccount();
         
         $this->strSymbol = StockCheckSymbol(UrlGetQueryValue('symbol'));
     }
@@ -72,6 +72,5 @@ class _TransAcctStart extends GroupAcctStart
     }
 }
 
-	$acct = new _TransAcctStart();
-
+	$acct = new _TransAccount();
 ?>

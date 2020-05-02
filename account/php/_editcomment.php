@@ -33,7 +33,7 @@ function EchoTitle($bChinese = true)
     echo $str;
 }
 
-   	$acct = new AcctStart();
+   	$acct = new Account();
 	$acct->Auth();
 ?>
 

@@ -293,12 +293,12 @@ class StockReference extends StockSymbol
 			$strDebug = $this->GetSymbol().' ';
 			if ($iVal < 930)
 			{
-				DebugVal($iVal, $strDebug.STOCK_PRE_MARKET);
+//				DebugVal($iVal, $strDebug.STOCK_PRE_MARKET);
 				return true;
 			}
 			else if ($iVal > 1600)
 			{
-				DebugVal($iVal, $strDebug.STOCK_POST_MARKET);
+//				DebugVal($iVal, $strDebug.STOCK_POST_MARKET);
 				return true;
 			}
 		}

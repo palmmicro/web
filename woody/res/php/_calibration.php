@@ -32,7 +32,6 @@ function EchoTitle()
   	echo $acct->GetSymbolDisplay().CALIBRATION_HISTORY_DISPLAY;
 }
 
-    $acct = new SymbolAcctStart();
-
+    $acct = new SymbolAccount();
 ?>
 

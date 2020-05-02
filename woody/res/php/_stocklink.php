@@ -12,7 +12,7 @@ function _GetEtfAdjustString($ref, $etf_ref)
     return _GetAdjustLink($strSymbol, $strQuery);
 }
 
-function _getCategoryArray()
+function GetStockCategoryArray()
 {
     return array('oilfund' => '油气',
                    'commodity' => '商品',
@@ -28,7 +28,7 @@ function _getCategoryArray()
 
 function _getCategoryLink($strCategory)
 {
-    $ar = _getCategoryArray();
+    $ar = GetStockCategoryArray();
     return GetPhpLink(STOCK_PATH.$strCategory, false, $ar[$strCategory]);
 }
 
@@ -247,7 +247,7 @@ function GetJiaShiSoftwareLinks()
 function GetHuaAnSoftwareLinks()
 {
     $ar = array('sh513030', 'sh518880', 'sz160416');
-    $strLink = GetExternalLink('http://www.huaan.com.cn', '华安基金');
+    $strLink = GetExternalLink(GetHuaAnFundUrl(), '华安基金');
     return GetCategorySoftwareLinks($ar, $strLink);
 }
 
@@ -359,19 +359,6 @@ function GetStockGroupLinks($strLoginId = false)
         $str .= _getPersonalLinks($strLoginId);
     }
     return $str;
-}
-
-function EchoStockGroupLinks()
-{
-	$str = GetStockGroupLinks();
-    echo $str;
-}
-
-function EchoStockCategory($strLoginId = false)
-{
-    $str = GetCategoryLinks(_getCategoryArray());
-	$str .= GetStockGroupLinks($strLoginId);
-    EchoParagraph($str);
 }
 
 ?>

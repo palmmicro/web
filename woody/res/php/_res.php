@@ -26,5 +26,5 @@ function _LayoutTopLeft($bChinese = true)
     LayoutTopLeft('NavLoopCompany', true, $bChinese);
 }
 
-   	$acct = new AcctStart();
+   	$acct = new Account();
 ?>

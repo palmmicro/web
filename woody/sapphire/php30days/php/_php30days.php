@@ -30,5 +30,5 @@ function _LayoutTopLeft($bChinese = true)
     LayoutTopLeft('NavLoop30Days', true, $bChinese);
 }
 
-   	$acct = new AcctStart();
+   	$acct = new Account();
 ?>

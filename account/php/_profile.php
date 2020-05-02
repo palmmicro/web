@@ -363,7 +363,7 @@ function _closeAccount($strEmail)
 }
 
 	$strMsg = false;
-	$acct = new AcctStart();
+	$acct = new Account();
 	if (isset($_POST['submit']) && isset($_POST['login']))
 	{
 		$strSubmit = $_POST['submit'];

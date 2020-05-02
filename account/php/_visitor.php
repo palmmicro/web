@@ -94,6 +94,6 @@ function EchoBlogVisitor($bChinese = true)
     _echoBlogVisitorParagraph($sql, $acct->GetStart(), $acct->GetNum(), $bChinese);
 }
 
-   	$acct = new AcctStart();
+   	$acct = new DataAccount();
 	$acct->Auth();
 ?>

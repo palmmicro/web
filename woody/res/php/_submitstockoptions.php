@@ -272,7 +272,7 @@ function _updateStockOptionSplit($ref, $strSymbol, $strStockId, $strDate, $strVa
 	}
 }
 
-   	$acct = new AcctStart();
+   	$acct = new Account();
 	
    	if ($acct->GetLoginId() && isset($_POST['submit']))
 	{

@@ -26,6 +26,11 @@ function GetBoShiOfficialLink($strDigitA)
     return GetOfficialLink(GetBoShiFundUrl().'/fund/'.$strDigitA.'.html', $strDigitA);
 }
 
+function GetHuaAnOfficialLink($strDigitA)
+{
+    return GetOfficialLink(GetHuaAnFundUrl().'/funds/'.$strDigitA.'/index.shtml', $strDigitA);
+}
+
 function GetHuaBaoOfficialLink($strDigitA)
 {
     return GetOfficialLink(GetHuaBaoFundUrl().'/funds/'.$strDigitA.'/index.shtml', $strDigitA);
@@ -48,7 +53,12 @@ function GetYinHuaOfficialLink($strDigitA)
 
 function GetOfficialLinkGSG()
 {
-	return GetOfficialLink('https://www.ishares.com/us/products/239757/GSG', 'GSG');
+	return GetOfficialLink(GetIsharesUrl().'239757/GSG', 'GSG');
+}
+
+function GetOfficialLinkIXC()
+{
+	return GetOfficialLink(GetIsharesUrl().'239741/ishares-global-energy-etf', 'IXC');
 }
 
 function GetShangHaiEtfOfficialLink()

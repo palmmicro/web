@@ -19,6 +19,6 @@ function EchoTitle()
     echo STOCK_TRANSACTION_EDIT;
 }
 
-   	$acct = new AcctStart();
+   	$acct = new Account();
 	$acct->Auth();
 ?>

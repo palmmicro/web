@@ -185,18 +185,21 @@ function _EchoTransactionParagraph($group)
 	}
 }
 
-class StockAcctStart extends TitleAcctStart
+class StockAccount extends TitleAccount
 {
-    function StockAcctStart($strQueryItem = false, $arLoginTitle = false) 
+    function StockAccount($strQueryItem = false, $arLoginTitle = false) 
     {
-        parent::TitleAcctStart($strQueryItem, $arLoginTitle);
+        parent::TitleAccount($strQueryItem, $arLoginTitle);
     }
 
     function EchoLinks($strVer = false)
     {
     	$strLoginId = $this->GetLoginId();
     	EchoPromotionHead($strVer, $strLoginId);
-    	EchoStockCategory($strLoginId);
+
+    	$str = GetCategoryLinks(GetStockCategoryArray());
+    	$str .= GetStockGroupLinks($strLoginId);
+    	EchoParagraph($str);
     }
     
     function EchoStockGroupParagraph($strGroupId = false, $strStockId = false)

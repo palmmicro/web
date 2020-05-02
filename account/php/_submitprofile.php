@@ -38,7 +38,7 @@ function _onEdit($strMemberId)
 	return true;
 }
 
-   	$acct = new AcctStart();
+   	$acct = new Account();
 	$strMemberId = $acct->GetLoginId();
 	if ($strMemberId && isset($_POST['submit']))
 	{

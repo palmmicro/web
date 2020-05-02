@@ -11,5 +11,5 @@ function BlogComments()
 	AdsenseWoodyBlog();
 }
 
-   	$acct = new AcctStart();
+   	$acct = new Account();
 ?>

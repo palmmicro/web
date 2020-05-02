@@ -97,7 +97,7 @@ function _onNew($strMemberId, $strComment)
 	}
 }
 
-   	$acct = new AcctStart();
+   	$acct = new Account();
 	if ($strMemberId = $acct->GetLoginId())
 	{
 		if ($strId = UrlGetQueryValue('delete'))

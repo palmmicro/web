@@ -39,6 +39,5 @@ function EchoUserComment($bChinese = true)
     EchoParagraph($strNavLink);
 }
 
-   	$acct = new AcctStart();
-    
+   	$acct = new DataAccount();
 ?>

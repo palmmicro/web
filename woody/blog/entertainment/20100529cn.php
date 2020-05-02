@@ -29,7 +29,7 @@
 </ol>
 <p><img src=../photo/20100529.jpg alt="Screen shot of My First Visual C++ 2008 Application Woody's Web Tool" />
 <br />费曼在曼哈顿计划结束后到康奈尔大学教物理, 中间有一段时间他觉得整天都很累, 没有精力搞他后来得了诺贝尔奖的理论物理研究.
-晚年的时候他回顾说, 其实一部分原因是当时他低估了教大学生物理所耗费的精力. 也正因为这样, 我们今天才能幸运的读到经典的三大本费曼物理学讲义. 但在当时, 却是对一个小盘子的转动方式的关注把他从低谷中拉了起来.
+晚年的时候他回顾说, 其实一部分原因是当时他低估了教大学生物理所耗费的精力. 康奈尔的努力延续到了加州理工, 我们今天才能幸运的读到经典的三大本费曼物理学讲义. 但在当时, 却是对一个小盘子的转动方式的关注把他从低谷中拉了起来.
 </p>
 <blockquote><font color=gray>I still remember going to Hans Bethe and saying, "Hey, Hans! I noticed something interesting.
 Here the plate goes around so, and the reason it's two to one is . . ." and I showed him the accelerations.

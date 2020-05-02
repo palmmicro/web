@@ -187,7 +187,7 @@ function UrlGetUri()
 	$str = UrlGetCur();
    	if (UrlIsValid($str) == false)
    	{
-   		dieDebugString('Unknown URI: '.$str);
+   		dieDebugString('Unknown URI: '.UrlGetServer().$str);
    	}
    	
 	if ($iPos = strpos($str, '.'))

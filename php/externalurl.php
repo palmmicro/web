@@ -67,6 +67,11 @@ function GetBoShiFundUrl()
 	return 'http://www.bosera.com';
 }
 
+function GetHuaAnFundUrl()
+{
+	return 'http://www.huaan.com.cn';
+}
+
 function GetHuaBaoFundUrl()
 {
 	return 'http://www.fsfund.com';
@@ -95,6 +100,11 @@ function GetXinChengFundUrl()
 function GetYinHuaFundUrl()
 {
 	return 'http://www.yhfund.com.cn';
+}
+
+function GetIsharesUrl()
+{
+	return 'https://www.ishares.com/us/products/';
 }
 
 // https://www.ssga.com/us/en/individual/etfs/library-content/products/fund-data/etfs/us/navhist-us-en-xop.xlsx

@@ -210,6 +210,6 @@ function EchoMetaDescription()
     EchoMetaDescriptionText($str);
 }
 
-   	$acct = new AcctStart();
+   	$acct = new Account();
     $group = new _AdrGroup(StockGetSymbolByUrl());
 ?>

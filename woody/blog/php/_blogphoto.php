@@ -22,5 +22,5 @@ function _LayoutTopLeft($bChinese = true)
     LayoutTopLeft('_navLoopBlogPhoto', true, $bChinese);
 }
 
-   	$acct = new AcctStart();
+   	$acct = new Account();
 ?>

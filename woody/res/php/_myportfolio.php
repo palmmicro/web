@@ -134,8 +134,7 @@ function EchoAll()
     _echoPortfolio($portfolio, $sql);
     _echoMoneyParagraph($portfolio);
     
-    EchoPromotionHead(MY_PORTFOLIO_PAGE);
-    EchoStockCategory();
+    $acct->EchoLinks(MY_PORTFOLIO_PAGE);
 }
 
 function EchoTitle()
@@ -149,7 +148,7 @@ function EchoMetaDescription()
     EchoMetaDescriptionText($str);
 }
 
-	$acct = new AcctStart();
+	$acct = new StockAccount();
 	if ($acct->GetMemberId() == false)
 	{
 		$acct->Auth();

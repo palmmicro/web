@@ -1,11 +1,11 @@
 <?php
 require_once('/php/stockgroup.php');
 
-class GroupAcctStart extends StockAcctStart
+class GroupIdAccount extends StockAccount
 {
-    function GroupAcctStart() 
+    function GroupIdAccount() 
     {
-        parent::StockAcctStart('groupid');
+        parent::StockAccount('groupid');
     }
     
     function GetStockGroupId()

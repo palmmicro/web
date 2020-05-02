@@ -1,12 +1,12 @@
 <?php
 
-class SymbolAcctStart extends StockAcctStart
+class SymbolAccount extends StockAccount
 {
     var $ref = false;		// MysqlReference class
     
-    function SymbolAcctStart() 
+    function SymbolAccount() 
     {
-        parent::StockAcctStart('symbol');
+        parent::StockAccount('symbol');
     	
     	if ($strSymbol = StockCheckSymbol($this->GetQuery()))
     	{

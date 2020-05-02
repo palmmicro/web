@@ -250,7 +250,7 @@ function EchoTitle()
     echo $str;
 }
 
-	$acct = new GroupAcctStart();
+	$acct = new GroupIdAccount();
 	if ($acct->GetTitle() == 'mystockgroup')
 	{
 		if ($acct->GetQuery() == false)

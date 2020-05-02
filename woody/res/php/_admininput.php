@@ -89,7 +89,7 @@ function EchoAll()
     }
     $str .= '<br /><br />'.GetCategoryLinks(_getAdminInputArray());
     EchoParagraph($str);
-    EchoStockCategory();
+    $acct->EchoLinks();
 }
 
 function _getAdminInputTitle($strTitle, $strQuery)
@@ -131,6 +131,6 @@ function EchoTitle()
   	echo $str;
 }
 
-	$acct = new TitleAcctStart();
+	$acct = new StockAccount();
 	$acct->AuthAdmin();
 ?>

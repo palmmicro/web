@@ -20,6 +20,6 @@ function _LayoutLinksSapphirePhoto($bChinese = true)
     LayoutTopLeft('NavigateSapphirePhoto', true, $bChinese);
 }
 
-	$acct = new AcctStart();
+	$acct = new Account();
 	$acct->AuthAdmin();
 ?>

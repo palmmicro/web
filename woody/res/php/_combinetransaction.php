@@ -153,7 +153,7 @@ function EchoTitle()
     echo $str;
 }
 
-	$acct = new GroupAcctStart();
+	$acct = new GroupIdAccount();
 
 ?>
 

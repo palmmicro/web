@@ -107,7 +107,7 @@ function _submitStockHistory($ref)
 	if ($iCount > 0)	DebugVal($iCount, 'Invalid date'); 
 }
 
-    $acct = new SymbolAcctStart();
+    $acct = new SymbolAccount();
 	if ($acct->IsAdmin())
 	{
 	    if ($ref = $acct->GetRef())

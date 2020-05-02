@@ -83,7 +83,7 @@ function EchoTitle($bChinese = true)
     echo $str;
 }
 
-   	$acct = new AcctStart();
+   	$acct = new Account();
 	$strTitle = UrlGetTitle();
 	switch ($strTitle)
 	{

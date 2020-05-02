@@ -127,7 +127,7 @@ function _onNew($strMemberId, $strGroupName, $strSymbols)
     _debugStockGroup($strGroupId, $strSymbols);
 }
 
-   	$acct = new AcctStart();
+   	$acct = new Account();
 	
    	if ($strMemberId = $acct->GetLoginId())
 	{

@@ -214,15 +214,12 @@ function AcctSessionStart()
     return $strMemberId;	
 }
 
-class AcctStart
+class Account
 {
     var $strLoginId;
     var $strMemberId;
     
-    var $iStart;
-    var $iNum;
-    
-    function AcctStart() 
+    function Account() 
     {
    		$this->strLoginId = AcctSessionStart();
 	   	if ($strEmail = UrlGetQueryValue('email'))
@@ -233,13 +230,6 @@ class AcctStart
 	   	{
 	   		$this->strMemberId = $this->strLoginId;
 	   	}
-        
-   		$this->iStart = UrlGetQueryInt('start');
-   		$this->iNum = UrlGetQueryInt('num', 100);
-   		if (($this->iStart != 0) && ($this->iNum != 0))
-   		{
-   			$this->Auth();
-   		}
     }
     
     function _switchToLogin()
@@ -300,6 +290,41 @@ class AcctStart
     {
     	SwitchToSess();
     }
+}
+
+function AcctNoAuth()
+{
+   	$acct = new Account();
+}
+
+function AcctAdminCommand($callback)
+{
+   	$acct = new Account();
+   	if ($acct->IsAdmin())
+	{
+        $fStart = microtime(true);
+		call_user_func($callback);
+        DebugString($callback.DebugGetStopWatchDisplay($fStart));
+	}
+	$acct->Back();
+}
+
+class DataAccount extends Account
+{
+    var $iStart;
+    var $iNum;
+    
+    function DataAccount() 
+    {
+        parent::Account();
+        
+   		$this->iStart = UrlGetQueryInt('start');
+   		$this->iNum = UrlGetQueryInt('num', 100);
+   		if (($this->iStart != 0) && ($this->iNum != 0))
+   		{
+   			$this->Auth();
+   		}
+    }
     
     function GetStart()
     {
@@ -312,31 +337,14 @@ class AcctStart
     }
 }
 
-function AcctNoAuth()
-{
-   	$acct = new AcctStart();
-}
-
-function AcctAdminCommand($callback)
-{
-   	$acct = new AcctStart();
-   	if ($acct->IsAdmin())
-	{
-        $fStart = microtime(true);
-		call_user_func($callback);
-        DebugString($callback.DebugGetStopWatchDisplay($fStart));
-	}
-	$acct->Back();
-}
-
-class TitleAcctStart extends AcctStart
+class TitleAccount extends DataAccount
 {
 	var $strTitle;
 	var $strQuery;
 	
-    function TitleAcctStart($strQueryItem = false, $arLoginTitle = false) 
+    function TitleAccount($strQueryItem = false, $arLoginTitle = false) 
     {
-        parent::AcctStart();
+        parent::DataAccount();
     	$this->strTitle = UrlGetTitle();
     	if ($arLoginTitle)
     	{

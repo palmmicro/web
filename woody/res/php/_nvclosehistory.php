@@ -77,6 +77,5 @@ function EchoTitle()
   	echo $str;
 }
 
-    $acct = new SymbolAcctStart();
-
+    $acct = new SymbolAccount();
 ?>
