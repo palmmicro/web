@@ -1,16 +1,11 @@
 <?php 
 require('php/_adr.php');
 
-function EchoRelated()
+function GetAdrRelated($strName)
 {
-	$strGroup = GetAdrLinks();
-	$strOil = GetOilSoftwareLinks();
-	
-	echo <<< END
-	<p> $strGroup
-		$strOil
-	</p>
-END;
+	$str = GetAdrLinks();
+	$str .= GetOilSoftwareLinks();
+	return $str;
 }
 
 require('/php/ui/_dispcn.php');

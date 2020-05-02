@@ -1,16 +1,11 @@
 <?php 
 require('php/_adr.php');
 
-function EchoRelated()
+function GetAdrRelated($strName)
 {
-	$strGroup = GetAdrLinks();
-	$strCommodity = GetCommoditySoftwareLinks();
-	
-	echo <<< END
-	<p> $strGroup
-		$strCommodity
-	</p>
-END;
+	$str = GetAdrLinks();
+	$str .= GetCommoditySoftwareLinks();
+	return $str;
 }
 
 require('/php/ui/_dispcn.php');

@@ -48,8 +48,10 @@ function _echoMoneyItem($strGroup, $strMoney, $fValue, $fProfit, $fConvertValue,
 END;
 }
 
-function _EchoMoneyGroupData($group, $strLink, $strUSDCNY, $strHKDCNY)
+function _EchoMoneyGroupData($group, $strUSDCNY, $strHKDCNY, $strLink = false)
 {
+	if ($strLink == false)	$strLink = GetStockGroupLink($group->GetGroupId());
+	
     $group->ConvertCurrency($strUSDCNY, $strHKDCNY);
     _echoMoneyItem($strLink, '', $group->multi_amount->fCNY, $group->multi_profit->fCNY, $group->multi_amount->fConvertCNY, $group->multi_profit->fConvertCNY);
     if ((empty($group->multi_amount->fUSD) == false) || (empty($group->multi_profit->fUSD) == false))
@@ -167,7 +169,7 @@ function EchoPromotionHead($strVer = false, $strLoginId = false)
 function EchoMoneyParagraph($group, $strUSDCNY = false, $strHKDCNY = false)
 {
     _EchoMoneyParagraphBegin('折算货币');
-    _EchoMoneyGroupData($group, $group->strName, $strUSDCNY, $strHKDCNY);
+    _EchoMoneyGroupData($group, $strUSDCNY, $strHKDCNY);
     EchoTableParagraphEnd();
 }
 
@@ -187,17 +189,33 @@ function _EchoTransactionParagraph($group)
 
 class StockAccount extends TitleAccount
 {
+    var $strName;
+    
     function StockAccount($strQueryItem = false, $arLoginTitle = false) 
     {
         parent::TitleAccount($strQueryItem, $arLoginTitle);
+        
+        $this->strName = StockGetSymbol($this->GetTitle());
     }
 
-    function EchoLinks($strVer = false)
+    function GetName()
+    {
+    	return $this->strName;
+    }
+    
+    function EchoLinks($strVer = false, $callback = false)
     {
     	$strLoginId = $this->GetLoginId();
     	EchoPromotionHead($strVer, $strLoginId);
 
-    	$str = GetCategoryLinks(GetStockCategoryArray());
+    	if ($callback)
+    	{
+    		$str = call_user_func($callback, $this->GetName());
+    	}
+    	else
+    	{
+    		$str = GetCategoryLinks(GetStockCategoryArray());
+    	}
     	$str .= GetStockGroupLinks($strLoginId);
     	EchoParagraph($str);
     }

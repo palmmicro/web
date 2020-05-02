@@ -6,7 +6,8 @@ require_once('/php/ui/referenceparagraph.php');
 require_once('/php/ui/hsharesmaparagraph.php');
 require_once('/php/ui/tradingparagraph.php');
 
-class _AdrGroup extends _StockGroup 
+//class _AdrGroup extends _StockGroup 
+class _AdrGroupAccount extends GroupAccount 
 {
     var $cn_ref;
     var $us_ref;
@@ -27,8 +28,12 @@ class _AdrGroup extends _StockGroup
     var $us_convert;
     var $hk_convert;
     
-    function _AdrGroup($strSymbolAdr)
+//    function _AdrGroup($strSymbolAdr)
+    function _AdrGroupAccount()
     {
+        parent::GroupAccount();
+        
+        $strSymbolAdr = $this->GetName();
         StockPrefetchData($strSymbolAdr);
         GetChinaMoney();
         
@@ -47,40 +52,43 @@ class _AdrGroup extends _StockGroup
        
         $this->fRatioAdrH = $this->hk_ref->GetAdrRatio();
 
-        parent::_StockGroup($this->arStockRef);
+        //parent::_StockGroup($this->arStockRef);
+        $this->CreateGroup($this->arStockRef);
     }
     
     function OnConvert($cn_trans, $hk_trans, $us_trans)
     {
-        $this->OnArbitrage();
+        $strGroupId = $this->GetGroupId();
 
-        $this->cn_convert = new MyStockTransaction($this->cn_ref, $this->strGroupId);
+        $this->cn_convert = new MyStockTransaction($this->cn_ref, $strGroupId);
         $this->cn_convert->AddTransaction($cn_trans->iTotalShares, $cn_trans->fTotalCost);
         $this->cn_convert->AddTransaction($hk_trans->iTotalShares, $hk_trans->fTotalCost * $this->fHKDCNY);
         $this->cn_convert->AddTransaction(intval($us_trans->iTotalShares * $this->fRatioAdrH), $us_trans->fTotalCost * $this->fUSDCNY);
         
-        $this->hk_convert = new MyStockTransaction($this->hk_ref, $this->strGroupId);
+        $this->hk_convert = new MyStockTransaction($this->hk_ref, $strGroupId);
         $this->hk_convert->AddTransaction($hk_trans->iTotalShares, $hk_trans->fTotalCost);
         $this->hk_convert->AddTransaction($cn_trans->iTotalShares, $cn_trans->fTotalCost / $this->fHKDCNY);
         $this->hk_convert->AddTransaction(intval($us_trans->iTotalShares * $this->fRatioAdrH), $us_trans->fTotalCost * $this->fUSDHKD);
         
-        $this->us_convert = new MyStockTransaction($this->us_ref, $this->strGroupId);
+        $this->us_convert = new MyStockTransaction($this->us_ref, $strGroupId);
         $this->us_convert->AddTransaction($us_trans->iTotalShares, $us_trans->fTotalCost);
         $this->us_convert->AddTransaction(intval($cn_trans->iTotalShares / $this->fRatioAdrH), $cn_trans->fTotalCost / $this->fUSDCNY);
         $this->us_convert->AddTransaction(intval($hk_trans->iTotalShares / $this->fRatioAdrH), $hk_trans->fTotalCost / $this->fUSDHKD);
     }
 } 
 
-function _echoArbitrageParagraph($group)
+function _echoArbitrageParagraph($acct, $group)
 {
+	$group->OnArbitrage();
+        
     $cn_trans = $group->GetStockTransactionCN();
     $hk_trans = $group->GetStockTransactionHK();
     $us_trans = $group->GetStockTransactionUS();
-    $group->OnConvert($cn_trans, $hk_trans, $us_trans);
+    $acct->OnConvert($cn_trans, $hk_trans, $us_trans);
     
-    $cn_ref = $group->cn_ref;
-    $hk_ref = $group->hk_ref;
-    $us_ref = $group->us_ref;
+    $cn_ref = $acct->cn_ref;
+    $hk_ref = $acct->hk_ref;
+    $us_ref = $acct->us_ref;
     if ($group->arbi_trans == false)		return;
     
     EchoArbitrageTableBegin();
@@ -88,23 +96,23 @@ function _echoArbitrageParagraph($group)
     if ($sym->IsSymbolA())
     {
         $cn_arbi = $group->arbi_trans;
-        EchoArbitrageTableItem2($cn_arbi, $group->cn_convert); 
-        EchoArbitrageTableItem(-1 * $cn_arbi->iTotalShares, $hk_ref->GetPriceDisplay($hk_ref->EstFromCny($cn_arbi->GetAvgCost())), $group->hk_convert); 
-        EchoArbitrageTableItem(intval(-1.0 * $cn_arbi->iTotalShares / $group->fRatioAdrH), $us_ref->GetPriceDisplay($hk_ref->FromCnyToUsd($cn_arbi->GetAvgCost())), $group->us_convert); 
+        EchoArbitrageTableItem2($cn_arbi, $acct->cn_convert); 
+        EchoArbitrageTableItem(-1 * $cn_arbi->iTotalShares, $hk_ref->GetPriceDisplay($hk_ref->EstFromCny($cn_arbi->GetAvgCost())), $acct->hk_convert); 
+        EchoArbitrageTableItem(intval(-1.0 * $cn_arbi->iTotalShares / $acct->fRatioAdrH), $us_ref->GetPriceDisplay($hk_ref->FromCnyToUsd($cn_arbi->GetAvgCost())), $acct->us_convert); 
     }
     else if ($sym->IsSymbolH())
     {
         $hk_arbi = $group->arbi_trans;
-        EchoArbitrageTableItem(-1 * $hk_arbi->iTotalShares, $cn_ref->GetPriceDisplay($hk_ref->EstToCny($hk_arbi->GetAvgCost())), $group->cn_convert); 
-        EchoArbitrageTableItem2($hk_arbi, $group->hk_convert); 
-        EchoArbitrageTableItem(intval(-1.0 * $hk_arbi->iTotalShares / $group->fRatioAdrH), $us_ref->GetPriceDisplay($hk_ref->EstToUsd($hk_arbi->GetAvgCost())), $group->us_convert); 
+        EchoArbitrageTableItem(-1 * $hk_arbi->iTotalShares, $cn_ref->GetPriceDisplay($hk_ref->EstToCny($hk_arbi->GetAvgCost())), $acct->cn_convert); 
+        EchoArbitrageTableItem2($hk_arbi, $acct->hk_convert); 
+        EchoArbitrageTableItem(intval(-1.0 * $hk_arbi->iTotalShares / $acct->fRatioAdrH), $us_ref->GetPriceDisplay($hk_ref->EstToUsd($hk_arbi->GetAvgCost())), $acct->us_convert); 
     }
     else
     {
         $us_arbi = $group->arbi_trans;
-        EchoArbitrageTableItem(intval(-1.0 * $us_arbi->iTotalShares * $group->fRatioAdrH), $cn_ref->GetPriceDisplay($hk_ref->FromUsdToCny($us_arbi->GetAvgCost())), $group->cn_convert); 
-        EchoArbitrageTableItem(intval(-1.0 * $us_arbi->iTotalShares * $group->fRatioAdrH), $hk_ref->GetPriceDisplay($hk_ref->EstFromUsd($us_arbi->GetAvgCost())), $group->hk_convert); 
-        EchoArbitrageTableItem2($us_arbi, $group->us_convert); 
+        EchoArbitrageTableItem(intval(-1.0 * $us_arbi->iTotalShares * $acct->fRatioAdrH), $cn_ref->GetPriceDisplay($hk_ref->FromUsdToCny($us_arbi->GetAvgCost())), $acct->cn_convert); 
+        EchoArbitrageTableItem(intval(-1.0 * $us_arbi->iTotalShares * $acct->fRatioAdrH), $hk_ref->GetPriceDisplay($hk_ref->EstFromUsd($us_arbi->GetAvgCost())), $acct->hk_convert); 
+        EchoArbitrageTableItem2($us_arbi, $acct->us_convert); 
     }
     
     EchoTableParagraphEnd();
@@ -112,10 +120,10 @@ function _echoArbitrageParagraph($group)
 
 function _echoAdrPriceItem($ref)
 {
-    global $group;
-    $cn_ref = $group->cn_ref;
-    $hk_ref = $group->hk_ref;
-    $us_ref = $group->us_ref;
+    global $acct;
+    $cn_ref = $acct->cn_ref;
+    $hk_ref = $acct->hk_ref;
+    $us_ref = $acct->us_ref;
     
 	$ar = array();
 	$ar[] = RefGetMyStockLink($ref);
@@ -161,55 +169,53 @@ function _echoAdrPriceParagraph($arRef)
 
 function EchoAll()
 {
-    global $group;
+    global $acct;
     
-    _echoAdrPriceParagraph($group->arStockRef);
-    EchoReferenceParagraph($group->arStockRef);
-	EchoAhTradingParagraph($group->hk_ref);
-    EchoHShareSmaParagraph($group->cn_ref, $group->hk_ref);
-    EchoHShareSmaParagraph($group->hk_ref, $group->hk_ref);
+    _echoAdrPriceParagraph($acct->arStockRef);
+    EchoReferenceParagraph($acct->arStockRef);
+	EchoAhTradingParagraph($acct->hk_ref);
+    EchoHShareSmaParagraph($acct->cn_ref, $acct->hk_ref);
+    EchoHShareSmaParagraph($acct->hk_ref, $acct->hk_ref);
 
-    if ($group->GetGroupId()) 
+    if ($group = $acct->GetGroup()) 
     {
         _EchoTransactionParagraph($group);
         if ($group->GetTotalRecords() > 0)
         {
-            EchoMoneyParagraph($group, $group->uscny_ref->GetPrice(), $group->hkcny_ref->GetPrice());
-            _echoArbitrageParagraph($group);
+            EchoMoneyParagraph($group, $acct->uscny_ref->GetPrice(), $acct->hkcny_ref->GetPrice());
+            _echoArbitrageParagraph($acct, $group);
         }
 	}
     
-    EchoPromotionHead(ADR_PAGE);
-    EchoRelated();
+    $acct->EchoLinks(ADR_PAGE, 'GetAdrRelated');
 }
 
 function GetAdrLinks()
 {
 	$str = GetAastocksLink();
-	$str .= GetStockGroupLinks();
 	return $str;
 }
 
 function EchoTitle()
 {
-    global $group;
+    global $acct;
     
-    $strDescription = RefGetStockDisplay($group->us_ref);
+    $strDescription = RefGetStockDisplay($acct->us_ref);
     $str = '比较'.$strDescription.'对应港股和A股的价格';
     echo $str;
 }
 
 function EchoMetaDescription()
 {
-    global $group;
+    global $acct;
     
-    $strAdr = RefGetStockDisplay($group->us_ref);
-    $strA = RefGetStockDisplay($group->cn_ref);
-    $strH = RefGetStockDisplay($group->hk_ref);
-    $str = '根据'.RefGetDescription($group->uscny_ref).'和'.RefGetDescription($group->hkcny_ref).'计算比较美股'.$strAdr.', A股'.$strA.'和港股'.$strH.'价格的网页工具, 提供不同市场下统一的交易记录和转换持仓盈亏等功能.';
+    $strAdr = RefGetStockDisplay($acct->us_ref);
+    $strA = RefGetStockDisplay($acct->cn_ref);
+    $strH = RefGetStockDisplay($acct->hk_ref);
+    $str = '根据'.RefGetDescription($acct->uscny_ref).'和'.RefGetDescription($acct->hkcny_ref).'计算比较美股'.$strAdr.', A股'.$strA.'和港股'.$strH.'价格的网页工具, 提供不同市场下统一的交易记录和转换持仓盈亏等功能.';
     EchoMetaDescriptionText($str);
 }
 
-   	$acct = new Account();
-    $group = new _AdrGroup(StockGetSymbolByUrl());
+   	$acct = new _AdrGroupAccount();
+//    $group = new _AdrGroup(StockGetSymbolByUrl());
 ?>
