@@ -6,8 +6,7 @@ require_once('/php/ui/referenceparagraph.php');
 require_once('/php/ui/hsharesmaparagraph.php');
 require_once('/php/ui/tradingparagraph.php');
 
-//class _AdrGroup extends _StockGroup 
-class _AdrGroupAccount extends GroupAccount 
+class _AdrAccount extends GroupAccount 
 {
     var $cn_ref;
     var $us_ref;
@@ -28,8 +27,7 @@ class _AdrGroupAccount extends GroupAccount
     var $us_convert;
     var $hk_convert;
     
-//    function _AdrGroup($strSymbolAdr)
-    function _AdrGroupAccount()
+    function _AdrAccount()
     {
         parent::GroupAccount();
         
@@ -52,7 +50,6 @@ class _AdrGroupAccount extends GroupAccount
        
         $this->fRatioAdrH = $this->hk_ref->GetAdrRatio();
 
-        //parent::_StockGroup($this->arStockRef);
         $this->CreateGroup($this->arStockRef);
     }
     
@@ -216,6 +213,5 @@ function EchoMetaDescription()
     EchoMetaDescriptionText($str);
 }
 
-   	$acct = new _AdrGroupAccount();
-//    $group = new _AdrGroup(StockGetSymbolByUrl());
+   	$acct = new _AdrAccount();
 ?>

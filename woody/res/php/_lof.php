@@ -2,15 +2,19 @@
 require_once('_stock.php');
 require_once('_lofgroup.php');
 
-class _LofUsGroup extends _LofGroup
+class _LofAccount extends LofGroupAccount
 {
     var $oil_ref = false;
     var $es_ref = false;
     var $usd_ref;
     var $cnh_ref;
 
-    function _LofUsGroup($strSymbol) 
+    function _LofAccount() 
     {
+        parent::LofGroupAccount();
+        
+        $strSymbol = $this->GetName();
+        
         $strOil = (LofGetFutureSymbol($strSymbol) == 'hf_CL') ? 'hf_OIL' : false;
         $strEst = LofGetEstSymbol($strSymbol);
         $strES = ($strEst == '^GSPC') ? 	'hf_ES' : false;
@@ -27,22 +31,29 @@ class _LofUsGroup extends _LofGroup
         if ($strES)	$this->es_ref = new FutureReference($strES);
         $this->usd_ref = new ForexReference($strUSD);
         $this->cnh_ref = new ForexReference($strCNH);
-        parent::_LofGroup();
+        
+//        parent::_LofGroup();
+		$this->LofCreateGroup();
     }
 } 
 
 function _onSmaUserDefinedVal($strVal)
 {
-    global $group;
+//    global $group;
+    global $acct;
     
     if (empty($strVal))	return '';
     
-    $fund = $group->ref;
+//    $fund = $group->ref;
+    $fund = $acct->GetRef();
+    $strStockId = $fund->GetStockId();
     $strAmount = FUND_PURCHASE_AMOUNT;
-    if ($group->GetGroupId()) 
+//    if ($group->GetGroupId()) 
+    if ($group = $acct->GetGroup()) 
     {
     	SqlCreateFundPurchaseTable();
-    	if ($str = SqlGetFundPurchaseAmount(AcctIsLogin(), $fund->GetStockId()))
+//    	if ($str = SqlGetFundPurchaseAmount(AcctIsLogin(), $fund->GetStockId()))
+    	if ($str = SqlGetFundPurchaseAmount($acct->GetLoginId(), $strStockId))
     	{
     		$strAmount = $str;
     	}
@@ -50,10 +61,12 @@ function _onSmaUserDefinedVal($strVal)
 	$fAmount = floatval($strAmount);
     $iQuantity = intval($fAmount / floatval($fund->strCNY) / floatval($strVal));
     $strQuantity = strval($iQuantity);
-    if ($strGroupId = $group->GetGroupId()) 
+//    if ($strGroupId = $group->GetGroupId()) 
+    if ($group) 
     {
         $est_ref = $fund->GetEstRef();
-        $strQuery = sprintf('groupid=%s&fundid=%s&amount=%.2f&netvalue=%.3f&arbitrageid=%s&quantity=%s&price=%s', $strGroupId, $fund->GetStockId(), $fAmount, $fund->fOfficialNetValue, $est_ref->GetStockId(), $strQuantity, $est_ref->GetPrice());
+//        $strQuery = sprintf('groupid=%s&fundid=%s&amount=%.2f&netvalue=%.3f&arbitrageid=%s&quantity=%s&price=%s', $strGroupId, $fund->GetStockId(), $fAmount, $fund->fOfficialNetValue, $est_ref->GetStockId(), $strQuantity, $est_ref->GetPrice());
+        $strQuery = sprintf('groupid=%s&fundid=%s&amount=%.2f&netvalue=%.3f&arbitrageid=%s&quantity=%s&price=%s', $group->GetGroupId(), $strStockId, $fAmount, $fund->fOfficialNetValue, $est_ref->GetStockId(), $strQuantity, $est_ref->GetPrice());
         return GetOnClickLink(STOCK_PHP_PATH.'_submittransaction.php?'.$strQuery, '确认添加对冲申购记录?', $strQuantity);
     }
     return $strQuantity;
@@ -61,11 +74,15 @@ function _onSmaUserDefinedVal($strVal)
 
 function _getArbitrageQuantityName($bEditLink = false)
 {
-    global $group;
-
-    if ($group->GetGroupId() && $bEditLink) 
+//    global $group;
+    global $acct;
+    
+    $fund = $acct->GetRef();
+//    if ($group->GetGroupId() && $bEditLink) 
+    if ($acct->GetGroup() && $bEditLink) 
     {
-    	return GetStockOptionLink(STOCK_OPTION_AMOUNT, $group->ref->GetSymbol());
+//    	return GetStockOptionLink(STOCK_OPTION_AMOUNT, $group->ref->GetSymbol());
+    	return GetStockOptionLink(STOCK_OPTION_AMOUNT, $fund->GetSymbol());
     }
     return STOCK_OPTION_AMOUNT;
 }
@@ -89,9 +106,11 @@ function _onTradingUserDefined($strVal = false)
 {
     if ($strVal)
     {
-    	global $group;
+//	    global $group;
+    	global $acct;
     
-    	$fund = $group->ref;
+    	$fund = $acct->GetRef();
+//    	$fund = $group->ref;
     	$strEst = $fund->GetEstValue($strVal);
     	$est_ref = $fund->GetEstRef();
     	return _onSmaUserDefinedVal($strEst).'@'.$est_ref->GetPriceDisplay($strEst);
@@ -101,30 +120,38 @@ function _onTradingUserDefined($strVal = false)
 
 function EchoAll()
 {
-    global $group;
-    $fund = $group->ref;
+//    global $group;
+//    $fund = $group->ref;
+   	global $acct;
+    
+   	$fund = $acct->GetRef();
     $stock_ref = $fund->stock_ref;
     
     EchoFundEstParagraph($fund);
-    EchoReferenceParagraph(array_merge(array($stock_ref, $fund->GetEstRef(), $fund->future_ref, $group->oil_ref, $group->es_ref, $group->usd_ref, $group->cnh_ref, $group->cny_ref), $group->ar_leverage_ref));
-    $group->EchoLeverageParagraph();
+    EchoReferenceParagraph(array_merge(array($stock_ref, $fund->GetEstRef(), $fund->future_ref, $acct->oil_ref, $acct->es_ref, $acct->usd_ref, $acct->cnh_ref, $acct->cny_ref), $acct->ar_leverage_ref));
+//    $group->EchoLeverageParagraph();
+    $acct->EchoLeverageParagraph();
     EchoFundTradingParagraph($fund, '_onTradingUserDefined');    
 	EchoLofSmaParagraph($fund, '_onSmaUserDefined');
-    EchoEtfArraySmaParagraph($fund->GetEstRef(), $group->GetLeverageRef());
+//    EchoEtfArraySmaParagraph($fund->GetEstRef(), $group->GetLeverageRef());
+    EchoEtfArraySmaParagraph($fund->GetEstRef(), $acct->GetLeverageRef());
     EchoFundHistoryParagraph($fund);
-    
-    if ($group->GetGroupId()) 
+      
+//    if ($group->GetGroupId()) 
+    if ($group = $acct->GetGroup()) 
     {
         _EchoTransactionParagraph($group);
         if ($group->GetTotalRecords() > 0)
         {
             EchoMoneyParagraph($group, $fund->strCNY);
-            $group->EchoArbitrageParagraph();
+//            $group->EchoArbitrageParagraph();
+            $acct->EchoArbitrageParagraph($group);
         }
 	}
 	    
     EchoPromotionHead();
-    $group->EchoTestParagraph();
+//    $group->EchoTestParagraph();
+    $acct->EchoTestParagraph();
     EchoLofRelated($stock_ref);
 }
 
@@ -166,7 +193,5 @@ function GetLofLinks($ref, $strExternalLinks = false)
 	return $str;
 }
 
-    AcctNoAuth();
-    $group = new _LofUsGroup(StockGetSymbolByUrl());
-
+   	$acct = new _LofAccount();
 ?>

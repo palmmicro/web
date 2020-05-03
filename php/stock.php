@@ -43,11 +43,6 @@ function StockGetSymbol($str)
     return $str;
 }
 
-function StockGetSymbolByUrl()
-{
-    return StockGetSymbol(UrlGetTitle());
-}
-
 function StockGetArraySymbol($ar)
 {
     $arSymbol = array();

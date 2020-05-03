@@ -2,43 +2,50 @@
 require_once('_stock.php');
 require_once('_lofgroup.php');
 
-class _LofHkGroup extends _LofGroup
+class _LofHkAccount extends LofGroupAccount
 {
-    function _LofHkGroup($strSymbol) 
+//    function _LofHkGroup($strSymbol) 
+    function _LofHkAccount() 
     {
+        parent::LofGroupAccount();
+        $strSymbol = $this->GetName();
+
         $this->GetWebData(LofHkGetEstSymbol($strSymbol));
         StockPrefetchArrayData(array_merge($this->GetLeverage(), array($strSymbol)));
 
         $this->cny_ref = new CnyReference('HKCNY');
         $this->ref = new LofHkReference($strSymbol);
-        parent::_LofGroup();
+ 
+		$this->LofCreateGroup();
     } 
 } 
 
 function EchoAll()
 {
-    global $group;
-    $fund = $group->ref;
+//    global $group;
+//    $fund = $group->ref;
+   	global $acct;
     
+   	$fund = $acct->GetRef();
     EchoFundEstParagraph($fund);
-    EchoReferenceParagraph(array($fund->stock_ref, $fund->GetEstRef(), $group->cny_ref));
-    $group->EchoLeverageParagraph();
+    EchoReferenceParagraph(array($fund->stock_ref, $fund->GetEstRef(), $acct->cny_ref));
+    $acct->EchoLeverageParagraph();
     EchoFundTradingParagraph($fund);    
 	EchoLofSmaParagraph($fund);
     EchoFundHistoryParagraph($fund);
 
-    if ($group->GetGroupId()) 
+    if ($group = $acct->GetGroup()) 
     {
         _EchoTransactionParagraph($group);
         if ($group->GetTotalRecords() > 0)
         {
             EchoMoneyParagraph($group, false, $fund->strCNY);
-            $group->EchoArbitrageParagraph();
+            $acct->EchoArbitrageParagraph($group);
         }
 	}
 	    
     EchoPromotionHead();
-    $group->EchoTestParagraph();
+    $acct->EchoTestParagraph();
     EchoRelated();
 }
 
@@ -52,7 +59,5 @@ function GetLofHkLinks()
 	return $str;
 }
 
-    AcctNoAuth();
-    $group = new _LofHkGroup(StockGetSymbolByUrl());
-
+   	$acct = new _LofHkAccount();
 ?>

@@ -8,14 +8,18 @@ require_once('/php/ui/etfsmaparagraph.php');
 require_once('/php/ui/etfparagraph.php');
 require_once('/php/ui/fundestparagraph.php');
 
-class _ChinaEtfGroup extends _StockGroup
+class _ChinaEtfAccount extends GroupAccount
 {
+	var $ref;
 	var $us_ref;
 	var $a50_ref;
     var $cnh_ref;
 	
-    function _ChinaEtfGroup($strSymbol) 
+    function _ChinaEtfAccount() 
     {
+        parent::GroupAccount();
+        
+        $strSymbol = $this->GetName();
     	$strUS = 'ASHR';
     	$strA50 = 'hf_CHA50CFD';
         $strCNH = 'fx_susdcnh';
@@ -33,7 +37,7 @@ class _ChinaEtfGroup extends _StockGroup
         	$this->us_ref = new EtfReference($strUS);
         }
         
-        parent::_StockGroup(array($this->ref, $this->us_ref, $this->ref->GetPairNvRef()));
+        $this->CreateGroup(array($this->ref, $this->us_ref, $this->ref->GetPairNvRef()));
     }
     
     function _updateNetValueByCnh()
@@ -70,23 +74,23 @@ class _ChinaEtfGroup extends _StockGroup
 
 function EchoAll()
 {
-    global $group;
+    global $acct;
     
-	EchoFundArrayEstParagraph(array($group->ref, $group->us_ref));
-    EchoReferenceParagraph(array($group->ref->GetPairNvRef(), $group->ref, $group->us_ref, $group->a50_ref, $group->cnh_ref));
-    EchoEtfListParagraph(array($group->ref, $group->us_ref));
-    EchoEtfTradingParagraph($group->ref);
-    EchoEtfSmaParagraph($group->ref);
-    EchoEtfSmaParagraph($group->us_ref, '');
-    EchoEtfHistoryParagraph($group->ref);
-    EchoEtfHistoryParagraph($group->us_ref);
+	EchoFundArrayEstParagraph(array($acct->ref, $acct->us_ref));
+    EchoReferenceParagraph(array($acct->ref->GetPairNvRef(), $acct->ref, $acct->us_ref, $acct->a50_ref, $acct->cnh_ref));
+    EchoEtfListParagraph(array($acct->ref, $acct->us_ref));
+    EchoEtfTradingParagraph($acct->ref);
+    EchoEtfSmaParagraph($acct->ref);
+    EchoEtfSmaParagraph($acct->us_ref, '');
+    EchoEtfHistoryParagraph($acct->ref);
+    EchoEtfHistoryParagraph($acct->us_ref);
 
-    if ($group->GetGroupId()) 
+    if ($group = $acct->GetGroup()) 
     {
         _EchoTransactionParagraph($group);
         if ($group->GetTotalRecords() > 0)
         {
-            EchoMoneyParagraph($group, $group->us_ref->cny_ref->GetPrice());
+            EchoMoneyParagraph($group, $acct->us_ref->cny_ref->GetPrice());
        }
 	}
     
@@ -105,26 +109,23 @@ function GetChinaEtfLinks()
 
 function EchoMetaDescription()
 {
-    global $group;
+    global $acct;
 
-    $strDescription = RefGetStockDisplay($group->ref);
-    $strEst = RefGetStockDisplay($group->ref->GetPairNvRef());
-    $strUS = RefGetStockDisplay($group->us_ref);
-    $strCNY = RefGetStockDisplay($group->us_ref->cny_ref);
+    $strDescription = RefGetStockDisplay($acct->ref);
+    $strEst = RefGetStockDisplay($acct->ref->GetPairNvRef());
+    $strUS = RefGetStockDisplay($acct->us_ref);
+    $strCNY = RefGetStockDisplay($acct->us_ref->cny_ref);
     $str = "根据{$strEst}计算{$strDescription}净值的网页工具. 同时根据{$strUS}和{$strCNY}提供配对交易分析.";
     EchoMetaDescriptionText($str);
 }
 
 function EchoTitle()
 {
-    global $group;
+    global $acct;
     
-    $str = RefGetStockDisplay($group->ref).STOCK_DISP_NETVALUE;
+    $str = RefGetStockDisplay($acct->ref).STOCK_DISP_NETVALUE;
     echo $str;
 }
 
-
-    AcctNoAuth();
-    $group = new _ChinaEtfGroup(StockGetSymbolByUrl());
-
+   	$acct = new _ChinaEtfAccount();
 ?>

@@ -307,14 +307,18 @@ function GetYinHuaSoftwareLinks()
     return GetCategorySoftwareLinks($ar, $strLink);
 }
 
-$group = false;
+//$group = false;
 
 function _checkPersonalGroupId($strGroupId)
 {
-    global $group;
+//    global $group;
     
-    if ($group == false)                        return true;
-    if ($group->GetGroupId() != $strGroupId)    return true;
+//    if ($group == false)                        return true;
+//    if ($group->GetGroupId() != $strGroupId)    return true;
+    global $acct;
+    
+    if (method_exists($acct, 'GetGroupId') == false)	return true;
+    if ($acct->GetGroupId() != $strGroupId)    			return true;
     return false;
 }
 

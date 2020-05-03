@@ -86,7 +86,7 @@
 <br />继续用网页工具代替手工按计算器的工作, 为港股在美股的<a href="../../res/adrcn.php">ADR</a>加入<a href="../../res/achcn.php">中国铝业</a>, <a href="../../res/gshcn.php">广深铁路</a>,
 <a href="../../res/lfccn.php">中国人寿</a>, <a href="../../res/ptrcn.php">中国石油</a>, <a href="../../res/snpcn.php">中国石化</a>, <a href="../../res/shicn.php">上海石化</a>,
 <a href="../../res/ceacn.php">东方航空</a>和<a href="../../res/znhcn.php">南方航空</a>等价格比较工具.
-<br />加入ADR后, 把ADR和LOF用到的共同股票数据部分放到<font color=olive>StockReference</font>类中, 用在<font color=olive>_LofGroup</font>类和<font color=olive>_AdrGroup</font>类中.
+<br />加入ADR后, 把ADR和LOF用到的共同股票数据部分放到<font color=olive>StockReference</font>类中, 用在<font color=olive>_LofAccount</font>类和<font color=olive>_AdrAccount</font>类中.
 <br />继续整理代码, 为热心吃螃蟹的用户们增加<a href="../../res/sh513100cn.php">纳指ETF</a>, <a href="../../res/sz160717cn.php">恒生H股</a>, <a href="../../res/sz160216cn.php">国泰商品</a>, <a href="../../res/sz160416cn.php">石油基金</a>, 
 <a href="../../res/sz163208cn.php">诺安油气</a>和<a href="../../res/sz165510cn.php">信诚四国</a>等<a href="../../res/lofcn.php">LOF</a>净值计算工具.
 </p>
@@ -138,7 +138,7 @@
 <a href="../../res/sz160719cn.php">嘉实黄金LOF</a>和<a href="../../res/sz161116cn.php">易方达黄金LOF</a>.
 <br />一直有用户建议我在华宝油气等LOF的<?php EchoFundHistoryLink(); ?>表格上加入预估净值比较栏目. 除了不愿意直接打自己嘴巴外的心理因素外, 我迟迟没有加上它的原因主要是估值是实时变化的.
 我一直想不清楚是该加在美股收盘后的预估净值还是A股收盘后的.
-<br />在LOF的代码中, 单独的预估净值变量原本放在<font color=olive>_LofGroup</font>类中. 而在新的黄金ETF<font color=olive>_GoldEtfGroup</font>类中又用到了<font color=olive>FundReference</font>类. 
+<br />在LOF的代码中, 单独的预估净值变量原本放在<font color=olive>_LofAccount</font>类中. 而在新的黄金ETF<font color=olive>_GoldEtfAccount</font>类中又用到了<font color=olive>FundReference</font>类. 
 自然而然的, 我把预估净值的变量挪到了<font color=olive>FundReference</font>类中. 当预估净值和当日净值的变量排列在一起后, 突然之间数据结构引导思维方式的例子再次爆发, 没有比在记录当日净值的时候同时记录预估净值更合理的了!
 <br />由于在股票交易日的净值系列页面访问量已经稳定在了1000左右, 最高的一天有接近1700, 我一直在琢磨如何优化页面应对以后可能的更大的访问量高峰.
 把只会每天变化一次的<a href="#sma">SMA</a>计算结果保存下来是很容易想到的, 但是之前一直没有做. 在搞完7个黄金ETF的校准后, 我意识到同一个GLD要在包括GC黄金期货的8个页面各算一遍, 觉得不能再忍下去了.

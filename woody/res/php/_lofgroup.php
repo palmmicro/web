@@ -1,24 +1,29 @@
 <?php
-require_once('_fundgroup.php');
 require_once('_stockgroup.php');
+require_once('_fundgroup.php');
 require_once('/php/ui/arbitrageparagraph.php');
 require_once('/php/ui/lofsmaparagraph.php');
 require_once('/php/ui/etfsmaparagraph.php');
 require_once('/php/ui/etfparagraph.php');
 
-class _LofGroup extends _StockGroup
+class LofGroupAccount extends FundGroupAccount 
 {
     var $cny_ref;
     var $arLeverage = array();
     var $ar_leverage_ref = array();
     
-    function _LofGroup() 
+    function LofGroupAccount() 
+    {
+        parent::FundGroupAccount();
+    }
+    
+    function LofCreateGroup()
     {
     	foreach ($this->arLeverage as $strSymbol)
     	{
     		$this->ar_leverage_ref[] = new EtfReference($strSymbol);
     	}
-        parent::_StockGroup(array_merge(array($this->ref->stock_ref, $this->ref->GetEstRef()), $this->ar_leverage_ref));
+        $this->CreateGroup(array_merge(array($this->ref->stock_ref, $this->ref->GetEstRef()), $this->ar_leverage_ref));
     } 
     
     function GetLeverage()
@@ -79,35 +84,52 @@ class _LofGroup extends _StockGroup
         $lof_convert_trans->AddTransaction($fund->GetLofQuantity($etf_trans->iTotalShares), $etf_trans->fTotalCost * floatval($fund->strCNY));
     }
     
-    function EchoArbitrageParagraph()
+//    function EchoArbitrageParagraph()
+    function EchoArbitrageParagraph($group)
     {
-        $lof_trans = $this->GetStockTransactionCN();
+/*        $lof_trans = $this->GetStockTransactionCN();
         $etf_trans = $this->GetStockTransactionNoneCN();
-        $this->OnArbitrage();
+        $this->OnArbitrage();*/
         
-        $lof_convert_trans = new MyStockTransaction($this->ref->stock_ref, $this->strGroupId);
+        $lof_trans = $group->GetStockTransactionCN();
+        $etf_trans = $group->GetStockTransactionNoneCN();
+        $group->OnArbitrage();
+        
+        $strGroupId = $group->GetGroupId();
+        
+//        $lof_convert_trans = new MyStockTransaction($this->ref->stock_ref, $this->strGroupId);
+        $lof_convert_trans = new MyStockTransaction($this->ref->stock_ref, $strGroupId);
         $lof_convert_trans->AddTransaction($lof_trans->iTotalShares, $lof_trans->fTotalCost);
         $this->ConvertToLofTransaction($lof_convert_trans, $etf_trans);
         
-        $etf_convert_trans = new MyStockTransaction($this->ref->GetEstRef(), $this->strGroupId);
+//        $etf_convert_trans = new MyStockTransaction($this->ref->GetEstRef(), $this->strGroupId);
+        $etf_convert_trans = new MyStockTransaction($this->ref->GetEstRef(), $strGroupId);
         $etf_convert_trans->AddTransaction($etf_trans->iTotalShares, $etf_trans->fTotalCost);
         $this->ConvertToEtfTransaction($etf_convert_trans, $lof_trans);
     
         EchoArbitrageTableBegin();
-        $sym = $this->arbi_trans->ref;
+//        $sym = $this->arbi_trans->ref;
+		$arbi_trans = $group->arbi_trans;
+        $sym = $arbi_trans->ref;
         if ($sym->IsSymbolA())
         {
-            $arbi_convert_trans = new MyStockTransaction($this->ref->GetEstRef(), $this->strGroupId);
-            $this->ConvertToEtfTransaction($arbi_convert_trans, $this->arbi_trans);
-            EchoArbitrageTableItem2($this->arbi_trans, $lof_convert_trans); 
+//            $arbi_convert_trans = new MyStockTransaction($this->ref->GetEstRef(), $this->strGroupId);
+            $arbi_convert_trans = new MyStockTransaction($this->ref->GetEstRef(), $strGroupId);
+//            $this->ConvertToEtfTransaction($arbi_convert_trans, $this->arbi_trans);
+//            EchoArbitrageTableItem2($this->arbi_trans, $lof_convert_trans); 
+            $this->ConvertToEtfTransaction($arbi_convert_trans, $arbi_trans);
+            EchoArbitrageTableItem2($arbi_trans, $lof_convert_trans); 
             EchoArbitrageTableItem2($arbi_convert_trans, $etf_convert_trans); 
         }
         else
         {
-            $arbi_convert_trans = new MyStockTransaction($this->ref->stock_ref, $this->strGroupId);
-            $this->ConvertToLofTransaction($arbi_convert_trans, $this->arbi_trans);
+//            $arbi_convert_trans = new MyStockTransaction($this->ref->stock_ref, $this->strGroupId);
+//            $this->ConvertToLofTransaction($arbi_convert_trans, $this->arbi_trans);
+            $arbi_convert_trans = new MyStockTransaction($this->ref->stock_ref, $strGroupId);
+            $this->ConvertToLofTransaction($arbi_convert_trans, $arbi_trans);
             EchoArbitrageTableItem2($arbi_convert_trans, $lof_convert_trans); 
-            EchoArbitrageTableItem2($this->arbi_trans, $etf_convert_trans); 
+//            EchoArbitrageTableItem2($this->arbi_trans, $etf_convert_trans); 
+            EchoArbitrageTableItem2($arbi_trans, $etf_convert_trans); 
         }
         EchoTableParagraphEnd();
     }
@@ -144,11 +166,14 @@ class _LofGroup extends _StockGroup
 
 function EchoMetaDescription()
 {
-    global $group;
+//    global $group;
+    global $acct;
     
-    $fund = $group->ref;
+//    $fund = $group->ref;
+    $fund = $acct->GetRef();
     $strDescription = RefGetStockDisplay($fund->stock_ref);
-    $strBase = RefGetDescription($group->cny_ref);
+//    $strBase = RefGetDescription($group->cny_ref);
+    $strBase = RefGetDescription($acct->cny_ref);
     $est_ref = $fund->GetEstRef();
     if ($est_ref)     $strBase .= '/'.RefGetDescription($est_ref);
     
