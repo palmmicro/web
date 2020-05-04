@@ -42,15 +42,16 @@ function EchoAll()
         _EchoTransactionParagraph($group);
 	}
     
-    EchoPromotionHead('goldetf');
     _echoTestParagraph($acct);
-    EchoRelated();
+    $acct->EchoLinks('goldetf', 'GetGoldEtfRelated');
 }
 
-function GetGoldEtfLinks()
+function GetGoldEtfLinks($sym)
 {
 	$str = GetJisiluGoldLink();
-	$str .= GetStockGroupLinks();
+
+	$str .= '<br />&nbsp';
+	
 	$str .= GetGoldSoftwareLinks();
 	$str .= GetCommoditySoftwareLinks();
 	return $str;

@@ -1,16 +1,12 @@
 <?php 
 require('php/_goldetf.php');
 
-function EchoRelated()
+function GetGoldEtfRelated($sym)
 {
-	$strGroup = GetGoldEtfLinks();
-	$strCompany = GetHuaAnSoftwareLinks();
-	
-	echo <<< END
-	<p> $strGroup
-		$strCompany
-	</p>
-END;
+	$str = GetHuaAnOfficialLink($sym->GetDigitA());
+	$str .= ' '.GetGoldEtfLinks($sym);
+	$str .= GetHuaAnSoftwareLinks();
+	return $str;
 }
 
 require('/php/ui/_dispcn.php');

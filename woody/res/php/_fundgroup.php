@@ -7,10 +7,8 @@ require_once('/php/ui/fundhistoryparagraph.php');
 // ****************************** Common China fund functions *******************************************************
 function EchoTitle()
 {
-//    global $group;
     global $acct;
     
-//    $str = RefGetStockDisplay($group->ref->stock_ref).STOCK_DISP_NETVALUE;
     $str = RefGetStockDisplay($acct->ref->stock_ref).STOCK_DISP_NETVALUE;
     echo $str;
 }

@@ -4,7 +4,6 @@ require_once('_lofgroup.php');
 
 class _LofHkAccount extends LofGroupAccount
 {
-//    function _LofHkGroup($strSymbol) 
     function _LofHkAccount() 
     {
         parent::LofGroupAccount();
@@ -22,8 +21,6 @@ class _LofHkAccount extends LofGroupAccount
 
 function EchoAll()
 {
-//    global $group;
-//    $fund = $group->ref;
    	global $acct;
     
    	$fund = $acct->GetRef();
@@ -44,16 +41,17 @@ function EchoAll()
         }
 	}
 	    
-    EchoPromotionHead();
     $acct->EchoTestParagraph();
-    EchoRelated();
+    $acct->EchoLinks(false, 'GetLofHkRelated');
 }
 
-function GetLofHkLinks()
+function GetLofHkLinks($sym)
 {
 	$str = GetExternalLink('https://www.hkex.com.hk/market-data/securities-prices/exchange-traded-products', '港股ETF汇总');
 	$str .= ' '.GetJisiluLofHkLink();
-	$str .= GetStockGroupLinks();
+	
+	$str .= '<br />&nbsp';
+	
 	$str .= GetHangSengSoftwareLinks();
 	$str .= GetASharesSoftwareLinks();
 	return $str;

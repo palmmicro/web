@@ -1,16 +1,11 @@
 <?php 
 require('php/_chinaetf.php');
 
-function EchoRelated()
+function GetChinaEtfRelated($sym)
 {
-	$strGroup = GetChinaEtfLinks();
-	$strCompany = GetHuaTaiSoftwareLinks();
-	
-	echo <<< END
-	<p>$strGroup
-	   $strCompany
-	</p>
-END;
+	$str = GetChinaEtfLinks($sym);
+	$str .= GetHuaTaiSoftwareLinks();
+	return $str;
 }
 
 require('/php/ui/_dispcn.php');

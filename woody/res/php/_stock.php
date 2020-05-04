@@ -210,6 +210,43 @@ class StockAccount extends TitleAccount
     	return $this->ref;
     }
     
+    function _checkPersonalGroupId($strGroupId)
+    {	
+    	if (method_exists($this, 'GetGroupId') == false)	return true;
+    	if ($this->GetGroupId() != $strGroupId)    			return true;
+    	return false;
+    }
+
+    function _getPersonalGroupLink($strGroupId)
+    {
+    	$sql = new StockGroupItemSql($strGroupId);
+    	$arStockId = $sql->GetStockIdArray(true);
+    	if (count($arStockId) > 0)
+    	{
+    		return GetStockGroupLink($strGroupId);
+    	}
+    	return '';
+    }
+    
+    function _getPersonalLinks($strMemberId)
+    {
+    	$str = ' - ';
+    	$sql = new StockGroupSql($strMemberId);
+    	if ($result = $sql->GetAll()) 
+    	{
+    		while ($record = mysql_fetch_assoc($result)) 
+    		{
+    			$strGroupId = $record['id'];
+    			if ($this->_checkPersonalGroupId($strGroupId))
+    			{
+    				$str .= $this->_getPersonalGroupLink($strGroupId).' ';
+    			}
+    		}
+    		@mysql_free_result($result);
+    	}
+    	return $str;
+    }
+
     function EchoLinks($strVer = false, $callback = false)
     {
     	$strLoginId = $this->GetLoginId();
@@ -223,7 +260,13 @@ class StockAccount extends TitleAccount
     	{
     		$str = GetCategoryLinks(GetStockCategoryArray());
     	}
-    	$str .= GetStockGroupLinks($strLoginId);
+    	$str .= '<br />'.GetCategoryLinks(GetStockMenuArray());
+    	$str .= '<br />'.GetMyStockGroupLink();	// .' '.GetAhCompareLink().' '.GetAdrhCompareLink();
+    	$str .= '<br />'.GetMyPortfolioLink();
+    	if ($strLoginId)
+    	{
+    		$str .= $this->_getPersonalLinks($strLoginId);
+    	}
     	EchoParagraph($str);
     }
     

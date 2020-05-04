@@ -1,16 +1,12 @@
 <?php 
 require('php/_goldetf.php');
 
-function EchoRelated()
+function GetGoldEtfRelated($sym)
 {
-	$strGroup = GetGoldEtfLinks();
-	$strCompany = GetBoShiSoftwareLinks();
-	
-	echo <<< END
-	<p> $strGroup
-		$strCompany
-	</p>
-END;
+	$str = GetBoShiOfficialLink($sym->GetDigitA());
+	$str .= ' '.GetGoldEtfLinks($sym);
+	$str .= GetBoShiSoftwareLinks();
+	return $str;
 }
 
 require('/php/ui/_dispcn.php');

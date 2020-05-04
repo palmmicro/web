@@ -92,15 +92,16 @@ function EchoAll()
             EchoMoneyParagraph($group, $acct->us_ref->cny_ref->GetPrice());
        }
 	}
-    
-    EchoPromotionHead('chinaetf');
-    EchoRelated();
+
+    $acct->EchoLinks('chinaetf', 'GetChinaEtfRelated');
 }
 
-function GetChinaEtfLinks()
+function GetChinaEtfLinks($sym)
 {
 	$str = GetExternalLink('https://dws.com/US/EN/Product-Detail-Page/ASHR', 'ASHR官网');
-	$str .= GetStockGroupLinks();
+
+	$str .= '<br />&nbsp';
+	
 	$str .= GetASharesSoftwareLinks();
 	$str .= GetSpySoftwareLinks();
 	return $str;

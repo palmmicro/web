@@ -92,8 +92,6 @@ function _echoStockGroupArray($arStock)
 
 function _echoMyStockGroup($strGroupId)
 {
-//    global $group;  // in _stocklink.php $group = false;
-    
     $arStock = SqlGetStocksArray($strGroupId);
     if (count($arStock) == 0)	return;
 

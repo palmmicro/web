@@ -1,18 +1,13 @@
 <?php 
 require('php/_lofhk.php');
 
-function EchoRelated()
+function GetLofHkRelated($sym)
 {
-	$strGroup = GetLofHkLinks();
-	$strHShares = GetHSharesSoftwareLinks();
-	$strCompany = GetJiaShiSoftwareLinks();
-	
-	echo <<< END
-	<p> $strGroup
-		$strHShares
-		$strCompany
-	</p>
-END;
+	$str = GetJiaShiOfficialLink($sym->GetDigitA());
+	$str .= ' '.GetLofHkLinks($sym);
+	$str .= GetHSharesSoftwareLinks();
+	$str .= GetJiaShiSoftwareLinks();
+	return $str;
 }
 
 require('/php/ui/_dispcn.php');

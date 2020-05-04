@@ -1,20 +1,13 @@
 <?php 
 require('php/_lofhk.php');
 
-function EchoRelated()
+function GetLofHkRelated($sym)
 {
-	$strGroup = GetLofHkLinks();
-	$strSpy = GetSpySoftwareLinks();
-	$strQqq = GetQqqSoftwareLinks();
-	$strCompany = GetSouthernSoftwareLinks();
-	
-	echo <<< END
-	<p> $strGroup
-		$strSpy
-		$strQqq
-		$strCompany
-	</p>
-END;
+	$str = GetLofHkLinks($sym);
+	$str .= GetSpySoftwareLinks();
+	$str .= GetQqqSoftwareLinks();
+	$str .= GetSouthernSoftwareLinks();
+	return $str;
 }
 
 require('/php/ui/_dispcn.php');

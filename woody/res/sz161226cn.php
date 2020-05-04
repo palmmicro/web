@@ -1,16 +1,11 @@
 <?php 
 require('php/_goldetf.php');
 
-function EchoRelated()
+function GetGoldEtfRelated($sym)
 {
-	$strGroup = GetGoldEtfLinks();
-	$strCompany = GetUbsSdicSoftwareLinks();
-	
-	echo <<< END
-	<p> $strGroup
-		$strCompany
-	</p>
-END;
+	$str = GetGoldEtfLinks($sym);
+	$str .= GetUbsSdicSoftwareLinks();
+	return $str;
 }
 
 require('/php/ui/_dispcn.php');

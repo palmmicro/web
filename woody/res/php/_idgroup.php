@@ -8,7 +8,7 @@ class GroupIdAccount extends StockAccount
         parent::StockAccount('groupid');
     }
     
-    function GetStockGroupId()
+    function GetGroupId()
     {
     	$strGroupId = $this->GetQuery();
     	if (is_numeric($strGroupId) == false)		return false;
@@ -18,7 +18,7 @@ class GroupIdAccount extends StockAccount
     
     function EchoStockGroup()
     {
-    	if ($strGroupId = $this->GetStockGroupId())
+    	if ($strGroupId = $this->GetGroupId())
     	{
     		$this->EchoStockGroupParagraph($strGroupId);
     	}
@@ -27,7 +27,7 @@ class GroupIdAccount extends StockAccount
     
     function GetWhoseGroupDisplay()
     {
-    	if ($strGroupId = $this->GetStockGroupId())
+    	if ($strGroupId = $this->GetGroupId())
     	{
     		if ($strMemberId = SqlGetStockGroupMemberId($strGroupId))
     		{

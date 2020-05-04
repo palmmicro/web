@@ -1,16 +1,11 @@
 <?php 
 require('php/_lofhk.php');
 
-function EchoRelated()
+function GetLofHkRelated($sym)
 {
-	$strGroup = GetLofHkLinks();
-	$strCompany = GetPenghuaSoftwareLinks();
-	
-	echo <<< END
-	<p> $strGroup
-		$strCompany
-	</p>
-END;
+	$str = GetLofHkLinks($sym);
+	$str .= GetPenghuaSoftwareLinks();
+	return $str;
 }
 
 require('/php/ui/_dispcn.php');
