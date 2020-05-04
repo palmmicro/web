@@ -10,7 +10,6 @@ require_once('/php/ui/fundestparagraph.php');
 
 class _ChinaEtfAccount extends GroupAccount
 {
-	var $ref;
 	var $us_ref;
 	var $a50_ref;
     var $cnh_ref;

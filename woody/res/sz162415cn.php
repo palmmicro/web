@@ -1,21 +1,12 @@
 <?php 
 require('php/_lof.php');
 
-function EchoLofRelated($ref)
+function GetLofRelated($sym)
 {
-	$strGroup = GetLofLinks($ref);
-	$strCompany = GetHuaBaoSoftwareLinks();
-	
-	$strOfficial = GetHuaBaoOfficialLink($ref->GetDigitA());
-	
-	echo <<< END
-    <p>
-    	$strOfficial
-    </p> 
-	<p> $strGroup
-		$strCompany
-	</p>
-END;
+	$str = GetHuaBaoOfficialLink($sym->GetDigitA());
+	$str .= ' '.GetLofLinks($sym);
+	$str .= GetHuaBaoSoftwareLinks();
+	return $str;
 }
 
 require('/php/ui/_dispcn.php');

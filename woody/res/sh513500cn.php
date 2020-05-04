@@ -1,25 +1,14 @@
 <?php 
 require('php/_lof.php');
 
-function EchoLofRelated($ref)
+function GetLofRelated($sym)
 {
-	$strGroup = GetLofLinks($ref);
-	$strQqq = GetQqqSoftwareLinks();
-	$strHangSeng = GetHangSengSoftwareLinks();
-	$strCompany = GetBoShiSoftwareLinks();
-	
-	$strOfficial = GetBoShiOfficialLink($ref->GetDigitA());
-	
-	echo <<< END
-    <p>
-    	$strOfficial
-    </p>
-	<p> $strGroup
-		$strQqq
-		$strHangSeng
-		$strCompany
-	</p>
-END;
+	$str = GetBoShiOfficialLink($sym->GetDigitA());
+	$str .= ' '.GetLofLinks($sym);
+	$str .= GetQqqSoftwareLinks();
+	$str .= GetHangSengSoftwareLinks();
+	$str .= GetBoShiSoftwareLinks();
+	return $str;
 }
 
 require('/php/ui/_dispcn.php');

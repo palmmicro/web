@@ -1,27 +1,15 @@
 <?php 
 require('php/_lof.php');
 
-function EchoLofRelated($ref)
+function GetLofRelated($sym)
 {
-	$strGroup = GetLofLinks($ref);
-	$strOil = GetOilSoftwareLinks();
-	$strCommodity = GetCommoditySoftwareLinks();
-	$strGold = GetGoldSoftwareLinks();
-	$strCompany = GetJiaShiSoftwareLinks();
-
-	$strOfficial = GetJiaShiOfficialLink($ref->GetDigitA());
-	
-	echo <<< END
-    <p>
-    	$strOfficial
-    </p>
-	<p> $strGroup
-		$strOil
-		$strCommodity
-		$strGold
-		$strCompany
-	</p>
-END;
+	$str = GetJiaShiOfficialLink($sym->GetDigitA());
+	$str .= ' '.GetLofLinks($sym);
+	$str .= GetOilSoftwareLinks();
+	$str .= GetCommoditySoftwareLinks();
+	$str .= GetGoldSoftwareLinks();
+	$str .= GetJiaShiSoftwareLinks();
+	return $str;
 }
 
 require('/php/ui/_dispcn.php');

@@ -153,7 +153,7 @@ function _isFromXueQiu()
 
 function EchoPromotionHead($strVer = false, $strLoginId = false)
 {
-    echo '<h3>讨论和建议</h3>';
+    echo '<h3>相关链接</h3>';
     
 	if ((_isFromWeixin() == false) && (_isFromQq() == false) && (_isFromXueQiu() == false))
 	{
@@ -190,7 +190,9 @@ function _EchoTransactionParagraph($group)
 class StockAccount extends TitleAccount
 {
     var $strName;
-    
+
+    var $ref = false;		// MysqlReference class
+	
     function StockAccount($strQueryItem = false, $arLoginTitle = false) 
     {
         parent::TitleAccount($strQueryItem, $arLoginTitle);
@@ -203,6 +205,11 @@ class StockAccount extends TitleAccount
     	return $this->strName;
     }
     
+    function GetRef()
+    {
+    	return $this->ref;
+    }
+    
     function EchoLinks($strVer = false, $callback = false)
     {
     	$strLoginId = $this->GetLoginId();
@@ -210,7 +217,7 @@ class StockAccount extends TitleAccount
 
     	if ($callback)
     	{
-    		$str = call_user_func($callback, $this->GetName());
+    		$str = call_user_func($callback, $this->GetRef());
     	}
     	else
     	{

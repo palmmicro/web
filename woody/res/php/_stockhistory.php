@@ -8,7 +8,7 @@ function _getStockHistoryLinks($ref, $bAdmin)
 {
 	$strSymbol = $ref->GetSymbol();
 	
-	$strLinks = '相关链接:';
+	$strLinks = '';
     if ($ref->IsFundA())
     {
     	$strLinks .= ' '.GetNetValueHistoryLink($strSymbol).' '.GetFundHistoryLink($strSymbol);

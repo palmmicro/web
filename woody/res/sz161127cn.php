@@ -1,23 +1,13 @@
 <?php 
 require('php/_lof.php');
 
-function EchoLofRelated($ref)
+function GetLofRelated($sym)
 {
-	$strGroup = GetLofLinks($ref);
-	$strQqq = GetQqqSoftwareLinks();
-	$strCompany = GetEFundSoftwareLinks();
-	
-	$strOfficial = GetEFundOfficialLink($ref->GetDigitA());
-	
-	echo <<< END
-    <p>
-    	$strOfficial
-    </p>
-	<p> $strGroup
-		$strQqq
-		$strCompany
-	</p>
-END;
+	$str = GetEFundOfficialLink($sym->GetDigitA());
+	$str .= ' '.GetLofLinks($sym);
+	$str .= GetQqqSoftwareLinks();
+	$str .= GetEFundSoftwareLinks();
+	return $str;
 }
 
 require('/php/ui/_dispcn.php');

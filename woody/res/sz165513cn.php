@@ -1,35 +1,19 @@
 <?php 
 require('php/_lof.php');
 
-// 5,800.97	
-// Mar 26, 6,052.31
-// Mar 27, 6,089.81
-
-function EchoLofRelated($ref)
+function GetLofRelated($sym)
 {
-	$strCattleFuture = GetMacroTrendsFutureLink('cattle');
+	$str = GetXinChengOfficialLink($sym->GetDigitA());
+	$str .= ' '.GetOfficialLinkGSG();
+	$str .= ' '.GetMacroTrendsFutureLink('cattle');
 	
-	$strGroup = GetLofLinks($ref, $strCattleFuture);
-	$strOil = GetOilSoftwareLinks();
-	$strCommodity = GetCommoditySoftwareLinks();
-	$strGold = GetGoldSoftwareLinks();
-	$strCompany = GetXinChengSoftwareLinks();
-
-	$strOfficial = GetXinChengOfficialLink($ref->GetDigitA());
-	$strOfficialGSG = GetOfficialLinkGSG();
+	$str .= ' '.GetLofLinks($sym);
+	$str .= GetOilSoftwareLinks();
+	$str .= GetCommoditySoftwareLinks();
+	$str .= GetGoldSoftwareLinks();
+	$str .= GetXinChengSoftwareLinks();
 	
-	echo <<< END
-    <p>
-    	$strOfficial
-    	$strOfficialGSG
-    </p>
-	<p> $strGroup
-		$strOil
-		$strCommodity
-		$strGold
-		$strCompany
-	</p>
-END;
+	return $str;
 }
 
 require('/php/ui/_dispcn.php');

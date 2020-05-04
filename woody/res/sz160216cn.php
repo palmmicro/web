@@ -1,26 +1,15 @@
 <?php 
 require('php/_lof.php');
 
-function EchoLofRelated($ref)
+function GetLofRelated($sym)
 {
-	$strGroup = GetLofLinks($ref);
-	$strOil = GetOilSoftwareLinks();
-	$strCommodity = GetCommoditySoftwareLinks();
-	$strCompany = GetGuoTaiSoftwareLinks();
-	
-	$strOfficial = GetGuoTaiOfficialLink($ref->GetDigitA());
-	
-	echo <<< END
-	<p><b>注意USO其实只是SZ160216可能跟踪的标的之一, 只不过从2016年初以来涨跌幅度极其相似, 此处估算结果仅供参考.</b></p>
-    <p>
-    	$strOfficial
-    </p>
-	<p> $strGroup
-		$strOil
-		$strCommodity
-		$strCompany
-	</p>
-END;
+	$str = '<b>注意USO其实只是SZ160216可能跟踪的标的之一, 只不过从2016年初以来涨跌幅度极其相似, 此处估算结果仅供参考.</b></p><p>';
+	$str .= GetGuoTaiOfficialLink($sym->GetDigitA());
+	$str .= ' '.GetLofLinks($sym);
+	$str .= GetOilSoftwareLinks();
+	$str .= GetCommoditySoftwareLinks();
+	$str .= GetGuoTaiSoftwareLinks();
+	return $str;
 }
 
 require('/php/ui/_dispcn.php');

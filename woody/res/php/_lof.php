@@ -137,33 +137,29 @@ function EchoAll()
     EchoEtfArraySmaParagraph($fund->GetEstRef(), $acct->GetLeverageRef());
     EchoFundHistoryParagraph($fund);
       
-//    if ($group->GetGroupId()) 
     if ($group = $acct->GetGroup()) 
     {
         _EchoTransactionParagraph($group);
         if ($group->GetTotalRecords() > 0)
         {
             EchoMoneyParagraph($group, $fund->strCNY);
-//            $group->EchoArbitrageParagraph();
             $acct->EchoArbitrageParagraph($group);
         }
 	}
 	    
-    EchoPromotionHead();
-//    $group->EchoTestParagraph();
     $acct->EchoTestParagraph();
-    EchoLofRelated($stock_ref);
+    $acct->EchoLinks(false, 'GetLofRelated');
 }
 
-function GetLofLinks($ref, $strExternalLinks = false)
+function GetLofLinks($sym)
 {
-	$strSymbol = $ref->GetSymbol();
+	$strSymbol = $sym->GetSymbol();
 	$strFutureSymbol = LofGetFutureSymbol($strSymbol);
 	
 	$str = GetJisiluLofLink();
 	
-	if ($ref->IsShenZhenA())												$str .= ' '.GetShenZhenLofOfficialLink();
-	else																	$str .= ' '.((intval($ref->GetDigitA()) >= 510000) ? GetShangHaiEtfOfficialLink() : GetShangHaiLofOfficialLink());
+	if ($sym->IsShenZhenA())												$str .= ' '.GetShenZhenLofOfficialLink();
+	else																	$str .= ' '.((intval($sym->GetDigitA()) >= 510000) ? GetShangHaiEtfOfficialLink() : GetShangHaiLofOfficialLink());
 	
 	$str .= ' '.GetEastMoneyQdiiLink();
 	if ($strFutureSymbol || in_arrayCommodityLof($strSymbol))			$str .= ' '.GetEastMoneyGlobalFuturesLink();
@@ -183,10 +179,8 @@ function GetLofLinks($ref, $strExternalLinks = false)
 		$str .= ' '.GetDailyFxCrudeOilLink();
 	}
 	
-	if ($strExternalLinks)												$str .= ' '.$strExternalLinks;
 	$str .= '<br />&nbsp';
 	
-	$str .= GetStockGroupLinks();
 	$str .= GetASharesSoftwareLinks();
 	$str .= GetChinaInternetSoftwareLinks();
 	$str .= GetSpySoftwareLinks();

@@ -2,8 +2,6 @@
 
 class SymbolAccount extends StockAccount
 {
-    var $ref = false;		// MysqlReference class
-    
     function SymbolAccount() 
     {
         parent::StockAccount('symbol');
@@ -22,11 +20,6 @@ class SymbolAccount extends StockAccount
 	   	}
     }
     
-    function GetRef()
-    {
-    	return $this->ref;
-    }
-
     function EchoStockGroup()
     {
     	if ($ref = $this->GetRef())

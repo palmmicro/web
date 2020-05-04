@@ -1,20 +1,13 @@
 <?php 
 require('php/_lof.php');
 
-function EchoLofRelated($ref)
+function GetLofRelated($sym)
 {
-	$strGroup = GetLofLinks($ref);
-	$strQqq = GetQqqSoftwareLinks();
-	$strHangSeng = GetHangSengSoftwareLinks();
-	$strCompany = GetGuangFaSoftwareLinks();
-	
-	echo <<< END
-	<p> $strGroup
-		$strQqq
-		$strHangSeng
-		$strCompany
-	</p>
-END;
+	$str = GetLofLinks($sym);
+	$str .= GetQqqSoftwareLinks();
+	$str .= GetHangSengSoftwareLinks();
+	$str .= GetGuangFaSoftwareLinks();
+	return $str;
 }
 
 require('/php/ui/_dispcn.php');

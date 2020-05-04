@@ -1,22 +1,14 @@
 <?php 
 require('php/_lof.php');
 
-function EchoLofRelated($ref)
+function GetLofRelated($sym)
 {
-	$strGroup = GetLofLinks($ref);
-	$strOil = GetOilSoftwareLinks();
-	$strCommodity = GetCommoditySoftwareLinks();
-	$strGold = GetGoldSoftwareLinks();
-	$strCompany = GetUniversalSoftwareLinks();
-	
-	echo <<< END
-	<p> $strGroup
-		$strOil
-		$strCommodity
-		$strGold
-		$strCompany
-	</p>
-END;
+	$str = GetLofLinks($sym);
+	$str .= GetOilSoftwareLinks();
+	$str .= GetCommoditySoftwareLinks();
+	$str .= GetGoldSoftwareLinks();
+	$str .= GetUniversalSoftwareLinks();
+	return $str;
 }
 
 require('/php/ui/_dispcn.php');

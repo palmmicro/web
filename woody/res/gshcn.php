@@ -1,9 +1,9 @@
 <?php 
 require('php/_adr.php');
 
-function GetAdrRelated($strName)
+function GetAdrRelated($sym)
 {
-	$str = GetAdrLinks();
+	$str = GetAdrLinks($sym);
 	return $str;
 }
 

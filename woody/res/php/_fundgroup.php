@@ -17,16 +17,9 @@ function EchoTitle()
 
 class FundGroupAccount extends GroupAccount 
 {
-	var $ref;
-	
     function FundGroupAccount()
     {
         parent::GroupAccount();
-    }
-    
-    function GetRef()
-    {
-    	return $this->ref;
     }
 }
 

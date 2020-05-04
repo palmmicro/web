@@ -187,7 +187,7 @@ function EchoAll()
     $acct->EchoLinks(ADR_PAGE, 'GetAdrRelated');
 }
 
-function GetAdrLinks()
+function GetAdrLinks($sym)
 {
 	$str = GetAastocksLink();
 	return $str;

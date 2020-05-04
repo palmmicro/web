@@ -1,24 +1,15 @@
 <?php 
 require('php/_lof.php');
 
-function EchoLofRelated($ref)
+function GetLofRelated($sym)
 {
-	$strGroup = GetLofLinks($ref);
-	$strOil = GetOilSoftwareLinks();
-	$strCommodity = GetCommoditySoftwareLinks();
-	$strCompany = GetSouthernSoftwareLinks();
-	
-	echo <<< END
-	<p><b>注意USO其实只是SH501018可能跟踪的标的之一, 此处估算结果仅供参考.</b></p>
-    <p>
-    	<a href="http://www.nffund.com/main/jjcp/fundproduct/501018.shtml" target=_blank>南方原油官网</a>
-    </p>
-	<p> $strGroup
-		$strOil
-		$strCommodity
-		$strCompany
-	</p>
-END;
+	$str = '<b>注意USO其实只是SH501018可能跟踪的标的之一, 此处估算结果仅供参考.</b></p><p>';
+	$str .= '<a href="http://www.nffund.com/main/jjcp/fundproduct/501018.shtml" target=_blank>南方原油官网</a>';
+	$str .= ' '.GetLofLinks($sym);
+	$str .= GetOilSoftwareLinks();
+	$str .= GetCommoditySoftwareLinks();
+	$str .= GetSouthernSoftwareLinks();
+	return $str;
 }
 
 require('/php/ui/_dispcn.php');
