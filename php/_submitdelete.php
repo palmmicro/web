@@ -12,20 +12,25 @@ function _deleteTableDataById($strTableName)
     return false;
 }
 
-    AcctNoAuth();
-	if (AcctIsAdmin())
-	{
-	    if ($strPathName = UrlGetQueryValue('file'))
-	    {
-	        unlinkEmptyFile($strPathName);
-	        trigger_error('Deleted debug file: '.GetFileLink($strPathName)); 
-	    }
-	    else
-	    {
-	    	if (_deleteTableDataById(TABLE_NETVALUE_HISTORY))			{}
-	    }
+function _DeleteFileOrTableData()
+{
+    if ($strPathName = UrlGetQueryValue('file'))
+    {
+        unlinkEmptyFile($strPathName);
+        trigger_error('Deleted debug file: '.GetFileLink($strPathName)); 
+    }
+    else
+    {
+    	if (_deleteTableDataById(TABLE_NETVALUE_HISTORY))			
+    	{
+    	}
+    	else if (_deleteTableDataById(TABLE_STOCK_CALIBRATION))
+    	{
+//    		DebugString('Deleted data from '.TABLE_STOCK_CALIBRATION);
+    	}
 	}
+}
 	
-	SwitchToSess();
-
+   	$acct = new Account();
+	$acct->AdminCommand('_DeleteFileOrTableData');
 ?>

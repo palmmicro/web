@@ -290,6 +290,17 @@ class Account
     {
     	SwitchToSess();
     }
+
+    function AdminCommand($callback)
+    {
+    	if ($this->IsAdmin())
+    	{
+    		$fStart = microtime(true);
+    		call_user_func($callback);
+    		DebugString($callback.DebugGetStopWatchDisplay($fStart));
+    	}
+    	$this->Back();
+    }
 }
 
 function AcctNoAuth()
@@ -300,13 +311,7 @@ function AcctNoAuth()
 function AcctAdminCommand($callback)
 {
    	$acct = new Account();
-   	if ($acct->IsAdmin())
-	{
-        $fStart = microtime(true);
-		call_user_func($callback);
-        DebugString($callback.DebugGetStopWatchDisplay($fStart));
-	}
-	$acct->Back();
+	$acct->AdminCommand($callback);
 }
 
 class DataAccount extends Account

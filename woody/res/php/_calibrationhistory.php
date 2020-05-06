@@ -11,7 +11,7 @@ function _echoCalibrationHistoryItem($strSymbol, $record, $bReadOnly)
     }
     else
     {
-        $strDelete = GetDeleteLink(STOCK_PHP_PATH.'_submitcalibration.php?delete='.$record['id'], '校准记录');
+        $strDelete = GetDeleteLink('/php/_submitdelete.php?'.TABLE_STOCK_CALIBRATION.'='.$record['id'], '校准记录');
     }
     
     $strTime = substr($record['filled'], 0, 16);

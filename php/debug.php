@@ -1,9 +1,6 @@
 <?php
 require_once('url.php');
 
-define('DEBUG_FILE_PATH', 'debug');
-define('DEBUG_FILE_NAME', 'debug.txt');
-
 define('DEBUG_TIME_ZONE', 'PRC');
 define('DEBUG_TIME_FORMAT', 'H:i:s');
 define('DEBUG_DATE_FORMAT', 'Y-m-d');
@@ -102,7 +99,7 @@ function DebugGetStopWatchDisplay($fStart, $iPrecision = 2)
 
 function _checkDebugPath()
 {
-    $strPath = UrlGetRootDir().DEBUG_FILE_PATH;
+    $strPath = UrlGetRootDir().'debug';
     if (is_dir($strPath) == false)  mkdir($strPath);
     
     return $strPath;
@@ -116,14 +113,14 @@ function DebugGetPathName($strFileName)
 
 function DebugGetFile()
 {
-    return DebugGetPathName(DEBUG_FILE_NAME);
+    return DebugGetPathName('debug.txt');
 }
 
 function DebugString($str)
 {
 	if ($str == false)	$str = '(false)';
     $strTimeZone = date_default_timezone_get();
-    file_put_contents(DebugGetFile(), UrlGetIp().' '.UrlGetCur().' '.DebugGetTime().':'.$str.PHP_EOL, FILE_APPEND);     // DebugGetTime will change timezone!
+    file_put_contents(DebugGetFile(), DebugGetTime().' '.UrlGetIp().' '.UrlGetCur().' '.$str.PHP_EOL, FILE_APPEND);     // DebugGetTime will change timezone!
     date_default_timezone_set($strTimeZone);
 }
 
