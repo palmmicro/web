@@ -301,11 +301,15 @@ class Account
     	}
     	$this->Back();
     }
-}
 
-function AcctNoAuth()
-{
-   	$acct = new Account();
+    function AuthCommand($callback)
+    {
+    	if ($strLoginId = $this->GetLoginId())
+    	{
+    		call_user_func($callback, $strLoginId, $this->IsAdmin());
+    	}
+    	$this->Back();
+    }
 }
 
 function AcctAdminCommand($callback)

@@ -154,7 +154,7 @@ function _echoAdrPriceParagraph($arRef)
 	EchoTableParagraphBegin(array(new TableColumnSymbol(),
 								   new TableColumn('人民币￥'),
 								   new TableColumn('港币$'),
-								   new TableColumn('美元$')
+								   new TableColumnUSD()
 								   ), 'adrprice');
 	
 	foreach ($arRef as $ref)

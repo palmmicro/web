@@ -19,6 +19,10 @@ function _DeleteFileOrTableData()
         unlinkEmptyFile($strPathName);
         trigger_error('Deleted debug file: '.GetFileLink($strPathName)); 
     }
+	else if ($strIp = UrlGetQueryValue(TABLE_IP))
+	{
+	   	AcctDeleteBlogVisitorByIp(new IpSql($strIp));
+	}
     else
     {
     	if (_deleteTableDataById(TABLE_NETVALUE_HISTORY))			

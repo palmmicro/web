@@ -215,9 +215,9 @@ function EchoAll()
     {
     	_echoMyStockData($ref, $acct->GetLoginId(), $bAdmin);
     }
-    else if ($bAdmin)
+    else
     {
-    	EchoStockParagraph($acct->GetStart(), $acct->GetNum());
+    	EchoStockParagraph($acct->GetStart(), $acct->GetNum(), $bAdmin);
     }
     $acct->EchoLinks();
 }

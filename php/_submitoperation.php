@@ -8,15 +8,14 @@ function _onManualCalibration($strSymbol)
 	EtfRefManualCalibration(new EtfReference($strSymbol));
 }
 
-    AcctNoAuth();
-	if (AcctIsAdmin())
-	{
-	    if ($strSymbol = UrlGetQueryValue('calibration'))
-	    {
-	        _onManualCalibration($strSymbol);
-	    }
-	}
+function _AdminOperation()
+{
+    if ($strSymbol = UrlGetQueryValue('calibration'))
+    {
+        _onManualCalibration($strSymbol);
+    }
+}
 	
-	SwitchToSess();
-
+   	$acct = new Account();
+	$acct->AdminCommand('_AdminOperation');
 ?>

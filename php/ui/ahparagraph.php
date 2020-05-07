@@ -116,8 +116,9 @@ function _echoAdrhItem($ref)
 	
    	$ar[] = RefGetMyStockLink($ref);
    	
-    $strSymbolAdr = $ref->adr_ref->GetSymbol();
-    $ar[] = GetMyStockLink($strSymbolAdr);
+   	$adr_ref = $ref->adr_ref;
+    $ar[] = GetMyStockLink($adr_ref->GetSymbol());
+    $ar[] = $adr_ref->GetPriceDisplay($ref->GetUsdPrice());
     
     if ($fAdrhRatio = $ref->GetAdrhPriceRatio())
     {
@@ -152,6 +153,7 @@ function EchoAdrhParagraph($arRef)
 
 	EchoTableParagraphBegin(array(new TableColumnSymbol(),
 								   new TableColumnSymbol('ADR'),
+								   new TableColumnUSD(),
 								   new TableColumnRatio('ADRH'),
 								   new TableColumnRatio('HADR')
 								   ), 'adrh', $str);

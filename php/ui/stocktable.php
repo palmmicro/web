@@ -196,6 +196,14 @@ class TableColumnTime extends TableColumn
 	}
 }
 
+class TableColumnUSD extends TableColumn
+{
+	function TableColumnUSD()
+	{
+        parent::TableColumn('美元$');
+	}
+}
+
 function GetTableColumnTime()
 {
 	$col = new TableColumnTime();

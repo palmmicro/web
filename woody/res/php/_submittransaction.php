@@ -184,7 +184,8 @@ function _onMergeTransaction()
     }
 }
 
-    AcctNoAuth();
+function _ProcessTransaction($strLoginId, $bAdmin)
+{
     $strGroupId = false;
     $strGroupItemId = false;
 	if (isset($_POST['submit']))
@@ -194,7 +195,7 @@ function _onMergeTransaction()
 		{
 			_onMergeTransaction();
 			unset($_POST['submit']);
-			SwitchToSess();		
+			return;
 		}
 		
 	    $strGroupItemId = $_POST['symbol'];
@@ -235,5 +236,8 @@ function _onMergeTransaction()
 	}
 
 	_updateStockGroupItem($strGroupId, $strGroupItemId);
-	SwitchToSess();
+}
+
+   	$acct = new Account();
+	$acct->AuthCommand('_ProcessTransaction');
 ?>

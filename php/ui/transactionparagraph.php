@@ -103,11 +103,6 @@ function EchoTransactionParagraph($strGroupId, $ref = false, $iStart = 0, $iNum 
         $str = $strNavLink;
     }
     
-	if (AcctIsAdmin())
-	{
-		$str .= ' '.GetMyStockGroupLink($strGroupId);
-	}
-	
     $arColumn = GetTransactionTableColumn();
     echo <<<END
     <p>$str
