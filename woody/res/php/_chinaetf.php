@@ -84,13 +84,9 @@ function EchoAll()
     EchoEtfHistoryParagraph($acct->ref);
     EchoEtfHistoryParagraph($acct->us_ref);
 
-    if ($group = $acct->GetGroup()) 
+    if ($group = $acct->EchoTransaction()) 
     {
-        _EchoTransactionParagraph($group);
-        if ($group->GetTotalRecords() > 0)
-        {
-            EchoMoneyParagraph($group, $acct->us_ref->cny_ref->GetPrice());
-       }
+    	EchoMoneyParagraph($group, $acct->us_ref->cny_ref->GetPrice());
 	}
 
     $acct->EchoLinks('chinaetf', 'GetChinaEtfRelated');

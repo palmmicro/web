@@ -175,7 +175,7 @@ function EchoMoneyParagraph($group, $strUSDCNY = false, $strHKDCNY = false)
 
 // ****************************** Transaction Paragraph *******************************************************
 
-function _EchoTransactionParagraph($group)
+function _EchoTransaction($group)
 {
     $strGroupId = $group->GetGroupId();
     

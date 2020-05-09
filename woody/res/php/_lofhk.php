@@ -31,14 +31,10 @@ function EchoAll()
 	EchoLofSmaParagraph($fund);
     EchoFundHistoryParagraph($fund);
 
-    if ($group = $acct->GetGroup()) 
+    if ($group = $acct->EchoTransaction()) 
     {
-        _EchoTransactionParagraph($group);
-        if ($group->GetTotalRecords() > 0)
-        {
-            EchoMoneyParagraph($group, false, $fund->strCNY);
-            $acct->EchoArbitrageParagraph($group);
-        }
+        EchoMoneyParagraph($group, false, $fund->strCNY);
+        $acct->EchoArbitrageParagraph($group);
 	}
 	    
     $acct->EchoTestParagraph();

@@ -1,11 +1,6 @@
 <?php
-define('URL_HTML', '.html');
-define('URL_CNHTML', 'cn.html');
-
 define('URL_PHP', '.php');
 define('URL_CNPHP', 'cn.php');
-
-define('URL_WWW', 'www.');
 
 define('NAV_DIR_FIRST', 'First');
 define('NAV_DIR_PREV', 'Prev');
@@ -176,7 +171,7 @@ function UrlGetCur()
 function UrlIsValid($str)
 {
    	if (substr($str, 0, 2) == '//')			return false;
-   	if (strpos($str, '/.') !== false)		return false;
+   	if (strpos($str, '..') !== false)		return false;
    	if (stripos($str, URL_PHP) === false)	return false;
    	return true;
 }
@@ -275,10 +270,15 @@ function UrlGetPhp($bChinese = true)
     return $bChinese ? URL_CNPHP : URL_PHP;
 }
 
+function UrlGetHtml($bChinese = true)
+{
+    return $bChinese ? 'cn.html' : '.html';
+}
+
 function UrlGetDomain()
 {
 	$strDomain = $_SERVER['SERVER_NAME'];
-	if (stripos($strDomain, URL_WWW) !== false)
+	if (stripos($strDomain, 'www.') !== false)
 	{
 		$strDomain = substr($strDomain, 4);
 	}

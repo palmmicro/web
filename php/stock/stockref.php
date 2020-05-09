@@ -10,19 +10,6 @@ define('STOCK_NET_VALUE', 'Net Value');
 define('STOCK_PRE_MARKET', 'Pre-Market Trading');
 define('STOCK_POST_MARKET', 'Post-Market Trading');
 
-// ****************************** Public functions *******************************************************
-
-// 11:11pm, 10:59PM
-function GetHourFromStrEndWithPM($strEndWithPM)
-{
-    $iHour = intval(strstr($strEndWithPM, ':', true));
-    if (strtolower(substr($strEndWithPM, -2, 2)) == 'pm')
-    {
-        if ($iHour < 12)   $iHour += 12;
-    }
-    return $iHour;
-}
-
 // ****************************** Protected functions *******************************************************
 
 function _GetForexAndFutureArray($strSymbol, $strFileName, $strTimeZone, $callback)
@@ -41,19 +28,6 @@ function _GetForexAndFutureArray($strSymbol, $strFileName, $strTimeZone, $callba
 }
 
 // ****************************** Private functions *******************************************************
-
-define('COMMA_REPLACEMENT', '*');
-
-
-// "+2.3%", "-11.37%", "N/A"
-function _convertYahooPercentage($strChange)
-{
-    $str = RemoveDoubleQuotationMarks($strChange);
-    if ($str == 'N/A')     return 0.0;
-    
-    if (substr($str, 0, 1) == '+')   $str = ltrim($str, '+');
-    return floatval(rtrim($str, '%')) / 100.0;
-}
 
 function _getSinaQuotesStr($strSinaSymbol, $strFileName)
 {

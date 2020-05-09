@@ -55,6 +55,19 @@ class GroupAccount extends StockAccount
         
         if ($strGroupId)		$this->group = new MyStockGroup($strGroupId, $arRef);
     }
+    
+    function EchoTransaction()
+    {
+    	if ($group = $this->GetGroup()) 
+    	{
+    		_EchoTransaction($group);
+    		if ($group->GetTotalRecords() > 0)
+    		{
+    			return $group;
+    		}
+        }
+        return false;
+	}
 }
 
 ?>

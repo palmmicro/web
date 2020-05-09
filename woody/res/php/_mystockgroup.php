@@ -99,7 +99,7 @@ function _echoMyStockGroup($strGroupId)
     if (StockGroupIsReadOnly($strGroupId) == false)
     {
         $group = new MyStockGroup($strGroupId, $arTransactionRef);
-        _EchoTransactionParagraph($group);
+        _EchoTransaction($group);
     }
 }
 

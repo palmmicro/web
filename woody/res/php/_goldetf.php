@@ -37,9 +37,9 @@ function EchoAll()
     EchoFundTradingParagraph($fund);    
     EchoFundHistoryParagraph($fund);
 
-    if ($group = $acct->GetGroup()) 
+    if ($group = $acct->EchoTransaction()) 
     {
-        _EchoTransactionParagraph($group);
+    	EchoMoneyParagraph($group, $acct->cny_ref->GetPrice());
 	}
     
     _echoTestParagraph($acct);

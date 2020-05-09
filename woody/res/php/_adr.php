@@ -174,14 +174,10 @@ function EchoAll()
     EchoHShareSmaParagraph($acct->cn_ref, $acct->hk_ref);
     EchoHShareSmaParagraph($acct->hk_ref, $acct->hk_ref);
 
-    if ($group = $acct->GetGroup()) 
+    if ($group = $acct->EchoTransaction()) 
     {
-        _EchoTransactionParagraph($group);
-        if ($group->GetTotalRecords() > 0)
-        {
-            EchoMoneyParagraph($group, $acct->uscny_ref->GetPrice(), $acct->hkcny_ref->GetPrice());
-            _echoArbitrageParagraph($acct, $group);
-        }
+        EchoMoneyParagraph($group, $acct->uscny_ref->GetPrice(), $acct->hkcny_ref->GetPrice());
+        _echoArbitrageParagraph($acct, $group);
 	}
     
     $acct->EchoLinks(ADR_PAGE, 'GetAdrRelated');

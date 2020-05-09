@@ -8,7 +8,7 @@ function HtmlMenuItem($arName, $iLevel, $strItem, $bChinese)
     {
         if ($strItem == $strKey)
         {
-          	NavWriteItemLink($iLevel, $strItem, ($bChinese ? URL_CNHTML : URL_HTML), $strDisplay);
+          	NavWriteItemLink($iLevel, $strItem, UrlGetHtml($bChinese), $strDisplay);
         	break;
         }
     }
