@@ -173,20 +173,6 @@ function EchoMoneyParagraph($group, $strUSDCNY = false, $strHKDCNY = false)
     EchoTableParagraphEnd();
 }
 
-// ****************************** Transaction Paragraph *******************************************************
-
-function _EchoTransaction($group)
-{
-    $strGroupId = $group->GetGroupId();
-    
-    StockEditTransactionForm(STOCK_TRANSACTION_NEW, $strGroupId);
-    if ($group->GetTotalRecords() > 0)
-    {
-    	EchoTransactionParagraph($strGroupId);
-		EchoPortfolioParagraph(GetMyPortfolioLink(), $group->GetStockTransactionArray());
-	}
-}
-
 class StockAccount extends TitleAccount
 {
     var $strName;
@@ -273,6 +259,20 @@ class StockAccount extends TitleAccount
     function EchoStockGroupParagraph($strGroupId = false, $strStockId = false)
     {
     	EchoAllStockGroupParagraph($strGroupId, $strStockId, $this->GetMemberId(), $this->GetLoginId());
+    }
+
+    function EchoStockTransaction($group)
+    {
+    	$strGroupId = $group->GetGroupId();
+    
+    	StockEditTransactionForm(STOCK_TRANSACTION_NEW, $strGroupId);
+    	if ($group->GetTotalRecords() > 0)
+    	{
+    		EchoTransactionParagraph($strGroupId);
+    		EchoPortfolioParagraph(GetMyPortfolioLink(), $group->GetStockTransactionArray());
+    		return true;
+    	}
+    	return false;
     }
 }    
 

@@ -60,8 +60,7 @@ class GroupAccount extends StockAccount
     {
     	if ($group = $this->GetGroup()) 
     	{
-    		_EchoTransaction($group);
-    		if ($group->GetTotalRecords() > 0)
+    		if ($this->EchoStockTransaction($group))
     		{
     			return $group;
     		}

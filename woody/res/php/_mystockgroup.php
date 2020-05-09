@@ -90,19 +90,6 @@ function _echoStockGroupArray($arStock)
     return $arTransactionRef;
 }
 
-function _echoMyStockGroup($strGroupId)
-{
-    $arStock = SqlGetStocksArray($strGroupId);
-    if (count($arStock) == 0)	return;
-
-    $arTransactionRef = _echoStockGroupArray($arStock); 
-    if (StockGroupIsReadOnly($strGroupId) == false)
-    {
-        $group = new MyStockGroup($strGroupId, $arTransactionRef);
-        _EchoTransaction($group);
-    }
-}
-
 function _getMetaDescriptionStr($strTitle)
 {
 	$ar = array(ADR_PAGE => '通过比较中国企业在美国发行的American Depositary Receipt(ADR)的中国A股价格, 港股价格和美股价格, 分析各种套利对冲方案, 提供交易建议.',
@@ -165,7 +152,12 @@ function EchoAll()
     {
         if ($strGroupId = $acct->EchoStockGroup())
         {
-            _echoMyStockGroup($strGroupId);
+        	$arStock = SqlGetStocksArray($strGroupId);
+        	if (count($arStock) > 0)
+        	{
+        		$arTransactionRef = _echoStockGroupArray($arStock); 
+        		$acct->EchoStockTransaction(new MyStockGroup($strGroupId, $arTransactionRef));
+        	}
         }
         else
         {
