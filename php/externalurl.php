@@ -92,6 +92,11 @@ function GetEFundUrl()
 	return 'http://www.efunds.com.cn';
 }
 
+function GetNuoAnFundUrl()
+{
+	return 'https://trade.lionfund.com.cn/pc/';
+}
+
 function GetXinChengFundUrl()
 {
 	return 'http://www.citicprufunds.com.cn';

@@ -127,7 +127,7 @@ function _getSmaParagraphMemo($his)
 {
 	$strDate = $his->GetStartDate();
 	$strScore = '<b>'.strval($his->GetScore()).'</b>';
-	$strSymbolLink = GetXueqiuLink($his->GetSym());
+	$strSymbolLink = GetYahooStockLink($his->GetSym());
     $str = "{$strSymbolLink} {$strDate}数据牛熊分数: {$strScore}";
     $str .= ' '.GetStockHistoryLink($his->GetSymbol());
     return $str;
@@ -168,7 +168,7 @@ function EchoSmaParagraph($ref, $str = false, $cb_ref = false, $callback = false
     	$est_ref = call_user_func($callback, $cb_ref);
     	$str .= _getSmaParagraphWarning($est_ref);
 
-    	$ar[] = new TableColumnEst(GetXueqiuLink($est_ref));
+    	$ar[] = new TableColumnEst(GetYahooStockLink($est_ref));
     	$ar[] = $next_col;
     }
     

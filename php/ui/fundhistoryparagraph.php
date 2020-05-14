@@ -97,7 +97,7 @@ function _echoFundHistoryParagraph($ref, $est_ref, $csv = false, $iStart = 0, $i
     }
     else
     {
-    	$str = GetYahooStockLink($ref);
+    	$str = GetXueqiuLink($ref);
     }
     $str .= '的历史'.$close_col->GetDisplay().'相对于'.$nv_col->GetDisplay().'的'.$premium_col->GetDisplay();
     

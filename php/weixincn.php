@@ -16,17 +16,17 @@ function _wxGetStockArray($strKey)
 	$iLen = strlen($strKey); 
     if ($iLen > 0)
     {
-    	$bPinYin = false;
+/*    	$bPinYin = false;
     	if ($iLen == 4)
     	{
     		if (preg_match('#[A-Za-z]+#', $strKey))
     		{
     			DebugString('拼音简称:'.$strKey);
-//    			$gb_sql = new GB2312Sql();
+    			$gb_sql = new GB2312Sql();
     			$bPinYin = true;
     		}
     	}
-    	
+*/    	
     	$sql = new StockSql();
     	if ($result = $sql->GetAll()) 
     	{

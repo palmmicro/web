@@ -265,10 +265,10 @@ function GetIcbcCsSoftwareLinks()
     return GetCategorySoftwareLinks($ar, $strLink);
 }
 
-function GetLionSoftwareLinks()
+function GetNuoAnSoftwareLinks()
 {
     $ar = array('sz163208');
-    $strLink = GetExternalLink('http://www.lionfund.com.cn', '诺安基金');
+    $strLink = GetExternalLink(GetNuoAnFundUrl(), '诺安基金');
     return GetCategorySoftwareLinks($ar, $strLink);
 }
 

@@ -78,7 +78,8 @@ class GB2312Sql extends TableSql
     function Create()
     {
     	$str = ' `id` CHAR( 4 ) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL PRIMARY KEY,'
-         	  . ' `utf` CHAR( 4 ) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL';
+         	  . ' `utf` CHAR( 4 ) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,'
+         	  . ' UNIQUE ( `utf` )';
     	return $this->CreateTable($str);
     }
     

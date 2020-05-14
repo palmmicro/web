@@ -109,17 +109,17 @@ END;
     EchoTableParagraphEnd();
 }
 
-function _getTradingParagraphStr($arColumn)
+function _getTradingParagraphStr($ref, $arColumn)
 {
+    $strSymbol = GetXueqiuLink($ref);
 	$strPrice = $arColumn[1];
-    $str = "当前5档交易{$strPrice}";
+    $str = "{$strSymbol}当前5档交易{$strPrice}";
     return $str;
 }
 
 function EchoFundTradingParagraph($fund, $callback = false)
 {
     $ref = $fund->stock_ref;
-    $strSymbol = RefGetMyStockLink($ref);
 	$strPrev = $ref->GetPrevPrice();
     $strOfficial = $fund->GetOfficialNetValue();
     $strEstPrice = $ref->GetPriceDisplay($strOfficial, $strPrev);
@@ -131,18 +131,17 @@ function EchoFundTradingParagraph($fund, $callback = false)
     $arColumn[] = GetTableColumnFairPremium();
     $arColumn[] = GetTableColumnRealtimePremium();
     if ($callback)     $arColumn[] = call_user_func($callback);
-    $strPrice = _getTradingParagraphStr($arColumn);
+    $strPrice = _getTradingParagraphStr($ref, $arColumn);
     
 	$strEst = GetTableColumnEst();
 	$strPremium = GetTableColumnPremium();
-    $str = "{$strSymbol}{$strPrice}相对于各个{$strEst}{$strEstPrice}的{$strPremium}";
+    $str = "{$strPrice}相对于各个{$strEst}{$strEstPrice}的{$strPremium}";
     _echoTradingParagraph($str, $arColumn, $ref, $strOfficial, $strFair, $strRealtime, $callback); 
 }
 
 function EchoAhTradingParagraph($hshare_ref)
 {
 	$ref = $hshare_ref->a_ref;
-    $strSymbol = RefGetMyStockLink($ref); 
     $strSymbolH = RefGetMyStockLink($hshare_ref);
     $strPriceH = $hshare_ref->GetPriceDisplay();
    
@@ -162,8 +161,8 @@ function EchoAhTradingParagraph($hshare_ref)
     	$strVal = false;
     }
 //    $arColumn[] = '';
-    $strPrice = _getTradingParagraphStr($arColumn);
-    $str = "{$strSymbol}{$strPrice}相对于{$strSymbolH}交易价格{$strPriceH}港币的{$strPremium}";
+    $strPrice = _getTradingParagraphStr($ref, $arColumn);
+    $str = "{$strPrice}相对于{$strSymbolH}交易价格{$strPriceH}港币的{$strPremium}";
         
     _echoTradingParagraph($str, $arColumn, $ref, $hshare_ref->GetCnyPrice(), $strVal); 
 }
@@ -172,15 +171,14 @@ function EchoEtfTradingParagraph($ref)
 {
 	if ($ref->IsSymbolA() == false)		return;
 	
-    $strSymbol = RefGetMyStockLink($ref);
     $strPairSymbol = RefGetMyStockLink($ref->GetPairNvRef());
 
     $arColumn = _getTradingTableColumn();
 	$strPremium = GetTableColumnOfficalPremium();
     $arColumn[] = $strPremium;
 
-    $strPrice = _getTradingParagraphStr($arColumn);
-    $str = "{$strSymbol}{$strPrice}相对于{$strPairSymbol}的{$strPremium}";
+    $strPrice = _getTradingParagraphStr($ref, $arColumn);
+    $str = "{$strPrice}相对于{$strPairSymbol}的{$strPremium}";
         
     _echoTradingParagraph($str, $arColumn, $ref, $ref->GetOfficialNetValue()); 
 }
@@ -188,7 +186,7 @@ function EchoEtfTradingParagraph($ref)
 function EchoTradingParagraph($ref)
 {
     $arColumn = _getTradingTableColumn();
-    $str = _getTradingParagraphStr($arColumn);
+    $str = _getTradingParagraphStr($ref, $arColumn);
     _echoTradingParagraph($str, $arColumn, $ref); 
 }
 

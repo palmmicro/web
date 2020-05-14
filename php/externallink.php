@@ -41,6 +41,11 @@ function GetJiaShiOfficialLink($strDigitA)
     return GetOfficialLink(GetJiaShiFundUrl().'/Services/cn/html/product/index.shtml?fundcode='.$strDigitA, $strDigitA);
 }
 
+function GetNuoAnOfficialLink($strDigitA)
+{
+    return GetOfficialLink(GetNuoAnFundUrl().'q/webFundInfo.action?fundCode='.$strDigitA, $strDigitA);
+}
+
 function GetXinChengOfficialLink($strDigitA)
 {
     return GetOfficialLink(GetXinChengFundUrl().'/pc/productDetail?fundcode='.$strDigitA, $strDigitA);
