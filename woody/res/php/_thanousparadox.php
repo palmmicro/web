@@ -8,7 +8,10 @@ class _ThanousParadoxCsvFile extends PricePoolCsvFile
 {
     function OnLineArray($arWord)
     {
-    	$this->pool->OnData(floatval($arWord[2]), floatval($arWord[1]));
+    	if (count($arWord) > 2)
+    	{
+    		$this->pool->OnData(floatval($arWord[2]), floatval($arWord[1]));
+    	}
     }
 }
 

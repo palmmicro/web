@@ -112,6 +112,11 @@ function GetIsharesUrl()
 	return 'https://www.ishares.com/us/products/';
 }
 
+function GetSpdrEtfUrl()
+{
+	return 'https://www.ssga.com/us/en/individual/etfs/';
+}
+
 // https://www.ssga.com/us/en/individual/etfs/library-content/products/fund-data/etfs/us/navhist-us-en-xop.xlsx
 function GetSpdrNavUrl($strSymbol)
 {
@@ -119,7 +124,7 @@ function GetSpdrNavUrl($strSymbol)
 	$record = $sql->GetRecord($strSymbol);
    	if (stripos($record['name'], 'spdr') !== false)
 	{
-		return 'https://www.ssga.com/us/en/individual/etfs/library-content/products/fund-data/etfs/us/navhist-us-en-'.strtolower($strSymbol).'.xlsx';
+		return GetSpdrEtfUrl().'library-content/products/fund-data/etfs/us/navhist-us-en-'.strtolower($strSymbol).'.xlsx';
 	}
 	return false;
 }

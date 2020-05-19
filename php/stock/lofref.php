@@ -183,7 +183,11 @@ class _LofReference extends FundReference
             if ($fFutureEtfPrice != 0.0)
             {
             	$fRealtime = floatval($strEst);
-            	$fRealtime *= floatval($this->future_ref->GetPrice()) / $this->future_ref->EstByEtf($fFutureEtfPrice);
+            	$fFuture = $this->future_ref->EstByEtf($fFutureEtfPrice);
+            	if ($fFuture != 0.0)
+            	{
+            		$fRealtime *= floatval($this->future_ref->GetPrice()) / $fFuture;
+            	}
             	$this->fRealtimeNetValue = $this->GetLofValue(strval($fRealtime), $strCNY);
             }
         }

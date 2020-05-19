@@ -10,7 +10,7 @@ function GetLofRelated($sym)
     </ol>
     <p>';
 	$str .= GetHuaBaoOfficialLink($sym->GetDigitA());
-    $str .= ' <a href="https://www.ssga.com/us/en/individual/etfs/funds/spdr-sp-oil-gas-exploration-production-etf-xop" target=_blank>XOP官网</a>';
+	$str .= ' '.GetSpdrOfficialLink('XOP');
 	$str .= ' '.GetLofLinks($sym);
 	$str .= GetOilSoftwareLinks();
 	$str .= GetCommoditySoftwareLinks();

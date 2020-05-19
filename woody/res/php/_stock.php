@@ -268,7 +268,7 @@ class StockAccount extends TitleAccount
     	StockEditTransactionForm(STOCK_TRANSACTION_NEW, $strGroupId);
     	if ($group->GetTotalRecords() > 0)
     	{
-    		EchoTransactionParagraph($strGroupId);
+    		EchoTransactionParagraph($this, $strGroupId, false, false);
     		EchoPortfolioParagraph(GetMyPortfolioLink(), $group->GetStockTransactionArray());
     		return true;
     	}

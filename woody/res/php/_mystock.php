@@ -53,8 +53,11 @@ function _echoBenfordParagraph($ref)
    	EchoParagraph($str);
 }
 
-function _echoMyStockTransactions($strMemberId, $ref)
+function _echoMyStockTransactions($acct, $ref)
 {                         
+	$strMemberId = $acct->GetLoginId();
+	if ($strMemberId == false)	return;	
+	
     $arGroup = array();
     $strStockId = $ref->GetStockId();
 	$sql = new StockGroupSql($strMemberId);
@@ -75,7 +78,7 @@ function _echoMyStockTransactions($strMemberId, $ref)
 	if ($iCount == 0)    return;
 	foreach ($arGroup as $strGroupId => $strGroupItemId)
 	{
-		EchoTransactionParagraph($strGroupId, $ref);
+		EchoTransactionParagraph($acct, $strGroupId, $ref, false);
 	}
 	
 	if ($iCount == 1)
@@ -132,7 +135,7 @@ function _getMyStockLinks($sym)
     return $str;
 }
 
-function _echoMyStockData($ref, $strMemberId, $bAdmin)
+function _echoMyStockData($acct, $ref)
 {
     $hshare_ref = false;
     $etf_ref = false;
@@ -189,9 +192,8 @@ function _echoMyStockData($ref, $strMemberId, $bAdmin)
     	
    	_echoBenfordParagraph($ref);
     
-   	if ($strMemberId)		_echoMyStockTransactions($strMemberId, $ref);
-    
-    if ($bAdmin)
+   	_echoMyStockTransactions($acct, $ref);
+    if ($acct->IsAdmin())
     {
      	$str = GetMyStockLink();
     	if ($strStockId = $ref->GetStockId())
@@ -210,14 +212,13 @@ function EchoAll()
 {
 	global $acct;
 	
-	$bAdmin = $acct->IsAdmin();
     if ($ref = $acct->EchoStockGroup())
     {
-    	_echoMyStockData($ref, $acct->GetLoginId(), $bAdmin);
+    	_echoMyStockData($acct, $ref);
     }
     else
     {
-    	EchoStockParagraph($acct->GetStart(), $acct->GetNum(), $bAdmin);
+    	EchoStockParagraph($acct->GetStart(), $acct->GetNum(), $acct->IsAdmin());
     }
     $acct->EchoLinks();
 }

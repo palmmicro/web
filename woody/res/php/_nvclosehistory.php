@@ -9,7 +9,10 @@ class _NvCloseCsvFile extends PricePoolCsvFile
 {
     function OnLineArray($arWord)
     {
-    	$this->pool->OnData(floatval($arWord[1]), floatval($arWord[2]));
+    	if (count($arWord) > 2)
+    	{
+    		$this->pool->OnData(floatval($arWord[1]), floatval($arWord[2]));
+    	}
     }
 }
 

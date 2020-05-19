@@ -1,21 +1,22 @@
 <?php
 require_once('stockgroupparagraph.php');
 
-function _echoTransactionTableItem($ref, $record, $bReadOnly)
+function _echoTransactionTableItem($ref, $record, $bReadOnly, $bAdmin)
 {
     $strSymbol = $ref->GetSymbol();
     $strDate = GetSqlTransactionDate($record);
     $strPrice = $ref->GetPriceDisplay($record['price']);
     $strFees = strval_round(floatval($record['fees']), 2);
-    if ($bReadOnly)
-    {
-        $strEdit = '';
-        $strDelete = '';
-    }
-    else
+
+    $strEdit = '';
+   	$strDelete = GetDeleteLink(STOCK_PHP_PATH.'_submittransaction.php?delete='.$record['id'], '交易记录');
+    if ($bReadOnly == false)
     {
     	$strEdit = GetEditLink(STOCK_PATH.'editstocktransaction', $record['id']);
-    	$strDelete = GetDeleteLink(STOCK_PHP_PATH.'_submittransaction.php?delete='.$record['id'], '交易记录');
+    }
+    else if ($bAdmin == false)
+    {
+    	$strDelete = '';
     }
     
     echo <<<END
@@ -31,19 +32,19 @@ function _echoTransactionTableItem($ref, $record, $bReadOnly)
 END;
 }
 
-function _echoSingleTransactionTableData($sql, $ref, $iStart, $iNum, $bReadOnly)
+function _echoSingleTransactionTableData($sql, $ref, $iStart, $iNum, $bReadOnly, $bAdmin)
 {
 	if ($result = $sql->GetStockTransaction($ref->GetStockId(), $iStart, $iNum)) 
     {
         while ($record = mysql_fetch_assoc($result)) 
         {
-            _echoTransactionTableItem($ref, $record, $bReadOnly);
+            _echoTransactionTableItem($ref, $record, $bReadOnly, $bAdmin);
         }
         @mysql_free_result($result);
     }
 }
 
-function _echoAllTransactionTableData($sql, $iStart, $iNum, $bReadOnly)
+function _echoAllTransactionTableData($sql, $iStart, $iNum, $bReadOnly, $bAdmin)
 {
     $ar = array();
     if ($result = $sql->GetAllStockTransaction($iStart, $iNum)) 
@@ -62,33 +63,31 @@ function _echoAllTransactionTableData($sql, $iStart, $iNum, $bReadOnly)
         		$ref = new MyStockReference($strSymbol);
         		$ar[$strGroupItemId] = $ref;
         	}
-            _echoTransactionTableItem($ref, $record, $bReadOnly);
+            _echoTransactionTableItem($ref, $record, $bReadOnly, $bAdmin);
         }
         @mysql_free_result($result);
     }
 }
 
-function _echoTransactionTableData($sql, $ref, $iStart, $iNum, $bReadOnly)
+function _echoTransactionTableData($sql, $ref, $iStart, $iNum, $bReadOnly, $bAdmin)
 {
     if ($ref)
     {
-    	_echoSingleTransactionTableData($sql, $ref, $iStart, $iNum, $bReadOnly);
+    	_echoSingleTransactionTableData($sql, $ref, $iStart, $iNum, $bReadOnly, $bAdmin);
     }
     else
     {
-    	_echoAllTransactionTableData($sql, $iStart, $iNum, $bReadOnly);
+    	_echoAllTransactionTableData($sql, $iStart, $iNum, $bReadOnly, $bAdmin);
     }
 }
 
-function EchoTransactionParagraph($strGroupId, $ref = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
+function EchoTransactionParagraph($acct, $strGroupId, $ref = false, $bAll = true)
 {
+    $iStart = $acct->GetStart();
+    $iNum = $bAll ? $acct->GetNum() : TABLE_COMMON_DISPLAY;
+    
 	$sql = new StockGroupItemSql($strGroupId);
-    if (IsTableCommonDisplay($iStart, $iNum))
-    {
-    	$str = StockGetAllTransactionLink($strGroupId, $ref);
-        $strNavLink = '';
-    }
-    else
+    if ($bAll)
     {
     	if ($ref)
     	{
@@ -101,6 +100,11 @@ function EchoTransactionParagraph($strGroupId, $ref = false, $iStart = 0, $iNum 
            	$strNavLink = GetNavLink('groupid='.$strGroupId, $iTotal, $iStart, $iNum);
         }
         $str = $strNavLink;
+    }
+    else
+    {
+    	$str = StockGetAllTransactionLink($strGroupId, $ref);
+        $strNavLink = '';
     }
     
     $arColumn = GetTransactionTableColumn();
@@ -118,7 +122,8 @@ function EchoTransactionParagraph($strGroupId, $ref = false, $iStart = 0, $iNum 
     </tr>
 END;
 
-    _echoTransactionTableData($sql, $ref, $iStart, $iNum, StockGroupIsReadOnly($strGroupId));
+	$bReadOnly = (SqlGetStockGroupMemberId($strGroupId) == $acct->GetLoginId()) ? false : true;
+    _echoTransactionTableData($sql, $ref, $iStart, $iNum, $bReadOnly, $acct->IsAdmin());
     EchoTableParagraphEnd($strNavLink);
 }
 

@@ -56,14 +56,40 @@ function GetYinHuaOfficialLink($strDigitA)
     return GetOfficialLink(GetYinHuaFundUrl().'/main/qxjj/'.$strDigitA.'/fndFacts.shtml', $strDigitA);
 }
 
-function GetOfficialLinkGSG()
+function GetIsharesOfficialLink($strSymbol)
 {
-	return GetOfficialLink(GetIsharesUrl().'239757/GSG', 'GSG');
+	$str = GetIsharesUrl();
+	switch ($strSymbol)
+	{
+	case 'GSG':
+		$str .= '239757/GSG';
+		break;
+
+	case 'IXC':
+		$str .= '239741/ishares-global-energy-etf';
+		break;
+	}
+	return GetOfficialLink($str, $strSymbol);
 }
 
-function GetOfficialLinkIXC()
+function GetSpdrOfficialLink($strSymbol)
 {
-	return GetOfficialLink(GetIsharesUrl().'239741/ishares-global-energy-etf', 'IXC');
+	$str = GetSpdrEtfUrl().'funds/';
+	switch ($strSymbol)
+	{
+	case 'XLE':
+		$str .= 'the-energy-select-sector-spdr-fund-xle';
+		break;
+
+	case 'XLY':
+		$str .= 'the-consumer-discretionary-select-sector-spdr-fund-xly';
+		break;
+
+	case 'XOP':
+		$str .= 'spdr-sp-oil-gas-exploration-production-etf-xop';
+		break;
+	}
+	return GetOfficialLink($str, $strSymbol);
 }
 
 function GetShangHaiEtfOfficialLink()
