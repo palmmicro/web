@@ -85,7 +85,7 @@ function _echoRandomPromotion()
 		break;
 
 	case 4:
-		LayoutQqGroup();
+		LayoutTgGroup();
 		break;
 	}
 }
@@ -97,7 +97,7 @@ function _isFromWeixin()
 		switch ($strFrom)
 		{
 		case 'groupmessage':	// 微信群
-			LayoutQqGroup();
+			LayoutTgGroup();
 			return true;
 			
 		case 'singlemessage':	// 好友分享
@@ -123,7 +123,7 @@ function _isFromQq()
 {
 	if ($strFrom = UrlGetQueryValue('tdsourcetag'))
 	{
-		LayoutQqGroup();
+		LayoutTgGroup();
 		switch ($strFrom)
 		{
 		case 's_pcqq_aiomsg':	// QQ消息
@@ -145,7 +145,7 @@ function _isFromXueQiu()
 	if ($str = UrlGetQueryValue('xueqiu_status_id'))
 	{
 		DebugString('雪球'.$str);
-		LayoutQqGroup();
+		LayoutTgGroup();
 		return true;
 	}
 	return false;

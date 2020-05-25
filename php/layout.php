@@ -16,12 +16,17 @@ function EchoCanonical()
 	echo $str;
 }
 
-function LayoutQqGroup()
+function LayoutTgGroup()
 {
 	$strWeixin = GetWeixinDevLink();
+	$strLink = GetHttpLink('https://t.me/palmmicro');
+	$strWeb = GetHttpLink('https://web.telegram.im/');
     echo <<<END
-        <p>加入QQ群反馈网站和{$strWeixin}的问题.
-        <br /><img src=/woody/image/group7.png alt="QQ group 7 QR code" />
+        <p>加入Telegram电报群反馈网站和{$strWeixin}的问题.
+        <br />$strLink
+        <br />可以扫描第三方<b>币用APP</b>的二维码安装后申请电报账号和加群.
+        <br /><img src=/woody/image/biyong.jpg alt="Bi Yong app QR code" />
+        <br />PC用户可以使用第三方在线版本：$strWeb
         </p>
 END;
 }

@@ -185,7 +185,7 @@ class WeixinStock extends WeixinCallback
     
 	function GetQqGroupText()
 	{
-		$str = 'Palmmicro群7的'.GetInternalLink('/woody/image/group7.png', '二维码链接').'，入群答案是162411。'.WX_EOL;
+		$str = 'Palmmicro群8的'.GetInternalLink('/woody/image/group8.png', '二维码链接').'，入群答案是162411。由于群主QQ号被封，此群无法继续维护。建议大家在电报群中搜索palmmicro加入使用。'.WX_EOL;
 		return $str;
 	}
 	
@@ -193,7 +193,7 @@ class WeixinStock extends WeixinCallback
 	{
 		_wxDebug($strUserName, "<font color=green>内容:</font>$strContents", 'Wechat message');
 		$str = $strContents.WX_EOL;
-		$str .= '本公众号目前只提供部分股票交易和净值估算自动查询。因为没有匹配到信息，此消息内容已经发往support@palmmicro.com邮箱。Palmmicro会尽快在公众号上回复，也欢迎在QQ群中咨询。'.WX_EOL;
+		$str .= '本公众号目前只提供部分股票交易和净值估算自动查询。因为没有匹配到信息，此消息内容已经发往support@palmmicro.com邮箱。Palmmicro会尽快在公众号上回复，也欢迎在Telegram电报群中咨询。'.WX_EOL;
 		return $str.$this->GetQqGroupText();
 	}
 
@@ -203,7 +203,9 @@ class WeixinStock extends WeixinCallback
 		$strText = str_replace('【', '', $strText);
 		$strText = str_replace('】', '', $strText);
 		$strText = str_replace('，', '', $strText);
+		$strText = str_replace(',', '', $strText);
 		$strText = str_replace('。', '', $strText);
+		$strText = str_replace('.', '', $strText);
 		$strText = trim($strText);
     
         if (stripos($strText, 'q群') !== false)	return $this->GetQqGroupText();

@@ -53,7 +53,7 @@
 <br />努力拥抱知识付费时代, 我给自己的网站也加上了流行的微信和支付宝打赏, 跟微信公众号一起, 会随机出现在网页讨论和建议之下. 为方便查阅, 这里一古脑都显示出来.
 </p>
 <?php 
-	LayoutQqGroup();
+	LayoutTgGroup();
 	LayoutWeixinPromotion();
 	LayoutWeixinPay();
 	LayoutAliPay();
