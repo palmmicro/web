@@ -50,6 +50,11 @@ function rtrim0($str)
 	return strval(floatval($str));
 }
 
+function filter_var_email($strEmail)
+{
+    return filter_var($strEmail, FILTER_VALIDATE_EMAIL);
+}
+
 function unlinkEmptyFile($strFileName)
 {
 	if (file_exists($strFileName))

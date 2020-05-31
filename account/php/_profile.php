@@ -168,11 +168,6 @@ function EchoAccountProfile($bChinese = true)
 	_echoAccountFundAmount($strMemberId, $bChinese);
 }                                                         
 
-function filter_var_email($strEmail)
-{
-    return filter_var($strEmail, FILTER_VALIDATE_EMAIL);
-}
-
 function _loginAccount($strEmail, $strPassword)
 {
 	$arErrMsg = array();	// Array to store validation errors

@@ -222,13 +222,13 @@ class Account
     function Account() 
     {
    		$this->strLoginId = AcctSessionStart();
+   		$this->strMemberId = $this->strLoginId;
 	   	if ($strEmail = UrlGetQueryValue('email'))
 	   	{
-	   		$this->strMemberId = SqlGetIdByEmail($strEmail); 
-	   	}
-	   	else
-	   	{
-	   		$this->strMemberId = $this->strLoginId;
+	   		if (filter_var_email($strEmail))
+	   		{
+	   			$this->strMemberId = SqlGetIdByEmail($strEmail);
+	   		}
 	   	}
     }
     
@@ -279,6 +279,12 @@ class Account
     function GetMemberId()
     {
     	return $this->strMemberId;
+    }
+    
+    function IsReadOnly()
+    {
+    	if ($this->strLoginId == false)	return true;
+    	return ($this->strLoginId == $this->strMemberId) ? false : true;
     }
 
     function IsAdmin()

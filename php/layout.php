@@ -16,17 +16,24 @@ function EchoCanonical()
 	echo $str;
 }
 
+function LayoutPromo($str)
+{
+    echo <<<END
+        <p>
+        	<img src=/woody/image/$str.jpg alt="$str promo" />
+        </p>
+END;
+}
+
 function LayoutTgGroup()
 {
 	$strWeixin = GetWeixinDevLink();
 	$strLink = GetHttpLink('https://t.me/palmmicro');
-	$strWeb = GetHttpLink('https://web.telegram.im/');
     echo <<<END
         <p>加入Telegram电报群反馈网站和{$strWeixin}的问题.
         <br />$strLink
-        <br />可以扫描第三方<b>币用APP</b>的二维码安装后申请电报账号和加群.
+        <br />访问不了上面链接的用户, 可以扫描第三方<b>币用APP</b>的二维码安装并且申请电报账号, 然后查询palmmicro加群.
         <br /><img src=/woody/image/biyong.jpg alt="Bi Yong app QR code" />
-        <br />PC用户可以使用第三方在线版本：$strWeb
         </p>
 END;
 }

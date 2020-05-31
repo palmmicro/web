@@ -30,15 +30,15 @@ function _stockGroupGetStockLinks($strGroupId)
 	return $strStocks;
 }
 
-function _echoStockGroupTableItem($strGroupId, $strLoginId = false)
+function _echoStockGroupTableItem($strGroupId, $bReadOnly, $bAdmin)
 {
     $strEdit = '';
     $strDelete = GetDeleteLink(STOCK_PHP_PATH.'_submitgroup.php?delete='.$strGroupId, '股票分组和相关交易记录');
-    if (SqlGetStockGroupMemberId($strGroupId) == $strLoginId)
+    if ($bReadOnly == false)
     {
     	$strEdit = GetEditLink(STOCK_PATH.'editstockgroup', $strGroupId);
     }
-    else if (AcctIsAdmin($strLoginId) == false)
+    else if ($bAdmin == false)
     {
         $strDelete = '';
     }
@@ -64,7 +64,7 @@ function _echoNewStockGroupTableItem($strStockId, $strLoginId = false)
     EchoTableColumn($ar);
 }
 
-function _echoStockGroupTableData($strStockId, $strMemberId, $strLoginId)
+function _echoStockGroupTableData($strStockId, $strMemberId, $strLoginId, $bReadOnly, $bAdmin)
 {
     $iTotal = 0;
 	$sql = new StockGroupSql($strMemberId);
@@ -75,7 +75,7 @@ function _echoStockGroupTableData($strStockId, $strMemberId, $strLoginId)
 			$strGroupId = $record['id'];
 			if (($strStockId == false) || SqlGroupHasStock($strGroupId, $strStockId))
 			{
-				_echoStockGroupTableItem($strGroupId, $strLoginId);
+				_echoStockGroupTableItem($strGroupId, $bReadOnly, $bAdmin);
 				$iTotal ++;
 			}
 		}
@@ -88,7 +88,7 @@ function _echoStockGroupTableData($strStockId, $strMemberId, $strLoginId)
 	}
 }
 
-function EchoAllStockGroupParagraph($strGroupId = false, $strStockId = false, $strMemberId = false, $strLoginId = false)
+function EchoAllStockGroupParagraph($strGroupId, $strStockId, $strMemberId, $strLoginId, $bReadOnly, $bAdmin)
 {
     $strStockGroup = GetMyStockGroupLink();
 	$strSymbol = GetTableColumnSymbol();
@@ -105,13 +105,13 @@ END;
 
 	if ($strGroupId)
 	{
-		_echoStockGroupTableItem($strGroupId, $strLoginId);
+		_echoStockGroupTableItem($strGroupId, $bReadOnly, $bAdmin);
 	}
 	else
 	{
    		if ($strLoginId)
     	{
-    		_echoStockGroupTableData($strStockId, $strMemberId, $strLoginId);
+    		_echoStockGroupTableData($strStockId, $strMemberId, $strLoginId, $bReadOnly, $bAdmin);
     	}
     	else
     	{

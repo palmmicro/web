@@ -10,8 +10,10 @@ function _updateStockHistoryAdjCloseByDividend($ref, $strSymbol, $strYMD, $strDi
     $his_sql = $ref->GetHistorySql();
     if ($result = $his_sql->GetFromDate($strYMD)) 
     {
+//    	DebugString('START: '.$strYMD);
         while ($record = mysql_fetch_assoc($result)) 
         {
+//        	DebugString($record['date']);
             $ar[$record['id']] = floatval($record['adjclose']);
         }
         @mysql_free_result($result);

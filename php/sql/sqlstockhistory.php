@@ -44,8 +44,13 @@ class StockHistorySql extends DailyStockValSql
     		if ($record['volume'] == $strVolume)												unset($ar['volume']);
     		if (abs(floatval($record['adjclose']) - floatval($strAdjClose)) < 0.000001)	unset($ar['adjclose']);
     		
-    		if (count($ar) > 0)
+    		$iCount = count($ar);
+    		if ($iCount > 0)
     		{
+    			if ($iCount == 1 && isset($ar['adjclose']))
+    			{	// adjclose might have been changed manually
+    				return false;
+    			}
     			return $this->UpdateById($ar, $record['id']);
     		}
     	}

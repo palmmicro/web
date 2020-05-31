@@ -69,7 +69,7 @@ function _EchoMoneyGroupData($group, $strUSDCNY, $strHKDCNY, $strLink = false)
 
 function _echoRandomPromotion()
 {
-	$iVal = rand(1, 4);
+	$iVal = rand(1, 5);
 	switch ($iVal)
 	{
 	case 1:
@@ -86,6 +86,10 @@ function _echoRandomPromotion()
 
 	case 4:
 		LayoutTgGroup();
+		break;
+		
+	case 5:
+		LayoutPromo('huatai');
 		break;
 	}
 }
@@ -256,16 +260,28 @@ class StockAccount extends TitleAccount
     	EchoParagraph($str);
     }
     
+    function IsGroupReadOnly($strGroupId)
+    {
+    	if ($strGroupId == false)	return true;
+    	
+    	return (SqlGetStockGroupMemberId($strGroupId) == $this->GetLoginId()) ? false : true;
+    }
+    
     function EchoStockGroupParagraph($strGroupId = false, $strStockId = false)
     {
-    	EchoAllStockGroupParagraph($strGroupId, $strStockId, $this->GetMemberId(), $this->GetLoginId());
+    	$bReadOnly = $strGroupId ? $this->IsGroupReadOnly($strGroupId) : $this->IsReadOnly();
+    	EchoAllStockGroupParagraph($strGroupId, $strStockId, $this->GetMemberId(), $this->GetLoginId(), $bReadOnly, $this->IsAdmin());
     }
 
     function EchoStockTransaction($group)
     {
     	$strGroupId = $group->GetGroupId();
     
-    	StockEditTransactionForm(STOCK_TRANSACTION_NEW, $strGroupId);
+    	if ($this->IsGroupReadOnly($strGroupId) == false)
+    	{
+    		StockEditTransactionForm(STOCK_TRANSACTION_NEW, $strGroupId);
+    	}
+    	
     	if ($group->GetTotalRecords() > 0)
     	{
     		EchoTransactionParagraph($this, $strGroupId, false, false);

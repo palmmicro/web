@@ -182,10 +182,16 @@ class WeixinStock extends WeixinCallback
     {
     	return WX_DEBUG_VER.' '.GetWeixinDevLink('使用说明');
     }
-    
+
+    function GetBusinessText()
+    {
+		$str = '请把具体合作内容和方式发往woody@palmmicro.com邮箱。'.WX_EOL;
+		return $str;
+    }
+
 	function GetQqGroupText()
 	{
-		$str = 'Palmmicro群8的'.GetInternalLink('/woody/image/group8.png', '二维码链接').'，入群答案是162411。由于群主QQ号被封，此群无法继续维护。建议大家在电报群中搜索palmmicro加入使用。'.WX_EOL;
+		$str = 'Palmmicro群8的'.GetInternalLink('/woody/image/group8.png', '二维码链接').'，入群答案是162411。由于群主QQ号被封，此群无法继续维护。建议大家在Telegram电报群中搜索palmmicro加入使用。'.WX_EOL;
 		return $str;
 	}
 	
@@ -193,7 +199,7 @@ class WeixinStock extends WeixinCallback
 	{
 		_wxDebug($strUserName, "<font color=green>内容:</font>$strContents", 'Wechat message');
 		$str = $strContents.WX_EOL;
-		$str .= '本公众号目前只提供部分股票交易和净值估算自动查询。因为没有匹配到信息，此消息内容已经发往support@palmmicro.com邮箱。Palmmicro会尽快在公众号上回复，也欢迎在Telegram电报群中咨询。'.WX_EOL;
+		$str .= '本公众号目前只提供部分股票交易和净值估算自动查询。因为没有匹配到信息，此消息内容已经发往support@palmmicro.com邮箱。Palmmicro会尽快在公众号上回复。'.WX_EOL;
 		return $str.$this->GetQqGroupText();
 	}
 
@@ -208,7 +214,8 @@ class WeixinStock extends WeixinCallback
 		$strText = str_replace('.', '', $strText);
 		$strText = trim($strText);
     
-        if (stripos($strText, 'q群') !== false)	return $this->GetQqGroupText();
+        if (stripos($strText, 'q群') !== false)			return $this->GetQqGroupText();
+        else if (strpos($strText, '商务合作') !== false)	return $this->GetBusinessText();
 
         if (_ConnectDatabase() == false)
         {

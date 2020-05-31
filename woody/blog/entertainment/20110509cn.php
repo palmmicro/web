@@ -57,6 +57,7 @@
 	LayoutWeixinPromotion();
 	LayoutWeixinPay();
 	LayoutAliPay();
+	LayoutPromo('huatai');
 ?>
 
 </div>

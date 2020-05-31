@@ -122,8 +122,7 @@ function EchoTransactionParagraph($acct, $strGroupId, $ref = false, $bAll = true
     </tr>
 END;
 
-	$bReadOnly = (SqlGetStockGroupMemberId($strGroupId) == $acct->GetLoginId()) ? false : true;
-    _echoTransactionTableData($sql, $ref, $iStart, $iNum, $bReadOnly, $acct->IsAdmin());
+    _echoTransactionTableData($sql, $ref, $iStart, $iNum, $acct->IsGroupReadOnly($strGroupId), $acct->IsAdmin());
     EchoTableParagraphEnd($strNavLink);
 }
 
