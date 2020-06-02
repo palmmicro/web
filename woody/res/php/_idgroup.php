@@ -20,7 +20,7 @@ class GroupIdAccount extends StockAccount
     {
     	if ($strGroupId = $this->GetGroupId())
     	{
-    		$this->EchoStockGroupParagraph($strGroupId);
+    		EchoStockGroupParagraph($this, $strGroupId);
     	}
     	return $strGroupId;
     }

@@ -88,7 +88,7 @@ function _echoStockGroupTableData($strStockId, $strMemberId, $strLoginId, $bRead
 	}
 }
 
-function EchoAllStockGroupParagraph($strGroupId, $strStockId, $strMemberId, $strLoginId, $bReadOnly, $bAdmin)
+function EchoStockGroupParagraph($acct, $strGroupId = false, $strStockId = false)
 {
     $strStockGroup = GetMyStockGroupLink();
 	$strSymbol = GetTableColumnSymbol();
@@ -103,15 +103,16 @@ function EchoAllStockGroupParagraph($strGroupId, $strStockId, $strMemberId, $str
     </tr>
 END;
 
+	$bAdmin = $acct->IsAdmin();
 	if ($strGroupId)
 	{
-		_echoStockGroupTableItem($strGroupId, $bReadOnly, $bAdmin);
+		_echoStockGroupTableItem($strGroupId, $acct->IsGroupReadOnly($strGroupId), $bAdmin);
 	}
 	else
 	{
-   		if ($strLoginId)
+   		if ($strLoginId = $acct->GetLoginId())
     	{
-    		_echoStockGroupTableData($strStockId, $strMemberId, $strLoginId, $bReadOnly, $bAdmin);
+    		_echoStockGroupTableData($strStockId, $acct->GetMemberId(), $strLoginId, $acct->IsReadOnly(), $bAdmin);
     	}
     	else
     	{

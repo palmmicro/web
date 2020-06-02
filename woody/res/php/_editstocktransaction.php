@@ -1,6 +1,5 @@
 <?php
 require_once('_stock.php');
-require_once('_edittransactionform.php');
 
 function EchoAll()
 {

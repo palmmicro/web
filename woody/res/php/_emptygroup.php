@@ -26,7 +26,7 @@ class SymbolAccount extends StockAccount
     	{
     		if ($ref->HasData())
     		{
-    			$this->EchoStockGroupParagraph(false, $ref->GetStockId());
+    			EchoStockGroupParagraph($this, false, $ref->GetStockId());
     			return $ref;
     		}
     	}

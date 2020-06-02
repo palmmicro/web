@@ -308,11 +308,16 @@ class Account
     	$this->Back();
     }
 
-    function AuthCommand($callback)
+    function Process()
     {
-    	if ($strLoginId = $this->GetLoginId())
+    	DebugString('Empty Process');
+    }
+    
+    function Run()
+    {
+    	if ($this->GetLoginId())
     	{
-    		call_user_func($callback, $strLoginId, $this->IsAdmin());
+    		$this->Process();
     	}
     	$this->Back();
     }

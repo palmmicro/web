@@ -161,7 +161,7 @@ function EchoAll()
         }
         else
         {
-        	$acct->EchoStockGroupParagraph();
+        	EchoStockGroupParagraph($acct);
         	StockEditGroupForm(STOCK_GROUP_NEW);
         }
     }
