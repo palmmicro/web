@@ -1,7 +1,5 @@
 <?php
-require_once('/php/account.php');
-require_once('/php/stock.php');
-require_once('/php/ui/stockgroupparagraph.php');
+require_once('_stock.php');
 require_once('_editgroupform.php');
 
 function _adjustLofPriceFactor($strLofSymbol, $fLof, $fEst, $fCNY)
@@ -50,13 +48,6 @@ function _onAdjust($strSymbols)
     }
 }
 
-function _onDelete($strGroupId)
-{
-    if (StockGroupIsReadOnly($strGroupId))  return;
-    SqlDeleteStockGroupItemByGroupId($strGroupId);
-    SqlDeleteTableDataById(TABLE_STOCK_GROUP, $strGroupId);
-}
-
 function _debugStockGroup($strGroupId, $strSymbols)
 {
     $str = 'Stock Group: '.$_POST['submit'];
@@ -96,44 +87,59 @@ function _getStockIdArray($strSymbols)
 	return $arStockId;
 }
 
-function _onEdit($strMemberId, $strGroupId, $strGroupName, $strSymbols)
+class _SubmitGroupAccount extends StockAccount
 {
-    if (StockGroupIsReadOnly($strGroupId))  return;
-
-    $str = SqlGetStockGroupName($strGroupId);
-    if (in_arrayAll($str))  $strGroupName = $str;
-    
-	$sql = new StockGroupSql($strMemberId);
-    if ($sql->Update($strGroupId, $strGroupName))
+    function _SubmitGroupAccount() 
     {
-    	SqlUpdateStockGroup($strGroupId, _getStockIdArray($strSymbols));
+        parent::StockAccount();
     }
-    _debugStockGroup($strGroupId, $strSymbols);
-}
-
-function _onNew($strMemberId, $strGroupName, $strSymbols)
-{
-	$sql = new StockGroupSql($strMemberId);
-	$sql->Insert($strGroupName);
-    if ($strGroupId = $sql->GetId($strGroupName))
-    {
-    	$item_sql = new StockGroupItemSql($strGroupId);
-        $arStockId = _getStockIdArray($strSymbols);
-        foreach ($arStockId as $strStockId)
-        {
-        	$item_sql->Insert($strStockId);
-        }
-    }
-    _debugStockGroup($strGroupId, $strSymbols);
-}
-
-   	$acct = new Account();
 	
-   	if ($strMemberId = $acct->GetLoginId())
-	{
+    function _onDelete($strGroupId)
+    {
+    	if ($this->IsAdmin() || ($this->IsGroupReadOnly($strGroupId) == false))
+    	{
+    		SqlDeleteStockGroupItemByGroupId($strGroupId);
+    		SqlDeleteTableDataById(TABLE_STOCK_GROUP, $strGroupId);
+    	}
+    }
+    
+    function _onEdit($strGroupName, $strSymbols)
+    {
+		$strGroupId = UrlGetQueryValue('edit');
+    	if ($this->IsGroupReadOnly($strGroupId))  return;
+
+    	$str = SqlGetStockGroupName($strGroupId);
+    	if (in_arrayAll($str))  $strGroupName = $str;
+    
+    	$sql = new StockGroupSql($this->GetLoginId());
+    	if ($sql->Update($strGroupId, $strGroupName))
+    	{
+    		SqlUpdateStockGroup($strGroupId, _getStockIdArray($strSymbols));
+    	}
+    	_debugStockGroup($strGroupId, $strSymbols);
+    }
+    
+    function _onNew($strGroupName, $strSymbols)
+    {
+    	$sql = new StockGroupSql($this->GetLoginId());
+    	$sql->Insert($strGroupName);
+    	if ($strGroupId = $sql->GetId($strGroupName))
+    	{
+    		$item_sql = new StockGroupItemSql($strGroupId);
+    		$arStockId = _getStockIdArray($strSymbols);
+    		foreach ($arStockId as $strStockId)
+    		{
+    			$item_sql->Insert($strStockId);
+    		}
+    	}
+    	_debugStockGroup($strGroupId, $strSymbols);
+    }
+    
+    function Process()
+    {
 		if ($strGroupId = UrlGetQueryValue('delete'))
 		{
-			_onDelete($strGroupId);
+			$this->_onDelete($strGroupId);
 		}
 		else if (isset($_POST['submit']))
 		{
@@ -141,24 +147,25 @@ function _onNew($strMemberId, $strGroupName, $strSymbols)
 			$strGroupName = isset($_POST['groupname']) ? SqlCleanString($_POST['groupname']) : '';
 			if (empty($strGroupName))	$strGroupName = '@'.md5(strval(rand()));
 
-			$strGroupId = UrlGetQueryValue('edit');
 			switch ($_POST['submit'])
 			{
 			case STOCK_GROUP_ADJUST:
-				if ($acct->IsAdmin())		_onAdjust($strSymbols);
+				if ($this->IsAdmin())		_onAdjust($strSymbols);
 				break;
 
 			case STOCK_GROUP_EDIT:
-				_onEdit($strMemberId, $strGroupId, $strGroupName, $strSymbols);
+				$this->_onEdit($strGroupName, $strSymbols);
 				break;
 
 			case STOCK_GROUP_NEW:
-				_onNew($strMemberId, $strGroupName, $strSymbols);
+				$this->_onNew($strGroupName, $strSymbols);
 				break;
 			}
 			unset($_POST['submit']);
 		}
 	}
-	
-	$acct->Back();
+}
+
+   	$acct = new _SubmitGroupAccount();
+	$acct->Run();
 ?>

@@ -1,6 +1,5 @@
 <?php
 require_once('_stock.php');
-require_once('/php/ui/stockgroupparagraph.php');
 require_once('_editmergeform.php');
 
 function _updateStockGroupItem($strGroupId, $strGroupItemId)

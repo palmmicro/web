@@ -37,7 +37,7 @@ function StockGetSymbol($str)
 	if (strpos($str, '_') === false)	$str = strtoupper($str);
     if (IsChineseStockDigit($str))
     {
-        if (intval($str) >= 600000)	$str = SH_PREFIX.$str;
+        if (intval($str) >= 500000)	$str = SH_PREFIX.$str;
         else							$str = SZ_PREFIX.$str;
     }
     return $str;

@@ -1,12 +1,6 @@
 <?php
 require_once('stocktable.php');
 
-function StockGroupIsReadOnly($strGroupId)
-{
-    $strMemberId = SqlGetStockGroupMemberId($strGroupId);
-    return AcctIsReadOnly($strMemberId);
-}
-
 function _stockGroupGetStockLinks($strGroupId)
 {
 	static $arSymbol = array();
