@@ -16,11 +16,13 @@ function EchoCanonical()
 	echo $str;
 }
 
-function LayoutPromo($str)
+function LayoutPromo($str, $strLink = false)
 {
+	$strLinkDisplay = $strLink ? '<br />'.GetHttpLink($strLink) : '';
     echo <<<END
         <p>
         	<img src=/woody/image/$str.jpg alt="$str promo" />
+        	$strLinkDisplay
         </p>
 END;
 }

@@ -90,7 +90,7 @@ function _echoRandomPromotion()
 		break;
 		
 	case 5:
-		LayoutPromo('huatai');
+		LayoutPromo('dongfang', 'http://ognfhcacesaf4get.mikecrm.com/sEJIKQZ');
 		break;
 	}
 }

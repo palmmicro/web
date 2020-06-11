@@ -11,6 +11,7 @@ function GetLofRelated($sym)
     <p>';
 	$str .= GetHuaBaoOfficialLink($sym->GetDigitA());
 	$str .= ' '.GetSpdrOfficialLink('XOP');
+	$str .= ' '.GetSpindicesOfficialLink('SPSIOP');
 	$str .= ' '.GetLofLinks($sym);
 	$str .= GetOilSoftwareLinks();
 	$str .= GetCommoditySoftwareLinks();

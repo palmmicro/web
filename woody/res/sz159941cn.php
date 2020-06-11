@@ -3,7 +3,8 @@ require('php/_lof.php');
 
 function GetLofRelated($sym)
 {
-	$str = GetLofLinks($sym);
+	$str = GetGuangFaOfficialLink($sym->GetDigitA());
+	$str .= ' '.GetLofLinks($sym);
 	$str .= GetQqqSoftwareLinks();
 	$str .= GetHangSengSoftwareLinks();
 	$str .= GetGuangFaSoftwareLinks();

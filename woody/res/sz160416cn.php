@@ -10,8 +10,9 @@ function GetLofRelated($sym)
     </ol>
     <p>';
 	$str .= GetHuaAnOfficialLink($sym->GetDigitA());
+	$str .= ' '.GetSpindicesOfficialLink('SPGOGUP');
 	$str .= ' '.GetIsharesOfficialLink('IXC');
-	$str .= ' <a href="https://us.spindices.com/indices/equity/sp-global-oil-index" target=_blank>SPGOGUP官网</a>';
+	$str .= ' '.GetSpindicesOfficialLink('SGES');
 	$str .= ' '.GetLofLinks($sym);
 	$str .= GetOilSoftwareLinks();
 	$str .= GetCommoditySoftwareLinks();

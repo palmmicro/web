@@ -226,7 +226,7 @@ function GetHuaBaoSoftwareLinks()
 function GetGuangFaSoftwareLinks()
 {
     $ar = array('sz159941', 'sz162719');
-    $strLink = GetExternalLink('http://www.gffunds.com.cn', '广发基金');
+    $strLink = GetExternalLink(GetGuangFaFundUrl(), '广发基金');
     return GetCategorySoftwareLinks($ar, $strLink);
 }
 

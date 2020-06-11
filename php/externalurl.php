@@ -82,6 +82,11 @@ function GetJiaShiFundUrl()
 	return 'http://www.jsfund.cn';
 }
 
+function GetGuangFaFundUrl()
+{
+	return 'http://www.gffunds.com.cn';
+}
+
 function GetGuoTaiFundUrl()
 {
 	return 'https://e.gtfund.com';
@@ -105,11 +110,6 @@ function GetXinChengFundUrl()
 function GetYinHuaFundUrl()
 {
 	return 'http://www.yhfund.com.cn';
-}
-
-function GetIsharesUrl()
-{
-	return 'https://www.ishares.com/us/products/';
 }
 
 function GetSpdrEtfUrl()

@@ -16,6 +16,11 @@ function GetEFundOfficialLink($strDigitA)
     return GetOfficialLink(GetEFundUrl().'/html/fund/'.$strDigitA.'_fundinfo.htm', $strDigitA);
 }
 
+function GetGuangFaOfficialLink($strDigitA)
+{
+    return GetOfficialLink(GetGuangFaFundUrl().'/funds/?fundcode='.$strDigitA, $strDigitA);
+}
+
 function GetGuoTaiOfficialLink($strDigitA)
 {
     return GetOfficialLink(GetGuoTaiFundUrl().'/Etrade/Jijin/view/id/'.$strDigitA, $strDigitA);
@@ -56,15 +61,52 @@ function GetYinHuaOfficialLink($strDigitA)
     return GetOfficialLink(GetYinHuaFundUrl().'/main/qxjj/'.$strDigitA.'/fndFacts.shtml', $strDigitA);
 }
 
+// https://us.spindices.com/indices/commodities/sp-gsci
+function GetSpindicesOfficialLink($strTicker)
+{
+	$str = 'https://us.spindices.com/indices/equity/';
+	switch ($strTicker)
+	{
+	case 'DJSOEP':
+		$str .= 'dow-jones-us-select-oil-exploration-production-index';
+		break;
+
+	case 'GSPE':
+		$str .= 'sp-500-energy-sector';
+		break;
+		
+	case 'IXE':
+		$str .= 'energy-select-sector-index';
+		break;
+		
+	case 'SGES':
+		$str .= 'sp-global-1200-energy-sector';
+		break;
+
+	case 'SPGOGUP':
+		$str .= 'sp-global-oil-index';
+		break;
+		
+	case 'SPSIOP':
+		$str .= 'sp-oil-gas-exploration-production-select-industry-index';
+		break;
+	}
+	return GetOfficialLink($str, '^'.$strTicker);
+}
+
 function GetIsharesOfficialLink($strSymbol)
 {
-	$str = GetIsharesUrl();
+	$str = 'https://www.ishares.com/us/products/';
 	switch ($strSymbol)
 	{
 	case 'GSG':
 		$str .= '239757/GSG';
 		break;
 
+	case 'IEO':
+		$str .= '239517/ishares-us-oil-gas-exploration-production-etf';
+		break;
+		
 	case 'IXC':
 		$str .= '239741/ishares-global-energy-etf';
 		break;
