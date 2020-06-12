@@ -61,34 +61,37 @@ function GetYinHuaOfficialLink($strDigitA)
     return GetOfficialLink(GetYinHuaFundUrl().'/main/qxjj/'.$strDigitA.'/fndFacts.shtml', $strDigitA);
 }
 
-// https://us.spindices.com/indices/commodities/sp-gsci
 function GetSpindicesOfficialLink($strTicker)
 {
-	$str = 'https://us.spindices.com/indices/equity/';
+	$str = 'https://us.spindices.com/indices/';
 	switch ($strTicker)
 	{
 	case 'DJSOEP':
-		$str .= 'dow-jones-us-select-oil-exploration-production-index';
+		$str .= 'equity/dow-jones-us-select-oil-exploration-production-index';
 		break;
-
+		
+	case 'SPGCCI':
+		$str .= 'commodities/sp-gsci';
+		break;
+		
 	case 'GSPE':
-		$str .= 'sp-500-energy-sector';
+		$str .= 'equity/sp-500-energy-sector';
 		break;
 		
 	case 'IXE':
-		$str .= 'energy-select-sector-index';
+		$str .= 'equity/energy-select-sector-index';
 		break;
 		
 	case 'SGES':
-		$str .= 'sp-global-1200-energy-sector';
+		$str .= 'equity/sp-global-1200-energy-sector';
 		break;
 
 	case 'SPGOGUP':
-		$str .= 'sp-global-oil-index';
+		$str .= 'equity/sp-global-oil-index';
 		break;
 		
 	case 'SPSIOP':
-		$str .= 'sp-oil-gas-exploration-production-select-industry-index';
+		$str .= 'equity/sp-oil-gas-exploration-production-select-industry-index';
 		break;
 	}
 	return GetOfficialLink($str, '^'.$strTicker);

@@ -9,9 +9,7 @@ function GetLofRelated($sym)
 	    <li>2016年12月21日星期三, CL期货换月. 因为CL和USO要等当晚美股开盘才会自动校准, 白天按照CL估算的实时净值不准.</li>
     </ol>
     <p>';
-	$str .= GetHuaBaoOfficialLink($sym->GetDigitA());
-	$str .= ' '.GetSpdrOfficialLink('XOP');
-	$str .= ' '.GetSpindicesOfficialLink('SPSIOP');
+	$str .= GetHuaBaoOfficialLink($sym->GetDigitA()).'&'.GetSpdrOfficialLink('XOP').'('.GetSpindicesOfficialLink('SPSIOP').')';
 	$str .= ' '.GetLofLinks($sym);
 	$str .= GetOilSoftwareLinks();
 	$str .= GetCommoditySoftwareLinks();

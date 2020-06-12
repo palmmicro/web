@@ -3,9 +3,7 @@ require('php/_lof.php');
 
 function GetLofRelated($sym)
 {
-	$str = GetGuangFaOfficialLink($sym->GetDigitA());
-	$str .= ' '.GetIsharesOfficialLink('IEO');
-	$str .= ' '.GetSpindicesOfficialLink('DJSOEP');
+	$str = GetGuangFaOfficialLink($sym->GetDigitA()).'&'.GetIsharesOfficialLink('IEO').'('.GetSpindicesOfficialLink('DJSOEP').')';
 	$str .= ' '.GetLofLinks($sym);
 	$str .= GetOilSoftwareLinks();
 	$str .= GetCommoditySoftwareLinks();

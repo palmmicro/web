@@ -140,7 +140,7 @@ function EchoAccountProfile($bChinese = true)
    	$strMemberId = $acct->GetMemberId();
     if ($strMemberId == false)  return;
 
-    if (AcctIsReadOnly($strMemberId) == false)  _echoAccountProfileLinks($bChinese);
+    if ($acct->IsReadOnly() == false)  _echoAccountProfileLinks($bChinese);
 	if ($member = SqlGetMemberById($strMemberId))
 	{
 	    if ($profile = SqlGetProfileByMemberId($strMemberId))

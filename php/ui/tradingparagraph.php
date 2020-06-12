@@ -57,8 +57,15 @@ function _checkTradingQuantity($ref)
 {
     for ($i = 0; $i < TRADING_QUOTE_NUM; $i ++)
     {
-        if ($ref->arAskQuantity[$i] != '0')	return false;
-        if ($ref->arBidQuantity[$i] != '0')	return false;
+    	if (isset($ref->arAskQuantity[$i]))
+    	{
+    		if ($ref->arAskQuantity[$i] != '0')	return false;
+    	}
+
+    	if (isset($ref->arBidQuantity[$i]))
+    	{
+    		if ($ref->arBidQuantity[$i] != '0')	return false;
+    	}
     }
     return true;
 }

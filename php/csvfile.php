@@ -95,7 +95,10 @@ class PageCsvFile extends CsvFile
     {
     	if (count($arWord) > $this->iColumn)
     	{
-    		$this->arColumn[$arWord[0]] = floatval($arWord[$this->iColumn]);
+    		if ($strKey = $arWord[0])
+    		{
+    			$this->arColumn[$strKey] = floatval($arWord[$this->iColumn]);
+    		}
     	}
     }
     

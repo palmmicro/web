@@ -9,10 +9,8 @@ function GetLofRelated($sym)
 	    <li>2016年12月22日星期四, IXC股息除权, 导致23日全天估值不正常. 这个问题会涉及到所有没有参考指数数据, 而只能使用ETF估值的LOF.</li>
     </ol>
     <p>';
-	$str .= GetHuaAnOfficialLink($sym->GetDigitA());
-	$str .= ' '.GetSpindicesOfficialLink('SPGOGUP');
-	$str .= ' '.GetIsharesOfficialLink('IXC');
-	$str .= ' '.GetSpindicesOfficialLink('SGES');
+	$str .= GetHuaAnOfficialLink($sym->GetDigitA()).'&'.GetSpindicesOfficialLink('SPGOGUP');
+	$str .= ' '.GetIsharesOfficialLink('IXC').'('.GetSpindicesOfficialLink('SGES').')';
 	$str .= ' '.GetLofLinks($sym);
 	$str .= GetOilSoftwareLinks();
 	$str .= GetCommoditySoftwareLinks();
