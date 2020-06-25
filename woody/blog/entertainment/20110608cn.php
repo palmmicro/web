@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>Ethernet转WiFi</title>
 <meta name="description" content="PA6488开发中的副产品: 如何利用无线路由器中的WDS功能把PA648C接到WiFi网络上, 包括TP-LINK TL-WR740N的Ethernet转WiFi中WDS设置的截屏.">
+<link rel="canonical" href="<?php EchoCanonical(); ?>" />
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

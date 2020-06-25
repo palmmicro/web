@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>JPEG总动员</title>
 <meta name="description" content="当PA6488网络语音和视频方案需要JPEG的时候, 我写了这个纪录从1992年开始通过宫泽理惠JPEG文件学习软件编程的过程. ">
+<link rel="canonical" href="<?php EchoCanonical(); ?>" />
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>
 <script src="../../../js/copyright.js"></script>

@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>PHP Application to Estimate SZ162411 Net Value</title>
 <meta name="description" content="My second PHP application, to estimate the net value of SZ162411 based on XOP, ^SPSIOP and USDCNY exchange rate.">
+<link rel="canonical" href="<?php EchoCanonical(); ?>" />
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>华宝油气净值估算的PHP程序</title>
 <meta name="description" content="根据SPDR标普油气开采指数ETF(XOP), 标普油气开采指数(^SPSIOP), 以及美元对人民币的汇率计算LOF基金华宝油气(SZ162411)净值的PHP程序的开发过程记录.">
+<link rel="canonical" href="<?php EchoCanonical(); ?>" />
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

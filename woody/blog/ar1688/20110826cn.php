@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>愚蠢还是其它? </title>
 <meta name="description" content="某AR1688生产商工程师到现在还不知道怎么做安全模式恢复">
+<link rel="canonical" href="<?php EchoCanonical(); ?>" />
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>
 <script src="../../../js/copyright.js"></script>

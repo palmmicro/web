@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>Small Device C Compiler 2.9.0</title>
 <meta name="description" content="Our first AR1688 software API released with SDCC 2.6.0 in 2006, now SDCC 2.9.0 is ready and included in 0.44.">
+<link rel="canonical" href="<?php EchoCanonical(); ?>" />
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>
 <script src="../../../js/copyright.js"></script>

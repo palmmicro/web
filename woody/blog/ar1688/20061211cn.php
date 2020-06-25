@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>软件API内容</title>
 <meta name="description" content="跟PA1688一样, 我们为AR1688用户提供软件API. 这里是按目录分类的内容介绍. 利用API用户可以为自己的网络电话定制升级文件, 同时还可以协助我们开发额外的功能. ">
+<link rel="canonical" href="<?php EchoCanonical(); ?>" />
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>
 <script src="../../../js/copyright.js"></script>

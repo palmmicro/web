@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>我的第一个Visual C++ 2008程序</title>
 <meta name="description" content="我的第一个Visual C++ 2008程序Woody's Web Tool, 用于palmmicro网站开发. 顺便记录一下从1992年以来使用Turbo C, Borland C++, Visual C ++ 4.2, VC6和Microsoft Visual Studio 2008(VC9)的开发历程.">
+<link rel="canonical" href="<?php EchoCanonical(); ?>" />
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

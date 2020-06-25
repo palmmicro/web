@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>如何在Linux下编译AR1688 API</title>
 <meta name="description" content="从AR1688开始提供软件API的那一天开始, 就有客户问能不能在Linux下编译. 我写了些指导意见, 经过6年的等待后, Alex Vangelov最终做成了这件事! ">
+<link rel="canonical" href="<?php EchoCanonical(); ?>" />
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>
 <script src="../../../js/copyright.js"></script>

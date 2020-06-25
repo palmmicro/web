@@ -3,6 +3,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>From PA1688 to PA6488 - G.729 Test Vectors</title>
+<link rel="canonical" href="<?php EchoCanonical(); ?>" />
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>
 <script src="../../../js/copyright.js"></script>

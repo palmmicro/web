@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>新浪股票数据接口的字段意义</title>
 <meta name="description" content="记录和分析新浪A股(http://hq.sinajs.cn/list=sz162411), 港股, 美股(http://hq.sinajs.cn/list=gb_xop), 期货和汇率等实时数据接口的字段意义.">
+<link rel="canonical" href="<?php EchoCanonical(); ?>" />
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

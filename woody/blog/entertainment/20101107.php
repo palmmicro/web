@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>Moving Blog - GB18030 and GB2312</title>
 <meta name="description" content="Moving my MSN blog from aredfox.spaces.live.com to Palmmicro.com, and from GB2312 to UTF-8 encoding of Palmmicro.com.">
+<link rel="canonical" href="<?php EchoCanonical(); ?>" />
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

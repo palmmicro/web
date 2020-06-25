@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>USB</title>
 <meta name="description" content="After years of USB related study, Woody now finally has the opportunity to use it with Palmmicro PA3288 VoIP solution. Check our new WiFi VoIP product plan.">
+<link rel="canonical" href="<?php EchoCanonical(); ?>" />
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>
 <script src="../../../js/copyright.js"></script>

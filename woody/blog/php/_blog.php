@@ -1,6 +1,6 @@
 <?php
 require_once('/php/_blogcomments.php');
-require_once('/php/layout.php');
+//require_once('/php/layout.php');
 require_once('/php/stocklink.php');
 require_once('/php/externallink.php');
 require_once('/php/ui/link.php');

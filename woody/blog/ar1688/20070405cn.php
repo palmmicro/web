@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>地区和语言选项</title>
 <meta name="description" content="跟PA1688一样, 全世界的AR1688用户在我们的软件API的基础上为我们提供了多语言支持. 一切都很美好, 直到UTF-8占据了微软的PC软件市场, 让我们非UTF-8的翻译彻底乱套.">
+<link rel="canonical" href="<?php EchoCanonical(); ?>" />
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>
 <script src="../../../js/copyright.js"></script>

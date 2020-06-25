@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>A Hard Day's Night</title>
 <meta name="description" content="When I was compiling Spanish software for Soyo G1681 (PA168V), I suddenly realized how we slowed down the running speed of PA1688 software.">
+<link rel="canonical" href="<?php EchoCanonical(); ?>" />
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>
 <script src="../../../js/copyright.js"></script>

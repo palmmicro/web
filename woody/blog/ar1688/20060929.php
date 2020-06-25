@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>Firmware Upgrade</title>
 <meta name="description" content="Because of standard changes, firmware upgrade is perhaps the most important feature of an IP phone. We are using TFTP for AR1688.">
+<link rel="canonical" href="<?php EchoCanonical(); ?>" />
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>
 <script src="../../../js/copyright.js"></script>

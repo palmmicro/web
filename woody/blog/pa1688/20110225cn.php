@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>PA1688设备杀手</title>
 <meta name="description" content="由于不同硬件设计中使用了不同的程序存储器, 我们的软件中有缺乏有效的检查, 给一个PA1688设备更新page0.hex是件很危险的事情, 很容易会毁掉它. 但是我却一直在建议客户做这件事情! ">
+<link rel="canonical" href="<?php EchoCanonical(); ?>" />
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>
 <script src="../../../js/copyright.js"></script>

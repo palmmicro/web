@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>The Backup of Dynamic DNS palmmicro.ddns.us</title>
 <meta name="description" content="Palmmicro internal server used free DDNS palmmicro.ddns.us, now we added 2 backup: palmmicro.f3322.net, 1bj4595225.iok.la.">
+<link rel="canonical" href="<?php EchoCanonical(); ?>" />
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

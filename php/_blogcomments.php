@@ -1,5 +1,6 @@
 <?php
-require_once('account.php');
+//require_once('account.php');
+require_once('layout.php');
 require_once('ui/commentparagraph.php');
 require_once('/account/php/_editcommentform.php');
 

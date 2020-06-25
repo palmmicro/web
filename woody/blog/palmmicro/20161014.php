@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>Palmmicro Wechat Public Account sz162411</title>
 <meta name="description" content="Although Palmmicro has been providing internet product for over 16 years, we don't have a mobile app, start using wechat puablic account sz162411 today.">
+<link rel="canonical" href="<?php EchoCanonical(); ?>" />
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

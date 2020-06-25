@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>Micrel KSZ8842</title>
 <meta name="description" content="We tried to use KSZ8842 to replace RTL8019AS and RTL8305 in AR1688 solution. It looks promising with better performance and lower power consumption.">
+<link rel="canonical" href="<?php EchoCanonical(); ?>" />
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>
 <script src="../../../js/copyright.js"></script>

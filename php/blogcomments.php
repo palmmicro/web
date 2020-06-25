@@ -1,7 +1,7 @@
 <?php
 require_once('_blogcomments.php');
-require_once('visitorlogin.php');
-require_once('adsense.php');
+//require_once('visitorlogin.php');
+//require_once('adsense.php');
 
 function BlogComments()
 {

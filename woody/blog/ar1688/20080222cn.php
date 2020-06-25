@@ -3,6 +3,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>在AR1688软件中添加ISO 8859-2字库的具体步骤</title>
+<link rel="canonical" href="<?php EchoCanonical(); ?>" />
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>
 <script src="../../../js/copyright.js"></script>

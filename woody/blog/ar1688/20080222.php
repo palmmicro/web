@@ -3,6 +3,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>Detail Steps to Add ISO 8859-2 Font to AR1688 Software</title>
+<link rel="canonical" href="<?php EchoCanonical(); ?>" />
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>
 <script src="../../../js/copyright.js"></script>

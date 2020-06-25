@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>Expo Professionals</title>
 <meta name="description" content="What I saw on DESIGN West 2012 Expo today at San Jose Convention Center. IoT (Internet of Things) will be definitely included in Palmmicro's next product.">
+<link rel="canonical" href="<?php EchoCanonical(); ?>" />
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

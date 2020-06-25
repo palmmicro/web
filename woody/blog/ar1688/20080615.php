@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>A Farewell to RTL8019AS</title>
 <meta name="description" content="We tried to use DM9003 to replace RTL8019AS and RTL8305 in AR1688 solution. At first it looks promising, but eventually failed after months of tests.">
+<link rel="canonical" href="<?php EchoCanonical(); ?>" />
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>
 <script src="../../../js/copyright.js"></script>

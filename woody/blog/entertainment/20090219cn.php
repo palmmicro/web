@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>从Palmmicro到CSR的十年</title>
 <meta name="description" content="当一个人回顾过去的时候, 就说明他老了. 当我回顾过去十年经历的时候, 我清醒地看到了这一点. 好歹总结一下: 虽然这十年我做得不算成功, 但是并不后悔每一步的选择. ">
+<link rel="canonical" href="<?php EchoCanonical(); ?>" />
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>从PA1688到PA6488 - 产品演化过程中的串口功能</title>
 <meta name="description" content="Palmmicro各个产品系列PA1688, AR1688和PA6488中串口的使用情况介绍, 以及我们如何开始VoIP模块生意的回顾. 串口的生命力真是很顽强, 不服不行! ">
+<link rel="canonical" href="<?php EchoCanonical(); ?>" />
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>
 <script src="../../../js/copyright.js"></script>

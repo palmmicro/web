@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>从PA1688到PA6488 - Ping的反应时间</title>
 <meta name="description" content="回顾比较PA1688, AR1688和PA6488对ping 1472字节的反应速度, 我们Palmmicro现在开始要跟8位控制器说再见了. 补充了PA6488和PA3288测试ping 65500的情况.">
+<link rel="canonical" href="<?php EchoCanonical(); ?>" />
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>
 <script src="../../../js/copyright.js"></script>

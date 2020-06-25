@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>从PA1688到PA6488 - TFTP性能</title>
 <meta name="description" content="比较AR1688, PA6488和PA3288中TFTP性能的测试, 我们从PA3288开始整合PA6488和PA3288公用的TCPIP等相关软件代码, 方便以后其它平台的开发.">
+<link rel="canonical" href="<?php EchoCanonical(); ?>" />
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>
 <script src="../../../js/copyright.js"></script>

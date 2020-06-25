@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>忘记密码?</title>
 <meta name="description" content="Palmmicro AR1688和PA1688密码相关问题. 虽然这篇网络日志部分来说是被某个寻找AR1688密码的客户所激发, 我的主要目的还是想宣传注册我们的网站帐号并发表网络日志评论.">
+<link rel="canonical" href="<?php EchoCanonical(); ?>" />
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

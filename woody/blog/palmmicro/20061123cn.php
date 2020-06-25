@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>Jan, Sing和Wang不得不说的故事 - VoIP华人鼻祖</title>
 <meta name="description" content="ATCOM老孙写的这篇文章总结了几个VoIP华人鼻祖和他们成立的公司之间的关联. 人物Chi-Shin Wang, Y.W. Sing和Jan Fandrianto. 公司有8x8, Tigerjet, Komodo, Sipura和Centrality(Palmmicro)等.">
+<link rel="canonical" href="<?php EchoCanonical(); ?>" />
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>
 <script src="../../../js/copyright.js"></script>

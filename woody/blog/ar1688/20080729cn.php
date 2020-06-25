@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>路由器, PPPoE和DM9003</title>
 <meta name="description" content="Palmmicro PA1688和AR1688产品上有关PPPoE, PoE和VLAN等的设计支持, 包括DM9003的各种特性的使用, 以及它跟RTL8019AS和KSZ8842的比较.">
+<link rel="canonical" href="<?php EchoCanonical(); ?>" />
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>
 <script src="../../../js/copyright.js"></script>

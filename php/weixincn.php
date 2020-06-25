@@ -191,7 +191,7 @@ class WeixinStock extends WeixinCallback
 
 	function GetQqGroupText()
 	{
-		$str = 'Palmmicro群8的'.GetInternalLink('/woody/image/group8.png', '二维码链接').'，入群答案是162411。由于群主QQ号被封，此群无法继续维护。建议大家在Telegram电报群中搜索palmmicro加入使用。'.WX_EOL;
+		$str = 'Telegram电报群地址：<a href="https://t.me/palmmicro">https://t.me/palmmicro</a>。访问不了此链接的用户, 可以扫描第三方币用APP的'.GetInternalLink('/woody/image/biyong.jpg', '二维码').'安装并且申请电报账号, 然后查询palmmicro加群。'.WX_EOL;
 		return $str;
 	}
 	
@@ -216,6 +216,7 @@ class WeixinStock extends WeixinCallback
     
         if (stripos($strText, 'q群') !== false)			return $this->GetQqGroupText();
         else if (strpos($strText, '商务合作') !== false)	return $this->GetBusinessText();
+        else if (strpos($strText, '广发原油') !== false)	return '6月19日公众号文章标题写错了，应该是广发石油(162719)。'.WX_EOL;
 
         if (_ConnectDatabase() == false)
         {

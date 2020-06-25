@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>The Logical Steps to Rescue a PA168Q</title>
 <meta name="description" content="How to rescue a second-hand PA168Q. Hopefully this can help some impatient new users of Palmmicro old products.">
+<link rel="canonical" href="<?php EchoCanonical(); ?>" />
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>
 <script src="../../../js/copyright.js"></script>

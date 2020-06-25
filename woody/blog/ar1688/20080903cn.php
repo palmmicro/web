@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>GPIO控制</title>
 <meta name="description" content="Palmmicro AR1688软件API中GPIO控制部分源代码的说明. 注意软件更新的频率远比网络日志高, 一切以最新的软件API内容为准, 这里的内容仅供入门参考. ">
+<link rel="canonical" href="<?php EchoCanonical(); ?>" />
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>
 <script src="../../../js/copyright.js"></script>

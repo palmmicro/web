@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>Google投放的广告</title>
 <meta name="description" content="为什么我在博客上加入了Google AdSense的广告. 一周年投放广告的总结. GFW让这里成了Palmmicro.com唯一放Google的搜索框(AdSense for Search)的地方.">
+<link rel="canonical" href="<?php EchoCanonical(); ?>" />
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

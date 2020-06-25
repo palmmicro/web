@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>好的坏的和丑陋的</title>
 <meta name="description" content="在试图给一个叫做eHOG的单口网关寻找合适软件的过程中, 我再一次伤心的发现PA1688的软件构架实在是太丑陋了, 这也再次让我想到为什么我们这么多从Palmmicro出来的人开的公司都不算成功,">
+<link rel="canonical" href="<?php EchoCanonical(); ?>" />
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>
 <script src="../../../js/copyright.js"></script>

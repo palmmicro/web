@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>My God the LM386 in AT323 Phone is Working ALL the Time!</title>
 <meta name="description" content="The LM386 in PA168S(AT323) phone is working all the time, we solved the problem in PA168T reference design. The change can be applied on all PA1688 device.">
+<link rel="canonical" href="<?php EchoCanonical(); ?>" />
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>
 <script src="../../../js/copyright.js"></script>

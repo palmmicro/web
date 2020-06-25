@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>低成本电话</title>
 <meta name="description" content="中国市场上最便宜的普通电话机壳和使用这个机壳的PA1688网络电话EP668, IPH E00, Primeworx P100和YWH10. 其实网络电话不好卖还真不是价格问题.">
+<link rel="canonical" href="<?php EchoCanonical(); ?>" />
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>
 <script src="../../../js/copyright.js"></script>

@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>The Blocking History of Palmmicro.com</title>
 <meta name="description" content="The GFW (the Great Fire Wall of China) blocking history of palmmicro.com since 2010, with pictures of Beijing Simatai, part of the Great Wall of China.">
+<link rel="canonical" href="<?php EchoCanonical(); ?>" />
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

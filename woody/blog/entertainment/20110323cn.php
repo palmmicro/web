@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>VoIP失败者之歌</title>
 <meta name="description" content="电影海角七号让我检讨了一下过去十年失败的经历. 也很庆幸5年前没有融资开发WiFi VoIP的方案. 电影The Way让我自我安慰自己失败也是可贵的人生经历. You don't choose a life, you live one.">
+<link rel="canonical" href="<?php EchoCanonical(); ?>" />
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

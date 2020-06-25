@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>从上证大型国有股票获利</title>
 <meta name="description" content="在Qualcomm同意现金收购CSR和中国国航(SH601111)罕见涨停的幸运日总结2年多来自己谨小慎微的A股市场大型国有股买卖获利方案. 附加分级A, 华宝油气和XOP交易规则.">
+<link rel="canonical" href="<?php EchoCanonical(); ?>" />
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

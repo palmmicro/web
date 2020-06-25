@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>Raw Video Viewers</title>
 <meta name="description" content="Woody's 3 raw video and image viewers software (Speech Workshop, Raw Image Viewer and CamMan) wrote in the past years of H.263 and H.264 implementation.">
+<link rel="canonical" href="<?php EchoCanonical(); ?>" />
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

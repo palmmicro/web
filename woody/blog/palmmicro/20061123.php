@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>The Untold Story of Jan, Sing and Wang (Translation)</title>
 <meta name="description" content="ATCOM Sun Yanhong wrote this article about several Chinese VoIP pioneers and their companys, including Chi-Shin Wang, Y.W. Sing and Jan Fandrianto.">
+<link rel="canonical" href="<?php EchoCanonical(); ?>" />
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>
 <script src="../../../js/copyright.js"></script>

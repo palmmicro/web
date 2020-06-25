@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>Palmmicro.com域名的历史</title>
 <meta name="description" content="记录Palmmicro.com域名的历史. 从1999年王老板开公司的时候开始到2008年终于注册到我的名下. 取个好名字不容易. 无论什么名字, 时间久了大家就都习惯了. ">
+<link rel="canonical" href="<?php EchoCanonical(); ?>" />
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

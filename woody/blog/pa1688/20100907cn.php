@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>夜以继日瞎忙</title>
 <meta name="description" content="在我为Soyo G1681 (PA168V)编译西班牙文软件的时候, 我突然意识到了这么多年我们是如何让PA1688的软件越跑越慢的. 增加OEM_MODEM编译选项优化一点速度.">
+<link rel="canonical" href="<?php EchoCanonical(); ?>" />
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>
 <script src="../../../js/copyright.js"></script>

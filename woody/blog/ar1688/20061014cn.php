@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>芯片名称和硬件型号</title>
 <meta name="description" content="Palmmicro方案名称的解说. 基于单一的AR1688芯片, 我们有不同的硬件参考设计, 我们的客户也会有不同的硬件型号. 马上会有的YWH201和GF302.">
+<link rel="canonical" href="<?php EchoCanonical(); ?>" />
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>
 <script src="../../../js/copyright.js"></script>

@@ -3,6 +3,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>从PA1688到PA6488 - 软件API的版权协议</title>
+<link rel="canonical" href="<?php EchoCanonical(); ?>" />
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>
 <script src="../../../js/copyright.js"></script>

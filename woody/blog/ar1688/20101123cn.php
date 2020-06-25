@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>SDCC 3.0.0之路</title>
 <meta name="description" content="把AR1688软件的编译器从开放源代码的SDCC 2.9.0升级到3.0.0并不容易. 经过2个星期对各种开发版本的努力测试, 我们终于稳定到了3.0.1 #6078上.">
+<link rel="canonical" href="<?php EchoCanonical(); ?>" />
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>
 <script src="../../../js/copyright.js"></script>

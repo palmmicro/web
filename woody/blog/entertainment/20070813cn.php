@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>SiRF出钱环游世界50天</title>
 <meta name="description" content="Centrality(Palmmicro)被SiRF收购后, 我并没有开始环游世界, 而是一直在努力把我们小小的AR1688 VoIP生意做大. 当然了, 事实上方向比努力更重要!">
+<link rel="canonical" href="<?php EchoCanonical(); ?>" />
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

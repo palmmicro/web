@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>过度软件优化</title>
 <meta name="description" content="过度的RTL8019AS软件优化导致基于PA1688方案的ET6602网络电话工作不稳定, 为了这个明显是缺乏测试的个别现象, 结果我们只好又返回了随大流的版本.">
+<link rel="canonical" href="<?php EchoCanonical(); ?>" />
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>
 <script src="../../../js/copyright.js"></script>

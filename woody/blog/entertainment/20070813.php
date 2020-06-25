@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>Around the World in 50 Days Paid by SiRF</title>
 <meta name="description" content="I am not travelling around the world after Centrality acquired by SiRF. Actually I am still fighting for our little AR1688 VoIP business.">
+<link rel="canonical" href="<?php EchoCanonical(); ?>" />
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

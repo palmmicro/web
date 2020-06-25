@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>从PA1688到PA6488 - 以太网PHY开始工作了吗? </title>
 <meta name="description" content="从比较Palmmicro PA1688, AR1688(KSZ8842), PA3288(ENC28J60)和PA6488上以太网PHY连接状态的检测和利用看我们的进步.">
+<link rel="canonical" href="<?php EchoCanonical(); ?>" />
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>
 <script src="../../../js/copyright.js"></script>

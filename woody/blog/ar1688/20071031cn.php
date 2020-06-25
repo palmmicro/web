@@ -3,6 +3,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>计算Speex实际使用带宽</title>
+<link rel="canonical" href="<?php EchoCanonical(); ?>" />
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>
 <script src="../../../js/copyright.js"></script>
