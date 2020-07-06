@@ -16,8 +16,8 @@ define('ADR_PAGE', 'adr');
 function GetStockMenuArray()
 {
     return array(ADR_PAGE => ADR_DISPLAY,
-                      'chinaetf' => 'A股ETF',
-                      'goldetf' => '黄金ETF',
+                      'chinaetf' => 'A股工具',
+                      'goldetf' => '黄金工具',
                       'lof' => 'LOF工具',
                       'lofhk' => '香港LOF',
                      );
@@ -176,9 +176,11 @@ function GetAhCompareLink($strQuery = false)
     return GetStockTitleLink(AH_COMPARE_PAGE, AH_COMPARE_DISPLAY, $strQuery);
 }
 
+define('ETF_LIST_DISPLAY', '基金指数对照表');
+define('ETF_LIST_PAGE', 'etflist');
 function GetEtfListLink()
 {
-    return GetStockTitleLink('etflist', 'ETF对照表');
+    return GetStockTitleLink(ETF_LIST_PAGE, ETF_LIST_DISPLAY);
 }
 
 define('ADRH_COMPARE_DISPLAY', 'ADR和H股对比');

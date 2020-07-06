@@ -66,7 +66,7 @@ function GetCategoryArray($strTitle)
         $ar = LofGetCommoditySymbolArray();
         break;
         
-    case 'etflist':
+    case ETF_LIST_PAGE:
         $ar = SqlGetEtfPairArray();
         break;
   
@@ -295,7 +295,7 @@ function GetUbsSdicSoftwareLinks()
 
 function GetUniversalSoftwareLinks()
 {
-    $ar = array('sz164701');
+    $ar = array('sh501043', 'sz164701');
     $strLink = GetExternalLink('http://www.99fund.com', '汇添富基金');
     return GetCategorySoftwareLinks($ar, $strLink);
 }

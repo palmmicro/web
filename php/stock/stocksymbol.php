@@ -40,7 +40,7 @@ function in_array_lower($strSymbol, $ar)
 
 function ChinaEtfGetSymbolArray()
 {
-    return array('sh510300', 'sh510330', 'sz159919');
+    return array('sh501043', 'sh510300', 'sh510330', 'sz159919');
 }
 
 function in_arrayChinaEtf($strSymbol)
