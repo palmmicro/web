@@ -29,7 +29,8 @@ class _LofAccount extends LofGroupAccount
         $this->cny_ref = new CnyReference('USCNY');	// Always create CNY Forex class instance first!
         $this->ref = new LofReference($strSymbol);
         if ($strOil)	$this->oil_ref = new FutureReference($strOil);
-        /*if ($strES)*/	$this->es_ref = new FutureReference($strES);
+        /*if ($strES)*/	
+        $this->es_ref = new FutureReference($strES);
         $this->usd_ref = new ForexReference($strUSD);
         $this->cnh_ref = new ForexReference($strCNH);
         
