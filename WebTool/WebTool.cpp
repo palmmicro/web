@@ -52,12 +52,13 @@ BOOL CWebToolApp::InitInstance()
 	InitCommonControlsEx(&InitCtrls);
 
 	CWinApp::InitInstance();
-
+/*
 	if (!AfxSocketInit())
 	{
 		AfxMessageBox(IDP_SOCKETS_INIT_FAILED);
 		return FALSE;
 	}
+*/
 
 	// Initialize OLE libraries
 	if (!AfxOleInit())
