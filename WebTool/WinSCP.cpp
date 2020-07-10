@@ -49,8 +49,9 @@ bool WinSCP::CheckLogFile(CString strLog)
 		for (pos = list.GetHeadPosition(); pos != NULL;)
 		{
 			str = list.GetNext(pos);
-			if (str.Find(_T("Upload successful")) != -1)
-			{
+//			if (str.Find(_T("Upload successful")) != -1)
+			if (str.Find(_T("Transfer done")) != -1)
+				{
 				iTotal ++;
 			}
 		}

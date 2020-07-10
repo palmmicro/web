@@ -16,7 +16,7 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// Chinese (Simplified, PRC) resources
+// 中文(简体，中国) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
 LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
@@ -82,12 +82,12 @@ BEGIN
     VK_F6,          ID_PREV_PANE,           VIRTKEY, SHIFT
 END
 
-#endif    // Chinese (Simplified, PRC) resources
+#endif    // 中文(简体，中国) resources
 /////////////////////////////////////////////////////////////////////////////
 
 
 /////////////////////////////////////////////////////////////////////////////
-// English (United States) resources
+// 英语(美国) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
 LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
@@ -250,8 +250,8 @@ FONT 8, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
     DEFPUSHBUTTON   "OK",IDOK,242,40,50,14,WS_GROUP
     ICON            IDR_MAINFRAME,IDC_STATIC,14,14,20,20
-    LTEXT           "Woody's Web Tool, Version 3.9",IDC_STATIC,42,14,114,8,SS_NOPREFIX
-    LTEXT           "Copyright (C) 2010-2019 Palmmicro Communications Inc. All Rights Reserved.",IDC_STATIC,41,25,254,8
+    LTEXT           "Woody's Web Tool, Version 4.0",IDC_STATIC,42,14,114,8,SS_NOPREFIX
+    LTEXT           "Copyright (C) 2010-2020 Palmmicro Communications Inc. All Rights Reserved.",IDC_STATIC,41,25,254,8
 END
 
 IDD_ITERATEBOX DIALOGEX 0, 0, 625, 207
@@ -378,8 +378,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 3,9,0,0
- PRODUCTVERSION 3,9,0,0
+ FILEVERSION 4,0,0,0
+ PRODUCTVERSION 4,0,0,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -396,12 +396,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "Palmmicro"
             VALUE "FileDescription", "Woody's Web Tool"
-            VALUE "FileVersion", "3.9.0.0"
+            VALUE "FileVersion", "4.0.0.0"
             VALUE "InternalName", "WebTool.exe"
-            VALUE "LegalCopyright", "Copyright (C) 2010-2019 Palmmicro Communications Inc.  All rights reserved."
+            VALUE "LegalCopyright", "Copyright (C) 2010-2020 Palmmicro Communications Inc.  All rights reserved."
             VALUE "OriginalFilename", "WebTool.exe"
             VALUE "ProductName", "Woody's Web Tool"
-            VALUE "ProductVersion", "3.9.0.0"
+            VALUE "ProductVersion", "4.0.0.0"
         END
     END
     BLOCK "VarFileInfo"
@@ -619,7 +619,7 @@ BEGIN
     ID_TOOLS_ADD_IMAGE      "Add image .jpg file\nAdd image"
 END
 
-#endif    // English (United States) resources
+#endif    // 英语(美国) resources
 /////////////////////////////////////////////////////////////////////////////
 
 

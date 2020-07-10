@@ -37,9 +37,8 @@
 
 #include <afxhtml.h>                    // MFC HTML view support
 
-#include <afxsock.h>            // MFC socket extensions
-
-#include <afxinet.h>			// CFtpConnection and CInternetConnection
+//#include <afxsock.h>            // MFC socket extensions
+//#include <afxinet.h>			// CFtpConnection and CInternetConnection
 
 
 #ifdef _UNICODE

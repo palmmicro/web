@@ -12,7 +12,7 @@
 <?php _LayoutTopLeft(); ?>
 
 <div>
-<h1>我的第一个Visual C++ 2008程序</h1>
+<h1>我的第一个Visual C++ 2008<a name="webtool">程序</a></h1>
 <p>2010年5月29日
 <br />为避免标题党的嫌疑, 这篇的名字没有写成<font color=gray>我的第一个苹果手机程序</font>或者<font color=gray>我的第一个Android程序</font>. 
 <br />从1992年开始用Turbo C写PC上的程序开始, 直到1996年我还在用Borland C++. 但是在1997年终于投降了Visual C ++ 4.2. 1999我紧跟微软脚步升级到了VC6, 这一下用了10年.
@@ -52,11 +52,20 @@ Here the plate goes around so, and the reason it's two to one is . . ." and I sh
 <br /><img src=../photo/20130219.jpg alt="Screen shot of Woody's Web Tool with FTPS encryption settings Require explicit FTP over TLS" />
 </p> 
 
-<h3>调用WinSCP</h3>
+<h3>调用<a name="winscp">WinSCP</a></h3>
 <p>2018年1月18日
 <br />去年的某一天, C#的FtpWebRequest突然罢工了. 它前一次罢工的时候, 我通过升级Windows系统和编译器解决了问题. 但是这一次, 最新的Windows 10和<a href="20140615cn.php">Visual Studio</a> 2017都没能帮上忙.
 <br />那段时间刚好Yahoo的FTP也特别慢, 无奈之下我在腾讯云弄了个<a href="20120719cn.php">Linux</a>虚拟主机方便调试<a href="20100905cn.php">PHP</a>代码, 于是开始使用WinSCP开始用SCP协议跟虚拟主机同步文件.
 <br />上周WinSCP提示我有更新, 正巧更新又特别慢, 无聊之下我第一次扫了一眼它的文档, 结果发现竟然可以从命令行调用它. 这下我的问题解决了, 赶快削尖铅笔在我的工具中直接调用WinSCP完成FTP的工作.
+</p> 
+
+<h3>无法打开文件MSCOREE.lib</h3>
+<p>2020年7月11日
+<br />Sony退出笔记本电脑市场后我失去了品牌忠诚度, 先后买了一台17寸的HP, 一台14寸的DELL和一台17寸的联想. 6月份端午假期期间, 最新的联想和DELL居然同时屏幕坏了. 被迫应急买了一台24寸的DELL一体机.
+多年来第一次用中文版本的WINDOWS, 发现调用<a href="#winscp">WinSCP</a>后LOG文件中<b>Upload successful</b>变成了<b>上传成功</b>, 必须修改判断重新编译<a href="#webtool">Woody的网站工具</a>.
+<br />在一体机上新装了Visual Studio 2019, 结果VS2017下能编译的网站工具罢工了, 提示无法打开文件MSCOREE.lib. 百度了一下, 碰到这个问题的人不少, 满屏都是如何找老文件的解决方案, 实在蠢得不能忍.
+用bing的国际版查了一下英文社区, 同样很多人碰到了这个问题, 不过解决方案靠谱多了, 原来安装时缺省是不装C++/CLI模块的, 补充安装一下就好.
+<br /><img src=../photo/20200711.jpg alt="My broken DELL hand LENOVO notebook, original photo taken on Jun 14, 2019" />
 </p> 
 
 </div>
