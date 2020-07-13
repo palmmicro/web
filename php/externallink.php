@@ -99,21 +99,7 @@ function GetSpindicesOfficialLink($strTicker)
 
 function GetIsharesOfficialLink($strSymbol)
 {
-	$str = 'https://www.ishares.com/us/products/';
-	switch ($strSymbol)
-	{
-	case 'GSG':
-		$str .= '239757/GSG';
-		break;
-
-	case 'IEO':
-		$str .= '239517/ishares-us-oil-gas-exploration-production-etf';
-		break;
-		
-	case 'IXC':
-		$str .= '239741/ishares-global-energy-etf';
-		break;
-	}
+	$str = GetIsharesEtfUrl($strSymbol);
 	return GetOfficialLink($str, $strSymbol);
 }
 
@@ -411,11 +397,11 @@ function GetJisiluLofLink()
 	return GetExternalLink(GetJisiluDataUrl().'qdii/', '集思录');
 }
 
-function GetSpdrNavLink($strSymbol)
+function GetEtfNavLink($strSymbol)
 {
-	if ($strUrl = GetSpdrNavUrl($strSymbol))
+	if ($strUrl = GetEtfNavUrl($strSymbol))
 	{
-		return GetExternalLink($strUrl, 'SPDR净值文件');
+		return GetExternalLink($strUrl, '净值文件');
 	}
 	return '';
 }

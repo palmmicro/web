@@ -42,7 +42,7 @@ function EchoAll()
     	{
     		$strSymbol = $ref->GetSymbol();
     		$strLinks = GetStockHistoryLink($strSymbol);
-    		$strLinks .= ' '.GetSpdrNavLink($strSymbol);
+    		$strLinks .= ' '.GetEtfNavLink($strSymbol);
     		if ($bAdmin = $acct->IsAdmin())
     		{
 //    			$strLinks .= ' '.GetPhpLink(STOCK_PATH.'spdrnavxls', false, '更新净值');

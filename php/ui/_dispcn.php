@@ -4,7 +4,7 @@
 <title><?php EchoTitle(); ?></title>
 <meta name="description" content="<?php EchoMetaDescription(); ?>">
 <link rel="canonical" href="<?php EchoCanonical(); ?>" />
-<link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="<?php EchoFavicon(); ?>" type="image/x-icon">
 <link href="../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

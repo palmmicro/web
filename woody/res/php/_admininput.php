@@ -84,7 +84,7 @@ function EchoAll()
     	break;
     	
   	case 'spdrnavxls':
-    	$str = GetSpdrNavXlsStr($strInput);
+    	$str = GetNavXlsStr($strInput);
     	break;
     }
     $str .= '<br /><br />'.GetCategoryLinks(_getAdminInputArray());

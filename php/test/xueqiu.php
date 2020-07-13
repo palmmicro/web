@@ -1,6 +1,6 @@
 <?php
 
-define('FRIENDS_FOLLOWERS_RATIO', 20);
+define('FRIENDS_FOLLOWERS_RATIO', 10);
 define('STATUS_FOLLOWERS_RATIO', 20);
 
 /*

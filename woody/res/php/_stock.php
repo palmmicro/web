@@ -144,13 +144,47 @@ function _isFromQq()
 	return false;
 }
 
+// xueqiu_status_id=60702370&xueqiu_status_from_source=cltl&xueqiu_status_source=statusdetail
+// xueqiu_status_id=127630010
+// xueqiu_status_id=127630010&xueqiu_status_source=usst
+// xueqiu_status_id=134159104&xueqiu_status_source=fvtl
 // xueqiu_status_id=145895182&xueqiu_status_source=ptl_recommend
+// xueqiu_status_id=149429807&xueqiu_status_from_source=htl&xueqiu_status_source=statusdetail
+// xueqiu_status_id=153607346&xueqiu_status_source=rptl 发言(https://xueqiu.com/7939305154/153607346) 用户(https://xueqiu.com/u/7939305154)
+// xueqiu_status_id=153607346&xueqiu_status_source=sktl_new
+// xueqiu_status_id=153607346&xueqiu_status_source=sstl
 function _isFromXueQiu()
 {
-	if ($str = UrlGetQueryValue('xueqiu_status_id'))
+	if ($strId = UrlGetQueryValue('xueqiu_status_id'))
 	{
-		DebugString('雪球'.$str);
 		LayoutTgGroup();
+		$str = '雪球';
+		$strSource = UrlGetQueryValue('xueqiu_status_source');
+		switch ($strSource)
+		{
+		case 'fvtl':
+			break;
+			
+		case 'ptl_recommend':
+			break;
+			
+		case 'rptl':
+			$str .= '评论';
+			break;
+			
+		case 'sktl_new':
+			break;
+			
+		case 'sstl':
+			break;
+			
+		case 'statusdetail':
+			break;
+			
+		case 'usst':
+			break;
+		}
+		DebugString($str.$strId);
 		return true;
 	}
 	return false;

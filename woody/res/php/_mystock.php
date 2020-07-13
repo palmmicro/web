@@ -22,7 +22,17 @@ function _echoBenfordParagraph($ref)
 	if ($ref->IsTradable() == false)		return;
 	if ($ref->IsFundA())					return;
 	
+	$strSymbol = $ref->GetSymbol();
+	if (SqlGetEtfPair($strSymbol))		return;
+	
 	$strStockId = $ref->GetStockId();
+   	$nv_sql = new NetValueHistorySql($strStockId);
+   	if ($nv_sql->Count() > 0)
+   	{
+//   		DebugString($strSymbol.' has netvalue, it is an ETF');
+   		return;
+   	}
+	
 	$a_sql = new AnnualIncomeStrSql($strStockId);
 	$q_sql = new QuarterIncomeStrSql($strStockId);
 	

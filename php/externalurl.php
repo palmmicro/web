@@ -117,14 +117,58 @@ function GetSpdrEtfUrl()
 	return 'https://www.ssga.com/us/en/individual/etfs/';
 }
 
+function GetIsharesEtfUrl($strSymbol)
+{
+	$str = 'https://www.ishares.com/us/products/';
+	switch ($strSymbol)
+	{
+	case 'GSG':
+		$str .= '239757/GSG';
+		break;
+
+	case 'IEO':
+		$str .= '239517/ishares-us-oil-gas-exploration-production-etf';
+		break;
+		
+	case 'IXC':
+		$str .= '239741/ishares-global-energy-etf';
+		break;
+	}
+	return $str;
+}
+
+// https://www.ishares.com/us/products/239517/ishares-us-oil-gas-exploration-production-etf/
+function _getIsharesXlsUrl($strSymbol)
+{
+	$str = GetIsharesEtfUrl($strSymbol).'/';
+	switch ($strSymbol)
+	{
+	case 'GSG':
+		break;
+
+	case 'IEO':
+		$str .= '1521942788811.ajax?fileType=xls&fileName=iShares-US-Oil--Gas-Exploration--Production-ETF_fund&dataType=fund';
+		return $str;
+		
+	case 'IXC':
+		break;
+	}
+	return false;
+}
+
 // https://www.ssga.com/us/en/individual/etfs/library-content/products/fund-data/etfs/us/navhist-us-en-xop.xlsx
-function GetSpdrNavUrl($strSymbol)
+function GetEtfNavUrl($strSymbol)
 {
 	$sql = new StockSql();
 	$record = $sql->GetRecord($strSymbol);
-   	if (stripos($record['name'], 'spdr') !== false)
+	$strName = $record['name'];
+   	if (stripos($strName, 'spdr') !== false)
 	{
 		return GetSpdrEtfUrl().'library-content/products/fund-data/etfs/us/navhist-us-en-'.strtolower($strSymbol).'.xlsx';
+	}
+   	else if (stripos($strName, 'ishares') !== false)
+	{
+		return _getIsharesXlsUrl($strSymbol);
 	}
 	return false;
 }

@@ -16,6 +16,12 @@ function EchoCanonical()
 	echo $str;
 }
 
+function EchoFavicon()
+{
+	$str = '/image/favicon.ico';
+	echo $str;
+}
+
 function LayoutPromo($str, $strLink = false)
 {
 	$strLinkDisplay = $strLink ? '<br />'.GetHttpLink($strLink) : '';

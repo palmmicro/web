@@ -42,7 +42,7 @@ Here the plate goes around so, and the reason it's two to one is . . ." and I sh
 <h3>从FTP到<a name="ftps">FTPS</a></h3>
 <p>2013年2月19日
 <br />王田可能是我认识的人中唯一一个跟我一样把编程序当成娱乐的. 几年前当他还在微软工作的时候, 有一天他突然跟我说, 他刚刚写了自己的第一个C#程序, 感觉很好.
-<br />跟通常一样我总是后知后觉. 尽管我在网上读了不少, 而且听过王田感觉很好的亲身经历, 在2010年我开始写<b>Woody的网站工具</b>的时候我完全没有考虑C#.
+<br />跟通常一样我总是后知后觉. 尽管我在网上读了不少, 而且听过王田感觉很好的亲身经历, 在2010年我开始写<a href="#webtool">Woody的网站工具</a>的时候我完全没有考虑C#.
 而是用了我熟悉的MFC, 沾沾自喜的使用CFtpConnection类上传文件到我的网站.
 <br />Yahoo网站服务从去年开始不断提示我它要转换成只支持FTPS, 最后期限就是今天. 从那时开始, 我就一直在琢磨怎么简单的把我的程序改成FTPS.
 其实答案很简单, 早在Microsoft .NET Framework 2.0中就已经有了FtpWebRequest的支持.
@@ -65,7 +65,7 @@ Here the plate goes around so, and the reason it's two to one is . . ." and I sh
 多年来第一次用中文版本的WINDOWS, 发现调用<a href="#winscp">WinSCP</a>后LOG文件中<b>Upload successful</b>变成了<b>上传成功</b>, 必须修改判断重新编译<a href="#webtool">Woody的网站工具</a>.
 <br />在一体机上新装了Visual Studio 2019, 结果VS2017下能编译的网站工具罢工了, 提示无法打开文件MSCOREE.lib. 百度了一下, 碰到这个问题的人不少, 满屏都是如何找老文件的解决方案, 实在蠢得不能忍.
 用bing的国际版查了一下英文社区, 同样很多人碰到了这个问题, 不过解决方案靠谱多了, 原来安装时缺省是不装C++/CLI模块的, 补充安装一下就好.
-<br /><img src=../photo/20200711.jpg alt="My broken DELL hand LENOVO notebook, original photo taken on Jun 14, 2019" />
+<br /><img src=../photo/20200711.jpg alt="My 2 broken DELL and LENOVO notebooks, original photo taken on Jun 14, 2019" />
 </p> 
 
 </div>
