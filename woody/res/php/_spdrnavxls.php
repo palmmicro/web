@@ -1,7 +1,7 @@
 <?php
 require_once('/php/class/PHPExcel/IOFactory.php');
 
-function _readXlsFile($strUrl, $strPathName, $sql, $shares_sql)
+function _readXlsFile($bIshares, $strPathName, $sql, $shares_sql)
 {
 	date_default_timezone_set(STOCK_TIME_ZONE_US);
 	try 
@@ -14,9 +14,22 @@ function _readXlsFile($strUrl, $strPathName, $sql, $shares_sql)
 	{
 		dieDebugString('Load excel file error: "'.pathinfo($strPathName, PATHINFO_BASENAME).'": '.$e->getMessage());
 	}
+	
+	if ($bIshares)
+	{
+		$iSheet = 1;
+		$iNavIndex = 2;
+		$iSharesIndex = 4;
+	}
+	else
+	{
+		$iSheet = 0;
+		$iNavIndex = 1;
+		$iSharesIndex = 2;
+	}
 
 	// 确定要读取的sheet，什么是sheet，看excel的右下角
-	$sheet = $objPHPExcel->getSheet(0);
+	$sheet = $objPHPExcel->getSheet($iSheet);
 	$highestRow = $sheet->getHighestRow();
 	$highestColumn = $sheet->getHighestColumn();
 
@@ -37,11 +50,11 @@ function _readXlsFile($strUrl, $strPathName, $sql, $shares_sql)
     		$strDate = $ymd->GetYMD();
    			if ($oldest_ymd->IsInvalid($strDate) == false)
    			{
-  				if ($sql->Write($strDate, $ar[1]))
+  				if ($sql->Write($strDate, $ar[$iNavIndex]))
   				{
   					$iCount ++;
   				}
-  				if ($shares_sql->Write($strDate, strval(floatval($ar[2]) / 10000.0)))
+  				if ($shares_sql->Write($strDate, strval(floatval($ar[$iSharesIndex]) / 10000.0)))
   				{
   					$iSharesCount ++;
   				}
@@ -66,7 +79,8 @@ function GetNavXlsStr($strSymbol)
 		$strStockId = SqlGetStockId($strSymbol);
         $sql = new NetValueHistorySql($strStockId);
         $shares_sql = new EtfSharesHistorySql($strStockId);
-		return _readXlsFile($strUrl, $strPathName, $sql, $shares_sql);
+        $bIshares = (stripos($strUrl, 'ishares') !== false) ? true : false;
+		return _readXlsFile($bIshares, $strPathName, $sql, $shares_sql);
 	}
 	return $strSymbol.'不是SPDR或者ISHARES的ETF';
 }

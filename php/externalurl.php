@@ -117,6 +117,7 @@ function GetSpdrEtfUrl()
 	return 'https://www.ssga.com/us/en/individual/etfs/';
 }
 
+// https://www.ishares.com/us/products/239517/ishares-us-oil-gas-exploration-production-etf/
 function GetIsharesEtfUrl($strSymbol)
 {
 	$str = 'https://www.ishares.com/us/products/';
@@ -137,7 +138,7 @@ function GetIsharesEtfUrl($strSymbol)
 	return $str;
 }
 
-// https://www.ishares.com/us/products/239517/ishares-us-oil-gas-exploration-production-etf/
+// https://www.ishares.com/us/products/239517/ishares-us-oil-gas-exploration-production-etf/1521942788811.ajax?fileType=xls&fileName=iShares-US-Oil--Gas-Exploration--Production-ETF_fund&dataType=fund
 function _getIsharesXlsUrl($strSymbol)
 {
 	$str = GetIsharesEtfUrl($strSymbol).'/';

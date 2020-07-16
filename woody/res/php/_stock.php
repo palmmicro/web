@@ -70,7 +70,7 @@ function _EchoMoneyGroupData($group, $strUSDCNY, $strHKDCNY, $strLink = false)
 
 function _echoRandomPromotion()
 {
-	$iVal = rand(1, 5);
+	$iVal = rand(1, 6);
 	switch ($iVal)
 	{
 	case 1:
@@ -90,7 +90,11 @@ function _echoRandomPromotion()
 		break;
 		
 	case 5:
-		LayoutPromo('dongfang', 'http://ognfhcacesaf4get.mikecrm.com/sEJIKQZ');
+		LayoutPromotion('dongfang', 'http://ognfhcacesaf4get.mikecrm.com/sEJIKQZ');
+		break;
+		
+	case 6:
+		LayoutPromotion('huabao', 'https://m.touker.com/trade/activity/common/channelOpen.htm?moduleDataId=275&channel=Vpalmmicro');
 		break;
 	}
 }
@@ -199,7 +203,7 @@ function EchoPromotionHead($strVer = false, $strLoginId = false)
 		_echoRandomPromotion();
     }
     
-    $str = GetDevGuideLink('20150818', $strVer);
+    $str = GetPromotionLink().' '.GetDevGuideLink('20150818', $strVer);
     EchoParagraph($str);
 }
 

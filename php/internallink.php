@@ -13,6 +13,11 @@ function GetWeixinDevLink($strDisp = '微信公众号')
 	return GetInternalLink('/woody/blog/palmmicro/20161014cn.php', $strDisp);
 }
 
+function GetPromotionLink()
+{
+	return GetInternalLink('/woody/blog/entertainment/20110509cn.php', '广告说明');
+}
+
 function GetDevGuideLink($strPage, $strVer = false, $bChinese = true)
 {
     $str = '/woody/blog/entertainment/'.$strPage;

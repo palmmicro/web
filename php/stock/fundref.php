@@ -159,11 +159,11 @@ class FundReference extends MysqlReference
     	case 'SZ161129':
     		$fRatio = 0.8927;
     		break;
-/*    		
-    	case 'SZ162411':
-    		$fRatio = 0.95;
-    		break;
     		
+    	case 'SZ162411':
+    		$fRatio = 0.91;
+    		break;
+/*    		
     	case 'SZ162719':
     		$fRatio = 0.85;
     		break;

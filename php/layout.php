@@ -22,7 +22,7 @@ function EchoFavicon()
 	echo $str;
 }
 
-function LayoutPromo($str, $strLink = false)
+function LayoutPromotion($str, $strLink = false)
 {
 	$strLinkDisplay = $strLink ? '<br />'.GetHttpLink($strLink) : '';
     echo <<<END

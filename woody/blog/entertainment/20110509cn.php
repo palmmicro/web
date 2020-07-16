@@ -54,12 +54,18 @@
 <br />努力拥抱知识付费时代, 我给自己的网站也加上了流行的微信和支付宝打赏, 跟微信公众号一起, 会随机出现在网页讨论和建议之下. 为方便查阅, 这里一古脑都显示出来.
 </p>
 <?php 
-	LayoutTgGroup();
 	LayoutWeixinPromotion();
 	LayoutWeixinPay();
 	LayoutAliPay();
-	LayoutPromo('dongfang');
+	LayoutTgGroup();
+	LayoutPromotion('dongfang');
+	LayoutPromotion('huabao');
 ?>
+
+<h3>券商开户广告</h3>
+<p>2020年3月10日
+<br />随着公众号上的文章越写越多, 来了不少券商客服找我谈开户合作. 在我看来把开户广告放在更受欢迎的<a href="../../res/sz162411cn.php">华宝油气</a>估值等网页上是个更好的主意, 因此现在能在上面看到一些不定期更新的券商开户广告.
+</p>
 
 </div>
 
