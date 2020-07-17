@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>如何从美国封杀中兴通讯的危机变成转机之七 -- 全国江山一盘棋</title>
 <meta name="description" content="美国封杀中兴通讯, 如何从危机变成转机之七? 全国江山一盘棋. 5G射频芯片是中兴华为今后通往移动通讯和固网通讯WLL唯一没有拿在手中的咽喉要地. 拿下它基本上没有什么技术上的大难关要过.">
+<?php EchoInsideHead(); ?>
 <link href="/common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

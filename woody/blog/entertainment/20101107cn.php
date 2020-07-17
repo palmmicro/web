@@ -4,7 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>网络日志搬家 - GB18030和GB2312</title>
 <meta name="description" content="记录把MSN网络日志从aredfox.spaces.live.com搬家到Palmmicro网站的过程, 从GB2312, GB18030到UTF-8的领悟, 以及后知后觉开始学习开发网站软件的经历.">
-<link rel="canonical" href="<?php EchoCanonical(); ?>" />
+<?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

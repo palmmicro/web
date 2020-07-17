@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>天然无油5.94克拉祖母绿猫眼</title>
 <meta name="description" content="淘宝店西雅图夜猫眼的5.94克拉祖母绿猫眼, 带GRS证书. 英文名称Emerald cat's eye. http://shop58325285.taobao.com/">
+<?php EchoInsideHead(); ?>
 <link href="/common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

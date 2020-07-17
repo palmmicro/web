@@ -4,7 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>Stupid is as Stupid Does</title>
 <meta name="description" content="Works on SDCC bugs tracking after version 3.0.1 #6078, so far we have not been able to locate a new working version yet!">
-<link rel="canonical" href="<?php EchoCanonical(); ?>" />
+<?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>
 <script src="../../../js/copyright.js"></script>

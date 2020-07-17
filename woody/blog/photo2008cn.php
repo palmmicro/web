@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>2008年网络日志图片</title>
 <meta name="description" content="Woody的2008年网络日志中使用的图片列表和日志链接. 图片包括跟王老板和唐丽在Half Moon Bay的合影, RTL8019AS芯片和RTL8305芯片等.">
+<?php EchoInsideHead(); ?>
 <link href="/common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

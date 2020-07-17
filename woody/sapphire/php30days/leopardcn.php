@@ -3,6 +3,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>林近岚满月艺术照 - 豹纹系列</title>
 <meta name="description" content="林近岚(英文名Sapphire)的满月艺术照. 豹纹系列. 2014年12月12号由深圳远东妇儿科医院馨月馆月子中心的专业摄影师拍摄和处理. 大家看看值多少钱, 我反正觉得超级不值!">
+<?php EchoInsideHead(); ?>
 <link href="/common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

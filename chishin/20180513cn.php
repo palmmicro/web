@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>如何从美国封杀中兴通讯的危机变成转机之五 -- 普及版</title>
 <meta name="description" content="美国封杀中兴通讯, 如何从危机变成转机之五? 昨天送出了一篇文章, 讲述如何救中兴通讯. 文章里的技术含量太高, 我想可能只有中兴通讯, 华为, 海思以及展讯的技术负责人才能看得懂体会. 这一篇是普及版, 是写给领导们和其他专业的技术专家们看的.">
+<?php EchoInsideHead(); ?>
 <link href="/common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

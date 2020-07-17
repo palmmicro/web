@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>猫眼模特包子</title>
 <meta name="description" content="淘宝店西雅图夜猫眼的母苏格兰折耳猫模特包子. 包括戴祖母绿的照片和在北京拍的最不希望被人看到的洗澡照片. http://shop58325285.taobao.com/">
+<?php EchoInsideHead(); ?>
 <link href="/common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

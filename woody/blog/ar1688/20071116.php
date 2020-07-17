@@ -4,7 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>RTP First</title>
 <meta name="description" content="With RTL8019AS ethernet chip, we created a Mini Run method to handle RTP packet first during the long process time of a SIP register packet.">
-<link rel="canonical" href="<?php EchoCanonical(); ?>" />
+<?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>
 <script src="../../../js/copyright.js"></script>

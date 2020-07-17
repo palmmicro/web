@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>Cat Eye Model Baozi</title>
 <meta name="description" content="Scottish fold female cat model Baozi in Taobao store Cat Eyes in Seattle, with pictures of emerald and taking a most hated shower in Beijing.">
+<?php EchoInsideHead(); ?>
 <link href="/common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

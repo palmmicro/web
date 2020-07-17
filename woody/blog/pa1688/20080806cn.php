@@ -4,7 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>非标准PA1688设备</title>
 <meta name="description" content="说明为什么我们无法为部分非标准PA1688设备提供升级软件, 同时简单介绍了标准Palmmicro PA1688设备的例子以及部分我们能够提供升级软件的非标准厂商.">
-<link rel="canonical" href="<?php EchoCanonical(); ?>" />
+<?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

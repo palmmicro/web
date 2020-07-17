@@ -4,7 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>Low Cost Phone</title>
 <meta name="description" content="The cheapest PSTN phone case in China market, and the PA1688 IP phones (EP668, IPH E00, Primeworx P100 and YWH10) used the case.">
-<link rel="canonical" href="<?php EchoCanonical(); ?>" />
+<?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>
 <script src="../../../js/copyright.js"></script>

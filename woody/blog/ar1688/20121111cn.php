@@ -4,7 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>找出两幅图不同之处</title>
 <meta name="description" content="比较基于Palmmicro AR1688方案的标准AR168R RoIP模块和为REMOTA TECNOLOGIA设计的特殊版本, 顺便比较记录其它容易混淆的问题.">
-<link rel="canonical" href="<?php EchoCanonical(); ?>" />
+<?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>
 <script src="../../../js/copyright.js"></script>

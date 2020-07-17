@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>藍邦科技有限公司</title>
 <meta name="description" content="藍邦科技有限公司的介绍以及部分商品展示例如Coin WiFi投币式上网分享器. 在公司的创始人要求下放在Palmmicro网站. 公司网站 http://www.btbond.com">
+<?php EchoInsideHead(); ?>
 <link href="/common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

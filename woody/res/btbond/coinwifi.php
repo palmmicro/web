@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>Coin WiFi Hotspot</title>
 <meta name="description" content="Coin WiFi hotspot from Btbond Technology, Inc. Placed here in palmmicro web site by the request of its founder.">
+<?php EchoInsideHead(); ?>
 <link href="/common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

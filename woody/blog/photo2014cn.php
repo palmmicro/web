@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>2014年网络日志图片</title>
 <meta name="description" content="Woody的2014年网络日志中使用的图片列表和日志链接. 包括AR1688 Manager.exe西班牙语mfc120u.dll错误信息抓屏图, 10月16日中国A股股票持仓的抓屏图等.">
+<?php EchoInsideHead(); ?>
 <link href="/common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

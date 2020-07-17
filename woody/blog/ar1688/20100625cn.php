@@ -4,7 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>卖到断货</title>
 <meta name="description" content="在两年零四个月卖完整整一百块基于Palmmicro AR1688方案的AR168M VoIP模块后, 我们骄傲的宣布它卖断货了! 请大家参考我们的标准参考设计自行生产.">
-<link rel="canonical" href="<?php EchoCanonical(); ?>" />
+<?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>
 <script src="../../../js/copyright.js"></script>

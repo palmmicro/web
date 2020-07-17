@@ -4,7 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>Micrel KSZ8842网络芯片</title>
 <meta name="description" content="我们尝试在AR1688方案中使用Micrel KSZ8842替换RTL8019AS和RTL8305. 看上去充满希望, 不光节省了芯片数量, 而且性能更佳, 功耗也更低.">
-<link rel="canonical" href="<?php EchoCanonical(); ?>" />
+<?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>
 <script src="../../../js/copyright.js"></script>

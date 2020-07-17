@@ -4,7 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>Logic Puzzle: Find the Differences ...</title>
 <meta name="description" content="Compare Palmmicro AR1688 solution based standard AR168R RoIP module and special version for REMOTA TECNOLOGIA.">
-<link rel="canonical" href="<?php EchoCanonical(); ?>" />
+<?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>
 <script src="../../../js/copyright.js"></script>

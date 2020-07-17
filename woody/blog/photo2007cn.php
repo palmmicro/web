@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>2007年网络日志图片</title>
 <meta name="description" content="Woody的2007年网络日志中使用的图片列表和日志链接. 图片包括一个基于Infineon 21553芯片的网络电话上使用的典型的PA1688 00-09-45 MAC地址等.">
+<?php EchoInsideHead(); ?>
 <link href="/common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

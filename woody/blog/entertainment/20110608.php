@@ -4,7 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>WiFi Ethernet Bridge</title>
 <meta name="description" content="How to connect PA648C to a WiFi network using the WDS function of a wireless router. WiFi Ethernet bridge WDS settings screenshot of TP-LINK TL-WR740N.">
-<link rel="canonical" href="<?php EchoCanonical(); ?>" />
+<?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>隆中策(1) - 绿色核子家园</title>
 <meta name="description" content="钍是大自然给人类的恩赐. 钍核子发电可以带给人类千年甚至万年充沛的能源. 钍核反应炉的重要性比C919高几十倍, 不但对中国有很大的好处, 对全人类也是做出巨大的贡献.">
+<?php EchoInsideHead(); ?>
 <link href="/common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

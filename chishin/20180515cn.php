@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>如何从美国封杀中兴通讯的危机变成转机之六 -- 给中兴通讯和华为提个建议</title>
 <meta name="description" content="美国封杀中兴通讯, 如何从危机变成转机之六? 给中兴通讯和华为提个建议. 把5G技术, 用在固网通讯的无线本地环路, wireless local loop WLL, 特别在开发中国家. 它的好处是把宽带网络服务很快就覆盖到整个地区上.">
+<?php EchoInsideHead(); ?>
 <link href="/common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

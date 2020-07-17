@@ -4,7 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>林近岚的由来</title>
 <meta name="description" content="记录我女儿Sapphire的名字来历, 以及如何由林赛福到林岚, 最后确定成林近岚的过程. 顺便抱怨一下只有毛爷爷诗词可读的父母这一带人给我们起的没文化的名字. 我的也许不算最差的!">
-<link rel="canonical" href="<?php EchoCanonical(); ?>" />
+<?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

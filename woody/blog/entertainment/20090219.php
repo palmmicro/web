@@ -4,7 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>From Palmmicro to CSR in Ten Years</title>
 <meta name="description" content="Only old people like to talk about history. I knew it when I began to look back of the past 10 years. Although it is far from successful, I never regretted.">
-<link rel="canonical" href="<?php EchoCanonical(); ?>" />
+<?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

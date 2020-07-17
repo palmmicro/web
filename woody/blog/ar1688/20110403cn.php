@@ -4,7 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>在Asterisk系统下禁用STUN</title>
 <meta name="description" content="AR1688用户不要在Asterisk系统下使用STUN选项. 在FWD和SIPphone都停止了免费SIP服务后, 现在测试STUN越来越不容易了. 希望GNU SIP Witch能日后扛起大旗.">
-<link rel="canonical" href="<?php EchoCanonical(); ?>" />
+<?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>
 <script src="../../../js/copyright.js"></script>

@@ -4,7 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>E路航Z1 GPS</title>
 <meta name="description" content="当2006年Centrality的GPS芯片开发成熟后, 凭借在ARM9和WinCE上的技术积累, 远峰科技很快成为了中国最大的GPS设计公司, 到今天还在大量持续的销售Centrality/SiRF/CSR芯片闷声赚钱.">
-<link rel="canonical" href="<?php EchoCanonical(); ?>" />
+<?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

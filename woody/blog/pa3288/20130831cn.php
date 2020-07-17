@@ -4,7 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>USB接口</title>
 <meta name="description" content="接触和学习了十多年的USB, Woody现在终于有机会在新的PA3288 VoIP方案中用上了. 看看我们新的WiFi VoIP产品计划吧. 真心希望能够早一点有东西可以卖.">
-<link rel="canonical" href="<?php EchoCanonical(); ?>" />
+<?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>
 <script src="../../../js/copyright.js"></script>

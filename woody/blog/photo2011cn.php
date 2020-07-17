@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>2011年网络日志图片</title>
 <meta name="description" content="Woody的2011年网络日志中使用的图片列表和日志链接. 包括ATCOM IP PHONE AT323 internal PCB image, test interpolation algorithm with Rie Miyazawa Santa Fe JPEG file.">
+<?php EchoInsideHead(); ?>
 <link href="/common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

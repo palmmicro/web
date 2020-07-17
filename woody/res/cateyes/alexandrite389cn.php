@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>天然3.89克拉亚历山大变色金绿猫眼</title>
 <meta name="description" content="淘宝店西雅图夜猫眼的3.89克拉亚历山大变色金绿猫眼. 英文名称为Alexandrite, 俄文名称Александрит. http://shop58325285.taobao.com/">
+<?php EchoInsideHead(); ?>
 <link href="/common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

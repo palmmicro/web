@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>隆中策(2) - 快马加鞭打造绿色钍核子家园</title>
 <meta name="description" content="对尽早实现钍核能发电商业化的建议. 用齐头并进的做法. 在最优状况下大大缩短研发时间, 既不增加安全上的风险, 研发费用的增加也极有限. 做最好的打算, 尽量争取2024年初步开始商业营运钍核电厂.">
+<?php EchoInsideHead(); ?>
 <link href="/common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

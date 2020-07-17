@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>林近岚2014年相片</title>
 <meta name="description" content="林近岚(英文名Sapphire)的2014年个人图片和相关链接. 从各种来源的相片中精挑细选, 也不知道以后她看了是否满意, 估计还是恨不得网站被屏蔽的的可能性居多.">
+<?php EchoInsideHead(); ?>
 <link href="../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

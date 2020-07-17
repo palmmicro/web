@@ -4,7 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>如何改MAC地址</title>
 <meta name="description" content="修改AR1688设备MAC地址的具体步骤. 故意设计得比较复杂, 应为我们不希望像PA1688那样, MAC地址太容易被Palmtool修改, 结果我们一天到晚给客户解决重复MAC地址的问题.">
-<link rel="canonical" href="<?php EchoCanonical(); ?>" />
+<?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>
 <script src="../../../js/copyright.js"></script>

@@ -4,7 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>我的第一个嵌入式Linux程序</title>
 <meta name="description" content="不会Linux已经无法继续混嵌入式系统开发了. 继第一次在Linux下编译SDCC源代码的尝试后, 第一次在嵌入式Linux下编写程序, 在一个WiFi路由器芯片上简单优化ITU-T G.729代码.">
-<link rel="canonical" href="<?php EchoCanonical(); ?>" />
+<?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

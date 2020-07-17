@@ -4,7 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>展会专家</title>
 <meta name="description" content="今天在San Jose会展中心的DESIGN West 2012展会上的见闻. IoT(Internet of Things)肯定会被包括在Palmmicro下一代产品中, 不过zigbee的命运就难说了.">
-<link rel="canonical" href="<?php EchoCanonical(); ?>" />
+<?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

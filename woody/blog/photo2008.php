@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>2008 Blog Pictures</title>
 <meta name="description" content="Pictures from of Woody's 2008 blog. Including photo with Chi-Shin Wang and Tang Li in Half Moon Bay.">
+<?php EchoInsideHead(); ?>
 <link href="/common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

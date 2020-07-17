@@ -4,7 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>从PA1688到PA6488 - 安全模式恢复</title>
 <meta name="description" content="所有Palmmicro的产品都有安全模式恢复功能. 设备上的软件分成2个独立的部分. 如果主程序因为错误的软件导致不能启动, 用户总是可以在安全模式下重新升级原来正确的软件.">
-<link rel="canonical" href="<?php EchoCanonical(); ?>" />
+<?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>
 <script src="../../../js/copyright.js"></script>

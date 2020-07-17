@@ -4,7 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>Eroda Z1 GPS</title>
 <meta name="description" content="With their technolody experience with ARM9 and WinCE, when Centrality GPS chip rolled out in 2006, YF quickly became the largest GPS design house in China.">
-<link rel="canonical" href="<?php EchoCanonical(); ?>" />
+<?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

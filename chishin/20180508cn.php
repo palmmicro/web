@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>如何从美国封杀中兴通讯的危机变成转机之四</title>
 <meta name="description" content="美国封杀中兴通讯, 如何从危机变成转机之四? 这是这一系列文章里最重要的一篇. 因为牵涉到的方面很多, 就以纲要式的方式列出, 细节就请大家慢慢体会. 以后我还会拿些实际例子作说明.">
+<?php EchoInsideHead(); ?>
 <link href="/common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

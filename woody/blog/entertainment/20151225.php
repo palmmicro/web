@@ -4,7 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>The Interpretation of Sina Stock Data Interface</title>
 <meta name="description" content="The interpretation of Sina Chinese stock (http://hq.sinajs.cn/list=sz162411) and US stock (http://hq.sinajs.cn/list=gb_xop) data interface.">
-<link rel="canonical" href="<?php EchoCanonical(); ?>" />
+<?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

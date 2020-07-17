@@ -4,7 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>软件升级</title>
 <meta name="description" content="由于通信协议经常变动, 今天网络电话最重要的功能莫过于软件升级了, AR1688采用了TFTP协议. 本文比较了Palmmicro AR1688和PA1688的软件升级功能, 当然我们的越做越好的了.">
-<link rel="canonical" href="<?php EchoCanonical(); ?>" />
+<?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>
 <script src="../../../js/copyright.js"></script>

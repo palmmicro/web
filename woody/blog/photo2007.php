@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>2007 Blog Pictures</title>
 <meta name="description" content="Pictures from of Woody's 2007 blog. Including photo of a typical PA1688 00-09-45 MAC address on an Infineon 21553 IP phone.">
+<?php EchoInsideHead(); ?>
 <link href="/common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

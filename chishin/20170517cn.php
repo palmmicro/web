@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>光量子计算机时代的来临?</title>
 <meta name="description" content="光取代电, 听起来是很合理. 在长途通讯上, 光纤取代了电缆. 但我觉得光量子计算应该先定位在像D-Wave那样的产品. 若是光量子计算机定位在一般用途的计算机, 那可是前途茫茫苦海无边.">
+<?php EchoInsideHead(); ?>
 <link href="/common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

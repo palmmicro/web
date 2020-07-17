@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>如何从美国封杀中兴通讯的危机变成转机之三 -- 对中国半导体产业布局的建议</title>
 <meta name="description" content="美国封杀中兴通讯, 如何从危机变成转机之三? 对中国半导体产业布局的建议. 这一次对中兴通讯的封杀, 正好帮助中国下定决心, 全面发展半导体产业. 我相信历史会记下这个事件.">
+<?php EchoInsideHead(); ?>
 <link href="/common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

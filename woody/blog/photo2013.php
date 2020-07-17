@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>2013 Blog Pictures</title>
 <meta name="description" content="Pictures from Woody's 2013 blog. Including PA1688-PQ chip picture and the official picture of 5111PHONE provided by 5111SOFT.">
+<?php EchoInsideHead(); ?>
 <link href="/common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

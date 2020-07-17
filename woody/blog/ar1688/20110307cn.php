@@ -4,7 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>语音提示</title>
 <meta name="description" content="AR1688语音提示的开发. PCMU格式的语音数据可以存放在中文字库数据的程序存储器空间中, 然后在程序运行时调用播放出来. 这部分语音数据可以同样按照字库方式更新.">
-<link rel="canonical" href="<?php EchoCanonical(); ?>" />
+<?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>
 <script src="../../../js/copyright.js"></script>

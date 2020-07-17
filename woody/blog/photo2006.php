@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>2006 Blog Pictures</title>
 <meta name="description" content="Pictures from Woody's 2006 blog. Including photo with Sun Yanhong and Li Jing in central park, NYC.">
+<?php EchoInsideHead(); ?>
 <link href="/common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

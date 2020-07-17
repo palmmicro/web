@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>2012 Blog Pictures</title>
 <meta name="description" content="Pictures from Woody's 2012 blog. Including standard AR168R RoIP module photo by an user from Denmark.">
+<?php EchoInsideHead(); ?>
 <link href="/common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

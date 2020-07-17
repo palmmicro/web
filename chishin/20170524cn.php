@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>东海和钓鱼岛</title>
 <meta name="description" content="2016年3月底联合国大陆棚界限委员会裁定福克兰岛周围的大陆棚架都属于阿根廷的经济海域. 按这个判例, 钓鱼台列岛12海浬以外的大陆棚架全都属于中国的经济海域.">
+<?php EchoInsideHead(); ?>
 <link href="/common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

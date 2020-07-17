@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>Btbond Technology, Inc.</title>
 <meta name="description" content="Btbond Technology, Inc. introduction with some products display, placed here by the request of its founder.">
+<?php EchoInsideHead(); ?>
 <link href="/common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

@@ -4,7 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>RTP优先</title>
 <meta name="description" content="由于AR1688性能限制, SIP注册信息需要比较长时间处理. 我们在RTL8019AS网络芯片上实现了一个Mini Run功能, 用于在处理SIP注册信息的时候优先处理进出的RTP包.">
-<link rel="canonical" href="<?php EchoCanonical(); ?>" />
+<?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>
 <script src="../../../js/copyright.js"></script>

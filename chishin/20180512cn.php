@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>如何从美国封杀中兴通讯的危机变成转机之五</title>
 <meta name="description" content="美国封杀中兴通讯, 如何从危机变成转机之五? 朋友们打电话给我, 对政治议题的讨论表达了关切和忧虑. 我在这里郑重声明, 让我们把讨论集中在技术研发, 产品市场的规划, 如何培训人才方面. 其他的议题就不要在这里讨论, 免得失去焦点, 引起不必要的困扰.">
+<?php EchoInsideHead(); ?>
 <link href="/common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

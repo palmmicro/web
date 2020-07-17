@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>2011 Blog Pictures</title>
 <meta name="description" content="Pictures from Woody's 2011 blog. Including ATCOM IP PHONE AT323 internal PCB image, test interpolation algorithm with Rie Miyazawa Santa Fe JPEG file.">
+<?php EchoInsideHead(); ?>
 <link href="/common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

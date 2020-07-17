@@ -3,6 +3,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>Sapphire 30 Days Photos - Red Hat Series</title>
 <meta name="description" content="Sapphire 30 days photos. Red Hat series. Taken by professional photographers from Shenzhen Far East International Medical Center.">
+<?php EchoInsideHead(); ?>
 <link href="/common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

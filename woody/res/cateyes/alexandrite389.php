@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>Natural cat's eye alexandrite 3.89ct</title>
 <meta name="description" content="Cat's eye alexandrite 3.89ct in Taobao store Cat Eyes in Seattle. http://shop58325285.taobao.com/">
+<?php EchoInsideHead(); ?>
 <link href="/common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

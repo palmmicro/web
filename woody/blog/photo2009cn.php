@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>2009年网络日志图片</title>
 <meta name="description" content="Woody的2009年网络日志中使用的图片列表和日志链接. 图片包括中国市场上最便宜的PSTN电话外壳, Palmmicro PA1688软件中被浪费了的1x16 SDRAM等.">
+<?php EchoInsideHead(); ?>
 <link href="/common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

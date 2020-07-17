@@ -4,7 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>The Journey to SDCC 3.0.0</title>
 <meta name="description" content="It is not easy for AR1688 software to upgrade from SDCC 2.9.0 to 3.0.0. We finally reached a steady version at 3.0.1 #6078.">
-<link rel="canonical" href="<?php EchoCanonical(); ?>" />
+<?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>
 <script src="../../../js/copyright.js"></script>

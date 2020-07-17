@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>2010年网络日志图片</title>
 <meta name="description" content="Woody的2010年网络日志中使用的图片列表和日志链接. 包括AR168DS烧录器图片, Soyo G1681(PA168V/AG-168V)网关正面图, 司马台长城等.">
+<?php EchoInsideHead(); ?>
 <link href="/common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

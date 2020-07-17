@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>王继行</title>
 <meta name="description" content="王继行博士是Weitek, 8x8, Videocore和Centrality(Palmmicro)等公司的创始人. 已经退休多年但改不了学习和思考的习惯, 征得本人同意后把他现在的思考内容转发在这里.">
+<?php EchoInsideHead(); ?>
 <link href="/common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

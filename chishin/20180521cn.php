@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>如何从美国封杀中兴通讯的危机变成转机之八 -- 精兵简政防止弊端</title>
 <meta name="description" content="美国封杀中兴通讯, 如何从危机变成转机之八? 精兵简政防止弊端. 宏宇提了一个非常重要的问题, 如何决定投资? 如何防止弊端? 至于税率, 我想还是应该由中美两国政府磋商决定.">
+<?php EchoInsideHead(); ?>
 <link href="/common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

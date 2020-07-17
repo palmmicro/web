@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>2016 Blog Pictures</title>
 <meta name="description" content="Pictures from Woody's 2016 blog. Including Palmmicro wechat public accouont sz162411 QR code, screen shot of XOP and SZ162411 arbitrage data etc.">
+<?php EchoInsideHead(); ?>
 <link href="/common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

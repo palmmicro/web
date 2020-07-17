@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>2010 Blog Pictures</title>
 <meta name="description" content="Pictures from Woody's 2010 blog. Including AR168DS programmer image and Soyo G1681 front view.">
+<?php EchoInsideHead(); ?>
 <link href="/common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

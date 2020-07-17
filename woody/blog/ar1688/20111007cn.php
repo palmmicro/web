@@ -4,7 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>每个人都会问愚蠢问题</title>
 <meta name="description" content="从SDCC版本3.0.1 #6078后, 我们就再也没有找到过一个编译AR1688软件稳定能用的版本. 这里记录的是我一直调试问题的工作. 软件真是个无休止的工作, 活到老做到老吧!">
-<link rel="canonical" href="<?php EchoCanonical(); ?>" />
+<?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>
 <script src="../../../js/copyright.js"></script>

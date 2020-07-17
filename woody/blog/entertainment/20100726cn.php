@@ -4,7 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>原始视频播放器</title>
 <meta name="description" content="Woody多年来在实现H.263和H.264过程中完成的Speech Workshop, Raw Image Viewer和CamMan三个原始视频播放器.">
-<link rel="canonical" href="<?php EchoCanonical(); ?>" />
+<?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

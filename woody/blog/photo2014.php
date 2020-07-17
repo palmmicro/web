@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>2014 Blog Pictures</title>
 <meta name="description" content="Pictures from Woody's 2014 blog. Including screen shot of AR1688 Manager.exe Spanish mfc120u.dll error message and Chinese stock portfolio.">
+<?php EchoInsideHead(); ?>
 <link href="/common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

@@ -9,17 +9,15 @@ require_once('class/Mobile_Detect.php');
 define('DEFAULT_DISPLAY_WIDTH', 900);
 define('MIN_SCRREN_WIDTH', DEFAULT_DISPLAY_WIDTH + 15 + DEFAULT_ADSENSE_WIDTH);		// 隔15个像素再显示最右边的广告, 见下面width=15
 
-function EchoCanonical()
+function EchoInsideHead()
 {
-	$str = str_replace('www.', '', UrlGetServer());
-	$str .= UrlGetUri();
-	echo $str;
-}
-
-function EchoFavicon()
-{
-	$str = '/image/favicon.ico';
-	echo $str;
+	$strCanonical = str_replace('www.', '', UrlGetServer()).UrlGetUri();
+	$strFavicon = '/image/favicon.ico';
+	
+    echo <<<END
+<link rel="canonical" href="$strCanonical" />
+<link rel="shortcut icon" href="$strFavicon" type="image/x-icon">
+END;
 }
 
 function LayoutPromotion($str, $strLink = false)

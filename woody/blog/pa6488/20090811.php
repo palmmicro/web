@@ -4,7 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>From PA1688 to PA6488 - Software Working Directory</title>
 <meta name="description" content="Comparing the different software working directory of PA1688, AR1688 and PA6488, Palmmicro is trying to better organize software development.">
-<link rel="canonical" href="<?php EchoCanonical(); ?>" />
+<?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>
 <script src="../../../js/copyright.js"></script>

@@ -4,7 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>The Origin of Sapphire Lin</title>
 <meta name="description" content="What does the name Sapphire Lin mean? Here is the story told by her father. Actually, a much shortened one from the original Chinese version.">
-<link rel="canonical" href="<?php EchoCanonical(); ?>" />
+<?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

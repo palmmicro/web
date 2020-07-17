@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>2009 Blog Pictures</title>
 <meta name="description" content="Pictures from of Woody's 2009 blog. Including photo of the cheapest PSTN phone case in China market.">
+<?php EchoInsideHead(); ?>
 <link href="/common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

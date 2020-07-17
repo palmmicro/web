@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>西雅图夜猫眼</title>
 <meta name="description" content="淘宝店西雅图夜猫眼的介绍以及部分商品和模特展示. 商品包括3.89克拉亚历山大变色金绿猫眼和5.94克拉祖母绿猫眼. 模特有一只苏格兰折耳母猫包子和一只英国短毛公猫多多.">
+<?php EchoInsideHead(); ?>
 <link href="/common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

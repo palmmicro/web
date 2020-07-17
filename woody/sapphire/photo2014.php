@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>Sapphire 2014 Photos</title>
 <meta name="description" content="Sapphire 2014 personal photos and related links. Although I spent a lot of time on it, I guess Sapphire might hate those in the future.">
+<?php EchoInsideHead(); ?>
 <link href="../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

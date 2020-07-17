@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>Cat Eyes in Seattle</title>
 <meta name="description" content="Taobao store Cat Eyes in Seattle introduction with some jewelry and models display, including a Scottish fold female cat and a British shorthair male cat.">
+<?php EchoInsideHead(); ?>
 <link href="/common/style.css" rel="stylesheet" type="text/css" />
 </head>
 

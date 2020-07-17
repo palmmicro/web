@@ -4,7 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>记录Palmmicro.com的被屏蔽历史</title>
 <meta name="description" content="记录Palmmicro.com从2010年以来被GFW(the Great Fire Wall of China)屏蔽的历史, 被屏蔽IP地址的列表, 以及北京司马台长城的图片.">
-<link rel="canonical" href="<?php EchoCanonical(); ?>" />
+<?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
 
