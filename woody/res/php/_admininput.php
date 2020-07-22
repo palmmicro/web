@@ -17,9 +17,72 @@ function _getAdminInputStr($strTitle)
 	return $ar[$strTitle];
 }
 
+function _formatPairStr($strSymbol, $fVal, $fPos)
+{
+	return $strSymbol.'净值: '.strval_round($fVal, 4).' 仓位: '.strval($fPos);
+}
+
+function _formatPairSharesStr($strSymbol, $fShares)
+{
+	return $strSymbol.'对应股数: '.strval_round($fShares, 0);
+}
+
+function _formatPairRemainStr($strSymbol, $fShares)
+{
+	return $strSymbol.'剩余股数: '.strval_round($fShares, 0);
+}
+
 function _getAdminTestStr($strInput)
 {
-	return $strInput;
+	$strSrc = 'SZ162719';
+	$strDst = 'SZ162411';
+	$strEstInput = '105';
+	
+	StockPrefetchData($strSrc, $strDst);
+    $src_ref = new LofReference($strSrc);
+    $dst_ref = new LofReference($strDst);
+    
+    if (($strSrcVal = $src_ref->GetOfficialNetValue()) && ($strDstVal = $dst_ref->GetOfficialNetValue()))
+    {
+    	$fSrcVal = floatval($strSrcVal);
+    	$fDstVal = floatval($strDstVal);
+    	
+    	$fSrcPos = $src_ref->GetFundPosition();
+    	$fDstPos = $dst_ref->GetFundPosition();
+    	
+    	$str = _formatPairStr($strSrc, $fSrcVal, $fSrcPos);
+    	$str .= '<br />'._formatPairStr($strDst, $fDstVal, $fDstPos);
+    	
+    	$fSrc = $fSrcVal * $fSrcPos;
+    	$fInput = $fSrc * floatval($strInput);
+    	$fOutput = $fInput / $fDstVal / $fDstPos;
+    	$str .= '<br />'._formatPairSharesStr($strDst, $fOutput);
+    	
+    	$est_ref = $dst_ref->GetEstRef();
+    	$strEst = $est_ref->GetSymbol();
+       	$sql = new NetValueHistorySql($est_ref->GetStockId());
+       	$uscny_sql = new UscnyHistorySql();
+       	
+    	$strDate = $dst_ref->GetOfficialDate();
+    	$strEstVal = $sql->GetClose($strDate);
+    	$strCny = $uscny_sql->GetClose($strDate);
+    	
+    	$fEst = floatval($strEstVal) * floatval($strCny);
+    	$str .= '<br /><br />'.$strDate.' '.$strEstVal.' '.$strCny.' '.strval_round($fEst / $fSrc);
+    	$fEstOutput =  $fInput / $fEst;
+    	$str .= '<br />'._formatPairSharesStr($strEst, $fEstOutput);
+    	
+    	$fEstRemain = floatval($strEstInput) - $fEstOutput;
+    	$str .= '<br /><br />'._formatPairRemainStr($strEst, $fEstRemain);
+    	
+    	$fDstRemain = $fEstRemain * 1400;
+    	$str .= '<br />'._formatPairRemainStr($strDst, $fDstRemain);
+    	
+    	return $str;
+    }
+	
+    return '未知错误';
+//	return $strInput;
 }
 
 function _getDelStockGroupStr($strGroupName)

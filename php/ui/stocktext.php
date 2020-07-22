@@ -90,7 +90,7 @@ function TextFromFundReference($ref)
     $str .= STOCK_DISP_NETVALUE.STOCK_DISP_CHANGE.':'.$ref->GetPercentageText().WX_EOL;
     if ($ref->fOfficialNetValue)
     {
-        $str .= STOCK_DISP_OFFICIAL._textPremium($stock_ref, $ref->fOfficialNetValue).' '.$ref->strOfficialDate.WX_EOL;
+        $str .= STOCK_DISP_OFFICIAL._textPremium($stock_ref, $ref->fOfficialNetValue).' '.$ref->GetOfficialDate().WX_EOL;
     }
     if ($ref->fFairNetValue)
     {

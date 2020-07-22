@@ -52,7 +52,7 @@ function _getFundRealtimeStr($ref, $strRealtimeEst)
 
 function _getFundParagraphStr($ref)
 {
-    $strDate = $ref->strOfficialDate;
+    $strDate = $ref->GetOfficialDate();
     $strLastTime = SqlGetStockCalibrationTime($ref->GetStockId());
     $strHistoryLink = GetCalibrationHistoryLink($ref->GetSymbol());
 	$str = GetTableColumnOfficalEst();

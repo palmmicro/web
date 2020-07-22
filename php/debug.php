@@ -13,7 +13,7 @@ define('MIN_FLOAT_VAL', 0.0000001);
 
 function strval_round($fVal, $iPrecision = false)
 {
-	if ($iPrecision == false)
+	if ($iPrecision === false)
 	{
 		$f = abs($fVal);
 		if ($f > (10 - MIN_FLOAT_VAL))		$iPrecision = 2;

@@ -46,6 +46,11 @@ class FundReference extends MysqlReference
     	return $this->GetPrice();
     }
     
+    function GetOfficialDate()
+    {
+    	return $this->strOfficialDate;
+    }
+    
     function GetOfficialNetValue()
     {
     	if ($this->fOfficialNetValue)
@@ -82,7 +87,7 @@ class FundReference extends MysqlReference
     function UpdateEstNetValue()
     {
        	$fund_sql = new FundEstSql($this->GetStockId());
-   		StockUpdateEstResult($this->sql, $fund_sql, $this->GetOfficialNetValue(), $this->strOfficialDate);
+   		StockUpdateEstResult($this->sql, $fund_sql, $this->GetOfficialNetValue(), $this->GetOfficialDate());
     }
 
     function UpdateOfficialNetValue()
@@ -135,8 +140,8 @@ class FundReference extends MysqlReference
     {
     	return $this->est_ref;
     }
-    
-    function AdjustPosition($fVal)
+
+    function GetFundPosition()
     {
     	switch ($this->GetSymbol())
     	{
@@ -176,6 +181,12 @@ class FundReference extends MysqlReference
     		$fRatio = FUND_POSITION_RATIO;
     		break;
     	}
+    	return $fRatio;
+    }
+    
+    function AdjustPosition($fVal)
+    {
+    	$fRatio = $this->GetFundPosition();
         return $fVal * $fRatio + floatval($this->GetPrice()) * (1.0 - $fRatio);
     }
 }
