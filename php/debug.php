@@ -87,6 +87,11 @@ function DebugGetTime($iTime = false, $strTimeZone = DEBUG_TIME_ZONE)
 	return DebugFormat_date(DEBUG_TIME_FORMAT, $iTime, $strTimeZone);
 }
 
+function GetHM($strHMS)
+{
+	return substr($strHMS, 0, 5);
+}
+
 function DebugGetFileTimeDisplay($strPathName)
 {
     clearstatcache(true, $strPathName);

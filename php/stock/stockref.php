@@ -248,10 +248,9 @@ class StockReference extends StockSymbol
     }
     
 // 06:56:22 => 06:56
-	function GetTimeHM($strHMS = false)
+	function GetTimeHM()
 	{
-		$strTime = $strHMS ? $strHMS : $this->strTime;
-		return substr($strTime, 0, 5);
+		return GetHM($this->strTime);
 	}
 	
 	function IsExtendedMarket()
@@ -304,8 +303,8 @@ class StockReference extends StockSymbol
             $strTime = DebugGetTime($iTime, $etf_ref->strTimeZone);
 //            DebugString('CheckAdjustFactorTime: '.$etf_ref->GetSymbol().' '.$etf_ref->GetDate().' '.$etf_ref->GetTimeHM().' vs '.$strDate.' '.$strTime);
         }
-        if ($strDate != $etf_ref->GetDate())                      return false;
-        if ($this->GetTimeHM($strTime) != $etf_ref->GetTimeHM())	return false;
+        if ($strDate != $etf_ref->GetDate())			return false;
+        if (GetHM($strTime) != $etf_ref->GetTimeHM())	return false;
         
         return true;
     }

@@ -7,6 +7,7 @@ function GetVisitorTodayLink($iCount, $bChinese)
 	return ($iCount > 0)	? CopyPhpLink('start=0&num='.$iCount, '今日访问', 'Visitors of Today', $bChinese) : '';
 }
 
+/*
 function EchoVisitorItem($strContent, $strLink, $record)
 {
     $strDate = substr($record['date'], 5);
@@ -32,8 +33,6 @@ function _getDeleteVisitorLink($strIp, $bChinese)
     return '';
 }
 
-define('MAX_VISITOR_CONTENTS', 35);
-
 function EchoVisitorParagraphBegin($arColumn, $strNavLink, $strSrc, $bChinese)
 {
     $strOrigLink = UrlGetQueryString() ? CopyPhpLink(false, '回访问首页', 'Back to Visitor Home', $bChinese) : '';
@@ -50,7 +49,9 @@ function EchoVisitorParagraphBegin($arColumn, $strNavLink, $strSrc, $bChinese)
     </tr>
 END;
 }
+*/
 
+define('MAX_VISITOR_CONTENTS', 35);
 function GetVisitorContentsDisplay($strContents)
 {
     if (strlen($strContents) > MAX_VISITOR_CONTENTS)

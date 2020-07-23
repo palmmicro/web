@@ -34,20 +34,6 @@ class TableColumnClose extends TableColumn
 	}
 }
 
-class TableColumnDate extends TableColumn
-{
-	function TableColumnDate($strPrefix = false)
-	{
-        parent::TableColumn('日期', 100, false, $strPrefix);
-	}
-}
-
-function GetTableColumnDate()
-{
-	$col = new TableColumnDate();
-	return $col->GetDisplay();
-}
-
 class TableColumnError extends TableColumn
 {
 	function TableColumnError()
@@ -188,26 +174,12 @@ function GetTableColumnSymbol()
 	return $col->GetDisplay();
 }
 
-class TableColumnTime extends TableColumn
-{
-	function TableColumnTime()
-	{
-        parent::TableColumn('时间', 50);
-	}
-}
-
 class TableColumnUSD extends TableColumn
 {
 	function TableColumnUSD()
 	{
         parent::TableColumn('美元$');
 	}
-}
-
-function GetTableColumnTime()
-{
-	$col = new TableColumnTime();
-	return $col->GetDisplay();
 }
 
 function GetTableColumnOfficalEst()

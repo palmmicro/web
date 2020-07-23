@@ -157,9 +157,13 @@ function GetIpLink($strIp, $bChinese)
     return _getIpLink(TABLE_IP, $strIp, $bChinese);
 }
 
-function GetVisitorLink($strIp, $bChinese = true)
+function GetVisitorLink($strIp = false, $bChinese = true)
 {
-    return _getIpLink(VISITOR_TABLE, $strIp, $bChinese);
+	if ($strIp)
+	{
+		return _getIpLink(VISITOR_TABLE, $strIp, $bChinese);
+	}
+	return GetPhpLink(ACCT_PATH.VISITOR_TABLE, false, '访问统计', 'Visitor', $bChinese);
 }
 
 function GetLoginLink($strCn, $strUs, $bChinese)

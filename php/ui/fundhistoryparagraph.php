@@ -25,7 +25,7 @@ function _echoFundHistoryTableItem($csv, $strNetValue, $strClose, $strDate, $arF
     	else
     	{
     		$ar[] = $ref->GetPriceDisplay($strEstValue, $strNetValue);
-    		$ar[] = $ref->GetTimeHM($arFund['time']);
+    		$ar[] = GetHM($arFund['time']);
     		$ar[] = $ref->GetPercentageDisplay($strNetValue, $strEstValue);
     	}
 		

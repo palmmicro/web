@@ -46,6 +46,42 @@ class TableColumn
 	}
 }
 
+class TableColumnDate extends TableColumn
+{
+	function TableColumnDate($strPrefix = false, $bChinese = true)
+	{
+        parent::TableColumn(($bChinese ? '日期' : 'Date'), 100, false, $strPrefix);
+	}
+}
+
+function GetTableColumnDate()
+{
+	$col = new TableColumnDate();
+	return $col->GetDisplay();
+}
+
+class TableColumnIP extends TableColumn
+{
+	function TableColumnIP()
+	{
+        parent::TableColumn('IP', 140);
+	}
+}
+
+class TableColumnTime extends TableColumn
+{
+	function TableColumnTime($bChinese = true)
+	{
+        parent::TableColumn(($bChinese ? '时间' : 'Time'), 50);
+	}
+}
+
+function GetTableColumnTime()
+{
+	$col = new TableColumnTime();
+	return $col->GetDisplay();
+}
+
 // ****************************** Common Table Functions *******************************************************
 
 function EchoParagraph($str)
