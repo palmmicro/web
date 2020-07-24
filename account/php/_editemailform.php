@@ -41,7 +41,7 @@ function _disableEditPassword($strSubmit)
     return false;
 }
 
-function _readonlyEditEmail($strSubmit)
+function _readonlyEditEmail($strSubmit, $bAdmin)
 {
 	switch ($strSubmit)
 	{
@@ -51,7 +51,7 @@ function _readonlyEditEmail($strSubmit)
 
 	case EDIT_EMAIL_CLOSE:
 	case EDIT_EMAIL_CLOSE_CN:
-        if (AcctIsAdmin() == false)     return true;    // only admin can close other account
+        if ($bAdmin == false)     return true;    // only admin can close other account
         break;
     }
     return false;
@@ -72,7 +72,7 @@ function _editEmailCheckErrMsg()
 	return (isset($_SESSION['MSG_ARRAY']) && is_array($_SESSION['MSG_ARRAY']) && count($_SESSION['MSG_ARRAY']) > 0);
 }
 
-function EditEmailForm($strSubmit)
+function EditEmailForm($strSubmit, $bAdmin)
 {
     $strEmailReadonly = '';
     $strPasswordDisabled = '';
@@ -107,7 +107,7 @@ function EditEmailForm($strSubmit)
         $strPassword2Disabled = HtmlElementDisabled();
     }
 
-    if (_readonlyEditEmail($strSubmit))
+    if (_readonlyEditEmail($strSubmit, $bAdmin))
     {
         $strEmailReadonly = HtmlElementReadonly();
     }

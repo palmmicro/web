@@ -42,8 +42,6 @@ function _emailBlogComment($strId, $strBlogId, $strSubject, $strComment)
 
 function _canModifyComment($strId, $strMemberId)
 {
-	if (AcctIsAdmin())    return true;
-	
     $record = SqlGetBlogCommentById($strId);
     if ($record['member_id'] == $strMemberId)	return true;    // I posted the comment
     

@@ -30,6 +30,8 @@ function _getEditEmailSubmit($strTitle, $bChinese)
 
 function EchoAll($bChinese = true)
 {
+	global $acct;
+	
 	$strTitle = UrlGetTitle();
 	switch ($strTitle)
 	{
@@ -59,7 +61,7 @@ function EchoAll($bChinese = true)
 		break;
     }
    	EchoParagraph($str);
-    EditEmailForm(_getEditEmailSubmit($strTitle, $bChinese));
+    EditEmailForm(_getEditEmailSubmit($strTitle, $bChinese), $acct->IsAdmin());
 }
 
 function EchoMetaDescription($bChinese = true)

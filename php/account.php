@@ -93,19 +93,6 @@ function AcctIsLogin()
 	return $strMemberId;
 }
 
-function AcctIsReadOnly($strMemberId)
-{
-    if (AcctIsAdmin())  return false;
-    if ($strMemberId)
-    {
-    	if (isset($_SESSION['SESS_ID']))
-    	{
-    		if ($strMemberId == $_SESSION['SESS_ID'])   return false;
-    	}
-    }
-    return true;
-}
-
 function AcctGetBlogVisitor($sql, $iStart = 0, $iNum = 0)
 {
     return SqlGetVisitor(VISITOR_TABLE, $sql->GetKeyId(), $iStart, $iNum);

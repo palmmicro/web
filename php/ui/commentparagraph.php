@@ -43,11 +43,11 @@ function GetSingleCommentDescription($record, $strWhere, $bChinese)
     return "$strAuthor $strTimeLink $strIp";
 }
 
-function _echoSingleCommentParagraph($record, $strMemberId, $strWhere, $bChinese)
+function _echoSingleCommentParagraph($record, $strMemberId, $bReadOnly, $bAdmin, $strWhere, $bChinese)
 {
 	$strEdit = '';
 	$strDelete = '';
-    if (AcctIsReadOnly($strMemberId) == false)
+    if ($bReadOnly == false)
     {
         if ($record['member_id'] == $strMemberId)
         {	// I posted the comment
@@ -55,7 +55,7 @@ function _echoSingleCommentParagraph($record, $strMemberId, $strWhere, $bChinese
         }
 
         // <a href="delete.page" onclick="return confirm('Are you sure you want to delete?')">Delete</a> 
-        if (AcctIsAdmin() || $record['member_id'] == $strMemberId)
+        if ($bAdmin || $record['member_id'] == $strMemberId)
         {
             $strDelete = GetDeleteLink('/account/php/_submitcomment.php?delete='.$record['id'], '评论', 'comment', $bChinese);
         }
@@ -75,16 +75,23 @@ function _echoSingleCommentParagraph($record, $strMemberId, $strWhere, $bChinese
 END;
 }
 
-function EchoCommentParagraphs($strMemberId, $strWhere, $iStart, $iNum, $bChinese)
+function EchoCommentParagraphs($strMemberId, $bReadOnly, $bAdmin, $strWhere, $iStart, $iNum, $bChinese)
 {
 	if ($result = SqlGetBlogComment($strWhere, $iStart, $iNum)) 
 	{
 		while ($record = mysql_fetch_assoc($result)) 
 		{
-			_echoSingleCommentParagraph($record, $strMemberId, $strWhere, $bChinese);
+			_echoSingleCommentParagraph($record, $strMemberId, $bReadOnly, $bAdmin, $strWhere, $bChinese);
 		}
 		@mysql_free_result($result);
 	}
+}
+
+function EchoCommentLinkParagraph($str, $strQuery, $bChinese)
+{
+    $str = "<font color=green>$str</font>";
+    $str .= ' '.GetAllCommentLink($strQuery, $bChinese);
+    EchoParagraph($str);
 }
 
 ?>

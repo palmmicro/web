@@ -102,7 +102,7 @@ function _echoAccountProfileChinese($member, $strName, $strPhone, $strAddress, $
 END;
 }
 
-function _echoAccountBlogComments($strMemberId, $bChinese)
+function _echoAccountBlogComments($strMemberId, $bReadOnly, $bAdmin, $bChinese)
 {
     $strQuery = 'member_id='.$strMemberId;
     $strWhere = SqlWhereFromUrlQuery($strQuery);
@@ -110,12 +110,8 @@ function _echoAccountBlogComments($strMemberId, $bChinese)
     if ($iTotal == 0)   return;
 
     $str = $bChinese ? '评论' : 'Comment';
-    if ($iTotal > MAX_COMMENT_DISPLAY)
-    {
-        $str .= ' '.GetAllCommentLink($strQuery, $bChinese);
-    }
-    EchoParagraph($str);
-    EchoCommentParagraphs($strMemberId, $strWhere, 0, MAX_COMMENT_DISPLAY, $bChinese);    
+    EchoCommentLinkParagraph($str, $strQuery, $bChinese);
+    EchoCommentParagraphs($strMemberId, $bReadOnly, $bAdmin, $strWhere, 0, MAX_COMMENT_DISPLAY, $bChinese);    
 }
 
 function _echoAccountFundAmount($strMemberId, $bChinese)
@@ -140,7 +136,8 @@ function EchoAccountProfile($bChinese = true)
    	$strMemberId = $acct->GetMemberId();
     if ($strMemberId == false)  return;
 
-    if ($acct->IsReadOnly() == false)  _echoAccountProfileLinks($bChinese);
+    $bReadOnly = $acct->IsReadOnly();
+    if ($bReadOnly == false)  _echoAccountProfileLinks($bChinese);
 	if ($member = SqlGetMemberById($strMemberId))
 	{
 	    if ($profile = SqlGetProfileByMemberId($strMemberId))
@@ -164,7 +161,7 @@ function EchoAccountProfile($bChinese = true)
 	    else    	        _echoAccountProfileEnglish($member, $strName, $strPhone, $strAddress, $strWeb, $strSignature);
 	}
 	
-	_echoAccountBlogComments($strMemberId, $bChinese);
+	_echoAccountBlogComments($strMemberId, $bReadOnly, $acct->IsAdmin(), $bChinese);
 	_echoAccountFundAmount($strMemberId, $bChinese);
 }                                                         
 
@@ -314,7 +311,7 @@ function _remindPassword($strEmail)
 	return $strSubject;
 }
 
-function _closeAccount($strEmail)
+function _closeAccount($strEmail, $bAdmin)
 {
 	$arErrMsg = array();	// Array to store validation errors
 	if (filter_var_email($strEmail))
@@ -323,7 +320,7 @@ function _closeAccount($strEmail)
 		{
 			if ($strId != $_SESSION['SESS_ID'])
 			{
-				if (AcctIsAdmin() == false)
+				if ($bAdmin == false)
 				{
 					$arErrMsg[] = ACCT_ERR_UNAUTH_OP;
 				}
@@ -359,6 +356,7 @@ function _closeAccount($strEmail)
 
 	$strMsg = false;
 	$acct = new Account();
+	$bAdmin = $acct->IsAdmin();
 	if (isset($_POST['submit']) && isset($_POST['login']))
 	{
 		$strSubmit = $_POST['submit'];
@@ -371,7 +369,7 @@ function _closeAccount($strEmail)
 		{
 		case EDIT_EMAIL_CLOSE:
 		case EDIT_EMAIL_CLOSE_CN:
-			if (($strMsg = _closeAccount($strEmail)) == false)    SwitchTo('closeaccount');
+			if (($strMsg = _closeAccount($strEmail, $bAdmin)) == false)    SwitchTo('closeaccount');
 			break;
 
 		case EDIT_EMAIL_LOGIN:
