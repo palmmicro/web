@@ -14,6 +14,12 @@ function _onManualBlackList($strIp)
 	$sql->SetStatus(IP_STATUS_BLOCKED);
 }
 
+function _onManualCrawl($strIp)
+{
+	$sql = new IpSql($strIp);
+	$sql->SetStatus(IP_STATUS_CRAWL);
+}
+
 function _AdminOperation()
 {
     if ($strSymbol = UrlGetQueryValue('calibration'))
@@ -23,6 +29,10 @@ function _AdminOperation()
     else if ($strIp = UrlGetQueryValue(TABLE_IP))
     {
         _onManualBlackList($strIp);
+    }
+    else if ($strIp = UrlGetQueryValue('crawl'))
+    {
+        _onManualCrawl($strIp);
     }
 }
 	

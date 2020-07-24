@@ -203,7 +203,7 @@ function EchoPromotionHead($strVer = false, $strLoginId = false)
 		_echoRandomPromotion();
     }
     
-    $str = GetPromotionLink().' '.GetDevGuideLink('20150818', $strVer);
+    $str = GetPromotionLink().' '.GetDevGuideLink('20150818', $strVer).' '.GetVisitorLink();
     EchoParagraph($str);
 }
 

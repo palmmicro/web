@@ -1,5 +1,17 @@
 <?php
-require_once('_visitorcommon.php');
+require_once('_account.php');
+require_once('/php/ui/table.php');
+
+define('MAX_VISITOR_CONTENTS', 35);
+function _getVisitorContentsDisplay($strContents)
+{
+    if (strlen($strContents) > MAX_VISITOR_CONTENTS)
+    {
+        $iLen = MAX_VISITOR_CONTENTS - 3;
+        return substr($strContents, 0, $iLen).'...';
+    }
+    return $strContents;
+}
 
 function _echoBlogVisitorData($sql, $iStart, $iNum, $bChinese)
 {
@@ -15,7 +27,7 @@ function _echoBlogVisitorData($sql, $iStart, $iNum, $bChinese)
             $strBlogId = $record['dst_id'];
 			$strUri = $page_sql->GetKey($strBlogId);
             $strUriLink = ltrim($strUri, '/');
-            $strUriLink = GetVisitorContentsDisplay($strUriLink);
+            $strUriLink = _getVisitorContentsDisplay($strUriLink);
             if (!in_array($strBlogId, $arBlogId))
             {
                 $strUriLink = GetInternalLink($strUri, $strUriLink);
@@ -35,7 +47,6 @@ function _echoBlogVisitorData($sql, $iStart, $iNum, $bChinese)
                 }
             }
             
-//            EchoVisitorItem($strUriLink, $strIpLink, $record);
 		    EchoTableColumn(array($strUriLink, $strIpLink, $record['date'], GetHM($record['time'])));
         }
         @mysql_free_result($result);
@@ -59,30 +70,22 @@ function _getNavVisitorLink($sql, $strIp, $iStart, $iNum, $bChinese)
 
 function _echoBlogVisitorParagraph($sql, $strIp, $iStart, $iNum, $bAdmin, $bChinese)
 {
-/*    if ($bChinese)     
-    {
-        $arColumn = array('页面', 'IP', '日期', '时间');
-    }
-    else
-    {
-        $arColumn = array('Page', 'IP', 'Date', 'Time');
-    }
-*/    
     $strNavLink = _getNavVisitorLink($sql, $strIp, $iStart, $iNum, $bChinese);
     $str = $strNavLink;
     if (UrlGetQueryString())	$str .= ' '.CopyPhpLink(false, '回访问首页', 'Back to Visitor Home', $bChinese);
     if ($strIp)
     {
+    	$str .= ' '.GetIpLink($strIp, $bChinese);
         if ($bAdmin)
         {
         	$strQuery = '?'.TABLE_IP.'='.$strIp;
             $str .= ' '.GetDeleteLink('/php/_submitdelete.php'.$strQuery, '访问记录', 'Visitor Record', $bChinese);
             $str .= ' '.GetInternalLink('/php/_submitoperation.php'.$strQuery, '拉黑');
+            $str .= ' '.GetInternalLink('/php/_submitoperation.php?crawl='.$strIp, '标注爬虫');
         }
     }
 
-//    EchoVisitorParagraphBegin($arColumn, $strNavLink, $sql->GetKey(), $bChinese);
-	EchoTableParagraphBegin(array(new TableColumn(($bChinese ? '页面' : 'Page'), 350),
+	EchoTableParagraphBegin(array(new TableColumn(($bChinese ? '页面' : 'Page'), MAX_VISITOR_CONTENTS * 10),
 								   new TableColumnIP(),
 								   new TableColumnDate(false, $bChinese),
 								   new TableColumnTime($bChinese)
@@ -106,7 +109,8 @@ function EchoAll($bChinese = true)
     }
     else
     {
-        $str = GetVisitorTodayLink(SqlCountTableToday(VISITOR_TABLE), $bChinese);
+        $iCount = SqlCountTableToday(VISITOR_TABLE);
+        $str = ($iCount > 0)	? CopyPhpLink('start=0&num='.$iCount, '今日访问', 'Visitors of Today', $bChinese) : '';
     }
     EchoParagraph($str);
     
@@ -133,5 +137,4 @@ function EchoTitle($bChinese = true)
 }
 
    	$acct = new DataAccount();
-	$acct->Auth();
 ?>

@@ -79,7 +79,6 @@ class StockAccount extends TitleAccount
     	if ($strLoginId)
     	{
     		$str .= $this->_getPersonalLinks($strLoginId);
-       		$str .= '<br />'.GetVisitorLink();
     	}
     	EchoParagraph($str);
     }
