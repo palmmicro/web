@@ -59,29 +59,6 @@ function AcctLogout()
 	unset($_SESSION['SESS_ID']);
 }
 
-function AcctGetEmail($strLoginId = false)
-{
-	if ($strLoginId == false)
-	{
-		if (isset($_SESSION['SESS_ID']))		$strLoginId = $_SESSION['SESS_ID'];
-	}
-	
-	if ($strLoginId)
-	{
-		if ($strEmail = SqlGetEmailById($strLoginId))	return $strEmail;
-	}
-	return '';
-}
-
-function AcctIsAdmin($strLoginId = false)
-{
-    if (AcctGetEmail($strLoginId) == ADMIN_EMAIL)
-	{
-	    return true;
-	}
-	return false;
-}
-
 function AcctIsLogin()
 {
 	// Check whether the session variable SESS_ID is present or not
@@ -206,6 +183,8 @@ class Account
     var $strLoginId;
     var $strMemberId;
     
+    var $strLoginEmail = false;
+    
     function Account() 
     {
    		$this->strLoginId = AcctSessionStart();
@@ -268,6 +247,17 @@ class Account
     	return $this->strMemberId;
     }
     
+    function GetLoginEmail()
+    {
+    	if ($this->strLoginId == false)	return false;
+    	
+    	if ($this->strLoginEmail == false)
+    	{
+    		$this->strLoginEmail = SqlGetEmailById($this->strLoginId);
+    	}
+    	return $this->strLoginEmail;
+	}
+
     function IsReadOnly()
     {
     	if ($this->strLoginId == false)	return true;
@@ -276,7 +266,11 @@ class Account
 
     function IsAdmin()
     {
-	   	return AcctIsAdmin($this->strLoginId);
+    	if ($this->GetLoginEmail() == ADMIN_EMAIL)
+    	{
+    		return true;
+    	}
+    	return false;
     }
 
     function Back()
@@ -310,10 +304,10 @@ class Account
     }
 }
 
-function AcctAdminCommand($callback)
+function AcctIsAdmin()
 {
-   	$acct = new Account();
-	$acct->AdminCommand($callback);
+   	global $acct;
+	return $acct->IsAdmin();
 }
 
 class DataAccount extends Account

@@ -137,4 +137,5 @@ function EchoTitle($bChinese = true)
 }
 
    	$acct = new DataAccount();
+   	$acct->Auth();		// restrict robot ip lookup
 ?>

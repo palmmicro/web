@@ -25,7 +25,7 @@ END;
 
 function EchoArbitrageTableItem2($arbi_trans, $convert_trans)
 {
-    EchoArbitrageTableItem($arbi_trans->iTotalShares, $arbi_trans->GetAvgCostDisplay(), $convert_trans);
+    EchoArbitrageTableItem($arbi_trans->GetTotalShares(), $arbi_trans->GetAvgCostDisplay(), $convert_trans);
 }
 
 function _selectArbitrageExternalLink($sym)
@@ -42,7 +42,7 @@ function EchoArbitrageTableItem($iQuantity, $strPrice, $trans)
 {
 	$strSymbol = _selectArbitrageExternalLink($trans->ref);
     $strQuantity = strval($iQuantity); 
-    $strConvertTotal = strval($trans->iTotalShares); 
+    $strConvertTotal = strval($trans->GetTotalShares()); 
     $strConvertPrice = $trans->GetAvgCostDisplay();
     $strConvertProfit = $trans->GetProfitDisplay();
     

@@ -77,6 +77,6 @@ function _updateAh()
     DebugVal($iCount, 'updated');
 }
 	
-	AcctAdminCommand('_updateAh');
-
+   	$acct = new Account();
+	$acct->AdminCommand('_updateAh');
 ?>

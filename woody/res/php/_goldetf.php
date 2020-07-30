@@ -22,6 +22,8 @@ class _GoldEtfAccount extends FundGroupAccount
 
 function _echoTestParagraph($acct)
 {
+   	if ($acct->IsAdmin() == false)	return;
+   	
 	$fund = $acct->GetRef();
     $str = _GetEtfAdjustString($fund->stock_ref, $fund->GetEstRef());
     EchoParagraph($str);

@@ -142,6 +142,8 @@ class LofGroupAccount extends FundGroupAccount
 
     function EchoTestParagraph()
     {
+    	if ($this->IsAdmin() == false)	return;
+    	
        	if (RefHasData($this->ref->GetEstRef()))
        	{
        		$str = $this->_getAdjustString();

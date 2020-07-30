@@ -174,6 +174,14 @@ function GetTableColumnSymbol()
 	return $col->GetDisplay();
 }
 
+class TableColumnTotalShares extends TableColumn
+{
+	function TableColumnTotalShares()
+	{
+        parent::TableColumn('总数量', 90);
+	}
+}
+
 class TableColumnUSD extends TableColumn
 {
 	function TableColumnUSD()

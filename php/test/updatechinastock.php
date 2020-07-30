@@ -53,6 +53,6 @@ function _updateChinaStock()
     DebugVal($iCount, 'updated');
 }
 	
-	AcctAdminCommand('_updateChinaStock');
-
+   	$acct = new Account();
+	$acct->AdminCommand('_updateChinaStock');
 ?>

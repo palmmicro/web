@@ -61,7 +61,7 @@ function EchoAll($bChinese = true)
 		break;
     }
    	EchoParagraph($str);
-    EditEmailForm(_getEditEmailSubmit($strTitle, $bChinese), $acct->IsAdmin());
+    EditEmailForm(_getEditEmailSubmit($strTitle, $bChinese), $acct->GetLoginEmail(), $acct->IsAdmin());
 }
 
 function EchoMetaDescription($bChinese = true)

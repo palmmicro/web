@@ -39,6 +39,6 @@ function _updateUsStock()
     DebugVal($iCount, 'updated');
 }
 	
-	AcctAdminCommand('_updateUsStock');
-
+   	$acct = new Account();
+	$acct->AdminCommand('_updateUsStock');
 ?>

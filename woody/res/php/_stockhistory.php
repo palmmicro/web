@@ -42,7 +42,7 @@ function EchoAll()
 
     		if ($bAdmin && $iStart == 0)
     		{
-    			StockOptionEditForm($ref, STOCK_OPTION_ADJCLOSE);
+    			StockOptionEditForm($ref, STOCK_OPTION_ADJCLOSE, $acct->GetLoginEmail());
     		}
     	}
     }

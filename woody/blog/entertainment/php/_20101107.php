@@ -3,8 +3,7 @@ require_once('_entertainment.php');
 
 function EchoUpdateGbUtfLink()
 {
-    global $acct;
-   	if ($acct->IsAdmin())
+   	if (AcctIsAdmin())
 	{
 		EchoInternalLink('/php/test/updategbutf.php', '更新UNICODE码表');
 	}

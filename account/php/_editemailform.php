@@ -72,7 +72,7 @@ function _editEmailCheckErrMsg()
 	return (isset($_SESSION['MSG_ARRAY']) && is_array($_SESSION['MSG_ARRAY']) && count($_SESSION['MSG_ARRAY']) > 0);
 }
 
-function EditEmailForm($strSubmit, $bAdmin)
+function EditEmailForm($strSubmit, $strEmail, $bAdmin)
 {
     $strEmailReadonly = '';
     $strPasswordDisabled = '';
@@ -112,7 +112,7 @@ function EditEmailForm($strSubmit, $bAdmin)
         $strEmailReadonly = HtmlElementReadonly();
     }
 
-    $strEmail = AcctGetEmail(); 
+//    $strEmail = AcctGetEmail(); 
 	$strEmailErr = '';
 	$strPasswordErr = '';
 	$strPassword2Err = '';

@@ -44,6 +44,7 @@ function _transEchoReferenceParagraph($arTrans)
 {
 	$arRef = array();
 	$arSymbol = array();
+	
 	foreach ($arTrans as $trans)
 	{
 		$ref = $trans->GetRef();
@@ -55,8 +56,65 @@ function _transEchoReferenceParagraph($arTrans)
        		$arSymbol[] = $strSymbol;
        	}
 	}
+	
     StockHistoryUpdate($arRef);    
     EchoReferenceParagraph($arRef);
+}
+
+function _echoMergeParagraph($arMerge)
+{
+	EchoTableParagraphBegin(array(new TableColumnSymbol(),
+								   new TableColumnTotalShares()
+								   ), 'merge', '合并数量');
+
+	foreach ($arMerge as $strSymbol => $trans)
+	{
+		$ar = array();
+		$ar[] = GetTradingViewLink($strSymbol);
+        $ar[] = strval($trans->GetTotalShares()); 
+        EchoTableColumn($ar);
+	}
+    EchoTableParagraphEnd();
+}
+
+function _transEchoMergeParagraph($arTrans)
+{
+	$arMerge = array();
+	$arSymbol = array();
+	$prev_trans = false;
+	$cur_trans = false;
+	
+	foreach ($arTrans as $trans)
+	{
+		$strSymbol = $trans->GetSymbol();
+       	if (in_array($strSymbol, $arSymbol))
+       	{
+       		if ($cur_trans == false)
+       		{
+       			$cur_trans = new StockTransaction();
+       			$cur_trans->AddTransaction($prev_trans->GetTotalShares());
+       		}
+   			$cur_trans->AddTransaction($trans->GetTotalShares());
+       	}
+       	else
+       	{
+       		$arSymbol[] = $strSymbol;
+       		if ($cur_trans)
+       		{
+       			$strPrevSymbol = $prev_trans->GetSymbol();
+       			$arMerge[$strPrevSymbol] = $cur_trans;
+       			$cur_trans = false;
+       		}
+       		$prev_trans = $trans;
+       	}
+	}
+
+	if ($cur_trans)
+	{
+		$arMerge[$strSymbol] = $cur_trans;
+	}
+	
+	if (count($arMerge) > 0)		_echoMergeParagraph($arMerge);
 }
 
 function _echoPortfolio($portfolio, $sql)
@@ -93,6 +151,7 @@ function _echoPortfolio($portfolio, $sql)
 	$arTrans = array_merge(_transSortBySymbol($arTransA), _transSortBySymbol($arTransH), _transSortBySymbol($arTransUS));
     _transEchoReferenceParagraph($arTrans);
 	EchoPortfolioParagraph('个股盈亏', $arTrans);
+    _transEchoMergeParagraph($arTrans);
 }
 
 function _echoMoneyParagraph($portfolio)

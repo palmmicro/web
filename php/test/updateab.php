@@ -68,6 +68,6 @@ function _updateAb()
     DebugVal($iCount, 'updated');
 }
 	
-	AcctAdminCommand('_updateAb');
-
+   	$acct = new Account();
+	$acct->AdminCommand('_updateAb');
 ?>

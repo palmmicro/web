@@ -87,6 +87,6 @@ function _updateChinaBond()
     DebugVal($iCount, 'updated');
 }
 	
-	AcctAdminCommand('_updateChinaBond');
-
+   	$acct = new Account();
+	$acct->AdminCommand('_updateChinaBond');
 ?>

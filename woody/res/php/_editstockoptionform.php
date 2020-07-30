@@ -211,9 +211,9 @@ function _getStockOptionMemo($strSubmit)
 	return '';
 }
 
-function StockOptionEditForm($ref, $strSubmit)
+function StockOptionEditForm($ref, $strSubmit, $strEmail)
 {
-    $strEmail = AcctGetEmail(); 
+//    $strEmail = AcctGetEmail(); 
 	$strEmailReadonly = HtmlElementReadonly();
 	
 	$strSymbol = $ref->GetSymbol();

@@ -83,7 +83,7 @@ function _echoCombinedTransactionTableData($strGroupId, $iMax)
                     _echoCombinedTransactionTableItem($group, $strDate, $strGroupItemId, $trans, $strRemark, $fund);
                     $strGroupItemId = $record['groupitem_id'];
                     $strDate = GetSqlTransactionDate($record);
-                    $trans->Zero();
+                    $trans->SetValue();
                     $strRemark = '';
                 }
             }

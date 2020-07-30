@@ -16,7 +16,7 @@ function EchoAll()
     if ($ref = $acct->EchoStockGroup())
     {
       	$strTitle = UrlGetTitle();
-       	StockOptionEditForm($ref, _getEditStockOptionSubmit($strTitle));
+       	StockOptionEditForm($ref, _getEditStockOptionSubmit($strTitle), $acct->GetLoginEmail());
     }
 }
 

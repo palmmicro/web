@@ -9,29 +9,32 @@ class StockTransaction
 
     function StockTransaction() 
     {
-        $this->Zero();
+        $this->SetValue();
     }
 
+    function GetTotalShares()
+    {
+        return $this->iTotalShares;
+    }
+    
+    function GetTotalCost()
+    {
+        return $this->fTotalCost;
+    }
+    
     function GetTotalRecords()
     {
         return $this->iTotalRecords;
     }
     
-    function Zero()
-    {
-        $this->fTotalCost = 0.0;
-        $this->iTotalShares = 0;
-        $this->iTotalRecords = 0;
-    }
-    
-    function SetValue($iTotalRecords, $iTotalShares, $fTotalCost)
+    function SetValue($iTotalRecords = 0, $iTotalShares = 0, $fTotalCost = 0.0)
     {
         $this->fTotalCost = $fTotalCost;
         $this->iTotalShares = $iTotalShares;
         $this->iTotalRecords = $iTotalRecords;
     }
     
-    function AddTransaction($iShares, $fCost)
+    function AddTransaction($iShares, $fCost = 0.0)
     {
         $this->fTotalCost += $fCost;
         $this->iTotalShares += $iShares;
@@ -96,7 +99,7 @@ class MyStockTransaction extends StockTransaction
     
     function GetValue()
     {
-        if ($this->ref)     return $this->iTotalShares * floatval($this->ref->GetPrice());
+        if ($this->ref)     return $this->GetTotalShares() * floatval($this->ref->GetPrice());
         return 0.0;
     }
 
@@ -134,7 +137,7 @@ function UpdateStockGroupItemTransaction($sql, $strGroupItemId)
         }
         @mysql_free_result($result);
     }
-    $sql->Update($strGroupItemId, strval($trans->iTotalShares), strval($trans->fTotalCost), strval($trans->iTotalRecords));
+    $sql->Update($strGroupItemId, strval($trans->GetTotalShares()), strval($trans->fTotalCost), strval($trans->iTotalRecords));
 }
 
 

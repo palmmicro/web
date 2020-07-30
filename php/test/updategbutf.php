@@ -44,6 +44,6 @@ function _updateGbUtf()
     DebugVal($iCount, ' updated');
 }
 	
-	AcctAdminCommand('_updateGbUtf');
-
+   	$acct = new Account();
+	$acct->AdminCommand('_updateGbUtf');
 ?>

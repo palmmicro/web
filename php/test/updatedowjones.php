@@ -54,6 +54,6 @@ function _updateDowJones()
 	}
 }
 	
-	AcctAdminCommand('_updateDowJones');
-
+   	$acct = new Account();
+	$acct->AdminCommand('_updateDowJones');
 ?>

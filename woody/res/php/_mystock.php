@@ -200,7 +200,7 @@ function _echoMyStockData($acct, $ref)
    	}
    	EchoStockHistoryParagraph($ref);
     	
-   	_echoBenfordParagraph($ref);
+//   	_echoBenfordParagraph($ref);
     
    	_echoMyStockTransactions($acct, $ref);
     if ($acct->IsAdmin())

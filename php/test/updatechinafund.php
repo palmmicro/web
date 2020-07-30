@@ -44,6 +44,6 @@ function _updateChinaFund()
     DebugVal($iCount, 'updated');
 }
 	
-	AcctAdminCommand('_updateChinaFund');
-
+   	$acct = new Account();
+	$acct->AdminCommand('_updateChinaFund');
 ?>
