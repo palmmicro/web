@@ -113,12 +113,7 @@ function EchoTitle()
   	echo XUEQIU_FRIEND_TOOL;
 }
 
-function _main()
-{
-	AcctSessionStart();
-}
+	$acct = new Account();
 
-    _main();
-	require('ui/_editcn.php');
-	
+require('ui/_editcn.php');
 ?>

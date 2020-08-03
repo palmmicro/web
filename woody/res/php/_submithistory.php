@@ -110,6 +110,7 @@ function _submitStockHistory($ref)
     $acct = new SymbolAccount();
 	if ($acct->IsAdmin())
 	{
+		$acct->Create();
 	    if ($ref = $acct->GetRef())
 	    {
 	        _submitStockHistory($ref);

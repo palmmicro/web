@@ -174,6 +174,14 @@ function GetTableColumnSymbol()
 	return $col->GetDisplay();
 }
 
+class TableColumnTest extends TableColumn
+{
+	function TableColumnTest()
+	{
+        parent::TableColumn('测试数据');
+	}
+}
+
 class TableColumnTotalShares extends TableColumn
 {
 	function TableColumnTotalShares()

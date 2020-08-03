@@ -5,9 +5,8 @@ require_once('_fundgroup.php');
 
 class _GoldEtfAccount extends FundGroupAccount
 {
-    function _GoldEtfAccount() 
+    function Create() 
     {
-        parent::FundGroupAccount();
         $strSymbol = $this->GetName();
         
         StockPrefetchData($strSymbol);
@@ -63,14 +62,16 @@ function EchoMetaDescription()
 {
     global $acct;
 
+    $strDescription = $acct->GetStockDisplay();
+    $strCNY = RefGetStockDisplay($acct->cny_ref);
+
 	$fund = $acct->GetRef();
-    $strDescription = RefGetStockDisplay($fund->stock_ref);
     $strEst = RefGetStockDisplay($fund->GetEstRef());
     $strFuture = RefGetStockDisplay($fund->future_ref);
-    $strCNY = RefGetStockDisplay($acct->cny_ref);
     $str = '根据'.$strEst.', '.$strFuture.'和'.$strCNY.'等因素计算'.$strDescription.'净值的网页工具.';
     EchoMetaDescriptionText($str);
 }
 
    	$acct = new _GoldEtfAccount();
+   	$acct->Create();
 ?>

@@ -92,6 +92,7 @@ function _deleteStockSymbol($ref)
     $acct = new SymbolAccount();
 	if ($acct->IsAdmin())
 	{
+		$acct->Create();
 	    if ($ref = $acct->GetRef())
 	    {
 	        _deleteStockSymbol($ref);

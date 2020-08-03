@@ -95,11 +95,6 @@ function _onArbitrageCost($strQuantity, $strPrice)
 */
 class _SubmitTransactionAccount extends StockAccount
 {
-    function _SubmitTransactionAccount() 
-    {
-        parent::StockAccount();
-    }
-
     function _canModifyStockTransaction($strGroupItemId)
     {
     	$strGroupId = SqlGetStockGroupId($strGroupItemId);
@@ -123,7 +118,9 @@ class _SubmitTransactionAccount extends StockAccount
 	
     	$sql = new StockGroupItemSql($strGroupId);
     	if (($strGroupItemId = $sql->GetId($strFundId)) == false)    return false;
-    	if ($sql->trans_sql->Insert($strGroupItemId, strval(intval(floatval($strAmount) / floatval($strNetValue))), $strNetValue))
+    	
+    	$fAmount = floatval($strAmount);
+    	if ($sql->trans_sql->Insert($strGroupItemId, strval(intval($fAmount / floatval($strNetValue))), $strNetValue, strval_round($fAmount * 0.0015), '}'))
     	{
 /*	    	if ($strGroupItemId = $sql->GetId($strArbitrageId))
 	    	{

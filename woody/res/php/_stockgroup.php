@@ -6,11 +6,6 @@ class GroupAccount extends StockAccount
 {
     var $group = false;	//  MyStockGroup
 	
-    function GroupAccount() 
-    {
-        parent::StockAccount();
-    }
-    
     function GetGroup()
     {
     	return $this->group;

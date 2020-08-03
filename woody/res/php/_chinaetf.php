@@ -14,10 +14,8 @@ class _ChinaEtfAccount extends GroupAccount
 	var $a50_ref;
     var $cnh_ref;
 	
-    function _ChinaEtfAccount() 
+    function Create() 
     {
-        parent::GroupAccount();
-        
         $strSymbol = $this->GetName();
     	$strUS = 'ASHR';
     	$strA50 = 'hf_CHA50CFD';
@@ -124,4 +122,5 @@ function EchoTitle()
 }
 
    	$acct = new _ChinaEtfAccount();
+   	$acct->Create();
 ?>

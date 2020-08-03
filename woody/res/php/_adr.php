@@ -27,10 +27,8 @@ class _AdrAccount extends GroupAccount
     var $us_convert;
     var $hk_convert;
     
-    function _AdrAccount()
+    function Create()
     {
-        parent::GroupAccount();
-        
         $strSymbolAdr = $this->GetName();
         StockPrefetchData($strSymbolAdr);
         GetChinaMoney();
@@ -58,17 +56,17 @@ class _AdrAccount extends GroupAccount
         $strGroupId = $this->GetGroupId();
 
         $this->cn_convert = new MyStockTransaction($this->cn_ref, $strGroupId);
-        $this->cn_convert->AddTransaction($cn_trans->iTotalShares, $cn_trans->fTotalCost);
+        $this->cn_convert->Add($cn_trans);
         $this->cn_convert->AddTransaction($hk_trans->iTotalShares, $hk_trans->fTotalCost * $this->fHKDCNY);
         $this->cn_convert->AddTransaction(intval($us_trans->iTotalShares * $this->fRatioAdrH), $us_trans->fTotalCost * $this->fUSDCNY);
         
         $this->hk_convert = new MyStockTransaction($this->hk_ref, $strGroupId);
-        $this->hk_convert->AddTransaction($hk_trans->iTotalShares, $hk_trans->fTotalCost);
+        $this->hk_convert->Add($hk_trans);
         $this->hk_convert->AddTransaction($cn_trans->iTotalShares, $cn_trans->fTotalCost / $this->fHKDCNY);
         $this->hk_convert->AddTransaction(intval($us_trans->iTotalShares * $this->fRatioAdrH), $us_trans->fTotalCost * $this->fUSDHKD);
         
         $this->us_convert = new MyStockTransaction($this->us_ref, $strGroupId);
-        $this->us_convert->AddTransaction($us_trans->iTotalShares, $us_trans->fTotalCost);
+        $this->us_convert->Add($us_trans);
         $this->us_convert->AddTransaction(intval($cn_trans->iTotalShares / $this->fRatioAdrH), $cn_trans->fTotalCost / $this->fUSDCNY);
         $this->us_convert->AddTransaction(intval($hk_trans->iTotalShares / $this->fRatioAdrH), $hk_trans->fTotalCost / $this->fUSDHKD);
     }
@@ -210,4 +208,5 @@ function EchoMetaDescription()
 }
 
    	$acct = new _AdrAccount();
+   	$acct->Create();
 ?>

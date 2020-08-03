@@ -5,7 +5,10 @@ class SymbolAccount extends StockAccount
     function SymbolAccount() 
     {
         parent::StockAccount('symbol');
-    	
+    }
+    
+    function Create()
+    {
     	if ($strSymbol = StockCheckSymbol($this->GetQuery()))
     	{
    			StockPrefetchData($strSymbol);

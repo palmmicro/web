@@ -1,6 +1,5 @@
 <?php
-require_once('/php/account.php');
-require_once('/php/stock.php');
+require_once('_emptygroup.php');
 require_once('/php/ui/htmlelement.php');
 
 function _getStockOptionDate($strSubmit, $ref)
@@ -62,9 +61,9 @@ function _getStockOptionName($ref, $strSymbol)
     return $str;
 }
 
-function _getStockOptionAmount($strSymbol)
+function _getStockOptionAmount($strLoginId, $strStockId)
 {
-   	if ($str = SqlGetFundPurchaseAmount(AcctIsLogin(), SqlGetStockId($strSymbol)))
+   	if ($str = SqlGetFundPurchaseAmount($strLoginId, $strStockId))
    	{
     	return $str;
     }
@@ -138,7 +137,7 @@ function _getStockOptionDaily($sql, $strDate)
 	return $sql->GetClose($strDate);
 }
 
-function _getStockOptionVal($strSubmit, $ref, $strSymbol, $strDate)
+function _getStockOptionVal($strSubmit, $strLoginId, $ref, $strSymbol, $strDate)
 {
 	$strStockId = $ref->GetStockId();
 	switch ($strSubmit)
@@ -177,7 +176,7 @@ function _getStockOptionVal($strSubmit, $ref, $strSymbol, $strDate)
 		return '10:1';
 
 	case STOCK_OPTION_AMOUNT:
-		return _getStockOptionAmount($strSymbol);
+		return _getStockOptionAmount($strLoginId, $strStockId);
 	}
 	return '';
 }
@@ -211,25 +210,28 @@ function _getStockOptionMemo($strSubmit)
 	return '';
 }
 
-function StockOptionEditForm($ref, $strSubmit, $strEmail)
+class SymbolEditAccount extends SymbolAccount
 {
-//    $strEmail = AcctGetEmail(); 
-	$strEmailReadonly = HtmlElementReadonly();
+	function StockOptionEditForm($strSubmit)
+	{
+		$ref = $this->GetRef();
+		$strEmail = $this->GetLoginEmail(); 
 	
-	$strSymbol = $ref->GetSymbol();
-//	$strSymbolReadonly = ($strSubmit == STOCK_OPTION_EDIT) ? '' : HtmlElementReadonly();
-	$strSymbolReadonly = HtmlElementReadonly();
+		$strEmailReadonly = HtmlElementReadonly();
+		$strSymbol = $ref->GetSymbol();
+//		$strSymbolReadonly = ($strSubmit == STOCK_OPTION_EDIT) ? '' : HtmlElementReadonly();
+		$strSymbolReadonly = HtmlElementReadonly();
 	
-    $strDateDisabled = '';
-    if (($strDate = _getStockOptionDate($strSubmit, $ref)) == '')
-    {
-    	$strDateDisabled = HtmlElementDisabled();
-    }
+		$strDateDisabled = '';
+		if (($strDate = _getStockOptionDate($strSubmit, $ref)) == '')
+		{
+			$strDateDisabled = HtmlElementDisabled();
+		}
     
-    $strVal = _getStockOptionVal($strSubmit, $ref, $strSymbol, $strDate);
-    $strMemo = _getStockOptionMemo($strSubmit);
+		$strVal = _getStockOptionVal($strSubmit, $this->GetLoginId(), $ref, $strSymbol, $strDate);
+		$strMemo = _getStockOptionMemo($strSubmit);
 	
-	echo <<< END
+		echo <<< END
 	<script type="text/javascript">
 	    function OnLoad()
 	    {
@@ -248,6 +250,7 @@ function StockOptionEditForm($ref, $strSubmit, $strEmail)
 	    </div>
     </form>
 END;
+	}
 }
 
 ?>

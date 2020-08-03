@@ -9,10 +9,8 @@ class _LofAccount extends LofGroupAccount
     var $usd_ref;
     var $cnh_ref;
 
-    function _LofAccount() 
+    function Create() 
     {
-        parent::LofGroupAccount();
-        
         $strSymbol = $this->GetName();
         
         $strOil = (LofGetFutureSymbol($strSymbol) == 'hf_CL') ? 'hf_OIL' : false;
@@ -170,4 +168,5 @@ function GetLofLinks($sym)
 }
 
    	$acct = new _LofAccount();
+   	$acct->Create();
 ?>

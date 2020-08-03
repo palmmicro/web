@@ -31,6 +31,19 @@ function UrlGetIp()
 
 function url_get_contents($strUrl, $strCookie = false)
 {
+	global $acct;
+	if ($acct->AllowCurl() == false)		return false;
+	
+	$strFileName = DebugGetPathName('debugcurl.txt');
+    if (file_exists($strFileName))
+    {
+    	if (time() - filemtime($strFileName) < 30)
+    	{
+//    		DebugString('Ignored: '.$strUrl);
+    		return false;
+    	}
+    }
+    
     $ch = curl_init();  
     $timeout = 2;  
     curl_setopt($ch, CURLOPT_URL, $strUrl);  
@@ -51,6 +64,7 @@ function url_get_contents($strUrl, $strCookie = false)
     if ($img == false)
     {
     	DebugString($strUrl.' '.curl_error($ch));
+    	file_put_contents($strFileName, $strUrl);
     }
     curl_close($ch);
     return $img;

@@ -10,7 +10,8 @@ function _getEditCommentSubmit($bChinese)
 
 function EchoAll($bChinese = true)
 {
-    EditCommentForm(_getEditCommentSubmit($bChinese));
+    global $acct;
+    EditCommentForm(_getEditCommentSubmit($bChinese), $acct->GetLoginId());
 }
 
 function EchoMetaDescription($bChinese = true)

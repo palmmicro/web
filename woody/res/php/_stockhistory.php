@@ -1,6 +1,5 @@
 <?php
 require_once('_stock.php');
-require_once('_emptygroup.php');
 require_once('_editstockoptionform.php');
 require_once('/php/ui/stockhistoryparagraph.php');
 
@@ -42,7 +41,7 @@ function EchoAll()
 
     		if ($bAdmin && $iStart == 0)
     		{
-    			StockOptionEditForm($ref, STOCK_OPTION_ADJCLOSE, $acct->GetLoginEmail());
+    			$acct->StockOptionEditForm(STOCK_OPTION_ADJCLOSE);
     		}
     	}
     }
@@ -66,5 +65,6 @@ function EchoTitle()
   	echo $str;
 }
 
-    $acct = new SymbolAccount();
+    $acct = new SymbolEditAccount();
+   	$acct->Create();
 ?>

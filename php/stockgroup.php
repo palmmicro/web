@@ -135,7 +135,7 @@ class MyStockGroup extends StockGroup
         
         $this->_addTransaction(new MyStockReference($strSymbol));
     }
-        
+/*        
     function AddTransaction($strSymbol, $iShares, $fCost)
     {
         $this->_checkSymbol($strSymbol);
@@ -147,7 +147,7 @@ class MyStockGroup extends StockGroup
                 break;
             }
         }
-    }
+    }*/
 
     function SetValue($strSymbol, $iTotalRecords, $iTotalShares, $fTotalCost)
     {

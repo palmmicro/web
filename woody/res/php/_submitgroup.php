@@ -89,11 +89,6 @@ function _getStockIdArray($strSymbols)
 
 class _SubmitGroupAccount extends StockAccount
 {
-    function _SubmitGroupAccount() 
-    {
-        parent::StockAccount();
-    }
-	
     function _onDelete($strGroupId)
     {
     	if ($this->IsAdmin() || ($this->IsGroupReadOnly($strGroupId) == false))

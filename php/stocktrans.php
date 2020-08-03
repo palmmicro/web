@@ -41,6 +41,11 @@ class StockTransaction
         $this->iTotalRecords ++;
     }
     
+    function Add($trans)
+    {
+    	$this->AddTransaction($trans->GetTotalShares(), $trans->GetTotalCost()); 
+    }
+    
     function GetAvgCost()
     {
 		return ($this->iTotalShares != 0) ? strval($this->fTotalCost / $this->iTotalShares) : '';

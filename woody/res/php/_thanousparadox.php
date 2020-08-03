@@ -136,5 +136,6 @@ function EchoTitle()
 }
 
     $acct = new SymbolAccount();
+   	$acct->Create();
 ?>
 

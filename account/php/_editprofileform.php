@@ -3,7 +3,7 @@
 define('ACCOUNT_PROFILE_EDIT', 'Edit Account Profile');
 define('ACCOUNT_PROFILE_EDIT_CN', '修改帐号资料');
 
-function EditProfileForm($strSubmit)
+function EditProfileForm($strSubmit, $strMemberId)
 {
     if ($strSubmit == ACCOUNT_PROFILE_EDIT_CN)
     {
@@ -14,7 +14,6 @@ function EditProfileForm($strSubmit)
         $arColumn = array('Name', 'Phone', 'Address', 'Web', 'Signature', 'Receive palmmicro email', 'No', 'Yes');
     }
 
-    $strMemberId = AcctIsLogin();
     $strPassQuery = UrlPassQuery();
     
 	$strYesChecked = '';

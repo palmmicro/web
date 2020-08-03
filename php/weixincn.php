@@ -294,14 +294,7 @@ class WeixinStock extends WeixinCallback
     }
 }
 
-function _main()
-{
-//    SqlConnectDatabase();
 	_SetErrorHandler();
-
-    $wx = new WeixinStock();
-    $wx->Run();
-}
-
-    _main();
+    $acct = new WeixinStock();
+    $acct->Run();
 ?>

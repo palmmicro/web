@@ -4,9 +4,8 @@ require_once('_lofgroup.php');
 
 class _LofHkAccount extends LofGroupAccount
 {
-    function _LofHkAccount() 
+    function Create() 
     {
-        parent::LofGroupAccount();
         $strSymbol = $this->GetName();
 
         $this->GetWebData(LofHkGetEstSymbol($strSymbol));
@@ -54,4 +53,5 @@ function GetLofHkLinks($sym)
 }
 
    	$acct = new _LofHkAccount();
+   	$acct->Create();
 ?>

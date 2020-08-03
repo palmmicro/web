@@ -12,11 +12,6 @@ class LofGroupAccount extends FundGroupAccount
     var $arLeverage = array();
     var $ar_leverage_ref = array();
     
-    function LofGroupAccount() 
-    {
-        parent::FundGroupAccount();
-    }
-    
     function LofCreateGroup()
     {
     	foreach ($this->arLeverage as $strSymbol)
@@ -93,11 +88,11 @@ class LofGroupAccount extends FundGroupAccount
         $strGroupId = $group->GetGroupId();
         
         $lof_convert_trans = new MyStockTransaction($this->ref->stock_ref, $strGroupId);
-        $lof_convert_trans->AddTransaction($lof_trans->iTotalShares, $lof_trans->fTotalCost);
+        $lof_convert_trans->Add($lof_trans);
         $this->ConvertToLofTransaction($lof_convert_trans, $etf_trans);
         
         $etf_convert_trans = new MyStockTransaction($this->ref->GetEstRef(), $strGroupId);
-        $etf_convert_trans->AddTransaction($etf_trans->iTotalShares, $etf_trans->fTotalCost);
+        $etf_convert_trans->Add($etf_trans);
         $this->ConvertToEtfTransaction($etf_convert_trans, $lof_trans);
     
         EchoArbitrageTableBegin();
@@ -156,9 +151,10 @@ function EchoMetaDescription()
 {
     global $acct;
     
-    $fund = $acct->GetRef();
-    $strDescription = RefGetStockDisplay($fund->stock_ref);
+    $strDescription = $acct->GetStockDisplay();
     $strBase = RefGetDescription($acct->cny_ref);
+
+    $fund = $acct->GetRef();
     $est_ref = $fund->GetEstRef();
     if ($est_ref)     $strBase .= '/'.RefGetDescription($est_ref);
     

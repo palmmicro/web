@@ -22,7 +22,7 @@ function _getEditComment($strMemberId)
 	return ''; 
 }
 
-function EditCommentForm($strSubmit)
+function EditCommentForm($strSubmit, $strLoginId)
 {
 	$arTitle = array(BLOG_COMMENT_NEW => 'Any comment?', 
 					   BLOG_COMMENT_NEW_CN => '有话想说?',
@@ -31,7 +31,7 @@ function EditCommentForm($strSubmit)
 					   );
 	
     $strPassQuery = UrlPassQuery();
-	$strComment = _getEditComment(AcctIsLogin()); 
+	$strComment = _getEditComment($strLoginId); 
     
 	echo <<< END
 	<form id="commentForm" name="commentForm" method="post" action="/account/php/_submitcomment.php$strPassQuery">

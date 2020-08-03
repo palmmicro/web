@@ -9,15 +9,16 @@ function EchoTitle()
 {
     global $acct;
     
-    $str = RefGetStockDisplay($acct->ref->stock_ref).STOCK_DISP_NETVALUE;
+    $str = $acct->GetStockDisplay().STOCK_DISP_NETVALUE;
     echo $str;
 }
 
 class FundGroupAccount extends GroupAccount 
 {
-    function FundGroupAccount()
+    function GetStockDisplay()
     {
-        parent::GroupAccount();
+    	$ref = $this->GetRef();
+        return RefGetStockDisplay($ref->stock_ref);
     }
 }
 

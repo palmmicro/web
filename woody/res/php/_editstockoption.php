@@ -1,6 +1,5 @@
 <?php
 require_once('_stock.php');
-require_once('_emptygroup.php');
 require_once('_editstockoptionform.php');
 
 function _getEditStockOptionSubmit($strTitle)
@@ -16,7 +15,7 @@ function EchoAll()
     if ($ref = $acct->EchoStockGroup())
     {
       	$strTitle = UrlGetTitle();
-       	StockOptionEditForm($ref, _getEditStockOptionSubmit($strTitle), $acct->GetLoginEmail());
+       	$acct->StockOptionEditForm(_getEditStockOptionSubmit($strTitle));
     }
 }
 
@@ -38,6 +37,6 @@ function EchoTitle()
     echo $str;
 }
 
-    $acct = new SymbolAccount();
-    
+    $acct = new SymbolEditAccount();
+   	$acct->Create();
 ?>

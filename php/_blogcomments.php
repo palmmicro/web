@@ -36,7 +36,7 @@ function EchoBlogComments($bChinese = true)
 	_echoPreviousComments($strBlogId, $strMemberId, $acct->IsReadOnly(), $acct->IsAdmin(), $bChinese);
 	if ($strMemberId) 
 	{
-        EditCommentForm($bChinese ? BLOG_COMMENT_NEW_CN : BLOG_COMMENT_NEW);
+        EditCommentForm(($bChinese ? BLOG_COMMENT_NEW_CN : BLOG_COMMENT_NEW), $strMemberId);
     }
 }
 

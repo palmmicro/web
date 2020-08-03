@@ -64,14 +64,17 @@ function _transEchoReferenceParagraph($arTrans)
 function _echoMergeParagraph($arMerge)
 {
 	EchoTableParagraphBegin(array(new TableColumnSymbol(),
-								   new TableColumnTotalShares()
+								   new TableColumnTotalShares(),
+								   new TableColumnTest()
 								   ), 'merge', '合并数量');
 
 	foreach ($arMerge as $strSymbol => $trans)
 	{
 		$ar = array();
 		$ar[] = GetTradingViewLink($strSymbol);
-        $ar[] = strval($trans->GetTotalShares()); 
+		$iTotal = $trans->GetTotalShares();
+        $ar[] = strval($iTotal); 
+        $ar[] = strval($iTotal - 516); 
         EchoTableColumn($ar);
 	}
     EchoTableParagraphEnd();
@@ -92,9 +95,9 @@ function _transEchoMergeParagraph($arTrans)
        		if ($cur_trans == false)
        		{
        			$cur_trans = new StockTransaction();
-       			$cur_trans->AddTransaction($prev_trans->GetTotalShares());
+       			$cur_trans->Add($prev_trans);
        		}
-   			$cur_trans->AddTransaction($trans->GetTotalShares());
+   			$cur_trans->Add($trans);
        	}
        	else
        	{

@@ -115,24 +115,6 @@ function GetSinaQuotesUrl($strSinaSymbols)
 
 function GetSinaQuotes($strSinaSymbols)
 {
-	$strIp = UrlGetIp();
-   	$ip_sql = new IpSql($strIp);
-	if ($ip_sql->GetStatus() == IP_STATUS_CRAWL)
-	{
-//		DebugString('Ignore: '.gethostbyaddr($strIp).' '.$strSinaSymbols);
-		return false;
-	}
-
-	$strFileName = DebugGetPathName('debugsinaquotes.txt');
-    if (file_exists($strFileName))
-    {
-    	if (time() - filemtime($strFileName) < 30)
-    	{
-//    		DebugString('Ignored: '.$strSinaSymbols);
-    		return false;
-    	}
-    }
-
     if ($str = url_get_contents(GetSinaQuotesUrl($strSinaSymbols)))
     {
     	$iLen = strlen($str);
@@ -140,8 +122,6 @@ function GetSinaQuotes($strSinaSymbols)
     	if ($iLen < 10)      return false;   // Sina returns error in an empty file
 		return $str;
     }
-
-   	file_put_contents($strFileName, $strSinaSymbols);
     return false;
 }
 

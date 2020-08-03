@@ -2,8 +2,8 @@
 require_once('/php/account.php');
 require_once('/php/sql/sqlcommonphrase.php');
 
-    AcctSessionStart();
-	if ($strMemberId = AcctIsLogin()) 
+   	$acct = new Account();
+	if ($strMemberId = $acct->GetLoginId())
 	{
 	    if ($strId = UrlGetQueryValue('delete'))
 	    {
@@ -15,5 +15,5 @@ require_once('/php/sql/sqlcommonphrase.php');
 	    }
 	}
 
-	SwitchToSess();
+	$acct->Back();
 ?>

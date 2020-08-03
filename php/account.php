@@ -59,17 +59,6 @@ function AcctLogout()
 	unset($_SESSION['SESS_ID']);
 }
 
-function AcctIsLogin()
-{
-	// Check whether the session variable SESS_ID is present or not
-    $strMemberId = isset($_SESSION['SESS_ID']) ? $_SESSION['SESS_ID'] : false;
-	if ($strMemberId)
-	{
-		if (trim($strMemberId) == '')	return false;
-	}
-	return $strMemberId;
-}
-
 function AcctGetBlogVisitor($sql, $iStart = 0, $iNum = 0)
 {
     return SqlGetVisitor(VISITOR_TABLE, $sql->GetKeyId(), $iStart, $iNum);
@@ -141,22 +130,15 @@ function AcctGetBlogId()
 	return $sql->GetKeyId();
 }
 
-function AcctSessionStart()
+function _checkVisitor($sql, $strMemberId)
 {
-	session_start();
-    SqlConnectDatabase();
-
     SqlCreateVisitorTable(VISITOR_TABLE);
-	$strIp = UrlGetIp();
-	
-	$sql = new IpSql($strIp);
     if ($strBlogId = AcctGetBlogId())
     {
-       	SqlInsertVisitor(VISITOR_TABLE, $strBlogId, $sql->GetKeyId());
+    	SqlInsertVisitor(VISITOR_TABLE, $strBlogId, $sql->GetKeyId());
     }
     if ($sql->GetStatus() == IP_STATUS_BLOCKED)		_onBlockedIp($sql);
     
-	$strMemberId = AcctIsLogin();
 	$iCount = AcctCountBlogVisitor($sql);
 	if ($iCount >= 1000)
 	{
@@ -175,6 +157,20 @@ function AcctSessionStart()
 	    	}
 	    }
 	}
+}
+
+function AcctSessionStart()
+{
+	session_start();
+    SqlConnectDatabase();
+
+	// Check whether the session variable SESS_ID is present or not
+    $strMemberId = isset($_SESSION['SESS_ID']) ? $_SESSION['SESS_ID'] : false;
+	if ($strMemberId)
+	{
+		if (trim($strMemberId) == '')	$strMemberId = false;
+	}
+
     return $strMemberId;	
 }
 
@@ -184,11 +180,19 @@ class Account
     var $strMemberId;
     
     var $strLoginEmail = false;
+
+    var $ip_sql;
+
+    var $bAllowCurl;
     
     function Account() 
     {
    		$this->strLoginId = AcctSessionStart();
-   		$this->strMemberId = $this->strLoginId;
+	    $this->ip_sql = new IpSql(UrlGetIp());
+	    _checkVisitor($this->ip_sql, $this->strLoginId);
+    	$this->bAllowCurl = ($this->ip_sql->GetStatus() == IP_STATUS_CRAWL) ? false : true;
+
+		$this->strMemberId = $this->strLoginId;
 	   	if ($strEmail = UrlGetQueryValue('email'))
 	   	{
 	   		if (filter_var_email($strEmail))
@@ -272,7 +276,12 @@ class Account
     	}
     	return false;
     }
-
+    
+    function AllowCurl()
+    {
+    	return $this->bAllowCurl;
+    }
+    
     function Back()
     {
     	SwitchToSess();
@@ -308,6 +317,12 @@ function AcctIsAdmin()
 {
    	global $acct;
 	return $acct->IsAdmin();
+}
+
+function AcctIsLogin()
+{
+   	global $acct;
+	return $acct->GetLoginId();
 }
 
 class DataAccount extends Account
