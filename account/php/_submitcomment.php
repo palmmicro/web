@@ -36,7 +36,11 @@ function _emailBlogComment($strId, $strBlogId, $strSubject, $strComment)
 
 	foreach($arEmails as $strEmail) 
 	{
-		EmailHtml($strEmail, $strSubject, $str);
+		if (EmailHtml($strEmail, $strSubject, $str) == false)
+		{
+			DebugString('mail failed in blog comment');
+			break;
+		}
 	}	
 }
 

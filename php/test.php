@@ -55,15 +55,12 @@ function TestCmdLine()
 
 	file_put_contents(DebugGetFile(), DEBUG_UTF8_BOM.'Start debug:'.PHP_EOL);
 	DebugString($_SERVER['DOCUMENT_ROOT']);
-	if (SqlConnectDatabase())
-	{
-		DebugString(phpversion());
-	}
+	DebugString(phpversion());
 	echo strval(rand()).' Hello, world!';
-
+	
+	$acct = new Account();
 	TestCmdLine();
 	
 //	WriteForexDataFromFile();
 	phpinfo();
-
 ?>

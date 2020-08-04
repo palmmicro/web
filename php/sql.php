@@ -210,12 +210,16 @@ function _errorHandler($errno, $errstr, $errfile, $errline)
    	{
    		$strSubject = $bDebug ? '调试消息' : "PHP错误: [$errno]";
    		$str =  $errstr.'<br />位于'.$errfile.'第'.$errline.'行';
-   		DebugString($strSubject.' '.$str.' ('.strval($iCount).')');
+   		$strDebug = $strSubject.' '.$str.' ('.strval($iCount).')';
     
    		$str .= '<br />'.GetCurLink();
 //   		if (isset($_SESSION['SESS_ID']))		$str .= '<br />'.GetMemberLink($_SESSION['SESS_ID']);	// need MySQL successful
    		$str .= '<br />'.GetVisitorLink(UrlGetIp());
-   		EmailHtml(ADMIN_EMAIL, $strSubject, $str);
+   		if (EmailHtml(ADMIN_EMAIL, $strSubject, $str) == false)
+   		{
+   			$strDebug .= ' mail failed too';
+   		}
+   		DebugString($strDebug);
    	}
 //	DebugVal($iCount, $errno.' _errorHandler');
 }

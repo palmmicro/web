@@ -159,25 +159,9 @@ function _checkVisitor($sql, $strMemberId)
 	}
 }
 
-function AcctSessionStart()
-{
-	session_start();
-    SqlConnectDatabase();
-
-	// Check whether the session variable SESS_ID is present or not
-    $strMemberId = isset($_SESSION['SESS_ID']) ? $_SESSION['SESS_ID'] : false;
-	if ($strMemberId)
-	{
-		if (trim($strMemberId) == '')	$strMemberId = false;
-	}
-
-    return $strMemberId;	
-}
-
 class Account
 {
-    var $strLoginId;
-    var $strMemberId;
+    var $strMemberId = false;
     
     var $strLoginEmail = false;
 
@@ -187,12 +171,13 @@ class Account
     
     function Account() 
     {
-   		$this->strLoginId = AcctSessionStart();
+    	session_start();
+    	SqlConnectDatabase();
+
 	    $this->ip_sql = new IpSql(UrlGetIp());
-	    _checkVisitor($this->ip_sql, $this->strLoginId);
+	    _checkVisitor($this->ip_sql, $this->GetLoginId());
     	$this->bAllowCurl = ($this->ip_sql->GetStatus() == IP_STATUS_CRAWL) ? false : true;
 
-		$this->strMemberId = $this->strLoginId;
 	   	if ($strEmail = UrlGetQueryValue('email'))
 	   	{
 	   		if (filter_var_email($strEmail))
@@ -210,7 +195,7 @@ class Account
 
     function Auth()
     {
-    	if ($this->strLoginId == false) 
+    	if ($this->GetLoginId() == false) 
     	{
     		$this->_switchToLogin();
     	}
@@ -226,13 +211,19 @@ class Account
     
     function GetWhoseDisplay($strMemberId = false)
     {
-    	if ($strMemberId == false)		$strMemberId = $this->strMemberId;
-
-    	if (($strName = SqlGetNameByMemberId($strMemberId)) == false)
+    	if ($strMemberId == false)		$strMemberId = $this->GetMemberId();
+    	
+    	if ($strMemberId == $this->GetLoginId())
     	{
-    		$strName = SqlGetEmailById($strMemberId);
+    		$str = '我';
     	}
-    	$str = ($strMemberId == $this->strLoginId) ? '我' : $strName;
+    	else
+    	{
+    		if (($str = SqlGetNameByMemberId($strMemberId)) == false)
+    		{
+    			$str = SqlGetEmailById($strMemberId);
+    		}
+    	}
     	return $str.'的';
     }
     
@@ -243,29 +234,36 @@ class Account
     
     function GetLoginId()
     {
-    	return $this->strLoginId;
+    	// Check whether the session variable SESS_ID is present or not
+    	$strMemberId = isset($_SESSION['SESS_ID']) ? $_SESSION['SESS_ID'] : false;
+    	if ($strMemberId)
+    	{
+    		if (trim($strMemberId) == '')	$strMemberId = false;
+    	}
+    	return $strMemberId;	
     }
     
     function GetMemberId()
     {
-    	return $this->strMemberId;
+    	if ($this->strMemberId)	return $this->strMemberId;
+    	return $this->GetLoginId();
     }
     
     function GetLoginEmail()
     {
-    	if ($this->strLoginId == false)	return false;
+    	if (($strLoginId = $this->GetLoginId()) == false)	return false;
     	
     	if ($this->strLoginEmail == false)
     	{
-    		$this->strLoginEmail = SqlGetEmailById($this->strLoginId);
+    		$this->strLoginEmail = SqlGetEmailById($strLoginId);
     	}
     	return $this->strLoginEmail;
 	}
 
     function IsReadOnly()
     {
-    	if ($this->strLoginId == false)	return true;
-    	return ($this->strLoginId == $this->strMemberId) ? false : true;
+    	if ($this->strMemberId)	return ($this->GetLoginId() == $this->strMemberId) ? false : true;
+    	return false;
     }
 
     function IsAdmin()
