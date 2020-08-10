@@ -122,12 +122,12 @@ function _echoAccountFundAmount($strMemberId, $bChinese)
     $str = $bChinese ? '申购金额' : 'Fund Amount';
     if ($iTotal > TABLE_COMMON_DISPLAY)
     {
-        $str .= ' '.GetPhpLink(STOCK_PATH.'fundpurchaseamount', 'member_id='.$strMemberId, STOCK_DISP_ALL, 'All', $bChinese);
+        $str .= ' '.GetPhpLink(STOCK_PATH.'fundpurchaseamount', 'member_id='.$strMemberId, DISP_ALL_CN, DISP_ALL_US, $bChinese);
     }
     EchoFundPurchaseParagraph($str, $strMemberId, $bChinese);
 }
 
-function EchoAccountProfile($bChinese = true)
+function EchoAll($bChinese = true)
 {
     global $acct;
     global $strMsg;
@@ -164,6 +164,31 @@ function EchoAccountProfile($bChinese = true)
 	_echoAccountBlogComments($strMemberId, $bReadOnly, $acct->IsAdmin(), $bChinese);
 	_echoAccountFundAmount($strMemberId, $bChinese);
 }                                                         
+
+function EchoMetaDescription($bChinese = true)
+{
+    global $acct;
+    
+	$str = $acct->GetWhoseDisplay(false, $bChinese);
+    if ($bChinese)
+    {
+    	$str .= '用户资料管理页面. 提供Palmmicro网站用户的资料显示和更新等链接, 以及用户在网站上的其它活动汇总. 例如物联网(IoT)设备管理, 用户评论, 股票设置等.';
+    }
+    else
+    {
+    	$str .= 'profile web page. Provide Palmmicro users profile and update links. Together with other activities such as IoT device management.';
+    }
+    EchoMetaDescriptionText($str);
+}
+
+function EchoTitle($bChinese = true)
+{
+    global $acct;
+    
+	$str = $acct->GetWhoseDisplay(false, $bChinese);
+    $str .= $bChinese ? '资料' : 'Profile';
+    echo $str;
+}
 
 function _loginAccount($strEmail, $strPassword)
 {

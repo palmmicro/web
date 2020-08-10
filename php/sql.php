@@ -120,9 +120,12 @@ function SqlDeleteTableDataById($strTableName, $strId)
 function SqlCountTableData($strTableName, $strWhere = false)
 {
 	$strQry = "SELECT count(*) as total FROM $strTableName"._SqlAddWhere($strWhere);
-	$result = mysql_query($strQry);
-	$record = mysql_fetch_array($result);
-	return intval($record['total']);
+	if ($result = mysql_query($strQry))
+	{
+		$record = mysql_fetch_array($result);
+		return intval($record['total']);
+	}
+	return 0;
 }
 
 function SqlCountTableByDate($strTableName, $strDate)

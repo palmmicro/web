@@ -64,7 +64,7 @@ class _TransAccount extends GroupIdAccount
     function GetDescription()
     {
     	$str = $this->GetWhoseGroupDisplay().STOCK_GROUP_DISPLAY;
-    	$str .= ($this->strSymbol) ? $this->strSymbol : STOCK_DISP_ALL;
+    	$str .= ($this->strSymbol) ? $this->strSymbol : DISP_ALL_CN;
     	$str .= '交易记录';
     	return $str;
     }

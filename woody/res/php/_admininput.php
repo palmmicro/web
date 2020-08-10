@@ -69,7 +69,7 @@ function _getAdminTestStr($strInput)
     	
     	$fEst = floatval($strEstVal) * floatval($strCny);
     	$str .= '<br /><br />'.$strDate.' '.$strEstVal.' '.$strCny.' '.strval_round($fEst / $fSrc);
-    	$fEstOutput =  $fInput / $fEst;
+    	$fEstOutput = ($fEst == 0.0) ? 0.0 : $fInput / $fEst;
     	$str .= '<br />'._formatPairSharesStr($strEst, $fEstOutput);
     	
     	$fEstRemain = floatval($strEstInput) - $fEstOutput;

@@ -1,7 +1,6 @@
 <?php
 require_once('_account.php');
 require_once('php/_editcommentform.php');
-require_once('/php/ui/plaintext.php');
 
 function _getEditCommentSubmit($bChinese)
 {

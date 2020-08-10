@@ -1,5 +1,4 @@
 <?php
-define('STOCK_DISP_ALL', '全部');
 define('STOCK_DISP_CHANGE', '涨跌');
 define('STOCK_DISP_EST', '估值');
 define('STOCK_DISP_FAIR', '参考');

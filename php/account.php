@@ -209,13 +209,13 @@ class Account
     	}
     }
     
-    function GetWhoseDisplay($strMemberId = false)
+    function GetWhoseDisplay($strMemberId = false, $bChinese = true)
     {
     	if ($strMemberId == false)		$strMemberId = $this->GetMemberId();
     	
     	if ($strMemberId == $this->GetLoginId())
     	{
-    		$str = '我';
+    		$str = $bChinese ? '我' : 'My';
     	}
     	else
     	{
@@ -224,12 +224,13 @@ class Account
     			$str = SqlGetEmailById($strMemberId);
     		}
     	}
-    	return $str.'的';
+    	return $str.($bChinese ? '的' : ' ');
     }
     
-    function GetWhoseAllDisplay()
+    function GetWhoseAllDisplay($bChinese = true)
     {
-    	return $this->GetWhoseDisplay().STOCK_DISP_ALL;
+     	$strAll = $bChinese ? DISP_ALL_CN : ' '.DISP_ALL_US.' ';
+    	return $this->GetWhoseDisplay($bChinese).$strAll;
     }
     
     function GetLoginId()
@@ -303,9 +304,9 @@ class Account
     
     function Run()
     {
-    	if ($this->GetLoginId())
+    	if ($strLoginId = $this->GetLoginId())
     	{
-    		$this->Process();
+    		$this->Process($strLoginId);
     	}
     	$this->Back();
     }

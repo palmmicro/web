@@ -98,7 +98,7 @@ class _SubmitGroupAccount extends StockAccount
     	}
     }
     
-    function _onEdit($strGroupName, $strSymbols)
+    function _onEdit($strLoginId, $strGroupName, $strSymbols)
     {
 		$strGroupId = UrlGetQueryValue('edit');
     	if ($this->IsGroupReadOnly($strGroupId))  return;
@@ -106,7 +106,7 @@ class _SubmitGroupAccount extends StockAccount
     	$str = SqlGetStockGroupName($strGroupId);
     	if (in_arrayAll($str))  $strGroupName = $str;
     
-    	$sql = new StockGroupSql($this->GetLoginId());
+    	$sql = new StockGroupSql($strLoginId);
     	if ($sql->Update($strGroupId, $strGroupName))
     	{
     		SqlUpdateStockGroup($strGroupId, _getStockIdArray($strSymbols));
@@ -114,9 +114,9 @@ class _SubmitGroupAccount extends StockAccount
     	_debugStockGroup($strGroupId, $strSymbols);
     }
     
-    function _onNew($strGroupName, $strSymbols)
+    function _onNew($strLoginId, $strGroupName, $strSymbols)
     {
-    	$sql = new StockGroupSql($this->GetLoginId());
+    	$sql = new StockGroupSql($strLoginId);
     	$sql->Insert($strGroupName);
     	if ($strGroupId = $sql->GetId($strGroupName))
     	{
@@ -130,7 +130,7 @@ class _SubmitGroupAccount extends StockAccount
     	_debugStockGroup($strGroupId, $strSymbols);
     }
     
-    function Process()
+    function Process($strLoginId)
     {
 		if ($strGroupId = UrlGetQueryValue('delete'))
 		{
@@ -149,11 +149,11 @@ class _SubmitGroupAccount extends StockAccount
 				break;
 
 			case STOCK_GROUP_EDIT:
-				$this->_onEdit($strGroupName, $strSymbols);
+				$this->_onEdit($strLoginId, $strGroupName, $strSymbols);
 				break;
 
 			case STOCK_GROUP_NEW:
-				$this->_onNew($strGroupName, $strSymbols);
+				$this->_onNew($strLoginId, $strGroupName, $strSymbols);
 				break;
 			}
 			unset($_POST['submit']);

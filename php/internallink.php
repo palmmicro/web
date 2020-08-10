@@ -152,7 +152,7 @@ function _getIpLink($strTitle, $strIp, $bChinese)
     return GetPhpLink(ACCT_PATH.$strTitle, 'ip='.$strIp, $strIp, false, $bChinese);
 }
 
-function GetIpLink($strIp, $bChinese)
+function GetIpLink($strIp, $bChinese = true)
 {
     return _getIpLink(TABLE_IP, $strIp, $bChinese);
 }

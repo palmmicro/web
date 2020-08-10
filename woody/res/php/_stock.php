@@ -14,7 +14,7 @@ require_once('_stocklink.php');
 function _EchoMoneyParagraphBegin($str = '')
 {
     $strGroupLink = GetMyStockGroupLink();
-    $arColumn = array($strGroupLink, '持仓', '盈亏', STOCK_DISP_ALL.'持仓', STOCK_DISP_ALL.'盈亏', '货币');
+    $arColumn = array($strGroupLink, '持仓', '盈亏', DISP_ALL_CN.'持仓', DISP_ALL_CN.'盈亏', '货币');
     
     echo <<<END
     	<p>$str

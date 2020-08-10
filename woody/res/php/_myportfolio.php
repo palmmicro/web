@@ -167,7 +167,7 @@ function _echoMoneyParagraph($portfolio)
     {
         _EchoMoneyGroupData($group, $strUSDCNY, $strHKDCNY);
     }
-    _EchoMoneyGroupData($portfolio, $strUSDCNY, $strHKDCNY, STOCK_DISP_ALL);
+    _EchoMoneyGroupData($portfolio, $strUSDCNY, $strHKDCNY, DISP_ALL_CN);
     EchoTableParagraphEnd();
 }
 

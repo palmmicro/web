@@ -590,8 +590,15 @@ class ExtendedTradingReference extends StockReference
         $this->strPrice = $ar[21];
         $this->_convertDateTimeFromUS($ar[24]);
         $this->strPrevPrice = $ar[26];
-//        $this->strVolume = $ar[27];
-        $this->strVolume = strstr($ar[27], '.', true);
+        
+        if (strpos($ar[27], '.'))
+        {
+        	$this->strVolume = strstr($ar[27], '.', true);
+        }
+        else
+        {
+        	$this->strVolume = $ar[27];
+        }
 
         if ($this->GetHour() <= STOCK_HOUR_BEGIN)
         {
