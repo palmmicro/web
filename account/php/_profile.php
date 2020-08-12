@@ -130,9 +130,10 @@ function _echoAccountFundAmount($strMemberId, $bChinese)
 function EchoAll($bChinese = true)
 {
     global $acct;
-    global $strMsg;
-
+    
+    $strMsg = $acct->GetMsg();
     if ($strMsg)    _echoAccountProfileMsg($strMsg, $bChinese);
+    
    	$strMemberId = $acct->GetMemberId();
     if ($strMemberId == false)  return;
 
@@ -190,66 +191,6 @@ function EchoTitle($bChinese = true)
     echo $str;
 }
 
-function _loginAccount($strEmail, $strPassword)
-{
-	$arErrMsg = array();	// Array to store validation errors
-
-	// Input Validations
-	if (!filter_var_email($strEmail))		$arErrMsg[] = ACCT_ERR_EMAIL_INPUT;
-	if ($strPassword == '')				$arErrMsg[] = ACCT_ERR_PASSWORD_INPUT;
-	if (EditEmailErrOcurred($arErrMsg))	return false;
-	
-	if (!AcctLogin($strEmail, $_POST['password']))    // Use original password POST 
-	{	// Login failed
-		$arErrMsg[] = ACCT_ERR_LOGIN_FAILED;
-		EditEmailErrOcurred($arErrMsg);
-		return false;
-	}
-	return PROFILE_LOGIN_ACCOUNT;
-}
-
-function _registerAccount($strEmail, $strPassword, $strPassword2)
-{
-	$arErrMsg = array();	// Array to store validation errors
-
-	// Input Validations
-	if (filter_var_email($strEmail))
-	{	// Check for duplicate login ID
-		if (SqlGetIdByEmail($strEmail))
-		{
-			$arErrMsg[] = ACCT_ERR_EMAIL_REGISTERED;
-		}
-	}
-	else
-	{
-		$arErrMsg[] = ACCT_ERR_EMAIL_INPUT;
-	}
-	if ($strPassword == '')					$arErrMsg[] = ACCT_ERR_PASSWORD_INPUT;
-	if ($strPassword2 == '')					$arErrMsg[] = ACCT_ERR_PASSWORD2_INPUT;
-	if ($strPassword != $strPassword2)    $arErrMsg[] = ACCT_ERR_PASSWORD_MISMATCH;
-	if (EditEmailErrOcurred($arErrMsg))	return false;
-
-	if (!SqlInsertMember($strEmail, $_POST['password']))
-	{
-		return false;
-	}
-	
-	if (UrlIsChinese())
-	{
-	    $strText = '欢迎';
-	    $strSubject = PROFILE_NEW_ACCOUNT_CN;
-	}
-	else
-	{
-	    $strText = 'Welcome';
-	    $strSubject = PROFILE_NEW_ACCOUNT;
-	}
-	EmailReport($strText, $strSubject, $strEmail);
-
-	AcctLogin($strEmail, $_POST['password']);
-	return $strSubject;
-}
-
 function _changePassword($strPassword, $strPassword2)
 {
 	$member = SqlGetMemberById($_SESSION['SESS_ID']);
@@ -296,141 +237,236 @@ function _updateLoginEmail($strEmail)
 	return PROFILE_EMAIL_CHANGED;
 }
 
-function _remindPassword($strEmail)
+class _ProfileAccount extends Account
 {
-	$arErrMsg = array();	// Array to store validation errors
-	if (filter_var_email($strEmail))
+	var $strMsg = false;
+	
+	function GetMsg()
 	{
-		if (!SqlGetIdByEmail($strEmail))
+		return $this->strMsg;
+	}
+	
+	function Login($strEmail, $strPassword)
+	{
+		if ($strMemberId = SqlExecLogin($strEmail, $strPassword))
 		{
-			$arErrMsg[] = ACCT_ERR_EMAIL_UNREGISTERED;
+			session_regenerate_id();
+			$_SESSION['SESS_ID'] = $strMemberId;
+		
+			$sql = $this->GetIpSql();
+			SqlUpdateLoginField($strEmail, $sql->GetKey());
+			$sql->IncLogin();
 		}
+		return $strMemberId;
 	}
-	else
-	{
-		$arErrMsg[] = ACCT_ERR_EMAIL_INPUT;
-	}
-	if (EditEmailErrOcurred($arErrMsg))	return false;
 
-	// build a password with current time and user's email
-	$strPassword = $strEmail.date(DEBUG_TIME_FORMAT); 
-	$strPassword = md5($strPassword);
-	$strPassword = substr($strPassword, 16);
-	if (!SqlUpdatePasswordField($strEmail, $strPassword))
+	function Logout()
 	{
-		return false;
+		// Unset the variables stored in session
+		unset($_SESSION['SESS_ID']);
 	}
-	AcctLogout();
 
-	if (UrlIsChinese())
+	function _loginAccount($strEmail, $strPassword)
 	{
-	    $strText = '你的新密码';
-	    $strSubject = PROFILE_NEW_PASSWORD_CN;
-	}
-	else
-	{
-	    $strText = 'Your new password';
-	    $strSubject = PROFILE_NEW_PASSWORD;
-	}
-	EmailReport($strText.': '.$strPassword, $strSubject, $strEmail);
-	return $strSubject;
-}
+		$arErrMsg = array();	// Array to store validation errors
 
-function _closeAccount($strEmail, $bAdmin)
-{
-	$arErrMsg = array();	// Array to store validation errors
-	if (filter_var_email($strEmail))
+		// Input Validations
+		if (!filter_var_email($strEmail))		$arErrMsg[] = ACCT_ERR_EMAIL_INPUT;
+		if ($strPassword == '')				$arErrMsg[] = ACCT_ERR_PASSWORD_INPUT;
+		if (EditEmailErrOcurred($arErrMsg))	return false;
+	
+		if (!$this->Login($strEmail, $_POST['password']))    // Use original password POST 
+		{	// Login failed
+			$arErrMsg[] = ACCT_ERR_LOGIN_FAILED;
+			EditEmailErrOcurred($arErrMsg);
+			return false;
+		}
+		return PROFILE_LOGIN_ACCOUNT;
+	}
+
+	function _registerAccount($strEmail, $strPassword, $strPassword2)
 	{
-		if ($strId = SqlGetIdByEmail($strEmail))
-		{
-			if ($strId != $_SESSION['SESS_ID'])
+		$arErrMsg = array();	// Array to store validation errors
+
+		// Input Validations
+		if (filter_var_email($strEmail))
+		{	// Check for duplicate login ID
+			if (SqlGetIdByEmail($strEmail))
 			{
-				if ($bAdmin == false)
-				{
-					$arErrMsg[] = ACCT_ERR_UNAUTH_OP;
-				}
+				$arErrMsg[] = ACCT_ERR_EMAIL_REGISTERED;
 			}
 		}
 		else
 		{
-			$arErrMsg[] = ACCT_ERR_EMAIL_UNREGISTERED;
+			$arErrMsg[] = ACCT_ERR_EMAIL_INPUT;
 		}
-	}
-	else
-	{
-		$arErrMsg[] = ACCT_ERR_EMAIL_INPUT;
-	}
-	if (EditEmailErrOcurred($arErrMsg))	return false;
+		if ($strPassword == '')					$arErrMsg[] = ACCT_ERR_PASSWORD_INPUT;
+		if ($strPassword2 == '')					$arErrMsg[] = ACCT_ERR_PASSWORD2_INPUT;
+		if ($strPassword != $strPassword2)    $arErrMsg[] = ACCT_ERR_PASSWORD_MISMATCH;
+		if (EditEmailErrOcurred($arErrMsg))	return false;
 
-//	AcctLogout();
-    AcctDeleteMember($strId);
-    
-	if (UrlIsChinese())
-	{
-	    $strText = '再见';
-	    $strSubject = PROFILE_CLOSE_ACCOUNT_CN;
-	}
-	else
-	{
-	    $strText = 'Goodbye and good luck';
-	    $strSubject = PROFILE_CLOSE_ACCOUNT;
-	}
-	EmailReport($strText, $strSubject, $strEmail);
-	return $strSubject;
-}
-
-	$strMsg = false;
-	$acct = new Account();
-	$bAdmin = $acct->IsAdmin();
-	if (isset($_POST['submit']) && isset($_POST['login']))
-	{
-		$strSubmit = $_POST['submit'];
-		unset($_POST['submit']);
-		$strEmail = SqlCleanString($_POST['login']);
-		$_SESSION['SESS_EMAIL_INPUT'] = $strEmail;
-		$strPassword = isset($_POST['password']) ? SqlCleanString($_POST['password']) : '';
-		$strPassword2 = isset($_POST['cpassword']) ? SqlCleanString($_POST['cpassword']) : '';
-		switch ($strSubmit)
+		if (!SqlInsertMember($strEmail, $_POST['password']))
 		{
-		case EDIT_EMAIL_CLOSE:
-		case EDIT_EMAIL_CLOSE_CN:
-			if (($strMsg = _closeAccount($strEmail, $bAdmin)) == false)    SwitchTo('closeaccount');
-			break;
-
-		case EDIT_EMAIL_LOGIN:
-		case EDIT_EMAIL_LOGIN_CN:
-			if ($strMsg = _loginAccount($strEmail, $strPassword))    SwitchToSess();
-			else                                                           SwitchTo('login');
-			break;
-
-		case EDIT_EMAIL_PASSWORD:
-		case EDIT_EMAIL_PASSWORD_CN:
-			if (($strMsg = _changePassword($strPassword, $strPassword2)) == false)    SwitchTo('password');
-			break;
-
-		case EDIT_EMAIL_REGISTER:
-		case EDIT_EMAIL_REGISTER_CN:
-			if ($strMsg = _registerAccount($strEmail, $strPassword, $strPassword2))    SwitchToSess();
-			else                                                                			    SwitchTo('register');
-			break;
-
-		case EDIT_EMAIL_REMINDER:
-		case EDIT_EMAIL_REMINDER_CN:
-			if (($strMsg = _remindPassword($strEmail)) == false)    SwitchTo('reminder');
-			break;
-
-		case EDIT_EMAIL_UPDATE:
-		case EDIT_EMAIL_UPDATE_CN:
-			if (($strMsg = _updateLoginEmail($strEmail)) == false)    SwitchTo('updateemail');
-			break;
+			return false;
 		}
-	}
-	else
-	{
-		if ($acct->GetMemberId() == false)
+	
+		if (UrlIsChinese())
 		{
-			$acct->Auth();
+			$strText = '欢迎';
+			$strSubject = PROFILE_NEW_ACCOUNT_CN;
 		}
+		else
+		{
+			$strText = 'Welcome';
+			$strSubject = PROFILE_NEW_ACCOUNT;
+		}
+		EmailReport($strText, $strSubject, $strEmail);
+
+		$this->Login($strEmail, $_POST['password']);
+		return $strSubject;
 	}
 	
+	function _remindPassword($strEmail)
+	{
+		$arErrMsg = array();	// Array to store validation errors
+		if (filter_var_email($strEmail))
+		{
+			if (!SqlGetIdByEmail($strEmail))
+			{
+				$arErrMsg[] = ACCT_ERR_EMAIL_UNREGISTERED;
+			}
+		}
+		else
+		{
+			$arErrMsg[] = ACCT_ERR_EMAIL_INPUT;
+		}
+		if (EditEmailErrOcurred($arErrMsg))	return false;
+
+		// build a password with current time and user's email
+		$strPassword = $strEmail.date(DEBUG_TIME_FORMAT); 
+		$strPassword = md5($strPassword);
+		$strPassword = substr($strPassword, 16);
+		if (!SqlUpdatePasswordField($strEmail, $strPassword))
+		{
+			return false;
+		}
+		$this->Logout();
+
+		if (UrlIsChinese())
+		{
+			$strText = '你的新密码';
+			$strSubject = PROFILE_NEW_PASSWORD_CN;
+		}
+		else
+		{
+			$strText = 'Your new password';
+			$strSubject = PROFILE_NEW_PASSWORD;
+		}
+		EmailReport($strText.': '.$strPassword, $strSubject, $strEmail);
+		return $strSubject;
+	}
+
+	function _closeAccount($strEmail)
+	{
+		$arErrMsg = array();	// Array to store validation errors
+		if (filter_var_email($strEmail))
+		{
+			if ($strId = SqlGetIdByEmail($strEmail))
+			{
+				if ($strId != $_SESSION['SESS_ID'])
+				{
+					if ($this->IsAdmin() == false)
+					{
+						$arErrMsg[] = ACCT_ERR_UNAUTH_OP;
+					}
+				}
+			}
+			else
+			{
+				$arErrMsg[] = ACCT_ERR_EMAIL_UNREGISTERED;
+			}
+		}
+		else
+		{
+			$arErrMsg[] = ACCT_ERR_EMAIL_INPUT;
+		}
+		if (EditEmailErrOcurred($arErrMsg))	return false;
+
+//		$this->Logout();
+    	AcctDeleteMember($strId);
+    
+    	if (UrlIsChinese())
+    	{
+    		$strText = '再见';
+    		$strSubject = PROFILE_CLOSE_ACCOUNT_CN;
+    	}
+    	else
+    	{
+    		$strText = 'Goodbye and good luck';
+    		$strSubject = PROFILE_CLOSE_ACCOUNT;
+    	}
+    	EmailReport($strText, $strSubject, $strEmail);
+    	return $strSubject;
+    }
+
+	function Run()
+	{
+		if (isset($_POST['submit']) && isset($_POST['login']))
+		{
+			$strSubmit = $_POST['submit'];
+			unset($_POST['submit']);
+			
+			$strEmail = SqlCleanString($_POST['login']);
+			$_SESSION['SESS_EMAIL_INPUT'] = $strEmail;
+		
+			$strPassword = isset($_POST['password']) ? SqlCleanString($_POST['password']) : '';
+			$strPassword2 = isset($_POST['cpassword']) ? SqlCleanString($_POST['cpassword']) : '';
+		
+			switch ($strSubmit)
+			{
+			case EDIT_EMAIL_CLOSE:
+			case EDIT_EMAIL_CLOSE_CN:
+				if (($this->strMsg = $this->_closeAccount($strEmail)) == false)    SwitchTo('closeaccount');
+				break;
+
+			case EDIT_EMAIL_LOGIN:
+			case EDIT_EMAIL_LOGIN_CN:
+				if ($this->strMsg = $this->_loginAccount($strEmail, $strPassword))    SwitchToSess();
+				else                                                           SwitchTo('login');
+				break;
+
+			case EDIT_EMAIL_PASSWORD:
+			case EDIT_EMAIL_PASSWORD_CN:
+				if (($this->strMsg = _changePassword($strPassword, $strPassword2)) == false)    SwitchTo('password');
+				break;
+
+			case EDIT_EMAIL_REGISTER:
+			case EDIT_EMAIL_REGISTER_CN:
+				if ($this->strMsg = $this->_registerAccount($strEmail, $strPassword, $strPassword2))    SwitchToSess();
+				else                                                                			    SwitchTo('register');
+				break;
+
+			case EDIT_EMAIL_REMINDER:
+			case EDIT_EMAIL_REMINDER_CN:
+				if (($this->strMsg = $this->_remindPassword($strEmail)) == false)    SwitchTo('reminder');
+				break;
+
+			case EDIT_EMAIL_UPDATE:
+			case EDIT_EMAIL_UPDATE_CN:
+				if (($this->strMsg = _updateLoginEmail($strEmail)) == false)    SwitchTo('updateemail');
+				break;
+			}
+		}
+		else
+		{
+			if ($this->GetMemberId() == false)
+			{
+				$this->Auth();
+			}
+		}
+	}
+}
+
+	$acct = new _ProfileAccount();
+	$acct->Run();
 ?>

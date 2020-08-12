@@ -37,28 +37,6 @@ function AcctDeleteMember($strMemberId)
     SqlDeleteTableDataById(TABLE_MEMBER, $strMemberId);
 }
 
-function AcctLogin($strEmail, $strPassword)
-{
-    if ($strMemberId = SqlExecLogin($strEmail, $strPassword))
-    {
-		session_regenerate_id();
-		$_SESSION['SESS_ID'] = $strMemberId;
-		
-		$strIp = UrlGetIp();
-		SqlUpdateLoginField($strEmail, $strIp);
-		
-		$sql = new IpSql($strIp);
-		$sql->IncLogin();
-    }
-    return $strMemberId;
-}
-
-function AcctLogout()
-{
-	// Unset the variables stored in session
-	unset($_SESSION['SESS_ID']);
-}
-
 function AcctGetBlogVisitor($sql, $iStart = 0, $iNum = 0)
 {
     return SqlGetVisitor(VISITOR_TABLE, $sql->GetKeyId(), $iStart, $iNum);
@@ -79,10 +57,10 @@ function AcctGetSpiderPageCount($sql)
 	return count($ar);
 }
 
-function _onBlockedIp($sql)
+function _onBlockedIp()
 {
     mysql_close();
-    die('Please contact support@palmmicro.com to unblock your IP address '.$sql->GetKey());
+    die('Please contact support@palmmicro.com to unblock your IP address ');
 }
 
 function _checkSearchEngineSpider($sql, $iCount, $iPageCount, $strDebug)
@@ -120,7 +98,7 @@ function _checkSearchEngineSpider($sql, $iCount, $iPageCount, $strDebug)
     
 	trigger_error('Blocked spider<br />'.$strDebug);
 	$sql->SetStatus(IP_STATUS_BLOCKED);
-	_onBlockedIp($sql);
+	_onBlockedIp();
     return false;
 }
 
@@ -132,12 +110,17 @@ function AcctGetBlogId()
 
 function _checkVisitor($sql, $strMemberId)
 {
+    if ($sql->GetStatus() == IP_STATUS_BLOCKED)
+    {
+    	_onBlockedIp();
+    	return;
+    }
+    
     SqlCreateVisitorTable(VISITOR_TABLE);
     if ($strBlogId = AcctGetBlogId())
     {
     	SqlInsertVisitor(VISITOR_TABLE, $strBlogId, $sql->GetKeyId());
     }
-    if ($sql->GetStatus() == IP_STATUS_BLOCKED)		_onBlockedIp($sql);
     
 	$iCount = AcctCountBlogVisitor($sql);
 	if ($iCount >= 1000)
@@ -185,6 +168,11 @@ class Account
 	   			$this->strMemberId = SqlGetIdByEmail($strEmail);
 	   		}
 	   	}
+    }
+    
+    function GetIpSql()
+    {
+    	return $this->ip_sql;
     }
     
     function _switchToLogin()
