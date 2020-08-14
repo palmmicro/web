@@ -6,7 +6,7 @@ require_once('ui/commentparagraph.php');
 define('IPINFO_IO_IP_URL', 'http://ipinfo.io/');
 function _getIpInfoIpLookUpUrl($sql)
 {
-    return IPINFO_IO_IP_URL.$sql->GetKey().'/json';
+    return IPINFO_IO_IP_URL.$sql->GetIp().'/json';
 }
 
 function strstr_array($strHaystack, $arNeedle)
@@ -84,11 +84,7 @@ function _ipLookupIpAddressTable($sql, $strNewLine, $bChinese)
         $iVisit += AcctCountBlogVisitor($sql);
         $str .= $strNewLine.($bChinese ? '普通网页总访问次数' : 'Total normal page visit').': '.intval($iVisit);
         $str .= $strNewLine.($bChinese ? '总登录次数' : 'Total login').': '.$record['login'];
-        if ($record['status'] == IP_STATUS_BLOCKED)
-        {
-        	$str .= $strNewLine.'<font color=red>'.($bChinese ? '被禁止访问' : 'Blocked').'</font>';
-        }
-        else if ($record['status'] == IP_STATUS_CRAWL)
+        if ($record['status'] != IP_STATUS_NORMAL)
         {
         	$str .= $strNewLine.'<font color=green>'.($bChinese ? '已标注爬虫' : 'Marked crawler').'</font>';
         }
@@ -98,7 +94,7 @@ function _ipLookupIpAddressTable($sql, $strNewLine, $bChinese)
 
 function IpLookupGetString($sql, $strNewLine, $bChinese)
 {
-    if (($strIp = $sql->GetKey()) === false)	return '';
+    if (($strIp = $sql->GetIp()) === false)	return '';
     
     $fStart = microtime(true);
     $str = $strIp.$strNewLine.GetExternalLink(_getIpInfoIpLookUpUrl($sql), 'ipinfo.io').': ';

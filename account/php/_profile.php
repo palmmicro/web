@@ -254,7 +254,7 @@ class _ProfileAccount extends Account
 			$_SESSION['SESS_ID'] = $strMemberId;
 		
 			$sql = $this->GetIpSql();
-			SqlUpdateLoginField($strEmail, $sql->GetKey());
+			SqlUpdateLoginField($strEmail, $sql->GetIp());
 			$sql->IncLogin();
 		}
 		return $strMemberId;

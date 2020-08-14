@@ -2,40 +2,33 @@
 require_once('account.php');
 require_once('stock.php');
 
-function _onManualCalibration($strSymbol)
+class _AdminOperationAccount extends Account
 {
-	StockPrefetchData($strSymbol);
-	EtfRefManualCalibration(new EtfReference($strSymbol));
-}
+	function _onManualCalibration($strSymbol)
+	{
+		StockPrefetchData($strSymbol);
+		EtfRefManualCalibration(new EtfReference($strSymbol));
+	}
 
-function _onManualBlackList($strIp)
-{
-	$sql = new IpSql($strIp);
-	$sql->SetStatus(IP_STATUS_BLOCKED);
-}
-
-function _onManualCrawl($strIp)
-{
-	$sql = new IpSql($strIp);
-	$sql->SetStatus(IP_STATUS_CRAWL);
-}
-
-function _AdminOperation()
-{
-    if ($strSymbol = UrlGetQueryValue('calibration'))
+    function _onManualCrawl($strIp)
     {
-        _onManualCalibration($strSymbol);
+    	$sql = $this->GetIpSql();
+    	$sql->SetStatus(IP_STATUS_CRAWL, $strIp);
     }
-    else if ($strIp = UrlGetQueryValue(TABLE_IP))
+    
+    function AdminProcess()
     {
-        _onManualBlackList($strIp);
-    }
-    else if ($strIp = UrlGetQueryValue('crawl'))
-    {
-        _onManualCrawl($strIp);
+    	if ($strSymbol = UrlGetQueryValue('calibration'))
+    	{
+    		$this->_onManualCalibration($strSymbol);
+    	}	
+    	else if ($strIp = UrlGetQueryValue(TABLE_IP))
+    	{
+    		$this->_onManualCrawl($strIp);
+    	}
     }
 }
-	
-   	$acct = new Account();
-	$acct->AdminCommand('_AdminOperation');
+
+   	$acct = new _AdminOperationAccount();
+	$acct->AdminRun();
 ?>

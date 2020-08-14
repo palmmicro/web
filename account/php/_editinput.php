@@ -203,7 +203,7 @@ function EchoAll($bChinese = true)
     		
     	case TABLE_IP:
     		$sql = $acct->GetIpSql();
-    		$strInput = $sql->GetKey();
+    		$strInput = $sql->GetIp();
     		break;
     		
     	case 'linearregression':

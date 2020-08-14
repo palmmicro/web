@@ -14,18 +14,18 @@ require_once('sql/sqlfundpurchase.php');
 
 function AcctCountBlogVisitor($sql)
 {
-    return SqlCountVisitor(VISITOR_TABLE, $sql->GetKeyId());
+    return SqlCountVisitor(VISITOR_TABLE, $sql->GetId());
 }
 
 function AcctDeleteBlogVisitorByIp($sql)
 {
-    if ($strId = $sql->GetKeyId())
+    if ($strId = $sql->GetId())
     {
         $iCount = AcctCountBlogVisitor($sql);
 		$sql->AddVisit($iCount);
         SqlDeleteVisitor(VISITOR_TABLE, $strId);
     }
-    if ($sql->GetStatus() == IP_STATUS_BLOCKED)		$sql->SetStatus(IP_STATUS_NORMAL);
+    if ($sql->GetStatus() != IP_STATUS_NORMAL)		$sql->SetStatus(IP_STATUS_NORMAL);
 }
 
 function AcctDeleteMember($strMemberId)
@@ -39,7 +39,7 @@ function AcctDeleteMember($strMemberId)
 
 function AcctGetBlogVisitor($sql, $iStart = 0, $iNum = 0)
 {
-    return SqlGetVisitor(VISITOR_TABLE, $sql->GetKeyId(), $iStart, $iNum);
+    return SqlGetVisitor(VISITOR_TABLE, $sql->GetId(), $iStart, $iNum);
 }
 
 function AcctGetSpiderPageCount($sql)
@@ -55,12 +55,6 @@ function AcctGetSpiderPageCount($sql)
 	}
 	$ar = array_unique($ar);
 	return count($ar);
-}
-
-function _onBlockedIp()
-{
-    mysql_close();
-    die('Please contact support@palmmicro.com to unblock your IP address ');
 }
 
 function _checkSearchEngineSpider($sql, $iCount, $iPageCount, $strDebug)
@@ -97,8 +91,7 @@ function _checkSearchEngineSpider($sql, $iCount, $iPageCount, $strDebug)
     }
     
 	trigger_error('Blocked spider<br />'.$strDebug);
-	$sql->SetStatus(IP_STATUS_BLOCKED);
-	_onBlockedIp();
+	$sql->SetStatus(IP_STATUS_CRAWL);
     return false;
 }
 
@@ -110,16 +103,10 @@ function AcctGetBlogId()
 
 function _checkVisitor($sql, $strMemberId)
 {
-    if ($sql->GetStatus() == IP_STATUS_BLOCKED)
-    {
-    	_onBlockedIp();
-    	return;
-    }
-    
     SqlCreateVisitorTable(VISITOR_TABLE);
     if ($strBlogId = AcctGetBlogId())
     {
-    	SqlInsertVisitor(VISITOR_TABLE, $strBlogId, $sql->GetKeyId());
+    	SqlInsertVisitor(VISITOR_TABLE, $strBlogId, $sql->GetId());
     }
     
 	$iCount = AcctCountBlogVisitor($sql);
@@ -159,7 +146,7 @@ class Account
 
 	    $this->ip_sql = new IpSql(UrlGetIp());
 	    _checkVisitor($this->ip_sql, $this->GetLoginId());
-    	$this->bAllowCurl = ($this->ip_sql->GetStatus() == IP_STATUS_CRAWL) ? false : true;
+    	$this->bAllowCurl = ($this->ip_sql->GetStatus() != IP_STATUS_NORMAL) ? false : true;
 
 	   	if ($strEmail = UrlGetQueryValue('email'))
 	   	{
@@ -255,15 +242,6 @@ class Account
     	return false;
     }
 
-    function IsAdmin()
-    {
-    	if ($this->GetLoginEmail() == ADMIN_EMAIL)
-    	{
-    		return true;
-    	}
-    	return false;
-    }
-    
     function AllowCurl()
     {
     	return $this->bAllowCurl;
@@ -274,6 +252,15 @@ class Account
     	SwitchToSess();
     }
 
+    function IsAdmin()
+    {
+    	if ($this->GetLoginEmail() == ADMIN_EMAIL)
+    	{
+    		return true;
+    	}
+    	return false;
+    }
+    
     function AdminCommand($callback)
     {
     	if ($this->IsAdmin())
@@ -281,6 +268,20 @@ class Account
     		$fStart = microtime(true);
     		call_user_func($callback);
     		DebugString($callback.DebugGetStopWatchDisplay($fStart));
+    	}
+    	$this->Back();
+    }
+
+    function AdminProcess()
+    {
+    	DebugString('Empty Admin Process');
+    }
+    
+    function AdminRun()
+    {
+    	if ($this->IsAdmin())
+    	{
+    		$this->AdminProcess();
     	}
     	$this->Back();
     }

@@ -140,7 +140,7 @@ class TableSql
     	return $this->GetSingleData(_SqlBuildWhere_id($strId));
     }
     
-    function GetId($strVal, $callback = 'GetRecord')
+    function GetId($strVal = false, $callback = 'GetRecord')
     {
     	if ($strVal !== false)
     	{

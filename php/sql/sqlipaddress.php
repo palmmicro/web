@@ -1,25 +1,67 @@
 <?php
-require_once('sqlkeyname.php');
+require_once('sqltable.php');
 
 define('IP_STATUS_NORMAL', '0');
-define('IP_STATUS_BLOCKED', '1');
-define('IP_STATUS_CRAWL', '2');
+define('IP_STATUS_CRAWL', '1');
 
-class IpSql extends KeyNameSql
+class IpSql extends TableSql
 {
+	var $strIp;
+	var $strId = false;
+	
     function IpSql($strIp = false)
     {
-        parent::KeyNameSql(TABLE_IP, 'ip', (filter_valid_ip($strIp) ? $strIp : false));
+        parent::TableSql(TABLE_IP);
+        
+        if ($this->strIp = (filter_valid_ip($strIp) ? $strIp : false))
+        {
+			$this->strId = $this->GetId($strIp);
+        	if ($this->GetRecord() == false)
+        	{
+   				$this->InsertArray(array_merge(array('id' => $this->strId), $this->_makeUpdateArray()));
+        	}
+        }
     }
 
     function Create()
     {
-    	$str = ' `ip` VARCHAR( 16 ) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL ,'
+    	$str = ' `id` INT UNSIGNED NOT NULL PRIMARY KEY,'
          	  . ' `visit` INT UNSIGNED NOT NULL ,'
-         	  . ' `login` INT UNSIGNED NOT NULL ,'
-         	  . ' `status` INT UNSIGNED NOT NULL ,'
-         	  . ' UNIQUE ( `ip` )';
-        return $this->CreateKeyNameTable($str);
+         	  . ' `login` SMALLINT UNSIGNED NOT NULL ,'
+         	  . ' `status` TINYINT UNSIGNED NOT NULL ,'
+         	  . ' INDEX ( `status` )';
+    	return $this->CreateTable($str);
+    }
+
+    function GetIp($strId = false)
+    {
+    	if ($strId)
+    	{
+    		return long2ip($strId);
+    	}
+    	return $this->strIp;
+    }
+    
+    function GetId($strVal = false, $callback = 'GetRecord')
+    {
+    	if ($strVal)
+    	{
+    		return sprintf("%u", ip2long($strVal));
+    	}
+    	return $this->strId;
+    }
+
+    function GetRecord($strIp = false)
+    {
+    	if ($strIp)
+    	{
+    		return $this->GetRecordById($this->GetId($strIp));
+    	}
+    	else if ($this->strIp)
+    	{
+    		return $this->GetRecordById($this->strId);
+    	}
+    	return false;
     }
 
     function _makeUpdateArray($strVisit = '0', $strLogin = '0', $strStatus = '0')
@@ -28,13 +70,8 @@ class IpSql extends KeyNameSql
     				  'login' => $strLogin,
     				  'status' => $strStatus);
     }
-    
-    function MakeInsertArray()
-    {
-    	return array_merge($this->MakeKeyArray(), $this->_makeUpdateArray());
-    }
-    
-    function UpdateIp($strIp, $strVisit = '0', $strLogin = '0', $strStatus = '0')
+
+    function UpdateIp($strIp, $strVisit, $strLogin, $strStatus)
     {
     	$ar = $this->_makeUpdateArray($strVisit, $strLogin, $strStatus);
     	if ($record = $this->GetRecord($strIp))
