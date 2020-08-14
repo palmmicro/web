@@ -22,12 +22,12 @@ class KeyTableSql extends TableSql
     function SetKeyVal($strVal)
     {
 		$this->strKeyId = $this->key_sql->GetId($strVal);
-    }*/
+    }
     
     function GetKeySql()
     {
     	return $this->key_sql;
-    }
+    }*/
     
     function ComposeKeyStr()
     {

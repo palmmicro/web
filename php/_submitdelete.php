@@ -12,29 +12,32 @@ function _deleteTableDataById($strTableName)
     return false;
 }
 
-function _DeleteFileOrTableData()
+class _AdminDeleteAccount extends Account
 {
-    if ($strPathName = UrlGetQueryValue('file'))
+    function AdminProcess()
     {
-        unlinkEmptyFile($strPathName);
-        trigger_error('Deleted debug file: '.GetFileLink($strPathName)); 
+    	if ($strPathName = UrlGetQueryValue('file'))
+    	{
+    		unlinkEmptyFile($strPathName);
+    		trigger_error('Deleted debug file: '.GetFileLink($strPathName)); 
+    	}
+    	else if ($strIp = UrlGetQueryValue(TABLE_IP))
+    	{
+    		AcctDeleteBlogVisitorByIp(new IpSql($strIp), $this->GetVisitorSql());
+    	}
+    	else
+    	{
+    		if (_deleteTableDataById(TABLE_NETVALUE_HISTORY))			
+    		{
+    		}
+    		else if (_deleteTableDataById(TABLE_STOCK_CALIBRATION))
+    		{
+//    			DebugString('Deleted data from '.TABLE_STOCK_CALIBRATION);
+			}
+		}
     }
-	else if ($strIp = UrlGetQueryValue(TABLE_IP))
-	{
-	   	AcctDeleteBlogVisitorByIp(new IpSql($strIp));
-	}
-    else
-    {
-    	if (_deleteTableDataById(TABLE_NETVALUE_HISTORY))			
-    	{
-    	}
-    	else if (_deleteTableDataById(TABLE_STOCK_CALIBRATION))
-    	{
-//    		DebugString('Deleted data from '.TABLE_STOCK_CALIBRATION);
-    	}
-	}
 }
-	
-   	$acct = new Account();
-	$acct->AdminCommand('_DeleteFileOrTableData');
+
+   	$acct = new _AdminDeleteAccount();
+	$acct->AdminRun();
 ?>

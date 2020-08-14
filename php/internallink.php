@@ -161,9 +161,9 @@ function GetVisitorLink($strIp = false, $bChinese = true)
 {
 	if ($strIp)
 	{
-		return _getIpLink(VISITOR_TABLE, $strIp, $bChinese);
+		return _getIpLink(TABLE_VISITOR, $strIp, $bChinese);
 	}
-	return GetPhpLink(ACCT_PATH.VISITOR_TABLE, false, '访问统计', 'Visitor', $bChinese);
+	return GetPhpLink(ACCT_PATH.TABLE_VISITOR, false, '访问统计', 'Visitor', $bChinese);
 }
 
 function GetLoginLink($strCn, $strUs, $bChinese)

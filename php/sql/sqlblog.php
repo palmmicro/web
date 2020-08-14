@@ -25,7 +25,7 @@ class PageSql extends KeyNameSql
 {
     function PageSql($strUri = false)
     {
-        parent::KeyNameSql('page', 'uri', $strUri);
+        parent::KeyNameSql(TABLE_PAGE, 'uri', $strUri);
     }
 
     function Create()

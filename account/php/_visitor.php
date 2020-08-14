@@ -13,13 +13,13 @@ function _getVisitorContentsDisplay($strContents)
     return $strContents;
 }
 
-function _echoBlogVisitorData($sql, $strIp, $iStart, $iNum, $bChinese)
+function _echoBlogVisitorData($sql, $visitor_sql, $strIp, $iStart, $iNum, $bChinese)
 {
     $arBlogId = array();
     $arIpId = array();
 
 	$page_sql = new PageSql();
-    if ($result = AcctGetBlogVisitor($sql, $iStart, $iNum)) 
+    if ($result = AcctGetBlogVisitor($sql, $visitor_sql, $iStart, $iNum)) 
     {
         while ($record = mysql_fetch_assoc($result)) 
         {
@@ -57,26 +57,27 @@ function _echoBlogVisitorData($sql, $strIp, $iStart, $iNum, $bChinese)
     }
 }
 
-function _getNavVisitorLink($sql, $strIp, $iStart, $iNum, $bChinese)
+function _getNavVisitorLink($sql, $visitor_sql, $strIp, $iStart, $iNum, $bChinese)
 {
     if ($strIp)
     {
         $strId = 'ip='.$strIp;
-        $iTotal = AcctCountBlogVisitor($sql);
+        $iTotal = AcctCountBlogVisitor($sql, $visitor_sql);
     }
     else
     {
         $strId = false;
-        $iTotal = SqlCountTableData(VISITOR_TABLE);
+//        $iTotal = SqlCountTableData(TABLE_VISITOR);
+        $iTotal = $visitor_sql->CountData();
     }
     return GetNavLink($strId, $iTotal, $iStart, $iNum, $bChinese);
 }
 
-function _echoBlogVisitorParagraph($sql, $strIp, $iStart, $iNum, $bAdmin, $bChinese)
+function _echoBlogVisitorParagraph($sql, $visitor_sql, $strIp, $iStart, $iNum, $bAdmin, $bChinese)
 {
 	$ar = array(new TableColumnDate(false, $bChinese), new TableColumnTime($bChinese), new TableColumn(($bChinese ? '页面' : 'Page'), MAX_VISITOR_CONTENTS * 10));
     
-	$strNavLink = _getNavVisitorLink($sql, $strIp, $iStart, $iNum, $bChinese);
+	$strNavLink = _getNavVisitorLink($sql, $visitor_sql, $strIp, $iStart, $iNum, $bChinese);
     $str = $strNavLink;
     if (UrlGetQueryString())	$str .= ' '.CopyPhpLink(false, '回访问首页', 'Back to Visitor Home', $bChinese);
     if ($strIp)
@@ -94,8 +95,8 @@ function _echoBlogVisitorParagraph($sql, $strIp, $iStart, $iNum, $bAdmin, $bChin
     	$ar[] = new TableColumnIP();
     }
 
-	EchoTableParagraphBegin($ar, VISITOR_TABLE, $str);
-    _echoBlogVisitorData($sql, $strIp, $iStart, $iNum, $bChinese);
+	EchoTableParagraphBegin($ar, TABLE_VISITOR, $str);
+    _echoBlogVisitorData($sql, $visitor_sql, $strIp, $iStart, $iNum, $bChinese);
     EchoTableParagraphEnd($strNavLink);
 }
 
@@ -105,20 +106,21 @@ function EchoAll($bChinese = true)
     
     $strIp = UrlGetQueryValue('ip');
     $sql = new IpSql($strIp);
+    $visitor_sql = $acct->GetVisitorSql();
     if ($strIp = $sql->GetIp())
     {
-        $str = IpLookupGetString($sql, '<br />', $bChinese);
-        $iPageCount = AcctGetSpiderPageCount($sql);
+        $str = IpLookupGetString($sql, $visitor_sql, '<br />', $bChinese);
+        $iPageCount = AcctGetSpiderPageCount($sql, $visitor_sql);
         $str .= '<br />'.($bChinese ? '保存的不同页面数量' : 'Saved unique page number').': '.strval($iPageCount);
     }
     else
     {
-        $iCount = SqlCountTableToday(VISITOR_TABLE);
+        $iCount = $visitor_sql->CountToday();
         $str = ($iCount > 0)	? CopyPhpLink('start=0&num='.$iCount, '今日访问', 'Visitors of Today', $bChinese) : '';
     }
     EchoParagraph($str);
     
-    _echoBlogVisitorParagraph($sql, $strIp, $acct->GetStart(), $acct->GetNum(), $acct->IsAdmin(), $bChinese);
+    _echoBlogVisitorParagraph($sql, $acct->GetVisitorSql(), $strIp, $acct->GetStart(), $acct->GetNum(), $acct->IsAdmin(), $bChinese);
 }
 
 function EchoMetaDescription($bChinese = true)

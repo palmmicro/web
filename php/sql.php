@@ -9,6 +9,7 @@ define('TABLE_FUND_PURCHASE', 'fundpurchase');
 define('TABLE_IP', 'ip');
 define('TABLE_MEMBER', 'member');
 define('TABLE_NETVALUE_HISTORY', 'netvaluehistory');
+define('TABLE_PAGE', 'page');
 define('TABLE_PRIME_NUMBER', 'primenumber');
 define('TABLE_PROFILE', 'profile');
 define('TABLE_STOCK', 'stock');
@@ -17,6 +18,7 @@ define('TABLE_STOCK_GROUP', 'stockgroup');
 define('TABLE_STOCK_GROUP_ITEM', 'stockgroupitem');
 define('TABLE_STOCK_HISTORY', 'stockhistory');
 define('TABLE_STOCK_SPLIT', 'stocksplit');
+define('TABLE_VISITOR', 'visitor');
 
 require_once('debug.php');
 require_once('email.php');
@@ -126,17 +128,6 @@ function SqlCountTableData($strTableName, $strWhere = false)
 		return intval($record['total']);
 	}
 	return 0;
-}
-
-function SqlCountTableByDate($strTableName, $strDate)
-{
-    return SqlCountTableData($strTableName, _SqlBuildWhere('date', $strDate));
-}
-
-function SqlCountTableToday($strTableName)
-{
-    $strDate = DebugGetDate();
-    return SqlCountTableByDate($strTableName, $strDate);
 }
 
 function SqlCreateDatabase($strDb)

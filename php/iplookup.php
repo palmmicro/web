@@ -75,13 +75,13 @@ function _ipLookupBlogCommentTable($strIp, $strNewLine, $bChinese)
     return $str;
 }
 
-function _ipLookupIpAddressTable($sql, $strNewLine, $bChinese)
+function _ipLookupIpAddressTable($sql, $visitor_sql, $strNewLine, $bChinese)
 {
     $str = '';
     if ($record = $sql->GetRecord())
     {
         $iVisit = intval($record['visit']);
-        $iVisit += AcctCountBlogVisitor($sql);
+        $iVisit += AcctCountBlogVisitor($sql, $visitor_sql);
         $str .= $strNewLine.($bChinese ? '普通网页总访问次数' : 'Total normal page visit').': '.intval($iVisit);
         $str .= $strNewLine.($bChinese ? '总登录次数' : 'Total login').': '.$record['login'];
         if ($record['status'] != IP_STATUS_NORMAL)
@@ -92,7 +92,7 @@ function _ipLookupIpAddressTable($sql, $strNewLine, $bChinese)
     return $str;
 }
 
-function IpLookupGetString($sql, $strNewLine, $bChinese)
+function IpLookupGetString($sql, $visitor_sql, $strNewLine, $bChinese)
 {
     if (($strIp = $sql->GetIp()) === false)	return '';
     
@@ -111,7 +111,7 @@ function IpLookupGetString($sql, $strNewLine, $bChinese)
     
     $str .= _ipLookupMemberTable($strIp, $strNewLine, $bChinese);        // Search member login
     $str .= _ipLookupBlogCommentTable($strIp, $strNewLine, $bChinese);  // Search blog comment
-    $str .= _ipLookupIpAddressTable($sql, $strNewLine, $bChinese);
+    $str .= _ipLookupIpAddressTable($sql, $visitor_sql, $strNewLine, $bChinese);
     return $str;
 }
 

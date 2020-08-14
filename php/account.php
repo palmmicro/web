@@ -12,18 +12,20 @@ require_once('ui/table.php');
 require_once('sql/sqlstockgroup.php');
 require_once('sql/sqlfundpurchase.php');
 
-function AcctCountBlogVisitor($sql)
+function AcctCountBlogVisitor($sql, $visitor_sql)
 {
-    return SqlCountVisitor(VISITOR_TABLE, $sql->GetId());
+//    return SqlCountVisitor(TABLE_VISITOR, $sql->GetId());
+    return $visitor_sql->CountBySrc($sql->GetId());
 }
 
-function AcctDeleteBlogVisitorByIp($sql)
+function AcctDeleteBlogVisitorByIp($sql, $visitor_sql)
 {
     if ($strId = $sql->GetId())
     {
-        $iCount = AcctCountBlogVisitor($sql);
+        $iCount = AcctCountBlogVisitor($sql, $visitor_sql);
 		$sql->AddVisit($iCount);
-        SqlDeleteVisitor(VISITOR_TABLE, $strId);
+//        SqlDeleteVisitor(TABLE_VISITOR, $strId);
+		$visitor_sql->DeleteBySrc($strId);        
     }
     if ($sql->GetStatus() != IP_STATUS_NORMAL)		$sql->SetStatus(IP_STATUS_NORMAL);
 }
@@ -37,15 +39,16 @@ function AcctDeleteMember($strMemberId)
     SqlDeleteTableDataById(TABLE_MEMBER, $strMemberId);
 }
 
-function AcctGetBlogVisitor($sql, $iStart = 0, $iNum = 0)
+function AcctGetBlogVisitor($sql, $visitor_sql, $iStart = 0, $iNum = 0)
 {
-    return SqlGetVisitor(VISITOR_TABLE, $sql->GetId(), $iStart, $iNum);
+//    return SqlGetVisitor(TABLE_VISITOR, $sql->GetId(), $iStart, $iNum);
+	return $visitor_sql->GetDataBySrc($sql->GetId(), $iStart, $iNum);
 }
 
-function AcctGetSpiderPageCount($sql)
+function AcctGetSpiderPageCount($sql, $visitor_sql)
 {
     $ar = array();
-	if ($result = AcctGetBlogVisitor($sql)) 
+	if ($result = AcctGetBlogVisitor($sql, $visitor_sql)) 
 	{
 	    while ($record = mysql_fetch_assoc($result)) 
 	    {
@@ -101,29 +104,30 @@ function AcctGetBlogId()
 	return $sql->GetKeyId();
 }
 
-function _checkVisitor($sql, $strMemberId)
+function _checkVisitor($sql, $visitor_sql, $strMemberId)
 {
-    SqlCreateVisitorTable(VISITOR_TABLE);
+//	SqlCreateVisitorTable(TABLE_VISITOR);
     if ($strBlogId = AcctGetBlogId())
     {
-    	SqlInsertVisitor(VISITOR_TABLE, $strBlogId, $sql->GetId());
+//    	SqlInsertVisitor(TABLE_VISITOR, $strBlogId, $sql->GetId());
+    	$visitor_sql->Insert($strBlogId, $sql->GetId());
     }
     
-	$iCount = AcctCountBlogVisitor($sql);
+	$iCount = AcctCountBlogVisitor($sql, $visitor_sql);
 	if ($iCount >= 1000)
 	{
-		$iPageCount = AcctGetSpiderPageCount($sql);
+		$iPageCount = AcctGetSpiderPageCount($sql, $visitor_sql);
 		$strDebug = strval($iCount).' '.strval($iPageCount);
 		if ($strMemberId)
 		{
     		trigger_error('Possible logined spider: '.$strDebug);
-	        AcctDeleteBlogVisitorByIp($sql);
+	        AcctDeleteBlogVisitorByIp($sql, $visitor_sql);
 	    }
 	    else
 	    {
 	    	if (_checkSearchEngineSpider($sql, $iCount, $iPageCount, $strDebug))
 	    	{
-	    		AcctDeleteBlogVisitorByIp($sql);
+	    		AcctDeleteBlogVisitorByIp($sql, $visitor_sql);
 	    	}
 	    }
 	}
@@ -136,6 +140,7 @@ class Account
     var $strLoginEmail = false;
 
     var $ip_sql;
+    var $visitor_sql;
 
     var $bAllowCurl;
     
@@ -145,7 +150,8 @@ class Account
     	SqlConnectDatabase();
 
 	    $this->ip_sql = new IpSql(UrlGetIp());
-	    _checkVisitor($this->ip_sql, $this->GetLoginId());
+	    $this->visitor_sql = new VisitorSql(TABLE_VISITOR, 'dst', 'src');
+	    _checkVisitor($this->ip_sql, $this->visitor_sql, $this->GetLoginId());
     	$this->bAllowCurl = ($this->ip_sql->GetStatus() != IP_STATUS_NORMAL) ? false : true;
 
 	   	if ($strEmail = UrlGetQueryValue('email'))
@@ -160,6 +166,11 @@ class Account
     function GetIpSql()
     {
     	return $this->ip_sql;
+    }
+    
+    function GetVisitorSql()
+    {
+    	return $this->visitor_sql;
     }
     
     function _switchToLogin()

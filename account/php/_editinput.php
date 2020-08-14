@@ -241,7 +241,7 @@ function EchoAll($bChinese = true)
     	break;
     		
     case TABLE_IP:
-    	$str = IpLookupGetString(new IpSql($strInput), '<br />', $bChinese);
+    	$str = IpLookupGetString(new IpSql($strInput), $acct->GetVisitorSql(), '<br />', $bChinese);
     	break;
     	
    	case 'linearregression':
