@@ -4,8 +4,10 @@ require_once('layout.php');
 require_once('ui/commentparagraph.php');
 require_once('/account/php/_editcommentform.php');
 
-function _echoPreviousComments($strBlogId, $strMemberId, $bReadOnly, $bAdmin, $bChinese)
+function _echoPreviousComments($page_sql, $strMemberId, $bReadOnly, $bAdmin, $bChinese)
 {
+	$strBlogId = $page_sql->GetKeyId();
+	
     $strQuery = 'blog_id='.$strBlogId;
     $strWhere = SqlWhereFromUrlQuery($strQuery);
     $iTotal = SqlCountBlogComment($strWhere);
@@ -20,7 +22,7 @@ function _echoPreviousComments($strBlogId, $strMemberId, $bReadOnly, $bAdmin, $b
 	
 	echo '<div>';
     EchoCommentLinkParagraph($str, $strQuery, $bChinese);
-    if ($iTotal > 0)    EchoCommentParagraphs($strMemberId, $bReadOnly, $bAdmin, $strWhere, 0, MAX_COMMENT_DISPLAY, $bChinese);    
+    if ($iTotal > 0)    EchoCommentParagraphs($page_sql, $strMemberId, $bReadOnly, $bAdmin, $strWhere, 0, MAX_COMMENT_DISPLAY, $bChinese);    
     echo '</div>';
 }
 
@@ -29,11 +31,7 @@ function EchoBlogComments($bChinese = true)
     global $acct;
     
     $strMemberId = $acct->GetLoginId();
-    
-	$sql = new PageSql();
-	$strBlogId = $sql->GetId(UrlGetUri());
-
-	_echoPreviousComments($strBlogId, $strMemberId, $acct->IsReadOnly(), $acct->IsAdmin(), $bChinese);
+	_echoPreviousComments($acct->GetPageSql(), $strMemberId, $acct->IsReadOnly(), $acct->IsAdmin(), $bChinese);
 	if ($strMemberId) 
 	{
         EditCommentForm(($bChinese ? BLOG_COMMENT_NEW_CN : BLOG_COMMENT_NEW), $strMemberId);

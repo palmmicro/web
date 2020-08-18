@@ -64,7 +64,7 @@
 
 <h3>增加<?php EchoNameTag(TABLE_STOCK_HISTORY, STOCK_HISTORY_DISPLAY); ?>页面</h3>
 <p>2015年8月24日
-<br />每次进<?php EchoLink('https://palmmicro.com/apps/phpMyAdmin'); ?>去看历史数据虽然不算麻烦, 但是毕竟还是用自己写的网页看更有成就感!
+<br />每次进<?php EchoLink('https://palmmicro.com/apps/phpMyAdmin/'); ?>去看历史数据虽然不算麻烦, 但是毕竟还是用自己写的网页看更有成就感!
 </p>
 <?php EchoStockHistoryDemo(); ?>
 

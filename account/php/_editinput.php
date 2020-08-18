@@ -1,5 +1,6 @@
 <?php
 require_once('_account.php');
+require_once('/php/iplookup.php');
 require_once('/php/stocklink.php');
 require_once('/php/benfordimagefile.php');
 require_once('/php/linearimagefile.php');
@@ -7,6 +8,17 @@ require_once('/php/tutorial/primenumber.php');
 require_once('/php/sql/sqlcommonphrase.php');
 require_once('/php/ui/editinputform.php');
 require_once('/php/ui/table.php');
+
+function _getIpString($strIp, $sql, $visitor_sql, $page_sql, $bChinese)
+{
+	if (filter_valid_ip($strIp) == false)	return $bChinese ? '无效IP地址' : 'Invalid IP Address';
+	
+	if ($sql->GetRecord($strIp) == false)
+	{
+		$sql->InsertIp($strIp);
+	}
+	return IpLookupGetString($strIp, $sql, $visitor_sql, $page_sql, '<br />', $bChinese);
+}
 
 function _getCommonPhraseString($strInput, $strMemberId, $bChinese)
 {
@@ -241,7 +253,7 @@ function EchoAll($bChinese = true)
     	break;
     		
     case TABLE_IP:
-    	$str = IpLookupGetString(new IpSql($strInput), $acct->GetVisitorSql(), '<br />', $bChinese);
+    	$str = _getIpString($strInput, $acct->GetIpSql(), $acct->GetVisitorSql(), $acct->GetPageSql(), $bChinese);
     	break;
     	
    	case 'linearregression':

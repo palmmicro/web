@@ -14,6 +14,19 @@ function _deleteTableDataById($strTableName)
 
 class _AdminDeleteAccount extends Account
 {
+	function DeleteVisitorByIp($strIp)
+	{
+   		$sql = $this->GetIpSql();
+   		$visitor_sql = $this->GetVisitorSql();
+		if ($strId = $sql->GetId($strIp))
+		{
+			$iCount = $visitor_sql->CountBySrc($strId);
+			$sql->AddVisit($iCount, $strIp);
+			$visitor_sql->DeleteBySrc($strId);        
+		}
+		$sql->SetStatus(IP_STATUS_NORMAL, $strIp);
+	}
+
     function AdminProcess()
     {
     	if ($strPathName = UrlGetQueryValue('file'))
@@ -23,7 +36,7 @@ class _AdminDeleteAccount extends Account
     	}
     	else if ($strIp = UrlGetQueryValue(TABLE_IP))
     	{
-    		AcctDeleteBlogVisitorByIp(new IpSql($strIp), $this->GetVisitorSql());
+    		$this->DeleteVisitorByIp($strIp);
     	}
     	else
     	{

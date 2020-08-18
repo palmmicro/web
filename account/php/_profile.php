@@ -17,6 +17,15 @@ define('PROFILE_NEW_ACCOUNT_CN', '注册成功');
 define('PROFILE_NEW_PASSWORD_CN', '新密码通过电子邮件发送');
 define('PROFILE_CLOSE_ACCOUNT_CN', '帐号已经关闭');
 
+function AcctDeleteMember($strMemberId)
+{
+	SqlDeleteFundPurchaseByMemberId($strMemberId);
+	SqlDeleteStockGroupByMemberId($strMemberId);
+	SqlDeleteBlogCommentByMemberId($strMemberId);
+	SqlDeleteProfileByMemberId($strMemberId);
+    SqlDeleteTableDataById(TABLE_MEMBER, $strMemberId);
+}
+
 function _echoAccountProfileMsg($strMsg, $bChinese)
 {
     if ($strMsg == PROFILE_LOGIN_ACCOUNT)
@@ -102,7 +111,7 @@ function _echoAccountProfileChinese($member, $strName, $strPhone, $strAddress, $
 END;
 }
 
-function _echoAccountBlogComments($strMemberId, $bReadOnly, $bAdmin, $bChinese)
+function _echoAccountBlogComments($page_sql, $strMemberId, $bReadOnly, $bAdmin, $bChinese)
 {
     $strQuery = 'member_id='.$strMemberId;
     $strWhere = SqlWhereFromUrlQuery($strQuery);
@@ -111,7 +120,7 @@ function _echoAccountBlogComments($strMemberId, $bReadOnly, $bAdmin, $bChinese)
 
     $str = $bChinese ? '评论' : 'Comment';
     EchoCommentLinkParagraph($str, $strQuery, $bChinese);
-    EchoCommentParagraphs($strMemberId, $bReadOnly, $bAdmin, $strWhere, 0, MAX_COMMENT_DISPLAY, $bChinese);    
+    EchoCommentParagraphs($page_sql, $strMemberId, $bReadOnly, $bAdmin, $strWhere, 0, MAX_COMMENT_DISPLAY, $bChinese);    
 }
 
 function _echoAccountFundAmount($strMemberId, $bChinese)
@@ -162,7 +171,7 @@ function EchoAll($bChinese = true)
 	    else    	        _echoAccountProfileEnglish($member, $strName, $strPhone, $strAddress, $strWeb, $strSignature);
 	}
 	
-	_echoAccountBlogComments($strMemberId, $bReadOnly, $acct->IsAdmin(), $bChinese);
+	_echoAccountBlogComments($acct->GetPageSql(), $strMemberId, $bReadOnly, $acct->IsAdmin(), $bChinese);
 	_echoAccountFundAmount($strMemberId, $bChinese);
 }                                                         
 

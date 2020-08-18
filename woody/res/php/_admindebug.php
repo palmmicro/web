@@ -20,6 +20,19 @@ function _addDebugLine(&$arDebug, $strLine)
     }
 }
 
+function _echoDebugParagraph($arDebug, $str)
+{
+	$str .= ':';
+    foreach ($arDebug as $strIp => $iCount)
+    {
+    	if ($iCount > 1)
+    	{
+    		$str .= '<br />'.GetVisitorLink($strIp).' '.strval($iCount);
+    	}
+    }
+    EchoParagraph($str);
+}
+
 function _echoAdminDebug()
 {
     $arIp = array();
@@ -41,22 +54,8 @@ function _echoAdminDebug()
         fclose($file);
     }
 
-    $str = 'curl错误信息:';
-    foreach ($arIp as $strIp => $iCount)
-    {
-    	if ($iCount > 1)
-    	{
-    		$str .= '<br />'.GetVisitorLink($strIp).' '.strval($iCount);
-    	}
-    }
-    EchoParagraph($str);
-    
-    $str = '弱智爬虫:';
-    foreach ($arUrl as $strIp => $iCount)
-    {
-   		$str .= '<br />'.GetVisitorLink($strIp).' '.strval($iCount);
-    }
-    EchoParagraph($str);
+    _echoDebugParagraph($arIp, 'curl错误信息');
+    _echoDebugParagraph($arUrl, '弱智爬虫');
 }
 
 function EchoAll()

@@ -37,7 +37,7 @@ class VisitorSql extends TableSql
     	return $this->CreateIdTable($str);
     }
 
-    function Insert($strDstId, $strSrcId, $strDate = false, $strTime = false)
+    function InsertVisitor($strDstId, $strSrcId, $strDate = false, $strTime = false)
     {
     	$ar = array($this->strDst => $strDstId, $this->strSrc => $strSrcId);
     	$ar['date'] = $strDate ? $strDate : DebugGetDate();
@@ -50,7 +50,7 @@ class VisitorSql extends TableSql
     	return _SqlBuildWhere($this->strSrc, $strSrcId);
     }
     
-    function GetDataBySrc($strSrcId, $iStart, $iNum)
+    function GetDataBySrc($strSrcId, $iStart = 0, $iNum = 0)
     {
     	return $this->GetData($this->_buildWhereBySrc($strSrcId), _SqlOrderByDateTime(), _SqlBuildLimit($iStart, $iNum));
     }
@@ -77,6 +77,21 @@ class VisitorSql extends TableSql
     function CountToday()
     {
     	return $this->CountByDate(DebugGetDate());
+    }
+
+    function CountUniqueDst($strSrcId)
+    {
+    	$ar = array();
+    	if ($result = $this->GetDataBySrc($strSrcId)) 
+    	{
+    		while ($record = mysql_fetch_assoc($result)) 
+    		{
+    			$ar[] = $record[$this->strDst];
+    		}
+    		@mysql_free_result($result);
+    	}
+    	$ar = array_unique($ar);
+    	return count($ar);
     }
 }
 

@@ -5,12 +5,14 @@ require_once('/php/ui/commentparagraph.php');
 function EchoAll($bChinese = true)
 {
     global $acct;
+    
     $strMemberId = $acct->GetLoginId();
+    $page_sql = $acct->GetPageSql();
     
     if ($str = UrlGetQueryValue('blog_id'))
     {
         $strQuery = 'blog_id='.$str;
-        $strLink = GetBlogLink($str);
+        $strLink = GetBlogLink($page_sql, $str);
     }
     else if ($str = UrlGetQueryValue('member_id'))
     {
@@ -35,7 +37,7 @@ function EchoAll($bChinese = true)
     $strNavLink = GetNavLink($strQuery, $iTotal, $iStart, $iNum, $bChinese);
     
     EchoParagraph($strLink.' '.$strNavLink);
-    EchoCommentParagraphs($strMemberId, $acct->IsReadOnly(), $acct->IsAdmin(), $strWhere, $iStart, $iNum, $bChinese);
+    EchoCommentParagraphs($page_sql, $strMemberId, $acct->IsReadOnly(), $acct->IsAdmin(), $strWhere, $iStart, $iNum, $bChinese);
     EchoParagraph($strNavLink);
 }
 

@@ -17,13 +17,13 @@ function _getSingleCommentTime($record, $bChinese)
 	return $str;
 }
 
-function GetSingleCommentDescription($record, $strWhere, $bChinese)
+function GetSingleCommentDescription($record, $strWhere, $sql, $bChinese)
 {
     $strAuthor = GetMemberLink($record['member_id'], $bChinese);
     $strIp = GetIpLink($record['ip'], $bChinese);
     $strTime = _getSingleCommentTime($record, $bChinese);
     
-	$sql = new PageSql();
+//	$sql = new PageSql();
 	$strUri = $sql->GetKey($record['blog_id']);
 	
     $strTimeLink = "<a href=\"$strUri#{$record['id']}\">$strTime</a>";
@@ -43,7 +43,7 @@ function GetSingleCommentDescription($record, $strWhere, $bChinese)
     return "$strAuthor $strTimeLink $strIp";
 }
 
-function _echoSingleCommentParagraph($record, $strMemberId, $bReadOnly, $bAdmin, $strWhere, $bChinese)
+function _echoSingleCommentParagraph($record, $page_sql, $strMemberId, $bReadOnly, $bAdmin, $strWhere, $bChinese)
 {
 	$strEdit = '';
 	$strDelete = '';
@@ -61,7 +61,7 @@ function _echoSingleCommentParagraph($record, $strMemberId, $bReadOnly, $bAdmin,
         }
     }
 
-    $strDescription = GetSingleCommentDescription($record, $strWhere, $bChinese);
+    $strDescription = GetSingleCommentDescription($record, $strWhere, $page_sql, $bChinese);
 	$strComment = nl2br($record['comment']);
 	
 	echo <<<END
@@ -75,13 +75,13 @@ function _echoSingleCommentParagraph($record, $strMemberId, $bReadOnly, $bAdmin,
 END;
 }
 
-function EchoCommentParagraphs($strMemberId, $bReadOnly, $bAdmin, $strWhere, $iStart, $iNum, $bChinese)
+function EchoCommentParagraphs($page_sql, $strMemberId, $bReadOnly, $bAdmin, $strWhere, $iStart, $iNum, $bChinese)
 {
 	if ($result = SqlGetBlogComment($strWhere, $iStart, $iNum)) 
 	{
 		while ($record = mysql_fetch_assoc($result)) 
 		{
-			_echoSingleCommentParagraph($record, $strMemberId, $bReadOnly, $bAdmin, $strWhere, $bChinese);
+			_echoSingleCommentParagraph($record, $page_sql, $strMemberId, $bReadOnly, $bAdmin, $strWhere, $bChinese);
 		}
 		@mysql_free_result($result);
 	}

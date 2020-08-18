@@ -214,7 +214,7 @@ class WeixinStock extends WeixinCallback
 		$strText = str_replace('.', '', $strText);
 		$strText = trim($strText);
     
-        if (stripos($strText, 'q群') !== false)			return $this->GetQqGroupText();
+        if ((stripos($strText, 'q群') !== false) || (strpos($strText, '电报群') !== false))	return $this->GetQqGroupText();
         else if (strpos($strText, '商务合作') !== false)	return $this->GetBusinessText();
         else if (strpos($strText, '广发原油') !== false)	return '6月19日公众号文章标题写错了，应该是广发石油(162719)。'.WX_EOL;
 

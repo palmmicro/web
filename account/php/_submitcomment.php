@@ -2,12 +2,12 @@
 require_once('/php/account.php');
 require_once('_editcommentform.php');
 
-function _emailBlogComment($strId, $strBlogId, $strSubject, $strComment)
+function _emailBlogComment($page_sql, $strId, $strBlogId, $strSubject, $strComment)
 {
 	// build email contents
 	$str = SqlGetEmailById($strId);
 	$str .= " $strSubject:<br />$strComment<br />";
-	$str .= GetBlogLink($strBlogId);
+	$str .= GetBlogLink($page_sql, $strBlogId);
 
 	// build mailing list
 	$arEmails = array();				                                                    // Array to store emails addresses to send to
@@ -63,7 +63,7 @@ function _onDelete($strId, $strMemberId)
 	}
 }
 
-function _onEdit($strId, $strMemberId, $strComment)
+function _onEdit($sql, $strId, $strMemberId, $strComment)
 {
     if ($strComment != '')
     {
@@ -72,7 +72,7 @@ function _onEdit($strId, $strMemberId, $strComment)
     	    if (SqlEditBlogComment($strId, $strComment))
     	    {
     	        $record = SqlGetBlogCommentById($strId);
-    	        _emailBlogComment($strMemberId, $record['blog_id'], $_POST['submit'], $_POST['comment']);
+    	        _emailBlogComment($sql, $strMemberId, $record['blog_id'], $_POST['submit'], $_POST['comment']);
     	    }
     	}
 	}
@@ -82,10 +82,10 @@ function _onEdit($strId, $strMemberId, $strComment)
 	}
 }
 
-function _onNew($strMemberId, $strComment)
+function _onNew($sql, $strMemberId, $strComment)
 {
     $strUri = SwitchGetSess();
-	$sql = new PageSql();
+//	$sql = new PageSql();
 	if ($strBlogId = $sql->GetId($strUri))
 	{
 		if ($strComment != '')
@@ -93,7 +93,7 @@ function _onNew($strMemberId, $strComment)
 			if (SqlInsertBlogComment($strMemberId, $strBlogId, $strComment))
 			{
 				SqlChangeActivity($strMemberId, 1);
-				_emailBlogComment($strMemberId, $strBlogId, $_POST['submit'], $_POST['comment']);
+				_emailBlogComment($sql, $strMemberId, $strBlogId, $_POST['submit'], $_POST['comment']);
 			}
 		}
 	}
@@ -108,19 +108,20 @@ function _onNew($strMemberId, $strComment)
 		}
 		else if (isset($_POST['submit']))
 		{
+			$page_sql = $acct->GetPageSql();
 			$strComment = SqlCleanString($_POST['comment']);
 			switch ($_POST['submit'])
 			{
 			case BLOG_COMMENT_NEW:
 			case BLOG_COMMENT_NEW_CN:
-				_onNew($strMemberId, $strComment);
+				_onNew($page_sql, $strMemberId, $strComment);
 				break;
 
 			case BLOG_COMMENT_EDIT:
 			case BLOG_COMMENT_EDIT_CN:
 				if ($strId = UrlGetQueryValue('edit'))
 				{
-					_onEdit($strId, $strMemberId, $strComment);
+					_onEdit($page_sql, $strId, $strMemberId, $strComment);
 				}
 				break;
 			}

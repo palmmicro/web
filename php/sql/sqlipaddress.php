@@ -7,7 +7,6 @@ define('IP_STATUS_CRAWL', '1');
 class IpSql extends TableSql
 {
 	var $strIp;
-	var $strId = false;
 	
     function IpSql($strIp = false)
     {
@@ -15,10 +14,9 @@ class IpSql extends TableSql
         
         if ($this->strIp = (filter_valid_ip($strIp) ? $strIp : false))
         {
-			$this->strId = $this->GetId($strIp);
-        	if ($this->GetRecord() == false)
+        	if ($this->GetRecord($strIp) == false)
         	{
-   				$this->InsertArray(array_merge(array('id' => $this->strId), $this->_makeUpdateArray()));
+        		$this->InsertIp($strIp);
         	}
         }
     }
@@ -44,24 +42,13 @@ class IpSql extends TableSql
     
     function GetId($strVal = false, $callback = 'GetRecord')
     {
-    	if ($strVal)
-    	{
-    		return sprintf("%u", ip2long($strVal));
-    	}
-    	return $this->strId;
+    	$strIp = $strVal ? $strVal : $this->strIp;
+   		return sprintf("%u", ip2long($strIp));
     }
 
     function GetRecord($strIp = false)
     {
-    	if ($strIp)
-    	{
-    		return $this->GetRecordById($this->GetId($strIp));
-    	}
-    	else if ($this->strIp)
-    	{
-    		return $this->GetRecordById($this->strId);
-    	}
-    	return false;
+   		return $this->GetRecordById($this->GetId($strIp));
     }
 
     function _makeUpdateArray($strVisit = '0', $strLogin = '0', $strStatus = '0')
@@ -71,7 +58,16 @@ class IpSql extends TableSql
     				  'status' => $strStatus);
     }
 
-    function UpdateIp($strIp, $strVisit, $strLogin, $strStatus)
+    function InsertIp($strIp)
+    {
+		if ($strId = $this->GetId($strIp))
+		{
+			return $this->InsertArray(array_merge(array('id' => $strId), $this->_makeUpdateArray()));
+		}
+		return false;
+    }
+    
+    function UpdateIp($strVisit, $strLogin, $strStatus, $strIp = false)
     {
     	$ar = $this->_makeUpdateArray($strVisit, $strLogin, $strStatus);
     	if ($record = $this->GetRecord($strIp))
@@ -93,7 +89,7 @@ class IpSql extends TableSql
     	{
     		$iVal = intval($record['login']);
     		$iVal ++;
-    		return $this->UpdateIp($strIp, $record['visit'], strval($iVal), $record['status']);
+    		return $this->UpdateIp($record['visit'], strval($iVal), $record['status'], $strIp);
     	}
     	return false;
     }
@@ -104,7 +100,7 @@ class IpSql extends TableSql
     	{
     		$iVal = intval($record['visit']);
     		$iVal += $iCount;
-    		return $this->UpdateIp($strIp, strval($iVal), $record['login'], $record['status']);
+    		return $this->UpdateIp(strval($iVal), $record['login'], $record['status'], $strIp);
     	}
     	return false;
     }
@@ -115,7 +111,7 @@ class IpSql extends TableSql
     	{
     		if ($record['status'] != $strStatus)
     		{
-    			return $this->UpdateIp($strIp, $record['visit'], $record['login'], $strStatus);
+    			return $this->UpdateIp($record['visit'], $record['login'], $strStatus, $strIp);
     		}
     		return true;
     	}

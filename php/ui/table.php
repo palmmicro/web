@@ -113,6 +113,16 @@ function EchoTableParagraphBegin($ar, $strId, $str = '')
 END;
 }
 
+function SelectColumnItem($strDisplay, $strLink, $strId, &$arId)
+{
+	if (in_array($strId, $arId))
+    {
+    	return $strDisplay;
+    }
+    $arId[] = $strId;
+    return $strLink;
+}
+
 function EchoTableColumn($ar, $strColor = false)
 {
     $strBackGround = $strColor ? 'style="background-color:'.$strColor.'"' : '';

@@ -3,133 +3,45 @@
 require_once('debug.php');
 require_once('switch.php');
 require_once('sql.php');
-require_once('iplookup.php');
 require_once('ui/table.php');
 
 //require_once('sql/sqlmember.php');
 //require_once('sql/sqlblog.php');
 //require_once('sql/sqlvisitor.php');
+require_once('sql/sqlipaddress.php');
 require_once('sql/sqlstockgroup.php');
 require_once('sql/sqlfundpurchase.php');
 
-function AcctCountBlogVisitor($sql, $visitor_sql)
+function _checkVisitor($sql, $page_sql, $visitor_sql, $strMemberId)
 {
-//    return SqlCountVisitor(TABLE_VISITOR, $sql->GetId());
-    return $visitor_sql->CountBySrc($sql->GetId());
-}
-
-function AcctDeleteBlogVisitorByIp($sql, $visitor_sql)
-{
-    if ($strId = $sql->GetId())
+	$strId = $sql->GetId();
+    if ($strBlogId = $page_sql->GetKeyId())
     {
-        $iCount = AcctCountBlogVisitor($sql, $visitor_sql);
-		$sql->AddVisit($iCount);
-//        SqlDeleteVisitor(TABLE_VISITOR, $strId);
-		$visitor_sql->DeleteBySrc($strId);        
+    	$visitor_sql->InsertVisitor($strBlogId, $strId);
     }
-    if ($sql->GetStatus() != IP_STATUS_NORMAL)		$sql->SetStatus(IP_STATUS_NORMAL);
-}
-
-function AcctDeleteMember($strMemberId)
-{
-	SqlDeleteFundPurchaseByMemberId($strMemberId);
-	SqlDeleteStockGroupByMemberId($strMemberId);
-	SqlDeleteBlogCommentByMemberId($strMemberId);
-	SqlDeleteProfileByMemberId($strMemberId);
-    SqlDeleteTableDataById(TABLE_MEMBER, $strMemberId);
-}
-
-function AcctGetBlogVisitor($sql, $visitor_sql, $iStart = 0, $iNum = 0)
-{
-//    return SqlGetVisitor(TABLE_VISITOR, $sql->GetId(), $iStart, $iNum);
-	return $visitor_sql->GetDataBySrc($sql->GetId(), $iStart, $iNum);
-}
-
-function AcctGetSpiderPageCount($sql, $visitor_sql)
-{
-    $ar = array();
-	if ($result = AcctGetBlogVisitor($sql, $visitor_sql)) 
+    
+	$iCount = $visitor_sql->CountBySrc($strId);
+	if ($iCount >= 500)
 	{
-	    while ($record = mysql_fetch_assoc($result)) 
-	    {
-            $ar[] = $record['dst_id'];
-	    }
-	    @mysql_free_result($result);
-	}
-	$ar = array_unique($ar);
-	return count($ar);
-}
-
-function _checkSearchEngineSpider($sql, $iCount, $iPageCount, $strDebug)
-{
-    if ($arInfo = IpInfoIpLookUp($sql))
-    {
-    	if (isset($arInfo['org']))
-    	{
-    		$strOrg = $arInfo['org'];
-    		if (strstr_array($strOrg, array('microsoft', 'yahoo', 'yandex')))
-    		{
-    			trigger_error('Known company: '.$strOrg);
-    			return true;
-    		}
-    		$strDebug .= '<br />'.$strOrg;
-    	}
-    
-    	if (isset($arInfo['hostname']))
-    	{
-    		$strDns = $arInfo['hostname'];
-    		if (strstr_array($strDns, array('baidu', 'bytedance', 'google', 'msn', 'sogou', 'yahoo', 'yandex')))
-    		{
-    			trigger_error('Known DNS: '.$strDns);
-    			return true;
-    		}
-    		$strDebug .= '<br />'.$strDns;
-    	}
-    }
-   	
-    if ($iPageCount >= 10)
-    {
-    	trigger_error('Unknown spider<br />'.$strDebug);
-    	return true;
-    }
-    
-	trigger_error('Blocked spider<br />'.$strDebug);
-	$sql->SetStatus(IP_STATUS_CRAWL);
-    return false;
-}
-
-function AcctGetBlogId()
-{
-	$sql = new PageSql(UrlGetUri());
-	return $sql->GetKeyId();
-}
-
-function _checkVisitor($sql, $visitor_sql, $strMemberId)
-{
-//	SqlCreateVisitorTable(TABLE_VISITOR);
-    if ($strBlogId = AcctGetBlogId())
-    {
-//    	SqlInsertVisitor(TABLE_VISITOR, $strBlogId, $sql->GetId());
-    	$visitor_sql->Insert($strBlogId, $sql->GetId());
-    }
-    
-	$iCount = AcctCountBlogVisitor($sql, $visitor_sql);
-	if ($iCount >= 1000)
-	{
-		$iPageCount = AcctGetSpiderPageCount($sql, $visitor_sql);
-		$strDebug = strval($iCount).' '.strval($iPageCount);
-		if ($strMemberId)
+		$iPageCount = $visitor_sql->CountUniqueDst($strId);
+		$strDebug = '访问次数: '.strval($iCount).' 不同页面数: '.strval($iPageCount);
+		if ($strMemberId)								$strDebug .= ' logined!';
+		if ($sql->GetStatus() == IP_STATUS_CRAWL)		$strDebug .= ' 已标注的老爬虫';
+		else
 		{
-    		trigger_error('Possible logined spider: '.$strDebug);
-	        AcctDeleteBlogVisitorByIp($sql, $visitor_sql);
-	    }
-	    else
-	    {
-	    	if (_checkSearchEngineSpider($sql, $iCount, $iPageCount, $strDebug))
-	    	{
-	    		AcctDeleteBlogVisitorByIp($sql, $visitor_sql);
-	    	}
-	    }
+			if ($iPageCount >= ($iCount / 100))
+			{
+				$strDebug .= ' 疑似爬虫';
+			}
+			else
+			{
+				$strDebug .= '新标注爬虫';
+				$sql->SetStatus(IP_STATUS_CRAWL);
+			}
+		}
+		trigger_error($strDebug);
+		$sql->AddVisit($iCount);
+		$visitor_sql->DeleteBySrc($strId);        
 	}
 }
 
@@ -140,6 +52,7 @@ class Account
     var $strLoginEmail = false;
 
     var $ip_sql;
+    var $page_sql;
     var $visitor_sql;
 
     var $bAllowCurl;
@@ -150,8 +63,9 @@ class Account
     	SqlConnectDatabase();
 
 	    $this->ip_sql = new IpSql(UrlGetIp());
+	    $this->page_sql = new PageSql(UrlGetUri());
 	    $this->visitor_sql = new VisitorSql(TABLE_VISITOR, 'dst', 'src');
-	    _checkVisitor($this->ip_sql, $this->visitor_sql, $this->GetLoginId());
+	    _checkVisitor($this->ip_sql, $this->page_sql, $this->visitor_sql, $this->GetLoginId());
     	$this->bAllowCurl = ($this->ip_sql->GetStatus() != IP_STATUS_NORMAL) ? false : true;
 
 	   	if ($strEmail = UrlGetQueryValue('email'))
@@ -166,6 +80,11 @@ class Account
     function GetIpSql()
     {
     	return $this->ip_sql;
+    }
+    
+    function GetPageSql()
+    {
+    	return $this->page_sql;
     }
     
     function GetVisitorSql()
