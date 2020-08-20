@@ -85,11 +85,11 @@ function _getAdminTestStr($strInput)
 //	return $strInput;
 }
 
-function _getDelStockGroupStr($strGroupName)
+function _getDelStockGroupStr($sql, $strGroupName)
 {
 	if (strlen($strGroupName) == 0)		return '请输入要删除的股票分组名称';
 
-	$sql = new StockGroupSql();
+//	$sql = new StockGroupSql();
     $strWhere = _SqlBuildWhere('groupname', $strGroupName);
     $iCount = $sql->CountData($strWhere);
     $str = 'GroupName: '.$strGroupName.' total '.strval($iCount);
@@ -143,7 +143,7 @@ function EchoAll()
     	break;
     		
     case 'delstockgroup':
-    	$str = _getDelStockGroupStr($strInput);
+    	$str = _getDelStockGroupStr($acct->GetGroupSql(), $strInput);
     	break;
     	
   	case 'spdrnavxls':

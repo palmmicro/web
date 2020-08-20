@@ -162,7 +162,7 @@ function EchoAll()
         else
         {
         	EchoStockGroupParagraph($acct);
-        	StockEditGroupForm(STOCK_GROUP_NEW);
+        	StockEditGroupForm($acct, STOCK_GROUP_NEW);
         }
     }
     else

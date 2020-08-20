@@ -3,33 +3,38 @@ require_once('stockgroupparagraph.php');
 
 function _echoTransactionTableItem($ref, $record, $bReadOnly, $bAdmin)
 {
-    $strSymbol = $ref->GetSymbol();
-    $strDate = GetSqlTransactionDate($record);
-    $strPrice = $ref->GetPriceDisplay($record['price']);
-    $strFees = strval_round(floatval($record['fees']), 2);
+	$ar = array();
+	
+    $ar[] = GetSqlTransactionDate($record);
+    $ar[] = $ref->GetSymbol();
+    $ar[] = $record['quantity'];
+    $ar[] = $ref->GetPriceDisplay($record['price']);
+    $ar[] = strval_round(floatval($record['fees']), 2);
 
+    $strId = $record['id'];
+    $strRemark = $record['remark'];
+   	if ($bReadOnly)
+   	{
+   		$ar[] = $strRemark;
+   	}
+   	else
+   	{
+   		$ar[] = (strlen($strRemark) > 0) ? GetOnClickLink(STOCK_PHP_PATH.'_submittransaction.php?empty='.$strId, '确认清空备注: '.$strRemark.'?', '清空').$strRemark : '';
+   	}
+    	
     $strEdit = '';
-   	$strDelete = GetDeleteLink(STOCK_PHP_PATH.'_submittransaction.php?delete='.$record['id'], '交易记录');
+   	$strDelete = GetDeleteLink(STOCK_PHP_PATH.'_submittransaction.php?delete='.$strId, '交易记录');
     if ($bReadOnly == false)
     {
-    	$strEdit = GetEditLink(STOCK_PATH.'editstocktransaction', $record['id']);
+    	$strEdit = GetEditLink(STOCK_PATH.'editstocktransaction', $strId);
     }
     else if ($bAdmin == false)
     {
     	$strDelete = '';
     }
-    
-    echo <<<END
-    <tr>
-        <td class=c1>$strDate</td>
-        <td class=c1>$strSymbol</td>
-        <td class=c1>{$record['quantity']}</td>
-        <td class=c1>$strPrice</td>
-        <td class=c1>$strFees</td>
-        <td class=c1>{$record['remark']}</td>
-        <td class=c1>$strEdit $strDelete</td>
-    </tr>
-END;
+    $ar[] = $strEdit.' '.$strDelete;
+
+    EchoTableColumn($ar);
 }
 
 function _echoSingleTransactionTableData($sql, $ref, $iStart, $iNum, $bReadOnly, $bAdmin)

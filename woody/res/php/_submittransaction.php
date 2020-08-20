@@ -231,6 +231,18 @@ class _SubmitTransactionAccount extends StockAccount
     			}
     		}
     	}
+    	else if ($strId = UrlGetQueryValue('empty'))
+    	{
+    		$trans_sql = new StockTransactionSql();
+    		if ($record = $trans_sql->GetRecordById($strId))
+    		{
+    			$strGroupItemId = $record['groupitem_id'];
+   				if ($strGroupId = $this->_canModifyStockTransaction($strGroupItemId))
+    			{
+    				$trans_sql->Update($strId, $strGroupItemId, $record['quantity'], $record['price'], $record['fees']);
+    			}
+    		}
+    	}
     	else if ($strGroupId = UrlGetQueryValue('groupid'))
     	{
     		$strGroupItemId = $this->_onAddFundPurchase($strGroupId);

@@ -21,17 +21,17 @@ function _checkVisitor($sql, $page_sql, $visitor_sql, $strMemberId)
     }
     
 	$iCount = $visitor_sql->CountBySrc($strId);
-	if ($iCount >= 500)
+	if ($iCount >= 1000)
 	{
 		$iPageCount = $visitor_sql->CountUniqueDst($strId);
-		$strDebug = '访问次数: '.strval($iCount).' 不同页面数: '.strval($iPageCount);
-		if ($strMemberId)								$strDebug .= ' logined!';
-		if ($sql->GetStatus() == IP_STATUS_CRAWL)		$strDebug .= ' 已标注的老爬虫';
+		$strDebug = '访问次数: '.strval($iCount).'<br />不同页面数: '.strval($iPageCount).'<br />';
+		if ($strMemberId)								$strDebug .= 'logined!<br />';
+		if ($sql->GetStatus() == IP_STATUS_CRAWL)		$strDebug .= '已标注的老爬虫';
 		else
 		{
 			if ($iPageCount >= ($iCount / 100))
 			{
-				$strDebug .= ' 疑似爬虫';
+				$strDebug .= '疑似爬虫';
 			}
 			else
 			{
@@ -216,7 +216,7 @@ class Account
     	$this->Back();
     }
 
-    function Process()
+    function Process($strLoginId)
     {
     	DebugString('Empty Process');
     }

@@ -29,9 +29,9 @@ class GroupIdAccount extends StockAccount
     {
     	if ($strGroupId = $this->GetGroupId())
     	{
-    		if ($strMemberId = SqlGetStockGroupMemberId($strGroupId))
+    		if ($strMemberId = $this->GetGroupMemberId($strGroupId))
     		{
-    			return $this->GetWhoseDisplay($strMemberId).SqlGetStockGroupName($strGroupId); 
+    			return $this->GetWhoseDisplay($strMemberId).$this->GetGroupName($strGroupId); 
     		}
     		return '';
     	}

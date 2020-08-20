@@ -70,7 +70,8 @@ function _echoMyStockTransactions($acct, $ref)
 	
     $arGroup = array();
     $strStockId = $ref->GetStockId();
-	$sql = new StockGroupSql($strMemberId);
+//	$sql = new StockGroupSql($strMemberId);
+    $sql = $acct->GetGroupSql();
 	if ($result = $sql->GetAll()) 
 	{
 		while ($record = mysql_fetch_assoc($result)) 
@@ -93,11 +94,11 @@ function _echoMyStockTransactions($acct, $ref)
 	
 	if ($iCount == 1)
 	{
-	    StockEditTransactionForm(STOCK_TRANSACTION_NEW, $strGroupId, $strGroupItemId);
+	    StockEditTransactionForm($acct, STOCK_TRANSACTION_NEW, $strGroupId, $strGroupItemId);
 	}
 	else
 	{
-	    StockMergeTransactionForm($arGroup);
+	    StockMergeTransactionForm($acct, $arGroup);
 	}
 }
 

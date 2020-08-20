@@ -6,13 +6,33 @@ class StockAccount extends TitleAccount
 
     var $ref = false;		// MysqlReference class
 	
+    var $group_sql;
+    
     function StockAccount($strQueryItem = false, $arLoginTitle = false) 
     {
         parent::TitleAccount($strQueryItem, $arLoginTitle);
         
         $this->strName = StockGetSymbol($this->GetTitle());
+	    $this->group_sql = new StockGroupSql($this->GetLoginId());
     }
 
+    function GetGroupName($strGroupId)
+    {
+//    	DebugString('Trace GetGroupName');
+    	return $this->group_sql->GetVal($strGroupId);
+    }
+
+    function GetGroupMemberId($strGroupId)
+    {
+    	return $this->group_sql->GetKeyId($strGroupId);
+    }
+
+    function GetGroupSql()
+    {
+//    	DebugString('Trace GetGroupSql');
+    	return $this->group_sql;
+    }
+    
     function GetName()
     {
     	return $this->strName;
@@ -41,11 +61,11 @@ class StockAccount extends TitleAccount
     	return '';
     }
     
-    function _getPersonalLinks($strMemberId)
+    function _getPersonalLinks()
     {
     	$str = ' - ';
-    	$sql = new StockGroupSql($strMemberId);
-    	if ($result = $sql->GetAll()) 
+//    	$sql = new StockGroupSql($strMemberId);
+    	if ($result = $this->group_sql->GetAll()) 
     	{
     		while ($record = mysql_fetch_assoc($result)) 
     		{
@@ -78,7 +98,7 @@ class StockAccount extends TitleAccount
     	$str .= '<br />'.GetMyPortfolioLink();
     	if ($strLoginId)
     	{
-    		$str .= $this->_getPersonalLinks($strLoginId);
+    		$str .= $this->_getPersonalLinks();
     		if ($this->IsAdmin())
     		{
     			$str .= '<br />'.GetPhpLink(STOCK_PATH.'admintest', false, '超级功能测试');
@@ -94,7 +114,7 @@ class StockAccount extends TitleAccount
     {
     	if ($strGroupId == false)	return true;
     	
-    	return (SqlGetStockGroupMemberId($strGroupId) == $this->GetLoginId()) ? false : true;
+    	return ($this->GetGroupMemberId($strGroupId) == $this->GetLoginId()) ? false : true;
     }
     
     function EchoStockTransaction($group)
@@ -103,7 +123,7 @@ class StockAccount extends TitleAccount
     
     	if ($this->IsGroupReadOnly($strGroupId) == false)
     	{
-    		StockEditTransactionForm(STOCK_TRANSACTION_NEW, $strGroupId);
+    		StockEditTransactionForm($this, STOCK_TRANSACTION_NEW, $strGroupId);
     	}
     	
     	if ($group->GetTotalRecords() > 0)

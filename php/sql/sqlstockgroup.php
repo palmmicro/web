@@ -19,12 +19,6 @@ function SqlGetStockGroupName($strGroupId)
 	return $group_sql->GetVal($strGroupId);
 }
 
-function SqlGetStockGroupMemberId($strGroupId)
-{
-	$group_sql = new StockGroupSql();
-	return $group_sql->GetKeyId($strGroupId);
-}
-
 // ****************************** StockGroupTableSql class *******************************************************
 class StockGroupTableSql extends KeyTableSql
 {

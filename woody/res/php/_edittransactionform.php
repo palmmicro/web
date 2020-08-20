@@ -54,9 +54,9 @@ function _getPriceOptionJsArray($arPrice)
 	return HtmlGetJsArray($ar);
 }
 
-function _getGroupCommonPhrase($strGroupId)
+function _getGroupCommonPhrase($acct, $strGroupId)
 {
-    $strMemberId = SqlGetStockGroupMemberId($strGroupId);
+    $strMemberId = $acct->GetGroupMemberId($strGroupId);
    	$sql = new CommonPhraseSql($strMemberId);
     $ar = array();
 	if ($result = $sql->GetAll()) 
@@ -78,7 +78,7 @@ function _getFirstGroupItem($strGroupId)
 	return key($ar);
 }
 
-function StockEditTransactionForm($strSubmit, $strGroupId = false, $strGroupItemId = false)
+function StockEditTransactionForm($acct, $strSubmit, $strGroupId = false, $strGroupItemId = false)
 {
     $strType = '1';
     if ($strId = UrlGetQueryValue('edit'))
@@ -115,7 +115,7 @@ function StockEditTransactionForm($strSubmit, $strGroupId = false, $strGroupItem
    	$strPriceOption = HtmlGetOption(_getPriceOption($strSymbolIndex, $strPrice), $strPrice);
     
     $strRemarkLink = GetCommonPhraseLink();
-    $arCommonPhrase = _getGroupCommonPhrase($strGroupId);
+    $arCommonPhrase = _getGroupCommonPhrase($acct, $strGroupId);
     $strRemarkOption = HtmlGetOption($arCommonPhrase);
 	$strRemarkArray = HtmlGetJsArray($arCommonPhrase);    
     

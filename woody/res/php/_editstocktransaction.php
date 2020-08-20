@@ -3,7 +3,9 @@ require_once('_stock.php');
 
 function EchoAll()
 {
-	StockEditTransactionForm(STOCK_TRANSACTION_EDIT);
+	global $acct;
+    
+	StockEditTransactionForm($acct, STOCK_TRANSACTION_EDIT);
 }
 
 function EchoMetaDescription()
@@ -18,6 +20,6 @@ function EchoTitle()
     echo STOCK_TRANSACTION_EDIT;
 }
 
-   	$acct = new Account();
+   	$acct = new StockAccount();
 	$acct->Auth();
 ?>

@@ -19,7 +19,7 @@ function _getStocksString($strGroupId)
     return '';
 }
 
-function StockEditGroupForm($strSubmit)
+function StockEditGroupForm($acct, $strSubmit)
 {
     $strPassQuery = UrlPassQuery();
     $strGroupName = '';
@@ -30,7 +30,7 @@ function StockEditGroupForm($strSubmit)
     case STOCK_GROUP_EDIT:
         if ($strGroupId = UrlGetQueryValue('edit'))
         {
-            $strGroupName = SqlGetStockGroupName($strGroupId);
+            $strGroupName = $acct->GetGroupName($strGroupId);
             if (in_arrayAll($strGroupName) == false)     $strGroupNameDisabled = '0';
             $strStocks = _getStocksString($strGroupId);
         }

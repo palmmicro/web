@@ -69,7 +69,7 @@ class StockTransactionSql extends TableSql
     	return $this->InsertArray($this->_makePrivateFieldArray($strGroupItemId, $strQuantity, $strPrice, $strFees, $strRemark));
     }
 
-    function Update($strId, $strGroupItemId, $strQuantity, $strPrice, $strFees, $strRemark)
+    function Update($strId, $strGroupItemId, $strQuantity, $strPrice, $strFees, $strRemark = '')
     {
     	$ar = $this->_makePrivateFieldArray($strGroupItemId, $strQuantity, $strPrice, $strFees, $strRemark);
     	unset($ar['filled']);

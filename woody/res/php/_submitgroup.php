@@ -103,10 +103,11 @@ class _SubmitGroupAccount extends StockAccount
 		$strGroupId = UrlGetQueryValue('edit');
     	if ($this->IsGroupReadOnly($strGroupId))  return;
 
-    	$str = SqlGetStockGroupName($strGroupId);
+    	$str = $this->GetGroupName($strGroupId);
     	if (in_arrayAll($str))  $strGroupName = $str;
     
-    	$sql = new StockGroupSql($strLoginId);
+//    	$sql = new StockGroupSql($strLoginId);
+		$sql = $this->GetGroupSql();
     	if ($sql->Update($strGroupId, $strGroupName))
     	{
     		SqlUpdateStockGroup($strGroupId, _getStockIdArray($strSymbols));
@@ -116,7 +117,8 @@ class _SubmitGroupAccount extends StockAccount
     
     function _onNew($strLoginId, $strGroupName, $strSymbols)
     {
-    	$sql = new StockGroupSql($strLoginId);
+//    	$sql = new StockGroupSql($strLoginId);
+		$sql = $this->GetGroupSql();
     	$sql->Insert($strGroupName);
     	if ($strGroupId = $sql->GetId($strGroupName))
     	{

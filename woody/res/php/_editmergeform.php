@@ -2,13 +2,13 @@
 define('STOCK_TRANSACTION_MERGE', 'Merge Transaction');
 define('STOCK_TRANSACTION_MERGE_CN', '合并交易');
 
-function StockMergeTransactionForm($arGroup)
+function StockMergeTransactionForm($acct, $arGroup)
 {
     $arGroupName = array();
     $arGroupItemList = array();
 	foreach ($arGroup as $strGroupId => $strGroupItemId)
 	{
-	    $arGroupName[] = SqlGetStockGroupName($strGroupId);
+	    $arGroupName[] = $acct->GetGroupName($strGroupId);
 	    $arGroupItemList[] = EditGetStockGroupItemList($strGroupId, $strGroupItemId);
 	}
 	
