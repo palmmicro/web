@@ -10,7 +10,7 @@ class KeyPairSql extends KeyTableSql
 
     function Create()
     {
-    	$str = $this->ComposeIdStr().','
+    	$str = $this->ComposePrimaryIdStr().','
     		  . $this->ComposeKeyStr().','
          	  . $this->ComposeForeignKeyStr();
     	return $this->CreateTable($str);

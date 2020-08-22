@@ -18,28 +18,6 @@ function strstr_array($strHaystack, $arNeedle)
 	return false;
 }
 
-function IpInfoIpLookUp($strIp, $sql)
-{ 
-    if ($str = url_get_contents(_getIpInfoIpLookUpUrl($strIp)))
-    {
-    	DebugString($str);
-    	$ar = json_decode($str, true);
-    	if (isset($ar['hostname']))
-    	{
-    		if ($ar['hostname'] == 'No Hostname')		unset($ar['hostname']);
-    		else
-    		{
-    			if (strstr_array($ar['hostname'], array('bot', 'crawl', 'spider')))
-    			{
-					$sql->SetStatus(IP_STATUS_CRAWL, $strIp);
-				}
-			}
-    	}
-    	return $ar;
-    }
-    return false;
-}
-
 function _ipLookupMemberTable($strIp, $strNewLine, $bChinese)
 {
     $str = '';
@@ -55,62 +33,96 @@ function _ipLookupMemberTable($strIp, $strNewLine, $bChinese)
     return $str;
 }
 
-function _ipLookupBlogCommentTable($strIp, $page_sql, $strNewLine, $bChinese)
+class IpLookupAccount extends CommentAccount
 {
-    $strQuery = 'ip='.$strIp;
-    $strWhere = SqlWhereFromUrlQuery($strQuery);
-    $iTotal = SqlCountBlogComment($strWhere);
-    if ($iTotal == 0)   return '';
-        
-    $str = $strNewLine;
-	if ($result = SqlGetBlogComment($strWhere, 0, MAX_COMMENT_DISPLAY)) 
+/*	function IpLookupAccount($strQueryItem = false, $arLoginTitle = false) 
     {
-        while ($record = mysql_fetch_assoc($result)) 
-        {
-            $str .= $strNewLine.GetSingleCommentDescription($record, $strWhere, $page_sql, $bChinese);
-        }
-        @mysql_free_result($result);
-    }
-    $str .= $strNewLine.GetAllCommentLink($strQuery, $bChinese).$strNewLine;
-    return $str;
-}
+        parent::CommentAccount($strQueryItem, $arLoginTitle);
+    }*/
 
-function _ipLookupIpAddressTable($strIp, $sql, $visitor_sql, $strNewLine, $bChinese)
-{
-    $str = '';
-    if ($record = $sql->GetRecord($strIp))
-    {
-        $iVisit = intval($record['visit']);
-        $iVisit += $visitor_sql->CountBySrc($record['id']);
-        $str .= $strNewLine.($bChinese ? '普通网页总访问次数' : 'Total normal page visit').': '.strval($iVisit);
-        $str .= $strNewLine.($bChinese ? '总登录次数' : 'Total login').': '.$record['login'];
-        if ($record['status'] != IP_STATUS_NORMAL)
-        {
-        	$str .= $strNewLine.'<font color=green>'.($bChinese ? '已标注爬虫' : 'Marked crawler').'</font>';
-        }
-    }
-    return $str;
-}
-
-function IpLookupGetString($strIp, $sql, $visitor_sql, $page_sql, $strNewLine, $bChinese)
-{
-    $fStart = microtime(true);
-    $str = $strIp.' '.GetVisitorLink(false, $bChinese).$strNewLine.GetExternalLink(_getIpInfoIpLookUpUrl($strIp), 'ipinfo.io').': ';
-    if ($arInfo = IpInfoIpLookUp($strIp, $sql))
-    {
-    	if (isset($arInfo['error']) == false)
+    function _ipInfoLookUp($strIp)
+    { 
+    	if ($str = url_get_contents(_getIpInfoIpLookUpUrl($strIp)))
     	{
-    		$str .= $arInfo['country'].' '.$arInfo['region'].' '.$arInfo['city'].' ['.$arInfo['loc'].'] '.$arInfo['org'];
-    		if (isset($arInfo['postal']))	$str .= ' '.$arInfo['postal'];
-    		if (isset($arInfo['hostname']))	$str .= ' '.$arInfo['hostname'];
+    		DebugString($str);
+    		$ar = json_decode($str, true);
+    		if (isset($ar['hostname']))
+    		{
+    			if ($ar['hostname'] == 'No Hostname')		unset($ar['hostname']);
+    			else
+    			{
+    				if (strstr_array($ar['hostname'], array('bot', 'crawl', 'spider')))
+    				{
+    					$this->SetCrawler($strIp);
+    				}
+    			}
+    		}
+    		return $ar;
     	}
+    	return false;
     }
-    $str .= DebugGetStopWatchDisplay($fStart);
+
+    function _pageCommentLookup($strIp, $bChinese)
+    {
+		$sql = $this->GetIpSql();
+    	$strQuery = 'ip_id='.$sql->GetId($strIp);
+    	$strWhere = SqlWhereFromUrlQuery($strQuery);
+	    $iTotal = $this->CountComments($strWhere);
+	    if ($iTotal == 0)   return '';
+        
+	    $str = '<br />';
+		$comment_sql = $this->GetCommentSql();
+	    if ($result = $comment_sql->GetAll($strWhere, 0, MAX_COMMENT_DISPLAY)) 
+	    {
+	    	while ($record = mysql_fetch_assoc($result)) 
+	    	{
+	    		$str .= '<br />'.$this->GetCommentDescription($record, $strWhere, $bChinese);
+	    	}
+	    	@mysql_free_result($result);
+	    }
+	    $str .= '<br />'.strval($iTotal).' '.GetAllCommentLink($strQuery, $bChinese).'<br />';
+	    return $str;
+	}
+
+	function _visitorLookup($strIp, $bChinese)
+	{
+		$str = '';
+		$visitor_sql = $this->GetVisitorSql();
+		$sql = $this->GetIpSql();
+		if ($record = $sql->GetRecord($strIp))
+		{
+			$iVisit = intval($record['visit']);
+			$iVisit += $visitor_sql->CountBySrc($record['id']);
+			$str .= '<br />'.($bChinese ? '普通网页总访问次数' : 'Total normal page visit').': '.strval($iVisit);
+			$str .= '<br />'.($bChinese ? '总登录次数' : 'Total login').': '.$record['login'];
+			if ($record['status'] != IP_STATUS_NORMAL)
+			{
+				$str .= '<br /><font color=green>'.($bChinese ? '已标注爬虫' : 'Marked crawler').'</font>';
+			}
+		}
+		return $str;
+	}
+
+    function IpLookupString($strIp, $bChinese)
+    {
+    	$fStart = microtime(true);
+    	$str = $strIp.' '.GetVisitorLink(false, $bChinese).'<br />'.GetExternalLink(_getIpInfoIpLookUpUrl($strIp), 'ipinfo.io').': ';
+    	if ($arInfo = $this->_ipInfoLookUp($strIp))
+    	{
+    		if (isset($arInfo['error']) == false)
+    		{
+    			$str .= $arInfo['country'].' '.$arInfo['region'].' '.$arInfo['city'].' ['.$arInfo['loc'].'] '.$arInfo['org'];
+    			if (isset($arInfo['postal']))	$str .= ' '.$arInfo['postal'];
+    			if (isset($arInfo['hostname']))	$str .= ' '.$arInfo['hostname'];
+    		}
+    	}
+    	$str .= DebugGetStopWatchDisplay($fStart);
     
-    $str .= _ipLookupMemberTable($strIp, $strNewLine, $bChinese);        // Search member login
-    $str .= _ipLookupBlogCommentTable($strIp, $page_sql, $strNewLine, $bChinese);  // Search blog comment
-    $str .= _ipLookupIpAddressTable($strIp, $sql, $visitor_sql, $strNewLine, $bChinese);
-    return $str;
+    	$str .= _ipLookupMemberTable($strIp, '<br />', $bChinese);		// Search member login
+    	$str .= $this->_pageCommentLookup($strIp, $bChinese);  		// Search blog comment
+    	$str .= $this->_visitorLookup($strIp, $bChinese);
+    	return $str;
+    }
 }
 
 ?>

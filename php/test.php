@@ -60,7 +60,29 @@ function TestCmdLine()
 	
 	$acct = new Account();
 	TestCmdLine();
-	
+/*	
+	$ip_sql = $acct->GetIpSql();
+	$sql = new PageCommentSql();
+	if ($result = SqlGetBlogComment(false, 0, 0)) 
+	{
+		while ($record = mysql_fetch_assoc($result)) 
+		{
+			$strIp = $record['ip'];
+			if (filter_valid_ip($strIp))
+			{
+				if ($ip_sql->InsertIp($strIp))	DebugString('新IP: '.$strIp);
+				else	DebugString('老IP: '.$strIp);
+				
+				list($strDate, $strTime) = explode(' ', $record['modified']);
+				DebugString($strDate.' '.$strTime);
+				DebugString($record['comment']);
+				
+				$sql->InsertPageComment($record['blog_id'], $record['member_id'], $record['comment'], $ip_sql->GetId($strIp), $strDate, $strTime);
+			}
+		}
+		@mysql_free_result($result);
+	}
+*/	
 //	WriteForexDataFromFile();
 	phpinfo();
 ?>

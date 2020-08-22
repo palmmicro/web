@@ -9,17 +9,6 @@ require_once('/php/sql/sqlcommonphrase.php');
 require_once('/php/ui/editinputform.php');
 require_once('/php/ui/table.php');
 
-function _getIpString($strIp, $sql, $visitor_sql, $page_sql, $bChinese)
-{
-	if (filter_valid_ip($strIp) == false)	return $bChinese ? '无效IP地址' : 'Invalid IP Address';
-	
-	if ($sql->GetRecord($strIp) == false)
-	{
-		$sql->InsertIp($strIp);
-	}
-	return IpLookupGetString($strIp, $sql, $visitor_sql, $page_sql, '<br />', $bChinese);
-}
-
 function _getCommonPhraseString($strInput, $strMemberId, $bChinese)
 {
 	$sql = new CommonPhraseSql($strMemberId);
@@ -185,6 +174,7 @@ function EchoAll($bChinese = true)
 	
 	$strTitle = $acct->GetTitle();
 	$strMemberId = $acct->GetLoginId();
+	$sql = $acct->GetIpSql();
 	
     if (isset($_POST['submit']) && isset($_POST[EDIT_INPUT_NAME]))
 	{
@@ -214,7 +204,6 @@ function EchoAll($bChinese = true)
     		break;
     		
     	case TABLE_IP:
-    		$sql = $acct->GetIpSql();
     		$strInput = $sql->GetIp();
     		break;
     		
@@ -253,7 +242,15 @@ function EchoAll($bChinese = true)
     	break;
     		
     case TABLE_IP:
-    	$str = _getIpString($strInput, $acct->GetIpSql(), $acct->GetVisitorSql(), $acct->GetPageSql(), $bChinese);
+		if (filter_valid_ip($strInput))
+		{
+			$sql->InsertIp($strInput);
+			$str = $acct->IpLookupString($strInput, $bChinese);
+		}
+		else
+		{
+			$str = $bChinese ? '无效IP地址' : 'Invalid IP Address';
+		}
     	break;
     	
    	case 'linearregression':
@@ -337,6 +334,5 @@ function EchoTitle($bChinese = true)
   	echo $str;
 }
 
-	$acct = new TitleAccount(false, array(TABLE_COMMON_PHRASE, TABLE_IP));
-
+	$acct = new IpLookupAccount(false, array(TABLE_COMMON_PHRASE, TABLE_IP));
 ?>

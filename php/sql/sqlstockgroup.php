@@ -19,23 +19,14 @@ function SqlGetStockGroupName($strGroupId)
 	return $group_sql->GetVal($strGroupId);
 }
 
-// ****************************** StockGroupTableSql class *******************************************************
-class StockGroupTableSql extends KeyTableSql
-{
-    function StockGroupTableSql($strTableName, $strGroupId) 
-    {
-        parent::KeyTableSql($strTableName, $strGroupId, TABLE_STOCK_GROUP);
-    }
-}
-
 // ****************************** StockGroupItemSql class *******************************************************
-class StockGroupItemSql extends StockGroupTableSql
+class StockGroupItemSql extends KeyTableSql
 {
 	var $trans_sql;	// StockTransactionSql
 	
     function StockGroupItemSql($strGroupId = false) 
     {
-        parent::StockGroupTableSql(TABLE_STOCK_GROUP_ITEM, $strGroupId);
+        parent::KeyTableSql(TABLE_STOCK_GROUP_ITEM, $strGroupId, TABLE_STOCK_GROUP);
         $this->trans_sql = new StockTransactionSql();
     }
 

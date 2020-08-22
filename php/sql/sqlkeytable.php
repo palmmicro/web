@@ -3,41 +3,24 @@ require_once('sqlkeyname.php');
 
 class KeyTableSql extends TableSql
 {
-//	var $key_sql;
-	
 	var $strKey;
-	var $strKeyPrefix;
 	var $strKeyId;
 	
     function KeyTableSql($strTableName, $strKeyId, $strKeyPrefix) 
     {
-//    	$this->key_sql = new KeyNameSql($strKeyPrefix);
-    	
     	$this->strKeyId = $strKeyId;
-    	$this->strKeyPrefix = $strKeyPrefix;
-    	$this->strKey = $strKeyPrefix.'_id';
+    	$this->strKey = $this->Add_id($strKeyPrefix);
         parent::TableSql($strTableName);
     }
-/*    
-    function SetKeyVal($strVal)
-    {
-		$this->strKeyId = $this->key_sql->GetId($strVal);
-    }
-    
-    function GetKeySql()
-    {
-    	return $this->key_sql;
-    }*/
     
     function ComposeKeyStr()
     {
-    	return ' `'.$this->strKey.'` INT UNSIGNED NOT NULL ';
+    	return $this->ComposeIdStr($this->strKey);
     }
 
     function ComposeForeignKeyStr()
     {
-		return ' FOREIGN KEY (`'.$this->strKey.'`) REFERENCES `'.$this->strKeyPrefix.'`(`id`) ON DELETE CASCADE ';
-//		return ' FOREIGN KEY (`'.$this->strKey.'`) REFERENCES `'.$this->key_sql->GetTableName().'`(`id`) ON DELETE CASCADE ';
+		return $this->ComposeForeignStr($this->strKey);
     }
     
     function MakeFieldKeyId()

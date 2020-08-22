@@ -26,7 +26,7 @@ function _checkVisitor($sql, $page_sql, $visitor_sql, $strMemberId)
 		$iPageCount = $visitor_sql->CountUniqueDst($strId);
 		$strDebug = '访问次数: '.strval($iCount).'<br />不同页面数: '.strval($iPageCount).'<br />';
 		if ($strMemberId)								$strDebug .= 'logined!<br />';
-		if ($sql->GetStatus() == IP_STATUS_CRAWL)		$strDebug .= '已标注的老爬虫';
+		if ($sql->GetStatus() == IP_STATUS_CRAWLER)		$strDebug .= '已标注的老爬虫';
 		else
 		{
 			if ($iPageCount >= ($iCount / 100))
@@ -36,7 +36,7 @@ function _checkVisitor($sql, $page_sql, $visitor_sql, $strMemberId)
 			else
 			{
 				$strDebug .= '新标注爬虫';
-				$sql->SetStatus(IP_STATUS_CRAWL);
+				$sql->SetStatus(IP_STATUS_CRAWLER);
 			}
 		}
 		trigger_error($strDebug);
@@ -75,6 +75,11 @@ class Account
 	   			$this->strMemberId = SqlGetIdByEmail($strEmail);
 	   		}
 	   	}
+    }
+    
+    function SetCrawler($strIp)
+    {
+    	return $this->ip_sql->SetStatus(IP_STATUS_CRAWLER, $strIp);
     }
     
     function GetIpSql()

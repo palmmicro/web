@@ -12,14 +12,6 @@ class KeyNameSql extends TableSql
         $this->strKey = $strKey;
         $this->strKeyName = $strKeyName;
         parent::TableSql($strTableName);
-/*       
-    	$ar = $this->GetTableColumnName();
-//    	DebugArray($ar);
-    	if ($ar[1] != $strKeyName)
-    	{
-    		$this->strKeyName = $ar[1];
-//    		DebugString($this->strKeyName.' vs '.$strKeyName);
-    	}*/
     }
 
     function MakeKeyArray()
@@ -56,14 +48,21 @@ class KeyNameSql extends TableSql
     	}
     	return $b;
     }
-    
+/*    
     function Create()
     {
     	$str = ' `'.$this->strKeyName.'` TEXT CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL ,'
          	. ' FULLTEXT ( `'.$this->strKeyName.'` )';
         return $this->CreateKeyNameTable($str);
     }
-
+*/
+    function Create()
+    {
+    	$str = ' `'.$this->strKeyName.'` VARCHAR( 128 ) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL ,'
+         	  . ' UNIQUE ( `'.$this->strKeyName.'` )';
+        return $this->CreateKeyNameTable($str);
+    }
+    
     function GetKeyId()
     {
     	return $this->strKeyId;

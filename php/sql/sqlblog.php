@@ -1,5 +1,6 @@
 <?php
 require_once('sqlkeyname.php');
+require_once('sqlvisitor.php');
 
 /*
  CREATE TABLE `camman`.`blogcomment` (
@@ -27,21 +28,33 @@ class PageSql extends KeyNameSql
     {
         parent::KeyNameSql(TABLE_PAGE, 'uri', $strUri);
     }
+}
 
-    function Create()
+class PageCommentSql extends VisitorSql
+{
+    function PageCommentSql()
     {
-    	$str = ' `uri` VARCHAR( 128 ) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL ,'
-         	  . ' UNIQUE ( `uri` )';
-        return $this->CreateKeyNameTable($str);
+        parent::VisitorSql(TABLE_PAGE_COMMENT, TABLE_PAGE, TABLE_MEMBER);
+    }
+
+    public function GetExtraCreateStr()
+    {
+    	$str = '`comment` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,'
+    		 . $this->ComposeIdStr('ip_id').','
+    		 . 'INDEX ( `ip_id` ) ,';
+    	return $str;
+    }
+
+    function InsertPageComment($strPageId, $strMemberId, $strComment, $strIpId, $strDate = false, $strTime = false)
+    {
+    	$ar = $this->MakeVisitorInsertArray($strPageId, $strMemberId, $strDate, $strTime);
+    	$ar['comment'] = $strComment;
+    	$ar['ip_id'] = $strIpId;
+    	return $this->InsertArray($ar);
     }
 }
 
 // ****************************** Blog Comment table *******************************************************
-
-function SqlCountBlogComment($strWhere)
-{
-    return SqlCountTableData('blogcomment', $strWhere);
-}
 
 function SqlGetBlogComment($strWhere, $iStart, $iNum)
 {
@@ -75,11 +88,6 @@ function SqlEditBlogComment($blogcomment_id, $strComment)
 function SqlDeleteBlogCommentByMemberId($strMemberId)
 {
     return SqlDeleteTableData('blogcomment', _SqlBuildWhere_member($strMemberId));
-}
-
-function SqlDeleteBlogCommentByBlogId($strBlogId)
-{
-    return SqlDeleteTableData('blogcomment', _SqlBuildWhere('blog_id', $strBlogId));
 }
 
 ?>

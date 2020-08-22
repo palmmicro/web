@@ -111,18 +111,6 @@ function _echoAccountProfileChinese($member, $strName, $strPhone, $strAddress, $
 END;
 }
 
-function _echoAccountBlogComments($page_sql, $strMemberId, $bReadOnly, $bAdmin, $bChinese)
-{
-    $strQuery = 'member_id='.$strMemberId;
-    $strWhere = SqlWhereFromUrlQuery($strQuery);
-    $iTotal = SqlCountBlogComment($strWhere);
-    if ($iTotal == 0)   return;
-
-    $str = $bChinese ? '评论' : 'Comment';
-    EchoCommentLinkParagraph($str, $strQuery, $bChinese);
-    EchoCommentParagraphs($page_sql, $strMemberId, $bReadOnly, $bAdmin, $strWhere, 0, MAX_COMMENT_DISPLAY, $bChinese);    
-}
-
 function _echoAccountFundAmount($strMemberId, $bChinese)
 {
     $iTotal = SqlCountFundPurchase($strMemberId);
@@ -171,7 +159,7 @@ function EchoAll($bChinese = true)
 	    else    	        _echoAccountProfileEnglish($member, $strName, $strPhone, $strAddress, $strWeb, $strSignature);
 	}
 	
-	_echoAccountBlogComments($acct->GetPageSql(), $strMemberId, $bReadOnly, $acct->IsAdmin(), $bChinese);
+	$acct->_echoAccountBlogComments($strMemberId, $bChinese);
 	_echoAccountFundAmount($strMemberId, $bChinese);
 }                                                         
 
@@ -246,7 +234,7 @@ function _updateLoginEmail($strEmail)
 	return PROFILE_EMAIL_CHANGED;
 }
 
-class _ProfileAccount extends Account
+class _ProfileAccount extends CommentAccount
 {
 	var $strMsg = false;
 	
@@ -473,6 +461,19 @@ class _ProfileAccount extends Account
 				$this->Auth();
 			}
 		}
+	}
+
+	function _echoAccountBlogComments($strMemberId, $bChinese)
+	{
+		$strQuery = 'member_id='.$strMemberId;
+		$strWhere = SqlWhereFromUrlQuery($strQuery);
+		
+	    $iTotal = $this->CountComments($strWhere);
+		if ($iTotal == 0)   return;
+
+		$str = $bChinese ? '评论' : 'Comment';
+		EchoCommentLinkParagraph($str, $strQuery, $bChinese);
+		$this->EchoComments($strWhere, 0, MAX_COMMENT_DISPLAY, $bChinese);    
 	}
 }
 

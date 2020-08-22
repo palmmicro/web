@@ -6,43 +6,41 @@ class VisitorSql extends TableSql
 	var $strDst;
 	var $strSrc;
 	
-	var $strDstPrefix;
-	var $strSrcPrefix;
-	
     function VisitorSql($strTableName = TABLE_VISITOR, $strDstPrefix = TABLE_PAGE, $strSrcPrefix = TABLE_IP)
     {
-        $this->strDstPrefix = $strDstPrefix;
-        $this->strSrcPrefix = $strSrcPrefix;
-
-    	$this->strDst = $strDstPrefix.'_id';
-    	$this->strSrc = $strSrcPrefix.'_id';
-        
+    	$this->strDst = $this->Add_id($strDstPrefix);
+    	$this->strSrc = $this->Add_id($strSrcPrefix);
         parent::TableSql($strTableName);
     }
 
-    function GetExtraCreateStr()
+    public function GetExtraCreateStr()
     {
     	return '';
     }
     
     function Create()
     {
-    	$str = ' `'.$this->strDst.'` INT UNSIGNED NOT NULL ,'
-    		 . ' `'.$this->strSrc.'` INT UNSIGNED NOT NULL ,'
+    	$str = $this->ComposeIdStr($this->strDst).','
+    		 . $this->ComposeIdStr($this->strSrc).','
     		 . ' `date` DATE NOT NULL ,'
     		 . ' `time` TIME NOT NULL ,'
     		 . $this->GetExtraCreateStr()
-    		 . ' FOREIGN KEY (`'.$this->strDst.'`) REFERENCES `'.$this->strDstPrefix.'`(`id`) ON DELETE CASCADE ,'
-    		 . ' FOREIGN KEY (`'.$this->strSrc.'`) REFERENCES `'.$this->strSrcPrefix.'`(`id`) ON DELETE CASCADE ';
+    		 . $this->ComposeForeignStr($this->strDst).','
+    		 . $this->ComposeForeignStr($this->strSrc);
     	return $this->CreateIdTable($str);
     }
 
-    function InsertVisitor($strDstId, $strSrcId, $strDate = false, $strTime = false)
+    function MakeVisitorInsertArray($strDstId, $strSrcId, $strDate, $strTime)
     {
     	$ar = array($this->strDst => $strDstId, $this->strSrc => $strSrcId);
     	$ar['date'] = $strDate ? $strDate : DebugGetDate();
     	$ar['time'] = $strTime ? $strTime : DebugGetTime();
-    	return $this->InsertArray($ar);
+    	return $ar;
+    }
+    
+    function InsertVisitor($strDstId, $strSrcId, $strDate = false, $strTime = false)
+    {
+    	return $this->InsertArray($this->MakeVisitorInsertArray($strDstId, $strSrcId, $strDate, $strTime));
     }
 
     function _buildWhereBySrc($strSrcId)
@@ -50,9 +48,14 @@ class VisitorSql extends TableSql
     	return _SqlBuildWhere($this->strSrc, $strSrcId);
     }
     
+    public function GetAll($strWhere = false, $iStart = 0, $iNum = 0)
+    {
+    	return $this->GetData($strWhere, _SqlOrderByDateTime(), _SqlBuildLimit($iStart, $iNum));
+    }
+
     function GetDataBySrc($strSrcId, $iStart = 0, $iNum = 0)
     {
-    	return $this->GetData($this->_buildWhereBySrc($strSrcId), _SqlOrderByDateTime(), _SqlBuildLimit($iStart, $iNum));
+    	return $this->GetAll($this->_buildWhereBySrc($strSrcId), $iStart, $iNum);
     }
 
     function DeleteBySrc($strSrcId)
@@ -95,51 +98,4 @@ class VisitorSql extends TableSql
     }
 }
 
-// ****************************** Visitor tables *******************************************************
-/*
-function SqlCreateVisitorTable($strTableName)
-{
-    $str = 'CREATE TABLE IF NOT EXISTS `camman`.`'
-         . $strTableName
-         . '` ('
-         . ' `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,'
-         . ' `dst_id` INT UNSIGNED NOT NULL ,'
-         . ' `src_id` INT UNSIGNED NOT NULL ,'
-         . ' `date` DATE NOT NULL ,'
-         . ' `time` TIME NOT NULL ,'
-         . ' INDEX (`dst_id`) ,'
-         . ' INDEX (`src_id`)'
-         . ' ) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci '; 
-	return SqlDieByQuery($str, $strTableName.' create table failed');
-}
-
-function SqlInsertVisitor($strTableName, $strDstId, $strSrcId)
-{
-    if ($strDstId == false)    return false;
-    
-    $strDate = DebugGetDate();
-    $strTime = DebugGetTime();
-	$strQry = 'INSERT INTO '.$strTableName."(id, dst_id, src_id, date, time) VALUES('0', '$strDstId', '$strSrcId', '$strDate', '$strTime')";
-	return SqlDieByQuery($strQry, $strTableName.' insert visitor failed');
-}
-
-function SqlCountVisitor($strTableName, $strSrcId)
-{
-    return SqlCountTableData($strTableName, _SqlBuildWhere('src_id', $strSrcId));
-}
-
-function SqlGetVisitor($strTableName, $strSrcId, $iStart, $iNum)
-{
-    return SqlGetTableData($strTableName, _SqlBuildWhere('src_id', $strSrcId), _SqlOrderByDateTime(), _SqlBuildLimit($iStart, $iNum));
-}
-
-function SqlDeleteVisitor($strTableName, $strSrcId)
-{
-    if ($strSrcId)
-    {
-        return SqlDeleteTableData($strTableName, _SqlBuildWhere('src_id', $strSrcId));
-    }
-    return false;
-}
-*/
 ?>

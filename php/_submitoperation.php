@@ -10,12 +10,6 @@ class _AdminOperationAccount extends Account
 		EtfRefManualCalibration(new EtfReference($strSymbol));
 	}
 
-    function _onManualCrawl($strIp)
-    {
-    	$sql = $this->GetIpSql();
-    	$sql->SetStatus(IP_STATUS_CRAWL, $strIp);
-    }
-    
     function AdminProcess()
     {
     	if ($strSymbol = UrlGetQueryValue('calibration'))
@@ -24,7 +18,7 @@ class _AdminOperationAccount extends Account
     	}	
     	else if ($strIp = UrlGetQueryValue(TABLE_IP))
     	{
-    		$this->_onManualCrawl($strIp);
+    		$this->SetCrawler($strIp);
     	}
     }
 }

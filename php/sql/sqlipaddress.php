@@ -2,7 +2,7 @@
 require_once('sqltable.php');
 
 define('IP_STATUS_NORMAL', '0');
-define('IP_STATUS_CRAWL', '1');
+define('IP_STATUS_CRAWLER', '1');
 
 class IpSql extends TableSql
 {
@@ -14,10 +14,7 @@ class IpSql extends TableSql
         
         if ($this->strIp = (filter_valid_ip($strIp) ? $strIp : false))
         {
-        	if ($this->GetRecord($strIp) == false)
-        	{
-        		$this->InsertIp($strIp);
-        	}
+       		$this->InsertIp($strIp);
         }
     }
 
@@ -60,10 +57,13 @@ class IpSql extends TableSql
 
     function InsertIp($strIp)
     {
-		if ($strId = $this->GetId($strIp))
-		{
-			return $this->InsertArray(array_merge(array('id' => $strId), $this->_makeUpdateArray()));
-		}
+       	if ($this->GetRecord($strIp) == false)
+       	{
+       		if ($strId = $this->GetId($strIp))
+       		{
+       			return $this->InsertArray(array_merge(array('id' => $strId), $this->_makeUpdateArray()));
+       		}
+       	}
 		return false;
     }
     

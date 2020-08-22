@@ -86,7 +86,8 @@ function EchoAll($bChinese = true)
     $visitor_sql = $acct->GetVisitorSql();
     $page_sql = $acct->GetPageSql();
 
-    $strIp = UrlGetQueryValue('ip');
+//    $strIp = UrlGetQueryValue('ip');
+    $strIp = $acct->GetQuery();
 	if (filter_valid_ip($strIp) == false)
 	{
 		$strIp = false;
@@ -94,7 +95,7 @@ function EchoAll($bChinese = true)
 
     if ($strIp)
     {
-        $str = IpLookupGetString($strIp, $sql, $visitor_sql, $page_sql, '<br />', $bChinese);
+        $str = $acct->IpLookupString($strIp, $bChinese);
         $strId = $sql->GetId($strIp);
         $iPageCount = $visitor_sql->CountUniqueDst($strId);
         $str .= '<br />'.($bChinese ? '保存的不同页面数量' : 'Saved unique page number').': '.strval($iPageCount);
@@ -129,6 +130,6 @@ function EchoTitle($bChinese = true)
     echo $str;
 }
 
-   	$acct = new DataAccount();
+   	$acct = new IpLookupAccount(TABLE_IP);
    	$acct->Auth();		// restrict robot ip lookup
 ?>

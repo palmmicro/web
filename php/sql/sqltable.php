@@ -15,19 +15,34 @@ class TableSql
     	return $this->strName;
     }
     
-    function ComposeIdStr()
+    function Add_id($str)
     {
-    	return ' `id` INT UNSIGNED NOT NULL PRIMARY KEY';
+    	return $str.'_id';
+    }
+    
+    function ComposeForeignStr($str)
+    {
+		return ' FOREIGN KEY (`'.$str.'`) REFERENCES `'.rtrim($str, '_id').'`(`id`) ON DELETE CASCADE ';
+    }
+    
+    function ComposeIdStr($str = 'id')
+    {
+    	return ' `'.$str.'` INT UNSIGNED NOT NULL ';
+    }
+
+    function ComposePrimaryIdStr()
+    {
+    	return $this->ComposeIdStr().'PRIMARY KEY';
     }
 
     function Create()
     {
-    	return $this->CreateTable($this->ComposeIdStr());
+    	return $this->CreateTable($this->ComposePrimaryIdStr());
     }
     
     function CreateIdTable($str)
     {
-       	return $this->CreateTable(' `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,'.$str);
+       	return $this->CreateTable($this->ComposeIdStr().'AUTO_INCREMENT PRIMARY KEY ,'.$str);
     }
 
     function _query($strQuery, $strDie)

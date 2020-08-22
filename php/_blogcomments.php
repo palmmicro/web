@@ -4,13 +4,17 @@ require_once('layout.php');
 require_once('ui/commentparagraph.php');
 require_once('/account/php/_editcommentform.php');
 
-function _echoPreviousComments($page_sql, $strMemberId, $bReadOnly, $bAdmin, $bChinese)
+function EchoBlogComments($bChinese = true)
 {
+    global $acct;
+    
+	$page_sql = $acct->GetPageSql();
 	$strBlogId = $page_sql->GetKeyId();
 	
-    $strQuery = 'blog_id='.$strBlogId;
+    $strQuery = 'page_id='.$strBlogId;
     $strWhere = SqlWhereFromUrlQuery($strQuery);
-    $iTotal = SqlCountBlogComment($strWhere);
+    
+    $iTotal = $acct->CountComments($strWhere);
     if ($iTotal == 0)
     {
 	    $str = $bChinese ? '本页面尚无任何评论.' : 'No comments for this page yet.';
@@ -18,21 +22,15 @@ function _echoPreviousComments($page_sql, $strMemberId, $bReadOnly, $bAdmin, $bC
     else
     {
 		$str = $bChinese ? '本页面评论' : ' Comments for this page';
+		$str .= ' '.strval($iTotal);
     }
 	
 	echo '<div>';
     EchoCommentLinkParagraph($str, $strQuery, $bChinese);
-    if ($iTotal > 0)    EchoCommentParagraphs($page_sql, $strMemberId, $bReadOnly, $bAdmin, $strWhere, 0, MAX_COMMENT_DISPLAY, $bChinese);    
+    if ($iTotal > 0)    $acct->EchoComments($strWhere, 0, MAX_COMMENT_DISPLAY, $bChinese);    
     echo '</div>';
-}
 
-function EchoBlogComments($bChinese = true)
-{
-    global $acct;
-    
-    $strMemberId = $acct->GetLoginId();
-	_echoPreviousComments($acct->GetPageSql(), $strMemberId, $acct->IsReadOnly(), $acct->IsAdmin(), $bChinese);
-	if ($strMemberId) 
+	if ($strMemberId = $acct->GetLoginId()) 
 	{
         EditCommentForm(($bChinese ? BLOG_COMMENT_NEW_CN : BLOG_COMMENT_NEW), $strMemberId);
     }

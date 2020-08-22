@@ -6,12 +6,10 @@ function EchoAll($bChinese = true)
 {
     global $acct;
     
-    $strMemberId = $acct->GetLoginId();
-    $page_sql = $acct->GetPageSql();
-    
-    if ($str = UrlGetQueryValue('blog_id'))
+    if ($str = UrlGetQueryValue('page_id'))
     {
-        $strQuery = 'blog_id='.$str;
+        $strQuery = 'page_id='.$str;
+        $page_sql = $acct->GetPageSql();
         $strLink = GetBlogLink($page_sql, $str);
     }
     else if ($str = UrlGetQueryValue('member_id'))
@@ -19,10 +17,11 @@ function EchoAll($bChinese = true)
         $strQuery = 'member_id='.$str;
         $strLink = GetMemberLink($str, $bChinese);
     }
-    else if ($str = UrlGetQueryValue('ip'))
+    else if ($str = UrlGetQueryValue('ip_id'))
     {
-        $strQuery = 'ip='.$str;
-        $strLink = GetIpLink($str, $bChinese);
+        $strQuery = 'ip_id='.$str;
+        $ip_sql = $acct->GetIpSql();
+        $strLink = GetIpLink($ip_sql->GetIp($str), $bChinese);
     }
     else
     {
@@ -31,13 +30,13 @@ function EchoAll($bChinese = true)
     }
 
     $strWhere = SqlWhereFromUrlQuery($strQuery);
-    $iTotal = SqlCountBlogComment($strWhere);
+    $iTotal = $acct->CountComments($strWhere);
     $iStart = $acct->GetStart();
     $iNum = $acct->GetNum();
     $strNavLink = GetNavLink($strQuery, $iTotal, $iStart, $iNum, $bChinese);
     
     EchoParagraph($strLink.' '.$strNavLink);
-    EchoCommentParagraphs($page_sql, $strMemberId, $acct->IsReadOnly(), $acct->IsAdmin(), $strWhere, $iStart, $iNum, $bChinese);
+    $acct->EchoComments($strWhere, $iStart, $iNum, $bChinese);
     EchoParagraph($strNavLink);
 }
 
@@ -60,5 +59,5 @@ function EchoTitle($bChinese = true)
     echo $str;
 }
 
-   	$acct = new DataAccount();
+   	$acct = new CommentAccount();
 ?>

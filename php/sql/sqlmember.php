@@ -126,15 +126,6 @@ function SqlUpdateStatus($strId, $iNewStatus)
 }
 
 
-// ****************************** MemberTableSql class *******************************************************
-class MemberTableSql extends KeyTableSql
-{
-    function MemberTableSql($strMemberId, $strTableName) 
-    {
-        parent::KeyTableSql($strTableName, $strMemberId, TABLE_MEMBER);
-    }
-}
-
 // ****************************** Profile table *******************************************************
 
 function SqlGetProfileByMemberId($strMemberId)

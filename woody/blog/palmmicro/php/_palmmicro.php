@@ -2,5 +2,5 @@
 define ("BLOG_GROUP", "palmmicro");
 require_once('/woody/blog/php/_blog.php');
 
-   	$acct = new Account();
+   	$acct = new CommentAccount();
 ?>
