@@ -10,7 +10,8 @@ function _getEditCommentSubmit($bChinese)
 function EchoAll($bChinese = true)
 {
     global $acct;
-    EditCommentForm(_getEditCommentSubmit($bChinese), $acct->GetLoginId());
+    
+    $acct->EditCommentForm(_getEditCommentSubmit($bChinese));
 }
 
 function EchoMetaDescription($bChinese = true)
@@ -33,7 +34,5 @@ function EchoTitle($bChinese = true)
     echo $str;
 }
 
-   	$acct = new Account();
-	$acct->Auth();
+   	$acct = new EditCommentAccount();
 ?>
-

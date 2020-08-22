@@ -26,15 +26,24 @@ class VisitorSql extends TableSql
     		 . ' `time` TIME NOT NULL ,'
     		 . $this->GetExtraCreateStr()
     		 . $this->ComposeForeignStr($this->strDst).','
-    		 . $this->ComposeForeignStr($this->strSrc);
+    		 . $this->ComposeForeignStr($this->strSrc).','
+    		 . _SqlComposeDateTimeIndex();
     	return $this->CreateIdTable($str);
     }
 
-    function MakeVisitorInsertArray($strDstId, $strSrcId, $strDate, $strTime)
+    function MakeDateTimeArray($strDate = false, $strTime = false)
     {
-    	$ar = array($this->strDst => $strDstId, $this->strSrc => $strSrcId);
+    	$ar = array();
     	$ar['date'] = $strDate ? $strDate : DebugGetDate();
     	$ar['time'] = $strTime ? $strTime : DebugGetTime();
+    	return $ar;
+    }
+    
+    function MakeVisitorInsertArray($strDstId, $strSrcId, $strDate, $strTime)
+    {
+    	$ar = $this->MakeDateTimeArray($strDate, $strTime);
+    	$ar[$this->strDst] = $strDstId;
+    	$ar[$this->strSrc] = $strSrcId;
     	return $ar;
     }
     
@@ -48,6 +57,11 @@ class VisitorSql extends TableSql
     	return _SqlBuildWhere($this->strSrc, $strSrcId);
     }
     
+    function _buildWhereByDst($strDstId)
+    {
+    	return _SqlBuildWhere($this->strDst, $strDstId);
+    }
+    
     public function GetAll($strWhere = false, $iStart = 0, $iNum = 0)
     {
     	return $this->GetData($strWhere, _SqlOrderByDateTime(), _SqlBuildLimit($iStart, $iNum));
@@ -56,6 +70,11 @@ class VisitorSql extends TableSql
     function GetDataBySrc($strSrcId, $iStart = 0, $iNum = 0)
     {
     	return $this->GetAll($this->_buildWhereBySrc($strSrcId), $iStart, $iNum);
+    }
+
+    function GetDataByDst($strDstId, $iStart = 0, $iNum = 0)
+    {
+    	return $this->GetAll($this->_buildWhereByDst($strDstId), $iStart, $iNum);
     }
 
     function DeleteBySrc($strSrcId)

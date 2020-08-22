@@ -130,6 +130,5 @@ function EchoTitle($bChinese = true)
     echo $str;
 }
 
-   	$acct = new IpLookupAccount(TABLE_IP);
-   	$acct->Auth();		// restrict robot ip lookup
+   	$acct = new IpLookupAccount(TABLE_IP, true);	// Auth to  restrict robot ip lookup
 ?>

@@ -2,7 +2,7 @@
 require_once('/php/account.php');
 require_once('_editcommentform.php');
 
-function _emailBlogComment($page_sql, $strId, $strBlogId, $strSubject, $strComment)
+function _emailBlogComment($page_sql, $comment_sql, $strId, $strBlogId, $strSubject, $strComment)
 {
 	// build email contents
 	$str = SqlGetEmailById($strId);
@@ -12,7 +12,7 @@ function _emailBlogComment($page_sql, $strId, $strBlogId, $strSubject, $strComme
 	// build mailing list
 	$arEmails = array();				                                                    // Array to store emails addresses to send to
 	$arEmails[] = UrlGetEmail('support');					                                // always send to support@domain.com
-	if ($result = SqlGetBlogCommentByBlogId($strBlogId)) 
+	if ($result = $comment_sql->GetDataByDst($strBlogId)) 
 	{
 		while ($record = mysql_fetch_assoc($result)) 
 		{
@@ -44,90 +44,102 @@ function _emailBlogComment($page_sql, $strId, $strBlogId, $strSubject, $strComme
 	}	
 }
 
-function _canModifyComment($strId, $strMemberId)
+class _SubmitCommentAccount extends EditCommentAccount
 {
-    $record = SqlGetBlogCommentById($strId);
-    if ($record['member_id'] == $strMemberId)	return true;    // I posted the comment
-    
-    return false;
-}
+	function _SubmitCommentAccount() 
+    {
+        parent::EditCommentAccount();
+    }
 
-function _onDelete($strId, $strMemberId)
-{
-	if (_canModifyComment($strId, $strMemberId))
+    function _canModifyComment($strId, $comment_sql)
+    {
+    	if ($record = $comment_sql->GetRecordById($strId))
+    	{
+    		if ($this->CanModifyComment($record))	return $record;
+    	}
+    	return false;
+    }
+
+	function _onDelete($strId, $strMemberId)
 	{
-	    if (SqlDeleteTableDataById('blogcomment', $strId))
-	    {
-	        SqlChangeActivity($strMemberId, -1);
+		$comment_sql = $this->GetCommentSql();
+		if ($this->_canModifyComment($strId, $comment_sql))
+		{
+			if ($comment_sql->DeleteById($strId))
+	    	{
+	    		SqlChangeActivity($strMemberId, -1);
+	    	}
 	    }
 	}
-}
 
-function _onEdit($sql, $strId, $strMemberId, $strComment)
-{
-    if ($strComment != '')
-    {
-        if (_canModifyComment($strId, $strMemberId))
-    	{
-    	    if (SqlEditBlogComment($strId, $strComment))
-    	    {
-    	        $record = SqlGetBlogCommentById($strId);
-    	        _emailBlogComment($sql, $strMemberId, $record['blog_id'], $_POST['submit'], $_POST['comment']);
-    	    }
-    	}
-	}
-	else
-	{	// delete when empty
-	    _onDelete($strId, $strMemberId);
-	}
-}
-
-function _onNew($sql, $strMemberId, $strComment)
-{
-    $strUri = SwitchGetSess();
-//	$sql = new PageSql();
-	if ($strBlogId = $sql->GetId($strUri))
+	function _onEdit($strId, $strMemberId, $strComment)
 	{
 		if ($strComment != '')
 		{
-			if (SqlInsertBlogComment($strMemberId, $strBlogId, $strComment))
+			$comment_sql = $this->GetCommentSql();
+			if ($record = $this->_canModifyComment($strId, $comment_sql))
 			{
-				SqlChangeActivity($strMemberId, 1);
-				_emailBlogComment($sql, $strMemberId, $strBlogId, $_POST['submit'], $_POST['comment']);
+				$sql = $this->GetPageSql();
+				if ($comment_sql->UpdatePageComment($strId, $strComment, $this->GetIpId()))
+				{
+					_emailBlogComment($sql, $comment_sql, $strMemberId, $record['page_id'], $_POST['submit'], $_POST['comment']);
+				}
+			}
+		}
+		else
+		{	// delete when empty
+			$this->_onDelete($strId, $strMemberId);
+		}
+	}
+
+	function _onNew($strMemberId, $strComment)
+	{
+		if ($strComment != '')
+		{
+			$strUri = SwitchGetSess();
+//			$sql = new PageSql();
+			$sql = $this->GetPageSql();
+			if ($strBlogId = $sql->GetId($strUri))
+			{
+				$comment_sql = $this->GetCommentSql();
+				if ($comment_sql->InsertPageComment($strBlogId, $strMemberId, $strComment, $this->GetIpId()))
+				{
+					SqlChangeActivity($strMemberId, 1);
+					_emailBlogComment($sql, $comment_sql, $strMemberId, $strBlogId, $_POST['submit'], $_POST['comment']);
+				}
 			}
 		}
 	}
-}
-
-   	$acct = new Account();
-	if ($strMemberId = $acct->GetLoginId())
-	{
+	
+    public function Process($strLoginId)
+    {
 		if ($strId = UrlGetQueryValue('delete'))
 		{
-			_onDelete($strId, $strMemberId);
+			$this->_onDelete($strId, $strLoginId);
 		}
 		else if (isset($_POST['submit']))
 		{
-			$page_sql = $acct->GetPageSql();
 			$strComment = SqlCleanString($_POST['comment']);
 			switch ($_POST['submit'])
 			{
 			case BLOG_COMMENT_NEW:
 			case BLOG_COMMENT_NEW_CN:
-				_onNew($page_sql, $strMemberId, $strComment);
+				$this->_onNew($strLoginId, $strComment);
 				break;
 
 			case BLOG_COMMENT_EDIT:
 			case BLOG_COMMENT_EDIT_CN:
-				if ($strId = UrlGetQueryValue('edit'))
+				if ($strId = $this->GetQuery())
 				{
-					_onEdit($page_sql, $strId, $strMemberId, $strComment);
+					$this->_onEdit($strId, $strLoginId, $strComment);
 				}
 				break;
 			}
 			unset($_POST['submit']);
 		}
-	}
+    }
+}
 
-	$acct->Back();
+   	$acct = new _SubmitCommentAccount();
+   	$acct->Run();
 ?>

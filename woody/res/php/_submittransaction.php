@@ -184,7 +184,7 @@ class _SubmitTransactionAccount extends StockAccount
     	}
     }
     
-    function Process($strLoginId)
+    public function Process($strLoginId)
     {
     	$strGroupId = false;
     	$strGroupItemId = false;

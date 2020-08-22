@@ -1,7 +1,6 @@
 <?php
 //require_once('account.php');
 require_once('layout.php');
-require_once('ui/commentparagraph.php');
 require_once('/account/php/_editcommentform.php');
 
 function EchoBlogComments($bChinese = true)
@@ -30,11 +29,10 @@ function EchoBlogComments($bChinese = true)
     if ($iTotal > 0)    $acct->EchoComments($strWhere, 0, MAX_COMMENT_DISPLAY, $bChinese);    
     echo '</div>';
 
-	if ($strMemberId = $acct->GetLoginId()) 
+	if ($acct->GetLoginId()) 
 	{
-        EditCommentForm(($bChinese ? BLOG_COMMENT_NEW_CN : BLOG_COMMENT_NEW), $strMemberId);
+        $acct->EditCommentForm($bChinese ? BLOG_COMMENT_NEW_CN : BLOG_COMMENT_NEW);
     }
 }
-
 
 ?>

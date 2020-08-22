@@ -132,7 +132,7 @@ class _SubmitGroupAccount extends StockAccount
     	_debugStockGroup($strGroupId, $strSymbols);
     }
     
-    function Process($strLoginId)
+    public function Process($strLoginId)
     {
 		if ($strGroupId = UrlGetQueryValue('delete'))
 		{

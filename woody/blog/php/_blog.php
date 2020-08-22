@@ -43,5 +43,4 @@ function _LayoutBottom($bChinese = true)
     LayoutTailLogin($bChinese);
 }
 
-
 ?>

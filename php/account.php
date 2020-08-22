@@ -82,6 +82,11 @@ class Account
     	return $this->ip_sql->SetStatus(IP_STATUS_CRAWLER, $strIp);
     }
     
+    function GetIpId($strIp = false)
+    {
+    	return $this->ip_sql->GetId($strIp);
+    }
+    
     function GetIpSql()
     {
     	return $this->ip_sql;
@@ -221,7 +226,7 @@ class Account
     	$this->Back();
     }
 
-    function Process($strLoginId)
+    public function Process($strLoginId)
     {
     	DebugString('Empty Process');
     }
@@ -287,7 +292,7 @@ class TitleAccount extends DataAccount
     	$this->strTitle = UrlGetTitle();
     	if ($arLoginTitle)
     	{
-    		if (in_array($this->strTitle, $arLoginTitle))
+    		if (($arLoginTitle === true) || in_array($this->strTitle, $arLoginTitle))
     		{
     			$this->Auth();
     		}

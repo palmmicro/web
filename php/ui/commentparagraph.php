@@ -53,20 +53,28 @@ class CommentAccount extends TitleAccount
 		return "$strAuthor $strTimeLink $strIp";
 	}
 
+	function CanModifyComment($record)
+	{
+		if ($record['member_id'] == $this->GetLoginId())
+		{	// I posted the comment
+			return true;
+		}
+		return false;
+	}
+	
     function _echoSingleComment($record, $strWhere, $bChinese)
     {
     	$strEdit = '';
     	$strDelete = '';
     	if ($this->IsReadOnly() == false)
     	{
-    		$strMemberId = $this->GetLoginId();
-    		if ($record['member_id'] == $strMemberId)
-    		{	// I posted the comment
+    		if ($bCanModify = $this->CanModifyComment($record))
+    		{
     			$strEdit = GetEditLink('/account/editcomment', $record['id'], $bChinese);
     		}
 
     		// <a href="delete.page" onclick="return confirm('Are you sure you want to delete?')">Delete</a> 
-    		if ($this->IsAdmin() || $record['member_id'] == $strMemberId)
+    		if ($this->IsAdmin() || $bCanModify)
     		{
     			$strDelete = GetDeleteLink('/account/php/_submitcomment.php?delete='.$record['id'], '评论', 'comment', $bChinese);
     		}

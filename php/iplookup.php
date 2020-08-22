@@ -35,11 +35,6 @@ function _ipLookupMemberTable($strIp, $strNewLine, $bChinese)
 
 class IpLookupAccount extends CommentAccount
 {
-/*	function IpLookupAccount($strQueryItem = false, $arLoginTitle = false) 
-    {
-        parent::CommentAccount($strQueryItem, $arLoginTitle);
-    }*/
-
     function _ipInfoLookUp($strIp)
     { 
     	if ($str = url_get_contents(_getIpInfoIpLookUpUrl($strIp)))

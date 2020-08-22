@@ -37,7 +37,7 @@ class IpSql extends TableSql
     	return $this->strIp;
     }
     
-    function GetId($strVal = false, $callback = 'GetRecord')
+    public function GetId($strVal = false, $callback = 'GetRecord')
     {
     	$strIp = $strVal ? $strVal : $this->strIp;
    		return sprintf("%u", ip2long($strIp));

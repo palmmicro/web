@@ -86,6 +86,11 @@ function _SqlBuildLimit($iStart, $iNum)
     return false;    
 }
 
+function _SqlComposeDateTimeIndex()
+{
+	return ' INDEX ( `date`, `time` )';
+}
+
 function _SqlOrderByDateTime()
 {
     return '`date` DESC, `time` DESC';
