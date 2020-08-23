@@ -24,6 +24,27 @@ class CommentAccount extends TitleAccount
     	return $this->comment_sql;
     }
     
+    function BuildWhereByMember($strMemberId)
+    {
+    	return $this->comment_sql->BuildWhereBySrc($strMemberId);
+    }
+    
+    function BuildWhereByPage($strPageId)
+    {
+    	return $this->comment_sql->BuildWhereByDst($strPageId);
+    }
+    
+    function BuildWhereByIp($strIp)
+    {
+        $ip_sql = $this->GetIpSql();
+    	return $this->comment_sql->BuildWhereByIp($ip_sql->GetId($strIp));
+    }
+    
+	function CountComments($strWhere)
+    {
+		return $this->comment_sql->CountData($strWhere);
+	}
+	
     function GetCommentDescription($record, $strWhere, $bChinese)
     {
     	$strTime = $record['date'].' '.$record['time'];
@@ -66,8 +87,8 @@ class CommentAccount extends TitleAccount
     {
     	$strEdit = '';
     	$strDelete = '';
-    	if ($this->IsReadOnly() == false)
-    	{
+//    	if ($this->IsReadOnly() == false)
+//    	{
     		if ($bCanModify = $this->CanModifyComment($record))
     		{
     			$strEdit = GetEditLink('/account/editcomment', $record['id'], $bChinese);
@@ -78,7 +99,7 @@ class CommentAccount extends TitleAccount
     		{
     			$strDelete = GetDeleteLink('/account/php/_submitcomment.php?delete='.$record['id'], '评论', 'comment', $bChinese);
     		}
-    	}
+//    	}
 
     	$strDescription = $this->GetCommentDescription($record, $strWhere, $bChinese);
     	$strComment = nl2br($record['comment']);
@@ -105,11 +126,6 @@ END;
     		@mysql_free_result($result);
     	}
     }
-
-	function CountComments($strWhere)
-    {
-		return $this->comment_sql->CountData($strWhere);
-	}
 }
 
 ?>

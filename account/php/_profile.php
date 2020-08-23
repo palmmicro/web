@@ -465,8 +465,9 @@ class _ProfileAccount extends CommentAccount
 
 	function _echoAccountBlogComments($strMemberId, $bChinese)
 	{
-		$strQuery = 'member_id='.$strMemberId;
-		$strWhere = SqlWhereFromUrlQuery($strQuery);
+//		$strQuery = 'member_id='.$strMemberId;
+        $strQuery = 'email='.SqlGetEmailById($strMemberId);
+    	$strWhere = $this->BuildWhereByMember($strMemberId);
 		
 	    $iTotal = $this->CountComments($strWhere);
 		if ($iTotal == 0)   return;

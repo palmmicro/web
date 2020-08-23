@@ -3,13 +3,13 @@ require_once('sqltable.php');
 
 class VisitorSql extends TableSql
 {
-	var $strDst;
-	var $strSrc;
+	var $strDstKey;
+	var $strSrcKey;
 	
     function VisitorSql($strTableName = TABLE_VISITOR, $strDstPrefix = TABLE_PAGE, $strSrcPrefix = TABLE_IP)
     {
-    	$this->strDst = $this->Add_id($strDstPrefix);
-    	$this->strSrc = $this->Add_id($strSrcPrefix);
+    	$this->strDstKey = $this->Add_id($strDstPrefix);
+    	$this->strSrcKey = $this->Add_id($strSrcPrefix);
         parent::TableSql($strTableName);
     }
 
@@ -20,13 +20,13 @@ class VisitorSql extends TableSql
     
     function Create()
     {
-    	$str = $this->ComposeIdStr($this->strDst).','
-    		 . $this->ComposeIdStr($this->strSrc).','
+    	$str = $this->ComposeIdStr($this->strDstKey).','
+    		 . $this->ComposeIdStr($this->strSrcKey).','
     		 . ' `date` DATE NOT NULL ,'
     		 . ' `time` TIME NOT NULL ,'
     		 . $this->GetExtraCreateStr()
-    		 . $this->ComposeForeignStr($this->strDst).','
-    		 . $this->ComposeForeignStr($this->strSrc).','
+    		 . $this->ComposeForeignStr($this->strDstKey).','
+    		 . $this->ComposeForeignStr($this->strSrcKey).','
     		 . _SqlComposeDateTimeIndex();
     	return $this->CreateIdTable($str);
     }
@@ -42,8 +42,8 @@ class VisitorSql extends TableSql
     function MakeVisitorInsertArray($strDstId, $strSrcId, $strDate, $strTime)
     {
     	$ar = $this->MakeDateTimeArray($strDate, $strTime);
-    	$ar[$this->strDst] = $strDstId;
-    	$ar[$this->strSrc] = $strSrcId;
+    	$ar[$this->strDstKey] = $strDstId;
+    	$ar[$this->strSrcKey] = $strSrcId;
     	return $ar;
     }
     
@@ -52,14 +52,14 @@ class VisitorSql extends TableSql
     	return $this->InsertArray($this->MakeVisitorInsertArray($strDstId, $strSrcId, $strDate, $strTime));
     }
 
-    function _buildWhereBySrc($strSrcId)
+    function BuildWhereBySrc($strSrcId)
     {
-    	return _SqlBuildWhere($this->strSrc, $strSrcId);
+    	return _SqlBuildWhere($this->strSrcKey, $strSrcId);
     }
     
-    function _buildWhereByDst($strDstId)
+    function BuildWhereByDst($strDstId)
     {
-    	return _SqlBuildWhere($this->strDst, $strDstId);
+    	return _SqlBuildWhere($this->strDstKey, $strDstId);
     }
     
     public function GetAll($strWhere = false, $iStart = 0, $iNum = 0)
@@ -69,26 +69,26 @@ class VisitorSql extends TableSql
 
     function GetDataBySrc($strSrcId, $iStart = 0, $iNum = 0)
     {
-    	return $this->GetAll($this->_buildWhereBySrc($strSrcId), $iStart, $iNum);
+    	return $this->GetAll($this->BuildWhereBySrc($strSrcId), $iStart, $iNum);
     }
 
     function GetDataByDst($strDstId, $iStart = 0, $iNum = 0)
     {
-    	return $this->GetAll($this->_buildWhereByDst($strDstId), $iStart, $iNum);
+    	return $this->GetAll($this->BuildWhereByDst($strDstId), $iStart, $iNum);
     }
 
     function DeleteBySrc($strSrcId)
     {
     	if ($strSrcId)
     	{
-    		return $this->DeleteRecord($this->_buildWhereBySrc($strSrcId));
+    		return $this->DeleteRecord($this->BuildWhereBySrc($strSrcId));
     	}
     	return false;
     }
     
     function CountBySrc($strSrcId)
     {
-    	return $this->CountData($this->_buildWhereBySrc($strSrcId));
+    	return $this->CountData($this->BuildWhereBySrc($strSrcId));
     }
 
     function CountByDate($strDate)
@@ -108,7 +108,7 @@ class VisitorSql extends TableSql
     	{
     		while ($record = mysql_fetch_assoc($result)) 
     		{
-    			$ar[] = $record[$this->strDst];
+    			$ar[] = $record[$this->strDstKey];
     		}
     		@mysql_free_result($result);
     	}

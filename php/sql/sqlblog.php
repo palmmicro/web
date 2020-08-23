@@ -12,34 +12,46 @@ class PageSql extends KeyNameSql
 
 class PageCommentSql extends VisitorSql
 {
+	var $strIpKey;
+	
     function PageCommentSql()
     {
+    	$this->strIpKey = $this->Add_id(TABLE_IP);
         parent::VisitorSql(TABLE_PAGE_COMMENT, TABLE_PAGE, TABLE_MEMBER);
     }
 
     public function GetExtraCreateStr()
     {
     	$str = '`comment` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,'
-    		 . $this->ComposeIdStr('ip_id').','
-    		 . 'INDEX ( `ip_id` ) ,';
+    		 . $this->ComposeIdStr($this->strIpKey).','
+    		 . $this->ComposeForeignStr($this->strIpKey).',';
     	return $str;
     }
 
+    function _addCommentArray(&$ar, $strComment, $strIpId)
+    {
+    	$ar['comment'] = $strComment;
+    	$ar[$this->strIpKey] = $strIpId;
+    }
+    
     function InsertPageComment($strPageId, $strMemberId, $strComment, $strIpId, $strDate = false, $strTime = false)
     {
     	$ar = $this->MakeVisitorInsertArray($strPageId, $strMemberId, $strDate, $strTime);
-    	$ar['comment'] = $strComment;
-    	$ar['ip_id'] = $strIpId;
+    	$this->_addCommentArray(&$ar, $strComment, $strIpId);
     	return $this->InsertArray($ar);
     }
 
     function UpdatePageComment($strId, $strComment, $strIpId)
     {
     	$ar = $this->MakeDateTimeArray();
-    	$ar['comment'] = $strComment;
-    	$ar['ip_id'] = $strIpId;
+    	$this->_addCommentArray(&$ar, $strComment, $strIpId);
 		return $this->UpdateById($ar, $strId);
 	}
+
+    function BuildWhereByIp($strIpId)
+    {
+    	return _SqlBuildWhere($this->strIpKey, $strIpId);
+    }
 }
 
 // ****************************** Blog Comment table *******************************************************

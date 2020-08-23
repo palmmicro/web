@@ -6,30 +6,33 @@ function EchoAll($bChinese = true)
 {
     global $acct;
     
-    if ($str = UrlGetQueryValue('page_id'))
+    if ($str = $acct->GetQuery())
+    {
+        $strQuery = TABLE_IP.'='.$str;
+        $strLink = GetIpLink($str, $bChinese);
+    	$strWhere = $acct->BuildWhereByIp($str);
+    }
+    else if ($str = UrlGetQueryValue('page_id'))
     {
         $strQuery = 'page_id='.$str;
         $page_sql = $acct->GetPageSql();
         $strLink = GetBlogLink($page_sql, $str);
+    	$strWhere = $acct->BuildWhereByPage($str);
     }
-    else if ($str = UrlGetQueryValue('member_id'))
+    else if ($str = $acct->GetMemberId())
     {
-        $strQuery = 'member_id='.$str;
+//        $strQuery = 'member_id='.$str;
+        $strQuery = 'email='.SqlGetEmailById($str);
         $strLink = GetMemberLink($str, $bChinese);
-    }
-    else if ($str = UrlGetQueryValue('ip_id'))
-    {
-        $strQuery = 'ip_id='.$str;
-        $ip_sql = $acct->GetIpSql();
-        $strLink = GetIpLink($ip_sql->GetIp($str), $bChinese);
+    	$strWhere = $acct->BuildWhereByMember($str);
     }
     else
     {
         $strQuery = false;
         $strLink = '';
+        $strWhere = false;
     }
 
-    $strWhere = SqlWhereFromUrlQuery($strQuery);
     $iTotal = $acct->CountComments($strWhere);
     $iStart = $acct->GetStart();
     $iNum = $acct->GetNum();
@@ -59,5 +62,5 @@ function EchoTitle($bChinese = true)
     echo $str;
 }
 
-   	$acct = new CommentAccount();
+   	$acct = new CommentAccount(TABLE_IP);
 ?>

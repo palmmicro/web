@@ -11,7 +11,7 @@ function EchoBlogComments($bChinese = true)
 	$strBlogId = $page_sql->GetKeyId();
 	
     $strQuery = 'page_id='.$strBlogId;
-    $strWhere = SqlWhereFromUrlQuery($strQuery);
+   	$strWhere = $acct->BuildWhereByPage($strBlogId);
     
     $iTotal = $acct->CountComments($strWhere);
     if ($iTotal == 0)

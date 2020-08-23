@@ -33,6 +33,7 @@ function die_mysql_error($strDie)
     dieDebugString($strDie.' '.mysql_error());
 }
 
+/*
 function SqlWhereFromUrlQuery($strQuery)
 {
     if ($strQuery == false)     return false;
@@ -46,6 +47,7 @@ function SqlWhereFromUrlQuery($strQuery)
     }
     return _SqlBuildWhereAndArray($arVal);
 }
+*/
 
 function SqlDieByQuery($strQry, $strDie)
 {

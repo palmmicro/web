@@ -59,14 +59,12 @@ class IpLookupAccount extends CommentAccount
 
     function _pageCommentLookup($strIp, $bChinese)
     {
-		$sql = $this->GetIpSql();
-    	$strQuery = 'ip_id='.$sql->GetId($strIp);
-    	$strWhere = SqlWhereFromUrlQuery($strQuery);
+		$comment_sql = $this->GetCommentSql();
+    	$strWhere = $this->BuildWhereByIp($strIp);
 	    $iTotal = $this->CountComments($strWhere);
 	    if ($iTotal == 0)   return '';
         
 	    $str = '<br />';
-		$comment_sql = $this->GetCommentSql();
 	    if ($result = $comment_sql->GetAll($strWhere, 0, MAX_COMMENT_DISPLAY)) 
 	    {
 	    	while ($record = mysql_fetch_assoc($result)) 
@@ -75,7 +73,7 @@ class IpLookupAccount extends CommentAccount
 	    	}
 	    	@mysql_free_result($result);
 	    }
-	    $str .= '<br />'.strval($iTotal).' '.GetAllCommentLink($strQuery, $bChinese).'<br />';
+	    $str .= '<br />'.strval($iTotal).' '.GetAllCommentLink(TABLE_IP.'='.$strIp, $bChinese).'<br />';
 	    return $str;
 	}
 
