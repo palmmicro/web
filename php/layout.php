@@ -31,19 +31,6 @@ function LayoutPromotion($str, $strLink = false)
 END;
 }
 
-function LayoutTgGroup()
-{
-	$strWeixin = GetWeixinDevLink();
-	$strLink = GetHttpLink('https://t.me/palmmicro');
-    echo <<<END
-        <p>加入Telegram电报群反馈网站和{$strWeixin}的问题.
-        <br />$strLink
-        <br />访问不了上面链接的用户, 可以扫描第三方<b>币用APP</b>的二维码安装并且申请电报账号, 然后查询palmmicro加群.
-        <br /><img src=/woody/image/biyong.jpg alt="Bi Yong app QR code" />
-        </p>
-END;
-}
-
 function LayoutWeixinPromotion()
 {
 	$strWeixin = GetWeixinDevLink();

@@ -3,90 +3,45 @@ require_once('sqltable.php');
 
 class KeyNameSql extends TableSql
 {
-	var $strKey;
-	var $strKeyId = false;
 	var $strKeyName;
 	
-    function KeyNameSql($strTableName, $strKeyName = 'parameter', $strKey = false)
+    function KeyNameSql($strTableName, $strKeyName = 'parameter')
     {
-        $this->strKey = $strKey;
         $this->strKeyName = $strKeyName;
         parent::TableSql($strTableName);
     }
 
-    function MakeKeyArray()
+    function InsertKey($strKey)
     {
-    	return array($this->strKeyName => $this->strKey);
-    }
-    
-    function MakeInsertArray()
-    {
-    	return $this->MakeKeyArray();
-    }
-    
-    function InsertKey()
-    {
-   		if ($this->strKey)
-   		{
-   			$this->strKeyId = $this->GetId($this->strKey);
-   			if ($this->strKeyId == false)
-   			{
-   				if ($this->InsertArray($this->MakeInsertArray()))
-   				{
-//  					DebugString('New key: '.$this->strKey);
-   					$this->strKeyId = $this->GetId($this->strKey);
-   				}
-   			}
+		if ($this->GetRecord($strKey) == false)
+		{
+			return $this->InsertArray(array($this->strKeyName => $strKey));
    		}
+   		return false;
     }
     
-    function CreateKeyNameTable($str)
-    {
-    	if ($b = $this->CreateIdTable($str))
-    	{
-    		$this->InsertKey();
-    	}
-    	return $b;
-    }
-/*    
-    function Create()
-    {
-    	$str = ' `'.$this->strKeyName.'` TEXT CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL ,'
-         	. ' FULLTEXT ( `'.$this->strKeyName.'` )';
-        return $this->CreateKeyNameTable($str);
-    }
-*/
-    function Create()
+    public function Create()
     {
     	$str = ' `'.$this->strKeyName.'` VARCHAR( 128 ) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL ,'
          	  . ' UNIQUE ( `'.$this->strKeyName.'` )';
-        return $this->CreateKeyNameTable($str);
+        return $this->CreateIdTable($str);
     }
     
-    function GetKeyId()
+    function GetKey($strId)
     {
-    	return $this->strKeyId;
-    }
-    
-    function GetKey($strId = false)
-    {
-    	if ($strId)
-    	{
-    		if ($record = $this->GetRecordById($strId))
-    		{
-    			return $record[$this->strKeyName];
-    		}
-    		return false;
-    	}
-    	return $this->strKey;
+   		if ($record = $this->GetRecordById($strId))
+   		{
+   			return $record[$this->strKeyName];
+   		}
+   		return false;
     }
 
-    function GetRecord($strKey = false)
+    public function GetRecord($strKey)
     {
-    	return $strKey ? $this->GetSingleData(_SqlBuildWhere($this->strKeyName, $strKey)) : $this->GetRecordById($this->GetKeyId());
+    	return $this->GetSingleData(_SqlBuildWhere($this->strKeyName, $strKey));
     }
 
-    function GetAll($iStart = 0, $iNum = 0)
+    public function GetAll($iStart = 0, $iNum = 0)
     {
    		return $this->GetData(false, '`'.$this->strKeyName.'` ASC', _SqlBuildLimit($iStart, $iNum));
     }

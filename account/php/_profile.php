@@ -250,9 +250,11 @@ class _ProfileAccount extends CommentAccount
 			session_regenerate_id();
 			$_SESSION['SESS_ID'] = $strMemberId;
 		
+			$strIp = UrlGetIp();
+			SqlUpdateLoginField($strEmail, $strIp);
+			
 			$sql = $this->GetIpSql();
-			SqlUpdateLoginField($strEmail, $sql->GetIp());
-			$sql->IncLogin();
+			$sql->IncLogin($strIp);
 		}
 		return $strMemberId;
 	}

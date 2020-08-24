@@ -204,7 +204,7 @@ function EchoAll($bChinese = true)
     		break;
     		
     	case TABLE_IP:
-    		$strInput = $sql->GetIp();
+    		$strInput = UrlGetIp();
     		break;
     		
     	case 'linearregression':

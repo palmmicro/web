@@ -12,6 +12,15 @@ function UrlGetNavDisplayArray()
     return array(NAV_DIR_FIRST => '第一页', NAV_DIR_PREV => '上一页', NAV_DIR_NEXT => '下一页', NAV_DIR_LAST => '最后一页');
 }
 
+function filter_valid_ip($strIp)
+{
+	if ($strIp)
+	{
+		return filter_var($strIp, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 | FILTER_FLAG_NO_PRIV_RANGE);
+	}
+	return false;
+}
+
 function UrlGetIp()
 { 
 	if (isset($_SERVER['HTTP_X_FORWARDED_FOR']))
@@ -19,14 +28,18 @@ function UrlGetIp()
 	    $strIp = trim($_SERVER['HTTP_X_FORWARDED_FOR']);
 	    if (filter_valid_ip($strIp))    return $strIp;
 	}
-	
-	if (isset($_SERVER['HTTP_CLIENT_IP']))
+	else if (isset($_SERVER['HTTP_CLIENT_IP']))
 	{
 	    $strIp = trim($_SERVER['HTTP_CLIENT_IP']);
 	    if (filter_valid_ip($strIp))    return $strIp;
 	}
- 
-	return trim($_SERVER['REMOTE_ADDR']);
+	else
+	{
+		$strIp = trim($_SERVER['REMOTE_ADDR']);
+	    if (filter_valid_ip($strIp))    return $strIp;
+	}
+	dieDebugString('Unknown IP');
+	return false;
 }
 
 function url_get_contents($strUrl, $strCookie = false)
@@ -166,15 +179,6 @@ function UrlAddQuery($strAdd)
     	return $strQuery.'&'.$strAdd;
     }
     return $strAdd;
-}
-
-function filter_valid_ip($strIp)
-{
-	if ($strIp)
-	{
-		return filter_var($strIp, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 | FILTER_FLAG_NO_PRIV_RANGE);
-	}
-	return false;
 }
 
 function UrlGetCur()

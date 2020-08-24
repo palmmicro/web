@@ -57,7 +57,6 @@
 	LayoutWeixinPromotion();
 	LayoutWeixinPay();
 	LayoutAliPay();
-	LayoutTgGroup();
 	LayoutPromotion('dongfang');
 	LayoutPromotion('huabao');
 ?>

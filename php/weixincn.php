@@ -189,18 +189,12 @@ class WeixinStock extends WeixinCallback
 		return $str;
     }
 
-	function GetQqGroupText()
-	{
-		$str = 'Telegram电报群地址：<a href="https://t.me/palmmicro">https://t.me/palmmicro</a>。访问不了此链接的用户, 可以扫描第三方币用APP的'.GetInternalLink('/woody/image/biyong.jpg', '二维码').'安装并且申请电报账号, 然后查询palmmicro加群。'.WX_EOL;
-		return $str;
-	}
-	
 	function GetUnknownText($strContents, $strUserName)
 	{
 		_wxDebug($strUserName, "<font color=green>内容:</font>$strContents", 'Wechat message');
 		$str = $strContents.WX_EOL;
 		$str .= '本公众号目前只提供部分股票交易和净值估算自动查询。因为没有匹配到信息，此消息内容已经发往support@palmmicro.com邮箱。Palmmicro会尽快在公众号上回复。'.WX_EOL;
-		return $str.$this->GetQqGroupText();
+		return $str;
 	}
 
 	function OnText($strText, $strUserName)
@@ -214,8 +208,7 @@ class WeixinStock extends WeixinCallback
 		$strText = str_replace('.', '', $strText);
 		$strText = trim($strText);
     
-        if ((stripos($strText, 'q群') !== false) || (strpos($strText, '电报群') !== false))	return $this->GetQqGroupText();
-        else if (strpos($strText, '商务合作') !== false)	return $this->GetBusinessText();
+        if (strpos($strText, '商务合作') !== false)	return $this->GetBusinessText();
         else if (strpos($strText, '广发原油') !== false)	return '6月19日公众号文章标题写错了，应该是广发石油(162719)。'.WX_EOL;
 
         if (_ConnectDatabase() == false)

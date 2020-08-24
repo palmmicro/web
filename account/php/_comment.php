@@ -15,8 +15,7 @@ function EchoAll($bChinese = true)
     else if ($str = UrlGetQueryValue('page_id'))
     {
         $strQuery = 'page_id='.$str;
-        $page_sql = $acct->GetPageSql();
-        $strLink = GetBlogLink($page_sql, $str);
+        $strLink = GetBlogLink($acct->GetPageUri($str));
     	$strWhere = $acct->BuildWhereByPage($str);
     }
     else if ($str = $acct->GetMemberId())

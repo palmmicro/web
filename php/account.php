@@ -12,10 +12,10 @@ require_once('sql/sqlipaddress.php');
 require_once('sql/sqlstockgroup.php');
 require_once('sql/sqlfundpurchase.php');
 
-function _checkVisitor($sql, $page_sql, $visitor_sql, $strMemberId)
+function _checkVisitor($strIp, $sql, $visitor_sql, $strBlogId, $strMemberId)
 {
-	$strId = $sql->GetId();
-    if ($strBlogId = $page_sql->GetKeyId())
+	$strId = GetIpId($strIp);
+    if ($strBlogId)
     {
     	$visitor_sql->InsertVisitor($strBlogId, $strId);
     }
@@ -26,7 +26,7 @@ function _checkVisitor($sql, $page_sql, $visitor_sql, $strMemberId)
 		$iPageCount = $visitor_sql->CountUniqueDst($strId);
 		$strDebug = '访问次数: '.strval($iCount).'<br />不同页面数: '.strval($iPageCount).'<br />';
 		if ($strMemberId)								$strDebug .= 'logined!<br />';
-		if ($sql->GetStatus() == IP_STATUS_CRAWLER)		$strDebug .= '已标注的老爬虫';
+		if ($sql->GetStatus($strIp) == IP_STATUS_CRAWLER)		$strDebug .= '已标注的老爬虫';
 		else
 		{
 			if ($iPageCount >= ($iCount / 100))
@@ -36,11 +36,11 @@ function _checkVisitor($sql, $page_sql, $visitor_sql, $strMemberId)
 			else
 			{
 				$strDebug .= '新标注爬虫';
-				$sql->SetStatus(IP_STATUS_CRAWLER);
+				$sql->SetStatus(IP_STATUS_CRAWLER, $strIp);
 			}
 		}
 		trigger_error($strDebug);
-		$sql->AddVisit($iCount);
+		$sql->AddVisit($iCount, $strIp);
 		$visitor_sql->DeleteBySrc($strId);        
 	}
 }
@@ -62,11 +62,17 @@ class Account
     	session_start();
     	SqlConnectDatabase();
 
-	    $this->ip_sql = new IpSql(UrlGetIp());
-	    $this->page_sql = new PageSql(UrlGetUri());
+	    $strIp = UrlGetIp();
+	    $this->ip_sql = new IpSql();
+   		$this->ip_sql->InsertIp($strIp);
+
+	    $strUri = UrlGetUri();
+	    $this->page_sql = new PageSql();
+   		$this->page_sql->InsertKey($strUri);
+	    
 	    $this->visitor_sql = new VisitorSql(TABLE_VISITOR, 'dst', 'src');
-	    _checkVisitor($this->ip_sql, $this->page_sql, $this->visitor_sql, $this->GetLoginId());
-    	$this->bAllowCurl = ($this->ip_sql->GetStatus() != IP_STATUS_NORMAL) ? false : true;
+	    _checkVisitor($strIp, 	$this->ip_sql, $this->visitor_sql, $this->GetPageId($strUri), $this->GetLoginId());
+    	$this->bAllowCurl = ($this->ip_sql->GetStatus($strIp) != IP_STATUS_NORMAL) ? false : true;
 
 	   	if ($strEmail = UrlGetQueryValue('email'))
 	   	{
@@ -82,14 +88,19 @@ class Account
     	return $this->ip_sql->SetStatus(IP_STATUS_CRAWLER, $strIp);
     }
     
-    function GetIpId($strIp = false)
-    {
-    	return $this->ip_sql->GetId($strIp);
-    }
-    
     function GetIpSql()
     {
     	return $this->ip_sql;
+    }
+    
+    function GetPageUri($strPageId)
+    {
+    	return $this->page_sql->GetKey($strPageId);
+    }
+    
+    function GetPageId($strPageUri)
+    {
+    	return $this->page_sql->GetId($strPageUri);
     }
     
     function GetPageSql()
@@ -253,42 +264,17 @@ function AcctIsLogin()
 	return $acct->GetLoginId();
 }
 
-class DataAccount extends Account
-{
-    var $iStart;
-    var $iNum;
-    
-    function DataAccount() 
-    {
-        parent::Account();
-        
-   		$this->iStart = UrlGetQueryInt('start');
-   		$this->iNum = UrlGetQueryInt('num', 100);
-   		if (($this->iStart != 0) && ($this->iNum != 0))
-   		{
-   			$this->Auth();
-   		}
-    }
-    
-    function GetStart()
-    {
-    	return $this->iStart;
-    }
-    
-    function GetNum()
-    {
-    	return $this->iNum;
-    }
-}
-
-class TitleAccount extends DataAccount
+class TitleAccount extends Account
 {
 	var $strTitle;
 	var $strQuery;
 	
+    var $iStart;
+    var $iNum;
+    
     function TitleAccount($strQueryItem = false, $arLoginTitle = false) 
     {
-        parent::DataAccount();
+        parent::Account();
     	$this->strTitle = UrlGetTitle();
     	if ($arLoginTitle)
     	{
@@ -297,6 +283,13 @@ class TitleAccount extends DataAccount
     			$this->Auth();
     		}
     	}
+   		
+   		$this->iStart = UrlGetQueryInt('start');
+   		$this->iNum = UrlGetQueryInt('num', 100);
+   		if (($this->iStart != 0) && ($this->iNum != 0))
+   		{
+   			$this->Auth();
+   		}
    		
         $this->strQuery = UrlGetQueryValue($strQueryItem ? $strQueryItem : $this->strTitle);
     }
@@ -309,6 +302,16 @@ class TitleAccount extends DataAccount
     function GetQuery()
     {
     	return $this->strQuery;
+    }
+    
+    function GetStart()
+    {
+    	return $this->iStart;
+    }
+    
+    function GetNum()
+    {
+    	return $this->iNum;
     }
 }
 

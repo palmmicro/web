@@ -36,8 +36,7 @@ class CommentAccount extends TitleAccount
     
     function BuildWhereByIp($strIp)
     {
-        $ip_sql = $this->GetIpSql();
-    	return $this->comment_sql->BuildWhereByIp($ip_sql->GetId($strIp));
+    	return $this->comment_sql->BuildWhereByIp($strIp);
     }
     
 	function CountComments($strWhere)
@@ -45,19 +44,36 @@ class CommentAccount extends TitleAccount
 		return $this->comment_sql->CountData($strWhere);
 	}
 	
+	function CanModifyComment($record)
+	{
+		if ($record['member_id'] == $this->GetLoginId())
+		{	// I posted the comment
+			return true;
+		}
+		return false;
+	}
+	
     function GetCommentDescription($record, $strWhere, $bChinese)
     {
+    	$strEdit = '';
+   		if ($bCanModify = $this->CanModifyComment($record))
+   		{
+   			$strEdit = GetEditLink('/account/editcomment', $record['id'], $bChinese);
+   		}
+
+    	$strDelete = '';
+   		if ($this->IsAdmin() || $bCanModify)
+   		{	
+   			$strDelete = GetDeleteLink('/account/php/_submitcomment.php?delete='.$record['id'], '评论', 'comment', $bChinese);
+   		}
+
     	$strTime = $record['date'].' '.$record['time'];
     	$strAuthor = GetMemberLink($record['member_id'], $bChinese);
 
-		$ip_sql = $this->GetIpSql();
-    	$strIp = GetIpLink($ip_sql->GetIp($record['ip_id']), $bChinese);
-    
-//		$sql = new PageSql();
-		$sql = $this->GetPageSql();
-		$strUri = $sql->GetKey($record['page_id']);
-	
+    	$strIp = GetIpLink(GetIp($record['ip_id']), $bChinese);
+		$strUri = $this->GetPageUri($record['page_id']);
 		$strTimeLink = "<a href=\"$strUri#{$record['id']}\">$strTime</a>";
+		
 		if (strpos($strWhere, 'page_id') !== false)
 		{
 			$strTimeLink = "<b><a name=\"{$record['id']}\">$strTime</a></b>";
@@ -71,41 +87,16 @@ class CommentAccount extends TitleAccount
 			$strIp = '';
 		}
     
-		return "$strAuthor $strTimeLink $strIp";
+		return "$strAuthor $strTimeLink $strIp $strDelete $strEdit";
 	}
 
-	function CanModifyComment($record)
-	{
-		if ($record['member_id'] == $this->GetLoginId())
-		{	// I posted the comment
-			return true;
-		}
-		return false;
-	}
-	
     function _echoSingleComment($record, $strWhere, $bChinese)
     {
-    	$strEdit = '';
-    	$strDelete = '';
-//    	if ($this->IsReadOnly() == false)
-//    	{
-    		if ($bCanModify = $this->CanModifyComment($record))
-    		{
-    			$strEdit = GetEditLink('/account/editcomment', $record['id'], $bChinese);
-    		}
-
-    		// <a href="delete.page" onclick="return confirm('Are you sure you want to delete?')">Delete</a> 
-    		if ($this->IsAdmin() || $bCanModify)
-    		{
-    			$strDelete = GetDeleteLink('/account/php/_submitcomment.php?delete='.$record['id'], '评论', 'comment', $bChinese);
-    		}
-//    	}
-
     	$strDescription = $this->GetCommentDescription($record, $strWhere, $bChinese);
     	$strComment = nl2br($record['comment']);
 	
     	echo <<<END
-	<p>$strDescription $strDelete $strEdit 
+	<p>$strDescription 
         <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="comment{$record['id']}">
         <tr>
             <td class=c1 width=640 align=center>$strComment</td>

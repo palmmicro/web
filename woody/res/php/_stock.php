@@ -70,7 +70,7 @@ function _EchoMoneyGroupData($group, $strUSDCNY, $strHKDCNY, $strLink = false)
 
 function _echoRandomPromotion()
 {
-	$iVal = rand(1, 6);
+	$iVal = rand(1, 5);
 	switch ($iVal)
 	{
 	case 1:
@@ -86,15 +86,11 @@ function _echoRandomPromotion()
 		break;
 
 	case 4:
-		LayoutTgGroup();
+		LayoutPromotion('huabao', 'https://m.touker.com/trade/activity/common/channelOpen.htm?moduleDataId=275&channel=Vpalmmicro');
 		break;
 		
 	case 5:
 		LayoutPromotion('dongfang', 'http://ognfhcacesaf4get.mikecrm.com/sEJIKQZ');
-		break;
-		
-	case 6:
-		LayoutPromotion('huabao', 'https://m.touker.com/trade/activity/common/channelOpen.htm?moduleDataId=275&channel=Vpalmmicro');
 		break;
 	}
 }
@@ -106,9 +102,6 @@ function _isFromWeixin()
 		switch ($strFrom)
 		{
 		case 'groupmessage':	// 微信群
-			LayoutTgGroup();
-			return true;
-			
 		case 'singlemessage':	// 好友分享
 			LayoutWeixinPromotion();
 			return true;
@@ -132,7 +125,7 @@ function _isFromQq()
 {
 	if ($strFrom = UrlGetQueryValue('tdsourcetag'))
 	{
-		LayoutTgGroup();
+		LayoutWeixinPromotion();
 		switch ($strFrom)
 		{
 		case 's_pcqq_aiomsg':	// QQ消息
@@ -161,7 +154,7 @@ function _isFromXueQiu()
 {
 	if ($strId = UrlGetQueryValue('xueqiu_status_id'))
 	{
-		LayoutTgGroup();
+		LayoutWeixinPromotion();
 		$str = '雪球';
 		$strSource = UrlGetQueryValue('xueqiu_status_source');
 		switch ($strSource)

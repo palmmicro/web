@@ -1,5 +1,36 @@
 <?php
+require_once('sqlkeyname.php');
 require_once('sqlkeytable.php');
+
+class MemberSql extends KeyNameSql
+{
+	var $strIpKey;
+	
+    function MemberSql()
+    {
+    	$this->strIpKey = $this->Add_id(TABLE_IP);
+        parent::KeyNameSql(TABLE_MEMBER.'2', 'email');
+    }
+
+    public function Create()
+    {
+    	$str = ' `email` VARCHAR( 128 ) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL ,'
+         	  . ' `password` CHAR( 32 ) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL ,'
+    		  . ' `date` DATE NOT NULL ,'
+    		  . ' `time` TIME NOT NULL ,'
+         	  . ' `status` TINYINT UNSIGNED NOT NULL ,'
+         	  . ' `activity` INT UNSIGNED NOT NULL ,'
+         	  . ' `name` VARCHAR( 64 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,'
+         	  . ' `signature` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,'
+    		  . $this->ComposeIdStr($this->strIpKey).','
+    		  . $this->ComposeForeignStr($this->strIpKey).','
+         	  . ' FULLTEXT ( `signature` ) ,'
+         	  . ' INDEX ( `status` ) ,'
+    		  . _SqlComposeDateTimeIndex().','
+         	  . ' UNIQUE ( `email` )';
+    	return $this->CreateIdTable($str);
+    }
+}
 
 /*
  CREATE TABLE `camman`.`member` (

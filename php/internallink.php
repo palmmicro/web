@@ -26,10 +26,9 @@ function GetDevGuideLink($strPage, $strVer = false, $bChinese = true)
     return GetInternalLink($str, $bChinese ? '开发记录' : 'Development Record');
 }
 
-function GetBlogLink($sql, $strBlogId)
+function GetBlogLink($strBlogUri)
 {
-//	$sql = new PageSql();
-    if ($strBlogUri = $sql->GetKey($strBlogId))
+    if ($strBlogUri)
     {
         return GetInternalLink($strBlogUri, $strBlogUri);
     }

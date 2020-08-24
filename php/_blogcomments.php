@@ -7,9 +7,7 @@ function EchoBlogComments($bChinese = true)
 {
     global $acct;
     
-	$page_sql = $acct->GetPageSql();
-	$strBlogId = $page_sql->GetKeyId();
-	
+	$strBlogId = $acct->GetPageId(UrlGetUri());
     $strQuery = 'page_id='.$strBlogId;
    	$strWhere = $acct->BuildWhereByPage($strBlogId);
     

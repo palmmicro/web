@@ -4,12 +4,12 @@ require_once('sqlkeytable.php');
 
 class StockSql extends KeyNameSql
 {
-    function StockSql($strSymbol = false)
+    function StockSql()
     {
-        parent::KeyNameSql(TABLE_STOCK, 'symbol', $strSymbol);
+        parent::KeyNameSql(TABLE_STOCK, 'symbol');
     }
 
-    function Create()
+    public function Create()
     {
     	$str = ' `symbol` VARCHAR( 32 ) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL ,'
          	. ' `name` VARCHAR( 128 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,'

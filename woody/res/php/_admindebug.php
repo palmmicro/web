@@ -37,6 +37,8 @@ function _echoAdminDebug()
 {
     $arIp = array();
     $arUrl = array();
+    $arCurl = array();
+    
     if ($file = fopen(DebugGetFile(), 'r'))
     {
     	while (!feof($file))
@@ -44,18 +46,23 @@ function _echoAdminDebug()
     		$strLine = fgets($file);
     		if (strpos($strLine, 'Resolving timed out after'))
     		{
-    			_addDebugLine($arIp, $strLine);
+    			_addDebugLine($arCurl, $strLine);
         	}
     		else if (strpos($strLine, 'Unknown URI'))
     		{
     			_addDebugLine($arUrl, $strLine);
         	}
+    		else if (strpos($strLine, 'Unknown IP'))
+    		{
+    			_addDebugLine($arIp, $strLine);
+        	}
         }
         fclose($file);
     }
 
-    _echoDebugParagraph($arIp, 'curl错误信息');
+    _echoDebugParagraph($arCurl, 'curl错误信息');
     _echoDebugParagraph($arUrl, '弱智爬虫');
+    _echoDebugParagraph($arIp, 'IP地址异常');
 }
 
 function EchoAll()

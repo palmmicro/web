@@ -14,7 +14,7 @@ function _getVisitorContentsDisplay($strContents)
     return $strContents;
 }
 
-function _echoBlogVisitorData($strId, $sql, $visitor_sql, $page_sql, $iStart, $iNum, $bChinese)
+function _echoBlogVisitorData($strId, $visitor_sql, $page_sql, $iStart, $iNum, $bChinese)
 {
     $arBlogId = array();
     $arId = array();
@@ -36,7 +36,7 @@ function _echoBlogVisitorData($strId, $sql, $visitor_sql, $page_sql, $iStart, $i
             if ($strId == false)
             {
             	$strSrcId = $record[2];	// $record['src_id']
-				$strIp = $sql->GetIp($strSrcId);
+				$strIp = GetIp($strSrcId);
 				$ar[] = SelectColumnItem($strIp, GetVisitorLink($strIp, $bChinese), $strSrcId, $arId);
             }
             
@@ -46,7 +46,7 @@ function _echoBlogVisitorData($strId, $sql, $visitor_sql, $page_sql, $iStart, $i
     }
 }
 
-function _echoBlogVisitorParagraph($strIp, $strId, $sql, $visitor_sql, $page_sql, $iStart, $iNum, $bAdmin, $bChinese)
+function _echoBlogVisitorParagraph($strIp, $strId, $visitor_sql, $page_sql, $iStart, $iNum, $bAdmin, $bChinese)
 {
 	$ar = array(new TableColumnDate(false, $bChinese), new TableColumnTime($bChinese), new TableColumn(($bChinese ? '页面' : 'Page'), MAX_VISITOR_CONTENTS * 10));
     
@@ -74,7 +74,7 @@ function _echoBlogVisitorParagraph($strIp, $strId, $sql, $visitor_sql, $page_sql
     $strNavLink = GetNavLink($strQuery, $iTotal, $iStart, $iNum, $bChinese);
 
 	EchoTableParagraphBegin($ar, TABLE_VISITOR, $strNavLink.$str);
-    _echoBlogVisitorData($strId, $sql, $visitor_sql, $page_sql, $iStart, $iNum, $bChinese);
+    _echoBlogVisitorData($strId, $visitor_sql, $page_sql, $iStart, $iNum, $bChinese);
     EchoTableParagraphEnd($strNavLink);
 }
 
@@ -82,21 +82,17 @@ function EchoAll($bChinese = true)
 {
     global $acct;
     
-    $sql = $acct->GetIpSql();
-    $visitor_sql = $acct->GetVisitorSql();
-    $page_sql = $acct->GetPageSql();
-
-//    $strIp = UrlGetQueryValue('ip');
     $strIp = $acct->GetQuery();
 	if (filter_valid_ip($strIp) == false)
 	{
 		$strIp = false;
 	}
 
+    $visitor_sql = $acct->GetVisitorSql();
     if ($strIp)
     {
         $str = $acct->IpLookupString($strIp, $bChinese);
-        $strId = $sql->GetId($strIp);
+        $strId = GetIpId($strIp);
         $iPageCount = $visitor_sql->CountUniqueDst($strId);
         $str .= '<br />'.($bChinese ? '保存的不同页面数量' : 'Saved unique page number').': '.strval($iPageCount);
     }
@@ -108,7 +104,7 @@ function EchoAll($bChinese = true)
     }
     EchoParagraph($str);
     
-    _echoBlogVisitorParagraph($strIp, $strId, $sql, $visitor_sql, $page_sql, $acct->GetStart(), $acct->GetNum(), $acct->IsAdmin(), $bChinese);
+    _echoBlogVisitorParagraph($strIp, $strId, $visitor_sql, $acct->GetPageSql(), $acct->GetStart(), $acct->GetNum(), $acct->IsAdmin(), $bChinese);
 }
 
 function EchoMetaDescription($bChinese = true)

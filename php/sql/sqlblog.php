@@ -4,9 +4,9 @@ require_once('sqlvisitor.php');
 
 class PageSql extends KeyNameSql
 {
-    function PageSql($strUri = false)
+    function PageSql()
     {
-        parent::KeyNameSql(TABLE_PAGE, 'uri', $strUri);
+        parent::KeyNameSql(TABLE_PAGE, 'uri');
     }
 }
 
@@ -28,29 +28,29 @@ class PageCommentSql extends VisitorSql
     	return $str;
     }
 
-    function _addCommentArray(&$ar, $strComment, $strIpId)
+    function _addCommentArray(&$ar, $strComment, $strIp = false)
     {
     	$ar['comment'] = $strComment;
-    	$ar[$this->strIpKey] = $strIpId;
+    	$ar[$this->strIpKey] = GetIpId($strIp ? $strIp : UrlGetIp());
     }
     
-    function InsertPageComment($strPageId, $strMemberId, $strComment, $strIpId, $strDate = false, $strTime = false)
+    function InsertPageComment($strPageId, $strMemberId, $strComment, $strIp = false, $strDate = false, $strTime = false)
     {
     	$ar = $this->MakeVisitorInsertArray($strPageId, $strMemberId, $strDate, $strTime);
-    	$this->_addCommentArray(&$ar, $strComment, $strIpId);
+    	$this->_addCommentArray(&$ar, $strComment, $strIp);
     	return $this->InsertArray($ar);
     }
 
-    function UpdatePageComment($strId, $strComment, $strIpId)
+    function UpdatePageComment($strId, $strComment)
     {
     	$ar = $this->MakeDateTimeArray();
-    	$this->_addCommentArray(&$ar, $strComment, $strIpId);
+    	$this->_addCommentArray(&$ar, $strComment);
 		return $this->UpdateById($ar, $strId);
 	}
 
-    function BuildWhereByIp($strIpId)
+    function BuildWhereByIp($strIp)
     {
-    	return _SqlBuildWhere($this->strIpKey, $strIpId);
+    	return _SqlBuildWhere($this->strIpKey, GetIpId($strIp));
     }
 }
 

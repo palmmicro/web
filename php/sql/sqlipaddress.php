@@ -4,21 +4,24 @@ require_once('sqltable.php');
 define('IP_STATUS_NORMAL', '0');
 define('IP_STATUS_CRAWLER', '1');
 
+function GetIp($strId)
+{
+	return long2ip($strId);
+}
+    
+function GetIpId($strIp)
+{
+	return sprintf("%u", ip2long($strIp));
+}
+
 class IpSql extends TableSql
 {
-	var $strIp;
-	
-    function IpSql($strIp = false)
+    function IpSql()
     {
         parent::TableSql(TABLE_IP);
-        
-        if ($this->strIp = (filter_valid_ip($strIp) ? $strIp : false))
-        {
-       		$this->InsertIp($strIp);
-        }
     }
 
-    function Create()
+    public function Create()
     {
     	$str = ' `id` INT UNSIGNED NOT NULL PRIMARY KEY,'
          	  . ' `visit` INT UNSIGNED NOT NULL ,'
@@ -28,24 +31,9 @@ class IpSql extends TableSql
     	return $this->CreateTable($str);
     }
 
-    function GetIp($strId = false)
+    public function GetRecord($strIp)
     {
-    	if ($strId)
-    	{
-    		return long2ip($strId);
-    	}
-    	return $this->strIp;
-    }
-    
-    public function GetId($strVal = false, $callback = 'GetRecord')
-    {
-    	$strIp = $strVal ? $strVal : $this->strIp;
-   		return sprintf("%u", ip2long($strIp));
-    }
-
-    function GetRecord($strIp = false)
-    {
-   		return $this->GetRecordById($this->GetId($strIp));
+   		return $this->GetRecordById(GetIpId($strIp));
     }
 
     function _makeUpdateArray($strVisit = '0', $strLogin = '0', $strStatus = '0')
@@ -59,7 +47,7 @@ class IpSql extends TableSql
     {
        	if ($this->GetRecord($strIp) == false)
        	{
-       		if ($strId = $this->GetId($strIp))
+       		if ($strId = GetIpId($strIp))
        		{
        			return $this->InsertArray(array_merge(array('id' => $strId), $this->_makeUpdateArray()));
        		}
@@ -67,7 +55,7 @@ class IpSql extends TableSql
 		return false;
     }
     
-    function UpdateIp($strVisit, $strLogin, $strStatus, $strIp = false)
+    function UpdateIp($strVisit, $strLogin, $strStatus, $strIp)
     {
     	$ar = $this->_makeUpdateArray($strVisit, $strLogin, $strStatus);
     	if ($record = $this->GetRecord($strIp))
@@ -83,7 +71,7 @@ class IpSql extends TableSql
     	return false;
     }
 
-    function IncLogin($strIp = false)
+    function IncLogin($strIp)
     {
     	if ($record = $this->GetRecord($strIp))
     	{
@@ -94,7 +82,7 @@ class IpSql extends TableSql
     	return false;
     }
 
-    function AddVisit($iCount, $strIp = false)
+    function AddVisit($iCount, $strIp)
     {
     	if ($record = $this->GetRecord($strIp))
     	{
@@ -105,7 +93,7 @@ class IpSql extends TableSql
     	return false;
     }
 
-    function SetStatus($strStatus, $strIp = false)
+    function SetStatus($strStatus, $strIp)
     {
     	if ($record = $this->GetRecord($strIp))
     	{
@@ -118,7 +106,7 @@ class IpSql extends TableSql
     	return false;
     }
     
-    function GetStatus($strIp = false)
+    function GetStatus($strIp)
     {
     	if ($record = $this->GetRecord($strIp))
     	{

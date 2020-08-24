@@ -17,12 +17,13 @@ class _AdminDeleteAccount extends Account
 	function DeleteVisitorByIp($strIp)
 	{
    		$sql = $this->GetIpSql();
-   		$visitor_sql = $this->GetVisitorSql();
-		if ($strId = $sql->GetId($strIp))
+		if ($strId = GetIpId($strIp))
 		{
+			$visitor_sql = $this->GetVisitorSql();
 			$iCount = $visitor_sql->CountBySrc($strId);
-			$sql->AddVisit($iCount, $strIp);
 			$visitor_sql->DeleteBySrc($strId);        
+
+			$sql->AddVisit($iCount, $strIp);
 		}
 		$sql->SetStatus(IP_STATUS_NORMAL, $strIp);
 	}
