@@ -9,7 +9,7 @@
 </head>
 
 <body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _LayoutTopLeft(true); ?>
+<?php _LayoutTopLeft(); ?>
 
 <div>
 <h1>2006年网络日志图片</h1>
@@ -17,7 +17,7 @@
 <br /><img src=../groupphoto/customer/laosun.jpg alt="Li Jing, Sun Yanhong and me in central park, NYC." /></p>
 </div>
 
-<?php LayoutTailLogin(true); ?>
+<?php LayoutTailLogin(); ?>
 
 </body>
 </html>

@@ -3,18 +3,10 @@ require_once('/php/layout.php');
 require_once('/php/stocklink.php');
 require_once('/woody/php/_navwoody.php');
 
-function _menuItemClass($iLevel, $strClass)
-{
-    $iLevel --;
-    $ar = GetStockMenuArray();
-    $strDisp = $ar[$strClass];
-   	NavWriteItemLink($iLevel, $strClass, UrlGetPhp(), $strDisp);
-    NavContinueNewLine();
-}
-
 function NavStockSoftware($bChinese)
 {
     $iLevel = 1;
+    $ar = GetStockMenuArray();
     
 	NavBegin();
 	WoodyMenuItem($iLevel, 'res');
@@ -32,14 +24,15 @@ function NavStockSoftware($bChinese)
     	$arSymbol = call_user_func($strFunction);
     	if (in_array($strTitle, $arSymbol))
     	{
-    		_menuItemClass($iLevel, $strKey);
+	   		NavWriteItemLink($iLevel - 1, $strKey, UrlGetPhp(), $ar[$strKey]);
+	   		NavContinueNewLine();
     		NavDirLoop($arSymbol);
     		NavEnd();
     		return;
     	}
     }
     
-    NavMenuSet(GetStockMenuArray());
+    NavMenuSet($ar);
     NavEnd();
 }
 

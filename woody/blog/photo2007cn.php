@@ -9,7 +9,7 @@
 </head>
 
 <body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _LayoutTopLeft(true); ?>
+<?php _LayoutTopLeft(); ?>
 
 <div>
 <h1>2007年网络日志图片</h1>
@@ -17,7 +17,7 @@
 <br /><img src=../../pa1688/user/jr168/2s.jpg alt="A typical PA1688 00-09-45 MAC address on an Infineon 21553 IP phone." /></p>
 </div>
 
-<?php LayoutTailLogin(true); ?>
+<?php LayoutTailLogin(); ?>
 
 </body>
 </html>

@@ -26,11 +26,11 @@ function BlogMenuItem(iLevel, strItem)
         {
             if (FileIsEnglish())
             {
-            	NavWriteItemLink(iLevel, strItem, FileTypeHtml(), _arNames[i]);
+            	NavWriteItemLink(iLevel, strItem, FileTypePhp(), _arNames[i]);
             }
             else
             {
-            	NavWriteItemLink(iLevel, strItem, FileTypeCnHtml(), _arCnNames[i]);
+            	NavWriteItemLink(iLevel, strItem, FileTypeCnPhp(), _arCnNames[i]);
             }
         	break;
         }

@@ -9,7 +9,7 @@
 </head>
 
 <body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _LayoutTopLeft(true); ?>
+<?php _LayoutTopLeft(); ?>
 
 <div>
 <h1>2008年网络日志图片</h1>
@@ -29,7 +29,7 @@
 <br /><img src=../groupphoto/company/20070920.jpg alt="Chi-Shin Wang, Tang Li and me in Half Moon Bay." /></p>
 </div>
 
-<?php LayoutTailLogin(true); ?>
+<?php LayoutTailLogin(); ?>
 
 </body>
 </html>

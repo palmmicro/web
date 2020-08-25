@@ -7,24 +7,17 @@ require_once('/php/ui/link.php');
 require_once('/php/ui/blogtable.php');
 require_once('/woody/php/_navwoody.php');
 
-function _blogMenuItem($iLevel, $strItem, $bChinese)
-{
-    if ($bChinese)  $arName = array('ar1688' => 'AR1688', 'entertainment' => '娱乐',          'pa1688' => 'PA1688', 'pa3288' => 'PA3288', 'pa6488' => 'PA6488', 'palmmicro' => 'Palmmicro');
-    else              $arName = array('ar1688' => 'AR1688', 'entertainment' => 'Entertainment', 'pa1688' => 'PA1688', 'pa3288' => 'PA3288', 'pa6488' => 'PA6488', 'palmmicro' => 'Palmmicro'); 
-    
-    HtmlMenuItem($arName, $iLevel, $strItem, $bChinese);
-}
-
 function NavigateBlogGroup($bChinese)
 {
     global $arBlogs;
     
     $iLevel = 2;
+	$ar = GetBlogMenuArray($bChinese);
     
 	NavBegin();
 	WoodyMenuItem($iLevel, 'index', $bChinese);
 	NavContinueNewLine();
-	_blogMenuItem($iLevel - 1, BLOG_GROUP, $bChinese);
+	NavWriteItemLink($iLevel - 1, BLOG_GROUP, UrlGetPhp($bChinese), $ar[BLOG_GROUP]);
 	NavContinueNewLine();
     NavDirFirstLast($arBlogs);
 	NavContinueNewLine();

@@ -9,7 +9,7 @@
 </head>
 
 <body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _LayoutTopLeft(true); ?>
+<?php _LayoutTopLeft(); ?>
 
 <div>
 <h1>2014年网络日志图片</h1>
@@ -26,7 +26,7 @@
 <br /><img src=../../pa1688/user/ehog/pcb.jpg alt="PA1688 eHOG 1-port FXS gateway internal PCB." /></p>
 </div>
 
-<?php LayoutTailLogin(true); ?>
+<?php LayoutTailLogin(); ?>
 
 </body>
 </html>

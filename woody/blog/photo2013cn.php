@@ -9,7 +9,7 @@
 </head>
 
 <body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _LayoutTopLeft(true); ?>
+<?php _LayoutTopLeft(); ?>
 
 <div>
 <h1>2013年网络日志图片</h1>
@@ -17,7 +17,7 @@
 <br /><img src=../../pa1688/user/5111phone/ib_302.jpg alt="The official picture of 5111PHONE provided by 5111SOFT." /></p>
 </div>
 
-<?php LayoutTailLogin(true); ?>
+<?php LayoutTailLogin(); ?>
 
 </body>
 </html>
