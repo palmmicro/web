@@ -14,7 +14,7 @@
 <div>
 <h1>记录Palmmicro.com的被屏蔽历史</h1>
 <p>2010年4月27日
-<br />在上周五2010年4月23日, 我们停止中国公司网站<a href="20100330cn.php">www.palmmicro.com.cn</a>服务整整2个月后, 纯技术内容的<a href="20080326cn.php">Palmmicro</a>.com再次在祖国大陆被屏蔽. 
+<br />在上周五2010年4月23日, 我们停止中国公司网站www.palmmicro.com.cn服务整整2个月后, 纯技术内容的<a href="20080326cn.php">Palmmicro</a>.com再次在祖国大陆被屏蔽. 
 美国和香港的用户仍旧能够正常访问, 但是中国用户访问时候会得到例如<font color=red>The server at www.palmmicro.com is taking too long to respond</font>之类的错误信息. 
 <br />今天是被屏蔽的第5天, 依旧没有任何好转. 我查了当前服务器的IP地址, 记录在此: 216.39.57.104. 
 <br />我们不打算再单独搞个国内网站服务国内客户了, 访问不了我们网页资源的国内客户请都发信到<a href="mailto:support@palmmicro.com">support@palmmicro.com</a>跟我们联系吧. 还好邮件从来都没有被屏蔽过. 
@@ -23,10 +23,11 @@
 <h3>开始记录被GFW屏蔽的IP地址</h3>
 <p>2010年8月13日
 <br />今天是palmmicro.com在国内被屏蔽的第110天. 我依然无法从北京访问它. 但是我发现服务器被挪到了另外一个IP地址: 216.39.62.190. 
-<br />屏蔽系统的官方名称是GFW, the Great Fire Wall of China, 所以我给这个页面配了司马台长城的图片和一首老歌. 
+<br />屏蔽系统的官方名称是GFW, the Great Fire Wall of China, 所以我给这个页面配了司马台长城的图片和一首老歌.
 <br /><img src=../photo/20100813.jpg alt="Beijing Simatai part of the Great Wall of China" />
 <br /><font color=gray>万里长城永不倒 -- 霍元甲主题曲</font>
 </p>
+<blockquote><font color=gray>On September 14, 1987, a computer laboratory in Beijing successfully sent an email that said, "Across the Great Wall we can reach every corner of the world." The message was sent to a German university.</font></blockquote>
 
 <h3>解放了</h3>
 <p>2011年7月5日

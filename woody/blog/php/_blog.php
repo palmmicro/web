@@ -36,4 +36,5 @@ function _LayoutBottom($bChinese = true)
     LayoutTailLogin($bChinese);
 }
 
+   	$acct = new EditCommentAccount();
 ?>

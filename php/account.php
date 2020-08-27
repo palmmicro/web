@@ -70,7 +70,7 @@ class Account
 	    $this->page_sql = new PageSql();
    		$this->page_sql->InsertKey($strUri);
 	    
-	    $this->visitor_sql = new VisitorSql(TABLE_VISITOR, 'dst', 'src');
+	    $this->visitor_sql = new VisitorSql();
 	    _checkVisitor($strIp, 	$this->ip_sql, $this->visitor_sql, $this->GetPageId($strUri), $this->GetLoginId());
     	$this->bAllowCurl = ($this->ip_sql->GetStatus($strIp) != IP_STATUS_NORMAL) ? false : true;
 

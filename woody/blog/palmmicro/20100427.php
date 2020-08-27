@@ -14,7 +14,7 @@
 <div>
 <h1>The Blocking History of Palmmicro.com</h1>
 <p>Apr 27, 2010
-<br />On last Friday, Apr 23, two months exactly after we discontinued our Chinese web site <a href="20100330.php">www.palmmicro.com.cn</a> service,
+<br />On last Friday, Apr 23, two months exactly after we discontinued our Chinese web site www.palmmicro.com.cn service,
 our technical only web site <a href="20080326.php">Palmmicro</a>.com was blocked in mainland China again.
 People in US and Hongkong (A special Chinese region where normal Chinese like me need to enter with special permit) can still visit it,
 but in China users will get error information like <font color=red>The server at www.palmmicro.com is taking too long to respond</font>.
@@ -30,6 +30,7 @@ However, I found the server had moved it to a new IP address: 216.39.62.190.
 <br />The official name of the blocking system is called GFW, the Great Fire Wall of China, this is why I am putting the images of the Great Wall of China here.
 <br /><img src=../photo/20100813.jpg alt="Beijing Simatai part of the Great Wall of China" />
 </p>
+<blockquote><font color=gray>On September 14, 1987, a computer laboratory in Beijing successfully sent an email that said, "Across the Great Wall we can reach every corner of the world." The message was sent to a German university.</font></blockquote>
 
 <h3>Independence Day</h3>
 <p>July 5, 2011

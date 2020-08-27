@@ -12,7 +12,7 @@
 <?php _LayoutTopLeft(); ?>
 
 <div>
-<h1>Palmmicro.com域名的历史</h1>
+<h1><a name="palmmicro">Palmmicro.com</a>域名的历史</h1>
 <p>2008年3月26日
 <br /><a href="20061123cn.php">王老板</a>1999年初在Santa Clara创建Palmmicro公司, 开始使用Palmmicro.com. 
 <br />2002年末的时候, Palmmicro改名Centrality, 域名的注册在2003年过期. 
@@ -24,6 +24,25 @@
 <br />今天我再次用<?php EchoLink('https://who.is'); ?>搜索的时候, 发现它可以注册, 当即把它注册到了我自己名下. 
 <br /><font color=gray>去年9月王老板, 唐丽和我. </font>
 <br /><img src=../../groupphoto/company/20070920.jpg alt="Chi-Shin Wang, Tang Li and me in Half Moon Bay." />
+</p> 
+
+<h3><a name="aredfox">Aredfox.com</a>的历史</h3>
+<p>2010年1月7日
+<br />2000年6月23日, 我在东方网景注册了www.aredfox.com域名. 东方网景也是我第一个电子邮件服务商, 那是在1996年. 
+<br />2008年9月10日, 我的注册过期了. 一个叫ENOM的公司立刻抢注了它并且放上去了木马病毒. 
+<br />今天我再次访问aredfox.com. 发现它已经成了一个靠为Google吸引流量赚钱的页面. 它还在ENOM的手上, 但是我估计对ENOM来说是个赔钱生意. 它的Alexa流量排名现在是24,246,365, 可能仅仅比一个空白页面稍微强一点. 
+<br />Palmmicro的用户们, 请访问<a href="#palmmicro">Palmmicro</a>.com看看, 我们又有个新页面了. 
+<br /><img src=../../image/wx.jpg alt="Palmmicro wechat public account sz162411 small size QR code" />
+</p> 
+
+<h3>Palmmicro.com.<a name="palmmicrocn">cn</a>的历史</h3>
+<p>2010年3月30日
+<br />2001年开始上海Palmmicro(如今是<a href="../entertainment/20090219cn.php">CSR</a>的一部分)启用了palmmicro.com.cn. 
+<br />随着原来的Palmmicro在2002年改名为Centrality, palmmicro.com.cn在2003年注册过期了. 
+<br />2004年2月23日, 我重新注册了这个域名, 然后把它指向了aredfox.com, 我们当时的中国网页. 在过去的很多年中, 像palmmicro.com这样的普通美国公司网页在中国都访问不到, 我们被迫搞一个单独的网页服务国内客户. 
+<br />2008年9月10日, 我们停止了<a href="#aredfox">aredfox.com</a>的服务, 正式启用palmmicro.com.cn作为我们的中国网页. 
+<br />2010年2月23日, 在从中国连续正常访问palmmicro.com一年多以后, 我们决定停止palmmicro.com.cn的服务, 从此开始专心使用<a href="#palmmicro">Palmmicro</a>.com. 
+<br />老的技术支持邮件support@palmmicro.com.cn同时停用, 请发信到<a href="mailto:support@palmmicro.com">support@palmmicro.com</a>联系我们. 
 </p> 
 </div>
 

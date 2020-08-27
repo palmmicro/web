@@ -1,4 +1,4 @@
-<?php require("../../../php/blogcomments.php"); ?>
+<?php require_once('php/_palmmicro.php'); ?>
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -6,40 +6,15 @@
 <meta name="description" content="ATCOM老孙写的这篇文章总结了几个VoIP华人鼻祖和他们成立的公司之间的关联. 人物Chi-Shin Wang, Y.W. Sing和Jan Fandrianto. 公司有8x8, Tigerjet, Komodo, Sipura和Centrality(Palmmicro)等.">
 <?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
-<script src="../../../js/filetype.js"></script>
-<script src="../../../js/copyright.js"></script>
-<script src="../../../js/nav.js"></script>
-<script src="../../woody.js"></script>
-<script src="../blog.js"></script>
-<script src="palmmicro.js"></script>
-<script src="../../../js/analytics.js"></script>
 </head>
 
 <body bgproperties=fixed leftmargin=0 topmargin=0>
-<table width=100% height=105 order=0 cellpadding=0 cellspacing=0 bgcolor=#049ACC>
-<tr>
-<td width=780 height=105 align=left valign=top><a href="/woody/"><img src=../../image/image.jpg alt="Woody Home Page" /></a></td>
-<td align=left valign=top></td>
-</tr>
-</table>
+<?php _LayoutTopLeft(); ?>
 
-<table width=900 height=85% border=0 cellpadding=0 cellspacing=0>
-<td width=30 valign=top bgcolor=#66CC66>&nbsp;</td>
-<td width=120 valign=top bgcolor=#66CC66>
-<TABLE width=120 border=0 cellPadding=5 cellSpacing=0>
-<script type="text/javascript">NavigatePalmmicro();</script>
-</TABLE>
-</TD>
-<td width=30 valign=top bgcolor=#66CC66>&nbsp;</td>
-<td width=50 valign=top bgcolor=#ffffff>&nbsp;</td>
-<td valign=top>
-
-
-<table>
-<tr><td class=THead><B>Jan, Sing和Wang不得不说的故事 - VoIP华人鼻祖</B></td></tr>
-<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-<tr><td>2006年11月23日</td></tr>
-<tr><td><font color=indigo>原创总是很难的. 今天读了老孙一篇大作后我决定把它从中文翻译成英文, 放在这里滥竽充数. </font>
+<div>
+<h1>Jan, Sing和Wang不得不说的故事 - VoIP华人鼻祖</h1>
+<p>2006年11月23日
+<br /><font color=gray>原创总是很难的. 今天读了老孙一篇大作后我决定把它从中文翻译成英文, 放在这里滥竽充数. </font>
 <br />有人说华人在voip行业太差, 只能用开源的东西搞搞, 其实大错特错, 在硬件终端领域, 华人取得的成就是辉煌的, 而且一直影响到现在的市场格局, 而且这几个鼻祖之间有着非常特殊的人际关系. 先看几份简历: 
 <br /><b>Chi-Shin Wang</b>
 <br />1976~1981: 任职惠普
@@ -81,19 +56,14 @@
 <br />Komodo,Sipura: VoIP小网关世界第一, 被Cisco陆续收购, 也就是说Jan 2次把公司卖给了Cisco,第一次卖H323的, 第二次卖SIP的. 
 <br />Centraility: 就是大名鼎鼎的<a href="../../../pa1688/indexcn.html">PA1688</a>芯片的开发销售者, 不用讲了吧? 
 <br />Tigerjet: 世界第一个VoIP的硬件终端产品, 美国Quicknet的PCI卡, 采用的是Tigerjet的芯片, USB Phone芯片的先驱, 目前如日中天的Digium的几乎全线板卡采用Tigerjet的芯片, Intel刚刚出了第一个VoIP的破卡, 竟然也是用的Tigerjet老掉牙的TJ320. 
-<br /><font color=indigo>-原文完.</font>
+<br /><font color=gray>-原文完.</font>
 <br />&nbsp;
 <br /><font color=gray>李敬, 本文作者<a href="../../../pa1688/user/atcomcn.html">ATCOM</a>老孙和我. </font>
-</td></tr>
-<tr><td><img src=../../groupphoto/customer/laosun.jpg alt="Li Jing, Sun Yanhong and me in central park, NYC." /></td></tr>
-</table>
+<br /><img src=../../groupphoto/customer/laosun.jpg alt="Li Jing, Sun Yanhong and me in central park, NYC." />
+</p> 
+</div>
 
-<?php BlogComments(); ?>
-
-</td>
-</table>
-
-<script type="text/javascript">CopyRightDisplayWoody();</script>
+<?php _LayoutBottom(); ?>
 
 </body>
 </html>

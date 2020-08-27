@@ -1,4 +1,4 @@
-<?php require("../../../php/blogcomments.php"); ?>
+<?php require_once('php/_palmmicro.php'); ?>
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -6,40 +6,15 @@
 <meta name="description" content="ATCOM Sun Yanhong wrote this article about several Chinese VoIP pioneers and their companys, including Chi-Shin Wang, Y.W. Sing and Jan Fandrianto.">
 <?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
-<script src="../../../js/filetype.js"></script>
-<script src="../../../js/copyright.js"></script>
-<script src="../../../js/nav.js"></script>
-<script src="../../woody.js"></script>
-<script src="../blog.js"></script>
-<script src="palmmicro.js"></script>
-<script src="../../../js/analytics.js"></script>
 </head>
 
 <body bgproperties=fixed leftmargin=0 topmargin=0>
-<table width=100% height=105 order=0 cellpadding=0 cellspacing=0 bgcolor=#049ACC>
-<tr>
-<td width=780 height=105 align=left valign=top><a href="/woody/"><img src=../../image/image.jpg alt="Woody Home Page" /></a></td>
-<td align=left valign=top></td>
-</tr>
-</table>
+<?php _LayoutTopLeft(false); ?>
 
-<table width=900 height=85% border=0 cellpadding=0 cellspacing=0>
-<td width=30 valign=top bgcolor=#66CC66>&nbsp;</td>
-<td width=120 valign=top bgcolor=#66CC66>
-<TABLE width=120 border=0 cellPadding=5 cellSpacing=0>
-<script type="text/javascript">NavigatePalmmicro();</script>
-</TABLE>
-</TD>
-<td width=30 valign=top bgcolor=#66CC66>&nbsp;</td>
-<td width=50 valign=top bgcolor=#ffffff>&nbsp;</td>
-<td valign=top>
-
-
-<table>
-<tr><td class=THead><B>The Untold Story of Jan, Sing and Wang (Translation)</B></td></tr>
-<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-<tr><td>Nov 23, 2006</td></tr>
-<tr><td><font color=indigo>Original work is always difficult. After reading an article by Mr Sun today, I decided to translate it from Chinese into English in the following.</font>
+<div>
+<h1>The Untold Story of Jan, Sing and Wang (Translation)</h1>
+<p>Nov 23, 2006
+<br /><font color=gray>Original work is always difficult. After reading an article by Mr Sun today, I decided to translate it from Chinese into English in the following.</font>
 <br /><b><em>Name: The untold story of Jan, Sing and Wang - Chinese VoIP pioneers</b></em>
 <br />It is a huge mistake to blame that Chinese can only play with open source software in VoIP fields. Actually, several Chinese had done successfully in the hardware terminal market, and are still shaping the overall market today. And those pioneers also have special personal relationship. Let us read the following three career path story:
 <br /><b>Chi-Shin Wang</b>
@@ -82,19 +57,14 @@
 <br />Komodo, Sipura: The most successful voice gateway company, Jan sells his company to Cisco twice, the first time is H.323 and the second time is SIP.
 <br />Centrality: The famous <a href="../../../pa1688/index.html">PA1688</a> chip developer, need further introduction?
 <br />Tigerjet: The first VoIP hardware terminal product, Quicknet PCI card used chip from Tigerjet. And the first USB phone chip provider. All Digium cards use Tigerjet chips today. When Intel provides its first VoIP card, it also uses old TJ320 from Tigerjet
-<br /><font color=indigo>-End of original article.</font>
+<br /><font color=gray>-End of original article.</font>
 <br />&nbsp;
 <br /><font color=gray>Li Jing, the author of this article <a href="../../../pa1688/user/atcom.html">ATCOM</a> Mr Sun and me.</font>
-</td></tr>
-<tr><td><img src=../../groupphoto/customer/laosun.jpg alt="Li Jing, Sun Yanhong and me in central park, NYC." /></td></tr>
-</table>
+<br /><img src=../../groupphoto/customer/laosun.jpg alt="Li Jing, Sun Yanhong and me in central park, NYC." />
+</p>
+</div>
 
-<?php BlogComments(); ?>
-
-</td>
-</table>
-
-<script type="text/javascript">CopyRightDisplayWoody();</script>
+<?php _LayoutBottom(false); ?>
 
 </body>
 </html>

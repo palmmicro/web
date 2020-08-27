@@ -17,8 +17,6 @@
 <br />2016年3月7日 <a href="palmmicro/20160307cn.php">动态域名palmmicro.ddns.us的备份</a>
 <br />2010年9月9日 <a href="palmmicro/20100909cn.php">忘记密码?</a>
 <br />2010年4月27日 <a href="palmmicro/20100427cn.php">记录Palmmicro.com的被屏蔽历史</a>
-<br />2010年3月30日 <a href="palmmicro/20100330cn.php">Palmmicro.com.cn的历史</a>
-<br />2010年1月7日 <a href="palmmicro/20100107cn.php">Aredfox.com的历史</a>
 <br />2009年11月14日 <a href="palmmicro/20091114cn.php">Palmmicro的MAC地址</a>
 <br />2008年3月26日 <a href="palmmicro/20080326cn.php">Palmmicro</a>.com域名的历史
 <br />2006年11月23日 <a href="palmmicro/20061123cn.php">Jan, Sing和Wang不得不说的故事 - VoIP华人鼻祖</a>

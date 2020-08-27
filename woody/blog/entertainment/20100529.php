@@ -19,7 +19,7 @@
 In 1999 I upgraded to VC6 with Microsoft and stayed with the version for 10 years.
 <br />After I changed to use my <a href="../pa6488/20090808.php">Sony VGN-FW235J</a> in early 2009, finally I had to face the problem that VC6 is not supported in Windows Vista any more.
 I had to install this VC9(Visual C++ 2008) instead, but used mostly as a text editor for a year. 
-<br />When I was moving Palmmicro web from <a href="../palmmicro/20100330.php">palmmicro.com.cn</a> to <a href="../palmmicro/20080326.php">Palmmicro</a>.com earlier this year,
+<br />When I was moving Palmmicro web from palmmicro.com.cn to <a href="../palmmicro/20080326.php">Palmmicro</a>.com earlier this year,
 I began to write this first application called <b>Woody's Web Tool</b>.
 It was designed to do those repeated copy, paste and FTP upload works automatically. As my web work finished recently, my application completed too.
 <br />During my development, I was also considering if I should upgrade to Visual C++ 2010. However I met a developer from a professional software company last month and knew that they are still working with VC9,
