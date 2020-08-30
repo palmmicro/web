@@ -56,6 +56,7 @@ END;
 
 function _LayoutTopLeft()
 {
+	$_SESSION['mobile'] = true;
 	LayoutTopLeft();
 }
 

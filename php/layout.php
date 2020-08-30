@@ -9,14 +9,28 @@ require_once('class/Mobile_Detect.php');
 define('DEFAULT_DISPLAY_WIDTH', 900);
 define('MIN_SCRREN_WIDTH', DEFAULT_DISPLAY_WIDTH + 15 + DEFAULT_ADSENSE_WIDTH);		// 隔15个像素再显示最右边的广告, 见下面width=15
 
+function LayoutIsMobilePhone()
+{
+    $detect = new Mobile_Detect;
+    if ($detect->isMobile() && !$detect->isTablet()) 
+    {
+        return true;
+    }
+    return false;
+}
+
 function EchoInsideHead()
 {
+	$_SESSION['mobile'] = LayoutIsMobilePhone();
+	$strViewPort = $_SESSION['mobile'] ? '<meta name="viewport" content="width=device-width, initial-scale=1.0"/>' : '';
+//	$strViewPort = $_SESSION['mobile'] ? '<meta name="viewport" content="width=640, initial-scale=1.0"/>' : '';
 	$strCanonical = str_replace('www.', '', UrlGetServer()).UrlGetUri();
 	$strFavicon = '/image/favicon.ico';
 	
     echo <<<END
-<link rel="canonical" href="$strCanonical" />
-<link rel="shortcut icon" href="$strFavicon" type="image/x-icon">
+    	<link rel="canonical" href="$strCanonical" />
+    	<link rel="shortcut icon" href="$strFavicon" type="image/x-icon">
+    	$strViewPort
 END;
 }
 
@@ -57,16 +71,6 @@ function LayoutAliPay()
         <br /><img src=/woody/image/alipay.jpg alt="QRcode to pay Woody in Taobao" />
         </p>
 END;
-}
-
-function LayoutIsMobilePhone()
-{
-    $detect = new Mobile_Detect;
-    if ($detect->isMobile() && !$detect->isTablet()) 
-    {
-        return true;
-    }
-    return false;
 }
 
 function LayoutScreenWidthOk()
@@ -170,7 +174,7 @@ function LayoutTopLeft($callback = false, $bSwitchLanguage = false, $bChinese = 
 {
     EchoAnalyticsOptimize();
 	$_SESSION['switchlanguage'] = $bSwitchLanguage;
-	$_SESSION['mobile'] = $callback ? LayoutIsMobilePhone() : true;
+//	$_SESSION['mobile'] = $callback ? LayoutIsMobilePhone() : true;
     if ($_SESSION['mobile'] == false)
     {
         _layoutBanner($bChinese);
