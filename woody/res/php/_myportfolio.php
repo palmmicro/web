@@ -73,8 +73,11 @@ function _echoMergeParagraph($arMerge)
 		$ar = array();
 		$ar[] = GetTradingViewLink($strSymbol);
 		$iTotal = $trans->GetTotalShares();
-        $ar[] = strval($iTotal); 
-        $ar[] = strval($iTotal - 516); 
+        $ar[] = strval($iTotal);
+        if ($strSymbol == 'XOP')
+        {
+        	$ar[] = strval($iTotal - 516);
+        }
         EchoTableColumn($ar);
 	}
     EchoTableParagraphEnd();

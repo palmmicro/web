@@ -220,7 +220,7 @@ class DailyStockValSql extends DailyStockSql
     {
     	if ($record = $this->GetRecord($strDate))
     	{
-    		if (abs(floatval($record['close']) - floatval($strClose)) > 0.000001)
+    		if (abs(floatval($record['close']) - floatval($strClose)) > MIN_FLOAT_VAL)
     		{
     			return $this->Update($record['id'], $strClose);
     		}

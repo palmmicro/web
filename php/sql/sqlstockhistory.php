@@ -42,7 +42,7 @@ class StockHistorySql extends DailyStockValSql
     		if (abs(floatval($record['low']) - floatval($strLow)) < 0.001)					unset($ar['low']);
     		if (abs(floatval($record['close']) - floatval($strClose)) < 0.001)				unset($ar['close']);
     		if ($record['volume'] == $strVolume)												unset($ar['volume']);
-    		if (abs(floatval($record['adjclose']) - floatval($strAdjClose)) < 0.000001)	unset($ar['adjclose']);
+    		if (abs(floatval($record['adjclose']) - floatval($strAdjClose)) < MIN_FLOAT_VAL)	unset($ar['adjclose']);
     		
     		$iCount = count($ar);
     		if ($iCount > 0)

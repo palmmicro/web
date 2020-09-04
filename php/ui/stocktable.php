@@ -90,7 +90,7 @@ class TableColumnPosition extends TableColumn
 {
 	function TableColumnPosition()
 	{
-        parent::TableColumn('仓位', 70);
+        parent::TableColumn('仓位', 90);
 	}
 }
 
@@ -225,9 +225,9 @@ function GetTableColumnRealtimePremium()
 
 class TableColumnMyStock extends TableColumn
 {
-	function TableColumnMyStock($strSymbol)
+	function TableColumnMyStock($strSymbol, $iWidth = 80)
 	{
-        parent::TableColumn(GetMyStockLink($strSymbol));
+        parent::TableColumn(GetMyStockLink($strSymbol), $iWidth);
 	}
 }
 
@@ -235,7 +235,7 @@ class TableColumnUSCNY extends TableColumnMyStock
 {
 	function TableColumnUSCNY()
 	{
-        parent::TableColumnMyStock('USCNY');
+        parent::TableColumnMyStock('USCNY', 60);
 	}
 }
 
@@ -243,7 +243,7 @@ class TableColumnHKCNY extends TableColumnMyStock
 {
 	function TableColumnHKCNY()
 	{
-        parent::TableColumnMyStock('HKCNY');
+        parent::TableColumnMyStock('HKCNY', 60);
 	}
 }
 
