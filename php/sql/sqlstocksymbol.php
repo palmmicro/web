@@ -50,12 +50,35 @@ class StockSql extends KeyNameSql
     	}
     	return false;
     }
+    
+    function GetStockName($strSymbol)
+    {
+    	if ($record = $this->GetRecord($strSymbol))
+    	{	
+    		return $record['name'];
+    	}
+    	return false;
+    }
 }
 
 // ****************************** Stock symbol functionse *******************************************************
+function GetStockSql()
+{
+	global $acct;
+	
+	return $acct->GetStockSql();
+}
+
+function SqlGetStockName($strSymbol)
+{
+	$sql = GetStockSql();
+	return $sql->GetStockName($strSymbol);
+}
+
 function SqlGetStockId($strSymbol)
 {
-	$sql = new StockSql();
+//	$sql = new StockSql();
+	$sql = GetStockSql();
 	if ($strStockId = $sql->GetId($strSymbol))
 	{
 		return $strStockId;
@@ -66,7 +89,8 @@ function SqlGetStockId($strSymbol)
 
 function SqlGetStockSymbol($strStockId)
 {
-	$sql = new StockSql();
+//	$sql = new StockSql();
+	$sql = GetStockSql();
 	return $sql->GetKey($strStockId);
 }
 

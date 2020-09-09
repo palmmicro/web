@@ -25,9 +25,9 @@ function NavLoop30Days($bChinese)
     NavEnd();
 }
 
-function _LayoutTopLeft($bChinese = true)
+function _LayoutTopLeft($bChinese = true, $bAdsense = true)
 {
-    LayoutTopLeft('NavLoop30Days', true, $bChinese);
+    LayoutTopLeft('NavLoop30Days', true, $bChinese, $bAdsense);
 }
 
    	$acct = new Account();

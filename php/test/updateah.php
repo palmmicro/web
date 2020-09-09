@@ -35,7 +35,8 @@ function _updateAh()
     preg_match_all($strPattern, $str, $arMatch, PREG_SET_ORDER);
     DebugVal(count($arMatch), '_updateAh');
     $iCount = 0;
-	$sql = new StockSql();
+//	$sql = new StockSql();
+	$sql = GetStockSql();
 	$pair_sql = new AhPairSql();
    	foreach ($arMatch as $arItem)
    	{
@@ -74,7 +75,7 @@ function _updateAh()
    			}
    		}
    	}
-    DebugVal($iCount, 'updated');
+    DebugVal($iCount, 'AH updated');
 }
 	
    	$acct = new Account();

@@ -13,6 +13,7 @@ class StockAccount extends TitleAccount
         parent::TitleAccount($strQueryItem, $arLoginTitle);
         
         $this->strName = StockGetSymbol($this->GetTitle());
+
 	    $this->group_sql = new StockGroupSql($this->GetLoginId());
     }
 

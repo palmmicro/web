@@ -278,13 +278,21 @@ function RefGetDescription($ref, $bConvertDisplay = false)
 	}
 	else
 	{
-		$str = '';
+		if ($str = SqlGetStockName($ref->GetSymbol()))
+		{
+			$ref->SetDescription($str);
+		}
+		else
+		{
+			$str = '';
+		}
+/*		$str = '';
 		$sql = new StockSql();
 		if ($record = $sql->GetRecordById($ref->GetStockId()))
 		{
 			$str = $record['name'];
 			$ref->SetDescription($str);
-		}
+		}*/
 	}
     return $str;
 }
@@ -345,14 +353,15 @@ function _getAllSymbolArray($strSymbol, $strStockId)
 
 function StockPrefetchArrayData($ar)
 {
-	$sql = new StockSql();
+//	$sql = new StockSql();
     $arAll = array();
     
     foreach ($ar as $strSymbol)
     {
     	if ($strSymbol)
     	{
-    		if ($strStockId = $sql->GetId($strSymbol))
+//    		if ($strStockId = $sql->GetId($strSymbol))
+    		if ($strStockId = SqlGetStockId($strSymbol))
     		{
     			$arAll = array_merge($arAll, _getAllSymbolArray($strSymbol, $strStockId));
     		}

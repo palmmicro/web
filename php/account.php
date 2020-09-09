@@ -9,6 +9,7 @@ require_once('ui/table.php');
 //require_once('sql/sqlblog.php');
 //require_once('sql/sqlvisitor.php');
 require_once('sql/sqlipaddress.php');
+require_once('sql/sqlstocksymbol.php');
 require_once('sql/sqlstockgroup.php');
 require_once('sql/sqlfundpurchase.php');
 
@@ -54,6 +55,7 @@ class Account
     var $ip_sql;
     var $page_sql;
     var $visitor_sql;
+    var $stock_sql;
 
     var $bAllowCurl;
     
@@ -81,6 +83,13 @@ class Account
 	   			$this->strMemberId = SqlGetIdByEmail($strEmail);
 	   		}
 	   	}
+
+	    $this->stock_sql = new StockSql();
+    }
+    
+    function GetStockSql()
+    {
+    	return $this->stock_sql;
     }
     
     function SetCrawler($strIp)

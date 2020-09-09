@@ -36,9 +36,9 @@ function NavStockSoftware($bChinese)
     NavEnd();
 }
 
-function _LayoutTopLeft()
+function _LayoutTopLeft($bChinese = true, $bAdsense = true)
 {
-    LayoutTopLeft('NavStockSoftware');
+    LayoutTopLeft('NavStockSoftware', false, $bChinese, $bAdsense);
 }
 
 ?>

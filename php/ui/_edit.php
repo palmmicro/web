@@ -8,7 +8,7 @@
 </head>
 
 <body bgproperties=fixed leftmargin=0 topmargin=0 onLoad=OnLoad()>
-<?php _LayoutTopLeft(false); ?>
+<?php _LayoutTopLeft(false, false); ?>
 
 <div>
 <h1><?php EchoTitle(false); ?></h1>

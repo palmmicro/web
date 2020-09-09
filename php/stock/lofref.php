@@ -67,8 +67,11 @@ function LofGetFutureEtfSymbol($strSymbol)
 
 function LofGetFutureSymbol($strSymbol)
 {
-    if ((LofGetFutureEtfSymbol($strSymbol) == 'USO') || (LofGetEstSymbol($strSymbol) == 'USO'))     return 'hf_CL';
-    else if (LofGetEstSymbol($strSymbol) == 'GLD')                                                     return 'hf_GC';
+    if (in_arrayOilEtfLof($strSymbol) || in_arrayOilLof($strSymbol))     return 'hf_CL';
+    else if (in_arrayGoldLof($strSymbol))   return 'hf_GC';
+    else if (in_arraySpyLof($strSymbol))   return 'hf_ES';
+    else if (in_arrayQqqLof($strSymbol))   return 'hf_NQ';
+    
     return false;
 }
 

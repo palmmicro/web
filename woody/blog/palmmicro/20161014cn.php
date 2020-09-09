@@ -113,11 +113,6 @@
 <br /><?php EchoLink(GetYahooComponentsUrl()); ?>	<?php EchoUpdateDowJonesLink(); ?>
 </p>
 
-<h3>特殊查询处理</h3>
-<p>2020年5月30日
-<br />为提高网站总体性能, 输入查询<font color=gray>商务合作</font>的不再访问数据库, 直接回复特殊处理结果.
-</p>
-
 </div>
 
 <?php _LayoutBottom(); ?>

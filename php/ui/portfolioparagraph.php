@@ -10,7 +10,8 @@ function _echoPortfolioTableItem($trans)
     else if ($ref->IsSymbolH())     $strMoney = 'HK$';
     else                               $strMoney = '$';
     
-    $ar[] = StockGetTransactionLink($trans->GetGroupId(), $ref->GetSymbol());
+    $strSymbol = $ref->GetSymbol();
+    $ar[] = StockGetTransactionLink($trans->GetGroupId(), $strSymbol);
     $ar[] = $trans->GetProfitDisplay().$strMoney;
     $iShares = $trans->GetTotalShares();
     if ($iShares != 0)
@@ -19,6 +20,10 @@ function _echoPortfolioTableItem($trans)
         $ar[] = strval($iShares); 
         $ar[] = $trans->GetAvgCostDisplay();
         $ar[] = $ref->GetPercentageDisplay($trans->GetAvgCost());
+        if ($strSymbol == 'CHU')
+        {
+        	$ar[] = strval($iShares - 561);
+        }
     }
 
     EchoTableColumn($ar);
@@ -31,7 +36,8 @@ function EchoPortfolioParagraph($str, $arTrans)
 								   new TableColumnAmount('持仓'),
 								   new TableColumnTotalShares(),
 								   new TableColumnPrice('平均'),
-								   new TableColumnChange()
+								   new TableColumnChange(),
+								   new TableColumnTest()
 								   ), MY_PORTFOLIO_PAGE, $str);
 
 	foreach ($arTrans as $trans)

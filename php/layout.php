@@ -107,7 +107,7 @@ function _layoutBanner($bChinese)
 
         <script type="text/javascript">
 			var width = window.screen.width;
-			document.cookie="screen="+width;
+			document.cookie = "screen=" + width + "; path=/";
 		</script>
 END;
 }
@@ -170,12 +170,16 @@ function GetSwitchLanguageLink($bChinese)
     }
 }
 
-function LayoutTopLeft($callback = false, $bSwitchLanguage = false, $bChinese = true)
+function LayoutTopLeft($callback = false, $bSwitchLanguage = false, $bChinese = true, $bAdsense = true)
 {
     EchoAnalyticsOptimize();
 	$_SESSION['switchlanguage'] = $bSwitchLanguage;
 //	$_SESSION['mobile'] = $callback ? LayoutIsMobilePhone() : true;
-    if ($_SESSION['mobile'] == false)
+    if ($_SESSION['mobile'])
+    {
+    	if ($bAdsense)	AdsenseWoodyBlog();
+    }
+    else
     {
         _layoutBanner($bChinese);
         
@@ -203,12 +207,23 @@ function _layoutTail($iWidth, $bChinese, $bAdsense = true)
     			LayoutWeixinPay();
     		}
     	}
+    	else
+    	{
+    		if ($bAdsense)
+    		{
+    			AdsenseWoodyBlog();
+    		}
+    		else
+    		{
+    			LayoutAliPay();
+    		}
+    	}
+    	
         echo '</td></table>';
 //        echo '    </div>';
 //        echo '</div>';
     }
     EchoCopyRight($_SESSION['mobile'], $bChinese);
-    mysql_close();
 }
 
 function LayoutTail($bChinese = true)
@@ -221,10 +236,10 @@ function LayoutTailLogin($bChinese = true)
     VisitorLogin($bChinese);
     
     $iWidth = LayoutScreenWidthOk();
-	if ($_SESSION['mobile'] || ($iWidth == false))
+/*	if ($_SESSION['mobile'] || ($iWidth == false))
 	{
 		AdsenseWoodyBlog();
-	}    
+	}*/    
 	_layoutTail($iWidth, $bChinese);
 }
 

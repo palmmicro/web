@@ -5,7 +5,6 @@ require_once('_lofgroup.php');
 class _LofAccount extends LofGroupAccount
 {
     var $oil_ref = false;
-    var $es_ref = false;
     var $usd_ref;
     var $cnh_ref;
 
@@ -15,20 +14,16 @@ class _LofAccount extends LofGroupAccount
         
         $strOil = (LofGetFutureSymbol($strSymbol) == 'hf_CL') ? 'hf_OIL' : false;
         $strEst = LofGetEstSymbol($strSymbol);
-//        $strES = ($strEst == '^GSPC') ? 	'hf_ES' : false;
-        $strES = 'hf_ES';
         
         $this->GetWebData($strEst);
 
         $strUSD = 'DINIW';
         $strCNH = 'fx_susdcnh';
-        StockPrefetchArrayData(array_merge($this->GetLeverage(), array($strSymbol, $strOil, $strES, $strUSD, $strCNH)));
+        StockPrefetchArrayData(array_merge($this->GetLeverage(), array($strSymbol, $strOil, $strUSD, $strCNH)));
         
         $this->cny_ref = new CnyReference('USCNY');	// Always create CNY Forex class instance first!
         $this->ref = new LofReference($strSymbol);
         if ($strOil)	$this->oil_ref = new FutureReference($strOil);
-        /*if ($strES)*/	
-        $this->es_ref = new FutureReference($strES);
         $this->usd_ref = new ForexReference($strUSD);
         $this->cnh_ref = new ForexReference($strCNH);
         
@@ -114,7 +109,7 @@ function EchoAll()
     $stock_ref = $fund->stock_ref;
     
     EchoFundEstParagraph($fund);
-    EchoReferenceParagraph(array_merge(array($stock_ref, $fund->GetEstRef(), $fund->future_ref, $acct->oil_ref, $acct->es_ref, $acct->usd_ref, $acct->cnh_ref, $acct->cny_ref), $acct->ar_leverage_ref));
+    EchoReferenceParagraph(array_merge(array($stock_ref, $fund->GetEstRef(), $fund->future_ref, $acct->oil_ref, $acct->usd_ref, $acct->cnh_ref, $acct->cny_ref), $acct->ar_leverage_ref));
     $acct->EchoLeverageParagraph();
     EchoFundTradingParagraph($fund, '_onTradingUserDefined');    
 	EchoLofSmaParagraph($fund, '_onSmaUserDefined');

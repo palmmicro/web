@@ -30,9 +30,9 @@ function NavLoopCateyes($bChinese)
 	CateyesMenu($arCateyes, $bChinese);
 }
 
-function _LayoutTopLeft($bChinese = true)
+function _LayoutTopLeft($bChinese = true, $bAdsense = true)
 {
-    LayoutTopLeft('NavLoopCateyes', true, $bChinese);
+    LayoutTopLeft('NavLoopCateyes', true, $bChinese, $bAdsense);
 }
 
    	$acct = new Account();

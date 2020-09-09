@@ -1,7 +1,7 @@
 <?php
 define('DB_DATABASE', 'camman');
 
-define('TABLE_CALIBRATION', 'calibration');
+//define('TABLE_CALIBRATION', 'calibration');
 define('TABLE_COMMON_PHRASE', 'commonphrase');
 define('TABLE_DOW_JONES', 'dowjones');
 define('TABLE_FUND_EST', 'fundest');
@@ -155,6 +155,12 @@ function SqlCreateDatabase($strDb)
 	SqlInsertMember($strEmail, $strEmail);*/
 }
 
+function SqlCleanString($str) 
+{
+	$str = UrlCleanString($str);
+	return mysql_real_escape_string($str);
+}
+
 class ErrorHandlerFile extends CsvFile
 {
 	var $strError = false;
@@ -219,18 +225,6 @@ function _errorHandler($errno, $errstr, $errfile, $errline)
 //	DebugVal($iCount, $errno.' _errorHandler');
 }
 
-function _SetErrorHandler()
-{
-	// 设置用户定义的错误处理函数
-	error_reporting(E_ALL);
-	set_error_handler('_errorHandler');
-/*	
-	if (UrlGetIp() != '222.125.92.104')
-	{
-		die('Failed to connect to server');
-	}*/
-}
-
 function _ConnectDatabase()
 {
     if (UrlIsPalmmicroDomain())
@@ -259,15 +253,17 @@ function _ConnectDatabase()
 	return true;
 }
 
-function SqlCleanString($str) 
-{
-	$str = UrlCleanString($str);
-	return mysql_real_escape_string($str);
-}
-
 function SqlConnectDatabase()
 {
-	_SetErrorHandler();
+	// 设置用户定义的错误处理函数
+	error_reporting(E_ALL);
+	set_error_handler('_errorHandler');
+/*	
+	if (UrlGetIp() != '222.125.92.104')
+	{
+		die('Failed to connect to server');
+	}*/
+
 	if (_ConnectDatabase() == false)
 	{
 		$str = 'Failed to connect to server: '.mysql_error();

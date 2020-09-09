@@ -57,7 +57,7 @@ END;
 function _LayoutTopLeft()
 {
 	$_SESSION['mobile'] = true;
-	LayoutTopLeft();
+	LayoutTopLeft(false, false, true, false);
 }
 
 function EchoAll()

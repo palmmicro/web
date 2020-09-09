@@ -160,16 +160,19 @@ function _getIsharesXlsUrl($strSymbol)
 // https://www.ssga.com/us/en/individual/etfs/library-content/products/fund-data/etfs/us/navhist-us-en-xop.xlsx
 function GetEtfNavUrl($strSymbol)
 {
-	$sql = new StockSql();
+/*	$sql = new StockSql();
 	$record = $sql->GetRecord($strSymbol);
-	$strName = $record['name'];
-   	if (stripos($strName, 'spdr') !== false)
+	$strName = $record['name'];*/
+	if ($strName = SqlGetStockName($strSymbol))
 	{
-		return GetSpdrEtfUrl().'library-content/products/fund-data/etfs/us/navhist-us-en-'.strtolower($strSymbol).'.xlsx';
-	}
-   	else if (stripos($strName, 'ishares') !== false)
-	{
-		return _getIsharesXlsUrl($strSymbol);
+		if (stripos($strName, 'spdr') !== false)
+		{
+			return GetSpdrEtfUrl().'library-content/products/fund-data/etfs/us/navhist-us-en-'.strtolower($strSymbol).'.xlsx';
+		}
+		else if (stripos($strName, 'ishares') !== false)
+		{
+			return _getIsharesXlsUrl($strSymbol);
+		}
 	}
 	return false;
 }

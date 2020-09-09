@@ -21,9 +21,9 @@ function NavLoopCompany($bChinese)
     ResMenu($arCompanys, $bChinese);
 }
 
-function _LayoutTopLeft($bChinese = true)
+function _LayoutTopLeft($bChinese = true, $bAdsense = true)
 {
-    LayoutTopLeft('NavLoopCompany', true, $bChinese);
+    LayoutTopLeft('NavLoopCompany', true, $bChinese, $bAdsense);
 }
 
    	$acct = new Account();

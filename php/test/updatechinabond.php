@@ -55,7 +55,8 @@ function _updateChinaBond()
     preg_match_all($strPattern, $str, $arMatch, PREG_SET_ORDER);
     DebugVal(count($arMatch), '_updateChinaBond');
     $iCount = 0;
-	$sql = new StockSql();
+//	$sql = new StockSql();
+	$sql = GetStockSql();
    	foreach ($arMatch as $arItem)
    	{
    		$ar = explode('/', $arItem[1]);
@@ -84,7 +85,7 @@ function _updateChinaBond()
    			DebugString($arItem[0]);
    		}
    	}
-    DebugVal($iCount, 'updated');
+    DebugVal($iCount, 'ChinaBond updated');
 }
 	
    	$acct = new Account();

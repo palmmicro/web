@@ -3,7 +3,6 @@
 function _SwitchPage($strPage)
 {
 //	session_write_close();	// save before switch
-    mysql_close();
 	header($strPage);
 	exit();
 }

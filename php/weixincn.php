@@ -8,7 +8,7 @@ define('MAX_WX_STOCK', 10);
 
 // ****************************** Wexin support functions *******************************************************
 
-function _wxGetStockArray($strKey)
+function _wxGetStockArray($strKey, $sql)
 {
     $ar = array();
     
@@ -27,7 +27,7 @@ function _wxGetStockArray($strKey)
     		}
     	}
 */    	
-    	$sql = new StockSql();
+//    	$sql = new StockSql();
     	if ($result = $sql->GetAll()) 
     	{
     		while ($record = mysql_fetch_assoc($result)) 
@@ -102,7 +102,13 @@ function _wxGetStockText($strSymbol)
 	        
 	        $etf_ref = new MyStockReference(LofGetEstSymbol($strSymbol));
 	        $str .= WX_EOL._getStockReferenceText($etf_ref); 
-        }
+	        
+	        if ($strFutureSymbol = LofGetFutureSymbol($strSymbol))
+	        {
+	        	$future_ref = new FutureReference($strFutureSymbol);
+	        	$str .= WX_EOL._getStockReferenceText($future_ref); 
+	        }
+	    }
     }
     else
     {
@@ -151,6 +157,25 @@ function _wxDebug($strUserName, $strText, $strSubject)
 
 class WeixinStock extends WeixinCallback
 {
+    var $stock_sql;
+
+    function WeixinStock() 
+    {
+    	SqlConnectDatabase();
+
+	    $this->stock_sql = new StockSql();
+    }
+
+    function GetStockSql()
+    {
+    	return $this->stock_sql;
+    }
+    
+    function AllowCurl()
+    {
+    	return true;
+    }
+    
 	function _getStockArrayText($arSymbol, $str)
 	{
 		$iMaxLen = MAX_WX_MSG_LEN - strlen($this->GetVersion());
@@ -183,12 +208,6 @@ class WeixinStock extends WeixinCallback
     	return WX_DEBUG_VER.' '.GetWeixinDevLink('使用说明');
     }
 
-    function GetBusinessText()
-    {
-		$str = '请把具体合作内容和方式发往woody@palmmicro.com邮箱。'.WX_EOL;
-		return $str;
-    }
-
 	function GetUnknownText($strContents, $strUserName)
 	{
 		_wxDebug($strUserName, "<font color=green>内容:</font>$strContents", 'Wechat message');
@@ -207,18 +226,19 @@ class WeixinStock extends WeixinCallback
 		$strText = str_replace('。', '', $strText);
 		$strText = str_replace('.', '', $strText);
 		$strText = trim($strText);
-    
-        if (strpos($strText, '商务合作') !== false)	return $this->GetBusinessText();
-        else if (strpos($strText, '广发原油') !== false)	return '6月19日公众号文章标题写错了，应该是广发石油(162719)。'.WX_EOL;
 
+        if (stripos($strText, 'Q群') !== false)			return '本公众号不再提供群聊技术支持，请在公众号文章下公开留言。'.WX_EOL;
+        else if (strpos($strText, '商务合作') !== false)	return '请把具体合作内容和方式发往woody@palmmicro.com邮箱。'.WX_EOL;
+        else if (strpos($strText, '广发原油') !== false)	return '6月19日公众号文章标题写错了，应该是广发石油(162719)。'.WX_EOL;
+/*
         if (_ConnectDatabase() == false)
         {
         	return '服务器繁忙, 请稍后再试.'.WX_EOL;
         }
-
+*/
 		$strText = SqlCleanString($strText);
 
-		$arSymbol = _wxGetStockArray($strText);
+		$arSymbol = _wxGetStockArray($strText, $this->GetStockSql());
 		if ($iCount = count($arSymbol))
 		{
 			if ($iCount > 1)
@@ -238,7 +258,6 @@ class WeixinStock extends WeixinCallback
 			$str = $this->GetUnknownText($strText, $strUserName);
 		}
 		
-		mysql_close();
 		return $str;
 	}
 
@@ -287,7 +306,6 @@ class WeixinStock extends WeixinCallback
     }
 }
 
-	_SetErrorHandler();
     $acct = new WeixinStock();
     $acct->Run();
 ?>

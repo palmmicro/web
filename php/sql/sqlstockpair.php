@@ -1,5 +1,4 @@
 <?php
-require_once('sqlstocksymbol.php');
 require_once('sqlkeypair.php');
 
 define('TABLE_ADRH_STOCK', 'adrhstock');
@@ -8,23 +7,24 @@ define('TABLE_ETF_PAIR', 'etfpair');
 // ****************************** StockPairSql class *******************************************************
 class StockPairSql extends KeyPairSql
 {
-	var $key_sql;
+//	var $key_sql;
 	
     function StockPairSql($strTableName, $strStockId) 
     {
         parent::KeyPairSql($strTableName, $strStockId, TABLE_STOCK);
-    	$this->key_sql = new StockSql();
+//    	$this->key_sql = new StockSql();
     }
-
+/*
     function GetKeySql()
     {
     	return $this->key_sql;
     }
-    
+*/    
     function GetSymbolArray()
     {
 		$arSymbol = array();
-		$sql = $this->GetKeySql();
+//		$sql = $this->GetKeySql();
+		$sql = GetStockSql();
 		$ar = $this->GetIdArray('GetData');
 		foreach ($ar as $strStockId)
 		{
@@ -36,7 +36,8 @@ class StockPairSql extends KeyPairSql
 	
 	function GetSymbol($strPairSymbol)
 	{
-		$sql = $this->GetKeySql();
+//		$sql = $this->GetKeySql();
+		$sql = GetStockSql();
 		if ($strPairId = $sql->GetId($strPairSymbol))
 		{
 			if ($strStockId = $this->GetId($strPairId))
@@ -49,7 +50,8 @@ class StockPairSql extends KeyPairSql
 	
 	function GetPairSymbol($strSymbol)
 	{
-		$sql = $this->GetKeySql();
+//		$sql = $this->GetKeySql();
+		$sql = GetStockSql();
 		if ($strStockId = $sql->GetId($strSymbol))
 		{
 			if ($strPairId = $this->GetKeyId($strStockId))
@@ -62,7 +64,8 @@ class StockPairSql extends KeyPairSql
 
 	function InsertSymbol($strSymbol, $strPairSymbol)
 	{
-		$sql = $this->GetKeySql();
+//		$sql = $this->GetKeySql();
+		$sql = GetStockSql();
 		if ($strStockId = $sql->GetId($strSymbol))
 		{
 			if ($strPairId = $sql->GetId($strPairSymbol))
@@ -75,7 +78,8 @@ class StockPairSql extends KeyPairSql
 	
 	function UpdateSymbol($strSymbol, $strPairSymbol)
 	{
-		$sql = $this->GetKeySql();
+//		$sql = $this->GetKeySql();
+		$sql = GetStockSql();
 		if ($strStockId = $sql->GetId($strSymbol))
 		{
 			if ($strPairId = $sql->GetId($strPairSymbol))
@@ -98,7 +102,8 @@ class StockPairSql extends KeyPairSql
 	
 	function DeleteBySymbol($strPairSymbol)
 	{
-		$sql = $this->GetKeySql();
+//		$sql = $this->GetKeySql();
+		$sql = GetStockSql();
 		if ($strPairId = $sql->GetId($strPairSymbol))
 		{
 			return $this->Delete($strPairId);

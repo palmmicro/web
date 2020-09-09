@@ -29,9 +29,9 @@ function AccountMenu($bChinese)
     NavEnd();
 }
 
-function _LayoutTopLeft($bChinese = true)
+function _LayoutTopLeft($bChinese = true, $bAdsense = true)
 {
-    LayoutTopLeft('AccountMenu', true, $bChinese);
+    LayoutTopLeft('AccountMenu', true, $bChinese, $bAdsense);
 }
 
 ?>
