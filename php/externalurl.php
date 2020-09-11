@@ -160,9 +160,6 @@ function _getIsharesXlsUrl($strSymbol)
 // https://www.ssga.com/us/en/individual/etfs/library-content/products/fund-data/etfs/us/navhist-us-en-xop.xlsx
 function GetEtfNavUrl($strSymbol)
 {
-/*	$sql = new StockSql();
-	$record = $sql->GetRecord($strSymbol);
-	$strName = $record['name'];*/
 	if ($strName = SqlGetStockName($strSymbol))
 	{
 		if (stripos($strName, 'spdr') !== false)

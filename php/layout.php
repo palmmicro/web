@@ -58,8 +58,8 @@ END;
 function LayoutWeixinPay()
 {
     echo <<<END
-        <p>觉得这个网站有用? 可以用微信打赏支持一下.
-        <br /><img src=/woody/image/wxpay.jpg alt="QRcode to pay 1 RMB to Woody in Weixin" />
+        <p><img src=/woody/image/wxpay.jpg alt="QRcode to pay 1 RMB to Woody in Weixin" />
+        <br />觉得这个网站有用? 可以用微信打赏支持一下.
         </p>
 END;
 }
@@ -67,8 +67,8 @@ END;
 function LayoutAliPay()
 {
     echo <<<END
-        <p>觉得这个网站有用? 可以用支付宝打赏支持一下.
-        <br /><img src=/woody/image/alipay.jpg alt="QRcode to pay Woody in Taobao" />
+        <p><img src=/woody/image/alipay.jpg alt="QRcode to pay Woody in Taobao" />
+        <br />觉得这个网站有用? 可以用支付宝打赏支持一下.
         </p>
 END;
 }
@@ -174,10 +174,9 @@ function LayoutTopLeft($callback = false, $bSwitchLanguage = false, $bChinese = 
 {
     EchoAnalyticsOptimize();
 	$_SESSION['switchlanguage'] = $bSwitchLanguage;
-//	$_SESSION['mobile'] = $callback ? LayoutIsMobilePhone() : true;
     if ($_SESSION['mobile'])
     {
-    	if ($bAdsense)	AdsenseWoodyBlog();
+    	if ($bAdsense)	AdsensePalmmicroUser();
     }
     else
     {
@@ -190,11 +189,16 @@ function LayoutTopLeft($callback = false, $bSwitchLanguage = false, $bChinese = 
     }
 }
 
-function _layoutTail($iWidth, $bChinese, $bAdsense = true)
+// According to google policy, do NOT show Adsense in pages with no contents, such as input pages
+function LayoutTail($bChinese = true, $bAdsense = false)
 {
-    if ($_SESSION['mobile'] == false)
+    if ($_SESSION['mobile'])
     {
-    	if ($iWidth)
+		if ($bAdsense)	AdsenseWoodyBlog();
+    }
+    else
+    {
+    	if (LayoutScreenWidthOk())
     	{
     		echo '</td><td width=15 valign=top>&nbsp;</td><td valign=top>';
     		if ($bAdsense)
@@ -203,8 +207,10 @@ function _layoutTail($iWidth, $bChinese, $bAdsense = true)
     		}
     		else
     		{
+    			echo '<div>';
     			LayoutWeixinPromotion();
     			LayoutWeixinPay();
+    			echo '</div>';
     		}
     	}
     	else
@@ -215,7 +221,9 @@ function _layoutTail($iWidth, $bChinese, $bAdsense = true)
     		}
     		else
     		{
+    			echo '<div>';
     			LayoutAliPay();
+    			echo '</div>';
     		}
     	}
     	
@@ -226,21 +234,10 @@ function _layoutTail($iWidth, $bChinese, $bAdsense = true)
     EchoCopyRight($_SESSION['mobile'], $bChinese);
 }
 
-function LayoutTail($bChinese = true)
-{
-	_layoutTail(LayoutScreenWidthOk(), $bChinese, false);	// According to google policy, do NOT show Adsense in pages with no contents, such as input pages
-}
-
 function LayoutTailLogin($bChinese = true)
 {
     VisitorLogin($bChinese);
-    
-    $iWidth = LayoutScreenWidthOk();
-/*	if ($_SESSION['mobile'] || ($iWidth == false))
-	{
-		AdsenseWoodyBlog();
-	}*/    
-	_layoutTail($iWidth, $bChinese);
+    LayoutTail($bChinese, true);
 }
 
 ?>

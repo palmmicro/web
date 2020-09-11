@@ -31,12 +31,15 @@ function _echoStockTableData($sql, $iStart, $iNum, $bAdmin)
 
 function EchoStockParagraph($iStart, $iNum, $bAdmin)
 {
-	$sql = new StockSql();
+	$sql = GetStockSql();
     $strNavLink = GetNavLink(false, $sql->CountData(), $iStart, $iNum);
-	EchoTableParagraphBegin(array(new TableColumnSymbol(),
-								   new TableColumnName(),
-								   new TableColumn('', 270)
-								   ), TABLE_STOCK, $strNavLink);
+    
+	$ar = array(new TableColumnSymbol(), new TableColumnName());
+	if ($bAdmin)
+	{
+		$ar[] = new TableColumn('', 270);
+	}
+	EchoTableParagraphBegin($ar, TABLE_STOCK, $strNavLink);
 
 	_echoStockTableData($sql, $iStart, $iNum, $bAdmin);
     EchoTableParagraphEnd($strNavLink);

@@ -24,7 +24,7 @@ function _updateUsStock()
     preg_match_all($strPattern, $str, $arMatch, PREG_SET_ORDER);
     DebugVal(count($arMatch), '_updateUsStock');
     $iCount = 0;
-	$sql = new StockSql();
+	$sql = GetStockSql();
    	foreach ($arMatch as $arItem)
    	{
    		$ar = explode(',', $arItem[1]);
@@ -36,7 +36,7 @@ function _updateUsStock()
    			$iCount ++;
    		}
    	}
-    DebugVal($iCount, 'updated');
+    DebugVal($iCount, 'US stock updated');
 }
 	
    	$acct = new Account();

@@ -85,7 +85,7 @@ function _deleteStockSymbol($ref)
 	}
 
 	DebugString('Deleted');
-	$sql = new StockSql();
+	$sql = GetStockSql();
 	$sql->DeleteById($strStockId);
 }
 

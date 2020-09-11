@@ -34,7 +34,7 @@ function _updateChinaStock()
     DebugVal(count($arMatch), $csv->GetPathName().' _updateChinaStock');
 
     $iCount = 0;
-	$sql = new StockSql();
+	$sql = GetStockSql();
    	foreach ($arMatch as $arItem)
    	{
    		$ar = explode('(', $arItem[1]);
@@ -50,7 +50,7 @@ function _updateChinaStock()
 		}
    	}
     $csv->Close();
-    DebugVal($iCount, 'updated');
+    DebugVal($iCount, 'China stock updated');
 }
 	
    	$acct = new Account();

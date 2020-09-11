@@ -77,7 +77,6 @@ function SqlGetStockName($strSymbol)
 
 function SqlGetStockId($strSymbol)
 {
-//	$sql = new StockSql();
 	$sql = GetStockSql();
 	if ($strStockId = $sql->GetId($strSymbol))
 	{
@@ -89,7 +88,6 @@ function SqlGetStockId($strSymbol)
 
 function SqlGetStockSymbol($strStockId)
 {
-//	$sql = new StockSql();
 	$sql = GetStockSql();
 	return $sql->GetKey($strStockId);
 }

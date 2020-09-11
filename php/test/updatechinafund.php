@@ -27,7 +27,7 @@ function _updateChinaFund()
     preg_match_all($strPattern, $str, $arMatch, PREG_SET_ORDER);
     DebugVal(count($arMatch), '_updateChinaFund');
     $iCount = 0;
-	$sql = new StockSql();
+	$sql = GetStockSql();
    	foreach ($arMatch as $arItem)
    	{
    		$ar = explode('）', $arItem[1]);
@@ -41,7 +41,7 @@ function _updateChinaFund()
    			}
    		}
    	}
-    DebugVal($iCount, 'updated');
+    DebugVal($iCount, 'China fund updated');
 }
 	
    	$acct = new Account();

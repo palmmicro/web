@@ -27,7 +27,6 @@ function _wxGetStockArray($strKey, $sql)
     		}
     	}
 */    	
-//    	$sql = new StockSql();
     	if ($result = $sql->GetAll()) 
     	{
     		while ($record = mysql_fetch_assoc($result)) 

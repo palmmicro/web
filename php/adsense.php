@@ -47,5 +47,10 @@ function AdsenseLeft()
 	AdsenseUnit('LeftWide', '7644091508', 1050);
 }
 
+function AdsensePalmmicroUser()
+{
+	AdsenseUnit('Palmmicro User', '4158164773', 100);
+//	AdsenseUnit('Sapphire', '7682733977', 100, 320);
+}
 
 ?>

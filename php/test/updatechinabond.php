@@ -55,7 +55,6 @@ function _updateChinaBond()
     preg_match_all($strPattern, $str, $arMatch, PREG_SET_ORDER);
     DebugVal(count($arMatch), '_updateChinaBond');
     $iCount = 0;
-//	$sql = new StockSql();
 	$sql = GetStockSql();
    	foreach ($arMatch as $arItem)
    	{

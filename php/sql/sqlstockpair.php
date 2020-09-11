@@ -7,23 +7,14 @@ define('TABLE_ETF_PAIR', 'etfpair');
 // ****************************** StockPairSql class *******************************************************
 class StockPairSql extends KeyPairSql
 {
-//	var $key_sql;
-	
     function StockPairSql($strTableName, $strStockId) 
     {
         parent::KeyPairSql($strTableName, $strStockId, TABLE_STOCK);
-//    	$this->key_sql = new StockSql();
     }
-/*
-    function GetKeySql()
-    {
-    	return $this->key_sql;
-    }
-*/    
+
     function GetSymbolArray()
     {
 		$arSymbol = array();
-//		$sql = $this->GetKeySql();
 		$sql = GetStockSql();
 		$ar = $this->GetIdArray('GetData');
 		foreach ($ar as $strStockId)
@@ -36,7 +27,6 @@ class StockPairSql extends KeyPairSql
 	
 	function GetSymbol($strPairSymbol)
 	{
-//		$sql = $this->GetKeySql();
 		$sql = GetStockSql();
 		if ($strPairId = $sql->GetId($strPairSymbol))
 		{
@@ -50,7 +40,6 @@ class StockPairSql extends KeyPairSql
 	
 	function GetPairSymbol($strSymbol)
 	{
-//		$sql = $this->GetKeySql();
 		$sql = GetStockSql();
 		if ($strStockId = $sql->GetId($strSymbol))
 		{
@@ -64,7 +53,6 @@ class StockPairSql extends KeyPairSql
 
 	function InsertSymbol($strSymbol, $strPairSymbol)
 	{
-//		$sql = $this->GetKeySql();
 		$sql = GetStockSql();
 		if ($strStockId = $sql->GetId($strSymbol))
 		{
@@ -78,7 +66,6 @@ class StockPairSql extends KeyPairSql
 	
 	function UpdateSymbol($strSymbol, $strPairSymbol)
 	{
-//		$sql = $this->GetKeySql();
 		$sql = GetStockSql();
 		if ($strStockId = $sql->GetId($strSymbol))
 		{
@@ -102,7 +89,6 @@ class StockPairSql extends KeyPairSql
 	
 	function DeleteBySymbol($strPairSymbol)
 	{
-//		$sql = $this->GetKeySql();
 		$sql = GetStockSql();
 		if ($strPairId = $sql->GetId($strPairSymbol))
 		{
