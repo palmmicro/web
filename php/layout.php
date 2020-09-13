@@ -194,7 +194,7 @@ function LayoutTail($bChinese = true, $bAdsense = false)
 {
     if ($_SESSION['mobile'])
     {
-		if ($bAdsense)	AdsenseWoodyBlog();
+		if ($bAdsense)	AdsenseContent();
     }
     else
     {

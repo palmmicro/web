@@ -53,4 +53,9 @@ function AdsensePalmmicroUser()
 //	AdsenseUnit('Sapphire', '7682733977', 100, 320);
 }
 
+function AdsenseContent()
+{
+	AdsenseUnit('Content', '3041144501', 300);
+}
+
 ?>

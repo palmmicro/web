@@ -25,7 +25,7 @@ function _echoDebugParagraph($arDebug, $str)
 	$str .= ':';
     foreach ($arDebug as $strIp => $iCount)
     {
-    	if ($iCount > 1)
+    	if ($iCount > 2)
     	{
     		$str .= '<br />'.GetVisitorLink($strIp).' '.strval($iCount);
     	}

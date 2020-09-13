@@ -123,7 +123,7 @@ function GetFundPositionLink($strSymbol = FUND_DEMO_SYMBOL)
 
 function GetLofAnalysisLinks($strSymbol)
 {
-	return GetThanousParadoxLink($strSymbol).' '.GetFundAccountLink($strSymbol).' '.GetFundPositionLink($strSymbol);
+	return GetNvCloseHistoryLink($strSymbol).' '.GetThanousParadoxLink($strSymbol).' '.GetFundAccountLink($strSymbol).' '.GetFundPositionLink($strSymbol);
 }
 
 define('STOCK_OPTION_ADJCLOSE', '根据分红更新复权收盘价');

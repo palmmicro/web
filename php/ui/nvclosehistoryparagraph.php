@@ -37,6 +37,16 @@ function _echoNvCloseItem($csv, $shares_sql, $strDate, $strNetValue, $ref, $strF
 
 function _echoNvCloseData($sql, $shares_sql, $ref, $csv, $iStart, $iNum, $bAdmin)
 {
+	$strSymbol = $ref->GetSymbol();
+	if (in_arrayLof($strSymbol))
+	{
+		$bSameDayNetValue = false;
+	}
+	else
+	{
+		$bSameDayNetValue = true;
+	}
+	
     if ($result = $sql->GetAll($iStart, $iNum)) 
     {
         while ($record = mysql_fetch_assoc($result)) 
@@ -44,7 +54,12 @@ function _echoNvCloseData($sql, $shares_sql, $ref, $csv, $iStart, $iNum, $bAdmin
         	$strNetValue = rtrim0($record['close']);
         	if (empty($strNetValue) == false)
         	{
-   				_echoNvCloseItem($csv, $shares_sql, $record['date'], $strNetValue, $ref, ($bAdmin ? $record['id'] : false));
+        		$strDate = $record['date'];
+        		if ($bSameDayNetValue == false)
+        		{
+        			$strDate = GetNextTradingDayYMD($strDate);
+        		}
+   				_echoNvCloseItem($csv, $shares_sql, $strDate, $strNetValue, $ref, ($bAdmin ? $record['id'] : false));
         	}
         }
         @mysql_free_result($result);

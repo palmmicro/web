@@ -59,12 +59,11 @@ function TestCmdLine()
 	file_put_contents(DebugGetFile(), DEBUG_UTF8_BOM.'Start debug:'.PHP_EOL);
 	DebugString($_SERVER['DOCUMENT_ROOT']);
 	DebugString(phpversion());
-	echo strval(rand()).' Hello, world!';
+	echo strval(rand()).' Hello, world!<br />';
 	
 	TestCmdLine();
-	
-	$sql = new MemberSql();
-	
+
+//	$sql = new MemberSql();
 //	WriteForexDataFromFile();
 	phpinfo();
 ?>

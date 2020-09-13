@@ -135,7 +135,7 @@ function GetShangHaiLofOfficialLink()
 
 function GetShenZhenLofOfficialLink()
 {
-    return GetExternalLink('http://www.szse.cn/market/fund/list/lofFundList/index.html', '深交所官网LOF数据');
+    return GetExternalLink(GetSzseUrl().'market/fund/list/lofFundList/index.html', '深交所官网LOF数据');
 }
 
 function GetEastMoneyGlobalFuturesLink()

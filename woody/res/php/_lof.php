@@ -27,6 +27,8 @@ class _LofAccount extends LofGroupAccount
         $this->usd_ref = new ForexReference($strUSD);
         $this->cnh_ref = new ForexReference($strCNH);
         
+        SzseGetLofShares($this->ref->stock_ref);
+        
 		$this->LofCreateGroup();
     }
 } 

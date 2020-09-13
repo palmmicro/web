@@ -12,6 +12,7 @@ require_once('sql/sqlstock.php');
 
 require_once('stock/stocksymbol.php');
 require_once('stock/chinamoney.php');
+require_once('stock/szse.php');			// Shenzhen Stock Exchange
 require_once('stock/yahoostock.php');
 require_once('stock/sinastock.php');
 require_once('stock/stockprefetch.php');
