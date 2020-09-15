@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>Sending PTT via RFC 2833</title>
-<meta name="description" content="RFC 2833, PTT">
+<meta name="description" content="Sending PTT COR HIGH and COR LOW via RFC 2833 or standard SIP MESSAGE in AR168R Radio over IP module.">
 <?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>

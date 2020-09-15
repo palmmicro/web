@@ -173,11 +173,23 @@ function SzseGetLofShares($ref)
 	$sql = new EtfSharesHistorySql($ref->GetStockId());
 	$strDate = $ref->GetDate();
 	if ($sql->GetRecord($strDate))	return;
+
+    date_default_timezone_set(STOCK_TIME_ZONE_CN);
+	$strFileName = DebugGetSzseFileName($ref->GetSymbol());
+	clearstatcache(true, $strFileName);
+    if (file_exists($strFileName))
+    {
+    	$now_ymd = new NowYMD();
+        if ($now_ymd->IsNewFile($strFileName))		return;   		// update on every minute
+    }
 	
 	$strUrl = GetSzseUrl().'api/report/ShowReport/data?SHOWTYPE=JSON&CATALOGID=1945_LOF&txtQueryKeyAndJC='.$strDigitA;
    	if ($str = url_get_contents($strUrl))
     {
+   		file_put_contents($strFileName, $str);
    		$ar = json_decode($str, true);
+//   		DebugPrint($ar, 'SzseGetLofShares');
+   		
    		$ar0 = $ar[0];
    		if (isset($ar0['metadata']))
    		{
@@ -192,20 +204,11 @@ function SzseGetLofShares($ref)
    					$sql->Write($strDate, $strClose);
    					DebugString($strClose);
    				}
-   				else
-   				{
-   					DebugString('No data');
-   				}
+   				else	DebugString('No data');
    			}
-   			else
-   			{
-   				DebugString('different date: '.$arMetaData['subname'].' '.$strDate);
-   			}
+   			else	DebugString('different date: '.$arMetaData['subname'].' '.$strDate);
    		}
-   		else
-   		{
-   			DebugString('No metadata');
-   		}
+   		else	DebugString('No metadata');
    	}
 }
 

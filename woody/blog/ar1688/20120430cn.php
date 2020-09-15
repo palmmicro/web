@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>使用RFC 2833发送PTT</title>
-<meta name="description" content="RFC 2833, PTT">
+<meta name="description" content="一切从标准出发. 在AR168R Radio over IP模块中使用RFC 2833或者标准SIP MESSAGE发送PTT的COR HIGH和COR LOW信号, 不用单开一路UDP或者TCP传输.">
 <?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>

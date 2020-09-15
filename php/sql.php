@@ -215,8 +215,10 @@ function _errorHandler($errno, $errstr, $errfile, $errline)
     
    		$str .= '<br />'.GetCurLink();
 //   		if (isset($_SESSION['SESS_ID']))		$str .= '<br />'.GetMemberLink($_SESSION['SESS_ID']);	// need MySQL successful
-   		$str .= '<br />'.GetVisitorLink(UrlGetIp());
-   		if (EmailHtml(ADMIN_EMAIL, $strSubject, $str) == false)
+
+		$strIp = UrlGetIp();
+   		$str .= '<br />'.GetVisitorLink($strIp);
+   		if (EmailHtml(ADMIN_EMAIL, $strSubject.' '.$strIp, $str) == false)
    		{
    			$strDebug .= ' mail failed too';
    		}

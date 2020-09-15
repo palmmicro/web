@@ -195,16 +195,19 @@ function LayoutTail($bChinese = true, $bAdsense = false)
     if ($_SESSION['mobile'])
     {
 		if ($bAdsense)	AdsenseContent();
+   		else
+   		{
+   			echo '<div>';
+   			LayoutWeixinPay();
+   			echo '</div>';
+   		}
     }
     else
     {
     	if (LayoutScreenWidthOk())
     	{
     		echo '</td><td width=15 valign=top>&nbsp;</td><td valign=top>';
-    		if ($bAdsense)
-    		{
-    			AdsenseLeft();
-    		}
+    		if ($bAdsense)	AdsenseLeft();
     		else
     		{
     			echo '<div>';
@@ -215,10 +218,7 @@ function LayoutTail($bChinese = true, $bAdsense = false)
     	}
     	else
     	{
-    		if ($bAdsense)
-    		{
-    			AdsenseWoodyBlog();
-    		}
+    		if ($bAdsense)	AdsenseWoodyBlog();
     		else
     		{
     			echo '<div>';

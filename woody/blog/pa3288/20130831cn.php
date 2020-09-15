@@ -12,7 +12,7 @@
 <?php _LayoutTopLeft(); ?>
 
 <div>
-<h1>USB</h1>
+<h1>USB接口</h1>
 <p>2013年8月31日
 为MP3和数码相机设计的<a href="../../../pa1688/indexcn.html">PA1688</a>集成了USB 1.1从设备, 但是在VoIP软件中我们从来没有使用过它. 
 <br />2004年一个新CEO取代了<a href="../palmmicro/20061123cn.php">王老板</a>在Centrality原来的位置. 年底新CEO视察过北京公司后, 我就清楚的知道要准备好随时自己继续做VoIP生意了.

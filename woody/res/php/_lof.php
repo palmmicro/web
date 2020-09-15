@@ -27,8 +27,6 @@ class _LofAccount extends LofGroupAccount
         $this->usd_ref = new ForexReference($strUSD);
         $this->cnh_ref = new ForexReference($strCNH);
         
-        SzseGetLofShares($this->ref->stock_ref);
-        
 		$this->LofCreateGroup();
     }
 } 
@@ -141,9 +139,15 @@ function GetLofLinks($sym)
 	$str .= ' '.GetEastMoneyQdiiLink();
 	if ($strFutureSymbol || in_arrayCommodityLof($strSymbol))			$str .= ' '.GetEastMoneyGlobalFuturesLink();
 	
-	if (in_arraySpyLof($strSymbol) || in_arrayQqqLof($strSymbol))
+	if (in_arrayQqqLof($strSymbol))
 	{
-		$str .= ' '.GetCmeEquityIndexLink();
+		$str .= ' '.GetInvescoOfficialLink('QQQ');
+		$str .= ' '.GetCmeMnqLink();
+	}
+	
+	if (in_arraySpyLof($strSymbol))
+	{
+		$str .= ' '.GetCmeMesLink();
 		$str .= ' '.GetBuffettIndicatorLink();
 	}
 	

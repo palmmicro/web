@@ -123,6 +123,12 @@ function GetSpdrOfficialLink($strSymbol)
 	return GetOfficialLink($str, $strSymbol);
 }
 
+function GetInvescoOfficialLink($strSymbol)
+{
+	$str = 'https://www.invesco.com/us/financial-products/etfs/product-detail?productId='.$strSymbol;
+	return GetOfficialLink($str, $strSymbol);
+}
+
 function GetShangHaiEtfOfficialLink()
 {
     return GetExternalLink('http://www.sse.com.cn/market/funddata/volumn/etfvolumn/', '上交所官网ETF规模数据');
@@ -432,9 +438,14 @@ function GetCmeCrudeOilLink()
 	return GetOfficialLink(GetCmeTradingUrl().'energy/crude-oil/light-sweet-crude.html', '芝商所CL');
 }
 
-function GetCmeEquityIndexLink()
+function GetCmeMnqLink()
 {
-	return GetOfficialLink(GetCmeTradingUrl().'equity-index/', '芝商所股指期货'); 
+	return GetOfficialLink(GetCmeTradingUrl().'equity-index/us-index/micro-e-mini-nasdaq-100.html', '芝商所MNQ'); 
+}
+
+function GetCmeMesLink()
+{
+	return GetOfficialLink(GetCmeTradingUrl().'equity-index/us-index/micro-e-mini-sandp-500.html', '芝商所MES'); 
 }
 
 function GetUscfLink()

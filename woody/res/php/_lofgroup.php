@@ -14,6 +14,8 @@ class LofGroupAccount extends FundGroupAccount
     
     function LofCreateGroup()
     {
+        SzseGetLofShares($this->ref->stock_ref);
+        
     	foreach ($this->arLeverage as $strSymbol)
     	{
     		$this->ar_leverage_ref[] = new EtfReference($strSymbol);

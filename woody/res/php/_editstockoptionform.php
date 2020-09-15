@@ -136,6 +136,23 @@ function _getStockOptionDaily($sql, $strDate)
 	return $sql->GetClose($strDate);
 }
 
+function _getStockOptionSharesDiff($strStockId, $strDate)
+{
+	$sql = new EtfSharesDiffSql($strStockId);
+	if ($str = _getStockOptionDaily($sql, $strDate))	return $str;
+
+	$shares_sql = new EtfSharesHistorySql($strStockId);
+	if ($strClose = $shares_sql->GetClose($strDate))
+	{
+		if ($strClosePrev = $shares_sql->GetClosePrev($strDate))
+		{
+			return strval(floatval($strClose) - floatval($strClosePrev));
+		}
+	}
+
+	return '';
+}
+
 function _getStockOptionVal($strSubmit, $strLoginId, $ref, $strSymbol, $strDate)
 {
 	$strStockId = $ref->GetStockId();
@@ -169,7 +186,7 @@ function _getStockOptionVal($strSubmit, $strLoginId, $ref, $strSymbol, $strDate)
 		return _getStockOptionDaily(new NetValueHistorySql($strStockId), $strDate);
 
 	case STOCK_OPTION_SHARES_DIFF:
-		return _getStockOptionDaily(new EtfSharesDiffSql($strStockId), $strDate);
+		return _getStockOptionSharesDiff($strStockId, $strDate);
 
 	case STOCK_OPTION_SPLIT:
 		return '10:1';

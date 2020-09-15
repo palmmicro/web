@@ -160,6 +160,13 @@ function DebugArray($ar)
 	DebugString('DebugArray end.');
 }
 
+function DebugPrint($exp, $strPrefix = false)
+{
+	$str = $strPrefix ? $strPrefix : 'Debug print_r begin ...';
+	$str .= PHP_EOL.print_r($exp, true);
+	DebugString($str);
+}
+
 function DebugHere($iVal = false)
 {
    	static $iDebugVal = 0;
@@ -222,6 +229,11 @@ function _getDebugFileName($strSection, $strSymbol)
 function DebugGetSinaFileName($strSymbol)
 {
     return _getDebugFileName('sina', $strSymbol);
+}
+
+function DebugGetSzseFileName($strSymbol)
+{
+    return _getDebugFileName('szse', $strSymbol);
 }
 
 function DebugGetEastMoneyFileName($strSymbol)
