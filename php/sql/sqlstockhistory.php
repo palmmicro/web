@@ -12,7 +12,7 @@ class StockHistorySql extends DailyStockValSql
     function Create()
     {
     	$str = ' `stock_id` INT UNSIGNED NOT NULL ,'
-         	  . ' `date` DATE NOT NULL ,'
+    		  . $this->ComposeDateStr().','
          	  . ' `open` DOUBLE(10,3) NOT NULL ,'
          	  . ' `high` DOUBLE(10,3) NOT NULL ,'
          	  . ' `low` DOUBLE(10,3) NOT NULL ,'
@@ -23,7 +23,22 @@ class StockHistorySql extends DailyStockValSql
          	  . ' UNIQUE ( `date`, `stock_id` )';
     	return $this->CreateIdTable($str);
     }
-
+/*
+    public function Create()
+    {
+    	$str = $this->ComposeKeyStr().','
+    		  . $this->ComposeDateStr().','
+         	  . ' `open` DOUBLE(10,3) NOT NULL ,'
+         	  . ' `high` DOUBLE(10,3) NOT NULL ,'
+         	  . ' `low` DOUBLE(10,3) NOT NULL ,'
+         	  . ' `close` DOUBLE(10,3) NOT NULL ,'
+         	  . ' `volume` BIGINT UNSIGNED NOT NULL ,'
+         	  . ' `adjclose` DOUBLE(13,6) NOT NULL ,'
+         	  . $this->ComposeForeignKeyStr().','
+         	  . $this->ComposeUniqueDateStr();
+    	return $this->CreateIdTable($str);
+    }
+*/    
     function WriteHistory($strDate, $strOpen, $strHigh, $strLow, $strClose, $strVolume, $strAdjClose)
     {
     	$ar = array('date' => $strDate,

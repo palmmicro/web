@@ -364,7 +364,7 @@ function GetReferenceRateForexLink($strSymbol)
 
 function GetTradingViewLink($strSymbol)
 {
-    $strHttp = 'https://www.tradingview.com/symbols/AMEX-'.$strSymbol;
+    $strHttp = 'https://www.tradingview.com/symbols/AMEX-'.$strSymbol.'/';
     return GetExternalLink($strHttp, $strSymbol);
 }
 

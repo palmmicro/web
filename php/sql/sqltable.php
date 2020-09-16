@@ -35,6 +35,16 @@ class TableSql
     	return $this->ComposeIdStr().'PRIMARY KEY';
     }
 
+    function ComposeDateStr()
+    {
+		return ' `date` DATE NOT NULL ';
+	}
+	
+    function ComposeTimeStr()
+    {
+		return ' `time` TIME NOT NULL ';
+	}
+	
     function Create()
     {
     	return $this->CreateTable($this->ComposePrimaryIdStr());

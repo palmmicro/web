@@ -21,13 +21,13 @@ function _echoBlogVisitorData($strId, $visitor_sql, $page_sql, $iStart, $iNum, $
 
     if ($result = $visitor_sql->GetDataBySrc($strId, $iStart, $iNum)) 
     {
-//        while ($record = mysql_fetch_assoc($result)) 
-        while ($record = mysql_fetch_row($result)) 
+   		$strDstIndex = $visitor_sql->GetDstKeyIndex();
+   		$strSrcIndex = $visitor_sql->GetSrcKeyIndex();
+        while ($record = mysql_fetch_assoc($result)) 
         {
-//			$ar = array($record['date'], GetHM($record['time']));
-			$ar = array($record[3], GetHM($record[4]));
+			$ar = array($record['date'], GetHM($record['time']));
 
-			$strDstId = $record[1];	// $record['dst_id']
+			$strDstId = $record[$strDstIndex];
 			$strUri = $page_sql->GetKey($strDstId);
             $strUriLink = ltrim($strUri, '/');
             $strUriLink = _getVisitorContentsDisplay($strUriLink);
@@ -35,7 +35,7 @@ function _echoBlogVisitorData($strId, $visitor_sql, $page_sql, $iStart, $iNum, $
             
             if ($strId == false)
             {
-            	$strSrcId = $record[2];	// $record['src_id']
+            	$strSrcId = $record[$strSrcIndex];
 				$strIp = GetIp($strSrcId);
 				$ar[] = SelectColumnItem($strIp, GetVisitorLink($strIp, $bChinese), $strSrcId, $arId);
             }

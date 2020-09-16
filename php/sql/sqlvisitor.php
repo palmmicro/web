@@ -1,18 +1,26 @@
 <?php
-require_once('sqltable.php');
+require_once('sqlkeytable.php');
 
-class VisitorSql extends TableSql
+class VisitorSql extends KeySql
 {
-	var $strDstKey;
 	var $strSrcKey;
 	
     function VisitorSql($strTableName = TABLE_VISITOR, $strDstPrefix = TABLE_PAGE, $strSrcPrefix = TABLE_IP)
     {
-    	$this->strDstKey = $this->Add_id($strDstPrefix);
     	$this->strSrcKey = $this->Add_id($strSrcPrefix);
-        parent::TableSql($strTableName);
+        parent::KeySql($strTableName, $strDstPrefix);
     }
 
+    function GetSrcKeyIndex()
+    {
+    	return $this->strSrcKey;
+    }
+    
+    function GetDstKeyIndex()
+    {
+    	return $this->GetKeyIndex();
+    }
+    
     public function GetExtraCreateStr()
     {
     	return '';
@@ -20,12 +28,12 @@ class VisitorSql extends TableSql
     
     function Create()
     {
-    	$str = $this->ComposeIdStr($this->strDstKey).','
+    	$str = $this->ComposeKeyStr().','
     		 . $this->ComposeIdStr($this->strSrcKey).','
-    		 . ' `date` DATE NOT NULL ,'
-    		 . ' `time` TIME NOT NULL ,'
+    		 . $this->ComposeDateStr().','
+    		 . $this->ComposeTimeStr().','
     		 . $this->GetExtraCreateStr()
-    		 . $this->ComposeForeignStr($this->strDstKey).','
+    		 . $this->ComposeForeignKeyStr().','
     		 . $this->ComposeForeignStr($this->strSrcKey).','
     		 . _SqlComposeDateTimeIndex();
     	return $this->CreateIdTable($str);
@@ -41,8 +49,7 @@ class VisitorSql extends TableSql
     
     function MakeVisitorInsertArray($strDstId, $strSrcId, $strDate, $strTime)
     {
-    	$ar = $this->MakeDateTimeArray($strDate, $strTime);
-    	$ar[$this->strDstKey] = $strDstId;
+		$ar = array_merge($this->MakeDateTimeArray($strDate, $strTime), $this->MakeFieldKeyId($strDstId));
     	$ar[$this->strSrcKey] = $strSrcId;
     	return $ar;
     }
@@ -59,7 +66,7 @@ class VisitorSql extends TableSql
     
     function BuildWhereByDst($strDstId)
     {
-    	return _SqlBuildWhere($this->strDstKey, $strDstId);
+		return $this->BuildWhere_key($strDstId);
     }
     
     public function GetAll($strWhere = false, $iStart = 0, $iNum = 0)
@@ -104,11 +111,13 @@ class VisitorSql extends TableSql
     function CountUniqueDst($strSrcId)
     {
     	$ar = array();
+    	
     	if ($result = $this->GetDataBySrc($strSrcId)) 
     	{
+    		$strIndex = $this->GetDstKeyIndex();
     		while ($record = mysql_fetch_assoc($result)) 
     		{
-    			$ar[] = $record[$this->strDstKey];
+    			$ar[] = $record[$strIndex];
     		}
     		@mysql_free_result($result);
     	}

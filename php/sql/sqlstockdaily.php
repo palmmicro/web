@@ -249,7 +249,7 @@ class FundEstSql extends DailyStockValSql
     function Create()
     {
         $str = $this->ComposeDailyValStr()
-         	  . ' `time` TIME NOT NULL ,'
+    		  . $this->ComposeTimeStr().','
         	  . $this->ComposeDailyIndexStr();
     	return $this->CreateIdTable($str);
     }
