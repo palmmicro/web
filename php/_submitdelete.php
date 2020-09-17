@@ -23,9 +23,9 @@ class _AdminDeleteAccount extends Account
 			$iCount = $visitor_sql->CountBySrc($strId);
 			$visitor_sql->DeleteBySrc($strId);        
 
-			$sql->AddVisit($iCount, $strIp);
+			$sql->AddVisit($strIp, $iCount);
 		}
-		$sql->SetStatus(IP_STATUS_NORMAL, $strIp);
+		$sql->SetStatus($strIp, IP_STATUS_NORMAL);
 	}
 
     function AdminProcess()

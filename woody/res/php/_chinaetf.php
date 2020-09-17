@@ -43,16 +43,17 @@ class _ChinaEtfAccount extends GroupAccount
     	$ref->SetTimeZone();
     	if ($ref->IsMarketTrading(new NowYMD()) == false)	return false;
     	
-		$sql = new EtfCnhSql($ref->GetStockId());
+		$sql = new EtfCnhSql();
+		$strStockId = $ref->GetStockId();
 		$strDate = $ref->GetDate();
 		$strPrice = $this->cnh_ref->GetPrice();
-		if ($strCnh = $sql->GetClose($strDate))
+		if ($strCnh = $sql->GetClose($strStockId, $strDate))
 		{
 			if (abs(floatval($strCnh) - floatval($strPrice)) > 0.001)
 			{
 				if ($strNetValue = EtfRefManualCalibration($ref))
 				{
-					$sql->Write($strDate, $strPrice);
+					$sql->WriteDaily($strStockId, $strDate, $strPrice);
 //					DebugString($strPrice);
 					if ($strNetValue != $ref->GetNetValue())
 					{
@@ -63,7 +64,7 @@ class _ChinaEtfAccount extends GroupAccount
 		}
 		else
 		{
-			$sql->Insert($strDate, $strPrice);
+			$sql->InsertDaily($strStockId, $strDate, $strPrice);
 		}
 		return false;
     }

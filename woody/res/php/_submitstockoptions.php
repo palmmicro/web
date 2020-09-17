@@ -227,6 +227,11 @@ function _updateStockOptionDaily($sql, $strDate, $strVal)
     }
 }
 
+function _updateOptionDailySql($sql, $strStockId, $strDate, $strVal)
+{
+	$sql->ModifyDaily($strStockId, $strDate, $strVal);
+}
+
 function _updateStockOptionSplitGroupTransactions($strGroupId, $strStockId, $strDate, $fRatio, $fPrice)
 {
 	$sql = new StockGroupItemSql($strGroupId);
@@ -330,7 +335,7 @@ function _updateStockOptionSplit($ref, $strSymbol, $strStockId, $strDate, $strVa
 			break;
 			
 		case STOCK_OPTION_SHARES_DIFF:
-			if ($bAdmin)	_updateStockOptionDaily(new EtfSharesDiffSql($strStockId), $strDate, $strVal);
+			if ($bAdmin)	_updateOptionDailySql(new SharesDiffSql(), $strStockId, $strDate, $strVal);
 			break;
 			
 		case STOCK_OPTION_SPLIT:

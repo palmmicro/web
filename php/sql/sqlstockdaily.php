@@ -1,5 +1,6 @@
 <?php
 require_once('sqlstocksymbol.php');
+require_once('sqlkeytable.php');
 
 // ****************************** DailyStockSql class *******************************************************
 class DailyStockSql extends StockTableSql
@@ -286,30 +287,30 @@ class StockSplitSql extends DailyStockValSql
     }
 }
 
-// ****************************** EtfSharesHistorySql class *******************************************************
-class EtfSharesHistorySql extends DailyStockValSql
+// ****************************** SharesHistorySql class *******************************************************
+class SharesHistorySql extends DailyKeySql
 {
-    function EtfSharesHistorySql($strStockId = false) 
+    function SharesHistorySql() 
     {
-        parent::DailyStockValSql('etfshareshistory', $strStockId);
+        parent::DailyKeySql('etfshareshistory');
     }
 }
 
-// ****************************** EtfSharesDiffSql class *******************************************************
-class EtfSharesDiffSql extends DailyStockValSql
+// ****************************** SharesDiffSql class *******************************************************
+class SharesDiffSql extends DailyKeySql
 {
-    function EtfSharesDiffSql($strStockId = false) 
+    function SharesDiffSql() 
     {
-        parent::DailyStockValSql('etfsharesdiff', $strStockId);
+        parent::DailyKeySql('etfsharesdiff');
     }
 }
 
 // ****************************** EtfCnhSql class *******************************************************
-class EtfCnhSql extends DailyStockValSql
+class EtfCnhSql extends DailyKeySql
 {
-    function EtfCnhSql($strStockId) 
+    function EtfCnhSql() 
     {
-        parent::DailyStockValSql('etfcnh', $strStockId);
+        parent::DailyKeySql('etfcnh');
     }
 }
 

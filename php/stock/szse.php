@@ -170,9 +170,10 @@ function SzseGetLofShares($ref)
 	if ($strDigitA == false)					return;
 	if (substr($strDigitA, 0, 2) != '16')	return;
 	
-	$sql = new EtfSharesHistorySql($ref->GetStockId());
+	$sql = new SharesHistorySql();
 	$strDate = $ref->GetDate();
-	if ($sql->GetRecord($strDate))	return;
+	$strStockId = $ref->GetStockId();
+	if ($sql->GetRecord($strStockId, $strDate))	return;
 
     date_default_timezone_set(STOCK_TIME_ZONE_CN);
 	$strFileName = DebugGetSzseFileName($ref->GetSymbol());
@@ -201,7 +202,7 @@ function SzseGetLofShares($ref)
    					$arData = $ar0['data'];
    					$arData0 = $arData[0];
    					$strClose = str_replace(',', '', $arData0['dqgm']);
-   					$sql->Write($strDate, $strClose);
+   					$sql->WriteDaily($strStockId, $strDate, $strClose);
    					DebugString($strClose);
    				}
    				else	DebugString('No data');

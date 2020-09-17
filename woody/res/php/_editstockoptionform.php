@@ -138,13 +138,13 @@ function _getStockOptionDaily($sql, $strDate)
 
 function _getStockOptionSharesDiff($strStockId, $strDate)
 {
-	$sql = new EtfSharesDiffSql($strStockId);
-	if ($str = _getStockOptionDaily($sql, $strDate))	return $str;
+	$sql = new SharesDiffSql();
+	if ($str = $sql->GetClose($strStockId, $strDate))		return $str;
 
-	$shares_sql = new EtfSharesHistorySql($strStockId);
-	if ($strClose = $shares_sql->GetClose($strDate))
+	$shares_sql = new SharesHistorySql();
+	if ($strClose = $shares_sql->GetClose($strStockId, $strDate))
 	{
-		if ($strClosePrev = $shares_sql->GetClosePrev($strDate))
+		if ($strClosePrev = $shares_sql->GetClosePrev($strStockId, $strDate))
 		{
 			return strval(floatval($strClose) - floatval($strClosePrev));
 		}

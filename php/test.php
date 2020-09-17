@@ -63,7 +63,6 @@ function TestCmdLine()
 	
 	TestCmdLine();
 
-//	$sql = new DailyKeySql('dailytest');
 //	$sql = new MemberSql();
 //	WriteForexDataFromFile();
 	phpinfo();

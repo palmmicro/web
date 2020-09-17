@@ -99,8 +99,8 @@ function _echoFundAccountItem($csv, $strDate, $strSharesDiff, $ref, $strSymbol, 
 
 function _echoFundAccountData($csv, $ref, $strSymbol, $strStockId, $nv_sql)
 {
-	$sql = new EtfSharesDiffSql($strStockId);
-    if ($result = $sql->GetAll()) 
+	$sql = new SharesDiffSql();
+    if ($result = $sql->GetAll($strStockId)) 
     {
         while ($record = mysql_fetch_assoc($result)) 
         {

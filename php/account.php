@@ -37,11 +37,11 @@ function _checkVisitor($strIp, $sql, $visitor_sql, $strBlogId, $strMemberId)
 			else
 			{
 				$strDebug .= '新标注爬虫';
-				$sql->SetStatus(IP_STATUS_CRAWLER, $strIp);
+				$sql->SetStatus($strIp, IP_STATUS_CRAWLER);
 			}
 		}
 		trigger_error($strDebug);
-		$sql->AddVisit($iCount, $strIp);
+		$sql->AddVisit($strIp, $iCount);
 		$visitor_sql->DeleteBySrc($strId);        
 	}
 }
@@ -94,7 +94,7 @@ class Account
     
     function SetCrawler($strIp)
     {
-    	return $this->ip_sql->SetStatus(IP_STATUS_CRAWLER, $strIp);
+    	return $this->ip_sql->SetStatus($strIp, IP_STATUS_CRAWLER);
     }
     
     function GetIpSql()

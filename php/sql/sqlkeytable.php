@@ -127,11 +127,6 @@ class KeySql extends TableSql
     	return array($this->strKey => $strKeyId);
     }
     
-    public function BuildOrderBy()
-    {
-    	return false;
-    }
-    
     function BuildWhere_key($strKeyId)
     {
     	return _SqlBuildWhere($this->strKey, $strKeyId);
@@ -142,11 +137,21 @@ class KeySql extends TableSql
     	return $this->CountData($this->BuildWhere_key($strKeyId));
     }
 
+    public function BuildOrderBy()
+    {
+    	return false;
+    }
+    
     public function GetAll($strKeyId = false, $iStart = 0, $iNum = 0)
     {
    		return $this->GetData($this->BuildWhere_key($strKeyId), $this->BuildOrderBy(), _SqlBuildLimit($iStart, $iNum));
     }
 
+    function GetRecordNow($strKeyId = false, $strDummy = false)
+    {
+    	return $this->GetSingleData($this->BuildWhere_key($strKeyId), $this->BuildOrderBy());
+    }
+    
     function DeleteAll($strKeyId)
     {
     	if ($strKeyId !== false)
@@ -178,85 +183,107 @@ class DailyKeySql extends KeySql
          	  . $this->ComposeUniqueDateStr();
     	return $this->CreateIdTable($str);
     }
-/*
-    function BuildWhere_stock_date($strDate)
+
+    public function BuildOrderBy()
     {
-		return $this->BuildWhere_key_extra('date', $strDate);
+    	return _SqlOrderByDate();
     }
     
-    function GetFromDate($strDate, $iNum = 0)
+    function GetFromDate($strKeyId, $strDate, $iNum = 0)
     {
-    	return $this->GetData($this->BuildWhere_key()." AND date <= '$strDate'", _SqlOrderByDate(), _SqlBuildLimit(0, $iNum));
+    	return $this->GetData($this->BuildWhere_key($strKeyId)." AND date <= '$strDate'", $this->BuildOrderBy(), _SqlBuildLimit(0, $iNum));
     }
     
-    function GetRecordPrev($strDate)
+    function GetRecordPrev($strKeyId, $strDate)
     {
-    	return $this->GetSingleData($this->BuildWhere_key()." AND date < '$strDate'", _SqlOrderByDate());
+    	return $this->GetSingleData($this->BuildWhere_key($strKeyId)." AND date < '$strDate'", $this->BuildOrderBy());
     }
 
-    function GetRecord($strDate)
+    function BuildWhere_key_date($strKeyId, $strDate)
     {
-    	return $this->GetSingleData($this->BuildWhere_stock_date($strDate));
+    	$ar = $this->MakeFieldKeyId($strKeyId);
+    	$ar['date'] = $strDate;
+		return _SqlBuildWhereAndArray($ar);
     }
     
-    function _getCloseString($callback, $strDate = false)
+    function GetRecord($strKeyId, $strDate)
     {
-    	if ($record = $this->$callback($strDate))
+    	return $this->GetSingleData($this->BuildWhere_key_date($strKeyId, $strDate));
+    }
+
+    function _getCloseString($callback, $strKeyId, $strDate = false)
+    {
+    	if ($record = $this->$callback($strKeyId, $strDate))
     	{
     		return rtrim0($record['close']);
     	}
     	return false;
     }
     
-    function GetClose($strDate)
+    function GetClose($strKeyId, $strDate)
     {
-    	return $this->_getCloseString('GetRecord', $strDate);
+    	return $this->_getCloseString('GetRecord', $strKeyId, $strDate);
     }
 
-    function GetClosePrev($strDate)
+    function GetClosePrev($strKeyId, $strDate)
     {
-    	return $this->_getCloseString('GetRecordPrev', $strDate);
+    	return $this->_getCloseString('GetRecordPrev', $strKeyId, $strDate);
     }
 
-    function GetDateNow()
+    function GetDateNow($strKeyId = false)
     {
-    	if ($record = $this->GetRecordNow())
+    	if ($record = $this->GetRecordNow($strKeyId))
     	{
     		return $record['date'];
     	}
     	return false;
     }
 
-    function GetCloseNow()
+    function GetCloseNow($strKeyId = false)
     {
-    	return $this->_getCloseString('GetRecordNow');
+    	return $this->_getCloseString('GetRecordNow', $strKeyId);
     }
 
-    function BuildOrderBy()
+	function MakeFieldArray($strKeyId, $strDate, $strClose)
     {
-    	return _SqlOrderByDate();
+    	return array_merge($this->MakeFieldKeyId($strKeyId), array('date' => $strDate, 'close' => $strClose));
     }
     
-    function _makePrivateFieldArray($strDate, $strClose)
+    function InsertDaily($strKeyId, $strDate, $strClose)
     {
-    	return array('date' => $strDate, 'close' => $strClose);
+        $ymd = new StringYMD($strDate);
+        if ($ymd->IsWeekend())     			return false;   // sina fund may provide false weekend data
+        
+        if ($this->GetRecord($strKeyId, $strDate))			return false;
+    	return $this->InsertArray($this->MakeFieldArray($strKeyId, $strDate, $strClose));
     }
-    
-    function MakeFieldArray($strDate, $strClose)
-    {
-    	return array_merge($this->MakeFieldKeyId(), $this->_makePrivateFieldArray($strDate, $strClose));
-    }
-    
-    function Update($strId, $strClose)
+
+    function UpdateDaily($strId, $strClose)
     {
 		return $this->UpdateById(array('close' => $strClose), $strId);
     }
 
-    function WriteArray($ar)
+    public function WriteDaily($strKeyId, $strDate, $strClose)
+    {
+    	if ($record = $this->GetRecord($strKeyId, $strDate))
+    	{
+    		if (abs(floatval($record['close']) - floatval($strClose)) > MIN_FLOAT_VAL)
+    		{
+    			return $this->UpdateDaily($record['id'], $strClose);
+    		}
+    	}
+    	else
+    	{
+    		return $this->InsertDaily($strKeyId, $strDate, $strClose);
+    	}
+    	return false;
+    }
+    
+    function WriteDailyArray($strKeyId, $ar)
     {
 		foreach ($ar as $strDate => $strClose)
 		{
-			$this->Write($strDate, $strClose);
+			$this->WriteDaily($strKeyId, $strDate, $strClose);
 		}
     }
     
@@ -271,16 +298,31 @@ class DailyKeySql extends KeySql
     	return $this->DeleteInvalid('IsInvalidDate');
     }
     
-    function DeleteByDate($strDate)
+    function DeleteByDate($strKeyId, $strDate)
     {
-    	if ($strWhere = $this->BuildWhere_stock_date($strDate))
+    	if ($strWhere = $this->BuildWhere_key_date($strKeyId, $strDate))
     	{
     		return $this->DeleteRecord($strWhere);
     	}
     	return false;
     }
-*/
-}
 
+    function DeleteZeroData()
+    {
+    	$this->DeleteCountData("close = '0.000000'");
+    }
+
+    function ModifyDaily($strKeyId, $strDate, $strClose)
+    {
+    	if (empty($strClose))
+    	{
+    		$this->DeleteByDate($strKeyId, $strDate);
+    	}
+    	else
+    	{
+    		$this->WriteDaily($strKeyId, $strDate, $strClose);
+    	}
+    }
+}
 
 ?>

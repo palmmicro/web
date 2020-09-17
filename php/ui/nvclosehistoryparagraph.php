@@ -1,7 +1,7 @@
 <?php
 require_once('stocktable.php');
 
-function _echoNvCloseItem($csv, $shares_sql, $strDate, $strNetValue, $ref, $strFundId)
+function _echoNvCloseItem($csv, $shares_sql, $strDate, $strNetValue, $ref, $strStockId, $strFundId)
 {
 	$his_sql = $ref->GetHistorySql();
 	$strClose = $his_sql->GetClose($strDate);
@@ -25,7 +25,7 @@ function _echoNvCloseItem($csv, $shares_sql, $strDate, $strNetValue, $ref, $strF
 	$ar[] = $ref->GetPercentageDisplay($strNetValue, $strClose);
    	$ar[] = $ref->GetPercentageDisplay($strClosePrev, $strClose);
     
-    if ($strShares = $shares_sql->GetClose($strDate))
+    if ($strShares = $shares_sql->GetClose($strStockId, $strDate))
     {
     	$ar[] = rtrim0($strShares);
     	$fVolume = floatval($his_sql->GetVolume($strDate));
@@ -35,7 +35,7 @@ function _echoNvCloseItem($csv, $shares_sql, $strDate, $strNetValue, $ref, $strF
     EchoTableColumn($ar);
 }
 
-function _echoNvCloseData($sql, $shares_sql, $ref, $csv, $iStart, $iNum, $bAdmin)
+function _echoNvCloseData($sql, $ref, $strStockId, $csv, $iStart, $iNum, $bAdmin)
 {
 	$strSymbol = $ref->GetSymbol();
 	if (in_arrayLof($strSymbol))
@@ -47,6 +47,7 @@ function _echoNvCloseData($sql, $shares_sql, $ref, $csv, $iStart, $iNum, $bAdmin
 		$bSameDayNetValue = true;
 	}
 	
+	$shares_sql = new SharesHistorySql();
     if ($result = $sql->GetAll($iStart, $iNum)) 
     {
         while ($record = mysql_fetch_assoc($result)) 
@@ -59,7 +60,7 @@ function _echoNvCloseData($sql, $shares_sql, $ref, $csv, $iStart, $iNum, $bAdmin
         		{
         			$strDate = GetNextTradingDayYMD($strDate);
         		}
-   				_echoNvCloseItem($csv, $shares_sql, $strDate, $strNetValue, $ref, ($bAdmin ? $record['id'] : false));
+   				_echoNvCloseItem($csv, $shares_sql, $strDate, $strNetValue, $ref, $strStockId, ($bAdmin ? $record['id'] : false));
         	}
         }
         @mysql_free_result($result);
@@ -87,8 +88,7 @@ function EchoNvCloseHistoryParagraph($ref, $str = false, $csv = false, $iStart =
 								   new TableColumn('换手率(%)', 90)
 								   ), $strSymbol.NVCLOSE_HISTORY_PAGE, $str);
 
-	$shares_sql = new EtfSharesHistorySql($strStockId);
-    _echoNvCloseData($sql, $shares_sql, $ref, $csv, $iStart, $iNum, $bAdmin);
+    _echoNvCloseData($sql, $ref, $strStockId, $csv, $iStart, $iNum, $bAdmin);
     EchoTableParagraphEnd($strNavLink);
 }
 
