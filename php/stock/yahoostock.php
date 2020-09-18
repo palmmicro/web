@@ -502,14 +502,14 @@ function YahooUpdateFinancials($ref)
     	_updateYahooFinancialsData(&$arAnnual, $str, 'incomeStatementHistory', 'incomeStatementHistory');
     	_updateYahooFinancialsData(&$arAnnual, $str, 'balanceSheetHistory', 'balanceSheetStatements');
     	_updateYahooFinancialsData(&$arAnnual, $str, 'cashflowStatementHistory', 'cashflowStatements');
-//    	DebugArray($arAnnual);
+//    	DebugPrint($arAnnual, 'Annual');
 		if (count($arAnnual) == 0)	return false;
 
     	$arQuarter = array();
     	_updateYahooFinancialsData(&$arQuarter, $str, 'incomeStatementHistoryQuarterly', 'incomeStatementHistory');
     	_updateYahooFinancialsData(&$arQuarter, $str, 'balanceSheetHistoryQuarterly', 'balanceSheetStatements');
     	_updateYahooFinancialsData(&$arQuarter, $str, 'cashflowStatementHistoryQuarterly', 'cashflowStatements');
-//    	DebugArray($arQuarter);
+//    	DebugPrint($arQuarter, 'Quarter');
     	return array($arAnnual, $arQuarter);
     }
     	

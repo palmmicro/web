@@ -33,8 +33,8 @@ function _echoBenfordParagraph($ref)
    		return;
    	}
 	
-	$a_sql = new AnnualIncomeStrSql($strStockId);
-	$q_sql = new QuarterIncomeStrSql($strStockId);
+	$a_sql = new AnnualIncomeSql();
+	$q_sql = new QuarterIncomeSql();
 	
 	if ($str = $a_sql->GetCloseNow())
 	{
@@ -45,20 +45,20 @@ function _echoBenfordParagraph($ref)
 		if ($ar = YahooUpdateFinancials($ref))
 		{
 			list($arAnnual, $arQuarter) = $ar;
-			$a_sql->WriteArray($arAnnual);
-			$q_sql->WriteArray($arQuarter);
+			$a_sql->WriteDailyArray($strStockId, $arAnnual);
+			$q_sql->WriteDailyArray($strStockId, $arQuarter);
 		}
 		else
 		{
 			$ymd = new NowYMD();
-			$a_sql->Write($ymd->GetYMD(), 'NODATA');
+			$a_sql->WriteDaily($strStockId, $ymd->GetYMD(), 'NODATA');
 			return;
 		}
 	}
 
 	$str = GetBenfordsLawLink();
    	$jpg = new BenfordImageFile();
-   	$jpg->Draw($a_sql->GetUniqueCloseArray(), $q_sql->GetUniqueCloseArray());
+   	$jpg->Draw($a_sql->GetUniqueCloseArray($strStockId), $q_sql->GetUniqueCloseArray($strStockId));
    	$str .= '<br />'.$jpg->GetAll('年报', '季报', '合并');
    	EchoParagraph($str);
 }

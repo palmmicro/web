@@ -20,14 +20,14 @@ class PageCommentSql extends VisitorSql
         parent::VisitorSql(TABLE_PAGE_COMMENT, TABLE_PAGE, TABLE_MEMBER);
     }
 
-    public function GetExtraCreateStr()
+    public function Create()
     {
     	$str = '`comment` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,'
     		 . $this->ComposeIdStr($this->strIpKey).','
     		 . $this->ComposeForeignStr($this->strIpKey).',';
-    	return $str;
+    	return $this->CreateVisitorTable($str);
     }
-
+    
     function _addCommentArray(&$ar, $strComment, $strIp = false)
     {
     	$ar['comment'] = $strComment;

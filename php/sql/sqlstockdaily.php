@@ -130,6 +130,7 @@ class DailyStockSql extends StockTableSql
 }
 
 // ****************************** DailyStockStrSql class *******************************************************
+/*
 class DailyStockStrSql extends DailyStockSql
 {
     function DailyStockStrSql($strTableName, $strStockId) 
@@ -183,7 +184,8 @@ class DailyStockStrSql extends DailyStockSql
     	return $ar;
     }
 }
-                                            
+*/
+
 // ****************************** DailyStockValSql class *******************************************************
 class DailyStockValSql extends DailyStockSql
 {
@@ -358,21 +360,21 @@ function SqlGetNetValueByDate($strStockId, $strDate)
 	return $sql->GetClose($strDate);
 }
 
-// ****************************** AnnualIncomeStrSql class *******************************************************
-class AnnualIncomeStrSql extends DailyStockStrSql
+// ****************************** AnnualIncomeSql class *******************************************************
+class AnnualIncomeSql extends DailyStringSql
 {
-    function AnnualIncomeStrSql($strStockId = false) 
+    function AnnualIncomeSql() 
     {
-        parent::DailyStockStrSql('annualincomestr', $strStockId);
+        parent::DailyStringSql('annualincomestr');
     }
 }
 
-// ****************************** QuarterIncomeStrSql class *******************************************************
-class QuarterIncomeStrSql extends DailyStockStrSql
+// ****************************** QuarterIncomeSql class *******************************************************
+class QuarterIncomeSql extends DailyStringSql
 {
-    function QuarterIncomeStrSql($strStockId = false) 
+    function QuarterIncomeSql() 
     {
-        parent::DailyStockStrSql('quarterincomestr', $strStockId);
+        parent::DailyStringSql('quarterincomestr');
     }
 }
 

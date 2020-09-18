@@ -21,22 +21,22 @@ class VisitorSql extends KeySql
     	return $this->GetKeyIndex();
     }
     
-    public function GetExtraCreateStr()
-    {
-    	return '';
-    }
-    
-    function Create()
+    function CreateVisitorTable($str = '')
     {
     	$str = $this->ComposeKeyStr().','
     		 . $this->ComposeIdStr($this->strSrcKey).','
     		 . $this->ComposeDateStr().','
     		 . $this->ComposeTimeStr().','
-    		 . $this->GetExtraCreateStr()
+    		 . $str
     		 . $this->ComposeForeignKeyStr().','
     		 . $this->ComposeForeignStr($this->strSrcKey).','
     		 . _SqlComposeDateTimeIndex();
     	return $this->CreateIdTable($str);
+    }
+    
+    public function Create()
+    {
+    	return $this->CreateVisitorTable();
     }
 
     function MakeDateTimeArray($strDate = false, $strTime = false)

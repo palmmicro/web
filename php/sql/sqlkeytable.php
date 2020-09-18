@@ -174,14 +174,19 @@ class DailyKeySql extends KeySql
 		return ' UNIQUE ( `date`, `'.$this->GetKeyIndex().'` ) ';
     }
     
-    public function Create()
+    function CreateDailyKeyTable($str)
     {
     	$str = $this->ComposeKeyStr().','
     		  . $this->ComposeDateStr().','
-         	  . ' `close` DOUBLE(13,6) NOT NULL ,'
+         	  . $str
          	  . $this->ComposeForeignKeyStr().','
          	  . $this->ComposeUniqueDateStr();
     	return $this->CreateIdTable($str);
+    }
+    
+    public function Create()
+    {
+        return $this->CreateDailyKeyTable(' `close` DOUBLE(13,6) NOT NULL ,');
     }
 
     public function BuildOrderBy()
@@ -251,9 +256,6 @@ class DailyKeySql extends KeySql
     
     function InsertDaily($strKeyId, $strDate, $strClose)
     {
-        $ymd = new StringYMD($strDate);
-        if ($ymd->IsWeekend())     			return false;   // sina fund may provide false weekend data
-        
         if ($this->GetRecord($strKeyId, $strDate))			return false;
     	return $this->InsertArray($this->MakeFieldArray($strKeyId, $strDate, $strClose));
     }
@@ -274,6 +276,9 @@ class DailyKeySql extends KeySql
     	}
     	else
     	{
+    		$ymd = new StringYMD($strDate);
+    		if ($ymd->IsWeekend())     			return false;   // sina fund may provide false weekend data
+    		
     		return $this->InsertDaily($strKeyId, $strDate, $strClose);
     	}
     	return false;
@@ -322,6 +327,50 @@ class DailyKeySql extends KeySql
     	{
     		$this->WriteDaily($strKeyId, $strDate, $strClose);
     	}
+    }
+}
+
+class DailyStringSql extends DailyKeySql
+{
+    function DailyStringSql($strTableName, $strKeyPrefix = TABLE_STOCK) 
+    {
+        parent::DailyKeySql($strTableName, $strKeyPrefix);
+    }
+
+    public function Create()
+    {
+        return $this->CreateDailyKeyTable(' `close` VARCHAR( 8192 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,');
+    }
+
+    public function WriteDaily($strKeyId, $strDate, $strClose)
+    {
+    	if ($record = $this->GetRecord($strKeyId, $strDate))
+    	{
+    		if ($record['close'] != $strClose)
+    		{
+    			return $this->UpdateDaily($record['id'], $strClose);
+    		}
+    	}
+    	else
+    	{
+    		return $this->InsertDaily($strKeyId, $strDate, $strClose);
+    	}
+    	return false;
+    }
+
+    function GetUniqueCloseArray($strKeyId)
+    {
+    	$ar = array();
+    	if ($result = $this->GetAll($strKeyId)) 
+    	{
+    		while ($record = mysql_fetch_assoc($result)) 
+    		{
+    			$arClose = explode(',', $record['close']);
+    			$ar = array_merge($ar, array_unique($arClose));
+    		}
+    		@mysql_free_result($result);
+    	}
+    	return $ar;
     }
 }
 
