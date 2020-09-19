@@ -100,6 +100,20 @@ function CopyPhpLink($strQuery, $strCn, $strUs = false, $bChinese = true)
 	return GetPhpLink(UrlGetUriTitle(), $strQuery, $strCn, $strUs, $bChinese);
 }
 
+function GetSortString($strQuery)
+{
+    $ar = array('hshare' => 'H股',
+                  'premium' => '溢价',
+                  'ratio' => '比价',
+                 );
+	return isset($ar[$strQuery]) ? '按'.$ar[$strQuery].'排序' : '';
+}
+
+function CopySortLink($strQuery = 'hshare')
+{
+    return CopyPhpLink(UrlAddQuery('sort='.$strQuery), GetSortString($strQuery));
+}
+
 function _getNavLinkQuery($strId, $iStart, $iNum)
 {
     $str = '';

@@ -1,7 +1,7 @@
 <?php 
-require('php/_lof.php');
+require('php/_qdii.php');
 
-function GetLofRelated($sym)
+function GetQdiiRelated($sym)
 {
 	$str = '<font color=red>已知问题:</font></p>
 	<ol>
@@ -10,7 +10,7 @@ function GetLofRelated($sym)
     </ol>
     <p>';
 	$str .= GetHuaBaoOfficialLink($sym->GetDigitA()).'&'.GetSpdrOfficialLink('XOP').'('.GetSpindicesOfficialLink('SPSIOP').')';
-	$str .= ' '.GetLofLinks($sym);
+	$str .= ' '.GetQdiiLinks($sym);
 	$str .= GetOilSoftwareLinks();
 	$str .= GetCommoditySoftwareLinks();
 	$str .= GetHuaBaoSoftwareLinks();

@@ -1,8 +1,8 @@
 <?php
 require_once('_stock.php');
-require_once('_lofgroup.php');
+require_once('_qdiigroup.php');
 
-class _LofAccount extends LofGroupAccount
+class _QdiiAccount extends QdiiGroupAccount
 {
     var $oil_ref = false;
     var $usd_ref;
@@ -12,8 +12,8 @@ class _LofAccount extends LofGroupAccount
     {
         $strSymbol = $this->GetName();
         
-        $strOil = (LofGetFutureSymbol($strSymbol) == 'hf_CL') ? 'hf_OIL' : false;
-        $strEst = LofGetEstSymbol($strSymbol);
+        $strOil = (QdiiGetFutureSymbol($strSymbol) == 'hf_CL') ? 'hf_OIL' : false;
+        $strEst = QdiiGetEstSymbol($strSymbol);
         
         $this->GetWebData($strEst);
 
@@ -22,12 +22,12 @@ class _LofAccount extends LofGroupAccount
         StockPrefetchArrayData(array_merge($this->GetLeverage(), array($strSymbol, $strOil, $strUSD, $strCNH)));
         
         $this->cny_ref = new CnyReference('USCNY');	// Always create CNY Forex class instance first!
-        $this->ref = new LofReference($strSymbol);
+        $this->ref = new QdiiReference($strSymbol);
         if ($strOil)	$this->oil_ref = new FutureReference($strOil);
         $this->usd_ref = new ForexReference($strUSD);
         $this->cnh_ref = new ForexReference($strCNH);
         
-		$this->LofCreateGroup();
+		$this->QdiiCreateGroup();
     }
 } 
 
@@ -112,7 +112,7 @@ function EchoAll()
     EchoReferenceParagraph(array_merge(array($stock_ref, $fund->GetEstRef(), $fund->future_ref, $acct->oil_ref, $acct->usd_ref, $acct->cnh_ref, $acct->cny_ref), $acct->ar_leverage_ref));
     $acct->EchoLeverageParagraph();
     EchoFundTradingParagraph($fund, '_onTradingUserDefined');    
-	EchoLofSmaParagraph($fund, '_onSmaUserDefined');
+	EchoQdiiSmaParagraph($fund, '_onSmaUserDefined');
     EchoEtfArraySmaParagraph($fund->GetEstRef(), $acct->GetLeverageRef());
     EchoFundHistoryParagraph($fund);
       
@@ -123,13 +123,13 @@ function EchoAll()
 	}
 	    
     $acct->EchoTestParagraph();
-    $acct->EchoLinks(false, 'GetLofRelated');
+    $acct->EchoLinks(false, 'GetQdiiRelated');
 }
 
-function GetLofLinks($sym)
+function GetQdiiLinks($sym)
 {
 	$strSymbol = $sym->GetSymbol();
-	$strFutureSymbol = LofGetFutureSymbol($strSymbol);
+	$strFutureSymbol = QdiiGetFutureSymbol($strSymbol);
 	
 	$str = GetJisiluLofLink();
 	
@@ -137,15 +137,15 @@ function GetLofLinks($sym)
 	else																	$str .= ' '.((intval($sym->GetDigitA()) >= 510000) ? GetShangHaiEtfOfficialLink() : GetShangHaiLofOfficialLink());
 	
 	$str .= ' '.GetEastMoneyQdiiLink();
-	if ($strFutureSymbol || in_arrayCommodityLof($strSymbol))			$str .= ' '.GetEastMoneyGlobalFuturesLink();
+	if ($strFutureSymbol || in_arrayCommodityQdii($strSymbol))			$str .= ' '.GetEastMoneyGlobalFuturesLink();
 	
-	if (in_arrayQqqLof($strSymbol))
+	if (in_arrayQqqQdii($strSymbol))
 	{
 		$str .= ' '.GetInvescoOfficialLink('QQQ');
 		$str .= ' '.GetCmeMnqLink();
 	}
 	
-	if (in_arraySpyLof($strSymbol))
+	if (in_arraySpyQdii($strSymbol))
 	{
 		$str .= ' '.GetCmeMesLink();
 		$str .= ' '.GetBuffettIndicatorLink();
@@ -161,13 +161,12 @@ function GetLofLinks($sym)
 	}
 	
 	$str .= '<br />&nbsp';
-	
 	$str .= GetASharesSoftwareLinks();
 	$str .= GetChinaInternetSoftwareLinks();
 	$str .= GetSpySoftwareLinks();
 	return $str;
 }
 
-   	$acct = new _LofAccount();
+   	$acct = new _QdiiAccount();
    	$acct->Create();
 ?>

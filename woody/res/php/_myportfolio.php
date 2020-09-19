@@ -51,13 +51,17 @@ function _transEchoReferenceParagraph($arTrans)
 		$strSymbol = $ref->GetSymbol();
        	if (!in_array($strSymbol, $arSymbol))
        	{
-            RefSetExternalLinkMyStock($ref);
        		$arRef[] = $ref;
        		$arSymbol[] = $strSymbol;
        	}
 	}
 	
-    StockHistoryUpdate($arRef);    
+	// Stock history update
+	foreach ($arRef as $ref)
+	{
+		$his = new StockHistory($ref);
+	}
+	
     EchoReferenceParagraph($arRef);
 }
 

@@ -5,7 +5,7 @@ require_once('/php/ui/referenceparagraph.php');
 require_once('/php/ui/ahparagraph.php');
 require_once('/php/ui/fundestparagraph.php');
 require_once('/php/ui/fundhistoryparagraph.php');
-require_once('/php/ui/lofsmaparagraph.php');
+require_once('/php/ui/qdiismaparagraph.php');
 require_once('/php/ui/nvclosehistoryparagraph.php');
 require_once('/php/ui/stockhistoryparagraph.php');
 
@@ -20,10 +20,10 @@ function EchoReferenceDemo($strSymbol = FUND_DEMO_SYMBOL)
     EchoReferenceParagraph(array($ref));
 }
 
-function EchoLofSmaDemo($strSymbol = FUND_DEMO_SYMBOL)
+function EchoQdiiSmaDemo($strSymbol = FUND_DEMO_SYMBOL)
 {
 	$fund_ref = StockGetFundReference($strSymbol);
-	EchoLofSmaParagraph($fund_ref);
+	EchoQdiiSmaParagraph($fund_ref);
 }
 
 function EchoStockHistoryDemo($strSymbol = STOCK_DEMO_SYMBOL)

@@ -21,7 +21,7 @@ require_once('stock/stockref.php');
 require_once('stock/mysqlref.php');
 require_once('stock/mystockref.php');
 require_once('stock/fundref.php');
-require_once('stock/lofref.php');
+require_once('stock/qdiiref.php');
 require_once('stock/goldfundref.php');
 
 require_once('stock/cnyref.php');
@@ -238,6 +238,24 @@ function StockUpdateEstResult($nv_sql, $fund_sql, $strNetValue, $strDate)
 }
 
 // ****************************** StockReference public functions *******************************************************
+function RefHasData($ref)
+{
+	if ($ref)
+	{
+		return $ref->HasData();
+	}
+	return false;
+}
+
+function RefGetMyStockLink($ref)
+{
+	if ($ref)
+	{
+		return $ref->GetMyStockLink();
+	}
+	return '';
+}
+
 function _grayString($str)
 {
     return '<font color=gray>'.$str.'</font>';
@@ -307,10 +325,10 @@ function _getAllSymbolArray($strSymbol, $strStockId)
    	$sym = new StockSymbol($strSymbol);
     if ($sym->IsFundA())
     {
-        if (in_arrayLof($strSymbol))									return LofGetAllSymbolArray($strSymbol);
-        else if (in_arrayLofHk($strSymbol))							return LofHkGetAllSymbolArray($strSymbol);
-        else if (in_arrayGoldEtf($strSymbol))						return GoldEtfGetAllSymbolArray($strSymbol);
-        else if (in_arrayChinaEtf($strSymbol))						return EtfGetAllSymbolArray($strSymbol);
+        if (in_arrayQdii($strSymbol))									return QdiiGetAllSymbolArray($strSymbol);
+        else if (in_arrayQdiiHk($strSymbol))							return QdiiHkGetAllSymbolArray($strSymbol);
+        else if (in_arrayGoldSilver($strSymbol))						return GoldSilverGetAllSymbolArray($strSymbol);
+        else if (in_arrayChinaIndex($strSymbol))						return EtfGetAllSymbolArray($strSymbol);
         else 															return array($strSymbol);
     }
     
@@ -374,10 +392,10 @@ function StockPrefetchData()
 
 function StockGetFundReference($strSymbol)
 {
-    if (in_arrayLof($strSymbol))                 $ref = new LofReference($strSymbol);
-    else if (in_arrayLofHk($strSymbol))         $ref = new LofHkReference($strSymbol);
-    else if (in_arrayGoldEtf($strSymbol))       $ref = new GoldFundReference($strSymbol);
-//    else if (in_arrayChinaEtf($strSymbol))       $ref = new EtfReference($strSymbol);
+    if (in_arrayQdii($strSymbol))                 $ref = new QdiiReference($strSymbol);
+    else if (in_arrayQdiiHk($strSymbol))         $ref = new QdiiHkReference($strSymbol);
+    else if (in_arrayGoldSilver($strSymbol))       $ref = new GoldFundReference($strSymbol);
+//    else if (in_arrayChinaIndex($strSymbol))       $ref = new EtfReference($strSymbol);
     else
     {
         $ref = new FundReference($strSymbol);

@@ -1,7 +1,7 @@
 <?php 
-require('php/_lofhk.php');
+require('php/_qdiihk.php');
 
-function GetLofHkRelated($sym)
+function GetQdiiHkRelated($sym)
 {
 	$str = '<font color=red>已知问题:</font></p>
 	<ol>
@@ -10,7 +10,7 @@ function GetLofHkRelated($sym)
 	<p>';
 
 	$str = GetEFundOfficialLink($sym->GetDigitA());
-	$str .= ' '.GetLofHkLinks($sym);
+	$str .= ' '.GetQdiiHkLinks($sym);
 	$str .= GetHSharesSoftwareLinks();
 	$str .= GetEFundSoftwareLinks();
 	return $str;

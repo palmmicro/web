@@ -58,8 +58,8 @@ Following the developer's advice, I copied the code github and put it separately
 
 <h3>Expansion</h3>
 <p>Aug 27, 2015
-<br />The best way to organize the source code is to write more similar LOF net value estimation software.
-I bought 2 HK ETF related LOF with recent stock market crash and added them.
+<br />The best way to organize the source code is to write more similar QDII net value estimation software.
+I bought 2 HK ETF related QDII with recent stock market crash and added them.
 Although I only watched US market crash, I still added BOSERA S&P 500 net value tool for possible future usage.
 </p>
 
@@ -99,7 +99,7 @@ need to use <i>date_default_timezone_set('America/New_York')</i> or <i>date_defa
 <br />As Gold future GC is not trading on Easter holiday, I get the chance to adjust the net value estimation for Chinese Gold ETF.
 <br />Different users have been suggesting to add estimation value in the <a href="#fundhistory">fund history</a> table of SZ162411.
 Except for not willing to show my possible error directly, I did not add it because the change is realtime, and I don't know when to record it, after US market close or Chinese market close?
-<br />In the LOF code, the variable for estimation value was originally in <font color=olive>_LofAccount</font> class.
+<br />In the QDII code, the variable for estimation value was originally in <font color=olive>_QdiiAccount</font> class.
 With my new <font color=olive>_GoldEtfAccount</font> class again having the same class member of <font color=olive>FundReference</font> class,
 naturally I moved the estimation value to <font color=olive>FundReference</font> class. And when estimaation value and net value variable are put together, the data structure leads my mind again,
 suddenly I realized that it is most reasonable to record the estimation value in the same time when the current day net value is recorded!
@@ -127,7 +127,7 @@ now using Sina realtime HK stock data(<?php EchoSinaQuotesLink('rt_hk02828'); ?>
 I began to check the problem yesterday, found that the last automatic calibration was done on the evening of May 12, after the official net value of May 11 data released.
 And the automatic calibration on May 13 was not done yet. In other words, the calibration was one day late for quite some time now, but when USDCNY had little change, the problem was ignored.
 <br />It was easy to find the bug, I used the simplest way to fix the estimation bug caused by continue Chinese and USA market close after Chinese New Year.
-Because only Hongkong LOF would have the chance of official LOF net value newer than ETF, I rewrote part of the code by checking if it was HK LOF,
+Because only Hongkong QDII would have the chance of official QDII net value newer than ETF, I rewrote part of the code by checking if it was HK QDII,
 and modified an actually unrelated code, what should be <i>$iHours = STOCK_HOUR_END + ($this->usdhkd_ref ? 0 : 24);</i> was written as <i>$iHours = STOCK_HOUR_END + ($this->usdhkd_ref) ? 0 : 24;</i>
 <br />But this bug made me feel very bad, this time I can not say I am still a 6 years <font color=red>new</font> PHP programmer. As a proud 25 years C programmer, this is also a very stupid bug in C language!
 </p>
@@ -178,7 +178,7 @@ and modified an actually unrelated code, what should be <i>$iHours = STOCK_HOUR_
 <h3>Crazy <a name="nextsma">T+1</a> Moving Average</h3>
 <p>March 27, 2018
 </p>
-<?php EchoLofSmaDemo(); ?>
+<?php EchoQdiiSmaDemo(); ?>
 
 </div>
 

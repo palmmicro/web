@@ -274,7 +274,7 @@ function _yahooGetNetValueSymbol($strSymbol)
    	}
    	else
    	{
-   		if ($strSymbol == 'USO' || $strSymbol == 'GSG')	return false;
+   		if ($strSymbol == 'USO' || $strSymbol == 'GSG' || $strSymbol == 'QQQ')	return false;
    	}
    	return GetYahooNetValueSymbol($strSymbol);
 }

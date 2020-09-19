@@ -2,17 +2,17 @@
 require_once('_stockgroup.php');
 require_once('_fundgroup.php');
 require_once('/php/ui/arbitrageparagraph.php');
-require_once('/php/ui/lofsmaparagraph.php');
+require_once('/php/ui/qdiismaparagraph.php');
 require_once('/php/ui/etfsmaparagraph.php');
 require_once('/php/ui/etfparagraph.php');
 
-class LofGroupAccount extends FundGroupAccount 
+class QdiiGroupAccount extends FundGroupAccount 
 {
     var $cny_ref;
     var $arLeverage = array();
     var $ar_leverage_ref = array();
     
-    function LofCreateGroup()
+    function QdiiCreateGroup()
     {
         SzseGetLofShares($this->ref->stock_ref);
         
@@ -52,7 +52,6 @@ class LofGroupAccount extends FundGroupAccount
         {
         	if ($strSymbol = SqlGetStockSymbol($strPairId))
         	{
-        		// DebugString($strSymbol.'=>'.$strEstSymbol);
         		YahooUpdateNetValue($strSymbol);
         	}
         }
@@ -62,40 +61,39 @@ class LofGroupAccount extends FundGroupAccount
         {
         	if ($strSymbol = SqlGetStockSymbol($strStockId))
         	{
-        		// DebugString($strEstSymbol.'=>'.$strSymbol);
         		$this->arLeverage[] = $strSymbol;
         		YahooUpdateNetValue($strSymbol);
         	}
         }
     }
     
-    function ConvertToEtfTransaction($etf_convert_trans, $lof_trans)
+    function ConvertToEtfTransaction($etf_convert_trans, $qdii_trans)
     {
         $fund = $this->ref;
-        $etf_convert_trans->AddTransaction($fund->GetEstQuantity($lof_trans->iTotalShares), $lof_trans->fTotalCost / floatval($fund->strCNY));
+        $etf_convert_trans->AddTransaction($fund->GetEstQuantity($qdii_trans->iTotalShares), $qdii_trans->fTotalCost / floatval($fund->strCNY));
     }
     
-    function ConvertToLofTransaction($lof_convert_trans, $etf_trans)
+    function ConvertToQdiiTransaction($qdii_convert_trans, $etf_trans)
     {
         $fund = $this->ref;
-        $lof_convert_trans->AddTransaction($fund->GetLofQuantity($etf_trans->iTotalShares), $etf_trans->fTotalCost * floatval($fund->strCNY));
+        $qdii_convert_trans->AddTransaction($fund->GetQdiiQuantity($etf_trans->iTotalShares), $etf_trans->fTotalCost * floatval($fund->strCNY));
     }
     
     function EchoArbitrageParagraph($group)
     {
-        $lof_trans = $group->GetStockTransactionCN();
+        $qdii_trans = $group->GetStockTransactionCN();
         $etf_trans = $group->GetStockTransactionNoneCN();
         $group->OnArbitrage();
         
         $strGroupId = $group->GetGroupId();
         
-        $lof_convert_trans = new MyStockTransaction($this->ref->stock_ref, $strGroupId);
-        $lof_convert_trans->Add($lof_trans);
-        $this->ConvertToLofTransaction($lof_convert_trans, $etf_trans);
+        $qdii_convert_trans = new MyStockTransaction($this->ref->stock_ref, $strGroupId);
+        $qdii_convert_trans->Add($qdii_trans);
+        $this->ConvertToQdiiTransaction($qdii_convert_trans, $etf_trans);
         
         $etf_convert_trans = new MyStockTransaction($this->ref->GetEstRef(), $strGroupId);
         $etf_convert_trans->Add($etf_trans);
-        $this->ConvertToEtfTransaction($etf_convert_trans, $lof_trans);
+        $this->ConvertToEtfTransaction($etf_convert_trans, $qdii_trans);
     
         EchoArbitrageTableBegin();
 		$arbi_trans = $group->arbi_trans;
@@ -104,14 +102,14 @@ class LofGroupAccount extends FundGroupAccount
         {
             $arbi_convert_trans = new MyStockTransaction($this->ref->GetEstRef(), $strGroupId);
             $this->ConvertToEtfTransaction($arbi_convert_trans, $arbi_trans);
-            EchoArbitrageTableItem2($arbi_trans, $lof_convert_trans); 
+            EchoArbitrageTableItem2($arbi_trans, $qdii_convert_trans); 
             EchoArbitrageTableItem2($arbi_convert_trans, $etf_convert_trans); 
         }
         else
         {
             $arbi_convert_trans = new MyStockTransaction($this->ref->stock_ref, $strGroupId);
-            $this->ConvertToLofTransaction($arbi_convert_trans, $arbi_trans);
-            EchoArbitrageTableItem2($arbi_convert_trans, $lof_convert_trans); 
+            $this->ConvertToQdiiTransaction($arbi_convert_trans, $arbi_trans);
+            EchoArbitrageTableItem2($arbi_convert_trans, $qdii_convert_trans); 
             EchoArbitrageTableItem2($arbi_trans, $etf_convert_trans); 
         }
         EchoTableParagraphEnd();

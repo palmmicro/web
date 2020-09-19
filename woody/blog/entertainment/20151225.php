@@ -82,7 +82,7 @@ I checked the debug information, and found that automatic calibration was done o
 Current data got from <?php EchoSinaQuotesLink('f_162411'); ?> and saved in <?php EchoSinaDebugLink('f_162411'); ?> as following:
 <br /><font color=gray>var hq_str_f_162411="华宝兴业标普油气上游股票(QDII-LOF),
 0.406,0.406,0.435,2016-02-15,66.2444";</font>
-<br />According to the automatic calibration process in php/<b>_lof.php</b>, when we got the Feb 15 net value of SZ1682411, we would do calibration with the close price of XOP on Feb 15.
+<br />According to the automatic calibration process in php/<b>_qdii.php</b>, when we got the Feb 15 net value of SZ1682411, we would do calibration with the close price of XOP on Feb 15.
 But US market was closed because of President Day, this process was not done. Net step, we will use the previous trading day data to do the calibration. 
 However, the previous US market trading day, last Friday was a Chinese New Year holiday, Chinese stock market was closed. The SZ162411 net value of previous trading day was before Chinese New Year.
 So the software did wrong calibration based on the SZ162411 net value of last trading day before Chinese New Year and the XOP close price of last Friday. 

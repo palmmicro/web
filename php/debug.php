@@ -150,16 +150,6 @@ function DebugVal($iVal, $strPrefix = false)
  	DebugString($str); 
 }
 
-function DebugArray($ar)
-{
-	DebugString('DebugArray begin ...');
-	foreach ($ar as $strKey => $strVal)
-	{
-		DebugString($strKey.' => '.$strVal);
-	}
-	DebugString('DebugArray end.');
-}
-
 function DebugPrint($exp, $strPrefix = false)
 {
 	$str = $strPrefix ? $strPrefix : 'Debug print_r begin ...';

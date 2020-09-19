@@ -31,10 +31,10 @@ function _echoFundPositionItem($csv, $ref, $cny_ref, $est_ref, $strDate, $strNet
 		if ($strEstPrev = $est_sql->GetClose($strPrevDate))
 		{
 			$ar[] = $est_ref->GetPercentageDisplay($strEstPrev, $strEst);
-			if ($strPosition = LofGetStockPosition($strEstPrev, $strEst, $strPrev, $strNetValue, $strCnyPrev, $strCny, $strInput))
+			if ($strPosition = QdiiGetStockPosition($strEstPrev, $strEst, $strPrev, $strNetValue, $strCnyPrev, $strCny, $strInput))
 			{
 				$bWritten = true;
-				$strCalibration = LofGetStockCalibration($strEst, $strNetValue, $strCny, $strPosition);
+				$strCalibration = QdiiGetStockCalibration($strEst, $strNetValue, $strCny, $strPosition);
 				if ($csv)	$csv->Write($strDate, $strNetValue, $strPosition, $strCalibration);
 				$ar[] = $strPosition.'/'.$strCalibration;
 			}
@@ -223,10 +223,10 @@ function EchoAll()
     if ($ref = $acct->EchoStockGroup())
     {
    		$strSymbol = $ref->GetSymbol();
-        if (in_arrayLof($strSymbol))
+        if (in_arrayQdii($strSymbol))
         {
         	$cny_ref = new CnyReference('USCNY');	// Always create CNY Forex class instance first!
-            _echoFundPositionParagraph(new LofReference($strSymbol), $cny_ref, $strSymbol, $strInput);
+            _echoFundPositionParagraph(new QdiiReference($strSymbol), $cny_ref, $strSymbol, $strInput);
         }
     }
     $acct->EchoLinks(FUND_POSITION_PAGE);

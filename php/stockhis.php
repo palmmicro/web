@@ -411,12 +411,4 @@ class StockHistory
     }
 }
 
-function StockHistoryUpdate($arRef)
-{
-	foreach ($arRef as $ref)
-	{
-		$his = new StockHistory($ref);
-	}
-}
-
 ?>

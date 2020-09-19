@@ -1,10 +1,10 @@
 <?php 
-require('php/_lof.php');
+require('php/_qdii.php');
 
-function GetLofRelated($sym)
+function GetQdiiRelated($sym)
 {
 	$str = GetGuangFaOfficialLink($sym->GetDigitA()).'&'.GetIsharesOfficialLink('IEO').'('.GetSpindicesOfficialLink('DJSOEP').')';
-	$str .= ' '.GetLofLinks($sym);
+	$str .= ' '.GetQdiiLinks($sym);
 	$str .= GetOilSoftwareLinks();
 	$str .= GetCommoditySoftwareLinks();
 	$str .= GetGuangFaSoftwareLinks();

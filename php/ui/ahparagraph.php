@@ -1,18 +1,5 @@
 <?php
 
-function GetSortString($strQuery)
-{
-    $ar = array('hshare' => '按H股排序',
-                  'ratio' => '按比价排序',
-                 );
-	return isset($ar[$strQuery]) ? $ar[$strQuery] : '';
-}
-
-function _getSortLink($strQuery = 'hshare')
-{
-    return CopyPhpLink(UrlAddQuery('sort='.$strQuery), GetSortString($strQuery));
-}
-
 function _echoAhItem($ref)
 {
 	$ar = array();
@@ -92,8 +79,8 @@ function EchoAhParagraph($arRef)
 		}
 		else
 		{
-			$str .= ' '._getSortLink();
-			$str .= ' '._getSortLink('ratio');
+			$str .= ' '.CopySortLink();
+			$str .= ' '.CopySortLink('ratio');
 		}
 	}
 
@@ -112,12 +99,14 @@ function EchoAhParagraph($arRef)
 
 function _echoAdrhItem($ref)
 {
+    if (RefHasData($ref) == false)      return;
+    
 	$ar = array();
 	
-   	$ar[] = RefGetMyStockLink($ref);
-   	
    	$adr_ref = $ref->adr_ref;
-    $ar[] = GetMyStockLink($adr_ref->GetSymbol());
+    $ar[] = $adr_ref->GetStockLink();
+   	$ar[] = $ref->GetMyStockLink();
+   	
     $ar[] = $adr_ref->GetPriceDisplay($ref->GetUsdPrice());
     
     if ($fAdrhRatio = $ref->GetAdrhPriceRatio())
@@ -147,12 +136,13 @@ function EchoAdrhParagraph($arRef)
 		}
 		else
 		{
-			$str .= ' '._getSortLink();
+			$str .= ' '.CopySortLink();
+			$str .= ' '.CopySortLink('ratio');
 		}
 	}
 
 	EchoTableParagraphBegin(array(new TableColumnSymbol(),
-								   new TableColumnSymbol('ADR'),
+								   new TableColumnSymbol('H股'),
 								   new TableColumnUSD(),
 								   new TableColumnRatio('ADRH'),
 								   new TableColumnRatio('HADR')

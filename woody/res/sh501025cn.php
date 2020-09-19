@@ -1,9 +1,9 @@
 <?php 
-require('php/_lofhk.php');
+require('php/_qdiihk.php');
 
-function GetLofHkRelated($sym)
+function GetQdiiHkRelated($sym)
 {
-	$str = GetLofHkLinks($sym);
+	$str = GetQdiiHkLinks($sym);
 	$str .= GetPenghuaSoftwareLinks();
 	return $str;
 }

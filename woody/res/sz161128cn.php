@@ -1,10 +1,10 @@
 <?php 
-require('php/_lof.php');
+require('php/_qdii.php');
 
-function GetLofRelated($sym)
+function GetQdiiRelated($sym)
 {
 	$str = GetEFundOfficialLink($sym->GetDigitA());
-	$str .= ' '.GetLofLinks($sym);
+	$str .= ' '.GetQdiiLinks($sym);
 	$str .= GetQqqSoftwareLinks();
 	$str .= GetEFundSoftwareLinks();
 	return $str;

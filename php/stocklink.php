@@ -16,10 +16,10 @@ define('ADR_PAGE', 'adr');
 function GetStockMenuArray()
 {
     return array(ADR_PAGE => ADR_DISPLAY,
-                      'chinaetf' => 'A股工具',
-                      'goldetf' => '黄金工具',
-                      'lof' => 'LOF工具',
-                      'lofhk' => '香港LOF',
+                      'chinaetf' => 'A股指数',
+                      'goldetf' => '黄金白银',
+                      'lof' => 'QDII工具',
+                      'lofhk' => '香港QDII',
                      );
 }
 
@@ -121,7 +121,7 @@ function GetFundPositionLink($strSymbol = FUND_DEMO_SYMBOL)
     return GetStockSymbolLink(FUND_POSITION_PAGE, $strSymbol, FUND_POSITION_DISPLAY);
 }
 
-function GetLofAnalysisLinks($strSymbol)
+function GetQdiiAnalysisLinks($strSymbol)
 {
 	return GetNvCloseHistoryLink($strSymbol).' '.GetThanousParadoxLink($strSymbol).' '.GetFundAccountLink($strSymbol).' '.GetFundPositionLink($strSymbol);
 }

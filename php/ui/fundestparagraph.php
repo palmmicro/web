@@ -2,11 +2,11 @@
 require_once('stocktable.php');
 
 // $ref from FundReference
-function _echoFundEstTableItem($ref, $bFair, $bRealtime)
+function _echoFundEstTableItem($ref, $bFair)
 {
     if (RefHasData($ref) == false)      return;
 
-    $ar = array(RefGetMyStockLink($ref), $ref->GetNetValue());
+    $ar = array($ref->GetStockLink(), $ref->GetNetValue());
     
     $strOfficialPrice = $ref->GetOfficialNetValue();
     $ar[] = $ref->GetPriceDisplay($strOfficialPrice);
@@ -61,8 +61,44 @@ function _getFundParagraphStr($ref)
     return $str;
 }
 
+function _refSortByPremium($arRef)
+{
+    $ar = array();
+    $arPremium = array();
+    
+    foreach ($arRef as $ref)
+    {
+        $strSymbol = $ref->GetSymbol();
+        $ar[$strSymbol] = $ref;
+    	$arPremium[$strSymbol] = $ref->stock_ref->GetPercentage($ref->GetOfficialNetValue());
+    }
+    asort($arPremium, SORT_NUMERIC);
+    
+    $arSort = array();
+    foreach ($arPremium as $strSymbol => $fPremium)
+    {
+        $arSort[] = $ar[$strSymbol];
+    }
+    return $arSort;
+}
+
 function EchoFundArrayEstParagraph($arRef, $str = '')
 {
+	if (count($arRef) > 2)
+	{
+		if ($strSort = UrlGetQueryValue('sort'))
+		{
+			if ($strSort == 'premium')
+			{
+				$arRef = _refSortByPremium($arRef);
+			}
+		}
+		else
+		{
+			$str .= ' '.CopySortLink('premium');
+		}
+	}
+	
 	$premium_col = new TableColumnPremium();
 	$ar = array(new TableColumnSymbol(),
 				  new TableColumnNetValue(),
@@ -81,12 +117,10 @@ function EchoFundArrayEstParagraph($arRef, $str = '')
         }
     }
 	
-	$bRealtime = false;
     foreach ($arRef as $ref)
     {
         if ($ref->GetRealtimeNetValue())
         {
-        	$bRealtime = true;
         	$ar[] = new TableColumnEst(STOCK_DISP_REALTIME);
         	$ar[] = $premium_col;
         	break;
@@ -96,7 +130,7 @@ function EchoFundArrayEstParagraph($arRef, $str = '')
 	EchoTableParagraphBegin($ar, 'estimation', $str);
     foreach ($arRef as $ref)
     {
-        _echoFundEstTableItem($ref, $bFair, $bRealtime);
+        _echoFundEstTableItem($ref, $bFair);
     }
     EchoTableParagraphEnd();
 }

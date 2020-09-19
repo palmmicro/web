@@ -1,11 +1,11 @@
 <?php 
-require('php/_lof.php');
+require('php/_qdii.php');
 
-function GetLofRelated($sym)
+function GetQdiiRelated($sym)
 {
 	$str = GetHuaBaoOfficialLink($sym->GetDigitA());
 	$str .= ' '.GetSpdrOfficialLink('XLY');
-	$str .= ' '.GetLofLinks($sym);
+	$str .= ' '.GetQdiiLinks($sym);
 	$str .= GetHuaBaoSoftwareLinks();
 	return $str;
 }

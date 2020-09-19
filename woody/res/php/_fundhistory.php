@@ -8,9 +8,9 @@ function _echoFundHistory($strSymbol, $iStart, $iNum)
 {
     $str = GetStockHistoryLink($strSymbol);
    	$str .= ' '.GetNetValueHistoryLink($strSymbol);
-    if (in_arrayLof($strSymbol))
+    if (in_arrayQdii($strSymbol))
     {
-    	$str .= ' '.GetLofAnalysisLinks($strSymbol);
+    	$str .= ' '.GetQdiiAnalysisLinks($strSymbol);
     }
    	EchoParagraph($str);
   
@@ -51,7 +51,7 @@ function EchoMetaDescription()
 	global $acct;
 	
   	$str = $acct->GetStockDisplay().FUND_HISTORY_DISPLAY;
-    $str .= '页面. 用于某基金历史交易超过一定数量后的显示. 最近的基金交易记录一般会直接显示在该基金页面. 目前仅用于华宝油气(SZ162411)等LOF基金.';
+    $str .= '页面. 用于某基金历史交易超过一定数量后的显示. 最近的基金交易记录一般会直接显示在该基金页面. 目前仅用于华宝油气(SZ162411)等QDII基金.';
     EchoMetaDescriptionText($str);
 }
 

@@ -38,7 +38,7 @@ function _echoThanousParadoxItem($csv, $strNetValue, $strClose, $strDate, $ref, 
 	$strEstClosePrev = $his_sql->GetClosePrev($strDate);
 	if (($strEstClose == false) || ($strEstClosePrev == false))		return;
 	
-   	$csv->Write($strDate, $est_ref->GetPercentage($strEstClosePrev, $strEstClose), $ref->GetPercentage($strNetValue, $strClose), $strNetValue);
+   	$csv->Write($strDate, $est_ref->GetPercentageString($strEstClosePrev, $strEstClose), $ref->GetPercentageString($strNetValue, $strClose), $strNetValue);
    	
    	$ar = array($strDate);
    	$ar[] = $ref->GetPriceDisplay($strClose, $strNetValue);
@@ -71,7 +71,7 @@ function _echoThanousParadoxData($csv, $sql, $ref, $est_ref, $iStart, $iNum)
 
 function _echoThanousParadoxParagraph($strSymbol, $iStart, $iNum)
 {
-	$ref = new LofReference($strSymbol);
+	$ref = new QdiiReference($strSymbol);
 	$est_ref = $ref->GetEstRef();
 	$strEstSymbol = $est_ref->GetSymbol();
 
@@ -108,7 +108,7 @@ function EchoAll()
     if ($ref = $acct->EchoStockGroup())
     {
    		$strSymbol = $ref->GetSymbol();
-        if (in_arrayLof($strSymbol))
+        if (in_arrayQdii($strSymbol))
         {
 //            $fStart = microtime(true);
             _echoThanousParadoxParagraph($strSymbol, $acct->GetStart(), $acct->GetNum());
@@ -123,7 +123,7 @@ function EchoMetaDescription()
 	global $acct;
 	
   	$str = $acct->GetStockDisplay().THANOUS_PARADOX_DISPLAY;
-    $str .= '测试. 仅用于华宝油气(SZ162411)等LOF基金. 看白天A股华宝油气的溢价或者折价交易是否可以像小心愿认为的那样预测晚上美股XOP的涨跌.';
+    $str .= '测试. 仅用于华宝油气(SZ162411)等QDII基金. 看白天A股华宝油气的溢价或者折价交易是否可以像小心愿认为的那样预测晚上美股XOP的涨跌.';
     EchoMetaDescriptionText($str);
 }
 

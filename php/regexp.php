@@ -67,10 +67,7 @@ function RegExpDebug($arMatch, $strSrc, $iMin)
     if ($iCount > $iMin)
     {
     	DebugVal($iCount, $strSrc);
-    	foreach ($arMatch as $ar)
-    	{
-    		DebugArray($ar);
-    	}
+    	DebugPrint($arMatch);
     }
     return $iCount;
 }

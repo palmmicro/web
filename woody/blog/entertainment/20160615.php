@@ -14,7 +14,7 @@
 <div>
 <h1>EastMoney USDCNY Reference Rate Data Interface</h1>
 <p>June 15, 2016
-<br />The forex data of <a href="20151225.php">Sina Stock Data</a> is realtime trading data, but USDCNY reference rate is widely used in LOF,
+<br />The forex data of <a href="20151225.php">Sina Stock Data</a> is realtime trading data, but USDCNY reference rate is widely used in QDII,
 so the <a href="20150818.php">SZ162411 Net Value</a> calculation may have 0.1 cent of difference compared with final official data. 
 As the difference is so small, and I also believe the trading price will move to reference rate during the day, I was not changing it. After all, I will not trade based 0.1 cent any way.
 <br />Since this year, the manager of SZ160216 works very hard to keep its net value moves almost the same as USO, 

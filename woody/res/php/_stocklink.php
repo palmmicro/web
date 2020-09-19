@@ -16,8 +16,8 @@ function GetStockCategoryArray()
 {
     return array('oilfund' => '油气',
                    'commodity' => '商品',
-                   'goldetf' => '金银',
                    'chinainternet' => '海外中国互联网',
+                   'goldetf' => '金银',
                    'qqqfund' => '纳斯达克100',
                    'spyfund' => '标普500',
                    'bricfund' => '金砖四国',
@@ -51,7 +51,7 @@ function GetCategoryArray($strTitle)
         break;
   
     case 'bricfund':
-        $ar = LofGetBricSymbolArray();
+        $ar = QdiiGetBricSymbolArray();
         break;
   
     case 'chinaetf':
@@ -59,11 +59,11 @@ function GetCategoryArray($strTitle)
         break;
         
     case 'chinainternet':
-        $ar = LofGetChinaInternetSymbolArray();
+        $ar = QdiiGetChinaInternetSymbolArray();
         break;
         
     case 'commodity':
-        $ar = LofGetCommoditySymbolArray();
+        $ar = QdiiGetCommoditySymbolArray();
         break;
         
     case ETF_LIST_PAGE:
@@ -72,37 +72,37 @@ function GetCategoryArray($strTitle)
   
     case 'goldetf':
     	$ar = GoldEtfGetSymbolArray();
-    	$ar = array_merge($ar, LofGetGoldSymbolArray());
+    	$ar = array_merge($ar, QdiiGetGoldSymbolArray());
         break;
         
     case 'hangseng':
-    	$ar = LofHkGetHangSengSymbolArray();
+    	$ar = QdiiHkGetHangSengSymbolArray();
         break;
         
     case 'hshares':
-    	$ar = LofHkGetHSharesSymbolArray();
+    	$ar = QdiiHkGetHSharesSymbolArray();
         break;
         
     case 'lof':
-        $ar = LofGetSymbolArray();
+        $ar = QdiiGetSymbolArray();
         break;
         
     case 'lofhk':
-        $ar = LofHkGetSymbolArray();
+        $ar = QdiiHkGetSymbolArray();
         break;
         
     case 'oilfund':
     	$ar = array('ptr', 'shi', 'snp');
-    	$ar = array_merge($ar, LofGetOilEtfSymbolArray()
-    							, LofGetOilSymbolArray());
+    	$ar = array_merge($ar, QdiiGetOilEtfSymbolArray()
+    							, QdiiGetOilSymbolArray());
         break;
         
     case 'qqqfund':
-        $ar = LofGetQqqSymbolArray(); 
+        $ar = QdiiGetQqqSymbolArray(); 
         break;
 
     case 'spyfund':
-    	$ar = LofGetSpySymbolArray();
+    	$ar = QdiiGetSpySymbolArray();
         break;
     }
     return $ar;

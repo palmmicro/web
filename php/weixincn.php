@@ -49,23 +49,6 @@ function _wxGetStockArray($strKey, $sql)
     return $ar;
 }
 
-function _getStockReferenceText($ref)
-{
-	RefSetExternalLink($ref);
-    $str = TextFromStockReference($ref);
-    return $str;
-}
-
-function _getFundReferenceText($ref)
-{
-	if ($ref->stock_ref)
-	{
-		RefSetExternalLink($ref->stock_ref);
-	}
-    $str = TextFromFundReference($ref); 
-    return $str;
-}
-
 function _wxGetStockText($strSymbol)
 {
     $sym = new StockSymbol($strSymbol);
@@ -73,46 +56,46 @@ function _wxGetStockText($strSymbol)
     if ($sym->IsSinaFund())     
     {   // IsSinaFund must be called before IsSinaFuture
         $ref = new FundReference($strSymbol);
-        $str = _getFundReferenceText($ref); 
+        $str = TextFromFundReference($ref); 
     }
     else if ($sym->IsSinaFuture())
     {
         $ref = new FutureReference($strSymbol);
-        $str = _getStockReferenceText($ref); 
+        $str = TextFromStockReference($ref); 
     }
     else if ($sym->IsSinaForex())
     {
     	$ref = new ForexReference($strSymbol);
-        $str = _getStockReferenceText($ref); 
+        $str = TextFromStockReference($ref); 
     }
     else if ($sym->IsEastMoneyForex())
     {
     	$ref = new CnyReference($strSymbol);
-        $str = _getStockReferenceText($ref); 
+        $str = TextFromStockReference($ref); 
     }
     else if ($sym->IsFundA())
     {
         $ref = StockGetFundReference($strSymbol);
-        $str = _getFundReferenceText($ref);
-        if (in_arrayLof($strSymbol))
+        $str = TextFromFundReference($ref);
+        if (in_arrayQdii($strSymbol))
         {
         	$uscny_ref = new CnyReference('USCNY');
-	        $str .= WX_EOL._getStockReferenceText($uscny_ref); 
+	        $str .= WX_EOL.TextFromStockReference($uscny_ref); 
 	        
-	        $etf_ref = new MyStockReference(LofGetEstSymbol($strSymbol));
-	        $str .= WX_EOL._getStockReferenceText($etf_ref); 
+	        $etf_ref = new MyStockReference(QdiiGetEstSymbol($strSymbol));
+	        $str .= WX_EOL.TextFromStockReference($etf_ref); 
 	        
-	        if ($strFutureSymbol = LofGetFutureSymbol($strSymbol))
+	        if ($strFutureSymbol = QdiiGetFutureSymbol($strSymbol))
 	        {
 	        	$future_ref = new FutureReference($strFutureSymbol);
-	        	$str .= WX_EOL._getStockReferenceText($future_ref); 
+	        	$str .= WX_EOL.TextFromStockReference($future_ref); 
 	        }
 	    }
     }
     else
     {
        	$ref = new MyStockReference($strSymbol);
-       	$str = _getStockReferenceText($ref);
+       	$str = TextFromStockReference($ref);
        	
     	$ab_sql = new AbPairSql();
     	if ($ab_sql->GetPairSymbol($strSymbol))

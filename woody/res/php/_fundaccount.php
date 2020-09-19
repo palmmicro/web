@@ -83,9 +83,9 @@ function _echoFundAccountItem($csv, $strDate, $strSharesDiff, $ref, $strSymbol, 
     		$ar[] = $ref->GetPriceDisplay($strClose, $strNetValue);
     		$ar[] = $strNetValue;
     		$ar[] = $ref->GetPercentageDisplay($strNetValue, $strClose);
-    		if (floatval($ref->GetPercentage($strNetValue, $strClose)) > MIN_FLOAT_VAL)
-    		{	// 折价数据不参与线性回归
-    			$csv->Write($strDate, $strSharesDiff, $strAccount, $strClose, $strNetValue, $ref->GetPercentage($strNetValue, $strClose));
+    		if ($ref->GetPercentage($strNetValue, $strClose) > MIN_FLOAT_VAL)
+    		{	// 平价和折价数据不参与线性回归
+    			$csv->Write($strDate, $strSharesDiff, $strAccount, $strClose, $strNetValue, $ref->GetPercentageString($strNetValue, $strClose));
     		}
     	}
     	else
@@ -173,7 +173,7 @@ function _echoFundAccountPredictData($ref, $strSymbol, $nv_sql, $jpg)
    		{
    			$fPurchaseValue = floatval($nv_sql->GetClose($strPurchaseDate));
    			$strNetValue = $nv_sql->GetClose($strNetValueDate);
-   			$fAccount = $jpg->GetY(floatval($ref->GetPercentage($strNetValue, $strClose)));
+   			$fAccount = $jpg->GetY($ref->GetPercentage($strNetValue, $strClose));
    			$fAmount = _getFundAmount($strSymbol, $strPurchaseDate);
    			$fSharesDiff = ($fPurchaseValue == 0.0) ? 0.0 : $fAccount * ($fAmount / $fPurchaseValue) / 10000.0;
    			$ar[] = intval($fSharesDiff);
@@ -216,7 +216,7 @@ function EchoAll()
     if ($ref = $acct->EchoStockGroup())
     {
    		$strSymbol = $ref->GetSymbol();
-        if (in_arrayLof($strSymbol))
+        if (in_arrayQdii($strSymbol))
         {
         	$strStockId = $ref->GetStockId();
         	$nv_sql = new NetValueHistorySql($strStockId);
@@ -240,7 +240,7 @@ function EchoMetaDescription()
 	global $acct;
 	
   	$str = $acct->GetStockDisplay().FUND_ACCOUNT_DISPLAY;
-    $str .= '. 仅用于华宝油气(SZ162411)等LOF基金. 利用2019年8月开始华宝油气限购1000块人民币的机会测算A股LOF溢价申购套利的群体规模. 充分了解交易对手, 做到知己知彼百战不殆.';
+    $str .= '. 仅用于华宝油气(SZ162411)等QDII基金. 利用2019年8月开始华宝油气限购1000块人民币的机会测算A股QDII溢价申购套利的群体规模. 充分了解交易对手, 做到知己知彼百战不殆.';
     EchoMetaDescriptionText($str);
 }
 

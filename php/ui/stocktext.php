@@ -25,7 +25,7 @@ function TextFromStockReference($ref)
     if ($ref->HasData() == false)        return false;
 
     $str = RefGetDescription($ref).WX_EOL;
-    $str .= $ref->GetExternalLink().WX_EOL;
+    $str .= $ref->GetStockLink().WX_EOL;
     $str .= STOCK_DISP_PRICE._textPriceVolume($ref);
     $str .= STOCK_DISP_CHANGE.':'.$ref->GetPercentageText().WX_EOL;
     if ($ref->strOpen)			$str .= STOCK_DISP_OPEN.':'.rtrim0($ref->strOpen).WX_EOL;

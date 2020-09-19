@@ -12,7 +12,7 @@ function GoldEtfGetFutureSymbol($strSymbol)
     return 'hf_GC';
 }
 
-function GoldEtfGetAllSymbolArray($strSymbol)
+function GoldSilverGetAllSymbolArray($strSymbol)
 {
     $strCnFutureSymbol = GoldEtfGetCnFutureSymbol($strSymbol);
     $strFutureSymbol = GoldEtfGetFutureSymbol($strSymbol);

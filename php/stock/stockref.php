@@ -121,11 +121,6 @@ class StockReference extends StockSymbol
         return $this->strExternalLink;
     }
     
-    function SetExternalLink($strLink)
-    {
-   		$this->strExternalLink = $strLink;
-    }
-    
     function GetDescription()
     {
     	return $this->strDescription;
@@ -147,24 +142,24 @@ class StockReference extends StockSymbol
     	if ($strDivisor == false)	$strDivisor = $this->strPrevPrice;
     	if ($strDividend == false)	$strDividend = $this->strPrice;
     	
-   		$fPercentage = StockGetPercentage($strDivisor, $strDividend);
+   		return StockGetPercentage($strDivisor, $strDividend);
+    }
+
+    function GetPercentageString($strDivisor = false, $strDividend = false)
+    {
+   		$fPercentage = $this->GetPercentage($strDivisor, $strDividend);
    		if ($fPercentage === false)		return '';
    		
-   		if ($strDivisor === false)
-   		{
-//   			if (abs($fPercentage) < 0.001)	return '0';
-   		}
-   		else
-   		{
-   			if (abs($fPercentage * floatval($strDivisor)) < (50.0 / pow(10, $this->GetPrecision())))	return '0';
-   		}
+    	if ($strDivisor == false)	$strDivisor = $this->strPrevPrice;
+		if (abs($fPercentage * floatval($strDivisor)) < (50.0 / pow(10, $this->GetPrecision())))	return '0';
+
    		return strval($fPercentage);
     }
 
     // for display
     function GetPercentageText($strDivisor = false, $strDividend = false)
     {
-   		$str = $this->GetPercentage($strDivisor, $strDividend);
+   		$str = $this->GetPercentageString($strDivisor, $strDividend);
    		if ($str != '' && $str != '0')
    		{
    			$str = strval_round(floatval($str), 2).'%';
@@ -576,6 +571,21 @@ class StockReference extends StockSymbol
    			$this->strPrevPrice = $sql->GetClosePrev($this->strDate);
    		}
     }
+
+    function GetStockLink()
+    {
+		$strSymbol = $this->GetSymbol();
+		if ($str = GetStockLink($strSymbol))
+		{
+			return $str;
+		}
+		return	GetMyStockLink($strSymbol);
+	}
+
+	function GetMyStockLink()
+	{
+		return GetMyStockLink($this->GetSymbol());
+	}
 }
 
 // ****************************** ExtendedTrading Class *******************************************************
@@ -609,44 +619,6 @@ class ExtendedTradingReference extends StockReference
             $this->strDescription = STOCK_POST_MARKET;
         }
     }
-}
-
-// ****************************** Public StockReference functions *******************************************************
-function RefHasData($ref)
-{
-	if ($ref)
-	{
-		return $ref->HasData();
-	}
-	return false;
-}
-
-function RefGetMyStockLink($ref)
-{
-	if ($ref)
-	{
-		return GetMyStockLink($ref->GetSymbol());
-	}
-	return '';
-}
-
-function RefSetExternalLinkMyStock($ref)
-{
-	if ($ref)
-	{
-		$ref->SetExternalLink(RefGetMyStockLink($ref));
-	}
-}
-
-function RefSetExternalLink($ref)
-{
-	$strSymbol = $ref->GetSymbol();
-	$strLink = GetStockLink($strSymbol);
-   	if ($strLink == false)
-    {
-    	$strLink = GetMyStockLink($strSymbol);
-    }
-	$ref->SetExternalLink($strLink);
 }
 
 ?>

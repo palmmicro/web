@@ -37,7 +37,7 @@ function IsNewDailyQuotes($sym, $strFileName, $callback)
         
         $now_ymd = new NowYMD();
         $iFileTime = filemtime($strFileName);
-        if (in_arrayLof($sym->GetSymbol()))
+        if (in_arrayQdii($sym->GetSymbol()))
         {
             if (($now_ymd->GetTick() - STOCK_HOUR_END * SECONDS_IN_HOUR) < $ymd->GetNextTradingDayTick())     return $str;	// We already have yesterday or last Friday's history quotes.
         }

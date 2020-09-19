@@ -1,10 +1,10 @@
 <?php 
-require('php/_lofhk.php');
+require('php/_qdiihk.php');
 
-function GetLofHkRelated($sym)
+function GetQdiiHkRelated($sym)
 {
 	$str = GetJiaShiOfficialLink($sym->GetDigitA());
-	$str .= ' '.GetLofHkLinks($sym);
+	$str .= ' '.GetQdiiHkLinks($sym);
 	$str .= GetHSharesSoftwareLinks();
 	$str .= GetJiaShiSoftwareLinks();
 	return $str;

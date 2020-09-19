@@ -60,7 +60,7 @@ class CsvFile
     
     function OnLineArray($arWord)
     {
-    	DebugArray($arWord);
+    	DebugPrint($arWord);
     }
     
     function Read()

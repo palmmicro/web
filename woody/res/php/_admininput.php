@@ -39,8 +39,8 @@ function _getAdminTestStr($strInput)
 	$strEstInput = '105';
 	
 	StockPrefetchData($strSrc, $strDst);
-    $src_ref = new LofReference($strSrc);
-    $dst_ref = new LofReference($strDst);
+    $src_ref = new QdiiReference($strSrc);
+    $dst_ref = new QdiiReference($strDst);
     
     if (($strSrcVal = $src_ref->GetOfficialNetValue()) && ($strDstVal = $dst_ref->GetOfficialNetValue()))
     {

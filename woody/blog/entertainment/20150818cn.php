@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>华宝油气净值估算的PHP程序</title>
-<meta name="description" content="根据SPDR标普油气开采指数ETF(XOP), 标普油气开采指数(^SPSIOP), 以及美元对人民币的汇率计算LOF基金华宝油气(SZ162411)净值的PHP程序的开发过程记录.">
+<meta name="description" content="根据SPDR标普油气开采指数ETF(XOP), 标普油气开采指数(^SPSIOP), 以及美元对人民币的汇率计算QDII基金华宝油气(SZ162411)净值的PHP程序的开发过程记录.">
 <?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
@@ -16,7 +16,7 @@
 <div>
 <h1>华宝油气净值估算的PHP程序</h1>
 <p>2015年8月18日
-<br />眼看Qualcomm收购CSR<a href="20141016cn.php">股票</a>的现金快要到账, 最近我在琢磨在A股中国特色的LOF基金华宝油气和美股XOP之间套利. 每天看Yahoo新浪等网站的股票行情, 时不时还要用鼠标点开计算器算算转换价格, 时间长了后有点烦.
+<br />眼看Qualcomm收购CSR<a href="20141016cn.php">股票</a>的现金快要到账, 最近我在琢磨在A股中国特色的QDII基金华宝油气和美股XOP之间套利. 每天看Yahoo新浪等网站的股票行情, 时不时还要用鼠标点开计算器算算转换价格, 时间长了后有点烦.
 <br />后来我想起来5年前学习的<a href="20100905cn.php">PHP</a>, 于是打算写我的第二个PHP程序, 统一把套利需要常看的行情显示在一起, 同时根据SPDR标普油气开采指数ETF(XOP), 标普油气开采指数(^SPSIOP),
 以及美元对人民币的汇率计算<a href="../../res/sz162411cn.php">华宝油气</a>净值. 今天出了第一版, 记录下相关开发过程以备日后查阅.
 <br />谢谢<?php EchoXueqieId('6188729918', 'abkoooo'); ?>帮助提供了新浪实时美股数据接口的格式.
@@ -70,7 +70,7 @@
 
 <h3>扩大规模</h3>
 <p>2015年8月27日
-<br />整理代码最好的方式是多开发几个类似LOF基金估值软件.
+<br />整理代码最好的方式是多开发几个类似QDII基金估值软件.
 伴随最近抄底港股加入<a href="../../res/sz159920cn.php">恒生ETF</a>和<a href="../../res/sh510900cn.php">H股ETF</a>净值计算工具.
 观摩美股崩盘期间顺手加入了<a href="../../res/sh513500cn.php">标普500</a>净值计算工具, 也许日后会用上.
 </p>
@@ -87,9 +87,9 @@
 <br />继续用网页工具代替手工按计算器的工作, 为港股在美股的<a href="../../res/adrcn.php">ADR</a>加入<a href="../../res/achcn.php">中国铝业</a>, <a href="../../res/gshcn.php">广深铁路</a>,
 <a href="../../res/lfccn.php">中国人寿</a>, <a href="../../res/ptrcn.php">中国石油</a>, <a href="../../res/snpcn.php">中国石化</a>, <a href="../../res/shicn.php">上海石化</a>,
 <a href="../../res/ceacn.php">东方航空</a>和<a href="../../res/znhcn.php">南方航空</a>等价格比较工具.
-<br />加入ADR后, 把ADR和LOF用到的共同股票数据部分放到<font color=olive>StockReference</font>类中, 用在<font color=olive>_LofAccount</font>类和<font color=olive>_AdrAccount</font>类中.
+<br />加入ADR后, 把ADR和QDII用到的共同股票数据部分放到<font color=olive>StockReference</font>类中, 用在<font color=olive>_QdiiAccount</font>类和<font color=olive>_AdrAccount</font>类中.
 <br />继续整理代码, 为热心吃螃蟹的用户们增加<a href="../../res/sh513100cn.php">纳指ETF</a>, <a href="../../res/sz160717cn.php">恒生H股</a>, <a href="../../res/sz160216cn.php">国泰商品</a>, <a href="../../res/sz160416cn.php">石油基金</a>, 
-<a href="../../res/sz163208cn.php">诺安油气</a>和<a href="../../res/sz165510cn.php">信诚四国</a>等<a href="../../res/lofcn.php">LOF</a>净值计算工具.
+<a href="../../res/sz163208cn.php">诺安油气</a>和<a href="../../res/sz165510cn.php">信诚四国</a>等<a href="../../res/lofcn.php">QDII</a>净值计算工具.
 </p>
 
 <h3>增加<?php EchoNameTag(FUND_HISTORY_PAGE, FUND_HISTORY_DISPLAY); ?>页面</h3>
@@ -132,17 +132,17 @@
 <br />美国进入夏令时, 发现一个bug: <i>date_default_timezone_set('EST')</i>是没有夏令时的, 要用<i>date_default_timezone_set('America/New_York')</i>或者<i>date_default_timezone_set('EDT')</i>.
 </p>
 
-<h3><a name="goldetf">黄金ETF</a></h3>
+<h3><a name="goldetf">黄金基金</a></h3>
 <p>2016年3月25日
-<br />趁复活节假日黄金期货GC停止交易, 校准</a>A股<a href="../../res/goldetfcn.php">黄金ETF</a>系列的净值计算工具. 目前包括<a href="../../res/sh518800cn.php">国泰黄金ETF</a>,
+<br />趁复活节假日黄金期货GC停止交易, 校准</a>A股<a href="../../res/goldetfcn.php">黄金基金</a>系列的净值计算工具. 目前包括<a href="../../res/sh518800cn.php">国泰黄金ETF</a>,
 <a href="../../res/sh518880cn.php">华安黄金ETF</a>, <a href="../../res/sz159934cn.php">易方达黄金ETF</a>, <a href="../../res/sz159937cn.php">博时黄金ETF</a>, <a href="../../res/sz164701cn.php">添富贵金LOF</a>, 
 <a href="../../res/sz160719cn.php">嘉实黄金LOF</a>和<a href="../../res/sz161116cn.php">易方达黄金LOF</a>.
-<br />一直有用户建议我在华宝油气等LOF的<?php EchoFundHistoryLink(); ?>表格上加入预估净值比较栏目. 除了不愿意直接打自己嘴巴外的心理因素外, 我迟迟没有加上它的原因主要是估值是实时变化的.
+<br />一直有用户建议我在华宝油气等QDII的<?php EchoFundHistoryLink(); ?>表格上加入预估净值比较栏目. 除了不愿意直接打自己嘴巴外的心理因素外, 我迟迟没有加上它的原因主要是估值是实时变化的.
 我一直想不清楚是该加在美股收盘后的预估净值还是A股收盘后的.
-<br />在LOF的代码中, 单独的预估净值变量原本放在<font color=olive>_LofAccount</font>类中. 而在新的黄金ETF<font color=olive>_GoldEtfAccount</font>类中又用到了<font color=olive>FundReference</font>类. 
+<br />在QDII的代码中, 单独的预估净值变量原本放在<font color=olive>_QdiiAccount</font>类中. 而在新的黄金ETF<font color=olive>_GoldEtfAccount</font>类中又用到了<font color=olive>FundReference</font>类. 
 自然而然的, 我把预估净值的变量挪到了<font color=olive>FundReference</font>类中. 当预估净值和当日净值的变量排列在一起后, 突然之间数据结构引导思维方式的例子再次爆发, 没有比在记录当日净值的时候同时记录预估净值更合理的了!
 <br />由于在股票交易日的净值系列页面访问量已经稳定在了1000左右, 最高的一天有接近1700, 我一直在琢磨如何优化页面应对以后可能的更大的访问量高峰.
-把只会每天变化一次的<a href="#sma">SMA</a>计算结果保存下来是很容易想到的, 但是之前一直没有做. 在搞完7个黄金ETF的校准后, 我意识到同一个GLD要在包括GC黄金期货的8个页面各算一遍, 觉得不能再忍下去了.
+把只会每天变化一次的<a href="#sma">SMA</a>计算结果保存下来是很容易想到的, 但是之前一直没有做. 在搞完7个黄金基金的校准后, 我意识到同一个GLD要在包括GC黄金期货的8个页面各算一遍, 觉得不能再忍下去了.
 <br />基于之前在网上找<a href="#mobiledetect">Mobile-Detect</a>代码的经验, 我极大的低估了找一个现成的读写配置文件的php类的难度. 比较容易找到的是一个要收费5美元的, 号称同时支持文件和mysql读写配置.
 而我就是不想多搞mysql的表才想用文件存的, 不免觉得这5美元有点浪费. 最后好不容易才翻到免费的<a href="http://px.sklar.com/code.html?id=142&fmt=pl" target=_blank>INIFile</a>.
 这个类原本只支持在已经存在的配置文件上修改, 让我这个PHP新手折腾改了好几个小时才顺利用上.
@@ -160,8 +160,8 @@
 <br />上周人民币又开始贬值, 让华宝油气估值暴露出一个新bug, 到了13号周5的时候, 我的估值居然比官方数据高了差不多一个百分点了.
 周末开始查问题, 发现最后一次自动校准还是12号晚上拿到11号的官方净值后, 而本应该在13号晚上拿到12号官方净值后的自动校准居然没有做. 也就是说, 在过去的一段时间内, 自动校准都不知不觉的晚了一天,
 只不过在汇率平稳的情况下这个问题暴露不出来而已.
-<br />找到问题并不难, 春节后为了用最简单的方法解决中美轮流休市导致的估值问题, 因为只有港股LOF会出现LOF净值数据比ETF新的情况, 我按照是否港股LOF重新整理了部分代码,
-对美股LOF就不考虑根据今天的LOF净值和昨天ETF价格校准的情况了. 结果无意改了个其实无关的代码,
+<br />找到问题并不难, 春节后为了用最简单的方法解决中美轮流休市导致的估值问题, 因为只有港股QDII会出现QDII净值数据比ETF新的情况, 我按照是否港股QDII重新整理了部分代码,
+对美股QDII就不考虑根据今天的QDII净值和昨天ETF价格校准的情况了. 结果无意改了个其实无关的代码,
 把<i>$iHours = STOCK_HOUR_END + ($this->usdhkd_ref ? 0 : 24);</i>写成了<i>$iHours = STOCK_HOUR_END + ($this->usdhkd_ref) ? 0 : 24;</i>
 <br />不过这个bug严重打击了我的自信心. 这一次我没法用自己是个6年的PHP<font color=red>新手</font>来自嘲了, 在我自豪的写了25年的C语言中, 这同样是个超级低级的错误!
 </p>
@@ -256,7 +256,7 @@ CL通常会在美股收盘后继续多交易一个小时, 此时实时估值也�
 <ol>
   <li>要使用^SPSIOP或者XOP的净值, 而不是XOP的交易价, 2者通常收盘不一致.</li>
   <li>要使用<a href="20160615cn.php">美元人民币中间价</a>, 而不是新浪的实时交易价格.</li>
-  <li>今天加入所有LOF都最多95%仓位的处理, 而不是100%.</li>
+  <li>今天加入所有LOF都最多95%仓位的处理, 而不是ETF的100%.</li>
 </ol>
 
 <h3>估值自动和手工<a name="calibration">校准</a>的历史记录</h3>
@@ -349,7 +349,7 @@ CL通常会在美股收盘后继续多交易一个小时, 此时实时估值也�
 <br />最后解出结果.
 <br />EMA设计精巧, 不存在偷跑的问题, 所以这里没有T+1估值.
 </p>
-<?php EchoLofSmaDemo(); ?>
+<?php EchoQdiiSmaDemo(); ?>
 
 <h3><?php EchoNameTag(ADRH_COMPARE_PAGE, ADRH_COMPARE_DISPLAY); ?></h3>
 <p>2018年4月4日

@@ -32,7 +32,7 @@ function _echoNetValueItem($csv, $sql, $est_sql, $cny_sql, $strNetValue, $strDat
 				if ($strEstPrev = $est_sql->GetClose($strPrevDate))
 				{
 					$ar[] = $est_ref->GetPercentageDisplay($strEstPrev, $strEst);
-					if ($strVal = LofGetStockPosition($strEstPrev, $strEst, $strPrev, $strNetValue, $strCnyPrev, $strCny))
+					if ($strVal = QdiiGetStockPosition($strEstPrev, $strEst, $strPrev, $strNetValue, $strCnyPrev, $strCny))
 					{
 						$bWritten = true;
 						$csv->Write($strDate, $strNetValue, $strVal);
@@ -81,12 +81,12 @@ function _echoNetValueHistory($ref, $iStart, $iNum)
 	$strSymbol = $ref->GetSymbol();
     $str = GetFundHistoryLink($strSymbol);
     $str .= ' '.GetStockHistoryLink($strSymbol);
-    if (in_arrayLof($strSymbol))
+    if (in_arrayQdii($strSymbol))
     {
-    	$str .= ' '.GetLofAnalysisLinks($strSymbol);
+    	$str .= ' '.GetQdiiAnalysisLinks($strSymbol);
     	
         $cny_ref = new CnyReference('USCNY');	// Always create CNY Forex class instance first!
-    	$ref = new LofReference($strSymbol);
+    	$ref = new QdiiReference($strSymbol);
     	$est_ref = $ref->GetEstRef();
     }
     else
@@ -142,7 +142,7 @@ function EchoMetaDescription()
 	global $acct;
 	
   	$str = $acct->GetStockDisplay().NETVALUE_HISTORY_DISPLAY;
-    $str .= '页面. 用于某基金历史净值超过一定数量后的显示. 最近的基金净值记录一般会直接显示在该基金页面. 目前仅用于华宝油气(SZ162411)等LOF基金.';
+    $str .= '页面. 用于某基金历史净值超过一定数量后的显示. 最近的基金净值记录一般会直接显示在该基金页面. 目前仅用于华宝油气(SZ162411)等QDII基金.';
     EchoMetaDescriptionText($str);
 }
 

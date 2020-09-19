@@ -16,8 +16,8 @@ function NavStockSoftware($bChinese)
     $arFunction = array(ADR_PAGE => 'AdrGetSymbolArray',
                       'chinaetf' => 'ChinaEtfGetSymbolArray',
                       'goldetf' => 'GoldEtfGetSymbolArray',
-                      'lof' => 'LofGetSymbolArray',
-                      'lofhk' => 'LofHkGetSymbolArray',
+                      'lof' => 'QdiiGetSymbolArray',
+                      'lofhk' => 'QdiiHkGetSymbolArray',
                      );
     foreach ($arFunction as $strKey => $strFunction)
     {

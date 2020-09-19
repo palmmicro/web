@@ -2,9 +2,9 @@
 require_once('_stock.php');
 require_once('_editgroupform.php');
 
-function _adjustLofPriceFactor($strLofSymbol, $fLof, $fEst, $fCNY)
+function _adjustQdiiPriceFactor($strQdiiSymbol, $fQdii, $fEst, $fCNY)
 {
-    $fFactor = $fEst * $fCNY / $fLof;
+    $fFactor = $fEst * $fCNY / $fQdii;
     return $fFactor;
 }
 
@@ -33,11 +33,11 @@ function _onAdjust($strSymbols)
     }
     
     $fFactor = false;
-    if (in_arrayLof($strSymbol) || in_arrayLofHk($strSymbol))
+    if (in_arrayQdii($strSymbol) || in_arrayQdiiHk($strSymbol))
     {
-        $fFactor = _adjustLofPriceFactor($strSymbol, $fVal, $fVal2, floatval($ar2[1]));
+        $fFactor = _adjustQdiiPriceFactor($strSymbol, $fVal, $fVal2, floatval($ar2[1]));
     }
-    else if (in_arrayGoldEtf($strSymbol))
+    else if (in_arrayGoldSilver($strSymbol))
     {
         $fFactor = _adjustEtfPriceFactor($strSymbol, $fVal2, $fVal);
     }

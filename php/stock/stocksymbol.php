@@ -43,7 +43,7 @@ function ChinaEtfGetSymbolArray()
     return array('sh501043', 'sh510300', 'sh510330', 'sz159919');
 }
 
-function in_arrayChinaEtf($strSymbol)
+function in_arrayChinaIndex($strSymbol)
 {
     return in_array_lower($strSymbol, ChinaEtfGetSymbolArray());
 }
@@ -58,149 +58,149 @@ function GoldEtfGetSymbolArray()
     return array('sh518800', 'sh518880', 'sz159934', 'sz159937', 'sz161226'); 
 }
 
-function in_arrayGoldEtf($strSymbol)
+function in_arrayGoldSilver($strSymbol)
 {
     return in_array_lower($strSymbol, GoldEtfGetSymbolArray());
 }
 
-function LofGetChinaInternetSymbolArray()
+function QdiiGetChinaInternetSymbolArray()
 {
     return array('sh513050', 'sz164906');
 }
 
-function in_arrayChinaInternetLof($strSymbol)
+function in_arrayChinaInternetQdii($strSymbol)
 {
-    return in_array_lower($strSymbol, LofGetChinaInternetSymbolArray());
+    return in_array_lower($strSymbol, QdiiGetChinaInternetSymbolArray());
 }
 
-function LofGetGoldSymbolArray()
+function QdiiGetGoldSymbolArray()
 {
     return array('sz160719', 'sz161116', 'sz164701'); 
 }
 
-function in_arrayGoldLof($strSymbol)
+function in_arrayGoldQdii($strSymbol)
 {
-    return in_array_lower($strSymbol, LofGetGoldSymbolArray());
+    return in_array_lower($strSymbol, QdiiGetGoldSymbolArray());
 }
 
-function LofGetOilSymbolArray()
+function QdiiGetOilSymbolArray()
 {
     return array('sh501018', 'sz160216', 'sz160723', 'sz161129'); 
 }
 
-function in_arrayOilLof($strSymbol)
+function in_arrayOilQdii($strSymbol)
 {
-    return in_array_lower($strSymbol, LofGetOilSymbolArray());
+    return in_array_lower($strSymbol, QdiiGetOilSymbolArray());
 }
 
-function LofGetOilEtfSymbolArray()
+function QdiiGetOilEtfSymbolArray()
 {
     return array('sz160416', 'sz162411', 'sz162719', 'sz163208'); 
 }
 
-function in_arrayOilEtfLof($strSymbol)
+function in_arrayOilEtfQdii($strSymbol)
 {
-    return in_array_lower($strSymbol, LofGetOilEtfSymbolArray());
+    return in_array_lower($strSymbol, QdiiGetOilEtfSymbolArray());
 }
 
-function LofGetBricSymbolArray()
+function QdiiGetBricSymbolArray()
 {
     return array('sz161714', 'sz165510');
 }
 
-function in_arrayBricLof($strSymbol)
+function in_arrayBricQdii($strSymbol)
 {
-    return in_array_lower($strSymbol, LofGetBricSymbolArray());
+    return in_array_lower($strSymbol, QdiiGetBricSymbolArray());
 }
 
-function LofGetCommoditySymbolArray()
+function QdiiGetCommoditySymbolArray()
 {
     return array('sz161815', 'sz165513'); 
 }
 
-function in_arrayCommodityLof($strSymbol)
+function in_arrayCommodityQdii($strSymbol)
 {
-    return in_array_lower($strSymbol, LofGetCommoditySymbolArray());
+    return in_array_lower($strSymbol, QdiiGetCommoditySymbolArray());
 }
 
-function LofGetQqqSymbolArray()
+function QdiiGetQqqSymbolArray()
 {
     return array('sh513100', 'sz159941', 'sz161130'); 
 }
 
-function in_arrayQqqLof($strSymbol)
+function in_arrayQqqQdii($strSymbol)
 {
-    return in_array_lower($strSymbol, LofGetQqqSymbolArray());
+    return in_array_lower($strSymbol, QdiiGetQqqSymbolArray());
 }
 
-function LofGetSpySymbolArray()
+function QdiiGetSpySymbolArray()
 {
     return array('sh513500', 'sz161125'); 
 }
 
-function in_arraySpyLof($strSymbol)
+function in_arraySpyQdii($strSymbol)
 {
-    return in_array_lower($strSymbol, LofGetSpySymbolArray());
+    return in_array_lower($strSymbol, QdiiGetSpySymbolArray());
 }
 
-function LofGetSymbolArray()
+function QdiiGetSymbolArray()
 {
     $ar = array('sh513030', 'sz160140', 'sz161126', 'sz161127', 'sz161128', 'sz162415', 'sz164824'); 
-    $ar = array_merge($ar, LofGetChinaInternetSymbolArray()
-    						, LofGetGoldSymbolArray()
-    						, LofGetOilSymbolArray()
-    						, LofGetOilEtfSymbolArray()
-    						, LofGetBricSymbolArray()
-    						, LofGetCommoditySymbolArray()
-    						, LofGetQqqSymbolArray()
-    						, LofGetSpySymbolArray());
+    $ar = array_merge($ar, QdiiGetChinaInternetSymbolArray()
+    						, QdiiGetGoldSymbolArray()
+    						, QdiiGetOilSymbolArray()
+    						, QdiiGetOilEtfSymbolArray()
+    						, QdiiGetBricSymbolArray()
+    						, QdiiGetCommoditySymbolArray()
+    						, QdiiGetQqqSymbolArray()
+    						, QdiiGetSpySymbolArray());
     sort($ar);
     return $ar;
 }
 
-function in_arrayLof($strSymbol)
+function in_arrayQdii($strSymbol)
 {
-    return in_array_lower($strSymbol, LofGetSymbolArray());
+    return in_array_lower($strSymbol, QdiiGetSymbolArray());
 }
 
-function LofHkGetHSharesSymbolArray()
+function QdiiHkGetHSharesSymbolArray()
 {
     return array('sh510900', 'sz160717');
 }
 
-function in_arrayHSharesLofHk($strSymbol)
+function in_arrayHSharesQdiiHk($strSymbol)
 {
-    return in_array_lower($strSymbol, LofHkGetHSharesSymbolArray());
+    return in_array_lower($strSymbol, QdiiHkGetHSharesSymbolArray());
 }
 
-function LofHkGetHangSengSymbolArray()
+function QdiiHkGetHangSengSymbolArray()
 {
     return array('sh513660', 'sz159920', 'sz160924');
 }
 
-function in_arrayHangSengLofHk($strSymbol)
+function in_arrayHangSengQdiiHk($strSymbol)
 {
-    return in_array_lower($strSymbol, LofHkGetHangSengSymbolArray());
+    return in_array_lower($strSymbol, QdiiHkGetHangSengSymbolArray());
 }
 
-function LofHkGetSymbolArray()
+function QdiiHkGetSymbolArray()
 {
     $ar = array('sh501025'); 
-    $ar = array_merge($ar, LofHkGetHSharesSymbolArray()
-    						, LofHkGetHangSengSymbolArray());
+    $ar = array_merge($ar, QdiiHkGetHSharesSymbolArray()
+    						, QdiiHkGetHangSengSymbolArray());
     sort($ar);
     return $ar;
 }
 
-function in_arrayLofHk($strSymbol)
+function in_arrayQdiiHk($strSymbol)
 {
-    return in_array_lower($strSymbol, LofHkGetSymbolArray());
+    return in_array_lower($strSymbol, QdiiHkGetSymbolArray());
 }
 
 function GetAllSymbolArray()
 {
-	$ar = LofGetSymbolArray();
-	$ar = array_merge($ar, LofHkGetSymbolArray()
+	$ar = QdiiGetSymbolArray();
+	$ar = array_merge($ar, QdiiHkGetSymbolArray()
 							, GoldEtfGetSymbolArray()
 							, ChinaEtfGetSymbolArray()
 							, AdrGetSymbolArray());
