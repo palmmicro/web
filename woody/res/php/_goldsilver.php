@@ -3,7 +3,7 @@ require_once('_stock.php');
 require_once('_stockgroup.php');
 require_once('_fundgroup.php');
 
-class _GoldEtfAccount extends FundGroupAccount
+class _GoldSilverAccount extends FundGroupAccount
 {
     function Create() 
     {
@@ -44,15 +44,14 @@ function EchoAll()
 	}
     
     _echoTestParagraph($acct);
-    $acct->EchoLinks('goldetf', 'GetGoldEtfRelated');
+    $acct->EchoLinks('goldetf', 'GetGoldSilverRelated');
 }
 
-function GetGoldEtfLinks($sym)
+function GetGoldSilverLinks($sym)
 {
 	$str = GetJisiluGoldLink();
 
 	$str .= '<br />&nbsp';
-	
 	$str .= GetGoldSoftwareLinks();
 	$str .= GetCommoditySoftwareLinks();
 	return $str;
@@ -72,6 +71,6 @@ function EchoMetaDescription()
     EchoMetaDescriptionText($str);
 }
 
-   	$acct = new _GoldEtfAccount();
+   	$acct = new _GoldSilverAccount();
    	$acct->Create();
 ?>

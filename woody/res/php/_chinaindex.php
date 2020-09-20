@@ -8,7 +8,7 @@ require_once('/php/ui/etfsmaparagraph.php');
 require_once('/php/ui/etfparagraph.php');
 require_once('/php/ui/fundestparagraph.php');
 
-class _ChinaEtfAccount extends GroupAccount
+class _ChinaIndexAccount extends GroupAccount
 {
 	var $us_ref;
 	var $a50_ref;
@@ -88,15 +88,14 @@ function EchoAll()
     	EchoMoneyParagraph($group, $acct->us_ref->cny_ref->GetPrice());
 	}
 
-    $acct->EchoLinks('chinaetf', 'GetChinaEtfRelated');
+    $acct->EchoLinks('chinaetf', 'GetChinaIndexRelated');
 }
 
-function GetChinaEtfLinks($sym)
+function GetChinaIndexLinks($sym)
 {
 	$str = GetExternalLink('https://dws.com/US/EN/Product-Detail-Page/ASHR', 'ASHR官网');
 
 	$str .= '<br />&nbsp';
-	
 	$str .= GetASharesSoftwareLinks();
 	$str .= GetSpySoftwareLinks();
 	return $str;
@@ -122,6 +121,6 @@ function EchoTitle()
     echo $str;
 }
 
-   	$acct = new _ChinaEtfAccount();
+   	$acct = new _ChinaIndexAccount();
    	$acct->Create();
 ?>

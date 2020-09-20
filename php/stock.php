@@ -314,6 +314,27 @@ function RefGetStockDisplay($ref)
     return RefGetDescription($ref).'【'.$ref->GetSymbol().'】';
 }
 
+function RefSortByNumeric($arRef, $callback)
+{
+    $ar = array();
+    $arNum = array();
+    
+    foreach ($arRef as $ref)
+    {
+        $strSymbol = $ref->GetSymbol();
+        $ar[$strSymbol] = $ref;
+    	$arNum[$strSymbol] = call_user_func($callback, $ref);
+    }
+    asort($arNum, SORT_NUMERIC);
+    
+    $arSort = array();
+    foreach ($arNum as $strSymbol => $fNum)
+    {
+        $arSort[] = $ar[$strSymbol];
+    }
+    return $arSort;
+}
+
 // ****************************** Stock final integration functions *******************************************************
 function EtfGetAllSymbolArray($strSymbol)
 {

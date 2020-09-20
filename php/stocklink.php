@@ -228,7 +228,7 @@ function StockGetTransactionLink($strGroupId, $strSymbol, $strDisplay = false)
     {
     	$strDisplay = $strSymbol;
     }
-    return GetPhpLink(STOCK_PATH.'mystocktransaction', $strQuery, $strDisplay);
+	return GetStockTitleLink('mystocktransaction', $strDisplay, $strQuery);
 }
 
 function StockGetAllTransactionLink($strGroupId, $ref = false)
@@ -244,7 +244,7 @@ function StockGetAllTransactionLink($strGroupId, $ref = false)
     return StockGetTransactionLink($strGroupId, $strSymbol, '交易记录');
 }
 
-function StockGetGroupTransactionLinks($strGroupId, $strCurSymbol = '')
+function StockGetGroupTransactionLinks($strGroupId)
 {
     $str = '';
 	$sql = new StockGroupItemSql($strGroupId);
@@ -252,15 +252,7 @@ function StockGetGroupTransactionLinks($strGroupId, $strCurSymbol = '')
     {
     	foreach ($arGroupItemSymbol as $strGroupItemId => $strSymbol)
     	{
-    		if ($strSymbol == $strCurSymbol)
-    		{
-    			$str .= "<font color=indigo>$strSymbol</font>";
-    		}	
-    		else
-    		{
-    			$str .= StockGetTransactionLink($strGroupId, $strSymbol);
-    		}
-    		$str .= ' ';
+   			$str .= StockGetTransactionLink($strGroupId, $strSymbol).' ';
     	}
     }
     return rtrim($str, ' ');
@@ -276,7 +268,7 @@ function GetStockLink($strSymbol)
 {
     if (in_arrayAll($strSymbol))
     {
-    	return GetPhpLink(STOCK_PATH.strtolower($strSymbol), false, $strSymbol);
+		return GetStockTitleLink(strtolower($strSymbol), $strSymbol);
     }
     return false;
 }

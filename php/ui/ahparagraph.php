@@ -18,26 +18,6 @@ function _echoAhItem($ref)
     EchoTableColumn($ar);
 }
 
-function _refSortByRatio($arRef, $bAh = true)
-{
-    $ar = array();
-    $arRatio = array();
-    foreach ($arRef as $ref)
-    {
-        $strSymbol = $ref->GetSymbol();
-        $ar[$strSymbol] = $ref;
-        $arRatio[$strSymbol] = ($bAh ? $ref->GetAhPriceRatio() : $ref->GetAdrhPriceRatio()); 
-    }
-    asort($arRatio, SORT_NUMERIC);
-    
-    $arSort = array();
-    foreach ($arRatio as $strSymbol => $fRatio)
-    {
-        $arSort[] = $ar[$strSymbol];
-    }
-    return $arSort;
-}
-
 function _refSortBySymbol($arRef)
 {
     $ar = array();
@@ -54,6 +34,11 @@ function _refSortBySymbol($arRef)
         $arSort[] = $ref;
     }
     return $arSort;
+}
+
+function _callbackSortAh($ref)
+{
+	return $ref->GetAhPriceRatio();
 }
 
 function EchoAhParagraph($arRef)
@@ -74,7 +59,7 @@ function EchoAhParagraph($arRef)
 			}
 			else if ($strSort == 'ratio')
 			{
-				$arRef = _refSortByRatio($arRef);
+				$arRef = RefSortByNumeric($arRef, '_callbackSortAh');
 			}
 		}
 		else
@@ -118,6 +103,11 @@ function _echoAdrhItem($ref)
     EchoTableColumn($ar);
 }
 
+function _callbackSortAdrh($ref)
+{
+	return $ref->GetAdrhPriceRatio();
+}
+
 function EchoAdrhParagraph($arRef)
 {
 	$str = GetAdrhCompareLink();
@@ -131,7 +121,7 @@ function EchoAdrhParagraph($arRef)
 			}
 			else if ($strSort == 'ratio')
 			{
-				$arRef = _refSortByRatio($arRef, false);
+				$arRef = RefSortByNumeric($arRef, '_callbackSortAdrh');
 			}
 		}
 		else

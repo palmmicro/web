@@ -61,25 +61,9 @@ function _getFundParagraphStr($ref)
     return $str;
 }
 
-function _refSortByPremium($arRef)
+function _callbackSortFundEst($ref)
 {
-    $ar = array();
-    $arPremium = array();
-    
-    foreach ($arRef as $ref)
-    {
-        $strSymbol = $ref->GetSymbol();
-        $ar[$strSymbol] = $ref;
-    	$arPremium[$strSymbol] = $ref->stock_ref->GetPercentage($ref->GetOfficialNetValue());
-    }
-    asort($arPremium, SORT_NUMERIC);
-    
-    $arSort = array();
-    foreach ($arPremium as $strSymbol => $fPremium)
-    {
-        $arSort[] = $ar[$strSymbol];
-    }
-    return $arSort;
+	return $ref->stock_ref->GetPercentage($ref->GetOfficialNetValue());
 }
 
 function EchoFundArrayEstParagraph($arRef, $str = '')
@@ -90,7 +74,7 @@ function EchoFundArrayEstParagraph($arRef, $str = '')
 		{
 			if ($strSort == 'premium')
 			{
-				$arRef = _refSortByPremium($arRef);
+				$arRef = RefSortByNumeric($arRef, '_callbackSortFundEst');
 			}
 		}
 		else

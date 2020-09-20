@@ -38,14 +38,14 @@ function in_array_lower($strSymbol, $ar)
     return in_array(strtolower($strSymbol), $ar);
 }
 
-function ChinaEtfGetSymbolArray()
+function ChinaIndexGetSymbolArray()
 {
     return array('sh501043', 'sh510300', 'sh510330', 'sz159919');
 }
 
 function in_arrayChinaIndex($strSymbol)
 {
-    return in_array_lower($strSymbol, ChinaEtfGetSymbolArray());
+    return in_array_lower($strSymbol, ChinaIndexGetSymbolArray());
 }
 
 function AdrGetSymbolArray()
@@ -53,14 +53,14 @@ function AdrGetSymbolArray()
     return array('ach', 'cea', 'gsh', 'hnp', 'lfc', 'ptr', 'shi', 'snp', 'znh');
 }
 
-function GoldEtfGetSymbolArray()
+function GoldSilverGetSymbolArray()
 {
     return array('sh518800', 'sh518880', 'sz159934', 'sz159937', 'sz161226'); 
 }
 
 function in_arrayGoldSilver($strSymbol)
 {
-    return in_array_lower($strSymbol, GoldEtfGetSymbolArray());
+    return in_array_lower($strSymbol, GoldSilverGetSymbolArray());
 }
 
 function QdiiGetChinaInternetSymbolArray()
@@ -201,8 +201,8 @@ function GetAllSymbolArray()
 {
 	$ar = QdiiGetSymbolArray();
 	$ar = array_merge($ar, QdiiHkGetSymbolArray()
-							, GoldEtfGetSymbolArray()
-							, ChinaEtfGetSymbolArray()
+							, GoldSilverGetSymbolArray()
+							, ChinaIndexGetSymbolArray()
 							, AdrGetSymbolArray());
     return $ar;
 }

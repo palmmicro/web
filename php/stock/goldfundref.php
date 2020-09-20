@@ -1,12 +1,12 @@
 <?php
 
-function GoldEtfGetCnFutureSymbol($strSymbol)
+function GoldSilverGetCnFutureSymbol($strSymbol)
 {
     if ($strSymbol == 'SZ161226')   return 'AG0';
     return 'AU0';
 }
 
-function GoldEtfGetFutureSymbol($strSymbol)
+function GoldSilverGetFutureSymbol($strSymbol)
 {
     if ($strSymbol == 'SZ161226')   return 'hf_SI';
     return 'hf_GC';
@@ -14,8 +14,8 @@ function GoldEtfGetFutureSymbol($strSymbol)
 
 function GoldSilverGetAllSymbolArray($strSymbol)
 {
-    $strCnFutureSymbol = GoldEtfGetCnFutureSymbol($strSymbol);
-    $strFutureSymbol = GoldEtfGetFutureSymbol($strSymbol);
+    $strCnFutureSymbol = GoldSilverGetCnFutureSymbol($strSymbol);
+    $strFutureSymbol = GoldSilverGetFutureSymbol($strSymbol);
     return array($strSymbol, $strCnFutureSymbol, $strFutureSymbol);
 }
 
@@ -25,12 +25,12 @@ class GoldFundReference extends FundReference
     {
         parent::FundReference($strSymbol);
         $this->SetForex('USCNY');
-        $this->est_ref = new FutureReference(GoldEtfGetCnFutureSymbol($strSymbol));
-        $this->future_ref = new FutureReference(GoldEtfGetFutureSymbol($strSymbol));
+        $this->est_ref = new FutureReference(GoldSilverGetCnFutureSymbol($strSymbol));
+        $this->future_ref = new FutureReference(GoldSilverGetFutureSymbol($strSymbol));
         $this->EstNetValue();
     }
 
-    function _estGoldEtf($fEst)
+    function _estGoldSilver($fEst)
     {
     	if (empty($this->fFactor))	return 0.0;
     	
@@ -43,7 +43,7 @@ class GoldFundReference extends FundReference
         $this->AdjustFactor();
         
         $est_ref = $this->GetEstRef();
-        $this->fOfficialNetValue = $this->_estGoldEtf(floatval($est_ref->GetPrice()));
+        $this->fOfficialNetValue = $this->_estGoldSilver(floatval($est_ref->GetPrice()));
         $this->strOfficialDate = $est_ref->GetDate();
         $this->UpdateEstNetValue();
 
@@ -58,7 +58,7 @@ class GoldFundReference extends FundReference
 //			DebugString('Silver');
 			$fEst *= 1000.0;
 		}
-        $this->fRealtimeNetValue = $this->_estGoldEtf($fEst);
+        $this->fRealtimeNetValue = $this->_estGoldSilver($fEst);
     }
 
     function AdjustFactor()
