@@ -60,7 +60,7 @@ class StockReference extends StockSymbol
     
     var $strFileName;                       // File to store original data
     var $strConfigName;
-    var $strTimeZone = STOCK_TIME_ZONE_CN;  // Time zone for $strDate and $strTime display
+//    var $strTimeZone = STOCK_TIME_ZONE_CN;  // Time zone for $strDate and $strTime display
     var $strExternalLink = false;          // External link help to interprete the original data
     
     // original data
@@ -195,12 +195,6 @@ class StockReference extends StockSymbol
         return StockGetPriceDisplay($strDisp, $strPrev, $this->GetPrecision());
     }
 
-    function ConvertDateTime($iTime, $strTimeZone)
-    {
-        $this->strDate = DebugGetDate($iTime, $strTimeZone);
-        $this->strTime = DebugGetTime($iTime, $strTimeZone);
-    }
-    
     function DebugLink()
     {
         return GetFileDebugLink($this->strFileName);
@@ -209,22 +203,6 @@ class StockReference extends StockSymbol
     function DebugConfigLink()
     {
         return GetFileDebugLink($this->strConfigName);
-    }
-    
-    // Oct 17 09:31AM EDT
-    function _convertDateTimeFromUS($strDateTime)
-    {
-        $this->ConvertDateTime(strtotime($strDateTime), STOCK_TIME_ZONE_US);
-        $this->strTimeZone = STOCK_TIME_ZONE_US;
-        
-//        DebugString('StringYMD in StockReference->_convertDateTimeFromUS');
-        $ymd = new StringYMD($this->strDate);
-        if ($ymd->IsFuture())
-        {   // Dec 30 04:00PM EST, an extra year bug caused by strtotime function
-            $iYear = intval($ymd->arYMD[0]);
-            $iYear --;
-            $this->strDate = strval($iYear).'-'.$ymd->arYMD[1].'-'.$ymd->arYMD[2];
-        }
     }
     
     function GetDate()
@@ -273,29 +251,31 @@ class StockReference extends StockSymbol
 		
 		return false;
 	}
-
+/*
     function _totime($strTimeZone)
     {
         date_default_timezone_set($strTimeZone);
         return strtotime($this->GetDateTime());
     }
-    
+*/    
     function CheckAdjustFactorTime($etf_ref)
     {
         if ($etf_ref == false)					return false;
         if ($etf_ref->HasData() == false)		return false;
         if ($etf_ref->IsExtendedMarket())				return false;
         
-        if ($this->strTimeZone == $etf_ref->strTimeZone)
+        $strTimeZone = $etf_ref->GetTimeZone();
+        if ($this->GetTimeZone() == $strTimeZone)
         {
             $strDate = $this->strDate;
             $strTime = $this->strTime;
         }
         else
         {
-            $iTime = $this->_totime($this->strTimeZone);
-            $strDate = DebugGetDate($iTime, $etf_ref->strTimeZone);
-            $strTime = DebugGetTime($iTime, $etf_ref->strTimeZone);
+//            $iTime = $this->_totime($this->strTimeZone);
+			$iTime = strtotime($this->GetDateTime());
+            $strDate = DebugGetDate($iTime, $strTimeZone);
+            $strTime = DebugGetTime($iTime, $strTimeZone);
 //            DebugString('CheckAdjustFactorTime: '.$etf_ref->GetSymbol().' '.$etf_ref->GetDate().' '.$etf_ref->GetTimeHM().' vs '.$strDate.' '.$strTime);
         }
         if ($strDate != $etf_ref->GetDate())			return false;
@@ -303,19 +283,32 @@ class StockReference extends StockSymbol
         
         return true;
     }
+/*    
+    function ConvertDateTime($iTime, $strTimeZone)
+    {
+        $this->strDate = DebugGetDate($iTime, $strTimeZone);
+        $this->strTime = DebugGetTime($iTime, $strTimeZone);
+    }
+    
+    // Oct 17 09:31AM EDT
+    function _convertDateTimeFromUS($strDateTime)
+    {
+        $this->ConvertDateTime(strtotime($strDateTime), STOCK_TIME_ZONE_US);
+        $this->strTimeZone = STOCK_TIME_ZONE_US;
+        
+//        DebugString('StringYMD in StockReference->_convertDateTimeFromUS');
+        $ymd = new StringYMD($this->strDate);
+        if ($ymd->IsFuture())
+        {   // Dec 30 04:00PM EST, an extra year bug caused by strtotime function
+            $iYear = intval($ymd->arYMD[0]);
+            $iYear --;
+            $this->strDate = strval($iYear).'-'.$ymd->arYMD[1].'-'.$ymd->arYMD[2];
+        }
+    }
     
     function _generateUsTradingDateTime()
     {
         $this->strTimeZone = STOCK_TIME_ZONE_US;
-/*        $iTime = time();
-        $localtime = localtime($iTime);
-        $iHour = $localtime[2];
-        if ($iHour < 9 || ($iHour == 9 && $localtime[1] < 30))
-        {
-            $iTime -= SECONDS_IN_DAY;
-            $localtime = localtime($iTime);
-            $iTime = mktime(16, 1, 0, $localtime[4] + 1, $localtime[3], 1900 + $localtime[5]);
-        }*/
         $now_ymd = new NowYMD();
         $iTime = $now_ymd->GetTick();
         $iHour = $now_ymd->GetHour();
@@ -326,6 +319,40 @@ class StockReference extends StockSymbol
             $iTime = mktime(16, 1, 0, $ymd->GetMonth(), $ymd->GetDay(), $ymd->GetYear());
         }
         $this->ConvertDateTime($iTime, $this->strTimeZone);
+    }
+*/    
+    function _convertDateTimeFromUS($strDateTime, $strYear)
+    {
+        $iTime = strtotime($strDateTime);
+        $this->strTime = DebugGetTime($iTime, STOCK_TIME_ZONE_US);
+        $this->strDate = $strYear.date('-m-d', $iTime);
+    }
+    
+    function _onSinaDataUS($ar)
+    {
+        $this->strName = $ar[0];
+        $this->strPrice = $ar[1];
+        $this->strPrevPrice = $ar[26];
+        $this->_convertDateTimeFromUS($ar[25], $ar[29]);
+/*        if ($ar[25] != '')
+        {
+            $this->_convertDateTimeFromUS($ar[25]);
+        }
+        else
+        {
+            $this->_generateUsTradingDateTime();
+        }
+*/        
+        $this->strOpen = $ar[5];
+        $this->strHigh = $ar[6];
+        $this->strLow = $ar[7];
+        $this->strVolume = $ar[10];
+        
+		if (!empty($ar[24]))
+		{
+			$this->extended_ref = new ExtendedTradingReference($ar, $this->GetSymbol());
+			$this->extended_ref->strFileName = $this->strFileName;
+		}
     }
     
     function _onSinaDataHK($ar)
@@ -342,32 +369,6 @@ class StockReference extends StockSymbol
         
         $this->strName = $ar[0];
         $this->strChineseName = $ar[1];
-    }
-    
-    function _onSinaDataUS($ar)
-    {
-        $this->strName = $ar[0];
-        $this->strPrice = $ar[1];
-        $this->strPrevPrice = $ar[26];
-        if ($ar[25] != '')
-        {
-            $this->_convertDateTimeFromUS($ar[25]);
-        }
-        else
-        {
-            $this->_generateUsTradingDateTime();
-        }
-        
-        $this->strOpen = $ar[5];
-        $this->strHigh = $ar[6];
-        $this->strLow = $ar[7];
-        $this->strVolume = $ar[10];
-        
-		if (!empty($ar[24]))
-		{
-			$this->extended_ref = new ExtendedTradingReference($ar, $this->GetSymbol());
-			$this->extended_ref->strFileName = $this->strFileName;
-		}
     }
     
     function _onSinaDataCN($ar)
@@ -598,7 +599,7 @@ class ExtendedTradingReference extends StockReference
         
         $this->strExternalLink = GetYahooStockLink($this);
         $this->strPrice = $ar[21];
-        $this->_convertDateTimeFromUS($ar[24]);
+        $this->_convertDateTimeFromUS($ar[24], $ar[29]);
         $this->strPrevPrice = $ar[26];
         
         if (strpos($ar[27], '.'))

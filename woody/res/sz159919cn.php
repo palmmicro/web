@@ -1,10 +1,10 @@
 <?php 
-require('php/_chinaetf.php');
+require('php/_chinaindex.php');
 
-function GetChinaEtfRelated($sym)
+function GetChinaIndexRelated($sym)
 {
 	$str = GetJiaShiOfficialLink($sym->GetDigitA());
-	$str .= ' '.GetChinaEtfLinks($sym);
+	$str .= ' '.GetChinaIndexLinks($sym);
 	$str .= GetJiaShiSoftwareLinks();
 	return $str;
 }

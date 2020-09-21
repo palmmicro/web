@@ -1,9 +1,9 @@
 <?php 
-require('php/_chinaetf.php');
+require('php/_chinaindex.php');
 
-function GetChinaEtfRelated($sym)
+function GetChinaIndexRelated($sym)
 {
-	$str = GetChinaEtfLinks($sym);
+	$str = GetChinaIndexLinks($sym);
 	$str .= GetHuaTaiSoftwareLinks();
 	return $str;
 }

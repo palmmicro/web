@@ -100,7 +100,7 @@ need to use <i>date_default_timezone_set('America/New_York')</i> or <i>date_defa
 <br />Different users have been suggesting to add estimation value in the <a href="#fundhistory">fund history</a> table of SZ162411.
 Except for not willing to show my possible error directly, I did not add it because the change is realtime, and I don't know when to record it, after US market close or Chinese market close?
 <br />In the QDII code, the variable for estimation value was originally in <font color=olive>_QdiiAccount</font> class.
-With my new <font color=olive>_GoldEtfAccount</font> class again having the same class member of <font color=olive>FundReference</font> class,
+With my new <font color=olive>_GoldSilverAccount</font> class again having the same class member of <font color=olive>FundReference</font> class,
 naturally I moved the estimation value to <font color=olive>FundReference</font> class. And when estimaation value and net value variable are put together, the data structure leads my mind again,
 suddenly I realized that it is most reasonable to record the estimation value in the same time when the current day net value is recorded!
 <br />The average page view of my net value pages in a normal trading day is around 1000 now, the max day is nearly 1700. I have been optimizing my software for more page views in the future.

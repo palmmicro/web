@@ -11,17 +11,16 @@ function EchoAll()
         $arSymbol = SqlGetStocksArray($strGroupId, true);
         StockPrefetchArrayData($arSymbol);
 
+        $strStockLinks = StockGetGroupTransactionLinks($strGroupId);
         if ($strSymbol = $acct->GetSymbol())
         {   // Display transactions of a stock
             $strAllLink = StockGetAllTransactionLink($strGroupId);
-            $strStockLinks = StockGetGroupTransactionLinks($strGroupId, $strSymbol);
             EchoParagraph($strAllLink.' '.$strStockLinks);
            	EchoTransactionParagraph($acct, $strGroupId, new MyStockReference($strSymbol));
         }
         else
         {   // Display transactions of the whole group
             $strCombineLink = GetPhpLink(STOCK_PATH.'combinetransaction', 'groupid='.$strGroupId, '合并记录');
-            $strStockLinks = StockGetGroupTransactionLinks($strGroupId);
             EchoParagraph($strCombineLink.' '.$strStockLinks);
            	EchoTransactionParagraph($acct, $strGroupId);
         }

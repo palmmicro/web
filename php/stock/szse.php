@@ -1,7 +1,6 @@
 <?php
 
-/*
-http://www.szse.cn/api/report/ShowReport/data?SHOWTYPE=JSON&CATALOGID=1945_LOF&txtQueryKeyAndJC=162411
+/* http://www.szse.cn/api/report/ShowReport/data?SHOWTYPE=JSON&CATALOGID=1945_LOF&txtQueryKeyAndJC=162411
 [
 {"metadata":
 	{"catalogid":"1945_LOF",
@@ -92,72 +91,7 @@ http://www.szse.cn/api/report/ShowReport/data?SHOWTYPE=JSON&CATALOGID=1945_LOF&t
  "data":[{"jzrq":"2020-09-10","jjdm":"162411","jjjc":"华宝油气","jjjz":"0.2443"}],
  "error":null
 }
-]
-
-Array( 
-[0] => Array ( 
-	[metadata] => Array ( [catalogid] => 1945_LOF 
-						  [name] => LOF基金列表 
-						  [excel] => xlsx 
-						  [pagetype] => vertical 
-						  [subname] => 2020-09-11 
-						  [tabkey] => tab1 
-						  [csskey] => Array ( [0] => Array ( [csskey] => main ) ) 
-						  [pagesize] => 10 
-						  [pageno] => 1 
-						  [pagecount] => 1 
-						  [recordcount] => 1 
-						  [showrecordcount] => 
-						  [header] => (点击代码查询行情，点击简称查询公告)
-						  [footer] => 
-						  [reporttype] => 
-						  [tabcss] => 
-						  [conditions] => Array ( [0] => Array ( [label] => 代码或简称 [name] => txtQueryKeyAndJC [hidden] => 0 [defaultValue] => 162411 [labelstyle] => 1 [required] => false [inputType] => text [typeAhead] => /shortname/gethangqing?dataType=JJ&input= [options] => [property] => [maxlength] => [otherProperties] => ) ) 
-						  [colStyle] => Array ( [sys_key] => Array ( [align] => center [group] => false ) [kzjcurl] => Array ( [align] => center [group] => false ) [nhzs] => Array ( [align] => left [group] => false ) [dqgm] => Array ( [align] => right [group] => false ) [glrmc] => Array ( [align] => left [group] => false ) [cxjqhq] => Array ( [align] => center [group] => false ) [zxjjjz] => Array ( [align] => center [group] => false ) ) 
-						  [cols] => Array ( [sys_key] => 证券代码 [kzjcurl] => 证券简称 [nhzs] => 拟合指数 [dqgm] => 当前规模（万份） [glrmc] => 基金管理人 [cxjqhq] => 查询近期行情 [zxjjjz] => 最新基金净值 ) 
-						  [colspan] => 0 
-						  [notes] => 
-						  [topHeader] => ) 
-	[data] => Array ( [0] => Array ( [sys_key] => 162411 
-									 [kzjcurl] => 华宝油气 
-									 [nhzs] => SPSIOPTR 
-									 [dqgm] => 877,189.37 
-									 [glrmc] => 华宝基金管理有限公司 
-									 [cxjqhq] => 查看 
-									 [zxjjjz] => 查看 ) ) 
-	[error] => 
-	) 
-[1] => Array ( 
-	[metadata] => Array ( [catalogid] => 1945_LOF 
-						  [name] => LOF最新净值列表 
-						  [excel] => xlsx 
-						  [pagetype] => vertical 
-						  [subname] => 
-						  [tabkey] => tab2 
-						  [csskey] => Array ( [0] => Array ( [csskey] => main ) ) 
-						  [pagesize] => 10 
-						  [pageno] => 1 
-						  [pagecount] => 1 
-						  [recordcount] => 1 
-						  [showrecordcount] => 
-						  [header] => (点击代码查询行情，点击简称查询公告)
-						  [footer] => 
-						  [reporttype] => 
-						  [tabcss] => 
-						  [conditions] => Array ( [0] => Array ( [label] => [name] => txtQueryKeyAndJC [hidden] => 1 [defaultValue] => 162411 [labelstyle] => 1 [required] => false [inputType] => text [typeAhead] => [options] => [property] => [maxlength] => [otherProperties] => ) ) 
-						  [colStyle] => Array ( [jzrq] => Array ( [align] => center [group] => false ) [jjdm] => Array ( [align] => center [group] => false ) [jjjc] => Array ( [align] => center [group] => false ) [jjjz] => Array ( [align] => right [group] => false ) ) 
-						  [cols] => Array ( [jzrq] => 净值日期 [jjdm] => 基金代码 [jjjc] => 基金简称 [jjjz] => 单位基金净值（元） ) 
-						  [colspan] => 0 
-						  [notes] => 
-						  [topHeader] => ) 
-	[data] => Array ( [0] => Array ( [jzrq] => 2020-09-10 
-									 [jjdm] => 162411 
-									 [jjjc] => 华宝油气 
-									 [jjjz] => 0.2443 ) ) 
-	[error] => 
-	) 
-) 1
-*/
+]*/
 
 function GetSzseUrl()
 {
@@ -176,7 +110,8 @@ function SzseGetLofShares($ref)
 	if ($sql->GetRecord($strStockId, $strDate))	return;
 
     date_default_timezone_set(STOCK_TIME_ZONE_CN);
-	$strFileName = DebugGetSzseFileName($ref->GetSymbol());
+	$strFileName = DebugGetSymbolFile('szse', $ref->GetSymbol());
+
 	clearstatcache(true, $strFileName);
     if (file_exists($strFileName))
     {

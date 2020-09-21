@@ -663,17 +663,34 @@ class StockSymbol
     	return true;
     }
     
-    function SetTimeZone()
+    function GetTimeZone()
     {
-        if ($this->IsSymbolA() || $this->IsSymbolH() || $this->IsEastMoneyForex() || $this->IsSinaFund())
+    	$strTimeZone = STOCK_TIME_ZONE_CN;
+        if ($this->IsSinaFund())     
+        {   // IsSinaFund must be called before IsSinaFuture
+        }
+        else if ($this->IsSinaFuture())
         {
-            $strTimeZone = STOCK_TIME_ZONE_CN;
+        }
+        else if ($this->IsSinaForex())
+        {
+        }
+        else if ($this->IsEastMoneyForex())
+        {
+        }
+        else if ($this->IsSymbolA() || $this->IsSymbolH())
+        {
         }
         else
         {
             $strTimeZone = STOCK_TIME_ZONE_US;
         }
-        date_default_timezone_set($strTimeZone);
+        return $strTimeZone;
+    }
+
+    function SetTimeZone()
+    {
+        date_default_timezone_set($this->GetTimeZone());
     }
 
     function GetSymbol()

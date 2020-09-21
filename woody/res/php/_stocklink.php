@@ -55,7 +55,7 @@ function GetCategoryArray($strTitle)
         break;
   
     case 'chinaetf':
-    	$ar = ChinaEtfGetSymbolArray();
+    	$ar = ChinaIndexGetSymbolArray();
         break;
         
     case 'chinainternet':
@@ -71,7 +71,7 @@ function GetCategoryArray($strTitle)
         break;
   
     case 'goldetf':
-    	$ar = GoldEtfGetSymbolArray();
+    	$ar = GoldSilverGetSymbolArray();
     	$ar = array_merge($ar, QdiiGetGoldSymbolArray());
         break;
         
@@ -152,7 +152,7 @@ function GetHSharesSoftwareLinks()
 
 function GetASharesSoftwareLinks()
 {
-   	$ar = ChinaEtfGetSymbolArray();
+   	$ar = ChinaIndexGetSymbolArray();
     $str = GetCategorySoftwareLinks($ar, 'A股');
     return $str;
 }

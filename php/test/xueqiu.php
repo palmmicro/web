@@ -105,7 +105,7 @@ function GetXueqiuDefault()
 
 function _getXueqiuCookie($strToken)
 {
-	return 'xq_a_token='.($strToken ? $strToken : '634f06305f9b4bfc255d499ce191b235d5ef5cad');
+	return 'xq_a_token='.($strToken ? $strToken : '	3cec51412f383fe9b9e91487c1a614e363f71251');
 //				  .'xq_is_login=1;'
 //				  .'xq_is_login.sig=J3LxgPVPUzbBg3Kee_PquUfih7Q;'
 //				  .'remember=1;'

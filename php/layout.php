@@ -59,7 +59,7 @@ function LayoutWeixinPay()
 {
     echo <<<END
         <p><img src=/woody/image/wxpay.jpg alt="QRcode to pay 1 RMB to Woody in Weixin" />
-        <br />觉得这个网站有用? 可以用微信打赏支持一下.
+        <br /><font color=green>觉得这个网站有用? 可以用微信打赏支持一下.</font>
         </p>
 END;
 }
@@ -68,7 +68,7 @@ function LayoutAliPay()
 {
     echo <<<END
         <p><img src=/woody/image/alipay.jpg alt="QRcode to pay Woody in Taobao" />
-        <br />觉得这个网站有用? 可以用支付宝打赏支持一下.
+        <br /><font color=green>觉得这个网站有用? 可以用支付宝打赏支持一下.</font>
         </p>
 END;
 }
@@ -211,8 +211,8 @@ function LayoutTail($bChinese = true, $bAdsense = false)
     		else
     		{
     			echo '<div>';
-    			LayoutWeixinPromotion();
     			LayoutWeixinPay();
+    			LayoutWeixinPromotion();
     			echo '</div>';
     		}
     	}

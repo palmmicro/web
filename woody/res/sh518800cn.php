@@ -1,10 +1,10 @@
 <?php 
-require('php/_goldetf.php');
+require('php/_goldsilver.php');
 
-function GetGoldEtfRelated($sym)
+function GetGoldSilverRelated($sym)
 {
 	$str = GetGuoTaiOfficialLink($sym->GetDigitA());
-	$str .= ' '.GetGoldEtfLinks($sym);
+	$str .= ' '.GetGoldSilverLinks($sym);
 	$str .= GetGuoTaiSoftwareLinks();
 	return $str;
 }

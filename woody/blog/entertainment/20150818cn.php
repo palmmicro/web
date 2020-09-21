@@ -139,7 +139,7 @@
 <a href="../../res/sz160719cn.php">嘉实黄金LOF</a>和<a href="../../res/sz161116cn.php">易方达黄金LOF</a>.
 <br />一直有用户建议我在华宝油气等QDII的<?php EchoFundHistoryLink(); ?>表格上加入预估净值比较栏目. 除了不愿意直接打自己嘴巴外的心理因素外, 我迟迟没有加上它的原因主要是估值是实时变化的.
 我一直想不清楚是该加在美股收盘后的预估净值还是A股收盘后的.
-<br />在QDII的代码中, 单独的预估净值变量原本放在<font color=olive>_QdiiAccount</font>类中. 而在新的黄金ETF<font color=olive>_GoldEtfAccount</font>类中又用到了<font color=olive>FundReference</font>类. 
+<br />在QDII的代码中, 单独的预估净值变量原本放在<font color=olive>_QdiiAccount</font>类中. 而在新的黄金ETF<font color=olive>_GoldSilverAccount</font>类中又用到了<font color=olive>FundReference</font>类. 
 自然而然的, 我把预估净值的变量挪到了<font color=olive>FundReference</font>类中. 当预估净值和当日净值的变量排列在一起后, 突然之间数据结构引导思维方式的例子再次爆发, 没有比在记录当日净值的时候同时记录预估净值更合理的了!
 <br />由于在股票交易日的净值系列页面访问量已经稳定在了1000左右, 最高的一天有接近1700, 我一直在琢磨如何优化页面应对以后可能的更大的访问量高峰.
 把只会每天变化一次的<a href="#sma">SMA</a>计算结果保存下来是很容易想到的, 但是之前一直没有做. 在搞完7个黄金基金的校准后, 我意识到同一个GLD要在包括GC黄金期货的8个页面各算一遍, 觉得不能再忍下去了.

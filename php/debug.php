@@ -203,7 +203,7 @@ function DebugGetChinaMoneyFile()
     return "$strPath/json.txt";
 }
 
-function _getDebugFileName($strSection, $strSymbol)
+function DebugGetSymbolFile($strSection, $strSymbol)
 {
     $strPath = _getDebugPath($strSection);
     
@@ -218,32 +218,22 @@ function _getDebugFileName($strSection, $strSymbol)
 
 function DebugGetSinaFileName($strSymbol)
 {
-    return _getDebugFileName('sina', $strSymbol);
-}
-
-function DebugGetSzseFileName($strSymbol)
-{
-    return _getDebugFileName('szse', $strSymbol);
+    return DebugGetSymbolFile('sina', $strSymbol);
 }
 
 function DebugGetEastMoneyFileName($strSymbol)
 {
-    return _getDebugFileName('eastmoney', $strSymbol);
+    return DebugGetSymbolFile('eastmoney', $strSymbol);
 }
 
 function DebugGetYahooWebFileName($strSymbol)
 {
-    return _getDebugFileName('yahooweb', $strSymbol);
-}
-
-function DebugGetYahooHistoryFileName($strSymbol)
-{
-    return _getDebugFileName('yahoohistory', $strSymbol);
+    return DebugGetSymbolFile('yahooweb', $strSymbol);
 }
 
 function DebugGetConfigFileName($strSymbol)
 {
-    return _getDebugFileName('config', $strSymbol);
+    return DebugGetSymbolFile('config', $strSymbol);
 }
 
 function unlinkConfigFile($strSymbol)
