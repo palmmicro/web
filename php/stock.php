@@ -471,4 +471,15 @@ function StockGetHShareReference($sym)
     return false;
 }
 
+function StockIsNewFile($strFileName, $iDays = false)
+{
+	clearstatcache(true, $strFileName);
+    if (file_exists($strFileName))
+    {
+    	$now_ymd = new NowYMD();
+        if ($now_ymd->IsNewFile($strFileName, $iDays))		return true;
+    }
+    return false;
+}
+
 ?>

@@ -34,9 +34,16 @@ class YearMonthDay
         return $this->GetTick() + $iSeconds;
     }
     
-    function IsNewFile($strFileName)
+    function IsNewFile($strFileName, $iDays = false)
     {
-    	$iInterval = $this->IsWeekDay() ? SECONDS_IN_MIN : SECONDS_IN_HOUR;
+    	if ($iDays)
+    	{
+    		$iInterval = $iDays * SECONDS_IN_DAY;
+    	}
+    	else
+    	{
+    		$iInterval = $this->IsWeekDay() ? SECONDS_IN_MIN : SECONDS_IN_HOUR;
+    	}
    		return ($this->GetTick() < (filemtime($strFileName) + $iInterval)) ? true : false;
     }
     

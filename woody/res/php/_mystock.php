@@ -35,26 +35,26 @@ function _echoBenfordParagraph($ref)
 	
 	$a_sql = new AnnualIncomeSql();
 	$q_sql = new QuarterIncomeSql();
-	
+/*	
 	if ($str = $a_sql->GetCloseNow())
 	{
 		if ($str == 'NODATA')		return;
 	}
 	else
-	{
+	{*/
 		if ($ar = YahooUpdateFinancials($ref))
 		{
 			list($arAnnual, $arQuarter) = $ar;
 			$a_sql->WriteDailyArray($strStockId, $arAnnual);
 			$q_sql->WriteDailyArray($strStockId, $arQuarter);
 		}
-		else
+/*		else
 		{
 			$ymd = new NowYMD();
 			$a_sql->WriteDaily($strStockId, $ymd->GetYMD(), 'NODATA');
 			return;
 		}
-	}
+	}*/
 
 	$str = GetBenfordsLawLink();
    	$jpg = new BenfordImageFile();
@@ -200,7 +200,7 @@ function _echoMyStockData($acct, $ref)
    	}
    	EchoStockHistoryParagraph($ref);
     	
-//   	_echoBenfordParagraph($ref);
+   	_echoBenfordParagraph($ref);
     
    	_echoMyStockTransactions($acct, $ref);
     if ($acct->IsAdmin())

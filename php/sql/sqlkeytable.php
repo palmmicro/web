@@ -312,9 +312,9 @@ class DailyKeySql extends KeySql
     	return false;
     }
 
-    function DeleteZeroData()
+    function DeleteClose($str = '0.000000')
     {
-    	$this->DeleteCountData("close = '0.000000'");
+    	$this->DeleteCountData("close = '$str'");
     }
 
     function ModifyDaily($strKeyId, $strDate, $strClose)

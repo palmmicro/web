@@ -24,6 +24,10 @@ function _echoPortfolioTableItem($trans)
         {
         	$ar[] = strval($iShares - 561);
         }
+        else if ($strSymbol == 'SH600104')
+        {
+        	$ar[] = strval($iShares - 2000);
+        }
     }
 
     EchoTableColumn($ar);

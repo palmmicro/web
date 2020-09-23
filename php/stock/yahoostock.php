@@ -495,9 +495,15 @@ function _updateYahooFinancialsData(&$ar, $str, $strWhen, $strWhat)
 
 function YahooUpdateFinancials($ref)
 {
+	$ref->SetTimeZone();
+	$strFileName = DebugGetSymbolFile('yahoofinancials', $ref->GetSymbol());
+	if (StockIsNewFile($strFileName, 90))	return false;   		// update on 90 days
+	
    	$strUrl = YahooStockGetUrl($ref->GetYahooSymbol()).'/financials';
     if ($str = url_get_contents($strUrl))
     {
+   		file_put_contents($strFileName, $str);
+   		
     	$arAnnual = array();
     	_updateYahooFinancialsData(&$arAnnual, $str, 'incomeStatementHistory', 'incomeStatementHistory');
     	_updateYahooFinancialsData(&$arAnnual, $str, 'balanceSheetHistory', 'balanceSheetStatements');

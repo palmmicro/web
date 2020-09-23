@@ -129,63 +129,6 @@ class DailyStockSql extends StockTableSql
     }
 }
 
-// ****************************** DailyStockStrSql class *******************************************************
-/*
-class DailyStockStrSql extends DailyStockSql
-{
-    function DailyStockStrSql($strTableName, $strStockId) 
-    {
-        parent::DailyStockSql($strTableName, $strStockId);
-    }
-
-    function Create()
-    {
-        $str = $this->ComposeDailyStr()
-         	  . ' `close` VARCHAR( 8192 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,'
-        	  . $this->ComposeDailyIndexStr();
-    	return $this->CreateIdTable($str);
-    }
-    
-    function Insert($strDate, $strClose)
-    {
-        if ($this->GetRecord($strDate))			return false;
-        
-    	return $this->InsertArray($this->MakeFieldArray($strDate, $strClose));
-    }
-
-    function Write($strDate, $strClose)
-    {
-    	if ($record = $this->GetRecord($strDate))
-    	{
-    		if ($record['close'] != $strClose)
-    		{
-    			return $this->Update($record['id'], $strClose);
-    		}
-    	}
-    	else
-    	{
-    		return $this->Insert($strDate, $strClose);
-    	}
-    	return false;
-    }
-    
-    function GetUniqueCloseArray()
-    {
-    	$ar = array();
-    	if ($result = $this->GetAll()) 
-    	{
-    		while ($record = mysql_fetch_assoc($result)) 
-    		{
-    			$arClose = explode(',', $record['close']);
-    			$ar = array_merge($ar, array_unique($arClose));
-    		}
-    		@mysql_free_result($result);
-    	}
-    	return $ar;
-    }
-}
-*/
-
 // ****************************** DailyStockValSql class *******************************************************
 class DailyStockValSql extends DailyStockSql
 {
