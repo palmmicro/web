@@ -102,9 +102,9 @@ function CopyPhpLink($strQuery, $strCn, $strUs = false, $bChinese = true)
 
 function GetSortString($strQuery)
 {
-    $ar = array('hshare' => 'H股',
-                  'premium' => '溢价',
-                  'ratio' => '比价',
+    $ar = array('hshare' => STOCK_DISP_HSHARES,
+                  'premium' => STOCK_DISP_PREMIUM,
+                  'ratio' => STOCK_DISP_RATIO,
                  );
 	return isset($ar[$strQuery]) ? '按'.$ar[$strQuery].'排序' : '';
 }

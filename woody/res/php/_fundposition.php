@@ -27,6 +27,7 @@ function _echoFundPositionItem($csv, $ref, $cny_ref, $est_ref, $strDate, $strNet
 		
 	if ($strEst = $est_sql->GetClose($strDate))
 	{
+//		$strEst = strval(floatval($strEst) + 0.378235);
 		$ar[] = $strEst;
 		if ($strEstPrev = $est_sql->GetClose($strPrevDate))
 		{

@@ -1,8 +1,8 @@
 <?php
 //require_once('url.php');
 //require_once('debug.php');
-require_once('httplink.php');
 require_once('ui/stocktable.php');
+require_once('httplink.php');
 
 define('AB_DEMO_SYMBOL', 'SZ200488');
 define('ADRH_DEMO_SYMBOL', '00700');
@@ -160,6 +160,13 @@ function GetStockOptionLink($strOption, $strSymbol)
     $ar = GetStockOptionArray();
     $strTitle = array_search($strOption, $ar);
     return GetStockSymbolLink($strTitle, $strSymbol, $strOption);
+}
+
+define('AUTO_TRACTOR_DISPLAY', '拖拉机自动化');
+define('AUTO_TRACTOR_PAGE', 'autotractor');
+function GetAutoTractorLink($strQuery = false)
+{
+    return GetStockTitleLink(AUTO_TRACTOR_PAGE, AUTO_TRACTOR_DISPLAY, $strQuery);
 }
 
 define('MY_PORTFOLIO_DISPLAY', '持仓盈亏');

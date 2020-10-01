@@ -192,9 +192,9 @@ class TableColumnTotalShares extends TableColumn
 
 class TableColumnUSD extends TableColumn
 {
-	function TableColumnUSD()
+	function TableColumnUSD($strPrefix = false)
 	{
-        parent::TableColumn('美元$');
+        parent::TableColumn('美元$', 80, false, $strPrefix);
 	}
 }
 

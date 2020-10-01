@@ -132,8 +132,8 @@ function EchoAdrhParagraph($arRef)
 	}
 
 	EchoTableParagraphBegin(array(new TableColumnSymbol(),
-								   new TableColumnSymbol('H股'),
-								   new TableColumnUSD(),
+								   new TableColumnSymbol(STOCK_DISP_HSHARES),
+								   new TableColumnUSD(STOCK_DISP_HSHARES),
 								   new TableColumnRatio('ADRH'),
 								   new TableColumnRatio('HADR')
 								   ), 'adrh', $str);

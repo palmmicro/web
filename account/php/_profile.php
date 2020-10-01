@@ -174,7 +174,7 @@ function EchoMetaDescription($bChinese = true)
     }
     else
     {
-    	$str .= 'profile web page. Provide Palmmicro users profile and update links. Together with other activities such as IoT device management.';
+    	$str .= 'profile web page. Provide Palmmicro users profile and update links, and other activities such as IoT device management.';
     }
     EchoMetaDescriptionText($str);
 }
