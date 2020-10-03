@@ -14,7 +14,7 @@ function _echoAutoTractor()
 	$str .= '<br />文件yinheaccount.au3用来编辑各自的账号和密码, 空格密码的账号不会使用到. 目前里面有3个账号的位置, 不够的可以自己加, 不过注意别换行. ';
 	$str .= '<br />文件会日常更新, 由于更新时无法覆盖所有的测试, 每次下载新版本前注意备份好上一个能用的版本.';
 	$str .= '<br />4 -- 在'.GetExternalLink('https://tesseract-ocr.github.io/', 'Tesseract官方支持网站').'下载开源的Tesseract软件. 不过目前它被墙了, 如果你不想从'.GetExternalLink('https://github.com/tesseract-ocr/tesseract', 'Tesseract源代码').'自己下载编译的话, ';
-	$str .= '可以在'.GetExternalLink('https://sourceforge.net/projects/tesseract-ocr-alt/files/', 'SourceForge').'下载一个镜像文件tesseract-ocr-setup-3.02.02.exe, 然后一路回车缺省安装.';
+	$str .= '可以在'.GetExternalLink('https://sourceforge.net/projects/tesseract-ocr-alt/files/', 'SourceForge').'下载一个镜像文件'.GetFileLink('/download/tesseract-ocr-setup-3.02.02.exe').', 然后一路回车缺省安装.';
 	$str .= '<br />5 -- 运行AutoIt3.exe, 它会提示输入文件, 给它yinhe.au3. 会看到它会自动运行<b>海王星单独委托版</b>, 一步步在每个yinheaccount.au3中账号的6个深市账户各自申购100块华宝油气(SZ162411), 最后退出. ';
 	$str .= '<br />除了按ESC键主动退出和响应AutoIt脚本自己的错误提示消息框外, 在结束前不能操作任何键盘或者鼠标, 否则脚本可能会出错.';
 	$str .= '<br /><br /><font color=red>已知问题:</font>';
