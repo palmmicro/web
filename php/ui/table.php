@@ -84,12 +84,27 @@ function GetTableColumnTime()
 
 // ****************************** Common Table Functions *******************************************************
 
-function EchoParagraph($str)
+function EchoHtmlElement($str, $strElement)
 {
     echo <<<END
-    <p>$str
-    </p>
+    <$strElement>$str
+    </$strElement>
 END;
+}
+
+function EchoHeadLine($str)
+{
+	EchoHtmlElement($str, 'h3');
+}
+
+function EchoOrderList($str)
+{
+	EchoHtmlElement($str, 'ol');
+}
+
+function EchoParagraph($str)
+{
+	EchoHtmlElement($str, 'p');
 }
 
 function EchoTableParagraphBegin($ar, $strId, $str = '')

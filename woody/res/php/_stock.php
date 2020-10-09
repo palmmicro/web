@@ -179,7 +179,7 @@ function _isFromXueQiu()
 
 function EchoPromotionHead($strVer = false, $strLoginId = false)
 {
-    echo '<h3>相关链接</h3>';
+    EchoHeadLine('相关链接');
     
 	LayoutWeixinPay();
 	if (_isFromWeixin() || _isFromQq() || _isFromXueQiu())
