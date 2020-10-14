@@ -5,6 +5,7 @@
 extern const CString c_strJsType;
 extern const CString c_strCssType;
 extern const CString c_strPhpType;
+extern const CString c_strPythonType;
 extern const CString c_strHtmlType;
 extern const CString c_strChinese;
 

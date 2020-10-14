@@ -120,8 +120,10 @@ function _echoNetValueHistory($ref, $iStart, $iNum)
     if ($csv->HasFile())
     {
     	$jpg = new DateImageFile();
-   		$jpg->Draw($csv->ReadColumn(2), $csv->ReadColumn(1));
-   		$str .= '<br />'.$csv->GetLink().'<br />'.$jpg->GetAll(($est_ref ? $position_col->GetDisplay() : ''), $strSymbol);
+   		if ($jpg->Draw($csv->ReadColumn(2), $csv->ReadColumn(1)))
+   		{
+   			$str .= '<br />'.$csv->GetLink().'<br />'.$jpg->GetAll(($est_ref ? $position_col->GetDisplay() : ''), $strSymbol);
+   		}
    	}
     EchoTableParagraphEnd($str);
 }

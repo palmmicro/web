@@ -4,6 +4,7 @@
 const CString c_strJsType = _T(".js");
 const CString c_strCssType = _T(".css");
 const CString c_strPhpType = _T(".php");
+const CString c_strPythonType = _T(".py");
 const CString c_strHtmlType = _T(".html");
 const CString c_strChinese = _T("cn");
 const CString c_strBlogHead = _T("<tr><td class=THead>");

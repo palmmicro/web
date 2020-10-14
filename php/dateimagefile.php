@@ -28,8 +28,10 @@ class DateImageFile extends PageImageFile
     
     function Draw($arFocus, $arBase)
     {
+    	if (count($arFocus) < 2)		return false;
+
     	$iCount = count($arBase);
-    	if ($iCount < 2)		return;
+    	if ($iCount < 2)		return false;
     	
     	$this->fMaxX = $iCount;
     	$this->fMaxY = max($arBase);
@@ -39,8 +41,6 @@ class DateImageFile extends PageImageFile
     	$arBase = array_reverse($arBase);
     	$this->DrawComparePolyLine($arBase);
 
-    	if (count($arFocus) < 2)		return;
-    	
     	$arFocus = array_reverse($arFocus);	// ksort($arFocus);
     	reset($arFocus);
     	$this->_textCurDateVal('开始日期', $arFocus);
@@ -76,6 +76,8 @@ class DateImageFile extends PageImageFile
     		}
    			$iCur ++;
     	}
+    	
+    	return true;
     }
 
     function GetAll($strName, $strCompare)

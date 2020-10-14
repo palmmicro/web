@@ -30,8 +30,10 @@ function _echoFundHistory($strSymbol, $iStart, $iNum)
     if ($csv->HasFile())
     {
     	$jpg = new DateImageFile();
-   		$jpg->Draw($csv->ReadColumn(2), $csv->ReadColumn(1));
-   		EchoParagraph($csv->GetLink().'<br />'.$jpg->GetAll(STOCK_DISP_PREMIUM, $strSymbol));
+   		if ($jpg->Draw($csv->ReadColumn(2), $csv->ReadColumn(1)))
+   		{
+   			EchoParagraph($csv->GetLink().'<br />'.$jpg->GetAll(STOCK_DISP_PREMIUM, $strSymbol));
+   		}
    	}
 }
 

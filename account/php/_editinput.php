@@ -104,14 +104,16 @@ function _getLinearRegressionString($strInput, $bChinese)
 	}
 
     $jpg = new LinearImageFile();
-    $jpg->Draw($arX, $arY);
-	
-	$str = 'x = {'.implode(',', $arX).'}';
-	$str .= '<br />y = {'.(empty($strFunction) ? implode(',', $arY) : strval_round_implode($arY)).'}';
-	$str .= '<br /><br /><b>'.$jpg->GetEquation().'</b>';
-	$str .= '<br />'.$jpg->GetLink();
-	$str .= '<br /><img src=/woody/blog/photo/20190824.jpg alt="Linear regression calculation steps" />';
-	return $str;
+    if ($jpg->Draw($arX, $arY))
+    {
+    	$str = 'x = {'.implode(',', $arX).'}';
+    	$str .= '<br />y = {'.(empty($strFunction) ? implode(',', $arY) : strval_round_implode($arY)).'}';
+    	$str .= '<br /><br /><b>'.$jpg->GetEquation().'</b>';
+    	$str .= '<br />'.$jpg->GetLink();
+    	$str .= '<br /><img src=/woody/blog/photo/20190824.jpg alt="Linear regression calculation steps" />';
+    	return $str;
+    }
+	return ($bChinese ? '数据不足' : 'Not enough data');
 }
 
 function _getLinearEquationString($strA, $strB, $strC)

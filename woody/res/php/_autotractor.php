@@ -33,6 +33,10 @@ function _echoAutoTractor()
 
     EchoHeadLine('Python');
     EchoParagraph('Life is short, you need Python.');
+    $str = '在'.GetExternalLink('https://www.python.org/downloads/windows/', 'Python官网').'下载并安装Windows版本软件, 选择'.GetExternalLink('https://www.python.org/ftp/python/3.9.0/python-3.9.0.exe', 'Windows x86 executable installer');
+	$str .= '. <br />然后就要安装Python有名的各种库了, 在Windows左下角窗口标志右边放大镜框中输入<font color=blue>cmd</font>然后回车, 会进入类似<font color=blue>C:\Users\woody</font>的黑色屏幕地方, 然后在光标处输入<font color=blue>cd AppData\Local\Programs\Python\Python39-32\Scripts</font>, 就到了安装库的地方.';
+	$str .= '<br />输入<font color=blue>pip install pypiwin32</font>, 安装win32api需要的Windows库.';
+    EchoOrderList($str);
 }
 
 function EchoAll()

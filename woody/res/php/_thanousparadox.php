@@ -25,10 +25,12 @@ function _echoThanousParadoxPool($strSymbol, $strTradingSymbol)
 function _echoThanousParadoxGraph($csv)
 {
     $jpg = new LinearImageFile();
-    $jpg->Draw($csv->ReadColumn(2), $csv->ReadColumn(1));
-	$str = $csv->GetLink();
-	$str .= '<br />'.$jpg->GetAllLinks();
-   	EchoParagraph($str);
+    if ($jpg->Draw($csv->ReadColumn(2), $csv->ReadColumn(1)))
+    {
+    	$str = $csv->GetLink();
+    	$str .= '<br />'.$jpg->GetAllLinks();
+    	EchoParagraph($str);
+    }
 }
 
 function _echoThanousParadoxItem($csv, $strNetValue, $strClose, $strDate, $ref, $est_ref)

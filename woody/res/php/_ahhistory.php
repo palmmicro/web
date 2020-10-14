@@ -70,8 +70,10 @@ function _echoAhHistoryParagraph($hshare_ref, $iStart, $iNum, $bAdmin)
     if ($csv->HasFile())
     {
     	$jpg = new DateImageFile();
-    	$jpg->Draw($csv->ReadColumn(4), $csv->ReadColumn(1));
-    	$str .= '<br />'.$csv->GetLink().'<br />'.$jpg->GetAll($ah_col->GetDisplay(), $strSymbol);
+    	if ($jpg->Draw($csv->ReadColumn(4), $csv->ReadColumn(1)))
+    	{
+    		$str .= '<br />'.$csv->GetLink().'<br />'.$jpg->GetAll($ah_col->GetDisplay(), $strSymbol);
+    	}
     }
     EchoTableParagraphEnd($str);
 }

@@ -16,6 +16,9 @@ class LinearImageFile extends PageImageFile
 
     function Draw($arX, $arY)
     {
+    	$iCount = count($arX);
+    	if ($iCount < 2)	return false;
+    	
     	list($this->fA, $this->fB, $this->fR) = LinearRegression($arX, $arY);
     	
     	$this->fMaxX = max($arX);
@@ -33,7 +36,7 @@ class LinearImageFile extends PageImageFile
     	// y = A + B * x;
     	$this->Line($this->GetPosX($this->fMinX), $this->GetPosY($this->GetY($this->fMinX)), $this->GetPosX($this->fMaxX), $this->GetPosY($this->GetY($this->fMaxX)));
     	
-    	$bStar = (count($arX) < $this->iWidth / 2) ? true : false;
+    	$bStar = ($iCount < $this->iWidth / 2) ? true : false;
     	foreach ($arX as $strKey => $fX)
     	{
     		$x = $this->GetPosX($fX);
@@ -41,6 +44,8 @@ class LinearImageFile extends PageImageFile
 			if ($bStar)	$this->Text($x, $y, '*');
 			else			$this->Pixel($x, $y);
     	}
+    	
+    	return true;
     }
     
     function GetY($fX)

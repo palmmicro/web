@@ -195,12 +195,16 @@ function _echoFundPositionParagraph($ref, $cny_ref, $strSymbol, $strInput)
 			$str .= '<br />'.$csv->GetLink();
 
 			$jpg = new DateImageFile();
-			$jpg->Draw($csv->ReadColumn(2), $csv->ReadColumn(1));
-			$str .= '<br />'.$jpg->GetAll($position_col->GetDisplay(), $strSymbol);
+			if ($jpg->Draw($csv->ReadColumn(2), $csv->ReadColumn(1)))
+			{
+				$str .= '<br />'.$jpg->GetAll($position_col->GetDisplay(), $strSymbol);
+			}
 
 			$jpg2 = new DateImageFile(2);
-			$jpg2->Draw($csv->ReadColumn(3), $csv->ReadColumn(1));
-			$str .= '<br />&nbsp;<br />'.$jpg2->GetAll('对冲值', $strSymbol);
+			if ($jpg2->Draw($csv->ReadColumn(3), $csv->ReadColumn(1)))
+			{
+				$str .= '<br />&nbsp;<br />'.$jpg2->GetAll('对冲值', $strSymbol);
+			}
 		}
    	}
     EchoTableParagraphEnd($str);

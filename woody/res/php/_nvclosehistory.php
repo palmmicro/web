@@ -26,10 +26,12 @@ function _echoNvClosePool($strSymbol)
 function _echoNvCloseGraph($csv)
 {
     $jpg = new LinearImageFile();
-    $jpg->Draw($csv->ReadColumn(1), $csv->ReadColumn(2));
-	$str = $csv->GetLink();
-	$str .= '<br />'.$jpg->GetAllLinks();
-   	EchoParagraph($str);
+    if ($jpg->Draw($csv->ReadColumn(1), $csv->ReadColumn(2)))
+    {
+    	$str = $csv->GetLink();
+    	$str .= '<br />'.$jpg->GetAllLinks();
+    	EchoParagraph($str);
+    }
 }
 
 function EchoAll()

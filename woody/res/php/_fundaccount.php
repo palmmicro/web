@@ -198,14 +198,16 @@ function _echoFundAccountPredictData($ref, $strSymbol, $nv_sql, $jpg)
 function _echoLinearRegressionGraph($csv, $ref, $strSymbol, $nv_sql)
 {
     $jpg = new LinearImageFile();
-    $jpg->Draw($csv->ReadColumn(5), $csv->ReadColumn(2));
-	$str = $csv->GetLink();
-	$str .= '<br />'.$jpg->GetAllLinks();
-	$str .= '<br />下一交易日'.STOCK_OPTION_SHARES_DIFF.'预测';
+    if ($jpg->Draw($csv->ReadColumn(5), $csv->ReadColumn(2)))
+    {
+    	$str = $csv->GetLink();
+    	$str .= '<br />'.$jpg->GetAllLinks();
+    	$str .= '<br />下一交易日'.STOCK_OPTION_SHARES_DIFF.'预测';
 
-	EchoTableParagraphBegin(_getFundAccountTableColumnArray(), 'predict'.FUND_ACCOUNT_PAGE, $str);
-	_echoFundAccountPredictData($ref, $strSymbol, $nv_sql, $jpg);
-    EchoTableParagraphEnd();
+    	EchoTableParagraphBegin(_getFundAccountTableColumnArray(), 'predict'.FUND_ACCOUNT_PAGE, $str);
+    	_echoFundAccountPredictData($ref, $strSymbol, $nv_sql, $jpg);
+    	EchoTableParagraphEnd();
+    }
 }
 
 function EchoAll()

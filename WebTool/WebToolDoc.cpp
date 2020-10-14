@@ -55,6 +55,11 @@ BOOL IsPhpFile(CString str)
 	return _IsFileType(str, c_strPhpType);
 }
 
+BOOL IsPythonFile(CString str)
+{
+	return _IsFileType(str, c_strPythonType);
+}
+
 BOOL IsJsFile(CString str)
 {
 	return _IsFileType(str, c_strJsType);
@@ -69,6 +74,7 @@ BOOL IsFileFolder(CString str)
 {
 	if (IsHtmlFile(str))	return FALSE;
 	if (IsPhpFile(str))		return FALSE;
+	if (IsPythonFile(str))	return FALSE;
 	if (IsJsFile(str))		return FALSE;
 	if (IsCssFile(str))		return FALSE;
 	return TRUE;
@@ -78,6 +84,7 @@ BOOL IsEditFile(CString str)
 {
 	if (IsHtmlFile(str))	return TRUE;
 	if (IsPhpFile(str))		return TRUE;
+	if (IsPythonFile(str))	return TRUE;
 	if (IsJsFile(str))		return TRUE;
 //	if (IsCssFile(str))		return TRUE;
 	return FALSE;
@@ -421,6 +428,7 @@ void CWebToolDoc::AddFiles(HTREEITEM hParent)
 
 	AddFilesByType(hParent, list, strPath + c_cWild + c_strHtmlType);
 	AddFilesByType(hParent, list, strPath + c_cWild + c_strPhpType);
+	AddFilesByType(hParent, list, strPath + c_cWild + c_strPythonType);
 	AddFilesByType(hParent, list, strPath + c_cWild + c_strJsType);
 	AddFilesByType(hParent, list, strPath + c_cWild + c_strCssType);
 }
