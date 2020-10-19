@@ -1,6 +1,7 @@
 ﻿#include <ButtonConstants.au3>
 #include <EditConstants.au3>
 #include <GUIConstantsEx.au3>
+#include <GUIListBox.au3>
 #include <StaticConstants.au3>
 #include <WindowsConstants.au3>
 
@@ -89,14 +90,7 @@ Func _getVerifyDigit(ByRef $iHorz, $iTop, $iBottom, $iBackColor)
 EndFunc
 #ce
 
-Func _getVerifyCode($hWnd, $strControl)
-    $arWinPos = WinGetPos($hWnd)
-	$arPos = ControlGetPos($hWnd, "", $strControl)
-
-	$iLeft = $arWinPos[0] + $arPos[0] + $arPos[2] + 6
-	$iTop = $arWinPos[1] + $arPos[1] + 1
-	$iRight = $arWinPos[0] + $arWinPos[2] - 29
-	$iBottom = $arWinPos[1] + $arPos[1] + $arPos[3] - 3
+Func _getVerifyCode($iLeft, $iTop, $iRight, $iBottom)
 #cs
 	_ScreenCapture_Capture("C:\temp\GDIPlus_Image2.jpg", $iLeft, $iTop, $iRight, $iBottom)
 
@@ -116,46 +110,51 @@ Func YinheLogin($strAcount, $strPassword)
 	$hWnd = WinWaitActive("通达信网上交易", "验证码")
 	ControlFocus($hWnd, "", "Edit1")
 	Send($strAcount)
-;	Sleep(1000)
 	ControlFocus($hWnd, "", "AfxWnd421")
 	Send($strPassword)
-;	Sleep(1000)
+
 	$strControl = "Edit2"
+    $arWinPos = WinGetPos($hWnd)
+	$arPos = ControlGetPos($hWnd, "", $strControl)
+	$iLeft = $arWinPos[0] + $arPos[0] + $arPos[2] + 6
+	$iTop = $arWinPos[1] + $arPos[1] + 1
+	$iRight = $arWinPos[0] + $arWinPos[2] - 29
+	$iBottom = $arWinPos[1] + $arPos[1] + $arPos[3] - 3
+
+	$iCheckSum = 0
 	Do
-		$strVerifyCode = _getVerifyCode($hWnd, $strControl)
-		If $strVerifyCode == "" Then $strVerifyCode = "1234"
-;		MsgBox(0, "Debug", $strVerifyCode)
+		Do
+			$iNewCheckSum = PixelChecksum($iLeft, $iTop, $iRight, $iBottom)
+		Until $iNewCheckSum <> $iCheckSum
+		$iCheckSum = $iNewCheckSum
+
+		$strVerifyCode = _getVerifyCode($iLeft, $iTop, $iRight, $iBottom)
+		If $strVerifyCode == "" Then
+			$strCode = "1234"
+		Else
+			$strCode = StringReplace($strVerifyCode, "Z", "2")
+		EndIf
 
 		ControlFocus($hWnd, "", $strControl)
-		Send($strVerifyCode)
-		Sleep(1000)
+		Send($strCode)
 		Send("{ENTER}")
-		Sleep(1000)
 	Until ControlCommand($hWnd, "", "ComboBox4", "IsEnabled") == 0
 
-#cs
-	WinWaitActive("消息标题", "今日不再提示")
+	WinWaitActive("消息标题", "今日不再提示", 5)
 	Send("{ENTER}")
-	MsgBox($MB_SYSTEMMODAL, "", "Pause")
-#ce
+#cs
 	Sleep(5000)
 	$hWnd = WinGetHandle("消息标题", "今日不再提示")
 	If $hWnd Then
 		Send("{ENTER}")
-		Sleep(1000)
 	EndIf
+#ce
 
 	Return WinWaitActive("通达信网上交易V6")
 EndFunc
 
 Func YinheClose($hWnd)
-;	Sleep(5000)
-    If WinClose($hWnd) Then
-;        MsgBox($MB_SYSTEMMODAL, "", "Window closed")
-    Else
-        MsgBox($MB_SYSTEMMODAL + $MB_ICONERROR, "Error", "Window not Found")
-    EndIf
-
+	WinClose($hWnd)
 	WinWaitActive("退出确认", "退出系统")
 	Send("{ENTER}")
 	Sleep(1000)
@@ -240,6 +239,15 @@ EndFunc
 
 Func _isShenzhenAccount($strAccount)
 	If StringInStr($strAccount, "深") == 1 Then
+		$b = True
+	Else
+		$b = False
+	EndIf
+	Return $b
+EndFunc
+
+Func _isShenzhenFundAccount($strAccount)
+	If StringInStr($strAccount, "深A 05") == 1 Then
 		$b = True
 	Else
 		$b = False
@@ -382,8 +390,10 @@ EndFunc
 
 Func _yinheAddMoneyEntry($hWnd, $strAccount)
 	If _isShenzhenAccount($strAccount) Then
-		_yinheAddShenzhenMoneyEntry($hWnd)
-		Return True
+		If _isShenzhenFundAccount($strAccount) == False	Then
+			_yinheAddShenzhenMoneyEntry($hWnd)
+			Return True
+		EndIf
 	EndIf
 	Return False
 EndFunc
@@ -446,23 +456,21 @@ EndFunc
 	Global $arCheckboxAccount[$iMax]
 	Global $arAccountChecked[$iMax]
 
-	$Form1_1 = GUICreate("银河海王星全自动拖拉机", 316, 474, 1049, 110)
-	$Group1 = GUICtrlCreateGroup("基金代码", 168, 24, 121, 113)
-	$Radio160416 = GUICtrlCreateRadio("160416", 184, 56, 81, 17)
-	$Radio162411 = GUICtrlCreateRadio("162411", 184, 96, 81, 17)
-	GUICtrlSetState(-1, $GUI_CHECKED)
-	GUICtrlCreateGroup("", -99, -99, 1, 1)
-	$Group2 = GUICtrlCreateGroup("操作", 168, 160, 121, 169)
+	$Form1_1 = GUICreate("银河海王星全自动拖拉机", 316, 474, 707, 242)
+	$LabelSymbol = GUICtrlCreateLabel("基金代码", 168, 24, 52, 17)
+	$ListSymbol = GUICtrlCreateList("162411", 168, 48, 121, 97)
+	GUICtrlSetData(-1, "160416|162719")
+	$GroupOperation = GUICtrlCreateGroup("操作", 168, 160, 121, 169)
 	$RadioOrder = GUICtrlCreateRadio("场内申购", 184, 256, 89, 17)
 	GUICtrlSetState(-1, $GUI_CHECKED)
 	$RadioSell = GUICtrlCreateRadio("卖出", 184, 288, 89, 17)
 	$RadioMoney = GUICtrlCreateRadio("深市逆回购", 184, 224, 89, 17)
 	$RadioCash = GUICtrlCreateRadio("转账回银行", 184, 192, 89, 17)
 	GUICtrlCreateGroup("", -99, -99, 1, 1)
+	$LabelSellPrice = GUICtrlCreateLabel("卖出价格", 168, 352, 52, 17)
 	$InputSellPrice = GUICtrlCreateInput("", 168, 376, 121, 21)
 	GUICtrlSetState(-1, $GUI_DISABLE)
-	$Label1 = GUICtrlCreateLabel("卖出价格", 168, 352, 52, 17)
-	$Label2 = GUICtrlCreateLabel("客户号", 24, 24, 40, 17)
+	$LabelAccount = GUICtrlCreateLabel("客户号", 24, 24, 40, 17)
 	For $i = 0 to $iMax - 1
 		$arCheckboxAccount[$i] = GUICtrlCreateCheckbox($arAccount[$i], 24, 48 + $i * 24, 121, 17)
 		GUICtrlSetState(-1, $GUI_CHECKED)
@@ -479,33 +487,43 @@ EndFunc
 				ExitLoop
 
 			Case $RadioCash
-				If GUICtrlRead($RadioOrder) == $GUI_CHECKED Then
+				If GUICtrlRead($RadioCash) == $GUI_CHECKED Then
 					GUICtrlSetState($InputSellPrice, $GUI_DISABLE)
-;					GUICtrlSetState($Radio160416, $GUI_INDETERMINATE)
-;					GUICtrlSetState($Radio162411, $GUI_INDETERMINATE)
+					GUICtrlSetState($ListSymbol, $GUI_DISABLE)
 				EndIf
 
 			Case $RadioMoney
-				If GUICtrlRead($RadioOrder) == $GUI_CHECKED Then GUICtrlSetState($InputSellPrice, $GUI_DISABLE)
+				If GUICtrlRead($RadioMoney) == $GUI_CHECKED Then
+					GUICtrlSetState($InputSellPrice, $GUI_DISABLE)
+					GUICtrlSetState($ListSymbol, $GUI_DISABLE)
+				EndIf
 
 			Case $RadioOrder
-				If GUICtrlRead($RadioOrder) == $GUI_CHECKED Then GUICtrlSetState($InputSellPrice, $GUI_DISABLE)
+				If GUICtrlRead($RadioOrder) == $GUI_CHECKED Then
+					GUICtrlSetState($InputSellPrice, $GUI_DISABLE)
+					GUICtrlSetState($ListSymbol, $GUI_ENABLE)
+				EndIf
 
 			Case $RadioSell
-				If GUICtrlRead($RadioSell) == $GUI_CHECKED Then GUICtrlSetState($InputSellPrice, $GUI_ENABLE)
+				If GUICtrlRead($RadioSell) == $GUI_CHECKED Then
+					GUICtrlSetState($InputSellPrice, $GUI_ENABLE)
+					GUICtrlSetState($ListSymbol, $GUI_ENABLE)
+				EndIf
 
 			Case $GUI_EVENT_CLOSE
 				Exit
 		EndSwitch
 	WEnd
 
-	If GUICtrlRead($Radio160416) == $GUI_CHECKED Then
-		$strSymbol = "160416"
-		$strAmount = "1000"
-	ElseIf GUICtrlRead($Radio162411) == $GUI_CHECKED Then
-		$strSymbol = "162411"
-		$strAmount = "100"
-	EndIf
+	$strSymbol = GUICtrlRead($ListSymbol)
+	Switch $strSymbol
+		Case "160416"
+			$strAmount = "1000"
+		Case "162411"
+			$strAmount = "100"
+		Case "162719"
+			$strAmount = "0"
+	EndSwitch
 
 	For $i = 0 to $iMax - 1
 		$arAccountChecked[$i] = GUICtrlRead($arCheckboxAccount[$i])
