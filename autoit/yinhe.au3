@@ -161,13 +161,6 @@ Func YinheClose($hWnd)
 	Sleep(1000)
 EndFunc
 
-Func _clickSelectedTreeViewItem($hWnd, $strControlID)
-	$hCtrl = ControlGetHandle($hWnd, "", $strControlID)
-	$hItem = _GUICtrlTreeView_GetSelection($hCtrl)	;Get currently selected TreeView item
-	_GUICtrlTreeView_ClickItem($hCtrl, $hItem)		;perform a single click
-	Sleep(1000)
-EndFunc
-
 Func _addSymbolSpecialKey($strSymbol)
 	If $strSymbol == "160416" Then
 		$hDlgWnd = WinGetHandle("请选择")
@@ -262,16 +255,27 @@ Func _yinheAddOrderEntry($hWnd, $strControlID, $strAccount, $strSymbol, $strAmou
 	Return True
 EndFunc
 
-Func YinheOrderFund($hWnd, $strControlID, $strSymbol, $strAmount)
+Func _yinheClickItem($hWnd, $strLevel1, $strLevel2)
+	$strControlID = "SysTreeView321"
 	ControlFocus($hWnd, "", $strControlID)
 	Sleep(1000)
-	ControlTreeView($hWnd, "", $strControlID, "Select", "场内开放式基金")
+	ControlTreeView($hWnd, "", $strControlID, "Select", $strLevel1)
 	Sleep(1000)
-	ControlTreeView($hWnd, "", $strControlID, "Expand", "场内开放式基金")
+	If $strLevel2 <> False	Then
+		ControlTreeView($hWnd, "", $strControlID, "Expand", $strLevel1)
+		Sleep(1000)
+		ControlTreeView($hWnd, "", $strControlID, "Select", $strLevel1 & "|" & $strLevel2)
+		Sleep(1000)
+	EndIf
+
+	$hCtrl = ControlGetHandle($hWnd, "", $strControlID)
+	$hItem = _GUICtrlTreeView_GetSelection($hCtrl)	;Get currently selected TreeView item
+	_GUICtrlTreeView_ClickItem($hCtrl, $hItem)		;perform a single click
 	Sleep(1000)
-	ControlTreeView($hWnd, "", $strControlID, "Select", "场内开放式基金|基金申购")
-	Sleep(1000)
-	_clickSelectedTreeViewItem($hWnd, $strControlID)
+EndFunc
+
+Func YinheOrderFund($hWnd, $strSymbol, $strAmount)
+	_yinheClickItem($hWnd, "场内开放式基金", "基金申购")
 
 	$iSel = 0
 	$strSel = ""
@@ -326,13 +330,8 @@ Func _yinheAddSellEntry($hWnd, $strAccount, $strSymbol, $strPrice)
 	EndIf
 EndFunc
 
-Func YinheSell($hWnd, $strControlID, $strSymbol, $strPrice)
-	ControlFocus($hWnd, "", $strControlID)
-	Sleep(1000)
-	ControlTreeView($hWnd, "", $strControlID, "Select", "卖出")
-	Sleep(1000)
-	_clickSelectedTreeViewItem($hWnd, $strControlID)
-
+Func YinheSell($hWnd, $strSymbol, $strPrice)
+	_yinheClickItem($hWnd, "卖出", False)
 	$iSel = 0
 	$strSel = ""
 	$strOldSel = ""
@@ -346,6 +345,91 @@ Func YinheSell($hWnd, $strControlID, $strSymbol, $strPrice)
 			$iSel += 1
 		EndIf
 	Until $strSel == $strOldSel
+EndFunc
+
+Func _yinheAddShenzhenMoneyEntry($hWnd)
+	ControlFocus($hWnd, "", "AfxWnd423")
+	Send("131810")
+	Sleep(1000)
+
+	Do
+		$strQuantity = ControlGetText($hWnd, "", "Static8")
+	Until $strQuantity <> ""
+	If $strQuantity <> "0" Then
+		$strPriceControl = "Edit2"
+		Do
+			$strSuggestedPrice = ControlGetText($hWnd, "", $strPriceControl)
+		Until $strSuggestedPrice <> ""
+
+		$fPrice = Number($strSuggestedPrice, 3)
+		$fPrice -= 0.1
+		$strPrice = String($fPrice)
+		ControlFocus($hWnd, "", $strPriceControl)
+		Send($strPrice)
+		Sleep(1000)
+
+		ControlFocus($hWnd, "", "Edit5")
+		Send($strQuantity)
+		Sleep(1000)
+		Send("{ENTER}")	;确认
+		Sleep(1000)
+		Send("{ENTER}")	;确认
+		Sleep(1000)
+		Send("{ENTER}")	;确认
+		Sleep(1000)
+	EndIf
+EndFunc
+
+Func _yinheAddMoneyEntry($hWnd, $strAccount)
+	If _isShenzhenAccount($strAccount) Then
+		_yinheAddShenzhenMoneyEntry($hWnd)
+		Return True
+	EndIf
+	Return False
+EndFunc
+
+Func YinheMoney($hWnd)
+	_yinheClickItem($hWnd, "卖出", False)
+	$iSel = 0
+	$strSel = ""
+	$strOldSel = ""
+	$strControlID = "ComboBox3"
+	Do
+		ControlCommand($hWnd, "", $strControlID, "SetCurrentSelection", $iSel)
+		$strOldSel = $strSel
+		$strSel = ControlGetText($hWnd, "", $strControlID)
+		If $strSel <> $strOldSel Then
+			If _yinheAddMoneyEntry($hWnd, $strSel)	Then ExitLoop
+			$iSel += 1
+		EndIf
+	Until $strSel == $strOldSel
+EndFunc
+
+Func YinheCash($hWnd, $strPassword)
+	_yinheClickItem($hWnd, "资金划转", "银证转账")
+	ControlCommand($hWnd, "", "ComboBox2", "SetCurrentSelection", 1)
+	$iCount = 0
+	Do
+		Sleep(100)
+		$iCount += 1
+		If $iCount > 50	Then Return
+		$strCash = ControlGetText($hWnd, "", "Static13")
+	Until $strCash <> ""
+	If Number($strCash, 3) > 0.009 Then
+		ControlFocus($hWnd, "", "AfxWnd424")
+		Send($strPassword)
+		Sleep(1000)
+		ControlFocus($hWnd, "", "Edit1")
+		Send($strCash)
+		Sleep(1000)
+		ControlFocus($hWnd, "", "Button1")
+		ControlClick($hWnd, "", "Button1")
+		WinWaitActive("确认提示", "确认")
+		Send("{ENTER}")
+		Sleep(1000)
+		Send("{ENTER}")
+		Sleep(1000)
+	EndIf
 EndFunc
 
 Func _hotKeyPressed()
@@ -362,26 +446,28 @@ EndFunc
 	Global $arCheckboxAccount[$iMax]
 	Global $arAccountChecked[$iMax]
 
-	$Form1_1 = GUICreate("银河海王星全自动拖拉机", 316, 418, 1049, 110)
+	$Form1_1 = GUICreate("银河海王星全自动拖拉机", 316, 474, 1049, 110)
 	$Group1 = GUICtrlCreateGroup("基金代码", 168, 24, 121, 113)
 	$Radio160416 = GUICtrlCreateRadio("160416", 184, 56, 81, 17)
 	$Radio162411 = GUICtrlCreateRadio("162411", 184, 96, 81, 17)
 	GUICtrlSetState(-1, $GUI_CHECKED)
 	GUICtrlCreateGroup("", -99, -99, 1, 1)
-	$Group2 = GUICtrlCreateGroup("操作", 168, 168, 121, 105)
-	$RadioOrder = GUICtrlCreateRadio("场内申购", 184, 192, 89, 17)
+	$Group2 = GUICtrlCreateGroup("操作", 168, 160, 121, 169)
+	$RadioOrder = GUICtrlCreateRadio("场内申购", 184, 256, 89, 17)
 	GUICtrlSetState(-1, $GUI_CHECKED)
-	$RadioSell = GUICtrlCreateRadio("卖出", 184, 232, 89, 17)
+	$RadioSell = GUICtrlCreateRadio("卖出", 184, 288, 89, 17)
+	$RadioMoney = GUICtrlCreateRadio("深市逆回购", 184, 224, 89, 17)
+	$RadioCash = GUICtrlCreateRadio("转账回银行", 184, 192, 89, 17)
 	GUICtrlCreateGroup("", -99, -99, 1, 1)
-	$InputSellPrice = GUICtrlCreateInput("", 168, 320, 121, 21)
+	$InputSellPrice = GUICtrlCreateInput("", 168, 376, 121, 21)
 	GUICtrlSetState(-1, $GUI_DISABLE)
-	$Label1 = GUICtrlCreateLabel("卖出价格", 168, 296, 52, 17)
+	$Label1 = GUICtrlCreateLabel("卖出价格", 168, 352, 52, 17)
 	$Label2 = GUICtrlCreateLabel("客户号", 24, 24, 40, 17)
 	For $i = 0 to $iMax - 1
 		$arCheckboxAccount[$i] = GUICtrlCreateCheckbox($arAccount[$i], 24, 48 + $i * 24, 121, 17)
 		GUICtrlSetState(-1, $GUI_CHECKED)
 	Next
-	$ButtonOK = GUICtrlCreateButton("确定", 168, 368, 75, 25)
+	$ButtonOK = GUICtrlCreateButton("确定", 168, 424, 75, 25)
 	GUICtrlSetState(-1, $GUI_FOCUS)
 	GUISetState(@SW_SHOW)
 
@@ -391,6 +477,16 @@ EndFunc
 		Switch $iMsg
 			Case $ButtonOK
 				ExitLoop
+
+			Case $RadioCash
+				If GUICtrlRead($RadioOrder) == $GUI_CHECKED Then
+					GUICtrlSetState($InputSellPrice, $GUI_DISABLE)
+;					GUICtrlSetState($Radio160416, $GUI_INDETERMINATE)
+;					GUICtrlSetState($Radio162411, $GUI_INDETERMINATE)
+				EndIf
+
+			Case $RadioMoney
+				If GUICtrlRead($RadioOrder) == $GUI_CHECKED Then GUICtrlSetState($InputSellPrice, $GUI_DISABLE)
 
 			Case $RadioOrder
 				If GUICtrlRead($RadioOrder) == $GUI_CHECKED Then GUICtrlSetState($InputSellPrice, $GUI_DISABLE)
@@ -415,20 +511,26 @@ EndFunc
 		$arAccountChecked[$i] = GUICtrlRead($arCheckboxAccount[$i])
 	Next
 
+	$iCashChecked = GUICtrlRead($RadioCash)
+	$iMoneyChecked = GUICtrlRead($RadioMoney)
 	$iOrderChecked = GUICtrlRead($RadioOrder)
 	$iSellChecked = GUICtrlRead($RadioSell)
 	$strPrice = GUICtrlRead($InputSellPrice)
 
 	GUIDelete()
 
-	$strControlID = "SysTreeView321"
 	For $i = 0 to $iMax - 1
 		If $arAccountChecked[$i] == $GUI_CHECKED Then
-			$hWnd = YinheLogin($arAccount[$i], $arPassword[$i])
+			$strPassword = $arPassword[$i]
+			$hWnd = YinheLogin($arAccount[$i], $strPassword)
 			If $iOrderChecked == $GUI_CHECKED Then
-				YinheOrderFund($hWnd, $strControlID, $strSymbol, $strAmount)
+				YinheOrderFund($hWnd, $strSymbol, $strAmount)
 			ElseIf $iSellChecked == $GUI_CHECKED Then
-				YinheSell($hWnd, $strControlID, $strSymbol, $strPrice)
+				YinheSell($hWnd, $strSymbol, $strPrice)
+			ElseIf $iMoneyChecked == $GUI_CHECKED Then
+				YinheMoney($hWnd)
+			ElseIf $iCashChecked == $GUI_CHECKED Then
+				YinheCash($hWnd, $strPassword)
 			EndIf
 			YinheClose($hWnd)
 		EndIf
