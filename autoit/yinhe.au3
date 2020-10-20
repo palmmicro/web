@@ -121,39 +121,45 @@ Func YinheLogin($strAcount, $strPassword)
 	$iRight = $arWinPos[0] + $arWinPos[2] - 29
 	$iBottom = $arWinPos[1] + $arPos[1] + $arPos[3] - 3
 
-	$iCheckSum = 0
+	$iCheckSum = PixelChecksum($iLeft, $iTop, $iRight, $iBottom)
+	$iCount = 0
 	Do
-		Do
-			$iNewCheckSum = PixelChecksum($iLeft, $iTop, $iRight, $iBottom)
-		Until $iNewCheckSum <> $iCheckSum
-		$iCheckSum = $iNewCheckSum
-
-		$strVerifyCode = _getVerifyCode($iLeft, $iTop, $iRight, $iBottom)
-		If $strVerifyCode == "" Then
-			$strCode = "1234"
+		If $iCount == 0 Then
+			$strVerifyCode = _getVerifyCode($iLeft, $iTop, $iRight, $iBottom)
+			If $strVerifyCode == "" Then
+				$strCode = "1234"
+			Else
+				$strCode = StringReplace($strVerifyCode, "Z", "2")
+			EndIf
 		Else
-			$strCode = StringReplace($strVerifyCode, "Z", "2")
+			$strCode = "4321"
 		EndIf
 
 		ControlFocus($hWnd, "", $strControl)
 		Send($strCode)
 		Send("{ENTER}")
+
+		Do
+			Sleep(100)
+			$iNewCheckSum = PixelChecksum($iLeft, $iTop, $iRight, $iBottom)
+			If $iNewCheckSum <> $iCheckSum	Then
+				$iCheckSum = $iNewCheckSum
+				$iCount = 0
+				ExitLoop
+			Else
+				$iCount += 1
+			EndIf
+		Until $iCount == 10
 	Until ControlCommand($hWnd, "", "ComboBox4", "IsEnabled") == 0
 
 	WinWaitActive("消息标题", "今日不再提示", 5)
 	Send("{ENTER}")
-#cs
-	Sleep(5000)
-	$hWnd = WinGetHandle("消息标题", "今日不再提示")
-	If $hWnd Then
-		Send("{ENTER}")
-	EndIf
-#ce
 
 	Return WinWaitActive("通达信网上交易V6")
 EndFunc
 
 Func YinheClose($hWnd)
+	Sleep(1000)
 	WinClose($hWnd)
 	WinWaitActive("退出确认", "退出系统")
 	Send("{ENTER}")
@@ -192,18 +198,20 @@ Func _yinheAddShenzhenOrderEntry($hWnd, $strControlID, $strAccount, $strSymbol, 
 	Sleep(1000)
 	Send("{ENTER}")	;确认
 	Sleep(1000)
-	WinWaitActive("基金风险揭示")
+	WinWaitActive("基金风险揭示", "我已阅读并同意签署")
 	Send("{SPACE}")	;我已阅读并同意签署
-	Sleep(3000)
+	Sleep(1000)
 
+#cs
     $hDlgWnd = WinGetHandle("文件下载")
     If @error Then
 	Else
 		Send("{SPACE}")	;取消
 		Sleep(1000)
 	EndIf
+#ce
 
-	$hFileWnd = WinWaitActive("基金概要文件")
+	$hFileWnd = WinWaitActive("基金概要文件", "本人已认真阅读并确认上述内容")
 	ControlFocus($hFileWnd, "", "Button11")
 	ControlClick($hFileWnd, "", "Button11")	;本人已认真阅读并确认上述内容
 	Sleep(1000)
@@ -442,6 +450,13 @@ Func YinheCash($hWnd, $strPassword)
 	EndIf
 EndFunc
 
+Func YinheInquire($hWnd)
+	_yinheClickItem($hWnd, "查询", "当日委托")
+	$strControlID = "Button17"
+	ControlFocus($hWnd, "", $strControlID)
+	ControlClick($hWnd, "", $strControlID)	;按买卖方向汇总
+EndFunc
+
 Func _hotKeyPressed()
     Switch @HotKeyPressed ; The last hotkey pressed.
         Case "{ESC}" ; String is the {ESC} hotkey.
@@ -449,23 +464,25 @@ Func _hotKeyPressed()
     EndSwitch
 EndFunc
 
+Func YinheMain()
 	HotKeySet("{ESC}", "_hotKeyPressed")
 ;	Opt("WinDetectHiddenText", 1) ;0=don't detect, 1=do detect
 
 	$iMax = UBound($arPassword)		; get array size
-	Global $arCheckboxAccount[$iMax]
-	Global $arAccountChecked[$iMax]
+	Dim $arCheckboxAccount[$iMax]
+	Dim $arAccountChecked[$iMax]
 
 	$Form1_1 = GUICreate("银河海王星全自动拖拉机", 316, 474, 707, 242)
 	$LabelSymbol = GUICtrlCreateLabel("基金代码", 168, 24, 52, 17)
 	$ListSymbol = GUICtrlCreateList("162411", 168, 48, 121, 97)
 	GUICtrlSetData(-1, "160416|162719")
 	$GroupOperation = GUICtrlCreateGroup("操作", 168, 160, 121, 169)
-	$RadioOrder = GUICtrlCreateRadio("场内申购", 184, 256, 89, 17)
+	$RadioCash = GUICtrlCreateRadio("转账回银行", 184, 184, 89, 17)
+	$RadioMoney = GUICtrlCreateRadio("深市逆回购", 184, 208, 89, 17)
+	$RadioOrder = GUICtrlCreateRadio("场内申购", 184, 232, 89, 17)
 	GUICtrlSetState(-1, $GUI_CHECKED)
-	$RadioSell = GUICtrlCreateRadio("卖出", 184, 288, 89, 17)
-	$RadioMoney = GUICtrlCreateRadio("深市逆回购", 184, 224, 89, 17)
-	$RadioCash = GUICtrlCreateRadio("转账回银行", 184, 192, 89, 17)
+	$RadioSell = GUICtrlCreateRadio("卖出", 184, 256, 89, 17)
+	$RadioLogin = GUICtrlCreateRadio("仅登录查询", 184, 280, 89, 17)
 	GUICtrlCreateGroup("", -99, -99, 1, 1)
 	$LabelSellPrice = GUICtrlCreateLabel("卖出价格", 168, 352, 52, 17)
 	$InputSellPrice = GUICtrlCreateInput("", 168, 376, 121, 21)
@@ -510,6 +527,12 @@ EndFunc
 					GUICtrlSetState($ListSymbol, $GUI_ENABLE)
 				EndIf
 
+			Case $RadioLogin
+				If GUICtrlRead($RadioLogin) == $GUI_CHECKED Then
+					GUICtrlSetState($InputSellPrice, $GUI_DISABLE)
+					GUICtrlSetState($ListSymbol, $GUI_DISABLE)
+				EndIf
+
 			Case $GUI_EVENT_CLOSE
 				Exit
 		EndSwitch
@@ -533,6 +556,7 @@ EndFunc
 	$iMoneyChecked = GUICtrlRead($RadioMoney)
 	$iOrderChecked = GUICtrlRead($RadioOrder)
 	$iSellChecked = GUICtrlRead($RadioSell)
+	$iLoginChecked = GUICtrlRead($RadioLogin)
 	$strPrice = GUICtrlRead($InputSellPrice)
 
 	GUIDelete()
@@ -549,7 +573,13 @@ EndFunc
 				YinheMoney($hWnd)
 			ElseIf $iCashChecked == $GUI_CHECKED Then
 				YinheCash($hWnd, $strPassword)
+			ElseIf $iLoginChecked == $GUI_CHECKED Then
+				YinheInquire($hWnd)
+				If MsgBox($MB_ICONQUESTION + $MB_YESNO, "拖拉机暂停中", "停留在海王星？") == $IDYES Then	 ExitLoop
 			EndIf
 			YinheClose($hWnd)
 		EndIf
 	Next
+EndFunc
+
+	YinheMain()
