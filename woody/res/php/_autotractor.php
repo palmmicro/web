@@ -28,7 +28,7 @@ function _echoAutoTractor()
     EchoOrderList($str);
 	$str = '在小屏幕笔记本上, 显示设置的<font color=green>缩放与布局</font>中, <font color=blue>更改文本、应用等项目的大小</font>的选项缺省不是100%, 这时AutoIt自带的WinGetPos函数不会跟着调整倍数, 导致找不到验证码位置. ';
     EchoOrderList($str);
-	$str = '在基金概要文件那部分, IE会弹出框让选择打开或者下载, 需要手工点一下, 要不到不了下一步. 给IE安装adobe的阅读pdf插件后能解决这个问题.';
+	$str = '在基金概要文件那部分, IE会弹出框让选择打开或者下载, 需要手工点一下, 要不到不了下一步. 给IE安装adobe的阅读pdf插件后能解决这个问题. 在电脑上安装一下Adobe官方的免费PDF阅读器软件也可以解决这个问题.';
     EchoOrderList($str);
 
     EchoHeadLine('Python');

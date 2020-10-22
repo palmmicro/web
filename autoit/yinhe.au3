@@ -110,6 +110,7 @@ Func YinheLogin($strAcount, $strPassword)
 	$hWnd = WinWaitActive("通达信网上交易", "验证码")
 	ControlFocus($hWnd, "", "Edit1")
 	Send($strAcount)
+	Sleep(1000)
 	ControlFocus($hWnd, "", "AfxWnd421")
 	Send($strPassword)
 
@@ -137,6 +138,7 @@ Func YinheLogin($strAcount, $strPassword)
 
 		ControlFocus($hWnd, "", $strControl)
 		Send($strCode)
+		Sleep(1000)
 		Send("{ENTER}")
 
 		Do
@@ -152,9 +154,7 @@ Func YinheLogin($strAcount, $strPassword)
 		Until $iCount == 10
 	Until ControlCommand($hWnd, "", "ComboBox4", "IsEnabled") == 0
 
-	WinWaitActive("消息标题", "今日不再提示", 5)
-	Send("{ENTER}")
-
+	If WinWaitActive("消息标题", "今日不再提示", 5) <> 0 Then Send("{ENTER}")
 	Return WinWaitActive("通达信网上交易V6")
 EndFunc
 
@@ -168,9 +168,7 @@ EndFunc
 
 Func _addSymbolSpecialKey($strSymbol)
 	If $strSymbol == "160416" Then
-		$hDlgWnd = WinGetHandle("请选择")
-		If @error Then
-		Else
+		If WinWaitActive("请选择", "深圳股票", 1) <> 0 Then
 			Send("{ENTER}")	;深圳股票
 			Sleep(1000)
 		EndIf
@@ -290,8 +288,14 @@ Func _yinheClickItem($hWnd, $strLevel1, $strLevel2)
 	Sleep(1000)
 EndFunc
 
-Func YinheOrderFund($hWnd, $strSymbol, $strAmount)
+Func YinheOrderFund($hWnd, $strSymbol)
 	_yinheClickItem($hWnd, "场内开放式基金", "基金申购")
+	Switch $strSymbol
+		Case "160416"
+			$strAmount = "1000"
+		Case "162411"
+			$strAmount = "100"
+	EndSwitch
 
 	$iSel = 0
 	$strSel = ""
@@ -332,9 +336,11 @@ Func _yinheAddShenzhenSellEntry($hWnd, $strSymbol, $strPrice)
 		Send($strQuantity)
 		Sleep(1000)
 		Send("{ENTER}")	;确认
-		Sleep(1000)
-		Send("{ENTER}")	;确认
-		Sleep(1000)
+;		Sleep(1000)
+		WinWaitActive("卖出交易确认", "卖出确认")
+		Send("{ENTER}")	;卖出确认
+;		Sleep(1000)
+		WinWaitActive("提示", "确认")
 		Send("{ENTER}")	;确认
 		Sleep(1000)
 	EndIf
@@ -388,9 +394,13 @@ Func _yinheAddShenzhenMoneyEntry($hWnd)
 		Send($strQuantity)
 		Sleep(1000)
 		Send("{ENTER}")	;确认
-		Sleep(1000)
+;		Sleep(1000)
+		WinWaitActive("融券交易确认", "融券确认")
 		Send("{ENTER}")	;确认
-		Sleep(1000)
+;		Sleep(1000)
+		Opt("WinDetectHiddenText", 1) ;0=don't detect, 1=do detect
+		WinWaitActive("提示", "委托已提交")
+		Opt("WinDetectHiddenText", 0) ;0=don't detect, 1=do detect
 		Send("{ENTER}")	;确认
 		Sleep(1000)
 	EndIf
@@ -444,7 +454,10 @@ Func YinheCash($hWnd, $strPassword)
 		ControlClick($hWnd, "", "Button1")
 		WinWaitActive("确认提示", "确认")
 		Send("{ENTER}")
-		Sleep(1000)
+;		Sleep(1000)
+		Opt("WinDetectHiddenText", 1) ;0=don't detect, 1=do detect
+		WinWaitActive("提示", "转账请求已提交")
+		Opt("WinDetectHiddenText", 0) ;0=don't detect, 1=do detect
 		Send("{ENTER}")
 		Sleep(1000)
 	EndIf
@@ -474,8 +487,8 @@ Func YinheMain()
 
 	$Form1_1 = GUICreate("银河海王星全自动拖拉机", 316, 474, 707, 242)
 	$LabelSymbol = GUICtrlCreateLabel("基金代码", 168, 24, 52, 17)
-	$ListSymbol = GUICtrlCreateList("162411", 168, 48, 121, 97)
-	GUICtrlSetData(-1, "160416|162719")
+	$ListSymbol = GUICtrlCreateList("", 168, 48, 121, 97)
+	GUICtrlSetData(-1, "160416|162411", "162411")
 	$GroupOperation = GUICtrlCreateGroup("操作", 168, 160, 121, 169)
 	$RadioCash = GUICtrlCreateRadio("转账回银行", 184, 184, 89, 17)
 	$RadioMoney = GUICtrlCreateRadio("深市逆回购", 184, 208, 89, 17)
@@ -538,27 +551,16 @@ Func YinheMain()
 		EndSwitch
 	WEnd
 
-	$strSymbol = GUICtrlRead($ListSymbol)
-	Switch $strSymbol
-		Case "160416"
-			$strAmount = "1000"
-		Case "162411"
-			$strAmount = "100"
-		Case "162719"
-			$strAmount = "0"
-	EndSwitch
-
 	For $i = 0 to $iMax - 1
 		$arAccountChecked[$i] = GUICtrlRead($arCheckboxAccount[$i])
 	Next
-
+	$strSymbol = GUICtrlRead($ListSymbol)
 	$iCashChecked = GUICtrlRead($RadioCash)
 	$iMoneyChecked = GUICtrlRead($RadioMoney)
 	$iOrderChecked = GUICtrlRead($RadioOrder)
 	$iSellChecked = GUICtrlRead($RadioSell)
 	$iLoginChecked = GUICtrlRead($RadioLogin)
 	$strPrice = GUICtrlRead($InputSellPrice)
-
 	GUIDelete()
 
 	For $i = 0 to $iMax - 1
@@ -566,7 +568,7 @@ Func YinheMain()
 			$strPassword = $arPassword[$i]
 			$hWnd = YinheLogin($arAccount[$i], $strPassword)
 			If $iOrderChecked == $GUI_CHECKED Then
-				YinheOrderFund($hWnd, $strSymbol, $strAmount)
+				YinheOrderFund($hWnd, $strSymbol)
 			ElseIf $iSellChecked == $GUI_CHECKED Then
 				YinheSell($hWnd, $strSymbol, $strPrice)
 			ElseIf $iMoneyChecked == $GUI_CHECKED Then
