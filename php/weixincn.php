@@ -212,7 +212,7 @@ class WeixinStock extends WeixinCallback
         if (stripos($strText, 'Q群') !== false)			return '本公众号不再提供群聊技术支持，请在公众号文章下公开留言。'.WX_EOL;
         else if (strpos($strText, '商务合作') !== false)	return '请把具体合作内容和方式发往woody@palmmicro.com邮箱。'.WX_EOL;
         else if (strpos($strText, '广发原油') !== false)	return '6月19日公众号文章标题写错了，应该是广发石油(162719)。'.WX_EOL;
-        else if (strpos($strText, 'autojs') !== false)		return '9月26日文章《华宝油气自动化申购脚本 适合小白用户》转载自公众号可转债量化分析，请移步该公众号下查询。'.WX_EOL;
+        else if (stripos($strText, 'autojs') !== false)	return '9月26日文章《华宝油气自动化申购脚本 适合小白用户》转载自公众号可转债量化分析，请移步该公众号下查询。'.WX_EOL;
         else if ((strpos($strText, '华宝证券脚本') !== false) || (strpos($strText, '其它脚本') !== false))		return '10月19日文章《自动申购拖拉机基金（二）华宝证券版》转载自公众号可转债量化分析，请移步该公众号下查询。'.WX_EOL;
 /*
         if (_ConnectDatabase() == false)

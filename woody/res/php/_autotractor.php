@@ -14,12 +14,13 @@ function _echoAutoTractor()
     EchoOrderList($str);
 	$str = '在本页面下载银河拖拉机自动化PC软件脚本的3个文件到同一个子目录下, 分别是'.GetFileLink('/autoit/yinhe.au3').' '.GetFileLink('/debug/autoitscript/yinheaccounts.au3').'和'.GetFileLink('/debug/autoitscript/Tesseract.au3');
 	$str .= '. <br />建议用AutoIt自带的SciTE.exe编辑和查看.au3文件. 文件yinheaccount.au3用来编辑各自的账号和密码, 目前里面有3个账号的位置, 不够的可以自己加, 不过注意别换行, 增加账号和密码后记得改动数字3. ';
+	$str .= '<br />脚本运行后会把账号和密码存储在注册表中, 修改yinheaccount.au3后, 需要点击<font color=blue>清除全部客户号记录</font>按键, 然后下次运行才会使用改动后的账号密码.';
 	$str .= '<br />文件会日常更新, 由于更新时无法覆盖所有的测试, 每次下载新版本前注意备份好上一个能用的版本.';
     EchoOrderList($str);
 	$str = '在'.GetExternalLink('https://tesseract-ocr.github.io/', 'Tesseract官方支持网站').'下载开源的Tesseract软件. 不过目前它被墙了, 如果你不想从'.GetExternalLink('https://github.com/tesseract-ocr/tesseract', 'Tesseract源代码').'自己下载编译的话, ';
 	$str .= '可以在'.GetExternalLink('https://sourceforge.net/projects/tesseract-ocr-alt/files/', 'SourceForge').'下载一个镜像文件'.GetFileLink('/download/tesseract-ocr-setup-3.02.02.exe').', 然后一路回车缺省安装.';
     EchoOrderList($str);
-	$str = '运行AutoIt3.exe, 它会提示输入文件, 给它yinhe.au3. 在弹出的用户界面直接回车或者鼠标点击确定后, 会看到它会自动运行<b>海王星单独委托版</b>, 一步步在每个yinheaccount.au3中账号的6个深市账户各自申购100块华宝油气(SZ162411), 最后退出. ';
+	$str = '运行AutoIt3.exe, 它会提示输入文件, 给它yinhe.au3. 在弹出的用户界面直接回车或者鼠标点击<font color=blue>执行自动操作</font>按键后, 会看到它会自动运行<b>海王星单独委托版</b>, 一步步在每个yinheaccount.au3中账号的6个深市账户各自申购100块华宝油气(SZ162411), 最后退出. ';
 	$str .= '<br />除了按ESC键主动退出和响应AutoIt脚本自己的错误提示消息框外, 在结束前不能操作任何键盘或者鼠标, 否则脚本可能会出错.';
     EchoOrderList($str);
     
@@ -32,7 +33,7 @@ function _echoAutoTractor()
     EchoOrderList($str);
 
     EchoHeadLine('Python');
-    EchoParagraph('Life is short, you need Python.');
+    EchoParagraph('Life is short, you need Python. <font color=red>计划开发中, 没有时间表!</font>');
     $str = '在'.GetExternalLink('https://www.python.org/downloads/windows/', 'Python官网').'下载并安装Windows版本软件, 选择'.GetExternalLink('https://www.python.org/ftp/python/3.9.0/python-3.9.0.exe', 'Windows x86 executable installer');
 	$str .= '. <br />然后就要安装Python有名的各种库了, 在Windows左下角窗口标志右边放大镜框中输入<font color=blue>cmd</font>然后回车, 会进入类似<font color=blue>C:\Users\woody</font>的黑色屏幕地方, 然后在光标处输入<font color=blue>cd AppData\Local\Programs\Python\Python39-32\Scripts</font>, 就到了安装库的地方.';
 	$str .= '<br />输入<font color=blue>pip install pypiwin32</font>, 安装win32api需要的Windows库.';
