@@ -127,7 +127,7 @@ Func _getVerifyCode($iLeft, $iTop, $iRight, $iBottom)
 		$strCode = $strCode & _getVerifyDigit($iHorz, $iTop, $iBottom, $iBackColor)
 	Next
 #ce
-	$strCode = _TesseractScreenCapture(0, "", 1, 2, $iLeft, $iTop, $iRight, $iBottom)
+	Local $strCode = _TesseractScreenCapture(0, "", 1, 2, $iLeft, $iTop, $iRight, $iBottom)
 	Return $strCode
 EndFunc
 
@@ -142,8 +142,18 @@ Func _CtlSendString($hWnd, $strControl, $str)
 	WEnd
 EndFunc
 
+Func _CtlGetText($hWnd, $strControl)
+	Local $str
+	Do
+		$str = ControlGetText($hWnd, "", $strControl)
+;		_DebugBox($str)
+	Until $str <> ""
+	Return $str
+EndFunc
+
 Func _DlgClickButton($strTitle, $strButton)
-	$hDlgWnd = WinWait($strTitle, $strButton, 5)
+;	ConsoleWrite("@@ Debug(" & @ScriptLineNumber & ")" & "等待对话框" & $strTitle & "和按钮" & $strButton & @CRLF)
+	Local $hDlgWnd = WinWait($strTitle, $strButton, 5)
 	If $hDlgWnd <> 0 Then
 		WinActivate($hDlgWnd)
 		ControlClick($hDlgWnd, "", "[CLASS:Button; TEXT:" & $strButton & "]")
@@ -158,26 +168,25 @@ Func _yinheLoginDlg($hWnd, $strAcount, $strPassword)
 	ControlFocus($hWnd, "", "AfxWnd421")
 	Send($strPassword)
 
-	$strControl = "Edit2"
-    $arWinPos = WinGetPos($hWnd)
-	$arPos = ControlGetPos($hWnd, "", $strControl)
-	$iLeft = $arWinPos[0] + $arPos[0] + $arPos[2] + 6
-	$iTop = $arWinPos[1] + $arPos[1] + 1
-	$iRight = $arWinPos[0] + $arWinPos[2] - 29
-	$iBottom = $arWinPos[1] + $arPos[1] + $arPos[3] - 3
+	Local $strControl = "Edit2"
+    Local $arWinPos = WinGetPos($hWnd)
+	Local $arPos = ControlGetPos($hWnd, "", $strControl)
+	Local $iLeft = $arWinPos[0] + $arPos[0] + $arPos[2] + 6
+	Local $iTop = $arWinPos[1] + $arPos[1] + 1
+	Local $iRight = $arWinPos[0] + $arWinPos[2] - 29
+	Local $iBottom = $arWinPos[1] + $arPos[1] + $arPos[3] - 3
 
-	$iCheckSum = PixelChecksum($iLeft, $iTop, $iRight, $iBottom)
-	$iCount = 0
+	Local $iCheckSum = PixelChecksum($iLeft, $iTop, $iRight, $iBottom)
+	Local $iCount = 0
 	Do
+		Local $strCode = "4321"
 		If $iCount == 0 Then
-			$strVerifyCode = _getVerifyCode($iLeft, $iTop, $iRight, $iBottom)
+			Local $strVerifyCode = _getVerifyCode($iLeft, $iTop, $iRight, $iBottom)
 			If $strVerifyCode == "" Then
 				$strCode = "1234"
 			Else
 				$strCode = StringReplace($strVerifyCode, "Z", "2")
 			EndIf
-		Else
-			$strCode = "4321"
 		EndIf
 
 		ControlFocus($hWnd, "", $strControl)
@@ -187,7 +196,7 @@ Func _yinheLoginDlg($hWnd, $strAcount, $strPassword)
 
 		Do
 			Sleep(100)
-			$iNewCheckSum = PixelChecksum($iLeft, $iTop, $iRight, $iBottom)
+			Local $iNewCheckSum = PixelChecksum($iLeft, $iTop, $iRight, $iBottom)
 			If $iNewCheckSum <> $iCheckSum	Then
 				$iCheckSum = $iNewCheckSum
 				$iCount = 0
@@ -198,7 +207,7 @@ Func _yinheLoginDlg($hWnd, $strAcount, $strPassword)
 		Until $iCount == 10
 	Until ControlCommand($hWnd, "", "ComboBox4", "IsEnabled") == 0
 
-	$iTimeOut = 1
+	Local $iTimeOut = 1
 	While 1
 		$hWnd = WinWait("通达信网上交易V6", $strAcount, $iTimeOut)
 		If $hWnd <> 0 Then
@@ -206,7 +215,7 @@ Func _yinheLoginDlg($hWnd, $strAcount, $strPassword)
 			ExitLoop
 		EndIf
 
-		$hMsgWnd = WinGetHandle("消息标题", "今日不再提示")
+		Local $hMsgWnd = WinGetHandle("消息标题", "今日不再提示")
 		If @error Then
 		Else
 			WinActivate($hMsgWnd)
@@ -220,7 +229,7 @@ EndFunc
 
 Func YinheLogin($strAcount, $strPassword)
 	Run("C:\中国银河证券海王星独立交易\Tc.exe", "C:\中国银河证券海王星独立交易\")
-	$hWnd = WinWaitActive("通达信网上交易", "验证码")
+	Local $hWnd = WinWaitActive("通达信网上交易", "验证码")
 	Return _yinheLoginDlg($hWnd, $strAcount, $strPassword)
 EndFunc
 
@@ -244,6 +253,7 @@ Func _yinheAddShenzhenOrderEntry($hWnd, $strControlID, $strAccount, $strSymbol, 
 
 	ControlCommand($hWnd, "", $strControlID, "SelectString", $strAccount)
 
+	Local $strCash
 	Do
 		$strCash = ControlGetText($hWnd, "", "Static6")
 	Until $strCash <> ""
@@ -257,12 +267,14 @@ Func _yinheAddShenzhenOrderEntry($hWnd, $strControlID, $strAccount, $strSymbol, 
 	Sleep(1000)
 	_DlgClickButton("基金风险揭示", "我已阅读并同意签署")
 
-	$hFileWnd = WinWait("基金概要文件", "本人已认真阅读并确认上述内容")
-	WinActivate($hFileWnd)
-	ControlClick($hFileWnd, "", "Button11")	;本人已认真阅读并确认上述内容
-	Sleep(1000)
-	ControlClick($hFileWnd, "", "Button1")	;确认
-	Sleep(1000)
+	Local $hFileWnd = WinWait("基金概要文件", "本人已认真阅读并确认上述内容", 10)
+	If $hFileWnd <> 0 Then
+		WinActivate($hFileWnd)
+		ControlClick($hFileWnd, "", "Button11")	;本人已认真阅读并确认上述内容
+		Sleep(1000)
+		ControlClick($hFileWnd, "", "Button1")	;确认
+		Sleep(1000)
+	EndIf
 
 	_DlgClickButton("提示信息", "确认")
 	_DlgClickButton("提示", "确认")
@@ -288,7 +300,7 @@ Func _yinheAddOrderEntry($hWnd, $strControlID, $strAccount, $strSymbol, $strAmou
 EndFunc
 
 Func _yinheClickItem($hWnd, $strLevel1, $strLevel2)
-	$strControlID = "SysTreeView321"
+	Local $strControlID = "SysTreeView321"
 	ControlFocus($hWnd, "", $strControlID)
 	Sleep(1000)
 	ControlTreeView($hWnd, "", $strControlID, "Select", $strLevel1)
@@ -300,14 +312,16 @@ Func _yinheClickItem($hWnd, $strLevel1, $strLevel2)
 		Sleep(1000)
 	EndIf
 
-	$hCtrl = ControlGetHandle($hWnd, "", $strControlID)
-	$hItem = _GUICtrlTreeView_GetSelection($hCtrl)	;Get currently selected TreeView item
-	_GUICtrlTreeView_ClickItem($hCtrl, $hItem)		;perform a single click
+	Local $hCtrl = ControlGetHandle($hWnd, "", $strControlID)
+	Local $hItem = _GUICtrlTreeView_GetSelection($hCtrl)	;Get currently selected TreeView item
+	_GUICtrlTreeView_ClickItem($hCtrl, $hItem)				;perform a single click
 	Sleep(1000)
 EndFunc
 
 Func YinheOrderFund($hWnd, $strSymbol)
 	_yinheClickItem($hWnd, "场内开放式基金", "基金申购")
+
+	Local $strAmount
 	Switch $strSymbol
 		Case "160216"
 			$strAmount = "10000"
@@ -317,42 +331,42 @@ Func YinheOrderFund($hWnd, $strSymbol)
 			$strAmount = "100"
 	EndSwitch
 
-	$strControlID = "ComboBox2"
-	$iSel = 0
+	Local $strControlID = "ComboBox2"
+	Local $iSel = 0
 	While 1
 		ControlCommand($hWnd, "", $strControlID, "SetCurrentSelection", $iSel)
 		If @error Then ExitLoop
-		$strSel = ControlGetText($hWnd, "", $strControlID)
+		Local $strSel = ControlGetText($hWnd, "", $strControlID)
 		If _yinheAddOrderEntry($hWnd, $strControlID, $strSel, $strSymbol, $strAmount) == False Then ExitLoop
 		$iSel += 1
 	WEnd
 EndFunc
 
 Func _yinheSendSellSymbol($hWnd, $strSymbol)
-	$strControl = "AfxWnd423"
+	Local $strControl = "AfxWnd423"
 	If $strSymbol <> ControlGetText($hWnd, "", $strControl) Then
 		ControlFocus($hWnd, "", $strControl)
 		ControlSend($hWnd, "", $strControl, $strSymbol)
 		Sleep(1000)
 	EndIf
+
+	_addSymbolSpecialKey($strSymbol)
+
+	Local $strQuantity = _CtlGetText($hWnd, "Static8")
+	If $strQuantity <> "0" Then
+		_CtlSendString($hWnd, "Edit5", $strQuantity)
+		Return True
+	EndIf
+	Return False
 EndFunc
 
 Func _yinheAddShenzhenSellEntry($hWnd, $strSymbol, $strPrice)
-	_yinheSendSellSymbol($hWnd, $strSymbol)
-	_addSymbolSpecialKey($strSymbol)
-
-	Do
-		$strQuantity = ControlGetText($hWnd, "", "Static8")
-	Until $strQuantity <> ""
-	If $strQuantity <> "0" Then
-		$strPriceControl = "Edit2"
-		Do
-			$strSuggestedPrice = ControlGetText($hWnd, "", $strPriceControl)
-		Until $strSuggestedPrice <> ""
-		If $strSuggestedPrice <> $strPrice Then
-			_CtlSendString($hWnd, $strPriceControl, $strPrice)
+	If _yinheSendSellSymbol($hWnd, $strSymbol) Then
+		Local $strPriceControl = "Edit2"
+		Local $strSuggestedPrice = _CtlGetText($hWnd, $strPriceControl)
+		If $strPrice <> "" Then
+			If $strSuggestedPrice <> $strPrice Then	_CtlSendString($hWnd, $strPriceControl, $strPrice)
 		EndIf
-		_CtlSendString($hWnd, "Edit5", $strQuantity)
 		ControlClick($hWnd, "", "Button1")
 		Sleep(1000)
 		_DlgClickButton("卖出交易确认", "卖出确认")
@@ -368,32 +382,24 @@ EndFunc
 
 Func YinheSell($hWnd, $strSymbol, $strPrice)
 	_yinheClickItem($hWnd, "卖出", False)
-	$strControlID = "ComboBox3"
-	$iSel = 0
+	Local $strControlID = "ComboBox3"
+	Local $iSel = 0
 	While 1
 		ControlCommand($hWnd, "", $strControlID, "SetCurrentSelection", $iSel)
 		If @error Then ExitLoop
-		$strSel = ControlGetText($hWnd, "", $strControlID)
+		Local $strSel = ControlGetText($hWnd, "", $strControlID)
 		_yinheAddSellEntry($hWnd, $strSel, $strSymbol, $strPrice)
 		$iSel += 1
 	WEnd
 EndFunc
 
 Func _yinheAddShenzhenMoneyEntry($hWnd)
-	_yinheSendSellSymbol($hWnd, "131810")
-	Do
-		$strQuantity = ControlGetText($hWnd, "", "Static8")
-	Until $strQuantity <> ""
-	If $strQuantity <> "0" Then
-		$strPriceControl = "Edit2"
-		Do
-			$strSuggestedPrice = ControlGetText($hWnd, "", $strPriceControl)
-		Until $strSuggestedPrice <> ""
-
-		$fPrice = Number($strSuggestedPrice, 3)
+	If _yinheSendSellSymbol($hWnd, "131810") Then
+		Local $strPriceControl = "Edit2"
+		Local $strSuggestedPrice = _CtlGetText($hWnd, $strPriceControl)
+		Local $fPrice = Number($strSuggestedPrice, 3)
 		$fPrice -= 0.1
 		_CtlSendString($hWnd, $strPriceControl, String($fPrice))
-		_CtlSendString($hWnd, "Edit5", $strQuantity)
 		ControlClick($hWnd, "", "Button1")
 		Sleep(1000)
 		_DlgClickButton("融券交易确认", "融券确认")
@@ -413,21 +419,36 @@ EndFunc
 
 Func YinheMoney($hWnd)
 	_yinheClickItem($hWnd, "卖出", False)
-	$strControlID = "ComboBox3"
-	$iSel = 0
+	Local $strControlID = "ComboBox3"
+	Local $iSel = 0
 	While 1
 		ControlCommand($hWnd, "", $strControlID, "SetCurrentSelection", $iSel)
 		If @error Then ExitLoop
-		$strSel = ControlGetText($hWnd, "", $strControlID)
+		Local $strSel = ControlGetText($hWnd, "", $strControlID)
 		If _yinheAddMoneyEntry($hWnd, $strSel)	Then ExitLoop
 		$iSel += 1
 	WEnd
 EndFunc
 
+Func YinheCancelAll($hWnd)
+	_yinheClickItem($hWnd, "撤单", False)
+	If _CtlGetText($hWnd, "Static12") <> "共0条" Then
+;	$str = ControlListView($hWnd, "", "SysListView321", "GetText", 0, 0)
+;	_DebugBox($str)
+		ControlClick($hWnd, "", "Button4")
+		Sleep(1000)
+		ControlClick($hWnd, "", "Button1")
+		Sleep(1000)
+		_DlgClickButton("提示", "确认")
+		_DlgClickButton("提示", "确认")
+	EndIf
+EndFunc
+
 Func YinheCash($hWnd, $strPassword)
 	_yinheClickItem($hWnd, "资金划转", "银证转账")
-	ControlCommand($hWnd, "", "ComboBox2", "SetCurrentSelection", 1)
-	$iCount = 0
+	Local ControlCommand($hWnd, "", "ComboBox2", "SetCurrentSelection", 1)
+	Local $iCount = 0
+	Local $strCash
 	Do
 		Sleep(100)
 		$iCount += 1
@@ -447,19 +468,20 @@ Func YinheCash($hWnd, $strPassword)
 EndFunc
 
 Func _yinheAddOtherAccount($hWnd, $strAcount, $strPassword)
-    $arWinPos = WinGetPos($hWnd)
-	$arPos = ControlGetPos($hWnd, "", "ComboBox1")
+    Local $arWinPos = WinGetPos($hWnd)
+	Local $arPos = ControlGetPos($hWnd, "", "ComboBox1")
 	MouseClick($MOUSE_CLICK_PRIMARY, $arWinPos[0] + $arPos[0] - 10, $arWinPos[1] + $arPos[1] + 38)
 	Sleep(1000)
 	Send("{DOWN}")
 	Sleep(1000)
 	Send("{ENTER}")
 	Sleep(1000)
-	$hDlgWnd = WinWaitActive("添加帐号", "验证码")
+	Local $hDlgWnd = WinWaitActive("添加帐号", "验证码")
 	_yinheLoginDlg($hDlgWnd, $strAcount, $strPassword)
 EndFunc
 
 Func YinheInquire($hWnd, Const ByRef $arAccountNumber, Const ByRef $arAccountPassword, Const ByRef $arAccountChecked, $iMax, $iCur)
+	Local $i
 	For $i = $iCur + 1 to $iMax - 1
 		If $arAccountChecked[$i] == $GUI_CHECKED Then _yinheAddOtherAccount($hWnd, $arAccountNumber[$i], $arAccountPassword[$i])
 	Next
@@ -478,7 +500,7 @@ EndFunc
 const $strRegKey = "HKEY_CURRENT_USER\Software\AutoIt_yinhe"
 
 Func _getProfileString($strValName, $strDefault = "", $strKeyName = $strRegKey)
-	$strVal = RegRead($strKeyName, $strValName)
+	Local $strVal = RegRead($strKeyName, $strValName)
 	If @error Or @extended <> $REG_SZ Then Return $strDefault
 	Return $strVal
 EndFunc
@@ -488,7 +510,7 @@ Func _putProfileString($strValName, $strVal, $strKeyName = $strRegKey)
 EndFunc
 
 Func _getProfileInt($strValName, $iDefault = 0, $strKeyName = $strRegKey)
-	$iVal = RegRead($strKeyName, $strValName)
+	Local $iVal = RegRead($strKeyName, $strValName)
 	If @error Or @extended <> $REG_DWORD Then Return $iDefault
 	Return $iVal
 EndFunc
@@ -498,25 +520,27 @@ Func _putProfileInt($strValName, $iVal, $strKeyName = $strRegKey)
 EndFunc
 
 Func _getRadioState($idRadio, ByRef $iMsg, $strValName, $iDefault)
-	$iState = _getProfileInt($strValName, $iDefault)
+	Local $iState = _getProfileInt($strValName, $iDefault)
 	If $iState == $GUI_CHECKED Then $iMsg = $idRadio
 	Return $iState
 EndFunc
 
 Func _yinheToggleAccount(Const ByRef $arCheckbox, $iMax)
+	Local $iState
 	If $GUI_UNCHECKED == GUICtrlRead($arCheckbox[0], $GUI_READ_EXTENDED) Then
 		$iState = $GUI_CHECKED
 	Else
 		$iState = $GUI_UNCHECKED
 	EndIf
 
+	Local $i
 	For $i = 0 to $iMax - 1
 		GUICtrlSetState($arCheckbox[$i], $iState)
 	Next
 EndFunc
 
 Func _yinheAccountEdit($Form1_1, $ListViewAccount)
-	$idItem = GUICtrlRead($ListViewAccount)
+	Local $idItem = GUICtrlRead($ListViewAccount)
 	If $idItem == 0 Then
 		MsgBox($MB_ICONINFORMATION, "无法操作", "没有找到选中的客户号")
 	Else
@@ -525,10 +549,13 @@ Func _yinheAccountEdit($Form1_1, $ListViewAccount)
 EndFunc
 
 Func _yinheGUI()
-	$iMax = _getProfileInt("AccountTotal")
+	Local $i
+	Local $strIndex
+	Local $iMax = _getProfileInt("AccountTotal")
 	If $iMax == 0 Then
 		$iMax = UBound($arPassword)		; get array size
 		_putProfileInt("AccountTotal", $iMax)
+
 		For $i = 0 to $iMax - 1
 			$strIndex = String($i)
 			_putProfileString("AccountNumber" & $strIndex, $arAccount[$i])
@@ -536,8 +563,8 @@ Func _yinheGUI()
 		Next
 	EndIf
 
-	Dim $arCheckboxAccount[$iMax]
-	$iMsg = 0
+	Local $arCheckboxAccount[$iMax]
+	Local $iMsg = 0
 
 	$Form1_1 = GUICreate("银河海王星全自动拖拉机", 316, 474, 707, 242)
 	$LabelSymbol = GUICtrlCreateLabel("基金代码", 168, 24, 52, 17)
@@ -553,8 +580,11 @@ Func _yinheGUI()
 	GUICtrlSetState(-1, _getRadioState($RadioOrder, $iMsg, "Order", $GUI_CHECKED))
 	$RadioSell = GUICtrlCreateRadio("卖出", 184, 256, 89, 17)
 	GUICtrlSetState(-1, _getRadioState($RadioSell, $iMsg, "Sell", $GUI_UNCHECKED))
-	$RadioLogin = GUICtrlCreateRadio("仅登录查询", 184, 280, 89, 17)
+	$RadioCancel = GUICtrlCreateRadio("全部撤单", 184, 280, 89, 17)
+	GUICtrlSetState(-1, _getRadioState($RadioCancel, $iMsg, "Cancel", $GUI_UNCHECKED))
+	$RadioLogin = GUICtrlCreateRadio("仅登录查询", 184, 304, 89, 17)
 	GUICtrlSetState(-1, _getRadioState($RadioLogin, $iMsg, "Login", $GUI_UNCHECKED))
+    GUICtrlCreateGroup("", -99, -99, 1, 1) ;close group
 
 	$LabelSellPrice = GUICtrlCreateLabel("卖出价格", 168, 352, 52, 17)
 	$InputSellPrice = GUICtrlCreateInput("", 168, 376, 121, 21)
@@ -595,7 +625,7 @@ Func _yinheGUI()
 			Case $idMenuEdit
 				_yinheAccountEdit($Form1_1, $ListViewAccount)
 
-			Case $RadioCash, $RadioMoney, $RadioLogin
+			Case $RadioCash, $RadioMoney, $RadioCancel, $RadioLogin
 				If GUICtrlRead($iMsg) == $GUI_CHECKED Then
 					GUICtrlSetState($InputSellPrice, $GUI_DISABLE)
 					GUICtrlSetState($ListSymbol, $GUI_DISABLE)
@@ -630,6 +660,7 @@ Func _yinheGUI()
 	_putProfileInt("Money", GUICtrlRead($RadioMoney))
 	_putProfileInt("Order", GUICtrlRead($RadioOrder))
 	_putProfileInt("Sell", GUICtrlRead($RadioSell))
+	_putProfileInt("Cancel", GUICtrlRead($RadioCancel))
 	_putProfileInt("Login", GUICtrlRead($RadioLogin))
 	_putProfileString("SellPrice", GUICtrlRead($InputSellPrice))
 	GUIDelete()
@@ -639,21 +670,22 @@ Func YinheMain()
 	HotKeySet("{ESC}", "_hotKeyPressed")
 	_yinheGUI()
 
-	$iMax = _getProfileInt("AccountTotal")
-	Dim $arAccountNumber[$iMax]
-	Dim $arAccountPassword[$iMax]
-	Dim $arAccountChecked[$iMax]
+	Local $iMax = _getProfileInt("AccountTotal")
+	Local $arAccountNumber[$iMax]
+	Local $arAccountPassword[$iMax]
+	Local $arAccountChecked[$iMax]
 
+	Local $i
 	For $i = 0 to $iMax - 1
-		$strIndex = String($i)
+		Local $strIndex = String($i)
 		$arAccountNumber[$i] = _getProfileString("AccountNumber" & $strIndex)
 		$arAccountPassword[$i] = _getProfileString("AccountPassword" & $strIndex)
 		$arAccountChecked[$i] = _getProfileInt("AccountState" & $strIndex)
 	Next
-	$strSymbol = _getProfileString("Symbol")
+	Local $strSymbol = _getProfileString("Symbol")
 	For $i = 0 to $iMax - 1
 		If $arAccountChecked[$i] == $GUI_CHECKED Then
-			$strPassword = $arAccountPassword[$i]
+			Local $strPassword = $arAccountPassword[$i]
 			$hWnd = YinheLogin($arAccountNumber[$i], $strPassword)
 			If _getProfileInt("Order") == $GUI_CHECKED Then
 				YinheOrderFund($hWnd, $strSymbol)
@@ -663,6 +695,8 @@ Func YinheMain()
 				YinheMoney($hWnd)
 			ElseIf _getProfileInt("Cash") == $GUI_CHECKED Then
 				YinheCash($hWnd, $strPassword)
+			ElseIf _getProfileInt("Cancel") == $GUI_CHECKED Then
+				YinheCancelAll($hWnd)
 			ElseIf _getProfileInt("Login") == $GUI_CHECKED Then
 				YinheInquire($hWnd, $arAccountNumber, $arAccountPassword, $arAccountChecked, $iMax, $i)
 				ExitLoop
