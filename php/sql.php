@@ -147,12 +147,6 @@ function SqlCreateDatabase($strDb)
 	{
 		dieDebugString('Unable to select database');
 	}
-/*
-	$strEmail = UrlGetEmail('support');
-	SqlInsertMember($strEmail, $strEmail);
-
-	$strEmail = UrlGetEmail('woody');
-	SqlInsertMember($strEmail, $strEmail);*/
 }
 
 function SqlCleanString($str) 
@@ -229,18 +223,7 @@ function _errorHandler($errno, $errstr, $errfile, $errline)
 
 function _ConnectDatabase()
 {
-    if (UrlIsPalmmicroDomain())
-    {
-        $strHost = 'mysql';
-        $strUser = 'woody';
-    }
-    else
-    {
-        $strHost = 'localhost';
-        $strUser = 'root';
-    }
-    
-	$link = mysql_connect($strHost, $strUser, DB_PASSWORD);	// Connect to mysql server
+	$link = mysql_connect('mysql', 'woody', DB_PASSWORD);	// Connect to mysql server
 	if (!$link) 
 	{
 		return false;

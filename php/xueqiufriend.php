@@ -95,11 +95,7 @@ function EchoAll()
     {
     	$str = GetXueqiuFollower($strId, $strToken);
     }
-    
-    if (UrlIsPalmmicroDomain())
-    {
-    	$str .= '<br /><br />'.GetDevGuideLink('20100905', UrlGetTitle());
-    }
+   	$str .= '<br /><br />'.GetDevGuideLink('20100905', UrlGetTitle());
     EchoParagraph($str);
 }
 

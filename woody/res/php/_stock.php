@@ -78,7 +78,7 @@ function _echoRandomPromotion()
 		break;
         	
 	case 2:
-		LayoutAliPay();
+		LayoutWeixinPay();
 		break;
 
 	case 3:
@@ -91,105 +91,10 @@ function _echoRandomPromotion()
 	}
 }
 
-function _isFromWeixin()
-{
-	if ($strFrom = UrlGetQueryValue('from'))
-	{
-		switch ($strFrom)
-		{
-		case 'groupmessage':	// 微信群
-		case 'singlemessage':	// 好友分享
-		case 'timeline':		// 朋友圈
-		case 'androidqq':		// ?
-		case 'message':			// ?
-			break;
-
-		default:
-			DebugString('未知WX消息 - '.$strFrom);
-			break;
-		}
-		return true;
-	}
-	return false;
-}
-
-function _isFromQq()
-{
-	if ($strFrom = UrlGetQueryValue('tdsourcetag'))
-	{
-		switch ($strFrom)
-		{
-		case 's_pcqq_aiomsg':	// QQ消息
-		case 's_pctim_aiomsg':	// TIM消息?
-			break;
-			
-		default:
-			DebugString('未知QQ消息 - '.$strFrom);
-			break;
-		}
-		return true;
-	}
-	return false;
-}
-
-// xueqiu_status_id=60702370&xueqiu_status_from_source=cltl&xueqiu_status_source=statusdetail
-// xueqiu_status_id=127630010
-// xueqiu_status_id=127630010&xueqiu_status_source=usst
-// xueqiu_status_id=134159104&xueqiu_status_source=fvtl
-// xueqiu_status_id=145895182&xueqiu_status_source=ptl_recommend
-// xueqiu_status_id=149429807&xueqiu_status_from_source=htl&xueqiu_status_source=statusdetail
-// xueqiu_status_id=153607346&xueqiu_status_source=rptl 发言(https://xueqiu.com/7939305154/153607346) 用户(https://xueqiu.com/u/7939305154)
-// xueqiu_status_id=153607346&xueqiu_status_source=sktl_new
-// xueqiu_status_id=153607346&xueqiu_status_source=sstl
-function _isFromXueQiu()
-{
-	if ($strId = UrlGetQueryValue('xueqiu_status_id'))
-	{
-		$str = '雪球';
-		$strSource = UrlGetQueryValue('xueqiu_status_source');
-		switch ($strSource)
-		{
-		case 'fvtl':
-			break;
-			
-		case 'ptl_recommend':
-			break;
-			
-		case 'rptl':
-			$str .= '评论';
-			break;
-			
-		case 'sktl_new':
-			break;
-			
-		case 'sstl':
-			break;
-			
-		case 'statusdetail':
-			break;
-			
-		case 'usst':
-			break;
-		}
-		DebugString($str.$strId);
-		return true;
-	}
-	return false;
-}
-
 function EchoPromotionHead($strVer = false, $strLoginId = false)
 {
     EchoHeadLine('相关链接');
-    
-	LayoutWeixinPay();
-	if (_isFromWeixin() || _isFromQq() || _isFromXueQiu())
-	{
-		LayoutWeixinPromotion();
-	}
-	else
-	{
-		_echoRandomPromotion();
-    }
+	_echoRandomPromotion();
     
     $str = GetPromotionLink().' '.GetDevGuideLink('20150818', $strVer).' '.GetVisitorLink();
     EchoParagraph($str);

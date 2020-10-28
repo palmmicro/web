@@ -11,6 +11,9 @@ function _getFundAmount($strSymbol, $strDate)
 	case 'SH501018':
 		return 2000.0 * 0.988;
 		
+	case 'SZ160216':
+		return 10000.0;
+		
 	case 'SZ160416':
 		if ($iTick >= strtotime('2020-09-11'))
 		{

@@ -293,28 +293,6 @@ function UrlGetHtml($bChinese = true)
     return $bChinese ? 'cn.html' : '.html';
 }
 
-function UrlGetDomain()
-{
-	$strDomain = $_SERVER['SERVER_NAME'];
-	if (stripos($strDomain, 'www.') !== false)
-	{
-		$strDomain = substr($strDomain, 4);
-	}
-	return strtolower($strDomain);
-}
-
-function UrlIsPalmmicroDomain()
-{
-    return (UrlGetDomain() == 'palmmicro.com') ? true : false;
-}
-
-function UrlGetEmail($strName)
-{
-	$strEmail = $strName.'@';
-	$strEmail .= UrlGetDomain();
-	return $strEmail;
-}
-
 function UrlIsChinese()
 {
     return (UrlGetType() == URL_CNPHP) ? true : false;

@@ -32,6 +32,7 @@
 #include <WindowsConstants.au3>
 
 #include <GuiTreeView.au3>
+#include <GuiListView.au3>
 #include <Tesseract.au3>
 #include <yinheaccounts.au3>
 
@@ -299,7 +300,7 @@ Func _yinheAddOrderEntry($hWnd, $strControlID, $strAccount, $strSymbol, $strAmou
 	Return True
 EndFunc
 
-Func _yinheClickItem($hWnd, $strLevel1, $strLevel2)
+Func _yinheClickItem($hWnd, $strLevel1, $strLevel2 = False)
 	Local $strControlID = "SysTreeView321"
 	ControlFocus($hWnd, "", $strControlID)
 	Sleep(1000)
@@ -326,7 +327,7 @@ Func YinheOrderFund($hWnd, $strSymbol)
 		Case "160216"
 			$strAmount = "10000"
 		Case "160416"
-			$strAmount = "1000"
+			$strAmount = "2000"
 		Case "162411"
 			$strAmount = "100"
 	EndSwitch
@@ -381,7 +382,7 @@ Func _yinheAddSellEntry($hWnd, $strAccount, $strSymbol, $strPrice)
 EndFunc
 
 Func YinheSell($hWnd, $strSymbol, $strPrice)
-	_yinheClickItem($hWnd, "卖出", False)
+	_yinheClickItem($hWnd, "卖出")
 	Local $strControlID = "ComboBox3"
 	Local $iSel = 0
 	While 1
@@ -418,7 +419,7 @@ Func _yinheAddMoneyEntry($hWnd, $strAccount)
 EndFunc
 
 Func YinheMoney($hWnd)
-	_yinheClickItem($hWnd, "卖出", False)
+	_yinheClickItem($hWnd, "卖出")
 	Local $strControlID = "ComboBox3"
 	Local $iSel = 0
 	While 1
@@ -431,10 +432,12 @@ Func YinheMoney($hWnd)
 EndFunc
 
 Func YinheCancelAll($hWnd)
-	_yinheClickItem($hWnd, "撤单", False)
-	If _CtlGetText($hWnd, "Static12") <> "共0条" Then
-;	$str = ControlListView($hWnd, "", "SysListView321", "GetText", 0, 0)
+	_yinheClickItem($hWnd, "撤单")
+;	Local $idListView = ControlGetHandle($hWnd, "", "SysListView321")
+;	Local $str = _GUICtrlListView_GetItemText($idListView, 1)
 ;	_DebugBox($str)
+
+	If _CtlGetText($hWnd, "Static12") <> "共0条" Then
 		ControlClick($hWnd, "", "Button4")
 		Sleep(1000)
 		ControlClick($hWnd, "", "Button1")
@@ -446,7 +449,7 @@ EndFunc
 
 Func YinheCash($hWnd, $strPassword)
 	_yinheClickItem($hWnd, "资金划转", "银证转账")
-	Local ControlCommand($hWnd, "", "ComboBox2", "SetCurrentSelection", 1)
+	ControlCommand($hWnd, "", "ComboBox2", "SetCurrentSelection", 1)
 	Local $iCount = 0
 	Local $strCash
 	Do
@@ -539,15 +542,6 @@ Func _yinheToggleAccount(Const ByRef $arCheckbox, $iMax)
 	Next
 EndFunc
 
-Func _yinheAccountEdit($Form1_1, $ListViewAccount)
-	Local $idItem = GUICtrlRead($ListViewAccount)
-	If $idItem == 0 Then
-		MsgBox($MB_ICONINFORMATION, "无法操作", "没有找到选中的客户号")
-	Else
-		MsgBox($MB_ICONINFORMATION, "修改", GUICtrlRead($idItem))
-	EndIf
-EndFunc
-
 Func _yinheGUI()
 	Local $i
 	Local $strIndex
@@ -599,31 +593,29 @@ Func _yinheGUI()
 	Next
 
 	$idTrackMenu = GUICtrlCreateContextMenu($ListViewAccount)
-	$idMenuNew = GUICtrlCreateMenuItem("添加客户号", $idTrackMenu)
-	$idMenuEdit = GUICtrlCreateMenuItem("修改选中客户号", $idTrackMenu)
-;	$idMenuDel = GUICtrlCreateMenuItem("删除选中客户号", $idTrackMenu)
+	$idMenuEdit = GUICtrlCreateMenuItem("添加或者修改选中客户号", $idTrackMenu)
+	$idMenuDel = GUICtrlCreateMenuItem("清除全部客户号记录", $idTrackMenu)
 
-	$ButtonClean = GUICtrlCreateButton("清除全部客户号记录", 24, 424, 123, 25)
 	$ButtonOK = GUICtrlCreateButton("执行自动操作", 200, 424, 91, 25)
 	GUICtrlSetState(-1, $GUI_FOCUS)
 	GUISetState(@SW_SHOW)
 
 	While 1
 		Switch $iMsg
-			Case $ButtonClean
+			Case $idMenuDel
 				If MsgBox($MB_ICONQUESTION + $MB_YESNO, "无法恢复的操作", "确定清除全部客户号记录并且退出？") == $IDYES Then
 					RegDelete($strRegKey)
 					Exit
 				EndIf
 
-			Case $ButtonOK
-				ExitLoop
-
-			Case $idMenuNew
-				_DebugBox("代码完善中...")
-
 			Case $idMenuEdit
-				_yinheAccountEdit($Form1_1, $ListViewAccount)
+;				_DebugBox("代码完善中...")
+				Local $idSelectedItem = GUICtrlRead($ListViewAccount)
+				If $idSelectedItem == 0 Then
+					MsgBox($MB_ICONINFORMATION, "新建", "没有找到选中的客户号")
+				Else
+					MsgBox($MB_ICONINFORMATION, "修改", GUICtrlRead($idSelectedItem))
+				EndIf
 
 			Case $RadioCash, $RadioMoney, $RadioCancel, $RadioLogin
 				If GUICtrlRead($iMsg) == $GUI_CHECKED Then
@@ -645,6 +637,9 @@ Func _yinheGUI()
 
 			Case $ListViewAccount
 				_yinheToggleAccount($arCheckboxAccount, $iMax)
+
+			Case $ButtonOK
+				ExitLoop
 
 			Case $GUI_EVENT_CLOSE
 				Exit

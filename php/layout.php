@@ -64,15 +64,6 @@ function LayoutWeixinPay()
 END;
 }
 
-function LayoutAliPay()
-{
-    echo <<<END
-        <p><img src=/woody/image/alipay.jpg alt="QRcode to pay Woody in Taobao" />
-        <br /><font color=green>觉得这个网站有用? 可以用支付宝打赏支持一下.</font>
-        </p>
-END;
-}
-
 function LayoutScreenWidthOk()
 {
 	if (isset($_COOKIE['screen']))
@@ -189,18 +180,20 @@ function LayoutTopLeft($callback = false, $bSwitchLanguage = false, $bChinese = 
     }
 }
 
+function _divWeixinPay()
+{
+	echo '<div>';
+	LayoutWeixinPay();
+	echo '</div>';
+}
+
 // According to google policy, do NOT show Adsense in pages with no contents, such as input pages
 function LayoutTail($bChinese = true, $bAdsense = false)
 {
     if ($_SESSION['mobile'])
     {
 		if ($bAdsense)	AdsenseContent();
-   		else
-   		{
-   			echo '<div>';
-   			LayoutWeixinPay();
-   			echo '</div>';
-   		}
+   		else				_divWeixinPay();
     }
     else
     {
@@ -208,23 +201,12 @@ function LayoutTail($bChinese = true, $bAdsense = false)
     	{
     		echo '</td><td width=15 valign=top>&nbsp;</td><td valign=top>';
     		if ($bAdsense)	AdsenseLeft();
-    		else
-    		{
-    			echo '<div>';
-    			LayoutWeixinPay();
-    			LayoutWeixinPromotion();
-    			echo '</div>';
-    		}
+    		else				_divWeixinPay();
     	}
     	else
     	{
     		if ($bAdsense)	AdsenseWoodyBlog();
-    		else
-    		{
-    			echo '<div>';
-    			LayoutAliPay();
-    			echo '</div>';
-    		}
+    		else				_divWeixinPay();
     	}
     	
         echo '</td></table>';

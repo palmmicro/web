@@ -38,8 +38,7 @@ class _SubmitCommentAccount extends EditCommentAccount
 		$str .= GetBlogLink($this->GetPageUri($strBlogId));
 
 		// build mailing list
-		$arEmails = array();				                                                    // Array to store emails addresses to send to
-		$arEmails[] = UrlGetEmail('support');					                                // always send to support@domain.com
+		$arEmails = array(ADMIN_EMAIL);								// Array to store emails addresses to send to
 		if ($result = $comment_sql->GetDataByDst($strBlogId)) 
 		{
 			while ($record = mysql_fetch_assoc($result)) 
@@ -56,7 +55,7 @@ class _SubmitCommentAccount extends EditCommentAccount
 				}		
 				if ($bFound == false)
 				{
-					$arEmails[] = $strNewEmail;					// send to previous comments writer
+					$arEmails[] = $strNewEmail;						// send to previous comments writer
 				}
 			}
 			@mysql_free_result($result);
