@@ -14,7 +14,7 @@ function _echoAutoTractor()
     EchoOrderList($str);
 	$str = '在本页面下载银河拖拉机自动化PC软件脚本的3个文件到同一个子目录下, 分别是'.GetFileLink('/autoit/yinhe.au3').' '.GetFileLink('/debug/autoitscript/yinheaccounts.au3').'和'.GetFileLink('/debug/autoitscript/Tesseract.au3');
 	$str .= '. <br />建议用AutoIt自带的SciTE.exe编辑和查看.au3文件. 文件yinheaccount.au3用来编辑各自的账号和密码, 目前里面有3个账号的位置, 不够的可以自己加, 不过注意别换行, 增加账号和密码后记得改动数字3. ';
-	$str .= '<br />脚本运行后会把账号和密码存储在注册表中, 修改yinheaccount.au3后, 需要点击<font color=blue>清除全部客户号记录</font>按键, 然后下次运行才会使用改动后的账号密码.';
+	$str .= '<br />脚本运行后会把账号和密码存储在注册表中, 修改yinheaccount.au3后, 需要在客户号列表的鼠标右键菜单点击<font color=blue>清除全部客户号记录</font>选项, 然后下次运行才会使用改动后的账号密码.';
 	$str .= '<br />文件会日常更新, 由于更新时无法覆盖所有的测试, 每次下载新版本前注意备份好上一个能用的版本.';
     EchoOrderList($str);
 	$str = '在'.GetExternalLink('https://tesseract-ocr.github.io/', 'Tesseract官方支持网站').'下载开源的Tesseract软件. 不过目前它被墙了, 如果你不想从'.GetExternalLink('https://github.com/tesseract-ocr/tesseract', 'Tesseract源代码').'自己下载编译的话, ';
@@ -28,6 +28,8 @@ function _echoAutoTractor()
 	$str = '网速很重要! 在目前代码中有大量模拟按键或者鼠标后等待一秒的被动行为, 在网速慢的时候会因为等待时间不够长而出错, 我就经常需要在运行代码前先手工把电脑上的网络从天威宽带切换到自己手机上的移动4G热点.';
     EchoOrderList($str);
 	$str = '在小屏幕笔记本上, 显示设置的<font color=green>缩放与布局</font>中, <font color=blue>更改文本、应用等项目的大小</font>的选项缺省不是100%, 这时AutoIt自带的WinGetPos函数不会跟着调整倍数, 导致找不到验证码位置. ';
+    EchoOrderList($str);
+	$str = '银河0开头的客户号, 需要把开头的0去掉, 否则登录后匹配不到主窗口.';
     EchoOrderList($str);
 	$str = '在基金概要文件那部分, IE会弹出框让选择打开或者下载, 需要手工点一下, 要不到不了下一步. 给IE安装adobe的阅读pdf插件后能解决这个问题. 在电脑上安装一下Adobe官方的免费PDF阅读器软件也可以解决这个问题.';
     EchoOrderList($str);

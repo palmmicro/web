@@ -75,7 +75,11 @@ function _echoMergeParagraph($arMerge)
 	foreach ($arMerge as $strSymbol => $trans)
 	{
 		$ar = array();
-		$ar[] = GetTradingViewLink($strSymbol);
+		
+		$ref = $trans->GetRef();
+		if ($ref->IsSymbolUS())	$ar[] = GetTradingViewLink($strSymbol);
+		else						$ar[] = RefGetMyStockLink($ref);
+			
 		$iTotal = $trans->GetTotalShares();
         $ar[] = strval($iTotal);
         if ($strSymbol == 'XOP')
@@ -101,7 +105,7 @@ function _transEchoMergeParagraph($arTrans)
        	{
        		if ($cur_trans == false)
        		{
-       			$cur_trans = new StockTransaction();
+       			$cur_trans = new MyStockTransaction($trans->GetRef());
        			$cur_trans->Add($prev_trans);
        		}
    			$cur_trans->Add($trans);

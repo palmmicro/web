@@ -59,7 +59,7 @@ class MyStockTransaction extends StockTransaction
     var $strGroupId;
     var $strStockGroupItemId;
     
-    function MyStockTransaction($ref, $strGroupId) 
+    function MyStockTransaction($ref, $strGroupId = false) 
     {
         $this->ref = $ref;
         $this->strGroupId = $strGroupId;
