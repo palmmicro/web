@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="windows-1251"?>
-<object type="TAForm" name="Form1_1">
+<object type="TAForm" name="idFormMain">
 	<properties>
-		<property name="Left" vt="Int16">707</property>
-		<property name="Top" vt="Int16">242</property>
-		<property name="Width" vt="Int16">698</property>
+		<property name="Left" vt="Int16">266</property>
+		<property name="Top" vt="Int8">0</property>
+		<property name="Width" vt="Int16">818</property>
 		<property name="Height" vt="Int16">504</property>
-		<property name="Caption" vt="WString">ТшєУєЈНхРЗИ«ЧФ¶ЇНПА­»ъV0.2</property>
+		<property name="Caption" vt="WString">ТшєУєЈНхРЗИ«ЧФ¶ЇНПА­»ъV0.3</property>
 		<property name="Color" vt="Ident">clBtnFace</property>
 		<property name="Font.Charset" vt="Ident">DEFAULT_CHARSET</property>
 		<property name="Font.Color" vt="Ident">clWindowText</property>
@@ -24,20 +24,20 @@
 		<property name="FormOptVarsForSet" vt="False">False</property>
 		<property name="FormOptIndentChar" vt="Int8">0</property>
 		<property name="FormOptIndentCount" vt="Int8">1</property>
-		<property name="FormOptIndentInit" vt="Int8">0</property>
+		<property name="FormOptIndentInit" vt="Int8">1</property>
 		<property name="FormOptVarScope" vt="Int8">0</property>
 		<property name="Resizing" vt="Set"/>
 		<property name="PixelsPerInch" vt="Int8">96</property>
 		<property name="TextHeight" vt="Int8">13</property>
 	</properties>
 	<components>
-		<object type="TAButton" name="ButtonOK">
+		<object type="TAButton" name="idButtonRun">
 			<properties>
-				<property name="Left" vt="Int16">568</property>
+				<property name="Left" vt="Int16">672</property>
 				<property name="Top" vt="Int16">416</property>
-				<property name="Width" vt="Int8">91</property>
+				<property name="Width" vt="Int8">107</property>
 				<property name="Height" vt="Int8">25</property>
-				<property name="Caption" vt="WString">ЦґРРЧФ¶ЇІЩЧч</property>
+				<property name="Caption" vt="WString">ЦґРРЧФ¶ЇІЩЧч(&amp;R)</property>
 				<property name="TabOrder" vt="Int8">0</property>
 				<property name="OnClick" vt="String">Button1Click</property>
 				<property name="Color" vt="Ident">clBtnFace</property>
@@ -50,7 +50,7 @@
 		</object>
 		<object type="TAGroup" name="GroupOperation">
 			<properties>
-				<property name="Left" vt="Int16">168</property>
+				<property name="Left" vt="Int16">192</property>
 				<property name="Top" vt="Int16">160</property>
 				<property name="Width" vt="Int8">121</property>
 				<property name="Height" vt="Int16">169</property>
@@ -157,7 +157,7 @@
 		</object>
 		<object type="TAInput" name="InputSellPrice">
 			<properties>
-				<property name="Left" vt="Int16">168</property>
+				<property name="Left" vt="Int16">192</property>
 				<property name="Top" vt="Int16">376</property>
 				<property name="Width" vt="Int8">121</property>
 				<property name="Height" vt="Int8">21</property>
@@ -171,7 +171,7 @@
 		</object>
 		<object type="TALabel" name="LabelSellPrice">
 			<properties>
-				<property name="Left" vt="Int16">168</property>
+				<property name="Left" vt="Int16">192</property>
 				<property name="Top" vt="Int16">352</property>
 				<property name="Width" vt="Int8">52</property>
 				<property name="Height" vt="Int8">17</property>
@@ -187,7 +187,7 @@
 		</object>
 		<object type="TAList" name="ListSymbol">
 			<properties>
-				<property name="Left" vt="Int16">168</property>
+				<property name="Left" vt="Int16">192</property>
 				<property name="Top" vt="Int8">48</property>
 				<property name="Width" vt="Int8">121</property>
 				<property name="Height" vt="Int8">97</property>
@@ -210,7 +210,7 @@
 		</object>
 		<object type="TALabel" name="LabelSymbol">
 			<properties>
-				<property name="Left" vt="Int16">168</property>
+				<property name="Left" vt="Int16">192</property>
 				<property name="Top" vt="Int8">24</property>
 				<property name="Width" vt="Int8">52</property>
 				<property name="Height" vt="Int8">17</property>
@@ -223,11 +223,11 @@
 			</properties>
 			<components/>
 		</object>
-		<object type="TAListView" name="ListViewAccount">
+		<object type="TAListView" name="idListViewAccount">
 			<properties>
 				<property name="Left" vt="Int8">24</property>
 				<property name="Top" vt="Int8">24</property>
-				<property name="Width" vt="Int8">122</property>
+				<property name="Width" vt="Int16">146</property>
 				<property name="Height" vt="Int16">374</property>
 				<property name="OnClick" vt="String">ListViewAccountClick</property>
 				<property name="CtrlStyle" vt="Int32">1344471053</property>
@@ -235,7 +235,7 @@
 				<property name="Resizing" vt="Set"/>
 				<property name="Items.Data" vt="Binary">
 					<bin>290000000100000000000000FFFFFFFFFFFFFFFF00000000000000000C323330</bin>
-					<bin>353030303730343135</bin>
+					<bin>353030303630303030</bin>
 				</property>
 				<property name="Columns" vt="Collection">
 					<collection>
@@ -248,11 +248,11 @@
 			</properties>
 			<components/>
 		</object>
-		<object type="TAProgress" name="ProgressDebug">
+		<object type="TAProgress" name="idProgressDebug">
 			<properties>
-				<property name="Left" vt="Int16">312</property>
+				<property name="Left" vt="Int16">336</property>
 				<property name="Top" vt="Int8">24</property>
-				<property name="Width" vt="Int16">342</property>
+				<property name="Width" vt="Int16">438</property>
 				<property name="Height" vt="Int8">17</property>
 				<property name="Enabled" vt="False">False</property>
 				<property name="TabOrder" vt="Int8">7</property>
@@ -262,15 +262,15 @@
 			</properties>
 			<components/>
 		</object>
-		<object type="TAList" name="ListDebug">
+		<object type="TAList" name="idListDebug">
 			<properties>
-				<property name="Left" vt="Int16">312</property>
+				<property name="Left" vt="Int16">336</property>
 				<property name="Top" vt="Int8">48</property>
-				<property name="Width" vt="Int16">345</property>
+				<property name="Width" vt="Int16">441</property>
 				<property name="Height" vt="Int16">344</property>
 				<property name="ItemHeight" vt="Int8">13</property>
 				<property name="TabOrder" vt="Int8">8</property>
-				<property name="CtrlStyle" vt="Int32">1352859651</property>
+				<property name="CtrlStyle" vt="Int32">1352876033</property>
 				<property name="CtrlExStyle" vt="Int16">512</property>
 				<property name="Resizing" vt="Set"/>
 			</properties>

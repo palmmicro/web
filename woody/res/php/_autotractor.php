@@ -9,6 +9,12 @@ function _echoAutoTractor()
     
     EchoHeadLine('AutoIt');
     EchoParagraph('测试步骤:');
+	$str = '在'.GetExternalLink('https://tesseract-ocr.github.io/', 'Tesseract官方支持网站').'下载开源的Tesseract软件. 不过目前它被墙了, 如果你不想从'.GetExternalLink('https://github.com/tesseract-ocr/tesseract', 'Tesseract源代码').'自己下载编译的话, ';
+	$str .= '可以在'.GetExternalLink('https://sourceforge.net/projects/tesseract-ocr-alt/files/', 'SourceForge').'下载一个镜像文件'.GetFileLink('/download/tesseract-ocr-setup-3.02.02.exe').', 然后一路回车缺省安装.';
+    EchoOrderList($str);
+	$str = '不想自己修改脚本文件, 希望直接运行可执行.exe文件的, 可以直接下载'.GetFileLink('/debug/yinhe.zip').'后解压缩, 然后参考后续脚本说明运行.';
+	$str .= '<br />注意360杀毒软件一定会提示是病毒, 要手工告诉它这不是病毒.';
+    EchoOrderList($str);
 	$str = '在'.GetExternalLink('https://www.autoitscript.com/site/autoit/downloads/', 'AutoIt官网').'下载并安装该工具软件包. ';
 	$str .= '不熟悉英文的可以找国内的汉化版本, 仅需用到x86版本的AutoIt3.exe文件. 不过一定要小心软件来源, 千万不要运行来历不明的.exe文件.';
     EchoOrderList($str);
@@ -16,9 +22,6 @@ function _echoAutoTractor()
 	$str .= '. <br />建议用AutoIt自带的SciTE.exe编辑和查看.au3文件. 文件yinheaccount.au3用来编辑各自的账号和密码, 目前里面有3个账号的位置, 不够的可以自己加, 不过注意别换行, 增加账号和密码后记得改动数字3. ';
 	$str .= '<br />脚本运行后会把账号和密码存储在注册表中, 修改yinheaccount.au3后, 需要在客户号列表的鼠标右键菜单点击<font color=blue>清除全部客户号记录</font>选项, 然后下次运行才会使用改动后的账号密码.';
 	$str .= '<br />文件会日常更新, 由于更新时无法覆盖所有的测试, 每次下载新版本前注意备份好上一个能用的版本.';
-    EchoOrderList($str);
-	$str = '在'.GetExternalLink('https://tesseract-ocr.github.io/', 'Tesseract官方支持网站').'下载开源的Tesseract软件. 不过目前它被墙了, 如果你不想从'.GetExternalLink('https://github.com/tesseract-ocr/tesseract', 'Tesseract源代码').'自己下载编译的话, ';
-	$str .= '可以在'.GetExternalLink('https://sourceforge.net/projects/tesseract-ocr-alt/files/', 'SourceForge').'下载一个镜像文件'.GetFileLink('/download/tesseract-ocr-setup-3.02.02.exe').', 然后一路回车缺省安装.';
     EchoOrderList($str);
 	$str = '运行AutoIt3.exe, 它会提示输入文件, 给它yinhe.au3. 在弹出的用户界面直接回车或者鼠标点击<font color=blue>执行自动操作</font>按键后, 会看到它会自动运行<b>海王星单独委托版</b>, 一步步在每个yinheaccount.au3中账号的6个深市账户各自申购100块华宝油气(SZ162411), 最后退出. ';
 	$str .= '<br />除了按ESC键主动退出和响应AutoIt脚本自己的错误提示消息框外, 在结束前不能操作任何键盘或者鼠标, 否则脚本可能会出错.';
