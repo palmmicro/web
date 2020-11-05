@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <object type="TAForm" name="idFormMain">
 	<properties>
-		<property name="Left" vt="Int16">266</property>
-		<property name="Top" vt="Int8">0</property>
+		<property name="Left" vt="Int16">289</property>
+		<property name="Top" vt="Int16">192</property>
 		<property name="Width" vt="Int16">818</property>
 		<property name="Height" vt="Int16">504</property>
 		<property name="Caption" vt="WString">ТшєУєЈНхРЗИ«ЧФ¶ЇНПА­»ъV0.3</property>
@@ -185,7 +185,7 @@
 			</properties>
 			<components/>
 		</object>
-		<object type="TAList" name="ListSymbol">
+		<object type="TAList" name="idListSymbol">
 			<properties>
 				<property name="Left" vt="Int16">192</property>
 				<property name="Top" vt="Int8">48</property>
@@ -201,7 +201,7 @@
 					</list>
 				</property>
 				<property name="TabOrder" vt="Int8">4</property>
-				<property name="CtrlStyle" vt="Int32">1352859651</property>
+				<property name="CtrlStyle" vt="Int32">1352859659</property>
 				<property name="CtrlExStyle" vt="Int16">512</property>
 				<property name="Resizing" vt="Set"/>
 				<property name="Description" vt="String">ListSymbol</property>
@@ -270,7 +270,7 @@
 				<property name="Height" vt="Int16">344</property>
 				<property name="ItemHeight" vt="Int8">13</property>
 				<property name="TabOrder" vt="Int8">8</property>
-				<property name="CtrlStyle" vt="Int32">1352876033</property>
+				<property name="CtrlStyle" vt="Int32">1352859657</property>
 				<property name="CtrlExStyle" vt="Int16">512</property>
 				<property name="Resizing" vt="Set"/>
 			</properties>

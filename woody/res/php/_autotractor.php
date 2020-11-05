@@ -36,6 +36,9 @@ function _echoAutoTractor()
     EchoOrderList($str);
 	$str = '在基金概要文件那部分, IE会弹出框让选择打开或者下载, 需要手工点一下, 要不到不了下一步. 给IE安装adobe的阅读pdf插件后能解决这个问题. 在电脑上安装一下Adobe官方的免费PDF阅读器软件也可以解决这个问题.';
     EchoOrderList($str);
+	$str = 'WIN7系统下海王星不能正常退出, 可以运行系统自带的注册表编辑器regedit.exe, 依次定位到HKEY_CURRENT_USER\Software\Microsoft\Windows\WindowsError Reporting, 在右侧窗口中找到并双击打开DontshowUI, 然后在弹出的窗口中将默认值<font color=blue>0</font>修改为<font color=blue>1</font>.';
+	$str .= '这样当程序崩溃时, 就不会再出现<font color=green>xx程序已停止工作</font>的提示框, 崩溃程序进程会自动退出.';
+    EchoOrderList($str);
 
     EchoHeadLine('Python');
     EchoParagraph('Life is short, you need Python. <font color=red>计划开发中, 没有时间表!</font>');

@@ -26,6 +26,11 @@ function GetGuoTaiOfficialLink($strDigitA)
     return GetOfficialLink(GetGuoTaiFundUrl().'/Etrade/Jijin/view/id/'.$strDigitA, $strDigitA);
 }
 
+function GetHuaXiaOfficialLink($strDigitA)
+{
+    return GetOfficialLink(GetHuaXiaFundUrl().'fund/'.$strDigitA.'/index.shtml', $strDigitA);
+}
+
 function GetBoShiOfficialLink($strDigitA)
 {
     return GetOfficialLink(GetBoShiFundUrl().'/fund/'.$strDigitA.'.html', $strDigitA);

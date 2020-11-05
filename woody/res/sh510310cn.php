@@ -3,9 +3,9 @@ require('php/_chinaindex.php');
 
 function GetChinaIndexRelated($sym)
 {
-	$str = GetHuaXiaOfficialLink($sym->GetDigitA());
+	$str = GetEFundOfficialLink($sym->GetDigitA());
 	$str .= ' '.GetChinaIndexLinks($sym);
-	$str .= GetHuaXiaSoftwareLinks();
+	$str .= GetEFundSoftwareLinks();
 	return $str;
 }
 

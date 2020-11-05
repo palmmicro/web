@@ -181,13 +181,6 @@ function GetBocomSchroderSoftwareLinks()
     return GetCategorySoftwareLinks($ar, $strLink);
 }
 
-function GetChinaAmcSoftwareLinks()
-{
-    $ar = array('sh510330', 'sz159920');
-    $strLink = GetExternalLink('http://www.chinaamc.com', '华夏基金');
-    return GetCategorySoftwareLinks($ar, $strLink);
-}
-
 function GetXinChengSoftwareLinks()
 {
     $ar = array('sz165510', 'sz165513');
@@ -211,7 +204,7 @@ function GetDaChengSoftwareLinks()
 
 function GetEFundSoftwareLinks()
 {
-    $ar = array('sh510900', 'sh513050', 'sz159934', 'sz161116', 'sz161125', 'sz161126', 'sz161127', 'sz161128', 'sz161129', 'sz161130');
+    $ar = array('sh510330', 'sh510900', 'sh513050', 'sz159934', 'sz161116', 'sz161125', 'sz161126', 'sz161127', 'sz161128', 'sz161129', 'sz161130');
     $strLink = GetExternalLink(GetEFundUrl(), '易方达基金');
     return GetCategorySoftwareLinks($ar, $strLink);
 }
@@ -234,6 +227,13 @@ function GetGuoTaiSoftwareLinks()
 {
     $ar = array('sh513100', 'sh518800', 'sz160216');
     $strLink = GetExternalLink(GetGuoTaiFundUrl(), '国泰基金');
+    return GetCategorySoftwareLinks($ar, $strLink);
+}
+
+function GetHuaXiaSoftwareLinks()
+{
+    $ar = array('sh510330', 'sh513300', 'sz159920');
+    $strLink = GetExternalLink(GetHuaXiaFundUrl(), '华夏基金');
     return GetCategorySoftwareLinks($ar, $strLink);
 }
 

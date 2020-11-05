@@ -40,7 +40,7 @@ function in_array_lower($strSymbol, $ar)
 
 function ChinaIndexGetSymbolArray()
 {
-    return array('sh501043', 'sh510300', 'sh510330', 'sz159919');
+    return array('sh501043', 'sh510300', 'sh510310', 'sh510330', 'sz159919');
 }
 
 function in_arrayChinaIndex($strSymbol)
@@ -125,7 +125,7 @@ function in_arrayCommodityQdii($strSymbol)
 
 function QdiiGetQqqSymbolArray()
 {
-    return array('sh513100', 'sz159941', 'sz161130'); 
+    return array('sh513100', 'sh513300', 'sz159941', 'sz161130'); 
 }
 
 function in_arrayQqqQdii($strSymbol)

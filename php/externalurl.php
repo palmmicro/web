@@ -92,6 +92,11 @@ function GetGuoTaiFundUrl()
 	return 'https://e.gtfund.com';
 }
 
+function GetHuaXiaFundUrl()
+{
+	return 'http://www.chinaamc.com/';
+}
+
 function GetEFundUrl()
 {
 	return 'http://www.efunds.com.cn';
