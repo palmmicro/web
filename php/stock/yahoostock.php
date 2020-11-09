@@ -270,7 +270,8 @@ function _yahooGetNetValueSymbol($strSymbol)
     }
     else if ($sym->IsIndex())
     {
-   		return $strSymbol;
+//   		return $strSymbol;
+    	return false;
    	}
    	else
    	{
@@ -331,13 +332,14 @@ function YahooUpdateNetValue($strSymbol)
     		{
     			$sql->Insert($strDate, $strMatchPrice);
     			DebugString('YahooUpdateNetValue '.$strNetValueSymbol.' '.$strDate.' '.$strMatchPrice);
+    			break;
     		}
-    		else if ($strExtraId = SqlGetStockId($strMatchSymbol))
+/*    		else if ($strExtraId = SqlGetStockId($strMatchSymbol))
     		{
     			$extra_sql = new NetValueHistorySql($strExtraId);
     			$extra_ymd = _yahooStockMatchGetYmd($arMatch, $strMatchSymbol);
     			$extra_sql->Insert($extra_ymd->GetYMD(), $strMatchPrice);
-    		}
+    		}*/
     	}
     }
 }

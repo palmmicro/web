@@ -240,9 +240,17 @@ Func _DlgClickButton($idDebug, $strTitle, $strButton)
 	EndIf
 EndFunc
 
+Func _DlgClose($idDebug, $strTitle, $strText = '关闭')
+	$hNewWnd = WinGetHandle($strTitle, $strText)
+	If $hNewWnd <> 0 Then
+		WinClose($hNewWnd)	; _CtlClickButton($hNewWnd, $idDebug, '关闭')
+		_CtlDebug($idDebug, '"' & $strText & '"对话框"' & $strTitle & '"')
+	EndIf
+EndFunc
+
 Func _yinheCloseNewDlg($idDebug)
-	$hNewWnd = WinGetHandle('海王星条件单', '关闭')
-	If $hNewWnd <> 0 Then WinClose($hNewWnd)	; _CtlClickButton($hNewWnd, $idDebug, '关闭')
+	_DlgClose($idDebug, '海王星条件单')
+	_DlgClose($idDebug, '股票、可转债及可交换债')
 EndFunc
 
 Func _yinheLoginDlg($idDebug, $strTitle, $strAccount, $strPassword)
@@ -284,6 +292,7 @@ Func _yinheLoginDlg($idDebug, $strTitle, $strAccount, $strPassword)
 				$iCount += 1
 			EndIf
 		Until $iCount == 10
+		_yinheCloseNewDlg($idDebug)
 	Until ControlCommand($hWnd, '', 'ComboBox4', 'IsEnabled') == 0
 
 	$strMainTitle = '通达信网上交易V6'
@@ -417,24 +426,30 @@ Func _yinheSendSellSymbol($hWnd, $idDebug, $strSymbol)
 	If _CtlSendString($hWnd, $idDebug, 'AfxWnd423', $strSymbol) Then _addSymbolSpecialKey($idDebug, $strSymbol)
 EndFunc
 
-Func _yinheSendSellQuantity($hWnd, $idDebug)
+Func _yinheSendSellQuantity($hWnd, $idDebug, $iTotal = 0)
 	$iCount = 0
 	While $iCount < 5
 		$strQuantity = _CtlGetText($hWnd, $idDebug, 'Static8')
 		If $strQuantity <> '0' Then
+			$iSell = Number($strQuantity)
+			If $iTotal > 0 And $iTotal < $iSell Then
+				$iSell = Int($iTotal / 100)
+				$iSell *= 100
+				$strQuantity = String($iSell)
+			EndIf
 			_CtlSetText($hWnd, $idDebug, 'Edit5', $strQuantity)
 			ControlClick($hWnd, '', 'Button1')
 			Sleep(1000)
-			Return True
+			Return $iSell
 		EndIf
 		Sleep(1000)
 		$iCount += 1
 	WEnd
 	_CtlDebug($idDebug, '5秒钟没有读到可卖数量，如果实际可卖数量不为0，建议更换网络。')
-	Return False
+	Return 0
 EndFunc
 
-Func _yinheAddShenzhenSellEntry($hWnd, $idDebug, $strSymbol, $strPrice)
+Func _yinheAddShenzhenSellEntry($hWnd, $idDebug, $strSymbol, $strPrice, $strSellQuantity, ByRef $iRemainQuantity)
 	_yinheSendSellSymbol($hWnd, $idDebug, $strSymbol)
 	$strPriceControl = 'Edit2'
 	$strSuggestedPrice = _CtlGetText($hWnd, $idDebug, $strPriceControl)
@@ -442,10 +457,18 @@ Func _yinheAddShenzhenSellEntry($hWnd, $idDebug, $strSymbol, $strPrice)
 		If $strSuggestedPrice <> $strPrice Then	_CtlSetText($hWnd, $idDebug, $strPriceControl, $strPrice)
 	EndIf
 
-	If _yinheSendSellQuantity($hWnd, $idDebug) Then
+	$iSell = _yinheSendSellQuantity($hWnd, $idDebug, $iRemainQuantity)
+	If $iSell > 0 Then
 		_DlgClickButton($idDebug, '卖出交易确认', '卖出确认')
 		_DlgClickButton($idDebug, '提示', '确认')
+		If $strSellQuantity <> '' Then
+			$iRemainQuantity -= $iSell
+			If $iRemainQuantity >= 100 Then Return True
+		EndIf
 	EndIf
+
+	If $strSellQuantity == '' Then Return True
+	Return False
 EndFunc
 
 Func _yinheClickSell($hWnd, $idDebug)
@@ -455,7 +478,7 @@ Func _yinheClickSell($hWnd, $idDebug)
 	Return 'ComboBox3'
 EndFunc
 
-Func YinheSell($hWnd, $idDebug, $strSymbol, $strPrice)
+Func YinheSell($hWnd, $idDebug, $strSymbol, $strPrice, $strSellQuantity, ByRef $iRemainQuantity)
 	$strControlID = _yinheClickSell($hWnd, $idDebug)
 	$iSel = 0
 	While 1
@@ -464,9 +487,14 @@ Func YinheSell($hWnd, $idDebug, $strSymbol, $strPrice)
 
 		_yinheCloseNewDlg($idDebug)
 		If _isShenzhenAccount($strAccount) Then
-			_yinheAddShenzhenSellEntry($hWnd, $idDebug, $strSymbol, $strPrice)
+			_CtlDebug($idDebug, 'Remaining Sell Quantity: ' & String($iRemainQuantity))
+			If _yinheAddShenzhenSellEntry($hWnd, $idDebug, $strSymbol, $strPrice, $strSellQuantity, $iRemainQuantity) == False Then
+				MsgBox(0, '实际下单', String(Number($strSellQuantity) - $iRemainQuantity))
+				Return False
+			EndIf
 		EndIf
 	WEnd
+	Return True
 EndFunc
 
 Func _yinheAddShenzhenMoneyEntry($hWnd, $idDebug)
@@ -558,6 +586,7 @@ Func _yinheAddOtherAccount($hWnd, $idDebug, $strAccount, $strPassword)
 	Sleep(1000)
 	Send('{ENTER}')
 	Sleep(1000)
+	_yinheCloseNewDlg($idDebug)
 	_yinheLoginDlg($idDebug, '添加帐号', $strAccount, $strPassword)
 EndFunc
 
@@ -631,9 +660,8 @@ Func _yinheLoadAccount()
 		$iMax = UBound($arPassword)		; get array size
 		_putProfileInt('AccountTotal', $iMax)
 
-		Local $i
 		For $i = 0 to $iMax - 1
-			Local $strIndex = String($i)
+			$strIndex = String($i)
 			_putProfileString('AccountNumber' & $strIndex, $arAccount[$i])
 			_putProfileString('AccountPassword' & $strIndex, $arPassword[$i])
 		Next
@@ -655,6 +683,8 @@ Func YinheOperation($idProgress, $idDebug)
 	Next
 
 	$strSymbol = _getProfileString('Symbol')
+	$strSellQuantity = _getProfileString('SellQuantity')
+	$iRemainQuantity = Number($strSellQuantity)
 	GUICtrlSetState($idProgress, $GUI_ENABLE)
 	For $i = 0 to $iMax - 1
 		_debugProgress($idProgress, $iMax, $i)
@@ -665,7 +695,10 @@ Func YinheOperation($idProgress, $idDebug)
 			If _getProfileInt('Order') == $GUI_CHECKED Then
 				YinheOrderFund($hWnd, $idDebug, $strSymbol)
 			ElseIf _getProfileInt('Sell') == $GUI_CHECKED Then
-				YinheSell($hWnd, $idDebug, $strSymbol, _getProfileString('SellPrice'))
+				If YinheSell($hWnd, $idDebug, $strSymbol, _getProfileString('SellPrice'), $strSellQuantity, $iRemainQuantity) == False Then
+					YinheClose($hWnd, $idDebug)
+					ExitLoop
+				EndIf
 			ElseIf _getProfileInt('Money') == $GUI_CHECKED Then
 				YinheMoney($hWnd, $idDebug)
 			ElseIf _getProfileInt('Cash') == $GUI_CHECKED Then
@@ -755,16 +788,16 @@ Func YinheMain()
 	Local $arCheckboxAccount[$iMax]
 	$iMsg = 0
 
-	$idFormMain = GUICreate('银河海王星全自动拖拉机0.35', 803, 466, 266, 0)
-
-	$idListViewAccount = GUICtrlCreateListView('客户号', 24, 24, 146, 374, BitOR($GUI_SS_DEFAULT_LISTVIEW,$WS_VSCROLL), BitOR($WS_EX_CLIENTEDGE,$LVS_EX_CHECKBOXES))
+	$idFormMain = GUICreate("银河海王星全自动拖拉机V0.38", 803, 476, 289, 0)
+	$idListViewAccount = GUICtrlCreateListView("客户号", 24, 24, 146, 430, BitOR($GUI_SS_DEFAULT_LISTVIEW,$WS_VSCROLL), BitOR($WS_EX_CLIENTEDGE,$LVS_EX_CHECKBOXES))
 	GUICtrlSendMsg(-1, $LVM_SETCOLUMNWIDTH, 0, 118)
 	_loadListViewAccount($idListViewAccount, $arCheckboxAccount, $iMax)
+
 	$idMenuAccount = GUICtrlCreateContextMenu($idListViewAccount)
 	$idMenuEdit = GUICtrlCreateMenuItem('添加或者修改选中客户号', $idMenuAccount)
 	$idMenuDel = GUICtrlCreateMenuItem('清除全部客户号记录', $idMenuAccount)
 
-	GUICtrlCreateLabel('基金代码', 192, 24, 52, 17)
+	$idLabelSymbol = GUICtrlCreateLabel("基金代码", 192, 24, 52, 17)
 ;	$idListSymbol = GUICtrlCreateList('', 192, 48, 121, 97, BitOR($GUI_SS_DEFAULT_LIST,$LBS_MULTIPLESEL))
 	$idListSymbol = GUICtrlCreateList('', 192, 48, 121, 97)
 	GUICtrlSetData(-1, '160216|160416|162411', _getProfileString('Symbol', '162411'))
@@ -784,17 +817,21 @@ Func YinheMain()
 	GUICtrlSetState(-1, _getRadioState($RadioLogin, $iMsg, 'Login', $GUI_UNCHECKED))
 	GUICtrlCreateGroup('', -99, -99, 1, 1)
 
-	$LabelSellPrice = GUICtrlCreateLabel('卖出价格', 192, 352, 52, 17)
-	$InputSellPrice = GUICtrlCreateInput('', 192, 376, 121, 21)
+	$idLabelSellPrice = GUICtrlCreateLabel("卖出价格", 192, 352, 52, 17)
+	$idInputSellPrice = GUICtrlCreateInput("", 192, 376, 121, 21)
 	GUICtrlSetData(-1, _getProfileString('SellPrice'))
+
+	$idLabelSellQuantity = GUICtrlCreateLabel("卖出总数量", 192, 408, 64, 17)
+	$idInputSellQuantity = GUICtrlCreateInput("", 192, 432, 121, 21)
+	GUICtrlSetData(-1, _getProfileString('SellQuantity'))
 
 	$idProgressDebug = GUICtrlCreateProgress(336, 24, 438, 17)
 	GUICtrlSetState(-1, $GUI_DISABLE)
-	$idListDebug = GUICtrlCreateList('', 336, 48, 441, 344, BitOR($LBS_NOTIFY,$LBS_MULTIPLESEL,$WS_VSCROLL,$WS_BORDER))
+	$idListDebug = GUICtrlCreateList("", 336, 48, 441, 357, BitOR($LBS_NOTIFY,$LBS_MULTIPLESEL,$WS_VSCROLL,$WS_BORDER))
 	$idMenuDebug = GUICtrlCreateContextMenu($idListDebug)
 	$idMenuCopy = GUICtrlCreateMenuItem('复制到剪贴板', $idMenuDebug)
 
-	$idButtonRun = GUICtrlCreateButton('执行自动操作(&R)', 672, 416, 107, 25)
+	$idButtonRun = GUICtrlCreateButton("执行自动操作(&R)", 672, 432, 107, 25)
 	GUICtrlSetState(-1, $GUI_FOCUS)
 	GUISetState(@SW_SHOW)
 
@@ -808,19 +845,22 @@ Func YinheMain()
 		Switch $iMsg
 			Case $RadioCash, $RadioMoney, $RadioLogin
 				If GUICtrlRead($iMsg) == $GUI_CHECKED Then
-					GUICtrlSetState($InputSellPrice, $GUI_DISABLE)
+					GUICtrlSetState($idInputSellPrice, $GUI_DISABLE)
+					GUICtrlSetState($idInputSellQuantity, $GUI_DISABLE)
 					GUICtrlSetState($idListSymbol, $GUI_DISABLE)
 				EndIf
 
 			Case $RadioOrder, $RadioCancel
 				If GUICtrlRead($iMsg) == $GUI_CHECKED Then
-					GUICtrlSetState($InputSellPrice, $GUI_DISABLE)
+					GUICtrlSetState($idInputSellPrice, $GUI_DISABLE)
+					GUICtrlSetState($idInputSellQuantity, $GUI_DISABLE)
 					GUICtrlSetState($idListSymbol, $GUI_ENABLE)
 				EndIf
 
 			Case $RadioSell
 				If GUICtrlRead($RadioSell) == $GUI_CHECKED Then
-					GUICtrlSetState($InputSellPrice, $GUI_ENABLE)
+					GUICtrlSetState($idInputSellPrice, $GUI_ENABLE)
+					GUICtrlSetState($idInputSellQuantity, $GUI_ENABLE)
 					GUICtrlSetState($idListSymbol, $GUI_ENABLE)
 				EndIf
 
@@ -838,7 +878,8 @@ Func YinheMain()
 				_putProfileInt('Sell', GUICtrlRead($RadioSell))
 				_putProfileInt('Cancel', GUICtrlRead($RadioCancel))
 				_putProfileInt('Login', GUICtrlRead($RadioLogin))
-				_putProfileString('SellPrice', GUICtrlRead($InputSellPrice))
+				_putProfileString('SellPrice', GUICtrlRead($idInputSellPrice))
+				_putProfileString('SellQuantity', GUICtrlRead($idInputSellQuantity))
 				GUICtrlSetState($idButtonRun, $GUI_DISABLE)
 				GUICtrlSetState($idListViewAccount, $GUI_DISABLE)
 				GUICtrlSetState($idListDebug, $GUI_DISABLE)

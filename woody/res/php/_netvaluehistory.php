@@ -54,7 +54,7 @@ function _echoNetValueData($csv, $sql, $ref, $est_ref, $cny_ref, $iStart, $iNum)
 //		$est_sql = new NetValueHistorySql($est_ref->GetStockId());
 		$strEstId = $est_ref->GetStockId();
 		$est_sql = new NetValueHistorySql($strEstId);
-		if ($est_sql->Count() == 0)
+		if ($est_sql->Count() == 0 || $est_ref->IsIndex())
 		{
 			$est_sql = new StockHistorySql($strEstId);
 		}
