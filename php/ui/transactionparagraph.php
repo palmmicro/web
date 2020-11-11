@@ -5,22 +5,36 @@ function _echoTransactionTableItem($ref, $record, $bReadOnly, $bAdmin)
 {
 	$ar = array();
 	
-    $ar[] = GetSqlTransactionDate($record);
+	$strDate = GetSqlTransactionDate($record); 
+    $ar[] = $strDate;
     $ar[] = $ref->GetSymbol();
     $ar[] = $record['quantity'];
-    $ar[] = $ref->GetPriceDisplay($record['price']);
+    $strPrice = $record['price'];
+    $ar[] = $ref->GetPriceDisplay($strPrice);
     $ar[] = strval_round(floatval($record['fees']), 2);
 
     $strId = $record['id'];
     $strRemark = $record['remark'];
-   	if ($bReadOnly)
+   	if ($bReadOnly == false)
    	{
-   		$ar[] = $strRemark;
+   		if (strlen($strRemark) > 0)
+   		{
+			$strRemark = GetOnClickLink(STOCK_PHP_PATH.'_submittransaction.php?empty='.$strId, '确认清空备注: '.$strRemark.'?', '清空').$strRemark;
+   			if ($ref->IsFundA())
+   			{
+   				if (strpos($strRemark, STOCK_DISP_ORDER) !== false)
+   				{
+   					$sql = new NetValueHistorySql($ref->GetStockId());
+   					$strNetValue = $sql->GetClosePrev($strDate);
+   					if ($strNetValue != $strPrice)
+   					{
+   						$strRemark .= GetOnClickLink(STOCK_PHP_PATH.'_submittransaction.php?adjust='.$strId.'&netvalue='.$strNetValue, '确认校准到净值: '.$strNetValue.'?', '校准');
+   					}
+   				}
+   			}
+   		}
    	}
-   	else
-   	{
-   		$ar[] = (strlen($strRemark) > 0) ? GetOnClickLink(STOCK_PHP_PATH.'_submittransaction.php?empty='.$strId, '确认清空备注: '.$strRemark.'?', '清空').$strRemark : '';
-   	}
+	$ar[] = $strRemark;
     	
     $strEdit = '';
    	$strDelete = GetDeleteLink(STOCK_PHP_PATH.'_submittransaction.php?delete='.$strId, '交易记录');

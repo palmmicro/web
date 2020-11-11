@@ -13,40 +13,44 @@ require_once('_stocklink.php');
 
 function _EchoMoneyParagraphBegin($str = '')
 {
-    $strGroupLink = GetMyStockGroupLink();
-    $arColumn = array($strGroupLink, '持仓', '盈亏', DISP_ALL_CN.'持仓', DISP_ALL_CN.'盈亏', '货币');
-    
-    echo <<<END
-    	<p>$str
-        <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="money">
-        <tr>
-            <td class=c1 width=110 align=center>{$arColumn[0]}</td>
-            <td class=c1 width=100 align=center>{$arColumn[1]}</td>
-            <td class=c1 width=100 align=center>{$arColumn[2]}</td>
-            <td class=c1 width=140 align=center>{$arColumn[3]}</td>
-            <td class=c1 width=140 align=center>{$arColumn[4]}</td>
-            <td class=c1 width=50 align=center>{$arColumn[5]}</td>
-        </tr>
-END;
+	EchoTableParagraphBegin(array(new TableColumn(GetMyStockGroupLink(), 110),
+								   new TableColumnProfit(DISP_ALL_CN),
+								   new TableColumnHolding(DISP_ALL_CN),
+								   new TableColumnProfit(),
+								   new TableColumnHolding(),
+								   ), 'money', $str);
 }
 
 function _echoMoneyItem($strGroup, $strMoney, $fValue, $fProfit, $fConvertValue, $fConvertProfit)
 {
+	$ar = array($strGroup);
+	$ar[] = GetNumberDisplay($fConvertProfit).$strMoney;
+	
+	$strConvertProfit = GetNumberDisplay($fConvertValue);
+	$strProfit = GetNumberDisplay($fProfit);
     $strValue = GetNumberDisplay($fValue);
-    $strProfit = GetNumberDisplay($fProfit);
-    $strConvertValue = GetNumberDisplay($fConvertValue);
-    $strConvertProfit = GetNumberDisplay($fConvertProfit);
     
-    echo <<<END
-    <tr>
-        <td class=c1>$strGroup</td>
-        <td class=c1>$strValue</td>
-        <td class=c1>$strProfit</td>
-        <td class=c1>$strConvertValue</td>
-        <td class=c1>$strConvertProfit</td>
-        <td class=c1>$strMoney</td>
-    </tr>
-END;
+    if ($strConvertProfit == '')
+    {
+    	if ($strProfit != '' || $strValue != '')	$ar[] = ''; 
+    }
+    else
+    {
+    	$ar[] = $strConvertProfit;
+    }
+    
+    if ($strProfit == '')
+    {
+    	if ($strValue != '')	$ar[] = ''; 
+    }
+    else
+    {
+    	$ar[] = $strProfit;
+    }
+    
+    if ($strValue != '')	$ar[] = $strValue;
+    
+    EchoTableColumn($ar);
 }
 
 function _EchoMoneyGroupData($group, $strUSDCNY, $strHKDCNY, $strLink = false)

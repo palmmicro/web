@@ -137,6 +137,10 @@ Func _getVerifyCode($iLeft, $iTop, $iRight, $iBottom)
 	Return $strCode
 EndFunc
 
+Func _MsgDebug($str)
+	MsgBox($MB_ICONINFORMATION, '自动化操作暂停中', $str)
+EndFunc
+
 Func _CtlDebug($idDebug, $str)
 	$strDebug = _NowTime(5) & " " & $str
 	ConsoleWrite($strDebug & @CRLF)
@@ -487,11 +491,8 @@ Func YinheSell($hWnd, $idDebug, $strSymbol, $strPrice, $strSellQuantity, ByRef $
 
 		_yinheCloseNewDlg($idDebug)
 		If _isShenzhenAccount($strAccount) Then
-			_CtlDebug($idDebug, 'Remaining Sell Quantity: ' & String($iRemainQuantity))
-			If _yinheAddShenzhenSellEntry($hWnd, $idDebug, $strSymbol, $strPrice, $strSellQuantity, $iRemainQuantity) == False Then
-				MsgBox(0, '实际下单', String(Number($strSellQuantity) - $iRemainQuantity))
-				Return False
-			EndIf
+			_CtlDebug($idDebug, '剩余卖出数量：' & String($iRemainQuantity))
+			If _yinheAddShenzhenSellEntry($hWnd, $idDebug, $strSymbol, $strPrice, $strSellQuantity, $iRemainQuantity) == False Then	Return False
 		EndIf
 	WEnd
 	Return True
@@ -670,6 +671,8 @@ Func _yinheLoadAccount()
 EndFunc
 
 Func YinheOperation($idProgress, $idDebug)
+	GUICtrlSetState($idProgress, $GUI_ENABLE)
+
 	$iMax = _getProfileInt('AccountTotal')
 	Local $arAccountNumber[$iMax]
 	Local $arAccountPassword[$iMax]
@@ -685,7 +688,6 @@ Func YinheOperation($idProgress, $idDebug)
 	$strSymbol = _getProfileString('Symbol')
 	$strSellQuantity = _getProfileString('SellQuantity')
 	$iRemainQuantity = Number($strSellQuantity)
-	GUICtrlSetState($idProgress, $GUI_ENABLE)
 	For $i = 0 to $iMax - 1
 		_debugProgress($idProgress, $iMax, $i)
 		If $arAccountChecked[$i] == $GUI_CHECKED Then
@@ -712,6 +714,9 @@ Func YinheOperation($idProgress, $idDebug)
 			YinheClose($hWnd, $idDebug)
 		EndIf
 	Next
+	$iQuantity = Number($strSellQuantity) - $iRemainQuantity
+	If $iQuantity <> 0 Then _MsgDebug('实际下单：' & String($iQuantity))
+
 	GUICtrlSetData($idProgress, 0)
 	GUICtrlSetState($idProgress, $GUI_DISABLE)
 EndFunc
@@ -788,7 +793,7 @@ Func YinheMain()
 	Local $arCheckboxAccount[$iMax]
 	$iMsg = 0
 
-	$idFormMain = GUICreate("银河海王星全自动拖拉机V0.38", 803, 476, 289, 0)
+	$idFormMain = GUICreate("银河海王星全自动拖拉机V0.40", 803, 476, 289, 0)
 	$idListViewAccount = GUICtrlCreateListView("客户号", 24, 24, 146, 430, BitOR($GUI_SS_DEFAULT_LISTVIEW,$WS_VSCROLL), BitOR($WS_EX_CLIENTEDGE,$LVS_EX_CHECKBOXES))
 	GUICtrlSendMsg(-1, $LVM_SETCOLUMNWIDTH, 0, 118)
 	_loadListViewAccount($idListViewAccount, $arCheckboxAccount, $iMax)

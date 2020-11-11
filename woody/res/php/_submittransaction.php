@@ -120,7 +120,19 @@ class _SubmitTransactionAccount extends StockAccount
     	if (($strGroupItemId = $sql->GetId($strFundId)) == false)    return false;
     	
     	$fAmount = floatval($strAmount);
-    	if ($sql->trans_sql->Insert($strGroupItemId, strval(intval($fAmount / floatval($strNetValue))), $strNetValue, strval_round($fAmount * 0.0015), '}'))
+    	$strSymbol = SqlGetStockSymbol($strFundId);
+    	switch ($strSymbol)
+    	{
+    	case 'SZ160416':
+    		$fFeeRatio = 0.0;
+    		break;
+    		
+    	default:
+    		$fFeeRatio = 0.0015;
+    		break;
+    	}
+    	
+    	if ($sql->trans_sql->Insert($strGroupItemId, strval(intval($fAmount / floatval($strNetValue) / (1.0  + $fFeeRatio))), $strNetValue, strval_round($fFeeRatio * 0.0015), '}'.STOCK_DISP_ORDER))
     	{
 /*	    	if ($strGroupItemId = $sql->GetId($strArbitrageId))
 	    	{
@@ -228,6 +240,19 @@ class _SubmitTransactionAccount extends StockAccount
     			if ($strGroupId)
     			{
     				$trans_sql->DeleteById($strId);
+    			}
+    		}
+    	}
+    	else if ($strId = UrlGetQueryValue('adjust'))
+    	{
+    		$trans_sql = new StockTransactionSql();
+    		if ($record = $trans_sql->GetRecordById($strId))
+    		{
+    			$strGroupItemId = $record['groupitem_id'];
+   				if ($strGroupId = $this->_canModifyStockTransaction($strGroupItemId))
+    			{
+    				$strNetValue = UrlGetQueryValue('netvalue');
+    				$trans_sql->Update($strId, $strGroupItemId, strval(floatval($record['quantity']) * floatval($record['price']) / floatval($strNetValue)), $strNetValue, $record['fees'], $record['remark']);
     			}
     		}
     	}

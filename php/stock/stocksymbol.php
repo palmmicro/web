@@ -693,6 +693,14 @@ class StockSymbol
         date_default_timezone_set($this->GetTimeZone());
     }
 
+    function GetMoneyDisplay()
+    {
+    	if ($this->IsSymbolA())           $strMoney = '';
+    	else if ($this->IsSymbolH())     $strMoney = 'HK$';
+    	else                               $strMoney = '$';
+    	return $strMoney;
+    }
+    
     function GetSymbol()
     {
         return $this->strSymbol;

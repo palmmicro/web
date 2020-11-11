@@ -6,25 +6,29 @@ function _echoPortfolioTableItem($trans)
 	$ar = array();
 	
     $ref = $trans->ref;
-    if ($ref->IsSymbolA())           $strMoney = '';
-    else if ($ref->IsSymbolH())     $strMoney = 'HK$';
-    else                               $strMoney = '$';
-    
     $strSymbol = $ref->GetSymbol();
+    
     $ar[] = StockGetTransactionLink($trans->GetGroupId(), $strSymbol);
-    $ar[] = $trans->GetProfitDisplay().$strMoney;
+    $ar[] = $trans->GetProfitDisplay().$ref->GetMoneyDisplay();
     $iShares = $trans->GetTotalShares();
     if ($iShares != 0)
     {
-        $ar[] = GetNumberDisplay($trans->GetValue()).$strMoney;
+        $ar[] = GetNumberDisplay($trans->GetValue());
         $ar[] = strval($iShares); 
         $ar[] = $trans->GetAvgCostDisplay();
-        $ar[] = $ref->GetPercentageDisplay($trans->GetAvgCost());
+        if ($trans->GetTotalCost() > 0.0)
+        {
+        	$ar[] = $ref->GetPercentageDisplay($trans->GetAvgCost());
+        }
+ /*        else
+        {
+        	$ar[] = ''
+        }
         if ($strSymbol == 'CHU')
         {
         	$ar[] = strval($iShares - 561);
         }
- /*       else if ($strSymbol == 'SH600104')
+       else if ($strSymbol == 'SH600104')
         {
         	$ar[] = strval($iShares - 4000);
         }*/
@@ -36,12 +40,12 @@ function _echoPortfolioTableItem($trans)
 function EchoPortfolioParagraph($str, $arTrans)
 {
 	EchoTableParagraphBegin(array(new TableColumnSymbol(),
-								   new TableColumnAmount('盈亏'),
-								   new TableColumnAmount('持仓'),
+								   new TableColumnProfit(),
+								   new TableColumnHolding(),
 								   new TableColumnTotalShares(),
 								   new TableColumnPrice('平均'),
 								   new TableColumnChange(),
-								   new TableColumnTest()
+	//							   new TableColumnTest()
 								   ), MY_PORTFOLIO_PAGE, $str);
 
 	foreach ($arTrans as $trans)

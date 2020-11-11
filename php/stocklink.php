@@ -169,7 +169,7 @@ function GetAutoTractorLink($strQuery = false)
     return GetStockTitleLink(AUTO_TRACTOR_PAGE, AUTO_TRACTOR_DISPLAY, $strQuery);
 }
 
-define('MY_PORTFOLIO_DISPLAY', '持仓盈亏');
+define('MY_PORTFOLIO_DISPLAY', STOCK_DISP_HOLDING.STOCK_DISP_PROFIT);
 define('MY_PORTFOLIO_PAGE', 'myportfolio');
 function GetMyPortfolioLink($strQuery = false)
 {

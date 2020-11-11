@@ -164,7 +164,7 @@ function _echoPortfolio($portfolio, $sql)
 
 	$arTrans = array_merge(_transSortBySymbol($arTransA), _transSortBySymbol($arTransH), _transSortBySymbol($arTransUS));
     _transEchoReferenceParagraph($arTrans);
-	EchoPortfolioParagraph('个股盈亏', $arTrans);
+	EchoPortfolioParagraph('个股'.STOCK_DISP_PROFIT, $arTrans);
     _transEchoMergeParagraph($arTrans);
 }
 
@@ -178,7 +178,7 @@ function _echoMoneyParagraph($portfolio)
     {
         _EchoMoneyGroupData($group, $strUSDCNY, $strHKDCNY);
     }
-    _EchoMoneyGroupData($portfolio, $strUSDCNY, $strHKDCNY, DISP_ALL_CN);
+    _EchoMoneyGroupData($portfolio, $strUSDCNY, $strHKDCNY, DISP_ALL_CN.'分组');
     EchoTableParagraphEnd();
 }
 

@@ -70,6 +70,14 @@ class TableColumnOfficalEst extends TableColumnEst
 	}
 }
 
+class TableColumnHolding extends TableColumn
+{
+	function TableColumnHolding($strPrefix = false)
+	{
+        parent::TableColumn(STOCK_DISP_HOLDING, 120, false, $strPrefix);
+	}
+}
+
 class TableColumnName extends TableColumn
 {
 	function TableColumnName()
@@ -120,6 +128,14 @@ function GetTableColumnPrice()
 {
 	$col = new TableColumnPrice();
 	return $col->GetDisplay();
+}
+
+class TableColumnProfit extends TableColumn
+{
+	function TableColumnProfit($strPrefix = false)
+	{
+        parent::TableColumn(STOCK_DISP_PROFIT, 120, false, $strPrefix);
+	}
 }
 
 class TableColumnRatio extends TableColumn
