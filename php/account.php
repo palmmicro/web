@@ -55,7 +55,7 @@ class Account
     var $ip_sql;
     var $page_sql;
     var $visitor_sql;
-    var $stock_sql;
+//    var $stock_sql;
 
     var $bAllowCurl;
     
@@ -84,14 +84,15 @@ class Account
 	   		}
 	   	}
 
-	    $this->stock_sql = new StockSql();
+//	    $this->stock_sql = new StockSql();
+		InitGlobalStockSql();
     }
-    
+/*    
     function GetStockSql()
     {
     	return $this->stock_sql;
     }
-    
+*/    
     function SetCrawler($strIp)
     {
     	return $this->ip_sql->SetStatus($strIp, IP_STATUS_CRAWLER);

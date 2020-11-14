@@ -4,7 +4,7 @@
 		<property name="Left" vt="Int16">289</property>
 		<property name="Top" vt="Int16">192</property>
 		<property name="Width" vt="Int16">818</property>
-		<property name="Height" vt="Int16">514</property>
+		<property name="Height" vt="Int16">544</property>
 		<property name="Caption" vt="WString">银河海王星全自动拖拉机V0.37</property>
 		<property name="Color" vt="Ident">clBtnFace</property>
 		<property name="Font.Charset" vt="Ident">DEFAULT_CHARSET</property>
@@ -33,8 +33,8 @@
 	<components>
 		<object type="TAButton" name="idButtonRun">
 			<properties>
-				<property name="Left" vt="Int16">672</property>
-				<property name="Top" vt="Int16">432</property>
+				<property name="Left" vt="Int16">336</property>
+				<property name="Top" vt="Int16">456</property>
 				<property name="Width" vt="Int8">107</property>
 				<property name="Height" vt="Int8">25</property>
 				<property name="Caption" vt="WString">执行自动操作(&amp;R)</property>
@@ -51,13 +51,13 @@
 		<object type="TAGroup" name="GroupOperation">
 			<properties>
 				<property name="Left" vt="Int16">192</property>
-				<property name="Top" vt="Int16">160</property>
+				<property name="Top" vt="Int16">288</property>
 				<property name="Width" vt="Int8">121</property>
-				<property name="Height" vt="Int16">169</property>
+				<property name="Height" vt="Int16">193</property>
 				<property name="CtrlStyle" vt="Int32">1342308359</property>
 				<property name="CtrlExStyle" vt="Int8">0</property>
 				<property name="Caption" vt="WString">操作</property>
-				<property name="TabOrder" vt="Int8">3</property>
+				<property name="TabOrder" vt="Int8">7</property>
 				<property name="Resizing" vt="Set"/>
 			</properties>
 			<components>
@@ -68,9 +68,7 @@
 						<property name="Width" vt="Int8">89</property>
 						<property name="Height" vt="Int8">17</property>
 						<property name="Caption" vt="WString">场内申购</property>
-						<property name="Checked" vt="True">True</property>
 						<property name="TabOrder" vt="Int8">0</property>
-						<property name="TabStop" vt="True">True</property>
 						<property name="OnClick" vt="String">RadioOrderClick</property>
 						<property name="CtrlStyle" vt="Int32">1342242825</property>
 						<property name="CtrlExStyle" vt="Int8">0</property>
@@ -81,7 +79,7 @@
 				<object type="TARadio" name="RadioSell">
 					<properties>
 						<property name="Left" vt="Int8">16</property>
-						<property name="Top" vt="Int8">96</property>
+						<property name="Top" vt="Int8">120</property>
 						<property name="Width" vt="Int8">89</property>
 						<property name="Height" vt="Int8">17</property>
 						<property name="Caption" vt="WString">卖出</property>
@@ -126,7 +124,7 @@
 				<object type="TARadio" name="RadioLogin">
 					<properties>
 						<property name="Left" vt="Int8">16</property>
-						<property name="Top" vt="Int16">144</property>
+						<property name="Top" vt="Int16">168</property>
 						<property name="Width" vt="Int8">89</property>
 						<property name="Height" vt="Int8">17</property>
 						<property name="Caption" vt="WString">仅登录查询</property>
@@ -141,7 +139,7 @@
 				<object type="TARadio" name="RadioCancel">
 					<properties>
 						<property name="Left" vt="Int8">16</property>
-						<property name="Top" vt="Int8">120</property>
+						<property name="Top" vt="Int16">144</property>
 						<property name="Width" vt="Int8">89</property>
 						<property name="Height" vt="Int8">17</property>
 						<property name="Caption" vt="WString">全部撤单</property>
@@ -153,16 +151,30 @@
 					</properties>
 					<components/>
 				</object>
+				<object type="TARadio" name="RadioRedeem">
+					<properties>
+						<property name="Left" vt="Int8">16</property>
+						<property name="Top" vt="Int8">96</property>
+						<property name="Width" vt="Int8">89</property>
+						<property name="Height" vt="Int8">17</property>
+						<property name="Caption" vt="WString">赎回</property>
+						<property name="TabOrder" vt="Int8">6</property>
+						<property name="OnClick" vt="String">RadioOrderClick</property>
+						<property name="CtrlStyle" vt="Int32">1342242825</property>
+						<property name="CtrlExStyle" vt="Int8">0</property>
+						<property name="Resizing" vt="Set">DockHeight</property>
+					</properties>
+					<components/>
+				</object>
 			</components>
 		</object>
 		<object type="TAInput" name="idInputSellPrice">
 			<properties>
 				<property name="Left" vt="Int16">192</property>
-				<property name="Top" vt="Int16">376</property>
+				<property name="Top" vt="Int16">184</property>
 				<property name="Width" vt="Int8">121</property>
 				<property name="Height" vt="Int8">21</property>
-				<property name="Enabled" vt="False">False</property>
-				<property name="TabOrder" vt="Int8">5</property>
+				<property name="TabOrder" vt="Int8">4</property>
 				<property name="CtrlStyle" vt="Int32">1342374016</property>
 				<property name="CtrlExStyle" vt="Int16">512</property>
 				<property name="Resizing" vt="Set">DockHeight</property>
@@ -172,11 +184,11 @@
 		<object type="TALabel" name="idLabelSellPrice">
 			<properties>
 				<property name="Left" vt="Int16">192</property>
-				<property name="Top" vt="Int16">352</property>
+				<property name="Top" vt="Int16">160</property>
 				<property name="Width" vt="Int8">52</property>
 				<property name="Height" vt="Int8">17</property>
 				<property name="Caption" vt="WString">卖出价格</property>
-				<property name="TabOrder" vt="Int8">4</property>
+				<property name="TabOrder" vt="Int8">3</property>
 				<property name="HaveVariable" vt="False">False</property>
 				<property name="CtrlStyle" vt="Int32">1342308608</property>
 				<property name="CtrlExStyle" vt="Int8">0</property>
@@ -191,7 +203,6 @@
 				<property name="Top" vt="Int8">48</property>
 				<property name="Width" vt="Int8">121</property>
 				<property name="Height" vt="Int8">97</property>
-				<property name="Enabled" vt="False">False</property>
 				<property name="ItemHeight" vt="Int8">13</property>
 				<property name="Items.Strings" vt="List">
 					<list>
@@ -201,7 +212,7 @@
 					</list>
 				</property>
 				<property name="TabOrder" vt="Int8">2</property>
-				<property name="CtrlStyle" vt="Int32">1352859659</property>
+				<property name="CtrlStyle" vt="Int32">1352859651</property>
 				<property name="CtrlExStyle" vt="Int16">512</property>
 				<property name="Resizing" vt="Set"/>
 				<property name="Description" vt="String">ListSymbol</property>
@@ -228,7 +239,7 @@
 				<property name="Left" vt="Int8">24</property>
 				<property name="Top" vt="Int8">24</property>
 				<property name="Width" vt="Int16">146</property>
-				<property name="Height" vt="Int16">430</property>
+				<property name="Height" vt="Int16">454</property>
 				<property name="OnClick" vt="String">ListViewAccountClick</property>
 				<property name="CtrlStyle" vt="Int32">1344471053</property>
 				<property name="CtrlExStyle" vt="Int16">516</property>
@@ -267,7 +278,7 @@
 				<property name="Left" vt="Int16">336</property>
 				<property name="Top" vt="Int8">48</property>
 				<property name="Width" vt="Int16">441</property>
-				<property name="Height" vt="Int16">357</property>
+				<property name="Height" vt="Int16">383</property>
 				<property name="ItemHeight" vt="Int8">13</property>
 				<property name="TabOrder" vt="Int8">9</property>
 				<property name="CtrlStyle" vt="Int32">1352859657</property>
@@ -279,11 +290,11 @@
 		<object type="TALabel" name="idLabelSellQuantity">
 			<properties>
 				<property name="Left" vt="Int16">192</property>
-				<property name="Top" vt="Int16">408</property>
-				<property name="Width" vt="Int8">64</property>
+				<property name="Top" vt="Int16">224</property>
+				<property name="Width" vt="Int8">112</property>
 				<property name="Height" vt="Int8">17</property>
-				<property name="Caption" vt="WString">卖出总数量</property>
-				<property name="TabOrder" vt="Int8">6</property>
+				<property name="Caption" vt="WString">卖出或者赎回总数量</property>
+				<property name="TabOrder" vt="Int8">5</property>
 				<property name="HaveVariable" vt="False">False</property>
 				<property name="CtrlStyle" vt="Int32">1342308608</property>
 				<property name="CtrlExStyle" vt="Int8">0</property>
@@ -295,11 +306,10 @@
 		<object type="TAInput" name="idInputSellQuantity">
 			<properties>
 				<property name="Left" vt="Int16">192</property>
-				<property name="Top" vt="Int16">432</property>
+				<property name="Top" vt="Int16">248</property>
 				<property name="Width" vt="Int8">121</property>
 				<property name="Height" vt="Int8">21</property>
-				<property name="Enabled" vt="False">False</property>
-				<property name="TabOrder" vt="Int8">7</property>
+				<property name="TabOrder" vt="Int8">6</property>
 				<property name="CtrlStyle" vt="Int32">1342374016</property>
 				<property name="CtrlExStyle" vt="Int16">512</property>
 				<property name="Resizing" vt="Set">DockHeight</property>

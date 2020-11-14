@@ -13,11 +13,12 @@ require_once('_stocklink.php');
 
 function _EchoMoneyParagraphBegin($str = '')
 {
+	$strMoneyType = '单一货币';
 	EchoTableParagraphBegin(array(new TableColumn(GetMyStockGroupLink(), 110),
 								   new TableColumnProfit(DISP_ALL_CN),
 								   new TableColumnHolding(DISP_ALL_CN),
-								   new TableColumnProfit(),
-								   new TableColumnHolding(),
+								   new TableColumnProfit($strMoneyType),
+								   new TableColumnHolding($strMoneyType),
 								   ), 'money', $str);
 }
 

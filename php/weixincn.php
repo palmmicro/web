@@ -139,20 +139,21 @@ function _wxDebug($strUserName, $strText, $strSubject)
 
 class WeixinStock extends WeixinCallback
 {
-    var $stock_sql;
+//    var $stock_sql;
 
     function WeixinStock() 
     {
     	SqlConnectDatabase();
 
-	    $this->stock_sql = new StockSql();
+//	    $this->stock_sql = new StockSql();
+		InitGlobalStockSql();
     }
-
+/*
     function GetStockSql()
     {
     	return $this->stock_sql;
     }
-    
+*/    
     function AllowCurl()
     {
     	return true;
@@ -222,7 +223,8 @@ class WeixinStock extends WeixinCallback
 */
 		$strText = SqlCleanString($strText);
 
-		$arSymbol = _wxGetStockArray($strText, $this->GetStockSql());
+//		$arSymbol = _wxGetStockArray($strText, $this->GetStockSql());
+		$arSymbol = _wxGetStockArray($strText, GetStockSql());
 		if ($iCount = count($arSymbol))
 		{
 			if ($iCount > 1)

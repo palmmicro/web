@@ -62,11 +62,22 @@ class StockSql extends KeyNameSql
 }
 
 // ****************************** Stock symbol functionse *******************************************************
+
+global $g_stock_sql;
+
+function InitGlobalStockSql()
+{
+	global $g_stock_sql;
+    $g_stock_sql = new StockSql();
+}
+
 function GetStockSql()
 {
-	global $acct;
+//	global $acct;
 	
-	return $acct->GetStockSql();
+//	return $acct->GetStockSql();
+	global $g_stock_sql;
+	return $g_stock_sql;
 }
 
 function SqlGetStockName($strSymbol)
