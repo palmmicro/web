@@ -133,8 +133,9 @@ function GetQdiiLinks($sym)
 	
 	$str = GetJisiluLofLink();
 	
-	if ($sym->IsShenZhenA())												$str .= ' '.GetShenZhenLofOfficialLink();
-	else																	$str .= ' '.((intval($sym->GetDigitA()) >= 510000) ? GetShangHaiEtfOfficialLink() : GetShangHaiLofOfficialLink());
+	if ($sym->IsShenZhenLof())		$str .= ' '.GetShenZhenLofOfficialLink();
+	else if ($sym->IsShangHaiLof())	$str .= ' '.GetShangHaiLofOfficialLink();
+	else if ($sym->IsShangHaiEtf())	$str .= ' '.GetShangHaiEtfOfficialLink();
 	
 	$str .= ' '.GetEastMoneyQdiiLink();
 	if ($strFutureSymbol || in_arrayCommodityQdii($strSymbol))			$str .= ' '.GetEastMoneyGlobalFuturesLink();

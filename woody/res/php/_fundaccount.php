@@ -80,7 +80,7 @@ function _echoFundAccountItem($csv, $strDate, $strSharesDiff, $ref, $strSymbol, 
        	$fAmount = _getFundAmount($strSymbol, $strPurchaseDate);
     	$fAccount = floatval($strSharesDiff) * 10000.0 / ($fAmount / $fPurchaseValue);
     	$strAccount = strval(intval($fAccount));
-    	$ar[] = $strAccount;
+    	$ar[] = ($fAccount > MIN_FLOAT_VAL) ? $strAccount : '';
     	$ar[] = $strPurchaseDate;
     	
     	if ($strPurchaseDate == GetNextTradingDayYMD($strNetValueDate))

@@ -82,6 +82,11 @@ function GetJiaShiFundUrl()
 	return 'http://www.jsfund.cn';
 }
 
+function GetJiaoYinSchroderFundUrl()
+{
+	return 'https://www.fund001.com/';
+}
+
 function GetGuangFaFundUrl()
 {
 	return 'http://www.gffunds.com.cn';

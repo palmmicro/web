@@ -100,9 +100,7 @@ function GetSzseUrl()
 
 function SzseGetLofShares($ref)
 {
-	$strDigitA = $ref->GetDigitA();
-	if ($strDigitA == false)					return;
-	if (substr($strDigitA, 0, 2) != '16')	return;
+	if ($ref->IsShenZhenLof() == false)					return;
 	
 	$sql = new SharesHistorySql();
 	$strDate = $ref->GetDate();
@@ -113,7 +111,7 @@ function SzseGetLofShares($ref)
 	$strFileName = DebugGetSymbolFile('szse', $ref->GetSymbol());
 	if (StockIsNewFile($strFileName))	return;   		// update on every minute
 
-	$strUrl = GetSzseUrl().'api/report/ShowReport/data?SHOWTYPE=JSON&CATALOGID=1945_LOF&txtQueryKeyAndJC='.$strDigitA;
+	$strUrl = GetSzseUrl().'api/report/ShowReport/data?SHOWTYPE=JSON&CATALOGID=1945_LOF&txtQueryKeyAndJC='.$ref->GetDigitA();
    	if ($str = url_get_contents($strUrl))
     {
    		file_put_contents($strFileName, $str);

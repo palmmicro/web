@@ -4,7 +4,7 @@ require_once('debug.php');
 require_once('stock.php');
 require_once('ui/stocktext.php');
 
-define('MAX_WX_STOCK', 10);
+define('MAX_WX_STOCK', 32);
 
 // ****************************** Wexin support functions *******************************************************
 
@@ -195,7 +195,7 @@ class WeixinStock extends WeixinCallback
 	{
 		_wxDebug($strUserName, "<font color=green>内容:</font>$strContents", 'Wechat message');
 		$str = $strContents.WX_EOL;
-		$str .= '本公众号目前只提供部分股票交易和净值估算自动查询。因为没有匹配到信息，此消息内容已经发往support@palmmicro.com邮箱。Palmmicro会尽快在公众号上回复。'.WX_EOL;
+		$str .= '本公众号目前只提供部分股票交易和净值估算自动查询。因为没有匹配到信息，此消息内容已经发往support@palmmicro.com邮箱，Palmmicro会尽快在公众号上回复。咨询问题的请尽量在相关公众号文章下留言。'.WX_EOL;
 		return $str;
 	}
 
@@ -229,9 +229,11 @@ class WeixinStock extends WeixinCallback
 		{
 			if ($iCount > 1)
 			{
-				$str = '(至少发现'.strval($iCount).'个匹配)';
+				$str = '(至少发现'.strval($iCount).'个匹配：';
+				foreach ($arSymbol as $strSymbol)	$str .= $strSymbol.' ';
+				$str = rtrim($str, ' ');
 //				DebugString($strText.$str);
-				$str .= WX_EOL.WX_EOL;
+				$str .= ')'.WX_EOL.WX_EOL;
 			}
 			else
 			{
@@ -252,7 +254,7 @@ class WeixinStock extends WeixinCallback
 		switch ($strContents)
 		{
 		case 'subscribe':
-			$str = '欢迎订阅, 本账号为自动回复, 请用语音或者键盘输入要查找的内容.';
+			$str = '欢迎订阅，本账号为自动回复，不提供人工咨询服务。请用语音或者键盘输入要查找的内容，例如【162411】或者【油气】。';
 			break;
 			
 		case 'unsubscribe':
@@ -265,9 +267,9 @@ class WeixinStock extends WeixinCallback
 			
 		default:
 			$str = '(未知Event)';
+			_wxDebug($strUserName, $str, 'Wechat '.$strContents);
 			break;
 		}
-		_wxDebug($strUserName, $str, 'Wechat '.$strContents);
 		return $str.WX_EOL;
 	}
 

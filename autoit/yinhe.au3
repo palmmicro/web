@@ -211,23 +211,6 @@ Func _CtlSelectString($hWnd, $idDebug, $strControlID, ByRef $iSel)
 	Return $str
 EndFunc
 
-Func _CtlGetText($hWnd, $idDebug, $strControl)
-	_CtlDebug($idDebug, '反复读取"' & $strControl & '"的内容直到不为空字符串')
-	Do
-		Sleep(100)
-		$str = ControlGetText($hWnd, '', $strControl)
-	Until $str <> ''
-	_CtlDebug($idDebug, $str)
-	Return $str
-EndFunc
-
-Func _CtlWaitText($hWnd, $idDebug, $strControl, $strText)
-	_CtlDebug($idDebug, '等待"' & $strText & '"的出现')
-	Do
-		Sleep(100)
-	Until $strText == _CtlGetText($hWnd, $idDebug, $strControl)
-EndFunc
-
 Func _CtlClickButton($hWnd, $idDebug, $strButton)
 	_CtlDebug($idDebug, '模拟点击按钮"' & $strButton & '"')
 	WinActivate($hWnd)
@@ -235,8 +218,21 @@ Func _CtlClickButton($hWnd, $idDebug, $strButton)
 	Sleep(1000)
 EndFunc
 
+Func _yinheCloseNewDlg($idDebug)
+	_DlgClose($idDebug, '海王星条件单')
+	_DlgClose($idDebug, '股票、可转债及可交换债')
+EndFunc
+
 Func _DlgClickButton($idDebug, $strTitle, $strButton)
-	$hDlgWnd = WinWait($strTitle, $strButton, 5)
+;	$hDlgWnd = WinWait($strTitle, $strButton, 5)
+	$iCount = 0
+	While $iCount < 5
+		$hDlgWnd = WinWait($strTitle, $strButton, 1)
+		If $hDlgWnd <> 0 Then ExitLoop
+		_yinheCloseNewDlg($idDebug)
+		$iCount += 1
+	WEnd
+
 	If $hDlgWnd <> 0 Then
 		_CtlClickButton($hDlgWnd, $idDebug, $strButton)
 	Else
@@ -252,9 +248,22 @@ Func _DlgClose($idDebug, $strTitle, $strText = '关闭')
 	EndIf
 EndFunc
 
-Func _yinheCloseNewDlg($idDebug)
-	_DlgClose($idDebug, '海王星条件单')
-	_DlgClose($idDebug, '股票、可转债及可交换债')
+Func _CtlGetText($hWnd, $idDebug, $strControl)
+	_CtlDebug($idDebug, '反复读取"' & $strControl & '"的内容直到不为空字符串')
+	Do
+		Sleep(100)
+		_yinheCloseNewDlg($idDebug)
+		$str = ControlGetText($hWnd, '', $strControl)
+	Until $str <> ''
+	_CtlDebug($idDebug, $str)
+	Return $str
+EndFunc
+
+Func _CtlWaitText($hWnd, $idDebug, $strControl, $strText)
+	_CtlDebug($idDebug, '等待"' & $strText & '"的出现')
+	Do
+		Sleep(100)
+	Until $strText == _CtlGetText($hWnd, $idDebug, $strControl)
 EndFunc
 
 Func _yinheLoginDlg($idDebug, $strTitle, $strAccount, $strPassword)
@@ -348,17 +357,36 @@ Func _isShenzhenFundAccount($strAccount)
 	Return False
 EndFunc
 
+#cs
+Func _TreeViewSelect($hWnd, $idDebug, $strControlID, $strItem)
+	ControlTreeView($hWnd, '', $strControlID, 'Select', $strItem)
+	$strDebug = '选择"' & $strItem & '"......'
+	_CtlDebug($idDebug, $strDebug)
+	$iCount = 0
+	While $strItem <> ControlTreeView($hWnd, '', $strControlID, 'GetSelected', 0)
+		Sleep(100)
+		$iCount += 1
+		If $iCount == 50 Then
+			_CtlDebug($idDebug, $strDebug & '在5秒后放弃')
+			ExitLoop
+		EndIf
+	WEnd
+EndFunc
+#ce
+
 Func _yinheClickItem($hWnd, $idDebug, $strLevel1, $strLevel2 = False)
 	$strControlID = 'SysTreeView321'
 	ControlFocus($hWnd, '', $strControlID)
 ;	Sleep(1000)
 	ControlTreeView($hWnd, '', $strControlID, 'Select', $strLevel1)
 	Sleep(1000)
+;	_TreeViewSelect($hWnd, $idDebug, $strControlID, $strLevel1)
 	If $strLevel2 <> False	Then
 		ControlTreeView($hWnd, '', $strControlID, 'Expand', $strLevel1)
 		Sleep(1000)
 		ControlTreeView($hWnd, '', $strControlID, 'Select', $strLevel1 & '|' & $strLevel2)
 		Sleep(1000)
+;		_TreeViewSelect($hWnd, $idDebug, $strControlID, $strLevel1 & '|' & $strLevel2)
 	EndIf
 
 	$hCtrl = ControlGetHandle($hWnd, '', $strControlID)
@@ -407,12 +435,6 @@ Func _yinheClickFund($hWnd, $idDebug, $strType)
 EndFunc
 
 Func YinheOrderFund($hWnd, $idDebug, $strSymbol)
-#cs
-	$strOrder = '基金申购'
-	_yinheClickItem($hWnd, $idDebug, '场内开放式基金', $strOrder)
-	_CtlWaitText($hWnd, $idDebug, 'ComboBox3', $strOrder)
-	_CtlWaitText($hWnd, $idDebug, 'Static1', '股东代码:')
-#ce
 	Switch $strSymbol
 		Case '160216'
 			$strAmount = '10000'
@@ -435,11 +457,10 @@ Func YinheOrderFund($hWnd, $idDebug, $strSymbol)
 	WEnd
 EndFunc
 
-; Merge with _yinheSendSellQuantity later
-Func _yinheSendRedeemQuantity($hWnd, $idDebug, $iTotal = 0)
+Func _yinheSendSellQuantity($hWnd, $idDebug, $iTotal = 0, $strCtlAvailable = 'Static8', $strCtlQuantity = 'Edit5')
 	$iCount = 0
 	While $iCount < 5
-		$strQuantity = _CtlGetText($hWnd, $idDebug, 'Static9')
+		$strQuantity = _CtlGetText($hWnd, $idDebug, $strCtlAvailable)
 		If $strQuantity <> '0' Then
 			$iSell = Number($strQuantity)
 			If $iTotal > 0 And $iTotal < $iSell Then
@@ -447,7 +468,7 @@ Func _yinheSendRedeemQuantity($hWnd, $idDebug, $iTotal = 0)
 				$iSell *= 100
 				$strQuantity = String($iSell)
 			EndIf
-			_CtlSetText($hWnd, $idDebug, 'Edit2', $strQuantity)
+			_CtlSetText($hWnd, $idDebug, $strCtlQuantity, $strQuantity)
 			ControlClick($hWnd, '', 'Button1')
 			Sleep(1000)
 			Return $iSell
@@ -455,15 +476,14 @@ Func _yinheSendRedeemQuantity($hWnd, $idDebug, $iTotal = 0)
 		Sleep(1000)
 		$iCount += 1
 	WEnd
-	_CtlDebug($idDebug, '5秒钟没有读到可赎回数量，如果实际可赎回数量不为0，建议更换网络。')
+	_CtlDebug($idDebug, '5秒钟没有读到可用数量，如果实际可用数量不为0，建议更换网络。')
 	Return 0
 EndFunc
-
 
 Func _yinheAddShenzhenRedeemEntry($hWnd, $idDebug, $strSymbol, $strSellQuantity, ByRef $iRemainQuantity)
 	If _CtlSendString($hWnd, $idDebug, 'Edit1', $strSymbol) Then _addSymbolSpecialKey($idDebug, $strSymbol)
 
-	$iSell = _yinheSendRedeemQuantity($hWnd, $idDebug, $iRemainQuantity)
+	$iSell = _yinheSendSellQuantity($hWnd, $idDebug, $iRemainQuantity, 'Static9', 'Edit2')
 	If $iSell > 0 Then
 		_DlgClickButton($idDebug, '提示', '确认')
 		_DlgClickButton($idDebug, '提示', '确认')
@@ -496,29 +516,6 @@ Func _yinheSendSellSymbol($hWnd, $idDebug, $strSymbol)
 	If _CtlSendString($hWnd, $idDebug, 'AfxWnd423', $strSymbol) Then _addSymbolSpecialKey($idDebug, $strSymbol)
 EndFunc
 
-Func _yinheSendSellQuantity($hWnd, $idDebug, $iTotal = 0)
-	$iCount = 0
-	While $iCount < 5
-		$strQuantity = _CtlGetText($hWnd, $idDebug, 'Static8')
-		If $strQuantity <> '0' Then
-			$iSell = Number($strQuantity)
-			If $iTotal > 0 And $iTotal < $iSell Then
-				$iSell = Int($iTotal / 100)
-				$iSell *= 100
-				$strQuantity = String($iSell)
-			EndIf
-			_CtlSetText($hWnd, $idDebug, 'Edit5', $strQuantity)
-			ControlClick($hWnd, '', 'Button1')
-			Sleep(1000)
-			Return $iSell
-		EndIf
-		Sleep(1000)
-		$iCount += 1
-	WEnd
-	_CtlDebug($idDebug, '5秒钟没有读到可卖数量，如果实际可卖数量不为0，建议更换网络。')
-	Return 0
-EndFunc
-
 Func _yinheAddShenzhenSellEntry($hWnd, $idDebug, $strSymbol, $strPrice, $strSellQuantity, ByRef $iRemainQuantity)
 	_yinheSendSellSymbol($hWnd, $idDebug, $strSymbol)
 	$strPriceControl = 'Edit2'
@@ -533,11 +530,11 @@ Func _yinheAddShenzhenSellEntry($hWnd, $idDebug, $strSymbol, $strPrice, $strSell
 		_DlgClickButton($idDebug, '提示', '确认')
 		If $strSellQuantity <> '' Then
 			$iRemainQuantity -= $iSell
-			If $iRemainQuantity < 100 Then Return False
+			If $iRemainQuantity < 100 Then Return -1
 		EndIf
 	EndIf
 
-	Return True
+	Return $iSell
 EndFunc
 
 Func _yinheClickSell($hWnd, $idDebug)
@@ -557,7 +554,12 @@ Func YinheSell($hWnd, $idDebug, $strSymbol, $strPrice, $strSellQuantity, ByRef $
 		_yinheCloseNewDlg($idDebug)
 		If _isShenzhenAccount($strAccount) Then
 			_CtlDebug($idDebug, '剩余卖出数量：' & String($iRemainQuantity))
-			If _yinheAddShenzhenSellEntry($hWnd, $idDebug, $strSymbol, $strPrice, $strSellQuantity, $iRemainQuantity) == False Then	Return False
+			$iSold = _yinheAddShenzhenSellEntry($hWnd, $idDebug, $strSymbol, $strPrice, $strSellQuantity, $iRemainQuantity)
+			If $iSold == -1 Then
+				Return False
+			ElseIf $iSold == 0 Then
+				ExitLoop
+			EndIf
 		EndIf
 	WEnd
 	Return True
@@ -863,7 +865,7 @@ Func YinheMain()
 	Local $arCheckboxAccount[$iMax]
 	$iMsg = 0
 
-	$idFormMain = GUICreate("银河海王星全自动拖拉机V0.41", 803, 506, 289, 0)
+	$idFormMain = GUICreate("银河海王星全自动拖拉机V0.44", 803, 506, 289, 0)
 
 	$idListViewAccount = GUICtrlCreateListView("客户号", 24, 24, 146, 454, BitOR($GUI_SS_DEFAULT_LISTVIEW,$WS_VSCROLL), BitOR($WS_EX_CLIENTEDGE,$LVS_EX_CHECKBOXES))
 	GUICtrlSendMsg(-1, $LVM_SETCOLUMNWIDTH, 0, 118)

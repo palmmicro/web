@@ -116,6 +116,19 @@ function GetSinaQuotesUrl($strSinaSymbols)
 
 function GetSinaQuotes($strSinaSymbols)
 {
+	global $acct;
+	if ($acct->AllowCurl() == false)		return false;
+	
+	$strFileName = DebugGetPathName('debugsina.txt');
+    if (file_exists($strFileName))
+    {
+    	if (time() - filemtime($strFileName) < 30)
+    	{
+//    		DebugString('Ignored: '.$strSinaSymbols);
+    		return false;
+    	}
+    }
+    
     if ($str = url_get_contents(GetSinaQuotesUrl($strSinaSymbols)))
     {
     	$iLen = strlen($str);
@@ -123,6 +136,7 @@ function GetSinaQuotes($strSinaSymbols)
     	if ($iLen < 10)      return false;   // Sina returns error in an empty file
 		return $str;
     }
+   	file_put_contents($strFileName, $strSinaSymbols);
     return false;
 }
 

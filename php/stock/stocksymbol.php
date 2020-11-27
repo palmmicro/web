@@ -224,14 +224,38 @@ function IsChineseStockDigit($strDigit)
     return false;
 }
 
+function _isDigitShenzhenEtf($iDigit)
+{
+    return ($iDigit >= 150000 && $iDigit <= 159999) ? true : false;
+}
+
+function _isDigitShenzhenLof($iDigit)
+{
+    return ($iDigit >= 160000 && $iDigit <= 169999) ? true : false;
+}
+
 function _isDigitShenzhenFund($iDigit)
 {
-    return ($iDigit >= 100000 && $iDigit < 200000) ? true : false;
+	if (_isDigitShenzhenEtf($iDigit))		return true;
+	if (_isDigitShenzhenLof($iDigit))		return true;
+	return false;
+}
+
+function _isDigitShanghaiEtf($iDigit)
+{
+    return ($iDigit >= 510000 && $iDigit <= 519999) ? true : false;
+}
+
+function _isDigitShanghaiLof($iDigit)
+{
+    return ($iDigit >= 500000 && $iDigit <= 509999) ? true : false;
 }
 
 function _isDigitShanghaiFund($iDigit)
 {
-    return ($iDigit >= 500000 && $iDigit < 600000) ? true : false;
+	if (_isDigitShanghaiEtf($iDigit))		return true;
+	if (_isDigitShanghaiLof($iDigit))		return true;
+	return false;
 }
 
 function _isDigitShenzhenB($iDigit)
@@ -378,26 +402,78 @@ class StockSymbol
         }
         return false;
     }
-    
-    function IsShenZhenA()
-    {
-		return ($this->strPrefixA == SZ_PREFIX) ? true : false;
-	}
-	
+
     function IsShangHaiA()
     {
-		return ($this->strPrefixA == SH_PREFIX) ? true : false;
+    	if ($this->IsSymbolA())
+    	{
+    		if ($this->strPrefixA == SH_PREFIX)	return true;
+        }
+        return false;
 	}
+	
+    function IsShenZhenA()
+    {
+    	if ($this->IsSymbolA())
+    	{
+    		if ($this->strPrefixA == SZ_PREFIX)	return true;
+        }
+        return false;
+	}
+	
+    function IsShangHaiEtf()
+    {
+    	if ($this->IsShangHaiA())
+    	{
+    		if (_isDigitShanghaiEtf($this->iDigitA))	return true;
+        }
+        return false;
+    }
+    
+    function IsShangHaiLof()
+    {
+    	if ($this->IsShangHaiA())
+    	{
+    		if (_isDigitShanghaiLof($this->iDigitA))	return true;
+        }
+        return false;
+    }
+    
+    function IsShenZhenEtf()
+    {
+    	if ($this->IsShenZhenA())
+    	{
+    		if (_isDigitShenzhenEtf($this->iDigitA))	return true;
+        }
+        return false;
+    }
+    
+    function IsShenZhenLof()
+    {
+    	if ($this->IsShenZhenA())
+    	{
+    		if (_isDigitShenzhenLof($this->iDigitA))	return true;
+        }
+        return false;
+    }
+    
+    function IsLofA()
+    {
+        if ($this->IsShenZhenLof())	return true;
+        if ($this->IsShangHaiLof())	return true;
+        return false;
+    }
+    
+    function IsEtfA()
+    {
+        if ($this->IsShenZhenEtf())	return true;
+        if ($this->IsShangHaiEtf())	return true;
+        return false;
+    }
     
     function IsFundA()
     {
-        if ($this->strDigitA == false)
-        {
-            if ($this->IsSymbolA() == false)    return false;
-        }
-        
-        if ($this->strPrefixA == SZ_PREFIX && _isDigitShenzhenFund($this->iDigitA))   return $this->strDigitA;
-        if ($this->strPrefixA == SH_PREFIX && _isDigitShanghaiFund($this->iDigitA))   return $this->strDigitA;
+        if ($this->IsLofA() || $this->IsEtfA())		return $this->strDigitA;
         return false;
     }
     

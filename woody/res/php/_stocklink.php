@@ -174,10 +174,10 @@ function GetBoShiSoftwareLinks()
     return GetCategorySoftwareLinks($ar, $strLink);
 }
 
-function GetBocomSchroderSoftwareLinks()
+function GetJiaoYinSchroderSoftwareLinks()
 {
     $ar = array('sz164906');
-    $strLink = GetExternalLink('http://www.fund001.com', '交银施罗德基金');
+    $strLink = GetExternalLink(GetJiaoYinSchroderFundUrl(), '交银施罗德基金');
     return GetCategorySoftwareLinks($ar, $strLink);
 }
 
