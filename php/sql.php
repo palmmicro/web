@@ -165,7 +165,7 @@ class ErrorHandlerFile extends CsvFile
         parent::CsvFile(DebugGetCsvName('errorhandler'));
     }
 
-    function OnLineArray($arWord)
+    public function OnLineArray($arWord)
     {
     	if (count($arWord) == 2)
     	{
@@ -198,7 +198,7 @@ function _errorHandler($errno, $errstr, $errfile, $errline)
 {
 	if ($errfile == '/php/class/ini_file.php')	return;
 	
-	$bDebug = ($errno == 1024) ? true : false;
+	$bDebug = (intval($errno) == 1024) ? true : false;
    	$csv = new ErrorHandlerFile();
    	$iCount = $csv->OnError($errno);
    	if ($iCount <= 5 || $bDebug)

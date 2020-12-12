@@ -62,6 +62,8 @@ function TestCmdLine()
 	echo strval(rand()).' Hello, world!<br />';
 	
 	TestCmdLine();
+	DebugClearPath('csv');
+	DebugClearPath('image');
 
 //	$sql = new MemberSql();
 //	WriteForexDataFromFile();

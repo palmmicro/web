@@ -90,7 +90,7 @@ function _echoFundAccountItem($csv, $strDate, $strSharesDiff, $ref, $strSymbol, 
     		$ar[] = $ref->GetPriceDisplay($strClose, $strNetValue);
     		$ar[] = $strNetValue;
     		$ar[] = $ref->GetPercentageDisplay($strNetValue, $strClose);
-    		if ($ref->GetPercentage($strNetValue, $strClose) > MIN_FLOAT_VAL)
+    		if ($fAccount > MIN_FLOAT_VAL && $ref->GetPercentage($strNetValue, $strClose) > MIN_FLOAT_VAL)
     		{	// 平价和折价数据不参与线性回归
     			$csv->Write($strDate, $strSharesDiff, $strAccount, $strClose, $strNetValue, $ref->GetPercentageString($strNetValue, $strClose));
     		}

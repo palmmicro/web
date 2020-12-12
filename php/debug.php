@@ -179,6 +179,28 @@ function _getDebugPath($strSection)
     return $strPath;
 }
 
+function DebugClearPath($strSection)
+{
+    $strPath = _getDebugPath($strSection);
+    $hDir = opendir($strPath);
+    while ($strFileName = readdir($hDir))
+    {
+    	if ($strFileName != '.' && $strFileName != '..')
+    	{
+    		$strPathName = $strPath.'/'.$strFileName;
+    		if (!is_dir($strPathName)) 
+    		{
+    			unlink($strPathName);
+    		}
+    		else 
+    		{
+    			DebugString('Unexpected subdir: '.$strPathName); 
+    		}
+    	}
+    }
+	closedir($hDir);
+}
+
 function DebugGetImageName($str)
 {
     $strPath = _getDebugPath('image');

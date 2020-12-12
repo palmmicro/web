@@ -58,7 +58,7 @@ class CsvFile
     	}
     }
     
-    function OnLineArray($arWord)
+    public function OnLineArray($arWord)
     {
     	DebugPrint($arWord);
     }

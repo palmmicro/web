@@ -20,15 +20,16 @@ function _echoPortfolioTableItem($trans)
         {
         	$ar[] = $ref->GetPercentageDisplay($trans->GetAvgCost());
         }
- /*        else
+        else
         {
-        	$ar[] = ''
+        	$ar[] = '';
         }
+        
         if ($strSymbol == 'CHU')
         {
         	$ar[] = strval($iShares - 561);
         }
-       else if ($strSymbol == 'SH600104')
+/*       else if ($strSymbol == 'SH600104')
         {
         	$ar[] = strval($iShares - 4000);
         }*/
@@ -45,7 +46,7 @@ function EchoPortfolioParagraph($str, $arTrans)
 								   new TableColumnTotalShares(),
 								   new TableColumnPrice('平均'),
 								   new TableColumnChange(),
-	//							   new TableColumnTest()
+								   new TableColumnTest()
 								   ), MY_PORTFOLIO_PAGE, $str);
 
 	foreach ($arTrans as $trans)
