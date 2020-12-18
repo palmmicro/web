@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>升级老PA168F的步骤</title>
-<meta name="description" content="如何升级PA168F软件">
+<meta name="description" content="由于老版本PA168F软件启动次序不同, 需要通过Palmtool.exe工具升级安全恢复模式的软件后, 再升级老版本软件的PA168F网络电话的普通运行软件.">
 <?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>

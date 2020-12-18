@@ -220,6 +220,7 @@ EndFunc
 
 Func _yinheCloseNewDlg($idDebug)
 	_DlgClose($idDebug, '海王星条件单')
+	_DlgClose($idDebug, '海王星网格交易')
 	_DlgClose($idDebug, '股票、可转债及可交换债')
 EndFunc
 
@@ -865,7 +866,7 @@ Func YinheMain()
 	Local $arCheckboxAccount[$iMax]
 	$iMsg = 0
 
-	$idFormMain = GUICreate("银河海王星全自动拖拉机V0.44", 803, 506, 289, 0)
+	$idFormMain = GUICreate("银河海王星全自动拖拉机V0.45", 803, 506, 289, 0)
 
 	$idListViewAccount = GUICtrlCreateListView("客户号", 24, 24, 146, 454, BitOR($GUI_SS_DEFAULT_LISTVIEW,$WS_VSCROLL), BitOR($WS_EX_CLIENTEDGE,$LVS_EX_CHECKBOXES))
 	GUICtrlSendMsg(-1, $LVM_SETCOLUMNWIDTH, 0, 118)
