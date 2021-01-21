@@ -43,7 +43,7 @@ function EchoAll()
 function GetQdiiHkLinks($sym)
 {
 	$str = GetExternalLink('https://www.hkex.com.hk/market-data/securities-prices/exchange-traded-products', '港股ETF汇总');
-	$str .= ' '.GetJisiluLofHkLink();
+	$str .= ' '.GetJisiluQdiiLink(true);
 	
 	$str .= '<br />&nbsp';
 	$str .= GetHangSengSoftwareLinks();

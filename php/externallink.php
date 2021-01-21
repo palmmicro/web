@@ -404,14 +404,11 @@ function GetJisiluGoldLink()
 	return GetExternalLink(GetJisiluDataUrl().'etf/#tlink_1', '集思录');
 }
 
-function GetJisiluLofHkLink()
+function GetJisiluQdiiLink($bAsia = false)
 {
-	return GetExternalLink(GetJisiluDataUrl().'lof/#index', '集思录');
-}
-
-function GetJisiluLofLink()
-{
-	return GetExternalLink(GetJisiluDataUrl().'qdii/', '集思录');
+	$strUrl = GetJisiluDataUrl().'qdii/';
+	if ($bAsia)	$strUrl .= '#qdiia';
+	return GetExternalLink($strUrl, '集思录');
 }
 
 function GetEtfNavLink($strSymbol)

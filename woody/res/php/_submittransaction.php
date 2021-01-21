@@ -128,11 +128,12 @@ class _SubmitTransactionAccount extends StockAccount
     		break;
     		
     	default:
-    		$fFeeRatio = 0.0015;
+    		$fFeeRatio = 0.015;
     		break;
     	}
+    	$fAmount /= 1.0 + $fFeeRatio;
     	
-    	if ($sql->trans_sql->Insert($strGroupItemId, strval(intval($fAmount / floatval($strNetValue) / (1.0  + $fFeeRatio))), $strNetValue, strval_round($fFeeRatio * 0.0015), '}'.STOCK_DISP_ORDER))
+    	if ($sql->trans_sql->Insert($strGroupItemId, strval(intval($fAmount / floatval($strNetValue))), $strNetValue, strval_round($fAmount * $fFeeRatio * 0.1), '}'.STOCK_DISP_ORDER))
     	{
 /*	    	if ($strGroupItemId = $sql->GetId($strArbitrageId))
 	    	{

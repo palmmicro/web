@@ -131,7 +131,7 @@ function GetQdiiLinks($sym)
 	$strSymbol = $sym->GetSymbol();
 	$strFutureSymbol = QdiiGetFutureSymbol($strSymbol);
 	
-	$str = GetJisiluLofLink();
+	$str = GetJisiluQdiiLink();
 	
 	if ($sym->IsShenZhenLof())		$str .= ' '.GetShenZhenLofOfficialLink();
 	else if ($sym->IsShangHaiLof())	$str .= ' '.GetShangHaiLofOfficialLink();

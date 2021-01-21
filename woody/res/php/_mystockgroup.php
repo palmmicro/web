@@ -123,11 +123,11 @@ function _getSimilarLinks($strTitle)
         break;
         
     case 'lof':
-		$str = GetJisiluLofLink();
+		$str = GetJisiluQdiiLink();
         break;
         
     case 'lofhk':
-		$str = GetJisiluLofHkLink();
+		$str = GetJisiluQdiiLink(true);
         break;
         
     default:

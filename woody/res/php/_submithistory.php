@@ -96,7 +96,7 @@ function _submitStockHistory($ref)
 		_webUpdateYahooHistory($his_sql, $ref->GetYahooSymbol());
 		if ($ref->IsSymbolA() || $ref->IsSymbolH())
 		{   // Yahoo has wrong Chinese and Hongkong holiday record with '0' volume 
-			if ($ref->IsIndex() == false)
+//			if ($ref->IsIndex() == false)
 			{
 				$his_sql->DeleteByZeroVolume();
 			}
