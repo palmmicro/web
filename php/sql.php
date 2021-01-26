@@ -247,8 +247,8 @@ function SqlConnectDatabase()
 	if (UrlGetIp() != '222.125.92.104')
 	{
 		die('Failed to connect to server');
-	}*/
-
+	}
+*/
 	if (_ConnectDatabase() == false)
 	{
 		$str = 'Failed to connect to server: '.mysql_error();

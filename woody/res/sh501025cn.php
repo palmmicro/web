@@ -3,7 +3,8 @@ require('php/_qdiihk.php');
 
 function GetQdiiHkRelated($sym)
 {
-	$str = GetQdiiHkLinks($sym);
+	$str = GetPenghuaOfficialLink($sym->GetDigitA());
+	$str .= ' '.GetQdiiHkLinks($sym);
 	$str .= GetPenghuaSoftwareLinks();
 	return $str;
 }

@@ -275,7 +275,7 @@ function GetNuoAnSoftwareLinks()
 function GetPenghuaSoftwareLinks()
 {
     $ar = array('sh501025');
-    $strLink = GetExternalLink('http://www.phfund.com.cn', '鹏华基金');
+    $strLink = GetExternalLink(GetPenghuaFundUrl(), '鹏华基金');
     return GetCategorySoftwareLinks($ar, $strLink);
 }
 

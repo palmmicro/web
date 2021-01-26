@@ -61,6 +61,11 @@ function GetNuoAnOfficialLink($strDigitA)
     return GetOfficialLink(GetNuoAnFundUrl().'q/webFundInfo.action?fundCode='.$strDigitA, $strDigitA);
 }
 
+function GetPenghuaOfficialLink($strDigitA)
+{
+    return GetOfficialLink(GetPenghuaFundUrl().'web/FUND_'.$strDigitA, $strDigitA);
+}
+
 function GetXinChengOfficialLink($strDigitA)
 {
     return GetOfficialLink(GetXinChengFundUrl().'/pc/productDetail?fundcode='.$strDigitA, $strDigitA);
@@ -136,6 +141,14 @@ function GetSpdrOfficialLink($strSymbol)
 function GetInvescoOfficialLink($strSymbol)
 {
 	$str = 'https://www.invesco.com/us/financial-products/etfs/product-detail?productId='.$strSymbol;
+	return GetOfficialLink($str, $strSymbol);
+}
+
+// https://kraneshares.com/kweb/
+// https://kraneshares.com/csv/1_25_2021_kweb_holdings.csv
+function GetKraneOfficialLink($strSymbol)
+{
+	$str = 'https://kraneshares.com/'.strtolower($strSymbol).'/';
 	return GetOfficialLink($str, $strSymbol);
 }
 
