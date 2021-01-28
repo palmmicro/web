@@ -232,7 +232,7 @@ function GetGuoTaiSoftwareLinks()
 
 function GetHuaXiaSoftwareLinks()
 {
-    $ar = array('sh510330', 'sh513300', 'sz159920');
+    $ar = array('sh510330', 'sh513300', 'sh513660', 'sz159920');
     $strLink = GetExternalLink(GetHuaXiaFundUrl(), '华夏基金');
     return GetCategorySoftwareLinks($ar, $strLink);
 }
@@ -279,10 +279,10 @@ function GetPenghuaSoftwareLinks()
     return GetCategorySoftwareLinks($ar, $strLink);
 }
 
-function GetSouthernSoftwareLinks()
+function GetNanFangSoftwareLinks()
 {
-    $ar = array('sh501018', 'sh513660', 'sz160140');
-    $strLink = GetExternalLink('http://www.nffund.com', '南方基金');
+    $ar = array('sh501018', 'sh501302', 'sz160140');
+    $strLink = GetExternalLink(GetNanFangFundUrl(), '南方基金');
     return GetCategorySoftwareLinks($ar, $strLink);
 }
 
@@ -302,7 +302,7 @@ function GetUniversalSoftwareLinks()
 
 function GetYinHuaSoftwareLinks()
 {
-    $ar = array('sz161815');
+    $ar = array('sz161815', 'sz161831');
     $strLink = GetExternalLink(GetYinHuaFundUrl(), '银华基金');
     return GetCategorySoftwareLinks($ar, $strLink);
 }

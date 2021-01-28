@@ -3,10 +3,10 @@ require('php/_qdiihk.php');
 
 function GetQdiiHkRelated($sym)
 {
-	$str = GetJiaShiOfficialLink($sym->GetDigitA());
+	$str = GetYinHuaOfficialLink($sym->GetDigitA());
 	$str .= ' '.GetQdiiHkLinks($sym);
 	$str .= GetHSharesSoftwareLinks();
-	$str .= GetJiaShiSoftwareLinks();
+	$str .= GetYinHuaSoftwareLinks();
 	return $str;
 }
 

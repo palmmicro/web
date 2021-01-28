@@ -3,10 +3,11 @@ require('php/_qdiihk.php');
 
 function GetQdiiHkRelated($sym)
 {
-	$str = GetQdiiHkLinks($sym);
+	$str = GetNanFangOfficialLink($sym->GetDigitA());
+	$str .= ' '.GetQdiiHkLinks($sym);
 	$str .= GetSpySoftwareLinks();
 	$str .= GetQqqSoftwareLinks();
-	$str .= GetSouthernSoftwareLinks();
+	$str .= GetNanFangSoftwareLinks();
 	return $str;
 }
 

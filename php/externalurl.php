@@ -107,6 +107,11 @@ function GetEFundUrl()
 	return 'http://www.efunds.com.cn';
 }
 
+function GetNanFangFundUrl()
+{
+	return 'http://www.nffund.com/';
+}
+
 function GetNuoAnFundUrl()
 {
 	return 'https://trade.lionfund.com.cn/pc/';

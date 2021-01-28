@@ -3,9 +3,10 @@ require('php/_qdii.php');
 
 function GetQdiiRelated($sym)
 {
-	$str = GetQdiiLinks($sym);
+	$str = GetNanFangOfficialLink($sym->GetDigitA());
+	$str .= ' '.GetQdiiLinks($sym);
 	$str .= GetQqqSoftwareLinks();
-	$str .= GetSouthernSoftwareLinks();
+	$str .= GetNanFangSoftwareLinks();
 	return $str;
 }
 
