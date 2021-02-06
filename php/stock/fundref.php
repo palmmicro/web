@@ -9,6 +9,7 @@ class FundReference extends MysqlReference
     var $est_ref = false;       // MyStockRefenrence for fund net value estimation
     var $future_ref = false;
     var $future_etf_ref = false;
+    var $cny_ref;
 
     // estimated data
     var $fOfficialNetValue = false;
@@ -18,7 +19,6 @@ class FundReference extends MysqlReference
     var $strOfficialDate;
     
     var $sql;
-    var $forex_sql;
     
     function FundReference($strSymbol) 
     {
@@ -80,7 +80,7 @@ class FundReference extends MysqlReference
     
     function SetForex($strForex)
     {
-        $this->forex_sql = new NetValueHistorySql(SqlGetStockId($strForex));
+        $this->cny_ref = new CnyReference($strForex);
     }
 
     // Update database
@@ -141,6 +141,16 @@ class FundReference extends MysqlReference
     	return $this->est_ref;
     }
 
+    function GetFutureRef()
+    {
+    	return $this->future_ref;
+    }
+
+    function GetCnyRef()
+    {
+    	return $this->cny_ref;
+    }
+
     function GetFundPosition()
     {
 		if ($this->IsLofA())
@@ -148,11 +158,11 @@ class FundReference extends MysqlReference
 			switch ($this->GetSymbol())
 			{
 			case 'SZ162411':
-				$fRatio = 0.95;
+				$fRatio = 0.94;
 				break;
     		
 			case 'SZ162719':
-				$fRatio = 0.95;
+				$fRatio = 0.93;
 				break;
     		
 			default:

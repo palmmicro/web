@@ -61,6 +61,7 @@ class CnyReference extends MysqlReference
 	{
 		if ($this->sql)
 		{
+			if ($strDate == $this->GetDate())	return $this->GetPrice();
 			return $this->sql->GetClose($strDate);
 		}
 		return false;

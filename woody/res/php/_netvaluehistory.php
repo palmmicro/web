@@ -85,8 +85,8 @@ function _echoNetValueHistory($ref, $iStart, $iNum)
     {
     	$str .= ' '.GetQdiiAnalysisLinks($strSymbol);
     	
-        $cny_ref = new CnyReference('USCNY');	// Always create CNY Forex class instance first!
     	$ref = new QdiiReference($strSymbol);
+    	$cny_ref = $ref->GetCnyRef();
     	$est_ref = $ref->GetEstRef();
     }
     else

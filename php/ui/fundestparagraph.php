@@ -34,7 +34,7 @@ function _echoFundEstTableItem($ref, $bFair)
 
 function _getFundRealtimeStr($ref, $strRealtimeEst)
 {
-    $future_ref = $ref->future_ref;
+    $future_ref = $ref->GetFutureRef();
     $future_etf_ref = $ref->future_etf_ref;
    	$est_ref = $ref->GetEstRef();
     

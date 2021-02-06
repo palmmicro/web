@@ -8,7 +8,6 @@ require_once('/php/ui/etfparagraph.php');
 
 class QdiiGroupAccount extends FundGroupAccount 
 {
-    var $cny_ref;
     var $arLeverage = array();
     var $ar_leverage_ref = array();
     
@@ -118,10 +117,11 @@ class QdiiGroupAccount extends FundGroupAccount
     function _getAdjustString()
     {
     	$ref = $this->ref;
-        $est_ref = $ref->GetEstRef();
         $strSymbol = $ref->GetSymbol();
         $strDate = $ref->GetDate();
-        $strCNY = $ref->forex_sql->GetClose($strDate);
+        $est_ref = $ref->GetEstRef();
+        $cny_ref = $ref->GetCnyRef();
+        $strCNY = $cny_ref->GetClose($strDate);
         
        	$sql = new NetValueHistorySql($est_ref->GetStockId());
        	$strEst = $sql->GetClose($strDate);
@@ -152,9 +152,9 @@ function EchoMetaDescription()
     global $acct;
     
     $strDescription = $acct->GetStockDisplay();
-    $strBase = RefGetDescription($acct->cny_ref);
 
     $fund = $acct->GetRef();
+    $strBase = RefGetDescription($fund->GetCnyRef());
     $est_ref = $fund->GetEstRef();
     if ($est_ref)     $strBase .= '/'.RefGetDescription($est_ref);
     

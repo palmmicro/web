@@ -20,13 +20,13 @@ require_once('stock/stockref.php');
 
 require_once('stock/mysqlref.php');
 require_once('stock/mystockref.php');
+require_once('stock/cnyref.php');
+require_once('stock/futureref.php');
 require_once('stock/fundref.php');
 require_once('stock/qdiiref.php');
 require_once('stock/goldfundref.php');
 
-require_once('stock/cnyref.php');
 require_once('stock/forexref.php');
-require_once('stock/futureref.php');
 require_once('stock/hshareref.php');
 require_once('stock/etfref.php');
 

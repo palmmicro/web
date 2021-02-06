@@ -79,17 +79,9 @@ function _wxGetStockText($strSymbol)
         $str = TextFromFundReference($ref);
         if (in_arrayQdii($strSymbol))
         {
-        	$uscny_ref = new CnyReference('USCNY');
-	        $str .= WX_EOL.TextFromStockReference($uscny_ref); 
-	        
-	        $etf_ref = new MyStockReference(QdiiGetEstSymbol($strSymbol));
-	        $str .= WX_EOL.TextFromStockReference($etf_ref); 
-	        
-	        if ($strFutureSymbol = QdiiGetFutureSymbol($strSymbol))
-	        {
-	        	$future_ref = new FutureReference($strFutureSymbol);
-	        	$str .= WX_EOL.TextFromStockReference($future_ref); 
-	        }
+	        $str .= WX_EOL.TextFromStockReference($ref->GetCnyRef()); 
+	        $str .= WX_EOL.TextFromStockReference($ref->GetEstRef()); 
+	        if ($future_ref = $ref->GetFutureRef())		$str .= WX_EOL.TextFromStockReference($future_ref); 
 	    }
     }
     else

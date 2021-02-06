@@ -21,7 +21,6 @@ class _QdiiAccount extends QdiiGroupAccount
         $strCNH = 'fx_susdcnh';
         StockPrefetchArrayData(array_merge($this->GetLeverage(), array($strSymbol, $strOil, $strUSD, $strCNH)));
         
-        $this->cny_ref = new CnyReference('USCNY');	// Always create CNY Forex class instance first!
         $this->ref = new QdiiReference($strSymbol);
         if ($strOil)	$this->oil_ref = new FutureReference($strOil);
         $this->usd_ref = new ForexReference($strUSD);
@@ -109,7 +108,7 @@ function EchoAll()
     $stock_ref = $fund->stock_ref;
     
     EchoFundEstParagraph($fund);
-    EchoReferenceParagraph(array_merge(array($stock_ref, $fund->GetEstRef(), $fund->future_ref, $acct->oil_ref, $acct->usd_ref, $acct->cnh_ref, $acct->cny_ref), $acct->ar_leverage_ref));
+    EchoReferenceParagraph(array_merge(array($stock_ref, $fund->GetEstRef(), $fund->GetFutureRef(), $acct->oil_ref, $acct->usd_ref, $acct->cnh_ref, $fund->GetCnyRef()), $acct->ar_leverage_ref));
     $acct->EchoLeverageParagraph();
     EchoFundTradingParagraph($fund, '_onTradingUserDefined');    
 	EchoQdiiSmaParagraph($fund, '_onSmaUserDefined');

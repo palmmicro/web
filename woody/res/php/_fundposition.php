@@ -158,8 +158,9 @@ function _echoFundPositionData($csv, $ref, $cny_ref, $est_ref, $strInput)
     }
 }
 
-function _echoFundPositionParagraph($ref, $cny_ref, $strSymbol, $strInput)
+function _echoFundPositionParagraph($ref, $strSymbol, $strInput)
 {
+   	$cny_ref = $ref->GetCnyRef();
 	$est_ref = $ref->GetEstRef();
 	
  	$str = GetFundLinks($strSymbol);
@@ -230,8 +231,7 @@ function EchoAll()
    		$strSymbol = $ref->GetSymbol();
         if (in_arrayQdii($strSymbol))
         {
-        	$cny_ref = new CnyReference('USCNY');	// Always create CNY Forex class instance first!
-            _echoFundPositionParagraph(new QdiiReference($strSymbol), $cny_ref, $strSymbol, $strInput);
+            _echoFundPositionParagraph(new QdiiReference($strSymbol), $strSymbol, $strInput);
         }
     }
     $acct->EchoLinks(FUND_POSITION_PAGE);

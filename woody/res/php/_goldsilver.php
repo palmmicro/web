@@ -12,7 +12,6 @@ class _GoldSilverAccount extends FundGroupAccount
         StockPrefetchData($strSymbol);
         GetChinaMoney();
 
-        $this->cny_ref = new CnyReference('USCNY');
         $this->ref = new GoldFundReference($strSymbol);
         
         $this->CreateGroup(array($this->ref->stock_ref));
@@ -33,14 +32,15 @@ function EchoAll()
     global $acct;
 
 	$fund = $acct->GetRef();
+	$cny_ref = $fund->GetCnyRef();
     EchoFundEstParagraph($fund);
-    EchoReferenceParagraph(array($fund->GetEstRef(), $fund->future_ref, $acct->cny_ref, $fund->stock_ref));
+    EchoReferenceParagraph(array($fund->GetEstRef(), $fund->GetFutureRef(), $cny_ref, $fund->stock_ref));
     EchoFundTradingParagraph($fund);    
     EchoFundHistoryParagraph($fund);
 
     if ($group = $acct->EchoTransaction()) 
     {
-    	EchoMoneyParagraph($group, $acct->cny_ref->GetPrice());
+    	EchoMoneyParagraph($group, $cny_ref->GetPrice());
 	}
     
     _echoTestParagraph($acct);
@@ -62,11 +62,11 @@ function EchoMetaDescription()
     global $acct;
 
     $strDescription = $acct->GetStockDisplay();
-    $strCNY = RefGetStockDisplay($acct->cny_ref);
 
 	$fund = $acct->GetRef();
+    $strCNY = RefGetStockDisplay($fund->GetCnyRef());
     $strEst = RefGetStockDisplay($fund->GetEstRef());
-    $strFuture = RefGetStockDisplay($fund->future_ref);
+    $strFuture = RefGetStockDisplay($fund->GetFutureRef());
     $str = '根据'.$strEst.', '.$strFuture.'和'.$strCNY.'等因素计算'.$strDescription.'净值的网页工具.';
     EchoMetaDescriptionText($str);
 }

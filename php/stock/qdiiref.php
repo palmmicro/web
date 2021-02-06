@@ -137,10 +137,12 @@ class _QdiiReference extends FundReference
     {
 		$this->AdjustFactor();
         
+       	$cny_ref = $this->GetCnyRef();
        	$est_ref = $this->GetEstRef();
         if ($est_ref == false)    return;
+        
         $strDate = $est_ref->GetDate();
-        if ($this->strCNY = $this->forex_sql->GetClose($strDate))
+        if ($this->strCNY = $cny_ref->GetClose($strDate))
         {
             $this->fOfficialNetValue = $this->GetQdiiValue($this->_getEstVal(), $this->strCNY);
             $this->strOfficialDate = $strDate;
@@ -159,7 +161,8 @@ class _QdiiReference extends FundReference
 
     function EstRealtimeNetValue()
     {
-        $strCNY = $this->forex_sql->GetCloseNow();
+       	$cny_ref = $this->GetCnyRef();
+        $strCNY = $cny_ref->GetPrice();
         if ($this->strCNY == false)
         {
             $this->strCNY = $strCNY;
@@ -171,22 +174,22 @@ class _QdiiReference extends FundReference
         $strEst = $this->_getEstVal();
         $this->fFairNetValue = $this->GetQdiiValue($strEst, $strCNY);
         
-		if ($this->future_ref)
+		if ($future_ref = $this->GetFutureRef())
         {
             if ($this->future_etf_ref == false)
             {
                 $this->future_etf_ref = $est_ref;
             }
-            $this->future_ref->LoadEtfFactor($this->future_etf_ref);
+            $future_ref->LoadEtfFactor($this->future_etf_ref);
             
             $fFutureEtfPrice = floatval($this->future_etf_ref->GetPrice());
             if ($fFutureEtfPrice != 0.0)
             {
             	$fRealtime = floatval($strEst);
-            	$fFuture = $this->future_ref->EstByEtf($fFutureEtfPrice);
+            	$fFuture = $future_ref->EstByEtf($fFutureEtfPrice);
             	if ($fFuture != 0.0)
             	{
-            		$fRealtime *= floatval($this->future_ref->GetPrice()) / $fFuture;
+            		$fRealtime *= floatval($future_ref->GetPrice()) / $fFuture;
             	}
             	$this->fRealtimeNetValue = $this->GetQdiiValue(strval($fRealtime), $strCNY);
             }
@@ -198,7 +201,8 @@ class _QdiiReference extends FundReference
         if ($this->UpdateOfficialNetValue())
         {
             $strDate = $this->GetDate();
-            if ($strCNY = $this->forex_sql->GetClose($strDate))
+	       	$cny_ref = $this->GetCnyRef();
+            if ($strCNY = $cny_ref->GetClose($strDate))
             {
             	$est_ref = $this->GetEstRef();
                 if (RefHasData($est_ref) == false)    return false;

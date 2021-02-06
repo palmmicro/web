@@ -11,7 +11,6 @@ class _QdiiHkAccount extends QdiiGroupAccount
         $this->GetWebData(QdiiHkGetEstSymbol($strSymbol));
         StockPrefetchArrayData(array_merge($this->GetLeverage(), array($strSymbol)));
 
-        $this->cny_ref = new CnyReference('HKCNY');
         $this->ref = new QdiiHkReference($strSymbol);
  
 		$this->QdiiCreateGroup();
@@ -24,7 +23,7 @@ function EchoAll()
     
    	$fund = $acct->GetRef();
     EchoFundEstParagraph($fund);
-    EchoReferenceParagraph(array($fund->stock_ref, $fund->GetEstRef(), $acct->cny_ref));
+    EchoReferenceParagraph(array($fund->stock_ref, $fund->GetEstRef(), $fund->GetCnyRef()));
     $acct->EchoLeverageParagraph();
     EchoFundTradingParagraph($fund);    
 	EchoQdiiSmaParagraph($fund);
