@@ -3,7 +3,7 @@ require_once('smaparagraph.php');
 
 function _callbackQdiiSma($qdii_ref, $strEst = false)
 {
-	return $strEst ? strval($qdii_ref->GetQdiiValue($strEst, $qdii_ref->strCNY)) : $qdii_ref->stock_ref;
+	return $strEst ? strval($qdii_ref->GetQdiiValue($strEst)) : $qdii_ref->GetStockRef();
 }
 
 function EchoQdiiSmaParagraph($qdii_ref, $callback2 = false)

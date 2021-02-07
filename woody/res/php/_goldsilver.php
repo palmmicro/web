@@ -40,7 +40,7 @@ function EchoAll()
 
     if ($group = $acct->EchoTransaction()) 
     {
-    	EchoMoneyParagraph($group, $cny_ref->GetPrice());
+    	EchoMoneyParagraph($group, $cny_ref);
 	}
     
     _echoTestParagraph($acct);

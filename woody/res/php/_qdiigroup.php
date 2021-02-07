@@ -66,48 +66,52 @@ class QdiiGroupAccount extends FundGroupAccount
         }
     }
     
-    function ConvertToEtfTransaction($etf_convert_trans, $qdii_trans)
+    function ConvertToEtfTransaction($fund, $fCNY, $etf_convert_trans, $qdii_trans)
     {
-        $fund = $this->ref;
-        $etf_convert_trans->AddTransaction($fund->GetEstQuantity($qdii_trans->iTotalShares), $qdii_trans->fTotalCost / floatval($fund->strCNY));
+        $etf_convert_trans->AddTransaction($fund->GetEstQuantity($qdii_trans->iTotalShares), $qdii_trans->fTotalCost / $fCNY);
     }
     
-    function ConvertToQdiiTransaction($qdii_convert_trans, $etf_trans)
+    function ConvertToQdiiTransaction($fund, $fCNY, $qdii_convert_trans, $etf_trans)
     {
-        $fund = $this->ref;
-        $qdii_convert_trans->AddTransaction($fund->GetQdiiQuantity($etf_trans->iTotalShares), $etf_trans->fTotalCost * floatval($fund->strCNY));
+        $qdii_convert_trans->AddTransaction($fund->GetQdiiQuantity($etf_trans->iTotalShares), $etf_trans->fTotalCost * $fCNY);
     }
     
     function EchoArbitrageParagraph($group)
     {
+    	$fund = $this->GetRef();
+    	$stock_ref = $fund->GetStockRef();
+    	$est_ref = $fund->GetEstRef();
+    	$cny_ref = $fund->GetCnyRef();
+    	$fCNY = floatval($cny_ref->GetPrice());
+	
         $qdii_trans = $group->GetStockTransactionCN();
         $etf_trans = $group->GetStockTransactionNoneCN();
         $group->OnArbitrage();
         
         $strGroupId = $group->GetGroupId();
         
-        $qdii_convert_trans = new MyStockTransaction($this->ref->stock_ref, $strGroupId);
+        $qdii_convert_trans = new MyStockTransaction($stock_ref, $strGroupId);
         $qdii_convert_trans->Add($qdii_trans);
-        $this->ConvertToQdiiTransaction($qdii_convert_trans, $etf_trans);
+        $this->ConvertToQdiiTransaction($fund, $fCNY, $qdii_convert_trans, $etf_trans);
         
-        $etf_convert_trans = new MyStockTransaction($this->ref->GetEstRef(), $strGroupId);
+        $etf_convert_trans = new MyStockTransaction($est_ref, $strGroupId);
         $etf_convert_trans->Add($etf_trans);
-        $this->ConvertToEtfTransaction($etf_convert_trans, $qdii_trans);
+        $this->ConvertToEtfTransaction($fund, $fCNY, $etf_convert_trans, $qdii_trans);
     
         EchoArbitrageTableBegin();
 		$arbi_trans = $group->arbi_trans;
         $sym = $arbi_trans->ref;
         if ($sym->IsSymbolA())
         {
-            $arbi_convert_trans = new MyStockTransaction($this->ref->GetEstRef(), $strGroupId);
-            $this->ConvertToEtfTransaction($arbi_convert_trans, $arbi_trans);
+            $arbi_convert_trans = new MyStockTransaction($est_ref, $strGroupId);
+            $this->ConvertToEtfTransaction($fund, $fCNY, $arbi_convert_trans, $arbi_trans);
             EchoArbitrageTableItem2($arbi_trans, $qdii_convert_trans); 
             EchoArbitrageTableItem2($arbi_convert_trans, $etf_convert_trans); 
         }
         else
         {
-            $arbi_convert_trans = new MyStockTransaction($this->ref->stock_ref, $strGroupId);
-            $this->ConvertToQdiiTransaction($arbi_convert_trans, $arbi_trans);
+            $arbi_convert_trans = new MyStockTransaction($stock_ref, $strGroupId);
+            $this->ConvertToQdiiTransaction($fund, $fCNY, $arbi_convert_trans, $arbi_trans);
             EchoArbitrageTableItem2($arbi_convert_trans, $qdii_convert_trans); 
             EchoArbitrageTableItem2($arbi_trans, $etf_convert_trans); 
         }

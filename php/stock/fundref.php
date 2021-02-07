@@ -136,6 +136,11 @@ class FundReference extends MysqlReference
    		return parent::GetPercentageDisplay($strDivisor, $strDividend);
     }
     
+    function GetStockRef()
+    {
+    	return $this->stock_ref;
+    }
+
     function GetEstRef()
     {
     	return $this->est_ref;

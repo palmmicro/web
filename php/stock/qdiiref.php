@@ -115,7 +115,7 @@ function QdiiHkGetAllSymbolArray($strSymbol)
 
 class _QdiiReference extends FundReference
 {
-    var $strCNY = false;
+    var $strOfficialCNY = false;
     
     function _QdiiReference($strSymbol, $strForex)
     {
@@ -142,9 +142,9 @@ class _QdiiReference extends FundReference
         if ($est_ref == false)    return;
         
         $strDate = $est_ref->GetDate();
-        if ($this->strCNY = $cny_ref->GetClose($strDate))
+        if ($this->strOfficialCNY = $cny_ref->GetClose($strDate))
         {
-            $this->fOfficialNetValue = $this->GetQdiiValue($this->_getEstVal(), $this->strCNY);
+            $this->fOfficialNetValue = $this->GetQdiiValue($this->_getEstVal(), $this->strOfficialCNY);
             $this->strOfficialDate = $strDate;
             $this->UpdateEstNetValue();
         }
@@ -155,24 +155,24 @@ class _QdiiReference extends FundReference
             {
                 $this->fOfficialNetValue = floatval($record['close']);
                 $this->strOfficialDate = $record['date'];
+                $this->strOfficialCNY = $cny_ref->GetClose($this->strOfficialDate);
+            }
+            else
+            {
+                $this->strOfficialCNY = $cny_ref->GetPrice();
             }
         }
     }
 
     function EstRealtimeNetValue()
     {
-       	$cny_ref = $this->GetCnyRef();
-        $strCNY = $cny_ref->GetPrice();
-        if ($this->strCNY == false)
-        {
-            $this->strCNY = $strCNY;
-        }
-        
        	$est_ref = $this->GetEstRef();
         if ($est_ref == false)    return;
         
         $strEst = $this->_getEstVal();
-        $this->fFairNetValue = $this->GetQdiiValue($strEst, $strCNY);
+
+       	$cny_ref = $this->GetCnyRef();
+       	if ($cny_ref->GetDate() != $this->strOfficialDate)		$this->fFairNetValue = $this->GetQdiiValue($strEst);
         
 		if ($future_ref = $this->GetFutureRef())
         {
@@ -191,7 +191,7 @@ class _QdiiReference extends FundReference
             	{
             		$fRealtime *= floatval($future_ref->GetPrice()) / $fFuture;
             	}
-            	$this->fRealtimeNetValue = $this->GetQdiiValue(strval($fRealtime), $strCNY);
+            	$this->fRealtimeNetValue = $this->GetQdiiValue(strval($fRealtime));
             }
         }
     }
@@ -231,8 +231,14 @@ class _QdiiReference extends FundReference
         return false;
     }
 
-    function GetQdiiValue($strEst, $strCNY)
+    function GetQdiiValue($strEst, $strCNY = false)
     {
+    	if ($strCNY == false)
+    	{
+	       	$cny_ref = $this->GetCnyRef();
+	       	$strCNY = $cny_ref->GetPrice();
+    	}
+    	
     	if ($this->fFactor)
     	{
     		$fVal = floatval($strEst) * floatval($strCNY) / $this->fFactor;
@@ -243,7 +249,9 @@ class _QdiiReference extends FundReference
     
     function GetEstValue($strQdii)
     {
-        return strval(floatval($strQdii) * $this->fFactor / floatval($this->strCNY));
+       	$cny_ref = $this->GetCnyRef();
+       	$strCNY = $cny_ref->GetPrice();
+        return strval(floatval($strQdii) * $this->fFactor / floatval($strCNY));
     }
     
     function GetEstQuantity($iQdiiQuantity)

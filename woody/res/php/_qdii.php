@@ -48,7 +48,7 @@ function _onSmaUserDefinedVal($strVal)
     	}
     }
 	$fAmount = floatval($strAmount);
-    $iQuantity = intval($fAmount / floatval($fund->strCNY) / floatval($strVal));
+    $iQuantity = intval($fAmount / floatval($fund->strOfficialCNY) / floatval($strVal));
     $strQuantity = strval($iQuantity);
     if ($group) 
     {
@@ -105,19 +105,21 @@ function EchoAll()
    	global $acct;
     
    	$fund = $acct->GetRef();
-    $stock_ref = $fund->stock_ref;
+    $stock_ref = $fund->GetStockRef();
+	$est_ref = $fund->GetEstRef();
+	$cny_ref = $fund->GetCnyRef();
     
     EchoFundEstParagraph($fund);
-    EchoReferenceParagraph(array_merge(array($stock_ref, $fund->GetEstRef(), $fund->GetFutureRef(), $acct->oil_ref, $acct->usd_ref, $acct->cnh_ref, $fund->GetCnyRef()), $acct->ar_leverage_ref));
+    EchoReferenceParagraph(array_merge(array($stock_ref, $est_ref, $fund->GetFutureRef(), $acct->oil_ref, $acct->usd_ref, $acct->cnh_ref, $cny_ref), $acct->ar_leverage_ref));
     $acct->EchoLeverageParagraph();
     EchoFundTradingParagraph($fund, '_onTradingUserDefined');    
 	EchoQdiiSmaParagraph($fund, '_onSmaUserDefined');
-    EchoEtfArraySmaParagraph($fund->GetEstRef(), $acct->GetLeverageRef());
+    EchoEtfArraySmaParagraph($est_ref, $acct->GetLeverageRef());
     EchoFundHistoryParagraph($fund);
       
     if ($group = $acct->EchoTransaction()) 
     {
-        EchoMoneyParagraph($group, $fund->strCNY);
+        EchoMoneyParagraph($group, $cny_ref);
         $acct->EchoArbitrageParagraph($group);
 	}
 	    

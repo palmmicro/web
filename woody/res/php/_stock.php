@@ -107,8 +107,11 @@ function EchoPromotionHead($strVer = false, $strLoginId = false)
 
 // ****************************** Money Paragraph *******************************************************
 
-function EchoMoneyParagraph($group, $strUSDCNY = false, $strHKDCNY = false)
+function EchoMoneyParagraph($group, $uscny_ref = false, $hkcny_ref = false)
 {
+	$strUSDCNY = $uscny_ref ? $uscny_ref->GetPrice() : false;
+	$strHKDCNY = $hkcny_ref ? $hkcny_ref->GetPrice() : false;
+	
     _EchoMoneyParagraphBegin('折算货币');
     _EchoMoneyGroupData($group, $strUSDCNY, $strHKDCNY);
     EchoTableParagraphEnd();

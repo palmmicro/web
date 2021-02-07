@@ -22,8 +22,9 @@ function EchoAll()
    	global $acct;
     
    	$fund = $acct->GetRef();
+	$cny_ref = $fund->GetCnyRef();
     EchoFundEstParagraph($fund);
-    EchoReferenceParagraph(array($fund->stock_ref, $fund->GetEstRef(), $fund->GetCnyRef()));
+    EchoReferenceParagraph(array($fund->stock_ref, $fund->GetEstRef(), $cny_ref));
     $acct->EchoLeverageParagraph();
     EchoFundTradingParagraph($fund);    
 	EchoQdiiSmaParagraph($fund);
@@ -31,7 +32,7 @@ function EchoAll()
 
     if ($group = $acct->EchoTransaction()) 
     {
-        EchoMoneyParagraph($group, false, $fund->strCNY);
+        EchoMoneyParagraph($group, false, $cny_ref);
         $acct->EchoArbitrageParagraph($group);
 	}
 	    
