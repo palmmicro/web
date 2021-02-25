@@ -169,10 +169,8 @@ class _QdiiReference extends FundReference
        	$est_ref = $this->GetEstRef();
         if ($est_ref == false)    return;
         
-        $strEst = $this->_getEstVal();
-
        	$cny_ref = $this->GetCnyRef();
-       	if ($cny_ref->GetDate() != $this->strOfficialDate)		$this->fFairNetValue = $this->GetQdiiValue($strEst);
+       	if (($cny_ref->GetDate() != $this->strOfficialDate) || ($est_ref->GetDate() != $this->strOfficialDate))		$this->fFairNetValue = $this->GetQdiiValue($this->_getEstVal());
         
 		if ($future_ref = $this->GetFutureRef())
         {
@@ -185,7 +183,7 @@ class _QdiiReference extends FundReference
             $fFutureEtfPrice = floatval($this->future_etf_ref->GetPrice());
             if ($fFutureEtfPrice != 0.0)
             {
-            	$fRealtime = floatval($strEst);
+            	$fRealtime = floatval($this->_getEstVal());
             	$fFuture = $future_ref->EstByEtf($fFutureEtfPrice);
             	if ($fFuture != 0.0)
             	{

@@ -1,34 +1,34 @@
 <?php
 require_once('debug.php');
 
-// 微信公众号公共模板, 返回输入信息
-define('WX_DEBUG_VER', '版本118');		
+// 电报公共模板, 返回输入信息
+define('TG_DEBUG_VER', '版本001');		
 
-define('WX_EOL', "\r\n");
-define('MAX_WX_MSG_LEN', 2048);
+define('TG_EOL', "\r\n");
+define('MAX_TG_MSG_LEN', 2048);
 
-define('WX_MSG_TYPE_EVENT', 'event');
-define('WX_MSG_TYPE_FILE', 'file');
-define('WX_MSG_TYPE_IMAGE', 'image');
-define('WX_MSG_TYPE_LINK', 'link');
-define('WX_MSG_TYPE_LOCATION', 'location');
-define('WX_MSG_TYPE_SHORTVIDEO', 'shortvideo');
-define('WX_MSG_TYPE_TEXT', 'text');
-define('WX_MSG_TYPE_VOICE', 'voice');
+require('_tgprivate.php');
+define('TG_API_URL', 'https://api.telegram.org/bot'.TG_TOKEN.'/');
 
-// Account https://blog.csdn.net/zxq1474477147/article/details/53337683
-// BLE https://blog.csdn.net/skdev/article/details/51000551
-
-//define your token
-//define('TOKEN', 'woody1234');
-require('_wxprivate.php');
-
-class WeixinCallback
+class TelegramCallback
 {
+	function SetCallback()
+	{
+		$strUrl = TG_API_URL.'setWebhook?url='.UrlGetServer().'/php/telegram.php';
+		if ($str = url_get_contents($strUrl))
+		{
+			echo $str;
+		}
+	}
+
 	public function Run()
     {
-        //valid signature , option
-        if ($this->checkSignature())
+        $update = json_decode(file_get_contents('php://input') ,true);
+        $chat_id = $update['message']['chat']['id'];
+        $name = $update['message']['from']['first_name'];
+        $message = 'Hi '.$name;
+        url_get_contents(TG_API_URL.'sendmessage?text='.$message.'&chat_id='.$chat_id);        //valid signature , option
+/*        if ($this->checkSignature())
         {
             if (isset($_GET['echostr']))
             {
@@ -38,9 +38,10 @@ class WeixinCallback
             {
                 $this->responseMsg();
             }
-        }
+        }*/
     }
     
+	/*	
     private function responseMsg()
     {
 		$postStr = $GLOBALS['HTTP_RAW_POST_DATA'];		//get post data, May be due to the different environments
@@ -226,6 +227,20 @@ class WeixinCallback
     {
     	return $this->GetUnknownText('未知信息类型'.$strType, $strUserName);
     }
+*/    
 }
+
+class TelegramStock extends TelegramCallback
+{
+    function TelegramStock() 
+    {
+//    	SqlConnectDatabase();
+//		InitGlobalStockSql();
+    }
+}
+
+    $acct = new TelegramStock();
+    $acct->Run();
+//    $acct->SetCallback();
 
 ?>

@@ -63,9 +63,15 @@ Here the plate goes around so, and the reason it's two to one is . . ." and I sh
 <p>2020年7月11日
 <br />Sony退出笔记本电脑市场后我失去了品牌忠诚度, 先后买了一台17寸的HP, 一台14寸的DELL和一台17寸的联想. 6月份端午假期期间, 最新的联想和DELL居然同时屏幕坏了. 被迫应急买了一台24寸的DELL一体机.
 多年来第一次用中文版本的WINDOWS, 发现调用<a href="#winscp">WinSCP</a>后LOG文件中<b>Upload successful</b>变成了<b>上传成功</b>, 必须修改判断重新编译<a href="#webtool">Woody的网站工具</a>.
-<br />在一体机上新装了Visual Studio 2019, 结果VS2017下能编译的网站工具罢工了, 提示无法打开文件MSCOREE.lib. 百度了一下, 碰到这个问题的人不少, 满屏都是如何找老文件的解决方案, 实在蠢得不能忍.
+<br />在一体机上新装了Visual Studio 2019, 结果VS2017下能编译的网站工具罢工了, 提示<font color=red>无法打开文件MSCOREE.lib</font>. 百度了一下, 碰到这个问题的人不少, 满屏都是如何找老文件的解决方案, 实在蠢得不能忍.
 用bing的国际版查了一下英文社区, 同样很多人碰到了这个问题, 不过解决方案靠谱多了, 原来安装时缺省是不装C++/CLI模块的, 补充安装一下就好.
 <br /><img src=../photo/20200711.jpg alt="My 2 broken DELL and LENOVO notebooks, original photo taken on Jun 14, 2019" />
+</p> 
+
+<h3>由于目标计算机积极拒绝无法连接</h3>
+<p>2021年2月24日
+<br />托<a href="20141204cn.php">林近岚</a>上小学的福, 今天换了一个带VPN的路由器, 结果发现<a href="#winscp">WinSCP</a>罢工了, 提示<font color=red>由于目标计算机积极拒绝, 无法连接.</font>
+<br />让我更加苦恼的是, 这个基于<a href="20110608cn.php">OpenWrt</a>软件的路由器用户界面中竟然没有关闭VPN的选项, 为了避免来回切换硬件路由器, 我现在只好用手机开移动热点来使用<a href="#ftps">FTPS</a>功能. 本来还以为以后FTP上传文件会更快, 结果现在反而更麻烦了. 
 </p> 
 
 </div>
