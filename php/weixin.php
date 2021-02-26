@@ -1,11 +1,12 @@
 <?php
+require('_wxprivate.php');
 require_once('debug.php');
 
 // 微信公众号公共模板, 返回输入信息
-define('WX_DEBUG_VER', '版本118');		
+define('WX_DEBUG_VER', '版本121');		
 
-define('WX_EOL', "\r\n");
-define('MAX_WX_MSG_LEN', 2048);
+define('BOT_EOL', "\r\n");
+define('MAX_BOT_MSG_LEN', 2048);
 
 define('WX_MSG_TYPE_EVENT', 'event');
 define('WX_MSG_TYPE_FILE', 'file');
@@ -15,13 +16,6 @@ define('WX_MSG_TYPE_LOCATION', 'location');
 define('WX_MSG_TYPE_SHORTVIDEO', 'shortvideo');
 define('WX_MSG_TYPE_TEXT', 'text');
 define('WX_MSG_TYPE_VOICE', 'voice');
-
-// Account https://blog.csdn.net/zxq1474477147/article/details/53337683
-// BLE https://blog.csdn.net/skdev/article/details/51000551
-
-//define your token
-//define('TOKEN', 'woody1234');
-require('_wxprivate.php');
 
 class WeixinCallback
 {
@@ -70,27 +64,19 @@ class WeixinCallback
 		
 	private function checkSignature()
 	{
-        // you must define TOKEN by yourself
-        if (!defined('TOKEN')) {
-            throw new Exception('TOKEN is not defined!');
+        if (!defined('WX_TOKEN')) 
+        {
+            throw new Exception('WX_TOKEN is not defined!');
         }
         
         if (($signature = UrlGetQueryValue('signature')) == false)	return false;
         if (($timestamp = UrlGetQueryValue('timestamp')) == false)	return false;
         if (($nonce = UrlGetQueryValue('nonce')) == false)			return false;
         		
-		$token = TOKEN;
-		$tmpArr = array($token, $timestamp, $nonce);
-        // use SORT_STRING rule
-		sort($tmpArr, SORT_STRING);
-		$tmpStr = implode( $tmpArr );
-		$tmpStr = sha1( $tmpStr );
-		
-		if( $tmpStr == $signature ){
-			return true;
-		}else{
-			return false;
-		}
+		$ar = array(WX_TOKEN, $timestamp, $nonce);
+		sort($ar, SORT_STRING);
+		$str = implode($ar);
+		return (sha1($str) == $signature) ? true : false;
 	}
 
 	private function handleMessage($postObj)
@@ -153,14 +139,14 @@ class WeixinCallback
     
     function GetUnknownText($strContents, $strUserName)
     {
-    	$str = $strContents.WX_EOL;
+    	$str = $strContents.BOT_EOL;
     	$str .= '没有匹配到信息.';
     	return $str;
     }
 
     function OnText($strText, $strUserName)
     {
-    	return $strText.WX_EOL;	// echo
+    	return $strText.BOT_EOL;	// echo
     }
 
     function OnVoice($strContents, $strUserName)
@@ -180,7 +166,7 @@ class WeixinCallback
     	switch ($strContents)
     	{
     	case 'subscribe':
-    		return '欢迎订阅, 本账号为自动回复, 请用语音或者键盘输入要查找的内容.'.WX_EOL;
+    		return '欢迎订阅, 本账号为自动回复, 请用语音或者键盘输入要查找的内容.'.BOT_EOL;
 
     	case 'unsubscribe':
     		return '再见';
