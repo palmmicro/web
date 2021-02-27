@@ -117,7 +117,10 @@ function GetSinaQuotesUrl($strSinaSymbols)
 function GetSinaQuotes($strSinaSymbols)
 {
 	global $acct;
-	if ($acct->AllowCurl() == false)		return false;
+	if (method_exists($acct, 'AllowCurl'))
+	{
+		if ($acct->AllowCurl() == false)		return false;
+	}
 	
 	$strFileName = DebugGetPathName('debugsina.txt');
     if (file_exists($strFileName))

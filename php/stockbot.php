@@ -146,6 +146,8 @@ function _botGetStockArrayText($arSymbol, $str, $strVersion)
 
 function StockBotGetStr($strText, $strVersion)
 {
+	InitGlobalStockSql();
+	
 	$strText = str_replace('【', '', $strText);
 	$strText = str_replace('】', '', $strText);
 	$strText = str_replace('，', '', $strText);

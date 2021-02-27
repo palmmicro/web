@@ -15,14 +15,8 @@ class WeixinStock extends WeixinCallback
     function WeixinStock() 
     {
     	SqlConnectDatabase();
-		InitGlobalStockSql();
     }
 
-    function AllowCurl()
-    {
-    	return true;
-    }
-    
     function GetVersion()
     {
     	return WX_DEBUG_VER.' '.GetWeixinDevLink('使用说明');

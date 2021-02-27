@@ -73,9 +73,6 @@ function InitGlobalStockSql()
 
 function GetStockSql()
 {
-//	global $acct;
-	
-//	return $acct->GetStockSql();
 	global $g_stock_sql;
 	return $g_stock_sql;
 }

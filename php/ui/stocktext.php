@@ -25,7 +25,8 @@ function TextFromStockReference($ref)
     if ($ref->HasData() == false)        return false;
 
     $str = RefGetDescription($ref).BOT_EOL;
-    $str .= $ref->GetStockLink().BOT_EOL;
+//    $str .= $ref->GetStockLink().BOT_EOL;
+    $str .= $ref->GetSymbol().BOT_EOL;
     $str .= STOCK_DISP_PRICE._textPriceVolume($ref);
     $str .= STOCK_DISP_CHANGE.':'.$ref->GetPercentageText().BOT_EOL;
     if ($ref->strOpen)			$str .= STOCK_DISP_OPEN.':'.rtrim0($ref->strOpen).BOT_EOL;
@@ -37,9 +38,12 @@ function TextFromStockReference($ref)
 
 function TextFromAhReference($hshare_ref)
 {
-	$str = 'H股代码:'.RefGetMyStockLink($hshare_ref).BOT_EOL;
+/*	$str = 'H股代码:'.RefGetMyStockLink($hshare_ref).BOT_EOL;
 	if ($hshare_ref->a_ref)		$str .= 'A股代码:'.RefGetMyStockLink($hshare_ref->a_ref).BOT_EOL;
-	if ($hshare_ref->adr_ref)	$str .= 'ADR代码:'.RefGetMyStockLink($hshare_ref->adr_ref).BOT_EOL;
+	if ($hshare_ref->adr_ref)	$str .= 'ADR代码:'.RefGetMyStockLink($hshare_ref->adr_ref).BOT_EOL;*/
+	$str = 'H股代码:'.$hshare_ref->GetSymbol().BOT_EOL;
+	if ($hshare_ref->a_ref)		$str .= 'A股代码:'.$hshare_ref->a_ref->GetSymbol().BOT_EOL;
+	if ($hshare_ref->adr_ref)	$str .= 'ADR代码:'.$hshare_ref->adr_ref->GetSymbol().BOT_EOL;
 	if ($hshare_ref->a_ref)		$str .= 'AH'.STOCK_DISP_RATIO.':'.strval_round($hshare_ref->GetAhPriceRatio()).BOT_EOL;
 	if ($hshare_ref->adr_ref)	$str .= 'ADRH'.STOCK_DISP_RATIO.':'.strval_round($hshare_ref->GetAdrhPriceRatio()).BOT_EOL;
 	return $str;
@@ -49,11 +53,13 @@ function TextFromAbReference($ab_ref, $bStockA = true)
 {
 	if ($bStockA)
 	{
-		$str = 'B股代码:'.RefGetMyStockLink($ab_ref->GetPairRef()).BOT_EOL;
+//		$str = 'B股代码:'.RefGetMyStockLink($ab_ref->GetPairRef()).BOT_EOL;
+		$str = 'B股代码:'.$ab_ref->GetPairRef()->GetSymbol().BOT_EOL;
 	}
 	else
 	{
-		$str = 'A股代码:'.RefGetMyStockLink($ab_ref).BOT_EOL;
+//		$str = 'A股代码:'.RefGetMyStockLink($ab_ref).BOT_EOL;
+		$str = 'A股代码:'.$ab_ref->GetSymbol().BOT_EOL;
 	}
 	return $str;
 }
