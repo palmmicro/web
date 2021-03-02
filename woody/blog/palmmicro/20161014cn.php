@@ -14,7 +14,7 @@
 <?php DemoPrefetchData(); ?>
 
 <div>
-<h1>Palmmicro微信公众号sz162411</h1>
+<h1>Palmmicro<a name="wechat">微信公众号</a>sz162411</h1>
 <p>2016年10月14日
 <br />作为一个搞了16年互联网产品的公司, <a href="20080326cn.php">Palmmicro</a>居然一直没有开发自己的手机App. 世界变化快, 现在貌似也不用自己开发App, 大多数的需求用微信公众号就足够满足.
 <br />因为一年多前做<a href="../entertainment/20150818cn.php">华宝油气净值</a>估算页面的时候就跟提供QDII基金估值的微信公众号小飞猪<font color=orange>flyingpig33</font>学习过, 我一直觉得加微信公众号是件非常简单的事情,
@@ -40,7 +40,7 @@
 <br /><img src=../../image/wx.jpg alt="Palmmicro wechat public account sz162411 small size QR code" />
 </p>
 
-<h3><a name="chinastock">用微信公众号查询A股交易数据</a></h3>
+<h3>用微信公众号查询<a name="chinastock">A股交易数据</a></h3>
 <p>2016年10月20日
 <br />今天发现有个微信公众号用户用语音查询<font color=gray>交通银行</font>, 没查到因为数据库中根本没有它. 不过因此刺激了我给加上查询所有<a href="../entertainment/20141016cn.php">股票</a>交易数据的功能.
 <br />首先我要把A股3000多只股票都加到数据库中. 开始我想直接开个大循环从000001到699999从新浪拿数据, 后来觉得太蠢了, 还担心新浪的数据接口把我列入黑名单.
@@ -50,7 +50,7 @@
 <?php EchoUpdateUsStockLink(); ?>
 </p>
 
-<h3><a name="chinafund">用微信公众号查询A股基金数据</a></h3>
+<h3>用微信公众号查询<a name="chinafund">A股基金数据</a></h3>
 <p>2016年10月28日
 <br />昨天让我广发证券网上开户的经理帮忙宣传一下微信公众号查股票数据, 随即加进来2个人. 
 其中一个上来就查<font color=gray>159915</font>, 发现没有数据后立马取消了订阅, 又刺激了我给数据库加上所有A股基金数据.
@@ -111,6 +111,13 @@
 <p>2019年11月22日
 <br />数据来源: 
 <br /><?php EchoLink(GetYahooComponentsUrl()); ?>	<?php EchoUpdateDowJonesLink(); ?>
+</p>
+
+<h3><a name="telegram">电报机器人</a></h3>
+<p>2021年2月27日
+<br />因为微信个人订阅号的各种限制, 最近削尖铅笔基于Telegram电报API开发了机器人@palmmicrobot, 把<a href="#wechat">微信公众号</a>上的查询功能完全复制到了电报软件上. 同时创建了@palmmicrocast频道, 用来主动发布用户在各种渠道查询过程中碰到的可能需要提醒的信息.
+<br />电报是开源的, 而且鼓励大家把它无缝集成到各种应用场景中. 墙内使用电报可以从<?php EchoLink('https://0.plus'); ?>下载安装BananaTok手机APP, 也可以使用非官方的WEB版本<?php EchoLink('https://web.telegram.im'); ?>.
+<br />不忘初心, 接下来打算写个用电报机器人管理的基于MQTT协议的IoT模块.
 </p>
 
 </div>

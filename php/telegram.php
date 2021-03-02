@@ -4,7 +4,7 @@ require_once('debug.php');
 require_once('stockbot.php');
 
 // 电报公共模板, 返回输入信息
-define('TG_DEBUG_VER', '版本007');		
+define('TG_DEBUG_VER', '版本008');		
 
 define('BOT_EOL', "\r\n");
 define('MAX_BOT_MSG_LEN', 2048);
@@ -50,7 +50,7 @@ class TelegramCallback
 	
 	function _sendText($strText, $chat_id) 
 	{
-        url_get_contents(TG_API_URL.'sendmessage?text='.urlencode($strText).'&chat_id='.$chat_id);        //valid signature , option
+        url_get_contents(TG_API_URL.'sendMessage?text='.urlencode($strText).'&chat_id='.$chat_id);        //valid signature , option
 	}
 
 	function Debug($strDebug)
@@ -99,7 +99,7 @@ class TelegramCallback
 		else 
 		{
 //			apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => 'I understand only text messages'));
-			$this->_sendText('只能回复文本消息', $chat_id);
+//			$this->_sendText('只能回复文本消息', $chat_id);
 		}
 	}		
 
