@@ -6,7 +6,7 @@ function AdsenseSearchEngine($bChinese = true)
 	$strSearch = $bChinese ? '搜索' : 'Search';
 	
     echo <<< END
-<form action="http://www.google.com" id="cse-search-box" target="_blank">
+<form action="https://www.google.com" id="cse-search-box" target="_blank">
   <div>
     <input type="hidden" name="cx" value="partner-pub-7413337917168353:hzytn0yyhjv" />
     <input type="hidden" name="ie" value="UTF-8" />
@@ -14,7 +14,7 @@ function AdsenseSearchEngine($bChinese = true)
     <input type="submit" name="sa" value="$strSearch" />
   </div>
 </form>
-<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=cse-search-box&amp;lang=en"></script>
+<script type="text/javascript" src="https://www.google.com/coop/cse/brand?form=cse-search-box&amp;lang=en"></script>
 END;
 }
 
