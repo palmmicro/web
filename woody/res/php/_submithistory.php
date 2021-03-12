@@ -64,14 +64,20 @@ function _webUpdateYahooHistory($his_sql, $strYahooSymbol)
         		$strDate = $ymd->GetYMD();
             
         		$ar = array();
-        		$str = $strDate;
         		for ($i = 0; $i < 6; $i ++)
         		{
         			$strNoComma = str_replace(',', '', $arMatch[$j][$i + 2]); 
         			$ar[] = $strNoComma;
-        			$str .= ' '.$strNoComma; 
         		}
-        		$his_sql->WriteHistory($strDate, $ar[0], $ar[1], $ar[2], $ar[3], $ar[5], $ar[4]);
+        		
+        		if ($ar[3] == '-' || $ar[5] == '-')
+        		{	// debug wrong data
+        			DebugPrint($arMatch[$j]);
+        		}
+        		else
+        		{
+        			$his_sql->WriteHistory($strDate, $ar[0], $ar[1], $ar[2], $ar[3], $ar[5], $ar[4]);
+        		}
         	}
         }
         

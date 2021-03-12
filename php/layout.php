@@ -34,13 +34,24 @@ function EchoInsideHead()
 END;
 }
 
-function LayoutPromotion($str, $strLink = false)
+function LayoutPromotion($str)
 {
-	$strLinkDisplay = $strLink ? '<br />'.GetHttpLink($strLink) : '';
+	switch ($str)
+	{
+	case 'huabao':
+		$strLink = 'https://m.touker.com/trade/activity/common/channelOpen.htm?moduleDataId=275&channel=Vpalmmicro';
+		break;
+		
+	case 'dongfang':
+		$strLink = 'http://ognfhcacesaf4get.mikecrm.com/sEJIKQZ';
+		break;
+	}
+	
+	$strLinkDisplay = GetHttpLink($strLink);
     echo <<<END
         <p>
         	<img src=/woody/image/$str.jpg alt="$str promo" />
-        	$strLinkDisplay
+        	<br />$strLinkDisplay
         </p>
 END;
 }

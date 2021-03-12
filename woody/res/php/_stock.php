@@ -87,11 +87,11 @@ function _echoRandomPromotion()
 		break;
 
 	case 3:
-		LayoutPromotion('huabao', 'https://m.touker.com/trade/activity/common/channelOpen.htm?moduleDataId=275&channel=Vpalmmicro');
+		LayoutPromotion('huabao');
 		break;
 		
 	case 4:
-		LayoutPromotion('dongfang', 'http://ognfhcacesaf4get.mikecrm.com/sEJIKQZ');
+		LayoutPromotion('dongfang');
 		break;
 	}
 }
