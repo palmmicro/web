@@ -25,7 +25,6 @@ function TextFromStockReference($ref)
     if ($ref->HasData() == false)        return false;
 
     $str = RefGetDescription($ref).BOT_EOL;
-//    $str .= $ref->GetStockLink().BOT_EOL;
     $str .= $ref->GetSymbol().BOT_EOL;
     $str .= STOCK_DISP_PRICE._textPriceVolume($ref);
     $str .= STOCK_DISP_CHANGE.':'.$ref->GetPercentageText().BOT_EOL;
@@ -38,9 +37,6 @@ function TextFromStockReference($ref)
 
 function TextFromAhReference($hshare_ref)
 {
-/*	$str = 'H股代码:'.RefGetMyStockLink($hshare_ref).BOT_EOL;
-	if ($hshare_ref->a_ref)		$str .= 'A股代码:'.RefGetMyStockLink($hshare_ref->a_ref).BOT_EOL;
-	if ($hshare_ref->adr_ref)	$str .= 'ADR代码:'.RefGetMyStockLink($hshare_ref->adr_ref).BOT_EOL;*/
 	$str = 'H股代码:'.$hshare_ref->GetSymbol().BOT_EOL;
 	if ($hshare_ref->a_ref)		$str .= 'A股代码:'.$hshare_ref->a_ref->GetSymbol().BOT_EOL;
 	if ($hshare_ref->adr_ref)	$str .= 'ADR代码:'.$hshare_ref->adr_ref->GetSymbol().BOT_EOL;
@@ -53,23 +49,30 @@ function TextFromAbReference($ab_ref, $bStockA = true)
 {
 	if ($bStockA)
 	{
-//		$str = 'B股代码:'.RefGetMyStockLink($ab_ref->GetPairRef()).BOT_EOL;
 		$str = 'B股代码:'.$ab_ref->GetPairRef()->GetSymbol().BOT_EOL;
 	}
 	else
 	{
-//		$str = 'A股代码:'.RefGetMyStockLink($ab_ref).BOT_EOL;
 		$str = 'A股代码:'.$ab_ref->GetSymbol().BOT_EOL;
 	}
 	return $str;
 }
 
-function _textPremium($stock_ref, $fEst)
+function _textPremium($stock_ref, $strEst)
+{
+    if ($stock_ref->HasData())
+    {
+        return STOCK_DISP_PREMIUM.':'.$stock_ref->GetPercentageText($strEst);
+    }
+    return '';
+}
+
+function _textEstPremium($stock_ref, $fEst)
 {
     $str = STOCK_DISP_EST.':'.$stock_ref->GetPriceText($fEst);
     if ($stock_ref->HasData())
     {
-        $str .= ' '.STOCK_DISP_PREMIUM.':'.$stock_ref->GetPercentageText(strval($fEst));
+        $str .= ' '._textPremium($stock_ref, strval($fEst));
     }
     return $str;
 }
@@ -92,19 +95,26 @@ function TextFromFundReference($ref)
         $str = $strName;
     }
     
-    $str .= STOCK_DISP_NETVALUE.':'.$ref->GetPrice().' '.$ref->GetDate().BOT_EOL;
+    $strDate = $ref->GetDate();
+    $strNetValue = $ref->GetPrice();
+    $str .= STOCK_DISP_NETVALUE.':'.$strNetValue.' '.$strDate.BOT_EOL;
     $str .= STOCK_DISP_NETVALUE.STOCK_DISP_CHANGE.':'.$ref->GetPercentageText().BOT_EOL;
+    if ($stock_ref)
+    {
+    	if ($stock_ref->GetDate() == $strDate)	$str .= _textPremium($stock_ref, $strNetValue).BOT_EOL;
+    }
+    
     if ($ref->fOfficialNetValue)
     {
-        $str .= STOCK_DISP_OFFICIAL._textPremium($stock_ref, $ref->fOfficialNetValue).' '.$ref->GetOfficialDate().BOT_EOL;
+        $str .= STOCK_DISP_OFFICIAL._textEstPremium($stock_ref, $ref->fOfficialNetValue).' '.$ref->GetOfficialDate().BOT_EOL;
     }
     if ($ref->fFairNetValue)
     {
-        $str .= STOCK_DISP_FAIR._textPremium($stock_ref, $ref->fFairNetValue).BOT_EOL;
+        $str .= STOCK_DISP_FAIR._textEstPremium($stock_ref, $ref->fFairNetValue).BOT_EOL;
     }
     if ($ref->fRealtimeNetValue)
     {
-        $str .= STOCK_DISP_REALTIME._textPremium($stock_ref, $ref->fRealtimeNetValue).BOT_EOL;
+        $str .= STOCK_DISP_REALTIME._textEstPremium($stock_ref, $ref->fRealtimeNetValue).BOT_EOL;
     }
     return $str;
 }

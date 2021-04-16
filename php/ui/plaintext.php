@@ -20,7 +20,7 @@ function IsLongMetaDescription($str)
         _onMetaDescriptionWarning($iLen, 'Long', $str);        
         return $iLen;
     }
-    else if ($iLen < MAX_META_DESCRIPTION / 2)
+    else if ($iLen < MAX_META_DESCRIPTION / 3)
     {
         _onMetaDescriptionWarning($iLen, 'Short', $str);        
     }

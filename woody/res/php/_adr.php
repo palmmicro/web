@@ -203,7 +203,7 @@ function EchoMetaDescription()
     $strAdr = RefGetStockDisplay($acct->us_ref);
     $strA = RefGetStockDisplay($acct->cn_ref);
     $strH = RefGetStockDisplay($acct->hk_ref);
-    $str = '根据'.RefGetDescription($acct->uscny_ref).'和'.RefGetDescription($acct->hkcny_ref).'计算比较美股'.$strAdr.', A股'.$strA.'和港股'.$strH.'价格的网页工具, 提供不同市场下统一的交易记录和转换持仓盈亏等功能.';
+    $str = '根据'.RefGetDescription($acct->uscny_ref).'和'.RefGetDescription($acct->hkcny_ref).'计算比较美股'.$strAdr.', A股'.$strA.'和港股'.$strH.'价格的网页工具.';
     EchoMetaDescriptionText($str);
 }
 

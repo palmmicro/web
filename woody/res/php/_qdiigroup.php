@@ -162,7 +162,7 @@ function EchoMetaDescription()
     $est_ref = $fund->GetEstRef();
     if ($est_ref)     $strBase .= '/'.RefGetDescription($est_ref);
     
-    $str = '根据'.$strBase.'等因素计算'.$strDescription.'实时净值的网页工具, 提供不同市场下统一的交易记录和转换持仓盈亏等功能.';
+    $str = '根据'.$strBase.'等因素计算'.$strDescription.'实时净值的网页工具.';
     EchoMetaDescriptionText($str);
 }
 
