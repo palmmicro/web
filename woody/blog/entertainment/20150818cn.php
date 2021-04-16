@@ -169,7 +169,7 @@
 <h3><?php EchoNameTag(MY_PORTFOLIO_PAGE, MY_PORTFOLIO_DISPLAY); ?></h3>
 <p>2016年6月5日
 <br />王小波总是不忘记唠叨他写了自己用的编辑软件, 在20年前我是暗自嘲笑的. 没想到过了这么些年以后, 我也开始写自己用的炒股软件了. 不同的年龄段心态是完全不同的.
-<br /><?php echo GetMyPortfolioLink('email=woody@palmmicro.com'); ?>功能刚完成的时候页面出来得奇慢无比, 而接下来刷新就会快很多. 因为对自己的mysql水平没有自信心, 我一头扎进了优化数据库的工作中.
+<br /><?php EchoWoodyPortfolioLink(); ?>功能刚完成的时候页面出来得奇慢无比, 而接下来刷新就会快很多. 因为对自己的mysql水平没有自信心, 我一头扎进了优化数据库的工作中.
 优化了一些明显的问题, 例如扩展了stockgroupitem表的内容, 把stocktransaction表中groupitem_id相同的交易预先统计好存在stockgroupitem表中, 避免每次都重新查询stocktransaction表然后重新计算一次.
 不过折腾了一大圈后并没有明显的改善, 倒是在这个过程中理清了原来闭着眼睛写的代码的内在逻辑, 看出来了问题的根源.
 <br />在按member_id查询<a name="mystockgroup">stockgroup</a>表找到这个人所有的<a href="../../res/mystockgroupcn.php?email=woody@palmmicro.com">股票分组</a>后,
