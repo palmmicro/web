@@ -92,4 +92,9 @@ function EchoIpAddressLink($bChinese = true)
 	echo GetIpAddressLink($bChinese);
 }
 
+function EchoWoodyPortfolioLink()
+{
+	echo GetMyPortfolioLink('email=woody@palmmicro.com');
+}
+
 ?>

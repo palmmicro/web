@@ -48,8 +48,18 @@ function _onSmaUserDefinedVal($strVal)
     	}
     }
 	$fAmount = floatval($strAmount);
-    $iQuantity = intval($fAmount / floatval($fund->strOfficialCNY) / floatval($strVal));
-    $strQuantity = strval($iQuantity);
+	
+	$strSymbol = $fund->GetSymbol();
+	if ($strSymbol == 'SZ162411')
+	{
+		 $fQuantity = $fAmount / $fund->GetQdiiValue($strVal) / 1400;
+	}
+	else
+	{
+		 $fQuantity = $fAmount / floatval($fund->strOfficialCNY) / floatval($strVal);
+	}
+	
+    $strQuantity = strval(intval($fQuantity));
     if ($group) 
     {
         $est_ref = $fund->GetEstRef();

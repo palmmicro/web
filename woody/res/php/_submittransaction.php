@@ -119,7 +119,6 @@ class _SubmitTransactionAccount extends StockAccount
     	$sql = new StockGroupItemSql($strGroupId);
     	if (($strGroupItemId = $sql->GetId($strFundId)) == false)    return false;
     	
-    	$fAmount = floatval($strAmount);
     	$strSymbol = SqlGetStockSymbol($strFundId);
     	switch ($strSymbol)
     	{
@@ -131,8 +130,8 @@ class _SubmitTransactionAccount extends StockAccount
     		$fFeeRatio = 0.015;
     		break;
     	}
-    	$fAmount /= 1.0 + $fFeeRatio;
-    	
+  	
+    	$fAmount = floatval($strAmount);
     	if ($sql->trans_sql->Insert($strGroupItemId, strval(intval($fAmount / floatval($strNetValue))), $strNetValue, strval_round($fAmount * $fFeeRatio * 0.1), '}'.STOCK_DISP_ORDER))
     	{
 /*	    	if ($strGroupItemId = $sql->GetId($strArbitrageId))

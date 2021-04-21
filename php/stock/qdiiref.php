@@ -249,7 +249,7 @@ class _QdiiReference extends FundReference
     {
        	$cny_ref = $this->GetCnyRef();
        	$strCNY = $cny_ref->GetPrice();
-        return strval(floatval($strQdii) * $this->fFactor / floatval($strCNY));
+        return strval($this->ReverseAdjustPosition(floatval($strQdii)) * $this->fFactor / floatval($strCNY));
     }
     
     function GetEstQuantity($iQdiiQuantity)

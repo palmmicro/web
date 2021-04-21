@@ -187,6 +187,12 @@ class FundReference extends MysqlReference
     	$fRatio = $this->GetFundPosition();
         return $fVal * $fRatio + floatval($this->GetPrice()) * (1.0 - $fRatio);
     }
+    
+    function ReverseAdjustPosition($fVal)
+    {
+    	$fRatio = $this->GetFundPosition();
+        return $fVal / $fRatio - floatval($this->GetPrice()) * (1.0 / $fRatio - 1.0);
+    }
 }
 
 ?>
