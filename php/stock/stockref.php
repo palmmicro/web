@@ -400,7 +400,8 @@ class StockReference extends StockSymbol
         {
         	$this->strFileName = DebugGetSinaFileName($strSinaSymbol);
         	$ar = _getSinaArray($this, $strSinaSymbol, $this->strFileName);
-        	if (count($ar) >= 18)
+        	$iCount = count($ar); 
+        	if ($iCount >= 18)
         	{
         		if ($this->IsSymbolA())
         		{
@@ -412,8 +413,14 @@ class StockReference extends StockSymbol
         			$this->_onSinaDataHK($ar);
         			return;
         		}
-       			$this->_onSinaDataUS($ar);
-       			return;
+        		else
+        		{
+					if ($iCount >= 29)	
+					{
+						$this->_onSinaDataUS($ar);
+						return;
+					}
+				}
         	}
         }
         $this->bHasData = false;

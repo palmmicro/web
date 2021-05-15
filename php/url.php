@@ -44,6 +44,12 @@ function UrlGetIp()
 
 function url_get_contents($strUrl, $strCookie = false)
 {
+	global $acct;
+	if (method_exists($acct, 'AllowCurl'))
+	{
+		if ($acct->AllowCurl() == false)		return false;
+	}
+	
     $ch = curl_init();  
     $timeout = 2;  
     curl_setopt($ch, CURLOPT_URL, $strUrl);  

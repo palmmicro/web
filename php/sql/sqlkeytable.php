@@ -174,11 +174,16 @@ class DailyKeySql extends KeySql
 		return ' UNIQUE ( `date`, `'.$this->GetKeyIndex().'` ) ';
     }
     
+    function ComposeCloseStr()
+    {
+		return ' `close` DOUBLE(13,6) NOT NULL ';
+    }
+    
     function CreateDailyKeyTable($str)
     {
     	$str = $this->ComposeKeyStr().','
     		  . $this->ComposeDateStr().','
-         	  . $str
+         	  . $str.','
          	  . $this->ComposeForeignKeyStr().','
          	  . $this->ComposeUniqueDateStr();
     	return $this->CreateIdTable($str);
@@ -186,7 +191,7 @@ class DailyKeySql extends KeySql
     
     public function Create()
     {
-        return $this->CreateDailyKeyTable(' `close` DOUBLE(13,6) NOT NULL ,');
+        return $this->CreateDailyKeyTable($this->ComposeCloseStr());
     }
 
     public function BuildOrderBy()
@@ -339,7 +344,7 @@ class DailyStringSql extends DailyKeySql
 
     public function Create()
     {
-        return $this->CreateDailyKeyTable(' `close` VARCHAR( 8192 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,');
+        return $this->CreateDailyKeyTable(' `close` VARCHAR( 8192 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ');
     }
 
     public function WriteDaily($strKeyId, $strDate, $strClose)

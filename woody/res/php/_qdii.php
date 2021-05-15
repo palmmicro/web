@@ -100,12 +100,16 @@ function _onTradingUserDefined($strVal = false)
 {
     if ($strVal)
     {
-    	global $acct;
+    	if ($strVal == '0')	return '';
+    	else
+    	{
+    		global $acct;
     
-    	$fund = $acct->GetRef();
-    	$strEst = $fund->GetEstValue($strVal);
-    	$est_ref = $fund->GetEstRef();
-    	return _onSmaUserDefinedVal($strEst).'@'.$est_ref->GetPriceDisplay($strEst);
+    		$fund = $acct->GetRef();
+    		$strEst = $fund->GetEstValue($strVal);
+    		$est_ref = $fund->GetEstRef();
+    		return _onSmaUserDefinedVal($strEst).'@'.$est_ref->GetPriceDisplay($strEst);
+    	}
     }
    	return _getArbitrageQuantityName(true);
 }
