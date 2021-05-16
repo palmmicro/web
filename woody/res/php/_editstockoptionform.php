@@ -25,7 +25,7 @@ function _getStockOptionDate($strSubmit, $ref)
 		break;
 
 	case STOCK_OPTION_NETVALUE:
-		$sql = new NetValueHistorySql($ref->GetStockId());
+		$sql = new NetValueSql($ref->GetStockId());
 		if ($strDate = $sql->GetDateNow())
 		{
 			return $strDate;
@@ -183,7 +183,7 @@ function _getStockOptionVal($strSubmit, $strLoginId, $ref, $strSymbol, $strDate)
 		return _getStockOptionHa($strSymbol);
 
 	case STOCK_OPTION_NETVALUE:
-		return _getStockOptionDaily(new NetValueHistorySql($strStockId), $strDate);
+		return _getStockOptionDaily(new NetValueSql($strStockId), $strDate);
 
 	case STOCK_OPTION_SHARES_DIFF:
 		return _getStockOptionSharesDiff($strStockId, $strDate);

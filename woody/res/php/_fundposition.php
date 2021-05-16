@@ -106,13 +106,13 @@ function _getSwitchDateArray($sql, $est_sql)
 function _echoFundPositionData($csv, $ref, $cny_ref, $est_ref, $strInput)
 {
 	$strEstId = $est_ref->GetStockId();
-	$est_sql = new NetValueHistorySql($strEstId);
+	$est_sql = new NetValueSql($strEstId);
 	if ($est_sql->Count() == 0 || $est_ref->IsIndex())
 	{
 		$est_sql = new StockHistorySql($strEstId);
 	}
 
-   	$sql = new NetValueHistorySql($ref->GetStockId());
+   	$sql = new NetValueSql($ref->GetStockId());
 	$arDate = _getSwitchDateArray($sql, $est_sql);
 	if (count($arDate) == 0)		return;
  

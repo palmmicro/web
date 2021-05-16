@@ -259,28 +259,28 @@ class EtfCnhSql extends DailyKeySql
     }
 }
 
-// ****************************** NetValueHistorySql class *******************************************************
-class NetValueHistorySql extends DailyStockValSql
+// ****************************** NetValueSql class *******************************************************
+class NetValueSql extends DailyStockValSql
 {
-    function NetValueHistorySql($strStockId) 
+    function NetValueSql($strStockId) 
     {
         parent::DailyStockValSql(TABLE_NETVALUE_HISTORY, $strStockId);
     }
 }
 
-class UscnyHistorySql extends NetValueHistorySql
+class UscnyHistorySql extends NetValueSql
 {
     function UscnyHistorySql() 
     {
-        parent::NetValueHistorySql(SqlGetStockId('USCNY'));
+        parent::NetValueSql(SqlGetStockId('USCNY'));
     }
 }
 
-class HkcnyHistorySql extends NetValueHistorySql
+class HkcnyHistorySql extends NetValueSql
 {
     function HkcnyHistorySql() 
     {
-        parent::NetValueHistorySql(SqlGetStockId('HKCNY'));
+        parent::NetValueSql(SqlGetStockId('HKCNY'));
     }
 }
 
@@ -299,7 +299,7 @@ function SqlGetUSCNY()
 
 function SqlGetNetValueByDate($strStockId, $strDate)
 {
-	$sql = new NetValueHistorySql($strStockId);
+	$sql = new NetValueSql($strStockId);
 	return $sql->GetClose($strDate);
 }
 

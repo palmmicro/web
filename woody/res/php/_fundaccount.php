@@ -228,7 +228,7 @@ function EchoAll()
         if (in_arrayQdii($strSymbol))
         {
         	$strStockId = $ref->GetStockId();
-        	$nv_sql = new NetValueHistorySql($strStockId);
+        	$nv_sql = new NetValueSql($strStockId);
         	
         	$csv = new PageCsvFile();
             _echoFundAccountParagraph($csv, $ref, $strSymbol, $strStockId, $nv_sql, $bAdmin);

@@ -16,14 +16,14 @@ function _echoFundHistory($strSymbol, $iStart, $iNum)
   
    	$csv = new PageCsvFile();
    	$sym = new StockSymbol($strSymbol);
-   	if ($sym->IsFundA())
+   	if ($ref = StockGetEtfReference($strSymbol))
+   	{
+   		EchoEtfHistoryParagraph($ref, $csv, $iStart, $iNum);
+   	}
+   	else if ($sym->IsFundA())
    	{
    		$fund = StockGetFundReference($strSymbol);
    		EchoFundHistoryParagraph($fund, $csv, $iStart, $iNum);
-   	}
-   	else if ($ref = StockGetEtfReference($strSymbol))
-   	{
-   		EchoEtfHistoryParagraph($ref, $csv, $iStart, $iNum);
    	}
     $csv->Close();
     

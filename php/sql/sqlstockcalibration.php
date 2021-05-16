@@ -1,49 +1,12 @@
 <?php
 require_once('sqlkeytable.php');
 
-class CalibrationSql extends DailyKeySql
+class CalibrationSql extends DailyTimeSql
 {
     function CalibrationSql() 
     {
-        parent::DailyKeySql(TABLE_CALIBRATION);
+        parent::DailyTimeSql(TABLE_CALIBRATION);
     }
-
-    public function Create()
-    {
-        return $this->CreateDailyKeyTable($this->ComposeTimeStr().','.$this->ComposeCloseStr());
-    }
-/*
-    public function WriteDaily($strKeyId, $strDate, $strClose)
-    {
-    	if ($record = $this->GetRecord($strKeyId, $strDate))
-    	{
-    		if ($record['close'] != $strClose)
-    		{
-    			return $this->UpdateDaily($record['id'], $strClose);
-    		}
-    	}
-    	else
-    	{
-    		return $this->InsertDaily($strKeyId, $strDate, $strClose);
-    	}
-    	return false;
-    }
-
-    function GetUniqueCloseArray($strKeyId)
-    {
-    	$ar = array();
-    	if ($result = $this->GetAll($strKeyId)) 
-    	{
-    		while ($record = mysql_fetch_assoc($result)) 
-    		{
-    			$arClose = explode(',', $record['close']);
-    			$ar = array_merge($ar, array_unique($arClose));
-    		}
-    		@mysql_free_result($result);
-    	}
-    	return $ar;
-    }
-*/    
 }
 
 // ****************************** Stock Calibration tables *******************************************************

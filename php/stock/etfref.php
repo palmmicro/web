@@ -52,12 +52,15 @@ class AhPairReference extends MyPairReference
 class NetValueReference extends StockReference
 {
 	var $sql;
+	var $fund_est_sql;
 	
     function NetValueReference($strSymbol) 
     {
         parent::StockReference($strSymbol);
         
-       	$this->sql = new NetValueHistorySql(SqlGetStockId($strSymbol));
+        $strStockId = SqlGetStockId($strSymbol);
+       	$this->sql = new NetValueSql($strStockId);
+       	$this->fund_est_sql = new FundEstSql($strStockId);
         if ($this->IsFundA())
         {
         	$this->LoadSinaFundData();
@@ -69,7 +72,7 @@ class NetValueReference extends StockReference
 
         if ($this->IsFundA())
         {
-       		StockCompareEstResult($this->sql, $this->GetPrice(), $this->GetDate(), $this->GetSymbol());
+       		StockCompareEstResult($this->sql, $this->fund_est_sql, $this->GetPrice(), $this->GetDate(), $this->GetSymbol());
         }
     }
     
@@ -114,6 +117,16 @@ class EtfReference extends MyPairReference
        	{
        		$this->_load_cny_ref($strFactorDate);
        	}
+    }
+
+    function GetNetValueSql()
+    {
+    	return $this->nv_ref->sql;
+    }
+
+    function GetFundEstSql()
+    {
+    	return $this->nv_ref->fund_est_sql;
     }
     
     function GetPairNvRef()
@@ -281,7 +294,7 @@ class EtfReference extends MyPairReference
     	return $this->strOfficialDate;
     }
     
-    function _estOfficialNetValue($fund_sql, $strCny = false)
+    function _estOfficialNetValue($strCny = false)
     {
 		if (($strEst = $this->pair_nv_ref->sql->GetClose($this->strOfficialDate)) == false)
 		{
@@ -289,23 +302,23 @@ class EtfReference extends MyPairReference
 		}
 		
    		$strVal = $this->EstFromPair($strEst, $strCny);
-   		StockUpdateEstResult($this->nv_ref->sql, $fund_sql, $strVal, $this->strOfficialDate);
+   		StockUpdateEstResult($this->GetNetValueSql(), $this->GetFundEstSql(), $strVal, $this->strOfficialDate);
         return $strVal;
     }
     
     function GetOfficialNetValue()
     {
         $this->strOfficialDate = $this->pair_ref->GetDate();
-   		$fund_sql = new FundEstSql($this->nv_ref->GetStockId());
         if ($this->cny_ref)
         {
         	if ($strCny = $this->cny_ref->GetClose($this->strOfficialDate))
         	{
-        		return $this->_estOfficialNetValue($fund_sql, $strCny);
+        		return $this->_estOfficialNetValue($strCny);
         	}
         	else
         	{	// Load last value from database
-        		if ($record = $fund_sql->GetRecordNow())
+        		$fund_est_sql = $this->GetFundEstSql();
+        		if ($record = $fund_est_sql->GetRecordNow())
         		{
         			$this->strOfficialDate = $record['date'];
         			return $record['close'];
@@ -313,7 +326,7 @@ class EtfReference extends MyPairReference
         	}
         }
 
-        return $this->_estOfficialNetValue($fund_sql);
+        return $this->_estOfficialNetValue();
     }
 
     function GetFairNetValue()

@@ -379,4 +379,17 @@ class DailyStringSql extends DailyKeySql
     }
 }
 
+class DailyTimeSql extends DailyKeySql
+{
+    function DailyTimeSql($strTableName, $strKeyPrefix = TABLE_STOCK) 
+    {
+        parent::DailyKeySql($strTableName, $strKeyPrefix);
+    }
+
+    public function Create()
+    {
+        return $this->CreateDailyKeyTable($this->ComposeCloseStr().','.$this->ComposeTimeStr());
+    }
+}
+
 ?>

@@ -79,7 +79,7 @@ function _echoThanousParadoxParagraph($strSymbol, $iStart, $iNum)
 
  	$str = GetFundLinks($strSymbol);
 
-	$sql = new NetValueHistorySql($ref->GetStockId());
+	$sql = new NetValueSql($ref->GetStockId());
    	$strNavLink = StockGetNavLink($strSymbol, $sql->Count(), $iStart, $iNum);
 	$str .= ' '.$strNavLink;
 

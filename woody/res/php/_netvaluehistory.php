@@ -51,9 +51,9 @@ function _echoNetValueData($csv, $sql, $ref, $est_ref, $cny_ref, $iStart, $iNum)
 {
 	if ($est_ref)
 	{
-//		$est_sql = new NetValueHistorySql($est_ref->GetStockId());
+//		$est_sql = new NetValueSql($est_ref->GetStockId());
 		$strEstId = $est_ref->GetStockId();
-		$est_sql = new NetValueHistorySql($strEstId);
+		$est_sql = new NetValueSql($strEstId);
 		if ($est_sql->Count() == 0 || $est_ref->IsIndex())
 		{
 			$est_sql = new StockHistorySql($strEstId);
@@ -95,7 +95,7 @@ function _echoNetValueHistory($ref, $iStart, $iNum)
     	$est_ref = false;
     }
     
-	$sql = new NetValueHistorySql($ref->GetStockId());
+	$sql = new NetValueSql($ref->GetStockId());
    	$strNavLink = StockGetNavLink($strSymbol, $sql->Count(), $iStart, $iNum);
 	$str .= '<br />'.$strNavLink;
 

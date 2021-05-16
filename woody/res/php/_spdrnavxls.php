@@ -77,7 +77,7 @@ function GetNavXlsStr($strSymbol)
 		file_put_contents($strPathName, $str);
 		
 		$strStockId = SqlGetStockId($strSymbol);
-        $sql = new NetValueHistorySql($strStockId);
+        $sql = new NetValueSql($strStockId);
         $shares_sql = new SharesHistorySql();
         $bIshares = (stripos($strUrl, 'ishares') !== false) ? true : false;
 		return _readXlsFile($bIshares, $strPathName, $sql, $shares_sql, $strStockId);

@@ -24,7 +24,7 @@ function _echoTransactionTableItem($ref, $record, $bReadOnly, $bAdmin)
    			{
    				if (strpos($strRemark, STOCK_DISP_ORDER) !== false)
    				{
-   					$sql = new NetValueHistorySql($ref->GetStockId());
+   					$sql = new NetValueSql($ref->GetStockId());
    					$strNetValue = $sql->GetClosePrev($strDate);
    					if ($strNetValue != $strPrice)
    					{

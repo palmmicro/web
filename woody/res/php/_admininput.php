@@ -60,7 +60,7 @@ function _getAdminTestStr($strInput)
     	
     	$est_ref = $dst_ref->GetEstRef();
     	$strEst = $est_ref->GetSymbol();
-       	$sql = new NetValueHistorySql($est_ref->GetStockId());
+       	$sql = new NetValueSql($est_ref->GetStockId());
        	$uscny_sql = new UscnyHistorySql();
        	
     	$strDate = $dst_ref->GetOfficialDate();

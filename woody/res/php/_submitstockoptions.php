@@ -331,7 +331,7 @@ function _updateStockOptionSplit($ref, $strSymbol, $strStockId, $strDate, $strVa
 			break;
 			
 		case STOCK_OPTION_NETVALUE:
-			if ($bAdmin)	_updateStockOptionDaily(new NetValueHistorySql($strStockId), $strDate, $strVal);
+			if ($bAdmin)	_updateStockOptionDaily(new NetValueSql($strStockId), $strDate, $strVal);
 			break;
 			
 		case STOCK_OPTION_SHARES_DIFF:

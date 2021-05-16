@@ -204,7 +204,7 @@ function _yahooStockGetData($strSymbol, $strStockId)
     				$strMatchPrice = $ar[3];
     				$ymd = new TickYMD($ar[1]);
     				$strDate = $ymd->GetYMD();
-    				$sql = new NetValueHistorySql($strStockId);
+    				$sql = new NetValueSql($strStockId);
     				$sql->Write($strDate, $strMatchPrice);
     				return $strMatchPrice.' '.$ar[2].' '.$strDate.' '.$ymd->GetHMS();
     			}
@@ -295,7 +295,7 @@ function YahooUpdateNetValue($strSymbol)
 {
 	if (($strNetValueSymbol = _yahooGetNetValueSymbol($strSymbol)) == false)	return;
     if (($strStockId = SqlGetStockId($strSymbol)) == false)  					return;
-	$sql = new NetValueHistorySql($strStockId);
+	$sql = new NetValueSql($strStockId);
 	
     date_default_timezone_set(STOCK_TIME_ZONE_US);
     $now_ymd = new NowYMD();
@@ -347,7 +347,7 @@ function YahooUpdateNetValue($strSymbol)
     		}
 /*    		else if ($strExtraId = SqlGetStockId($strMatchSymbol))
     		{
-    			$extra_sql = new NetValueHistorySql($strExtraId);
+    			$extra_sql = new NetValueSql($strExtraId);
     			$extra_ymd = _yahooStockMatchGetYmd($arMatch, $strMatchSymbol);
     			$extra_sql->Insert($extra_ymd->GetYMD(), $strMatchPrice);
     		}*/
