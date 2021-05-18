@@ -159,7 +159,7 @@ class Account
     function GetWhoseAllDisplay($bChinese = true)
     {
      	$strAll = $bChinese ? DISP_ALL_CN : ' '.DISP_ALL_US.' ';
-    	return $this->GetWhoseDisplay($bChinese).$strAll;
+    	return $this->GetWhoseDisplay(false, $bChinese).$strAll;
     }
     
     function GetLoginId()

@@ -20,7 +20,7 @@ class TableColumn
 	var $strText;
 	var $iWidth;
 	
-	function TableColumn($strText, $iWidth = 80, $strColor = false, $strPrefix = false)
+	function TableColumn($strText = '', $iWidth = 80, $strColor = false, $strPrefix = false)
 	{
 		$this->iWidth = $iWidth;
 		$this->strText = $strColor ? "<font color=$strColor>$strText</font>" : $strText;

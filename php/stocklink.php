@@ -198,19 +198,10 @@ function GetAdrhCompareLink()
 }
 
 define('STOCK_GROUP_DISPLAY', '股票分组');
-function GetMyStockGroupLink($strGroupId = false)
+define('STOCK_GROUP_PAGE', 'mystockgroup');
+function GetMyStockGroupLink()
 {
-	if ($strGroupId)
-	{
-		$strDisplay = SqlGetStockGroupName($strGroupId);
-		$strQuery = 'groupid='.$strGroupId;
-	}
-	else
-	{
-		$strDisplay = STOCK_GROUP_DISPLAY;
-		$strQuery = false;
-	}
-	return GetStockTitleLink('mystockgroup', $strDisplay, $strQuery);
+	return GetStockTitleLink(STOCK_GROUP_PAGE, STOCK_GROUP_DISPLAY);
 }
 
 function GetCategorySoftwareLinks($arTitle, $strCategory)
@@ -278,19 +269,6 @@ function GetStockLink($strSymbol)
 		return GetStockTitleLink(strtolower($strSymbol), $strSymbol);
     }
     return false;
-}
-
-function GetStockGroupLink($strGroupId)
-{
-    if ($strGroupName = SqlGetStockGroupName($strGroupId))
-    {
-    	if ($strLink = GetStockLink($strGroupName))
-    	{
-    		return $strLink; 
-    	}
-    	return GetMyStockGroupLink($strGroupId);
-    }
-    return '';
 }
 
 function StockGetNavLink($strSymbol, $iTotal, $iStart, $iNum)

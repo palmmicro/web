@@ -12,13 +12,6 @@ class StockGroupSql extends KeyValSql
     }
 }
 
-// ****************************** Stock Group table *******************************************************
-function SqlGetStockGroupName($strGroupId)
-{
-	$group_sql = new StockGroupSql();
-	return $group_sql->GetVal($strGroupId);
-}
-
 // ****************************** StockGroupItemSql class *******************************************************
 class StockGroupItemSql extends KeyTableSql
 {

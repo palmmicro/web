@@ -24,7 +24,7 @@ function _stockGroupGetStockLinks($strGroupId)
 	return $strStocks;
 }
 
-function _echoStockGroupTableItem($strGroupId, $bReadOnly, $bAdmin)
+function _echoStockGroupTableItem($strGroupId, $acct, $bReadOnly, $bAdmin)
 {
     $strEdit = '';
     $strDelete = GetDeleteLink(STOCK_PHP_PATH.'_submitgroup.php?delete='.$strGroupId, '股票分组和相关交易记录');
@@ -38,7 +38,7 @@ function _echoStockGroupTableItem($strGroupId, $bReadOnly, $bAdmin)
     }
 
     $ar = array();
-    $ar[] = GetStockGroupLink($strGroupId);
+    $ar[] = $acct->GetGroupLink($strGroupId);
     $ar[] = _stockGroupGetStockLinks($strGroupId);
     $ar[] = $strEdit.' '.$strDelete;
     EchoTableColumn($ar);
@@ -58,10 +58,11 @@ function _echoNewStockGroupTableItem($strStockId, $strLoginId = false)
     EchoTableColumn($ar);
 }
 
-function _echoStockGroupTableData($strStockId, $strMemberId, $strLoginId, $bReadOnly, $bAdmin)
+function _echoStockGroupTableData($acct, $strStockId, $strLoginId, $bAdmin)
 {
+	$bReadOnly = $acct->IsReadOnly();
     $iTotal = 0;
-	$sql = new StockGroupSql($strMemberId);
+	$sql = $acct->GetGroupSql();
 	if ($result = $sql->GetAll()) 
 	{
 		while ($record = mysql_fetch_assoc($result)) 
@@ -69,7 +70,7 @@ function _echoStockGroupTableData($strStockId, $strMemberId, $strLoginId, $bRead
 			$strGroupId = $record['id'];
 			if (($strStockId == false) || SqlGroupHasStock($strGroupId, $strStockId))
 			{
-				_echoStockGroupTableItem($strGroupId, $bReadOnly, $bAdmin);
+				_echoStockGroupTableItem($strGroupId, $acct, $bReadOnly, $bAdmin);
 				$iTotal ++;
 			}
 		}
@@ -84,29 +85,22 @@ function _echoStockGroupTableData($strStockId, $strMemberId, $strLoginId, $bRead
 
 function EchoStockGroupParagraph($acct, $strGroupId = false, $strStockId = false)
 {
-    $strStockGroup = GetMyStockGroupLink();
-	$strSymbol = GetTableColumnSymbol();
-    
-    echo <<<END
-    <p>
-    <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="stockgroup">
-    <tr>
-        <td class=c1 width=100 align=center>$strStockGroup</td>
-        <td class=c1 width=440 align=center>$strSymbol</td>
-        <td class=c1 width=100 align=center></td>
-    </tr>
-END;
+	EchoTableParagraphBegin(array(new TableColumnStockGroup(),
+								   new TableColumnSymbol(false, 450),
+								   new TableColumn()
+								   ), TABLE_STOCK_GROUP);
+
 
 	$bAdmin = $acct->IsAdmin();
 	if ($strGroupId)
 	{
-		_echoStockGroupTableItem($strGroupId, $acct->IsGroupReadOnly($strGroupId), $bAdmin);
+		_echoStockGroupTableItem($strGroupId, $acct, $acct->IsGroupReadOnly($strGroupId), $bAdmin);
 	}
 	else
 	{
    		if ($strLoginId = $acct->GetLoginId())
     	{
-    		_echoStockGroupTableData($strStockId, $acct->GetMemberId(), $strLoginId, $acct->IsReadOnly(), $bAdmin);
+    		_echoStockGroupTableData($acct, $strStockId, $strLoginId, $bAdmin);
     	}
     	else
     	{

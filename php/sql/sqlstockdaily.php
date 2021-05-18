@@ -185,6 +185,14 @@ class DailyStockValSql extends DailyStockSql
 }
 
 // ****************************** FundEstSql class *******************************************************
+class FundEstSql extends DailyTimeSql
+{
+    function FundEstSql() 
+    {
+        parent::DailyTimeSql(TABLE_FUND_EST);
+    }
+}
+/*
 class FundEstSql extends DailyStockValSql
 {
     function FundEstSql($strStockId = false) 
@@ -213,7 +221,7 @@ class FundEstSql extends DailyStockValSql
 		return $this->UpdateById(array('close' => $strEstValue, 'time' => $strTime), $strId);
 	}
 }
-
+*/
 // ****************************** StockEmaSql class *******************************************************
 class StockEmaSql extends DailyStockValSql
 {

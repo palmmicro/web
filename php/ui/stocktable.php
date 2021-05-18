@@ -178,9 +178,9 @@ function GetTableColumnSma()
 
 class TableColumnSymbol extends TableColumn
 {
-	function TableColumnSymbol($strPrefix = false)
+	function TableColumnSymbol($strPrefix = false, $iWidth = 80)
 	{
-        parent::TableColumn('代码', 80, 'maroon', $strPrefix);
+        parent::TableColumn('代码', $iWidth, 'maroon', $strPrefix);
 	}
 }
 
@@ -244,6 +244,14 @@ class TableColumnMyStock extends TableColumn
 	function TableColumnMyStock($strSymbol, $iWidth = 80)
 	{
         parent::TableColumn(GetMyStockLink($strSymbol), $iWidth);
+	}
+}
+
+class TableColumnStockGroup extends TableColumn
+{
+	function TableColumnStockGroup($iWidth = 110)
+	{
+        parent::TableColumn(GetMyStockGroupLink(), $iWidth);
 	}
 }
 

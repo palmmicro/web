@@ -151,7 +151,7 @@ class _QdiiReference extends FundReference
         else
         {   // Load last value from database
 			$fund_est_sql = $this->GetFundEstSql();
-            if ($record = $fund_est_sql->GetRecordNow())
+            if ($record = $fund_est_sql->GetRecordNow($this->GetStockId()))
             {
                 $this->fOfficialNetValue = floatval($record['close']);
                 $this->strOfficialDate = $record['date'];

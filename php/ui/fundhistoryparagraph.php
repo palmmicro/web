@@ -59,6 +59,7 @@ function _echoHistoryTableData($sql, $fund_est_sql, $csv, $ref, $est_ref, $iStar
 		$est_ref = false;
 	}
 	
+	$strStockId = $ref->GetStockId();
     if ($result = $sql->GetAll($iStart, $iNum)) 
     {
         while ($record = mysql_fetch_assoc($result)) 
@@ -67,7 +68,7 @@ function _echoHistoryTableData($sql, $fund_est_sql, $csv, $ref, $est_ref, $iStar
         	if (empty($strNetValue) == false)
         	{
         		$strDate = $record['date'];
-        		$arFund = $fund_est_sql->GetRecord($strDate);
+        		$arFund = $fund_est_sql->GetRecord($strStockId, $strDate);
         		if ($bSameDayNetValue == false)
         		{
         			$strDate = GetNextTradingDayYMD($strDate);

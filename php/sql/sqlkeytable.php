@@ -259,13 +259,13 @@ class DailyKeySql extends KeySql
     	return array_merge($this->MakeFieldKeyId($strKeyId), array('date' => $strDate, 'close' => $strClose));
     }
     
-    function InsertDaily($strKeyId, $strDate, $strClose)
+    public function InsertDaily($strKeyId, $strDate, $strClose)
     {
         if ($this->GetRecord($strKeyId, $strDate))			return false;
     	return $this->InsertArray($this->MakeFieldArray($strKeyId, $strDate, $strClose));
     }
 
-    function UpdateDaily($strId, $strClose)
+    public function UpdateDaily($strId, $strClose)
     {
 		return $this->UpdateById(array('close' => $strClose), $strId);
     }
@@ -389,6 +389,21 @@ class DailyTimeSql extends DailyKeySql
     public function Create()
     {
         return $this->CreateDailyKeyTable($this->ComposeCloseStr().','.$this->ComposeTimeStr());
+    }
+
+    public function InsertDaily($strKeyId, $strDate, $strClose)
+    {
+        if ($this->GetRecord($strKeyId, $strDate))			return false;
+        
+        $ar = $this->MakeFieldArray($strKeyId, $strDate, $strClose);
+   		$ar['time'] = DebugGetTime();
+    	return $this->InsertArray($ar);
+    }
+
+    public function UpdateDaily($strId, $strClose)
+    {
+        $strTime = DebugGetTime();
+		return $this->UpdateById(array('close' => $strClose, 'time' => $strTime), $strId);
     }
 }
 

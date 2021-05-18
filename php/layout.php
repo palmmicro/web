@@ -34,16 +34,20 @@ function EchoInsideHead()
 END;
 }
 
-function LayoutPromotion($str)
+function LayoutPromotion($str, $strText = '')
 {
 	switch ($str)
 	{
+	case 'dongfang':
+		$strLink = 'http://ognfhcacesaf4get.mikecrm.com/sEJIKQZ';
+		break;
+		
 	case 'huabao':
 		$strLink = 'https://m.touker.com/trade/activity/common/channelOpen.htm?moduleDataId=275&channel=Vpalmmicro';
 		break;
 		
-	case 'dongfang':
-		$strLink = 'http://ognfhcacesaf4get.mikecrm.com/sEJIKQZ';
+	case 'yinhe':
+		$strLink = 'https://www.chinastock.com.cn/wskh/osoa/views/orderPage2.html?bn=2305&rn=23050226&bc=null&mc=230502262';
 		break;
 	}
 	
@@ -51,6 +55,7 @@ function LayoutPromotion($str)
     echo <<<END
         <p>
         	<img src=/woody/image/$str.jpg alt="$str promo" />
+        	<br />$strText
         	<br />$strLinkDisplay
         </p>
 END;

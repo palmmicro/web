@@ -60,7 +60,7 @@ class NetValueReference extends StockReference
         
         $strStockId = SqlGetStockId($strSymbol);
        	$this->sql = new NetValueSql($strStockId);
-       	$this->fund_est_sql = new FundEstSql($strStockId);
+       	$this->fund_est_sql = new FundEstSql();
         if ($this->IsFundA())
         {
         	$this->LoadSinaFundData();
@@ -72,7 +72,7 @@ class NetValueReference extends StockReference
 
         if ($this->IsFundA())
         {
-       		StockCompareEstResult($this->sql, $this->fund_est_sql, $this->GetPrice(), $this->GetDate(), $this->GetSymbol());
+       		StockCompareEstResult($this->sql, $this->fund_est_sql, $strStockId, $this->GetPrice(), $this->GetDate(), $this->GetSymbol());
         }
     }
     
@@ -302,7 +302,7 @@ class EtfReference extends MyPairReference
 		}
 		
    		$strVal = $this->EstFromPair($strEst, $strCny);
-   		StockUpdateEstResult($this->GetNetValueSql(), $this->GetFundEstSql(), $strVal, $this->strOfficialDate);
+   		StockUpdateEstResult($this->GetNetValueSql(), $this->GetFundEstSql(), $this->GetStockId(), $strVal, $this->strOfficialDate);
         return $strVal;
     }
     
@@ -318,7 +318,7 @@ class EtfReference extends MyPairReference
         	else
         	{	// Load last value from database
         		$fund_est_sql = $this->GetFundEstSql();
-        		if ($record = $fund_est_sql->GetRecordNow())
+        		if ($record = $fund_est_sql->GetRecordNow($this->GetStockId()))
         		{
         			$this->strOfficialDate = $record['date'];
         			return $record['close'];
