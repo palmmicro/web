@@ -89,7 +89,6 @@ function _getDelStockGroupStr($sql, $strGroupName)
 {
 	if (strlen($strGroupName) == 0)		return '请输入要删除的股票分组名称';
 
-//	$sql = new StockGroupSql();
     $strWhere = _SqlBuildWhere('groupname', $strGroupName);
     $iCount = $sql->CountData($strWhere);
     $str = 'GroupName: '.$strGroupName.' total '.strval($iCount);

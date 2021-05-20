@@ -57,6 +57,7 @@
 	LayoutWeixinPay();
 	LayoutPromotion('dongfang');
 	LayoutPromotion('huabao');
+	LayoutPromotion('yinhe');
 ?>
 
 <h3>券商开户广告</h3>

@@ -85,7 +85,7 @@ function EchoAll()
 
     if ($group = $acct->EchoTransaction()) 
     {
-    	EchoMoneyParagraph($group, $acct->us_ref->cny_ref);
+    	EchoMoneyParagraph($acct, $group, $acct->us_ref->cny_ref);
 	}
 
     $acct->EchoLinks('chinaetf', 'GetChinaIndexRelated');

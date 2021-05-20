@@ -133,7 +133,7 @@ function EchoAll()
       
     if ($group = $acct->EchoTransaction()) 
     {
-        EchoMoneyParagraph($group, $cny_ref);
+        EchoMoneyParagraph($acct, $group, $cny_ref);
         $acct->EchoArbitrageParagraph($group);
 	}
 	    

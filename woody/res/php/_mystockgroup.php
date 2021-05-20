@@ -141,7 +141,7 @@ function EchoAll()
 	global $acct;
 	
 	$strTitle = $acct->GetTitle();
-    if ($strTitle == 'mystockgroup')
+    if ($strTitle == STOCK_GROUP_PAGE)
     {
         if ($strGroupId = $acct->EchoStockGroup())
         {
@@ -173,7 +173,7 @@ function EchoMetaDescription()
 	global $acct;
 	
 	$strTitle = $acct->GetTitle();
-    if ($strTitle == 'mystockgroup')
+    if ($strTitle == STOCK_GROUP_PAGE)
     {
    		$str = $acct->GetWhoseGroupDisplay();
         $str .= '股票分组管理页面. 提供现有股票分组列表和编辑删除链接, 以及新增加股票分组的输入控件. 跟php/_editgroupform.php和php/_submitgroup.php配合使用.';
@@ -221,7 +221,7 @@ function EchoTitle()
 	global $acct;
 	
 	$strTitle = $acct->GetTitle();
-    if ($strTitle == 'mystockgroup')
+    if ($strTitle == STOCK_GROUP_PAGE)
     {
    		$str = $acct->GetWhoseGroupDisplay().STOCK_GROUP_DISPLAY;
     }
@@ -234,7 +234,7 @@ function EchoTitle()
 }
 
 	$acct = new GroupIdAccount();
-	if ($acct->GetTitle() == 'mystockgroup')
+	if ($acct->GetTitle() == STOCK_GROUP_PAGE)
 	{
 		if ($acct->GetQuery() == false)
 		{

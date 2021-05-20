@@ -168,7 +168,7 @@ function _echoPortfolio($portfolio, $sql)
     _transEchoMergeParagraph($arTrans);
 }
 
-function _echoMoneyParagraph($portfolio)
+function _echoMoneyParagraph($acct, $portfolio)
 {
     $strUSDCNY = SqlGetUSCNY();
     $strHKDCNY = SqlGetHKCNY();    
@@ -176,9 +176,9 @@ function _echoMoneyParagraph($portfolio)
     _EchoMoneyParagraphBegin();
     foreach ($portfolio->arStockGroup as $group)
     {
-        _EchoMoneyGroupData($group, $strUSDCNY, $strHKDCNY);
+        _EchoMoneyGroupData($acct, $group, $strUSDCNY, $strHKDCNY);
     }
-    _EchoMoneyGroupData($portfolio, $strUSDCNY, $strHKDCNY, DISP_ALL_CN.'分组');
+    _EchoMoneyGroupData($acct, $portfolio, $strUSDCNY, $strHKDCNY, DISP_ALL_CN.'分组');
     EchoTableParagraphEnd();
 }
 
@@ -200,19 +200,21 @@ function EchoAll()
 {
 	global $acct;
 	
-	$sql = new StockGroupSql($acct->GetMemberId());
+	$sql = $acct->GetGroupSql();
     _onPrefetch($sql);
 
     $portfolio = new _MyPortfolio();
     _echoPortfolio($portfolio, $sql);
-    _echoMoneyParagraph($portfolio);
+    _echoMoneyParagraph($acct, $portfolio);
     
     $acct->EchoLinks(MY_PORTFOLIO_PAGE);
 }
 
 function EchoTitle()
 {
-    echo '我的'.MY_PORTFOLIO_DISPLAY;
+	global $acct;
+	
+    echo $acct->GetWhoseDisplay().MY_PORTFOLIO_DISPLAY;
 }
 
 function EchoMetaDescription()

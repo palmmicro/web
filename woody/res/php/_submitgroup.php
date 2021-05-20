@@ -48,14 +48,6 @@ function _onAdjust($strSymbols)
     }
 }
 
-function _debugStockGroup($strGroupId, $strSymbols)
-{
-    $str = 'Stock Group: '.$_POST['submit'];
-    $str .= '<br />GroupName: '.GetStockGroupLink($strGroupId); 
-    $str .= '<br />Symbols: '.$strSymbols; 
-    trigger_error($str); 
-}
-
 function _stockGetSymbolArray($strSymbols)
 {
 	$str = str_replace(array(',', '，', "\\n", "\\r", "\\r\\n"), ' ', $strSymbols);
@@ -98,6 +90,14 @@ class _SubmitGroupAccount extends StockAccount
     	}
     }
     
+    function _debugStockGroup($strGroupId, $strSymbols)
+    {
+    	$str = 'Stock Group: '.$_POST['submit'];
+    	$str .= '<br />GroupName: '.$this->GetGroupLink($strGroupId); 
+    	$str .= '<br />Symbols: '.$strSymbols; 
+    	trigger_error($str); 
+    }
+
     function _onEdit($strLoginId, $strGroupName, $strSymbols)
     {
 		$strGroupId = UrlGetQueryValue('edit');
@@ -106,18 +106,16 @@ class _SubmitGroupAccount extends StockAccount
     	$str = $this->GetGroupName($strGroupId);
     	if (in_arrayAll($str))  $strGroupName = $str;
     
-//    	$sql = new StockGroupSql($strLoginId);
 		$sql = $this->GetGroupSql();
     	if ($sql->Update($strGroupId, $strGroupName))
     	{
     		SqlUpdateStockGroup($strGroupId, _getStockIdArray($strSymbols));
     	}
-    	_debugStockGroup($strGroupId, $strSymbols);
+    	$this->_debugStockGroup($strGroupId, $strSymbols);
     }
     
     function _onNew($strLoginId, $strGroupName, $strSymbols)
     {
-//    	$sql = new StockGroupSql($strLoginId);
 		$sql = $this->GetGroupSql();
     	$sql->Insert($strGroupName);
     	if ($strGroupId = $sql->GetId($strGroupName))
@@ -129,7 +127,7 @@ class _SubmitGroupAccount extends StockAccount
     			$item_sql->Insert($strStockId);
     		}
     	}
-    	_debugStockGroup($strGroupId, $strSymbols);
+    	$this->_debugStockGroup($strGroupId, $strSymbols);
     }
     
     public function Process($strLoginId)

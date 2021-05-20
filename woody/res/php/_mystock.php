@@ -61,7 +61,6 @@ function _echoMyStockTransactions($acct, $ref)
 	
     $arGroup = array();
     $strStockId = $ref->GetStockId();
-//	$sql = new StockGroupSql($strMemberId);
     $sql = $acct->GetGroupSql();
 	if ($result = $sql->GetAll()) 
 	{

@@ -24,7 +24,6 @@ class GroupAccount extends StockAccount
     {
     	if (($strLoginId = $this->GetLoginId()) == false)		return;
     	
-//        $sql = new StockGroupSql($strLoginId);
         $sql = $this->GetGroupSql();
         $strGroupName = $this->GetName();
         if ($strGroupId = $sql->GetId($strGroupName))

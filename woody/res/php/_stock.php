@@ -14,7 +14,7 @@ require_once('_stocklink.php');
 function _EchoMoneyParagraphBegin($str = '')
 {
 	$strMoneyType = '单一货币';
-	EchoTableParagraphBegin(array(new TableColumn(GetMyStockGroupLink(), 110),
+	EchoTableParagraphBegin(array(new TableColumnStockGroup(),
 								   new TableColumnProfit(DISP_ALL_CN),
 								   new TableColumnHolding(DISP_ALL_CN),
 								   new TableColumnProfit($strMoneyType),
@@ -54,9 +54,12 @@ function _echoMoneyItem($strGroup, $strMoney, $fValue, $fProfit, $fConvertValue,
     EchoTableColumn($ar);
 }
 
-function _EchoMoneyGroupData($group, $strUSDCNY, $strHKDCNY, $strLink = false)
+function _EchoMoneyGroupData($acct, $group, $strUSDCNY, $strHKDCNY, $strLink = false)
 {
-	if ($strLink == false)	$strLink = GetStockGroupLink($group->GetGroupId());
+	if ($strLink == false)
+	{
+		$strLink = $acct->GetGroupLink($group->GetGroupId());
+	}
 	
     $group->ConvertCurrency($strUSDCNY, $strHKDCNY);
     _echoMoneyItem($strLink, '', $group->multi_amount->fCNY, $group->multi_profit->fCNY, $group->multi_amount->fConvertCNY, $group->multi_profit->fConvertCNY);
@@ -70,12 +73,11 @@ function _EchoMoneyGroupData($group, $strUSDCNY, $strHKDCNY, $strLink = false)
     }
 }
 
-
 // ****************************** Promotion Headline *******************************************************
 
 function _echoRandomPromotion()
 {
-	$iVal = rand(1, 4);
+	$iVal = rand(1, 5);
 	switch ($iVal)
 	{
 	case 1:
@@ -93,6 +95,10 @@ function _echoRandomPromotion()
 	case 4:
 		LayoutPromotion('dongfang');
 		break;
+		
+	case 5:
+		LayoutPromotion('yinhe', '著名网红营业部开户。请联系客服调整佣金 -- QQ:2531998595 微信:yhzqjn3');
+		break;
 	}
 }
 
@@ -107,13 +113,13 @@ function EchoPromotionHead($strVer = false, $strLoginId = false)
 
 // ****************************** Money Paragraph *******************************************************
 
-function EchoMoneyParagraph($group, $uscny_ref = false, $hkcny_ref = false)
+function EchoMoneyParagraph($acct, $group, $uscny_ref = false, $hkcny_ref = false)
 {
 	$strUSDCNY = $uscny_ref ? $uscny_ref->GetPrice() : false;
 	$strHKDCNY = $hkcny_ref ? $hkcny_ref->GetPrice() : false;
 	
     _EchoMoneyParagraphBegin('折算货币');
-    _EchoMoneyGroupData($group, $strUSDCNY, $strHKDCNY);
+    _EchoMoneyGroupData($acct, $group, $strUSDCNY, $strHKDCNY);
     EchoTableParagraphEnd();
 }
 

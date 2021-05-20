@@ -174,7 +174,7 @@ function EchoAll()
 
     if ($group = $acct->EchoTransaction()) 
     {
-        EchoMoneyParagraph($group, $acct->uscny_ref, $acct->hkcny_ref);
+        EchoMoneyParagraph($acct, $group, $acct->uscny_ref, $acct->hkcny_ref);
         _echoArbitrageParagraph($acct, $group);
 	}
     
