@@ -162,9 +162,9 @@ class KeySql extends TableSql
     }
 }
 
-class DailyKeySql extends KeySql
+class DailyCloseSql extends KeySql
 {
-    function DailyKeySql($strTableName, $strKeyPrefix = TABLE_STOCK) 
+    function DailyCloseSql($strTableName, $strKeyPrefix = TABLE_STOCK) 
     {
         parent::KeySql($strTableName, $strKeyPrefix);
     }
@@ -335,11 +335,11 @@ class DailyKeySql extends KeySql
     }
 }
 
-class DailyStringSql extends DailyKeySql
+class DailyStringSql extends DailyCloseSql
 {
     function DailyStringSql($strTableName, $strKeyPrefix = TABLE_STOCK) 
     {
-        parent::DailyKeySql($strTableName, $strKeyPrefix);
+        parent::DailyCloseSql($strTableName, $strKeyPrefix);
     }
 
     public function Create()
@@ -379,11 +379,11 @@ class DailyStringSql extends DailyKeySql
     }
 }
 
-class DailyTimeSql extends DailyKeySql
+class DailyTimeSql extends DailyCloseSql
 {
     function DailyTimeSql($strTableName, $strKeyPrefix = TABLE_STOCK) 
     {
-        parent::DailyKeySql($strTableName, $strKeyPrefix);
+        parent::DailyCloseSql($strTableName, $strKeyPrefix);
     }
 
     public function Create()

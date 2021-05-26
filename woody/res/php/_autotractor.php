@@ -14,6 +14,7 @@ function _echoAutoTractor()
     EchoOrderList($str);
 	$str = '不想自己修改脚本文件, 希望直接运行可执行.exe文件的, 可以直接下载'.GetFileLink('/debug/yinhe.zip').'后解压缩, 然后参考后续脚本说明运行.';
 	$str .= '<br />注意360杀毒软件一定会提示是病毒, 要手工告诉它这不是病毒.';
+	$str .= '<br /><font color=red>可执行.exe文件更新不会像.au3脚本源文件那样及时, 注意留心显示的软件版本号.</font>';
     EchoOrderList($str);
 	$str = '在'.GetExternalLink('https://www.autoitscript.com/site/autoit/downloads/', 'AutoIt官网').'下载并安装该工具软件包. ';
 	$str .= '不熟悉英文的可以找国内的汉化版本, 仅需用到x86版本的AutoIt3.exe文件. 不过一定要小心软件来源, 千万不要运行来历不明的.exe文件.';

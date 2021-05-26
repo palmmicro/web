@@ -46,6 +46,9 @@ function _getFundAmount($strSymbol, $strDate)
 			$iAmount = 1000;
 		}
 		return $iAmount * 0.988;
+
+	case 'SZ164906':
+		return 5000.0 * 0.988;
 	}
 	return 500.0 * 0.988;
 }

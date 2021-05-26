@@ -241,29 +241,29 @@ class StockSplitSql extends DailyStockValSql
 }
 
 // ****************************** SharesHistorySql class *******************************************************
-class SharesHistorySql extends DailyKeySql
+class SharesHistorySql extends DailyCloseSql
 {
     function SharesHistorySql() 
     {
-        parent::DailyKeySql('etfshareshistory');
+        parent::DailyCloseSql('etfshareshistory');
     }
 }
 
 // ****************************** SharesDiffSql class *******************************************************
-class SharesDiffSql extends DailyKeySql
+class SharesDiffSql extends DailyCloseSql
 {
     function SharesDiffSql() 
     {
-        parent::DailyKeySql('etfsharesdiff');
+        parent::DailyCloseSql('etfsharesdiff');
     }
 }
 
 // ****************************** EtfCnhSql class *******************************************************
-class EtfCnhSql extends DailyKeySql
+class EtfCnhSql extends DailyCloseSql
 {
     function EtfCnhSql() 
     {
-        parent::DailyKeySql('etfcnh');
+        parent::DailyCloseSql('etfcnh');
     }
 }
 
