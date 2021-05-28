@@ -42,12 +42,6 @@ class TableColumnError extends TableColumn
 	}
 }
 
-function GetTableColumnError()
-{
-	$col = new TableColumnError();
-	return $col->GetDisplay();
-}
-
 class TableColumnEst extends TableColumn
 {
 	function TableColumnEst($strPrefix = false)
@@ -176,6 +170,14 @@ function GetTableColumnSma()
 	return $col->GetDisplay();
 }
 
+class TableColumnStockGroup extends TableColumn
+{
+	function TableColumnStockGroup()
+	{
+        parent::TableColumn(STOCK_GROUP_DISPLAY, 110);
+	}
+}
+
 class TableColumnSymbol extends TableColumn
 {
 	function TableColumnSymbol($strPrefix = false, $iWidth = 80)
@@ -244,14 +246,6 @@ class TableColumnMyStock extends TableColumn
 	function TableColumnMyStock($strSymbol, $iWidth = 80)
 	{
         parent::TableColumn(GetMyStockLink($strSymbol), $iWidth);
-	}
-}
-
-class TableColumnStockGroup extends TableColumn
-{
-	function TableColumnStockGroup($iWidth = 110)
-	{
-        parent::TableColumn(GetMyStockGroupLink(), $iWidth);
 	}
 }
 

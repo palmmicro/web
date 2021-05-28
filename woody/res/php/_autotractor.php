@@ -40,13 +40,13 @@ function _echoAutoTractor()
 	$str = 'WIN7系统下海王星不能正常退出, 可以运行系统自带的注册表编辑器regedit.exe, 依次定位到HKEY_CURRENT_USER\Software\Microsoft\Windows\WindowsError Reporting, 在右侧窗口中找到并双击打开DontshowUI, 然后在弹出的窗口中将默认值<font color=blue>0</font>修改为<font color=blue>1</font>.';
 	$str .= '这样当程序崩溃时, 就不会再出现<font color=green>xx程序已停止工作</font>的提示框, 崩溃程序进程会自动退出.';
     EchoOrderList($str);
-
+/*
     EchoHeadLine('Python');
     EchoParagraph('Life is short, you need Python. <font color=red>计划开发中, 没有时间表!</font>');
     $str = '在'.GetExternalLink('https://www.python.org/downloads/windows/', 'Python官网').'下载并安装Windows版本软件, 选择'.GetExternalLink('https://www.python.org/ftp/python/3.9.0/python-3.9.0.exe', 'Windows x86 executable installer');
 	$str .= '. <br />然后就要安装Python有名的各种库了, 在Windows左下角窗口标志右边放大镜框中输入<font color=blue>cmd</font>然后回车, 会进入类似<font color=blue>C:\Users\woody</font>的黑色屏幕地方, 然后在光标处输入<font color=blue>cd AppData\Local\Programs\Python\Python39-32\Scripts</font>, 就到了安装库的地方.';
 	$str .= '<br />输入<font color=blue>pip install pypiwin32</font>, 安装win32api需要的Windows库.';
-    EchoOrderList($str);
+    EchoOrderList($str);*/
 }
 
 function EchoAll()

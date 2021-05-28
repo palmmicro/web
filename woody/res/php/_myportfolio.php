@@ -164,22 +164,8 @@ function _echoPortfolio($portfolio, $sql)
 
 	$arTrans = array_merge(_transSortBySymbol($arTransA), _transSortBySymbol($arTransH), _transSortBySymbol($arTransUS));
     _transEchoReferenceParagraph($arTrans);
-	EchoPortfolioParagraph('个股'.STOCK_DISP_PROFIT, $arTrans);
+	EchoPortfolioParagraph($arTrans);
     _transEchoMergeParagraph($arTrans);
-}
-
-function _echoMoneyParagraph($acct, $portfolio)
-{
-    $strUSDCNY = SqlGetUSCNY();
-    $strHKDCNY = SqlGetHKCNY();    
-
-    _EchoMoneyParagraphBegin();
-    foreach ($portfolio->arStockGroup as $group)
-    {
-        _EchoMoneyGroupData($acct, $group, $strUSDCNY, $strHKDCNY);
-    }
-    _EchoMoneyGroupData($acct, $portfolio, $strUSDCNY, $strHKDCNY, DISP_ALL_CN.'分组');
-    EchoTableParagraphEnd();
 }
 
 function _onPrefetch($sql) 
@@ -194,6 +180,7 @@ function _onPrefetch($sql)
 		@mysql_free_result($result);
 	}
     StockPrefetchArrayData($arSymbol);
+    GetChinaMoney();
 }
 
 function EchoAll()
@@ -205,7 +192,9 @@ function EchoAll()
 
     $portfolio = new _MyPortfolio();
     _echoPortfolio($portfolio, $sql);
-    _echoMoneyParagraph($acct, $portfolio);
+    
+    $portfolio->arStockGroup[] = $portfolio; 
+    $acct->EchoMoneyParagraphs($portfolio->arStockGroup, new CnyReference('USCNY'), new CnyReference('HKCNY'));
     
     $acct->EchoLinks(MY_PORTFOLIO_PAGE);
 }

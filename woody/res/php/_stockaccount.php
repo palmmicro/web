@@ -141,10 +141,28 @@ class StockAccount extends TitleAccount
     	if ($group->GetTotalRecords() > 0)
     	{
     		EchoTransactionParagraph($this, $strGroupId, false, false);
-    		EchoPortfolioParagraph(GetMyPortfolioLink(), $group->GetStockTransactionArray());
+    		EchoPortfolioParagraph($group->GetStockTransactionArray());
     		return true;
     	}
     	return false;
+    }
+    
+    function EchoMoneyParagraphs($arGroup, $uscny_ref, $hkcny_ref = false)
+    {
+    	$strUSDCNY = $uscny_ref ? $uscny_ref->GetPrice() : false;
+    	$strHKDCNY = $hkcny_ref ? $hkcny_ref->GetPrice() : false;
+	
+    	_EchoMoneyParagraphBegin();
+    	foreach ($arGroup as $group)
+    	{
+    		_EchoMoneyGroupData($this, $group, $strUSDCNY, $strHKDCNY);
+    	}
+    	EchoTableParagraphEnd();
+    }
+
+    function EchoMoneyParagraph($group, $uscny_ref, $hkcny_ref = false)
+    {
+    	$this->EchoMoneyParagraphs(array($group), $uscny_ref, $hkcny_ref);
     }
 }    
 

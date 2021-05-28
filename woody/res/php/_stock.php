@@ -11,15 +11,16 @@ require_once('_stocklink.php');
 
 // ****************************** Money table *******************************************************
 
-function _EchoMoneyParagraphBegin($str = '')
+function _EchoMoneyParagraphBegin()
 {
-	$strMoneyType = '单一货币';
+	$strMoney = '货币';
+	$strMoneyType = '单一'.$strMoney;
 	EchoTableParagraphBegin(array(new TableColumnStockGroup(),
 								   new TableColumnProfit(DISP_ALL_CN),
 								   new TableColumnHolding(DISP_ALL_CN),
 								   new TableColumnProfit($strMoneyType),
 								   new TableColumnHolding($strMoneyType),
-								   ), 'money', $str);
+								   ), 'money', '折算'.$strMoney);
 }
 
 function _echoMoneyItem($strGroup, $strMoney, $fValue, $fProfit, $fConvertValue, $fConvertProfit)
@@ -54,11 +55,15 @@ function _echoMoneyItem($strGroup, $strMoney, $fValue, $fProfit, $fConvertValue,
     EchoTableColumn($ar);
 }
 
-function _EchoMoneyGroupData($acct, $group, $strUSDCNY, $strHKDCNY, $strLink = false)
+function _EchoMoneyGroupData($acct, $group, $strUSDCNY, $strHKDCNY)
 {
-	if ($strLink == false)
+	if ($strGroupId = $group->GetGroupId())
 	{
-		$strLink = $acct->GetGroupLink($group->GetGroupId());
+		$strLink = $acct->GetGroupLink($strGroupId);
+	}
+	else
+	{
+		$strLink = DISP_ALL_CN;
 	}
 	
     $group->ConvertCurrency($strUSDCNY, $strHKDCNY);
@@ -102,25 +107,13 @@ function _echoRandomPromotion()
 	}
 }
 
-function EchoPromotionHead($strVer = false, $strLoginId = false)
+function EchoPromotionHead($strVer, $strLoginId)
 {
     EchoHeadLine('相关链接');
 	_echoRandomPromotion();
     
     $str = GetPromotionLink().' '.GetDevGuideLink('20150818', $strVer).' '.GetVisitorLink();
     EchoParagraph($str);
-}
-
-// ****************************** Money Paragraph *******************************************************
-
-function EchoMoneyParagraph($acct, $group, $uscny_ref = false, $hkcny_ref = false)
-{
-	$strUSDCNY = $uscny_ref ? $uscny_ref->GetPrice() : false;
-	$strHKDCNY = $hkcny_ref ? $hkcny_ref->GetPrice() : false;
-	
-    _EchoMoneyParagraphBegin('折算货币');
-    _EchoMoneyGroupData($acct, $group, $strUSDCNY, $strHKDCNY);
-    EchoTableParagraphEnd();
 }
 
 ?>

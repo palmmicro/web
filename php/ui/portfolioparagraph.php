@@ -38,7 +38,7 @@ function _echoPortfolioTableItem($trans)
     EchoTableColumn($ar);
 }
 
-function EchoPortfolioParagraph($str, $arTrans)
+function EchoPortfolioParagraph($arTrans)
 {
 	EchoTableParagraphBegin(array(new TableColumnSymbol(),
 								   new TableColumnProfit(),
@@ -47,7 +47,7 @@ function EchoPortfolioParagraph($str, $arTrans)
 								   new TableColumnPrice('平均'),
 								   new TableColumnChange(),
 //								   new TableColumnTest()
-								   ), MY_PORTFOLIO_PAGE, $str);
+								   ), MY_PORTFOLIO_PAGE, '个股'.STOCK_DISP_PROFIT);
 
 	foreach ($arTrans as $trans)
 	{

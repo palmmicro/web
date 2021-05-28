@@ -192,36 +192,7 @@ class FundEstSql extends DailyTimeSql
         parent::DailyTimeSql(TABLE_FUND_EST);
     }
 }
-/*
-class FundEstSql extends DailyStockValSql
-{
-    function FundEstSql($strStockId = false) 
-    {
-        parent::DailyStockValSql(TABLE_FUND_EST, $strStockId);
-    }
 
-    function Create()
-    {
-        $str = $this->ComposeDailyValStr()
-    		  . $this->ComposeTimeStr().','
-        	  . $this->ComposeDailyIndexStr();
-    	return $this->CreateIdTable($str);
-    }
-    
-    function Insert($strDate, $strEstValue)
-    {
-   		$ar = $this->MakeFieldArray($strDate, $strEstValue);
-   		$ar['time'] = DebugGetTime();
-   		return $this->InsertArray($ar);
-    }
-    
-    function Update($strId, $strEstValue)
-    {
-        $strTime = DebugGetTime();
-		return $this->UpdateById(array('close' => $strEstValue, 'time' => $strTime), $strId);
-	}
-}
-*/
 // ****************************** StockEmaSql class *******************************************************
 class StockEmaSql extends DailyStockValSql
 {
