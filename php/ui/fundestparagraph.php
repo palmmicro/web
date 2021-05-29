@@ -45,7 +45,7 @@ function _getFundRealtimeStr($ref, $strRealtimeEst)
     {
         $strEtfSymbol = $est_ref->GetSymbol();
         $strFutureEtfSymbol = $future_etf_ref->GetSymbol();
-        $str .= ", {$strEtfSymbol}和{$strFutureEtfSymbol}关联程度按照100%估算";
+        $str .= ', '.GetStockChartsLink($strEtfSymbol)."和{$strFutureEtfSymbol}关联程度按照100%估算";
     }
     return $str.'.';    
 }

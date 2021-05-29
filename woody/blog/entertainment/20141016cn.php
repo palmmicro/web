@@ -171,7 +171,7 @@ A股同涨同跌的特点多少年都没有变过, 不过我想随着市场上�
 然而, 在10月底盈透账户再度面临爆仓的时候, 我是真正的束手无策, 甚至连像3月份时那样去找人换美元的勇气都没了. 还好, 上帝终于派来了蓝色小药丸公司的疫苗来救命. 
 <br /><img src=../photo/bluelittlepill.jpg alt="Can not find my little blue pill" />
 <br />在不断的爆仓阴影笼罩下, 2020年的总体交易都是缩手缩脚, 全年交易额比2019和2018年都低了不少, 盈透交易额已经不到2018年的70%, 买卖的美元港币人民币折算总金额已经跌到了不到2亿人民币. 
-<br />以下是按股票分组看图说话的流水账. 
+<br />以下是按<?php EchoWoodyStockGroupLink(); ?>看图说话的流水账. 
 <br /><img src=../photo/20210102.jpg alt="Screen shot of woody's 2020 stock profit data" />
 </p>
 <ul>

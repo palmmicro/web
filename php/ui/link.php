@@ -97,4 +97,9 @@ function EchoWoodyPortfolioLink()
 	echo GetMyPortfolioLink('email=woody@palmmicro.com');
 }
 
+function EchoWoodyStockGroupLink()
+{
+	echo GetMyStockGroupLink('email=woody@palmmicro.com');
+}
+
 ?>

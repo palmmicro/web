@@ -98,9 +98,9 @@ function EchoStockGroupParagraph($acct, $strGroupId = false, $strStockId = false
 	}
 	else
 	{
-   		if ($strLoginId = $acct->GetLoginId())
+   		if ($strMemberId = $acct->GetMemberId())
     	{
-    		_echoStockGroupTableData($acct, $strStockId, $strLoginId, $bAdmin);
+    		_echoStockGroupTableData($acct, $strStockId, $strMemberId, $bAdmin);
     	}
     	else
     	{

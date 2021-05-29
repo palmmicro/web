@@ -199,9 +199,9 @@ function GetAdrhCompareLink()
 
 define('STOCK_GROUP_DISPLAY', '股票分组');
 define('STOCK_GROUP_PAGE', 'mystockgroup');
-function GetMyStockGroupLink()
+function GetMyStockGroupLink($strQuery = false)
 {
-	return GetStockTitleLink(STOCK_GROUP_PAGE, STOCK_GROUP_DISPLAY);
+	return GetStockTitleLink(STOCK_GROUP_PAGE, STOCK_GROUP_DISPLAY, $strQuery);
 }
 
 function GetCategorySoftwareLinks($arTitle, $strCategory)

@@ -174,7 +174,7 @@ class TableColumnStockGroup extends TableColumn
 {
 	function TableColumnStockGroup()
 	{
-        parent::TableColumn(STOCK_GROUP_DISPLAY, 110);
+        parent::TableColumn(GetMyStockGroupLink(), 110);
 	}
 }
 

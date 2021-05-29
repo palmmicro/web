@@ -20,15 +20,10 @@ function in_array_ref($strSymbol, $arRef)
 	return false;
 }
 
-function _prefetchStockGroupArray($arStock)
+function _echoStockGroupArray($arStock)
 {
     StockPrefetchArrayData($arStock);
     GetChinaMoney();
-}
-
-function _echoStockGroupArray($arStock)
-{
-	_prefetchStockGroupArray($arStock);
 
     $arRef = array();
     $arTransactionRef = array();
@@ -236,9 +231,9 @@ function EchoTitle()
 	$acct = new GroupIdAccount();
 	if ($acct->GetTitle() == STOCK_GROUP_PAGE)
 	{
-		if ($acct->GetQuery() == false)
+		if ($acct->GetMemberId() == false)
 		{
-			if ($acct->GetMemberId() == false)
+			if ($acct->GetQuery() == false)
 			{
 				$acct->Auth();
 			}

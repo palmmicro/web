@@ -172,7 +172,7 @@
 <br /><?php EchoWoodyPortfolioLink(); ?>功能刚完成的时候页面出来得奇慢无比, 而接下来刷新就会快很多. 因为对自己的mysql水平没有自信心, 我一头扎进了优化数据库的工作中.
 优化了一些明显的问题, 例如扩展了stockgroupitem表的内容, 把stocktransaction表中groupitem_id相同的交易预先统计好存在stockgroupitem表中, 避免每次都重新查询stocktransaction表然后重新计算一次.
 不过折腾了一大圈后并没有明显的改善, 倒是在这个过程中理清了原来闭着眼睛写的代码的内在逻辑, 看出来了问题的根源.
-<br />在按member_id查询<?php EchoNameTag(STOCK_GROUP_PAGE, TABLE_STOCK_GROUP); ?>表找到这个人所有的<a href="../../res/mystockgroupcn.php?email=woody@palmmicro.com">股票分组</a>后,
+<br />在按member_id查询<?php EchoNameTag(STOCK_GROUP_PAGE, TABLE_STOCK_GROUP); ?>表找到这个人所有的<?php EchoWoodyStockGroupLink(); ?>后,
 我会对每个stockgroup直接构造<font color=olive>MyStockGroup</font>类. 在<font color=olive>MyStockGroup</font>类原来的构造函数代码中, 
 会马上对该stockgroup中的每个stock构建一个<font color=olive>MyStockTransaction</font>类, 而<font color=olive>MyStockTransaction</font>的构造函数又需要这个stock的<font color=olive>MyStockReference</font>类作为参数,
 如果没有现成的<font color=olive>MyStockReference</font>类的实例可用, 就会新构造一个. 结果就是在首次统计持仓盈亏的过程中, 我会把几乎所有股票的数据都去新浪拿一遍, 难怪那么慢. 
