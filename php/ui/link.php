@@ -102,4 +102,9 @@ function EchoWoodyStockGroupLink()
 	echo GetMyStockGroupLink('email=woody@palmmicro.com');
 }
 
+function EchoAutoTractorLink()
+{
+	echo GetAutoTractorLink();
+}
+
 ?>

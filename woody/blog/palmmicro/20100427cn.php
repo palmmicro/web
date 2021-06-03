@@ -90,7 +90,7 @@ Yahoo网站服务早些时候给palmmicro.com换到了一个新IP地址: 98.136.
 
 <h3>那些<a name="xueqiu">雪球</a>小秘书不让我说的话</h3>
 <p>2021年3月10日
-<br />今天想蹭弘盈A的热度在雪球上吸粉, 混了一整天没什么收获. 收盘后总算有人问了句<a href="../../res/autotractorcn.php">拖拉机自动化</a>的软件在哪里, 我回复后很快就被小秘书删除了.
+<br />今天想蹭弘盈A的热度在雪球上吸粉, 混了一整天没什么收获. 收盘后总算有人问了句<?php EchoAutoTractorLink(); ?>的软件在哪里, 我回复后很快就被小秘书删除了.
 <br /><img src=../photo/20210310a.jpg alt="Xueqiu forbidden phrase a" />
 <br /><img src=../photo/tractor.jpg alt="Green tractors" />
 <br />感觉很不爽, 翻了下历史记录, 把那些雪球小秘书不让我说的话在这里全部记录下来. 在<a href="20161014cn.php">微信公众号</a>上写了篇图文, 结果也说我违规不让发, 只好放在这里了.
