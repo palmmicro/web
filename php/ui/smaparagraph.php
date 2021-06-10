@@ -137,7 +137,8 @@ function _getSmaParagraphWarning($ref)
 {
 	if (RefHasData($ref))
 	{
-		if ($record = $ref->his_sql->GetRecordPrev($ref->GetDate()))
+		$his_sql = GetStockHistorySql();
+		if ($record = $his_sql->GetRecordPrev($ref->GetStockId(), $ref->GetDate()))
 		{
 			if (abs(floatval($record['adjclose']) - floatval($ref->GetPrevPrice())) > 0.0005)
 			{

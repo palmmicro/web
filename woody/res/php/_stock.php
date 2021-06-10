@@ -112,7 +112,7 @@ function EchoPromotionHead($strVer, $strLoginId)
     EchoHeadLine('相关链接');
 	_echoRandomPromotion();
     
-    $str = GetPromotionLink().' '.GetDevGuideLink('20150818', $strVer).' '.GetVisitorLink();
+    $str = GetPromotionLink().' '.GetDevGuideLink('20150818', $strVer).' '.GetAutoTractorLink().' '.GetVisitorLink();
     EchoParagraph($str);
 }
 

@@ -53,11 +53,10 @@ function _getFundAmount($strSymbol, $strDate)
 	return 500.0 * 0.988;
 }
 
-function _echoFundAccountItem($csv, $strDate, $strSharesDiff, $ref, $strSymbol, $nv_sql)
+function _echoFundAccountItem($csv, $strDate, $strSharesDiff, $ref, $strSymbol, $strStockId, $his_sql, $nv_sql)
 {
     $iCount = 0;
-    $his_sql = $ref->GetHistorySql();
-    if ($result = $his_sql->GetFromDate($strDate, 5)) 
+    if ($result = $his_sql->GetFromDate($strStockId, $strDate, 5)) 
     {
         while ($record = mysql_fetch_assoc($result)) 
         {
@@ -107,7 +106,7 @@ function _echoFundAccountItem($csv, $strDate, $strSharesDiff, $ref, $strSymbol, 
 	EchoTableColumn($ar);
 }
 
-function _echoFundAccountData($csv, $ref, $strSymbol, $strStockId, $nv_sql)
+function _echoFundAccountData($csv, $ref, $strSymbol, $strStockId, $his_sql, $nv_sql)
 {
 	$sql = new SharesDiffSql();
     if ($result = $sql->GetAll($strStockId)) 
@@ -115,7 +114,7 @@ function _echoFundAccountData($csv, $ref, $strSymbol, $strStockId, $nv_sql)
         while ($record = mysql_fetch_assoc($result)) 
         {
        		$strDate = $record['date'];
-       		_echoFundAccountItem($csv, $strDate, rtrim0($record['close']), $ref, $strSymbol, $nv_sql);
+       		_echoFundAccountItem($csv, $strDate, rtrim0($record['close']), $ref, $strSymbol, $strStockId, $his_sql, $nv_sql);
         }
         @mysql_free_result($result);
     }
@@ -133,7 +132,7 @@ function _getFundAccountTableColumnArray()
 				   );
 }
 
-function _echoFundAccountParagraph($csv, $ref, $strSymbol, $strStockId, $nv_sql, $bAdmin)
+function _echoFundAccountParagraph($csv, $ref, $strSymbol, $strStockId, $his_sql, $nv_sql, $bAdmin)
 {
  	$str = GetFundLinks($strSymbol);
 	if ($bAdmin)
@@ -142,18 +141,17 @@ function _echoFundAccountParagraph($csv, $ref, $strSymbol, $strStockId, $nv_sql,
 	}
 	
 	EchoTableParagraphBegin(_getFundAccountTableColumnArray(), FUND_ACCOUNT_PAGE, $str);
-	_echoFundAccountData($csv, $ref, $strSymbol, $strStockId, $nv_sql);
+	_echoFundAccountData($csv, $ref, $strSymbol, $strStockId, $his_sql, $nv_sql);
     EchoTableParagraphEnd();
 }
 
-function _echoFundAccountPredictData($ref, $strSymbol, $nv_sql, $jpg)
+function _echoFundAccountPredictData($ref, $strSymbol, $strStockId, $his_sql, $nv_sql, $jpg)
 {
     date_default_timezone_set(STOCK_TIME_ZONE_CN);
     $now_ymd = new NowYMD();
 
     $iCount = 0;
-    $his_sql = $ref->GetHistorySql();
-    if ($result = $his_sql->GetFromDate($now_ymd->GetYMD(), 4)) 
+    if ($result = $his_sql->GetFromDate($strStockId, $now_ymd->GetYMD(), 4)) 
     {
         while ($record = mysql_fetch_assoc($result)) 
         {
@@ -205,7 +203,7 @@ function _echoFundAccountPredictData($ref, $strSymbol, $nv_sql, $jpg)
 	EchoTableColumn($ar);
 }
 
-function _echoLinearRegressionGraph($csv, $ref, $strSymbol, $nv_sql)
+function _echoLinearRegressionGraph($csv, $ref, $strSymbol, $strStockId, $his_sql, $nv_sql)
 {
     $jpg = new LinearImageFile();
     if ($jpg->Draw($csv->ReadColumn(5), $csv->ReadColumn(2)))
@@ -215,7 +213,7 @@ function _echoLinearRegressionGraph($csv, $ref, $strSymbol, $nv_sql)
     	$str .= '<br />下一交易日'.STOCK_OPTION_SHARES_DIFF.'预测';
 
     	EchoTableParagraphBegin(_getFundAccountTableColumnArray(), 'predict'.FUND_ACCOUNT_PAGE, $str);
-    	_echoFundAccountPredictData($ref, $strSymbol, $nv_sql, $jpg);
+    	_echoFundAccountPredictData($ref, $strSymbol, $strStockId, $his_sql, $nv_sql, $jpg);
     	EchoTableParagraphEnd();
     }
 }
@@ -232,13 +230,14 @@ function EchoAll()
         {
         	$strStockId = $ref->GetStockId();
         	$nv_sql = new NetValueSql($strStockId);
+        	$his_sql = GetStockHistorySql();
         	
         	$csv = new PageCsvFile();
-            _echoFundAccountParagraph($csv, $ref, $strSymbol, $strStockId, $nv_sql, $bAdmin);
+            _echoFundAccountParagraph($csv, $ref, $strSymbol, $strStockId, $his_sql, $nv_sql, $bAdmin);
             $csv->Close();
             if ($csv->HasFile())
             {
-            	_echoLinearRegressionGraph($csv, $ref, $strSymbol, $nv_sql);
+            	_echoLinearRegressionGraph($csv, $ref, $strSymbol, $strStockId, $his_sql, $nv_sql);
             }
             
             EchoRemarks($strSymbol);

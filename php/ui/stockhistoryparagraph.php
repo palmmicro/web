@@ -22,9 +22,9 @@ function _echoStockHistoryItem($record, $ref, $csv)
 END;
 }
 
-function _echoStockHistoryData($ref, $csv, $iStart, $iNum)
+function _echoStockHistoryData($ref, $csv, $his_sql, $strStockId, $iStart, $iNum)
 {
-    if ($result = $ref->his_sql->GetAll($iStart, $iNum)) 
+    if ($result = $his_sql->GetAll($strStockId, $iStart, $iNum)) 
     {
         while ($record = mysql_fetch_assoc($result)) 
         {
@@ -37,8 +37,10 @@ function _echoStockHistoryData($ref, $csv, $iStart, $iNum)
 function EchoStockHistoryParagraph($ref, $str = false, $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
 {
     $strSymbol = $ref->GetSymbol();
+    $strStockId = $ref->GetStockId();
 	if ($str == false)	$str = GetStockHistoryLink($strSymbol);
-    $strNavLink = IsTableCommonDisplay($iStart, $iNum) ? '' : StockGetNavLink($strSymbol, $ref->his_sql->Count(), $iStart, $iNum);
+	$his_sql = GetStockHistorySql();
+    $strNavLink = IsTableCommonDisplay($iStart, $iNum) ? '' : StockGetNavLink($strSymbol, $his_sql->Count($strStockId), $iStart, $iNum);
     
 	EchoTableParagraphBegin(array(new TableColumnDate(),
 								   new TableColumn(STOCK_DISP_OPEN),
@@ -49,7 +51,7 @@ function EchoStockHistoryParagraph($ref, $str = false, $csv = false, $iStart = 0
 								   new TableColumnClose('复权')
 								   ), $strSymbol.TABLE_STOCK_HISTORY, $str.'<br />'.$strNavLink);
    
-    _echoStockHistoryData($ref, $csv, $iStart, $iNum);
+    _echoStockHistoryData($ref, $csv, $his_sql, $strStockId, $iStart, $iNum);
     EchoTableParagraphEnd($strNavLink);
 }
 

@@ -5,7 +5,7 @@ require_once('/php/stockhis.php');
 
 // https://danjuanapp.com/djmodule/value-center
 
-function _webUpdateSinaHistory($his_sql, $sym)
+function _webUpdateSinaHistory($his_sql, $strStockId, $sym)
 {
     $oldest_ymd = new OldestYMD();
     $iYearOldest = $oldest_ymd->GetYear();
@@ -21,7 +21,7 @@ function _webUpdateSinaHistory($his_sql, $sym)
         	$arMatch = preg_match_sina_history($str);
         	foreach ($arMatch as $ar)
         	{
-        		$his_sql->WriteHistory($ar[1], $ar[2], $ar[3], $ar[5], $ar[4], $ar[6], $ar[4]);
+        		$his_sql->WriteHistory($strStockId, $ar[1], $ar[2], $ar[3], $ar[5], $ar[4], $ar[6], $ar[4]);
         		$iTotal ++;
         	}
         }
@@ -37,7 +37,7 @@ function _webUpdateSinaHistory($his_sql, $sym)
     DebugVal($iTotal, $sym->GetSymbol().' total');
 }
 
-function _webUpdateYahooHistory($his_sql, $strYahooSymbol)
+function _webUpdateYahooHistory($his_sql, $strStockId, $strYahooSymbol)
 {
     $iTime = time();
     $iTotal = 0;
@@ -76,7 +76,7 @@ function _webUpdateYahooHistory($his_sql, $strYahooSymbol)
         		}
         		else
         		{
-        			$his_sql->WriteHistory($strDate, $ar[0], $ar[1], $ar[2], $ar[3], $ar[5], $ar[4]);
+        			$his_sql->WriteHistory($strStockId, $strDate, $ar[0], $ar[1], $ar[2], $ar[3], $ar[5], $ar[4]);
         		}
         	}
         }
@@ -88,23 +88,24 @@ function _webUpdateYahooHistory($his_sql, $strYahooSymbol)
 
 function _submitStockHistory($ref)
 {
-	$his_sql = $ref->GetHistorySql();
+    $his_sql = GetStockHistorySql();
     $strSymbol = $ref->GetSymbol();
+    $strStockId = $ref->GetStockId();
     
     unlinkConfigFile($strSymbol);
     $ref->SetTimeZone();
 	if ($ref->IsIndexA())
 	{
-		_webUpdateSinaHistory($his_sql, $ref);
+		_webUpdateSinaHistory($his_sql, $strStockId, $ref);
 	}
 	else
 	{
-		_webUpdateYahooHistory($his_sql, $ref->GetYahooSymbol());
+		_webUpdateYahooHistory($his_sql, $strStockId, $ref->GetYahooSymbol());
 		if ($ref->IsSymbolA() || $ref->IsSymbolH())
 		{   // Yahoo has wrong Chinese and Hongkong holiday record with '0' volume 
 //			if ($ref->IsIndex() == false)
 			{
-				$his_sql->DeleteByZeroVolume();
+				$his_sql->DeleteByZeroVolume($strStockId);
 			}
 		}
 	}

@@ -1,5 +1,13 @@
 <?php
 
+function PairNvGetClose($ref, $strDate)
+{
+	if ($ref->sql)		return $ref->sql->GetClose($strDate);
+
+    $his_sql = GetStockHistorySql();
+    return $his_sql->GetClose($ref->GetStockId(), $strDate);
+}
+
 // ****************************** MyPairReference class *******************************************************
 class MyPairReference extends MyStockReference
 {
@@ -85,12 +93,12 @@ class NetValueReference extends StockReference
 // ****************************** IndexReference class *******************************************************
 class IndexReference extends MyStockReference
 {
-	var $sql;
+	var $sql = false;
 	
     function IndexReference($strSymbol) 
     {
         parent::MyStockReference($strSymbol);
-       	$this->sql = $this->his_sql;
+//       	$this->sql = GetStockHistorySql();
     }
 }
 
@@ -178,7 +186,7 @@ class EtfReference extends MyPairReference
     		while ($record = mysql_fetch_assoc($result)) 
     		{
     			$strDate = $record['date'];
-        		if ($this->strPairNetValue = $this->pair_nv_ref->sql->GetClose($strDate))
+        		if ($this->strPairNetValue = PairNvGetClose($this->pair_nv_ref, $strDate))
         		{
         			$this->strNetValue = rtrim0($record['close']);
         			$this->fFactor = $this->GetFactor($this->strPairNetValue, $this->strNetValue);
@@ -296,7 +304,7 @@ class EtfReference extends MyPairReference
     
     function _estOfficialNetValue($strCny = false)
     {
-		if (($strEst = $this->pair_nv_ref->sql->GetClose($this->strOfficialDate)) == false)
+		if (($strEst = PairNvGetClose($this->pair_nv_ref, $this->strOfficialDate)) == false)
 		{
 			$strEst = $this->pair_ref->GetPrice();
 		}

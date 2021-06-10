@@ -4,7 +4,7 @@ require_once('stocktable.php');
 function _echoCalibrationItem($ref, $sql, $strNetValue, $strDate, $bAdmin)
 {
 	$pair_nv_ref = $ref->GetPairNvRef();
-    if ($strPairNetValue = $pair_nv_ref->sql->GetClose($strDate))
+    if ($strPairNetValue = PairNvGetClose($pair_nv_ref, GetClose($strDate))
     {
     	$ar = array($strDate);
    		$ar[] = $ref->GetPriceDisplay($strNetValue);

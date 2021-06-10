@@ -33,11 +33,10 @@ function _echoThanousParadoxGraph($csv)
     }
 }
 
-function _echoThanousParadoxItem($csv, $strNetValue, $strClose, $strDate, $ref, $est_ref)
+function _echoThanousParadoxItem($csv, $strNetValue, $strClose, $strDate, $ref, $est_ref, $strEstStockId, $his_sql)
 {
-	$his_sql = $est_ref->GetHistorySql();
-	$strEstClose = $his_sql->GetClose($strDate);
-	$strEstClosePrev = $his_sql->GetClosePrev($strDate);
+	$strEstClose = $his_sql->GetClose($strEstStockId, $strDate);
+	$strEstClosePrev = $his_sql->GetClosePrev($strEstStockId, $strDate);
 	if (($strEstClose == false) || ($strEstClosePrev == false))		return;
 	
    	$csv->Write($strDate, $est_ref->GetPercentageString($strEstClosePrev, $strEstClose), $ref->GetPercentageString($strNetValue, $strClose), $strNetValue);
@@ -51,19 +50,21 @@ function _echoThanousParadoxItem($csv, $strNetValue, $strClose, $strDate, $ref, 
 	EchoTableColumn($ar);
 }
 
-function _echoThanousParadoxData($csv, $sql, $ref, $est_ref, $iStart, $iNum)
+function _echoThanousParadoxData($csv, $sql, $ref, $strStockId, $est_ref, $iStart, $iNum)
 {
     if ($result = $sql->GetAll($iStart, $iNum)) 
     {
+    	$his_sql = GetStockHistorySql();
+    	$strEstStockId = $est_ref->GetStockId();
         while ($record = mysql_fetch_assoc($result)) 
         {
         	$strNetValue = rtrim0($record['close']);
         	if (empty($strNetValue) == false)
         	{
         		$strDate = GetNextTradingDayYMD($record['date']);
-        		if ($strClose = $ref->his_sql->GetClose($strDate))
+        		if ($strClose = $his_sql->GetClose($strStockId, $strDate))
         		{
-       				_echoThanousParadoxItem($csv, $strNetValue, $strClose, $strDate, $ref, $est_ref);
+       				_echoThanousParadoxItem($csv, $strNetValue, $strClose, $strDate, $ref, $est_ref, $strEstStockId, $his_sql);
                 }
             }
         }
@@ -79,7 +80,8 @@ function _echoThanousParadoxParagraph($strSymbol, $iStart, $iNum)
 
  	$str = GetFundLinks($strSymbol);
 
-	$sql = new NetValueSql($ref->GetStockId());
+ 	$strStockId = $ref->GetStockId();
+	$sql = new NetValueSql($strStockId);
    	$strNavLink = StockGetNavLink($strSymbol, $sql->Count(), $iStart, $iNum);
 	$str .= ' '.$strNavLink;
 
@@ -92,7 +94,7 @@ function _echoThanousParadoxParagraph($strSymbol, $iStart, $iNum)
 								   ), THANOUS_PARADOX_PAGE, $str);
 
    	$csv = new PageCsvFile();
-	_echoThanousParadoxData($csv, $sql, $ref->stock_ref, $est_ref, $iStart, $iNum);
+	_echoThanousParadoxData($csv, $sql, $ref->stock_ref, $strStockId, $est_ref, $iStart, $iNum);
     $csv->Close();
     EchoTableParagraphEnd($strNavLink);
 

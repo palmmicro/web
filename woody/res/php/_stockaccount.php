@@ -106,7 +106,6 @@ class StockAccount extends TitleAccount
     		$str = GetCategoryLinks(GetStockCategoryArray());
     	}
     	$str .= '<br />'.GetCategoryLinks(GetStockMenuArray());
-//    	$str .= '<br />'.GetAutoTractorLink();	// .' '.GetAhCompareLink().' '.GetAdrhCompareLink();
     	$str .= '<br />'.GetMyPortfolioLink();
     	if ($strLoginId)
     	{

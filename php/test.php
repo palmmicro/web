@@ -65,9 +65,8 @@ function TestCmdLine()
 	DebugClearPath('csv');
 	DebugClearPath('image');
 
-	$sql = new CalibrationSql();
+//	$sql = new StockHistorySql();
 	
-//	$sql = new MemberSql();
 //	WriteForexDataFromFile();
 	phpinfo();
 ?>

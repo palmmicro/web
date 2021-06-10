@@ -8,8 +8,6 @@ class MysqlReference extends StockReference
 
     var $fFactor = 1.0;			// 'factor' field in old stockcalibration table or 'close' field in new etfcalibration table
     
-    var $his_sql = false;		// StockHistorySql
-    
     function MysqlReference($strSymbol) 
     {
         parent::StockReference($strSymbol);
@@ -18,7 +16,6 @@ class MysqlReference extends StockReference
         $this->_loadSqlId($this->GetSymbol());
         if ($this->strSqlId)
         {
-        	$this->his_sql = new StockHistorySql($this->strSqlId);
         	if ($this->bHasData)
         	{
         		$now_ymd = new NowYMD();
@@ -50,11 +47,6 @@ class MysqlReference extends StockReference
     function GetStockId()
     {
         return $this->strSqlId;
-    }
-    
-    function GetHistorySql()
-    {
-        return $this->his_sql;
     }
     
     function GetEnglishName()
@@ -97,7 +89,9 @@ class MysqlReference extends StockReference
         if ($this->_invalidHistoryData($strLow))  return;
         $strClose = $this->GetPrice();
         if ($this->_invalidHistoryData($strClose))  return;
-        return $this->his_sql->WriteHistory($this->GetDate(), $strOpen, $strHigh, $strLow, $strClose, $this->strVolume, $strClose);
+        
+        $his_sql = GetStockHistorySql();
+        return $his_sql->WriteHistory($this->strSqlId, $this->GetDate(), $strOpen, $strHigh, $strLow, $strClose, $this->strVolume, $strClose);
     }
     
     // En = k * X0 + (1 - k) * Em; 其中m = n - 1; k = 2 / (n + 1)

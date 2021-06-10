@@ -10,10 +10,10 @@ function _getGroupItemPriceArray($strGroupId)
 	$item_sql = new StockGroupItemSql($strGroupId);
     if ($arStockId = $item_sql->GetStockIdArray())
     {
+    	$his_sql = GetStockHistorySql();
     	foreach ($arStockId as $str => $strStockId)
     	{
-    		$his_sql = new StockHistorySql($strStockId);
-    		$ar[$str] = $his_sql->GetCloseNow();
+    		$ar[$str] = $his_sql->GetCloseNow($strStockId);
     	}
     }
     return $ar;

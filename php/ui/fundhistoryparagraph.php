@@ -30,9 +30,10 @@ function _echoFundHistoryTableItem($csv, $strNetValue, $strClose, $strDate, $arF
     	}
 		
     	$strEstDate = $arFund['date'];
-		$his_sql = $est_ref->GetHistorySql();
-		$strEstClose = $his_sql->GetClose($strEstDate);
-		$strEstClosePrev = $his_sql->GetClosePrev($strEstDate);
+        $his_sql = GetStockHistorySql();
+		$strStockId = $est_ref->GetStockId();
+		$strEstClose = $his_sql->GetClose($strStockId, $strEstDate);
+		$strEstClosePrev = $his_sql->GetClosePrev($strStockId, $strEstDate);
 		if ($strEstClose && $strEstClosePrev)
 		{
 //			$strEstChange = $est_ref->GetPercentageDisplay($strEstClosePrev, $strEstClose);
@@ -60,6 +61,7 @@ function _echoHistoryTableData($sql, $fund_est_sql, $csv, $ref, $est_ref, $iStar
 	}
 	
 	$strStockId = $ref->GetStockId();
+    $his_sql = GetStockHistorySql();
     if ($result = $sql->GetAll($iStart, $iNum)) 
     {
         while ($record = mysql_fetch_assoc($result)) 
@@ -74,7 +76,7 @@ function _echoHistoryTableData($sql, $fund_est_sql, $csv, $ref, $est_ref, $iStar
         			$strDate = GetNextTradingDayYMD($strDate);
         		}
             
-        		if ($strClose = $ref->his_sql->GetClose($strDate))
+        		if ($strClose = $his_sql->GetClose($strStockId, $strDate))
         		{
         			_echoFundHistoryTableItem($csv, $strNetValue, $strClose, $strDate, $arFund, $ref, $est_ref);
         		}

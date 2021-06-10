@@ -1,6 +1,6 @@
 <?php
 
-define('FUND_POSITION_RATIO', 0.95);
+define('LOF_POSITION_RATIO', 0.95);
 
 // ****************************** FundReference Class *******************************************************
 class FundReference extends MysqlReference
@@ -171,20 +171,16 @@ class FundReference extends MysqlReference
     {
 		if ($this->IsLofA())
 		{
-			switch ($this->GetSymbol())
+/*			switch ($this->GetSymbol())
 			{
 			case 'SZ162411':
 				$fRatio = 0.95;
 				break;
-    		
-			case 'SZ162719':
-				$fRatio = 0.95;
-				break;
-    		
-			default:
-				$fRatio = FUND_POSITION_RATIO;
-				break;
-			}
+
+			default:*/
+				$fRatio = LOF_POSITION_RATIO;
+//				break;
+//			}
     	}
 		else
 		{
@@ -193,10 +189,15 @@ class FundReference extends MysqlReference
     	return $fRatio;
     }
     
+    /* (x - x0) / x0 = r * (y - y0) / y0
+    	x / x0 - 1 = r * y / y0 - r
+    	x = x0 * (r * y / y0 + 1 - r) = r * (x0 * y / y0) + (1 - r) * x0 		### used in AdjustPosition
+    	y = y0 * (x / x0 - 1 + r) / r = (y0 * x / x0) / r - y0 * (1 / r - 1)	### used in ReverseAdjustPosition
+    */
     function AdjustPosition($fVal)
     {
     	$fRatio = $this->GetFundPosition();
-        return $fVal * $fRatio + floatval($this->GetPrice()) * (1.0 - $fRatio);
+        return $fRatio * $fVal + (1.0 - $fRatio) * floatval($this->GetPrice());
     }
     
     function ReverseAdjustPosition($fVal)

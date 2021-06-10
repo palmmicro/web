@@ -2,11 +2,95 @@
 require_once('sqlkeyname.php');
 require_once('sqlkeytable.php');
 
+class StockHistorySql extends DailyCloseSql
+{
+    function StockHistorySql() 
+    {
+        parent::DailyCloseSql(TABLE_STOCK_HISTORY);
+    }
+
+    public function Create()
+    {
+    	$str = ' `open` DOUBLE(10,3) NOT NULL ,'
+         	  . ' `high` DOUBLE(10,3) NOT NULL ,'
+         	  . ' `low` DOUBLE(10,3) NOT NULL ,'
+         	  . ' `close` DOUBLE(10,3) NOT NULL ,'
+         	  . ' `volume` BIGINT UNSIGNED NOT NULL ,'
+         	  . ' `adjclose` DOUBLE(13,6) NOT NULL';
+        return $this->CreateDailyKeyTable($str);
+    }
+
+    function WriteHistory($strStockId, $strDate, $strOpen, $strHigh, $strLow, $strClose, $strVolume, $strAdjClose)
+    {
+    	$ar = array('date' => $strDate,
+    				   'open' => $strOpen,
+    				   'high' => $strHigh,
+    				   'low' => $strLow,
+    				   'close' => $strClose,
+    				   'volume' => $strVolume,
+    				   'adjclose' => $strAdjClose);
+    	
+    	if ($record = $this->GetRecord($strStockId, $strDate))
+    	{
+    		unset($ar['date']);
+    		if (abs(floatval($record['open']) - floatval($strOpen)) < 0.001)				unset($ar['open']);
+    		if (abs(floatval($record['high']) - floatval($strHigh)) < 0.001)				unset($ar['high']);
+    		if (abs(floatval($record['low']) - floatval($strLow)) < 0.001)					unset($ar['low']);
+    		if (abs(floatval($record['close']) - floatval($strClose)) < 0.001)				unset($ar['close']);
+    		if ($record['volume'] == $strVolume)												unset($ar['volume']);
+    		if (abs(floatval($record['adjclose']) - floatval($strAdjClose)) < MIN_FLOAT_VAL)	unset($ar['adjclose']);
+    		
+    		$iCount = count($ar);
+    		if ($iCount > 0)
+    		{
+    			if ($iCount == 1 && isset($ar['adjclose']))
+    			{	// adjclose might have been changed manually
+    				return false;
+    			}
+    			return $this->UpdateById($ar, $record['id']);
+    		}
+    	}
+    	else
+    	{
+    		return $this->InsertArray(array_merge($this->MakeFieldKeyId($strStockId), $ar));
+    	}
+    	return false;
+    }
+    
+    function UpdateClose($strId, $strClose)
+    {
+		return $this->UpdateById(array('close' => $strClose, 'adjclose' => $strClose), $strId);
+    }
+
+    function UpdateAdjClose($strId, $strAdjClose)
+    {
+		return $this->UpdateById(array('adjclose' => $strAdjClose), $strId);
+    }
+
+    function DeleteByZeroVolume($strStockId)
+    {
+    	return $this->DeleteRecord("volume = '0' AND ".$this->BuildWhere_key($strStockId));
+    }
+
+    function GetVolume($strStockId, $strDate)
+    {
+    	if ($record = $this->GetRecord($strStockId, $strDate))
+    	{
+    		return $record['volume'];
+    	}
+    	return '0';
+    }
+}
+
 class StockSql extends KeyNameSql
 {
+    var $his_sql;		// StockHistorySql
+    
     function StockSql()
     {
         parent::KeyNameSql(TABLE_STOCK, 'symbol');
+        
+       	$this->his_sql = new StockHistorySql();
     }
 
     public function Create()
@@ -75,6 +159,12 @@ function GetStockSql()
 {
 	global $g_stock_sql;
 	return $g_stock_sql;
+}
+
+function GetStockHistorySql()
+{
+	global $g_stock_sql;
+   	return $g_stock_sql->his_sql;
 }
 
 function SqlGetStockName($strSymbol)

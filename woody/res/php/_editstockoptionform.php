@@ -4,28 +4,29 @@ require_once('/php/ui/htmlelement.php');
 
 function _getStockOptionDate($strSubmit, $ref)
 {
-    $his_sql = $ref->GetHistorySql();
+    $strStockId = $ref->GetStockId();
+	$his_sql = GetStockHistorySql();
 	switch ($strSubmit)
 	{
 	case STOCK_OPTION_ADJCLOSE:
 	case STOCK_OPTION_EMA:
 	case STOCK_OPTION_SHARES_DIFF:
 	case STOCK_OPTION_SPLIT:
-		if ($strDate = $his_sql->GetDateNow())
+		if ($strDate = $his_sql->GetDateNow($strStockId))
 		{
 			return $strDate;
 		}
 		break;
 
 	case STOCK_OPTION_CLOSE:
-		if ($record = $his_sql->GetRecordPrev($ref->GetDate()))
+		if ($record = $his_sql->GetRecordPrev($strStockId, $ref->GetDate()))
 		{
 			return $record['date'];
 		}
 		break;
 
 	case STOCK_OPTION_NETVALUE:
-		$sql = new NetValueSql($ref->GetStockId());
+		$sql = new NetValueSql($strStockId);
 		if ($strDate = $sql->GetDateNow())
 		{
 			return $strDate;

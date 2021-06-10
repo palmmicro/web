@@ -2,11 +2,10 @@
 require_once('_stock.php');
 require_once('_editstockoptionform.php');
 
-function _updateStockHistoryAdjCloseByDividend($ref, $strSymbol, $strYMD, $strDividend)
+function _updateStockHistoryAdjCloseByDividend($ref, $strSymbol, $strStockId, $his_sql, $strYMD, $strDividend)
 {
     $ar = array();
-    $his_sql = $ref->GetHistorySql();
-    if ($result = $his_sql->GetFromDate($strYMD)) 
+    if ($result = $his_sql->GetFromDate($strStockId, $strYMD)) 
     {
 //    	DebugString('START: '.$strYMD);
         while ($record = mysql_fetch_assoc($result)) 
@@ -27,10 +26,9 @@ function _updateStockHistoryAdjCloseByDividend($ref, $strSymbol, $strYMD, $strDi
     unlinkConfigFile($strSymbol);
 }
 
-function _updateStockHistoryClose($ref, $strSymbol, $strYMD, $strClose)
+function _updateStockHistoryClose($ref, $strSymbol, $strStockId, $his_sql, $strYMD, $strClose)
 {
-    $his_sql = $ref->GetHistorySql();
-    if ($record = $his_sql->GetRecord($strYMD)) 
+    if ($record = $his_sql->GetRecord($strStockId, $strYMD)) 
     {
     	if ($his_sql->UpdateClose($record['id'], $strClose))
         {
@@ -248,9 +246,9 @@ function _updateStockOptionSplitGroupTransactions($strGroupId, $strStockId, $str
     }
 }
 
-function _updateStockOptionSplitTransactions($ref, $strStockId, $strDate, $fRatio)
+function _updateStockOptionSplitTransactions($ref, $strStockId, $his_sql, $strDate, $fRatio)
 {
-    $fPrice = floatval($ref->his_sql->GetClosePrev($strDate));
+    $fPrice = floatval($his_sql->GetClosePrev($strStockId, $strDate));
     
 	$sql = new TableSql(TABLE_STOCK_GROUP);
     if ($result = $sql->GetData())
@@ -263,7 +261,7 @@ function _updateStockOptionSplitTransactions($ref, $strStockId, $strDate, $fRati
     }
 }
 
-function _updateStockOptionSplit($ref, $strSymbol, $strStockId, $strDate, $strVal)
+function _updateStockOptionSplit($ref, $strSymbol, $strStockId, $his_sql, $strDate, $strVal)
 {
 	if (strpos($strVal, ':') === false)		return;
 	$ar = explode(':', $strVal);
@@ -273,7 +271,7 @@ function _updateStockOptionSplit($ref, $strSymbol, $strStockId, $strDate, $strVa
 	$sql = new StockSplitSql($strStockId);
 	if ($sql->Insert($strDate, strval($fRatio)))
 	{
-		_updateStockOptionSplitTransactions($ref, $strStockId, $strDate, $fRatio);
+		_updateStockOptionSplitTransactions($ref, $strStockId, $his_sql, $strDate, $fRatio);
 	}
 }
 
@@ -291,11 +289,12 @@ function _updateStockOptionSplit($ref, $strSymbol, $strStockId, $strDate, $strVa
     	StockPrefetchData($strSymbol);
         $ref = StockGetReference($strSymbol);
 		$strStockId = $ref->GetStockId();
+		$his_sql = GetStockHistorySql();
         
 		switch ($_POST['submit'])
 		{
 		case STOCK_OPTION_ADJCLOSE:
-			if ($bAdmin)	_updateStockHistoryAdjCloseByDividend($ref, $strSymbol, $strDate, $strVal);
+			if ($bAdmin)	_updateStockHistoryAdjCloseByDividend($ref, $strSymbol, $strStockId, $his_sql, $strDate, $strVal);
 			break;
 			
 		case STOCK_OPTION_ADR:
@@ -311,7 +310,7 @@ function _updateStockOptionSplit($ref, $strSymbol, $strStockId, $strDate, $strVa
 			break;
 
 		case STOCK_OPTION_CLOSE:
-			if ($bAdmin)	_updateStockHistoryClose($ref, $strSymbol, $strDate, $strVal);
+			if ($bAdmin)	_updateStockHistoryClose($ref, $strSymbol, $strStockId, $his_sql, $strDate, $strVal);
 			break;
 			
 		case STOCK_OPTION_EDIT:
@@ -339,7 +338,7 @@ function _updateStockOptionSplit($ref, $strSymbol, $strStockId, $strDate, $strVa
 			break;
 			
 		case STOCK_OPTION_SPLIT:
-			if ($bAdmin)	_updateStockOptionSplit($ref, $strSymbol, $strStockId, $strDate, $strVal);
+			if ($bAdmin)	_updateStockOptionSplit($ref, $strSymbol, $strStockId, $his_sql, $strDate, $strVal);
 			break;
 		}
 		unset($_POST['submit']);

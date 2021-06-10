@@ -296,7 +296,8 @@ class StockHistory
         $afMonthlyClose = array();
 
         $strNextDayYMD = false;
-    	if ($result = $this->stock_ref->his_sql->GetFromDate($this->strStartDate, MAX_QUOTES_DAYS))
+        $his_sql = GetStockHistorySql();
+    	if ($result = $his_sql->GetFromDate($this->GetStockId(), $this->strStartDate, MAX_QUOTES_DAYS))
     	{
     		while ($record = mysql_fetch_assoc($result)) 
     		{
@@ -365,7 +366,8 @@ class StockHistory
     
     function _getStartDate()
     {
-    	if ($result = $this->stock_ref->his_sql->GetAll(0, 2))
+        $his_sql = GetStockHistorySql();
+    	if ($result = $his_sql->GetAll($this->GetStockId(), 0, 2))
     	{
     		while ($record = mysql_fetch_assoc($result)) 
     		{

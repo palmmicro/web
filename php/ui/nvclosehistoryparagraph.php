@@ -1,11 +1,10 @@
 <?php
 require_once('stocktable.php');
 
-function _echoNvCloseItem($csv, $shares_sql, $strDate, $strNetValue, $ref, $strStockId, $strFundId)
+function _echoNvCloseItem($csv, $his_sql, $shares_sql, $strDate, $strNetValue, $ref, $strStockId, $strFundId)
 {
-	$his_sql = $ref->GetHistorySql();
-	$strClose = $his_sql->GetClose($strDate);
-	$strClosePrev = $his_sql->GetClosePrev($strDate);
+	$strClose = $his_sql->GetClose($strStockId, $strDate);
+	$strClosePrev = $his_sql->GetClosePrev($strStockId, $strDate);
 	if (($strClose === false) || ($strClosePrev === false))	return;
 	
    	if ($csv)	$csv->Write($strDate, $ref->GetPercentageString($strClosePrev, $strClose), $ref->GetPercentageString($strNetValue, $strClose), $strNetValue);
@@ -28,7 +27,7 @@ function _echoNvCloseItem($csv, $shares_sql, $strDate, $strNetValue, $ref, $strS
     if ($strShares = $shares_sql->GetClose($strStockId, $strDate))
     {
     	$ar[] = rtrim0($strShares);
-    	$fVolume = floatval($his_sql->GetVolume($strDate));
+    	$fVolume = floatval($his_sql->GetVolume($strStockId, $strDate));
     	$ar[] = strval_round(100.0 * $fVolume / (floatval($strShares * 10000.0)));
     }
     
@@ -47,6 +46,7 @@ function _echoNvCloseData($sql, $ref, $strStockId, $csv, $iStart, $iNum, $bAdmin
 		$bSameDayNetValue = true;
 	}
 	
+    $his_sql = GetStockHistorySql();
 	$shares_sql = new SharesHistorySql();
     if ($result = $sql->GetAll($iStart, $iNum)) 
     {
@@ -60,7 +60,7 @@ function _echoNvCloseData($sql, $ref, $strStockId, $csv, $iStart, $iNum, $bAdmin
         		{
         			$strDate = GetNextTradingDayYMD($strDate);
         		}
-   				_echoNvCloseItem($csv, $shares_sql, $strDate, $strNetValue, $ref, $strStockId, ($bAdmin ? $record['id'] : false));
+   				_echoNvCloseItem($csv, $his_sql, $shares_sql, $strDate, $strNetValue, $ref, $strStockId, ($bAdmin ? $record['id'] : false));
         	}
         }
         @mysql_free_result($result);

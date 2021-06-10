@@ -3,7 +3,7 @@ require_once('_stock.php');
 require_once('_emptygroup.php');
 require_once('/php/dateimagefile.php');
 
-function _echoAhHistoryItem($hshare_ref, $csv, $record, $h_his_sql, $hkcny_sql)
+function _echoAhHistoryItem($hshare_ref, $csv, $record, $his_sql, $strStockIdH, $hkcny_sql)
 {
 	$strDate = $record['date'];
 	if ($strHKCNY = $hkcny_sql->GetClose($strDate))
@@ -11,7 +11,7 @@ function _echoAhHistoryItem($hshare_ref, $csv, $record, $h_his_sql, $hkcny_sql)
 		$strClose = rtrim0($record['close']);
 		$ar = array($strDate, $strHKCNY, $strClose);
 		
-		if ($strCloseH = $h_his_sql->GetClose($strDate))
+		if ($strCloseH = $his_sql->GetClose($strStockIdH, $strDate))
 		{
 			$fAh = floatval($strClose) / floatval($hshare_ref->EstToCny($strCloseH, $strHKCNY));
 			$csv->Write($strDate, $strClose, $strCloseH, $strHKCNY, strval_round($fAh));
@@ -25,15 +25,14 @@ function _echoAhHistoryItem($hshare_ref, $csv, $record, $h_his_sql, $hkcny_sql)
 	}
 }
 
-function _echoAhHistoryData($csv, $hshare_ref, $his_sql, $iStart, $iNum)
+function _echoAhHistoryData($csv, $hshare_ref, $his_sql, $strStockId, $strStockIdH, $iStart, $iNum)
 {
-	$h_his_sql = $hshare_ref->GetHistorySql();
-    if ($result = $his_sql->GetAll($iStart, $iNum)) 
+    if ($result = $his_sql->GetAll($strStockId, $iStart, $iNum)) 
     {
     	$hkcny_sql = new HkcnyHistorySql();
         while ($record = mysql_fetch_assoc($result)) 
         {
-            _echoAhHistoryItem($hshare_ref, $csv, $record, $h_his_sql, $hkcny_sql);
+            _echoAhHistoryItem($hshare_ref, $csv, $record, $his_sql, $strStockIdH, $hkcny_sql);
         }
         @mysql_free_result($result);
     }
@@ -44,8 +43,9 @@ function _echoAhHistoryParagraph($hshare_ref, $iStart, $iNum, $bAdmin)
 	$strSymbol = $hshare_ref->GetSymbolA();
     $strSymbolH = $hshare_ref->GetSymbol();
  	
-    $his_sql = $hshare_ref->a_ref->GetHistorySql();
-    $strNavLink = StockGetNavLink($strSymbol, $his_sql->Count(), $iStart, $iNum);
+	$his_sql = GetStockHistorySql();
+    $strStockId = $hshare_ref->a_ref->GetStockId();
+    $strNavLink = StockGetNavLink($strSymbol, $his_sql->Count($strStockId), $iStart, $iNum);
     $str = $strNavLink; 
     if ($bAdmin)
     {
@@ -63,7 +63,7 @@ function _echoAhHistoryParagraph($hshare_ref, $iStart, $iNum, $bAdmin)
 								   ), $strSymbol.'ahhistory', $str);
 
    	$csv = new PageCsvFile();
-    _echoAhHistoryData($csv, $hshare_ref, $his_sql, $iStart, $iNum);
+    _echoAhHistoryData($csv, $hshare_ref, $his_sql, $strStockId, $hshare_ref->GetStockId(), $iStart, $iNum);
     $csv->Close();
     
     $str = $strNavLink;
