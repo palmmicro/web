@@ -103,12 +103,13 @@ class MysqlReference extends StockReference
     
 	function _updateStockEmaDays($iDays)
 	{
-		$sql = new StockEmaSql($this->strSqlId, $iDays);
 		$strDate = $this->GetDate();
-		if ($strPrev = $sql->GetClosePrev($strDate))
+		$strStockId = $this->GetStockId();
+		$sql = GetStockEmaSql($iDays);
+		if ($strPrev = $sql->GetClosePrev($strStockId, $strDate))
 		{
 			$fCur = $this->CalculateEMA(floatval($this->GetPrice()), floatval($strPrev), $iDays);
-			$sql->Write($strDate, strval($fCur));
+			$sql->WriteDaily($strStockId, $strDate, strval($fCur));
 		}
 	}
 	

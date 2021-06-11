@@ -160,14 +160,14 @@ function _updateStockOptionAh($strSymbolA, $strSymbolH)
 
 function _updateStockOptionEmaDays($strStockId, $iDays, $strDate, $strVal)
 {
-	$sql = new StockEmaSql($strStockId, $iDays);
+	$sql = GetStockEmaSql($iDays);
     if ($strVal == '0')
     {
-   		$sql->DeleteAll();
+   		$sql->DeleteAll($strStockId);
     }
     else
     {
-   		$sql->Write($strDate, $strVal);
+   		$sql->WriteDaily($strStockId, $strDate, $strVal);
     }
 }
 
@@ -233,16 +233,18 @@ function _updateOptionDailySql($sql, $strStockId, $strDate, $strVal)
 function _updateStockOptionSplitGroupTransactions($strGroupId, $strStockId, $strDate, $fRatio, $fPrice)
 {
 	$sql = new StockGroupItemSql($strGroupId);
-    $arStockId = $sql->GetStockIdArray(true);
-    if (in_array($strStockId, $arStockId))
+    if ($arStockId = $sql->GetStockIdArray(true))
     {
-    	$record = $sql->GetRecord($strStockId);
-//    	$strGroupItemId = $sql->GetId($strStockId);
-    	$strGroupItemId = $record['id'];
-    	$iQuantity = intval($record['quantity']);
-    	$sql->trans_sql->Insert($strGroupItemId, strval(0 - $iQuantity), strval($fPrice));
-    	$sql->trans_sql->Insert($strGroupItemId, strval(intval($fRatio * $iQuantity)), strval($fPrice / $fRatio));
-    	UpdateStockGroupItemTransaction($sql, $strGroupItemId);
+    	if (in_array($strStockId, $arStockId))
+    	{
+    		$record = $sql->GetRecord($strStockId);
+//    		$strGroupItemId = $sql->GetId($strStockId);
+    		$strGroupItemId = $record['id'];
+    		$iQuantity = intval($record['quantity']);
+    		$sql->trans_sql->Insert($strGroupItemId, strval(0 - $iQuantity), strval($fPrice));
+    		$sql->trans_sql->Insert($strGroupItemId, strval(intval($fRatio * $iQuantity)), strval($fPrice / $fRatio));
+    		UpdateStockGroupItemTransaction($sql, $strGroupItemId);
+    	}
     }
 }
 
@@ -265,13 +267,20 @@ function _updateStockOptionSplit($ref, $strSymbol, $strStockId, $his_sql, $strDa
 {
 	if (strpos($strVal, ':') === false)		return;
 	$ar = explode(':', $strVal);
-	$fRatio = floatval($ar[0])/floatval($ar[1]);
-//	DebugVal($fRatio, $strSymbol);
 	
-	$sql = new StockSplitSql($strStockId);
-	if ($sql->Insert($strDate, strval($fRatio)))
+	$sql = new StockSplitSql();
+	if ($ar[0] == '0' && $ar[1] == '0')
 	{
-		_updateStockOptionSplitTransactions($ref, $strStockId, $his_sql, $strDate, $fRatio);
+   		$sql->DeleteByDate($strStockId, $strDate);
+	}
+	else
+	{
+		$fRatio = floatval($ar[0])/floatval($ar[1]);
+//		DebugVal($fRatio, $strSymbol);
+		if ($sql->InsertDaily($strStockId, $strDate, strval($fRatio)))
+		{
+			_updateStockOptionSplitTransactions($ref, $strStockId, $his_sql, $strDate, $fRatio);
+		}
 	}
 }
 

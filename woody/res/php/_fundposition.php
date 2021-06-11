@@ -109,7 +109,8 @@ function _echoFundPositionData($csv, $ref, $cny_ref, $est_ref, $strInput)
 	$est_sql = new NetValueSql($strEstId);
 	if ($est_sql->Count() == 0 || $est_ref->IsIndex())
 	{
-		$est_sql = new StockHistorySql($strEstId);
+//		$est_sql = new StockHistorySql($strEstId);
+		return;
 	}
 
    	$sql = new NetValueSql($ref->GetStockId());

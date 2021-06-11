@@ -117,8 +117,8 @@ function _getStockOptionEtf($strSymbol)
 
 function _getStockOptionEmaDays($strStockId, $strDate, $iDays)
 {
-	$sql = new StockEmaSql($strStockId, $iDays);
-	return $sql->GetClose($strDate);
+	$sql = GetStockEmaSql($iDays);
+	return $sql->GetClose($strStockId, $strDate);
 }
 
 function _getStockOptionEma($strStockId, $strDate)
@@ -222,7 +222,7 @@ function _getStockOptionMemo($strSubmit)
 		return '清空输入删除对应日期净值.';
 
 	case STOCK_OPTION_SPLIT:
-		return '输入1:10表示10股合1股, 10:1表示1股拆10股.';
+		return '输入1:10表示10股合1股, 10:1表示1股拆10股, 0:0删除对应日期数据.';
 	}
 	return '';
 }

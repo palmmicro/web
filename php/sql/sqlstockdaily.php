@@ -193,21 +193,12 @@ class FundEstSql extends DailyTimeSql
     }
 }
 
-// ****************************** StockEmaSql class *******************************************************
-class StockEmaSql extends DailyStockValSql
-{
-    function StockEmaSql($strStockId, $iDays) 
-    {
-        parent::DailyStockValSql('stockema'.strval($iDays), $strStockId);
-    }
-}
-
 // ****************************** StockSplitSql class *******************************************************
-class StockSplitSql extends DailyStockValSql
+class StockSplitSql extends DailyCloseSql
 {
-    function StockSplitSql($strStockId = false) 
+    function StockSplitSql() 
     {
-        parent::DailyStockValSql(TABLE_STOCK_SPLIT, $strStockId);
+        parent::DailyCloseSql(TABLE_STOCK_SPLIT);
     }
 }
 

@@ -3,7 +3,6 @@ require_once('debug.php');
 require_once('account.php');
 require_once('stock.php');
 
-require_once('sql/_sqltest.php');
 require_once('sql/sqlblog.php');
 require_once('sql/sqlvisitor.php');
 require_once('sql/sqlstockdaily.php');
@@ -67,6 +66,5 @@ function TestCmdLine()
 
 //	$sql = new StockHistorySql();
 	
-//	WriteForexDataFromFile();
 	phpinfo();
 ?>

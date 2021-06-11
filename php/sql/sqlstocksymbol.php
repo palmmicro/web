@@ -2,6 +2,14 @@
 require_once('sqlkeyname.php');
 require_once('sqlkeytable.php');
 
+class StockEmaSql extends DailyCloseSql
+{
+    function StockEmaSql($iDays) 
+    {
+        parent::DailyCloseSql('stockema'.strval($iDays));
+    }
+}
+
 class StockHistorySql extends DailyCloseSql
 {
     function StockHistorySql() 
@@ -86,11 +94,16 @@ class StockSql extends KeyNameSql
 {
     var $his_sql;		// StockHistorySql
     
+    var $ema50_sql;	// StockEmaSql
+    var $ema200_sql;
+    
     function StockSql()
     {
         parent::KeyNameSql(TABLE_STOCK, 'symbol');
         
        	$this->his_sql = new StockHistorySql();
+       	$this->ema50_sql = new StockEmaSql(50);
+       	$this->ema200_sql = new StockEmaSql(200);
     }
 
     public function Create()
@@ -165,6 +178,13 @@ function GetStockHistorySql()
 {
 	global $g_stock_sql;
    	return $g_stock_sql->his_sql;
+}
+
+function GetStockEmaSql($iDays)
+{
+	global $g_stock_sql;
+	if ($iDays == 50)		return $g_stock_sql->ema50_sql;
+	return $g_stock_sql->ema200_sql;
 }
 
 function SqlGetStockName($strSymbol)

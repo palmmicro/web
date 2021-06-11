@@ -218,8 +218,8 @@ class StockHistory
 
     function _getEMA($iDays)
     {
-    	$sql = new StockEmaSql($this->GetStockId(), $iDays);
-    	return $sql->GetClose($this->strStartDate);
+		$sql = GetStockEmaSql($iDays);
+    	return $sql->GetClose($this->GetStockId(), $this->strStartDate);
     }
     
     function _cfg_get_EMA($cfg, $iDays)
@@ -231,7 +231,7 @@ class StockHistory
     }
 
     // En = k * X0 + (1 - k) * Em; 其中m = n - 1; k = 2 / (n + 1)
-	function _calcEMA($iDays, $afClose)
+/*	function _calcEMA($iDays, $afClose)
 	{
 		$iCount = count($afClose);
 		$iStart = ($iCount > $iDays * 2) ? $iDays * 2 : $iCount - 1;
@@ -248,12 +248,13 @@ class StockHistory
 		}
 		return false;
 	}
-	
+*/	
     function _cfg_set_EMA($cfg, $iDays, $afClose)
     {
     	if ($strEma = $this->_getEMA($iDays))
 		{
-			$this->_cfg_set_SMA($cfg, 'EMA'.strval($iDays), $strEma, $this->_calcEMA($iDays, $afClose));
+//			$this->_cfg_set_SMA($cfg, 'EMA'.strval($iDays), $strEma, $this->_calcEMA($iDays, $afClose));
+			$this->_cfg_set_SMA($cfg, 'EMA'.strval($iDays), $strEma, false);
 		}
     }
     

@@ -41,6 +41,7 @@ function _getAdminTestStr($strInput)
 	StockPrefetchData($strSrc, $strDst);
     $src_ref = new QdiiReference($strSrc);
     $dst_ref = new QdiiReference($strDst);
+    $uscny_ref = new CnyReference('USCNY');
     
     if (($strSrcVal = $src_ref->GetOfficialNetValue()) && ($strDstVal = $dst_ref->GetOfficialNetValue()))
     {
@@ -61,11 +62,10 @@ function _getAdminTestStr($strInput)
     	$est_ref = $dst_ref->GetEstRef();
     	$strEst = $est_ref->GetSymbol();
        	$sql = new NetValueSql($est_ref->GetStockId());
-       	$uscny_sql = new UscnyHistorySql();
        	
     	$strDate = $dst_ref->GetOfficialDate();
     	$strEstVal = $sql->GetClose($strDate);
-    	$strCny = $uscny_sql->GetClose($strDate);
+    	$strCny = $uscny_ref->GetClose($strDate);
     	
     	$fEst = floatval($strEstVal) * floatval($strCny);
     	$str .= '<br /><br />'.$strDate.' '.$strEstVal.' '.$strCny.' '.strval_round($fEst / $fSrc);
