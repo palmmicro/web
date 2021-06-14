@@ -61,10 +61,10 @@ function _getAdminTestStr($strInput)
     	
     	$est_ref = $dst_ref->GetEstRef();
     	$strEst = $est_ref->GetSymbol();
-       	$sql = new NetValueSql($est_ref->GetStockId());
        	
     	$strDate = $dst_ref->GetOfficialDate();
-    	$strEstVal = $sql->GetClose($strDate);
+    	$nav_sql = GetNavHistorySql();
+    	$strEstVal = $nav_sql->GetClose($est_ref->GetStockId(), $strDate);
     	$strCny = $uscny_ref->GetClose($strDate);
     	
     	$fEst = floatval($strEstVal) * floatval($strCny);

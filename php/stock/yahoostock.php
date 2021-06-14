@@ -322,11 +322,7 @@ function YahooUpdateNetValue($strSymbol)
     		file_put_contents($strFileName, $str);
     		$arMatch = _preg_match_yahoo_stock($str);
     	}
-    	else
-    	{
-    		DebugString($strUrl.': No data!');
-    		return;
-    	}
+    	else	return;
     }
 	
     if ($arMatch)

@@ -19,12 +19,12 @@ function _chinaMoneyHasFile($now_ymd, $strFileName)
     return false;
 }
 
-function _chinaMoneyNeedData($ymd, $uscny_sql, $hkcny_sql)
+function _chinaMoneyNeedData($ymd, $nav_sql, $strUscnyId, $strHkcnyId)
 {
 //	if ($ymd->IsWeekend())	return false;
 	
     $strDate = $ymd->GetYMD();
-    if ($uscny_sql->GetRecord($strDate) && $hkcny_sql->GetRecord($strDate))
+    if ($nav_sql->GetRecord($strUscnyId, $strDate) && $nav_sql->GetRecord($strHkcnyId, $strDate))
     {
 //    	DebugString('Database entry existed');
     	return false;
@@ -42,9 +42,10 @@ function GetChinaMoney()
 {
     date_default_timezone_set(STOCK_TIME_ZONE_CN);
     $now_ymd = new NowYMD();
-    $uscny_sql = new UscnyHistorySql();
-    $hkcny_sql = new HkcnyHistorySql();
-    if (_chinaMoneyNeedData($now_ymd, $uscny_sql, $hkcny_sql) == false)		return;
+	$nav_sql = GetNavHistorySql();
+    $strUscnyId = SqlGetStockId('USCNY');
+    $strHkcnyId = SqlGetStockId('HKCNY');
+    if (_chinaMoneyNeedData($now_ymd, $nav_sql, $strUscnyId, $strHkcnyId) == false)		return;
     
 	$strFileName = DebugGetChinaMoneyFile();
 	$ar = _chinaMoneyHasFile($now_ymd, $strFileName);
@@ -56,15 +57,11 @@ function GetChinaMoney()
     		file_put_contents($strFileName, $str);
     		$ar = json_decode($str, true);
     	}
-    	else
-    	{
-    		DebugString('No data!');
-    		return;
-    	}
+    	else	return;
     }
 	
     $arData = $ar['data'];
-    $strDate = _chinaMoneyNeedData(new TickYMD(strtotime($arData['lastDate'])), $uscny_sql, $hkcny_sql);		// 2018-04-12 9:15
+    $strDate = _chinaMoneyNeedData(new TickYMD(strtotime($arData['lastDate'])), $nav_sql, $strUscnyId, $strHkcnyId);		// 2018-04-12 9:15
     if ($strDate == false)		return;
 
     if (isset($ar['records']) == false)	return;
@@ -76,12 +73,12 @@ function GetChinaMoney()
     	if ($strPair == 'USD/CNY')
     	{
     		DebugString('Insert USCNY');
-			$uscny_sql->Insert($strDate, $strPrice);
+			$nav_sql->InsertDaily($strUscnyId, $strDate, $strPrice);
 		}
     	else if ($strPair == 'HKD/CNY')
     	{
     		DebugString('Insert HKCNY');
-			$hkcny_sql->Insert($strDate, $strPrice);
+			$nav_sql->InsertDaily($strHkcnyId, $strDate, $strPrice);
 		}
     }
 }

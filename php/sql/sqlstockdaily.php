@@ -238,41 +238,6 @@ class NetValueSql extends DailyStockValSql
     }
 }
 
-class UscnyHistorySql extends NetValueSql
-{
-    function UscnyHistorySql() 
-    {
-        parent::NetValueSql(SqlGetStockId('USCNY'));
-    }
-}
-
-class HkcnyHistorySql extends NetValueSql
-{
-    function HkcnyHistorySql() 
-    {
-        parent::NetValueSql(SqlGetStockId('HKCNY'));
-    }
-}
-
-// ****************************** Net Value Support Functions *******************************************************
-function SqlGetHKCNY()
-{
-	$sql = new HkcnyHistorySql();
-	return $sql->GetCloseNow();
-}
-
-function SqlGetUSCNY()
-{
-	$sql = new UscnyHistorySql();
-	return $sql->GetCloseNow();
-}
-
-function SqlGetNetValueByDate($strStockId, $strDate)
-{
-	$sql = new NetValueSql($strStockId);
-	return $sql->GetClose($strDate);
-}
-
 // ****************************** AnnualIncomeSql class *******************************************************
 class AnnualIncomeSql extends DailyStringSql
 {

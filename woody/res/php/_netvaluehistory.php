@@ -3,7 +3,7 @@ require_once('_stock.php');
 require_once('_emptygroup.php');
 require_once('/php/dateimagefile.php');
 
-function _echoNetValueItem($csv, $sql, $est_sql, $cny_sql, $strNetValue, $strDate, $ref, $est_ref, $cny_ref)
+function _echoNetValueItem($csv, $sql, $est_sql, $strNetValue, $strDate, $ref, $est_ref, $cny_ref)
 {
 	$bWritten = false;
 	$ar = array($strDate, $strNetValue);
@@ -15,9 +15,9 @@ function _echoNetValueItem($csv, $sql, $est_sql, $cny_sql, $strNetValue, $strDat
 
 		if ($est_sql)
 		{
-			$strCny = $cny_sql->GetClose($strDate);
+			$strCny = $cny_ref->GetClose($strDate);
 			$ar[] = $strCny;
-			if ($strCnyPrev = $cny_sql->GetClose($strPrevDate))
+			if ($strCnyPrev = $cny_ref->GetClose($strPrevDate))
 			{
 				$ar[] = $cny_ref->GetPercentageDisplay($strCnyPrev, $strCny);
 			}
@@ -51,7 +51,6 @@ function _echoNetValueData($csv, $sql, $ref, $est_ref, $cny_ref, $iStart, $iNum)
 {
 	if ($est_ref)
 	{
-//		$est_sql = new NetValueSql($est_ref->GetStockId());
 		$strEstId = $est_ref->GetStockId();
 		$est_sql = new NetValueSql($strEstId);
 		if ($est_sql->Count() == 0 || $est_ref->IsIndex())
@@ -59,19 +58,17 @@ function _echoNetValueData($csv, $sql, $ref, $est_ref, $cny_ref, $iStart, $iNum)
 //			$est_sql = new StockHistorySql($strEstId);
 			return;
 		}
-		$cny_sql = new UscnyHistorySql();
 	}
 	else
 	{
 		$est_sql = false;
-		$cny_sql = false;
 	}
 
     if ($result = $sql->GetAll($iStart, $iNum)) 
     {
         while ($record = mysql_fetch_assoc($result)) 
         {
-			_echoNetValueItem($csv, $sql, $est_sql, $cny_sql, rtrim0($record['close']), $record['date'], $ref, $est_ref, $cny_ref);
+			_echoNetValueItem($csv, $sql, $est_sql, rtrim0($record['close']), $record['date'], $ref, $est_ref, $cny_ref);
         }
         @mysql_free_result($result);
     }

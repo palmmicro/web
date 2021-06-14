@@ -12,13 +12,6 @@ class _AdrAccount extends GroupAccount
     var $us_ref;
     var $hk_ref;
     
-    var $uscny_ref;
-    var $hkcny_ref;
-    
-    var $fUSDCNY;
-    var $fHKDCNY;
-    var $fUSDHKD;
-    
     var $arStockRef;
     
     var $fRatioAdrH;
@@ -33,16 +26,9 @@ class _AdrAccount extends GroupAccount
         StockPrefetchData($strSymbolAdr);
         GetChinaMoney();
         
-        $this->uscny_ref = new CnyReference('USCNY');
-        $this->hkcny_ref = new CnyReference('HKCNY');
-        
         $this->hk_ref = new HShareReference(SqlGetAdrhPair($strSymbolAdr));
         $this->cn_ref = $this->hk_ref->a_ref;
         $this->us_ref = $this->hk_ref->adr_ref;
-
-        $this->fUSDCNY = floatval($this->uscny_ref->GetPrice());
-        $this->fHKDCNY = floatval($this->hkcny_ref->GetPrice());
-        $this->fUSDHKD = $this->fUSDCNY / $this->fHKDCNY;
 
         $this->arStockRef = array($this->us_ref, $this->hk_ref, $this->cn_ref);
        
@@ -54,21 +40,24 @@ class _AdrAccount extends GroupAccount
     function OnConvert($cn_trans, $hk_trans, $us_trans)
     {
         $strGroupId = $this->GetGroupId();
+    	$fUSDCNY = $this->hk_ref->GetUSDCNY();
+    	$fHKDCNY = $this->hk_ref->GetHKDCNY();
+    	$fHKDUSD = $this->hk_ref->GetHKDUSD();
 
         $this->cn_convert = new MyStockTransaction($this->cn_ref, $strGroupId);
         $this->cn_convert->Add($cn_trans);
-        $this->cn_convert->AddTransaction($hk_trans->iTotalShares, $hk_trans->fTotalCost * $this->fHKDCNY);
-        $this->cn_convert->AddTransaction(intval($us_trans->iTotalShares * $this->fRatioAdrH), $us_trans->fTotalCost * $this->fUSDCNY);
+        $this->cn_convert->AddTransaction($hk_trans->iTotalShares, $hk_trans->fTotalCost * $fHKDCNY);
+        $this->cn_convert->AddTransaction(intval($us_trans->iTotalShares * $this->fRatioAdrH), $us_trans->fTotalCost * $fUSDCNY);
         
         $this->hk_convert = new MyStockTransaction($this->hk_ref, $strGroupId);
         $this->hk_convert->Add($hk_trans);
-        $this->hk_convert->AddTransaction($cn_trans->iTotalShares, $cn_trans->fTotalCost / $this->fHKDCNY);
-        $this->hk_convert->AddTransaction(intval($us_trans->iTotalShares * $this->fRatioAdrH), $us_trans->fTotalCost * $this->fUSDHKD);
+        $this->hk_convert->AddTransaction($cn_trans->iTotalShares, $cn_trans->fTotalCost / $fHKDCNY);
+        $this->hk_convert->AddTransaction(intval($us_trans->iTotalShares * $this->fRatioAdrH), $us_trans->fTotalCost / $fHKDUSD);
         
         $this->us_convert = new MyStockTransaction($this->us_ref, $strGroupId);
         $this->us_convert->Add($us_trans);
-        $this->us_convert->AddTransaction(intval($cn_trans->iTotalShares / $this->fRatioAdrH), $cn_trans->fTotalCost / $this->fUSDCNY);
-        $this->us_convert->AddTransaction(intval($hk_trans->iTotalShares / $this->fRatioAdrH), $hk_trans->fTotalCost / $this->fUSDHKD);
+        $this->us_convert->AddTransaction(intval($cn_trans->iTotalShares / $this->fRatioAdrH), $cn_trans->fTotalCost / $fUSDCNY);
+        $this->us_convert->AddTransaction(intval($hk_trans->iTotalShares / $this->fRatioAdrH), $hk_trans->fTotalCost * $fHKDUSD);
     }
 } 
 
@@ -174,7 +163,7 @@ function EchoAll()
 
     if ($group = $acct->EchoTransaction()) 
     {
-        $acct->EchoMoneyParagraph($group, $acct->uscny_ref, $acct->hkcny_ref);
+        $acct->EchoMoneyParagraph($group, $acct->hk_ref->uscny_ref, $acct->hk_ref->hkcny_ref);
         _echoArbitrageParagraph($acct, $group);
 	}
     
@@ -203,7 +192,7 @@ function EchoMetaDescription()
     $strAdr = RefGetStockDisplay($acct->us_ref);
     $strA = RefGetStockDisplay($acct->cn_ref);
     $strH = RefGetStockDisplay($acct->hk_ref);
-    $str = '根据'.RefGetDescription($acct->uscny_ref).'和'.RefGetDescription($acct->hkcny_ref).'计算比较美股'.$strAdr.', A股'.$strA.'和港股'.$strH.'价格的网页工具.';
+    $str = '根据'.RefGetDescription($acct->hk_ref->uscny_ref).'和'.RefGetDescription($acct->hk_ref->hkcny_ref).'计算比较美股'.$strAdr.', A股'.$strA.'和港股'.$strH.'价格的网页工具.';
     EchoMetaDescriptionText($str);
 }
 

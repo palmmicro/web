@@ -23,10 +23,10 @@ function _EchoMoneyParagraphBegin()
 								   ), 'money', '折算'.$strMoney);
 }
 
-function _echoMoneyItem($strGroup, $strMoney, $fValue, $fProfit, $fConvertValue, $fConvertProfit)
+function _echoMoneyItem($strGroup, $fValue, $fProfit, $fConvertValue, $fConvertProfit)
 {
 	$ar = array($strGroup);
-	$ar[] = GetNumberDisplay($fConvertProfit).$strMoney;
+	$ar[] = GetNumberDisplay($fConvertProfit);
 	
 	$strConvertProfit = GetNumberDisplay($fConvertValue);
 	$strProfit = GetNumberDisplay($fProfit);
@@ -67,14 +67,14 @@ function _EchoMoneyGroupData($acct, $group, $strUSDCNY, $strHKDCNY)
 	}
 	
     $group->ConvertCurrency($strUSDCNY, $strHKDCNY);
-    _echoMoneyItem($strLink, '', $group->multi_amount->fCNY, $group->multi_profit->fCNY, $group->multi_amount->fConvertCNY, $group->multi_profit->fConvertCNY);
+    _echoMoneyItem($strLink, $group->multi_amount->fCNY, $group->multi_profit->fCNY, $group->multi_amount->fConvertCNY, $group->multi_profit->fConvertCNY);
     if ((empty($group->multi_amount->fUSD) == false) || (empty($group->multi_profit->fUSD) == false))
     {
-        _echoMoneyItem('', '$', $group->multi_amount->fUSD, $group->multi_profit->fUSD, $group->multi_amount->fConvertUSD, $group->multi_profit->fConvertUSD);
+        _echoMoneyItem('$', $group->multi_amount->fUSD, $group->multi_profit->fUSD, $group->multi_amount->fConvertUSD, $group->multi_profit->fConvertUSD);
     }
     if ((empty($group->multi_amount->fHKD) == false) || (empty($group->multi_profit->fHKD) == false))
     {
-        _echoMoneyItem('', 'HK$', $group->multi_amount->fHKD, $group->multi_profit->fHKD, $group->multi_amount->fConvertHKD, $group->multi_profit->fConvertHKD);
+        _echoMoneyItem('HK$', $group->multi_amount->fHKD, $group->multi_profit->fHKD, $group->multi_amount->fConvertHKD, $group->multi_profit->fConvertHKD);
     }
 }
 

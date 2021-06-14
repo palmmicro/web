@@ -24,8 +24,8 @@ function _echoTransactionTableItem($ref, $record, $bReadOnly, $bAdmin)
    			{
    				if (strpos($strRemark, STOCK_DISP_ORDER) !== false)
    				{
-   					$sql = new NetValueSql($ref->GetStockId());
-   					$strNetValue = $sql->GetClosePrev($strDate);
+   					$nav_sql = GetNavHistorySql();
+   					$strNetValue = $nav_sql->GetClosePrev($ref->GetStockId(), $strDate);
    					if ($strNetValue != $strPrice)
    					{
    						$strRemark .= GetOnClickLink(STOCK_PHP_PATH.'_submittransaction.php?adjust='.$strId.'&netvalue='.$strNetValue, '确认校准到净值: '.$strNetValue.'?', '校准');

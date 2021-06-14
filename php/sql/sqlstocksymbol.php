@@ -2,6 +2,14 @@
 require_once('sqlkeyname.php');
 require_once('sqlkeytable.php');
 
+class NavHistorySql extends DailyCloseSql
+{
+    function NavHistorySql() 
+    {
+        parent::DailyCloseSql(TABLE_NETVALUE_HISTORY);
+    }
+}
+
 class StockEmaSql extends DailyCloseSql
 {
     function StockEmaSql($iDays) 
@@ -93,6 +101,7 @@ class StockHistorySql extends DailyCloseSql
 class StockSql extends KeyNameSql
 {
     var $his_sql;		// StockHistorySql
+    var $nav_sql;		// NavHistorySql
     
     var $ema50_sql;	// StockEmaSql
     var $ema200_sql;
@@ -102,6 +111,8 @@ class StockSql extends KeyNameSql
         parent::KeyNameSql(TABLE_STOCK, 'symbol');
         
        	$this->his_sql = new StockHistorySql();
+       	$this->nav_sql = new NavHistorySql();
+       	
        	$this->ema50_sql = new StockEmaSql(50);
        	$this->ema200_sql = new StockEmaSql(200);
     }
@@ -180,11 +191,23 @@ function GetStockHistorySql()
    	return $g_stock_sql->his_sql;
 }
 
+function GetNavHistorySql()
+{
+	global $g_stock_sql;
+   	return $g_stock_sql->nav_sql;
+}
+
 function GetStockEmaSql($iDays)
 {
 	global $g_stock_sql;
 	if ($iDays == 50)		return $g_stock_sql->ema50_sql;
 	return $g_stock_sql->ema200_sql;
+}
+
+function SqlGetNavByDate($strStockId, $strDate)
+{
+	$nav_sql = GetNavHistorySql();
+	return $nav_sql->GetClose($strStockId, $strDate);
 }
 
 function SqlGetStockName($strSymbol)

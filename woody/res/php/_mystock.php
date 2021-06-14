@@ -26,8 +26,8 @@ function _echoBenfordParagraph($ref)
 	if (SqlGetEtfPair($strSymbol))		return;
 	
 	$strStockId = $ref->GetStockId();
-   	$nv_sql = new NetValueSql($strStockId);
-   	if ($nv_sql->Count() > 0)
+	$nav_sql = GetNavHistorySql();
+   	if ($nav_sql->Count($strStockId) > 0)
    	{
 //   		DebugString($strSymbol.' has netvalue, it is an ETF');
    		return;

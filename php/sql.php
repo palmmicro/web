@@ -177,9 +177,12 @@ class ErrorHandlerFile extends CsvFile
     
     function OnError($errno)
     {
+    	$bCount = ($this->GetModifiedSeconds() < 100) ? true : false;
+    	
     	$this->Read();
     	$iCount = $this->iCount;
-    	if ($errno == $this->strError)
+//    	if ($errno == $this->strError)
+    	if ($bCount)
     	{
    			$iCount ++;
     	}

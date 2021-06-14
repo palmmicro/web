@@ -27,6 +27,16 @@ class CsvFile
     	return file_exists($this->strPathName);
     }
     
+    function GetModifiedSeconds()
+    {
+    	$iSeconds = time();
+    	if ($this->HasFile())
+    	{
+    		$iSeconds -= filemtime($this->strPathName);
+    	}
+   		return $iSeconds;
+    }
+    
     function _open($strMode)
     {
     	if ($this->file == false)

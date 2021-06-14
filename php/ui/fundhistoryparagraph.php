@@ -1,7 +1,7 @@
 <?php
 require_once('stocktable.php');
 
-function _echoFundHistoryTableItem($csv, $strNetValue, $strClose, $strDate, $arFund, $ref, $est_ref)
+function _echoFundHistoryTableItem($csv, $strNetValue, $strClose, $strDate, $arFund, $ref, $est_ref, $his_sql)
 {
     if ($csv)
     {
@@ -16,29 +16,21 @@ function _echoFundHistoryTableItem($csv, $strNetValue, $strClose, $strDate, $arF
     if ($est_ref)
     {
     	$strEstValue = $arFund['close'];
-    	if (empty($strEstValue))
-    	{
-    		$ar[] = ''; 
-    		$ar[] = '';
-    		$ar[] = '';
-    	}
-    	else
+    	if (!empty($strEstValue))
     	{
     		$ar[] = $ref->GetPriceDisplay($strEstValue, $strNetValue);
     		$ar[] = GetHM($arFund['time']);
     		$ar[] = $ref->GetPercentageDisplay($strNetValue, $strEstValue);
-    	}
 		
-    	$strEstDate = $arFund['date'];
-        $his_sql = GetStockHistorySql();
-		$strStockId = $est_ref->GetStockId();
-		$strEstClose = $his_sql->GetClose($strStockId, $strEstDate);
-		$strEstClosePrev = $his_sql->GetClosePrev($strStockId, $strEstDate);
-		if ($strEstClose && $strEstClosePrev)
-		{
-//			$strEstChange = $est_ref->GetPercentageDisplay($strEstClosePrev, $strEstClose);
-			$ar[] = $est_ref->GetPriceDisplay($strEstClose, $strEstClosePrev);
-		}
+    		$strEstDate = $arFund['date'];
+    		$strEstStockId = $est_ref->GetStockId();
+    		$strEstClose = $his_sql->GetClose($strEstStockId, $strEstDate);
+    		$strEstClosePrev = $his_sql->GetClosePrev($strEstStockId, $strEstDate);
+    		if ($strEstClose && $strEstClosePrev)
+    		{
+    			$ar[] = $est_ref->GetPriceDisplay($strEstClose, $strEstClosePrev);
+    		}
+    	}
     }
     
     EchoTableColumn($ar);
@@ -78,7 +70,7 @@ function _echoHistoryTableData($sql, $fund_est_sql, $csv, $ref, $est_ref, $iStar
             
         		if ($strClose = $his_sql->GetClose($strStockId, $strDate))
         		{
-        			_echoFundHistoryTableItem($csv, $strNetValue, $strClose, $strDate, $arFund, $ref, $est_ref);
+        			_echoFundHistoryTableItem($csv, $strNetValue, $strClose, $strDate, $arFund, $ref, $est_ref, $his_sql);
         		}
         	}
         }
@@ -102,7 +94,6 @@ function _echoFundHistoryParagraph($sql, $fund_est_sql, $ref, $est_ref, $csv = f
     }
     $str .= '的历史'.$close_col->GetDisplay().'相对于'.$nv_col->GetDisplay().'的'.$premium_col->GetDisplay();
     
-//	$sql = new NetValueSql($ref->GetStockId());
     $strSymbol = $ref->GetSymbol();
     if (IsTableCommonDisplay($iStart, $iNum))
     {

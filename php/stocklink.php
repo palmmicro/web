@@ -95,9 +95,10 @@ function GetNvCloseHistoryLink($strSymbol)
 }
 
 define('AH_HISTORY_DISPLAY', 'AH历史价格比较');
+define('AH_HISTORY_PAGE', 'ahhistory');
 function GetAhHistoryLink($strSymbol)
 {
-    return GetStockSymbolLink('ahhistory', $strSymbol, AH_HISTORY_DISPLAY);
+    return GetStockSymbolLink(AH_HISTORY_PAGE, $strSymbol, AH_HISTORY_DISPLAY);
 }
 
 define('THANOUS_PARADOX_DISPLAY', '小心愿佯谬');

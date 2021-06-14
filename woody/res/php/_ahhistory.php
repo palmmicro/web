@@ -3,10 +3,10 @@ require_once('_stock.php');
 require_once('_emptygroup.php');
 require_once('/php/dateimagefile.php');
 
-function _echoAhHistoryItem($hshare_ref, $csv, $record, $his_sql, $strStockIdH, $hkcny_sql)
+function _echoAhHistoryItem($hshare_ref, $csv, $record, $his_sql, $strStockIdH)
 {
 	$strDate = $record['date'];
-	if ($strHKCNY = $hkcny_sql->GetClose($strDate))
+	if ($strHKCNY = $hshare_ref->hkcny_ref->GetClose($strDate))
 	{
 		$strClose = rtrim0($record['close']);
 		$ar = array($strDate, $strHKCNY, $strClose);
@@ -29,10 +29,9 @@ function _echoAhHistoryData($csv, $hshare_ref, $his_sql, $strStockId, $strStockI
 {
     if ($result = $his_sql->GetAll($strStockId, $iStart, $iNum)) 
     {
-    	$hkcny_sql = new HkcnyHistorySql();
         while ($record = mysql_fetch_assoc($result)) 
         {
-            _echoAhHistoryItem($hshare_ref, $csv, $record, $his_sql, $strStockIdH, $hkcny_sql);
+            _echoAhHistoryItem($hshare_ref, $csv, $record, $his_sql, $strStockIdH);
         }
         @mysql_free_result($result);
     }
@@ -60,7 +59,7 @@ function _echoAhHistoryParagraph($hshare_ref, $iStart, $iNum, $bAdmin)
 								   new TableColumn($strSymbolH),
 								   $ah_col,
 								   new TableColumnHaRatio()
-								   ), $strSymbol.'ahhistory', $str);
+								   ), $strSymbol.AH_HISTORY_PAGE, $str);
 
    	$csv = new PageCsvFile();
     _echoAhHistoryData($csv, $hshare_ref, $his_sql, $strStockId, $hshare_ref->GetStockId(), $iStart, $iNum);

@@ -4,7 +4,7 @@ require_once('_emptygroup.php');
 require_once('/php/dateimagefile.php');
 require_once('/php/ui/editinputform.php');
 
-function _echoFundPositionItem($csv, $ref, $cny_ref, $est_ref, $strDate, $strNetValue, $strPrevDate, $sql, $cny_sql, $est_sql, $strInput)
+function _echoFundPositionItem($csv, $ref, $cny_ref, $est_ref, $strDate, $strNetValue, $strPrevDate, $sql, $est_sql, $strInput)
 {
 	$bWritten = false;
 	$ar = array();
@@ -14,9 +14,9 @@ function _echoFundPositionItem($csv, $ref, $cny_ref, $est_ref, $strDate, $strNet
    	$strPrev = $sql->GetClose($strPrevDate);
 	$ar[] = $ref->GetPercentageDisplay($strPrev, $strNetValue);
 
-	$strCny = $cny_sql->GetClose($strDate);
+	$strCny = $cny_ref->GetClose($strDate);
 	$ar[] = $strCny;
-	if ($strCnyPrev = $cny_sql->GetClose($strPrevDate))
+	if ($strCnyPrev = $cny_ref->GetClose($strPrevDate))
 	{
 		$ar[] = $cny_ref->GetPercentageDisplay($strCnyPrev, $strCny);
 	}
@@ -117,7 +117,6 @@ function _echoFundPositionData($csv, $ref, $cny_ref, $est_ref, $strInput)
 	$arDate = _getSwitchDateArray($sql, $est_sql);
 	if (count($arDate) == 0)		return;
  
-	$cny_sql = new UscnyHistorySql();
  	$iIndex = 0;
     if ($result = $sql->GetAll()) 
     {
@@ -132,7 +131,7 @@ function _echoFundPositionData($csv, $ref, $cny_ref, $est_ref, $strInput)
        			{
        				if (isset($arDate[$iIndex]))
        				{
-       					_echoFundPositionItem($csv, $ref, $cny_ref, $est_ref, $strDate, $strNetValue, $arDate[$iIndex], $sql, $cny_sql, $est_sql, $strInput);
+       					_echoFundPositionItem($csv, $ref, $cny_ref, $est_ref, $strDate, $strNetValue, $arDate[$iIndex], $sql, $est_sql, $strInput);
        				}
        				else
        				{
@@ -144,7 +143,7 @@ function _echoFundPositionData($csv, $ref, $cny_ref, $est_ref, $strInput)
        			{
        				while (isset($arDate[$iIndex]))
        				{
-       					_echoFundPositionItem($csv, $ref, $cny_ref, $est_ref, $strDate, $strNetValue, $arDate[$iIndex], $sql, $cny_sql, $est_sql, $strInput);
+       					_echoFundPositionItem($csv, $ref, $cny_ref, $est_ref, $strDate, $strNetValue, $arDate[$iIndex], $sql, $est_sql, $strInput);
        					$iIndex ++;
        				}
        				break;
