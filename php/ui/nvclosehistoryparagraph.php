@@ -34,7 +34,7 @@ function _echoNvCloseItem($csv, $his_sql, $shares_sql, $strDate, $strNetValue, $
     EchoTableColumn($ar);
 }
 
-function _echoNvCloseData($sql, $ref, $strStockId, $csv, $iStart, $iNum, $bAdmin)
+function _echoNvCloseData($nav_sql, $ref, $strStockId, $csv, $iStart, $iNum, $bAdmin)
 {
 	$strSymbol = $ref->GetSymbol();
 	if (in_arrayQdii($strSymbol))
@@ -48,7 +48,7 @@ function _echoNvCloseData($sql, $ref, $strStockId, $csv, $iStart, $iNum, $bAdmin
 	
     $his_sql = GetStockHistorySql();
 	$shares_sql = new SharesHistorySql();
-    if ($result = $sql->GetAll($iStart, $iNum)) 
+    if ($result = $nav_sql->GetAll($strStockId, $iStart, $iNum)) 
     {
         while ($record = mysql_fetch_assoc($result)) 
         {
@@ -70,8 +70,8 @@ function _echoNvCloseData($sql, $ref, $strStockId, $csv, $iStart, $iNum, $bAdmin
 function EchoNvCloseHistoryParagraph($ref, $str = false, $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY, $bAdmin = false)
 {
 	$strStockId = $ref->GetStockId();
-	$sql = new NetValueSql($strStockId);
-	$iTotal = $sql->Count();
+	$nav_sql = GetNavHistorySql();
+	$iTotal = $nav_sql->Count($strStockId);
 	if ($iTotal == 0)		return;
 
     $strSymbol = $ref->GetSymbol();
@@ -88,7 +88,7 @@ function EchoNvCloseHistoryParagraph($ref, $str = false, $csv = false, $iStart =
 								   new TableColumn('换手率(%)', 90)
 								   ), $strSymbol.NVCLOSE_HISTORY_PAGE, $str);
 
-    _echoNvCloseData($sql, $ref, $strStockId, $csv, $iStart, $iNum, $bAdmin);
+    _echoNvCloseData($nav_sql, $ref, $strStockId, $csv, $iStart, $iNum, $bAdmin);
     EchoTableParagraphEnd($strNavLink);
 }
 

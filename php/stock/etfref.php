@@ -80,7 +80,7 @@ class NetValueReference extends StockReference
 
         if ($this->IsFundA())
         {
-       		StockCompareEstResult($this->sql, $this->fund_est_sql, $strStockId, $this->GetPrice(), $this->GetDate(), $this->GetSymbol());
+       		StockCompareEstResult($this->fund_est_sql, $strStockId, $this->GetPrice(), $this->GetDate(), $this->GetSymbol());
         }
     }
     
@@ -124,11 +124,6 @@ class EtfReference extends MyPairReference
        	{
        		$this->_load_cny_ref($strFactorDate);
        	}
-    }
-
-    function GetNetValueSql()
-    {
-    	return $this->nv_ref->sql;
     }
 
     function GetFundEstSql()
@@ -309,7 +304,7 @@ class EtfReference extends MyPairReference
 		}
 		
    		$strVal = $this->EstFromPair($strEst, $strCny);
-   		StockUpdateEstResult($this->GetNetValueSql(), $this->GetFundEstSql(), $this->GetStockId(), $strVal, $this->strOfficialDate);
+   		StockUpdateEstResult($this->GetFundEstSql(), $this->GetStockId(), $strVal, $this->strOfficialDate);
         return $strVal;
     }
     

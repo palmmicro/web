@@ -36,7 +36,7 @@ function _echoFundHistoryTableItem($csv, $strNetValue, $strClose, $strDate, $arF
     EchoTableColumn($ar);
 }
 
-function _echoHistoryTableData($sql, $fund_est_sql, $csv, $ref, $est_ref, $iStart, $iNum)
+function _echoHistoryTableData($nav_sql, $fund_est_sql, $csv, $ref, $strStockId, $est_ref, $iStart, $iNum)
 {
 	$bSameDayNetValue	 = true;
 	if (RefHasData($est_ref))
@@ -52,9 +52,8 @@ function _echoHistoryTableData($sql, $fund_est_sql, $csv, $ref, $est_ref, $iStar
 		$est_ref = false;
 	}
 	
-	$strStockId = $ref->GetStockId();
     $his_sql = GetStockHistorySql();
-    if ($result = $sql->GetAll($iStart, $iNum)) 
+    if ($result = $nav_sql->GetAll($strStockId, $iStart, $iNum)) 
     {
         while ($record = mysql_fetch_assoc($result)) 
         {
@@ -78,7 +77,7 @@ function _echoHistoryTableData($sql, $fund_est_sql, $csv, $ref, $est_ref, $iStar
     }
 }
 
-function _echoFundHistoryParagraph($sql, $fund_est_sql, $ref, $est_ref, $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
+function _echoFundHistoryParagraph($fund_est_sql, $ref, $est_ref, $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
 {
 	$close_col = new TableColumnClose();
 	$nv_col = new TableColumnNetValue();
@@ -95,6 +94,8 @@ function _echoFundHistoryParagraph($sql, $fund_est_sql, $ref, $est_ref, $csv = f
     $str .= '的历史'.$close_col->GetDisplay().'相对于'.$nv_col->GetDisplay().'的'.$premium_col->GetDisplay();
     
     $strSymbol = $ref->GetSymbol();
+	$strStockId = $ref->GetStockId();
+	$nav_sql = GetNavHistorySql();
     if (IsTableCommonDisplay($iStart, $iNum))
     {
         $str .= ' '.GetFundHistoryLink($strSymbol);
@@ -102,7 +103,7 @@ function _echoFundHistoryParagraph($sql, $fund_est_sql, $ref, $est_ref, $csv = f
     }
     else
     {
-    	$strNavLink = StockGetNavLink($strSymbol, $sql->Count(), $iStart, $iNum);
+    	$strNavLink = StockGetNavLink($strSymbol, $nav_sql->Count($strStockId), $iStart, $iNum);
     }
 
 	$str .= ' '.$strNavLink;
@@ -116,18 +117,18 @@ function _echoFundHistoryParagraph($sql, $fund_est_sql, $ref, $est_ref, $csv = f
 	}
 	EchoTableParagraphBegin($ar, $strSymbol.FUND_HISTORY_PAGE, $str);
 	
-	_echoHistoryTableData($sql, $fund_est_sql, $csv, $ref, $est_ref, $iStart, $iNum);
+	_echoHistoryTableData($nav_sql, $fund_est_sql, $csv, $ref, $strStockId, $est_ref, $iStart, $iNum);
     EchoTableParagraphEnd($strNavLink);
 }
 
 function EchoFundHistoryParagraph($fund, $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
 {
-    _echoFundHistoryParagraph($fund->GetNetValueSql(), $fund->GetFundEstSql(), $fund->stock_ref, $fund->GetEstRef(), $csv, $iStart, $iNum);
+    _echoFundHistoryParagraph($fund->GetFundEstSql(), $fund->stock_ref, $fund->GetEstRef(), $csv, $iStart, $iNum);
 }
 
 function EchoEtfHistoryParagraph($ref, $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
 {
-    _echoFundHistoryParagraph($ref->GetNetValueSql(), $ref->GetFundEstSql(), $ref, $ref->GetPairRef(), $csv, $iStart, $iNum);
+    _echoFundHistoryParagraph($ref->GetFundEstSql(), $ref, $ref->GetPairRef(), $csv, $iStart, $iNum);
 }
 
 ?>

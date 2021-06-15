@@ -220,9 +220,10 @@ function StockGetPercentage($strDivisor, $strDividend)
     return (floatval($strDividend)/$f - 1.0) * 100.0;
 }
 
-function StockCompareEstResult($nv_sql, $fund_est_sql, $strStockId, $strNetValue, $strDate, $strSymbol)
+function StockCompareEstResult($fund_est_sql, $strStockId, $strNetValue, $strDate, $strSymbol)
 {
-    if ($nv_sql->Insert($strDate, $strNetValue))
+	$nav_sql = GetNavHistorySql();
+    if ($nav_sql->InsertDaily($strStockId, $strDate, $strNetValue))
     {
        	if ($strEstValue = $fund_est_sql->GetClose($strStockId, $strDate))
        	{
@@ -239,9 +240,10 @@ function StockCompareEstResult($nv_sql, $fund_est_sql, $strStockId, $strNetValue
     return false;
 }
 
-function StockUpdateEstResult($nv_sql, $fund_est_sql, $strStockId, $strNetValue, $strDate)
+function StockUpdateEstResult($fund_est_sql, $strStockId, $strNetValue, $strDate)
 {
-	if ($nv_sql->GetRecord($strDate) == false)
+	$nav_sql = GetNavHistorySql();
+	if ($nav_sql->GetRecord($strStockId, $strDate) == false)
     {   // Only update when net value is NOT ready
 		$fund_est_sql->WriteDaily($strStockId, $strDate, $strNetValue);
 	}

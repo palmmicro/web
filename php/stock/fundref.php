@@ -37,11 +37,6 @@ class FundReference extends MysqlReference
         }
     }
     
-    function GetNetValueSql()
-    {
-    	return $this->sql;
-    }
-
     function GetFundEstSql()
     {
     	return $this->fund_est_sql;
@@ -98,12 +93,12 @@ class FundReference extends MysqlReference
     // Update database
     function UpdateEstNetValue()
     {
-   		StockUpdateEstResult($this->GetNetValueSql(), $this->GetFundEstSql(), $this->GetStockId(), $this->GetOfficialNetValue(), $this->GetOfficialDate());
+   		StockUpdateEstResult($this->GetFundEstSql(), $this->GetStockId(), $this->GetOfficialNetValue(), $this->GetOfficialDate());
     }
 
     function UpdateOfficialNetValue()
     {
-		return StockCompareEstResult($this->sql, $this->fund_est_sql, $this->GetStockId(), $this->GetPrice(), $this->GetDate(), $this->GetSymbol());
+		return StockCompareEstResult($this->fund_est_sql, $this->GetStockId(), $this->GetPrice(), $this->GetDate(), $this->GetSymbol());
     }
 
     function InsertFundCalibration($est_ref, $strEstPrice)

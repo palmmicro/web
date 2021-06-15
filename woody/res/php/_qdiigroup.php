@@ -128,8 +128,7 @@ class QdiiGroupAccount extends FundGroupAccount
         $strCNY = $cny_ref->GetClose($strDate);
         
         $strEstStockId = $est_ref->GetStockId();
-       	$sql = new NetValueSql($strEstStockId);
-       	$strEst = $sql->GetClose($strDate);
+       	$strEst = SqlGetNavByDate($strEstStockId, $strDate);
        	if ($strEst == false)
        	{
         	$his_sql = GetStockHistorySql();

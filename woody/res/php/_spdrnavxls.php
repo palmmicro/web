@@ -1,7 +1,7 @@
 <?php
 require_once('/php/class/PHPExcel/IOFactory.php');
 
-function _readXlsFile($bIshares, $strPathName, $sql, $shares_sql, $strStockId)
+function _readXlsFile($bIshares, $strPathName, $nav_sql, $shares_sql, $strStockId)
 {
 	date_default_timezone_set(STOCK_TIME_ZONE_US);
 	try 
@@ -50,7 +50,7 @@ function _readXlsFile($bIshares, $strPathName, $sql, $shares_sql, $strStockId)
     		$strDate = $ymd->GetYMD();
    			if ($oldest_ymd->IsInvalid($strDate) == false)
    			{
-  				if ($sql->Write($strDate, $ar[$iNavIndex]))
+  				if ($nav_sql->WriteDaily($strStockId, $strDate, $ar[$iNavIndex]))
   				{
   					$iCount ++;
   				}
@@ -77,10 +77,10 @@ function GetNavXlsStr($strSymbol)
 		file_put_contents($strPathName, $str);
 		
 		$strStockId = SqlGetStockId($strSymbol);
-        $sql = new NetValueSql($strStockId);
+        $nav_sql = GetNavHistorySql();
         $shares_sql = new SharesHistorySql();
         $bIshares = (stripos($strUrl, 'ishares') !== false) ? true : false;
-		return _readXlsFile($bIshares, $strPathName, $sql, $shares_sql, $strStockId);
+		return _readXlsFile($bIshares, $strPathName, $nav_sql, $shares_sql, $strStockId);
 	}
 	return $strSymbol.'不是SPDR或者ISHARES的ETF';
 }

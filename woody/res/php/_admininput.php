@@ -63,8 +63,7 @@ function _getAdminTestStr($strInput)
     	$strEst = $est_ref->GetSymbol();
        	
     	$strDate = $dst_ref->GetOfficialDate();
-    	$nav_sql = GetNavHistorySql();
-    	$strEstVal = $nav_sql->GetClose($est_ref->GetStockId(), $strDate);
+    	$strEstVal = SqlGetNavByDate($est_ref->GetStockId(), $strDate);
     	$strCny = $uscny_ref->GetClose($strDate);
     	
     	$fEst = floatval($strEstVal) * floatval($strCny);

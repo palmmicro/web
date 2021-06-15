@@ -4,14 +4,14 @@ require_once('_emptygroup.php');
 require_once('/php/dateimagefile.php');
 require_once('/php/ui/editinputform.php');
 
-function _echoFundPositionItem($csv, $ref, $cny_ref, $est_ref, $strDate, $strNetValue, $strPrevDate, $sql, $est_sql, $strInput)
+function _echoFundPositionItem($csv, $ref, $cny_ref, $est_ref, $strDate, $strNetValue, $strPrevDate, $nav_sql, $strStockId, $est_sql, $strEstId, $strInput)
 {
 	$bWritten = false;
 	$ar = array();
 	$ar[] = $csv ? $strDate : $strPrevDate;
 	$ar[] = $strNetValue;
 	
-   	$strPrev = $sql->GetClose($strPrevDate);
+   	$strPrev = $nav_sql->GetClose($strStockId, $strPrevDate);
 	$ar[] = $ref->GetPercentageDisplay($strPrev, $strNetValue);
 
 	$strCny = $cny_ref->GetClose($strDate);
@@ -25,11 +25,11 @@ function _echoFundPositionItem($csv, $ref, $cny_ref, $est_ref, $strDate, $strNet
 		$ar[] = '';
 	}
 		
-	if ($strEst = $est_sql->GetClose($strDate))
+	if ($strEst = $est_sql->GetClose($strEstId, $strDate))
 	{
 //		$strEst = strval(floatval($strEst) + 0.378235);
 		$ar[] = $strEst;
-		if ($strEstPrev = $est_sql->GetClose($strPrevDate))
+		if ($strEstPrev = $est_sql->GetClose($strEstId, $strPrevDate))
 		{
 			$ar[] = $est_ref->GetPercentageDisplay($strEstPrev, $strEst);
 			if ($strPosition = QdiiGetStockPosition($strEstPrev, $strEst, $strPrev, $strNetValue, $strCnyPrev, $strCny, $strInput))
@@ -49,16 +49,16 @@ function _echoFundPositionItem($csv, $ref, $cny_ref, $est_ref, $strDate, $strNet
 	EchoTableColumn($ar);
 }
 
-function _getSwitchDateArray($sql, $est_sql)
+function _getSwitchDateArray($nav_sql, $strStockId, $est_sql, $strEstId)
 {
 	$arDate = array();
 	$bFirst = true;
-    if ($result = $sql->GetAll()) 
+    if ($result = $nav_sql->GetAll($strStockId)) 
     {
         while ($record = mysql_fetch_assoc($result)) 
         {
        		$strDate = $record['date'];
-       		if ($strEst = $est_sql->GetClose($strDate))
+       		if ($strEst = $est_sql->GetClose($strEstId, $strDate))
        		{
        			$fCur = floatval($strEst);
        			if ($bFirst)
@@ -105,20 +105,21 @@ function _getSwitchDateArray($sql, $est_sql)
 	
 function _echoFundPositionData($csv, $ref, $cny_ref, $est_ref, $strInput)
 {
+   	$strStockId = $ref->GetStockId();
+	$nav_sql = GetNavHistorySql();
+   	
 	$strEstId = $est_ref->GetStockId();
-	$est_sql = new NetValueSql($strEstId);
-	if ($est_sql->Count() == 0 || $est_ref->IsIndex())
+	$est_sql = $nav_sql;
+	if ($est_sql->Count($strEstId) == 0 || $est_ref->IsIndex())
 	{
-//		$est_sql = new StockHistorySql($strEstId);
-		return;
+		$est_sql = GetStockHistorySql();
 	}
 
-   	$sql = new NetValueSql($ref->GetStockId());
-	$arDate = _getSwitchDateArray($sql, $est_sql);
+	$arDate = _getSwitchDateArray($nav_sql, $strStockId, $est_sql, $strEstId);
 	if (count($arDate) == 0)		return;
  
  	$iIndex = 0;
-    if ($result = $sql->GetAll()) 
+    if ($result = $nav_sql->GetAll($strStockId)) 
     {
         while ($record = mysql_fetch_assoc($result)) 
         {
@@ -131,7 +132,7 @@ function _echoFundPositionData($csv, $ref, $cny_ref, $est_ref, $strInput)
        			{
        				if (isset($arDate[$iIndex]))
        				{
-       					_echoFundPositionItem($csv, $ref, $cny_ref, $est_ref, $strDate, $strNetValue, $arDate[$iIndex], $sql, $est_sql, $strInput);
+       					_echoFundPositionItem($csv, $ref, $cny_ref, $est_ref, $strDate, $strNetValue, $arDate[$iIndex], $nav_sql, $strStockId, $est_sql, $strEstId, $strInput);
        				}
        				else
        				{
@@ -143,7 +144,7 @@ function _echoFundPositionData($csv, $ref, $cny_ref, $est_ref, $strInput)
        			{
        				while (isset($arDate[$iIndex]))
        				{
-       					_echoFundPositionItem($csv, $ref, $cny_ref, $est_ref, $strDate, $strNetValue, $arDate[$iIndex], $sql, $est_sql, $strInput);
+       					_echoFundPositionItem($csv, $ref, $cny_ref, $est_ref, $strDate, $strNetValue, $arDate[$iIndex], $nav_sql, $strStockId, $est_sql, $strEstId, $strInput);
        					$iIndex ++;
        				}
        				break;

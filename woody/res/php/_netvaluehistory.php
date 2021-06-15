@@ -3,11 +3,11 @@ require_once('_stock.php');
 require_once('_emptygroup.php');
 require_once('/php/dateimagefile.php');
 
-function _echoNetValueItem($csv, $sql, $est_sql, $strNetValue, $strDate, $ref, $est_ref, $cny_ref)
+function _echoNetValueItem($csv, $nav_sql, $strStockId, $est_sql, $strEstId, $strNetValue, $strDate, $ref, $est_ref, $cny_ref)
 {
 	$bWritten = false;
 	$ar = array($strDate, $strNetValue);
-	if ($record = $sql->GetRecordPrev($strDate))
+	if ($record = $nav_sql->GetRecordPrev($strStockId, $strDate))
     {
     	$strPrevDate = $record['date'];
     	$strPrev = rtrim0($record['close']);
@@ -26,10 +26,10 @@ function _echoNetValueItem($csv, $sql, $est_sql, $strNetValue, $strDate, $ref, $
 				$ar[] = '';
 			}
 		
-			if ($strEst = $est_sql->GetClose($strDate))
+			if ($strEst = $est_sql->GetClose($strEstId, $strDate))
 			{
 				$ar[] = $strEst;
-				if ($strEstPrev = $est_sql->GetClose($strPrevDate))
+				if ($strEstPrev = $est_sql->GetClose($strEstId, $strPrevDate))
 				{
 					$ar[] = $est_ref->GetPercentageDisplay($strEstPrev, $strEst);
 					if ($strVal = QdiiGetStockPosition($strEstPrev, $strEst, $strPrev, $strNetValue, $strCnyPrev, $strCny))
@@ -47,28 +47,28 @@ function _echoNetValueItem($csv, $sql, $est_sql, $strNetValue, $strDate, $ref, $
 	EchoTableColumn($ar);
 }
 
-function _echoNetValueData($csv, $sql, $ref, $est_ref, $cny_ref, $iStart, $iNum)
+function _echoNetValueData($csv, $nav_sql, $strStockId, $ref, $est_ref, $cny_ref, $iStart, $iNum)
 {
 	if ($est_ref)
 	{
 		$strEstId = $est_ref->GetStockId();
-		$est_sql = new NetValueSql($strEstId);
-		if ($est_sql->Count() == 0 || $est_ref->IsIndex())
+		$est_sql = $nav_sql;
+		if ($est_sql->Count($strEstId) == 0 || $est_ref->IsIndex())
 		{
-//			$est_sql = new StockHistorySql($strEstId);
-			return;
+			$est_sql = GetStockHistorySql();
 		}
 	}
 	else
 	{
 		$est_sql = false;
+		$strEstId = false;
 	}
 
-    if ($result = $sql->GetAll($iStart, $iNum)) 
+    if ($result = $nav_sql->GetAll($strStockId, $iStart, $iNum)) 
     {
         while ($record = mysql_fetch_assoc($result)) 
         {
-			_echoNetValueItem($csv, $sql, $est_sql, rtrim0($record['close']), $record['date'], $ref, $est_ref, $cny_ref);
+			_echoNetValueItem($csv, $nav_sql, $strStockId, $est_sql, $strEstId, rtrim0($record['close']), $record['date'], $ref, $est_ref, $cny_ref);
         }
         @mysql_free_result($result);
     }
@@ -93,8 +93,9 @@ function _echoNetValueHistory($ref, $iStart, $iNum)
     	$est_ref = false;
     }
     
-	$sql = new NetValueSql($ref->GetStockId());
-   	$strNavLink = StockGetNavLink($strSymbol, $sql->Count(), $iStart, $iNum);
+	$strStockId = $ref->GetStockId();
+	$nav_sql = GetNavHistorySql();
+   	$strNavLink = StockGetNavLink($strSymbol, $nav_sql->Count($strStockId), $iStart, $iNum);
 	$str .= '<br />'.$strNavLink;
 
 	$change_col = new TableColumnChange();
@@ -111,7 +112,7 @@ function _echoNetValueHistory($ref, $iStart, $iNum)
 	EchoTableParagraphBegin($ar, TABLE_NETVALUE_HISTORY, $str);
 	
    	$csv = new PageCsvFile();
-	_echoNetValueData($csv, $sql, $ref, $est_ref, $cny_ref, $iStart, $iNum);
+	_echoNetValueData($csv, $nav_sql, $strStockId, $ref, $est_ref, $cny_ref, $iStart, $iNum);
     $csv->Close();
     
     $str = $strNavLink;

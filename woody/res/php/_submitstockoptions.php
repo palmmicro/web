@@ -213,18 +213,6 @@ function _updateStockOptionEtf($strSymbol, $strVal)
 	}
 }
 
-function _updateStockOptionDaily($sql, $strDate, $strVal)
-{
-    if (empty($strVal))
-    {
-   		$sql->DeleteByDate($strDate);
-    }
-    else
-    {
-   		$sql->Write($strDate, $strVal);
-    }
-}
-
 function _updateOptionDailySql($sql, $strStockId, $strDate, $strVal)
 {
 	$sql->ModifyDaily($strStockId, $strDate, $strVal);
@@ -339,7 +327,7 @@ function _updateStockOptionSplit($ref, $strSymbol, $strStockId, $his_sql, $strDa
 			break;
 			
 		case STOCK_OPTION_NETVALUE:
-			if ($bAdmin)	_updateStockOptionDaily(new NetValueSql($strStockId), $strDate, $strVal);
+			if ($bAdmin)	_updateOptionDailySql(GetNavHistorySql(), $strStockId, $strDate, $strVal);
 			break;
 			
 		case STOCK_OPTION_SHARES_DIFF:
