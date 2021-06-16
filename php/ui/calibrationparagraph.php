@@ -1,10 +1,10 @@
 <?php
 require_once('stocktable.php');
 
-function _echoCalibrationItem($ref, $sql, $strNetValue, $strDate, $bAdmin)
+function _echoCalibrationItem($ref, $strNetValue, $strDate, $bAdmin)
 {
-	$pair_nv_ref = $ref->GetPairNvRef();
-    if ($strPairNetValue = PairNvGetClose($pair_nv_ref, GetClose($strDate))
+	$pair_nav_ref = $ref->GetPairNavRef();
+    if ($strPairNetValue = PairNavGetClose($pair_nav_ref, $strDate))
     {
     	$ar = array($strDate);
    		$ar[] = $ref->GetPriceDisplay($strNetValue);
@@ -17,16 +17,16 @@ function _echoCalibrationItem($ref, $sql, $strNetValue, $strDate, $bAdmin)
     }
 }
 
-function _echoCalibrationData($ref, $sql, $iStart, $iNum, $bAdmin)
+function _echoCalibrationData($ref, $strStockId, $nav_sql, $iStart, $iNum, $bAdmin)
 {
-    if ($result = $sql->GetAll($iStart, $iNum)) 
+    if ($result = $nav_sql->GetAll($strStockId, $iStart, $iNum)) 
     {
         while ($record = mysql_fetch_assoc($result)) 
         {
         	$strNetValue = rtrim0($record['close']);
         	if (empty($strNetValue) == false)
         	{
-        		_echoCalibrationItem($ref, $sql, $strNetValue, $record['date'], $bAdmin);
+        		_echoCalibrationItem($ref, $strNetValue, $record['date'], $bAdmin);
         	}
         }
         @mysql_free_result($result);
@@ -36,11 +36,11 @@ function _echoCalibrationData($ref, $sql, $iStart, $iNum, $bAdmin)
 function EchoCalibrationParagraph($ref, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY, $bAdmin = false)
 {
 	$strSymbol = $ref->GetSymbol();
-    
     $ref = new EtfReference($strSymbol);
-    if ($ref->GetPairNvRef() == false)	return;
+    if ($ref->GetPairNavRef() == false)	return;
     
-    $sql = $ref->nv_ref->sql;
+	$nav_sql = GetNavHistorySql();
+	$strStockId = $ref->GetStockId();
     
 	if (IsTableCommonDisplay($iStart, $iNum))
     {
@@ -50,7 +50,7 @@ function EchoCalibrationParagraph($ref, $iStart = 0, $iNum = TABLE_COMMON_DISPLA
     else
     {
     	$str = GetEtfListLink();
-    	$strNavLink = StockGetNavLink($strSymbol, $sql->Count(), $iStart, $iNum);
+    	$strNavLink = StockGetNavLink($strSymbol, $nav_sql->Count($strStockId), $iStart, $iNum);
     }
     
     if ($bAdmin)
@@ -65,7 +65,7 @@ function EchoCalibrationParagraph($ref, $iStart = 0, $iNum = TABLE_COMMON_DISPLA
 								   new TableColumnCalibration()
 								   ), $strSymbol.'calibration', $str);
 
-    _echoCalibrationData($ref, $sql, $iStart, $iNum, $bAdmin);
+    _echoCalibrationData($ref, $strStockId, $nav_sql, $iStart, $iNum, $bAdmin);
     EchoTableParagraphEnd($strNavLink);
 }
 

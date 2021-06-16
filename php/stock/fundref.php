@@ -18,7 +18,6 @@ class FundReference extends MysqlReference
 
     var $strOfficialDate;
     
-    var $sql = false;
     var $fund_est_sql = false;
     
     function FundReference($strSymbol) 
@@ -32,7 +31,6 @@ class FundReference extends MysqlReference
         if ($strStockId = $this->GetStockId())
         {
         	if ($fVal = SqlGetStockCalibrationFactor($strStockId))		$this->fFactor = $fVal; 
-        	$this->sql = new NetValueSql($strStockId);
 	       	$this->fund_est_sql = new FundEstSql();
         }
     }

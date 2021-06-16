@@ -1,6 +1,6 @@
 <?php
 
-function PairNvGetClose($ref, $strDate)
+function PairNavGetClose($ref, $strDate)
 {
 	if ($ref->sql)		return $ref->sql->GetClose($strDate);
 
@@ -75,7 +75,7 @@ class NetValueReference extends StockReference
         }
         else
         {
-        	$this->LoadSqlData($this->sql);
+        	$this->LoadSqlData($strStockId);
         }
 
         if ($this->IsFundA())
@@ -104,8 +104,8 @@ class IndexReference extends MyStockReference
 // ****************************** EtfReference class *******************************************************
 class EtfReference extends MyPairReference
 {
-	var $nv_ref;
-    var $pair_nv_ref = false;
+	var $nav_ref;
+    var $pair_nav_ref = false;
     var $cny_ref = false;
 
     var $strNetValue = '0';
@@ -119,7 +119,7 @@ class EtfReference extends MyPairReference
     function EtfReference($strSymbol) 
     {
         parent::MyPairReference($strSymbol);
-       	$this->nv_ref = new NetValueReference($strSymbol);
+       	$this->nav_ref = new NetValueReference($strSymbol);
        	if ($strFactorDate = $this->_onCalibration())
        	{
        		$this->_load_cny_ref($strFactorDate);
@@ -128,12 +128,12 @@ class EtfReference extends MyPairReference
 
     function GetFundEstSql()
     {
-    	return $this->nv_ref->fund_est_sql;
+    	return $this->nav_ref->fund_est_sql;
     }
     
-    function GetPairNvRef()
+    function GetPairNavRef()
     {
-    	return $this->pair_nv_ref;
+    	return $this->pair_nav_ref;
     }
     
     function GetNetValue()
@@ -147,23 +147,23 @@ class EtfReference extends MyPairReference
 		$sym = new StockSymbol($strSymbol);
 		if ($sym->IsSinaFuture())
 		{
-        	$this->pair_nv_ref = new NetValueReference($strSymbol);
+        	$this->pair_nav_ref = new NetValueReference($strSymbol);
 			$this->pair_ref = new FutureReference($strSymbol);
 			return false;
 		}
 		else if ($sym->IsEtf())
 		{
-        	$this->pair_nv_ref = new NetValueReference($strSymbol);
+        	$this->pair_nav_ref = new NetValueReference($strSymbol);
 			$this->pair_ref = new MyPairReference($strSymbol);
 		}
 		else
 		{
-			$this->pair_nv_ref = new IndexReference($strSymbol);
-			if ($this->pair_nv_ref->HasData() == false)
+			$this->pair_nav_ref = new IndexReference($strSymbol);
+			if ($this->pair_nav_ref->HasData() == false)
 			{
-				$this->pair_nv_ref = new NetValueReference($strSymbol);
+				$this->pair_nav_ref = new NetValueReference($strSymbol);
 			}
-			$this->pair_ref = $this->pair_nv_ref;
+			$this->pair_ref = $this->pair_nav_ref;
 		}
 		return true;
 	}
@@ -175,12 +175,12 @@ class EtfReference extends MyPairReference
  	
 	function _onNormalEtfCalibration()
 	{
-    	if ($result = $this->nv_ref->sql->GetAll()) 
+    	if ($result = $this->nav_ref->sql->GetAll()) 
     	{
     		while ($record = mysql_fetch_assoc($result)) 
     		{
     			$strDate = $record['date'];
-        		if ($this->strPairNetValue = PairNvGetClose($this->pair_nv_ref, $strDate))
+        		if ($this->strPairNetValue = PairNavGetClose($this->pair_nav_ref, $strDate))
         		{
         			$this->strNetValue = rtrim0($record['close']);
         			$this->fFactor = $this->GetFactor($this->strPairNetValue, $this->strNetValue);
@@ -198,8 +198,8 @@ class EtfReference extends MyPairReference
 		if ($this->CheckAdjustFactorTime($this->pair_ref))
 		{
 			$strDate = $this->GetDate();
-   			$this->nv_ref->sql->Write($strDate, $this->GetPrice());
-   			$this->pair_nv_ref->sql->Write($strDate, $this->pair_ref->GetPrice());
+   			$this->nav_ref->sql->Write($strDate, $this->GetPrice());
+   			$this->pair_nav_ref->sql->Write($strDate, $this->pair_ref->GetPrice());
 		}
 		return $this->_onNormalEtfCalibration();
 	}
@@ -248,11 +248,11 @@ class EtfReference extends MyPairReference
 	
  	function GetPairSym()
     {
-    	if ($this->pair_nv_ref)
+    	if ($this->pair_nav_ref)
     	{
-    		return $this->pair_nv_ref;
+    		return $this->pair_nav_ref;
     	}
-    	DebugString('pair_nv_ref NOT set');
+    	DebugString('pair_nav_ref NOT set');
     	return false;
     }
     
@@ -298,7 +298,7 @@ class EtfReference extends MyPairReference
     
     function _estOfficialNetValue($strCny = false)
     {
-		if (($strEst = PairNvGetClose($this->pair_nv_ref, $this->strOfficialDate)) == false)
+		if (($strEst = PairNavGetClose($this->pair_nav_ref, $this->strOfficialDate)) == false)
 		{
 			$strEst = $this->pair_ref->GetPrice();
 		}
@@ -349,7 +349,7 @@ function EtfRefManualCalibration($ref)
    	
    	$strNetValue = $ar[0];
    	$strDate = $ar[2];
-	$ref->nv_ref->sql->Write($strDate, $strNetValue);
+	$ref->nav_ref->sql->Write($strDate, $strNetValue);
 	DebugString($ref->GetSymbol().' netvalue '.$strNetValue);
     return $strNetValue;
 }

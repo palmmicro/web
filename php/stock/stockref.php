@@ -570,13 +570,14 @@ class StockReference extends StockSymbol
         $this->_getEastMoneyForexData($ar);
     }       
 
-    function LoadSqlData($sql)
+    function LoadSqlData($strStockId)
     {
-       	if ($record = $sql->GetRecordNow())
+    	$nav_sql = GetNavHistorySql();
+       	if ($record = $nav_sql->GetRecordNow($strStockId))
        	{
    			$this->strPrice = $record['close'];
    			$this->strDate = $record['date'];
-   			$this->strPrevPrice = $sql->GetClosePrev($this->strDate);
+   			$this->strPrevPrice = $nav_sql->GetClosePrev($strStockId, $this->strDate);
    		}
     }
 

@@ -6,8 +6,6 @@ class CnyReference extends MysqlReference
 //    public static $strDataSource = STOCK_EASTMONEY_DATA;
     public static $strDataSource = STOCK_MYSQL_DATA;
     
-    var $sql = false;
-    
     function CnyReference($strSymbol)
     {
         parent::MysqlReference($strSymbol);
@@ -38,8 +36,7 @@ class CnyReference extends MysqlReference
     	$strSymbol = $this->GetSymbol();
     	
     	$this->strSqlId = SqlGetStockId($strSymbol);
-		$this->sql = new NetValueSql($this->strSqlId);
-       	$this->LoadSqlData($this->sql);
+       	$this->LoadSqlData($this->strSqlId);
    		$this->strTime = '09:15:00';
         $this->strFileName = DebugGetChinaMoneyFile();
         $this->strExternalLink = GetReferenceRateForexLink($strSymbol);
@@ -53,18 +50,14 @@ class CnyReference extends MysqlReference
 			return;
 		}
     
-		$this->sql = new NetValueSql($this->strSqlId);
-		$this->sql->Insert($this->GetDate(), $this->GetPrice());
+		$nav_sql = GetNavHistorySql();
+		$nav_sql->InsertDaily($this->strSqlId, $this->GetDate(), $this->GetPrice());
 	}
 
 	function GetClose($strDate)
 	{
-		if ($this->sql)
-		{
-			if ($strDate == $this->GetDate())	return $this->GetPrice();
-			return $this->sql->GetClose($strDate);
-		}
-		return false;
+		if ($strDate == $this->GetDate())	return $this->GetPrice();
+		return SqlGetNavByDate($this->strSqlId, $strDate);
 	}
 }
 

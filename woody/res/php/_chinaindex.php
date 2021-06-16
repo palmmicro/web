@@ -34,7 +34,7 @@ class _ChinaIndexAccount extends GroupAccount
         	$this->us_ref = new EtfReference($strUS);
         }
         
-        $this->CreateGroup(array($this->ref, $this->us_ref, $this->ref->GetPairNvRef()));
+        $this->CreateGroup(array($this->ref, $this->us_ref, $this->ref->GetPairNavRef()));
     }
     
     function _updateNetValueByCnh()
@@ -75,7 +75,7 @@ function EchoAll()
     global $acct;
     
 	EchoFundArrayEstParagraph(array($acct->ref, $acct->us_ref));
-    EchoReferenceParagraph(array($acct->ref->GetPairNvRef(), $acct->ref, $acct->us_ref, $acct->a50_ref, $acct->cnh_ref));
+    EchoReferenceParagraph(array($acct->ref->GetPairNavRef(), $acct->ref, $acct->us_ref, $acct->a50_ref, $acct->cnh_ref));
     EchoEtfListParagraph(array($acct->ref, $acct->us_ref));
     EchoEtfTradingParagraph($acct->ref);
     EchoEtfSmaParagraph($acct->ref);
@@ -106,7 +106,7 @@ function EchoMetaDescription()
     global $acct;
 
     $strDescription = RefGetStockDisplay($acct->ref);
-    $strEst = RefGetStockDisplay($acct->ref->GetPairNvRef());
+    $strEst = RefGetStockDisplay($acct->ref->GetPairNavRef());
     $strUS = RefGetStockDisplay($acct->us_ref);
     $strCNY = RefGetStockDisplay($acct->us_ref->cny_ref);
     $str = "根据{$strEst}计算{$strDescription}净值的网页工具. 同时根据{$strUS}和{$strCNY}提供配对交易分析.";
