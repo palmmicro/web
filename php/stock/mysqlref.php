@@ -13,29 +13,34 @@ class MysqlReference extends StockReference
         parent::StockReference($strSymbol);
         $this->LoadData();
 
-        $this->_loadSqlId($this->GetSymbol());
-        if ($this->strSqlId)
-        {
-        	if ($this->bHasData)
-        	{
-        		$now_ymd = new NowYMD();
-        		if ($now_ymd->GetYMD() == $this->GetDate())
-        		{
-        			$this->_updateStockHistory();
-       				$this->_updateStockEma($now_ymd);
-        		}
-        	}
-        }
+    	if ($this->strSqlId)
+    	{	// Already set, like in CnyReference
+    	}
+    	else
+    	{
+    		$this->_loadSqlId($this->GetSymbol());
+    		if ($this->strSqlId)
+    		{
+    			if ($this->bHasData)
+    			{	
+    				$now_ymd = new NowYMD();
+    				if ($now_ymd->GetYMD() == $this->GetDate())
+    				{
+    					$this->_updateStockHistory();
+    					$this->_updateStockEma($now_ymd);
+    				}
+    			}
+    		}
+    	}
     }
     
-    function LoadData()
+    public function LoadData()
     {
+    	$this->bHasData = false;
     }
 
     function _loadSqlId($strSymbol)
     {
-    	if ($this->strSqlId)	return;	// Already set, like in CnyReference
-    	
 		$sql = GetStockSql();
         if ($this->bHasData)
         {
@@ -49,6 +54,17 @@ class MysqlReference extends StockReference
         return $this->strSqlId;
     }
     
+    function LoadSqlData()
+    {
+    	$nav_sql = GetNavHistorySql();
+       	if ($record = $nav_sql->GetRecordNow($this->strSqlId))
+       	{
+   			$this->strPrice = $record['close'];
+   			$this->strDate = $record['date'];
+   			$this->strPrevPrice = $nav_sql->GetClosePrev($this->strSqlId, $this->strDate);
+   		}
+    }
+
     function GetEnglishName()
     {
     	if ($this->bConvertGB2312)

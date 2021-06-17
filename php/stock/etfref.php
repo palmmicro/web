@@ -2,10 +2,15 @@
 
 function PairNavGetClose($ref, $strDate)
 {
-	if ($ref->sql)		return $ref->sql->GetClose($strDate);
-
-    $his_sql = GetStockHistorySql();
-    return $his_sql->GetClose($ref->GetStockId(), $strDate);
+	if ($ref->fund_est_sql)
+	{
+		$sql = GetNavHistorySql();
+	}
+	else
+	{
+		$sql = GetStockHistorySql();
+	}
+    return $sql->GetClose($ref->GetStockId(), $strDate);
 }
 
 // ****************************** MyPairReference class *******************************************************
@@ -57,43 +62,41 @@ class AhPairReference extends MyPairReference
 }
 
 // ****************************** NetValueReference class *******************************************************
-class NetValueReference extends StockReference
+class NetValueReference extends MysqlReference
 {
 	var $sql;
 	var $fund_est_sql;
 	
     function NetValueReference($strSymbol) 
     {
-        parent::StockReference($strSymbol);
+        parent::MysqlReference($strSymbol);
         
-        $strStockId = SqlGetStockId($strSymbol);
-       	$this->sql = new NetValueSql($strStockId);
        	$this->fund_est_sql = new FundEstSql();
+        if ($this->IsFundA())
+        {
+       		StockCompareEstResult($this->fund_est_sql, $this->GetStockId(), $this->GetPrice(), $this->GetDate(), $this->GetSymbol());
+        }
+    }
+    
+    public function LoadData()
+    {
+    	$strSymbol = $this->GetSymbol();
+    	$this->strSqlId = SqlGetStockId($strSymbol);
         if ($this->IsFundA())
         {
         	$this->LoadSinaFundData();
         }
         else
         {
-        	$this->LoadSqlData($strStockId);
+        	$this->LoadSqlData();
         }
-
-        if ($this->IsFundA())
-        {
-       		StockCompareEstResult($this->fund_est_sql, $strStockId, $this->GetPrice(), $this->GetDate(), $this->GetSymbol());
-        }
-    }
-    
-    function GetStockId()
-    {
-    	return $this->sql->GetKeyId();
     }
 }
 
 // ****************************** IndexReference class *******************************************************
 class IndexReference extends MyStockReference
 {
-	var $sql = false;
+	var $fund_est_sql = false;
 	
     function IndexReference($strSymbol) 
     {
@@ -175,7 +178,8 @@ class EtfReference extends MyPairReference
  	
 	function _onNormalEtfCalibration()
 	{
-    	if ($result = $this->nav_ref->sql->GetAll()) 
+		$nav_sql = GetNavHistorySql();
+    	if ($result = $nav_sql->GetAll($this->GetStockId())) 
     	{
     		while ($record = mysql_fetch_assoc($result)) 
     		{
@@ -195,11 +199,12 @@ class EtfReference extends MyPairReference
 	
 	function _onFutureEtfCalibration()
 	{
+		$nav_sql = GetNavHistorySql();
 		if ($this->CheckAdjustFactorTime($this->pair_ref))
 		{
 			$strDate = $this->GetDate();
-   			$this->nav_ref->sql->Write($strDate, $this->GetPrice());
-   			$this->pair_nav_ref->sql->Write($strDate, $this->pair_ref->GetPrice());
+   			$nav_sql->WriteDaily($this->GetStockId(), $strDate, $this->GetPrice());
+   			$nav_sql->WriteDaily($this->pair_nav_ref->GetStockId(), $strDate, $this->pair_ref->GetPrice());
 		}
 		return $this->_onNormalEtfCalibration();
 	}
@@ -349,7 +354,8 @@ function EtfRefManualCalibration($ref)
    	
    	$strNetValue = $ar[0];
    	$strDate = $ar[2];
-	$ref->nav_ref->sql->Write($strDate, $strNetValue);
+	$nav_sql = GetNavHistorySql();
+	$nav_sql->WriteDaily($ref->GetStockId(), $strDate, $strNetValue);
 	DebugString($ref->GetSymbol().' netvalue '.$strNetValue);
     return $strNetValue;
 }

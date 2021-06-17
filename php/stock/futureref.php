@@ -8,7 +8,7 @@ class FutureReference extends MysqlReference
         parent::MysqlReference($strSymbol);
     }
     
-    function LoadData()
+    public function LoadData()
     {
         $this->LoadSinaFutureData();
         $this->bConvertGB2312 = true;     // Sina name is GB2312 coded

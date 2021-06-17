@@ -11,7 +11,7 @@ class ForexReference extends MysqlReference
         parent::MysqlReference($strSymbol);
     }
     
-    function LoadData()
+    public function LoadData()
     {
         if (self::$strDataSource == STOCK_SINA_DATA)
         {

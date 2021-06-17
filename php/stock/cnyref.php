@@ -19,7 +19,7 @@ class CnyReference extends MysqlReference
         }
     }
 
-    function LoadData()
+    public function LoadData()
     {
         if (self::$strDataSource == STOCK_EASTMONEY_DATA)
         {
@@ -36,7 +36,7 @@ class CnyReference extends MysqlReference
     	$strSymbol = $this->GetSymbol();
     	
     	$this->strSqlId = SqlGetStockId($strSymbol);
-       	$this->LoadSqlData($this->strSqlId);
+       	$this->LoadSqlData();
    		$this->strTime = '09:15:00';
         $this->strFileName = DebugGetChinaMoneyFile();
         $this->strExternalLink = GetReferenceRateForexLink($strSymbol);

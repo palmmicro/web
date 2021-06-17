@@ -777,7 +777,7 @@ class StockSymbol
     	return $strMoney;
     }
     
-    function GetSymbol()
+    public function GetSymbol()
     {
         return $this->strSymbol;
     }

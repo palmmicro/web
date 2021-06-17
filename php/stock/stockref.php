@@ -220,7 +220,7 @@ class StockReference extends StockSymbol
         return intval(substr($this->strTime, 0, 2));
     }
     
-// 06:56:22 => 06:56
+    // 06:56:22 => 06:56
 	function GetTimeHM()
 	{
 		return GetHM($this->strTime);
@@ -251,13 +251,7 @@ class StockReference extends StockSymbol
 		
 		return false;
 	}
-/*
-    function _totime($strTimeZone)
-    {
-        date_default_timezone_set($strTimeZone);
-        return strtotime($this->GetDateTime());
-    }
-*/    
+
     function CheckAdjustFactorTime($etf_ref)
     {
         if ($etf_ref == false)					return false;
@@ -283,44 +277,7 @@ class StockReference extends StockSymbol
         
         return true;
     }
-/*    
-    function ConvertDateTime($iTime, $strTimeZone)
-    {
-        $this->strDate = DebugGetDate($iTime, $strTimeZone);
-        $this->strTime = DebugGetTime($iTime, $strTimeZone);
-    }
-    
-    // Oct 17 09:31AM EDT
-    function _convertDateTimeFromUS($strDateTime)
-    {
-        $this->ConvertDateTime(strtotime($strDateTime), STOCK_TIME_ZONE_US);
-        $this->strTimeZone = STOCK_TIME_ZONE_US;
-        
-//        DebugString('StringYMD in StockReference->_convertDateTimeFromUS');
-        $ymd = new StringYMD($this->strDate);
-        if ($ymd->IsFuture())
-        {   // Dec 30 04:00PM EST, an extra year bug caused by strtotime function
-            $iYear = intval($ymd->arYMD[0]);
-            $iYear --;
-            $this->strDate = strval($iYear).'-'.$ymd->arYMD[1].'-'.$ymd->arYMD[2];
-        }
-    }
-    
-    function _generateUsTradingDateTime()
-    {
-        $this->strTimeZone = STOCK_TIME_ZONE_US;
-        $now_ymd = new NowYMD();
-        $iTime = $now_ymd->GetTick();
-        $iHour = $now_ymd->GetHour();
-        $iMinute = $now_ymd->GetMinute();
-        if ($iHour < 9 || ($iHour == 9 && $iMinute < 30))
-        {
-            $ymd = new TickYMD($iTime - SECONDS_IN_DAY);
-            $iTime = mktime(16, 1, 0, $ymd->GetMonth(), $ymd->GetDay(), $ymd->GetYear());
-        }
-        $this->ConvertDateTime($iTime, $this->strTimeZone);
-    }
-*/    
+
     function _convertDateTimeFromUS($strDateTime, $strYear)
     {
         $iTime = strtotime($strDateTime);
@@ -334,15 +291,6 @@ class StockReference extends StockSymbol
         $this->strPrice = $ar[1];
         $this->strPrevPrice = $ar[26];
         $this->_convertDateTimeFromUS($ar[25], $ar[29]);
-/*        if ($ar[25] != '')
-        {
-            $this->_convertDateTimeFromUS($ar[25]);
-        }
-        else
-        {
-            $this->_generateUsTradingDateTime();
-        }
-*/        
         $this->strOpen = $ar[5];
         $this->strHigh = $ar[6];
         $this->strLow = $ar[7];
@@ -569,17 +517,6 @@ class StockReference extends StockSymbol
         }
         $this->_getEastMoneyForexData($ar);
     }       
-
-    function LoadSqlData($strStockId)
-    {
-    	$nav_sql = GetNavHistorySql();
-       	if ($record = $nav_sql->GetRecordNow($strStockId))
-       	{
-   			$this->strPrice = $record['close'];
-   			$this->strDate = $record['date'];
-   			$this->strPrevPrice = $nav_sql->GetClosePrev($strStockId, $this->strDate);
-   		}
-    }
 
     function GetStockLink()
     {

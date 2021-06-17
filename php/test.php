@@ -64,7 +64,5 @@ function TestCmdLine()
 	DebugClearPath('csv');
 	DebugClearPath('image');
 
-//	$sql = new StockHistorySql();
-	
 	phpinfo();
 ?>

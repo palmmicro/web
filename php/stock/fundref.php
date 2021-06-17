@@ -40,7 +40,7 @@ class FundReference extends MysqlReference
     	return $this->fund_est_sql;
     }
 
-    function LoadData()
+    public function LoadData()
     {
         $this->LoadSinaFundData();
         $this->bConvertGB2312 = true;     // Sina name is GB2312 coded
@@ -104,7 +104,7 @@ class FundReference extends MysqlReference
         return SqlInsertStockCalibration($this->GetStockId(), $est_ref->GetSymbol(), $this->GetPrice(), $strEstPrice, $this->fFactor, DebugGetDateTime());
     }
 
-    function GetSymbol()
+    public function GetSymbol()
     {
         if ($this->stock_ref)
         {

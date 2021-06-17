@@ -10,7 +10,7 @@ class MyStockReference extends MysqlReference
         parent::MysqlReference($strSymbol);
     }
     
-    function LoadData()
+    public function LoadData()
     {
         switch (self::$strDataSource)
         {
