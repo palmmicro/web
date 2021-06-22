@@ -151,10 +151,12 @@ function StockBotGetStr($strText, $strVersion)
 	$strText = str_replace('【', '', $strText);
 	$strText = str_replace('】', '', $strText);
 	$strText = str_replace('，', '', $strText);
-	$strText = str_replace(',', '', $strText);
+//	$strText = str_replace(',', '', $strText);
 	$strText = str_replace('。', '', $strText);
-	$strText = str_replace('.', '', $strText);
-	$strText = trim($strText);
+//	$strText = str_replace('&nbsp;', '', $strText);
+	$strText = str_replace("\xC2\xA0", '', $strText);
+//	$strText = str_replace('.', '', $strText);
+	$strText = trim($strText, " ,.\n\r\t\v\0");
 	$strText = SqlCleanString($strText);
 
 	$arSymbol = _botGetStockArray($strText);

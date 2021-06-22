@@ -23,7 +23,7 @@ class IpSql extends TableSql
 
     public function Create()
     {
-    	$str = ' `id` INT UNSIGNED NOT NULL PRIMARY KEY,'
+    	$str = $this->ComposePrimaryIdStr().','
          	  . ' `visit` INT UNSIGNED NOT NULL ,'
          	  . ' `login` SMALLINT UNSIGNED NOT NULL ,'
          	  . ' `status` TINYINT UNSIGNED NOT NULL ,'

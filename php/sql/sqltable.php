@@ -45,7 +45,7 @@ class TableSql
 		return ' `time` TIME NOT NULL ';
 	}
 	
-    function Create()
+    public function Create()
     {
     	return $this->CreateTable($this->ComposePrimaryIdStr());
     }

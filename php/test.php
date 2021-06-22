@@ -3,6 +3,7 @@ require_once('debug.php');
 require_once('account.php');
 require_once('stock.php');
 
+require_once('sql/sqldate.php');
 require_once('sql/sqlblog.php');
 require_once('sql/sqlvisitor.php');
 require_once('sql/sqlstockdaily.php');
@@ -64,5 +65,6 @@ function TestCmdLine()
 	DebugClearPath('csv');
 	DebugClearPath('image');
 
+	$sql = new EtfHoldingsDateSql();
 	phpinfo();
 ?>

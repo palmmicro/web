@@ -116,7 +116,6 @@ function SzseGetLofShares($ref)
     {
    		file_put_contents($strFileName, $str);
    		$ar = json_decode($str, true);
-//   		DebugPrint($ar, 'SzseGetLofShares');
    		
    		$ar0 = $ar[0];
    		if (isset($ar0['metadata']))
@@ -130,7 +129,7 @@ function SzseGetLofShares($ref)
    					$arData0 = $arData[0];
    					$strClose = str_replace(',', '', $arData0['dqgm']);
    					$sql->WriteDaily($strStockId, $strDate, $strClose);
-   					DebugString($strClose);
+   					DebugString('SzseGetLofShares '.$strClose);
    				}
    				else	DebugString('No data');
    			}

@@ -143,8 +143,12 @@ function EchoAll()
         	$arStock = SqlGetStocksArray($strGroupId);
         	if (count($arStock) > 0)
         	{
-        		$arTransactionRef = _echoStockGroupArray($arStock); 
-        		$acct->EchoStockTransaction(new MyStockGroup($strGroupId, $arTransactionRef));
+        		$arTransactionRef = _echoStockGroupArray($arStock);
+        		$group = new MyStockGroup($strGroupId, $arTransactionRef);
+        		if ($acct->EchoStockTransaction($group))
+        		{
+					$acct->EchoMoneyParagraph($group, new CnyReference('USCNY'), new CnyReference('HKCNY'));
+        		}
         	}
         }
         else
