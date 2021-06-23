@@ -101,7 +101,7 @@ class PageCsvFile extends CsvFile
         parent::CsvFile(DebugGetCsvName(UrlGetUniqueString()));
     }
 
-    function OnLineArray($arWord)
+    public function OnLineArray($arWord)
     {
     	if (count($arWord) > $this->iColumn)
     	{

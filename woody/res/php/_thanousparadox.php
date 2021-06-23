@@ -6,7 +6,7 @@ require_once('/php/ui/pricepoolparagraph.php');
 
 class _ThanousParadoxCsvFile extends PricePoolCsvFile
 {
-    function OnLineArray($arWord)
+    public function OnLineArray($arWord)
     {
     	if (count($arWord) > 2)
     	{

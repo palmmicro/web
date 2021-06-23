@@ -9,6 +9,17 @@ require_once('/php/sql/sqlcommonphrase.php');
 require_once('/php/ui/editinputform.php');
 require_once('/php/ui/table.php');
 
+function HexView($strInput)
+{
+	$str = '<br />Hex: ';
+   	for ($i = 0; $i < strlen($strInput); $i++)
+   	{
+   		$iChar = ord($strInput{$i});
+   		$str .= sprintf('%02X, ', $iChar);
+   	}
+   	return rtrim($str, ', ');
+}
+
 function _getCommonPhraseString($strInput, $strMemberId, $bChinese)
 {
 	$sql = new CommonPhraseSql($strMemberId);
@@ -182,6 +193,7 @@ function EchoAll($bChinese = true)
 	{
 		unset($_POST['submit']);
 		$strInput = SqlCleanString($_POST[EDIT_INPUT_NAME]);
+//		$strInput = $_POST[EDIT_INPUT_NAME];
 	}
 	else if ($strInput = $acct->GetQuery())	{}
     else
@@ -239,8 +251,9 @@ function EchoAll($bChinese = true)
     	$str = _getCramersLawString($strInput, $bChinese);
     	break;
     	
-    case 'editinput':
+    case PAGE_TOOL_EDIT:
     	$str = is_numeric($strInput) ? DebugGetDateTime($strInput) : urldecode($strInput);
+    	$str .= HexView($strInput);
     	break;
     		
     case TABLE_IP:
@@ -304,7 +317,7 @@ function EchoMetaDescription($bChinese = true)
     						: 'calculation, use Cramer\'s rule to solve a linear system of 2x2 equations, together with algorithm steps image.';
   		break;
   		
-  	case 'editinput':
+  	case PAGE_TOOL_EDIT:
   		$str .= $bChinese ? '页面. 测试代码暂时放在/account/_editinput.php中, 测试成熟后再分配具体长期使用的工具页面. 不成功的测试就可以直接放弃了.'
     						: 'page, testing source code in /account/_editinput.php first. Functions will be moved to permanent pages after test.';
   		break;

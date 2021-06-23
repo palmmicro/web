@@ -1,6 +1,7 @@
 <?php
 require_once('sqlkeyname.php');
 require_once('sqlkeytable.php');
+require_once('sqldailyclose.php');
 
 class NavHistorySql extends DailyCloseSql
 {

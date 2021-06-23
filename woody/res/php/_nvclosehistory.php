@@ -7,7 +7,7 @@ require_once('/php/ui/nvclosehistoryparagraph.php');
 
 class _NvCloseCsvFile extends PricePoolCsvFile
 {
-    function OnLineArray($arWord)
+    public function OnLineArray($arWord)
     {
     	if (count($arWord) > 2)
     	{

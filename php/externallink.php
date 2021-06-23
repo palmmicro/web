@@ -149,12 +149,9 @@ function GetInvescoOfficialLink($strSymbol)
 	return GetOfficialLink($str, $strSymbol);
 }
 
-// https://kraneshares.com/kweb/
-// https://kraneshares.com/csv/1_25_2021_kweb_holdings.csv
-// https://kraneshares.com/csv/05_19_2021_kweb_holdings.csv
 function GetKraneOfficialLink($strSymbol)
 {
-	$str = 'https://kraneshares.com/'.strtolower($strSymbol).'/';
+	$str = GetKraneUrl().strtolower($strSymbol).'/';
 	return GetOfficialLink($str, $strSymbol);
 }
 

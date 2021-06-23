@@ -66,6 +66,8 @@ define('ACCOUNT_TOOL_IP_CN', 'IP地址数据');
 define('ACCOUNT_TOOL_LINEAR_CN', '线性回归');
 define('ACCOUNT_TOOL_PRIME_CN', '分解质因数');
 
+define('PAGE_TOOL_EDIT', 'editinput');
+
 function GetAccountToolArray($bChinese)
 {
 	if ($bChinese)
@@ -74,7 +76,7 @@ function GetAccountToolArray($bChinese)
 					  'chisquaredtest' => ACCOUNT_TOOL_CHI_CN,
                       TABLE_COMMON_PHRASE => ACCOUNT_TOOL_PHRASE_CN,
                       'cramersrule' => ACCOUNT_TOOL_CRAMER_CN,
-					  'editinput' => ACCOUNT_TOOL_EDIT_CN,
+					  PAGE_TOOL_EDIT => ACCOUNT_TOOL_EDIT_CN,
                       TABLE_IP => ACCOUNT_TOOL_IP_CN,
                       'linearregression' => ACCOUNT_TOOL_LINEAR_CN,
                       TABLE_PRIME_NUMBER => ACCOUNT_TOOL_PRIME_CN,
@@ -86,7 +88,7 @@ function GetAccountToolArray($bChinese)
 					  'chisquaredtest' => ACCOUNT_TOOL_CHI,
                       TABLE_COMMON_PHRASE => ACCOUNT_TOOL_PHRASE,
                       'cramersrule' => ACCOUNT_TOOL_CRAMER,
-					  'editinput' => ACCOUNT_TOOL_EDIT,
+					  PAGE_TOOL_EDIT => ACCOUNT_TOOL_EDIT,
 					  TABLE_IP => ACCOUNT_TOOL_IP,
                       'linearregression' => ACCOUNT_TOOL_LINEAR,
                       TABLE_PRIME_NUMBER => ACCOUNT_TOOL_PRIME,
@@ -133,7 +135,7 @@ function GetCramersRuleLink($bChinese = true)
 
 function GetEditInputLink($bChinese = true)
 {
-    return _getAccountToolLink('editinput', $bChinese);
+    return _getAccountToolLink(PAGE_TOOL_EDIT, $bChinese);
 }
 
 function GetPrimeNumberLink($bChinese = true)

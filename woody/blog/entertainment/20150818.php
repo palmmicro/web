@@ -90,8 +90,8 @@ We called MySQL related function in <font color=olive>MysqlReference</font> clas
 
 <h3>US Daylight Saving Time</h3>
 <p>March 14, 2016
-<br />A bug is found as US enter daylight saving time: <i>date_default_timezone_set('EST')</i> is not considering daylight saving,
-need to use <i>date_default_timezone_set('America/New_York')</i> or <i>date_default_timezone_set('EDT')</i>.
+<br />A bug is found as US enter daylight saving time: <font color=gray><code>date_default_timezone_set('EST')</code></font> is not considering daylight saving,
+need to use <font color=gray><code>date_default_timezone_set('America/New_York')</code></font> or <font color=gray><code>date_default_timezone_set('EDT')</code></font>.
 </p>
 
 <h3><a name="goldetf">Gold ETF</a></h3>
@@ -128,7 +128,7 @@ I began to check the problem yesterday, found that the last automatic calibratio
 And the automatic calibration on May 13 was not done yet. In other words, the calibration was one day late for quite some time now, but when USDCNY had little change, the problem was ignored.
 <br />It was easy to find the bug, I used the simplest way to fix the estimation bug caused by continue Chinese and USA market close after Chinese New Year.
 Because only Hongkong QDII would have the chance of official QDII net value newer than ETF, I rewrote part of the code by checking if it was HK QDII,
-and modified an actually unrelated code, what should be <i>$iHours = STOCK_HOUR_END + ($this->usdhkd_ref ? 0 : 24);</i> was written as <i>$iHours = STOCK_HOUR_END + ($this->usdhkd_ref) ? 0 : 24;</i>
+and modified an actually unrelated code, what should be <font color=gray><code>$iHours = STOCK_HOUR_END + ($this->usdhkd_ref ? 0 : 24);</code></font> was written as <font color=gray><code>$iHours = STOCK_HOUR_END + ($this->usdhkd_ref) ? 0 : 24;</code></font>
 <br />But this bug made me feel very bad, this time I can not say I am still a 6 years <font color=red>new</font> PHP programmer. As a proud 25 years C programmer, this is also a very stupid bug in C language!
 </p>
 

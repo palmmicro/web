@@ -129,7 +129,8 @@
 
 <h3>美国<a name="daylightsavingbegin">夏令时开始</a></h3>
 <p>2016年3月14日
-<br />美国进入夏令时, 发现一个bug: <i>date_default_timezone_set('EST')</i>是没有夏令时的, 要用<i>date_default_timezone_set('America/New_York')</i>或者<i>date_default_timezone_set('EDT')</i>.
+<br />美国进入夏令时, 发现一个bug: <font color=gray><code>date_default_timezone_set('EST')</code></font>是没有夏令时的, 
+要用<font color=gray><code>date_default_timezone_set('America/New_York')</code></font>或者<font color=gray><code>date_default_timezone_set('EDT')</code></font>.
 </p>
 
 <h3><a name="goldetf">黄金基金</a></h3>
@@ -162,7 +163,7 @@
 只不过在汇率平稳的情况下这个问题暴露不出来而已.
 <br />找到问题并不难, 春节后为了用最简单的方法解决中美轮流休市导致的估值问题, 因为只有港股QDII会出现QDII净值数据比ETF新的情况, 我按照是否港股QDII重新整理了部分代码,
 对美股QDII就不考虑根据今天的QDII净值和昨天ETF价格校准的情况了. 结果无意改了个其实无关的代码,
-把<i>$iHours = STOCK_HOUR_END + ($this->usdhkd_ref ? 0 : 24);</i>写成了<i>$iHours = STOCK_HOUR_END + ($this->usdhkd_ref) ? 0 : 24;</i>
+把<font color=gray><code>$iHours = STOCK_HOUR_END + ($this->usdhkd_ref ? 0 : 24);</code></font>写成了<font color=gray><code>$iHours = STOCK_HOUR_END + ($this->usdhkd_ref) ? 0 : 24;</code></font>
 <br />不过这个bug严重打击了我的自信心. 这一次我没法用自己是个6年的PHP<font color=red>新手</font>来自嘲了, 在我自豪的写了25年的C语言中, 这同样是个超级低级的错误!
 </p>
 

@@ -1,5 +1,6 @@
 <?php
 require_once('sqlkeytable.php');
+require_once('sqldailytime.php');
 
 class CalibrationSql extends DailyTimeSql
 {

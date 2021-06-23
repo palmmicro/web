@@ -1,5 +1,5 @@
 <?php
-require_once('sqlkeytable.php');
+require_once('sqlkey.php');
 
 class VisitorSql extends KeySql
 {

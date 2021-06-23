@@ -132,6 +132,15 @@ function GetYinHuaFundUrl()
 	return 'http://www.yhfund.com.cn';
 }
 
+// https://kraneshares.com/kweb/
+// https://kraneshares.com/csv/1_25_2021_kweb_holdings.csv
+// https://kraneshares.com/csv/05_19_2021_kweb_holdings.csv
+// https://kraneshares.com/csv/06_22_2021_kweb_holdings.csv
+function GetKraneUrl()
+{
+	return 'https://kraneshares.com/';
+}
+
 function GetSpdrEtfUrl()
 {
 	return 'https://www.ssga.com/us/en/individual/etfs/';

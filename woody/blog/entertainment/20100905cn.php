@@ -42,7 +42,7 @@
 <br />而今天在处理完网络爬虫的问题后, 我突然意识到查询公网IP已经成了现成的副产品, 激动之余写了这个<?php EchoIpAddressLink(); ?>的工具.
 </p>
 
-<h3><?php EchoNameTag('editinput', ACCOUNT_TOOL_EDIT_CN); ?>用户界面</h3>
+<h3><?php EchoNameTag(PAGE_TOOL_EDIT, ACCOUNT_TOOL_EDIT_CN); ?>用户界面</h3>
 <p>2017年4月10日
 <br />做完<?php EchoNameLink(TABLE_IP, ACCOUNT_TOOL_IP_CN); ?>这个最简单的单行输入然后把输入显示出来的用户界面后, 发现自己无意中实现了一个副产品.
 一直有人用各种参数试探攻击我的网页, 所以我早就想解码这些%3A%2F%2F然后显示出来看看到底是些什么参数, 没想到这个界面调用urldecode后就直接实现了这个<?php EchoEditInputLink(); ?>功能.
@@ -147,6 +147,16 @@
 <p>2019年11月15日
 <br /><?php EchoChiSquaredTestLink(); ?>
 <br /><img src=../photo/chi2PValue.gif alt="Pearson\'s Chi-squared Test equation and curve gif" />';
+</p>
+
+<h3>UTF8的双字节空格字符</h3>
+<p>2021年6月22日
+<br />收到来自<a href="../palmmicro/20161014cn.php">微信公众号</a>的通知邮件, 说有用户查询<font color=green>161116&nbsp;</font>没有找到匹配的信息后, 我简直不敢相信自己的眼睛.
+<br />登录公众号管理系统后, 我把用户发送的内容复制到了微信PC版本的输入界面中, 显示除了161116外, 还额外换了2行, 果然这样发出去是会匹配失败的, 其中应该包含了我没想到过的未知字符.
+<br />在<?php EchoNameLink(PAGE_TOOL_EDIT, ACCOUNT_TOOL_EDIT_CN); ?>用户界面加了16进制显示后, 发现161116后多了一个0x20的空格. 我猜可能因为输入控件是单行的所以换行被过滤掉了, 干脆就放弃了自己分析未知字符.
+<br />目前我用的jEdit编辑器没有16进制显示的功能, 于是我去下载了一个很多年没再用过的UltraEdit, 然而它显示161116后是20 0D 0A, 这3个太正常了, 早已经在<font color=gray><code>$strText = trim($strText, " ,.\n\r\t\v\0");</code></font>中处理过.
+<br />这下黔驴技穷了, 只好找用户问到底输入了什么. 被告知是从一篇微信公众号文章复制过来的, 我跑去看页面源代码, 发现原文是<font color=green>161116&amp;nbsp;</font>, 微信复制后产生了一个UTF8的双字节空格字符,
+加了一句<font color=gray><code>$strText = str_replace("\xC2\xA0", '', $strText);</code></font>后终于解决问题.
 </p>
 
 </div>

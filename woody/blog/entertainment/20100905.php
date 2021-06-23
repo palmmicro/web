@@ -33,7 +33,7 @@ As PA6488 based camera is not available in market yet. Users can test the user m
 <br /><?php EchoIpAddressLink(false); ?> tool.
 </p>
 
-<h3><?php EchoNameTag('editinput', ACCOUNT_TOOL_EDIT); ?> User Interface</h3>
+<h3><?php EchoNameTag(PAGE_TOOL_EDIT, ACCOUNT_TOOL_EDIT); ?> User Interface</h3>
 <p>Apr 10, 2017
 <br /><?php EchoEditInputLink(false); ?> <i>urldecode</i> function.
 </p>
