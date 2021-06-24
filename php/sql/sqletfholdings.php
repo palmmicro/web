@@ -5,7 +5,7 @@ class EtfHoldingsSql extends KeySql
 {
     function EtfHoldingsSql() 
     {
-        parent::KeySql('etfholdings', TABLE_STOCK);
+        parent::KeySql(TABLE_ETF_HOLDINGS, TABLE_STOCK);
     }
 
     public function Create()
@@ -20,6 +20,26 @@ class EtfHoldingsSql extends KeySql
     public function BuildOrderBy()
     {
     	return '`ratio` DESC';
+    }
+    
+    function InsertHolding($strStockId, $strHoldingId, $strRatio)
+    {
+    	return $this->InsertArray(array_merge($this->MakeFieldKeyId($strStockId), array('holding_id' => $strHoldingId, 'ratio' => $strRatio)));
+    }
+    
+    function GetHoldingsArray($strStockId)
+    {
+    	$ar = array();
+    	if ($result = $this->GetAll($strStockId)) 
+    	{
+    		while ($record = mysql_fetch_assoc($result)) 
+    		{
+    			$strHoldingId = $record['holding_id']; 
+    			$ar[$strHoldingId] = $record['ratio'];
+    		}
+    		@mysql_free_result($result);
+    	}
+    	return $ar;
     }
 }
 

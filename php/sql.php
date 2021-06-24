@@ -4,6 +4,7 @@ define('DB_DATABASE', 'camman');
 define('TABLE_CALIBRATION', 'calibration');
 define('TABLE_COMMON_PHRASE', 'commonphrase');
 define('TABLE_DOW_JONES', 'dowjones');
+define('TABLE_ETF_HOLDINGS', 'etfholdings');
 define('TABLE_FUND_EST', 'fundest');
 define('TABLE_FUND_PURCHASE', 'fundpurchase');
 define('TABLE_IP', 'ip');

@@ -62,6 +62,12 @@ function GetCalibrationLink($strSymbol, $strDisplay = false)
     return GetStockSymbolLink('calibration', $strSymbol, ($strDisplay ? $strDisplay : CALIBRATION_HISTORY_DISPLAY));
 }
 
+define('ETF_HOLDINGS_DISPLAY', '基金持仓');
+function GetEtfHoldingsLink($strSymbol, $bDisplaySymbol = false)
+{
+    return GetStockSymbolLink(TABLE_ETF_HOLDINGS, $strSymbol, ($bDisplaySymbol ? $strSymbol : ETF_HOLDINGS_DISPLAY));
+}
+
 define('STOCK_HISTORY_DISPLAY', '历史价格记录');
 function GetStockHistoryLink($strSymbol)
 {

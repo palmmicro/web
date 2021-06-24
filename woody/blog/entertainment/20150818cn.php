@@ -411,6 +411,11 @@ CL通常会在美股收盘后继续多交易一个小时, 此时实时估值也�
 这个问题隐藏了好几年, 但是以前一直没有像现在这样每天盯着折价溢价数据看, 所以一直没发现.
 </p>
 
+<h3>增加<?php EchoNameTag(TABLE_ETF_HOLDINGS, ETF_HOLDINGS_DISPLAY); ?>页面</h3>
+<p>2021年6月24日
+<br />虽然XOP也可以使用这个页面, 但是它其实是为同时持仓港股和美股的<?php echo GetEtfHoldingsLink('KWEB', true); ?>准备的. 
+</p>
+
 </div>
 
 <?php _LayoutBottom(); ?>

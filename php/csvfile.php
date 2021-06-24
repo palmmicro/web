@@ -82,7 +82,7 @@ class CsvFile
     		{	
     			if ($strLine = fgets($this->file))
     			{
-    				$arWord = explode(',', $strLine);
+    				$arWord = str_getcsv($strLine);
     				$this->OnLineArray($arWord);
     			}
     		}

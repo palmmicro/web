@@ -10,7 +10,7 @@ class HShareReference extends MyStockReference
 
     var $fAdrRatio = 1.0;
     
-    var $fHKDUSD;
+    var $fUSDHKD;
     var $fUSDCNY;
     var $fHKDCNY;
     
@@ -29,14 +29,14 @@ class HShareReference extends MyStockReference
     		
     		$this->uscny_ref = new CnyReference('USCNY');
     		$this->fUSDCNY = floatval($this->uscny_ref->GetPrice());
-    		$this->fHKDUSD = $this->fHKDCNY / $this->fUSDCNY;
+    		$this->fUSDHKD = $this->fUSDCNY / $this->fHKDCNY;
     	}
         parent::MyStockReference($strSymbol);
     }
     
-    function GetHKDUSD()
+    function GetUSDHKD()
     {
-    	return $this->fHKDUSD;
+    	return $this->fUSDHKD;
     }
     
     function GetUSDCNY()
@@ -87,12 +87,12 @@ class HShareReference extends MyStockReference
    
     function EstFromUsd($strEst)
     {
-   		return $this->adr_ref ? strval(floatval($strEst) / ($this->fAdrRatio * $this->fHKDUSD)) : '0';
+   		return $this->adr_ref ? strval(floatval($strEst) * $this->fUSDHKD / $this->fAdrRatio) : '0';
     }
 
     function EstToUsd($strEst)
     {
-   		return $this->adr_ref ? strval(floatval($strEst) * ($this->fAdrRatio * $this->fHKDUSD)) : '0';
+   		return $this->adr_ref ? strval(floatval($strEst) * $this->fAdrRatio / $this->fUSDHKD) : '0';
     }
     
     function FromUsdToCny($strEst)

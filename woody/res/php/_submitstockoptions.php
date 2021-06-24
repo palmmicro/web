@@ -331,7 +331,7 @@ function _updateStockOptionSplit($ref, $strSymbol, $strStockId, $his_sql, $strDa
 			if ($bAdmin)
 			{
 				_updateOptionDailySql(GetNavHistorySql(), $strStockId, $strDate, $strVal);
-				if ($strSymbol == 'KWEB')		ReadKraneHoldingsCsvFile($strSymbol, $strDate);
+				if ($strSymbol == 'KWEB')		ReadKraneHoldingsCsvFile($strSymbol, $strStockId, $strDate);
 			}
 			break;
 			

@@ -21,7 +21,7 @@ function _webUpdateSinaHistory($his_sql, $strStockId, $sym)
         	$arMatch = preg_match_sina_history($str);
         	foreach ($arMatch as $ar)
         	{
-        		$his_sql->WriteHistory($strStockId, $ar[1], $ar[2], $ar[3], $ar[5], $ar[4], $ar[6], $ar[4]);
+        		$his_sql->WriteHistory($strStockId, $ar[1], $ar[4], $ar[2], $ar[3], $ar[5], $ar[6]);
         		$iTotal ++;
         	}
         }
@@ -76,7 +76,7 @@ function _webUpdateYahooHistory($his_sql, $strStockId, $strYahooSymbol)
         		}
         		else
         		{
-        			$his_sql->WriteHistory($strStockId, $strDate, $ar[0], $ar[1], $ar[2], $ar[3], $ar[5], $ar[4]);
+        			$his_sql->WriteHistory($strStockId, $strDate, $ar[3], $ar[0], $ar[1], $ar[2], $ar[5], $ar[4]);
         		}
         	}
         }

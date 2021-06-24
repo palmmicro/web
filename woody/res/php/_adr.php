@@ -42,7 +42,7 @@ class _AdrAccount extends GroupAccount
         $strGroupId = $this->GetGroupId();
     	$fUSDCNY = $this->hk_ref->GetUSDCNY();
     	$fHKDCNY = $this->hk_ref->GetHKDCNY();
-    	$fHKDUSD = $this->hk_ref->GetHKDUSD();
+    	$fUSDHKD = $this->hk_ref->GetUSDHKD();
 
         $this->cn_convert = new MyStockTransaction($this->cn_ref, $strGroupId);
         $this->cn_convert->Add($cn_trans);
@@ -52,12 +52,12 @@ class _AdrAccount extends GroupAccount
         $this->hk_convert = new MyStockTransaction($this->hk_ref, $strGroupId);
         $this->hk_convert->Add($hk_trans);
         $this->hk_convert->AddTransaction($cn_trans->iTotalShares, $cn_trans->fTotalCost / $fHKDCNY);
-        $this->hk_convert->AddTransaction(intval($us_trans->iTotalShares * $this->fRatioAdrH), $us_trans->fTotalCost / $fHKDUSD);
+        $this->hk_convert->AddTransaction(intval($us_trans->iTotalShares * $this->fRatioAdrH), $us_trans->fTotalCost * $fUSDHKD);
         
         $this->us_convert = new MyStockTransaction($this->us_ref, $strGroupId);
         $this->us_convert->Add($us_trans);
         $this->us_convert->AddTransaction(intval($cn_trans->iTotalShares / $this->fRatioAdrH), $cn_trans->fTotalCost / $fUSDCNY);
-        $this->us_convert->AddTransaction(intval($hk_trans->iTotalShares / $this->fRatioAdrH), $hk_trans->fTotalCost * $fHKDUSD);
+        $this->us_convert->AddTransaction(intval($hk_trans->iTotalShares / $this->fRatioAdrH), $hk_trans->fTotalCost / $fUSDHKD);
     }
 } 
 

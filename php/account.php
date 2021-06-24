@@ -255,12 +255,6 @@ class Account
     }
 }
 
-function AcctIsAdmin()
-{
-   	global $acct;
-	return $acct->IsAdmin();
-}
-
 function AcctIsLogin()
 {
    	global $acct;

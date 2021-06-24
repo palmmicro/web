@@ -144,7 +144,7 @@ function _getSmaParagraphWarning($ref)
 			{
 				$strSymbol = $ref->GetSymbol();
 				$str = '<br /><font color=red>'.$strSymbol.' '.$record['date'].'收盘价冲突</font>: '.$record['adjclose'].' '.$ref->GetPrevPrice();
-				if (AcctIsAdmin())
+				if (DebugIsAdmin())
 				{
 					$str .= ' '.GetStockOptionLink(STOCK_OPTION_CLOSE, $strSymbol);
 				}

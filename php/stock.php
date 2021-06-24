@@ -117,14 +117,17 @@ function GetSinaQuotesUrl($strSinaSymbols)
 function GetSinaQuotes($strSinaSymbols)
 {
 	$strFileName = DebugGetPathName('debugsina.txt');
-    if (file_exists($strFileName))
-    {
-    	if (time() - filemtime($strFileName) < 30)
-    	{
-//    		DebugString('Ignored: '.$strSinaSymbols);
-    		return false;
-    	}
-    }
+	if (DebugIsAdmin() == false)
+	{
+		if (file_exists($strFileName))
+		{
+			if (time() - filemtime($strFileName) < 30)
+			{
+//				DebugString('Ignored: '.$strSinaSymbols);
+				return false;
+			}
+		}
+	}
     
     if ($str = url_get_contents(GetSinaQuotesUrl($strSinaSymbols)))
     {
@@ -365,7 +368,9 @@ function _getAllSymbolArray($strSymbol, $strStockId)
         else 															return array($strSymbol);
     }
     
-   	$ar = array();
+	$ar = SqlGetHoldingsSymbolArray($strSymbol);
+	if ($ar == false)		$ar = array();
+	
     if ($strPairSymbol = SqlGetEtfPair($strSymbol))			$ar[] = $strPairSymbol;
     if ($sym->IsSymbolA())
     {

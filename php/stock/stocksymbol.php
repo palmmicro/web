@@ -300,7 +300,20 @@ function BuildChineseStockSymbol($strDigit)
         else if ($iDigit >= 600000)												return SH_PREFIX.$strDigit;
     }
     return false;
-}            
+}
+
+function BuildHongkongStockSymbol($strDigit)
+{
+	$iLen = strlen($strDigit);
+	if ($iLen != 5)
+	{
+		for ($i = $iLen; $i < 5; $i ++)
+		{
+			$strDigit = '0'.$strDigit;
+		}
+	}
+	return $strDigit;
+}
 
 // ****************************** StockSymbol Class *******************************************************
 

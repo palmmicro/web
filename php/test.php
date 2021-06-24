@@ -5,7 +5,6 @@ require_once('stock.php');
 
 require_once('sql/sqlblog.php');
 require_once('sql/sqlvisitor.php');
-require_once('sql/sqletfholdings.php');
 
 define('DEBUG_UTF8_BOM', "\xef\xbb\xbf");
 
@@ -64,6 +63,5 @@ function TestCmdLine()
 	DebugClearPath('csv');
 	DebugClearPath('image');
 
-	$sql = new EtfHoldingsSql();
 	phpinfo();
 ?>

@@ -2,6 +2,7 @@
 require_once('sqlkeyname.php');
 require_once('sqlkeytable.php');
 require_once('sqldailyclose.php');
+require_once('sqletfholdings.php');
 
 class NavHistorySql extends DailyCloseSql
 {
@@ -37,8 +38,10 @@ class StockHistorySql extends DailyCloseSql
         return $this->CreateDailyKeyTable($str);
     }
 
-    function WriteHistory($strStockId, $strDate, $strOpen, $strHigh, $strLow, $strClose, $strVolume, $strAdjClose)
+    function WriteHistory($strStockId, $strDate, $strClose, $strOpen = '', $strHigh = '', $strLow = '', $strVolume = '', $strAdjClose = false)
     {
+    	if ($strAdjClose == false)	$strAdjClose = $strClose;
+    	
     	$ar = array('date' => $strDate,
     				   'open' => $strOpen,
     				   'high' => $strHigh,
@@ -101,10 +104,11 @@ class StockHistorySql extends DailyCloseSql
 
 class StockSql extends KeyNameSql
 {
-    var $his_sql;		// StockHistorySql
-    var $nav_sql;		// NavHistorySql
+    var $his_sql;
+    var $nav_sql;
+	var $holdings_sql;
     
-    var $ema50_sql;	// StockEmaSql
+    var $ema50_sql;
     var $ema200_sql;
     
     function StockSql()
@@ -113,6 +117,7 @@ class StockSql extends KeyNameSql
         
        	$this->his_sql = new StockHistorySql();
        	$this->nav_sql = new NavHistorySql();
+        $this->holdings_sql = new EtfHoldingsSql();
        	
        	$this->ema50_sql = new StockEmaSql(50);
        	$this->ema200_sql = new StockEmaSql(200);
@@ -146,6 +151,7 @@ class StockSql extends KeyNameSql
     	}
     	else
     	{
+  			DebugString('新增:'.$strSymbol.'-'.$strName);
     		return $this->InsertArray($ar);
     	}
     	return false;
@@ -198,6 +204,12 @@ function GetNavHistorySql()
    	return $g_stock_sql->nav_sql;
 }
 
+function GetEtfHoldingsSql()
+{
+	global $g_stock_sql;
+   	return $g_stock_sql->holdings_sql;
+}
+
 function GetStockEmaSql($iDays)
 {
 	global $g_stock_sql;
@@ -232,6 +244,25 @@ function SqlGetStockSymbol($strStockId)
 {
 	$sql = GetStockSql();
 	return $sql->GetKey($strStockId);
+}
+
+function SqlGetHoldingsSymbolArray($strSymbol)
+{
+	$sql = GetStockSql();
+	$holdings_sql = GetEtfHoldingsSql();
+
+	$strStockId = $sql->GetId($strSymbol);
+	if ($holdings_sql->Count($strStockId) > 0)
+	{
+    	$arSymbol = array();
+    	$ar = $holdings_sql->GetHoldingsArray($strStockId);
+    	foreach ($ar as $strId => $strRatio)
+    	{
+    		$arSymbol[] = $sql->GetKey($strId);
+    	}
+    	return $arSymbol;
+    }
+    return false;
 }
 
 // ****************************** StockTableSql class *******************************************************

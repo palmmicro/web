@@ -262,4 +262,15 @@ function unlinkConfigFile($strSymbol)
 {
 	unlinkEmptyFile(DebugGetConfigFileName($strSymbol));
 }
+
+function DebugIsAdmin()
+{
+   	global $acct;
+	if (method_exists($acct, 'IsAdmin'))
+	{
+		return $acct->IsAdmin();
+	}
+	return false;
+}
+
 ?>

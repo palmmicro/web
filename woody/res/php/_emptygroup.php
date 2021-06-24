@@ -2,20 +2,11 @@
 
 class SymbolAccount extends StockAccount
 {
-//    var $sharesdiff_sql;
-    
     function SymbolAccount() 
     {
         parent::StockAccount('symbol');
+    }
 
-//	    $this->sharesdiff_sql = new SharesDiffSql();
-    }
-/*
-    function GetSharesDiffSql()
-    {
-    	return $this->sharesdiff_sql;
-    }
-*/    
     function Create()
     {
     	if ($strSymbol = StockCheckSymbol($this->GetQuery()))
