@@ -144,7 +144,11 @@ class _QdiiReference extends FundReference
         $strDate = $est_ref->GetDate();
         if ($this->strOfficialCNY = $cny_ref->GetClose($strDate))
         {
-            $this->fOfficialNetValue = $this->GetQdiiValue($this->_getEstVal(), $this->strOfficialCNY);
+			if (method_exists($est_ref, 'GetOfficialNetValue'))
+        	{
+        		$this->fOfficialNetValue = $this->GetQdiiValue(strval($est_ref->GetOfficialNetValue()), $this->strOfficialCNY);
+        	}
+        	else	$this->fOfficialNetValue = $this->GetQdiiValue($this->_getEstVal(), $this->strOfficialCNY);
             $this->strOfficialDate = $strDate;
             $this->UpdateEstNetValue();
         }
@@ -170,7 +174,14 @@ class _QdiiReference extends FundReference
         if ($est_ref == false)    return;
         
        	$cny_ref = $this->GetCnyRef();
-       	if (($cny_ref->GetDate() != $this->strOfficialDate) || ($est_ref->GetDate() != $this->strOfficialDate))		$this->fFairNetValue = $this->GetQdiiValue($this->_getEstVal());
+       	if (($cny_ref->GetDate() != $this->strOfficialDate) || ($est_ref->GetDate() != $this->strOfficialDate))
+       	{
+			if (method_exists($est_ref, 'GetFairNetValue'))
+        	{
+        		$this->fFairNetValue = $this->GetQdiiValue(strval($est_ref->GetFairNetValue()));
+        	}
+        	else	$this->fFairNetValue = $this->GetQdiiValue($this->_getEstVal());
+       	}
         
 		if ($future_ref = $this->GetFutureRef())
         {
@@ -271,7 +282,8 @@ class QdiiReference extends _QdiiReference
         
         if ($strEstSymbol = QdiiGetEstSymbol($strSymbol))
         {
-            $this->est_ref = new MyStockReference($strEstSymbol);
+        	if ($strSymbol == 'SZ164906')		$this->est_ref = new EtfHoldingsReference($strEstSymbol);
+        	else				        		$this->est_ref = new MyStockReference($strEstSymbol);
         }
         if ($strFutureEtfSymbol = QdiiGetFutureEtfSymbol($strSymbol))
         {

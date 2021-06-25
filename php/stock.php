@@ -21,6 +21,7 @@ require_once('stock/stockref.php');
 require_once('stock/mysqlref.php');
 require_once('stock/mystockref.php');
 require_once('stock/cnyref.php');
+require_once('stock/etfholdingsref.php');
 require_once('stock/futureref.php');
 require_once('stock/fundref.php');
 require_once('stock/qdiiref.php');
@@ -361,7 +362,12 @@ function _getAllSymbolArray($strSymbol, $strStockId)
    	$sym = new StockSymbol($strSymbol);
     if ($sym->IsFundA())
     {
-        if (in_arrayQdii($strSymbol))									return QdiiGetAllSymbolArray($strSymbol);
+        if (in_arrayQdii($strSymbol))
+        {
+        	$ar = QdiiGetAllSymbolArray($strSymbol);
+        	if ($strSymbol == 'SZ164906')		$ar += SqlGetHoldingsSymbolArray('KWEB');
+        	return $ar;
+        }
         else if (in_arrayQdiiHk($strSymbol))							return QdiiHkGetAllSymbolArray($strSymbol);
         else if (in_arrayGoldSilver($strSymbol))						return GoldSilverGetAllSymbolArray($strSymbol);
         else if (in_arrayChinaIndex($strSymbol))						return EtfGetAllSymbolArray($strSymbol);

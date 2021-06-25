@@ -88,6 +88,12 @@ class TableColumnNetValue extends TableColumn
 	}
 }
 
+function GetTableColumnNetValue()
+{
+	$col = new TableColumnNetValue();
+	return $col->GetDisplay();
+}
+
 class TableColumnPosition extends TableColumn
 {
 	function TableColumnPosition()
