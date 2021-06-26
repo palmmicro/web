@@ -146,12 +146,12 @@ and modified an actually unrelated code, what should be <font color=gray><code>$
       </tr>
       <tr>
         <td class=c1 align="center">T day trading</td>
-        <td class=c1 align="center">^SPSIOP</td>
-        <td class=c1 align="center">XOP</td>
-        <td class=c1 align="center">XOP</td>
+        <td class=c1 align="center">XOP NAV</td>
+        <td class=c1 align="center">XOP NAV</td>
+        <td class=c1 align="center">XOP NAV</td>
       </tr>
       <tr>
-        <td class=c1 align="center">T+1 day CL future</td>
+        <td class=c1 align="center">CL future</td>
         <td class=c1 align="center">N</td>
         <td class=c1 align="center">N</td>
         <td class=c1 align="center">Y</td>
@@ -160,7 +160,7 @@ and modified an actually unrelated code, what should be <font color=gray><code>$
         <td class=c1 align="center"><a href="20160615.php">USDCNY Reference Rate</a></td>
         <td class=c1 align="center">T day</td>
         <td class=c1 align="center">T+1 day</td>
-        <td class=c1 align="center">T+1 day</td>
+        <td class=c1 align="center">T/T+1 day</td>
       </tr>
 </TABLE>
 </p>

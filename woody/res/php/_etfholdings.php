@@ -4,28 +4,27 @@ require_once('_emptygroup.php');
 require_once('/php/ui/referenceparagraph.php');
 require_once('/php/ui/fundestparagraph.php');
 
-function _echoEtfHoldingItem($ref, $arRatio, $strDate, $his_sql, $fAdjustH)
+function _echoEtfHoldingItem($ref, $arRatio, $strDate, $his_sql, $fTotalChange, $fAdjustH)
 {
+	$bHk = $ref->IsSymbolH() ? true : false;
+	
 	$strStockId = $ref->GetStockId();
-	$strClose = $his_sql->GetClose($strStockId, $strDate);
+	$strClose = $his_sql->GetAdjClose($strStockId, $strDate);
 	$strPrice = $ref->GetPrice();
 	$fRatio = floatval($arRatio[$strStockId]);
-	$fChange = $fRatio * $ref->GetPercentage($strClose, $strPrice) / 100.0;
+	$fChange = $ref->GetPercentage($strClose, $strPrice) / 100.0;
+    if ($bHk)	$fChange *= $fAdjustH;
 	
 	$ar = array();
 	$ar[] = RefGetMyStockLink($ref);
     $ar[] = strval($fRatio);
     $ar[] = $strClose;
     $ar[] = $ref->GetPercentageDisplay($strClose, $strPrice);
-    $ar[] = strval_round($fChange, 4);
-    if ($ref->IsSymbolH())
-    {
-    	$ar[] = strval_round($fAdjustH, 4);
-    	$fChange *= $fAdjustH;
-    }
-    EchoTableColumn($ar);
+    $ar[] = strval_round($fRatio * (1 + $fChange) / $fTotalChange, 2);
+    $ar[] = strval_round($fRatio * $fChange, 4);
+    if ($bHk)	$ar[] = strval_round($fAdjustH, 4);
     
-    return $fChange;
+    EchoTableColumn($ar);
 }
 
 function EchoAll()
@@ -43,26 +42,21 @@ function EchoAll()
 		    EchoFundArrayEstParagraph($arSelf, GetTableColumnNetValue().'和持仓比例更新日期'.$strDate);
     		EchoReferenceParagraph($arSelf + $arHoldingRef);
     		EchoTableParagraphBegin(array(new TableColumnSymbol(),
-										   new TableColumn('百分比'),
-										   new TableColumnPrice('当日'),
+										   new TableColumnPercentage('旧'),
+										   new TableColumnPrice('旧'),
 										   new TableColumnChange('此后'),
-										   new TableColumn('影响比例'),
-										   new TableColumn('H股调整')
+										   new TableColumnPercentage('新'),
+										   new TableColumnPercentage('影响'),
+										   new TableColumn('H股汇率调整', 100)
 										   ), TABLE_ETF_HOLDINGS, '持仓和测算示意');
 	
 			$arRatio = $ref->GetHoldingsRatioArray();
 			$his_sql = GetStockHistorySql();
-			$fTotal = 0.0;
 			foreach ($arHoldingRef as $holding_ref)
 			{
-				$fTotal += _echoEtfHoldingItem($holding_ref, $arRatio, $strDate, $his_sql, $ref->GetAdjustH());
+				_echoEtfHoldingItem($holding_ref, $arRatio, $strDate, $his_sql, $ref->GetNavChange(), $ref->GetAdjustH());
 			}
 			EchoTableParagraphEnd();
-			
-			$str = '全部影响比例'.strval_round($fTotal, 2).'%';
-			$fRealtime = floatval($ref->GetNetValue()) * (1.0 + $fTotal / 100.0);
-			$str .= '<br />实时净值'.strval_round($fRealtime, 2);
-			EchoParagraph($str);
 		}
     }
     $acct->EchoLinks(TABLE_ETF_HOLDINGS);

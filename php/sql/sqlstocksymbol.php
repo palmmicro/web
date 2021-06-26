@@ -100,6 +100,15 @@ class StockHistorySql extends DailyCloseSql
     	}
     	return '0';
     }
+
+    function GetAdjClose($strStockId, $strDate)
+    {
+    	if ($record = $this->GetRecord($strStockId, $strDate))
+    	{
+    		return rtrim0($record['adjclose']);
+    	}
+    	return false;
+    }
 }
 
 class StockSql extends KeyNameSql
@@ -246,13 +255,19 @@ function SqlGetStockSymbol($strStockId)
 	return $sql->GetKey($strStockId);
 }
 
+function SqlCountHoldings($strSymbol)
+{
+	$holdings_sql = GetEtfHoldingsSql();
+	return $holdings_sql->Count(SqlGetStockId($strSymbol));
+}
+
 function SqlGetHoldingsSymbolArray($strSymbol)
 {
 	$sql = GetStockSql();
 	$holdings_sql = GetEtfHoldingsSql();
 
 	$strStockId = $sql->GetId($strSymbol);
-	if ($holdings_sql->Count($strStockId) > 0)
+	if (SqlCountHoldings($strSymbol) > 0)
 	{
     	$arSymbol = array();
     	$ar = $holdings_sql->GetHoldingsArray($strStockId);

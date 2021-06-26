@@ -84,14 +84,19 @@ class EtfHoldingsReference extends MyStockReference
 			$fRatio = floatval($this->arHoldingsRatio[$strStockId]) / 100.0;
 			$fTotalRatio += $fRatio;
 			
-			if ($bOfficial)	$strPrice = $his_sql->GetClose($strStockId, $this->GetDate());
+			if ($bOfficial)	$strPrice = $his_sql->GetAdjClose($strStockId, $this->GetDate());
 			else				$strPrice = $ref->GetPrice();
 			
-			$fChange = $fRatio * floatval($strPrice) / floatval($his_sql->GetClose($strStockId, $this->strHoldingsDate));
+			$fChange = $fRatio * floatval($strPrice) / floatval($his_sql->GetAdjClose($strStockId, $this->strHoldingsDate));
 			if ($ref->IsSymbolH())	$fChange *= $fAdjustH; 
 			$fTotalChange += $fChange; 
 		}
 		return floatval($this->strNetValue) * (1.0 + $fTotalChange - $fTotalRatio);
+    }
+
+    function GetNavChange()
+    {
+    	return $this->_estNetValue() / floatval($this->strNetValue);
     }
     
     function GetOfficialNetValue()
@@ -109,20 +114,6 @@ class EtfHoldingsReference extends MyStockReference
     {
     	return false;
     }
-    
-/*    
-    function GetHoldingsIdArray() 
-    {
-        $holdings_sql = GetEtfHoldingsSql();
-    	$arId = array();
-    	$ar = $holdings_sql->GetHoldingsArray($this->GetStockId());
-    	foreach ($ar as $strId => $strRatio)
-    	{
-    		$arId[] = $strId;
-    	}
-    	return $arId;
-    }
-*/    
 }
 
 ?>

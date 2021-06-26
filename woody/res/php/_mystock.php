@@ -141,6 +141,8 @@ function _echoMyStockData($acct, $ref)
 {
     $hshare_ref = false;
     $etf_ref = false;
+    $etf_holdings_ref = false;
+    
     $strSymbol = $ref->GetSymbol();
     if ($ref->IsFundA())
     {
@@ -150,13 +152,17 @@ function _echoMyStockData($acct, $ref)
     }
     else
     {
-    	if ($ref_ar = StockGetHShareReference($ref))				list($ref, $hshare_ref) = $ref_ar;
-    	else if ($etf_ref = StockGetEtfReference($strSymbol))	$ref = $etf_ref;
-//   		else														$ref = StockGetReference($strSymbol, $ref);
+    	if ($ref_ar = StockGetHShareReference($ref))									list($ref, $hshare_ref) = $ref_ar;
+    	else if ($etf_ref = StockGetEtfReference($strSymbol))						$ref = $etf_ref;
+    	else if ($etf_holdings_ref = StockGetEtfHoldingsReference($strSymbol))	$ref = $etf_holdings_ref;
     }
     
    	EchoReferenceParagraph(array($ref));
-   	if ($etf_ref)
+   	if ($etf_holdings_ref)
+   	{
+		EchoFundEstParagraph($etf_holdings_ref, GetEtfHoldingsLink($strSymbol));
+   	}
+   	else if ($etf_ref)
    	{
    		EchoEtfListParagraph(array($etf_ref));
    		EchoEtfTradingParagraph($etf_ref);
@@ -164,7 +170,7 @@ function _echoMyStockData($acct, $ref)
    	}
    	else if ($ref->IsFundA())
    	{
-   		if ($fund->fOfficialNetValue)	EchoFundEstParagraph($fund);
+   		if ($fund->GetOfficialNetValue())		EchoFundEstParagraph($fund);
    		EchoFundTradingParagraph($fund);
    		EchoFundHistoryParagraph($fund);
    	}
@@ -190,8 +196,8 @@ function _echoMyStockData($acct, $ref)
    		else	        		EchoSmaParagraph($ref);
    	}
    	EchoStockHistoryParagraph($ref);
-    	
-   	_echoBenfordParagraph($ref);
+
+   	if (($etf_holdings_ref == false) && ($etf_ref == false))	_echoBenfordParagraph($ref);
     
    	_echoMyStockTransactions($acct, $ref);
     if ($acct->IsAdmin())

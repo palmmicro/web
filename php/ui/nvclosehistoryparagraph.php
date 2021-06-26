@@ -85,7 +85,7 @@ function EchoNvCloseHistoryParagraph($ref, $str = false, $csv = false, $iStart =
 								   new TableColumnPremium('y'),
 								   new TableColumnChange('x'),
 								   new TableColumn('流通股数(万)', 100),
-								   new TableColumn('换手率(%)', 90)
+								   new TableColumnPercentage('换手')
 								   ), $strSymbol.NVCLOSE_HISTORY_PAGE, $str);
 
     _echoNvCloseData($nav_sql, $ref, $strStockId, $csv, $iStart, $iNum, $bAdmin);

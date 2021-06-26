@@ -94,6 +94,14 @@ function GetTableColumnNetValue()
 	return $col->GetDisplay();
 }
 
+class TableColumnPercentage extends TableColumn
+{
+	function TableColumnPercentage($strPrefix = false, $iWidth = 100)
+	{
+        parent::TableColumn('比例(%)', $iWidth, 'green', $strPrefix);
+	}
+}
+
 class TableColumnPosition extends TableColumn
 {
 	function TableColumnPosition()

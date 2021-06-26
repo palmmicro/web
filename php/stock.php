@@ -458,6 +458,15 @@ function StockGetReference($strSymbol, $sym = false)
     										return new MyStockReference($strSymbol);
 }
 
+function StockGetEtfHoldingsReference($strSymbol)
+{
+	if (SqlCountHoldings($strSymbol) > 0)
+	{
+		return new EtfHoldingsReference($strSymbol);
+	}
+	return false;
+}
+
 function StockGetEtfReference($strSymbol)
 {
 	if (SqlGetEtfPair($strSymbol))

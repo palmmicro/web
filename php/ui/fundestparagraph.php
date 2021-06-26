@@ -119,9 +119,9 @@ function EchoFundArrayEstParagraph($arRef, $str = '')
     EchoTableParagraphEnd();
 }
 
-function EchoFundEstParagraph($ref)
+function EchoFundEstParagraph($ref, $str = false)
 {
-    $str = _getFundParagraphStr($ref);
+    if ($str == false)	$str = _getFundParagraphStr($ref);
     EchoFundArrayEstParagraph(array($ref), $str);
 }
 
