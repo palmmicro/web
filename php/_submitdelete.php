@@ -44,10 +44,6 @@ class _AdminDeleteAccount extends Account
     		if (_deleteTableDataById(TABLE_NETVALUE_HISTORY))			
     		{
     		}
-    		else if (_deleteTableDataById(TABLE_STOCK_CALIBRATION))
-    		{
-//    			DebugString('Deleted data from '.TABLE_STOCK_CALIBRATION);
-			}
 		}
     }
 }

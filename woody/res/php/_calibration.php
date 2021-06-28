@@ -14,7 +14,7 @@ function EchoAll()
     		EchoCalibrationParagraph($ref, $acct->GetStart(), $acct->GetNum(), $acct->IsAdmin());
     	}
     }
-    $acct->EchoLinks('calibration');
+    $acct->EchoLinks(TABLE_CALIBRATION);
 }    
 
 function EchoMetaDescription()

@@ -103,16 +103,6 @@ function in_arrayOilEtfQdii($strSymbol)
     return in_array_lower($strSymbol, QdiiGetOilEtfSymbolArray());
 }
 
-function QdiiGetBricSymbolArray()
-{
-    return array('sz161714', 'sz165510');
-}
-
-function in_arrayBricQdii($strSymbol)
-{
-    return in_array_lower($strSymbol, QdiiGetBricSymbolArray());
-}
-
 function QdiiGetCommoditySymbolArray()
 {
     return array('sz161815', 'sz165513'); 
@@ -145,12 +135,11 @@ function in_arraySpyQdii($strSymbol)
 
 function QdiiGetSymbolArray()
 {
-    $ar = array('sh513030', 'sz160140', 'sz161126', 'sz161127', 'sz161128', 'sz162415', 'sz164824'); 
+    $ar = array('sh513030', 'sz160140', 'sz161126', 'sz161127', 'sz161128', 'sz162415', 'sz164824', 'sz165510'); 
     $ar = array_merge($ar, QdiiGetChinaInternetSymbolArray()
     						, QdiiGetGoldSymbolArray()
     						, QdiiGetOilSymbolArray()
     						, QdiiGetOilEtfSymbolArray()
-    						, QdiiGetBricSymbolArray()
     						, QdiiGetCommoditySymbolArray()
     						, QdiiGetQqqSymbolArray()
     						, QdiiGetSpySymbolArray());
@@ -243,7 +232,7 @@ function _isDigitShenzhenFund($iDigit)
 
 function _isDigitShanghaiEtf($iDigit)
 {
-    return ($iDigit >= 510000 && $iDigit <= 519999) ? true : false;
+    return ($iDigit >= 510000 && $iDigit <= 518999) ? true : false;
 }
 
 function _isDigitShanghaiLof($iDigit)
@@ -285,7 +274,7 @@ function BuildChineseFundSymbol($strDigit)
         $iDigit = intval($strDigit);
         if (_isDigitShanghaiFund($iDigit))		$strPrefix = SH_PREFIX;
         else if (_isDigitShenzhenFund($iDigit))	$strPrefix = SZ_PREFIX;
-        else										$strPrefix = SINA_FUND_PREFIX;
+        else										return false;		// $strPrefix = SINA_FUND_PREFIX;
         return $strPrefix.$strDigit;
     }
     return false;

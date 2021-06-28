@@ -64,6 +64,18 @@ function _deleteHasNetValue($strStockId)
 	return false;
 }
 
+function _deleteHasCalibration($strStockId)
+{
+   	$calibration_sql = new CalibrationSql();
+	$iTotal = $calibration_sql->Count($strStockId);
+	if ($iTotal > 0)
+	{
+		DebugVal($iTotal, 'Calibration history existed');
+		$calibration_sql->DeleteAll($strStockId);
+	}
+	return false;
+}
+
 function _deleteStockSymbol($ref)
 {
 	$strSymbol = $ref->GetSymbol();
@@ -77,14 +89,10 @@ function _deleteStockSymbol($ref)
 	else if (_deleteHasAhPair($strSymbol))									return;
 	else if (_deleteHasStockHistory($strStockId))							return;
 	else if (_deleteHasNetValue($strStockId))								return;
+	else if (_deleteHasCalibration($strStockId))								return;
 	else if (($iTotal = SqlCountTableData(TABLE_STOCK_GROUP_ITEM, _SqlBuildWhere_stock($strStockId))) > 0)
 	{
 		DebugVal($iTotal, 'Stock group item existed');
-		return;
-	}
-	else if (($iTotal = SqlCountStockCalibration($strStockId)) > 0)
-	{
-		DebugVal($iTotal, 'Stock calibration existed');
 		return;
 	}
 	else if (($iTotal = SqlCountFundPurchaseByStockId($strStockId)) > 0)

@@ -20,7 +20,6 @@ function GetStockCategoryArray()
                    'goldetf' => '金银',
                    'qqqfund' => '纳斯达克100',
                    'spyfund' => '标普500',
-                   'bricfund' => '金砖四国',
                    'hangseng' => '恒生指数',
                    'hshares' => 'H股国企指数',
                    );
@@ -48,10 +47,6 @@ function GetCategoryArray($strTitle)
     case AH_COMPARE_PAGE:
    		$pair_sql = new AhPairSql();
         $ar = $pair_sql->GetSymbolArray();
-        break;
-  
-    case 'bricfund':
-        $ar = QdiiGetBricSymbolArray();
         break;
   
     case 'chinaetf':
@@ -157,11 +152,6 @@ function GetASharesSoftwareLinks()
     return $str;
 }
 
-function GetBricSoftwareLinks()
-{
-    return _getCategorySoftwareLinks('bricfund');
-}
-
 function GetChinaInternetSoftwareLinks()
 {
     return _getCategorySoftwareLinks('chinainternet');
@@ -185,13 +175,6 @@ function GetXinChengSoftwareLinks()
 {
     $ar = array('sz165510', 'sz165513');
     $strLink = GetExternalLink(GetXinChengFundUrl(), '信诚基金');
-    return GetCategorySoftwareLinks($ar, $strLink);
-}
-
-function GetCmfSoftwareLinks()
-{
-    $ar = array('sz161714');
-    $strLink = GetExternalLink('http://www.cmfchina.com/main/index/index.shtml', '招商基金');
     return GetCategorySoftwareLinks($ar, $strLink);
 }
 

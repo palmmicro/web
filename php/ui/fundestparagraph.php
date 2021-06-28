@@ -52,11 +52,7 @@ function _getFundRealtimeStr($ref, $strRealtimeEst)
 
 function _getFundParagraphStr($ref)
 {
-    $strDate = $ref->GetOfficialDate();
-    $strLastTime = SqlGetStockCalibrationTime($ref->GetStockId());
-    $strHistoryLink = GetCalibrationHistoryLink($ref->GetSymbol());
-	$str = GetTableColumnOfficalEst();
-    $str .= GetTableColumnDate().$strDate.", 校准时间($strHistoryLink)$strLastTime.";
+	$str = GetTableColumnOfficalEst().GetTableColumnDate().$ref->GetOfficialDate().', 最近'.GetCalibrationHistoryLink($ref->GetSymbol()).'时间'.$ref->GetTimeNow().'.';
     if ($ref->fRealtimeNetValue)   $str .= ' '._getFundRealtimeStr($ref, GetTableColumnRealtimeEst());
     return $str;
 }
@@ -68,7 +64,8 @@ function _callbackSortFundEst($ref)
 
 function EchoFundArrayEstParagraph($arRef, $str = '')
 {
-	if (count($arRef) > 2)
+	$iCount = count($arRef);
+	if ($iCount > 2)
 	{
 		if ($strSort = UrlGetQueryValue('sort'))
 		{
@@ -79,7 +76,7 @@ function EchoFundArrayEstParagraph($arRef, $str = '')
 		}
 		else
 		{
-			$str .= ' '.CopySortLink('premium');
+			$str .= ' '.CopySortLink('premium').'全部'.strval($iCount).'项';
 		}
 	}
 	

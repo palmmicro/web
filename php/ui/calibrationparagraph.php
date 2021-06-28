@@ -63,7 +63,7 @@ function EchoCalibrationParagraph($ref, $iStart = 0, $iNum = TABLE_COMMON_DISPLA
 								   new TableColumnNetValue(),
 								   new TableColumnNetValue(SqlGetEtfPair($strSymbol)),
 								   new TableColumnCalibration()
-								   ), $strSymbol.'calibration', $str);
+								   ), $strSymbol.TABLE_CALIBRATION, $str);
 
     _echoCalibrationData($ref, $strStockId, $nav_sql, $iStart, $iNum, $bAdmin);
     EchoTableParagraphEnd($strNavLink);

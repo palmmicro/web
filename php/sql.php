@@ -15,7 +15,6 @@ define('TABLE_PAGE_COMMENT', 'pagecomment');
 define('TABLE_PRIME_NUMBER', 'primenumber');
 define('TABLE_PROFILE', 'profile');
 define('TABLE_STOCK', 'stock');
-define('TABLE_STOCK_CALIBRATION', 'stockcalibration');
 define('TABLE_STOCK_GROUP', 'stockgroup');
 define('TABLE_STOCK_GROUP_ITEM', 'stockgroupitem');
 define('TABLE_STOCK_HISTORY', 'stockhistory');

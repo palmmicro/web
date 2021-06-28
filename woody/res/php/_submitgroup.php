@@ -44,7 +44,8 @@ function _onAdjust($strSymbols)
     
     if ($fFactor !== false)
     {
-        SqlInsertStockCalibration(SqlGetStockId($strSymbol), ' ', $ar0[1], $ar1[1], $fFactor, DebugGetDateTime());
+      	$calibration_sql = new CalibrationSql();
+    	$calibration_sql->WriteDaily(SqlGetStockId($strSymbol), DebugGetDate(), strval($fFactor));
     }
 }
 

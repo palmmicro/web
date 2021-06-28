@@ -3,78 +3,46 @@ require_once('_stock.php');
 require_once('_emptygroup.php');
 require_once('/php/ui/stocktable.php');
 
-function _echoCalibrationHistoryItem($strSymbol, $record, $bReadOnly)
+function _echoCalibrationHistoryItem($sql, $strStockId, $record)
 {
-    if ($bReadOnly)
-    {
-        $strDelete = '';
-    }
-    else
-    {
-        $strDelete = GetDeleteLink('/php/_submitdelete.php?'.TABLE_STOCK_CALIBRATION.'='.$record['id'], '校准记录');
-    }
-    
-    $strTime = substr($record['filled'], 0, 16);
-    echo <<<END
-    <tr>
-        <td class=c1>$strSymbol</td>
-        <td class=c1>{$record['price']}</td>
-        <td class=c1>{$record['peername']}</td>
-        <td class=c1>{$record['peerprice']}</td>
-        <td class=c1>{$record['factor']}</td>
-        <td class=c1>$strTime</td>
-        <td class=c1>$strDelete</td>
-    </tr>
-END;
+	$ar = array();
+	$strDate = $record['date'];
+	
+	$ar[] = $strDate;
+	$ar[] = $sql->GetClose($strStockId, $strDate);
+	$ar[] = $record['close'];
+	$ar[] = $record['time'];
+
+	EchoTableColumn($ar);
 }
 
-function _echoCalibrationHistoryData($strStockId, $strSymbol, $iStart, $iNum, $bAdmin)
+function _echoCalibrationHistoryParagraph($ref, $iStart, $iNum)
 {
-    if ($bAdmin)
-    {
-        $bReadOnly = false;
-    }
-    else
-    {
-        $bReadOnly = true;
-    }
+	$strSymbol = $ref->GetSymbol();
+	$strStockId = $ref->GetStockId();
+	$sql = GetNavHistorySql();
+	if ($sql->Count($strStockId) == 0)
+	{	// Symbol like USO do not have NAV 
+		$sql = GetStockHistorySql();
+	}
+
+	$calibration_sql = new CalibrationSql();
+   	$strNavLink = StockGetNavLink($strSymbol, $calibration_sql->Count($strStockId), $iStart, $iNum);
     
-    if ($result = SqlGetStockCalibration($strStockId, $iStart, $iNum)) 
+	EchoTableParagraphBegin(array(new TableColumnDate(),
+								   new TableColumnNetValue(),
+								   new TableColumnCalibration(),
+								   new TableColumnTime()
+								   ), $strSymbol.TABLE_CALIBRATION, $strNavLink);
+
+    if ($result = $calibration_sql->GetAll($strStockId, $iStart, $iNum)) 
     {
         while ($record = mysql_fetch_assoc($result)) 
         {
-            _echoCalibrationHistoryItem($strSymbol, $record, $bReadOnly);
+			_echoCalibrationHistoryItem($sql, $strStockId, $record);
         }
         @mysql_free_result($result);
     }
-}
-
-function _echoCalibrationHistoryParagraph($strSymbol, $iStart, $iNum, $bAdmin)
-{
-    if (($strStockId = SqlGetStockId($strSymbol)) == false)  return;
-    
-	$strSymbolDisplay = GetTableColumnSymbol();
-	$strPrice = GetTableColumnPrice();
-	$arColumn = array($strSymbolDisplay, $strPrice, '对方'.$strSymbolDisplay, '对方'.$strPrice, '校准值', GetTableColumnTime(), '操作');
-    
-    $iTotal = SqlCountStockCalibration($strStockId);
-    $strNavLink = StockGetNavLink($strSymbol, $iTotal, $iStart, $iNum);
-    
-    echo <<<END
-   	<p>$strNavLink
-    <TABLE borderColor=#cccccc cellSpacing=0 width=640 border=1 class="text" id="history">
-    <tr>
-        <td class=c1 width=90 align=center>{$arColumn[0]}</td>
-        <td class=c1 width=80 align=center>{$arColumn[1]}</td>
-        <td class=c1 width=90 align=center>{$arColumn[2]}</td>
-        <td class=c1 width=80 align=center>{$arColumn[3]}</td>
-        <td class=c1 width=100 align=center>{$arColumn[4]}</td>
-        <td class=c1 width=150 align=center>{$arColumn[5]}</td>
-        <td class=c1 width=50 align=center>{$arColumn[6]}</td>
-    </tr>
-END;
-   
-    _echoCalibrationHistoryData($strStockId, $strSymbol, $iStart, $iNum, $bAdmin);
     EchoTableParagraphEnd($strNavLink);
 }
 
@@ -86,10 +54,10 @@ function EchoAll()
     {
     	if ($ref->HasData())
     	{
-    		_echoCalibrationHistoryParagraph($ref->GetSymbol(), $acct->GetStart(), $acct->GetNum(), $acct->IsAdmin());
+    		_echoCalibrationHistoryParagraph($ref, $acct->GetStart(), $acct->GetNum());
     	}
     }
-    $acct->EchoLinks('calibration');
+    $acct->EchoLinks(TABLE_CALIBRATION);
 }    
 
 function EchoMetaDescription()

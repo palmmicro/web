@@ -7,7 +7,6 @@ function GetQdiiRelated($sym)
 	$str .= GetQdiiLinks($sym);
 	$str .= GetQqqSoftwareLinks();
 	$str .= GetHangSengSoftwareLinks();
-	$str .= GetBricSoftwareLinks();
 	$str .= GetIcbcCsSoftwareLinks();
 	return	$str;
 }

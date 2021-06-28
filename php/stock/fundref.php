@@ -19,6 +19,7 @@ class FundReference extends MysqlReference
     var $strOfficialDate;
     
     var $fund_est_sql = false;
+    var $calibration_sql = false;
     
     function FundReference($strSymbol) 
     {
@@ -30,8 +31,9 @@ class FundReference extends MysqlReference
         }
         if ($strStockId = $this->GetStockId())
         {
-        	if ($fVal = SqlGetStockCalibrationFactor($strStockId))		$this->fFactor = $fVal; 
 	       	$this->fund_est_sql = new FundEstSql();
+	       	$this->calibration_sql = new CalibrationSql();
+        	if ($strClose = $this->calibration_sql->GetCloseNow($strStockId))		$this->fFactor = floatval($strClose); 
         }
     }
     
@@ -40,6 +42,15 @@ class FundReference extends MysqlReference
     	return $this->fund_est_sql;
     }
 
+    function GetTimeNow()
+    {
+    	if ($this->calibration_sql)
+    	{
+    		return $this->calibration_sql->GetTimeNow($this->GetStockId());
+    	}
+    	return false;
+    }
+    
     public function LoadData()
     {
         $this->LoadSinaFundData();
@@ -101,7 +112,7 @@ class FundReference extends MysqlReference
 
     function InsertFundCalibration($est_ref, $strEstPrice)
     {
-        return SqlInsertStockCalibration($this->GetStockId(), $est_ref->GetSymbol(), $this->GetPrice(), $strEstPrice, $this->fFactor, DebugGetDateTime());
+    	$this->calibration_sql->WriteDaily($this->GetStockId(), $this->GetDate(), strval($this->fFactor));
     }
 
     public function GetSymbol()

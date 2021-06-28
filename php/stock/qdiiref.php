@@ -45,8 +45,8 @@ function QdiiGetEstSymbol($strSymbol)
     else if ($strSymbol == 'SZ161128')   return 'XLK';
     else if ($strSymbol == 'SZ163208')   return 'XLE';
     else if ($strSymbol == 'SZ164824')   return 'INDA';
+    else if ($strSymbol == 'SZ165510')	return 'BKF';	// '^SPBRICNTR'
     else if (in_arrayChinaInternetQdii($strSymbol))   return 'KWEB';
-    else if (in_arrayBricQdii($strSymbol))			return 'BKF';	// '^SPBRICNTR'
     else if (in_arrayCommodityQdii($strSymbol))		return 'GSG';
     else if (in_arraySpyQdii($strSymbol))				return '^GSPC';	// 'SPY';
     else if (in_arrayQqqQdii($strSymbol))				return '^NDX';	// 'QQQ';

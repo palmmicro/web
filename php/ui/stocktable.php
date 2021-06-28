@@ -14,7 +14,7 @@ class TableColumnCalibration extends TableColumn
 {
 	function TableColumnCalibration()
 	{
-        parent::TableColumn('校准值', 100);
+        parent::TableColumn('校准值', 150);
 	}
 }
 

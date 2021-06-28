@@ -40,7 +40,7 @@ function EchoAll()
     		$arHoldingRef = $ref->GetHoldingRefArray();
     		$arSelf = array($ref);
 		    EchoFundArrayEstParagraph($arSelf, GetTableColumnNetValue().'和持仓比例更新日期'.$strDate);
-    		EchoReferenceParagraph($arSelf + $arHoldingRef);
+    		EchoReferenceParagraph(array_merge($arSelf, $arHoldingRef));
     		EchoTableParagraphBegin(array(new TableColumnSymbol(),
 										   new TableColumnPercentage('旧'),
 										   new TableColumnPrice('旧'),

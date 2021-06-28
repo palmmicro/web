@@ -54,7 +54,7 @@
 <p>2016年10月28日
 <br />昨天让我广发证券网上开户的经理帮忙宣传一下微信公众号查股票数据, 随即加进来2个人. 
 其中一个上来就查<font color=gray>159915</font>, 发现没有数据后立马取消了订阅, 又刺激了我给数据库加上所有A股基金数据.
-<br />从<?php EchoLink(GetEastMoneyFundListUrl()); ?>找到了基金列表, 没想到全市场居然有快一万基金. 然后继续写代码完成数据更新, 从此再也不怕被查.
+<br />从<?php EchoLink(GetEastMoneyFundListUrl()); ?>找到了基金列表, 没想到全市场居然有上万基金. 然后继续写代码加入了其中可能可以场内交易的数据, 从此应该不怕被查.
 <?php EchoUpdateChinaFundLink(); ?>
 </p>
 
@@ -96,7 +96,7 @@
 <br />两年多过去, 微信公众号上现有517个用户, 感觉基本上体现了目前华宝油气套利群体的规模.
 <br />佛前五百罗汉, 田横五百士, 微信用户超过五百人就可以开通流量主收广告费了.
 </p>
-
+<!--
 <h3>用微信公众号查询<a name="chinabond">A股债券</a>数据</h3>
 <p>2019年7月13日
 <br />昨天有人在微信公众号上查<font color=gray>019547</font>没有匹配. 看了一下<?php EchoSinaQuotesLink('sh019547'); ?>, 发现居然是国债.
@@ -106,6 +106,7 @@
 <br /><?php EchoLink(GetJrjBondListUrl('qz')); ?>  <?php EchoUpdateChinaBondLink('qz'); ?>
 <br /><?php EchoLink(GetJrjBondListUrl('kzz')); ?> <?php EchoUpdateChinaBondLink('kzz'); ?>
 </p>
+-->
 
 <h3><?php EchoNameTag(TABLE_DOW_JONES, '道琼斯成分股'); ?></h3>
 <p>2019年11月22日

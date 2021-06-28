@@ -50,12 +50,12 @@ function _botGetStockText($strSymbol)
 {
     $sym = new StockSymbol($strSymbol);
     $str = false;
-    if ($sym->IsSinaFund())     
+/*    if ($sym->IsSinaFund())     
     {   // IsSinaFund must be called before IsSinaFuture
         $ref = new FundReference($strSymbol);
         $str = TextFromFundReference($ref); 
     }
-    else if ($sym->IsSinaFuture())
+    else*/ if ($sym->IsSinaFuture())
     {
         $ref = new FutureReference($strSymbol);
         $str = TextFromStockReference($ref); 

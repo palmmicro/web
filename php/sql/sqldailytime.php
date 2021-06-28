@@ -27,6 +27,15 @@ class DailyTimeSql extends DailyCloseSql
         $strTime = DebugGetTime();
 		return $this->UpdateById(array('close' => $strClose, 'time' => $strTime), $strId);
     }
+
+    function GetTimeNow($strKeyId = false)
+    {
+    	if ($record = $this->GetRecordNow($strKeyId))
+    	{
+    		return $record['time'];
+    	}
+    	return false;
+    }
 }
 
 class FundEstSql extends DailyTimeSql
@@ -34,6 +43,14 @@ class FundEstSql extends DailyTimeSql
     function FundEstSql() 
     {
         parent::DailyTimeSql(TABLE_FUND_EST);
+    }
+}
+
+class CalibrationSql extends DailyTimeSql
+{
+    function CalibrationSql() 
+    {
+        parent::DailyTimeSql(TABLE_CALIBRATION);
     }
 }
 

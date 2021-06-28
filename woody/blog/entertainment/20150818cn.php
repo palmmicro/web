@@ -255,12 +255,11 @@
   <li>今天加入所有LOF都最多95%仓位的处理, 而不是ETF的100%.</li>
 </ol>
 
-<h3>估值自动和手工<a name="calibration">校准</a>的历史记录</h3>
+<h3>估值手工和自动<?php EchoNameTag(TABLE_CALIBRATION, CALIBRATION_HISTORY_DISPLAY); ?></h3>
 <p>2016年10月6日
-<br />加入华宝油气<a href="../../res/calibrationhistorycn.php?symbol=SZ162411">校准历史记录</a>. 每天拿到官方净值后都会根据净值当天的^SPSIOP和美元人民币中间价做一次自动校准, 现在统统记录下来, 方便观察长期趋势.
-校准时间就是拿到新的官方净值后第一次访问的时间.
-<br />类似的版面上还有^SPSIOP和XOP净值的<a href="../../res/calibrationhistorycn.php?symbol=^SPSIOP">校准历史记录</a>, CL和USO的<a href="../../res/calibrationhistorycn.php?symbol=hf_CL">校准历史记录</a>.
-这2者的记录就多得多了, 只要有人访问页面, 拿到的2个相关数据是在同一分钟, 就会自动校准一次并且记录下来. 这2个校准时间都是记录的美股时间.
+<br />加入华宝油气<?php EchoCalibrationHistoryLink() ?>. 每天拿到官方净值后都会根据净值当天的美股数据和美元人民币中间价做一次自动校准, 现在统统记录下来, 方便观察长期趋势.
+校准时间就是拿到新的官方净值后第一次访问的时间. 类似的版面上还有CL和USO的<?php EchoCalibrationHistoryLink('USO') ?>.
+<br />碰到XOP分红除权的日子, 就需要手工校准.
 </p>
 
 <h3><?php EchoNameTag(AH_COMPARE_PAGE, AH_COMPARE_DISPLAY); ?></h3>
