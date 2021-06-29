@@ -136,7 +136,7 @@ class QdiiGroupAccount extends FundGroupAccount
        		if ($strEst == false)	$strEst = $est_ref->GetPrevPrice();
        	}
        	
-        $strQuery = sprintf('%s=%s&%s=%s&CNY=%s', $strSymbol, $ref->GetPrice(), $est_ref->GetSymbol(), $strEst, $strCNY);
+        $strQuery = sprintf('Date=%s&%s=%s&%s=%s&CNY=%s', $strDate, $strSymbol, $ref->GetPrice(), $est_ref->GetSymbol(), $strEst, $strCNY);
         return _GetAdjustLink($strSymbol, $strQuery);
     }
 

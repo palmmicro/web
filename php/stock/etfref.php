@@ -2,7 +2,7 @@
 
 function PairNavGetClose($ref, $strDate)
 {
-	if ($ref->fund_est_sql)
+	if (method_exists($ref, 'GetFundEstSql'))
 	{
 		$sql = GetNavHistorySql();
 	}
@@ -91,16 +91,10 @@ class NetValueReference extends MysqlReference
         	$this->LoadSqlData();
         }
     }
-}
 
-// ****************************** IndexReference class *******************************************************
-class IndexReference extends MyStockReference
-{
-	var $fund_est_sql = false;
-	
-    function IndexReference($strSymbol) 
+    function GetFundEstSql()
     {
-        parent::MyStockReference($strSymbol);
+    	return $this->fund_est_sql;
     }
 }
 
@@ -111,8 +105,8 @@ class EtfReference extends MyPairReference
     var $pair_nav_ref = false;
     var $cny_ref = false;
 
-    var $strNetValue = '0';
-    var $strPairNetValue = '0';
+    var $strNav = '0';
+    var $strPairNav = '0';
     var $fCnyValue = 1.0;
     
     var $fRatio = 1.0;
@@ -131,7 +125,7 @@ class EtfReference extends MyPairReference
 
     function GetFundEstSql()
     {
-    	return $this->nav_ref->fund_est_sql;
+    	return $this->nav_ref->GetFundEstSql();
     }
     
     function GetPairNavRef()
@@ -139,29 +133,29 @@ class EtfReference extends MyPairReference
     	return $this->pair_nav_ref;
     }
     
-    function GetNetValue()
+    function GetNav()
     {
-    	return $this->strNetValue;
+    	return $this->strNav;
     }
     
 	function _load_pair_ref($strStockId)
 	{
 		$strSymbol = SqlGetStockSymbol($strStockId);
 		$sym = new StockSymbol($strSymbol);
-		if ($sym->IsSinaFuture())
+/*		if ($sym->IsSinaFuture())
 		{
         	$this->pair_nav_ref = new NetValueReference($strSymbol);
 			$this->pair_ref = new FutureReference($strSymbol);
 			return false;
 		}
-		else if ($sym->IsEtf())
+		else*/ if ($sym->IsEtf())
 		{
         	$this->pair_nav_ref = new NetValueReference($strSymbol);
 			$this->pair_ref = new MyPairReference($strSymbol);
 		}
 		else
 		{
-			$this->pair_nav_ref = new IndexReference($strSymbol);
+			$this->pair_nav_ref = new MyStockReference($strSymbol);	// index
 			if ($this->pair_nav_ref->HasData() == false)
 			{
 				$this->pair_nav_ref = new NetValueReference($strSymbol);
@@ -171,32 +165,92 @@ class EtfReference extends MyPairReference
 		return true;
 	}
     
- 	function GetFactor($strPairNetValue, $strNetValue)
+ 	function GetFactor($strPairNav, $strNav)
  	{
-		return floatval($strPairNetValue) / floatval($strNetValue);
+		return floatval($strPairNav) / floatval($strNav);
  	}
+
+	function ManualCalibration()
+	{
+		$ar = explode(' ', YahooGetWebData($this));
+		if (count($ar) < 3)	return false;
+   	
+		$strNav = $ar[0];
+		$strDate = $ar[2];
+		$strStockId = $this->GetStockId();
+		$nav_sql = GetNavHistorySql();
+		$nav_sql->WriteDaily($strStockId, $strDate, $strNav);
+		DebugString($this->GetSymbol().' netvalue '.$strNav);
+		
+		if ($strPairNav = PairNavGetClose($this->pair_nav_ref, $strDate))
+		{
+			$this->strPairNav = $strPairNav; 
+			$this->strNav = $strNav; 
+			$this->fFactor = $this->GetFactor($this->strPairNav, $this->strNav);
+//			DebugString($this->strPairNav.' '.$this->strNav);
+			$calibration_sql = new CalibrationSql();
+   			if ($strDate != $calibration_sql->GetDateNow($strStockId))
+   			{
+   				if ($this->cny_ref)	$this->fCnyValue = floatval($this->cny_ref->GetClose($strDate));
+   			}
+   			$calibration_sql->WriteDaily($strStockId, $strDate, strval($this->fFactor));
+		}
+
+		return $strNav;
+	}
  	
 	function _onNormalEtfCalibration()
 	{
+		$strStockId = $this->GetStockId();
 		$nav_sql = GetNavHistorySql();
-    	if ($result = $nav_sql->GetAll($this->GetStockId())) 
-    	{
-    		while ($record = mysql_fetch_assoc($result)) 
+   		$calibration_sql = new CalibrationSql();
+   		if ($calibration_sql->Count($strStockId) > 0)
+   		{
+   			$strDate = $calibration_sql->GetDateNow($strStockId); 
+    		$ymd = new StringYMD($strDate);
+    		
+   			$strCurDate = $this->GetDate();
+    		$cur_ymd = new StringYMD($strCurDate);
+    		
+    		if ($cur_ymd->GetTick() > $ymd->GetTick())
     		{
-    			$strDate = $record['date'];
-        		if ($this->strPairNetValue = PairNavGetClose($this->pair_nav_ref, $strDate))
-        		{
-        			$this->strNetValue = rtrim0($record['close']);
-        			$this->fFactor = $this->GetFactor($this->strPairNetValue, $this->strNetValue);
-        			@mysql_free_result($result);
-        			return $strDate;
-        		}
+    			if ($this->strNav = $nav_sql->GetClose($strStockId, $strCurDate))
+    			{
+   					if ($this->strPairNav = PairNavGetClose($this->pair_nav_ref, $strCurDate))
+   					{
+   						$this->fFactor = $this->GetFactor($this->strPairNav, $this->strNav);
+   						$calibration_sql->WriteDaily($strStockId, $strCurDate, strval($this->fFactor));
+   						return $strCurDate;
+   					}
+    			}
     		}
-    		@mysql_free_result($result);
-    	}
+			$this->strNav = $nav_sql->GetClose($strStockId, $strDate);
+			$this->strPairNav = PairNavGetClose($this->pair_nav_ref, $strDate);
+			$this->fFactor = $calibration_sql->GetCloseNow($strStockId);
+			return $strDate;
+   		}
+   		else
+   		{
+   			if ($result = $nav_sql->GetAll($strStockId)) 
+   			{
+   				while ($record = mysql_fetch_assoc($result)) 
+   				{
+   					$strDate = $record['date'];
+   					if ($this->strPairNav = PairNavGetClose($this->pair_nav_ref, $strDate))
+   					{
+   						$this->strNav = rtrim0($record['close']);
+   						$this->fFactor = $this->GetFactor($this->strPairNav, $this->strNav);
+   						$calibration_sql->WriteDaily($strStockId, $strDate, strval($this->fFactor));
+   						@mysql_free_result($result);
+   						return $strDate;
+   					}
+   				}
+   				@mysql_free_result($result);
+   			}
+   		}
         return false;
 	}
-	
+/*	
 	function _onFutureEtfCalibration()
 	{
 		$nav_sql = GetNavHistorySql();
@@ -208,7 +262,7 @@ class EtfReference extends MyPairReference
 		}
 		return $this->_onNormalEtfCalibration();
 	}
-	
+*/	
 	function _onCalibration()
 	{
         $pair_sql = new EtfPairSql($this->GetStockId());
@@ -219,7 +273,7 @@ class EtfReference extends MyPairReference
 			{
 				return $this->_onNormalEtfCalibration();
 			}
-			return $this->_onFutureEtfCalibration();
+//			return $this->_onFutureEtfCalibration();
         }
         return false;
 	}
@@ -285,14 +339,14 @@ class EtfReference extends MyPairReference
     // x = (fRatio * (cny_now * fEst - cny * fPairNetValue) / (cny * fPairNetValue) + 1) * fNetValue;
     function EstFromPair($strEst, $strCny = false)
     {
-    	$fVal = (floatval($strEst) - floatval($this->strPairNetValue)) * $this->fRatio / $this->fFactor + floatval($this->strNetValue);
+    	$fVal = (floatval($strEst) - floatval($this->strPairNav)) * $this->fRatio / $this->fFactor + floatval($this->strNav);
     	return $this->_adjustByCny($fVal, $strCny, ($this->IsSymbolA() ? false : true));
     }
 
     // (x - fPairNetValue)/(fEsts - fNetValue) = fFactor / fRatio;
     function EstToPair($fEst, $strCny = false)
     {
-    	$fVal = ($fEst - floatval($this->strNetValue)) * $this->fFactor / $this->fRatio + floatval($this->strPairNetValue);
+    	$fVal = ($fEst - floatval($this->strNav)) * $this->fFactor / $this->fRatio + floatval($this->strPairNav);
     	return $this->_adjustByCny($fVal, $strCny, $this->IsSymbolA());
     }
 
@@ -313,7 +367,7 @@ class EtfReference extends MyPairReference
         return $strVal;
     }
     
-    function GetOfficialNetValue()
+    function GetOfficialNav()
     {
         $this->strOfficialDate = $this->pair_ref->GetDate();
         if ($this->cny_ref)
@@ -336,28 +390,10 @@ class EtfReference extends MyPairReference
         return $this->_estOfficialNetValue();
     }
 
-    function GetFairNetValue()
+    function GetFairNav()
     {
     	return false;
     }
-    
-    function GetRealtimeNetValue()
-    {
-    	return false;
-    }
-}
-
-function EtfRefManualCalibration($ref)
-{
-   	$ar = explode(' ', YahooGetWebData($ref));
-   	if (count($ar) < 3)	return false;
-   	
-   	$strNetValue = $ar[0];
-   	$strDate = $ar[2];
-	$nav_sql = GetNavHistorySql();
-	$nav_sql->WriteDaily($ref->GetStockId(), $strDate, $strNetValue);
-	DebugString($ref->GetSymbol().' netvalue '.$strNetValue);
-    return $strNetValue;
 }
 
 ?>

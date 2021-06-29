@@ -20,7 +20,7 @@ class _ChinaIndexAccount extends GroupAccount
     	$strUS = 'ASHR';
     	$strA50 = 'hf_CHA50CFD';
         $strCNH = 'fx_susdcnh';
-        StockPrefetchData($strSymbol, $strUS, $strA50, $strCNH);
+        StockPrefetchExtendedData($strSymbol, $strUS, $strA50, $strCNH);
         GetChinaMoney();
         YahooUpdateNetValue($strUS);
 
@@ -28,37 +28,29 @@ class _ChinaIndexAccount extends GroupAccount
         $this->us_ref = new EtfReference($strUS);
         $this->a50_ref = new FutureReference($strA50);
         $this->cnh_ref = new ForexReference($strCNH);
-        
-        if ($this->_updateNetValueByCnh())
-        {
-        	$this->us_ref = new EtfReference($strUS);
-        }
-        
+
+        $this->_updateNavByCnh($this->us_ref, $this->cnh_ref);
+        	
         $this->CreateGroup(array($this->ref, $this->us_ref, $this->ref->GetPairNavRef()));
     }
     
-    function _updateNetValueByCnh()
+    function _updateNavByCnh($us_ref, $cnh_ref)
     {
-    	$ref = $this->us_ref;
-    	$ref->SetTimeZone();
-    	if ($ref->IsMarketTrading(new NowYMD()) == false)	return false;
+    	$us_ref->SetTimeZone();
+    	if ($us_ref->IsMarketTrading(new NowYMD()) == false)	return;
     	
+		$strDate = $us_ref->GetDate();
+		$strStockId = $us_ref->GetStockId();
+		$strPrice = $cnh_ref->GetPrice();
 		$sql = new EtfCnhSql();
-		$strStockId = $ref->GetStockId();
-		$strDate = $ref->GetDate();
-		$strPrice = $this->cnh_ref->GetPrice();
 		if ($strCnh = $sql->GetClose($strStockId, $strDate))
 		{
 			if (abs(floatval($strCnh) - floatval($strPrice)) > 0.001)
 			{
-				if ($strNetValue = EtfRefManualCalibration($ref))
+//				DebugString($strCnh.' '.$strPrice);
+				if ($strNav = $us_ref->ManualCalibration())
 				{
 					$sql->WriteDaily($strStockId, $strDate, $strPrice);
-//					DebugString($strPrice);
-					if ($strNetValue != $ref->GetNetValue())
-					{
-						return true;
-					}
 				}
 			}
 		}
@@ -66,7 +58,6 @@ class _ChinaIndexAccount extends GroupAccount
 		{
 			$sql->InsertDaily($strStockId, $strDate, $strPrice);
 		}
-		return false;
     }
 }
 

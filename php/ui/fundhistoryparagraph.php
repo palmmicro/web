@@ -80,7 +80,7 @@ function _echoHistoryTableData($nav_sql, $fund_est_sql, $csv, $ref, $strStockId,
 function _echoFundHistoryParagraph($fund_est_sql, $ref, $est_ref, $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
 {
 	$close_col = new TableColumnClose();
-	$nv_col = new TableColumnNetValue();
+	$nav_col = new TableColumnNetValue();
 	$premium_col = new TableColumnPremium();
 	
     if ($ref->IsFundA())
@@ -91,7 +91,7 @@ function _echoFundHistoryParagraph($fund_est_sql, $ref, $est_ref, $csv = false, 
     {
     	$str = GetXueqiuLink($ref);
     }
-    $str .= '的历史'.$close_col->GetDisplay().'相对于'.$nv_col->GetDisplay().'的'.$premium_col->GetDisplay();
+    $str .= '的历史'.$close_col->GetDisplay().'相对于'.$nav_col->GetDisplay().'的'.$premium_col->GetDisplay();
     
     $strSymbol = $ref->GetSymbol();
 	$strStockId = $ref->GetStockId();
@@ -107,7 +107,7 @@ function _echoFundHistoryParagraph($fund_est_sql, $ref, $est_ref, $csv = false, 
     }
 
 	$str .= ' '.$strNavLink;
-	$ar = array(new TableColumnDate(), $close_col, $nv_col, $premium_col);
+	$ar = array(new TableColumnDate(), $close_col, $nav_col, $premium_col);
 	if ($est_ref)
 	{
 		$ar[] = new TableColumnOfficalEst();

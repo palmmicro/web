@@ -19,7 +19,7 @@ class _QdiiAccount extends QdiiGroupAccount
 
         $strUSD = 'DINIW';
         $strCNH = 'fx_susdcnh';
-        StockPrefetchArrayData(array_merge($this->GetLeverage(), array($strSymbol, $strOil, $strUSD, $strCNH)));
+        StockPrefetchArrayExtendedData(array_merge($this->GetLeverage(), array($strSymbol, $strOil, $strUSD, $strCNH)));
         
         $this->ref = new QdiiReference($strSymbol);
         if ($strOil)	$this->oil_ref = new FutureReference($strOil);

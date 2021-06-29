@@ -17,25 +17,27 @@ function _adjustEtfPriceFactor($strEstSymbol, $fEst, $fEtf)
 function _onAdjust($strSymbols)
 {
     $ar = explode('&', $strSymbols);
-    
-    $ar0 = explode('=', $ar[0]);
-    $strSymbol = $ar0[0];
-    $fVal = floatval($ar0[1]);
+
+    list($strDummy, $strDate) = explode('=', $ar[0]);
     
     $ar1 = explode('=', $ar[1]);
-    $strSymbol2 = $ar1[0];
-    $fVal2 = floatval($ar1[1]);
+    $strSymbol = $ar1[0];
+    $fVal = floatval($ar1[1]);
+    
+    $ar2 = explode('=', $ar[2]);
+    $strSymbol2 = $ar2[0];
+    $fVal2 = floatval($ar2[1]);
     
     $iCount = count($ar);
-    if ($iCount > 2)
+    if ($iCount > 3)
     {
-        $ar2 = explode('=', $ar[2]);
+        $ar3 = explode('=', $ar[3]);
     }
     
     $fFactor = false;
     if (in_arrayQdii($strSymbol) || in_arrayQdiiHk($strSymbol))
     {
-        $fFactor = _adjustQdiiPriceFactor($strSymbol, $fVal, $fVal2, floatval($ar2[1]));
+        $fFactor = _adjustQdiiPriceFactor($strSymbol, $fVal, $fVal2, floatval($ar3[1]));
     }
     else if (in_arrayGoldSilver($strSymbol))
     {
@@ -45,7 +47,7 @@ function _onAdjust($strSymbols)
     if ($fFactor !== false)
     {
       	$calibration_sql = new CalibrationSql();
-    	$calibration_sql->WriteDaily(SqlGetStockId($strSymbol), DebugGetDate(), strval($fFactor));
+    	$calibration_sql->WriteDaily(SqlGetStockId($strSymbol), $strDate, strval($fFactor));
     }
 }
 

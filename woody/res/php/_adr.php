@@ -23,7 +23,7 @@ class _AdrAccount extends GroupAccount
     function Create()
     {
         $strSymbolAdr = $this->GetName();
-        StockPrefetchData($strSymbolAdr);
+        StockPrefetchExtendedData($strSymbolAdr);
         GetChinaMoney();
         
         $this->hk_ref = new HShareReference(SqlGetAdrhPair($strSymbolAdr));

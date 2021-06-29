@@ -155,6 +155,12 @@ function GetKraneOfficialLink($strSymbol)
 	return GetOfficialLink($str, $strSymbol);
 }
 
+function GetCsindexOfficialLink($strSymbol)
+{
+	$str = 'http://www.csindex.com.cn/zh-CN/indices/index-detail/'.$strSymbol;
+	return GetOfficialLink($str, $strSymbol);
+}
+
 function GetShangHaiEtfOfficialLink()
 {
     return GetExternalLink('http://www.sse.com.cn/market/funddata/volumn/etfvolumn/', '上交所官网ETF规模数据');

@@ -170,7 +170,7 @@ function _echoMyStockData($acct, $ref)
    	}
    	else if ($ref->IsFundA())
    	{
-   		if ($fund->GetOfficialNetValue())		EchoFundEstParagraph($fund);
+   		if ($fund->GetOfficialNav())		EchoFundEstParagraph($fund);
    		EchoFundTradingParagraph($fund);
    		EchoFundHistoryParagraph($fund);
    	}

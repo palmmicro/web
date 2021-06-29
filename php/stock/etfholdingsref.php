@@ -7,7 +7,7 @@ class EtfHoldingsReference extends MyStockReference
     
     var $ar_holdings_ref = array();
 
-    var $strNetValue;
+    var $strNav;
     var $strHoldingsDate;
     var $arHoldingsRatio = array();
     
@@ -23,7 +23,7 @@ class EtfHoldingsReference extends MyStockReference
     		$this->uscny_ref = new CnyReference('USCNY');
 
     		$nav_sql = GetNavHistorySql();
-    		$this->strNetValue = $nav_sql->GetClose($strStockId, $this->strHoldingsDate);
+    		$this->strNav = $nav_sql->GetClose($strStockId, $this->strHoldingsDate);
     		
 			$holdings_sql = GetEtfHoldingsSql();
 			$this->arHoldingsRatio = $holdings_sql->GetHoldingsArray($strStockId);
@@ -50,9 +50,9 @@ class EtfHoldingsReference extends MyStockReference
     	return $this->ar_holdings_ref;
     }
     
-    function GetNetValue()
+    function GetNav()
     {
-    	return $this->strNetValue;
+    	return $this->strNav;
     }
     
     function GetAdjustH($bOfficial = false)
@@ -71,7 +71,7 @@ class EtfHoldingsReference extends MyStockReference
     }
     
     // (x - x0) / x0 = sum{ r * (y - y0) / y0} 
-    function _estNetValue($bOfficial = false)
+    function _estNav($bOfficial = false)
     {
     	$fAdjustH = $this->GetAdjustH($bOfficial);
     	
@@ -91,29 +91,29 @@ class EtfHoldingsReference extends MyStockReference
 			if ($ref->IsSymbolH())	$fChange *= $fAdjustH; 
 			$fTotalChange += $fChange; 
 		}
-		return floatval($this->strNetValue) * (1.0 + $fTotalChange - $fTotalRatio);
+		return floatval($this->strNav) * (1.0 + $fTotalChange - $fTotalRatio);
     }
 
     function GetNavChange()
     {
-    	return $this->_estNetValue() / floatval($this->strNetValue);
+    	return $this->_estNav() / floatval($this->strNav);
     }
     
-    function GetOfficialNetValue()
+    function GetOfficialNav()
     {
-    	return $this->_estNetValue(true);
+    	return $this->_estNav(true);
     }
 
-    function GetFairNetValue()
+    function GetFairNav()
     {
 		if ($this->GetDate() == $this->uscny_ref->GetDate())		return false;
-    	return $this->_estNetValue();
+    	return $this->_estNav();
     }
-    
-    function GetRealtimeNetValue()
+/*    
+    function GetRealtimeNav()
     {
     	return false;
-    }
+    }*/
 }
 
 ?>

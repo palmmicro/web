@@ -9,7 +9,8 @@ define('SECONDS_IN_MIN', 60);
 define('SECONDS_IN_HOUR', 3600);
 define('SECONDS_IN_DAY', 86400);
 
-define('MIN_FLOAT_VAL', 0.0000001);
+// 13.6 in MySQL
+define('MIN_FLOAT_VAL', 0.000001);
 
 function strval_round($fVal, $iPrecision = false)
 {

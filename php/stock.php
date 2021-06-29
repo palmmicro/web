@@ -118,7 +118,11 @@ function GetSinaQuotesUrl($strSinaSymbols)
 function GetSinaQuotes($strSinaSymbols)
 {
 	$strFileName = DebugGetPathName('debugsina.txt');
-	if (DebugIsAdmin() == false)
+	if (DebugIsAdmin())
+	{
+//		DebugString('Prefetch: '.$strSinaSymbols);
+	}
+	else
 	{
 		if (file_exists($strFileName))
 		{
@@ -352,6 +356,11 @@ function RefSortByNumeric($arRef, $callback)
 }
 
 // ****************************** Stock final integration functions *******************************************************
+function StockPrefetchArrayData($arSymbol)
+{
+    PrefetchSinaStockData(array_unique($arSymbol));
+}
+
 function EtfGetAllSymbolArray($strSymbol)
 {
     return array($strSymbol, SqlGetEtfPair($strSymbol));
@@ -365,7 +374,7 @@ function _getAllSymbolArray($strSymbol, $strStockId)
         if (in_arrayQdii($strSymbol))
         {
         	$ar = QdiiGetAllSymbolArray($strSymbol);
-        	if ($strSymbol == 'SZ164906')		$ar += SqlGetHoldingsSymbolArray('KWEB');
+        	if ($strSymbol == 'SZ164906')		$ar = array_merge($ar, SqlGetHoldingsSymbolArray('KWEB'));
         	return $ar;
         }
         else if (in_arrayQdiiHk($strSymbol))							return QdiiHkGetAllSymbolArray($strSymbol);
@@ -407,7 +416,7 @@ function _getAllSymbolArray($strSymbol, $strStockId)
     return $ar;
 }
 
-function StockPrefetchArrayData($ar)
+function StockPrefetchArrayExtendedData($ar)
 {
     $arAll = array();
     
@@ -426,12 +435,12 @@ function StockPrefetchArrayData($ar)
     		}
     	}
     }
-    PrefetchSinaStockData(array_unique($arAll));
+    StockPrefetchArrayData($arAll);
 }
 
-function StockPrefetchData()
+function StockPrefetchExtendedData()
 {
-    StockPrefetchArrayData(func_get_args());
+    StockPrefetchArrayExtendedData(func_get_args());
 }
 
 function StockGetFundReference($strSymbol)

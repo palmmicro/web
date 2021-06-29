@@ -8,7 +8,7 @@ function _GetAdjustLink($strSymbol, $strQuery)
 function _GetEtfAdjustString($ref, $etf_ref)
 {
 	$strSymbol = $ref->GetSymbol();
-    $strQuery = sprintf('%s=%s&%s=%s', $strSymbol, $ref->GetPrice(), $etf_ref->GetSymbol(), $etf_ref->GetPrice());
+    $strQuery = sprintf('Date=%s&%s=%s&%s=%s', $ref->GetDate(), $strSymbol, $ref->GetPrice(), $etf_ref->GetSymbol(), $etf_ref->GetPrice());
     return _GetAdjustLink($strSymbol, $strQuery);
 }
 

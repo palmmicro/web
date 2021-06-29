@@ -121,7 +121,7 @@ function _botGetStockText($strSymbol)
 function _botGetStockArrayText($arSymbol, $str, $strVersion)
 {
 	$iMaxLen = MAX_BOT_MSG_LEN - strlen($strVersion);
-	StockPrefetchArrayData($arSymbol);
+	StockPrefetchArrayExtendedData($arSymbol);
 		
 	foreach ($arSymbol as $strSymbol)
 	{

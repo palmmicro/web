@@ -24,13 +24,18 @@ function _echoCalibrationHistoryParagraph($ref, $iStart, $iNum)
 	if ($sql->Count($strStockId) == 0)
 	{	// Symbol like USO do not have NAV 
 		$sql = GetStockHistorySql();
+		$nav_col = new TableColumnPrice();
+	}
+	else
+	{
+		$nav_col = new TableColumnNetValue();
 	}
 
 	$calibration_sql = new CalibrationSql();
    	$strNavLink = StockGetNavLink($strSymbol, $calibration_sql->Count($strStockId), $iStart, $iNum);
     
 	EchoTableParagraphBegin(array(new TableColumnDate(),
-								   new TableColumnNetValue(),
+								   $nav_col,
 								   new TableColumnCalibration(),
 								   new TableColumnTime()
 								   ), $strSymbol.TABLE_CALIBRATION, $strNavLink);

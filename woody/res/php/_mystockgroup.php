@@ -22,7 +22,7 @@ function in_array_ref($strSymbol, $arRef)
 
 function _echoStockGroupArray($arStock)
 {
-    StockPrefetchArrayData($arStock);
+    StockPrefetchArrayExtendedData($arStock);
     GetChinaMoney();
 
     $arRef = array();

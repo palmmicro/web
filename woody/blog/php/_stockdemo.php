@@ -11,7 +11,7 @@ require_once('/php/ui/stockhistoryparagraph.php');
 
 function DemoPrefetchData()
 {
-    StockPrefetchData(AB_DEMO_SYMBOL, ADRH_DEMO_SYMBOL, AH_DEMO_SYMBOL, FUND_DEMO_SYMBOL, STOCK_DEMO_SYMBOL);
+    StockPrefetchExtendedData(AB_DEMO_SYMBOL, ADRH_DEMO_SYMBOL, AH_DEMO_SYMBOL, FUND_DEMO_SYMBOL, STOCK_DEMO_SYMBOL);
 }
 
 function EchoReferenceDemo($strSymbol = FUND_DEMO_SYMBOL)

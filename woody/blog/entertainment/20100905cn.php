@@ -59,6 +59,7 @@
 原因是<i>strpos</i>会返回位置0, 这时候要写成<font color=gray><code>if (strpos($str, 'www.') !== false)</code></font>, 才跟原来<font color=gray><code>if (strstr($str, 'www.'))</code></font>的代码效果一致.
 <br />不过这不是我碰到的最深的PHP坑. 最坑人的PHP函数是<i>array_merge</i>, 它在全数字下标的时候居然会把所有数字下标从头开始排序!
 这时候要把<font color=gray><code>$ar = array_merge($arA, $arH, $arUS);</code></font>简单的写成<font color=gray><code>$ar = $arA + $arH + $arUS;</code></font>
+反过来, 加法也不能随便写, 无下标数组写加法也会出错!
 </p>
 
 <h3><?php EchoNameTag(TABLE_PRIME_NUMBER, ACCOUNT_TOOL_PRIME_CN); ?></h3>

@@ -9,7 +9,7 @@ class _QdiiHkAccount extends QdiiGroupAccount
         $strSymbol = $this->GetName();
 
         $this->GetWebData(QdiiHkGetEstSymbol($strSymbol));
-        StockPrefetchArrayData(array_merge($this->GetLeverage(), array($strSymbol)));
+        StockPrefetchArrayExtendedData(array_merge($this->GetLeverage(), array($strSymbol)));
 
         $this->ref = new QdiiHkReference($strSymbol);
  

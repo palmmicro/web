@@ -57,7 +57,7 @@ class FundReference extends MysqlReference
         $this->bConvertGB2312 = true;     // Sina name is GB2312 coded
     }
     
-    function GetNetValue()
+    function GetNav()
     {
     	return $this->GetPrice();
     }
@@ -67,7 +67,7 @@ class FundReference extends MysqlReference
     	return $this->strOfficialDate;
     }
     
-    function GetOfficialNetValue()
+    function GetOfficialNav()
     {
     	if ($this->fOfficialNetValue)
     	{
@@ -76,7 +76,7 @@ class FundReference extends MysqlReference
     	return false;
     }
     
-    function GetFairNetValue()
+    function GetFairNav()
     {
     	if ($this->fFairNetValue)
     	{
@@ -85,7 +85,7 @@ class FundReference extends MysqlReference
     	return false;
     }
     
-    function GetRealtimeNetValue()
+    function GetRealtimeNav()
     {
     	if ($this->fRealtimeNetValue)
     	{
@@ -102,7 +102,7 @@ class FundReference extends MysqlReference
     // Update database
     function UpdateEstNetValue()
     {
-   		StockUpdateEstResult($this->GetFundEstSql(), $this->GetStockId(), $this->GetOfficialNetValue(), $this->GetOfficialDate());
+   		StockUpdateEstResult($this->GetFundEstSql(), $this->GetStockId(), $this->GetOfficialNav(), $this->GetOfficialDate());
     }
 
     function UpdateOfficialNetValue()

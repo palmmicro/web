@@ -126,7 +126,7 @@ function EchoAll()
     if ($strGroupId = $acct->EchoStockGroup())
     {
         $arSymbol = SqlGetStocksArray($strGroupId);
-        StockPrefetchArrayData($arSymbol);
+        StockPrefetchArrayExtendedData($arSymbol);
 
         $str = StockGetGroupTransactionLinks($strGroupId);
         $str .= ' '.StockGetAllTransactionLink($strGroupId);

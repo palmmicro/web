@@ -284,7 +284,7 @@ function _updateStockOptionSplit($ref, $strSymbol, $strStockId, $his_sql, $strDa
 		$strDate = isset($_POST['date']) ? SqlCleanString($_POST['date']) : '';
 		$strVal = SqlCleanString($_POST['val']);
 		
-    	StockPrefetchData($strSymbol);
+    	StockPrefetchExtendedData($strSymbol);
         $ref = StockGetReference($strSymbol);
 		$strStockId = $ref->GetStockId();
 		$his_sql = GetStockHistorySql();

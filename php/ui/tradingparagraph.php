@@ -128,10 +128,13 @@ function EchoFundTradingParagraph($fund, $callback = false)
 {
     $ref = $fund->stock_ref;
 	$strPrev = $ref->GetPrevPrice();
-    $strOfficial = $fund->GetOfficialNetValue();
+    $strOfficial = $fund->GetOfficialNav();
     $strEstPrice = $ref->GetPriceDisplay($strOfficial, $strPrev);
-    if ($strFair = $fund->GetFairNetValue())       		$strEstPrice .= '/'.$ref->GetPriceDisplay($strFair, $strPrev);
-    if ($strRealtime = $fund->GetRealtimeNetValue())	$strEstPrice .= '/'.$ref->GetPriceDisplay($strRealtime, $strPrev);
+    if ($strFair = $fund->GetFairNav())      		$strEstPrice .= '/'.$ref->GetPriceDisplay($strFair, $strPrev);
+   	if (method_exists($fund, 'GetRealtimeNav'))
+   	{
+   		if ($strRealtime = $fund->GetRealtimeNav())	$strEstPrice .= '/'.$ref->GetPriceDisplay($strRealtime, $strPrev);
+   	}
     
     $arColumn = _getTradingTableColumn();
     $arColumn[] = GetTableColumnOfficalPremium();
@@ -187,7 +190,7 @@ function EchoEtfTradingParagraph($ref)
     $strPrice = _getTradingParagraphStr($ref, $arColumn);
     $str = "{$strPrice}相对于{$strPairSymbol}的{$strPremium}";
         
-    _echoTradingParagraph($str, $arColumn, $ref, $ref->GetOfficialNetValue()); 
+    _echoTradingParagraph($str, $arColumn, $ref, $ref->GetOfficialNav()); 
 }
 
 function EchoTradingParagraph($ref)

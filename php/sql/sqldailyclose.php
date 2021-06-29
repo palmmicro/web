@@ -115,6 +115,7 @@ class DailyCloseSql extends KeySql
     	{
     		if (abs(floatval($record['close']) - floatval($strClose)) > MIN_FLOAT_VAL)
     		{
+//    			DebugString($record['close'].' '.$strClose); 
     			return $this->UpdateDaily($record['id'], $strClose);
     		}
     	}

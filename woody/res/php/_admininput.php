@@ -38,12 +38,12 @@ function _getAdminTestStr($strInput)
 	$strDst = 'SZ162411';
 	$strEstInput = '105';
 	
-	StockPrefetchData($strSrc, $strDst);
+	StockPrefetchExtendedData($strSrc, $strDst);
     $src_ref = new QdiiReference($strSrc);
     $dst_ref = new QdiiReference($strDst);
     $uscny_ref = new CnyReference('USCNY');
     
-    if (($strSrcVal = $src_ref->GetOfficialNetValue()) && ($strDstVal = $dst_ref->GetOfficialNetValue()))
+    if (($strSrcVal = $src_ref->GetOfficialNav()) && ($strDstVal = $dst_ref->GetOfficialNav()))
     {
     	$fSrcVal = floatval($strSrcVal);
     	$fDstVal = floatval($strDstVal);

@@ -6,13 +6,13 @@ function _echoFundEstTableItem($ref, $bFair)
 {
     if (RefHasData($ref) == false)      return;
 
-    $ar = array($ref->GetStockLink(), $ref->GetNetValue());
+    $ar = array($ref->GetStockLink(), $ref->GetNav());
     
-    $strOfficialPrice = $ref->GetOfficialNetValue();
+    $strOfficialPrice = $ref->GetOfficialNav();
     $ar[] = $ref->GetPriceDisplay($strOfficialPrice);
     $ar[] = $ref->GetPercentageDisplay($strOfficialPrice);
     
-    if ($strFairPrice = $ref->GetFairNetValue())
+    if ($strFairPrice = $ref->GetFairNav())
     {
     	$ar[] = $ref->GetPriceDisplay($strFairPrice);
     	$ar[] = $ref->GetPercentageDisplay($strFairPrice);
@@ -23,10 +23,13 @@ function _echoFundEstTableItem($ref, $bFair)
     	$ar[] =  '';
     }
     
-    if ($strRealtimePrice = $ref->GetRealtimeNetValue())
+    if (method_exists($ref, 'GetRealtimeNav'))
     {
-    	$ar[] = $ref->GetPriceDisplay($strRealtimePrice);
-    	$ar[] = $ref->GetPercentageDisplay($strRealtimePrice);
+    	if ($strRealtimePrice = $ref->GetRealtimeNav())
+    	{
+    		$ar[] = $ref->GetPriceDisplay($strRealtimePrice);
+    		$ar[] = $ref->GetPercentageDisplay($strRealtimePrice);
+    	}
     }
     
     EchoTableColumn($ar);
@@ -59,7 +62,7 @@ function _getFundParagraphStr($ref)
 
 function _callbackSortFundEst($ref)
 {
-	return $ref->stock_ref->GetPercentage($ref->GetOfficialNetValue());
+	return $ref->stock_ref->GetPercentage($ref->GetOfficialNav());
 }
 
 function EchoFundArrayEstParagraph($arRef, $str = '')
@@ -89,7 +92,7 @@ function EchoFundArrayEstParagraph($arRef, $str = '')
 	$bFair = false;
     foreach ($arRef as $ref)
     {
-        if ($ref->GetFairNetValue())
+        if ($ref->GetFairNav())
         {
         	$bFair = true;
         	$ar[] = new TableColumnEst(STOCK_DISP_FAIR);
@@ -100,12 +103,15 @@ function EchoFundArrayEstParagraph($arRef, $str = '')
 	
     foreach ($arRef as $ref)
     {
-        if ($ref->GetRealtimeNetValue())
-        {
-        	$ar[] = new TableColumnEst(STOCK_DISP_REALTIME);
-        	$ar[] = $premium_col;
-        	break;
-        }
+    	if (method_exists($ref, 'GetRealtimeNav'))
+    	{
+    		if ($ref->GetRealtimeNav())
+    		{
+    			$ar[] = new TableColumnEst(STOCK_DISP_REALTIME);
+    			$ar[] = $premium_col;
+    			break;
+    		}
+    	}
     }
 	
 	EchoTableParagraphBegin($ar, 'estimation', $str);

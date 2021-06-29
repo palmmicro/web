@@ -3,14 +3,10 @@
 // ****************************** FutureReference class *******************************************************
 class FutureReference extends MysqlReference
 {
-    var $calibration_sql = false;
-    
-    function FutureReference($strSymbol) 
+/*    function FutureReference($strSymbol) 
     {
         parent::MysqlReference($strSymbol);
-
-       	$this->calibration_sql = new CalibrationSql();
-    }
+    }*/
     
     public function LoadData()
     {
@@ -34,15 +30,16 @@ class FutureReference extends MysqlReference
     	$strEtfSymbol = $etf_ref->GetSymbol();
     	if ($strEtfSymbol == 'USO' || $strEtfSymbol == 'GLD')
     	{
-    		$strEtfId = $etf_ref->GetStockId();
+      		$strEtfId = $etf_ref->GetStockId();
+    		$calibration_sql = new CalibrationSql();
     		if ($this->CheckAdjustFactorTime($etf_ref))
     		{
     			$this->fFactor = floatval($this->GetPrice()) / floatval($etf_ref->GetPrice());
-    			$this->calibration_sql->WriteDaily($strEtfId, $etf_ref->GetDate(), strval($this->fFactor));
+    			$calibration_sql->WriteDaily($strEtfId, $etf_ref->GetDate(), strval($this->fFactor));
     		}
     		else
     		{
-    			if ($strClose = $this->calibration_sql->GetCloseNow($strEtfId))
+    			if ($strClose = $calibration_sql->GetCloseNow($strEtfId))
     			{
     				$this->fFactor = floatval($strClose);
     			}

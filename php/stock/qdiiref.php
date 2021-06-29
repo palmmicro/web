@@ -144,9 +144,9 @@ class _QdiiReference extends FundReference
         $strDate = $est_ref->GetDate();
         if ($this->strOfficialCNY = $cny_ref->GetClose($strDate))
         {
-			if (method_exists($est_ref, 'GetOfficialNetValue'))
+			if (method_exists($est_ref, 'GetOfficialNav'))
         	{
-        		$this->fOfficialNetValue = $this->GetQdiiValue(strval($est_ref->GetOfficialNetValue()), $this->strOfficialCNY);
+        		$this->fOfficialNetValue = $this->GetQdiiValue(strval($est_ref->GetOfficialNav()), $this->strOfficialCNY);
         	}
         	else	$this->fOfficialNetValue = $this->GetQdiiValue($this->_getEstVal(), $this->strOfficialCNY);
             $this->strOfficialDate = $strDate;
@@ -176,9 +176,9 @@ class _QdiiReference extends FundReference
        	$cny_ref = $this->GetCnyRef();
        	if (($cny_ref->GetDate() != $this->strOfficialDate) || ($est_ref->GetDate() != $this->strOfficialDate))
        	{
-			if (method_exists($est_ref, 'GetFairNetValue'))
+			if (method_exists($est_ref, 'GetFairNav'))
         	{
-        		$this->fFairNetValue = $this->GetQdiiValue(strval($est_ref->GetFairNetValue()));
+        		$this->fFairNetValue = $this->GetQdiiValue(strval($est_ref->GetFairNav()));
         	}
         	else	$this->fFairNetValue = $this->GetQdiiValue($this->_getEstVal());
        	}
