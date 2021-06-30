@@ -255,7 +255,7 @@
   <li>今天加入所有LOF都最多95%仓位的处理, 而不是ETF的100%.</li>
 </ol>
 
-<h3>估值手工和自动<?php EchoNameTag(TABLE_CALIBRATION, CALIBRATION_HISTORY_DISPLAY); ?></h3>
+<h3>估值手工和自动<?php EchoNameTag(TABLE_CALIBRATION_HISTORY, CALIBRATION_HISTORY_DISPLAY); ?></h3>
 <p>2016年10月6日
 <br />加入华宝油气<?php EchoCalibrationHistoryLink() ?>. 每天拿到官方净值后都会根据净值当天的美股数据和美元人民币中间价做一次自动校准, 现在统统记录下来, 方便观察长期趋势.
 校准时间就是拿到新的官方净值后第一次访问的时间. 类似的版面上还有CL和USO的<?php EchoCalibrationHistoryLink('USO') ?>.

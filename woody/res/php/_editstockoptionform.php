@@ -131,11 +131,6 @@ function _getStockOptionEma($strStockId, $strDate)
 	return 'EMA200/50';
 }
 
-function _getStockOptionDaily($sql, $strDate)
-{
-	return $sql->GetClose($strDate);
-}
-
 function _getStockOptionSharesDiff($strStockId, $strDate)
 {
 	$sql = new SharesDiffSql();

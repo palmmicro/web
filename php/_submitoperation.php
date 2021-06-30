@@ -13,7 +13,7 @@ class _AdminOperationAccount extends Account
 
     function AdminProcess()
     {
-    	if ($strSymbol = UrlGetQueryValue(TABLE_CALIBRATION))
+    	if ($strSymbol = UrlGetQueryValue(TABLE_CALIBRATION_HISTORY))
     	{
     		$this->_onManualCalibration($strSymbol);
     	}	

@@ -170,7 +170,7 @@ and modified an actually unrelated code, what should be <font color=gray><code>$
 <br />Added 95% position for all LOF net value estimation.
 </p>
 
-<h3>Automatic and manual <a name="calibration">calibration</a> history</h3>
+<h3>Automatic and manual <a name="calibrationhistory">calibration history</a></h3>
 <p>Oct 6, 2016
 <br />SZ162411 calibration history.
 </p>

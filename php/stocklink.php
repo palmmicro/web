@@ -51,15 +51,10 @@ function GetMyStockLink($strSymbol = false, $strDisplay = false)
 	return GetStockTitleLink($strTitle, ALL_STOCK_DISPLAY);
 }
 
-function GetCalibrationHistoryLink($strSymbol)
-{
-    return GetStockSymbolLink('calibrationhistory', $strSymbol, '校准记录');
-}
-
 define('CALIBRATION_HISTORY_DISPLAY', '校准历史记录');
-function GetCalibrationLink($strSymbol, $strDisplay = false)
+function GetCalibrationHistoryLink($strSymbol, $strDisplay = false)
 {
-    return GetStockSymbolLink(TABLE_CALIBRATION, $strSymbol, ($strDisplay ? $strDisplay : CALIBRATION_HISTORY_DISPLAY));
+    return GetStockSymbolLink(TABLE_CALIBRATION_HISTORY, $strSymbol, ($strDisplay ? $strDisplay : CALIBRATION_HISTORY_DISPLAY));
 }
 
 define('ETF_HOLDINGS_DISPLAY', '基金持仓');

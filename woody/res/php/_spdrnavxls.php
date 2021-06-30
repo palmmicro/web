@@ -34,6 +34,7 @@ function _readXlsFile($bIshares, $strPathName, $nav_sql, $shares_sql, $strStockI
 	$highestColumn = $sheet->getHighestColumn();
 
 	$oldest_ymd = new OldestYMD();
+	$calibration_sql = new CalibrationSql();
 	
 	// 获取一行的数据
 	$iCount = 0;
@@ -53,6 +54,11 @@ function _readXlsFile($bIshares, $strPathName, $nav_sql, $shares_sql, $strStockI
   				if ($nav_sql->WriteDaily($strStockId, $strDate, $ar[$iNavIndex]))
   				{
   					$iCount ++;
+  					if ($calibration_sql->GetClose($strStockId, $strDate))
+  					{
+  						DebugString('Delete calibaration on '.$strDate);
+  						$calibration_sql->DeleteByDate($strStockId, $strDate);
+  					}
   				}
   				if ($shares_sql->WriteDaily($strStockId, $strDate, strval(floatval($ar[$iSharesIndex]) / 10000.0)))
   				{

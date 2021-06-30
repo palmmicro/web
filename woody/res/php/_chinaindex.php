@@ -78,6 +78,13 @@ function EchoAll()
     {
     	$acct->EchoMoneyParagraph($group, $acct->us_ref->cny_ref);
 	}
+	
+	if ($acct->IsAdmin())
+	{
+		$strSymbol = $acct->us_ref->GetSymbol(); 
+    	$str = GetInternalLink('/php/_submitoperation.php?'.TABLE_CALIBRATION_HISTORY.'='.$strSymbol, '手工校准').$strSymbol;
+    	EchoParagraph($str);
+	}
 
     $acct->EchoLinks('chinaetf', 'GetChinaIndexRelated');
 }

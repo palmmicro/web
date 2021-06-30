@@ -50,7 +50,7 @@ class CalibrationSql extends DailyTimeSql
 {
     function CalibrationSql() 
     {
-        parent::DailyTimeSql(TABLE_CALIBRATION);
+        parent::DailyTimeSql(TABLE_CALIBRATION_HISTORY);
     }
 }
 

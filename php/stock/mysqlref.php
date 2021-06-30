@@ -6,7 +6,7 @@ class MysqlReference extends StockReference
     var $strSqlId = false;      // ID in mysql database
 	var $bConvertGB2312 = false;
 
-    var $fFactor = 1.0;			// 'close' field in calibration table
+    var $fFactor = 1.0;			// 'close' field in calibrationhistory table
     
     function MysqlReference($strSymbol) 
     {
