@@ -198,6 +198,17 @@ class EtfReference extends MyPairReference
 
 		return $strNav;
 	}
+
+	function _onPairCalibration($calibration_sql, $strStockId, $strDate)
+	{
+		if ($this->strPairNav = PairNavGetClose($this->pair_nav_ref, $strDate))
+		{
+			$this->fFactor = $this->GetFactor($this->strPairNav, $this->strNav);
+			$calibration_sql->WriteDaily($strStockId, $strDate, strval($this->fFactor));
+			return $strDate;
+   		}
+   		return false;
+	}
  	
 	function _onNormalEtfCalibration()
 	{
@@ -216,12 +227,15 @@ class EtfReference extends MyPairReference
     		{
     			if ($this->strNav = $nav_sql->GetClose($strStockId, $strCurDate))
     			{
-   					if ($this->strPairNav = PairNavGetClose($this->pair_nav_ref, $strCurDate))
-   					{
-   						$this->fFactor = $this->GetFactor($this->strPairNav, $this->strNav);
-   						$calibration_sql->WriteDaily($strStockId, $strCurDate, strval($this->fFactor));
-   						return $strCurDate;
-   					}
+    				if ($strCalibrationDate = $this->_onPairCalibration($calibration_sql, $strStockId, $strCurDate))		return $strCalibrationDate;
+    			}
+    			else if ($this->strNav = $nav_sql->GetClosePrev($strStockId, $strCurDate))
+    			{
+    				$strPrevDate = $nav_sql->GetDatePrev($strStockId, $strCurDate);
+    				if ($strPrevDate != $strDate)
+    				{
+    					if ($strCalibrationDate = $this->_onPairCalibration($calibration_sql, $strStockId, $strPrevDate))		return $strCalibrationDate;
+    				}
     			}
     		}
 			$this->strNav = $nav_sql->GetClose($strStockId, $strDate);
@@ -235,14 +249,11 @@ class EtfReference extends MyPairReference
    			{
    				while ($record = mysql_fetch_assoc($result)) 
    				{
-   					$strDate = $record['date'];
-   					if ($this->strPairNav = PairNavGetClose($this->pair_nav_ref, $strDate))
+   					$this->strNav = rtrim0($record['close']);
+   					if ($strCalibrationDate = $this->_onPairCalibration($calibration_sql, $strStockId, $record['date']))
    					{
-   						$this->strNav = rtrim0($record['close']);
-   						$this->fFactor = $this->GetFactor($this->strPairNav, $this->strNav);
-   						$calibration_sql->WriteDaily($strStockId, $strDate, strval($this->fFactor));
    						@mysql_free_result($result);
-   						return $strDate;
+   						return $strCalibrationDate;
    					}
    				}
    				@mysql_free_result($result);

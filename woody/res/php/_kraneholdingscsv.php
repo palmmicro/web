@@ -53,8 +53,9 @@ class _KraneHoldingsCsvFile extends CsvFile
     			$strValue = str_replace(',', '', $arWord[6]);
     			$fClose = floatval($strValue) / floatval($strShares);
     			if ($bHk)	$fClose *= $this->fUSDHKD; 
-    			$this->his_sql->WriteHistory($strId, $this->strDate, strval($fClose));
-    			DebugString('WriteHistory '.$strShares.' '.$strValue);
+    			$strClose = strval($fClose);
+    			$this->his_sql->WriteHistory($strId, $this->strDate, $strClose);
+    			DebugString('WriteHistory '.$strHolding.' '.$strClose.' '.$strShares.' '.$strValue);
     		}
     		
     		$this->holdings_sql->InsertHolding($this->strStockId, $strId, $arWord[2]);

@@ -79,18 +79,28 @@ class DailyCloseSql extends KeySql
     	return $this->_getCloseString('GetRecordPrev', $strKeyId, $strDate);
     }
 
-    function GetDateNow($strKeyId = false)
+    function GetCloseNow($strKeyId = false)
     {
-    	if ($record = $this->GetRecordNow($strKeyId))
+    	return $this->_getCloseString('GetRecordNow', $strKeyId);
+    }
+
+    function _getDateString($callback, $strKeyId, $strDate = false)
+    {
+    	if ($record = $this->$callback($strKeyId, $strDate))
     	{
     		return $record['date'];
     	}
     	return false;
     }
-
-    function GetCloseNow($strKeyId = false)
+    
+    function GetDatePrev($strKeyId, $strDate)
     {
-    	return $this->_getCloseString('GetRecordNow', $strKeyId);
+    	return $this->_getDateString('GetRecordPrev', $strKeyId, $strDate);
+    }
+
+    function GetDateNow($strKeyId = false)
+    {
+    	return $this->_getDateString('GetRecordNow', $strKeyId);
     }
 
 	function MakeFieldArray($strKeyId, $strDate, $strClose)
