@@ -84,7 +84,11 @@ class EtfHoldingsReference extends MyStockReference
 			$fRatio = floatval($this->arHoldingsRatio[$strStockId]) / 100.0;
 			$fTotalRatio += $fRatio;
 			
-			if ($bOfficial)	$strPrice = $his_sql->GetAdjClose($strStockId, $this->GetDate());
+			if ($bOfficial)
+			{
+				$strDate = $this->GetDate();
+				$strPrice = $his_sql->GetAdjClose($strStockId, $strDate);
+			}
 			else				$strPrice = $ref->GetPrice();
 			
 			$fChange = $fRatio * floatval($strPrice) / floatval($his_sql->GetAdjClose($strStockId, $this->strHoldingsDate));

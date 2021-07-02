@@ -72,6 +72,11 @@ function EchoCramersRuleLink($bChinese = true)
 	echo GetCramersRuleLink($bChinese);
 }
 
+function EchoDiceCaptchaLink($bChinese = true)
+{
+	echo GetDiceCaptchaLink($bChinese);
+}
+
 function EchoEditInputLink($bChinese = true)
 {
 	echo GetEditInputLink($bChinese);

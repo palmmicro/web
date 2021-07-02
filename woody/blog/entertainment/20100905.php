@@ -81,6 +81,12 @@ As PA6488 based camera is not available in market yet. Users can test the user m
 <br /><img src=../photo/chisquaredtest.jpg alt="Pearson's Chi-squared Test equation and curve" />
 </p>
 
+<h3><?php EchoNameTag('dicecaptcha', ACCOUNT_TOOL_DICE); ?></h3>
+<p>Jul 2, 2021
+<br />Roblox <?php EchoDiceCaptchaLink(false); ?>
+</p>
+
+
 </div>
 
 <?php _LayoutBottom(false); ?>

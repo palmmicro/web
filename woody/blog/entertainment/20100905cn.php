@@ -160,6 +160,11 @@
 加了一句<font color=gray><code>$strText = str_replace("\xC2\xA0", '', $strText);</code></font>后终于解决问题.
 </p>
 
+<h3><?php EchoNameTag('dicecaptcha', ACCOUNT_TOOL_DICE_CN); ?></h3>
+<p>2021年7月2日
+<br />罗布乐思Roblox<?php EchoDiceCaptchaLink(); ?>
+</p>
+
 </div>
 
 <?php _LayoutBottom(); ?>

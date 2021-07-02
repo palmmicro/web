@@ -126,11 +126,20 @@ class _QdiiReference extends FundReference
     function _getEstVal()
     {
        	$est_ref = $this->GetEstRef();
-		if ($str = SqlGetNavByDate($est_ref->GetStockId(), $est_ref->GetDate()))
+       	$strDate = $est_ref->GetDate();
+       	$strStockId = $est_ref->GetStockId();
+		if ($str = SqlGetNavByDate($strStockId, $strDate))
         {
         	return $str;
         }
-        return $est_ref->GetPrice();
+        $str = $est_ref->GetPrice();
+//        if (DebugIsAdmin())	DebugString($est_ref->GetSymbol().' '.$str);
+        if (empty($str))
+        {	// SH000869 bug fix
+        	$his_sql = GetStockHistorySql();
+        	$str = $his_sql->GetClosePrev($strStockId, $strDate);
+        }
+        return $str;
     }
 
     function EstNetValue()

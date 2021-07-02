@@ -2,7 +2,7 @@
 require_once('/php/debug.php');
 require_once('/php/sql/sqltable.php');
 
-function _lookUpPrimeNumber($iNum)
+function LookUpPrimeNumber($iNum)
 {
 	$pn_sql = new TableSql(TABLE_PRIME_NUMBER);
 	if ($pn_sql->CountData() == 0)
@@ -47,7 +47,7 @@ function _lookUpPrimeNumber($iNum)
 	return $aiNum;
 }
 
-function _onePassPrimeNumber($iNum)
+function OnePassPrimeNumber($iNum)
 {
 	$aiNum = array();
 	for ($i = 2; ($i * $i) <= $iNum; $i ++)
@@ -60,25 +60,6 @@ function _onePassPrimeNumber($iNum)
 	}
 	if ($iNum > 1) 		$aiNum[] = $iNum;
 	return $aiNum;
-}
-
-function _getPrimeNumberString($callback, $strNumber)
-{
-    $fStart = microtime(true);
-    $aiNum = call_user_func($callback, intval($strNumber));
-	$str = $strNumber.'=';
-	foreach ($aiNum as $iPrime)
-	{
-		$str .= strval($iPrime).'*';
-	}
-	return rtrim($str, '*').DebugGetStopWatchDisplay($fStart, 4);
-}
-
-function GetPrimeNumberString($strNumber)
-{
-	$str = _getPrimeNumberString('_onePassPrimeNumber', $strNumber);
-	$str .= '<br />'._getPrimeNumberString('_lookUpPrimeNumber', $strNumber);
-	return $str;
 }
 
 ?>

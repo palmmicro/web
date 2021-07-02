@@ -101,13 +101,20 @@ class StockHistorySql extends DailyCloseSql
     	return '0';
     }
 
-    function GetAdjClose($strStockId, $strDate)
+    function _getAdjCloseString($callback, $strStockId, $strDate = false)
     {
-    	if ($record = $this->GetRecord($strStockId, $strDate))
+    	if ($record = $this->$callback($strStockId, $strDate))
     	{
     		return rtrim0($record['adjclose']);
     	}
     	return false;
+    }
+    
+    function GetAdjClose($strStockId, $strDate)
+    {
+    	$str = $this->_getAdjCloseString('GetRecord', $strStockId, $strDate);
+		if ($str === false)		$str = $this->_getAdjCloseString('GetRecordPrev', $strStockId, $strDate);	// when hongkong market on holiday
+		return $str;
     }
 }
 
