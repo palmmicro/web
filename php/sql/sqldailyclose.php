@@ -43,6 +43,11 @@ class DailyCloseSql extends KeySql
     	return $this->GetData($this->BuildWhere_key($strKeyId)." AND date <= '$strDate'", $this->BuildOrderBy(), _SqlBuildLimit(0, $iNum));
     }
     
+    function GetToDate($strKeyId, $strDate, $iNum = 0)
+    {
+    	return $this->GetData($this->BuildWhere_key($strKeyId)." AND date > '$strDate'", $this->BuildOrderBy(), _SqlBuildLimit(0, $iNum));
+    }
+    
     function GetRecordPrev($strKeyId, $strDate)
     {
     	return $this->GetSingleData($this->BuildWhere_key($strKeyId)." AND date < '$strDate'", $this->BuildOrderBy());

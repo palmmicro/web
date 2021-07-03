@@ -214,6 +214,7 @@ function _yahooStockGetData($strSymbol, $strStockId)
     return false;
 }
 
+// force update, no any condition checking as in YahooUpdateNetValue
 function YahooGetWebData($ref)
 {
 	date_default_timezone_set(STOCK_TIME_ZONE_US);
@@ -293,6 +294,8 @@ function _yahooGetNetValueSymbol($strSymbol)
 
 function YahooUpdateNetValue($strSymbol)
 {
+//	DebugString('YahooUpdateNetValue '.$strSymbol, true);
+	    		
 	if (($strNetValueSymbol = _yahooGetNetValueSymbol($strSymbol)) == false)	return;
     if (($strStockId = SqlGetStockId($strSymbol)) == false)  					return;
 	$nav_sql = GetNavHistorySql();

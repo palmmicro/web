@@ -186,15 +186,17 @@ function _echoMyStockData($acct, $ref)
    			if ($hshare_ref)	EchoAhTradingParagraph($hshare_ref);
    			else 				EchoTradingParagraph($ref);
    		}
-   		EchoNvCloseHistoryParagraph($ref);
    	}
+
+	EchoNvCloseHistoryParagraph($ref);
     
    	if ($etf_ref)   			EchoEtfSmaParagraph($etf_ref);
-   	if (_hasSmaDisplay($ref))
+   	else if (_hasSmaDisplay($ref))
    	{
    		if ($hshare_ref)		EchoHShareSmaParagraph($ref, $hshare_ref);
    		else	        		EchoSmaParagraph($ref);
    	}
+
    	EchoStockHistoryParagraph($ref);
 
    	if (($etf_holdings_ref == false) && ($etf_ref == false))	_echoBenfordParagraph($ref);

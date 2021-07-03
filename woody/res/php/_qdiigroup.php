@@ -47,14 +47,14 @@ class QdiiGroupAccount extends FundGroupAccount
         YahooUpdateNetValue($strEstSymbol);
 
         $sql = new EtfPairSql(SqlGetStockId($strEstSymbol));
-        if ($strPairId = $sql->GetPairId())
+/*        if ($strPairId = $sql->GetPairId())
         {
         	if ($strSymbol = SqlGetStockSymbol($strPairId))
         	{
         		YahooUpdateNetValue($strSymbol);
         	}
         }
-        
+*/        
         $ar = $sql->GetAllStockId();
         foreach ($ar as $strStockId)
         {

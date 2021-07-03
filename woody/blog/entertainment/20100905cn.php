@@ -163,6 +163,7 @@
 <h3><?php EchoNameTag('dicecaptcha', ACCOUNT_TOOL_DICE_CN); ?></h3>
 <p>2021年7月2日
 <br />罗布乐思Roblox<?php EchoDiceCaptchaLink(); ?>
+<br /><img src=../photo/robloxdice.jpg alt="Roblox 4 dices adding to 14 captcha" />
 </p>
 
 </div>

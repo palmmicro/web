@@ -200,6 +200,7 @@ function _getDiceCaptchaString($strInput, $bChinese)
 		{
 			$str .= '<br/>'.$strDisplay;
 		}
+		$str .= '<br /><img src=/woody/blog/photo/robloxdice.jpg alt="Roblox 4 dices adding to 14 captcha" />';
 		return $str;
 	}
 	return ($bChinese ? '数据格式不对' : 'Wrong data format');

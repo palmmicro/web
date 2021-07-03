@@ -127,9 +127,24 @@ function DebugGetFile()
     return DebugGetPathName('debug.txt');
 }
 
-function DebugString($str)
+function DebugIsAdmin()
 {
-	if ($str == false)	$str = '(false)';
+   	global $acct;
+	if (method_exists($acct, 'IsAdmin'))
+	{
+		return $acct->IsAdmin();
+	}
+	return false;
+}
+
+function DebugString($str, $bAdmin = false)
+{
+	if ($bAdmin)
+	{
+		if (DebugIsAdmin() === false)		return;
+	}
+	
+	if ($str === false)	$str = '(false)';
     $strTimeZone = date_default_timezone_get();
     file_put_contents(DebugGetFile(), DebugGetTime().' '.UrlGetIp().' '.UrlGetCur().' '.$str.PHP_EOL, FILE_APPEND);     // DebugGetTime will change timezone!
     date_default_timezone_set($strTimeZone);
@@ -262,16 +277,6 @@ function DebugGetConfigFileName($strSymbol)
 function unlinkConfigFile($strSymbol)
 {
 	unlinkEmptyFile(DebugGetConfigFileName($strSymbol));
-}
-
-function DebugIsAdmin()
-{
-   	global $acct;
-	if (method_exists($acct, 'IsAdmin'))
-	{
-		return $acct->IsAdmin();
-	}
-	return false;
 }
 
 ?>

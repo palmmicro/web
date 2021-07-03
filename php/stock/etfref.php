@@ -199,16 +199,23 @@ class EtfReference extends MyPairReference
 		return $strNav;
 	}
 
-	function _onPairCalibration($calibration_sql, $strStockId, $strDate)
+	function _onNavResultCalibration($result, $calibration_sql, $strStockId)
 	{
-		if ($this->strPairNav = PairNavGetClose($this->pair_nav_ref, $strDate))
+		while ($record = mysql_fetch_assoc($result)) 
 		{
-			$this->fFactor = $this->GetFactor($this->strPairNav, $this->strNav);
-			$calibration_sql->WriteDaily($strStockId, $strDate, strval($this->fFactor));
-			return $strDate;
+			$this->strNav = rtrim0($record['close']);
+			$strDate = $record['date'];
+			if ($this->strPairNav = PairNavGetClose($this->pair_nav_ref, $strDate))
+			{
+				$this->fFactor = $this->GetFactor($this->strPairNav, $this->strNav);
+				$calibration_sql->WriteDaily($strStockId, $strDate, strval($this->fFactor));
+   				@mysql_free_result($result);
+   				return $strDate;
+   			}
    		}
+   		@mysql_free_result($result);
    		return false;
-	}
+   	}
  	
 	function _onNormalEtfCalibration()
 	{
@@ -218,26 +225,13 @@ class EtfReference extends MyPairReference
    		if ($calibration_sql->Count($strStockId) > 0)
    		{
    			$strDate = $calibration_sql->GetDateNow($strStockId); 
-    		$ymd = new StringYMD($strDate);
-    		
-   			$strCurDate = $this->GetDate();
-    		$cur_ymd = new StringYMD($strCurDate);
-    		
-    		if ($cur_ymd->GetTick() > $ymd->GetTick())
-    		{
-    			if ($this->strNav = $nav_sql->GetClose($strStockId, $strCurDate))
-    			{
-    				if ($strCalibrationDate = $this->_onPairCalibration($calibration_sql, $strStockId, $strCurDate))		return $strCalibrationDate;
-    			}
-    			else if ($this->strNav = $nav_sql->GetClosePrev($strStockId, $strCurDate))
-    			{
-    				$strPrevDate = $nav_sql->GetDatePrev($strStockId, $strCurDate);
-    				if ($strPrevDate != $strDate)
-    				{
-    					if ($strCalibrationDate = $this->_onPairCalibration($calibration_sql, $strStockId, $strPrevDate))		return $strCalibrationDate;
-    				}
-    			}
-    		}
+   			if ($result = $nav_sql->GetToDate($strStockId, $strDate)) 
+   			{
+   				if ($strCalibrationDate = $this->_onNavResultCalibration($result, $calibration_sql, $strStockId))
+   				{
+   					return $strCalibrationDate; 
+   				}
+   			}
 			$this->strNav = $nav_sql->GetClose($strStockId, $strDate);
 			$this->strPairNav = PairNavGetClose($this->pair_nav_ref, $strDate);
 			$this->fFactor = $calibration_sql->GetCloseNow($strStockId);
@@ -247,16 +241,10 @@ class EtfReference extends MyPairReference
    		{
    			if ($result = $nav_sql->GetAll($strStockId)) 
    			{
-   				while ($record = mysql_fetch_assoc($result)) 
+   				if ($strCalibrationDate = $this->_onNavResultCalibration($result, $calibration_sql, $strStockId))
    				{
-   					$this->strNav = rtrim0($record['close']);
-   					if ($strCalibrationDate = $this->_onPairCalibration($calibration_sql, $strStockId, $record['date']))
-   					{
-   						@mysql_free_result($result);
-   						return $strCalibrationDate;
-   					}
+   					return $strCalibrationDate; 
    				}
-   				@mysql_free_result($result);
    			}
    		}
         return false;
