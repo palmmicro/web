@@ -50,15 +50,7 @@ function _onSmaUserDefinedVal($strVal)
 	$fAmount = floatval($strAmount);
 	
 	$strSymbol = $fund->GetSymbol();
-	if ($strSymbol == 'SZ162411')
-	{
-		 $fQuantity = $fAmount / $fund->GetQdiiValue($strVal) / 1400;
-	}
-	else
-	{
-		 $fQuantity = $fAmount / floatval($fund->strOfficialCNY) / floatval($strVal);
-	}
-	
+	$fQuantity = $fund->GetFundPosition() * $fAmount / floatval($fund->strOfficialCNY) / floatval($strVal);
     $strQuantity = strval(intval($fQuantity));
     if ($group) 
     {

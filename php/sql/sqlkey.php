@@ -40,11 +40,18 @@ class KeySql extends TableSql
     	return array($this->strKey => $strKeyId);
     }
     
+    function BuildWhere_key_ex($strKeyId, $strExId, $strExVal)
+    {
+    	$ar = $this->MakeFieldKeyId($strKeyId);
+    	$ar[$strExId] = $strExVal;
+		return _SqlBuildWhereAndArray($ar);
+    }
+    
     function BuildWhere_key($strKeyId)
     {
     	return _SqlBuildWhere($this->strKey, $strKeyId);
     }
-    
+
     function Count($strKeyId)
     {
     	return $this->CountData($this->BuildWhere_key($strKeyId));
@@ -69,7 +76,7 @@ class KeySql extends TableSql
     {
     	if ($strKeyId !== false)
     	{
-    		return $this->DeleteRecord($this->BuildWhere_key($strKeyId));
+    		return $this->DeleteData($this->BuildWhere_key($strKeyId));
     	}
     	return false;
     }

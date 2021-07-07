@@ -7,7 +7,9 @@ define('DEBUG_DATE_FORMAT', 'Y-m-d');
 
 define('SECONDS_IN_MIN', 60);
 define('SECONDS_IN_HOUR', 3600);
-define('SECONDS_IN_DAY', 86400);
+
+define('HOURS_IN_DAY', 24);
+define('SECONDS_IN_DAY', HOURS_IN_DAY * SECONDS_IN_HOUR);
 
 // 13.6 in MySQL
 define('MIN_FLOAT_VAL', 0.000001);

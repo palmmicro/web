@@ -34,11 +34,11 @@ class YearMonthDay
         return $this->GetTick() + $iSeconds;
     }
     
-    function IsNewFile($strFileName, $iDays = false)
+    function IsNewFile($strFileName, $iHours = false)
     {
-    	if ($iDays)
+    	if ($iHours)
     	{
-    		$iInterval = $iDays * SECONDS_IN_DAY;
+    		$iInterval = $iHours * SECONDS_IN_HOUR;
     	}
     	else
     	{

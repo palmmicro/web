@@ -198,7 +198,7 @@ class TableSql
     	return false;
     }
     
-    function DeleteRecord($strWhere, $strLimit = false)
+    function DeleteData($strWhere, $strLimit = false)
     {
     	return SqlDeleteTableData($this->strName, $strWhere, $strLimit);
     }
@@ -209,7 +209,7 @@ class TableSql
     	if ($iCount > 0)
     	{
     		DebugVal($iCount, 'DeleteCountData table '.$this->strName.' WHERE '.$strWhere);
-    		$this->DeleteRecord($strWhere);
+    		$this->DeleteData($strWhere);
     	}
     }
     
@@ -217,7 +217,7 @@ class TableSql
     {
     	if ($strWhere = _SqlBuildWhere_id($strId))
     	{
-    		return $this->DeleteRecord($strWhere);
+    		return $this->DeleteData($strWhere);
     	}
     	return false;
     }

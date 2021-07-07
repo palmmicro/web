@@ -13,13 +13,13 @@ class StockAccount extends TitleAccount
         parent::TitleAccount($strQueryItem, $arLoginTitle);
         
         $this->strName = StockGetSymbol($this->GetTitle());
-	    $this->group_sql = new StockGroupSql($this->GetMemberId());
+	    $this->group_sql = new StockGroupSql();
     }
 
     function GetGroupName($strGroupId)
     {
 //    	DebugString('Trace GetGroupName');
-    	return $this->group_sql->GetVal($strGroupId);
+    	return $this->group_sql->GetString($strGroupId);
     }
     
     function GetGroupLink($strGroupId)
@@ -77,7 +77,7 @@ class StockAccount extends TitleAccount
     function _getPersonalLinks()
     {
     	$str = ' - ';
-    	if ($result = $this->group_sql->GetAll()) 
+    	if ($result = $this->group_sql->GetAll($this->GetMemberId())) 
     	{
     		while ($record = mysql_fetch_assoc($result)) 
     		{

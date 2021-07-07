@@ -58,12 +58,12 @@ function _echoNewStockGroupTableItem($strStockId, $strLoginId = false)
     EchoTableColumn($ar);
 }
 
-function _echoStockGroupTableData($acct, $strStockId, $strLoginId, $bAdmin)
+function _echoStockGroupTableData($acct, $strStockId, $strMemberId, $bAdmin)
 {
 	$bReadOnly = $acct->IsReadOnly();
     $iTotal = 0;
 	$sql = $acct->GetGroupSql();
-	if ($result = $sql->GetAll()) 
+	if ($result = $sql->GetAll($strMemberId)) 
 	{
 		while ($record = mysql_fetch_assoc($result)) 
 		{
@@ -79,7 +79,7 @@ function _echoStockGroupTableData($acct, $strStockId, $strLoginId, $bAdmin)
 
 	if ($strStockId && $iTotal == 0)
 	{
-		_echoNewStockGroupTableItem($strStockId, $strLoginId);
+		_echoNewStockGroupTableItem($strStockId, $strMemberId);
 	}
 }
 

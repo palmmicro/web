@@ -89,7 +89,9 @@ class _SubmitGroupAccount extends StockAccount
     	if ($this->IsAdmin() || ($this->IsGroupReadOnly($strGroupId) == false))
     	{
     		SqlDeleteStockGroupItemByGroupId($strGroupId);
-    		SqlDeleteTableDataById(TABLE_STOCK_GROUP, $strGroupId);
+//    		SqlDeleteTableDataById(TABLE_STOCK_GROUP, $strGroupId);
+			$sql = $this->GetGroupSql();
+			$sql->DeleteById($strGroupId);
     	}
     }
     
@@ -110,7 +112,7 @@ class _SubmitGroupAccount extends StockAccount
     	if (in_arrayAll($str))  $strGroupName = $str;
     
 		$sql = $this->GetGroupSql();
-    	if ($sql->Update($strGroupId, $strGroupName))
+    	if ($sql->UpdateString($strGroupId, $strGroupName))
     	{
     		SqlUpdateStockGroup($strGroupId, _getStockIdArray($strSymbols));
     	}
@@ -120,8 +122,8 @@ class _SubmitGroupAccount extends StockAccount
     function _onNew($strLoginId, $strGroupName, $strSymbols)
     {
 		$sql = $this->GetGroupSql();
-    	$sql->Insert($strGroupName);
-    	if ($strGroupId = $sql->GetId($strGroupName))
+    	$sql->InsertString($strLoginId, $strGroupName);
+    	if ($strGroupId = $sql->GetRecordId($strLoginId, $strGroupName))
     	{
     		$item_sql = new StockGroupItemSql($strGroupId);
     		$arStockId = _getStockIdArray($strSymbols);

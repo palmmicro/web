@@ -1,14 +1,14 @@
 <?php
-//require_once('sqlkeytable.php');
-require_once('sqlkeyval.php');
+require_once('sqlkeystring.php');
+require_once('sqlvisitor.php');
 require_once('sqlstocktransaction.php');
 
 // ****************************** StockGroupSql class *******************************************************
-class StockGroupSql extends KeyValSql
+class StockGroupSql extends KeyStringSql
 {
-    function StockGroupSql($strMemberId = false) 
+    function StockGroupSql() 
     {
-        parent::KeyValSql(TABLE_STOCK_GROUP, $strMemberId, TABLE_MEMBER, 'groupname', 64);
+        parent::KeyStringSql(TABLE_STOCK_GROUP, TABLE_MEMBER, 'groupname', 64);
     }
 }
 
@@ -199,15 +199,15 @@ function SqlGroupHasStock($strGroupId, $strStockId, $bCheckTransaction = false)
 
 function SqlDeleteStockGroupByMemberId($strMemberId)
 {
-	$sql = new StockGroupSql($strMemberId);
-	if ($result = $sql->GetAll()) 
+	$sql = new StockGroupSql();
+	if ($result = $sql->GetAll($strMemberId)) 
 	{
 		while ($record = mysql_fetch_assoc($result)) 
 		{
 		    SqlDeleteStockGroupItemByGroupId($record['id']);
 		}
 		@mysql_free_result($result);
-		$sql->DeleteAll();
+		$sql->DeleteAll($strMemberId);
 	}
 }
 

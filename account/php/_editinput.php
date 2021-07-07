@@ -6,7 +6,7 @@ require_once('/php/benfordimagefile.php');
 require_once('/php/linearimagefile.php');
 require_once('/php/tutorial/dice.php');
 require_once('/php/tutorial/primenumber.php');
-require_once('/php/sql/sqlcommonphrase.php');
+require_once('/php/sql/sqlkeystring.php');
 require_once('/php/ui/editinputform.php');
 require_once('/php/ui/table.php');
 
@@ -23,23 +23,22 @@ function HexView($strInput)
 
 function _getCommonPhraseString($strInput, $strMemberId, $bChinese)
 {
-	$sql = new CommonPhraseSql($strMemberId);
+	$sql = new CommonPhraseSql();
 	if (empty($strInput) == false)
 	{
-		if ($sql->GetRecord($strInput) == false)
+		if ($sql->InsertString($strMemberId, $strInput))
 		{
-			$sql->Insert($strInput);
 			trigger_error(ACCOUNT_TOOL_PHRASE_CN.' -- '.$strInput);
 		}
 	}
 	
 	$strConfirm = $bChinese ? '确认删除' : 'Confirm Delete';
 	$str = '';
-	if ($result = $sql->GetAll()) 
+	if ($result = $sql->GetAll($strMemberId)) 
 	{
 		while ($record = mysql_fetch_assoc($result)) 
 		{
-			$strVal = $record['val'];
+			$strVal = $record['str'];
 		    $str .= GetOnClickLink('/account/php/_submitcommonphrase.php?delete='.$record['id'], $strConfirm.': '.$strVal.'?', $strVal).'<br />';
 		}
 		@mysql_free_result($result);

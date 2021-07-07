@@ -131,13 +131,13 @@ function _transEchoMergeParagraph($arTrans)
 	if (count($arMerge) > 0)		_echoMergeParagraph($arMerge);
 }
 
-function _echoPortfolio($portfolio, $sql)
+function _echoPortfolio($portfolio, $sql, $strMemberId)
 {
 	$arTransA = array();
 	$arTransH = array();
 	$arTransUS = array();
 
-	if ($result = $sql->GetAll()) 
+	if ($result = $sql->GetAll($strMemberId)) 
 	{
 		while ($record = mysql_fetch_assoc($result)) 
 		{
@@ -168,10 +168,10 @@ function _echoPortfolio($portfolio, $sql)
     _transEchoMergeParagraph($arTrans);
 }
 
-function _onPrefetch($sql) 
+function _onPrefetch($sql, $strMemberId) 
 {
     $arSymbol = array();
-	if ($result = $sql->GetAll()) 
+	if ($result = $sql->GetAll($strMemberId)) 
 	{
 		while ($record = mysql_fetch_assoc($result)) 
 		{
@@ -187,11 +187,12 @@ function EchoAll()
 {
 	global $acct;
 	
+	$strMemberId = $acct->GetMemberId();
 	$sql = $acct->GetGroupSql();
-    _onPrefetch($sql);
+    _onPrefetch($sql, $strMemberId);
 
     $portfolio = new _MyPortfolio();
-    _echoPortfolio($portfolio, $sql);
+    _echoPortfolio($portfolio, $sql, $strMemberId);
     
     $portfolio->arStockGroup[] = $portfolio; 
     $acct->EchoMoneyParagraphs($portfolio->arStockGroup, new CnyReference('USCNY'), new CnyReference('HKCNY'));
@@ -208,7 +209,9 @@ function EchoTitle()
 
 function EchoMetaDescription()
 {
-    $str = '证券投资组合汇总页面. 根据用户输入的交易详情汇总信息, 显示包括单个股票的盈亏情况, 分组投资盈亏情况以及总体盈亏情况等内容. 用来跟踪和记录自己的长期投资表现.';
+	global $acct;
+	
+    $str = $acct->GetWhoseDisplay().MY_PORTFOLIO_DISPLAY.'页面. 根据用户输入的交易详情汇总证券投资组合信息, 显示包括单个股票的盈亏情况, 分组投资盈亏情况以及总体盈亏情况等内容. 用来跟踪和记录长期投资表现.';
     EchoMetaDescriptionText($str);
 }
 

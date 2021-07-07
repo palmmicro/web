@@ -5,6 +5,7 @@ require_once('stock.php');
 
 require_once('sql/sqlblog.php');
 require_once('sql/sqlvisitor.php');
+//require_once('sql/sqlkeystring.php');
 
 define('DEBUG_UTF8_BOM', "\xef\xbb\xbf");
 
@@ -63,5 +64,7 @@ function TestCmdLine()
 	DebugClearPath('csv');
 	DebugClearPath('image');
 
+//	$sql = new CommonPhraseSql();
+	
 	phpinfo();
 ?>

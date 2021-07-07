@@ -63,7 +63,7 @@ function _echoMyStockTransactions($acct, $ref)
     $arGroup = array();
     $strStockId = $ref->GetStockId();
     $sql = $acct->GetGroupSql();
-	if ($result = $sql->GetAll()) 
+	if ($result = $sql->GetAll($strMemberId)) 
 	{
 		while ($record = mysql_fetch_assoc($result)) 
 		{

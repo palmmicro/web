@@ -10,7 +10,7 @@ class DailyTimeSql extends DailyCloseSql
 
     public function Create()
     {
-        return $this->CreateDailyKeyTable($this->ComposeCloseStr().','.$this->ComposeTimeStr());
+        return $this->CreateDailyCloseTable($this->ComposeCloseStr().','.$this->ComposeTimeStr());
     }
 
     public function InsertDaily($strKeyId, $strDate, $strClose)

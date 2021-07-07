@@ -1,6 +1,4 @@
 <?php
-require_once('/php/sql/sqlcommonphrase.php');
-
 define('STOCK_TRANSACTION_NEW', '新增股票交易');
 define('STOCK_TRANSACTION_EDIT', '修改股票交易');
 
@@ -56,14 +54,13 @@ function _getPriceOptionJsArray($arPrice)
 
 function _getGroupCommonPhrase($acct, $strGroupId)
 {
-    $strMemberId = $acct->GetGroupMemberId($strGroupId);
-   	$sql = new CommonPhraseSql($strMemberId);
     $ar = array();
-	if ($result = $sql->GetAll()) 
+   	$sql = new CommonPhraseSql();
+	if ($result = $sql->GetAll($acct->GetGroupMemberId($strGroupId))) 
 	{
 		while ($record = mysql_fetch_assoc($result)) 
 		{
-			$ar[$record['id']] = $record['val'];
+			$ar[$record['id']] = $record['str'];
 		}
 		@mysql_free_result($result);
 	}

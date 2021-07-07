@@ -18,7 +18,7 @@ class DailyCloseSql extends KeySql
 		return ' `close` DOUBLE(13,6) NOT NULL ';
     }
     
-    function CreateDailyKeyTable($str)
+    function CreateDailyCloseTable($str)
     {
     	$str = $this->ComposeKeyStr().','
     		  . $this->ComposeDateStr().','
@@ -30,7 +30,7 @@ class DailyCloseSql extends KeySql
     
     public function Create()
     {
-        return $this->CreateDailyKeyTable($this->ComposeCloseStr());
+        return $this->CreateDailyCloseTable($this->ComposeCloseStr());
     }
 
     public function BuildOrderBy()
@@ -52,12 +52,13 @@ class DailyCloseSql extends KeySql
     {
     	return $this->GetSingleData($this->BuildWhere_key($strKeyId)." AND date < '$strDate'", $this->BuildOrderBy());
     }
-
+    
     function BuildWhere_key_date($strKeyId, $strDate)
     {
-    	$ar = $this->MakeFieldKeyId($strKeyId);
+/*    	$ar = $this->MakeFieldKeyId($strKeyId);
     	$ar['date'] = $strDate;
-		return _SqlBuildWhereAndArray($ar);
+		return _SqlBuildWhereAndArray($ar);*/
+		return $this->BuildWhere_key_ex($strKeyId, 'date', $strDate);
     }
     
     function GetRecord($strKeyId, $strDate)
@@ -167,7 +168,7 @@ class DailyCloseSql extends KeySql
     {
     	if ($strWhere = $this->BuildWhere_key_date($strKeyId, $strDate))
     	{
-    		return $this->DeleteRecord($strWhere);
+    		return $this->DeleteData($strWhere);
     	}
     	return false;
     }

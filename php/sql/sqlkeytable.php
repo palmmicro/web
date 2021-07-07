@@ -82,7 +82,7 @@ class KeyTableSql extends TableSql
     {
     	if ($this->strKeyId !== false)
     	{
-    		return $this->DeleteRecord($this->BuildWhere_key());
+    		return $this->DeleteData($this->BuildWhere_key());
     	}
     	return false;
     }

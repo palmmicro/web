@@ -7,7 +7,6 @@ require_once('ui/table.php');
 
 //require_once('sql/sqlmember.php');
 //require_once('sql/sqlblog.php');
-//require_once('sql/sqlvisitor.php');
 require_once('sql/sqlipaddress.php');
 require_once('sql/sqlstocksymbol.php');
 require_once('sql/sqlstockgroup.php');

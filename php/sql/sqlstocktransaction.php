@@ -54,7 +54,7 @@ class StockTransactionSql extends TableSql
     {
     	if ($strWhere = $this->_buildWhere_groupitem($strGroupItemId))
     	{
-    		$this->DeleteRecord($strWhere);
+    		$this->DeleteData($strWhere);
     	}
     }
 

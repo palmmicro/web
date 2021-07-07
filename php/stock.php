@@ -512,13 +512,13 @@ function StockGetHShareReference($sym)
     return false;
 }
 
-function StockIsNewFile($strFileName, $iDays = false)
+function StockIsNewFile($strFileName, $iHours = false)
 {
 	clearstatcache(true, $strFileName);
     if (file_exists($strFileName))
     {
     	$now_ymd = new NowYMD();
-        if ($now_ymd->IsNewFile($strFileName, $iDays))		return true;
+        if ($now_ymd->IsNewFile($strFileName, $iHours))		return true;
     }
     return false;
 }

@@ -33,7 +33,7 @@ class KeyPairSql extends KeyTableSql
 
     function Delete($strPairId)
     {
-    	return $this->DeleteRecord(_SqlBuildWhere($this->strKey, $strPairId));
+    	return $this->DeleteData(_SqlBuildWhere($this->strKey, $strPairId));
     }
 }
 

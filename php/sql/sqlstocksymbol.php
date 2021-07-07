@@ -35,7 +35,7 @@ class StockHistorySql extends DailyCloseSql
          	  . ' `close` DOUBLE(10,3) NOT NULL ,'
          	  . ' `volume` BIGINT UNSIGNED NOT NULL ,'
          	  . ' `adjclose` DOUBLE(13,6) NOT NULL';
-        return $this->CreateDailyKeyTable($str);
+        return $this->CreateDailyCloseTable($str);
     }
 
     function WriteHistory($strStockId, $strDate, $strClose, $strOpen = '', $strHigh = '', $strLow = '', $strVolume = '', $strAdjClose = false)
@@ -89,7 +89,7 @@ class StockHistorySql extends DailyCloseSql
 
     function DeleteByZeroVolume($strStockId)
     {
-    	return $this->DeleteRecord("volume = '0' AND ".$this->BuildWhere_key($strStockId));
+    	return $this->DeleteData("volume = '0' AND ".$this->BuildWhere_key($strStockId));
     }
 
     function GetVolume($strStockId, $strDate)

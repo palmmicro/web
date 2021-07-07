@@ -243,7 +243,7 @@ function _yahooNetValueHasFile($now_ymd, $strFileName, $strNetValueSymbol)
     {
         $str = file_get_contents($strFileName);
         $arMatch = _preg_match_yahoo_stock($str);
-        if ($now_ymd->IsNewFile($strFileName))														return $arMatch;   		// update on every minute
+        if ($now_ymd->IsNewFile($strFileName, 1))														return $arMatch;   		// update on every hour
         
         if ($arMatch)
         {
@@ -508,7 +508,7 @@ function YahooUpdateFinancials($ref)
 {
 	$ref->SetTimeZone();
 	$strFileName = DebugGetSymbolFile('yahoofinancials', $ref->GetSymbol());
-	if (StockIsNewFile($strFileName, 90))	return false;   		// update on 90 days
+	if (StockIsNewFile($strFileName, 90 * HOURS_IN_DAY))		return false;   		// update on 90 days
 	
    	$strUrl = YahooStockGetUrl($ref->GetYahooSymbol()).'/financials';
     if ($str = url_get_contents($strUrl))

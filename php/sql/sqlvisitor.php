@@ -88,7 +88,7 @@ class VisitorSql extends KeySql
     {
     	if ($strSrcId)
     	{
-    		return $this->DeleteRecord($this->BuildWhereBySrc($strSrcId));
+    		return $this->DeleteData($this->BuildWhereBySrc($strSrcId));
     	}
     	return false;
     }
