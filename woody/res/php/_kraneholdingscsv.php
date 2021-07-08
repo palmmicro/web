@@ -47,15 +47,15 @@ class _KraneHoldingsCsvFile extends CsvFile
    			$this->sql->InsertSymbol($strHolding, $strName);
     		$strId = $this->sql->GetId($strHolding);
     		
-    		if ($this->his_sql->GetRecord($strId, $this->strDate) == false)
+    		if ($this->his_sql->GetRecord($strId, $this->strDate) === false)
     		{
+    			DebugString($strHolding.' missing data on '.$this->strDate);
     			$strShares = str_replace(',', '', $arWord[5]);
     			$strValue = str_replace(',', '', $arWord[6]);
     			$fClose = floatval($strValue) / floatval($strShares);
     			if ($bHk)	$fClose *= $this->fUSDHKD; 
-    			$strClose = strval($fClose);
-    			$this->his_sql->WriteHistory($strId, $this->strDate, $strClose);
-    			DebugString('WriteHistory '.$strHolding.' '.$strClose.' '.$strShares.' '.$strValue);
+    			$strClose = strval_round($fClose, 3);
+    			if ($this->his_sql->WriteHistory($strId, $this->strDate, $strClose))		DebugString('WriteHistory '.$strHolding.' '.$strClose.' '.$strShares.' '.$strValue);
     		}
     		
     		$this->holdings_sql->InsertHolding($this->strStockId, $strId, $arWord[2]);
@@ -68,7 +68,7 @@ function ReadKraneHoldingsCsvFile($strSymbol, $strStockId, $strDate)
 {
 	$arYMD = explode('-', $strDate);
 	$strUrl = GetKraneUrl().'/csv/'.$arYMD[1].'_'.$arYMD[2].'_'.$arYMD[0].'_'.strtolower($strSymbol).'_holdings.csv';
-	
+
 	$str = url_get_contents($strUrl);
 	if ($str == false)
 	{
@@ -78,6 +78,7 @@ function ReadKraneHoldingsCsvFile($strSymbol, $strStockId, $strDate)
 		
 	$strPathName = DebugGetPathName('Holdings_'.$strSymbol.'.csv');
 	file_put_contents($strPathName, $str);
+	DebugString('Saved '.$strUrl.' to '.$strPathName);
 
 	$csv = new _KraneHoldingsCsvFile($strPathName, $strStockId, $strDate);
    	$csv->Read();

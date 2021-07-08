@@ -175,16 +175,16 @@ class FundReference extends MysqlReference
     {
 		if ($this->IsLofA())
 		{
-/*			switch ($this->GetSymbol())
+			switch ($this->GetSymbol())
 			{
-			case 'SZ162411':
-				$fRatio = 0.95;
+			case 'SZ164906':
+				$fRatio = 0.9;
 				break;
 
-			default:*/
+			default:
 				$fRatio = LOF_POSITION_RATIO;
-//				break;
-//			}
+				break;
+			}
     	}
 		else
 		{

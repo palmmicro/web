@@ -18,7 +18,11 @@ function _GetForexAndFutureArray($strSymbol, $strFileName, $strTimeZone, $callba
     {
         $str = call_user_func($callback, $strSymbol);
         if ($str)   file_put_contents($strFileName, $str);
-        else         $str = file_exists($strFileName) ? file_get_contents($strFileName) : '';
+        else
+        {
+        	clearstatcache();
+        	$str = file_exists($strFileName) ? file_get_contents($strFileName) : '';
+        }
     }
     else
     {
@@ -36,6 +40,8 @@ function _getSinaQuotesStr($strSinaSymbol, $strFileName)
       	file_put_contents($strFileName, $str);
       	return $str;
     }
+
+    clearstatcache();
 	return file_exists($strFileName) ? file_get_contents($strFileName) : '';
 }
 

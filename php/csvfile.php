@@ -24,6 +24,7 @@ class CsvFile
     
     function HasFile()
     {
+    	clearstatcache();
     	return file_exists($this->strPathName);
     }
     

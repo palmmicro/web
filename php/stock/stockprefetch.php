@@ -25,8 +25,8 @@ function _GetFundQuotesYMD($str)
 
 function IsNewDailyQuotes($sym, $strFileName, $callback)
 {
-    clearstatcache(true, $strFileName);
     $sym->SetTimeZone();
+    clearstatcache(true, $strFileName);
     if (file_exists($strFileName))
     {
         $str = file_get_contents($strFileName);
@@ -58,8 +58,8 @@ function IsNewDailyQuotes($sym, $strFileName, $callback)
 
 function StockNeedNewQuotes($sym, $strFileName)
 {
-    clearstatcache(true, $strFileName);
     $sym->SetTimeZone();
+    clearstatcache(true, $strFileName);
     if (file_exists($strFileName))
     {
         $ymd = new NowYMD();
@@ -81,8 +81,8 @@ function StockNeedNewQuotes($sym, $strFileName)
 
 function ForexAndFutureNeedNewFile($strFileName, $strTimeZone)
 {
-    clearstatcache(true, $strFileName);
     date_default_timezone_set($strTimeZone);
+    clearstatcache(true, $strFileName);
     if (file_exists($strFileName))
     {
         $ymd = new NowYMD();

@@ -42,7 +42,6 @@ class StockAccount extends TitleAccount
 
     function GetGroupSql()
     {
-//    	DebugString('Trace GetGroupSql');
     	return $this->group_sql;
     }
     
@@ -74,10 +73,10 @@ class StockAccount extends TitleAccount
     	return '';
     }
     
-    function _getPersonalLinks()
+    function _getPersonalLinks($strLoginId)
     {
     	$str = ' - ';
-    	if ($result = $this->group_sql->GetAll($this->GetMemberId())) 
+    	if ($result = $this->group_sql->GetAll($strLoginId)) 
     	{
     		while ($record = mysql_fetch_assoc($result)) 
     		{
@@ -109,7 +108,7 @@ class StockAccount extends TitleAccount
     	$str .= '<br />'.GetMyPortfolioLink();
     	if ($strLoginId)
     	{
-    		$str .= $this->_getPersonalLinks();
+    		$str .= $this->_getPersonalLinks($strLoginId);
     		if ($this->IsAdmin())
     		{
     			$str .= '<br />'.GetPhpLink(STOCK_PATH.'admintest', false, '超级功能测试');

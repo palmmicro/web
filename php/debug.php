@@ -60,6 +60,7 @@ function filter_var_email($strEmail)
 
 function unlinkEmptyFile($strFileName)
 {
+	clearstatcache();
 	if (file_exists($strFileName))
 	{
 		if (!unlink($strFileName))

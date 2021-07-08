@@ -37,10 +37,13 @@ class  INIFile {
 	{
 		$this->INI_FILE_NAME = $inifilename;
 		if(!empty($inifilename))
+		{
+			clearstatcache();
 			if(!file_exists($inifilename)){
 				$this->Error("This file does not exist: $inifilename!");
 				return;
 			}
+		}
 		$this->parse($inifilename);
 	}
 

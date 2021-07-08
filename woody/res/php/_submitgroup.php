@@ -89,7 +89,7 @@ class _SubmitGroupAccount extends StockAccount
     	if ($this->IsAdmin() || ($this->IsGroupReadOnly($strGroupId) == false))
     	{
     		SqlDeleteStockGroupItemByGroupId($strGroupId);
-//    		SqlDeleteTableDataById(TABLE_STOCK_GROUP, $strGroupId);
+
 			$sql = $this->GetGroupSql();
 			$sql->DeleteById($strGroupId);
     	}

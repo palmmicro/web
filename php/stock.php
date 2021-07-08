@@ -124,6 +124,7 @@ function GetSinaQuotes($strSinaSymbols)
 	}
 	else
 	{
+		clearstatcache();
 		if (file_exists($strFileName))
 		{
 			if (time() - filemtime($strFileName) < 30)
