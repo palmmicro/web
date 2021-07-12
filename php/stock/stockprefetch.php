@@ -1,4 +1,5 @@
 <?php
+define('PREFETCH_INTERVAL', (SECONDS_IN_MIN - 10));
 
 function GetEastMoneyForexDateTime($ar)
 {
@@ -56,14 +57,14 @@ function IsNewDailyQuotes($sym, $strFileName, $callback)
     return false;
 }
 
-function StockNeedNewQuotes($sym, $strFileName)
+function StockNeedNewQuotes($sym, $strFileName, $iInterval = SECONDS_IN_MIN)
 {
     $sym->SetTimeZone();
     clearstatcache(true, $strFileName);
     if (file_exists($strFileName))
     {
         $ymd = new NowYMD();
-        if ($ymd->IsNewFile($strFileName))       return false;   // update on every minute
+        if ($ymd->IsNewFile($strFileName, $iInterval))       return false;   // update on every minute
  
         $iFileTime = filemtime($strFileName);
 		$iCurTime = $ymd->GetTick();
@@ -79,14 +80,14 @@ function StockNeedNewQuotes($sym, $strFileName)
     return true;
 }
 
-function ForexAndFutureNeedNewFile($strFileName, $strTimeZone)
+function ForexAndFutureNeedNewFile($strFileName, $strTimeZone, $iInterval = SECONDS_IN_MIN)
 {
     date_default_timezone_set($strTimeZone);
     clearstatcache(true, $strFileName);
     if (file_exists($strFileName))
     {
         $ymd = new NowYMD();
-        if ($ymd->IsNewFile($strFileName))       return false;   // update on every minute
+        if ($ymd->IsNewFile($strFileName, $iInterval))       return false;   // update on every minute
         
         $file_ymd = new TickYMD(filemtime($strFileName));
         if ($file_ymd->IsWeekDay())    return true;
@@ -123,11 +124,11 @@ function _prefetchSinaData($arSym)
         }
         else if ($sym->IsSinaFuture() || $sym->IsSinaForex())
         {   // forex and future
-            if (ForexAndFutureNeedNewFile($strFileName, ForexAndFutureGetTimezone()) == false)    continue;
+            if (ForexAndFutureNeedNewFile($strFileName, ForexAndFutureGetTimezone(), PREFETCH_INTERVAL) == false)    continue;
         }
         else
         {   // Stock symbol
-            if (StockNeedNewQuotes($sym, $strFileName) == false)  continue;
+            if (StockNeedNewQuotes($sym, $strFileName, PREFETCH_INTERVAL) == false)  continue;
         }
         $arFileName[] = $strFileName; 
         $strSymbols .= $str.',';

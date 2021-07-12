@@ -124,7 +124,7 @@ function EchoFundArrayEstParagraph($arRef, $str = '')
 
 function EchoFundEstParagraph($ref, $str = false)
 {
-    if ($str == false)	$str = _getFundParagraphStr($ref);
+    if ($str === false)	$str = _getFundParagraphStr($ref);
     EchoFundArrayEstParagraph(array($ref), $str);
 }
 

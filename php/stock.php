@@ -12,6 +12,7 @@ require_once('sql/sqlstock.php');
 
 require_once('stock/stocksymbol.php');
 require_once('stock/chinamoney.php');
+//require_once('stock/csindex.php');		// 中证指数有限公司
 require_once('stock/szse.php');			// Shenzhen Stock Exchange
 require_once('stock/yahoostock.php');
 require_once('stock/sinastock.php');
@@ -120,7 +121,7 @@ function GetSinaQuotes($strSinaSymbols)
 	$strFileName = DebugGetPathName('debugsina.txt');
 	if (DebugIsAdmin())
 	{
-//		DebugString('Prefetch: '.$strSinaSymbols);
+		DebugString('Prefetch: '.$strSinaSymbols);
 	}
 	else
 	{
@@ -387,7 +388,12 @@ function _getAllSymbolArray($strSymbol, $strStockId)
 	$ar = SqlGetHoldingsSymbolArray($strSymbol);
 	if ($ar == false)		$ar = array();
 	
-    if ($strPairSymbol = SqlGetEtfPair($strSymbol))			$ar[] = $strPairSymbol;
+    if ($strPairSymbol = SqlGetEtfPair($strSymbol))
+    {
+    	$ar[] = $strPairSymbol;
+    	if ($strPairSymbol == 'KWEB')	$ar = array_merge($ar, SqlGetHoldingsSymbolArray('KWEB'));
+    }
+    
     if ($sym->IsSymbolA())
     {
     	$ab_sql = new AbPairSql();
@@ -513,13 +519,13 @@ function StockGetHShareReference($sym)
     return false;
 }
 
-function StockIsNewFile($strFileName, $iHours = false)
+function StockIsNewFile($strFileName, $iInterval = SECONDS_IN_MIN)
 {
 	clearstatcache(true, $strFileName);
     if (file_exists($strFileName))
     {
     	$now_ymd = new NowYMD();
-        if ($now_ymd->IsNewFile($strFileName, $iHours))		return true;
+        if ($now_ymd->IsNewFile($strFileName, $iInterval))	return true;
     }
     return false;
 }

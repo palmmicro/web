@@ -149,6 +149,13 @@ function GetInvescoOfficialLink($strSymbol)
 	return GetOfficialLink($str, $strSymbol);
 }
 
+// https://www.direxion.com/product/daily-csi-china-internet-index-bull-2x-etf
+function GetCwebOfficialLink()
+{
+	$str = 'https://www.direxion.com/product/daily-csi-china-internet-index-bull-2x-etf';
+	return GetOfficialLink($str, 'CWEB');
+}
+
 function GetKraneOfficialLink($strSymbol)
 {
 	$str = GetKraneUrl().strtolower($strSymbol).'/';
@@ -157,7 +164,7 @@ function GetKraneOfficialLink($strSymbol)
 
 function GetCsindexOfficialLink($strSymbol)
 {
-	$str = 'http://www.csindex.com.cn/zh-CN/indices/index-detail/'.$strSymbol;
+	$str = GetCsindexUrl($strSymbol);
 	return GetOfficialLink($str, $strSymbol);
 }
 

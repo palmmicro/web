@@ -61,7 +61,7 @@ function RegExpStockSymbol($strSymbol)
 	return $strSymbol;
 }
 
-function RegExpDebug($arMatch, $strSrc, $iMin)
+function RegExpDebug($arMatch, $strSrc = '', $iMin = 0)
 {
 	$iCount = count($arMatch);
     if ($iCount > $iMin)

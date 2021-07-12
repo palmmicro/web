@@ -132,9 +132,14 @@ function GetYinHuaFundUrl()
 	return 'http://www.yhfund.com.cn';
 }
 
+// http://www.csindex.com.cn/zh-CN/indices/index-detail/H11136
+// http://www.csindex.com.cn/uploads/file/autofile/closeweight/H11136closeweight.xls?t=1625908087
+function GetCsindexUrl($strSymbol)
+{
+	return 'http://www.csindex.com.cn/zh-CN/indices/index-detail/'.$strSymbol;
+}
+
 // https://kraneshares.com/kweb/
-// https://kraneshares.com/csv/1_25_2021_kweb_holdings.csv
-// https://kraneshares.com/csv/05_19_2021_kweb_holdings.csv
 // https://kraneshares.com/csv/06_22_2021_kweb_holdings.csv
 function GetKraneUrl()
 {

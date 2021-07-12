@@ -5,6 +5,7 @@ function GetQdiiRelated($sym)
 {
 	$str = GetJiaoYinSchroderOfficialLink($sym->GetDigitA());
 	$str .= ' '.GetKraneOfficialLink('KWEB');
+	$str .= ' '.GetCwebOfficialLink();
 	$str .= ' '.GetCsindexOfficialLink('H11136');
 	$str .= ' '.GetQdiiLinks($sym);
 	$str .= GetQqqSoftwareLinks();

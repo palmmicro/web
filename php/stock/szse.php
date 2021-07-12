@@ -109,7 +109,7 @@ function SzseGetLofShares($ref)
 
     date_default_timezone_set(STOCK_TIME_ZONE_CN);
 	$strFileName = DebugGetSymbolFile('szse', $ref->GetSymbol());
-	if (StockIsNewFile($strFileName, 1))		return;   		// update on every hour
+	if (StockIsNewFile($strFileName, SECONDS_IN_HOUR))		return;   		// update on every hour
 
 	$strUrl = GetSzseUrl().'api/report/ShowReport/data?SHOWTYPE=JSON&CATALOGID=1945_LOF&txtQueryKeyAndJC='.$ref->GetDigitA();
    	if ($str = url_get_contents($strUrl))

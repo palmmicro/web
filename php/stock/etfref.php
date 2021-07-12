@@ -151,15 +151,11 @@ class EtfReference extends MyPairReference
 		else*/ if ($sym->IsEtf())
 		{
         	$this->pair_nav_ref = new NetValueReference($strSymbol);
-			$this->pair_ref = new MyPairReference($strSymbol);
+        	if (($this->pair_ref = StockGetEtfHoldingsReference($strSymbol)) === false)	$this->pair_ref = new MyStockReference($strSymbol);
 		}
 		else
 		{
 			$this->pair_nav_ref = new MyStockReference($strSymbol);	// index
-			if ($this->pair_nav_ref->HasData() == false)
-			{
-				$this->pair_nav_ref = new NetValueReference($strSymbol);
-			}
 			$this->pair_ref = $this->pair_nav_ref;
 		}
 		return true;
@@ -368,6 +364,8 @@ class EtfReference extends MyPairReference
     
     function GetOfficialNav()
     {
+		if (method_exists($this->pair_ref, 'GetOfficialNav'))	return $this->EstFromPair($this->pair_ref->GetOfficialNav());	
+		
         $this->strOfficialDate = $this->pair_ref->GetDate();
         if ($this->cny_ref)
         {
@@ -391,6 +389,10 @@ class EtfReference extends MyPairReference
 
     function GetFairNav()
     {
+		if (method_exists($this->pair_ref, 'GetFairNav'))
+		{
+			if ($strEst = $this->pair_ref->GetFairNav())	return $this->EstFromPair($strEst);
+		}
     	return false;
     }
 }

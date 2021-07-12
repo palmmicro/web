@@ -53,7 +53,8 @@ function url_get_contents($strUrl, $strCookie = false)
     $ch = curl_init();  
     $timeout = 2;  
     curl_setopt($ch, CURLOPT_URL, $strUrl);  
-    if ($strCookie)
+//    curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 6.1; rv:19.0) Gecko/20100101 Firefox/19.0");
+	if ($strCookie)
     {
     	curl_setopt($ch, CURLOPT_COOKIE, $strCookie);  
     }

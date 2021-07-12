@@ -164,6 +164,7 @@ function _echoMyStockData($acct, $ref)
    	}
    	else if ($etf_ref)
    	{
+		EchoFundEstParagraph($etf_ref, '');
    		EchoEtfListParagraph(array($etf_ref));
    		EchoEtfTradingParagraph($etf_ref);
    		EchoEtfHistoryParagraph($etf_ref);
