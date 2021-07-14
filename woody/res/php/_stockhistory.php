@@ -10,7 +10,7 @@ function _getStockHistoryLinks($ref, $bAdmin)
 	$strLinks = '';
     if ($ref->IsFundA())
     {
-    	$strLinks .= ' '.GetNetValueHistoryLink($strSymbol).' '.GetFundHistoryLink($strSymbol);
+    	$strLinks .= ' '.GetFundLinks($strSymbol);
     }
     $strLinks .= ' '.GetExternalStockHistoryLink($ref);
     if ($ref->IsTradable())

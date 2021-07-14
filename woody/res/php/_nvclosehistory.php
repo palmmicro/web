@@ -43,7 +43,7 @@ function EchoAll()
         if ($ref->HasData())
     	{
     		$strSymbol = $ref->GetSymbol();
-    		$strLinks = GetStockHistoryLink($strSymbol);
+    		$strLinks = GetFundLinks($strSymbol);
     		$strLinks .= ' '.GetEtfNavLink($strSymbol);
     		if ($bAdmin = $acct->IsAdmin())
     		{

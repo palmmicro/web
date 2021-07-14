@@ -28,7 +28,7 @@ function _echoNvCloseItem($csv, $his_sql, $shares_sql, $strDate, $strNetValue, $
     {
     	$ar[] = rtrim0($strShares);
     	$fVolume = floatval($his_sql->GetVolume($strStockId, $strDate));
-    	$ar[] = strval_round(100.0 * $fVolume / (floatval($strShares * 10000.0)));
+    	$ar[] = strval_round(100.0 * $fVolume / (floatval($strShares) * 10000.0), 2);
     }
     
     EchoTableColumn($ar);
@@ -84,8 +84,8 @@ function EchoNvCloseHistoryParagraph($ref, $str = false, $csv = false, $iStart =
 								   new TableColumnNetValue(),
 								   new TableColumnPremium('y'),
 								   new TableColumnChange('x'),
-								   new TableColumn('流通股数(万)', 100),
-								   new TableColumnPercentage('换手')
+								   new TableColumnShare(),
+								   new TableColumnTradingPercentage()
 								   ), $strSymbol.NVCLOSE_HISTORY_PAGE, $str);
 
     _echoNvCloseData($nav_sql, $ref, $strStockId, $csv, $iStart, $iNum, $bAdmin);

@@ -123,9 +123,9 @@ function _echoFundAccountData($csv, $ref, $strSymbol, $strStockId, $his_sql, $na
 function _getFundAccountTableColumnArray()
 {
 	return array(new TableColumnDate(),
-				   new TableColumn(STOCK_OPTION_SHARES_DIFF, 110),
-				   new TableColumn('y申购账户', 90),
-				   new TableColumnDate('场内申购'),
+				   new TableColumn(STOCK_OPTION_SHARE_DIFF, 110),
+				   new TableColumn('y'.STOCK_DISP_ORDER.'账户', 90),
+				   new TableColumnDate(STOCK_DISP_ORDER),
 				   new TableColumnClose(),
 				   new TableColumnNetValue(),
 				   new TableColumnPremium('x')
@@ -137,7 +137,7 @@ function _echoFundAccountParagraph($csv, $ref, $strSymbol, $strStockId, $his_sql
  	$str = GetFundLinks($strSymbol);
 	if ($bAdmin)
 	{
-		$str .= ' '.GetStockOptionLink(STOCK_OPTION_SHARES_DIFF, $strSymbol);
+		$str .= ' '.GetStockOptionLink(STOCK_OPTION_SHARE_DIFF, $strSymbol);
 	}
 	
 	EchoTableParagraphBegin(_getFundAccountTableColumnArray(), FUND_ACCOUNT_PAGE, $str);
@@ -210,7 +210,7 @@ function _echoLinearRegressionGraph($csv, $ref, $strSymbol, $strStockId, $his_sq
     {
     	$str = $csv->GetLink();
     	$str .= '<br />'.$jpg->GetAllLinks();
-    	$str .= '<br />下一交易日'.STOCK_OPTION_SHARES_DIFF.'预测';
+    	$str .= '<br />下一交易日'.STOCK_OPTION_SHARE_DIFF.'预测';
 
     	EchoTableParagraphBegin(_getFundAccountTableColumnArray(), 'predict'.FUND_ACCOUNT_PAGE, $str);
     	_echoFundAccountPredictData($ref, $strSymbol, $strStockId, $his_sql, $nav_sql, $jpg);

@@ -150,11 +150,11 @@ function GetInvescoOfficialLink($strSymbol)
 }
 
 // https://www.direxion.com/product/daily-csi-china-internet-index-bull-2x-etf
-function GetCwebOfficialLink()
+/*function GetCwebOfficialLink()
 {
 	$str = 'https://www.direxion.com/product/daily-csi-china-internet-index-bull-2x-etf';
 	return GetOfficialLink($str, 'CWEB');
-}
+}*/
 
 function GetKraneOfficialLink($strSymbol)
 {

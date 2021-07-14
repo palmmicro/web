@@ -77,8 +77,7 @@ function _echoNetValueData($csv, $nav_sql, $strStockId, $ref, $est_ref, $cny_ref
 function _echoNetValueHistory($ref, $iStart, $iNum)
 {
 	$strSymbol = $ref->GetSymbol();
-    $str = GetFundHistoryLink($strSymbol);
-    $str .= ' '.GetStockHistoryLink($strSymbol);
+    $str = GetFundLinks($strSymbol);
     if (in_arrayQdii($strSymbol))
     {
     	$str .= ' '.GetQdiiAnalysisLinks($strSymbol);

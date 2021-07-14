@@ -68,7 +68,7 @@ class TableColumnHolding extends TableColumn
 {
 	function TableColumnHolding($strPrefix = false)
 	{
-        parent::TableColumn(STOCK_DISP_HOLDING, 120, false, $strPrefix);
+        parent::TableColumn('持仓', 120, false, $strPrefix);
 	}
 }
 
@@ -99,6 +99,14 @@ class TableColumnPercentage extends TableColumn
 	function TableColumnPercentage($strPrefix = false, $iWidth = 100)
 	{
         parent::TableColumn('比例(%)', $iWidth, 'green', $strPrefix);
+	}
+}
+
+class TableColumnTradingPercentage extends TableColumnPercentage
+{
+	function TableColumnTradingPercentage()
+	{
+        parent::TableColumnPercentage('换手');
 	}
 }
 
@@ -142,7 +150,15 @@ class TableColumnProfit extends TableColumn
 {
 	function TableColumnProfit($strPrefix = false)
 	{
-        parent::TableColumn(STOCK_DISP_PROFIT, 120, false, $strPrefix);
+        parent::TableColumn('盈亏', 120, false, $strPrefix);
+	}
+}
+
+class TableColumnQuantity extends TableColumn
+{
+	function TableColumnQuantity($strPrefix = false)
+	{
+        parent::TableColumn(STOCK_DISP_QUANTITY, 100, false, $strPrefix);
 	}
 }
 
@@ -167,6 +183,22 @@ class TableColumnHaRatio extends TableColumnRatio
 	function TableColumnHaRatio()
 	{
         parent::TableColumnRatio('HA');
+	}
+}
+
+class TableColumnShare extends TableColumn
+{
+	function TableColumnShare()
+	{
+        parent::TableColumn('场内份额(万股)', 110);
+	}
+}
+
+class TableColumnShareDiff extends TableColumn
+{
+	function TableColumnShareDiff()
+	{
+        parent::TableColumn(STOCK_OPTION_SHARE_DIFF, 110);
 	}
 }
 

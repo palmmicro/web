@@ -335,7 +335,7 @@ function _updateStockOptionSplit($ref, $strSymbol, $strStockId, $his_sql, $strDa
 			}
 			break;
 			
-		case STOCK_OPTION_SHARES_DIFF:
+		case STOCK_OPTION_SHARE_DIFF:
 			if ($bAdmin)	_updateOptionDailySql(new SharesDiffSql(), $strStockId, $strDate, $strVal);
 			break;
 			

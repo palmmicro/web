@@ -40,14 +40,15 @@ function _echoPortfolioTableItem($trans)
 
 function EchoPortfolioParagraph($arTrans)
 {
+	$profit_col = new TableColumnProfit();
 	EchoTableParagraphBegin(array(new TableColumnSymbol(),
-								   new TableColumnProfit(),
+								   $profit_col,
 								   new TableColumnHolding(),
 								   new TableColumnTotalShares(),
 								   new TableColumnPrice('平均'),
 								   new TableColumnChange(),
 //								   new TableColumnTest()
-								   ), MY_PORTFOLIO_PAGE, '个股'.STOCK_DISP_PROFIT);
+								   ), MY_PORTFOLIO_PAGE, '个股'.$profit_col->GetDisplay());
 
 	foreach ($arTrans as $trans)
 	{

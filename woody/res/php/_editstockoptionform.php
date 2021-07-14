@@ -10,7 +10,7 @@ function _getStockOptionDate($strSubmit, $ref)
 	{
 	case STOCK_OPTION_ADJCLOSE:
 	case STOCK_OPTION_EMA:
-	case STOCK_OPTION_SHARES_DIFF:
+	case STOCK_OPTION_SHARE_DIFF:
 	case STOCK_OPTION_SPLIT:
 		if ($strDate = $his_sql->GetDateNow($strStockId))
 		{
@@ -180,7 +180,7 @@ function _getStockOptionVal($strSubmit, $strLoginId, $ref, $strSymbol, $strDate)
 	case STOCK_OPTION_NETVALUE:
 		return SqlGetNavByDate($strStockId, $strDate);
 
-	case STOCK_OPTION_SHARES_DIFF:
+	case STOCK_OPTION_SHARE_DIFF:
 		return _getStockOptionSharesDiff($strStockId, $strDate);
 
 	case STOCK_OPTION_SPLIT:
@@ -212,7 +212,7 @@ function _getStockOptionMemo($strSubmit)
 		return '清空输入删除对应A股.';
 
 	case STOCK_OPTION_NETVALUE:
-	case STOCK_OPTION_SHARES_DIFF:
+	case STOCK_OPTION_SHARE_DIFF:
 		return '清空输入删除对应日期净值.';
 
 	case STOCK_OPTION_SPLIT:

@@ -85,7 +85,7 @@ function GetNetValueHistoryLink($strSymbol, $strExtraQuery = false, $strExtraDis
 
 function GetFundLinks($strSymbol = FUND_DEMO_SYMBOL)
 {
-	return GetFundHistoryLink($strSymbol).' '.GetNetValueHistoryLink($strSymbol).' '.GetStockHistoryLink($strSymbol);
+	return GetFundHistoryLink($strSymbol).' '.GetNetValueHistoryLink($strSymbol).' '.GetStockHistoryLink($strSymbol).' '.GetFundShareLink($strSymbol);
 }
 
 define('NVCLOSE_HISTORY_DISPLAY', '净值和收盘价历史比较');
@@ -109,7 +109,7 @@ function GetThanousParadoxLink($strSymbol = FUND_DEMO_SYMBOL)
     return GetStockSymbolLink(THANOUS_PARADOX_PAGE, $strSymbol, THANOUS_PARADOX_DISPLAY);
 }
 
-define('FUND_ACCOUNT_DISPLAY', '基金申购账户统计');
+define('FUND_ACCOUNT_DISPLAY', '基金场内申购账户统计');
 define('FUND_ACCOUNT_PAGE', 'fundaccount');
 function GetFundAccountLink($strSymbol = FUND_DEMO_SYMBOL)
 {
@@ -121,6 +121,13 @@ define('FUND_POSITION_PAGE', 'fundposition');
 function GetFundPositionLink($strSymbol = FUND_DEMO_SYMBOL)
 {
     return GetStockSymbolLink(FUND_POSITION_PAGE, $strSymbol, FUND_POSITION_DISPLAY);
+}
+
+define('FUND_SHARE_DISPLAY', '基金场内份额统计');
+define('FUND_SHARE_PAGE', 'fundshare');
+function GetFundShareLink($strSymbol = FUND_DEMO_SYMBOL)
+{
+    return GetStockSymbolLink(FUND_SHARE_PAGE, $strSymbol, FUND_SHARE_DISPLAY);
 }
 
 function GetQdiiAnalysisLinks($strSymbol)
@@ -138,7 +145,7 @@ define('STOCK_OPTION_EMA', '修改200/50天EMA');
 define('STOCK_OPTION_ETF', '修改ETF对应跟踪代码');
 define('STOCK_OPTION_HA', '修改H股对应A股代码');
 define('STOCK_OPTION_NETVALUE', '修改净值');
-define('STOCK_OPTION_SHARES_DIFF', '场内新增(万股)');
+define('STOCK_OPTION_SHARE_DIFF', '场内新增(万股)');
 define('STOCK_OPTION_SPLIT', '拆股或合股');
 function GetStockOptionArray()
 {
@@ -151,7 +158,7 @@ function GetStockOptionArray()
                   'editstocketf' => STOCK_OPTION_ETF,
                   'editstockha' => STOCK_OPTION_HA,
                   'editnetvalue' => STOCK_OPTION_NETVALUE,
-                  'editsharesdiff' => STOCK_OPTION_SHARES_DIFF,
+                  'editsharesdiff' => STOCK_OPTION_SHARE_DIFF,
                   'editstocksplit' => STOCK_OPTION_SPLIT,
                  );
 	return $ar;
@@ -171,7 +178,7 @@ function GetAutoTractorLink($strQuery = false)
     return GetStockTitleLink(AUTO_TRACTOR_PAGE, AUTO_TRACTOR_DISPLAY, $strQuery);
 }
 
-define('MY_PORTFOLIO_DISPLAY', STOCK_DISP_HOLDING.STOCK_DISP_PROFIT);
+define('MY_PORTFOLIO_DISPLAY', '持仓盈亏');
 define('MY_PORTFOLIO_PAGE', 'myportfolio');
 function GetMyPortfolioLink($strQuery = false)
 {

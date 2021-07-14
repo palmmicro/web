@@ -411,6 +411,11 @@
 <br /><font color=gray>A fox knows many things, but a hedgehog knows one big thing.</font>
 </p>
 
+<h3><?php EchoNameTag(FUND_SHARE_PAGE, FUND_SHARE_DISPLAY); ?></h3>
+<p>2021年7月14日
+<br /><?php echo GetFundShareLink(); ?>
+</p>
+
 </div>
 
 <?php _LayoutBottom(); ?>

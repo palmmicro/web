@@ -6,8 +6,7 @@ require_once('/php/ui/fundhistoryparagraph.php');
 
 function _echoFundHistory($strSymbol, $iStart, $iNum)
 {
-    $str = GetStockHistoryLink($strSymbol);
-   	$str .= ' '.GetNetValueHistoryLink($strSymbol);
+    $str = GetFundLinks($strSymbol);
     if (in_arrayQdii($strSymbol))
     {
     	$str .= ' '.GetQdiiAnalysisLinks($strSymbol);
