@@ -156,7 +156,8 @@ class DailyCloseSql extends KeySql
     function IsInvalidDate($record)
     {
 		$ymd = new OldestYMD();
-    	return $ymd->IsInvalid($record['date']);
+		$strDate = $record['date'];
+    	return $ymd->IsTooOld($strDate) || $ymd->IsInvalid($strDate);
     }
     
     function DeleteInvalidDate()

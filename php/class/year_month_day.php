@@ -185,12 +185,30 @@ class OldestYMD extends StringYMD
         parent::StringYMD('2014-01-01');
     }
     
+    function IsTooOld($strYMD)
+    {
+    	$ymd = new StringYMD($strYMD);
+    	if ($ymd->GetTick() < $this->GetTick())
+    	{
+    		DebugString('Date too old '.$strYMD);
+    		return true;
+    	}
+    	return false;
+    }
+    
     function IsInvalid($strYMD)
     {
     	$ymd = new StringYMD($strYMD);
-    	if ($ymd->IsWeekend())      					return true;
-    	if ($ymd->IsFuture())       					return true;
-    	if ($ymd->GetTick() < $this->GetTick())     return true;
+    	if ($ymd->IsWeekend())
+    	{
+    		DebugString('Weekend date '.$strYMD);
+    		return true;
+    	}
+    	if ($ymd->IsFuture())
+    	{
+    		DebugString('Future date '.$strYMD);
+    		return true;
+    	}
     	return false;
     }
 }

@@ -2,6 +2,15 @@
 require_once('_stock.php');
 require_once('_emptygroup.php');
 
+function GetDiffDisplay($fDiff)
+{
+	$strColor = ($fDiff > MIN_FLOAT_VAL) ? 'black' : 'red';
+	$strDisp = strval_round($fDiff, 2);
+	if ($strDisp == '0')		$strColor = 'gray';
+
+   	return "<font color=$strColor>$strDisp</font>";
+}
+
 function _echoFundShareItem($record, $strStockId, $his_sql, $shares_sql)
 {
 	$strDate = $record['date'];
@@ -14,10 +23,10 @@ function _echoFundShareItem($record, $strStockId, $his_sql, $shares_sql)
     	$strVolume = $his_sql->GetVolume($strStockId, $strDate);
     	$fVolume = floatval($strVolume);
     	
-		$ar[] = strval_round($fShareDiff, 2);
+		$ar[] = GetDiffDisplay($fShareDiff);
 		$ar[] = $strVolume;
     	$ar[] = strval_round(100.0 * $fVolume / (floatval($strShare) * 10000.0), 2);
-    	$ar[] = strval_round(100.0 * $fVolume / ($fShareDiff * 10000.0), 2);
+    	if (($fVolume > MIN_FLOAT_VAL) && ($fShareDiff > MIN_FLOAT_VAL))	$ar[] = strval_round(100.0 * $fVolume / ($fShareDiff * 10000.0), 2);
 	}
 	
 	EchoTableColumn($ar);

@@ -66,6 +66,12 @@ function TestCmdLine()
 	DebugClearPath('csv');
 	DebugClearPath('image');
 
+    $his_sql = GetStockHistorySql();
+    $iCount = $his_sql->DeleteClose();
+	if ($iCount > 0)	DebugVal($iCount, 'Zero close data'); 
+    $iCount = $his_sql->DeleteInvalidDate();		// this can be very slow!
+	if ($iCount > 0)	DebugVal($iCount, 'Invalid or older date'); 
+	
 //	$sql = new CommonPhraseSql();
 //	CsindexGetData();
 	

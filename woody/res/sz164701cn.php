@@ -6,7 +6,6 @@ function GetQdiiRelated($sym)
 	$str = GetQdiiLinks($sym);
 	$str .= GetOilSoftwareLinks();
 	$str .= GetCommoditySoftwareLinks();
-	$str .= GetGoldSoftwareLinks();
 	$str .= GetUniversalSoftwareLinks();
 	return $str;
 }

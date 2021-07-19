@@ -52,7 +52,6 @@ function GetGoldSilverLinks($sym)
 	$str = GetJisiluGoldLink();
 
 	$str .= '<br />&nbsp';
-	$str .= GetGoldSoftwareLinks();
 	$str .= GetCommoditySoftwareLinks();
 	return $str;
 }

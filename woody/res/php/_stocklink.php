@@ -15,9 +15,8 @@ function _GetEtfAdjustString($ref, $etf_ref)
 function GetStockCategoryArray()
 {
     return array('oilfund' => '油气',
-                   'commodity' => '商品',
+                   'commodity' => '大宗商品和金银',
                    'chinainternet' => '海外中国互联网',
-                   'goldetf' => '金银',
                    'qqqfund' => '纳斯达克100',
                    'spyfund' => '标普500',
                    'hangseng' => '恒生指数',
@@ -59,6 +58,8 @@ function GetCategoryArray($strTitle)
         
     case 'commodity':
         $ar = QdiiGetCommoditySymbolArray();
+    	$ar = array_merge($ar, QdiiGetGoldSymbolArray());
+    	$ar = array_merge($ar, GoldSilverGetSymbolArray());
         break;
         
     case ETF_LIST_PAGE:
@@ -67,7 +68,6 @@ function GetCategoryArray($strTitle)
   
     case 'goldetf':
     	$ar = GoldSilverGetSymbolArray();
-    	$ar = array_merge($ar, QdiiGetGoldSymbolArray());
         break;
         
     case 'hangseng':
@@ -113,11 +113,6 @@ function _getCategorySoftwareLinks($strCategory)
 function GetOilSoftwareLinks()
 {
     return _getCategorySoftwareLinks('oilfund');
-}
-
-function GetGoldSoftwareLinks()
-{
-    return _getCategorySoftwareLinks('goldetf');
 }
 
 function GetCommoditySoftwareLinks()

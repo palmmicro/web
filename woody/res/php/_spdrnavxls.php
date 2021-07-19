@@ -49,6 +49,7 @@ function _readXlsFile($bIshares, $strPathName, $nav_sql, $shares_sql, $strStockI
 		{
     		$ymd = new TickYMD($iTick);
     		$strDate = $ymd->GetYMD();
+			if ($oldest_ymd->IsTooOld($strDate))	break;
    			if ($oldest_ymd->IsInvalid($strDate) == false)
    			{
   				if ($nav_sql->WriteDaily($strStockId, $strDate, $ar[$iNavIndex]))
@@ -70,23 +71,37 @@ function _readXlsFile($bIshares, $strPathName, $nav_sql, $shares_sql, $strStockI
 	return '更新'.strval($iCount).'条净值和'.strval($iSharesCount).'条流通股数';
 }
 
-function GetNavXlsStr($strSymbol)
+function GetNavXlsStr($strSymbol, $bAutoCheck = false)
 {
    	if ($strUrl = GetEtfNavUrl($strSymbol))
 	{
-		$str = url_get_contents($strUrl);
-		if ($str == false)	return '没读到数据';
-		
-//		$strFileName = basename($strUrl);
-//		$strPathName = DebugGetPathName($strFileName);
+		$bIshares = (stripos($strUrl, 'ishares') !== false) ? true : false;
 		$strPathName = DebugGetPathName('NAV_'.$strSymbol.'.xls');
-		file_put_contents($strPathName, $str);
 		
-		$strStockId = SqlGetStockId($strSymbol);
-        $nav_sql = GetNavHistorySql();
-        $shares_sql = new SharesHistorySql();
-        $bIshares = (stripos($strUrl, 'ishares') !== false) ? true : false;
-		return _readXlsFile($bIshares, $strPathName, $nav_sql, $shares_sql, $strStockId);
+		if ($bAutoCheck)	
+		{
+			if ($bIshares)	return '目前不对ISHARES的ETF做自动更新';
+
+			clearstatcache();
+			if (file_exists($strPathName))
+			{
+				$ymd = new NowYMD();
+				if ($ymd->IsNewFile($strPathName, SECONDS_IN_HOUR))       return '避免频繁自动更新文件';   // update on every hour
+			}
+		}
+		
+		if ($str = url_get_contents($strUrl))
+		{
+			file_put_contents($strPathName, $str);
+			$strStockId = SqlGetStockId($strSymbol);
+			$nav_sql = GetNavHistorySql();
+			$shares_sql = new SharesHistorySql();
+			return _readXlsFile($bIshares, $strPathName, $nav_sql, $shares_sql, $strStockId);
+		}
+		else
+		{
+			return '没读到数据';
+		}
 	}
 	return $strSymbol.'不是SPDR或者ISHARES的ETF';
 }

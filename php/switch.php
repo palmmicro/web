@@ -43,7 +43,11 @@ function SwitchToSess()
 		$strLink = $_SESSION['userurl'];
 		unset($_SESSION['userurl']);
 		SwitchToLink($strLink);
-    }    
+    }
+    else
+    {
+    	DebugString('SwitchToSess lost ...');
+    }
 /*	if (isset($_SERVER["HTTP_REFERER"]))
 	{
 		SwitchToLink($_SERVER["HTTP_REFERER"]);

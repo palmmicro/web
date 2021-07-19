@@ -109,9 +109,6 @@ function _submitStockHistory($ref)
 			}
 		}
 	}
-	
-    $iCount = $his_sql->DeleteInvalidDate();
-	if ($iCount > 0)	DebugVal($iCount, 'Invalid or older date'); 
 }
 
     $acct = new SymbolAccount();

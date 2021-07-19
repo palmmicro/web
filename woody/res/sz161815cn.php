@@ -11,7 +11,6 @@ function GetQdiiRelated($sym)
 	$str .= ' '.GetQdiiLinks($sym);
 	$str .= GetOilSoftwareLinks();
 	$str .= GetCommoditySoftwareLinks();
-	$str .= GetGoldSoftwareLinks();
 	$str .= GetYinHuaSoftwareLinks();
 	return $str;
 }
