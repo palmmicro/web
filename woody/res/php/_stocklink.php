@@ -48,7 +48,7 @@ function GetCategoryArray($strTitle)
         $ar = $pair_sql->GetSymbolArray();
         break;
   
-    case 'chinaetf':
+    case CHINA_INDEX_PAGE:
     	$ar = ChinaIndexGetSymbolArray();
         break;
         

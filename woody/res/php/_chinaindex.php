@@ -86,7 +86,7 @@ function EchoAll()
     	EchoParagraph($str);
 	}
 
-    $acct->EchoLinks('chinaetf', 'GetChinaIndexRelated');
+    $acct->EchoLinks(CHINA_INDEX_PAGE, 'GetChinaIndexRelated');
 }
 
 function GetChinaIndexLinks($sym)

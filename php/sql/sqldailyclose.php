@@ -152,7 +152,7 @@ class DailyCloseSql extends KeySql
 			$this->WriteDaily($strKeyId, $strDate, $strClose);
 		}
     }
-    
+/*    
     function IsInvalidDate($record)
     {
 		$ymd = new OldestYMD();
@@ -164,7 +164,7 @@ class DailyCloseSql extends KeySql
     {
     	return $this->DeleteInvalid('IsInvalidDate');
     }
-    
+*/    
     function DeleteByDate($strKeyId, $strDate)
     {
     	if ($strWhere = $this->BuildWhere_key_date($strKeyId, $strDate))

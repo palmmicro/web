@@ -221,7 +221,7 @@ class TableSql
     	}
     	return false;
     }
-
+/*
     function DeleteInvalid($callback)
     {
     	$ar = array();
@@ -247,6 +247,8 @@ class TableSql
     	}
     	return $iCount;
     }
+*/
+
 /*    
     function GetTableSchema()
     {

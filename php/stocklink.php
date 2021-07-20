@@ -13,10 +13,13 @@ define('STOCK_DEMO_SYMBOL', 'XOP');
 define('ADR_DISPLAY', 'ADR工具');
 define('ADR_PAGE', 'adr');
 
+define('CHINA_INDEX_DISPLAY', 'A股指数');
+define('CHINA_INDEX_PAGE', 'chinaindex');
+
 function GetStockMenuArray()
 {
     return array(ADR_PAGE => ADR_DISPLAY,
-                      'chinaetf' => 'A股指数',
+                   CHINA_INDEX_PAGE => CHINA_INDEX_DISPLAY,
                       'goldetf' => '黄金白银',
                       'lof' => 'QDII工具',
                       'lofhk' => '香港QDII',

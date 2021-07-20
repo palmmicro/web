@@ -4,7 +4,7 @@ require_once('_emptygroup.php');
 require_once('/php/stockhis.php');
 
 // https://danjuanapp.com/djmodule/value-center
-
+/*
 function _webUpdateSinaHistory($his_sql, $strStockId, $sym)
 {
     $oldest_ymd = new OldestYMD();
@@ -36,13 +36,16 @@ function _webUpdateSinaHistory($his_sql, $strStockId, $sym)
 	}
     DebugVal($iTotal, $sym->GetSymbol().' total');
 }
+*/
 
 function _webUpdateYahooHistory($his_sql, $strStockId, $strYahooSymbol)
 {
+	$oldest_ymd = new OldestYMD();
     $iTime = time();
     $iTotal = 0;
     $iMax = 100;
     $iMaxSeconds = $iMax * SECONDS_IN_DAY;
+    
     for ($k = 0; $k < MAX_QUOTES_DAYS; $k += $iMax)
     {
         $iTimeBegin = $iTime - $iMaxSeconds;
@@ -62,6 +65,7 @@ function _webUpdateYahooHistory($his_sql, $strStockId, $strYahooSymbol)
         	{
         		$ymd = new TickYMD(strtotime($arMatch[$j][1]));
         		$strDate = $ymd->GetYMD();
+        		if ($oldest_ymd->IsTooOld($strDate))	break;
             
         		$ar = array();
         		for ($i = 0; $i < 6; $i ++)
@@ -74,7 +78,7 @@ function _webUpdateYahooHistory($his_sql, $strStockId, $strYahooSymbol)
         		{	// debug wrong data
         			DebugPrint($arMatch[$j]);
         		}
-        		else
+        		else if ($oldest_ymd->IsInvalid($strDate) === false)
         		{
         			$his_sql->WriteHistory($strStockId, $strDate, $ar[3], $ar[0], $ar[1], $ar[2], $ar[5], $ar[4]);
         		}
@@ -96,7 +100,7 @@ function _submitStockHistory($ref)
     $ref->SetTimeZone();
 	if ($ref->IsIndexA())
 	{
-		_webUpdateSinaHistory($his_sql, $strStockId, $ref);
+//		_webUpdateSinaHistory($his_sql, $strStockId, $ref);
 	}
 	else
 	{

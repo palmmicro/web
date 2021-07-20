@@ -50,7 +50,7 @@ function _readXlsFile($bIshares, $strPathName, $nav_sql, $shares_sql, $strStockI
     		$ymd = new TickYMD($iTick);
     		$strDate = $ymd->GetYMD();
 			if ($oldest_ymd->IsTooOld($strDate))	break;
-   			if ($oldest_ymd->IsInvalid($strDate) == false)
+   			if ($oldest_ymd->IsInvalid($strDate) === false)
    			{
   				if ($nav_sql->WriteDaily($strStockId, $strDate, $ar[$iNavIndex]))
   				{
