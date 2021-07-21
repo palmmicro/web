@@ -94,7 +94,7 @@ We called MySQL related function in <font color=olive>MysqlReference</font> clas
 need to use <font color=gray><code>date_default_timezone_set('America/New_York')</code></font> or <font color=gray><code>date_default_timezone_set('EDT')</code></font>.
 </p>
 
-<h3><a name="goldetf">Gold ETF</a></h3>
+<h3><a name="goldsilver">Gold ETF</a></h3>
 <p>March 25, 2016
 <br />As Gold future GC is not trading on Easter holiday, I get the chance to adjust the net value estimation for Chinese Gold ETF.
 <br />Different users have been suggesting to add estimation value in the <a href="#fundhistory">fund history</a> table of SZ162411.

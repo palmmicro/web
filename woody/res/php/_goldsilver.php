@@ -44,7 +44,7 @@ function EchoAll()
 	}
     
     _echoTestParagraph($acct);
-    $acct->EchoLinks('goldetf', 'GetGoldSilverRelated');
+    $acct->EchoLinks(GOLD_SILVER_PAGE, 'GetGoldSilverRelated');
 }
 
 function GetGoldSilverLinks($sym)

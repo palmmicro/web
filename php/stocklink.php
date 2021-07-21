@@ -16,11 +16,14 @@ define('ADR_PAGE', 'adr');
 define('CHINA_INDEX_DISPLAY', 'A股指数');
 define('CHINA_INDEX_PAGE', 'chinaindex');
 
+define('GOLD_SILVER_DISPLAY', '黄金白银');
+define('GOLD_SILVER_PAGE', 'goldsilver');
+
 function GetStockMenuArray()
 {
     return array(ADR_PAGE => ADR_DISPLAY,
                    CHINA_INDEX_PAGE => CHINA_INDEX_DISPLAY,
-                      'goldetf' => '黄金白银',
+                   GOLD_SILVER_PAGE => GOLD_SILVER_DISPLAY,
                       'lof' => 'QDII工具',
                       'lofhk' => '香港QDII',
                      );

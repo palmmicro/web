@@ -118,12 +118,12 @@
 <br /><?php echo GetFundLinks(); ?>
 </p>
 
-<h3>周期3意味着混沌</h3>
+<h3>周期3意味着<a name="chaos">混沌</a></h3>
 <p>2016年2月26日
 <br />华宝油气持续溢价10%已经成了常态, 最近最高甚至到了17%, 华宝油气和XOP套利没法做了.
 <br />继续整理同类代码, 这次下手目标是MySQL相关部分. 加入<font color=olive>MysqlReference</font>类继承自<font color=olive>StockReference</font>类. 集中代码处理历史记录和净值校准等数据库内容.
 再加入<font color=olive>MyStockReference</font>类继承自<font color=olive>MysqlReference</font>, 从此代替<font color=olive>StockReference</font>类作为股票数据实例.
-<font color=olive>FutureReference</font>类和<font color=olive>ForexReference</font>类同时也改为继承自<font color=olive>MysqlReference</font>.
+<font color=olive>FundReference</font>, <font color=olive>FutureReference</font>和<font color=olive>ForexReference</font>同时也改为继承自<font color=olive>MysqlReference</font>.
 从<font color=olive>MysqlReference</font>开始调用了数据库相关函数.
 </p>
 
@@ -133,14 +133,14 @@
 要用<font color=gray><code>date_default_timezone_set('America/New_York')</code></font>或者<font color=gray><code>date_default_timezone_set('EDT')</code></font>.
 </p>
 
-<h3><a name="goldetf">黄金基金</a></h3>
+<h3><?php EchoNameTag(GOLD_SILVER_PAGE, GOLD_SILVER_DISPLAY); ?></h3>
 <p>2016年3月25日
-<br />趁复活节假日黄金期货GC停止交易, 校准</a>A股<a href="../../res/goldetfcn.php">黄金基金</a>系列的净值计算工具. 目前包括<a href="../../res/sh518800cn.php">国泰黄金ETF</a>,
+<br />趁复活节假日黄金期货GC停止交易, 校准</a>A股<a href="../../res/goldsilvercn.php">黄金白银</a>系列的净值计算工具. 目前包括<a href="../../res/sh518800cn.php">国泰黄金ETF</a>,
 <a href="../../res/sh518880cn.php">华安黄金ETF</a>, <a href="../../res/sz159934cn.php">易方达黄金ETF</a>, <a href="../../res/sz159937cn.php">博时黄金ETF</a>, <a href="../../res/sz164701cn.php">添富贵金LOF</a>, 
 <a href="../../res/sz160719cn.php">嘉实黄金LOF</a>和<a href="../../res/sz161116cn.php">易方达黄金LOF</a>.
 <br />一直有用户建议我在华宝油气等QDII的<?php EchoFundHistoryLink(); ?>表格上加入预估净值比较栏目. 除了不愿意直接打自己嘴巴外的心理因素外, 我迟迟没有加上它的原因主要是估值是实时变化的.
 我一直想不清楚是该加在美股收盘后的预估净值还是A股收盘后的.
-<br />在QDII的代码中, 单独的预估净值变量原本放在<font color=olive>_QdiiAccount</font>类中. 而在新的黄金ETF<font color=olive>_GoldSilverAccount</font>类中又用到了<font color=olive>FundReference</font>类. 
+<br />在QDII的代码中, 单独的预估净值变量原本放在<font color=olive>_QdiiAccount</font>类中. 而在新的黄金白银<font color=olive>_GoldSilverAccount</font>类中又用到了<font color=olive>FundReference</font>类. 
 自然而然的, 我把预估净值的变量挪到了<font color=olive>FundReference</font>类中. 当预估净值和当日净值的变量排列在一起后, 突然之间数据结构引导思维方式的例子再次爆发, 没有比在记录当日净值的时候同时记录预估净值更合理的了!
 <br />由于在股票交易日的净值系列页面访问量已经稳定在了1000左右, 最高的一天有接近1700, 我一直在琢磨如何优化页面应对以后可能的更大的访问量高峰.
 把只会每天变化一次的<a href="#sma">SMA</a>计算结果保存下来是很容易想到的, 但是之前一直没有做. 在搞完7个黄金基金的校准后, 我意识到同一个GLD要在包括GC黄金期货的8个页面各算一遍, 觉得不能再忍下去了.
@@ -367,6 +367,12 @@
 <p>从软件开发的角度来说, 遍布我PHP代码的1000多个$bChinese肯定意味着某种代码结构缺陷, 希望这次代码清理完成后能让我醒悟过来.
 <br />冷静下来后仔细想想, 发现自己早有停止英文版的意图背后其实有个更深层的原因. 三年来的各种跨市场套利经历, 让我深深体会到了对手盘的重要性和A股韭菜的可贵, 从而不愿意留个英文版让外面的世界进来抢着割这么嫩的韭菜.
 <br /><font color=gray>If you've been playing poker for half an hour and you still don't know who the patsy is, you're the patsy. — Warren Buffett</font>
+</p>
+
+<h3><?php EchoNameTag(CHINA_INDEX_PAGE, CHINA_INDEX_DISPLAY); ?></h3>
+<p>2018年6月20日
+<br />配合抄底<a href="../../res/chinaindexcn.php">A股指数</a>加入<a href="../../res/sh510300cn.php">300ETF</a>页面, 根据沪深300指数SH000300估算SH510300和ASHR的净值, 看看有没有华宝油气和XOP这种跨市场套利的机会.
+<br />为了避免原有代码进一步走向<a href="#chaos">混沌</a>, 不想从原有的<font color=olive>FundReference</font>类扩展这种新估值模式, 从<font color=olive>MysqlReference</font>类继承了一个新的<font color=olive>EtfReference</font>.
 </p>
 
 <h3>用线性回归的方法在华宝油气溢价套利时进行<?php EchoNameTag(FUND_ACCOUNT_PAGE, FUND_ACCOUNT_DISPLAY); ?></h3>

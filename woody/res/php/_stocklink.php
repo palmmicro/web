@@ -66,7 +66,7 @@ function GetCategoryArray($strTitle)
         $ar = SqlGetEtfPairArray();
         break;
   
-    case 'goldetf':
+    case GOLD_SILVER_PAGE:
     	$ar = GoldSilverGetSymbolArray();
         break;
         

@@ -15,7 +15,7 @@ function NavStockSoftware($bChinese)
 	$strTitle = UrlGetTitle();
     $arFunction = array(ADR_PAGE => 'AdrGetSymbolArray',
                       	   CHINA_INDEX_PAGE => 'ChinaIndexGetSymbolArray',
-                      'goldetf' => 'GoldSilverGetSymbolArray',
+                      	   GOLD_SILVER_PAGE => 'GoldSilverGetSymbolArray',
                       'lof' => 'QdiiGetSymbolArray',
                       'lofhk' => 'QdiiHkGetSymbolArray',
                      );
