@@ -68,11 +68,11 @@
 </p>
 <?php EchoStockHistoryDemo(); ?>
 
-<h3>扩大规模</h3>
+<h3>扩大规模到<?php EchoNameTag(QDII_HK_PAGE, QDII_HK_DISPLAY); ?></h3>
 <p>2015年8月27日
 <br />整理代码最好的方式是多开发几个类似QDII基金估值软件.
 伴随最近抄底港股加入<a href="../../res/sz159920cn.php">恒生ETF</a>和<a href="../../res/sh510900cn.php">H股ETF</a>净值计算工具.
-观摩美股崩盘期间顺手加入了<a href="../../res/sh513500cn.php">标普500</a>净值计算工具, 也许日后会用上.
+观摩美股崩盘期间顺手加入了<a href="../../res/sh513500cn.php">标普500</a>净值计算工具, 也许日后会用上. 同时加入<?php EchoNameTag(QDII_PAGE, QDII_DISPLAY); ?>汇总<a href="../../res/qdiicn.php">页面</a>.
 </p>
 
 <h3>股票<a name="transaction">交易</a>记录</h3>

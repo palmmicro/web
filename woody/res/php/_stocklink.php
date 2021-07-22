@@ -78,11 +78,11 @@ function GetCategoryArray($strTitle)
     	$ar = QdiiHkGetHSharesSymbolArray();
         break;
         
-    case 'lof':
+    case QDII_PAGE:
         $ar = QdiiGetSymbolArray();
         break;
         
-    case 'lofhk':
+    case QDII_HK_PAGE:
         $ar = QdiiHkGetSymbolArray();
         break;
         

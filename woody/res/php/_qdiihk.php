@@ -37,7 +37,7 @@ function EchoAll()
 	}
 	    
     $acct->EchoTestParagraph();
-    $acct->EchoLinks(false, 'GetQdiiHkRelated');
+    $acct->EchoLinks(QDII_HK_PAGE, 'GetQdiiHkRelated');
 }
 
 function GetQdiiHkLinks($sym)

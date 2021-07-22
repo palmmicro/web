@@ -19,14 +19,19 @@ define('CHINA_INDEX_PAGE', 'chinaindex');
 define('GOLD_SILVER_DISPLAY', '黄金白银');
 define('GOLD_SILVER_PAGE', 'goldsilver');
 
+define('QDII_DISPLAY', 'QDII工具');
+define('QDII_PAGE', 'qdii');
+
+define('QDII_HK_DISPLAY', '香港QDII');
+define('QDII_HK_PAGE', 'qdiihk');
+
 function GetStockMenuArray()
 {
     return array(ADR_PAGE => ADR_DISPLAY,
                    CHINA_INDEX_PAGE => CHINA_INDEX_DISPLAY,
                    GOLD_SILVER_PAGE => GOLD_SILVER_DISPLAY,
-                      'lof' => 'QDII工具',
-                      'lofhk' => '香港QDII',
-                     );
+                   QDII_PAGE => QDII_DISPLAY,
+                   QDII_HK_PAGE => QDII_HK_DISPLAY);
 }
 
 // ****************************** Stock internal link functions *******************************************************

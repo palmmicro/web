@@ -16,9 +16,9 @@ function NavStockSoftware($bChinese)
     $arFunction = array(ADR_PAGE => 'AdrGetSymbolArray',
                       	   CHINA_INDEX_PAGE => 'ChinaIndexGetSymbolArray',
                       	   GOLD_SILVER_PAGE => 'GoldSilverGetSymbolArray',
-                      'lof' => 'QdiiGetSymbolArray',
-                      'lofhk' => 'QdiiHkGetSymbolArray',
-                     );
+                      	   QDII_PAGE => 'QdiiGetSymbolArray',
+                      	   QDII_HK_PAGE => 'QdiiHkGetSymbolArray');
+    
     foreach ($arFunction as $strKey => $strFunction)
     {
     	$arSymbol = call_user_func($strFunction);

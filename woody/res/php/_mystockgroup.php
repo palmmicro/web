@@ -90,8 +90,8 @@ function _getMetaDescriptionStr($strTitle)
 				  GOLD_SILVER_PAGE => '当A股大跌的时候, 完全不相关的黄金白银基金也经常会跟着跌, 这样会产生套利机会. 这里计算各种黄金白银基金的净值, 同时分析比较各种套利对冲方案.',
 				  'hangseng' => '计算恒生指数基金的净值, 目前包括恒生ETF(SZ159920), 恒指LOF(SZ160924)和恒生通(SH513660)等. 使用恒生指数(^HSI)进行估值, 恒生指数盈富基金(02800)仅作为参考.',
 				  'hshares' => '计算H股基金的净值, 目前包括H股ETF(SH510900)和恒生H股(SZ160717)等.使用恒生中国企业指数(^HSCE)估值, 恒生H股ETF(02828)仅用于参考.',
-				  'lof' => '中国A股的QDII基金由于缺乏信息和交易者普遍的不理性, 产生了很多套利机会. 这里计算各种QDII的净值, 同时分析比较各种套利对冲方案.',
-				  'lofhk' => '这里计算A股市场中各种香港QDII的净值. 直接导致把香港QDII从其它QDII页面分出来的原因是有基金居然只有指数而没有对应的港股ETF, 只好用指数给所有港股QDII估值了.',
+				  QDII_PAGE => 'A股的QDII基金由于缺乏及时的信息更新, 会产生各种套利机会. 这里计算各个基金的官方估值, 参考估值和实时估值补上这个生态位空缺.',
+				  QDII_HK_PAGE => '这里计算A股市场中各种香港QDII的净值. 直接导致把香港QDII从其它QDII页面分出来的原因是有基金居然只有指数而没有对应的港股ETF, 只好用指数给所有港股QDII估值了.',
 				  'oilfund' => '计算原油基金的净值, 目前包括南方原油(SH501018), 国泰商品(SZ160216), 嘉实原油(SZ160723)和原油基金(SZ161129)等. 跟踪原油期货的基金都有因为期货升水带来的损耗, 不建议长期持有.',
 				  'qqqfund' => '计算纳斯达克100基金的净值, 目前包括纳指ETF(SH513100)和纳指100(SZ159941)等. 使用纳斯达克100指数(^NDX)估值, QQQ仅用于参考.',
 				  'spyfund' => '计算标普500基金的净值, 目前包括沪市标普500(SH513500)和深市标普500(SZ161125)等.使用标普500指数(^GSPC)估值, SPY仅用于参考.',
@@ -116,11 +116,11 @@ function _getSimilarLinks($strTitle)
 		$str = GetJisiluGoldLink();
         break;
         
-    case 'lof':
+    case QDII_PAGE:
 		$str = GetJisiluQdiiLink();
         break;
         
-    case 'lofhk':
+    case QDII_HK_PAGE:
 		$str = GetJisiluQdiiLink(true);
         break;
         
@@ -199,8 +199,8 @@ function _getTitleStr($strTitle)
 			  	  GOLD_SILVER_PAGE => GOLD_SILVER_DISPLAY.'基金净值计算工具',
 			  	  'hangseng' => '恒生指数基金净值计算工具',
 			  	  'hshares' => 'H股基金净值计算工具',
-			  	  'lof'	=> 'A股QDII基金净值计算工具',
-			  	  'lofhk' => 'A股香港QDII基金净值计算工具',
+			  	  QDII_PAGE => QDII_DISPLAY,
+			  	  QDII_HK_PAGE => QDII_HK_DISPLAY.'基金净值计算工具',
 			  	  'oilfund'	=> '原油基金净值计算工具',
 			  	  'qqqfund'	=> '纳斯达克100基金净值计算工具',
 			  	  'spyfund'	=> '标普500基金净值计算工具',
