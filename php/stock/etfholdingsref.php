@@ -68,6 +68,7 @@ class EtfHoldingsReference extends MyStockReference
 			$fUSDHKD = floatval($this->uscny_ref->GetPrice()) / floatval($this->hkcny_ref->GetPrice());
 		}
 		return $fOldUSDHKD / $fUSDHKD;
+//		return 1.0;
     }
     
     // (x - x0) / x0 = sum{ r * (y - y0) / y0} 

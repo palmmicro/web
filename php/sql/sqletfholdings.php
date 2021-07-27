@@ -24,7 +24,7 @@ class EtfHoldingsSql extends KeySql
     
     function InsertHolding($strStockId, $strHoldingId, $strRatio)
     {
-    	return $this->InsertArray(array_merge($this->MakeFieldKeyId($strStockId), array('holding_id' => $strHoldingId, 'ratio' => $strRatio)));
+    	return $this->InsertArrays($this->MakeFieldKeyId($strStockId), array('holding_id' => $strHoldingId, 'ratio' => $strRatio));
     }
     
     function GetHoldingsArray($strStockId)

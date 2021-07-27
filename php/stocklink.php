@@ -229,7 +229,7 @@ function GetCategorySoftwareLinks($arTitle, $strCategory)
     $str = '<br />'.$strCategory.' - ';
     foreach ($arTitle as $strTitle)
     {
-    	$str .= GetStockTitleLink($strTitle, StockGetSymbol($strTitle)).' ';
+    	$str .= GetStockTitleLink(strtolower($strTitle), StockGetSymbol($strTitle)).' ';
     }
     return $str;
 }

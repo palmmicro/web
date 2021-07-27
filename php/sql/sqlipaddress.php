@@ -49,7 +49,7 @@ class IpSql extends TableSql
        	{
        		if ($strId = GetIpId($strIp))
        		{
-       			return $this->InsertArray(array_merge(array('id' => $strId), $this->_makeUpdateArray()));
+       			return $this->InsertArrays(array('id' => $strId), $this->_makeUpdateArray());
        		}
        	}
 		return false;

@@ -1,46 +1,39 @@
 <?php
 require_once('/php/csvfile.php');
 
-class _KraneHoldingsCsvFile extends CsvFile
+class _SseHoldingsFile extends CsvFile
 {
-	var $bUse;
 	var $strStockId;
+
 	var $strDate;
+    var $fTotalValue;
 
 	var $sql;
 	var $his_sql;
 	var $holdings_sql;
 	
-    var $fUSDHKD;
-    var $fTotalValue;
-	
-    function _KraneHoldingsCsvFile($strPathName, $strStockId, $strDate) 
+    function _SseHoldingsFile($strPathName, $strStockId) 
     {
         parent::CsvFile($strPathName);
+        $this->SetSeparator('|');
         
-        $this->bUse = false;
         $this->strStockId = $strStockId;
-        $this->strDate = $strDate;
         
         $this->sql = GetStockSql();
         $this->his_sql = GetStockHistorySql();
         $this->holdings_sql = GetEtfHoldingsSql();
         $this->holdings_sql->DeleteAll($strStockId);
-        
-        $nav_sql = GetNavHistorySql();
-        $this->fUSDHKD = floatval($nav_sql->GetClose($this->sql->GetId('USCNY'), $strDate)) / floatval($nav_sql->GetClose($this->sql->GetId('HKCNY'), $strDate));
-        
-        $this->fTotalValue = 0.0; 
     }
     
     public function OnLineArray($arWord)
     {
-    	$strName = $arWord[1]; 
-    	if ($arWord[0] == 'Rank')			$this->bUse = true;
-    	else if ($strName == 'Cash')		$this->bUse = false;
-    	else if ($this->bUse)
+    	if (count($arWord) == 1)
     	{
-    		$strHolding = $arWord[3];
+    	}
+    	else
+    	{
+	    	DebugPrint($arWord);
+/*    		$strHolding = $arWord[3];
     		if (is_numeric($strHolding))		
     		{
     			$strHolding = BuildHongkongStockSymbol($strHolding);
@@ -63,21 +56,18 @@ class _KraneHoldingsCsvFile extends CsvFile
     			if ($this->his_sql->WriteHistory($strId, $this->strDate, $strClose))		DebugString('WriteHistory '.$strHolding.' '.$strClose.' '.$strShares.' '.$strValue);
     		}
     		
-    		$this->holdings_sql->InsertHolding($this->strStockId, $strId, $arWord[2]);
+    		$this->holdings_sql->InsertHolding($this->strStockId, $strId, $arWord[2]);*/
     	}
     }
 }
 
-// https://kraneshares.com/csv/06_22_2021_kweb_holdings.csv
-function ReadKraneHoldingsCsvFile($strSymbol, $strStockId, $strDate, $strNav)
+function ReadSseHoldingsFile($strSymbol, $strStockId)
 {
-	$arYMD = explode('-', $strDate);
-	$strUrl = GetKraneUrl().'/csv/'.$arYMD[1].'_'.$arYMD[2].'_'.$arYMD[0].'_'.strtolower($strSymbol).'_holdings.csv';
-
+	$strUrl = 'http://query.sse.com.cn/etfDownload/downloadETF2Bulletin.do?etfType=087';
 	$str = url_get_contents($strUrl);
 	if ($str == false)
 	{
-		DebugString('ReadKraneHoldingsCsvFile没读到数据');
+		DebugString('ReadSseHoldingsFile没读到数据');
 		return;
 	}
 		
@@ -85,14 +75,11 @@ function ReadKraneHoldingsCsvFile($strSymbol, $strStockId, $strDate, $strNav)
 	file_put_contents($strPathName, $str);
 	DebugString('Saved '.$strUrl.' to '.$strPathName);
 
-	$csv = new _KraneHoldingsCsvFile($strPathName, $strStockId, $strDate);
+	$csv = new _SseHoldingsFile($strPathName, $strStockId);
    	$csv->Read();
    	
-	$shares_sql = new SharesHistorySql();
-	$shares_sql->WriteDaily($strStockId, $strDate, strval_round($csv->fTotalValue / floatval($strNav) / 10000.0));
-
-	$date_sql = new EtfHoldingsDateSql();
-	$date_sql->WriteDate($strStockId, $strDate);
+//	$date_sql = new EtfHoldingsDateSql();
+//	$date_sql->WriteDate($strStockId, $strDate);
 }
 
 ?>

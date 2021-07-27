@@ -21,12 +21,15 @@ function NavStockSoftware($bChinese)
     
     foreach ($arFunction as $strKey => $strFunction)
     {
+    	$arTitle = array();
     	$arSymbol = call_user_func($strFunction);
-    	if (in_array($strTitle, $arSymbol))
+    	foreach ($arSymbol as $strSymbol)	$arTitle[] = strtolower($strSymbol);
+    	
+    	if (in_array($strTitle, $arTitle))
     	{
 	   		NavWriteItemLink($iLevel - 1, $strKey, UrlGetPhp(), $ar[$strKey]);
 	   		NavContinueNewLine();
-    		NavDirLoop($arSymbol);
+    		NavDirLoop($arTitle);
     		NavEnd();
     		return;
     	}

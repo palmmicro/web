@@ -5,11 +5,20 @@ class CsvFile
 {
     var $strPathName;
     var $file;
+    
+    var $strSeparator;
                      
     function CsvFile($strPathName) 
     {
         $this->strPathName = $strPathName;
         $this->file = false;
+        
+        $this->strSeparator = ',';
+    }
+    
+    function SetSeparator($strSeparator)
+    {
+        $this->strSeparator = $strSeparator;
     }
     
     function GetPathName()
@@ -83,7 +92,7 @@ class CsvFile
     		{	
     			if ($strLine = fgets($this->file))
     			{
-    				$arWord = str_getcsv($strLine);
+    				$arWord = str_getcsv($strLine, $this->strSeparator);
     				$this->OnLineArray($arWord);
     			}
     		}

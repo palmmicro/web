@@ -22,7 +22,7 @@ function LinearRegression($arX, $arY)
    	$fSxy = 0.0;
    	foreach ($arX as $strKey => $fX)
    	{
-   		$fSxy += $fX * $arY[$strKey];
+   		if (isset($arY[$strKey]))	$fSxy += $fX * $arY[$strKey];
    	}
    	$fSxy -= $iCount * $fMeanX * $fMeanY;
     	

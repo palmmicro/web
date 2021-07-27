@@ -77,6 +77,7 @@ function GetNavXlsStr($strSymbol, $bAutoCheck = false)
 	{
 		$bIshares = (stripos($strUrl, 'ishares') !== false) ? true : false;
 		$strPathName = DebugGetPathName('NAV_'.$strSymbol.'.xls');
+    	$date_sql = new NavFileDateSql();
 		
 		if ($bAutoCheck)	
 		{

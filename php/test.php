@@ -74,6 +74,12 @@ function TestCmdLine()
 	
 //	$sql = new CommonPhraseSql();
 //	CsindexGetData();
-	
+/*
+	$strUrl = 'http://query.sse.com.cn/etfDownload/downloadETF2Bulletin.do?etfType=087';
+   	if ($str = url_get_contents($strUrl))
+    {
+   		DebugString($str);
+   	}
+*/	
 	phpinfo();
 ?>

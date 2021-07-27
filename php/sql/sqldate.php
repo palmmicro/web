@@ -56,4 +56,12 @@ class EtfHoldingsDateSql extends DateSql
     }
 }
 
+class NavFileDateSql extends DateSql
+{
+    function NavFileDateSql()
+    {
+        parent::DateSql('navfiledate');
+    }
+}
+
 ?>

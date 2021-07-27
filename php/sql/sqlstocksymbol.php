@@ -72,7 +72,7 @@ class StockHistorySql extends DailyCloseSql
     	}
     	else
     	{
-    		return $this->InsertArray(array_merge($this->MakeFieldKeyId($strStockId), $ar));
+    		return $this->InsertArrays($this->MakeFieldKeyId($strStockId), $ar);
     	}
     	return false;
     }

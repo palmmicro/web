@@ -112,6 +112,16 @@ class TableSql
  		$strQuery = 'INSERT INTO '.$this->strName."($strKeyAll) VALUES($strValAll)";
         return $this->_query($strQuery, 'insert data failed');
     }
+
+    function InsertArrays()
+    {
+    	$arAll = array();
+    	foreach (func_get_args() as $ar)
+    	{
+    		$arAll = array_merge($arAll, $ar);
+    	}
+    	return $this->InsertArray($arAll);
+    }
     
     function InsertId($strId)
     {
