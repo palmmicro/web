@@ -92,9 +92,12 @@ class EtfHoldingsReference extends MyStockReference
 			}
 			else				$strPrice = $ref->GetPrice();
 			
-			$fChange = $fRatio * floatval($strPrice) / floatval($his_sql->GetAdjClose($strStockId, $this->strHoldingsDate));
-			if ($ref->IsSymbolH())	$fChange *= $fAdjustH; 
-			$fTotalChange += $fChange; 
+			if ($strAdjClose = $his_sql->GetAdjClose($strStockId, $this->strHoldingsDate))
+			{
+				$fChange = $fRatio * floatval($strPrice) / floatval($strAdjClose);
+				if ($ref->IsSymbolH())	$fChange *= $fAdjustH; 
+				$fTotalChange += $fChange;
+			}
 		}
 		return floatval($this->strNav) * (1.0 + $fTotalChange - $fTotalRatio);
     }

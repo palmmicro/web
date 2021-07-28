@@ -167,6 +167,17 @@ function in_arrayHangSengQdiiHk($strSymbol)
     return in_array($strSymbol, QdiiHkGetHangSengSymbolArray());
 }
 
+function QdiiMixGetSymbolArray()
+{
+    $ar = array('SH513050'); 
+    return $ar;
+}
+
+function in_arrayQdiiMix($strSymbol)
+{
+    return in_array($strSymbol, QdiiMixGetSymbolArray());
+}
+
 function QdiiHkGetSymbolArray()
 {
     $ar = array_merge(array('SH501025') 
@@ -184,6 +195,7 @@ function in_arrayQdiiHk($strSymbol)
 function GetAllSymbolArray()
 {
 	return array_merge(QdiiGetSymbolArray()
+			            , QdiiMixGetSymbolArray()
 			            , QdiiHkGetSymbolArray()
 					    , GoldSilverGetSymbolArray()
 					    , ChinaIndexGetSymbolArray()

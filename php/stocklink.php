@@ -22,6 +22,9 @@ define('GOLD_SILVER_PAGE', 'goldsilver');
 define('QDII_DISPLAY', 'QDII工具');
 define('QDII_PAGE', 'qdii');
 
+define('QDII_MIX_DISPLAY', '混合QDII');
+define('QDII_MIX_PAGE', 'qdiimix');
+
 define('QDII_HK_DISPLAY', '香港QDII');
 define('QDII_HK_PAGE', 'qdiihk');
 
@@ -31,6 +34,7 @@ function GetStockMenuArray()
                    CHINA_INDEX_PAGE => CHINA_INDEX_DISPLAY,
                    GOLD_SILVER_PAGE => GOLD_SILVER_DISPLAY,
                    QDII_PAGE => QDII_DISPLAY,
+                   QDII_MIX_PAGE => QDII_MIX_DISPLAY,
                    QDII_HK_PAGE => QDII_HK_DISPLAY);
 }
 

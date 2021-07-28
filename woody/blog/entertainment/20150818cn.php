@@ -422,6 +422,11 @@
 <br /><?php echo GetFundShareLink(); ?>
 </p>
 
+<h3>增加<?php EchoNameTag(QDII_MIX_PAGE, QDII_MIX_DISPLAY); ?>工具系列</h3>
+<p>2021年7月28日
+<br />采用跟踪成分股变化的方式对同时有美股和港股持仓的<a href="../../res/sh513050cn.php">中概互联</a>进行净值估算.
+</p>
+
 </div>
 
 <?php _LayoutBottom(); ?>

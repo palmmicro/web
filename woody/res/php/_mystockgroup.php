@@ -84,17 +84,18 @@ function _getMetaDescriptionStr($strTitle)
 				  ADRH_COMPARE_PAGE => ADRH_COMPARE_DISPLAY.'工具, 按ADR股票代码排序. 主要显示H股交易情况, 同时计算AdrH价格比和HAdr价格比. H股是指获中国证监会批核到香港上市的国有企业, 也称国企股.',
 				  AH_COMPARE_PAGE => AH_COMPARE_DISPLAY.'工具, 按A股股票代码排序. 主要显示H股交易情况, 同时计算AH价格比和HA价格比. H股是指获中国证监会批核到香港上市的国有企业, 也称国企股.',
 				  CHINA_INDEX_PAGE => CHINA_INDEX_DISPLAY.'基金工具, 计算基金净值, 同时分析比较各种套利对冲方案. 包括美股ASHR和多家国内基金公司的A股沪深300指数基金的配对交易等.',
-				  'chinainternet' => '计算中国互联网指数基金的净值, 目前包括跟踪中证海外中国互联网指数的中国互联(SZ164906)和跟踪中证海外中国互联网50指数的中概互联(SH513050).',
-				  'commodity' => '计算商品基金的净值, 目前包括大致对应跟踪GSG的信诚商品(SZ165513)和银华通胀(SZ161815). 跟踪商品期货的基金都有因为期货升水带来的损耗, 不建议长期持有.',
+				  'chinainternet' => CHINAINTERNET_GROUP_DISPLAY.'基金的净值估算, 目前包括跟踪中证海外中国互联网指数的中国互联(SZ164906)和跟踪中证海外中国互联网50指数的中概互联(SH513050).',
+				  'commodity' => COMMODITY_GROUP_DISPLAY.'基金的净值估算, 目前包括大致对应跟踪GSG的信诚商品(SZ165513)和银华通胀(SZ161815). 跟踪大宗商品期货的基金都有因为期货升水带来的损耗, 不建议长期持有.',
 				  ETF_LIST_PAGE => '各个估值页面中用到的基金和指数对照表, 包括杠杆倍数和校准值快照, 同时提供链接查看具体校准情况. 有些指数不容易拿到数据, 就用1倍ETF代替指数给其它杠杆ETF做对照.',
 				  GOLD_SILVER_PAGE => '当A股大跌的时候, 完全不相关的黄金白银基金也经常会跟着跌, 这样会产生套利机会. 这里计算各种黄金白银基金的净值, 同时分析比较各种套利对冲方案.',
-				  'hangseng' => '计算恒生指数基金的净值, 目前包括恒生ETF(SZ159920), 恒指LOF(SZ160924)和恒生通(SH513660)等. 使用恒生指数(^HSI)进行估值, 恒生指数盈富基金(02800)仅作为参考.',
-				  'hshares' => '计算H股基金的净值, 目前包括H股ETF(SH510900)和恒生H股(SZ160717)等.使用恒生中国企业指数(^HSCE)估值, 恒生H股ETF(02828)仅用于参考.',
+				  'hangseng' => HANGSENG_GROUP_DISPLAY.'基金的净值估算, 目前包括恒生ETF(SZ159920), 恒指LOF(SZ160924)和恒生通(SH513660)等. 使用恒生指数(^HSI)进行估值, 恒生指数盈富基金(02800)仅作为参考.',
+				  'hshares' => HSHARES_GROUP_DISPLAY.'基金的净值估算, 目前包括H股ETF(SH510900)和恒生H股(SZ160717)等.使用恒生中国企业指数(^HSCE)估值, 恒生H股ETF(02828)仅用于参考.',
 				  QDII_PAGE => 'A股的QDII基金由于缺乏及时的信息更新, 会产生各种套利机会. 这里计算各个基金的官方估值, 参考估值和实时估值补上这个生态位空缺.',
-				  QDII_HK_PAGE => '这里计算A股市场中各种香港QDII的净值. 直接导致把香港QDII从其它QDII页面分出来的原因是有基金居然只有指数而没有对应的港股ETF, 只好用指数给所有港股QDII估值了.',
-				  'oilfund' => '计算原油基金的净值, 目前包括南方原油(SH501018), 国泰商品(SZ160216), 嘉实原油(SZ160723)和原油基金(SZ161129)等. 跟踪原油期货的基金都有因为期货升水带来的损耗, 不建议长期持有.',
-				  'qqqfund' => '计算纳斯达克100基金的净值, 目前包括纳指ETF(SH513100)和纳指100(SZ159941)等. 使用纳斯达克100指数(^NDX)估值, QQQ仅用于参考.',
-				  'spyfund' => '计算标普500基金的净值, 目前包括沪市标普500(SH513500)和深市标普500(SZ161125)等.使用标普500指数(^GSPC)估值, SPY仅用于参考.',
+				  QDII_MIX_PAGE => '采用跟踪成分股变化的方式对同时有美股和港股持仓的中概互联(513050)等QDII基金进行净值估算, 这样参考估值中可以反应白天港股波动对净值的实时影响.',
+				  QDII_HK_PAGE => QDII_HK_DISPLAY.'基金的净值估算. 直接导致把香港QDII从其它QDII页面分出来的原因是有基金居然只有指数而没有对应的港股ETF, 只好用指数给所有港股QDII估值了.',
+				  'oilfund' => OIL_GROUP_DISPLAY.'基金的净值估算, 目前包括南方原油(SH501018), 国泰商品(SZ160216), 嘉实原油(SZ160723)和原油基金(SZ161129)等. 跟踪原油期货的基金都有因为期货升水带来的损耗, 不建议长期持有.',
+				  'qqqfund' => QQQ_GROUP_DISPLAY.'基金的净值估算, 目前包括纳指ETF(SH513100)和纳指100(SZ159941)等. 使用纳斯达克100指数(^NDX)估值, QQQ仅用于参考.',
+				  'spyfund' => SPY_GROUP_DISPLAY.'基金的净值估算, 目前包括沪市标普500(SH513500)和深市标普500(SZ161125)等.使用标普500指数(^GSPC)估值, SPY仅用于参考.',
 				  );
     return $ar[$strTitle];
 }
@@ -189,21 +190,23 @@ function EchoMetaDescription()
 
 function _getTitleStr($strTitle)
 {
+	$strTool = '基金净值计算工具';
 	$ar = array(ADR_PAGE => ADR_DISPLAY,
 				  ADRH_COMPARE_PAGE => ADRH_COMPARE_DISPLAY,
 			  	  AH_COMPARE_PAGE => AH_COMPARE_DISPLAY,
-			  	  CHINA_INDEX_PAGE => CHINA_INDEX_DISPLAY.'基金净值计算工具',
-			  	  'chinainternet' => '中国互联网指数基金净值计算工具',
-			  	  'commodity' => '商品基金净值计算工具',
+			  	  CHINA_INDEX_PAGE => CHINA_INDEX_DISPLAY.$strTool,
+			  	  'chinainternet' => CHINAINTERNET_GROUP_DISPLAY.$strTool,
+			  	  'commodity' => COMMODITY_GROUP_DISPLAY.$strTool,
 			  	  ETF_LIST_PAGE => ETF_LIST_DISPLAY,
-			  	  GOLD_SILVER_PAGE => GOLD_SILVER_DISPLAY.'基金净值计算工具',
-			  	  'hangseng' => '恒生指数基金净值计算工具',
-			  	  'hshares' => 'H股基金净值计算工具',
+			  	  GOLD_SILVER_PAGE => GOLD_SILVER_DISPLAY.$strTool,
+			  	  'hangseng' => HANGSENG_GROUP_DISPLAY.$strTool,
+			  	  'hshares' => HSHARES_GROUP_DISPLAY.$strTool,
 			  	  QDII_PAGE => QDII_DISPLAY,
-			  	  QDII_HK_PAGE => QDII_HK_DISPLAY.'基金净值计算工具',
-			  	  'oilfund'	=> '原油基金净值计算工具',
-			  	  'qqqfund'	=> '纳斯达克100基金净值计算工具',
-			  	  'spyfund'	=> '标普500基金净值计算工具',
+			  	  QDII_MIX_PAGE => QDII_MIX_DISPLAY.$strTool,
+			  	  QDII_HK_PAGE => QDII_HK_DISPLAY.$strTool,
+			  	  'oilfund'	=> OIL_GROUP_DISPLAY.$strTool,
+			  	  'qqqfund'	=> QQQ_GROUP_DISPLAY.$strTool,
+			  	  'spyfund'	=> SPY_GROUP_DISPLAY.$strTool,
 			  	  );
     $str = $ar[$strTitle];
 	if ($strQuery = UrlGetQueryValue('sort'))

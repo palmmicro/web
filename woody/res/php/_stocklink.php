@@ -12,15 +12,23 @@ function _GetEtfAdjustString($ref, $etf_ref)
     return _GetAdjustLink($strSymbol, $strQuery);
 }
 
+define('OIL_GROUP_DISPLAY', '油气');
+define('COMMODITY_GROUP_DISPLAY', '大宗商品和金银');
+define('CHINAINTERNET_GROUP_DISPLAY', '海外中国互联网');
+define('QQQ_GROUP_DISPLAY', '纳斯达克100');
+define('SPY_GROUP_DISPLAY', '标普500');
+define('HANGSENG_GROUP_DISPLAY', '恒生指数');
+define('HSHARES_GROUP_DISPLAY', 'H股中国企业指数');
+
 function GetStockCategoryArray()
 {
-    return array('oilfund' => '油气',
-                   'commodity' => '大宗商品和金银',
-                   'chinainternet' => '海外中国互联网',
-                   'qqqfund' => '纳斯达克100',
-                   'spyfund' => '标普500',
-                   'hangseng' => '恒生指数',
-                   'hshares' => 'H股国企指数',
+    return array('oilfund' => OIL_GROUP_DISPLAY,
+                   'commodity' => COMMODITY_GROUP_DISPLAY,
+                   'chinainternet' => CHINAINTERNET_GROUP_DISPLAY,
+                   'qqqfund' => QQQ_GROUP_DISPLAY,
+                   'spyfund' => SPY_GROUP_DISPLAY,
+                   'hangseng' => HANGSENG_GROUP_DISPLAY,
+                   'hshares' => HSHARES_GROUP_DISPLAY,
                    );
 }
 
@@ -85,6 +93,10 @@ function GetCategoryArray($strTitle)
         
     case QDII_HK_PAGE:
         $ar = QdiiHkGetSymbolArray();
+        break;
+        
+    case QDII_MIX_PAGE:
+        $ar = QdiiMixGetSymbolArray();
         break;
         
     case 'oilfund':

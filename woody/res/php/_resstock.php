@@ -17,6 +17,7 @@ function NavStockSoftware($bChinese)
                       	   CHINA_INDEX_PAGE => 'ChinaIndexGetSymbolArray',
                       	   GOLD_SILVER_PAGE => 'GoldSilverGetSymbolArray',
                       	   QDII_PAGE => 'QdiiGetSymbolArray',
+                      	   QDII_MIX_PAGE => 'QdiiMixGetSymbolArray',
                       	   QDII_HK_PAGE => 'QdiiHkGetSymbolArray');
     
     foreach ($arFunction as $strKey => $strFunction)

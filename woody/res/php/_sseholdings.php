@@ -29,34 +29,36 @@ class _SseHoldingsFile extends CsvFile
     {
     	if (count($arWord) == 1)
     	{
+    		$ar = explode('=', $arWord[0]);
+    		switch ($ar[0])
+    		{
+    		case 'PreTradingDay':
+    			$strDate = $ar[1];
+    			$this->strDate = substr($strDate, 0, 4).'-'.substr($strDate, 4, 2).'-'.substr($strDate, 6, 2);
+    			DebugString($this->strDate);
+    			break;
+    		
+    		case 'NAVperCU':
+    			$this->fTotalValue = floatval($ar[1]);
+    			break;
+    		}
     	}
     	else
     	{
-	    	DebugPrint($arWord);
-/*    		$strHolding = $arWord[3];
-    		if (is_numeric($strHolding))		
-    		{
-    			$strHolding = BuildHongkongStockSymbol($strHolding);
-    			$bHk = true;
-    		}
-    		else	$bHk = false;
+//	    	DebugPrint($arWord);
+    		$strHolding = trim($arWord[0]);
+    		if (is_numeric($strHolding))	$strHolding = BuildHongkongStockSymbol($strHolding);
+    		$strName = GbToUtf8(trim($arWord[1]));
+    		DebugString($strHolding.' '.$strName);
    			$this->sql->InsertSymbol($strHolding, $strName);
     		$strId = $this->sql->GetId($strHolding);
     		
-   			$strValue = str_replace(',', '', $arWord[6]);
-   			$fValue = floatval($strValue);
-   			$this->fTotalValue += $fValue;
     		if ($this->his_sql->GetRecord($strId, $this->strDate) === false)
     		{
     			DebugString($strHolding.' missing data on '.$this->strDate);
-    			$strShares = str_replace(',', '', $arWord[5]);
-    			$fClose = $fValue / floatval($strShares);
-    			if ($bHk)	$fClose *= $this->fUSDHKD; 
-    			$strClose = strval_round($fClose, 3);
-    			if ($this->his_sql->WriteHistory($strId, $this->strDate, $strClose))		DebugString('WriteHistory '.$strHolding.' '.$strClose.' '.$strShares.' '.$strValue);
     		}
     		
-    		$this->holdings_sql->InsertHolding($this->strStockId, $strId, $arWord[2]);*/
+    		$this->holdings_sql->InsertHolding($this->strStockId, $strId, strval(100.0 * floatval(trim($arWord[6])) / $this->fTotalValue));
     	}
     }
 }
@@ -78,8 +80,8 @@ function ReadSseHoldingsFile($strSymbol, $strStockId)
 	$csv = new _SseHoldingsFile($strPathName, $strStockId);
    	$csv->Read();
    	
-//	$date_sql = new EtfHoldingsDateSql();
-//	$date_sql->WriteDate($strStockId, $strDate);
+	$date_sql = new EtfHoldingsDateSql();
+	$date_sql->WriteDate($strStockId, $csv->strDate);
 }
 
 ?>
