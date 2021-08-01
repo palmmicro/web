@@ -9,8 +9,7 @@ require_once('_emptygroup.php');
 		$acct->Create();
 	    if ($ref = $acct->GetRef())
 	    {
-	        $str = GetNavXlsStr($ref->GetSymbol());
-	        DebugString($str);
+	        DebugNavXlsStr($ref);
 	    }
 	}
 	$acct->Back();

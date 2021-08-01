@@ -1,5 +1,7 @@
 <?php
 require_once('/php/csvfile.php');
+require_once('/php/stockhis.php');
+require_once('/php/stock/updatestockhistory.php');
 
 class _SseHoldingsFile extends CsvFile
 {
@@ -56,6 +58,7 @@ class _SseHoldingsFile extends CsvFile
     		if ($this->his_sql->GetRecord($strId, $this->strDate) === false)
     		{
     			DebugString($strHolding.' missing data on '.$this->strDate);
+		        UpdateStockHistory(new StockSymbol($strHolding), $strId);
     		}
     		
     		$this->holdings_sql->InsertHolding($this->strStockId, $strId, strval(100.0 * floatval(trim($arWord[6])) / $this->fTotalValue));

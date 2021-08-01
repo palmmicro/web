@@ -12,52 +12,6 @@ function YahooStockHistoryGetUrl($strYahooSymbol, $iTimeBegin = false, $iTimeEnd
     return $strUrl;
 }
 
-function YahooGetStockHistory($strYahooSymbol, $iTimeBegin, $iTimeEnd)
-{
-    $strUrl = YahooStockHistoryGetUrl($strYahooSymbol, $iTimeBegin, $iTimeEnd);
-//    DebugString($strUrl);
-    return url_get_contents($strUrl); 
-}
-
-/*
-<tbody data-reactid="50">
-<tr class="BdT Bdc($seperatorColor) Ta(end) Fz(s) Whs(nw)" data-reactid="51">
-<td class="Py(10px) Ta(start) Pend(10px)" data-reactid="52"><span data-reactid="53">Mar 12, 2021</span></td>
-<td class="Py(10px) Pstart(10px)" data-reactid="54"><span data-reactid="55">275.00</span></td>
-<td class="Py(10px) Pstart(10px)" data-reactid="56"><span data-reactid="57">295.50</span></td>
-<td class="Py(10px) Pstart(10px)" data-reactid="58"><span data-reactid="59">267.27</span></td>
-<td class="Py(10px) Pstart(10px)" data-reactid="60"><span data-reactid="61">273.07</span></td>
-<td class="Py(10px) Pstart(10px)" data-reactid="62"><span data-reactid="63">273.07</span></td>
-<td class="Py(10px) Pstart(10px)" data-reactid="64"><span data-reactid="65">17,423,058</span></td>
-</tr>
-<tr class="BdT Bdc($seperatorColor) Ta(end) Fz(s) Whs(nw)" data-reactid="66">
-<td class="Py(10px) Ta(start) Pend(10px)" data-reactid="67"><span data-reactid="68">Mar 11, 2021</span></td>
-<td class="Py(10px) Pstart(10px)" data-reactid="69"><span data-reactid="70">241.64</span></td>
-<td class="Py(10px) Pstart(10px)" data-reactid="71"><span data-reactid="72">281.50</span></td>
-<td class="Py(10px) Pstart(10px)" data-reactid="73"><span data-reactid="74">232.60</span></td>
-<td class="Py(10px) Pstart(10px)" data-reactid="75"><span data-reactid="76">260.00</span></td>
-<td class="Py(10px) Pstart(10px)" data-reactid="77"><span data-reactid="78">260.00</span></td>
-<td class="Py(10px) Pstart(10px)" data-reactid="79"><span data-reactid="80">28,186,000</span></td>
-</tr>
-*/
-
-function preg_match_yahoo_history($str)
-{
-    $strBoundary = RegExpBoundary();
-    
-    $strPattern = $strBoundary;
-    $strPattern .= RegExpParenthesis('<td class="Py\(10px\) Ta\(start\) Pend\(10px\)" data-reactid="\d*"><span data-reactid="\d*">', '[^<]*', '</span></td>');
-    for ($i = 0; $i < 6; $i ++)
-    {
-        $strPattern .= RegExpParenthesis('<td class="Py\(10px\) Pstart\(10px\)" data-reactid="\d*">'.RegExpSkip('<span data-reactid="\d*">'), '[^<]*', RegExpSkip('</span>').'</td>');
-    }
-    $strPattern .= $strBoundary;
-    
-    $arMatch = array();
-    preg_match_all($strPattern, $str, $arMatch, PREG_SET_ORDER);
-    return $arMatch;
-}
-
 /*
 "^SPSIOP":{
 "sourceInterval":15,

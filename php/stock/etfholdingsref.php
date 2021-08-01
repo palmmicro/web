@@ -109,19 +109,14 @@ class EtfHoldingsReference extends MyStockReference
     
     function GetOfficialNav()
     {
-    	return $this->_estNav(true);
+    	return strval($this->_estNav(true));
     }
 
     function GetFairNav()
     {
 		if ($this->GetDate() == $this->uscny_ref->GetDate())		return false;
-    	return $this->_estNav();
+    	return strval($this->_estNav());
     }
-/*    
-    function GetRealtimeNav()
-    {
-    	return false;
-    }*/
 }
 
 ?>

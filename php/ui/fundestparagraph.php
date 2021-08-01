@@ -62,7 +62,13 @@ function _getFundParagraphStr($ref)
 
 function _callbackSortFundEst($ref)
 {
-	return $ref->stock_ref->GetPercentage($ref->GetOfficialNav());
+	$strNav = $ref->GetOfficialNav();
+	if (method_exists($ref, 'GetStockRef'))
+	{
+    	$stock_ref = $ref->GetStockRef();
+    	return $stock_ref->GetPercentage($strNav);
+	}
+	return $ref->GetPercentage($strNav);
 }
 
 function EchoFundArrayEstParagraph($arRef, $str = '')

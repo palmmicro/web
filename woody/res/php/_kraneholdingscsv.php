@@ -1,5 +1,7 @@
 <?php
 require_once('/php/csvfile.php');
+require_once('/php/stockhis.php');
+require_once('/php/stock/updatestockhistory.php');
 
 class _KraneHoldingsCsvFile extends CsvFile
 {
@@ -50,17 +52,11 @@ class _KraneHoldingsCsvFile extends CsvFile
    			$this->sql->InsertSymbol($strHolding, $strName);
     		$strId = $this->sql->GetId($strHolding);
     		
-   			$strValue = str_replace(',', '', $arWord[6]);
-   			$fValue = floatval($strValue);
-   			$this->fTotalValue += $fValue;
+   			$this->fTotalValue += floatval(str_replace(',', '', $arWord[6]));
     		if ($this->his_sql->GetRecord($strId, $this->strDate) === false)
     		{
     			DebugString($strHolding.' missing data on '.$this->strDate);
-    			$strShares = str_replace(',', '', $arWord[5]);
-    			$fClose = $fValue / floatval($strShares);
-    			if ($bHk)	$fClose *= $this->fUSDHKD; 
-    			$strClose = strval_round($fClose, 3);
-    			if ($this->his_sql->WriteHistory($strId, $this->strDate, $strClose))		DebugString('WriteHistory '.$strHolding.' '.$strClose.' '.$strShares.' '.$strValue);
+		        UpdateStockHistory(new StockSymbol($strHolding), $strId);
     		}
     		
     		$this->holdings_sql->InsertHolding($this->strStockId, $strId, $arWord[2]);
@@ -72,7 +68,7 @@ class _KraneHoldingsCsvFile extends CsvFile
 function ReadKraneHoldingsCsvFile($strSymbol, $strStockId, $strDate, $strNav)
 {
 	$arYMD = explode('-', $strDate);
-	$strUrl = GetKraneUrl().'/csv/'.$arYMD[1].'_'.$arYMD[2].'_'.$arYMD[0].'_'.strtolower($strSymbol).'_holdings.csv';
+	$strUrl = GetKraneUrl().'csv/'.$arYMD[1].'_'.$arYMD[2].'_'.$arYMD[0].'_'.strtolower($strSymbol).'_holdings.csv';
 
 	$str = url_get_contents($strUrl);
 	if ($str == false)

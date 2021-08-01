@@ -154,7 +154,7 @@ class _QdiiReference extends FundReference
         if ($this->strOfficialCNY = $cny_ref->GetClose($strDate))
         {
 			if (method_exists($est_ref, 'GetOfficialNav'))
-        	{
+        	{	// KWEB as $est_ref
         		$this->fOfficialNetValue = $this->GetQdiiValue(strval($est_ref->GetOfficialNav()), $this->strOfficialCNY);
         	}
         	else	$this->fOfficialNetValue = $this->GetQdiiValue($this->_getEstVal(), $this->strOfficialCNY);

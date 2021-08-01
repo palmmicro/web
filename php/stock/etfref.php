@@ -364,8 +364,6 @@ class EtfReference extends MyPairReference
     
     function GetOfficialNav()
     {
-		if (method_exists($this->pair_ref, 'GetOfficialNav'))	return $this->EstFromPair($this->pair_ref->GetOfficialNav());	
-		
         $this->strOfficialDate = $this->pair_ref->GetDate();
         if ($this->cny_ref)
         {
@@ -389,10 +387,6 @@ class EtfReference extends MyPairReference
 
     function GetFairNav()
     {
-		if (method_exists($this->pair_ref, 'GetFairNav'))
-		{
-			if ($strEst = $this->pair_ref->GetFairNav())	return $this->EstFromPair($strEst);
-		}
     	return false;
     }
 }

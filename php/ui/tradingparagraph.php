@@ -126,7 +126,7 @@ function _getTradingParagraphStr($ref, $arColumn)
 
 function EchoFundTradingParagraph($fund, $callback = false)
 {
-    $ref = $fund->stock_ref;
+   	$ref = method_exists($fund, 'GetStockRef') ? $fund->GetStockRef() : $fund;
 	$strPrev = $ref->GetPrevPrice();
     $strOfficial = $fund->GetOfficialNav();
     $strEstPrice = $ref->GetPriceDisplay($strOfficial, $strPrev);
