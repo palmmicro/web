@@ -61,7 +61,7 @@ function GetCategoryArray($strTitle)
         break;
         
     case 'chinainternet':
-        $ar = QdiiGetChinaInternetSymbolArray();
+        $ar = array('SH513050', 'SZ164906');
         break;
         
     case 'commodity':

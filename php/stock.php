@@ -22,6 +22,7 @@ require_once('stock/stockref.php');
 require_once('stock/mysqlref.php');
 require_once('stock/mystockref.php');
 require_once('stock/cnyref.php');
+require_once('stock/netvalueref.php');
 require_once('stock/etfholdingsref.php');
 require_once('stock/futureref.php');
 require_once('stock/fundref.php');
@@ -373,26 +374,23 @@ function _getAllSymbolArray($strSymbol, $strStockId)
    	$sym = new StockSymbol($strSymbol);
     if ($sym->IsFundA())
     {
-        if (in_arrayQdii($strSymbol))
+        if (in_arrayQdiiMix($strSymbol))						       	return array_merge(array($strSymbol), SqlGetHoldingsSymbolArray($strSymbol));
+        else if (in_arrayQdii($strSymbol))
         {
         	$ar = QdiiGetAllSymbolArray($strSymbol);
         	if ($strSymbol == 'SZ164906')		$ar = array_merge($ar, SqlGetHoldingsSymbolArray('KWEB'));
         	return $ar;
         }
         else if (in_arrayQdiiHk($strSymbol))							return QdiiHkGetAllSymbolArray($strSymbol);
-        else if (in_arrayGoldSilver($strSymbol))						return GoldSilverGetAllSymbolArray($strSymbol);
         else if (in_arrayChinaIndex($strSymbol))						return EtfGetAllSymbolArray($strSymbol);
+        else if (in_arrayGoldSilver($strSymbol))						return GoldSilverGetAllSymbolArray($strSymbol);
         else 															return array($strSymbol);
     }
     
 	$ar = SqlGetHoldingsSymbolArray($strSymbol);
 	if ($ar == false)		$ar = array();
 	
-    if ($strPairSymbol = SqlGetEtfPair($strSymbol))
-    {
-    	$ar[] = $strPairSymbol;
-    	if ($strPairSymbol == 'KWEB')	$ar = array_merge($ar, SqlGetHoldingsSymbolArray('KWEB'));
-    }
+    if ($strPairSymbol = SqlGetEtfPair($strSymbol))			   	$ar[] = $strPairSymbol;
     
     if ($sym->IsSymbolA())
     {

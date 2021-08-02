@@ -31,15 +31,24 @@ function _echoStockGroupArray($arStock)
     $arHShareRef = array();
     $arHAdrRef = array();
     $arEtfRef = array();
+    
     foreach ($arStock as $strSymbol)
     {
         $sym = new StockSymbol($strSymbol);
         if ($sym->IsFundA())
         {
-        	$fund = StockGetFundReference($strSymbol);
-        	$arFund[] = $fund;
-	    	if ($ref = StockGetEtfReference($strSymbol))		$arEtfRef[] = $ref;
-        	else												$ref = $fund->stock_ref; 
+        	if (in_arrayQdiiMix($strSymbol))
+        	{
+        		$ref = new EtfHoldingsReference($strSymbol);
+        		$arFund[] = $ref;
+        	}
+        	else
+        	{
+        		$fund = StockGetFundReference($strSymbol);
+        		$arFund[] = $fund;
+        		if ($ref = StockGetEtfReference($strSymbol))		$arEtfRef[] = $ref;
+        		else												$ref = $fund->GetStockRef();
+        	}
        	}
        	else
        	{
@@ -91,7 +100,7 @@ function _getMetaDescriptionStr($strTitle)
 				  'hangseng' => HANGSENG_GROUP_DISPLAY.'基金的净值估算, 目前包括恒生ETF(SZ159920), 恒指LOF(SZ160924)和恒生通(SH513660)等. 使用恒生指数(^HSI)进行估值, 恒生指数盈富基金(02800)仅作为参考.',
 				  'hshares' => HSHARES_GROUP_DISPLAY.'基金的净值估算, 目前包括H股ETF(SH510900)和恒生H股(SZ160717)等.使用恒生中国企业指数(^HSCE)估值, 恒生H股ETF(02828)仅用于参考.',
 				  QDII_PAGE => 'A股的QDII基金由于缺乏及时的信息更新, 会产生各种套利机会. 这里计算各个基金的官方估值, 参考估值和实时估值补上这个生态位空缺.',
-				  QDII_MIX_PAGE => '采用跟踪成分股变化的方式对同时有美股和港股持仓的中概互联(513050)等QDII基金进行净值估算, 这样参考估值中可以反应白天港股波动对净值的实时影响.',
+				  QDII_MIX_PAGE => '采用跟踪成分股变化的方式对同时有美股和港股持仓的中概互联(513050)等QDII基金进行净值估算, 这样官方估值中可以反应白天港股波动对净值的实时影响.',
 				  QDII_HK_PAGE => QDII_HK_DISPLAY.'基金的净值估算. 直接导致把香港QDII从其它QDII页面分出来的原因是有基金居然只有指数而没有对应的港股ETF, 只好用指数给所有港股QDII估值了.',
 				  'oilfund' => OIL_GROUP_DISPLAY.'基金的净值估算, 目前包括南方原油(SH501018), 国泰商品(SZ160216), 嘉实原油(SZ160723)和原油基金(SZ161129)等. 跟踪原油期货的基金都有因为期货升水带来的损耗, 不建议长期持有.',
 				  'qqqfund' => QQQ_GROUP_DISPLAY.'基金的净值估算, 目前包括纳指ETF(SH513100)和纳指100(SZ159941)等. 使用纳斯达克100指数(^NDX)估值, QQQ仅用于参考.',

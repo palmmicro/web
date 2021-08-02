@@ -24,7 +24,7 @@ function EchoAll()
    	$fund = $acct->GetRef();
 	$cny_ref = $fund->GetCnyRef();
     EchoFundEstParagraph($fund);
-    EchoReferenceParagraph(array($fund->stock_ref, $fund->GetEstRef(), $cny_ref));
+    EchoReferenceParagraph(array($fund->GetStockRef(), $fund->GetEstRef(), $cny_ref));
     $acct->EchoLeverageParagraph();
     EchoFundTradingParagraph($fund);    
 	EchoQdiiSmaParagraph($fund);

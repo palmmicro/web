@@ -58,16 +58,6 @@ function in_arrayGoldSilver($strSymbol)
     return in_array($strSymbol, GoldSilverGetSymbolArray());
 }
 
-function QdiiGetChinaInternetSymbolArray()
-{
-    return array('SH513050', 'SZ164906');
-}
-
-function in_arrayChinaInternetQdii($strSymbol)
-{
-    return in_array($strSymbol, QdiiGetChinaInternetSymbolArray());
-}
-
 function QdiiGetGoldSymbolArray()
 {
     return array('SZ160719', 'SZ161116', 'SZ164701'); 
@@ -130,8 +120,7 @@ function in_arraySpyQdii($strSymbol)
 
 function QdiiGetSymbolArray()
 {
-    $ar = array_merge(array('SH513030', 'SZ160140', 'SZ161126', 'SZ161127', 'SZ161128', 'SZ162415', 'SZ164824', 'SZ165510') 
-    				   , QdiiGetChinaInternetSymbolArray()
+    $ar = array_merge(array('SH513030', 'SZ160140', 'SZ161126', 'SZ161127', 'SZ161128', 'SZ162415', 'SZ164824', 'SZ164906', 'SZ165510') 
     				   , QdiiGetGoldSymbolArray()
     				   , QdiiGetOilSymbolArray()
     				   , QdiiGetOilEtfSymbolArray()

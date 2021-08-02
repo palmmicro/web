@@ -38,9 +38,8 @@ function EchoAll()
     	if ($strDate = $ref->GetHoldingsDate())
     	{
     		$arHoldingRef = $ref->GetHoldingRefArray();
-    		$arSelf = array($ref);
-		    EchoFundArrayEstParagraph($arSelf, GetTableColumnNetValue().'和持仓比例更新日期'.$strDate);
-    		EchoReferenceParagraph(array_merge($arSelf, $arHoldingRef));
+		    EchoEtfHoldingsEstParagraph($ref);
+    		EchoReferenceParagraph(array_merge(array($ref), $arHoldingRef));
     		EchoTableParagraphBegin(array(new TableColumnSymbol(),
 										   new TableColumnPercentage('旧'),
 										   new TableColumnPrice('旧'),
@@ -54,7 +53,7 @@ function EchoAll()
 			$his_sql = GetStockHistorySql();
 			foreach ($arHoldingRef as $holding_ref)
 			{
-				_echoEtfHoldingItem($holding_ref, $arRatio, $strDate, $his_sql, $ref->GetNavChange(), $ref->GetAdjustH());
+				_echoEtfHoldingItem($holding_ref, $arRatio, $strDate, $his_sql, $ref->GetNavChange(), $ref->GetAdjustHkd());
 			}
 			EchoTableParagraphEnd();
 		}

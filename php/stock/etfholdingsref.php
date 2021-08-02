@@ -2,6 +2,7 @@
 
 class EtfHoldingsReference extends MyStockReference
 {
+	var $nav_ref;
     var $uscny_ref;
     var $hkcny_ref;
     
@@ -14,14 +15,14 @@ class EtfHoldingsReference extends MyStockReference
     function EtfHoldingsReference($strSymbol) 
     {
         parent::MyStockReference($strSymbol);
+       	$this->nav_ref = new NetValueReference($strSymbol);
+   		$this->hkcny_ref = new CnyReference('HKCNY');
+   		$this->uscny_ref = new CnyReference('USCNY');
 
         $strStockId = $this->GetStockId();
     	$date_sql = new EtfHoldingsDateSql();
     	if ($this->strHoldingsDate = $date_sql->ReadDate($strStockId))
     	{
-    		$this->hkcny_ref = new CnyReference('HKCNY');
-    		$this->uscny_ref = new CnyReference('USCNY');
-
     		$nav_sql = GetNavHistorySql();
     		$this->strNav = $nav_sql->GetClose($strStockId, $this->strHoldingsDate);
     		
@@ -33,6 +34,26 @@ class EtfHoldingsReference extends MyStockReference
     			$this->ar_holdings_ref[] = new MyStockReference($sql->GetKey($strId));
 			}
     	}
+    }
+    
+    function GetFundEstSql()
+    {
+    	return $this->nav_ref->GetFundEstSql();
+    }
+    
+    function GetNavRef()
+    {
+    	return $this->nav_ref;
+    }
+    
+    function GetUscnyRef()
+    {
+    	return $this->uscny_ref;
+    }
+    
+    function GetHkcnyRef()
+    {
+    	return $this->hkcny_ref;
     }
     
     function GetHoldingsDate()
@@ -52,10 +73,10 @@ class EtfHoldingsReference extends MyStockReference
     
     function GetNav()
     {
-    	return $this->strNav;
+    	return $this->nav_ref->GetPrice();
     }
     
-    function GetAdjustH($bOfficial = false)
+    function GetAdjustHkd($bOfficial = false)
     {
 		$fOldUSDHKD = floatval($this->uscny_ref->GetClose($this->strHoldingsDate)) / floatval($this->hkcny_ref->GetClose($this->strHoldingsDate));
 		if ($bOfficial)	
@@ -71,10 +92,17 @@ class EtfHoldingsReference extends MyStockReference
 //		return 1.0;
     }
     
+    function GetAdjustCny($bOfficial = false)
+    {
+		$fOldUSDCNY = floatval($this->uscny_ref->GetClose($this->strHoldingsDate));
+		$fUSDCNY = $bOfficial ? floatval($this->uscny_ref->GetClose($this->GetDate())) : floatval($this->uscny_ref->GetPrice());
+		return $fOldUSDCNY / $fUSDCNY;
+    }
+    
     // (x - x0) / x0 = sum{ r * (y - y0) / y0} 
     function _estNav($bOfficial = false)
     {
-    	$fAdjustH = $this->GetAdjustH($bOfficial);
+    	$fAdjustH = $this->GetAdjustHkd($bOfficial);
     	
 		$his_sql = GetStockHistorySql();
 		$fTotalChange = 0.0;
@@ -89,8 +117,9 @@ class EtfHoldingsReference extends MyStockReference
 			{
 				$strDate = $this->GetDate();
 				$strPrice = $his_sql->GetAdjClose($strStockId, $strDate);
+				if ($strPrice === false)		$strPrice = $ref->GetPrice();	
 			}
-			else				$strPrice = $ref->GetPrice();
+			else								$strPrice = $ref->GetPrice();
 			
 			if ($strAdjClose = $his_sql->GetAdjClose($strStockId, $this->strHoldingsDate))
 			{
@@ -99,7 +128,9 @@ class EtfHoldingsReference extends MyStockReference
 				$fTotalChange += $fChange;
 			}
 		}
-		return floatval($this->strNav) * (1.0 + $fTotalChange - $fTotalRatio);
+		$fNewNav = floatval($this->strNav) * (1.0 + $fTotalChange - $fTotalRatio);
+		if ($this->IsFundA())		$fNewNav /= $this->GetAdjustCny($bOfficial);
+		return $fNewNav; 
     }
 
     function GetNavChange()
@@ -109,7 +140,9 @@ class EtfHoldingsReference extends MyStockReference
     
     function GetOfficialNav()
     {
-    	return strval($this->_estNav(true));
+    	$strNav = strval($this->_estNav(true));
+   		StockUpdateEstResult($this->GetFundEstSql(), $this->GetStockId(), $strNav, $this->GetDate());
+   		return $strNav;
     }
 
     function GetFairNav()

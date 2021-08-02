@@ -146,9 +146,17 @@ function _echoMyStockData($acct, $ref)
     $strSymbol = $ref->GetSymbol();
     if ($ref->IsFundA())
     {
-        $fund = StockGetFundReference($strSymbol);
-        $ref = $fund->stock_ref; 
-    	$etf_ref = StockGetEtfReference($strSymbol);
+       	if (in_arrayQdiiMix($strSymbol))
+       	{
+       		$etf_holdings_ref = new EtfHoldingsReference($strSymbol);
+       		$ref = $etf_holdings_ref;
+       	}
+       	else
+       	{
+       		$fund = StockGetFundReference($strSymbol);
+       		$ref = $fund->GetStockRef(); 
+       		$etf_ref = StockGetEtfReference($strSymbol);
+       	}
     }
     else
     {
@@ -160,11 +168,11 @@ function _echoMyStockData($acct, $ref)
    	EchoReferenceParagraph(array($ref));
    	if ($etf_holdings_ref)
    	{
-		EchoFundEstParagraph($etf_holdings_ref, GetEtfHoldingsLink($strSymbol));
+		EchoEtfHoldingsEstParagraph($etf_holdings_ref);
    	}
    	else if ($etf_ref)
    	{
-		EchoFundEstParagraph($etf_ref, '');
+		EchoFundArrayEstParagraph(array($etf_ref));
    		EchoEtfListParagraph(array($etf_ref));
    		EchoEtfTradingParagraph($etf_ref);
    		EchoEtfHistoryParagraph($etf_ref);
@@ -211,7 +219,16 @@ function _echoMyStockData($acct, $ref)
     		$str .= '<br />id='.$strStockId;
     		$str .= '<br />'._getMyStockLinks($ref);
    			$str .= '<br />'.$ref->DebugLink();
-   			if ($ref->IsFundA())			$str .= '<br />'.$fund->DebugLink();
+   			if ($ref->IsFundA())
+   			{
+   				$str .= '<br />';
+   				if (in_arrayQdiiMix($strSymbol))
+   				{
+   					$nav_ref = $ref->GetNavRef(); 
+   					$str .= $nav_ref->DebugLink(); 
+   				}
+   				else	$str .= $fund->DebugLink(); 
+   			}
    			if (_hasSmaDisplay($ref)) 		$str .= '<br />'.GetTableColumnSma().' '.$ref->DebugConfigLink();
     	}
     	EchoParagraph($str);

@@ -1,12 +1,11 @@
 <?php 
-require('php/_qdii.php');
+require('php/_qdiimix.php');
 
-function GetQdiiRelated($sym)
+function GetQdiiMixRelated($sym)
 {
-	$str = '<b>注意KWEB和SH513050跟踪的指数H30533不同, 此处估算结果仅供参考.</b></p><p>';
-	$str .= GetEFundOfficialLink($sym->GetDigitA());
+	$str = GetEFundOfficialLink($sym->GetDigitA());
 	$str .= ' '.GetCsindexOfficialLink('H30533');
-	$str .= ' '.GetQdiiLinks($sym);
+	$str .= ' '.GetQdiiMixLinks($sym);
 	$str .= GetQqqSoftwareLinks();
 	$str .= GetHangSengSoftwareLinks();
 	$str .= GetEFundSoftwareLinks();

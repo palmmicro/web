@@ -18,7 +18,7 @@ class FundGroupAccount extends GroupAccount
     function GetStockDisplay()
     {
     	$ref = $this->GetRef();
-        return RefGetStockDisplay($ref->stock_ref);
+        return RefGetStockDisplay($ref->GetStockRef());
     }
 }
 

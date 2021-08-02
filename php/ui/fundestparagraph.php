@@ -35,31 +35,6 @@ function _echoFundEstTableItem($ref, $bFair)
     EchoTableColumn($ar);
 }
 
-function _getFundRealtimeStr($ref, $strRealtimeEst)
-{
-    $future_ref = $ref->GetFutureRef();
-    $future_etf_ref = $ref->future_etf_ref;
-   	$est_ref = $ref->GetEstRef();
-    
-    $strFutureSymbol = $future_ref->GetSymbol();
-    $str = "期货{$strRealtimeEst}{$strFutureSymbol}关联程度按照100%估算";
-    
-    if ($future_etf_ref && ($future_etf_ref != $est_ref))
-    {
-        $strEtfSymbol = $est_ref->GetSymbol();
-        $strFutureEtfSymbol = $future_etf_ref->GetSymbol();
-        $str .= ', '.GetStockChartsLink($strEtfSymbol)."和{$strFutureEtfSymbol}关联程度按照100%估算";
-    }
-    return $str.'.';    
-}
-
-function _getFundParagraphStr($ref)
-{
-	$str = GetTableColumnOfficalEst().GetTableColumnDate().$ref->GetOfficialDate().', 最近'.GetCalibrationHistoryLink($ref->GetSymbol()).'时间'.$ref->GetTimeNow().'.';
-    if ($ref->fRealtimeNetValue)   $str .= ' '._getFundRealtimeStr($ref, GetTableColumnRealtimeEst());
-    return $str;
-}
-
 function _callbackSortFundEst($ref)
 {
 	$strNav = $ref->GetOfficialNav();
@@ -128,9 +103,37 @@ function EchoFundArrayEstParagraph($arRef, $str = '')
     EchoTableParagraphEnd();
 }
 
-function EchoFundEstParagraph($ref, $str = false)
+function EchoFundEstParagraph($ref)
 {
-    if ($str === false)	$str = _getFundParagraphStr($ref);
+	$str = GetTableColumnNetValue().GetTableColumnDate().$ref->GetDate().', ';
+	$str .= GetTableColumnOfficalEst().GetTableColumnDate().$ref->GetOfficialDate().', 最近'.GetCalibrationHistoryLink($ref->GetSymbol()).'时间'.$ref->GetTimeNow().'.';
+    if ($ref->fRealtimeNetValue)
+    {
+    	$strRealtimeEst = GetTableColumnRealtimeEst();
+    	$future_ref = $ref->GetFutureRef();
+    	$future_etf_ref = $ref->future_etf_ref;
+    	$est_ref = $ref->GetEstRef();
+    
+    	$strFutureSymbol = $future_ref->GetSymbol();
+    	$str .= " 期货{$strRealtimeEst}{$strFutureSymbol}关联程度按照100%估算";
+    
+    	if ($future_etf_ref && ($future_etf_ref != $est_ref))
+    	{
+    		$strEtfSymbol = $est_ref->GetSymbol();
+    		$strFutureEtfSymbol = $future_etf_ref->GetSymbol();
+    		$str .= ', '.GetStockChartsLink($strEtfSymbol)."和{$strFutureEtfSymbol}关联程度按照100%估算";
+    	}
+    	$str .= '.';    
+    }
+    EchoFundArrayEstParagraph(array($ref), $str);
+}
+
+function EchoEtfHoldingsEstParagraph($ref)
+{
+	$nav_ref = $ref->GetNavRef();
+	$str = GetTableColumnNetValue().GetTableColumnDate().$nav_ref->GetDate().', ';
+	$str .= GetTableColumnOfficalEst().GetTableColumnDate().$ref->GetDate().', ';
+	$str .= GetEtfHoldingsLink($ref->GetSymbol()).'更新日期'.$ref->GetHoldingsDate().'.';
     EchoFundArrayEstParagraph(array($ref), $str);
 }
 

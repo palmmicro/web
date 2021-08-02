@@ -72,13 +72,23 @@ function _botGetStockText($strSymbol)
     }
     else if ($sym->IsFundA())
     {
-        $ref = StockGetFundReference($strSymbol);
-        $str = TextFromFundReference($ref);
-        if (in_arrayQdii($strSymbol))
-        {
-	        $str .= BOT_EOL.TextFromStockReference($ref->GetCnyRef()); 
-	        $str .= BOT_EOL.TextFromStockReference($ref->GetEstRef()); 
-	        if ($future_ref = $ref->GetFutureRef())		$str .= BOT_EOL.TextFromStockReference($future_ref); 
+    	if (in_arrayQdiiMix($strSymbol))
+    	{
+    		$ref = new EtfHoldingsReference($strSymbol);
+    		$str = TextFromEtfHoldingsReference($ref);
+   			$str .= BOT_EOL.TextFromStockReference($ref->GetUscnyRef()); 
+   			$str .= BOT_EOL.TextFromStockReference($ref->GetHkcnyRef()); 
+    	}
+    	else
+    	{
+    		$ref = StockGetFundReference($strSymbol);
+    		$str = TextFromFundReference($ref);
+    		if (in_arrayQdii($strSymbol))
+    		{
+    			$str .= BOT_EOL.TextFromStockReference($ref->GetCnyRef()); 
+    			$str .= BOT_EOL.TextFromStockReference($ref->GetEstRef()); 
+    			if ($future_ref = $ref->GetFutureRef())		$str .= BOT_EOL.TextFromStockReference($future_ref);
+    		}
 	    }
     }
     else
