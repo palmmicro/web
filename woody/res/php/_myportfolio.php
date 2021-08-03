@@ -74,19 +74,22 @@ function _echoMergeParagraph($arMerge)
 
 	foreach ($arMerge as $strSymbol => $trans)
 	{
-		$ar = array();
-		
-		$ref = $trans->GetRef();
-		if ($ref->IsSymbolUS())	$ar[] = GetTradingViewLink($strSymbol);
-		else						$ar[] = RefGetMyStockLink($ref);
-			
 		$iTotal = $trans->GetTotalShares();
-        $ar[] = strval($iTotal);
-        if ($strSymbol == 'XOP')
-        {
-        	$ar[] = strval($iTotal - 114);
-        }
-        EchoTableColumn($ar);
+		if ($iTotal != 0)
+		{
+			$ar = array();
+		
+			$ref = $trans->GetRef();
+			if ($ref->IsSymbolUS())	$ar[] = GetTradingViewLink($strSymbol);
+			else						$ar[] = RefGetMyStockLink($ref);
+			
+			$ar[] = strval($iTotal);
+			if ($strSymbol == 'XOP')
+			{
+				$ar[] = strval($iTotal - 114);
+			}
+			EchoTableColumn($ar);
+		}
 	}
     EchoTableParagraphEnd();
 }

@@ -32,16 +32,18 @@ function EchoAll()
     global $acct;
     
     $ref = $acct->GetRef();
+    $uscny_ref = $ref->GetUscnyRef();
+    $hkcny_ref = $ref->GetHkcnyRef();
     
 	EchoEtfHoldingsEstParagraph($ref);
-    EchoReferenceParagraph(array($ref, $acct->usd_ref, $acct->cnh_ref, $ref->GetUscnyRef(), $ref->GetHkcnyRef()));
-/*    EchoEtfTradingParagraph($acct->ref);
-    EchoEtfHistoryParagraph($acct->ref);
-
+    EchoReferenceParagraph(array($ref, $acct->usd_ref, $acct->cnh_ref, $uscny_ref, $hkcny_ref));
+    EchoFundTradingParagraph($ref);
+    EchoEtfHoldingsHistoryParagraph($ref);
     if ($group = $acct->EchoTransaction()) 
     {
-    	$acct->EchoMoneyParagraph($group, $acct->us_ref->cny_ref);
+    	$acct->EchoMoneyParagraph($group, $uscny_ref, $hkcny_ref);
 	}
+/*
 	
 	if ($acct->IsAdmin())
 	{

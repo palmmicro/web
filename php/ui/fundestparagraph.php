@@ -105,8 +105,8 @@ function EchoFundArrayEstParagraph($arRef, $str = '')
 
 function EchoFundEstParagraph($ref)
 {
-	$str = GetTableColumnNetValue().GetTableColumnDate().$ref->GetDate().', ';
-	$str .= GetTableColumnOfficalEst().GetTableColumnDate().$ref->GetOfficialDate().', 最近'.GetCalibrationHistoryLink($ref->GetSymbol()).'时间'.$ref->GetTimeNow().'.';
+	$str = GetTableColumnNetValue().$ref->GetDate().', ';
+	$str .= GetTableColumnOfficalEst().$ref->GetOfficialDate().', 最近'.GetCalibrationHistoryLink($ref->GetSymbol()).$ref->GetTimeNow().'.';
     if ($ref->fRealtimeNetValue)
     {
     	$strRealtimeEst = GetTableColumnRealtimeEst();
@@ -131,9 +131,9 @@ function EchoFundEstParagraph($ref)
 function EchoEtfHoldingsEstParagraph($ref)
 {
 	$nav_ref = $ref->GetNavRef();
-	$str = GetTableColumnNetValue().GetTableColumnDate().$nav_ref->GetDate().', ';
-	$str .= GetTableColumnOfficalEst().GetTableColumnDate().$ref->GetDate().', ';
-	$str .= GetEtfHoldingsLink($ref->GetSymbol()).'更新日期'.$ref->GetHoldingsDate().'.';
+	$str = GetTableColumnNetValue().$nav_ref->GetDate().', ';
+	$str .= GetTableColumnOfficalEst().$ref->GetDate().', ';
+	$str .= GetEtfHoldingsLink($ref->GetSymbol()).'更新于'.$ref->GetHoldingsDate().'.';
     EchoFundArrayEstParagraph(array($ref), $str);
 }
 

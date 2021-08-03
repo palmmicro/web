@@ -135,6 +135,7 @@ function EchoFundTradingParagraph($fund, $callback = false)
    	{
    		if ($strRealtime = $fund->GetRealtimeNav())	$strEstPrice .= '/'.$ref->GetPriceDisplay($strRealtime, $strPrev);
    	}
+   	else	$strRealtime = false;
     
     $arColumn = _getTradingTableColumn();
     $arColumn[] = GetTableColumnOfficalPremium();
@@ -145,7 +146,7 @@ function EchoFundTradingParagraph($fund, $callback = false)
     
 	$strEst = GetTableColumnEst();
 	$strPremium = GetTableColumnPremium();
-    $str = "{$strPrice}相对于各个{$strEst}{$strEstPrice}的{$strPremium}";
+    $str = "{$strPrice}相对于{$strEst}{$strEstPrice}的{$strPremium}";
     _echoTradingParagraph($str, $arColumn, $ref, $strOfficial, $strFair, $strRealtime, $callback); 
 }
 

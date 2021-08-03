@@ -13,7 +13,7 @@ function _echoFundHistoryTableItem($csv, $strNetValue, $strClose, $strDate, $arF
    	$ar[] = $strNetValue;
 	$ar[] = $ref->GetPercentageDisplay($strNetValue, $strClose);
 
-    if ($est_ref)
+    if ($arFund)
     {
     	$strEstValue = $arFund['close'];
     	if (!empty($strEstValue))
@@ -22,13 +22,16 @@ function _echoFundHistoryTableItem($csv, $strNetValue, $strClose, $strDate, $arF
     		$ar[] = GetHM($arFund['time']);
     		$ar[] = $ref->GetPercentageDisplay($strNetValue, $strEstValue);
 		
-    		$strEstDate = $arFund['date'];
-    		$strEstStockId = $est_ref->GetStockId();
-    		$strEstClose = $his_sql->GetClose($strEstStockId, $strEstDate);
-    		$strEstClosePrev = $his_sql->GetClosePrev($strEstStockId, $strEstDate);
-    		if ($strEstClose && $strEstClosePrev)
+    		if ($est_ref)
     		{
-    			$ar[] = $est_ref->GetPriceDisplay($strEstClose, $strEstClosePrev);
+    			$strEstDate = $arFund['date'];
+    			$strEstStockId = $est_ref->GetStockId();
+    			$strEstClose = $his_sql->GetClose($strEstStockId, $strEstDate);
+    			$strEstClosePrev = $his_sql->GetClosePrev($strEstStockId, $strEstDate);
+    			if ($strEstClose && $strEstClosePrev)
+    			{
+    				$ar[] = $est_ref->GetPriceDisplay($strEstClose, $strEstClosePrev);
+    			}
     		}
     	}
     }
@@ -61,7 +64,7 @@ function _echoHistoryTableData($nav_sql, $fund_est_sql, $csv, $ref, $strStockId,
         	if (empty($strNetValue) == false)
         	{
         		$strDate = $record['date'];
-        		$arFund = $fund_est_sql->GetRecord($strStockId, $strDate);
+        		$arFund = $fund_est_sql ? $fund_est_sql->GetRecord($strStockId, $strDate) : false;
         		if ($bSameDayNetValue == false)
         		{
         			$strDate = GetNextTradingDayYMD($strDate);
@@ -83,14 +86,7 @@ function _echoFundHistoryParagraph($fund_est_sql, $ref, $est_ref, $csv = false, 
 	$nav_col = new TableColumnNetValue();
 	$premium_col = new TableColumnPremium();
 	
-    if ($ref->IsFundA())
-    {
-    	$str = GetEastMoneyFundLink($ref);
-    }
-    else
-    {
-    	$str = GetXueqiuLink($ref);
-    }
+    $str = $ref->IsFundA() ? GetEastMoneyFundLink($ref) : GetXueqiuLink($ref);
     $str .= '的历史'.$close_col->GetDisplay().'相对于'.$nav_col->GetDisplay().'的'.$premium_col->GetDisplay();
     
     $strSymbol = $ref->GetSymbol();
@@ -101,34 +97,37 @@ function _echoFundHistoryParagraph($fund_est_sql, $ref, $est_ref, $csv = false, 
         $str .= ' '.GetFundHistoryLink($strSymbol);
         $strNavLink = '';
     }
-    else
-    {
-    	$strNavLink = StockGetNavLink($strSymbol, $nav_sql->Count($strStockId), $iStart, $iNum);
-    }
+    else	$strNavLink = StockGetNavLink($strSymbol, $nav_sql->Count($strStockId), $iStart, $iNum);
 
 	$str .= ' '.$strNavLink;
 	$ar = array(new TableColumnDate(), $close_col, $nav_col, $premium_col);
-	if ($est_ref)
+	if ($fund_est_sql->Count($strStockId) > 0)
 	{
 		$ar[] = new TableColumnOfficalEst();
 		$ar[] = new TableColumnTime();
 		$ar[] = new TableColumnError();
-		$ar[] = new TableColumnMyStock($est_ref->GetSymbol());
+		if ($est_ref)		$ar[] = new TableColumnMyStock($est_ref->GetSymbol());
 	}
-	EchoTableParagraphBegin($ar, $strSymbol.FUND_HISTORY_PAGE, $str);
+	else	$fund_est_sql = false;
 	
+	EchoTableParagraphBegin($ar, $strSymbol.FUND_HISTORY_PAGE, $str);
 	_echoHistoryTableData($nav_sql, $fund_est_sql, $csv, $ref, $strStockId, $est_ref, $iStart, $iNum);
     EchoTableParagraphEnd($strNavLink);
 }
 
 function EchoFundHistoryParagraph($fund, $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
 {
-    _echoFundHistoryParagraph($fund->GetFundEstSql(), $fund->stock_ref, $fund->GetEstRef(), $csv, $iStart, $iNum);
+    _echoFundHistoryParagraph($fund->GetFundEstSql(), $fund->GetStockRef(), $fund->GetEstRef(), $csv, $iStart, $iNum);
 }
 
 function EchoEtfHistoryParagraph($ref, $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
 {
     _echoFundHistoryParagraph($ref->GetFundEstSql(), $ref, $ref->GetPairRef(), $csv, $iStart, $iNum);
+}
+
+function EchoEtfHoldingsHistoryParagraph($ref, $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
+{
+    _echoFundHistoryParagraph($ref->GetFundEstSql(), $ref, false, $csv, $iStart, $iNum);
 }
 
 ?>

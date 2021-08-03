@@ -25,11 +25,11 @@ function _echoPortfolioTableItem($trans)
         	$ar[] = '';
         }
         
-/*        if ($strSymbol == 'CHU')
+        if ($strSymbol == 'SZ162411')
         {
-//        	$ar[] = strval($iShares - 800);
+        	$ar[] = strval($iShares - 1179200);
         }
-       else if ($strSymbol == 'SH600104')
+/*       else if ($strSymbol == 'SH600104')
         {
         	$ar[] = strval($iShares - 4000);
         }*/
@@ -47,7 +47,7 @@ function EchoPortfolioParagraph($arTrans)
 								   new TableColumnTotalShares(),
 								   new TableColumnPrice('平均'),
 								   new TableColumnChange(),
-//								   new TableColumnTest()
+								   new TableColumnTest()
 								   ), MY_PORTFOLIO_PAGE, '个股'.$profit_col->GetDisplay());
 
 	foreach ($arTrans as $trans)
