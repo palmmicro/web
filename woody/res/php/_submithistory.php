@@ -16,7 +16,8 @@ require_once('/php/stock/updatestockhistory.php');
 	        UpdateStockHistory($ref, $ref->GetStockId());
 	        
 	        // do some extra work together
-	        DebugNavXlsStr($ref);
+	        if ($ref->GetSymbol() == '^GSPC')		DebugNavXlsStr(new StockSymbol('SPY'));
+	        else									DebugNavXlsStr($ref);
 	    }
 	}
 	$acct->Back();

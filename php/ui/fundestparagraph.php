@@ -132,7 +132,7 @@ function EchoEtfHoldingsEstParagraph($ref)
 {
 	$nav_ref = $ref->GetNavRef();
 	$str = GetTableColumnNetValue().$nav_ref->GetDate().', ';
-	$str .= GetTableColumnOfficalEst().$ref->GetDate().', ';
+	$str .= GetTableColumnOfficalEst().$ref->GetOfficialDate().', ';
 	$str .= GetEtfHoldingsLink($ref->GetSymbol()).'更新于'.$ref->GetHoldingsDate().'.';
     EchoFundArrayEstParagraph(array($ref), $str);
 }

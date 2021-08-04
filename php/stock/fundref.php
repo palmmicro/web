@@ -178,7 +178,7 @@ class FundReference extends MysqlReference
 			switch ($this->GetSymbol())
 			{
 			case 'SZ164906':
-				$fRatio = 0.79;
+				$fRatio = 0.94;
 				break;
 
 			default:

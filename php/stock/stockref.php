@@ -138,9 +138,9 @@ class StockReference extends StockSymbol
     }
     
     // for weixin text
-    function GetPriceText($fVal)
+    function GetPriceText($strVal)
     {
-        return strval_round($fVal, $this->GetPrecision());
+        return strval_round(floatval($strVal), $this->GetPrecision());
     }
 
     function GetPercentage($strDivisor = false, $strDividend = false)

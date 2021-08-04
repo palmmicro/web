@@ -107,9 +107,9 @@ function GetNavXlsStr($strSymbol, $bAutoCheck = false)
 	return $strSymbol.'不是SPDR或者ISHARES的ETF';
 }
 
-function DebugNavXlsStr($ref, $bAutoCheck = false)
+function DebugNavXlsStr($sym, $bAutoCheck = false)
 {
-	$str = GetNavXlsStr($ref->GetSymbol(), $bAutoCheck);
+	$str = GetNavXlsStr($sym->GetSymbol(), $bAutoCheck);
     DebugString($str);
 }
 

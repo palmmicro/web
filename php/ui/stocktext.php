@@ -58,23 +58,32 @@ function TextFromAbReference($ab_ref, $bStockA = true)
 	return $str;
 }
 
-function _textPremium($stock_ref, $strEst)
+function _textPremium($ref, $strEst)
 {
-    if ($stock_ref->HasData())
+    if ($ref->HasData())
     {
-        return STOCK_DISP_PREMIUM.':'.$stock_ref->GetPercentageText($strEst);
+        return STOCK_DISP_PREMIUM.':'.$ref->GetPercentageText($strEst);
     }
     return '';
 }
 
-function _textEstPremium($stock_ref, $fEst)
+function _textEstPremium($ref, $strEst)
 {
-    $str = STOCK_DISP_EST.':'.$stock_ref->GetPriceText($fEst);
-    if ($stock_ref->HasData())
-    {
-        $str .= ' '._textPremium($stock_ref, strval($fEst));
-    }
+    $str = STOCK_DISP_EST.':'.$ref->GetPriceText($strEst);
+    $str .= ' '._textPremium($ref, $strEst);
     return $str;
+}
+
+function _textEstNav($fund, $ref)
+{
+	$str = '';
+	if ($strNav = $fund->GetOfficialNav())		$str .= STOCK_DISP_OFFICIAL._textEstPremium($ref, $strNav).' '.$fund->GetOfficialDate().BOT_EOL;
+	if ($strNav = $fund->GetFairNav())			$str .= STOCK_DISP_FAIR._textEstPremium($ref, $strNav).BOT_EOL;
+    if (method_exists($fund, 'GetRealtimeNav'))
+    {
+    	if ($strNav = $fund->GetRealtimeNav())	$str .= STOCK_DISP_REALTIME._textEstPremium($ref, $strNav).BOT_EOL;
+    }
+	return $str;
 }
 
 function TextFromFundReference($ref)
@@ -102,19 +111,7 @@ function TextFromFundReference($ref)
     if ($stock_ref)
     {
     	if ($stock_ref->GetDate() == $strDate)	$str .= _textPremium($stock_ref, $strNetValue).BOT_EOL;
-    }
-    
-    if ($ref->fOfficialNetValue)
-    {
-        $str .= STOCK_DISP_OFFICIAL._textEstPremium($stock_ref, $ref->fOfficialNetValue).' '.$ref->GetOfficialDate().BOT_EOL;
-    }
-    if ($ref->fFairNetValue)
-    {
-        $str .= STOCK_DISP_FAIR._textEstPremium($stock_ref, $ref->fFairNetValue).BOT_EOL;
-    }
-    if ($ref->fRealtimeNetValue)
-    {
-        $str .= STOCK_DISP_REALTIME._textEstPremium($stock_ref, $ref->fRealtimeNetValue).BOT_EOL;
+    	$str .= _textEstNav($ref, $stock_ref);
     }
     return $str;
 }
@@ -126,8 +123,7 @@ function TextFromEtfHoldingsReference($ref)
 	$nav_ref = $ref->GetNavRef();
     $str .= STOCK_DISP_NETVALUE.':'.$nav_ref->GetPrice().' '.$nav_ref->GetDate().BOT_EOL;
     $str .= STOCK_DISP_NETVALUE.STOCK_DISP_CHANGE.':'.$nav_ref->GetPercentageText().BOT_EOL;
-    
-    $str .= STOCK_DISP_OFFICIAL._textEstPremium($ref, $ref->GetOfficialNav()).' '.$ref->GetDate().BOT_EOL;
+   	$str .= _textEstNav($ref, $ref);
     return $str;
 }
 

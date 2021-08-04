@@ -76,13 +76,12 @@ class EtfHoldingsReference extends MyStockReference
     	return $this->nav_ref->GetPrice();
     }
     
-    function GetAdjustHkd($bOfficial = false)
+    function GetAdjustHkd($strDate = false)
     {
 		$fOldUSDHKD = floatval($this->uscny_ref->GetClose($this->strHoldingsDate)) / floatval($this->hkcny_ref->GetClose($this->strHoldingsDate));
 		$fUSDHKD = floatval($this->uscny_ref->GetPrice()) / floatval($this->hkcny_ref->GetPrice());
-		if ($bOfficial)	
+		if ($strDate)	
 		{
-			$strDate = $this->GetDate();
 			if ($strHKDCNY = $this->hkcny_ref->GetClose($strDate))	
 			{
 				if ($strUSDCNY = $this->uscny_ref->GetClose($strDate))		$fUSDHKD = floatval($strUSDCNY) / floatval($strHKDCNY);
@@ -92,21 +91,21 @@ class EtfHoldingsReference extends MyStockReference
 //		return 1.0;
     }
     
-    function GetAdjustCny($bOfficial = false)
+    function GetAdjustCny($strDate = false)
     {
 		$fOldUSDCNY = floatval($this->uscny_ref->GetClose($this->strHoldingsDate));
 		$fUSDCNY = floatval($this->uscny_ref->GetPrice());
-		if ($bOfficial)
+		if ($strDate)
 		{
-			if ($strUSDCNY = $this->uscny_ref->GetClose($this->GetDate()))	$fUSDCNY = floatval($strUSDCNY);
+			if ($strUSDCNY = $this->uscny_ref->GetClose($strDate))		$fUSDCNY = floatval($strUSDCNY);
 		}
 		return $fOldUSDCNY / $fUSDCNY;
     }
     
     // (x - x0) / x0 = sum{ r * (y - y0) / y0} 
-    function _estNav($bOfficial = false)
+    function _estNav($strDate = false)
     {
-    	$fAdjustH = $this->GetAdjustHkd($bOfficial);
+    	$fAdjustH = $this->GetAdjustHkd($strDate);
     	
 		$his_sql = GetStockHistorySql();
 		$fTotalChange = 0.0;
@@ -117,13 +116,11 @@ class EtfHoldingsReference extends MyStockReference
 			$fRatio = floatval($this->arHoldingsRatio[$strStockId]) / 100.0;
 			$fTotalRatio += $fRatio;
 			
-			if ($bOfficial)
+			$strPrice = $ref->GetPrice();
+			if ($strDate)
 			{
-				$strDate = $this->GetDate();
-				$strPrice = $his_sql->GetAdjClose($strStockId, $strDate);
-				if ($strPrice === false)		$strPrice = $ref->GetPrice();	
+				if ($str = $his_sql->GetAdjClose($strStockId, $strDate))		$strPrice = $str;
 			}
-			else								$strPrice = $ref->GetPrice();
 			
 			if ($strAdjClose = $his_sql->GetAdjClose($strStockId, $this->strHoldingsDate))
 			{
@@ -133,7 +130,7 @@ class EtfHoldingsReference extends MyStockReference
 			}
 		}
 		$fNewNav = floatval($this->strNav) * (1.0 + $fTotalChange - $fTotalRatio);
-		if ($this->IsFundA())		$fNewNav /= $this->GetAdjustCny($bOfficial);
+		if ($this->IsFundA())		$fNewNav /= $this->GetAdjustCny($strDate);
 		return $fNewNav; 
     }
 
@@ -142,17 +139,50 @@ class EtfHoldingsReference extends MyStockReference
     	return $this->_estNav() / floatval($this->strNav);
     }
     
+    function _getEstDate()
+    {
+   		foreach ($this->ar_holdings_ref as $ref)
+   		{
+   			if ($ref->IsSymbolUS())
+   			{
+    			return $ref->GetDate();
+   			}
+   		}
+   		return false;
+    }
+    
+    function GetOfficialDate()
+    {
+   		$strDate = $this->GetDate();
+    	if ($this->IsFundA())
+    	{
+			if ($str = $this->_getEstDate())		$strDate = $str;
+    		
+    		if ($this->uscny_ref->GetClose($strDate) === false)
+    		{   // Load last value from database
+    			$fund_est_sql = $this->GetFundEstSql();
+    			$strDate = $fund_est_sql->GetDateNow($this->GetStockId());
+    		}
+    	}
+    	return $strDate;
+    }
+    
     function GetOfficialNav()
     {
-    	$strNav = strval($this->_estNav(true));
-   		StockUpdateEstResult($this->GetFundEstSql(), $this->GetStockId(), $strNav, $this->GetDate());
+    	$strDate = $this->GetOfficialDate();
+    	$strNav = strval($this->_estNav($strDate));
+   		StockUpdateEstResult($this->GetFundEstSql(), $this->GetStockId(), $strNav, $strDate);
    		return $strNav;
     }
 
     function GetFairNav()
     {
-		if ($this->GetDate() == $this->uscny_ref->GetDate())		return false;
-    	return strval($this->_estNav());
+    	$strDate = $this->GetOfficialDate(); 
+		if (($this->uscny_ref->GetDate() != $strDate) || ($this->_getEstDate() != $strDate))
+		{
+			return strval($this->_estNav());
+		}
+		return false;
     }
 }
 
