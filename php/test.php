@@ -2,6 +2,7 @@
 require_once('debug.php');
 require_once('account.php');
 require_once('stock.php');
+//require_once('stocktrans.php');
 
 //require_once('stock/csindex.php');
 
@@ -51,7 +52,33 @@ function TestCmdLine()
     	DebugString($strSymbol.':'.$str.DebugGetStopWatchDisplay($fStart));
     }
 }
-
+/*
+function TestModifyTransactions($strGroupId, $strSymbol, $strNewSymbol)
+{
+	$sql = new StockGroupItemSql($strGroupId);
+	$strGroupItemId = $sql->GetId(SqlGetStockId($strSymbol));
+	$strNewGroupItemId = $sql->GetId(SqlGetStockId($strNewSymbol));
+	$fUshkd = SqlGetUshkd();
+	DebugVal($fUshkd);
+    if ($result = $sql->GetAllStockTransaction()) 
+    {
+        while ($record = mysql_fetch_assoc($result)) 
+        {
+        	if ($strGroupItemId == $record['groupitem_id'])
+        	{
+//        		DebugPrint($record);
+//        		$sql->trans_sql->Update($record['id'], $strNewGroupItemId, $record['quantity'], $record['price'], $record['fees'], $record['remark'].$strSymbol);
+				$strQuantity = strval(10 * intval($record['quantity']));
+				$strPrice = strval(floatval($record['price']) * $fUshkd / 10.0);
+				$strFees = strval(floatval($record['fees']) * $fUshkd);
+        		$sql->trans_sql->Update($record['id'], $strNewGroupItemId, $strQuantity, $strPrice, $strFees, $record['remark']);
+        	}
+        }
+        @mysql_free_result($result);
+    }
+   	UpdateStockGroupItem($strGroupId, $strGroupItemId);
+}
+*/
 	$acct = new Account();
 
     echo '<meta http-equiv="content-type" content="text/html; charset=UTF-8">';
@@ -81,5 +108,9 @@ function TestCmdLine()
    		DebugString($str);
    	}
 */	
+
+//	TestModifyTransactions('1831', 'CHU', '00762');
+//	TestModifyTransactions('1376', 'UWT', 'USO');
+
 	phpinfo();
 ?>

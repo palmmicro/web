@@ -139,6 +139,16 @@ function GetCsindexUrl($strSymbol)
 	return 'http://www.csindex.com.cn/zh-CN/indices/index-detail/'.$strSymbol;
 }
 
+function GetSzseUrl()
+{
+	return 'http://www.szse.cn/';
+}
+
+function GetSseUrl()
+{
+	return 'http://www.sse.com.cn/';
+}
+
 // https://kraneshares.com/kweb/
 // https://kraneshares.com/csv/06_22_2021_kweb_holdings.csv
 function GetKraneUrl()

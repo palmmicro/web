@@ -233,12 +233,6 @@ function GetStockEmaSql($iDays)
 	return $g_stock_sql->ema200_sql;
 }
 
-function SqlGetNavByDate($strStockId, $strDate)
-{
-	$nav_sql = GetNavHistorySql();
-	return $nav_sql->GetClose($strStockId, $strDate);
-}
-
 function SqlGetStockName($strSymbol)
 {
 	$sql = GetStockSql();
@@ -260,6 +254,33 @@ function SqlGetStockSymbol($strStockId)
 {
 	$sql = GetStockSql();
 	return $sql->GetKey($strStockId);
+}
+
+function SqlGetNavByDate($strStockId, $strDate)
+{
+	$nav_sql = GetNavHistorySql();
+	return $nav_sql->GetClose($strStockId, $strDate);
+}
+
+function SqlGetNav($strStockId)
+{
+	$nav_sql = GetNavHistorySql();
+	return $nav_sql->GetCloseNow($strStockId);
+}
+
+function SqlGetUscny()
+{
+	return floatval(SqlGetNav(SqlGetStockId('USCNY')));
+}
+
+function SqlGetHkcny()
+{
+	return floatval(SqlGetNav(SqlGetStockId('HKCNY')));
+}
+
+function SqlGetUshkd()
+{
+	return SqlGetUscny() / SqlGetHkcny(); 
 }
 
 function SqlCountHoldings($strSymbol)

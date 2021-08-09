@@ -145,6 +145,20 @@ function UpdateStockGroupItemTransaction($sql, $strGroupItemId)
     $sql->Update($strGroupItemId, strval($trans->GetTotalShares()), strval($trans->fTotalCost), strval($trans->iTotalRecords));
 }
 
-
+function UpdateStockGroupItem($strGroupId, $strGroupItemId)
+{
+	if ($strGroupId == false)		return;
+	if ($strGroupItemId == false)	return;
+	
+	$sql = new StockGroupItemSql($strGroupId);
+	if ($result = $sql->GetAll())
+	{
+		while ($record = mysql_fetch_assoc($result)) 
+		{
+		    UpdateStockGroupItemTransaction($sql, $record['id']);
+		}
+		@mysql_free_result($result);
+	}
+}
 
 ?>

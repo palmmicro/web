@@ -93,11 +93,6 @@
 }
 ]*/
 
-function GetSzseUrl()
-{
-	return 'http://www.szse.cn/';
-}
-
 function SzseGetLofShares($ref)
 {
 	if ($ref->IsShenZhenLof() == false)					return;

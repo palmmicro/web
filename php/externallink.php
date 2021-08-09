@@ -149,13 +149,6 @@ function GetInvescoOfficialLink($strSymbol)
 	return GetOfficialLink($str, $strSymbol);
 }
 
-// https://www.direxion.com/product/daily-csi-china-internet-index-bull-2x-etf
-/*function GetCwebOfficialLink()
-{
-	$str = 'https://www.direxion.com/product/daily-csi-china-internet-index-bull-2x-etf';
-	return GetOfficialLink($str, 'CWEB');
-}*/
-
 function GetKraneOfficialLink($strSymbol)
 {
 	$str = GetKraneUrl().strtolower($strSymbol).'/';
@@ -168,24 +161,29 @@ function GetCsindexOfficialLink($strSymbol)
 	return GetOfficialLink($str, $strSymbol);
 }
 
-function GetShangHaiEtfOfficialLink()
+function GetShangHaiEtfListLink()
 {
-    return GetExternalLink('http://www.sse.com.cn/market/funddata/volumn/etfvolumn/', '上交所官网ETF规模数据');
+    return GetExternalLink(GetSseUrl().'disclosure/fund/etflist/', '上交所ETF申购赎回清单');
 }
 
-function GetShangHaiLofOfficialLink()
+function GetShangHaiEtfShareLink()
 {
-    return GetExternalLink('http://www.sse.com.cn/assortment/fund/lof/scale/', '上交所官网LOF规模数据');
+    return GetExternalLink(GetSseUrl().'market/funddata/volumn/etfvolumn/', '上交所ETF规模');
 }
 
-function GetShenZhenLofOfficialLink()
+function GetShangHaiEtfLinks()
 {
-    return GetExternalLink(GetSzseUrl().'market/fund/list/lofFundList/index.html', '深交所官网LOF数据');
+	return GetShangHaiEtfShareLink().' '.GetShangHaiEtfListLink();
 }
 
-function GetEastMoneyGlobalFuturesLink()
+function GetShangHaiLofShareLink()
 {
-    return GetExternalLink('http://quote.eastmoney.com/center/gridlist.html#futures_global', '东方财富外盘期货汇总');
+    return GetExternalLink(GetSseUrl().'assortment/fund/lof/scale/', '上交所LOF规模');
+}
+
+function GetShenZhenLofLink()
+{
+    return GetExternalLink(GetSzseUrl().'market/fund/list/lofFundList/index.html', '深交所LOF数据');
 }
 
 function GetEastMoneyFundLink($sym)
@@ -197,22 +195,6 @@ function GetEastMoneyFundLink($sym)
         return GetExternalLink($strHttp, $strSymbol);
     }
     return $strSymbol;
-}
-
-function GetEastMoneyFundRatioLink($sym)
-{
-    $strSymbol = $sym->GetSymbol();
-    if ($strDigit = $sym->IsFundA())
-    {
-        $strHttp = GetEastMoneyFundUrl()."f10/zcpz_$strDigit.html";
-        return GetExternalLink($strHttp, $strSymbol);
-    }
-    return $strSymbol;
-}
-
-function GetEastMoneyQdiiLink()
-{
-    return GetExternalLink(GetEastMoneyFundUrl().'/QDII_jzzzl.html', '东方财富QDII汇总');
 }
 
 function GetXueqiuLink($sym)

@@ -2,22 +2,6 @@
 require_once('_stock.php');
 require_once('_editmergeform.php');
 
-function _updateStockGroupItem($strGroupId, $strGroupItemId)
-{
-	if ($strGroupId == false)		return;
-	if ($strGroupItemId == false)	return;
-	
-	$sql = new StockGroupItemSql($strGroupId);
-	if ($result = $sql->GetAll())
-	{
-		while ($record = mysql_fetch_assoc($result)) 
-		{
-		    UpdateStockGroupItemTransaction($sql, $record['id']);
-		}
-		@mysql_free_result($result);
-	}
-}
-
 function _getStockQuantity()
 {
 	$strQuantity = SqlCleanString($_POST['quantity']);
@@ -273,7 +257,7 @@ class _SubmitTransactionAccount extends StockAccount
     		$strGroupItemId = $this->_onAddFundPurchase($strGroupId);
     	}
 
-    	_updateStockGroupItem($strGroupId, $strGroupItemId);
+    	UpdateStockGroupItem($strGroupId, $strGroupItemId);
     }
 }
 

@@ -39,27 +39,19 @@ function EchoAll()
     EchoReferenceParagraph(array($ref, $acct->usd_ref, $acct->cnh_ref, $uscny_ref, $hkcny_ref));
     EchoFundTradingParagraph($ref);
     EchoEtfHoldingsHistoryParagraph($ref);
+
     if ($group = $acct->EchoTransaction()) 
     {
     	$acct->EchoMoneyParagraph($group, $uscny_ref, $hkcny_ref);
 	}
-/*
-	
-	if ($acct->IsAdmin())
-	{
-		$strSymbol = $acct->us_ref->GetSymbol(); 
-    	$str = GetInternalLink('/php/_submitoperation.php?'.TABLE_CALIBRATION_HISTORY.'='.$strSymbol, '手工校准').$strSymbol;
-    	EchoParagraph($str);
-	}
-*/
+
     $acct->EchoLinks(QDII_MIX_PAGE, 'GetQdiiMixRelated');
 }
 
 function GetQdiiMixLinks($sym)
 {
 	$str = GetJisiluQdiiLink();
-	if ($sym->IsShangHaiEtf())	$str .= ' '.GetShangHaiEtfOfficialLink();
-	$str .= ' '.GetEastMoneyQdiiLink();
+	if ($sym->IsShangHaiEtf())	$str .= ' '.GetShangHaiEtfLinks();
 	
 	$str .= '<br />&nbsp';
 	$str .= GetASharesSoftwareLinks();
