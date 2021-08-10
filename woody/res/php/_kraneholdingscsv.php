@@ -37,6 +37,8 @@ class _KraneHoldingsCsvFile extends CsvFile
     
     public function OnLineArray($arWord)
     {
+    	if (count($arWord) < 2)	return;
+    	
     	$strName = $arWord[1]; 
     	if ($arWord[0] == 'Rank')			$this->bUse = true;
     	else if ($strName == 'Cash')		$this->bUse = false;
