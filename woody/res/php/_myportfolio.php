@@ -86,7 +86,7 @@ function _echoMergeParagraph($arMerge)
 			$ar[] = strval($iTotal);
 			if ($strSymbol == 'XOP')
 			{
-				$ar[] = strval($iTotal - 114);
+				$ar[] = strval($iTotal - 64);
 			}
 			EchoTableColumn($ar);
 		}
@@ -131,7 +131,7 @@ function _transEchoMergeParagraph($arTrans)
 		$arMerge[$strSymbol] = $cur_trans;
 	}
 	
-	if (count($arMerge) > 0)		_echoMergeParagraph($arMerge);
+//	if (count($arMerge) > 0)		_echoMergeParagraph($arMerge);
 }
 
 function _echoPortfolio($portfolio, $sql, $strMemberId)

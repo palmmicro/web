@@ -291,21 +291,19 @@ function SqlCountHoldings($strSymbol)
 
 function SqlGetHoldingsSymbolArray($strSymbol)
 {
-	$sql = GetStockSql();
-	$holdings_sql = GetEtfHoldingsSql();
-
-	$strStockId = $sql->GetId($strSymbol);
+   	$arSymbol = array();
 	if (SqlCountHoldings($strSymbol) > 0)
 	{
-    	$arSymbol = array();
+		$sql = GetStockSql();
+		$strStockId = $sql->GetId($strSymbol);
+		$holdings_sql = GetEtfHoldingsSql();
     	$ar = $holdings_sql->GetHoldingsArray($strStockId);
     	foreach ($ar as $strId => $strRatio)
     	{
     		$arSymbol[] = $sql->GetKey($strId);
     	}
-    	return $arSymbol;
     }
-    return false;
+   	return $arSymbol;
 }
 
 // ****************************** StockTableSql class *******************************************************

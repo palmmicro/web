@@ -78,7 +78,15 @@ class EtfHoldingsReference extends MyStockReference
     
     function GetAdjustHkd($strDate = false)
     {
-		$fOldUSDHKD = floatval($this->uscny_ref->GetClose($this->strHoldingsDate)) / floatval($this->hkcny_ref->GetClose($this->strHoldingsDate));
+        if ($strHKDCNY = $this->hkcny_ref->GetClose($this->strHoldingsDate))
+        {
+        	$fOldUSDHKD = floatval($this->uscny_ref->GetClose($this->strHoldingsDate)) / floatval($strHKDCNY);
+        }
+        else
+        {
+        	return 1.0;
+        }
+        
 		$fUSDHKD = floatval($this->uscny_ref->GetPrice()) / floatval($this->hkcny_ref->GetPrice());
 		if ($strDate)	
 		{
@@ -88,7 +96,6 @@ class EtfHoldingsReference extends MyStockReference
 			}
 		}
 		return $fOldUSDHKD / $fUSDHKD;
-//		return 1.0;
     }
     
     function GetAdjustCny($strDate = false)

@@ -230,15 +230,21 @@ class _QdiiReference extends FundReference
                 }
                 else
                 {
-//                	DebugString('StringYMD in _QdiiReference->AdjustFactor 1');
-                	$ymd = new StringYMD($strDate);
-
-//                	DebugString('StringYMD in _QdiiReference->AdjustFactor 2');
-                	$est_ymd = new StringYMD($est_ref->GetDate());
-                	
-                	if ($strDate == $est_ref->GetDate())	                   				$strEst = $est_ref->GetPrice();
-                	else if ($ymd->GetNextTradingDayTick() == $est_ymd->GetTick())		$strEst = $est_ref->GetPrevPrice();
-                	else	return false;
+                	if (method_exists($est_ref, 'GetOfficialNav'))
+                	{	// KWEB as $est_ref
+                		$strEst = strval($est_ref->GetOfficialNav());
+                		DebugString('Used KWEB officical nav est in AdjustFactor');
+                	}
+                	else
+                	{
+                		$strEstDate = $est_ref->GetDate();
+                		$est_ymd = new StringYMD($strEstDate);
+                		$ymd = new StringYMD($strDate);
+               	
+                		if ($strDate == $strEstDate)	                   					$strEst = $est_ref->GetPrice();
+                		else if ($ymd->GetNextTradingDayTick() == $est_ymd->GetTick())		$strEst = $est_ref->GetPrevPrice();
+                		else	return false;
+                	}
                 }
         
                 $this->fFactor = floatval($strEst) * floatval($strCNY) / floatval($this->GetPrice());

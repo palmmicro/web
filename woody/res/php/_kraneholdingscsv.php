@@ -29,8 +29,17 @@ class _KraneHoldingsCsvFile extends CsvFile
         $this->holdings_sql = GetEtfHoldingsSql();
         $this->holdings_sql->DeleteAll($strStockId);
         
+        $strUscnyId = $this->sql->GetId('USCNY');
+        $strHkcnyId = $this->sql->GetId('HKCNY');
         $nav_sql = GetNavHistorySql();
-        $this->fUSDHKD = floatval($nav_sql->GetClose($this->sql->GetId('USCNY'), $strDate)) / floatval($nav_sql->GetClose($this->sql->GetId('HKCNY'), $strDate));
+        if ($strHKDCNY = $nav_sql->GetClose($strHkcnyId, $strDate))
+        {
+        	$this->fUSDHKD = floatval($nav_sql->GetClose($strUscnyId, $strDate)) / floatval($strHKDCNY);
+        }
+        else
+        {
+        	$this->fUSDHKD = floatval($nav_sql->GetCloseNow($strUscnyId)) / floatval($nav_sql->GetCloseNow($strHkcnyId));
+        }
         
         $this->fTotalValue = 0.0; 
     }
@@ -58,7 +67,7 @@ class _KraneHoldingsCsvFile extends CsvFile
     		if ($this->his_sql->GetRecord($strId, $this->strDate) === false)
     		{
     			DebugString($strHolding.' missing data on '.$this->strDate);
-		        UpdateStockHistory(new StockSymbol($strHolding), $strId);
+//		        UpdateStockHistory(new StockSymbol($strHolding), $strId);
     		}
     		
     		$this->holdings_sql->InsertHolding($this->strStockId, $strId, $arWord[2]);

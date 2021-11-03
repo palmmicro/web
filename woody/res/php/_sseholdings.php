@@ -58,7 +58,7 @@ class _SseHoldingsFile extends CsvFile
     		if ($this->his_sql->GetRecord($strId, $this->strDate) === false)
     		{
     			DebugString($strHolding.' missing data on '.$this->strDate);
-		        UpdateStockHistory(new StockSymbol($strHolding), $strId);
+//		        UpdateStockHistory(new StockSymbol($strHolding), $strId);
     		}
     		
     		$this->holdings_sql->InsertHolding($this->strStockId, $strId, strval(100.0 * floatval(trim($arWord[6])) / $this->fTotalValue));
