@@ -65,7 +65,7 @@ function EchoMetaDescription()
     global $acct;
 
     $strDescription = RefGetStockDisplay($acct->GetRef());
-    $str = "根据汇率和成分股比例计算{$strDescription}净值的网页工具.";
+    $str = "根据美元和港币人民币汇率中间价以及成分股比例估算{$strDescription}净值的网页工具.";
     EchoMetaDescriptionText($str);
 }
 

@@ -163,7 +163,7 @@ function EchoMetaDescription()
     $est_ref = $fund->GetEstRef();
     if ($est_ref)     $strBase .= '/'.RefGetDescription($est_ref);
     
-    $str = '根据'.$strBase.'等因素计算'.$strDescription.'实时净值的网页工具.';
+    $str = '根据'.$strBase.'等其它网站数据估算'.$strDescription.'净值的网页工具.';
     EchoMetaDescriptionText($str);
 }
 
