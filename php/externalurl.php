@@ -218,11 +218,6 @@ function GetEtfNavUrl($strSymbol)
 	return false;
 }
 
-function GetMacroTrendsUrl()
-{
-	return 'https://www.macrotrends.net';
-}
-
 function GetCmeTradingUrl()
 {
 	return 'https://www.cmegroup.com/trading/';

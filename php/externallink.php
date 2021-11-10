@@ -183,7 +183,7 @@ function GetShangHaiLofShareLink()
 
 function GetShenZhenLofLink()
 {
-    return GetExternalLink(GetSzseUrl().'market/fund/list/lofFundList/index.html', '深交所LOF数据');
+    return GetExternalLink(GetSzseUrl().'market/product/list/lofFundList/index.html', '深交所LOF数据');
 }
 
 function GetEastMoneyFundLink($sym)
@@ -431,26 +431,6 @@ function GetEtfNavLink($strSymbol)
 	return '';
 }
 
-function GetMacroTrendsGoldOilRatioLink()
-{
-	return GetExternalLink(GetMacroTrendsUrl().'/1380/gold-to-oil-ratio-historical-chart', '金油比');
-}
-
-function GetMacroTrendsFutureLink($str)
-{
-	return GetExternalLink(GetMacroTrendsUrl().'/futures/'.$str, $str.'期货');
-}
-
-function GetDailyFxCrudeOilLink()
-{
-	return GetExternalLink('https://www.dailyfx.com/crude-oil', '原油期货');
-}
-
-function GetBuffettIndicatorLink()
-{
-	return GetExternalLink('https://www.longtermtrends.net/market-cap-to-gdp/', '巴菲特指标');
-}
-
 function GetCmeCrudeOilLink()
 {
 	return GetOfficialLink(GetCmeTradingUrl().'energy/crude-oil/light-sweet-crude.html', '芝商所CL');
@@ -468,7 +448,7 @@ function GetCmeMesLink()
 
 function GetUscfLink()
 {
-	return GetOfficialLink('http://www.uscfinvestments.com', 'USO/USL/BNO'); 
+	return GetOfficialLink('http://www.uscfinvestments.com', 'USO'); 
 }
 
 ?>

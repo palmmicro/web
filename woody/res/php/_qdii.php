@@ -5,25 +5,23 @@ require_once('_qdiigroup.php');
 class _QdiiAccount extends QdiiGroupAccount
 {
     var $oil_ref = false;
-    var $usd_ref;
     var $cnh_ref;
 
     function Create() 
     {
         $strSymbol = $this->GetName();
         
-        $strOil = (QdiiGetFutureSymbol($strSymbol) == 'hf_CL') ? 'hf_OIL' : false;
+        $strOil = in_arrayOilQdii($strSymbol) ? 'hf_OIL' : false;
         $strEst = QdiiGetEstSymbol($strSymbol);
         
         $this->GetWebData($strEst);
 
-        $strUSD = 'DINIW';
+//        $strUSD = 'DINIW';
         $strCNH = 'fx_susdcnh';
-        StockPrefetchArrayExtendedData(array_merge($this->GetLeverage(), array($strSymbol, $strOil, $strUSD, $strCNH)));
+        StockPrefetchArrayExtendedData(array_merge($this->GetLeverage(), array($strSymbol, $strOil, $strCNH)));
         
         $this->ref = new QdiiReference($strSymbol);
         if ($strOil)	$this->oil_ref = new FutureReference($strOil);
-        $this->usd_ref = new ForexReference($strUSD);
         $this->cnh_ref = new ForexReference($strCNH);
         
 		$this->QdiiCreateGroup();
@@ -116,7 +114,7 @@ function EchoAll()
 	$cny_ref = $fund->GetCnyRef();
     
     EchoFundEstParagraph($fund);
-    EchoReferenceParagraph(array_merge(array($stock_ref, $est_ref, $fund->GetFutureRef(), $acct->oil_ref, $acct->usd_ref, $acct->cnh_ref, $cny_ref), $acct->ar_leverage_ref));
+    EchoReferenceParagraph(array_merge(array($stock_ref, $est_ref, $fund->GetFutureRef(), $acct->oil_ref, $acct->cnh_ref, $cny_ref), $acct->ar_leverage_ref));
     $acct->EchoLeverageParagraph();
     EchoFundTradingParagraph($fund, '_onTradingUserDefined');    
 	EchoQdiiSmaParagraph($fund, '_onSmaUserDefined');
@@ -138,7 +136,7 @@ function GetQdiiLinks($sym)
 	$strSymbol = $sym->GetSymbol();
 	$strFutureSymbol = QdiiGetFutureSymbol($strSymbol);
 	
-	$str = GetJisiluQdiiLink();
+	$str = '';
 	
 	if ($sym->IsShenZhenLof())		$str .= ' '.GetShenZhenLofLink();
 	else if ($sym->IsShangHaiLof())	$str .= ' '.GetShangHaiLofShareLink();
@@ -153,16 +151,16 @@ function GetQdiiLinks($sym)
 	if (in_arraySpyQdii($strSymbol))
 	{
 		$str .= ' '.GetCmeMesLink();
-		$str .= ' '.GetBuffettIndicatorLink();
 	}
 	
-	if ($strFutureSymbol == 'hf_CL' || $strFutureSymbol == 'hf_GC')	$str .= ' '.GetMacroTrendsGoldOilRatioLink();
-	if ($strFutureSymbol == 'hf_GC')										$str .= ' '.GetMacroTrendsFutureLink('gold');
-	else if ($strFutureSymbol == 'hf_CL')								
+	if (in_arrayOilQdii($strSymbol))
 	{
 		$str .= ' '.GetUscfLink();
+	}
+	
+	if ($strFutureSymbol == 'hf_CL')								
+	{
 		$str .= ' '.GetCmeCrudeOilLink();
-		$str .= ' '.GetDailyFxCrudeOilLink();
 	}
 	
 	$str .= '<br />&nbsp';

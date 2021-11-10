@@ -8,19 +8,16 @@ require_once('/php/ui/fundestparagraph.php');
 
 class _QdiiMixAccount extends GroupAccount
 {
-    var $usd_ref;
     var $cnh_ref;
 
     function Create() 
     {
         $strSymbol = $this->GetName();
-        $strUSD = 'DINIW';
         $strCNH = 'fx_susdcnh';
-        StockPrefetchExtendedData($strSymbol, $strUSD, $strCNH);
+        StockPrefetchExtendedData($strSymbol, $strCNH);
         GetChinaMoney();
 
         $this->ref = new EtfHoldingsReference($strSymbol);
-        $this->usd_ref = new ForexReference($strUSD);
         $this->cnh_ref = new ForexReference($strCNH);
 
         $this->CreateGroup(array($this->ref));
@@ -36,7 +33,7 @@ function EchoAll()
     $hkcny_ref = $ref->GetHkcnyRef();
     
 	EchoEtfHoldingsEstParagraph($ref);
-    EchoReferenceParagraph(array($ref, $acct->usd_ref, $acct->cnh_ref, $uscny_ref, $hkcny_ref));
+    EchoReferenceParagraph(array($ref, $acct->cnh_ref, $uscny_ref, $hkcny_ref));
     EchoFundTradingParagraph($ref);
     EchoEtfHoldingsHistoryParagraph($ref);
 
@@ -50,7 +47,7 @@ function EchoAll()
 
 function GetQdiiMixLinks($sym)
 {
-	$str = GetJisiluQdiiLink();
+	$str = '';
 	if ($sym->IsShangHaiEtf())	$str .= ' '.GetShangHaiEtfLinks();
 	
 	$str .= '<br />&nbsp';
