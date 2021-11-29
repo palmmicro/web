@@ -27,7 +27,7 @@ function _echoPortfolioTableItem($trans)
         
         if ($strSymbol == 'SZ162411')
         {
-        	$ar[] = strval($iShares - 137581);
+        	$ar[] = strval($iShares - 129000 - 5 * 140000);
         }
 /*       else if ($strSymbol == 'SH600104')
         {

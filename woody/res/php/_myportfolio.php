@@ -65,6 +65,7 @@ function _transEchoReferenceParagraph($arTrans)
     EchoReferenceParagraph($arRef);
 }
 
+/*
 function _echoMergeParagraph($arMerge)
 {
 	EchoTableParagraphBegin(array(new TableColumnSymbol(),
@@ -93,6 +94,7 @@ function _echoMergeParagraph($arMerge)
 	}
     EchoTableParagraphEnd();
 }
+*/
 
 function _transEchoMergeParagraph($arTrans)
 {

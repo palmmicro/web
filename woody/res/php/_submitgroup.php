@@ -16,16 +16,24 @@ function _adjustEtfPriceFactor($strEstSymbol, $fEst, $fEtf)
 
 function _onAdjust($strSymbols)
 {
+   	$calibration_sql = new CalibrationSql();
+   	
     $ar = explode('&', $strSymbols);
 
     list($strDummy, $strDate) = explode('=', $ar[0]);
     
     $ar1 = explode('=', $ar[1]);
     $strSymbol = $ar1[0];
+    $strStockId = SqlGetStockId($strSymbol);
     $fVal = floatval($ar1[1]);
     
     $ar2 = explode('=', $ar[2]);
     $strSymbol2 = $ar2[0];
+    if ($ar2[1] == '0')
+    {
+    	$calibration_sql->DeleteByDate($strStockId, $strDate);
+    	return;
+    }
     $fVal2 = floatval($ar2[1]);
     
     $iCount = count($ar);
@@ -46,8 +54,7 @@ function _onAdjust($strSymbols)
     
     if ($fFactor !== false)
     {
-      	$calibration_sql = new CalibrationSql();
-    	$calibration_sql->WriteDaily(SqlGetStockId($strSymbol), $strDate, strval($fFactor));
+    	$calibration_sql->WriteDaily($strStockId, $strDate, strval($fFactor));
     }
 }
 

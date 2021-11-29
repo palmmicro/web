@@ -1,11 +1,9 @@
 <?php
 require_once('_stock.php');
 require_once('_emptygroup.php');
-require_once('_spdrnavxls.php');
+//require_once('_spdrnavxls.php');
 require_once('/php/stockhis.php');
 require_once('/php/stock/updatestockhistory.php');
-
-// https://danjuanapp.com/djmodule/value-center
 
     $acct = new SymbolAccount();
 	if ($acct->IsAdmin())
@@ -16,8 +14,8 @@ require_once('/php/stock/updatestockhistory.php');
 	        UpdateStockHistory($ref, $ref->GetStockId());
 	        
 	        // do some extra work together
-	        if ($ref->GetSymbol() == '^GSPC')		DebugNavXlsStr(new StockSymbol('SPY'));
-	        else									DebugNavXlsStr($ref);
+//	        if ($ref->GetSymbol() == '^GSPC')		DebugNavXlsStr(new StockSymbol('SPY'));
+//	        else									DebugNavXlsStr($ref);
 	    }
 	}
 	$acct->Back();

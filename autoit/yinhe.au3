@@ -448,7 +448,7 @@ Func YinheOrderFund($hWnd, $idDebug, $strSymbol)
 		Case '162411'
 			$strAmount = '100'
 		Case '164906'
-			$strAmount = '5000'
+			$strAmount = '1000'
 	EndSwitch
 
 	$strControlID = _yinheClickFund($hWnd, $idDebug, '申购')
@@ -872,7 +872,7 @@ Func YinheMain()
 	Local $arCheckboxAccount[$iMax]
 	$iMsg = 0
 
-	$idFormMain = GUICreate("银河海王星全自动拖拉机V0.48", 803, 506, 289, 0)
+	$idFormMain = GUICreate("银河海王星全自动拖拉机V0.49", 803, 506, 289, 0)
 
 	$idListViewAccount = GUICtrlCreateListView("客户号", 24, 24, 146, 454, BitOR($GUI_SS_DEFAULT_LISTVIEW,$WS_VSCROLL), BitOR($WS_EX_CLIENTEDGE,$LVS_EX_CHECKBOXES))
 	GUICtrlSendMsg(-1, $LVM_SETCOLUMNWIDTH, 0, 118)

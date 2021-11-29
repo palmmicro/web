@@ -25,6 +25,7 @@ function StockEditGroupForm($acct, $strSubmit)
     $strGroupName = '';
     $strStocks = '';
     $strGroupNameDisabled = '1';
+	$strSymbolCol = GetTableColumnSymbol();
     switch ($strSubmit)
     {
     case STOCK_GROUP_EDIT:
@@ -47,11 +48,11 @@ function StockEditGroupForm($acct, $strSubmit)
     
     case STOCK_GROUP_ADJUST:
         $strStocks = ltrim($strPassQuery, '?adjust=1&');
+        $strSymbolCol = '输入美股ETF净值0时会删除当日校准值';
         break;
     }
 	
     $strStockGroup = STOCK_GROUP_DISPLAY;
-	$strSymbol = GetTableColumnSymbol();
 	echo <<< END
 	<script type="text/javascript">
 	    function OnLoad()
@@ -64,7 +65,7 @@ function StockEditGroupForm($acct, $strSubmit)
         <div>
 		<p>$strStockGroup
 		<br /><input name="groupname" value="$strGroupName" type="text" size="20" maxlength="32" class="textfield" id="groupname" />
-		<br />$strSymbol
+		<br />$strSymbolCol
 		<br /><textarea name="symbols" rows="8" cols="75" id="symbols">$strStocks</textarea>
 	    <br /><input type="submit" name="submit" value="$strSubmit" />
 	    </p>

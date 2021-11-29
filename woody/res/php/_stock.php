@@ -82,7 +82,7 @@ function _EchoMoneyGroupData($acct, $group, $strUSDCNY, $strHKDCNY)
 
 function _echoRandomPromotion()
 {
-	$iVal = rand(1, 5);
+	$iVal = rand(1, 3);
 	switch ($iVal)
 	{
 	case 1:
@@ -94,16 +94,16 @@ function _echoRandomPromotion()
 		break;
 
 	case 3:
-		LayoutPromotion('huabao');
-		break;
-		
-	case 4:
 		LayoutPromotion('dongfang');
+		break;
+/*		
+	case 4:
+		LayoutPromotion('huabao');
 		break;
 		
 	case 5:
 		LayoutPromotion('yinhe', '著名网红营业部开户。请联系客服调整佣金 -- QQ:2531998595 微信:yhzqjn3');
-		break;
+		break;*/
 	}
 }
 

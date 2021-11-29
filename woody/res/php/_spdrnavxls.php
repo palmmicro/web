@@ -45,6 +45,7 @@ function _readXlsFile($bIshares, $strPathName, $nav_sql, $shares_sql, $strStockI
 		$rowData = $sheet->rangeToArray('A'.$row.':'.$highestColumn.$row, null, true, false);
 		//这里得到的rowData都是一行的数据，得到数据后自行处理，我们这里只打出来看看效果
 		$ar = $rowData[0];
+//		DebugPrint($ar);
 		if ($iTick = strtotime($ar[0]))
 		{
     		$ymd = new TickYMD($iTick);

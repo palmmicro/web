@@ -1,4 +1,5 @@
 <?php
+// https://ibkr.com/referral/rongrong586
 
 define('LOF_POSITION_RATIO', 0.95);
 
@@ -178,7 +179,7 @@ class FundReference extends MysqlReference
 			switch ($this->GetSymbol())
 			{
 			case 'SZ164906':
-				$fRatio = 0.89;
+				$fRatio = 0.91;
 				break;
 
 			default:
