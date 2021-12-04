@@ -218,10 +218,4 @@ function GetEtfNavUrl($strSymbol)
 	return false;
 }
 
-function GetCmeTradingUrl()
-{
-	return 'https://www.cmegroup.com/trading/';
-}
-
-
 ?>

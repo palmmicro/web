@@ -29,6 +29,8 @@ function _echoAutoTractor()
     EchoOrderList($str);
     
 	EchoParagraph('<font color=red>已知问题:</font>');
+	$str = '银河证券官网现在的海王星独立交易升级了, 导致模拟输入不匹配, 老用户先别升级, 新用户可以暂停测试. 目前0.50版本会自动取消升级提示.';
+    EchoOrderList($str);
 	$str = '网速很重要! 在目前代码中有大量模拟按键或者鼠标后等待一秒的被动行为, 在网速慢的时候会因为等待时间不够长而出错, 我就经常需要在运行代码前先手工把电脑上的网络从天威宽带切换到自己手机上的移动4G热点.';
     EchoOrderList($str);
 	$str = '在小屏幕笔记本上, 显示设置的<font color=green>缩放与布局</font>中, <font color=blue>更改文本、应用等项目的大小</font>的选项缺省不是100%, 这时AutoIt自带的WinGetPos函数不会跟着调整倍数, 导致找不到验证码位置. ';

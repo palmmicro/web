@@ -431,21 +431,6 @@ function GetEtfNavLink($strSymbol)
 	return '';
 }
 
-function GetCmeCrudeOilLink()
-{
-	return GetOfficialLink(GetCmeTradingUrl().'energy/crude-oil/light-sweet-crude.html', '芝商所CL');
-}
-
-function GetCmeMnqLink()
-{
-	return GetOfficialLink(GetCmeTradingUrl().'equity-index/us-index/micro-e-mini-nasdaq-100.html', '芝商所MNQ'); 
-}
-
-function GetCmeMesLink()
-{
-	return GetOfficialLink(GetCmeTradingUrl().'equity-index/us-index/micro-e-mini-sandp-500.html', '芝商所MES'); 
-}
-
 function GetUscfLink()
 {
 	return GetOfficialLink('http://www.uscfinvestments.com', 'USO'); 

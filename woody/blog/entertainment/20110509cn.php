@@ -50,11 +50,12 @@
 <h3>Google<a name="other">之外</a>的收入</h3>
 <p>2018年10月30日
 <br />进入移动互联网时代, Google赖以起家的羊毛出在猪身上的广告模式明显落伍了. 国内BAT慢慢变成了AT, 百度落伍的原因当然很多, 不过在我看来最重要的一点就是它没有成功的移动支付渠道. 
-<br />努力拥抱知识付费时代, 我给自己的网站也加上了流行的微信打赏, 跟微信公众号一起, 会随机出现在网页讨论和建议之下. 为方便查阅, 这里一古脑都显示出来.
+<br />努力拥抱知识付费时代, 我给自己的网站也加上了流行的微信打赏, 会随机出现在网页讨论和建议之下.
 </p>
 <?php 
-	LayoutWeixinPromotion();
+//	LayoutWeixinPromotion();
 	LayoutWeixinPay();
+	LayoutPromotion('iwantyou');
 	LayoutPromotion('dongfang');
 //	LayoutPromotion('huabao');
 //	LayoutPromotion('yinhe');

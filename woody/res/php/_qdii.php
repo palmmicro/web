@@ -142,30 +142,28 @@ function GetQdiiLinks($sym)
 	else if ($sym->IsShangHaiLof())	$str .= ' '.GetShangHaiLofShareLink();
 	else if ($sym->IsShangHaiEtf())	$str .= ' '.GetShangHaiEtfLinks();
 	
-	if (in_arrayQqqQdii($strSymbol))
-	{
-		$str .= ' '.GetInvescoOfficialLink('QQQ');
-		$str .= ' '.GetCmeMnqLink();
-	}
-	
-	if (in_arraySpyQdii($strSymbol))
-	{
-		$str .= ' '.GetCmeMesLink();
-	}
-	
 	if (in_arrayOilQdii($strSymbol))
 	{
 		$str .= ' '.GetUscfLink();
 	}
-	
+/*	
 	if ($strFutureSymbol == 'hf_CL')								
 	{
-		$str .= ' '.GetCmeCrudeOilLink();
+	}
+	
+	if (in_arraySpyQdii($strSymbol))
+	{
+	}
+*/	
+	if (in_arrayQqqQdii($strSymbol))
+	{
+		$str .= ' '.GetInvescoOfficialLink('QQQ');
 	}
 	
 	$str .= '<br />&nbsp';
 	$str .= GetASharesSoftwareLinks();
 	$str .= GetChinaInternetSoftwareLinks();
+	$str .= GetHSharesSoftwareLinks();
 	$str .= GetSpySoftwareLinks();
 	return $str;
 }

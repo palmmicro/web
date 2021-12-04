@@ -86,7 +86,8 @@ function _echoRandomPromotion()
 	switch ($iVal)
 	{
 	case 1:
-		LayoutWeixinPromotion();
+//		LayoutWeixinPromotion();
+		LayoutPromotion('iwantyou', 'IB盈透证券推荐开户链接：');
 		break;
         	
 	case 2:

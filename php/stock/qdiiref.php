@@ -123,21 +123,30 @@ class _QdiiReference extends FundReference
         $this->SetForex($strForex);
     }
     
-    function _getEstVal()
+    function _getEstNav()
     {
        	$est_ref = $this->GetEstRef();
-       	$strDate = $est_ref->GetDate();
-       	$strStockId = $est_ref->GetStockId();
-		if ($str = SqlGetNavByDate($strStockId, $strDate))
+		if ($str = SqlGetNavByDate($est_ref->GetStockId(), $est_ref->GetDate()))
         {
         	return $str;
         }
+        return false;
+    }
+
+    function _getEstVal()
+    {
+		if ($str = $this->_getEstNav())
+        {
+        	return $str;
+        }
+        
+       	$est_ref = $this->GetEstRef();
         $str = $est_ref->GetPrice();
 //        DebugString($est_ref->GetSymbol().' '.$str, true);
         if (empty($str))
         {	// SH000869 bug fix
         	$his_sql = GetStockHistorySql();
-        	$str = $his_sql->GetClosePrev($strStockId, $strDate);
+        	$str = $his_sql->GetClosePrev($est_ref->GetStockId(), $est_ref->GetDate());
         }
         return $str;
     }
@@ -155,9 +164,11 @@ class _QdiiReference extends FundReference
         {
 			if (method_exists($est_ref, 'GetOfficialNav'))
         	{	// KWEB as $est_ref
-        		$this->fOfficialNetValue = $this->GetQdiiValue(strval($est_ref->GetOfficialNav()), $this->strOfficialCNY);
+        		$strEstVal = $this->_getEstNav();
+        		if ($strEstVal === false)	$strEstVal = strval($est_ref->GetOfficialNav());
         	}
-        	else	$this->fOfficialNetValue = $this->GetQdiiValue($this->_getEstVal(), $this->strOfficialCNY);
+        	else	$strEstVal = $this->_getEstVal();
+        	$this->fOfficialNetValue = $this->GetQdiiValue($strEstVal, $this->strOfficialCNY);
             $this->strOfficialDate = $strDate;
             $this->UpdateEstNetValue();
         }
@@ -187,9 +198,10 @@ class _QdiiReference extends FundReference
        	{
 			if (method_exists($est_ref, 'GetFairNav'))
         	{
-        		$this->fFairNetValue = $this->GetQdiiValue(strval($est_ref->GetFairNav()));
+        		$strEstVal = strval($est_ref->GetFairNav());
         	}
-        	else	$this->fFairNetValue = $this->GetQdiiValue($this->_getEstVal());
+        	else	$strEstVal = $this->_getEstVal();
+        	$this->fFairNetValue = $this->GetQdiiValue($strEstVal);
        	}
         
 		if ($future_ref = $this->GetFutureRef())

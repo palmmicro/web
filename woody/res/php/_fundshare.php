@@ -25,8 +25,11 @@ function _echoFundShareItem($record, $strStockId, $his_sql, $shares_sql)
     	
 		$ar[] = GetDiffDisplay($fShareDiff);
 		$ar[] = $strVolume;
-    	$ar[] = strval_round(100.0 * $fVolume / (floatval($strShare) * 10000.0), 2);
-    	if (($fVolume > MIN_FLOAT_VAL) && ($fShareDiff > MIN_FLOAT_VAL))	$ar[] = strval_round(100.0 * $fVolume / ($fShareDiff * 10000.0), 2);
+		if (!empty($strShare))
+		{
+			$ar[] = strval_round(100.0 * $fVolume / (floatval($strShare) * 10000.0), 2);
+			if (($fVolume > MIN_FLOAT_VAL) && ($fShareDiff > MIN_FLOAT_VAL))	$ar[] = strval_round(100.0 * $fVolume / ($fShareDiff * 10000.0), 2);
+		}
 	}
 	
 	EchoTableColumn($ar);

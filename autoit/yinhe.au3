@@ -35,98 +35,7 @@
 #include <Tesseract.au3>
 #include <yinheaccounts.au3>
 
-#cs
-#include <ScreenCapture.au3>
-#include <Array.au3> ; Required for _ArrayDisplay() only.
-
-Func _getPixelGrayLevel($x, $y)
-	$iColor = PixelGetColor($x, $y)
-	$r = Number($iColor / 65536, 1)
-	$g = Number(($iColor - $r * 65536) / 256, 1)
-	$b = $iColor - $r * 65536 - $g * 256
-	Return Number(0.299 * $r + 0.587 * $g + 0.114 * $b + 0.5, 1)
-EndFunc
-
-Func _getVerticalLineColor($iHorz, $iTop, $iBottom)
-	Dim $arColor[18]
-	For $i = 0 to $iBottom - $iTop Step 1
-		$arColor[$i] = _getPixelGrayLevel($iHorz, $i + $iTop)
-	Next
-	Return $arColor
-EndFunc
-
-Func _isBackGroundLine($arColor, $iBackColor)
-	for $iColor in $arColor
-		If Abs($iColor - $iBackColor) > 24 Then
-			Return False
-		EndIf
-	Next
-	Return True
-EndFunc
-
-Func _adjustHeight($iTotal, $iHeight)
-	Return Number(14.0 * $iTotal / $iHeight / $iHeight + 0.5, 1)
-EndFunc
-
-Func _getVerifyDigit(ByRef $iHorz, $iTop, $iBottom, $iBackColor)
-	Dim $arVertTotal[18]
-	Dim $arVertPixel[18]
-	$iTotal = 0
-	$iTotalPixel = 0
-	$iMax = 9
-	$iMin = 9
-	$i = 1
-	Do
-		$arColor = _getVerticalLineColor($iHorz, $iTop, $iBottom)
-;		_ArrayDisplay($arColor)
-		If _isBackGroundLine($arColor, $iBackColor) Then
-			If $iTotal <> 0 Then ExitLoop
-		Else
-			$arVertTotal[$i] = 0
-			$iVertCount = 1
-			for $iColor in $arColor
-				If Abs($iColor - $iBackColor) > 24 Then
-					$arVertTotal[$i] += $i
-					$arVertTotal[$i] += $iVertCount
-					$arVertPixel[$i] += 1
-					If $iVertCount < $iMin Then $iMin = $iVertCount
-					If $iVertCount > $iMax Then $iMax = $iVertCount
-				EndIf
-				$iVertCount += 1
-			Next
-			$iTotal += $arVertTotal[$i]
-			$iTotalPixel += $arVertPixel[$i]
-			$i += 1
-		EndIf
-		$iHorz += 1
-	Until False
-
-	$iHalfTotal = 0
-	$iHalf = Number(($i - 1) / 2, 1)
-	For $i = 1 to $iHalf Step 1
-		$iHalfTotal += $arVertTotal[$i] - ($iMin - 1) * $arVertPixel[$i]
-	Next
-
-	$iHeight = $iMax - $iMin + 1
-	$iHalfTotal = _adjustHeight($iHalfTotal, $iHeight)
-
-	$iTotal -= ($iMin - 1) * $iTotalPixel
-	$iTotal = _adjustHeight($iTotal, $iHeight)
-	Return String($iTotal) & "/" & String($iHalfTotal) & " "
-EndFunc
-#ce
-
 Func _getVerifyCode($iLeft, $iTop, $iRight, $iBottom)
-#cs
-	_ScreenCapture_Capture("C:\temp\GDIPlus_Image2.jpg", $iLeft, $iTop, $iRight, $iBottom)
-
-	$iBackColor = _getPixelGrayLevel($iRight, $iBottom)
-	$iHorz = $iLeft
-	$strCode = ''
-	For $i = 0 to 3 Step 1
-		$strCode = $strCode & _getVerifyDigit($iHorz, $iTop, $iBottom, $iBackColor)
-	Next
-#ce
 	$strCode = _TesseractScreenCapture(0, '', 1, 2, $iLeft, $iTop, $iRight, $iBottom)
 	If $strCode == '' Then
 		$strCode = '0'
@@ -173,7 +82,9 @@ Func _CtlSendString($hWnd, $idDebug, $strControl, $str)
 ;	$iCount = 0
 ;	While $str <> ControlGetText($hWnd, '', $strControl)
 		ControlFocus($hWnd, '', $strControl)
+;		Send('{BACKSPACE}')
 		ControlSend($hWnd, '', $strControl, $str)
+;		ControlSetText($hWnd, '', $strControl, $str)
 		Sleep(1000)
 ;		$iCount += 1
 ;		If $iCount == 50 Then
@@ -246,7 +157,9 @@ Func _DlgClose($idDebug, $strTitle, $strText = '关闭')
 	If $hNewWnd <> 0 Then
 		WinClose($hNewWnd)	; _CtlClickButton($hNewWnd, $idDebug, '关闭')
 		_CtlDebug($idDebug, '"' & $strText & '"对话框"' & $strTitle & '"')
+		Return True
 	EndIf
+	Return False
 EndFunc
 
 Func _CtlGetText($hWnd, $idDebug, $strControl)
@@ -307,6 +220,9 @@ Func _yinheLoginDlg($idDebug, $strTitle, $strAccount, $strPassword)
 			EndIf
 		Until $iCount == 10
 		_yinheCloseNewDlg($idDebug)
+		If _DlgClose($idDebug, '提示', '否') == True Then
+			_CtlSendPassword($hWnd, $idDebug, 'AfxWnd421', $strPassword)
+		EndIf
 	Until ControlCommand($hWnd, '', 'ComboBox4', 'IsEnabled') == 0
 
 	$strMainTitle = '通达信网上交易V6'
@@ -872,7 +788,7 @@ Func YinheMain()
 	Local $arCheckboxAccount[$iMax]
 	$iMsg = 0
 
-	$idFormMain = GUICreate("银河海王星全自动拖拉机V0.49", 803, 506, 289, 0)
+	$idFormMain = GUICreate("银河海王星全自动拖拉机V0.50", 803, 506, 289, 0)
 
 	$idListViewAccount = GUICtrlCreateListView("客户号", 24, 24, 146, 454, BitOR($GUI_SS_DEFAULT_LISTVIEW,$WS_VSCROLL), BitOR($WS_EX_CLIENTEDGE,$LVS_EX_CHECKBOXES))
 	GUICtrlSendMsg(-1, $LVM_SETCOLUMNWIDTH, 0, 118)

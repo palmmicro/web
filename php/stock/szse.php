@@ -95,16 +95,17 @@
 
 function SzseGetLofShares($ref)
 {
-	if ($ref->IsShenZhenLof() == false)					return;
+	if ($ref->IsShenZhenLof() == false)				return;		// Only works for Shenzhen Lof
 	
 	$sql = new SharesHistorySql();
 	$strDate = $ref->GetDate();
 	$strStockId = $ref->GetStockId();
-	if ($sql->GetRecord($strStockId, $strDate))	return;
-
+	if ($sql->GetRecord($strStockId, $strDate))	return;		// Already has today's data
+	if ($ref->GetHourMinute() < 925)					return;		// Data not updated until 9:25
+	
     date_default_timezone_set(STOCK_TIME_ZONE_CN);
 	$strFileName = DebugGetSymbolFile('szse', $ref->GetSymbol());
-	if (StockIsNewFile($strFileName, SECONDS_IN_HOUR))		return;   		// update on every hour
+	if (StockIsNewFile($strFileName, SECONDS_IN_HOUR))	return; 	// updates on every hour
 
 	$strUrl = GetSzseUrl().'api/report/ShowReport/data?SHOWTYPE=JSON&CATALOGID=1945_LOF&txtQueryKeyAndJC='.$ref->GetDigitA();
    	if ($str = url_get_contents($strUrl))

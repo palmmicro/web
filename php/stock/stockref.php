@@ -221,17 +221,27 @@ class StockReference extends StockSymbol
         return $this->strDate.' '.$this->strTime;
     }
     
-    function GetHour()
-    {
-        return intval(substr($this->strTime, 0, 2));
-    }
-    
     // 06:56:22 => 06:56
 	function GetTimeHM()
 	{
 		return GetHM($this->strTime);
 	}
 	
+    function GetHour()
+    {
+        return intval(substr($this->strTime, 0, 2));
+    }
+
+    function GetMinute()
+    {
+        return intval(substr($this->GetTimeHM(), -2, 2));
+    }
+    
+    function GetHourMinute()
+    {
+        return intval(str_replace(':', '', $this->GetTimeHM()));
+    }
+    
 	function IsExtendedMarket()
 	{
 		if ($this->extended_ref)	return true;

@@ -43,7 +43,11 @@ function LayoutPromotion($str, $strText = '')
 		break;
 		
 	case 'huabao':
-		$strLink = 'https://m.touker.com/trade/activity/common/channelOpen.htm?moduleDataId=275&channel=Vpalmmicro';
+		$strLink = 'https://m.touker.com/marketing/activity/KJFG.htm?channel=Vpalmmicro';
+		break;
+		
+	case 'iwantyou':
+		$strLink = 'https://ibkr.com/referral/rongrong586';
 		break;
 		
 	case 'yinhe':
@@ -60,7 +64,7 @@ function LayoutPromotion($str, $strText = '')
         </p>
 END;
 }
-
+/*
 function LayoutWeixinPromotion()
 {
 	$strWeixin = GetWeixinDevLink();
@@ -70,7 +74,7 @@ function LayoutWeixinPromotion()
         </p>
 END;
 }
-
+*/
 function LayoutWeixinPay()
 {
     echo <<<END
