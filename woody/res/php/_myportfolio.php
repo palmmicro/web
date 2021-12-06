@@ -65,7 +65,6 @@ function _transEchoReferenceParagraph($arTrans)
     EchoReferenceParagraph($arRef);
 }
 
-/*
 function _echoMergeParagraph($arMerge)
 {
 	EchoTableParagraphBegin(array(new TableColumnSymbol(),
@@ -85,16 +84,15 @@ function _echoMergeParagraph($arMerge)
 			else						$ar[] = RefGetMyStockLink($ref);
 			
 			$ar[] = strval($iTotal);
-			if ($strSymbol == 'XOP')
+/*			if ($strSymbol == 'XOP')
 			{
 				$ar[] = strval($iTotal - 64);
-			}
+			}*/
 			EchoTableColumn($ar);
 		}
 	}
     EchoTableParagraphEnd();
 }
-*/
 
 function _transEchoMergeParagraph($arTrans)
 {
@@ -133,7 +131,7 @@ function _transEchoMergeParagraph($arTrans)
 		$arMerge[$strSymbol] = $cur_trans;
 	}
 	
-//	if (count($arMerge) > 0)		_echoMergeParagraph($arMerge);
+	if (count($arMerge) > 0)		_echoMergeParagraph($arMerge);
 }
 
 function _echoPortfolio($portfolio, $sql, $strMemberId)

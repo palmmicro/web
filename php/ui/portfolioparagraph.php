@@ -33,11 +33,11 @@ function _echoPortfolioTableItem($trans)
         {
         	$ar[] = strval(intval($iShares / 266.0 + 0.5));
         }
-        else if ($strSymbol == 'KWEB')
+/*        else if ($strSymbol == 'KWEB')
         {
         	$ar[] = strval($iShares - 400);
         }
-/*       else if ($strSymbol == 'SH600104')
+        else if ($strSymbol == 'SH600104')
         {
         	$ar[] = strval($iShares - 4000);
         }*/

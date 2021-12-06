@@ -133,20 +133,19 @@ function EchoAll()
 
 function GetQdiiLinks($sym)
 {
-	$strSymbol = $sym->GetSymbol();
-	$strFutureSymbol = QdiiGetFutureSymbol($strSymbol);
-	
 	$str = '';
 	
 	if ($sym->IsShenZhenLof())		$str .= ' '.GetShenZhenLofLink();
 	else if ($sym->IsShangHaiLof())	$str .= ' '.GetShangHaiLofShareLink();
 	else if ($sym->IsShangHaiEtf())	$str .= ' '.GetShangHaiEtfLinks();
 	
+	$strSymbol = $sym->GetSymbol();
 	if (in_arrayOilQdii($strSymbol))
 	{
 		$str .= ' '.GetUscfLink();
 	}
 /*	
+	$strFutureSymbol = QdiiGetFutureSymbol($strSymbol);
 	if ($strFutureSymbol == 'hf_CL')								
 	{
 	}

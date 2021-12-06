@@ -1,5 +1,20 @@
 <?php
 
+function SaveHoldingsCsvFile($strSymbol, $strUrl)
+{
+	$str = url_get_contents($strUrl);
+	if ($str == false)
+	{
+		DebugString($strSymbol.' SaveHoldingsCsvFile没读到数据');
+		return false;
+	}
+		
+	$strPathName = DebugGetHoldingsCsv($strSymbol);
+	file_put_contents($strPathName, $str);
+	DebugString('Saved '.$strUrl.' to '.$strPathName);
+	return $strPathName;
+}
+
 // ****************************** CsvFile class  *******************************************************
 class CsvFile
 {

@@ -334,7 +334,8 @@ function _updateStockOptionSplit($ref, $strSymbol, $strStockId, $his_sql, $strDa
 				_updateOptionDailySql(GetNavHistorySql(), $strStockId, $strDate, $strVal);
 				if ($strSymbol == 'KWEB')
 				{
-					// ReadKraneHoldingsCsvFile($strSymbol, $strStockId, $strDate, $strVal);
+					//SaveKraneHoldingsCsvFile($strSymbol, $strDate);
+					ReadKraneHoldingsCsvFile($strSymbol, $strStockId, $strDate, $strVal);
 				}
 				else if ($strSymbol == 'SH513050')	ReadSseHoldingsFile($strSymbol, $strStockId);
 			}

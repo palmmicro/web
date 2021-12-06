@@ -76,22 +76,18 @@ class _KraneHoldingsCsvFile extends CsvFile
 }
 
 // https://kraneshares.com/csv/06_22_2021_kweb_holdings.csv
-function ReadKraneHoldingsCsvFile($strSymbol, $strStockId, $strDate, $strNav)
+function SaveKraneHoldingsCsvFile($strSymbol, $strDate)
 {
 	$arYMD = explode('-', $strDate);
 	$strUrl = GetKraneUrl().'csv/'.$arYMD[1].'_'.$arYMD[2].'_'.$arYMD[0].'_'.strtolower($strSymbol).'_holdings.csv';
+	return SaveHoldingsCsvFile($strSymbol, $strUrl);	
+}
 
-	$str = url_get_contents($strUrl);
-	if ($str == false)
-	{
-		DebugString('ReadKraneHoldingsCsvFile没读到数据');
-		return;
-	}
-		
-	$strPathName = DebugGetPathName('Holdings_'.$strSymbol.'.csv');
-	file_put_contents($strPathName, $str);
-	DebugString('Saved '.$strUrl.' to '.$strPathName);
-
+function ReadKraneHoldingsCsvFile($strSymbol, $strStockId, $strDate, $strNav)
+{
+	$strPathName = SaveKraneHoldingsCsvFile($strSymbol, $strDate);
+ 	if ($strPathName === false)		return;
+ 	
 	$csv = new _KraneHoldingsCsvFile($strPathName, $strStockId, $strDate);
    	$csv->Read();
    	

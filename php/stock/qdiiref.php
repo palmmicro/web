@@ -59,7 +59,8 @@ function QdiiGetEstSymbol($strSymbol)
 function QdiiGetFutureEtfSymbol($strSymbol)
 {
     if (in_arrayOilEtfQdii($strSymbol))     return 'USO';
-    return false;
+    else
+    	return false;
 }
 
 function QdiiGetFutureSymbol($strSymbol)
@@ -68,8 +69,8 @@ function QdiiGetFutureSymbol($strSymbol)
     else if (in_arrayGoldQdii($strSymbol))   return 'hf_GC';
     else if (in_arraySpyQdii($strSymbol))   return 'hf_ES';
     else if (in_arrayQqqQdii($strSymbol))   return 'hf_NQ';
-    
-    return false;
+	else
+	    return false;
 }
 
 function QdiiGetAllSymbolArray($strSymbol)
@@ -94,11 +95,19 @@ function QdiiGetAllSymbolArray($strSymbol)
 
 function QdiiHkGetEstSymbol($strSymbol)
 {
-    if ($strSymbol == 'SH501025')   		 		return 'SH000869';	// '03143'
-    else if (in_arrayHangSengQdiiHk($strSymbol))	return '^HSI';		// '02800'
-    else if (in_arrayHSharesQdiiHk($strSymbol))	return '^HSCE';	// '02828'
+    if ($strSymbol == 'SH501025')   		 			return 'SH000869';	// '03143'
+    else if (in_arrayHangSengQdiiHk($strSymbol))		return '^HSI';		// '02800'
+    else if (in_arrayHSharesQdiiHk($strSymbol))		return '^HSCE';	// '02828'
     else 
         return false;
+}
+
+function QdiiHkGetFutureSymbol($strSymbol)
+{
+    if (in_arrayHangSengQdiiHk($strSymbol))			return 'hf_HSI';
+//    else if (in_arrayHSharesQdiiHk($strSymbol))		return 'hf_HSCEI';
+	else
+		return false;
 }
 
 function QdiiHkGetAllSymbolArray($strSymbol)
@@ -109,6 +118,10 @@ function QdiiHkGetAllSymbolArray($strSymbol)
     if ($strEstSymbol = QdiiHkGetEstSymbol($strSymbol))
     {
         $ar[] = $strEstSymbol; 
+    }
+    if ($strFutureSymbol = QdiiHkGetFutureSymbol($strSymbol))
+    {
+        $ar[] = $strFutureSymbol; 
     }
     return $ar;
 }
@@ -336,6 +349,11 @@ class QdiiHkReference extends _QdiiReference
         {
             $this->est_ref = new MyStockReference($strEstSymbol);
         }
+        if ($strFutureSymbol = QdiiHkGetFutureSymbol($strSymbol))
+        {
+            $this->future_ref = new FutureReference($strFutureSymbol);
+        }
+        
         $this->EstNetValue();
         $this->EstRealtimeNetValue();
     }
