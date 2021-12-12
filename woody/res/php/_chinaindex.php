@@ -107,7 +107,7 @@ function EchoMetaDescription()
     $strEst = RefGetStockDisplay($acct->ref->GetPairNavRef());
     $strUS = RefGetStockDisplay($acct->us_ref);
     $strCNY = RefGetStockDisplay($acct->us_ref->cny_ref);
-    $str = "根据{$strEst}估算{$strDescription}净值的网页工具. 同时用{$strCNY}比较{$strUS}净值.";
+    $str = "用{$strEst}估算{$strDescription}净值. 参考{$strCNY}比较{$strUS}净值.";
     EchoMetaDescriptionText($str);
 }
 

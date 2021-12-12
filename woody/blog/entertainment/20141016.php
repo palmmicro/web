@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>Rules for Giant Chinese State-owned Stock</title>
-<meta name="description" content="On the day Qualcomm agreed to buy CSR, Woody wrote his simple rules to trade and benefit from Chinese A stock market after years of loss in US stock market.">
+<meta name="description" content="On the day Qualcomm agreed to buy CSR, wrote rules to trade and benefit from Chinese A stock market after years of loss in US stock market.">
 <?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 </head>

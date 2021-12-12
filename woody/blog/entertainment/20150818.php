@@ -134,13 +134,13 @@ and modified an actually unrelated code, what should be <font color=gray><code>$
 
 <h3>T+1 <a name="realtime">Estimation</a> with Current CL Factor in</h3>
 <p>Aug 18, 2016
-<br />Many people's Excel sheet has this one, so I added it too. Here is the difference between offical estimation, fair estimation and realtime estimation of SZ162411 net value.
+<br />Many people's Excel sheet has this one, so I added it too. Here is the difference between official estimation, fair estimation and realtime estimation of SZ162411 net value.
 </p>
 <?php EchoFundEstDemo(); ?>
 <p><TABLE borderColor=#cccccc cellSpacing=0 width=500 border=1 class="text" id="netvalue">
        <tr>
         <td class=c1 width=200 align=center>Est Factor</td>
-        <td class=c1 width=100 align=center>Offical Est</td>
+        <td class=c1 width=100 align=center>Official Est</td>
         <td class=c1 width=100 align=center>Fair Est</td>
         <td class=c1 width=100 align=center>Realtime Est</td>
       </tr>

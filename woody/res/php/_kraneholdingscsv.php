@@ -48,7 +48,9 @@ class _KraneHoldingsCsvFile extends CsvFile
     {
     	if (count($arWord) < 2)	return;
     	
-    	$strName = $arWord[1]; 
+    	$strName = $arWord[1];
+    	if ($strName == 'HONG KONG DOLLAR')	return;
+    	
     	if ($arWord[0] == 'Rank')			$this->bUse = true;
     	else if ($strName == 'Cash')		$this->bUse = false;
     	else if ($this->bUse)

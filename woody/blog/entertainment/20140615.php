@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>Upgrade to Visual Studio 2013</title>
-<meta name="description" content="Upgrade software developed with VS2008/VC9 to Visual Studio 2013 (VS2013/VC12), including Woody's Web Tool, CamMan, AR1688 Manager.exe and other tools.">
+<meta name="description" content="Upgrade Woody's Web Tool, CamMan, AR1688 Manager software developed with Visual Studio 2008 to Visual Studio 2013.">
 <?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 </head>

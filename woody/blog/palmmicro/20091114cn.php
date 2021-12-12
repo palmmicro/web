@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>Palmmicro的MAC地址</title>
-<meta name="description" content="Palmmicro的老MAC地址00-09-45-xx-xx-xx和新MAC地址00-18-1f-xx-xx-xx. 安全模式的缺省MAC从PA1688设备的00-09-45-00-00-00改为AR1688和PA6488的00-18-1f-00-00-00.">
+<meta name="description" content="Palmmicro的老MAC地址段00-09-45和新MAC地址段00-18-1f. 安全模式的缺省MAC从PA1688设备的00-09-45-00-00-00改为AR1688和PA6488的00-18-1f-00-00-00.">
 <?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 </head>

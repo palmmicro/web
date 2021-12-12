@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>My First Embedded Linux Application</title>
-<meta name="description" content="After tried compiling SDCC source code in Linux system, I programmed my first embedded Linux software, optimizing G.729 source code on a WiFi router chip.">
+<meta name="description" content="After compiling SDCC source code in Linux, I programmed my first embedded Linux software, optimizing G.729 source code on a WiFi router chip.">
 <?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 </head>

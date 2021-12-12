@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>VoIP Loser's Songs</title>
-<meta name="description" content="The movie Cape No.7 reminds me the failure experience of my business in the past 10 years, also feel lucky that we did not build a dedicated WiFi VoIP chip.">
+<meta name="description" content="The movie Cape No.7 reminds me the failure experience of my business in the past 10 years, also feel lucky of did not build a dedicated WiFi VoIP chip.">
 <?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 </head>

@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>动态域名palmmicro.ddns.us的备份</title>
-<meta name="description" content="Palmmicro内部服务器用了免费的changeip.com的动态域名palmmicro.ddns.us十多年, 近来不断的出问题. 增加2个国内的免费动态域名作为备份: palmmicro.f3322.net, 1bj4595225.iok.la.">
+<meta name="description" content="Palmmicro内部服务器用了免费的changeip.com的动态域名palmmicro.ddns.us十多年, 近来不断的出问题. 增加2个国内的免费动态域名作为备份.">
 <?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 </head>

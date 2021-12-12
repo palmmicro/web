@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>My First Visual C++ 2008 Application</title>
-<meta name="description" content="My first Visual C++ 2008 application, Woody's Web Tool, used to assist the development of palmmicro.com web, with record of experience from Turbo C to VC9.">
+<meta name="description" content="My first Visual C++ 2008 application, Woody's Web Tool, used to assist the development of palmmicro.com web contents.">
 <?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
