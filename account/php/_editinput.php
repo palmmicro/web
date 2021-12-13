@@ -414,8 +414,8 @@ function EchoMetaDescription($bChinese = true)
    		break;
     		
     case 'chisquaredtest':
-  		$str .= $bChinese ? '页面. 用Pearson卡方检验(Chi-squared Test)统计样本的实际观测值与理论推断值之间的偏离程度. 实际观测值与理论推断值之间的偏离程度就决定卡方值的大小. 卡方值为0表明理论值完全符合.'
-    						: ' page, run to determine whether there is a significant difference between the expected frequencies and the observed frequencies.';
+  		$str .= $bChinese ? '(Chi-squared Test)用来统计样本的实际观测值与理论推断值之间的偏离程度. 卡方值为0表明观测值与理论值完全符合.'
+    						: ' to determine whether there is a significant difference between the expected frequencies and the observed frequencies.';
   		break;
   		
   	case TABLE_COMMON_PHRASE:

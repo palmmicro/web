@@ -30,7 +30,7 @@ But my past experience taught me it mostly probably would be another bad big dec
       Later I learned to trade more patiently. In US market I can place an order valid for 3 months, but In China only valid for the current day, so here goes my 2nd rule:
       <br /><b>Place orders right after midnight, never change them during day trading time.
       Place buy order at support price and sell order at resistance price according to daily Sina data.</b></li>
-  <li>As I have not been able to train myself to <i>cut loss short</i> in so many years. I decided to focus my Chinese stock portfolio on those giant state-owned companys,
+  <li>As I have not been able to train myself to <i>cut loss short</i> in so many years. I decided to focus my Chinese stock portfolio on those giant state-owned companies,
       so I can hold them with peace of mind when market is bad. And I use the Shanghai Stock Exchange Composite Index (SHCOMP) to guide my 3rd trading rule: 
       <br /><b>Sell 50,000RMB of stocks with each 100 points of SHCOMP gain, and because I am accumulating the position at current period, buy 50,000-100,000RMB with each 100 points of loss.</b></li>
   <li>I use the 4th rule to lock profit:

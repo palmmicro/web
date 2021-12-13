@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>USB</title>
-<meta name="description" content="After years of USB related study, Woody now finally has the opportunity to use it with Palmmicro PA3288 VoIP solution. Check our new WiFi VoIP product plan.">
+<meta name="description" content="After years of USB related study, now finally has the opportunity to use it with Palmmicro PA3288 VoIP solution.">
 <?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 </head>

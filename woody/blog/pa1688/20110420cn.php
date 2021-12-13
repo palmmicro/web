@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>额的神啊! AT323话机居然LM386一直在工作!</title>
-<meta name="description" content="PA168S(AT323)话机中的LM386一直在工作, 用户反映后在PA168T参考设计解决了这个问题. 包括PA168S在内, 其它PA1688设备中LM386的使用也都可以参考这个方案解决. 这是个典型的用户驱动Palmmicro产品改进的故事.">
+<meta name="description" content="PA168S话机中的LM386一直在工作, 用户反映后在PA168T解决了这个问题. 包括PA168S在内的其它PA1688设备中的LM386也都可以参考这个方案解决.">
 <?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>
