@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>Email Records: the Death of an AudioPlus VOIP616 IP Phone</title>
-<meta name="description" content="Email records of the death of an AudioPlus VOIP616 IP phone">
+<meta name="description" content="Email records of the death of an AudioPlus VOIP616 IP phone, there are still many unknown none standard PA1688 device in the market!">
 <?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>

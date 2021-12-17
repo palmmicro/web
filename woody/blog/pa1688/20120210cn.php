@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>电子邮件记录: 一台AudioPlus VOIP616网络电话的死亡</title>
-<meta name="description" content="电子邮件记录下来的一台AudioPlus VOIP616网络电话的死亡经过">
+<meta name="description" content="电子邮件记录下来的一台AudioPlus VOIP616网络电话的死亡经过, 看来市场上还是有不少我们不知道的非标准设计的PA1688产品.">
 <?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>

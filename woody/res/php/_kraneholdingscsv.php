@@ -27,7 +27,6 @@ class _KraneHoldingsCsvFile extends CsvFile
         $this->sql = GetStockSql();
         $this->his_sql = GetStockHistorySql();
         $this->holdings_sql = GetEtfHoldingsSql();
-        $this->holdings_sql->DeleteAll($strStockId);
         
         $strUscnyId = $this->sql->GetId('USCNY');
         $strHkcnyId = $this->sql->GetId('HKCNY');
@@ -51,7 +50,11 @@ class _KraneHoldingsCsvFile extends CsvFile
     	$strName = $arWord[1];
     	if ($strName == 'HONG KONG DOLLAR')	return;
     	
-    	if ($arWord[0] == 'Rank')			$this->bUse = true;
+    	if ($arWord[0] == 'Rank')
+    	{
+    		$this->holdings_sql->DeleteAll($this->strStockId);
+    		$this->bUse = true;
+    	}
     	else if ($strName == 'Cash')		$this->bUse = false;
     	else if ($this->bUse)
     	{
@@ -93,11 +96,14 @@ function ReadKraneHoldingsCsvFile($strSymbol, $strStockId, $strDate, $strNav)
 	$csv = new _KraneHoldingsCsvFile($strPathName, $strStockId, $strDate);
    	$csv->Read();
    	
-	$shares_sql = new SharesHistorySql();
-	$shares_sql->WriteDaily($strStockId, $strDate, strval_round($csv->fTotalValue / floatval($strNav) / 10000.0));
+   	if ($csv->fTotalValue > MIN_FLOAT_VAL)
+   	{
+   		$shares_sql = new SharesHistorySql();
+   		$shares_sql->WriteDaily($strStockId, $strDate, strval_round($csv->fTotalValue / floatval($strNav) / 10000.0));
 
-	$date_sql = new EtfHoldingsDateSql();
-	$date_sql->WriteDate($strStockId, $strDate);
+   		$date_sql = new EtfHoldingsDateSql();
+   		$date_sql->WriteDate($strStockId, $strDate);
+   	}
 }
 
 ?>

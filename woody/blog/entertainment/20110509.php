@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>Google AdSense</title>
-<meta name="description" content="Why I added Google AdSense in my blog and my adsense performance in the first year.">
+<meta name="description" content="Why I added Google AdSense in my blog and my adsense performance in the first year. Google payment history records.">
 <?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 </head>

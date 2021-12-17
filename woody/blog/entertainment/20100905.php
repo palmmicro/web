@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>My First PHP Application</title>
-<meta name="description" content="My first PHP application: user and blog comment CRUD (Create/Retrieve/Update/Delete).">
+<meta name="description" content="My first PHP application: user and blog comment CRUD (Create/Retrieve/Update/Delete). And other PHP tools software after it.">
 <?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 </head>

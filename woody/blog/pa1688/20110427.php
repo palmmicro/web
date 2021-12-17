@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>Software Over-Optimization</title>
-<meta name="description" content="How our RTL8019AS software over-optimization resulted in an unsteady ET6602 IP phone.">
+<meta name="description" content="How our RTL8019AS software over-optimization resulted in an unsteady ET6602 IP phone. Software test is never enough.">
 <?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>

@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>愚蠢还是其它? </title>
-<meta name="description" content="某AR1688生产商工程师到现在还不知道怎么做安全模式恢复">
+<meta name="description" content="某AR1688生产商工程师到现在还不知道怎么做安全模式恢复, 我实在受不了他的纠缠, 找了他们公司另外一个工程师来帮他解决问题. 他觉得很受伤, 问我为什么要侮辱他!">
 <?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>

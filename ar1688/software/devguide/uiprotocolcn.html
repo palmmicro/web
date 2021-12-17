@@ -2,7 +2,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>AR1688开发指南 - 用户界面协议</title>
-<meta name="description" content="AR1688软件开发 .c文件">
+<meta name="description" content="AR1688开发指南, 用户界面协议部分. 采用基于文本字符串的方式, 用于AR1688语音模块和外部控制器之间的通信. 第三方开发者可以自行更改.">
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>
 <script src="../../../js/copyright.js"></script>
@@ -37,7 +37,7 @@
 <table>
 <tr><td class=THead><B>AR1688开发指南 - 用户界面协议</B></td></tr>
 <tr><td>&nbsp;
-<br />AR1688和外部控制器之间目前有7中基于字符串的高层<a href="../../../woody/blog/ar1688/20080329cn.php">用户界面协议</a>: 
+<br />AR1688和外部控制器之间目前有7种基于字符串的高层<a href="../../../woody/blog/ar1688/20080329cn.php">用户界面协议</a>: 
 <br />1. 键盘输入. 格式"KEY x", 其中'x'来自<b>mcs51\hook.c</b>和<b>mcs51\key.c</b>, 指示外部控制器有键盘输入或者摘挂机. AR1688收到这个字符串后交给<b>function.c</b>中的函数<i>UI_HandleKeys</i>处理. 
 <br />2. LCD显示. 格式"LCD lxxxxxxxxxxxxxxxx", 其中'l'指示显示在第几行, '0'显示在第一行, '1'在第2行, 可能出现的'2'和'3'分别表示第3行和第4行. "xxxxxxxxxxxxxxx"是需要显示的字符串, 由AR1688发送给外部控制器显示. 
 <br />3. LCD光标. 格式"LCDClps", 跟上面一样'l'指示第几行, 'p'表示光标位置, 从'0'开始. 's'表示光标状态, '0'为隐藏, '1'为显示. 跟上面2相同, 这个命令也是由AR1688发送给外部控制器. 

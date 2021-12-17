@@ -246,6 +246,10 @@ class StockReference extends StockSymbol
 	{
 		if ($this->extended_ref)	return true;
 		
+		$iVal = $this->GetHourMinute();
+		if ($iVal < 930 || $iVal > 1600)		return true;
+
+		/*		
 		$ar = explode(':', $this->strTime);
 		if (count($ar) == 3)
 		{
@@ -264,7 +268,7 @@ class StockReference extends StockSymbol
 				return true;
 			}
 		}
-		
+*/
 		return false;
 	}
 
