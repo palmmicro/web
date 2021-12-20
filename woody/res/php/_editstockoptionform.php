@@ -9,6 +9,7 @@ function _getStockOptionDate($strSubmit, $ref)
 	switch ($strSubmit)
 	{
 	case STOCK_OPTION_ADJCLOSE:
+	case STOCK_OPTION_DIVIDEND:
 	case STOCK_OPTION_EMA:
 	case STOCK_OPTION_SHARE_DIFF:
 	case STOCK_OPTION_SPLIT:
@@ -148,6 +149,16 @@ function _getStockOptionSharesDiff($strStockId, $strDate)
 	return '';
 }
 
+function _getStockOptionDividend($strStockId, $strDate)
+{
+	$sql = new StockDividendSql();
+	if ($strClose = $sql->GetClose($strStockId, $strDate))
+	{
+		return $strClose;
+	}
+	return '1.00';
+}
+
 function _getStockOptionVal($strSubmit, $strLoginId, $ref, $strSymbol, $strDate)
 {
 	$strStockId = $ref->GetStockId();
@@ -164,6 +175,9 @@ function _getStockOptionVal($strSubmit, $strLoginId, $ref, $strSymbol, $strDate)
 
 	case STOCK_OPTION_CLOSE:
 		return $ref->GetPrevPrice();
+
+	case STOCK_OPTION_DIVIDEND:
+		return _getStockOptionDividend($strStockId, $strDate);
 
 	case STOCK_OPTION_EMA:
 		return _getStockOptionEma($strStockId, $strDate);
@@ -201,6 +215,9 @@ function _getStockOptionMemo($strSubmit)
 		
 	case STOCK_OPTION_AH:
 		return '清空输入删除对应H股.';
+		
+	case STOCK_OPTION_DIVIDEND:
+		return '清空输入删除对应分红.';
 		
 	case STOCK_OPTION_EMA:
 		return '股票收盘后的第2天修改才会生效, 输入0/0删除全部EMA记录.';

@@ -84,10 +84,10 @@ function _echoMergeParagraph($arMerge)
 			else						$ar[] = RefGetMyStockLink($ref);
 			
 			$ar[] = strval($iTotal);
-/*			if ($strSymbol == 'XOP')
+			if ($strSymbol == 'XOP')
 			{
-				$ar[] = strval($iTotal - 64);
-			}*/
+				$ar[] = strval($iTotal - 200);
+			}
 			EchoTableColumn($ar);
 		}
 	}

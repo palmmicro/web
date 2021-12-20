@@ -1,4 +1,5 @@
-<html>
+<!DOCTYPE html>
+<html lang="zh-Hans">
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title><?php EchoTitle(); ?></title>

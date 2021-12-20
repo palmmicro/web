@@ -184,11 +184,9 @@ class DailyCloseSql extends KeySql
     	if (empty($strClose))
     	{
     		$this->DeleteByDate($strKeyId, $strDate);
+    		return false;
     	}
-    	else
-    	{
-    		$this->WriteDaily($strKeyId, $strDate, $strClose);
-    	}
+		return $this->WriteDaily($strKeyId, $strDate, $strClose);
     }
 }
 
@@ -197,6 +195,14 @@ class StockSplitSql extends DailyCloseSql
     function StockSplitSql() 
     {
         parent::DailyCloseSql(TABLE_STOCK_SPLIT);
+    }
+}
+
+class StockDividendSql extends DailyCloseSql
+{
+    function StockDividendSql() 
+    {
+        parent::DailyCloseSql(TABLE_STOCK_DIVIDEND);
     }
 }
 

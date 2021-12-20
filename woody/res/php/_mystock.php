@@ -106,6 +106,7 @@ function _getMyStockLinks($sym)
 	$strSymbol = $sym->GetSymbol();
     $str = GetStockOptionLink(STOCK_OPTION_EDIT, $strSymbol);
    	$str .= ' '.GetStockOptionLink(STOCK_OPTION_SPLIT, $strSymbol);
+   	$str .= ' '.GetStockOptionLink(STOCK_OPTION_DIVIDEND, $strSymbol);
    	$str .= ' '.GetStockOptionLink(STOCK_OPTION_NETVALUE, $strSymbol);
    	if (SqlGetEtfPair($strSymbol) == false)
    	{

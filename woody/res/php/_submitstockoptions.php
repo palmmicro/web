@@ -217,7 +217,7 @@ function _updateStockOptionEtf($strSymbol, $strVal)
 
 function _updateOptionDailySql($sql, $strStockId, $strDate, $strVal)
 {
-	$sql->ModifyDaily($strStockId, $strDate, $strVal);
+	return $sql->ModifyDaily($strStockId, $strDate, $strVal);
 }
 
 function _updateStockOptionSplitGroupTransactions($strGroupId, $strStockId, $strDate, $fRatio, $fPrice)
@@ -274,6 +274,23 @@ function _updateStockOptionSplit($ref, $strSymbol, $strStockId, $his_sql, $strDa
 	}
 }
 
+function _updateStockOptionDividend($ref, $strSymbol, $strStockId, $his_sql, $strDate, $strVal)
+{
+	$sql = new StockDividendSql();
+	if (_updateOptionDailySql($sql, $strStockId, $strDate, $strVal))
+	{
+		DebugString('Dividend updated');
+		$calibration_sql = new CalibrationSql();
+  		if ($strClose = $calibration_sql->GetClose($strStockId, $strDate))
+  		{
+  			DebugString('Change calibaration on '.$strDate);
+  			$fNav = floatval(SqlGetNavByDate($strStockId, $strDate));
+  			$fFactor = floatval($strClose) * $fNav / ($fNav - floatval($strVal));
+  			$calibration_sql->WriteDaily($strStockId, $strDate, strval($fFactor));
+  		}
+	}
+}
+
    	$acct = new Account();
 	
    	if ($acct->GetLoginId() && isset($_POST['submit']))
@@ -310,6 +327,10 @@ function _updateStockOptionSplit($ref, $strSymbol, $strStockId, $his_sql, $strDa
 
 		case STOCK_OPTION_CLOSE:
 			if ($bAdmin)	_updateStockHistoryClose($ref, $strSymbol, $strStockId, $his_sql, $strDate, $strVal);
+			break;
+			
+		case STOCK_OPTION_DIVIDEND:
+			if ($bAdmin)	_updateStockOptionDividend($ref, $strSymbol, $strStockId, $his_sql, $strDate, $strVal);
 			break;
 			
 		case STOCK_OPTION_EDIT:
