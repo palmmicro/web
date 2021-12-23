@@ -1,18 +1,14 @@
-<?php require_once('php/_blogphoto.php'); ?>
-<html>
-<head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<title>2010 Blog Pictures</title>
-<meta name="description" content="Pictures from Woody's 2010 blog. Including AR168DS programmer image and Soyo G1681 front view.">
-<?php EchoInsideHead(); ?>
-<link href="/common/style.css" rel="stylesheet" type="text/css" />
-</head>
+<?php 
+require('php/_blogphoto.php');
 
-<body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _LayoutTopLeft(false); ?>
+function EchoMetaDescription($bChinese)
+{
+	echo 'Pictures from Woody 2010 blog. Including AR168DS programmer image and Soyo G1681 front view etc.';
+}
 
-<div>
-<h1>2010 Blog Pictures</h1>
+function EchoAll($bChinese)
+{
+    echo <<<END
 <p>Dec 2 <a href="ar1688/20101202.php">Writing Program Flash</a>
 <br /><img src=photo/20101202.jpg></p>
 
@@ -30,9 +26,8 @@
 
 <p>Apr 27 <a href="palmmicro/20100427.php">The Blocking History of Palmmicro.com</a>
 <br /><img src=photo/20100813.jpg alt="Beijing Simatai part of the Great Wall of China" /></p>
-</div>
+END;
+}
 
-<?php LayoutTailLogin(false); ?>
-
-</body>
-</html>
+require('/php/ui/_disp.php');
+?>

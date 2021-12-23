@@ -1,18 +1,14 @@
-<?php require_once('php/_blogphoto.php'); ?>
-<html>
-<head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<title>2009 Blog Pictures</title>
-<meta name="description" content="Pictures from of Woody's 2009 blog. Including photo of the cheapest PSTN phone case in China market.">
-<?php EchoInsideHead(); ?>
-<link href="/common/style.css" rel="stylesheet" type="text/css" />
-</head>
+<?php 
+require('php/_blogphoto.php');
 
-<body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _LayoutTopLeft(false); ?>
+function EchoMetaDescription($bChinese)
+{
+	echo 'Pictures from Woody 2009 blog. Including photo of the cheapest PSTN phone case in China market etc.';
+}
 
-<div>
-<h1>2009 Blog Pictures</h1>
+function EchoAll($bChinese)
+{
+    echo <<<END
 <p>Sep 27 <a href="pa6488/20090927.php">From PA1688 to PA6488 - Safe Mode Recovery</a>
 <br /><img src=../../pa1688/user/g1681/back.jpg alt="Soyo G1681 (PA168V/AG-168V) 1-port FXS gateway back view." /></p>
 
@@ -21,9 +17,8 @@
 
 <p>Feb 17 <a href="ar1688/20090217.php">Low Cost Phone</a>
 <br /><img src=photo/20090217.jpg alt="the cheapest PSTN phone case in China market." /></p>
-</div>
+END;
+}
 
-<?php LayoutTailLogin(false); ?>
-
-</body>
-</html>
+require('/php/ui/_disp.php');
+?>

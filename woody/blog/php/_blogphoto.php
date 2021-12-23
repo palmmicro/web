@@ -22,5 +22,16 @@ function _LayoutTopLeft($bChinese = true, $bAdsense = true)
     LayoutTopLeft('_navLoopBlogPhoto', true, $bChinese, $bAdsense);
 }
 
-   	$acct = new Account();
+function EchoTitle($bChinese = true)
+{
+	global $acct;
+	
+	$strYear = substr($acct->GetTitle(), -4, 4);
+	if ($bChinese)	$strYear .= '年网络日志图片';
+	else				$strYear .= ' Blog Pictures';
+
+    echo $strYear;
+}
+
+   	$acct = new TitleAccount();
 ?>

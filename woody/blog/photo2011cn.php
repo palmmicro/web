@@ -1,18 +1,14 @@
-<?php require_once('php/_blogphoto.php'); ?>
-<html>
-<head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<title>2011年网络日志图片</title>
-<meta name="description" content="Woody的2011年网络日志中使用的图片列表和日志链接. 包括ATCOM IP PHONE AT323 internal PCB image, test interpolation algorithm with Rie Miyazawa Santa Fe JPEG file.">
-<?php EchoInsideHead(); ?>
-<link href="/common/style.css" rel="stylesheet" type="text/css" />
-</head>
+<?php 
+require('php/_blogphoto.php');
 
-<body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _LayoutTopLeft(); ?>
+function EchoMetaDescription()
+{
+	echo 'Woody的2011年网络日志中使用的图片列表和日志链接. 包括ATCOM AT323网络电话内部PCB图像, 测试插值算法的Rie Miyazawa Santa Fe JPEG图片等.';
+}
 
-<div>
-<h1>2011年网络日志图片</h1>
+function EchoAll()
+{
+    echo <<<END
 <p>11月4日 <a href="pa1688/20111104cn.php">升级老PA168F的步骤</a>
 <br /><img src=photo/20111104.jpg></p>
 
@@ -39,9 +35,8 @@
 
 <p>2月25日 <a href="pa1688/20110225cn.php">PA1688设备杀手</a>
 <br /><img src=photo/20110225.jpg></p>
-</div>
+END;
+}
 
-<?php LayoutTailLogin(); ?>
-
-</body>
-</html>
+require('/php/ui/_dispcn.php');
+?>

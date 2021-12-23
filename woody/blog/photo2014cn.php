@@ -1,18 +1,14 @@
-<?php require_once('php/_blogphoto.php'); ?>
-<html>
-<head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<title>2014年网络日志图片</title>
-<meta name="description" content="Woody的2014年网络日志中使用的图片列表和日志链接. 包括AR1688 Manager.exe西班牙语mfc120u.dll错误信息抓屏图, 10月16日中国A股股票持仓的抓屏图等.">
-<?php EchoInsideHead(); ?>
-<link href="/common/style.css" rel="stylesheet" type="text/css" />
-</head>
+<?php 
+require('php/_blogphoto.php');
 
-<body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _LayoutTopLeft(); ?>
+function EchoMetaDescription()
+{
+	echo 'Woody的2014年网络日志中使用的图片列表和日志链接. 包括AR1688 Manager.exe西班牙语mfc120u.dll错误信息抓屏图, 10月16日中国A股股票持仓的抓屏图等.';
+}
 
-<div>
-<h1>2014年网络日志图片</h1>
+function EchoAll()
+{
+    echo <<<END
 <p>12月4日 <a href="entertainment/20141204cn.php">林近岚</a>的由来
 <br /><img src=photo/20141204.jpg alt="Woody and Sapphire Lin are both worried!" /></p>
 
@@ -24,9 +20,8 @@
 
 <p>4月5日 <a href="pa1688/20140405cn.php">好的坏的和丑陋的</a>
 <br /><img src=../../pa1688/user/ehog/pcb.jpg alt="PA1688 eHOG 1-port FXS gateway internal PCB." /></p>
-</div>
+END;
+}
 
-<?php LayoutTailLogin(); ?>
-
-</body>
-</html>
+require('/php/ui/_dispcn.php');
+?>

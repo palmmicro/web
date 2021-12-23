@@ -1,18 +1,14 @@
-<?php require_once('php/_blogphoto.php'); ?>
-<html>
-<head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<title>2014 Blog Pictures</title>
-<meta name="description" content="Pictures from Woody's 2014 blog. Including screen shot of AR1688 Manager.exe Spanish mfc120u.dll error message and Chinese stock portfolio.">
-<?php EchoInsideHead(); ?>
-<link href="/common/style.css" rel="stylesheet" type="text/css" />
-</head>
+<?php 
+require('php/_blogphoto.php');
 
-<body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _LayoutTopLeft(false); ?>
+function EchoMetaDescription($bChinese)
+{
+	echo 'Pictures from Woody 2014 blog. Including screen shot of AR1688 Manager.exe Spanish mfc120u.dll error message and Chinese stock portfolio etc.';
+}
 
-<div>
-<h1>2014 Blog Pictures</h1>
+function EchoAll($bChinese)
+{
+    echo <<<END
 <p>Dec 4 <a href="entertainment/20141204.php">The Origin of Sapphire Lin</a>
 <br /><img src=photo/20141204.jpg alt="Woody and Sapphire Lin are both worried!" /></p>
 
@@ -24,9 +20,8 @@
 
 <p>Apr 5 <a href="pa1688/20140405.php">The Good, the Bad and the Ugly</a>
 <br /><img src=../../pa1688/user/ehog/pcb.jpg alt="PA1688 eHOG 1-port FXS gateway internal PCB." /></p>
-</div>
+END;
+}
 
-<?php LayoutTailLogin(false); ?>
-
-</body>
-</html>
+require('/php/ui/_disp.php');
+?>

@@ -1,6 +1,6 @@
 <?php
 require_once('_stock.php');
-require_once('_editstockoptionform.php');
+//require_once('_editstockoptionform.php');
 require_once('_kraneholdingscsv.php');
 require_once('_sseholdings.php');
 
@@ -288,6 +288,8 @@ function _updateStockOptionDividend($ref, $strSymbol, $strStockId, $his_sql, $st
   			$fFactor = floatval($strClose) * $fNav / ($fNav - floatval($strVal));
   			$calibration_sql->WriteDaily($strStockId, $strDate, strval($fFactor));
   		}
+  		
+		_updateStockHistoryAdjCloseByDividend($ref, $strSymbol, $strStockId, $his_sql, $strDate, $strVal);
 	}
 }
 
@@ -309,10 +311,6 @@ function _updateStockOptionDividend($ref, $strSymbol, $strStockId, $his_sql, $st
         
 		switch ($_POST['submit'])
 		{
-		case STOCK_OPTION_ADJCLOSE:
-			if ($bAdmin)	_updateStockHistoryAdjCloseByDividend($ref, $strSymbol, $strStockId, $his_sql, $strDate, $strVal);
-			break;
-			
 		case STOCK_OPTION_ADR:
 			if ($bAdmin)	_updateStockOptionAdr($strSymbol, $strVal);
 			break;

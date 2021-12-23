@@ -8,7 +8,6 @@ function _getStockOptionDate($strSubmit, $ref)
 	$his_sql = GetStockHistorySql();
 	switch ($strSubmit)
 	{
-	case STOCK_OPTION_ADJCLOSE:
 	case STOCK_OPTION_DIVIDEND:
 	case STOCK_OPTION_EMA:
 	case STOCK_OPTION_SHARE_DIFF:
@@ -164,9 +163,6 @@ function _getStockOptionVal($strSubmit, $strLoginId, $ref, $strSymbol, $strDate)
 	$strStockId = $ref->GetStockId();
 	switch ($strSubmit)
 	{
-	case STOCK_OPTION_ADJCLOSE:
-		return '0.01';
-
 	case STOCK_OPTION_ADR:
 		return _getStockOptionAdr($strSymbol);
 

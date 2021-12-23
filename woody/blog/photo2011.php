@@ -1,18 +1,14 @@
-<?php require_once('php/_blogphoto.php'); ?>
-<html>
-<head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<title>2011 Blog Pictures</title>
-<meta name="description" content="Pictures from Woody's 2011 blog. Including ATCOM IP PHONE AT323 internal PCB image, test interpolation algorithm with Rie Miyazawa Santa Fe JPEG file.">
-<?php EchoInsideHead(); ?>
-<link href="/common/style.css" rel="stylesheet" type="text/css" />
-</head>
+<?php 
+require('php/_blogphoto.php');
 
-<body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _LayoutTopLeft(false); ?>
+function EchoMetaDescription($bChinese)
+{
+	echo 'Pictures from Woody 2011 blog. Including ATCOM IP PHONE AT323 internal PCB image, test interpolation algorithm with Rie Miyazawa Santa Fe JPEG file etc.';
+}
 
-<div>
-<h1>2011 Blog Pictures</h1>
+function EchoAll($bChinese)
+{
+    echo <<<END
 <p>Nov 4 <a href="pa1688/20111104.php">Steps to Upgrade an Old PA168F</a>
 <br /><img src=photo/20111104.jpg></p>
 
@@ -39,9 +35,8 @@
 
 <p>Feb 25 <a href="pa1688/20110225.php">PA1688 Device Killer</a>
 <br /><img src=photo/20110225.jpg></p>
-</div>
+END;
+}
 
-<?php LayoutTailLogin(false); ?>
-
-</body>
-</html>
+require('/php/ui/_disp.php');
+?>

@@ -36,22 +36,3 @@ function BlogMenuItem(iLevel, strItem)
         }
     }
 }
-
-
-var _arBlogPhotos = new Array("photo2006", "photo2007", "photo2008", "photo2009", "photo2010", "photo2011", "photo2012", "photo2013", "photo2014", "photo2016"); 
-var _iTotalBlogPhotos = 10;
-
-function NavLoopBlogPhoto()
-{
-    var iLevel = 1;
-    
-	NavBegin();
-	WoodyMenuItem(iLevel, "index");
-	NavContinue();
-	WoodyMenuItem(iLevel, "image");
-	NavContinueNewLine();
-    NavDirLoop(_iTotalBlogPhotos, _arBlogPhotos);
-	NavContinueNewLine();
-    NavSwitchLanguage(iLevel + 1);
-    NavEnd();
-}

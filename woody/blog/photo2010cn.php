@@ -1,18 +1,14 @@
-<?php require_once('php/_blogphoto.php'); ?>
-<html>
-<head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<title>2010年网络日志图片</title>
-<meta name="description" content="Woody的2010年网络日志中使用的图片列表和日志链接. 包括AR168DS烧录器图片, Soyo G1681(PA168V/AG-168V)网关正面图, 司马台长城等.">
-<?php EchoInsideHead(); ?>
-<link href="/common/style.css" rel="stylesheet" type="text/css" />
-</head>
+<?php 
+require('php/_blogphoto.php');
 
-<body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _LayoutTopLeft(); ?>
+function EchoMetaDescription()
+{
+	echo 'Woody的2010年网络日志中使用的图片列表和日志链接. 包括AR168DS烧录器图片, Soyo G1681(PA168V/AG-168V)网关正面图, 司马台长城等.';
+}
 
-<div>
-<h1>2010年网络日志图片</h1>
+function EchoAll()
+{
+    echo <<<END
 <p>12月2日 <a href="ar1688/20101202cn.php">烧录程序存储器</a>
 <br /><img src=photo/20101202.jpg></p>
 
@@ -30,9 +26,8 @@
 
 <p>4月27日 <a href="palmmicro/20100427cn.php">记录Palmmicro.com的被屏蔽历史</a>
 <br /><img src=photo/20100813.jpg alt="Beijing Simatai part of the Great Wall of China" /></p>
-</div>
+END;
+}
 
-<?php LayoutTailLogin(); ?>
-
-</body>
-</html>
+require('/php/ui/_dispcn.php');
+?>

@@ -78,7 +78,7 @@ function EchoCopyRight($bMobile, $bChinese)
 	}
 	else
 	{
-	    $str = _getCopyright('深圳迪迈特', 'Palmmicro Communications Inc', $bChinese, $strYear, '2006');
+	    $str = _getCopyright('Palmmicro', 'Palmmicro Communications Inc', $bChinese, $strYear, '2006');
 	}
 	
 	if ($bMobile)

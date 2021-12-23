@@ -150,7 +150,6 @@ function GetQdiiAnalysisLinks($strSymbol)
 	return GetNvCloseHistoryLink($strSymbol).' '.GetThanousParadoxLink($strSymbol).' '.GetFundAccountLink($strSymbol).' '.GetFundPositionLink($strSymbol);
 }
 
-define('STOCK_OPTION_ADJCLOSE', '根据分红更新复权收盘价');
 define('STOCK_OPTION_ADR', '修改H股对应ADR代码');
 define('STOCK_OPTION_AH', '修改A股对应H股代码');
 define('STOCK_OPTION_AMOUNT', '基金申购金额');

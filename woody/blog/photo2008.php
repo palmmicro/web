@@ -1,18 +1,14 @@
-<?php require_once('php/_blogphoto.php'); ?>
-<html>
-<head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<title>2008 Blog Pictures</title>
-<meta name="description" content="Pictures from of Woody's 2008 blog. Including photo with Chi-Shin Wang and Tang Li in Half Moon Bay.">
-<?php EchoInsideHead(); ?>
-<link href="/common/style.css" rel="stylesheet" type="text/css" />
-</head>
+<?php 
+require('php/_blogphoto.php');
 
-<body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _LayoutTopLeft(false); ?>
+function EchoMetaDescription($bChinese)
+{
+	echo 'Pictures from Woody 2008 blog. Including photo with Chi-Shin Wang and Tang Li in Half Moon Bay etc.';
+}
 
-<div>
-<h1>2008 Blog Pictures</h1>
+function EchoAll($bChinese)
+{
+    echo <<<END
 <p>Nov 24 <a href="ar1688/20081124.php">Micrel KSZ8842</a>
 <br /><img src=../../pa1688/user/hop3003/rtl8305sb.jpg alt="RTL8305SB chip in HOP3003 IP phone."></p>
 
@@ -27,9 +23,8 @@
 
 <p>Mar 26 The History of <a href="palmmicro/20080326.php">Palmmicro</a>.com Domain
 <br /><img src=../groupphoto/company/20070920.jpg alt="Chi-Shin Wang, Tang Li and me in Half Moon Bay." /></p>
-</div>
+END;
+}
 
-<?php LayoutTailLogin(false); ?>
-
-</body>
-</html>
+require('/php/ui/_disp.php');
+?>

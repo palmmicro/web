@@ -18,7 +18,7 @@ function CopyRightDisplay()
     }
     else
     {
-        str = _BuildCopyRight("2006-2021 深圳迪迈特版权所有&copy;, 保留所有权利.");
+        str = _BuildCopyRight("2006-2021 Palmmicro版权所有&copy;, 保留所有权利.");
     }
    	document.write(str);
 }

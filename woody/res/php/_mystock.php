@@ -2,7 +2,7 @@
 require_once('_stock.php');
 require_once('_emptygroup.php');
 require_once('_editmergeform.php');
-require_once('_editstockoptionform.php');
+//require_once('_editstockoptionform.php');
 require_once('/php/stockhis.php');
 require_once('/php/benfordimagefile.php');
 require_once('/php/sql/sqldailystring.php');

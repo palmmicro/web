@@ -1,6 +1,6 @@
 <?php
 require_once('_stock.php');
-require_once('_editstockoptionform.php');
+require_once('_emptygroup.php');
 require_once('/php/ui/stockhistoryparagraph.php');
 
 function _getStockHistoryLinks($ref, $bAdmin)
@@ -28,21 +28,14 @@ function EchoAll()
 {
 	global $acct;
 	
-	$bAdmin = $acct->IsAdmin();
     if ($ref = $acct->EchoStockGroup())
     {
     	if ($ref->HasData())
     	{
-    		$strLinks = _getStockHistoryLinks($ref, $bAdmin);
-    		$iStart = $acct->GetStart();
+    		$strLinks = _getStockHistoryLinks($ref, $acct->IsAdmin());
     		$csv = new PageCsvFile();
-    		EchoStockHistoryParagraph($ref, $strLinks, $csv, $iStart, $acct->GetNum());
+    		EchoStockHistoryParagraph($ref, $strLinks, $csv, $acct->GetStart(), $acct->GetNum());
     		$csv->Close();
-
-    		if ($bAdmin && $iStart == 0)
-    		{
-    			$acct->StockOptionEditForm(STOCK_OPTION_ADJCLOSE);
-    		}
     	}
     }
     $acct->EchoLinks(TABLE_STOCK_HISTORY);
@@ -65,6 +58,6 @@ function EchoTitle()
   	echo $str;
 }
 
-    $acct = new SymbolEditAccount();
+    $acct = new SymbolAccount();
    	$acct->Create();
 ?>

@@ -19,6 +19,11 @@ function LayoutIsMobilePhone()
     return false;
 }
 
+function EchoDocType()
+{
+	echo '<!DOCTYPE html>';
+}
+
 function EchoInsideHead()
 {
 	$_SESSION['mobile'] = LayoutIsMobilePhone();
