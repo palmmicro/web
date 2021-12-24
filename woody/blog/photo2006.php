@@ -1,4 +1,4 @@
-<?php 
+<?php
 require('php/_blogphoto.php');
 
 function EchoMetaDescription($bChinese)
