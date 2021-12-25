@@ -1,12 +1,12 @@
 <?php
 require('php/_myphoto.php');
 
-function EchoMetaDescription()
+function EchoMetaDescription($bChinese)
 {
 	echo 'Woody 2007 personal photos and related links. All from Beijing suburb trips with lvye.org except one camera test shooting.';
 }
 
-function EchoAll()
+function EchoAll($bChinese)
 {
     echo <<<END
 <p><a href="http://www.lvye.org/modules/lvyebb/viewtopic.php?view=1&post_id=1869874" target=_blank>May 27</a>. Looking for someone?

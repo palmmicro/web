@@ -1,12 +1,12 @@
 <?php
 require('php/_myphoto.php');
 
-function EchoMetaDescription()
+function EchoMetaDescription($bChinese)
 {
 	echo 'Woody 2012 personal photos and related links. The year is the end of my Beijing suburb travelling with lvye.org and the Hang Tian Dong Feng team.';
 }
 
-function EchoAll()
+function EchoAll($bChinese)
 {
     echo <<<END
 <p><a href="http://www.lvye.org/modules/lvyebb/viewtopic.php?view=1&post_id=44158328" target=_blank>Apr 14</a>. While they were sleeping. <a href="2012/large/awake.jpg" target=_blank>Large</a>

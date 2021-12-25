@@ -1,22 +1,18 @@
-<?php require_once('php/_blogtype.php'); ?>
-<html>
-<head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<title>PA3288网络日志</title>
-<?php EchoInsideHead(); ?>
-<link href="../../common/style.css" rel="stylesheet" type="text/css" />
-</head>
+<?php
+require('php/_blogtype.php');
 
-<body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _LayoutTopLeft(); ?>
+function EchoMetaDescription()
+{
+	echo 'Woody的PA3288相关的网络日志列表. 包括Palmmicro PA3288芯片介绍, 方案说明, 提供给第3方开发的软件API教程等内容.';
+}
 
-<div>
-<h1>PA3288网络日志</h1>
+function EchoAll()
+{
+    echo <<<END
 <p>2013年8月31日 <a href="pa3288/20130831cn.php">USB接口</a>
 </p>
-</div>
+END;
+}
 
-<?php LayoutTailLogin(); ?>
-
-</body>
-</html>
+require('/php/ui/_dispcn.php');
+?>

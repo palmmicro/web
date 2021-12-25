@@ -1,18 +1,14 @@
-<?php require_once('php/_blogtype.php'); ?>
-<html>
-<head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<title>PA1688 Blog</title>
-<meta name="description" content="List of Woody's PA1688 blog. Although all of them were written after PA1688 discontinued, it still helps!">
-<?php EchoInsideHead(); ?>
-<link href="../../common/style.css" rel="stylesheet" type="text/css" />
-</head>
+<?php
+require('php/_blogtype.php');
 
-<body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _LayoutTopLeft(false); ?>
+function EchoMetaDescription($bChinese)
+{
+	echo 'The list of Woody PA1688 related blogs. Including chip introduction, solution details and lessons of software API for 3rd party development etc.';
+}
 
-<div>
-<h1>PA1688 Blog</h1>
+function EchoAll($bChinese)
+{
+    echo <<<END
 <p>Apr 5, 2014 <a href="pa1688/20140405.php">The Good, the Bad and the Ugly</a>
 <br />Feb 10, 2013 <a href="pa1688/20130210.php">Redial Key as Mute Key</a>
 <br />Feb 10, 2012 <a href="pa1688/20120210.php">Email Records: the Death of an AudioPlus VOIP616 IP Phone</a>
@@ -28,9 +24,8 @@
 <br />Aug 6, 2008 <a href="pa1688/20080806.php">Non-Standard PA1688 Based Devices</a>
 <br />June 7, 2007 <a href="pa1688/20070607.php">Too Late Good News</a>
 </p>
-</div>
+END;
+}
 
-<?php LayoutTailLogin(false); ?>
-
-</body>
-</html>
+require('/php/ui/_disp.php');
+?>

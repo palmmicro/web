@@ -1,18 +1,14 @@
-<?php require_once('php/_blogtype.php'); ?>
-<html>
-<head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<title>Palmmicro Blog</title>
-<meta name="description" content="List of all Woody's blog about Palmmicro company. Including Palmmicro wechat public account sz162411 etc.">
-<?php EchoInsideHead(); ?>
-<link href="../../common/style.css" rel="stylesheet" type="text/css" />
-</head>
+<?php
+require('php/_blogtype.php');
 
-<body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _LayoutTopLeft(false); ?>
+function EchoMetaDescription($bChinese)
+{
+	echo 'List of all Woody blogs about Palmmicro company. Including Palmmicro wechat public account sz162411 etc.';
+}
 
-<div>
-<h1>Palmmicro Blog</h1>
+function EchoAll($bChinese)
+{
+    echo <<<END
 <p>Oct 14, 2016 Palmmicro <a href="palmmicro/20161014.php">Wechat Public Account</a> sz162411
 <br />March 7, 2016 <a href="palmmicro/20160307.php">The Backup of Dynamic DNS palmmicro.ddns.us</a>
 <br />Sep 9, 2010 <a href="palmmicro/20100909.php">Forgot Password?</a>
@@ -22,9 +18,8 @@
 <br />Nov 23, 2006 <a href="palmmicro/20061123.php">The Untold Story of Jan, Sing and Wang (Translation)</a>
 </p>
 <p><img src=/res/logo/palmmicro.jpg alt="Original palmmicro logo designed by Chi-Shin Wang." /></p>
-</div>
+END;
+}
 
-<?php LayoutTailLogin(false); ?>
-
-</body>
-</html>
+require('/php/ui/_disp.php');
+?>

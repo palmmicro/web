@@ -1,18 +1,14 @@
-<?php require_once('php/_blogtype.php'); ?>
-<html>
-<head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<title>娱乐日志</title>
-<meta name="description" content="Woody自娱自乐的网络日志列表. 编程序的内容居多, 做网页和通过Adsense赚钱逐渐占据了越来越多的篇幅, 偶有股票和其它生活内容. 附娱乐写照图: 猪一样的睡样 吃罢只管睡 睡起又需吃! ">
-<?php EchoInsideHead(); ?>
-<link href="../../common/style.css" rel="stylesheet" type="text/css" />
-</head>
+<?php
+require('php/_blogtype.php');
 
-<body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _LayoutTopLeft(); ?>
+function EchoMetaDescription()
+{
+	echo 'Woody自娱自乐的网络日志列表. 编程序的内容居多, 做网页和通过Adsense赚钱逐渐占据了越来越多的篇幅, 偶有股票和其它生活内容. 附娱乐写照图: 猪一样的睡样 吃罢只管睡 睡起又需吃!';
+}
 
-<div>
-<h1>娱乐日志</h1>
+function EchoAll()
+{
+    echo <<<END
 <p>2016年6月15日 东方财富<a href="entertainment/20160615cn.php">美元人民币中间价</a>汇率实时数据接口的字段意义
 <br />2015年12月25日 <a href="entertainment/20151225cn.php">新浪股票数据</a>接口的字段意义
 <br />2015年8月18日 <a href="entertainment/20150818cn.php">华宝油气净值</a>估算的PHP程序
@@ -34,9 +30,8 @@
 </p>
 <p><img src=../image/mylife.jpg alt="the exact description of my entertainment life" />
 <br /><img src=../myphoto/2005/sleeping_s.jpg alt="while you were sleeping" /></p>
-</div>
+END;
+}
 
-<?php LayoutTailLogin(); ?>
-
-</body>
-</html>
+require('/php/ui/_dispcn.php');
+?>

@@ -1,12 +1,12 @@
 <?php
 require('php/_myphoto.php');
 
-function EchoMetaDescription()
+function EchoMetaDescription($bChinese)
 {
 	echo 'Woody 2010 personal photos and related links. Travelled coast to coast accross United States for three times this year.';
 }
 
-function EchoAll()
+function EchoAll($bChinese)
 {
     echo <<<END
 <p><a href="http://www.go2eu.com/bbs/viewthread.php?tid=235853" target=_blank>Mar 7</a>. My hand in <a href="http://blog.sina.com.cn/s/blog_4930ecbc0100smrk.html" target=_blank>Joshua Tree</a> NP. Photo taken by Wsss <a href="2010/hand.jpg" target=_blank>Large</a>

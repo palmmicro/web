@@ -1,18 +1,14 @@
-<?php require_once('php/_blogtype.php'); ?>
-<html>
-<head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<title>AR1688网络日志</title>
-<meta name="description" content="Woody的AR1688相关的网络日志列表. 包括AR1688芯片介绍, 方案说明, 提供给第3方开发的软件API教程等内容. 以及从SDCC 2.8.0版本开始后使用其中Z80编译器的各种吐槽.">
-<?php EchoInsideHead(); ?>
-<link href="../../common/style.css" rel="stylesheet" type="text/css" />
-</head>
+<?php
+require('php/_blogtype.php');
 
-<body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _LayoutTopLeft(); ?>
+function EchoMetaDescription()
+{
+	echo 'Woody的AR1688相关的网络日志列表. 包括AR1688芯片介绍, 方案说明, 提供给第3方开发的软件API教程等内容. 以及从SDCC 2.8.0版本开始后使用其中Z80编译器的各种吐槽.';
+}
 
-<div>
-<h1>AR1688网络日志</h1>
+function EchoAll()
+{
+    echo <<<END
 <p>2012年11月11日 <a href="ar1688/20121111cn.php">找出两幅图不同之处</a>
 <br />2012年4月30日 <a href="ar1688/20120430cn.php">使用RFC 2833发送PTT</a>
 <br />2012年2月13日 <a href="ar1688/20120213cn.php">不带串口功能的AR168M网络语音模块</a>
@@ -75,9 +71,8 @@
 <br />2006年9月29日 <a href="ar1688/20060929cn.php">软件升级</a>
 <br />2006年9月28日 <a href="ar1688/20060928cn.php">什么是AR1688</a>
 </p>
-</div>
+END;
+}
 
-<?php LayoutTailLogin(); ?>
-
-</body>
-</html>
+require('/php/ui/_dispcn.php');
+?>

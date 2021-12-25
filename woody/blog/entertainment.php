@@ -1,18 +1,14 @@
-<?php require_once('php/_blogtype.php'); ?>
-<html>
-<head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<title>Entertainment Blog</title>
-<meta name="description" content="List of all Woody's entertainment blog. Mostly are about software programming, including web development and using Adsense to make money.">
-<?php EchoInsideHead(); ?>
-<link href="../../common/style.css" rel="stylesheet" type="text/css" />
-</head>
+<?php
+require('php/_blogtype.php');
 
-<body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _LayoutTopLeft(false); ?>
+function EchoMetaDescription($bChinese)
+{
+	echo 'List of all Woody entertainment blogs. Mostly are about software programming, including web development and using Adsense to make money.';
+}
 
-<div>
-<h1>Entertainment Blog</h1>
+function EchoAll($bChinese)
+{
+    echo <<<END
 <p>June 15, 2016 EastMoney <a href="entertainment/20160615.php">USDCNY Reference Rate</a> Data Interface
 <br />Dec 25, 2015 The Interpretation of <a href="entertainment/20151225.php">Sina Stock Data</a> Interface
 <br />Aug 18, 2015 PHP Application to Estimate <a href="entertainment/20150818.php">SZ162411 Net Value</a>
@@ -34,9 +30,8 @@
 </p>
 <p><img src=../image/mylife.jpg alt="the exact description of my entertainment life" />
 <br /><img src=../myphoto/2005/sleeping_s.jpg alt="while you were sleeping" /></p>
-</div>
+END;
+}
 
-<?php LayoutTailLogin(false); ?>
-
-</body>
-</html>
+require('/php/ui/_disp.php');
+?>

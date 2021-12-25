@@ -1,18 +1,14 @@
-<?php require_once('php/_blogtype.php'); ?>
-<html>
-<head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<title>AR1688 Blog</title>
-<meta name="description" content="The list of Woody's AR1688 related blog. Including chip introduction, solution details and lessons of software API for 3rd party development.">
-<?php EchoInsideHead(); ?>
-<link href="../../common/style.css" rel="stylesheet" type="text/css" />
-</head>
+<?php
+require('php/_blogtype.php');
 
-<body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _LayoutTopLeft(false); ?>
+function EchoMetaDescription($bChinese)
+{
+	echo 'The list of Woody AR1688 related blogs. Including chip introduction, solution details and lessons of software API for 3rd party development etc.';
+}
 
-<div>
-<h1>AR1688 Blog</h1>
+function EchoAll($bChinese)
+{
+    echo <<<END
 <p>Nov 11, 2012 <a href="ar1688/20121111.php">Logic Puzzle: Find the Differences ...</a>
 <br />Apr 30, 2012 <a href="ar1688/20120430.php">Sending PTT via RFC 2833</a>
 <br />Feb 13, 2012 <a href="ar1688/20120213.php">AR168M VoIP Module without UART Functions</a>
@@ -75,9 +71,8 @@
 <br />Sep 29, 2006 <a href="ar1688/20060929.php">Firmware Upgrade</a>
 <br />Sep 28, 2006 <a href="ar1688/20060928.php">What is AR1688</a>
 </p>
-</div>
+END;
+}
 
-<?php LayoutTailLogin(false); ?>
-
-</body>
-</html>
+require('/php/ui/_disp.php');
+?>

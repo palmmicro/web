@@ -22,5 +22,18 @@ function _LayoutTopLeft($bChinese = true, $bAdsense = true)
     LayoutTopLeft('_navBlogType', true, $bChinese, $bAdsense);
 }
 
-   	$acct = new Account();
+function EchoTitle($bChinese = true)
+{
+	global $acct;
+	
+	$strTitle = $acct->GetTitle();
+	$ar = GetBlogMenuArray($bChinese);
+	$str = $ar[$strTitle];
+	if ($bChinese)	$str .= '日志';
+	else				$str .= ' Blogs';
+
+    echo $str;
+}
+
+   	$acct = new TitleAccount();
 ?>

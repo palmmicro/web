@@ -1,12 +1,12 @@
 <?php
 require('php/_myphoto.php');
 
-function EchoMetaDescription()
+function EchoMetaDescription($bChinese)
 {
 	echo 'Woody 2011 personal photos and related links. YiGong provided most of them during our Hongkong and Shenzhen trips this year.';
 }
 
-function EchoAll()
+function EchoAll($bChinese)
 {
     echo <<<END
 <p>Feb 27. I always wear a <a href="../blog/entertainment/20110323.php">VoIP</a> loser's tired smile in recent months. Photo taken by YiGong <a href="2011/wutong.jpg" target=_blank>Large</a>

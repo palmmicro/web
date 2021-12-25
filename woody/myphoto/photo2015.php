@@ -1,12 +1,12 @@
 <?php
 require('php/_myphoto.php');
 
-function EchoMetaDescription()
+function EchoMetaDescription($bChinese)
 {
 	echo 'Woody 2015 personal photos and related links. Including trips to Vilamendhoo, Maldives and Changsha.';
 }
 
-function EchoAll()
+function EchoAll($bChinese)
 {
     echo <<<END
 <p>Apr 1. Tang Gong seafood restaurant. <a href="2015/large/tanggong.jpg" target=_blank>Large</a>

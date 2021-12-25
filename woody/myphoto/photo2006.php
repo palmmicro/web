@@ -1,12 +1,12 @@
 <?php
 require('php/_myphoto.php');
 
-function EchoMetaDescription()
+function EchoMetaDescription($bChinese)
 {
 	echo 'Woody 2007 personal photos and related links. Starting Beijing suburb trips with lvye.org, from now on I have photographers!';
 }
 
-function EchoAll()
+function EchoAll($bChinese)
 {
     echo <<<END
 <!--<p>Apr 2. Flowers outside Beijing city. <a href="2006/flower.jpg" target=_blank>Large</a>

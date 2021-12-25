@@ -1,18 +1,14 @@
-<?php require_once('php/_blogtype.php'); ?>
-<html>
-<head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<title>PA6488网络日志</title>
-<meta name="description" content="Woody有关PA6488方案的网络日志列表. 尽管由于市场的快速变化, 我们目前暂停了PA6488方案的开发, 这里的内容对其它Palmmicro的产品还是有很多帮助的.">
-<?php EchoInsideHead(); ?>
-<link href="../../common/style.css" rel="stylesheet" type="text/css" />
-</head>
+<?php
+require('php/_blogtype.php');
 
-<body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _LayoutTopLeft(); ?>
+function EchoMetaDescription()
+{
+	echo 'Woody有关PA6488方案的网络日志列表. 尽管由于市场的快速变化, 我们目前暂停了PA6488方案的开发, 这里的内容对其它Palmmicro的产品还是有很多帮助的.';
+}
 
-<div>
-<h1>PA6488网络日志</h1>
+function EchoAll()
+{
+    echo <<<END
 <p>2011年11月20日 <a href="pa6488/20111120cn.php">从PA1688到PA6488 - 以太网PHY开始工作了吗?</a>
 <br />2011年5月24日 <a href="pa6488/20110524cn.php">兼容H.263</a>
 <br />2011年5月16日 <a href="pa6488/20110516cn.php">JPEG总动员</a>
@@ -30,9 +26,8 @@
 <br />2009年8月8日 <a href="pa6488/20090808cn.php">从PA1688到PA6488 - Ping的反应时间</a>
 </p>
 <p><img src=photo/20110606.jpg alt="PA6488 and X-Lite fish demo screenshot" /></p>
-</div>
+END;
+}
 
-<?php LayoutTailLogin(); ?>
-
-</body>
-</html>
+require('/php/ui/_dispcn.php');
+?>

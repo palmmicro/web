@@ -1,18 +1,14 @@
-<?php require_once('php/_blogtype.php'); ?>
-<html>
-<head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<title>PA6488 Blog</title>
-<meta name="description" content="List of all Woody's blog about PA6488 solution. Although PA6488 development is paused, the contents here is helpful for other Palmmicro products as well.">
-<?php EchoInsideHead(); ?>
-<link href="../../common/style.css" rel="stylesheet" type="text/css" />
-</head>
+<?php
+require('php/_blogtype.php');
 
-<body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _LayoutTopLeft(false); ?>
+function EchoMetaDescription($bChinese)
+{
+	echo 'The list of Woody PA6488 related blogs. Including chip introduction, solution details and lessons of software API for 3rd party development etc.';
+}
 
-<div>
-<h1>PA6488 Blog</h1>
+function EchoAll($bChinese)
+{
+    echo <<<END
 <p>Nov 20, 2011 <a href="pa6488/20111120.php">From PA1688 to PA6488 - Ethernet PHY Ready?</a>
 <br />May 24, 2011 <a href="pa6488/20110524.php">H.263 Compatibility</a>
 <br />May 16, 2011 <a href="pa6488/20110516.php">JPEG Story</a>
@@ -30,9 +26,8 @@
 <br />Aug 8, 2009 <a href="pa6488/20090808.php">From PA1688 to PA6488 - Ping Response Time</a>
 </p>
 <p><img src=photo/20110606.jpg alt="PA6488 and X-Lite fish demo screenshot" /></p>
-</div>
+END;
+}
 
-<?php LayoutTailLogin(false); ?>
-
-</body>
-</html>
+require('/php/ui/_disp.php');
+?>

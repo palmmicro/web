@@ -1,22 +1,18 @@
-<?php require_once('php/_blogtype.php'); ?>
-<html>
-<head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<title>PA3288 Blog</title>
-<?php EchoInsideHead(); ?>
-<link href="../../common/style.css" rel="stylesheet" type="text/css" />
-</head>
+<?php
+require('php/_blogtype.php');
 
-<body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _LayoutTopLeft(false); ?>
+function EchoMetaDescription($bChinese)
+{
+	echo 'The list of Woody PA3288 related blogs. Including chip introduction, solution details and lessons of software API for 3rd party development etc.';
+}
 
-<div>
-<h1>PA3288 Blog</h1>
+function EchoAll($bChinese)
+{
+    echo <<<END
 <p>Aug 31, 2013 <a href="pa3288/20130831.php">USB</a>
 </p>
-</div>
+END;
+}
 
-<?php LayoutTailLogin(false); ?>
-
-</body>
-</html>
+require('/php/ui/_disp.php');
+?>

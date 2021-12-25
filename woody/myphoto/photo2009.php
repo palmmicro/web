@@ -1,12 +1,12 @@
 <?php
 require('php/_myphoto.php');
 
-function EchoMetaDescription()
+function EchoMetaDescription($bChinese)
 {
 	echo 'Woody 2009 personal photos and related links. Travelling in United States by car and travelling in Beijing suburb by foot.';
 }
 
-function EchoAll()
+function EchoAll($bChinese)
 {
     echo <<<END
 <p><a href="http://www.lvye.org/modules/lvyebb/viewtopic.php?view=1&post_id=43591784" target=_blank>Apr 11</a>. ShuangQuan Temple. I thought it shows confidence, but others say I am getting lost. <a href="http://www.lvye.org/modules/lvyebb/viewtopic.php?view=1&post_id=43595273" target= _blank>Photo</a> taken by CunZhang <a href="2009/shuangquanshi.jpg" target=_blank>Large</a>

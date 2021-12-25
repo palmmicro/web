@@ -1,12 +1,12 @@
 <?php
 require('php/_myphoto.php');
 
-function EchoMetaDescription()
+function EchoMetaDescription($bChinese)
 {
 	echo 'Woody 2008 personal photos and related links. Begin travelling in United States by car and travelling in Beijing suburb by foot.';
 }
 
-function EchoAll()
+function EchoAll($bChinese)
 {
     echo <<<END
 <p><a href="http://www.go2eu.com/bbs/viewthread.php?tid=112203" target=_blank>May 19</a>. An exhausted man with his old car. Photo taken by Vincent <a href="2008/pumping.jpg" target=_blank>Large</a>
