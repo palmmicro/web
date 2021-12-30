@@ -131,8 +131,7 @@ class QdiiGroupAccount extends FundGroupAccount
        	$strEst = SqlGetNavByDate($strEstStockId, $strDate);
        	if ($strEst == false)
        	{
-        	$his_sql = GetStockHistorySql();
-       		$strEst = $his_sql->GetClose($strEstStockId, $strDate);
+       		$strEst = SqlGetHisByDate($strEstStockId, $strDate);
        		if ($strEst == false)	$strEst = $est_ref->GetPrevPrice();
        	}
        	

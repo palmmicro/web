@@ -1,5 +1,14 @@
 <?php
 
+function GetStrictArray()
+{
+	return array('09988' => 'BABA',
+				   '09618' => 'JD',
+				   '09999' => 'NTES',
+				   '09626' => 'BILI',
+				   );
+}
+
 class EtfHoldingsReference extends MyStockReference
 {
 	var $nav_ref;
@@ -108,10 +117,20 @@ class EtfHoldingsReference extends MyStockReference
 		}
 		return $fOldUSDCNY / $fUSDCNY;
     }
-    
-    // (x - x0) / x0 = sum{ r * (y - y0) / y0} 
-    function _estNav($strDate = false)
+
+    function _getStrictRef($strSymbol)
     {
+    	foreach ($this->ar_holdings_ref as $ref)
+		{
+			if ($ref->GetSymbol() == $strSymbol)	return $ref;
+		}
+		return false;
+	}
+					
+    // (x - x0) / x0 = sum{ r * (y - y0) / y0} 
+    function _estNav($strDate = false, $bStrict = false)
+    {
+    	$arStrict = GetStrictArray();    	
     	$fAdjustH = $this->GetAdjustHkd($strDate);
     	
 		$his_sql = GetStockHistorySql();
@@ -122,6 +141,16 @@ class EtfHoldingsReference extends MyStockReference
 			$strStockId = $ref->GetStockId();
 			$fRatio = floatval($this->arHoldingsRatio[$strStockId]) / 100.0;
 			$fTotalRatio += $fRatio;
+			
+			if ($bStrict)
+			{
+				$strSymbol = $ref->GetSymbol();
+				if (isset($arStrict[$strSymbol]))
+				{	// Hong Kong secondary listings
+					$ref = $this->_getStrictRef($arStrict[$strSymbol]);
+					$strStockId = $ref->GetStockId();
+				}
+			}
 			
 			$strPrice = $ref->GetPrice();
 			if ($strDate)
@@ -174,20 +203,20 @@ class EtfHoldingsReference extends MyStockReference
     	return $strDate;
     }
     
-    function GetOfficialNav()
+    function GetOfficialNav($bStrict = false)
     {
     	$strDate = $this->GetOfficialDate();
-    	$strNav = strval($this->_estNav($strDate));
+    	$strNav = strval($this->_estNav($strDate, $bStrict));
    		StockUpdateEstResult($this->GetFundEstSql(), $this->GetStockId(), $strNav, $strDate);
    		return $strNav;
     }
 
-    function GetFairNav()
+    function GetFairNav($bStrict = false)
     {
     	$strDate = $this->GetOfficialDate(); 
 		if (($this->uscny_ref->GetDate() != $strDate) || ($this->_getEstDate() != $strDate))
 		{
-			return strval($this->_estNav());
+			return strval($this->_estNav(false, $bStrict));
 		}
 		return false;
     }

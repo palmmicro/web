@@ -177,8 +177,9 @@ class _QdiiReference extends FundReference
         {
 			if (method_exists($est_ref, 'GetOfficialNav'))
         	{	// KWEB as $est_ref
-        		$strEstVal = $this->_getEstNav();
-        		if ($strEstVal === false)	$strEstVal = strval($est_ref->GetOfficialNav());
+/*        		$strEstVal = $this->_getEstNav();
+        		if ($strEstVal === false)*/	$strEstVal = strval($est_ref->GetOfficialNav(true));
+        		DebugString('KWEB adjusted NAV: '.$strEstVal);
         	}
         	else	$strEstVal = $this->_getEstVal();
         	$this->fOfficialNetValue = $this->GetQdiiValue($strEstVal, $this->strOfficialCNY);
@@ -211,7 +212,7 @@ class _QdiiReference extends FundReference
        	{
 			if (method_exists($est_ref, 'GetFairNav'))
         	{
-        		$strEstVal = strval($est_ref->GetFairNav());
+        		$strEstVal = strval($est_ref->GetFairNav(true));
         	}
         	else	$strEstVal = $this->_getEstVal();
         	$this->fFairNetValue = $this->GetQdiiValue($strEstVal);
@@ -248,27 +249,17 @@ class _QdiiReference extends FundReference
             if ($strCNY = $cny_ref->GetClose($strDate))
             {
             	$est_ref = $this->GetEstRef();
-                if (RefHasData($est_ref) == false)    return false;
                 
-                if ($strEst = SqlGetNavByDate($est_ref->GetStockId(), $strDate))
-                {
+                if (method_exists($est_ref, 'GetOfficialNav'))
+                {	// KWEB as $est_ref
+                	$strEst = strval($est_ref->GetOfficialNav(true));
+                	DebugString('Used KWEB officical nav est in AdjustFactor');
                 }
                 else
-                {
-                	if (method_exists($est_ref, 'GetOfficialNav'))
-                	{	// KWEB as $est_ref
-                		$strEst = strval($est_ref->GetOfficialNav());
-                		DebugString('Used KWEB officical nav est in AdjustFactor');
-                	}
-                	else
-                	{
-                		$strEstDate = $est_ref->GetDate();
-                		$est_ymd = new StringYMD($strEstDate);
-                		$ymd = new StringYMD($strDate);
-               	
-                		if ($strDate == $strEstDate)	                   					$strEst = $est_ref->GetPrice();
-                		else if ($ymd->GetNextTradingDayTick() == $est_ymd->GetTick())		$strEst = $est_ref->GetPrevPrice();
-                		else	return false;
+		        {
+		        	if (($strEst = $this->_getEstNav()) === false)
+		        	{
+		           		if (($strEst = SqlGetHisByDate($est_ref->GetStockId(), $strDate)) === false)		return false;
                 	}
                 }
         

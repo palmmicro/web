@@ -281,12 +281,24 @@ function _updateStockOptionDividend($ref, $strSymbol, $strStockId, $his_sql, $st
 	{
 		DebugString('Dividend updated');
 		$calibration_sql = new CalibrationSql();
+		$fNav = floatval(SqlGetNavByDate($strStockId, $strDate));
+		$fNewNav = $fNav - floatval($strVal); 
   		if ($strClose = $calibration_sql->GetClose($strStockId, $strDate))
-  		{
-  			DebugString('Change calibaration on '.$strDate);
-  			$fNav = floatval(SqlGetNavByDate($strStockId, $strDate));
-  			$fFactor = floatval($strClose) * $fNav / ($fNav - floatval($strVal));
+  		{	// SPY
+  			DebugString($strSymbol.' Change calibaration on '.$strDate);
+  			$fFactor = floatval($strClose) * $fNav / $fNewNav;
   			$calibration_sql->WriteDaily($strStockId, $strDate, strval($fFactor));
+  		}
+  		else if ($strSymbol == 'KWEB')
+  		{
+  			$strLof = 'SZ164906';
+  			$strLofId = SqlGetStockId($strLof);
+  			if ($strClose = $calibration_sql->GetClose($strLofId, $strDate))
+  			{
+  				DebugString($strLof.' Change calibaration on '.$strDate);
+  				$fFactor = floatval($strClose) * $fNewNav / $fNav;
+  				$calibration_sql->WriteDaily($strLofId, $strDate, strval($fFactor));
+  			}
   		}
   		
 		_updateStockHistoryAdjCloseByDividend($ref, $strSymbol, $strStockId, $his_sql, $strDate, $strVal);

@@ -256,6 +256,12 @@ function SqlGetStockSymbol($strStockId)
 	return $sql->GetKey($strStockId);
 }
 
+function SqlGetHisByDate($strStockId, $strDate)
+{
+	$his_sql = GetStockHistorySql();
+	return $his_sql->GetClose($strStockId, $strDate);
+}
+
 function SqlGetNavByDate($strStockId, $strDate)
 {
 	$nav_sql = GetNavHistorySql();
