@@ -210,7 +210,7 @@ class SharesHistorySql extends DailyCloseSql
 {
     function SharesHistorySql() 
     {
-        parent::DailyCloseSql('etfshareshistory');
+        parent::DailyCloseSql('shareshistory');
     }
 }
 
@@ -218,7 +218,7 @@ class SharesDiffSql extends DailyCloseSql
 {
     function SharesDiffSql() 
     {
-        parent::DailyCloseSql('etfsharesdiff');
+        parent::DailyCloseSql('sharesdiff');
     }
 }
 

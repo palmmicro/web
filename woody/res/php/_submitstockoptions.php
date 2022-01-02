@@ -289,9 +289,9 @@ function _updateStockOptionDividend($ref, $strSymbol, $strStockId, $his_sql, $st
   			$fFactor = floatval($strClose) * $fNav / $fNewNav;
   			$calibration_sql->WriteDaily($strStockId, $strDate, strval($fFactor));
   		}
-  		else if ($strSymbol == 'KWEB')
+  		else if ($strSymbol == 'XOP')
   		{
-  			$strLof = 'SZ164906';
+  			$strLof = 'SZ162411';
   			$strLofId = SqlGetStockId($strLof);
   			if ($strClose = $calibration_sql->GetClose($strLofId, $strDate))
   			{

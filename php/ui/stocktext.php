@@ -116,7 +116,7 @@ function TextFromFundReference($ref)
     return $str;
 }
 
-function TextFromEtfHoldingsReference($ref)
+function TextFromHoldingsReference($ref)
 {
 	if (($str = TextFromStockReference($ref)) === false)	return false;
 	

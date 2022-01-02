@@ -20,6 +20,8 @@ define('YAHOO_INDEX_CHAR', '^');
 define('STOCK_TIME_ZONE_CN', 'PRC');
 define('STOCK_TIME_ZONE_US', 'America/New_York');
 
+define('LOF_POSITION_RATIO', 0.95);
+
 function StockCheckSymbol($str)
 {
 	if (strlen($str) > 10)				return false;
@@ -31,6 +33,15 @@ function StrHasPrefix($str, $strPrefix)
 {
 	$iLen = strlen($strPrefix);
 	return (strncmp($str, $strPrefix, $iLen) == 0) ? substr($str, $iLen) : false; 
+}
+
+function GetSecondaryListingArray()
+{
+	return array('09988' => 'BABA',
+				   '09618' => 'JD',
+				   '09999' => 'NTES',
+				   '09626' => 'BILI',
+				   );
 }
 
 function ChinaIndexGetSymbolArray()
@@ -120,7 +131,7 @@ function in_arraySpyQdii($strSymbol)
 
 function QdiiGetSymbolArray()
 {
-    $ar = array_merge(array('SH513030', 'SZ160140', 'SZ161126', 'SZ161127', 'SZ161128', 'SZ162415', 'SZ164824', 'SZ164906', 'SZ165510') 
+    $ar = array_merge(array('SH513030', 'SZ160140', 'SZ161126', 'SZ161127', 'SZ161128', 'SZ162415', 'SZ164824', 'SZ165510') 
     				   , QdiiGetGoldSymbolArray()
     				   , QdiiGetOilSymbolArray()
     				   , QdiiGetOilEtfSymbolArray()
@@ -158,7 +169,7 @@ function in_arrayHangSengQdiiHk($strSymbol)
 
 function QdiiMixGetSymbolArray()
 {
-    $ar = array('SH513050'); 
+    $ar = array('SH513050', 'SZ164906'); 
     return $ar;
 }
 

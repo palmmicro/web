@@ -14,7 +14,7 @@ class _KraneHoldingsCsvFile extends CsvFile
 	var $holdings_sql;
 	
     var $fUSDHKD;
-    var $fTotalValue;
+    var $fMarketValue;
 	
     function _KraneHoldingsCsvFile($strPathName, $strStockId, $strDate) 
     {
@@ -26,7 +26,7 @@ class _KraneHoldingsCsvFile extends CsvFile
         
         $this->sql = GetStockSql();
         $this->his_sql = GetStockHistorySql();
-        $this->holdings_sql = GetEtfHoldingsSql();
+        $this->holdings_sql = GetHoldingsSql();
         
         $strUscnyId = $this->sql->GetId('USCNY');
         $strHkcnyId = $this->sql->GetId('HKCNY');
@@ -40,7 +40,7 @@ class _KraneHoldingsCsvFile extends CsvFile
         	$this->fUSDHKD = floatval($nav_sql->GetCloseNow($strUscnyId)) / floatval($nav_sql->GetCloseNow($strHkcnyId));
         }
         
-        $this->fTotalValue = 0.0; 
+        $this->fMarketValue = 0.0; 
     }
     
     public function OnLineArray($arWord)
@@ -48,14 +48,15 @@ class _KraneHoldingsCsvFile extends CsvFile
     	if (count($arWord) < 2)	return;
     	
     	$strName = $arWord[1];
-    	if ($strName == 'HONG KONG DOLLAR')	return;
+    	if (($strName == 'HONG KONG DOLLAR') || ($strName == 'Cash'))	return;
     	
+    	$strRatio = $arWord[2];
     	if ($arWord[0] == 'Rank')
     	{
     		$this->holdings_sql->DeleteAll($this->strStockId);
     		$this->bUse = true;
     	}
-    	else if ($strName == 'Cash')		$this->bUse = false;
+    	else if (floatval($strRatio) < 0.01)		$this->bUse = false;
     	else if ($this->bUse)
     	{
     		$strHolding = $arWord[3];
@@ -68,15 +69,20 @@ class _KraneHoldingsCsvFile extends CsvFile
    			$this->sql->InsertSymbol($strHolding, $strName);
     		$strId = $this->sql->GetId($strHolding);
     		
-   			$this->fTotalValue += floatval(str_replace(',', '', $arWord[6]));
+   			$this->fMarketValue += floatval(str_replace(',', '', $arWord[6]));
     		if ($this->his_sql->GetRecord($strId, $this->strDate) === false)
     		{
     			DebugString($strHolding.' missing data on '.$this->strDate);
 //		        UpdateStockHistory(new StockSymbol($strHolding), $strId);
     		}
     		
-    		$this->holdings_sql->InsertHolding($this->strStockId, $strId, $arWord[2]);
+    		$this->holdings_sql->InsertHolding($this->strStockId, $strId, $strRatio);
     	}
+    }
+    
+    function GetMarketValue()
+    {
+    	return $this->fMarketValue;
     }
 }
 
@@ -88,6 +94,38 @@ function SaveKraneHoldingsCsvFile($strSymbol, $strDate)
 	return SaveHoldingsCsvFile($strSymbol, $strUrl);	
 }
 
+function CopyHoldings($strStockId)
+{
+    $holdings_sql = GetHoldingsSql();
+   	$ar = $holdings_sql->GetHoldingsArray($strStockId);
+   	$arStrict = GetSecondaryListingArray();    	
+   	foreach ($ar as $strHoldingId => $strRatio)
+   	{
+		$strHoldingSymbol = SqlGetStockSymbol($strHoldingId);
+		if (isset($arStrict[$strHoldingSymbol]))
+		{	// Hong Kong secondary listings
+			$strStrictId = SqlGetStockId($arStrict[$strHoldingSymbol]);
+			if (isset($ar[$strStrictId]))
+			{
+				$ar[$strStrictId] = strval(floatval($strRatio) + floatval($ar[$strStrictId]));
+			}
+			else
+			{
+				$ar[$strStrictId] = $strRatio;
+			}
+			unset($ar[$strHoldingId]);
+		}
+   	}
+
+	$strId = SqlGetStockId('SZ164906');
+	$holdings_sql->DeleteAll($strId);
+    $holdings_sql->InsertHoldingsArray($strId, $ar);
+
+	$date_sql = new HoldingsDateSql();
+	$strDate = $date_sql->ReadDate($strStockId); 
+	$date_sql->WriteDate($strId, $strDate);
+}
+
 function ReadKraneHoldingsCsvFile($strSymbol, $strStockId, $strDate, $strNav)
 {
 	$strPathName = SaveKraneHoldingsCsvFile($strSymbol, $strDate);
@@ -95,15 +133,17 @@ function ReadKraneHoldingsCsvFile($strSymbol, $strStockId, $strDate, $strNav)
  	
 	$csv = new _KraneHoldingsCsvFile($strPathName, $strStockId, $strDate);
    	$csv->Read();
+   	$fMarketValue = $csv->GetMarketValue();
+   	if ($fMarketValue < MIN_FLOAT_VAL)	return;
    	
-   	if ($csv->fTotalValue > MIN_FLOAT_VAL)
-   	{
-   		$shares_sql = new SharesHistorySql();
-   		$shares_sql->WriteDaily($strStockId, $strDate, strval_round($csv->fTotalValue / floatval($strNav) / 10000.0));
+	$shares_sql = new SharesHistorySql();
+	$shares_sql->WriteDaily($strStockId, $strDate, strval_round($fMarketValue / floatval($strNav) / 10000.0));
 
-   		$date_sql = new EtfHoldingsDateSql();
-   		$date_sql->WriteDate($strStockId, $strDate);
-   	}
+	$date_sql = new HoldingsDateSql();
+	$date_sql->WriteDate($strStockId, $strDate);
+	
+	if ($strSymbol != 'KWEB')		return;		// next step: copy SZ164906 holdings
+	CopyHoldings($strStockId);
 }
 
 ?>

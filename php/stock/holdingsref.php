@@ -1,15 +1,6 @@
 <?php
 
-function GetStrictArray()
-{
-	return array('09988' => 'BABA',
-				   '09618' => 'JD',
-				   '09999' => 'NTES',
-				   '09626' => 'BILI',
-				   );
-}
-
-class EtfHoldingsReference extends MyStockReference
+class HoldingsReference extends MyStockReference
 {
 	var $nav_ref;
     var $uscny_ref;
@@ -21,7 +12,7 @@ class EtfHoldingsReference extends MyStockReference
     var $strHoldingsDate;
     var $arHoldingsRatio = array();
     
-    function EtfHoldingsReference($strSymbol) 
+    function HoldingsReference($strSymbol) 
     {
         parent::MyStockReference($strSymbol);
        	$this->nav_ref = new NetValueReference($strSymbol);
@@ -29,13 +20,13 @@ class EtfHoldingsReference extends MyStockReference
    		$this->uscny_ref = new CnyReference('USCNY');
 
         $strStockId = $this->GetStockId();
-    	$date_sql = new EtfHoldingsDateSql();
+    	$date_sql = new HoldingsDateSql();
     	if ($this->strHoldingsDate = $date_sql->ReadDate($strStockId))
     	{
     		$nav_sql = GetNavHistorySql();
     		$this->strNav = $nav_sql->GetClose($strStockId, $this->strHoldingsDate);
     		
-			$holdings_sql = GetEtfHoldingsSql();
+			$holdings_sql = GetHoldingsSql();
 			$this->arHoldingsRatio = $holdings_sql->GetHoldingsArray($strStockId);
 			$sql = GetStockSql();
 			foreach ($this->arHoldingsRatio as $strId => $strRatio)
@@ -130,7 +121,7 @@ class EtfHoldingsReference extends MyStockReference
     // (x - x0) / x0 = sum{ r * (y - y0) / y0} 
     function _estNav($strDate = false, $bStrict = false)
     {
-    	$arStrict = GetStrictArray();    	
+    	$arStrict = GetSecondaryListingArray();    	
     	$fAdjustH = $this->GetAdjustHkd($strDate);
     	
 		$his_sql = GetStockHistorySql();
@@ -165,7 +156,11 @@ class EtfHoldingsReference extends MyStockReference
 				$fTotalChange += $fChange;
 			}
 		}
-		$fNewNav = floatval($this->strNav) * (1.0 + $fTotalChange - $fTotalRatio);
+		
+		$fTotalChange -= $fTotalRatio;
+		if ($this->IsLofA())	$fTotalChange *= LOF_POSITION_RATIO;
+
+		$fNewNav = floatval($this->strNav) * (1.0 + $fTotalChange);
 		if ($this->IsFundA())		$fNewNav /= $this->GetAdjustCny($strDate);
 		return $fNewNav; 
     }
@@ -219,6 +214,15 @@ class EtfHoldingsReference extends MyStockReference
 			return strval($this->_estNav(false, $bStrict));
 		}
 		return false;
+    }
+
+    function GetRealtimeNav()
+    {
+    	if ($this->IsFundA())
+    	{
+    		return false;
+    	}
+		return strval($this->_estNav(false, true));
     }
 }
 

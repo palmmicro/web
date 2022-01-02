@@ -23,7 +23,7 @@ class _SseHoldingsFile extends CsvFile
         
         $this->sql = GetStockSql();
         $this->his_sql = GetStockHistorySql();
-        $this->holdings_sql = GetEtfHoldingsSql();
+        $this->holdings_sql = GetHoldingsSql();
         $this->holdings_sql->DeleteAll($strStockId);
     }
     
@@ -75,7 +75,7 @@ function ReadSseHoldingsFile($strSymbol, $strStockId)
 	$csv = new _SseHoldingsFile($strPathName, $strStockId);
    	$csv->Read();
    	
-	$date_sql = new EtfHoldingsDateSql();
+	$date_sql = new HoldingsDateSql();
 	$date_sql->WriteDate($strStockId, $csv->strDate);
 }
 

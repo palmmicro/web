@@ -8,19 +8,23 @@ require_once('/php/ui/fundestparagraph.php');
 
 class _QdiiMixAccount extends GroupAccount
 {
+    var $us_ref = false;
     var $cnh_ref;
 
     function Create() 
     {
         $strSymbol = $this->GetName();
+        $strUS = 'KWEB';
         $strCNH = 'fx_susdcnh';
-        StockPrefetchExtendedData($strSymbol, $strCNH);
+        StockPrefetchExtendedData($strSymbol, $strUS, $strCNH);
         GetChinaMoney();
 
-        $this->ref = new EtfHoldingsReference($strSymbol);
+        $this->ref = new HoldingsReference($strSymbol);
+        $this->us_ref = new MyStockReference($strUS);
         $this->cnh_ref = new ForexReference($strCNH);
 
-        $this->CreateGroup(array($this->ref));
+        SzseGetLofShares($this->ref);
+        $this->CreateGroup(array($this->ref, $this->us_ref));
     }
 }
 
@@ -32,10 +36,10 @@ function EchoAll()
     $uscny_ref = $ref->GetUscnyRef();
     $hkcny_ref = $ref->GetHkcnyRef();
     
-	EchoEtfHoldingsEstParagraph($ref);
-    EchoReferenceParagraph(array($ref, $acct->cnh_ref, $uscny_ref, $hkcny_ref));
+	EchoHoldingsEstParagraph($ref);
+    EchoReferenceParagraph(array($ref, $acct->us_ref, $acct->cnh_ref, $uscny_ref, $hkcny_ref));
     EchoFundTradingParagraph($ref);
-    EchoEtfHoldingsHistoryParagraph($ref);
+    EchoHoldingsHistoryParagraph($ref);
 
     if ($group = $acct->EchoTransaction()) 
     {
@@ -47,13 +51,15 @@ function EchoAll()
 
 function GetQdiiMixLinks($sym)
 {
-	$str = '';
+	$str = GetKraneOfficialLink('KWEB');
 	if ($sym->IsShangHaiEtf())	$str .= ' '.GetShangHaiEtfLinks();
 	
 	$str .= '<br />&nbsp';
 	$str .= GetASharesSoftwareLinks();
 	$str .= GetChinaInternetSoftwareLinks();
 	$str .= GetSpySoftwareLinks();
+	$str .= GetQqqSoftwareLinks();
+	$str .= GetHangSengSoftwareLinks();
 	return $str;
 }
 

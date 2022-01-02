@@ -74,8 +74,8 @@ function _botGetStockText($strSymbol)
     {
     	if (in_arrayQdiiMix($strSymbol))
     	{
-    		$ref = new EtfHoldingsReference($strSymbol);
-    		$str = TextFromEtfHoldingsReference($ref);
+    		$ref = new HoldingsReference($strSymbol);
+    		$str = TextFromHoldingsReference($ref);
    			$str .= BOT_EOL.TextFromStockReference($ref->GetUscnyRef()); 
    			$str .= BOT_EOL.TextFromStockReference($ref->GetHkcnyRef()); 
     	}

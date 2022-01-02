@@ -6,8 +6,6 @@ function GetQdiiMixRelated($sym)
 	$str = GetEFundOfficialLink($sym->GetDigitA());
 	$str .= ' '.GetCsindexOfficialLink('H30533');
 	$str .= ' '.GetQdiiMixLinks($sym);
-	$str .= GetQqqSoftwareLinks();
-	$str .= GetHangSengSoftwareLinks();
 	$str .= GetEFundSoftwareLinks();
 	return $str;
 }

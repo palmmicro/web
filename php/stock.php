@@ -23,7 +23,7 @@ require_once('stock/mysqlref.php');
 require_once('stock/mystockref.php');
 require_once('stock/cnyref.php');
 require_once('stock/netvalueref.php');
-require_once('stock/etfholdingsref.php');
+require_once('stock/holdingsref.php');
 require_once('stock/futureref.php');
 require_once('stock/fundref.php');
 require_once('stock/qdiiref.php');
@@ -375,12 +375,7 @@ function _getAllSymbolArray($strSymbol, $strStockId)
     if ($sym->IsFundA())
     {
         if (in_arrayQdiiMix($strSymbol))						       	return array_merge(array($strSymbol), SqlGetHoldingsSymbolArray($strSymbol));
-        else if (in_arrayQdii($strSymbol))
-        {
-        	$ar = QdiiGetAllSymbolArray($strSymbol);
-        	if ($strSymbol == 'SZ164906')		$ar = array_merge($ar, SqlGetHoldingsSymbolArray('KWEB'));
-        	return $ar;
-        }
+        else if (in_arrayQdii($strSymbol))		        			return QdiiGetAllSymbolArray($strSymbol);
         else if (in_arrayQdiiHk($strSymbol))							return QdiiHkGetAllSymbolArray($strSymbol);
         else if (in_arrayChinaIndex($strSymbol))						return EtfGetAllSymbolArray($strSymbol);
         else if (in_arrayGoldSilver($strSymbol))						return GoldSilverGetAllSymbolArray($strSymbol);
@@ -472,11 +467,11 @@ function StockGetReference($strSymbol, $sym = false)
     										return new MyStockReference($strSymbol);
 }
 
-function StockGetEtfHoldingsReference($strSymbol)
+function StockGetHoldingsReference($strSymbol)
 {
 	if (SqlCountHoldings($strSymbol) > 0)
 	{
-		return new EtfHoldingsReference($strSymbol);
+		return new HoldingsReference($strSymbol);
 	}
 	return false;
 }

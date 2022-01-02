@@ -1,11 +1,11 @@
 <?php
 require_once('sqlkey.php');
 
-class EtfHoldingsSql extends KeySql
+class HoldingsSql extends KeySql
 {
-    function EtfHoldingsSql() 
+    function HoldingsSql() 
     {
-        parent::KeySql(TABLE_ETF_HOLDINGS, TABLE_STOCK);
+        parent::KeySql(TABLE_HOLDINGS, TABLE_STOCK);
     }
 
     public function Create()
@@ -25,6 +25,14 @@ class EtfHoldingsSql extends KeySql
     function InsertHolding($strStockId, $strHoldingId, $strRatio)
     {
     	return $this->InsertArrays($this->MakeFieldKeyId($strStockId), array('holding_id' => $strHoldingId, 'ratio' => $strRatio));
+    }
+    
+    function InsertHoldingsArray($strStockId, $ar)
+    {
+    	foreach ($ar as $strHoldingId => $strRatio)
+    	{
+    		$this->InsertHolding($strStockId, $strHoldingId, $strRatio);
+    	}
     }
     
     function GetHoldingsArray($strStockId)

@@ -128,12 +128,12 @@ function EchoFundEstParagraph($ref)
     EchoFundArrayEstParagraph(array($ref), $str);
 }
 
-function EchoEtfHoldingsEstParagraph($ref)
+function EchoHoldingsEstParagraph($ref)
 {
 	$nav_ref = $ref->GetNavRef();
 	$str = GetTableColumnNetValue().$nav_ref->GetDate().', ';
 	$str .= GetTableColumnOfficalEst().$ref->GetOfficialDate().', ';
-	$str .= GetEtfHoldingsLink($ref->GetSymbol()).'更新于'.$ref->GetHoldingsDate().'.';
+	$str .= GetHoldingsLink($ref->GetSymbol()).'更新于'.$ref->GetHoldingsDate().'.';
     EchoFundArrayEstParagraph(array($ref), $str);
 }
 

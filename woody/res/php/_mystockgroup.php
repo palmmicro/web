@@ -39,7 +39,7 @@ function _echoStockGroupArray($arStock)
         {
         	if (in_arrayQdiiMix($strSymbol))
         	{
-        		$ref = new EtfHoldingsReference($strSymbol);
+        		$ref = new HoldingsReference($strSymbol);
         		$arFund[] = $ref;
         	}
         	else

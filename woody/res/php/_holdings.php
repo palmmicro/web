@@ -4,7 +4,7 @@ require_once('_emptygroup.php');
 require_once('/php/ui/referenceparagraph.php');
 require_once('/php/ui/fundestparagraph.php');
 
-function _echoEtfHoldingItem($ref, $arRatio, $strDate, $his_sql, $fTotalChange, $fAdjustH)
+function _echoHoldingItem($ref, $arRatio, $strDate, $his_sql, $fTotalChange, $fAdjustH)
 {
 	$bHk = $ref->IsSymbolH() ? true : false;
 	
@@ -34,11 +34,11 @@ function EchoAll()
     if ($ref = $acct->EchoStockGroup())
     {
    		$strSymbol = $ref->GetSymbol();
-   		$ref = new EtfHoldingsReference($strSymbol);
+   		$ref = new HoldingsReference($strSymbol);
     	if ($strDate = $ref->GetHoldingsDate())
     	{
     		$arHoldingRef = $ref->GetHoldingRefArray();
-		    EchoEtfHoldingsEstParagraph($ref);
+		    EchoHoldingsEstParagraph($ref);
     		EchoReferenceParagraph(array_merge(array($ref), $arHoldingRef));
     		EchoTableParagraphBegin(array(new TableColumnSymbol(),
 										   new TableColumnPercentage('旧'),
@@ -47,25 +47,25 @@ function EchoAll()
 										   new TableColumnPercentage('新'),
 										   new TableColumnPercentage('影响'),
 										   new TableColumn('H股汇率调整', 100)
-										   ), TABLE_ETF_HOLDINGS, '持仓和测算示意');
+										   ), TABLE_HOLDINGS, '持仓和测算示意');
 	
 			$arRatio = $ref->GetHoldingsRatioArray();
 			$his_sql = GetStockHistorySql();
 			foreach ($arHoldingRef as $holding_ref)
 			{
-				_echoEtfHoldingItem($holding_ref, $arRatio, $strDate, $his_sql, $ref->GetNavChange(), $ref->GetAdjustHkd());
+				_echoHoldingItem($holding_ref, $arRatio, $strDate, $his_sql, $ref->GetNavChange(), $ref->GetAdjustHkd());
 			}
 			EchoTableParagraphEnd();
 		}
     }
-    $acct->EchoLinks(TABLE_ETF_HOLDINGS);
+    $acct->EchoLinks(TABLE_HOLDINGS);
 }
 
 function EchoMetaDescription()
 {
 	global $acct;
 	
-  	$str = $acct->GetStockDisplay().ETF_HOLDINGS_DISPLAY;
+  	$str = $acct->GetStockDisplay().HOLDINGS_DISPLAY;
     $str .= '页面. 用于显示ETF基金的成分股持仓情况, 以及各个成分股最新的价格. 基于成分股价格测算基金的官方估值和实时估值.';
     EchoMetaDescriptionText($str);
 }
@@ -74,7 +74,7 @@ function EchoTitle()
 {
 	global $acct;
 	
-  	$str = $acct->GetSymbolDisplay().ETF_HOLDINGS_DISPLAY;
+  	$str = $acct->GetSymbolDisplay().HOLDINGS_DISPLAY;
   	echo $str;
 }
 

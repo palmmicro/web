@@ -45,7 +45,6 @@ function QdiiGetEstSymbol($strSymbol)
     else if ($strSymbol == 'SZ161128')   return 'XLK';
     else if ($strSymbol == 'SZ163208')   return 'XLE';
     else if ($strSymbol == 'SZ164824')   return 'INDA';
-    else if ($strSymbol == 'SZ164906')   return 'KWEB';
     else if ($strSymbol == 'SZ165510')	return 'BKF';	// '^SPBRICNTR'
     else if (in_arrayCommodityQdii($strSymbol))		return 'GSG';
     else if (in_arraySpyQdii($strSymbol))				return '^GSPC';	// 'SPY';
@@ -175,13 +174,7 @@ class _QdiiReference extends FundReference
         $strDate = $est_ref->GetDate();
         if ($this->strOfficialCNY = $cny_ref->GetClose($strDate))
         {
-			if (method_exists($est_ref, 'GetOfficialNav'))
-        	{	// KWEB as $est_ref
-/*        		$strEstVal = $this->_getEstNav();
-        		if ($strEstVal === false)*/	$strEstVal = strval($est_ref->GetOfficialNav(true));
-        		DebugString('KWEB adjusted NAV: '.$strEstVal);
-        	}
-        	else	$strEstVal = $this->_getEstVal();
+			$strEstVal = $this->_getEstVal();
         	$this->fOfficialNetValue = $this->GetQdiiValue($strEstVal, $this->strOfficialCNY);
             $this->strOfficialDate = $strDate;
             $this->UpdateEstNetValue();
@@ -210,11 +203,7 @@ class _QdiiReference extends FundReference
        	$cny_ref = $this->GetCnyRef();
        	if (($cny_ref->GetDate() != $this->strOfficialDate) || ($est_ref->GetDate() != $this->strOfficialDate))
        	{
-			if (method_exists($est_ref, 'GetFairNav'))
-        	{
-        		$strEstVal = strval($est_ref->GetFairNav(true));
-        	}
-        	else	$strEstVal = $this->_getEstVal();
+			$strEstVal = $this->_getEstVal();
         	$this->fFairNetValue = $this->GetQdiiValue($strEstVal);
        	}
         
@@ -249,18 +238,9 @@ class _QdiiReference extends FundReference
             if ($strCNY = $cny_ref->GetClose($strDate))
             {
             	$est_ref = $this->GetEstRef();
-                
-                if (method_exists($est_ref, 'GetOfficialNav'))
-                {	// KWEB as $est_ref
-                	$strEst = strval($est_ref->GetOfficialNav(true));
-                	DebugString('Used KWEB officical nav est in AdjustFactor');
-                }
-                else
-		        {
-		        	if (($strEst = $this->_getEstNav()) === false)
-		        	{
-		           		if (($strEst = SqlGetHisByDate($est_ref->GetStockId(), $strDate)) === false)		return false;
-                	}
+	        	if (($strEst = $this->_getEstNav()) === false)
+	        	{
+	           		if (($strEst = SqlGetHisByDate($est_ref->GetStockId(), $strDate)) === false)		return false;
                 }
         
                 $this->fFactor = floatval($strEst) * floatval($strCNY) / floatval($this->GetPrice());
@@ -313,8 +293,7 @@ class QdiiReference extends _QdiiReference
         
         if ($strEstSymbol = QdiiGetEstSymbol($strSymbol))
         {
-        	if ($strSymbol == 'SZ164906')		$this->est_ref = new EtfHoldingsReference($strEstSymbol);
-        	else				        		$this->est_ref = new MyStockReference($strEstSymbol);
+        	$this->est_ref = new MyStockReference($strEstSymbol);
         }
         if ($strFutureEtfSymbol = QdiiGetFutureEtfSymbol($strSymbol))
         {

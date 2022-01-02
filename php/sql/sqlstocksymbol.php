@@ -2,7 +2,7 @@
 require_once('sqlkeyname.php');
 require_once('sqlkeytable.php');
 require_once('sqldailyclose.php');
-require_once('sqletfholdings.php');
+require_once('sqlholdings.php');
 
 class NavHistorySql extends DailyCloseSql
 {
@@ -133,7 +133,7 @@ class StockSql extends KeyNameSql
         
        	$this->his_sql = new StockHistorySql();
        	$this->nav_sql = new NavHistorySql();
-        $this->holdings_sql = new EtfHoldingsSql();
+        $this->holdings_sql = new HoldingsSql();
        	
        	$this->ema50_sql = new StockEmaSql(50);
        	$this->ema200_sql = new StockEmaSql(200);
@@ -220,7 +220,7 @@ function GetNavHistorySql()
    	return $g_stock_sql->nav_sql;
 }
 
-function GetEtfHoldingsSql()
+function GetHoldingsSql()
 {
 	global $g_stock_sql;
    	return $g_stock_sql->holdings_sql;
@@ -291,7 +291,7 @@ function SqlGetUshkd()
 
 function SqlCountHoldings($strSymbol)
 {
-	$holdings_sql = GetEtfHoldingsSql();
+	$holdings_sql = GetHoldingsSql();
 	return $holdings_sql->Count(SqlGetStockId($strSymbol));
 }
 
@@ -302,7 +302,7 @@ function SqlGetHoldingsSymbolArray($strSymbol)
 	{
 		$sql = GetStockSql();
 		$strStockId = $sql->GetId($strSymbol);
-		$holdings_sql = GetEtfHoldingsSql();
+		$holdings_sql = GetHoldingsSql();
     	$ar = $holdings_sql->GetHoldingsArray($strStockId);
     	foreach ($ar as $strId => $strRatio)
     	{

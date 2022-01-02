@@ -411,9 +411,9 @@
 这个问题隐藏了好几年, 但是以前一直没有像现在这样每天盯着折价溢价数据看, 所以一直没发现.
 </p>
 
-<h3>增加<?php EchoNameTag(TABLE_ETF_HOLDINGS, ETF_HOLDINGS_DISPLAY); ?>页面</h3>
+<h3>增加<?php EchoNameTag(TABLE_HOLDINGS, HOLDINGS_DISPLAY); ?>页面</h3>
 <p>2021年6月24日
-<br />虽然XOP也可以使用这个页面, 但是它其实是为同时持仓港股和美股的<?php echo GetEtfHoldingsLink('KWEB', true); ?>准备的. 
+<br />虽然XOP也可以使用这个页面, 但是它其实是为同时持仓港股和美股的<?php echo GetHoldingsLink('KWEB', true); ?>准备的. 
 <br /><font color=gray>A fox knows many things, but a hedgehog knows one big thing.</font>
 </p>
 

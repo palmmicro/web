@@ -1,7 +1,5 @@
 <?php
-define('LOF_POSITION_RATIO', 0.95);
 
-// ****************************** FundReference Class *******************************************************
 class FundReference extends MysqlReference
 {
     var $stock_ref = false;     // MyStockReference
@@ -176,8 +174,8 @@ class FundReference extends MysqlReference
 		{
 			switch ($this->GetSymbol())
 			{
-			case 'SZ164906':
-				$fRatio = 0.94;
+			case 'SZ162411':
+				$fRatio = 0.95;
 				break;
 
 			default:

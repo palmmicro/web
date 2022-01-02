@@ -86,7 +86,7 @@ function _echoMergeParagraph($arMerge)
 			$ar[] = strval($iTotal);
 			if ($strSymbol == 'XOP')
 			{
-				$ar[] = strval($iTotal - 200);
+				$ar[] = strval($iTotal - 100);
 			}
 			EchoTableColumn($ar);
 		}

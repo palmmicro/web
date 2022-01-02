@@ -48,11 +48,11 @@ class DateSql extends TableSql
     }
 }
 
-class EtfHoldingsDateSql extends DateSql
+class HoldingsDateSql extends DateSql
 {
-    function EtfHoldingsDateSql()
+    function HoldingsDateSql()
     {
-        parent::DateSql('etfholdingsdate');
+        parent::DateSql('holdingsdate');
     }
 }
 

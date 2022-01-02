@@ -125,7 +125,7 @@ function EchoEtfHistoryParagraph($ref, $csv = false, $iStart = 0, $iNum = TABLE_
     _echoFundHistoryParagraph($ref->GetFundEstSql(), $ref, $ref->GetPairRef(), $csv, $iStart, $iNum);
 }
 
-function EchoEtfHoldingsHistoryParagraph($ref, $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
+function EchoHoldingsHistoryParagraph($ref, $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
 {
     _echoFundHistoryParagraph($ref->GetFundEstSql(), $ref, false, $csv, $iStart, $iNum);
 }
