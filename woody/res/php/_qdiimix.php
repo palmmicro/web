@@ -1,6 +1,7 @@
 <?php
 require_once('_stock.php');
 require_once('_stockgroup.php');
+require_once('_kraneholdingscsv.php');
 require_once('/php/ui/referenceparagraph.php');
 require_once('/php/ui/tradingparagraph.php');
 require_once('/php/ui/fundhistoryparagraph.php');
@@ -22,10 +23,33 @@ class _QdiiMixAccount extends GroupAccount
         $this->ref = new HoldingsReference($strSymbol);
         $this->us_ref = new MyStockReference($strUS);
         $this->cnh_ref = new ForexReference($strCNH);
+        $this->CreateGroup(array($this->ref, $this->us_ref));
 
         SzseGetLofShares($this->ref);
-        $this->CreateGroup(array($this->ref, $this->us_ref));
+        $this->_copyKraneHoldings();
     }
+    
+    private function _copyKraneHoldings()
+    {
+    	$ref = $this->ref;
+    	if ($ref->GetSymbol() != 'SZ164906')		return;
+    	
+    	$nav_sql = GetNavHistorySql();
+    	$date_sql = new HoldingsDateSql();
+    	$strStockId = $ref->GetStockId();
+		if ($date_sql->ReadDate($strStockId) == $nav_sql->GetDateNow($strStockId))		return;
+    	
+    	CopyHoldings($date_sql, $this->us_ref->GetStockId(), $strStockId);
+    }
+}
+
+function _onTradingUserDefined($strVal)
+{
+	global $acct;
+    
+    $strAmount = $acct->GetFundPurchaseAmount();
+	$fQuantity = floatval($strAmount) / floatval($strVal);
+	return $acct->GetFundPurchaseLink($strAmount, $fQuantity);
 }
 
 function EchoAll()
@@ -38,7 +62,7 @@ function EchoAll()
     
 	EchoHoldingsEstParagraph($ref);
     EchoReferenceParagraph(array($ref, $acct->us_ref, $acct->cnh_ref, $uscny_ref, $hkcny_ref));
-    EchoFundTradingParagraph($ref);
+    EchoFundTradingParagraph($ref, 'FundTradingUserDefined');
     EchoHoldingsHistoryParagraph($ref);
 
     if ($group = $acct->EchoTransaction()) 

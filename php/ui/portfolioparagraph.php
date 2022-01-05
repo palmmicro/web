@@ -31,7 +31,7 @@ function _echoPortfolioTableItem($trans)
         }
         else if ($strSymbol == 'SZ164906')
         {
-        	$ar[] = strval(intval($iShares / 248.0 + 0.5));
+        	$ar[] = GetArbitrageQuantity(floatval($iShares));
         }
 /*        else if ($strSymbol == 'KWEB')
         {

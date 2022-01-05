@@ -62,6 +62,56 @@ class GroupAccount extends StockAccount
         }
         return false;
 	}
+	
+    function GetFundPurchaseAmount()
+    {
+    	$strAmount = FUND_PURCHASE_AMOUNT;
+    	if ($group = $this->GetGroup()) 
+    	{
+    		SqlCreateFundPurchaseTable();
+    		$ref = $this->GetRef();
+    		if ($str = SqlGetFundPurchaseAmount($this->GetLoginId(), $ref->GetStockId()))
+    		{
+    			$strAmount = $str;
+    		}
+    	}
+    	return $strAmount;
+    }
+
+    function GetFundPurchaseLink($strAmount, $fQuantity)
+    {
+    	$strQuantity = strval(intval($fQuantity));
+    	if ($group = $this->GetGroup()) 
+    	{
+    		$ref = $this->GetRef();
+    		$strQuery = sprintf('groupid=%s&fundid=%s&amount=%s&netvalue=%s', $group->GetGroupId(), $ref->GetStockId(), $strAmount, $ref->GetOfficialNav());
+    		return GetOnClickLink(STOCK_PHP_PATH.'_submittransaction.php?'.$strQuery, '确认添加对冲申购记录?', $strQuantity);
+    	}
+    	return $strQuantity;
+    }
 }
+
+function GetArbitrageQuantityName($bEditLink = false)
+{
+    global $acct;
+    
+    $ref = $acct->GetRef();
+    if ($acct->GetGroup() && $bEditLink) 
+    {
+    	return GetStockOptionLink(STOCK_OPTION_AMOUNT, $ref->GetSymbol());
+    }
+    return STOCK_OPTION_AMOUNT;
+}
+
+function FundTradingUserDefined($strVal = false)
+{
+    if ($strVal)
+    {
+    	if ($strVal == '0')	return '';
+    	else					return _onTradingUserDefined($strVal);				
+    }
+   	return GetArbitrageQuantityName(true);
+}
+
 
 ?>

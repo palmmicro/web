@@ -61,22 +61,13 @@ function _debugStockTransaction($strStockId, $strGroupId, $strQuantity, $strPric
     trigger_error($str); 
 }
 
-function _debugFundPurchase($strGroupId, $strFundId, $strArbitrageId)
+function _debugFundPurchase($strGroupId, $strFundId)
 {
 	$str = 'Arbitrage Fund Purchase';
     $str .= '<br />Fund: '._getStockTransactionLink($strGroupId, $strFundId); 
-    $str .= '<br />Arbitrage: '._getStockTransactionLink($strGroupId, $strArbitrageId); 
     trigger_error($str); 
 }
-/*
-function _onArbitrageCost($strQuantity, $strPrice)
-{
-    $iQuantity = intval($strQuantity);
-    $fPrice = floatval($strPrice);
-    $fCost = $iQuantity * 0.005 + $iQuantity * $fPrice * 0.000028;
-    return strval($fCost);
-}
-*/
+
 class _SubmitTransactionAccount extends StockAccount
 {
     function _canModifyStockTransaction($strGroupItemId)
@@ -89,16 +80,13 @@ class _SubmitTransactionAccount extends StockAccount
     	return $strGroupId;
     }
 
-    // groupid=%s&fundid=%s&amount=%.2f&netvalue=%.3f&arbitrageid=%s&quantity=%s&price=%.2f
+    // groupid=%s&fundid=%s&amount=%.2f&netvalue=%.3f
     function _onAddFundPurchase($strGroupId)
     {
     	if ($this->IsGroupReadOnly($strGroupId))    						return false;
     	if (($strFundId = UrlGetQueryValue('fundid')) == false)    			return false;
     	if (($strAmount = UrlGetQueryValue('amount')) == false)    			return false;
     	if (($strNetValue = UrlGetQueryValue('netvalue')) == false)    		return false;
-    	if (($strArbitrageId = UrlGetQueryValue('arbitrageid')) == false)	return false;
-    	if (($strQuantity = UrlGetQueryValue('quantity')) == false)    		return false;
-    	if (($strPrice = UrlGetQueryValue('price')) == false)    			return false;
 	
     	$sql = new StockGroupItemSql($strGroupId);
     	if (($strGroupItemId = $sql->GetId($strFundId)) == false)    return false;
@@ -110,19 +98,22 @@ class _SubmitTransactionAccount extends StockAccount
     		$fFeeRatio = 0.0;
     		break;
     		
+    	case 'SZ164906':
+    		$fFeeRatio = 0.012;
+    		break;
+    		
     	default:
     		$fFeeRatio = 0.015;
     		break;
     	}
   	
     	$fAmount = floatval($strAmount);
-    	if ($sql->trans_sql->Insert($strGroupItemId, strval(intval($fAmount / floatval($strNetValue))), $strNetValue, strval_round($fAmount * $fFeeRatio * 0.1), '}'.STOCK_DISP_ORDER))
+    	$fQuantity = $fAmount / floatval($strNetValue);
+    	$strRemark = '}'.STOCK_DISP_ORDER;
+    	if ($strSymbol == 'SZ164906')		$strRemark .= ' '.GetArbitrageQuantity($fQuantity);
+    	if ($sql->trans_sql->Insert($strGroupItemId, strval(intval($fQuantity)), $strNetValue, strval_round($fAmount * $fFeeRatio * 0.1), $strRemark))
     	{
-/*	    	if ($strGroupItemId = $sql->GetId($strArbitrageId))
-	    	{
-	        	$sql->trans_sql->Insert($strGroupItemId, '-'.$strQuantity, $strPrice, _onArbitrageCost($strQuantity, $strPrice));
-	        	}*/
-	       	_debugFundPurchase($strGroupId, $strFundId, $strArbitrageId);
+	       	_debugFundPurchase($strGroupId, $strFundId);
 	    }
 	    return $strGroupItemId;
 	}

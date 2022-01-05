@@ -33,49 +33,18 @@ function _onSmaUserDefinedVal($strVal)
     global $acct;
     
     if (empty($strVal))	return '';
-    
-    $fund = $acct->GetRef();
-    $strStockId = $fund->GetStockId();
-    $strAmount = FUND_PURCHASE_AMOUNT;
-    if ($group = $acct->GetGroup()) 
-    {
-    	SqlCreateFundPurchaseTable();
-    	if ($str = SqlGetFundPurchaseAmount($acct->GetLoginId(), $strStockId))
-    	{
-    		$strAmount = $str;
-    	}
-    }
-	$fAmount = floatval($strAmount);
 	
-	$strSymbol = $fund->GetSymbol();
-	$fQuantity = $fund->GetFundPosition() * $fAmount / floatval($fund->strOfficialCNY) / floatval($strVal);
-    $strQuantity = strval(intval($fQuantity));
-    if ($group) 
-    {
-        $est_ref = $fund->GetEstRef();
-        $strQuery = sprintf('groupid=%s&fundid=%s&amount=%.2f&netvalue=%.3f&arbitrageid=%s&quantity=%s&price=%s', $group->GetGroupId(), $strStockId, $fAmount, $fund->fOfficialNetValue, $est_ref->GetStockId(), $strQuantity, $est_ref->GetPrice());
-        return GetOnClickLink(STOCK_PHP_PATH.'_submittransaction.php?'.$strQuery, '确认添加对冲申购记录?', $strQuantity);
-    }
-    return $strQuantity;
-}
-
-function _getArbitrageQuantityName($bEditLink = false)
-{
-    global $acct;
-    
     $fund = $acct->GetRef();
-    if ($acct->GetGroup() && $bEditLink) 
-    {
-    	return GetStockOptionLink(STOCK_OPTION_AMOUNT, $fund->GetSymbol());
-    }
-    return STOCK_OPTION_AMOUNT;
+    $strAmount = $acct->GetFundPurchaseAmount();
+	$fQuantity = $fund->GetFundPosition() * floatval($strAmount) / floatval($fund->strOfficialCNY) / floatval($strVal);
+	return $acct->GetFundPurchaseLink($strAmount, $fQuantity);
 }
 
 function _onSmaUserDefined($strVal = false, $strNext = false)
 {
     if ($strVal === false)
     {
-    	return _getArbitrageQuantityName();
+    	return GetArbitrageQuantityName();
     }
 
     $str = _onSmaUserDefinedVal($strVal);
@@ -86,22 +55,14 @@ function _onSmaUserDefined($strVal = false, $strNext = false)
     return $str;
 }
 
-function _onTradingUserDefined($strVal = false)
+function _onTradingUserDefined($strVal)
 {
-    if ($strVal)
-    {
-    	if ($strVal == '0')	return '';
-    	else
-    	{
-    		global $acct;
+	global $acct;
     
-    		$fund = $acct->GetRef();
-    		$strEst = $fund->GetEstValue($strVal);
-    		$est_ref = $fund->GetEstRef();
-    		return _onSmaUserDefinedVal($strEst).'@'.$est_ref->GetPriceDisplay($strEst);
-    	}
-    }
-   	return _getArbitrageQuantityName(true);
+	$fund = $acct->GetRef();
+	$strEst = $fund->GetEstValue($strVal);
+	$est_ref = $fund->GetEstRef();
+	return _onSmaUserDefinedVal($strEst).'@'.$est_ref->GetPriceDisplay($strEst);
 }
 
 function EchoAll()
@@ -116,7 +77,7 @@ function EchoAll()
     EchoFundEstParagraph($fund);
     EchoReferenceParagraph(array_merge(array($stock_ref, $est_ref, $fund->GetFutureRef(), $acct->oil_ref, $acct->cnh_ref, $cny_ref), $acct->ar_leverage_ref));
     $acct->EchoLeverageParagraph();
-    EchoFundTradingParagraph($fund, '_onTradingUserDefined');    
+    EchoFundTradingParagraph($fund, 'FundTradingUserDefined');    
 	EchoQdiiSmaParagraph($fund, '_onSmaUserDefined');
     EchoEtfArraySmaParagraph($est_ref, $acct->GetLeverageRef());
     EchoFundHistoryParagraph($fund);

@@ -94,9 +94,8 @@ function SaveKraneHoldingsCsvFile($strSymbol, $strDate)
 	return SaveHoldingsCsvFile($strSymbol, $strUrl);	
 }
 
-function CopyHoldings($strStockId, $strDstId)
+function CopyHoldings($date_sql, $strStockId, $strDstId)
 {
-	$date_sql = new HoldingsDateSql();
 	$strDate = $date_sql->ReadDate($strStockId);
 	if (SqlGetNavByDate($strDstId, $strDate) === false)	return;
 	$date_sql->WriteDate($strDstId, $strDate);
@@ -143,7 +142,7 @@ function ReadKraneHoldingsCsvFile($strSymbol, $strStockId, $strDate, $strNav)
 	$date_sql->WriteDate($strStockId, $strDate);
 	
 	// copy KWEB holdings to SZ164906 
-	if ($strSymbol == 'KWEB')		CopyHoldings($strStockId, SqlGetStockId('SZ164906'));
+	if ($strSymbol == 'KWEB')		CopyHoldings($date_sql, $strStockId, SqlGetStockId('SZ164906'));
 }
 
 ?>

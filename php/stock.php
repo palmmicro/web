@@ -523,4 +523,9 @@ function StockIsNewFile($strFileName, $iInterval = SECONDS_IN_MIN)
     return false;
 }
 
+function GetArbitrageQuantity($fQuantity)
+{
+	return strval(intval($fQuantity / 248.0 + 0.5));
+}
+	
 ?>
