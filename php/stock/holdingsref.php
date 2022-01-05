@@ -172,14 +172,29 @@ class HoldingsReference extends MyStockReference
     
     function _getEstDate()
     {
+    	$strH = false;
+   		foreach ($this->ar_holdings_ref as $ref)
+   		{
+   			if ($ref->IsSymbolH())
+   			{
+    			$strH = $ref->GetDate();
+    			break;
+   			}
+   		}
+   		
+    	$strUS = false;
    		foreach ($this->ar_holdings_ref as $ref)
    		{
    			if ($ref->IsSymbolUS())
    			{
-    			return $ref->GetDate();
+    			$strUS = $ref->GetDate();
+    			break;
    			}
    		}
-   		return false;
+
+   		if ($strH == $strUS)		return $strH;
+		else if (strtotime($strH) < strtotime($strUS))		return $strH;
+		return $strUS;
     }
     
     function GetOfficialDate()
@@ -192,7 +207,7 @@ class HoldingsReference extends MyStockReference
     		if ($this->uscny_ref->GetClose($strDate) === false)
     		{   // Load last value from database
     			$fund_est_sql = $this->GetFundEstSql();
-    			$strDate = $fund_est_sql->GetDateNow($this->GetStockId());
+    			$strDate = $fund_est_sql->GetDatePrev($this->GetStockId(), $strDate);
     		}
     	}
     	return $strDate;

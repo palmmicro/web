@@ -135,19 +135,19 @@ class _QdiiReference extends FundReference
         $this->SetForex($strForex);
     }
     
-    function _getEstNav()
+    function _getEstNav($strDate)
     {
        	$est_ref = $this->GetEstRef();
-		if ($str = SqlGetNavByDate($est_ref->GetStockId(), $est_ref->GetDate()))
+		if ($str = SqlGetNavByDate($est_ref->GetStockId(), $strDate))
         {
         	return $str;
         }
         return false;
     }
 
-    function _getEstVal()
+    function _getEstVal($strDate)
     {
-		if ($str = $this->_getEstNav())
+		if ($str = $this->_getEstNav($strDate))
         {
         	return $str;
         }
@@ -158,7 +158,7 @@ class _QdiiReference extends FundReference
         if (empty($str))
         {	// SH000869 bug fix
         	$his_sql = GetStockHistorySql();
-        	$str = $his_sql->GetClosePrev($est_ref->GetStockId(), $est_ref->GetDate());
+        	$str = $his_sql->GetClosePrev($est_ref->GetStockId(), $strDate);
         }
         return $str;
     }
@@ -174,7 +174,7 @@ class _QdiiReference extends FundReference
         $strDate = $est_ref->GetDate();
         if ($this->strOfficialCNY = $cny_ref->GetClose($strDate))
         {
-			$strEstVal = $this->_getEstVal();
+			$strEstVal = $this->_getEstVal($strDate);
         	$this->fOfficialNetValue = $this->GetQdiiValue($strEstVal, $this->strOfficialCNY);
             $this->strOfficialDate = $strDate;
             $this->UpdateEstNetValue();
@@ -200,10 +200,11 @@ class _QdiiReference extends FundReference
        	$est_ref = $this->GetEstRef();
         if ($est_ref == false)    return;
         
+        $strDate = $est_ref->GetDate();
        	$cny_ref = $this->GetCnyRef();
-       	if (($cny_ref->GetDate() != $this->strOfficialDate) || ($est_ref->GetDate() != $this->strOfficialDate))
+       	if (($cny_ref->GetDate() != $this->strOfficialDate) || ($strDate != $this->strOfficialDate))
        	{
-			$strEstVal = $this->_getEstVal();
+			$strEstVal = $this->_getEstVal($strDate);
         	$this->fFairNetValue = $this->GetQdiiValue($strEstVal);
        	}
         
@@ -218,7 +219,7 @@ class _QdiiReference extends FundReference
             $fFutureEtfPrice = floatval($this->future_etf_ref->GetPrice());
             if ($fFutureEtfPrice != 0.0)
             {
-            	$fRealtime = floatval($this->_getEstVal());
+            	$fRealtime = floatval($this->_getEstVal($strDate));
             	$fFuture = $future_ref->EstByEtf($fFutureEtfPrice);
             	if ($fFuture != 0.0)
             	{
@@ -238,7 +239,7 @@ class _QdiiReference extends FundReference
             if ($strCNY = $cny_ref->GetClose($strDate))
             {
             	$est_ref = $this->GetEstRef();
-	        	if (($strEst = $this->_getEstNav()) === false)
+	        	if (($strEst = $this->_getEstNav($strDate)) === false)
 	        	{
 	           		if (($strEst = SqlGetHisByDate($est_ref->GetStockId(), $strDate)) === false)		return false;
                 }

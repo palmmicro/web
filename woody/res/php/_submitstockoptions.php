@@ -163,9 +163,9 @@ function _updateStockOptionAh($strSymbolA, $strSymbolH)
 function _updateStockOptionEmaDays($strStockId, $iDays, $strDate, $strVal)
 {
 	$sql = GetStockEmaSql($iDays);
+	$sql->DeleteAll($strStockId);
     if ($strVal == '0')
     {
-   		$sql->DeleteAll($strStockId);
     }
     else
     {

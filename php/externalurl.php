@@ -132,11 +132,12 @@ function GetYinHuaFundUrl()
 	return 'http://www.yhfund.com.cn';
 }
 
-// http://www.csindex.com.cn/zh-CN/indices/index-detail/H11136
-// http://www.csindex.com.cn/uploads/file/autofile/closeweight/H11136closeweight.xls?t=1625908087
+// https://csi-web-dev.oss-cn-shanghai-finance-1-pub.aliyuncs.com/static/html/csindex/public/uploads/file/autofile/closeweight/H30533closeweight.xls
+// https://csi-web-dev.oss-cn-shanghai-finance-1-pub.aliyuncs.com/static/html/csindex/public/uploads/file/autofile/closeweight/H11136closeweight.xls
+// https://www.csindex.com.cn/#/indices/family/detail?indexCode=H11136
 function GetCsindexUrl($strSymbol)
 {
-	return 'http://www.csindex.com.cn/zh-CN/indices/index-detail/'.$strSymbol;
+	return 'https://www.csindex.com.cn/#/indices/family/detail?indexCode='.$strSymbol;
 }
 
 function GetSzseUrl()
