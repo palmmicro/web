@@ -84,7 +84,7 @@ class GroupAccount extends StockAccount
     	if ($group = $this->GetGroup()) 
     	{
     		$ref = $this->GetRef();
-    		$strQuery = sprintf('groupid=%s&fundid=%s&amount=%s&netvalue=%s', $group->GetGroupId(), $ref->GetStockId(), $strAmount, $ref->GetOfficialNav());
+    		$strQuery = sprintf('groupid=%s&fundid=%s&amount=%s&netvalue=%.3f', $group->GetGroupId(), $ref->GetStockId(), $strAmount, floatval($ref->GetOfficialNav()));
     		return GetOnClickLink(STOCK_PHP_PATH.'_submittransaction.php?'.$strQuery, '确认添加对冲申购记录?', $strQuantity);
     	}
     	return $strQuantity;

@@ -523,9 +523,22 @@ function StockIsNewFile($strFileName, $iInterval = SECONDS_IN_MIN)
     return false;
 }
 
-function GetArbitrageQuantity($fQuantity)
+function GetArbitrageQuantity($strSymbol, $fQuantity)
 {
-	return strval(intval($fQuantity / 248.0 + 0.5));
+  	switch ($strSymbol)
+   	{
+   	case 'SZ162411':
+		$iArbitrage = 1400;
+   		break;
+    		
+   	case 'SZ164906':
+		$iArbitrage = 247;
+   		break;
+    		
+   	default:
+   		return '';
+   	}
+	return strval(intval($fQuantity / $iArbitrage + 0.5));
 }
 	
 ?>

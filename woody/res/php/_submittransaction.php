@@ -12,31 +12,52 @@ function _getStockQuantity()
 	return $strQuantity; 
 }
 
-function _getStockCost()
+function _getStockCost($strGroupItemId, $strQuantity, $strPrice)
 {
-	if ($_POST['commissionselect'] == '0')    // amount
-	{
-	    $fCommission = floatval($_POST['commission']);
+	$fTax = 0.0;
+	$fQuantity = floatval($strQuantity);
+	$fQuantityAbs = abs($fQuantity); 
+	$fAmount = $fQuantityAbs * floatval($strPrice);
+	$strCommission = SqlCleanString($_POST['commission']);
+	if (empty($strCommission))
+	{	// use default
+		$strStockId = SqlGetStockItemId($strGroupItemId);
+   		$strSymbol = SqlGetStockSymbol($strStockId);
+   		$sym = new StockSymbol($strSymbol);
+   		if ($sym->IsSymbolA())
+   		{
+   			if ($sym->IsFundA())			$fCommission = $fAmount * 0.0001;
+   			else
+   			{
+   				if ($fQuantity > 0.0)		$fCommission = $fAmount * 0.0002;
+   				else						$fCommission = $fAmount * 0.0015;
+   				if ($fCommission < 5.0)	$fCommission = 5.0;
+   			}
+   		}
+   		else if ($sym->IsSymbolH())		$fCommission = $fAmount * 0.002;
+   		else
+   		{
+   			if ($fQuantityAbs < 200.0)	$fCommission = 1.0;
+   			else							$fCommission = 0.005 * $fQuantityAbs;
+   			if ($fQuantity < 0.0)			$fCommission += $fAmount * 0.000028;
+   		}
 	}
 	else
 	{
-	    $fCommission = floatval($_POST['quantity']) * floatval($_POST['price']) * floatval($_POST['commission']) / 1000.0;
-	}
+	    $fCommission = floatval($strCommission);
+	    if ($_POST['commissionselect'] == '1')    // percentage
+	    {
+	    	$fCommission *= $fAmount / 1000.0;
+	    }
 
-	if (isset($_POST['taxselect']))
-	{
-		if ($_POST['taxselect'] == '0')    // amount
-		{
-			$fTax = floatval($_POST['tax']);
+	    if (isset($_POST['taxselect']))
+	    {
+	    	$fTax = floatval(SqlCleanString($_POST['tax']));
+			if ($_POST['taxselect'] == '1')    // percentage
+			{
+				$fTax *= $fAmount / 1000.0;
+			}
 		}
-		else // if ($_POST['taxselect'] == '1')    // percentage
-		{
-			$fTax = floatval($_POST['quantity']) * floatval($_POST['price']) * floatval($_POST['tax']) / 1000.0;
-		}
-	}
-	else
-	{
-		$fTax = 0.0;
 	}
 	
 	return strval_round($fCommission + $fTax, 3);
@@ -108,9 +129,8 @@ class _SubmitTransactionAccount extends StockAccount
     	}
   	
     	$fAmount = floatval($strAmount);
-    	$fQuantity = $fAmount / floatval($strNetValue);
-    	$strRemark = '}'.STOCK_DISP_ORDER;
-    	if ($strSymbol == 'SZ164906')		$strRemark .= ' '.GetArbitrageQuantity($fQuantity);
+    	$fQuantity = $fAmount / (1.0 + $fFeeRatio) / floatval($strNetValue);
+    	$strRemark = '}'.GetArbitrageQuantity($strSymbol, $fQuantity).' '.STOCK_DISP_ORDER;
     	if ($sql->trans_sql->Insert($strGroupItemId, strval(intval($fQuantity)), $strNetValue, strval_round($fAmount * $fFeeRatio * 0.1), $strRemark))
     	{
 	       	_debugFundPurchase($strGroupId, $strFundId);
@@ -188,7 +208,7 @@ class _SubmitTransactionAccount extends StockAccount
     		$strGroupItemId = $_POST['symbol'];
     		$strQuantity = _getStockQuantity();
     		$strPrice = SqlCleanString($_POST['price']);
-    		$strCost = _getStockCost();
+    		$strCost = _getStockCost($strGroupItemId, $strQuantity, $strPrice);
     		$strRemark = SqlCleanString($_POST['remark']);
     		switch ($strSubmit)
     		{

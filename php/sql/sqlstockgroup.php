@@ -145,6 +145,13 @@ function SqlGetStockGroupId($strGroupItemId)
 }
 
 // ****************************** Stock Group functions *******************************************************
+function SqlGetStockItemId($strGroupItemId)
+{
+	$strGroupId = SqlGetStockGroupId($strGroupItemId);
+	$sql = new StockGroupItemSql($strGroupId);
+    return $sql->GetStockId($strGroupItemId);
+}
+
 function SqlGetStockGroupItemSymbolArray($sql)
 {
     if ($arStockId = $sql->GetStockIdArray())

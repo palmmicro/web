@@ -24,23 +24,26 @@ function _echoPortfolioTableItem($trans)
         {
         	$ar[] = '';
         }
-        
-        if ($strSymbol == 'SZ162411')
+
+        switch ($strSymbol)
         {
+        case 'SZ162411':
         	$ar[] = strval($iShares - 129000 - 7 * 140000);
-        }
-        else if ($strSymbol == 'SZ164906')
-        {
-        	$ar[] = GetArbitrageQuantity(floatval($iShares));
-        }
-/*        else if ($strSymbol == 'KWEB')
-        {
+        	break;
+    		
+        case 'SZ164906':
+        	$ar[] = GetArbitrageQuantity($strSymbol, floatval($iShares));
+			break;
+    		
+/*		case 'KWEB':
         	$ar[] = strval($iShares - 400);
-        }
-        else if ($strSymbol == 'SH600104')
-        {
+			break;
+
+        case 'SH600104':
         	$ar[] = strval($iShares - 4000);
-        }*/
+			break;
+*/
+   		}
     }
 
     EchoTableColumn($ar);
