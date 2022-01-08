@@ -11,7 +11,6 @@ require_once('sql/sqlipaddress.php');
 require_once('sql/sqlstock.php');
 
 require_once('stock/stocksymbol.php');
-require_once('stock/chinamoney.php');
 //require_once('stock/csindex.php');		// 中证指数有限公司
 require_once('stock/szse.php');			// Shenzhen Stock Exchange
 require_once('stock/yahoostock.php');
@@ -32,6 +31,8 @@ require_once('stock/goldfundref.php');
 require_once('stock/forexref.php');
 require_once('stock/hshareref.php');
 require_once('stock/etfref.php');
+
+require_once('stock/chinamoney.php');
 
 // ****************************** Stock symbol functions *******************************************************
 
@@ -120,7 +121,7 @@ function GetSinaQuotesUrl($strSinaSymbols)
 function GetSinaQuotes($strSinaSymbols)
 {
 	$strFileName = DebugGetPathName('debugsina.txt');
-	if (DebugIsAdmin())
+	if (strpos($strSinaSymbols, ',') && DebugIsAdmin())
 	{
 		DebugString('Prefetch: '.$strSinaSymbols);
 	}

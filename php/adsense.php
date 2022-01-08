@@ -14,7 +14,7 @@ function AdsenseSearchEngine($bChinese = true)
     <input type="submit" name="sa" value="$strSearch" />
   </div>
 </form>
-<script type="text/javascript" src="https://www.google.com/coop/cse/brand?form=cse-search-box&amp;lang=en"></script>
+<script src="https://www.google.com/coop/cse/brand?form=cse-search-box&amp;lang=en"></script>
 END;
 }
 

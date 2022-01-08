@@ -12,7 +12,7 @@ function _echoXueqiuForm($strCookie, $strToken, $strType, $strId = '')
 {
 	$strCur = UrlGetCur();
 	echo <<< END
-	<script type="text/javascript">
+	<script>
 	    function OnLoad()
 	    {
 	        document.xueqiuForm.type.value = $strType;

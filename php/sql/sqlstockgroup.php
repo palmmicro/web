@@ -23,6 +23,11 @@ class StockGroupItemSql extends KeyTableSql
         $this->trans_sql = new StockTransactionSql();
     }
 
+    function GetTransSql()
+    {
+    	return $this->trans_sql;
+    }
+    
     function GetStockIdArray($bCheckTransaction = false)
     {
     	if ($result = $this->GetAll())
@@ -135,6 +140,7 @@ function SqlAlterStockGroupItemTable()
 }
 */
 
+// ****************************** Stock Group functions *******************************************************
 function SqlGetStockGroupId($strGroupItemId)
 {
     if ($record = SqlGetTableDataById(TABLE_STOCK_GROUP_ITEM, $strGroupItemId))
@@ -142,14 +148,6 @@ function SqlGetStockGroupId($strGroupItemId)
     	return $record['stockgroup_id'];
     }
     return false;
-}
-
-// ****************************** Stock Group functions *******************************************************
-function SqlGetStockItemId($strGroupItemId)
-{
-	$strGroupId = SqlGetStockGroupId($strGroupItemId);
-	$sql = new StockGroupItemSql($strGroupId);
-    return $sql->GetStockId($strGroupItemId);
 }
 
 function SqlGetStockGroupItemSymbolArray($sql)

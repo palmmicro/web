@@ -121,7 +121,7 @@ function _layoutBanner($bChinese)
             <div class="blue"></div>
         </div>
 
-        <script type="text/javascript">
+        <script>
 			var width = window.screen.width;
 			document.cookie = "screen=" + width + "; path=/";
 		</script>

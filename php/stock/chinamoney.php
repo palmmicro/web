@@ -1,6 +1,6 @@
 <?php
 
-function _chinaMoneyHasFile($now_ymd, $strFileName)
+function _chinaMoneyHasFile($strFileName)
 {
 	clearstatcache(true, $strFileName);
     if (file_exists($strFileName))
@@ -9,7 +9,10 @@ function _chinaMoneyHasFile($now_ymd, $strFileName)
         $ar = json_decode($str, true);
         $arHead = $ar['head'];
         if ($arHead['rep_code'] != '200')									return false;		// 200 ok not found
+
+        $now_ymd = new NowYMD();
         if ($now_ymd->IsNewFile($strFileName))							return $ar;   		// update on every minute
+        
         $arData = $ar['data'];
         $ymd = new TickYMD(strtotime($arData['lastDate']));								// 2018-04-12 9:15
         if ($ymd->GetNextTradingDayTick() <= $now_ymd->GetTick())		return false;		// need update
@@ -19,11 +22,8 @@ function _chinaMoneyHasFile($now_ymd, $strFileName)
     return false;
 }
 
-function _chinaMoneyNeedData($ymd, $nav_sql, $strUscnyId, $strHkcnyId)
+function _chinaMoneyNeedData($strDate, $nav_sql, $strUscnyId, $strHkcnyId)
 {
-//	if ($ymd->IsWeekend())	return false;
-	
-    $strDate = $ymd->GetYMD();
     if ($nav_sql->GetRecord($strUscnyId, $strDate) && $nav_sql->GetRecord($strHkcnyId, $strDate))
     {
 //    	DebugString('Database entry existed');
@@ -38,17 +38,16 @@ function ChinaMoneyGetUrl()
 // 	return 'http://www.chinamoney.com.cn/r/cms/www/chinamoney/html/cn/latestRMBParityCn.html';
 }
 
-function GetChinaMoney()
+function GetChinaMoney($ref)
 {
-    date_default_timezone_set(STOCK_TIME_ZONE_CN);
-    $now_ymd = new NowYMD();
 	$nav_sql = GetNavHistorySql();
     $strUscnyId = SqlGetStockId('USCNY');
     $strHkcnyId = SqlGetStockId('HKCNY');
-    if (_chinaMoneyNeedData($now_ymd, $nav_sql, $strUscnyId, $strHkcnyId) == false)		return;
+    if (_chinaMoneyNeedData($ref->GetDate(), $nav_sql, $strUscnyId, $strHkcnyId) == false)		return;
     
+    date_default_timezone_set(STOCK_TIME_ZONE_CN);
 	$strFileName = DebugGetChinaMoneyFile();
-	$ar = _chinaMoneyHasFile($now_ymd, $strFileName);
+	$ar = _chinaMoneyHasFile($strFileName);
     if ($ar == false)
     {
     	if ($str = url_get_contents(ChinaMoneyGetUrl()))
@@ -61,7 +60,7 @@ function GetChinaMoney()
     }
 	
     $arData = $ar['data'];
-    $strDate = _chinaMoneyNeedData(new TickYMD(strtotime($arData['lastDate'])), $nav_sql, $strUscnyId, $strHkcnyId);		// 2018-04-12 9:15
+    $strDate = _chinaMoneyNeedData(substr($arData['lastDate'], 0, 10), $nav_sql, $strUscnyId, $strHkcnyId);		// 2018-04-12 9:15
     if ($strDate == false)		return;
 
     if (isset($ar['records']) == false)	return;
