@@ -54,7 +54,7 @@ function StockEditGroupForm($acct, $strSubmit)
 	
     $strStockGroup = STOCK_GROUP_DISPLAY;
 	echo <<< END
-	<script type="text/javascript">
+	<script>
 	    function OnLoad()
 	    {
 	        document.groupForm.groupname.disabled = $strGroupNameDisabled;

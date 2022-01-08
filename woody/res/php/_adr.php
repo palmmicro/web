@@ -24,16 +24,15 @@ class _AdrAccount extends GroupAccount
     {
         $strSymbolAdr = $this->GetName();
         StockPrefetchExtendedData($strSymbolAdr);
-        GetChinaMoney();
         
         $this->hk_ref = new HShareReference(SqlGetAdrhPair($strSymbolAdr));
         $this->cn_ref = $this->hk_ref->a_ref;
         $this->us_ref = $this->hk_ref->adr_ref;
 
         $this->arStockRef = array($this->us_ref, $this->hk_ref, $this->cn_ref);
-       
         $this->fRatioAdrH = $this->hk_ref->GetAdrRatio();
 
+        GetChinaMoney($this->cn_ref);
         $this->CreateGroup($this->arStockRef);
     }
     

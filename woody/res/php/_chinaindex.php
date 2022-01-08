@@ -21,7 +21,6 @@ class _ChinaIndexAccount extends GroupAccount
     	$strA50 = 'hf_CHA50CFD';
         $strCNH = 'fx_susdcnh';
         StockPrefetchExtendedData($strSymbol, $strUS, $strA50, $strCNH);
-        GetChinaMoney();
         YahooUpdateNetValue($strUS);
 
         $this->ref = new EtfReference($strSymbol);
@@ -31,6 +30,7 @@ class _ChinaIndexAccount extends GroupAccount
 
         $this->_updateNavByCnh($this->us_ref, $this->cnh_ref);
         	
+        GetChinaMoney($this->ref);
         $this->CreateGroup(array($this->ref, $this->us_ref, $this->ref->GetPairNavRef()));
     }
     

@@ -183,7 +183,6 @@ function _onPrefetch($sql, $strMemberId)
 		@mysql_free_result($result);
 	}
     StockPrefetchArrayData($arSymbol);
-    GetChinaMoney();
 }
 
 function EchoAll()

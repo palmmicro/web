@@ -43,7 +43,6 @@ class QdiiGroupAccount extends FundGroupAccount
 
     function GetWebData($strEstSymbol)
     {
-        GetChinaMoney();
         YahooUpdateNetValue($strEstSymbol);
 
         $sql = new EtfPairSql(SqlGetStockId($strEstSymbol));

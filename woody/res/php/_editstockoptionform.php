@@ -256,7 +256,7 @@ class SymbolEditAccount extends SymbolAccount
 		$strMemo = _getStockOptionMemo($strSubmit);
 	
 		echo <<< END
-	<script type="text/javascript">
+	<script>
 	    function OnLoad()
 	    {
 	    }

@@ -10,10 +10,10 @@ class _GoldSilverAccount extends FundGroupAccount
         $strSymbol = $this->GetName();
         
         StockPrefetchExtendedData($strSymbol);
-        GetChinaMoney();
 
         $this->ref = new GoldFundReference($strSymbol);
         
+        GetChinaMoney($this->ref);
         $this->CreateGroup(array($this->ref->stock_ref));
     }
 } 

@@ -161,8 +161,8 @@ function _echoMyStockData($acct, $ref)
     }
     else
     {
-    	if ($ref_ar = StockGetHShareReference($ref))									list($ref, $hshare_ref) = $ref_ar;
-    	else if ($etf_ref = StockGetEtfReference($strSymbol))						$ref = $etf_ref;
+    	if ($ref_ar = StockGetHShareReference($ref))							list($ref, $hshare_ref) = $ref_ar;
+    	else if ($etf_ref = StockGetEtfReference($strSymbol))				$ref = $etf_ref;
     	else if ($holdings_ref = StockGetHoldingsReference($strSymbol))	$ref = $holdings_ref;
     }
     

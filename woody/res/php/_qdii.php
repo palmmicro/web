@@ -24,6 +24,7 @@ class _QdiiAccount extends QdiiGroupAccount
         if ($strOil)	$this->oil_ref = new FutureReference($strOil);
         $this->cnh_ref = new ForexReference($strCNH);
         
+        GetChinaMoney($this->ref);
 		$this->QdiiCreateGroup();
     }
 } 

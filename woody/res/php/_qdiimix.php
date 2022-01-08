@@ -2,7 +2,9 @@
 require_once('_stock.php');
 require_once('_stockgroup.php');
 require_once('_kraneholdingscsv.php');
+require_once('/php/stockhis.php');
 require_once('/php/ui/referenceparagraph.php');
+require_once('/php/ui/smaparagraph.php');
 require_once('/php/ui/tradingparagraph.php');
 require_once('/php/ui/fundhistoryparagraph.php');
 require_once('/php/ui/fundestparagraph.php');
@@ -18,11 +20,12 @@ class _QdiiMixAccount extends GroupAccount
         $strUS = 'KWEB';
         $strCNH = 'fx_susdcnh';
         StockPrefetchExtendedData($strSymbol, $strUS, $strCNH);
-        GetChinaMoney();
 
         $this->ref = new HoldingsReference($strSymbol);
-        $this->us_ref = new MyStockReference($strUS);
+        $this->us_ref = new HoldingsReference($strUS);
         $this->cnh_ref = new ForexReference($strCNH);
+
+        GetChinaMoney($this->ref);
         $this->CreateGroup(array($this->ref, $this->us_ref));
 
         SzseGetLofShares($this->ref);
@@ -41,6 +44,11 @@ class _QdiiMixAccount extends GroupAccount
     	
     	CopyHoldings($date_sql, $this->us_ref->GetStockId(), $strStockId);
     }
+    
+    function GetUsRef()
+    {
+    	return $this->us_ref;
+    }
 }
 
 function _onTradingUserDefined($strVal)
@@ -57,13 +65,17 @@ function EchoAll()
     global $acct;
     
     $ref = $acct->GetRef();
+    $us_ref = $acct->GetUsRef();
     $uscny_ref = $ref->GetUscnyRef();
     $hkcny_ref = $ref->GetHkcnyRef();
     
 	EchoHoldingsEstParagraph($ref);
-    EchoReferenceParagraph(array($ref, $acct->us_ref, $acct->cnh_ref, $uscny_ref, $hkcny_ref));
+    EchoReferenceParagraph(array($ref, $us_ref, $acct->cnh_ref, $uscny_ref, $hkcny_ref));
     EchoFundTradingParagraph($ref, 'FundTradingUserDefined');
     EchoHoldingsHistoryParagraph($ref);
+    
+	EchoHoldingsEstParagraph($us_ref);
+    EchoSmaParagraph($us_ref);
 
     if ($group = $acct->EchoTransaction()) 
     {

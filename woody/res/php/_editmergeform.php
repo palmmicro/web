@@ -1,4 +1,6 @@
 <?php
+require_once('/php/ui/htmlelement.php');
+
 define('STOCK_TRANSACTION_MERGE', 'Merge Transaction');
 define('STOCK_TRANSACTION_MERGE_CN', '合并交易');
 
@@ -8,15 +10,19 @@ function StockMergeTransactionForm($acct, $arGroup)
     $arGroupItemList = array();
 	foreach ($arGroup as $strGroupId => $strGroupItemId)
 	{
-	    $arGroupName[] = $acct->GetGroupName($strGroupId);
-	    $arGroupItemList[] = EditGetStockGroupItemList($strGroupId, $strGroupItemId);
+		$item_sql = new StockGroupItemSql($strGroupId);
+		if ($ar = SqlGetStockGroupItemSymbolArray($item_sql))
+		{
+			$arGroupName[] = $acct->GetGroupName($strGroupId);
+			$arGroupItemList[] = HtmlGetOption(array($strGroupItemId => $ar[$strGroupItemId]));
+    	}
 	}
 	
     $strSubmit = STOCK_TRANSACTION_MERGE_CN;
     $arDirection = array('从', '合并到');
 
 	echo <<< END
-	<script type="text/javascript">
+	<script>
 	    function OnType()
 	    {
 	        var type_value;

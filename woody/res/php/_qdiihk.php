@@ -13,6 +13,7 @@ class _QdiiHkAccount extends QdiiGroupAccount
 
         $this->ref = new QdiiHkReference($strSymbol);
  
+        GetChinaMoney($this->ref);
 		$this->QdiiCreateGroup();
     } 
 } 

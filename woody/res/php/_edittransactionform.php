@@ -1,28 +1,20 @@
 <?php
+require_once('/php/ui/htmlelement.php');
+
 define('STOCK_TRANSACTION_NEW', '新增股票交易');
 define('STOCK_TRANSACTION_EDIT', '修改股票交易');
 
-function _getGroupItemPriceArray($strGroupId)
+function GetGroupItemSym($strGroupItemId)
 {
-    $ar = array();
-	$item_sql = new StockGroupItemSql($strGroupId);
-    if ($arStockId = $item_sql->GetStockIdArray())
-    {
-    	$his_sql = GetStockHistorySql();
-    	foreach ($arStockId as $str => $strStockId)
-    	{
-    		$ar[$str] = $his_sql->GetCloseNow($strStockId);
-    	}
-    }
-    return $ar;
+	$item_sql = new StockGroupItemSql();
+    $strStockId = $item_sql->GetStockId($strGroupItemId);
+    $strSymbol = SqlGetStockSymbol($strStockId);
+    return new StockSymbol($strSymbol);
 }
 
-function _getPriceOption($str, $strPrice)
+function _getPriceOption($strGroupItemId, $strPrice)
 {
-    $item_sql = new StockGroupItemSql();
-	$strStockId = $item_sql->GetStockId($str);
-    $strSymbol = SqlGetStockSymbol($strStockId);
-    $sym = new StockSymbol($strSymbol);
+    $sym = GetGroupItemSym($strGroupItemId);
     if ($sym->IsTradable())
     {
     	$ar = array();
@@ -39,14 +31,28 @@ function _getPriceOption($str, $strPrice)
     return false;
 }
 
+function _getGroupItemPriceArray($item_sql)
+{
+    $ar = array();
+    if ($arStockId = $item_sql->GetStockIdArray())
+    {
+    	$his_sql = GetStockHistorySql();
+    	foreach ($arStockId as $strGroupItemId => $strStockId)
+    	{
+    		$ar[$strGroupItemId] = $his_sql->GetCloseNow($strStockId);
+    	}
+    }
+    return $ar;
+}
+
 function _getPriceOptionJsArray($arPrice)
 {
     $ar = array();
-    foreach ($arPrice as $str => $strPrice)
+    foreach ($arPrice as $strGroupItemId => $strPrice)
     {
-    	if ($arOption = _getPriceOption($str, $strPrice))
+    	if ($arOption = _getPriceOption($strGroupItemId, $strPrice))
     	{
-    		$ar[$str] = implode(',', $arOption);
+    		$ar[$strGroupItemId] = implode(',', $arOption);
     	}
     }
 	return HtmlGetJsArray($ar);
@@ -67,12 +73,67 @@ function _getGroupCommonPhrase($acct, $strGroupId)
 	return $ar;
 }
 
-function _getFirstGroupItem($strGroupId)
+function _getFirstGroupItem($item_sql)
 {
-	$item_sql = new StockGroupItemSql($strGroupId);
 	$ar = SqlGetStockGroupItemSymbolArray($item_sql);
 	reset($ar);
 	return key($ar);
+}
+
+function _getSuggestedRemark($item_sql, $strGroupItemId)
+{
+	$strRemark = ''; 
+	if ($strGroupItemId)
+	{
+		$trans_sql = $item_sql->GetTransSql();
+		if ($trans_sql->Count($strGroupItemId) > 0)
+		{
+			if ($result = $trans_sql->GetRecord($strGroupItemId, 0, 1)) 
+			{
+				$record = mysql_fetch_assoc($result); 
+				$strRemark = $record['remark'];
+				@mysql_free_result($result);
+			}
+		}
+	}
+	else
+	{
+		if ($item_sql->CountAllStockTransaction() > 0)
+		{
+			if ($result = $item_sql->GetAllStockTransaction(0, 1)) 
+			{
+				$record = mysql_fetch_assoc($result); 
+				$strRemark = $record['remark'];
+				@mysql_free_result($result);
+			}
+		}
+	}
+	if (strpos($strRemark, '{') !== false)				return '}';
+	else if (strpos($strRemark, '}') !== false)		return '{';
+	return '';
+}
+
+function _getGroupItemQuantityArray($item_sql)
+{
+    $ar = array();
+    if ($arStockId = $item_sql->GetStockIdArray())
+    {
+		$trans_sql = $item_sql->GetTransSql();
+    	foreach ($arStockId as $strGroupItemId => $strStockId)
+    	{
+    		if ($trans_sql->Count($strGroupItemId) > 0)
+    		{
+    			if ($result = $trans_sql->GetRecord($strGroupItemId, 0, 1)) 
+    			{
+    				$record = mysql_fetch_assoc($result); 
+    				$ar[$strGroupItemId] = ltrim($record['quantity'], '-');
+    				@mysql_free_result($result);
+    			}
+    		}
+    		else	$ar[$strGroupItemId] = '';
+    	}
+    }
+    return $ar;
 }
 
 function StockEditTransactionForm($acct, $strSubmit, $strGroupId = false, $strGroupItemId = false)
@@ -81,8 +142,8 @@ function StockEditTransactionForm($acct, $strSubmit, $strGroupId = false, $strGr
     if ($strId = UrlGetQueryValue('edit'))
     {
     	$trans_sql = new StockTransactionSql();
-        if (($record = $trans_sql->GetRecordById($strId)) == false)                       return;
-        if (($strGroupId = SqlGetStockGroupId($record['groupitem_id'])) == false)    return;
+        if (($record = $trans_sql->GetRecordById($strId)) == false)					return;
+        if (($strGroupId = SqlGetStockGroupId($record['groupitem_id'])) == false)		return;
 
         $strQuantity = $record['quantity'];
         if (intval($strQuantity) < 0)
@@ -94,40 +155,44 @@ function StockEditTransactionForm($acct, $strSubmit, $strGroupId = false, $strGr
         $strPrice = rtrim0($record['price']);
         $strCost = rtrim0($record['fees']);
         $strRemark = $record['remark'];
-        $strSymbolIndex = $record['groupitem_id'];
+        $strGroupItemId = $record['groupitem_id'];
     }
-    $arPrice = _getGroupItemPriceArray($strGroupId);
+	$item_sql = new StockGroupItemSql($strGroupId);
+    $arPrice = _getGroupItemPriceArray($item_sql);
     if (count($arPrice) == 0)	return;
+    
+    $arQuantity = _getGroupItemQuantityArray($item_sql);
     if ($strId == false)	// else
     {
-    	$strQuantity = '';
     	$strCost = '';
-    	$strRemark = '';
-    	$strSymbolIndex = $strGroupItemId ? $strGroupItemId : _getFirstGroupItem($strGroupId);
-    	$strPrice = $arPrice[$strSymbolIndex];
+    	$strRemark = _getSuggestedRemark($item_sql, $strGroupItemId);
+    	if ($strGroupItemId === false)		$strGroupItemId = _getFirstGroupItem($item_sql);
+    	$strPrice = $arPrice[$strGroupItemId];
+    	$strQuantity = $arQuantity[$strGroupItemId];
     }
 
 	$strPriceArray = HtmlGetJsArray($arPrice);
+	$strQuantityArray = HtmlGetJsArray($arQuantity);
 	$strPriceOptionArray = _getPriceOptionJsArray($arPrice);
-   	$strPriceOption = HtmlGetOption(_getPriceOption($strSymbolIndex, $strPrice), $strPrice);
-    
+   	$strPriceOption = HtmlGetOption(_getPriceOption($strGroupItemId, $strPrice), $strPrice);
+	
     $strRemarkLink = GetCommonPhraseLink();
     $arCommonPhrase = _getGroupCommonPhrase($acct, $strGroupId);
     $strRemarkOption = HtmlGetOption($arCommonPhrase);
 	$strRemarkArray = HtmlGetJsArray($arCommonPhrase);    
     
     $strPassQuery = UrlPassQuery();
-    $strSymbolsList = EditGetStockGroupItemList($strGroupId, $strGroupItemId);
+    $strSymbolsList = HtmlGetOption(SqlGetStockGroupItemSymbolArray($item_sql), SqlGetStockSymbol($item_sql->GetStockId($strGroupItemId)));
     $arColumn = GetTransactionTableColumn();
 	echo <<< END
-	<script type="text/javascript">
+	<script>
 	    function OnLoad()
 	    {
 	    	var form = document.transactionForm;
 	    	
 	        form.type.value = $strType;
 	        OnType();
-	        form.symbol.value = $strSymbolIndex;
+	        form.symbol.value = $strGroupItemId;
 		}
 	    
 	    function OnType()
@@ -156,6 +221,7 @@ function StockEditTransactionForm($acct, $strSubmit, $strGroupId = false, $strGr
 	    	var form = document.transactionForm;
 	        var options = form.priceselect.options;
 	    	var price_array = { $strPriceArray };
+	    	var quantity_array = { $strQuantityArray };
 	        var symbol_value = form.symbol.value;
 	        var price_value = price_array[symbol_value];
 
@@ -171,6 +237,8 @@ function StockEditTransactionForm($acct, $strSubmit, $strGroupId = false, $strGr
 	        	options.add(new Option(val, i));
 	        	if (val == price_value)	form.priceselect.selectedIndex = i;
 	        }
+	        
+	        form.quantity.value = quantity_array[symbol_value];
 	    }
 	    
 	    function OnPrice()

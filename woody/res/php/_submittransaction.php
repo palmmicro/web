@@ -21,9 +21,7 @@ function _getStockCost($strGroupItemId, $strQuantity, $strPrice)
 	$strCommission = SqlCleanString($_POST['commission']);
 	if (empty($strCommission))
 	{	// use default
-		$strStockId = SqlGetStockItemId($strGroupItemId);
-   		$strSymbol = SqlGetStockSymbol($strStockId);
-   		$sym = new StockSymbol($strSymbol);
+   		$sym = GetGroupItemSym($strGroupItemId);
    		if ($sym->IsSymbolA())
    		{
    			if ($sym->IsFundA())			$fCommission = $fAmount * 0.0001;
