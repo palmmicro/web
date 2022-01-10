@@ -9,10 +9,7 @@ function _SwitchPage($strPage)
 
 function SwitchToLink($strLink)
 {
-	$str = "location: ";
-	$str .= $strLink;
-
-	_SwitchPage($str);
+	_SwitchPage('location: '.$strLink);
 }
 
 function SwitchTo($strTitle)

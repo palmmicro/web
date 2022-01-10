@@ -12,39 +12,6 @@ require_once('sql/sqlstocksymbol.php');
 require_once('sql/sqlstockgroup.php');
 require_once('sql/sqlfundpurchase.php');
 
-function _checkVisitor($strIp, $sql, $visitor_sql, $strBlogId, $strMemberId)
-{
-	$strId = GetIpId($strIp);
-    if ($strBlogId)
-    {
-    	$visitor_sql->InsertVisitor($strBlogId, $strId);
-    }
-    
-	$iCount = $visitor_sql->CountBySrc($strId);
-	if ($iCount >= 1000)
-	{
-		$iPageCount = $visitor_sql->CountUniqueDst($strId);
-		$strDebug = '访问次数: '.strval($iCount).'<br />不同页面数: '.strval($iPageCount).'<br />';
-		if ($strMemberId)								$strDebug .= 'logined!<br />';
-		if ($sql->GetStatus($strIp) == IP_STATUS_CRAWLER)		$strDebug .= '已标注的老爬虫';
-		else
-		{
-			if ($iPageCount >= ($iCount / 100))
-			{
-				$strDebug .= '疑似爬虫';
-			}
-			else
-			{
-				$strDebug .= '新标注爬虫';
-				$sql->SetStatus($strIp, IP_STATUS_CRAWLER);
-			}
-		}
-		trigger_error($strDebug);
-		$sql->AddVisit($strIp, $iCount);
-		$visitor_sql->DeleteBySrc($strId);        
-	}
-}
-
 class Account
 {
     var $strMemberId = false;
@@ -64,6 +31,8 @@ class Account
 
 	    $strIp = UrlGetIp();
 	    $this->ip_sql = new IpSql();
+	    $strStatus = $this->ip_sql->GetStatus($strIp);
+	    if ($strStatus == IP_STATUS_MALICIOUS)	dieDebugString('401 Unauthorized');
    		$this->ip_sql->InsertIp($strIp);
 
 	    $strUri = UrlGetUri();
@@ -71,23 +40,47 @@ class Account
    		$this->page_sql->InsertKey($strUri);
 	    
 	    $this->visitor_sql = new VisitorSql();
-	    _checkVisitor($strIp, 	$this->ip_sql, $this->visitor_sql, $this->GetPageId($strUri), $this->GetLoginId());
-    	$this->bAllowCurl = ($this->ip_sql->GetStatus($strIp) != IP_STATUS_NORMAL) ? false : true;
+	    $strId = GetIpId($strIp);
+	    if ($strPageId = $this->GetPageId($strUri))	$this->visitor_sql->InsertVisitor($strPageId, $strId);
+    
+	    $iCount = $this->visitor_sql->CountBySrc($strId);
+	    if ($iCount >= 1000)
+	    {
+	    	$iPageCount = $this->visitor_sql->CountUniqueDst($strId);
+	    	$strDebug = '访问次数: '.strval($iCount).'<br />不同页面数: '.strval($iPageCount).'<br />';
+	    	if ($this->GetLoginId())						$strDebug .= 'logined!<br />';
+	    	if ($strStatus == IP_STATUS_CRAWLER)			$strDebug .= '已标注的老爬虫';
+	    	else
+	    	{
+	    		if ($iPageCount >= ($iCount / 100))		$strDebug .= '疑似爬虫';
+	    		else
+	    		{
+	    			$strDebug .= '新标注爬虫';
+	    			$this->SetCrawler($strIp);
+	    			$strStatus = IP_STATUS_CRAWLER;
+	    		}
+	    	}
+	    	trigger_error($strDebug);
+	    	$this->ip_sql->AddVisit($strIp, $iCount);
+	    	$this->visitor_sql->DeleteBySrc($strId);        
+	    }
 
+    	$this->bAllowCurl = ($strStatus != IP_STATUS_NORMAL) ? false : true;
 	   	if ($strEmail = UrlGetQueryValue('email'))
 	   	{
-	   		if (filter_var_email($strEmail))
-	   		{
-	   			$this->strMemberId = SqlGetIdByEmail($strEmail);
-	   		}
+	   		if (filter_var_email($strEmail))		$this->strMemberId = SqlGetIdByEmail($strEmail);
 	   	}
-
 		InitGlobalStockSql();
     }
 
     function SetCrawler($strIp)
     {
     	return $this->ip_sql->SetStatus($strIp, IP_STATUS_CRAWLER);
+    }
+    
+    function SetMalicious($strIp)
+    {
+    	return $this->ip_sql->SetStatus($strIp, IP_STATUS_MALICIOUS);
     }
     
     function GetIpSql()

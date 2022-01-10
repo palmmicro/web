@@ -118,12 +118,13 @@ function GetSinaQuotesUrl($strSinaSymbols)
 	return 'http://hq.sinajs.cn/list='.$strSinaSymbols;
 }	
 
+define('SINA_QUOTES_SEPARATOR', ',');
 function GetSinaQuotes($strSinaSymbols)
 {
 	$strFileName = DebugGetPathName('debugsina.txt');
-	if (strpos($strSinaSymbols, ',') && DebugIsAdmin())
+	if (DebugIsAdmin() && strpos($strSinaSymbols, SINA_QUOTES_SEPARATOR))
 	{
-		DebugString('Prefetch: '.$strSinaSymbols);
+		DebugVal('total prefetch - '.$strSinaSymbols, count(explode(SINA_QUOTES_SEPARATOR, $strSinaSymbols)));
 	}
 	else
 	{

@@ -121,13 +121,13 @@ function NavContinueNewLine()
 
 function NavBegin()
 {
-	echo '<nav>';
+//	echo '<nav>';
 	NavContinueNewLine();
 }
 
 function NavEnd()
 {
-	echo '</nav>';
+//	echo '</nav>';
 }
 
 function NavDirFirstLast($arTitles)

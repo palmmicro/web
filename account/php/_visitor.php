@@ -61,6 +61,7 @@ function _echoBlogVisitorParagraph($strIp, $strId, $visitor_sql, $page_sql, $iSt
         {
             $str .= ' '.GetDeleteLink('/php/_submitdelete.php?'.$strQuery, '访问记录', 'Visitor Record', $bChinese);
             $str .= ' '.GetInternalLink('/php/_submitoperation.php?'.$strQuery, '标注爬虫');
+            $str .= ' '.GetInternalLink('/php/_submitoperation.php?'.'malicious'.$strQuery, '标注恶意IP');
         }
     }
     else

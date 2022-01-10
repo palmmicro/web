@@ -88,9 +88,15 @@ class IpLookupAccount extends CommentAccount
 			$iVisit += $visitor_sql->CountBySrc($record['id']);
 			$str .= '<br />'.($bChinese ? '普通网页总访问次数' : 'Total normal page visit').': '.strval($iVisit);
 			$str .= '<br />'.($bChinese ? '总登录次数' : 'Total login').': '.$record['login'];
-			if ($record['status'] != IP_STATUS_NORMAL)
+			switch ($record['status'])
 			{
+			case IP_STATUS_CRAWLER:
 				$str .= '<br /><font color=green>'.($bChinese ? '已标注爬虫' : 'Marked crawler').'</font>';
+			    break;
+				
+			case IP_STATUS_MALICIOUS:
+				$str .= '<br /><font color=red>'.($bChinese ? '已标注恶意IP' : 'Marked malicious IP').'</font>';
+			    break;
 			}
 		}
 		return $str;

@@ -21,6 +21,10 @@ class _AdminOperationAccount extends Account
     	{
     		$this->SetCrawler($strIp);
     	}
+    	else if ($strIp = UrlGetQueryValue('malicious'.TABLE_IP))
+    	{
+    		$this->SetMalicious($strIp);
+    	}
     }
 }
 

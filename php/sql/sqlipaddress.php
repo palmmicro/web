@@ -3,6 +3,7 @@ require_once('sqltable.php');
 
 define('IP_STATUS_NORMAL', '0');
 define('IP_STATUS_CRAWLER', '1');
+define('IP_STATUS_MALICIOUS', '2');
 
 function GetIp($strId)
 {
