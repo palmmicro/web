@@ -190,42 +190,18 @@ function _getNetValueDelayTick()
 	return 16 * SECONDS_IN_HOUR + 55 * SECONDS_IN_MIN;
 }
 
-function _yahooNetValueHasFile($now_ymd, $strFileName, $strNetValueSymbol)
+function _yahooNetValueHasFile($now_ymd, $strFileName)
 {
 	clearstatcache(true, $strFileName);
     if (file_exists($strFileName))
     {
-        $str = file_get_contents($strFileName);
-        $arMatch = _preg_match_yahoo_stock($str);
-        if ($now_ymd->IsNewFile($strFileName, SECONDS_IN_HOUR))	return $arMatch;   		// update on every hour
-        
-        if ($arMatch)
-        {
-        	if ($strDate = _yahooStockMatchGetDate($arMatch, $strNetValueSymbol))
-        	{
-//        		DebugString('StringYMD in _yahooNetValueHasFile');
-        		$ymd = new StringYMD($strDate);
-        		if (($ymd->GetNextTradingDayTick() + _getNetValueDelayTick()) <= $now_ymd->GetTick())	return false;		// need update
-        	}
-        	else
-        	{
-        		return false;
-        	}
-        }
-        else
-        {
-        	return false;
-        }
-
-//        DebugString($strFileName.' - Use current file');
-        return $arMatch;
+        if ($now_ymd->IsNewFile($strFileName, SECONDS_IN_HOUR))	return true;   		// update on every hour
     }
     return false;
 }
 
-function _yahooGetNetValueSymbol($strSymbol)
+function _yahooGetNetValueSymbol($sym, $strSymbol)
 {
-    $sym = new StockSymbol($strSymbol);
     if ($sym->IsSinaFuture())
     {
     	return false;
@@ -246,41 +222,36 @@ function _yahooGetNetValueSymbol($strSymbol)
    	return GetYahooNetValueSymbol($strSymbol);
 }
 
-function YahooUpdateNetValue($strSymbol)
+function YahooUpdateNetValue($ref)
 {
-//	DebugString('YahooUpdateNetValue '.$strSymbol, true);
-	    		
-	if (($strNetValueSymbol = _yahooGetNetValueSymbol($strSymbol)) == false)	return;
-    if (($strStockId = SqlGetStockId($strSymbol)) == false)  					return;
-	$nav_sql = GetNavHistorySql();
+	$strSymbol = $ref->GetSymbol();
+	if (($strNetValueSymbol = _yahooGetNetValueSymbol($ref, $strSymbol)) === false)		return;
 	
     date_default_timezone_set(STOCK_TIME_ZONE_US);
+	$nav_sql = GetNavHistorySql();
+	$strStockId = $ref->GetStockId();
+	$strDate = $ref->GetDate();
+    if ($nav_sql->GetRecord($strStockId, $strDate))	return;	// already have today's data
+	
     $now_ymd = new NowYMD();
-    $strDate = $now_ymd->GetYMD();
-    if ($nav_sql->GetRecord($strStockId, $strDate))								return;
-    if ($now_ymd->IsTradingDay())
-    {
-    	if ($now_ymd->GetTick() < (strtotime($strDate) + _getNetValueDelayTick()))
-    	{
-//    		DebugString($strSymbol.': Market not closed');
-    		return;
-    	}
+   	if ($now_ymd->GetTick() < (strtotime($strDate) + _getNetValueDelayTick()))
+   	{
+// 		DebugString($strSymbol.': Market not closed');
+   		return;
     }
     
 	$strFileName = DebugGetYahooWebFileName($strSymbol);
-	$arMatch = _yahooNetValueHasFile($now_ymd, $strFileName, $strNetValueSymbol);
-    if ($arMatch == false)
-    {
-    	$sym = new StockSymbol($strNetValueSymbol);
-    	$strUrl = YahooStockGetUrl($sym->GetYahooSymbol());
-    	if ($str = url_get_contents($strUrl))
-    	{
-    		DebugString($strFileName.': Save new file');
-    		file_put_contents($strFileName, $str);
-    		$arMatch = _preg_match_yahoo_stock($str);
-    	}
-    	else	return;
-    }
+	if (_yahooNetValueHasFile($now_ymd, $strFileName))		return;
+	
+   	$sym = new StockSymbol($strNetValueSymbol);
+   	$strUrl = YahooStockGetUrl($sym->GetYahooSymbol());
+   	if ($str = url_get_contents($strUrl))
+   	{
+   		DebugString($strFileName.': Save new file');
+   		file_put_contents($strFileName, $str);
+   		$arMatch = _preg_match_yahoo_stock($str);
+   	}
+   	else	return;
 	
     if ($arMatch)
     {
@@ -470,16 +441,16 @@ function YahooUpdateFinancials($ref)
    		file_put_contents($strFileName, $str);
    		
     	$arAnnual = array();
-    	_updateYahooFinancialsData(&$arAnnual, $str, 'incomeStatementHistory', 'incomeStatementHistory');
-    	_updateYahooFinancialsData(&$arAnnual, $str, 'balanceSheetHistory', 'balanceSheetStatements');
-    	_updateYahooFinancialsData(&$arAnnual, $str, 'cashflowStatementHistory', 'cashflowStatements');
+    	_updateYahooFinancialsData($arAnnual, $str, 'incomeStatementHistory', 'incomeStatementHistory');
+    	_updateYahooFinancialsData($arAnnual, $str, 'balanceSheetHistory', 'balanceSheetStatements');
+    	_updateYahooFinancialsData($arAnnual, $str, 'cashflowStatementHistory', 'cashflowStatements');
 //    	DebugPrint($arAnnual, 'Annual');
 		if (count($arAnnual) == 0)	return false;
 
     	$arQuarter = array();
-    	_updateYahooFinancialsData(&$arQuarter, $str, 'incomeStatementHistoryQuarterly', 'incomeStatementHistory');
-    	_updateYahooFinancialsData(&$arQuarter, $str, 'balanceSheetHistoryQuarterly', 'balanceSheetStatements');
-    	_updateYahooFinancialsData(&$arQuarter, $str, 'cashflowStatementHistoryQuarterly', 'cashflowStatements');
+    	_updateYahooFinancialsData($arQuarter, $str, 'incomeStatementHistoryQuarterly', 'incomeStatementHistory');
+    	_updateYahooFinancialsData($arQuarter, $str, 'balanceSheetHistoryQuarterly', 'balanceSheetStatements');
+    	_updateYahooFinancialsData($arQuarter, $str, 'cashflowStatementHistoryQuarterly', 'cashflowStatements');
 //    	DebugPrint($arQuarter, 'Quarter');
     	return array($arAnnual, $arQuarter);
     }

@@ -12,8 +12,6 @@ class _AdrAccount extends GroupAccount
     var $us_ref;
     var $hk_ref;
     
-    var $arStockRef;
-    
     var $fRatioAdrH;
 
     var $cn_convert;
@@ -29,11 +27,10 @@ class _AdrAccount extends GroupAccount
         $this->cn_ref = $this->hk_ref->a_ref;
         $this->us_ref = $this->hk_ref->adr_ref;
 
-        $this->arStockRef = array($this->us_ref, $this->hk_ref, $this->cn_ref);
         $this->fRatioAdrH = $this->hk_ref->GetAdrRatio();
 
         GetChinaMoney($this->cn_ref);
-        $this->CreateGroup($this->arStockRef);
+        $this->CreateGroup(array($this->us_ref, $this->hk_ref, $this->cn_ref));
     }
     
     function OnConvert($cn_trans, $hk_trans, $us_trans)
@@ -154,8 +151,9 @@ function EchoAll()
 {
     global $acct;
     
-    _echoAdrPriceParagraph($acct->arStockRef);
-    EchoReferenceParagraph($acct->arStockRef);
+    $arRef = $acct->GetStockRefArray();
+    _echoAdrPriceParagraph($arRef);
+    EchoReferenceParagraph($arRef);
 	EchoAhTradingParagraph($acct->hk_ref);
     EchoHShareSmaParagraph($acct->cn_ref, $acct->hk_ref);
     EchoHShareSmaParagraph($acct->hk_ref, $acct->hk_ref);

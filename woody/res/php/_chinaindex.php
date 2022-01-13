@@ -21,17 +21,16 @@ class _ChinaIndexAccount extends GroupAccount
     	$strA50 = 'hf_CHA50CFD';
         $strCNH = 'fx_susdcnh';
         StockPrefetchExtendedData($strSymbol, $strUS, $strA50, $strCNH);
-        YahooUpdateNetValue($strUS);
 
         $this->ref = new EtfReference($strSymbol);
         $this->us_ref = new EtfReference($strUS);
         $this->a50_ref = new FutureReference($strA50);
         $this->cnh_ref = new ForexReference($strCNH);
 
-        $this->_updateNavByCnh($this->us_ref, $this->cnh_ref);
-        	
         GetChinaMoney($this->ref);
-        $this->CreateGroup(array($this->ref, $this->us_ref, $this->ref->GetPairNavRef()));
+        YahooUpdateNetValue($this->us_ref);
+        $this->_updateNavByCnh($this->us_ref, $this->cnh_ref);
+        $this->CreateGroup(array($this->ref, $this->ref->GetPairNavRef(), $this->us_ref));
     }
     
     function _updateNavByCnh($us_ref, $cnh_ref)
@@ -66,7 +65,7 @@ function EchoAll()
     global $acct;
     
 	EchoFundArrayEstParagraph(array($acct->ref, $acct->us_ref));
-    EchoReferenceParagraph(array($acct->ref->GetPairNavRef(), $acct->ref, $acct->us_ref, $acct->a50_ref, $acct->cnh_ref));
+    EchoReferenceParagraph(array_merge($acct->GetStockRefArray(), array($acct->a50_ref, $acct->cnh_ref)));
     EchoEtfListParagraph(array($acct->ref, $acct->us_ref));
     EchoEtfTradingParagraph($acct->ref);
     EchoEtfSmaParagraph($acct->ref);

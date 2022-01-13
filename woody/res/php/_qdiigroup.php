@@ -13,13 +13,21 @@ class QdiiGroupAccount extends FundGroupAccount
     
     function QdiiCreateGroup()
     {
-        SzseGetLofShares($this->ref->stock_ref);
+    	$ref = $this->GetRef();
+    	$stock_ref = $ref->GetStockRef();
+       	$est_ref = $ref->GetEstRef();
+    	
+        YahooUpdateNetValue($est_ref);
+        GetChinaMoney($ref);
+        SzseGetLofShares($stock_ref);
         
     	foreach ($this->arLeverage as $strSymbol)
     	{
-    		$this->ar_leverage_ref[] = new EtfReference($strSymbol);
+    		$leverage_ref = new EtfReference($strSymbol);
+    		$this->ar_leverage_ref[] = $leverage_ref;
+    		YahooUpdateNetValue($leverage_ref);
     	}
-        $this->CreateGroup(array_merge(array($this->ref->stock_ref, $this->ref->GetEstRef()), $this->ar_leverage_ref));
+        $this->CreateGroup(array_merge(array($stock_ref, $est_ref), $this->ar_leverage_ref));
     } 
     
     function GetLeverage()
@@ -41,26 +49,15 @@ class QdiiGroupAccount extends FundGroupAccount
         }
     }
 
-    function GetWebData($strEstSymbol)
+    function GetLeverageSymbols($strEstSymbol)
     {
-        YahooUpdateNetValue($strEstSymbol);
-
         $sql = new EtfPairSql(SqlGetStockId($strEstSymbol));
-/*        if ($strPairId = $sql->GetPairId())
-        {
-        	if ($strSymbol = SqlGetStockSymbol($strPairId))
-        	{
-        		YahooUpdateNetValue($strSymbol);
-        	}
-        }
-*/        
         $ar = $sql->GetAllStockId();
         foreach ($ar as $strStockId)
         {
         	if ($strSymbol = SqlGetStockSymbol($strStockId))
         	{
         		$this->arLeverage[] = $strSymbol;
-        		YahooUpdateNetValue($strSymbol);
         	}
         }
     }
@@ -149,6 +146,26 @@ class QdiiGroupAccount extends FundGroupAccount
 	    }
     }
 } 
+
+function TradingUserDefined($strVal = false)
+{
+	global $acct;
+    
+	$fund = $acct->GetRef();
+	$est_ref = $fund->GetEstRef();
+
+    if ($strVal)
+    {
+    	if ($strVal == '0')	return '';
+    	else
+    	{
+    		$strEst = $fund->GetEstValue($strVal);
+    		return $est_ref->GetPriceDisplay($strEst);
+    	}
+    }
+    
+   	return $est_ref->GetSymbol().GetTableColumnPrice();
+}
 
 function EchoMetaDescription()
 {

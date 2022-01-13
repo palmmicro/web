@@ -724,7 +724,7 @@ class StockSymbol
     
     function IsMarketTrading($ymd)
     {
-    	if ($ymd->IsTradingDay())
+    	if ($ymd->IsWeekDay())
     	{
     		$iHour = $ymd->GetHour(); 
     		if ($this->IsSymbolA())
@@ -742,7 +742,7 @@ class StockSymbol
     	}
     	else 
     	{
-    		return false;   // do not trade on holiday and weekend
+    		return false;   // do not trade on weekend
     	}
     	return true;
     }

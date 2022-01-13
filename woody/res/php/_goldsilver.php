@@ -8,9 +8,7 @@ class _GoldSilverAccount extends FundGroupAccount
     function Create() 
     {
         $strSymbol = $this->GetName();
-        
         StockPrefetchExtendedData($strSymbol);
-
         $this->ref = new GoldFundReference($strSymbol);
         
         GetChinaMoney($this->ref);
@@ -34,7 +32,7 @@ function EchoAll()
 	$fund = $acct->GetRef();
 	$cny_ref = $fund->GetCnyRef();
     EchoFundEstParagraph($fund);
-    EchoReferenceParagraph(array($fund->GetEstRef(), $fund->GetFutureRef(), $cny_ref, $fund->stock_ref));
+    EchoReferenceParagraph(array_merge($acct->GetStockRefArray(), array($fund->GetEstRef(), $fund->GetFutureRef(), $cny_ref)));
     EchoFundTradingParagraph($fund);    
     EchoFundHistoryParagraph($fund);
 

@@ -5,7 +5,13 @@ require_once('/php/stockhis.php');
 class GroupAccount extends StockAccount
 {
     var $group = false;	//  MyStockGroup
+    var $arStockRef = array();
 	
+    function GetStockRefArray()
+    {
+    	return $this->arStockRef;
+    }
+    
     function GetGroup()
     {
     	return $this->group;
@@ -22,8 +28,13 @@ class GroupAccount extends StockAccount
     
     function CreateGroup($arRef)
     {
-    	if (($strLoginId = $this->GetLoginId()) == false)		return;
+    	foreach ($arRef as $ref)
+        {
+           	$this->arStockRef[] = $ref;
+        }      
     	
+    	if (($strLoginId = $this->GetLoginId()) == false)		return;
+
         $sql = $this->GetGroupSql();
         $strGroupName = $this->GetName();
         if ($strGroupId = $sql->GetRecordId($strLoginId, $strGroupName))
@@ -31,7 +42,7 @@ class GroupAccount extends StockAccount
         	$arNew = array();
             foreach ($arRef as $ref)
             {
-               	$arNew[] = $ref->GetStockId();
+            	$arNew[] = $ref->GetStockId();
             }      
             SqlUpdateStockGroup($strGroupId, $arNew);
         }
@@ -43,7 +54,7 @@ class GroupAccount extends StockAccount
             	$item_sql = new StockGroupItemSql($strGroupId);
                 foreach ($arRef as $ref)
                 {
-                   	$item_sql->Insert($ref->GetStockId());
+                	$item_sql->Insert($ref->GetStockId());
                 }      
             }
         }
@@ -62,56 +73,6 @@ class GroupAccount extends StockAccount
         }
         return false;
 	}
-	
-    function GetFundPurchaseAmount()
-    {
-    	$strAmount = FUND_PURCHASE_AMOUNT;
-    	if ($group = $this->GetGroup()) 
-    	{
-    		SqlCreateFundPurchaseTable();
-    		$ref = $this->GetRef();
-    		if ($str = SqlGetFundPurchaseAmount($this->GetLoginId(), $ref->GetStockId()))
-    		{
-    			$strAmount = $str;
-    		}
-    	}
-    	return $strAmount;
-    }
-
-    function GetFundPurchaseLink($strAmount, $fQuantity)
-    {
-    	$strQuantity = strval(intval($fQuantity));
-    	if ($group = $this->GetGroup()) 
-    	{
-    		$ref = $this->GetRef();
-    		$strQuery = sprintf('groupid=%s&fundid=%s&amount=%s&netvalue=%.3f', $group->GetGroupId(), $ref->GetStockId(), $strAmount, floatval($ref->GetOfficialNav()));
-    		return GetOnClickLink(STOCK_PHP_PATH.'_submittransaction.php?'.$strQuery, '确认添加对冲申购记录?', $strQuantity);
-    	}
-    	return $strQuantity;
-    }
 }
-
-function GetArbitrageQuantityName($bEditLink = false)
-{
-    global $acct;
-    
-    $ref = $acct->GetRef();
-    if ($acct->GetGroup() && $bEditLink) 
-    {
-    	return GetStockOptionLink(STOCK_OPTION_AMOUNT, $ref->GetSymbol());
-    }
-    return STOCK_OPTION_AMOUNT;
-}
-
-function FundTradingUserDefined($strVal = false)
-{
-    if ($strVal)
-    {
-    	if ($strVal == '0')	return '';
-    	else					return _onTradingUserDefined($strVal);				
-    }
-   	return GetArbitrageQuantityName(true);
-}
-
 
 ?>

@@ -2,9 +2,9 @@
 require_once('_stock.php');
 require_once('_stockgroup.php');
 require_once('_kraneholdingscsv.php');
-require_once('/php/stockhis.php');
+//require_once('/php/stockhis.php');
 require_once('/php/ui/referenceparagraph.php');
-require_once('/php/ui/smaparagraph.php');
+//require_once('/php/ui/smaparagraph.php');
 require_once('/php/ui/tradingparagraph.php');
 require_once('/php/ui/fundhistoryparagraph.php');
 require_once('/php/ui/fundestparagraph.php');
@@ -17,29 +17,33 @@ class _QdiiMixAccount extends GroupAccount
     function Create() 
     {
         $strSymbol = $this->GetName();
-        $strUS = 'KWEB';
+        $strUS = ($strSymbol == 'SZ164906') ? 'KWEB' : false;
         $strCNH = 'fx_susdcnh';
         StockPrefetchExtendedData($strSymbol, $strUS, $strCNH);
 
         $this->ref = new HoldingsReference($strSymbol);
-        $this->us_ref = new HoldingsReference($strUS);
+        $arRef = array($this->ref);
+        
+        if ($strUS)
+        {
+        	$this->us_ref = new HoldingsReference($strUS);
+        	$arRef[] = $this->us_ref; 
+        }
+        
         $this->cnh_ref = new ForexReference($strCNH);
 
         GetChinaMoney($this->ref);
-        $this->CreateGroup(array($this->ref, $this->us_ref));
+        $this->CreateGroup($arRef);
 
         SzseGetLofShares($this->ref);
-        $this->_copyKraneHoldings();
+        if ($strUS)	$this->_copyKraneHoldings();
     }
     
     private function _copyKraneHoldings()
     {
-    	$ref = $this->ref;
-    	if ($ref->GetSymbol() != 'SZ164906')		return;
-    	
     	$nav_sql = GetNavHistorySql();
     	$date_sql = new HoldingsDateSql();
-    	$strStockId = $ref->GetStockId();
+    	$strStockId = $this->ref->GetStockId();
 		if ($date_sql->ReadDate($strStockId) == $nav_sql->GetDateNow($strStockId))		return;
     	
     	CopyHoldings($date_sql, $this->us_ref->GetStockId(), $strStockId);
@@ -49,15 +53,6 @@ class _QdiiMixAccount extends GroupAccount
     {
     	return $this->us_ref;
     }
-}
-
-function _onTradingUserDefined($strVal)
-{
-	global $acct;
-    
-    $strAmount = $acct->GetFundPurchaseAmount();
-	$fQuantity = floatval($strAmount) / floatval($strVal);
-	return $acct->GetFundPurchaseLink($strAmount, $fQuantity);
 }
 
 function EchoAll()
@@ -70,12 +65,11 @@ function EchoAll()
     $hkcny_ref = $ref->GetHkcnyRef();
     
 	EchoHoldingsEstParagraph($ref);
-    EchoReferenceParagraph(array($ref, $us_ref, $acct->cnh_ref, $uscny_ref, $hkcny_ref));
-    EchoFundTradingParagraph($ref, 'FundTradingUserDefined');
+	if ($us_ref)	EchoHoldingsEstParagraph($us_ref);
+//    EchoSmaParagraph($us_ref);
+    EchoReferenceParagraph(array_merge($acct->GetStockRefArray(), array($acct->cnh_ref, $uscny_ref, $hkcny_ref)));
+    EchoFundTradingParagraph($ref);
     EchoHoldingsHistoryParagraph($ref);
-    
-	EchoHoldingsEstParagraph($us_ref);
-    EchoSmaParagraph($us_ref);
 
     if ($group = $acct->EchoTransaction()) 
     {
@@ -87,8 +81,8 @@ function EchoAll()
 
 function GetQdiiMixLinks($sym)
 {
-	$str = GetKraneOfficialLink('KWEB');
-	if ($sym->IsShangHaiEtf())	$str .= ' '.GetShangHaiEtfLinks();
+	if ($sym->IsShangHaiEtf())	$str = GetShangHaiEtfLinks();
+	else							$str = '';
 	
 	$str .= '<br />&nbsp';
 	$str .= GetASharesSoftwareLinks();

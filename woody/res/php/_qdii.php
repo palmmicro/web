@@ -12,9 +12,7 @@ class _QdiiAccount extends QdiiGroupAccount
         $strSymbol = $this->GetName();
         
         $strOil = in_arrayOilQdii($strSymbol) ? 'hf_OIL' : false;
-        $strEst = QdiiGetEstSymbol($strSymbol);
-        
-        $this->GetWebData($strEst);
+        $this->GetLeverageSymbols(QdiiGetEstSymbol($strSymbol));
 
 //        $strUSD = 'DINIW';
         $strCNH = 'fx_susdcnh';
@@ -24,63 +22,23 @@ class _QdiiAccount extends QdiiGroupAccount
         if ($strOil)	$this->oil_ref = new FutureReference($strOil);
         $this->cnh_ref = new ForexReference($strCNH);
         
-        GetChinaMoney($this->ref);
 		$this->QdiiCreateGroup();
     }
 } 
-
-function _onSmaUserDefinedVal($strVal)
-{
-    global $acct;
-    
-    if (empty($strVal))	return '';
-	
-    $fund = $acct->GetRef();
-    $strAmount = $acct->GetFundPurchaseAmount();
-	$fQuantity = $fund->GetFundPosition() * floatval($strAmount) / floatval($fund->strOfficialCNY) / floatval($strVal);
-	return $acct->GetFundPurchaseLink($strAmount, $fQuantity);
-}
-
-function _onSmaUserDefined($strVal = false, $strNext = false)
-{
-    if ($strVal === false)
-    {
-    	return GetArbitrageQuantityName();
-    }
-
-    $str = _onSmaUserDefinedVal($strVal);
-    if ($strNext)
-    {
-       	$str .= '/'._onSmaUserDefinedVal($strNext);
-    }
-    return $str;
-}
-
-function _onTradingUserDefined($strVal)
-{
-	global $acct;
-    
-	$fund = $acct->GetRef();
-	$strEst = $fund->GetEstValue($strVal);
-	$est_ref = $fund->GetEstRef();
-	return _onSmaUserDefinedVal($strEst).'@'.$est_ref->GetPriceDisplay($strEst);
-}
 
 function EchoAll()
 {
    	global $acct;
     
    	$fund = $acct->GetRef();
-    $stock_ref = $fund->GetStockRef();
-	$est_ref = $fund->GetEstRef();
 	$cny_ref = $fund->GetCnyRef();
     
     EchoFundEstParagraph($fund);
-    EchoReferenceParagraph(array_merge(array($stock_ref, $est_ref, $fund->GetFutureRef(), $acct->oil_ref, $acct->cnh_ref, $cny_ref), $acct->ar_leverage_ref));
+    EchoReferenceParagraph(array_merge($acct->GetStockRefArray(), array($fund->GetFutureRef(), $acct->oil_ref, $acct->cnh_ref, $cny_ref)));
     $acct->EchoLeverageParagraph();
-    EchoFundTradingParagraph($fund, 'FundTradingUserDefined');    
-	EchoQdiiSmaParagraph($fund, '_onSmaUserDefined');
-    EchoEtfArraySmaParagraph($est_ref, $acct->GetLeverageRef());
+    EchoFundTradingParagraph($fund, 'TradingUserDefined');    
+	EchoQdiiSmaParagraph($fund);
+    EchoEtfArraySmaParagraph($fund->GetEstRef(), $acct->GetLeverageRef());
     EchoFundHistoryParagraph($fund);
       
     if ($group = $acct->EchoTransaction()) 

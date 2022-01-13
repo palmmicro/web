@@ -45,7 +45,7 @@ class _KraneHoldingsCsvFile extends CsvFile
     
     public function OnLineArray($arWord)
     {
-    	if (count($arWord) < 2)	return;
+    	if (count($arWord) < 7)	return;
     	
     	$strName = $arWord[1];
     	if (($strName == 'HONG KONG DOLLAR') || ($strName == 'Cash'))	return;
@@ -87,6 +87,7 @@ class _KraneHoldingsCsvFile extends CsvFile
 }
 
 // https://kraneshares.com/csv/06_22_2021_kweb_holdings.csv
+// https://kraneshares.com/csv/01_12_2022_kweb_holdings.csv
 function SaveKraneHoldingsCsvFile($strSymbol, $strDate)
 {
 	$arYMD = explode('-', $strDate);

@@ -132,6 +132,21 @@ class StockAccount extends TitleAccount
     
     	if ($this->IsGroupReadOnly($strGroupId) == false)
     	{
+    		if ($ref = $this->GetRef())
+    		{
+    			if ($ref->IsFundA())
+    			{
+    				SqlCreateFundPurchaseTable();
+    				$strStockId = $ref->GetStockId();
+    				$strSymbol = $ref->GetSymbol();
+    				if (($strAmount = SqlGetFundPurchaseAmount($this->GetLoginId(), $strStockId)) === false)		$strAmount = FUND_PURCHASE_AMOUNT;
+    				$strQuery = sprintf('groupid=%s&fundid=%s&amount=%s&netvalue=%.3f', $strGroupId, $strStockId, $strAmount, floatval($ref->GetOfficialNav()));
+    				$str = $strSymbol.' '.GetOnClickLink(STOCK_PHP_PATH.'_submittransaction.php?'.$strQuery, '确认添加对冲申购记录?', '申购');
+    				$str .= ' '.$strAmount;
+    				$str .= ' '.GetStockOptionLink(STOCK_OPTION_AMOUNT, $strSymbol);
+    				EchoParagraph($str);
+    			}
+    		}
     		StockEditTransactionForm($this, STOCK_TRANSACTION_NEW, $strGroupId);
     	}
     	

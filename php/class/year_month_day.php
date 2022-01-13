@@ -147,12 +147,6 @@ class YearMonthDay
         }
         return $iTick;
     }
-    
-    function IsTradingDay()
-    {
-    	if ($this->IsHoliday())	return false;
-    	return $this->IsWeekDay();
-    }
 }
 
 // ****************************** StringYMD *******************************************************

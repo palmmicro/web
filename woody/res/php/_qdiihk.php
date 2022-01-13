@@ -8,12 +8,10 @@ class _QdiiHkAccount extends QdiiGroupAccount
     {
         $strSymbol = $this->GetName();
 
-        $this->GetWebData(QdiiHkGetEstSymbol($strSymbol));
+        $this->GetLeverageSymbols(QdiiHkGetEstSymbol($strSymbol));
         StockPrefetchArrayExtendedData(array_merge($this->GetLeverage(), array($strSymbol)));
 
         $this->ref = new QdiiHkReference($strSymbol);
- 
-        GetChinaMoney($this->ref);
 		$this->QdiiCreateGroup();
     } 
 } 
@@ -25,9 +23,9 @@ function EchoAll()
    	$fund = $acct->GetRef();
 	$cny_ref = $fund->GetCnyRef();
     EchoFundEstParagraph($fund);
-    EchoReferenceParagraph(array($fund->GetStockRef(), $fund->GetEstRef(), $fund->GetFutureRef(), $cny_ref));
+    EchoReferenceParagraph(array_merge($acct->GetStockRefArray(), array($fund->GetFutureRef(), $cny_ref)));
     $acct->EchoLeverageParagraph();
-    EchoFundTradingParagraph($fund);    
+    EchoFundTradingParagraph($fund, 'TradingUserDefined');    
 	EchoQdiiSmaParagraph($fund);
     EchoFundHistoryParagraph($fund);
 

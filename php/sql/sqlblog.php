@@ -37,14 +37,14 @@ class PageCommentSql extends VisitorSql
     function InsertPageComment($strPageId, $strMemberId, $strComment, $strIp = false, $strDate = false, $strTime = false)
     {
     	$ar = $this->MakeVisitorInsertArray($strPageId, $strMemberId, $strDate, $strTime);
-    	$this->_addCommentArray(&$ar, $strComment, $strIp);
+    	$this->_addCommentArray($ar, $strComment, $strIp);
     	return $this->InsertArray($ar);
     }
 
     function UpdatePageComment($strId, $strComment)
     {
     	$ar = $this->MakeDateTimeArray();
-    	$this->_addCommentArray(&$ar, $strComment);
+    	$this->_addCommentArray($ar, $strComment);
 		return $this->UpdateById($ar, $strId);
 	}
 
