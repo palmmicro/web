@@ -18,7 +18,7 @@ class QdiiGroupAccount extends FundGroupAccount
        	$est_ref = $ref->GetEstRef();
     	
         YahooUpdateNetValue($est_ref);
-        GetChinaMoney($ref);
+        GetChinaMoney($stock_ref);
         SzseGetLofShares($stock_ref);
         
     	foreach ($this->arLeverage as $strSymbol)

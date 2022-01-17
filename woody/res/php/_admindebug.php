@@ -44,7 +44,7 @@ function _echoAdminDebug()
     	while (!feof($file))
     	{
     		$strLine = fgets($file);
-    		if (strpos($strLine, 'Resolving timed out after'))
+    		if (strpos($strLine, 'timed out after'))
     		{
     			_addDebugLine($arCurl, $strLine);
         	}

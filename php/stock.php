@@ -516,13 +516,25 @@ function StockGetHShareReference($sym)
 
 function StockIsNewFile($strFileName, $iInterval = SECONDS_IN_MIN)
 {
-	clearstatcache(true, $strFileName);
-    if (file_exists($strFileName))
-    {
-    	$now_ymd = new NowYMD();
-        if ($now_ymd->IsNewFile($strFileName, $iInterval))	return true;
-    }
-    return false;
+   	$now_ymd = new NowYMD();
+	return $now_ymd->NeedFile($strFileName, $iInterval) ? false : true;
+}
+
+function StockHoldingsSaveCsv($strSymbol, $strUrl)
+{
+	$strFileName = DebugGetHoldingsCsv($strSymbol);
+	if (StockIsNewFile($strFileName))	return false; 	// updates on every minute
+	
+	$str = url_get_contents($strUrl);
+	if ($str == false)
+	{
+		DebugString($strSymbol.' SaveHoldingsCsvFile没读到数据');
+		return false;
+	}
+		
+	file_put_contents($strFileName, $str);
+	DebugString('Saved '.$strUrl.' to '.$strFileName);
+	return $strFileName;
 }
 
 function GetArbitrageQuantity($strSymbol, $fQuantity)
@@ -542,5 +554,16 @@ function GetArbitrageQuantity($strSymbol, $fQuantity)
    	}
 	return strval(intval($fQuantity / $iArbitrage + 0.5));
 }
+
+function UseSameDayNav($sym)
+{
+	$strSymbol = $sym->GetSymbol();
+	if (in_arrayQdii($strSymbol) || in_arrayQdiiMix($strSymbol))
+	{
+		return false;
+	}
+	return true;
+}
+
 	
 ?>

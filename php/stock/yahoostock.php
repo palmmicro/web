@@ -185,21 +185,6 @@ function YahooGetWebData($ref)
    	return $str;
 }
 
-function _getNetValueDelayTick()
-{	// get net value after 16:55
-	return 16 * SECONDS_IN_HOUR + 55 * SECONDS_IN_MIN;
-}
-
-function _yahooNetValueHasFile($now_ymd, $strFileName)
-{
-	clearstatcache(true, $strFileName);
-    if (file_exists($strFileName))
-    {
-        if ($now_ymd->IsNewFile($strFileName, SECONDS_IN_HOUR))	return true;   		// update on every hour
-    }
-    return false;
-}
-
 function _yahooGetNetValueSymbol($sym, $strSymbol)
 {
     if ($sym->IsSinaFuture())
@@ -217,9 +202,22 @@ function _yahooGetNetValueSymbol($sym, $strSymbol)
    	}
    	else
    	{
-   		if ($strSymbol == 'USO' || $strSymbol == 'GSG' || $strSymbol == 'QQQ' || $strSymbol == 'KWEB')		return false;
+   		switch ($strSymbol)
+   		{
+   		case 'GSG':
+   		case 'KWEB':
+   		case 'QQQ':
+   		case 'SCHH':
+   		case 'USO':
+   			return false;
+   		}
    	}
    	return GetYahooNetValueSymbol($strSymbol);
+}
+
+function _getNetValueDelayTick()
+{	// get net value after 16:55
+	return 16 * SECONDS_IN_HOUR + 55 * SECONDS_IN_MIN;
 }
 
 function YahooUpdateNetValue($ref)
@@ -241,7 +239,7 @@ function YahooUpdateNetValue($ref)
     }
     
 	$strFileName = DebugGetYahooWebFileName($strSymbol);
-	if (_yahooNetValueHasFile($now_ymd, $strFileName))		return;
+	if ($now_ymd->NeedFile($strFileName) === false)		return;
 	
    	$sym = new StockSymbol($strNetValueSymbol);
    	$strUrl = YahooStockGetUrl($sym->GetYahooSymbol());

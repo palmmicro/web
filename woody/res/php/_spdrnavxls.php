@@ -82,14 +82,8 @@ function GetNavXlsStr($strSymbol, $bAutoCheck = false)
 		
 		if ($bAutoCheck)	
 		{
-			if ($bIshares)	return '目前不对ISHARES的ETF做自动更新';
-
-			clearstatcache();
-			if (file_exists($strPathName))
-			{
-				$ymd = new NowYMD();
-				if ($ymd->IsNewFile($strPathName, SECONDS_IN_HOUR))       return '避免频繁自动更新文件';   // update on every hour
-			}
+			if ($bIshares)										return '目前不对ISHARES的ETF做自动更新';
+			if (StockIsNewFile($strFileName, SECONDS_IN_HOUR))	return '避免频繁自动更新文件';   // update on every hour
 		}
 		
 		if ($str = url_get_contents($strUrl))

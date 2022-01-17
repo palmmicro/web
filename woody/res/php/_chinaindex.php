@@ -28,6 +28,7 @@ class _ChinaIndexAccount extends GroupAccount
         $this->cnh_ref = new ForexReference($strCNH);
 
         GetChinaMoney($this->ref);
+        SzseGetLofShares($this->ref);
         YahooUpdateNetValue($this->us_ref);
         $this->_updateNavByCnh($this->us_ref, $this->cnh_ref);
         $this->CreateGroup(array($this->ref, $this->ref->GetPairNavRef(), $this->us_ref));

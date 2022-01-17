@@ -117,10 +117,62 @@ function UrlCleanString($str)
 	return $str;
 }
 
+// accessToken=eyJhbGciOiJIUzI1NiIsImtpZCI6ImRlZmF1bHQiLCJ0eXAiOiJKV1QifQ.eyJhdWQiOiJhY2Nlc3NfcmVzb3VyY2UiLCJleHAiOjE2NDAyMzcwOTQsImciOiJ3WVJUOGs5NmQzcnhydHd4IiwiaWF0IjoxNjQwMjM2Nzk0LCJ1c2VySWQiOi0xNDYwMzcwMTA2fQ.OcQAZ-1xdFtBu6XOZmh5OwXbHw1jFITdbdw8shqlRIE
+// continueFlag=24dc682e3f5892a79193842f97156bc8
+// from=singlemessage
+// from=groupmessage&isappinstalled=0
+// tdsourcetag=s_pcqq_aiomsg
+// xueqiu_status_id=74414796&xueqiu_status_source=rptl
+// xueqiu_status_id=64054510&xueqiu_status_from_source=sstl&xueqiu_status_source=statusdetail&xueqiu_private_from_source=0105
+// xueqiu_status_id=140805627&xueqiu_status_from_source=sstl&xueqiu_status_source=statusdetail&xueqiu_private_from_source=0105&key_name=0106
 function UrlGetQueryString()
 { 
-	if (isset($_SERVER['QUERY_STRING']))	    return UrlCleanString($_SERVER['QUERY_STRING']);
+	if (isset($_SERVER['QUERY_STRING']))
+	{
+		$str = '';
+		$ar = explode('&', UrlCleanString($_SERVER['QUERY_STRING']));
+		foreach ($ar as $strQuery)
+		{
+			if ((strpos($strQuery, 'accessToken=') === false) 
+				&& (strpos($strQuery, 'continueFlag=') === false)
+				&& (strpos($strQuery, 'from=') === false)
+				&& (strpos($strQuery, 'isappinstalled=') === false)
+				&& (strpos($strQuery, 'key_name=') === false)
+				&& (strpos($strQuery, 'tdsourcetag=') === false)
+				&& (strpos($strQuery, 'xueqiu_private_from_source=') === false)
+				&& (strpos($strQuery, 'xueqiu_status_from_source=') === false)
+				&& (strpos($strQuery, 'xueqiu_status_id=') === false)
+				&& (strpos($strQuery, 'xueqiu_status_source=') === false)
+				)
+			{
+				$str .= $strQuery.'&';
+			}
+		}
+		if ($str != '')	return rtrim($str, '&');
+	}
 	return false;
+}
+
+function UrlAddQuery($strAdd)
+{
+    if ($strQuery = UrlGetQueryString())
+    {
+    	return $strQuery.'&'.$strAdd;
+    }
+    return $strAdd;
+}
+
+function UrlPassQuery()
+{
+	if ($strQuery = UrlGetQueryString())
+	{
+	    $strPassQuery = '?'.$strQuery;
+	}
+	else
+	{
+	    $strPassQuery = '';
+	}
+	return $strPassQuery;
 }
 
 function UrlGetQueryValue($strQueryItem)
@@ -151,28 +203,6 @@ function UrlGetQueryInt($strQueryItem, $iDefault = 0)
         return intval($strNum);
     }
     return $iDefault;
-}
-
-function UrlPassQuery()
-{
-	if ($strQuery = UrlGetQueryString())
-	{
-	    $strPassQuery = '?'.$strQuery;
-	}
-	else
-	{
-	    $strPassQuery = '';
-	}
-	return $strPassQuery;
-}
-
-function UrlAddQuery($strAdd)
-{
-    if ($strQuery = UrlGetQueryString())
-    {
-    	return $strQuery.'&'.$strAdd;
-    }
-    return $strAdd;
 }
 
 function UrlGetCur()

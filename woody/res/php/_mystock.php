@@ -170,6 +170,7 @@ function _echoMyStockData($acct, $ref)
    	if ($holdings_ref)
    	{
 		EchoHoldingsEstParagraph($holdings_ref);
+		EchoEtfHistoryParagraph($holdings_ref);
    	}
    	else if ($etf_ref)
    	{

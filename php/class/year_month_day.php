@@ -36,11 +36,21 @@ class YearMonthDay
     
     function IsNewFile($strFileName, $iInterval = SECONDS_IN_MIN)
     {
-    	if ($this->IsWeekend())
+/*    	if ($this->IsWeekend())
     	{
     		if ($iInterval <= SECONDS_IN_MIN)		$iInterval = SECONDS_IN_HOUR;
-    	}
+    	}*/
    		return ($this->GetTick() < (filemtime($strFileName) + $iInterval)) ? true : false;
+    }
+    
+    function NeedFile($strFileName, $iInterval = SECONDS_IN_MIN)
+    {
+    	clearstatcache(true, $strFileName);
+    	if (file_exists($strFileName))
+    	{
+    		if ($this->IsNewFile($strFileName, $iInterval))	return false;
+    	}
+    	return true;
     }
     
     function IsFuture() 

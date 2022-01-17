@@ -92,7 +92,7 @@ function SaveKraneHoldingsCsvFile($strSymbol, $strDate)
 {
 	$arYMD = explode('-', $strDate);
 	$strUrl = GetKraneUrl().'csv/'.$arYMD[1].'_'.$arYMD[2].'_'.$arYMD[0].'_'.strtolower($strSymbol).'_holdings.csv';
-	return SaveHoldingsCsvFile($strSymbol, $strUrl);	
+	return StockHoldingsSaveCsv($strSymbol, $strUrl);	
 }
 
 function CopyHoldings($date_sql, $strStockId, $strDstId)

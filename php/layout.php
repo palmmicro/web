@@ -29,7 +29,7 @@ function EchoInsideHead()
 	$_SESSION['mobile'] = LayoutIsMobilePhone();
 	$strViewPort = $_SESSION['mobile'] ? '<meta name="viewport" content="width=device-width, initial-scale=1.0"/>' : '';
 //	$strViewPort = $_SESSION['mobile'] ? '<meta name="viewport" content="width=640, initial-scale=1.0"/>' : '';
-	$strCanonical = str_replace('www.', '', UrlGetServer()).UrlGetUri();
+	$strCanonical = str_replace('www.', '', UrlGetServer()).UrlGetUri().UrlPassQuery();
 	$strFavicon = '/image/favicon.ico';
 	
     echo <<<END

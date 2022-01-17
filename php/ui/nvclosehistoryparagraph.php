@@ -36,16 +36,7 @@ function _echoNvCloseItem($csv, $his_sql, $shares_sql, $strDate, $strNetValue, $
 
 function _echoNvCloseData($nav_sql, $ref, $strStockId, $csv, $iStart, $iNum, $bAdmin)
 {
-	$strSymbol = $ref->GetSymbol();
-	if (in_arrayQdii($strSymbol))
-	{
-		$bSameDayNetValue = false;
-	}
-	else
-	{
-		$bSameDayNetValue = true;
-	}
-	
+	$bSameDayNav = UseSameDayNav($ref);
     $his_sql = GetStockHistorySql();
 	$shares_sql = new SharesHistorySql();
     if ($result = $nav_sql->GetAll($strStockId, $iStart, $iNum)) 
@@ -56,7 +47,7 @@ function _echoNvCloseData($nav_sql, $ref, $strStockId, $csv, $iStart, $iNum, $bA
         	if (empty($strNetValue) == false)
         	{
         		$strDate = $record['date'];
-        		if ($bSameDayNetValue == false)
+        		if ($bSameDayNav == false)
         		{
         			$strDate = GetNextTradingDayYMD($strDate);
         		}

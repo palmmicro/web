@@ -2,6 +2,7 @@
 require_once('_stock.php');
 require_once('_stockgroup.php');
 require_once('_kraneholdingscsv.php');
+require_once('_sseholdings.php');
 //require_once('/php/stockhis.php');
 require_once('/php/ui/referenceparagraph.php');
 //require_once('/php/ui/smaparagraph.php');
@@ -33,20 +34,33 @@ class _QdiiMixAccount extends GroupAccount
         $this->cnh_ref = new ForexReference($strCNH);
 
         GetChinaMoney($this->ref);
-        $this->CreateGroup($arRef);
-
         SzseGetLofShares($this->ref);
-        if ($strUS)	$this->_copyKraneHoldings();
+        $this->_updateStockHoldings();
+        $this->CreateGroup($arRef);
     }
     
-    private function _copyKraneHoldings()
+    private function _updateStockHoldings()
     {
-    	$nav_sql = GetNavHistorySql();
+    	$ref = $this->ref;
+    	$strStockId = $ref->GetStockId();
     	$date_sql = new HoldingsDateSql();
-    	$strStockId = $this->ref->GetStockId();
-		if ($date_sql->ReadDate($strStockId) == $nav_sql->GetDateNow($strStockId))		return;
-    	
-    	CopyHoldings($date_sql, $this->us_ref->GetStockId(), $strStockId);
+    	$nav_sql = GetNavHistorySql();
+    	$strNavDate = $nav_sql->GetDateNow($strStockId); 
+		if ($strNavDate == $date_sql->ReadDate($strStockId))								return;	// Already up to date
+		
+		$us_ref = $this->us_ref;
+		if ($us_ref)		CopyHoldings($date_sql, $us_ref->GetStockId(), $strStockId);
+    	else if ($ref->IsShangHaiEtf())
+    	{
+    		$fund_est_sql = $ref->GetFundEstSql();
+    		$strEstDate = $fund_est_sql->GetDateNow($strStockId);
+    		if ($strEstDate == $strNavDate)													return;	// 
+    		if ($strEstDate == $ref->GetDate())											return;	// A day too early
+    		if ($ref->GetHourMinute() < 930)													return;	// Data not updated until 9:30
+
+    		$strSymbol = $ref->GetSymbol();
+    		ReadSseHoldingsFile($strSymbol, $strStockId);
+    	}
     }
     
     function GetUsRef()
@@ -69,7 +83,7 @@ function EchoAll()
 //    EchoSmaParagraph($us_ref);
     EchoReferenceParagraph(array_merge($acct->GetStockRefArray(), array($acct->cnh_ref, $uscny_ref, $hkcny_ref)));
     EchoFundTradingParagraph($ref);
-    EchoHoldingsHistoryParagraph($ref);
+    EchoEtfHistoryParagraph($ref);
 
     if ($group = $acct->EchoTransaction()) 
     {

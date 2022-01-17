@@ -69,7 +69,7 @@ class _SseHoldingsFile extends CsvFile
 function ReadSseHoldingsFile($strSymbol, $strStockId)
 {
 	$strUrl = 'http://query.sse.com.cn/etfDownload/downloadETF2Bulletin.do?etfType=087';
-	$strPathName = SaveHoldingsCsvFile($strSymbol, $strUrl);
+	$strPathName = StockHoldingsSaveCsv($strSymbol, $strUrl);
  	if ($strPathName === false)		return;
 
 	$csv = new _SseHoldingsFile($strPathName, $strStockId);
