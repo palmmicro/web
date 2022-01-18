@@ -38,15 +38,20 @@ function _echoAdminDebug()
     $arIp = array();
     $arUrl = array();
     $arCurl = array();
+    $arMysql = array();
     
     if ($file = fopen(DebugGetFile(), 'r'))
     {
     	while (!feof($file))
     	{
     		$strLine = fgets($file);
-    		if (strpos($strLine, 'timed out after'))
+    		if (strpos($strLine, 'timed out'))
     		{
     			_addDebugLine($arCurl, $strLine);
+        	}
+    		else if (strpos($strLine, 'MySQL server on'))
+    		{
+    			_addDebugLine($arMysql, $strLine);
         	}
     		else if (strpos($strLine, 'Unknown URI'))
     		{
@@ -60,9 +65,10 @@ function _echoAdminDebug()
         fclose($file);
     }
 
-    _echoDebugParagraph($arCurl, 'curl错误信息');
+    _echoDebugParagraph($arCurl, 'curl错误');
+    _echoDebugParagraph($arMysql, 'Mysql异常');
     _echoDebugParagraph($arUrl, '弱智爬虫');
-    _echoDebugParagraph($arIp, 'IP地址异常');
+    _echoDebugParagraph($arIp, 'IP异常');
 }
 
 function EchoAll()

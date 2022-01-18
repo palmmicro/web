@@ -14,15 +14,15 @@ function NavigateBlogGroup($bChinese)
     $iLevel = 2;
 	$ar = GetBlogMenuArray($bChinese);
     
-	NavBegin();
+	MenuBegin();
 	WoodyMenuItem($iLevel, 'index', $bChinese);
-	NavContinueNewLine();
-	NavWriteItemLink($iLevel - 1, BLOG_GROUP, UrlGetPhp($bChinese), $ar[BLOG_GROUP]);
-	NavContinueNewLine();
-    NavDirFirstLast($arBlogs);
-	NavContinueNewLine();
-    NavSwitchLanguage($bChinese);
-    NavEnd();
+	MenuContinueNewLine();
+	MenuWriteItemLink($iLevel - 1, BLOG_GROUP, UrlGetPhp($bChinese), $ar[BLOG_GROUP]);
+	MenuContinueNewLine();
+    MenuDirFirstLast($arBlogs);
+	MenuContinueNewLine();
+    MenuSwitchLanguage($bChinese);
+    MenuEnd();
 }
 
 function _LayoutTopLeft($bChinese = true, $bAdsense = true)

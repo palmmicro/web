@@ -20,13 +20,13 @@ function _getMenuArray($bChinese)
 
 function AccountMenu($bChinese)
 {
-	NavBegin();
+	MenuBegin();
 	NavMenu1('account', $bChinese);
-	NavContinueNewLine();
-    NavMenuSet(_getMenuArray($bChinese));
-	NavContinueNewLine();
-    NavSwitchLanguage($bChinese);
-    NavEnd();
+	MenuContinueNewLine();
+    MenuSet(_getMenuArray($bChinese));
+	MenuContinueNewLine();
+    MenuSwitchLanguage($bChinese);
+    MenuEnd();
 }
 
 function _LayoutTopLeft($bChinese = true, $bAdsense = true)

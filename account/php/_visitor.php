@@ -72,11 +72,11 @@ function _echoBlogVisitorParagraph($strIp, $strId, $visitor_sql, $page_sql, $iSt
     	$ar[] = new TableColumnIP();
     }
     
-    $strNavLink = GetNavLink($strQuery, $iTotal, $iStart, $iNum, $bChinese);
+    $strMenuLink = GetMenuLink($strQuery, $iTotal, $iStart, $iNum, $bChinese);
 
-	EchoTableParagraphBegin($ar, TABLE_VISITOR, $strNavLink.$str);
+	EchoTableParagraphBegin($ar, TABLE_VISITOR, $strMenuLink.$str);
     _echoBlogVisitorData($strId, $visitor_sql, $page_sql, $iStart, $iNum, $bChinese);
-    EchoTableParagraphEnd($strNavLink);
+    EchoTableParagraphEnd($strMenuLink);
 }
 
 function EchoAll($bChinese = true)

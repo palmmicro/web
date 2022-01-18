@@ -6,22 +6,22 @@ function CateyesMenu($arLoops, $bChinese)
 {
     $iLevel = 1;
     
-	NavBegin();
+	MenuBegin();
 	WoodyMenuItem($iLevel + 1, 'res', $bChinese);
-	NavContinueNewLine();
+	MenuContinueNewLine();
     if ($bChinese)
     {
-       	NavWriteItemLink($iLevel, 'cateyes', URL_CNPHP, '猫眼');
+       	MenuWriteItemLink($iLevel, 'cateyes', URL_CNPHP, '猫眼');
     }
     else
     {
-       	NavWriteItemLink($iLevel, 'cateyes', URL_PHP, 'Cat Eyes');
+       	MenuWriteItemLink($iLevel, 'cateyes', URL_PHP, 'Cat Eyes');
     }
-	NavContinueNewLine();
-    NavDirLoop($arLoops);
-	NavContinueNewLine();
-    NavSwitchLanguage($bChinese);
-    NavEnd();
+	MenuContinueNewLine();
+    MenuDirLoop($arLoops);
+	MenuContinueNewLine();
+    MenuSwitchLanguage($bChinese);
+    MenuEnd();
 }
 
 function NavLoopCateyes($bChinese)

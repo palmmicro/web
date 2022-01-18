@@ -1,28 +1,20 @@
 <?php
 require_once('stocktable.php');
 
-function _echoFundHistoryTableItem($csv, $strNetValue, $arHistory, $arFundEst, $ref, $est_ref, $his_sql)
+function _echoFundHistoryTableItem($csv, $strNav, $arHistory, $arFundEst, $ref, $est_ref, $his_sql)
 {
 	$strClose = $arHistory['close'];
 	$strDate = $arHistory['date'];
-    if ($csv)
-    {
-    	$csv->Write($strDate, $strNetValue, $ref->GetPercentageString($strNetValue, $strClose));
-    }
+    if ($csv)		$csv->Write($strDate, $strNav, $ref->GetPercentageString($strNav, $strClose));
 
-   	$ar = array($strDate);
-   	$ar[] = $ref->GetPriceDisplay($strClose, $strNetValue);
-   	$ar[] = $strNetValue;
-	$ar[] = $ref->GetPercentageDisplay($strNetValue, $strClose);
-
+   	$ar = array($strDate, $ref->GetPriceDisplay($strClose, $strNav), $strNav, $ref->GetPercentageDisplay($strNav, $strClose));
     if ($arFundEst)
     {
-    	$strEstValue = $arFundEst['close'];
-    	if (!empty($strEstValue))
+    	if ($strEstValue = $arFundEst['close'])
     	{
-    		$ar[] = $ref->GetPriceDisplay($strEstValue, $strNetValue);
+    		$ar[] = $ref->GetPriceDisplay($strEstValue, $strNav);
     		$ar[] = GetHM($arFundEst['time']);
-    		$ar[] = $ref->GetPercentageDisplay($strNetValue, $strEstValue);
+    		$ar[] = $ref->GetPercentageDisplay($strNav, $strEstValue);
 		
     		if ($est_ref)
     		{
@@ -30,10 +22,7 @@ function _echoFundHistoryTableItem($csv, $strNetValue, $arHistory, $arFundEst, $
     			$strEstStockId = $est_ref->GetStockId();
     			$strEstClose = $his_sql->GetClose($strEstStockId, $strEstDate);
     			$strEstClosePrev = $his_sql->GetClosePrev($strEstStockId, $strEstDate);
-    			if ($strEstClose && $strEstClosePrev)
-    			{
-    				$ar[] = $est_ref->GetPriceDisplay($strEstClose, $strEstClosePrev);
-    			}
+    			if ($strEstClose && $strEstClosePrev)		$ar[] = $est_ref->GetPriceDisplay($strEstClose, $strEstClosePrev);
     		}
     	}
     }
@@ -50,27 +39,21 @@ function _echoHistoryTableData($his_sql, $fund_est_sql, $csv, $ref, $strStockId,
         while ($arHistory = mysql_fetch_assoc($result)) 
         {
        		$strDate = $arHistory['date'];
-       		if ($fund_est_sql)
-       		{
-       			if ($bSameDayNav)
-       			{
-       				$arFundEst = $fund_est_sql->GetRecord($strStockId, $strDate);
-       			}
-       			else
-       			{
-       				$arFundEst = $fund_est_sql->GetRecordPrev($strStockId, $strDate);
-       				$strDate = $arFundEst['date'];
-       			}
-       		}
-       		else	
-       		{
-       			$arFundEst = false;
-       		}
-       		
-			$strNetValue = $nav_sql->GetClose($strStockId, $strDate);
-        	if (empty($strNetValue) == false)
+   			if ($bSameDayNav)		$strNav = $nav_sql->GetClose($strStockId, $strDate);
+   			else
+   			{
+   				if ($arFundNav = $nav_sql->GetRecordPrev($strStockId, $strDate))
+   				{
+   					$strNav = rtrim0($arFundNav['close']);
+   					$strDate = $arFundNav['date'];
+   				}
+   				else	$strNav = false;
+   			}
+   			
+        	if ($strNav)
         	{
-        		_echoFundHistoryTableItem($csv, $strNetValue, $arHistory, $arFundEst, $ref, $est_ref, $his_sql);
+   				$arFundEst = $fund_est_sql ? $fund_est_sql->GetRecord($strStockId, $strDate) : false;
+        		_echoFundHistoryTableItem($csv, $strNav, $arHistory, $arFundEst, $ref, $est_ref, $his_sql);
         	}
         }
         @mysql_free_result($result);
@@ -92,11 +75,10 @@ function _echoFundHistoryParagraph($fund_est_sql, $ref, $est_ref, $csv = false, 
     if (IsTableCommonDisplay($iStart, $iNum))
     {
         $str .= ' '.GetFundHistoryLink($strSymbol);
-        $strNavLink = '';
+        $strMenuLink = '';
     }
-    else	$strNavLink = StockGetNavLink($strSymbol, $his_sql->Count($strStockId), $iStart, $iNum);
+    else	$strMenuLink = StockGetMenuLink($strSymbol, $his_sql->Count($strStockId), $iStart, $iNum);
 
-	$str .= ' '.$strNavLink;
 	$ar = array(new TableColumnDate(), $close_col, $nav_col, $premium_col);
 	if ($fund_est_sql->Count($strStockId) > 0)
 	{
@@ -107,9 +89,9 @@ function _echoFundHistoryParagraph($fund_est_sql, $ref, $est_ref, $csv = false, 
 	}
 	else	$fund_est_sql = false;
 	
-	EchoTableParagraphBegin($ar, $strSymbol.FUND_HISTORY_PAGE, $str);
+	EchoTableParagraphBegin($ar, $strSymbol.FUND_HISTORY_PAGE, $str.' '.$strMenuLink);
 	_echoHistoryTableData($his_sql, $fund_est_sql, $csv, $ref, $strStockId, $est_ref, $iStart, $iNum);
-    EchoTableParagraphEnd($strNavLink);
+    EchoTableParagraphEnd($strMenuLink);
 }
 
 function EchoFundHistoryParagraph($fund, $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
@@ -120,7 +102,7 @@ function EchoFundHistoryParagraph($fund, $csv = false, $iStart = 0, $iNum = TABL
 function EchoEtfHistoryParagraph($ref, $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
 {
 	$est_ref = method_exists($ref, 'GetPairRef') ? $ref->GetPairRef() : false;
-    _echoFundHistoryParagraph($ref->GetFundEstSql(), $ref, $est_ref, $csv, $iStart, $iNum);
+	_echoFundHistoryParagraph($ref->GetFundEstSql(), $ref, $est_ref, $csv, $iStart, $iNum);
 }
 
 ?>

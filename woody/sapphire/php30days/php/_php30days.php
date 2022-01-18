@@ -7,22 +7,22 @@ function NavLoop30Days($bChinese)
     $ar30Days = array('blue', 'hat', 'crown', 'yellow', 'leopard'); 
     $iLevel = 1;
     
-	NavBegin();
+	MenuBegin();
 	WoodyMenuItem($iLevel + 1, 'image', $bChinese);
-	NavContinueNewLine();
+	MenuContinueNewLine();
     if ($bChinese)
     {
-       	NavWriteItemLink($iLevel, 'photo30days', URL_CNPHP, '满月艺术照');
+       	MenuWriteItemLink($iLevel, 'photo30days', URL_CNPHP, '满月艺术照');
     }
     else
     {
-       	NavWriteItemLink($iLevel, 'photo30days', URL_PHP, '30 Days');
+       	MenuWriteItemLink($iLevel, 'photo30days', URL_PHP, '30 Days');
     }
-	NavContinueNewLine();
-    NavDirLoop($ar30Days);
-	NavContinueNewLine();
-    NavSwitchLanguage($bChinese);
-    NavEnd();
+	MenuContinueNewLine();
+    MenuDirLoop($ar30Days);
+	MenuContinueNewLine();
+    MenuSwitchLanguage($bChinese);
+    MenuEnd();
 }
 
 function _LayoutTopLeft($bChinese = true, $bAdsense = true)

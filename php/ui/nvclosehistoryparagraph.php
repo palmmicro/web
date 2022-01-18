@@ -1,29 +1,17 @@
 <?php
 require_once('stocktable.php');
 
-function _echoNvCloseItem($csv, $his_sql, $shares_sql, $strDate, $strNetValue, $ref, $strStockId, $strFundId)
+function _echoNvCloseItem($csv, $his_sql, $shares_sql, $strDate, $strClose, $arFundNav, $ref, $strStockId, $bAdmin)
 {
-	$strClose = $his_sql->GetClose($strStockId, $strDate);
-	$strClosePrev = $his_sql->GetClosePrev($strStockId, $strDate);
-	if (($strClose === false) || ($strClosePrev === false))	return;
+	if (($strClosePrev = $his_sql->GetClosePrev($strStockId, $strDate)) === false)		return;
 	
-   	if ($csv)	$csv->Write($strDate, $ref->GetPercentageString($strClosePrev, $strClose), $ref->GetPercentageString($strNetValue, $strClose), $strNetValue);
+	$strNav = rtrim0($arFundNav['close']);
+   	if ($csv)		$csv->Write($strDate, $ref->GetPercentageString($strClosePrev, $strClose), $ref->GetPercentageString($strNav, $strClose), $strNav);
 
-   	$ar = array($strDate);
-   	$ar[] = $ref->GetPriceDisplay($strClose, $strNetValue);
-   	
-    if ($strFundId)
-    {
-    	$ar[] = GetOnClickLink('/php/_submitdelete.php?'.TABLE_NETVALUE_HISTORY.'='.$strFundId, '确认删除'.$strDate.'净值记录'.$strNetValue.'?', $strNetValue);
-    }
-    else
-    {
-    	$ar[] = $strNetValue;
-    }
-    
-	$ar[] = $ref->GetPercentageDisplay($strNetValue, $strClose);
+   	$ar = array($strDate, $ref->GetPriceDisplay($strClose, $strNav));
+   	$ar[] = $bAdmin ? GetOnClickLink('/php/_submitdelete.php?'.TABLE_NETVALUE_HISTORY.'='.$arFundNav['id'], '确认删除净值记录'.$strNav.'?', $strNav) : $strNav;
+	$ar[] = $ref->GetPercentageDisplay($strNav, $strClose);
    	$ar[] = $ref->GetPercentageDisplay($strClosePrev, $strClose);
-    
     if ($strShares = $shares_sql->GetClose($strStockId, $strDate))
     {
     	$ar[] = rtrim0($strShares);
@@ -34,25 +22,18 @@ function _echoNvCloseItem($csv, $his_sql, $shares_sql, $strDate, $strNetValue, $
     EchoTableColumn($ar);
 }
 
-function _echoNvCloseData($nav_sql, $ref, $strStockId, $csv, $iStart, $iNum, $bAdmin)
+function _echoNvCloseData($his_sql, $nav_sql, $ref, $strStockId, $csv, $iStart, $iNum, $bAdmin)
 {
 	$bSameDayNav = UseSameDayNav($ref);
-    $his_sql = GetStockHistorySql();
 	$shares_sql = new SharesHistorySql();
-    if ($result = $nav_sql->GetAll($strStockId, $iStart, $iNum)) 
+    if ($result = $his_sql->GetAll($strStockId, $iStart, $iNum)) 
     {
-        while ($record = mysql_fetch_assoc($result)) 
+        while ($arHistory = mysql_fetch_assoc($result)) 
         {
-        	$strNetValue = rtrim0($record['close']);
-        	if (empty($strNetValue) == false)
-        	{
-        		$strDate = $record['date'];
-        		if ($bSameDayNav == false)
-        		{
-        			$strDate = GetNextTradingDayYMD($strDate);
-        		}
-   				_echoNvCloseItem($csv, $his_sql, $shares_sql, $strDate, $strNetValue, $ref, $strStockId, ($bAdmin ? $record['id'] : false));
-        	}
+       		$strDate = $arHistory['date'];
+   			if ($bSameDayNav)		$arFundNav = $nav_sql->GetRecord($strStockId, $strDate);
+   			else					$arFundNav = $nav_sql->GetRecordPrev($strStockId, $strDate);
+        	if ($arFundNav)	_echoNvCloseItem($csv, $his_sql, $shares_sql, $strDate, rtrim0($arHistory['close']), $arFundNav, $ref, $strStockId, $bAdmin);
         }
         @mysql_free_result($result);
     }
@@ -66,10 +47,10 @@ function EchoNvCloseHistoryParagraph($ref, $str = false, $csv = false, $iStart =
 	if ($iTotal == 0)		return;
 
     $strSymbol = $ref->GetSymbol();
-   	$strNavLink = IsTableCommonDisplay($iStart, $iNum) ? '' : StockGetNavLink($strSymbol, $iTotal, $iStart, $iNum);
+    $his_sql = GetStockHistorySql();
+   	$strMenuLink = IsTableCommonDisplay($iStart, $iNum) ? '' : StockGetMenuLink($strSymbol, $his_sql->Count($strStockId), $iStart, $iNum);
    	if ($str == false)	$str = GetNvCloseHistoryLink($strSymbol);
 
-	$str .= ' '.$strNavLink;
 	EchoTableParagraphBegin(array(new TableColumnDate(),
 								   new TableColumnClose(),
 								   new TableColumnNetValue(),
@@ -77,10 +58,10 @@ function EchoNvCloseHistoryParagraph($ref, $str = false, $csv = false, $iStart =
 								   new TableColumnChange('x'),
 								   new TableColumnShare(),
 								   new TableColumnTradingPercentage()
-								   ), $strSymbol.NVCLOSE_HISTORY_PAGE, $str);
+								   ), $strSymbol.NVCLOSE_HISTORY_PAGE, $str.' '.$strMenuLink);
 
-    _echoNvCloseData($nav_sql, $ref, $strStockId, $csv, $iStart, $iNum, $bAdmin);
-    EchoTableParagraphEnd($strNavLink);
+    _echoNvCloseData($his_sql, $nav_sql, $ref, $strStockId, $csv, $iStart, $iNum, $bAdmin);
+    EchoTableParagraphEnd($strMenuLink);
 }
 
 ?>

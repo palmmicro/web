@@ -6,13 +6,13 @@ function ResMenu($arLoop, $bChinese)
 {
     $iLevel = 1;
     
-	NavBegin();
+	MenuBegin();
 	WoodyMenuItem($iLevel, 'res', $bChinese);
-	NavContinueNewLine();
-    NavDirLoop($arLoop);
-	NavContinueNewLine();
-    NavSwitchLanguage($bChinese);
-    NavEnd();
+	MenuContinueNewLine();
+    MenuDirLoop($arLoop);
+	MenuContinueNewLine();
+    MenuSwitchLanguage($bChinese);
+    MenuEnd();
 }
 
 function NavLoopCompany($bChinese)

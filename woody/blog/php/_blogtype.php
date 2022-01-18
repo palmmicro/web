@@ -6,15 +6,15 @@ function _navBlogType($bChinese)
 {
     $iLevel = 1;
     
-	NavBegin();
+	MenuBegin();
 	WoodyMenuItem($iLevel, 'index', $bChinese);
-	NavContinueNewLine();
+	MenuContinueNewLine();
 	
-    NavMenuSet(GetBlogMenuArray($bChinese));
-	NavContinueNewLine();
+    MenuSet(GetBlogMenuArray($bChinese));
+	MenuContinueNewLine();
 	
-    NavSwitchLanguage($bChinese);
-    NavEnd();
+    MenuSwitchLanguage($bChinese);
+    MenuEnd();
 }
 
 function _LayoutTopLeft($bChinese = true, $bAdsense = true)

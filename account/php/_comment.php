@@ -35,11 +35,11 @@ function EchoAll($bChinese = true)
     $iTotal = $acct->CountComments($strWhere);
     $iStart = $acct->GetStart();
     $iNum = $acct->GetNum();
-    $strNavLink = GetNavLink($strQuery, $iTotal, $iStart, $iNum, $bChinese);
+    $strMenuLink = GetMenuLink($strQuery, $iTotal, $iStart, $iNum, $bChinese);
     
-    EchoParagraph($strLink.' '.$strNavLink);
+    EchoParagraph($strLink.' '.$strMenuLink);
     $acct->EchoComments($strWhere, $iStart, $iNum, $bChinese);
-    EchoParagraph($strNavLink);
+    EchoParagraph($strMenuLink);
 }
 
 function EchoMetaDescription($bChinese = true)

@@ -111,7 +111,7 @@ class StockAccount extends TitleAccount
     		$str .= $this->_getPersonalLinks($strLoginId);
     		if ($this->IsAdmin())
     		{
-    			$str .= '<br />'.GetPhpLink(STOCK_PATH.'admindebug', false, '超级调试信息');
+    			$str .= '<br />'.GetPhpLink(STOCK_PATH.'admindebug', false, '调试信息');
     			$str .= ' '.GetFileLink(DebugGetFile());
     			$str .= ' '.GetFileLink('/php/test.php');
     		}

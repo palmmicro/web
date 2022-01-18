@@ -82,8 +82,8 @@ function _echoThanousParadoxParagraph($strSymbol, $iStart, $iNum)
 
  	$strStockId = $ref->GetStockId();
 	$nav_sql = GetNavHistorySql();
-   	$strNavLink = StockGetNavLink($strSymbol, $nav_sql->Count($strStockId), $iStart, $iNum);
-	$str .= ' '.$strNavLink;
+   	$strMenuLink = StockGetMenuLink($strSymbol, $nav_sql->Count($strStockId), $iStart, $iNum);
+	$str .= ' '.$strMenuLink;
 
 	EchoTableParagraphBegin(array(new TableColumnDate(),
 								   new TableColumnClose(),
@@ -96,7 +96,7 @@ function _echoThanousParadoxParagraph($strSymbol, $iStart, $iNum)
    	$csv = new PageCsvFile();
 	_echoThanousParadoxData($csv, $nav_sql, $ref->stock_ref, $strStockId, $est_ref, $iStart, $iNum);
     $csv->Close();
-    EchoTableParagraphEnd($strNavLink);
+    EchoTableParagraphEnd($strMenuLink);
 
 	if ($csv->HasFile())
 	{

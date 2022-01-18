@@ -6,13 +6,13 @@ function NavigateSapphirePhoto($bChinese)
 {
     $arSapphirePhotos = array('photo2014', 'photo30days', 'photo2015', 'photo2016'); 
     
-	NavBegin();
+	MenuBegin();
 	WoodyMenuItem(1, 'image', $bChinese);
-	NavContinueNewLine();
-    NavDirFirstLast($arSapphirePhotos);
-	NavContinueNewLine();
-    NavSwitchLanguage($bChinese);
-    NavEnd();
+	MenuContinueNewLine();
+    MenuDirFirstLast($arSapphirePhotos);
+	MenuContinueNewLine();
+    MenuSwitchLanguage($bChinese);
+    MenuEnd();
 }
 
 function _LayoutLinksSapphirePhoto($bChinese = true)

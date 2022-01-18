@@ -32,13 +32,13 @@ function _echoCalibrationHistoryParagraph($ref, $iStart, $iNum)
 	}
 
 	$calibration_sql = new CalibrationSql();
-   	$strNavLink = StockGetNavLink($strSymbol, $calibration_sql->Count($strStockId), $iStart, $iNum);
+   	$strMenuLink = StockGetMenuLink($strSymbol, $calibration_sql->Count($strStockId), $iStart, $iNum);
     
 	EchoTableParagraphBegin(array(new TableColumnDate(),
 								   $nav_col,
 								   new TableColumnCalibration(),
 								   new TableColumnTime()
-								   ), $strSymbol.TABLE_CALIBRATION_HISTORY, $strNavLink);
+								   ), $strSymbol.TABLE_CALIBRATION_HISTORY, $strMenuLink);
 
     if ($result = $calibration_sql->GetAll($strStockId, $iStart, $iNum)) 
     {
@@ -48,7 +48,7 @@ function _echoCalibrationHistoryParagraph($ref, $iStart, $iNum)
         }
         @mysql_free_result($result);
     }
-    EchoTableParagraphEnd($strNavLink);
+    EchoTableParagraphEnd($strMenuLink);
 }
 
 function EchoAll()

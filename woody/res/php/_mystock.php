@@ -167,23 +167,17 @@ function _echoMyStockData($acct, $ref)
     }
     
    	EchoReferenceParagraph(array($ref));
-   	if ($holdings_ref)
-   	{
-		EchoHoldingsEstParagraph($holdings_ref);
-		EchoEtfHistoryParagraph($holdings_ref);
-   	}
+   	if ($holdings_ref)	EchoHoldingsEstParagraph($holdings_ref);
    	else if ($etf_ref)
    	{
 		EchoFundArrayEstParagraph(array($etf_ref));
    		EchoEtfListParagraph(array($etf_ref));
    		EchoEtfTradingParagraph($etf_ref);
-   		EchoEtfHistoryParagraph($etf_ref);
    	}
    	else if ($ref->IsFundA())
    	{
    		if ($fund->GetOfficialNav())		EchoFundEstParagraph($fund);
    		EchoFundTradingParagraph($fund);
-   		EchoFundHistoryParagraph($fund);
    	}
    	else
    	{
@@ -199,8 +193,6 @@ function _echoMyStockData($acct, $ref)
    		}
    	}
 
-	EchoNvCloseHistoryParagraph($ref);
-    
    	if ($etf_ref)   			EchoEtfSmaParagraph($etf_ref);
    	else if (_hasSmaDisplay($ref))
    	{
@@ -208,9 +200,12 @@ function _echoMyStockData($acct, $ref)
    		else	        		EchoSmaParagraph($ref);
    	}
 
+   	if ($ref->IsFundA())						EchoFundHistoryParagraph($fund);
+   	else if ($holdings_ref || $etf_ref)	EchoEtfHistoryParagraph($ref);
+   	
+	EchoNvCloseHistoryParagraph($ref);
    	EchoStockHistoryParagraph($ref);
-
-   	if (($holdings_ref == false) && ($etf_ref == false))	_echoBenfordParagraph($ref);
+   	if (($holdings_ref == false) && ($etf_ref == false))		_echoBenfordParagraph($ref);
     
    	_echoMyStockTransactions($acct, $ref);
     if ($acct->IsAdmin())

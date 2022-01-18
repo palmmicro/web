@@ -32,17 +32,17 @@ function _echoStockTableData($sql, $iStart, $iNum, $bAdmin)
 function EchoStockParagraph($iStart, $iNum, $bAdmin)
 {
 	$sql = GetStockSql();
-    $strNavLink = GetNavLink(false, $sql->CountData(), $iStart, $iNum);
+    $strMenuLink = GetMenuLink(false, $sql->CountData(), $iStart, $iNum);
     
 	$ar = array(new TableColumnSymbol(), new TableColumnName());
 	if ($bAdmin)
 	{
 		$ar[] = new TableColumn('', 270);
 	}
-	EchoTableParagraphBegin($ar, TABLE_STOCK, $strNavLink);
+	EchoTableParagraphBegin($ar, TABLE_STOCK, $strMenuLink);
 
 	_echoStockTableData($sql, $iStart, $iNum, $bAdmin);
-    EchoTableParagraphEnd($strNavLink);
+    EchoTableParagraphEnd($strMenuLink);
 }
 
 ?>

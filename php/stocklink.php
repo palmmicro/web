@@ -98,16 +98,16 @@ function GetNetValueHistoryLink($strSymbol, $strExtraQuery = false, $strExtraDis
     return GetStockSymbolLink(TABLE_NETVALUE_HISTORY, $strSymbol, $strDisplay, $strExtraQuery);
 }
 
-function GetFundLinks($strSymbol = FUND_DEMO_SYMBOL)
-{
-	return GetFundHistoryLink($strSymbol).' '.GetNetValueHistoryLink($strSymbol).' '.GetStockHistoryLink($strSymbol).' '.GetFundShareLink($strSymbol);
-}
-
 define('NVCLOSE_HISTORY_DISPLAY', '净值和收盘价历史比较');
 define('NVCLOSE_HISTORY_PAGE', 'nvclosehistory');
 function GetNvCloseHistoryLink($strSymbol)
 {
 	return GetStockSymbolLink(NVCLOSE_HISTORY_PAGE, $strSymbol, NVCLOSE_HISTORY_DISPLAY);
+}
+
+function GetFundLinks($strSymbol = FUND_DEMO_SYMBOL)
+{
+	return GetFundHistoryLink($strSymbol).' '.GetNetValueHistoryLink($strSymbol).' '.GetStockHistoryLink($strSymbol).' '.GetFundShareLink($strSymbol).' '.GetNvCloseHistoryLink($strSymbol);
 }
 
 define('AH_HISTORY_DISPLAY', 'AH历史价格比较');
@@ -296,9 +296,14 @@ function GetStockLink($strSymbol)
     return false;
 }
 
-function StockGetNavLink($strSymbol, $iTotal, $iStart, $iNum)
+function StockGetMenuLink($strSymbol, $iTotal, $iStart, $iNum)
 {
-    return GetNavLink('symbol='.$strSymbol, $iTotal, $iStart, $iNum);
+    return GetMenuLink('symbol='.$strSymbol, $iTotal, $iStart, $iNum);
+}
+
+function StockGetAllLink($strSymbol)
+{
+    return CopyPhpLink('symbol='.$strSymbol.'&start=0&num=0', '全部记录');
 }
 
 ?>

@@ -1,6 +1,6 @@
 <?php
 // Provide enhanced function replacement of ../palmmicro.js
-require_once('nav.php');
+require_once('menu.php');
 
 //<TR><TD><A class=A2 HREF="/ar1688/index.html">AR1688</A></TD></TR>
 //<TR><TD><A class=A2 HREF="/ar1688/indexcn.html">AR1688</A></TD></TR>

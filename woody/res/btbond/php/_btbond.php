@@ -7,22 +7,22 @@ function NavLoopBtbond($bChinese)
     $arBtbonds = array('coinwifi'); 
     $iLevel = 1;
     
-	NavBegin();
+	MenuBegin();
 	WoodyMenuItem($iLevel + 1, 'res', $bChinese);
-	NavContinueNewLine();
+	MenuContinueNewLine();
     if ($bChinese)
     {
-       	NavWriteItemLink($iLevel, 'btbond', URL_CNPHP, '藍邦科技');
+       	MenuWriteItemLink($iLevel, 'btbond', URL_CNPHP, '藍邦科技');
     }
     else
     {
-       	NavWriteItemLink($iLevel, 'btbond', URL_PHP, 'Btbond');
+       	MenuWriteItemLink($iLevel, 'btbond', URL_PHP, 'Btbond');
     }
-	NavContinueNewLine();
-    NavDirLoop($arBtbonds);
-	NavContinueNewLine();
-    NavSwitchLanguage($bChinese);
-    NavEnd();
+	MenuContinueNewLine();
+    MenuDirLoop($arBtbonds);
+	MenuContinueNewLine();
+    MenuSwitchLanguage($bChinese);
+    MenuEnd();
 }
 
 function _LayoutTopLeft($bChinese = true, $bAdsense = true)

@@ -111,19 +111,19 @@ function EchoTransactionParagraph($acct, $strGroupId, $ref = false, $bAll = true
     	if ($ref)
     	{
             $iTotal = $sql->CountStockTransaction($ref->GetStockId());
-           	$strNavLink = GetNavLink('groupid='.$strGroupId.'&symbol='.$ref->GetSymbol(), $iTotal, $iStart, $iNum);
+           	$strMenuLink = GetMenuLink('groupid='.$strGroupId.'&symbol='.$ref->GetSymbol(), $iTotal, $iStart, $iNum);
     	}
     	else
     	{
             $iTotal = $sql->CountAllStockTransaction();
-           	$strNavLink = GetNavLink('groupid='.$strGroupId, $iTotal, $iStart, $iNum);
+           	$strMenuLink = GetMenuLink('groupid='.$strGroupId, $iTotal, $iStart, $iNum);
         }
-        $str = $strNavLink;
+        $str = $strMenuLink;
     }
     else
     {
     	$str = StockGetAllTransactionLink($strGroupId, $ref);
-        $strNavLink = '';
+        $strMenuLink = '';
     }
     
     $arColumn = GetTransactionTableColumn();
@@ -142,7 +142,7 @@ function EchoTransactionParagraph($acct, $strGroupId, $ref = false, $bAll = true
 END;
 
     _echoTransactionTableData($sql, $ref, $iStart, $iNum, $acct->IsGroupReadOnly($strGroupId), $acct->IsAdmin());
-    EchoTableParagraphEnd($strNavLink);
+    EchoTableParagraphEnd($strMenuLink);
 }
 
 ?>

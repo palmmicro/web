@@ -40,7 +40,7 @@ function EchoStockHistoryParagraph($ref, $str = false, $csv = false, $iStart = 0
     $strStockId = $ref->GetStockId();
 	if ($str == false)	$str = GetStockHistoryLink($strSymbol);
 	$his_sql = GetStockHistorySql();
-    $strNavLink = IsTableCommonDisplay($iStart, $iNum) ? '' : StockGetNavLink($strSymbol, $his_sql->Count($strStockId), $iStart, $iNum);
+    $strMenuLink = IsTableCommonDisplay($iStart, $iNum) ? '' : StockGetMenuLink($strSymbol, $his_sql->Count($strStockId), $iStart, $iNum);
     
 	EchoTableParagraphBegin(array(new TableColumnDate(),
 								   new TableColumn(STOCK_DISP_OPEN),
@@ -49,10 +49,10 @@ function EchoStockHistoryParagraph($ref, $str = false, $csv = false, $iStart = 0
 								   new TableColumnClose(),
 								   new TableColumnQuantity(),
 								   new TableColumnClose('复权')
-								   ), $strSymbol.TABLE_STOCK_HISTORY, $str.'<br />'.$strNavLink);
+								   ), $strSymbol.TABLE_STOCK_HISTORY, $str.'<br />'.$strMenuLink);
    
     _echoStockHistoryData($ref, $csv, $his_sql, $strStockId, $iStart, $iNum);
-    EchoTableParagraphEnd($strNavLink);
+    EchoTableParagraphEnd($strMenuLink);
 }
 
 ?>

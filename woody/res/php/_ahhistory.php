@@ -44,8 +44,8 @@ function _echoAhHistoryParagraph($hshare_ref, $iStart, $iNum, $bAdmin)
  	
 	$his_sql = GetStockHistorySql();
     $strStockId = $hshare_ref->a_ref->GetStockId();
-    $strNavLink = StockGetNavLink($strSymbol, $his_sql->Count($strStockId), $iStart, $iNum);
-    $str = $strNavLink; 
+    $strMenuLink = StockGetMenuLink($strSymbol, $his_sql->Count($strStockId), $iStart, $iNum);
+    $str = $strMenuLink; 
     if ($bAdmin)
     {
         $str .= ' '.GetUpdateStockHistoryLink($strSymbol);
@@ -65,7 +65,7 @@ function _echoAhHistoryParagraph($hshare_ref, $iStart, $iNum, $bAdmin)
     _echoAhHistoryData($csv, $hshare_ref, $his_sql, $strStockId, $hshare_ref->GetStockId(), $iStart, $iNum);
     $csv->Close();
     
-    $str = $strNavLink;
+    $str = $strMenuLink;
     if ($csv->HasFile())
     {
     	$jpg = new DateImageFile();

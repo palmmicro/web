@@ -1,6 +1,6 @@
 <?php
 // Provide enhanced function replacement of ../woody.js
-require_once('/php/nav.php');
+require_once('/php/menu.php');
 
 function GetBlogMenuArray($bChinese)
 {
@@ -15,7 +15,7 @@ function HtmlMenuItem($arName, $iLevel, $strItem, $bChinese)
     {
         if ($strItem == $strKey)
         {
-          	NavWriteItemLink($iLevel, $strItem, UrlGetHtml($bChinese), $strDisplay);
+          	MenuWriteItemLink($iLevel, $strItem, UrlGetHtml($bChinese), $strDisplay);
         	break;
         }
     }

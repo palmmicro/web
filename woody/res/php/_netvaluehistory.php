@@ -94,8 +94,8 @@ function _echoNetValueHistory($ref, $iStart, $iNum)
     
 	$strStockId = $ref->GetStockId();
 	$nav_sql = GetNavHistorySql();
-   	$strNavLink = StockGetNavLink($strSymbol, $nav_sql->Count($strStockId), $iStart, $iNum);
-	$str .= '<br />'.$strNavLink;
+   	$strMenuLink = StockGetMenuLink($strSymbol, $nav_sql->Count($strStockId), $iStart, $iNum);
+	$str .= '<br />'.$strMenuLink;
 
 	$change_col = new TableColumnChange();
 	$ar = array(new TableColumnDate(), new TableColumnNetValue(), $change_col);
@@ -114,7 +114,7 @@ function _echoNetValueHistory($ref, $iStart, $iNum)
 	_echoNetValueData($csv, $nav_sql, $strStockId, $ref, $est_ref, $cny_ref, $iStart, $iNum);
     $csv->Close();
     
-    $str = $strNavLink;
+    $str = $strMenuLink;
     if ($csv->HasFile())
     {
     	$jpg = new DateImageFile();

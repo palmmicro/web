@@ -41,7 +41,7 @@ function _echoFundShareParagraph($ref, $iStart, $iNum)
 	$strStockId = $ref->GetStockId();
 	$strSymbol = $ref->GetSymbol();
  	$str = GetFundLinks($strSymbol);
-    $strNavLink = StockGetNavLink($strSymbol, $shares_sql->Count($strStockId), $iStart, $iNum);
+    $strMenuLink = StockGetMenuLink($strSymbol, $shares_sql->Count($strStockId), $iStart, $iNum);
  	
 	EchoTableParagraphBegin(array(new TableColumnDate(),
 				   				   new TableColumnShare(),
@@ -49,7 +49,7 @@ function _echoFundShareParagraph($ref, $iStart, $iNum)
 				   				   new TableColumnQuantity(),
 								   new TableColumnTradingPercentage(),
 				   				   new TableColumnPercentage('新增换手', 120)
-				   				   ), FUND_SHARE_PAGE, $str.' '.$strNavLink);
+				   				   ), FUND_SHARE_PAGE, $str.' '.$strMenuLink);
 	
 	$his_sql = GetStockHistorySql();
     if ($result = $shares_sql->GetAll($strStockId, $iStart, $iNum)) 
@@ -61,7 +61,7 @@ function _echoFundShareParagraph($ref, $iStart, $iNum)
         @mysql_free_result($result);
     }
 	
-    EchoTableParagraphEnd($strNavLink);
+    EchoTableParagraphEnd($strMenuLink);
 }
 
 function EchoAll()

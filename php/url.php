@@ -2,14 +2,14 @@
 define('URL_PHP', '.php');
 define('URL_CNPHP', 'cn.php');
 
-define('NAV_DIR_FIRST', 'First');
-define('NAV_DIR_PREV', 'Prev');
-define('NAV_DIR_NEXT', 'Next');
-define('NAV_DIR_LAST', 'Last');
+define('MENU_DIR_FIRST', 'First');
+define('MENU_DIR_PREV', 'Prev');
+define('MENU_DIR_NEXT', 'Next');
+define('MENU_DIR_LAST', 'Last');
 
-function UrlGetNavDisplayArray()
+function UrlGetMenuArray()
 {
-    return array(NAV_DIR_FIRST => '第一页', NAV_DIR_PREV => '上一页', NAV_DIR_NEXT => '下一页', NAV_DIR_LAST => '最后一页');
+    return array(MENU_DIR_FIRST => '第一页', MENU_DIR_PREV => '上一页', MENU_DIR_NEXT => '下一页', MENU_DIR_LAST => '最后一页');
 }
 
 function filter_valid_ip($strIp)

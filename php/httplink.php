@@ -114,7 +114,7 @@ function CopySortLink($strQuery = 'hshare')
     return CopyPhpLink(UrlAddQuery('sort='.$strQuery), GetSortString($strQuery));
 }
 
-function _getNavLinkQuery($strId, $iStart, $iNum)
+function _getMenuLinkQuery($strId, $iStart, $iNum)
 {
     $str = '';
     if ($strId)
@@ -125,51 +125,34 @@ function _getNavLinkQuery($strId, $iStart, $iNum)
     return $str;
 }
 
-function _getNavDirLink($strDir, $strQueryId, $iStart, $iNum, $bChinese)
+function _getMenuDirLink($strDir, $strQueryId, $iStart, $iNum, $bChinese)
 {
-    $arDir = UrlGetNavDisplayArray();
-	$strQuery = _getNavLinkQuery($strQueryId, $iStart, $iNum);
+    $arDir = UrlGetMenuArray();
+	$strQuery = _getMenuLinkQuery($strQueryId, $iStart, $iNum);
 	return CopyPhpLink($strQuery, $arDir[$strDir], $strDir, $bChinese).' ';
 }
 
-function GetNavLink($strQueryId, $iTotal, $iStart, $iNum, $bChinese = true)
+function GetMenuLink($strQueryId, $iTotal, $iStart, $iNum, $bChinese = true)
 {
-	$strTotal = strval($iTotal);
-    $str = ($bChinese ? '总数' : 'Total').': ';
-    if ($iTotal <= 0 || ($iStart == 0 && $iNum == 0))		return $str.$strTotal;
+    $str = ($bChinese ? '总数' : 'Total').': '.strval($iTotal);
+    if ($iTotal <= 0 || ($iStart == 0 && $iNum == 0))		return $str;
 
-    if ($iTotal > $iNum && $iTotal < 2000)
-    {
-    	$strQuery = _getNavLinkQuery($strQueryId, 0, $iTotal);
-    	$str .= CopyPhpLink($strQuery, $strTotal, false, $bChinese).' ';
-    }
-    else
-    {
-    	$str .= $strTotal.' ';
-    }
-    
     $iLast = $iStart + $iNum;
     if ($iLast > $iTotal)   $iLast = $iTotal;
-    $str .= ($bChinese ? '当前显示' : 'Current').': '.strval($iStart + 1).'-'.strval($iLast).' ';
+    $str .= ' '.($bChinese ? '当前显示' : 'Current').': '.strval($iStart + 1).'-'.strval($iLast).' ';
     
     if ($iStart > 0)
     {   // Prev
         $iPrevStart = ($iStart > $iNum) ? ($iStart - $iNum) : 0;
-        if ($iPrevStart != 0)
-        {   // First
-            $str .= _getNavDirLink(NAV_DIR_FIRST, $strQueryId, 0, $iNum, $bChinese);
-        }
-        $str .= _getNavDirLink(NAV_DIR_PREV, $strQueryId, $iPrevStart, $iNum, $bChinese);
+        if ($iPrevStart != 0)	$str .= _getMenuDirLink(MENU_DIR_FIRST, $strQueryId, 0, $iNum, $bChinese);	// First
+        $str .= _getMenuDirLink(MENU_DIR_PREV, $strQueryId, $iPrevStart, $iNum, $bChinese);
     }
     
     $iNextStart = $iStart + $iNum;
     if ($iNextStart < $iTotal)
     {   // Next
-        $str .= _getNavDirLink(NAV_DIR_NEXT, $strQueryId, $iNextStart, $iNum, $bChinese);
-        if ($iNextStart + $iNum < $iTotal)
-        {   // Last
-            $str .= _getNavDirLink(NAV_DIR_LAST, $strQueryId, $iTotal - $iNum, $iNum, $bChinese);
-        }
+        $str .= _getMenuDirLink(MENU_DIR_NEXT, $strQueryId, $iNextStart, $iNum, $bChinese);
+        if ($iNextStart + $iNum < $iTotal)		$str .= _getMenuDirLink(MENU_DIR_LAST, $strQueryId, $iTotal - $iNum, $iNum, $bChinese);		// Last
     }
     return $str;
 }

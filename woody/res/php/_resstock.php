@@ -8,9 +8,9 @@ function NavStockSoftware($bChinese)
     $iLevel = 1;
     $ar = GetStockMenuArray();
     
-	NavBegin();
+	MenuBegin();
 	WoodyMenuItem($iLevel, 'res');
-	NavContinueNewLine();
+	MenuContinueNewLine();
 
 	$strTitle = UrlGetTitle();
     $arFunction = array(ADR_PAGE => 'AdrGetSymbolArray',
@@ -28,16 +28,16 @@ function NavStockSoftware($bChinese)
     	
     	if (in_array($strTitle, $arTitle))
     	{
-	   		NavWriteItemLink($iLevel - 1, $strKey, UrlGetPhp(), $ar[$strKey]);
-	   		NavContinueNewLine();
-    		NavDirLoop($arTitle);
-    		NavEnd();
+	   		MenuWriteItemLink($iLevel - 1, $strKey, UrlGetPhp(), $ar[$strKey]);
+	   		MenuContinueNewLine();
+    		MenuDirLoop($arTitle);
+    		MenuEnd();
     		return;
     	}
     }
     
-    NavMenuSet($ar);
-    NavEnd();
+    MenuSet($ar);
+    MenuEnd();
 }
 
 function _LayoutTopLeft($bChinese = true, $bAdsense = true)
