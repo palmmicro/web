@@ -81,14 +81,15 @@ function EchoCopyRight($bMobile, $bChinese)
 	    $str = _getCopyright('Palmmicro', 'Palmmicro Communications Inc', $bChinese, $strYear, '2006');
 	}
 	
+	$str = "<p>$str</p>"; 
 	if ($bMobile)
 	{
-	    $str .= ' '.GetSwitchLanguageLink($bChinese);
+	    $str .= GetSwitchLanguageLink($bChinese);
 	}
 	
     echo <<<END
     <div id="copyright">
-    <p>$str</p>
+    $str
     </div>
 END;
 }

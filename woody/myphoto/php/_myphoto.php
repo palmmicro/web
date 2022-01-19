@@ -1,8 +1,8 @@
 <?php
 require_once('/php/layout.php');
-require_once('/woody/php/_navwoody.php');
+require_once('/woody/php/_woodymenu.php');
 
-function _navLoopMyPhoto($bChinese)
+function _menuLoopMyPhoto($bChinese)
 {
     $arPhoto = array('photo2006', 'photo2007', 'photo2008', 'photo2009', 'photo2010', 'photo2011', 'photo2012', 'photo2014', 'photo2015'); 
     $iLevel = 1;
@@ -18,7 +18,7 @@ function _navLoopMyPhoto($bChinese)
 
 function _LayoutTopLeft($bChinese = true, $bAdsense = true)
 {
-    LayoutTopLeft('_navLoopMyPhoto', true, $bChinese, $bAdsense);
+    LayoutTopLeft('_menuLoopMyPhoto', true, $bChinese, $bAdsense);
 }
 
 function EchoTitle($bChinese = true)

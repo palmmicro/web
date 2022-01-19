@@ -1,8 +1,8 @@
 <?php
 require_once('/php/layout.php');
-require_once('/woody/php/_navwoody.php');
+require_once('/woody/php/_woodymenu.php');
 
-function NavLoopBtbond($bChinese)
+function _menuLoopBtbond($bChinese)
 {
     $arBtbonds = array('coinwifi'); 
     $iLevel = 1;
@@ -27,7 +27,7 @@ function NavLoopBtbond($bChinese)
 
 function _LayoutTopLeft($bChinese = true, $bAdsense = true)
 {
-    LayoutTopLeft('NavLoopBtbond', true, $bChinese, $bAdsense);
+    LayoutTopLeft('_menuLoopBtbond', true, $bChinese, $bAdsense);
 }
 
    	$acct = new Account();

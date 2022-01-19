@@ -1,8 +1,8 @@
 <?php
 require_once('/php/layout.php');
-require_once('/php/_navpalmmicro.php');
+require_once('/php/_palmmicromenu.php');
 
-function _getMenuArray($bChinese)
+function _getAccountMenuArray($bChinese)
 {
     if ($bChinese)
     {
@@ -21,9 +21,9 @@ function _getMenuArray($bChinese)
 function AccountMenu($bChinese)
 {
 	MenuBegin();
-	NavMenu1('account', $bChinese);
+	PalmmicroMenu('account', $bChinese);
 	MenuContinueNewLine();
-    MenuSet(_getMenuArray($bChinese));
+    MenuSet(_getAccountMenuArray($bChinese));
 	MenuContinueNewLine();
     MenuSwitchLanguage($bChinese);
     MenuEnd();

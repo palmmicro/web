@@ -1,13 +1,13 @@
 <?php
 require_once('/php/_blogcomments.php');
-//require_once('/php/layout.php');
+require_once('/php/layout.php');
 require_once('/php/stocklink.php');
 require_once('/php/externallink.php');
 require_once('/php/ui/link.php');
 require_once('/php/ui/blogtable.php');
-require_once('/woody/php/_navwoody.php');
+require_once('/woody/php/_woodymenu.php');
 
-function NavigateBlogGroup($bChinese)
+function _menuBlogGroup($bChinese)
 {
     global $arBlogs;
     
@@ -27,7 +27,7 @@ function NavigateBlogGroup($bChinese)
 
 function _LayoutTopLeft($bChinese = true, $bAdsense = true)
 {
-    LayoutTopLeft('NavigateBlogGroup', true, $bChinese, $bAdsense);
+    LayoutTopLeft('_menuBlogGroup', true, $bChinese, $bAdsense);
 }
 
 function _LayoutBottom($bChinese = true)

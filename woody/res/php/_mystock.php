@@ -22,20 +22,14 @@ function _echoBenfordParagraph($ref)
 {
 	if ($ref->IsTradable() == false)		return;
 	if ($ref->IsFundA())					return;
+	if ($ref->CountNav() > 0)				return;	//	has netvalue, it is an ETF.
 	
 	$strSymbol = $ref->GetSymbol();
 	if (SqlGetEtfPair($strSymbol))		return;
 	
-	$strStockId = $ref->GetStockId();
-	$nav_sql = GetNavHistorySql();
-   	if ($nav_sql->Count($strStockId) > 0)
-   	{
-//   		DebugString($strSymbol.' has netvalue, it is an ETF');
-   		return;
-   	}
-	
 	$a_sql = new AnnualIncomeSql();
 	$q_sql = new QuarterIncomeSql();
+	$strStockId = $ref->GetStockId();
 	if ($ar = YahooUpdateFinancials($ref))
 	{
 		list($arAnnual, $arQuarter) = $ar;
@@ -200,8 +194,8 @@ function _echoMyStockData($acct, $ref)
    		else	        		EchoSmaParagraph($ref);
    	}
 
-   	if ($ref->IsFundA())						EchoFundHistoryParagraph($fund);
-   	else if ($holdings_ref || $etf_ref)	EchoEtfHistoryParagraph($ref);
+   	if ($holdings_ref || $etf_ref)	EchoEtfHistoryParagraph($ref);
+   	else if ($ref->IsFundA())			EchoFundHistoryParagraph($fund);
    	
 	EchoNvCloseHistoryParagraph($ref);
    	EchoStockHistoryParagraph($ref);

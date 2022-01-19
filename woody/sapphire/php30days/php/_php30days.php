@@ -1,8 +1,8 @@
 <?php
 require_once('/php/layout.php');
-require_once('/woody/php/_navwoody.php');
+require_once('/woody/php/_woodymenu.php');
 
-function NavLoop30Days($bChinese)
+function _menuLoop30Days($bChinese)
 {
     $ar30Days = array('blue', 'hat', 'crown', 'yellow', 'leopard'); 
     $iLevel = 1;
@@ -27,7 +27,7 @@ function NavLoop30Days($bChinese)
 
 function _LayoutTopLeft($bChinese = true, $bAdsense = true)
 {
-    LayoutTopLeft('NavLoop30Days', true, $bChinese, $bAdsense);
+    LayoutTopLeft('_menuLoop30Days', true, $bChinese, $bAdsense);
 }
 
    	$acct = new Account();

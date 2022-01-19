@@ -1,5 +1,6 @@
 <?php
 require_once('account.php');
+require_once('menu.php');
 require_once('visitorlogin.php');
 require_once('copyright.php');
 require_once('analytics.php');
@@ -176,14 +177,7 @@ function GetSwitchLanguageLink($bChinese)
     $str = UrlGetTitle();
     $str .= UrlGetPhp(UrlIsEnglish());
     $str .= UrlPassQuery();
-    if ($bChinese)
-    {
-    	return "<A class=A2 HREF=\"$str\"><img src=/image/us.gif alt=\"Switch to English\" />English</A>";
-    }
-    else
-    {
-    	return "<A class=A2 HREF=\"$str\"><img src=/image/zh.jpg alt=\"Switch to Chinese\" />中文</A>";
-    }
+    return MenuGetLink($str, $bChinese ? "<img src=/image/us.gif alt=\"Switch to English\" />English" : "<img src=/image/zh.jpg alt=\"Switch to Chinese\" />中文");
 }
 
 function LayoutTopLeft($callback = false, $bSwitchLanguage = false, $bChinese = true, $bAdsense = true)

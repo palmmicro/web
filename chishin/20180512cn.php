@@ -1,4 +1,4 @@
-<?php require_once('php/_navchishin.php'); ?>
+<?php require_once('php/_chishinmenu.php'); ?>
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -9,7 +9,7 @@
 </head>
 
 <body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _ChishinLayoutTopLeft(); ?>
+<?php _LayoutTopLeft(); ?>
 
 <div>
 <h1>如何从美国封杀中兴通讯的危机变成转机之五</h1>

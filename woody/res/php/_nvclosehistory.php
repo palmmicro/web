@@ -45,12 +45,7 @@ function EchoAll()
     		$strSymbol = $ref->GetSymbol();
     		$strLinks = GetFundLinks($strSymbol);
     		$strLinks .= ' '.GetEtfNavLink($strSymbol);
-    		if ($bAdmin = $acct->IsAdmin())
-    		{
-//    			$strLinks .= ' '.GetPhpLink(STOCK_PATH.'spdrnavxls', false, '更新净值');
-    			$strLinks .= '<br />'.GetOnClickLink(STOCK_PHP_PATH.'_submitspdrnav.php?symbol='.$strSymbol, "确认更新{$strSymbol}净值历史记录?", '更新净值');
-    			$strLinks .= ' '.StockGetAllLink($strSymbol);
-    		}
+    		if ($bAdmin = $acct->IsAdmin())	$strLinks .= '<br />'.StockGetAllLink($strSymbol).' '.GetOnClickLink(STOCK_PHP_PATH.'_submitspdrnav.php?symbol='.$strSymbol, "确认更新{$strSymbol}净值历史记录?", '更新净值');
     		
     		$csv = new PageCsvFile();
 			EchoNvCloseHistoryParagraph($ref, $strLinks.'<br />', $csv, $acct->GetStart(), $acct->GetNum(), $bAdmin);

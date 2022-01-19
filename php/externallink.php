@@ -128,6 +128,10 @@ function GetSpdrOfficialLink($strSymbol)
 	$str = GetSpdrEtfUrl().'funds/';
 	switch ($strSymbol)
 	{
+	case 'XBI':
+		$str .= 'spdr-sp-biotech-etf-xbi';
+		break;
+
 	case 'XLE':
 		$str .= 'the-energy-select-sector-spdr-fund-xle';
 		break;

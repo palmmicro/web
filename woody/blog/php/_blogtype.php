@@ -1,8 +1,8 @@
 <?php
 require_once('/php/layout.php');
-require_once('/woody/php/_navwoody.php');
+require_once('/woody/php/_woodymenu.php');
 
-function _navBlogType($bChinese)
+function _menuBlogType($bChinese)
 {
     $iLevel = 1;
     
@@ -19,7 +19,7 @@ function _navBlogType($bChinese)
 
 function _LayoutTopLeft($bChinese = true, $bAdsense = true)
 {
-    LayoutTopLeft('_navBlogType', true, $bChinese, $bAdsense);
+    LayoutTopLeft('_menuBlogType', true, $bChinese, $bAdsense);
 }
 
 function EchoTitle($bChinese = true)

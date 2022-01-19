@@ -312,11 +312,6 @@ function UrlGetPhp($bChinese = true)
     return $bChinese ? URL_CNPHP : URL_PHP;
 }
 
-function UrlGetHtml($bChinese = true)
-{
-    return $bChinese ? 'cn.html' : '.html';
-}
-
 function UrlIsChinese()
 {
     return (UrlGetType() == URL_CNPHP) ? true : false;

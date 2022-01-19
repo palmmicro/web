@@ -1,9 +1,9 @@
 <?php
 require_once('/php/layout.php');
 require_once('/php/stocklink.php');
-require_once('/woody/php/_navwoody.php');
+require_once('/woody/php/_woodymenu.php');
 
-function NavStockSoftware($bChinese)
+function _menuStockSoftware($bChinese)
 {
     $iLevel = 1;
     $ar = GetStockMenuArray();
@@ -42,7 +42,7 @@ function NavStockSoftware($bChinese)
 
 function _LayoutTopLeft($bChinese = true, $bAdsense = true)
 {
-    LayoutTopLeft('NavStockSoftware', false, $bChinese, $bAdsense);
+    LayoutTopLeft('_menuStockSoftware', false, $bChinese, $bAdsense);
 }
 
 ?>

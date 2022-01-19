@@ -1,29 +1,24 @@
 <?php
 require_once('/php/layout.php');
-require_once('/woody/php/_navwoody.php');
+require_once('/woody/php/_woodymenu.php');
 
-function ResMenu($arLoop, $bChinese)
+function _menuLoopCompany($bChinese)
 {
+    $arCompany = array('btbond', 'cateyes'); 
     $iLevel = 1;
     
 	MenuBegin();
 	WoodyMenuItem($iLevel, 'res', $bChinese);
 	MenuContinueNewLine();
-    MenuDirLoop($arLoop);
+    MenuDirLoop($arCompany);
 	MenuContinueNewLine();
     MenuSwitchLanguage($bChinese);
     MenuEnd();
 }
 
-function NavLoopCompany($bChinese)
-{
-    $arCompanys = array('btbond', 'cateyes'); 
-    ResMenu($arCompanys, $bChinese);
-}
-
 function _LayoutTopLeft($bChinese = true, $bAdsense = true)
 {
-    LayoutTopLeft('NavLoopCompany', true, $bChinese, $bAdsense);
+    LayoutTopLeft('_menuLoopCompany', true, $bChinese, $bAdsense);
 }
 
    	$acct = new Account();

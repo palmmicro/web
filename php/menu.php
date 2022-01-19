@@ -11,6 +11,11 @@ define('MENU_OUTPUT_LINK', 'link');
 define('MENU_OUTPUT_DISABLED', 'disabled');
 define('MENU_OUTPUT_ENABLED', 'enabled');
 
+function MenuGetLink($strPathName, $strDisp)
+{
+    return "<p><A class=A2 HREF=\"{$strPathName}\">$strDisp</A></p>";
+}
+
 function MenuWriteItemLink($iLevel, $strTitle, $strType, $strDisp)
 {
     $strLevel = '';
@@ -18,7 +23,7 @@ function MenuWriteItemLink($iLevel, $strTitle, $strType, $strDisp)
     {
     	$strLevel .= '../';
     }
-    echo "<p><A class=A2 HREF=\"{$strLevel}{$strTitle}{$strType}\">$strDisp</A></p>";
+    echo MenuGetLink($strLevel.$strTitle.$strType, $strDisp);
 }
 
 function MenuWriteLink($strTitle, $strType, $strDisp, $strOutput)
@@ -41,8 +46,7 @@ function MenuWriteLink($strTitle, $strType, $strDisp, $strOutput)
 
 function MenuSwitchLanguage($bChinese)
 {
-	$str = GetSwitchLanguageLink($bChinese);
-  	echo "<p>$str</p>";
+	echo GetSwitchLanguageLink($bChinese);
 }
 
 function MenuWriteTitleLink($strTitle, $strType, $strDir, $strOutput)

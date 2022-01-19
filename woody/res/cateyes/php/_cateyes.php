@@ -1,9 +1,10 @@
 <?php
 require_once('/php/layout.php');
-require_once('/woody/php/_navwoody.php');
+require_once('/woody/php/_woodymenu.php');
 
-function CateyesMenu($arLoops, $bChinese)
+function _menuLoopCateyes($bChinese)
 {
+    $arCateyes = array('alexandrite389', 'baozi', 'emerald594'); 
     $iLevel = 1;
     
 	MenuBegin();
@@ -18,21 +19,15 @@ function CateyesMenu($arLoops, $bChinese)
        	MenuWriteItemLink($iLevel, 'cateyes', URL_PHP, 'Cat Eyes');
     }
 	MenuContinueNewLine();
-    MenuDirLoop($arLoops);
+    MenuDirLoop($arCateyes);
 	MenuContinueNewLine();
     MenuSwitchLanguage($bChinese);
     MenuEnd();
 }
 
-function NavLoopCateyes($bChinese)
-{
-    $arCateyes = array('alexandrite389', 'baozi', 'emerald594'); 
-	CateyesMenu($arCateyes, $bChinese);
-}
-
 function _LayoutTopLeft($bChinese = true, $bAdsense = true)
 {
-    LayoutTopLeft('NavLoopCateyes', true, $bChinese, $bAdsense);
+    LayoutTopLeft('_menuLoopCateyes', true, $bChinese, $bAdsense);
 }
 
    	$acct = new Account();

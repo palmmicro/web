@@ -8,19 +8,10 @@ function _getStockHistoryLinks($ref, $bAdmin)
 	$strSymbol = $ref->GetSymbol();
 	
 	$strLinks = '';
-    if ($ref->IsFundA())
-    {
-    	$strLinks .= ' '.GetFundLinks($strSymbol);
-    }
+    if ($ref->IsFundA() || $ref->CountNav() > 0)	$strLinks .= ' '.GetFundLinks($strSymbol);
     $strLinks .= ' '.GetExternalStockHistoryLink($ref);
-    if ($ref->IsTradable())
-    {
-    	$strLinks .= ' '.GetStockDividendLink($ref);
-    }
-    if ($bAdmin)
-    {
-    	$strLinks .= ' '.GetUpdateStockHistoryLink($strSymbol, '更新历史记录');
-    }
+    if ($ref->IsTradable())	$strLinks .= ' '.GetStockDividendLink($ref);
+    if ($bAdmin)	$strLinks .= '<br />'.StockGetAllLink($strSymbol).' '.GetUpdateStockHistoryLink($strSymbol, '更新历史记录');
     return $strLinks;
 }
 

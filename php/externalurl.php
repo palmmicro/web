@@ -157,6 +157,7 @@ function GetKraneUrl()
 	return 'https://kraneshares.com/';
 }
 
+// https://www.ssga.com/us/en/individual/etfs/funds/spdr-sp-biotech-etf-xbi
 function GetSpdrEtfUrl()
 {
 	return 'https://www.ssga.com/us/en/individual/etfs/';

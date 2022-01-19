@@ -23,9 +23,7 @@ class HoldingsReference extends MyStockReference
     	$date_sql = new HoldingsDateSql();
     	if ($this->strHoldingsDate = $date_sql->ReadDate($strStockId))
     	{
-    		$nav_sql = GetNavHistorySql();
-    		$this->strNav = $nav_sql->GetClose($strStockId, $this->strHoldingsDate);
-    		
+			$this->strNav = SqlGetNavByDate($strStockId, $this->strHoldingsDate);
 			$holdings_sql = GetHoldingsSql();
 			$this->arHoldingsRatio = $holdings_sql->GetHoldingsArray($strStockId);
 			$sql = GetStockSql();

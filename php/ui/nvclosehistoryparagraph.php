@@ -22,9 +22,10 @@ function _echoNvCloseItem($csv, $his_sql, $shares_sql, $strDate, $strClose, $arF
     EchoTableColumn($ar);
 }
 
-function _echoNvCloseData($his_sql, $nav_sql, $ref, $strStockId, $csv, $iStart, $iNum, $bAdmin)
+function _echoNvCloseData($his_sql, $ref, $strStockId, $csv, $iStart, $iNum, $bAdmin)
 {
 	$bSameDayNav = UseSameDayNav($ref);
+	$nav_sql = GetNavHistorySql();
 	$shares_sql = new SharesHistorySql();
     if ($result = $his_sql->GetAll($strStockId, $iStart, $iNum)) 
     {
@@ -41,11 +42,9 @@ function _echoNvCloseData($his_sql, $nav_sql, $ref, $strStockId, $csv, $iStart, 
 
 function EchoNvCloseHistoryParagraph($ref, $str = false, $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY, $bAdmin = false)
 {
-	$strStockId = $ref->GetStockId();
-	$nav_sql = GetNavHistorySql();
-	$iTotal = $nav_sql->Count($strStockId);
-	if ($iTotal == 0)		return;
+    if ($ref->CountNav() == 0)	return;
 
+	$strStockId = $ref->GetStockId();
     $strSymbol = $ref->GetSymbol();
     $his_sql = GetStockHistorySql();
    	$strMenuLink = IsTableCommonDisplay($iStart, $iNum) ? '' : StockGetMenuLink($strSymbol, $his_sql->Count($strStockId), $iStart, $iNum);
@@ -60,7 +59,7 @@ function EchoNvCloseHistoryParagraph($ref, $str = false, $csv = false, $iStart =
 								   new TableColumnTradingPercentage()
 								   ), $strSymbol.NVCLOSE_HISTORY_PAGE, $str.' '.$strMenuLink);
 
-    _echoNvCloseData($his_sql, $nav_sql, $ref, $strStockId, $csv, $iStart, $iNum, $bAdmin);
+    _echoNvCloseData($his_sql, $ref, $strStockId, $csv, $iStart, $iNum, $bAdmin);
     EchoTableParagraphEnd($strMenuLink);
 }
 

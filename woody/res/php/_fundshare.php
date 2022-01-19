@@ -35,12 +35,13 @@ function _echoFundShareItem($record, $strStockId, $his_sql, $shares_sql)
 	EchoTableColumn($ar);
 }
 
-function _echoFundShareParagraph($ref, $iStart, $iNum)
+function _echoFundShareParagraph($ref, $iStart, $iNum, $bAdmin)
 {
 	$shares_sql = new SharesHistorySql();
 	$strStockId = $ref->GetStockId();
 	$strSymbol = $ref->GetSymbol();
  	$str = GetFundLinks($strSymbol);
+    if ($bAdmin)	$str .= '<br />'.StockGetAllLink($strSymbol);
     $strMenuLink = StockGetMenuLink($strSymbol, $shares_sql->Count($strStockId), $iStart, $iNum);
  	
 	EchoTableParagraphBegin(array(new TableColumnDate(),
@@ -71,7 +72,7 @@ function EchoAll()
     if ($ref = $acct->EchoStockGroup())
     {
         SzseGetLofShares($ref);
-       _echoFundShareParagraph($ref, $acct->GetStart(), $acct->GetNum());
+       _echoFundShareParagraph($ref, $acct->GetStart(), $acct->GetNum(), $acct->IsAdmin());
     }
     $acct->EchoLinks(FUND_SHARE_PAGE);
 }

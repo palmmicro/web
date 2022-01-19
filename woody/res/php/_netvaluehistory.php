@@ -47,8 +47,9 @@ function _echoNetValueItem($csv, $nav_sql, $strStockId, $est_sql, $strEstId, $st
 	EchoTableColumn($ar);
 }
 
-function _echoNetValueData($csv, $nav_sql, $strStockId, $ref, $est_ref, $cny_ref, $iStart, $iNum)
+function _echoNetValueData($csv, $ref, $est_ref, $cny_ref, $iStart, $iNum)
 {
+	$nav_sql = GetNavHistorySql();
 	if ($est_ref)
 	{
 		$strEstId = $est_ref->GetStockId();
@@ -64,6 +65,7 @@ function _echoNetValueData($csv, $nav_sql, $strStockId, $ref, $est_ref, $cny_ref
 		$strEstId = false;
 	}
 
+	$strStockId = $ref->GetStockId();
     if ($result = $nav_sql->GetAll($strStockId, $iStart, $iNum)) 
     {
         while ($record = mysql_fetch_assoc($result)) 
@@ -74,8 +76,10 @@ function _echoNetValueData($csv, $nav_sql, $strStockId, $ref, $est_ref, $cny_ref
     }
 }
 
-function _echoNetValueHistory($ref, $iStart, $iNum)
+function _echoNetValueHistory($ref, $iStart, $iNum, $bAdmin)
 {
+	if (($iTotal = $ref->CountNav()) == 0)	return;
+	
 	$strSymbol = $ref->GetSymbol();
     $str = GetFundLinks($strSymbol);
     if (in_arrayQdii($strSymbol))
@@ -91,10 +95,9 @@ function _echoNetValueHistory($ref, $iStart, $iNum)
     	$cny_ref = false;
     	$est_ref = false;
     }
+    if ($bAdmin)	$str .= '<br />'.StockGetAllLink($strSymbol);
     
-	$strStockId = $ref->GetStockId();
-	$nav_sql = GetNavHistorySql();
-   	$strMenuLink = StockGetMenuLink($strSymbol, $nav_sql->Count($strStockId), $iStart, $iNum);
+   	$strMenuLink = StockGetMenuLink($strSymbol, $iTotal, $iStart, $iNum);
 	$str .= '<br />'.$strMenuLink;
 
 	$change_col = new TableColumnChange();
@@ -111,7 +114,7 @@ function _echoNetValueHistory($ref, $iStart, $iNum)
 	EchoTableParagraphBegin($ar, TABLE_NETVALUE_HISTORY, $str);
 	
    	$csv = new PageCsvFile();
-	_echoNetValueData($csv, $nav_sql, $strStockId, $ref, $est_ref, $cny_ref, $iStart, $iNum);
+	_echoNetValueData($csv, $ref, $est_ref, $cny_ref, $iStart, $iNum);
     $csv->Close();
     
     $str = $strMenuLink;
@@ -132,7 +135,7 @@ function EchoAll()
 	
     if ($ref = $acct->EchoStockGroup())
     {
-   		_echoNetValueHistory($ref, $acct->GetStart(), $acct->GetNum());
+   		_echoNetValueHistory($ref, $acct->GetStart(), $acct->GetNum(), $acct->IsAdmin());
     }
     $acct->EchoLinks(TABLE_NETVALUE_HISTORY);
 }

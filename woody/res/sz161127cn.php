@@ -3,7 +3,7 @@ require('php/_qdii.php');
 
 function GetQdiiRelated($sym)
 {
-	$str = GetEFundOfficialLink($sym->GetDigitA());
+	$str = GetEFundOfficialLink($sym->GetDigitA()).' '.GetSpdrOfficialLink('XBI');
 	$str .= ' '.GetQdiiLinks($sym);
 	$str .= GetQqqSoftwareLinks();
 	$str .= GetEFundSoftwareLinks();

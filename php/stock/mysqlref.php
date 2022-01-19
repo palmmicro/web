@@ -65,6 +65,12 @@ class MysqlReference extends StockReference
    		}
     }
 
+    function CountNav()
+    {
+    	$nav_sql = GetNavHistorySql();
+    	return $nav_sql->Count($this->strSqlId);
+    }
+    
     function GetEnglishName()
     {
     	if ($this->bConvertGB2312)

@@ -1,8 +1,8 @@
 <?php
 require_once('/php/layout.php');
-require_once('/woody/php/_navwoody.php');
+require_once('/woody/php/_woodymenu.php');
 
-function NavigateSapphirePhoto($bChinese)
+function _menuSapphirePhoto($bChinese)
 {
     $arSapphirePhotos = array('photo2014', 'photo30days', 'photo2015', 'photo2016'); 
     
@@ -17,9 +17,9 @@ function NavigateSapphirePhoto($bChinese)
 
 function _LayoutLinksSapphirePhoto($bChinese = true)
 {
-    LayoutTopLeft('NavigateSapphirePhoto', true, $bChinese);
+    LayoutTopLeft('_menuSapphirePhoto', true, $bChinese);
 }
 
 	$acct = new Account();
-	$acct->AuthAdmin();
+//	$acct->AuthAdmin();
 ?>
