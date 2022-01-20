@@ -156,7 +156,7 @@ class HoldingsReference extends MyStockReference
 		}
 		
 		$fTotalChange -= $fTotalRatio;
-		if ($this->IsLofA())	$fTotalChange *= 0.9133;	// LOF_POSITION_RATIO;
+		if ($this->IsLofA())	$fTotalChange *= 0.9146;		// LOF_POSITION_RATIO;
 
 		$fNewNav = floatval($this->strNav) * (1.0 + $fTotalChange);
 		if ($this->IsFundA())		$fNewNav /= $this->GetAdjustCny($strDate);

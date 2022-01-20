@@ -42,7 +42,7 @@ function UrlGetIp()
 	return false;
 }
 
-function url_get_contents($strUrl, $strCookie = false)
+function url_get_contents($strUrl, $strCookie = false, $strReferer = false, $strFileName = false)
 {
 	global $acct;
 	if (method_exists($acct, 'AllowCurl'))
@@ -52,12 +52,10 @@ function url_get_contents($strUrl, $strCookie = false)
 	
     $ch = curl_init();  
     $timeout = 2;  
-    curl_setopt($ch, CURLOPT_URL, $strUrl);  
+    curl_setopt($ch, CURLOPT_URL, $strUrl);
+	if ($strReferer)	curl_setopt($ch, CURLOPT_REFERER, $strReferer);
 //    curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 6.1; rv:19.0) Gecko/20100101 Firefox/19.0");
-	if ($strCookie)
-    {
-    	curl_setopt($ch, CURLOPT_COOKIE, $strCookie);  
-    }
+	if ($strCookie)	curl_setopt($ch, CURLOPT_COOKIE, $strCookie);  
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);  
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);  
     curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
@@ -67,11 +65,11 @@ function url_get_contents($strUrl, $strCookie = false)
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
     }
     	
-    $img = curl_exec($ch);
-    if ($img == false)
+    if (($img = curl_exec($ch)) == false)
     {
-    	DebugString($strUrl.' '.curl_error($ch));
-//    	file_put_contents($strFileName, $strUrl);
+    	$strDebug = $strUrl.' '.curl_error($ch); 
+    	DebugString($strDebug);
+    	if ($strFileName)		file_put_contents($strFileName, $strDebug);
     }
     curl_close($ch);
     return $img;

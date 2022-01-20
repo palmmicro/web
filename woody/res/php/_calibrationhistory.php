@@ -57,10 +57,7 @@ function EchoAll()
 	
     if ($ref = $acct->EchoStockGroup())
     {
-    	if ($ref->HasData())
-    	{
-    		_echoCalibrationHistoryParagraph($ref, $acct->GetStart(), $acct->GetNum());
-    	}
+   		_echoCalibrationHistoryParagraph($ref, $acct->GetStart(), $acct->GetNum());
     }
     $acct->EchoLinks(TABLE_CALIBRATION_HISTORY);
 }    

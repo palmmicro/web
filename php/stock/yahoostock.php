@@ -222,6 +222,8 @@ function _getNetValueDelayTick()
 
 function YahooUpdateNetValue($ref)
 {
+	if ($ref->HasData() == false)	return;
+	
 	$strSymbol = $ref->GetSymbol();
 	if (($strNetValueSymbol = _yahooGetNetValueSymbol($ref, $strSymbol)) === false)		return;
 	

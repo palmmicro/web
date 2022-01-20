@@ -36,10 +36,6 @@ class YearMonthDay
     
     function IsNewFile($strFileName, $iInterval = SECONDS_IN_MIN)
     {
-/*    	if ($this->IsWeekend())
-    	{
-    		if ($iInterval <= SECONDS_IN_MIN)		$iInterval = SECONDS_IN_HOUR;
-    	}*/
    		return ($this->GetTick() < (filemtime($strFileName) + $iInterval)) ? true : false;
     }
     

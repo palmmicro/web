@@ -83,13 +83,10 @@ function EchoAll()
 	
     if ($ref = $acct->EchoStockGroup())
     {
-    	if ($ref->HasData())
-    	{
-			if ($strSymbolH = SqlGetAhPair($ref->GetSymbol()))	
-    		{
-    			$hshare_ref = new HShareReference($strSymbolH);
-    			_echoAhHistoryParagraph($hshare_ref, $acct->GetStart(), $acct->GetNum(), $acct->IsAdmin());
-    		}
+		if ($strSymbolH = SqlGetAhPair($ref->GetSymbol()))	
+   		{
+   			$hshare_ref = new HShareReference($strSymbolH);
+   			_echoAhHistoryParagraph($hshare_ref, $acct->GetStart(), $acct->GetNum(), $acct->IsAdmin());
     	}
     }
     $acct->EchoLinks();

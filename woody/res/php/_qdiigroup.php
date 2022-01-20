@@ -164,7 +164,7 @@ function TradingUserDefined($strVal = false)
     	}
     }
     
-   	return $est_ref->GetSymbol().GetTableColumnPrice();
+   	return GetStockChartsLink($est_ref->GetSymbol()).GetTableColumnPrice();
 }
 
 function EchoMetaDescription()

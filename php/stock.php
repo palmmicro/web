@@ -118,35 +118,32 @@ function GetSinaQuotesUrl($strSinaSymbols)
 	return 'http://hq.sinajs.cn/list='.$strSinaSymbols;
 }	
 
+function StockIsNewFile($strFileName, $iInterval = SECONDS_IN_MIN)
+{
+   	$now_ymd = new NowYMD();
+	return $now_ymd->NeedFile($strFileName, $iInterval) ? false : true;
+}
+
 define('SINA_QUOTES_SEPARATOR', ',');
 function GetSinaQuotes($strSinaSymbols)
 {
 	$strFileName = DebugGetPathName('debugsina.txt');
-	if (DebugIsAdmin() && strpos($strSinaSymbols, SINA_QUOTES_SEPARATOR))
-	{
-		DebugVal('total prefetch - '.$strSinaSymbols, count(explode(SINA_QUOTES_SEPARATOR, $strSinaSymbols)));
-	}
+	$iCount = count(explode(SINA_QUOTES_SEPARATOR, $strSinaSymbols));
+	if (DebugIsAdmin() && $iCount > 1)	DebugVal('total prefetch - '.$strSinaSymbols, $iCount);
 	else
 	{
-		clearstatcache();
-		if (file_exists($strFileName))
+		if (StockIsNewFile($strFileName, 30))
 		{
-			if (time() - filemtime($strFileName) < 30)
-			{
-//				DebugString('Ignored: '.$strSinaSymbols);
-				return false;
-			}
+			DebugString('Ignored: '.$strSinaSymbols);
+			return false;
 		}
 	}
     
-    if ($str = url_get_contents(GetSinaQuotesUrl($strSinaSymbols)))
+    if ($str = url_get_contents(GetSinaQuotesUrl($strSinaSymbols), false, 'http://stock.finance.sina.com.cn/usstock/quotes/SPY.html', $strFileName))
     {
-    	$iLen = strlen($str);
-//    	DebugVal($iLen, basename(__FILE__));
-    	if ($iLen < 10)      return false;   // Sina returns error in an empty file
-		return $str;
+    	if ($iCount >= count(explode('=', $str)))		DebugVal('GetSinaQuotes failed', $iCount);		// Sina returns error in an empty file
+    	else												return $str;
     }
-   	file_put_contents($strFileName, $strSinaSymbols);
     return false;
 }
 
@@ -512,12 +509,6 @@ function StockGetHShareReference($sym)
       	}
     }
     return false;
-}
-
-function StockIsNewFile($strFileName, $iInterval = SECONDS_IN_MIN)
-{
-   	$now_ymd = new NowYMD();
-	return $now_ymd->NeedFile($strFileName, $iInterval) ? false : true;
 }
 
 function StockHoldingsSaveCsv($strSymbol, $strUrl)

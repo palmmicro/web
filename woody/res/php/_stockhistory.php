@@ -21,13 +21,10 @@ function EchoAll()
 	
     if ($ref = $acct->EchoStockGroup())
     {
-    	if ($ref->HasData())
-    	{
-    		$strLinks = _getStockHistoryLinks($ref, $acct->IsAdmin());
-    		$csv = new PageCsvFile();
-    		EchoStockHistoryParagraph($ref, $strLinks, $csv, $acct->GetStart(), $acct->GetNum());
-    		$csv->Close();
-    	}
+   		$strLinks = _getStockHistoryLinks($ref, $acct->IsAdmin());
+   		$csv = new PageCsvFile();
+   		EchoStockHistoryParagraph($ref, $strLinks, $csv, $acct->GetStart(), $acct->GetNum());
+   		$csv->Close();
     }
     $acct->EchoLinks(TABLE_STOCK_HISTORY);
 }
