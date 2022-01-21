@@ -225,12 +225,12 @@ class TickYMD extends YearMonthDay
         parent::YearMonthDay($iTick);
     }
     
-    function GetHour() 
+    function GetHour()
     {
         return $this->local[2];
     }
     
-    function GetMinute() 
+    function GetMinute()
     {
         return $this->local[1];
     }

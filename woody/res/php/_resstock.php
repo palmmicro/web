@@ -1,5 +1,6 @@
 <?php
 require_once('/php/layout.php');
+require_once('/php/visitorlogin.php');
 require_once('/php/stocklink.php');
 require_once('/woody/php/_woodymenu.php');
 
@@ -43,6 +44,12 @@ function _menuStockSoftware($bChinese)
 function _LayoutTopLeft($bChinese = true, $bAdsense = true)
 {
     LayoutTopLeft('_menuStockSoftware', false, $bChinese, $bAdsense);
+}
+
+function _LayoutBottom($bChinese = true)
+{
+    VisitorLogin($bChinese);
+    LayoutTail($bChinese, true);
 }
 
 ?>

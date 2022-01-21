@@ -1,5 +1,6 @@
 <?php
 require_once('/php/layout.php');
+require_once('/php/visitorlogin.php');
 require_once('/php/_palmmicromenu.php');
 
 function _getAccountMenuArray($bChinese)
@@ -32,6 +33,12 @@ function AccountMenu($bChinese)
 function _LayoutTopLeft($bChinese = true, $bAdsense = true)
 {
     LayoutTopLeft('AccountMenu', true, $bChinese, $bAdsense);
+}
+
+function _LayoutBottom($bChinese = true)
+{
+    VisitorLogin($bChinese);
+    LayoutTail($bChinese, true);
 }
 
 ?>

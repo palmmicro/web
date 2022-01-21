@@ -1,19 +1,14 @@
-<?php require_once('php/_sapphire.php'); ?>
-<html>
-<head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<title>Sapphire 2016 Photos</title>
-<meta name="description" content="Sapphire 2016 personal photos and related links. Although I spent a lot of time on it, I guess Sapphire might hate those in the future.">
-<?php EchoInsideHead(); ?>
-<link href="../../common/style.css" rel="stylesheet" type="text/css" />
-</head>
+<?php
+require('php/_sapphire.php');
 
-<body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _LayoutLinksSapphirePhoto(false); ?>
+function EchoMetaDescription($bChinese)
+{
+	echo 'Sapphire 2016 personal photos and related links. Although I spent a lot of time on it, I guess Sapphire might hate those in the future.';
+}
 
-<div>
-<h1>Sapphire 2016 Photos</h1>
-
+function EchoAll($bChinese)
+{
+    echo <<<END
 <p>June 24. Beautiful girl made in Korea. <a href="2016/large/20160624.jpg" target=_blank>Large</a>
 <br /><img src=2016/20160624.jpg alt="Sapphire in NAMU Plastic Surgery & Dermatology." /></p>
 
@@ -37,11 +32,8 @@
 
 <p>Jan 15. On Shenzhen subway. <a href="2016/large/20160115.jpg" target=_blank>Large</a>
 <br /><img src=2016/20160115.jpg alt="Sapphire on Shenzhen subway." /></p>
+END;
+}
 
-</div>
-
-<?php LayoutTailLogin(false); ?>
-
-</body>
-</html>
-
+require('/php/ui/_disp.php');
+?>

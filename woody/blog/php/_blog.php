@@ -1,6 +1,7 @@
 <?php
 require_once('/php/_blogcomments.php');
 require_once('/php/layout.php');
+require_once('/php/visitorlogin.php');
 require_once('/php/stocklink.php');
 require_once('/php/externallink.php');
 require_once('/php/ui/link.php');
@@ -33,7 +34,8 @@ function _LayoutTopLeft($bChinese = true, $bAdsense = true)
 function _LayoutBottom($bChinese = true)
 {
     EchoBlogComments($bChinese);
-    LayoutTailLogin($bChinese);
+    VisitorLogin($bChinese);
+    LayoutTail($bChinese, true);
 }
 
    	$acct = new EditCommentAccount();

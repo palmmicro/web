@@ -15,11 +15,36 @@ function _menuSapphirePhoto($bChinese)
     MenuEnd();
 }
 
-function _LayoutLinksSapphirePhoto($bChinese = true)
+function _LayoutTopLeft($bChinese = true, $bAdsense = true)
 {
-    LayoutTopLeft('_menuSapphirePhoto', true, $bChinese);
+    LayoutTopLeft('_menuSapphirePhoto', true, $bChinese, $bAdsense);
 }
 
-	$acct = new Account();
+function _LayoutBottom($bChinese = true)
+{
+    LayoutTail($bChinese, true);
+}
+
+function EchoTitle($bChinese = true)
+{
+	global $acct;
+	
+	$strYear = substr($acct->GetTitle(), -4, 4);
+	if (is_numeric($strYear))
+	{
+		if ($bChinese)	$strYear .= '年';
+	}
+	else
+	{
+		$strYear = $bChinese ? '满月' : '30 Days';
+	}
+	
+	if ($bChinese)	$str = '林近岚'.$strYear.'相片';
+	else				$str = 'Sapphire '.$strYear.' Photos';
+
+    echo $str;
+}
+
+   	$acct = new TitleAccount();
 //	$acct->AuthAdmin();
 ?>

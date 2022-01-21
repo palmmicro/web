@@ -171,11 +171,6 @@ function GetVisitorLink($strIp = false, $bChinese = true)
 	return GetPhpLink(ACCT_PATH.TABLE_VISITOR, false, '访问统计', 'Visitor', $bChinese);
 }
 
-function GetLoginLink($strCn, $strUs, $bChinese)
-{
-    return GetPhpLink(ACCT_PATH.'login', false, $strCn, $strUs, $bChinese);
-}
-
 function GetAllCommentLink($strQuery, $bChinese)
 {
     return GetPhpLink(ACCT_PATH.'comment', $strQuery, '全部评论', 'All Comment', $bChinese);

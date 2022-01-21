@@ -1,34 +1,40 @@
-<?php require_once('php/_cateyes.php'); ?>
-<html>
-<head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<title>Natural cat's eye alexandrite 3.89ct</title>
-<meta name="description" content="Cat's eye alexandrite 3.89ct in Taobao store Cat Eyes in Seattle. http://shop58325285.taobao.com/">
-<?php EchoInsideHead(); ?>
-<link href="/common/style.css" rel="stylesheet" type="text/css" />
-</head>
+<?php
+require('php/_cateyes.php');
 
-<body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _LayoutTopLeft(false); ?>
+function EchoTitle($bChinese)
+{
+    echo 'Natural Cat Eye Alexandrite 3.89ct';
+}
 
-<div>
-<h1>Natural cat's eye alexandrite 3.89ct</h1>
+function EchoMetaDescription($bChinese)
+{
+	echo 'Cat eye alexandrite 3.89ct in Taobao store Cat Eyes in Seattle. http://shop58325285.taobao.com/';
+}
+
+function EchoAll($bChinese)
+{
+    echo <<<END
 <p><a href="http://en.wikipedia.org/wiki/Chrysoberyl#Alexandrite" target=_blank>Wiki</a>
 <br />Weight: 3.89ct
 <br />Dimensions: 8.32 x 7.49 x 6.39mm
 </p>
+
 <p>Front nature light
 <br /><img src=alexandrite/389/naturelight.jpg alt="alexandrite cat eye 3.89ct in nature light" /></p>
+
 <p>Front white light
 <br /><img src=alexandrite/389/whitelight.jpg alt="alexandrite cat eye 3.89ct in white light" /></p>
+
 <p>Front yellow light
 <br /><img src=alexandrite/389/yellowlight.jpg alt="alexandrite cat eye 3.89ct in yellow light" /></p>
+
 <p>Back yellow light
 <br /><img src=alexandrite/389/yellowlightback.jpg alt="the back of alexandrite cat eye 3.89ct in yellow light" /></p>
+
 <p>GRS report <a href="alexandrite/389/large/grs.jpg" target=_blank>Large</a>
 <br /><img src=alexandrite/389/grs.jpg alt="GRS report for alexandrite cat eye 3.89ct" /></p>
-<p>From <a href="http://www.realgems.org/list_of_gemstones/alexandrite.html" target=_blank>realgems.org</a>:
-</p>
+
+<p>From <a href="http://www.realgems.org/list_of_gemstones/alexandrite.html" target=_blank>realgems.org</a>:</p>
 <blockquote><font color=gray>
 <br />Formula: BeAl2O4 
 <br />Mineral class: oxides 
@@ -60,9 +66,8 @@
 <br /> • Discovery of alexandrit deposits in the Araku Valley in Andhra Pradesh / India in 1996. 
 <br /> • Destruction of the coastal mines in India by the tsunami in 2004.
 </font></blockquote>
-</div>
+END;
+}
 
-<?php LayoutTailLogin(false); ?>
-
-</body>
-</html>
+require('/php/ui/_disp.php');
+?>

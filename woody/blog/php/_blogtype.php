@@ -22,6 +22,11 @@ function _LayoutTopLeft($bChinese = true, $bAdsense = true)
     LayoutTopLeft('_menuBlogType', true, $bChinese, $bAdsense);
 }
 
+function _LayoutBottom($bChinese = true)
+{
+    LayoutTail($bChinese, true);
+}
+
 function EchoTitle($bChinese = true)
 {
 	global $acct;

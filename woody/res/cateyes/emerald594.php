@@ -1,30 +1,34 @@
-<?php require_once('php/_cateyes.php'); ?>
-<html>
-<head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<title>Natural cat's eye emerald 5.94ct</title>
-<meta name="description" content="Emerald cat's eye 5.94ct Taobao store Cat Eyes in Seattle. http://shop58325285.taobao.com/">
-<?php EchoInsideHead(); ?>
-<link href="/common/style.css" rel="stylesheet" type="text/css" />
-</head>
+<?php
+require('php/_cateyes.php');
 
-<body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _LayoutTopLeft(false); ?>
+function EchoTitle($bChinese)
+{
+    echo 'Natural Cat Eye Emerald 5.94ct';
+}
 
-<div>
-<h1>Natural cat's eye emerald 5.94ct</h1>
+function EchoMetaDescription($bChinese)
+{
+	echo 'Emerald cat eye 5.94ct Taobao store Cat Eyes in Seattle. http://shop58325285.taobao.com/';
+}
+
+function EchoAll($bChinese)
+{
+    echo <<<END
 <p><a href="http://en.wikipedia.org/wiki/Emerald" target=_blank>Wiki</a>
 <br />Weight: 5.94ct
 <br />Dimensions: 10.35 x 9.70 x 8.44mm
 </p>
+
 <p>Front
 <br /><img src=emerald/594/ring.jpg alt="emerald cat eye 5.94ct on ring" /></p>
+
 <p>With light
 <br /><img src=emerald/594/stone.jpg alt="emerald cat eye 5.94ct stone" /></p>
+
 <p>GRS report <a href="emerald/594/large/grs.jpg" target=_blank>Large</a>
 <br /><img src=emerald/594/grs.jpg alt="GRS report for emerald cat eye 5.94ct" /></p>
-<p>From <a href="http://www.realgems.org/list_of_gemstones/beryl.html" target=_blank>realgems.org</a>:
-</p>
+
+<p>From <a href="http://www.realgems.org/list_of_gemstones/beryl.html" target=_blank>realgems.org</a>:</p>
 <blockquote><font color=gray>
 <br />Formula Emerald: Be3Al2Si6O18 
 <br />Agee, Emerald, Émeraude, Esmeralda, Smaragdas, Smaragdi, Smaragds, Smarald, Smeraldo, Szmaragd, Zamrud, Zümrüt, Ngọc lục bảo, Изумруд, 綠寶石, زمرد, ברקת, มรกต, エメラルド 
@@ -41,9 +45,8 @@
 <br />Deposits: Worldwide. Famous for the best known specimens: Muzo / Vasquez-Yacopi Mining Distr. / Boyacá Dep. / Colombia Chivor / Guavio-Guateque Mining Distr. / Boyacá Dep. / Colombia 
 <br />Name: from the Greek word "smáragdos" (green stone)
 </font></blockquote>
-</div>
+END;
+}
 
-<?php LayoutTailLogin(false); ?>
-
-</body>
-</html>
+require('/php/ui/_disp.php');
+?>

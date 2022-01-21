@@ -1,19 +1,14 @@
-<?php require_once('php/_sapphire.php'); ?>
-<html>
-<head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<title>林近岚2016年相片</title>
-<meta name="description" content="林近岚(英文名Sapphire)的2016年个人图片和相关链接. 从各种来源的相片中精挑细选, 也不知道以后她看了是否满意, 估计还是恨不得网站被屏蔽的的可能性居多.">
-<?php EchoInsideHead(); ?>
-<link href="../../common/style.css" rel="stylesheet" type="text/css" />
-</head>
+<?php
+require('php/_sapphire.php');
 
-<body bgproperties=fixed leftmargin=0 topmargin=0>
-<?php _LayoutLinksSapphirePhoto(); ?>
+function EchoMetaDescription()
+{
+	echo '林近岚(英文名Sapphire)的2016年个人图片和相关链接. 从各种来源的相片中精挑细选, 也不知道以后她看了是否满意, 估计还是恨不得网站被屏蔽的的可能性居多.';
+}
 
-<div>
-<h1>林近岚2016年相片</h1>
-
+function EchoAll()
+{
+    echo <<<END
 <p>6月24日. 美女韩国造. <a href="2016/large/20160624.jpg" target=_blank>放大</a>
 <br /><img src=2016/20160624.jpg alt="Sapphire in NAMU Plastic Surgery & Dermatology." /></p>
 
@@ -37,11 +32,8 @@
 
 <p>1月15日. 坐地铁去给自己取尿片. <a href="2016/large/20160115.jpg" target=_blank>放大</a>
 <br /><img src=2016/20160115.jpg alt="Sapphire on Shenzhen subway." /></p>
+END;
+}
 
-</div>
-
-<?php LayoutTailLogin(); ?>
-
-</body>
-</html>
-
+require('/php/ui/_dispcn.php');
+?>

@@ -117,6 +117,7 @@ class _SubmitTransactionAccount extends StockAccount
     		$fFeeRatio = 0.0;
     		break;
     		
+    	case 'SZ161127':
     	case 'SZ164906':
     		$fFeeRatio = 0.012;
     		break;

@@ -726,18 +726,35 @@ class StockSymbol
     {
     	if ($ymd->IsWeekDay())
     	{
-    		$iHour = $ymd->GetHour(); 
+    		$iHour = $ymd->GetHour();
+    		$iMinute = $ymd->GetMinute();
     		if ($this->IsSymbolA())
     		{
-    			if ($iHour < STOCK_HOUR_BEGIN || $iHour > 15)     return false;
+    			if ($iHour < 9 || $iHour > 15)		return false;
+    			else if ($iHour == 9)
+    			{
+    				if ($iMinute < 15)				return false;
+    			}
+    			else if ($iHour == 15)
+    			{
+    				if ($this->IsShangHaiA() && ($this->iDigitA >= 688000))
+    				{
+    					if ($iMinute > 30)			return false;
+    				}
+    				else								return false;
+    			}
     		}
     		else if ($this->IsSymbolH())
-    		{
-    			if ($iHour < STOCK_HOUR_BEGIN || $iHour > STOCK_HOUR_END)     return false;
+    		{	// Hongkong market from 9:00 to 16:10
+    			if ($iHour < 9 || $iHour > 16)		return false;
+    			else if ($iHour == 16)
+    			{
+    				if ($iMinute > 10)				return false;
+    			}
     		}
     		else
     		{   // US extended hours trading from 4am to 8pm
-    			if ($iHour < 4 || $iHour > 20)     return false;
+    			if ($iHour < 4 || $iHour >= 20)		return false;
     		}
     	}
     	else 

@@ -1,7 +1,6 @@
 <?php
 require_once('account.php');
 require_once('menu.php');
-require_once('visitorlogin.php');
 require_once('copyright.php');
 require_once('analytics.php');
 require_once('adsense.php');
@@ -233,12 +232,6 @@ function LayoutTail($bChinese = true, $bAdsense = false)
 //        echo '</div>';
     }
     EchoCopyRight($_SESSION['mobile'], $bChinese);
-}
-
-function LayoutTailLogin($bChinese = true)
-{
-    VisitorLogin($bChinese);
-    LayoutTail($bChinese, true);
 }
 
 ?>

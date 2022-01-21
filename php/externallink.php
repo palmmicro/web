@@ -237,6 +237,12 @@ function GetYahooStockLink($sym)
     return GetExternalLink($strHttp, $sym->GetSymbol());
 }
 
+function GetYahooNavLink($strSymbol)
+{
+    $strHttp = YahooStockGetUrl(GetYahooNetValueSymbol($strSymbol));
+    return GetExternalLink($strHttp, $strSymbol);
+}
+
 // http://finance.sina.com.cn/fund/quotes/162411/bc.shtml
 function GetSinaFundLink($sym)
 {

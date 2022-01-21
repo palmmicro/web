@@ -17,6 +17,5 @@
 </div>
 
 <?php LayoutTail(); ?>
-
 </body>
 </html>

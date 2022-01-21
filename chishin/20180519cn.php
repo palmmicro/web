@@ -54,7 +54,7 @@
 </p>
 </div>
 
-<?php _ChishinLayoutBottom(); ?>
+<?php _LayoutBottom(); ?>
 
 </body>
 </html>

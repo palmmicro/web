@@ -16,7 +16,6 @@
 <?php EchoAll(); ?>
 </div>
 
-<?php LayoutTailLogin(); ?>
-
+<?php _LayoutBottom(); ?>
 </body>
 </html>

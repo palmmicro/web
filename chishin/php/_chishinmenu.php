@@ -1,6 +1,7 @@
 <?php
 require_once('/php/_blogcomments.php');
 require_once('/php/layout.php');
+require_once('/php/visitorlogin.php');
 require_once('/php/ui/link.php');
 
 function _menuChishinBlogGroup($bChinese)
@@ -12,15 +13,16 @@ function _menuChishinBlogGroup($bChinese)
     MenuEnd();
 }
 
-function _LayoutTopLeft()
+function _LayoutTopLeft($bChinese = true, $bAdsense = true)
 {
     LayoutTopLeft('_menuChishinBlogGroup');
 }
 
-function _ChishinLayoutBottom()
+function _LayoutBottom($bChinese = true)
 {
-    EchoBlogComments();
-    LayoutTailLogin();
+    EchoBlogComments($bChinese);
+    VisitorLogin($bChinese);
+    LayoutTail($bChinese, true);
 }
 
    	$acct = new EditCommentAccount();

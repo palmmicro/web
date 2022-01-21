@@ -121,7 +121,7 @@ function EchoFundEstParagraph($ref)
     	{
     		$strEtfSymbol = $est_ref->GetSymbol();
     		$strFutureEtfSymbol = $future_etf_ref->GetSymbol();
-    		$str .= ', '.GetStockChartsLink($strEtfSymbol)."和{$strFutureEtfSymbol}关联程度按照100%估算";
+    		$str .= ', '.GetYahooNavLink($strEtfSymbol)."和{$strFutureEtfSymbol}关联程度按照100%估算";
     	}
     	$str .= '.';    
     }

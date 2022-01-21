@@ -58,7 +58,7 @@ function _getFundAmount($strSymbol, $strDate)
 		}
 		return $iAmount * 0.988;
 	}
-	return 500.0 * 0.988;
+	return 500.0 * 0.988;	// SZ161127
 }
 
 function _echoFundAccountItem($csv, $strDate, $strSharesDiff, $ref, $strSymbol, $strStockId, $his_sql, $nav_sql)

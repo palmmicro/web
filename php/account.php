@@ -247,12 +247,6 @@ class Account
     }
 }
 
-function AcctIsLogin()
-{
-   	global $acct;
-	return $acct->GetLoginId();
-}
-
 class TitleAccount extends Account
 {
 	var $strTitle;

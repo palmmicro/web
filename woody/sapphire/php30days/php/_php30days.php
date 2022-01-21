@@ -30,5 +30,10 @@ function _LayoutTopLeft($bChinese = true, $bAdsense = true)
     LayoutTopLeft('_menuLoop30Days', true, $bChinese, $bAdsense);
 }
 
+function _LayoutBottom($bChinese = true)
+{
+    LayoutTail($bChinese, true);
+}
+
    	$acct = new Account();
 ?>

@@ -134,7 +134,7 @@ function GetSinaQuotes($strSinaSymbols)
 	{
 		if (StockIsNewFile($strFileName, 30))
 		{
-			DebugString('Ignored: '.$strSinaSymbols);
+//			DebugString('Ignored: '.$strSinaSymbols);
 			return false;
 		}
 	}
@@ -532,12 +532,16 @@ function GetArbitrageQuantity($strSymbol, $fQuantity)
 {
   	switch ($strSymbol)
    	{
+   	case 'SZ161127':
+		$iArbitrage = 500;
+   		break;
+    		
    	case 'SZ162411':
 		$iArbitrage = 1400;
    		break;
     		
    	case 'SZ164906':
-		$iArbitrage = 247;
+		$iArbitrage = 246;
    		break;
     		
    	default:

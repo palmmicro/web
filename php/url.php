@@ -67,9 +67,8 @@ function url_get_contents($strUrl, $strCookie = false, $strReferer = false, $str
     	
     if (($img = curl_exec($ch)) == false)
     {
-    	$strDebug = $strUrl.' '.curl_error($ch); 
-    	DebugString($strDebug);
-    	if ($strFileName)		file_put_contents($strFileName, $strDebug);
+    	DebugString($strUrl.' '.curl_error($ch));
+    	if ($strFileName)		file_put_contents($strFileName, $strUrl);
     }
     curl_close($ch);
     return $img;
