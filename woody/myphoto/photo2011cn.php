@@ -1,9 +1,9 @@
 <?php
 require('php/_myphoto.php');
 
-function EchoMetaDescription()
+function GetMetaDescription()
 {
-	echo 'Woody的2011年个人图片和相关链接. 这一年跟一工在香港和深圳活动了几次, 留下了不少他的作品. 其它的依旧都来自于北京绿野航天东风队的摄影爱好者们.';
+	return 'Woody的2011年个人图片和相关链接. 这一年跟一工在香港和深圳活动了几次, 留下了不少他的作品. 其它的依旧都来自于北京绿野航天东风队的摄影爱好者们.';
 }
 
 function EchoAll()

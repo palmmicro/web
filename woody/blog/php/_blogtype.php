@@ -27,17 +27,17 @@ function _LayoutBottom($bChinese = true)
     LayoutTail($bChinese, true);
 }
 
-function EchoTitle($bChinese = true)
+function GetTitle($bChinese = true)
 {
 	global $acct;
 	
-	$strTitle = $acct->GetTitle();
+	$strPage = $acct->GetPage();
 	$ar = GetBlogMenuArray($bChinese);
-	$str = $ar[$strTitle];
+	$str = $ar[$strPage];
 	if ($bChinese)	$str .= '日志';
 	else				$str .= ' Blogs';
 
-    echo $str;
+	return $str;
 }
 
    	$acct = new TitleAccount();

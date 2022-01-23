@@ -77,21 +77,19 @@ function EchoAll()
     $acct->EchoLinks(FUND_SHARE_PAGE);
 }
 
-function EchoMetaDescription()
+function GetMetaDescription()
 {
 	global $acct;
 	
   	$str = $acct->GetStockDisplay().FUND_SHARE_DISPLAY;
     $str .= '. 仅用于华宝油气(SZ162411)等深市LOF基金, 以及少数XOP等美股SPDR基金. 显示场内份额, 当日新增和当日成交量等相关信息.';
-    EchoMetaDescriptionText($str);
+    return CheckMetaDescription($str);
 }
 
-function EchoTitle()
+function GetTitle()
 {
 	global $acct;
-	
-  	$str = $acct->GetSymbolDisplay().FUND_SHARE_DISPLAY;
-  	echo $str;
+	return $acct->GetSymbolDisplay().FUND_SHARE_DISPLAY;
 }
 
     $acct = new SymbolAccount();

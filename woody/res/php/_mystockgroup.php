@@ -86,7 +86,7 @@ function _echoStockGroupArray($arStock)
     return $arTransactionRef;
 }
 
-function _getMetaDescriptionStr($strTitle)
+function _getMetaDescriptionStr($strPage)
 {
 	$ar = array(ADR_PAGE => '通过比较中国企业在美国发行的American Depositary Receipt(ADR)的中国A股价格, 港股价格和美股价格, 分析各种套利对冲方案.',
 				  ADRH_COMPARE_PAGE => ADRH_COMPARE_DISPLAY.'工具, 按ADR股票代码排序. 主要显示H股交易情况, 同时计算AdrH价格比和HAdr价格比. H股是指获中国证监会批核到香港上市的国有企业, 也称国企股.',
@@ -105,12 +105,12 @@ function _getMetaDescriptionStr($strTitle)
 				  'qqqfund' => QQQ_GROUP_DISPLAY.'基金的净值估算, 目前包括纳指ETF(SH513100)和纳指100(SZ159941)等. 使用纳斯达克100指数(^NDX)估值, QQQ仅用于参考.',
 				  'spyfund' => SPY_GROUP_DISPLAY.'基金的净值估算, 目前包括沪市标普500(SH513500)和深市标普500(SZ161125)等.使用标普500指数(^GSPC)估值, SPY仅用于参考.',
 				  );
-    return $ar[$strTitle];
+    return $ar[$strPage];
 }
 
-function _getSimilarLinks($strTitle)
+function _getSimilarLinks($strPage)
 {
-    switch ($strTitle)
+    switch ($strPage)
     {
     case ADR_PAGE:
     case ADRH_COMPARE_PAGE:
@@ -143,8 +143,8 @@ function EchoAll()
 {
 	global $acct;
 	
-	$strTitle = $acct->GetTitle();
-    if ($strTitle == STOCK_GROUP_PAGE)
+	$strPage = $acct->GetPage();
+    if ($strPage == STOCK_GROUP_PAGE)
     {
         if ($strGroupId = $acct->EchoStockGroup())
         {
@@ -167,36 +167,36 @@ function EchoAll()
     }
     else
     {
-    	$str = _getMetaDescriptionStr($strTitle);
-    	$str .= _getSimilarLinks($strTitle);
+    	$str = _getMetaDescriptionStr($strPage);
+    	$str .= _getSimilarLinks($strPage);
     	EchoParagraph($str);
-        _echoStockGroupArray(StockGetArraySymbol(GetCategoryArray($strTitle)));
+        _echoStockGroupArray(StockGetArraySymbol(GetCategoryArray($strPage)));
     }
-    $acct->EchoLinks($strTitle);
+    $acct->EchoLinks($strPage);
 }
 
-function EchoMetaDescription()
+function GetMetaDescription()
 {
 	global $acct;
 	
-	$strTitle = $acct->GetTitle();
-    if ($strTitle == STOCK_GROUP_PAGE)
+	$strPage = $acct->GetPage();
+    if ($strPage == STOCK_GROUP_PAGE)
     {
    		$str = $acct->GetWhoseGroupDisplay();
         $str .= '股票分组管理页面. 提供现有股票分组列表和编辑删除链接, 以及新增加股票分组的输入控件. 跟php/_editgroupform.php和php/_submitgroup.php配合使用.';
     }
     else
     {
-    	$str = _getMetaDescriptionStr($strTitle);
+    	$str = _getMetaDescriptionStr($strPage);
     	if ($strQuery = UrlGetQueryValue('sort'))
     	{
     		$str .= ' '.GetSortString($strQuery).'.';
     	}
     }
-    EchoMetaDescriptionText($str);
+    return CheckMetaDescription($str);
 }
 
-function _getTitleStr($strTitle)
+function _getTitleStr($strPage)
 {
 	$strTool = '基金净值计算工具';
 	$ar = array(ADR_PAGE => ADR_DISPLAY,
@@ -216,7 +216,7 @@ function _getTitleStr($strTitle)
 			  	  'qqqfund'	=> QQQ_GROUP_DISPLAY.$strTool,
 			  	  'spyfund'	=> SPY_GROUP_DISPLAY.$strTool,
 			  	  );
-    $str = $ar[$strTitle];
+    $str = $ar[$strPage];
 	if ($strQuery = UrlGetQueryValue('sort'))
 	{
 		$str .= '('.GetSortString($strQuery).')';
@@ -224,25 +224,25 @@ function _getTitleStr($strTitle)
     return $str;
 }
 
-function EchoTitle()
+function GetTitle()
 {
 	global $acct;
 	
-	$strTitle = $acct->GetTitle();
-    if ($strTitle == STOCK_GROUP_PAGE)
+	$strPage = $acct->GetPage();
+    if ($strPage == STOCK_GROUP_PAGE)
     {
    		$str = $acct->GetWhoseGroupDisplay().STOCK_GROUP_DISPLAY;
     }
     else
     {
-    	$str = _getTitleStr($strTitle);
+    	$str = _getTitleStr($strPage);
     }
     	
-    echo $str;
+	return $str;
 }
 
 	$acct = new GroupIdAccount();
-	if ($acct->GetTitle() == STOCK_GROUP_PAGE)
+	if ($acct->GetPage() == STOCK_GROUP_PAGE)
 	{
 		if ($acct->GetMemberId() == false)
 		{

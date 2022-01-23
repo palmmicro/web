@@ -95,19 +95,19 @@ function EchoAll()
     {
     	$str = GetXueqiuFollower($strId, $strToken);
     }
-   	$str .= '<br /><br />'.GetDevGuideLink('20100905', UrlGetTitle());
+   	$str .= '<br /><br />'.GetDevGuideLink('20100905', UrlGetPage());
     EchoParagraph($str);
 }
 
-function EchoMetaDescription()
+function GetMetaDescription()
 {
 	$str = XUEQIU_FRIEND_TOOL.'页面. 分析全部雪球上关注的人, 找出没有互相关注的, 只有我一个人关注的, 没有发过贴的, 没有自选股票的, 没有建过组合的等等. 提供雪球链接方便删除这些关注.';
-    EchoMetaDescriptionText($str);
+    return CheckMetaDescription($str);
 }
 
-function EchoTitle()
+function GetTitle()
 {
-  	echo XUEQIU_FRIEND_TOOL;
+	return XUEQIU_FRIEND_TOOL;
 }
 
 	$acct = new Account();

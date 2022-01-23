@@ -1,9 +1,9 @@
 <?php
 require('php/_blogtype.php');
 
-function EchoMetaDescription($bChinese)
+function GetMetaDescription($bChinese)
 {
-	echo 'List of all Woody entertainment blogs. Mostly are about software programming, including web development and using Adsense to make money.';
+	return 'List of all Woody entertainment blogs. Mostly are about software programming, including web development and using Adsense to make money.';
 }
 
 function EchoAll($bChinese)

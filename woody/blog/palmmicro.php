@@ -1,9 +1,9 @@
 <?php
 require('php/_blogtype.php');
 
-function EchoMetaDescription($bChinese)
+function GetMetaDescription($bChinese)
 {
-	echo 'List of all Woody blogs about Palmmicro company. Including Palmmicro wechat public account sz162411 etc.';
+	return 'List of all Woody blogs about Palmmicro company. Including Palmmicro wechat public account sz162411 etc.';
 }
 
 function EchoAll($bChinese)

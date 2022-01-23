@@ -23,7 +23,7 @@ function EchoAll($bChinese = true)
     EditProfileForm($strSubmit, $acct->GetLoginId());
 }
 
-function EchoMetaDescription($bChinese = true)
+function GetMetaDescription($bChinese = true)
 {
 	$str = _getEditProfileSubmit($bChinese);
     if ($bChinese)
@@ -34,13 +34,12 @@ function EchoMetaDescription($bChinese = true)
     {
     	$str = "This English web page works together with php/_submitprofile.php and php/_editprofileform.php to $str.";
     }
-    EchoMetaDescriptionText($str);
+    return CheckMetaDescription($str);
 }
 
-function EchoTitle($bChinese = true)
+function GetTitle($bChinese = true)
 {
-    $str = _getEditProfileSubmit($bChinese);
-    echo $str;
+	return _getEditProfileSubmit($bChinese);
 }
 
    	$acct = new Account();

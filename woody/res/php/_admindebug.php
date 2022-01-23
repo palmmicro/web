@@ -49,7 +49,7 @@ function _echoAdminDebug()
     		{
     			_addDebugLine($arCurl, $strLine);
         	}
-    		else if (strpos($strLine, 'MySQL server on'))
+    		else if (strpos($strLine, 'MySQL server'))
     		{
     			_addDebugLine($arMysql, $strLine);
         	}
@@ -79,15 +79,15 @@ function EchoAll()
     $acct->EchoLinks();
 }
 
-function EchoMetaDescription()
+function GetMetaDescription()
 {
   	$str = '格式化显示调试信息文件/debug/debug.txt. 用于更方便的查看和分析各个种类的调试信息, 区分不同种类的爬虫, 提高网站对真实访问用户的服务效率. ';
-    EchoMetaDescriptionText($str);
+    return CheckMetaDescription($str);
 }
 
-function EchoTitle()
+function GetTitle()
 {
-  	echo '调试信息';
+	return '调试信息';
 }
 
 	$acct = new StockAccount();

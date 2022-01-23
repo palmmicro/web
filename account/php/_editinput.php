@@ -259,9 +259,9 @@ function _echoLinearRegressionRelated()
 END;
 }
 
-function _echoInputRelated($strTitle, $bChinese)
+function _echoInputRelated($strPage, $bChinese)
 {
-    switch ($strTitle)
+    switch ($strPage)
     {
    	case 'benfordslaw':
    		if ($bChinese)	_echoBenfordsLawRelated();
@@ -273,9 +273,9 @@ function _echoInputRelated($strTitle, $bChinese)
    	}
 }
 
-function _echoInputResult($acct, $strTitle, $strInput, $bChinese)
+function _echoInputResult($acct, $strPage, $strInput, $bChinese)
 {
-    switch ($strTitle)
+    switch ($strPage)
     {
    	case 'benfordslaw':
    		$str = _getBenfordsLawString($strInput, $bChinese);
@@ -327,9 +327,9 @@ function _echoInputResult($acct, $strTitle, $strInput, $bChinese)
     EchoParagraph($str);
 }
 
-function _getDefaultInput($strTitle)
+function _getDefaultInput($strPage)
 {
-   	switch ($strTitle)
+   	switch ($strPage)
    	{
    	case 'benfordslaw':
    		$str = _getTaobaoDouble11Data();
@@ -372,7 +372,7 @@ function EchoAll($bChinese = true)
 {
 	global $acct;
 	
-	$strTitle = $acct->GetTitle();
+	$strPage = $acct->GetPage();
     if (isset($_POST['submit']) && isset($_POST[EDIT_INPUT_NAME]))
 	{
 		unset($_POST['submit']);
@@ -384,29 +384,29 @@ function EchoAll($bChinese = true)
 	}
     else
     {
-    	$strInput = _getDefaultInput($strTitle);
+    	$strInput = _getDefaultInput($strPage);
     }
     
-    EchoEditInputForm(GetAccountToolStr($strTitle, $bChinese), $strInput, $bChinese);
-    _echoInputResult($acct, $strTitle, $strInput, $bChinese);
-    _echoInputRelated($strTitle, $bChinese);
-    EchoParagraph(GetDevGuideLink('20100905', $strTitle, $bChinese).'<br />'.GetCategoryLinks(GetAccountToolArray($bChinese), ACCT_PATH, $bChinese));
+    EchoEditInputForm(GetAccountToolStr($strPage, $bChinese), $strInput, $bChinese);
+    _echoInputResult($acct, $strPage, $strInput, $bChinese);
+    _echoInputRelated($strPage, $bChinese);
+    EchoParagraph(GetDevGuideLink('20100905', $strPage, $bChinese).'<br />'.GetCategoryLinks(GetAccountToolArray($bChinese), ACCT_PATH, $bChinese));
 }
 
-function _getAccountToolTitle($strTitle, $strQuery, $bChinese)
+function _getAccountToolTitle($strPage, $strQuery, $bChinese)
 {
 	$str = $strQuery ? $strQuery.' ' : '';
-	$str .= GetAccountToolStr($strTitle, $bChinese);
+	$str .= GetAccountToolStr($strPage, $bChinese);
 	return $str;
 }
 
-function EchoMetaDescription($bChinese = true)
+function GetMetaDescription($bChinese = true)
 {
 	global $acct;
 	
-	$strTitle = $acct->GetTitle();
-  	$str = _getAccountToolTitle($strTitle, $acct->GetQuery(), $bChinese);
-  	switch ($strTitle)
+	$strPage = $acct->GetPage();
+  	$str = _getAccountToolTitle($strPage, $acct->GetQuery(), $bChinese);
+  	switch ($strPage)
   	{
    	case 'benfordslaw':
   		$str .= $bChinese ? '页面. 用Benford定律检验数据是否造假, 画出实际数字出现的概率分布和理论概率分布的比较图. 最后用卡方检验(Pearson\'s Chi-squared Test)统一结果.'
@@ -453,16 +453,15 @@ function EchoMetaDescription($bChinese = true)
     						: ' page. A prime number (or a prime) is a natural number greater than 1 that has no positive divisors other than 1 and itself.';	//  A natural number greater than 1 that is not a prime number is called a composite number
     	break;
     }
-    EchoMetaDescriptionText($str);
+    return CheckMetaDescription($str);
 }
 
-function EchoTitle($bChinese = true)
+function GetTitle($bChinese = true)
 {
 	global $acct;
 	
-	$strTitle = $acct->GetTitle();
-  	$str = _getAccountToolTitle($strTitle, $acct->GetQuery(), $bChinese);
-  	echo $str;
+	$strPage = $acct->GetPage();
+	return _getAccountToolTitle($strPage, $acct->GetQuery(), $bChinese);
 }
 
 	$acct = new IpLookupAccount(false, array(TABLE_COMMON_PHRASE, TABLE_IP));

@@ -1,9 +1,9 @@
 <?php
 require('php/_myphoto.php');
 
-function EchoMetaDescription($bChinese)
+function GetMetaDescription($bChinese)
 {
-	echo 'Woody 2012 personal photos and related links. The year is the end of my Beijing suburb travelling with lvye.org and the Hang Tian Dong Feng team.';
+	return 'Woody 2012 personal photos and related links. The year is the end of my Beijing suburb travelling with lvye.org and the Hang Tian Dong Feng team.';
 }
 
 function EchoAll($bChinese)

@@ -202,19 +202,18 @@ function EchoAll()
     $acct->EchoLinks(MY_PORTFOLIO_PAGE);
 }
 
-function EchoTitle()
+function GetTitle()
 {
 	global $acct;
-	
-    echo $acct->GetWhoseDisplay().MY_PORTFOLIO_DISPLAY;
+	return $acct->GetWhoseDisplay().MY_PORTFOLIO_DISPLAY;
 }
 
-function EchoMetaDescription()
+function GetMetaDescription()
 {
 	global $acct;
 	
     $str = $acct->GetWhoseDisplay().MY_PORTFOLIO_DISPLAY.'页面. 根据用户输入的交易详情汇总证券投资组合信息, 显示包括单个股票的盈亏情况, 分组投资盈亏情况以及总体盈亏情况等内容. 用来跟踪和记录长期投资表现.';
-    EchoMetaDescriptionText($str);
+    return CheckMetaDescription($str);
 }
 
 	$acct = new StockAccount();

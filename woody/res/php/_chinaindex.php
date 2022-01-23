@@ -99,7 +99,7 @@ function GetChinaIndexLinks($sym)
 	return $str;
 }
 
-function EchoMetaDescription()
+function GetMetaDescription()
 {
     global $acct;
 
@@ -108,15 +108,13 @@ function EchoMetaDescription()
     $strUS = RefGetStockDisplay($acct->us_ref);
     $strCNY = RefGetStockDisplay($acct->us_ref->cny_ref);
     $str = "用{$strEst}估算{$strDescription}净值. 参考{$strCNY}比较{$strUS}净值.";
-    EchoMetaDescriptionText($str);
+    return CheckMetaDescription($str);
 }
 
-function EchoTitle()
+function GetTitle()
 {
     global $acct;
-    
-    $str = RefGetStockDisplay($acct->ref).STOCK_DISP_NETVALUE;
-    echo $str;
+	return RefGetStockDisplay($acct->ref).STOCK_DISP_NETVALUE;
 }
 
    	$acct = new _ChinaIndexAccount();

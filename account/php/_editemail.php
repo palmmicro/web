@@ -3,7 +3,7 @@ require_once('_account.php');
 require_once('php/_editemailform.php');
 require_once('/php/ui/table.php');
 
-function _getEditEmailSubmit($strTitle, $bChinese)
+function _getEditEmailSubmit($strPage, $bChinese)
 {
     if ($bChinese)
     {
@@ -25,15 +25,15 @@ function _getEditEmailSubmit($strTitle, $bChinese)
                       'updateemail' => EDIT_EMAIL_UPDATE,
                      );
     }
-	return $ar[$strTitle];
+	return $ar[$strPage];
 }
 
 function EchoAll($bChinese = true)
 {
 	global $acct;
 	
-	$strTitle = UrlGetTitle();
-	switch ($strTitle)
+	$strPage = UrlGetPage();
+	switch ($strPage)
 	{
 	case 'closeaccount':
 		$str = $bChinese ? '关闭帐号后所有跟此帐号相关的数据都会被删除, 并且不可恢复.' : 'After account is closed, all related data is deleted and can not be recovered.';
@@ -61,33 +61,32 @@ function EchoAll($bChinese = true)
 		break;
     }
    	EchoParagraph($str);
-    EditEmailForm(_getEditEmailSubmit($strTitle, $bChinese), $acct->GetLoginEmail(), $acct->IsAdmin());
+    EditEmailForm(_getEditEmailSubmit($strPage, $bChinese), $acct->GetLoginEmail(), $acct->IsAdmin());
 }
 
-function EchoMetaDescription($bChinese = true)
+function GetMetaDescription($bChinese = true)
 {
-	$strTitle = UrlGetTitle();
-    $strSubmit = _getEditEmailSubmit($strTitle, $bChinese);
+	$strPage = UrlGetPage();
+    $strSubmit = _getEditEmailSubmit($strPage, $bChinese);
    	$str = $bChinese ? "本中文页面文件跟/account/php/_editemail.php和/account/php/_editemailform.php一起配合完成{$strSubmit}的功能."
 						: "This English web page works together with /account/php/_editemail.php and /account/php/_editemailform.php to $strSubmit.";
-	switch ($strTitle)
+	switch ($strPage)
 	{
 	case 'login':
 		$str .= $bChinese ? '在过去12个月中没有登录过的账户会被自动清除.' : '';
 		break;
     }
-    EchoMetaDescriptionText($str);
+    return CheckMetaDescription($str);
 }
 
-function EchoTitle($bChinese = true)
+function GetTitle($bChinese = true)
 {
-    $str = _getEditEmailSubmit(UrlGetTitle(), $bChinese);
-    echo $str;
+	return _getEditEmailSubmit(UrlGetPage(), $bChinese);
 }
 
    	$acct = new Account();
-	$strTitle = UrlGetTitle();
-	switch ($strTitle)
+	$strPage = UrlGetPage();
+	switch ($strPage)
 	{
 	case 'login':
 	case 'register':

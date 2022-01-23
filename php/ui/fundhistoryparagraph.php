@@ -38,19 +38,8 @@ function _echoHistoryTableData($his_sql, $fund_est_sql, $csv, $ref, $strStockId,
     {
         while ($arHistory = mysql_fetch_assoc($result)) 
         {
-       		$strDate = $arHistory['date'];
-   			if ($bSameDayNav)		$strNav = $nav_sql->GetClose($strStockId, $strDate);
-   			else
-   			{
-   				if ($arFundNav = $nav_sql->GetRecordPrev($strStockId, $strDate))
-   				{
-   					$strNav = rtrim0($arFundNav['close']);
-   					$strDate = $arFundNav['date'];
-   				}
-   				else	$strNav = false;
-   			}
-   			
-        	if ($strNav)
+       		$strDate = $bSameDayNav ? $arHistory['date'] : $his_sql->GetDatePrev($strStockId, $arHistory['date']);
+        	if ($strNav = $nav_sql->GetClose($strStockId, $strDate))
         	{
    				$arFundEst = $fund_est_sql ? $fund_est_sql->GetRecord($strStockId, $strDate) : false;
         		_echoFundHistoryTableItem($csv, $strNav, $arHistory, $arFundEst, $ref, $est_ref, $his_sql);

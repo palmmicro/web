@@ -1,14 +1,14 @@
 <?php
 require('php/_cateyes.php');
 
-function EchoTitle($bChinese)
+function GetTitle($bChinese)
 {
-    echo 'Natural Cat Eye Emerald 5.94ct';
+	return 'Natural Cat Eye Emerald 5.94ct';
 }
 
-function EchoMetaDescription($bChinese)
+function GetMetaDescription($bChinese)
 {
-	echo 'Emerald cat eye 5.94ct Taobao store Cat Eyes in Seattle. http://shop58325285.taobao.com/';
+	return 'Emerald cat eye 5.94ct Taobao store Cat Eyes in Seattle. http://shop58325285.taobao.com/';
 }
 
 function EchoAll($bChinese)

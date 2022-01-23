@@ -27,15 +27,15 @@ function _LayoutBottom($bChinese = true)
     LayoutTail($bChinese, true);
 }
 
-function EchoTitle($bChinese = true)
+function GetTitle($bChinese = true)
 {
 	global $acct;
 	
-	$strYear = substr($acct->GetTitle(), -4, 4);
+	$strYear = substr($acct->GetPage(), -4, 4);
 	if ($bChinese)	$strYear .= '年网络日志图片';
 	else				$strYear .= ' Blog Pictures';
 
-    echo $strYear;
+	return $strYear;
 }
 
    	$acct = new TitleAccount();

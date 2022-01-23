@@ -13,7 +13,7 @@ function _menuStockSoftware($bChinese)
 	WoodyMenuItem($iLevel, 'res');
 	MenuContinueNewLine();
 
-	$strTitle = UrlGetTitle();
+	$strPage = UrlGetPage();
     $arFunction = array(ADR_PAGE => 'AdrGetSymbolArray',
                       	   CHINA_INDEX_PAGE => 'ChinaIndexGetSymbolArray',
                       	   GOLD_SILVER_PAGE => 'GoldSilverGetSymbolArray',
@@ -27,7 +27,7 @@ function _menuStockSoftware($bChinese)
     	$arSymbol = call_user_func($strFunction);
     	foreach ($arSymbol as $strSymbol)	$arTitle[] = strtolower($strSymbol);
     	
-    	if (in_array($strTitle, $arTitle))
+    	if (in_array($strPage, $arTitle))
     	{
 	   		MenuWriteItemLink($iLevel - 1, $strKey, UrlGetPhp(), $ar[$strKey]);
 	   		MenuContinueNewLine();

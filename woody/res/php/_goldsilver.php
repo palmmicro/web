@@ -57,7 +57,7 @@ function GetGoldSilverLinks($sym)
 	return $str;
 }
 
-function EchoMetaDescription()
+function GetMetaDescription()
 {
     global $acct;
 
@@ -68,7 +68,7 @@ function EchoMetaDescription()
     $strEst = RefGetStockDisplay($fund->GetEstRef());
     $strFuture = RefGetStockDisplay($fund->GetFutureRef());
     $str = '根据'.$strEst.', '.$strFuture.'和'.$strCNY.'等因素计算'.$strDescription.'净值的网页工具.';
-    EchoMetaDescriptionText($str);
+    return CheckMetaDescription($str);
 }
 
    	$acct = new _GoldSilverAccount();

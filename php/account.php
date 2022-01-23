@@ -249,7 +249,7 @@ class Account
 
 class TitleAccount extends Account
 {
-	var $strTitle;
+	var $strPage;
 	var $strQuery;
 	
     var $iStart;
@@ -258,10 +258,10 @@ class TitleAccount extends Account
     function TitleAccount($strQueryItem = false, $arLoginTitle = false) 
     {
         parent::Account();
-    	$this->strTitle = UrlGetTitle();
+    	$this->strPage = UrlGetPage();
     	if ($arLoginTitle)
     	{
-    		if (($arLoginTitle === true) || in_array($this->strTitle, $arLoginTitle))
+    		if (($arLoginTitle === true) || in_array($this->strPage, $arLoginTitle))
     		{
     			$this->Auth();
     		}
@@ -274,12 +274,12 @@ class TitleAccount extends Account
    			$this->Auth();
    		}
    		
-        $this->strQuery = UrlGetQueryValue($strQueryItem ? $strQueryItem : $this->strTitle);
+        $this->strQuery = UrlGetQueryValue($strQueryItem ? $strQueryItem : $this->strPage);
     }
     
-    function GetTitle()
+    function GetPage()
     {
-    	return $this->strTitle;
+    	return $this->strPage;
     }
     
     function GetQuery()

@@ -27,10 +27,10 @@ function IsLongMetaDescription($str)
     return false;
 }
 
-function EchoMetaDescriptionText($str)
+function CheckMetaDescription($str)
 {
     IsLongMetaDescription($str);
-    echo $str;
+	return $str;
 }
 
 function EchoUrlSymbol()

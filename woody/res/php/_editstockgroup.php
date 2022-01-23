@@ -26,16 +26,16 @@ function EchoAll()
 	StockEditGroupForm($acct, _getOperationStr());
 }
 
-function EchoMetaDescription()
+function GetMetaDescription()
 {
 	$str = _getOperationStr();
    	$str = "本中文页面文件跟/woody/res/php/_submitgroup.php和/woody/res/php/_editgroupform.php一起配合完成{$str}内容的功能.";
-   	EchoMetaDescriptionText($str);
+   	return CheckMetaDescription($str);
 }
 
-function EchoTitle()
+function GetTitle()
 {
-    echo _getOperationStr();
+	return _getOperationStr();
 }
 
    	$acct = new StockAccount();

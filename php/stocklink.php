@@ -40,30 +40,30 @@ function GetStockMenuArray()
 
 // ****************************** Stock internal link functions *******************************************************
 
-function GetStockTitleLink($strTitle, $strDisplay, $strQuery = false)
+function GetStockPageLink($strPage, $strDisplay, $strQuery = false)
 {
-	return GetTitleLink(STOCK_PATH, $strTitle, $strQuery, $strDisplay);
+	return GetPageLink(STOCK_PATH, $strPage, $strQuery, $strDisplay);
 }
 
-function GetStockSymbolLink($strTitle, $strSymbol, $strDisplay, $strExtraQuery = false)
+function GetStockSymbolLink($strPage, $strSymbol, $strDisplay, $strExtraQuery = false)
 {
 	$strQuery = 'symbol='.$strSymbol;
 	if ($strExtraQuery)
 	{
 		$strQuery .= '&'.$strExtraQuery;
 	}
-	return GetStockTitleLink($strTitle, $strDisplay, $strQuery);
+	return GetStockPageLink($strPage, $strDisplay, $strQuery);
 }
 
 define('ALL_STOCK_DISPLAY', '全部股票代码');
 function GetMyStockLink($strSymbol = false, $strDisplay = false)
 {
-	$strTitle = 'mystock';
+	$strPage = 'mystock';
 	if ($strSymbol)
 	{
-		return GetStockSymbolLink($strTitle, $strSymbol, ($strDisplay ? $strDisplay : $strSymbol));
+		return GetStockSymbolLink($strPage, $strSymbol, ($strDisplay ? $strDisplay : $strSymbol));
 	}
-	return GetStockTitleLink($strTitle, ALL_STOCK_DISPLAY);
+	return GetStockPageLink($strPage, ALL_STOCK_DISPLAY);
 }
 
 define('CALIBRATION_HISTORY_DISPLAY', '校准历史记录');
@@ -183,58 +183,58 @@ function GetStockOptionArray()
 function GetStockOptionLink($strOption, $strSymbol)
 {
     $ar = GetStockOptionArray();
-    $strTitle = array_search($strOption, $ar);
-    return GetStockSymbolLink($strTitle, $strSymbol, $strOption);
+    $strPage = array_search($strOption, $ar);
+    return GetStockSymbolLink($strPage, $strSymbol, $strOption);
 }
 
 define('AUTO_TRACTOR_DISPLAY', '拖拉机自动化');
 define('AUTO_TRACTOR_PAGE', 'autotractor');
 function GetAutoTractorLink($strQuery = false)
 {
-    return GetStockTitleLink(AUTO_TRACTOR_PAGE, AUTO_TRACTOR_DISPLAY, $strQuery);
+    return GetStockPageLink(AUTO_TRACTOR_PAGE, AUTO_TRACTOR_DISPLAY, $strQuery);
 }
 
 define('MY_PORTFOLIO_DISPLAY', '持仓盈亏');
 define('MY_PORTFOLIO_PAGE', 'myportfolio');
 function GetMyPortfolioLink($strQuery = false)
 {
-    return GetStockTitleLink(MY_PORTFOLIO_PAGE, MY_PORTFOLIO_DISPLAY, $strQuery);
+    return GetStockPageLink(MY_PORTFOLIO_PAGE, MY_PORTFOLIO_DISPLAY, $strQuery);
 }
 
 define('AH_COMPARE_DISPLAY', 'A股和H股对比');
 define('AH_COMPARE_PAGE', 'ahcompare');
 function GetAhCompareLink($strQuery = false)
 {
-    return GetStockTitleLink(AH_COMPARE_PAGE, AH_COMPARE_DISPLAY, $strQuery);
+    return GetStockPageLink(AH_COMPARE_PAGE, AH_COMPARE_DISPLAY, $strQuery);
 }
 
 define('ETF_LIST_DISPLAY', '基金指数对照表');
 define('ETF_LIST_PAGE', 'etflist');
 function GetEtfListLink()
 {
-    return GetStockTitleLink(ETF_LIST_PAGE, ETF_LIST_DISPLAY);
+    return GetStockPageLink(ETF_LIST_PAGE, ETF_LIST_DISPLAY);
 }
 
 define('ADRH_COMPARE_DISPLAY', 'ADR和H股对比');
 define('ADRH_COMPARE_PAGE', 'adrhcompare');
 function GetAdrhCompareLink()
 {
-    return GetStockTitleLink(ADRH_COMPARE_PAGE, ADRH_COMPARE_DISPLAY);
+    return GetStockPageLink(ADRH_COMPARE_PAGE, ADRH_COMPARE_DISPLAY);
 }
 
 define('STOCK_GROUP_DISPLAY', '股票分组');
 define('STOCK_GROUP_PAGE', 'mystockgroup');
 function GetMyStockGroupLink($strQuery = false)
 {
-	return GetStockTitleLink(STOCK_GROUP_PAGE, STOCK_GROUP_DISPLAY, $strQuery);
+	return GetStockPageLink(STOCK_GROUP_PAGE, STOCK_GROUP_DISPLAY, $strQuery);
 }
 
 function GetCategorySoftwareLinks($arTitle, $strCategory)
 {
     $str = '<br />'.$strCategory.' - ';
-    foreach ($arTitle as $strTitle)
+    foreach ($arTitle as $strPage)
     {
-    	$str .= GetStockTitleLink(strtolower($strTitle), StockGetSymbol($strTitle)).' ';
+    	$str .= GetStockPageLink(strtolower($strPage), StockGetSymbol($strPage)).' ';
     }
     return $str;
 }
@@ -251,7 +251,7 @@ function StockGetTransactionLink($strGroupId, $strSymbol, $strDisplay = false)
     {
     	$strDisplay = $strSymbol;
     }
-	return GetStockTitleLink('mystocktransaction', $strDisplay, $strQuery);
+	return GetStockPageLink('mystocktransaction', $strDisplay, $strQuery);
 }
 
 function StockGetAllTransactionLink($strGroupId, $ref = false)
@@ -291,7 +291,7 @@ function GetStockLink($strSymbol)
 {
     if (in_arrayAll($strSymbol))
     {
-		return GetStockTitleLink(strtolower($strSymbol), $strSymbol);
+		return GetStockPageLink(strtolower($strSymbol), $strSymbol);
     }
     return false;
 }

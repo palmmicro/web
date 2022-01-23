@@ -42,7 +42,7 @@ function EchoAll($bChinese = true)
     EchoParagraph($strMenuLink);
 }
 
-function EchoMetaDescription($bChinese = true)
+function GetMetaDescription($bChinese = true)
 {
     if ($bChinese)
     {
@@ -52,13 +52,12 @@ function EchoMetaDescription($bChinese = true)
     {
     	$str = 'Display all blog comments by user, page link and IP address, with related edit and delete links.';
     }
-    EchoMetaDescriptionText($str);
+	return CheckMetaDescription($str);
 }
 
-function EchoTitle($bChinese = true)
+function GetTitle($bChinese = true)
 {
-    $str = $bChinese ? '用户评论' : 'User Comment';
-    echo $str;
+	return $bChinese ? '用户评论' : 'User Comment';
 }
 
    	$acct = new CommentAccount(TABLE_IP);

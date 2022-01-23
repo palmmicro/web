@@ -84,29 +84,6 @@ function GetTableColumnTime()
 
 // ****************************** Common Table Functions *******************************************************
 
-function EchoHtmlElement($str, $strElement)
-{
-    echo <<<END
-    <$strElement>$str
-    </$strElement>
-END;
-}
-
-function EchoHeadLine($str)
-{
-	EchoHtmlElement($str, 'h3');
-}
-
-function EchoOrderList($str)
-{
-	EchoHtmlElement($str, 'ol');
-}
-
-function EchoParagraph($str)
-{
-	EchoHtmlElement($str, 'p');
-}
-
 function EchoTableParagraphBegin($ar, $strId, $str = '')
 {
     $strColumn = '';
@@ -120,11 +97,11 @@ function EchoTableParagraphBegin($ar, $strId, $str = '')
 	if ($iTotal > 640)	trigger_error('Table too wide: '.$strWidth);
 
     echo <<<END
-    	<p>$str
-        <TABLE borderColor=#cccccc cellSpacing=0 width=$strWidth border=1 class="text" id="$strId">
-        <tr>
-            $strColumn
-        </tr>
+<p>$str
+    <TABLE borderColor=#cccccc cellSpacing=0 width=$strWidth border=1 class="text" id="$strId">
+    <tr>
+        $strColumn
+    </tr>
 END;
 }
 
@@ -148,9 +125,9 @@ function EchoTableColumn($ar, $strColor = false)
 	}
 
     echo <<<END
-        <tr>
-            $strColumn
-        </tr>
+    <tr>
+        $strColumn
+    </tr>
 END;
 }
 
@@ -158,7 +135,8 @@ function EchoTableParagraphEnd($str = '')
 {
     echo <<<END
     </TABLE>
-    $str</p>
+    $str
+</p>
 END;
 }
 

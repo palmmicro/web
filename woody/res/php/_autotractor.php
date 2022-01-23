@@ -59,15 +59,15 @@ function EchoAll()
     $acct->EchoLinks();
 }
 
-function EchoMetaDescription()
+function GetMetaDescription()
 {
   	$str = '利用安卓手机上的autojs和PC上的autoit等script脚本工具软件实现华宝油气(SZ162411)等场内基金拖拉机账户的自动化申购和卖出, 提高几万套利党人的时间效率. ';
-    EchoMetaDescriptionText($str);
+    return CheckMetaDescription($str);
 }
 
-function EchoTitle()
+function GetTitle()
 {
-  	echo AUTO_TRACTOR_DISPLAY;
+	return AUTO_TRACTOR_DISPLAY;
 }
 
 	$acct = new StockAccount();

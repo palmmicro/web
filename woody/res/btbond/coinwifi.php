@@ -1,14 +1,14 @@
 <?php
 require('php/_btbond.php');
 
-function EchoTitle($bChinese)
+function GetTitle($bChinese)
 {
-    echo 'Coin WiFi Hotspot';
+	return 'Coin WiFi Hotspot';
 }
 
-function EchoMetaDescription($bChinese)
+function GetMetaDescription($bChinese)
 {
-	echo 'Coin WiFi hotspot from Btbond Technology, Inc. Placed here in palmmicro web site by the request of its founder.';
+	return 'Coin WiFi hotspot from Btbond Technology, Inc. Placed here in palmmicro web site by the request of its founder.';
 }
 
 function EchoAll($bChinese)

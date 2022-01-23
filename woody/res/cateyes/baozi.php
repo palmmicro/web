@@ -1,14 +1,14 @@
 <?php
 require('php/_cateyes.php');
 
-function EchoTitle($bChinese)
+function GetTitle($bChinese)
 {
-    echo 'Cat Eye Model Baozi';
+	return 'Cat Eye Model Baozi';
 }
 
-function EchoMetaDescription($bChinese)
+function GetMetaDescription($bChinese)
 {
-	echo 'Scottish fold female cat model Baozi in Taobao store Cat Eyes in Seattle, with pictures of emerald and taking a most hated shower in Beijing.';
+	return 'Scottish fold female cat model Baozi in Taobao store Cat Eyes in Seattle, with pictures of emerald and taking a most hated shower in Beijing.';
 }
 
 function EchoAll($bChinese)

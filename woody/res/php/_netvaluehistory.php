@@ -140,21 +140,19 @@ function EchoAll()
     $acct->EchoLinks(TABLE_NETVALUE_HISTORY);
 }
 
-function EchoMetaDescription()
+function GetMetaDescription()
 {
 	global $acct;
 	
   	$str = $acct->GetStockDisplay().NETVALUE_HISTORY_DISPLAY;
     $str .= '页面. 用于某基金历史净值超过一定数量后的显示. 最近的基金净值记录一般会直接显示在该基金页面. 目前仅用于华宝油气(SZ162411)等QDII基金.';
-    EchoMetaDescriptionText($str);
+    return CheckMetaDescription($str);
 }
 
-function EchoTitle()
+function GetTitle()
 {
 	global $acct;
-	
-  	$str = $acct->GetSymbolDisplay().NETVALUE_HISTORY_DISPLAY;
-  	echo $str;
+	return $acct->GetSymbolDisplay().NETVALUE_HISTORY_DISPLAY;
 }
 
     $acct = new SymbolAccount();

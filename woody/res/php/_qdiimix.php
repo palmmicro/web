@@ -107,21 +107,19 @@ function GetQdiiMixLinks($sym)
 	return $str;
 }
 
-function EchoMetaDescription()
+function GetMetaDescription()
 {
     global $acct;
 
     $strDescription = RefGetStockDisplay($acct->GetRef());
     $str = "根据美元和港币人民币汇率中间价以及成分股比例估算{$strDescription}净值的网页工具.";
-    EchoMetaDescriptionText($str);
+    return CheckMetaDescription($str);
 }
 
-function EchoTitle()
+function GetTitle()
 {
     global $acct;
-    
-    $str = RefGetStockDisplay($acct->GetRef()).STOCK_DISP_NETVALUE;
-    echo $str;
+	return RefGetStockDisplay($acct->GetRef()).STOCK_DISP_NETVALUE;
 }
 
    	$acct = new _QdiiMixAccount();

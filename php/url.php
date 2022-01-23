@@ -269,7 +269,7 @@ function UrlGetType()
 }
 
 // /woody/blog/entertainment/20140615cn.php ==> 20140615
-function _getTitle($str)
+function _getPage($str)
 {
     $strType = UrlGetType();
    	$iPos = stripos($str, $strType);
@@ -293,15 +293,15 @@ function UrlGetFileName($strPathName)
     return substr($strPathName, strrpos($strPathName, "/") + 1);
 }
 
-function UrlGetTitle()
+function UrlGetPage()
 {
     $str = UrlGetUri();
-    return _getTitle(UrlGetFileName($str));
+    return _getPage(UrlGetFileName($str));
 }
 
-function UrlGetUriTitle()
+function UrlGetUriPage()
 {
-    return _getTitle(UrlGetUri());
+    return _getPage(UrlGetUri());
 }
 
 function UrlGetPhp($bChinese = true)
@@ -332,7 +332,7 @@ function UrlGetUniqueString()
     }
 	$str = str_replace('%', '', $str);
     if (strlen($str) > 32)	$str = md5($str); 
-	return UrlGetTitle().$str;
+	return UrlGetPage().$str;
 }
 
 ?>

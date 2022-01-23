@@ -167,7 +167,7 @@ function TradingUserDefined($strVal = false)
    	return GetStockChartsLink($est_ref->GetSymbol()).GetTableColumnPrice();
 }
 
-function EchoMetaDescription()
+function GetMetaDescription()
 {
     global $acct;
     
@@ -179,7 +179,7 @@ function EchoMetaDescription()
     if ($est_ref)     $strBase .= '/'.RefGetDescription($est_ref);
     
     $str = '根据'.$strBase.'等其它网站数据估算'.$strDescription.'净值的网页工具.';
-    EchoMetaDescriptionText($str);
+    return CheckMetaDescription($str);
 }
 
 ?>

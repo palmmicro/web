@@ -1,9 +1,9 @@
 <?php 
 require('php/_blogphoto.php');
 
-function EchoMetaDescription()
+function GetMetaDescription()
 {
-	echo 'Woody的2013年网络日志中使用的图片列表和日志链接. 包括Palmmicro PA1688-PQ芯片的照片, 上海五川提供的官方5111PHONE宣传图片等.';
+	return 'Woody的2013年网络日志中使用的图片列表和日志链接. 包括Palmmicro PA1688-PQ芯片的照片, 上海五川提供的官方5111PHONE宣传图片等.';
 }
 
 function EchoAll()

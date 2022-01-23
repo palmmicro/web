@@ -108,7 +108,7 @@ function EchoAll($bChinese = true)
     _echoBlogVisitorParagraph($strIp, $strId, $visitor_sql, $acct->GetPageSql(), $acct->GetStart(), $acct->GetNum(), $acct->IsAdmin(), $bChinese);
 }
 
-function EchoMetaDescription($bChinese = true)
+function GetMetaDescription($bChinese = true)
 {
     if ($bChinese)
     {
@@ -118,13 +118,12 @@ function EchoMetaDescription($bChinese = true)
     {
     	$str = 'Visitor data page used to view IP attacks. The detailed user information is still using Google Analytics and Google Adsense.';
     }
-    EchoMetaDescriptionText($str);
+    return CheckMetaDescription($str);
 }
 
-function EchoTitle($bChinese = true)
+function GetTitle($bChinese = true)
 {
-    $str = $bChinese ? '用户访问数据' : 'Visitor Data';
-    echo $str;
+	return $bChinese ? '用户访问数据' : 'Visitor Data';
 }
 
    	$acct = new IpLookupAccount(TABLE_IP, true);	// Auth to  restrict robot ip lookup

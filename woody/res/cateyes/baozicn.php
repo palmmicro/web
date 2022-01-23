@@ -1,14 +1,14 @@
 <?php
 require('php/_cateyes.php');
 
-function EchoTitle()
+function GetTitle()
 {
-    echo '猫眼模特包子';
+	return '猫眼模特包子';
 }
 
-function EchoMetaDescription()
+function GetMetaDescription()
 {
-	echo '淘宝店西雅图夜猫眼的母苏格兰折耳猫模特包子. 包括戴祖母绿的照片和在北京拍的最不希望被人看到的洗澡照片. http://shop58325285.taobao.com/';
+	return '淘宝店西雅图夜猫眼的母苏格兰折耳猫模特包子. 包括戴祖母绿的照片和在北京拍的最不希望被人看到的洗澡照片. http://shop58325285.taobao.com/';
 }
 
 function EchoAll()

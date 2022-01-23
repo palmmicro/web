@@ -1,9 +1,9 @@
 <?php 
 require('php/_blogphoto.php');
 
-function EchoMetaDescription()
+function GetMetaDescription()
 {
-	echo 'Woody的2016年网络日志中使用的图片列表和日志链接. 包括Palmmicro微信公众号sz162411二维码, XOP和华宝油气套利交易仓位和成本在2016年第一天的抓屏图等.';
+	return 'Woody的2016年网络日志中使用的图片列表和日志链接. 包括Palmmicro微信公众号sz162411二维码, XOP和华宝油气套利交易仓位和成本在2016年第一天的抓屏图等.';
 }
 
 function EchoAll()

@@ -1,9 +1,9 @@
 <?php
 require('php/_myphoto.php');
 
-function EchoMetaDescription()
+function GetMetaDescription()
 {
-	echo 'Woody的2012年个人图片和相关链接. 包括空灵拍的百花山赌神背影, 红利拍的跳跃瞬间和心语拍的航天东风队出行坐车实景等.';
+	return 'Woody的2012年个人图片和相关链接. 包括空灵拍的百花山赌神背影, 红利拍的跳跃瞬间和心语拍的航天东风队出行坐车实景等.';
 }
 
 function EchoAll()

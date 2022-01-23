@@ -92,21 +92,19 @@ function EchoAll()
     $acct->EchoLinks();
 }
 
-function EchoMetaDescription()
+function GetMetaDescription()
 {
 	global $acct;
 	
   	$str = $acct->GetStockDisplay().AH_HISTORY_DISPLAY;
     $str .= '页面. 按中国A股交易日期排序显示. 同时显示港币人民币中间价历史, 提供跟Yahoo或者Sina历史数据同步的功能. 仅包括2014-01-01以后的数据.';
-    EchoMetaDescriptionText($str);
+    return CheckMetaDescription($str);
 }
 
-function EchoTitle()
+function GetTitle()
 {
 	global $acct;
-	
-  	$str = $acct->GetSymbolDisplay().AH_HISTORY_DISPLAY;
-  	echo $str;
+	return $acct->GetSymbolDisplay().AH_HISTORY_DISPLAY;
 }
 
     $acct = new SymbolAccount();

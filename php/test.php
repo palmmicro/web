@@ -79,6 +79,18 @@ function TestModifyTransactions($strGroupId, $strSymbol, $strNewSymbol)
    	UpdateStockGroupItem($strGroupId, $strGroupItemId);
 }
 */
+
+function DebugLogFile()
+{
+    $strFileName = UrlGetRootDir().'logs/scripts.log';
+    clearstatcache();
+	if (file_exists($strFileName))
+	{
+		DebugString(file_get_contents($strFileName));
+		unlink($strFileName);
+	}
+}
+
 	$acct = new Account();
 
     echo '<meta http-equiv="content-type" content="text/html; charset=UTF-8">';
@@ -88,6 +100,7 @@ function TestModifyTransactions($strGroupId, $strSymbol, $strNewSymbol)
 	DebugString($_SERVER['DOCUMENT_ROOT']);
 	DebugString(phpversion());
 	echo strval(rand()).' Hello, world!<br />';
+	DebugLogFile();
 	
 	TestCmdLine();
 	DebugClearPath('csv');

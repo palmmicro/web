@@ -1,14 +1,14 @@
 <?php
 require('php/_cateyes.php');
 
-function EchoTitle()
+function GetTitle()
 {
-    echo '天然3.89克拉亚历山大变色金绿猫眼';
+	return '天然3.89克拉亚历山大变色金绿猫眼';
 }
 
-function EchoMetaDescription()
+function GetMetaDescription()
 {
-	echo '淘宝店西雅图夜猫眼的3.89克拉亚历山大变色金绿猫眼. 英文名称为Alexandrite, 俄文名称Александрит. http://shop58325285.taobao.com/';
+	return '淘宝店西雅图夜猫眼的3.89克拉亚历山大变色金绿猫眼. 英文名称为Alexandrite, 俄文名称Александрит. http://shop58325285.taobao.com/';
 }
 
 function EchoAll()

@@ -1,9 +1,9 @@
 <?php 
 require('php/_blogphoto.php');
 
-function EchoMetaDescription($bChinese)
+function GetMetaDescription($bChinese)
 {
-	echo 'Pictures from Woody 2008 blog. Including photo with Chi-Shin Wang and Tang Li in Half Moon Bay etc.';
+	return 'Pictures from Woody 2008 blog. Including photo with Chi-Shin Wang and Tang Li in Half Moon Bay etc.';
 }
 
 function EchoAll($bChinese)

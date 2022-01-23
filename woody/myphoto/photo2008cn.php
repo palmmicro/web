@@ -1,9 +1,9 @@
 <?php
 require('php/_myphoto.php');
 
-function EchoMetaDescription()
+function GetMetaDescription()
 {
-	echo 'Woody的2008年个人图片和相关链接. 开始用车轮丈量美国, 用脚步丈量京郊. 图片来自于穷游网和北京绿野航天东风队的摄影爱好者们.';
+	return 'Woody的2008年个人图片和相关链接. 开始用车轮丈量美国, 用脚步丈量京郊. 图片来自于穷游网和北京绿野航天东风队的摄影爱好者们.';
 }
 
 function EchoAll()

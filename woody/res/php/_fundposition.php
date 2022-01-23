@@ -238,21 +238,19 @@ function EchoAll()
     $acct->EchoLinks(FUND_POSITION_PAGE);
 }
 
-function EchoMetaDescription()
+function GetMetaDescription()
 {
 	global $acct;
 	
   	$str = $acct->GetStockDisplay().FUND_POSITION_DISPLAY;
     $str .= '. 仅用于华宝油气(SZ162411)等LOF基金. 寻找XOP净值连续几天上涨或者下跌超过4%的机会测算华宝油气的股票持仓仓位, 按基金说明书这个数值可能会在80%-95%之间变动.';
-    EchoMetaDescriptionText($str);
+    return CheckMetaDescription($str);
 }
 
-function EchoTitle()
+function GetTitle()
 {
 	global $acct;
-	
-  	$str = $acct->GetSymbolDisplay().FUND_POSITION_DISPLAY;
-  	echo $str;
+	return $acct->GetSymbolDisplay().FUND_POSITION_DISPLAY;
 }
 
     $acct = new SymbolAccount();

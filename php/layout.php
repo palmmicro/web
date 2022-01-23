@@ -4,6 +4,7 @@ require_once('menu.php');
 require_once('copyright.php');
 require_once('analytics.php');
 require_once('adsense.php');
+require_once('ui/echohtml.php');
 require_once('class/Mobile_Detect.php');
 
 define('DEFAULT_DISPLAY_WIDTH', 900);
@@ -17,26 +18,6 @@ function LayoutIsMobilePhone()
         return true;
     }
     return false;
-}
-
-function EchoDocType()
-{
-	echo '<!DOCTYPE html>';
-}
-
-function EchoInsideHead()
-{
-	$_SESSION['mobile'] = LayoutIsMobilePhone();
-	$strViewPort = $_SESSION['mobile'] ? '<meta name="viewport" content="width=device-width, initial-scale=1.0"/>' : '';
-//	$strViewPort = $_SESSION['mobile'] ? '<meta name="viewport" content="width=640, initial-scale=1.0"/>' : '';
-	$strCanonical = str_replace('www.', '', UrlGetServer()).UrlGetUri().UrlPassQuery();
-	$strFavicon = '/image/favicon.ico';
-	
-    echo <<<END
-    	<link rel="canonical" href="$strCanonical" />
-    	<link rel="shortcut icon" href="$strFavicon" type="image/x-icon">
-    	$strViewPort
-END;
 }
 
 function LayoutPromotion($str, $strText = '')
@@ -62,11 +43,10 @@ function LayoutPromotion($str, $strText = '')
 	
 	$strLinkDisplay = GetHttpLink($strLink);
     echo <<<END
-        <p>
-        	<img src=/woody/image/$str.jpg alt="$str promo" />
-        	<br />$strText
-        	<br />$strLinkDisplay
-        </p>
+
+    <p><img src=/woody/image/$str.jpg alt="$str promo" />
+		<br />$strText
+		<br />$strLinkDisplay</p>
 END;
 }
 /*
@@ -74,18 +54,18 @@ function LayoutWeixinPromotion()
 {
 	$strWeixin = GetWeixinDevLink();
     echo <<<END
-        <p>请扫二维码关注Palmmicro{$strWeixin}sz162411. 
-        <br /><img src=/woody/image/wx.jpg alt="Palmmicro wechat public account sz162411 small size QR code" />
-        </p>
+
+    <p>请扫二维码关注Palmmicro{$strWeixin}sz162411. 
+		<br /><img src=/woody/image/wx.jpg alt="Palmmicro wechat public account sz162411 small size QR code" /></p>
 END;
 }
 */
 function LayoutWeixinPay()
 {
     echo <<<END
-        <p><img src=/woody/image/wxpay.jpg alt="QRcode to pay 1 RMB to Woody in Weixin" />
-        <br /><font color=green>觉得这个网站有用? 可以用微信打赏支持一下.</font>
-        </p>
+
+    <p><img src=/woody/image/wxpay.jpg alt="QRcode to pay 1 RMB to Woody in Weixin" />
+    	<br /><font color=green>觉得这个网站有用? 可以用微信打赏支持一下.</font></p>
 END;
 }
 
@@ -116,15 +96,16 @@ function _layoutBanner($bChinese)
 	}
     
     echo <<<END
-        <div id="banner">
-            <div class="logo"><a href="/$strHome"><$strImage></a></div>
-            <div class="blue"></div>
-        </div>
 
-        <script>
-			var width = window.screen.width;
-			document.cookie = "screen=" + width + "; path=/";
-		</script>
+<div id="banner">
+    <div class="logo"><a href="/$strHome"><$strImage></a></div>
+    <div class="blue"></div>
+</div>
+
+<script>
+	var width = window.screen.width;
+	document.cookie = "screen=" + width + "; path=/";
+</script>
 END;
 }
 
@@ -134,10 +115,11 @@ function _layoutAboveMenu($iWidth)
 	$strWidth = strval($iWidth);
 	
     echo <<<END
+
 <table width=$strWidth height=85% border=0 cellpadding=0 cellspacing=0>
 <td width=30 valign=top bgcolor=#66CC66>&nbsp;</td>
-<td width=120 valign=top bgcolor=#66CC66>
-<TABLE width=120 border=0 cellPadding=5 cellSpacing=0>
+<TD width=120 valign=top bgcolor=#66CC66>
+	<TABLE width=120 border=0 cellPadding=5 cellSpacing=0>
 END;
 /*    echo <<<END
         <div id="main">
@@ -152,7 +134,8 @@ function _layoutBelowMenu($iWidth)
 	else 				$strExtra = '';
 	
     echo <<<END
-</TABLE>
+    
+    </TABLE>
 </TD>
 <td width=30 valign=top bgcolor=#66CC66>&nbsp;</td>
 <td width=50 valign=top bgcolor=#ffffff>&nbsp;</td>
@@ -173,7 +156,7 @@ function GetSwitchLanguageLink($bChinese)
 	if ($_SESSION['switchlanguage'] == false)	return '';
 
 	// /woody/blog/entertainment/20140615cn.php ==> 20140615.php
-    $str = UrlGetTitle();
+    $str = UrlGetPage();
     $str .= UrlGetPhp(UrlIsEnglish());
     $str .= UrlPassQuery();
     return MenuGetLink($str, $bChinese ? "<img src=/image/us.gif alt=\"Switch to English\" />English" : "<img src=/image/zh.jpg alt=\"Switch to Chinese\" />中文");
@@ -198,11 +181,26 @@ function LayoutTopLeft($callback = false, $bSwitchLanguage = false, $bChinese = 
     }
 }
 
-function _divWeixinPay()
+function LayoutBegin()
 {
-	echo '<div>';
+    echo <<<END
+
+<div>
+END;
+}
+
+function LayoutEnd()
+{
+    echo <<<END
+</div>
+END;
+}
+
+function _echoWeixinPay()
+{
+	LayoutBegin();
 	LayoutWeixinPay();
-	echo '</div>';
+	LayoutEnd();
 }
 
 // According to google policy, do NOT show Adsense in pages with no contents, such as input pages
@@ -211,20 +209,26 @@ function LayoutTail($bChinese = true, $bAdsense = false)
     if ($_SESSION['mobile'])
     {
 		if ($bAdsense)	AdsenseContent();
-   		else				_divWeixinPay();
+   		else				_echoWeixinPay();
     }
     else
     {
     	if (LayoutScreenWidthOk())
     	{
-    		echo '</td><td width=15 valign=top>&nbsp;</td><td valign=top>';
+//    		echo '</td><td width=15 valign=top>&nbsp;</td><td valign=top>';
+    		echo <<<END
+
+</td>
+<td width=15 valign=top>&nbsp;</td>
+<td valign=top>
+END;
     		if ($bAdsense)	AdsenseLeft();
-    		else				_divWeixinPay();
+    		else				_echoWeixinPay();
     	}
     	else
     	{
     		if ($bAdsense)	AdsenseWoodyBlog();
-    		else				_divWeixinPay();
+    		else				_echoWeixinPay();
     	}
     	
         echo '</td></table>';

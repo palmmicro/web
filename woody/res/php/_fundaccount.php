@@ -254,21 +254,19 @@ function EchoAll()
     $acct->EchoLinks(FUND_ACCOUNT_PAGE);
 }
 
-function EchoMetaDescription()
+function GetMetaDescription()
 {
 	global $acct;
 	
   	$str = $acct->GetStockDisplay().FUND_ACCOUNT_DISPLAY;
     $str .= '. 仅用于华宝油气(SZ162411)等QDII基金. 利用2019年8月开始华宝油气限购1000块人民币的机会测算A股QDII溢价申购套利的群体规模. 充分了解交易对手, 做到知己知彼百战不殆.';
-    EchoMetaDescriptionText($str);
+    return CheckMetaDescription($str);
 }
 
-function EchoTitle()
+function GetTitle()
 {
 	global $acct;
-	
-  	$str = $acct->GetSymbolDisplay().FUND_ACCOUNT_DISPLAY;
-  	echo $str;
+	return $acct->GetSymbolDisplay().FUND_ACCOUNT_DISPLAY;
 }
 
     $acct = new SymbolAccount();

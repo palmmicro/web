@@ -1,9 +1,9 @@
 <?php
 require('php/_blogtype.php');
 
-function EchoMetaDescription()
+function GetMetaDescription()
 {
-	echo 'Woody的PA1688网络日志列表. 虽然都写于PA1688停产以后, 但是依然还是有作用的. 至今仍然有来自世界各地的PA1688用户来找我们要升级程序.';
+	return 'Woody的PA1688网络日志列表. 虽然都写于PA1688停产以后, 但是依然还是有作用的. 至今仍然有来自世界各地的PA1688用户来找我们要升级程序.';
 }
 
 function EchoAll()

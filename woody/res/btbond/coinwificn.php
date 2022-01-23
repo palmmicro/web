@@ -1,14 +1,14 @@
 <?php
 require('php/_btbond.php');
 
-function EchoTitle()
+function GetTitle()
 {
-    echo 'Coin WiFi投币式上网分享器';
+	return 'Coin WiFi投币式上网分享器';
 }
 
-function EchoMetaDescription()
+function GetMetaDescription()
 {
-	echo '藍邦科技有限公司的Coin WiFi投币式上网分享器展示. 在公司的创始人要求下放在Palmmicro网站. 公司网站 http://www.btbond.com';
+	return '藍邦科技有限公司的Coin WiFi投币式上网分享器展示. 在公司的创始人要求下放在Palmmicro网站. 公司网站 http://www.btbond.com';
 }
 
 function EchoAll()

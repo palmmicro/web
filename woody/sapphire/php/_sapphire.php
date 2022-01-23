@@ -25,11 +25,11 @@ function _LayoutBottom($bChinese = true)
     LayoutTail($bChinese, true);
 }
 
-function EchoTitle($bChinese = true)
+function GetTitle($bChinese = true)
 {
 	global $acct;
 	
-	$strYear = substr($acct->GetTitle(), -4, 4);
+	$strYear = substr($acct->GetPage(), -4, 4);
 	if (is_numeric($strYear))
 	{
 		if ($bChinese)	$strYear .= '年';
@@ -42,7 +42,7 @@ function EchoTitle($bChinese = true)
 	if ($bChinese)	$str = '林近岚'.$strYear.'相片';
 	else				$str = 'Sapphire '.$strYear.' Photos';
 
-    echo $str;
+	return $str;
 }
 
    	$acct = new TitleAccount();

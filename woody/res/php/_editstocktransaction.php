@@ -8,16 +8,16 @@ function EchoAll()
 	StockEditTransactionForm($acct, STOCK_TRANSACTION_EDIT);
 }
 
-function EchoMetaDescription()
+function GetMetaDescription()
 {
 	$strSubmit = STOCK_TRANSACTION_EDIT;
    	$str = "本中文页面文件跟/woody/res/php/_submittransaction.php和_edittransactionform.php一起配合完成{$strSubmit}的功能.";
-    EchoMetaDescriptionText($str);
+    return CheckMetaDescription($str);
 }
 
-function EchoTitle()
+function GetTitle()
 {
-    echo STOCK_TRANSACTION_EDIT;
+	return STOCK_TRANSACTION_EDIT;
 }
 
    	$acct = new StockAccount();

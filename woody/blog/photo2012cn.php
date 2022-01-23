@@ -1,9 +1,9 @@
 <?php 
 require('php/_blogphoto.php');
 
-function EchoMetaDescription()
+function GetMetaDescription()
 {
-	echo 'Woody的2012年网络日志中使用的图片列表和日志链接. 包括丹麦用户拍摄的Palmmicro AR168R RoIP模块照片, 使用CSR芯片的E路航Z1 GPS的照片等.';
+	return 'Woody的2012年网络日志中使用的图片列表和日志链接. 包括丹麦用户拍摄的Palmmicro AR168R RoIP模块照片, 使用CSR芯片的E路航Z1 GPS的照片等.';
 }
 
 function EchoAll()

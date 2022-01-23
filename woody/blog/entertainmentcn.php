@@ -1,9 +1,9 @@
 <?php
 require('php/_blogtype.php');
 
-function EchoMetaDescription()
+function GetMetaDescription()
 {
-	echo 'Woody自娱自乐的网络日志列表. 编程序的内容居多, 做网页和通过Adsense赚钱逐渐占据了越来越多的篇幅, 偶有股票和其它生活内容. 附娱乐写照图: 猪一样的睡样 吃罢只管睡 睡起又需吃!';
+	return 'Woody自娱自乐的网络日志列表. 编程序的内容居多, 做网页和通过Adsense赚钱逐渐占据了越来越多的篇幅, 偶有股票和其它生活内容. 附娱乐写照图: 猪一样的睡样 吃罢只管睡 睡起又需吃!';
 }
 
 function EchoAll()

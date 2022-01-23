@@ -14,7 +14,7 @@ function EchoAll($bChinese = true)
     $acct->EditCommentForm(_getEditCommentSubmit($bChinese));
 }
 
-function EchoMetaDescription($bChinese = true)
+function GetMetaDescription($bChinese = true)
 {
 	$str = _getEditCommentSubmit($bChinese);
     if ($bChinese)
@@ -25,13 +25,12 @@ function EchoMetaDescription($bChinese = true)
     {
     	$str = "This English web page works together with php/_submitcomment.php and php/_editcommentform.php to $str.";
     }
-    EchoMetaDescriptionText($str);
+    return CheckMetaDescription($str);
 }
 
-function EchoTitle($bChinese = true)
+function GetTitle($bChinese = true)
 {
-    $str = _getEditCommentSubmit($bChinese);
-    echo $str;
+	return _getEditCommentSubmit($bChinese);
 }
 
    	$acct = new EditCommentAccount();

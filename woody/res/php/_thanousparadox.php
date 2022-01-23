@@ -122,21 +122,19 @@ function EchoAll()
     $acct->EchoLinks(THANOUS_PARADOX_PAGE);
 }
 
-function EchoMetaDescription()
+function GetMetaDescription()
 {
 	global $acct;
 	
   	$str = $acct->GetStockDisplay().THANOUS_PARADOX_DISPLAY;
     $str .= '测试. 仅用于华宝油气(SZ162411)等QDII基金. 看白天A股华宝油气的溢价或者折价交易是否可以像小心愿认为的那样预测晚上美股XOP的涨跌.';
-    EchoMetaDescriptionText($str);
+    return CheckMetaDescription($str);
 }
 
-function EchoTitle()
+function GetTitle()
 {
 	global $acct;
-	
-  	$str = $acct->GetSymbolDisplay().THANOUS_PARADOX_DISPLAY;
-  	echo $str;
+	return $acct->GetSymbolDisplay().THANOUS_PARADOX_DISPLAY;
 }
 
     $acct = new SymbolAccount();

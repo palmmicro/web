@@ -1,20 +1,14 @@
 <?php
 
-function _SwitchPage($strPage)
+function SwitchToLink($strLink)
 {
-//	session_write_close();	// save before switch
-	header($strPage);
+	header('location: '.$strLink);
 	exit();
 }
 
-function SwitchToLink($strLink)
+function SwitchTo($strPage)
 {
-	_SwitchPage('location: '.$strLink);
-}
-
-function SwitchTo($strTitle)
-{
-	SwitchToLink($strTitle.UrlGetType());
+	SwitchToLink($strPage.UrlGetType());
 }
 
 function SwitchSetSess()

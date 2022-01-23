@@ -1,9 +1,9 @@
 <?php 
 require('php/_blogphoto.php');
 
-function EchoMetaDescription($bChinese)
+function GetMetaDescription($bChinese)
 {
-	echo 'Pictures from Woody 2009 blog. Including photo of the cheapest PSTN phone case in China market etc.';
+	return 'Pictures from Woody 2009 blog. Including photo of the cheapest PSTN phone case in China market etc.';
 }
 
 function EchoAll($bChinese)

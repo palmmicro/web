@@ -1,14 +1,14 @@
 <?php
 require('php/_cateyes.php');
 
-function EchoTitle($bChinese)
+function GetTitle($bChinese)
 {
-    echo 'Natural Cat Eye Alexandrite 3.89ct';
+	return 'Natural Cat Eye Alexandrite 3.89ct';
 }
 
-function EchoMetaDescription($bChinese)
+function GetMetaDescription($bChinese)
 {
-	echo 'Cat eye alexandrite 3.89ct in Taobao store Cat Eyes in Seattle. http://shop58325285.taobao.com/';
+	return 'Cat eye alexandrite 3.89ct in Taobao store Cat Eyes in Seattle. http://shop58325285.taobao.com/';
 }
 
 function EchoAll($bChinese)

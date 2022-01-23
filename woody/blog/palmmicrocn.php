@@ -1,9 +1,9 @@
 <?php
 require('php/_blogtype.php');
 
-function EchoMetaDescription()
+function GetMetaDescription()
 {
-	echo 'Woody有关Palmmicro公司的网络日志列表. 包括Palmmicro微信公众号sz162411, palmmicro.com和其它停用的老域名的历史, 创始人王老板的故事等内容.';
+	return 'Woody有关Palmmicro公司的网络日志列表. 包括Palmmicro微信公众号sz162411, palmmicro.com和其它停用的老域名的历史, 创始人王老板的故事等内容.';
 }
 
 function EchoAll()

@@ -1,9 +1,9 @@
 <?php
 require('php/_sapphire.php');
 
-function EchoMetaDescription($bChinese)
+function GetMetaDescription($bChinese)
 {
-	echo 'Sapphire 2014 personal photos and related links. Although I spent a lot of time on it, I guess Sapphire might hate those in the future.';
+	return 'Sapphire 2014 personal photos and related links. Although I spent a lot of time on it, I guess Sapphire might hate those in the future.';
 }
 
 function EchoAll($bChinese)

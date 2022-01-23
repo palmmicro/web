@@ -1,9 +1,9 @@
 <?php
 require('php/_myphoto.php');
 
-function EchoMetaDescription()
+function GetMetaDescription()
 {
-	echo 'Woody的2007年个人图片和相关链接. 除了一个测试相机的大头照外, 几乎所有的记录都来自于跟绿野走京郊的活动.';
+	return 'Woody的2007年个人图片和相关链接. 除了一个测试相机的大头照外, 几乎所有的记录都来自于跟绿野走京郊的活动.';
 }
 
 function EchoAll()

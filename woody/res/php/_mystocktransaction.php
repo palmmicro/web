@@ -28,20 +28,19 @@ function EchoAll()
     $acct->EchoLinks('transaction');
 }
 
-function EchoMetaDescription()
+function GetMetaDescription()
 {
 	global $acct;
 	
 	$str = $acct->GetDescription();
     $str .= '管理页面. 提供现有股票交易记录和编辑删除链接, 主要用于某组股票交易记录超过一定数量后的显示. 少量的股票交易记录一般直接显示在该股票页面而不是在这里.';
-    EchoMetaDescriptionText($str);
+    return CheckMetaDescription($str);
 }
 
-function EchoTitle()
+function GetTitle()
 {
 	global $acct;
-	
-	echo $acct->GetDescription();
+	return $acct->GetDescription();
 }
 
 class _TransAccount extends GroupIdAccount

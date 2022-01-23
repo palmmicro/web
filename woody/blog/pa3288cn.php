@@ -1,9 +1,9 @@
 <?php
 require('php/_blogtype.php');
 
-function EchoMetaDescription()
+function GetMetaDescription()
 {
-	echo 'Woody的PA3288相关的网络日志列表. 包括Palmmicro PA3288芯片介绍, 方案说明, 提供给第3方开发的软件API教程等内容.';
+	return 'Woody的PA3288相关的网络日志列表. 包括Palmmicro PA3288芯片介绍, 方案说明, 提供给第3方开发的软件API教程等内容.';
 }
 
 function EchoAll()

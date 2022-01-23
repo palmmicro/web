@@ -1,9 +1,9 @@
 <?php
 require('php/_sapphire.php');
 
-function EchoMetaDescription($bChinese)
+function GetMetaDescription($bChinese)
 {
-	echo 'Sapphire 30 days photos. Taken by professional photographers from Shenzhen Far East International Medical Center.';
+	return 'Sapphire 30 days photos. Taken by professional photographers from Shenzhen Far East International Medical Center.';
 }
 
 function EchoAll($bChinese)

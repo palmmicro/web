@@ -1,14 +1,14 @@
 <?php
 require('php/_res.php');
 
-function EchoTitle($bChinese)
+function GetTitle($bChinese)
 {
-    echo 'Cat Eyes in Seattle';
+	return 'Cat Eyes in Seattle';
 }
 
-function EchoMetaDescription($bChinese)
+function GetMetaDescription($bChinese)
 {
-	echo 'Taobao store Cat Eyes in Seattle introduction with some jewelry and models display, including a Scottish fold female cat and a British shorthair male cat.';
+	return 'Taobao store Cat Eyes in Seattle introduction with some jewelry and models display, including a Scottish fold female cat and a British shorthair male cat.';
 }
 
 function EchoAll($bChinese)

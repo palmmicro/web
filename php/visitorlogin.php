@@ -10,12 +10,9 @@ function _getLoginLink($strCn, $strUs, $bChinese)
 
 function _echoLogin($str)
 {
-    echo <<<END
-    <div>
-        <p><font color=green>$str</font>
-        </p>
-    </div>
-END;
+	LayoutBegin();
+	EchoParagraph("<font color=green>$str</font>");
+	LayoutEnd();
 }
 
 function VisitorLogin($bChinese)
@@ -34,8 +31,7 @@ function VisitorLogin($bChinese)
 	{
 	    $strLoginLink = _getLoginLink('登录', 'login', $bChinese);
 	    $strRegisterLink = GetPhpLink(ACCT_PATH.'register', false, '注册', 'register', $bChinese);
-		if ($bChinese)	_echoLogin('更多选项? 请先'.$strLoginLink.'或者'.$strRegisterLink.'.');
-		else			    _echoLogin('More options? Please '.$strLoginLink.' or '.$strRegisterLink.' account.');
+		_echoLogin($bChinese ? '更多选项? 请先'.$strLoginLink.'或者'.$strRegisterLink.'.' : 'More options? Please '.$strLoginLink.' or '.$strRegisterLink.' account.');
 	}
 }
 

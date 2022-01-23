@@ -1,9 +1,9 @@
 <?php 
 require('php/_blogphoto.php');
 
-function EchoMetaDescription()
+function GetMetaDescription()
 {
-	echo 'Woody的2014年网络日志中使用的图片列表和日志链接. 包括AR1688 Manager.exe西班牙语mfc120u.dll错误信息抓屏图, 10月16日中国A股股票持仓的抓屏图等.';
+	return 'Woody的2014年网络日志中使用的图片列表和日志链接. 包括AR1688 Manager.exe西班牙语mfc120u.dll错误信息抓屏图, 10月16日中国A股股票持仓的抓屏图等.';
 }
 
 function EchoAll()

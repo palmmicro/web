@@ -10,9 +10,9 @@ function GetNameTag($strName, $strDisplay)
 	return '<a name="'.$strName.'">'.$strDisplay.'</a>';
 }
 
-function GetNameLink($strName, $strDisplay, $strPage = '')
+function GetNameLink($strName, $strDisplay, $strLink = '')
 {
-	return '<a href="'.$strPage.'#'.$strName.'">'.$strDisplay.'</a>';
+	return '<a href="'.$strLink.'#'.$strName.'">'.$strDisplay.'</a>';
 }
 
 function GetOnClickLink($strPath, $strQuestion, $strDisplay)
@@ -79,14 +79,14 @@ function GetFileDebugLink($strPathName)
     return "$strLink($strDelete)";
 }
 
-function GetPhpLink($strPathTitle, $strQuery, $strDisplay, $strUs = false, $bChinese = true)
+function GetPhpLink($strPathPage, $strQuery, $strDisplay, $strUs = false, $bChinese = true)
 {
 	if ($strUs && ($bChinese == false))
 	{
 		$strDisplay = $strUs;
 	}
 	
-    $str = $strPathTitle;
+    $str = $strPathPage;
     $str .= UrlGetPhp($bChinese);
     if ($strQuery)
     {
@@ -97,7 +97,7 @@ function GetPhpLink($strPathTitle, $strQuery, $strDisplay, $strUs = false, $bChi
 
 function CopyPhpLink($strQuery, $strCn, $strUs = false, $bChinese = true)
 {
-	return GetPhpLink(UrlGetUriTitle(), $strQuery, $strCn, $strUs, $bChinese);
+	return GetPhpLink(UrlGetUriPage(), $strQuery, $strCn, $strUs, $bChinese);
 }
 
 function GetSortString($strQuery)
@@ -157,23 +157,23 @@ function GetMenuLink($strQueryId, $iTotal, $iStart, $iNum, $bChinese = true)
     return $str;
 }
 
-function GetNewLink($strPathTitle, $strNew, $bChinese = true)
+function GetNewLink($strPathPage, $strNew, $bChinese = true)
 {
-    return GetPhpLink($strPathTitle, 'new='.$strNew, '新建', 'New', $bChinese);
+    return GetPhpLink($strPathPage, 'new='.$strNew, '新建', 'New', $bChinese);
 }
 
-function GetEditLink($strPathTitle, $strEdit, $bChinese = true)
+function GetEditLink($strPathPage, $strEdit, $bChinese = true)
 {
-    return GetPhpLink($strPathTitle, 'edit='.$strEdit, '修改', 'Edit', $bChinese);
+    return GetPhpLink($strPathPage, 'edit='.$strEdit, '修改', 'Edit', $bChinese);
 }
 
-function GetTitleLink($strPath, $strTitle, $strQuery, $strDisplay, $bChinese = true)
+function GetPageLink($strPath, $strPage, $strQuery, $strDisplay, $bChinese = true)
 {
-    if ((UrlGetTitle() == $strTitle) && (UrlGetQueryString() == $strQuery))
+    if ((UrlGetPage() == $strPage) && (UrlGetQueryString() == $strQuery))
     {
         return "<font color=blue>$strDisplay</font>";
     }
-    return GetPhpLink($strPath.$strTitle, $strQuery, $strDisplay, false, $bChinese);
+    return GetPhpLink($strPath.$strPage, $strQuery, $strDisplay, false, $bChinese);
 }
 
 function GetCategoryLinks($arCategory, $strPath = STOCK_PATH, $bChinese = true)
@@ -181,7 +181,7 @@ function GetCategoryLinks($arCategory, $strPath = STOCK_PATH, $bChinese = true)
     $str = '';
     foreach ($arCategory as $strCategory => $strDisplay)
     {
-    	$str .= GetTitleLink($strPath, $strCategory, false, $strDisplay, $bChinese).' ';
+    	$str .= GetPageLink($strPath, $strCategory, false, $strDisplay, $bChinese).' ';
     }
     return $str;
 }

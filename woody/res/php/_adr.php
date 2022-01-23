@@ -173,16 +173,15 @@ function GetAdrLinks($sym)
 	return $str;
 }
 
-function EchoTitle()
+function GetTitle()
 {
     global $acct;
     
     $strDescription = RefGetStockDisplay($acct->us_ref);
-    $str = '比较'.$strDescription.'对应港股和A股的价格';
-    echo $str;
+	return '比较'.$strDescription.'对应港股和A股的价格';
 }
 
-function EchoMetaDescription()
+function GetMetaDescription()
 {
     global $acct;
     
@@ -190,7 +189,7 @@ function EchoMetaDescription()
     $strA = RefGetStockDisplay($acct->cn_ref);
     $strH = RefGetStockDisplay($acct->hk_ref);
     $str = '根据'.RefGetDescription($acct->hk_ref->uscny_ref).'和'.RefGetDescription($acct->hk_ref->hkcny_ref).'计算比较美股'.$strAdr.', A股'.$strA.'和港股'.$strH.'价格的网页工具.';
-    EchoMetaDescriptionText($str);
+    return CheckMetaDescription($str);
 }
 
    	$acct = new _AdrAccount();

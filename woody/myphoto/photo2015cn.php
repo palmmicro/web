@@ -1,9 +1,9 @@
 <?php
 require('php/_myphoto.php');
 
-function EchoMetaDescription()
+function GetMetaDescription()
 {
-	echo 'Woody的2015年个人图片和相关链接. 包括马尔代夫Vilamendhoo岛, 和长沙火宫殿等. 从今年开始的相片中都带着女儿林近岚了, 看到哪一年她会开始拒绝吧.';
+	return 'Woody的2015年个人图片和相关链接. 包括马尔代夫Vilamendhoo岛, 和长沙火宫殿等. 从今年开始的相片中都带着女儿林近岚了, 看到哪一年她会开始拒绝吧.';
 }
 
 function EchoAll()

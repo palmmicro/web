@@ -61,21 +61,19 @@ function EchoAll()
     $acct->EchoLinks(TABLE_HOLDINGS);
 }
 
-function EchoMetaDescription()
+function GetMetaDescription()
 {
 	global $acct;
 	
   	$str = $acct->GetStockDisplay().HOLDINGS_DISPLAY;
     $str .= '页面. 用于显示ETF基金的成分股持仓情况, 以及各个成分股最新的价格. 基于成分股价格测算基金的官方估值和实时估值.';
-    EchoMetaDescriptionText($str);
+    return CheckMetaDescription($str);
 }
 
-function EchoTitle()
+function GetTitle()
 {
 	global $acct;
-	
-  	$str = $acct->GetSymbolDisplay().HOLDINGS_DISPLAY;
-  	echo $str;
+	return $acct->GetSymbolDisplay().HOLDINGS_DISPLAY;
 }
 
     $acct = new SymbolAccount();

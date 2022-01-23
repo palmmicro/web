@@ -1,9 +1,9 @@
 <?php 
 require('php/_blogphoto.php');
 
-function EchoMetaDescription($bChinese)
+function GetMetaDescription($bChinese)
 {
-	echo 'Pictures from Woody 2014 blog. Including screen shot of AR1688 Manager.exe Spanish mfc120u.dll error message and Chinese stock portfolio etc.';
+	return 'Pictures from Woody 2014 blog. Including screen shot of AR1688 Manager.exe Spanish mfc120u.dll error message and Chinese stock portfolio etc.';
 }
 
 function EchoAll($bChinese)

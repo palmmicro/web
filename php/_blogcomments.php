@@ -1,6 +1,6 @@
 <?php
-//require_once('account.php');
 require_once('layout.php');
+require_once('visitorlogin.php');
 require_once('/account/php/_editcommentform.php');
 
 function EchoBlogComments($bChinese = true)
@@ -22,15 +22,16 @@ function EchoBlogComments($bChinese = true)
 		$str .= ' '.strval($iTotal);
     }
 	
-	echo '<div>';
+	LayoutBegin();
     EchoCommentLinkParagraph($str, $strQuery, $bChinese);
     if ($iTotal > 0)    $acct->EchoComments($strWhere, 0, MAX_COMMENT_DISPLAY, $bChinese);    
-    echo '</div>';
+	LayoutEnd();
 
 	if ($acct->GetLoginId()) 
 	{
         $acct->EditCommentForm($bChinese ? BLOG_COMMENT_NEW_CN : BLOG_COMMENT_NEW);
     }
+    VisitorLogin($bChinese);
 }
 
 ?>

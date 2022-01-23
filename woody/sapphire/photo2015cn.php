@@ -1,9 +1,9 @@
 <?php
 require('php/_sapphire.php');
 
-function EchoMetaDescription()
+function GetMetaDescription()
 {
-	echo '林近岚(英文名Sapphire)的2015年个人图片和相关链接. 从各种来源的相片中精挑细选, 也不知道以后她看了是否满意, 估计还是恨不得网站被屏蔽的的可能性居多.';
+	return '林近岚(英文名Sapphire)的2015年个人图片和相关链接. 从各种来源的相片中精挑细选, 也不知道以后她看了是否满意, 估计还是恨不得网站被屏蔽的的可能性居多.';
 }
 
 function EchoAll()

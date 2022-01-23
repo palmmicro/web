@@ -1,9 +1,9 @@
 <?php
 require('php/_myphoto.php');
 
-function EchoMetaDescription()
+function GetMetaDescription()
 {
-	echo 'Woody的2006年个人图片和相关链接. 开始跟绿野走京郊, 突然之间有人给我拍照了. 此外只有一张来自于携程上找人自驾美国的旅行.';
+	return 'Woody的2006年个人图片和相关链接. 开始跟绿野走京郊, 突然之间有人给我拍照了. 此外只有一张来自于携程上找人自驾美国的旅行.';
 }
 
 function EchoAll()

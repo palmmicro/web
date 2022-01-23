@@ -2,10 +2,10 @@
 require_once('_stock.php');
 require_once('_editstockoptionform.php');
 
-function _getEditStockOptionSubmit($strTitle)
+function _getEditStockOptionSubmit($strPage)
 {
     $ar = GetStockOptionArray();
-	return $ar[$strTitle];
+	return $ar[$strPage];
 }
 
 function EchoAll()
@@ -14,27 +14,25 @@ function EchoAll()
 	
     if ($ref = $acct->EchoStockGroup())
     {
-      	$strTitle = UrlGetTitle();
-       	$acct->StockOptionEditForm(_getEditStockOptionSubmit($strTitle));
+      	$strPage = UrlGetPage();
+       	$acct->StockOptionEditForm(_getEditStockOptionSubmit($strPage));
     }
 }
 
-function EchoMetaDescription()
+function GetMetaDescription()
 {
 	global $acct;
 	
-	$strTitle = UrlGetTitle();
+	$strPage = UrlGetPage();
     $str = '本中文页面文件跟/woody/res/php/_submitstockoptions.php和_editstockoptionform.php一起配合, 对'.$acct->GetStockDisplay();
-    $str .= _getEditStockOptionSubmit($strTitle);
-    EchoMetaDescriptionText($str);
+    $str .= _getEditStockOptionSubmit($strPage);
+    return CheckMetaDescription($str);
 }
 
-function EchoTitle()
+function GetTitle()
 {
 	global $acct;
-	
-  	$str = $acct->GetSymbolDisplay()._getEditStockOptionSubmit(UrlGetTitle());
-    echo $str;
+	return $acct->GetSymbolDisplay()._getEditStockOptionSubmit(UrlGetPage());
 }
 
     $acct = new SymbolEditAccount();

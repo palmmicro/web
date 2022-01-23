@@ -12,7 +12,7 @@ class StockAccount extends TitleAccount
     {
         parent::TitleAccount($strQueryItem, $arLoginTitle);
         
-        $this->strName = StockGetSymbol($this->GetTitle());
+        $this->strName = StockGetSymbol($this->GetPage());
 	    $this->group_sql = new StockGroupSql();
     }
 
@@ -30,7 +30,7 @@ class StockAccount extends TitleAccount
     		{
     			return $strLink; 
     		}
-    		return GetStockTitleLink(STOCK_GROUP_PAGE, $strGroupName, 'groupid='.$strGroupId);
+    		return GetStockPageLink(STOCK_GROUP_PAGE, $strGroupName, 'groupid='.$strGroupId);
     	}
     	return '';
     }
@@ -68,14 +68,14 @@ class StockAccount extends TitleAccount
     	$arStockId = $sql->GetStockIdArray(true);
     	if (count($arStockId) > 0)
     	{
-    		return $this->GetGroupLink($strGroupId);
+    		if ($strLink = $this->GetGroupLink($strGroupId))	return $strLink.' ';
     	}
     	return '';
     }
     
     function _getPersonalLinks($strLoginId)
     {
-    	$str = ' - ';
+    	$str = '';
     	if ($result = $this->group_sql->GetAll($strLoginId)) 
     	{
     		while ($record = mysql_fetch_assoc($result)) 
@@ -83,11 +83,12 @@ class StockAccount extends TitleAccount
     			$strGroupId = $record['id'];
     			if ($this->_checkPersonalGroupId($strGroupId))
     			{
-    				$str .= $this->_getPersonalGroupLink($strGroupId).' ';
+    				$str .= $this->_getPersonalGroupLink($strGroupId);
     			}
     		}
     		@mysql_free_result($result);
     	}
+    	if ($str != '')	$str = ' - '.trim($str);
     	return $str;
     }
 

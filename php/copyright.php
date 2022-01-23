@@ -55,7 +55,7 @@ function EchoCopyRight($bMobile, $bChinese)
 		case 'res':
 		    if (strpos($ar[3], '.') > 0)
 		    {
-			    $str = _getCompanyCopyright(UrlGetTitle(), $strYear, $bChinese);
+			    $str = _getCompanyCopyright(UrlGetPage(), $strYear, $bChinese);
 		    }
 		    else
 		    {
@@ -88,9 +88,10 @@ function EchoCopyRight($bMobile, $bChinese)
 	}
 	
     echo <<<END
-    <div id="copyright">
-    $str
-    </div>
+
+<div id="copyright">
+$str
+</div>
 END;
 }
 

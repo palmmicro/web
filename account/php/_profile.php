@@ -164,7 +164,7 @@ function EchoAll($bChinese = true)
 	_echoAccountFundAmount($strMemberId, $bChinese);
 }                                                         
 
-function EchoMetaDescription($bChinese = true)
+function GetMetaDescription($bChinese = true)
 {
     global $acct;
     
@@ -177,16 +177,16 @@ function EchoMetaDescription($bChinese = true)
     {
     	$str .= 'profile web page. Provide Palmmicro users profile and update links, and other activities such as IoT device management.';
     }
-    EchoMetaDescriptionText($str);
+    return CheckMetaDescription($str);
 }
 
-function EchoTitle($bChinese = true)
+function GetTitle($bChinese = true)
 {
     global $acct;
     
 	$str = $acct->GetWhoseDisplay(false, $bChinese);
     $str .= $bChinese ? '资料' : 'Profile';
-    echo $str;
+	return $str;
 }
 
 function _changePassword($strPassword, $strPassword2)

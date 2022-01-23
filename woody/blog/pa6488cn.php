@@ -1,9 +1,9 @@
 <?php
 require('php/_blogtype.php');
 
-function EchoMetaDescription()
+function GetMetaDescription()
 {
-	echo 'Woody有关PA6488方案的网络日志列表. 尽管由于市场的快速变化, 我们目前暂停了PA6488方案的开发, 这里的内容对其它Palmmicro的产品还是有很多帮助的.';
+	return 'Woody有关PA6488方案的网络日志列表. 尽管由于市场的快速变化, 我们目前暂停了PA6488方案的开发, 这里的内容对其它Palmmicro的产品还是有很多帮助的.';
 }
 
 function EchoAll()

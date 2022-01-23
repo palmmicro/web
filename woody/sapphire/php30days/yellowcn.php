@@ -1,14 +1,14 @@
 <?php
 require('php/_php30days.php');
 
-function EchoTitle()
+function GetTitle()
 {
-    echo '林近岚满月艺术照 - 黄色系列';
+	return '林近岚满月艺术照 - 黄色系列';
 }
 
-function EchoMetaDescription()
+function GetMetaDescription()
 {
-	echo '林近岚(英文名Sapphire)的满月艺术照. 黄色系列. 2014年12月12号由深圳远东妇儿科医院馨月馆月子中心的专业摄影师拍摄和处理. 大家看看值多少钱, 我反正觉得超级不值!';
+	return '林近岚(英文名Sapphire)的满月艺术照. 黄色系列. 2014年12月12号由深圳远东妇儿科医院馨月馆月子中心的专业摄影师拍摄和处理. 大家看看值多少钱, 我反正觉得超级不值!';
 }
 
 function EchoAll()

@@ -15,9 +15,9 @@ function EchoNameTag($strName, $strDisplay)
 	echo GetNameTag($strName, $strDisplay);
 }
 
-function EchoNameLink($strName, $strDisplay, $strPage = '')
+function EchoNameLink($strName, $strDisplay, $strLink = '')
 {
-	echo GetNameLink($strName, $strDisplay, $strPage);
+	echo GetNameLink($strName, $strDisplay, $strLink);
 }
 
 function EchoLink($strHttp)

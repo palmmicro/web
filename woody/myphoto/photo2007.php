@@ -1,9 +1,9 @@
 <?php
 require('php/_myphoto.php');
 
-function EchoMetaDescription($bChinese)
+function GetMetaDescription($bChinese)
 {
-	echo 'Woody 2007 personal photos and related links. All from Beijing suburb trips with lvye.org except one camera test shooting.';
+	return 'Woody 2007 personal photos and related links. All from Beijing suburb trips with lvye.org except one camera test shooting.';
 }
 
 function EchoAll($bChinese)

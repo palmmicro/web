@@ -1,9 +1,9 @@
 <?php 
 require('php/_blogphoto.php');
 
-function EchoMetaDescription($bChinese)
+function GetMetaDescription($bChinese)
 {
-	echo 'Pictures from Woody 2011 blog. Including ATCOM IP PHONE AT323 internal PCB image, test interpolation algorithm with Rie Miyazawa Santa Fe JPEG file etc.';
+	return 'Pictures from Woody 2011 blog. Including ATCOM IP PHONE AT323 internal PCB image, test interpolation algorithm with Rie Miyazawa Santa Fe JPEG file etc.';
 }
 
 function EchoAll($bChinese)

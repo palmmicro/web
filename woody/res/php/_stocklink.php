@@ -38,10 +38,10 @@ function _getCategoryLink($strCategory)
     return GetPhpLink(STOCK_PATH.$strCategory, false, $ar[$strCategory]);
 }
 
-function GetCategoryArray($strTitle)
+function GetCategoryArray($strPage)
 {
     $ar = array();
-    switch ($strTitle)
+    switch ($strPage)
     {
     case ADR_PAGE:
         $ar = AdrGetSymbolArray();

@@ -6,6 +6,7 @@ function AdsenseSearchEngine($bChinese = true)
 	$strSearch = $bChinese ? '搜索' : 'Search';
 	
     echo <<< END
+
 <form action="https://www.google.com" id="cse-search-box" target="_blank">
   <div>
     <input type="hidden" name="cx" value="partner-pub-7413337917168353:hzytn0yyhjv" />
@@ -23,6 +24,7 @@ function AdsenseUnit($strUnit, $strSlot, $iHeight, $iWidth = DEFAULT_ADSENSE_WID
 	$strHeight = strval($iHeight).'px';
 	$strWidth = strval($iWidth).'px';
     echo <<< END
+
 <div>
     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
         <!-- Ads on $strUnit -->

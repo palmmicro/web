@@ -1,8 +1,10 @@
 <?php
 require_once('stocktable.php');
 
-function _echoNvCloseItem($csv, $his_sql, $shares_sql, $strDate, $strClose, $arFundNav, $ref, $strStockId, $bAdmin)
+function _echoNvCloseItem($csv, $his_sql, $shares_sql, $arHistory, $arFundNav, $ref, $strStockId, $bAdmin)
 {
+	$strClose = $arHistory['close'];
+	$strDate = $arHistory['date'];
 	if (($strClosePrev = $his_sql->GetClosePrev($strStockId, $strDate)) === false)		return;
 	
 	$strNav = rtrim0($arFundNav['close']);
@@ -31,10 +33,8 @@ function _echoNvCloseData($his_sql, $ref, $strStockId, $csv, $iStart, $iNum, $bA
     {
         while ($arHistory = mysql_fetch_assoc($result)) 
         {
-       		$strDate = $arHistory['date'];
-   			if ($bSameDayNav)		$arFundNav = $nav_sql->GetRecord($strStockId, $strDate);
-   			else					$arFundNav = $nav_sql->GetRecordPrev($strStockId, $strDate);
-        	if ($arFundNav)	_echoNvCloseItem($csv, $his_sql, $shares_sql, $strDate, rtrim0($arHistory['close']), $arFundNav, $ref, $strStockId, $bAdmin);
+       		$strDate = $bSameDayNav ? $arHistory['date'] : $his_sql->GetDatePrev($strStockId, $arHistory['date']);
+        	if ($arFundNav = $nav_sql->GetRecord($strStockId, $strDate))	_echoNvCloseItem($csv, $his_sql, $shares_sql, $arHistory, $arFundNav, $ref, $strStockId, $bAdmin);
         }
         @mysql_free_result($result);
     }

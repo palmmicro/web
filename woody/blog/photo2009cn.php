@@ -1,9 +1,9 @@
 <?php 
 require('php/_blogphoto.php');
 
-function EchoMetaDescription()
+function GetMetaDescription()
 {
-	echo 'Woody的2009年网络日志中使用的图片列表和日志链接. 包括中国市场上最便宜的PSTN电话外壳, Palmmicro PA1688软件中被浪费了的1x16 SDRAM等.';
+	return 'Woody的2009年网络日志中使用的图片列表和日志链接. 包括中国市场上最便宜的PSTN电话外壳, Palmmicro PA1688软件中被浪费了的1x16 SDRAM等.';
 }
 
 function EchoAll()

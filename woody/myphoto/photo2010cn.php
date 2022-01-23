@@ -1,9 +1,9 @@
 <?php
 require('php/_myphoto.php');
 
-function EchoMetaDescription()
+function GetMetaDescription()
 {
-	echo 'Woody的2010年个人图片和相关链接. 这一年横穿了三趟美国东西海岸, 其它的依旧都来自于北京绿野航天东风队的摄影爱好者们.';
+	return 'Woody的2010年个人图片和相关链接. 这一年横穿了三趟美国东西海岸, 其它的依旧都来自于北京绿野航天东风队的摄影爱好者们.';
 }
 
 function EchoAll()

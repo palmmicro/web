@@ -62,19 +62,19 @@ function EchoAll()
     $acct->EchoLinks(TABLE_CALIBRATION_HISTORY);
 }    
 
-function EchoMetaDescription()
+function GetMetaDescription()
 {
 	global $acct;
 	
   	$str = $acct->GetStockDisplay().CALIBRATION_HISTORY_DISPLAY;
     $str .= '页面. 用于查看, 比较和调试估算的股票价格或者基金净值之间的校准情况. 最新的校准时间一般会直接显示在该股票或者基金的页面, 提供更明显的调试信息.';
-    EchoMetaDescriptionText($str);
+    return CheckMetaDescription($str);
 }
 
-function EchoTitle()
+function GetTitle()
 {
 	global $acct;
-  	echo $acct->GetSymbolDisplay().CALIBRATION_HISTORY_DISPLAY;
+	return $acct->GetSymbolDisplay().CALIBRATION_HISTORY_DISPLAY;
 }
 
     $acct = new SymbolAccount();

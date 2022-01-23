@@ -5,12 +5,10 @@ require_once('/php/ui/tradingparagraph.php');
 require_once('/php/ui/fundhistoryparagraph.php');
 
 // ****************************** Common China fund functions *******************************************************
-function EchoTitle()
+function GetTitle()
 {
     global $acct;
-    
-    $str = $acct->GetStockDisplay().STOCK_DISP_NETVALUE;
-    echo $str;
+	return $acct->GetStockDisplay().STOCK_DISP_NETVALUE;
 }
 
 class FundGroupAccount extends GroupAccount 

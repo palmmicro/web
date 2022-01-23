@@ -13,9 +13,9 @@ function GetWeixinDevLink($strDisp = '微信公众号')
 	return GetInternalLink('/woody/blog/palmmicro/20161014cn.php', $strDisp);
 }
 
-function GetDevGuideLink($strPage, $strVer = false, $bChinese = true)
+function GetDevGuideLink($strLink, $strVer = false, $bChinese = true)
 {
-    $str = '/woody/blog/entertainment/'.$strPage;
+    $str = '/woody/blog/entertainment/'.$strLink;
     $str .= UrlGetPhp($bChinese);
     if ($strVer)	$str .= '#'.$strVer;
     return GetInternalLink($str, $bChinese ? '开发记录' : 'Development Record');
@@ -96,15 +96,15 @@ function GetAccountToolArray($bChinese)
 	return $ar;
 }
 
-function GetAccountToolStr($strTitle, $bChinese)
+function GetAccountToolStr($strPage, $bChinese)
 {
     $ar = GetAccountToolArray($bChinese);
-	return $ar[$strTitle];
+	return $ar[$strPage];
 }
 
-function _getAccountToolLink($strTitle, $bChinese)
+function _getAccountToolLink($strPage, $bChinese)
 {
-    return GetPhpLink(ACCT_PATH.$strTitle, false, GetAccountToolStr($strTitle, $bChinese), false, $bChinese);
+    return GetPhpLink(ACCT_PATH.$strPage, false, GetAccountToolStr($strPage, $bChinese), false, $bChinese);
 }
 
 function GetCommonPhraseLink($bChinese = true)
@@ -152,9 +152,9 @@ function GetIpAddressLink($bChinese = true)
     return _getAccountToolLink(TABLE_IP, $bChinese);
 }
 
-function _getIpLink($strTitle, $strIp, $bChinese)
+function _getIpLink($strPage, $strIp, $bChinese)
 {
-    return GetPhpLink(ACCT_PATH.$strTitle, 'ip='.$strIp, $strIp, false, $bChinese);
+    return GetPhpLink(ACCT_PATH.$strPage, 'ip='.$strIp, $strIp, false, $bChinese);
 }
 
 function GetIpLink($strIp, $bChinese = true)

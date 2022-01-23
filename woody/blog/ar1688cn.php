@@ -1,9 +1,9 @@
 <?php
 require('php/_blogtype.php');
 
-function EchoMetaDescription()
+function GetMetaDescription()
 {
-	echo 'Woody的AR1688相关的网络日志列表. 包括AR1688芯片介绍, 方案说明, 提供给第3方开发的软件API教程等内容. 以及从SDCC 2.8.0版本开始后使用其中Z80编译器的各种吐槽.';
+	return 'Woody的AR1688相关的网络日志列表. 包括AR1688芯片介绍, 方案说明, 提供给第3方开发的软件API教程等内容. 以及从SDCC 2.8.0版本开始后使用其中Z80编译器的各种吐槽.';
 }
 
 function EchoAll()

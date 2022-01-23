@@ -1,9 +1,9 @@
 <?php 
 require('php/_blogphoto.php');
 
-function EchoMetaDescription($bChinese)
+function GetMetaDescription($bChinese)
 {
-	echo 'Pictures from Woody 2013 blog. Including PA1688-PQ chip picture and the official picture of 5111PHONE provided by 5111SOFT etc.';
+	return 'Pictures from Woody 2013 blog. Including PA1688-PQ chip picture and the official picture of 5111PHONE provided by 5111SOFT etc.';
 }
 
 function EchoAll($bChinese)

@@ -1,14 +1,14 @@
 <?php
 require('php/_cateyes.php');
 
-function EchoTitle()
+function GetTitle()
 {
-    echo '天然无油5.94克拉祖母绿猫眼';
+	return '天然无油5.94克拉祖母绿猫眼';
 }
 
-function EchoMetaDescription()
+function GetMetaDescription()
 {
-	echo '淘宝店西雅图夜猫眼的5.94克拉祖母绿猫眼, 带GRS证书. 英文名称Emerald cat eye. http://shop58325285.taobao.com/';
+	return '淘宝店西雅图夜猫眼的5.94克拉祖母绿猫眼, 带GRS证书. 英文名称Emerald cat eye. http://shop58325285.taobao.com/';
 }
 
 function EchoAll()

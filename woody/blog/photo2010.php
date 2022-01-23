@@ -1,9 +1,9 @@
 <?php 
 require('php/_blogphoto.php');
 
-function EchoMetaDescription($bChinese)
+function GetMetaDescription($bChinese)
 {
-	echo 'Pictures from Woody 2010 blog. Including AR168DS programmer image and Soyo G1681 front view etc.';
+	return 'Pictures from Woody 2010 blog. Including AR168DS programmer image and Soyo G1681 front view etc.';
 }
 
 function EchoAll($bChinese)

@@ -1,9 +1,9 @@
 <?php
 require('php/_blogtype.php');
 
-function EchoMetaDescription($bChinese)
+function GetMetaDescription($bChinese)
 {
-	echo 'The list of Woody AR1688 related blogs. Including chip introduction, solution details and lessons of software API for 3rd party development etc.';
+	return 'The list of Woody AR1688 related blogs. Including chip introduction, solution details and lessons of software API for 3rd party development etc.';
 }
 
 function EchoAll($bChinese)

@@ -1,14 +1,14 @@
 <?php
 require('php/_res.php');
 
-function EchoTitle($bChinese)
+function GetTitle($bChinese)
 {
-    echo 'Btbond Technology, Inc.';
+	return 'Btbond Technology, Inc.';
 }
 
-function EchoMetaDescription($bChinese)
+function GetMetaDescription($bChinese)
 {
-	echo 'Btbond Technology, Inc. introduction with some products display, placed here by the request of its founder.';
+	return 'Btbond Technology, Inc. introduction with some products display, placed here by the request of its founder.';
 }
 
 function EchoAll($bChinese)

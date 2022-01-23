@@ -16,22 +16,22 @@ function MenuGetLink($strPathName, $strDisp)
     return "<p><A class=A2 HREF=\"{$strPathName}\">$strDisp</A></p>";
 }
 
-function MenuWriteItemLink($iLevel, $strTitle, $strType, $strDisp)
+function MenuWriteItemLink($iLevel, $strPage, $strType, $strDisp)
 {
     $strLevel = '';
     for ($i = 0; $i < $iLevel; $i ++)
     {
     	$strLevel .= '../';
     }
-    echo MenuGetLink($strLevel.$strTitle.$strType, $strDisp);
+    echo MenuGetLink($strLevel.$strPage.$strType, $strDisp);
 }
 
-function MenuWriteLink($strTitle, $strType, $strDisp, $strOutput)
+function MenuWriteLink($strPage, $strType, $strDisp, $strOutput)
 {
     switch ($strOutput)
     {
     case MENU_OUTPUT_LINK:
-    	MenuWriteItemLink(0, $strTitle, $strType, $strDisp);
+    	MenuWriteItemLink(0, $strPage, $strType, $strDisp);
     	break;
     	
     case MENU_OUTPUT_DISABLED:
@@ -49,7 +49,7 @@ function MenuSwitchLanguage($bChinese)
 	echo GetSwitchLanguageLink($bChinese);
 }
 
-function MenuWriteTitleLink($strTitle, $strType, $strDir, $strOutput)
+function MenuWriteTitleLink($strPage, $strType, $strDir, $strOutput)
 {
     $strDisp = 'Unknown';
     if ($strType == URL_CNPHP)
@@ -61,7 +61,7 @@ function MenuWriteTitleLink($strTitle, $strType, $strDir, $strOutput)
     {
         $strDisp = $strDir;
     }
-    MenuWriteLink($strTitle, $strType, $strDisp, $strOutput);
+    MenuWriteLink($strPage, $strType, $strDisp, $strOutput);
 }
 
 function MenuTitle($arTitles, $strDir)
@@ -70,7 +70,7 @@ function MenuTitle($arTitles, $strDir)
     $strOutput = MENU_OUTPUT_LINK;
     $strNavDir = $strDir;
     $strType = UrlGetType();
-    $strCur = UrlGetTitle();
+    $strCur = UrlGetPage();
     
     if ($strDir == MENU_DIR_FIRST)
     {
@@ -120,7 +120,7 @@ function MenuTitle($arTitles, $strDir)
 
 function MenuContinueNewLine()
 {
-	echo '<p>&nbsp;</p>';
+	EchoParagraph('&nbsp;');
 }
 
 function MenuBegin()
@@ -151,7 +151,7 @@ function MenuDirLoop($arTitles)
 function MenuSet($arMenus)
 {
     $strType = UrlGetType();
-    $strCur = UrlGetTitle();
+    $strCur = UrlGetPage();
 
     foreach ($arMenus as $strClass => $strDisplay)
     {

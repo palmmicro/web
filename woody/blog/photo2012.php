@@ -1,9 +1,9 @@
 <?php 
 require('php/_blogphoto.php');
 
-function EchoMetaDescription($bChinese)
+function GetMetaDescription($bChinese)
 {
-	echo 'Pictures from Woody 2012 blog. Including standard AR168R RoIP module photo by an user from Denmark etc.';
+	return 'Pictures from Woody 2012 blog. Including standard AR168R RoIP module photo by an user from Denmark etc.';
 }
 
 function EchoAll($bChinese)
