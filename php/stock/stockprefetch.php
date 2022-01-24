@@ -16,14 +16,14 @@ function _GetEastMoneyQuotesYMD($str)
     }
     return false;
 }
-
+/*
 function _GetFundQuotesYMD($str)
 {
     $ar = explode(',', $str);
     if (count($ar) > 4)	return $ar[4];
     return false;
 }
-
+*/
 function IsNewDailyQuotes($sym, $strFileName, $callback)
 {
     $sym->SetTimeZone();
@@ -57,27 +57,54 @@ function IsNewDailyQuotes($sym, $strFileName, $callback)
     return false;
 }
 
+function SinaFundNeedFile($sym, $strFileName)
+{
+	clearstatcache(true, $strFileName);
+	if (file_exists($strFileName) == false)	return true;
+
+	if ($strDigit = $sym->IsSinaFund())
+	{
+   		if ($strSymbol = BuildChineseFundSymbol($strDigit))		$sym = new StockSymbol($strSymbol);
+   		else
+   		{
+   			DebugString('SinaFundNeedFile unknown symbol:'.$sym->GetSymbol());
+   			return false;
+   		}
+	}
+	else	$strSymbol = $sym->GetSymbol();
+
+	$strStockId = SqlGetStockId($strSymbol);
+	$his_sql = GetStockHistorySql();
+	$strDate = $his_sql->GetDateNow($strStockId);
+	$strNavDate = UseSameDayNav($sym) ? $strDate : $his_sql->GetDatePrev($strStockId, $strDate);
+	if (SqlGetNavByDate($strStockId, $strNavDate))		return false;
+//	else													DebugString('SinaFundNeedFile need nav on '.$strNavDate.' '.$strSymbol);
+
+    $sym->SetTimeZone();
+    $now_ymd = new NowYMD();
+   	if (($now_ymd->GetYMD() == $strDate) && $now_ymd->GetHourMinute() < 1600)
+   	{
+ 		DebugString($strSymbol.': Market not closed');
+   		return false;
+    }
+
+	return $now_ymd->NeedFile($strFileName, 30 * SECONDS_IN_MIN);
+}
+
 function StockNeedNewQuotes($sym, $strFileName, $iInterval = SECONDS_IN_MIN)
 {
-    $sym->SetTimeZone();
-    clearstatcache(true, $strFileName);
-    if (file_exists($strFileName))
-    {
-        $ymd = new NowYMD();
-        if ($ymd->IsNewFile($strFileName, $iInterval))       return false;   // update on every minute
- 
-        $iFileTime = filemtime($strFileName);
-		$iCurTime = $ymd->GetTick();
-        if ($iCurTime > ($iFileTime + 6 * SECONDS_IN_HOUR))     return true;   // always update after 6 hours
-        
-        if ($sym->IsMarketTrading(new TickYMD($iFileTime)))    return true;
-        else 
-        {
-            if ($sym->IsMarketTrading($ymd))    					return true;
-            else                                					return false;
-        }
-    }
-    return true;
+	clearstatcache(true, $strFileName);
+	if (file_exists($strFileName) == false)	return true;
+
+	$sym->SetTimeZone();
+    $now_ymd = new NowYMD();
+	if (($iFileTime = $now_ymd->NeedFile($strFileName, $iInterval)) == false)		return false;	// update on every minute
+	
+	if ($now_ymd->GetTick() > ($iFileTime + 6 * SECONDS_IN_HOUR))						return true;	// always update after 6 hours
+	if ($sym->IsMarketTrading($now_ymd))													return true;
+	if ($sym->IsMarketTrading(new TickYMD($iFileTime)))								return true;
+	
+    return false;
 }
 
 function ForexAndFutureNeedNewFile($strFileName, $strTimeZone, $iInterval = SECONDS_IN_MIN)
@@ -87,7 +114,7 @@ function ForexAndFutureNeedNewFile($strFileName, $strTimeZone, $iInterval = SECO
     if (file_exists($strFileName))
     {
         $ymd = new NowYMD();
-        if ($ymd->IsNewFile($strFileName, $iInterval))       return false;   // update on every minute
+        if ($ymd->NeedFile($strFileName, $iInterval) == false)       return false;   // update on every minute
         
         $file_ymd = new TickYMD(filemtime($strFileName));
         if ($file_ymd->IsWeekDay())    return true;
@@ -120,7 +147,8 @@ function _prefetchSinaData($arSym)
         $strFileName = DebugGetSinaFileName($str);
 		if ($sym->IsSinaFund())
         {   // fund, IsSinaFund must be called before IsSinaFuture
-            if (IsNewDailyQuotes($sym, $strFileName, '_GetFundQuotesYMD'))       continue;
+			if (SinaFundNeedFile($sym, $strFileName) == false)		continue;
+//            if (IsNewDailyQuotes($sym, $strFileName, '_GetFundQuotesYMD'))       continue;
         }
         else if ($sym->IsSinaFuture() || $sym->IsSinaForex())
         {   // forex and future

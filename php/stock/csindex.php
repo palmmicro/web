@@ -98,7 +98,7 @@ function CsindexGetData($strSymbol = 'H30533')
 {
     date_default_timezone_set(STOCK_TIME_ZONE_CN);
 	$strFileName = DebugGetSymbolFile('csindex', $strSymbol);
-//	if (StockIsNewFile($strFileName, SECONDS_IN_HOUR))		return;   		// update on every hour
+//	if (StockNeedFile($strFileName, SECONDS_IN_HOUR) == false)		return;   		// update on every hour
 
 //	$strUrl = GetCsindexUrl($strSymbol);
 //	$strUrl = 'http://www.csindex.com.cn/en/indices/index-detail/'.$strSymbol;

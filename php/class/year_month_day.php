@@ -34,19 +34,10 @@ class YearMonthDay
         return $this->GetTick() + $iSeconds;
     }
     
-    function IsNewFile($strFileName, $iInterval = SECONDS_IN_MIN)
-    {
-   		return ($this->GetTick() < (filemtime($strFileName) + $iInterval)) ? true : false;
-    }
-    
     function NeedFile($strFileName, $iInterval = SECONDS_IN_MIN)
     {
-    	clearstatcache(true, $strFileName);
-    	if (file_exists($strFileName))
-    	{
-    		if ($this->IsNewFile($strFileName, $iInterval))	return false;
-    	}
-    	return true;
+   		$iFileTime = filemtime($strFileName);
+   		return ($this->GetTick() < ($iFileTime + $iInterval)) ? false : $iFileTime;
     }
     
     function IsFuture() 
@@ -233,6 +224,11 @@ class TickYMD extends YearMonthDay
     function GetMinute()
     {
         return $this->local[1];
+    }
+    
+    function GetHourMinute()
+    {
+        return intval($this->GetHour()) * 100 + intval($this->GetMinute());
     }
     
     function GetHMS()

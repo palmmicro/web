@@ -214,12 +214,12 @@ function _yahooGetNetValueSymbol($sym, $strSymbol)
    	}
    	return GetYahooNetValueSymbol($strSymbol);
 }
-
+/*
 function _getNetValueDelayTick()
 {	// get net value after 16:55
 	return 16 * SECONDS_IN_HOUR + 55 * SECONDS_IN_MIN;
 }
-
+*/
 function YahooUpdateNetValue($ref)
 {
 	if ($ref->HasData() == false)	return;
@@ -234,14 +234,18 @@ function YahooUpdateNetValue($ref)
     if ($nav_sql->GetRecord($strStockId, $strDate))	return;	// already have today's data
 	
     $now_ymd = new NowYMD();
-   	if ($now_ymd->GetTick() < (strtotime($strDate) + _getNetValueDelayTick()))
+   	if (($now_ymd->GetYMD() == $strDate) && $now_ymd->GetHourMinute() < 1655)
    	{
 // 		DebugString($strSymbol.': Market not closed');
    		return;
     }
     
 	$strFileName = DebugGetYahooWebFileName($strSymbol);
-	if ($now_ymd->NeedFile($strFileName) === false)		return;
+   	clearstatcache(true, $strFileName);
+   	if (file_exists($strFileName))
+   	{
+   		if ($now_ymd->NeedFile($strFileName, 5 * SECONDS_IN_MIN) == false)		return;
+   	}
 	
    	$sym = new StockSymbol($strNetValueSymbol);
    	$strUrl = YahooStockGetUrl($sym->GetYahooSymbol());
@@ -433,7 +437,7 @@ function YahooUpdateFinancials($ref)
 {
 	$ref->SetTimeZone();
 	$strFileName = DebugGetSymbolFile('yahoofinancials', $ref->GetSymbol());
-	if (StockIsNewFile($strFileName, 90 * SECONDS_IN_DAY))		return false;   		// update on 90 days
+	if (StockNeedFile($strFileName, 90 * SECONDS_IN_DAY) == false)		return false;   		// update on 90 days
 	
    	$strUrl = YahooStockGetUrl($ref->GetYahooSymbol()).'/financials';
     if ($str = url_get_contents($strUrl))

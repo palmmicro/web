@@ -90,8 +90,11 @@ function EchoFundHistoryParagraph($fund, $csv = false, $iStart = 0, $iNum = TABL
 
 function EchoEtfHistoryParagraph($ref, $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
 {
-	$est_ref = method_exists($ref, 'GetPairRef') ? $ref->GetPairRef() : false;
-	_echoFundHistoryParagraph($ref->GetFundEstSql(), $ref, $est_ref, $csv, $iStart, $iNum);
+	if (method_exists($ref, 'GetFundEstSql'))
+	{
+		$est_ref = method_exists($ref, 'GetPairRef') ? $ref->GetPairRef() : false;
+		_echoFundHistoryParagraph($ref->GetFundEstSql(), $ref, $est_ref, $csv, $iStart, $iNum);
+	}
 }
 
 ?>

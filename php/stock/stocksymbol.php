@@ -726,35 +726,32 @@ class StockSymbol
     {
     	if ($ymd->IsWeekDay())
     	{
-    		$iHour = $ymd->GetHour();
-    		$iMinute = $ymd->GetMinute();
+    		$iHourMinute = $ymd->GetHourMinute();
     		if ($this->IsSymbolA())
     		{
-    			if ($iHour < 9 || $iHour > 15)		return false;
-    			else if ($iHour == 9)
-    			{
-    				if ($iMinute < 15)				return false;
-    			}
-    			else if ($iHour == 15)
+    			if ($iHourMinute < 915)										return false;
+    			else if (($iHourMinute > 1140) && ($iHourMinute < 1300))	return false;		// SH000300 update until 1135
+    			else if ($iHourMinute > 1505)
     			{
     				if ($this->IsShangHaiA() && ($this->iDigitA >= 688000))
     				{
-    					if ($iMinute > 30)			return false;
+    					if ($iHourMinute > 1535)								return false;
     				}
-    				else								return false;
+    				else														return false;
     			}
     		}
     		else if ($this->IsSymbolH())
     		{	// Hongkong market from 9:00 to 16:10
-    			if ($iHour < 9 || $iHour > 16)		return false;
-    			else if ($iHour == 16)
+    			if ($iHourMinute < 900)										return false;
+    			else if (($iHourMinute > 1200) && ($iHourMinute < 1300))
     			{
-    				if ($iMinute > 10)				return false;
+    				if ($this->IsIndex() == false)		    				return false;		// ^HSCE and ^HSI continue to trade during this period
     			}
+    			else if ($iHourMinute > 1615)								return false;
     		}
     		else
     		{   // US extended hours trading from 4am to 8pm
-    			if ($iHour < 4 || $iHour >= 20)		return false;
+    			if (($iHourMinute < 400) || ($iHourMinute > 2005))		return false;
     		}
     	}
     	else 

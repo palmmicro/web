@@ -27,6 +27,10 @@ function _echoPortfolioTableItem($trans)
 
         switch ($strSymbol)
         {
+        case 'SZ160717':
+        	$ar[] = strval($iShares - 41200);
+        	break;
+    		
         case 'SZ162411':
         	$ar[] = strval($iShares - 129000 - 4 * 140000);
         	break;

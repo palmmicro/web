@@ -26,7 +26,7 @@ function GetChinaMoney($ref)
     
     date_default_timezone_set(STOCK_TIME_ZONE_CN);
 	$strFileName = DebugGetChinaMoneyFile();
-	if (StockIsNewFile($strFileName))																	return; 	// updates on every minute
+	if (StockNeedFile($strFileName) == false)															return; 	// updates on every minute
 	
    	if ($str = url_get_contents(ChinaMoneyGetUrl()))
    	{

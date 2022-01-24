@@ -118,10 +118,12 @@ function GetSinaQuotesUrl($strSinaSymbols)
 	return 'http://hq.sinajs.cn/list='.$strSinaSymbols;
 }	
 
-function StockIsNewFile($strFileName, $iInterval = SECONDS_IN_MIN)
+function StockNeedFile($strFileName, $iInterval = SECONDS_IN_MIN)
 {
    	$now_ymd = new NowYMD();
-	return $now_ymd->NeedFile($strFileName, $iInterval) ? false : true;
+   	clearstatcache(true, $strFileName);
+   	if (file_exists($strFileName))		return $now_ymd->NeedFile($strFileName, $iInterval);
+   	return true;
 }
 
 define('SINA_QUOTES_SEPARATOR', ',');
@@ -132,8 +134,8 @@ function GetSinaQuotes($strSinaSymbols)
 	if (DebugIsAdmin() && $iCount > 1)	DebugVal('total prefetch - '.$strSinaSymbols, $iCount);
 	else
 	{
-		if (StockIsNewFile($strFileName, 30))
-		{
+		if (StockNeedFile($strFileName, 30) == false)
+		{	// pause 30 seconds after curl error response
 //			DebugString('Ignored: '.$strSinaSymbols);
 			return false;
 		}
@@ -514,7 +516,7 @@ function StockGetHShareReference($sym)
 function StockHoldingsSaveCsv($strSymbol, $strUrl)
 {
 	$strFileName = DebugGetHoldingsCsv($strSymbol);
-	if (StockIsNewFile($strFileName))	return false; 	// updates on every minute
+	if (StockNeedFile($strFileName, 5 * SECONDS_IN_MIN) == false)	return false; 	// updates on every 5 minutes
 	
 	$str = url_get_contents($strUrl);
 	if ($str == false)
