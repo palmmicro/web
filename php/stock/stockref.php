@@ -452,14 +452,8 @@ class StockReference extends StockSymbol
         if ($this->IsSinaFund())	$strFundSymbol = $this->GetSymbol();
         else						$strFundSymbol = $this->GetSinaFundSymbol();
         
-        $strFileName = DebugGetSinaFileName($strFundSymbol);
-        $this->strFileName = $strFileName;
-/*
-        if (($str = IsNewDailyQuotes($this, $strFileName, '_GetFundQuotesYMD')) === false)
-        {
-        	$str = _getSinaQuotesStr($strFundSymbol, $strFileName);
-        }*/
-		$str = SinaFundNeedFile($this, $strFileName) ? _getSinaQuotesStr($strFundSymbol, $strFileName) : file_get_contents($strFileName);
+        $this->strFileName = DebugGetSinaFileName($strFundSymbol);
+		$str = SinaFundNeedFile($this, $this->strFileName) ? _getSinaQuotesStr($strFundSymbol, $this->strFileName) : file_get_contents($this->strFileName);
         $ar = explodeQuote($str);
         if (count($ar) < 4)
         {

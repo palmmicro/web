@@ -521,7 +521,7 @@ function StockHoldingsSaveCsv($strSymbol, $strUrl)
 	$str = url_get_contents($strUrl);
 	if ($str == false)
 	{
-		DebugString($strSymbol.' SaveHoldingsCsvFile没读到数据');
+		DebugString($strSymbol.' StockHoldingsSaveCsv 没读到数据');
 		return false;
 	}
 		

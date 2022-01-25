@@ -215,7 +215,6 @@ function LayoutTail($bChinese = true, $bAdsense = false)
     {
     	if (LayoutScreenWidthOk())
     	{
-//    		echo '</td><td width=15 valign=top>&nbsp;</td><td valign=top>';
     		echo <<<END
 
 </td>

@@ -15,6 +15,7 @@ require_once('sql/sqlfundpurchase.php');
 class Account
 {
     var $strMemberId = false;
+    var $strPageId;
     
     var $strLoginEmail = false;
 
@@ -41,7 +42,7 @@ class Account
 	    
 	    $this->visitor_sql = new VisitorSql();
 	    $strId = GetIpId($strIp);
-	    if ($strPageId = $this->GetPageId($strUri))	$this->visitor_sql->InsertVisitor($strPageId, $strId);
+	    if ($this->strPageId = $this->GetPageId($strUri))	$this->visitor_sql->InsertVisitor($this->strPageId, $strId);
     
 	    $iCount = $this->visitor_sql->CountBySrc($strId);
 	    if ($iCount >= 1000)
@@ -93,9 +94,9 @@ class Account
     	return $this->page_sql->GetKey($strPageId);
     }
     
-    function GetPageId($strPageUri)
+    function GetPageId($strPageUri = false)
     {
-    	return $this->page_sql->GetId($strPageUri);
+    	return $strPageUri ? $this->page_sql->GetId($strPageUri) : $this->strPageId;
     }
     
     function GetPageSql()

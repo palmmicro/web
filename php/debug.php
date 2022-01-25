@@ -143,13 +143,8 @@ function DebugIsAdmin()
 	return false;
 }
 
-function DebugString($str, $bAdmin = false)
+function DebugString($str)
 {
-	if ($bAdmin)
-	{
-		if (DebugIsAdmin() === false)		return;
-	}
-	
 	if ($str === false)	$str = '(false)';
     $strTimeZone = date_default_timezone_get();
     file_put_contents(DebugGetFile(), DebugGetTime().' '.UrlGetIp().' '.UrlGetCur().' '.$str.PHP_EOL, FILE_APPEND);     // DebugGetTime will change timezone!
@@ -179,20 +174,7 @@ function DebugPrint($exp, $strPrefix = false)
 	DebugString($str);
 }
 
-function DebugHere($iVal = false)
-{
-   	static $iDebugVal = 0;
-    	
-   	if ($iVal)	
-   	{
-   		$iDebugVal = $iVal;
-   	}
-    	
-	$iDebugVal ++;
-	DebugVal($iDebugVal);
-}
-
-function _getDebugPath($strSection)
+function DebugGetPath($strSection)
 {
     $strPath = _checkDebugPath(); 
     $strPath .= '/'.$strSection;
@@ -201,55 +183,27 @@ function _getDebugPath($strSection)
     return $strPath;
 }
 
-function DebugClearPath($strSection)
-{
-    $strPath = _getDebugPath($strSection);
-    $hDir = opendir($strPath);
-    while ($strFileName = readdir($hDir))
-    {
-    	if ($strFileName != '.' && $strFileName != '..')
-    	{
-    		$strPathName = $strPath.'/'.$strFileName;
-    		if (!is_dir($strPathName)) 
-    		{
-    			unlink($strPathName);
-    		}
-    		else 
-    		{
-    			DebugString('Unexpected subdir: '.$strPathName); 
-    		}
-    	}
-    }
-	closedir($hDir);
-}
-
 function DebugGetImageName($str)
 {
-    $strPath = _getDebugPath('image');
+    $strPath = DebugGetPath('image');
     return "$strPath/$str.jpg";
-}
-
-function DebugGetCsvName($str)
-{
-    $strPath = _getDebugPath('csv');
-    return "$strPath/$str.csv";
 }
 
 function DebugGetFontName($str)
 {
-    $strPath = _getDebugPath('font');
+    $strPath = DebugGetPath('font');
     return "$strPath/$str.ttf";
 }
 
 function DebugGetChinaMoneyFile()
 {
-    $strPath = _getDebugPath('chinamoney');
+    $strPath = DebugGetPath('chinamoney');
     return "$strPath/json.txt";
 }
 
 function DebugGetSymbolFile($strSection, $strSymbol)
 {
-    $strPath = _getDebugPath($strSection);
+    $strPath = DebugGetPath($strSection);
     
     $str = strtolower($strSymbol);
     $str = str_replace('+', '_', $str);

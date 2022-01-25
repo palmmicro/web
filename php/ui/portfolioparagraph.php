@@ -1,6 +1,25 @@
 <?php
 require_once('stocktable.php');
 
+function _getPortfolioTestVal($strSymbol)
+{
+	switch ($strSymbol)
+    {
+/*	case 'KWEB':
+		return 400;
+
+	case 'SH600104':
+		return 4000;
+*/
+    case 'SZ160717':
+    	return 41200;
+  		
+    case 'SZ162411':
+		return 129000 + 4 * 140000;
+	}
+	return 0;
+}
+
 function _echoPortfolioTableItem($trans)
 {
 	$ar = array();
@@ -27,27 +46,18 @@ function _echoPortfolioTableItem($trans)
 
         switch ($strSymbol)
         {
+/*		case 'KWEB':
+        case 'SH600104':
+*/
         case 'SZ160717':
-        	$ar[] = strval($iShares - 41200);
-        	break;
-    		
         case 'SZ162411':
-        	$ar[] = strval($iShares - 129000 - 4 * 140000);
+        	$ar[] = strval($iShares - _getPortfolioTestVal($strSymbol));
         	break;
     		
         case 'SZ161127':
         case 'SZ164906':
         	$ar[] = GetArbitrageQuantity($strSymbol, floatval($iShares));
 			break;
-    		
-/*		case 'KWEB':
-        	$ar[] = strval($iShares - 400);
-			break;
-
-        case 'SH600104':
-        	$ar[] = strval($iShares - 4000);
-			break;
-*/
    		}
     }
 

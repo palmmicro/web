@@ -152,14 +152,14 @@ function SqlCleanString($str)
 	return mysql_real_escape_string($str);
 }
 
-class ErrorHandlerFile extends CsvFile
+class ErrorHandlerFile extends DebugCsvFile
 {
 	var $strError = false;
 	var $iCount = 0;
 	
     function ErrorHandlerFile() 
     {
-        parent::CsvFile(DebugGetCsvName('errorhandler'));
+        parent::DebugCsvFile('errorhandler');
     }
 
     public function OnLineArray($arWord)

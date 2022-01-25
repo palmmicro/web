@@ -154,7 +154,7 @@ class _QdiiReference extends FundReference
         
        	$est_ref = $this->GetEstRef();
         $str = $est_ref->GetPrice();
-//        DebugString($est_ref->GetSymbol().' '.$str, true);
+//        DebugString($est_ref->GetSymbol().' '.$str);
         if (empty($str))
         {	// SH000869 bug fix
         	$his_sql = GetStockHistorySql();

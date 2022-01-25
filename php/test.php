@@ -1,10 +1,7 @@
 <?php
-require_once('debug.php');
 require_once('account.php');
 require_once('stock.php');
 //require_once('stocktrans.php');
-
-//require_once('stock/csindex.php');
 
 require_once('sql/sqlblog.php');
 require_once('sql/sqlvisitor.php');
@@ -91,16 +88,37 @@ function DebugLogFile()
 	}
 }
 
+function DebugClearPath($strSection)
+{
+    $strPath = DebugGetPath($strSection);
+    $hDir = opendir($strPath);
+    while ($strFileName = readdir($hDir))
+    {
+    	if ($strFileName != '.' && $strFileName != '..')
+    	{
+    		$strPathName = $strPath.'/'.$strFileName;
+    		if (!is_dir($strPathName)) 
+    		{
+    			unlink($strPathName);
+    		}
+    		else 
+    		{
+    			DebugString('Unexpected subdir: '.$strPathName); 
+    		}
+    	}
+    }
+	closedir($hDir);
+}
+
 	$acct = new Account();
 
     echo '<meta http-equiv="content-type" content="text/html; charset=UTF-8">';
-//    EchoInsideHead();
 
 	file_put_contents(DebugGetFile(), DEBUG_UTF8_BOM.'Start debug:'.PHP_EOL);
 	DebugString($_SERVER['DOCUMENT_ROOT']);
 	DebugString(phpversion());
-	echo strval(rand()).' Hello, world!<br />';
 	DebugLogFile();
+	echo strval(rand()).' Hello, world!<br />';
 	
 	TestCmdLine();
 	DebugClearPath('csv');
@@ -114,16 +132,9 @@ function DebugLogFile()
 	
 //	$sql = new CommonPhraseSql();
 //	CsindexGetData();
-/*
-	$strUrl = 'http://query.sse.com.cn/etfDownload/downloadETF2Bulletin.do?etfType=087';
-   	if ($str = url_get_contents($strUrl))
-    {
-   		DebugString($str);
-   	}
-*/	
 
 //	TestModifyTransactions('1831', 'CHU', '00762');
 //	TestModifyTransactions('1376', 'UWT', 'USO');
 
-	phpinfo();
+//	phpinfo();
 ?>

@@ -103,14 +103,23 @@ class CsvFile
     }
 }
 
-class PageCsvFile extends CsvFile
+class DebugCsvFile extends CsvFile
+{
+    function DebugCsvFile($strDebug) 
+    {
+    	$strPath = DebugGetPath('csv');				// test.php calls DebugClearPath('csv') to delete all DebugCsvFile
+        parent::CsvFile("$strPath/$strDebug.csv");
+    }
+}
+
+class PageCsvFile extends DebugCsvFile
 {
 	var $arColumn = array();
 	var $iColumn;
 	
     function PageCsvFile() 
     {
-        parent::CsvFile(DebugGetCsvName(UrlGetUniqueString()));
+        parent::DebugCsvFile(UrlGetUniqueString());
     }
 
     public function OnLineArray($arWord)
