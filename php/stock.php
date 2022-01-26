@@ -11,8 +11,6 @@ require_once('sql/sqlipaddress.php');
 require_once('sql/sqlstock.php');
 
 require_once('stock/stocksymbol.php');
-//require_once('stock/csindex.php');		// 中证指数有限公司
-require_once('stock/szse.php');			// Shenzhen Stock Exchange
 require_once('stock/yahoostock.php');
 require_once('stock/sinastock.php');
 require_once('stock/stockprefetch.php');
@@ -32,34 +30,7 @@ require_once('stock/forexref.php');
 require_once('stock/hshareref.php');
 require_once('stock/etfref.php');
 
-require_once('stock/chinamoney.php');
-
 // ****************************** Stock symbol functions *******************************************************
-
-function StockGetSymbol($str)
-{
-	$str = trim($str);
-	if (strpos($str, '_') === false)	$str = strtoupper($str);
-    if (IsChineseStockDigit($str))
-    {
-        if (intval($str) >= 500000)	$str = SH_PREFIX.$str;
-        else							$str = SZ_PREFIX.$str;
-    }
-    return $str;
-}
-
-function StockGetArraySymbol($ar)
-{
-    $arSymbol = array();
-    foreach ($ar as $str)
-    {
-    	if (!empty($str))
-    	{
-    		$arSymbol[] = StockGetSymbol($str);
-    	}
-    }
-    return $arSymbol;
-}
 
 function ForexGetEastMoneySymbol($strSymbol)
 {
@@ -262,24 +233,6 @@ function StockUpdateEstResult($fund_est_sql, $strStockId, $strNetValue, $strDate
 }
 
 // ****************************** StockReference public functions *******************************************************
-function RefHasData($ref)
-{
-	if ($ref)
-	{
-		return $ref->HasData();
-	}
-	return false;
-}
-
-function RefGetMyStockLink($ref)
-{
-	if ($ref)
-	{
-		return $ref->GetMyStockLink();
-	}
-	return '';
-}
-
 function _grayString($str)
 {
     return '<font color=gray>'.$str.'</font>';
@@ -299,7 +252,7 @@ function _convertDescriptionDisplay($str, $strDisplay)
 {
     if ($str == STOCK_PRE_MARKET || $str == STOCK_POST_MARKET)	return _grayString($strDisplay);
     if ($str == STOCK_NET_VALUE)									return _boldString($strDisplay);
-    if ($str == STOCK_SINA_DATA || $str == STOCK_YAHOO_DATA)		return _italicString($strDisplay);
+    if ($str == STOCK_SINA_DATA)									return _italicString($strDisplay);
     return $strDisplay;
 }
 
@@ -331,32 +284,6 @@ function RefGetDescription($ref, $bConvertDisplay = false)
 		}
 	}
     return $str;
-}
-
-function RefGetStockDisplay($ref)
-{
-    return RefGetDescription($ref).'【'.$ref->GetSymbol().'】';
-}
-
-function RefSortByNumeric($arRef, $callback)
-{
-    $ar = array();
-    $arNum = array();
-    
-    foreach ($arRef as $ref)
-    {
-        $strSymbol = $ref->GetSymbol();
-        $ar[$strSymbol] = $ref;
-    	$arNum[$strSymbol] = call_user_func($callback, $ref);
-    }
-    asort($arNum, SORT_NUMERIC);
-    
-    $arSort = array();
-    foreach ($arNum as $strSymbol => $fNum)
-    {
-        $arSort[] = $ar[$strSymbol];
-    }
-    return $arSort;
 }
 
 // ****************************** Stock final integration functions *******************************************************
@@ -457,35 +384,6 @@ function StockGetFundReference($strSymbol)
     return $ref;
 }
 
-function StockGetReference($strSymbol, $sym = false)
-{
-	if ($sym == false)	$sym = new StockSymbol($strSymbol);
-
-/*    if ($sym->IsSinaFund())				return new FundReference($strSymbol);
-    else*/ if ($sym->IsSinaFuture())   		return new FutureReference($strSymbol);
-    else if ($sym->IsSinaForex())   		return new ForexReference($strSymbol);
-	else if ($sym->IsEastMoneyForex())	return new CnyReference($strSymbol);
-    										return new MyStockReference($strSymbol);
-}
-
-function StockGetHoldingsReference($strSymbol)
-{
-	if (SqlCountHoldings($strSymbol) > 0)
-	{
-		return new HoldingsReference($strSymbol);
-	}
-	return false;
-}
-
-function StockGetEtfReference($strSymbol)
-{
-	if (SqlGetEtfPair($strSymbol))
-	{
-		return new EtfReference($strSymbol);
-	}
-	return false;
-}
-
 function StockGetHShareReference($sym)
 {
 	$strSymbol = $sym->GetSymbol();
@@ -511,45 +409,6 @@ function StockGetHShareReference($sym)
       	}
     }
     return false;
-}
-
-function StockHoldingsSaveCsv($strSymbol, $strUrl)
-{
-	$strFileName = DebugGetHoldingsCsv($strSymbol);
-	if (StockNeedFile($strFileName, 5 * SECONDS_IN_MIN) == false)	return false; 	// updates on every 5 minutes
-	
-	$str = url_get_contents($strUrl);
-	if ($str == false)
-	{
-		DebugString($strSymbol.' StockHoldingsSaveCsv 没读到数据');
-		return false;
-	}
-		
-	file_put_contents($strFileName, $str);
-	DebugString('Saved '.$strUrl.' to '.$strFileName);
-	return $strFileName;
-}
-
-function GetArbitrageQuantity($strSymbol, $fQuantity)
-{
-  	switch ($strSymbol)
-   	{
-   	case 'SZ161127':
-		$iArbitrage = 500;
-   		break;
-    		
-   	case 'SZ162411':
-		$iArbitrage = 1400;
-   		break;
-    		
-   	case 'SZ164906':
-		$iArbitrage = 246;
-   		break;
-    		
-   	default:
-   		return '';
-   	}
-	return strval(intval($fQuantity / $iArbitrage + 0.5));
 }
 
 function UseSameDayNav($sym)

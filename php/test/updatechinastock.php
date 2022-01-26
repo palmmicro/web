@@ -31,7 +31,7 @@ function _updateChinaStock()
     preg_match_all($strPattern, $str, $arMatch, PREG_SET_ORDER);
     
    	$csv = new PageCsvFile();
-    DebugVal(count($arMatch), $csv->GetPathName().' _updateChinaStock');
+    DebugVal(count($arMatch), $csv->GetName().' _updateChinaStock');
 
     $iCount = 0;
 	$sql = GetStockSql();

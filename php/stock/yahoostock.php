@@ -1,17 +1,5 @@
 <?php
 
-// https://finance.yahoo.com/quote/XOP/history?period1=1467122442&period2=1498658442&interval=1d&filter=history&frequency=1d 
-define('YAHOO_STOCK_QUOTES_URL', 'https://finance.yahoo.com/quote/');
-function YahooStockHistoryGetUrl($strYahooSymbol, $iTimeBegin = false, $iTimeEnd = false)
-{
-    $strUrl = YAHOO_STOCK_QUOTES_URL.$strYahooSymbol.'/history';
-    if ($iTimeBegin && $iTimeEnd)
-    {
-    	$strUrl .= '?period1='.strval($iTimeBegin).'&period2='.strval($iTimeEnd).'&interval=1d&filter=history&frequency=1d';
-    }
-    return $strUrl;
-}
-
 /*
 "^SPSIOP":{
 "sourceInterval":15,
@@ -136,11 +124,6 @@ function _yahooStockMatchGetDate($arMatch, $strSymbol)
 		return $ymd->GetYMD();
 	}
    	return false;
-}
-
-function YahooStockGetUrl($strYahooSymbol)
-{
-	return YAHOO_STOCK_QUOTES_URL.$strYahooSymbol;
 }
 
 function _yahooStockGetData($strSymbol, $strStockId)

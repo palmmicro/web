@@ -1,6 +1,8 @@
 <?php
 require_once('/php/stockgroup.php');
 require_once('/php/stockhis.php');
+require_once('/php/stock/chinamoney.php');
+require_once('/php/stock/szse.php');
 
 class GroupAccount extends StockAccount
 {

@@ -2,7 +2,6 @@
 require_once('stocksymbol.php');
 
 define('STOCK_SINA_DATA', 'Sina Data');
-define('STOCK_YAHOO_DATA', 'Yahoo Data (possible 15 min delay)');
 define('STOCK_EASTMONEY_DATA', 'East Money Data');
 define('STOCK_MYSQL_DATA', 'Data from MySQL');
 

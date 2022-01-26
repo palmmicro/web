@@ -221,7 +221,7 @@ function _echoMyStockData($acct, $ref)
    				else	$str .= $fund->DebugLink(); 
    			}
    			if (_hasSmaDisplay($ref)) 		$str .= '<br />'.GetTableColumnSma().' '.$ref->DebugConfigLink();
-   			if ($strSymbol == 'KWEB')		$str .= '<br />'.GetFileLink(DebugGetHoldingsCsv($strSymbol));
+   			if ($holdings_ref)			$str .= '<br />'.GetHoldingsCsvLink($strSymbol);
     	}
     	EchoParagraph($str);
     }

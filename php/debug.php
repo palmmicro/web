@@ -123,11 +123,6 @@ function DebugGetPathName($strFileName)
     return $strPath.'/'.$strFileName; 
 }
 
-function DebugGetHoldingsCsv($strSymbol)
-{
-    return DebugGetPathName('Holdings_'.$strSymbol.'.csv');
-}
-
 function DebugGetFile()
 {
     return DebugGetPathName('debug.txt');

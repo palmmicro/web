@@ -9,7 +9,6 @@ require_once('_edittransactionform.php');
 require_once('_stocklink.php');
 
 // ****************************** Money table *******************************************************
-
 function _EchoMoneyParagraphBegin()
 {
 	$strMoney = '货币';
@@ -78,7 +77,6 @@ function _EchoMoneyGroupData($acct, $group, $strUSDCNY, $strHKDCNY)
 }
 
 // ****************************** Promotion Headline *******************************************************
-
 function _echoRandomPromotion()
 {
 	$iVal = rand(1, 3);
@@ -114,6 +112,154 @@ function EchoPromotionHead($strVer, $strLoginId)
     
     $str = GetDevGuideLink('20150818', $strVer).' '.GetAutoTractorLink();
     EchoParagraph($str);
+}
+
+// ****************************** Misc *******************************************************
+function _getHoldingsStr($strSymbol)
+{
+	return $strSymbol.'holdings';
+}
+
+function GetHoldingsCsvLink($strSymbol)
+{
+   	$csv = new DebugCsvFile(_getHoldingsStr($strSymbol));
+   	return $csv->GetLink();
+}
+
+function StockHoldingsSaveCsv($strSymbol, $strUrl)
+{
+	$strDebug = _getHoldingsStr($strSymbol);
+   	$csv = new DebugCsvFile($strDebug);
+   	$strFileName = $csv->GetName();
+	if (StockNeedFile($strFileName, 5 * SECONDS_IN_MIN) == false)	return false; 	// updates on every 5 minutes
+	
+	if ($str = url_get_contents($strUrl))
+	{
+		file_put_contents($strFileName, $str);
+		DebugString('Saved '.$strUrl.' to '.$strFileName);
+		return $strDebug;
+	}
+	return false;
+}
+
+function StockGetSymbol($str)
+{
+	$str = trim($str);
+	if (strpos($str, '_') === false)	$str = strtoupper($str);
+    if (IsChineseStockDigit($str))
+    {
+        if (intval($str) >= 500000)	$str = SH_PREFIX.$str;
+        else							$str = SZ_PREFIX.$str;
+    }
+    return $str;
+}
+
+function StockGetArraySymbol($ar)
+{
+    $arSymbol = array();
+    foreach ($ar as $str)
+    {
+    	if (!empty($str))
+    	{
+    		$arSymbol[] = StockGetSymbol($str);
+    	}
+    }
+    return $arSymbol;
+}
+
+function StockGetReference($strSymbol, $sym = false)
+{
+	if ($sym == false)	$sym = new StockSymbol($strSymbol);
+
+/*    if ($sym->IsSinaFund())				return new FundReference($strSymbol);
+    else*/ if ($sym->IsSinaFuture())   		return new FutureReference($strSymbol);
+    else if ($sym->IsSinaForex())   		return new ForexReference($strSymbol);
+	else if ($sym->IsEastMoneyForex())	return new CnyReference($strSymbol);
+    										return new MyStockReference($strSymbol);
+}
+
+function StockGetHoldingsReference($strSymbol)
+{
+	if (SqlCountHoldings($strSymbol) > 0)
+	{
+		return new HoldingsReference($strSymbol);
+	}
+	return false;
+}
+
+function StockGetEtfReference($strSymbol)
+{
+	if (SqlGetEtfPair($strSymbol))
+	{
+		return new EtfReference($strSymbol);
+	}
+	return false;
+}
+
+function RefHasData($ref)
+{
+	if ($ref)
+	{
+		return $ref->HasData();
+	}
+	return false;
+}
+
+function RefGetMyStockLink($ref)
+{
+	if ($ref)
+	{
+		return $ref->GetMyStockLink();
+	}
+	return '';
+}
+
+function RefGetStockDisplay($ref)
+{
+    return RefGetDescription($ref).'【'.$ref->GetSymbol().'】';
+}
+
+function RefSortByNumeric($arRef, $callback)
+{
+    $ar = array();
+    $arNum = array();
+    
+    foreach ($arRef as $ref)
+    {
+        $strSymbol = $ref->GetSymbol();
+        $ar[$strSymbol] = $ref;
+    	$arNum[$strSymbol] = call_user_func($callback, $ref);
+    }
+    asort($arNum, SORT_NUMERIC);
+    
+    $arSort = array();
+    foreach ($arNum as $strSymbol => $fNum)
+    {
+        $arSort[] = $ar[$strSymbol];
+    }
+    return $arSort;
+}
+
+function GetArbitrageQuantity($strSymbol, $fQuantity)
+{
+  	switch ($strSymbol)
+   	{
+   	case 'SZ161127':
+		$iArbitrage = 500;
+   		break;
+    		
+   	case 'SZ162411':
+		$iArbitrage = 1400;
+   		break;
+    		
+   	case 'SZ164906':
+		$iArbitrage = 246;
+   		break;
+    		
+   	default:
+   		return '';
+   	}
+	return strval(intval($fQuantity / $iArbitrage + 0.5));
 }
 
 ?>

@@ -2,6 +2,7 @@
 require_once('account.php');
 require_once('stock.php');
 //require_once('stocktrans.php');
+//require_once('stock/csindex.php');		// 中证指数有限公司
 
 require_once('sql/sqlblog.php');
 require_once('sql/sqlvisitor.php');

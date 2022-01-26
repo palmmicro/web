@@ -116,6 +116,16 @@ function GetCategoryArray($strPage)
     return $ar;
 }
 
+function GetCategorySoftwareLinks($arTitle, $strCategory)
+{
+    $str = '<br />'.$strCategory.' - ';
+    foreach ($arTitle as $strPage)
+    {
+    	$str .= GetStockPageLink(strtolower($strPage), StockGetSymbol($strPage)).' ';
+    }
+    return $str;
+}
+
 function _getCategorySoftwareLinks($strCategory)
 {
     $ar = GetCategoryArray($strCategory);

@@ -3,7 +3,7 @@ require_once('/php/csvfile.php');
 require_once('/php/stockhis.php');
 require_once('/php/stock/updatestockhistory.php');
 
-class _KraneHoldingsCsvFile extends CsvFile
+class _KraneHoldingsCsvFile extends DebugCsvFile
 {
 	var $bUse;
 	var $strStockId;
@@ -16,9 +16,9 @@ class _KraneHoldingsCsvFile extends CsvFile
     var $fUSDHKD;
     var $fMarketValue;
 	
-    function _KraneHoldingsCsvFile($strPathName, $strStockId, $strDate) 
+    function _KraneHoldingsCsvFile($strDebug, $strStockId, $strDate) 
     {
-        parent::CsvFile($strPathName);
+        parent::DebugCsvFile($strDebug);
         
         $this->bUse = false;
         $this->strStockId = $strStockId;
@@ -128,22 +128,23 @@ function CopyHoldings($date_sql, $strStockId, $strDstId)
 
 function ReadKraneHoldingsCsvFile($strSymbol, $strStockId, $strDate, $strNav)
 {
-	$strPathName = SaveKraneHoldingsCsvFile($strSymbol, $strDate);
- 	if ($strPathName === false)		return;
- 	
-	$csv = new _KraneHoldingsCsvFile($strPathName, $strStockId, $strDate);
-   	$csv->Read();
-   	$fMarketValue = $csv->GetMarketValue();
-   	if ($fMarketValue < MIN_FLOAT_VAL)	return;
-   	
-	$shares_sql = new SharesHistorySql();
-	$shares_sql->WriteDaily($strStockId, $strDate, strval_round($fMarketValue / floatval($strNav) / 10000.0));
+	if ($strDebug = SaveKraneHoldingsCsvFile($strSymbol, $strDate))
+	{
+		$csv = new _KraneHoldingsCsvFile($strDebug, $strStockId, $strDate);
+		$csv->Read();
+		$fMarketValue = $csv->GetMarketValue();
+		if ($fMarketValue > MIN_FLOAT_VAL)
+		{
+			$shares_sql = new SharesHistorySql();
+			$shares_sql->WriteDaily($strStockId, $strDate, strval_round($fMarketValue / floatval($strNav) / 10000.0));
 
-	$date_sql = new HoldingsDateSql();
-	$date_sql->WriteDate($strStockId, $strDate);
+			$date_sql = new HoldingsDateSql();
+			$date_sql->WriteDate($strStockId, $strDate);
 	
-	// copy KWEB holdings to SZ164906 
-	if ($strSymbol == 'KWEB')		CopyHoldings($date_sql, $strStockId, SqlGetStockId('SZ164906'));
+			// copy KWEB holdings to SZ164906 
+			if ($strSymbol == 'KWEB')		CopyHoldings($date_sql, $strStockId, SqlGetStockId('SZ164906'));
+		}
+	}
 }
 
 ?>

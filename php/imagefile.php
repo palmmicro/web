@@ -3,7 +3,7 @@
 // ****************************** ImageFile class  *******************************************************
 class ImageFile
 {
-    var $strPathName;
+    var $strFileName;
     var $iWidth;
     var $iHeight;
     
@@ -26,9 +26,9 @@ class ImageFile
     var $fFontAngle;
     var $strFontFile;
     
-    function ImageFile($strPathName, $iWidth, $iHeight) 
+    function ImageFile($strFileName, $iWidth, $iHeight) 
     {
-        $this->strPathName = $strPathName;
+        $this->strFileName = $strFileName;
         $this->iWidth = $iWidth;
         $this->iHeight = $iHeight;
         $this->image = imagecreatetruecolor($iWidth, $iHeight);
@@ -129,8 +129,8 @@ class ImageFile
     
     function SaveFile()
     {
-//    	unlinkEmptyFile($this->strPathName);
-        imagejpeg($this->image, $this->strPathName);  
+//    	unlinkEmptyFile($this->strFileName);
+        imagejpeg($this->image, $this->strFileName);  
         imagedestroy($this->image);
     }
     
@@ -138,12 +138,12 @@ class ImageFile
     {
     	$this->SaveFile();
     	$strRand = strval(rand());
-		return '<img src='.$this->strPathName.'?'.$strRand.' alt="'.$strRand.' automatical generated image, do NOT link" />';
+		return '<img src='.$this->strFileName.'?'.$strRand.' alt="'.$strRand.' automatical generated image, do NOT link" />';
     }
 
-    function GetPathName()
+    function GetName()
     {
-    	return $this->strPathName;
+    	return $this->strFileName;
     }
 }
 

@@ -229,16 +229,6 @@ function GetMyStockGroupLink($strQuery = false)
 	return GetStockPageLink(STOCK_GROUP_PAGE, STOCK_GROUP_DISPLAY, $strQuery);
 }
 
-function GetCategorySoftwareLinks($arTitle, $strCategory)
-{
-    $str = '<br />'.$strCategory.' - ';
-    foreach ($arTitle as $strPage)
-    {
-    	$str .= GetStockPageLink(strtolower($strPage), StockGetSymbol($strPage)).' ';
-    }
-    return $str;
-}
-
 function StockGetTransactionLink($strGroupId, $strSymbol, $strDisplay = false)
 {
     $strQuery = 'groupid='.$strGroupId;

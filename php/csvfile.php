@@ -3,14 +3,14 @@
 // ****************************** CsvFile class  *******************************************************
 class CsvFile
 {
-    var $strPathName;
+    var $strFileName;
     var $file;
     
     var $strSeparator;
                      
-    function CsvFile($strPathName) 
+    function CsvFile($strFileName) 
     {
-        $this->strPathName = $strPathName;
+        $this->strFileName = $strFileName;
         $this->file = false;
         
         $this->strSeparator = ',';
@@ -21,20 +21,20 @@ class CsvFile
         $this->strSeparator = $strSeparator;
     }
     
-    function GetPathName()
+    function GetName()
     {
-    	return $this->strPathName;
+    	return $this->strFileName;
     }
     
     function GetLink()
     {
-    	return GetFileLink($this->strPathName);
+    	return GetFileLink($this->strFileName);
     }
     
     function HasFile()
     {
     	clearstatcache();
-    	return file_exists($this->strPathName);
+    	return file_exists($this->strFileName);
     }
     
     function GetModifiedSeconds()
@@ -42,7 +42,7 @@ class CsvFile
     	$iSeconds = time();
     	if ($this->HasFile())
     	{
-    		$iSeconds -= filemtime($this->strPathName);
+    		$iSeconds -= filemtime($this->strFileName);
     	}
    		return $iSeconds;
     }
@@ -51,7 +51,7 @@ class CsvFile
     {
     	if ($this->file == false)
     	{
-    		$this->file = fopen($this->strPathName, $strMode);
+    		$this->file = fopen($this->strFileName, $strMode);
     	}
     }
     

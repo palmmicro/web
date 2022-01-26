@@ -46,15 +46,14 @@ function _webUpdateSinaHistory($his_sql, $strStockId, $sym)
 <td class="Py(10px) Pstart(10px)" data-reactid="62"><span data-reactid="63">273.07</span></td>
 <td class="Py(10px) Pstart(10px)" data-reactid="64"><span data-reactid="65">17,423,058</span></td>
 </tr>
-<tr class="BdT Bdc($seperatorColor) Ta(end) Fz(s) Whs(nw)" data-reactid="66">
-<td class="Py(10px) Ta(start) Pend(10px)" data-reactid="67"><span data-reactid="68">Mar 11, 2021</span></td>
-<td class="Py(10px) Pstart(10px)" data-reactid="69"><span data-reactid="70">241.64</span></td>
-<td class="Py(10px) Pstart(10px)" data-reactid="71"><span data-reactid="72">281.50</span></td>
-<td class="Py(10px) Pstart(10px)" data-reactid="73"><span data-reactid="74">232.60</span></td>
-<td class="Py(10px) Pstart(10px)" data-reactid="75"><span data-reactid="76">260.00</span></td>
-<td class="Py(10px) Pstart(10px)" data-reactid="77"><span data-reactid="78">260.00</span></td>
-<td class="Py(10px) Pstart(10px)" data-reactid="79"><span data-reactid="80">28,186,000</span></td>
-</tr>
+
+<td class="Py(10px) Ta(start) Pend(10px)"><span>Apr 10, 2017</span></td>
+<td class="Py(10px) Pstart(10px)"><span>150.16</span></td>
+<td class="Py(10px) Pstart(10px)"><span>151.88</span></td>
+<td class="Py(10px) Pstart(10px)"><span>149.52</span></td>
+<td class="Py(10px) Pstart(10px)"><span>151.36</span></td>
+<td class="Py(10px) Pstart(10px)"><span>140.39</span></td>
+<td class="Py(10px) Pstart(10px)"><span>2,763,725</span></td>
 */
 
 function preg_match_yahoo_history($str)
@@ -62,10 +61,12 @@ function preg_match_yahoo_history($str)
     $strBoundary = RegExpBoundary();
     
     $strPattern = $strBoundary;
-    $strPattern .= RegExpParenthesis('<td class="Py\(10px\) Ta\(start\) Pend\(10px\)" data-reactid="\d*"><span data-reactid="\d*">', '[^<]*', '</span></td>');
+//    $strPattern .= RegExpParenthesis('<td class="Py\(10px\) Ta\(start\) Pend\(10px\)" data-reactid="\d*"><span data-reactid="\d*">', '[^<]*', '</span></td>');
+    $strPattern .= RegExpParenthesis('<td class="Py\(10px\) Ta\(start\) Pend\(10px\)"><span>', '[^<]*', '</span></td>');
     for ($i = 0; $i < 6; $i ++)
     {
-        $strPattern .= RegExpParenthesis('<td class="Py\(10px\) Pstart\(10px\)" data-reactid="\d*">'.RegExpSkip('<span data-reactid="\d*">'), '[^<]*', RegExpSkip('</span>').'</td>');
+//        $strPattern .= RegExpParenthesis('<td class="Py\(10px\) Pstart\(10px\)" data-reactid="\d*">'.RegExpSkip('<span data-reactid="\d*">'), '[^<]*', RegExpSkip('</span>').'</td>');
+        $strPattern .= RegExpParenthesis('<td class="Py\(10px\) Pstart\(10px\)"><span>', '[^<]*', '</span></td>');
     }
     $strPattern .= $strBoundary;
     
@@ -73,6 +74,8 @@ function preg_match_yahoo_history($str)
     preg_match_all($strPattern, $str, $arMatch, PREG_SET_ORDER);
     return $arMatch;
 }
+
+// https://query1.finance.yahoo.com/v7/finance/download/KWEB?period1=1611673365&period2=1643209365&interval=1d&events=history&includeAdjustedClose=true
 
 function _webUpdateYahooHistory($his_sql, $strStockId, $strYahooSymbol)
 {

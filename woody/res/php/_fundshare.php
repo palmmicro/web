@@ -1,6 +1,7 @@
 <?php
 require_once('_stock.php');
 require_once('_emptygroup.php');
+require_once('/php/stock/szse.php');
 
 function GetDiffDisplay($fDiff)
 {

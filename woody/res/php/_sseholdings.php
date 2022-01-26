@@ -3,7 +3,7 @@ require_once('/php/csvfile.php');
 require_once('/php/stockhis.php');
 require_once('/php/stock/updatestockhistory.php');
 
-class _SseHoldingsFile extends CsvFile
+class _SseHoldingsFile extends DebugCsvFile
 {
 	var $strStockId;
 
@@ -14,9 +14,9 @@ class _SseHoldingsFile extends CsvFile
 	var $his_sql;
 	var $holdings_sql;
 	
-    function _SseHoldingsFile($strPathName, $strStockId) 
+    function _SseHoldingsFile($strDebug, $strStockId) 
     {
-        parent::CsvFile($strPathName);
+        parent::DebugCsvFile($strDebug);
         $this->SetSeparator('|');
         
         $this->strStockId = $strStockId;
@@ -69,14 +69,14 @@ class _SseHoldingsFile extends CsvFile
 function ReadSseHoldingsFile($strSymbol, $strStockId)
 {
 	$strUrl = 'http://query.sse.com.cn/etfDownload/downloadETF2Bulletin.do?etfType=087';
-	$strPathName = StockHoldingsSaveCsv($strSymbol, $strUrl);
- 	if ($strPathName === false)		return;
-
-	$csv = new _SseHoldingsFile($strPathName, $strStockId);
-   	$csv->Read();
+	if ($strDebug = StockHoldingsSaveCsv($strSymbol, $strUrl))
+	{
+		$csv = new _SseHoldingsFile($strDebug, $strStockId);
+		$csv->Read();
    	
-	$date_sql = new HoldingsDateSql();
-	$date_sql->WriteDate($strStockId, $csv->strDate);
+		$date_sql = new HoldingsDateSql();
+		$date_sql->WriteDate($strStockId, $csv->strDate);
+	}
 }
 
 ?>
