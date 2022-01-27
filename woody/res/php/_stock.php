@@ -115,20 +115,20 @@ function EchoPromotionHead($strVer, $strLoginId)
 }
 
 // ****************************** Misc *******************************************************
-function _getHoldingsStr($strSymbol)
+function _getDebugCsvStr($strSymbol, $strType)
 {
-	return $strSymbol.'holdings';
+	return $strSymbol.$strType;
 }
 
-function GetHoldingsCsvLink($strSymbol)
+function GetDebugCsvLink($strSymbol, $strType)
 {
-   	$csv = new DebugCsvFile(_getHoldingsStr($strSymbol));
+   	$csv = new DebugCsvFile(_getDebugCsvStr($strSymbol, $strType));
    	return $csv->GetLink();
 }
 
-function StockHoldingsSaveCsv($strSymbol, $strUrl)
+function StockSaveDebugCsv($strSymbol, $strType, $strUrl)
 {
-	$strDebug = _getHoldingsStr($strSymbol);
+	$strDebug = _getDebugCsvStr($strSymbol, $strType);
    	$csv = new DebugCsvFile($strDebug);
    	$strFileName = $csv->GetName();
 	if (StockNeedFile($strFileName, 5 * SECONDS_IN_MIN) == false)	return false; 	// updates on every 5 minutes
@@ -140,6 +140,26 @@ function StockHoldingsSaveCsv($strSymbol, $strUrl)
 		return $strDebug;
 	}
 	return false;
+}
+
+function StockSaveHoldingsCsv($strSymbol, $strUrl)
+{
+	return StockSaveDebugCsv($strSymbol, TABLE_HOLDINGS, $strUrl);
+}
+
+function GetHoldingsCsvLink($strSymbol)
+{
+	return GetDebugCsvLink($strSymbol, TABLE_HOLDINGS);
+}
+
+function StockSaveHistoryCsv($strSymbol, $strUrl)
+{
+	return StockSaveDebugCsv($strSymbol, TABLE_STOCK_HISTORY, $strUrl);
+}
+
+function GetHistoryCsvLink($strSymbol)
+{
+	return GetDebugCsvLink($strSymbol, TABLE_STOCK_HISTORY);
 }
 
 function StockGetSymbol($str)
@@ -196,70 +216,9 @@ function StockGetEtfReference($strSymbol)
 	return false;
 }
 
-function RefHasData($ref)
-{
-	if ($ref)
-	{
-		return $ref->HasData();
-	}
-	return false;
-}
-
-function RefGetMyStockLink($ref)
-{
-	if ($ref)
-	{
-		return $ref->GetMyStockLink();
-	}
-	return '';
-}
-
 function RefGetStockDisplay($ref)
 {
     return RefGetDescription($ref).'【'.$ref->GetSymbol().'】';
-}
-
-function RefSortByNumeric($arRef, $callback)
-{
-    $ar = array();
-    $arNum = array();
-    
-    foreach ($arRef as $ref)
-    {
-        $strSymbol = $ref->GetSymbol();
-        $ar[$strSymbol] = $ref;
-    	$arNum[$strSymbol] = call_user_func($callback, $ref);
-    }
-    asort($arNum, SORT_NUMERIC);
-    
-    $arSort = array();
-    foreach ($arNum as $strSymbol => $fNum)
-    {
-        $arSort[] = $ar[$strSymbol];
-    }
-    return $arSort;
-}
-
-function GetArbitrageQuantity($strSymbol, $fQuantity)
-{
-  	switch ($strSymbol)
-   	{
-   	case 'SZ161127':
-		$iArbitrage = 500;
-   		break;
-    		
-   	case 'SZ162411':
-		$iArbitrage = 1400;
-   		break;
-    		
-   	case 'SZ164906':
-		$iArbitrage = 246;
-   		break;
-    		
-   	default:
-   		return '';
-   	}
-	return strval(intval($fQuantity / $iArbitrage + 0.5));
 }
 
 ?>

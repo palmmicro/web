@@ -75,8 +75,6 @@ function preg_match_yahoo_history($str)
     return $arMatch;
 }
 
-// https://query1.finance.yahoo.com/v7/finance/download/KWEB?period1=1611673365&period2=1643209365&interval=1d&events=history&includeAdjustedClose=true
-
 function _webUpdateYahooHistory($his_sql, $strStockId, $strYahooSymbol)
 {
 	$oldest_ymd = new OldestYMD();

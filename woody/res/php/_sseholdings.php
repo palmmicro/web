@@ -69,7 +69,7 @@ class _SseHoldingsFile extends DebugCsvFile
 function ReadSseHoldingsFile($strSymbol, $strStockId)
 {
 	$strUrl = 'http://query.sse.com.cn/etfDownload/downloadETF2Bulletin.do?etfType=087';
-	if ($strDebug = StockHoldingsSaveCsv($strSymbol, $strUrl))
+	if ($strDebug = StockSaveHoldingsCsv($strSymbol, $strUrl))
 	{
 		$csv = new _SseHoldingsFile($strDebug, $strStockId);
 		$csv->Read();

@@ -11,7 +11,7 @@ function _getStockHistoryLinks($ref, $bAdmin)
     if ($ref->IsFundA() || $ref->CountNav() > 0)	$strLinks .= ' '.GetFundLinks($strSymbol);
     $strLinks .= ' '.GetExternalStockHistoryLink($ref);
     if ($ref->IsTradable())	$strLinks .= ' '.GetStockDividendLink($ref);
-    if ($bAdmin)	$strLinks .= '<br />'.StockGetAllLink($strSymbol).' '.GetUpdateStockHistoryLink($strSymbol, '更新历史记录');
+    if ($bAdmin)	$strLinks .= '<br />'.StockGetAllLink($strSymbol).' '.GetUpdateStockHistoryLink($strSymbol, '更新历史记录').' '.GetHistoryCsvLink($strSymbol);
     return $strLinks;
 }
 

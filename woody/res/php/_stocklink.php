@@ -1,5 +1,10 @@
 <?php
 
+function GetUpdateStockHistoryLink($strSymbol, $strDisplay = false)
+{
+	return GetOnClickLink(STOCK_PHP_PATH.'_submithistory.php?symbol='.$strSymbol, "确认更新{$strSymbol}历史记录?", ($strDisplay ? $strDisplay : $strSymbol));
+}
+
 function _GetAdjustLink($strSymbol, $strQuery)
 {
     return GetPhpLink(STOCK_PATH.'editstockgroup', 'adjust=1&'.$strQuery, '校准').' '.$strSymbol;

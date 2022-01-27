@@ -1,5 +1,6 @@
 <?php
 require_once('stockdisp.php');
+require_once('stockcomm.php');
 require_once('table.php');
 
 class TableColumnAmount extends TableColumn
