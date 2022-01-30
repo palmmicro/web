@@ -1,8 +1,5 @@
 <?php
-require_once('url.php');
-
-// Provide enhanced function replacement of /js/nav.js
-// Menu navigation functions
+// Menu navigation functions, provide enhanced function replacement of /js/nav.js
 
 define('MENU_DIR_PREV_LOOP', 'PrevLoop');
 define('MENU_DIR_NEXT_LOOP', 'NextLoop');

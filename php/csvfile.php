@@ -7,6 +7,7 @@ class CsvFile
     var $file;
     
     var $strSeparator;
+    var $strError;
                      
     function CsvFile($strFileName) 
     {
@@ -83,10 +84,17 @@ class CsvFile
     	DebugPrint($arWord);
     }
     
+    function ErrorReport($str)
+    {
+		DebugString($str);
+    	$this->strError .= $str.'<br />';
+    }
+    
     function Read()
     {
     	if ($this->HasFile() === false)		return;
     	
+        $this->strError = '';
     	$this->_open('r');
     	if ($this->file)
     	{
@@ -100,6 +108,7 @@ class CsvFile
     		}
     		$this->Close();
     	}
+    	if ($this->strError != '')	trigger_error($this->strError);
     }
 }
 

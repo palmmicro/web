@@ -1,5 +1,6 @@
 <?php
 require_once('yahoostock.php');
+require_once('/php/stockhis.php');
 
 /*
 function _webUpdateSinaHistory($his_sql, $strStockId, $sym)
@@ -54,6 +55,24 @@ function _webUpdateSinaHistory($his_sql, $strStockId, $sym)
 <td class="Py(10px) Pstart(10px)"><span>151.36</span></td>
 <td class="Py(10px) Pstart(10px)"><span>140.39</span></td>
 <td class="Py(10px) Pstart(10px)"><span>2,763,725</span></td>
+
+<td class="Py(10px) Ta(start) Pend(10px)"><span>Jan 28, 2022</span></td>
+<td class="Py(10px) Pstart(10px)"><span>105.45</span></td>
+<td class="Py(10px) Pstart(10px)"><span>107.00</span></td>
+<td class="Py(10px) Pstart(10px)"><span>103.68</span></td>
+<td class="Py(10px) Pstart(10px)"><span>104.22</span></td>
+<td class="Py(10px) Pstart(10px)"><span>104.22</span></td>
+<td class="Py(10px) Pstart(10px)"><span>5,240,485</span></td>
+</tr>
+<tr class="BdT Bdc($seperatorColor) Ta(end) Fz(s) Whs(nw)">
+<td class="Py(10px) Ta(start) Pend(10px)"><span>Jan 27, 2022</span>
+</td><td class="Py(10px) Pstart(10px)"><span>107.33</span>
+</td><td class="Py(10px) Pstart(10px)"><span>108.87</span>
+</td><td class="Py(10px) Pstart(10px)"><span>102.24</span>
+</td><td class="Py(10px) Pstart(10px)"><span>104.92</span>
+</td><td class="Py(10px) Pstart(10px)"><span>104.92</span>
+</td><td class="Py(10px) Pstart(10px)"><span>12,669,100</span></td>
+</tr><tr class="BdT Bdc($seperatorColor) Ta(end) Fz(s) Whs(nw)"><td class="Py(10px) Ta(start) Pend(10px)"><span>Jan 26, 2022</span></td><td class="Py(10px) Pstart(10px)"><span>108.23</span></td
 */
 
 function preg_match_yahoo_history($str)
@@ -113,6 +132,7 @@ function _webUpdateYahooHistory($his_sql, $strStockId, $strYahooSymbol)
         			$ar[] = $strNoComma;
         		}
         		
+//        		if ($strDate == '2022-01-28')
         		if ($ar[3] == '-' || $ar[5] == '-')
         		{	// debug wrong data
         			DebugPrint($arMatch[$j]);

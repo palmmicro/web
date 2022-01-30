@@ -1,7 +1,4 @@
 <?php
-require_once('switch.php');
-require_once('account.php');
-require_once('internallink.php');
 
 function _getLoginLink($strCn, $strUs, $bChinese)
 {

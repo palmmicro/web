@@ -1,8 +1,4 @@
 <?php
-//require_once('url.php');
-//require_once('debug.php');
-require_once('internallink.php');
-
 define('ADMIN_EMAIL', 'support@palmmicro.com');
 
 function EmailHtml($strWho, $strSubject, $strContents) 
@@ -17,17 +13,6 @@ function EmailHtml($strWho, $strSubject, $strContents)
 //    $strHeaders .= 'From: <'.ADMIN_EMAIL.'>'."\r\n";          // 更多报头
 
     return mail($strWho, $strSubject, $strMessage, $strHeaders);
-}
-
-function EmailReport($strText, $strSubject, $strWho) 
-{
-	$str = $strWho.':<br />'.$strSubject;
-    if ($strText)		$str .= '<br />'.$strText;
-	if (EmailHtml($strWho, $strSubject, $str) == false)
-	{
-        DebugString('mail failed in EmailReport');
-	}
-	trigger_error($str);
 }
 
 ?>

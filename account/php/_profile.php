@@ -235,6 +235,17 @@ function _updateLoginEmail($strEmail)
 	return PROFILE_EMAIL_CHANGED;
 }
 
+function _emailReport($strText, $strSubject, $strWho) 
+{
+	$str = $strWho.':<br />'.$strSubject;
+    if ($strText)		$str .= '<br />'.$strText;
+	if (EmailHtml($strWho, $strSubject, $str) == false)
+	{
+        DebugString('mail failed in _emailReport');
+	}
+	trigger_error($str);
+}
+
 class _ProfileAccount extends CommentAccount
 {
 	var $strMsg = false;
@@ -320,7 +331,7 @@ class _ProfileAccount extends CommentAccount
 			$strText = 'Welcome';
 			$strSubject = PROFILE_NEW_ACCOUNT;
 		}
-		EmailReport($strText, $strSubject, $strEmail);
+		_emailReport($strText, $strSubject, $strEmail);
 
 		$this->Login($strEmail, $_POST['password']);
 		return $strSubject;
@@ -362,7 +373,7 @@ class _ProfileAccount extends CommentAccount
 			$strText = 'Your new password';
 			$strSubject = PROFILE_NEW_PASSWORD;
 		}
-		EmailReport($strText.': '.$strPassword, $strSubject, $strEmail);
+		_emailReport($strText.': '.$strPassword, $strSubject, $strEmail);
 		return $strSubject;
 	}
 
@@ -405,7 +416,7 @@ class _ProfileAccount extends CommentAccount
     		$strText = 'Goodbye and good luck';
     		$strSubject = PROFILE_CLOSE_ACCOUNT;
     	}
-    	EmailReport($strText, $strSubject, $strEmail);
+    	_emailReport($strText, $strSubject, $strEmail);
     	return $strSubject;
     }
 

@@ -54,8 +54,8 @@ function url_get_contents($strUrl, $strCookie = false, $strReferer = false, $str
     $timeout = 2;  
     curl_setopt($ch, CURLOPT_URL, $strUrl);
 	if ($strReferer)	curl_setopt($ch, CURLOPT_REFERER, $strReferer);
-//    curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 6.1; rv:19.0) Gecko/20100101 Firefox/19.0");
 	if ($strCookie)	curl_setopt($ch, CURLOPT_COOKIE, $strCookie);  
+//    curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0');						// Mozilla/5.0 (Windows NT 6.1; rv:19.0) Gecko/20100101 Firefox/19.0
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);  
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);  
     curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);

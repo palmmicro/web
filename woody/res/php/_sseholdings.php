@@ -1,29 +1,15 @@
 <?php
-require_once('/php/csvfile.php');
-require_once('/php/stockhis.php');
-require_once('/php/stock/updatestockhistory.php');
+require_once('_holdingscsvfile.php');
 
-class _SseHoldingsFile extends DebugCsvFile
+class _SseHoldingsFile extends _HoldingsCsvFile
 {
-	var $strStockId;
-
-	var $strDate;
     var $fTotalValue;
-
-	var $sql;
-	var $his_sql;
-	var $holdings_sql;
 	
     function _SseHoldingsFile($strDebug, $strStockId) 
     {
-        parent::DebugCsvFile($strDebug);
+        parent::_HoldingsCsvFile($strDebug, $strStockId);
+
         $this->SetSeparator('|');
-        
-        $this->strStockId = $strStockId;
-        
-        $this->sql = GetStockSql();
-        $this->his_sql = GetStockHistorySql();
-        $this->holdings_sql = GetHoldingsSql();
         $this->holdings_sql->DeleteAll($strStockId);
     }
     
@@ -52,16 +38,7 @@ class _SseHoldingsFile extends DebugCsvFile
     		if (is_numeric($strHolding))	$strHolding = BuildHongkongStockSymbol($strHolding);
     		$strName = GbToUtf8(trim($arWord[1]));
     		DebugString($strHolding.' '.$strName);
-   			$this->sql->InsertSymbol($strHolding, $strName);
-    		$strId = $this->sql->GetId($strHolding);
-    		
-    		if ($this->his_sql->GetRecord($strId, $this->strDate) === false)
-    		{
-    			DebugString($strHolding.' missing data on '.$this->strDate);
-//		        UpdateStockHistory(new StockSymbol($strHolding), $strId);
-    		}
-    		
-    		$this->holdings_sql->InsertHolding($this->strStockId, $strId, strval(100.0 * floatval(trim($arWord[6])) / $this->fTotalValue));
+    		$this->InsertHolding($strHolding, $strName, strval(100.0 * floatval(trim($arWord[6])) / $this->fTotalValue));
     	}
     }
 }

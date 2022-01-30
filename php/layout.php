@@ -49,17 +49,7 @@ function LayoutPromotion($str, $strText = '')
 		<br />$strLinkDisplay</p>
 END;
 }
-/*
-function LayoutWeixinPromotion()
-{
-	$strWeixin = GetWeixinDevLink();
-    echo <<<END
 
-    <p>请扫二维码关注Palmmicro{$strWeixin}sz162411. 
-		<br /><img src=/woody/image/wx.jpg alt="Palmmicro wechat public account sz162411 small size QR code" /></p>
-END;
-}
-*/
 function LayoutWeixinPay()
 {
     echo <<<END

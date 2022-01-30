@@ -1,46 +1,26 @@
 <?php
-require_once('/php/csvfile.php');
-require_once('/php/stockhis.php');
-require_once('/php/stock/updatestockhistory.php');
+require_once('_holdingscsvfile.php');
 
-class _KraneHoldingsCsvFile extends DebugCsvFile
+class _KraneHoldingsCsvFile extends _HoldingsCsvFile
 {
 	var $bUse;
-	var $strStockId;
-	var $strDate;
-
-	var $sql;
-	var $his_sql;
-	var $holdings_sql;
 	
     var $fUSDHKD;
     var $fMarketValue;
 	
     function _KraneHoldingsCsvFile($strDebug, $strStockId, $strDate) 
     {
-        parent::DebugCsvFile($strDebug);
+        parent::_HoldingsCsvFile($strDebug, $strStockId);
         
-        $this->bUse = false;
-        $this->strStockId = $strStockId;
         $this->strDate = $strDate;
-        
-        $this->sql = GetStockSql();
-        $this->his_sql = GetStockHistorySql();
-        $this->holdings_sql = GetHoldingsSql();
+
+        $this->bUse = false;
+        $this->fMarketValue = 0.0; 
         
         $strUscnyId = $this->sql->GetId('USCNY');
         $strHkcnyId = $this->sql->GetId('HKCNY');
         $nav_sql = GetNavHistorySql();
-        if ($strHKDCNY = $nav_sql->GetClose($strHkcnyId, $strDate))
-        {
-        	$this->fUSDHKD = floatval($nav_sql->GetClose($strUscnyId, $strDate)) / floatval($strHKDCNY);
-        }
-        else
-        {
-        	$this->fUSDHKD = floatval($nav_sql->GetCloseNow($strUscnyId)) / floatval($nav_sql->GetCloseNow($strHkcnyId));
-        }
-        
-        $this->fMarketValue = 0.0; 
+       	$this->fUSDHKD = ($strHKDCNY = $nav_sql->GetClose($strHkcnyId, $strDate)) ? floatval($nav_sql->GetClose($strUscnyId, $strDate)) / floatval($strHKDCNY) : floatval($nav_sql->GetCloseNow($strUscnyId)) / floatval($nav_sql->GetCloseNow($strHkcnyId));
     }
     
     public function OnLineArray($arWord)
@@ -60,23 +40,8 @@ class _KraneHoldingsCsvFile extends DebugCsvFile
     	else if ($this->bUse)
     	{
     		$strHolding = $arWord[3];
-    		if (is_numeric($strHolding))		
-    		{
-    			$strHolding = BuildHongkongStockSymbol($strHolding);
-    			$bHk = true;
-    		}
-    		else	$bHk = false;
-   			$this->sql->InsertSymbol($strHolding, $strName);
-    		$strId = $this->sql->GetId($strHolding);
-    		
-   			$this->fMarketValue += floatval(str_replace(',', '', $arWord[6]));
-    		if ($this->his_sql->GetRecord($strId, $this->strDate) === false)
-    		{
-    			DebugString($strHolding.' missing data on '.$this->strDate);
-//		        UpdateStockHistory(new StockSymbol($strHolding), $strId);
-    		}
-    		
-    		$this->holdings_sql->InsertHolding($this->strStockId, $strId, $strRatio);
+    		if (is_numeric($strHolding))	$strHolding = BuildHongkongStockSymbol($strHolding);
+    		if ($this->InsertHolding($strHolding, $strName, $strRatio))		$this->fMarketValue += floatval(str_replace(',', '', $arWord[6]));
     	}
     }
     
