@@ -1,7 +1,6 @@
 <?php
 require_once('weixin.php');
 require_once('stockbot.php');
-require_once('httplink.php');
 
 function _wxDebug($strUserName, $strText, $strSubject)
 {   

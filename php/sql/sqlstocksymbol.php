@@ -53,27 +53,16 @@ class StockHistorySql extends DailyCloseSql
     	if ($record = $this->GetRecord($strStockId, $strDate))
     	{
     		unset($ar['date']);
-    		if (abs(floatval($record['open']) - floatval($strOpen)) < 0.001)				unset($ar['open']);
-    		if (abs(floatval($record['high']) - floatval($strHigh)) < 0.001)				unset($ar['high']);
-    		if (abs(floatval($record['low']) - floatval($strLow)) < 0.001)					unset($ar['low']);
-    		if (abs(floatval($record['close']) - floatval($strClose)) < 0.001)				unset($ar['close']);
-    		if ($record['volume'] == $strVolume)												unset($ar['volume']);
+    		if (abs(floatval($record['open']) - floatval($strOpen)) < 0.001)					unset($ar['open']);
+    		if (abs(floatval($record['high']) - floatval($strHigh)) < 0.001)					unset($ar['high']);
+    		if (abs(floatval($record['low']) - floatval($strLow)) < 0.001)						unset($ar['low']);
+    		if (abs(floatval($record['close']) - floatval($strClose)) < 0.001)					unset($ar['close']);
+    		if ($record['volume'] == $strVolume)													unset($ar['volume']);
     		if (abs(floatval($record['adjclose']) - floatval($strAdjClose)) < MIN_FLOAT_VAL)	unset($ar['adjclose']);
     		
-    		$iCount = count($ar);
-    		if ($iCount > 0)
-    		{
-    			if ($iCount == 1 && isset($ar['adjclose']))
-    			{	// adjclose might have been changed manually
-    				return false;
-    			}
-    			return $this->UpdateById($ar, $record['id']);
-    		}
+    		if (count($ar) > 0)	return $this->UpdateById($ar, $record['id']);
     	}
-    	else
-    	{
-    		return $this->InsertArrays($this->MakeFieldKeyId($strStockId), $ar);
-    	}
+    	else	return $this->InsertArrays($this->MakeFieldKeyId($strStockId), $ar);
     	return false;
     }
     

@@ -25,6 +25,7 @@ define('TABLE_VISITOR', 'visitor');
 require_once('debug.php');
 require_once('email.php');
 require_once('csvfile.php');
+require_once('httplink.php');
 require_once('_private.php');
 require_once('class/year_month_day.php');
 require_once('sql/_sqlcommon.php');
@@ -155,7 +156,7 @@ function SqlCleanString($str)
 class ErrorHandlerFile extends DebugCsvFile
 {
 	var $strError = false;
-	var $iCount = 0;
+	var $iErrorCount = 0;
 	
     function ErrorHandlerFile() 
     {
@@ -165,29 +166,16 @@ class ErrorHandlerFile extends DebugCsvFile
     public function OnLineArray($arWord)
     {
     	if (count($arWord) == 2)
-    	{
-    		// $errno,count
+    	{	// $errno,count
     		$this->strError = $arWord[0];
-    		$this->iCount  = intval($arWord[1]);
+    		$this->iErrorCount  = intval($arWord[1]);
     	}
     }
     
     function OnError($errno)
     {
-    	$bCount = ($this->GetModifiedSeconds() < 100) ? true : false;
-    	
     	$this->Read();
-    	$iCount = $this->iCount;
-//    	if ($errno == $this->strError)
-    	if ($bCount)
-    	{
-   			$iCount ++;
-    	}
-    	else
-    	{
-    		$iCount = 1;
-    	}
-    	
+    	$iCount = ($this->GetModifiedSeconds() < 100) ? $this->iErrorCount + 1 : 1;
    		$this->Write($errno, strval($iCount));
    		$this->Close();
     	return $iCount;
@@ -207,18 +195,14 @@ function _errorHandler($errno, $errstr, $errfile, $errline)
    		$str =  $errstr.'<br />位于'.$errfile.'第'.$errline.'行';
    		$strDebug = $strSubject.' '.$str.' ('.strval($iCount).')';
     
-   		$str .= '<br />'.GetCurLink();
+   		$str .= '<br />'.GetHttpLink(UrlGetServer().UrlGetCur());
 //   		if (isset($_SESSION['SESS_ID']))		$str .= '<br />'.GetMemberLink($_SESSION['SESS_ID']);	// need MySQL successful
 
 		$strIp = UrlGetIp();
    		$str .= '<br />'.GetVisitorLink($strIp);
-   		if (EmailHtml(ADMIN_EMAIL, $strSubject.' '.$strIp, $str) == false)
-   		{
-   			$strDebug .= ' mail failed too';
-   		}
+   		if (EmailHtml(ADMIN_EMAIL, $strSubject.' '.$strIp, $str) == false)	$strDebug .= ' mail failed too';
    		DebugString($strDebug);
    	}
-//	DebugVal($iCount, $errno.' _errorHandler');
 }
 
 function _ConnectDatabase()

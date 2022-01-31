@@ -12,7 +12,7 @@ require_once('_yahoohistorycsv.php');
 	    if ($ref = $acct->GetRef())
 	    {
 //	        UpdateStockHistory($ref, $ref->GetStockId());
-			YahooUpdateStockHistory($ref, $ref->GetStockId());
+			YahooUpdateStockHistory($ref);
 	        
 	        // do some extra work together
 //	        if ($ref->GetSymbol() == '^GSPC')		DebugNavXlsStr(new StockSymbol('SPY'));

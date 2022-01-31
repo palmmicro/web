@@ -55,12 +55,6 @@ function GetHttpLink($strHttp)
     return GetExternalLink($strHttp, $strHttp);
 }
 
-function GetCurLink()
-{
-    $strHttp = UrlGetServer().UrlGetCur();
-    return GetHttpLink($strHttp);
-}
-
 function GetFileLink($strPathName)
 {
 	$strFileName = basename($strPathName);
