@@ -30,19 +30,9 @@ require_once('stock/forexref.php');
 require_once('stock/hshareref.php');
 require_once('stock/etfref.php');
 
-// ****************************** Stock symbol functions *******************************************************
+require_once('ui/htmlelement.php');
 
-function ForexGetEastMoneySymbol($strSymbol)
-{
-	switch ($strSymbol)
-	{
-	case 'USDCNY':       return 'usdcny0';
-    case 'USCNY':        return 'uscny0';
-    case 'HKCNY':        return 'hkcny0';
-    case 'USDHKD':       return 'usdhkd0';
-    }
-    return false;
-}
+// ****************************** Stock symbol functions *******************************************************
 
 function GetYahooNetValueSymbol($strEtfSymbol)
 {
@@ -116,45 +106,6 @@ function GetSinaQuotes($strSinaSymbols)
     {
     	if ($iCount >= count(explode('=', $str)))		DebugVal('GetSinaQuotes failed', $iCount);		// Sina returns error in an empty file
     	else												return $str;
-    }
-    return false;
-}
-
-/*
-http://hq2gjqh.eastmoney.com/EM_Futures2010NumericApplication/Index.aspx?type=z&ids=usdcny0
-http://hq2gjqh.eastmoney.com/EM_Futures2010NumericApplication/Index.aspx?type=z&ids=uscny0
-http://hq2gjqh.eastmoney.com/EM_Futures2010NumericApplication/Index.aspx?type=z&ids=USDCNY0,JPYCNY0,jpcny0,USDEUR0
-http://hq2gjqh.eastmoney.com/EM_Futures2010NumericApplication/index.aspx?type=z&ids=GLNC0,SLNC0 美黄金白银
-http://hq2gjqh.eastmoney.com/EM_Futures2010NumericApplication/index.aspx?type=z&ids=CONM0,HONJ0,GLNM0,SLNV0,CRCN0,SBCN0,WHCN0,CRCK0,SMCN0,SOCN0,CTNN0,LCPS0,LALS0,LZNS0,LTNS0,LNKS0,LLDS0
-http://hq2gjqh.eastmoney.com/em_futures2010numericapplication/index.aspx?type=f&id=CONC0
-http://hq2gnqh.eastmoney.com/EM_Futures2010NumericApplication/index.aspx?type=z&ids=AUM1 沪主力金
-http://hq2gjgp.eastmoney.com/EM_Quote2010NumericApplication/Index.aspx?type=f&id=SPX7
-//美元指数
-var AjaxDataMYZSUrl = 'http://hq2gjqh.eastmoney.com/em_futures2010numericapplication/index.aspx?type=f&jsName=DataMYZS&id=DINI0';
-//汇率
-var AjaxDataWHHLUrl = 'http://hq2gjqh.eastmoney.com/EM_Futures2010NumericApplication/Index.aspx?type=z&jsName=DataWHHL&ids=USDCNY0,JPYCNY0,jpcny0,USDEUR0';
-//道琼斯
-var AjaxDataDQSUrl = 'http://hq2gjgp.eastmoney.com/EM_Quote2010NumericApplication/Index.aspx?jsName=DataDQS&reference=rtj&type=f&id=INDU7';
-//纳斯达克
-var AjaxDataNSDKUrl = 'http://hq2gjgp.eastmoney.com/EM_Quote2010NumericApplication/Index.aspx?jsName=DataNSDK&reference=rtj&type=f&id=CCMP7';
-//标准500
-var AjaxDataBZ500Url = 'http://hq2gjgp.eastmoney.com/EM_Quote2010NumericApplication/Index.aspx?jsName=DataBZ500&reference=rtj&type=f&id=SPX7';
-//港股
-var AjaxDataGGUrl = 'http://hq2hk.eastmoney.com/EM_Quote2010NumericApplication/Index.aspx?reference=rtj&type=z&jsName=DataGG&ids=1100005,1100105,1100305';
-//原油
-var AjaxDataYYUrl = 'http://hq2gjqh.eastmoney.com/em_futures2010numericapplication/index.aspx?type=f&jsName=DataYY&id=CONC0';
-//IF
-var AjaxDataIFUrl = 'http://hq2gnqh.eastmoney.com/EM_Futures2010NumericApplication/index.aspx?type=s&jsName=DataIF&style=12&sortType=A&sortRule=1&page=1&pageSize=2';
-//A股
-var AjaxDataAGUrl = 'http://hqdigi2.eastmoney.com/EM_Quote2010NumericApplication/Index.aspx?type=z&sortType=C&sortRule=-1&jsSort=1&jsName=DataAG&ids=0000011,3990012,0003001,3990052,3990062';
-*/
-define('EASTMONEY_QUOTES_URL', 'http://hq2gjqh.eastmoney.com/EM_Futures2010NumericApplication/Index.aspx?type=z&ids=');
-function GetEastMoneyQuotes($strSymbols)
-{ 
-    if ($str = url_get_contents(EASTMONEY_QUOTES_URL.$strSymbols))
-    {
-    	if (strlen($str) < 10)      return false;   // Check if it is an empty file
-    	return $str;
     }
     return false;
 }
@@ -233,29 +184,6 @@ function StockUpdateEstResult($fund_est_sql, $strStockId, $strNetValue, $strDate
 }
 
 // ****************************** StockReference public functions *******************************************************
-function _grayString($str)
-{
-    return '<font color=gray>'.$str.'</font>';
-}
-
-function _italicString($str)
-{
-    return '<i>'.$str.'</i>';
-}
-
-function _boldString($str)
-{
-    return '<b>'.$str.'</b>';
-}
-
-function _convertDescriptionDisplay($str, $strDisplay)
-{
-    if ($str == STOCK_PRE_MARKET || $str == STOCK_POST_MARKET)	return _grayString($strDisplay);
-    if ($str == STOCK_NET_VALUE)									return _boldString($strDisplay);
-    if ($str == STOCK_SINA_DATA)									return _italicString($strDisplay);
-    return $strDisplay;
-}
-
 function RefGetDescription($ref, $bConvertDisplay = false)
 {
 	$str = $ref->GetDescription();
@@ -267,7 +195,8 @@ function RefGetDescription($ref, $bConvertDisplay = false)
 			$strDisplay = $ar[$str];
 			if ($bConvertDisplay)
 			{
-				$strDisplay = _convertDescriptionDisplay($str, $strDisplay);
+				if ($str == STOCK_PRE_MARKET || $str == STOCK_POST_MARKET)	return GetHtmlElement($strDisplay, 'i');
+				else if ($str == STOCK_NET_VALUE)								return GetHtmlElement($strDisplay, 'b');
 			}
 			return $strDisplay;
 		}

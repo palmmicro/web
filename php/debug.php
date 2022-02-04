@@ -214,11 +214,6 @@ function DebugGetSinaFileName($strSymbol)
     return DebugGetSymbolFile('sina', $strSymbol);
 }
 
-function DebugGetEastMoneyFileName($strSymbol)
-{
-    return DebugGetSymbolFile('eastmoney', $strSymbol);
-}
-
 function DebugGetYahooWebFileName($strSymbol)
 {
     return DebugGetSymbolFile('yahooweb', $strSymbol);

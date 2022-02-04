@@ -2,7 +2,6 @@
 require_once('stocksymbol.php');
 
 define('STOCK_SINA_DATA', 'Sina Data');
-define('STOCK_EASTMONEY_DATA', 'East Money Data');
 define('STOCK_MYSQL_DATA', 'Data from MySQL');
 
 define('STOCK_NET_VALUE', 'Net Value');
@@ -65,7 +64,6 @@ class StockReference extends StockSymbol
     
     var $strFileName;                       // File to store original data
     var $strConfigName;
-//    var $strTimeZone = STOCK_TIME_ZONE_CN;  // Time zone for $strDate and $strTime display
     var $strExternalLink = false;          // External link help to interprete the original data
     
     // original data
@@ -247,27 +245,6 @@ class StockReference extends StockSymbol
 		
 		$iVal = $this->GetHourMinute();
 		if ($iVal < 930 || $iVal > 1600)		return true;
-
-		/*		
-		$ar = explode(':', $this->strTime);
-		if (count($ar) == 3)
-		{
-			$iVal = intval($ar[0]);
-			$iVal *= 100;
-			$iVal += intval($ar[1]);
-			$strDebug = $this->GetSymbol().' ';
-			if ($iVal < 930)
-			{
-//				DebugVal($iVal, $strDebug.STOCK_PRE_MARKET);
-				return true;
-			}
-			else if ($iVal > 1600)
-			{
-//				DebugVal($iVal, $strDebug.STOCK_POST_MARKET);
-				return true;
-			}
-		}
-*/
 		return false;
 	}
 
@@ -467,35 +444,6 @@ class StockReference extends StockSymbol
         $this->strName = $ar[0];
     }
     
-    function _getEastMoneyForexData($ar)
-    {
-    	$this->strName = $ar[1];
-    	$this->strChineseName = $ar[2];
-    	$this->strPrevPrice = $ar[3];
-    	$this->strOpen = $ar[4];
-    	$this->strPrice = $ar[5];
-    	list($this->strDate, $this->strTime) = GetEastMoneyForexDateTime($ar); 
-    }
-    
-    function LoadEastMoneyCnyData()
-    {
-		$strSymbol = $this->GetSymbol();
-        $this->strFileName = DebugGetEastMoneyFileName($strSymbol);
-        if (($str = IsNewDailyQuotes($this, $this->strFileName, _GetEastMoneyQuotesYMD)) === false)
-        {
-            $str = GetEastMoneyQuotes(ForexGetEastMoneySymbol($strSymbol));
-            if ($str)   file_put_contents($this->strFileName, $str);
-            else         $str = file_get_contents($this->strFileName);
-        }
-        
-        $this->_getEastMoneyForexData(explodeQuote($str));
-//        if (floatval($this->strOpen) > MIN_FLOAT_VAL)   $this->strPrice = $this->strOpen;
-//        else                                               $this->strPrice = $this->strPrevPrice;
-        $this->strPrice = $this->strOpen;
-        
-        $this->strExternalLink = GetReferenceRateForexLink($strSymbol);
-    }
-    
     function LoadSinaForexData()
     {
         $this->strExternalLink = GetSinaForexLink($this);
@@ -516,28 +464,10 @@ class StockReference extends StockSymbol
 		$this->strDate = end($ar);
     }       
 
-    function LoadEastMoneyForexData()
-    {
-    	$strSymbol = $this->GetSymbol();
-    	
-        $this->strExternalLink = GetEastMoneyForexLink($strSymbol);
-        $this->strFileName = DebugGetEastMoneyFileName($strSymbol);
-        $ar = _GetForexAndFutureArray(ForexGetEastMoneySymbol($strSymbol), $this->strFileName, ForexAndFutureGetTimezone(), 'GetEastMoneyQuotes');
-        if (count($ar) < 27)
-        {
-            $this->bHasData = false;
-            return;
-        }
-        $this->_getEastMoneyForexData($ar);
-    }       
-
     function GetStockLink()
     {
 		$strSymbol = $this->GetSymbol();
-		if ($str = GetStockLink($strSymbol))
-		{
-			return $str;
-		}
+		if ($str = GetStockLink($strSymbol))		return $str;
 		return	GetMyStockLink($strSymbol);
 	}
 
@@ -559,24 +489,8 @@ class ExtendedTradingReference extends StockReference
         $this->strPrice = $ar[21];
         $this->_convertDateTimeFromUS($ar[24], $ar[29]);
         $this->strPrevPrice = $ar[26];
-        
-        if (strpos($ar[27], '.'))
-        {
-        	$this->strVolume = strstr($ar[27], '.', true);
-        }
-        else
-        {
-        	$this->strVolume = $ar[27];
-        }
-
-        if ($this->GetHour() <= STOCK_HOUR_BEGIN)
-        {
-            $this->strDescription = STOCK_PRE_MARKET;
-        }
-        else
-        {
-            $this->strDescription = STOCK_POST_MARKET;
-        }
+       	$this->strVolume = strpos($ar[27], '.') ? strstr($ar[27], '.', true) : $ar[27];
+        $this->strDescription = ($this->GetHour() <= 9) ? STOCK_PRE_MARKET : STOCK_POST_MARKET;
     }
 }
 

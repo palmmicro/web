@@ -316,6 +316,7 @@ class StockHistory
 	    $this->_cfg_set_SMAs($cfg, 'D', $afClose);
 	    $this->_cfg_set_SMAs($cfg, 'W', $afWeeklyClose);
 	    $this->_cfg_set_SMAs($cfg, 'M', $afMonthlyClose);
+//	    DebugPrint($afMonthlyClose);
         
         $this->_cfg_set_EMA($cfg, 50, $afClose);
         $this->_cfg_set_EMA($cfg, 200, $afClose);

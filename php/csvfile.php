@@ -1,6 +1,5 @@
 <?php
 
-// ****************************** CsvFile class  *******************************************************
 class CsvFile
 {
     var $strFileName;
@@ -36,16 +35,6 @@ class CsvFile
     {
     	clearstatcache();
     	return file_exists($this->strFileName);
-    }
-    
-    function GetModifiedSeconds()
-    {
-    	$iSeconds = time();
-    	if ($this->HasFile())
-    	{
-    		$iSeconds -= filemtime($this->strFileName);
-    	}
-   		return $iSeconds;
     }
     
     function _open($strMode)
@@ -86,8 +75,7 @@ class CsvFile
     
     function DebugReport($str)
     {
-		DebugString($str);
-    	$this->strReport .= $str.'<br />';
+    	$this->strReport .= $str.' ';
     }
     
     function Read()

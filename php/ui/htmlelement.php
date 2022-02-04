@@ -1,27 +1,28 @@
 <?php
 
-// ****************************** Pravite Functions *******************************************************
+function GetHtmlElement($str, $strElement)
+{
+	return "<$strElement>$str</$strElement>";
+}
 
-function _getHtmlElement($str)
+function _setHtmlElement($str)
 {
     return "$str=\"$str\"";
 }
 
-// ****************************** Common Functions *******************************************************
-
 function HtmlElementSelected()
 {
-    return _getHtmlElement('selected');
+    return _setHtmlElement('selected');
 }
 
 function HtmlElementDisabled()
 {
-    return _getHtmlElement('disabled');
+    return _setHtmlElement('disabled');
 }
 
 function HtmlElementReadonly()
 {
-    $str = _getHtmlElement('readonly');
+    $str = _setHtmlElement('readonly');
     $str .= ' style="background:#CCCCCC"';
     return $str;
 }

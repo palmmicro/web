@@ -4,7 +4,6 @@
 class ForexReference extends MysqlReference
 {
     public static $strDataSource = STOCK_SINA_DATA;
-//    public static $strDataSource = STOCK_EASTMONEY_DATA;
 
     function ForexReference($strSymbol)
     {
@@ -17,10 +16,6 @@ class ForexReference extends MysqlReference
         {
             $this->LoadSinaForexData();
             $this->bConvertGB2312 = true;     // Sina name is GB2312 coded
-        }
-        else // if (self::$strDataSource == STOCK_EASTMONEY_DATA)
-        {
-            $this->LoadEastMoneyForexData();
         }
     }
 }

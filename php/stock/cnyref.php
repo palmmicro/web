@@ -3,7 +3,6 @@
 // ****************************** CnyReference class *******************************************************
 class CnyReference extends MysqlReference
 {
-//    public static $strDataSource = STOCK_EASTMONEY_DATA;
     public static $strDataSource = STOCK_MYSQL_DATA;
     
     function CnyReference($strSymbol)
@@ -21,11 +20,7 @@ class CnyReference extends MysqlReference
 
     public function LoadData()
     {
-        if (self::$strDataSource == STOCK_EASTMONEY_DATA)
-        {
-        	$this->LoadEastMoneyCnyData();
-        }
-        else
+        if (self::$strDataSource == STOCK_MYSQL_DATA)
         {
             $this->_loadDatabaseData();
         }

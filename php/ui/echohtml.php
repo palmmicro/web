@@ -1,10 +1,12 @@
 <?php
+require_once('htmlelement.php');
 
 function EchoHtmlElement($str, $strElement)
 {
+	$str = GetHtmlElement($str, $strElement);
     echo <<<END
 
-    <$strElement>$str</$strElement>
+	$str
 END;
 }
 

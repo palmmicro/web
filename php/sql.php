@@ -24,7 +24,6 @@ define('TABLE_VISITOR', 'visitor');
 
 require_once('debug.php');
 require_once('email.php');
-require_once('csvfile.php');
 require_once('httplink.php');
 require_once('_private.php');
 require_once('class/year_month_day.php');
@@ -153,47 +152,27 @@ function SqlCleanString($str)
 	return mysql_real_escape_string($str);
 }
 
-class ErrorHandlerFile extends DebugCsvFile
-{
-	var $strError = false;
-	var $iErrorCount = 0;
-	
-    function ErrorHandlerFile() 
-    {
-        parent::DebugCsvFile('errorhandler');
-    }
-
-    public function OnLineArray($arWord)
-    {
-    	if (count($arWord) == 2)
-    	{	// $errno,count
-    		$this->strError = $arWord[0];
-    		$this->iErrorCount  = intval($arWord[1]);
-    	}
-    }
-    
-    function OnError($errno)
-    {
-    	$this->Read();
-    	$iCount = ($this->GetModifiedSeconds() < 100) ? $this->iErrorCount + 1 : 1;
-   		$this->Write($errno, strval($iCount));
-   		$this->Close();
-    	return $iCount;
-    }
-}
-
 function _errorHandler($errno, $errstr, $errfile, $errline)
 {
 	if ($errfile == '/php/class/ini_file.php')	return;
 	
-	$bDebug = (intval($errno) == 1024) ? true : false;
-   	$csv = new ErrorHandlerFile();
-   	$iCount = $csv->OnError($errno);
-   	if ($iCount <= 5 || $bDebug)
+	$strFileName = DebugGetPathName('errorhandler.txt');
+    if (file_exists($strFileName))
+    {
+    	$str = file_get_contents($strFileName);
+    	$ar = explode(',', $str);
+//    	$strError = $ar[0];
+    	$iCount = (time() - filemtime($strFileName) < 100) ? intval($ar[1]) + 1 : 1;
+    }
+    else	$iCount = 1;
+	
+    $strCount = strval($iCount);
+ 	file_put_contents($strFileName, $errno.','.$strCount);
+   	if ($iCount <= 5)
    	{
-   		$strSubject = $bDebug ? '调试消息' : "PHP错误: [$errno]";
-   		$str =  $errstr.'<br />位于'.$errfile.'第'.$errline.'行';
-   		$strDebug = $strSubject.' '.$str.' ('.strval($iCount).')';
+   		$strSubject = ($errno == '1024') ? '调试消息' : "PHP错误: [$errno]";
+   		$str = $errstr.'<br />位于'.$errfile.'第'.$errline.'行';
+   		$strDebug = "$strSubject $str ($strCount)";
     
    		$str .= '<br />'.GetHttpLink(UrlGetServer().UrlGetCur());
 //   		if (isset($_SESSION['SESS_ID']))		$str .= '<br />'.GetMemberLink($_SESSION['SESS_ID']);	// need MySQL successful

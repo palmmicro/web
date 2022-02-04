@@ -1,55 +1,6 @@
 <?php
 define('PREFETCH_INTERVAL', (SECONDS_IN_MIN - 10));
 
-function GetEastMoneyForexDateTime($ar)
-{
-    return explode(' ', $ar[27]);
-}
-
-function _GetEastMoneyQuotesYMD($str)
-{
-    $ar = explode(',', $str);
-    if (count($ar) > 27)
-    {
-        list($strDate, $strTime) = GetEastMoneyForexDateTime($ar); 
-        return $strDate;
-    }
-    return false;
-}
-
-function IsNewDailyQuotes($sym, $strFileName, $callback)
-{
-    $sym->SetTimeZone();
-    clearstatcache(true, $strFileName);
-    if (file_exists($strFileName))
-    {
-        $str = file_get_contents($strFileName);
-        if (($strYMD = call_user_func($callback, $str)) == false)  return false;
-        
-//        DebugString('StringYMD in IsNewDailyQuotes');
-        $ymd = new StringYMD($strYMD);
-        
-        $now_ymd = new NowYMD();
-        $iFileTime = filemtime($strFileName);
-        if (in_arrayQdii($sym->GetSymbol()))
-        {
-            if (($now_ymd->GetTick() - STOCK_HOUR_END * SECONDS_IN_HOUR) < $ymd->GetNextTradingDayTick())     return $str;	// We already have yesterday or last Friday's history quotes.
-        }
-        else
-        {
-            if ($now_ymd->IsSameDay($ymd))
-            {
-                if (($iFileTime - STOCK_HOUR_BEGIN * SECONDS_IN_HOUR) > $ymd->GetTick())  return $str;    // We already have today's data
-            }
-        }
-        
-        $file_ymd = new TickYMD($iFileTime);
-        if ($now_ymd->IsSameHour($file_ymd) && $now_ymd->IsSameDay($file_ymd))  return $str;   // same hour and same day
-        else                                                                               return false;
-    }
-    return false;
-}
-
 function SinaFundNeedFile($sym, $strFileName)
 {
 	clearstatcache(true, $strFileName);

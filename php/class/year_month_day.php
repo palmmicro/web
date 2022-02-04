@@ -1,9 +1,5 @@
 <?php
-// Every market trading from 9 to 17?
-define('STOCK_HOUR_BEGIN', 9);
-define('STOCK_HOUR_END', 16);
 
-// ****************************** YearMonthDay Class *******************************************************
 class YearMonthDay
 {
     var $strYMD;
@@ -146,7 +142,6 @@ class YearMonthDay
     }
 }
 
-// ****************************** StringYMD *******************************************************
 class StringYMD extends YearMonthDay
 {
     var $arYMD;
@@ -168,7 +163,6 @@ class StringYMD extends YearMonthDay
     }
 }
 
-// ****************************** OldestYMD *******************************************************
 class OldestYMD extends StringYMD
 {
     function OldestYMD()
@@ -204,7 +198,6 @@ class OldestYMD extends StringYMD
     }
 }
 
-// ****************************** TickYMD *******************************************************
 class TickYMD extends YearMonthDay
 {
 	var $strHMS;
@@ -238,12 +231,11 @@ class TickYMD extends YearMonthDay
     
     function IsTradingHourEnd()
     {
-    	if ($this->GetHour() <= STOCK_HOUR_END)	return false;
+    	if ($this->GetHour() <= 16)	return false;
     	return true;
     }
 }
 
-// ****************************** NowYMD *******************************************************
 class NowYMD extends TickYMD
 {
     function NowYMD()

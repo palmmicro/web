@@ -33,12 +33,30 @@ class _YahooHistoryCsvFile extends DebugCsvFile
    		if ($this->oldest_ymd->IsTooOld($strDate))	return;
 
     	// Date,Open,High,Low,Close,Adj Close,Volume        		
+    	$strOpen = $arWord[1];
+    	$strHigh = $arWord[2];
+    	$strLow = $arWord[3];
     	$strClose = $arWord[4]; 
-        if ($strClose == '-' || $strClose == 'null')				DebugPrint($arWord);	// debug wrong data
-        else if ($this->oldest_ymd->IsInvalid($strDate) == false)
+    	$strVolume = $arWord[6];
+        if ($strClose == '-' || $strClose == 'null')
+        {
+        	DebugPrint($arWord);	// debug wrong data
+        	return;
+        }
+        
+        if ($strVolume == '0')
+        {
+        	if (($strClose == $strOpen) && ($strClose == $strHigh) && ($strClose == $strLow))
+        	{
+        		DebugString('Holiday: '.$strDate.' '.$strClose);
+        		return;
+        	}
+        }
+        
+        if ($this->oldest_ymd->IsInvalid($strDate) == false)
         {
         	$this->iTotal ++;
-        	if ($this->his_sql->WriteHistory($this->strStockId, $strDate, $strClose, $arWord[1], $arWord[2], $arWord[3], $arWord[6], $arWord[5]))
+        	if ($this->his_sql->WriteHistory($this->strStockId, $strDate, $strClose, $strOpen, $strHigh, $strLow, $strVolume, $arWord[5]))
         	{
 //        		DebugString(implode(',', $arWord));
         		$this->iModified ++;
@@ -62,7 +80,8 @@ function YahooUpdateStockHistory($ref)
 	$iEnd = time();
 	$strBegin = strval($iEnd - MAX_QUOTES_DAYS * SECONDS_IN_DAY);
 	$strEnd = strval($iEnd);
-	$strUrl = "https://query1.finance.yahoo.com/v7/finance/download/$strSymbol?period1=$strBegin&period2=$strEnd&interval=1d&events=history&includeAdjustedClose=true";
+	$strYahooSymbol = $ref->GetYahooSymbol();
+	$strUrl = "https://query1.finance.yahoo.com/v7/finance/download/$strYahooSymbol?period1=$strBegin&period2=$strEnd&interval=1d&events=history&includeAdjustedClose=true";
 	
 	if ($strDebug = StockSaveHistoryCsv($strSymbol, $strUrl))
 	{
@@ -71,13 +90,13 @@ function YahooUpdateStockHistory($ref)
 
 		DebugVal($csv->iTotal, 'Total');
 		DebugVal($csv->iModified, 'Modified');
-		if ($ref->IsSymbolA() || $ref->IsSymbolH())
+/*		if ($ref->IsSymbolA() || $ref->IsSymbolH())
 		{   // Yahoo has wrong Chinese and Hongkong holiday record with '0' volume 
 //			if ($ref->IsIndex() == false)
 			{
 				$csv->his_sql->DeleteByZeroVolume($strStockId);
 			}
-		}
+		}*/
 		unlinkConfigFile($strSymbol);
 	}
 }

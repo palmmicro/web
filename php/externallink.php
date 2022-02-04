@@ -380,13 +380,6 @@ function GetStockDividendLink($sym)
     return GetExternalLink($strHttp, '分红数据');
 }
 
-// http://quote.eastmoney.com/forex/USDCNY.html
-function GetEastMoneyForexLink($strSymbol)
-{
-    $strHttp = "http://quote.eastmoney.com/forex/$strSymbol.html";
-    return GetExternalLink($strHttp, $strSymbol);
-}
-
 function GetReferenceRateForexLink($strSymbol)
 {
     $strHttp = 'http://www.chinamoney.com.cn/index.html';
