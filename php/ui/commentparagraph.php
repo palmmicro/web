@@ -19,9 +19,23 @@ class CommentAccount extends TitleAccount
         $this->comment_sql = new PageCommentSql();
     }
     
+    function GetPageIdQuery()
+    {
+    	return UrlGetQueryValue('page_id');
+    }
+    	
     function GetCommentSql()
     {
     	return $this->comment_sql;
+    }
+
+    function GetCommentPageLink($strPageId)
+    {
+    	if ($strPageUri = $this->GetPageUri($strPageId))
+    	{
+    		return GetInternalLink($strPageUri, UrlGetFileName($strPageUri));
+    	}
+    	return '';
     }
     
     function BuildWhereByMember($strMemberId)

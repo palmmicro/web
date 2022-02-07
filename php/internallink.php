@@ -16,15 +16,6 @@ function GetDevGuideLink($strLink, $strVer = false, $bChinese = true)
     return GetInternalLink($str, $bChinese ? '开发记录' : 'Development Record');
 }
 
-function GetBlogLink($strBlogUri)
-{
-    if ($strBlogUri)
-    {
-        return GetInternalLink($strBlogUri, $strBlogUri);
-    }
-    return '';
-}
-
 function GetMemberLink($strMemberId, $bChinese = true)
 {
 	if ($strEmail = SqlGetEmailById($strMemberId))

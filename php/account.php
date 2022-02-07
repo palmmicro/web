@@ -149,7 +149,7 @@ class Account
     	}
     	return $str.($bChinese ? '的' : ' ');
     }
-    
+
     function GetWhoseAllDisplay($bChinese = true)
     {
      	$strAll = $bChinese ? DISP_ALL_CN : ' '.DISP_ALL_US.' ';

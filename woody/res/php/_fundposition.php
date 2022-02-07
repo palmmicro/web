@@ -243,7 +243,7 @@ function GetMetaDescription()
 	global $acct;
 	
   	$str = $acct->GetStockDisplay().FUND_POSITION_DISPLAY;
-    $str .= '. 仅用于华宝油气(SZ162411)等LOF基金. 寻找XOP净值连续几天上涨或者下跌超过4%的机会测算华宝油气的股票持仓仓位, 按基金说明书这个数值可能会在80%-95%之间变动.';
+    $str .= '。仅用于美股相关QDII基金，寻找对应美股ETF净值连续几天上涨或者下跌超过4%的机会测算A股基金的股票持仓仓位，按基金说明书这个数值可能会在80%-95%之间变动。';
     return CheckMetaDescription($str);
 }
 

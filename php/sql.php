@@ -24,7 +24,7 @@ define('TABLE_VISITOR', 'visitor');
 
 require_once('debug.php');
 require_once('email.php');
-require_once('httplink.php');
+require_once('internallink.php');
 require_once('_private.php');
 require_once('class/year_month_day.php');
 require_once('sql/_sqlcommon.php');
@@ -33,22 +33,6 @@ function die_mysql_error($strDie)
 {
     dieDebugString($strDie.' '.mysql_error());
 }
-
-/*
-function SqlWhereFromUrlQuery($strQuery)
-{
-    if ($strQuery == false)     return false;
-    
-	$arVal = array();
-    $arQuery = explode('&', $strQuery);
-    foreach ($arQuery as $str)
-    {
-        $ar = explode('=', $str);
-        $arVal[$ar[0]] = $ar[1];
-    }
-    return _SqlBuildWhereAndArray($arVal);
-}
-*/
 
 function SqlDieByQuery($strQry, $strDie)
 {

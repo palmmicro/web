@@ -34,7 +34,7 @@ function GetMetaDescription()
 	global $acct;
 	
   	$str = $acct->GetStockDisplay().STOCK_HISTORY_DISPLAY;
-    $str .= '页面. 用于查看计算SMA的原始数据, 提供跟Yahoo或者Sina历史数据同步的功能, 方便人工处理合股和拆股, 分红除权等价格问题. 附带简单的图形显示数据.';
+    $str .= '页面。用于查看计算SMA的原始数据，方便人工处理合股和拆股、分红除权等价格问题。附带简单的图形显示数据。';
     return CheckMetaDescription($str);
 }
 

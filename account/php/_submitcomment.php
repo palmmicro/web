@@ -35,7 +35,7 @@ class _SubmitCommentAccount extends EditCommentAccount
 		// build email contents
 		$str = SqlGetEmailById($strId);
 		$str .= " $strSubject:<br />$strComment<br />";
-		$str .= GetBlogLink($this->GetPageUri($strBlogId));
+		$str .= $this->GetCommentPageLink($strBlogId);
 
 		// build mailing list
 		$arEmails = array(ADMIN_EMAIL);								// Array to store emails addresses to send to

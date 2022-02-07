@@ -83,7 +83,7 @@ function GetMetaDescription()
 	global $acct;
 	
   	$str = $acct->GetStockDisplay().FUND_SHARE_DISPLAY;
-    $str .= '. 仅用于华宝油气(SZ162411)等深市LOF基金, 以及少数XOP等美股SPDR基金. 显示场内份额, 当日新增和当日成交量等相关信息.';
+    $str .= '。显示场内份额、当日新增和当日成交量等相关信息。主要用来判断当日新增的套利党出货情况。';
     return CheckMetaDescription($str);
 }
 

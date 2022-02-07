@@ -127,7 +127,7 @@ function GetMetaDescription()
 	global $acct;
 	
   	$str = $acct->GetStockDisplay().THANOUS_PARADOX_DISPLAY;
-    $str .= '测试. 仅用于华宝油气(SZ162411)等QDII基金. 看白天A股华宝油气的溢价或者折价交易是否可以像小心愿认为的那样预测晚上美股XOP的涨跌.';
+    $str .= '测试。观察白天A股QDII基金的溢价或者折价交易是否可以像小心愿认为的那样预测晚上美股相应ETF的涨跌。';
     return CheckMetaDescription($str);
 }
 
