@@ -85,22 +85,6 @@
 <br /><font color=gray>做人要是没有梦想, 跟咸鱼有什么两样?</font>
 </p>
 
-<h3>查询<a name="xueqiufriend">雪球关注</a>的人</h3>
-<p>2019年4月24日
-<br />做完<?php EchoNameLink(TABLE_PRIME_NUMBER, ACCOUNT_TOOL_PRIME_CN); ?>后自我感觉很好, 所以我很快又给自己找了个新的小目标, 挽起袖子写了个雪球关注工具.
-<br />雪球有关注人数2000的上限, 对于一个像我这样乐于相互关注的人来说, 经常会碰到想新关注一个人的时候不知道该取消关注谁的问题. 雪球上可以查看关注的人, 每页显示20个, 查看所有2000个关注需要翻页100次.
-我因此写了这个软件来自动做这100次翻页, 从中挑出从来不发言的人, 除我关注外没有其它粉丝的人, 以及跟我一样有接近2000关注的人. 本来我还挑出了没有自选股的人, 不过这个数据不准, 经常点进去用户雪球页面后发现有一堆自选股, 我就放弃了.
-从我的Yahoo服务器跨越太平洋访问雪球, 每次要接近2秒时间, 连续100次就会慢的让人不可忍受. 
-还好我有一直闲置的腾讯云<a href="20120719cn.php">Linux</a>虚拟机, 使用<?php EchoLink('http://111.230.12.222/php/xueqiufriend.php'); ?>, 大约能在40秒内返回结果, 勉强可用.
-<br />其实最应该被挑出来取消关注的是没有相互关注我的人. 在没有账号登录信息的情况下, 这意味着要把我的2000个关注人的全部关注页面都再次读一遍. 当然在时间上这是不现实的, 雪球自己的页面也不会愚蠢到这么做.
-事实上, 如果能在Cookie中提供一点登录信息, 雪球就会在数据中提供相互关注的信息了. 跨域名访问Cookie是严重的安全性问题, 因此这几乎不可能自动做. 要用这个工具查没有跟自己雪球账号相互关注的, 只能自己先登录雪球后, 按下图在Chrome浏览器中找到Cookie位置.
-<br /><img src=../photo/xueqiu20190424.jpg alt="Apr 24, 2019. Xueqiu woody1234 page and chrome Cookie entry." />
-<br />然后点进去在下图中找到xq_a_token对应的值, 肯定不会是现在显示的这个.
-<br /><img src=../photo/xueqiucookie.jpg alt="Chrome Cookie settings where to find xueqiu.com xq_a_token value." />
-<br />然后手工把它放在对应的输入框中即可.
-<br /><font color=gray>Life is like a snowball. The important thing is finding wet snow and a really long hill. — Warren Buffett</font>
-</p>
-
 <h3>用Cramer法则<?php EchoNameTag('cramersrule', ACCOUNT_TOOL_CRAMER_CN); ?></h3>
 <p>2019年9月5日
 <br />过去2个月XOP持续暴跌吸引了大量抄底华宝油气的, 在很短时间内耗光了华宝基金公司的外汇额度. 华宝油气从7月31日起单日单个基金账户累计申购金额上限设置为10万, 8月2日周五限额变成了1万, 8月9日限额变成1000元人民币.

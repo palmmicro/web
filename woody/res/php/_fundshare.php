@@ -83,7 +83,7 @@ function GetMetaDescription()
 	global $acct;
 	
   	$str = $acct->GetStockDisplay().FUND_SHARE_DISPLAY;
-    $str .= '。显示场内份额、当日新增和当日成交量等相关信息。主要用来判断当日新增的套利党出货情况。';
+    $str .= '。显示基金场内份额、当日新增和当日成交量等相关信息。主要用来判断当日新增份额的套利党出货情况。';
     return CheckMetaDescription($str);
 }
 

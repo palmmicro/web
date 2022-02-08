@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>Steps to Upgrade an Old PA168F</title>
-<meta name="description" content="How to bring an old Palmmicro PA168F IP phone up to date. Requires skill as well as luck too.">
+<meta name="description" content="How to bring an old Palmmicro PA168F IP phone up to date. Requires skill as well as luck too due to poorly designed software.">
 <?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>

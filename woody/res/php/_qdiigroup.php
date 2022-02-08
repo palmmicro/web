@@ -171,14 +171,11 @@ function GetMetaDescription()
 {
     global $acct;
     
-    $strDescription = $acct->GetStockDisplay();
-
     $fund = $acct->GetRef();
-    $strBase = RefGetDescription($fund->GetCnyRef());
-    $est_ref = $fund->GetEstRef();
-    if ($est_ref)     $strBase .= '/'.RefGetDescription($est_ref);
+	$strBase = RefGetDescription($fund->GetCnyRef());
+    if ($est_ref = $fund->GetEstRef())     $strBase .= '、'.RefGetDescription($est_ref);
     
-    $str = '根据'.$strBase.'等其它网站数据估算'.$strDescription.'净值的网页工具.';
+    $str = '根据'.$strBase.'等其它网站的数据估算'.$acct->GetStockDisplay().'净值的网页工具。';
     return CheckMetaDescription($str);
 }
 

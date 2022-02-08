@@ -19,7 +19,7 @@ function _echoTransactionTableItem($ref, $record, $bReadOnly, $bAdmin)
    	{
    		if (strlen($strRemark) > 0)
    		{
-			$strRemark = GetOnClickLink(STOCK_PHP_PATH.'_submittransaction.php?empty='.$strId, '确认清空备注: '.$strRemark.'?', '清空').$strRemark;
+			$strRemark = GetOnClickLink(STOCK_PHP_PATH.'_submittransaction.php?empty='.$strId, '确认清空备注:'.$strRemark.'?', '清空').$strRemark;
    			if ($ref->IsFundA())
    			{
    				if (strpos($strRemark, STOCK_DISP_ORDER) !== false)
@@ -37,7 +37,7 @@ function _echoTransactionTableItem($ref, $record, $bReadOnly, $bAdmin)
 	$ar[] = $strRemark;
     	
     $strEdit = '';
-   	$strDelete = GetDeleteLink(STOCK_PHP_PATH.'_submittransaction.php?delete='.$strId, '交易记录');
+   	$strDelete = GetDeleteLink(STOCK_PHP_PATH.'_submittransaction.php?delete='.$strId, STOCK_TRANSACTION_DISPLAY);
     if ($bReadOnly == false)
     {
     	$strEdit = GetEditLink(STOCK_PATH.'editstocktransaction', $strId);

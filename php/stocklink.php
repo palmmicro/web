@@ -229,6 +229,8 @@ function GetMyStockGroupLink($strQuery = false)
 	return GetStockPageLink(STOCK_GROUP_PAGE, STOCK_GROUP_DISPLAY, $strQuery);
 }
 
+define('STOCK_TRANSACTION_DISPLAY', '交易记录');
+define('STOCK_TRANSACTION_PAGE', 'mystocktransaction');
 function StockGetTransactionLink($strGroupId, $strSymbol, $strDisplay = false)
 {
     $strQuery = 'groupid='.$strGroupId;
@@ -241,7 +243,7 @@ function StockGetTransactionLink($strGroupId, $strSymbol, $strDisplay = false)
     {
     	$strDisplay = $strSymbol;
     }
-	return GetStockPageLink('mystocktransaction', $strDisplay, $strQuery);
+	return GetStockPageLink(STOCK_TRANSACTION_PAGE, $strDisplay, $strQuery);
 }
 
 function StockGetAllTransactionLink($strGroupId, $ref = false)
@@ -254,7 +256,7 @@ function StockGetAllTransactionLink($strGroupId, $ref = false)
 	{
 		$strSymbol = false;
 	}
-    return StockGetTransactionLink($strGroupId, $strSymbol, '交易记录');
+    return StockGetTransactionLink($strGroupId, $strSymbol, STOCK_TRANSACTION_DISPLAY);
 }
 
 function StockGetGroupTransactionLinks($strGroupId)

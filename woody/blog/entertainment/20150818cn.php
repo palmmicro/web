@@ -355,6 +355,7 @@
 这吸引了我的注意力, 然后发现除了在<?php EchoNameLink(ADR_PAGE, ADR_DISPLAY); ?>中已经包括的外, 港股还有其它不少股票也有美股市场的ADR, 于是我按照原来<?php EchoNameLink(AH_COMPARE_PAGE, AH_COMPARE_DISPLAY); ?>的套路增加了个页面蹭一下热度.
 </p>
 <?php EchoAdrhDemo(); ?>
+<p><font color=gray>Life is like a snowball. The important thing is finding wet snow and a really long hill. — Warren Buffett</font></p>
 
 <h3><?php EchoNameTag(NVCLOSE_HISTORY_PAGE, NVCLOSE_HISTORY_DISPLAY); ?></h3>
 <p>2018年5月3日

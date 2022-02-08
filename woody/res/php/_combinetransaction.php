@@ -147,7 +147,7 @@ function GetMetaDescription()
 function GetTitle()
 {
 	global $acct;
-	return $acct->GetWhoseGroupDisplay().'合并股票交易记录';
+	return $acct->GetWhoseGroupDisplay().'合并股票'.STOCK_TRANSACTION_DISPLAY;
 }
 
 	$acct = new GroupIdAccount();

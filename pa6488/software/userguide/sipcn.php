@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>使用标准SIP协议</title>
-<meta name="description" content="使用标准SIP协议跟Asterisk, X-Lte和IMSDroid配合工作的流程说明. 包括安装截图和命令行说明等具体内容.">
+<meta name="description" content="为测试PA6488的软件，使用标准SIP协议跟Asterisk、X-Lte和IMSDroid配合工作的流程说明，包括安装截图和命令行说明等具体内容。">
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>
 <script src="../../../js/copyright.js"></script>

@@ -28,19 +28,21 @@ function EchoAll()
     $acct->EchoLinks('transaction');
 }
 
-function GetMetaDescription()
-{
-	global $acct;
-	
-	$str = $acct->GetDescription();
-    $str .= '管理页面. 提供现有股票交易记录和编辑删除链接, 主要用于某组股票交易记录超过一定数量后的显示. 少量的股票交易记录一般直接显示在该股票页面而不是在这里.';
-    return CheckMetaDescription($str);
-}
-
 function GetTitle()
 {
 	global $acct;
-	return $acct->GetDescription();
+    
+   	$str = $acct->GetWhoseGroupDisplay().STOCK_GROUP_DISPLAY;
+   	$str .= ($strSymbol = $acct->GetSymbol()) ? $strSymbol : DISP_ALL_CN;
+   	$str .= STOCK_TRANSACTION_DISPLAY;
+   	return $str;
+}
+
+function GetMetaDescription()
+{
+	$str = GetTitle();
+    $str .= '管理页面。提供现有股票交易记录和编辑删除链接。主要用于某组股票交易记录超过一定数量后的显示，少量的股票交易记录一般直接显示在该股票页面而不是在这里。';
+    return CheckMetaDescription($str);
 }
 
 class _TransAccount extends GroupIdAccount
@@ -57,14 +59,6 @@ class _TransAccount extends GroupIdAccount
     function GetSymbol()
     {
     	return $this->strSymbol;
-    }
-    
-    function GetDescription()
-    {
-    	$str = $this->GetWhoseGroupDisplay().STOCK_GROUP_DISPLAY;
-    	$str .= ($this->strSymbol) ? $this->strSymbol : DISP_ALL_CN;
-    	$str .= '交易记录';
-    	return $str;
     }
 }
 
