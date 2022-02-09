@@ -146,7 +146,7 @@ function _errorHandler($errno, $errstr, $errfile, $errline)
     	$str = file_get_contents($strFileName);
     	$ar = explode(',', $str);
 //    	$strError = $ar[0];
-    	$iCount = (time() - filemtime($strFileName) < 100) ? intval($ar[1]) + 1 : 1;
+    	$iCount = (GetNowTick() - filemtime($strFileName) < 100) ? intval($ar[1]) + 1 : 1;
     }
     else	$iCount = 1;
 	

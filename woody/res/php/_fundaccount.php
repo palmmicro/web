@@ -156,7 +156,7 @@ function _echoFundAccountParagraph($csv, $ref, $strSymbol, $strStockId, $his_sql
 function _echoFundAccountPredictData($ref, $strSymbol, $strStockId, $his_sql, $nav_sql, $jpg)
 {
     date_default_timezone_set(STOCK_TIME_ZONE_CN);
-    $now_ymd = new NowYMD();
+    $now_ymd = GetNowYMD();
 
     $iCount = 0;
     if ($result = $his_sql->GetFromDate($strStockId, $now_ymd->GetYMD(), 4)) 

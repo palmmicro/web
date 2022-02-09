@@ -9,7 +9,12 @@ class YearMonthDay
     function YearMonthDay($iTick) 
     {
         $this->iTime = $iTick;
-        $this->local = localtime($iTick);
+        $this->SetLocal();
+    }
+    
+    function SetLocal()
+    {
+        $this->local = localtime($this->iTime);
     }
 
     function GetYMD()
@@ -69,11 +74,6 @@ class YearMonthDay
     function GetYear()
     {
         return $this->local[5] + 1900;
-    }
-    
-    function GetYearStr()
-    {
-        return strval($this->GetYear());
     }
     
     function GetMonth()
@@ -236,14 +236,6 @@ class TickYMD extends YearMonthDay
     }
 }
 
-class NowYMD extends TickYMD
-{
-    function NowYMD()
-    {
-        parent::TickYMD(time());
-    }
-}
-
 function GetNextTradingDayYMD($strYMD)
 {
     $ymd = new StringYMD($strYMD);
@@ -253,4 +245,27 @@ function GetNextTradingDayYMD($strYMD)
     return $next_ymd->GetYMD();
 }
 
+class NowYMD extends TickYMD
+{
+    function NowYMD()
+    {
+        parent::TickYMD(time());
+    }
+}
+
+function GetNowTick()
+{
+	global $g_now_ymd;
+	return $g_now_ymd->GetTick(); 
+}
+
+function GetNowYMD()
+{
+	global $g_now_ymd;
+	
+	$g_now_ymd->SetLocal();	// timezone might have changed
+	return $g_now_ymd;
+}
+
+    $g_now_ymd = new NowYMD();
 ?>

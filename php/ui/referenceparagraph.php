@@ -41,7 +41,7 @@ function _echoReferenceTableData($arRef)
 function GetTimeDisplay()
 {
     date_default_timezone_set(STOCK_TIME_ZONE_CN);
-	$ymd = new NowYMD();
+	$ymd = GetNowYMD();
 	$strTick = strval($ymd->GetTick() * 1000);
 	
 	echo <<< END

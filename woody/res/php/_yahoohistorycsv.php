@@ -74,10 +74,7 @@ function YahooUpdateStockHistory($ref)
 	$strStockId = $ref->GetStockId();
 	
     $ref->SetTimeZone();
-/*    $now_ymd = new NowYMD();
-    $ymd = new StringYMD($now_ymd->GetYMD());
-    $iEnd = $ymd->GetTick();*/ 
-	$iEnd = time();
+    $iEnd = GetNowTick(); 
 	$strBegin = strval($iEnd - MAX_QUOTES_DAYS * SECONDS_IN_DAY);
 	$strEnd = strval($iEnd);
 	$strYahooSymbol = $ref->GetYahooSymbol();

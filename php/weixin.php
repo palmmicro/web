@@ -3,7 +3,7 @@ require('_wxprivate.php');
 require_once('debug.php');
 
 // 微信公众号公共模板, 返回输入信息
-define('WX_DEBUG_VER', '版本141');		
+define('WX_DEBUG_VER', '版本142');		
 
 define('BOT_EOL', "\r\n");
 define('MAX_BOT_MSG_LEN', 2048);
@@ -46,7 +46,7 @@ class WeixinCallback
           	
             $fromUsername = $postObj->FromUserName;
             $toUsername = $postObj->ToUserName;
-            $time = time();
+            $time = GetNowTick();
 //						<FuncFlag>0</FuncFlag>
             $textTpl = '<xml>
     					<ToUserName><![CDATA[%s]]></ToUserName>

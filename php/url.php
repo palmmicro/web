@@ -38,7 +38,7 @@ function UrlGetIp()
 		$strIp = trim($_SERVER['REMOTE_ADDR']);
 	    if (filter_valid_ip($strIp))    return $strIp;
 	}
-	dieDebugString('Unknown IP');
+	die('Unknown IP');
 	return false;
 }
 

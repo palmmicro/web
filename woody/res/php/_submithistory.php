@@ -3,7 +3,6 @@ require_once('_stock.php');
 require_once('_emptygroup.php');
 //require_once('_spdrnavxls.php');
 require_once('_yahoohistorycsv.php');
-//require_once('/php/stock/updatestockhistory.php');
 
     $acct = new SymbolAccount();
 	if ($acct->IsAdmin())
@@ -11,7 +10,6 @@ require_once('_yahoohistorycsv.php');
 		$acct->Create();
 	    if ($ref = $acct->GetRef())
 	    {
-//	        UpdateStockHistory($ref, $ref->GetStockId());
 			YahooUpdateStockHistory($ref);
 	        
 	        // do some extra work together

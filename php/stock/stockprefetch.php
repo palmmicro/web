@@ -1,5 +1,4 @@
 <?php
-define('PREFETCH_INTERVAL', (SECONDS_IN_MIN - 10));
 
 function SinaFundNeedFile($sym, $strFileName)
 {
@@ -25,7 +24,7 @@ function SinaFundNeedFile($sym, $strFileName)
 //	else													DebugString('SinaFundNeedFile need nav on '.$strNavDate.' '.$strSymbol);
 
     $sym->SetTimeZone();
-    $now_ymd = new NowYMD();
+    $now_ymd = GetNowYMD();
    	if (($now_ymd->GetYMD() == $strDate) && $now_ymd->GetHourMinute() < 1600)
    	{
 // 		DebugString($strSymbol.': Market not closed');
@@ -41,7 +40,7 @@ function StockNeedNewQuotes($sym, $strFileName, $iInterval = SECONDS_IN_MIN)
 	if (file_exists($strFileName) == false)	return true;
 
 	$sym->SetTimeZone();
-    $now_ymd = new NowYMD();
+    $now_ymd = GetNowYMD();
 	if (($iFileTime = $now_ymd->NeedFile($strFileName, $iInterval)) == false)		return false;	// update on every minute
 	
 	if ($now_ymd->GetTick() > ($iFileTime + 6 * SECONDS_IN_HOUR))						return true;	// always update after 6 hours
@@ -57,7 +56,7 @@ function ForexAndFutureNeedNewFile($strFileName, $strTimeZone, $iInterval = SECO
 	if (file_exists($strFileName) == false)	return true;
 
     date_default_timezone_set($strTimeZone);
-	$now_ymd = new NowYMD();
+	$now_ymd = GetNowYMD();
 	if (($iFileTime = $now_ymd->NeedFile($strFileName, $iInterval)) == false)		return false;	// update on every minute
         
 	$file_ymd = new TickYMD($iFileTime);
@@ -91,11 +90,11 @@ function _prefetchSinaData($arSym)
         }
         else if ($sym->IsSinaFuture() || $sym->IsSinaForex())
         {   // forex and future
-            if (ForexAndFutureNeedNewFile($strFileName, ForexAndFutureGetTimezone(), PREFETCH_INTERVAL) == false)    continue;
+            if (ForexAndFutureNeedNewFile($strFileName, ForexAndFutureGetTimezone()) == false)    continue;
         }
         else
         {   // Stock symbol
-            if (StockNeedNewQuotes($sym, $strFileName, PREFETCH_INTERVAL) == false)  continue;
+            if (StockNeedNewQuotes($sym, $strFileName) == false)  continue;
         }
         $arFileName[] = $strFileName; 
         $strSymbols .= $str.',';

@@ -81,10 +81,23 @@ function GetSinaQuotesUrl($strSinaSymbols)
 
 function StockNeedFile($strFileName, $iInterval = SECONDS_IN_MIN)
 {
-   	$now_ymd = new NowYMD();
    	clearstatcache(true, $strFileName);
-   	if (file_exists($strFileName))		return $now_ymd->NeedFile($strFileName, $iInterval);
+   	if (file_exists($strFileName))
+   	{
+   		$now_ymd = GetNowYMD();
+   		return $now_ymd->NeedFile($strFileName, $iInterval);
+   	}
    	return true;
+}
+
+function StockIsAdmin()
+{
+   	global $acct;
+	if (method_exists($acct, 'IsAdmin'))
+	{
+		return $acct->IsAdmin();
+	}
+	return false;
 }
 
 define('SINA_QUOTES_SEPARATOR', ',');
@@ -92,11 +105,11 @@ function GetSinaQuotes($strSinaSymbols)
 {
 	$strFileName = DebugGetPathName('debugsina.txt');
 	$iCount = count(explode(SINA_QUOTES_SEPARATOR, $strSinaSymbols));
-	if (DebugIsAdmin() && $iCount > 1)	DebugVal('total prefetch - '.$strSinaSymbols, $iCount);
+	if (StockIsAdmin() && $iCount > 1)	DebugVal('total prefetch - '.$strSinaSymbols, $iCount);
 	else
 	{
-		if (StockNeedFile($strFileName, 30) == false)
-		{	// pause 30 seconds after curl error response
+		if (StockNeedFile($strFileName) == false)
+		{	// pause 1 minute after curl error response
 //			DebugString('Ignored: '.$strSinaSymbols);
 			return false;
 		}

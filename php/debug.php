@@ -71,7 +71,7 @@ function unlinkEmptyFile($strFileName)
 function DebugFormat_date($strFormat, $iTime = false, $strTimeZone = DEBUG_TIME_ZONE)
 {
     date_default_timezone_set($strTimeZone);
-    return date($strFormat, ($iTime ? $iTime : time()));
+    return date($strFormat, ($iTime ? $iTime : GetNowTick()));
 }
 
 function DebugGetDateTime($iTime = false, $strTimeZone = DEBUG_TIME_ZONE)
@@ -128,22 +128,22 @@ function DebugGetFile()
     return DebugGetPathName('debug.txt');
 }
 
-function DebugIsAdmin()
-{
-   	global $acct;
-	if (method_exists($acct, 'IsAdmin'))
-	{
-		return $acct->IsAdmin();
-	}
-	return false;
-}
-
+$g_strDebugInfo = false;
 function DebugString($str)
 {
+   	global $g_strDebugInfo;
+   	
+	if ($g_strDebugInfo == false)
+	{
+		$strTimeZone = date_default_timezone_get();
+		$g_strDebugInfo = DebugGetTime();		// DebugGetTime will change timezone!
+		date_default_timezone_set($strTimeZone);
+		
+		$g_strDebugInfo .= ' '.UrlGetIp().' '.UrlGetCur().' ';
+	}
+	
 	if ($str === false)	$str = '(false)';
-    $strTimeZone = date_default_timezone_get();
-    file_put_contents(DebugGetFile(), DebugGetTime().' '.UrlGetIp().' '.UrlGetCur().' '.$str.PHP_EOL, FILE_APPEND);     // DebugGetTime will change timezone!
-    date_default_timezone_set($strTimeZone);
+    file_put_contents(DebugGetFile(), $g_strDebugInfo.$str.PHP_EOL, FILE_APPEND);
 }
 
 function dieDebugString($str)

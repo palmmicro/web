@@ -362,7 +362,7 @@ function _getDefaultInput($strPage)
     	break;
     		
     default:
-    	$str = strval(time());
+    	$str = strval(GetNowTick());
     	break;
     }
     return $str;

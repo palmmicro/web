@@ -10,7 +10,7 @@ define('SMA_SECTION', 'SMA');
 function _ignoreCurrentTradingData($strDate, $sym)
 {        
     $sym->SetTimeZone();
-    $ymd = new NowYMD();
+    $ymd = GetNowYMD();
     if ($ymd->GetYMD() == $strDate)
     {
         if ($ymd->IsTradingHourEnd() == false)
@@ -135,7 +135,7 @@ function _isWeekEnd($strYMD, $strNextDayYMD)
         if ($ymd->IsFriday())   return true;
         
         // If this Friday is not a trading day
-        $now_ymd = new NowYMD();
+        $now_ymd = GetNowYMD();
         if ($now_ymd->IsWeekDay())
         {
             if ($ymd->GetDayOfWeek() > $now_ymd->GetDayOfWeek())     return true;
@@ -159,7 +159,7 @@ function _isMonthEnd($strYMD, $strNextDayYMD)
     }
     else
     {   // If the last none weekend day of a certain month is not a trading day 
-        $now_ymd = new NowYMD();
+        $now_ymd = GetNowYMD();
         $iTick = $now_ymd->GetNextTradingDayTick();
         $next_ymd = new TickYMD($iTick);
     }
