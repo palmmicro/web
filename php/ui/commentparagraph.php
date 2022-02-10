@@ -33,7 +33,7 @@ class CommentAccount extends TitleAccount
     {
     	if ($strPageUri = $this->GetPageUri($strPageId))
     	{
-    		return GetInternalLink($strPageUri, UrlGetFileName($strPageUri));
+    		return GetInternalLink($strPageUri);
     	}
     	return '';
     }

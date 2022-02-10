@@ -47,7 +47,7 @@ function GetTitle($bChinese = true)
     global $acct;
     
     if ($str = $acct->GetQuery())					$strWho = $str;
-    else if ($str = $acct->GetPageIdQuery())			$strWho = UrlGetFileName($acct->GetPageUri($str));
+    else if ($str = $acct->GetPageIdQuery())			$strWho = basename($acct->GetPageUri($str));
     else if ($str = $acct->GetMemberId())			$strWho =	SqlGetEmailById($str);
     else												$strWho = $bChinese ? DISP_ALL_CN : DISP_ALL_US;
     

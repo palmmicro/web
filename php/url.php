@@ -287,16 +287,9 @@ function _getPage($str)
    	return $str;
 }
 
-// /woody/blog/entertainment/20140615cn.php ==> 20140615cn.php
-function UrlGetFileName($strPathName)
-{
-    return substr($strPathName, strrpos($strPathName, "/") + 1);
-}
-
 function UrlGetPage()
 {
-    $str = UrlGetUri();
-    return _getPage(UrlGetFileName($str));
+    return _getPage(basename(UrlGetUri()));
 }
 
 function UrlGetUriPage()

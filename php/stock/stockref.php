@@ -2,7 +2,6 @@
 require_once('stocksymbol.php');
 
 define('STOCK_SINA_DATA', 'Sina Data');
-define('STOCK_MYSQL_DATA', 'Data from MySQL');
 
 define('STOCK_NET_VALUE', 'Net Value');
 define('STOCK_PRE_MARKET', 'Pre-Market Trading');
@@ -112,11 +111,6 @@ class StockReference extends StockSymbol
     function GetVolume()
     {
     	return $this->strVolume;
-    }
-    
-    function EmptyFile()
-    {
-        unlinkEmptyFile($this->strFileName);
     }
     
     function GetExternalLink()
@@ -405,7 +399,7 @@ class StockReference extends StockSymbol
         $this->strExternalLink = GetSinaFutureLink($this);
         $strSymbol = $this->GetSymbol();
         $this->strFileName = DebugGetSinaFileName($strSymbol);
-        $ar = _GetForexAndFutureArray($strSymbol, $this->strFileName, ForexAndFutureGetTimezone(), 'GetSinaQuotes');
+        $ar = _GetForexAndFutureArray($strSymbol, $this->strFileName, $this->GetTimeZone(), 'GetSinaQuotes');
         if (count($ar) < 13)
         {
             $this->bHasData = false;
@@ -449,7 +443,7 @@ class StockReference extends StockSymbol
         $this->strExternalLink = GetSinaForexLink($this);
     	$strSymbol = $this->GetSymbol();
         $this->strFileName = DebugGetSinaFileName($strSymbol);
-        $ar = _GetForexAndFutureArray($strSymbol, $this->strFileName, ForexAndFutureGetTimezone(), 'GetSinaQuotes');
+        $ar = _GetForexAndFutureArray($strSymbol, $this->strFileName, $this->GetTimeZone(), 'GetSinaQuotes');
         if (count($ar) < 10)
         {
             $this->bHasData = false;

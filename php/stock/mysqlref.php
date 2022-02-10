@@ -23,6 +23,7 @@ class MysqlReference extends StockReference
     		{
     			if ($this->bHasData)
     			{	
+    				$this->SetTimeZone();
     				$now_ymd = GetNowYMD();
     				if ($now_ymd->GetYMD() == $this->GetDate())
     				{

@@ -37,8 +37,10 @@ function GetDeleteLink($strPath, $strCn, $strUs = '', $bChinese = true)
     return GetOnClickLink($strPath, $strQuestion.'?', $strDisplay);
 }
 
-function GetInternalLink($strPath, $strDisplay)
+function GetInternalLink($strPath, $strDisplay = false)
 {
+	if ($strDisplay == false)	$strDisplay = basename($strPath);
+	
     $strHttp = UrlGetServer().$strPath;
     $strLink = "<a href=\"$strHttp\">$strDisplay</a>";
     return $strLink;
@@ -57,12 +59,7 @@ function GetHttpLink($strHttp)
 
 function GetFileLink($strPathName)
 {
-	$strFileName = basename($strPathName);
-/*	if (strlen($strFileName) > 10)
-	{
-		$strFileName = substr($strFileName, -10, 10);
-	}*/
-    return GetExternalLink(UrlGetServer().$strPathName, $strFileName);
+    return GetExternalLink(UrlGetServer().$strPathName, basename($strPathName));
 }
 
 function GetFileDebugLink($strPathName)

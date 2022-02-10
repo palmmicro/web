@@ -125,11 +125,6 @@ function GetSinaQuotes($strSinaSymbols)
 
 // ****************************** Stock display functions *******************************************************
 
-function ForexAndFutureGetTimezone()
-{
-    return 'GMT';
-}
-
 function StockGetPriceDisplay($strDisp, $strPrev, $iPrecision = false)
 {
     if ($strDisp)

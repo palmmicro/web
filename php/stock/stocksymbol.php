@@ -788,7 +788,8 @@ class StockSymbol
 
     function SetTimeZone()
     {
-        date_default_timezone_set($this->GetTimeZone());
+    	$strTimeZone = $this->GetTimeZone();
+        if (date_default_timezone_get() != $strTimeZone)		date_default_timezone_set($strTimeZone);
     }
 
     function GetMoneyDisplay()

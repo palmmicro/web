@@ -197,12 +197,7 @@ function _yahooGetNetValueSymbol($sym, $strSymbol)
    	}
    	return GetYahooNetValueSymbol($strSymbol);
 }
-/*
-function _getNetValueDelayTick()
-{	// get net value after 16:55
-	return 16 * SECONDS_IN_HOUR + 55 * SECONDS_IN_MIN;
-}
-*/
+
 function YahooUpdateNetValue($ref)
 {
 	if ($ref->HasData() == false)	return;

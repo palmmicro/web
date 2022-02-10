@@ -2,8 +2,6 @@
 require_once('url.php');
 
 define('DEBUG_TIME_ZONE', 'PRC');
-define('DEBUG_TIME_FORMAT', 'H:i:s');
-define('DEBUG_DATE_FORMAT', 'Y-m-d');
 
 define('SECONDS_IN_MIN', 60);
 define('SECONDS_IN_HOUR', 3600);
@@ -70,23 +68,23 @@ function unlinkEmptyFile($strFileName)
 
 function DebugFormat_date($strFormat, $iTime = false, $strTimeZone = DEBUG_TIME_ZONE)
 {
-    date_default_timezone_set($strTimeZone);
+    if ($strTimeZone)		date_default_timezone_set($strTimeZone);
     return date($strFormat, ($iTime ? $iTime : GetNowTick()));
-}
-
-function DebugGetDateTime($iTime = false, $strTimeZone = DEBUG_TIME_ZONE)
-{
-	return DebugFormat_date(DEBUG_DATE_FORMAT.' '.DEBUG_TIME_FORMAT, $iTime, $strTimeZone);
 }
 
 function DebugGetDate($iTime = false, $strTimeZone = DEBUG_TIME_ZONE)
 {
-	return DebugFormat_date(DEBUG_DATE_FORMAT, $iTime, $strTimeZone);
+	return DebugFormat_date('Y-m-d', $iTime, $strTimeZone);
 }
 
 function DebugGetTime($iTime = false, $strTimeZone = DEBUG_TIME_ZONE)
 {
-	return DebugFormat_date(DEBUG_TIME_FORMAT, $iTime, $strTimeZone);
+	return DebugFormat_date('H:i:s', $iTime, $strTimeZone);
+}
+
+function DebugGetDateTime($iTime = false, $strTimeZone = DEBUG_TIME_ZONE)
+{
+	return DebugGetDate($iTime, $strTimeZone).' '.DebugGetTime($iTime, $strTimeZone);
 }
 
 function GetHM($strHMS)
@@ -128,22 +126,12 @@ function DebugGetFile()
     return DebugGetPathName('debug.txt');
 }
 
-$g_strDebugInfo = false;
 function DebugString($str)
 {
-   	global $g_strDebugInfo;
-   	
-	if ($g_strDebugInfo == false)
-	{
-		$strTimeZone = date_default_timezone_get();
-		$g_strDebugInfo = DebugGetTime();		// DebugGetTime will change timezone!
-		date_default_timezone_set($strTimeZone);
-		
-		$g_strDebugInfo .= ' '.UrlGetIp().' '.UrlGetCur().' ';
-	}
-	
 	if ($str === false)	$str = '(false)';
-    file_put_contents(DebugGetFile(), $g_strDebugInfo.$str.PHP_EOL, FILE_APPEND);
+	$strTimeZone = date_default_timezone_get();
+    file_put_contents(DebugGetFile(), DebugGetTime(time()).' '.UrlGetIp().' '.UrlGetCur().' '.$str.PHP_EOL, FILE_APPEND);	// DebugGetTime will change timezone!
+    if ($strTimeZone != DEBUG_TIME_ZONE)		date_default_timezone_set($strTimeZone);
 }
 
 function dieDebugString($str)

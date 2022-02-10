@@ -39,10 +39,13 @@ class LinearImageFile extends PageImageFile
     	$bStar = ($iCount < $this->iWidth / 2) ? true : false;
     	foreach ($arX as $strKey => $fX)
     	{
-    		$x = $this->GetPosX($fX);
-    		$y = $this->GetPosY($arY[$strKey]);
-			if ($bStar)	$this->Text($x, $y, '*');
-			else			$this->Pixel($x, $y);
+    		if (isset($arY[$strKey]))
+    		{
+    			$y = $this->GetPosY($arY[$strKey]);
+    			$x = $this->GetPosX($fX);
+    			if ($bStar)	$this->Text($x, $y, '*');
+    			else			$this->Pixel($x, $y);
+    		}
     	}
     	
     	return true;

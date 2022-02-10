@@ -1,32 +1,8 @@
 <?php
 
-// ****************************** CnyReference class *******************************************************
 class CnyReference extends MysqlReference
 {
-    public static $strDataSource = STOCK_MYSQL_DATA;
-    
-    function CnyReference($strSymbol)
-    {
-        parent::MysqlReference($strSymbol);
-        
-        if (self::$strDataSource != STOCK_MYSQL_DATA)
-        {
-        	if ($this->strSqlId)
-        	{
-        		$this->_updateHistory();
-        	}
-        }
-    }
-
     public function LoadData()
-    {
-        if (self::$strDataSource == STOCK_MYSQL_DATA)
-        {
-            $this->_loadDatabaseData();
-        }
-    }
-    
-    function _loadDatabaseData()
     {
     	$strSymbol = $this->GetSymbol();
     	
@@ -37,18 +13,6 @@ class CnyReference extends MysqlReference
         $this->strExternalLink = GetReferenceRateForexLink($strSymbol);
     }
     
-	function _updateHistory()
-	{
-		if (empty($this->strOpen))
-		{
-			$this->EmptyFile();
-			return;
-		}
-    
-		$nav_sql = GetNavHistorySql();
-		$nav_sql->InsertDaily($this->strSqlId, $this->GetDate(), $this->GetPrice());
-	}
-
 	function GetClose($strDate)
 	{
 		if ($strDate == $this->GetDate())	return $this->GetPrice();

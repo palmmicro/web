@@ -90,7 +90,7 @@ function _prefetchSinaData($arSym)
         }
         else if ($sym->IsSinaFuture() || $sym->IsSinaForex())
         {   // forex and future
-            if (ForexAndFutureNeedNewFile($strFileName, ForexAndFutureGetTimezone()) == false)    continue;
+            if (ForexAndFutureNeedNewFile($strFileName, $sym->GetTimeZone()) == false)    continue;
         }
         else
         {   // Stock symbol

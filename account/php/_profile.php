@@ -354,7 +354,7 @@ class _ProfileAccount extends CommentAccount
 		if (EditEmailErrOcurred($arErrMsg))	return false;
 
 		// build a password with current time and user's email
-		$strPassword = $strEmail.date(DEBUG_TIME_FORMAT); 
+		$strPassword = $strEmail.DebugGetTime(); 
 		$strPassword = md5($strPassword);
 		$strPassword = substr($strPassword, 16);
 		if (!SqlUpdatePasswordField($strEmail, $strPassword))

@@ -112,6 +112,14 @@ class StockAccount extends TitleAccount
     		$str .= $this->_getPersonalLinks($strLoginId);
     		if ($this->IsAdmin())
     		{
+    			if (method_exists($this, 'GetGroupId'))
+    			{
+    				$strGroupId = $this->GetGroupId();
+    				$strMemberId = $this->GetGroupMemberId($strGroupId);
+    			}
+    			else	$strMemberId = $this->GetMemberId();
+   				if ($strMemberId != $strLoginId)	$str .= '<br />'.GetMemberLink($strMemberId);
+    			
     			$str .= '<br />'.GetPhpLink(STOCK_PATH.'admindebug', false, '调试信息');
     			$str .= ' '.GetFileLink(DebugGetFile());
     			$str .= ' '.GetFileLink('/php/test.php');

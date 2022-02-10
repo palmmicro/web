@@ -2,7 +2,6 @@
 
 class YearMonthDay
 {
-    var $strYMD;
     var $iTime;
     var $local;     // localtime
     
@@ -19,7 +18,7 @@ class YearMonthDay
 
     function GetYMD()
     {
-        return $this->strYMD;
+        return DebugGetDate($this->iTime, false);
     }
     
     function GetTick()
@@ -81,24 +80,9 @@ class YearMonthDay
         return $this->local[4] + 1;
     }
     
-    function GetSeason()
-    {
-    	return intval($this->local[4] / 3) + 1;
-    }
-    
-    function GetMonthStr()
-    {
-        return strval($this->GetMonth());
-    }
-    
     function GetDay()
     {
         return $this->local[3];
-    }
-    
-    function GetDayStr()
-    {
-        return strval($this->GetDay());
     }
     
     function IsHoliday()
@@ -144,20 +128,17 @@ class YearMonthDay
 
 class StringYMD extends YearMonthDay
 {
-    var $arYMD;
-    
     function StringYMD($strYMD)
     {
-        $this->strYMD = $strYMD;
-        $this->arYMD = explode('-', $strYMD);
-        if (count($this->arYMD) != 3)
+        $arYMD = explode('-', $strYMD);
+        if (count($arYMD) != 3)
         {
         	DebugString('Invalid StringYMD input: '.$strYMD);
         	$iTick = time();
         }
         else
         {
-        	$iTick = mktime(0, 0, 0, intval($this->arYMD[1]), intval($this->arYMD[2]), intval($this->arYMD[0]));
+        	$iTick = mktime(0, 0, 0, intval($arYMD[1]), intval($arYMD[2]), intval($arYMD[0]));
         }
         parent::YearMonthDay($iTick);
     }
@@ -200,12 +181,8 @@ class OldestYMD extends StringYMD
 
 class TickYMD extends YearMonthDay
 {
-	var $strHMS;
-	
     function TickYMD($iTick)
     {
-        $this->strYMD = date(DEBUG_DATE_FORMAT, $iTick);
-        $this->strHMS = date(DEBUG_TIME_FORMAT, $iTick);
         parent::YearMonthDay($iTick);
     }
     
@@ -226,7 +203,7 @@ class TickYMD extends YearMonthDay
     
     function GetHMS()
     {
-    	return $this->strHMS;
+		return DebugGetTime($this->iTime, false);
     }
     
     function IsTradingHourEnd()
@@ -247,9 +224,22 @@ function GetNextTradingDayYMD($strYMD)
 
 class NowYMD extends TickYMD
 {
+    var $strTimeZone;
+    
     function NowYMD()
     {
         parent::TickYMD(time());
+        $this->strTimeZone = date_default_timezone_get();
+    }
+    
+    function CheckTimeZone()
+    {
+    	$str = date_default_timezone_get();
+    	if ($str != $this->strTimeZone)
+    	{
+    		$this->SetLocal();				// timezone have changed
+    		$this->strTimeZone = $str;
+    	}
     }
 }
 
@@ -263,7 +253,7 @@ function GetNowYMD()
 {
 	global $g_now_ymd;
 	
-	$g_now_ymd->SetLocal();	// timezone might have changed
+	$g_now_ymd->CheckTimeZone();
 	return $g_now_ymd;
 }
 
