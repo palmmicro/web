@@ -91,11 +91,11 @@ class IpLookupAccount extends CommentAccount
 			switch ($record['status'])
 			{
 			case IP_STATUS_CRAWLER:
-				$str .= '<br /><font color=green>'.($bChinese ? '已标注爬虫' : 'Marked crawler').'</font>';
+				$str .= '<br />'.GetFontElement(($bChinese ? '已标注爬虫' : 'Marked crawler'), 'green');
 			    break;
 				
 			case IP_STATUS_MALICIOUS:
-				$str .= '<br /><font color=red>'.($bChinese ? '已标注恶意IP' : 'Marked malicious IP').'</font>';
+				$str .= '<br />'.GetFontElement($bChinese ? '已标注恶意IP' : 'Marked malicious IP');
 			    break;
 			}
 		}

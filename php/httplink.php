@@ -162,7 +162,7 @@ function GetPageLink($strPath, $strPage, $strQuery, $strDisplay, $bChinese = tru
 {
     if ((UrlGetPage() == $strPage) && (UrlGetQueryString() == $strQuery))
     {
-        return "<font color=blue>$strDisplay</font>";
+        return GetInfoFontElement($strDisplay);
     }
     return GetPhpLink($strPath.$strPage, $strQuery, $strDisplay, false, $bChinese);
 }

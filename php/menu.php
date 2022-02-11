@@ -25,6 +25,7 @@ function MenuWriteItemLink($iLevel, $strPage, $strType, $strDisp)
 
 function MenuWriteLink($strPage, $strType, $strDisp, $strOutput)
 {
+	$strStyle = 'font-size:10pt; font-weight:bold';
     switch ($strOutput)
     {
     case MENU_OUTPUT_LINK:
@@ -32,11 +33,11 @@ function MenuWriteLink($strPage, $strType, $strDisp, $strOutput)
     	break;
     	
     case MENU_OUTPUT_DISABLED:
-        echo "<p><font color=gray style=\"font-size:10pt; font-weight:bold\">$strDisp</font></p>";
+    	EchoParagraph(GetFontElement($strDisp, 'gray', $strStyle));
         break;
         
     case MENU_OUTPUT_ENABLED:
-        echo "<p><font color=yellow style=\"font-size:10pt; font-weight:bold\">$strDisp</font></p>";
+    	EchoParagraph(GetFontElement($strDisp, 'yellow', $strStyle));
         break;
     }
 }

@@ -4,7 +4,7 @@ require_once('stockbot.php');
 
 function _wxDebug($strUserName, $strText, $strSubject)
 {   
-	$str = '<font color=blue>用户:</font>'.$strUserName;
+	$str = GetInfoFontElement('用户：').$strUserName;
 	$str .= '<br />'.$strText;
 	$str .= '<br />'.GetWeixinLink();
     trigger_error($strSubject.'<br />'.$str);
@@ -24,7 +24,7 @@ class WeixinStock extends WeixinCallback
 
 	function GetUnknownText($strContents, $strUserName)
 	{
-		_wxDebug($strUserName, "<font color=green>内容:</font>$strContents", 'Wechat message');
+		_wxDebug($strUserName, GetFontElement('内容：', 'green').$strContents, 'Wechat message');
 		$str = $strContents.BOT_EOL;
 		$str .= '本公众号目前只提供部分股票交易和净值估算自动查询。因为没有匹配到信息，此消息内容已经发往support@palmmicro.com邮箱，Palmmicro会尽快在公众号上回复。咨询问题的请尽量在相关公众号文章下留言。'.BOT_EOL;
 		return $str;

@@ -45,7 +45,11 @@ function _echoAccountProfileMsg($strMsg, $bChinese)
         if ($bChinese)  $strMsg = '登录电子邮件已经更新';                  
     }
     
-    if ($strMsg)    EchoParagraph("<font color=blue>$strMsg.</font>");
+    if ($strMsg)
+    {
+    	$strPeriod = $bChinese ? '。' : '.';  
+    	EchoParagraph(GetInfoFontElement($strMsg.$strPeriod));
+    }
 }
 
 function _echoAccountProfileLinks($bChinese)
@@ -68,10 +72,11 @@ function _echoAccountProfileEnglish($member, $strName, $strPhone, $strAddress, $
 	if ($strStatus == '2')		$strStatusDisplay = 'Palmmicro email subscription completed.';
 	else if ($strStatus == '1')	$strStatusDisplay = 'No email subscription.';
 	else				$strStatusDisplay = 'Account restricted.';
+	$strStatusDisplay = GetFontElement($strStatusDisplay, 'green');
 	
     echo <<<END
         <p>Email: <b>{$member['email']}</b>
-        <br /><font color=green>$strStatusDisplay</font>
+        <br />$strStatusDisplay
         <br />Name: $strName
         <br />Phone: $strPhone
         <br />Address: $strAddress
@@ -93,10 +98,11 @@ function _echoAccountProfileChinese($member, $strName, $strPhone, $strAddress, $
 	if ($strStatus == '2')		$strStatusDisplay = '接收Palmmicro邮件.';
 	else if ($strStatus == '1')	$strStatusDisplay = '不接收任何邮件.';
 	else				$strStatusDisplay = '帐号受限制.';
+	$strStatusDisplay = GetFontElement($strStatusDisplay, 'green');
 	
     echo <<<END
         <p>电子邮件: <b>{$member['email']}</b>
-        <br /><font color=green>$strStatusDisplay</font>
+        <br />$strStatusDisplay
         <br />名字: $strName
         <br />电话: $strPhone
         <br />地址: $strAddress

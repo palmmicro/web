@@ -125,43 +125,43 @@ function EditEmailForm($strSubmit, $strEmail, $bAdmin)
 			switch ($iMsg)
 			{
 			case ACCT_ERR_EMAIL_INPUT:
-				$strEmailErr = $bChinese ? '登录电子邮件不能为空并且要求是有效的邮件地址' : 'Login email missing or not valid';
+				$strEmailErr = GetFontElement($bChinese ? '登录电子邮件不能为空并且要求是有效的邮件地址' : 'Login email missing or not valid');
 				break;
 
 			case ACCT_ERR_EMAIL_UNREGISTERED:
-				$strEmailErr = $bChinese ? '此电子邮件尚未注册' : 'Email not registered yet';
+				$strEmailErr = GetFontElement($bChinese ? '此电子邮件尚未注册' : 'Email not registered yet');
 				break;
 				
 			case ACCT_ERR_EMAIL_REGISTERED:
-				$strEmailErr = $bChinese ? '登录电子邮件已经注册' : 'Login email already in use';
+				$strEmailErr = GetFontElement($bChinese ? '登录电子邮件已经注册' : 'Login email already in use');
 				break;
 
 			case ACCT_ERR_LOGIN_FAILED:
-				$strEmailErr = $bChinese ? '请检查登录电子邮件帐号和密码' : 'Please check your login email and password';
+				$strEmailErr = GetFontElement($bChinese ? '请检查登录电子邮件帐号和密码' : 'Please check your login email and password');
 				break;
 
 			case ACCT_ERR_EMAIL_UNCHANGED:
-				$strSubmitErr = $bChinese ? '新旧电子邮件没有区别' : 'New email is the same with the old one';
+				$strSubmitErr = GetFontElement($bChinese ? '新旧电子邮件没有区别' : 'New email is the same with the old one');
 				break;
 				
 			case ACCT_ERR_PASSWORD_MISMATCH:
-				$strSubmitErr = $bChinese ? '密码不一致' : 'Passwords do not match';
+				$strSubmitErr = GetFontElement($bChinese ? '密码不一致' : 'Passwords do not match');
 				break;
 
 			case ACCT_ERR_UNAUTH_OP:
-				$strSubmitErr = $bChinese ? '你没有权限做这个操作' : 'You are not authorized for this operation';
+				$strSubmitErr = GetFontElement($bChinese ? '你没有权限做这个操作' : 'You are not authorized for this operation');
 				break;
 				
 			case ACCT_ERR_PASSWORD_INPUT:
-				$strPasswordErr = $bChinese ? '密码不能为空' : 'Password missing';
+				$strPasswordErr = GetFontElement($bChinese ? '密码不能为空' : 'Password missing');
 				break;
 
 			case ACCT_ERR_PASSWORD_UNCHANGED:
-				$strPasswordErr = $bChinese ? '新旧密码没有区别' : 'New password is the same with the old one';
+				$strPasswordErr = GetFontElement($bChinese ? '新旧密码没有区别' : 'New password is the same with the old one');
 				break;
 
 			case ACCT_ERR_PASSWORD2_INPUT:
-				$strPassword2Err = $bChinese ? '重复密码不能为空' : 'Confirm password missing';
+				$strPassword2Err = GetFontElement($bChinese ? '重复密码不能为空' : 'Confirm password missing');
 				break;
 			}
 		}
@@ -174,21 +174,21 @@ function EditEmailForm($strSubmit, $strEmail, $bAdmin)
     <tr>
       <td><b>$strEmailDisplay</b></td>
       <td><input name="login" value="$strEmail" type="text" size="40" maxlength="128" class="textfield" id="login" $strEmailReadonly></td>
-      <td><font color=red>$strEmailErr</font></td>
+      <td>$strEmailErr</td>
     </tr>
     <tr>
       <td><b>$strPasswordDisplay</b></td>
       <td><input name="password" type="password" maxlength="32" class="textfield" id="password" $strPasswordDisabled></td>
-      <td><font color=red>$strPasswordErr</font></td>
+      <td>$strPasswordErr</td>
     </tr>
     <tr>
       <td><b>$strPassword2Display</b></td>
       <td><input name="cpassword" type="password" maxlength="32" class="textfield" id="cpassword" $strPassword2Disabled></td>
-      <td><font color=red>$strPassword2Err</font></td>
+      <td>$strPassword2Err</td>
     </tr>
     <tr>
       <td><input type="submit" name="submit" value="$strSubmit" /></td>
-      <td><font color=red>$strSubmitErr</font></td>
+      <td>$strSubmitErr</td>
     </tr>
   </table>
 </form>

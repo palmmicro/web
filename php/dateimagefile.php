@@ -13,7 +13,7 @@ class DateImageFile extends PageImageFile
     
     function _textDateVal($str, $strDate, $fVal)
     {
-		$this->strText .= $str.': '.$strDate.' <font color='.$this->strLineColor.'>'.strval_round($fVal, 2).'</font><br />';
+		$this->strText .= $str.'：'.$strDate.' '.GetFontElement(strval_round($fVal, 2), $this->strLineColor).'<br />';
     }
     
     function _textCurDateVal($str, $ar)
@@ -83,7 +83,7 @@ class DateImageFile extends PageImageFile
     function GetAll($strName, $strCompare)
     {
     	$str = $this->strText;
-    	$str .= "<font color={$this->strLineColor}>$strName</font> <font color={$this->strCompareColor}>$strCompare</font>";
+    	$str .= GetFontElement($strName, $this->strLineColor).' '.GetFontElement($strCompare, $this->strCompareColor);
     	$str .= '<br />'.$this->GetLink();
     	return $str;
 	}

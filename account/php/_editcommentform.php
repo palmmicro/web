@@ -40,12 +40,13 @@ class EditCommentAccount extends CommentAccount
 						   );
 	
 		$strPassQuery = UrlPassQuery();
-		$strComment = $this->_getEditComment(); 
+		$strComment = $this->_getEditComment();
+		$str = GetFontElement($arTitle[$strSubmit], 'green');
     
 		echo <<< END
 	<form id="commentForm" name="commentForm" method="post" action="/account/php/_submitcomment.php$strPassQuery">
         <div>
-		<p><font color=green>{$arTitle[$strSubmit]}</font>
+		<p>$str
 	    <br /><textarea name="comment" rows="16" cols="75" id="comment">$strComment</textarea>
 	    <br /><input type="submit" name="submit" value="$strSubmit" />
 	    </p>

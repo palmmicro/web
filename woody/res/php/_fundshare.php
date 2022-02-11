@@ -5,11 +5,11 @@ require_once('/php/stock/szse.php');
 
 function GetDiffDisplay($fDiff)
 {
-	$strColor = ($fDiff > MIN_FLOAT_VAL) ? 'black' : 'red';
+	$strColor = ($fDiff > MIN_FLOAT_VAL) ? 'green' : 'red';
 	$strDisp = strval_round($fDiff, 2);
 	if ($strDisp == '0')		$strColor = 'gray';
 
-   	return "<font color=$strColor>$strDisp</font>";
+   	return GetFontElement($strDisp, $strColor);
 }
 
 function _echoFundShareItem($record, $strStockId, $his_sql, $shares_sql)

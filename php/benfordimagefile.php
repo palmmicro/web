@@ -107,7 +107,7 @@ class BenfordImageFile extends PageImageFile
 
     function _getText($strLine, $strColor, $iTotal, $fP)
     {
-		$str = '<font color='.$strColor.'>'.$strLine.'('.strval($iTotal).')</font>';
+		$str = GetFontElement($strLine.'('.strval($iTotal).')', $strColor);
    		if ($fP)
    		{
    			$str .= ' P = '.strval_round($fP);

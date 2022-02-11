@@ -8,7 +8,7 @@ function _getLoginLink($strCn, $strUs, $bChinese)
 function _echoLogin($str)
 {
 	LayoutBegin();
-	EchoParagraph("<font color=green>$str</font>");
+	EchoParagraph(GetFontElement($str, 'green'));
 	LayoutEnd();
 }
 

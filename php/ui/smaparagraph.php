@@ -143,7 +143,7 @@ function _getSmaParagraphWarning($ref)
 			if (abs(floatval($record['adjclose']) - floatval($ref->GetPrevPrice())) > 0.0005)
 			{
 				$strSymbol = $ref->GetSymbol();
-				$str = '<br /><font color=red>'.$strSymbol.' '.$record['date'].'收盘价冲突</font>: '.$record['adjclose'].' '.$ref->GetPrevPrice();
+				$str = '<br />'.GetFontElement($strSymbol.' '.$record['date'].'收盘价冲突：').$record['adjclose'].' '.$ref->GetPrevPrice();
 				if (StockIsAdmin())
 				{
 					$str .= ' '.GetStockOptionLink(STOCK_OPTION_CLOSE, $strSymbol);

@@ -253,7 +253,7 @@ class SymbolEditAccount extends SymbolAccount
 		}
     
 		$strVal = _getStockOptionVal($strSubmit, $this->GetLoginId(), $ref, $strSymbol, $strDate);
-		$strMemo = _getStockOptionMemo($strSubmit);
+		$strMemo = GetInfoFontElement(_getStockOptionMemo($strSubmit));
 	
 		echo <<< END
 	<script>
@@ -264,7 +264,7 @@ class SymbolEditAccount extends SymbolAccount
 	
 	<form id="stockoptionForm" name="stockoptionForm" method="post" action="/woody/res/php/_submitstockoptions.php">
         <div>
-		<p><font color=blue>$strMemo</font>
+		<p>$strMemo
 		<br /><input name="login" value="$strEmail" type="text" size="40" maxlength="128" class="textfield" id="login" $strEmailReadonly />
 		<br /><input name="symbol" value="$strSymbol" type="text" size="20" maxlength="32" class="textfield" id="symbol" $strSymbolReadonly />
 		<br /><input name="date" value="$strDate" type="text" size="10" maxlength="32" class="textfield" id="date" $strDateDisabled />

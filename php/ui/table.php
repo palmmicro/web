@@ -11,7 +11,8 @@ function IsTableCommonDisplay($iStart, $iNum)
 function GetTableColumn($iWidth, $strDisplay)
 {
 	$strWidth = strval($iWidth);
-	return "<td class=c1 width=$strWidth align=center>$strDisplay</td>";
+//	return "<td class=c1 width=$strWidth align=center>$strDisplay</td>";
+	return GetHtmlElement($strDisplay, 'td', array('class' => 'c1', 'width' => $strWidth, 'align' => 'center'));
 }
 
 // aqua, black, blue, fuchsia, gray, green, lime, maroon, navy, olive, purple, red, silver, teal, white, yellow
@@ -23,11 +24,8 @@ class TableColumn
 	function TableColumn($strText = '', $iWidth = 80, $strColor = false, $strPrefix = false)
 	{
 		$this->iWidth = $iWidth;
-		$this->strText = $strColor ? "<font color=$strColor>$strText</font>" : $strText;
-        if ($strPrefix)
-        {
-        	$this->strText = $strPrefix.$this->strText; 
-        }
+		$this->strText = $strColor ? GetFontElement($strText, $strColor) : $strText;
+        if ($strPrefix)	$this->strText = $strPrefix.$this->strText; 
 	}
 	
 	function GetDisplay()
@@ -117,11 +115,15 @@ function SelectColumnItem($strDisplay, $strLink, $strId, &$arId)
 
 function EchoTableColumn($ar, $strColor = false)
 {
-    $strBackGround = $strColor ? 'style="background-color:'.$strColor.'"' : '';
+//    $strBackGround = $strColor ? 'style="background-color:'.$strColor.'"' : '';
+	$arAttribute = array('class' => 'c1');
+	if ($strColor)	$arAttribute['style'] = '"background-color:'.$strColor.'"';
+	
     $strColumn = '';
 	foreach ($ar as $str)
 	{
-		$strColumn .= "<td $strBackGround class=c1>$str</td>";
+//		$strColumn .= "<td $strBackGround class=c1>$str</td>";
+		$strColumn .= GetHtmlElement($str, 'td', $arAttribute);
 	}
 
     echo <<<END

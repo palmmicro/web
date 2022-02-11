@@ -4,9 +4,8 @@ class StockAccount extends TitleAccount
 {
     var $strName;
 
-    var $ref = false;		// MysqlReference class
-	
     var $group_sql;
+    var $ref = false;		// MysqlReference class
     
     function StockAccount($strQueryItem = false, $arLoginTitle = false) 
     {
@@ -18,7 +17,6 @@ class StockAccount extends TitleAccount
 
     function GetGroupName($strGroupId)
     {
-//    	DebugString('Trace GetGroupName');
     	return $this->group_sql->GetString($strGroupId);
     }
     
@@ -26,10 +24,7 @@ class StockAccount extends TitleAccount
     {
     	if ($strGroupName = $this->GetGroupName($strGroupId))
     	{
-    		if ($strLink = GetStockLink($strGroupName))
-    		{
-    			return $strLink; 
-    		}
+    		if ($strLink = GetStockLink($strGroupName))		return $strLink; 
     		return GetStockPageLink(STOCK_GROUP_PAGE, $strGroupName, 'groupid='.$strGroupId);
     	}
     	return '';
@@ -81,10 +76,7 @@ class StockAccount extends TitleAccount
     		while ($record = mysql_fetch_assoc($result)) 
     		{
     			$strGroupId = $record['id'];
-    			if ($this->_checkPersonalGroupId($strGroupId))
-    			{
-    				$str .= $this->_getPersonalGroupLink($strGroupId);
-    			}
+    			if ($this->_checkPersonalGroupId($strGroupId))		$str .= $this->_getPersonalGroupLink($strGroupId);
     		}
     		@mysql_free_result($result);
     	}
@@ -97,14 +89,7 @@ class StockAccount extends TitleAccount
     	$strLoginId = $this->GetLoginId();
     	EchoPromotionHead($strVer, $strLoginId);
 
-    	if ($callback)
-    	{
-    		$str = call_user_func($callback, $this->GetRef());
-    	}
-    	else
-    	{
-    		$str = GetCategoryLinks(GetStockCategoryArray());
-    	}
+   		$str = $callback ? call_user_func($callback, $this->GetRef()) : GetCategoryLinks(GetStockCategoryArray());
     	$str .= '<br />'.GetCategoryLinks(GetStockMenuArray());
     	$str .= '<br />'.GetMyPortfolioLink();
     	if ($strLoginId)
@@ -130,15 +115,13 @@ class StockAccount extends TitleAccount
     
     function IsGroupReadOnly($strGroupId)
     {
-    	if ($strGroupId == false)	return true;
-    	
-    	return ($this->GetGroupMemberId($strGroupId) == $this->GetLoginId()) ? false : true;
+    	if ($strGroupId)		return ($this->GetGroupMemberId($strGroupId) == $this->GetLoginId()) ? false : true;
+    	return false;
     }
     
     function EchoStockTransaction($group)
     {
     	$strGroupId = $group->GetGroupId();
-    
     	if ($this->IsGroupReadOnly($strGroupId) == false)
     	{
     		if ($ref = $this->GetRef())
@@ -150,7 +133,7 @@ class StockAccount extends TitleAccount
     				$strSymbol = $ref->GetSymbol();
     				if (($strAmount = SqlGetFundPurchaseAmount($this->GetLoginId(), $strStockId)) === false)		$strAmount = FUND_PURCHASE_AMOUNT;
     				$strQuery = sprintf('groupid=%s&fundid=%s&amount=%s&netvalue=%.3f', $strGroupId, $strStockId, $strAmount, floatval($ref->GetOfficialNav()));
-    				$str = $strSymbol.' '.GetOnClickLink(STOCK_PHP_PATH.'_submittransaction.php?'.$strQuery, '确认添加对冲申购记录?', '申购');
+    				$str = GetMyStockLink($strSymbol).' '.GetOnClickLink(STOCK_PHP_PATH.'_submittransaction.php?'.$strQuery, '确认添加对冲申购记录?', '申购');
     				$str .= ' '.$strAmount;
     				$str .= ' '.GetStockOptionLink(STOCK_OPTION_AMOUNT, $strSymbol);
     				EchoParagraph($str);
@@ -174,10 +157,7 @@ class StockAccount extends TitleAccount
     	$strHKDCNY = $hkcny_ref ? $hkcny_ref->GetPrice() : false;
 	
     	_EchoMoneyParagraphBegin();
-    	foreach ($arGroup as $group)
-    	{
-    		_EchoMoneyGroupData($this, $group, $strUSDCNY, $strHKDCNY);
-    	}
+    	foreach ($arGroup as $group)	_EchoMoneyGroupData($this, $group, $strUSDCNY, $strHKDCNY);
     	EchoTableParagraphEnd();
     }
 

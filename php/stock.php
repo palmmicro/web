@@ -137,7 +137,7 @@ function StockGetPriceDisplay($strDisp, $strPrev, $iPrecision = false)
         else                                         $strColor = 'black';
 
         $strDisp = strval_round($fDisp, $iPrecision);
-        return "<font color=$strColor>$strDisp</font>";
+        return GetFontElement($strDisp, $strColor);
     }
     return '';
 }
