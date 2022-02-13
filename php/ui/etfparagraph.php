@@ -27,12 +27,10 @@ function _echoEtfListItem($ref)
 {
 	$ar = array();
 	
-	$ar[] = RefGetMyStockLink($ref);
+	$ar[] = GetCalibrationHistoryLink($ref->GetSymbol(), true);
     $ar[] = _getEtfPairExternalLink($ref->GetPairSym());
     $ar[] = GetNumberDisplay($ref->fRatio);
-    $strFactor = GetNumberDisplay($ref->fFactor);
-    $ar[] = GetCalibrationHistoryLink($ref->GetSymbol(), $strFactor);
-    
+    $ar[] = GetNumberDisplay($ref->fFactor);
     EchoTableColumn($ar);
 }
 

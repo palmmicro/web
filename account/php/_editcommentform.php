@@ -1,5 +1,4 @@
 <?php
-//require_once('/php/ui/htmlelement.php');
 require_once('/php/ui/commentparagraph.php');
 
 define('BLOG_COMMENT_NEW', 'Post Comment');

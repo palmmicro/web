@@ -51,12 +51,6 @@ class TableColumnEst extends TableColumn
 	}
 }
 
-function GetTableColumnEst()
-{
-	$col = new TableColumnEst();
-	return $col->GetDisplay();
-}
-
 class TableColumnOfficalEst extends TableColumnEst
 {
 	function TableColumnOfficalEst()
@@ -261,31 +255,6 @@ class TableColumnUSD extends TableColumn
 	{
         parent::TableColumn('美元$', 80, false, $strPrefix);
 	}
-}
-
-function GetTableColumnOfficalEst()
-{
-	return STOCK_DISP_OFFICIAL.GetTableColumnEst();
-}
-
-function GetTableColumnOfficalPremium()
-{
-	return STOCK_DISP_OFFICIAL.GetTableColumnPremium();
-}
-
-function GetTableColumnFairPremium()
-{
-	return STOCK_DISP_FAIR.GetTableColumnPremium();
-}
-
-function GetTableColumnRealtimeEst()
-{
-	return STOCK_DISP_REALTIME.GetTableColumnEst();
-}
-
-function GetTableColumnRealtimePremium()
-{
-	return STOCK_DISP_REALTIME.GetTableColumnPremium();
 }
 
 class TableColumnMyStock extends TableColumn

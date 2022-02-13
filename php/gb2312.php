@@ -1,5 +1,4 @@
 <?php
-require_once('sql.php');
 require_once('sql/sqlgb2312.php');
 
 // https://segmentfault.com/a/1190000003020776

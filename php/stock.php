@@ -1,10 +1,8 @@
 <?php
-//require_once('url.php');
-require_once('debug.php');
 require_once('regexp.php');
 require_once('stocklink.php');
 require_once('externallink.php');
-//require_once('sql.php');
+require_once('sql.php');
 require_once('gb2312.php');
 
 require_once('sql/sqlipaddress.php');
@@ -29,8 +27,6 @@ require_once('stock/goldfundref.php');
 require_once('stock/forexref.php');
 require_once('stock/hshareref.php');
 require_once('stock/etfref.php');
-
-require_once('ui/htmlelement.php');
 
 // ****************************** Stock symbol functions *******************************************************
 
@@ -90,27 +86,17 @@ function StockNeedFile($strFileName, $iInterval = SECONDS_IN_MIN)
    	return true;
 }
 
-function StockIsAdmin()
-{
-   	global $acct;
-	if (method_exists($acct, 'IsAdmin'))
-	{
-		return $acct->IsAdmin();
-	}
-	return false;
-}
-
 define('SINA_QUOTES_SEPARATOR', ',');
 function GetSinaQuotes($strSinaSymbols)
 {
 	$strFileName = DebugGetPathName('debugsina.txt');
 	$iCount = count(explode(SINA_QUOTES_SEPARATOR, $strSinaSymbols));
-	if (StockIsAdmin() && $iCount > 1)	DebugVal('total prefetch - '.$strSinaSymbols, $iCount);
+	if (DebugIsAdmin() && $iCount > 1)	DebugVal('total prefetch - '.$strSinaSymbols, $iCount);
 	else
 	{
 		if (StockNeedFile($strFileName) == false)
 		{	// pause 1 minute after curl error response
-//			DebugString('Ignored: '.$strSinaSymbols);
+			DebugString('Ignored: '.$strSinaSymbols, true);
 			return false;
 		}
 	}
@@ -204,7 +190,7 @@ function RefGetDescription($ref, $bConvertDisplay = false)
 			if ($bConvertDisplay)
 			{
 				if ($str == STOCK_PRE_MARKET || $str == STOCK_POST_MARKET)	return GetHtmlElement($strDisplay, 'i');
-				else if ($str == STOCK_NET_VALUE)								return GetHtmlElement($strDisplay, 'b');
+				else if ($str == STOCK_NET_VALUE)								return GetBoldElement($strDisplay);
 			}
 			return $strDisplay;
 		}

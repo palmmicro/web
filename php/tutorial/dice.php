@@ -1,5 +1,4 @@
 <?php
-require_once('/php/debug.php');
 
 function RobloxDice($iNum, $iTarget)
 {

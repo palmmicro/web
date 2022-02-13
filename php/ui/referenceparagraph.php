@@ -45,6 +45,7 @@ function GetTimeDisplay()
 	$strTick = strval($ymd->GetTick() * 1000);
 	
 	echo <<< END
+	
 	<script>
 		var now = new Date($strTick); 
 		function UpdateTime() 

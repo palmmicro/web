@@ -767,12 +767,12 @@ class StockSymbol
         if ($this->IsSinaFund())     
         {   // IsSinaFund must be called before IsSinaFuture
         }
-        else if ($this->IsSinaFuture())
+/*        else if ($this->IsSinaFuture())
         {
         }
         else if ($this->IsSinaForex())
         {
-        }
+        }*/
         else if ($this->IsEastMoneyForex())
         {
         }

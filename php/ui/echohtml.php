@@ -1,5 +1,4 @@
 <?php
-require_once('htmlelement.php');
 
 function EchoHtmlElement($str, $strElement)
 {

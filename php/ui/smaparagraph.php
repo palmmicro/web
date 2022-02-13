@@ -144,7 +144,7 @@ function _getSmaParagraphWarning($ref)
 			{
 				$strSymbol = $ref->GetSymbol();
 				$str = '<br />'.GetFontElement($strSymbol.' '.$record['date'].'收盘价冲突：').$record['adjclose'].' '.$ref->GetPrevPrice();
-				if (StockIsAdmin())
+				if (DebugIsAdmin())
 				{
 					$str .= ' '.GetStockOptionLink(STOCK_OPTION_CLOSE, $strSymbol);
 				}
@@ -172,11 +172,7 @@ function EchoSmaParagraph($ref, $str = false, $cb_ref = false, $callback = false
     	$ar[] = new TableColumnEst(GetYahooStockLink($est_ref));
     	$ar[] = $next_col;
     }
-    
-    if ($callback2)
-    {
-    	$ar[] = new TableColumn(call_user_func($callback2), 90);
-    }
+    if ($callback2)	$ar[] = new TableColumn(call_user_func($callback2), 90);
 
 	EchoTableParagraphBegin($ar, 'smatable', $str);
     _echoSmaTableData($his, $cb_ref, $callback, $callback2);

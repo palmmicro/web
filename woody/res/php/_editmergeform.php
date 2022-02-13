@@ -1,6 +1,4 @@
 <?php
-require_once('/php/ui/htmlelement.php');
-
 define('STOCK_TRANSACTION_MERGE', 'Merge Transaction');
 define('STOCK_TRANSACTION_MERGE_CN', '合并交易');
 

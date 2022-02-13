@@ -1,6 +1,5 @@
 <?php
 require_once('imagefile.php');
-require_once('internallink.php');
 require_once('tutorial/math.php');
 
 class LinearImageFile extends PageImageFile

@@ -1,6 +1,4 @@
 <?php
-//require_once('url.php');
-//require_once('debug.php');
 require_once('ui/stocktable.php');
 require_once('httplink.php');
 
@@ -67,9 +65,9 @@ function GetMyStockLink($strSymbol = false, $strDisplay = false)
 }
 
 define('CALIBRATION_HISTORY_DISPLAY', '校准历史记录');
-function GetCalibrationHistoryLink($strSymbol, $strDisplay = false)
+function GetCalibrationHistoryLink($strSymbol, $bDisplaySymbol = false)
 {
-    return GetStockSymbolLink(TABLE_CALIBRATION_HISTORY, $strSymbol, ($strDisplay ? $strDisplay : CALIBRATION_HISTORY_DISPLAY));
+    return GetStockSymbolLink(TABLE_CALIBRATION_HISTORY, $strSymbol, ($bDisplaySymbol ? $strSymbol : CALIBRATION_HISTORY_DISPLAY));
 }
 
 define('HOLDINGS_DISPLAY', '基金持仓');

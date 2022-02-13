@@ -1,5 +1,4 @@
 <?php
-require_once('debug.php');
 require_once('sql/sqlipaddress.php');
 require_once('ui/commentparagraph.php');
 

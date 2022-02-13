@@ -1,4 +1,14 @@
 <?php
+require_once('url.php');
+require_once('debug.php');
+require_once('email.php');
+require_once('internallink.php');
+require_once('ui/htmlelement.php');
+require_once('class/year_month_day.php');
+
+require_once('_private.php');
+require_once('sql/_sqlcommon.php');
+
 define('DB_DATABASE', 'camman');
 
 define('TABLE_CALIBRATION_HISTORY', 'calibrationhistory');
@@ -21,13 +31,6 @@ define('TABLE_STOCK_GROUP_ITEM', 'stockgroupitem');
 define('TABLE_STOCK_HISTORY', 'stockhistory');
 define('TABLE_STOCK_SPLIT', 'stocksplit');
 define('TABLE_VISITOR', 'visitor');
-
-require_once('debug.php');
-require_once('email.php');
-require_once('internallink.php');
-require_once('_private.php');
-require_once('class/year_month_day.php');
-require_once('sql/_sqlcommon.php');
 
 function die_mysql_error($strDie)
 {

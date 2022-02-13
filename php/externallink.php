@@ -1,6 +1,4 @@
 <?php
-//require_once('url.php');
-//require_once('debug.php');
 require_once('externalurl.php');
 require_once('httplink.php');
 require_once('stock/stocksymbol.php');

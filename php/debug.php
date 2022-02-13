@@ -1,6 +1,4 @@
 <?php
-require_once('url.php');
-
 define('DEBUG_TIME_ZONE', 'PRC');
 
 define('SECONDS_IN_MIN', 60);
@@ -68,7 +66,10 @@ function unlinkEmptyFile($strFileName)
 
 function DebugFormat_date($strFormat, $iTime = false, $strTimeZone = DEBUG_TIME_ZONE)
 {
-    if ($strTimeZone)		date_default_timezone_set($strTimeZone);
+    if ($strTimeZone)	
+    {
+    	if ($strTimeZone != date_default_timezone_get())		date_default_timezone_set($strTimeZone);
+    }
     return date($strFormat, ($iTime ? $iTime : GetNowTick()));
 }
 
@@ -126,8 +127,23 @@ function DebugGetFile()
     return DebugGetPathName('debug.txt');
 }
 
-function DebugString($str)
+function DebugIsAdmin()
 {
+   	global $acct;
+	if (method_exists($acct, 'IsAdmin'))
+	{
+		return $acct->IsAdmin();
+	}
+	return false;
+}
+
+function DebugString($str, $bAdminOnly = false)
+{
+	if ($bAdminOnly)
+	{
+		if (DebugIsAdmin() == false)		return;
+	}
+	
 	if ($str === false)	$str = '(false)';
 	$strTimeZone = date_default_timezone_get();
     file_put_contents(DebugGetFile(), DebugGetTime(time()).' '.UrlGetIp().' '.UrlGetCur().' '.$str.PHP_EOL, FILE_APPEND);	// DebugGetTime will change timezone!
@@ -140,21 +156,21 @@ function dieDebugString($str)
     die($str);
 }
 
-function DebugVal($iVal, $strPrefix = false)
+function DebugVal($iVal, $strPrefix = false, $bAdminOnly = false)
 {
 	$str = strval($iVal);
 	if ($strPrefix)
 	{
 		$str = $strPrefix.': '.$str;
 	}
- 	DebugString($str); 
+ 	DebugString($str, $bAdminOnly); 
 }
 
-function DebugPrint($exp, $strPrefix = false)
+function DebugPrint($exp, $strPrefix = false, $bAdminOnly = false)
 {
 	$str = $strPrefix ? $strPrefix : 'Debug print_r begin ...';
 	$str .= PHP_EOL.print_r($exp, true);
-	DebugString($str);
+	DebugString($str, $bAdminOnly);
 }
 
 function DebugGetPath($strSection)

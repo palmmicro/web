@@ -1,6 +1,5 @@
 <?php
 require_once('_emptygroup.php');
-require_once('/php/ui/htmlelement.php');
 
 function _getStockOptionDate($strSubmit, $ref)
 {

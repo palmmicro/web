@@ -1,9 +1,6 @@
 <?php
-//require_once('url.php');
-require_once('debug.php');
 require_once('switch.php');
 require_once('sql.php');
-require_once('internallink.php');
 require_once('ui/table.php');
 
 //require_once('sql/sqlmember.php');

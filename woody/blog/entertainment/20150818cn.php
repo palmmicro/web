@@ -114,7 +114,7 @@
 <br />有人跟我指出<?php EchoFundHistoryLink(); ?>中净值的日期显示早了一天, 我差点一口鲜血吐在了键盘上. 
 用脚趾头想想, 要计算华宝油气当天的交易溢价, 肯定是要跟前一天的净值比较啊. 当天的净值要等当晚美股收盘后才出来, 否则的话我写这个净值估算有什么意义呢.
 <br />把当天的交易价格跟前一天的净值放在一起比较, 其实也正是我平时最为推崇的不同的数据显示方式引导不同的思维的举措. 
-不过为了避免以后还有人搞混淆, 我干脆另外加了一个单独的净值显示页面, 算上最开始的<?php EchoNameLink(TABLE_STOCK_HISTORY, STOCK_HISTORY_DISPLAY); ?>, 现在一共有3个历史数据页面了:  
+不过为了避免以后还有人搞混淆, 我干脆另外加了一个单独的净值显示页面, 算上最开始的<?php EchoNameLink(TABLE_STOCK_HISTORY, STOCK_HISTORY_DISPLAY); ?>等, 现在总共有以下不同的几个历史数据页面：  
 <br /><?php echo GetFundLinks(); ?>
 </p>
 

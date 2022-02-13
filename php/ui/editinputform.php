@@ -1,6 +1,4 @@
 <?php
-require_once('htmlelement.php');
-
 define('EDIT_INPUT_NAME', 'input');
 
 function EchoEditInputForm($strPage, $strInput = '', $bChinese = true)

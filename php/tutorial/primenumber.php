@@ -1,5 +1,4 @@
 <?php
-require_once('/php/debug.php');
 require_once('/php/sql/sqltable.php');
 
 function LookUpPrimeNumber($iNum)

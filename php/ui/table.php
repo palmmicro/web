@@ -8,11 +8,16 @@ function IsTableCommonDisplay($iStart, $iNum)
 	return (($iStart == 0) && ($iNum == TABLE_COMMON_DISPLAY))	 ? true : false;
 }
 
-function GetTableColumn($iWidth, $strDisplay)
+function GetTableRow($str)
+{
+	return GetHtmlElement($str, 'tr');
+}
+
+function GetTableColumnHead($iWidth, $strDisplay)
 {
 	$strWidth = strval($iWidth);
 //	return "<td class=c1 width=$strWidth align=center>$strDisplay</td>";
-	return GetHtmlElement($strDisplay, 'td', array('class' => 'c1', 'width' => $strWidth, 'align' => 'center'));
+	return GetHtmlElement($strDisplay, 'th', array('class' => 'c1', 'width' => $strWidth, 'align' => 'left'));
 }
 
 // aqua, black, blue, fuchsia, gray, green, lime, maroon, navy, olive, purple, red, silver, teal, white, yellow
@@ -30,7 +35,7 @@ class TableColumn
 	
 	function GetDisplay()
 	{
-		return $this->strText;
+		return GetBoldElement($this->strText);
 	}
 	
 	function GetWidth()
@@ -38,9 +43,9 @@ class TableColumn
 		return $this->iWidth;
 	}
 	
-	function GetEchoString()
+	function GetHead()
 	{
-		return GetTableColumn($this->iWidth, $this->strText);
+		return GetTableColumnHead($this->iWidth, $this->strText);
 	}
 }
 
@@ -89,17 +94,19 @@ function EchoTableParagraphBegin($ar, $strId, $str = '')
 	foreach ($ar as $col)
 	{
 		$iTotal += $col->GetWidth();
-		$strColumn .= $col->GetEchoString();
+		$strColumn .= $col->GetHead();
 	}
     $strWidth = strval($iTotal);
 	if ($iTotal > 640)	trigger_error('Table too wide: '.$strWidth);
 
+	$strColumn = GetTableRow($strColumn);
+	$strColumn = GetHtmlElement($strColumn, 'thead');
     echo <<<END
-<p>$str
-    <TABLE borderColor=#cccccc cellSpacing=0 width=$strWidth border=1 class="text" id="$strId">
-    <tr>
-        $strColumn
-    </tr>
+    
+    <p>$str
+    	<TABLE borderColor=#cccccc cellSpacing=0 width=$strWidth border=1 class="text" id="$strId">
+        	$strColumn
+        	<tbody>
 END;
 }
 
@@ -126,19 +133,21 @@ function EchoTableColumn($ar, $strColor = false)
 		$strColumn .= GetHtmlElement($str, 'td', $arAttribute);
 	}
 
+	$strColumn = GetTableRow($strColumn);
     echo <<<END
-    <tr>
-        $strColumn
-    </tr>
+        
+    		$strColumn
 END;
 }
 
 function EchoTableParagraphEnd($str = '')
 {
     echo <<<END
-    </TABLE>
-    $str
-</p>
+    	
+    		</tbody>
+    	</TABLE>
+    	$str
+    </p>
 END;
 }
 

@@ -1,6 +1,5 @@
 <?php
 require('_tgprivate.php');
-require_once('debug.php');
 require_once('stockbot.php');
 
 // 电报公共模板, 返回输入信息

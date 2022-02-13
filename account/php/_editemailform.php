@@ -1,6 +1,4 @@
 <?php
-require_once('/php/ui/htmlelement.php');
-
 define('EDIT_EMAIL_REGISTER_CN', '注册新帐号');
 define('EDIT_EMAIL_REGISTER', 'Register New Account');
 

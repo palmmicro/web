@@ -182,6 +182,7 @@ END;
 function LayoutEnd()
 {
     echo <<<END
+
 </div>
 END;
 }

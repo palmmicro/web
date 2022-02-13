@@ -10,6 +10,11 @@ function GetHtmlElement($strContent, $strTag, $arAttribute = false)
 	return "<$strStart>$strContent</$strTag>";
 }
 
+function GetBoldElement($strContent)
+{
+	return GetHtmlElement($strContent, 'b');
+}
+
 function GetFontElement($strContent, $strColor = 'red', $strStyle = false)
 {
 	$ar = array('color' => $strColor);

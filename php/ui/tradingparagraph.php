@@ -5,7 +5,9 @@ define('TRADING_QUOTE_NUM', 5);
 
 function _getTradingTableColumn()
 {
-    return array('交易', GetTableColumnPrice(), '数量(手)');
+	return array(new TableColumn('交易', 60),
+				  new TableColumnPrice(),
+				  new TableColumn('数量(手)', 100));
 }
 
 function _getTradingNumber($strNumber)
@@ -73,45 +75,8 @@ function _checkTradingQuantity($ref)
 function _echoTradingParagraph($str, $arColumn, $ref, $strEstPrice = false, $strEstPrice2 = false, $strEstPrice3 = false, $callback = false)
 {
 	if (_checkTradingQuantity($ref))	return;
-	
-	$iWidth = 250;
-	$iEstWidth = 90;
-    $strColumnEx = '';
-	if ($strEstPrice)
-	{
-    	$strColumnEx .= GetTableColumn($iEstWidth, $arColumn[3]);
-    	$iWidth += $iEstWidth;
-	}
-	if ($strEstPrice2)
-	{
-    	$strColumnEx .= GetTableColumn($iEstWidth, $arColumn[4]);
-    	$iWidth += $iEstWidth;
-	}
-	if ($strEstPrice3)
-	{
-    	$strColumnEx .= GetTableColumn($iEstWidth, $arColumn[5]);
-    	$iWidth += $iEstWidth;
-	}
-		
-    $strUserDefined = '';  
-    if ($callback)
-    {
-    	$strUserDefined = GetTableColumn(120, $arColumn[6]);
-    	$iWidth += 120;
-    }
-    
-    $strWidth = strval($iWidth);
-    echo <<<END
-    <p>$str
-    <TABLE borderColor=#cccccc cellSpacing=0 width=$strWidth border=1 class="text" id="trading">
-    <tr>
-        <td class=c1 width=60 align=center>{$arColumn[0]}</td>
-        <td class=c1 width=90 align=center>{$arColumn[1]}</td>
-        <td class=c1 width=100 align=center>{$arColumn[2]}</td>
-        $strColumnEx
-        $strUserDefined
-    </tr>
-END;
+
+	EchoTableParagraphBegin($arColumn, 'trading', $str);
     _echoTradingTableData($ref, $strEstPrice, $strEstPrice2, $strEstPrice3, $callback);
     EchoTableParagraphEnd();
 }
@@ -119,32 +84,42 @@ END;
 function _getTradingParagraphStr($ref, $arColumn)
 {
     $strSymbol = GetXueqiuLink($ref);
-	$strPrice = $arColumn[1];
-    $str = "{$strSymbol}当前5档交易{$strPrice}";
+	$strPrice = $arColumn[1]->GetDisplay();
+	$str = "{$strSymbol}当前5档交易{$strPrice}";
     return $str;
 }
 
 function EchoFundTradingParagraph($fund, $callback = false)
 {
    	$ref = method_exists($fund, 'GetStockRef') ? $fund->GetStockRef() : $fund;
-	$strPrev = $ref->GetPrevPrice();
-    $strOfficial = $fund->GetOfficialNav();
-    $strEstPrice = $ref->GetPriceDisplay($strOfficial, $strPrev);
-    if ($strFair = $fund->GetFairNav())      		$strEstPrice .= '/'.$ref->GetPriceDisplay($strFair, $strPrev);
-   	if (method_exists($fund, 'GetRealtimeNav'))
-   	{
-   		if ($strRealtime = $fund->GetRealtimeNav())	$strEstPrice .= '/'.$ref->GetPriceDisplay($strRealtime, $strPrev);
-   	}
-   	else	$strRealtime = false;
-    
+   	
     $arColumn = _getTradingTableColumn();
-    $arColumn[] = GetTableColumnOfficalPremium();
-    $arColumn[] = GetTableColumnFairPremium();
-    $arColumn[] = GetTableColumnRealtimePremium();
-    if ($callback)     $arColumn[] = call_user_func($callback);
+    if ($strOfficial = $fund->GetOfficialNav())
+    {
+    	$arColumn[] = new TableColumnPremium(STOCK_DISP_OFFICIAL);
+    	$strPrev = $ref->GetPrevPrice();
+    	$strEstPrice = $ref->GetPriceDisplay($strOfficial, $strPrev);
+
+    	if ($strFair = $fund->GetFairNav())
+    	{
+    		$arColumn[] = new TableColumnPremium(STOCK_DISP_FAIR);
+    		$strEstPrice .= '/'.$ref->GetPriceDisplay($strFair, $strPrev);
+    	}
+
+    	if (method_exists($fund, 'GetRealtimeNav'))
+    	{
+    		if ($strRealtime = $fund->GetRealtimeNav())
+    		{
+    			$arColumn[] = new TableColumnPremium(STOCK_DISP_REALTIME);
+    			$strEstPrice .= '/'.$ref->GetPriceDisplay($strRealtime, $strPrev);
+    		}
+    	}
+    }
+    if ($callback)     	$arColumn[] = new TableColumn(call_user_func($callback), 120);
+	
     $strPrice = _getTradingParagraphStr($ref, $arColumn);
-    
-	$strEst = GetTableColumnEst();
+	$col = new TableColumnEst();
+	$strEst = $col->GetDisplay();
 	$strPremium = GetTableColumnPremium();
     $str = "{$strPrice}相对于{$strEst}{$strEstPrice}的{$strPremium}";
     _echoTradingParagraph($str, $arColumn, $ref, $strOfficial, $strFair, $strRealtime, $callback); 
@@ -159,19 +134,13 @@ function EchoAhTradingParagraph($hshare_ref)
 	$strPremium = GetTableColumnPremium();
 	
     $arColumn = _getTradingTableColumn();
-    $arColumn[] = GetAhCompareLink('sort=ratio').$strPremium;
+	$arColumn[] = new TableColumnPremium(GetAhCompareLink('sort=ratio'));
     if ($hshare_ref->adr_ref)
     {
-    	$strAdrLink = RefGetMyStockLink($hshare_ref->adr_ref);
-    	$arColumn[] = $strAdrLink.$strPremium;
+		$arColumn[] = new TableColumnPremium(RefGetMyStockLink($hshare_ref->adr_ref));
     	$strVal = $hshare_ref->FromUsdToCny($hshare_ref->adr_ref->GetPrice());
     }
-    else
-    {
-//    	$arColumn[] = '';
-    	$strVal = false;
-    }
-//    $arColumn[] = '';
+    else	$strVal = false;
     $strPrice = _getTradingParagraphStr($ref, $arColumn);
     $str = "{$strPrice}相对于{$strSymbolH}交易价格{$strPriceH}港币的{$strPremium}";
         
@@ -185,8 +154,9 @@ function EchoEtfTradingParagraph($ref)
     $strPairSymbol = RefGetMyStockLink($ref->GetPairNavRef());
 
     $arColumn = _getTradingTableColumn();
-	$strPremium = GetTableColumnOfficalPremium();
-    $arColumn[] = $strPremium;
+    $col = new TableColumnPremium(STOCK_DISP_OFFICIAL);
+    $arColumn[] = $col;
+	$strPremium = $col->GetDisplay();
 
     $strPrice = _getTradingParagraphStr($ref, $arColumn);
     $str = "{$strPrice}相对于{$strPairSymbol}的{$strPremium}";

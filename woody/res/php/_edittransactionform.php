@@ -1,6 +1,4 @@
 <?php
-require_once('/php/ui/htmlelement.php');
-
 define('STOCK_TRANSACTION_NEW', '新增股票交易');
 define('STOCK_TRANSACTION_EDIT', '修改股票交易');
 

@@ -1,7 +1,4 @@
 <?php
-//require_once('url.php');
-require_once('debug.php');
-
 define('STOCK_PATH', '/woody/res/');
 define('STOCK_PHP_PATH', '/woody/res/php/');
 

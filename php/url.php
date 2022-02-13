@@ -119,8 +119,6 @@ function UrlCleanString($str)
 // from=singlemessage
 // from=groupmessage&isappinstalled=0
 // tdsourcetag=s_pcqq_aiomsg
-// xueqiu_status_id=74414796&xueqiu_status_source=rptl
-// xueqiu_status_id=64054510&xueqiu_status_from_source=sstl&xueqiu_status_source=statusdetail&xueqiu_private_from_source=0105
 // xueqiu_status_id=140805627&xueqiu_status_from_source=sstl&xueqiu_status_source=statusdetail&xueqiu_private_from_source=0105&key_name=0106
 function UrlGetQueryString()
 { 
