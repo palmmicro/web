@@ -21,15 +21,10 @@ function SinaFundNeedFile($sym, $strFileName)
 	$strDate = $his_sql->GetDateNow($strStockId);
 	$strNavDate = UseSameDayNav($sym) ? $strDate : $his_sql->GetDatePrev($strStockId, $strDate);
 	if (SqlGetNavByDate($strStockId, $strNavDate))		return false;
-	else													DebugString('SinaFundNeedFile need nav on '.$strNavDate.' '.$strSymbol, true);
 
     $sym->SetTimeZone();
     $now_ymd = GetNowYMD();
-   	if (($now_ymd->GetYMD() == $strDate) && $now_ymd->GetHourMinute() < 1600)
-   	{
- 		DebugString($strSymbol.': Market not closed', true);
-   		return false;
-    }
+   	if (($now_ymd->GetYMD() == $strDate) && $now_ymd->GetHourMinute() < 1600)	return false;		// Market not closed
 
 	return $now_ymd->NeedFile($strFileName, 30 * SECONDS_IN_MIN);
 }
@@ -44,24 +39,24 @@ function StockNeedNewQuotes($sym, $strFileName, $iInterval = SECONDS_IN_MIN)
 	if (($iFileTime = $now_ymd->NeedFile($strFileName, $iInterval)) == false)		return false;	// update on every minute
 	
 	if ($now_ymd->GetTick() > ($iFileTime + 6 * SECONDS_IN_HOUR))						return true;	// always update after 6 hours
-	if ($sym->IsMarketTrading(new TickYMD($iFileTime)))								return true;
-	if ($sym->IsMarketTrading($now_ymd))													return true;
+	if ($sym->IsStockMarketTrading(new TickYMD($iFileTime)))							return true;
+	if ($sym->IsStockMarketTrading($now_ymd))											return true;
 	
     return false;
 }
 
-function ForexAndFutureNeedNewFile($strFileName, $strTimeZone, $iInterval = SECONDS_IN_MIN)
+function FutureNeedNewFile($strFileName, $iInterval = SECONDS_IN_MIN)
 {
 	clearstatcache(true, $strFileName);
 	if (file_exists($strFileName) == false)	return true;
 
-    date_default_timezone_set($strTimeZone);
+    date_default_timezone_set(STOCK_TIME_ZONE_US);
 	$now_ymd = GetNowYMD();
 	if (($iFileTime = $now_ymd->NeedFile($strFileName, $iInterval)) == false)		return false;	// update on every minute
         
 	$file_ymd = new TickYMD($iFileTime);
-    if ($file_ymd->IsWeekDay())    														return true;
-	if ($now_ymd->IsWeekDay())    														return true;
+    if ($file_ymd->IsFutureMarketTrading())    											return true;
+	if ($now_ymd->IsFutureMarketTrading())    											return true;
 
 	return false;
 }
@@ -90,7 +85,7 @@ function _prefetchSinaData($arSym)
         }
         else if ($sym->IsSinaFuture() || $sym->IsSinaForex())
         {   // forex and future
-            if (ForexAndFutureNeedNewFile($strFileName, $sym->GetTimeZone()) == false)    continue;
+            if (FutureNeedNewFile($strFileName) == false)    continue;
         }
         else
         {   // Stock symbol

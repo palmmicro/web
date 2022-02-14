@@ -13,7 +13,7 @@ function _ignoreCurrentTradingData($strDate, $sym)
     $ymd = GetNowYMD();
     if ($ymd->GetYMD() == $strDate)
     {
-        if ($ymd->IsTradingHourEnd() == false)
+        if ($ymd->IsStockTradingHourEnd() == false)
         {   // market still trading, do not use today's data
             return true;
         }

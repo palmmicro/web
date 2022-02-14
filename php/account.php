@@ -10,6 +10,14 @@ require_once('sql/sqlstocksymbol.php');
 require_once('sql/sqlstockgroup.php');
 require_once('sql/sqlfundpurchase.php');
 
+define('DISP_ALL_US', 'All');
+define('DISP_ALL_CN', '全部');
+
+function GetAllDisplay($bChinese = true)
+{
+	return $bChinese ? DISP_ALL_CN : DISP_ALL_US;
+}
+
 class Account
 {
     var $strMemberId = false;
@@ -260,18 +268,12 @@ class TitleAccount extends Account
     	$this->strPage = UrlGetPage();
     	if ($arLoginTitle)
     	{
-    		if (($arLoginTitle === true) || in_array($this->strPage, $arLoginTitle))
-    		{
-    			$this->Auth();
-    		}
+    		if (($arLoginTitle === true) || in_array($this->strPage, $arLoginTitle))		$this->Auth();
     	}
    		
    		$this->iStart = UrlGetQueryInt('start');
    		$this->iNum = UrlGetQueryInt('num', 100);
-   		if (($this->iStart != 0) && ($this->iNum != 0))
-   		{
-   			$this->Auth();
-   		}
+   		if (($this->iStart != 0) && ($this->iNum != 0))							  			$this->Auth();
    		
         $this->strQuery = UrlGetQueryValue($strQueryItem ? $strQueryItem : $this->strPage);
     }
@@ -294,6 +296,13 @@ class TitleAccount extends Account
     function GetNum()
     {
     	return $this->iNum;
+    }
+    
+    function GetStartNumDisplay($bChinese = true)
+    {
+   		if (($this->iStart == 0) && ($this->iNum == 0))	$str = GetAllDisplay($bChinese);
+   		else 													$str = strval($this->iStart).'-'.strval($this->iStart + $this->iNum); 
+    	return "($str)";
     }
 }
 

@@ -722,7 +722,7 @@ class StockSymbol
     	return true;
     }
     
-    function IsMarketTrading($ymd)
+    function IsStockMarketTrading($ymd)
     {
     	if ($ymd->IsWeekDay())
     	{
@@ -760,19 +760,19 @@ class StockSymbol
     	}
     	return true;
     }
-    
+
     function GetTimeZone()
     {
     	$strTimeZone = STOCK_TIME_ZONE_CN;
         if ($this->IsSinaFund())     
         {   // IsSinaFund must be called before IsSinaFuture
         }
-/*        else if ($this->IsSinaFuture())
+        else if ($this->IsSinaFuture())
         {
         }
         else if ($this->IsSinaForex())
         {
-        }*/
+        }
         else if ($this->IsEastMoneyForex())
         {
         }

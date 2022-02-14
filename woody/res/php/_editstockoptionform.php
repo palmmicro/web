@@ -218,7 +218,7 @@ function _getStockOptionMemo($strSubmit)
 		return '股票收盘后的第2天修改才会生效, 输入0/0删除全部EMA记录.';
 
 	case STOCK_OPTION_ETF:
-		return '输入INDEX*0删除对应关系和全部校准记录.';
+		return '输入INDEX*0删除对应关系和全部'.CALIBRATION_HISTORY_DISPLAY.'。';
 
 	case STOCK_OPTION_HA:
 		return '清空输入删除对应A股.';

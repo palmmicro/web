@@ -1,7 +1,4 @@
 <?php
-define('DISP_ALL_US', 'All');
-define('DISP_ALL_CN', '全部');
-
 define('MAX_META_DESCRIPTION', 156);
 
 function _onMetaDescriptionWarning($iLen, $strType, $str)

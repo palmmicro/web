@@ -9,9 +9,9 @@ define('STOCK_POST_MARKET', 'Post-Market Trading');
 
 // ****************************** Protected functions *******************************************************
 
-function _GetForexAndFutureArray($strSymbol, $strFileName, $strTimeZone, $callback)
+function _GetFutureArray($strSymbol, $strFileName, $callback)
 {
-    if (ForexAndFutureNeedNewFile($strFileName, $strTimeZone))
+    if (FutureNeedNewFile($strFileName))
     {
         $str = call_user_func($callback, $strSymbol);
         if ($str)   file_put_contents($strFileName, $str);
@@ -393,7 +393,7 @@ class StockReference extends StockSymbol
         $this->strExternalLink = GetSinaFutureLink($this);
         $strSymbol = $this->GetSymbol();
         $this->strFileName = DebugGetSinaFileName($strSymbol);
-        $ar = _GetForexAndFutureArray($strSymbol, $this->strFileName, $this->GetTimeZone(), 'GetSinaQuotes');
+        $ar = _GetFutureArray($strSymbol, $this->strFileName, 'GetSinaQuotes');
         if (count($ar) < 13)
         {
             $this->bHasData = false;
@@ -437,7 +437,7 @@ class StockReference extends StockSymbol
         $this->strExternalLink = GetSinaForexLink($this);
     	$strSymbol = $this->GetSymbol();
         $this->strFileName = DebugGetSinaFileName($strSymbol);
-        $ar = _GetForexAndFutureArray($strSymbol, $this->strFileName, $this->GetTimeZone(), 'GetSinaQuotes');
+        $ar = _GetFutureArray($strSymbol, $this->strFileName, 'GetSinaQuotes');
         if (count($ar) < 10)
         {
             $this->bHasData = false;

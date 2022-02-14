@@ -43,7 +43,7 @@ function EchoAll()
    		$strSymbol = $ref->GetSymbol();
    		$strLinks = GetFundLinks($strSymbol);
    		$strLinks .= ' '.GetEtfNavLink($strSymbol);
-   		if ($bAdmin = $acct->IsAdmin())	$strLinks .= '<br />'.StockGetAllLink($strSymbol).' '.GetOnClickLink(STOCK_PHP_PATH.'_submitspdrnav.php?symbol='.$strSymbol, "确认更新{$strSymbol}净值历史记录?", '更新净值');
+   		if ($bAdmin = $acct->IsAdmin())	$strLinks .= '<br />'.StockGetAllLink($strSymbol).' '.GetOnClickLink(STOCK_PHP_PATH.'_submitspdrnav.php?symbol='.$strSymbol, '确认更新'.$strSymbol.NETVALUE_HISTORY_DISPLAY.'？', '更新净值');
     		
    		$csv = new PageCsvFile();
 		EchoNvCloseHistoryParagraph($ref, $strLinks.'<br />', $csv, $acct->GetStart(), $acct->GetNum(), $bAdmin);
@@ -62,7 +62,7 @@ function GetMetaDescription()
 {
 	global $acct;
 	
-  	$str = $acct->GetStockDisplay().NVCLOSE_HISTORY_DISPLAY;
+  	$str = $acct->GetMetaDisplay(NVCLOSE_HISTORY_DISPLAY);
     $str .= '页面。观察基金每天净值和收盘价偏离的情况，同时判断偏离的方向和大小是否跟当天涨跌以及交易量相关。';
     return CheckMetaDescription($str);
 }
@@ -70,7 +70,7 @@ function GetMetaDescription()
 function GetTitle()
 {
 	global $acct;
-	return $acct->GetSymbolDisplay().NVCLOSE_HISTORY_DISPLAY;
+	return $acct->GetTitleDisplay(NVCLOSE_HISTORY_DISPLAY);
 }
 
     $acct = new SymbolAccount();

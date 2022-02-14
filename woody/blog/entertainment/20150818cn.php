@@ -364,7 +364,7 @@
 <?php EchoNvCloseDemo(); ?>
 <p>增加这个页面倒是让我突然下了决心删除英文版本. 压死骆驼的最后一根稻草是这行代码, 混在其中的中文冒号让我恶向胆边生, 彻底放弃了本来就几乎没有什么浏览量的英文版本股票软件.
 </p>
-<blockquote><code>echo UrlGetQueryDisplay('symbol').($bChinese ? '净值和收盘价历史比较' :  ' NetValue Close History Compare');</code></blockquote>
+<blockquote><code>echo UrlGetQueryDisplay('symbol').($bChinese ? '净值和收盘价比较' :  ' NetValue Close History Compare');</code></blockquote>
 <p>从软件开发的角度来说, 遍布我PHP代码的1000多个$bChinese肯定意味着某种代码结构缺陷, 希望这次代码清理完成后能让我醒悟过来.
 <br />冷静下来后仔细想想, 发现自己早有停止英文版的意图背后其实有个更深层的原因. 三年来的各种跨市场套利经历, 让我深深体会到了对手盘的重要性和A股韭菜的可贵, 从而不愿意留个英文版让外面的世界进来抢着割这么嫩的韭菜.
 <br /><font color=gray>If you've been playing poker for half an hour and you still don't know who the patsy is, you're the patsy. — Warren Buffett</font>

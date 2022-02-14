@@ -33,7 +33,7 @@ function GetMetaDescription()
 {
 	global $acct;
 	
-  	$str = $acct->GetStockDisplay().STOCK_HISTORY_DISPLAY;
+  	$str = $acct->GetMetaDisplay(STOCK_HISTORY_DISPLAY);
     $str .= '页面。用于查看计算SMA的原始数据，方便人工处理合股和拆股、分红除权等价格问题。附带简单的图形显示数据。';
     return CheckMetaDescription($str);
 }
@@ -41,7 +41,7 @@ function GetMetaDescription()
 function GetTitle()
 {
 	global $acct;
-	return $acct->GetSymbolDisplay().STOCK_HISTORY_DISPLAY;
+	return $acct->GetTitleDisplay(STOCK_HISTORY_DISPLAY);
 }
 
     $acct = new SymbolAccount();

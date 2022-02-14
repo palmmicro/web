@@ -64,7 +64,7 @@ function GetMyStockLink($strSymbol = false, $strDisplay = false)
 	return GetStockPageLink($strPage, ALL_STOCK_DISPLAY);
 }
 
-define('CALIBRATION_HISTORY_DISPLAY', '校准历史记录');
+define('CALIBRATION_HISTORY_DISPLAY', '校准记录');
 function GetCalibrationHistoryLink($strSymbol, $bDisplaySymbol = false)
 {
     return GetStockSymbolLink(TABLE_CALIBRATION_HISTORY, $strSymbol, ($bDisplaySymbol ? $strSymbol : CALIBRATION_HISTORY_DISPLAY));
@@ -76,27 +76,27 @@ function GetHoldingsLink($strSymbol, $bDisplaySymbol = false)
     return GetStockSymbolLink(TABLE_HOLDINGS, $strSymbol, ($bDisplaySymbol ? $strSymbol : HOLDINGS_DISPLAY));
 }
 
-define('STOCK_HISTORY_DISPLAY', '历史价格记录');
+define('STOCK_HISTORY_DISPLAY', '历史价格');
 function GetStockHistoryLink($strSymbol)
 {
     return GetStockSymbolLink(TABLE_STOCK_HISTORY, $strSymbol, STOCK_HISTORY_DISPLAY);
 }
 
-define('FUND_HISTORY_DISPLAY', '基金历史记录');
+define('FUND_HISTORY_DISPLAY', '基金溢价记录');
 define('FUND_HISTORY_PAGE', 'fundhistory');
 function GetFundHistoryLink($strSymbol = FUND_DEMO_SYMBOL)
 {
     return GetStockSymbolLink(FUND_HISTORY_PAGE, $strSymbol, FUND_HISTORY_DISPLAY);
 }
 
-define('NETVALUE_HISTORY_DISPLAY', '净值历史记录');
+define('NETVALUE_HISTORY_DISPLAY', '净值记录');
 function GetNetValueHistoryLink($strSymbol, $strExtraQuery = false, $strExtraDisplay = false)
 {
 	$strDisplay = $strExtraQuery ? $strExtraDisplay : NETVALUE_HISTORY_DISPLAY;
     return GetStockSymbolLink(TABLE_NETVALUE_HISTORY, $strSymbol, $strDisplay, $strExtraQuery);
 }
 
-define('NVCLOSE_HISTORY_DISPLAY', '净值和收盘价历史比较');
+define('NVCLOSE_HISTORY_DISPLAY', '净值和收盘价比较');
 define('NVCLOSE_HISTORY_PAGE', 'nvclosehistory');
 function GetNvCloseHistoryLink($strSymbol)
 {
@@ -108,7 +108,7 @@ function GetFundLinks($strSymbol = FUND_DEMO_SYMBOL)
 	return GetFundHistoryLink($strSymbol).' '.GetNetValueHistoryLink($strSymbol).' '.GetStockHistoryLink($strSymbol).' '.GetFundShareLink($strSymbol).' '.GetNvCloseHistoryLink($strSymbol);
 }
 
-define('AH_HISTORY_DISPLAY', 'AH历史价格比较');
+define('AH_HISTORY_DISPLAY', 'AH'.STOCK_HISTORY_DISPLAY.'比较');
 define('AH_HISTORY_PAGE', 'ahhistory');
 function GetAhHistoryLink($strSymbol)
 {
@@ -122,7 +122,7 @@ function GetThanousParadoxLink($strSymbol = FUND_DEMO_SYMBOL)
     return GetStockSymbolLink(THANOUS_PARADOX_PAGE, $strSymbol, THANOUS_PARADOX_DISPLAY);
 }
 
-define('FUND_ACCOUNT_DISPLAY', '基金场内申购账户统计');
+define('FUND_ACCOUNT_DISPLAY', '基金场内申购账户');
 define('FUND_ACCOUNT_PAGE', 'fundaccount');
 function GetFundAccountLink($strSymbol = FUND_DEMO_SYMBOL)
 {
@@ -136,7 +136,7 @@ function GetFundPositionLink($strSymbol = FUND_DEMO_SYMBOL)
     return GetStockSymbolLink(FUND_POSITION_PAGE, $strSymbol, FUND_POSITION_DISPLAY);
 }
 
-define('FUND_SHARE_DISPLAY', '基金场内份额统计');
+define('FUND_SHARE_DISPLAY', '基金场内份额');
 define('FUND_SHARE_PAGE', 'fundshare');
 function GetFundShareLink($strSymbol = FUND_DEMO_SYMBOL)
 {

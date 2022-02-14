@@ -46,7 +46,7 @@ function _callbackSortFundEst($ref)
 	return $ref->GetPercentage($strNav);
 }
 
-function _getFundEstTableColumn($arRef)
+function _getFundEstTableColumn($arRef, &$bFair)
 {
 	$premium_col = new TableColumnPremium();
 	$ar = array(new TableColumnSymbol(),
@@ -81,13 +81,7 @@ function _getFundEstTableColumn($arRef)
     return $ar;
 }
 
-function _hasFairEstColumn($arColumn)
-{
-	if (count($arColumn) > 4)	return (strpos($arColumn[4]->GetDisplay(), STOCK_DISP_FAIR) !== false) ? true : false;
-	return false;
-}
-
-function _echoFundEstParagraph($arColumn, $arRef, $str)
+function _echoFundEstParagraph($arColumn, $bFair, $arRef, $str)
 {
 	$iCount = count($arRef);
 	if ($iCount > 2)
@@ -100,27 +94,26 @@ function _echoFundEstParagraph($arColumn, $arRef, $str)
 	}
 	
 	EchoTableParagraphBegin($arColumn, 'estimation', $str);
-	$bFair = _hasFairEstColumn($arColumn);
     foreach ($arRef as $ref)		_echoFundEstTableItem($ref, $bFair);
     EchoTableParagraphEnd();
 }
 
 function EchoFundArrayEstParagraph($arRef, $str = '')
 {
-	$arColumn = _getFundEstTableColumn($arRef);
-	_echoFundEstParagraph($arColumn, $arRef, $str);
+	$arColumn = _getFundEstTableColumn($arRef, $bFair);
+	_echoFundEstParagraph($arColumn, $bFair, $arRef, $str);
 }
 
 function EchoFundEstParagraph($ref)
 {
 	$arRef = array($ref);
-	$arColumn = _getFundEstTableColumn($arRef);
+	$arColumn = _getFundEstTableColumn($arRef, $bFair);
 	
 	$str = GetTableColumnNetValue().$ref->GetDate().'、';
 	$str .= $arColumn[2]->GetDisplay().$ref->GetOfficialDate().'，最近'.GetCalibrationHistoryLink($ref->GetSymbol()).$ref->GetTimeNow().'。';
     if ($ref->GetRealtimeNav())
     {
-    	$col = _hasFairEstColumn($arColumn) ? $arColumn[6] : $arColumn[4]; 
+    	$col = $bFair ? $arColumn[6] : $arColumn[4]; 
     	$strRealtimeEst = $col->GetDisplay();
     	$future_ref = $ref->GetFutureRef();
     	$future_etf_ref = $ref->future_etf_ref;
@@ -137,23 +130,23 @@ function EchoFundEstParagraph($ref)
     	}
     	$str .= '。';
     	
-    	if ($strFutureSymbol == 'hf_CL')		$str .= '<br />'.GetFontElement(STOCK_DISP_TEMPERROR);
+//    	if ($strFutureSymbol == 'hf_CL')		$str .= '<br />'.GetFontElement(STOCK_DISP_TEMPERROR);
     }
     
-	_echoFundEstParagraph($arColumn, $arRef, $str);
+	_echoFundEstParagraph($arColumn, $bFair, $arRef, $str);
 }
 
 function EchoHoldingsEstParagraph($ref)
 {
 	$arRef = array($ref);
-	$arColumn = _getFundEstTableColumn($arRef);
+	$arColumn = _getFundEstTableColumn($arRef, $bFair);
 	
 	$nav_ref = $ref->GetNavRef();
 	$str = GetTableColumnNetValue().$nav_ref->GetDate().', ';
 	$str .= $arColumn[2]->GetDisplay().$ref->GetOfficialDate().', ';
 	$str .= GetHoldingsLink($ref->GetSymbol()).'更新于'.$ref->GetHoldingsDate().'.';
 
-	_echoFundEstParagraph($arColumn, $arRef, $str);
+	_echoFundEstParagraph($arColumn, $bFair, $arRef, $str);
 }
 
 ?>

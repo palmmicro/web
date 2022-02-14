@@ -25,7 +25,10 @@ function TextFromStockReference($ref)
     if ($ref->HasData() == false)        return false;
 
     $str = RefGetDescription($ref).BOT_EOL;
-    $str .= $ref->GetSymbol().BOT_EOL;
+    
+    global $acct;
+    $str .= method_exists($acct, 'SetCallback') ? $ref->GetSymbol() : $ref->GetStockLink();  
+    $str .= BOT_EOL;
     $str .= STOCK_DISP_PRICE._textPriceVolume($ref);
     $str .= STOCK_DISP_CHANGE.':'.$ref->GetPercentageText().BOT_EOL;
     if ($ref->strOpen)			$str .= STOCK_DISP_OPEN.':'.rtrim0($ref->strOpen).BOT_EOL;
@@ -84,8 +87,8 @@ function _textEstNav($fund, $ref)
     	if ($strNav = $fund->GetRealtimeNav())
     	{
     		$str .= STOCK_DISP_REALTIME._textEstPremium($ref, $strNav).BOT_EOL;
-    		$future_ref = $fund->GetFutureRef();
-	    	if ($future_ref->GetSymbol() == 'hf_CL')		$str .= STOCK_DISP_TEMPERROR.BOT_EOL;
+//    		$future_ref = $fund->GetFutureRef();
+//	    	if ($future_ref->GetSymbol() == 'hf_CL')		$str .= STOCK_DISP_TEMPERROR.BOT_EOL;
     	}
     }
 	return $str;

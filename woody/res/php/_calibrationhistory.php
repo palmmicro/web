@@ -66,7 +66,7 @@ function GetMetaDescription()
 {
 	global $acct;
 	
-  	$str = $acct->GetStockDisplay().CALIBRATION_HISTORY_DISPLAY;
+  	$str = $acct->GetMetaDisplay(CALIBRATION_HISTORY_DISPLAY);
     $str .= '页面。用于查看、比较和调试估算的股票价格或者基金净值之间的校准情况。最新的校准时间一般会直接显示在该股票或者基金的页面。';
     return CheckMetaDescription($str);
 }
@@ -74,7 +74,7 @@ function GetMetaDescription()
 function GetTitle()
 {
 	global $acct;
-	return $acct->GetSymbolDisplay().CALIBRATION_HISTORY_DISPLAY;
+	return $acct->GetTitleDisplay(CALIBRATION_HISTORY_DISPLAY);
 }
 
     $acct = new SymbolAccount();

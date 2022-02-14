@@ -15,6 +15,6 @@ define('STOCK_DISP_QUANTITY', '成交量');
 define('STOCK_DISP_RATIO', '比价');
 define('STOCK_DISP_REALTIME', '实时');
 
-define('STOCK_DISP_TEMPERROR', '由于代码修改带来的BUG导致USO和美油期货CL自动校准在进入北京时间2月12日凌晨后失效，目前依赖于CL的实时估值都不准确。');
+// define('STOCK_DISP_TEMPERROR', '由于代码修改带来的BUG导致USO和美油期货CL自动校准在进入北京时间2月12日凌晨后失效，目前依赖于CL的实时估值都不准确。');
 
 ?>

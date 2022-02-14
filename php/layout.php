@@ -107,9 +107,11 @@ function _layoutAboveMenu($iWidth)
     echo <<<END
 
 <table width=$strWidth height=85% border=0 cellpadding=0 cellspacing=0>
+<tbody>
+<tr>
 <td width=30 valign=top bgcolor=#66CC66>&nbsp;</td>
-<TD width=120 valign=top bgcolor=#66CC66>
-	<TABLE width=120 border=0 cellPadding=5 cellSpacing=0>
+<td width=120 valign=top bgcolor=#66CC66>
+	<div>
 END;
 /*    echo <<<END
         <div id="main">
@@ -125,8 +127,8 @@ function _layoutBelowMenu($iWidth)
 	
     echo <<<END
     
-    </TABLE>
-</TD>
+    </div>
+</td>
 <td width=30 valign=top bgcolor=#66CC66>&nbsp;</td>
 <td width=50 valign=top bgcolor=#ffffff>&nbsp;</td>
 <td $strExtra valign=top>
@@ -221,7 +223,7 @@ END;
     		else				_echoWeixinPay();
     	}
     	
-        echo '</td></table>';
+        echo '</td></tr></tbody></table>';
 //        echo '    </div>';
 //        echo '</div>';
     }

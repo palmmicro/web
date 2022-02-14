@@ -189,7 +189,7 @@ function RefGetDescription($ref, $bConvertDisplay = false)
 			$strDisplay = $ar[$str];
 			if ($bConvertDisplay)
 			{
-				if ($str == STOCK_PRE_MARKET || $str == STOCK_POST_MARKET)	return GetHtmlElement($strDisplay, 'i');
+				if ($str == STOCK_PRE_MARKET || $str == STOCK_POST_MARKET)	return GetHtmlElement(GetQuoteFontElement($strDisplay), 'i');
 				else if ($str == STOCK_NET_VALUE)								return GetBoldElement($strDisplay);
 			}
 			return $strDisplay;

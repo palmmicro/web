@@ -37,7 +37,7 @@ class _ChinaIndexAccount extends GroupAccount
     function _updateNavByCnh($us_ref, $cnh_ref)
     {
     	$us_ref->SetTimeZone();
-    	if ($us_ref->IsMarketTrading(GetNowYMD()) == false)	return;
+    	if ($us_ref->IsStockMarketTrading(GetNowYMD()) == false)	return;
     	
 		$strDate = $us_ref->GetDate();
 		$strStockId = $us_ref->GetStockId();

@@ -47,6 +47,16 @@ class SymbolAccount extends StockAccount
     	$ref = $this->GetRef();
         return $ref ? RefGetStockDisplay($ref) : $strDefault;
     }
+
+    function GetTitleDisplay($strDisplay = '')
+    {
+    	return $this->GetSymbolDisplay().$strDisplay.$this->GetStartNumDisplay();
+    }
+
+    function GetMetaDisplay($strDisplay = '')
+    {
+    	return $this->GetStockDisplay().$strDisplay.$this->GetStartNumDisplay();
+    }
 }
 
 ?>

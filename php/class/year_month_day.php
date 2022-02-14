@@ -45,19 +45,29 @@ class YearMonthDay
         return ($this->GetTick() > time()) ? true : false;
     }
     
-    function IsFriday() 
+    function IsMonday()
+    {
+        return ($this->local[6] == 1) ? true : false;
+    }
+    
+    function IsFriday()
     {
         return ($this->local[6] == 5) ? true : false;
     }
     
-    function IsSaturday() 
+    function IsSaturday()
     {
         return ($this->local[6] == 6) ? true : false;
     }
     
+    function IsSunday()
+    {
+        return ($this->local[6] == 0) ? true : false;
+    }
+    
     function IsWeekDay()
     {
-        return ($this->local[6] == 0 || $this->local[6] == 6) ? false : true;
+        return ($this->IsSaturday() || $this->IsSunday()) ? false : true;
     }
     
     function GetDayOfWeek()
@@ -206,9 +216,27 @@ class TickYMD extends YearMonthDay
 		return DebugGetTime($this->iTime, false);
     }
     
-    function IsTradingHourEnd()
+    function IsStockTradingHourEnd()
     {
     	if ($this->GetHour() <= 16)	return false;
+    	return true;
+    }
+    
+    function IsFutureMarketTrading()
+    {
+    	$iHour = $this->GetHour();
+    	if ($this->IsSunday())
+    	{
+    		if ($iHour < 18)		return false;
+    	}
+    	else if ($this->IsSaturDay())
+    	{
+    		if ($iHour >= 17)		return false;
+    	}
+    	else
+    	{
+    		if ($iHour == 17)		return false;
+    	}
     	return true;
     }
 }

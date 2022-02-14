@@ -126,7 +126,7 @@ function GetMetaDescription()
 {
 	global $acct;
 	
-  	$str = $acct->GetStockDisplay().THANOUS_PARADOX_DISPLAY;
+  	$str = $acct->GetMetaDisplay(THANOUS_PARADOX_DISPLAY);
     $str .= '测试。观察白天A股QDII基金的溢价或者折价交易是否可以像小心愿认为的那样预测晚上美股相应ETF的涨跌。';
     return CheckMetaDescription($str);
 }
@@ -134,7 +134,7 @@ function GetMetaDescription()
 function GetTitle()
 {
 	global $acct;
-	return $acct->GetSymbolDisplay().THANOUS_PARADOX_DISPLAY;
+	return $acct->GetTitleDisplay(THANOUS_PARADOX_DISPLAY);
 }
 
     $acct = new SymbolAccount();

@@ -94,6 +94,7 @@ function EchoFundTradingParagraph($fund, $callback = false)
    	$ref = method_exists($fund, 'GetStockRef') ? $fund->GetStockRef() : $fund;
    	
     $arColumn = _getTradingTableColumn();
+    $strPrice = _getTradingParagraphStr($ref, $arColumn);
     if ($strOfficial = $fund->GetOfficialNav())
     {
     	$arColumn[] = new TableColumnPremium(STOCK_DISP_OFFICIAL);
@@ -114,14 +115,20 @@ function EchoFundTradingParagraph($fund, $callback = false)
     			$strEstPrice .= '/'.$ref->GetPriceDisplay($strRealtime, $strPrev);
     		}
     	}
+
+    	$col = new TableColumnEst();
+    	$strEst = $col->GetDisplay();
+    	$strPremium = GetTableColumnPremium();
+    	$str = "{$strPrice}相对于{$strEst}{$strEstPrice}的{$strPremium}";
     }
+    else
+	{
+		$str = $strPrice;
+		$strFair = false;
+		$strRealtime = false;
+	}
     if ($callback)     	$arColumn[] = new TableColumn(call_user_func($callback), 120);
 	
-    $strPrice = _getTradingParagraphStr($ref, $arColumn);
-	$col = new TableColumnEst();
-	$strEst = $col->GetDisplay();
-	$strPremium = GetTableColumnPremium();
-    $str = "{$strPrice}相对于{$strEst}{$strEstPrice}的{$strPremium}";
     _echoTradingParagraph($str, $arColumn, $ref, $strOfficial, $strFair, $strRealtime, $callback); 
 }
 

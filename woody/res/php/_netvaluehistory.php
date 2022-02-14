@@ -144,7 +144,7 @@ function GetMetaDescription()
 {
 	global $acct;
 	
-  	$str = $acct->GetStockDisplay().NETVALUE_HISTORY_DISPLAY;
+  	$str = $acct->GetMetaDisplay(NETVALUE_HISTORY_DISPLAY);
     $str .= '页面。用于某基金历史净值超过一定数量后的显示。最近的基金净值记录一般会直接显示在该基金页面。';
     return CheckMetaDescription($str);
 }
@@ -152,7 +152,7 @@ function GetMetaDescription()
 function GetTitle()
 {
 	global $acct;
-	return $acct->GetSymbolDisplay().NETVALUE_HISTORY_DISPLAY;
+	return $acct->GetTitleDisplay(NETVALUE_HISTORY_DISPLAY);
 }
 
     $acct = new SymbolAccount();
