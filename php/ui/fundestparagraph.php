@@ -32,7 +32,7 @@ function _echoFundEstTableItem($ref, $bFair)
     	}
     }
     
-    EchoTableColumn($ar);
+    EchoTableColumn($ar, false, RefGetDescription($ref));
 }
 
 function _callbackSortFundEst($ref)
@@ -81,16 +81,13 @@ function _getFundEstTableColumn($arRef, &$bFair)
     return $ar;
 }
 
-function _echoFundEstParagraph($arColumn, $bFair, $arRef, $str)
+function _echoFundEstParagraph($arColumn, $bFair, $arRef, $str = '')
 {
 	$iCount = count($arRef);
 	if ($iCount > 2)
 	{
-		if ($strSort = UrlGetQueryValue('sort'))
-		{
-			if ($strSort == 'premium')	$arRef = RefSortByNumeric($arRef, '_callbackSortFundEst');
-		}
-		else	$str .= ' '.CopySortLink('premium').'全部'.strval($iCount).'项';
+		$arRef = RefSortByNumeric($arRef, '_callbackSortFundEst');
+		$str .= '共'.strval($iCount).'项';
 	}
 	
 	EchoTableParagraphBegin($arColumn, 'estimation', $str);
@@ -98,10 +95,10 @@ function _echoFundEstParagraph($arColumn, $bFair, $arRef, $str)
     EchoTableParagraphEnd();
 }
 
-function EchoFundArrayEstParagraph($arRef, $str = '')
+function EchoFundArrayEstParagraph($arRef)
 {
 	$arColumn = _getFundEstTableColumn($arRef, $bFair);
-	_echoFundEstParagraph($arColumn, $bFair, $arRef, $str);
+	_echoFundEstParagraph($arColumn, $bFair, $arRef);
 }
 
 function EchoFundEstParagraph($ref)

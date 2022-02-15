@@ -1,5 +1,16 @@
 <?php
 
+function GetDoubleQuotes($str)
+{
+	return '"'.$str.'"';
+}
+
+function GetImgElement($strFile, $strText)
+{
+	$strText = GetDoubleQuotes($strText); 
+	return '<img src='.$strFile.' alt='.$strText.' />';
+}
+
 function GetHtmlElement($strContent, $strTag, $arAttribute = false)
 {
 	$strStart = $strTag;
@@ -18,7 +29,7 @@ function GetBoldElement($strContent)
 function GetFontElement($strContent, $strColor = 'red', $strStyle = false)
 {
 	$ar = array('color' => $strColor);
-	if ($strStyle)	$ar['style'] = '"'.$strStyle.'"';
+	if ($strStyle)	$ar['style'] = GetDoubleQuotes($strStyle);
 	return GetHtmlElement($strContent, 'font', $ar);
 }
 

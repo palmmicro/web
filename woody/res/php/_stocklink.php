@@ -19,7 +19,7 @@ function _GetEtfAdjustString($ref, $etf_ref)
 
 define('OIL_GROUP_DISPLAY', '油气');
 define('COMMODITY_GROUP_DISPLAY', '大宗商品和金银');
-define('CHINAINTERNET_GROUP_DISPLAY', '海外中国互联网');
+define('CHINAINTERNET_GROUP_DISPLAY', '中丐互怜');
 define('QQQ_GROUP_DISPLAY', '纳斯达克100');
 define('SPY_GROUP_DISPLAY', '标普500');
 define('HANGSENG_GROUP_DISPLAY', '恒生指数');
@@ -66,6 +66,7 @@ function GetCategoryArray($strPage)
         break;
         
     case 'chinainternet':
+//        $ar = array('SH513050', 'SZ159605', 'SZ159607', 'SZ164906');
         $ar = array('SH513050', 'SZ164906');
         break;
         

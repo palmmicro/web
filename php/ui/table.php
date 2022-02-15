@@ -120,17 +120,21 @@ function SelectColumnItem($strDisplay, $strLink, $strId, &$arId)
     return $strLink;
 }
 
-function EchoTableColumn($ar, $strColor = false)
+function EchoTableColumn($ar, $strColor = false, $strFirstHint = false)
 {
-//    $strBackGround = $strColor ? 'style="background-color:'.$strColor.'"' : '';
 	$arAttribute = array('class' => 'c1');
 	if ($strColor)	$arAttribute['style'] = '"background-color:'.$strColor.'"';
 	
     $strColumn = '';
 	foreach ($ar as $str)
 	{
-//		$strColumn .= "<td $strBackGround class=c1>$str</td>";
+		if ($strFirstHint)	$arAttribute['title'] = GetDoubleQuotes($strFirstHint);
 		$strColumn .= GetHtmlElement($str, 'td', $arAttribute);
+		if ($strFirstHint)
+		{
+			$strFirstHint = false;
+			unset($arAttribute['title']);
+		}
 	}
 
 	$strColumn = GetTableRow($strColumn);

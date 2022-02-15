@@ -15,9 +15,9 @@ function _echoAhItem($ref)
     	$ar[] = GetRatioDisplay(1.0 / $fAhRatio);
     }
     
-    EchoTableColumn($ar);
+    EchoTableColumn($ar, false, RefGetDescription($ref));
 }
-
+/*
 function _refSortBySymbol($arRef)
 {
     $ar = array();
@@ -35,7 +35,7 @@ function _refSortBySymbol($arRef)
     }
     return $arSort;
 }
-
+*/
 function _callbackSortAh($ref)
 {
 	return $ref->GetAhPriceRatio();
@@ -51,22 +51,7 @@ function EchoAhParagraph($arRef)
 	}
 	else if ($iCount > 2)
 	{
-		if ($strSort = UrlGetQueryValue('sort'))
-		{
-			if ($strSort == 'hshare')
-			{
-				$arRef = _refSortBySymbol($arRef);
-			}
-			else if ($strSort == 'ratio')
-			{
-				$arRef = RefSortByNumeric($arRef, '_callbackSortAh');
-			}
-		}
-		else
-		{
-			$str .= ' '.CopySortLink();
-			$str .= ' '.CopySortLink('ratio');
-		}
+		$arRef = RefSortByNumeric($arRef, '_callbackSortAh');
 	}
 
 	EchoTableParagraphBegin(array(new TableColumnSymbol(),
@@ -100,7 +85,7 @@ function _echoAdrhItem($ref)
     	$ar[] = GetRatioDisplay(1.0 / $fAdrhRatio);
     }
     
-    EchoTableColumn($ar);
+    EchoTableColumn($ar, false, RefGetDescription($ref));
 }
 
 function _callbackSortAdrh($ref)
@@ -113,22 +98,7 @@ function EchoAdrhParagraph($arRef)
 	$str = GetAdrhCompareLink();
 	if (count($arRef) > 2)
 	{
-		if ($strSort = UrlGetQueryValue('sort'))
-		{
-			if ($strSort == 'hshare')
-			{
-				$arRef = _refSortBySymbol($arRef);
-			}
-			else if ($strSort == 'ratio')
-			{
-				$arRef = RefSortByNumeric($arRef, '_callbackSortAdrh');
-			}
-		}
-		else
-		{
-			$str .= ' '.CopySortLink();
-			$str .= ' '.CopySortLink('ratio');
-		}
+		$arRef = RefSortByNumeric($arRef, '_callbackSortAdrh');
 	}
 
 	EchoTableParagraphBegin(array(new TableColumnSymbol(),

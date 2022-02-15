@@ -88,20 +88,6 @@ function CopyPhpLink($strQuery, $strCn, $strUs = false, $bChinese = true)
 	return GetPhpLink(UrlGetUriPage(), $strQuery, $strCn, $strUs, $bChinese);
 }
 
-function GetSortString($strQuery)
-{
-    $ar = array('hshare' => STOCK_DISP_HSHARES,
-                  'premium' => STOCK_DISP_PREMIUM,
-                  'ratio' => STOCK_DISP_RATIO,
-                 );
-	return isset($ar[$strQuery]) ? '按'.$ar[$strQuery].'排序' : '';
-}
-
-function CopySortLink($strQuery = 'hshare')
-{
-    return CopyPhpLink(UrlAddQuery('sort='.$strQuery), GetSortString($strQuery));
-}
-
 function _getMenuLinkQuery($strId, $iStart, $iNum)
 {
     $str = '';

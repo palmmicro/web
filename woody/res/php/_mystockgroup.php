@@ -77,7 +77,7 @@ function _echoStockGroupArray($arStock)
         }
     }
     
-    if (UrlGetQueryValue('sort') == false)	EchoReferenceParagraph($arRef);
+    EchoReferenceParagraph($arRef);
     if (count($arFund) > 0)     				EchoFundArrayEstParagraph($arFund);
     if (count($arHAdrRef) > 0)				EchoAdrhParagraph($arHAdrRef);
     if (count($arHShareRef) > 0)			EchoAhParagraph($arHShareRef);
@@ -92,7 +92,7 @@ function _getMetaDescriptionStr($strPage)
 				  ADRH_COMPARE_PAGE => ADRH_COMPARE_DISPLAY.'工具, 按ADR股票代码排序. 主要显示H股交易情况, 同时计算AdrH价格比和HAdr价格比. H股是指获中国证监会批核到香港上市的国有企业, 也称国企股.',
 				  AH_COMPARE_PAGE => AH_COMPARE_DISPLAY.'工具, 按A股股票代码排序. 主要显示H股交易情况, 同时计算AH价格比和HA价格比. H股是指获中国证监会批核到香港上市的国有企业, 也称国企股.',
 				  CHINA_INDEX_PAGE => CHINA_INDEX_DISPLAY.'基金工具, 计算基金净值, 同时分析比较各种套利对冲方案. 包括美股ASHR和多家国内基金公司的A股沪深300指数基金的配对交易等.',
-				  'chinainternet' => CHINAINTERNET_GROUP_DISPLAY.'基金的净值估算, 目前包括跟踪中证海外中国互联网指数的中国互联(SZ164906)和跟踪中证海外中国互联网50指数的中概互联(SH513050).',
+				  'chinainternet' => '跟踪几个不同中证海外中国互联网指数的中概互联基金们在2021年初疯狂见顶后几个月时间一路狂泻都跌成了'.CHINAINTERNET_GROUP_DISPLAY.'，也因此跌出了QDII基金有史以来最为壮观的流动性。',
 				  'commodity' => COMMODITY_GROUP_DISPLAY.'基金的净值估算, 目前包括大致对应跟踪GSG的信诚商品(SZ165513)和银华通胀(SZ161815). 跟踪大宗商品期货的基金都有因为期货升水带来的损耗, 不建议长期持有.',
 				  ETF_LIST_PAGE => '各个估值页面中用到的基金和指数对照表, 包括杠杆倍数和校准值快照, 同时提供链接查看具体校准情况. 有些指数不容易拿到数据, 就用1倍ETF代替指数给其它杠杆ETF做对照.',
 				  GOLD_SILVER_PAGE => '当A股大跌的时候, 完全不相关的黄金白银基金也经常会跟着跌, 这样会产生套利机会. 这里计算各种黄金白银基金的净值, 同时分析比较各种套利对冲方案.',
@@ -139,6 +139,16 @@ function _getSimilarLinks($strPage)
     return '<br />类似软件: '.$str;
 }
 
+function _getGroupImageLink($strPage)
+{
+    switch ($strPage)
+    {
+    case 'chinainternet':
+    	return GetImgElement('/woody/blog/photo/huangrong.jpg', 'Barbara Yung as Huang Rong in The Legend of the Condor Heroes');
+    }
+    return false;
+}
+
 function EchoAll()
 {
 	global $acct;
@@ -171,6 +181,7 @@ function EchoAll()
     	$str .= _getSimilarLinks($strPage);
     	EchoParagraph($str);
         _echoStockGroupArray(StockGetArraySymbol(GetCategoryArray($strPage)));
+        if ($str = _getGroupImageLink($strPage))		EchoParagraph($str);
     }
     $acct->EchoLinks($strPage);
 }
@@ -188,10 +199,6 @@ function GetMetaDescription()
     else
     {
     	$str = _getMetaDescriptionStr($strPage);
-    	if ($strQuery = UrlGetQueryValue('sort'))
-    	{
-    		$str .= ' '.GetSortString($strQuery).'.';
-    	}
     }
     return CheckMetaDescription($str);
 }
@@ -217,10 +224,6 @@ function _getTitleStr($strPage)
 			  	  'spyfund'	=> SPY_GROUP_DISPLAY.$strTool,
 			  	  );
     $str = $ar[$strPage];
-	if ($strQuery = UrlGetQueryValue('sort'))
-	{
-		$str .= '('.GetSortString($strQuery).')';
-	}
     return $str;
 }
 

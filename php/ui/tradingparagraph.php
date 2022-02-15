@@ -141,7 +141,7 @@ function EchoAhTradingParagraph($hshare_ref)
 	$strPremium = GetTableColumnPremium();
 	
     $arColumn = _getTradingTableColumn();
-	$arColumn[] = new TableColumnPremium(GetAhCompareLink('sort=ratio'));
+	$arColumn[] = new TableColumnPremium(GetAhCompareLink());
     if ($hshare_ref->adr_ref)
     {
 		$arColumn[] = new TableColumnPremium(RefGetMyStockLink($hshare_ref->adr_ref));

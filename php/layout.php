@@ -41,21 +41,24 @@ function LayoutPromotion($str, $strText = '')
 		break;
 	}
 	
-	$strLinkDisplay = GetHttpLink($strLink);
+	$strLink = GetHttpLink($strLink);
+	$strImage = GetImgElement("/woody/image/$str.jpg", "$str promo"); 
     echo <<<END
 
-    <p><img src=/woody/image/$str.jpg alt="$str promo" />
+    <p>$strImage
 		<br />$strText
-		<br />$strLinkDisplay</p>
+		<br />$strLink</p>
 END;
 }
 
 function LayoutWeixinPay()
 {
+	$strImage = GetImgElement('/woody/image/wxpay.jpg', 'QRcode to pay 1 RMB to Woody in Weixin');
+	$strText = GetFontElement('觉得这个网站有用？可以用微信打赏支持一下！', 'green');
     echo <<<END
 
-    <p><img src=/woody/image/wxpay.jpg alt="QRcode to pay 1 RMB to Woody in Weixin" />
-    	<br /><font color=green>觉得这个网站有用? 可以用微信打赏支持一下.</font></p>
+    <p>$strImage
+    	<br />$strText</p>
 END;
 }
 
@@ -76,19 +79,13 @@ function _layoutBanner($bChinese)
 {
     $ar = explode('/', UrlGetUri());
     $strHome = $bChinese ? 'indexcn.html' : 'index.html';
-	if ($ar[1] == 'woody')
-	{
-	    $strImage = 'img src=/woody/image/image.jpg alt="Woody Home Page" /';
-	}
-	else
-	{
-	    $strImage = 'img src=/image/image_palmmicro.jpg alt="Palmmicro Name Logo" /';
-	}
+	if ($ar[1] == 'woody')	$strImage = GetImgElement('/woody/image/image.jpg', 'Woody Home Page');
+	else					    $strImage = GetImgElement('/image/image_palmmicro.jpg', 'Palmmicro Name Logo');
     
     echo <<<END
 
 <div id="banner">
-    <div class="logo"><a href="/$strHome"><$strImage></a></div>
+    <div class="logo"><a href="/$strHome">$strImage</a></div>
     <div class="blue"></div>
 </div>
 
@@ -151,7 +148,7 @@ function GetSwitchLanguageLink($bChinese)
     $str = UrlGetPage();
     $str .= UrlGetPhp(UrlIsEnglish());
     $str .= UrlPassQuery();
-    return MenuGetLink($str, $bChinese ? "<img src=/image/us.gif alt=\"Switch to English\" />English" : "<img src=/image/zh.jpg alt=\"Switch to Chinese\" />中文");
+    return MenuGetLink($str, $bChinese ? GetImgElement('/image/us.gif', 'Switch to English').'English' : GetImgElement('/image/zh.jpg', 'Switch to Chinese').'中文');
 }
 
 function LayoutTopLeft($callback = false, $bSwitchLanguage = false, $bChinese = true, $bAdsense = true)

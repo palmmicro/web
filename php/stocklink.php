@@ -201,9 +201,9 @@ function GetMyPortfolioLink($strQuery = false)
 
 define('AH_COMPARE_DISPLAY', 'A股和H股对比');
 define('AH_COMPARE_PAGE', 'ahcompare');
-function GetAhCompareLink($strQuery = false)
+function GetAhCompareLink()
 {
-    return GetStockPageLink(AH_COMPARE_PAGE, AH_COMPARE_DISPLAY, $strQuery);
+    return GetStockPageLink(AH_COMPARE_PAGE, AH_COMPARE_DISPLAY);
 }
 
 define('ETF_LIST_DISPLAY', '基金指数对照表');
