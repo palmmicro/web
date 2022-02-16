@@ -48,7 +48,7 @@ function _echoAccountProfileMsg($strMsg, $bChinese)
     if ($strMsg)
     {
     	$strPeriod = $bChinese ? '。' : '.';  
-    	EchoParagraph(GetInfoFontElement($strMsg.$strPeriod));
+    	EchoParagraph(GetInfoElement($strMsg.$strPeriod));
     }
 }
 
@@ -69,10 +69,10 @@ function _echoAccountProfileEnglish($member, $strName, $strPhone, $strAddress, $
 {
     $strIp = GetIpLink($member['ip'], false);
     $strStatus = $member['status'];
-	if ($strStatus == '2')		$strStatusDisplay = 'Palmmicro email subscription completed.';
-	else if ($strStatus == '1')	$strStatusDisplay = 'No email subscription.';
-	else				$strStatusDisplay = 'Account restricted.';
-	$strStatusDisplay = GetFontElement($strStatusDisplay, 'green');
+	if ($strStatus == '2')			$strStatusDisplay = 'Palmmicro email subscription completed';
+	else if ($strStatus == '1')		$strStatusDisplay = 'No email subscription';
+	else								$strStatusDisplay = 'Account restricted';
+	$strStatusDisplay = GetRemarkElement($strStatusDisplay.'.');
 	
     echo <<<END
         <p>Email: <b>{$member['email']}</b>
@@ -95,10 +95,10 @@ function _echoAccountProfileChinese($member, $strName, $strPhone, $strAddress, $
 {
     $strIp = GetIpLink($member['ip'], true);
     $strStatus = $member['status'];
-	if ($strStatus == '2')		$strStatusDisplay = '接收Palmmicro邮件.';
-	else if ($strStatus == '1')	$strStatusDisplay = '不接收任何邮件.';
-	else				$strStatusDisplay = '帐号受限制.';
-	$strStatusDisplay = GetFontElement($strStatusDisplay, 'green');
+	if ($strStatus == '2')		$strStatusDisplay = '接收Palmmicro邮件';
+	else if ($strStatus == '1')	$strStatusDisplay = '不接收任何邮件';
+	else							$strStatusDisplay = '帐号受限制';
+	$strStatusDisplay = GetRemarkElement($strStatusDisplay.'。');
 	
     echo <<<END
         <p>电子邮件: <b>{$member['email']}</b>

@@ -65,7 +65,7 @@ Here the plate goes around so, and the reason it's two to one is ..." and I show
 多年来第一次用中文版本的WINDOWS，发现调用<a href="#winscp">WinSCP</a>后LOG文件中<b>Upload successful</b>变成了<b>上传成功</b>，必须修改判断重新编译<a href="#webtool">Woody的网站工具</a>。
 <br />在一体机上新装了Visual Studio 2019，结果VS2017下能编译的网站工具罢工了，提示<font color=red>无法打开文件MSCOREE.lib</font>。百度了一下，碰到这个问题的人不少，满屏都是如何找老文件的解决方案，实在蠢得不能忍.
 用bing的国际版查了一下英文社区，同样很多人碰到了这个问题，不过解决方案靠谱多了，原来安装时缺省是不装C++/CLI模块的，补充安装一下就好。
-<br /><img src=../photo/20200711.jpg alt="My 2 broken DELL and LENOVO notebooks，original photo taken on Jun 14，2019" />
+<br /><img src=../photo/20200711.jpg alt="My 2 broken DELL and LENOVO notebooks, original photo taken on Jun 14, 2019." />
 </p> 
 
 <h3>由于目标计算机积极拒绝无法连接</h3>

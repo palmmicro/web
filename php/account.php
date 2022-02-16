@@ -301,7 +301,7 @@ class TitleAccount extends Account
     function GetStartNumDisplay($bChinese = true)
     {
    		if (($this->iStart == 0) && ($this->iNum == 0))	$str = GetAllDisplay($bChinese);
-   		else 													$str = strval($this->iStart).'-'.strval($this->iStart + $this->iNum); 
+   		else 													$str = strval($this->iStart + 1).'-'.strval($this->iStart + $this->iNum); 
     	return "($str)";
     }
 }

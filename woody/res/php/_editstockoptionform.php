@@ -252,7 +252,7 @@ class SymbolEditAccount extends SymbolAccount
 		}
     
 		$strVal = _getStockOptionVal($strSubmit, $this->GetLoginId(), $ref, $strSymbol, $strDate);
-		$strMemo = GetInfoFontElement(_getStockOptionMemo($strSubmit));
+		$strMemo = GetInfoElement(_getStockOptionMemo($strSubmit));
 	
 		echo <<< END
 	<script>

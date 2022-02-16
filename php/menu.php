@@ -33,7 +33,7 @@ function MenuWriteLink($strPage, $strType, $strDisp, $strOutput)
     	break;
     	
     case MENU_OUTPUT_DISABLED:
-    	EchoParagraph(GetFontElement($strDisp, 'gray', $strStyle));
+    	EchoParagraph(GetQuoteElement($strDisp, $strStyle));
         break;
         
     case MENU_OUTPUT_ENABLED:

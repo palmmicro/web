@@ -33,8 +33,8 @@ function GetTitle()
 	global $acct;
     
    	$str = $acct->GetWhoseGroupDisplay().STOCK_GROUP_DISPLAY;
-   	$str .= ($strSymbol = $acct->GetSymbol()) ? $strSymbol : DISP_ALL_CN;
-   	$str .= STOCK_TRANSACTION_DISPLAY;
+   	$str .= ($strSymbol = $acct->GetSymbol()) ? $strSymbol : '';
+   	$str .= STOCK_TRANSACTION_DISPLAY.$acct->GetStartNumDisplay();
    	return $str;
 }
 

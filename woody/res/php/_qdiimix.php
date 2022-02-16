@@ -15,23 +15,26 @@ class _QdiiMixAccount extends GroupAccount
     var $us_ref = false;
     var $cnh_ref;
 
-    function Create() 
+    function Create()
     {
-        $strSymbol = $this->GetName();
-        $strUS = ($strSymbol == 'SZ164906') ? 'KWEB' : false;
         $strCNH = 'fx_susdcnh';
-        StockPrefetchExtendedData($strSymbol, $strUS, $strCNH);
+        $strSymbol = $this->GetName();
+        $ar = array($strSymbol, $strCNH);
+        if ($strSymbol == 'SZ164906')
+        {
+        	$strUS = 'KWEB';
+        	$ar[] = $strUS; 
+        }
+        StockPrefetchArrayExtendedData($ar);
 
+        $this->cnh_ref = new ForexReference($strCNH);
         $this->ref = new HoldingsReference($strSymbol);
         $arRef = array($this->ref);
-        
-        if ($strUS)
+        if ($strSymbol == 'SZ164906')
         {
         	$this->us_ref = new HoldingsReference($strUS);
         	$arRef[] = $this->us_ref; 
         }
-        
-        $this->cnh_ref = new ForexReference($strCNH);
 
         GetChinaMoney($this->ref);
         SzseGetLofShares($this->ref);

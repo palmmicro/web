@@ -54,7 +54,7 @@ END;
 function LayoutWeixinPay()
 {
 	$strImage = GetImgElement('/woody/image/wxpay.jpg', 'QRcode to pay 1 RMB to Woody in Weixin');
-	$strText = GetFontElement('觉得这个网站有用？可以用微信打赏支持一下！', 'green');
+	$strText = GetRemarkElement('觉得这个网站有用？可以用微信打赏支持一下！');
     echo <<<END
 
     <p>$strImage
@@ -138,8 +138,6 @@ END;
 END;*/
 }
 
-//<TR><TD><A class=A2 HREF="logincn.php"><img src=../image/zh.jpg alt="Switch to Chinese" />Chinese</A></TD></TR>
-//<TR><TD><A class=A2 HREF="login.php"><img src=../image/us.gif alt="Switch to English" />English</A></TD></TR>
 function GetSwitchLanguageLink($bChinese)
 {
 	if ($_SESSION['switchlanguage'] == false)	return '';
@@ -148,7 +146,7 @@ function GetSwitchLanguageLink($bChinese)
     $str = UrlGetPage();
     $str .= UrlGetPhp(UrlIsEnglish());
     $str .= UrlPassQuery();
-    return MenuGetLink($str, $bChinese ? GetImgElement('/image/us.gif', 'Switch to English').'English' : GetImgElement('/image/zh.jpg', 'Switch to Chinese').'中文');
+    return MenuGetLink($str, $bChinese ? GetImgElement('/image/us.gif', 'Switch to ').'English' : GetImgElement('/image/zh.jpg', '切换成').'中文');
 }
 
 function LayoutTopLeft($callback = false, $bSwitchLanguage = false, $bChinese = true, $bAdsense = true)

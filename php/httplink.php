@@ -145,7 +145,7 @@ function GetPageLink($strPath, $strPage, $strQuery, $strDisplay, $bChinese = tru
 {
     if ((UrlGetPage() == $strPage) && (UrlGetQueryString() == $strQuery))
     {
-        return GetInfoFontElement($strDisplay);
+        return GetInfoElement($strDisplay);
     }
     return GetPhpLink($strPath.$strPage, $strQuery, $strDisplay, false, $bChinese);
 }

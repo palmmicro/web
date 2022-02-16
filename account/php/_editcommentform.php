@@ -40,7 +40,7 @@ class EditCommentAccount extends CommentAccount
 	
 		$strPassQuery = UrlPassQuery();
 		$strComment = $this->_getEditComment();
-		$str = GetFontElement($arTitle[$strSubmit], 'green');
+		$str = GetRemarkElement($arTitle[$strSubmit]);
     
 		echo <<< END
 	<form id="commentForm" name="commentForm" method="post" action="/account/php/_submitcomment.php$strPassQuery">

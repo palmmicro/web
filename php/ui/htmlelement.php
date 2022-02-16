@@ -11,6 +11,11 @@ function GetImgElement($strFile, $strText)
 	return '<img src='.$strFile.' alt='.$strText.' />';
 }
 
+function GetBreakElement()
+{
+	return '<br />';
+}
+
 function GetHtmlElement($strContent, $strTag, $arAttribute = false)
 {
 	$strStart = $strTag;
@@ -33,14 +38,19 @@ function GetFontElement($strContent, $strColor = 'red', $strStyle = false)
 	return GetHtmlElement($strContent, 'font', $ar);
 }
 
-function GetQuoteFontElement($strContent)
+function GetQuoteElement($strContent, $strStyle = false)
 {
-	return GetFontElement($strContent, 'gray');
+	return GetFontElement($strContent, 'gray', $strStyle);
 }
 
-function GetInfoFontElement($strContent)
+function GetInfoElement($strContent)
 {
 	return GetFontElement($strContent, 'blue');
+}
+
+function GetRemarkElement($strContent)
+{
+	return GetFontElement($strContent, 'green');
 }
 
 function _setHtmlElement($str)

@@ -150,28 +150,31 @@ function SqlGetStockGroupId($strGroupItemId)
     return false;
 }
 
-function SqlGetStockGroupItemSymbolArray($sql)
+function SqlGetStockGroupItemSymbolArray($item_sql)
 {
-    if ($arStockId = $sql->GetStockIdArray())
+    if ($arStockId = $item_sql->GetStockIdArray())
     {
     	$arA = array();
     	$arH = array();
     	$arUS = array();
+    	$sql = GetStockSql();
      	foreach ($arStockId as $str => $strStockId)
     	{
-    		$strSymbol = SqlGetStockSymbol($strStockId);
-    		$sym = new StockSymbol($strSymbol);
-    		if ($sym->IsTradable())
+    		if ($strSymbol = $sql->GetKey($strStockId))
     		{
-    			if ($sym->IsSymbolA())		$arA[$str] = $strSymbol;
-    			else if ($sym->IsSymbolH())	$arH[$str] = $strSymbol;
-    			else							$arUS[$str] = $strSymbol;
+    			$sym = new StockSymbol($strSymbol);
+    			if ($sym->IsTradable())
+    			{
+    				if ($sym->IsSymbolA())		$arA[$str] = $strSymbol;
+    				else if ($sym->IsSymbolH())	$arH[$str] = $strSymbol;
+    				else							$arUS[$str] = $strSymbol;
+    			}
     		}
-    	}
-		asort($arA);
-		asort($arH);
-		asort($arUS);
-        return $arA + $arH + $arUS;
+		}
+   		asort($arA);
+   		asort($arH);
+   		asort($arUS);
+   		return $arA + $arH + $arUS;
 //    	return array_merge($arA, $arH, $arUS);	// Can NOT use array_merge for all-digit keys
     }
     return false;
@@ -180,12 +183,13 @@ function SqlGetStockGroupItemSymbolArray($sql)
 function SqlGetStocksArray($strGroupId, $bCheckTransaction = false)
 {
     $ar = array();
-	$sql = new StockGroupItemSql($strGroupId);
-    if ($arStockId = $sql->GetStockIdArray($bCheckTransaction))
+	$sql = GetStockSql();
+	$item_sql = new StockGroupItemSql($strGroupId);
+    if ($arStockId = $item_sql->GetStockIdArray($bCheckTransaction))
     {
     	foreach ($arStockId as $str => $strStockId)
     	{
-    		$ar[] = SqlGetStockSymbol($strStockId);
+    		if ($strSymbol = $sql->GetKey($strStockId))	$ar[] = $strSymbol;
     	}
     }
 	sort($ar);
@@ -194,8 +198,8 @@ function SqlGetStocksArray($strGroupId, $bCheckTransaction = false)
 
 function SqlGroupHasStock($strGroupId, $strStockId, $bCheckTransaction = false)
 {
-	$sql = new StockGroupItemSql($strGroupId);
-    if ($arStockId = $sql->GetStockIdArray($bCheckTransaction))
+	$item_sql = new StockGroupItemSql($strGroupId);
+    if ($arStockId = $item_sql->GetStockIdArray($bCheckTransaction))
     {
     	return array_search($strStockId, $arStockId);
     }

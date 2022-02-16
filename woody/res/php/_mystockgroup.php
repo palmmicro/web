@@ -7,6 +7,7 @@ require_once('/php/ui/referenceparagraph.php');
 require_once('/php/ui/ahparagraph.php');
 require_once('/php/ui/etfparagraph.php');
 require_once('/php/ui/fundestparagraph.php');
+require_once('/php/ui/imagedisp.php');
 
 function in_array_ref($strSymbol, $arRef)
 {
@@ -144,7 +145,7 @@ function _getGroupImageLink($strPage)
     switch ($strPage)
     {
     case 'chinainternet':
-    	return GetImgElement('/woody/blog/photo/huangrong.jpg', 'Barbara Yung as Huang Rong in The Legend of the Condor Heroes');
+    	return GetImgElement(IMAGE_PATH.'huangrong.jpg', '83版射雕英雄传中翁美玲扮演的小乞丐黄蓉');
     }
     return false;
 }

@@ -76,9 +76,8 @@ As PA6488 based camera is not available in market yet. Users can test the user m
 <h3><?php EchoNameTag('dicecaptcha', ACCOUNT_TOOL_DICE); ?></h3>
 <p>Jul 2, 2021
 <br />Roblox <?php EchoDiceCaptchaLink(false); ?>
-<br /><img src=../photo/robloxdice.jpg alt="Roblox 4 dices adding to 14 captcha" />
+<?php echo ImgRobloxDice(false); ?>
 </p>
-
 
 </div>
 

@@ -59,8 +59,8 @@ class StockAccount extends TitleAccount
 
     function _getPersonalGroupLink($strGroupId)
     {
-    	$sql = new StockGroupItemSql($strGroupId);
-    	$arStockId = $sql->GetStockIdArray(true);
+    	$item_sql = new StockGroupItemSql($strGroupId);
+    	$arStockId = $item_sql->GetStockIdArray(true);
     	if (count($arStockId) > 0)
     	{
     		if ($strLink = $this->GetGroupLink($strGroupId))	return $strLink.' ';

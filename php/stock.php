@@ -189,7 +189,7 @@ function RefGetDescription($ref, $bConvertDisplay = false)
 			$strDisplay = $ar[$str];
 			if ($bConvertDisplay)
 			{
-				if ($str == STOCK_PRE_MARKET || $str == STOCK_POST_MARKET)	return GetHtmlElement(GetQuoteFontElement($strDisplay), 'i');
+				if ($str == STOCK_PRE_MARKET || $str == STOCK_POST_MARKET)	return GetHtmlElement(GetQuoteElement($strDisplay), 'i');
 				else if ($str == STOCK_NET_VALUE)								return GetBoldElement($strDisplay);
 			}
 			return $strDisplay;
@@ -271,20 +271,11 @@ function StockPrefetchArrayExtendedData($ar)
 {
     $arAll = array();
     
+	$sql = GetStockSql();
     foreach ($ar as $strSymbol)
     {
-    	if ($strSymbol)
-    	{
-    		if ($strStockId = SqlGetStockId($strSymbol))
-    		{
-    			$arAll = array_merge($arAll, _getAllSymbolArray($strSymbol, $strStockId));
-    		}
-    		else
-    		{
-    			$arAll[] = $strSymbol;
-    			DebugString($strSymbol.' new stock symbol');
-    		}
-    	}
+   		if ($strStockId = $sql->GetId($strSymbol))		$arAll = array_merge($arAll, _getAllSymbolArray($strSymbol, $strStockId));
+   		else								    			$arAll[] = $strSymbol;	// new stock symbol	
     }
     StockPrefetchArrayData($arAll);
 }

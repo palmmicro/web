@@ -90,7 +90,7 @@ class IpLookupAccount extends CommentAccount
 			switch ($record['status'])
 			{
 			case IP_STATUS_CRAWLER:
-				$str .= '<br />'.GetFontElement(($bChinese ? '已标注爬虫' : 'Marked crawler'), 'green');
+				$str .= '<br />'.GetRemarkElement($bChinese ? '已标注爬虫' : 'Marked crawler');
 			    break;
 				
 			case IP_STATUS_MALICIOUS:

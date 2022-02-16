@@ -4,10 +4,15 @@ require_once('stockbot.php');
 
 function _wxDebug($strUserName, $strText, $strSubject)
 {   
-	$str = GetInfoFontElement('用户：').$strUserName;
+	$str = GetInfoElement('用户：').$strUserName;
 	$str .= '<br />'.$strText;
 	$str .= '<br />'.GetWeixinLink();
     trigger_error($strSubject.'<br />'.$str);
+}
+
+function _wxEmailInfo()
+{
+	return '发往'.ADMIN_EMAIL.'邮箱。'.BOT_EOL;
 }
 
 class WeixinStock extends WeixinCallback
@@ -24,19 +29,17 @@ class WeixinStock extends WeixinCallback
 
 	function GetUnknownText($strContents, $strUserName)
 	{
-		_wxDebug($strUserName, GetFontElement('内容：', 'green').$strContents, 'Wechat message');
+		_wxDebug($strUserName, GetRemarkElement('内容：').$strContents, 'Wechat message');
 		$str = $strContents.BOT_EOL;
-		$str .= '本公众号目前只提供部分股票交易和净值估算自动查询。因为没有匹配到信息，此消息内容已经发往support@palmmicro.com邮箱，Palmmicro会尽快在公众号上回复。咨询问题的请尽量在相关公众号文章下留言。'.BOT_EOL;
+		$str .= '本公众号目前只提供部分股票交易和净值估算自动查询。因为没有匹配到信息，此消息内容已经'._wxEmailInfo();
 		return $str;
 	}
 
 	function OnText($strText, $strUserName)
 	{
-        if (stripos($strText, 'Q群') !== false)			return '本公众号不再提供群聊技术支持，请在公众号文章下公开留言。'.BOT_EOL;
-        else if (strpos($strText, '商务合作') !== false)	return '请把具体合作内容和方式发往woody@palmmicro.com邮箱。'.BOT_EOL;
+        if (stripos($strText, 'Q群') !== false)			return '本公众号不再提供群聊技术支持，有问题请'._wxEmailInfo();
+        else if (strpos($strText, '商务合作') !== false)	return '请把具体合作内容和方式'._wxEmailInfo();
         else if (strpos($strText, '广发原油') !== false)	return '2020年6月19日公众号文章标题写错了，应该是广发石油(162719)。'.BOT_EOL;
-        else if (stripos($strText, 'autojs') !== false)	return '2020年9月26日文章《华宝油气自动化申购脚本 适合小白用户》转载自公众号可转债量化分析，请移步该公众号下查询。'.BOT_EOL;
-        else if ((strpos($strText, '华宝证券脚本') !== false) || (strpos($strText, '其它脚本') !== false))		return '2020年10月19日文章《自动申购拖拉机基金（二）华宝证券版》转载自公众号可转债量化分析，请移步该公众号下查询。'.BOT_EOL;
         
         if ($str = StockBotGetStr($strText, $this->GetVersion()))		return $str;
 		return $this->GetUnknownText($strText, $strUserName);
@@ -47,7 +50,7 @@ class WeixinStock extends WeixinCallback
 		switch ($strContents)
 		{
 		case 'subscribe':
-			$str = '欢迎订阅，本账号为自动回复，不提供人工咨询服务。请用语音或者键盘输入要查找的内容，例如【162411】或者【油气】。';
+			$str = '欢迎订阅。本账号为自动回复，不提供人工咨询服务。请用语音或者键盘输入要查找的内容，例如【162411】或者【油气】。';
 			break;
 			
 		case 'unsubscribe':

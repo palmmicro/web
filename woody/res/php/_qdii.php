@@ -9,18 +9,21 @@ class _QdiiAccount extends QdiiGroupAccount
 
     function Create() 
     {
-        $strSymbol = $this->GetName();
-        
-        $strOil = in_arrayOilQdii($strSymbol) ? 'hf_OIL' : false;
-        $this->GetLeverageSymbols(QdiiGetEstSymbol($strSymbol));
-
 //        $strUSD = 'DINIW';
         $strCNH = 'fx_susdcnh';
-        StockPrefetchArrayExtendedData(array_merge($this->GetLeverage(), array($strSymbol, $strOil, $strCNH)));
+        $strSymbol = $this->GetName();
+        $this->GetLeverageSymbols(QdiiGetEstSymbol($strSymbol));
+		$ar = array($strSymbol, $strCNH);
+		if ($bOil = in_arrayOilQdii($strSymbol))
+		{
+			$strOil = 'hf_OIL';
+			$ar[] = $strOil; 
+		}
+        StockPrefetchArrayExtendedData(array_merge($this->GetLeverage(), $ar));
         
         $this->ref = new QdiiReference($strSymbol);
-        if ($strOil)	$this->oil_ref = new FutureReference($strOil);
         $this->cnh_ref = new ForexReference($strCNH);
+        if ($bOil)		$this->oil_ref = new FutureReference($strOil);
         
 		$this->QdiiCreateGroup();
     }

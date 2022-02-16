@@ -9,6 +9,7 @@ require_once('/php/tutorial/primenumber.php');
 require_once('/php/sql/sqlkeystring.php');
 require_once('/php/ui/editinputform.php');
 require_once('/php/ui/table.php');
+require_once('/php/ui/imagedisp.php');
 
 function HexView($strInput)
 {
@@ -193,13 +194,13 @@ function _getDiceCaptchaString($strInput, $bChinese)
 		$strCount = strval(count($arDisplay));
 		$arDisplay = array_unique($arDisplay);
 
-		if ($bChinese)	$str = $strNum.'个骰子加起来等于'.$strTarget.'总共有'.$strCount.'种情况, 排序合并后如下:';
+		if ($bChinese)	$str = $strNum.'个骰子加起来等于'.$strTarget.'总共有'.$strCount.'种情况，排序合并后如下：';
 		else				$str = $strNum.' dices adding up to '.$strTarget.' can appear in '.$strCount.' ways, here is the result after sorting and merging:';
 		foreach ($arDisplay as $strDisplay)
 		{
 			$str .= '<br/>'.$strDisplay;
 		}
-		$str .= '<br /><img src=/woody/blog/photo/robloxdice.jpg alt="Roblox 4 dices adding to 14 captcha" />';
+		$str .= ImgRobloxDice($bChinese);
 		return $str;
 	}
 	return ($bChinese ? '数据格式不对' : 'Wrong data format');
@@ -227,8 +228,8 @@ function _getTaobaoSalesLogData()
 
 function _echoBenfordsLawRelated()
 {
-	$strTaobao = GetQuoteFontElement(_getTaobaoDouble11Data());
-	$strTaobaoSales = GetQuoteFontElement(_getTaobaoSalesData());
+	$strTaobao = GetQuoteElement(_getTaobaoDouble11Data());
+	$strTaobaoSales = GetQuoteElement(_getTaobaoSalesData());
 
 	$strBaba = GetMyStockLink('BABA');
 	echo <<< END
@@ -242,9 +243,9 @@ END;
 
 function _echoLinearRegressionRelated()
 {
-	$strTaobaoSqrt = GetQuoteFontElement(_getTaobaoDouble11SqrtData());
-	$strTaobaoLog = GetQuoteFontElement(_getTaobaoSalesLogData());
-	$strBenford = GetQuoteFontElement('1,'.GetStandardBenfordData());
+	$strTaobaoSqrt = GetQuoteElement(_getTaobaoDouble11SqrtData());
+	$strTaobaoLog = GetQuoteElement(_getTaobaoSalesLogData());
+	$strBenford = GetQuoteElement('1,'.GetStandardBenfordData());
 
 	$strBaba = GetMyStockLink('BABA');
 	echo <<< END
