@@ -384,7 +384,7 @@
 <br />因为场外账户远少于场内账户, 我可以放心的忽略2者在申购不同日期下不同净值等细节, 把所有申购都假设成为场内申购计算. 把限购1000人民币以来所有溢价申购日期数据统一做线性回归, 可以得到下面的结果:
 <br /><?php echo GetFundAccountLink(); ?>
 <br />顺便做一个通用一元<?php EchoLinearRegressionLink(); ?>工具.
-<br /><img src=../photo/20190824.jpg alt="Linear regression calculation steps" />
+<?php echo ImgLinearRegression(); ?>
 </p>
 
 <h3>增加<?php EchoNameTag(FUND_POSITION_PAGE, FUND_POSITION_DISPLAY); ?>页面</h3>

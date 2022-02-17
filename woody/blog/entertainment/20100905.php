@@ -52,13 +52,13 @@ As PA6488 based camera is not available in market yet. Users can test the user m
 <h3>Using <?php EchoNameTag('cramersrule', ACCOUNT_TOOL_CRAMER); ?> to Solve a Linear System of 2x2 Equations</h3>
 <p>Sep 5, 2019
 <br />Tool to use <?php EchoCramersRuleLink(false); ?> to solve a linear system of 2x2 equations.
-<br /><img src=../photo/20190815.jpg alt="Cramer's rule calculation steps" />
+<?php echo ImgCramersRule(false); ?>
 </p>
 
 <h3>Simple <?php EchoNameTag('linearregression', ACCOUNT_TOOL_LINEAR); ?> Tool</h3>
 <p>Sep 20, 2019
 <br />Simple <?php EchoLinearRegressionLink(false); ?> tool.
-<br /><img src=../photo/20190824.jpg alt="Linear regression calculation steps" />
+<?php echo ImgLinearRegression(false); ?>
 </p>
 
 <h3><?php EchoNameTag('benfordslaw', ACCOUNT_TOOL_BENFORD); ?></h3>
@@ -70,12 +70,12 @@ As PA6488 based camera is not available in market yet. Users can test the user m
 <h3><?php EchoNameTag('chisquaredtest', ACCOUNT_TOOL_CHI); ?></h3>
 <p>Nov 15, 2019
 <br /><?php EchoChiSquaredTestLink(false); ?>
-<br /><img src=../photo/chisquaredtest.jpg alt="Pearson's Chi-squared Test equation and curve" />
+<?php echo ImgChiSquared(false); ?>
 </p>
 
 <h3><?php EchoNameTag('dicecaptcha', ACCOUNT_TOOL_DICE); ?></h3>
 <p>Jul 2, 2021
-<br />Roblox <?php EchoDiceCaptchaLink(false); ?>
+<br />Roblox <?php EchoDiceCaptchaLink(false); ?> tool.
 <?php echo ImgRobloxDice(false); ?>
 </p>
 

@@ -27,7 +27,7 @@ function _stockGroupGetStockLinks($strGroupId)
 function _echoStockGroupTableItem($strGroupId, $acct, $bReadOnly, $bAdmin)
 {
     $strEdit = '';
-    $strDelete = GetDeleteLink(STOCK_PHP_PATH.'_submitgroup.php?delete='.$strGroupId, '股票分组和相关交易记录');
+    $strDelete = GetDeleteLink(STOCK_PHP_PATH.'_submitgroup.php?delete='.$strGroupId, $acct->GetGroupName($strGroupId).'股票分组和相关交易记录');
     if ($bReadOnly == false)
     {
     	$strEdit = GetEditLink(STOCK_PATH.'editstockgroup', $strGroupId);

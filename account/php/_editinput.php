@@ -77,7 +77,7 @@ function _getChiSquaredTestString($strInput, $bChinese)
 	{
 		$str = '';
 	}
-	$str .= '<br /><img src=/woody/blog/photo/chi2PValue.gif alt="Pearson\'s Chi-squared Test equation and curve gif" />';
+	$str .= ImgChiSquared($bChinese);
 	return $str;
 }
 
@@ -122,7 +122,7 @@ function _getLinearRegressionString($strInput, $bChinese)
     	$str .= '<br />y = {'.(empty($strFunction) ? implode(',', $arY) : strval_round_implode($arY)).'}';
     	$str .= '<br /><br /><b>'.$jpg->GetEquation().'</b>';
     	$str .= '<br />'.$jpg->GetLink();
-    	$str .= '<br /><img src=/woody/blog/photo/20190824.jpg alt="Linear regression calculation steps" />';
+    	$str .= ImgLinearRegression($bChinese);
     	return $str;
     }
 	return ($bChinese ? '数据不足' : 'Not enough data');
@@ -158,7 +158,7 @@ function _getCramersLawString($strInput, $bChinese)
 	{
 		$str = '';
 	}
-	$str .= '<br /><img src=/woody/blog/photo/20190815.jpg alt="Cramer\'s rule calculation steps" />';
+	$str .= ImgCramersRule($bChinese);
 	return $str;
 }
 

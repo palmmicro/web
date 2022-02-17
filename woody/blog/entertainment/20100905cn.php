@@ -108,7 +108,7 @@
 <br />使用Cramer法则<?php EchoCramersRuleLink(); ?>的通用工具, 得到场内申购户数 x = 2864, 场外申购户数 y = 153.
 <br />原则上来说按我的假设, 任何2天的数据都可以用来联立一个2元一次方程组, 解出场内申购和场外申购的账户数. 
 我一定要选择从限购1万到限购1000的变化时2天的数据来估算是出于计算精度的考虑, 为了避免2个大数字相减后得到一个跟误差范围同一数量级的小数字, 让整个结论失去意义.
-<br /><img src=../photo/20190815.jpg alt="Cramer's rule calculation steps" />
+<?php echo ImgCramersRule(); ?>
 </p> 
 <blockquote><font color=gray>And what in heaven's name brought you to Casablanca?
 <br />My health. I came to Casablanca for the waters.
@@ -119,7 +119,7 @@
 <h3>一元<?php EchoNameTag('linearregression', ACCOUNT_TOOL_LINEAR_CN); ?>工具</h3>
 <p>2019年9月20日
 <br />用<?php EchoLinearRegressionLink(); ?>计算完华宝油气限额申购下溢价套利的<?php EchoNameLink(FUND_ACCOUNT_PAGE, FUND_ACCOUNT_DISPLAY, '20150818cn.php'); ?>后, 顺便把它做成了一个通用工具.
-<br /><img src=../photo/20190824.jpg alt="Linear regression calculation steps" />
+<?php echo ImgLinearRegression(); ?>
 </p>
 
 <h3><?php EchoNameTag('benfordslaw', ACCOUNT_TOOL_BENFORD_CN); ?></h3>
@@ -131,7 +131,7 @@
 <h3><?php EchoNameTag('chisquaredtest', ACCOUNT_TOOL_CHI_CN); ?></h3>
 <p>2019年11月15日
 <br /><?php EchoChiSquaredTestLink(); ?>
-<br /><img src=../photo/chi2PValue.gif alt="Pearson\'s Chi-squared Test equation and curve gif" />';
+<?php echo ImgChiSquared(); ?>
 </p>
 
 <h3>UTF8的双字节空格字符</h3>

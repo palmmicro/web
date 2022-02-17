@@ -5,10 +5,9 @@ function GetDoubleQuotes($str)
 	return '"'.$str.'"';
 }
 
-function GetImgElement($strFile, $strText)
+function GetImgElement($strPathName, $strText)
 {
-	$strText = GetDoubleQuotes($strText); 
-	return '<img src='.$strFile.' alt='.$strText.' />';
+	return '<img src='.$strPathName.' alt='.GetDoubleQuotes($strText).' />';
 }
 
 function GetBreakElement()

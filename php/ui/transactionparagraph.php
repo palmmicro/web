@@ -5,10 +5,11 @@ function _echoTransactionTableItem($ref, $record, $bReadOnly, $bAdmin)
 {
 	$ar = array();
 	
-	$strDate = GetSqlTransactionDate($record); 
+	$strDate = GetSqlTransactionDate($record);
+	$strQuantity = $record['quantity']; 
     $ar[] = $strDate;
     $ar[] = $ref->GetSymbol();
-    $ar[] = $record['quantity'];
+    $ar[] = $strQuantity;
     $strPrice = $record['price'];
     $ar[] = $ref->GetPriceDisplay($strPrice);
     $ar[] = strval_round(floatval($record['fees']), 2);
@@ -37,7 +38,7 @@ function _echoTransactionTableItem($ref, $record, $bReadOnly, $bAdmin)
 	$ar[] = $strRemark;
     	
     $strEdit = '';
-   	$strDelete = GetDeleteLink(STOCK_PHP_PATH.'_submittransaction.php?delete='.$strId, STOCK_TRANSACTION_DISPLAY);
+   	$strDelete = GetDeleteLink(STOCK_PHP_PATH.'_submittransaction.php?delete='.$strId, $strDate.' '.$strQuantity.STOCK_TRANSACTION_DISPLAY);
     if ($bReadOnly == false)
     {
     	$strEdit = GetEditLink(STOCK_PATH.'editstocktransaction', $strId);
