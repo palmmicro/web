@@ -15,7 +15,7 @@ function GetBreakElement()
 	return '<br />';
 }
 
-function GetHtmlElement($strContent, $strTag, $arAttribute = false)
+function GetHtmlElement($strContent, $strTag = 'p', $arAttribute = false)
 {
 	$strStart = $strTag;
 	if ($arAttribute)
@@ -23,6 +23,13 @@ function GetHtmlElement($strContent, $strTag, $arAttribute = false)
 		foreach ($arAttribute as $strAttribute => $strValue)	$strStart .= ' '.$strAttribute.'='.$strValue;
 	}
 	return "<$strStart>$strContent</$strTag>";
+}
+
+function GetLinkElement($strContent, $strPathName, $arExtraAttribute = false)
+{
+	$ar = array('href' => GetDoubleQuotes($strPathName));
+	if ($arExtraAttribute)	$ar = array_merge($ar, $arExtraAttribute); 
+	return GetHtmlElement($strContent, 'a', $ar);
 }
 
 function GetBoldElement($strContent)

@@ -2,9 +2,14 @@
 require_once('url.php');
 require_once('debug.php');
 require_once('email.php');
-require_once('internallink.php');
+require_once('httplink.php');
 require_once('ui/htmlelement.php');
 require_once('class/year_month_day.php');
+
+require_once('sql/sqlvisitor.php');
+require_once('sql/sqlblog.php');
+require_once('sql/sqlmember.php');
+require_once('internallink.php');
 
 require_once('_private.php');
 require_once('sql/_sqlcommon.php');
@@ -32,9 +37,11 @@ define('TABLE_STOCK_HISTORY', 'stockhistory');
 define('TABLE_STOCK_SPLIT', 'stocksplit');
 define('TABLE_VISITOR', 'visitor');
 
-function die_mysql_error($strDie)
+function die_mysql_error($str)
 {
-    dieDebugString($strDie.' '.mysql_error());
+	$str .= ' '.mysql_error();
+    DebugString($str);
+    die($str);
 }
 
 function SqlDieByQuery($strQry, $strDie)
@@ -129,7 +136,7 @@ function SqlCreateDatabase($strDb)
 	$db = mysql_select_db($strDb);		// Select database again
 	if (!$db) 
 	{
-		dieDebugString('Unable to select database');
+		die_mysql_error('Unable to select database');
 	}
 }
 

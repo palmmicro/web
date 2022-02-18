@@ -368,7 +368,7 @@
 <p>从软件开发的角度来说, 遍布我PHP代码的1000多个$bChinese肯定意味着某种代码结构缺陷, 希望这次代码清理完成后能让我醒悟过来.
 <br />冷静下来后仔细想想, 发现自己早有停止英文版的意图背后其实有个更深层的原因. 三年来的各种跨市场套利经历, 让我深深体会到了对手盘的重要性和A股韭菜的可贵, 从而不愿意留个英文版让外面的世界进来抢着割这么嫩的韭菜.
 <br /><font color=gray>If you've been playing poker for half an hour and you still don't know who the patsy is, you're the patsy. — Warren Buffett</font>
-<?php echo GetBreakElement().GetImgElement(IMAGE_PATH.'buffettplaycards.jpg', '巴菲特和盖茨一起打桥牌'); ?>
+<?php echo BreakImgElement('buffettplaycards.jpg', '巴菲特和盖茨一起打桥牌'); ?>
 </p>
 
 <h3><?php EchoNameTag(CHINA_INDEX_PAGE, CHINA_INDEX_DISPLAY); ?></h3>

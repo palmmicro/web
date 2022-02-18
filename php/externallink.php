@@ -1,6 +1,5 @@
 <?php
 require_once('externalurl.php');
-require_once('httplink.php');
 require_once('stock/stocksymbol.php');
 
 // ****************************** External link functions *******************************************************

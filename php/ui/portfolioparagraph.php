@@ -10,10 +10,10 @@ function _getPortfolioTestVal($strSymbol)
 
 	case 'SH600104':
 		return 4000;
-*/
+
     case 'SZ160717':
     	return 41200;
-  		
+*/  		
     case 'SZ162411':
 		return 129000 + 4 * 140000;
 	}
@@ -35,22 +35,14 @@ function _echoPortfolioTableItem($trans)
         $ar[] = GetNumberDisplay($trans->GetValue());
         $ar[] = strval($iShares); 
         $ar[] = $trans->GetAvgCostDisplay();
-        if ($trans->GetTotalCost() > 0.0)
-        {
-        	$ar[] = $ref->GetPercentageDisplay($trans->GetAvgCost());
-        }
-        else
-        {
-        	$ar[] = '';
-        }
-
+       	$ar[] = ($trans->GetTotalCost() > 0.0) ? $ref->GetPercentageDisplay($trans->GetAvgCost()) : '';
         switch ($strSymbol)
         {
 /*		case 'KWEB':
         case 'SH600104':
-*/
         case 'SZ160717':
-        case 'SZ162411':
+*/
+		case 'SZ162411':
         	$ar[] = strval($iShares - _getPortfolioTestVal($strSymbol));
         	break;
     		

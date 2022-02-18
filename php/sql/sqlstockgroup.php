@@ -1,6 +1,5 @@
 <?php
 require_once('sqlkeystring.php');
-require_once('sqlvisitor.php');
 require_once('sqlstocktransaction.php');
 
 // ****************************** StockGroupSql class *******************************************************

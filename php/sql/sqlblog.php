@@ -1,6 +1,5 @@
 <?php
 require_once('sqlkeyname.php');
-require_once('sqlvisitor.php');
 
 class PageSql extends KeyNameSql
 {

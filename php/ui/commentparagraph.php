@@ -86,11 +86,13 @@ class CommentAccount extends TitleAccount
 
     	$strIp = GetIpLink(GetIp($record['ip_id']), $bChinese);
 		$strUri = $this->GetPageUri($record['page_id']);
-		$strTimeLink = "<a href=\"$strUri#{$record['id']}\">$strTime</a>";
+//		$strTimeLink = "<a href=\"$strUri#{$record['id']}\">$strTime</a>";
+		$strTimeLink = GetNameLink($record['id'], $strTime, $strUri);
 		
 		if (strpos($strWhere, 'page_id') !== false)
 		{
-			$strTimeLink = "<b><a name=\"{$record['id']}\">$strTime</a></b>";
+//			$strTimeLink = "<b><a name=\"{$record['id']}\">$strTime</a></b>";
+			$strTimeLink = GetNameTag($record['id'], $strTime);
 		}
 		else if (strpos($strWhere, 'member_id') !== false)
 		{

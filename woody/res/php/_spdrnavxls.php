@@ -12,7 +12,7 @@ function _readXlsFile($bIshares, $strPathName, $nav_sql, $shares_sql, $strStockI
 	} 
 	catch(Exception $e) 
 	{
-		dieDebugString('Load excel file error: "'.pathinfo($strPathName, PATHINFO_BASENAME).'": '.$e->getMessage());
+		DebugString('Load excel file error: "'.pathinfo($strPathName, PATHINFO_BASENAME).'": '.$e->getMessage());
 	}
 	
 	if ($bIshares)

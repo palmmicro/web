@@ -1,6 +1,5 @@
 <?php
 require_once('ui/stocktable.php');
-require_once('httplink.php');
 
 define('AB_DEMO_SYMBOL', 'SZ200488');
 define('ADRH_DEMO_SYMBOL', '00700');

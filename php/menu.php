@@ -10,7 +10,8 @@ define('MENU_OUTPUT_ENABLED', 'enabled');
 
 function MenuGetLink($strPathName, $strDisp)
 {
-    return "<p><A class=A2 HREF=\"{$strPathName}\">$strDisp</A></p>";
+//    return "<p><A class=A2 HREF=\"{$strPathName}\">$strDisp</A></p>";
+	return GetHtmlElement(GetLinkElement($strDisp, $strPathName, array('class' => 'A2')));
 }
 
 function MenuWriteItemLink($iLevel, $strPage, $strType, $strDisp)

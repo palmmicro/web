@@ -4,19 +4,22 @@ define('STOCK_PHP_PATH', '/woody/res/php/');
 
 function GetNameTag($strName, $strDisplay)
 {
-	return '<a name="'.$strName.'">'.$strDisplay.'</a>';
+//	return '<a name="'.$strName.'">'.$strDisplay.'</a>';
+	return GetHtmlElement($strDisplay, 'a', array('name' => GetDoubleQuotes($strName)));
 }
 
 function GetNameLink($strName, $strDisplay, $strLink = '')
 {
-	return '<a href="'.$strLink.'#'.$strName.'">'.$strDisplay.'</a>';
+//	return '<a href="'.$strLink.'#'.$strName.'">'.$strDisplay.'</a>';
+	return GetLinkElement($strDisplay, $strLink.'#'.$strName);
 }
 
 function GetOnClickLink($strPath, $strQuestion, $strDisplay)
 {
-    $strHttp = UrlGetServer().$strPath;
-    $strLink = "<a href=\"$strHttp\" onclick=\"return confirm('$strQuestion')\">$strDisplay</a>";
-    return $strLink;
+//    $strHttp = UrlGetServer().$strPath;
+//    $strLink = "<a href=\"$strHttp\" onclick=\"return confirm('$strQuestion')\">$strDisplay</a>";
+//    return $strLink;
+	return GetLinkElement($strDisplay, UrlGetServer().$strPath, array('onclick' => GetDoubleQuotes("return confirm('$strQuestion')")));
 }
 
 function GetDeleteLink($strPath, $strCn, $strUs = '', $bChinese = true)
@@ -24,29 +27,31 @@ function GetDeleteLink($strPath, $strCn, $strUs = '', $bChinese = true)
     if ($bChinese)
     {
         $strDisplay = '删除';
-        $strQuestion = '确认删除'.$strCn;
+        $strQuestion = '确认删除'.$strCn.'？';
     }
     else
     {
         $strDisplay = 'Delete';
-        $strQuestion = 'Confirm delete '.$strUs;
+        $strQuestion = 'Confirm delete '.$strUs.'?';
     }
-    return GetOnClickLink($strPath, $strQuestion.'?', $strDisplay);
+    return GetOnClickLink($strPath, $strQuestion, $strDisplay);
 }
 
 function GetInternalLink($strPath, $strDisplay = false)
 {
 	if ($strDisplay == false)	$strDisplay = basename($strPath);
 	
-    $strHttp = UrlGetServer().$strPath;
-    $strLink = "<a href=\"$strHttp\">$strDisplay</a>";
-    return $strLink;
+//    $strHttp = UrlGetServer().$strPath;
+//    $strLink = "<a href=\"$strHttp\">$strDisplay</a>";
+//    return $strLink;
+	return GetLinkElement($strDisplay, UrlGetServer().$strPath);
 }
 
 function GetExternalLink($strHttp, $strDisplay)
 {
-    $strLink = "<a href=\"$strHttp\" target=_blank>$strDisplay</a>";
-    return $strLink;
+//    $strLink = "<a href=\"$strHttp\" target=_blank>$strDisplay</a>";
+//    return $strLink;
+	return GetLinkElement($strDisplay, $strHttp, array('target' => '_blank'));
 }
 
 function GetHttpLink($strHttp)
@@ -63,7 +68,7 @@ function GetFileDebugLink($strPathName)
 {
     $strLink = GetFileLink($strPathName);
     $strLastTime = DebugGetFileTimeDisplay($strPathName);
-    $strDelete = GetOnClickLink('/php/_submitdelete.php?file='.$strPathName, '确认删除调试文件'.$strPathName.'?', $strLastTime);
+    $strDelete = GetOnClickLink('/php/_submitdelete.php?file='.$strPathName, '确认删除调试文件'.$strPathName.'？', $strLastTime);
     return "$strLink($strDelete)";
 }
 

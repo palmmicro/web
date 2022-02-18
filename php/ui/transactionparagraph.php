@@ -20,7 +20,7 @@ function _echoTransactionTableItem($ref, $record, $bReadOnly, $bAdmin)
    	{
    		if (strlen($strRemark) > 0)
    		{
-			$strRemark = GetOnClickLink(STOCK_PHP_PATH.'_submittransaction.php?empty='.$strId, '确认清空备注:'.$strRemark.'?', '清空').$strRemark;
+			$strRemark = GetOnClickLink(STOCK_PHP_PATH.'_submittransaction.php?empty='.$strId, '确认清空备注：'.$strRemark.'？', '清空').$strRemark;
    			if ($ref->IsFundA())
    			{
    				if (strpos($strRemark, STOCK_DISP_ORDER) !== false)
@@ -29,7 +29,7 @@ function _echoTransactionTableItem($ref, $record, $bReadOnly, $bAdmin)
    					$strNetValue = $nav_sql->GetClosePrev($ref->GetStockId(), $strDate);
    					if ($strNetValue != $strPrice)
    					{
-   						$strRemark .= GetOnClickLink(STOCK_PHP_PATH.'_submittransaction.php?adjust='.$strId.'&netvalue='.$strNetValue, '确认校准到净值: '.$strNetValue.'?', '校准');
+   						$strRemark .= GetOnClickLink(STOCK_PHP_PATH.'_submittransaction.php?adjust='.$strId.'&netvalue='.$strNetValue, '确认校准到净值: '.$strNetValue.'？', '校准');
    					}
    				}
    			}

@@ -3,8 +3,6 @@ require_once('switch.php');
 require_once('sql.php');
 require_once('ui/table.php');
 
-//require_once('sql/sqlmember.php');
-//require_once('sql/sqlblog.php');
 require_once('sql/sqlipaddress.php');
 require_once('sql/sqlstocksymbol.php');
 require_once('sql/sqlstockgroup.php');
@@ -39,7 +37,7 @@ class Account
 	    $strIp = UrlGetIp();
 	    $this->ip_sql = new IpSql();
 	    $strStatus = $this->ip_sql->GetStatus($strIp);
-	    if ($strStatus == IP_STATUS_MALICIOUS)	dieDebugString('401 Unauthorized');
+	    if ($strStatus == IP_STATUS_MALICIOUS)	die('401 Unauthorized');
    		$this->ip_sql->InsertIp($strIp);
 
 	    $strUri = UrlGetUri();

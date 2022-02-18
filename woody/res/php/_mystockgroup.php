@@ -135,7 +135,7 @@ function _getSimilarLinks($strPage)
         break;
         
     default:
-    	return '';
+    	return false;
     }
     return '<br />类似软件: '.$str;
 }
@@ -145,7 +145,7 @@ function _getGroupImageLink($strPage)
     switch ($strPage)
     {
     case 'chinainternet':
-    	return GetImgElement(IMAGE_PATH.'huangrong.jpg', '83版射雕英雄传中翁美玲扮演的小乞丐黄蓉');
+    	return BreakImgElement('huangrong.jpg', '83版射雕英雄传中翁美玲扮演的小乞丐黄蓉');
     }
     return false;
 }
@@ -178,11 +178,12 @@ function EchoAll()
     }
     else
     {
-    	$str = _getMetaDescriptionStr($strPage);
-    	$str .= _getSimilarLinks($strPage);
-    	EchoParagraph($str);
         _echoStockGroupArray(StockGetArraySymbol(GetCategoryArray($strPage)));
-        if ($str = _getGroupImageLink($strPage))		EchoParagraph($str);
+        
+    	$str = _getMetaDescriptionStr($strPage);
+		if ($strLinks = _getSimilarLinks($strPage))		$str .= $strLinks;
+        if ($strImage = _getGroupImageLink($strPage))	$str .= $strImage;
+        EchoParagraph($str);
     }
     $acct->EchoLinks($strPage);
 }

@@ -150,12 +150,6 @@ function DebugString($str, $bAdminOnly = false)
     if ($strTimeZone != DEBUG_TIME_ZONE)		date_default_timezone_set($strTimeZone);
 }
 
-function dieDebugString($str)
-{
-    DebugString($str);
-    die($str);
-}
-
 function DebugVal($iVal, $strPrefix = false, $bAdminOnly = false)
 {
 	$str = strval($iVal);

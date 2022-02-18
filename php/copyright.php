@@ -75,7 +75,7 @@ function EchoCopyRight($bMobile, $bChinese)
 	    $str = _getCopyright('Palmmicro', 'Palmmicro Communications Inc', $bChinese, '2006');
 	}
 	
-	$str = GetHtmlElement($str, 'p'); 
+	$str = GetHtmlElement($str); 
 	if ($bMobile)
 	{
 	    $str .= GetSwitchLanguageLink($bChinese);

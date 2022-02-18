@@ -1,8 +1,4 @@
 <?php
-require_once('httplink.php');
-require_once('sql/sqlblog.php');
-require_once('sql/sqlmember.php');
-require_once('sql/sqlvisitor.php');
 
 // ****************************** Internal none-stock link functions *******************************************************
 
