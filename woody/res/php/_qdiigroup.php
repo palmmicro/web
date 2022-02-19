@@ -6,6 +6,26 @@ require_once('/php/ui/qdiismaparagraph.php');
 require_once('/php/ui/etfsmaparagraph.php');
 require_once('/php/ui/etfparagraph.php');
 
+function TradingUserDefined($strVal = false)
+{
+	global $acct;
+    
+	$fund = $acct->GetRef();
+	$est_ref = $fund->GetEstRef();
+
+    if ($strVal)
+    {
+    	if ($strVal == '0')	return '';
+    	else
+    	{
+    		$strEst = $fund->GetEstValue($strVal);
+    		return $est_ref->GetPriceDisplay($strEst);
+    	}
+    }
+    
+   	return GetStockChartsLink($est_ref->GetSymbol()).GetTableColumnPrice();
+}
+
 class QdiiGroupAccount extends FundGroupAccount 
 {
     var $arLeverage = array();
@@ -40,13 +60,18 @@ class QdiiGroupAccount extends FundGroupAccount
     	return $this->ar_leverage_ref;
     }
     
-    function EchoLeverageParagraph()
+    function EchoCommonParagraphs()
     {
-    	if (count($this->ar_leverage_ref) > 0)
+    	$ref = $this->GetRef();
+    	
+    	EchoFundTradingParagraph($ref, 'TradingUserDefined');    
+    	EchoQdiiSmaParagraph($ref);
+    	if (count($this->ar_leverage_ref) > 0)	
     	{
-            EchoEtfListParagraph($this->ar_leverage_ref);
-//			DebugString('EchoEtfList');
-        }
+    		EchoEtfListParagraph($this->ar_leverage_ref);
+    		EchoEtfArraySmaParagraph($ref->GetEstRef(), $this->ar_leverage_ref);
+    	}
+    	EchoFundHistoryParagraph($ref);
     }
 
     function GetLeverageSymbols($strEstSymbol)
@@ -135,37 +160,26 @@ class QdiiGroupAccount extends FundGroupAccount
         return _GetAdjustLink($strSymbol, $strQuery);
     }
 
-    function EchoTestParagraph()
+    function EchoDebugParagraph($strDebug = '')
     {
-    	if ($this->IsAdmin() == false)	return;
-    	
-       	if (RefHasData($this->ref->GetEstRef()))
-       	{
-       		$str = $this->_getAdjustString();
-       		EchoParagraph($str);
-	    }
-    }
-} 
-
-function TradingUserDefined($strVal = false)
-{
-	global $acct;
-    
-	$fund = $acct->GetRef();
-	$est_ref = $fund->GetEstRef();
-
-    if ($strVal)
-    {
-    	if ($strVal == '0')	return '';
-    	else
+    	if ($this->IsAdmin())
     	{
-    		$strEst = $fund->GetEstValue($strVal);
-    		return $est_ref->GetPriceDisplay($strEst);
+    		$ref = $this->GetRef();
+    		$strDebug .= $ref->DebugLink();
+	    	$stock_ref = $ref->GetStockRef();
+    		$strDebug .= ' '.$stock_ref->DebugLink();
+    		foreach ($this->ar_leverage_ref as $leverage_ref)	$strDebug .= ' '.$leverage_ref->DebugLink();
+    		if ($est_ref = $ref->GetEstRef())					$strDebug .= ' '.$est_ref->DebugLink();
+			if ($future_ref = $ref->GetFutureRef())				$strDebug .= ' '.$future_ref->DebugLink();
+
+    		if (RefHasData($est_ref))
+    		{
+    			$strDebug .= GetBreakElement().$this->_getAdjustString();
+    		}
+   			EchoParagraph($strDebug);
     	}
     }
-    
-   	return GetStockChartsLink($est_ref->GetSymbol()).GetTableColumnPrice();
-}
+} 
 
 function GetMetaDescription()
 {

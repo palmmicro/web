@@ -20,14 +20,11 @@ function EchoAll()
 {
    	global $acct;
     
-   	$fund = $acct->GetRef();
-	$cny_ref = $fund->GetCnyRef();
-    EchoFundEstParagraph($fund);
-    EchoReferenceParagraph(array_merge($acct->GetStockRefArray(), array($fund->GetFutureRef(), $cny_ref)));
-    $acct->EchoLeverageParagraph();
-    EchoFundTradingParagraph($fund, 'TradingUserDefined');    
-	EchoQdiiSmaParagraph($fund);
-    EchoFundHistoryParagraph($fund);
+   	$ref = $acct->GetRef();
+	$cny_ref = $ref->GetCnyRef();
+    EchoFundEstParagraph($ref);
+    EchoReferenceParagraph(array_merge($acct->GetStockRefArray(), array($ref->GetFutureRef(), $cny_ref)));
+    $acct->EchoCommonParagraphs();
 
     if ($group = $acct->EchoTransaction()) 
     {
@@ -35,7 +32,7 @@ function EchoAll()
         $acct->EchoArbitrageParagraph($group);
 	}
 	    
-    $acct->EchoTestParagraph();
+    $acct->EchoDebugParagraph();
     $acct->EchoLinks(QDII_HK_PAGE, 'GetQdiiHkRelated');
 }
 

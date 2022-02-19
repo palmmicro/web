@@ -229,7 +229,11 @@ class TickYMD extends YearMonthDay
     	{
     		if ($iHour < 18)		return false;
     	}
-    	else if ($this->IsSaturDay())
+    	else if ($this->IsSaturday())
+    	{
+    		return false;
+    	}
+    	else if ($this->IsFriday())
     	{
     		if ($iHour >= 17)		return false;
     	}

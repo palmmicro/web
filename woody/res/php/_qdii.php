@@ -33,24 +33,24 @@ function EchoAll()
 {
    	global $acct;
     
-   	$fund = $acct->GetRef();
-	$cny_ref = $fund->GetCnyRef();
+   	$ref = $acct->GetRef();
+	$cny_ref = $ref->GetCnyRef();
+	$cnh_ref = $acct->cnh_ref;
+	$oil_ref = $acct->oil_ref;
     
-    EchoFundEstParagraph($fund);
-    EchoReferenceParagraph(array_merge($acct->GetStockRefArray(), array($fund->GetFutureRef(), $acct->oil_ref, $acct->cnh_ref, $cny_ref)));
-    $acct->EchoLeverageParagraph();
-    EchoFundTradingParagraph($fund, 'TradingUserDefined');    
-	EchoQdiiSmaParagraph($fund);
-    EchoEtfArraySmaParagraph($fund->GetEstRef(), $acct->GetLeverageRef());
-    EchoFundHistoryParagraph($fund);
+    EchoFundEstParagraph($ref);
+    EchoReferenceParagraph(array_merge($acct->GetStockRefArray(), array($ref->GetFutureRef(), $oil_ref, $cnh_ref, $cny_ref)));
+    $acct->EchoCommonParagraphs();
       
     if ($group = $acct->EchoTransaction()) 
     {
         $acct->EchoMoneyParagraph($group, $cny_ref);
         $acct->EchoArbitrageParagraph($group);
 	}
-	    
-    $acct->EchoTestParagraph();
+	
+    $strDebug = $cnh_ref->DebugLink().' ';
+    if ($oil_ref)		$strDebug .= $oil_ref->DebugLink().' '; 
+    $acct->EchoDebugParagraph($strDebug);
     $acct->EchoLinks(false, 'GetQdiiRelated');
 }
 

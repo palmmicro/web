@@ -125,10 +125,9 @@ function _echoSmaTableData($his, $cb_ref, $callback, $callback2)
 
 function _getSmaParagraphMemo($his)
 {
-	$strDate = $his->GetStartDate();
-	$strScore = '<b>'.strval($his->GetScore()).'</b>';
-	$strSymbolLink = GetYahooStockLink($his->GetSym());
-    $str = "{$strSymbolLink} {$strDate}数据牛熊分数: {$strScore}";
+	$str = GetYahooStockLink($his->GetSym());
+	$str .= ' '.$his->GetStartDate().'数据';
+	if ($strBullBear = $his->GetBullBear())		$str .= ' '.GetBoldElement($strBullBear);
     $str .= ' '.GetStockHistoryLink($his->GetSymbol());
     return $str;
 }

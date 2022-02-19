@@ -54,6 +54,7 @@ function FutureNeedNewFile($strFileName, $iInterval = SECONDS_IN_MIN)
 	$now_ymd = GetNowYMD();
 	if (($iFileTime = $now_ymd->NeedFile($strFileName, $iInterval)) == false)		return false;	// update on every minute
         
+	if ($now_ymd->GetTick() > ($iFileTime + SECONDS_IN_DAY))							return true;	// always update after 1 day
 	$file_ymd = new TickYMD($iFileTime);
     if ($file_ymd->IsFutureMarketTrading())    											return true;
 	if ($now_ymd->IsFutureMarketTrading())    											return true;

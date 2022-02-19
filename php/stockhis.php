@@ -386,24 +386,14 @@ class StockHistory
         }
         return false;
     }
-    
-    function GetScore()
+
+    function GetBullBear()
     {
-    	$arKey = array();
-    	foreach ($this->aiNum as $i)
-        {
-        	$arKey[] = 'D'.strval($i);
-        }
-        $arKey[] = 'DBOLLUP';
-        $arKey[] = 'DBOLLDN';
-        
-    	$iScore = 0;
-    	$fPrice = floatval($this->stock_ref->GetPrice());
-    	foreach ($arKey as $strKey)
+    	if (isset($this->arSMA['EMA50']))
     	{
-            if ($fPrice > floatval($this->arSMA[$strKey]))	$iScore ++;
-        }
-    	return $iScore;
+    		return (floatval($this->arSMA['EMA50']) > floatval($this->arSMA['EMA200'])) ? GetFontElement('牛市') : GetRemarkElement('熊市');
+    	}
+    	return false;
     }
     
     function StockHistory($ref) 
