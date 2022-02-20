@@ -144,9 +144,8 @@ function GetIpLink($strIp, $bChinese = true)
     return _getIpLink(TABLE_IP, $strIp, $bChinese);
 }
 
-function GetVisitorLink($strIp = false, $bChinese = true)
+function GetVisitorLink($strIp, $bChinese = true)
 {
-	if ($strIp == false)		$strIp = UrlGetIp();
 	return _getIpLink(TABLE_VISITOR, $strIp, $bChinese);
 }
 

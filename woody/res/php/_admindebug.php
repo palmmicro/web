@@ -10,14 +10,8 @@ function _getDebugIp($strLine)
 function _addDebugLine(&$arDebug, $strLine)
 {
 	$strIp = _getDebugIp($strLine);
-    if (isset($arDebug[$strIp]))
-    {
-    	$arDebug[$strIp] ++;
-    }
-    else
-    {
-    	$arDebug[$strIp] = 1;
-    }
+    if (isset($arDebug[$strIp]))	$arDebug[$strIp] ++;
+    else						    	$arDebug[$strIp] = 1;
 }
 
 function _echoDebugParagraph($arDebug, $str)
@@ -25,10 +19,7 @@ function _echoDebugParagraph($arDebug, $str)
 	$str .= ':';
     foreach ($arDebug as $strIp => $iCount)
     {
-    	if ($iCount > 2)
-    	{
-    		$str .= '<br />'.GetVisitorLink($strIp).' '.strval($iCount);
-    	}
+    	if ($iCount > 2)		$str .= '<br />'.GetVisitorLink($strIp).' '.strval($iCount);
     }
     EchoParagraph($str);
 }
@@ -45,27 +36,15 @@ function _echoAdminDebug()
     	while (!feof($file))
     	{
     		$strLine = fgets($file);
-    		if (strpos($strLine, 'timed out'))
-    		{
-    			_addDebugLine($arCurl, $strLine);
-        	}
-    		else if (strpos($strLine, 'MySQL server'))
-    		{
-    			_addDebugLine($arMysql, $strLine);
-        	}
-    		else if (strpos($strLine, 'Unknown URI'))
-    		{
-    			_addDebugLine($arUrl, $strLine);
-        	}
-    		else if (strpos($strLine, 'Unknown IP'))
-    		{
-    			_addDebugLine($arIp, $strLine);
-        	}
+    		if (strpos($strLine, 'timed out'))				_addDebugLine($arCurl, $strLine);
+    		else if (strpos($strLine, 'MySQL server'))		_addDebugLine($arMysql, $strLine);
+    		else if (strpos($strLine, 'Unknown URI'))		_addDebugLine($arUrl, $strLine);
+    		else if (strpos($strLine, 'Unknown IP'))		_addDebugLine($arIp, $strLine);
         }
         fclose($file);
     }
     
-    EchoParagraph('本机IP:'.GetVisitorLink());
+    EchoParagraph('本机IP:'.GetVisitorLink(UrlGetIp()));
     _echoDebugParagraph($arCurl, 'curl错误');
     _echoDebugParagraph($arMysql, 'Mysql异常');
     _echoDebugParagraph($arUrl, '弱智爬虫');
@@ -88,9 +67,8 @@ function GetMetaDescription()
 
 function GetTitle()
 {
-	return '调试信息';
+	return STOCK_DISP_DEBUG;
 }
 
-	$acct = new StockAccount();
-	$acct->AuthAdmin();
+	$acct = new StockAccount(false, true);
 ?>

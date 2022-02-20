@@ -46,5 +46,4 @@ function GetTitle($bChinese = true)
 }
 
    	$acct = new TitleAccount();
-//	$acct->AuthAdmin();
 ?>

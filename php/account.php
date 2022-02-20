@@ -127,14 +127,6 @@ class Account
     	}
     }
     
-    function AuthAdmin()
-    {
-    	if ($this->IsAdmin() == false) 
-    	{
-    		$this->_switchToLogin();
-    	}
-    }
-    
     function GetWhoseDisplay($strMemberId = false, $bChinese = true)
     {
     	if ($strMemberId == false)		$strMemberId = $this->GetMemberId();

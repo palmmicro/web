@@ -58,7 +58,14 @@ function StockNeedNewQuotes($sym, $strFileName, $iInterval = SECONDS_IN_MIN)
 	if (($iFileTime = $now_ymd->NeedFile($strFileName, $iInterval)) == false)		return false;	// update on every minute
 	
 	if ($sym->IsStockMarketTrading($now_ymd))											return true;
-	if ($sym->IsStockMarketTrading(new TickYMD($iFileTime)))							return true;
+	$file_ymd = new TickYMD($iFileTime);
+	if ($sym->IsStockMarketTrading($file_ymd))											return true;
+	
+	if ($now_ymd->GetDay() == $file_ymd->GetDay())
+	{
+		if ($sym->IsBeforeStockMarket($now_ymd->GetHourMinute()))						return false;
+		if ($sym->IsAfterStockMarket($file_ymd->GetHourMinute()))						return false;
+	}
 
 	if ($sym->IsSymbolA())		return _checkBetweenMarketClose($now_ymd, $iFileTime, 2, 8);
 	else if ($sym->IsSymbolH())	return _checkBetweenMarketClose($now_ymd, $iFileTime, 3, 8);

@@ -4,7 +4,6 @@ require_once('_stock.php');
 function EchoAll()
 {
 	global $acct;
-    
 	StockEditTransactionForm($acct, STOCK_TRANSACTION_EDIT);
 }
 
@@ -20,6 +19,5 @@ function GetTitle()
 	return STOCK_TRANSACTION_EDIT;
 }
 
-   	$acct = new StockAccount();
-	$acct->Auth();
+   	$acct = new StockAccount(false, true);
 ?>

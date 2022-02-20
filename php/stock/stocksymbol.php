@@ -722,36 +722,69 @@ class StockSymbol
     	return true;
     }
     
+    function IsBeforeStockMarket($iHourMinute)
+    {
+   		if ($this->IsSymbolA())
+   		{
+   			if ($iHourMinute < 915)		return true;
+   		}
+   		else if ($this->IsSymbolH())
+   		{	// Hongkong market from 9:00 to 16:10
+   			if ($iHourMinute < 900)		return true;
+   		}
+   		else
+   		{   // US extended hours trading from 4am to 8pm
+   			if ($iHourMinute < 400)		return true;
+    	}
+
+    	return false;
+    }
+    
+    function IsAfterStockMarket($iHourMinute)
+    {
+   		if ($this->IsSymbolA())
+   		{
+			if ($iHourMinute > 1505)
+    		{
+    			if ($this->IsShangHaiA() && ($this->iDigitA >= 688000))
+    			{
+    				if ($iHourMinute > 1535)		return true;
+    			}
+   				else								return true;
+   			}
+   		}
+   		else if ($this->IsSymbolH())
+   		{	// Hongkong market from 9:00 to 16:10
+   			if ($iHourMinute > 1615)				return true;
+   		}
+   		else
+   		{   // US extended hours trading from 4am to 8pm
+   			if ($iHourMinute > 2005)				return true;
+    	}
+
+    	return false;
+    }
+    
     function IsStockMarketTrading($ymd)
     {
     	if ($ymd->IsWeekDay())
     	{
     		$iHourMinute = $ymd->GetHourMinute();
-    		if ($this->IsSymbolA())
-    		{
-    			if ($iHourMinute < 915)										return false;
-    			else if (($iHourMinute > 1140) && ($iHourMinute < 1300))	return false;		// SH000300 update until 1135
-    			else if ($iHourMinute > 1505)
-    			{
-    				if ($this->IsShangHaiA() && ($this->iDigitA >= 688000))
-    				{
-    					if ($iHourMinute > 1535)								return false;
-    				}
-    				else														return false;
-    			}
-    		}
-    		else if ($this->IsSymbolH())
-    		{	// Hongkong market from 9:00 to 16:10
-    			if ($iHourMinute < 900)										return false;
-    			else if (($iHourMinute > 1200) && ($iHourMinute < 1300))
-    			{
-    				if ($this->IsIndex() == false)		    				return false;		// ^HSCE and ^HSI continue to trade during this period
-    			}
-    			else if ($iHourMinute > 1615)								return false;
-    		}
-    		else
-    		{   // US extended hours trading from 4am to 8pm
-    			if (($iHourMinute < 400) || ($iHourMinute > 2005))		return false;
+   			if ($this->IsBeforeStockMarket($iHourMinute))					return false;
+   			else if ($this->IsAfterStockMarket($iHourMinute))				return false;
+   			else
+   			{
+   				if ($this->IsSymbolA())
+   				{
+   					if (($iHourMinute > 1140) && ($iHourMinute < 1300))	return false;		// SH000300 update until 1135
+   				}
+   				else if ($this->IsSymbolH())
+   				{	// Hongkong market from 9:00 to 16:10
+   					if (($iHourMinute > 1200) && ($iHourMinute < 1300))
+   					{
+   						if ($this->IsIndex() == false)		    			return false;		// ^HSCE and ^HSI continue to trade during this period
+   					}
+   				}
     		}
     	}
     	else																	return false;   // do not trade on weekend

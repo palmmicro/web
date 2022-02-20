@@ -108,21 +108,6 @@ class YearMonthDay
         return false;
     }
     
-    function IsSameMonth($ymd) 
-    {
-        return ($ymd->local[4] == $this->local[4]) ? true : false;
-    }
-    
-    function IsSameDay($ymd) 
-    {
-        return ($ymd->local[3] == $this->local[3]) ? true : false;
-    }
-    
-    function IsSameHour($ymd) 
-    {
-        return ($ymd->local[2] == $this->local[2]) ? true : false;
-    }
-    
     function GetNextTradingDayTick()
     {
         $iTick = $this->GetNextWeekDayTick();

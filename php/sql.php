@@ -171,7 +171,8 @@ function _errorHandler($errno, $errstr, $errfile, $errline)
    		$str .= '<br />'.GetHttpLink(UrlGetServer().UrlGetCur());
 //   		if (isset($_SESSION['SESS_ID']))		$str .= '<br />'.GetMemberLink($_SESSION['SESS_ID']);	// need MySQL successful
 
-   		$str .= '<br />'.GetVisitorLink();
+		$strIp = UrlGetIp();
+		$str .= '<br />'.GetVisitorLink($strIp);
    		if (EmailHtml(ADMIN_EMAIL, $strSubject.' '.$strIp, $str) == false)	$strDebug .= ' mail failed too';
    		DebugString($strDebug);
    	}

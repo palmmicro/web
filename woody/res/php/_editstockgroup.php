@@ -4,25 +4,16 @@ require_once('_editgroupform.php');
 
 function _getOperationStr()
 {
-    if (UrlGetQueryValue('edit'))
-    {
-    	$str = STOCK_GROUP_EDIT;
-    }
-    else if (UrlGetQueryValue('adjust'))
-    {
-    	$str = STOCK_GROUP_ADJUST;
-    }
-    else
-    {
-    	$str = STOCK_GROUP_NEW;
-    }
-    return $str;
+	global $acct;
+	
+    if ($acct->GetQuery())				return	STOCK_GROUP_EDIT;
+    else if (UrlGetQueryValue('adjust'))	return STOCK_GROUP_ADJUST;
+	return STOCK_GROUP_NEW;
 }
 
 function EchoAll()
 {
 	global $acct;
-    
 	StockEditGroupForm($acct, _getOperationStr());
 }
 
@@ -38,6 +29,5 @@ function GetTitle()
 	return _getOperationStr();
 }
 
-   	$acct = new StockAccount();
-	$acct->Auth();
+   	$acct = new StockAccount('edit', true);
 ?>

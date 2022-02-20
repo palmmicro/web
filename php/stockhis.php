@@ -164,7 +164,7 @@ function _isMonthEnd($strYMD, $strNextDayYMD)
         $next_ymd = new TickYMD($iTick);
     }
     
-    if ($ymd->IsSameMonth($next_ymd))     return false;    // same month    
+    if ($ymd->GetMonth() == $next_ymd->GetMonth())		return false;    // same month    
     return true;
 }
 
