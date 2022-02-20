@@ -64,7 +64,8 @@ function _echoAdminDebug()
         }
         fclose($file);
     }
-
+    
+    EchoParagraph('本机IP:'.GetVisitorLink());
     _echoDebugParagraph($arCurl, 'curl错误');
     _echoDebugParagraph($arMysql, 'Mysql异常');
     _echoDebugParagraph($arUrl, '弱智爬虫');

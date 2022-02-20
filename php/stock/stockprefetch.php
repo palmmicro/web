@@ -29,6 +29,25 @@ function SinaFundNeedFile($sym, $strFileName)
 	return $now_ymd->NeedFile($strFileName, 30 * SECONDS_IN_MIN);
 }
 
+function _checkBetweenMarketClose($now_ymd, $iFileTime, $iWeekday, $iWeekend)
+{
+	$iDiff = $now_ymd->GetTick() - $iFileTime;
+	if ($now_ymd->IsSunday())
+	{
+		if ($iDiff > ($iWeekday + $iWeekend + 24) * SECONDS_IN_HOUR)							return true;
+	}
+	else if ($now_ymd->IsSaturday())
+	{
+		if ($iDiff > ($iWeekday + $iWeekend) * SECONDS_IN_HOUR)								return true;
+	}
+	else
+	{
+		if ($iDiff > $iWeekday * SECONDS_IN_HOUR)												return true;
+	}
+
+	return false;
+}
+
 function StockNeedNewQuotes($sym, $strFileName, $iInterval = SECONDS_IN_MIN)
 {
 	clearstatcache(true, $strFileName);
@@ -38,11 +57,34 @@ function StockNeedNewQuotes($sym, $strFileName, $iInterval = SECONDS_IN_MIN)
     $now_ymd = GetNowYMD();
 	if (($iFileTime = $now_ymd->NeedFile($strFileName, $iInterval)) == false)		return false;	// update on every minute
 	
-	if ($now_ymd->GetTick() > ($iFileTime + 6 * SECONDS_IN_HOUR))						return true;	// always update after 6 hours
-	if ($sym->IsStockMarketTrading(new TickYMD($iFileTime)))							return true;
 	if ($sym->IsStockMarketTrading($now_ymd))											return true;
-	
-    return false;
+	if ($sym->IsStockMarketTrading(new TickYMD($iFileTime)))							return true;
+
+	if ($sym->IsSymbolA())		return _checkBetweenMarketClose($now_ymd, $iFileTime, 2, 8);
+	else if ($sym->IsSymbolH())	return _checkBetweenMarketClose($now_ymd, $iFileTime, 3, 8);
+	return _checkBetweenMarketClose($now_ymd, $iFileTime, 16, 4);
+}
+
+function _isFutureMarketTrading($ymd)
+{
+   	$iHour = $ymd->GetHour();
+   	if ($ymd->IsSunday())
+   	{
+   		if ($iHour < 18)		return false;
+   	}
+   	else if ($ymd->IsSaturday())
+   	{
+   		return false;
+   	}
+   	else if ($ymd->IsFriday())
+   	{
+   		if ($iHour >= 17)		return false;
+   	}
+   	else
+   	{
+   		if ($iHour == 17)		return false;
+   	}
+   	return true;
 }
 
 function FutureNeedNewFile($strFileName, $iInterval = SECONDS_IN_MIN)
@@ -53,13 +95,10 @@ function FutureNeedNewFile($strFileName, $iInterval = SECONDS_IN_MIN)
     date_default_timezone_set(STOCK_TIME_ZONE_US);
 	$now_ymd = GetNowYMD();
 	if (($iFileTime = $now_ymd->NeedFile($strFileName, $iInterval)) == false)		return false;	// update on every minute
-        
-	if ($now_ymd->GetTick() > ($iFileTime + SECONDS_IN_DAY))							return true;	// always update after 1 day
-	$file_ymd = new TickYMD($iFileTime);
-    if ($file_ymd->IsFutureMarketTrading())    											return true;
-	if ($now_ymd->IsFutureMarketTrading())    											return true;
-
-	return false;
+	
+	if (_isFutureMarketTrading($now_ymd))    												return true;
+    if (_isFutureMarketTrading(new TickYMD($iFileTime)))								return true;
+    return _checkBetweenMarketClose($now_ymd, $iFileTime, 23, 7);
 }
 
 function _writePrefetchFiles($arFileName, $arLine, $iCount)

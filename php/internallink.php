@@ -146,11 +146,8 @@ function GetIpLink($strIp, $bChinese = true)
 
 function GetVisitorLink($strIp = false, $bChinese = true)
 {
-	if ($strIp)
-	{
-		return _getIpLink(TABLE_VISITOR, $strIp, $bChinese);
-	}
-	return GetPhpLink(ACCT_PATH.TABLE_VISITOR, false, '访问统计', 'Visitor', $bChinese);
+	if ($strIp == false)		$strIp = UrlGetIp();
+	return _getIpLink(TABLE_VISITOR, $strIp, $bChinese);
 }
 
 function GetAllCommentLink($strQuery, $bChinese)

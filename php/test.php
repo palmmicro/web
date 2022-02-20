@@ -110,6 +110,7 @@ function DebugClearPath($strSection)
 }
 
 	$acct = new Account();
+	if ($acct->AllowCurl() == false)		die('Crawler not allowed on this page');
 
     echo '<meta http-equiv="content-type" content="text/html; charset=UTF-8">';
 

@@ -221,28 +221,6 @@ class TickYMD extends YearMonthDay
     	if ($this->GetHour() <= 16)	return false;
     	return true;
     }
-    
-    function IsFutureMarketTrading()
-    {
-    	$iHour = $this->GetHour();
-    	if ($this->IsSunday())
-    	{
-    		if ($iHour < 18)		return false;
-    	}
-    	else if ($this->IsSaturday())
-    	{
-    		return false;
-    	}
-    	else if ($this->IsFriday())
-    	{
-    		if ($iHour >= 17)		return false;
-    	}
-    	else
-    	{
-    		if ($iHour == 17)		return false;
-    	}
-    	return true;
-    }
 }
 
 function GetNextTradingDayYMD($strYMD)

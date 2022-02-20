@@ -754,10 +754,8 @@ class StockSymbol
     			if (($iHourMinute < 400) || ($iHourMinute > 2005))		return false;
     		}
     	}
-    	else 
-    	{
-    		return false;   // do not trade on weekend
-    	}
+    	else																	return false;   // do not trade on weekend
+
     	return true;
     }
 
