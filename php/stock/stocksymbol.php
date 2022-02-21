@@ -229,11 +229,24 @@ function _isDigitShenzhenLof($iDigit)
     return ($iDigit >= 160000 && $iDigit <= 169999) ? true : false;
 }
 
-function _isDigitShenzhenFund($iDigit)
+function _isDigitShenzhenB($iDigit)
 {
-	if (_isDigitShenzhenEtf($iDigit))		return true;
-	if (_isDigitShenzhenLof($iDigit))		return true;
-	return false;
+    return ($iDigit >= 200000 && $iDigit < 300000) ? true : false;
+}
+
+function _isDigitShenzhenGem($iDigit)	// 创业板 growth enterprise market, GEM
+{
+    return ($iDigit >= 300000 && $iDigit < 390000) ? true : false;
+}
+
+function _isDigitShenzhenIndex($iDigit)
+{
+    return ($iDigit >= 390000 && $iDigit < 400000) ? true : false;
+}
+
+function _isDigitShanghaiIndex($iDigit)
+{
+    return ($iDigit >= 000000 && $iDigit < 100000) ? true : false;
 }
 
 function _isDigitShanghaiEtf($iDigit)
@@ -246,16 +259,9 @@ function _isDigitShanghaiLof($iDigit)
     return ($iDigit >= 500000 && $iDigit <= 509999) ? true : false;
 }
 
-function _isDigitShanghaiFund($iDigit)
+function _isDigitShanghaiStar($iDigit)	// 科创板 SSE STAR Market
 {
-	if (_isDigitShanghaiEtf($iDigit))		return true;
-	if (_isDigitShanghaiLof($iDigit))		return true;
-	return false;
-}
-
-function _isDigitShenzhenB($iDigit)
-{
-    return ($iDigit >= 200000 && $iDigit < 300000) ? true : false;
+    return ($iDigit >= 688000 && $iDigit <= 688999) ? true : false;
 }
 
 function _isDigitShanghaiB($iDigit)
@@ -263,14 +269,18 @@ function _isDigitShanghaiB($iDigit)
     return ($iDigit >= 900000 && $iDigit < 1000000) ? true : false;
 }
 
-function _isDigitShenzhenIndex($iDigit)
+function _isDigitShenzhenFund($iDigit)
 {
-    return ($iDigit >= 390000 && $iDigit < 400000) ? true : false;
+	if (_isDigitShenzhenEtf($iDigit))		return true;
+	if (_isDigitShenzhenLof($iDigit))		return true;
+	return false;
 }
 
-function _isDigitShanghaiIndex($iDigit)
+function _isDigitShanghaiFund($iDigit)
 {
-    return ($iDigit >= 000000 && $iDigit < 100000) ? true : false;
+	if (_isDigitShanghaiEtf($iDigit))		return true;
+	if (_isDigitShanghaiLof($iDigit))		return true;
+	return false;
 }
 
 function BuildChineseFundSymbol($strDigit)
@@ -447,6 +457,15 @@ class StockSymbol
         return false;
     }
     
+    function IsShangHaiStar()
+    {
+    	if ($this->IsShangHaiA())
+    	{
+    		if (_isDigitShanghaiStar($this->iDigitA))	return true;
+        }
+        return false;
+    }
+    
     function IsShenZhenEtf()
     {
     	if ($this->IsShenZhenA())
@@ -461,6 +480,15 @@ class StockSymbol
     	if ($this->IsShenZhenA())
     	{
     		if (_isDigitShenzhenLof($this->iDigitA))	return true;
+        }
+        return false;
+    }
+    
+    function IsShenZhenGem()
+    {
+    	if ($this->IsShenZhenA())
+    	{
+    		if (_isDigitShenzhenGem($this->iDigitA))	return true;
         }
         return false;
     }
@@ -746,7 +774,7 @@ class StockSymbol
    		{
 			if ($iHourMinute > 1505)
     		{
-    			if ($this->IsShangHaiA() && ($this->iDigitA >= 688000))
+    			if ($this->IsShangHaiStar() || $this->IsShenZhenGem())
     			{
     				if ($iHourMinute > 1535)		return true;
     			}

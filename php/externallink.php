@@ -343,14 +343,7 @@ function GetSinaForexLink($sym)
 
 function GetExternalStockHistoryLink($sym)
 {
-	if ($sym->IsIndexA())
-	{
-		$strHttp = SinaGetStockHistoryUrl($sym);
-	}
-	else
-	{
-		$strHttp = YahooStockHistoryGetUrl($sym->GetYahooSymbol());
-	}
+	$strHttp = YahooStockHistoryGetUrl($sym->GetYahooSymbol());
     return GetExternalLink($strHttp, '历史数据');
 }
 

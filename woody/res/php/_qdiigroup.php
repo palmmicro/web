@@ -160,22 +160,13 @@ class QdiiGroupAccount extends FundGroupAccount
         return _GetAdjustLink($strSymbol, $strQuery);
     }
 
-    function EchoDebugParagraph($strDebug = '')
+    function EchoDebugParagraph()
     {
     	if ($this->IsAdmin())
     	{
     		$ref = $this->GetRef();
-    		$strDebug .= $ref->DebugLink();
-	    	$stock_ref = $ref->GetStockRef();
-    		$strDebug .= ' '.$stock_ref->DebugLink();
-    		foreach ($this->ar_leverage_ref as $leverage_ref)	$strDebug .= ' '.$leverage_ref->DebugLink();
-    		if ($est_ref = $ref->GetEstRef())					$strDebug .= ' '.$est_ref->DebugLink();
-			if ($future_ref = $ref->GetFutureRef())				$strDebug .= ' '.$future_ref->DebugLink();
-
-    		if (RefHasData($est_ref))
-    		{
-    			$strDebug .= GetBreakElement().$this->_getAdjustString();
-    		}
+    		$strDebug = $ref->DebugLink();
+    		if (RefHasData($ref->GetEstRef()))		$strDebug .= GetBreakElement().$this->_getAdjustString();
    			EchoParagraph($strDebug);
     	}
     }

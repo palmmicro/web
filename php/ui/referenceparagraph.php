@@ -2,7 +2,7 @@
 require_once('stocktable.php');
 
 // $ref from StockReference
-function _echoReferenceTableItem($ref)
+function _echoReferenceTableItem($ref, $bAdmin)
 {
 	$ar = array();
    	$ar[] = $ref->GetExternalLink();
@@ -22,18 +22,18 @@ function _echoReferenceTableItem($ref)
     	$ar[] = '';
     }
     
-	$ar[] = RefGetDescription($ref, true);
-    EchoTableColumn($ar);
+	$ar[] = $bAdmin ? $ref->DebugLink() : RefGetDescription($ref, true);
+    EchoTableColumn($ar, false, ($bAdmin ? RefGetDescription($ref) : false));
 }
 
-function _echoReferenceTableData($arRef)
+function _echoReferenceTableData($arRef, $bAdmin)
 {
     foreach ($arRef as $ref)
     {
     	if ($ref)
     	{
-    		_echoReferenceTableItem($ref);
-   			if ($ref->extended_ref)	_echoReferenceTableItem($ref->extended_ref);
+    		_echoReferenceTableItem($ref, $bAdmin);
+   			if ($ref->extended_ref)	_echoReferenceTableItem($ref->extended_ref, false);
     	}
     }
 }
@@ -60,13 +60,9 @@ END;
 	return '<span id="time"></span>';
 }
 
-function EchoReferenceParagraph($arRef, $str = false)
+function EchoReferenceParagraph($arRef, $bAdmin = false)
 {
-	if ($str == false)
-	{
-        $str = '参考数据 '.GetTimeDisplay();
-    }
-
+	$str = '参考数据 '.GetTimeDisplay();
 	EchoTableParagraphBegin(array(new TableColumnSymbol(),
 								   new TableColumnPrice(),
 								   new TableColumnChange(),
@@ -75,7 +71,7 @@ function EchoReferenceParagraph($arRef, $str = false)
 								   new TableColumnName()
 								   ), 'reference', $str);
 
-	_echoReferenceTableData($arRef);
+	_echoReferenceTableData($arRef, $bAdmin);
     EchoTableParagraphEnd();
 }
 

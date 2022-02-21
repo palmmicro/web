@@ -66,10 +66,14 @@ function GetFileLink($strPathName)
 
 function GetFileDebugLink($strPathName)
 {
-    $strLink = GetFileLink($strPathName);
-    $strLastTime = DebugGetFileTimeDisplay($strPathName);
-    $strDelete = GetOnClickLink('/php/_submitdelete.php?file='.$strPathName, '确认删除调试文件'.$strPathName.'？', $strLastTime);
-    return "$strLink($strDelete)";
+    clearstatcache(true, $strPathName);
+    if (file_exists($strPathName))
+    {
+		$strLink = GetFileLink($strPathName);
+		$strDelete = GetOnClickLink('/php/_submitdelete.php?file='.$strPathName, '确认删除调试文件'.$strPathName.'？', DebugFormat_date('m-d H:i:s', filemtime($strPathName)));
+		return "$strLink($strDelete)";
+    }
+    return '';
 }
 
 function GetPhpLink($strPathPage, $strQuery, $strDisplay, $strUs = false, $bChinese = true)

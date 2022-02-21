@@ -35,11 +35,9 @@ function EchoAll()
     
    	$ref = $acct->GetRef();
 	$cny_ref = $ref->GetCnyRef();
-	$cnh_ref = $acct->cnh_ref;
-	$oil_ref = $acct->oil_ref;
     
     EchoFundEstParagraph($ref);
-    EchoReferenceParagraph(array_merge($acct->GetStockRefArray(), array($ref->GetFutureRef(), $oil_ref, $cnh_ref, $cny_ref)));
+    EchoReferenceParagraph(array_merge($acct->GetStockRefArray(), array($ref->GetFutureRef(), $acct->oil_ref, $acct->cnh_ref, $cny_ref)), $acct->IsAdmin());
     $acct->EchoCommonParagraphs();
       
     if ($group = $acct->EchoTransaction()) 
@@ -48,9 +46,7 @@ function EchoAll()
         $acct->EchoArbitrageParagraph($group);
 	}
 	
-    $strDebug = $cnh_ref->DebugLink().' ';
-    if ($oil_ref)		$strDebug .= $oil_ref->DebugLink().' '; 
-    $acct->EchoDebugParagraph($strDebug);
+    $acct->EchoDebugParagraph();
     $acct->EchoLinks(false, 'GetQdiiRelated');
 }
 

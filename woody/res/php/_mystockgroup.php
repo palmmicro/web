@@ -21,7 +21,7 @@ function in_array_ref($strSymbol, $arRef)
 	return false;
 }
 
-function _echoStockGroupArray($arStock)
+function _echoStockGroupArray($arStock, $bAdmin)
 {
     StockPrefetchArrayExtendedData($arStock);
 
@@ -78,7 +78,7 @@ function _echoStockGroupArray($arStock)
         }
     }
     
-    EchoReferenceParagraph($arRef);
+    EchoReferenceParagraph($arRef, $bAdmin);
     if (count($arFund) > 0)     				EchoFundArrayEstParagraph($arFund);
     if (count($arHAdrRef) > 0)				EchoAdrhParagraph($arHAdrRef);
     if (count($arHShareRef) > 0)			EchoAhParagraph($arHShareRef);
@@ -154,6 +154,7 @@ function EchoAll()
 {
 	global $acct;
 	
+	$bAdmin = $acct->IsAdmin();
 	$strPage = $acct->GetPage();
     if ($strPage == STOCK_GROUP_PAGE)
     {
@@ -162,7 +163,7 @@ function EchoAll()
         	$arStock = SqlGetStocksArray($strGroupId);
         	if (count($arStock) > 0)
         	{
-        		$arTransactionRef = _echoStockGroupArray($arStock);
+        		$arTransactionRef = _echoStockGroupArray($arStock, $bAdmin);
         		$group = new MyStockGroup($strGroupId, $arTransactionRef);
         		if ($acct->EchoStockTransaction($group))
         		{
@@ -178,7 +179,7 @@ function EchoAll()
     }
     else
     {
-        _echoStockGroupArray(StockGetArraySymbol(GetCategoryArray($strPage)));
+        _echoStockGroupArray(StockGetArraySymbol(GetCategoryArray($strPage)), $bAdmin);
         
     	$str = _getMetaDescriptionStr($strPage);
 		if ($strLinks = _getSimilarLinks($strPage))		$str .= $strLinks;

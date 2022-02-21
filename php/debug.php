@@ -93,16 +93,6 @@ function GetHM($strHMS)
 	return substr($strHMS, 0, 5);
 }
 
-function DebugGetFileTimeDisplay($strPathName)
-{
-    clearstatcache(true, $strPathName);
-    if (file_exists($strPathName))
-    {
-        return DebugGetDateTime(filemtime($strPathName));
-    }
-    return '';
-}
-
 function DebugGetStopWatchDisplay($fStart, $iPrecision = 2)
 {
     return ' ('.strval_round(microtime(true) - $fStart, $iPrecision).'s)';

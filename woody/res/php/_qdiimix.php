@@ -84,7 +84,7 @@ function EchoAll()
 	EchoHoldingsEstParagraph($ref);
 	if ($us_ref)	EchoHoldingsEstParagraph($us_ref);
 //    EchoSmaParagraph($us_ref);
-    EchoReferenceParagraph(array_merge($acct->GetStockRefArray(), array($acct->cnh_ref, $uscny_ref, $hkcny_ref)));
+    EchoReferenceParagraph(array_merge($acct->GetStockRefArray(), array($acct->cnh_ref, $uscny_ref, $hkcny_ref)), $acct->IsAdmin());
     EchoFundTradingParagraph($ref);
     EchoEtfHistoryParagraph($ref);
 

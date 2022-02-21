@@ -7,7 +7,6 @@ require_once('_yahoohistorycsv.php');
     $acct = new SymbolAccount();
 	if ($acct->IsAdmin())
 	{
-		$acct->Create();
 	    if ($ref = $acct->GetRef())
 	    {
 			YahooUpdateStockHistory($ref);

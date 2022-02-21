@@ -39,7 +39,7 @@ function EchoAll()
     	{
     		$arHoldingRef = $ref->GetHoldingRefArray();
 		    EchoHoldingsEstParagraph($ref);
-    		EchoReferenceParagraph(array_merge(array($ref), $arHoldingRef));
+    		EchoReferenceParagraph(array_merge(array($ref), $arHoldingRef), $acct->IsAdmin());
     		EchoTableParagraphBegin(array(new TableColumnSymbol(),
 										   new TableColumnPercentage('旧'),
 										   new TableColumnPrice('旧'),
@@ -77,6 +77,5 @@ function GetTitle()
 }
 
     $acct = new SymbolAccount();
-   	$acct->Create();
 ?>
 

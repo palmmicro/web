@@ -66,7 +66,7 @@ function EchoAll()
     global $acct;
     
 	EchoFundArrayEstParagraph(array($acct->ref, $acct->us_ref));
-    EchoReferenceParagraph(array_merge($acct->GetStockRefArray(), array($acct->a50_ref, $acct->cnh_ref)));
+    EchoReferenceParagraph(array_merge($acct->GetStockRefArray(), array($acct->a50_ref, $acct->cnh_ref)), $acct->IsAdmin());
     EchoEtfListParagraph(array($acct->ref, $acct->us_ref));
     EchoEtfTradingParagraph($acct->ref);
     EchoEtfSmaParagraph($acct->ref);

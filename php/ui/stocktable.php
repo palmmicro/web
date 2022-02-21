@@ -23,7 +23,7 @@ class TableColumnChange extends TableColumn
 {
 	function TableColumnChange($strPrefix = false)
 	{
-        parent::TableColumn(STOCK_DISP_CHANGE, 70, 'red', $strPrefix);
+        parent::TableColumn(STOCK_DISP_CHANGE, 70, false, $strPrefix);
 	}
 }
 

@@ -153,7 +153,7 @@ function EchoAll()
     
     $arRef = $acct->GetStockRefArray();
     _echoAdrPriceParagraph($arRef);
-    EchoReferenceParagraph($arRef);
+    EchoReferenceParagraph($arRef, $acct->IsAdmin());
 	EchoAhTradingParagraph($acct->hk_ref);
     EchoHShareSmaParagraph($acct->cn_ref, $acct->hk_ref);
     EchoHShareSmaParagraph($acct->hk_ref, $acct->hk_ref);

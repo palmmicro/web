@@ -35,7 +35,7 @@ function EchoAll()
 	$fund = $acct->GetRef();
 	$cny_ref = $fund->GetCnyRef();
     EchoFundEstParagraph($fund);
-    EchoReferenceParagraph(array_merge($acct->GetStockRefArray(), array($fund->GetEstRef(), $fund->GetFutureRef(), $cny_ref)));
+    EchoReferenceParagraph(array_merge($acct->GetStockRefArray(), array($fund->GetEstRef(), $fund->GetFutureRef(), $cny_ref)), $acct->IsAdmin());
     EchoFundTradingParagraph($fund);    
     EchoFundHistoryParagraph($fund);
 

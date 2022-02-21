@@ -23,7 +23,7 @@ function EchoAll()
    	$ref = $acct->GetRef();
 	$cny_ref = $ref->GetCnyRef();
     EchoFundEstParagraph($ref);
-    EchoReferenceParagraph(array_merge($acct->GetStockRefArray(), array($ref->GetFutureRef(), $cny_ref)));
+    EchoReferenceParagraph(array_merge($acct->GetStockRefArray(), array($ref->GetFutureRef(), $cny_ref)), $acct->IsAdmin());
     $acct->EchoCommonParagraphs();
 
     if ($group = $acct->EchoTransaction()) 

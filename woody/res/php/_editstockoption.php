@@ -36,5 +36,4 @@ function GetTitle()
 }
 
     $acct = new SymbolEditAccount();
-   	$acct->Create();
 ?>

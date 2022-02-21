@@ -94,6 +94,5 @@ function GetTitle()
 }
 
     $acct = new SymbolAccount();
-   	$acct->Create();
 ?>
 

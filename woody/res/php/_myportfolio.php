@@ -40,7 +40,7 @@ function _transSortBySymbol($arTrans)
     return $arSort;
 }
 
-function _transEchoReferenceParagraph($arTrans)
+function _transEchoReferenceParagraph($arTrans, $bAdmin)
 {
 	$arRef = array();
 	$arSymbol = array();
@@ -62,7 +62,7 @@ function _transEchoReferenceParagraph($arTrans)
 		$his = new StockHistory($ref);
 	}
 	
-    EchoReferenceParagraph($arRef);
+    EchoReferenceParagraph($arRef, $bAdmin);
 }
 
 function _echoMergeParagraph($arMerge)
@@ -134,7 +134,7 @@ function _transEchoMergeParagraph($arTrans)
 //	if (count($arMerge) > 0)		_echoMergeParagraph($arMerge);
 }
 
-function _echoPortfolio($portfolio, $sql, $strMemberId)
+function _echoPortfolio($portfolio, $sql, $strMemberId, $bAdmin)
 {
 	$arTransA = array();
 	$arTransH = array();
@@ -166,7 +166,7 @@ function _echoPortfolio($portfolio, $sql, $strMemberId)
 	}
 
 	$arTrans = array_merge(_transSortBySymbol($arTransA), _transSortBySymbol($arTransH), _transSortBySymbol($arTransUS));
-    _transEchoReferenceParagraph($arTrans);
+    _transEchoReferenceParagraph($arTrans, $bAdmin);
 	EchoPortfolioParagraph($arTrans);
     _transEchoMergeParagraph($arTrans);
 }
@@ -194,7 +194,7 @@ function EchoAll()
     _onPrefetch($sql, $strMemberId);
 
     $portfolio = new _MyPortfolio();
-    _echoPortfolio($portfolio, $sql, $strMemberId);
+    _echoPortfolio($portfolio, $sql, $strMemberId, $acct->IsAdmin());
     
     $portfolio->arStockGroup[] = $portfolio; 
     $acct->EchoMoneyParagraphs($portfolio->arStockGroup, new CnyReference('USCNY'), new CnyReference('HKCNY'));
