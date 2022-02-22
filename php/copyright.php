@@ -13,7 +13,7 @@ function _getCopyright($strCn, $strUs, $bChinese, $strBeginYear = false)
     else	$strYear = '';
     return $bChinese ? "$strYear {$strName}版权所有&copy;，保留所有权利。" : "Copyright &copy; $strYear $strName. All Rights Reserved.";
 }
-
+/*
 function _getWoodyCopyright($bChinese)
 {
     return _getCopyright('林蓉榕', 'Woody', $bChinese, '1973');
@@ -37,10 +37,10 @@ function _getCompanyCopyright($strCompany, $bChinese)
 	}
 	return $str;
 }
-
+*/
 function EchoCopyRight($bMobile, $bChinese)
 {
-	$strUri = UrlGetUri();	            // /woody/res/sz162411cn.php
+/*	$strUri = UrlGetUri();	            // /woody/res/sz162411cn.php
     $ar = explode('/', $strUri);
 	if ($ar[1] == 'woody')
 	{
@@ -71,9 +71,9 @@ function EchoCopyRight($bMobile, $bChinese)
 	    $str = _getCopyright('王继行', 'Chi-Shin Wang', $bChinese);
 	}
 	else
-	{
+	{*/
 	    $str = _getCopyright('Palmmicro', 'Palmmicro Communications Inc', $bChinese, '2006');
-	}
+//	}
 	
 	$str = GetHtmlElement($str); 
 	if ($bMobile)

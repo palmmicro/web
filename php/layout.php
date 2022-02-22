@@ -77,9 +77,10 @@ function LayoutScreenWidthOk()
 
 function _layoutBanner($bChinese)
 {
-    $ar = explode('/', UrlGetUri());
-	if ($ar[1] == 'woody')	$strImage = GetImgElement('/woody/image/image.jpg', 'Woody Home Page');
-	else					    $strImage = GetImgElement('/image/image_palmmicro.jpg', 'Palmmicro Name Logo');
+//    $ar = explode('/', UrlGetUri());
+//	if ($ar[1] == 'woody')	$strImage = GetImgElement('/woody/image/image.jpg', 'Woody Home Page');
+//	else
+	$strImage = GetImgElement('/image/image_palmmicro.jpg', 'Palmmicro Name Logo');
 	$strLink = GetLinkElement($strImage, '/index'.($bChinese ? 'cn' : '').'.html');
     
     echo <<<END

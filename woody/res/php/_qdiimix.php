@@ -59,7 +59,10 @@ class _QdiiMixAccount extends GroupAccount
     		$strEstDate = $fund_est_sql->GetDateNow($strStockId);
     		if ($strEstDate == $strNavDate)													return;	// 
     		if ($strEstDate == $ref->GetDate())											return;	// A day too early
-    		if ($ref->GetHourMinute() < 930)													return;	// Data not updated until 9:30
+    		
+    		$iHourMinute = $ref->GetHourMinute();
+    		if ($iHourMinute < 930)															return;	// Data not updated until 9:30
+			else if ($iHourMinute > 1600 && $iHourMinute < 2230)							return;	// 美股休市后第2天的盘前，有可能会有数据看上去像休市日数据，导致5分钟一次频繁下载老文件。这里有意错过每天美股盘前时间，并且考虑了夏令时的不同最坏情况。
 
     		$strSymbol = $ref->GetSymbol();
     		ReadSseHoldingsFile($strSymbol, $strStockId);
@@ -103,10 +106,11 @@ function GetQdiiMixLinks($sym)
 	
 	$str .= '<br />&nbsp';
 	$str .= GetASharesSoftwareLinks();
-	$str .= GetChinaInternetSoftwareLinks();
 	$str .= GetSpySoftwareLinks();
 	$str .= GetQqqSoftwareLinks();
 	$str .= GetHangSengSoftwareLinks();
+	$str .= GetHsTechSoftwareLinks();
+	$str .= GetChinaInternetSoftwareLinks();
 	return $str;
 }
 

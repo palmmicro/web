@@ -8,11 +8,6 @@ function GetOfficialLink($strHttp, $strDisplay)
     return GetExternalLink($strHttp, $strDisplay.'官网');
 }
 
-function GetEFundOfficialLink($strDigitA)
-{
-    return GetOfficialLink(GetEFundUrl().'/html/fund/'.$strDigitA.'_fundinfo.htm', $strDigitA);
-}
-
 function GetGuangFaOfficialLink($strDigitA)
 {
     return GetOfficialLink(GetGuangFaFundUrl().'/funds/?fundcode='.$strDigitA, $strDigitA);
@@ -23,29 +18,9 @@ function GetGuoTaiOfficialLink($strDigitA)
     return GetOfficialLink(GetGuoTaiFundUrl().'/Etrade/Jijin/view/id/'.$strDigitA, $strDigitA);
 }
 
-function GetHuaXiaOfficialLink($strDigitA)
-{
-    return GetOfficialLink(GetHuaXiaFundUrl().'fund/'.$strDigitA.'/index.shtml', $strDigitA);
-}
-
-function GetBoShiOfficialLink($strDigitA)
-{
-    return GetOfficialLink(GetBoShiFundUrl().'/fund/'.$strDigitA.'.html', $strDigitA);
-}
-
-function GetHuaAnOfficialLink($strDigitA)
-{
-    return GetOfficialLink(GetHuaAnFundUrl().'/funds/'.$strDigitA.'/index.shtml', $strDigitA);
-}
-
 function GetHuaBaoOfficialLink($strDigitA)
 {
     return GetOfficialLink(GetHuaBaoFundUrl().'/funds/'.$strDigitA.'/index.shtml', $strDigitA);
-}
-
-function GetJiaShiOfficialLink($strDigitA)
-{
-    return GetOfficialLink(GetJiaShiFundUrl().'/Services/cn/html/product/index.shtml?fundcode='.$strDigitA, $strDigitA);
 }
 
 function GetJiaoYinSchroderOfficialLink($strDigitA)
@@ -216,6 +191,10 @@ function GetXueqiuLink($sym)
 			
 		case '^HSCE':
 			$strXueqiu = 'HKHSCEI';
+			break;
+			
+		case '^HSTECH':
+			$strXueqiu = 'HKHSTECH';
 			break;
 		}
 	}

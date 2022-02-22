@@ -99,6 +99,7 @@ function _getMetaDescriptionStr($strPage)
 				  GOLD_SILVER_PAGE => '当A股大跌的时候, 完全不相关的黄金白银基金也经常会跟着跌, 这样会产生套利机会. 这里计算各种黄金白银基金的净值, 同时分析比较各种套利对冲方案.',
 				  'hangseng' => HANGSENG_GROUP_DISPLAY.'基金的净值估算, 目前包括恒生ETF(SZ159920), 恒指LOF(SZ160924)和恒生通(SH513660)等. 使用恒生指数(^HSI)进行估值, 恒生指数盈富基金(02800)仅作为参考.',
 				  'hshares' => HSHARES_GROUP_DISPLAY.'基金的净值估算, 目前包括H股ETF(SH510900)和恒生H股(SZ160717)等.使用恒生中国企业指数(^HSCE)估值, 恒生H股ETF(02828)仅用于参考.',
+				  'hstech' => '厌倦了港交所加印花税的贪婪，本来没想跟踪'.HSTECH_GROUP_DISPLAY.'基金的净值。不过在无意中发现了KTEC后，觉得还是应该补上，为日后可能的跨市场套利机会做好准备。',
 				  QDII_PAGE => 'A股的QDII基金由于缺乏及时的信息更新, 会产生各种套利机会. 这里计算各个基金的官方估值, 参考估值和实时估值补上这个生态位空缺.',
 				  QDII_MIX_PAGE => '采用跟踪成分股变化的方式对同时有美股和港股持仓的中概互联(513050)等QDII基金进行净值估算, 这样官方估值中可以反应白天港股波动对净值的实时影响.',
 				  QDII_HK_PAGE => QDII_HK_DISPLAY.'基金的净值估算. 直接导致把香港QDII从其它QDII页面分出来的原因是有基金居然只有指数而没有对应的港股ETF, 只好用指数给所有港股QDII估值了.',
@@ -146,6 +147,9 @@ function _getGroupImageLink($strPage)
     {
     case 'chinainternet':
     	return BreakImgElement('huangrong.jpg', '83版射雕英雄传中翁美玲扮演的小乞丐黄蓉');
+
+    case 'hstech':
+    	return BreakImgElement('pig.jpg', '趴在墙头看人杀猪的一头猪');
     }
     return false;
 }
@@ -219,6 +223,7 @@ function _getTitleStr($strPage)
 			  	  GOLD_SILVER_PAGE => GOLD_SILVER_DISPLAY.$strTool,
 			  	  'hangseng' => HANGSENG_GROUP_DISPLAY.$strTool,
 			  	  'hshares' => HSHARES_GROUP_DISPLAY.$strTool,
+			  	  'hstech' => HSTECH_GROUP_DISPLAY.$strTool,
 			  	  QDII_PAGE => QDII_DISPLAY,
 			  	  QDII_MIX_PAGE => QDII_MIX_DISPLAY.$strTool,
 			  	  QDII_HK_PAGE => QDII_HK_DISPLAY.$strTool,

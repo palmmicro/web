@@ -147,6 +147,16 @@ function in_arrayQdii($strSymbol)
     return in_array($strSymbol, QdiiGetSymbolArray());
 }
 
+function QdiiHkGetTechSymbolArray()
+{
+    return array('SH513010', 'SH513130', 'SH513180', 'SH513580', 'SZ159740', 'SZ159741', 'SZ159742');
+}
+
+function in_arrayTechQdiiHk($strSymbol)
+{
+    return in_array($strSymbol, QdiiHkGetTechSymbolArray());
+}
+
 function QdiiHkGetHSharesSymbolArray()
 {
     return array('SH510900', 'SZ160717', 'SZ161831');
@@ -167,6 +177,11 @@ function in_arrayHangSengQdiiHk($strSymbol)
     return in_array($strSymbol, QdiiHkGetHangSengSymbolArray());
 }
 
+function QdiiHkGetIndexSymbolArray()
+{
+    return array('^HSI', '^HSCE', '^HSTECH');
+}
+
 function QdiiMixGetSymbolArray()
 {
     $ar = array('SH513050', 'SZ164906'); 
@@ -181,6 +196,7 @@ function in_arrayQdiiMix($strSymbol)
 function QdiiHkGetSymbolArray()
 {
     $ar = array_merge(array('SH501025') 
+    				   , QdiiHkGetTechSymbolArray()
     				   , QdiiHkGetHSharesSymbolArray()
     				   , QdiiHkGetHangSengSymbolArray());
     sort($ar);
@@ -369,6 +385,7 @@ class StockSymbol
         return true;
     }
     
+//    https://hq.sinajs.cn/list=rt_hkHSTECH,hkHSTECH_i,rt_hkCSCSHQ
     function IsSymbolH()
     {
         if ($this->iDigitH >= 0)   return true;
@@ -376,7 +393,7 @@ class StockSymbol
         $strSymbol = $this->strSymbol;
         if ($this->IsIndex())
         {
-            if ($strSymbol == '^HSI' || $strSymbol == '^HSCE')
+            if (in_array($strSymbol, QdiiHkGetIndexSymbolArray()))
             {
                 $this->iDigitH = 0;
                 return true;
@@ -646,6 +663,10 @@ class StockSymbol
     			
     		case '^HSCE':
     			$this->strSinaIndexH = 'HSCEI';
+    			break;
+    			
+    		case '^HSTECH':
+    			$this->strSinaIndexH = 'HSTECH';
     			break;
     		}
     	}

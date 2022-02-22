@@ -11,25 +11,17 @@ function _getStockOptionDate($strSubmit, $ref)
 	case STOCK_OPTION_EMA:
 	case STOCK_OPTION_SHARE_DIFF:
 	case STOCK_OPTION_SPLIT:
-		if ($strDate = $his_sql->GetDateNow($strStockId))
-		{
-			return $strDate;
-		}
+		if ($strDate = $his_sql->GetDateNow($strStockId))							return $strDate;
 		break;
 
 	case STOCK_OPTION_CLOSE:
-		if ($record = $his_sql->GetRecordPrev($strStockId, $ref->GetDate()))
-		{
-			return $record['date'];
-		}
+		if ($record = $his_sql->GetRecordPrev($strStockId, $ref->GetDate()))	return $record['date'];
 		break;
 
 	case STOCK_OPTION_NETVALUE:
 		$nav_sql = GetNavHistorySql();
-		if ($strDate = $nav_sql->GetDateNow($strStockId))
-		{
-			return $strDate;
-		}
+		if ($strDate = $nav_sql->GetDateNow($strStockId))							return $strDate;
+		if ($strDate = $his_sql->GetDateNow($strStockId))							return $strDate;
 		break;
 	}
 	return '';

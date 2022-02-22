@@ -1,10 +1,11 @@
 <?php 
-require('php/_chinaindex.php');
+require('php/_qdiihk.php');
 
-function GetChinaIndexRelated($sym)
+function GetQdiiHkRelated($sym)
 {
 	$str = GetHuaTaiOfficialLink($sym->GetDigitA());
-	$str .= ' '.GetChinaIndexLinks($sym);
+	$str .= ' '.GetQdiiHkLinks($sym);
+	$str .= GetHsTechSoftwareLinks();
 	$str .= GetHuaTaiSoftwareLinks();
 	return $str;
 }

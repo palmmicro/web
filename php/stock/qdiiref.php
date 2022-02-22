@@ -34,23 +34,23 @@ function QdiiGetStockCalibration($strEst, $strNetValue, $strCny, $strPosition)
 // https://markets.ft.com/data/indices/tearsheet/charts?s=SPGOGUP:REU
 function QdiiGetEstSymbol($strSymbol)
 {
-    if ($strSymbol == 'SZ162411')         return 'XOP';	// '^SPSIOP'
-    else if ($strSymbol == 'SZ162719')   return 'IEO'; // '^DJSOEP'
-    else if ($strSymbol == 'SZ162415')   return 'XLY';	// '^IXY'
-    else if (in_arrayOilQdii($strSymbol)) return 'USO';
-    else if ($strSymbol == 'SZ160140')   return 'SCHH';
-    else if ($strSymbol == 'SZ160416')   return 'IXC';	// '^SPGOGUP'
-    else if ($strSymbol == 'SZ161126')   return 'XLV';
-    else if ($strSymbol == 'SZ161127')   return 'XBI';
-    else if ($strSymbol == 'SZ161128')   return 'XLK';
-    else if ($strSymbol == 'SZ163208')   return 'XLE';
-    else if ($strSymbol == 'SZ164824')   return 'INDA';
-    else if ($strSymbol == 'SZ165510')	return 'BKF';	// '^SPBRICNTR'
+    if ($strSymbol == 'SZ162411')         			return 'XOP';	// '^SPSIOP'
+    else if ($strSymbol == 'SZ162719')   			return 'IEO'; // '^DJSOEP'
+    else if ($strSymbol == 'SZ162415')   			return 'XLY';	// '^IXY'
+    else if (in_arrayOilQdii($strSymbol)) 			return 'USO';
+    else if ($strSymbol == 'SZ160140')   			return 'SCHH';
+    else if ($strSymbol == 'SZ160416')   			return 'IXC';	// '^SPGOGUP'
+    else if ($strSymbol == 'SZ161126')   			return 'XLV';
+    else if ($strSymbol == 'SZ161127')   			return 'XBI';
+    else if ($strSymbol == 'SZ161128')   			return 'XLK';
+    else if ($strSymbol == 'SZ163208')   			return 'XLE';
+    else if ($strSymbol == 'SZ164824')   			return 'INDA';
+    else if ($strSymbol == 'SZ165510')				return 'BKF';	// '^SPBRICNTR'
     else if (in_arrayCommodityQdii($strSymbol))		return 'GSG';
-    else if (in_arraySpyQdii($strSymbol))				return '^GSPC';	// 'SPY';
-    else if (in_arrayQqqQdii($strSymbol))				return '^NDX';	// 'QQQ';
-    else if ($strSymbol == 'SH513030')   return 'DAX';		// 'EWG'
-    else if (in_arrayGoldQdii($strSymbol))   return 'GLD';
+    else if (in_arraySpyQdii($strSymbol))			return '^GSPC';	// 'SPY';
+    else if (in_arrayQqqQdii($strSymbol))			return '^NDX';	// 'QQQ';
+    else if ($strSymbol == 'SH513030')   			return 'DAX';		// 'EWG'
+    else if (in_arrayGoldQdii($strSymbol))   		return 'GLD';
     else 
         return false;
 }
@@ -95,6 +95,7 @@ function QdiiGetAllSymbolArray($strSymbol)
 function QdiiHkGetEstSymbol($strSymbol)
 {
     if ($strSymbol == 'SH501025')   		 			return 'SH000869';	// '03143'
+    else if (in_arrayTechQdiiHk($strSymbol))			return '^HSTECH';
     else if (in_arrayHangSengQdiiHk($strSymbol))		return '^HSI';		// '02800'
     else if (in_arrayHSharesQdiiHk($strSymbol))		return '^HSCE';	// '02828'
     else 
@@ -104,7 +105,6 @@ function QdiiHkGetEstSymbol($strSymbol)
 function QdiiHkGetFutureSymbol($strSymbol)
 {
     if (in_arrayHangSengQdiiHk($strSymbol))			return 'hf_HSI';
-//    else if (in_arrayHSharesQdiiHk($strSymbol))		return 'hf_HSCEI';
 	else
 		return false;
 }
