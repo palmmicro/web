@@ -219,6 +219,14 @@ class TableColumnStockGroup extends TableColumn
 	}
 }
 
+class TableColumnStock extends TableColumn
+{
+	function TableColumnStock($strSymbol, $iWidth = 80)
+	{
+        parent::TableColumn($strSymbol, $iWidth, 'maroon');
+	}
+}
+
 class TableColumnSymbol extends TableColumn
 {
 	function TableColumnSymbol($strPrefix = false, $iWidth = 80)
@@ -257,27 +265,19 @@ class TableColumnUSD extends TableColumn
 	}
 }
 
-class TableColumnMyStock extends TableColumn
-{
-	function TableColumnMyStock($strSymbol, $iWidth = 80)
-	{
-        parent::TableColumn(GetMyStockLink($strSymbol), $iWidth);
-	}
-}
-
-class TableColumnUSCNY extends TableColumnMyStock
+class TableColumnUSCNY extends TableColumnStock
 {
 	function TableColumnUSCNY()
 	{
-        parent::TableColumnMyStock('USCNY', 60);
+        parent::TableColumnStock('USCNY', 60);
 	}
 }
 
-class TableColumnHKCNY extends TableColumnMyStock
+class TableColumnHKCNY extends TableColumnStock
 {
 	function TableColumnHKCNY()
 	{
-        parent::TableColumnMyStock('HKCNY', 60);
+        parent::TableColumnStock('HKCNY', 60);
 	}
 }
 

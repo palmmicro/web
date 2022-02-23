@@ -3,7 +3,8 @@ require('php/_chinaindex.php');
 
 function GetChinaIndexRelated($sym)
 {
-	$str = GetChinaIndexLinks($sym);
+	$str = GetUniversalOfficialLink($sym);
+	$str .= ' '.GetChinaIndexLinks($sym);
 	$str .= GetUniversalSoftwareLinks();
 	return $str;
 }

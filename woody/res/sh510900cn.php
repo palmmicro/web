@@ -11,7 +11,6 @@ function GetQdiiHkRelated($sym)
 
 	$str .= GetEFundOfficialLink($sym->GetDigitA());
 	$str .= ' '.GetQdiiHkLinks($sym);
-	$str .= GetHSharesSoftwareLinks();
 	$str .= GetEFundSoftwareLinks();
 	return $str;
 }

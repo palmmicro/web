@@ -5,7 +5,6 @@ function GetQdiiHkRelated($sym)
 {
 	$str = GetEFundOfficialLink($sym->GetDigitA());
 	$str .= ' '.GetQdiiHkLinks($sym);
-	$str .= GetHsTechSoftwareLinks();
 	$str .= GetEFundSoftwareLinks();
 	return $str;
 }

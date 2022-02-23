@@ -5,7 +5,6 @@ function GetQdiiHkRelated($sym)
 {
 	$str = GetHuaTaiOfficialLink($sym->GetDigitA());
 	$str .= ' '.GetQdiiHkLinks($sym);
-	$str .= GetHsTechSoftwareLinks();
 	$str .= GetHuaTaiSoftwareLinks();
 	return $str;
 }

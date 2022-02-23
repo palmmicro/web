@@ -89,7 +89,7 @@ function _echoThanousParadoxParagraph($strSymbol, $iStart, $iNum)
 								   new TableColumnClose(),
 								   new TableColumnNetValue(),
 								   new TableColumnPremium('x'),
-								   new TableColumnMyStock($strEstSymbol),
+								   new TableColumnStock($strEstSymbol),
 								   new TableColumnChange('y')
 								   ), THANOUS_PARADOX_PAGE, $str);
 

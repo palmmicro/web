@@ -16,12 +16,12 @@ function _echoFundHistory($strSymbol, $iStart, $iNum, $bAdmin)
    	if ($sym->IsFundA())
    	{
    		$fund = StockGetFundReference($strSymbol);
-   		EchoFundHistoryParagraph($fund, $csv, $iStart, $iNum);
+   		EchoFundHistoryParagraph($fund, $csv, $iStart, $iNum, $bAdmin);
    	}
    	else
    	{
    		if (($ref = StockGetEtfReference($strSymbol)) === false)		$ref = StockGetHoldingsReference($strSymbol);
- 		if ($ref)	EchoEtfHistoryParagraph($ref, $csv, $iStart, $iNum);
+ 		if ($ref)	EchoEtfHistoryParagraph($ref, $csv, $iStart, $iNum, $bAdmin);
    	}
     $csv->Close();
     

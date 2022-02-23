@@ -99,11 +99,6 @@ function GetGuoTaiFundUrl()
 	return 'https://e.gtfund.com';
 }
 
-function GetNanFangFundUrl()
-{
-	return 'http://www.nffund.com/';
-}
-
 function GetNuoAnFundUrl()
 {
 	return 'https://trade.lionfund.com.cn/pc/';

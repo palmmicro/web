@@ -41,9 +41,8 @@ class _AdminDeleteAccount extends Account
     	}
     	else
     	{
-    		if (_deleteTableDataById(TABLE_NETVALUE_HISTORY))			
-    		{
-    		}
+			if (_deleteTableDataById(TABLE_NETVALUE_HISTORY))		return;			
+			if (_deleteTableDataById(TABLE_FUND_EST))				return;			
 		}
     }
 }

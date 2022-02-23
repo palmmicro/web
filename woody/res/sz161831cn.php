@@ -5,7 +5,6 @@ function GetQdiiHkRelated($sym)
 {
 	$str = GetYinHuaOfficialLink($sym->GetDigitA());
 	$str .= ' '.GetQdiiHkLinks($sym);
-	$str .= GetHSharesSoftwareLinks();
 	$str .= GetYinHuaSoftwareLinks();
 	return $str;
 }

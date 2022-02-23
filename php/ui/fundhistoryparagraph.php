@@ -1,7 +1,7 @@
 <?php
 require_once('stocktable.php');
 
-function _echoFundHistoryTableItem($csv, $strNav, $arHistory, $arFundEst, $ref, $est_ref, $his_sql)
+function _echoFundHistoryTableItem($csv, $strNav, $arHistory, $arFundEst, $ref, $est_ref, $his_sql, $bAdmin)
 {
 	$strClose = $arHistory['close'];
 	$strDate = $arHistory['date'];
@@ -13,7 +13,8 @@ function _echoFundHistoryTableItem($csv, $strNav, $arHistory, $arFundEst, $ref, 
     	if ($strEstValue = $arFundEst['close'])
     	{
     		$ar[] = $ref->GetPriceDisplay($strEstValue, $strNav);
-    		$ar[] = GetHM($arFundEst['time']);
+    		$strTime = GetHM($arFundEst['time']); 
+    		$ar[] = $bAdmin ? GetOnClickLink('/php/_submitdelete.php?'.TABLE_FUND_EST.'='.$arFundEst['id'], '确认删除估值记录'.$strEstValue.'？', $strTime) : $strTime;
     		$ar[] = $ref->GetPercentageDisplay($strNav, $strEstValue);
 		
     		if ($est_ref)
@@ -30,7 +31,7 @@ function _echoFundHistoryTableItem($csv, $strNav, $arHistory, $arFundEst, $ref, 
     EchoTableColumn($ar);
 }
 
-function _echoHistoryTableData($his_sql, $fund_est_sql, $csv, $ref, $strStockId, $est_ref, $iStart, $iNum)
+function _echoHistoryTableData($his_sql, $fund_est_sql, $csv, $ref, $strStockId, $est_ref, $iStart, $iNum, $bAdmin)
 {
 	$bSameDayNav = UseSameDayNav($ref);
 	$nav_sql = GetNavHistorySql();
@@ -42,14 +43,14 @@ function _echoHistoryTableData($his_sql, $fund_est_sql, $csv, $ref, $strStockId,
         	if ($strNav = $nav_sql->GetClose($strStockId, $strDate))
         	{
    				$arFundEst = $fund_est_sql ? $fund_est_sql->GetRecord($strStockId, $strDate) : false;
-        		_echoFundHistoryTableItem($csv, $strNav, $arHistory, $arFundEst, $ref, $est_ref, $his_sql);
+        		_echoFundHistoryTableItem($csv, $strNav, $arHistory, $arFundEst, $ref, $est_ref, $his_sql, $bAdmin);
         	}
         }
         @mysql_free_result($result);
     }
 }
 
-function _echoFundHistoryParagraph($fund_est_sql, $ref, $est_ref, $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
+function _echoFundHistoryParagraph($fund_est_sql, $ref, $est_ref, $csv, $iStart, $iNum, $bAdmin)
 {
 	$close_col = new TableColumnClose();
 	$nav_col = new TableColumnNetValue();
@@ -74,26 +75,26 @@ function _echoFundHistoryParagraph($fund_est_sql, $ref, $est_ref, $csv = false, 
 		$ar[] = new TableColumnOfficalEst();
 		$ar[] = new TableColumnTime();
 		$ar[] = new TableColumnError();
-		if ($est_ref)		$ar[] = new TableColumnMyStock($est_ref->GetSymbol());
+		if ($est_ref)		$ar[] = new TableColumnStock($est_ref->GetSymbol());
 	}
 	else	$fund_est_sql = false;
 	
 	EchoTableParagraphBegin($ar, $strSymbol.FUND_HISTORY_PAGE, $str.' '.$strMenuLink);
-	_echoHistoryTableData($his_sql, $fund_est_sql, $csv, $ref, $strStockId, $est_ref, $iStart, $iNum);
+	_echoHistoryTableData($his_sql, $fund_est_sql, $csv, $ref, $strStockId, $est_ref, $iStart, $iNum, $bAdmin);
     EchoTableParagraphEnd($strMenuLink);
 }
 
-function EchoFundHistoryParagraph($fund, $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
+function EchoFundHistoryParagraph($fund, $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY, $bAdmin = false)
 {
-    _echoFundHistoryParagraph($fund->GetFundEstSql(), $fund->GetStockRef(), $fund->GetEstRef(), $csv, $iStart, $iNum);
+    _echoFundHistoryParagraph($fund->GetFundEstSql(), $fund->GetStockRef(), $fund->GetEstRef(), $csv, $iStart, $iNum, $bAdmin);
 }
 
-function EchoEtfHistoryParagraph($ref, $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
+function EchoEtfHistoryParagraph($ref, $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY, $bAdmin = false)
 {
 	if (method_exists($ref, 'GetFundEstSql'))
 	{
 		$est_ref = method_exists($ref, 'GetPairRef') ? $ref->GetPairRef() : false;
-		_echoFundHistoryParagraph($ref->GetFundEstSql(), $ref, $est_ref, $csv, $iStart, $iNum);
+		_echoFundHistoryParagraph($ref->GetFundEstSql(), $ref, $est_ref, $csv, $iStart, $iNum, $bAdmin);
 	}
 }
 

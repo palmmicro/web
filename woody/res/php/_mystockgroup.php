@@ -97,8 +97,8 @@ function _getMetaDescriptionStr($strPage)
 				  'commodity' => COMMODITY_GROUP_DISPLAY.'基金的净值估算, 目前包括大致对应跟踪GSG的信诚商品(SZ165513)和银华通胀(SZ161815). 跟踪大宗商品期货的基金都有因为期货升水带来的损耗, 不建议长期持有.',
 				  ETF_LIST_PAGE => '各个估值页面中用到的基金和指数对照表, 包括杠杆倍数和校准值快照, 同时提供链接查看具体校准情况. 有些指数不容易拿到数据, 就用1倍ETF代替指数给其它杠杆ETF做对照.',
 				  GOLD_SILVER_PAGE => '当A股大跌的时候, 完全不相关的黄金白银基金也经常会跟着跌, 这样会产生套利机会. 这里计算各种黄金白银基金的净值, 同时分析比较各种套利对冲方案.',
-				  'hangseng' => HANGSENG_GROUP_DISPLAY.'基金的净值估算, 目前包括恒生ETF(SZ159920), 恒指LOF(SZ160924)和恒生通(SH513660)等. 使用恒生指数(^HSI)进行估值, 恒生指数盈富基金(02800)仅作为参考.',
-				  'hshares' => HSHARES_GROUP_DISPLAY.'基金的净值估算, 目前包括H股ETF(SH510900)和恒生H股(SZ160717)等.使用恒生中国企业指数(^HSCE)估值, 恒生H股ETF(02828)仅用于参考.',
+				  'hangseng' => HANGSENG_GROUP_DISPLAY.'基金的净值估算。使用恒生指数【^HSI】计算官方估值和参考估值、使用恒生指数期货【hf_HSI】提供港股不开盘期间的实时估值。',
+				  'hshares' => '港交所在2017年后玩弄文字游戏把H股国企指数改成'.HSHARES_GROUP_DISPLAY.'，大量加入非国有企业成分股，就是为了吸引迷信鹅厂的国内韭菜跨过香江去夺取港股定价权！',
 				  'hstech' => '厌倦了港交所加印花税的贪婪，本来没想跟踪'.HSTECH_GROUP_DISPLAY.'基金的净值。不过在无意中发现了KTEC后，觉得还是应该补上，为日后可能的跨市场套利机会做好准备。',
 				  QDII_PAGE => 'A股的QDII基金由于缺乏及时的信息更新, 会产生各种套利机会. 这里计算各个基金的官方估值, 参考估值和实时估值补上这个生态位空缺.',
 				  QDII_MIX_PAGE => '采用跟踪成分股变化的方式对同时有美股和港股持仓的中概互联(513050)等QDII基金进行净值估算, 这样官方估值中可以反应白天港股波动对净值的实时影响.',
@@ -147,6 +147,12 @@ function _getGroupImageLink($strPage)
     {
     case 'chinainternet':
     	return BreakImgElement('huangrong.jpg', '83版射雕英雄传中翁美玲扮演的小乞丐黄蓉');
+
+    case 'hangseng':
+    	return BreakImgElement('queen.jpg', '命运赠送的礼物都早已暗中标好了价格');
+
+    case 'hshares':
+    	return BreakImgElement('luodayou.jpg', '罗大佑弹唱流到香江去看一看');
 
     case 'hstech':
     	return BreakImgElement('pig.jpg', '趴在墙头看人杀猪的一头猪');

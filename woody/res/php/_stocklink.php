@@ -244,27 +244,6 @@ function GetEFundSoftwareLinks()
     return GetCategorySoftwareLinks($ar, $strLink);
 }
 
-function GetJiaoYinSchroderSoftwareLinks()
-{
-    $ar = array('SZ164906');
-    $strLink = GetExternalLink(GetJiaoYinSchroderFundUrl(), '交银施罗德基金');
-    return GetCategorySoftwareLinks($ar, $strLink);
-}
-
-function GetXinChengSoftwareLinks()
-{
-    $ar = array('SZ165510', 'SZ165513');
-    $strLink = GetExternalLink(GetXinChengFundUrl(), '信诚基金');
-    return GetCategorySoftwareLinks($ar, $strLink);
-}
-
-function GetHuaBaoSoftwareLinks()
-{
-    $ar = array('SZ162411', 'SZ162415');
-    $strLink = GetExternalLink(GetHuaBaoFundUrl(), '华宝基金');
-    return GetCategorySoftwareLinks($ar, $strLink);
-}
-
 function GetGuangFaSoftwareLinks()
 {
     $ar = array('SZ159941', 'SZ162719');
@@ -276,40 +255,6 @@ function GetGuoTaiSoftwareLinks()
 {
     $ar = array('SH513100', 'SH518800', 'SZ160216');
     $strLink = GetExternalLink(GetGuoTaiFundUrl(), '国泰基金');
-    return GetCategorySoftwareLinks($ar, $strLink);
-}
-
-function GetHuaXiaFundUrl()
-{
-	return 'http://www.chinaamc.com/';
-}
-
-function GetHuaXiaOfficialLink($strDigitA)
-{
-    return GetOfficialLink(GetHuaXiaFundUrl().'fund/'.$strDigitA.'/index.shtml', $strDigitA);
-}
-
-function GetHuaXiaSoftwareLinks()
-{
-    $ar = array('SH510330', 'SH513180', 'SH513300', 'SH513660', 'SZ159920');
-    $strLink = GetExternalLink(GetHuaXiaFundUrl(), '华夏基金');
-    return GetCategorySoftwareLinks($ar, $strLink);
-}
-
-function GetJiaShiFundUrl()
-{
-	return 'http://www.jsfund.cn';
-}
-
-function GetJiaShiOfficialLink($strDigitA)
-{
-    return GetOfficialLink(GetJiaShiFundUrl().'/Services/cn/html/product/index.shtml?fundcode='.$strDigitA, $strDigitA);
-}
-
-function GetJiaShiSoftwareLinks()
-{
-    $ar = array('SZ159741', 'SZ159919', 'SZ160717', 'SZ160719', 'SZ160723');
-    $strLink = GetExternalLink(GetJiaShiFundUrl(), '嘉实基金');
     return GetCategorySoftwareLinks($ar, $strLink);
 }
 
@@ -330,6 +275,13 @@ function GetHuaAnSoftwareLinks()
     return GetCategorySoftwareLinks($ar, $strLink);
 }
 
+function GetHuaBaoSoftwareLinks()
+{
+    $ar = array('SZ162411', 'SZ162415');
+    $strLink = GetExternalLink(GetHuaBaoFundUrl(), '华宝基金');
+    return GetCategorySoftwareLinks($ar, $strLink);
+}
+
 function GetHuaTaiFundUrl()
 {
 	return 'http://www.huatai-pb.com';
@@ -347,10 +299,87 @@ function GetHuaTaiSoftwareLinks()
     return GetCategorySoftwareLinks($ar, $strLink);
 }
 
+function GetHuaXiaFundUrl()
+{
+	return 'http://www.chinaamc.com/';
+}
+
+function GetHuaXiaOfficialLink($strDigitA)
+{
+    return GetOfficialLink(GetHuaXiaFundUrl().'fund/'.$strDigitA.'/index.shtml', $strDigitA);
+}
+
+function GetHuaXiaSoftwareLinks()
+{
+    $ar = array('SH510330', 'SH513180', 'SH513300', 'SH513660', 'SZ159850', 'SZ159920');
+    $strLink = GetExternalLink(GetHuaXiaFundUrl(), '华夏基金');
+    return GetCategorySoftwareLinks($ar, $strLink);
+}
+
 function GetIcbcCsSoftwareLinks()
 {
     $ar = array('SZ164824');
     $strLink = GetExternalLink('http://www.icbccs.com.cn', '工银瑞信');
+    return GetCategorySoftwareLinks($ar, $strLink);
+}
+
+function GetJianXinFundUrl()
+{
+	return 'http://www.ccbfund.cn';
+}
+
+// http://www.ccbfund.cn/fund_info/info.jspx?fundCode=513680
+function GetJianXinOfficialLink($strDigitA)
+{
+    return GetOfficialLink(GetJianXinFundUrl().'/fund_info/info.jspx?fundCode='.$strDigitA, $strDigitA);
+}
+
+function GetJianXinSoftwareLinks()
+{
+    $ar = array('SH513680');
+    $strLink = GetExternalLink(GetJianXinFundUrl(), '建信基金');
+    return GetCategorySoftwareLinks($ar, $strLink);
+}
+
+function GetJiaoYinSchroderSoftwareLinks()
+{
+    $ar = array('SZ164906');
+    $strLink = GetExternalLink(GetJiaoYinSchroderFundUrl(), '交银施罗德基金');
+    return GetCategorySoftwareLinks($ar, $strLink);
+}
+
+function GetJiaShiFundUrl()
+{
+	return 'http://www.jsfund.cn';
+}
+
+// http://www.jsfund.cn/main/fund/159823/fundManager.shtml
+function GetJiaShiOfficialLink($strDigitA)
+{
+    return GetOfficialLink(GetJiaShiFundUrl().'/main/fund/'.$strDigitA.'/fundManager.shtml', $strDigitA);
+}
+
+function GetJiaShiSoftwareLinks()
+{
+    $ar = array('SZ159741', 'SZ159823', 'SZ159919', 'SZ160717', 'SZ160719', 'SZ160723');
+    $strLink = GetExternalLink(GetJiaShiFundUrl(), '嘉实基金');
+    return GetCategorySoftwareLinks($ar, $strLink);
+}
+
+function GetNanFangFundUrl()
+{
+	return 'http://www.nffund.com/';
+}
+
+function GetNanFangOfficialLink($strDigitA)
+{
+    return GetOfficialLink(GetNanFangFundUrl().'main/jjcp/fundproduct/'.$strDigitA.'.shtml', $strDigitA);
+}
+
+function GetNanFangSoftwareLinks()
+{
+    $ar = array('SH501018', 'SH501302', 'SH513600', 'SZ159954', 'SZ160140');
+    $strLink = GetExternalLink(GetNanFangFundUrl(), '南方基金');
     return GetCategorySoftwareLinks($ar, $strLink);
 }
 
@@ -368,10 +397,21 @@ function GetPenghuaSoftwareLinks()
     return GetCategorySoftwareLinks($ar, $strLink);
 }
 
-function GetNanFangSoftwareLinks()
+function GetPingAnFundUrl()
 {
-    $ar = array('SH501018', 'SH501302', 'SZ160140');
-    $strLink = GetExternalLink(GetNanFangFundUrl(), '南方基金');
+	return 'http://www.fund.pingan.com';
+}
+
+// http://www.fund.pingan.com/main/peanutFinance/yingPeanut/fundDetailV2/159960.shtml
+function GetPingAnOfficialLink($strDigitA)
+{
+    return GetOfficialLink(GetPingAnFundUrl().'/main/peanutFinance/yingPeanut/fundDetailV2/'.$strDigitA.'.shtml', $strDigitA);
+}
+
+function GetPingAnSoftwareLinks()
+{
+    $ar = array('SZ159960');
+    $strLink = GetExternalLink(GetPingAnFundUrl(), '平安基金');
     return GetCategorySoftwareLinks($ar, $strLink);
 }
 
@@ -382,10 +422,29 @@ function GetUbsSdicSoftwareLinks()
     return GetCategorySoftwareLinks($ar, $strLink);
 }
 
+function GetUniversalFundUrl()
+{
+	return 'http://www.99fund.com';
+}
+
+// http://www.99fund.com/main/products/pofund/164705/fundgk.shtml
+function GetUniversalOfficialLink($sym)
+{
+	$strDigitA = $sym->GetDigitA();
+    return GetOfficialLink(GetUniversalFundUrl().'/main/products/pofund/'.$strDigitA.'/fundgk.shtml', $strDigitA);
+}
+
 function GetUniversalSoftwareLinks()
 {
-    $ar = array('SH501043', 'SZ164701');
-    $strLink = GetExternalLink('http://www.99fund.com', '汇添富基金');
+    $ar = array('SH501043', 'SZ164701', 'SZ164705');
+    $strLink = GetExternalLink(GetUniversalFundUrl(), '汇添富基金');
+    return GetCategorySoftwareLinks($ar, $strLink);
+}
+
+function GetXinChengSoftwareLinks()
+{
+    $ar = array('SZ165510', 'SZ165513');
+    $strLink = GetExternalLink(GetXinChengFundUrl(), '信诚基金');
     return GetCategorySoftwareLinks($ar, $strLink);
 }
 

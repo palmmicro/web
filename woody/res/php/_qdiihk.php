@@ -43,6 +43,22 @@ function GetQdiiHkLinks($sym)
 	$str .= '<br />&nbsp';
 	$str .= GetHangSengSoftwareLinks();
 	$str .= GetASharesSoftwareLinks();
+	
+	$strSymbol = $sym->GetSymbol();
+	if (in_arrayHangSengQdiiHk($strSymbol))
+	{
+		$str .= GetSpySoftwareLinks();
+//		$str .= GetQqqSoftwareLinks();
+	}
+	else if (in_arrayHSharesQdiiHk($strSymbol))
+	{
+		$str .= GetHSharesSoftwareLinks();
+	}
+	else if (in_arrayTechQdiiHk($strSymbol))
+	{
+		$str .= GetHsTechSoftwareLinks();
+	}
+
 	return $str;
 }
 

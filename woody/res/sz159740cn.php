@@ -5,7 +5,6 @@ function GetQdiiHkRelated($sym)
 {
 	$str = GetDaChengOfficialLink($sym->GetDigitA());
 	$str .= ' '.GetQdiiHkLinks($sym);
-	$str .= GetHsTechSoftwareLinks();
 	$str .= GetDaChengSoftwareLinks();
 	return $str;
 }

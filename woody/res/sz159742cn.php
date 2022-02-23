@@ -5,7 +5,6 @@ function GetQdiiHkRelated($sym)
 {
 	$str = GetBoShiOfficialLink($sym->GetDigitA());
 	$str .= ' '.GetQdiiHkLinks($sym);
-	$str .= GetHsTechSoftwareLinks();
 	$str .= GetBoShiSoftwareLinks();
 	return $str;
 }

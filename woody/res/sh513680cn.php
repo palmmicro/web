@@ -3,9 +3,9 @@ require('php/_qdiihk.php');
 
 function GetQdiiHkRelated($sym)
 {
-	$str = GetHuaXiaOfficialLink($sym->GetDigitA());
+	$str = GetJianXinOfficialLink($sym->GetDigitA());
 	$str .= ' '.GetQdiiHkLinks($sym);
-	$str .= GetHuaXiaSoftwareLinks();
+	$str .= GetJianXinSoftwareLinks();
 	return $str;
 }
 

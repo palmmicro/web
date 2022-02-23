@@ -28,11 +28,6 @@ function GetJiaoYinSchroderOfficialLink($strDigitA)
     return GetOfficialLink(GetJiaoYinSchroderFundUrl().'fund/'.$strDigitA.'/index.shtml', $strDigitA);
 }
 
-function GetNanFangOfficialLink($strDigitA)
-{
-    return GetOfficialLink(GetNanFangFundUrl().'main/jjcp/fundproduct/'.$strDigitA.'.shtml', $strDigitA);
-}
-
 function GetNuoAnOfficialLink($strDigitA)
 {
     return GetOfficialLink(GetNuoAnFundUrl().'q/webFundInfo.action?fundCode='.$strDigitA, $strDigitA);
