@@ -63,26 +63,31 @@ function GetQdiiLinks($sym)
 	{
 		$str .= ' '.GetUscfLink();
 	}
-/*	
-	$strFutureSymbol = QdiiGetFutureSymbol($strSymbol);
-	if ($strFutureSymbol == 'hf_CL')								
-	{
-	}
 	
-	if (in_arraySpyQdii($strSymbol))
-	{
-	}
-*/	
 	if (in_arrayQqqQdii($strSymbol))
 	{
 		$str .= ' '.GetInvescoOfficialLink('QQQ');
 	}
 	
-	$str .= '<br />&nbsp';
-	$str .= GetASharesSoftwareLinks();
-	$str .= GetChinaInternetSoftwareLinks();
-	$str .= GetHSharesSoftwareLinks();
+	$strFutureSymbol = QdiiGetFutureSymbol($strSymbol);
+	
+//	$str .= '<br />&nbsp';
 	$str .= GetSpySoftwareLinks();
+	if (in_arraySpyQdii($strSymbol))
+	{
+		$str .= GetASharesSoftwareLinks();
+		$str .= GetHangSengSoftwareLinks();
+	}
+	else if (in_arrayQqqQdii($strSymbol))
+	{
+		$str .= GetQqqSoftwareLinks();
+		$str .= GetChinaInternetSoftwareLinks();
+	}
+	else if ($strFutureSymbol == 'hf_CL' || $strFutureSymbol == 'hf_GC' || in_arrayCommodityQdii($strSymbol))								
+	{
+		$str .= GetOilSoftwareLinks();
+		$str .= GetCommoditySoftwareLinks();
+	}
 	return $str;
 }
 

@@ -5,8 +5,6 @@ function GetQdiiRelated($sym)
 {
 	$str = GetHuaXiaOfficialLink($sym->GetDigitA());
 	$str .= ' '.GetQdiiLinks($sym);
-	$str .= GetQqqSoftwareLinks();
-	$str .= GetHangSengSoftwareLinks();
 	$str .= GetHuaXiaSoftwareLinks();
 	return $str;
 }

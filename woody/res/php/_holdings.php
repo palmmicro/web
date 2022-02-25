@@ -24,7 +24,7 @@ function _echoHoldingItem($ref, $arRatio, $strDate, $his_sql, $fTotalChange, $fA
     $ar[] = strval_round($fRatio * $fChange, 4);
     if ($bHk)	$ar[] = strval_round($fAdjustH, 4);
     
-    EchoTableColumn($ar);
+    RefEchoTableColumn($ref, $ar);
 }
 
 function EchoAll()
@@ -39,7 +39,7 @@ function EchoAll()
     	{
     		$arHoldingRef = $ref->GetHoldingRefArray();
 		    EchoHoldingsEstParagraph($ref);
-    		EchoReferenceParagraph(array_merge(array($ref), $arHoldingRef), $acct->IsAdmin());
+    		EchoReferenceParagraph(array_merge(array($ref), RefSort($arHoldingRef)), $acct->IsAdmin());
     		EchoTableParagraphBegin(array(new TableColumnSymbol(),
 										   new TableColumnPercentage('旧'),
 										   new TableColumnPrice('旧'),

@@ -20,6 +20,34 @@ function LayoutIsMobilePhone()
     return false;
 }
 
+/*
+function _echoRandomPromotion()
+{
+	$iVal = rand(1, 3);
+	switch ($iVal)
+	{
+	case 1:
+		LayoutPromotion('iwantyou', 'IB盈透证券推荐开户链接：');
+		break;
+        	
+	case 2:
+		LayoutWeixinPay();
+		break;
+
+	case 3:
+		LayoutPromotion('dongfang');
+		break;
+		
+	case 4:
+		LayoutPromotion('huabao');
+		break;
+		
+	case 5:
+		LayoutPromotion('yinhe', '著名网红营业部开户。请联系客服调整佣金 -- QQ:2531998595 微信:yhzqjn3');
+		break;
+	}
+}
+
 function LayoutPromotion($str, $strText = '')
 {
 	switch ($str)
@@ -50,6 +78,7 @@ function LayoutPromotion($str, $strText = '')
 		<br />$strLink</p>
 END;
 }
+*/
 
 function LayoutWeixinPay()
 {

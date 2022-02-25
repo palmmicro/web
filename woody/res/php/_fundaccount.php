@@ -134,7 +134,7 @@ function _getFundAccountTableColumnArray()
 				   new TableColumn(STOCK_OPTION_SHARE_DIFF, 110),
 				   new TableColumn('y'.STOCK_DISP_ORDER.'账户', 90),
 				   new TableColumnDate(STOCK_DISP_ORDER),
-				   new TableColumnClose(),
+				   new TableColumnPrice(),
 				   new TableColumnNetValue(),
 				   new TableColumnPremium('x')
 				   );

@@ -73,46 +73,9 @@ function _EchoMoneyGroupData($acct, $group, $strUSDCNY, $strHKDCNY)
     }
     if ((empty($group->multi_amount->fHKD) == false) || (empty($group->multi_profit->fHKD) == false))
     {
-        _echoMoneyItem('HK$', $group->multi_amount->fHKD, $group->multi_profit->fHKD, $group->multi_amount->fConvertHKD, $group->multi_profit->fConvertHKD);
+    	$col = new TableColumnHKD();
+        _echoMoneyItem($col->GetText(), $group->multi_amount->fHKD, $group->multi_profit->fHKD, $group->multi_amount->fConvertHKD, $group->multi_profit->fConvertHKD);
     }
-}
-
-// ****************************** Promotion Headline *******************************************************
-function _echoRandomPromotion()
-{
-	$iVal = rand(1, 3);
-	switch ($iVal)
-	{
-	case 1:
-//		LayoutWeixinPromotion();
-		LayoutPromotion('iwantyou', 'IB盈透证券推荐开户链接：');
-		break;
-        	
-	case 2:
-		LayoutWeixinPay();
-		break;
-
-	case 3:
-		LayoutPromotion('dongfang');
-		break;
-/*		
-	case 4:
-		LayoutPromotion('huabao');
-		break;
-		
-	case 5:
-		LayoutPromotion('yinhe', '著名网红营业部开户。请联系客服调整佣金 -- QQ:2531998595 微信:yhzqjn3');
-		break;*/
-	}
-}
-
-function EchoPromotionHead($strVer, $strLoginId)
-{
-    EchoHeadLine('相关链接');
-	_echoRandomPromotion();
-    
-    $str = GetDevGuideLink('20150818', $strVer).' '.GetAutoTractorLink();
-    EchoParagraph($str);
 }
 
 // ****************************** Misc *******************************************************
@@ -220,6 +183,18 @@ function StockGetEtfReference($strSymbol)
 function RefGetStockDisplay($ref)
 {
     return RefGetDescription($ref).'【'.$ref->GetSymbol().'】';
+}
+
+function GetKnownBugs($arBug)
+{
+	$str = '';
+	foreach ($arBug as $strBug)		$str .= GetHtmlElement($strBug, 'li');
+	return GetHtmlElement('已知问题', 'h3').GetHtmlElement($str, 'ol');
+}
+
+function _GetKnownBugs()
+{
+	return '</p>'.GetKnownBugs(func_get_args()).'<p>';
 }
 
 ?>

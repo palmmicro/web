@@ -32,7 +32,7 @@ function _echoFundEstTableItem($ref, $bFair)
     	}
     }
     
-    EchoTableColumn($ar, false, RefGetDescription($ref));
+    RefEchoTableColumn($ref, $ar);
 }
 
 function _callbackSortFundEst($ref)

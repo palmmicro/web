@@ -86,15 +86,13 @@ class StockAccount extends TitleAccount
 
     function EchoLinks($strVer = false, $callback = false)
     {
-    	$strLoginId = $this->GetLoginId();
-    	EchoPromotionHead($strVer, $strLoginId);
-
-   		$str = $callback ? call_user_func($callback, $this->GetRef()) : GetCategoryLinks(GetStockCategoryArray());
-    	$str .= '<br />'.GetCategoryLinks(GetStockMenuArray());
-    	$str .= '<br />'.GetMyPortfolioLink();
-    	if ($strLoginId)
+    	$strNewLine = GetBreakElement();
+    	
+    	EchoHeadLine('相关链接');
+    	$str = GetCategoryLinks(GetStockMenuArray()).' '.GetAutoTractorLink().' '.GetDevGuideLink('20150818', $strVer).$strNewLine;
+		if ($strLoginId = $this->GetLoginId())
     	{
-    		$str .= $this->_getPersonalLinks($strLoginId);
+    		$str .= GetMyPortfolioLink().$this->_getPersonalLinks($strLoginId);
     		if ($this->IsAdmin())
     		{
     			if (method_exists($this, 'GetGroupId'))
@@ -103,14 +101,17 @@ class StockAccount extends TitleAccount
     				$strMemberId = $this->GetGroupMemberId($strGroupId);
     			}
     			else	$strMemberId = $this->GetMemberId();
-   				if ($strMemberId != $strLoginId)	$str .= '<br />'.GetMemberLink($strMemberId);
+   				if ($strMemberId != $strLoginId)	$str .= $strNewLine.GetMemberLink($strMemberId);
     			
-    			$str .= '<br />'.GetPhpLink(STOCK_PATH.'debug', false, STOCK_DISP_DEBUG);
+    			$str .= $strNewLine.GetPhpLink(STOCK_PATH.'debug', false, STOCK_DISP_DEBUG);
     			$str .= ' '.GetFileLink(DebugGetFile());
     			$str .= ' '.GetFileLink('/php/test.php');
     		}
+    		$str .= $strNewLine;
     	}
+   		$str .= $callback ? call_user_func($callback, $this->GetRef()) : GetCategoryLinks(GetStockCategoryArray());
     	EchoParagraph($str);
+//    	_echoRandomPromotion();
     }
     
     function IsGroupReadOnly($strGroupId)

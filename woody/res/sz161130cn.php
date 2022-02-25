@@ -5,8 +5,6 @@ function GetQdiiRelated($sym)
 {
 	$str = GetEFundOfficialLink($sym->GetDigitA());
 	$str .= ' '.GetQdiiLinks($sym);
-	$str .= GetQqqSoftwareLinks();
-	$str .= GetHangSengSoftwareLinks();
 	$str .= GetEFundSoftwareLinks();
 	return $str;
 }

@@ -14,11 +14,6 @@ function EchoHeadLine($str)
 	EchoHtmlElement($str, 'h3');
 }
 
-function EchoOrderList($str)
-{
-	EchoHtmlElement($str, 'ol');
-}
-
 function EchoParagraph($str)
 {
 	EchoHtmlElement($str, 'p');

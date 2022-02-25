@@ -101,15 +101,13 @@ function EchoAll()
 
 function GetQdiiMixLinks($sym)
 {
-	if ($sym->IsShangHaiEtf())	$str = GetShangHaiEtfLinks();
-	else							$str = '';
+	$str = '';
+	if ($sym->IsShenZhenLof())			$str .= GetShenZhenLofLink();
+	else if ($sym->IsShangHaiEtf())		$str .= GetShangHaiEtfLinks();
 	
-	$str .= '<br />&nbsp';
-	$str .= GetASharesSoftwareLinks();
+//	$str .= '<br />&nbsp';
 	$str .= GetSpySoftwareLinks();
-	$str .= GetQqqSoftwareLinks();
 	$str .= GetHangSengSoftwareLinks();
-	$str .= GetHsTechSoftwareLinks();
 	$str .= GetChinaInternetSoftwareLinks();
 	return $str;
 }

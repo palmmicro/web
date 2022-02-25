@@ -5,8 +5,6 @@ function GetQdiiRelated($sym)
 {
 	$str = GetJiaShiOfficialLink($sym->GetDigitA());
 	$str .= ' '.GetQdiiLinks($sym);
-	$str .= GetOilSoftwareLinks();
-	$str .= GetCommoditySoftwareLinks();
 	$str .= GetJiaShiSoftwareLinks();
 	return $str;
 }

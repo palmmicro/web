@@ -46,9 +46,9 @@ function EchoStockHistoryParagraph($ref, $str = false, $csv = false, $iStart = 0
 								   new TableColumn(STOCK_DISP_OPEN),
 								   new TableColumn(STOCK_DISP_HIGH),
 								   new TableColumn(STOCK_DISP_LOW),
-								   new TableColumnClose(),
+								   new TableColumnPrice(),
 								   new TableColumnQuantity(),
-								   new TableColumnClose('复权')
+								   new TableColumnPrice('复权')
 								   ), $strSymbol.TABLE_STOCK_HISTORY, $str.'<br />'.$strMenuLink);
    
     _echoStockHistoryData($ref, $csv, $his_sql, $strStockId, $iStart, $iNum);

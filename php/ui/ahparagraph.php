@@ -15,27 +15,9 @@ function _echoAhItem($ref)
     	$ar[] = GetRatioDisplay(1.0 / $fAhRatio);
     }
     
-    EchoTableColumn($ar, false, RefGetDescription($ref));
+    RefEchoTableColumn($ref, $ar);
 }
-/*
-function _refSortBySymbol($arRef)
-{
-    $ar = array();
-    foreach ($arRef as $ref)
-    {
-        $strSymbol = $ref->GetSymbol();
-        $ar[$strSymbol] = $ref; 
-    }
-    ksort($ar);
-    
-    $arSort = array();
-    foreach ($ar as $str => $ref)
-    {
-        $arSort[] = $ref;
-    }
-    return $arSort;
-}
-*/
+
 function _callbackSortAh($ref)
 {
 	return $ref->GetAhPriceRatio();
@@ -85,7 +67,7 @@ function _echoAdrhItem($ref)
     	$ar[] = GetRatioDisplay(1.0 / $fAdrhRatio);
     }
     
-    EchoTableColumn($ar, false, RefGetDescription($ref));
+    RefEchoTableColumn($ref, $ar);
 }
 
 function _callbackSortAdrh($ref)

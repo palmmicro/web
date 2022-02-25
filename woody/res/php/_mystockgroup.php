@@ -146,16 +146,16 @@ function _getGroupImageLink($strPage)
     switch ($strPage)
     {
     case 'chinainternet':
-    	return BreakImgElement('huangrong.jpg', '83版射雕英雄传中翁美玲扮演的小乞丐黄蓉');
+    	return QuoteImgElement('huangrong.jpg', '83版射雕英雄传中翁美玲扮演的小乞丐黄蓉');
 
     case 'hangseng':
-    	return BreakImgElement('queen.jpg', '命运赠送的礼物都早已暗中标好了价格');
+    	return QuoteImgElement('queen.jpg', '命运赠送的礼物都早已暗中标好了价格');
 
     case 'hshares':
-    	return BreakImgElement('luodayou.jpg', '罗大佑弹唱流到香江去看一看');
+    	return QuoteImgElement('luodayou.jpg', '罗大佑弹唱流到香江去看一看');
 
     case 'hstech':
-    	return BreakImgElement('pig.jpg', '趴在墙头看人杀猪的一头猪');
+    	return QuoteImgElement('pig.jpg', '趴在墙头看人杀猪的一头猪');
     }
     return false;
 }

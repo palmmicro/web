@@ -5,7 +5,8 @@ function GetQdiiRelated($sym)
 {
 	$str = GetNanFangOfficialLink($sym->GetDigitA());
 	$str .= ' '.GetQdiiLinks($sym);
-	$str .= GetQqqSoftwareLinks();
+	$str .= GetOilSoftwareLinks();
+	$str .= GetChinaInternetSoftwareLinks();
 	$str .= GetNanFangSoftwareLinks();
 	return $str;
 }

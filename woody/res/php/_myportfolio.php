@@ -21,22 +21,13 @@ function _transSortBySymbol($arTrans)
     {
     	$ref = $trans->GetRef();
         $strSymbol = $ref->GetSymbol();
-        if (isset($ar[$strSymbol]))
-        {
-        	array_push($ar[$strSymbol], $trans);
-        }
-        else
-        {
-        	$ar[$strSymbol] = array($trans);
-        }
+        if (isset($ar[$strSymbol]))		array_push($ar[$strSymbol], $trans);
+        else					        	$ar[$strSymbol] = array($trans);
     }
     ksort($ar);
     
     $arSort = array();
-    foreach ($ar as $str => $arTrans)
-    {
-        $arSort = array_merge($arSort, $arTrans);
-    }
+    foreach ($ar as $str => $arTrans)	$arSort = array_merge($arSort, $arTrans);
     return $arSort;
 }
 
@@ -56,12 +47,7 @@ function _transEchoReferenceParagraph($arTrans, $bAdmin)
        	}
 	}
 	
-	// Stock history update
-	foreach ($arRef as $ref)
-	{
-		$his = new StockHistory($ref);
-	}
-	
+	foreach ($arRef as $ref)		$his = new StockHistory($ref);		// Stock history update
     EchoReferenceParagraph($arRef, $bAdmin);
 }
 
@@ -88,7 +74,7 @@ function _echoMergeParagraph($arMerge)
 			{
 				$ar[] = strval($iTotal - 100);
 			}*/
-			EchoTableColumn($ar);
+			RefEchoTableColumn($ref, $ar);
 		}
 	}
     EchoTableParagraphEnd();
@@ -139,7 +125,7 @@ function _echoPortfolio($portfolio, $sql, $strMemberId, $bAdmin)
 	$arTransA = array();
 	$arTransH = array();
 	$arTransUS = array();
-
+	
 	if ($result = $sql->GetAll($strMemberId)) 
 	{
 		while ($record = mysql_fetch_assoc($result)) 
@@ -153,7 +139,6 @@ function _echoPortfolio($portfolio, $sql, $strMemberId, $bAdmin)
 		            if ($trans->GetTotalRecords() > 0)
 		            {
 		                $portfolio->OnStockTransaction($trans);
-		                
 		                $ref = $trans->GetRef();
 		                if ($ref->IsSymbolA())	       	$arTransA[] = $trans;
 		                else if ($ref->IsSymbolH())      	$arTransH[] = $trans;

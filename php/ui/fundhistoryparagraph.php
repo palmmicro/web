@@ -52,7 +52,7 @@ function _echoHistoryTableData($his_sql, $fund_est_sql, $csv, $ref, $strStockId,
 
 function _echoFundHistoryParagraph($fund_est_sql, $ref, $est_ref, $csv, $iStart, $iNum, $bAdmin)
 {
-	$close_col = new TableColumnClose();
+	$close_col = new TableColumnPrice();
 	$nav_col = new TableColumnNetValue();
 	$premium_col = new TableColumnPremium();
 	

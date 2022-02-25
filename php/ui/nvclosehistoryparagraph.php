@@ -51,7 +51,7 @@ function EchoNvCloseHistoryParagraph($ref, $str = false, $csv = false, $iStart =
    	if ($str == false)	$str = GetNvCloseHistoryLink($strSymbol);
 
 	EchoTableParagraphBegin(array(new TableColumnDate(),
-								   new TableColumnClose(),
+								   new TableColumnPrice(),
 								   new TableColumnNetValue(),
 								   new TableColumnPremium('y'),
 								   new TableColumnChange('x'),

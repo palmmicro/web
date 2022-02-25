@@ -27,14 +27,6 @@ class TableColumnChange extends TableColumn
 	}
 }
 
-class TableColumnClose extends TableColumn
-{
-	function TableColumnClose($strPrefix = false)
-	{
-        parent::TableColumn('收盘价', 80, 'purple', $strPrefix);
-	}
-}
-
 class TableColumnError extends TableColumn
 {
 	function TableColumnError()
@@ -145,7 +137,7 @@ class TableColumnProfit extends TableColumn
 {
 	function TableColumnProfit($strPrefix = false)
 	{
-        parent::TableColumn('盈亏', 120, false, $strPrefix);
+        parent::TableColumn('盈利', 120, 'red', $strPrefix);
 	}
 }
 
@@ -262,6 +254,14 @@ class TableColumnUSD extends TableColumn
 	function TableColumnUSD($strPrefix = false)
 	{
         parent::TableColumn('美元$', 80, false, $strPrefix);
+	}
+}
+
+class TableColumnHKD extends TableColumn
+{
+	function TableColumnHKD($strPrefix = false)
+	{
+        parent::TableColumn('港币$', 80, false, $strPrefix);
 	}
 }
 

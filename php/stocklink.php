@@ -95,7 +95,7 @@ function GetNetValueHistoryLink($strSymbol, $strExtraQuery = false, $strExtraDis
     return GetStockSymbolLink(TABLE_NETVALUE_HISTORY, $strSymbol, $strDisplay, $strExtraQuery);
 }
 
-define('NVCLOSE_HISTORY_DISPLAY', '净值和收盘价比较');
+define('NVCLOSE_HISTORY_DISPLAY', '净值价格比较');
 define('NVCLOSE_HISTORY_PAGE', 'nvclosehistory');
 function GetNvCloseHistoryLink($strSymbol)
 {

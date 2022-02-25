@@ -6,6 +6,8 @@ function GetQdiiRelated($sym)
 	$str = GetHuaBaoOfficialLink($sym->GetDigitA());
 	$str .= ' '.GetSpdrOfficialLink('XLY');
 	$str .= ' '.GetQdiiLinks($sym);
+	$str .= GetQqqSoftwareLinks();
+	$str .= GetChinaInternetSoftwareLinks();
 	$str .= GetHuaBaoSoftwareLinks();
 	return $str;
 }

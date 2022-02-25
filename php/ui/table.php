@@ -33,14 +33,19 @@ class TableColumn
         if ($strPrefix)	$this->strText = $strPrefix.$this->strText; 
 	}
 	
-	function GetDisplay()
+	function GetText()
 	{
-		return GetBoldElement($this->strText);
+		return $this->strText;
 	}
 	
 	function GetWidth()
 	{
 		return $this->iWidth;
+	}
+	
+	function GetDisplay()
+	{
+		return GetBoldElement($this->strText);
 	}
 	
 	function GetHead()

@@ -86,7 +86,7 @@ function _echoThanousParadoxParagraph($strSymbol, $iStart, $iNum)
 	$str .= ' '.$strMenuLink;
 
 	EchoTableParagraphBegin(array(new TableColumnDate(),
-								   new TableColumnClose(),
+								   new TableColumnPrice(),
 								   new TableColumnNetValue(),
 								   new TableColumnPremium('x'),
 								   new TableColumnStock($strEstSymbol),

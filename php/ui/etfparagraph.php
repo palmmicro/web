@@ -31,7 +31,7 @@ function _echoEtfListItem($ref)
     $ar[] = _getEtfPairExternalLink($ref->GetPairSym());
     $ar[] = GetNumberDisplay($ref->fRatio);
     $ar[] = GetNumberDisplay($ref->fFactor);
-    EchoTableColumn($ar);
+    RefEchoTableColumn($ref, $ar);
 }
 
 function EchoEtfListParagraph($arRef)

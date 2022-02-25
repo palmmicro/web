@@ -28,7 +28,7 @@ function _echoPortfolioTableItem($trans)
     $strSymbol = $ref->GetSymbol();
     
     $ar[] = StockGetTransactionLink($trans->GetGroupId(), $strSymbol);
-    $ar[] = $trans->GetProfitDisplay().$ref->GetMoneyDisplay();
+    $ar[] = $trans->GetProfitDisplay();
     $iShares = $trans->GetTotalShares();
     if ($iShares != 0)
     {
@@ -53,7 +53,7 @@ function _echoPortfolioTableItem($trans)
    		}
     }
 
-    EchoTableColumn($ar);
+    RefEchoTableColumn($ref, $ar);
 }
 
 function EchoPortfolioParagraph($arTrans)

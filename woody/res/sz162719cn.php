@@ -5,8 +5,6 @@ function GetQdiiRelated($sym)
 {
 	$str = GetGuangFaOfficialLink($sym->GetDigitA()).'&'.GetIsharesOfficialLink('IEO').'('.GetSpindicesOfficialLink('DJSOEP').')';
 	$str .= ' '.GetQdiiLinks($sym);
-	$str .= GetOilSoftwareLinks();
-	$str .= GetCommoditySoftwareLinks();
 	$str .= GetGuangFaSoftwareLinks();
 	return $str;
 }

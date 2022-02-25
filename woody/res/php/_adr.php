@@ -129,14 +129,14 @@ function _echoAdrPriceItem($ref)
         $ar[] = $strPriceDisplay;
     }
     
-    EchoTableColumn($ar);
+    RefEchoTableColumn($ref, $ar);
 }
 
 function _echoAdrPriceParagraph($arRef)
 {
 	EchoTableParagraphBegin(array(new TableColumnSymbol(),
 								   new TableColumn('人民币￥'),
-								   new TableColumn('港币$'),
+								   new TableColumnHKD(),
 								   new TableColumnUSD()
 								   ), 'adrprice');
 	
