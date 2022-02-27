@@ -187,9 +187,7 @@ function RefGetStockDisplay($ref)
 
 function GetKnownBugs($arBug)
 {
-	$str = '';
-	foreach ($arBug as $strBug)		$str .= GetHtmlElement($strBug, 'li');
-	return GetHtmlElement('已知问题', 'h3').GetHtmlElement($str, 'ol');
+	return GetHtmlElement('已知问题', 'h3').GetListElement($arBug);
 }
 
 function _GetKnownBugs()

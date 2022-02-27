@@ -59,6 +59,13 @@ function GetRemarkElement($strContent)
 	return GetFontElement($strContent, 'green');
 }
 
+function GetListElement($arContent, $bOrder = true)
+{
+	$str = '';
+	foreach ($arContent as $strContent)	$str .= GetHtmlElement($strContent, 'li');
+	return GetHtmlElement($str, ($bOrder ? 'ol' : 'ul'));
+}
+
 function _setHtmlElement($str)
 {
     return "$str=\"$str\"";

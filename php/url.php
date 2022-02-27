@@ -117,11 +117,12 @@ function UrlCleanString($str)
 // accessToken=eyJhbGciOiJIUzI1NiIsImtpZCI6ImRlZmF1bHQiLCJ0eXAiOiJKV1QifQ.eyJhdWQiOiJhY2Nlc3NfcmVzb3VyY2UiLCJleHAiOjE2NDAyMzcwOTQsImciOiJ3WVJUOGs5NmQzcnhydHd4IiwiaWF0IjoxNjQwMjM2Nzk0LCJ1c2VySWQiOi0xNDYwMzcwMTA2fQ.OcQAZ-1xdFtBu6XOZmh5OwXbHw1jFITdbdw8shqlRIE
 // continueFlag=24dc682e3f5892a79193842f97156bc8
 // from=singlemessage
-// from=groupmessage&isappinstalled=0
+// from=groupmessage&isappinstalled=0&scene=1&clicktime=1579733595&enterid=1579733595
 // tdsourcetag=s_pcqq_aiomsg
 // xueqiu_status_id=140805627&xueqiu_status_from_source=sstl&xueqiu_status_source=statusdetail&xueqiu_private_from_source=0105&key_name=0106
 // entryScene=zhida_05_001&jump_from=1_13_18_00
 // jump_from=1_05_37_01
+// fbclid=IwAR0fSj2-McWUF2fs80iiuVaKisnq9fbiicNmxZFJ8Z4BeD6EOQHc6EQGjwk
 function UrlGetQueryString()
 { 
 	if (isset($_SERVER['QUERY_STRING']))
@@ -131,12 +132,16 @@ function UrlGetQueryString()
 		foreach ($ar as $strQuery)
 		{
 			if ((strpos($strQuery, 'accessToken=') === false) 
+				&& (strpos($strQuery, 'clicktime=') === false)
 				&& (strpos($strQuery, 'continueFlag=') === false)
+				&& (strpos($strQuery, 'enterid=') === false)
 				&& (strpos($strQuery, 'entryScene=') === false)
+				&& (strpos($strQuery, 'fbclid=') === false)
 				&& (strpos($strQuery, 'from=') === false)
 				&& (strpos($strQuery, 'isappinstalled=') === false)
 				&& (strpos($strQuery, 'jump_from=') === false)
 				&& (strpos($strQuery, 'key_name=') === false)
+				&& (strpos($strQuery, 'scene=') === false)
 				&& (strpos($strQuery, 'tdsourcetag=') === false)
 				&& (strpos($strQuery, 'xueqiu_private_from_source=') === false)
 				&& (strpos($strQuery, 'xueqiu_status_from_source=') === false)
