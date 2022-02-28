@@ -3,9 +3,7 @@ require('php/_adr.php');
 
 function GetAdrRelated($sym)
 {
-	$str = GetAdrLinks($sym);
-	$str .= GetCommoditySoftwareLinks();
-	$str .= GetOilSoftwareLinks();
+	$str = GetOilSoftwareLinks();
 	return $str;
 }
 

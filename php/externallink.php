@@ -23,16 +23,6 @@ function GetHuaBaoOfficialLink($strDigitA)
     return GetOfficialLink(GetHuaBaoFundUrl().'/funds/'.$strDigitA.'/index.shtml', $strDigitA);
 }
 
-function GetJiaoYinSchroderOfficialLink($strDigitA)
-{
-    return GetOfficialLink(GetJiaoYinSchroderFundUrl().'fund/'.$strDigitA.'/index.shtml', $strDigitA);
-}
-
-function GetNuoAnOfficialLink($strDigitA)
-{
-    return GetOfficialLink(GetNuoAnFundUrl().'q/webFundInfo.action?fundCode='.$strDigitA, $strDigitA);
-}
-
 function GetPenghuaOfficialLink($strDigitA)
 {
     return GetOfficialLink(GetPenghuaFundUrl().'web/FUND_'.$strDigitA, $strDigitA);

@@ -113,6 +113,7 @@ function GetCategoryArray($strPage)
         
     case 'oilfund':
     	$ar = array_merge(QdiiGetOilEtfSymbolArray()
+    					   , array('SZ163208')
     					   , QdiiGetOilSymbolArray()
     					   , array('PTR', 'SHI', 'SNP'));
         break;
@@ -237,7 +238,7 @@ function GetEFundOfficialLink($strDigitA)
     return GetOfficialLink(GetEFundUrl().'/html/fund/'.$strDigitA.'_fundinfo.htm', $strDigitA);
 }
 
-function GetEFundSoftwareLinks()
+function GetEFundSoftwareLinks($strDigitA = false)
 {
     $ar = array('SH510900', 'SH513010', 'SH513050', 'SZ159934', 'SZ161116', 'SZ161125', 'SZ161126', 'SZ161127', 'SZ161128', 'SZ161129', 'SZ161130');
     $strLink = GetExternalLink(GetEFundUrl(), '易方达基金');
@@ -341,11 +342,21 @@ function GetJianXinSoftwareLinks()
     return GetCategorySoftwareLinks($ar, $strLink);
 }
 
-function GetJiaoYinSchroderSoftwareLinks()
+function GetJiaoYinSchroderFundUrl()
+{
+	return 'https://www.fund001.com/';
+}
+
+function GetJiaoYinSchroderOfficialLink($strDigitA)
+{
+    return GetOfficialLink(GetJiaoYinSchroderFundUrl().'/fund/'.$strDigitA.'/index.shtml', $strDigitA);
+}
+
+function GetJiaoYinSchroderSoftwareLinks($strDigitA)
 {
     $ar = array('SZ164906');
-    $strLink = GetExternalLink(GetJiaoYinSchroderFundUrl(), '交银施罗德基金');
-    return GetCategorySoftwareLinks($ar, $strLink);
+	$strUrl = 'https://www.fund001.com';
+    return GetOfficialLink($strUrl.'/fund/'.$strDigitA.'/index.shtml', $strDigitA).GetCategorySoftwareLinks($ar, GetExternalLink($strUrl, '交银施罗德基金'));
 }
 
 function GetJiaShiFundUrl()
@@ -383,11 +394,12 @@ function GetNanFangSoftwareLinks()
     return GetCategorySoftwareLinks($ar, $strLink);
 }
 
-function GetNuoAnSoftwareLinks()
+// https://www.lionfund.com.cn/official/funds/main?fundCode=163208
+function GetNuoAnSoftwareLinks($strDigitA)
 {
     $ar = array('SZ163208');
-    $strLink = GetExternalLink(GetNuoAnFundUrl(), '诺安基金');
-    return GetCategorySoftwareLinks($ar, $strLink);
+	$strUrl = 'https://www.lionfund.com.cn';
+    return GetOfficialLink($strUrl.'/official/funds/main?fundCode='.$strDigitA, $strDigitA).GetCategorySoftwareLinks($ar, GetExternalLink($strUrl, '诺安基金'));
 }
 
 function GetPenghuaSoftwareLinks()

@@ -51,6 +51,10 @@ function GetArbitrageQuantity($strSymbol, $fQuantity)
 		$iArbitrage = 1400;
    		break;
     		
+   	case 'SZ163208':
+		$iArbitrage = 550;
+   		break;
+    		
    	case 'SZ164906':
 		$iArbitrage = 245;
    		break;

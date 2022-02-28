@@ -96,7 +96,7 @@ function EchoAll()
     	$acct->EchoMoneyParagraph($group, $uscny_ref, $hkcny_ref);
 	}
 
-    $acct->EchoLinks(QDII_MIX_PAGE, 'GetQdiiMixRelated');
+    $acct->EchoLinks(QDII_MIX_PAGE, 'GetQdiiMixLinks');
 }
 
 function GetQdiiMixLinks($sym)
@@ -105,11 +105,9 @@ function GetQdiiMixLinks($sym)
 	if ($sym->IsShenZhenLof())			$str .= GetShenZhenLofLink();
 	else if ($sym->IsShangHaiEtf())		$str .= GetShangHaiEtfLinks();
 	
-//	$str .= '<br />&nbsp';
 	$str .= GetSpySoftwareLinks();
 	$str .= GetHangSengSoftwareLinks();
-	$str .= GetChinaInternetSoftwareLinks();
-	return $str;
+	return $str.GetQdiiMixRelated($sym->GetDigitA());
 }
 
 function GetMetaDescription()

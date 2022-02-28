@@ -9,6 +9,7 @@ function _getStockOptionDate($strSubmit, $ref)
 	{
 	case STOCK_OPTION_DIVIDEND:
 	case STOCK_OPTION_EMA:
+	case STOCK_OPTION_HOLDINGS:
 	case STOCK_OPTION_SHARE_DIFF:
 	case STOCK_OPTION_SPLIT:
 		if ($strDate = $his_sql->GetDateNow($strStockId))							return $strDate;
@@ -178,6 +179,9 @@ function _getStockOptionVal($strSubmit, $strLoginId, $ref, $strSymbol, $strDate)
 	case STOCK_OPTION_HA:
 		return _getStockOptionHa($strSymbol);
 
+	case STOCK_OPTION_HOLDINGS:
+		return 'STOCK1*10.1;STOCK2*20.2;STOCK3*30.3;STOCK4*39.4';
+
 	case STOCK_OPTION_NETVALUE:
 		return SqlGetNavByDate($strStockId, $strDate);
 
@@ -207,13 +211,16 @@ function _getStockOptionMemo($strSubmit)
 		return '清空输入删除对应分红.';
 		
 	case STOCK_OPTION_EMA:
-		return '股票收盘后的第2天修改才会生效, 输入0/0删除全部EMA记录.';
+		return '股票收盘后的第2天修改才会生效，输入0/0删除全部EMA记录。';
 
 	case STOCK_OPTION_ETF:
 		return '输入INDEX*0删除对应关系和全部'.CALIBRATION_HISTORY_DISPLAY.'。';
 
 	case STOCK_OPTION_HA:
 		return '清空输入删除对应A股.';
+
+	case STOCK_OPTION_HOLDINGS:
+		return '输入STOCK*0删除对应基金持仓，用;号间隔多个持仓品种。';
 
 	case STOCK_OPTION_NETVALUE:
 	case STOCK_OPTION_SHARE_DIFF:

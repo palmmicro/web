@@ -9,7 +9,7 @@ define('SMA_SECTION', 'SMA');
 
 function _ignoreCurrentTradingData($strDate, $sym)
 {        
-    $sym->SetTimeZone();
+//    $sym->SetTimeZone();
     $ymd = GetNowYMD();
     if ($ymd->GetYMD() == $strDate)
     {
@@ -160,8 +160,12 @@ function _isMonthEnd($strYMD, $strNextDayYMD)
     else
     {   // If the last none weekend day of a certain month is not a trading day 
         $now_ymd = GetNowYMD();
-        $iTick = $now_ymd->GetNextTradingDayTick();
-        $next_ymd = new TickYMD($iTick);
+        if (($now_ymd->GetYMD() == $strYMD) || $now_ymd->IsWeekend())
+        {
+        	$iTick = $now_ymd->GetNextTradingDayTick();
+        	$next_ymd = new TickYMD($iTick);
+        }
+        else	$next_ymd = $now_ymd;
     }
     
     if ($ymd->GetMonth() == $next_ymd->GetMonth())		return false;    // same month    
@@ -306,8 +310,16 @@ class StockHistory
     			$afClose[] = $fClose;
             
     			$strYMD = $record['date'];
-    			if (_isWeekEnd($strYMD, $strNextDayYMD))	$afWeeklyClose[] = $fClose;
-    			if (_isMonthEnd($strYMD, $strNextDayYMD))	$afMonthlyClose[] = $fClose;
+    			if (_isWeekEnd($strYMD, $strNextDayYMD))	
+    			{
+    				$afWeeklyClose[] = $fClose;
+//    				DebugString($strYMD.' '.$record['adjclose'], true);
+    			}
+    			if (_isMonthEnd($strYMD, $strNextDayYMD))	
+    			{
+    				$afMonthlyClose[] = $fClose;
+//    				DebugString($strYMD.' '.$record['adjclose'], true);
+    			}
     			$strNextDayYMD = $strYMD;
     		}
     		@mysql_free_result($result);
@@ -316,7 +328,6 @@ class StockHistory
 	    $this->_cfg_set_SMAs($cfg, 'D', $afClose);
 	    $this->_cfg_set_SMAs($cfg, 'W', $afWeeklyClose);
 	    $this->_cfg_set_SMAs($cfg, 'M', $afMonthlyClose);
-//	    DebugPrint($afMonthlyClose);
         
         $this->_cfg_set_EMA($cfg, 50, $afClose);
         $this->_cfg_set_EMA($cfg, 200, $afClose);
@@ -400,6 +411,8 @@ class StockHistory
     {
         $this->stock_ref = $ref;
         $this->aiNum = array(5, 10, 20);
+
+		$ref->SetTimeZone();
 		$this->strStartDate = $this->_getStartDate();
         $this->_configSMA();
     }

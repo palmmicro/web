@@ -1,11 +1,14 @@
 <?php 
-require('php/_qdii.php');
+//require('php/_qdii.php');
+require('php/_qdiimix.php');
 
-function GetQdiiRelated($sym)
+// IXC*19.43;XLE*19.1;VDE*18.76;IYE*18.42;XOP*17.9
+
+function GetQdiiMixRelated($strDigitA)
 {
-	$str = GetNuoAnOfficialLink($sym->GetDigitA()).'&'.GetSpdrOfficialLink('XLE').'('.GetSpindicesOfficialLink('GSPE').')';
-	$str .= ' '.GetQdiiLinks($sym);
-	$str .= GetNuoAnSoftwareLinks();
+	$str = GetOilSoftwareLinks();
+	$str .= GetBreakElement().GetSpdrOfficialLink('XLE').' '.GetSpindicesOfficialLink('GSPE').' ';
+	$str .= GetNuoAnSoftwareLinks($strDigitA);
 	return $str;
 }
 

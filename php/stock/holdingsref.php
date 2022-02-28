@@ -156,7 +156,7 @@ class HoldingsReference extends MyStockReference
 		}
 		
 		$fTotalChange -= $fTotalRatio;
-		if ($this->IsLofA())	$fTotalChange *= 0.9146;		// LOF_POSITION_RATIO;
+		if ($this->GetSymbol() == 'SZ164906')		$fTotalChange *= 0.9146;		// LOF_POSITION_RATIO;
 
 		$fNewNav = floatval($this->strNav) * (1.0 + $fTotalChange);
 		if ($this->IsFundA())		$fNewNav /= $this->GetAdjustCny($strDate);
@@ -189,9 +189,12 @@ class HoldingsReference extends MyStockReference
     			break;
    			}
    		}
-
-   		if ($strH == $strUS)		return $strH;
-		else if (strtotime($strH) < strtotime($strUS))		return $strH;
+   		
+   		if ($strH)
+   		{
+   			if ($strH == $strUS)		return $strH;
+   			else if (strtotime($strH) < strtotime($strUS))		return $strH;
+   		}
 		return $strUS;
     }
     

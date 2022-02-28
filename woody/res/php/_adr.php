@@ -164,13 +164,15 @@ function EchoAll()
         _echoArbitrageParagraph($acct, $group);
 	}
     
-    $acct->EchoLinks(ADR_PAGE, 'GetAdrRelated');
+    $acct->EchoLinks(ADR_PAGE, 'GetAdrLinks');
 }
 
 function GetAdrLinks($sym)
 {
 	$str = GetAastocksLink();
-	return $str;
+	$str .= GetASharesSoftwareLinks();
+	$str .= GetHangSengSoftwareLinks();
+	return $str.GetAdrRelated($sym);
 }
 
 function GetTitle()

@@ -84,11 +84,6 @@ function GetHuaBaoFundUrl()
 	return 'http://www.fsfund.com';
 }
 
-function GetJiaoYinSchroderFundUrl()
-{
-	return 'https://www.fund001.com/';
-}
-
 function GetGuangFaFundUrl()
 {
 	return 'http://www.gffunds.com.cn';
@@ -97,11 +92,6 @@ function GetGuangFaFundUrl()
 function GetGuoTaiFundUrl()
 {
 	return 'https://e.gtfund.com';
-}
-
-function GetNuoAnFundUrl()
-{
-	return 'https://trade.lionfund.com.cn/pc/';
 }
 
 function GetPenghuaFundUrl()

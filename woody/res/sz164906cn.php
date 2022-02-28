@@ -1,13 +1,11 @@
 <?php 
 require('php/_qdiimix.php');
 
-function GetQdiiMixRelated($sym)
+function GetQdiiMixRelated($strDigitA)
 {
-	$str = GetJiaoYinSchroderOfficialLink($sym->GetDigitA());
-	$str .= ' '.GetKraneOfficialLink('KWEB');
-	$str .= ' '.GetCsindexOfficialLink('H11136');
-	$str .= ' '.GetQdiiMixLinks($sym);
-	$str .= GetJiaoYinSchroderSoftwareLinks();
+	$str = GetChinaInternetSoftwareLinks();
+	$str .= GetBreakElement().GetKraneOfficialLink('KWEB').' '.GetCsindexOfficialLink('H11136').' ';
+	$str .= GetJiaoYinSchroderSoftwareLinks($strDigitA);
 	return $str;
 }
 

@@ -156,6 +156,7 @@ define('STOCK_OPTION_EDIT', '修改股票说明');
 define('STOCK_OPTION_EMA', '修改200/50天EMA');
 define('STOCK_OPTION_ETF', '修改ETF对应跟踪代码');
 define('STOCK_OPTION_HA', '修改H股对应A股代码');
+define('STOCK_OPTION_HOLDINGS', '修改基金持仓');
 define('STOCK_OPTION_NETVALUE', '修改净值');
 define('STOCK_OPTION_SHARE_DIFF', '场内新增(万股)');
 define('STOCK_OPTION_SPLIT', '拆股或合股');
@@ -170,6 +171,7 @@ function GetStockOptionArray()
                   'editstockema' => STOCK_OPTION_EMA,
                   'editstocketf' => STOCK_OPTION_ETF,
                   'editstockha' => STOCK_OPTION_HA,
+                  'editstockholdings' => STOCK_OPTION_HOLDINGS,
                   'editnetvalue' => STOCK_OPTION_NETVALUE,
                   'editsharesdiff' => STOCK_OPTION_SHARE_DIFF,
                   'editstocksplit' => STOCK_OPTION_SPLIT,

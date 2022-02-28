@@ -1,12 +1,11 @@
 <?php 
 require('php/_qdiimix.php');
 
-function GetQdiiMixRelated($sym)
+function GetQdiiMixRelated($strDigitA)
 {
-	$str = GetEFundOfficialLink($sym->GetDigitA());
-	$str .= ' '.GetCsindexOfficialLink('H30533');
-	$str .= ' '.GetQdiiMixLinks($sym);
-	$str .= GetEFundSoftwareLinks();
+	$str = GetChinaInternetSoftwareLinks();
+	$str .= GetBreakElement().GetCsindexOfficialLink('H30533').' '.GetEFundOfficialLink($strDigitA);
+	$str .= GetEFundSoftwareLinks($strDigitA);
 	return $str;
 }
 

@@ -95,23 +95,24 @@ function _hasSmaDisplay($sym)
     return true;
 }
 
+function _getFundOptionLinks($strSymbol)
+{
+	return ' '.GetStockOptionLink(STOCK_OPTION_NETVALUE, $strSymbol).' '.GetStockOptionLink(STOCK_OPTION_ETF, $strSymbol).' '.GetStockOptionLink(STOCK_OPTION_HOLDINGS, $strSymbol);
+}
+
 function _getMyStockLinks($sym)
 {
 	$strSymbol = $sym->GetSymbol();
     $str = GetStockOptionLink(STOCK_OPTION_EDIT, $strSymbol);
    	$str .= ' '.GetStockOptionLink(STOCK_OPTION_SPLIT, $strSymbol);
    	$str .= ' '.GetStockOptionLink(STOCK_OPTION_DIVIDEND, $strSymbol);
-   	$str .= ' '.GetStockOptionLink(STOCK_OPTION_NETVALUE, $strSymbol);
    	if (SqlGetEtfPair($strSymbol) == false)
    	{
    		$str .= ' '.GetStockOptionLink(STOCK_OPTION_EMA, $strSymbol);
    	}
    	if ($sym->IsSymbolA())
    	{
-    	if ($sym->IsFundA())
-    	{
-    		$str .= ' '.GetStockOptionLink(STOCK_OPTION_ETF, $strSymbol);
-    	}
+    	if ($sym->IsFundA())		$str .= _getFundOptionLinks($strSymbol);
     	else if ($sym->IsTradable())
     	{
     		$str .= ' '.GetStockOptionLink(STOCK_OPTION_AH, $strSymbol);
@@ -124,10 +125,7 @@ function _getMyStockLinks($sym)
     }
     else
     {
-    	if ($sym->IsTradable())
-    	{
-    		$str .= ' '.GetStockOptionLink(STOCK_OPTION_ETF, $strSymbol);
-    	}
+    	if ($sym->IsTradable())	$str .= _getFundOptionLinks($strSymbol);
     }
     return $str;
 }
