@@ -1,10 +1,9 @@
 <?php 
 require('php/_qdii.php');
 
-function GetQdiiRelated($sym)
+function GetQdiiRelated($strDigitA)
 {
-	$str = GetUniversalOfficialLink($sym);
-	$str .= ' '.GetQdiiLinks($sym);
+	$str = GetUniversalOfficialLink($strDigitA);
 	$str .= GetUniversalSoftwareLinks();
 	return $str;
 }

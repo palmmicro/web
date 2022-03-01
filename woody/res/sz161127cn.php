@@ -1,10 +1,9 @@
 <?php 
 require('php/_qdii.php');
 
-function GetQdiiRelated($sym)
+function GetQdiiRelated($strDigitA)
 {
-	$str = GetEFundOfficialLink($sym->GetDigitA()).' '.GetSpdrOfficialLink('XBI');
-	$str .= ' '.GetQdiiLinks($sym);
+	$str = GetEFundOfficialLink($strDigitA).' '.GetSpdrOfficialLink('XBI');
 	$str .= GetQqqSoftwareLinks();
 	$str .= GetChinaInternetSoftwareLinks();
 	$str .= GetEFundSoftwareLinks();

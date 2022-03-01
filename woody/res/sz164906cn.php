@@ -3,8 +3,7 @@ require('php/_qdiimix.php');
 
 function GetQdiiMixRelated($strDigitA)
 {
-	$str = GetChinaInternetSoftwareLinks();
-	$str .= GetBreakElement().GetKraneOfficialLink('KWEB').' '.GetCsindexOfficialLink('H11136').' ';
+	$str = GetBreakElement().GetKraneOfficialLink('KWEB').' '.GetCsindexOfficialLink('H11136');
 	$str .= GetJiaoYinSchroderSoftwareLinks($strDigitA);
 	return $str;
 }

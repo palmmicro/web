@@ -47,7 +47,7 @@ function EchoAll()
 	}
 	
     $acct->EchoDebugParagraph();
-    $acct->EchoLinks(false, 'GetQdiiRelated');
+    $acct->EchoLinks(false, 'GetQdiiLinks');
 }
 
 function GetQdiiLinks($sym)
@@ -71,7 +71,6 @@ function GetQdiiLinks($sym)
 	
 	$strFutureSymbol = QdiiGetFutureSymbol($strSymbol);
 	
-//	$str .= '<br />&nbsp';
 	$str .= GetSpySoftwareLinks();
 	if (in_arraySpyQdii($strSymbol))
 	{
@@ -88,7 +87,7 @@ function GetQdiiLinks($sym)
 		$str .= GetOilSoftwareLinks();
 		$str .= GetCommoditySoftwareLinks();
 	}
-	return $str;
+	return $str.GetQdiiRelated($sym->GetDigitA());
 }
 
    	$acct = new _QdiiAccount();

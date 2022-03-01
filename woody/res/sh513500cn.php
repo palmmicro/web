@@ -1,10 +1,9 @@
 <?php 
 require('php/_qdii.php');
 
-function GetQdiiRelated($sym)
+function GetQdiiRelated($strDigitA)
 {
-	$str = GetBoShiOfficialLink($sym->GetDigitA());
-	$str .= ' '.GetQdiiLinks($sym);
+	$str = GetBoShiOfficialLink($strDigitA);
 	$str .= GetBoShiSoftwareLinks();
 	return $str;
 }

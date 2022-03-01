@@ -469,21 +469,30 @@ EndFunc
 
 Func YinheSell($hWnd, $idDebug, $strSymbol, $strPrice, $strSellQuantity, ByRef $iRemainQuantity)
 	$strControlID = _yinheClickSell($hWnd, $idDebug)
-	$iSel = 0
 	While 1
-		$strAccount = _CtlSelectString($hWnd, $idDebug, $strControlID, $iSel)
-		If $strAccount == False Then ExitLoop
+		$iSel = 0
+		$iTotal = 0
+		While 1
+			$strAccount = _CtlSelectString($hWnd, $idDebug, $strControlID, $iSel)
+			If $strAccount == False Then ExitLoop
 
-		_yinheCloseNewDlg($idDebug)
-		If _isShenzhenAccount($strAccount) Then
-			_CtlDebug($idDebug, '剩余卖出数量：' & String($iRemainQuantity))
-			$iSold = _yinheAddShenzhenSellEntry($hWnd, $idDebug, $strSymbol, $strPrice, $strSellQuantity, $iRemainQuantity)
-			If $iSold == -1 Then
-				Return False
-			ElseIf $iSold == 0 Then
-				ExitLoop
+			_yinheCloseNewDlg($idDebug)
+			If _isShenzhenAccount($strAccount) Then
+				_CtlDebug($idDebug, '剩余卖出数量：' & String($iRemainQuantity))
+				$iSold = _yinheAddShenzhenSellEntry($hWnd, $idDebug, $strSymbol, $strPrice, $strSellQuantity, $iRemainQuantity)
+				$iTotal += $iSold
+				If $iSold == -1 Then
+					Return False
+				ElseIf $iSold == 0 Then
+					$strHour = StringLeft(_NowTime(4), 2)
+					_CtlDebug($idDebug, '当前小时：' & $strHour)
+					If Number($strHour) < 16 Then Return True	; 交易时间段不反复检查是否下单成功
+;					ExitLoop
+				EndIf
 			EndIf
-		EndIf
+		WEnd
+		_CtlDebug($idDebug, '下单数量：' & String($iTotal))
+		If $iTotal == 0 Then ExitLoop
 	WEnd
 	Return True
 EndFunc
@@ -788,7 +797,7 @@ Func YinheMain()
 	Local $arCheckboxAccount[$iMax]
 	$iMsg = 0
 
-	$idFormMain = GUICreate("银河海王星全自动拖拉机V0.50", 803, 506, 289, 0)
+	$idFormMain = GUICreate("银河海王星全自动拖拉机V0.51", 803, 506, 289, 0)
 
 	$idListViewAccount = GUICtrlCreateListView("客户号", 24, 24, 146, 454, BitOR($GUI_SS_DEFAULT_LISTVIEW,$WS_VSCROLL), BitOR($WS_EX_CLIENTEDGE,$LVS_EX_CHECKBOXES))
 	GUICtrlSendMsg(-1, $LVM_SETCOLUMNWIDTH, 0, 118)
@@ -800,7 +809,7 @@ Func YinheMain()
 
 	$idLabelSymbol = GUICtrlCreateLabel("基金代码", 192, 24, 52, 17)
 	$idListSymbol = GUICtrlCreateList("", 192, 48, 121, 97)
-	GUICtrlSetData(-1, '160216|160416|161226|162411|164906', _getProfileString('Symbol', '162411'))
+	GUICtrlSetData(-1, '160216|160416|161226|162411|163208|164906', _getProfileString('Symbol', '162411'))
 
 	$idLabelSellPrice = GUICtrlCreateLabel("卖出价格", 192, 160, 52, 17)
 	$idInputSellPrice = GUICtrlCreateInput("", 192, 184, 121, 21)

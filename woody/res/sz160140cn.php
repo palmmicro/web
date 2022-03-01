@@ -1,10 +1,9 @@
 <?php 
 require('php/_qdii.php');
 
-function GetQdiiRelated($sym)
+function GetQdiiRelated($strDigitA)
 {
-	$str = GetNanFangOfficialLink($sym->GetDigitA());
-	$str .= ' '.GetQdiiLinks($sym);
+	$str = GetNanFangOfficialLink($strDigitA);
 	$str .= GetOilSoftwareLinks();
 	$str .= GetChinaInternetSoftwareLinks();
 	$str .= GetNanFangSoftwareLinks();

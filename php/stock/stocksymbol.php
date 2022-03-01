@@ -37,11 +37,13 @@ function StrHasPrefix($str, $strPrefix)
 
 function GetSecondaryListingArray()
 {
-	return array('09988' => 'BABA',
+	return array(
 				   '09618' => 'JD',
-				   '09999' => 'NTES',
 				   '09626' => 'BILI',
-				   );
+				   '09888' => 'BIDU',
+				   '09988' => 'BABA',
+				   '09999' => 'NTES',
+				  );
 }
 
 function ChinaIndexGetSymbolArray()
@@ -91,7 +93,7 @@ function in_arrayOilQdii($strSymbol)
 
 function QdiiGetOilEtfSymbolArray()
 {
-    return array('SZ160416', 'SZ162411', 'SZ162719'); 
+    return array('SZ160416', 'SZ162411', 'SZ162719', 'SZ163208'); 
 }
 
 function in_arrayOilEtfQdii($strSymbol)
@@ -184,7 +186,7 @@ function QdiiHkGetIndexSymbolArray()
 
 function QdiiMixGetSymbolArray()
 {
-    $ar = array('SH513050', 'SZ163208', 'SZ164906'); 
+    $ar = array('SH513050', 'SZ164906'); 
     return $ar;
 }
 

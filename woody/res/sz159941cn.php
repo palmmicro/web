@@ -1,11 +1,9 @@
 <?php 
 require('php/_qdii.php');
 
-function GetQdiiRelated($sym)
+function GetQdiiRelated($strDigitA)
 {
-	$str = GetGuangFaOfficialLink($sym->GetDigitA());
-	$str .= ' '.GetQdiiLinks($sym);
-	$str .= GetGuangFaSoftwareLinks();
+	$str = GetBreakElement().GetGuangFaSoftwareLinks($strDigitA);
 	return $str;
 }
 

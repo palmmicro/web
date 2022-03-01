@@ -12,7 +12,7 @@ require_once('/php/ui/fundestparagraph.php');
 
 class _QdiiMixAccount extends GroupAccount
 {
-    var $us_ref = false;
+    var $us_ref;
     var $cnh_ref;
 
     function Create()
@@ -20,25 +20,38 @@ class _QdiiMixAccount extends GroupAccount
         $strCNH = 'fx_susdcnh';
         $strSymbol = $this->GetName();
         $ar = array($strSymbol, $strCNH);
-        if ($strSymbol == 'SZ164906')
+        switch ($strSymbol)
         {
+        case 'SZ164906':
         	$strUS = 'KWEB';
-        	$ar[] = $strUS; 
+        	break;
+        	
+		default:
+        	$strUS = false;
+        	break;
         }
+        if ($strUS)	$ar[] = $strUS; 
         StockPrefetchArrayExtendedData($ar);
 
         $this->cnh_ref = new ForexReference($strCNH);
         $this->ref = new HoldingsReference($strSymbol);
         $arRef = array($this->ref);
-        if ($strSymbol == 'SZ164906')
+        switch ($strSymbol)
         {
+        case 'SZ164906':
         	$this->us_ref = new HoldingsReference($strUS);
-        	$arRef[] = $this->us_ref; 
+        	break;
+        	
+		default:
+        	$this->us_ref = false;
+        	break;
         }
+        if ($this->us_ref)	$arRef[] = $this->us_ref; 
 
         GetChinaMoney($this->ref);
         SzseGetLofShares($this->ref);
-        $this->_updateStockHoldings();
+		$this->_updateStockHoldings();
+		
         $this->CreateGroup($arRef);
     }
     
@@ -85,7 +98,7 @@ function EchoAll()
     $hkcny_ref = $ref->GetHkcnyRef();
     
 	EchoHoldingsEstParagraph($ref);
-	if ($us_ref)	EchoHoldingsEstParagraph($us_ref);
+	if ($ref->GetSymbol() == 'SZ164906')	EchoHoldingsEstParagraph($us_ref);
 //    EchoSmaParagraph($us_ref);
     EchoReferenceParagraph(array_merge($acct->GetStockRefArray(), array($acct->cnh_ref, $uscny_ref, $hkcny_ref)), $acct->IsAdmin());
     EchoFundTradingParagraph($ref);
@@ -107,6 +120,7 @@ function GetQdiiMixLinks($sym)
 	
 	$str .= GetSpySoftwareLinks();
 	$str .= GetHangSengSoftwareLinks();
+	$str .= GetChinaInternetSoftwareLinks();
 	return $str.GetQdiiMixRelated($sym->GetDigitA());
 }
 

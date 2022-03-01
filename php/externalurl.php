@@ -79,16 +79,6 @@ function GetJisiluDataUrl()
 	return 'https://www.jisilu.cn/data/';
 }
 
-function GetHuaBaoFundUrl()
-{
-	return 'http://www.fsfund.com';
-}
-
-function GetGuangFaFundUrl()
-{
-	return 'http://www.gffunds.com.cn';
-}
-
 function GetGuoTaiFundUrl()
 {
 	return 'https://e.gtfund.com';
@@ -97,11 +87,6 @@ function GetGuoTaiFundUrl()
 function GetPenghuaFundUrl()
 {
 	return 'https://www.phfund.com.cn/';
-}
-
-function GetXinChengFundUrl()
-{
-	return 'http://www.citicprufunds.com.cn';
 }
 
 function GetYinHuaFundUrl()

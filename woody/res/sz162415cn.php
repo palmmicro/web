@@ -1,14 +1,12 @@
 <?php 
 require('php/_qdii.php');
 
-function GetQdiiRelated($sym)
+function GetQdiiRelated($strDigitA)
 {
-	$str = GetHuaBaoOfficialLink($sym->GetDigitA());
-	$str .= ' '.GetSpdrOfficialLink('XLY');
-	$str .= ' '.GetQdiiLinks($sym);
-	$str .= GetQqqSoftwareLinks();
+	$str = GetQqqSoftwareLinks();
 	$str .= GetChinaInternetSoftwareLinks();
-	$str .= GetHuaBaoSoftwareLinks();
+	$str .= GetBreakElement().GetSpdrOfficialLink('XLY');
+	$str .= GetHuaBaoSoftwareLinks($strDigitA);
 	return $str;
 }
 

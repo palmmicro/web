@@ -1,11 +1,10 @@
 <?php 
 require('php/_qdii.php');
 
-function GetQdiiRelated($sym)
+function GetQdiiRelated($strDigitA)
 {
-	$str = GetXinChengOfficialLink($sym->GetDigitA()).'&'.GetIsharesOfficialLink('GSG').'('.GetSpindicesOfficialLink('SPGCCI').')';
-	$str .= ' '.GetQdiiLinks($sym);
-	$str .= GetXinChengSoftwareLinks();
+	$str = GetBreakElement().GetIsharesOfficialLink('GSG').' '.GetSpindicesOfficialLink('SPGCCI');
+	$str .= GetXinChengSoftwareLinks($strDigitA);
 	return $str;
 }
 

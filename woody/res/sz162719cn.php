@@ -1,11 +1,10 @@
 <?php 
 require('php/_qdii.php');
 
-function GetQdiiRelated($sym)
+function GetQdiiRelated($strDigitA)
 {
-	$str = GetGuangFaOfficialLink($sym->GetDigitA()).'&'.GetIsharesOfficialLink('IEO').'('.GetSpindicesOfficialLink('DJSOEP').')';
-	$str .= ' '.GetQdiiLinks($sym);
-	$str .= GetGuangFaSoftwareLinks();
+	$str = GetBreakElement().GetIsharesOfficialLink('IEO').' '.GetSpindicesOfficialLink('DJSOEP');
+	$str .= GetGuangFaSoftwareLinks($strDigitA);
 	return $str;
 }
 

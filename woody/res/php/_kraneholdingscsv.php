@@ -25,7 +25,7 @@ class _KraneHoldingsCsvFile extends _HoldingsCsvFile
     
     public function OnLineArray($arWord)
     {
-    	if (count($arWord) < 7)	return;
+    	if (count($arWord) != 7)	return;
     	
     	$strName = $arWord[1];
     	if (($strName == 'HONG KONG DOLLAR') || ($strName == 'Cash'))	return;

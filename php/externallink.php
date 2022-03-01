@@ -8,29 +8,14 @@ function GetOfficialLink($strHttp, $strDisplay)
     return GetExternalLink($strHttp, $strDisplay.'官网');
 }
 
-function GetGuangFaOfficialLink($strDigitA)
-{
-    return GetOfficialLink(GetGuangFaFundUrl().'/funds/?fundcode='.$strDigitA, $strDigitA);
-}
-
 function GetGuoTaiOfficialLink($strDigitA)
 {
     return GetOfficialLink(GetGuoTaiFundUrl().'/Etrade/Jijin/view/id/'.$strDigitA, $strDigitA);
 }
 
-function GetHuaBaoOfficialLink($strDigitA)
-{
-    return GetOfficialLink(GetHuaBaoFundUrl().'/funds/'.$strDigitA.'/index.shtml', $strDigitA);
-}
-
 function GetPenghuaOfficialLink($strDigitA)
 {
     return GetOfficialLink(GetPenghuaFundUrl().'web/FUND_'.$strDigitA, $strDigitA);
-}
-
-function GetXinChengOfficialLink($strDigitA)
-{
-    return GetOfficialLink(GetXinChengFundUrl().'/pc/productDetail?fundcode='.$strDigitA, $strDigitA);
 }
 
 function GetYinHuaOfficialLink($strDigitA)

@@ -3,7 +3,7 @@ require('php/_qdiihk.php');
 
 function GetQdiiHkRelated($sym)
 {
-	$str = GetUniversalOfficialLink($sym);
+	$str = GetUniversalOfficialLink($sym->GetDigitA());
 	$str .= ' '.GetQdiiHkLinks($sym);
 	$str .= GetUniversalSoftwareLinks();
 	return $str;

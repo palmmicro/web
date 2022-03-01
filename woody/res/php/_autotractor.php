@@ -2,7 +2,7 @@
 require_once('_stock.php');
 require_once('/php/ui/imagedisp.php');
 
-define('YINHE_AU3_VER', '50');
+define('YINHE_AU3_VER', '51');
 
 function EchoAll()
 {
@@ -20,7 +20,7 @@ function EchoAll()
    	$strYinheAu3 = GetInfoElement('yinhe.au3');
    	$strYinheAu3Now = GetInfoElement('yinhe0'.YINHE_AU3_VER.'.au3');
     $str = GetRemarkElement('软件更新：');
-    $str .= $strNewLine.$strYinheAu3.'文件是唯一会日常更新的，目前版本为'.GetBoldElement('V0.'.YINHE_AU3_VER).'。由于更新时无法覆盖所有的测试，每次下载新版本前注意备份好上一个能用的版本。例如保存成：'.$strYinheAu3Now;
+    $str .= $strNewLine.$strYinheAu3.'文件是唯一会日常更新的，目前版本为'.GetBoldElement('V0.'.YINHE_AU3_VER).'。下载前注意清除浏览器的下载文件缓存，确保下载到正确的版本。由于更新时无法覆盖所有的测试，每次下载新版本前注意备份好上一个能用的版本。例如保存成：'.$strYinheAu3Now;
     EchoParagraph($str);
 
     $str = GetRemarkElement('软件执行：');
@@ -36,7 +36,7 @@ function EchoAll()
     							'深市逆回购：把剩余可用资金下单比场内价格低一毛卖出131810。',
     							'场内申购：按当日限购金额自动申购'.$strFund.'。',
     							'赎回：按'.$strQuantity.'赎回'.$strFund.'。',
-    							'卖出：按'.GetInfoElement('卖出价格').'和'.$strQuantity.'卖出'.$strFund.'。',
+    							'卖出：按'.GetInfoElement('卖出价格').'和'.$strQuantity.'卖出'.$strFund.'。银河证券在前一日的17:30会短暂开放夜市委托，打算第2天抢跌停卖的可以提前在这里执行，注意要手工输入正确的跌停价。',
     							'全部撤单：'.$strFund.'的全部申购、赎回或者卖出订单都会被一次性撤销。',
     							'仅登录查询：跟前面所有操作不同，这里登录全部打勾的客户号后不会自动退出'.$strNepturn.'。'
     						   ), false);
