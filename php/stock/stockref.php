@@ -2,11 +2,11 @@
 require_once('stocksymbol.php');
 
 define('STOCK_SINA_DATA', 'Sina Data');
-
+/*
 define('STOCK_NET_VALUE', 'Net Value');
 define('STOCK_PRE_MARKET', 'Pre-Market Trading');
 define('STOCK_POST_MARKET', 'Post-Market Trading');
-
+*/
 // ****************************** Protected functions *******************************************************
 
 function _GetFutureArray($strSymbol, $strFileName, $callback)
@@ -59,7 +59,7 @@ function _getSinaArray($sym, $strSinaSymbol, $strFileName)
 
 class StockReference extends StockSymbol
 {
-    var $strDescription = false;     // Stock description
+//    var $strDescription = false;     // Stock description
     
     var $strFileName;                       // File to store original data
     var $strConfigName;
@@ -117,7 +117,7 @@ class StockReference extends StockSymbol
     {
         return $this->strExternalLink;
     }
-    
+/*    
     function GetDescription()
     {
     	return $this->strDescription;
@@ -127,7 +127,7 @@ class StockReference extends StockSymbol
     {
     	$this->strDescription = $str;
     }
-    
+*/    
     // for weixin text
     function GetPriceText($strVal)
     {
@@ -478,7 +478,11 @@ class ExtendedTradingReference extends StockReference
         $this->_convertDateTimeFromUS($ar[24], $ar[29]);
         $this->strPrevPrice = $ar[26];
        	$this->strVolume = strpos($ar[27], '.') ? strstr($ar[27], '.', true) : $ar[27];
-        $this->strDescription = ($this->GetHour() <= 9) ? STOCK_PRE_MARKET : STOCK_POST_MARKET;
+    }
+    
+    function GetMarketSession()
+    {
+		return ($this->GetHour() <= 9) ? '盘前交易' : '盘后交易';
     }
 }
 

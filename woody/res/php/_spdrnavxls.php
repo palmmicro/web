@@ -72,9 +72,10 @@ function _readXlsFile($bIshares, $strPathName, $nav_sql, $shares_sql, $strStockI
 	return '更新'.strval($iCount).'条净值和'.strval($iSharesCount).'条流通股数';
 }
 
-function GetNavXlsStr($strSymbol, $bAutoCheck = false)
+function GetNavXlsStr($sym, $bAutoCheck = false)
 {
-   	if ($strUrl = GetEtfNavUrl($strSymbol))
+	$strSymbol = $sym->GetSymbol();	
+   	if ($strUrl = GetEtfNavUrl($sym))
 	{
 		$bIshares = (stripos($strUrl, 'ishares') !== false) ? true : false;
 		$strPathName = DebugGetPathName('NAV_'.$strSymbol.'.xls');
@@ -104,7 +105,7 @@ function GetNavXlsStr($strSymbol, $bAutoCheck = false)
 
 function DebugNavXlsStr($sym, $bAutoCheck = false)
 {
-	$str = GetNavXlsStr($sym->GetSymbol(), $bAutoCheck);
+	$str = GetNavXlsStr($sym, $bAutoCheck);
     DebugString($str);
 }
 

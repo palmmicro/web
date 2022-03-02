@@ -222,12 +222,6 @@ function GetStockEmaSql($iDays)
 	return $g_stock_sql->ema200_sql;
 }
 
-function SqlGetStockName($strSymbol)
-{
-	$sql = GetStockSql();
-	return $sql->GetStockName($strSymbol);
-}
-
 function SqlGetStockId($strSymbol)
 {
 	$sql = GetStockSql();

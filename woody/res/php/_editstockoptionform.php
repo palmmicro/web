@@ -33,14 +33,14 @@ function _getStockOptionNewName($ref, $strName)
 	$str = '';
 	$strChinese = $ref->GetChineseName();
 	$strEnglish = $ref->GetEnglishName();
-	if ($strChinese != $strName)									$str .= '-'.$strChinese;
-    if ($strEnglish != $strName && $strEnglish != $strChinese)	$str .= '-'.$strEnglish;
+	if ($strChinese != $strName)									$str .= '+'.$strChinese;
+    if ($strEnglish != $strName && $strEnglish != $strChinese)	$str .= '+'.$strEnglish;
     return $str;
 }
 
 function _getStockOptionName($ref, $strSymbol)
 {
-	$strName = SqlGetStockName($strSymbol);
+	$strName = SymGetStockName($ref);
 	
     $str = $strName;
    	$str .= _getStockOptionNewName($ref, $strName);

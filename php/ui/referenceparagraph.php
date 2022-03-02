@@ -2,7 +2,7 @@
 require_once('stocktable.php');
 
 // $ref from StockReference
-function _echoReferenceTableItem($ref, $bAdmin)
+function _echoReferenceTableItem($ref, $strDescription, $bAdmin)
 {
 	$ar = array();
    	$ar[] = $ref->GetExternalLink();
@@ -22,8 +22,8 @@ function _echoReferenceTableItem($ref, $bAdmin)
     	$ar[] = '';
     }
     
-	$ar[] = $bAdmin ? $ref->DebugLink() : RefGetDescription($ref, true);
-    EchoTableColumn($ar, false, ($bAdmin ? RefGetDescription($ref) : false));
+	$ar[] = $bAdmin ? $ref->DebugLink() : $strDescription;
+    EchoTableColumn($ar, false, ($bAdmin ? $strDescription : false));
 }
 
 function _echoReferenceTableData($arRef, $bAdmin)
@@ -32,8 +32,8 @@ function _echoReferenceTableData($arRef, $bAdmin)
     {
     	if ($ref)
     	{
-    		_echoReferenceTableItem($ref, $bAdmin);
-   			if ($ref->extended_ref)	_echoReferenceTableItem($ref->extended_ref, false);
+    		_echoReferenceTableItem($ref, SymGetStockName($ref), $bAdmin);
+   			if ($ref->extended_ref)	_echoReferenceTableItem($ref->extended_ref, GetHtmlElement(GetQuoteElement($ref->extended_ref->GetMarketSession()), 'i'), false);
     	}
     }
 }

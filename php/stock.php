@@ -177,35 +177,10 @@ function StockUpdateEstResult($fund_est_sql, $strStockId, $strNetValue, $strDate
 }
 
 // ****************************** StockReference public functions *******************************************************
-function RefGetDescription($ref, $bConvertDisplay = false)
+function SymGetStockName($sym)
 {
-	$str = $ref->GetDescription();
-	if ($str)
-	{
-		$ar = array(STOCK_PRE_MARKET => '盘前交易', STOCK_POST_MARKET => '盘后交易', STOCK_NET_VALUE => STOCK_DISP_NETVALUE);
-		if (array_key_exists($str, $ar))
-		{
-			$strDisplay = $ar[$str];
-			if ($bConvertDisplay)
-			{
-				if ($str == STOCK_PRE_MARKET || $str == STOCK_POST_MARKET)	return GetHtmlElement(GetQuoteElement($strDisplay), 'i');
-				else if ($str == STOCK_NET_VALUE)								return GetBoldElement($strDisplay);
-			}
-			return $strDisplay;
-		}
-	}
-	else
-	{
-		if ($str = SqlGetStockName($ref->GetSymbol()))
-		{
-			$ref->SetDescription($str);
-		}
-		else
-		{
-			$str = '';
-		}
-	}
-    return $str;
+	$sql = GetStockSql();
+	return $sql->GetStockName($sym->GetSymbol());
 }
 
 // ****************************** Stock final integration functions *******************************************************

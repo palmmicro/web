@@ -47,6 +47,7 @@ function _echoPortfolioTableItem($trans)
         	break;
     		
         case 'SZ161127':
+        case 'SZ163208':
         case 'SZ164906':
         	$ar[] = GetArbitrageQuantity($strSymbol, floatval($iShares));
 			break;

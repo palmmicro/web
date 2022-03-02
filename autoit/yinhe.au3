@@ -259,7 +259,7 @@ Func YinheClose($hWnd, $idDebug)
 EndFunc
 
 Func _addSymbolSpecialKey($idDebug, $strSymbol)
-	If $strSymbol == '160216' Or $strSymbol == '160416' Or $strSymbol == '161226' Or $strSymbol == '164906' Then
+	If $strSymbol == '160216' Or $strSymbol == '160416' Or $strSymbol == '161226' Or $strSymbol == '163208' Or $strSymbol == '164906' Then
 		_DlgClickButton($idDebug, '请选择', '深圳股票')
 	EndIf
 EndFunc
@@ -362,6 +362,8 @@ Func YinheOrderFund($hWnd, $idDebug, $strSymbol)
 		Case '161226'
 			$strAmount = '50000'
 		Case '162411'
+			$strAmount = '100'
+		Case '163208'
 			$strAmount = '100'
 		Case '164906'
 			$strAmount = '1000'
@@ -797,7 +799,7 @@ Func YinheMain()
 	Local $arCheckboxAccount[$iMax]
 	$iMsg = 0
 
-	$idFormMain = GUICreate("银河海王星全自动拖拉机V0.51", 803, 506, 289, 0)
+	$idFormMain = GUICreate("银河海王星全自动拖拉机V0.52", 803, 506, 289, 0)
 
 	$idListViewAccount = GUICtrlCreateListView("客户号", 24, 24, 146, 454, BitOR($GUI_SS_DEFAULT_LISTVIEW,$WS_VSCROLL), BitOR($WS_EX_CLIENTEDGE,$LVS_EX_CHECKBOXES))
 	GUICtrlSendMsg(-1, $LVM_SETCOLUMNWIDTH, 0, 118)

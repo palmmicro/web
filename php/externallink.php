@@ -364,9 +364,9 @@ function GetJisiluQdiiLink($bAsia = false)
 	return GetExternalLink($strUrl, '集思录');
 }
 
-function GetEtfNavLink($strSymbol)
+function GetEtfNavLink($sym)
 {
-	if ($strUrl = GetEtfNavUrl($strSymbol))
+	if ($strUrl = GetEtfNavUrl($sym))
 	{
 		return GetExternalLink($strUrl, '净值文件');
 	}

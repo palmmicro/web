@@ -75,7 +75,7 @@ function RefSort($arRef)
 
 function RefEchoTableColumn($ref, $ar, $strColor = false)
 {
-    EchoTableColumn($ar, $strColor, RefGetDescription($ref));
+    EchoTableColumn($ar, $strColor, SymGetStockName($ref));
 }
 
 function GetArbitrageQuantity($strSymbol, $fQuantity)

@@ -182,7 +182,7 @@ function StockGetEtfReference($strSymbol)
 
 function RefGetStockDisplay($ref)
 {
-    return RefGetDescription($ref).'【'.$ref->GetSymbol().'】';
+    return SymGetStockName($ref).'【'.$ref->GetSymbol().'】';
 }
 
 function GetKnownBugs($arBug)

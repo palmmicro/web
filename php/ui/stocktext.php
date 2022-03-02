@@ -17,14 +17,14 @@ function _textPriceVolume($ref)
 
 function TextFromExtendedTradingReferencce($ref)
 {
-    return RefGetDescription($ref)._textPriceVolume($ref);
+    return $ref->GetMarketSession()._textPriceVolume($ref);
 }
 
 function TextFromStockReference($ref)
 {
     if ($ref->HasData() == false)        return false;
 
-    $str = RefGetDescription($ref).BOT_EOL;
+    $str = SymGetStockName($ref).BOT_EOL;
     
     global $acct;
     $str .= method_exists($acct, 'SetCallback') ? $ref->GetSymbol() : $ref->GetStockLink();  
@@ -98,7 +98,7 @@ function TextFromFundReference($ref)
 {
     if ($ref->HasData() == false)                return false;
 
-    $strName = RefGetDescription($ref).BOT_EOL.$ref->GetSymbol().BOT_EOL;
+    $strName = SymGetStockName($ref).BOT_EOL.$ref->GetSymbol().BOT_EOL;
     $stock_ref = $ref->GetStockRef();
     if ($stock_ref)
     {
