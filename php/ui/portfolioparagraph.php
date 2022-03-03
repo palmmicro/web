@@ -15,7 +15,7 @@ function _getPortfolioTestVal($strSymbol)
     	return 41200;
 */  		
     case 'SZ162411':
-		return 129000 + 4 * 140000;
+		return 129000 + 2 * 140000;
 	}
 	return 0;
 }

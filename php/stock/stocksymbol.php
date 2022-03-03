@@ -38,11 +38,11 @@ function StrHasPrefix($str, $strPrefix)
 function GetSecondaryListingArray()
 {
 	return array(
-				   '09618' => 'JD',
-				   '09626' => 'BILI',
-				   '09888' => 'BIDU',
-				   '09988' => 'BABA',
-				   '09999' => 'NTES',
+				   'BABA' => '09988',
+				   'BIDU' => '09888',
+				   'BILI' => '09626',
+				   'JD' => '09618',
+				   'NTES' => '09999',
 				  );
 }
 

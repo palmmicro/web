@@ -470,6 +470,9 @@ Func _yinheClickSell($hWnd, $idDebug)
 EndFunc
 
 Func YinheSell($hWnd, $idDebug, $strSymbol, $strPrice, $strSellQuantity, ByRef $iRemainQuantity)
+	$strHour = StringLeft(_NowTime(4), 2)
+	_CtlDebug($idDebug, '当前小时：' & $strHour)
+
 	$strControlID = _yinheClickSell($hWnd, $idDebug)
 	While 1
 		$iSel = 0
@@ -486,15 +489,13 @@ Func YinheSell($hWnd, $idDebug, $strSymbol, $strPrice, $strSellQuantity, ByRef $
 				If $iSold == -1 Then
 					Return False
 				ElseIf $iSold == 0 Then
-					$strHour = StringLeft(_NowTime(4), 2)
-					_CtlDebug($idDebug, '当前小时：' & $strHour)
 					If Number($strHour) < 16 Then Return True	; 交易时间段不反复检查是否下单成功
 ;					ExitLoop
 				EndIf
 			EndIf
 		WEnd
 		_CtlDebug($idDebug, '下单数量：' & String($iTotal))
-		If $iTotal == 0 Then ExitLoop
+		If $iTotal == 0 Or Number($strHour) < 16 Then ExitLoop
 	WEnd
 	Return True
 EndFunc
@@ -799,7 +800,7 @@ Func YinheMain()
 	Local $arCheckboxAccount[$iMax]
 	$iMsg = 0
 
-	$idFormMain = GUICreate("银河海王星全自动拖拉机V0.52", 803, 506, 289, 0)
+	$idFormMain = GUICreate("银河海王星全自动拖拉机V0.53", 803, 506, 289, 0)
 
 	$idListViewAccount = GUICtrlCreateListView("客户号", 24, 24, 146, 454, BitOR($GUI_SS_DEFAULT_LISTVIEW,$WS_VSCROLL), BitOR($WS_EX_CLIENTEDGE,$LVS_EX_CHECKBOXES))
 	GUICtrlSendMsg(-1, $LVM_SETCOLUMNWIDTH, 0, 118)

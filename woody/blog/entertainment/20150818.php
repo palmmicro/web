@@ -132,39 +132,6 @@ and modified an actually unrelated code, what should be <font color=gray><code>$
 <br />But this bug made me feel very bad, this time I can not say I am still a 6 years <font color=red>new</font> PHP programmer. As a proud 25 years C programmer, this is also a very stupid bug in C language!
 </p>
 
-<h3>T+1 <a name="realtime">Estimation</a> with Current CL Factor in</h3>
-<p>Aug 18, 2016
-<br />Many people's Excel sheet has this one, so I added it too. Here is the difference between official estimation, fair estimation and realtime estimation of SZ162411 net value.
-</p>
-<?php EchoFundEstDemo(); ?>
-<p><TABLE borderColor=#cccccc cellSpacing=0 width=500 border=1 class="text" id="netvalue">
-       <tr>
-        <td class=c1 width=200 align=center>Est Factor</td>
-        <td class=c1 width=100 align=center>Official Est</td>
-        <td class=c1 width=100 align=center>Fair Est</td>
-        <td class=c1 width=100 align=center>Realtime Est</td>
-      </tr>
-      <tr>
-        <td class=c1 align="center">T day trading</td>
-        <td class=c1 align="center">XOP NAV</td>
-        <td class=c1 align="center">XOP NAV</td>
-        <td class=c1 align="center">XOP NAV</td>
-      </tr>
-      <tr>
-        <td class=c1 align="center">CL future</td>
-        <td class=c1 align="center">N</td>
-        <td class=c1 align="center">N</td>
-        <td class=c1 align="center">Y</td>
-      </tr>
-      <tr>
-        <td class=c1 align="center"><a href="20160615.php">USDCNY Reference Rate</a></td>
-        <td class=c1 align="center">T day</td>
-        <td class=c1 align="center">T+1 day</td>
-        <td class=c1 align="center">T/T+1 day</td>
-      </tr>
-</TABLE>
-</p>
-
 <h3>How to <a name="precise">Precisely</a> Estimate the Net Value of SZ162411</h3>
 <p>Sep 27, 2016
 <br />Added 95% position for all LOF net value estimation.

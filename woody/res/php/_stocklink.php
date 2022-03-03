@@ -7,7 +7,7 @@ function GetUpdateStockHistoryLink($strSymbol, $strDisplay = false)
 
 function _GetAdjustLink($strSymbol, $strQuery)
 {
-    return GetPhpLink(STOCK_PATH.'editstockgroup', 'adjust=1&'.$strQuery, '校准').' '.$strSymbol;
+    return GetStockPhpLink('editstockgroup', '校准', 'adjust=1&'.$strQuery).' '.$strSymbol;
 }
 
 function _GetEtfAdjustString($ref, $etf_ref)
@@ -17,7 +17,7 @@ function _GetEtfAdjustString($ref, $etf_ref)
     return _GetAdjustLink($strSymbol, $strQuery);
 }
 
-define('OIL_GROUP_DISPLAY', '油气');
+define('OIL_GROUP_DISPLAY', '原油');
 define('COMMODITY_GROUP_DISPLAY', '大宗商品和金银');
 define('CHINAINTERNET_GROUP_DISPLAY', '中丐互怜');
 define('QQQ_GROUP_DISPLAY', '纳斯达克100');
@@ -42,7 +42,7 @@ function GetStockCategoryArray()
 function _getCategoryLink($strCategory)
 {
     $ar = GetStockCategoryArray();
-    return GetPhpLink(STOCK_PATH.$strCategory, false, $ar[$strCategory]);
+    return GetStockPhpLink($strCategory, $ar[$strCategory]);
 }
 
 function GetCategoryArray($strPage)
@@ -99,7 +99,7 @@ function GetCategoryArray($strPage)
     	$ar = QdiiHkGetTechSymbolArray();
         break;
         
-    case QDII_PAGE:
+    case 'qdii':
         $ar = QdiiGetSymbolArray();
         break;
         

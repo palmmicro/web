@@ -17,7 +17,6 @@ define('GOLD_SILVER_DISPLAY', '黄金白银');
 define('GOLD_SILVER_PAGE', 'goldsilver');
 
 define('QDII_DISPLAY', 'QDII工具');
-define('QDII_PAGE', 'qdii');
 
 define('QDII_MIX_DISPLAY', '混合QDII');
 define('QDII_MIX_PAGE', 'qdiimix');
@@ -30,12 +29,21 @@ function GetStockMenuArray()
     return array(ADR_PAGE => ADR_DISPLAY,
                    CHINA_INDEX_PAGE => CHINA_INDEX_DISPLAY,
                    GOLD_SILVER_PAGE => GOLD_SILVER_DISPLAY,
-                   QDII_PAGE => QDII_DISPLAY,
+                   'qdii' => QDII_DISPLAY,
                    QDII_MIX_PAGE => QDII_MIX_DISPLAY,
                    QDII_HK_PAGE => QDII_HK_DISPLAY);
 }
 
-// ****************************** Stock internal link functions *******************************************************
+function GetStockPhpLink($strPage, $strDisplay, $strQuery = false)
+{
+    return GetPhpLink(STOCK_PATH.$strPage, $strQuery, $strDisplay);
+}
+
+function GetStockMenuLink($strItem)
+{
+    $ar = GetStockMenuArray();
+    return GetStockPhpLink($strItem, $ar[$strItem]);
+}
 
 function GetStockPageLink($strPage, $strDisplay, $strQuery = false)
 {
@@ -144,7 +152,7 @@ function GetFundShareLink($strSymbol = FUND_DEMO_SYMBOL)
 
 function GetQdiiAnalysisLinks($strSymbol)
 {
-	return GetNvCloseHistoryLink($strSymbol).' '.GetThanousParadoxLink($strSymbol).' '.GetFundAccountLink($strSymbol).' '.GetFundPositionLink($strSymbol);
+	return GetThanousParadoxLink($strSymbol).' '.GetFundAccountLink($strSymbol).' '.GetFundPositionLink($strSymbol);
 }
 
 define('STOCK_OPTION_ADR', '修改H股对应ADR代码');

@@ -7,8 +7,9 @@ require_once('/php/ui/fundhistoryparagraph.php');
 function _echoFundHistory($strSymbol, $iStart, $iNum, $bAdmin)
 {
     $str = GetFundLinks($strSymbol);
-    if (in_arrayQdii($strSymbol))		$str .= ' '.GetQdiiAnalysisLinks($strSymbol);
-    if ($bAdmin)						$str .= '<br />'.StockGetAllLink($strSymbol);
+    if (in_arrayQdii($strSymbol))				$str .= ' '.GetQdiiAnalysisLinks($strSymbol);
+    else if (in_arrayQdiiMix($strSymbol))	$str .= ' '.GetFundAccountLink($strSymbol);
+    if ($bAdmin)								$str .= '<br />'.StockGetAllLink($strSymbol);
    	EchoParagraph($str);
   
    	$csv = new PageCsvFile();

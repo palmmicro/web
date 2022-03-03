@@ -234,7 +234,7 @@ function EchoAll()
     if ($ref = $acct->EchoStockGroup())
     {
    		$strSymbol = $ref->GetSymbol();
-        if (in_arrayQdii($strSymbol))
+        if (in_arrayQdii($strSymbol) || in_arrayQdiiMix($strSymbol))
         {
         	$strStockId = $ref->GetStockId();
         	$nav_sql = GetNavHistorySql();

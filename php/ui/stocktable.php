@@ -51,6 +51,22 @@ class TableColumnOfficalEst extends TableColumnEst
 	}
 }
 
+class TableColumnFairEst extends TableColumnEst
+{
+	function TableColumnFairEst()
+	{
+        parent::TableColumnEst(STOCK_DISP_FAIR);
+	}
+}
+
+class TableColumnRealtimeEst extends TableColumnEst
+{
+	function TableColumnRealtimeEst()
+	{
+        parent::TableColumnEst(STOCK_DISP_REALTIME);
+	}
+}
+
 class TableColumnHolding extends TableColumn
 {
 	function TableColumnHolding($strPrefix = false)

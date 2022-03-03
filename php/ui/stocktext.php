@@ -72,7 +72,7 @@ function _textPremium($ref, $strEst)
 
 function _textEstPremium($ref, $strEst)
 {
-    $str = STOCK_DISP_EST.':'.$ref->GetPriceText($strEst);
+    $str = STOCK_DISP_EST.':'.strval_round(floatval($strEst), $ref->GetPrecision());	//	$ref->GetPriceText($strEst);
     $str .= ' '._textPremium($ref, $strEst);
     return $str;
 }

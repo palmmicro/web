@@ -29,4 +29,9 @@ function ImgRobloxDice($bChinese = true)
 	return QuoteImgElement('robloxdice.jpg', '罗布乐思4个骰子加14验证码', 'Roblox 4 dices adding to 14 captcha', $bChinese);
 }
 
+function ImgWinMan($bChinese = true)
+{
+	return QuoteImgElement('gan.jpg', '赢了会所嫩模输了下海挖沙的老头');
+}
+
 ?>

@@ -70,14 +70,17 @@ function _echoFundHistoryParagraph($fund_est_sql, $ref, $est_ref, $csv, $iStart,
     else	$strMenuLink = StockGetMenuLink($strSymbol, $his_sql->Count($strStockId), $iStart, $iNum);
 
 	$ar = array(new TableColumnDate(), $close_col, $nav_col, $premium_col);
-	if ($fund_est_sql->Count($strStockId) > 0)
+	if ($fund_est_sql)
 	{
-		$ar[] = new TableColumnOfficalEst();
-		$ar[] = new TableColumnTime();
-		$ar[] = new TableColumnError();
-		if ($est_ref)		$ar[] = new TableColumnStock($est_ref->GetSymbol());
+		if ($fund_est_sql->Count($strStockId) > 0)
+		{
+			$ar[] = new TableColumnOfficalEst();
+			$ar[] = new TableColumnTime();
+			$ar[] = new TableColumnError();
+			if ($est_ref)		$ar[] = new TableColumnStock($est_ref->GetSymbol());
+		}
+		else	$fund_est_sql = false;
 	}
-	else	$fund_est_sql = false;
 	
 	EchoTableParagraphBegin($ar, $strSymbol.FUND_HISTORY_PAGE, $str.' '.$strMenuLink);
 	_echoHistoryTableData($his_sql, $fund_est_sql, $csv, $ref, $strStockId, $est_ref, $iStart, $iNum, $bAdmin);

@@ -136,8 +136,12 @@ class HoldingsReference extends MyStockReference
 				$strSymbol = $ref->GetSymbol();
 				if (isset($arStrict[$strSymbol]))
 				{	// Hong Kong secondary listings
-					$ref = $this->_getStrictRef($arStrict[$strSymbol]);
-					$strStockId = $ref->GetStockId();
+					if ($us_ref = $this->_getStrictRef($arStrict[$strSymbol]))
+					{
+						$ref = $us_ref;
+						$strStockId = $ref->GetStockId();
+					}
+					else															DebugString('Missing '.$arStrict[$strSymbol], true);
 				}
 			}
 			

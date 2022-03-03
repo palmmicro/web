@@ -103,7 +103,7 @@ class StockAccount extends TitleAccount
     			else	$strMemberId = $this->GetMemberId();
    				if ($strMemberId != $strLoginId)	$str .= $strNewLine.GetMemberLink($strMemberId);
     			
-    			$str .= $strNewLine.GetPhpLink(STOCK_PATH.'debug', false, STOCK_DISP_DEBUG);
+    			$str .= $strNewLine.GetStockPhpLink('debug', STOCK_DISP_DEBUG);
     			$str .= ' '.GetFileLink(DebugGetFile());
     			$str .= ' '.GetFileLink('/php/test.php');
     		}

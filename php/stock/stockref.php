@@ -2,14 +2,8 @@
 require_once('stocksymbol.php');
 
 define('STOCK_SINA_DATA', 'Sina Data');
-/*
-define('STOCK_NET_VALUE', 'Net Value');
-define('STOCK_PRE_MARKET', 'Pre-Market Trading');
-define('STOCK_POST_MARKET', 'Post-Market Trading');
-*/
-// ****************************** Protected functions *******************************************************
 
-function _GetFutureArray($strSymbol, $strFileName, $callback)
+function _getFutureArray($strSymbol, $strFileName, $callback)
 {
     if (FutureNeedNewFile($strFileName))
     {
@@ -27,8 +21,6 @@ function _GetFutureArray($strSymbol, $strFileName, $callback)
     }
     return explodeQuote($str);
 }
-
-// ****************************** Private functions *******************************************************
 
 function _getSinaQuotesStr($strSinaSymbol, $strFileName)
 {
@@ -59,8 +51,6 @@ function _getSinaArray($sym, $strSinaSymbol, $strFileName)
 
 class StockReference extends StockSymbol
 {
-//    var $strDescription = false;     // Stock description
-    
     var $strFileName;                       // File to store original data
     var $strConfigName;
     var $strExternalLink = false;          // External link help to interprete the original data
@@ -116,22 +106,6 @@ class StockReference extends StockSymbol
     function GetExternalLink()
     {
         return $this->strExternalLink;
-    }
-/*    
-    function GetDescription()
-    {
-    	return $this->strDescription;
-    }
-    
-    function SetDescription($str)
-    {
-    	$this->strDescription = $str;
-    }
-*/    
-    // for weixin text
-    function GetPriceText($strVal)
-    {
-        return strval_round(floatval($strVal), $this->GetPrecision());
     }
 
     function GetPercentage($strDivisor = false, $strDividend = false)
@@ -393,7 +367,7 @@ class StockReference extends StockSymbol
         $this->strExternalLink = GetSinaFutureLink($this);
         $strSymbol = $this->GetSymbol();
         $this->strFileName = DebugGetSinaFileName($strSymbol);
-        $ar = _GetFutureArray($strSymbol, $this->strFileName, 'GetSinaQuotes');
+        $ar = _getFutureArray($strSymbol, $this->strFileName, 'GetSinaQuotes');
         if (count($ar) < 13)
         {
             $this->bHasData = false;
@@ -437,7 +411,7 @@ class StockReference extends StockSymbol
         $this->strExternalLink = GetSinaForexLink($this);
     	$strSymbol = $this->GetSymbol();
         $this->strFileName = DebugGetSinaFileName($strSymbol);
-        $ar = _GetFutureArray($strSymbol, $this->strFileName, 'GetSinaQuotes');
+        $ar = _getFutureArray($strSymbol, $this->strFileName, 'GetSinaQuotes');
         if (count($ar) < 10)
         {
             $this->bHasData = false;

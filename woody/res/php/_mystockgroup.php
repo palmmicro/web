@@ -100,10 +100,10 @@ function _getMetaDescriptionStr($strPage)
 				  'hangseng' => HANGSENG_GROUP_DISPLAY.'基金的净值估算。使用恒生指数【^HSI】计算官方估值和参考估值、使用恒生指数期货【hf_HSI】提供港股不开盘期间的实时估值。',
 				  'hshares' => '港交所在2017年后玩弄文字游戏把H股国企指数改成'.HSHARES_GROUP_DISPLAY.'，大量加入非国有企业成分股，就是为了吸引迷信鹅厂的国内韭菜跨过香江去夺取港股定价权！',
 				  'hstech' => '厌倦了港交所加印花税的贪婪，本来没想跟踪'.HSTECH_GROUP_DISPLAY.'基金的净值。不过在无意中发现了KTEC后，觉得还是应该补上，为日后可能的跨市场套利机会做好准备。',
-				  QDII_PAGE => 'A股的QDII基金由于缺乏及时的信息更新, 会产生各种套利机会. 这里计算各个基金的官方估值, 参考估值和实时估值补上这个生态位空缺.',
-				  QDII_MIX_PAGE => '采用跟踪成分股变化的方式对同时有美股和港股持仓的中概互联(513050)等QDII基金进行净值估算, 这样官方估值中可以反应白天港股波动对净值的实时影响.',
+				  'qdii' => QDII_DISPLAY.'官方估值用来验证计算方式的准确性。以参考估值为准，折价不申购、溢价不赎回。上涨赚溢价、下跌赚净值，不要怂，就是干！',
+				  QDII_MIX_PAGE => '采用跟踪成分股变化的方式对同时有美股和港股持仓的中丐互怜等QDII基金进行净值估算，这样参考估值可以反应白天港股波动对净值的实时影响。',
 				  QDII_HK_PAGE => QDII_HK_DISPLAY.'基金的净值估算. 直接导致把香港QDII从其它QDII页面分出来的原因是有基金居然只有指数而没有对应的港股ETF, 只好用指数给所有港股QDII估值了.',
-				  'oilfund' => OIL_GROUP_DISPLAY.'基金的净值估算, 包括南方原油(SH501018), 国泰商品(SZ160216), 嘉实原油(SZ160723)和原油基金(SZ161129)等. 跟踪原油期货的基金有期货升水损耗, 不建议长期持有.',
+				  'oilfund' => '跟踪'.OIL_GROUP_DISPLAY.'期货的基金有升水损耗，不建议长期持有。跨市场套利时，不要赌几个小时后A股QDII基金折价溢价转折点，只做连续折价或者连续溢价套利。',
 				  'qqqfund' => QQQ_GROUP_DISPLAY.'基金的净值估算, 目前包括纳指ETF(SH513100)和纳指100(SZ159941)等. 使用纳斯达克100指数(^NDX)估值, QQQ仅用于参考.',
 				  'spyfund' => SPY_GROUP_DISPLAY.'基金的净值估算, 目前包括沪市标普500(SH513500)和深市标普500(SZ161125)等.使用标普500指数(^GSPC)估值, SPY仅用于参考.',
 				  );
@@ -125,10 +125,6 @@ function _getSimilarLinks($strPage)
   
     case GOLD_SILVER_PAGE:
 		$str = GetJisiluGoldLink();
-        break;
-        
-    case QDII_PAGE:
-		$str = GetJisiluQdiiLink();
         break;
         
     case QDII_HK_PAGE:
@@ -156,6 +152,12 @@ function _getGroupImageLink($strPage)
 
     case 'hstech':
     	return QuoteImgElement('pig.jpg', '趴在墙头看人杀猪的一头猪');
+    	
+    case 'qdii':
+    	return ImgWinMan();
+    	
+    case 'oilfund':
+    	return QuoteImgElement('ronin.jpg', 'Deirdre：你刚才到底在后面干什么？Sam：女士，如果一个地方我不知道如何走出去，就绝不会走进去。');
     }
     return false;
 }
@@ -230,7 +232,7 @@ function _getTitleStr($strPage)
 			  	  'hangseng' => HANGSENG_GROUP_DISPLAY.$strTool,
 			  	  'hshares' => HSHARES_GROUP_DISPLAY.$strTool,
 			  	  'hstech' => HSTECH_GROUP_DISPLAY.$strTool,
-			  	  QDII_PAGE => QDII_DISPLAY,
+			  	  'qdii' => QDII_DISPLAY,
 			  	  QDII_MIX_PAGE => QDII_MIX_DISPLAY.$strTool,
 			  	  QDII_HK_PAGE => QDII_HK_DISPLAY.$strTool,
 			  	  'oilfund'	=> OIL_GROUP_DISPLAY.$strTool,

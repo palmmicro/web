@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>华宝油气净值估算的PHP程序</title>
-<meta name="description" content="根据SPDR标普油气开采指数ETF(XOP), 标普油气开采指数(^SPSIOP), 以及美元对人民币的汇率计算QDII基金华宝油气(SZ162411)净值的PHP程序的开发过程记录.">
+<meta name="description" content="根据SPDR标普油气开采指数ETF(XOP)、标普油气开采指数(^SPSIOP)和美元对人民币的汇率计算QDII基金华宝油气(SZ162411)净值的PHP程序的开发过程记录。">
 <?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 </head>
@@ -18,7 +18,7 @@
 <p>2015年8月18日
 <br />眼看Qualcomm收购CSR<a href="20141016cn.php">股票</a>的现金快要到账, 最近我在琢磨在A股中国特色的QDII基金华宝油气和美股XOP之间套利. 每天看Yahoo新浪等网站的股票行情, 时不时还要用鼠标点开计算器算算转换价格, 时间长了后有点烦.
 <br />后来我想起来5年前学习的<a href="20100905cn.php">PHP</a>, 于是打算写我的第二个PHP程序, 统一把套利需要常看的行情显示在一起, 同时根据SPDR标普油气开采指数ETF(XOP), 标普油气开采指数(^SPSIOP),
-以及美元对人民币的汇率计算<a href="../../res/sz162411cn.php">华宝油气</a>净值. 今天出了第一版, 记录下相关开发过程以备日后查阅.
+以及美元对人民币的汇率计算<a href="../../res/sz162411cn.php">华宝油气</a>净值. 今天出了第一版, 记录下相关开发过程以备日后查阅. A股的QDII基金缺乏及时的信息更新, 希望这里能够补上这个生态位空缺.
 <br />谢谢<?php EchoXueqieId('6188729918', 'abkoooo'); ?>帮助提供了新浪实时美股数据接口的格式.
 美股, A股, 期货和汇率都用新浪实时的数据接口: <?php EchoSinaQuotesLink('gb_xop,sz162411,hf_CL,USDCNY'); ?>
 <br />一开始发现无论怎么弄<i>fopen</i>打开这些链接都会失败, 估计是我用的Yahoo网站服务不支持<i>allow_url_fopen</i>. 
@@ -70,9 +70,9 @@
 
 <h3>扩大规模到<?php EchoNameTag(QDII_HK_PAGE, QDII_HK_DISPLAY); ?></h3>
 <p>2015年8月27日
-<br />整理代码最好的方式是多开发几个类似QDII基金估值软件.
+<br />整理代码最好的方式是多开发几个类似<?php echo GetStockMenuLink('qdii'); ?>.
 伴随最近抄底港股加入<a href="../../res/sz159920cn.php">恒生ETF</a>和<a href="../../res/sh510900cn.php">H股ETF</a>净值计算工具.
-观摩美股崩盘期间顺手加入了<a href="../../res/sh513500cn.php">标普500</a>净值计算工具, 也许日后会用上. 同时加入<?php EchoNameTag(QDII_PAGE, QDII_DISPLAY); ?>汇总<a href="../../res/qdiicn.php">页面</a>.
+观摩美股崩盘期间顺手加入了<a href="../../res/sh513500cn.php">标普500</a>净值计算工具, 也许日后会用上.
 </p>
 
 <h3>股票<a name="transaction">交易</a>记录</h3>
@@ -89,7 +89,7 @@
 <a href="../../res/ceacn.php">东方航空</a>和<a href="../../res/znhcn.php">南方航空</a>等价格比较工具.
 <br />加入ADR后, 把ADR和QDII用到的共同股票数据部分放到<font color=olive>StockReference</font>类中, 用在<font color=olive>_QdiiAccount</font>类和<font color=olive>_AdrAccount</font>类中.
 <br />继续整理代码, 为热心吃螃蟹的用户们增加<a href="../../res/sh513100cn.php">纳指ETF</a>, <a href="../../res/sz160717cn.php">恒生H股</a>, <a href="../../res/sz160216cn.php">国泰商品</a>, <a href="../../res/sz160416cn.php">石油基金</a>, 
-<a href="../../res/sz163208cn.php">诺安油气</a>和<a href="../../res/sz165510cn.php">信诚四国</a>等<?php EchoNameLink(QDII_PAGE, QDII_DISPLAY); ?>.
+<a href="../../res/sz163208cn.php">诺安油气</a>和<a href="../../res/sz165510cn.php">信诚四国</a>等页面.
 </p>
 
 <h3>增加<?php EchoNameTag(FUND_HISTORY_PAGE, FUND_HISTORY_DISPLAY); ?>页面</h3>
@@ -181,7 +181,7 @@
 <br />随后我把预取数据的思路用在了所有需要读取新浪数据的地方, 包括华宝油气净值计算在内, 所有的页面反应速度都有不同程度的提升. 原来我说因为网站服务器在美国所以访问慢的理由看来并不是那么准确的.
 </p> 
 
-<h3>考虑当日CL交易情况后的<a name="realtime">T+1</a>估值</h3>
+<h3>考虑当日CL交易情况后的<?php EchoNameTag('qdii', QDII_DISPLAY); ?>T+1估值</h3>
 <p>2016年8月18日
 <br />发现很多人的Excel计算表格中都有这一项, 我也就顺应潮流把它加上了. 大概是沿用集思录的叫法, 在我看到的Excel中大家都把已经公布的净值称为T-1, 把估算的下一个要公布的官方净值称为T, 而把考虑了当日CL变动的称为T+1估值.
 大致意思是用白天CL的变动预测晚上XOP的变动. 按我自己的看法, 拉长到1年看, CL和XOP对应关系是很好, 但是具体到每一天就未必了, 所以在我自己的套利交易中目前是不考虑这个T+1估值的.
@@ -189,39 +189,14 @@
 另外, 因为CL期货的上一日结算价格通常跟收盘价不同, 也不同于我在估值中实际用来比较的美股收盘时的CL价格, 有可能出现CL参考价格的显示高于上一日, 而T+1估值低于T估值的情况.
 <br />不知道什么原因, 我不喜欢T-1/T/T+1这种叫法, 所以我在网页中把T日估值称为官方估值, 而把T+1估值称为实时估值. 另外还有一个参考估值, 在这里单独列个表解释一下这些混乱的估值名称.
 </p>
-<?php EchoFundEstDemo(); ?>
-<p><TABLE borderColor=#cccccc cellSpacing=0 width=440 border=1 class="text" id="netvaluecompare">
-       <tr>
-        <td class=c1 width=140 align=center>估值因素</td>
-        <td class=c1 width=100 align=center>官方估值</td>
-        <td class=c1 width=100 align=center>参考估值</td>
-        <td class=c1 width=100 align=center>实时估值</td>
-      </tr>
-      <tr>
-        <td class=c1 align="center">T日美股交易</td>
-        <td class=c1 align="center">XOP净值</td>
-        <td class=c1 align="center">XOP净值</td>
-        <td class=c1 align="center">XOP净值</td>
-      </tr>
-      <tr>
-        <td class=c1 align="center">CL期货</td>
-        <td class=c1 align="center">否</td>
-        <td class=c1 align="center">否</td>
-        <td class=c1 align="center">是</td>
-      </tr>
-      <tr>
-        <td class=c1 align="center">美元人民币中间价</td>
-        <td class=c1 align="center">T日</td>
-        <td class=c1 align="center">T+1日</td>
-        <td class=c1 align="center">T/T+1日</td>
-      </tr>
-</TABLE></p>
+<?php EchoFundEstTables(); ?>
 <p>从上表可以看出, 参考估值和实时估值的区别仅仅是用不用CL的实时交易数据. 相对于官方估值, 当美元人民币中间价波动比较大的时候参考估值就值得关注了. 
 除此以外, 在A股或者美股休市的日子里, 它也比官方估值更能反映实际的净值. 至于为什么叫它参考估值, 那是因为我实在不知道给它取什么名字好了. 事实上, 在英文代码中我给它取名为<b>Fair Est</b>, 意思是一个公平的估值.
-<br />在A股开市日子的美股交易时段, 这3个估值通常都是完全一致的. 如果偶尔出现官方估值和实时估值不同, 那是因为CL和USO的数据没能在同一分钟内自动校准. 显然在美股交易时段是没有T+1的美元人民币中间价的, 此时的实时估值用的只能是T日的美元人民币中间价.
+<br />在A股开市日子的美股交易时段, 这3个估值通常都是完全一致的, 参考估值因此不会显示出来. 如果偶尔出现官方估值和实时估值不同, 那是因为CL和USO的数据没能在同一分钟内自动校准. 显然在美股交易时段是没有T+1的美元人民币中间价的, 此时的实时估值用的只能是T日的美元人民币中间价.
 此时所有的估值和校准都是为美股结束后的参考估值和实时估值做准备, 用户只需要看官方估值即可.
 <br />在美股交易结束后, 这3个估值就开始分道扬镳了. T日官方估值不会再变化. CL通常会在美股收盘后继续多交易一个小时, 此时实时估值也就会随之变化. 等到第2天, 软件会去自动拿通常在9点多发布的T+1日美元人民币中间价, 参考估值会因此改变固定在新值上,
 实时估值也会在这时候开始用T+1日美元人民币中间价.
+<?php echo ImgWinMan(); ?>
 <br />说了这么多, 最后着重列一下大家最关心的:
 </p>
 <ol>
@@ -426,7 +401,7 @@
 
 <h3>增加<?php EchoNameTag(QDII_MIX_PAGE, QDII_MIX_DISPLAY); ?>工具系列</h3>
 <p>2021年7月28日
-<br />采用跟踪成分股变化的方式对同时有美股和港股持仓的<a href="../../res/sh513050cn.php">中概互联</a>进行净值估算.
+<br />从<?php EchoNameLink('qdii', QDII_DISPLAY); ?>分出来，采用跟踪成分股变化的方式对同时有美股和港股持仓的<a href="../../res/sh513050cn.php">中概互联</a>等进行净值估算。
 </p>
 
 </div>

@@ -60,7 +60,7 @@ function _getFundEstTableColumn($arRef, &$bFair)
         if ($ref->GetFairNav())
         {
         	$bFair = true;
-        	$ar[] = new TableColumnEst(STOCK_DISP_FAIR);
+        	$ar[] = new TableColumnFairEst();
         	$ar[] = $premium_col;
         	break;
         }
@@ -72,7 +72,7 @@ function _getFundEstTableColumn($arRef, &$bFair)
     	{
     		if ($ref->GetRealtimeNav())
     		{
-    			$ar[] = new TableColumnEst(STOCK_DISP_REALTIME);
+    			$ar[] = new TableColumnRealtimeEst();
     			$ar[] = $premium_col;
     			break;
     		}
