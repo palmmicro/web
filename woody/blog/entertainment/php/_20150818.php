@@ -23,7 +23,7 @@ function EchoFundEstTables()
 								   ), 'estcompare');
 	EchoTableColumn(array('T日美股交易',		'XOP净值',	'XOP净值',	'XOP净值'));
 	EchoTableColumn(array('CL期货',			'否',		'否',		'是'));
-	EchoTableColumn(array('美元人民币中间价',	'T日',		'T+1日',	'T/T+1日'));
+	EchoTableColumn(array('美元人民币中间价',	'T日',		'T/T+1日',	'T/T+1日'));
     EchoTableParagraphEnd();
 }
 

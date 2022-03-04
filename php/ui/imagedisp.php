@@ -34,4 +34,9 @@ function ImgWinMan($bChinese = true)
 	return QuoteImgElement('gan.jpg', '赢了会所嫩模输了下海挖沙的老头');
 }
 
+function ImgHuangRong($bChinese = true)
+{
+   	return QuoteImgElement('huangrong.jpg', '83版射雕英雄传中翁美玲扮演的小乞丐黄蓉');
+}
+
 ?>

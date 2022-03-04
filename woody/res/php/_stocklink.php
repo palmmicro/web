@@ -107,7 +107,7 @@ function GetCategoryArray($strPage)
         $ar = QdiiHkGetSymbolArray();
         break;
         
-    case QDII_MIX_PAGE:
+    case 'qdiimix':
         $ar = QdiiMixGetSymbolArray();
         break;
         

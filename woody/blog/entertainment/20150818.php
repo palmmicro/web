@@ -70,16 +70,6 @@ Although I only watched US market crash, I still added BOSERA S&P 500 net value 
 <a href="20100529.php">Visual C++</a> coded Woody's Web Tool is modified to generate _submitXXX.php file automatically when insert copy of a _editXXXform.php file. 
 </p>
 
-<h3>Unified Display</h3>
-<p>Jan 26, 2016
-<br />Add date display in related price time items following the advice from <?php EchoXueqieId('8907500725', 'oldwain'); ?>.
-The original version omitted date display because I thougth it was obvious. And it is obvious too that not every one is as familar with both USA and China time as I am.
-<br />Although it is a small separating data and display change, I can not help myself to mofidy a lot of code.
-The original <font color=olive>StockReference</font> class is now a base class for <font color=olive>FutureReference</font> and <font color=olive>ForexReference</font>.
-In this way, the display is unified.
-</p>
-<?php EchoReferenceDemo(); ?>
-
 <h3>Period Three Implies Chaos</h3>
 <p>Feb 26, 2016
 <br />SZ162411 is trading more than 10% higher than its net value recently, the max premium as high as 17%, so the XOP and SZ162411 arbitrage is not possible now.
@@ -130,11 +120,6 @@ And the automatic calibration on May 13 was not done yet. In other words, the ca
 Because only Hongkong QDII would have the chance of official QDII net value newer than ETF, I rewrote part of the code by checking if it was HK QDII,
 and modified an actually unrelated code, what should be <font color=gray><code>$iHours = STOCK_HOUR_END + ($this->usdhkd_ref ? 0 : 24);</code></font> was written as <font color=gray><code>$iHours = STOCK_HOUR_END + ($this->usdhkd_ref) ? 0 : 24;</code></font>
 <br />But this bug made me feel very bad, this time I can not say I am still a 6 years <font color=red>new</font> PHP programmer. As a proud 25 years C programmer, this is also a very stupid bug in C language!
-</p>
-
-<h3>How to <a name="precise">Precisely</a> Estimate the Net Value of SZ162411</h3>
-<p>Sep 27, 2016
-<br />Added 95% position for all LOF net value estimation.
 </p>
 
 <h3>Automatic and manual <a name="calibrationhistory">calibration history</a></h3>

@@ -2,15 +2,15 @@
 define('STOCK_PATH', '/woody/res/');
 define('STOCK_PHP_PATH', '/woody/res/php/');
 
-function GetNameTag($strName, $strDisplay)
+function GetNameTag($strName, $strDisplay = false)
 {
-//	return '<a name="'.$strName.'">'.$strDisplay.'</a>';
+	if ($strDisplay == false)	$strDisplay = strtoupper($strName);
 	return GetHtmlElement($strDisplay, 'a', array('name' => GetDoubleQuotes($strName)));
 }
 
-function GetNameLink($strName, $strDisplay, $strLink = '')
+function GetNameLink($strName, $strDisplay = false, $strLink = '')
 {
-//	return '<a href="'.$strLink.'#'.$strName.'">'.$strDisplay.'</a>';
+	if ($strDisplay == false)	$strDisplay = strtoupper($strName);
 	return GetLinkElement($strDisplay, $strLink.'#'.$strName);
 }
 

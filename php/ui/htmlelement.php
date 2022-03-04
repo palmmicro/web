@@ -59,6 +59,11 @@ function GetRemarkElement($strContent)
 	return GetFontElement($strContent, 'green');
 }
 
+function GetCodeElement($strContent)
+{
+	return GetHtmlElement(GetFontElement($strContent, 'olive'), 'code');
+}
+
 function GetListElement($arContent, $bOrder = true)
 {
 	$str = '';

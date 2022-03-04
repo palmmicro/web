@@ -109,7 +109,7 @@ function EchoAll()
     	$acct->EchoMoneyParagraph($group, $uscny_ref, $hkcny_ref);
 	}
 
-    $acct->EchoLinks(QDII_MIX_PAGE, 'GetQdiiMixLinks');
+    $acct->EchoLinks('qdiimix', 'GetQdiiMixLinks');
 }
 
 function GetQdiiMixLinks($sym)

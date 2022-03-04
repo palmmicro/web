@@ -10,12 +10,12 @@ function EchoInternalLink($strPath, $strDisplay)
 	echo GetInternalLink($strPath, $strDisplay);
 }
 
-function EchoNameTag($strName, $strDisplay)
+function EchoNameTag($strName, $strDisplay = false)
 {
 	echo GetNameTag($strName, $strDisplay);
 }
 
-function EchoNameLink($strName, $strDisplay, $strLink = '')
+function EchoNameLink($strName, $strDisplay = false, $strLink = '')
 {
 	echo GetNameLink($strName, $strDisplay, $strLink);
 }
