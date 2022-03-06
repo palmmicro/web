@@ -8,6 +8,8 @@ class MysqlReference extends StockReference
 
     var $fFactor = 1.0;			// 'close' field in calibrationhistory table
     
+    var $iNavCount = 0;
+    
     function MysqlReference($strSymbol) 
     {
         parent::StockReference($strSymbol);
@@ -32,6 +34,12 @@ class MysqlReference extends StockReference
     				}
     			}
     		}
+    	}
+
+    	if ($this->strSqlId)
+    	{
+    		$nav_sql = GetNavHistorySql();
+    		$this->iNavCount = $nav_sql->Count($this->strSqlId);
     	}
     }
     
@@ -68,8 +76,7 @@ class MysqlReference extends StockReference
 
     function CountNav()
     {
-    	$nav_sql = GetNavHistorySql();
-    	return $nav_sql->Count($this->strSqlId);
+    	return $this->iNavCount;
     }
     
     function GetEnglishName()

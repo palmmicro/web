@@ -135,7 +135,7 @@ function _getFundAccountTableColumnArray()
 				   new TableColumn('y'.STOCK_DISP_ORDER.'账户', 90),
 				   new TableColumnDate(STOCK_DISP_ORDER),
 				   new TableColumnPrice(),
-				   new TableColumnNetValue(),
+				   new TableColumnNav(),
 				   new TableColumnPremium('x')
 				   );
 }

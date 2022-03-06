@@ -150,7 +150,7 @@ function EchoAll($bChinese = true)
 	        $strName = $profile['name'];
 	        $strPhone = $profile['phone'];
 	        $strAddress = $profile['address'];
-	        $strWeb = GetHttpLink($profile['web']);
+	        $strWeb = GetExternalLink($profile['web']);
 	        $strSignature = nl2br($profile['signature']);
 	    }
 	    else

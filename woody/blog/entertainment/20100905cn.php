@@ -38,7 +38,7 @@
 <br />我的第二反应, 是赶快加了一个对单个IP地址访问<a href="../palmmicro/20080326cn.php">Palmmicro</a>.com的次数<a href="../../../account/visitorcn.php">统计</a>. 每当访问次数累计到1000次就强制要求登录一次.
 爬虫很快就被暂时挡在了数据之外, 不过这也会在以后给正常访问的常用用户带来一点小麻烦. 
 <br />同时我很清醒的认识到, 为了克服我设置的这个小障碍, 爬虫要实现自动登录其实是很容易的. 另外即使是目前这种状态, 依旧有每秒2次的访问压在登录页面上, 一样给服务器带来了不必要的额外压力.
-<br />十多年前当我在<a href="../../../pa1688/indexcn.html">PA1688</a>上做H.323的时候, 曾经费尽心力从<?php EchoLink('https://www.whatismyip.com'); ?>这种类似网站查询PA1688所在的公网IP地址, 留下了很坎坷的回忆.
+<br />十多年前当我在<a href="../../../pa1688/indexcn.html">PA1688</a>上做H.323的时候, 曾经费尽心力从<?php EchoExternalLink('https://www.whatismyip.com'); ?>这种类似网站查询PA1688所在的公网IP地址, 留下了很坎坷的回忆.
 <br />而今天在处理完网络爬虫的问题后, 我突然意识到查询公网IP已经成了现成的副产品, 激动之余写了这个<?php EchoIpAddressLink(); ?>的工具.
 </p>
 
@@ -53,7 +53,7 @@
 <p>2017年12月26日
 <br />记得2000年刚到硅谷工作, 去电影院的时候总会在正片播放前看到一段让我自我感觉膨胀的广告. 大意是如果你知道一个等号和两个等号的区别, 就可以在我们这里找份工作了!
 写PHP还需要知道三个等号跟前两个的区别. 事实上对习惯了C语言的人来说是个坑, 我今天就不幸踩了一个.
-<br />在修改用来方便<a href="20141016cn.php">股票</a>交易记录的<?php EchoCommonPhraseLink(); ?>代码的时候, 我无意中在<?php EchoLink('https://www.php.net/'); ?>上看到有关<i>strstr</i>的一个信息:
+<br />在修改用来方便<a href="20141016cn.php">股票</a>交易记录的<?php EchoCommonPhraseLink(); ?>代码的时候, 我无意中在<?php EchoExternalLink('https://www.php.net/'); ?>上看到有关<i>strstr</i>的一个信息:
 <br /><font color=gray>如果你仅仅想确定needle是否存在于haystack中, 请使用速度更快, 耗费内存更少的<i>strpos</i>函数.</font>
 <br />我马上如获至宝当即改用了几十个<i>strpos</i>, 却发现有些像<font color=gray><code>if (strpos($str, 'www.'))</code></font>的代码变得不工作了. 
 原因是<i>strpos</i>会返回位置0, 这时候要写成<font color=gray><code>if (strpos($str, 'www.') !== false)</code></font>, 才跟原来<font color=gray><code>if (strstr($str, 'www.'))</code></font>的代码效果一致.
@@ -78,7 +78,7 @@
 </ol>
 <p>接下来一个最直接的优化想法, 就是先把一定范围内的已知质数算出来, 这样我们在进行上面的计算时, 就不用算17是不是4的整数倍数了.
 基于<a href="20101107cn.php">GB2312</a>大数组的教训, 我这次直接把前4972个质数存到了MySQL的表中. 不过结果让我很失望, 查MySQL已知质数表的结果反而要比直接算慢很多倍.
-<br />当然还有像Pollard Rho这种效率更高的分解质因数算法, 不过看看这些有关质数的文章: <?php EchoLink('https://taodaling.github.io/blog/2019/04/03/Pollard-Rho-%E5%9B%A0%E5%BC%8F%E5%88%86%E8%A7%A3/'); ?>
+<br />当然还有像Pollard Rho这种效率更高的分解质因数算法, 不过看看这些有关质数的文章: <?php EchoExternalLink('https://taodaling.github.io/blog/2019/04/03/Pollard-Rho-%E5%9B%A0%E5%BC%8F%E5%88%86%E8%A7%A3/'); ?>
 <br />是不是很容易觉得自己是数学白痴?
 <br />不过我还是很积极的在php下新建了一个子目录tutorial, 把这个新文件<b>primenumber.php</b>放了进去. 
 同时开始憧憬万一几年后我真的开始自己做软硬件课件教<a href="20141204cn.php">林近岚</a>编程序的话, 今天这些工作可以做为其中的一节软件课. 

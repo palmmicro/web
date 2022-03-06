@@ -23,7 +23,7 @@ function TradingUserDefined($strVal = false)
     	}
     }
     
-   	return GetStockChartsLink($est_ref->GetSymbol()).GetTableColumnPrice();
+   	return GetTableColumnStock($est_ref).GetTableColumnPrice();
 }
 
 class QdiiGroupAccount extends FundGroupAccount 
@@ -48,7 +48,7 @@ class QdiiGroupAccount extends FundGroupAccount
     		YahooUpdateNetValue($leverage_ref);
     	}
         $this->CreateGroup(array_merge(array($stock_ref, $est_ref), $this->ar_leverage_ref));
-    } 
+    }
     
     function GetLeverage()
     {
@@ -72,6 +72,7 @@ class QdiiGroupAccount extends FundGroupAccount
     		EchoEtfArraySmaParagraph($ref->GetEstRef(), $this->ar_leverage_ref);
     	}
     	EchoFundHistoryParagraph($ref);
+    	EchoFundShareParagraph($ref);
     }
 
     function GetLeverageSymbols($strEstSymbol)

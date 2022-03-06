@@ -101,12 +101,12 @@ function _echoNetValueHistory($ref, $iStart, $iNum, $bAdmin)
 	$str .= '<br />'.$strMenuLink;
 
 	$change_col = new TableColumnChange();
-	$ar = array(new TableColumnDate(), new TableColumnNetValue(), $change_col);
+	$ar = array(new TableColumnDate(), new TableColumnNav(), $change_col);
 	if ($est_ref)
 	{
 		$ar[] = new TableColumnUSCNY();
 		$ar[] = $change_col;
-		$ar[] = new TableColumnNetValue($est_ref->GetSymbol());
+		$ar[] = new TableColumnNav($est_ref->GetSymbol());
 		$ar[] = $change_col;
 		$position_col = new TableColumnPosition();
 		$ar[] = $position_col;

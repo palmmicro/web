@@ -49,7 +49,7 @@
 <br />An = ∑Xm / (n - 1); 或者 An = ∑Xm / m;
 <br />这样就很清楚了, 当我说5日线的时候, 我实际算的是前4个交易日收盘价的平均值. 当我说20周线的时候, 我实际算的是前19周每周最后一个交易日收盘价的平均值.
 这样算出来的不动点是极限值, 所以我整天装神弄鬼说XOP过了什么什么均线算强势, 没过什么什么均线算弱势. 而这些装神弄鬼的背后, 其实用到的都是小学数学.
-<br />XOP历史数据每天只需要更新一次, 采用Yahoo股票历史数据: <?php EchoLink(YahooStockHistoryGetUrl('XOP')); ?>,
+<br />XOP历史数据每天只需要更新一次, 采用Yahoo股票历史数据: <?php EchoExternalLink(YahooStockHistoryGetUrl('XOP')); ?>,
 <br />同样每天只需要更新一次的还有华宝油气基金官方净值, 来自于<?php EchoSinaQuotesLink('f_162411'); ?>,
 使用文件<?php EchoSinaDebugLink('f_162411'); ?>缓存, 因为不知道什么时候更新当日数据, 只好采用一个小时更新一次的笨办法.
 <br />增加调试文件<?php EchoFileLink(DebugGetFile()); ?>用于临时查看数据.
@@ -59,12 +59,12 @@
 <p>2015年8月21日
 <br />发了这个工具小软件链接后, 昨天翻墙出去看了一下<a href="20110509cn.php">Google</a> Analytics的统计. 上线3天, 总共289个IP访问了584次.
 跟<a href="../palmmicro/20080326cn.php">Palmmicro</a>通常的客户访问网站极大不同的是, 访问这个工具的有1/3用的是手机. 于是匆忙加上为手机用户优化显示界面的代码.
-<br />使用<?php EchoLink('http://mobiledetect.net/'); ?>判断是否手机用户访问, 代码从github复制下来按照原开发者的建议单独放在/php/class/<b>Mobile_Detect.php</b>中.
+<br />使用<?php EchoExternalLink('http://mobiledetect.net/'); ?>判断是否手机用户访问, 代码从github复制下来按照原开发者的建议单独放在/php/class/<b>Mobile_Detect.php</b>中.
 </p>
 
 <h3>增加<?php EchoNameTag(TABLE_STOCK_HISTORY, STOCK_HISTORY_DISPLAY); ?>页面</h3>
 <p>2015年8月24日
-<br />每次进<?php EchoLink('https://palmmicro.com/apps/phpMyAdmin/'); ?>去看历史数据虽然不算麻烦, 但是毕竟还是用自己写的网页看更有成就感!
+<br />每次进<?php EchoExternalLink('https://palmmicro.com/apps/phpMyAdmin/'); ?>去看历史数据虽然不算麻烦, 但是毕竟还是用自己写的网页看更有成就感!
 </p>
 <?php EchoStockHistoryDemo(); ?>
 
@@ -177,18 +177,18 @@ Wiki的QDII词条下显示了它是Qualified Domestic Institutional Investor的�
 <br />不过这个bug严重打击了我的自信心. 这一次我没法用自己是个6年的PHP<font color=red>新手</font>来自嘲了, 在我自豪的写了25年的C语言中, 这同样是个超级低级的错误!
 </p>
 
-<h3><?php EchoNameTag(MY_PORTFOLIO_PAGE, MY_PORTFOLIO_DISPLAY); ?></h3>
+<h3><?php EchoNameTag('myportfolio', MY_PORTFOLIO_DISPLAY); ?></h3>
 <p>2016年6月5日
-<br />王小波总是不忘记唠叨他写了自己用的编辑软件, 在20年前我是暗自嘲笑的. 没想到过了这么些年以后, 我也开始写自己用的炒股软件了. 不同的年龄段心态是完全不同的.
-<br /><?php EchoWoodyPortfolioLink(); ?>功能刚完成的时候页面出来得奇慢无比, 而接下来刷新就会快很多. 因为对自己的mysql水平没有自信心, 我一头扎进了优化数据库的工作中.
-优化了一些明显的问题, 例如扩展了stockgroupitem表的内容, 把stocktransaction表中groupitem_id相同的交易预先统计好存在stockgroupitem表中, 避免每次都重新查询stocktransaction表然后重新计算一次.
-不过折腾了一大圈后并没有明显的改善, 倒是在这个过程中理清了原来闭着眼睛写的代码的内在逻辑, 看出来了问题的根源.
-<br />在按member_id查询<?php EchoNameTag(STOCK_GROUP_PAGE, TABLE_STOCK_GROUP); ?>表找到这个人所有的<?php EchoWoodyStockGroupLink(); ?>后,
-我会对每个stockgroup直接构造<font color=olive>MyStockGroup</font>类. 在<font color=olive>MyStockGroup</font>类原来的构造函数代码中, 
-会马上对该stockgroup中的每个stock构建一个<font color=olive>MyStockTransaction</font>类, 而<font color=olive>MyStockTransaction</font>的构造函数又需要这个stock的<font color=olive>MyStockReference</font>类作为参数,
-如果没有现成的<font color=olive>MyStockReference</font>类的实例可用, 就会新构造一个. 结果就是在首次统计持仓盈亏的过程中, 我会把几乎所有股票的数据都去新浪拿一遍, 难怪那么慢. 
-<br />找到问题就好办了, 首先判断stockgroup中stock对应的groupitem_id到底有没有交易记录, 没有的话就不去构造<font color=olive>MyStockTransaction</font>类. 另外预先统计好有交易记录的stock, 统一去预取一下新浪数据.
-<br />随后我把预取数据的思路用在了所有需要读取新浪数据的地方, 包括华宝油气净值计算在内, 所有的页面反应速度都有不同程度的提升. 原来我说因为网站服务器在美国所以访问慢的理由看来并不是那么准确的.
+<br />王小波总是不忘记唠叨他写了自己用的编辑软件，在20年前我是暗自嘲笑的。没想到过了这么些年以后，我也开始写自己用的炒股软件了。不同的年龄段心态是完全不同的。
+<br /><?php echo GetMyPortfolioLink('email=woody@palmmicro.com'); ?>功能刚完成的时候页面出来得奇慢无比，而接下来刷新就会快很多。因为对自己的MySQL水平没有自信心，我一头扎进了优化数据库的工作中。
+优化了一些明显的问题，例如扩展了stockgroupitem表的内容，把stocktransaction表中groupitem_id相同的交易预先统计好存在stockgroupitem表中，避免每次都重新查询stocktransaction表然后重新计算一次。
+不过折腾了一大圈后并没有明显的改善，倒是在这个过程中理清了原来闭着眼睛写的代码的内在逻辑，看出来了问题的根源。
+<br />在按member_id查询<?php EchoNameTag('mystockgroup', TABLE_STOCK_GROUP); ?>表找到这个人所有的<?php echo GetMyStockGroupLink('email=woody@palmmicro.com'); ?>后，我会对每个stockgroup直接构造<?php echo GetCodeElement('MyStockGroup'); ?>类，
+在它原来的构造函数代码中，会马上对该stockgroup中的每个stock构建一个<?php echo GetCodeElement('MyStockTransaction'); ?>类, 而<?php echo GetCodeElement('MyStockTransaction'); ?>的构造函数又需要这个stock的<?php echo GetCodeElement('MyStockReference'); ?>类作为参数,
+如果没有现成的实例可用，就会新构造一个。结果就是在首次统计持仓盈亏的过程中，我会把几乎所有股票的数据都去新浪拿一遍，难怪那么慢。 
+<br />找到问题就好办了，首先判断stockgroup中stock对应的groupitem_id到底有没有交易记录，没有的话就不去构造<?php echo GetCodeElement('MyStockTransaction'); ?>类。另外预先统计好有交易记录的stock，统一去预取一下新浪数据。
+<br />随后我把预取数据的思路用在了所有需要读取新浪数据的地方，包括华宝油气净值计算在内，所有的页面反应速度都有不同程度的提升。原来我说因为网站服务器在美国所以访问慢的理由看来并不是那么准确的！
+<?php echo QuoteImgElement('pig.jpg', '一头特立独行的猪：趴在墙头看人杀猪。'); ?>
 </p> 
 
 <h3><?php EchoNameTag('qdii', QDII_DISPLAY); ?>中考虑当日CL交易情况后的T+1估值</h3>
@@ -397,14 +397,14 @@ Wiki的QDII词条下显示了它是Qualified Domestic Institutional Investor的�
 <br /><font color=gray>A fox knows many things, but a hedgehog knows one big thing.</font>
 </p>
 
-<h3><?php EchoNameTag(FUND_SHARE_PAGE, FUND_SHARE_DISPLAY); ?></h3>
+<h3><?php EchoNameTag('fundshare', FUND_SHARE_DISPLAY); ?></h3>
 <p>2021年7月14日
-<br /><?php echo GetFundShareLink(); ?>
 </p>
+<?php EchoFundShareDemo(); ?>
 
 <h3>增加<?php EchoNameTag('qdiimix', QDII_MIX_DISPLAY); ?>工具系列</h3>
 <p>2021年7月28日
-<br />从QDII中分出来，采用跟踪<?php EchoNameLink(TABLE_HOLDINGS, HOLDINGS_DISPLAY); ?>成分股变化的方式对同时有美股和港股持仓的<a href="../../res/sh513050cn.php">中概互联</a>等进行净值估算。
+<br />从QDII中分出来，采用跟踪<?php EchoNameLink(TABLE_HOLDINGS, HOLDINGS_DISPLAY); ?>成分股变化的方式对同时有美股和港股持仓的<?php echo GetStockLink('SH513050'); ?>等进行净值估算。
 <br />A股大妈最喜欢干的事情就是抄底。随着过去半年来中概互联一路跌成了<?php EchoNameTag('chinainternet', '中丐互怜'); ?>，SH513050的市场流动性和网络热度都在暴涨，看得我口水流一地，忍不住想做点什么蹭蹭热点。
 <br />跟SZ164906和KWEB跟踪同一个指数H11136不同，SH513050跟踪的是另外一个不同的指数H30533。H30533和H11136在成分股选择上基本一致，但是H30533对单一成分股最大仓位限制是30%，而H11136限制10%的最大仓位，这样导致它们俩在腾讯和阿里持仓比例上区别巨大。
 <br />SH513050的成分股和比例来自于上交所官网的ETF申购赎回清单，这样接下来可以很容易的继续扩大混合QDII的成员。SZ164906的成分股和比例则是来自KWEB官网公布的每日持仓更新。

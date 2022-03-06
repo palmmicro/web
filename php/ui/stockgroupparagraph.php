@@ -85,7 +85,7 @@ function _echoStockGroupTableData($acct, $strStockId, $strMemberId, $bAdmin)
 
 function EchoStockGroupParagraph($acct, $strGroupId = false, $strStockId = false)
 {
-	EchoTableParagraphBegin(array(new TableColumnStockGroup(),
+	EchoTableParagraphBegin(array(new TableColumnGroupName(),
 								   new TableColumnSymbol(false, 450),
 								   new TableColumn()
 								   ), TABLE_STOCK_GROUP);

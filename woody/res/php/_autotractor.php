@@ -23,6 +23,11 @@ function EchoAll()
     $str .= $strNewLine.$strYinheAu3.'文件是唯一会日常更新的，目前版本为'.GetBoldElement('V0.'.YINHE_AU3_VER).'。下载前注意清除浏览器的下载文件缓存，确保下载到正确的版本。由于更新时无法覆盖所有的测试，每次下载新版本前注意备份好上一个能用的版本。例如保存成：'.$strYinheAu3Now;
     EchoParagraph($str);
 
+    $str = GetRemarkElement('软件开发：');
+    $str .= $strNewLine.'本网站全部源代码都公开放在了全球最大同性交友网站'.GetExternalLink('https://github.com/palmmicro', 'GitHub');
+    $str .= '。想自己进一步修改软件的除了上面的3个.au3文件外，还可能需要去下载制作用户界面时用到的'.GetInfoElement('yinhe.kxf').'和'.GetInfoElement('yinheaccount.kxf').'两个文件。';
+    EchoParagraph($str);
+    
     $str = GetRemarkElement('软件执行：');
     $str .= $strNewLine.'运行AutoIt3.exe后， 它会提示输入文件。给它'.$strYinheAu3.'或者'.$strYinheAu3Now.'都可以执行。';
     $str .= QuoteImgElement('20211129auto.jpg', 'AutoIt'.AUTO_TRACTOR_DISPLAY.'软件0.49主界面');

@@ -69,7 +69,7 @@ function LayoutPromotion($str, $strText = '')
 		break;
 	}
 	
-	$strLink = GetHttpLink($strLink);
+	$strLink = GetExternalLink($strLink);
 	$strImage = GetImgElement("/woody/image/$str.jpg", "$str promo"); 
     echo <<<END
 

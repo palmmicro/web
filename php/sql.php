@@ -168,7 +168,7 @@ function _errorHandler($errno, $errstr, $errfile, $errline)
    		$str = $errstr.'<br />位于'.$errfile.'第'.$errline.'行';
    		$strDebug = "$strSubject $str ($strCount)";
     
-   		$str .= '<br />'.GetHttpLink(UrlGetServer().UrlGetCur());
+   		$str .= '<br />'.GetExternalLink(UrlGetServer().UrlGetCur());
 //   		if (isset($_SESSION['SESS_ID']))		$str .= '<br />'.GetMemberLink($_SESSION['SESS_ID']);	// need MySQL successful
 
 		$strIp = UrlGetIp();

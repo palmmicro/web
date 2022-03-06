@@ -8,6 +8,7 @@ require_once('/php/ui/referenceparagraph.php');
 //require_once('/php/ui/smaparagraph.php');
 require_once('/php/ui/tradingparagraph.php');
 require_once('/php/ui/fundhistoryparagraph.php');
+require_once('/php/ui/fundshareparagraph.php');
 require_once('/php/ui/fundestparagraph.php');
 
 class _QdiiMixAccount extends GroupAccount
@@ -103,6 +104,7 @@ function EchoAll()
     EchoReferenceParagraph(array_merge($acct->GetStockRefArray(), array($acct->cnh_ref, $uscny_ref, $hkcny_ref)), $acct->IsAdmin());
     EchoFundTradingParagraph($ref);
     EchoEtfHistoryParagraph($ref);
+   	EchoFundShareParagraph($ref);
 
     if ($group = $acct->EchoTransaction()) 
     {
@@ -136,7 +138,7 @@ function GetMetaDescription()
 function GetTitle()
 {
     global $acct;
-	return RefGetStockDisplay($acct->GetRef()).STOCK_DISP_NETVALUE;
+	return RefGetStockDisplay($acct->GetRef()).STOCK_DISP_NAV;
 }
 
    	$acct = new _QdiiMixAccount();

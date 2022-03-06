@@ -28,7 +28,7 @@ function _echoCalibrationHistoryParagraph($ref, $iStart, $iNum)
 	}
 	else
 	{
-		$nav_col = new TableColumnNetValue();
+		$nav_col = new TableColumnNav();
 	}
 
 	$calibration_sql = new CalibrationSql();

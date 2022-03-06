@@ -47,16 +47,10 @@ function GetInternalLink($strPath, $strDisplay = false)
 	return GetLinkElement($strDisplay, UrlGetServer().$strPath);
 }
 
-function GetExternalLink($strHttp, $strDisplay)
+function GetExternalLink($strHttp, $strDisplay = false)
 {
-//    $strLink = "<a href=\"$strHttp\" target=_blank>$strDisplay</a>";
-//    return $strLink;
+	if ($strDisplay == false)	$strDisplay = $strHttp;
 	return GetLinkElement($strDisplay, $strHttp, array('target' => '_blank'));
-}
-
-function GetHttpLink($strHttp)
-{
-    return GetExternalLink($strHttp, $strHttp);
 }
 
 function GetFileLink($strPathName)

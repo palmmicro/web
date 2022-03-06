@@ -44,9 +44,9 @@
 <p>2016年10月20日
 <br />今天发现有个微信公众号用户用语音查询<font color=gray>交通银行</font>, 没查到因为数据库中根本没有它. 不过因此刺激了我给加上查询所有<a href="../entertainment/20141016cn.php">股票</a>交易数据的功能.
 <br />首先我要把A股3000多只股票都加到数据库中. 开始我想直接开个大循环从000001到699999从新浪拿数据, 后来觉得太蠢了, 还担心新浪的数据接口把我列入黑名单.
-不过接下来我从<?php EchoLink(GetEastMoneyStockListUrl()); ?>找到了所有A股数据.
+不过接下来我从<?php EchoExternalLink(GetEastMoneyStockListUrl()); ?>找到了所有A股数据.
 <?php EchoUpdateChinaStockLink(); ?>
-<br />继续给数据库中加美股代码, 希望<?php EchoLink(GetSinaUsStockListUrl()); ?>这个不完整的美股单子能满足绝大多数中国用户的查询.
+<br />继续给数据库中加美股代码, 希望<?php EchoExternalLink(GetSinaUsStockListUrl()); ?>这个不完整的美股单子能满足绝大多数中国用户的查询.
 <?php EchoUpdateUsStockLink(); ?>
 </p>
 
@@ -54,7 +54,7 @@
 <p>2016年10月28日
 <br />昨天让我广发证券网上开户的经理帮忙宣传一下微信公众号查股票数据, 随即加进来2个人. 
 其中一个上来就查<font color=gray>159915</font>, 发现没有数据后立马取消了订阅, 又刺激了我给数据库加上所有A股基金数据.
-<br />从<?php EchoLink(GetEastMoneyFundListUrl()); ?>找到了基金列表, 没想到全市场居然有上万基金. 然后继续写代码加入了其中可能可以场内交易的数据, 从此应该不怕被查.
+<br />从<?php EchoExternalLink(GetEastMoneyFundListUrl()); ?>找到了基金列表, 没想到全市场居然有上万基金. 然后继续写代码加入了其中可能可以场内交易的数据, 从此应该不怕被查.
 <?php EchoUpdateChinaFundLink(); ?>
 </p>
 
@@ -62,7 +62,7 @@
 <p>2017年1月30日
 <br />微信公众号搞了几个月, 使用者寥寥. 不过开发微信公众号的过程中有个意外收获, 帮助我彻底区分了净值计算和用户显示界面的代码.
 <br />为了充分利用这个好处, 在帮助有效配合今年打新加入<?php EchoNameLink(AH_COMPARE_PAGE, AH_COMPARE_DISPLAY, '../entertainment/20150818cn.php'); ?>后, 我马上把它也包括在了微信公众号的查询结果中.
-<br />数据来源: <?php EchoLink(GetAastocksUrl('ah')); ?>		<?php EchoUpdateAhLink(); ?>
+<br />数据来源: <?php EchoExternalLink(GetAastocksUrl('ah')); ?>		<?php EchoUpdateAhLink(); ?>
 <br />输入查<font color=gray>600028</font>或者<font color=gray>00386</font>试试看.
 </p>
 <?php EchoAhDemo(); ?>
@@ -75,7 +75,7 @@
 <br />因为微信查找中我没有做中文分词, 因此<font color=gray>人民币汇率</font>这种5个字的长查询其实是很难匹配的. 
 为了保证下次用户能查到, 我还特意手工把数据库中USCNY的说明从<font color=gray>美元人民币中间价</font>改成了<font color=gray>美元人民币汇率中间价</font>.
 <br />得意之余再补记一下, 上周蹭雪球热点港股腾讯ADR代码TCEHY时加了<?php EchoNameLink(ADRH_COMPARE_PAGE, ADRH_COMPARE_DISPLAY, '../entertainment/20150818cn.php'); ?>后, 又继续把它集成到了微信查询中.
-<br />数据来源: <?php EchoLink(GetAastocksUrl()); ?>		<?php EchoUpdateAdrLink(); ?>
+<br />数据来源: <?php EchoExternalLink(GetAastocksUrl()); ?>		<?php EchoUpdateAdrLink(); ?>
 <br />输入查<font color=gray>00700</font>或者<font color=gray>腾讯</font>试试看.
 <!--<br /><img src=../photo/kingcrab.jpg alt="Jan 30, 2018. King crab, Woody and Sapphire in La Quinta Carlsbad." />-->
 </p>
@@ -85,8 +85,8 @@
 <p>2018年4月15日
 <br />折腾完H股后觉得意犹未尽, 一鼓作气继续加上AB股对比.
 <br />数据来源: 
-<br /><?php EchoLink(GetCnstocksUrl()); ?>		<?php EchoUpdateAbLink(); ?>
-<br /><?php EchoLink(GetCnstocksUrl('sz')); ?>	<?php EchoUpdateAbLink('sz'); ?>
+<br /><?php EchoExternalLink(GetCnstocksUrl()); ?>		<?php EchoUpdateAbLink(); ?>
+<br /><?php EchoExternalLink(GetCnstocksUrl('sz')); ?>	<?php EchoUpdateAbLink('sz'); ?>
 <br />输入查<font color=gray>000488</font>或者<font color=gray>200488</font>试试看.
 </p>
 <?php EchoAbDemo(); ?>
@@ -102,22 +102,22 @@
 <br />昨天有人在微信公众号上查<font color=gray>019547</font>没有匹配. 看了一下<?php EchoSinaQuotesLink('sh019547'); ?>, 发现居然是国债.
 软件工具有人用终归是好事情, 所以再次削尖铅笔给我的数据库加上所有A股债券数据.
 <br />数据来源: 
-<br /><?php EchoLink(GetJrjBondListUrl()); ?>      <?php EchoUpdateChinaBondLink(); ?>
-<br /><?php EchoLink(GetJrjBondListUrl('qz')); ?>  <?php EchoUpdateChinaBondLink('qz'); ?>
-<br /><?php EchoLink(GetJrjBondListUrl('kzz')); ?> <?php EchoUpdateChinaBondLink('kzz'); ?>
+<br /><?php EchoExternalLink(GetJrjBondListUrl()); ?>      <?php EchoUpdateChinaBondLink(); ?>
+<br /><?php EchoExternalLink(GetJrjBondListUrl('qz')); ?>  <?php EchoUpdateChinaBondLink('qz'); ?>
+<br /><?php EchoExternalLink(GetJrjBondListUrl('kzz')); ?> <?php EchoUpdateChinaBondLink('kzz'); ?>
 </p>
 -->
 
 <h3><?php EchoNameTag(TABLE_DOW_JONES, '道琼斯成分股'); ?></h3>
 <p>2019年11月22日
 <br />数据来源: 
-<br /><?php EchoLink(GetYahooComponentsUrl()); ?>	<?php EchoUpdateDowJonesLink(); ?>
+<br /><?php EchoExternalLink(GetYahooComponentsUrl()); ?>	<?php EchoUpdateDowJonesLink(); ?>
 </p>
 
 <h3><a name="telegram">电报机器人</a></h3>
 <p>2021年2月27日
 <br />因为微信个人订阅号的各种限制, 最近削尖铅笔基于Telegram电报API开发了机器人@palmmicrobot, 把<a href="#wechat">微信公众号</a>上的查询功能完全复制到了电报软件上. 同时创建了@palmmicrocast频道, 用来主动发布用户在各种渠道查询过程中碰到的可能需要提醒的信息.
-<br />电报是开源的, 而且鼓励大家把它无缝集成到各种应用场景中. 墙内使用电报可以从<?php EchoLink('https://0.plus'); ?>下载安装BananaTok手机APP, 也可以使用非官方的WEB版本<?php EchoLink('https://web.telegram.im'); ?>.
+<br />电报是开源的, 而且鼓励大家把它无缝集成到各种应用场景中. 墙内使用电报可以从<?php EchoExternalLink('https://0.plus'); ?>下载安装BananaTok手机APP, 也可以使用非官方的WEB版本<?php EchoExternalLink('https://web.telegram.im'); ?>.
 <br />不忘初心, 接下来打算写个用电报机器人管理的基于MQTT协议的IoT模块.
 </p>
 

@@ -21,7 +21,7 @@ We founded Palmmicro again in China, continue our small VoIP business with the n
 <br />On Feb 5, 2008, the expired domain name came into <i>Redemption Period</i>.
 <br />On March 6, the domain name became <i>Pending Delete</i>.
 <br />On March 13, the domain was strangely registered by an Oregon domain trading company. I was so disappointed at that time.
-<br />On today, March 26, I tried <?php EchoLink('https://who.is'); ?> search again, and found the domain name available. I registered it under my name at once.
+<br />On today, March 26, I tried <?php EchoExternalLink('https://who.is'); ?> search again, and found the domain name available. I registered it under my name at once.
 <br /><font color=gray>Last Sep, Dr Wang, Tang Li and me.</font>
 <br /><img src=../../groupphoto/company/20070920.jpg alt="Chi-Shin Wang, Tang Li and me in Half Moon Bay." />
 </p>

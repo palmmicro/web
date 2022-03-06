@@ -41,7 +41,7 @@ The following are checked:
 <br />To set up my own trading rules, and to avoid following the market all night, I plan to trade XOP simply on Simple Moving Average (SMA) values.
 This version added the premium of current trading price comparing with XOP estimation of SZ162411 net value,
 and the days in past 100 trading days did the estimated SMA value fitted in the trading range.
-<br />The historic data of XOP only need to update once a day, using Yahoo stock historic data: <?php EchoLink(YahooStockHistoryGetUrl('XOP')); ?>
+<br />The historic data of XOP only need to update once a day, using Yahoo stock historic data: <?php EchoExternalLink(YahooStockHistoryGetUrl('XOP')); ?>
 <br />The official fund net value only need to update once a day too.
 Using file <?php EchoSinaDebugLink('f_162411'); ?> for official SZ162411 net value from <?php EchoSinaQuotesLink('f_162411'); ?>,
 as I do not konw when the data will be updated, I update it once an hour stupidly.
@@ -52,7 +52,7 @@ as I do not konw when the data will be updated, I update it once an hour stupidl
 <p>Aug 21, 2015
 <br />After released the link of this tool, I checked the data of <a href="20110509.php">Google</a> Analytics yesterday. During the 3 days there are 584 visits from 289 different IP address.
 Unlike the usual <a href="../palmmicro/20080326.php">Palmmicro</a> visitors, 1/3 of the tool visitors used mobile phone. So I added the UI optimization for mobile phone in a hurry.
-<br />Using <?php EchoLink('http://mobiledetect.net/'); ?> to detect if it is a mobile phone visit.
+<br />Using <?php EchoExternalLink('http://mobiledetect.net/'); ?> to detect if it is a mobile phone visit.
 Following the developer's advice, I copied the code github and put it separately in /php/class/<b>Mobile_Detect.php</b>.
 </p>
 

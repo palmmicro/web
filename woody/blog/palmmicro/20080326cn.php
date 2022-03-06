@@ -21,7 +21,7 @@
 <br />2008年2月5日, 过期的域名状态变成<i>Redemption Period</i>. 
 <br />3月6日, 域名状态变成<i>Pending Delete</i>. 
 <br />3月13日, 一个Oregon买卖域名公司貌似注册了这个域名, 我当时十分失望. 
-<br />今天我再次用<?php EchoLink('https://who.is'); ?>搜索的时候, 发现它可以注册, 当即把它注册到了我自己名下. 
+<br />今天我再次用<?php EchoExternalLink('https://who.is'); ?>搜索的时候, 发现它可以注册, 当即把它注册到了我自己名下. 
 <br /><font color=gray>去年9月王老板, 唐丽和我. </font>
 <br /><img src=../../groupphoto/company/20070920.jpg alt="Chi-Shin Wang, Tang Li and me in Half Moon Bay." />
 </p> 

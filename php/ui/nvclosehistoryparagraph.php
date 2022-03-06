@@ -52,7 +52,7 @@ function EchoNvCloseHistoryParagraph($ref, $str = false, $csv = false, $iStart =
 
 	EchoTableParagraphBegin(array(new TableColumnDate(),
 								   new TableColumnPrice(),
-								   new TableColumnNetValue(),
+								   new TableColumnNav(),
 								   new TableColumnPremium('y'),
 								   new TableColumnChange('x'),
 								   new TableColumnShare(),

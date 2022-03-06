@@ -14,6 +14,7 @@ require_once('/php/ui/hsharesmaparagraph.php');
 require_once('/php/ui/etfsmaparagraph.php');
 require_once('/php/ui/fundestparagraph.php');
 require_once('/php/ui/fundhistoryparagraph.php');
+require_once('/php/ui/fundshareparagraph.php');
 require_once('/php/ui/stockhistoryparagraph.php');
 require_once('/php/ui/nvclosehistoryparagraph.php');
 require_once('/php/ui/tradingparagraph.php');
@@ -196,6 +197,7 @@ function _echoMyStockData($acct, $ref)
    	else if ($ref->IsFundA())			EchoFundHistoryParagraph($fund);
    	
 	EchoNvCloseHistoryParagraph($ref);
+	EchoFundShareParagraph($ref);
    	EchoStockHistoryParagraph($ref);
    	if (($holdings_ref == false) && ($etf_ref == false))		_echoBenfordParagraph($ref);
     

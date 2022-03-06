@@ -78,7 +78,7 @@ function RefEchoTableColumn($ref, $ar, $strColor = false)
     EchoTableColumn($ar, $strColor, SymGetStockName($ref));
 }
 
-function GetArbitrageQuantity($strSymbol, $fQuantity)
+function GetArbitrageRatio($strSymbol)
 {
   	switch ($strSymbol)
    	{
@@ -99,9 +99,15 @@ function GetArbitrageQuantity($strSymbol, $fQuantity)
    		break;
     		
    	default:
-   		return '';
+		$iArbitrage = 1;
+		break;
    	}
-	return strval(intval($fQuantity / $iArbitrage + 0.5));
+	return $iArbitrage;
+}
+
+function GetArbitrageQuantity($strSymbol, $fQuantity)
+{
+	return strval(intval($fQuantity / GetArbitrageRatio($strSymbol) + 0.5));
 }
 
 ?>

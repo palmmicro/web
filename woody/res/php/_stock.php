@@ -14,12 +14,13 @@ function _EchoMoneyParagraphBegin()
 {
 	$strMoney = '货币';
 	$strMoneyType = '单一'.$strMoney;
-	EchoTableParagraphBegin(array(new TableColumnStockGroup(),
+	EchoTableParagraphBegin(array(new TableColumnGroupName(),
 								   new TableColumnProfit(DISP_ALL_CN),
 								   new TableColumnHolding(DISP_ALL_CN),
 								   new TableColumnProfit($strMoneyType),
 								   new TableColumnHolding($strMoneyType),
-								   ), 'money', '折算'.$strMoney);
+								   new TableColumnTest()
+								   ), 'money', '按'.GetMyStockGroupLink().'折算'.$strMoney);
 }
 
 function _echoMoneyItem($strGroup, $fValue, $fProfit, $fConvertValue, $fConvertProfit)
@@ -51,6 +52,8 @@ function _echoMoneyItem($strGroup, $fValue, $fProfit, $fConvertValue, $fConvertP
     
     if ($strValue != '')	$ar[] = $strValue;
     
+    if ($strGroup == DISP_ALL_CN)		$ar[] = GetNumberDisplay($fConvertProfit - 1146554.52);
+   
     EchoTableColumn($ar);
 }
 

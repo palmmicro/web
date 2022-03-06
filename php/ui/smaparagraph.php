@@ -125,7 +125,10 @@ function _echoSmaTableData($his, $cb_ref, $callback, $callback2)
 
 function _getSmaParagraphMemo($his)
 {
-	$str = GetYahooStockLink($his->GetSym());
+	$sym = $his->GetSym();
+	if ($sym->IsSymbolUS())	$str = GetStockChartsLink($sym->GetSymbol());
+	else						$str = GetYahooStockLink($sym);
+	
 	$str .= ' '.$his->GetStartDate().'数据';
 	if ($strBullBear = $his->GetBullBear())		$str .= ' '.GetBoldElement($strBullBear);
     $str .= ' '.GetStockHistoryLink($his->GetSymbol());
@@ -168,7 +171,7 @@ function EchoSmaParagraph($ref, $str = false, $cb_ref = false, $callback = false
     	$est_ref = call_user_func($callback, $cb_ref);
     	$str .= _getSmaParagraphWarning($est_ref);
 
-    	$ar[] = new TableColumnEst(GetYahooStockLink($est_ref));
+    	$ar[] = new TableColumnEst(GetTableColumnStock($est_ref));
     	$ar[] = $next_col;
     }
     if ($callback2)	$ar[] = new TableColumn(call_user_func($callback2), 90);

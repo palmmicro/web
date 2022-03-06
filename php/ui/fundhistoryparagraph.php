@@ -35,6 +35,9 @@ function _echoHistoryTableData($his_sql, $fund_est_sql, $csv, $ref, $strStockId,
 {
 	$bSameDayNav = UseSameDayNav($ref);
 	$nav_sql = GetNavHistorySql();
+	if ($est_ref)		$est_sql = ($est_ref->CountNav() > 0) ? $nav_sql : $his_sql;
+	else				$est_sql = false;
+	
     if ($result = $his_sql->GetAll($strStockId, $iStart, $iNum)) 
     {
         while ($arHistory = mysql_fetch_assoc($result)) 
@@ -43,7 +46,7 @@ function _echoHistoryTableData($his_sql, $fund_est_sql, $csv, $ref, $strStockId,
         	if ($strNav = $nav_sql->GetClose($strStockId, $strDate))
         	{
    				$arFundEst = $fund_est_sql ? $fund_est_sql->GetRecord($strStockId, $strDate) : false;
-        		_echoFundHistoryTableItem($csv, $strNav, $arHistory, $arFundEst, $ref, $est_ref, $his_sql, $bAdmin);
+        		_echoFundHistoryTableItem($csv, $strNav, $arHistory, $arFundEst, $ref, $est_ref, $est_sql, $bAdmin);
         	}
         }
         @mysql_free_result($result);
@@ -53,7 +56,7 @@ function _echoHistoryTableData($his_sql, $fund_est_sql, $csv, $ref, $strStockId,
 function _echoFundHistoryParagraph($fund_est_sql, $ref, $est_ref, $csv, $iStart, $iNum, $bAdmin)
 {
 	$close_col = new TableColumnPrice();
-	$nav_col = new TableColumnNetValue();
+	$nav_col = new TableColumnNav();
 	$premium_col = new TableColumnPremium();
 	
     $str = $ref->IsFundA() ? GetEastMoneyFundLink($ref) : GetXueqiuLink($ref);
@@ -77,7 +80,12 @@ function _echoFundHistoryParagraph($fund_est_sql, $ref, $est_ref, $csv, $iStart,
 			$ar[] = new TableColumnOfficalEst();
 			$ar[] = new TableColumnTime();
 			$ar[] = new TableColumnError();
-			if ($est_ref)		$ar[] = new TableColumnStock($est_ref->GetSymbol());
+			if ($est_ref)
+			{
+				$strStockDisplay = GetTableColumnStock($est_ref);
+				if ($est_ref->CountNav() > 0)	$ar[] = new TableColumnNav($strStockDisplay);	
+				else								$ar[] = new TableColumnPrice($strStockDisplay);
+			}
 		}
 		else	$fund_est_sql = false;
 	}

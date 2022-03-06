@@ -1,11 +1,11 @@
 <?php
 
-function EchoExternalLink($strHttp, $strDisplay)
+function EchoExternalLink($strHttp, $strDisplay = false)
 {
     echo GetExternalLink($strHttp, $strDisplay);
 }
 
-function EchoInternalLink($strPath, $strDisplay)
+function EchoInternalLink($strPath, $strDisplay = false)
 {
 	echo GetInternalLink($strPath, $strDisplay);
 }
@@ -20,15 +20,9 @@ function EchoNameLink($strName, $strDisplay = false, $strLink = '')
 	echo GetNameLink($strName, $strDisplay, $strLink);
 }
 
-function EchoLink($strHttp)
-{
-    $str = GetHttpLink($strHttp);
-    echo $str;
-}
-
 function EchoSinaQuotesLink($strSinaSymbols)
 {
-	EchoLink(GetSinaQuotesUrl($strSinaSymbols));
+	EchoExternalLink(GetSinaQuotesUrl($strSinaSymbols));
 }
 
 function EchoFileLink($strPathName)
@@ -95,16 +89,6 @@ function EchoCommonPhraseLink($bChinese = true)
 function EchoIpAddressLink($bChinese = true)
 {
 	echo GetIpAddressLink($bChinese);
-}
-
-function EchoWoodyPortfolioLink()
-{
-	echo GetMyPortfolioLink('email=woody@palmmicro.com');
-}
-
-function EchoWoodyStockGroupLink()
-{
-	echo GetMyStockGroupLink('email=woody@palmmicro.com');
 }
 
 function EchoAutoTractorLink()

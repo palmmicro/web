@@ -71,29 +71,37 @@ class TableColumnHolding extends TableColumn
 {
 	function TableColumnHolding($strPrefix = false)
 	{
-        parent::TableColumn('持仓', 120, false, $strPrefix);
+        parent::TableColumn('持仓', 105, false, $strPrefix);
 	}
 }
 
 class TableColumnName extends TableColumn
 {
-	function TableColumnName()
+	function TableColumnName($strPrefix = false, $iWidth = 270)
 	{
-        parent::TableColumn('名称', 270);
+        parent::TableColumn('名称', $iWidth, false, $strPrefix);
 	}
 }
 
-class TableColumnNetValue extends TableColumn
+class TableColumnGroupName extends TableColumnName
 {
-	function TableColumnNetValue($strPrefix = false)
+	function TableColumnGroupName()
 	{
-        parent::TableColumn(STOCK_DISP_NETVALUE, 90, 'olive', $strPrefix);
+        parent::TableColumnName('分组', 110);
 	}
 }
 
-function GetTableColumnNetValue()
+class TableColumnNav extends TableColumn
 {
-	$col = new TableColumnNetValue();
+	function TableColumnNav($strPrefix = false)
+	{
+        parent::TableColumn(STOCK_DISP_NAV, 90, 'olive', $strPrefix);
+	}
+}
+
+function GetTableColumnNav()
+{
+	$col = new TableColumnNav();
 	return $col->GetDisplay();
 }
 
@@ -153,7 +161,7 @@ class TableColumnProfit extends TableColumn
 {
 	function TableColumnProfit($strPrefix = false)
 	{
-        parent::TableColumn('盈利', 120, 'red', $strPrefix);
+        parent::TableColumn('盈利', 105, 'red', $strPrefix);
 	}
 }
 
@@ -219,20 +227,18 @@ function GetTableColumnSma()
 	return $col->GetDisplay();
 }
 
-class TableColumnStockGroup extends TableColumn
-{
-	function TableColumnStockGroup()
-	{
-        parent::TableColumn(GetMyStockGroupLink(), 110);
-	}
-}
-
 class TableColumnStock extends TableColumn
 {
 	function TableColumnStock($strSymbol, $iWidth = 80)
 	{
         parent::TableColumn($strSymbol, $iWidth, 'maroon');
 	}
+}
+
+function GetTableColumnStock($sym)
+{
+	$col = new TableColumnStock($sym->GetSymbol());
+	return $col->GetDisplay();
 }
 
 class TableColumnSymbol extends TableColumn
@@ -253,7 +259,7 @@ class TableColumnTest extends TableColumn
 {
 	function TableColumnTest()
 	{
-        parent::TableColumn('测试数据');
+        parent::TableColumn('测试数据', 110);
 	}
 }
 

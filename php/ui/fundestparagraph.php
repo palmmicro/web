@@ -50,7 +50,7 @@ function _getFundEstTableColumn($arRef, &$bFair)
 {
 	$premium_col = new TableColumnPremium();
 	$ar = array(new TableColumnSymbol(),
-				  new TableColumnNetValue(),
+				  new TableColumnNav(),
 				  new TableColumnOfficalEst(),
 				  $premium_col);
 	
@@ -106,7 +106,7 @@ function EchoFundEstParagraph($ref)
 	$arRef = array($ref);
 	$arColumn = _getFundEstTableColumn($arRef, $bFair);
 	
-	$str = GetTableColumnNetValue().$ref->GetDate().'、';
+	$str = GetTableColumnNav().$ref->GetDate().'、';
 	$str .= $arColumn[2]->GetDisplay().$ref->GetOfficialDate().'，最近'.GetCalibrationHistoryLink($ref->GetSymbol()).$ref->GetTimeNow().'。';
     if ($ref->GetRealtimeNav())
     {
@@ -139,7 +139,7 @@ function EchoHoldingsEstParagraph($ref)
 	$arColumn = _getFundEstTableColumn($arRef, $bFair);
 	
 	$nav_ref = $ref->GetNavRef();
-	$str = GetTableColumnNetValue().$nav_ref->GetDate().', ';
+	$str = GetTableColumnNav().$nav_ref->GetDate().', ';
 	$str .= $arColumn[2]->GetDisplay().$ref->GetOfficialDate().', ';
 	$str .= GetHoldingsLink($ref->GetSymbol()).'更新于'.$ref->GetHoldingsDate().'.';
 

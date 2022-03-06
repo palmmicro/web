@@ -25,7 +25,7 @@ class StockAccount extends TitleAccount
     	if ($strGroupName = $this->GetGroupName($strGroupId))
     	{
     		if ($strLink = GetStockLink($strGroupName))		return $strLink; 
-    		return GetStockPageLink(STOCK_GROUP_PAGE, $strGroupName, 'groupid='.$strGroupId);
+    		return GetMyStockGroupLink('groupid='.$strGroupId, $strGroupName);
     	}
     	return '';
     }
@@ -134,8 +134,7 @@ class StockAccount extends TitleAccount
     				$strSymbol = $ref->GetSymbol();
     				if (($strAmount = SqlGetFundPurchaseAmount($this->GetLoginId(), $strStockId)) === false)		$strAmount = FUND_PURCHASE_AMOUNT;
     				$strQuery = sprintf('groupid=%s&fundid=%s&amount=%s&netvalue=%.3f', $strGroupId, $strStockId, $strAmount, floatval($ref->GetOfficialNav()));
-    				$str = GetMyStockLink($strSymbol).' '.GetOnClickLink(STOCK_PHP_PATH.'_submittransaction.php?'.$strQuery, '确认添加对冲申购记录?', '申购');
-    				$str .= ' '.$strAmount;
+    				$str = GetOnClickLink(STOCK_PHP_PATH.'_submittransaction.php?'.$strQuery, '确认添加对冲申购记录?', '申购').$strSymbol.'人民币'.$strAmount.'元';
     				$str .= ' '.GetStockOptionLink(STOCK_OPTION_AMOUNT, $strSymbol);
     				EchoParagraph($str);
     			}
@@ -157,7 +156,7 @@ class StockAccount extends TitleAccount
     	$strUSDCNY = $uscny_ref ? $uscny_ref->GetPrice() : false;
     	$strHKDCNY = $hkcny_ref ? $hkcny_ref->GetPrice() : false;
 	
-    	_EchoMoneyParagraphBegin();
+    	_EchoMoneyParagraphBegin($arGroup);
     	foreach ($arGroup as $group)	_EchoMoneyGroupData($this, $group, $strUSDCNY, $strHKDCNY);
     	EchoTableParagraphEnd();
     }

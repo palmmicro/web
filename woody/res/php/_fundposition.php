@@ -168,11 +168,11 @@ function _echoFundPositionParagraph($ref, $strSymbol, $strInput)
 	$change_col = new TableColumnChange();
 	$position_col = new TableColumnPosition();
 	EchoTableParagraphBegin(array(new TableColumnDate(),
-								   new TableColumnNetValue(),
+								   new TableColumnNav(),
 								   $change_col,
 								   new TableColumnUSCNY(),
 								   $change_col,
-								   new TableColumnNetValue($est_ref->GetSymbol()),
+								   new TableColumnNav($est_ref->GetSymbol()),
 								   $change_col,
 								   $position_col
 								   ), FUND_POSITION_PAGE, $str);

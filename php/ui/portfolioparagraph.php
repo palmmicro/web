@@ -1,23 +1,55 @@
 <?php
 require_once('stocktable.php');
 
-function _getPortfolioTestVal($strSymbol)
+function _getPortfolioTestVal($iShares, $strSymbol)
 {
 	switch ($strSymbol)
     {
-/*	case 'KWEB':
-		return 400;
-
+/*	
 	case 'SH600104':
-		return 4000;
+		$iQuantity = 4000;
+		break;
 
     case 'SZ160717':
-    	return 41200;
+    	$iQuantity = 41200;
+    	break;
 */  		
+	case 'KWEB':
+		$iQuantity = 600;
+		break;
+
     case 'SZ162411':
-		return 129000 + 2 * 140000;
+		$iQuantity = 129000 + 2 * 140000;
+		break;
+		
+	default:
+		$iQuantity = 0;
+		break;
 	}
-	return 0;
+	return $iShares - $iQuantity;
+}
+
+function _getArbitrageTestStr($iShares, $strGroupId, $strStockId, $strSymbol)
+{
+	$iArbitrageQuantity = 0;
+	$item_sql = new StockGroupItemSql($strGroupId);
+	if ($result = $item_sql->GetAll()) 
+	{   
+		while ($record = mysql_fetch_assoc($result)) 
+		{
+			if ($strStockId != $record['stock_id'])
+			{
+				$iArbitrageQuantity = intval($record['quantity']);
+				break;
+			}
+		}
+        @mysql_free_result($result);
+    }
+
+    $iQuantity = _getPortfolioTestVal($iShares, $strSymbol); 
+    $str = strval($iQuantity).'/';
+    $str .= strval($iArbitrageQuantity + $iQuantity * GetArbitrageRatio(SqlGetStockSymbol($record['stock_id'])));
+    return $str;
 }
 
 function _echoPortfolioTableItem($trans)
@@ -27,7 +59,8 @@ function _echoPortfolioTableItem($trans)
     $ref = $trans->ref;
     $strSymbol = $ref->GetSymbol();
     
-    $ar[] = StockGetTransactionLink($trans->GetGroupId(), $strSymbol);
+    $strGroupId = $trans->GetGroupId();
+    $ar[] = StockGetTransactionLink($strGroupId, $strSymbol);
     $ar[] = $trans->GetProfitDisplay();
     $iShares = $trans->GetTotalShares();
     if ($iShares != 0)
@@ -38,12 +71,17 @@ function _echoPortfolioTableItem($trans)
        	$ar[] = ($trans->GetTotalCost() > 0.0) ? $ref->GetPercentageDisplay($trans->GetAvgCost()) : '';
         switch ($strSymbol)
         {
-/*		case 'KWEB':
+/*		
         case 'SH600104':
         case 'SZ160717':
 */
+		case 'KWEB':
+		case 'XLE':
+        	$ar[] = _getArbitrageTestStr($iShares, $strGroupId, $ref->GetStockId(), $strSymbol);
+        	break;
+    		
 		case 'SZ162411':
-        	$ar[] = strval($iShares - _getPortfolioTestVal($strSymbol));
+        	$ar[] = strval(_getPortfolioTestVal($iShares, $strSymbol));
         	break;
     		
         case 'SZ161127':
@@ -67,14 +105,11 @@ function EchoPortfolioParagraph($arTrans)
 								   new TableColumnPrice('平均'),
 								   new TableColumnChange(),
 								   new TableColumnTest()
-								   ), MY_PORTFOLIO_PAGE, '个股'.$profit_col->GetDisplay());
+								   ), 'myportfolio', '个股'.$profit_col->GetDisplay());
 
 	foreach ($arTrans as $trans)
 	{
-		if ($trans->GetTotalRecords() > 0)
-		{
-			_echoPortfolioTableItem($trans);
-		}
+		if ($trans->GetTotalRecords() > 0)	_echoPortfolioTableItem($trans);
 	}
     EchoTableParagraphEnd();
 }

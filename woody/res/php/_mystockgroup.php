@@ -149,10 +149,8 @@ function _getGroupImageLink($strPage)
     	return QuoteImgElement('queen.jpg', '命运赠送的礼物都早已暗中标好了价格');
 
     case 'hshares':
-    	return QuoteImgElement('luodayou.jpg', '罗大佑弹唱流到香江去看一看');
-
     case 'hstech':
-    	return QuoteImgElement('pig.jpg', '趴在墙头看人杀猪的一头猪');
+    	return QuoteImgElement('luodayou.jpg', '罗大佑弹唱流到香江去看一看');
     	
     case 'qdii':
     	return ImgWinMan();
@@ -169,7 +167,7 @@ function EchoAll()
 	
 	$bAdmin = $acct->IsAdmin();
 	$strPage = $acct->GetPage();
-    if ($strPage == STOCK_GROUP_PAGE)
+    if ($strPage == 'mystockgroup')
     {
         if ($strGroupId = $acct->EchoStockGroup())
         {
@@ -207,7 +205,7 @@ function GetMetaDescription()
 	global $acct;
 	
 	$strPage = $acct->GetPage();
-    if ($strPage == STOCK_GROUP_PAGE)
+    if ($strPage == 'mystockgroup')
     {
    		$str = $acct->GetWhoseGroupDisplay();
         $str .= '股票分组管理页面. 提供现有股票分组列表和编辑删除链接, 以及新增加股票分组的输入控件. 跟php/_editgroupform.php和php/_submitgroup.php配合使用.';
@@ -249,7 +247,7 @@ function GetTitle()
 	global $acct;
 	
 	$strPage = $acct->GetPage();
-    if ($strPage == STOCK_GROUP_PAGE)
+    if ($strPage == 'mystockgroup')
     {
    		$str = $acct->GetWhoseGroupDisplay().STOCK_GROUP_DISPLAY;
     }
@@ -262,7 +260,7 @@ function GetTitle()
 }
 
 	$acct = new GroupIdAccount();
-	if ($acct->GetPage() == STOCK_GROUP_PAGE)
+	if ($acct->GetPage() == 'mystockgroup')
 	{
 		if ($acct->GetMemberId() == false)
 		{

@@ -143,10 +143,9 @@ function GetFundPositionLink($strSymbol = FUND_DEMO_SYMBOL)
 }
 
 define('FUND_SHARE_DISPLAY', '基金场内份额');
-define('FUND_SHARE_PAGE', 'fundshare');
 function GetFundShareLink($strSymbol = FUND_DEMO_SYMBOL)
 {
-    return GetStockSymbolLink(FUND_SHARE_PAGE, $strSymbol, FUND_SHARE_DISPLAY);
+    return GetStockSymbolLink('fundshare', $strSymbol, FUND_SHARE_DISPLAY);
 }
 
 function GetQdiiAnalysisLinks($strSymbol)
@@ -201,10 +200,9 @@ function GetAutoTractorLink($strQuery = false)
 }
 
 define('MY_PORTFOLIO_DISPLAY', '持仓盈亏');
-define('MY_PORTFOLIO_PAGE', 'myportfolio');
 function GetMyPortfolioLink($strQuery = false)
 {
-    return GetStockPageLink(MY_PORTFOLIO_PAGE, MY_PORTFOLIO_DISPLAY, $strQuery);
+    return GetStockPageLink('myportfolio', MY_PORTFOLIO_DISPLAY, $strQuery);
 }
 
 define('AH_COMPARE_DISPLAY', 'A股和H股对比');
@@ -229,10 +227,10 @@ function GetAdrhCompareLink()
 }
 
 define('STOCK_GROUP_DISPLAY', '股票分组');
-define('STOCK_GROUP_PAGE', 'mystockgroup');
-function GetMyStockGroupLink($strQuery = false)
+function GetMyStockGroupLink($strQuery = false, $strDisplay = false)
 {
-	return GetStockPageLink(STOCK_GROUP_PAGE, STOCK_GROUP_DISPLAY, $strQuery);
+    if ($strDisplay == false)	$strDisplay = STOCK_GROUP_DISPLAY;
+	return GetStockPageLink('mystockgroup', $strDisplay, $strQuery);
 }
 
 define('STOCK_TRANSACTION_DISPLAY', '交易记录');
@@ -240,15 +238,9 @@ define('STOCK_TRANSACTION_PAGE', 'mystocktransaction');
 function StockGetTransactionLink($strGroupId, $strSymbol, $strDisplay = false)
 {
     $strQuery = 'groupid='.$strGroupId;
-    if ($strSymbol)
-    {
-        $strQuery .= '&symbol='.$strSymbol;
-    }
+    if ($strSymbol)	$strQuery .= '&symbol='.$strSymbol;
     
-    if ($strDisplay == false)
-    {
-    	$strDisplay = $strSymbol;
-    }
+    if ($strDisplay == false)	$strDisplay = $strSymbol;
 	return GetStockPageLink(STOCK_TRANSACTION_PAGE, $strDisplay, $strQuery);
 }
 

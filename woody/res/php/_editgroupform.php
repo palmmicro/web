@@ -52,7 +52,9 @@ function StockEditGroupForm($acct, $strSubmit)
         break;
     }
 	
-    $strStockGroup = STOCK_GROUP_DISPLAY;
+    $col = new TableColumnGroupName();    
+    $strStockGroup = $col->GetDisplay();
+    
 	echo <<< END
 	<script>
 	    function OnLoad()

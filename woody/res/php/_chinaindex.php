@@ -4,6 +4,7 @@ require_once('_stockgroup.php');
 require_once('/php/ui/referenceparagraph.php');
 require_once('/php/ui/tradingparagraph.php');
 require_once('/php/ui/fundhistoryparagraph.php');
+require_once('/php/ui/fundshareparagraph.php');
 require_once('/php/ui/etfsmaparagraph.php');
 require_once('/php/ui/etfparagraph.php');
 require_once('/php/ui/fundestparagraph.php');
@@ -64,15 +65,19 @@ class _ChinaIndexAccount extends GroupAccount
 function EchoAll()
 {
     global $acct;
+
+    $ref = $acct->GetRef();
     
-	EchoFundArrayEstParagraph(array($acct->ref, $acct->us_ref));
+	EchoFundArrayEstParagraph(array($ref, $acct->us_ref));
     EchoReferenceParagraph(array_merge($acct->GetStockRefArray(), array($acct->a50_ref, $acct->cnh_ref)), $acct->IsAdmin());
-    EchoEtfListParagraph(array($acct->ref, $acct->us_ref));
-    EchoEtfTradingParagraph($acct->ref);
-    EchoEtfSmaParagraph($acct->ref);
+    EchoEtfListParagraph(array($ref, $acct->us_ref));
+    EchoEtfTradingParagraph($ref);
+    EchoEtfSmaParagraph($ref);
     EchoEtfSmaParagraph($acct->us_ref, '');
-    EchoEtfHistoryParagraph($acct->ref);
+    EchoEtfHistoryParagraph($ref);
     EchoEtfHistoryParagraph($acct->us_ref);
+//   	EchoFundShareParagraph($ref);
+//   	EchoFundShareParagraph($acct->us_ref);
 
     if ($group = $acct->EchoTransaction()) 
     {
@@ -114,7 +119,7 @@ function GetMetaDescription()
 function GetTitle()
 {
     global $acct;
-	return RefGetStockDisplay($acct->ref).STOCK_DISP_NETVALUE;
+	return RefGetStockDisplay($acct->ref).STOCK_DISP_NAV;
 }
 
    	$acct = new _ChinaIndexAccount();

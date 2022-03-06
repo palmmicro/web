@@ -15,7 +15,7 @@
 <h1>网络日志搬家 - GB18030和GB2312</h1>
 <p>2010年11月7日
 <br />微软宣布把MSN网络日志搬家到wordpress的时候我正好在美国, 点了几下鼠标就顺利完成了搬家工作.
-等我回到北京后却发现打不开<?php EchoLink('https://woody1234.wordpress.com'); ?>的页面, 于是决定把我的MSN网络日志手工搬迁到我的Palmmicro网络日志上来.
+等我回到北京后却发现打不开<?php EchoExternalLink('https://woody1234.wordpress.com'); ?>的页面, 于是决定把我的MSN网络日志手工搬迁到我的Palmmicro网络日志上来.
 <br />在一个月见缝插针的陆续工作后, 到今天我已经搬了37篇日志过来, 同时把<a href="../palmmicro/20080326cn.php">Palmmicro</a>.com到aredfox.spaces.live.com的链接从130个减少到了10个.
 <br />今天晚上我在检查搬家效果, 发现1/5的中文日志在我64位英文版Windows Vista下用英文版IE8看的时候偶尔会有乱码, 但是同一台笔记本下运行的Firefox和Chrome都能正常浏览.
 进一步测试发现如果我把IE8菜单中的Encoding改成GB2312就能正常工作, 并且即使再次改回原来的GB18030也能显示正确.
@@ -97,7 +97,7 @@
 <p>2018年4月16日
 <br />在给Palmmicro<a href="../palmmicro/20161014cn.php#abcompare">微信公众号</a>增加了B股的数据后, 意外发现SZ200168股票名字中的<b>喆</b>字在GB2312转<a href="#utf8">UTF-8</a>后成了乱码.
 发现了一只蟑螂就说明有一窝. 我把数据库中所有股票名字查看了一遍后, 果然发现了SZ002752和SZ300208中的<b>昇</b>字也是乱码.
-<br />产生乱码的原因很明显, 这2个生僻字本身就不在只有6000多汉字的GB2312中. 这意味着我需要一个GB18030和UNICODE的对应码表来扩展我的MySQL数据表: <?php EchoLink('http://icu-project.org/repos/icu/data/trunk/charset/source/gb18030/gbkuni30.txt'); ?>.
+<br />产生乱码的原因很明显, 这2个生僻字本身就不在只有6000多汉字的GB2312中. 这意味着我需要一个GB18030和UNICODE的对应码表来扩展我的MySQL数据表: <?php EchoExternalLink('http://icu-project.org/repos/icu/data/trunk/charset/source/gb18030/gbkuni30.txt'); ?>.
 花了差不多一天功夫做完这些几乎算是推倒重来的修补后, 我不禁又有了一种神功已成的感觉. 
 <?php EchoUpdateGbUtfLink(); ?>
 <br /><font color=gray>欲练神功, 必先自宫. 虽然自宫, 未必成功. 如不自宫, 也可成功.</font>
