@@ -164,7 +164,7 @@ define('STOCK_OPTION_ETF', '修改ETF对应跟踪代码');
 define('STOCK_OPTION_HA', '修改H股对应A股代码');
 define('STOCK_OPTION_HOLDINGS', '修改基金持仓');
 define('STOCK_OPTION_NETVALUE', '修改净值');
-define('STOCK_OPTION_SHARE_DIFF', '场内新增(万股)');
+define('STOCK_OPTION_SHARE_DIFF', '场内新增(万)');
 define('STOCK_OPTION_SPLIT', '拆股或合股');
 function GetStockOptionArray()
 {

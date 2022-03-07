@@ -109,15 +109,7 @@ class TableColumnPercentage extends TableColumn
 {
 	function TableColumnPercentage($strPrefix = false, $iWidth = 100)
 	{
-        parent::TableColumn('比例(%)', $iWidth, 'green', $strPrefix);
-	}
-}
-
-class TableColumnTradingPercentage extends TableColumnPercentage
-{
-	function TableColumnTradingPercentage()
-	{
-        parent::TableColumnPercentage('换手');
+        parent::TableColumn('比例(%)', $iWidth, false, $strPrefix);
 	}
 }
 
@@ -161,7 +153,7 @@ class TableColumnProfit extends TableColumn
 {
 	function TableColumnProfit($strPrefix = false)
 	{
-        parent::TableColumn('盈利', 105, 'red', $strPrefix);
+        parent::TableColumn(STOCK_DISP_PROFIT, 105, 'red', $strPrefix);
 	}
 }
 
@@ -169,7 +161,7 @@ class TableColumnQuantity extends TableColumn
 {
 	function TableColumnQuantity($strPrefix = false)
 	{
-        parent::TableColumn(STOCK_DISP_QUANTITY, 100, false, $strPrefix);
+        parent::TableColumn(STOCK_DISP_QUANTITY, 100, 'indigo', $strPrefix);
 	}
 }
 
@@ -201,30 +193,8 @@ class TableColumnShare extends TableColumn
 {
 	function TableColumnShare()
 	{
-        parent::TableColumn('场内份额(万股)', 110);
+        parent::TableColumn('份额(万)', 110);
 	}
-}
-
-class TableColumnShareDiff extends TableColumn
-{
-	function TableColumnShareDiff()
-	{
-        parent::TableColumn(STOCK_OPTION_SHARE_DIFF, 110);
-	}
-}
-
-class TableColumnSma extends TableColumn
-{
-	function TableColumnSma()
-	{
-        parent::TableColumn('均线', 90, 'indigo');
-	}
-}
-
-function GetTableColumnSma()
-{
-	$col = new TableColumnSma();
-	return $col->GetDisplay();
 }
 
 class TableColumnStock extends TableColumn
@@ -245,7 +215,7 @@ class TableColumnSymbol extends TableColumn
 {
 	function TableColumnSymbol($strPrefix = false, $iWidth = 80)
 	{
-        parent::TableColumn('代码', $iWidth, 'maroon', $strPrefix);
+        parent::TableColumn(STOCK_DISP_SYMBOL, $iWidth, 'maroon', $strPrefix);
 	}
 }
 
@@ -259,7 +229,7 @@ class TableColumnTest extends TableColumn
 {
 	function TableColumnTest()
 	{
-        parent::TableColumn('测试数据', 110);
+        parent::TableColumn('测试', 110);
 	}
 }
 
@@ -268,6 +238,14 @@ class TableColumnTotalShares extends TableColumn
 	function TableColumnTotalShares()
 	{
         parent::TableColumn('总数量', 90);
+	}
+}
+
+class TableColumnTurnover extends TableColumn
+{
+	function TableColumnTurnover($strPrefix = false, $iWidth = 100)
+	{
+        parent::TableColumn(STOCK_DISP_TURNOVER, $iWidth, 'green', $strPrefix);
 	}
 }
 

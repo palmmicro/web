@@ -36,6 +36,8 @@ class QdiiGroupAccount extends FundGroupAccount
     	$ref = $this->GetRef();
     	$stock_ref = $ref->GetStockRef();
        	$est_ref = $ref->GetEstRef();
+       	$arRef = array($stock_ref, $est_ref);
+		if ($future_ref = $ref->GetFutureRef())		$arRef[] = $future_ref;
     	
         YahooUpdateNetValue($est_ref);
         GetChinaMoney($stock_ref);
@@ -47,7 +49,7 @@ class QdiiGroupAccount extends FundGroupAccount
     		$this->ar_leverage_ref[] = $leverage_ref;
     		YahooUpdateNetValue($leverage_ref);
     	}
-        $this->CreateGroup(array_merge(array($stock_ref, $est_ref), $this->ar_leverage_ref));
+        $this->CreateGroup(array_merge($arRef, $this->ar_leverage_ref));
     }
     
     function GetLeverage()

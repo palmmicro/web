@@ -26,8 +26,9 @@ function _echoFundShareItem($record, $strStockId, $his_sql, $shares_sql)
 		$ar[] = $strVolume;
 		if (!empty($strShare))
 		{
-			$ar[] = strval_round(100.0 * $fVolume / (floatval($strShare) * 10000.0), 2);
-			if (($fVolume > MIN_FLOAT_VAL) && ($fShareDiff > MIN_FLOAT_VAL))	$ar[] = strval_round(100.0 * $fVolume / ($fShareDiff * 10000.0), 2);
+			$fShare = floatval($strShare);
+			$ar[] = GetTurnoverDisplay($fVolume, $fShare);
+			if (($fVolume > MIN_FLOAT_VAL) && ($fShareDiff > MIN_FLOAT_VAL))	$ar[] = GetTurnoverDisplay($fVolume, $fShareDiff);
 		}
 	}
 	
@@ -42,11 +43,11 @@ function EchoFundShareParagraph($ref, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY,
 	
 	$share_col = new TableColumnShare();
 	$quantity_col = new TableColumnQuantity();
-	$percentage_col = new TableColumnTradingPercentage();
+	$turnover_col = new TableColumnTurnover();
 	$strSymbol = $ref->GetSymbol();
     if (IsTableCommonDisplay($iStart, $iNum))
     {
-    	$str = GetMyStockLink($strSymbol).'场内'.$quantity_col->GetDisplay().'相对于'.$share_col->GetDisplay().'的'.$percentage_col->GetDisplay();
+    	$str = GetMyStockLink($strSymbol).'的'.$quantity_col->GetDisplay().'相对于场内'.$share_col->GetDisplay().'的'.$turnover_col->GetDisplay().'比例';
         $str .= ' '.GetFundShareLink($strSymbol);
         $strMenuLink = '';
     }
@@ -58,7 +59,7 @@ function EchoFundShareParagraph($ref, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY,
 		$str .= ' '.$strMenuLink;
 	}
  	
-	EchoTableParagraphBegin(array(new TableColumnDate(), $share_col, new TableColumnShareDiff(), $quantity_col, $percentage_col, new TableColumnPercentage('新增换手', 120)), 'fundshare', $str);
+	EchoTableParagraphBegin(array(new TableColumnDate(), $share_col, new TableColumn(STOCK_OPTION_SHARE_DIFF, 110), $quantity_col, $turnover_col, new TableColumnTurnover('新增', 120)), 'fundshare', $str);
 	$his_sql = GetStockHistorySql();
     if ($result = $shares_sql->GetAll($strStockId, $iStart, $iNum)) 
     {

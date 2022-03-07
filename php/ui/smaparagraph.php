@@ -165,7 +165,7 @@ function EchoSmaParagraph($ref, $str = false, $cb_ref = false, $callback = false
 
 	$premium_col = new TableColumnPremium();
 	$next_col = new TableColumnEst('T+1');
-	$ar = array(new TableColumnSma(), new TableColumnEst(), $premium_col, $next_col, $premium_col);
+	$ar = array(new TableColumn('均线', 90), new TableColumnEst(), $premium_col, $next_col, $premium_col);
 	if ($callback)
     {
     	$est_ref = call_user_func($callback, $cb_ref);

@@ -220,7 +220,7 @@ function _echoMyStockData($acct, $ref)
    				}
    				else	$str .= $fund->DebugLink(); 
    			}
-   			if (_hasSmaDisplay($ref)) 		$str .= '<br />'.GetTableColumnSma().' '.$ref->DebugConfigLink();
+   			if (_hasSmaDisplay($ref)) 		$str .= '<br />'.$ref->DebugConfigLink();
    			if ($holdings_ref)			$str .= '<br />'.GetHoldingsCsvLink($strSymbol);
     	}
     	EchoParagraph($str);

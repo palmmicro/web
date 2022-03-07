@@ -16,23 +16,21 @@
 <div>
 <h1>华宝油气净值估算的PHP程序</h1>
 <p>2015年8月18日
-<br />眼看Qualcomm收购CSR<a href="20141016cn.php">股票</a>的现金快要到账, 最近我在琢磨在A股中国特色的QDII基金华宝油气和美股XOP之间套利. 每天看Yahoo新浪等网站的股票行情, 时不时还要用鼠标点开计算器算算转换价格, 时间长了后有点烦.
-<br />后来我想起来5年前学习的<a href="20100905cn.php">PHP</a>, 于是打算写我的第二个PHP程序, 统一把套利需要常看的行情显示在一起, 同时根据SPDR标普油气开采指数ETF(XOP), 标普油气开采指数(^SPSIOP),
-以及美元对人民币的汇率计算<a href="../../res/sz162411cn.php">华宝油气</a>净值. 今天出了第一版, 记录下相关开发过程以备日后查阅. A股的QDII基金缺乏及时的信息更新, 希望这里能够补上这个生态位空缺.
-<br />谢谢<?php EchoXueqieId('6188729918', 'abkoooo'); ?>帮助提供了新浪实时美股数据接口的格式.
-美股, A股, 期货和汇率都用新浪实时的数据接口: <?php EchoSinaQuotesLink('gb_xop,sz162411,hf_CL,USDCNY'); ?>
-<br />一开始发现无论怎么弄<i>fopen</i>打开这些链接都会失败, 估计是我用的Yahoo网站服务不支持<i>allow_url_fopen</i>. 
-在网上找解决方法, 发现应该用早就有的curl. 抄了2段curl代码, 仿照<i>file_get_contents</i>函数的名字加了个<i>url_get_contents</i>函数.
-<br />为提高页面反应速度, 使用2个文件<?php EchoSinaDebugLink('gb_xop'); ?>和<?php EchoSinaDebugLink('sz162411'); ?>分别保存最后更新的股票数据,
-实施以下优化:
+<br />眼看Qualcomm收购CSR<?php echo GetLinkElement('股票', '20141016cn.php'); ?>的现金快要到账，最近我在琢磨在A股中国特色的QDII基金华宝油气和美股XOP之间套利。每天看Yahoo新浪等网站的股票行情，时不时还要用鼠标点开计算器算算转换价格，时间长了后有点烦。
+<br />后来我想起来5年前学习的<?php echo GetLinkElement('PHP', '20100905cn.php'); ?>，于是打算写我的第二个PHP程序，统一把套利需要常看的行情显示在一起。
+同时根据SPDR标普油气开采指数ETF(XOP)、标普油气开采指数(^SPSIOP)、以及美元对人民币的汇率计算<?php echo GetStockLink('SZ162411'); ?>净值。今天出了第一版，记录下相关开发过程以备日后查阅。A股的QDII基金缺乏及时的信息更新，希望这里能够补上这个生态位空缺。
+<br />谢谢<?php EchoXueqieId('6188729918', 'abkoooo'); ?>帮助提供了新浪实时美股数据接口的格式。
+美股、A股、期货和汇率都用新浪实时的数据接口：<?php EchoSinaQuotesLink('gb_xop,sz162411,hf_CL,USDCNY'); ?>
+<br />一开始发现无论怎么弄<?php echo GetCodeElement('fopen'); ?>打开这些链接都会失败，估计是我用的Yahoo网站服务不支持<?php echo GetCodeElement('allow_url_fopen'); ?>。 
+在网上找解决方法，发现应该用早就有的curl。抄了2段curl代码，仿照<?php echo GetCodeElement('file_get_contents'); ?>函数的名字加了个<?php echo GetCodeElement('url_get_contents'); ?>函数。
+<br />为提高页面反应速度，使用2个文件<?php EchoSinaDebugLink('gb_xop'); ?>和<?php EchoSinaDebugLink('sz162411'); ?>分别保存最后更新的股票数据，同时实施以下优化：
 </p>
-<ol>
-  <li>跟文件时间在同一分钟内的页面请求直接使用原来文件内的数据.</li>
-  <li>美股盘后交易结束后的页面请求直接使用gb_xop.txt内的美股数据.</li>
-  <li>A股闭市后的页面请求直接使用sz162411.txt内的A股数据.</li>
-</ol>
-<p>类似的, 原油期货数据缓存在文件<?php EchoSinaDebugLink('hf_cl'); ?>. 美元人民币汇率数据在usdcny.txt.
-<br /><font color=gray>所有的代码最终都会烂到无法维护, 成功的项目就是在烂掉之前发布出去的.</font>
+<?php echo GetListElement(array('跟文件时间在同一分钟内的页面请求直接使用原来文件内的数据。',
+								  '美股盘后交易结束后的页面请求直接使用gb_xop.txt内的美股数据。',
+								  'A股闭市后的页面请求直接使用sz162411.txt内的A股数据。'));
+?>
+<p>类似的，原油期货数据缓存在文件<?php EchoSinaDebugLink('hf_cl'); ?>，美元人民币汇率数据在usdcny.txt。
+<br /><?php echo GetQuoteElement('所有的代码最终都会烂到无法维护，成功的项目就是在烂掉之前发布出去的。'); ?>
 </p>
 
 <h3><a name="sma">SMA</a></h3>
@@ -194,7 +192,7 @@ Wiki的QDII词条下显示了它是Qualified Domestic Institutional Investor的�
 <h3><?php EchoNameTag('qdii', QDII_DISPLAY); ?>中考虑当日CL交易情况后的T+1估值</h3>
 <p>2016年8月18日
 <br />发现有人的Excel计算表格中有这一项，我也就顺应潮流把它加上了。大概是沿用<?php echo GetJisiluQdiiLink(); ?>的叫法，把已经公布的净值称为T-1、把估算的官方将要公布的下一日净值称为T、而把考虑了当日美油期货CL变动的称为T+1估值，大致意思是用白天CL的变动预测晚上XOP的变动。
-按我自己的看法，拉长到1年看CL和XOP对应关系可能是不错，但是具体到每一天就未必了，所以在我自己的套利交易中目前是不考虑这个T+1估值的。当然需要进行期货交易也是我不做它的一个重要因素，怕不小心杠杆赌大了把自己搞破产。
+按我自己的看法，拉长到1年看CL和XOP对应关系可能是不错，但是具体到每一天就未必了，所以在我自己的套利交易中目前是不考虑这个T+1估值的。当然需要进行期货交易也是我不做它的一个重要因素，怕不小心杠杆赌大了把自己搞破产。一手CL是1000桶，目前每桶油价大约45美元，也就是说每次要交易45000美元的货值。
 <br />这个T+1估值假定SZ162411和CL关联程度是100%，XOP和USO关联程度也是按照100%估算。由于估值依赖CL和USO在美股交易时段的自动校准，每个月20日左右CL期货换月的当天估值是不准确的。
 另外因为CL期货的每日结算价格通常跟收盘价不同，也不同于我在估值中实际用来参考的美股收盘时的CL价格，有可能出现CL参考价格的显示高于上一日，而T+1估值低于T估值的情况。
 <br />因为特立独行的原因，我不喜欢T-1/T/T+1这种叫法。于是我在网页中把T-1直接写成了净值，T日估值称为官方估值，而把T+1估值称为实时估值。另外还有一个参考估值，接下来解释一下这些看上去混乱的估值名称。
@@ -393,19 +391,22 @@ Wiki的QDII词条下显示了它是Qualified Domestic Institutional Investor的�
 
 <h3>增加<?php EchoNameTag(TABLE_HOLDINGS, HOLDINGS_DISPLAY); ?>页面</h3>
 <p>2021年6月24日
-<br />虽然XOP也可以使用这个页面, 但是它其实是为同时持仓港股和美股的<?php echo GetHoldingsLink('KWEB', true); ?>准备的. 
+<br />虽然原则上来说XOP也可以使用这个页面，但是它其实是为同时持仓港股和美股的<?php echo GetHoldingsLink('KWEB', true); ?>准备的。 
 <br /><font color=gray>A fox knows many things, but a hedgehog knows one big thing.</font>
 </p>
 
 <h3><?php EchoNameTag('fundshare', FUND_SHARE_DISPLAY); ?></h3>
 <p>2021年7月14日
+<br />相对于其它历史数据，这个页面来得实在是比较晚，主要是之前做华宝油气套利时不需要特别关注每天的场内新增份额，反正流动性足够好。不过随着XOP一路上涨，华宝油气的上百亿场内规模只剩下了零头，失去了流动性的华宝油气和XOP跨市场套利变成了屠龙之技。
+我也被迫开始关注一些流动性不是那么好的品种。
 </p>
 <?php EchoFundShareDemo(); ?>
 
 <h3>增加<?php EchoNameTag('qdiimix', QDII_MIX_DISPLAY); ?>工具系列</h3>
 <p>2021年7月28日
 <br />从QDII中分出来，采用跟踪<?php EchoNameLink(TABLE_HOLDINGS, HOLDINGS_DISPLAY); ?>成分股变化的方式对同时有美股和港股持仓的<?php echo GetStockLink('SH513050'); ?>等进行净值估算。
-<br />A股大妈最喜欢干的事情就是抄底。随着过去半年来中概互联一路跌成了<?php EchoNameTag('chinainternet', '中丐互怜'); ?>，SH513050的市场流动性和网络热度都在暴涨，看得我口水流一地，忍不住想做点什么蹭蹭热点。
+<br />A股大妈最喜欢干的事情就是抄底。随着过去半年来中概互联一路跌成了<?php EchoNameTag('chinainternet', '中丐互怜'); ?>，中概互联网ETF(513050)的市场流动性和网络热度都在暴涨，就连原来叫中国互联的都蹭热度改名成了中概互联网LOF(164906)。
+看得我口水流一地，忍不住想做点什么蹭蹭热点。
 <br />跟SZ164906和KWEB跟踪同一个指数H11136不同，SH513050跟踪的是另外一个不同的指数H30533。H30533和H11136在成分股选择上基本一致，但是H30533对单一成分股最大仓位限制是30%，而H11136限制10%的最大仓位，这样导致它们俩在腾讯和阿里持仓比例上区别巨大。
 <br />SH513050的成分股和比例来自于上交所官网的ETF申购赎回清单，这样接下来可以很容易的继续扩大混合QDII的成员。SZ164906的成分股和比例则是来自KWEB官网公布的每日持仓更新。
 <br />官方估值跟原来<?php EchoNameLink('qdii', QDII_DISPLAY); ?>一样，不过混合QDII的参考估值有所不同。除了当日汇率的变化外，参考估值在港股开盘后还会反应当日港股成分股的变动。

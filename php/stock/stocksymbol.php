@@ -735,24 +735,13 @@ class StockSymbol
     function GetYahooSymbol()
     {
         $strSymbol = str_replace('.', '-', $this->strSymbol);
-        if ($this->IsIndex())
-        {
-            return '%5E'.$this->strOthers;   // index ^HSI
-        }
-        else if ($this->IsSymbolH())
-        {
-            return $this->strOthers.'.hk';   // Hongkong market
-        }
+        if ($str = $this->IsSinaFutureUs())				return $str.'%3DF';				// CL=F
+        else if ($this->IsIndex())	            		return '%5E'.$this->strOthers;	// index ^HSI
+        else if ($this->IsSymbolH())						return $this->strOthers.'.hk';	// Hongkong market
         else if ($this->IsSymbolA())
         {
-            if ($this->strPrefixA == SH_PREFIX)
-            {
-                return $this->strDigitA.'.ss';   // Shanghai market
-            }
-            else if ($this->strPrefixA == SZ_PREFIX)
-            {
-                return $this->strDigitA.'.sz';   // Shenzhen market
-            }
+            if ($this->strPrefixA == SH_PREFIX)			return $this->strDigitA.'.ss';	// Shanghai market
+            else if ($this->strPrefixA == SZ_PREFIX)		return $this->strDigitA.'.sz';	// Shenzhen market
         }
         return $strSymbol;
     }
@@ -769,7 +758,7 @@ class StockSymbol
     	if ($this->IsIndex())			return false;
     	if ($this->IsIndexA())		return false;
     	if ($this->IsForex())			return false;
-    	if ($this->IsSinaFuture())	return false;
+//    	if ($this->IsSinaFuture())	return false;
     	return true;
     }
     

@@ -241,7 +241,7 @@ class NowYMD extends TickYMD
 function GetNowTick()
 {
 	global $g_now_ymd;
-	return $g_now_ymd->GetTick(); 
+	return $g_now_ymd ? $g_now_ymd->GetTick() : 1; 
 }
 
 function GetNowYMD()

@@ -14,11 +14,10 @@ function _echoNvCloseItem($csv, $his_sql, $shares_sql, $arHistory, $arFundNav, $
    	$ar[] = $bAdmin ? GetOnClickLink('/php/_submitdelete.php?'.TABLE_NETVALUE_HISTORY.'='.$arFundNav['id'], '确认删除净值记录'.$strNav.'？', $strNav) : $strNav;
 	$ar[] = $ref->GetPercentageDisplay($strNav, $strClose);
    	$ar[] = $ref->GetPercentageDisplay($strClosePrev, $strClose);
-    if ($strShares = $shares_sql->GetClose($strStockId, $strDate))
+    if ($strShare = $shares_sql->GetClose($strStockId, $strDate))
     {
-    	$ar[] = rtrim0($strShares);
-    	$fVolume = floatval($his_sql->GetVolume($strStockId, $strDate));
-    	$ar[] = strval_round(100.0 * $fVolume / (floatval($strShares) * 10000.0), 2);
+    	$ar[] = rtrim0($strShare);
+    	$ar[] = GetTurnoverDisplay(floatval($his_sql->GetVolume($strStockId, $strDate)), floatval($strShare));
     }
     
     EchoTableColumn($ar);
@@ -56,7 +55,7 @@ function EchoNvCloseHistoryParagraph($ref, $str = false, $csv = false, $iStart =
 								   new TableColumnPremium('y'),
 								   new TableColumnChange('x'),
 								   new TableColumnShare(),
-								   new TableColumnTradingPercentage()
+								   new TableColumnTurnover()
 								   ), $strSymbol.NVCLOSE_HISTORY_PAGE, $str.' '.$strMenuLink);
 
     _echoNvCloseData($his_sql, $ref, $strStockId, $csv, $iStart, $iNum, $bAdmin);

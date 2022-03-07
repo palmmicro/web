@@ -110,4 +110,9 @@ function GetArbitrageQuantity($strSymbol, $fQuantity)
 	return strval(intval($fQuantity / GetArbitrageRatio($strSymbol) + 0.5));
 }
 
+function GetTurnoverDisplay($fVolume, $fShare)
+{
+	return strval_round(100.0 * $fVolume / ($fShare * 10000.0), 2).'%';
+}
+
 ?>
