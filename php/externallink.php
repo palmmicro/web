@@ -13,16 +13,6 @@ function GetGuoTaiOfficialLink($strDigitA)
     return GetOfficialLink(GetGuoTaiFundUrl().'/Etrade/Jijin/view/id/'.$strDigitA, $strDigitA);
 }
 
-function GetPenghuaOfficialLink($strDigitA)
-{
-    return GetOfficialLink(GetPenghuaFundUrl().'web/FUND_'.$strDigitA, $strDigitA);
-}
-
-function GetYinHuaOfficialLink($strDigitA)
-{
-    return GetOfficialLink(GetYinHuaFundUrl().'/main/qxjj/'.$strDigitA.'/fndFacts.shtml', $strDigitA);
-}
-
 function GetSpindicesOfficialLink($strTicker)
 {
 	$str = 'https://us.spindices.com/indices/';
@@ -117,11 +107,6 @@ function GetShangHaiEtfShareLink()
     return GetExternalLink(GetSseUrl().'market/funddata/volumn/etfvolumn/', '上交所ETF规模');
 }
 
-function GetShangHaiEtfLinks()
-{
-	return GetShangHaiEtfShareLink().' '.GetShangHaiEtfListLink();
-}
-
 function GetShangHaiLofShareLink()
 {
     return GetExternalLink(GetSseUrl().'assortment/fund/lof/scale/', '上交所LOF规模');
@@ -130,6 +115,11 @@ function GetShangHaiLofShareLink()
 function GetShenZhenLofLink()
 {
     return GetExternalLink(GetSzseUrl().'market/product/list/lofFundList/index.html', '深交所LOF数据');
+}
+
+function GetShenZhenEtfListLink()
+{
+    return GetExternalLink(GetSzseUrl().'disclosure/fund/currency/index.html', '深交所申购赎回清单');
 }
 
 function GetEastMoneyFundLink($sym)

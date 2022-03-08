@@ -54,19 +54,15 @@ function GetQdiiLinks($sym)
 {
 	$str = '';
 	
-	if ($sym->IsShenZhenLof())		$str .= ' '.GetShenZhenLofLink();
-	else if ($sym->IsShangHaiLof())	$str .= ' '.GetShangHaiLofShareLink();
-	else if ($sym->IsShangHaiEtf())	$str .= ' '.GetShangHaiEtfLinks();
-	
 	$strSymbol = $sym->GetSymbol();
 	if (in_arrayOilQdii($strSymbol))
 	{
-		$str .= ' '.GetUscfLink();
+		$str .= GetUscfLink().' ';
 	}
 	
 	if (in_arrayQqqQdii($strSymbol))
 	{
-		$str .= ' '.GetInvescoOfficialLink('QQQ');
+		$str .= GetInvescoOfficialLink('QQQ').' ';
 	}
 	
 	$strFutureSymbol = QdiiGetFutureSymbol($strSymbol);

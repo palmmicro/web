@@ -1,11 +1,10 @@
 <?php 
 require('php/_qdiihk.php');
 
-function GetQdiiHkRelated($sym)
+function GetQdiiHkRelated($strDigitA)
 {
-	$str = GetDaChengOfficialLink($sym->GetDigitA());
-	$str .= ' '.GetQdiiHkLinks($sym);
-	$str .= GetDaChengSoftwareLinks();
+	$str = GetBreakElement();
+	$str .= GetDaChengSoftwareLinks($strDigitA);
 	return $str;
 }
 

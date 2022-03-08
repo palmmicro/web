@@ -84,6 +84,17 @@ class StockAccount extends TitleAccount
     	return $str;
     }
 
+    function _getStockExchangeLinks($sym)
+    {
+		if ($sym->IsShenZhenLof())		$str = GetShenZhenLofLink();
+		else if ($sym->IsShenZhenEtf())	$str = GetShenZhenEtfListLink();
+		else if ($sym->IsShangHaiLof())	$str = GetShangHaiLofShareLink();
+		else if ($sym->IsShangHaiEtf())	$str = GetShangHaiEtfShareLink().' '.GetShangHaiEtfListLink();
+		else								$str = '';
+		
+		return $str;
+    }
+    
     function EchoLinks($strVer = false, $callback = false)
     {
     	$strNewLine = GetBreakElement();
@@ -109,7 +120,12 @@ class StockAccount extends TitleAccount
     		}
     		$str .= $strNewLine;
     	}
-   		$str .= $callback ? call_user_func($callback, $this->GetRef()) : GetCategoryLinks(GetStockCategoryArray());
+    	if ($callback)
+    	{
+    		if ($ref = $this->GetRef())		$str .= $this->_getStockExchangeLinks($ref).' ';
+    		$str .= call_user_func($callback, $ref);
+    	}
+    	else	$str .= GetCategoryLinks(GetStockCategoryArray());
     	EchoParagraph($str);
 //    	_echoRandomPromotion();
     }

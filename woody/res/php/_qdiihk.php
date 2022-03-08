@@ -33,14 +33,12 @@ function EchoAll()
 	}
 	    
     $acct->EchoDebugParagraph();
-    $acct->EchoLinks(QDII_HK_PAGE, 'GetQdiiHkRelated');
+    $acct->EchoLinks(QDII_HK_PAGE, 'GetQdiiHkLinks');
 }
 
 function GetQdiiHkLinks($sym)
 {
 	$str = GetExternalLink('https://www.hkex.com.hk/market-data/securities-prices/exchange-traded-products', '港股ETF汇总');
-	
-//	$str .= '<br />&nbsp';
 	$str .= GetHangSengSoftwareLinks();
 	
 	$strSymbol = $sym->GetSymbol();
@@ -60,7 +58,7 @@ function GetQdiiHkLinks($sym)
 		$str .= GetHsTechSoftwareLinks();
 	}
 
-	return $str;
+	return $str.GetQdiiHkRelated($sym->GetDigitA());
 }
 
    	$acct = new _QdiiHkAccount();

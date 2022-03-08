@@ -1,11 +1,10 @@
 <?php 
 require('php/_qdiihk.php');
 
-function GetQdiiHkRelated($sym)
+function GetQdiiHkRelated($strDigitA)
 {
-	$str = GetYinHuaOfficialLink($sym->GetDigitA());
-	$str .= ' '.GetQdiiHkLinks($sym);
-	$str .= GetYinHuaSoftwareLinks();
+	$str = GetBreakElement();
+	$str .= GetYinHuaSoftwareLinks($strDigitA);
 	return $str;
 }
 

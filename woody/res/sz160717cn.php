@@ -1,10 +1,9 @@
 <?php 
 require('php/_qdiihk.php');
 
-function GetQdiiHkRelated($sym)
+function GetQdiiHkRelated($strDigitA)
 {
-	$str = GetJiaShiOfficialLink($sym->GetDigitA());
-	$str .= ' '.GetQdiiHkLinks($sym);
+	$str = GetJiaShiOfficialLink($strDigitA);
 	$str .= GetJiaShiSoftwareLinks();
 	return $str;
 }

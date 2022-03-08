@@ -1,11 +1,10 @@
 <?php 
 require('php/_qdiihk.php');
 
-function GetQdiiHkRelated($sym)
+function GetQdiiHkRelated($strDigitA)
 {
-	$str = GetPingAnOfficialLink($sym->GetDigitA());
-	$str .= ' '.GetQdiiHkLinks($sym);
-	$str .= GetPingAnSoftwareLinks();
+	$str = GetBreakElement();
+	$str .= GetPingAnSoftwareLinks($strDigitA);
 	return $str;
 }
 

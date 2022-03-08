@@ -1,10 +1,9 @@
 <?php 
 require('php/_qdiihk.php');
 
-function GetQdiiHkRelated($sym)
+function GetQdiiHkRelated($strDigitA)
 {
-	$str = GetHuaTaiOfficialLink($sym->GetDigitA());
-	$str .= ' '.GetQdiiHkLinks($sym);
+	$str = GetHuaTaiOfficialLink($strDigitA);
 	$str .= GetHuaTaiSoftwareLinks();
 	return $str;
 }

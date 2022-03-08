@@ -209,22 +209,12 @@ function GetBoShiSoftwareLinks()
     return GetCategorySoftwareLinks($ar, $strLink);
 }
 
-function GetDaChengFundUrl()
-{
-	return 'http://www.dcfund.com.cn';
-}
-
 // http://www.dcfund.com.cn/dcjj/159740/index.jhtml
-function GetDaChengOfficialLink($strDigitA)
-{
-    return GetOfficialLink(GetDaChengFundUrl().'/dcjj/'.$strDigitA.'/index.jhtml', $strDigitA);
-}
-
-function GetDaChengSoftwareLinks()
+function GetDaChengSoftwareLinks($strDigitA)
 {
     $ar = array('SZ159740', 'SZ160924');
-    $strLink = GetExternalLink(GetDaChengFundUrl(), '大成基金');
-    return GetCategorySoftwareLinks($ar, $strLink);
+	$strUrl = 'http://www.dcfund.com.cn';
+    return ' '.GetOfficialLink($strUrl.'/dcjj/'.$strDigitA.'/index.jhtml', $strDigitA).GetCategorySoftwareLinks($ar, GetExternalLink($strUrl, '大成基金'));
 }
 
 function GetEFundUrl()
@@ -323,22 +313,11 @@ function GetIcbcCsSoftwareLinks()
     return GetCategorySoftwareLinks($ar, $strLink);
 }
 
-function GetJianXinFundUrl()
-{
-	return 'http://www.ccbfund.cn';
-}
-
-// http://www.ccbfund.cn/fund_info/info.jspx?fundCode=513680
-function GetJianXinOfficialLink($strDigitA)
-{
-    return GetOfficialLink(GetJianXinFundUrl().'/fund_info/info.jspx?fundCode='.$strDigitA, $strDigitA);
-}
-
-function GetJianXinSoftwareLinks()
+function GetJianXinSoftwareLinks($strDigitA)
 {
     $ar = array('SH513680');
-    $strLink = GetExternalLink(GetJianXinFundUrl(), '建信基金');
-    return GetCategorySoftwareLinks($ar, $strLink);
+	$strUrl = 'http://www.ccbfund.cn';
+    return ' '.GetOfficialLink($strUrl.'/fund_info/info.jspx?fundCode='.$strDigitA, $strDigitA).GetCategorySoftwareLinks($ar, GetExternalLink($strUrl, '建信基金'));
 }
 
 function GetJiaoYinSchroderSoftwareLinks($strDigitA)
@@ -366,21 +345,11 @@ function GetJiaShiSoftwareLinks()
     return GetCategorySoftwareLinks($ar, $strLink);
 }
 
-function GetNanFangFundUrl()
-{
-	return 'http://www.nffund.com/';
-}
-
-function GetNanFangOfficialLink($strDigitA)
-{
-    return GetOfficialLink(GetNanFangFundUrl().'main/jjcp/fundproduct/'.$strDigitA.'.shtml', $strDigitA);
-}
-
-function GetNanFangSoftwareLinks()
+function GetNanFangSoftwareLinks($strDigitA)
 {
     $ar = array('SH501018', 'SH501302', 'SH513600', 'SZ159954', 'SZ160140');
-    $strLink = GetExternalLink(GetNanFangFundUrl(), '南方基金');
-    return GetCategorySoftwareLinks($ar, $strLink);
+	$strUrl = 'http://www.nffund.com';
+    return ' '.GetOfficialLink($strUrl.'/main/jjcp/fundproduct/'.$strDigitA.'.shtml', $strDigitA).GetCategorySoftwareLinks($ar, GetExternalLink($strUrl, '南方基金'));
 }
 
 // https://www.lionfund.com.cn/official/funds/main?fundCode=163208
@@ -391,29 +360,19 @@ function GetNuoAnSoftwareLinks($strDigitA)
     return ' '.GetOfficialLink($strUrl.'/official/funds/main?fundCode='.$strDigitA, $strDigitA).GetCategorySoftwareLinks($ar, GetExternalLink($strUrl, '诺安基金'));
 }
 
-function GetPenghuaSoftwareLinks()
+function GetPenghuaSoftwareLinks($strDigitA)
 {
     $ar = array('SH501025');
-    $strLink = GetExternalLink(GetPenghuaFundUrl(), '鹏华基金');
-    return GetCategorySoftwareLinks($ar, $strLink);
-}
-
-function GetPingAnFundUrl()
-{
-	return 'http://www.fund.pingan.com';
+	$strUrl = 'https://www.phfund.com.cn';
+    return ' '.GetOfficialLink($strUrl.'/web/FUND_'.$strDigitA, $strDigitA).GetCategorySoftwareLinks($ar, GetExternalLink($strUrl, '鹏华基金'));
 }
 
 // http://www.fund.pingan.com/main/peanutFinance/yingPeanut/fundDetailV2/159960.shtml
-function GetPingAnOfficialLink($strDigitA)
-{
-    return GetOfficialLink(GetPingAnFundUrl().'/main/peanutFinance/yingPeanut/fundDetailV2/'.$strDigitA.'.shtml', $strDigitA);
-}
-
-function GetPingAnSoftwareLinks()
+function GetPingAnSoftwareLinks($strDigitA)
 {
     $ar = array('SZ159960');
-    $strLink = GetExternalLink(GetPingAnFundUrl(), '平安基金');
-    return GetCategorySoftwareLinks($ar, $strLink);
+	$strUrl = 'http://www.fund.pingan.com';
+    return ' '.GetOfficialLink($strUrl.'/main/peanutFinance/yingPeanut/fundDetailV2/'.$strDigitA.'.shtml', $strDigitA).GetCategorySoftwareLinks($ar, GetExternalLink($strUrl, '平安基金'));
 }
 
 function GetUbsSdicSoftwareLinks()
@@ -448,11 +407,11 @@ function GetXinChengSoftwareLinks($strDigitA)
     return ' '.GetOfficialLink($strUrl.'/pc/productDetail?fundcode='.$strDigitA, $strDigitA).GetCategorySoftwareLinks($ar, GetExternalLink($strUrl, '信诚基金'));
 }
 
-function GetYinHuaSoftwareLinks()
+function GetYinHuaSoftwareLinks($strDigitA)
 {
     $ar = array('SZ161815', 'SZ161831');
-    $strLink = GetExternalLink(GetYinHuaFundUrl(), '银华基金');
-    return GetCategorySoftwareLinks($ar, $strLink);
+	$strUrl = 'http://www.yhfund.com.cn';
+    return ' '.GetOfficialLink($strUrl.'/main/qxjj/'.$strDigitA.'/fndFacts.shtml', $strDigitA).GetCategorySoftwareLinks($ar, GetExternalLink($strUrl, '银华基金'));
 }
 /*
 大卫把移民话题带这么火，我来跟风讲个凡尔赛的故事吧。

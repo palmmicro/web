@@ -84,16 +84,6 @@ function GetGuoTaiFundUrl()
 	return 'https://e.gtfund.com';
 }
 
-function GetPenghuaFundUrl()
-{
-	return 'https://www.phfund.com.cn/';
-}
-
-function GetYinHuaFundUrl()
-{
-	return 'http://www.yhfund.com.cn';
-}
-
 // https://csi-web-dev.oss-cn-shanghai-finance-1-pub.aliyuncs.com/static/html/csindex/public/uploads/file/autofile/closeweight/H30533closeweight.xls
 // https://csi-web-dev.oss-cn-shanghai-finance-1-pub.aliyuncs.com/static/html/csindex/public/uploads/file/autofile/closeweight/H11136closeweight.xls
 // https://www.csindex.com.cn/#/indices/family/detail?indexCode=H11136

@@ -3,10 +3,9 @@ require('php/_qdii.php');
 
 function GetQdiiRelated($strDigitA)
 {
-	$str = GetNanFangOfficialLink($strDigitA);
-	$str .= GetOilSoftwareLinks();
+	$str = GetOilSoftwareLinks();
 	$str .= GetChinaInternetSoftwareLinks();
-	$str .= GetNanFangSoftwareLinks();
+	$str .= GetBreakElement().GetNanFangSoftwareLinks($strDigitA);
 	return $str;
 }
 

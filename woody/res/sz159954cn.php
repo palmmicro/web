@@ -1,11 +1,9 @@
 <?php 
 require('php/_qdiihk.php');
 
-function GetQdiiHkRelated($sym)
+function GetQdiiHkRelated($strDigitA)
 {
-	$str = GetNanFangOfficialLink($sym->GetDigitA());
-	$str .= ' '.GetQdiiHkLinks($sym);
-	$str .= GetNanFangSoftwareLinks();
+	$str = GetBreakElement().GetNanFangSoftwareLinks($strDigitA);
 	return $str;
 }
 

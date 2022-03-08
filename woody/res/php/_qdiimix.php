@@ -116,11 +116,7 @@ function EchoAll()
 
 function GetQdiiMixLinks($sym)
 {
-	$str = '';
-	if ($sym->IsShenZhenLof())			$str .= GetShenZhenLofLink();
-	else if ($sym->IsShangHaiEtf())		$str .= GetShangHaiEtfLinks();
-	
-	$str .= GetSpySoftwareLinks();
+	$str = GetSpySoftwareLinks();
 	$str .= GetHangSengSoftwareLinks();
 	$str .= GetChinaInternetSoftwareLinks();
 	return $str.GetQdiiMixRelated($sym->GetDigitA());
