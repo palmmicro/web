@@ -3,8 +3,8 @@ require('php/_qdiihk.php');
 
 function GetQdiiHkRelated($strDigitA)
 {
-	$str = GetUniversalOfficialLink($strDigitA);
-	$str .= GetUniversalSoftwareLinks();
+	$str = GetBreakElement();
+	$str .= GetUniversalSoftwareLinks($strDigitA);
 	return $str;
 }
 

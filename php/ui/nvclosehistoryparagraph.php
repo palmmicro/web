@@ -56,7 +56,7 @@ function EchoNvCloseHistoryParagraph($ref, $str = false, $csv = false, $iStart =
 								   new TableColumnChange('x'),
 								   new TableColumnShare(),
 								   new TableColumnTurnover()
-								   ), $strSymbol.NVCLOSE_HISTORY_PAGE, $str.' '.$strMenuLink);
+								   ), $strSymbol.'nvclosehistory', $str.' '.$strMenuLink);
 
     _echoNvCloseData($his_sql, $ref, $strStockId, $csv, $iStart, $iNum, $bAdmin);
     EchoTableParagraphEnd($strMenuLink);

@@ -1,11 +1,10 @@
 <?php 
 require('php/_goldsilver.php');
 
-function GetGoldSilverRelated($sym)
+function GetGoldSilverRelated($strDigitA)
 {
-	$str = GetHuaAnOfficialLink($sym->GetDigitA());
-	$str .= ' '.GetGoldSilverLinks($sym);
-	$str .= GetHuaAnSoftwareLinks();
+	$str = GetBreakElement();
+	$str .= GetHuaAnSoftwareLinks($strDigitA);
 	return $str;
 }
 

@@ -118,7 +118,7 @@
 
 <h3>一元<?php EchoNameTag('linearregression', ACCOUNT_TOOL_LINEAR_CN); ?>工具</h3>
 <p>2019年9月20日
-<br />用<?php EchoLinearRegressionLink(); ?>计算完华宝油气限额申购下溢价套利的<?php EchoNameLink(FUND_ACCOUNT_PAGE, FUND_ACCOUNT_DISPLAY, '20150818cn.php'); ?>后, 顺便把它做成了一个通用工具.
+<br />用<?php EchoLinearRegressionLink(); ?>计算完华宝油气限额申购下溢价套利的<?php EchoNameLink('fundaccount', FUND_ACCOUNT_DISPLAY, '20150818cn.php'); ?>后, 顺便把它做成了一个通用工具.
 <?php echo ImgLinearRegression(); ?>
 </p>
 

@@ -164,7 +164,7 @@ function EchoAll()
         _echoArbitrageParagraph($acct, $group);
 	}
     
-    $acct->EchoLinks(ADR_PAGE, 'GetAdrLinks');
+    $acct->EchoLinks('adr', 'GetAdrLinks');
 }
 
 function GetAdrLinks($sym)

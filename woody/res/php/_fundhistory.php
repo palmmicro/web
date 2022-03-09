@@ -38,7 +38,7 @@ function EchoAll()
 	global $acct;
 	
     if ($ref = $acct->EchoStockGroup())		_echoFundHistory($ref->GetSymbol(), $acct->GetStart(), $acct->GetNum(), $acct->IsAdmin());
-    $acct->EchoLinks(FUND_HISTORY_PAGE);
+    $acct->EchoLinks('fundhistory');
 }
 
 function GetMetaDescription()

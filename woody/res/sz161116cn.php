@@ -3,8 +3,8 @@ require('php/_qdii.php');
 
 function GetQdiiRelated($strDigitA)
 {
-	$str = GetEFundOfficialLink($strDigitA);
-	$str .= GetEFundSoftwareLinks();
+	$str = GetBreakElement();
+	$str .= GetEFundSoftwareLinks($strDigitA);
 	return $str;
 }
 

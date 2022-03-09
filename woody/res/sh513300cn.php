@@ -3,8 +3,8 @@ require('php/_qdii.php');
 
 function GetQdiiRelated($strDigitA)
 {
-	$str = GetHuaXiaOfficialLink($strDigitA);
-	$str .= GetHuaXiaSoftwareLinks();
+	$str = GetBreakElement();
+	$str .= GetHuaXiaSoftwareLinks($strDigitA);
 	return $str;
 }
 

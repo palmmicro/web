@@ -3,8 +3,8 @@ require('php/_qdii.php');
 
 function GetQdiiRelated($strDigitA)
 {
-	$str = GetBoShiOfficialLink($strDigitA);
-	$str .= GetBoShiSoftwareLinks();
+	$str = GetBreakElement();
+	$str .= GetBoShiSoftwareLinks($strDigitA);
 	return $str;
 }
 

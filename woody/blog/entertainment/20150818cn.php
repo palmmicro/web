@@ -66,7 +66,7 @@
 </p>
 <?php EchoStockHistoryDemo(); ?>
 
-<h3>扩大规模到<?php EchoNameTag(QDII_HK_PAGE, QDII_HK_DISPLAY); ?></h3>
+<h3>扩大规模到<?php EchoNameTag('qdiihk', QDII_HK_DISPLAY); ?></h3>
 <p>2015年8月27日
 <br />整理代码最好的方式是多开发几个类似<?php echo GetStockMenuLink('qdii'); ?>.
 伴随最近抄底港股加入<a href="../../res/sz159920cn.php">恒生ETF</a>和<a href="../../res/sh510900cn.php">H股ETF</a>净值计算工具.
@@ -80,7 +80,7 @@
 同时修改<a href="20100529cn.php">Visual C++</a>的Woody的网站工具对_editXXXform.php名字格式的自动生成对应的_submitXXX.php文件. 
 </p>
 
-<h3><?php EchoNameTag(ADR_PAGE, ADR_DISPLAY); ?></h3>
+<h3><?php EchoNameTag('adr', ADR_DISPLAY); ?></h3>
 <p>2015年11月7日
 <br />继续用网页工具代替手工按计算器的工作, 为港股在美股的<a href="../../res/adrcn.php">ADR</a>加入<a href="../../res/achcn.php">中国铝业</a>,
 <a href="../../res/lfccn.php">中国人寿</a>, <a href="../../res/ptrcn.php">中国石油</a>, <a href="../../res/snpcn.php">中国石化</a>, <a href="../../res/shicn.php">上海石化</a>,
@@ -90,7 +90,7 @@
 <a href="../../res/sz163208cn.php">诺安油气</a>和<a href="../../res/sz165510cn.php">信诚四国</a>等页面.
 </p>
 
-<h3>增加<?php EchoNameTag(FUND_HISTORY_PAGE, FUND_HISTORY_DISPLAY); ?>页面</h3>
+<h3>增加<?php EchoNameTag('fundhistory', FUND_HISTORY_DISPLAY); ?>页面</h3>
 <p>2016年1月8日
 <br />在<?php EchoXueqieId('2091843424', '塔夫男'); ?>等人的建议下, 加入华宝油气基金历史表格记录每天的折价溢价情况. 最近几天的直接显示在当前页面, 同时增加单独显示全部历史数据的页面.
 </p>
@@ -123,7 +123,7 @@ Wiki的QDII词条下显示了它是Qualified Domestic Institutional Investor的�
 用脚趾头想想, 要计算华宝油气当天的交易溢价, 肯定是要跟前一天的净值比较啊. 当天的净值要等当晚美股收盘后才出来, 否则的话我写这个净值估算有什么意义呢.
 <br />把当天的交易价格跟前一天的净值放在一起比较, 其实也正是我平时最为推崇的不同的数据显示方式引导不同的思维的举措. 
 不过为了避免以后还有人搞混淆, 我干脆另外加了一个单独的净值显示页面, 算上最开始的<?php EchoNameLink(TABLE_STOCK_HISTORY, STOCK_HISTORY_DISPLAY); ?>等, 现在总共有以下不同的几个历史数据页面：  
-<br /><?php echo GetFundLinks(); ?>
+<br /><?php echo GetFundLinks(FUND_DEMO_SYMBOL); ?>
 </p>
 
 <h3>周期3意味着<a name="chaos">混沌</a></h3>
@@ -141,7 +141,7 @@ Wiki的QDII词条下显示了它是Qualified Domestic Institutional Investor的�
 要用<font color=gray><code>date_default_timezone_set('America/New_York')</code></font>或者<font color=gray><code>date_default_timezone_set('EDT')</code></font>.
 </p>
 
-<h3><?php EchoNameTag(GOLD_SILVER_PAGE, GOLD_SILVER_DISPLAY); ?></h3>
+<h3><?php EchoNameTag('goldsilver', GOLD_SILVER_DISPLAY); ?></h3>
 <p>2016年3月25日
 <br />趁复活节假日黄金期货GC停止交易, 校准</a>A股<a href="../../res/goldsilvercn.php">黄金白银</a>系列的净值计算工具. 目前包括<a href="../../res/sh518800cn.php">国泰黄金ETF</a>,
 <a href="../../res/sh518880cn.php">华安黄金ETF</a>, <a href="../../res/sz159934cn.php">易方达黄金ETF</a>, <a href="../../res/sz159937cn.php">博时黄金ETF</a>, <a href="../../res/sz164701cn.php">添富贵金LOF</a>, 
@@ -216,14 +216,14 @@ Wiki的QDII词条下显示了它是Qualified Domestic Institutional Investor的�
 								  '做跟美油期货CL配对交易的，看实时估值。'));
 ?>
 
-<h3><?php EchoNameTag(THANOUS_PARADOX_PAGE, THANOUS_PARADOX_DISPLAY); ?></h3>
+<h3><?php EchoNameTag('thanousparadox', THANOUS_PARADOX_DISPLAY); ?></h3>
 <p>2016年9月18日
 <br />不知不觉中宣传和实践华宝油气和XOP跨市场套利已经快2年了. 期间碰到过<?php EchoXueqieId('4389829893', 'LIFEFORCE'); ?>这种自己动手回测验证一下能赚钱就果断开干的, 
 也有<?php EchoXueqieId('8871221437', '老孙'); ?>这种数学爱好者回测验证一下能赚个年化10%后就袖手旁观的,
 还有常胜将军<?php EchoXueqieId('1980527278', 'Billyye'); ?>这种觉得华宝油气可以看成无非是XOP延长了的盘前盘后交易没有多少套利意义的. 
 最气人的是thanous这种, 总是喜欢说大资金如何牛, 如果白天华宝油气在大交易量下溢价, 晚上XOP必然是要涨的, 彻底否定套利的根基.
 <br />最近几个月华宝油气折价多溢价少, 经历了几次溢价的情况后, 发现<?php EchoXueqieId('5421738073', 'thanous'); ?>的说法基本靠谱, 我于是开始按他的名字命名为小心愿定律. 中秋节前最后一个交易日华宝油气又溢价了, 
-<?php EchoXueqieId('6900406005', '大熊宝宝--林某人'); ?>建议我实际测算一下, 正好放假闲着也是闲着, 就削尖铅笔搞了个新页面测试<?php echo GetThanousParadoxLink(); ?>.
+<?php EchoXueqieId('6900406005', '大熊宝宝--林某人'); ?>建议我实际测算一下, 正好放假闲着也是闲着, 就削尖铅笔搞了个新页面测试<?php echo GetThanousParadoxLink(FUND_DEMO_SYMBOL); ?>.
 我网站记录了从去年底以来所有的华宝油气数据, 跑了下从去年底到现在的统计结果没有觉得小心愿定律能成立, 于是改名为小心愿佯谬. 但是去掉春节前后华宝油气因为停止申购导致的长期溢价的影响, 只考虑最近100个交易日的情况后, 
 有趣的结果出现了:
 <br /><img src=../photo/20160918.jpg alt="Screen shot of test Thanous Law on Sep 18, 2016" />
@@ -238,7 +238,7 @@ Wiki的QDII词条下显示了它是Qualified Domestic Institutional Investor的�
 <br />碰到XOP分红除权的日子, 就需要手工校准.
 </p>
 
-<h3><?php EchoNameTag(AH_COMPARE_PAGE, AH_COMPARE_DISPLAY); ?></h3>
+<h3><?php EchoNameTag('ahcompare', AH_COMPARE_DISPLAY); ?></h3>
 <p>2017年1月28日
 <br />为了有效配合今年的打新计划, 我打算扩大中国石化外的门票范围, 但是同时沿用AH股价格比较的思路, 只选取A股价格低于H股的作为门票.
 <br />替选股增加个对比页面.
@@ -322,18 +322,18 @@ Wiki的QDII词条下显示了它是Qualified Domestic Institutional Investor的�
 </p>
 <?php EchoQdiiSmaDemo(); ?>
 
-<h3><?php EchoNameTag(ADRH_COMPARE_PAGE, ADRH_COMPARE_DISPLAY); ?></h3>
+<h3><?php EchoNameTag('adrhcompare', ADRH_COMPARE_DISPLAY); ?></h3>
 <p>2018年4月4日
 <br />雪球创始人方三文, 自称<?php EchoXueqieId('1955602780', '不明真相的群众'); ?>, 平时总是苦口婆心的把盈亏同源放在嘴边, 鼓动大家通过雪球资管做资产配置.
 但是他却认为自己对互联网企业有深刻理解, 在推销自己的私募的时候总是鼓吹腾讯和FB, 又把盈亏同源抛在脑后了.
 <br />最近2个月腾讯结束了屡创新高的行情, 开始跟FB一起下跌, 引发了大家抄底雪球方丈的热情.
 不仅港股腾讯00700每天巨量交易, 就连它在美股粉单市场的ADR在雪球上都热闹非凡.
-这吸引了我的注意力, 然后发现除了在<?php EchoNameLink(ADR_PAGE, ADR_DISPLAY); ?>中已经包括的外, 港股还有其它不少股票也有美股市场的ADR, 于是我按照原来<?php EchoNameLink(AH_COMPARE_PAGE, AH_COMPARE_DISPLAY); ?>的套路增加了个页面蹭一下热度.
+这吸引了我的注意力, 然后发现除了在<?php EchoNameLink('adr', ADR_DISPLAY); ?>中已经包括的外, 港股还有其它不少股票也有美股市场的ADR, 于是我按照原来<?php EchoNameLink('ahcompare', AH_COMPARE_DISPLAY); ?>的套路增加了个页面蹭一下热度.
 </p>
 <?php EchoAdrhDemo(); ?>
 <p><font color=gray>Life is like a snowball. The important thing is finding wet snow and a really long hill. — Warren Buffett</font></p>
 
-<h3><?php EchoNameTag(NVCLOSE_HISTORY_PAGE, NVCLOSE_HISTORY_DISPLAY); ?></h3>
+<h3><?php EchoNameTag('nvclosehistory', NVCLOSE_HISTORY_DISPLAY); ?></h3>
 <p>2018年5月3日
 <br />交易了几年XOP下来, 发现它的收盘价经常跟净值有个1分2分的偏差, 不知道这其中是否有套利机会.
 </p>
@@ -347,26 +347,26 @@ Wiki的QDII词条下显示了它是Qualified Domestic Institutional Investor的�
 <?php echo QuoteImgElement('buffettplaycards.jpg', '巴菲特和盖茨一起打桥牌'); ?>
 </p>
 
-<h3><?php EchoNameTag(CHINA_INDEX_PAGE, CHINA_INDEX_DISPLAY); ?></h3>
+<h3><?php EchoNameTag('chinaindex', CHINA_INDEX_DISPLAY); ?></h3>
 <p>2018年6月20日
 <br />配合抄底<a href="../../res/chinaindexcn.php">A股指数</a>加入<a href="../../res/sh510300cn.php">300ETF</a>页面, 根据沪深300指数SH000300估算SH510300和ASHR的净值, 看看有没有华宝油气和XOP这种跨市场套利的机会.
 <br />为了避免原有代码进一步走向<a href="#chaos">混沌</a>, 不想从原有的<font color=olive>FundReference</font>类扩展这种新估值模式, 从<font color=olive>MysqlReference</font>类继承了一个新的<font color=olive>EtfReference</font>.
 </p>
 
-<h3>用线性回归的方法在华宝油气溢价套利时进行<?php EchoNameTag(FUND_ACCOUNT_PAGE, FUND_ACCOUNT_DISPLAY); ?></h3>
+<h3>用线性回归的方法在华宝油气溢价套利时进行<?php EchoNameTag('fundaccount', FUND_ACCOUNT_DISPLAY); ?></h3>
 <p>2019年9月20日
 <br />在使用Cramer法则<?php EchoNameLink('cramersrule', ACCOUNT_TOOL_CRAMER_CN, '20100905cn.php'); ?>得到华宝油气场内和场外申购账户数后, 其实真正有帮助的结论只是场外申购账户比场内申购账户少一个数量级. 
 因为其中我只区分了折价和溢价2种情况进行数据分析, 但是实际上不同溢价时申购账户的区别其实是很大的.
 <br />因为场外账户远少于场内账户, 我可以放心的忽略2者在申购不同日期下不同净值等细节, 把所有申购都假设成为场内申购计算. 把限购1000人民币以来所有溢价申购日期数据统一做线性回归, 可以得到下面的结果:
-<br /><?php echo GetFundAccountLink(); ?>
+<br /><?php echo GetFundAccountLink(FUND_DEMO_SYMBOL); ?>
 <br />顺便做一个通用一元<?php EchoLinearRegressionLink(); ?>工具.
 <?php echo ImgLinearRegression(); ?>
 </p>
 
-<h3>增加<?php EchoNameTag(FUND_POSITION_PAGE, FUND_POSITION_DISPLAY); ?>页面</h3>
+<h3>增加<?php EchoNameTag('fundposition', FUND_POSITION_DISPLAY); ?>页面</h3>
 <p>2019年10月25日
 <br />华宝油气在国庆假期后持续高溢价, 到今天已经连续第13个交易日. 吃瓜群众们充分利用华宝油气限购1000的机会, 开始了新开1+6拖拉机账户溢价申购套利的狂欢之旅, 从10月11号到现在测算的申购账户数一直在创历史新高.
-不断新开的账户把我线性回归进行<?php EchoNameLink(FUND_ACCOUNT_PAGE, FUND_ACCOUNT_DISPLAY); ?>的结果活生生搞成了非线性.
+不断新开的账户把我线性回归进行<?php EchoNameLink('fundaccount', FUND_ACCOUNT_DISPLAY); ?>的结果活生生搞成了非线性.
 <br />10月22日那天场内新增了5766万股, 对应限购1000人民币下场内满额申购了22127户, 全部份额已经接近65亿股. 好几个人看到迅速增加的份额后都问我华宝油气会不会继续把限额降到100块或者是彻底关门.
 我暗自一笑, 回答说你们想多了. 华宝基金有对它来说更聪明应对方式, 其实在8月份刚开始限额申购后的那一轮溢价申购时已经表现出来了.
 <br />这个聪明方法是主动降低股票持仓仓位比例, 把大家新申购的人民币拿在手里除了收管理费以外什么都不做. 
@@ -377,14 +377,14 @@ Wiki的QDII词条下显示了它是Qualified Domestic Institutional Investor的�
 <br />显然华宝油气在雪球的工作人员对目前仓位降低的问题是了然于胸的. 昨天我的估值软件给出10月23日的净值是0.387, 而他在雪球狡猾的给出了0.386, 结果公布后果然是他对了.
 <br />XOP净值在10月21到23日连续每天小涨, 没有一天达到了我定的4%的标准, 所以我一直没能有效的测算目前的实际仓位. 
 不过这3天累计的涨幅达到了5.14%,  我于是灵机一动, 想到了可以优化一下算法: 不用拘泥于单日的涨跌, 只要连续几天的累计涨幅或者跌幅超过了4%就计算一次仓位.
-<br />这样我又增加了一个专门估算仓位的新页面: <?php echo GetFundPositionLink(); ?>
+<br />这样我又增加了一个专门估算仓位的新页面: <?php echo GetFundPositionLink(FUND_DEMO_SYMBOL); ?>
 </p>
 
 <h3>美国<a name="daylightsavingend">夏令时结束</a></h3>
 <p>2019年11月7日
-<br />没想到9月份写的<?php EchoNameLink(FUND_ACCOUNT_PAGE, FUND_ACCOUNT_DISPLAY); ?>让我意外发现了一个跟<a href="#daylightsavingbegin">夏令时开始</a>配对的BUG.
+<br />没想到9月份写的<?php EchoNameLink('fundaccount', FUND_ACCOUNT_DISPLAY); ?>让我意外发现了一个跟<a href="#daylightsavingbegin">夏令时开始</a>配对的BUG.
 <br />我昨天看了一下11月4日轻微折价下的场内申购预估数量. 因为我做<?php EchoLinearRegressionLink(); ?>是不用折价日的申购数据的, 所以特意留心了一下.
-结果今天发现<?php EchoNameLink(FUND_HISTORY_PAGE, FUND_HISTORY_DISPLAY); ?>中11月4日的数据竟然没有显示出来. 
+结果今天发现<?php EchoNameLink('fundhistory', FUND_HISTORY_DISPLAY); ?>中11月4日的数据竟然没有显示出来. 
 <br />查了半天终于找到了问题: 我原来用11月1日周五的日期加上3天的秒数, 期望得到11月4日的日期. 却没料到赶上了11月3日结束夏令时, 3天的秒数不够, 结果得到的是11月3日的日期. 
 这个问题隐藏了好几年, 但是以前一直没有像现在这样每天盯着折价溢价数据看, 所以一直没发现.
 </p>

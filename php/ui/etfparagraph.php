@@ -41,7 +41,7 @@ function EchoEtfListParagraph($arRef)
 								   new TableColumnSymbol('跟踪'),
 								   new TableColumn('杠杆倍数'),
 								   new TableColumnCalibration()
-								   ), ETF_LIST_PAGE, $str);
+								   ), 'etflist', $str);
 	
 	foreach ($arRef as $ref)
 	{

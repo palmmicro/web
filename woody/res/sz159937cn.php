@@ -1,11 +1,10 @@
 <?php 
 require('php/_goldsilver.php');
 
-function GetGoldSilverRelated($sym)
+function GetGoldSilverRelated($strDigitA)
 {
-	$str = GetBoShiOfficialLink($sym->GetDigitA());
-	$str .= ' '.GetGoldSilverLinks($sym);
-	$str .= GetBoShiSoftwareLinks();
+	$str = GetBreakElement();
+	$str .= GetBoShiSoftwareLinks($strDigitA);
 	return $str;
 }
 

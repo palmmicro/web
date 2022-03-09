@@ -79,11 +79,6 @@ function GetJisiluDataUrl()
 	return 'https://www.jisilu.cn/data/';
 }
 
-function GetGuoTaiFundUrl()
-{
-	return 'https://e.gtfund.com';
-}
-
 // https://csi-web-dev.oss-cn-shanghai-finance-1-pub.aliyuncs.com/static/html/csindex/public/uploads/file/autofile/closeweight/H30533closeweight.xls
 // https://csi-web-dev.oss-cn-shanghai-finance-1-pub.aliyuncs.com/static/html/csindex/public/uploads/file/autofile/closeweight/H11136closeweight.xls
 // https://www.csindex.com.cn/#/indices/family/detail?indexCode=H11136

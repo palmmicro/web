@@ -1,11 +1,10 @@
 <?php 
 require('php/_goldsilver.php');
 
-function GetGoldSilverRelated($sym)
+function GetGoldSilverRelated($strDigitA)
 {
-	$str = GetGuoTaiOfficialLink($sym->GetDigitA());
-	$str .= ' '.GetGoldSilverLinks($sym);
-	$str .= GetGuoTaiSoftwareLinks();
+	$str = GetBreakElement();
+	$str .= GetGuoTaiSoftwareLinks($strDigitA);
 	return $str;
 }
 

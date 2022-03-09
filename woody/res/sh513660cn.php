@@ -3,8 +3,8 @@ require('php/_qdiihk.php');
 
 function GetQdiiHkRelated($strDigitA)
 {
-	$str = GetHuaXiaOfficialLink($strDigitA);
-	$str .= GetHuaXiaSoftwareLinks();
+	$str = GetBreakElement();
+	$str .= GetHuaXiaSoftwareLinks($strDigitA);
 	return $str;
 }
 

@@ -1,11 +1,10 @@
 <?php 
 require('php/_chinaindex.php');
 
-function GetChinaIndexRelated($sym)
+function GetChinaIndexRelated($strDigitA)
 {
-	$str = GetUniversalOfficialLink($sym->GetDigitA());
-	$str .= ' '.GetChinaIndexLinks($sym);
-	$str .= GetUniversalSoftwareLinks();
+	$str = GetBreakElement();
+	$str .= GetUniversalSoftwareLinks($strDigitA);
 	return $str;
 }
 

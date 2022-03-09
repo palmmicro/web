@@ -9,7 +9,7 @@ function EchoCalibrationHistoryLink($strSymbol = FUND_DEMO_SYMBOL)
 
 function EchoFundHistoryLink()
 {
-	EchoNameLink(FUND_HISTORY_PAGE, FUND_HISTORY_DISPLAY);
+	EchoNameLink('fundhistory', FUND_HISTORY_DISPLAY);
 }
 
 function EchoFundEstTables()

@@ -1,11 +1,10 @@
 <?php 
 require('php/_chinaindex.php');
 
-function GetChinaIndexRelated($sym)
+function GetChinaIndexRelated($strDigitA)
 {
-	$str = GetJiaShiOfficialLink($sym->GetDigitA());
-	$str .= ' '.GetChinaIndexLinks($sym);
-	$str .= GetJiaShiSoftwareLinks();
+	$str = GetBreakElement();
+	$str .= GetJiaShiSoftwareLinks($strDigitA);
 	return $str;
 }
 

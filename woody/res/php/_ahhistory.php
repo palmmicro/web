@@ -59,7 +59,7 @@ function _echoAhHistoryParagraph($hshare_ref, $iStart, $iNum, $bAdmin)
 								   new TableColumn($strSymbolH),
 								   $ah_col,
 								   new TableColumnHaRatio()
-								   ), $strSymbol.AH_HISTORY_PAGE, $str);
+								   ), $strSymbol.'ahhistory', $str);
 
    	$csv = new PageCsvFile();
     _echoAhHistoryData($csv, $hshare_ref, $his_sql, $strStockId, $hshare_ref->GetStockId(), $iStart, $iNum);

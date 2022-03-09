@@ -58,10 +58,10 @@
 <?php EchoUpdateChinaFundLink(); ?>
 </p>
 
-<h3><?php EchoNameTag(AH_COMPARE_PAGE, AH_COMPARE_DISPLAY); ?></h3>
+<h3><?php EchoNameTag('ahcompare', AH_COMPARE_DISPLAY); ?></h3>
 <p>2017年1月30日
 <br />微信公众号搞了几个月, 使用者寥寥. 不过开发微信公众号的过程中有个意外收获, 帮助我彻底区分了净值计算和用户显示界面的代码.
-<br />为了充分利用这个好处, 在帮助有效配合今年打新加入<?php EchoNameLink(AH_COMPARE_PAGE, AH_COMPARE_DISPLAY, '../entertainment/20150818cn.php'); ?>后, 我马上把它也包括在了微信公众号的查询结果中.
+<br />为了充分利用这个好处, 在帮助有效配合今年打新加入<?php EchoNameLink('ahcompare', AH_COMPARE_DISPLAY, '../entertainment/20150818cn.php'); ?>后, 我马上把它也包括在了微信公众号的查询结果中.
 <br />数据来源: <?php EchoExternalLink(GetAastocksUrl('ah')); ?>		<?php EchoUpdateAhLink(); ?>
 <br />输入查<font color=gray>600028</font>或者<font color=gray>00386</font>试试看.
 </p>
@@ -74,7 +74,7 @@
 <br />当然这现在已经难不倒我了, 我可以依旧从数据库中把最近2天的中间价找出来, 拼成跟其他数据类似的格式提供给客户. 按惯例, 又全面整理了几天代码, 直到今天才完工.
 <br />因为微信查找中我没有做中文分词, 因此<font color=gray>人民币汇率</font>这种5个字的长查询其实是很难匹配的. 
 为了保证下次用户能查到, 我还特意手工把数据库中USCNY的说明从<font color=gray>美元人民币中间价</font>改成了<font color=gray>美元人民币汇率中间价</font>.
-<br />得意之余再补记一下, 上周蹭雪球热点港股腾讯ADR代码TCEHY时加了<?php EchoNameLink(ADRH_COMPARE_PAGE, ADRH_COMPARE_DISPLAY, '../entertainment/20150818cn.php'); ?>后, 又继续把它集成到了微信查询中.
+<br />得意之余再补记一下, 上周蹭雪球热点港股腾讯ADR代码TCEHY时加了<?php EchoNameLink('adrhcompare', ADRH_COMPARE_DISPLAY, '../entertainment/20150818cn.php'); ?>后, 又继续把它集成到了微信查询中.
 <br />数据来源: <?php EchoExternalLink(GetAastocksUrl()); ?>		<?php EchoUpdateAdrLink(); ?>
 <br />输入查<font color=gray>00700</font>或者<font color=gray>腾讯</font>试试看.
 <!--<br /><img src=../photo/kingcrab.jpg alt="Jan 30, 2018. King crab, Woody and Sapphire in La Quinta Carlsbad." />-->

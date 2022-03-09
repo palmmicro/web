@@ -14,12 +14,12 @@ function _menuStockSoftware($bChinese)
 	MenuContinueNewLine();
 
 	$strPage = UrlGetPage();
-    $arFunction = array(ADR_PAGE => 'AdrGetSymbolArray',
-                      	   CHINA_INDEX_PAGE => 'ChinaIndexGetSymbolArray',
-                      	   GOLD_SILVER_PAGE => 'GoldSilverGetSymbolArray',
+    $arFunction = array('adr' => 'AdrGetSymbolArray',
+                      	   'chinaindex' => 'ChinaIndexGetSymbolArray',
+                      	   'goldsilver' => 'GoldSilverGetSymbolArray',
                       	   'qdii' => 'QdiiGetSymbolArray',
                       	   'qdiimix' => 'QdiiMixGetSymbolArray',
-                      	   QDII_HK_PAGE => 'QdiiHkGetSymbolArray');
+                      	   'qdiihk' => 'QdiiHkGetSymbolArray');
     
     foreach ($arFunction as $strKey => $strFunction)
     {

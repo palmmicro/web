@@ -45,16 +45,16 @@ function EchoAll()
 	}
     
     _echoTestParagraph($acct);
-    $acct->EchoLinks(GOLD_SILVER_PAGE, 'GetGoldSilverRelated');
+    $acct->EchoLinks('goldsilver', 'GetGoldSilverLinks');
 }
 
 function GetGoldSilverLinks($sym)
 {
-	$str = GetJisiluGoldLink();
-
-	$str .= '<br />&nbsp';
+	$str = GetExternalLink('http://www.spdrgoldshares.com/usa/', 'GLD官网').' '.GetJisiluGoldLink();
 	$str .= GetCommoditySoftwareLinks();
-	return $str;
+	$str .= GetOilSoftwareLinks();
+	$str .= GetChinaInternetSoftwareLinks();
+	return $str.GetGoldSilverRelated($sym->GetDigitA());
 }
 
 function GetMetaDescription()

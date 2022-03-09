@@ -148,7 +148,7 @@ function _echoFundAccountParagraph($csv, $ref, $strSymbol, $strStockId, $his_sql
 		$str .= ' '.GetStockOptionLink(STOCK_OPTION_SHARE_DIFF, $strSymbol);
 	}
 	
-	EchoTableParagraphBegin(_getFundAccountTableColumnArray(), FUND_ACCOUNT_PAGE, $str);
+	EchoTableParagraphBegin(_getFundAccountTableColumnArray(), 'fundaccount', $str);
 	_echoFundAccountData($csv, $ref, $strSymbol, $strStockId, $his_sql, $nav_sql);
     EchoTableParagraphEnd();
 }
@@ -220,7 +220,7 @@ function _echoLinearRegressionGraph($csv, $ref, $strSymbol, $strStockId, $his_sq
     	$str .= '<br />'.$jpg->GetAllLinks();
     	$str .= '<br />下一交易日'.STOCK_OPTION_SHARE_DIFF.'预测';
 
-    	EchoTableParagraphBegin(_getFundAccountTableColumnArray(), 'predict'.FUND_ACCOUNT_PAGE, $str);
+    	EchoTableParagraphBegin(_getFundAccountTableColumnArray(), 'predict'.'fundaccount', $str);
     	_echoFundAccountPredictData($ref, $strSymbol, $strStockId, $his_sql, $nav_sql, $jpg);
     	EchoTableParagraphEnd();
     }
@@ -251,7 +251,7 @@ function EchoAll()
             EchoRemarks($strSymbol);
         }
     }
-    $acct->EchoLinks(FUND_ACCOUNT_PAGE);
+    $acct->EchoLinks('fundaccount');
 }
 
 function GetMetaDescription()
@@ -259,7 +259,7 @@ function GetMetaDescription()
 	global $acct;
 	
   	$str = $acct->GetStockDisplay().FUND_ACCOUNT_DISPLAY;
-    $str .= '。仅用于美股相关QDII基金，利用A股基金限购的机会测算QDII溢价申购套利的群体规模。充分了解交易对手，做到知己知彼百战不殆。';
+    $str .= '。仅用于美股相关QDII基金，利用A股基金限购的机会测算QDII溢价申购套利的群体规模。知己知彼百战不殆。';
     return CheckMetaDescription($str);
 }
 

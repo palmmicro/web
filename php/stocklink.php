@@ -1,36 +1,21 @@
 <?php
 require_once('ui/stocktable.php');
 
-define('AB_DEMO_SYMBOL', 'SZ200488');
-define('ADRH_DEMO_SYMBOL', '00700');
-define('AH_DEMO_SYMBOL', '00386');
-define('FUND_DEMO_SYMBOL', 'SZ162411');
-define('STOCK_DEMO_SYMBOL', 'XOP');
-
 define('ADR_DISPLAY', 'ADR工具');
-define('ADR_PAGE', 'adr');
-
 define('CHINA_INDEX_DISPLAY', 'A股指数');
-define('CHINA_INDEX_PAGE', 'chinaindex');
-
 define('GOLD_SILVER_DISPLAY', '黄金白银');
-define('GOLD_SILVER_PAGE', 'goldsilver');
-
 define('QDII_DISPLAY', 'QDII工具');
-
 define('QDII_MIX_DISPLAY', '混合QDII');
-
 define('QDII_HK_DISPLAY', '香港QDII');
-define('QDII_HK_PAGE', 'qdiihk');
 
 function GetStockMenuArray()
 {
-    return array(ADR_PAGE => ADR_DISPLAY,
-                   CHINA_INDEX_PAGE => CHINA_INDEX_DISPLAY,
-                   GOLD_SILVER_PAGE => GOLD_SILVER_DISPLAY,
+    return array('adr' => ADR_DISPLAY,
+                   'chinaindex' => CHINA_INDEX_DISPLAY,
+                   'goldsilver' => GOLD_SILVER_DISPLAY,
                    'qdii' => QDII_DISPLAY,
                    'qdiimix' => QDII_MIX_DISPLAY,
-                   QDII_HK_PAGE => QDII_HK_DISPLAY);
+                   'qdiihk' => QDII_HK_DISPLAY);
 }
 
 function GetStockPhpLink($strPage, $strDisplay, $strQuery = false)
@@ -89,10 +74,9 @@ function GetStockHistoryLink($strSymbol)
 }
 
 define('FUND_HISTORY_DISPLAY', '基金溢价记录');
-define('FUND_HISTORY_PAGE', 'fundhistory');
-function GetFundHistoryLink($strSymbol = FUND_DEMO_SYMBOL)
+function GetFundHistoryLink($strSymbol)
 {
-    return GetStockSymbolLink(FUND_HISTORY_PAGE, $strSymbol, FUND_HISTORY_DISPLAY);
+    return GetStockSymbolLink('fundhistory', $strSymbol, FUND_HISTORY_DISPLAY);
 }
 
 define('NETVALUE_HISTORY_DISPLAY', '净值记录');
@@ -103,47 +87,42 @@ function GetNetValueHistoryLink($strSymbol, $strExtraQuery = false, $strExtraDis
 }
 
 define('NVCLOSE_HISTORY_DISPLAY', '净值价格比较');
-define('NVCLOSE_HISTORY_PAGE', 'nvclosehistory');
 function GetNvCloseHistoryLink($strSymbol)
 {
-	return GetStockSymbolLink(NVCLOSE_HISTORY_PAGE, $strSymbol, NVCLOSE_HISTORY_DISPLAY);
+	return GetStockSymbolLink('nvclosehistory', $strSymbol, NVCLOSE_HISTORY_DISPLAY);
 }
 
-function GetFundLinks($strSymbol = FUND_DEMO_SYMBOL)
+function GetFundLinks($strSymbol)
 {
 	return GetFundHistoryLink($strSymbol).' '.GetNetValueHistoryLink($strSymbol).' '.GetStockHistoryLink($strSymbol).' '.GetFundShareLink($strSymbol).' '.GetNvCloseHistoryLink($strSymbol);
 }
 
 define('AH_HISTORY_DISPLAY', 'AH'.STOCK_HISTORY_DISPLAY.'比较');
-define('AH_HISTORY_PAGE', 'ahhistory');
 function GetAhHistoryLink($strSymbol)
 {
-    return GetStockSymbolLink(AH_HISTORY_PAGE, $strSymbol, AH_HISTORY_DISPLAY);
+    return GetStockSymbolLink('ahhistory', $strSymbol, AH_HISTORY_DISPLAY);
 }
 
 define('THANOUS_PARADOX_DISPLAY', '小心愿佯谬');
-define('THANOUS_PARADOX_PAGE', 'thanousparadox');
-function GetThanousParadoxLink($strSymbol = FUND_DEMO_SYMBOL)
+function GetThanousParadoxLink($strSymbol)
 {
-    return GetStockSymbolLink(THANOUS_PARADOX_PAGE, $strSymbol, THANOUS_PARADOX_DISPLAY);
+    return GetStockSymbolLink('thanousparadox', $strSymbol, THANOUS_PARADOX_DISPLAY);
 }
 
 define('FUND_ACCOUNT_DISPLAY', '基金场内申购账户');
-define('FUND_ACCOUNT_PAGE', 'fundaccount');
-function GetFundAccountLink($strSymbol = FUND_DEMO_SYMBOL)
+function GetFundAccountLink($strSymbol)
 {
-    return GetStockSymbolLink(FUND_ACCOUNT_PAGE, $strSymbol, FUND_ACCOUNT_DISPLAY);
+    return GetStockSymbolLink('fundaccount', $strSymbol, FUND_ACCOUNT_DISPLAY);
 }
 
 define('FUND_POSITION_DISPLAY', '基金仓位估算');
-define('FUND_POSITION_PAGE', 'fundposition');
-function GetFundPositionLink($strSymbol = FUND_DEMO_SYMBOL)
+function GetFundPositionLink($strSymbol)
 {
-    return GetStockSymbolLink(FUND_POSITION_PAGE, $strSymbol, FUND_POSITION_DISPLAY);
+    return GetStockSymbolLink('fundposition', $strSymbol, FUND_POSITION_DISPLAY);
 }
 
 define('FUND_SHARE_DISPLAY', '基金场内份额');
-function GetFundShareLink($strSymbol = FUND_DEMO_SYMBOL)
+function GetFundShareLink($strSymbol)
 {
     return GetStockSymbolLink('fundshare', $strSymbol, FUND_SHARE_DISPLAY);
 }
@@ -193,10 +172,9 @@ function GetStockOptionLink($strOption, $strSymbol)
 }
 
 define('AUTO_TRACTOR_DISPLAY', '拖拉机自动化');
-define('AUTO_TRACTOR_PAGE', 'autotractor');
 function GetAutoTractorLink($strQuery = false)
 {
-    return GetStockPageLink(AUTO_TRACTOR_PAGE, AUTO_TRACTOR_DISPLAY, $strQuery);
+    return GetStockPageLink('autotractor', AUTO_TRACTOR_DISPLAY, $strQuery);
 }
 
 define('MY_PORTFOLIO_DISPLAY', '持仓盈亏');
@@ -206,24 +184,21 @@ function GetMyPortfolioLink($strQuery = false)
 }
 
 define('AH_COMPARE_DISPLAY', 'A股和H股对比');
-define('AH_COMPARE_PAGE', 'ahcompare');
 function GetAhCompareLink()
 {
-    return GetStockPageLink(AH_COMPARE_PAGE, AH_COMPARE_DISPLAY);
+    return GetStockPageLink('ahcompare', AH_COMPARE_DISPLAY);
 }
 
 define('ETF_LIST_DISPLAY', '基金指数对照表');
-define('ETF_LIST_PAGE', 'etflist');
 function GetEtfListLink()
 {
-    return GetStockPageLink(ETF_LIST_PAGE, ETF_LIST_DISPLAY);
+    return GetStockPageLink('etflist', ETF_LIST_DISPLAY);
 }
 
 define('ADRH_COMPARE_DISPLAY', 'ADR和H股对比');
-define('ADRH_COMPARE_PAGE', 'adrhcompare');
 function GetAdrhCompareLink()
 {
-    return GetStockPageLink(ADRH_COMPARE_PAGE, ADRH_COMPARE_DISPLAY);
+    return GetStockPageLink('adrhcompare', ADRH_COMPARE_DISPLAY);
 }
 
 define('STOCK_GROUP_DISPLAY', '股票分组');
@@ -234,14 +209,13 @@ function GetMyStockGroupLink($strQuery = false, $strDisplay = false)
 }
 
 define('STOCK_TRANSACTION_DISPLAY', '交易记录');
-define('STOCK_TRANSACTION_PAGE', 'mystocktransaction');
 function StockGetTransactionLink($strGroupId, $strSymbol, $strDisplay = false)
 {
     $strQuery = 'groupid='.$strGroupId;
     if ($strSymbol)	$strQuery .= '&symbol='.$strSymbol;
     
     if ($strDisplay == false)	$strDisplay = $strSymbol;
-	return GetStockPageLink(STOCK_TRANSACTION_PAGE, $strDisplay, $strQuery);
+	return GetStockPageLink('mystocktransaction', $strDisplay, $strQuery);
 }
 
 function StockGetAllTransactionLink($strGroupId, $ref = false)

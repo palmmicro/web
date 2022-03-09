@@ -175,7 +175,7 @@ function _echoFundPositionParagraph($ref, $strSymbol, $strInput)
 								   new TableColumnNav($est_ref->GetSymbol()),
 								   $change_col,
 								   $position_col
-								   ), FUND_POSITION_PAGE, $str);
+								   ), 'fundposition', $str);
 	
 	if ($strInput == '0')
 	{
@@ -235,7 +235,7 @@ function EchoAll()
             _echoFundPositionParagraph(new QdiiReference($strSymbol), $strSymbol, $strInput);
         }
     }
-    $acct->EchoLinks(FUND_POSITION_PAGE);
+    $acct->EchoLinks('fundposition');
 }
 
 function GetMetaDescription()
@@ -243,7 +243,7 @@ function GetMetaDescription()
 	global $acct;
 	
   	$str = $acct->GetStockDisplay().FUND_POSITION_DISPLAY;
-    $str .= '。仅用于美股相关QDII基金，寻找对应美股ETF净值连续几天上涨或者下跌超过4%的机会测算A股基金的股票持仓仓位，按基金说明书这个数值可能会在80%-95%之间变动。';
+    $str .= '。仅用于美股QDII基金，寻找对应ETF净值连续几天涨跌超过4%的机会测算A股基金的持仓仓位，LOF基金仓位可能会在80%-95%之间。';
     return CheckMetaDescription($str);
 }
 

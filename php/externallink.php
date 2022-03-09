@@ -8,11 +8,6 @@ function GetOfficialLink($strHttp, $strDisplay)
     return GetExternalLink($strHttp, $strDisplay.'官网');
 }
 
-function GetGuoTaiOfficialLink($strDigitA)
-{
-    return GetOfficialLink(GetGuoTaiFundUrl().'/Etrade/Jijin/view/id/'.$strDigitA, $strDigitA);
-}
-
 function GetSpindicesOfficialLink($strTicker)
 {
 	$str = 'https://us.spindices.com/indices/';

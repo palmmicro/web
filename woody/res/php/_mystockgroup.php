@@ -89,20 +89,20 @@ function _echoStockGroupArray($arStock, $bAdmin)
 
 function _getMetaDescriptionStr($strPage)
 {
-	$ar = array(ADR_PAGE => '通过比较中国企业在美国发行的American Depositary Receipt(ADR)的中国A股价格, 港股价格和美股价格, 分析各种套利对冲方案.',
-				  ADRH_COMPARE_PAGE => ADRH_COMPARE_DISPLAY.'工具, 按ADR股票代码排序. 主要显示H股交易情况, 同时计算AdrH价格比和HAdr价格比. H股是指获中国证监会批核到香港上市的国有企业, 也称国企股.',
-				  AH_COMPARE_PAGE => AH_COMPARE_DISPLAY.'工具, 按A股股票代码排序. 主要显示H股交易情况, 同时计算AH价格比和HA价格比. H股是指获中国证监会批核到香港上市的国有企业, 也称国企股.',
-				  CHINA_INDEX_PAGE => CHINA_INDEX_DISPLAY.'基金工具, 计算基金净值, 同时分析比较各种套利对冲方案. 包括美股ASHR和多家国内基金公司的A股沪深300指数基金的配对交易等.',
+	$ar = array('adr' => '通过比较中国企业在美国发行的American Depositary Receipt(ADR)的中国A股价格, 港股价格和美股价格, 分析各种套利对冲方案.',
+				  'adrhcompare' => ADRH_COMPARE_DISPLAY.'工具, 按ADR股票代码排序. 主要显示H股交易情况, 同时计算AdrH价格比和HAdr价格比. H股是指获中国证监会批核到香港上市的国有企业, 也称国企股.',
+				  'ahcompare' => AH_COMPARE_DISPLAY.'工具, 按A股股票代码排序. 主要显示H股交易情况, 同时计算AH价格比和HA价格比. H股是指获中国证监会批核到香港上市的国有企业, 也称国企股.',
+				  'chinaindex' => CHINA_INDEX_DISPLAY.'基金工具, 计算基金净值, 同时分析比较各种套利对冲方案. 包括美股ASHR和多家国内基金公司的A股沪深300指数基金的配对交易等.',
 				  'chinainternet' => '跟踪几个不同中证海外中国互联网指数的中概互联基金们在2021年初疯狂见顶后几个月时间一路狂泻都跌成了'.CHINAINTERNET_GROUP_DISPLAY.'，也因此跌出了QDII基金有史以来最为壮观的流动性。',
 				  'commodity' => COMMODITY_GROUP_DISPLAY.'基金的净值估算, 目前包括大致对应跟踪GSG的信诚商品(SZ165513)和银华通胀(SZ161815). 跟踪大宗商品期货的基金都有因为期货升水带来的损耗, 不建议长期持有.',
-				  ETF_LIST_PAGE => '各个估值页面中用到的基金和指数对照表, 包括杠杆倍数和校准值快照, 同时提供链接查看具体校准情况. 有些指数不容易拿到数据, 就用1倍ETF代替指数给其它杠杆ETF做对照.',
-				  GOLD_SILVER_PAGE => '当A股大跌的时候, 完全不相关的黄金白银基金也经常会跟着跌, 这样会产生套利机会. 这里计算各种黄金白银基金的净值, 同时分析比较各种套利对冲方案.',
+				  'etflist' => '各个估值页面中用到的基金和指数对照表, 包括杠杆倍数和校准值快照, 同时提供链接查看具体校准情况. 有些指数不容易拿到数据, 就用1倍ETF代替指数给其它杠杆ETF做对照.',
+				  'goldsilver' => '当A股大跌的时候, 完全不相关的黄金白银基金也经常会跟着跌, 这样会产生套利机会. 这里计算各种黄金白银基金的净值, 同时分析比较各种套利对冲方案.',
 				  'hangseng' => HANGSENG_GROUP_DISPLAY.'基金的净值估算。使用恒生指数【^HSI】计算官方估值和参考估值、使用恒生指数期货【hf_HSI】提供港股不开盘期间的实时估值。',
 				  'hshares' => '港交所在2017年后玩弄文字游戏把H股国企指数改成'.HSHARES_GROUP_DISPLAY.'，大量加入非国有企业成分股，就是为了吸引迷信鹅厂的国内韭菜跨过香江去夺取港股定价权！',
 				  'hstech' => '厌倦了港交所加印花税的贪婪，本来没想跟踪'.HSTECH_GROUP_DISPLAY.'基金的净值。不过在无意中发现了KTEC后，觉得还是应该补上，为日后可能的跨市场套利机会做好准备。',
 				  'qdii' => QDII_DISPLAY.'官方估值用来验证计算方式的准确性。以参考估值为准，折价不申购、溢价不赎回。上涨赚溢价、下跌赚净值，不要怂，就是干！',
 				  'qdiimix' => '采用跟踪成分股变化的方式对同时有美股和港股持仓的中丐互怜等QDII基金进行净值估算，这样参考估值可以反应白天港股波动对净值的影响。',
-				  QDII_HK_PAGE => QDII_HK_DISPLAY.'基金的净值估算. 直接导致把香港QDII从其它QDII页面分出来的原因是有基金居然只有指数而没有对应的港股ETF, 只好用指数给所有港股QDII估值了.',
+				  'qdiihk' => QDII_HK_DISPLAY.'基金的净值估算. 直接导致把香港QDII从其它QDII页面分出来的原因是有基金居然只有指数而没有对应的港股ETF, 只好用指数给所有港股QDII估值了.',
 				  'oilfund' => '跟踪'.OIL_GROUP_DISPLAY.'期货的基金有升水损耗，不建议长期持有。跨市场套利时，不要赌几个小时后A股QDII基金折价溢价转折点，只做连续折价或者连续溢价套利。',
 				  'qqqfund' => QQQ_GROUP_DISPLAY.'基金的净值估算, 目前包括纳指ETF(SH513100)和纳指100(SZ159941)等. 使用纳斯达克100指数(^NDX)估值, QQQ仅用于参考.',
 				  'spyfund' => SPY_GROUP_DISPLAY.'基金的净值估算, 目前包括沪市标普500(SH513500)和深市标普500(SZ161125)等.使用标普500指数(^GSPC)估值, SPY仅用于参考.',
@@ -114,21 +114,12 @@ function _getSimilarLinks($strPage)
 {
     switch ($strPage)
     {
-    case ADR_PAGE:
-    case ADRH_COMPARE_PAGE:
+    case 'adrhcompare':
     	$str = GetAastocksLink();
         break;
   
-    case AH_COMPARE_PAGE:
+    case 'ahcompare':
     	$str = GetExternalLink(GetJisiluDataUrl().'ha/', '集思录').' '.GetExternalLink('http://data.10jqka.com.cn/market/ahgbj/', '同花顺').' '.GetAastocksLink('ah');
-        break;
-  
-    case GOLD_SILVER_PAGE:
-		$str = GetJisiluGoldLink();
-        break;
-        
-    case QDII_HK_PAGE:
-		$str = GetJisiluQdiiLink(true);
         break;
         
     default:
@@ -220,20 +211,20 @@ function GetMetaDescription()
 function _getTitleStr($strPage)
 {
 	$strTool = '基金净值计算工具';
-	$ar = array(ADR_PAGE => ADR_DISPLAY,
-				  ADRH_COMPARE_PAGE => ADRH_COMPARE_DISPLAY,
-			  	  AH_COMPARE_PAGE => AH_COMPARE_DISPLAY,
-			  	  CHINA_INDEX_PAGE => CHINA_INDEX_DISPLAY.$strTool,
+	$ar = array('adr' => ADR_DISPLAY,
+				  'adrhcompare' => ADRH_COMPARE_DISPLAY,
+			  	  'ahcompare' => AH_COMPARE_DISPLAY,
+			  	  'chinaindex' => CHINA_INDEX_DISPLAY.$strTool,
 			  	  'chinainternet' => CHINAINTERNET_GROUP_DISPLAY.$strTool,
 			  	  'commodity' => COMMODITY_GROUP_DISPLAY.$strTool,
-			  	  ETF_LIST_PAGE => ETF_LIST_DISPLAY,
-			  	  GOLD_SILVER_PAGE => GOLD_SILVER_DISPLAY.$strTool,
+			  	  'etflist' => ETF_LIST_DISPLAY,
+			  	  'goldsilver' => GOLD_SILVER_DISPLAY.$strTool,
 			  	  'hangseng' => HANGSENG_GROUP_DISPLAY.$strTool,
 			  	  'hshares' => HSHARES_GROUP_DISPLAY.$strTool,
 			  	  'hstech' => HSTECH_GROUP_DISPLAY.$strTool,
 			  	  'qdii' => QDII_DISPLAY,
 			  	  'qdiimix' => QDII_MIX_DISPLAY.$strTool,
-			  	  QDII_HK_PAGE => QDII_HK_DISPLAY.$strTool,
+			  	  'qdiihk' => QDII_HK_DISPLAY.$strTool,
 			  	  'oilfund'	=> OIL_GROUP_DISPLAY.$strTool,
 			  	  'qqqfund'	=> QQQ_GROUP_DISPLAY.$strTool,
 			  	  'spyfund'	=> SPY_GROUP_DISPLAY.$strTool,

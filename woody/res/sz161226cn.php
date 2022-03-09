@@ -1,10 +1,9 @@
 <?php 
 require('php/_goldsilver.php');
 
-function GetGoldSilverRelated($sym)
+function GetGoldSilverRelated($strDigitA)
 {
-	$str = GetGoldSilverLinks($sym);
-	$str .= GetUbsSdicSoftwareLinks();
+	$str = GetBreakElement().GetUbsSdicSoftwareLinks($strDigitA);
 	return $str;
 }
 

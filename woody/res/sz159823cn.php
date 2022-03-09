@@ -3,8 +3,8 @@ require('php/_qdiihk.php');
 
 function GetQdiiHkRelated($strDigitA)
 {
-	$str = GetJiaShiOfficialLink($strDigitA);
-	$str .= GetJiaShiSoftwareLinks();
+	$str = GetBreakElement();
+	$str .= GetJiaShiSoftwareLinks($strDigitA);
 	return $str;
 }
 

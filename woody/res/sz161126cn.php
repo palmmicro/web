@@ -3,10 +3,9 @@ require('php/_qdii.php');
 
 function GetQdiiRelated($strDigitA)
 {
-	$str = GetEFundOfficialLink($strDigitA);
-	$str .= GetQqqSoftwareLinks();
+	$str = GetQqqSoftwareLinks();
 	$str .= GetChinaInternetSoftwareLinks();
-	$str .= GetEFundSoftwareLinks();
+	$str .= GetBreakElement().GetEFundSoftwareLinks($strDigitA);
 	$str .= _GetKnownBugs('注意XLV和SZ161126跟踪的指数可能不同，此处估算结果仅供参考。');
 	return $str;
 }

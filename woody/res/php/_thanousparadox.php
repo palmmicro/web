@@ -91,7 +91,7 @@ function _echoThanousParadoxParagraph($strSymbol, $iStart, $iNum)
 								   new TableColumnPremium('x'),
 								   new TableColumnStock($strEstSymbol),
 								   new TableColumnChange('y')
-								   ), THANOUS_PARADOX_PAGE, $str);
+								   ), 'thanousparadox', $str);
 
    	$csv = new PageCsvFile();
 	_echoThanousParadoxData($csv, $nav_sql, $ref->stock_ref, $strStockId, $est_ref, $iStart, $iNum);
@@ -119,7 +119,7 @@ function EchoAll()
 //            DebugString($strSymbol.' Thanous Paradox: '.DebugGetStopWatchDisplay($fStart));
         }
     }
-    $acct->EchoLinks(THANOUS_PARADOX_PAGE);
+    $acct->EchoLinks('thanousparadox');
 }
 
 function GetMetaDescription()

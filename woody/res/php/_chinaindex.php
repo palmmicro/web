@@ -91,17 +91,16 @@ function EchoAll()
     	EchoParagraph($str);
 	}
 
-    $acct->EchoLinks(CHINA_INDEX_PAGE, 'GetChinaIndexRelated');
+    $acct->EchoLinks('chinaindex', 'GetChinaIndexLinks');
 }
 
 function GetChinaIndexLinks($sym)
 {
 	$str = GetExternalLink('https://dws.com/US/EN/Product-Detail-Page/ASHR', 'ASHR官网');
-
-	$str .= '<br />&nbsp';
 	$str .= GetASharesSoftwareLinks();
-	$str .= GetSpySoftwareLinks();
-	return $str;
+	$str .= GetChinaInternetSoftwareLinks();
+	$str .= GetOilSoftwareLinks();
+	return $str.GetChinaIndexRelated($sym->GetDigitA());
 }
 
 function GetMetaDescription()

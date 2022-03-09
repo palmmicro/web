@@ -52,17 +52,17 @@ function EchoAll()
 
 function GetQdiiLinks($sym)
 {
-	$str = '';
+	$str = GetJisiluQdiiLink();
 	
 	$strSymbol = $sym->GetSymbol();
 	if (in_arrayOilQdii($strSymbol))
 	{
-		$str .= GetUscfLink().' ';
+		$str .= ' '.GetUscfLink();
 	}
 	
 	if (in_arrayQqqQdii($strSymbol))
 	{
-		$str .= GetInvescoOfficialLink('QQQ').' ';
+		$str .= ' '.GetInvescoOfficialLink('QQQ');
 	}
 	
 	$strFutureSymbol = QdiiGetFutureSymbol($strSymbol);

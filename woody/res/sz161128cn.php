@@ -3,10 +3,10 @@ require('php/_qdii.php');
 
 function GetQdiiRelated($strDigitA)
 {
-	$str = GetEFundOfficialLink($strDigitA);
-	$str .= GetQqqSoftwareLinks();
+	$str = GetQqqSoftwareLinks();
 	$str .= GetChinaInternetSoftwareLinks();
-	$str .= GetEFundSoftwareLinks();
+	$str .= GetBreakElement();
+	$str .= GetEFundSoftwareLinks($strDigitA);
 	return $str;
 }
 

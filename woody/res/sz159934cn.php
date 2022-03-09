@@ -1,11 +1,10 @@
 <?php 
 require('php/_goldsilver.php');
 
-function GetGoldSilverRelated($sym)
+function GetGoldSilverRelated($strDigitA)
 {
-	$str = GetEFundOfficialLink($sym->GetDigitA());
-	$str .= ' '.GetGoldSilverLinks($sym);
-	$str .= GetEFundSoftwareLinks();
+	$str = GetBreakElement();
+	$str .= GetEFundSoftwareLinks($strDigitA);
 	return $str;
 }
 
