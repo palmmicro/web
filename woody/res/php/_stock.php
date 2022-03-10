@@ -190,7 +190,7 @@ function RefGetStockDisplay($ref)
 
 function GetKnownBugs($arBug)
 {
-	return GetHtmlElement('已知问题', 'h3').GetListElement($arBug);
+	return GetHeadElement('已知问题').GetListElement($arBug);
 }
 
 function _GetKnownBugs()

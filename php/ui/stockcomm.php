@@ -91,7 +91,7 @@ function GetArbitrageRatio($strSymbol)
    		break;
     		
    	case 'SZ163208':
-		$iArbitrage = 550;
+		$iArbitrage = 660;
    		break;
     		
    	case 'SZ164906':

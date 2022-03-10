@@ -102,7 +102,7 @@ function _getMetaDescriptionStr($strPage)
 				  'hstech' => '厌倦了港交所加印花税的贪婪，本来没想跟踪'.HSTECH_GROUP_DISPLAY.'基金的净值。不过在无意中发现了KTEC后，觉得还是应该补上，为日后可能的跨市场套利机会做好准备。',
 				  'qdii' => QDII_DISPLAY.'官方估值用来验证计算方式的准确性。以参考估值为准，折价不申购、溢价不赎回。上涨赚溢价、下跌赚净值，不要怂，就是干！',
 				  'qdiimix' => '采用跟踪成分股变化的方式对同时有美股和港股持仓的中丐互怜等QDII基金进行净值估算，这样参考估值可以反应白天港股波动对净值的影响。',
-				  'qdiihk' => QDII_HK_DISPLAY.'基金的净值估算. 直接导致把香港QDII从其它QDII页面分出来的原因是有基金居然只有指数而没有对应的港股ETF, 只好用指数给所有港股QDII估值了.',
+				  'qdiihk' => '把'.QDII_HK_DISPLAY.'从其它QDII页面分出来，不光能够优化网站和代码结构，还能更好的体验股市三大幻觉：A股要涨、美股见顶、港股便宜！',
 				  'oilfund' => '跟踪'.OIL_GROUP_DISPLAY.'期货的基金有升水损耗，不建议长期持有。跨市场套利时，不要赌几个小时后A股QDII基金折价溢价转折点，只做连续折价或者连续溢价套利。',
 				  'qqqfund' => QQQ_GROUP_DISPLAY.'基金的净值估算, 目前包括纳指ETF(SH513100)和纳指100(SZ159941)等. 使用纳斯达克100指数(^NDX)估值, QQQ仅用于参考.',
 				  'spyfund' => SPY_GROUP_DISPLAY.'基金的净值估算, 目前包括沪市标普500(SH513500)和深市标普500(SZ161125)等.使用标普500指数(^GSPC)估值, SPY仅用于参考.',
@@ -146,8 +146,11 @@ function _getGroupImageLink($strPage)
     case 'qdii':
     	return ImgWinMan();
     	
-    case 'oilfund':
+    case 'qdiihk':
     	return QuoteImgElement('ronin.jpg', 'Deirdre：你刚才到底在后面干什么？Sam：女士，如果一个地方我不知道如何走出去，就绝不会走进去。');
+    	
+    case 'oilfund':
+    	return ImgPanicFree();
     }
     return false;
 }

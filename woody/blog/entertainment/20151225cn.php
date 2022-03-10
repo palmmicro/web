@@ -14,7 +14,7 @@
 <div>
 <h1>新浪股票数据接口的字段意义</h1>
 <p>2015年12月25日
-<br />在<?php EchoXueqieId('2091843424', '塔夫男'); ?>等人的建议下, 最近打算加入记录<?php echo GetFundHistoryLink(FUND_DEMO_SYMBOL); ?>的表格.
+<br />在<?php EchoXueqieId('2091843424', '塔夫男'); ?>等人的建议下, 最近打算加入<?php EchoNameLink('fundhistory', FUND_HISTORY_DISPLAY, '20150818cn.php'); ?>的表格.
 开始动手后发现4个多月前分析的新浪A股实时数据接口的字段意义已经差不多忘光了. 好记性不如烂笔头, 本着磨刀不误砍柴工的精神, 先在这里完整记录一下, 以便日后查阅.
 <br />目前从<?php EchoSinaQuotesLink('sz162411'); ?>拿到后记录在<?php EchoSinaDebugLink('sz162411'); ?>中的数据如下:
 <br /><font color=gray>var hq_str_sz162411="华宝油气,

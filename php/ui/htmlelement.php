@@ -64,6 +64,11 @@ function GetCodeElement($strContent)
 	return GetHtmlElement(GetFontElement($strContent, 'olive'), 'code');
 }
 
+function GetHeadElement($strContent)
+{
+	return GetHtmlElement($strContent, 'h3');
+}
+
 function GetListElement($arContent, $bOrder = true)
 {
 	$str = '';

@@ -24,6 +24,11 @@ function ImgLinearRegression($bChinese = true)
 	return QuoteImgElement('20190824.jpg', '线性回归计算步骤', 'Linear regression calculation steps', $bChinese);
 }
 
+function ImgPanicFree($bChinese = true)
+{
+	return QuoteImgElement('dashidai.jpg', '郑少秋饰演丁蟹：不要怕，是技术性调整，不要怕。');
+}
+
 function ImgRobloxDice($bChinese = true)
 {
 	return QuoteImgElement('robloxdice.jpg', '罗布乐思4个骰子加14验证码', 'Roblox 4 dices adding to 14 captcha', $bChinese);
