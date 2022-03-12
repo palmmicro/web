@@ -8,7 +8,7 @@ class MemberSql extends KeyNameSql
 	
     function MemberSql()
     {
-    	$this->strIpKey = $this->Add_id(TABLE_IP);
+    	$this->strIpKey = $this->Add_id('ip');
         parent::KeyNameSql(TABLE_MEMBER.'2', 'email');
     }
 

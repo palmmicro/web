@@ -72,7 +72,7 @@ class IpLookupAccount extends CommentAccount
 	    	}
 	    	@mysql_free_result($result);
 	    }
-	    $str .= '<br />'.strval($iTotal).' '.GetAllCommentLink(TABLE_IP.'='.$strIp, $bChinese).'<br />';
+	    $str .= '<br />'.strval($iTotal).' '.GetAllCommentLink('ip='.$strIp, $bChinese).'<br />';
 	    return $str;
 	}
 

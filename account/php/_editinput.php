@@ -1,5 +1,7 @@
 <?php
 require_once('_account.php');
+require_once('/php/externalurl.php');
+require_once('/php/gb2312.php');
 require_once('/php/iplookup.php');
 require_once('/php/stocklink.php');
 require_once('/php/benfordimagefile.php');
@@ -79,6 +81,29 @@ function _getChiSquaredTestString($strInput, $bChinese)
 	}
 	$str .= ImgChiSquared($bChinese);
 	return $str;
+}
+
+function _getDiceCaptchaString($strInput, $bChinese)
+{
+	$ar = explode(';', $strInput);
+	if (count($ar) == 2)
+	{
+		$strNum = trim($ar[0]);
+		$strTarget = trim($ar[1]);
+		$arDisplay = RobloxDice(intval($strNum), intval($strTarget));
+		$strCount = strval(count($arDisplay));
+		$arDisplay = array_unique($arDisplay);
+
+		if ($bChinese)	$str = $strNum.'个骰子加起来等于'.$strTarget.'总共有'.$strCount.'种情况，排序合并后如下：';
+		else				$str = $strNum.' dices adding up to '.$strTarget.' can appear in '.$strCount.' ways, here is the result after sorting and merging:';
+		foreach ($arDisplay as $strDisplay)
+		{
+			$str .= '<br/>'.$strDisplay;
+		}
+		$str .= ImgRobloxDice($bChinese);
+		return $str;
+	}
+	return ($bChinese ? '数据格式不对' : 'Wrong data format');
 }
 
 function _getLinearRegressionString($strInput, $bChinese)
@@ -183,27 +208,31 @@ function _getPrimeNumberString($strNumber, $bChinese)
 	return $str;
 }
 
-function _getDiceCaptchaString($strInput, $bChinese)
+function _getSinaJsString($strInput, $bChinese)
 {
-	$ar = explode(';', $strInput);
-	if (count($ar) == 2)
-	{
-		$strNum = trim($ar[0]);
-		$strTarget = trim($ar[1]);
-		$arDisplay = RobloxDice(intval($strNum), intval($strTarget));
-		$strCount = strval(count($arDisplay));
-		$arDisplay = array_unique($arDisplay);
-
-		if ($bChinese)	$str = $strNum.'个骰子加起来等于'.$strTarget.'总共有'.$strCount.'种情况，排序合并后如下：';
-		else				$str = $strNum.' dices adding up to '.$strTarget.' can appear in '.$strCount.' ways, here is the result after sorting and merging:';
-		foreach ($arDisplay as $strDisplay)
-		{
-			$str .= '<br/>'.$strDisplay;
-		}
-		$str .= ImgRobloxDice($bChinese);
-		return $str;
-	}
-	return ($bChinese ? '数据格式不对' : 'Wrong data format');
+    if ($str = url_get_contents(GetSinaQuotesUrl($strInput), false, 'https://stock.finance.sina.com.cn/hkstock/quotes/HSI.html'))
+    {
+    	$arLine = explode("\n", $str);
+    	$str = '';
+    	$strNewLine = GetBreakElement();
+    	foreach ($arLine as $strLine)
+    	{
+    		if ($strLine != '')
+    		{
+    			$arItem = explode(',', $strLine);
+//    			$str .= $strLine.$strNewLine;
+	    		foreach ($arItem as $strItem)
+	    		{
+	    			if ($strItem == '')	$str .= '('.($bChinese ? '空' : 'Empty').')';
+	    			else					$str .= GbToUtf8($strItem);
+	    			$str .= $strNewLine;
+	    		}
+	    		$str .= $strNewLine;
+	    	}
+	    }
+    	return $str;
+    }
+    return 'curl'.($bChinese ? '失败' : ' failed');
 }
 
 function _getTaobaoDouble11Data()
@@ -302,7 +331,7 @@ function _echoInputResult($acct, $strPage, $strInput, $bChinese)
     	$str .= HexView($strInput);
     	break;
     		
-    case TABLE_IP:
+    case 'ip':
 		if (filter_valid_ip($strInput))
 		{
 			$sql = $acct->GetIpSql();
@@ -321,6 +350,10 @@ function _echoInputResult($acct, $strPage, $strInput, $bChinese)
     	
     case TABLE_PRIME_NUMBER:
     	$str = _getPrimeNumberString($strInput, $bChinese);
+    	break;
+    	
+   	case 'sinajs':
+    	$str = _getSinaJsString($strInput, $bChinese);
     	break;
     }
     
@@ -352,7 +385,7 @@ function _getDefaultInput($strPage)
     	$str = '4; 14';
     	break;
     	
-   	case TABLE_IP:
+   	case 'ip':
    		$str = UrlGetIp();
     	break;
     		
@@ -361,6 +394,10 @@ function _getDefaultInput($strPage)
     	$str = _getTaobaoDouble11SqrtData();
     	break;
     		
+   	case 'sinajs':
+    	$str = 'sz164906,f_164906,gb_kweb,rt_hkHSIII';
+   		break;
+   		
     default:
     	$str = strval(GetNowTick());
     	break;
@@ -395,8 +432,12 @@ function EchoAll($bChinese = true)
 
 function _getAccountToolTitle($strPage, $strQuery, $bChinese)
 {
-	$str = $strQuery ? $strQuery.' ' : '';
-	$str .= GetAccountToolStr($strPage, $bChinese);
+	$str = GetAccountToolStr($strPage, $bChinese);
+	if ($strQuery)
+	{
+		if ($bChinese == false)	$str .= ' ';
+		$str .= $strQuery; 
+	}
 	return $str;
 }
 
@@ -438,7 +479,7 @@ function GetMetaDescription($bChinese = true)
     						: ' page, testing source code in /account/_editinput.php first. Functions will be moved to permanent pages after test.';
   		break;
   		
-  	case TABLE_IP:
+  	case 'ip':
   		$str .= $bChinese ? '查询页面. 从ipinfo.io等网站查询IP地址对应的国家, 城市, 网络运营商和公司等信息. 同时也从palmmicro.com的用户登录和评论中提取对应记录.'
     						: ' page, display country, city, service provider and company information from ipinfo.io.';
   		break;
@@ -452,6 +493,11 @@ function GetMetaDescription($bChinese = true)
   		$str .= $bChinese ? '页面. 质数又称素数, 该数除了1和它本身以外不再有其他的因数, 否则称为合数. 每个合数都可以写成几个质数相乘的形式. 其中每个质数都是这个合数的因数, 叫做这个合数的分解质因数.'
     						: ' page. A prime number (or a prime) is a natural number greater than 1 that has no positive divisors other than 1 and itself.';	//  A natural number greater than 1 that is not a prime number is called a composite number
     	break;
+    	
+   	case 'sinajs':
+  		$str .= $bChinese ? '查询页面。在新浪股票数据接口加上Referer验证后提供一个可以直观看到查询结果的地方，同时为日后的新验证测试做好准备。'
+    						: ' page, provide a direct display after Referer verification added to Sina stock data interface.';
+  		break;
     }
     return CheckMetaDescription($str);
 }
@@ -464,5 +510,5 @@ function GetTitle($bChinese = true)
 	return _getAccountToolTitle($strPage, $acct->GetQuery(), $bChinese);
 }
 
-	$acct = new IpLookupAccount(false, array(TABLE_COMMON_PHRASE, TABLE_IP));
+	$acct = new IpLookupAccount(false, array(TABLE_COMMON_PHRASE, 'ip'));
 ?>

@@ -17,11 +17,11 @@ class _AdminOperationAccount extends Account
     	{
     		$this->_onManualCalibration($strSymbol);
     	}	
-    	else if ($strIp = UrlGetQueryValue(TABLE_IP))
+    	else if ($strIp = UrlGetQueryValue('ip'))
     	{
     		$this->SetCrawler($strIp);
     	}
-    	else if ($strIp = UrlGetQueryValue('malicious'.TABLE_IP))
+    	else if ($strIp = UrlGetQueryValue('maliciousip'))
     	{
     		$this->SetMalicious($strIp);
     	}

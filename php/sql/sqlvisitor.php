@@ -5,7 +5,7 @@ class VisitorSql extends KeySql
 {
 	var $strSrcKey;
 	
-    function VisitorSql($strTableName = TABLE_VISITOR, $strDstPrefix = TABLE_PAGE, $strSrcPrefix = TABLE_IP)
+    function VisitorSql($strTableName = TABLE_VISITOR, $strDstPrefix = TABLE_PAGE, $strSrcPrefix = 'ip')
     {
     	$this->strSrcKey = $this->Add_id($strSrcPrefix);
         parent::KeySql($strTableName, $strDstPrefix);

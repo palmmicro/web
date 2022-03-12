@@ -8,7 +8,7 @@ function EchoAll($bChinese = true)
     
     if ($str = $acct->GetQuery())
     {
-        $strQuery = TABLE_IP.'='.$str;
+        $strQuery = 'ip='.$str;
         $strLink = GetIpLink($str, $bChinese);
     	$strWhere = $acct->BuildWhereByIp($str);
     }
@@ -62,5 +62,5 @@ function GetMetaDescription($bChinese = true)
 	return CheckMetaDescription($str);
 }
 
-	$acct = new CommentAccount(TABLE_IP);
+	$acct = new CommentAccount('ip');
 ?>

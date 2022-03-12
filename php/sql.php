@@ -22,7 +22,6 @@ define('TABLE_DOW_JONES', 'dowjones');
 define('TABLE_FUND_EST', 'fundest');
 define('TABLE_FUND_PURCHASE', 'fundpurchase');
 define('TABLE_HOLDINGS', 'holdings');
-define('TABLE_IP', 'ip');
 define('TABLE_MEMBER', 'member');
 define('TABLE_NETVALUE_HISTORY', 'netvaluehistory');
 define('TABLE_PAGE', 'page');

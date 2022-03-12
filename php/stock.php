@@ -69,11 +69,6 @@ function explodeQuote($str)
     return explode(',', RemoveDoubleQuotationMarks($str));
 }
 
-function GetSinaQuotesUrl($strSinaSymbols)
-{
-	return 'http://hq.sinajs.cn/list='.$strSinaSymbols;
-}	
-
 function StockNeedFile($strFileName, $iInterval = SECONDS_IN_MIN)
 {
    	clearstatcache(true, $strFileName);

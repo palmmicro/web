@@ -125,9 +125,9 @@ function GetFundAccountLink($strSymbol)
 }
 
 define('FUND_POSITION_DISPLAY', '基金仓位估算');
-function GetFundPositionLink($strSymbol)
+function GetFundPositionLink($strSymbol, $bDisplaySymbol = false)
 {
-    return GetStockSymbolLink('fundposition', $strSymbol, FUND_POSITION_DISPLAY);
+    return GetStockSymbolLink('fundposition', $strSymbol, ($bDisplaySymbol ? $strSymbol : FUND_POSITION_DISPLAY));
 }
 
 define('FUND_SHARE_DISPLAY', '基金场内份额');

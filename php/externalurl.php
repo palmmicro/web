@@ -22,6 +22,11 @@ function GetYahooComponentsUrl($strYahooSymbol = '%5EDJI')
    	return YahooStockGetUrl($strYahooSymbol).'/components';
 }
 
+function GetSinaQuotesUrl($strSinaSymbols)
+{
+	return 'http://hq.sinajs.cn/list='.$strSinaSymbols;
+}	
+
 function GetSinaFinanceUrl()
 {
 	return 'https://finance.sina.com.cn/';

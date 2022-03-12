@@ -28,7 +28,7 @@ As PA6488 based camera is not available in market yet. Users can test the user m
 <br /><img src=../photo/phpisbest.jpg alt="PHP is the best programming language in the world!" />
 </p> 
 
-<h3>Public <?php EchoNameTag(TABLE_IP, ACCOUNT_TOOL_IP); ?></h3>
+<h3>Public <?php EchoNameTag('ip', ACCOUNT_TOOL_IP); ?></h3>
 <p>Mar 9, 2017
 <br /><?php EchoIpAddressLink(false); ?> tool.
 </p>
@@ -77,6 +77,11 @@ As PA6488 based camera is not available in market yet. Users can test the user m
 <p>Jul 2, 2021
 <br />Roblox <?php EchoDiceCaptchaLink(false); ?> tool.
 <?php echo ImgRobloxDice(false); ?>
+</p>
+
+<h3><?php EchoNameTag('sinajs', ACCOUNT_TOOL_SINAJS); ?></h3>
+<p>Jan 21, 2022
+<br /><?php echo GetSinaJsLink(false); ?> debug page after Referer check added.
 </p>
 
 </div>

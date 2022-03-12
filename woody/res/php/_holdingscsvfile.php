@@ -18,7 +18,7 @@ class _HoldingsCsvFile extends DebugCsvFile
         $this->sql = GetStockSql();
         $this->his_sql = GetStockHistorySql();
         $this->holdings_sql = GetHoldingsSql();
-        $this->holdings_sql->DeleteAll($strStockId);
+//        $this->holdings_sql->DeleteAll($strStockId);
     }
     
     function InsertHolding($strSymbol, $strName, $strRatio)

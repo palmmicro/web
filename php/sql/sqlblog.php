@@ -15,7 +15,7 @@ class PageCommentSql extends VisitorSql
 	
     function PageCommentSql()
     {
-    	$this->strIpKey = $this->Add_id(TABLE_IP);
+    	$this->strIpKey = $this->Add_id('ip');
         parent::VisitorSql(TABLE_PAGE_COMMENT, TABLE_PAGE, TABLE_MEMBER);
     }
 

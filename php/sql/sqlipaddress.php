@@ -19,7 +19,7 @@ class IpSql extends TableSql
 {
     function IpSql()
     {
-        parent::TableSql(TABLE_IP);
+        parent::TableSql('ip');
     }
 
     public function Create()

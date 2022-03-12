@@ -35,7 +35,7 @@ class _AdminDeleteAccount extends Account
     		unlinkEmptyFile($strPathName);
     		trigger_error('Deleted debug file: '.GetFileLink($strPathName)); 
     	}
-    	else if ($strIp = UrlGetQueryValue(TABLE_IP))
+    	else if ($strIp = UrlGetQueryValue('ip'))
     	{
     		$this->DeleteVisitorByIp($strIp);
     	}

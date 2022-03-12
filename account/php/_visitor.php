@@ -53,7 +53,7 @@ function _echoBlogVisitorParagraph($strIp, $strId, $visitor_sql, $page_sql, $iSt
 	$str = ' ';
     if ($strIp)
     {
-        $strQuery = TABLE_IP.'='.$strIp;
+        $strQuery = 'ip='.$strIp;
         $iTotal = $visitor_sql->CountBySrc($strId);
         
     	$str .= GetIpLink($strIp, $bChinese);
@@ -126,5 +126,5 @@ function GetTitle($bChinese = true)
 	return $bChinese ? '用户访问数据' : 'Visitor Data';
 }
 
-   	$acct = new IpLookupAccount(TABLE_IP, true);	// Auth to  restrict robot ip lookup
+   	$acct = new IpLookupAccount('ip', true);	// Auth to  restrict robot ip lookup
 ?>
