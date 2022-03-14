@@ -221,7 +221,7 @@ function _echoMyStockData($acct, $ref)
    				else	$str .= $fund->DebugLink(); 
    			}
    			if (_hasSmaDisplay($ref)) 		$str .= '<br />'.$ref->DebugConfigLink();
-   			if ($holdings_ref)			$str .= '<br />'.GetHoldingsCsvLink($strSymbol);
+   			/*if ($holdings_ref)*/			$str .= '<br />'.GetHoldingsCsvLink($strSymbol);
     	}
     	EchoParagraph($str);
     }

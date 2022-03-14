@@ -3,7 +3,7 @@ require_once('/php/sql/sqltable.php');
 
 function LookUpPrimeNumber($iNum)
 {
-	$pn_sql = new TableSql(TABLE_PRIME_NUMBER);
+	$pn_sql = new TableSql('primenumber');
 	if ($pn_sql->CountData() == 0)
 	{
 		$aiPrime = array();

@@ -47,21 +47,19 @@ define('ACCOUNT_TOOL_LINEAR_CN', '线性回归');
 define('ACCOUNT_TOOL_PRIME_CN', '分解质因数');
 define('ACCOUNT_TOOL_SINAJS_CN', '新浪股票数据接口');
 
-define('PAGE_TOOL_EDIT', 'editinput');
-
 function GetAccountToolArray($bChinese)
 {
 	if ($bChinese)
 	{
 		$ar = array('benfordslaw' => ACCOUNT_TOOL_BENFORD_CN,
 					  'chisquaredtest' => ACCOUNT_TOOL_CHI_CN,
-                      TABLE_COMMON_PHRASE => ACCOUNT_TOOL_PHRASE_CN,
+                      'commonphrase' => ACCOUNT_TOOL_PHRASE_CN,
                       'cramersrule' => ACCOUNT_TOOL_CRAMER_CN,
                       'dicecaptcha' => ACCOUNT_TOOL_DICE_CN,
-					  PAGE_TOOL_EDIT => ACCOUNT_TOOL_EDIT_CN,
+					  'editinput' => ACCOUNT_TOOL_EDIT_CN,
                       'ip' => ACCOUNT_TOOL_IP_CN,
                       'linearregression' => ACCOUNT_TOOL_LINEAR_CN,
-                      TABLE_PRIME_NUMBER => ACCOUNT_TOOL_PRIME_CN,
+                      'primenumber' => ACCOUNT_TOOL_PRIME_CN,
                       'sinajs' => ACCOUNT_TOOL_SINAJS_CN,
                  );
     }
@@ -69,13 +67,13 @@ function GetAccountToolArray($bChinese)
 	{
 		$ar = array('benfordslaw' => ACCOUNT_TOOL_BENFORD,
 					  'chisquaredtest' => ACCOUNT_TOOL_CHI,
-                      TABLE_COMMON_PHRASE => ACCOUNT_TOOL_PHRASE,
+                      'commonphrase' => ACCOUNT_TOOL_PHRASE,
                       'cramersrule' => ACCOUNT_TOOL_CRAMER,
                       'dicecaptcha' => ACCOUNT_TOOL_DICE,
-					  PAGE_TOOL_EDIT => ACCOUNT_TOOL_EDIT,
+					  'editinput' => ACCOUNT_TOOL_EDIT,
 					  'ip' => ACCOUNT_TOOL_IP,
                       'linearregression' => ACCOUNT_TOOL_LINEAR,
-                      TABLE_PRIME_NUMBER => ACCOUNT_TOOL_PRIME,
+                      'primenumber' => ACCOUNT_TOOL_PRIME,
                       'sinajs' => ACCOUNT_TOOL_SINAJS,
                  );
     }
@@ -95,7 +93,7 @@ function _getAccountToolLink($strPage, $bChinese)
 
 function GetCommonPhraseLink($bChinese = true)
 {
-    return _getAccountToolLink(TABLE_COMMON_PHRASE, $bChinese);
+    return _getAccountToolLink('commonphrase', $bChinese);
 }
 
 function GetSinaJsLink($bChinese = true)
@@ -130,12 +128,12 @@ function GetDiceCaptchaLink($bChinese = true)
 
 function GetEditInputLink($bChinese = true)
 {
-    return _getAccountToolLink(PAGE_TOOL_EDIT, $bChinese);
+    return _getAccountToolLink('editinput', $bChinese);
 }
 
 function GetPrimeNumberLink($bChinese = true)
 {
-    return _getAccountToolLink(TABLE_PRIME_NUMBER, $bChinese);
+    return _getAccountToolLink('primenumber', $bChinese);
 }
 
 function GetIpAddressLink($bChinese = true)

@@ -1,16 +1,12 @@
 <?php
-require_once('_holdingscsvfile.php');
+require_once('_etfholdings.php');
 
-class _SseHoldingsFile extends _HoldingsCsvFile
+class _SseHoldingsFile extends _EtfHoldingsFile
 {
-    var $fTotalValue;
-	
     function _SseHoldingsFile($strDebug, $strStockId) 
     {
-        parent::_HoldingsCsvFile($strDebug, $strStockId);
-
+        parent::_EtfHoldingsFile($strDebug, $strStockId);
         $this->SetSeparator('|');
-        $this->holdings_sql->DeleteAll($strStockId);
     }
     
     public function OnLineArray($arWord)
@@ -20,25 +16,30 @@ class _SseHoldingsFile extends _HoldingsCsvFile
     		$ar = explode('=', $arWord[0]);
     		switch ($ar[0])
     		{
-    		case 'PreTradingDay':
+    		case 'EstimateCashComponent':
+    			$this->SubCash(floatval($ar[1]));
+    			break;
+    			
+			case 'PreTradingDay':
     			$strDate = $ar[1];
-    			$this->strDate = substr($strDate, 0, 4).'-'.substr($strDate, 4, 2).'-'.substr($strDate, 6, 2);
-    			DebugString($this->strDate);
+    			$this->SetDate(substr($strDate, 0, 4).'-'.substr($strDate, 4, 2).'-'.substr($strDate, 6, 2));
     			break;
     		
     		case 'NAVperCU':
-    			$this->fTotalValue = floatval($ar[1]);
+    			$this->AddCash(floatval($ar[1]));
     			break;
     		}
     	}
     	else
     	{
-//	    	DebugPrint($arWord);
-    		$strHolding = trim($arWord[0]);
+    		$this->AddHolding(trim($arWord[0]), GbToUtf8(trim($arWord[1])), floatval(trim($arWord[6])));
+/*    		$strHolding = trim($arWord[0]);
     		if (is_numeric($strHolding))	$strHolding = BuildHongkongStockSymbol($strHolding);
     		$strName = GbToUtf8(trim($arWord[1]));
     		DebugString($strHolding.' '.$strName);
-    		$this->InsertHolding($strHolding, $strName, strval(100.0 * floatval(trim($arWord[6])) / $this->fTotalValue));
+    		$fVal = floatval(trim($arWord[6]));
+    		$this->AddSum($fVal);
+    		$this->InsertHolding($strHolding, $strName, strval(100.0 * $fVal / $this->fTotalValue));*/
     	}
     }
 }
@@ -50,9 +51,10 @@ function ReadSseHoldingsFile($strSymbol, $strStockId)
 	{
 		$csv = new _SseHoldingsFile($strDebug, $strStockId);
 		$csv->Read();
+		$csv->DebugCash();
    	
 		$date_sql = new HoldingsDateSql();
-		$date_sql->WriteDate($strStockId, $csv->strDate);
+		$date_sql->WriteDate($strStockId, $csv->GetDate());
 	}
 }
 

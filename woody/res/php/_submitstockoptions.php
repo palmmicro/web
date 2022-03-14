@@ -3,6 +3,7 @@ require_once('_stock.php');
 //require_once('_editstockoptionform.php');
 require_once('_kraneholdingscsv.php');
 require_once('_sseholdings.php');
+require_once('_szseholdings.php');
 
 function _updateStockHistoryAdjCloseByDividend($ref, $strSymbol, $strStockId, $his_sql, $strYMD, $strDividend)
 {
@@ -388,19 +389,34 @@ function _updateStockOptionDividend($ref, $strSymbol, $strStockId, $his_sql, $st
 			break;
 			
 		case STOCK_OPTION_HOLDINGS:
-			if ($bAdmin)	_updateStockOptionHoldings($strSymbol, $strStockId, $strDate, $strVal);
+			if ($bAdmin)
+			{
+//				_updateStockOptionHoldings($strSymbol, $strStockId, $strDate, $strVal);
+				switch ($strSymbol)
+				{
+				case 'SH513050':
+					ReadSseHoldingsFile($strSymbol, $strStockId);
+					break;
+					
+				case 'SZ159605':
+				case 'SZ159607':
+					ReadSzseHoldingsFile($strSymbol, $strStockId, $strDate);
+					break;
+				}
+			}
 			break;
 			
 		case STOCK_OPTION_NETVALUE:
 			if ($bAdmin)
 			{
 				_updateOptionDailySql(GetNavHistorySql(), $strStockId, $strDate, $strVal);
-				if ($strSymbol == 'KWEB')
+				switch ($strSymbol)
 				{
+				case 'KWEB':
 					//SaveKraneHoldingsCsvFile($strSymbol, $strDate);
 					ReadKraneHoldingsCsvFile($strSymbol, $strStockId, $strDate, $strVal);
+					break;
 				}
-				else if ($strSymbol == 'SH513050')	ReadSseHoldingsFile($strSymbol, $strStockId);
 			}
 			break;
 			

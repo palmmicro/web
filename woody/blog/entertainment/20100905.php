@@ -33,17 +33,17 @@ As PA6488 based camera is not available in market yet. Users can test the user m
 <br /><?php EchoIpAddressLink(false); ?> tool.
 </p>
 
-<h3><?php EchoNameTag(PAGE_TOOL_EDIT, ACCOUNT_TOOL_EDIT); ?> User Interface</h3>
+<h3><?php EchoNameTag('editinput', ACCOUNT_TOOL_EDIT); ?> User Interface</h3>
 <p>Apr 10, 2017
 <br /><?php EchoEditInputLink(false); ?> <i>urldecode</i> function.
 </p>
 
-<h3><?php EchoNameTag(TABLE_COMMON_PHRASE, ACCOUNT_TOOL_PHRASE); ?></h3>
+<h3><?php EchoNameTag('commonphrase', ACCOUNT_TOOL_PHRASE); ?></h3>
 <p>Dec 26, 2017
 <br /><?php EchoCommonPhraseLink(false); ?>
 </p>
 
-<h3><?php EchoNameTag(TABLE_PRIME_NUMBER, ACCOUNT_TOOL_PRIME); ?> Tool</h3>
+<h3><?php EchoNameTag('primenumber', ACCOUNT_TOOL_PRIME); ?> Tool</h3>
 <p>Apr 12, 2019
 <br /><?php EchoPrimeNumberLink(false); ?> tool.
 <br /><img src=../photo/primenumber.jpg alt="The picture that encouraged me to write this prime nnumber tool." />

@@ -5,22 +5,12 @@ class _KraneHoldingsCsvFile extends _HoldingsCsvFile
 {
 	var $bUse;
 	
-    var $fUSDHKD;
-    var $fMarketValue;
-	
     function _KraneHoldingsCsvFile($strDebug, $strStockId, $strDate) 
     {
         parent::_HoldingsCsvFile($strDebug, $strStockId);
+        $this->SetDate($strDate);
         
-        $this->strDate = $strDate;
-
         $this->bUse = false;
-        $this->fMarketValue = 0.0; 
-        
-        $strUscnyId = $this->sql->GetId('USCNY');
-        $strHkcnyId = $this->sql->GetId('HKCNY');
-        $nav_sql = GetNavHistorySql();
-       	$this->fUSDHKD = ($strHKDCNY = $nav_sql->GetClose($strHkcnyId, $strDate)) ? floatval($nav_sql->GetClose($strUscnyId, $strDate)) / floatval($strHKDCNY) : floatval($nav_sql->GetCloseNow($strUscnyId)) / floatval($nav_sql->GetCloseNow($strHkcnyId));
     }
     
     public function OnLineArray($arWord)
@@ -33,7 +23,7 @@ class _KraneHoldingsCsvFile extends _HoldingsCsvFile
     	$strRatio = $arWord[2];
     	if ($arWord[0] == 'Rank')
     	{
-    		$this->holdings_sql->DeleteAll($this->strStockId);
+    		$this->DeleteAllHoldings();
     		$this->bUse = true;
     	}
     	else if (floatval($strRatio) < 0.01)		$this->bUse = false;
@@ -41,13 +31,8 @@ class _KraneHoldingsCsvFile extends _HoldingsCsvFile
     	{
     		$strHolding = $arWord[3];
     		if (is_numeric($strHolding))	$strHolding = BuildHongkongStockSymbol($strHolding);
-    		if ($this->InsertHolding($strHolding, $strName, $strRatio))		$this->fMarketValue += floatval(str_replace(',', '', $arWord[6]));
+    		if ($this->InsertHolding($strHolding, $strName, $strRatio))		$this->AddSum(floatval(str_replace(',', '', $arWord[6])));
     	}
-    }
-    
-    function GetMarketValue()
-    {
-    	return $this->fMarketValue;
     }
 }
 
@@ -97,7 +82,7 @@ function ReadKraneHoldingsCsvFile($strSymbol, $strStockId, $strDate, $strNav)
 	{
 		$csv = new _KraneHoldingsCsvFile($strDebug, $strStockId, $strDate);
 		$csv->Read();
-		$fMarketValue = $csv->GetMarketValue();
+		$fMarketValue = $csv->GetSum();
 		DebugVal($fMarketValue, 'ReadKraneHoldingsCsvFile');
 		if ($fMarketValue > MIN_FLOAT_VAL)
 		{

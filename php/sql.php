@@ -17,7 +17,6 @@ require_once('sql/_sqlcommon.php');
 define('DB_DATABASE', 'camman');
 
 define('TABLE_CALIBRATION_HISTORY', 'calibrationhistory');
-define('TABLE_COMMON_PHRASE', 'commonphrase');
 define('TABLE_DOW_JONES', 'dowjones');
 define('TABLE_FUND_EST', 'fundest');
 define('TABLE_FUND_PURCHASE', 'fundpurchase');
@@ -26,7 +25,6 @@ define('TABLE_MEMBER', 'member');
 define('TABLE_NETVALUE_HISTORY', 'netvaluehistory');
 define('TABLE_PAGE', 'page');
 define('TABLE_PAGE_COMMENT', 'pagecomment');
-define('TABLE_PRIME_NUMBER', 'primenumber');
 define('TABLE_PROFILE', 'profile');
 define('TABLE_STOCK', 'stock');
 define('TABLE_STOCK_DIVIDEND', 'stockdividend');

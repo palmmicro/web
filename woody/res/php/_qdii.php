@@ -78,10 +78,15 @@ function GetQdiiLinks($sym)
 		$str .= GetQqqSoftwareLinks();
 		$str .= GetChinaInternetSoftwareLinks();
 	}
-	else if ($strFutureSymbol == 'hf_CL' || $strFutureSymbol == 'hf_GC' || in_arrayCommodityQdii($strSymbol))								
+	else if ($strFutureSymbol == 'hf_CL')
 	{
 		$str .= GetOilSoftwareLinks();
+		$str .= GetChinaInternetSoftwareLinks();
+	}
+	else if ($strFutureSymbol == 'hf_GC' || in_arrayCommodityQdii($strSymbol))								
+	{
 		$str .= GetCommoditySoftwareLinks();
+		$str .= GetOilSoftwareLinks();
 	}
 	return $str.GetQdiiRelated($sym->GetDigitA());
 }

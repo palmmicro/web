@@ -8,6 +8,11 @@ define('SECONDS_IN_DAY', 86400);
 // 13.6 in MySQL
 define('MIN_FLOAT_VAL', 0.000001);
 
+function str_replace_utf8_space($str)
+{
+	return str_replace("\xC2\xA0", '', $str);	// &nbsp;
+}
+
 function strval_round($fVal, $iPrecision = false)
 {
 	if ($iPrecision === false)

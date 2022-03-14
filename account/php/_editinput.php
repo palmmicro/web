@@ -219,13 +219,16 @@ function _getSinaJsString($strInput, $bChinese)
     	{
     		if ($strLine != '')
     		{
+    			$iCount = 0;
     			$arItem = explode(',', $strLine);
 //    			$str .= $strLine.$strNewLine;
 	    		foreach ($arItem as $strItem)
 	    		{
+	    			$str .= strval($iCount).': ';
 	    			if ($strItem == '')	$str .= '('.($bChinese ? '空' : 'Empty').')';
-	    			else					$str .= GbToUtf8($strItem);
+	    			else					$str .= GetQuoteElement(GbToUtf8($strItem));
 	    			$str .= $strNewLine;
+	    			$iCount ++;
 	    		}
 	    		$str .= $strNewLine;
 	    	}
@@ -314,7 +317,7 @@ function _echoInputResult($acct, $strPage, $strInput, $bChinese)
     	$str = _getChiSquaredTestString($strInput, $bChinese);
     	break;
     	
-    case TABLE_COMMON_PHRASE:
+    case 'commonphrase':
     	$str = _getCommonPhraseString($strInput, $acct->GetLoginId(), $bChinese);
     	break;
     		
@@ -326,7 +329,7 @@ function _echoInputResult($acct, $strPage, $strInput, $bChinese)
     	$str = _getDiceCaptchaString($strInput, $bChinese);
     	break;
     	
-    case PAGE_TOOL_EDIT:
+    case 'editinput':
     	$str = is_numeric($strInput) ? DebugGetDateTime($strInput) : urldecode($strInput);
     	$str .= HexView($strInput);
     	break;
@@ -348,7 +351,7 @@ function _echoInputResult($acct, $strPage, $strInput, $bChinese)
     	$str = _getLinearRegressionString($strInput, $bChinese);
     	break;
     	
-    case TABLE_PRIME_NUMBER:
+    case 'primenumber':
     	$str = _getPrimeNumberString($strInput, $bChinese);
     	break;
     	
@@ -373,7 +376,7 @@ function _getDefaultInput($strPage)
 // 		$strInput = '164,96,68,53,43,36,32,28,25; 168,97,64,55,39,29,30,37,25';
    		break;
     		
-   	case TABLE_COMMON_PHRASE:
+   	case 'commonphrase':
    		$str = '';
     	break;
     		
@@ -459,7 +462,7 @@ function GetMetaDescription($bChinese = true)
     						: ' to determine whether there is a significant difference between the expected frequencies and the observed frequencies.';
   		break;
   		
-  	case TABLE_COMMON_PHRASE:
+  	case 'commonphrase':
   		$str .= $bChinese ? '页面. 输入, 显示, 修改和删除个人常用短语. 用在股票交易记录等处, 方便快速输入和修改个人评论. 限制每条短语最长32个字, 每个用户最多20条短语.'
     						: ' page, input, display, edit and delete personal common phrases, used in places like stock transaction records.';
   		break;
@@ -474,7 +477,7 @@ function GetMetaDescription($bChinese = true)
     						: ' page, try to list all possible ways 4 dices adding up is 14, to solve the impossible Roblox verification.';
     	break;
     	
-  	case PAGE_TOOL_EDIT:
+  	case 'editinput':
   		$str .= $bChinese ? '页面. 测试代码暂时放在/account/_editinput.php中, 测试成熟后再分配具体长期使用的工具页面. 不成功的测试就可以直接放弃了.'
     						: ' page, testing source code in /account/_editinput.php first. Functions will be moved to permanent pages after test.';
   		break;
@@ -489,7 +492,7 @@ function GetMetaDescription($bChinese = true)
     						: ' calculation, display the Y = A + B * X result and correlation coefficient R, together with algorithm steps image.';
   		break;
   		
-  	case TABLE_PRIME_NUMBER:
+  	case 'primenumber':
   		$str .= $bChinese ? '页面. 质数又称素数, 该数除了1和它本身以外不再有其他的因数, 否则称为合数. 每个合数都可以写成几个质数相乘的形式. 其中每个质数都是这个合数的因数, 叫做这个合数的分解质因数.'
     						: ' page. A prime number (or a prime) is a natural number greater than 1 that has no positive divisors other than 1 and itself.';	//  A natural number greater than 1 that is not a prime number is called a composite number
     	break;
@@ -510,5 +513,5 @@ function GetTitle($bChinese = true)
 	return _getAccountToolTitle($strPage, $acct->GetQuery(), $bChinese);
 }
 
-	$acct = new IpLookupAccount(false, array(TABLE_COMMON_PHRASE, 'ip'));
+	$acct = new IpLookupAccount(false, array('commonphrase', 'ip', 'sinajs'));
 ?>

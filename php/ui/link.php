@@ -22,7 +22,6 @@ function EchoNameLink($strName, $strDisplay = false, $strLink = '')
 
 function EchoSinaQuotesLink($strSinaSymbols)
 {
-//	EchoExternalLink(GetSinaQuotesUrl($strSinaSymbols));
 	echo GetPhpLink(ACCT_PATH.'sinajs', 'sinajs='.$strSinaSymbols, GetSinaQuotesUrl($strSinaSymbols));
 }
 

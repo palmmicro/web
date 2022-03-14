@@ -7,7 +7,7 @@ class CsvFile
     
     var $strSeparator;
     var $strReport;
-                     
+    
     function CsvFile($strFileName) 
     {
         $this->strFileName = $strFileName;
@@ -15,7 +15,7 @@ class CsvFile
         
         $this->strSeparator = ',';
     }
-    
+
     function SetSeparator($strSeparator)
     {
         $this->strSeparator = $strSeparator;
@@ -90,8 +90,12 @@ class CsvFile
     		{	
     			if ($strLine = fgets($this->file))
     			{
-    				$arWord = str_getcsv($strLine, $this->strSeparator);
-    				$this->OnLineArray($arWord);
+    				$strLine = trim($strLine);
+    				if ($strLine != '')
+    				{
+    					$arWord = str_getcsv($strLine, $this->strSeparator);		// 跟explode比，str_getcsv会去掉双引号。
+    					$this->OnLineArray($arWord);
+    				}
     			}
     		}
     		$this->Close();

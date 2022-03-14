@@ -344,7 +344,8 @@ class StockReference extends StockSymbol
         $this->strOpen = $ar[8];
         $this->strHigh = $ar[4];
         $this->strLow = $ar[5];
-        $this->strVolume = $ar[9];
+//        $this->strVolume = $ar[9];	// 这是持仓量
+        $this->strVolume = '0';
     }
     
     function _onSinaFutureCN($ar)
@@ -447,7 +448,7 @@ class ExtendedTradingReference extends StockReference
     {
         parent::StockReference($strSymbol);
         
-        $this->strExternalLink = GetYahooStockLink($this);
+        $this->strExternalLink = GetYahooNavLink($strSymbol);
         $this->strPrice = $ar[21];
         $this->_convertDateTimeFromUS($ar[24], $ar[29]);
         $this->strPrevPrice = $ar[26];

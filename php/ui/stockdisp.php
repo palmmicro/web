@@ -20,6 +20,4 @@ define('STOCK_DISP_SYMBOL', '代码');		// maroon
 
 define('STOCK_DISP_DEBUG', '调试信息');
 
-// define('STOCK_DISP_TEMPERROR', '由于代码修改带来的BUG导致USO和美油期货CL自动校准在进入北京时间2月12日凌晨后失效，目前依赖于CL的实时估值都不准确。');
-
 ?>

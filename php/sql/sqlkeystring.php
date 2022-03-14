@@ -75,7 +75,7 @@ class CommonPhraseSql extends KeyStringSql
 {
     function CommonPhraseSql() 
     {
-        parent::KeyStringSql(TABLE_COMMON_PHRASE);
+        parent::KeyStringSql('commonphrase');
     }
 }
 

@@ -162,7 +162,7 @@ function StockBotGetStr($strText, $strVersion)
 	$strText = str_replace('】', '', $strText);
 	$strText = str_replace('，', '', $strText);
 	$strText = str_replace('。', '', $strText);
-	$strText = str_replace("\xC2\xA0", '', $strText);	// &nbsp;
+	$strText = str_replace_utf8_space($strText);		// &nbsp;
 	$strText = trim($strText, " ,.\n\r\t\v\0");
 	$strText = SqlCleanString($strText);
 

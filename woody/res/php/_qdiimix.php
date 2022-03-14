@@ -3,6 +3,7 @@ require_once('_stock.php');
 require_once('_stockgroup.php');
 require_once('_kraneholdingscsv.php');
 require_once('_sseholdings.php');
+require_once('_szseholdings.php');
 //require_once('/php/stockhis.php');
 require_once('/php/ui/referenceparagraph.php');
 //require_once('/php/ui/smaparagraph.php');
@@ -67,7 +68,7 @@ class _QdiiMixAccount extends GroupAccount
 		
 		$us_ref = $this->us_ref;
 		if ($us_ref)		CopyHoldings($date_sql, $us_ref->GetStockId(), $strStockId);
-    	else if ($ref->IsShangHaiEtf())
+    	else
     	{
     		$fund_est_sql = $ref->GetFundEstSql();
     		$strEstDate = $fund_est_sql->GetDateNow($strStockId);
@@ -79,7 +80,8 @@ class _QdiiMixAccount extends GroupAccount
 			else if ($iHourMinute > 1600 && $iHourMinute < 2230)							return;	// 美股休市后第2天的盘前，有可能会有数据看上去像休市日数据，导致5分钟一次频繁下载老文件。这里有意错过每天美股盘前时间，并且考虑了夏令时的不同最坏情况。
 
     		$strSymbol = $ref->GetSymbol();
-    		ReadSseHoldingsFile($strSymbol, $strStockId);
+    		if ($ref->IsShangHaiEtf())		ReadSseHoldingsFile($strSymbol, $strStockId);
+    		else if ($ref->IsShenZhenEtf())	ReadSzseHoldingsFile($strSymbol, $strStockId, $strNavDate);
     	}
     }
     

@@ -60,7 +60,7 @@ function GetCategoryArray($strPage)
         
     case 'chinainternet':
 //        $ar = array('SH513050', 'SZ159605', 'SZ159607', 'SZ164906');
-        $ar = array('SH513050', 'SZ164906');
+        $ar = array('SH513050', 'SZ159605', 'SZ159607', 'SZ164906');
         break;
         
     case 'commodity':
@@ -207,7 +207,7 @@ function GetEFundSoftwareLinks($strDigitA)
 
 function GetGuangFaSoftwareLinks($strDigitA)
 {
-    $ar = array('SZ159941', 'SZ162719');
+    $ar = array('SZ159605', 'SZ159941', 'SZ162719');
 	$strUrl = 'http://www.gffunds.com.cn';
     return ' '.GetOfficialLink($strUrl.'/funds/?fundcode='.$strDigitA, $strDigitA).GetCategorySoftwareLinks($ar, GetExternalLink($strUrl, '广发基金'));
 }
@@ -278,7 +278,7 @@ function GetJiaoYinSchroderSoftwareLinks($strDigitA)
 // http://www.jsfund.cn/main/fund/159823/fundManager.shtml
 function GetJiaShiSoftwareLinks($strDigitA)
 {
-    $ar = array('SZ159741', 'SZ159823', 'SZ159919', 'SZ160717', 'SZ160719', 'SZ160723');
+    $ar = array('SZ159607', 'SZ159741', 'SZ159823', 'SZ159919', 'SZ160717', 'SZ160719', 'SZ160723');
 	$strUrl = 'http://www.jsfund.cn';
     return ' '.GetOfficialLink($strUrl.'/main/fund/'.$strDigitA.'/fundManager.shtml', $strDigitA).GetCategorySoftwareLinks($ar, GetExternalLink($strUrl, '嘉实基金'));
 }

@@ -121,7 +121,7 @@ class MysqlReference extends StockReference
         if ($this->_invalidHistoryData($strClose))  return;
         
         $his_sql = GetStockHistorySql();
-        return $his_sql->WriteHistory($this->strSqlId, $this->GetDate(), $strClose, $strOpen, $strHigh, $strLow, $this->strVolume);
+        return $his_sql->WriteHistory($this->strSqlId, $this->GetDate(), $strClose, $strOpen, $strHigh, $strLow, $this->GetVolume());
     }
     
     // En = k * X0 + (1 - k) * Em; 其中m = n - 1; k = 2 / (n + 1)

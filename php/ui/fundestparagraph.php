@@ -111,23 +111,13 @@ function EchoFundEstParagraph($ref)
     if ($ref->GetRealtimeNav())
     {
     	$col = $bFair ? $arColumn[6] : $arColumn[4]; 
-    	$strRealtimeEst = $col->GetDisplay();
+    	$est_ref = $ref->GetEstRef();
     	$future_ref = $ref->GetFutureRef();
     	$future_etf_ref = $ref->future_etf_ref;
-    	$est_ref = $ref->GetEstRef();
     
-    	$strFutureSymbol = $future_ref->GetSymbol();
-    	$str .= "期货{$strRealtimeEst}{$strFutureSymbol}关联程度按照100%估算";
-    
-    	if ($future_etf_ref && ($future_etf_ref != $est_ref))
-    	{
-    		$strEtfSymbol = $est_ref->GetSymbol();
-    		$strFutureEtfSymbol = $future_etf_ref->GetSymbol();
-    		$str .= '，'.GetYahooNavLink($strEtfSymbol).'和'.GetCalibrationHistoryLink($strFutureEtfSymbol, true).'关联程度按照100%估算';
-    	}
+    	$str .= '期货'.$col->GetDisplay().$future_ref->GetMyStockLink().'关联程度按照100%估算';
+    	if ($future_etf_ref && ($future_etf_ref != $est_ref))		$str .= '，'.$est_ref->GetMyStockLink().'和'.GetCalibrationHistoryLink($future_etf_ref->GetSymbol(), true).'关联程度按照100%估算';
     	$str .= '。';
-    	
-//    	if ($strFutureSymbol == 'hf_CL')		$str .= '<br />'.GetFontElement(STOCK_DISP_TEMPERROR);
     }
     
 	_echoFundEstParagraph($arColumn, $bFair, $arRef, $str);
