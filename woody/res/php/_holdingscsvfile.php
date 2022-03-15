@@ -43,6 +43,15 @@ class _HoldingsCsvFile extends DebugCsvFile
 		$this->holdings_sql->DeleteAll($this->strStockId);
     }
     
+    function UpdateHoldingsDate()
+    {
+    	if ($this->strDate)
+    	{
+    		$date_sql = new HoldingsDateSql();
+    		$date_sql->WriteDate($this->strStockId, $this->strDate);
+    	}
+    }
+    
     function GetDate()
     {
     	return $this->strDate;
@@ -56,14 +65,21 @@ class _HoldingsCsvFile extends DebugCsvFile
 
     function CalcCurrency($strDate)
     {
-		DebugString('_HoldingsCsvFile CalcCurrency: '.$strDate);
+    	$strDebug = '_HoldingsCsvFile CalcCurrency: '.$strDate;
         $strUscnyId = $this->sql->GetId('USCNY');
         $strHkcnyId = $this->sql->GetId('HKCNY');
         $nav_sql = GetNavHistorySql();
         
-        $this->fUSDCNY = ($strUSDCNY = $nav_sql->GetClose($strUscnyId, $strDate)) ? floatval($strUSDCNY) : floatval($nav_sql->GetCloseNow($strUscnyId));
-        $this->fHKDCNY = ($strHKDCNY = $nav_sql->GetClose($strHkcnyId, $strDate)) ? floatval($strHKDCNY) : floatval($nav_sql->GetCloseNow($strHkcnyId));
+        $str = ($strUSDCNY = $nav_sql->GetClose($strUscnyId, $strDate)) ? $strUSDCNY : $nav_sql->GetCloseNow($strUscnyId);
+        $this->fUSDCNY = floatval($str);
+        $strDebug .= ' '.$str;
+        
+        $str = ($strHKDCNY = $nav_sql->GetClose($strHkcnyId, $strDate)) ? $strHKDCNY : $nav_sql->GetCloseNow($strHkcnyId);
+        $this->fHKDCNY = floatval($str);
+        $strDebug .= ' '.$str;
+        
        	$this->fUSDHKD = $this->fUSDCNY / $this->fHKDCNY;
+		DebugString($strDebug);
     }
     
     function GetUSDCNY()
@@ -93,14 +109,12 @@ class _HoldingsCsvFile extends DebugCsvFile
     
     function GetMarketVal($strHolding, $iQuantity)
     {
-		if (is_numeric($strHolding))	
+		if ($strStockId = $this->sql->GetId($strHolding))
 		{
-			$strHolding = BuildHongkongStockSymbol($strHolding);
-			$fForex = $this->fHKDCNY;
+			$fForex = is_numeric($strHolding) ? $this->fHKDCNY : $this->fUSDCNY;
+			return $iQuantity * floatval($this->his_sql->GetAdjClose($strStockId, $this->strDate)) * $fForex;
 		}
-		else	$fForex = $this->fUSDCNY;
-		
-		if ($strStockId = $this->sql->GetId($strHolding))		return $iQuantity * floatval($this->his_sql->GetAdjClose($strStockId, $this->strDate)) * $fForex;
+		DebugString('GetMarketVal failed with '.$strHolding);
 		return 0.0;
     }
 }

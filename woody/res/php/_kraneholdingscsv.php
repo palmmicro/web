@@ -86,14 +86,13 @@ function ReadKraneHoldingsCsvFile($strSymbol, $strStockId, $strDate, $strNav)
 		DebugVal($fMarketValue, 'ReadKraneHoldingsCsvFile');
 		if ($fMarketValue > MIN_FLOAT_VAL)
 		{
+			$csv->UpdateHoldingsDate();
+
 			$shares_sql = new SharesHistorySql();
 			$shares_sql->WriteDaily($strStockId, $strDate, strval_round($fMarketValue / floatval($strNav) / 10000.0));
-
-			$date_sql = new HoldingsDateSql();
-			$date_sql->WriteDate($strStockId, $strDate);
 	
 			// copy KWEB holdings to SZ164906 
-			if ($strSymbol == 'KWEB')		CopyHoldings($date_sql, $strStockId, SqlGetStockId('SZ164906'));
+			if ($strSymbol == 'KWEB')		CopyHoldings(new HoldingsDateSql(), $strStockId, SqlGetStockId('SZ164906'));
 		}
 		else	DebugString('ReadKraneHoldingsCsvFile failed');
 	}

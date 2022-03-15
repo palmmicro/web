@@ -38,7 +38,7 @@ function _echoCalibrationHistoryParagraph($ref, $iStart, $iNum)
 								   $nav_col,
 								   new TableColumnCalibration(),
 								   new TableColumnTime()
-								   ), $strSymbol.TABLE_CALIBRATION_HISTORY, $strMenuLink);
+								   ), $strSymbol.'calibrationhistory', $strMenuLink);
 
     if ($result = $calibration_sql->GetAll($strStockId, $iStart, $iNum)) 
     {
@@ -59,7 +59,7 @@ function EchoAll()
     {
    		_echoCalibrationHistoryParagraph($ref, $acct->GetStart(), $acct->GetNum());
     }
-    $acct->EchoLinks(TABLE_CALIBRATION_HISTORY);
+    $acct->EchoLinks('calibrationhistory');
 }    
 
 function GetMetaDescription()

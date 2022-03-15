@@ -106,8 +106,11 @@ function EchoFundEstParagraph($ref)
 	$arRef = array($ref);
 	$arColumn = _getFundEstTableColumn($arRef, $bFair);
 	
+	$strSymbol = $ref->GetSymbol();
 	$str = GetTableColumnNav().$ref->GetDate().'、';
-	$str .= $arColumn[2]->GetDisplay().$ref->GetOfficialDate().'，最近'.GetCalibrationHistoryLink($ref->GetSymbol()).$ref->GetTimeNow().'。';
+	$str .= $arColumn[2]->GetDisplay().$ref->GetOfficialDate().'，';
+	$str .= GetFundPositionLink($strSymbol).'值使用'.strval($ref->GetFundPosition());
+	$str .= '，最近'.GetCalibrationHistoryLink($strSymbol).$ref->GetTimeNow().'。';
     if ($ref->GetRealtimeNav())
     {
     	$col = $bFair ? $arColumn[6] : $arColumn[4]; 

@@ -13,10 +13,15 @@ class _AdminOperationAccount extends Account
 
     function AdminProcess()
     {
-    	if ($strSymbol = UrlGetQueryValue(TABLE_CALIBRATION_HISTORY))
+    	if ($strSymbol = UrlGetQueryValue('calibrationhistory'))
     	{
     		$this->_onManualCalibration($strSymbol);
     	}	
+    	else if ($strPosition = UrlGetQueryValue('fundposition'))
+    	{
+    		$sql = new FundPositionSql();
+    		$sql->WriteVal(UrlGetQueryValue('stockid'), $strPosition);
+    	}
     	else if ($strIp = UrlGetQueryValue('ip'))
     	{
     		$this->SetCrawler($strIp);

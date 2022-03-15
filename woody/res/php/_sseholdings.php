@@ -23,6 +23,7 @@ class _SseHoldingsFile extends _EtfHoldingsFile
 			case 'PreTradingDay':
     			$strDate = $ar[1];
     			$this->SetDate(substr($strDate, 0, 4).'-'.substr($strDate, 4, 2).'-'.substr($strDate, 6, 2));
+				$this->DeleteAllHoldings();
     			break;
     		
     		case 'NAVperCU':
@@ -32,14 +33,9 @@ class _SseHoldingsFile extends _EtfHoldingsFile
     	}
     	else
     	{
-    		$this->AddHolding(trim($arWord[0]), GbToUtf8(trim($arWord[1])), floatval(trim($arWord[6])));
-/*    		$strHolding = trim($arWord[0]);
+    		$strHolding = trim($arWord[0]);
     		if (is_numeric($strHolding))	$strHolding = BuildHongkongStockSymbol($strHolding);
-    		$strName = GbToUtf8(trim($arWord[1]));
-    		DebugString($strHolding.' '.$strName);
-    		$fVal = floatval(trim($arWord[6]));
-    		$this->AddSum($fVal);
-    		$this->InsertHolding($strHolding, $strName, strval(100.0 * $fVal / $this->fTotalValue));*/
+    		$this->AddHolding($strHolding, GbToUtf8(trim($arWord[1])), floatval(trim($arWord[6])));
     	}
     }
 }
@@ -51,10 +47,7 @@ function ReadSseHoldingsFile($strSymbol, $strStockId)
 	{
 		$csv = new _SseHoldingsFile($strDebug, $strStockId);
 		$csv->Read();
-		$csv->DebugCash();
-   	
-		$date_sql = new HoldingsDateSql();
-		$date_sql->WriteDate($strStockId, $csv->GetDate());
+		$csv->Done();
 	}
 }
 

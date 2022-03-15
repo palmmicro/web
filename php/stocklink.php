@@ -67,7 +67,7 @@ function GetMyStockLink($strSymbol = false, $strDisplay = false)
 define('CALIBRATION_HISTORY_DISPLAY', '校准记录');
 function GetCalibrationHistoryLink($strSymbol, $bDisplaySymbol = false)
 {
-    return GetStockSymbolLink(TABLE_CALIBRATION_HISTORY, $strSymbol, ($bDisplaySymbol ? $strSymbol : CALIBRATION_HISTORY_DISPLAY));
+    return GetStockSymbolLink('calibrationhistory', $strSymbol, ($bDisplaySymbol ? $strSymbol : CALIBRATION_HISTORY_DISPLAY));
 }
 
 define('HOLDINGS_DISPLAY', '基金持仓');

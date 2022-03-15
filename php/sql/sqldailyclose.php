@@ -13,11 +13,6 @@ class DailyCloseSql extends KeySql
 		return ' UNIQUE ( `date`, `'.$this->GetKeyIndex().'` ) ';
     }
     
-    function ComposeCloseStr()
-    {
-		return ' `close` DOUBLE(13,6) NOT NULL ';
-    }
-    
     function CreateDailyCloseTable($str)
     {
     	$str = $this->ComposeKeyStr().','

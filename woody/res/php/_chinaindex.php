@@ -87,7 +87,7 @@ function EchoAll()
 	if ($acct->IsAdmin())
 	{
 		$strSymbol = $acct->us_ref->GetSymbol(); 
-    	$str = GetInternalLink('/php/_submitoperation.php?'.TABLE_CALIBRATION_HISTORY.'='.$strSymbol, '手工校准').$strSymbol;
+    	$str = GetInternalLink('/php/_submitoperation.php?'.'calibrationhistory'.'='.$strSymbol, '手工校准').$strSymbol;
     	EchoParagraph($str);
 	}
 

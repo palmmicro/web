@@ -50,6 +50,8 @@ class _SzseHoldingsFile extends _EtfHoldingsFile
 					$strHolding = $ar[0];
 					if ($strHolding != '159900')
 					{
+						if (is_numeric($strHolding))	$strHolding = BuildHongkongStockSymbol($strHolding);
+						
 						$iQuantity = intval(str_replace(',', '', $ar[2]));
 						if ($iQuantity == 0)		$fVal = floatval(str_replace(',', '', $ar[5]));
 						else						$fVal = $this->GetMarketVal($strHolding, $iQuantity);
@@ -60,7 +62,11 @@ class _SzseHoldingsFile extends _EtfHoldingsFile
 			}
 			else
 			{
-				if ($ar[0] == '证券代码')		$this->bUse = true;
+				if ($ar[0] == '证券代码')
+				{
+					$this->bUse = true;
+					$this->DeleteAllHoldings();
+				}
 				else if ($this->GetDate() == false)
 				{
 					if (count($ar) == 2)
@@ -74,21 +80,18 @@ class _SzseHoldingsFile extends _EtfHoldingsFile
 }
 
 // http://www.szse.cn/modules/report/views/eft_download_new.html?path=%2Ffiles%2Ftext%2FETFDown%2F&filename=pcf_159605_20220311%3B159605ETF20220311&opencode=ETF15960520220311.txt
-// http://reportdocs.static.szse.cn/files/text/etf/ETF15960520220311.txt
+// http://reportdocs.static.szse.cn/files/text/etf/ETF15960520220315.txt?random=0.12210692394619271
 function ReadSzseHoldingsFile($strSymbol, $strStockId, $strDate)
 {
     $strDigit = substr($strSymbol, 2);
     $strDate = str_replace('-', '', $strDate);
 //	$strUrl = GetSzseUrl().'modules/report/views/eft_download_new.html?path=%2Ffiles%2Ftext%2FETFDown%2F&filename=pcf_'.$strDigit.'_'.$strDate.'%3B'.$strDigit.'ETF'.$strDate.'&opencode=ETF'.$strDigit.$strDate.'.txt';
-	$strUrl = 'http://reportdocs.static.szse.cn/files/text/etf/ETF'.$strDigit.$strDate.'.txt';
+	$strUrl = 'http://reportdocs.static.szse.cn/files/text/etf/ETF'.$strDigit.$strDate.'.txt?random='.strval(1.0 * rand() / getrandmax());
 	if ($strDebug = StockSaveHoldingsCsv($strSymbol, $strUrl))
 	{
 		$csv = new _SzseHoldingsFile($strDebug, $strStockId);
 		$csv->Read();
-		$csv->DebugCash();
-   	
-		$date_sql = new HoldingsDateSql();
-		$date_sql->WriteDate($strStockId, $csv->GetDate());
+		$csv->Done();
 	}
 }
 

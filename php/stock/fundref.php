@@ -170,35 +170,9 @@ class FundReference extends MysqlReference
 
     function GetFundPosition()
     {
-		if ($this->IsLofA())
-		{
-			switch ($this->GetSymbol())
-			{
-			case 'SZ160216':
-				$fRatio = 0.65;
-				break;
-
-			case 'SZ161127':
-				$fRatio = 0.92;
-				break;
-
-			case 'SZ162411':
-				$fRatio = 0.93;
-				break;
-
-			case 'SZ163208':
-				$fRatio = 0.82;
-				break;
-
-			default:
-				$fRatio = LOF_POSITION_RATIO;
-				break;
-			}
-    	}
-		else
-		{
-    		$fRatio = 1.0;
-		}
+   		$sql = new FundPositionSql();
+   		$fRatio = $sql->ReadVal($this->GetStockId());
+   		if ($fRatio == false)	$fRatio = $this->IsLofA() ? LOF_POSITION_RATIO : 1.0;  
     	return $fRatio;
     }
     

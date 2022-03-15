@@ -1,11 +1,11 @@
 <?php
-require_once('sqltable.php');
+require_once('sqlval.php');
 
-class DateSql extends TableSql
+class DateSql extends ValSql
 {
     function DateSql($strTableName)
     {
-        parent::TableSql($strTableName);
+        parent::ValSql($strTableName, 'date');
     }
 
     public function Create()
@@ -15,36 +15,14 @@ class DateSql extends TableSql
     	return $this->CreateTable($str);
     }
     
-    function Insert($strId, $strDate)
-    {
-    	return $this->InsertArray(array('id' => $strId, 'date' => $strDate));
-    }
-
-    function Update($strId, $strDate)
-    {
-		return $this->UpdateById(array('date' => $strDate), $strId);
-    }
-    
     function WriteDate($strId, $strDate)
     {
-   		if ($record = $this->GetRecordById($strId))
-   		{
-			if ($strDate != $record['date'])
-			{
-				return $this->Update($strId, $strDate);
-			}
-			return false;
-   		}
-    	return $this->Insert($strId, $strDate);
+    	return $this->WriteVal($strId, $strDate, true);
     }
     
     function ReadDate($strId)
     {
-   		if ($record = $this->GetRecordById($strId))
-   		{
-			return $record['date'];
-   		}
-    	return false;
+    	return $this->ReadVal($strId, true);
     }
 }
 

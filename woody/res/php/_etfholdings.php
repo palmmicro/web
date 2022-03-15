@@ -10,7 +10,6 @@ class _EtfHoldingsFile extends _HoldingsCsvFile
     {
         parent::_HoldingsCsvFile($strDebug, $strStockId);
 
-        $this->DeleteAllHoldings();
         $this->fCash = 0.0;
     }
 
@@ -29,15 +28,15 @@ class _EtfHoldingsFile extends _HoldingsCsvFile
     	return $this->fCash;
     }
     
-    function DebugCash()
+    function Done()
     {
-		DebugVal(round($this->GetSum() - $this->fCash, 3), 'DebugCash');
+		$this->UpdateHoldingsDate();
+		DebugVal(round($this->GetSum() - $this->fCash, 3), 'Done');
 	}
 	
     function AddHolding($strHolding, $strName, $fVal)
     {
-		if (is_numeric($strHolding))	$strHolding = BuildHongkongStockSymbol($strHolding);
-   		DebugString($strHolding.' '.$strName);
+   		DebugString($strHolding.' '.$strName.' '.strval($fVal));
    		$this->AddSum($fVal);
    		$this->InsertHolding($strHolding, $strName, strval(100.0 * $fVal / $this->fCash));
     }

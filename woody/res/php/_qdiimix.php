@@ -72,8 +72,9 @@ class _QdiiMixAccount extends GroupAccount
     	{
     		$fund_est_sql = $ref->GetFundEstSql();
     		$strEstDate = $fund_est_sql->GetDateNow($strStockId);
-    		if ($strEstDate == $strNavDate)													return;	// 
-    		if ($strEstDate == $ref->GetDate())											return;	// A day too early
+    		if ($strEstDate == $strNavDate)													return;	//
+    		$strDate = $ref->GetDate();
+    		if ($strEstDate == $strDate)													return;	// A day too early
     		
     		$iHourMinute = $ref->GetHourMinute();
     		if ($iHourMinute < 930)															return;	// Data not updated until 9:30
@@ -81,7 +82,7 @@ class _QdiiMixAccount extends GroupAccount
 
     		$strSymbol = $ref->GetSymbol();
     		if ($ref->IsShangHaiEtf())		ReadSseHoldingsFile($strSymbol, $strStockId);
-    		else if ($ref->IsShenZhenEtf())	ReadSzseHoldingsFile($strSymbol, $strStockId, $strNavDate);
+    		else if ($ref->IsShenZhenEtf())	ReadSzseHoldingsFile($strSymbol, $strStockId, $strDate);
     	}
     }
     

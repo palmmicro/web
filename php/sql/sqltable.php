@@ -35,6 +35,11 @@ class TableSql
     	return $this->ComposeIdStr().'PRIMARY KEY';
     }
 
+    function ComposeCloseStr()
+    {
+		return ' `close` DOUBLE(13,6) NOT NULL ';
+    }
+    
     function ComposeDateStr()
     {
 		return ' `date` DATE NOT NULL ';

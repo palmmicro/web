@@ -4,7 +4,7 @@ require_once('_emptygroup.php');
 require_once('/php/dateimagefile.php');
 require_once('/php/ui/editinputform.php');
 
-function _echoFundPositionItem($csv, $ref, $cny_ref, $est_ref, $strDate, $strNetValue, $strPrevDate, $nav_sql, $strStockId, $est_sql, $strEstId, $strInput)
+function _echoFundPositionItem($csv, $ref, $cny_ref, $est_ref, $strDate, $strNetValue, $strPrevDate, $nav_sql, $strStockId, $est_sql, $strEstId, $strInput, $bAdmin)
 {
 	$bWritten = false;
 	$ar = array();
@@ -37,6 +37,8 @@ function _echoFundPositionItem($csv, $ref, $cny_ref, $est_ref, $strDate, $strNet
 				$bWritten = true;
 				$strCalibration = QdiiGetStockCalibration($strEst, $strNetValue, $strCny, $strPosition);
 				if ($csv)	$csv->Write($strDate, $strNetValue, $strPosition, $strCalibration);
+				
+				if ($bAdmin)	$strPosition = GetOnClickLink('/php/_submitoperation.php?stockid='.$strStockId.'&fundposition='.$strPosition, "确认使用{$strPosition}作为估值仓位？", $strPosition);
 				$ar[] = $strPosition.'/'.$strCalibration;
 			}
 		}
@@ -103,7 +105,7 @@ function _getSwitchDateArray($nav_sql, $strStockId, $est_sql, $strEstId)
     return $arDate;
 }
 	
-function _echoFundPositionData($csv, $ref, $cny_ref, $est_ref, $strInput)
+function _echoFundPositionData($csv, $ref, $cny_ref, $est_ref, $strInput, $bAdmin)
 {
    	$strStockId = $ref->GetStockId();
 	$nav_sql = GetNavHistorySql();
@@ -132,7 +134,7 @@ function _echoFundPositionData($csv, $ref, $cny_ref, $est_ref, $strInput)
        			{
        				if (isset($arDate[$iIndex]))
        				{
-       					_echoFundPositionItem($csv, $ref, $cny_ref, $est_ref, $strDate, $strNetValue, $arDate[$iIndex], $nav_sql, $strStockId, $est_sql, $strEstId, $strInput);
+       					_echoFundPositionItem($csv, $ref, $cny_ref, $est_ref, $strDate, $strNetValue, $arDate[$iIndex], $nav_sql, $strStockId, $est_sql, $strEstId, $strInput, $bAdmin);
        				}
        				else
        				{
@@ -144,7 +146,7 @@ function _echoFundPositionData($csv, $ref, $cny_ref, $est_ref, $strInput)
        			{
        				while (isset($arDate[$iIndex]))
        				{
-       					_echoFundPositionItem($csv, $ref, $cny_ref, $est_ref, $strDate, $strNetValue, $arDate[$iIndex], $nav_sql, $strStockId, $est_sql, $strEstId, $strInput);
+       					_echoFundPositionItem($csv, $ref, $cny_ref, $est_ref, $strDate, $strNetValue, $arDate[$iIndex], $nav_sql, $strStockId, $est_sql, $strEstId, $strInput, $bAdmin);
        					$iIndex ++;
        				}
        				break;
@@ -159,7 +161,7 @@ function _echoFundPositionData($csv, $ref, $cny_ref, $est_ref, $strInput)
     }
 }
 
-function _echoFundPositionParagraph($ref, $strSymbol, $strInput)
+function _echoFundPositionParagraph($ref, $strSymbol, $strInput, $bAdmin)
 {
    	$cny_ref = $ref->GetCnyRef();
 	$est_ref = $ref->GetEstRef();
@@ -186,7 +188,7 @@ function _echoFundPositionParagraph($ref, $strSymbol, $strInput)
 	{
 		$csv = new PageCsvFile();
 	}
-	_echoFundPositionData($csv, $ref, $cny_ref, $est_ref, $strInput);
+	_echoFundPositionData($csv, $ref, $cny_ref, $est_ref, $strInput, $bAdmin);
 	
     $str = '';
 	if ($csv)
@@ -232,7 +234,7 @@ function EchoAll()
    		$strSymbol = $ref->GetSymbol();
         if (in_arrayQdii($strSymbol))
         {
-            _echoFundPositionParagraph(new QdiiReference($strSymbol), $strSymbol, $strInput);
+            _echoFundPositionParagraph(new QdiiReference($strSymbol), $strSymbol, $strInput, $acct->IsAdmin());
         }
     }
     $acct->EchoLinks('fundposition');
