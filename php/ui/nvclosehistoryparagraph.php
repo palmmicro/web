@@ -11,7 +11,7 @@ function _echoNvCloseItem($csv, $his_sql, $shares_sql, $arHistory, $arFundNav, $
    	if ($csv)		$csv->Write($strDate, $ref->GetPercentageString($strClosePrev, $strClose), $ref->GetPercentageString($strNav, $strClose), $strNav);
 
    	$ar = array($strDate, $ref->GetPriceDisplay($strClose, $strNav));
-   	$ar[] = $bAdmin ? GetOnClickLink('/php/_submitdelete.php?'.TABLE_NETVALUE_HISTORY.'='.$arFundNav['id'], '确认删除净值记录'.$strNav.'？', $strNav) : $strNav;
+   	$ar[] = $bAdmin ? GetOnClickLink('/php/_submitdelete.php?'.'netvaluehistory'.'='.$arFundNav['id'], '确认删除净值记录'.$strNav.'？', $strNav) : $strNav;
 	$ar[] = $ref->GetPercentageDisplay($strNav, $strClose);
    	$ar[] = $ref->GetPercentageDisplay($strClosePrev, $strClose);
     if ($strShare = $shares_sql->GetClose($strStockId, $strDate))

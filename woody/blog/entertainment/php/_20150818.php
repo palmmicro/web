@@ -30,9 +30,13 @@ function EchoFundEstTables()
 function Echo20191025($strHead)
 {
 	$strFundAccount = GetNameLink('fundaccount', FUND_ACCOUNT_DISPLAY);
-	$strNavHistory = GetNameLink(TABLE_NETVALUE_HISTORY, NETVALUE_HISTORY_DISPLAY);
+	$strNavHistory = GetNameLink('netvaluehistory', NETVALUE_HISTORY_DISPLAY);
 	$strNavHistoryLink = GetNetValueHistoryLink(FUND_DEMO_SYMBOL, 'num=0', '统计');
 	$strFundPositionLink = GetFundPositionLink(FUND_DEMO_SYMBOL);
+	$strSZ160216 = GetFundPositionLink('SZ160216', true);
+	$strSH501018 = GetFundPositionLink('SH501018', true);
+	$strMaster = GetXueqiuIdLink('1873146750', '惊艳大师');
+	$strQDII = GetNameLink('qdii');
 	
 	$strHead = GetHeadElement($strHead);
     echo <<<END
@@ -51,6 +55,11 @@ function Echo20191025($strHead)
 <br />XOP净值在10月21到23日连续每天小涨，没有一天达到了我定的4%的标准，所以我一直没能有效的测算目前的实际仓位。 
 不过这3天累计的涨幅达到了5.14%，我于是灵机一动，想到了可以优化一下算法：不用拘泥于单日的涨跌，只要连续几天的累计涨幅或者跌幅超过了4%就计算一次仓位。
 <br />这样我又增加了一个专门估算仓位的新页面：$strFundPositionLink
+<br />加了新页面后继续脑洞大开，我又加了一行输入界面，从此可以自行设置4%的阈值。
+<br />既然现在有了实测的仓位数据，当然要把它们派上用场。不过我暂时只用在了SZ162411和{$strSZ160216}的估值上，而跟SZ160216类似的{$strSH501018}估值中就一直维持LOF缺省的95%的仓位不变。在估值页面上显示了实际使用的估值仓位。
+<br />因为国内监管的要求，SZ160216和SH501018这种FOF的持仓不能过于集中。SZ160216费了不少力气让自己的持仓跟USO保持100%一致。因为美股市场上没有足够多的原油ETF品种选择，它同时持有了小部分2倍日内杠杆的原油ETF和看多美元的ETF，甚至还有一点点贵金属ETF，说白了就是为了满足监管的分散要求。
+而SH501018更离谱，它持仓了很大一部分欧洲市场上的原油ETF，由于市场收盘时间不同，市场假期也有差异，我用USO给它估值就不准了，反向计算出来的仓位就更加不靠谱。
+<br />想给SH501018正确估值，使用SZ162411的这种单一品种参考模式是不行的。{$strMaster}计算{$strQDII}净值的Excel虽然在我的网页工具出来后落寞了许多，不过他说了，用XOP估算华宝油气净值只是小学生的水平，能够用实际的详细持仓明细估算南方原油净值才算初中生水平！
 </p>
 END;
 }
@@ -85,6 +94,67 @@ $strImage
 <br />这个问题其实难于判断，因为在基金公司有意降低仓位保申购的可能性外，还有另外一个解释：在国泰商品的持仓中，能保持迅速跟上当月CL跌幅的USO只是其中之一，此外还有大量像USL这种持仓很多远期CL的，所以看上去表现就像{$strSZ160216}仓位不足了。
 <br />无论是什么原因，既然表现出来的仓位已经如此之低，用CL对冲的要小心，很容易一下子多空36%的仓位，一旦油价快速反弹就亏惨。
 <br />基于类似的逻辑，持有XLE、XOP和IXC等多只美股原油股票ETF的诺安油气也会显示出它相对于XLE波动的仓位区别，为避免莫名其妙的亏钱，用XLE对冲前一定要记得看一眼实际表现出来的{$strSZ163208}仓位！
+</p>
+END;
+}
+
+function Echo20210624($strHead)
+{
+	$strKWEB = GetHoldingsLink('KWEB', true);
+	$strQDII = GetNameLink('qdii');
+	$strChinaInternetTag = GetNameTag('chinainternet', '中丐互怜');
+	$strSZ164906 = GetStockLink('SZ164906');
+	$strImage = ImgMrFox();
+	
+	$strHead = GetHeadElement($strHead);
+    echo <<<END
+	$strHead
+<p>2021年6月24日
+<br />虽然原则上来说XOP也可以使用这个页面，但是它其实是为同时持仓港股和美股的{$strKWEB}准备的。
+<br />{$strQDII}基金总是越跌规模越大，流动性越好，前些年是华宝油气，而今年最热门的变成了{$strChinaInternetTag}。按SZ162411对应XOP的模式，之前SZ164906是用KWEB估值的。不过因为中国互联有1/3的港股持仓，它的净值在港股交易时段会继续变化，所以老的{$strSZ164906}页面其实没有什么实际用处。
+<br />跟A股LOF基金每个季度才公布一次前10大持仓不同，美股ETF每天都会公布自己的净值和详细持仓比例。因为KWEB和中国互联跟踪同一个中证海外中国互联网指数(H11136)，这样可以从KWEB官网下载持仓文件后，根据它的实际持仓估算出净值。然后SZ164906的参考估值也就可以跟随白天的港股交易变动了。
+$strImage
+</p>
+END;
+}
+
+function Echo20210714($strHead)
+{
+	$strNavHistory = GetNameLink('netvaluehistory', NETVALUE_HISTORY_DISPLAY);
+	
+	$strHead = GetHeadElement($strHead);
+    echo <<<END
+	$strHead
+<p>2021年7月14日
+<br />相对于{$strNavHistory}等其它历史数据，这个页面来得实在是比较晚，主要是之前做华宝油气套利时不需要特别关注每天的场内新增份额，反正流动性足够好。不过随着XOP一路上涨，华宝油气的上百亿场内规模只剩下了零头，失去了流动性的华宝油气和XOP跨市场套利变成了屠龙之技。
+我也被迫开始关注一些流动性不是那么好的品种。
+</p>
+END;
+	
+	EchoFundShareParagraph(StockGetFundReference(FUND_DEMO_SYMBOL));
+}
+
+function Echo20210728($strHead)
+{
+	$strHoldings = GetNameLink('holdings', HOLDINGS_DISPLAY);
+	$strSH513050 = GetStockLink('SH513050');
+	$strChinaInternet = GetNameLink('chinainternet', '中丐互怜');
+	$strSZ159605 = GetStockLink('SZ159605');
+	$strSZ159607 = GetStockLink('SZ159607');
+	$strQDII = GetNameLink('qdii', QDII_DISPLAY);
+	$strImage = ImgHuangRong();
+	
+	$strHead = GetHeadElement($strHead);
+    echo <<<END
+	$strHead
+<p>2021年7月28日
+<br />从QDII中分出来，采用跟踪{$strHoldings}成分股变化的方式对同时有美股和港股持仓的{$strSH513050}等进行净值估算。
+<br />A股大妈最喜欢干的事情就是抄底。随着过去半年来中概互联一路跌成了{$strChinaInternet}，中概互联网ETF的市场流动性和网络热度都在暴涨，就连原来叫中国互联的都蹭热度改名成了中概互联网LOF。看得我口水流一地，忍不住想做点什么蹭蹭热点。
+<br />跟SZ164906和KWEB跟踪同一个指数H11136不同，SH513050跟踪的是另外一个不同的中证海外中国互联网50指数(H30533)。H30533和H11136在成分股选择上基本一致，但是H30533对单一成分股最大仓位限制是30%，而H11136限制10%的最大仓位，这样导致它们俩在腾讯和阿里持仓比例上区别巨大。
+在中间的是跟踪中证海外中国互联网30指数(930604)的{$strSZ159605}和{$strSZ159607}，限制15%的最大仓位。
+<br />SH513050的成分股和比例来自于上交所官网的ETF申购赎回清单，SZ159605和SZ159607来自深交所官网的ETF申购赎回清单，这样接下来可以很容易的继续扩大混合QDII的成员。SZ164906的成分股和比例则是来自KWEB官网公布的每日持仓更新。
+<br />官方估值跟原来{$strQDII}一样，不过混合QDII的参考估值有所不同。除了当日汇率的变化外，参考估值在港股开盘后还会反应当日港股成分股的变动。
+$strImage
 </p>
 END;
 }

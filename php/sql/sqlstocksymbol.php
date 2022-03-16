@@ -8,7 +8,7 @@ class NavHistorySql extends DailyCloseSql
 {
     function NavHistorySql() 
     {
-        parent::DailyCloseSql(TABLE_NETVALUE_HISTORY);
+        parent::DailyCloseSql('netvaluehistory');
     }
 }
 

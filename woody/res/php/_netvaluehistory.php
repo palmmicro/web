@@ -111,7 +111,7 @@ function _echoNetValueHistory($ref, $iStart, $iNum, $bAdmin)
 		$position_col = new TableColumnPosition();
 		$ar[] = $position_col;
 	}
-	EchoTableParagraphBegin($ar, TABLE_NETVALUE_HISTORY, $str);
+	EchoTableParagraphBegin($ar, 'netvaluehistory', $str);
 	
    	$csv = new PageCsvFile();
 	_echoNetValueData($csv, $ref, $est_ref, $cny_ref, $iStart, $iNum);
@@ -137,7 +137,7 @@ function EchoAll()
     {
    		_echoNetValueHistory($ref, $acct->GetStart(), $acct->GetNum(), $acct->IsAdmin());
     }
-    $acct->EchoLinks(TABLE_NETVALUE_HISTORY);
+    $acct->EchoLinks('netvaluehistory');
 }
 
 function GetMetaDescription()

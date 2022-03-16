@@ -73,7 +73,7 @@ function GetCalibrationHistoryLink($strSymbol, $bDisplaySymbol = false)
 define('HOLDINGS_DISPLAY', '基金持仓');
 function GetHoldingsLink($strSymbol, $bDisplaySymbol = false)
 {
-    return GetStockSymbolLink(TABLE_HOLDINGS, $strSymbol, ($bDisplaySymbol ? $strSymbol : HOLDINGS_DISPLAY));
+    return GetStockSymbolLink('holdings', $strSymbol, ($bDisplaySymbol ? $strSymbol : HOLDINGS_DISPLAY));
 }
 
 define('STOCK_HISTORY_DISPLAY', '历史价格');
@@ -92,7 +92,7 @@ define('NETVALUE_HISTORY_DISPLAY', '净值记录');
 function GetNetValueHistoryLink($strSymbol, $strExtraQuery = false, $strExtraDisplay = false)
 {
 	$strDisplay = $strExtraQuery ? $strExtraDisplay : NETVALUE_HISTORY_DISPLAY;
-    return GetStockSymbolLink(TABLE_NETVALUE_HISTORY, $strSymbol, $strDisplay, $strExtraQuery);
+    return GetStockSymbolLink('netvaluehistory', $strSymbol, $strDisplay, $strExtraQuery);
 }
 
 define('NVCLOSE_HISTORY_DISPLAY', '净值价格比较');

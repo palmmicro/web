@@ -47,7 +47,7 @@ function EchoAll()
 										   new TableColumnPercentage('新'),
 										   new TableColumnPercentage('影响'),
 										   new TableColumn('H股汇率调整', 100)
-										   ), TABLE_HOLDINGS, '持仓和测算示意');
+										   ), 'holdings', '持仓和测算示意');
 	
 			$arRatio = $ref->GetHoldingsRatioArray();
 			$his_sql = GetStockHistorySql();
@@ -58,7 +58,7 @@ function EchoAll()
 			EchoTableParagraphEnd();
 		}
     }
-    $acct->EchoLinks(TABLE_HOLDINGS);
+    $acct->EchoLinks('holdings');
 }
 
 function GetMetaDescription()

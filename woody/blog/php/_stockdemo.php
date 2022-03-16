@@ -45,12 +45,6 @@ function EchoFundHistoryDemo($strSymbol = FUND_DEMO_SYMBOL)
 	EchoFundHistoryParagraph($fund_ref);
 }
 
-function EchoFundShareDemo($strSymbol = FUND_DEMO_SYMBOL)
-{
-	$fund_ref = StockGetFundReference($strSymbol);
-	EchoFundShareParagraph($fund_ref);
-}
-
 function EchoFundEstDemo($strSymbol = FUND_DEMO_SYMBOL)
 {
 	$fund_ref = StockGetFundReference($strSymbol);

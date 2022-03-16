@@ -269,7 +269,7 @@ function _isDigitShanghaiIndex($iDigit)
 
 function _isDigitShanghaiEtf($iDigit)
 {
-    return ($iDigit >= 510000 && $iDigit <= 518999) ? true : false;
+    return ($iDigit >= 510000 && $iDigit <= 569999) ? true : false;	// 518999
 }
 
 function _isDigitShanghaiLof($iDigit)

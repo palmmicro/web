@@ -117,7 +117,7 @@ Wiki的QDII词条下显示了它是Qualified Domestic Institutional Investor的�
 	EchoParagraph(GetQuoteElement('夜深忽梦少年事 梦啼妆泪红阑干'));
 ?>
 
-<h3>增加<?php EchoNameTag(TABLE_NETVALUE_HISTORY, NETVALUE_HISTORY_DISPLAY); ?>页面</h3>
+<h3>增加<?php EchoNameTag('netvaluehistory', NETVALUE_HISTORY_DISPLAY); ?>页面</h3>
 <p>2016年2月22日
 <br />有人跟我指出<?php EchoFundHistoryLink(); ?>中净值的日期显示早了一天, 我差点一口鲜血吐在了键盘上. 
 用脚趾头想想, 要计算华宝油气当天的交易溢价, 肯定是要跟前一天的净值比较啊. 当天的净值要等当晚美股收盘后才出来, 否则的话我写这个净值估算有什么意义呢.
@@ -374,31 +374,12 @@ Wiki的QDII词条下显示了它是Qualified Domestic Institutional Investor的�
 这个问题隐藏了好几年, 但是以前一直没有像现在这样每天盯着折价溢价数据看, 所以一直没发现.
 </p>
 
-<?php Echo20200326('国泰商品已经只剩大半桶'.GetNameTag('oilfund', OIL_GROUP_DISPLAY)); ?>
-
-<h3>增加<?php EchoNameTag(TABLE_HOLDINGS, HOLDINGS_DISPLAY); ?>页面</h3>
-<p>2021年6月24日
-<br />虽然原则上来说XOP也可以使用这个页面，但是它其实是为同时持仓港股和美股的<?php echo GetHoldingsLink('KWEB', true); ?>准备的。 
-<br /><font color=gray>A fox knows many things, but a hedgehog knows one big thing.</font>
-</p>
-
-<h3><?php EchoNameTag('fundshare', FUND_SHARE_DISPLAY); ?></h3>
-<p>2021年7月14日
-<br />相对于其它历史数据，这个页面来得实在是比较晚，主要是之前做华宝油气套利时不需要特别关注每天的场内新增份额，反正流动性足够好。不过随着XOP一路上涨，华宝油气的上百亿场内规模只剩下了零头，失去了流动性的华宝油气和XOP跨市场套利变成了屠龙之技。
-我也被迫开始关注一些流动性不是那么好的品种。
-</p>
-<?php EchoFundShareDemo(); ?>
-
-<h3>增加<?php EchoNameTag('qdiimix', QDII_MIX_DISPLAY); ?>工具系列</h3>
-<p>2021年7月28日
-<br />从QDII中分出来，采用跟踪<?php EchoNameLink(TABLE_HOLDINGS, HOLDINGS_DISPLAY); ?>成分股变化的方式对同时有美股和港股持仓的<?php echo GetStockLink('SH513050'); ?>等进行净值估算。
-<br />A股大妈最喜欢干的事情就是抄底。随着过去半年来中概互联一路跌成了<?php EchoNameTag('chinainternet', '中丐互怜'); ?>，中概互联网ETF的市场流动性和网络热度都在暴涨，就连原来叫中国互联的都蹭热度改名成了中概互联网LOF。
-看得我口水流一地，忍不住想做点什么蹭蹭热点。
-<br />跟SZ164906和KWEB跟踪同一个指数H11136不同，SH513050跟踪的是另外一个不同的指数H30533。H30533和H11136在成分股选择上基本一致，但是H30533对单一成分股最大仓位限制是30%，而H11136限制10%的最大仓位，这样导致它们俩在腾讯和阿里持仓比例上区别巨大。
-<br />SH513050的成分股和比例来自于上交所官网的ETF申购赎回清单，这样接下来可以很容易的继续扩大混合QDII的成员。SZ164906的成分股和比例则是来自KWEB官网公布的每日持仓更新。
-<br />官方估值跟原来<?php EchoNameLink('qdii', QDII_DISPLAY); ?>一样，不过混合QDII的参考估值有所不同。除了当日汇率的变化外，参考估值在港股开盘后还会反应当日港股成分股的变动。
-<?php echo ImgHuangRong(); ?>
-</p>
+<?php
+	Echo20200326('国泰商品已经只剩大半桶'.GetNameTag('oilfund', OIL_GROUP_DISPLAY));
+	Echo20210624('增加'.GetNameTag('holdings', HOLDINGS_DISPLAY).'页面');
+	Echo20210714('增加'.GetNameTag('fundshare', FUND_SHARE_DISPLAY).'页面');
+	Echo20210728('增加'.GetNameTag('qdiimix', QDII_MIX_DISPLAY).'工具系列');
+?>
 
 </div>
 

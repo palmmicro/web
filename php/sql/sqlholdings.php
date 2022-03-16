@@ -5,7 +5,7 @@ class HoldingsSql extends KeySql
 {
     function HoldingsSql() 
     {
-        parent::KeySql(TABLE_HOLDINGS, TABLE_STOCK);
+        parent::KeySql('holdings', TABLE_STOCK);
     }
 
     public function Create()

@@ -133,7 +133,9 @@ function _getGroupImageLink($strPage)
     switch ($strPage)
     {
     case 'chinainternet':
-    case 'qdiimix':
+    	return ImgMrFox();
+    	
+	case 'qdiimix':
     	return ImgHuangRong();
 
     case 'hangseng':

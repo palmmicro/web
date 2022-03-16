@@ -111,12 +111,12 @@ function StockSaveDebugCsv($strSymbol, $strType, $strUrl)
 
 function StockSaveHoldingsCsv($strSymbol, $strUrl)
 {
-	return StockSaveDebugCsv($strSymbol, TABLE_HOLDINGS, $strUrl);
+	return StockSaveDebugCsv($strSymbol, 'holdings', $strUrl);
 }
 
 function GetHoldingsCsvLink($strSymbol)
 {
-	return GetDebugCsvLink($strSymbol, TABLE_HOLDINGS);
+	return GetDebugCsvLink($strSymbol, 'holdings');
 }
 
 function StockSaveHistoryCsv($strSymbol, $strUrl)
