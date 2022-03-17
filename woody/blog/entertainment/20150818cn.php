@@ -363,19 +363,11 @@ Wiki的QDII词条下显示了它是Qualified Domestic Institutional Investor的�
 <?php echo ImgLinearRegression(); ?>
 </p>
 
-<?php Echo20191025('增加'.GetNameTag('fundposition', FUND_POSITION_DISPLAY).'页面'); ?>
-
-<h3>美国<a name="daylightsavingend">夏令时结束</a></h3>
-<p>2019年11月7日
-<br />没想到9月份写的<?php EchoNameLink('fundaccount', FUND_ACCOUNT_DISPLAY); ?>让我意外发现了一个跟<a href="#daylightsavingbegin">夏令时开始</a>配对的BUG.
-<br />我昨天看了一下11月4日轻微折价下的场内申购预估数量. 因为我做<?php EchoLinearRegressionLink(); ?>是不用折价日的申购数据的, 所以特意留心了一下.
-结果今天发现<?php EchoNameLink('fundhistory', FUND_HISTORY_DISPLAY); ?>中11月4日的数据竟然没有显示出来. 
-<br />查了半天终于找到了问题: 我原来用11月1日周五的日期加上3天的秒数, 期望得到11月4日的日期. 却没料到赶上了11月3日结束夏令时, 3天的秒数不够, 结果得到的是11月3日的日期. 
-这个问题隐藏了好几年, 但是以前一直没有像现在这样每天盯着折价溢价数据看, 所以一直没发现.
-</p>
-
 <?php
-	Echo20200326('国泰商品已经只剩大半桶'.GetNameTag('oilfund', OIL_GROUP_DISPLAY));
+	Echo20191025('增加'.GetNameTag('fundposition', FUND_POSITION_DISPLAY).'页面');
+	Echo20191107('美国夏令时结束带来的软件BUG');
+	Echo20200113('华宝油气的C类份额');
+	Echo20200326('国泰商品已经只剩大半桶油');
 	Echo20210624('增加'.GetNameTag('holdings', HOLDINGS_DISPLAY).'页面');
 	Echo20210714('增加'.GetNameTag('fundshare', FUND_SHARE_DISPLAY).'页面');
 	Echo20210728('增加'.GetNameTag('qdiimix', QDII_MIX_DISPLAY).'工具系列');

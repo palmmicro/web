@@ -19,7 +19,7 @@ function _getPortfolioTestVal($iShares, $strSymbol)
 		break;
 */		
 	case 'SH510900':
-		$iQuantity = 60000;
+		$iQuantity = 30000;
 		break;
 
     case 'SZ162411':
@@ -90,7 +90,7 @@ function _echoPortfolioTableItem($trans)
     		
         case 'SZ161127':
         case 'SZ163208':
-//        case 'SZ164906':
+        case 'SZ164906':
         	$ar[] = GetArbitrageQuantity($strSymbol, floatval($iShares));
 			break;
    		}

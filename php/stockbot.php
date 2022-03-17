@@ -76,16 +76,16 @@ function _botGetStockText($strSymbol)
     	{
     		$ref = new HoldingsReference($strSymbol);
     		$str = TextFromHoldingsReference($ref);
-   			$str .= BOT_EOL.TextFromStockReference($ref->GetUscnyRef()); 
-   			$str .= BOT_EOL.TextFromStockReference($ref->GetHkcnyRef()); 
+//   			$str .= BOT_EOL.TextFromStockReference($ref->GetUscnyRef()); 
+//   			$str .= BOT_EOL.TextFromStockReference($ref->GetHkcnyRef()); 
     	}
     	else
     	{
     		$ref = StockGetFundReference($strSymbol);
     		$str = TextFromFundReference($ref);
-    		if (in_arrayQdii($strSymbol))
+    		if (in_arrayQdii($strSymbol) || in_arrayQdiiHk($strSymbol))
     		{
-    			$str .= BOT_EOL.TextFromStockReference($ref->GetCnyRef()); 
+//    			$str .= BOT_EOL.TextFromStockReference($ref->GetCnyRef()); 
     			$str .= BOT_EOL.TextFromStockReference($ref->GetEstRef()); 
     			if ($future_ref = $ref->GetFutureRef())		$str .= BOT_EOL.TextFromStockReference($future_ref);
     		}
@@ -120,11 +120,6 @@ function _botGetStockText($strSymbol)
    		return false;
    	}
    	
-/*
-	if ($strSymbol == 'SZ162411')
-	{
-		$str .= '2019年9月20日星期五, XOP季度分红除权. 因为现在采用XOP净值替代SPSIOP做华宝油气估值, 23日的估值不准, 要等华宝油气20日实际净值出来自动校准后恢复正常.'.BOT_EOL;
-	}*/
     return $str;
 }
 
