@@ -141,10 +141,10 @@ function EchoAhTradingParagraph($hshare_ref)
 	$strPremium = GetTableColumnPremium();
 	
     $arColumn = _getTradingTableColumn();
-	$arColumn[] = new TableColumnPremium(GetAhCompareLink());
+	$arColumn[] = new TableColumnPremium(GetTableColumnStock($hshare_ref));
     if ($hshare_ref->adr_ref)
     {
-		$arColumn[] = new TableColumnPremium(RefGetMyStockLink($hshare_ref->adr_ref));
+		$arColumn[] = new TableColumnPremium(GetTableColumnStock($hshare_ref->adr_ref));
     	$strVal = $hshare_ref->FromUsdToCny($hshare_ref->adr_ref->GetPrice());
     }
     else	$strVal = false;

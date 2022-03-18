@@ -178,6 +178,20 @@ function SymGetStockName($sym)
 	return $sql->GetStockName($sym->GetSymbol());
 }
 
+function RefGetTableColumnNav($ref)
+{
+	$strStockDisplay = GetTableColumnStock($ref);
+	if ($ref->CountNav() > 0)		return new TableColumnNav($strStockDisplay);	
+	return 								new TableColumnPrice($strStockDisplay);
+}
+
+function FundGetPosition($ref)
+{
+	$sql = new FundPositionSql();
+   	if ($fRatio = $sql->ReadVal($ref->GetStockId()))	return $fRatio;
+	return $ref->GetDefaultPosition();  
+}
+
 // ****************************** Stock final integration functions *******************************************************
 function StockPrefetchArrayData($arSymbol)
 {

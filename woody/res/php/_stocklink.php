@@ -221,7 +221,7 @@ function GetGuoTaiSoftwareLinks($strDigitA)
 
 function GetHuaAnSoftwareLinks($strDigitA)
 {
-    $ar = array('SH513030', 'SH513580', 'SH518880', 'SZ160416');
+    $ar = array('SH513030', 'SH513080', 'SH513580', 'SH518880', 'SZ160416');
 	$strUrl = 'http://www.huaan.com.cn';
     return ' '.GetOfficialLink($strUrl.'/funds/'.$strDigitA.'/index.shtml', $strDigitA).GetCategorySoftwareLinks($ar, GetExternalLink($strUrl, '华安基金'));
 }

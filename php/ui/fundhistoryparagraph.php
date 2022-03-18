@@ -80,12 +80,7 @@ function _echoFundHistoryParagraph($fund_est_sql, $ref, $est_ref, $csv, $iStart,
 			$ar[] = new TableColumnOfficalEst();
 			$ar[] = new TableColumnTime();
 			$ar[] = new TableColumnError();
-			if ($est_ref)
-			{
-				$strStockDisplay = GetTableColumnStock($est_ref);
-				if ($est_ref->CountNav() > 0)	$ar[] = new TableColumnNav($strStockDisplay);	
-				else								$ar[] = new TableColumnPrice($strStockDisplay);
-			}
+			if ($est_ref)		$ar[] = RefGetTableColumnNav($est_ref);
 		}
 		else	$fund_est_sql = false;
 	}

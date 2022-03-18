@@ -49,7 +49,8 @@ function QdiiGetEstSymbol($strSymbol)
     else if (in_arrayCommodityQdii($strSymbol))		return 'GSG';
     else if (in_arraySpyQdii($strSymbol))			return '^GSPC';	// 'SPY';
     else if (in_arrayQqqQdii($strSymbol))			return '^NDX';	// 'QQQ';
-    else if ($strSymbol == 'SH513030')   			return 'DAX';		// 'EWG'
+    else if ($strSymbol == 'SH513030')   			return 'EWG';		// 'DAX'
+    else if ($strSymbol == 'SH513080')   			return 'EWQ';
     else if (in_arrayGoldQdii($strSymbol))   		return 'GLD';
     else 
         return false;

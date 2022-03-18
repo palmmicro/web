@@ -168,14 +168,6 @@ class FundReference extends MysqlReference
     	return $this->cny_ref;
     }
 
-    function GetFundPosition()
-    {
-   		$sql = new FundPositionSql();
-   		$fRatio = $sql->ReadVal($this->GetStockId());
-   		if ($fRatio == false)	$fRatio = $this->IsLofA() ? LOF_POSITION_RATIO : 1.0;  
-    	return $fRatio;
-    }
-    
     /* (x - x0) / x0 = r * (y - y0) / y0
     	x / x0 - 1 = r * y / y0 - r
     	x = x0 * (r * y / y0 + 1 - r) = r * (x0 * y / y0) + (1 - r) * x0 		### used in AdjustPosition
@@ -183,13 +175,13 @@ class FundReference extends MysqlReference
     */
     function AdjustPosition($fVal)
     {
-    	$fRatio = $this->GetFundPosition();
+    	$fRatio = FundGetPosition($this);
         return $fRatio * $fVal + (1.0 - $fRatio) * floatval($this->GetPrice());
     }
     
     function ReverseAdjustPosition($fVal)
     {
-    	$fRatio = $this->GetFundPosition();
+    	$fRatio = FundGetPosition($this);
         return $fVal / $fRatio - floatval($this->GetPrice()) * (1.0 / $fRatio - 1.0);
     }
 }

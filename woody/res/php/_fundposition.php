@@ -111,11 +111,12 @@ function _echoFundPositionData($csv, $ref, $cny_ref, $est_ref, $strInput, $bAdmi
 	$nav_sql = GetNavHistorySql();
    	
 	$strEstId = $est_ref->GetStockId();
-	$est_sql = $nav_sql;
+	$est_sql = ($est_ref->CountNav() > 0) ? $nav_sql : GetStockHistorySql(); 
+/*	$est_sql = $nav_sql;
 	if ($est_sql->Count($strEstId) == 0 || $est_ref->IsIndex())
 	{
 		$est_sql = GetStockHistorySql();
-	}
+	}*/
 
 	$arDate = _getSwitchDateArray($nav_sql, $strStockId, $est_sql, $strEstId);
 	if (count($arDate) == 0)		return;
@@ -161,10 +162,10 @@ function _echoFundPositionData($csv, $ref, $cny_ref, $est_ref, $strInput, $bAdmi
     }
 }
 
-function _echoFundPositionParagraph($ref, $strSymbol, $strInput, $bAdmin)
+function _echoFundPositionParagraph($ref, $cny_ref, $est_ref, $strSymbol, $strInput, $bAdmin)
 {
-   	$cny_ref = $ref->GetCnyRef();
-	$est_ref = $ref->GetEstRef();
+//   	$cny_ref = $ref->GetCnyRef();
+//	$est_ref = $ref->GetEstRef();
 	
  	$str = GetFundLinks($strSymbol);
 	$change_col = new TableColumnChange();
@@ -174,7 +175,7 @@ function _echoFundPositionParagraph($ref, $strSymbol, $strInput, $bAdmin)
 								   $change_col,
 								   new TableColumnUSCNY(),
 								   $change_col,
-								   new TableColumnNav($est_ref->GetSymbol()),
+								   RefGetTableColumnNav($est_ref),
 								   $change_col,
 								   $position_col
 								   ), 'fundposition', $str);
@@ -232,10 +233,21 @@ function EchoAll()
     if ($ref = $acct->EchoStockGroup())
     {
    		$strSymbol = $ref->GetSymbol();
+   		$fund = false;
         if (in_arrayQdii($strSymbol))
         {
-            _echoFundPositionParagraph(new QdiiReference($strSymbol), $strSymbol, $strInput, $acct->IsAdmin());
+        	$fund = new QdiiReference($strSymbol);
+        	$cny_ref = $fund->GetCnyRef();
+        	$est_ref = $fund->GetEstRef();
         }
+        else if ($strSymbol == 'SZ164906')
+        {
+        	$fund = new FundReference($strSymbol);
+        	$cny_ref = new CnyReference('USCNY');
+        	$est_ref = new MyStockReference('KWEB');	// 这里有个结构性问题，KWEB的新浪数据会需要单独去重新拿一次。
+        }
+		if ($fund)		_echoFundPositionParagraph($fund, $cny_ref, $est_ref, $strSymbol, $strInput, $acct->IsAdmin());
+		else			EchoParagraph(GetFontElement('想多了，A股LOF基金才需要进行'.FUND_POSITION_DISPLAY.'。'));
     }
     $acct->EchoLinks('fundposition');
 }

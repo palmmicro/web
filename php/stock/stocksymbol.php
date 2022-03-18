@@ -20,8 +20,6 @@ define('YAHOO_INDEX_CHAR', '^');
 define('STOCK_TIME_ZONE_CN', 'PRC');
 define('STOCK_TIME_ZONE_US', 'America/New_York');
 
-define('LOF_POSITION_RATIO', 0.95);
-
 function StockCheckSymbol($str)
 {
 	if (strlen($str) > 10)				return false;
@@ -133,7 +131,7 @@ function in_arraySpyQdii($strSymbol)
 
 function QdiiGetSymbolArray()
 {
-    $ar = array_merge(array('SH513030', 'SZ160140', 'SZ161126', 'SZ161127', 'SZ161128', 'SZ162415', 'SZ164824', 'SZ165510') 
+    $ar = array_merge(array('SH513030', 'SH513080', 'SZ160140', 'SZ161126', 'SZ161127', 'SZ161128', 'SZ162415', 'SZ164824', 'SZ165510') 
     				   , QdiiGetGoldSymbolArray()
     				   , QdiiGetOilSymbolArray()
     				   , QdiiGetOilEtfSymbolArray()
@@ -751,6 +749,11 @@ class StockSymbol
     	if ($this->IsSinaFund() || $this->IsFundA())   	return 3;
     	else if ($this->IsForex())   					return 4;
     	return 2;
+    }
+
+    function GetDefaultPosition()
+    {
+		return $this->IsLofA() ? 0.95 : 1.0;  
     }
     
     function IsTradable()

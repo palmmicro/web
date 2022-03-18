@@ -132,6 +132,7 @@ function Echo20210624($strHead)
 	$strQDII = GetNameLink('qdii');
 	$strChinaInternetTag = GetNameTag('chinainternet', '中丐互怜');
 	$strSZ164906 = GetStockLink('SZ164906');
+	$strFundHistory = GetNameLink('fundhistory', FUND_HISTORY_DISPLAY);
 	$strElementary = GetNameLink('elementary', '小学生');
 	$strImage = ImgMrFox();
 	
@@ -140,7 +141,8 @@ function Echo20210624($strHead)
 	$strHead
 <p>2021年6月24日
 <br />虽然原则上来说XOP也可以使用这个页面，但是它其实是为同时有港股和美股的{$strKWEB}持仓准备的。
-<br />{$strQDII}基金总是越跌规模越大，流动性越好，前些年是华宝油气，而今年最热门的变成了{$strChinaInternetTag}。按SZ162411对应XOP的模式，中概互联的小弟SZ164906之前是用KWEB估值的。不过因为中国互联有1/3的港股持仓，它的净值在港股交易时段会继续变化，所以老的{$strSZ164906}页面其实没有什么实际用处。
+<br />{$strQDII}基金总是越跌规模越大，流动性越好，前些年是华宝油气，而今年最热门的变成了{$strChinaInternetTag}。按SZ162411对应XOP的模式，中概互联的小弟SZ164906之前是用KWEB估值的。
+不过因为中国互联有1/3的港股持仓，它的净值在港股交易时段会继续变化，所以原来的{$strSZ164906}页面其实没有什么实际用处。唯一的好处是在{$strFundHistory}中累积了几年的官方估值误差数据，帮我确认了用KWEB持仓估值中国互联的可行性。
 <br />跟A股LOF基金每个季度才公布一次前10大持仓不同，美股ETF每天都会公布自己的净值和详细持仓比例。因为KWEB和中国互联跟踪同一个中证海外中国互联网指数H11136，这样可以从KWEB官网下载持仓文件后，根据它的实际持仓估算出净值。然后SZ164906的参考估值也就可以跟随白天的港股交易变动了。
 <br />写了快6年的估值软件终于从{$strElementary}水平进化到了初中生水平，还是有些成就感的。暑假即将来到，了不起的狐狸爸爸要开始教已经读了一年小学的娃在Roblox上编程了。
 $strImage

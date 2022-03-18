@@ -7,9 +7,9 @@ define('TABLE_ETF_PAIR', 'etfpair');
 // ****************************** StockPairSql class *******************************************************
 class StockPairSql extends KeyPairSql
 {
-    function StockPairSql($strTableName, $strStockId) 
+    function StockPairSql($strTableName) 
     {
-        parent::KeyPairSql($strTableName, $strStockId, TABLE_STOCK);
+        parent::KeyPairSql($strTableName, false, TABLE_STOCK);
     }
 
     function GetSymbolArray()
@@ -101,18 +101,18 @@ class StockPairSql extends KeyPairSql
 // ****************************** AhPairSql class *******************************************************
 class AhPairSql extends StockPairSql
 {
-    function AhPairSql($strStockId = false) 
+    function AhPairSql() 
     {
-        parent::StockPairSql('ahpair', $strStockId);
+        parent::StockPairSql('ahpair');
     }
 }
 
 // ****************************** AbPairSql class *******************************************************
 class AbPairSql extends StockPairSql
 {
-    function AbPairSql($strStockId = false) 
+    function AbPairSql() 
     {
-        parent::StockPairSql('abpair', $strStockId);
+        parent::StockPairSql('abpair');
     }
 }
 
