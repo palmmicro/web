@@ -12,15 +12,15 @@ require_once('_stocklink.php');
 // ****************************** Money table *******************************************************
 function _EchoMoneyParagraphBegin()
 {
-	$strMoney = '货币';
-	$strMoneyType = '单一'.$strMoney;
+	$strMoney = '单一货币';
+	$profit_col = new TableColumnProfit();
 	EchoTableParagraphBegin(array(new TableColumnGroupName(),
 								   new TableColumnProfit(DISP_ALL_CN),
 								   new TableColumnHolding(DISP_ALL_CN),
-								   new TableColumnProfit($strMoneyType),
-								   new TableColumnHolding($strMoneyType),
+								   new TableColumnProfit($strMoney),
+								   new TableColumnHolding($strMoney),
 								   new TableColumnTest()
-								   ), 'money', '按'.GetMyStockGroupLink().'折算'.$strMoney);
+								   ), 'money', GetMyStockGroupLink().$profit_col->GetDisplay());
 }
 
 function _echoMoneyItem($strGroup, $fValue, $fProfit, $fConvertValue, $fConvertProfit)

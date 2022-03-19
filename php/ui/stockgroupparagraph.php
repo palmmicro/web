@@ -88,7 +88,7 @@ function EchoStockGroupParagraph($acct, $strGroupId = false, $strStockId = false
 	EchoTableParagraphBegin(array(new TableColumnGroupName(),
 								   new TableColumnSymbol(false, 450),
 								   new TableColumn()
-								   ), TABLE_STOCK_GROUP);
+								   ), TABLE_STOCK_GROUP, GetMyStockGroupLink());
 
 
 	$bAdmin = $acct->IsAdmin();

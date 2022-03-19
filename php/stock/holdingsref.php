@@ -160,7 +160,6 @@ class HoldingsReference extends MyStockReference
 		}
 		
 		$fTotalChange -= $fTotalRatio;
-//		if ($this->GetSymbol() == 'SZ164906')		$fTotalChange *= 0.9146;		// LOF_POSITION_RATIO;
 		$fTotalChange *= FundGetPosition($this);
 
 		$fNewNav = floatval($this->strNav) * (1.0 + $fTotalChange);

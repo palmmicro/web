@@ -120,6 +120,7 @@ function UrlCleanString($str)
 // from=groupmessage&isappinstalled=0&scene=1&clicktime=1579733595&enterid=1579733595
 // tdsourcetag=s_pcqq_aiomsg
 // xueqiu_status_id=140805627&xueqiu_status_from_source=sstl&xueqiu_status_source=statusdetail&xueqiu_private_from_source=0105&key_name=0106
+// xueqiu_comment_id=216058070&xueqiu_status_id=204652274&key_name=011701
 // entryScene=zhida_05_001&jump_from=1_13_18_00
 // jump_from=1_05_37_01
 // fbclid=IwAR0fSj2-McWUF2fs80iiuVaKisnq9fbiicNmxZFJ8Z4BeD6EOQHc6EQGjwk
@@ -143,6 +144,7 @@ function UrlGetQueryString()
 				&& (strpos($strQuery, 'key_name=') === false)
 				&& (strpos($strQuery, 'scene=') === false)
 				&& (strpos($strQuery, 'tdsourcetag=') === false)
+				&& (strpos($strQuery, 'xueqiu_comment_id=') === false)
 				&& (strpos($strQuery, 'xueqiu_private_from_source=') === false)
 				&& (strpos($strQuery, 'xueqiu_status_from_source=') === false)
 				&& (strpos($strQuery, 'xueqiu_status_id=') === false)

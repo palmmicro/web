@@ -54,9 +54,9 @@ function _echoAhHistoryParagraph($hshare_ref, $iStart, $iNum, $bAdmin)
 
     $ah_col = new TableColumnAhRatio();
 	EchoTableParagraphBegin(array(new TableColumnDate(),
-								   new TableColumnHKCNY(),
-								   new TableColumn($strSymbol),
-								   new TableColumn($strSymbolH),
+								   new TableColumnStock('HKCNY'),
+								   new TableColumnStock($strSymbol),
+								   new TableColumnStock($strSymbolH),
 								   $ah_col,
 								   new TableColumnHaRatio()
 								   ), $strSymbol.'ahhistory', $str);

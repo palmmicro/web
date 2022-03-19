@@ -21,9 +21,9 @@ function _LayoutTopLeft($bChinese = true, $bAdsense = true)
     LayoutTopLeft('_menuLoopCompany', true, $bChinese, $bAdsense);
 }
 
-function _LayoutBottom($bChinese = true)
+function _LayoutBottom($bChinese = true, $bAdsense = true)
 {
-    LayoutTail($bChinese, true);
+    LayoutTail($bChinese, $bAdsense);
 }
 
    	$acct = new Account();

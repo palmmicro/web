@@ -183,7 +183,7 @@ Wiki的QDII词条下显示了它是Qualified Domestic Institutional Investor的�
 不过折腾了一大圈后并没有明显的改善，倒是在这个过程中理清了原来闭着眼睛写的代码的内在逻辑，看出来了问题的根源。
 <br />在按member_id查询<?php EchoNameTag('mystockgroup', TABLE_STOCK_GROUP); ?>表找到这个人所有的<?php echo GetMyStockGroupLink('email=woody@palmmicro.com'); ?>后，我会对每个stockgroup直接构造<?php echo GetCodeElement('MyStockGroup'); ?>类，
 在它原来的构造函数代码中，会马上对该stockgroup中的每个stock构建一个<?php echo GetCodeElement('MyStockTransaction'); ?>类, 而<?php echo GetCodeElement('MyStockTransaction'); ?>的构造函数又需要这个stock的<?php echo GetCodeElement('MyStockReference'); ?>类作为参数,
-如果没有现成的实例可用，就会新构造一个。结果就是在首次统计持仓盈亏的过程中，我会把几乎所有股票的数据都去新浪拿一遍，难怪那么慢。 
+如果没有现成的实例可用，就会新构造一个。结果就是在首次统计持仓盈利的过程中，我会把几乎所有股票的数据都去新浪拿一遍，难怪那么慢。 
 <br />找到问题就好办了，首先判断stockgroup中stock对应的groupitem_id到底有没有交易记录，没有的话就不去构造<?php echo GetCodeElement('MyStockTransaction'); ?>类。另外预先统计好有交易记录的stock，统一去预取一下新浪数据。
 <br />随后我把预取数据的思路用在了所有需要读取新浪数据的地方，包括华宝油气净值计算在内，所有的页面反应速度都有不同程度的提升。原来我说因为网站服务器在美国所以访问慢的理由看来并不是那么准确的！
 <?php echo QuoteImgElement('pig.jpg', '一头特立独行的猪：趴在墙头看人杀猪。'); ?>

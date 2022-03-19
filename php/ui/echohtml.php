@@ -49,8 +49,9 @@ function EchoHead($bChinese = true)
 	echo '<link href="/common/style.css" rel="stylesheet" type="text/css" />';
 }
 
-function EchoBody($bChinese = true, $bAdsense = true)
+function EchoBody($bChinese = true, $bDisplay = true)
 {
+	$bAdsense = DebugIsAdmin() ? false : $bDisplay;
 	_LayoutTopLeft($bChinese, $bAdsense);
 	
 	LayoutBegin();
@@ -58,7 +59,7 @@ function EchoBody($bChinese = true, $bAdsense = true)
 	EchoAll($bChinese);
 	LayoutEnd();
 	
-	if ($bAdsense)	_LayoutBottom($bChinese);
+	if ($bDisplay)	_LayoutBottom($bChinese, $bAdsense);
 	else				LayoutTail($bChinese);
 }
 

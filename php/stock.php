@@ -208,7 +208,12 @@ function _getAllSymbolArray($strSymbol, $strStockId)
    	$sym = new StockSymbol($strSymbol);
     if ($sym->IsFundA())
     {
-        if (in_arrayQdiiMix($strSymbol))						       	return array_merge(array($strSymbol), SqlGetHoldingsSymbolArray($strSymbol));
+        if (in_arrayQdiiMix($strSymbol))
+        {
+        	$ar = array($strSymbol);
+        	if ($strSymbol == 'SZ164906')		$ar[] = 'KWEB';
+        	return array_merge($ar, SqlGetHoldingsSymbolArray($strSymbol));
+        }
         else if (in_arrayQdii($strSymbol))		        			return QdiiGetAllSymbolArray($strSymbol);
         else if (in_arrayQdiiHk($strSymbol))							return QdiiHkGetAllSymbolArray($strSymbol);
         else if (in_arrayChinaIndex($strSymbol))						return EtfGetAllSymbolArray($strSymbol);
@@ -261,6 +266,7 @@ function StockPrefetchArrayExtendedData($ar)
    		else								    			$arAll[] = $strSymbol;	// new stock symbol	
     }
     StockPrefetchArrayData($arAll);
+//    DebugPrint($arAll, 'StockPrefetchArrayExtendedData');
 }
 
 function StockPrefetchExtendedData()

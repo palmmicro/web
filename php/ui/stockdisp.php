@@ -3,6 +3,7 @@ define('STOCK_DISP_CHANGE', '涨幅');
 define('STOCK_DISP_EST', '估值');			// magenta
 define('STOCK_DISP_FAIR', '参考');
 define('STOCK_DISP_HIGH', '最高');
+define('STOCK_DISP_HOLDING', '持仓');
 define('STOCK_DISP_HSHARES', 'H股');
 define('STOCK_DISP_LOW', '最低');
 define('STOCK_DISP_NAV', '净值');			// olive

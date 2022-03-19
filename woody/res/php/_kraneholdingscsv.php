@@ -91,7 +91,6 @@ function ReadKraneHoldingsCsvFile($strSymbol, $strStockId, $strDate, $strNav)
 			$shares_sql = new SharesHistorySql();
 			$shares_sql->WriteDaily($strStockId, $strDate, strval_round($fMarketValue / floatval($strNav) / 10000.0));
 	
-			// copy KWEB holdings to SZ164906 
 			if ($strSymbol == 'KWEB')		CopyHoldings(new HoldingsDateSql(), $strStockId, SqlGetStockId('SZ164906'));
 		}
 		else	DebugString('ReadKraneHoldingsCsvFile failed');

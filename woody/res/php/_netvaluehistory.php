@@ -85,10 +85,22 @@ function _echoNetValueHistory($ref, $iStart, $iNum, $bAdmin)
     if (in_arrayQdii($strSymbol))
     {
     	$str .= ' '.GetQdiiAnalysisLinks($strSymbol);
-    	
     	$ref = new QdiiReference($strSymbol);
     	$cny_ref = $ref->GetCnyRef();
     	$est_ref = $ref->GetEstRef();
+    }
+	else if (in_arrayQdiiHk($strSymbol))
+    {
+    	$str .= ' '.GetFundPositionLink($strSymbol);
+       	$ref = new QdiiHkReference($strSymbol);
+        $cny_ref = $ref->GetCnyRef();
+        $est_ref = $ref->GetEstRef();
+    }
+    else if ($strSymbol == 'SZ164906')
+    {
+    	$str .= ' '.GetFundAccountLink($strSymbol).' '.GetFundPositionLink($strSymbol);
+       	$cny_ref = new CnyReference('USCNY');
+       	$est_ref = new MyStockReference('KWEB');
     }
     else
     {
@@ -104,9 +116,9 @@ function _echoNetValueHistory($ref, $iStart, $iNum, $bAdmin)
 	$ar = array(new TableColumnDate(), new TableColumnNav(), $change_col);
 	if ($est_ref)
 	{
-		$ar[] = new TableColumnUSCNY();
+		$ar[] = new TableColumnStock($cny_ref->GetSymbol());
 		$ar[] = $change_col;
-		$ar[] = new TableColumnNav($est_ref->GetSymbol());
+		$ar[] = RefGetTableColumnNav($est_ref);
 		$ar[] = $change_col;
 		$position_col = new TableColumnPosition();
 		$ar[] = $position_col;

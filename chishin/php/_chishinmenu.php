@@ -16,10 +16,10 @@ function _LayoutTopLeft($bChinese = true, $bAdsense = true)
     LayoutTopLeft('_menuChishinBlogGroup');
 }
 
-function _LayoutBottom($bChinese = true)
+function _LayoutBottom($bChinese = true, $bAdsense = true)
 {
     EchoBlogComments($bChinese);
-    LayoutTail($bChinese, true);
+    LayoutTail($bChinese, $bAdsense);
 }
 
    	$acct = new EditCommentAccount();

@@ -21,19 +21,7 @@ class _QdiiMixAccount extends GroupAccount
     {
         $strCNH = 'fx_susdcnh';
         $strSymbol = $this->GetName();
-        $ar = array($strSymbol, $strCNH);
-        switch ($strSymbol)
-        {
-        case 'SZ164906':
-        	$strUS = 'KWEB';
-        	break;
-        	
-		default:
-        	$strUS = false;
-        	break;
-        }
-        if ($strUS)	$ar[] = $strUS; 
-        StockPrefetchArrayExtendedData($ar);
+        StockPrefetchExtendedData($strSymbol, $strCNH);
 
         $this->cnh_ref = new ForexReference($strCNH);
         $this->ref = new HoldingsReference($strSymbol);
@@ -41,7 +29,7 @@ class _QdiiMixAccount extends GroupAccount
         switch ($strSymbol)
         {
         case 'SZ164906':
-        	$this->us_ref = new HoldingsReference($strUS);
+        	$this->us_ref = new HoldingsReference('KWEB');
         	break;
         	
 		default:
@@ -102,8 +90,11 @@ function EchoAll()
     $hkcny_ref = $ref->GetHkcnyRef();
     
 	EchoHoldingsEstParagraph($ref);
-	if ($ref->GetSymbol() == 'SZ164906')	EchoHoldingsEstParagraph($us_ref);
-//    EchoSmaParagraph($us_ref);
+	if ($us_ref)
+	{
+		EchoHoldingsEstParagraph($us_ref);
+//    	EchoSmaParagraph($us_ref);
+	}
     EchoReferenceParagraph(array_merge($acct->GetStockRefArray(), array($acct->cnh_ref, $uscny_ref, $hkcny_ref)), $acct->IsAdmin());
     EchoFundTradingParagraph($ref);
     EchoEtfHistoryParagraph($ref);

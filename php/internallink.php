@@ -45,7 +45,7 @@ define('ACCOUNT_TOOL_EDIT_CN', '临时测试');
 define('ACCOUNT_TOOL_IP_CN', 'IP地址数据');
 define('ACCOUNT_TOOL_LINEAR_CN', '线性回归');
 define('ACCOUNT_TOOL_PRIME_CN', '分解质因数');
-define('ACCOUNT_TOOL_SINAJS_CN', '新浪股票数据接口');
+define('ACCOUNT_TOOL_SINAJS_CN', '新浪股票接口');
 
 function GetAccountToolArray($bChinese)
 {

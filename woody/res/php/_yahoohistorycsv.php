@@ -65,9 +65,7 @@ class _YahooHistoryCsvFile extends DebugCsvFile
 	}
 }
 
-// https://query1.finance.yahoo.com/v7/finance/download/KWEB?period1=1611673365&period2=1643209365&interval=1d&events=history&includeAdjustedClose=true
 // https://query1.finance.yahoo.com/v7/finance/download/XOP?period1=1611853537&period2=1643389537&interval=1d&events=history&includeAdjustedClose=true
-// https://query1.finance.yahoo.com/v7/finance/download/AMD?period1=1611878400&period2=1643414400&interval=1d&events=history&includeAdjustedClose=true
 function YahooUpdateStockHistory($ref)
 {
 	$strSymbol = $ref->GetSymbol();

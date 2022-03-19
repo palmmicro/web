@@ -7,27 +7,18 @@ require_once('/php/ui/editinputform.php');
 function _echoFundPositionItem($csv, $ref, $cny_ref, $est_ref, $strDate, $strNetValue, $strPrevDate, $nav_sql, $strStockId, $est_sql, $strEstId, $strInput, $bAdmin)
 {
 	$bWritten = false;
-	$ar = array();
-	$ar[] = $csv ? $strDate : $strPrevDate;
-	$ar[] = $strNetValue;
+	$ar = array($strDate, $strNetValue);
 	
    	$strPrev = $nav_sql->GetClose($strStockId, $strPrevDate);
 	$ar[] = $ref->GetPercentageDisplay($strPrev, $strNetValue);
 
 	$strCny = $cny_ref->GetClose($strDate);
 	$ar[] = $strCny;
-	if ($strCnyPrev = $cny_ref->GetClose($strPrevDate))
-	{
-		$ar[] = $cny_ref->GetPercentageDisplay($strCnyPrev, $strCny);
-	}
-	else
-	{
-		$ar[] = '';
-	}
+	if ($strCnyPrev = $cny_ref->GetClose($strPrevDate))		$ar[] = $cny_ref->GetPercentageDisplay($strCnyPrev, $strCny);
+	else															$ar[] = '';
 		
 	if ($strEst = $est_sql->GetClose($strEstId, $strDate))
 	{
-//		$strEst = strval(floatval($strEst) + 0.378235);
 		$ar[] = $strEst;
 		if ($strEstPrev = $est_sql->GetClose($strEstId, $strPrevDate))
 		{
@@ -36,7 +27,7 @@ function _echoFundPositionItem($csv, $ref, $cny_ref, $est_ref, $strDate, $strNet
 			{
 				$bWritten = true;
 				$strCalibration = QdiiGetStockCalibration($strEst, $strNetValue, $strCny, $strPosition);
-				if ($csv)	$csv->Write($strDate, $strNetValue, $strPosition, $strCalibration);
+				$csv->Write($strDate, $strNetValue, $strPosition, $strCalibration);
 				
 				if ($bAdmin)	$strPosition = GetOnClickLink('/php/_submitoperation.php?stockid='.$strStockId.'&fundposition='.$strPosition, "确认使用{$strPosition}作为估值仓位？", $strPosition);
 				$ar[] = $strPosition.'/'.$strCalibration;
@@ -44,10 +35,7 @@ function _echoFundPositionItem($csv, $ref, $cny_ref, $est_ref, $strDate, $strNet
 		}
 	}
 
-	if ($bWritten == false)
-	{
-		if ($csv)	$csv->Write($strDate, $strNetValue);
-	}
+	if ($bWritten == false)		$csv->Write($strDate, $strNetValue);
 	EchoTableColumn($ar);
 }
 
@@ -108,15 +96,9 @@ function _getSwitchDateArray($nav_sql, $strStockId, $est_sql, $strEstId)
 function _echoFundPositionData($csv, $ref, $cny_ref, $est_ref, $strInput, $bAdmin)
 {
    	$strStockId = $ref->GetStockId();
-	$nav_sql = GetNavHistorySql();
-   	
 	$strEstId = $est_ref->GetStockId();
+	$nav_sql = GetNavHistorySql();
 	$est_sql = ($est_ref->CountNav() > 0) ? $nav_sql : GetStockHistorySql(); 
-/*	$est_sql = $nav_sql;
-	if ($est_sql->Count($strEstId) == 0 || $est_ref->IsIndex())
-	{
-		$est_sql = GetStockHistorySql();
-	}*/
 
 	$arDate = _getSwitchDateArray($nav_sql, $strStockId, $est_sql, $strEstId);
 	if (count($arDate) == 0)		return;
@@ -131,31 +113,19 @@ function _echoFundPositionData($csv, $ref, $cny_ref, $est_ref, $strInput, $bAdmi
        		if ($strDate == $arDate[$iIndex])
        		{
    				$iIndex ++;
-       			if ($csv)
-       			{
-       				if (isset($arDate[$iIndex]))
-       				{
-       					_echoFundPositionItem($csv, $ref, $cny_ref, $est_ref, $strDate, $strNetValue, $arDate[$iIndex], $nav_sql, $strStockId, $est_sql, $strEstId, $strInput, $bAdmin);
-       				}
-       				else
-       				{
-       					$csv->Write($strDate, $strNetValue);
-       					break;
-       				}
-       			}
-       			else
-       			{
-       				while (isset($arDate[$iIndex]))
-       				{
-       					_echoFundPositionItem($csv, $ref, $cny_ref, $est_ref, $strDate, $strNetValue, $arDate[$iIndex], $nav_sql, $strStockId, $est_sql, $strEstId, $strInput, $bAdmin);
-       					$iIndex ++;
-       				}
-       				break;
+   				if (isset($arDate[$iIndex]))
+   				{
+   					_echoFundPositionItem($csv, $ref, $cny_ref, $est_ref, $strDate, $strNetValue, $arDate[$iIndex], $nav_sql, $strStockId, $est_sql, $strEstId, $strInput, $bAdmin);
+   				}
+   				else
+   				{
+   					$csv->Write($strDate, $strNetValue);
+   					break;
        			}
        		}
        		else
        		{
-       			if ($csv)	$csv->Write($strDate, $strNetValue);
+				$csv->Write($strDate, $strNetValue);
        		}
         }
         @mysql_free_result($result);
@@ -164,90 +134,79 @@ function _echoFundPositionData($csv, $ref, $cny_ref, $est_ref, $strInput, $bAdmi
 
 function _echoFundPositionParagraph($ref, $cny_ref, $est_ref, $strSymbol, $strInput, $bAdmin)
 {
-//   	$cny_ref = $ref->GetCnyRef();
-//	$est_ref = $ref->GetEstRef();
-	
  	$str = GetFundLinks($strSymbol);
 	$change_col = new TableColumnChange();
 	$position_col = new TableColumnPosition();
 	EchoTableParagraphBegin(array(new TableColumnDate(),
 								   new TableColumnNav(),
 								   $change_col,
-								   new TableColumnUSCNY(),
+								   new TableColumnStock($cny_ref->GetSymbol()),
 								   $change_col,
 								   RefGetTableColumnNav($est_ref),
 								   $change_col,
 								   $position_col
 								   ), 'fundposition', $str);
 	
-	if ($strInput == '0')
-	{
-		$csv = false;
-		$strInput = POSITION_EST_LEVEL;
-	}
-	else
-	{
-		$csv = new PageCsvFile();
-	}
+	$csv = new PageCsvFile();
 	_echoFundPositionData($csv, $ref, $cny_ref, $est_ref, $strInput, $bAdmin);
+	$csv->Close();
 	
-    $str = '';
-	if ($csv)
+	if ($csv->HasFile())
 	{
-		$csv->Close();
-		if ($csv->HasFile())
+		$strNewLine = GetBreakElement();
+		$str = $strNewLine.$csv->GetLink();
+
+		$jpg = new DateImageFile();
+		if ($jpg->Draw($csv->ReadColumn(2), $csv->ReadColumn(1)))
 		{
-			$str .= '<br />'.$csv->GetLink();
-
-			$jpg = new DateImageFile();
-			if ($jpg->Draw($csv->ReadColumn(2), $csv->ReadColumn(1)))
-			{
-				$str .= '<br />'.$jpg->GetAll($position_col->GetDisplay(), $strSymbol);
-			}
-
-			$jpg2 = new DateImageFile(2);
-			if ($jpg2->Draw($csv->ReadColumn(3), $csv->ReadColumn(1)))
-			{
-				$str .= '<br />&nbsp;<br />'.$jpg2->GetAll('对冲值', $strSymbol);
-			}
+			$str .= $strNewLine.$jpg->GetAll($position_col->GetDisplay(), $strSymbol);
 		}
+
+		$jpg2 = new DateImageFile(2);
+		if ($jpg2->Draw($csv->ReadColumn(3), $csv->ReadColumn(1)))
+		{
+			$str .= $strNewLine.'&nbsp;'.$strNewLine.$jpg2->GetAll('对冲值', $strSymbol);
+		}
+		EchoTableParagraphEnd($str);
    	}
-    EchoTableParagraphEnd($str);
 }
 
 function EchoAll()
 {
 	global $acct;
 	
-    if (isset($_POST['submit']))
-	{
-		unset($_POST['submit']);
-		$strInput = SqlCleanString($_POST[EDIT_INPUT_NAME]);
-	}
-    else
-    {
-   		$strInput = POSITION_EST_LEVEL;
-    }
-    EchoEditInputForm('进行估算的涨跌阈值', $strInput);
-    
     if ($ref = $acct->EchoStockGroup())
     {
-   		$strSymbol = $ref->GetSymbol();
+    	if (isset($_POST['submit']))
+    	{
+    		unset($_POST['submit']);
+    		$strInput = SqlCleanString($_POST[EDIT_INPUT_NAME]);
+    	}
+    	else	$strInput = POSITION_EST_LEVEL;
+    	EchoEditInputForm('进行估算的涨跌阈值', $strInput);
+    	
    		$fund = false;
+   		$strSymbol = $ref->GetSymbol();
         if (in_arrayQdii($strSymbol))
         {
         	$fund = new QdiiReference($strSymbol);
         	$cny_ref = $fund->GetCnyRef();
         	$est_ref = $fund->GetEstRef();
         }
+		else if (in_arrayQdiiHk($strSymbol))
+        {
+        	$fund = new QdiiHkReference($strSymbol);
+        	$cny_ref = $fund->GetCnyRef();
+        	$est_ref = $fund->GetEstRef();
+        }
         else if ($strSymbol == 'SZ164906')
         {
-        	$fund = new FundReference($strSymbol);
+        	$fund = $ref;
         	$cny_ref = new CnyReference('USCNY');
-        	$est_ref = new MyStockReference('KWEB');	// 这里有个结构性问题，KWEB的新浪数据会需要单独去重新拿一次。
+        	$est_ref = new MyStockReference('KWEB');
         }
 		if ($fund)		_echoFundPositionParagraph($fund, $cny_ref, $est_ref, $strSymbol, $strInput, $acct->IsAdmin());
-		else			EchoParagraph(GetFontElement('想多了，A股LOF基金才需要进行'.FUND_POSITION_DISPLAY.'。'));
+//		else			EchoParagraph(GetFontElement('想多了，A股LOF基金才需要进行'.FUND_POSITION_DISPLAY.'。'));
     }
     $acct->EchoLinks('fundposition');
 }

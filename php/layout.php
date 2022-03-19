@@ -181,7 +181,7 @@ function GetSwitchLanguageLink($bChinese)
 
 function LayoutTopLeft($callback = false, $bSwitchLanguage = false, $bChinese = true, $bAdsense = true)
 {
-    EchoAnalyticsOptimize();
+    if ($bAdsense)	EchoAnalyticsOptimize();
 	$_SESSION['switchlanguage'] = $bSwitchLanguage;
     if ($_SESSION['mobile'])
     {

@@ -59,7 +59,6 @@ function GetCategoryArray($strPage)
         break;
         
     case 'chinainternet':
-//        $ar = array('SH513050', 'SZ159605', 'SZ159607', 'SZ164906');
         $ar = array('SH513050', 'SZ159605', 'SZ159607', 'SZ164906');
         break;
         

@@ -35,10 +35,10 @@ function _LayoutTopLeft($bChinese = true, $bAdsense = true)
     LayoutTopLeft('AccountMenu', true, $bChinese, $bAdsense);
 }
 
-function _LayoutBottom($bChinese = true)
+function _LayoutBottom($bChinese = true, $bAdsense = true)
 {
     VisitorLogin($bChinese);
-    LayoutTail($bChinese, true);
+    LayoutTail($bChinese, $bAdsense);
 }
 
 ?>

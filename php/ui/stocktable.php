@@ -71,7 +71,7 @@ class TableColumnHolding extends TableColumn
 {
 	function TableColumnHolding($strPrefix = false)
 	{
-        parent::TableColumn('持仓', 105, false, $strPrefix);
+        parent::TableColumn(STOCK_DISP_HOLDING, 105, false, $strPrefix);
 	}
 }
 
@@ -95,7 +95,7 @@ class TableColumnNav extends TableColumn
 {
 	function TableColumnNav($strPrefix = false)
 	{
-        parent::TableColumn(STOCK_DISP_NAV, 90, 'olive', $strPrefix);
+        parent::TableColumn(STOCK_DISP_NAV, 80, 'olive', $strPrefix);
 	}
 }
 
@@ -262,22 +262,6 @@ class TableColumnHKD extends TableColumn
 	function TableColumnHKD($strPrefix = false)
 	{
         parent::TableColumn('港币$', 80, false, $strPrefix);
-	}
-}
-
-class TableColumnUSCNY extends TableColumnStock
-{
-	function TableColumnUSCNY()
-	{
-        parent::TableColumnStock('USCNY', 60);
-	}
-}
-
-class TableColumnHKCNY extends TableColumnStock
-{
-	function TableColumnHKCNY()
-	{
-        parent::TableColumnStock('HKCNY', 60);
 	}
 }
 

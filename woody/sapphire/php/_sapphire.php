@@ -20,9 +20,9 @@ function _LayoutTopLeft($bChinese = true, $bAdsense = true)
     LayoutTopLeft('_menuSapphirePhoto', true, $bChinese, $bAdsense);
 }
 
-function _LayoutBottom($bChinese = true)
+function _LayoutBottom($bChinese = true, $bAdsense = true)
 {
-    LayoutTail($bChinese, true);
+    LayoutTail($bChinese, $bAdsense);
 }
 
 function GetTitle($bChinese = true)

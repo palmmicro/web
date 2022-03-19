@@ -124,7 +124,7 @@ function GetFundAccountLink($strSymbol)
     return GetStockSymbolLink('fundaccount', $strSymbol, FUND_ACCOUNT_DISPLAY);
 }
 
-define('FUND_POSITION_DISPLAY', '基金仓位估算');
+define('FUND_POSITION_DISPLAY', '仓位估算');
 function GetFundPositionLink($strSymbol, $bDisplaySymbol = false)
 {
     return GetStockSymbolLink('fundposition', $strSymbol, ($bDisplaySymbol ? $strSymbol : FUND_POSITION_DISPLAY));
@@ -186,7 +186,7 @@ function GetAutoTractorLink($strQuery = false)
     return GetStockPageLink('autotractor', AUTO_TRACTOR_DISPLAY, $strQuery);
 }
 
-define('MY_PORTFOLIO_DISPLAY', '持仓盈亏');
+define('MY_PORTFOLIO_DISPLAY', STOCK_DISP_HOLDING.STOCK_DISP_PROFIT);
 function GetMyPortfolioLink($strQuery = false)
 {
     return GetStockPageLink('myportfolio', MY_PORTFOLIO_DISPLAY, $strQuery);
