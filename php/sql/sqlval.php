@@ -11,6 +11,11 @@ class ValSql extends TableSql
         parent::TableSql($strTableName);
     }
 
+    function GetValName()
+    {
+		return $this->strValName;
+    }
+    
     public function Create()
     {
     	$str = $this->ComposePrimaryIdStr().','
@@ -63,6 +68,5 @@ class FundPositionSql extends ValSql
         parent::ValSql('fundposition');
     }
 }
-
 
 ?>

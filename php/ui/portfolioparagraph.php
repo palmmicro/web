@@ -5,25 +5,20 @@ function _getPortfolioTestVal($iShares, $strSymbol)
 {
 	switch ($strSymbol)
     {
-/*	
-	case 'SH600104':
-		$iQuantity = 4000;
-		break;
-
-    case 'SZ160717':
-    	$iQuantity = 41200;
-    	break;
-
     case 'KWEB':
 		$iQuantity = 200;
 		break;
-*/		
+		
 	case 'SH510900':
 		$iQuantity = 30000;
 		break;
 
     case 'SZ162411':
 		$iQuantity = 59000 + 140000;
+		break;
+		
+    case 'XOP':
+		$iQuantity = 1100;
 		break;
 		
 	default:
@@ -44,16 +39,14 @@ function _getArbitrageTestStr($iShares, $strGroupId, $strStockId, $strSymbol)
 			if ($strStockId != $record['stock_id'])
 			{
 				$iArbitrageQuantity = intval($record['quantity']);
-				break;
+				if ($iArbitrageQuantity > 0)	break;
 			}
 		}
         @mysql_free_result($result);
     }
 
     $iQuantity = _getPortfolioTestVal($iShares, $strSymbol); 
-    $str = strval($iQuantity).'/';
-    $str .= strval($iArbitrageQuantity + $iQuantity * GetArbitrageRatio(SqlGetStockSymbol($record['stock_id'])));
-    return $str;
+	return strval($iArbitrageQuantity + $iQuantity * GetArbitrageRatio($record['stock_id']));
 }
 
 function _echoPortfolioTableItem($trans)
@@ -62,6 +55,7 @@ function _echoPortfolioTableItem($trans)
 	
     $ref = $trans->ref;
     $strSymbol = $ref->GetSymbol();
+    $strStockId = $ref->GetStockId();
     
     $strGroupId = $trans->GetGroupId();
     $ar[] = StockGetTransactionLink($strGroupId, $strSymbol);
@@ -75,12 +69,9 @@ function _echoPortfolioTableItem($trans)
        	$ar[] = ($trans->GetTotalCost() > 0.0) ? $ref->GetPercentageDisplay($trans->GetAvgCost()) : '';
         switch ($strSymbol)
         {
-/*		
-        case 'SH600104':
-        case 'SZ160717':
 		case 'KWEB':
-*/		case 'XLE':
-        	$ar[] = _getArbitrageTestStr($iShares, $strGroupId, $ref->GetStockId(), $strSymbol);
+		case 'XOP':
+        	$ar[] = _getArbitrageTestStr($iShares, $strGroupId, $strStockId, $strSymbol);
         	break;
     		
 		case 'SH510900':
@@ -88,10 +79,8 @@ function _echoPortfolioTableItem($trans)
         	$ar[] = strval(_getPortfolioTestVal($iShares, $strSymbol));
         	break;
     		
-        case 'SZ161127':
-        case 'SZ163208':
         case 'SZ164906':
-        	$ar[] = GetArbitrageQuantity($strSymbol, floatval($iShares));
+        	$ar[] = GetArbitrageQuantity($strStockId, floatval($iShares));
 			break;
    		}
     }

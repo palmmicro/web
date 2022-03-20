@@ -24,7 +24,7 @@ class StockHistorySql extends DailyCloseSql
 {
     function StockHistorySql() 
     {
-        parent::DailyCloseSql(TABLE_STOCK_HISTORY);
+        parent::DailyCloseSql('stockhistory');
     }
 
     public function Create()

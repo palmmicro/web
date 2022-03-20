@@ -79,7 +79,7 @@ function GetHoldingsLink($strSymbol, $bDisplaySymbol = false)
 define('STOCK_HISTORY_DISPLAY', '历史价格');
 function GetStockHistoryLink($strSymbol)
 {
-    return GetStockSymbolLink(TABLE_STOCK_HISTORY, $strSymbol, STOCK_HISTORY_DISPLAY);
+    return GetStockSymbolLink('stockhistory', $strSymbol, STOCK_HISTORY_DISPLAY);
 }
 
 define('FUND_HISTORY_DISPLAY', '基金溢价记录');
@@ -89,7 +89,7 @@ function GetFundHistoryLink($strSymbol)
 }
 
 define('NETVALUE_HISTORY_DISPLAY', '净值记录');
-function GetNetValueHistoryLink($strSymbol, $strExtraQuery = false, $strExtraDisplay = false)
+function GetNavHistoryLink($strSymbol, $strExtraQuery = false, $strExtraDisplay = false)
 {
 	$strDisplay = $strExtraQuery ? $strExtraDisplay : NETVALUE_HISTORY_DISPLAY;
     return GetStockSymbolLink('netvaluehistory', $strSymbol, $strDisplay, $strExtraQuery);
@@ -103,7 +103,22 @@ function GetNvCloseHistoryLink($strSymbol)
 
 function GetFundLinks($strSymbol)
 {
-	return GetFundHistoryLink($strSymbol).' '.GetNetValueHistoryLink($strSymbol).' '.GetStockHistoryLink($strSymbol).' '.GetFundShareLink($strSymbol).' '.GetNvCloseHistoryLink($strSymbol);
+	$bChinaIndex = in_arrayChinaIndex($strSymbol);
+	$bGoldSilver = in_arrayGoldSilver($strSymbol);
+    $bQdii = in_arrayQdii($strSymbol);
+	$bQdiiHk = in_arrayQdiiHk($strSymbol);
+	$bQdiiMix = in_arrayQdiiMix($strSymbol);
+	$bSpecial = ($strSymbol == 'SZ164906') ? true : false;
+
+	$str = GetStockHistoryLink($strSymbol).' '.GetFundHistoryLink($strSymbol).' '.GetNavHistoryLink($strSymbol).' '.GetNvCloseHistoryLink($strSymbol).' '.GetFundShareLink($strSymbol);
+	if ($bChinaIndex || $bGoldSilver || $bQdii || $bQdiiHk || $bQdiiMix)
+	{
+		$str .= ' '.GetCalibrationHistoryLink($strSymbol);
+		if ($bQdii || $bQdiiHk || $bSpecial)	$str .= ' '.GetFundPositionLink($strSymbol);
+		if ($bQdii || $bSpecial)					$str .= ' '.GetFundAccountLink($strSymbol);
+		if ($bQdii)								$str .= ' '.GetThanousParadoxLink($strSymbol);
+	}
+	return $str;
 }
 
 define('AH_HISTORY_DISPLAY', 'AH'.STOCK_HISTORY_DISPLAY.'比较');
@@ -136,14 +151,10 @@ function GetFundShareLink($strSymbol)
     return GetStockSymbolLink('fundshare', $strSymbol, FUND_SHARE_DISPLAY);
 }
 
-function GetQdiiAnalysisLinks($strSymbol)
-{
-	return GetThanousParadoxLink($strSymbol).' '.GetFundAccountLink($strSymbol).' '.GetFundPositionLink($strSymbol);
-}
-
 define('STOCK_OPTION_ADR', '修改H股对应ADR代码');
 define('STOCK_OPTION_AH', '修改A股对应H股代码');
 define('STOCK_OPTION_AMOUNT', '基金申购金额');
+define('STOCK_OPTION_CALIBRATION', '手工校准');
 define('STOCK_OPTION_CLOSE', '更新收盘价');
 define('STOCK_OPTION_DIVIDEND', '分红');
 define('STOCK_OPTION_EDIT', '修改股票说明');
@@ -156,7 +167,11 @@ define('STOCK_OPTION_SHARE_DIFF', '场内新增(万)');
 define('STOCK_OPTION_SPLIT', '拆股或合股');
 function GetStockOptionArray()
 {
-    $ar = array('editstock' => STOCK_OPTION_EDIT,
+    $ar = array(
+                  'editcalibration' => STOCK_OPTION_CALIBRATION,
+                  'editnetvalue' => STOCK_OPTION_NETVALUE,
+                  'editsharesdiff' => STOCK_OPTION_SHARE_DIFF,
+    			  'editstock' => STOCK_OPTION_EDIT,
                   'editstockadr' => STOCK_OPTION_ADR,
                   'editstockah' => STOCK_OPTION_AH,
                   'editstockamount' => STOCK_OPTION_AMOUNT,
@@ -166,8 +181,6 @@ function GetStockOptionArray()
                   'editstocketf' => STOCK_OPTION_ETF,
                   'editstockha' => STOCK_OPTION_HA,
                   'editstockholdings' => STOCK_OPTION_HOLDINGS,
-                  'editnetvalue' => STOCK_OPTION_NETVALUE,
-                  'editsharesdiff' => STOCK_OPTION_SHARE_DIFF,
                   'editstocksplit' => STOCK_OPTION_SPLIT,
                  );
 	return $ar;

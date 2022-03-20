@@ -129,7 +129,7 @@ class _SubmitTransactionAccount extends StockAccount
   	
     	$fAmount = floatval($strAmount);
     	$fQuantity = $fAmount / (1.0 + $fFeeRatio) / floatval($strNetValue);
-    	$strRemark = '}'.GetArbitrageQuantity($strSymbol, $fQuantity).' '.STOCK_DISP_ORDER;
+    	$strRemark = '}'.GetArbitrageQuantity($strFundId, $fQuantity).' '.STOCK_DISP_ORDER;
     	if ($sql->trans_sql->Insert($strGroupItemId, strval(intval($fQuantity)), $strNetValue, strval_round($fAmount * $fFeeRatio * 0.1), $strRemark))
     	{
 	       	_debugFundPurchase($strGroupId, $strFundId);

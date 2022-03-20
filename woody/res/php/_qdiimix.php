@@ -4,9 +4,9 @@ require_once('_stockgroup.php');
 require_once('_kraneholdingscsv.php');
 require_once('_sseholdings.php');
 require_once('_szseholdings.php');
-//require_once('/php/stockhis.php');
+require_once('/php/stockhis.php');
 require_once('/php/ui/referenceparagraph.php');
-//require_once('/php/ui/smaparagraph.php');
+require_once('/php/ui/smaparagraph.php');
 require_once('/php/ui/tradingparagraph.php');
 require_once('/php/ui/fundhistoryparagraph.php');
 require_once('/php/ui/fundshareparagraph.php');
@@ -55,7 +55,18 @@ class _QdiiMixAccount extends GroupAccount
 		if ($strNavDate == $date_sql->ReadDate($strStockId))								return;	// Already up to date
 		
 		$us_ref = $this->us_ref;
-		if ($us_ref)		CopyHoldings($date_sql, $us_ref->GetStockId(), $strStockId);
+		if ($us_ref)
+		{
+			$strUsId = $us_ref->GetStockId();
+			CopyHoldings($date_sql, $strUsId, $strStockId);
+			if ($strUsNav = $nav_sql->GetClose($strUsId, $strNavDate))
+			{
+				$uscny_ref = $ref->GetUscnyRef();
+				$fFactor = QdiiGetCalibration($strUsNav, $nav_sql->GetClose($uscny_ref->GetStockId(), $strNavDate), $nav_sql->GetClose($strStockId, $strNavDate));
+				$calibration_sql = new CalibrationSql();
+				$calibration_sql->WriteDaily($strStockId, $strNavDate, strval($fFactor));
+			}
+		}
     	else
     	{
     		$fund_est_sql = $ref->GetFundEstSql();
@@ -80,6 +91,20 @@ class _QdiiMixAccount extends GroupAccount
     }
 }
 
+function _callbackQdiiMixSma($ref, $strEst = false)
+{
+	if ($strEst)
+	{
+		$calibration_sql = new CalibrationSql();
+		$uscny_ref = $ref->GetUscnyRef();
+		$strStockId = $ref->GetStockId();
+		$fVal = QdiiGetVal($strEst, $uscny_ref->GetPrice(), floatval($calibration_sql->GetCloseNow($strStockId)));
+		$fVal = FundAdjustPosition(FundGetPosition($ref), $fVal, floatval(SqlGetNav($strStockId)));
+		return strval_round($fVal);
+	}
+	return $ref;
+}
+
 function EchoAll()
 {
     global $acct;
@@ -90,13 +115,13 @@ function EchoAll()
     $hkcny_ref = $ref->GetHkcnyRef();
     
 	EchoHoldingsEstParagraph($ref);
+    EchoReferenceParagraph(array_merge($acct->GetStockRefArray(), array($acct->cnh_ref, $uscny_ref, $hkcny_ref)), $acct->IsAdmin());
+    EchoFundTradingParagraph($ref);
 	if ($us_ref)
 	{
 		EchoHoldingsEstParagraph($us_ref);
-//    	EchoSmaParagraph($us_ref);
+		EchoSmaParagraph($us_ref, false, $ref, '_callbackQdiiMixSma');
 	}
-    EchoReferenceParagraph(array_merge($acct->GetStockRefArray(), array($acct->cnh_ref, $uscny_ref, $hkcny_ref)), $acct->IsAdmin());
-    EchoFundTradingParagraph($ref);
     EchoEtfHistoryParagraph($ref);
    	EchoFundShareParagraph($ref);
 

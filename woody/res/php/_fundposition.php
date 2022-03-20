@@ -26,11 +26,11 @@ function _echoFundPositionItem($csv, $ref, $cny_ref, $est_ref, $strDate, $strNet
 			if ($strPosition = QdiiGetStockPosition($strEstPrev, $strEst, $strPrev, $strNetValue, $strCnyPrev, $strCny, $strInput))
 			{
 				$bWritten = true;
-				$strCalibration = QdiiGetStockCalibration($strEst, $strNetValue, $strCny, $strPosition);
-				$csv->Write($strDate, $strNetValue, $strPosition, $strCalibration);
+				$strArbitrage = QdiiGetStockArbitrage($strEst, $strNetValue, $strCny, $strPosition);
+				$csv->Write($strDate, $strNetValue, $strPosition, $strArbitrage);
 				
 				if ($bAdmin)	$strPosition = GetOnClickLink('/php/_submitoperation.php?stockid='.$strStockId.'&fundposition='.$strPosition, "确认使用{$strPosition}作为估值仓位？", $strPosition);
-				$ar[] = $strPosition.'/'.$strCalibration;
+				$ar[] = $strPosition;	// .'/'.$strArbitrage;
 			}
 		}
 	}
@@ -113,20 +113,14 @@ function _echoFundPositionData($csv, $ref, $cny_ref, $est_ref, $strInput, $bAdmi
        		if ($strDate == $arDate[$iIndex])
        		{
    				$iIndex ++;
-   				if (isset($arDate[$iIndex]))
-   				{
-   					_echoFundPositionItem($csv, $ref, $cny_ref, $est_ref, $strDate, $strNetValue, $arDate[$iIndex], $nav_sql, $strStockId, $est_sql, $strEstId, $strInput, $bAdmin);
-   				}
+   				if (isset($arDate[$iIndex]))	_echoFundPositionItem($csv, $ref, $cny_ref, $est_ref, $strDate, $strNetValue, $arDate[$iIndex], $nav_sql, $strStockId, $est_sql, $strEstId, $strInput, $bAdmin);
    				else
    				{
    					$csv->Write($strDate, $strNetValue);
    					break;
        			}
        		}
-       		else
-       		{
-				$csv->Write($strDate, $strNetValue);
-       		}
+       		else	$csv->Write($strDate, $strNetValue);
         }
         @mysql_free_result($result);
     }
@@ -206,7 +200,6 @@ function EchoAll()
         	$est_ref = new MyStockReference('KWEB');
         }
 		if ($fund)		_echoFundPositionParagraph($fund, $cny_ref, $est_ref, $strSymbol, $strInput, $acct->IsAdmin());
-//		else			EchoParagraph(GetFontElement('想多了，A股LOF基金才需要进行'.FUND_POSITION_DISPLAY.'。'));
     }
     $acct->EchoLinks('fundposition');
 }

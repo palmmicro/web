@@ -3,48 +3,49 @@ require_once('_stock.php');
 require_once('_emptygroup.php');
 require_once('/php/ui/stocktable.php');
 
-function _echoCalibrationHistoryItem($sql, $strStockId, $record)
+function _echoCalibrationHistoryItem($sql, $fPosition, $strStockId, $record, $bAdmin)
 {
 	$ar = array();
 	$strDate = $record['date'];
 	
 	$ar[] = $strDate;
 	$ar[] = $sql->GetClose($strStockId, $strDate);
-	$ar[] = $record['close'];
+	
+	$strCalibration = $record['close']; 
+	$ar[] = $strCalibration;
+	
 	$ar[] = $record['time'];
+	
+	$strArbitrage = strval(round(floatval($strCalibration) / $fPosition));
+	if ($bAdmin)	$strArbitrage = GetOnClickLink('/php/_submitoperation.php?stockid='.$strStockId.'&fundarbitrage='.$strArbitrage, "确认使用{$strArbitrage}作为参考对冲值？", $strArbitrage);
+	$ar[] = $strArbitrage; 
 
 	EchoTableColumn($ar);
 }
 
-function _echoCalibrationHistoryParagraph($ref, $iStart, $iNum)
+function _echoCalibrationHistoryParagraph($ref, $iStart, $iNum, $bAdmin)
 {
 	$strSymbol = $ref->GetSymbol();
 	$strStockId = $ref->GetStockId();
-	$sql = GetNavHistorySql();
-	if ($sql->Count($strStockId) == 0)
-	{	// Symbol like USO do not have NAV 
-		$sql = GetStockHistorySql();
-		$nav_col = new TableColumnPrice();
-	}
-	else
-	{
-		$nav_col = new TableColumnNav();
-	}
-
+	
 	$calibration_sql = new CalibrationSql();
    	$strMenuLink = StockGetMenuLink($strSymbol, $calibration_sql->Count($strStockId), $iStart, $iNum);
+   	$str = GetFundLinks($strSymbol);
     
 	EchoTableParagraphBegin(array(new TableColumnDate(),
-								   $nav_col,
+								   RefGetTableColumnNav($ref),
 								   new TableColumnCalibration(),
-								   new TableColumnTime()
-								   ), $strSymbol.'calibrationhistory', $strMenuLink);
+								   new TableColumnTime(),
+								   new TableColumn('对冲值')
+								   ), $strSymbol.'calibrationhistory', $str.' '.$strMenuLink);
 
     if ($result = $calibration_sql->GetAll($strStockId, $iStart, $iNum)) 
     {
+    	$sql = ($ref->CountNav() > 0) ? GetNavHistorySql() : GetStockHistorySql(); 
+    	$fPosition = FundGetPosition($ref);
         while ($record = mysql_fetch_assoc($result)) 
         {
-			_echoCalibrationHistoryItem($sql, $strStockId, $record);
+			_echoCalibrationHistoryItem($sql, $fPosition, $strStockId, $record, $bAdmin);
         }
         @mysql_free_result($result);
     }
@@ -57,7 +58,7 @@ function EchoAll()
 	
     if ($ref = $acct->EchoStockGroup())
     {
-   		_echoCalibrationHistoryParagraph($ref, $acct->GetStart(), $acct->GetNum());
+   		_echoCalibrationHistoryParagraph($ref, $acct->GetStart(), $acct->GetNum(), $acct->IsAdmin());
     }
     $acct->EchoLinks('calibrationhistory');
 }    

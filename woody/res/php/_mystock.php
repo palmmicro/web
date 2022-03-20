@@ -98,7 +98,7 @@ function _hasSmaDisplay($sym)
 
 function _getFundOptionLinks($strSymbol)
 {
-	return ' '.GetStockOptionLink(STOCK_OPTION_NETVALUE, $strSymbol).' '.GetStockOptionLink(STOCK_OPTION_ETF, $strSymbol).' '.GetStockOptionLink(STOCK_OPTION_HOLDINGS, $strSymbol);
+	return ' '.GetStockOptionLink(STOCK_OPTION_NETVALUE, $strSymbol).' '.GetStockOptionLink(STOCK_OPTION_CALIBRATION, $strSymbol).' '.GetStockOptionLink(STOCK_OPTION_ETF, $strSymbol).' '.GetStockOptionLink(STOCK_OPTION_HOLDINGS, $strSymbol);
 }
 
 function _getMyStockLinks($sym)

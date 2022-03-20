@@ -4,6 +4,40 @@ require_once('_emptygroup.php');
 require_once('/php/ui/referenceparagraph.php');
 require_once('/php/ui/fundestparagraph.php');
 
+function RefSortBySymbol($arRef)
+{
+    $ar = array();
+    foreach ($arRef as $ref)
+    {
+        $strSymbol = $ref->GetSymbol();
+		if (isset($ar[$strSymbol]) == false)		 $ar[$strSymbol] = $ref; 
+    }
+    ksort($ar);
+    
+    $arSort = array();
+    foreach ($ar as $str => $ref)
+    {
+        $arSort[] = $ref;
+    }
+    return $arSort;
+}
+
+function RefSort($arRef)
+{
+	$arA = array();
+    $arH = array();
+    $arUS = array();
+
+    foreach ($arRef as $ref)
+    {
+    	if ($ref->IsSymbolA())			$arA[] = $ref;
+		else if ($ref->IsSymbolH())      	$arH[] = $ref;
+		else			                	$arUS[] = $ref;
+	}
+	
+	return array_merge(RefSortBySymbol($arA), RefSortBySymbol($arH), RefSortBySymbol($arUS));
+}
+
 function _echoHoldingItem($ref, $arRatio, $strDate, $his_sql, $fTotalChange, $fAdjustH)
 {
 	$bHk = $ref->IsSymbolH() ? true : false;

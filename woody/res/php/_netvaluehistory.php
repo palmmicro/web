@@ -84,21 +84,18 @@ function _echoNetValueHistory($ref, $iStart, $iNum, $bAdmin)
     $str = GetFundLinks($strSymbol);
     if (in_arrayQdii($strSymbol))
     {
-    	$str .= ' '.GetQdiiAnalysisLinks($strSymbol);
     	$ref = new QdiiReference($strSymbol);
     	$cny_ref = $ref->GetCnyRef();
     	$est_ref = $ref->GetEstRef();
     }
 	else if (in_arrayQdiiHk($strSymbol))
     {
-    	$str .= ' '.GetFundPositionLink($strSymbol);
        	$ref = new QdiiHkReference($strSymbol);
         $cny_ref = $ref->GetCnyRef();
         $est_ref = $ref->GetEstRef();
     }
     else if ($strSymbol == 'SZ164906')
     {
-    	$str .= ' '.GetFundAccountLink($strSymbol).' '.GetFundPositionLink($strSymbol);
        	$cny_ref = new CnyReference('USCNY');
        	$est_ref = new MyStockReference('KWEB');
     }

@@ -465,13 +465,13 @@ void CWebToolDoc::OnItemSelected()
 {
 	CTreeCtrl & ctrl = GetTreeCtrl();
 	HTREEITEM hItem = ctrl.GetSelectedItem();
-	HTREEITEM hParent;
+//	HTREEITEM hParent;
 	CString str;
 	CString strPathName;
-	BOOL bViewPhp;
+//	BOOL bViewPhp;
 
 	str = ctrl.GetItemText(hItem);
-	if (IsPhpFile(str))
+/*	if (IsPhpFile(str))
 	{
 		hParent = ctrl.GetParentItem(hItem);
 		bViewPhp = (ctrl.GetItemText(hParent) == _T("php")) ? FALSE : TRUE;	// php only .php files are stored in "php" dir only
@@ -481,7 +481,8 @@ void CWebToolDoc::OnItemSelected()
 		bViewPhp = FALSE;
 	}
 
-	if (IsHtmlFile(str) || bViewPhp)
+	if (IsHtmlFile(str) || bViewPhp)*/
+	if (IsHtmlFile(str))
 	{
 		GetItemPathName(hItem, strPathName);
 		((CMainFrame *)AfxGetMainWnd())->UpdateHtmlFile(strPathName);

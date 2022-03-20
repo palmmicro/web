@@ -19,6 +19,7 @@ function _getStockOptionDate($strSubmit, $ref)
 		if ($record = $his_sql->GetRecordPrev($strStockId, $ref->GetDate()))	return $record['date'];
 		break;
 
+	case STOCK_OPTION_CALIBRATION:
 	case STOCK_OPTION_NETVALUE:
 		$nav_sql = GetNavHistorySql();
 		if ($strDate = $nav_sql->GetDateNow($strStockId))							return $strDate;
@@ -150,6 +151,45 @@ function _getStockOptionDividend($strStockId, $strDate)
 	return '1.00';
 }
 
+function _getBestEstNav($ref, $strDate)
+{
+	$strStockId = $ref->GetStockId();
+	$strEst = SqlGetNavByDate($strStockId, $strDate);
+	if ($strEst == false)
+    {
+    	$strEst = SqlGetHisByDate($strStockId, $strDate);
+   		if ($strEst == false)	$strEst = $ref->GetPrevPrice();
+   	}
+   	return $strEst;
+}
+
+function _getStockOptionCalibration($strSymbol, $strDate)
+{
+	$est_ref = false;
+	if (in_arrayChinaIndex($strSymbol))
+	{
+	}
+	else if (in_arrayGoldSilver($strSymbol))
+	{
+	}
+	else if (in_arrayQdii($strSymbol))
+	{
+       	$fund = new QdiiReference($strSymbol);
+       	$est_ref = $fund->GetEstRef();
+	}
+	else if (in_arrayQdiiHk($strSymbol))
+	{
+       	$fund = new QdiiHkReference($strSymbol);
+       	$est_ref = $fund->GetEstRef();
+	}
+	else if ($strSymbol == 'SZ164906')
+	{
+		$est_ref = new MyStockReference('KWEB');
+	}
+
+	return $est_ref ? _getBestEstNav($est_ref, $strDate) : '对方净值';
+}
+
 function _getStockOptionVal($strSubmit, $strLoginId, $ref, $strSymbol, $strDate)
 {
 	$strStockId = $ref->GetStockId();
@@ -182,6 +222,9 @@ function _getStockOptionVal($strSubmit, $strLoginId, $ref, $strSymbol, $strDate)
 	case STOCK_OPTION_HOLDINGS:
 		return 'STOCK1*10.1;STOCK2*20.2;STOCK3*30.3;STOCK4*39.4';
 
+	case STOCK_OPTION_CALIBRATION:
+		return _getStockOptionCalibration($strSymbol, $strDate); 
+		
 	case STOCK_OPTION_NETVALUE:
 		return SqlGetNavByDate($strStockId, $strDate);
 
@@ -202,13 +245,13 @@ function _getStockOptionMemo($strSubmit)
 	switch ($strSubmit)
 	{
 	case STOCK_OPTION_ADR:
-		return '输入SYMBOL/0删除对应ADR.';
+		return '输入SYMBOL/0删除对应ADR。';
 		
 	case STOCK_OPTION_AH:
-		return '清空输入删除对应H股.';
+		return '清空输入删除对应H股。';
 		
 	case STOCK_OPTION_DIVIDEND:
-		return '清空输入删除对应分红.';
+		return '清空输入删除对应分红。';
 		
 	case STOCK_OPTION_EMA:
 		return '股票收盘后的第2天修改才会生效，输入0/0删除全部EMA记录。';
@@ -217,17 +260,22 @@ function _getStockOptionMemo($strSubmit)
 		return '输入INDEX*0删除对应关系和全部'.CALIBRATION_HISTORY_DISPLAY.'。';
 
 	case STOCK_OPTION_HA:
-		return '清空输入删除对应A股.';
+		return '清空输入删除对应A股。';
 
 	case STOCK_OPTION_HOLDINGS:
 		return '输入STOCK*0删除对应基金持仓，用;号间隔多个持仓品种。';
 
+	case STOCK_OPTION_CALIBRATION:
+		return '清空输入删除对应日期校准值。';
+		
 	case STOCK_OPTION_NETVALUE:
-	case STOCK_OPTION_SHARE_DIFF:
-		return '清空输入删除对应日期净值.';
+		return '清空输入删除对应日期净值。';
 
+	case STOCK_OPTION_SHARE_DIFF:
+		return '清空输入删除对应日期新增。';
+		
 	case STOCK_OPTION_SPLIT:
-		return '输入1:10表示10股合1股, 10:1表示1股拆10股, 0:0删除对应日期数据.';
+		return '输入1:10表示10股合1股，10:1表示1股拆10股，0:0删除对应日期数据。';
 	}
 	return '';
 }

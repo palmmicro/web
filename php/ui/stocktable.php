@@ -95,7 +95,7 @@ class TableColumnNav extends TableColumn
 {
 	function TableColumnNav($strPrefix = false)
 	{
-        parent::TableColumn(STOCK_DISP_NAV, 80, 'olive', $strPrefix);
+        parent::TableColumn(STOCK_DISP_NAV, 90, 'olive', $strPrefix);
 	}
 }
 
@@ -117,7 +117,7 @@ class TableColumnPosition extends TableColumn
 {
 	function TableColumnPosition()
 	{
-        parent::TableColumn('仓位', 90);
+        parent::TableColumn('仓位', 70);
 	}
 }
 

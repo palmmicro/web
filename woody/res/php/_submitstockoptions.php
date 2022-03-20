@@ -334,6 +334,31 @@ function _updateStockOptionDividend($ref, $strSymbol, $strStockId, $his_sql, $st
 	}
 }
 
+function _updateStockOptionCalibration($strSymbol, $strStockId, $strDate, $strVal)
+{
+	DebugString($strSymbol.' '.$strDate.' '.$strVal);
+	if (!empty($strVal))
+	{
+		if (in_arrayChinaIndex($strSymbol))			return;
+		else if (in_arrayGoldSilver($strSymbol))		return;
+		else if (in_arrayQdii($strSymbol) || $strSymbol == 'SZ164906')
+		{
+			$strCNY = SqlGetNavByDate(SqlGetStockId('USCNY'), $strDate);
+       	}
+       	else if (in_arrayQdiiHk($strSymbol))
+       	{
+			$strCNY = SqlGetNavByDate(SqlGetStockId('HKCNY'), $strDate);
+		}
+		else return;
+
+		if ($strCNY == false)	return;
+		$strNav = SqlGetNavByDate($strStockId, $strDate);
+		if ($strNav == false)	return;
+		$strVal = strval(QdiiGetCalibration($strVal, $strCNY, $strNav));
+	}
+	_updateOptionDailySql(new CalibrationSql(), $strStockId, $strDate, $strVal);
+}
+
    	$acct = new Account();
 	
    	if ($acct->GetLoginId() && isset($_POST['submit']))
@@ -386,6 +411,10 @@ function _updateStockOptionDividend($ref, $strSymbol, $strStockId, $his_sql, $st
 			
 		case STOCK_OPTION_HA:
 			if ($bAdmin)	_updateStockOptionHa($strSymbol, $strVal);
+			break;
+			
+		case STOCK_OPTION_CALIBRATION:
+			if ($bAdmin)	_updateStockOptionCalibration($strSymbol, $strStockId, $strDate, $strVal);
 			break;
 			
 		case STOCK_OPTION_HOLDINGS:

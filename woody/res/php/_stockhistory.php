@@ -7,12 +7,11 @@ function _getStockHistoryLinks($ref, $bAdmin)
 {
 	$strSymbol = $ref->GetSymbol();
 	
-	$strLinks = '';
-    if ($ref->IsFundA() || $ref->CountNav() > 0)	$strLinks .= ' '.GetFundLinks($strSymbol);
-    $strLinks .= ' '.GetExternalStockHistoryLink($ref);
-    if ($ref->IsTradable())	$strLinks .= ' '.GetStockDividendLink($ref);
-    if ($bAdmin)	$strLinks .= '<br />'.StockGetAllLink($strSymbol).' '.GetUpdateStockHistoryLink($strSymbol, '更新历史记录').' '.GetHistoryCsvLink($strSymbol);
-    return $strLinks;
+	$str = $ref->IsFund() ? GetFundLinks($strSymbol) : '';
+    $str .= ' '.GetExternalStockHistoryLink($ref);
+    if ($ref->IsTradable())	$str .= ' '.GetStockDividendLink($ref);
+    if ($bAdmin)	$str .= '<br />'.StockGetAllLink($strSymbol).' '.GetUpdateStockHistoryLink($strSymbol, '更新历史记录').' '.GetHistoryCsvLink($strSymbol);
+    return $str;
 }
 
 function EchoAll()
@@ -26,7 +25,7 @@ function EchoAll()
    		EchoStockHistoryParagraph($ref, $strLinks, $csv, $acct->GetStart(), $acct->GetNum());
    		$csv->Close();
     }
-    $acct->EchoLinks(TABLE_STOCK_HISTORY);
+    $acct->EchoLinks('stockhistory');
 }
 
 function GetMetaDescription()

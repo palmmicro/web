@@ -121,12 +121,12 @@ function GetHoldingsCsvLink($strSymbol)
 
 function StockSaveHistoryCsv($strSymbol, $strUrl)
 {
-	return StockSaveDebugCsv($strSymbol, TABLE_STOCK_HISTORY, $strUrl);
+	return StockSaveDebugCsv($strSymbol, 'stockhistory', $strUrl);
 }
 
 function GetHistoryCsvLink($strSymbol)
 {
-	return GetDebugCsvLink($strSymbol, TABLE_STOCK_HISTORY);
+	return GetDebugCsvLink($strSymbol, 'stockhistory');
 }
 
 function StockGetSymbol($str)

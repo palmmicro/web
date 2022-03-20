@@ -152,7 +152,7 @@ function StockCompareEstResult($fund_est_sql, $strStockId, $strNetValue, $strDat
        		$fPercentage = StockGetPercentage($strNetValue, $strEstValue);
        		if (($fPercentage !== false) && (abs($fPercentage) > 1.0))
        		{
-       			$strLink = GetNetValueHistoryLink($strSymbol);
+       			$strLink = GetNavHistoryLink($strSymbol);
        			$str = sprintf('%s%s 实际值%s 估值%s 误差:%.2f%%', $strSymbol, $strLink, $strNetValue, $strEstValue, $fPercentage); 
        			trigger_error('Net value estimation error '.$str);
        		}
@@ -183,6 +183,12 @@ function RefGetTableColumnNav($ref)
 	$strStockDisplay = GetTableColumnStock($ref);
 	if ($ref->CountNav() > 0)		return new TableColumnNav($strStockDisplay);	
 	return 								new TableColumnPrice($strStockDisplay);
+}
+
+function FundGetArbitrage($strStockId)
+{
+	$sql = new FundArbitrageSql();
+   	return $sql->ReadInt($strStockId);
 }
 
 function FundGetPosition($ref)

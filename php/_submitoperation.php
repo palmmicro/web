@@ -17,6 +17,11 @@ class _AdminOperationAccount extends Account
     	{
     		$this->_onManualCalibration($strSymbol);
     	}	
+    	else if ($strArbitrage = UrlGetQueryValue('fundarbitrage'))
+    	{
+    		$sql = new FundArbitrageSql();
+    		$sql->WriteInt(UrlGetQueryValue('stockid'), $strArbitrage);
+    	}
     	else if ($strPosition = UrlGetQueryValue('fundposition'))
     	{
     		$sql = new FundPositionSql();

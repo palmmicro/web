@@ -103,9 +103,10 @@ function EchoFundArrayEstParagraph($arRef)
 
 function _getFundPositionStr($official_est_col, $strSymbol, $ref)
 {
-	$str = '、'.$official_est_col->GetDisplay().$ref->GetOfficialDate();
+	$str = '、'.$official_est_col->GetDisplay().$ref->GetOfficialDate().'。';
 	$fPosition = FundGetPosition($ref);
-	if ($fPosition < 1.0)		$str .= '，'.GetFundPositionLink($strSymbol).'值使用'.strval($fPosition);
+	if ($fPosition < 1.0)		$str .= GetFundPositionLink($strSymbol).'值使用'.strval($fPosition).'，';
+	if ($strArbitrage = FundGetArbitrage($ref->GetStockId()))		$str .= '建议对冲值'.$strArbitrage.'。';
 	return $str;
 }
 
@@ -117,7 +118,7 @@ function EchoFundEstParagraph($ref)
 	$strSymbol = $ref->GetSymbol();
 	$str = GetTableColumnNav().$ref->GetDate();
 	$str .= _getFundPositionStr($arColumn[2], $strSymbol, $ref);
-	$str .= '，最近'.GetCalibrationHistoryLink($strSymbol).$ref->GetTimeNow().'。';
+	$str .= '最近'.GetCalibrationHistoryLink($strSymbol).$ref->GetTimeNow().'。';
     if ($ref->GetRealtimeNav())
     {
     	$col = $bFair ? $arColumn[6] : $arColumn[4]; 
@@ -142,7 +143,7 @@ function EchoHoldingsEstParagraph($ref)
 	$nav_ref = $ref->GetNavRef();
 	$str = GetTableColumnNav().$nav_ref->GetDate();
 	$str .= _getFundPositionStr($arColumn[2], $strSymbol, $ref);
-	$str .= '，'.GetHoldingsLink($strSymbol).'更新于'.$ref->GetHoldingsDate().'。';
+	$str .= GetHoldingsLink($strSymbol).'更新于'.$ref->GetHoldingsDate().'。';
 
 	_echoFundEstParagraph($arColumn, $bFair, $arRef, $str);
 }

@@ -2,6 +2,16 @@
 
 define('POSITION_EST_LEVEL', '4.0');
 
+function QdiiGetCalibration($strEst, $strCNY, $strNav)
+{
+	return floatval($strEst) * floatval($strCNY) / floatval($strNav);
+}
+
+function QdiiGetVal($strEst, $strCNY, $fFactor)
+{
+	return floatval($strEst) * floatval($strCNY) / $fFactor;
+}
+
 // (est * cny / estPrev * cnyPrev - 1) * position = (nv / nvPrev - 1) 
 function QdiiGetStockPosition($strEstPrev, $strEst, $strPrev, $strNetValue, $strCnyPrev, $strCny, $strInput = POSITION_EST_LEVEL)
 {
@@ -21,7 +31,7 @@ function QdiiGetStockPosition($strEstPrev, $strEst, $strPrev, $strNetValue, $str
 	return false;
 }
 
-function QdiiGetStockCalibration($strEst, $strNetValue, $strCny, $strPosition)
+function QdiiGetStockArbitrage($strEst, $strNetValue, $strCny, $strPosition)
 {
 	$fDivisor = floatval($strNetValue) * floatval($strPosition);
 	if ($fDivisor == 0.0)
@@ -245,8 +255,9 @@ class _QdiiReference extends FundReference
 	           		if (($strEst = SqlGetHisByDate($est_ref->GetStockId(), $strDate)) === false)		return false;
                 }
         
-                $this->fFactor = floatval($strEst) * floatval($strCNY) / floatval($this->GetPrice());
-                $this->InsertFundCalibration($est_ref, $strEst);
+//                $this->fFactor = floatval($strEst) * floatval($strCNY) / floatval($this->GetPrice());
+				$this->fFactor = QdiiGetCalibration($strEst, $strCNY, $this->GetPrice());
+                $this->InsertFundCalibration();
                 return $this->fFactor;
             }
         }
@@ -263,7 +274,8 @@ class _QdiiReference extends FundReference
     	
     	if ($this->fFactor)
     	{
-    		$fVal = floatval($strEst) * floatval($strCNY) / $this->fFactor;
+//    		$fVal = floatval($strEst) * floatval($strCNY) / $this->fFactor;
+			$fVal = QdiiGetVal($strEst, $strCNY, $this->fFactor);
     		return $this->AdjustPosition($fVal);
     	}
     	return 0.0;

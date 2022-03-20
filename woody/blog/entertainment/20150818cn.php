@@ -60,7 +60,7 @@
 <br />使用<?php EchoExternalLink('http://mobiledetect.net/'); ?>判断是否手机用户访问, 代码从github复制下来按照原开发者的建议单独放在/php/class/<b>Mobile_Detect.php</b>中.
 </p>
 
-<h3>增加<?php EchoNameTag(TABLE_STOCK_HISTORY, STOCK_HISTORY_DISPLAY); ?>页面</h3>
+<h3>增加<?php EchoNameTag('stockhistory', STOCK_HISTORY_DISPLAY); ?>页面</h3>
 <p>2015年8月24日
 <br />每次进<?php EchoExternalLink('https://palmmicro.com/apps/phpMyAdmin/'); ?>去看历史数据虽然不算麻烦, 但是毕竟还是用自己写的网页看更有成就感!
 </p>
@@ -117,14 +117,9 @@ Wiki的QDII词条下显示了它是Qualified Domestic Institutional Investor的�
 	EchoParagraph(GetQuoteElement('夜深忽梦少年事 梦啼妆泪红阑干'));
 ?>
 
-<h3>增加<?php EchoNameTag('netvaluehistory', NETVALUE_HISTORY_DISPLAY); ?>页面</h3>
-<p>2016年2月22日
-<br />有人跟我指出<?php EchoFundHistoryLink(); ?>中净值的日期显示早了一天, 我差点一口鲜血吐在了键盘上. 
-用脚趾头想想, 要计算华宝油气当天的交易溢价, 肯定是要跟前一天的净值比较啊. 当天的净值要等当晚美股收盘后才出来, 否则的话我写这个净值估算有什么意义呢.
-<br />把当天的交易价格跟前一天的净值放在一起比较, 其实也正是我平时最为推崇的不同的数据显示方式引导不同的思维的举措. 
-不过为了避免以后还有人搞混淆, 我干脆另外加了一个单独的净值显示页面, 算上最开始的<?php EchoNameLink(TABLE_STOCK_HISTORY, STOCK_HISTORY_DISPLAY); ?>等, 现在总共有以下不同的几个历史数据页面：  
-<br /><?php echo GetFundLinks(FUND_DEMO_SYMBOL); ?>
-</p>
+<?php
+	Echo20160222('增加'.GetNameTag('netvaluehistory', NETVALUE_HISTORY_DISPLAY).'页面');
+?>
 
 <h3>周期3意味着<a name="chaos">混沌</a></h3>
 <p>2016年2月26日

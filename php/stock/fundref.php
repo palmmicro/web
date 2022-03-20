@@ -1,5 +1,15 @@
 <?php
 
+/* (x - x0) / x0 = r * (y - y0) / y0
+  	x / x0 - 1 = r * y / y0 - r
+   	x = x0 * (r * y / y0 + 1 - r) = r * (x0 * y / y0) + (1 - r) * x0 		### used in AdjustPosition
+   	y = y0 * (x / x0 - 1 + r) / r = (y0 * x / x0) / r - y0 * (1 / r - 1)	### used in ReverseAdjustPosition
+*/
+function FundAdjustPosition($fRatio, $fVal, $fOldVal)
+{
+	return $fRatio * $fVal + (1.0 - $fRatio) * $fOldVal;
+}
+
 class FundReference extends MysqlReference
 {
     var $stock_ref = false;     // MyStockReference
@@ -107,7 +117,7 @@ class FundReference extends MysqlReference
 		return StockCompareEstResult($this->fund_est_sql, $this->GetStockId(), $this->GetPrice(), $this->GetDate(), $this->GetSymbol());
     }
 
-    function InsertFundCalibration($est_ref, $strEstPrice)
+    function InsertFundCalibration()
     {
     	$this->calibration_sql->WriteDaily($this->GetStockId(), $this->GetDate(), strval($this->fFactor));
     }
@@ -168,15 +178,11 @@ class FundReference extends MysqlReference
     	return $this->cny_ref;
     }
 
-    /* (x - x0) / x0 = r * (y - y0) / y0
-    	x / x0 - 1 = r * y / y0 - r
-    	x = x0 * (r * y / y0 + 1 - r) = r * (x0 * y / y0) + (1 - r) * x0 		### used in AdjustPosition
-    	y = y0 * (x / x0 - 1 + r) / r = (y0 * x / x0) / r - y0 * (1 / r - 1)	### used in ReverseAdjustPosition
-    */
     function AdjustPosition($fVal)
     {
     	$fRatio = FundGetPosition($this);
-        return $fRatio * $fVal + (1.0 - $fRatio) * floatval($this->GetPrice());
+//        return $fRatio * $fVal + (1.0 - $fRatio) * floatval($this->GetPrice());
+		return FundAdjustPosition($fRatio, $fVal, floatval($this->GetPrice()));
     }
     
     function ReverseAdjustPosition($fVal)

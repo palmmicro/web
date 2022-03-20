@@ -27,11 +27,28 @@ function EchoFundEstTables()
     EchoTableParagraphEnd();
 }
 
+function Echo20160222($strHead)
+{
+	$strFundHistory = GetNameLink('fundhistory', FUND_HISTORY_DISPLAY);
+	$strStockHistory = GetNameLink('stockhistory', STOCK_HISTORY_DISPLAY);
+	$strNavHistoryLink = GetNavHistoryLink(FUND_DEMO_SYMBOL);
+	
+	$strHead = GetHeadElement($strHead);
+    echo <<<END
+	$strHead
+<p>2016年2月22日
+<br />有人跟我指出{$strFundHistory}中净值的日期显示早了一天，我差点一口鲜血吐在了键盘上。用脚趾头想想，要计算华宝油气当天的交易溢价，肯定是要跟前一天的净值比较啊。当天的净值要等当晚美股收盘后才出来，否则的话我写这个净值估算有什么意义呢。
+<br />把当天的交易价格跟前一天的净值放在一起比较，其实也正是我平时最为推崇的不同数据显示方式引导不同思维模式的举措。 
+不过为了避免以后还有人搞混淆，我干脆另外加了一个单独的{$strNavHistoryLink}显示页面，算上最开始的{$strStockHistory}，现在总共有3个历史数据页面了。  
+</p>
+END;
+}
+
 function Echo20191025($strHead)
 {
 	$strFundAccount = GetNameLink('fundaccount', FUND_ACCOUNT_DISPLAY);
 	$strNavHistory = GetNameLink('netvaluehistory', NETVALUE_HISTORY_DISPLAY);
-	$strNavHistoryLink = GetNetValueHistoryLink(FUND_DEMO_SYMBOL, 'num=0', '统计');
+	$strNavHistoryLink = GetNavHistoryLink(FUND_DEMO_SYMBOL, 'num=0', '统计');
 	$strFundPositionLink = GetFundPositionLink(FUND_DEMO_SYMBOL);
 	$strSZ160216 = GetFundPositionLink('SZ160216', true);
 	$strSH501018 = GetFundPositionLink('SH501018', true);
@@ -153,6 +170,7 @@ END;
 function Echo20210714($strHead)
 {
 	$strNavHistory = GetNameLink('netvaluehistory', NETVALUE_HISTORY_DISPLAY);
+	$strFundLinks = GetFundLinks(FUND_DEMO_SYMBOL);
 	
 	$strHead = GetHeadElement($strHead);
     echo <<<END
@@ -160,6 +178,7 @@ function Echo20210714($strHead)
 <p>2021年7月14日
 <br />相对于{$strNavHistory}等其它历史数据，这个页面来得实在是比较晚，主要是之前做华宝油气套利时不需要特别关注每天的场内新增份额，反正流动性足够好。不过随着XOP一路上涨，华宝油气的上百亿场内规模只剩下了零头，失去了流动性的华宝油气和XOP跨市场套利变成了屠龙之技。
 我也被迫开始关注像中国互联这种流动性不是那么好的品种，为以后的套利早做打算。
+<br />历史数据页面汇总：{$strFundLinks}
 </p>
 END;
 	
@@ -172,6 +191,8 @@ function Echo20210728($strHead)
 	$strChinaInternet = GetNameLink('chinainternet', '中丐互怜');
 	$strSZ159605 = GetStockLink('SZ159605');
 	$strSZ159607 = GetStockLink('SZ159607');
+	$strFundPosition = GetNameLink('fundposition', FUND_POSITION_DISPLAY);
+	$strQdiiHk = GetNameLink('qdiihk', QDII_HK_DISPLAY);
 	$strQDII = GetNameLink('qdii', QDII_DISPLAY);
 	$strImage = ImgHuangRong();
 	
@@ -184,6 +205,7 @@ function Echo20210728($strHead)
 <br />跟SZ164906和KWEB跟踪同一个指数H11136不同，SH513050跟踪的是另外一个不同的中证海外中国互联网50指数H30533。H30533和H11136在成分股选择上基本一致，但是H30533对单一成分股最大仓位限制是30%，而H11136限制10%的最大仓位，这样导致它们俩在腾讯和阿里持仓比例上区别巨大。
 在中间的是跟踪中证海外中国互联网30指数930604的{$strSZ159605}和{$strSZ159607}，限制15%的最大仓位。另外，顾名思义930604的成分股数量要少50-30=20只。
 <br />SH513050的成分股和比例来自于上交所官网的ETF申购赎回清单，SZ159605和SZ159607来自深交所官网的ETF申购赎回清单，这样未来可以方便的继续扩大混合QDII的成员。SZ164906的成分股和比例依旧还是来自KWEB官网公布的每日持仓更新。
+<br />把SZ164906从老QDII挪到新的混合QDII其实是个相当痛苦的过程，原来以SZ162411为模板写的{$strFundPosition}等功能都要从QDII拓展出来，{$strQdiiHk}在这个过程中也跟着沾了光。
 <br />官方估值跟原来{$strQDII}一样，不过混合QDII的参考估值有所不同。除了当日汇率的变化外，参考估值在港股开盘后还会反应当日港股成分股的变动对净值的影响。
 $strImage
 </p>

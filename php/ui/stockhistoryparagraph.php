@@ -49,7 +49,7 @@ function EchoStockHistoryParagraph($ref, $str = false, $csv = false, $iStart = 0
 								   new TableColumnPrice(),
 								   new TableColumnQuantity(),
 								   new TableColumnPrice('复权')
-								   ), $strSymbol.TABLE_STOCK_HISTORY, $str.'<br />'.$strMenuLink);
+								   ), $strSymbol.'stockhistory', $str.'<br />'.$strMenuLink);
    
     _echoStockHistoryData($ref, $csv, $his_sql, $strStockId, $iStart, $iNum);
     EchoTableParagraphEnd($strMenuLink);

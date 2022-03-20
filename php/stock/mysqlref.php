@@ -79,6 +79,13 @@ class MysqlReference extends StockReference
     	return $this->iNavCount;
     }
     
+    function IsFund()
+    {
+    	if ($this->CountNav() > 0)	return true;
+    	if ($this->IsFundA())			return true;
+    	return false;
+    }
+    
     function GetEnglishName()
     {
     	if ($this->bConvertGB2312)
