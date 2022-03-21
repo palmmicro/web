@@ -12,6 +12,11 @@ function QdiiGetVal($strEst, $strCNY, $fFactor)
 	return floatval($strEst) * floatval($strCNY) / $fFactor;
 }
 
+function QdiiGetPeerVal($fQdii, $strCNY, $fFactor)
+{
+	return $fQdii * $fFactor / floatval($strCNY);
+}
+
 // (est * cny / estPrev * cnyPrev - 1) * position = (nv / nvPrev - 1) 
 function QdiiGetStockPosition($strEstPrev, $strEst, $strPrev, $strNetValue, $strCnyPrev, $strCny, $strInput = POSITION_EST_LEVEL)
 {
@@ -285,7 +290,9 @@ class _QdiiReference extends FundReference
     {
        	$cny_ref = $this->GetCnyRef();
        	$strCNY = $cny_ref->GetPrice();
-        return strval($this->ReverseAdjustPosition(floatval($strQdii)) * $this->fFactor / floatval($strCNY));
+       	$fQdii = $this->ReverseAdjustPosition(floatval($strQdii));
+       	return strval(QdiiGetPeerVal($fQdii, $strCNY, $this->fFactor));
+//        return strval($this->ReverseAdjustPosition(floatval($strQdii)) * $this->fFactor / floatval($strCNY));
     }
     
     function GetEstQuantity($iQdiiQuantity)

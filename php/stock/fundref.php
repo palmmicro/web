@@ -10,6 +10,11 @@ function FundAdjustPosition($fRatio, $fVal, $fOldVal)
 	return $fRatio * $fVal + (1.0 - $fRatio) * $fOldVal;
 }
 
+function FundReverseAdjustPosition($fRatio, $fVal, $fOldVal)
+{
+	return $fVal / $fRatio - $fOldVal * (1.0 / $fRatio - 1.0);
+}
+
 class FundReference extends MysqlReference
 {
     var $stock_ref = false;     // MyStockReference
@@ -188,8 +193,10 @@ class FundReference extends MysqlReference
     function ReverseAdjustPosition($fVal)
     {
     	$fRatio = FundGetPosition($this);
-        return $fVal / $fRatio - floatval($this->GetPrice()) * (1.0 / $fRatio - 1.0);
+//        return $fVal / $fRatio - floatval($this->GetPrice()) * (1.0 / $fRatio - 1.0);
+		return FundReverseAdjustPosition($fRatio, $fVal, floatval($this->GetPrice()));
     }
+    
 }
 
 ?>

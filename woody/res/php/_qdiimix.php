@@ -105,6 +105,29 @@ function _callbackQdiiMixSma($ref, $strEst = false)
 	return $ref;
 }
 
+function _callbackQdiiMixTrading($strVal = false)
+{
+	global $acct;
+    
+	$us_ref = $acct->GetUsRef();
+    if ($strVal)
+    {
+    	if ($strVal == '0')	return '';
+    	else
+    	{
+    		$ref = $acct->GetRef();
+    		$strStockId = $ref->GetStockId();
+    		$fVal = FundReverseAdjustPosition(FundGetPosition($ref), floatval($strVal), floatval(SqlGetNav($strStockId)));
+    		
+    		$uscny_ref = $ref->GetUscnyRef();
+    		$calibration_sql = new CalibrationSql();
+    		$fEst = QdiiGetPeerVal($fVal, $uscny_ref->GetPrice(), floatval($calibration_sql->GetCloseNow($strStockId)));
+    		return $us_ref->GetPriceDisplay(strval($fEst));
+    	}
+    }
+   	return GetTableColumnStock($us_ref).GetTableColumnPrice();
+}
+
 function EchoAll()
 {
     global $acct;
@@ -116,12 +139,15 @@ function EchoAll()
     
 	EchoHoldingsEstParagraph($ref);
     EchoReferenceParagraph(array_merge($acct->GetStockRefArray(), array($acct->cnh_ref, $uscny_ref, $hkcny_ref)), $acct->IsAdmin());
-    EchoFundTradingParagraph($ref);
+    
 	if ($us_ref)
 	{
+		EchoFundTradingParagraph($ref, '_callbackQdiiMixTrading');
 		EchoHoldingsEstParagraph($us_ref);
 		EchoSmaParagraph($us_ref, false, $ref, '_callbackQdiiMixSma');
 	}
+	else	EchoFundTradingParagraph($ref);
+
     EchoEtfHistoryParagraph($ref);
    	EchoFundShareParagraph($ref);
 
