@@ -3,7 +3,7 @@ require_once('sqlkey.php');
 
 class DailyCloseSql extends KeySql
 {
-    function DailyCloseSql($strTableName, $strKeyPrefix = TABLE_STOCK) 
+    function DailyCloseSql($strTableName, $strKeyPrefix = 'stock') 
     {
         parent::KeySql($strTableName, $strKeyPrefix);
     }
@@ -13,11 +13,11 @@ class DailyCloseSql extends KeySql
 		return ' UNIQUE ( `date`, `'.$this->GetKeyIndex().'` ) ';
     }
     
-    function CreateDailyCloseTable($str)
+    function CreateDailyCloseTable($strMid)
     {
     	$str = $this->ComposeKeyStr().','
     		  . $this->ComposeDateStr().','
-         	  . $str.','
+         	  . $strMid.','
          	  . $this->ComposeForeignKeyStr().','
          	  . $this->ComposeUniqueDateStr();
     	return $this->CreateIdTable($str);

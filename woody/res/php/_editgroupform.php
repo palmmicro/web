@@ -1,10 +1,6 @@
 <?php
 require_once('/php/ui/stocktable.php');
 
-define('STOCK_GROUP_NEW', '新建股票分组');
-define('STOCK_GROUP_EDIT', '修改股票分组');
-define('STOCK_GROUP_ADJUST', '校准');
-
 function _getStocksString($strGroupId)
 {
     if ($arSymbol = SqlGetStocksArray($strGroupId))
@@ -21,39 +17,34 @@ function _getStocksString($strGroupId)
 
 function StockEditGroupForm($acct, $strSubmit)
 {
-    $strPassQuery = UrlPassQuery();
     $strGroupName = '';
     $strStocks = '';
-    $strGroupNameDisabled = '1';
-	$strSymbolCol = GetTableColumnSymbol();
+    $strGroupNameDisabled = '0';
     switch ($strSubmit)
     {
-    case STOCK_GROUP_EDIT:
+    case DISP_EDIT_CN:
         if ($strGroupId = UrlGetQueryValue('edit'))
         {
             $strGroupName = $acct->GetGroupName($strGroupId);
-            if (in_arrayAll($strGroupName) == false)     $strGroupNameDisabled = '0';
+            if (in_arrayAll($strGroupName))		$strGroupNameDisabled = '1';
             $strStocks = _getStocksString($strGroupId);
         }
         break;
     
-    case STOCK_GROUP_NEW:
+    case DISP_NEW_CN:
         if ($strSymbol = UrlGetQueryValue('new'))
         {
-            $strGroupName = $strSymbol;
-            $strGroupNameDisabled = '0';
+            $strGroupName = '@'.$strSymbol;
             $strStocks = $strSymbol;
         }
-        break;
-    
-    case STOCK_GROUP_ADJUST:
-        $strStocks = ltrim($strPassQuery, '?adjust=1&');
-        $strSymbolCol = '输入美股ETF净值0时会删除当日校准值';
         break;
     }
 	
     $col = new TableColumnGroupName();    
     $strStockGroup = $col->GetDisplay();
+    
+	$strSymbolCol = GetTableColumnSymbol();
+    $strPassQuery = UrlPassQuery();
     
 	echo <<< END
 	<script>
@@ -63,7 +54,7 @@ function StockEditGroupForm($acct, $strSubmit)
 	    }
 	</script>
 	
-	<form id="groupForm" name="groupForm" method="post" action="/woody/res/php/_submitgroup.php$strPassQuery">
+	<form id="groupForm" name="groupForm" method="post" action="/woody/res/php/_submitgroup.php{$strPassQuery}">
         <div>
 		<p>$strStockGroup
 		<br /><input name="groupname" value="$strGroupName" type="text" size="20" maxlength="32" class="textfield" id="groupname" />

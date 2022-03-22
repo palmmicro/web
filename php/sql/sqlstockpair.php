@@ -9,7 +9,7 @@ class StockPairSql extends KeyPairSql
 {
     function StockPairSql($strTableName) 
     {
-        parent::KeyPairSql($strTableName, false, TABLE_STOCK);
+        parent::KeyPairSql($strTableName, false, 'stock');
     }
 
     function GetSymbolArray()

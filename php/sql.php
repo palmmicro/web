@@ -23,7 +23,6 @@ define('TABLE_MEMBER', 'member');
 define('TABLE_PAGE', 'page');
 define('TABLE_PAGE_COMMENT', 'pagecomment');
 define('TABLE_PROFILE', 'profile');
-define('TABLE_STOCK', 'stock');
 define('TABLE_STOCK_DIVIDEND', 'stockdividend');
 define('TABLE_STOCK_GROUP', 'stockgroup');
 define('TABLE_STOCK_GROUP_ITEM', 'stockgroupitem');

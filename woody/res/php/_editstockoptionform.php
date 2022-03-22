@@ -20,7 +20,7 @@ function _getStockOptionDate($strSubmit, $ref)
 		break;
 
 	case STOCK_OPTION_CALIBRATION:
-	case STOCK_OPTION_NETVALUE:
+	case STOCK_OPTION_NAV:
 		$nav_sql = GetNavHistorySql();
 		if ($strDate = $nav_sql->GetDateNow($strStockId))							return $strDate;
 		if ($strDate = $his_sql->GetDateNow($strStockId))							return $strDate;
@@ -225,7 +225,7 @@ function _getStockOptionVal($strSubmit, $strLoginId, $ref, $strSymbol, $strDate)
 	case STOCK_OPTION_CALIBRATION:
 		return _getStockOptionCalibration($strSymbol, $strDate); 
 		
-	case STOCK_OPTION_NETVALUE:
+	case STOCK_OPTION_NAV:
 		return SqlGetNavByDate($strStockId, $strDate);
 
 	case STOCK_OPTION_SHARE_DIFF:
@@ -254,7 +254,7 @@ function _getStockOptionMemo($strSubmit)
 		return '清空输入删除对应分红。';
 		
 	case STOCK_OPTION_EMA:
-		return '股票收盘后的第2天修改才会生效，输入0/0删除全部EMA记录。';
+		return '股票收盘后的第2天修改才会生效，同时删除以往全部EMA记录。';
 
 	case STOCK_OPTION_ETF:
 		return '输入INDEX*0删除对应关系和全部'.CALIBRATION_HISTORY_DISPLAY.'。';
@@ -268,7 +268,7 @@ function _getStockOptionMemo($strSubmit)
 	case STOCK_OPTION_CALIBRATION:
 		return '清空输入删除对应日期校准值。';
 		
-	case STOCK_OPTION_NETVALUE:
+	case STOCK_OPTION_NAV:
 		return '清空输入删除对应日期净值。';
 
 	case STOCK_OPTION_SHARE_DIFF:

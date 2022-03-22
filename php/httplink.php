@@ -136,12 +136,12 @@ function GetMenuLink($strQueryId, $iTotal, $iStart, $iNum, $bChinese = true)
 
 function GetNewLink($strPathPage, $strNew, $bChinese = true)
 {
-    return GetPhpLink($strPathPage, 'new='.$strNew, '新建', 'New', $bChinese);
+    return GetPhpLink($strPathPage, 'new='.$strNew, DISP_NEW_CN, DISP_NEW_US, $bChinese);
 }
 
 function GetEditLink($strPathPage, $strEdit, $bChinese = true)
 {
-    return GetPhpLink($strPathPage, 'edit='.$strEdit, '修改', 'Edit', $bChinese);
+    return GetPhpLink($strPathPage, 'edit='.$strEdit, DISP_EDIT_CN, DISP_EDIT_US, $bChinese);
 }
 
 function GetPageLink($strPath, $strPage, $strQuery, $strDisplay, $bChinese = true)

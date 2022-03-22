@@ -2,62 +2,6 @@
 require_once('_stock.php');
 require_once('_editgroupform.php');
 
-function _adjustQdiiPriceFactor($strQdiiSymbol, $fQdii, $fEst, $fCNY)
-{
-    $fFactor = $fEst * $fCNY / $fQdii;
-    return $fFactor;
-}
-
-function _adjustEtfPriceFactor($strEstSymbol, $fEst, $fEtf)
-{
-    $fFactor = $fEst / $fEtf;
-    return $fFactor;
-}
-
-function _onAdjust($strSymbols)
-{
-   	$calibration_sql = new CalibrationSql();
-   	
-    $ar = explode('&', $strSymbols);
-
-    list($strDummy, $strDate) = explode('=', $ar[0]);
-    
-    $ar1 = explode('=', $ar[1]);
-    $strSymbol = $ar1[0];
-    $strStockId = SqlGetStockId($strSymbol);
-    $fVal = floatval($ar1[1]);
-    
-    $ar2 = explode('=', $ar[2]);
-    $strSymbol2 = $ar2[0];
-    if ($ar2[1] == '0')
-    {
-    	$calibration_sql->DeleteByDate($strStockId, $strDate);
-    	return;
-    }
-    $fVal2 = floatval($ar2[1]);
-    
-    $iCount = count($ar);
-    if ($iCount > 3)
-    {
-        $ar3 = explode('=', $ar[3]);
-    }
-    
-    $fFactor = false;
-    if (in_arrayQdii($strSymbol) || in_arrayQdiiHk($strSymbol))
-    {
-        $fFactor = _adjustQdiiPriceFactor($strSymbol, $fVal, $fVal2, floatval($ar3[1]));
-    }
-    else if (in_arrayGoldSilver($strSymbol))
-    {
-        $fFactor = _adjustEtfPriceFactor($strSymbol, $fVal2, $fVal);
-    }
-    
-    if ($fFactor !== false)
-    {
-    	$calibration_sql->WriteDaily($strStockId, $strDate, strval($fFactor));
-    }
-}
-
 function _stockGetSymbolArray($strSymbols)
 {
 	$str = str_replace(array(',', '，', "\\n", "\\r", "\\r\\n"), ' ', $strSymbols);
@@ -115,6 +59,7 @@ class _SubmitGroupAccount extends StockAccount
 		$strGroupId = UrlGetQueryValue('edit');
     	if ($this->IsGroupReadOnly($strGroupId))  return;
 
+    	// 不修改有单独页面的分组名称
     	$str = $this->GetGroupName($strGroupId);
     	if (in_arrayAll($str))  $strGroupName = $str;
     
@@ -156,15 +101,11 @@ class _SubmitGroupAccount extends StockAccount
 
 			switch ($_POST['submit'])
 			{
-			case STOCK_GROUP_ADJUST:
-				if ($this->IsAdmin())		_onAdjust($strSymbols);
-				break;
-
-			case STOCK_GROUP_EDIT:
+			case DISP_EDIT_CN:
 				$this->_onEdit($strLoginId, $strGroupName, $strSymbols);
 				break;
 
-			case STOCK_GROUP_NEW:
+			case DISP_NEW_CN:
 				$this->_onNew($strLoginId, $strGroupName, $strSymbols);
 				break;
 			}

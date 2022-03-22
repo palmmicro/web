@@ -165,13 +165,7 @@ function _updateStockOptionEmaDays($strStockId, $iDays, $strDate, $strVal)
 {
 	$sql = GetStockEmaSql($iDays);
 	$sql->DeleteAll($strStockId);
-    if ($strVal == '0')
-    {
-    }
-    else
-    {
-   		$sql->WriteDaily($strStockId, $strDate, $strVal);
-    }
+	$sql->WriteDaily($strStockId, $strDate, $strVal);
 }
 
 function _updateStockOptionEma($strSymbol, $strStockId, $strDate, $strVal)
@@ -435,7 +429,7 @@ function _updateStockOptionCalibration($strSymbol, $strStockId, $strDate, $strVa
 			}
 			break;
 			
-		case STOCK_OPTION_NETVALUE:
+		case STOCK_OPTION_NAV:
 			if ($bAdmin)
 			{
 				_updateOptionDailySql(GetNavHistorySql(), $strStockId, $strDate, $strVal);

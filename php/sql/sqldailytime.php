@@ -3,7 +3,7 @@ require_once('sqldailyclose.php');
 
 class DailyTimeSql extends DailyCloseSql
 {
-    function DailyTimeSql($strTableName, $strKeyPrefix = TABLE_STOCK) 
+    function DailyTimeSql($strTableName, $strKeyPrefix = 'stock') 
     {
         parent::DailyCloseSql($strTableName, $strKeyPrefix);
     }

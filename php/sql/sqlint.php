@@ -8,11 +8,17 @@ class IntSql extends ValSql
         parent::ValSql($strTableName, $strIntName);
     }
 
-    public function Create()
+    function CreateIntTable($strExtra = '')
     {
     	$str = $this->ComposePrimaryIdStr().','
-         	  . $this->ComposeIdStr($this->GetValName());
+         	  . $this->ComposeIdStr($this->GetValName())
+         	  . $strExtra;
     	return $this->CreateTable($str);
+    }
+    
+    public function Create()
+    {
+    	return $this->CreateIntTable();
     }
     
     function WriteInt($strId, $strInt)

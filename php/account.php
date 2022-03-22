@@ -9,7 +9,12 @@ require_once('sql/sqlstockgroup.php');
 require_once('sql/sqlfundpurchase.php');
 
 define('DISP_ALL_US', 'All');
+define('DISP_EDIT_US', 'Edit');
+define('DISP_NEW_US', 'New');
+
 define('DISP_ALL_CN', '全部');
+define('DISP_EDIT_CN', '修改');
+define('DISP_NEW_CN', '新建');
 
 function GetAllDisplay($bChinese = true)
 {

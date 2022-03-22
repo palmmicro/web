@@ -127,11 +127,13 @@ function DebugClearPath($strSection)
 
     $his_sql = GetStockHistorySql();
     $iCount = $his_sql->DeleteClose();
-	if ($iCount > 0)	DebugVal($iCount, 'Zero close data'); 
+	if ($iCount > 0)	DebugVal($iCount, 'Zero close data');
+	
+	$sql = new SecondaryListingSql();
+	
 //    $iCount = $his_sql->DeleteInvalidDate();		// this can be very slow!
 //	if ($iCount > 0)	DebugVal($iCount, 'Invalid or older date'); 
 	
-//	$sql = new CommonPhraseSql();
 //	CsindexGetData();
 
 //	TestModifyTransactions('1831', 'CHU', '00762');

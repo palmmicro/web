@@ -127,7 +127,7 @@ function EchoFundTradingParagraph($fund, $callback = false)
 		$strFair = false;
 		$strRealtime = false;
 	}
-    if ($callback)     	$arColumn[] = new TableColumn(call_user_func($callback), 120);
+    if ($callback)     	$arColumn[] = new TableColumn(call_user_func($callback));
 	
     _echoTradingParagraph($str, $arColumn, $ref, $strOfficial, $strFair, $strRealtime, $callback); 
 }

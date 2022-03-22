@@ -19,15 +19,6 @@ class _GoldSilverAccount extends FundGroupAccount
     }
 } 
 
-function _echoTestParagraph($acct)
-{
-   	if ($acct->IsAdmin() == false)	return;
-   	
-	$fund = $acct->GetRef();
-    $str = _GetEtfAdjustString($fund->stock_ref, $fund->GetEstRef());
-    EchoParagraph($str);
-}
-
 function EchoAll()
 {
     global $acct;
@@ -43,8 +34,6 @@ function EchoAll()
     {
     	$acct->EchoMoneyParagraph($group, $cny_ref);
 	}
-    
-    _echoTestParagraph($acct);
     $acct->EchoLinks('goldsilver', 'GetGoldSilverLinks');
 }
 

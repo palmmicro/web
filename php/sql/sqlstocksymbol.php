@@ -118,7 +118,7 @@ class StockSql extends KeyNameSql
     
     function StockSql()
     {
-        parent::KeyNameSql(TABLE_STOCK, 'symbol');
+        parent::KeyNameSql('stock', 'symbol');
         
        	$this->his_sql = new StockHistorySql();
        	$this->nav_sql = new NavHistorySql();
@@ -300,7 +300,7 @@ class StockTableSql extends KeyTableSql
 {
     function StockTableSql($strTableName, $strStockId) 
     {
-        parent::KeyTableSql($strTableName, $strStockId, TABLE_STOCK);
+        parent::KeyTableSql($strTableName, $strStockId, 'stock');
     }
 }
 

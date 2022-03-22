@@ -5,18 +5,6 @@ function GetUpdateStockHistoryLink($strSymbol, $strDisplay = false)
 	return GetOnClickLink(STOCK_PHP_PATH.'_submithistory.php?symbol='.$strSymbol, "确认更新{$strSymbol}历史记录?", ($strDisplay ? $strDisplay : $strSymbol));
 }
 
-function _GetAdjustLink($strSymbol, $strQuery)
-{
-    return GetStockPhpLink('editstockgroup', '校准', 'adjust=1&'.$strQuery).' '.$strSymbol;
-}
-
-function _GetEtfAdjustString($ref, $etf_ref)
-{
-	$strSymbol = $ref->GetSymbol();
-    $strQuery = sprintf('Date=%s&%s=%s&%s=%s', $ref->GetDate(), $strSymbol, $ref->GetPrice(), $etf_ref->GetSymbol(), $etf_ref->GetPrice());
-    return _GetAdjustLink($strSymbol, $strQuery);
-}
-
 function GetStockCategoryArray()
 {
     return array('oilfund' => OIL_GROUP_DISPLAY,

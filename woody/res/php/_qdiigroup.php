@@ -142,34 +142,12 @@ class QdiiGroupAccount extends FundGroupAccount
         EchoTableParagraphEnd();
     }
 
-    function _getAdjustString()
-    {
-    	$ref = $this->ref;
-        $strSymbol = $ref->GetSymbol();
-        $strDate = $ref->GetDate();
-        $est_ref = $ref->GetEstRef();
-        $cny_ref = $ref->GetCnyRef();
-        $strCNY = $cny_ref->GetClose($strDate);
-        
-        $strEstStockId = $est_ref->GetStockId();
-       	$strEst = SqlGetNavByDate($strEstStockId, $strDate);
-       	if ($strEst == false)
-       	{
-       		$strEst = SqlGetHisByDate($strEstStockId, $strDate);
-       		if ($strEst == false)	$strEst = $est_ref->GetPrevPrice();
-       	}
-       	
-        $strQuery = sprintf('Date=%s&%s=%s&%s=%s&CNY=%s', $strDate, $strSymbol, $ref->GetPrice(), $est_ref->GetSymbol(), $strEst, $strCNY);
-        return _GetAdjustLink($strSymbol, $strQuery);
-    }
-
     function EchoDebugParagraph()
     {
     	if ($this->IsAdmin())
     	{
     		$ref = $this->GetRef();
     		$strDebug = $ref->DebugLink();
-    		if (RefHasData($ref->GetEstRef()))		$strDebug .= GetBreakElement().$this->_getAdjustString();
    			EchoParagraph($strDebug);
     	}
     }
