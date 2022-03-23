@@ -1,25 +1,27 @@
 <?php
-require_once('sqlkeypair.php');
+require_once('sqlpair.php');
 
 define('TABLE_ADRH_STOCK', 'adrhstock');
 define('TABLE_ETF_PAIR', 'etfpair');
 
-// ****************************** StockPairSql class *******************************************************
-class StockPairSql extends KeyPairSql
+class StockPairSql extends PairSql
 {
-    function StockPairSql($strTableName) 
+	var $sql;
+	
+    function StockPairSql($strTableName)
     {
-        parent::KeyPairSql($strTableName, false, 'stock');
+        parent::PairSql($strTableName);
+        
+		$this->sql = GetStockSql();
     }
-
+    
     function GetSymbolArray()
     {
 		$arSymbol = array();
-		$sql = GetStockSql();
 		$ar = $this->GetIdArray('GetData');
 		foreach ($ar as $strStockId)
 		{
-			$arSymbol[] = $sql->GetKey($strStockId);
+			$arSymbol[] = $this->sql->GetKey($strStockId);
 		}
 		sort($arSymbol);
 		return $arSymbol;
@@ -27,12 +29,11 @@ class StockPairSql extends KeyPairSql
 	
 	function GetSymbol($strPairSymbol)
 	{
-		$sql = GetStockSql();
-		if ($strPairId = $sql->GetId($strPairSymbol))
+		if ($strPairId = $this->sql->GetId($strPairSymbol))
 		{
 			if ($strStockId = $this->GetId($strPairId))
 			{
-				return $sql->GetKey($strStockId);
+				return $this->sql->GetKey($strStockId);
 			}
 		}
 		return false;
@@ -40,57 +41,40 @@ class StockPairSql extends KeyPairSql
 	
 	function GetPairSymbol($strSymbol)
 	{
-		$sql = GetStockSql();
-		if ($strStockId = $sql->GetId($strSymbol))
+		if ($strStockId = $this->sql->GetId($strSymbol))
 		{
-			if ($strPairId = $this->GetKeyId($strStockId))
+			if ($strPairId = $this->ReadPair($strStockId))
 			{
-				return $sql->GetKey($strPairId);
+				return $this->sql->GetKey($strPairId);
 			}
 		}
 		return false;
 	}
 
-	function InsertSymbol($strSymbol, $strPairSymbol)
-	{
-		$sql = GetStockSql();
-		if ($strStockId = $sql->GetId($strSymbol))
-		{
-			if ($strPairId = $sql->GetId($strPairSymbol))
-			{
-				return $this->Insert($strStockId, $strPairId);
-			}
-		}
-		return false;
-	}
-	
-	function UpdateSymbol($strSymbol, $strPairSymbol)
-	{
-		$sql = GetStockSql();
-		if ($strStockId = $sql->GetId($strSymbol))
-		{
-			if ($strPairId = $sql->GetId($strPairSymbol))
-			{
-				return $this->Update($strStockId, $strPairId);
-			}
-		}
-		return false;
-	}
-	
 	function WriteSymbol($strSymbol, $strPairSymbol)
 	{
-		if ($str = $this->GetPairSymbol($strSymbol))
+		if ($strStockId = $this->sql->GetId($strSymbol))
 		{
-			if ($str == $strPairSymbol)		return false;
-			return $this->UpdateSymbol($strSymbol, $strPairSymbol);
+			if ($strPairId = $this->sql->GetId($strPairSymbol))
+			{
+				return $this->WritePair($strStockId, $strPairId);
+			}
 		}
-		return $this->InsertSymbol($strSymbol, $strPairSymbol);
+		return false;
 	}
 	
-	function DeleteBySymbol($strPairSymbol)
+	function DeleteBySymbol($strSymbol)
 	{
-		$sql = GetStockSql();
-		if ($strPairId = $sql->GetId($strPairSymbol))
+		if ($strStockId = $this->sql->GetId($strSymbol))
+		{
+			return $this->DeleteById($strStockId);
+		}
+		return false;
+	}
+	
+	function DeleteByPairSymbol($strPairSymbol)
+	{
+		if ($strPairId = $this->sql->GetId($strPairSymbol))
 		{
 			return $this->Delete($strPairId);
 		}
@@ -98,7 +82,14 @@ class StockPairSql extends KeyPairSql
 	}
 }
 
-// ****************************** AhPairSql class *******************************************************
+class SecondaryListingSql extends StockPairSql
+{
+    function SecondaryListingSql()
+    {
+        parent::StockPairSql('secondarylisting');
+    }
+}
+
 class AhPairSql extends StockPairSql
 {
     function AhPairSql() 
@@ -107,7 +98,6 @@ class AhPairSql extends StockPairSql
     }
 }
 
-// ****************************** AbPairSql class *******************************************************
 class AbPairSql extends StockPairSql
 {
     function AbPairSql() 

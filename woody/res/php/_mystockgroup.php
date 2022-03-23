@@ -119,7 +119,7 @@ function _getSimilarLinks($strPage)
         break;
   
     case 'ahcompare':
-    	$str = GetExternalLink(GetJisiluDataUrl().'ha/', '集思录').' '.GetExternalLink('http://data.10jqka.com.cn/market/ahgbj/', '同花顺').' '.GetAastocksLink('ah');
+    	$str = GetExternalLink('http://data.10jqka.com.cn/market/ahgbj/', '同花顺').' '.GetAastocksLink('ah');
         break;
         
     default:

@@ -43,35 +43,15 @@ function _updateAh()
    		if (count($ar) == 2)
    		{
    			$strSymbolA = $ar[1].$ar[0];
-   			if ($record = $sql->GetRecord($strSymbolA))
-   			{
-   				if (strpos($record['name'], '退市') === false)
-   				{
-   					$strStockIdA = $record['id'];
-   					$strSymbolH = rtrim($arItem[2], '.HK');
-   					
-					$sql->InsertSymbol($strSymbolH, $arItem[1]);
-   					$strStockIdH = $sql->GetId($strSymbolH);
-   					if ($strStockIdH)
-   					{
-   						if ($strIdH = $pair_sql->GetKeyId($strStockIdA))
-   						{
-   							if ($strIdH != $strStockIdH)
-   							{
-   								$pair_sql->Update($strStockIdA, $strStockIdH);
-   								DebugString('Unusual Update: '.$strSymbolH.' '.$strSymbolA);
-   								$iCount ++;
-   							}
-   						}
-   						else
-   						{
-   							$pair_sql->Insert($strStockIdA, $strStockIdH);
-   							DebugString($arItem[1].' '.$strSymbolH.' '.$strSymbolA);
-   							$iCount ++;
-   						}
-   					}
-   				}
-   			}
+
+			$strSymbolH = rtrim($arItem[2], '.HK');
+   			$sql->InsertSymbol($strSymbolA, $arItem[1]);
+   			$sql->InsertSymbol($strSymbolH, $arItem[1]);
+			if ($pair_sql->WriteSymbol($strSymbolA, $strSymbolH))
+			{
+				DebugString($arItem[1].' '.$strSymbolH.' '.$strSymbolA);
+				$iCount ++;
+			}
    		}
    	}
     DebugVal($iCount, 'AH updated');

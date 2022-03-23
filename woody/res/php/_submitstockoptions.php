@@ -107,58 +107,15 @@ function _updateStockOptionAdr($strSymbol, $strVal, $strTable = TABLE_ADRH_STOCK
 function _updateStockOptionHa($strSymbolH, $strSymbolA)
 {
 	$pair_sql = new AhPairSql();
-	if ($strA = $pair_sql->GetSymbol($strSymbolH))
-	{
-		if (empty($strSymbolA))
-		{
-			$pair_sql->DeleteBySymbol($strSymbolH);
-		}
-		else
-		{
-			if ($strSymbolA != $strA)
-			{
-				$pair_sql->DeleteBySymbol($strSymbolH);
-				if ($strH = $pair_sql->GetPairSymbol($strSymbolA))
-				{
-					if ($strSymbolH != $strH)
-					{
-						$pair_sql->UpdateSymbol($strSymbolA, $strSymbolH);
-					}
-				}
-				else
-				{
-					$pair_sql->InsertSymbol($strSymbolA, $strSymbolH);
-				}
-			}
-		}
-	}
-	else
-	{
-		$pair_sql->InsertSymbol($strSymbolA, $strSymbolH);
-	}
+	if (empty($strSymbolA))		$pair_sql->DeleteByPairSymbol($strSymbolH);
+	else							$pair_sql->WriteSymbol($strSymbolA, $strSymbolH);
 }
 
 function _updateStockOptionAh($strSymbolA, $strSymbolH)
 {
 	$pair_sql = new AhPairSql();
-	if ($strH = $pair_sql->GetPairSymbol($strSymbolA))
-	{
-		if (empty($strSymbolH))
-		{
-			$pair_sql->DeleteBySymbol($strH);
-		}
-		else
-		{
-			if ($strSymbolH != $strH)
-			{
-				$pair_sql->UpdateSymbol($strSymbolA, $strSymbolH);
-			}
-		}
-	}
-	else
-	{
-		$pair_sql->InsertSymbol($strSymbolA, $strSymbolH);
-	}
+	if (empty($strSymbolH))		$pair_sql->DeleteBySymbol($strSymbolA);
+	else							$pair_sql->WriteSymbol($strSymbolA, $strSymbolH);
 }
 
 function _updateStockOptionEmaDays($strStockId, $iDays, $strDate, $strVal)
