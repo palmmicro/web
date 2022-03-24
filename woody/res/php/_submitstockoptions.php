@@ -162,7 +162,7 @@ function _updateStockOptionHoldings($strSymbol, $strStockId, $strDate, $strVal)
 	}
 }
 
-function _updateStockOptionEtf($strSymbol, $strVal)
+function _updateStockOptionFund($strSymbol, $strVal)
 {
 	if (strpos($strVal, '*') !== false)
 	{
@@ -173,25 +173,21 @@ function _updateStockOptionEtf($strSymbol, $strVal)
 	else
 	{
 		$strIndex = $strVal;
-		$strRatio = '1';
+		$strRatio = false;
 	}
-	$strPairId = SqlGetStockId(StockGetSymbol($strIndex));
+	
+	$fund_pair_sql = new FundPairSql();
+	$fund_position_sql = new FundPositionSql();
 	$strStockId = SqlGetStockId($strSymbol);
-    $pair_sql = new EtfPairSql($strStockId);
 	if ($strRatio == '0')
 	{
-        $pair_sql->DeleteAll();
+		$fund_pair_sql->DeleteBySymbol($strSymbol);
+		$fund_position_sql->DeleteById($strStockId);
 	}
 	else
 	{
-		if ($record = $pair_sql->GetRecord())
-		{
-			$pair_sql->Update($record['id'], $strPairId, $strRatio);
-		}
-		else
-		{
-			SqlInsertStockPair(TABLE_ETF_PAIR, $strStockId, $strPairId, $strRatio);
-		}
+		$fund_pair_sql->WriteSymbol($strSymbol, StockGetSymbol($strIndex));
+		if ($strRatio)	$fund_position_sql->WriteVal($strStockId, $strRatio); 
 	}
 }
 
@@ -356,8 +352,8 @@ function _updateStockOptionCalibration($strSymbol, $strStockId, $strDate, $strVa
 			if ($bAdmin)	_updateStockOptionEma($strSymbol, $strStockId, $strDate, $strVal);
 			break;
 			
-		case STOCK_OPTION_ETF:
-			if ($bAdmin)	_updateStockOptionEtf($strSymbol, $strVal);
+		case STOCK_OPTION_FUND:
+			if ($bAdmin)	_updateStockOptionFund($strSymbol, $strVal);
 			break;
 			
 		case STOCK_OPTION_HA:

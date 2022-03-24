@@ -154,7 +154,7 @@ function EchoAhTradingParagraph($hshare_ref)
     _echoTradingParagraph($str, $arColumn, $ref, $hshare_ref->GetCnyPrice(), $strVal); 
 }
 
-function EchoEtfTradingParagraph($ref)
+function EchoFundPairTradingParagraph($ref)
 {
 	if ($ref->IsSymbolA() == false)		return;
 	

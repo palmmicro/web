@@ -13,7 +13,6 @@ function PairNavGetClose($ref, $strDate)
     return $sql->GetClose($ref->GetStockId(), $strDate);
 }
 
-// ****************************** MyPairReference class *******************************************************
 class MyPairReference extends MyStockReference
 {
     var $pair_ref = false;
@@ -29,7 +28,6 @@ class MyPairReference extends MyStockReference
     }
 }
 
-// ****************************** AbPairReference class *******************************************************
 class AbPairReference extends MyPairReference
 {
     var $ab_sql;
@@ -45,7 +43,6 @@ class AbPairReference extends MyPairReference
     }
 }
 
-// ****************************** AhPairReference class *******************************************************
 class AhPairReference extends MyPairReference
 {
     var $ah_sql;
@@ -61,8 +58,7 @@ class AhPairReference extends MyPairReference
     }
 }
 
-// ****************************** EtfReference class *******************************************************
-class EtfReference extends MyPairReference
+class FundPairReference extends MyPairReference
 {
 	var $nav_ref;
     var $pair_nav_ref = false;
@@ -76,11 +72,11 @@ class EtfReference extends MyPairReference
 
     var $strOfficialDate;	// Official net value est date
  
-    function EtfReference($strSymbol) 
+    function FundPairReference($strSymbol) 
     {
         parent::MyPairReference($strSymbol);
        	$this->nav_ref = new NetValueReference($strSymbol);
-       	if ($strFactorDate = $this->_onCalibration())
+       	if ($strFactorDate = $this->_onCalibration($strSymbol))
        	{
        		$this->_load_cny_ref($strFactorDate);
        	}
@@ -101,9 +97,8 @@ class EtfReference extends MyPairReference
     	return $this->strNav;
     }
     
-	function _load_pair_ref($strStockId)
+	function _load_pair_ref($strSymbol)
 	{
-		$strSymbol = SqlGetStockSymbol($strStockId);
 		$sym = new StockSymbol($strSymbol);
 /*		if ($sym->IsSinaFuture())
 		{
@@ -221,13 +216,14 @@ class EtfReference extends MyPairReference
 		return $this->_onNormalEtfCalibration();
 	}
 */	
-	function _onCalibration()
+
+	function _onCalibration($strSymbol)
 	{
-        $pair_sql = new EtfPairSql($this->GetStockId());
-        if ($record = $pair_sql->GetRecord())
+   		$pair_sql = new FundPairSql();
+        if ($strPair = $pair_sql->GetPairSymbol($strSymbol))
         {
-        	$this->fRatio = floatval($record['ratio']);
-			if ($this->_load_pair_ref($record['pair_id']))
+        	$this->fRatio = FundGetPosition($this);
+			if ($this->_load_pair_ref($strPair))
 			{
 				return $this->_onNormalEtfCalibration();
 			}

@@ -159,7 +159,7 @@ define('STOCK_OPTION_CLOSE', '更新收盘价');
 define('STOCK_OPTION_DIVIDEND', '分红');
 define('STOCK_OPTION_EDIT', '修改股票说明');
 define('STOCK_OPTION_EMA', '修改200/50天EMA');
-define('STOCK_OPTION_ETF', '修改ETF对应跟踪代码');
+define('STOCK_OPTION_FUND', '修改基金对应跟踪代码');
 define('STOCK_OPTION_HA', '修改H股对应A股代码');
 define('STOCK_OPTION_HOLDINGS', '修改基金持仓');
 define('STOCK_OPTION_NAV', '修改净值');
@@ -178,7 +178,7 @@ function GetStockOptionArray()
                   'editstockclose' => STOCK_OPTION_CLOSE,
                   'editstockdividend' => STOCK_OPTION_DIVIDEND,
                   'editstockema' => STOCK_OPTION_EMA,
-                  'editstocketf' => STOCK_OPTION_ETF,
+                  'editfund' => STOCK_OPTION_FUND,
                   'editstockha' => STOCK_OPTION_HA,
                   'editstockholdings' => STOCK_OPTION_HOLDINGS,
                   'editstocksplit' => STOCK_OPTION_SPLIT,
@@ -211,10 +211,10 @@ function GetAhCompareLink()
     return GetStockPageLink('ahcompare', AH_COMPARE_DISPLAY);
 }
 
-define('ETF_LIST_DISPLAY', '基金指数对照表');
-function GetEtfListLink()
+define('FUND_LIST_DISPLAY', '基金指数对照表');
+function GetFundListLink()
 {
-    return GetStockPageLink('etflist', ETF_LIST_DISPLAY);
+    return GetStockPageLink('fundlist', FUND_LIST_DISPLAY);
 }
 
 define('ADRH_COMPARE_DISPLAY', 'ADR和H股对比');

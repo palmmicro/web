@@ -95,7 +95,7 @@ function EchoFundHistoryParagraph($fund, $csv = false, $iStart = 0, $iNum = TABL
     _echoFundHistoryParagraph($fund->GetFundEstSql(), $fund->GetStockRef(), $fund->GetEstRef(), $csv, $iStart, $iNum, $bAdmin);
 }
 
-function EchoEtfHistoryParagraph($ref, $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY, $bAdmin = false)
+function EchoFundPairHistoryParagraph($ref, $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY, $bAdmin = false)
 {
 	if (method_exists($ref, 'GetFundEstSql'))
 	{

@@ -3,8 +3,8 @@ require_once('_stockgroup.php');
 require_once('_fundgroup.php');
 require_once('/php/ui/arbitrageparagraph.php');
 require_once('/php/ui/qdiismaparagraph.php');
-require_once('/php/ui/etfsmaparagraph.php');
-require_once('/php/ui/etfparagraph.php');
+require_once('/php/ui/fundpairsmaparagraph.php');
+require_once('/php/ui/fundlistparagraph.php');
 
 function TradingUserDefined($strVal = false)
 {
@@ -28,7 +28,8 @@ function TradingUserDefined($strVal = false)
 
 class QdiiGroupAccount extends FundGroupAccount 
 {
-    var $arLeverage = array();
+//    var $arLeverage = array();
+    var $arLeverage;
     var $ar_leverage_ref = array();
     
     function QdiiCreateGroup()
@@ -45,7 +46,7 @@ class QdiiGroupAccount extends FundGroupAccount
         
     	foreach ($this->arLeverage as $strSymbol)
     	{
-    		$leverage_ref = new EtfReference($strSymbol);
+    		$leverage_ref = new FundPairReference($strSymbol);
     		$this->ar_leverage_ref[] = $leverage_ref;
     		YahooUpdateNetValue($leverage_ref);
     	}
@@ -70,8 +71,8 @@ class QdiiGroupAccount extends FundGroupAccount
     	EchoQdiiSmaParagraph($ref);
     	if (count($this->ar_leverage_ref) > 0)	
     	{
-    		EchoEtfListParagraph($this->ar_leverage_ref);
-    		EchoEtfArraySmaParagraph($ref->GetEstRef(), $this->ar_leverage_ref);
+    		EchoFundListParagraph($this->ar_leverage_ref);
+    		EchoFundPairSmaParagraphs($ref->GetEstRef(), $this->ar_leverage_ref);
     	}
     	EchoFundHistoryParagraph($ref);
     	EchoFundShareParagraph($ref);
@@ -79,7 +80,9 @@ class QdiiGroupAccount extends FundGroupAccount
 
     function GetLeverageSymbols($strEstSymbol)
     {
-        $sql = new EtfPairSql(SqlGetStockId($strEstSymbol));
+   		$fund_pair_sql = new FundPairSql();
+        $this->arLeverage = $fund_pair_sql->GetSymbolArray($strEstSymbol);
+/*        $sql = new EtfPairSql(SqlGetStockId($strEstSymbol));
         $ar = $sql->GetAllStockId();
         foreach ($ar as $strStockId)
         {
@@ -87,7 +90,7 @@ class QdiiGroupAccount extends FundGroupAccount
         	{
         		$this->arLeverage[] = $strSymbol;
         	}
-        }
+        }*/
     }
     
     function ConvertToEtfTransaction($fund, $fCNY, $etf_convert_trans, $qdii_trans)

@@ -57,8 +57,10 @@ function GetCategoryArray($strPage)
     					   , array('ACH'));
         break;
         
-    case 'etflist':
-        $ar = SqlGetEtfPairArray();
+    case 'fundlist':
+//        $ar = SqlGetEtfPairArray();
+   		$pair_sql = new FundPairSql();
+        $ar = $pair_sql->GetSymbolArray();
         break;
   
     case 'goldsilver':

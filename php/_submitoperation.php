@@ -7,7 +7,7 @@ class _AdminOperationAccount extends Account
 	function _onManualCalibration($strSymbol)
 	{
 		StockPrefetchExtendedData($strSymbol);
-		$ref = new EtfReference($strSymbol);
+		$ref = new FundPairReference($strSymbol);
 		$ref->ManualCalibration();
 	}
 

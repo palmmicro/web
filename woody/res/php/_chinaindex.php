@@ -5,8 +5,8 @@ require_once('/php/ui/referenceparagraph.php');
 require_once('/php/ui/tradingparagraph.php');
 require_once('/php/ui/fundhistoryparagraph.php');
 require_once('/php/ui/fundshareparagraph.php');
-require_once('/php/ui/etfsmaparagraph.php');
-require_once('/php/ui/etfparagraph.php');
+require_once('/php/ui/fundpairsmaparagraph.php');
+require_once('/php/ui/fundlistparagraph.php');
 require_once('/php/ui/fundestparagraph.php');
 
 class _ChinaIndexAccount extends GroupAccount
@@ -23,8 +23,8 @@ class _ChinaIndexAccount extends GroupAccount
         $strCNH = 'fx_susdcnh';
         StockPrefetchExtendedData($strSymbol, $strUS, $strA50, $strCNH);
 
-        $this->ref = new EtfReference($strSymbol);
-        $this->us_ref = new EtfReference($strUS);
+        $this->ref = new FundPairReference($strSymbol);
+        $this->us_ref = new FundPairReference($strUS);
         $this->a50_ref = new FutureReference($strA50);
         $this->cnh_ref = new ForexReference($strCNH);
 
@@ -70,12 +70,12 @@ function EchoAll()
     
 	EchoFundArrayEstParagraph(array($ref, $acct->us_ref));
     EchoReferenceParagraph(array_merge($acct->GetStockRefArray(), array($acct->a50_ref, $acct->cnh_ref)), $acct->IsAdmin());
-    EchoEtfListParagraph(array($ref, $acct->us_ref));
-    EchoEtfTradingParagraph($ref);
-    EchoEtfSmaParagraph($ref);
-    EchoEtfSmaParagraph($acct->us_ref, '');
-    EchoEtfHistoryParagraph($ref);
-    EchoEtfHistoryParagraph($acct->us_ref);
+    EchoFundListParagraph(array($ref, $acct->us_ref));
+    EchoFundPairTradingParagraph($ref);
+    EchoFundPairSmaParagraph($ref);
+    EchoFundPairSmaParagraph($acct->us_ref, '');
+    EchoFundPairHistoryParagraph($ref);
+    EchoFundPairHistoryParagraph($acct->us_ref);
 //   	EchoFundShareParagraph($ref);
 //   	EchoFundShareParagraph($acct->us_ref);
 

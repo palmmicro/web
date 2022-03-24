@@ -19,8 +19,8 @@ function _echoFundHistory($strSymbol, $iStart, $iNum, $bAdmin)
    	}
    	else
    	{
-   		if (($ref = StockGetEtfReference($strSymbol)) === false)		$ref = StockGetHoldingsReference($strSymbol);
- 		if ($ref)	EchoEtfHistoryParagraph($ref, $csv, $iStart, $iNum, $bAdmin);
+   		if (($ref = StockGetFundPairReference($strSymbol)) === false)		$ref = StockGetHoldingsReference($strSymbol);
+ 		if ($ref)	EchoFundPairHistoryParagraph($ref, $csv, $iStart, $iNum, $bAdmin);
    	}
     $csv->Close();
     

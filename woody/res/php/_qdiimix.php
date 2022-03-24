@@ -148,7 +148,7 @@ function EchoAll()
 	}
 	else	EchoFundTradingParagraph($ref);
 
-    EchoEtfHistoryParagraph($ref);
+    EchoFundPairHistoryParagraph($ref);
    	EchoFundShareParagraph($ref);
 
     if ($group = $acct->EchoTransaction()) 

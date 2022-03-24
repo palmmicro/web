@@ -93,15 +93,13 @@ function _getStockOptionHa($strSymbol)
 	return 'A';
 }
 
-function _getStockOptionEtf($strSymbol)
+function _getStockOptionFund($strSymbol)
 {
-	SqlCreateStockPairTable(TABLE_ETF_PAIR);
-	if ($strIndex = SqlGetEtfPair($strSymbol))
+	$fund_pair_sql = new FundPairSql();
+	if ($strIndex = $fund_pair_sql->GetPairSymbol($strSymbol))
 	{
-		if ($fRatio = SqlGetStockPairRatio(TABLE_ETF_PAIR, SqlGetStockId($strSymbol)))
-		{
-			return $strIndex.'*'.strval($fRatio);
-		}
+		$fund_position_sql = new FundPositionSql();
+		if ($fRatio = $fund_position_sql->ReadVal(SqlGetStockId($strSymbol)))	return $strIndex.'*'.strval($fRatio);
 		return $strIndex;
 	}
 	return 'INDEX*1';
@@ -201,20 +199,26 @@ function _getStockOptionVal($strSubmit, $strLoginId, $ref, $strSymbol, $strDate)
 	case STOCK_OPTION_AH:
 		return _getStockOptionAh($strSymbol);
 
+	case STOCK_OPTION_AMOUNT:
+		return _getStockOptionAmount($strLoginId, $strStockId);
+		
+	case STOCK_OPTION_CALIBRATION:
+		return _getStockOptionCalibration($strSymbol, $strDate); 
+		
 	case STOCK_OPTION_CLOSE:
 		return $ref->GetPrevPrice();
 
 	case STOCK_OPTION_DIVIDEND:
 		return _getStockOptionDividend($strStockId, $strDate);
 
+	case STOCK_OPTION_EDIT:
+		return _getStockOptionName($ref, $strSymbol);
+		
 	case STOCK_OPTION_EMA:
 		return _getStockOptionEma($strStockId, $strDate);
 
-	case STOCK_OPTION_ETF:
-		return _getStockOptionEtf($strSymbol);
-
-	case STOCK_OPTION_EDIT:
-		return _getStockOptionName($ref, $strSymbol);
+	case STOCK_OPTION_FUND:
+		return _getStockOptionFund($strSymbol);
 
 	case STOCK_OPTION_HA:
 		return _getStockOptionHa($strSymbol);
@@ -222,9 +226,6 @@ function _getStockOptionVal($strSubmit, $strLoginId, $ref, $strSymbol, $strDate)
 	case STOCK_OPTION_HOLDINGS:
 		return 'STOCK1*10.1;STOCK2*20.2;STOCK3*30.3;STOCK4*39.4';
 
-	case STOCK_OPTION_CALIBRATION:
-		return _getStockOptionCalibration($strSymbol, $strDate); 
-		
 	case STOCK_OPTION_NAV:
 		return SqlGetNavByDate($strStockId, $strDate);
 
@@ -233,9 +234,6 @@ function _getStockOptionVal($strSubmit, $strLoginId, $ref, $strSymbol, $strDate)
 
 	case STOCK_OPTION_SPLIT:
 		return '10:1';
-
-	case STOCK_OPTION_AMOUNT:
-		return _getStockOptionAmount($strLoginId, $strStockId);
 	}
 	return '';
 }
@@ -250,13 +248,16 @@ function _getStockOptionMemo($strSubmit)
 	case STOCK_OPTION_AH:
 		return '清空输入删除对应H股。';
 		
+	case STOCK_OPTION_CALIBRATION:
+		return '清空输入删除对应日期校准值。';
+		
 	case STOCK_OPTION_DIVIDEND:
 		return '清空输入删除对应分红。';
 		
 	case STOCK_OPTION_EMA:
 		return '股票收盘后的第2天修改才会生效，同时删除以往全部EMA记录。';
 
-	case STOCK_OPTION_ETF:
+	case STOCK_OPTION_FUND:
 		return '输入INDEX*0删除对应关系和全部'.CALIBRATION_HISTORY_DISPLAY.'。';
 
 	case STOCK_OPTION_HA:
@@ -264,9 +265,6 @@ function _getStockOptionMemo($strSubmit)
 
 	case STOCK_OPTION_HOLDINGS:
 		return '输入STOCK*0删除对应基金持仓，用;号间隔多个持仓品种。';
-
-	case STOCK_OPTION_CALIBRATION:
-		return '清空输入删除对应日期校准值。';
 		
 	case STOCK_OPTION_NAV:
 		return '清空输入删除对应日期净值。';

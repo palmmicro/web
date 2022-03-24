@@ -23,6 +23,11 @@ class PairSql extends IntSql
     	return $this->GetSingleData($this->_buildWhere($strPairId));
     }
     
+    public function GetAll($strPairId)
+    {
+    	return $this->GetData($this->_buildWhere($strPairId));
+    }
+    
     function Delete($strPairId)
     {
     	return $this->DeleteData($this->_buildWhere($strPairId));

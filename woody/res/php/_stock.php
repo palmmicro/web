@@ -174,11 +174,11 @@ function StockGetHoldingsReference($strSymbol)
 	return false;
 }
 
-function StockGetEtfReference($strSymbol)
+function StockGetFundPairReference($strSymbol)
 {
-	if (SqlGetEtfPair($strSymbol))
+	if (SqlGetFundPair($strSymbol))
 	{
-		return new EtfReference($strSymbol);
+		return new FundPairReference($strSymbol);
 	}
 	return false;
 }

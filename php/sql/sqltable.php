@@ -195,22 +195,21 @@ class TableSql
     	return false;
     }
     
-    function GetIdArray($callback = 'GetAll')
+    function GetIdArray($strVal = false, $callback = 'GetAll')
     {
+		$ar = array();
     	if (method_exists($this, $callback))
     	{
-    		if ($result = $this->$callback())
+    		if ($result = $this->$callback($strVal))
     		{
-    			$ar = array();
     			while ($record = mysql_fetch_assoc($result)) 
     			{
     				$ar[] = $record['id'];
     			}
     			@mysql_free_result($result);
-    			return $ar;
     		}
     	}
-    	return false;
+		return $ar;
     }
     
     function DeleteData($strWhere, $strLimit = false)

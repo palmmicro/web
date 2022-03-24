@@ -2,7 +2,6 @@
 require_once('sqlpair.php');
 
 define('TABLE_ADRH_STOCK', 'adrhstock');
-define('TABLE_ETF_PAIR', 'etfpair');
 
 class StockPairSql extends PairSql
 {
@@ -15,15 +14,20 @@ class StockPairSql extends PairSql
 		$this->sql = GetStockSql();
     }
     
-    function GetSymbolArray()
+    function GetSymbolArray($strPairSymbol = false)
     {
 		$arSymbol = array();
-		$ar = $this->GetIdArray('GetData');
-		foreach ($ar as $strStockId)
+		if ($strPairSymbol)
 		{
-			$arSymbol[] = $this->sql->GetKey($strStockId);
+			if ($strPairId = $this->sql->GetId($strPairSymbol))		$ar = $this->GetIdArray($strPairId);
 		}
-		sort($arSymbol);
+		else																$ar = $this->GetIdArray();
+		
+		if (count($ar) > 0)
+		{
+			foreach ($ar as $strStockId)	$arSymbol[] = $this->sql->GetKey($strStockId);
+			sort($arSymbol);
+		}
 		return $arSymbol;
 	}
 	
@@ -82,11 +86,11 @@ class StockPairSql extends PairSql
 	}
 }
 
-class SecondaryListingSql extends StockPairSql
+class SecondListSql extends StockPairSql
 {
-    function SecondaryListingSql()
+    function SecondListSql()
     {
-        parent::StockPairSql('secondarylisting');
+        parent::StockPairSql('secondlist');
     }
 }
 
@@ -103,6 +107,14 @@ class AbPairSql extends StockPairSql
     function AbPairSql() 
     {
         parent::StockPairSql('abpair');
+    }
+}
+
+class FundPairSql extends StockPairSql
+{
+    function FundPairSql() 
+    {
+        parent::StockPairSql('fundpair');
     }
 }
 
@@ -171,31 +183,6 @@ class PairStockSql extends StockTableSql
 	}
 }
 
-class EtfPairSql extends PairStockSql
-{
-    function EtfPairSql($strStockId) 
-    {
-        parent::PairStockSql(TABLE_ETF_PAIR, $strStockId);
-    }
-}
-
-// ****************************** Stock pair tables *******************************************************
-
-function SqlCreateStockPairTable($strTableName)
-{
-    $str = 'CREATE TABLE IF NOT EXISTS `camman`.`'
-         . $strTableName
-         . '` ('
-         . ' `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,'
-         . ' `stock_id` INT UNSIGNED NOT NULL ,'
-         . ' `pair_id` INT UNSIGNED NOT NULL ,'
-         . ' `ratio` DOUBLE(10,6) NOT NULL ,'
-         . ' FOREIGN KEY (`pair_id`) REFERENCES `stock`(`id`) ON DELETE CASCADE ,'
-         . ' UNIQUE ( `stock_id` )'
-         . ' ) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci '; 
-	return SqlDieByQuery($str, $strTableName.' create table failed');
-}
-
 function SqlInsertStockPair($strTableName, $strStockId, $strPairId, $strRatio)
 {
     if ($strStockId == false || $strPairId == false)    return false;
@@ -209,8 +196,6 @@ function SqlGetStockPairRatio($strTableName, $strStockId)
 	$sql = new PairStockSql($strTableName, $strStockId);
 	return $sql->GetRatio();
 }
-
-// ****************************** Support functions *******************************************************
 
 function _sqlGetStockPairArray($strTableName)
 {
@@ -233,11 +218,6 @@ function SqlGetAdrhArray()
 	return _sqlGetStockPairArray(TABLE_ADRH_STOCK);
 }
 
-function SqlGetEtfPairArray()
-{
-	return _sqlGetStockPairArray(TABLE_ETF_PAIR);
-}
-
 function SqlGetAdrhPairRatio($adr_ref)
 {
 	return SqlGetStockPairRatio(TABLE_ADRH_STOCK, $adr_ref->GetStockId());
@@ -256,9 +236,10 @@ function _sqlGetPair($strTableName, $strSymbol, $callback)
 	return false;
 }
 
-function SqlGetEtfPair($strEtf)
+function SqlGetFundPair($strFund)
 {
-	return _sqlGetPair(TABLE_ETF_PAIR, $strEtf, 'GetPairId');
+	$sql = new FundPairSql();
+	return $sql->GetPairSymbol($strFund);
 }
 
 function SqlGetAhPair($strSymbolA)

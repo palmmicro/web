@@ -24,17 +24,49 @@ function _deleteHasStockPair($strTableName, $strStockId)
 	return false;
 }
 
+function _deleteHasAbPair($strSymbol)
+{
+	$sql = new AbPairSql();
+	if ($strSymbolB = $sql->GetPairSymbol($strSymbol))
+	{
+		DebugString('(A)B stock existed: '.$strSymbolB);
+		return true;
+	}
+	else if ($strSymbolA = $sql->GetSymbol($strSymbol))
+	{
+		DebugString('A(B) stock existed: '.$strSymbolA);
+		return true;
+	}
+	return false;
+}
+
 function _deleteHasAhPair($strSymbol)
 {
 	$sql = new AhPairSql();
 	if ($strSymbolH = $sql->GetPairSymbol($strSymbol))
 	{
-		DebugString('H stock existed: '.$strSymbolH);
+		DebugString('(A)H stock existed: '.$strSymbolH);
 		return true;
 	}
 	else if ($strSymbolA = $sql->GetSymbol($strSymbol))
 	{
-		DebugString('A stock existed: '.$strSymbolA);
+		DebugString('A(H) stock existed: '.$strSymbolA);
+		return true;
+	}
+	return false;
+}
+
+function _deleteHasFundPair($strSymbol)
+{
+	$sql = new FundPairSql();
+	if ($strIndex = $sql->GetPairSymbol($strSymbol))
+	{
+		DebugString('(Fund) Index existed: '.$strIndex);
+		return true;
+	}
+	else if ($strFund = $sql->GetSymbol($strSymbol))
+	{
+		DebugString('Fund (Index) existed: '.$strFund);
 		return true;
 	}
 	return false;
@@ -83,10 +115,10 @@ function _deleteStockSymbol($ref)
 
 	DebugString('Deleting... '.$strSymbol);
 	if (_deleteIsStockPair(TABLE_ADRH_STOCK, $strStockId))					return;
-	else if (_deleteIsStockPair(TABLE_ETF_PAIR, $strStockId))				return;
 	else if (_deleteHasStockPair(TABLE_ADRH_STOCK, $strStockId))				return;
-	else if (_deleteHasStockPair(TABLE_ETF_PAIR, $strStockId))				return;
+	else if (_deleteHasAbPair($strSymbol))									return;
 	else if (_deleteHasAhPair($strSymbol))									return;
+	else if (_deleteHasFundPair($strSymbol))									return;
 	else if (_deleteHasStockHistory($strStockId))							return;
 	else if (_deleteHasNetValue($strStockId))								return;
 	else if (_deleteHasCalibration($strStockId))								return;

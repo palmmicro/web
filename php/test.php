@@ -129,8 +129,6 @@ function DebugClearPath($strSection)
     $iCount = $his_sql->DeleteClose();
 	if ($iCount > 0)	DebugVal($iCount, 'Zero close data');
 	
-//	$sql = new SecondaryListingSql();
-	
 //    $iCount = $his_sql->DeleteInvalidDate();		// this can be very slow!
 //	if ($iCount > 0)	DebugVal($iCount, 'Invalid or older date'); 
 	

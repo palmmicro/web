@@ -1,6 +1,6 @@
 <?php
 
-function _getEtfPairExternalLink($sym)
+function _getFundPairExternalLink($sym)
 {
 	static $arSymbol = array();
 	
@@ -23,29 +23,29 @@ function _getEtfPairExternalLink($sym)
 	return $strLink;
 }
 
-function _echoEtfListItem($ref)
+function _echoFundListItem($ref)
 {
 	$ar = array();
 	
 	$ar[] = GetCalibrationHistoryLink($ref->GetSymbol(), true);
-    $ar[] = _getEtfPairExternalLink($ref->GetPairSym());
+    $ar[] = _getFundPairExternalLink($ref->GetPairSym());
     $ar[] = GetNumberDisplay($ref->fRatio);
     $ar[] = GetNumberDisplay($ref->fFactor);
     RefEchoTableColumn($ref, $ar);
 }
 
-function EchoEtfListParagraph($arRef)
+function EchoFundListParagraph($arRef)
 {
-	$str = GetEtfListLink();
+	$str = GetFundListLink();
 	EchoTableParagraphBegin(array(new TableColumnSymbol(),
 								   new TableColumnSymbol('跟踪'),
 								   new TableColumn('杠杆倍数'),
 								   new TableColumnCalibration()
-								   ), 'etflist', $str);
+								   ), 'fundlist', $str);
 	
 	foreach ($arRef as $ref)
 	{
-		_echoEtfListItem($ref);
+		_echoFundListItem($ref);
 	}
     EchoTableParagraphEnd();
 }

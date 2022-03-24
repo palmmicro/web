@@ -9,9 +9,9 @@ require_once('/php/sql/sqldailystring.php');
 require_once('/php/ui/referenceparagraph.php');
 require_once('/php/ui/stockparagraph.php');
 require_once('/php/ui/ahparagraph.php');
-require_once('/php/ui/etfparagraph.php');
+require_once('/php/ui/fundlistparagraph.php');
 require_once('/php/ui/hsharesmaparagraph.php');
-require_once('/php/ui/etfsmaparagraph.php');
+require_once('/php/ui/fundpairsmaparagraph.php');
 require_once('/php/ui/fundestparagraph.php');
 require_once('/php/ui/fundhistoryparagraph.php');
 require_once('/php/ui/fundshareparagraph.php');
@@ -26,7 +26,7 @@ function _echoBenfordParagraph($ref)
 	if ($ref->CountNav() > 0)				return;	//	has netvalue, it is an ETF.
 	
 	$strSymbol = $ref->GetSymbol();
-	if (SqlGetEtfPair($strSymbol))		return;
+	if (SqlGetFundPair($strSymbol))		return;
 	
 	$a_sql = new AnnualIncomeSql();
 	$q_sql = new QuarterIncomeSql();
@@ -98,7 +98,7 @@ function _hasSmaDisplay($sym)
 
 function _getFundOptionLinks($strSymbol)
 {
-	return ' '.GetStockOptionLink(STOCK_OPTION_NAV, $strSymbol).' '.GetStockOptionLink(STOCK_OPTION_CALIBRATION, $strSymbol).' '.GetStockOptionLink(STOCK_OPTION_ETF, $strSymbol).' '.GetStockOptionLink(STOCK_OPTION_HOLDINGS, $strSymbol);
+	return ' '.GetStockOptionLink(STOCK_OPTION_NAV, $strSymbol).' '.GetStockOptionLink(STOCK_OPTION_CALIBRATION, $strSymbol).' '.GetStockOptionLink(STOCK_OPTION_FUND, $strSymbol).' '.GetStockOptionLink(STOCK_OPTION_HOLDINGS, $strSymbol);
 }
 
 function _getMyStockLinks($sym)
@@ -107,7 +107,7 @@ function _getMyStockLinks($sym)
     $str = GetStockOptionLink(STOCK_OPTION_EDIT, $strSymbol);
    	$str .= ' '.GetStockOptionLink(STOCK_OPTION_SPLIT, $strSymbol);
    	$str .= ' '.GetStockOptionLink(STOCK_OPTION_DIVIDEND, $strSymbol);
-   	if (SqlGetEtfPair($strSymbol) == false)
+   	if (SqlGetFundPair($strSymbol) == false)
    	{
    		$str .= ' '.GetStockOptionLink(STOCK_OPTION_EMA, $strSymbol);
    	}
@@ -134,7 +134,7 @@ function _getMyStockLinks($sym)
 function _echoMyStockData($acct, $ref)
 {
     $hshare_ref = false;
-    $etf_ref = false;
+    $fund_pair_ref = false;
     $holdings_ref = false;
     
     $strSymbol = $ref->GetSymbol();
@@ -149,23 +149,23 @@ function _echoMyStockData($acct, $ref)
        	{
        		$fund = StockGetFundReference($strSymbol);
        		$ref = $fund->GetStockRef(); 
-       		$etf_ref = StockGetEtfReference($strSymbol);
+       		$fund_pair_ref = StockGetFundPairReference($strSymbol);
        	}
     }
     else
     {
     	if ($ref_ar = StockGetHShareReference($ref))							list($ref, $hshare_ref) = $ref_ar;
-    	else if ($etf_ref = StockGetEtfReference($strSymbol))				$ref = $etf_ref;
+    	else if ($fund_pair_ref = StockGetFundPairReference($strSymbol))	$ref = $fund_pair_ref;
     	else if ($holdings_ref = StockGetHoldingsReference($strSymbol))	$ref = $holdings_ref;
     }
     
    	EchoReferenceParagraph(array($ref));
    	if ($holdings_ref)	EchoHoldingsEstParagraph($holdings_ref);
-   	else if ($etf_ref)
+   	else if ($fund_pair_ref)
    	{
-		EchoFundArrayEstParagraph(array($etf_ref));
-   		EchoEtfListParagraph(array($etf_ref));
-   		EchoEtfTradingParagraph($etf_ref);
+		EchoFundArrayEstParagraph(array($fund_pair_ref));
+   		EchoFundListParagraph(array($fund_pair_ref));
+   		EchoFundPairTradingParagraph($fund_pair_ref);
    	}
    	else if ($ref->IsFundA())
    	{
@@ -186,20 +186,20 @@ function _echoMyStockData($acct, $ref)
    		}
    	}
 
-   	if ($etf_ref)   			EchoEtfSmaParagraph($etf_ref);
+   	if ($fund_pair_ref)   			EchoFundPairSmaParagraph($fund_pair_ref);
    	else if (_hasSmaDisplay($ref))
    	{
    		if ($hshare_ref)		EchoHShareSmaParagraph($ref, $hshare_ref);
    		else	        		EchoSmaParagraph($ref);
    	}
 
-   	if ($holdings_ref || $etf_ref)	EchoEtfHistoryParagraph($ref);
+   	if ($holdings_ref || $fund_pair_ref)	EchoFundPairHistoryParagraph($ref);
    	else if ($ref->IsFundA())			EchoFundHistoryParagraph($fund);
    	
 	EchoNvCloseHistoryParagraph($ref);
 	EchoFundShareParagraph($ref);
    	EchoStockHistoryParagraph($ref);
-   	if (($holdings_ref == false) && ($etf_ref == false))		_echoBenfordParagraph($ref);
+   	if (($holdings_ref == false) && ($fund_pair_ref == false))		_echoBenfordParagraph($ref);
     
    	_echoMyStockTransactions($acct, $ref);
     if ($acct->IsAdmin())

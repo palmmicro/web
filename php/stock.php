@@ -25,7 +25,7 @@ require_once('stock/goldfundref.php');
 
 require_once('stock/forexref.php');
 require_once('stock/hshareref.php');
-require_once('stock/etfref.php');
+require_once('stock/fundpairref.php');
 
 // ****************************** Stock symbol functions *******************************************************
 
@@ -206,7 +206,7 @@ function StockPrefetchArrayData($arSymbol)
 
 function EtfGetAllSymbolArray($strSymbol)
 {
-    return array($strSymbol, SqlGetEtfPair($strSymbol));
+    return array($strSymbol, SqlGetFundPair($strSymbol));
 }
 
 function _getAllSymbolArray($strSymbol, $strStockId)
@@ -230,7 +230,7 @@ function _getAllSymbolArray($strSymbol, $strStockId)
 	$ar = SqlGetHoldingsSymbolArray($strSymbol);
 	if ($ar == false)		$ar = array();
 	
-    if ($strPairSymbol = SqlGetEtfPair($strSymbol))			   	$ar[] = $strPairSymbol;
+    if ($strPairSymbol = SqlGetFundPair($strSymbol))			   	$ar[] = $strPairSymbol;
     
     if ($sym->IsSymbolA())
     {
@@ -282,14 +282,10 @@ function StockPrefetchExtendedData()
 
 function StockGetFundReference($strSymbol)
 {
-    if (in_arrayQdii($strSymbol))                 $ref = new QdiiReference($strSymbol);
-    else if (in_arrayQdiiHk($strSymbol))         $ref = new QdiiHkReference($strSymbol);
-    else if (in_arrayGoldSilver($strSymbol))       $ref = new GoldFundReference($strSymbol);
-//    else if (in_arrayChinaIndex($strSymbol))       $ref = new EtfReference($strSymbol);
-    else
-    {
-        $ref = new FundReference($strSymbol);
-    }
+    if (in_arrayQdii($strSymbol))					$ref = new QdiiReference($strSymbol);
+    else if (in_arrayQdiiHk($strSymbol))			$ref = new QdiiHkReference($strSymbol);
+    else if (in_arrayGoldSilver($strSymbol))		$ref = new GoldFundReference($strSymbol);
+    else									        $ref = new FundReference($strSymbol);
     return $ref;
 }
 
