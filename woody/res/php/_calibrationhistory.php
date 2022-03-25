@@ -42,7 +42,7 @@ function _echoCalibrationHistoryParagraph($ref, $iStart, $iNum, $bAdmin)
     if ($result = $calibration_sql->GetAll($strStockId, $iStart, $iNum)) 
     {
     	$sql = ($ref->CountNav() > 0) ? GetNavHistorySql() : GetStockHistorySql(); 
-    	$fPosition = FundGetPosition($ref);
+    	$fPosition = RefGetPosition($ref);
         while ($record = mysql_fetch_assoc($result)) 
         {
 			_echoCalibrationHistoryItem($sql, $fPosition, $strStockId, $record, $bAdmin);

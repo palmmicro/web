@@ -222,7 +222,7 @@ class FundPairReference extends MyPairReference
    		$pair_sql = new FundPairSql();
         if ($strPair = $pair_sql->GetPairSymbol($strSymbol))
         {
-        	$this->fRatio = FundGetPosition($this);
+        	$this->fRatio = RefGetPosition($this);
 			if ($this->_load_pair_ref($strPair))
 			{
 				return $this->_onNormalEtfCalibration();

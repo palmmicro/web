@@ -82,15 +82,6 @@ class QdiiGroupAccount extends FundGroupAccount
     {
    		$fund_pair_sql = new FundPairSql();
         $this->arLeverage = $fund_pair_sql->GetSymbolArray($strEstSymbol);
-/*        $sql = new EtfPairSql(SqlGetStockId($strEstSymbol));
-        $ar = $sql->GetAllStockId();
-        foreach ($ar as $strStockId)
-        {
-        	if ($strSymbol = SqlGetStockSymbol($strStockId))
-        	{
-        		$this->arLeverage[] = $strSymbol;
-        	}
-        }*/
     }
     
     function ConvertToEtfTransaction($fund, $fCNY, $etf_convert_trans, $qdii_trans)

@@ -185,17 +185,17 @@ function RefGetTableColumnNav($ref)
 	return 								new TableColumnPrice($strStockDisplay);
 }
 
-function FundGetArbitrage($strStockId)
-{
-	$sql = new FundArbitrageSql();
-   	return $sql->ReadInt($strStockId);
-}
-
-function FundGetPosition($ref)
+function RefGetPosition($ref)
 {
 	$sql = new FundPositionSql();
    	if ($fRatio = $sql->ReadVal($ref->GetStockId()))	return $fRatio;
 	return $ref->GetDefaultPosition();  
+}
+
+function FundGetArbitrage($strStockId)
+{
+	$sql = new FundArbitrageSql();
+   	return $sql->ReadInt($strStockId);
 }
 
 // ****************************** Stock final integration functions *******************************************************
@@ -204,35 +204,40 @@ function StockPrefetchArrayData($arSymbol)
     PrefetchSinaStockData(array_unique($arSymbol));
 }
 
-function EtfGetAllSymbolArray($strSymbol)
+function _getAllSymbolArray($strSymbol)
 {
-    return array($strSymbol, SqlGetFundPair($strSymbol));
-}
-
-function _getAllSymbolArray($strSymbol, $strStockId)
-{
+   	$ar = array($strSymbol);
    	$sym = new StockSymbol($strSymbol);
     if ($sym->IsFundA())
     {
         if (in_arrayQdiiMix($strSymbol))
         {
-        	$ar = array($strSymbol);
         	if ($strSymbol == 'SZ164906')		$ar[] = 'KWEB';
-        	return array_merge($ar, SqlGetHoldingsSymbolArray($strSymbol));
+        	$ar = array_merge($ar, SqlGetHoldingsSymbolArray($strSymbol));
         }
-        else if (in_arrayQdii($strSymbol))		        			return QdiiGetAllSymbolArray($strSymbol);
-        else if (in_arrayQdiiHk($strSymbol))							return QdiiHkGetAllSymbolArray($strSymbol);
-        else if (in_arrayChinaIndex($strSymbol))						return EtfGetAllSymbolArray($strSymbol);
-        else if (in_arrayGoldSilver($strSymbol))						return GoldSilverGetAllSymbolArray($strSymbol);
-        else 															return array($strSymbol);
+        else if (in_arrayQdii($strSymbol))
+        {
+        	if ($strEstSymbol = QdiiGetEstSymbol($strSymbol))	        		$ar[] = $strEstSymbol; 
+        	if ($strFutureSymbol = QdiiGetFutureSymbol($strSymbol))			$ar[] = $strFutureSymbol; 
+        	if ($strFutureEtfSymbol = QdiiGetFutureEtfSymbol($strSymbol))		$ar[] = $strFutureEtfSymbol; 
+        }
+        else if (in_arrayQdiiHk($strSymbol))
+        {
+        	if ($strEstSymbol = QdiiHkGetEstSymbol($strSymbol))		        $ar[] = $strEstSymbol; 
+        	if ($strFutureSymbol = QdiiHkGetFutureSymbol($strSymbol))			$ar[] = $strFutureSymbol; 
+        }
+        else if (in_arrayGoldSilver($strSymbol))
+        {
+			$ar[] = GoldSilverGetCnFutureSymbol($strSymbol);
+			$ar[] = GoldSilverGetFutureSymbol($strSymbol);
+        }
+//      else if (in_arrayChinaIndex($strSymbol))
+        else
+        {
+        	if ($strPairSymbol = SqlGetFundPair($strSymbol))			   		$ar[] = $strPairSymbol;
+        }
     }
-    
-	$ar = SqlGetHoldingsSymbolArray($strSymbol);
-	if ($ar == false)		$ar = array();
-	
-    if ($strPairSymbol = SqlGetFundPair($strSymbol))			   	$ar[] = $strPairSymbol;
-    
-    if ($sym->IsSymbolA())
+	else if ($sym->IsSymbolA())
     {
     	$ab_sql = new AbPairSql();
     	if ($strSymbolB = $ab_sql->GetPairSymbol($strSymbol))		$ar[] = $strSymbolB;
@@ -256,8 +261,10 @@ function _getAllSymbolArray($strSymbol, $strStockId)
            	$ar[] = $strSymbolH;
             if ($strSymbolA = SqlGetHaPair($strSymbolH))		$ar[] = $strSymbolA;
         }
+        
+       	$ar = array_merge($ar, SqlGetHoldingsSymbolArray($strSymbol));
+       	if ($strPairSymbol = SqlGetFundPair($strSymbol))			   	$ar[] = $strPairSymbol;
     }
-    $ar[] = $strSymbol;
     return $ar;
 }
 
@@ -268,8 +275,8 @@ function StockPrefetchArrayExtendedData($ar)
 	$sql = GetStockSql();
     foreach ($ar as $strSymbol)
     {
-   		if ($strStockId = $sql->GetId($strSymbol))		$arAll = array_merge($arAll, _getAllSymbolArray($strSymbol, $strStockId));
-   		else								    			$arAll[] = $strSymbol;	// new stock symbol	
+   		if ($sql->GetId($strSymbol))		$arAll = array_merge($arAll, _getAllSymbolArray($strSymbol));
+   		else								$arAll[] = $strSymbol;	// new stock symbol	
     }
     StockPrefetchArrayData($arAll);
 //    DebugPrint($arAll, 'StockPrefetchArrayExtendedData');

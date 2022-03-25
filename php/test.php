@@ -128,7 +128,21 @@ function DebugClearPath($strSection)
     $his_sql = GetStockHistorySql();
     $iCount = $his_sql->DeleteClose();
 	if ($iCount > 0)	DebugVal($iCount, 'Zero close data');
-	
+/*
+	$adr_pair_sql = new AdrPairSql();
+	$pos_sql = new FundPositionSql();
+	$old_sql = new PairStockSql(TABLE_ADRH_STOCK, false);
+	if ($result = $old_sql->GetData()) 
+    {
+        while ($record = mysql_fetch_assoc($result)) 
+        {
+			$adr_pair_sql->WritePair($record['stock_id'], $record['pair_id']);
+			if (intval($record['ratio']) != 1)	$pos_sql->WriteVal($record['stock_id'], $record['ratio']); 
+        }
+        @mysql_free_result($result);
+    }
+*/
+
 //    $iCount = $his_sql->DeleteInvalidDate();		// this can be very slow!
 //	if ($iCount > 0)	DebugVal($iCount, 'Invalid or older date'); 
 	

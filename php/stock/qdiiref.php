@@ -88,26 +88,6 @@ function QdiiGetFutureSymbol($strSymbol)
 	    return false;
 }
 
-function QdiiGetAllSymbolArray($strSymbol)
-{
-    $ar = array();
-    
-    $ar[] = $strSymbol; 
-    if ($strEstSymbol = QdiiGetEstSymbol($strSymbol))
-    {
-        $ar[] = $strEstSymbol; 
-    }
-    if ($strFutureSymbol = QdiiGetFutureSymbol($strSymbol))
-    {
-        $ar[] = $strFutureSymbol; 
-    }
-    if ($strFutureEtfSymbol = QdiiGetFutureEtfSymbol($strSymbol))
-    {
-        $ar[] = $strFutureEtfSymbol; 
-    }
-    return $ar;
-}
-
 function QdiiHkGetEstSymbol($strSymbol)
 {
     if ($strSymbol == 'SH501025')   		 			return 'SH000869';	// '03143'
@@ -123,22 +103,6 @@ function QdiiHkGetFutureSymbol($strSymbol)
     if (in_arrayHangSengQdiiHk($strSymbol))			return 'hf_HSI';
 	else
 		return false;
-}
-
-function QdiiHkGetAllSymbolArray($strSymbol)
-{
-    $ar = array();
-    
-    $ar[] = $strSymbol; 
-    if ($strEstSymbol = QdiiHkGetEstSymbol($strSymbol))
-    {
-        $ar[] = $strEstSymbol; 
-    }
-    if ($strFutureSymbol = QdiiHkGetFutureSymbol($strSymbol))
-    {
-        $ar[] = $strFutureSymbol; 
-    }
-    return $ar;
 }
 
 class _QdiiReference extends FundReference

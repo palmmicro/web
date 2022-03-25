@@ -12,13 +12,6 @@ function GoldSilverGetFutureSymbol($strSymbol)
     return 'hf_GC';
 }
 
-function GoldSilverGetAllSymbolArray($strSymbol)
-{
-    $strCnFutureSymbol = GoldSilverGetCnFutureSymbol($strSymbol);
-    $strFutureSymbol = GoldSilverGetFutureSymbol($strSymbol);
-    return array($strSymbol, $strCnFutureSymbol, $strFutureSymbol);
-}
-
 class GoldFundReference extends FundReference
 {
     function GoldFundReference($strSymbol)

@@ -185,14 +185,14 @@ class FundReference extends MysqlReference
 
     function AdjustPosition($fVal)
     {
-    	$fRatio = FundGetPosition($this);
+    	$fRatio = RefGetPosition($this);
 //        return $fRatio * $fVal + (1.0 - $fRatio) * floatval($this->GetPrice());
 		return FundAdjustPosition($fRatio, $fVal, floatval($this->GetPrice()));
     }
     
     function ReverseAdjustPosition($fVal)
     {
-    	$fRatio = FundGetPosition($this);
+    	$fRatio = RefGetPosition($this);
 //        return $fVal / $fRatio - floatval($this->GetPrice()) * (1.0 / $fRatio - 1.0);
 		return FundReverseAdjustPosition($fRatio, $fVal, floatval($this->GetPrice()));
     }

@@ -20,6 +20,7 @@ class StockPairSql extends PairSql
 		if ($strPairSymbol)
 		{
 			if ($strPairId = $this->sql->GetId($strPairSymbol))		$ar = $this->GetIdArray($strPairId);
+			else	return $arSymbol; 
 		}
 		else																$ar = $this->GetIdArray();
 		
@@ -86,11 +87,11 @@ class StockPairSql extends PairSql
 	}
 }
 
-class SecondListSql extends StockPairSql
+class AdrPairSql extends StockPairSql
 {
-    function SecondListSql()
+    function AdrPairSql()
     {
-        parent::StockPairSql('secondlist');
+        parent::StockPairSql('adrpair');
     }
 }
 

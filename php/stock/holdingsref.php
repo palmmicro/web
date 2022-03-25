@@ -160,7 +160,7 @@ class HoldingsReference extends MyStockReference
 		}
 		
 		$fTotalChange -= $fTotalRatio;
-		$fTotalChange *= FundGetPosition($this);
+		$fTotalChange *= RefGetPosition($this);
 
 		$fNewNav = floatval($this->strNav) * (1.0 + $fTotalChange);
 		if ($this->IsFundA())		$fNewNav /= $this->GetAdjustCny($strDate);
