@@ -295,13 +295,4 @@ function SqlGetHoldingsSymbolArray($strSymbol)
    	return $arSymbol;
 }
 
-// ****************************** StockTableSql class *******************************************************
-class StockTableSql extends KeyTableSql
-{
-    function StockTableSql($strTableName, $strStockId) 
-    {
-        parent::KeyTableSql($strTableName, $strStockId, 'stock');
-    }
-}
-
 ?>

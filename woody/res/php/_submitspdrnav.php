@@ -6,7 +6,7 @@ require_once('_emptygroup.php');
     $acct = new SymbolAccount();
 	if ($acct->IsAdmin())
 	{
-	    if ($ref = $acct->GetRef())
+	    if ($ref = $acct->GetSymbolRef())
 	    {
 	        DebugNavXlsStr($ref);
 	    }

@@ -69,7 +69,7 @@ function _updateFundPurchaseAmount($strEmail, $strSymbol, $strVal)
 	}
 }
 
-function _updateStockOptionAdr($strSymbol, $strVal, $strTable = TABLE_ADRH_STOCK)
+function _updateStockOptionAdr($strSymbol, $strVal)
 {
 	if (strpos($strVal, '/') !== false)
 	{
@@ -82,26 +82,24 @@ function _updateStockOptionAdr($strSymbol, $strVal, $strTable = TABLE_ADRH_STOCK
 		$strAdr = $strVal;
 		$strRatio = '1';
 	}
-	$strPairId = SqlGetStockId($strSymbol);
-	
-	$adr_ref = new MyStockReference(StockGetSymbol($strAdr)); 
-	$strStockId = $adr_ref->GetStockId();
-	$sql = new PairStockSql($strTable, $strStockId);
-	if ($strRatio == '0')
+	$strAdr = StockGetSymbol($strAdr);
+
+	if ($strStockId = SqlGetStockId($strAdr))
 	{
-		$sql->DeleteAll();
-	}
-	else
-	{
-		if ($record = $sql->GetRecord())
+		$pair_sql = new AdrPairSql();
+		$pos_sql = new FundPositionSql();
+		if ($strRatio == '0')
 		{
-			$sql->Update($record['id'], $strPairId, $strRatio);
+			$pair_sql->DeleteBySymbol($strAdr);
+			$pos_sql->DeleteById($strStockId);
 		}
 		else
 		{
-			SqlInsertStockPair($strTable, $strStockId, $strPairId, $strRatio);
+			$pair_sql->WriteSymbol($strAdr, $strSymbol);
+			if (intval($strRatio) != 1)		$pos_sql->WriteVal($strStockId, $strRatio); 
 		}
 	}
+	else	DebugString($strAdr.' not in stock table');
 }
 
 function _updateStockOptionHa($strSymbolH, $strSymbolA)
@@ -176,18 +174,18 @@ function _updateStockOptionFund($strSymbol, $strVal)
 		$strRatio = false;
 	}
 	
-	$fund_pair_sql = new FundPairSql();
-	$fund_position_sql = new FundPositionSql();
 	$strStockId = SqlGetStockId($strSymbol);
+	$pair_sql = new FundPairSql();
+	$pos_sql = new FundPositionSql();
 	if ($strRatio == '0')
 	{
-		$fund_pair_sql->DeleteBySymbol($strSymbol);
-		$fund_position_sql->DeleteById($strStockId);
+		$pair_sql->DeleteBySymbol($strSymbol);
+		$pos_sql->DeleteById($strStockId);
 	}
 	else
 	{
-		$fund_pair_sql->WriteSymbol($strSymbol, StockGetSymbol($strIndex));
-		if ($strRatio)	$fund_position_sql->WriteVal($strStockId, $strRatio); 
+		$pair_sql->WriteSymbol($strSymbol, StockGetSymbol($strIndex));
+		if ($strRatio)	$pos_sql->WriteVal($strStockId, $strRatio); 
 	}
 }
 

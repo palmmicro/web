@@ -25,7 +25,7 @@ class HShareReference extends MyStockReference
         if ($strSymbolAdr = SqlGetHadrPair($strSymbol))
         {
         	$this->adr_ref = new MyStockReference($strSymbolAdr);
-    		$this->fAdrRatio = SqlGetAdrhPairRatio($this->adr_ref);
+    		$this->fAdrRatio = RefGetPosition($this->adr_ref);
     		
     		$this->uscny_ref = new CnyReference('USCNY');
     		$this->fUSDCNY = floatval($this->uscny_ref->GetPrice());

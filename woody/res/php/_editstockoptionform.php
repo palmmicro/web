@@ -62,19 +62,6 @@ function _getStockOptionAmount($strLoginId, $strStockId)
     return FUND_PURCHASE_AMOUNT;
 }
 
-function _getStockOptionAdr($strSymbol)
-{
-	if ($strAdr = SqlGetHadrPair($strSymbol))
-	{
-		if ($fRatio = SqlGetStockPairRatio(TABLE_ADRH_STOCK, SqlGetStockId($strAdr)))
-		{
-			return $strAdr.'/'.strval($fRatio);
-		}
-		return $strAdr;
-	}
-	return 'ADR/100';
-}
-
 function _getStockOptionAh($strSymbol)
 {
 	if ($strH = SqlGetAhPair($strSymbol))
@@ -93,13 +80,25 @@ function _getStockOptionHa($strSymbol)
 	return 'A';
 }
 
+function _getStockOptionAdr($strSymbol)
+{
+	$pair_sql = new AdrPairSql();
+	if ($strAdr = $pair_sql->GetSymbol($strSymbol))
+	{
+		$pos_sql = new FundPositionSql();
+		if ($fRatio = $pos_sql->ReadVal(SqlGetStockId($strAdr)))	return $strAdr.'/'.strval($fRatio);
+		return $strAdr;
+	}
+	return 'ADR/100';
+}
+
 function _getStockOptionFund($strSymbol)
 {
-	$fund_pair_sql = new FundPairSql();
-	if ($strIndex = $fund_pair_sql->GetPairSymbol($strSymbol))
+	$pair_sql = new FundPairSql();
+	if ($strIndex = $pair_sql->GetPairSymbol($strSymbol))
 	{
-		$fund_position_sql = new FundPositionSql();
-		if ($fRatio = $fund_position_sql->ReadVal(SqlGetStockId($strSymbol)))	return $strIndex.'*'.strval($fRatio);
+		$pos_sql = new FundPositionSql();
+		if ($fRatio = $pos_sql->ReadVal(SqlGetStockId($strSymbol)))	return $strIndex.'*'.strval($fRatio);
 		return $strIndex;
 	}
 	return 'INDEX*1';
@@ -282,7 +281,7 @@ class SymbolEditAccount extends SymbolAccount
 {
 	function StockOptionEditForm($strSubmit)
 	{
-		$ref = $this->GetRef();
+		$ref = $this->GetSymbolRef();
 		$strEmail = $this->GetLoginEmail(); 
 	
 		$strEmailReadonly = HtmlElementReadonly();

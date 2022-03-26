@@ -6,23 +6,31 @@ class SymbolAccount extends StockAccount
     {
         parent::StockAccount('symbol');
 
-    	if ($strSymbol = StockCheckSymbol($this->GetQuery()))
-    	{
-   			StockPrefetchExtendedData($strSymbol);
-   			$this->ref = StockGetReference($strSymbol);
-    	}
-	   	else if ($strStockId = UrlGetQueryValue('id'))
+		if ($strStockId = UrlGetQueryValue('id'))
 	   	{
-	   		if ($strSymbol = SqlGetStockSymbol($strStockId))
-	   		{
-	   			SwitchToLink(UrlGetUri().'?'.UrlAddQuery('symbol='.$strSymbol));
-	   		}
+	   		if ($strSymbol = SqlGetStockSymbol($strStockId))	SwitchToLink(UrlGetUri().'?'.UrlAddQuery('symbol='.$strSymbol));
 	   	}
+    }
+    
+    function GetSymbolRef()
+    {
+    	if ($ref = $this->GetRef())		return $ref;
+    	else
+    	{
+    		if ($strSymbol = StockCheckSymbol($this->GetQuery()))
+    		{
+    			StockPrefetchExtendedData($strSymbol);
+    			$ref = StockGetReference($strSymbol);
+    			$this->SetRef($ref);
+    			return $ref;
+    		}
+    	}
+    	return false;
     }
     
     function EchoStockGroup()
     {
-    	if ($ref = $this->GetRef())
+    	if ($ref = $this->GetSymbolRef())
     	{
     		if ($ref->HasData() || $this->IsAdmin())
     		{
@@ -35,13 +43,13 @@ class SymbolAccount extends StockAccount
     
     function GetSymbolDisplay($strDefault = '')
     {
-    	$ref = $this->GetRef();
+    	$ref = $this->GetSymbolRef();
         return $ref ? $ref->GetSymbol() : $strDefault;
     }
 
     function GetStockDisplay($strDefault = '')
     {
-    	$ref = $this->GetRef();
+    	$ref = $this->GetSymbolRef();
         return $ref ? RefGetStockDisplay($ref) : $strDefault;
     }
 

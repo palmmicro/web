@@ -34,7 +34,8 @@ function GetCategoryArray($strPage)
         break;
         
     case 'adrhcompare':
-        $ar = SqlGetAdrhArray();
+   		$pair_sql = new AdrPairSql();
+        $ar = $pair_sql->GetSymbolArray();
         break;
   
     case 'ahcompare':
@@ -58,7 +59,6 @@ function GetCategoryArray($strPage)
         break;
         
     case 'fundlist':
-//        $ar = SqlGetEtfPairArray();
    		$pair_sql = new FundPairSql();
         $ar = $pair_sql->GetSymbolArray();
         break;

@@ -50,6 +50,11 @@ class StockAccount extends TitleAccount
     	return $this->ref;
     }
     
+    function SetRef($ref)
+    {
+    	$this->ref = $ref;
+    }
+    
     function _checkPersonalGroupId($strGroupId)
     {	
     	if (method_exists($this, 'GetGroupId') == false)	return true;

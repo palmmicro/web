@@ -80,8 +80,8 @@ class QdiiGroupAccount extends FundGroupAccount
 
     function GetLeverageSymbols($strEstSymbol)
     {
-   		$fund_pair_sql = new FundPairSql();
-        $this->arLeverage = $fund_pair_sql->GetSymbolArray($strEstSymbol);
+   		$pair_sql = new FundPairSql();
+        $this->arLeverage = $pair_sql->GetSymbolArray($strEstSymbol);
     }
     
     function ConvertToEtfTransaction($fund, $fCNY, $etf_convert_trans, $qdii_trans)

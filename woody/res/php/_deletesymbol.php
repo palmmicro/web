@@ -2,28 +2,6 @@
 require_once('_stock.php');
 require_once('_emptygroup.php');
 
-function _deleteIsStockPair($strTableName, $strPairId)
-{
-	$sql = new PairStockSql($strTableName, $strPairId);
-	if ($strStockId = $sql->GetFirstStockId())
-	{
-		DebugString('Stock at least paired with: '.SqlGetStockSymbol($strStockId));
-		return true;
-	}
-	return false;
-}
-
-function _deleteHasStockPair($strTableName, $strStockId)
-{
-	$sql = new PairStockSql($strTableName, $strStockId);
-	if ($strPairId = $sql->GetPairId())
-	{
-		DebugString('Stock pair existed: '.SqlGetStockSymbol($strPairId));
-		return true;
-	}
-	return false;
-}
-
 function _deleteHasAbPair($strSymbol)
 {
 	$sql = new AbPairSql();
@@ -51,6 +29,22 @@ function _deleteHasAhPair($strSymbol)
 	else if ($strSymbolA = $sql->GetSymbol($strSymbol))
 	{
 		DebugString('A(H) stock existed: '.$strSymbolA);
+		return true;
+	}
+	return false;
+}
+
+function _deleteHasAdrPair($strSymbol)
+{
+	$sql = new AdrPairSql();
+	if ($strSymbolH = $sql->GetPairSymbol($strSymbol))
+	{
+		DebugString('(ADR)H existed: '.$strSymbolH);
+		return true;
+	}
+	else if ($strAdr = $sql->GetSymbol($strSymbol))
+	{
+		DebugString('ADR(H) existed: '.$strAdr);
 		return true;
 	}
 	return false;
@@ -114,14 +108,13 @@ function _deleteStockSymbol($ref)
 	$strStockId = $ref->GetStockId();
 
 	DebugString('Deleting... '.$strSymbol);
-	if (_deleteIsStockPair(TABLE_ADRH_STOCK, $strStockId))					return;
-	else if (_deleteHasStockPair(TABLE_ADRH_STOCK, $strStockId))				return;
-	else if (_deleteHasAbPair($strSymbol))									return;
-	else if (_deleteHasAhPair($strSymbol))									return;
-	else if (_deleteHasFundPair($strSymbol))									return;
-	else if (_deleteHasStockHistory($strStockId))							return;
-	else if (_deleteHasNetValue($strStockId))								return;
-	else if (_deleteHasCalibration($strStockId))								return;
+	if (_deleteHasAbPair($strSymbol))					return;
+	else if (_deleteHasAdrPair($strSymbol))			return;
+	else if (_deleteHasAhPair($strSymbol))			return;
+	else if (_deleteHasFundPair($strSymbol))			return;
+	else if (_deleteHasStockHistory($strStockId))	return;
+	else if (_deleteHasNetValue($strStockId))		return;
+	else if (_deleteHasCalibration($strStockId))		return;
 	else if (($iTotal = SqlCountTableData(TABLE_STOCK_GROUP_ITEM, _SqlBuildWhere_stock($strStockId))) > 0)
 	{
 		DebugVal($iTotal, 'Stock group item existed');
@@ -141,7 +134,7 @@ function _deleteStockSymbol($ref)
     $acct = new SymbolAccount();
 	if ($acct->IsAdmin())
 	{
-	    if ($ref = $acct->GetRef())
+	    if ($ref = $acct->GetSymbolRef())
 	    {
 	        _deleteStockSymbol($ref);
 	    }

@@ -17,20 +17,17 @@ function _addDebugLine(&$arDebug, $strLine, $strLocalIp)
 	}
 }
 
-function _echoDebugParagraph($arDebug, $str, $sql)
+function _echoDebugParagraph($arDebug, $str)
 {
 	$str .= '：';
     foreach ($arDebug as $strIp => $iCount)
     {
-    	if ($iCount > 2)
-    	{
-    		if ($sql->GetStatus($strIp) == IP_STATUS_NORMAL)		$str .= GetBreakElement().GetVisitorLink($strIp).' '.strval($iCount);
-    	}
+    	if ($iCount > 2)		$str .= GetBreakElement().GetVisitorLink($strIp).' '.strval($iCount);
     }
     EchoParagraph($str);
 }
 
-function _echoStockDebug($sql)
+function _echoStockDebug()
 {
     $arIp = array();
     $arUrl = array();
@@ -52,17 +49,17 @@ function _echoStockDebug($sql)
     }
     
     EchoParagraph('本机IP:'.GetVisitorLink($strLocalIp));
-    _echoDebugParagraph($arCurl, 'curl错误', $sql);
-    _echoDebugParagraph($arMysql, 'Mysql异常', $sql);
-    _echoDebugParagraph($arUrl, '弱智爬虫', $sql);
-    _echoDebugParagraph($arIp, 'IP异常', $sql);
+    _echoDebugParagraph($arCurl, 'curl错误');
+    _echoDebugParagraph($arMysql, 'Mysql异常');
+    _echoDebugParagraph($arUrl, '弱智爬虫');
+    _echoDebugParagraph($arIp, 'IP异常');
 }
 
 function EchoAll()
 {
 	global $acct;
     
-	_echoStockDebug($acct->GetIpSql());
+	_echoStockDebug();
     $acct->EchoLinks();
 }
 
