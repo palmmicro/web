@@ -7,14 +7,14 @@ function QdiiGetCalibration($strEst, $strCNY, $strNav)
 	return floatval($strEst) * floatval($strCNY) / floatval($strNav);
 }
 
-function QdiiGetVal($strEst, $strCNY, $fFactor)
+function QdiiGetVal($fEst, $fCny, $fFactor)
 {
-	return floatval($strEst) * floatval($strCNY) / $fFactor;
+	return $fEst * $fCny / $fFactor;
 }
 
-function QdiiGetPeerVal($fQdii, $strCNY, $fFactor)
+function QdiiGetPeerVal($fQdii, $fCny, $fFactor)
 {
-	return $fQdii * $fFactor / floatval($strCNY);
+	return $fQdii * $fFactor / $fCny;
 }
 
 // (est * cny / estPrev * cnyPrev - 1) * position = (nv / nvPrev - 1) 
@@ -244,7 +244,7 @@ class _QdiiReference extends FundReference
     	if ($this->fFactor)
     	{
 //    		$fVal = floatval($strEst) * floatval($strCNY) / $this->fFactor;
-			$fVal = QdiiGetVal($strEst, $strCNY, $this->fFactor);
+			$fVal = QdiiGetVal(floatval($strEst), floatval($strCNY), $this->fFactor);
     		return $this->AdjustPosition($fVal);
     	}
     	return 0.0;
@@ -255,7 +255,7 @@ class _QdiiReference extends FundReference
        	$cny_ref = $this->GetCnyRef();
        	$strCNY = $cny_ref->GetPrice();
        	$fQdii = $this->ReverseAdjustPosition(floatval($strQdii));
-       	return strval(QdiiGetPeerVal($fQdii, $strCNY, $this->fFactor));
+       	return strval(QdiiGetPeerVal($fQdii, floatval($strCNY), $this->fFactor));
 //        return strval($this->ReverseAdjustPosition(floatval($strQdii)) * $this->fFactor / floatval($strCNY));
     }
     

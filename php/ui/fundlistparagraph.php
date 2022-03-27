@@ -28,7 +28,8 @@ function _echoFundListItem($ref)
 	$ar = array();
 	
 	$ar[] = GetCalibrationHistoryLink($ref->GetSymbol(), true);
-    $ar[] = _getFundPairExternalLink($ref->GetPairSym());
+//    $ar[] = _getFundPairExternalLink($ref->GetPairSym());
+    $ar[] = _getFundPairExternalLink($ref->GetPairRef());
     $ar[] = GetNumberDisplay($ref->fRatio);
     $ar[] = GetNumberDisplay($ref->fFactor);
     RefEchoTableColumn($ref, $ar);

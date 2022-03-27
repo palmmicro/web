@@ -95,11 +95,13 @@ function _callbackQdiiMixSma($ref, $strEst = false)
 {
 	if ($strEst)
 	{
-		$calibration_sql = new CalibrationSql();
 		$uscny_ref = $ref->GetUscnyRef();
 		$strStockId = $ref->GetStockId();
-		$fVal = QdiiGetVal($strEst, $uscny_ref->GetPrice(), floatval($calibration_sql->GetCloseNow($strStockId)));
-		$fVal = FundAdjustPosition(RefGetPosition($ref), $fVal, floatval(SqlGetNav($strStockId)));
+		$calibration_sql = new CalibrationSql();
+		$strDate = $calibration_sql->GetDateNow($strStockId);
+		
+		$fVal = QdiiGetVal(floatval($strEst), floatval($uscny_ref->GetPrice()), floatval($calibration_sql->GetCloseNow($strStockId)));
+		$fVal = FundAdjustPosition(RefGetPosition($ref), $fVal, floatval(SqlGetNavByDate($strStockId, $strDate)));
 		return strval_round($fVal);
 	}
 	return $ref;
@@ -116,12 +118,13 @@ function _callbackQdiiMixTrading($strVal = false)
     	else
     	{
     		$ref = $acct->GetRef();
-    		$strStockId = $ref->GetStockId();
-    		$fVal = FundReverseAdjustPosition(RefGetPosition($ref), floatval($strVal), floatval(SqlGetNav($strStockId)));
-    		
     		$uscny_ref = $ref->GetUscnyRef();
+    		$strStockId = $ref->GetStockId();
     		$calibration_sql = new CalibrationSql();
-    		$fEst = QdiiGetPeerVal($fVal, $uscny_ref->GetPrice(), floatval($calibration_sql->GetCloseNow($strStockId)));
+    		$strDate = $calibration_sql->GetDateNow($strStockId);
+    		
+    		$fVal = FundReverseAdjustPosition(RefGetPosition($ref), floatval($strVal), floatval(SqlGetNavByDate($strStockId, $strDate)));
+    		$fEst = QdiiGetPeerVal($fVal, floatval($uscny_ref->GetPrice()), floatval($calibration_sql->GetCloseNow($strStockId)));
     		return $us_ref->GetPriceDisplay(strval($fEst));
     	}
     }

@@ -81,8 +81,14 @@ function _echoStockGroupArray($arStock, $bAdmin)
     EchoReferenceParagraph($arRef, $bAdmin);
     if (count($arFund) > 0)     				EchoFundArrayEstParagraph($arFund);
     if (count($arHAdrRef) > 0)				EchoAdrhParagraph($arHAdrRef);
-    if (count($arHShareRef) > 0)			EchoAhParagraph($arHShareRef);
-    if (count($arFundPairRef) > 0)				EchoFundListParagraph($arFundPairRef);
+//    if (count($arHShareRef) > 0)			EchoAhParagraph($arHShareRef);
+    if (count($arHShareRef) > 0)
+    {
+    	$arAhRef = array();
+    	foreach ($arHShareRef as $hshare_ref)		$arAhRef[] = new AhPairReference($hshare_ref->a_ref->GetSymbol());
+    	EchoAhParagraph($arAhRef);
+    }
+    if (count($arFundPairRef) > 0)			EchoFundListParagraph($arFundPairRef);
     
     return $arTransactionRef;
 }

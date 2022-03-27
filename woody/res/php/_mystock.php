@@ -176,7 +176,8 @@ function _echoMyStockData($acct, $ref)
    	{
    		if ($hshare_ref)
    		{
-   			if ($hshare_ref->a_ref)		EchoAhParagraph(array($hshare_ref));
+//   			if ($hshare_ref->a_ref)		EchoAhParagraph(array($hshare_ref));
+   			if ($hshare_ref->a_ref)		EchoAhParagraph(array(new AhPairReference($hshare_ref->a_ref->GetSymbol())));
    			if ($hshare_ref->adr_ref)	EchoAdrhParagraph(array($hshare_ref));
    		}
    		if ($ref->IsSymbolA())

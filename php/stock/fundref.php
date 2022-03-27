@@ -136,7 +136,7 @@ class FundReference extends MysqlReference
         return parent::GetSymbol();
     }
 
-    function GetStockId()
+	public function GetStockId()
     {
         if ($this->stock_ref)
         {
@@ -145,7 +145,7 @@ class FundReference extends MysqlReference
         return parent::GetStockId();
     }
 
-    function GetPriceDisplay($strDisp = false, $strPrev = false)
+    public function GetPriceDisplay($strDisp = false, $strPrev = false)
     {
    		if ($this->stock_ref)
    		{
@@ -154,7 +154,7 @@ class FundReference extends MysqlReference
    		return parent::GetPriceDisplay($strDisp, $strPrev);
     }
     
-    function GetPercentageDisplay($strDivisor = false, $strDividend = false)
+    public function GetPercentageDisplay($strDivisor = false, $strDividend = false)
     {
    		if ($this->stock_ref)
    		{
@@ -183,18 +183,26 @@ class FundReference extends MysqlReference
     	return $this->cny_ref;
     }
 
+    function _getCalibrationBaseVal()
+    {
+    	$strStockId = $this->GetStockId();
+		$strDate = $this->calibration_sql->GetDateNow($strStockId);
+		return floatval(SqlGetNavByDate($strStockId, $strDate));
+//		return floatval($this->GetPrice());
+    }
+    
     function AdjustPosition($fVal)
     {
     	$fRatio = RefGetPosition($this);
 //        return $fRatio * $fVal + (1.0 - $fRatio) * floatval($this->GetPrice());
-		return FundAdjustPosition($fRatio, $fVal, floatval($this->GetPrice()));
+		return FundAdjustPosition($fRatio, $fVal, $this->_getCalibrationBaseVal());
     }
     
     function ReverseAdjustPosition($fVal)
     {
     	$fRatio = RefGetPosition($this);
 //        return $fVal / $fRatio - floatval($this->GetPrice()) * (1.0 / $fRatio - 1.0);
-		return FundReverseAdjustPosition($fRatio, $fVal, floatval($this->GetPrice()));
+		return FundReverseAdjustPosition($fRatio, $fVal, $this->_getCalibrationBaseVal());
     }
     
 }

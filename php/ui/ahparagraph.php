@@ -4,23 +4,29 @@ function _echoAhItem($ref)
 {
 	$ar = array();
 	
-   	$ar[] = RefGetMyStockLink($ref);
+//   	$ar[] = RefGetMyStockLink($ref);
+	$h_ref = $ref->GetPairRef();
+   	$ar[] = RefGetMyStockLink($h_ref);
    	
-    $strSymbolA = $ref->GetSymbolA();
-    $ar[] = GetMyStockLink($strSymbolA);
+//    $strSymbolA = $ref->GetSymbolA();
+//    $ar[] = GetMyStockLink($strSymbolA);
+   	$ar[] = RefGetMyStockLink($ref);
     
-    if ($fAhRatio = $ref->GetAhPriceRatio())
+//    if ($fAhRatio = $ref->GetAhPriceRatio())
+    if ($fAhRatio = $ref->GetPriceRatio())
     {
     	$ar[] = GetRatioDisplay($fAhRatio);
     	$ar[] = GetRatioDisplay(1.0 / $fAhRatio);
     }
     
-    RefEchoTableColumn($ref, $ar);
+//    RefEchoTableColumn($ref, $ar);
+	RefEchoTableColumn($h_ref, $ar);
 }
 
 function _callbackSortAh($ref)
 {
-	return $ref->GetAhPriceRatio();
+//	return $ref->GetAhPriceRatio();
+	return $ref->GetPriceRatio();
 }
 
 function EchoAhParagraph($arRef)
@@ -29,7 +35,8 @@ function EchoAhParagraph($arRef)
 	$iCount = count($arRef);
 	if ($iCount == 1)
 	{
-		$str .= ' '.GetAhHistoryLink($arRef[0]->GetSymbolA());
+//		$str .= ' '.GetAhHistoryLink($arRef[0]->GetSymbolA());
+		$str .= ' '.GetAhHistoryLink($arRef[0]->GetSymbol());
 	}
 	else if ($iCount > 2)
 	{
