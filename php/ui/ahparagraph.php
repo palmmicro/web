@@ -1,106 +1,63 @@
 <?php
 
-function _echoAhItem($ref)
+function _callbackSortPair($ref)
+{
+	return $ref->GetPriceRatio();
+}
+
+function _echoPairItem($ref)
 {
 	$ar = array();
 	
-//   	$ar[] = RefGetMyStockLink($ref);
-	$h_ref = $ref->GetPairRef();
-   	$ar[] = RefGetMyStockLink($h_ref);
-   	
-//    $strSymbolA = $ref->GetSymbolA();
-//    $ar[] = GetMyStockLink($strSymbolA);
-   	$ar[] = RefGetMyStockLink($ref);
+	$ar[] = $ref->GetMyStockLink();
+	if ($pair_ref = $ref->GetPairRef())
+	{
+		$ar[] = $pair_ref->GetMyStockLink();
+		
+		$cny_ref = $ref->GetCnyRef();
+		$ar[] = $ref->GetPriceDisplay($ref->EstFromPair(floatval($pair_ref->GetPrice()), $cny_ref->GetVal()));
     
-//    if ($fAhRatio = $ref->GetAhPriceRatio())
-    if ($fAhRatio = $ref->GetPriceRatio())
-    {
-    	$ar[] = GetRatioDisplay($fAhRatio);
-    	$ar[] = GetRatioDisplay(1.0 / $fAhRatio);
-    }
+		if ($fRatio = $ref->GetPriceRatio())
+		{
+			$ar[] = GetRatioDisplay($fRatio);
+			$ar[] = GetRatioDisplay(1.0 / $fRatio);
+		}
+	}
     
-//    RefEchoTableColumn($ref, $ar);
-	RefEchoTableColumn($h_ref, $ar);
-}
-
-function _callbackSortAh($ref)
-{
-//	return $ref->GetAhPriceRatio();
-	return $ref->GetPriceRatio();
+    RefEchoTableColumn($ref, $ar);
 }
 
 function EchoAhParagraph($arRef)
 {
 	$str = GetAhCompareLink();
 	$iCount = count($arRef);
-	if ($iCount == 1)
-	{
-//		$str .= ' '.GetAhHistoryLink($arRef[0]->GetSymbolA());
-		$str .= ' '.GetAhHistoryLink($arRef[0]->GetSymbol());
-	}
-	else if ($iCount > 2)
-	{
-		$arRef = RefSortByNumeric($arRef, '_callbackSortAh');
-	}
+	if ($iCount == 1)			$str .= ' '.GetAhHistoryLink($arRef[0]->GetSymbol());
+	else if ($iCount > 2)		$arRef = RefSortByNumeric($arRef, '_callbackSortPair');
 
 	EchoTableParagraphBegin(array(new TableColumnSymbol(),
-								   new TableColumnSymbol('A股'),
+								   new TableColumnSymbol(STOCK_DISP_HSHARES),
+								   new TableColumnRMB(STOCK_DISP_HSHARES),
 								   new TableColumnAhRatio(),
 								   new TableColumnHaRatio()
 								   ), 'ah', $str);
 
-	foreach ($arRef as $ref)
-	{
-		_echoAhItem($ref);
-	}
+	foreach ($arRef as $ref)		_echoPairItem($ref);
     EchoTableParagraphEnd();
-}
-
-function _echoAdrhItem($ref)
-{
-    if (RefHasData($ref) == false)      return;
-    
-	$ar = array();
-	
-   	$adr_ref = $ref->adr_ref;
-    $ar[] = $adr_ref->GetStockLink();
-   	$ar[] = $ref->GetMyStockLink();
-   	
-    $ar[] = $adr_ref->GetPriceDisplay($ref->GetUsdPrice());
-    
-    if ($fAdrhRatio = $ref->GetAdrhPriceRatio())
-    {
-    	$ar[] = GetRatioDisplay($fAdrhRatio);
-    	$ar[] = GetRatioDisplay(1.0 / $fAdrhRatio);
-    }
-    
-    RefEchoTableColumn($ref, $ar);
-}
-
-function _callbackSortAdrh($ref)
-{
-	return $ref->GetAdrhPriceRatio();
 }
 
 function EchoAdrhParagraph($arRef)
 {
 	$str = GetAdrhCompareLink();
-	if (count($arRef) > 2)
-	{
-		$arRef = RefSortByNumeric($arRef, '_callbackSortAdrh');
-	}
-
+	if (count($arRef) > 2)	$arRef = RefSortByNumeric($arRef, '_callbackSortPair');
+	
 	EchoTableParagraphBegin(array(new TableColumnSymbol(),
 								   new TableColumnSymbol(STOCK_DISP_HSHARES),
 								   new TableColumnUSD(STOCK_DISP_HSHARES),
 								   new TableColumnRatio('ADRH'),
 								   new TableColumnRatio('HADR')
 								   ), 'adrh', $str);
-
-	foreach ($arRef as $ref)
-	{
-		_echoAdrhItem($ref);
-	}
+	
+	foreach ($arRef as $ref)		_echoPairItem($ref);
     EchoTableParagraphEnd();
 }
 

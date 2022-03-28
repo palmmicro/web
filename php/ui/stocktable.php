@@ -169,7 +169,7 @@ class TableColumnRatio extends TableColumn
 {
 	function TableColumnRatio($strPrefix = false)
 	{
-        parent::TableColumn(STOCK_DISP_RATIO, 80, false, $strPrefix);
+        parent::TableColumn(STOCK_DISP_RATIO, 100, false, $strPrefix);
 	}
 }
 
@@ -249,19 +249,27 @@ class TableColumnTurnover extends TableColumn
 	}
 }
 
-class TableColumnUSD extends TableColumn
-{
-	function TableColumnUSD($strPrefix = false)
-	{
-        parent::TableColumn('美元$', 80, false, $strPrefix);
-	}
-}
-
 class TableColumnHKD extends TableColumn
 {
 	function TableColumnHKD($strPrefix = false)
 	{
-        parent::TableColumn('港币$', 80, false, $strPrefix);
+        parent::TableColumn('港币$', 100, false, $strPrefix);
+	}
+}
+
+class TableColumnRMB extends TableColumn
+{
+	function TableColumnRMB($strPrefix = false)
+	{
+        parent::TableColumn('人民币￥', 100, false, $strPrefix);
+	}
+}
+
+class TableColumnUSD extends TableColumn
+{
+	function TableColumnUSD($strPrefix = false)
+	{
+        parent::TableColumn('美元$', 100, false, $strPrefix);
 	}
 }
 

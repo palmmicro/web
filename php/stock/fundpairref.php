@@ -23,7 +23,7 @@ class MyPairReference extends MyStockReference
 	var $calibration_sql;
 	var $fCalibrationVal = false;
 
-    var $fRatio = 1.0;
+    var $fRatio;
 	
     function MyPairReference($strSymbol) 
     {
@@ -42,6 +42,7 @@ class MyPairReference extends MyStockReference
         		else if ($this->pair_ref->IsSymbolH())
         		{
         			if ($this->IsSymbolA())			$strCNY = 'HKCNY';
+					else if ($this->IsSymbolUS())	$this->cny_ref = new HkdUsdReference();
         		}
         		else
         		{
@@ -51,15 +52,20 @@ class MyPairReference extends MyStockReference
     		}
     	}
     	
-		$strStockId = $this->GetStockId();
+       	$this->fRatio = RefGetPosition($this);
 		$this->calibration_sql = new CalibrationSql();
-		if ($strClose = $this->calibration_sql->GetCloseNow($strStockId))
+		$strStockId = $this->GetStockId();
+/*		if ($strClose = $this->calibration_sql->GetCloseNow($strStockId))
 		{
 			$this->fFactor = floatval($strClose);
 			$this->fCalibrationVal = floatval(SqlGetNavByDate($strStockId, $this->calibration_sql->GetDateNow($strStockId))); 
-		}
-
-       	$this->fRatio = RefGetPosition($this);
+		}*/
+    	if ($record = $this->calibration_sql->GetRecordNow($strStockId))
+    	{
+			$this->fFactor = floatval($record['close']);
+			$this->fCalibrationVal = floatval(SqlGetNavByDate($strStockId, $record['date'])); 
+    	}
+		else	$this->fFactor = 1.0 / $this->fRatio; 
     }
     
     function GetPairRef()
@@ -84,13 +90,21 @@ class MyPairReference extends MyStockReference
 		return QdiiGetPeerVal($fVal, $fCny, $this->fFactor);
     }
     
-    function GetPriceRatio()
+    function GetPriceRatio($strDate = false)
     {
     	if ($this->pair_ref)
     	{
-    		$strPrice = $this->GetPrice();
-    		$strPair = $this->pair_ref->GetPrice(); 
-    		if ((empty($strPrice) == false) && (empty($strPair) == false))		return floatval($strPrice) / $this->EstFromPair(floatval($strPair), ($this->cny_ref ? floatval($this->cny_ref->GetPrice()) : 1.0));
+    		if ($strDate)
+    		{
+    			$strPrice = $this->GetClose($strDate);
+    			$strPair = $this->pair_ref->GetClose($strDate);
+    		}
+    		else
+    		{
+    			$strPrice = $this->GetPrice();
+    			$strPair = $this->pair_ref->GetPrice();
+    		}
+    		if ((empty($strPrice) == false) && (empty($strPair) == false))		return floatval($strPrice) / $this->EstFromPair(floatval($strPair), ($this->cny_ref ? $this->cny_ref->GetVal($strDate) : 1.0));
     	}
     	return 1.0;
     }
@@ -102,6 +116,15 @@ class AbPairReference extends MyPairReference
     {
         $this->pair_sql = new AbPairSql();
         parent::MyPairReference($strSymbolA);
+    }
+}
+
+class AdrPairReference extends MyPairReference
+{
+    function AdrPairReference($strAdr) 
+    {
+        $this->pair_sql = new AdrPairSql();
+        parent::MyPairReference($strAdr);
     }
 }
 
@@ -133,7 +156,6 @@ class FundPairReference extends MyPairReference
        	$this->nav_ref = new NetValueReference($strSymbol);
        	if ($strDate = $this->_onCalibration($strSymbol))
        	{
-//       		$this->_load_cny_ref($strFactorDate);
 			if ($cny_ref = $this->GetCnyRef())		$this->fCnyValue = floatval($cny_ref->GetClose($strDate));
        	}
     }
@@ -159,17 +181,14 @@ class FundPairReference extends MyPairReference
 /*		if ($sym->IsSinaFuture())
 		{
         	$this->pair_nav_ref = new NetValueReference($strSymbol);
-			$this->pair_ref = new FutureReference($strSymbol);
 			return false;
 		}
 		else*/ if ($sym->IsEtf())
 		{
         	$this->pair_nav_ref = new NetValueReference($strSymbol);
-//        	$this->pair_ref = new MyStockReference($strSymbol);
 		}
 		else
 		{
-//			$this->pair_nav_ref = new MyStockReference($strSymbol);	// index
 			$this->pair_nav_ref = $this->pair_ref;
 		}
 		return true;
@@ -275,10 +294,8 @@ class FundPairReference extends MyPairReference
 
 	function _onCalibration($strSymbol)
 	{
-//   		$pair_sql = new FundPairSql();
         if ($strPair = $this->pair_sql->GetPairSymbol($strSymbol))
         {
-//        	$this->fRatio = RefGetPosition($this);
 			if ($this->_load_pair_ref($strPair))
 			{
 				return $this->_onNormalEtfCalibration();
@@ -287,44 +304,7 @@ class FundPairReference extends MyPairReference
         }
         return false;
 	}
-/*
-	function _load_cny_ref($strDate)
-	{
-    	if ($pair_sym = $this->GetPairSym())
-    	{
-    		$strCNY = false;
-    		if ($pair_sym->IsSymbolA())
-    		{
-    			if ($this->IsSymbolUS())			$strCNY = 'USCNY';
-    			else if ($this->IsSymbolH())		$strCNY = 'HKCNY';
-    		}
-    		else if ($pair_sym->IsSymbolH())
-    		{
-    			if ($this->IsSymbolA())			$strCNY = 'HKCNY';
-    		}
-    		else
-    		{
-    			if ($this->IsSymbolA())			$strCNY = 'USCNY';
-    		}
-    		
-    		if ($strCNY)
-    		{
-    			$this->cny_ref = new CnyReference($strCNY);
-    			$this->fCnyValue = floatval($this->cny_ref->GetClose($strDate));
-    		}
-    	}
-	}
-	
- 	function GetPairSym()
-    {
-    	if ($this->pair_nav_ref)
-    	{
-    		return $this->pair_nav_ref;
-    	}
-    	DebugString('pair_nav_ref NOT set');
-    	return false;
-    }
-*/    
+
     function _adjustByCny($fVal, $strCny, $bSymbolA)
     {
     	if ($this->cny_ref)

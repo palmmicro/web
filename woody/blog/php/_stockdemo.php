@@ -11,7 +11,8 @@ require_once('/php/ui/nvclosehistoryparagraph.php');
 require_once('/php/ui/stockhistoryparagraph.php');
 
 define('AB_DEMO_SYMBOL', 'SZ200488');
-define('ADRH_DEMO_SYMBOL', '00700');
+//define('ADRH_DEMO_SYMBOL', '00700');
+define('ADRH_DEMO_SYMBOL', 'TCEHY');
 //define('AH_DEMO_SYMBOL', '00386');
 define('AH_DEMO_SYMBOL', 'SH600028');
 define('FUND_DEMO_SYMBOL', 'SZ162411');
@@ -64,16 +65,14 @@ function EchoAbDemo($strSymbol = AB_DEMO_SYMBOL)
 
 function EchoAhDemo($strSymbol = AH_DEMO_SYMBOL)
 {
-//   	$hshare_ref = new HShareReference($strSymbol);
-//   	EchoAhParagraph(array($hshare_ref));
    	$ref = new AhPairReference($strSymbol);
    	EchoAhParagraph(array($ref));
 }
 
 function EchoAdrhDemo($strSymbol = ADRH_DEMO_SYMBOL)
 {
-   	$hshare_ref = new HShareReference($strSymbol);
-   	EchoAdrhParagraph(array($hshare_ref));
+   	$ref = new AdrPairReference($strSymbol);
+   	EchoAdrhParagraph(array($ref));
 }
 
 ?>

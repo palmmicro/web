@@ -150,11 +150,10 @@ function _getStockOptionDividend($strStockId, $strDate)
 
 function _getBestEstNav($ref, $strDate)
 {
-	$strStockId = $ref->GetStockId();
-	$strEst = SqlGetNavByDate($strStockId, $strDate);
+	$strEst = SqlGetNavByDate($ref->GetStockId(), $strDate);
 	if ($strEst == false)
     {
-    	$strEst = SqlGetHisByDate($strStockId, $strDate);
+    	$strEst = $ref->GetClose($strDate);
    		if ($strEst == false)	$strEst = $ref->GetPrevPrice();
    	}
    	return $strEst;

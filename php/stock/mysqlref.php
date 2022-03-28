@@ -47,6 +47,14 @@ class MysqlReference extends StockReference
     {
     	$this->bHasData = false;
     }
+    
+	public function GetClose($strDate)
+	{
+		if ($strDate == $this->GetDate())	return $this->GetPrice();
+//		return SqlGetHisByDate($this->strSqlId, $strDate);
+		$his_sql = GetStockHistorySql();
+		return $his_sql->GetClose($this->strSqlId, $strDate);
+	}
 
     function _loadSqlId($strSymbol)
     {

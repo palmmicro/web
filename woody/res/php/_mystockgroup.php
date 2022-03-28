@@ -2,21 +2,18 @@
 require_once('_stock.php');
 require_once('_idgroup.php');
 require_once('_editgroupform.php');
-//require_once('/php/stockhis.php');
 require_once('/php/ui/referenceparagraph.php');
 require_once('/php/ui/ahparagraph.php');
 require_once('/php/ui/fundlistparagraph.php');
 require_once('/php/ui/fundestparagraph.php');
 require_once('/php/ui/imagedisp.php');
 
-function in_array_ref($strSymbol, $arRef)
+function in_array_ref($ref, $arRef)
 {
+	$strSymbol = $ref->GetSymbol();
 	foreach ($arRef as $ref)
 	{
-		if ($ref->GetSymbol() == $strSymbol)
-		{
-			return $ref;
-		}
+		if ($ref->GetSymbol() == $strSymbol)	return $ref;
 	}
 	return false;
 }
@@ -28,8 +25,8 @@ function _echoStockGroupArray($arStock, $bAdmin)
     $arRef = array();
     $arTransactionRef = array();
     $arFund = array();
-    $arHShareRef = array();
-    $arHAdrRef = array();
+    $arAhRef = array();
+    $arAdrRef = array();
     $arFundPairRef = array();
     
     foreach ($arStock as $strSymbol)
@@ -50,45 +47,40 @@ function _echoStockGroupArray($arStock, $bAdmin)
         		else												$ref = $fund->GetStockRef();
         	}
        	}
-       	else
-       	{
-       		if ($ref_ar = StockGetHShareReference($sym))
-       		{
-       			list($ref, $hshare_ref) = $ref_ar;
-       			if ($hshare_ref)
-       			{
-       				if ($hshare_ref->a_ref)
-       				{
-       					if (in_array_ref($hshare_ref->GetSymbol(), $arHShareRef) == false)		$arHShareRef[] = $hshare_ref;
-       				}
-       				if ($hshare_ref->adr_ref)
-       				{
-       					if (in_array_ref($hshare_ref->GetSymbol(), $arHAdrRef) == false)			$arHAdrRef[] = $hshare_ref;
-       				}
-       			}
-       		}
-	    	else if ($ref = StockGetFundPairReference($strSymbol))	$arFundPairRef[] = $ref;
-       		else	$ref = StockGetReference($strSymbol, $sym);
-        }
+    	else if ($ref = StockGetFundPairReference($strSymbol))	$arFundPairRef[] = $ref;
+		else if ($ah_ref = StockGetAhPairReference($strSymbol))
+    	{
+			if (in_array_ref($ah_ref, $arAhRef) == false)			$arAhRef[] = $ah_ref;
+    		$h_ref = $ah_ref->GetPairRef();
+    		$strSymbolH = $h_ref->GetSymbol();
+    		$ref = ($strSymbol == $strSymbolH) ? $h_ref : $ah_ref; 
+			if ($adr_ref = StockGetAdrPairReference($strSymbolH))
+			{
+				if (in_array_ref($adr_ref, $arAdrRef) == false)	$arAdrRef[] = $adr_ref;
+			}
+    	}
+    	else if ($adr_ref = StockGetAdrPairReference($strSymbol))
+    	{
+			if (in_array_ref($adr_ref, $arAdrRef) == false)		$arAdrRef[] = $adr_ref;
+    		$h_ref = $adr_ref->GetPairRef();
+    		$strSymbolH = $h_ref->GetSymbol();
+    		$ref = ($strSymbol == $strSymbolH) ? $h_ref : $adr_ref; 
+			if ($ah_ref = StockGetAhPairReference($strSymbolH))
+			{
+				if (in_array_ref($ah_ref, $arAhRef) == false)		$arAhRef[] = $ah_ref;
+			}
+    	}
+   		else	$ref = StockGetReference($strSymbol, $sym);
 
         $arRef[] = $ref;
-        if ($sym->IsTradable())
-        {
-            $arTransactionRef[] = $ref;
-        }
+        if ($sym->IsTradable())	$arTransactionRef[] = $ref;
     }
     
     EchoReferenceParagraph($arRef, $bAdmin);
-    if (count($arFund) > 0)     				EchoFundArrayEstParagraph($arFund);
-    if (count($arHAdrRef) > 0)				EchoAdrhParagraph($arHAdrRef);
-//    if (count($arHShareRef) > 0)			EchoAhParagraph($arHShareRef);
-    if (count($arHShareRef) > 0)
-    {
-    	$arAhRef = array();
-    	foreach ($arHShareRef as $hshare_ref)		$arAhRef[] = new AhPairReference($hshare_ref->a_ref->GetSymbol());
-    	EchoAhParagraph($arAhRef);
-    }
-    if (count($arFundPairRef) > 0)			EchoFundListParagraph($arFundPairRef);
+    if (count($arFund) > 0)     			EchoFundArrayEstParagraph($arFund);
+    if (count($arAdrRef) > 0)			EchoAdrhParagraph($arAdrRef);
+    if (count($arAhRef) > 0)				EchoAhParagraph($arAhRef);
+    if (count($arFundPairRef) > 0)		EchoFundListParagraph($arFundPairRef);
     
     return $arTransactionRef;
 }
@@ -178,10 +170,7 @@ function EchoAll()
         	{
         		$arTransactionRef = _echoStockGroupArray($arStock, $bAdmin);
         		$group = new MyStockGroup($strGroupId, $arTransactionRef);
-        		if ($acct->EchoStockTransaction($group))
-        		{
-					$acct->EchoMoneyParagraph($group, new CnyReference('USCNY'), new CnyReference('HKCNY'));
-        		}
+        		if ($acct->EchoStockTransaction($group))		$acct->EchoMoneyParagraph($group, new CnyReference('USCNY'), new CnyReference('HKCNY'));
         	}
         }
         else
@@ -212,10 +201,7 @@ function GetMetaDescription()
    		$str = $acct->GetWhoseGroupDisplay();
         $str .= '股票分组管理页面. 提供现有股票分组列表和编辑删除链接, 以及新增加股票分组的输入控件. 跟php/_editgroupform.php和php/_submitgroup.php配合使用.';
     }
-    else
-    {
-    	$str = _getMetaDescriptionStr($strPage);
-    }
+    else	$str = _getMetaDescriptionStr($strPage);
     return CheckMetaDescription($str);
 }
 
@@ -240,8 +226,7 @@ function _getTitleStr($strPage)
 			  	  'qqqfund'	=> QQQ_GROUP_DISPLAY.$strTool,
 			  	  'spyfund'	=> SPY_GROUP_DISPLAY.$strTool,
 			  	  );
-    $str = $ar[$strPage];
-    return $str;
+	return $ar[$strPage];
 }
 
 function GetTitle()
@@ -249,16 +234,7 @@ function GetTitle()
 	global $acct;
 	
 	$strPage = $acct->GetPage();
-    if ($strPage == 'mystockgroup')
-    {
-   		$str = $acct->GetWhoseGroupDisplay().STOCK_GROUP_DISPLAY;
-    }
-    else
-    {
-    	$str = _getTitleStr($strPage);
-    }
-    	
-	return $str;
+	return ($strPage == 'mystockgroup')  ? $acct->GetWhoseGroupDisplay().STOCK_GROUP_DISPLAY : _getTitleStr($strPage);
 }
 
 	$acct = new GroupIdAccount();
@@ -266,10 +242,7 @@ function GetTitle()
 	{
 		if ($acct->GetMemberId() == false)
 		{
-			if ($acct->GetQuery() == false)
-			{
-				$acct->Auth();
-			}
+			if ($acct->GetQuery() == false)		$acct->Auth();
 		}
 	}
 

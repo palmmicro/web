@@ -135,7 +135,7 @@ function _echoAdrPriceItem($ref)
 function _echoAdrPriceParagraph($arRef)
 {
 	EchoTableParagraphBegin(array(new TableColumnSymbol(),
-								   new TableColumn('人民币￥'),
+								   new TableColumnRMB(),
 								   new TableColumnHKD(),
 								   new TableColumnUSD()
 								   ), 'adrprice');

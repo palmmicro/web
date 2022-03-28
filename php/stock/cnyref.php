@@ -13,10 +13,36 @@ class CnyReference extends MysqlReference
         $this->strExternalLink = GetReferenceRateForexLink($strSymbol);
     }
     
-	function GetClose($strDate)
+	public function GetClose($strDate)
 	{
 		if ($strDate == $this->GetDate())	return $this->GetPrice();
 		return SqlGetNavByDate($this->strSqlId, $strDate);
+	}
+	
+	function GetVal($strDate = false)
+	{
+		if ($strDate)
+		{
+			if ($strClose = $this->GetClose($strDate))		return floatval($strClose);
+		}
+		return floatval($this->GetPrice());
+	}
+}
+
+class HkdUsdReference
+{
+	var $uscny_ref;
+	var $hkcny_ref;
+    
+    function HkdUsdReference()
+    {
+   		$this->uscny_ref = new CnyReference('USCNY');
+   		$this->hkcny_ref = new CnyReference('HKCNY');
+    }
+
+	function GetVal($strDate = false)
+	{
+		return $this->hkcny_ref->GetVal($strDate) / $this->uscny_ref->GetVal($strDate); 
 	}
 }
 
