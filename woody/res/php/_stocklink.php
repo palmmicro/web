@@ -29,6 +29,11 @@ function GetCategoryArray($strPage)
     $ar = array();
     switch ($strPage)
     {
+    case 'abcompare':
+   		$pair_sql = new AbPairSql();
+        $ar = $pair_sql->GetSymbolArray();
+        break;
+  
     case 'adr':
         $ar = AdrGetSymbolArray();
         break;

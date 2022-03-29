@@ -18,6 +18,26 @@ function in_array_ref($ref, $arRef)
 	return false;
 }
 
+function _addAhPair(&$arAhRef, &$arAdrRef, $ah_ref)
+{
+	if (in_array_ref($ah_ref, $arAhRef) == false)			$arAhRef[] = $ah_ref;
+
+	$h_ref = $ah_ref->GetPairRef();
+	if ($adr_ref = StockGetAdrPairReference($h_ref->GetSymbol()))
+	{
+		if (in_array_ref($adr_ref, $arAdrRef) == false)	$arAdrRef[] = $adr_ref;
+	}
+    return $h_ref; 
+}
+
+function _addAbPair(&$arAbRef, $ah_ref)
+{
+	if ($ab_ref = StockGetAbPairReference($ah_ref->GetSymbol()))
+	{
+		if (in_array_ref($ab_ref, $arAbRef) == false)			$arAbRef[] = $ab_ref;
+	}
+}
+
 function _echoStockGroupArray($arStock, $bAdmin)
 {
     StockPrefetchArrayExtendedData($arStock);
@@ -25,6 +45,7 @@ function _echoStockGroupArray($arStock, $bAdmin)
     $arRef = array();
     $arTransactionRef = array();
     $arFund = array();
+    $arAbRef = array();
     $arAhRef = array();
     $arAdrRef = array();
     $arFundPairRef = array();
@@ -48,17 +69,19 @@ function _echoStockGroupArray($arStock, $bAdmin)
         	}
        	}
     	else if ($ref = StockGetFundPairReference($strSymbol))	$arFundPairRef[] = $ref;
+		else if ($ab_ref = StockGetAbPairReference($strSymbol))
+    	{
+			if (in_array_ref($ab_ref, $arAbRef) == false)			$arAbRef[] = $ab_ref;
+			$strSymbolA = $ab_ref->GetSymbol();
+    		$ref = ($strSymbol == $strSymbolA) ? $ab_ref : $ab_ref->GetPairRef(); 
+    		if ($ah_ref = StockGetAhPairReference($strSymbolA))		_addAhPair($arAhRef, $arAdrRef, $ah_ref);
+    	}
 		else if ($ah_ref = StockGetAhPairReference($strSymbol))
     	{
-			if (in_array_ref($ah_ref, $arAhRef) == false)			$arAhRef[] = $ah_ref;
-    		$h_ref = $ah_ref->GetPairRef();
-    		$strSymbolH = $h_ref->GetSymbol();
-    		$ref = ($strSymbol == $strSymbolH) ? $h_ref : $ah_ref; 
-			if ($adr_ref = StockGetAdrPairReference($strSymbolH))
-			{
-				if (in_array_ref($adr_ref, $arAdrRef) == false)	$arAdrRef[] = $adr_ref;
-			}
-    	}
+    		$h_ref = _addAhPair($arAhRef, $arAdrRef, $ah_ref);
+   		    $ref = ($strSymbol == $h_ref->GetSymbol()) ? $h_ref : $ah_ref; 
+    		_addAbPair($arAbRef, $ah_ref);
+	   	}
     	else if ($adr_ref = StockGetAdrPairReference($strSymbol))
     	{
 			if (in_array_ref($adr_ref, $arAdrRef) == false)		$arAdrRef[] = $adr_ref;
@@ -68,6 +91,7 @@ function _echoStockGroupArray($arStock, $bAdmin)
 			if ($ah_ref = StockGetAhPairReference($strSymbolH))
 			{
 				if (in_array_ref($ah_ref, $arAhRef) == false)		$arAhRef[] = $ah_ref;
+				_addAbPair($arAbRef, $ah_ref);
 			}
     	}
    		else	$ref = StockGetReference($strSymbol, $sym);
@@ -78,8 +102,9 @@ function _echoStockGroupArray($arStock, $bAdmin)
     
     EchoReferenceParagraph($arRef, $bAdmin);
     if (count($arFund) > 0)     			EchoFundArrayEstParagraph($arFund);
-    if (count($arAdrRef) > 0)			EchoAdrhParagraph($arAdrRef);
+    if (count($arAbRef) > 0)				EchoAbParagraph($arAbRef);
     if (count($arAhRef) > 0)				EchoAhParagraph($arAhRef);
+    if (count($arAdrRef) > 0)			EchoAdrhParagraph($arAdrRef);
     if (count($arFundPairRef) > 0)		EchoFundListParagraph($arFundPairRef);
     
     return $arTransactionRef;
@@ -87,9 +112,10 @@ function _echoStockGroupArray($arStock, $bAdmin)
 
 function _getMetaDescriptionStr($strPage)
 {
-	$ar = array('adr' => '通过比较中国企业在美国发行的American Depositary Receipt(ADR)的中国A股价格, 港股价格和美股价格, 分析各种套利对冲方案.',
-				  'adrhcompare' => ADRH_COMPARE_DISPLAY.'工具, 按ADR股票代码排序. 主要显示H股交易情况, 同时计算AdrH价格比和HAdr价格比. H股是指获中国证监会批核到香港上市的国有企业, 也称国企股.',
-				  'ahcompare' => AH_COMPARE_DISPLAY.'工具, 按A股股票代码排序. 主要显示H股交易情况, 同时计算AH价格比和HA价格比. H股是指获中国证监会批核到香港上市的国有企业, 也称国企股.',
+	$ar = array('abcompare' => AB_COMPARE_DISPLAY.'工具，按A/B价格比和B/A价格比排序。B股的正式名称是人民币特种股票，以外币认购和买卖，在中国上海和深圳证券交易所上市交易。',
+				  'adr' => '通过比较中国企业在美国发行的American Depositary Receipt(ADR)的中国A股价格、港股价格和美股价格，观察在三地市场上配对和轮动交易的机会。',
+				  'adrhcompare' => ADRH_COMPARE_DISPLAY.'工具，按ADR/H价格比和H/ADR价格比排序。这里H股泛指香港上市的所有企业，ADR也不限于传统意义，同时包括了二次回港上市美股。',
+				  'ahcompare' => AH_COMPARE_DISPLAY.'工具，按A/H价格比和H/A价格比排序。H股开始是指获中国证监会批核到香港上市的国有企业，也称国企股，现在已经扩大到两地上市私企。',
 				  'chinaindex' => CHINA_INDEX_DISPLAY.'基金工具, 计算基金净值, 同时分析比较各种套利对冲方案. 包括美股ASHR和多家国内基金公司的A股沪深300指数基金的配对交易等.',
 				  'chinainternet' => '跟踪几个不同中证海外中国互联网指数的中概互联基金们在2021年初疯狂见顶后几个月时间一路狂泻都跌成了'.CHINAINTERNET_GROUP_DISPLAY.'，也因此跌出了QDII基金有史以来最为壮观的流动性。',
 				  'commodity' => COMMODITY_GROUP_DISPLAY.'基金的净值估算, 目前包括大致对应跟踪GSG的信诚商品(SZ165513)和银华通胀(SZ161815). 跟踪大宗商品期货的基金都有因为期货升水带来的损耗, 不建议长期持有.',
@@ -208,7 +234,8 @@ function GetMetaDescription()
 function _getTitleStr($strPage)
 {
 	$strTool = '基金净值计算工具';
-	$ar = array('adr' => ADR_DISPLAY,
+	$ar = array('abcompare' => AB_COMPARE_DISPLAY,
+				  'adr' => ADR_DISPLAY,
 				  'adrhcompare' => ADRH_COMPARE_DISPLAY,
 			  	  'ahcompare' => AH_COMPARE_DISPLAY,
 			  	  'chinaindex' => CHINA_INDEX_DISPLAY.$strTool,

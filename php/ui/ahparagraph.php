@@ -27,38 +27,46 @@ function _echoPairItem($ref)
     RefEchoTableColumn($ref, $ar);
 }
 
+function _echoPairParagraph($ar, $strId, $str, $arRef)
+{
+	EchoTableParagraphBegin($ar, $strId, $str);
+	if (count($arRef) > 2)	$arRef = RefSortByNumeric($arRef, '_callbackSortPair');
+	foreach ($arRef as $ref)		_echoPairItem($ref);
+    EchoTableParagraphEnd();
+}
+
+function EchoAbParagraph($arRef)
+{
+	$str = GetAbCompareLink();
+	$ar = array(new TableColumnSymbol(),
+			      new TableColumnSymbol(STOCK_DISP_BSHARES),
+				  new TableColumnRMB(STOCK_DISP_BSHARES),
+				  new TableColumnRatio('A/B'),
+				  new TableColumnRatio('B/A'));
+	_echoPairParagraph($ar, 'ab', $str, $arRef);
+}
+
 function EchoAhParagraph($arRef)
 {
 	$str = GetAhCompareLink();
-	$iCount = count($arRef);
-	if ($iCount == 1)			$str .= ' '.GetAhHistoryLink($arRef[0]->GetSymbol());
-	else if ($iCount > 2)		$arRef = RefSortByNumeric($arRef, '_callbackSortPair');
-
-	EchoTableParagraphBegin(array(new TableColumnSymbol(),
-								   new TableColumnSymbol(STOCK_DISP_HSHARES),
-								   new TableColumnRMB(STOCK_DISP_HSHARES),
-								   new TableColumnAhRatio(),
-								   new TableColumnHaRatio()
-								   ), 'ah', $str);
-
-	foreach ($arRef as $ref)		_echoPairItem($ref);
-    EchoTableParagraphEnd();
+	if (count($arRef) == 1)	$str .= ' '.GetAhHistoryLink($arRef[0]->GetSymbol());
+	$ar = array(new TableColumnSymbol(),
+				 new TableColumnSymbol(STOCK_DISP_HSHARES),
+				 new TableColumnRMB(STOCK_DISP_HSHARES),
+				 new TableColumnAhRatio(),
+				 new TableColumnHaRatio());
+	_echoPairParagraph($ar, 'ah', $str, $arRef);
 }
 
 function EchoAdrhParagraph($arRef)
 {
 	$str = GetAdrhCompareLink();
-	if (count($arRef) > 2)	$arRef = RefSortByNumeric($arRef, '_callbackSortPair');
-	
-	EchoTableParagraphBegin(array(new TableColumnSymbol(),
-								   new TableColumnSymbol(STOCK_DISP_HSHARES),
-								   new TableColumnUSD(STOCK_DISP_HSHARES),
-								   new TableColumnRatio('ADRH'),
-								   new TableColumnRatio('HADR')
-								   ), 'adrh', $str);
-	
-	foreach ($arRef as $ref)		_echoPairItem($ref);
-    EchoTableParagraphEnd();
+	$ar = array(new TableColumnSymbol(),
+			     new TableColumnSymbol(STOCK_DISP_HSHARES),
+				 new TableColumnUSD(STOCK_DISP_HSHARES),
+				 new TableColumnRatio('ADR/H'),
+				 new TableColumnRatio('H/ADR'));
+	_echoPairParagraph($ar, 'adr', $str, $arRef);
 }
 
 ?>

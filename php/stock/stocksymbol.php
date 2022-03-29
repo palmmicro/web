@@ -235,67 +235,67 @@ function IsChineseStockDigit($strDigit)
     return false;
 }
 
-function _isDigitShenzhenEtf($iDigit)
+function _isDigitShenZhenEtf($iDigit)
 {
     return ($iDigit >= 150000 && $iDigit <= 159999) ? true : false;
 }
 
-function _isDigitShenzhenLof($iDigit)
+function _isDigitShenZhenLof($iDigit)
 {
     return ($iDigit >= 160000 && $iDigit <= 169999) ? true : false;
 }
 
-function _isDigitShenzhenB($iDigit)
+function _isDigitShenZhenB($iDigit)
 {
     return ($iDigit >= 200000 && $iDigit < 300000) ? true : false;
 }
 
-function _isDigitShenzhenGem($iDigit)	// 创业板 growth enterprise market, GEM
+function _isDigitShenZhenGem($iDigit)	// 创业板 growth enterprise market, GEM
 {
     return ($iDigit >= 300000 && $iDigit < 390000) ? true : false;
 }
 
-function _isDigitShenzhenIndex($iDigit)
+function _isDigitShenZhenIndex($iDigit)
 {
     return ($iDigit >= 390000 && $iDigit < 400000) ? true : false;
 }
 
-function _isDigitShanghaiIndex($iDigit)
+function _isDigitShangHaiIndex($iDigit)
 {
     return ($iDigit >= 000000 && $iDigit < 100000) ? true : false;
 }
 
-function _isDigitShanghaiEtf($iDigit)
+function _isDigitShangHaiEtf($iDigit)
 {
     return ($iDigit >= 510000 && $iDigit <= 569999) ? true : false;	// 518999
 }
 
-function _isDigitShanghaiLof($iDigit)
+function _isDigitShangHaiLof($iDigit)
 {
     return ($iDigit >= 500000 && $iDigit <= 509999) ? true : false;
 }
 
-function _isDigitShanghaiStar($iDigit)	// 科创板 SSE STAR Market
+function _isDigitShangHaiStar($iDigit)	// 科创板 SSE STAR Market
 {
     return ($iDigit >= 688000 && $iDigit <= 688999) ? true : false;
 }
 
-function _isDigitShanghaiB($iDigit)
+function _isDigitShangHaiB($iDigit)
 {
     return ($iDigit >= 900000 && $iDigit < 1000000) ? true : false;
 }
 
-function _isDigitShenzhenFund($iDigit)
+function _isDigitShenZhenFund($iDigit)
 {
-	if (_isDigitShenzhenEtf($iDigit))		return true;
-	if (_isDigitShenzhenLof($iDigit))		return true;
+	if (_isDigitShenZhenEtf($iDigit))		return true;
+	if (_isDigitShenZhenLof($iDigit))		return true;
 	return false;
 }
 
-function _isDigitShanghaiFund($iDigit)
+function _isDigitShangHaiFund($iDigit)
 {
-	if (_isDigitShanghaiEtf($iDigit))		return true;
-	if (_isDigitShanghaiLof($iDigit))		return true;
+	if (_isDigitShangHaiEtf($iDigit))		return true;
+	if (_isDigitShangHaiLof($iDigit))		return true;
 	return false;
 }
 
@@ -304,8 +304,8 @@ function BuildChineseFundSymbol($strDigit)
     if (IsChineseStockDigit($strDigit))
     {
         $iDigit = intval($strDigit);
-        if (_isDigitShanghaiFund($iDigit))		$strPrefix = SH_PREFIX;
-        else if (_isDigitShenzhenFund($iDigit))	$strPrefix = SZ_PREFIX;
+        if (_isDigitShangHaiFund($iDigit))		$strPrefix = SH_PREFIX;
+        else if (_isDigitShenZhenFund($iDigit))	$strPrefix = SZ_PREFIX;
         else										return false;		// $strPrefix = SINA_FUND_PREFIX;
         return $strPrefix.$strDigit;
     }
@@ -460,7 +460,7 @@ class StockSymbol
     {
     	if ($this->IsShangHaiA())
     	{
-    		if (_isDigitShanghaiEtf($this->iDigitA))	return true;
+    		if (_isDigitShangHaiEtf($this->iDigitA))	return true;
         }
         return false;
     }
@@ -469,7 +469,7 @@ class StockSymbol
     {
     	if ($this->IsShangHaiA())
     	{
-    		if (_isDigitShanghaiLof($this->iDigitA))	return true;
+    		if (_isDigitShangHaiLof($this->iDigitA))	return true;
         }
         return false;
     }
@@ -478,7 +478,25 @@ class StockSymbol
     {
     	if ($this->IsShangHaiA())
     	{
-    		if (_isDigitShanghaiStar($this->iDigitA))	return true;
+    		if (_isDigitShangHaiStar($this->iDigitA))	return true;
+        }
+        return false;
+    }
+    
+    function IsShangHaiB()
+    {
+    	if ($this->IsShangHaiA())
+    	{
+    		if (_isDigitShangHaiB($this->iDigitA))	return $this->strDigitA;
+        }
+        return false;
+    }
+    
+    function IsShenZhenB()
+    {
+    	if ($this->IsShenZhenA())
+    	{
+    		if (_isDigitShenZhenB($this->iDigitA))	return $this->strDigitA;
         }
         return false;
     }
@@ -487,7 +505,7 @@ class StockSymbol
     {
     	if ($this->IsShenZhenA())
     	{
-    		if (_isDigitShenzhenEtf($this->iDigitA))	return true;
+    		if (_isDigitShenZhenEtf($this->iDigitA))	return true;
         }
         return false;
     }
@@ -496,7 +514,7 @@ class StockSymbol
     {
     	if ($this->IsShenZhenA())
     	{
-    		if (_isDigitShenzhenLof($this->iDigitA))	return true;
+    		if (_isDigitShenZhenLof($this->iDigitA))	return true;
         }
         return false;
     }
@@ -505,7 +523,7 @@ class StockSymbol
     {
     	if ($this->IsShenZhenA())
     	{
-    		if (_isDigitShenzhenGem($this->iDigitA))	return true;
+    		if (_isDigitShenZhenGem($this->iDigitA))	return true;
         }
         return false;
     }
@@ -537,31 +555,25 @@ class StockSymbol
             if ($this->IsSymbolA() == false)    return false;
         }
         
-        if ($this->strPrefixA == SZ_PREFIX && _isDigitShenzhenIndex($this->iDigitA))   return $this->strDigitA;
-        if ($this->strPrefixA == SH_PREFIX && _isDigitShanghaiIndex($this->iDigitA))   return $this->strDigitA;
+        if ($this->strPrefixA == SZ_PREFIX && _isDigitShenZhenIndex($this->iDigitA))   return $this->strDigitA;
+        if ($this->strPrefixA == SH_PREFIX && _isDigitShangHaiIndex($this->iDigitA))   return $this->strDigitA;
         return false;
     }
     
     function IsStockB()
     {
-        if ($this->strDigitA == false)
-        {
-            if ($this->IsSymbolA() == false)    return false;
-        }
-        
-        if ($this->strPrefixA == SZ_PREFIX && _isDigitShenzhenB($this->iDigitA))   return $this->strDigitA;
-        if ($this->strPrefixA == SH_PREFIX && _isDigitShanghaiB($this->iDigitA))   return $this->strDigitA;
-        return false;
+   		if ($this->IsShangHaiB())		return true;
+   		if ($this->IsShenZhenB())		return true;
+   		return false;
     }
     
     function IsEtf()
     {
     	if ($this->IsSymbolA())
     	{
-    		if ($this->IsIndexA())	return false;
-    		if ($this->IsStockB())	return false;
-    		
-    		if ($this->IsFundA())		return true;
+    		if ($this->IsFundA())			return true;
+    		if ($this->IsIndexA())		return false;
+    		if ($this->IsStockB())		return false;
     	}
     	else
     	{
@@ -746,8 +758,8 @@ class StockSymbol
     
     function GetPrecision()
     {
-    	if ($this->IsSinaFund() || $this->IsFundA())   	return 3;
-    	else if ($this->IsForex())   					return 4;
+    	if ($this->IsSinaFund() || $this->IsFundA() || $this->IsStockB())   	return 3;
+    	else if ($this->IsForex())   											return 4;
     	return 2;
     }
 

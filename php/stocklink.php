@@ -205,6 +205,12 @@ function GetMyPortfolioLink($strQuery = false)
     return GetStockPageLink('myportfolio', MY_PORTFOLIO_DISPLAY, $strQuery);
 }
 
+define('AB_COMPARE_DISPLAY', 'A股和B股对比');
+function GetAbCompareLink()
+{
+    return GetStockPageLink('abcompare', AB_COMPARE_DISPLAY);
+}
+
 define('AH_COMPARE_DISPLAY', 'A股和H股对比');
 function GetAhCompareLink()
 {

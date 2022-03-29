@@ -296,11 +296,11 @@ function StockGetFundReference($strSymbol)
     return $ref;
 }
 
-function StockGetAhPairReference($strSymbol)
+function StockGetAbPairReference($strSymbol)
 {
-	$pair_sql = new AhPairSql();
-	if ($pair_sql->GetPairSymbol($strSymbol))						return new AhPairReference($strSymbol);
-	else if ($strSymbolA = $pair_sql->GetSymbol($strSymbol))		return new AhPairReference($strSymbolA);
+	$pair_sql = new AbPairSql();
+	if ($pair_sql->GetPairSymbol($strSymbol))						return new AbPairReference($strSymbol);
+	else if ($strSymbolA = $pair_sql->GetSymbol($strSymbol))		return new AbPairReference($strSymbolA);
 	return false;
 }
 
@@ -309,6 +309,14 @@ function StockGetAdrPairReference($strSymbol)
 	$pair_sql = new AdrPairSql();
 	if ($pair_sql->GetPairSymbol($strSymbol))						return new AdrPairReference($strSymbol);
 	else if ($strAdr = $pair_sql->GetSymbol($strSymbol))			return new AdrPairReference($strAdr);
+	return false;
+}
+
+function StockGetAhPairReference($strSymbol)
+{
+	$pair_sql = new AhPairSql();
+	if ($pair_sql->GetPairSymbol($strSymbol))						return new AhPairReference($strSymbol);
+	else if ($strSymbolA = $pair_sql->GetSymbol($strSymbol))		return new AhPairReference($strSymbolA);
 	return false;
 }
 

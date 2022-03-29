@@ -36,8 +36,13 @@ class MyPairReference extends MyStockReference
         		$strCNY = false;
         		if ($this->pair_ref->IsSymbolA())
         		{
-        			if ($this->IsSymbolUS())			$strCNY = 'USCNY';
+        			if ($this->IsSymbolA())
+        			{
+        				if ($this->pair_ref->IsShangHaiB())			$strCNY = 'USCNY';
+						else if ($this->pair_ref->IsShenZhenB())		$strCNY = 'HKCNY';
+        			}
 //        			else if ($this->IsSymbolH())		$strCNY = 'HKCNY';
+        			else if ($this->IsSymbolUS())	$strCNY = 'USCNY';
         		}
         		else if ($this->pair_ref->IsSymbolH())
         		{

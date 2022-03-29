@@ -177,7 +177,7 @@ class TableColumnAhRatio extends TableColumnRatio
 {
 	function TableColumnAhRatio()
 	{
-        parent::TableColumnRatio('AH');
+        parent::TableColumnRatio('A/H');
 	}
 }
 
@@ -185,7 +185,7 @@ class TableColumnHaRatio extends TableColumnRatio
 {
 	function TableColumnHaRatio()
 	{
-        parent::TableColumnRatio('HA');
+        parent::TableColumnRatio('H/A');
 	}
 }
 

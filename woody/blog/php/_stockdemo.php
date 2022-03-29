@@ -10,10 +10,8 @@ require_once('/php/ui/qdiismaparagraph.php');
 require_once('/php/ui/nvclosehistoryparagraph.php');
 require_once('/php/ui/stockhistoryparagraph.php');
 
-define('AB_DEMO_SYMBOL', 'SZ200488');
-//define('ADRH_DEMO_SYMBOL', '00700');
+define('AB_DEMO_SYMBOL', 'SZ000488');
 define('ADRH_DEMO_SYMBOL', 'TCEHY');
-//define('AH_DEMO_SYMBOL', '00386');
 define('AH_DEMO_SYMBOL', 'SH600028');
 define('FUND_DEMO_SYMBOL', 'SZ162411');
 define('STOCK_DEMO_SYMBOL', 'XOP');
@@ -61,6 +59,8 @@ function EchoNvCloseDemo($strSymbol = STOCK_DEMO_SYMBOL)
 
 function EchoAbDemo($strSymbol = AB_DEMO_SYMBOL)
 {
+   	$ref = new AbPairReference($strSymbol);
+   	EchoAbParagraph(array($ref));
 }
 
 function EchoAhDemo($strSymbol = AH_DEMO_SYMBOL)
