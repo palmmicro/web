@@ -154,17 +154,6 @@ function StockGetArraySymbol($ar)
     return $arSymbol;
 }
 
-function StockGetReference($strSymbol, $sym = false)
-{
-	if ($sym == false)	$sym = new StockSymbol($strSymbol);
-
-/*    if ($sym->IsSinaFund())				return new FundReference($strSymbol);
-    else*/ if ($sym->IsSinaFuture())   		return new FutureReference($strSymbol);
-    else if ($sym->IsSinaForex())   		return new ForexReference($strSymbol);
-	else if ($sym->IsEastMoneyForex())	return new CnyReference($strSymbol);
-    										return new MyStockReference($strSymbol);
-}
-
 function StockGetHoldingsReference($strSymbol)
 {
 	if (SqlCountHoldings($strSymbol) > 0)

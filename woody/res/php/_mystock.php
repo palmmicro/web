@@ -136,10 +136,7 @@ function _echoMyStockData($acct, $ref)
     $hshare_ref = false;
     $fund_pair_ref = false;
     $holdings_ref = false;
-    $ab_ref = false;
-    $ah_ref = false;
-    $adr_ref = false;
-    
+
     $strSymbol = $ref->GetSymbol();
     if ($ref->IsFundA())
     {
@@ -160,41 +157,22 @@ function _echoMyStockData($acct, $ref)
     else
     {
     	if ($ref_ar = StockGetHShareReference($ref))							list($ref, $hshare_ref) = $ref_ar;
-
-		if ($ab_ref = StockGetAbPairReference($strSymbol))
-    	{
-    		if ($ah_ref = StockGetAhPairReference($ab_ref->GetSymbol()))
-    		{
-    			$h_ref = $ah_ref->GetPairRef();
-    			$adr_ref = StockGetAdrPairReference($h_ref->GetSymbol());
-    		}
-    	}
-		else if ($ah_ref = StockGetAhPairReference($strSymbol))
-    	{
-    		$h_ref = $ah_ref->GetPairRef();
-    		$adr_ref = StockGetAdrPairReference($h_ref->GetSymbol());
-    		$ab_ref = StockGetAbPairReference($ah_ref->GetSymbol());
-    	}
-    	else if ($adr_ref = StockGetAdrPairReference($strSymbol))
-    	{
-    		$h_ref = $adr_ref->GetPairRef();
-    		if ($ah_ref = StockGetAhPairReference($h_ref->GetSymbol()))		$ab_ref = StockGetAbPairReference($ah_ref->GetSymbol());
-    	}
+    	list($ab_ref, $ah_ref, $adr_ref) = StockGetPairReferences($strSymbol);
     }
     
    	EchoReferenceParagraph(array($ref));
-   	if ($holdings_ref)	EchoHoldingsEstParagraph($holdings_ref);
+   	if ($ref->IsFundA())
+   	{
+   		if ($fund->GetOfficialNav())		EchoFundEstParagraph($fund);
+   		EchoFundTradingParagraph($fund);
+   	}
    	else if ($fund_pair_ref)
    	{
 		EchoFundArrayEstParagraph(array($fund_pair_ref));
    		EchoFundListParagraph(array($fund_pair_ref));
    		EchoFundPairTradingParagraph($fund_pair_ref);
    	}
-   	else if ($ref->IsFundA())
-   	{
-   		if ($fund->GetOfficialNav())		EchoFundEstParagraph($fund);
-   		EchoFundTradingParagraph($fund);
-   	}
+	else if ($holdings_ref)	EchoHoldingsEstParagraph($holdings_ref);
    	else
    	{
 		if ($ab_ref)		EchoAbParagraph(array($ab_ref));

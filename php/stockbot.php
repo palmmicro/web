@@ -48,72 +48,38 @@ function _botGetStockArray($strKey)
 
 function _botGetStockText($strSymbol)
 {
-    $sym = new StockSymbol($strSymbol);
     $str = false;
-/*    if ($sym->IsSinaFund())     
-    {   // IsSinaFund must be called before IsSinaFuture
-        $ref = new FundReference($strSymbol);
-        $str = TextFromFundReference($ref); 
-    }
-    else*/ if ($sym->IsSinaFuture())
-    {
-        $ref = new FutureReference($strSymbol);
-        $str = TextFromStockReference($ref); 
-    }
-    else if ($sym->IsSinaForex())
-    {
-    	$ref = new ForexReference($strSymbol);
-        $str = TextFromStockReference($ref); 
-    }
-    else if ($sym->IsEastMoneyForex())
-    {
-    	$ref = new CnyReference($strSymbol);
-        $str = TextFromStockReference($ref); 
-    }
-    else if ($sym->IsFundA())
+	$ref = StockGetReference($strSymbol);
+    if ($ref->IsFundA())
     {
     	if (in_arrayQdiiMix($strSymbol))
     	{
-    		$ref = new HoldingsReference($strSymbol);
-    		$str = TextFromHoldingsReference($ref);
-//   			$str .= BOT_EOL.TextFromStockReference($ref->GetUscnyRef()); 
-//   			$str .= BOT_EOL.TextFromStockReference($ref->GetHkcnyRef()); 
+    		$holdings_ref = new HoldingsReference($strSymbol);
+    		$str = TextFromHoldingsReference($holdings_ref);
+//   			$str .= BOT_EOL.TextFromStockReference($holdings_ref->GetUscnyRef()); 
+//   			$str .= BOT_EOL.TextFromStockReference($holdings_ref->GetHkcnyRef()); 
     	}
     	else
     	{
-    		$ref = StockGetFundReference($strSymbol);
-    		$str = TextFromFundReference($ref);
+    		$fund_ref = StockGetFundReference($strSymbol);
+    		$str = TextFromFundReference($fund_ref);
     		if (in_arrayQdii($strSymbol) || in_arrayQdiiHk($strSymbol))
     		{
-//    			$str .= BOT_EOL.TextFromStockReference($ref->GetCnyRef()); 
-    			$str .= BOT_EOL.TextFromStockReference($ref->GetEstRef()); 
-    			if ($future_ref = $ref->GetFutureRef())		$str .= BOT_EOL.TextFromStockReference($future_ref);
+//    			$str .= BOT_EOL.TextFromStockReference($fund_ref->GetCnyRef()); 
+    			$str .= BOT_EOL.TextFromStockReference($fund_ref->GetEstRef()); 
+    			if ($future_ref = $fund_ref->GetFutureRef())	$str .= BOT_EOL.TextFromStockReference($future_ref);
     		}
 	    }
     }
     else
     {
-       	$ref = new MyStockReference($strSymbol);
        	$str = TextFromStockReference($ref);
-       	
-    	$ab_sql = new AbPairSql();
-    	if ($ab_sql->GetPairSymbol($strSymbol))
-    	{
-    		$ab_ref = new AbPairReference($strSymbol);
-			$str .= TextFromAbReference($ab_ref);
-    	}
-    	else if ($strSymbolA = $ab_sql->GetSymbol($strSymbol))
-    	{
-    		$ab_ref = new AbPairReference($strSymbolA);
-			$str .= TextFromAbReference($ab_ref, false);
-    	}
-    	
-    	if ($ref_ar = StockGetHShareReference($sym))
-    	{
-    		list($dummy, $hshare_ref) = $ref_ar;
-			$str .= TextFromAhReference($hshare_ref);
-    	}
+    	list($ab_ref, $ah_ref, $adr_ref) = StockGetPairReferences($strSymbol);
+    	$str .= TextPairRatio($ab_ref, STOCK_DISP_ASHARES, STOCK_DISP_BSHARES, 'A/B');  
+    	$str .= TextPairRatio($ah_ref, STOCK_DISP_ASHARES, STOCK_DISP_HSHARES, 'A/H');  
+    	$str .= TextPairRatio($adr_ref, 'ADR', STOCK_DISP_HSHARES, 'ADR/H');  
     }
+    
    	if ($str == false)
    	{
    		DebugString("($strSymbol:无数据)");

@@ -10,32 +10,16 @@ require_once('/php/ui/imagedisp.php');
 
 function in_array_ref($ref, $arRef)
 {
-	$strSymbol = $ref->GetSymbol();
-	foreach ($arRef as $ref)
+	if ($ref)
 	{
-		if ($ref->GetSymbol() == $strSymbol)	return $ref;
+		$strSymbol = $ref->GetSymbol();
+		foreach ($arRef as $ref)
+		{
+			if ($ref->GetSymbol() == $strSymbol)	return $ref;
+		}
+		return false;
 	}
-	return false;
-}
-
-function _addAhPair(&$arAhRef, &$arAdrRef, $ah_ref)
-{
-	if (in_array_ref($ah_ref, $arAhRef) == false)			$arAhRef[] = $ah_ref;
-
-	$h_ref = $ah_ref->GetPairRef();
-	if ($adr_ref = StockGetAdrPairReference($h_ref->GetSymbol()))
-	{
-		if (in_array_ref($adr_ref, $arAdrRef) == false)	$arAdrRef[] = $adr_ref;
-	}
-    return $h_ref; 
-}
-
-function _addAbPair(&$arAbRef, $ah_ref)
-{
-	if ($ab_ref = StockGetAbPairReference($ah_ref->GetSymbol()))
-	{
-		if (in_array_ref($ab_ref, $arAbRef) == false)			$arAbRef[] = $ab_ref;
-	}
+	return true;
 }
 
 function _echoStockGroupArray($arStock, $bAdmin)
@@ -52,52 +36,27 @@ function _echoStockGroupArray($arStock, $bAdmin)
     
     foreach ($arStock as $strSymbol)
     {
-        $sym = new StockSymbol($strSymbol);
-        if ($sym->IsFundA())
+		$ref = StockGetReference($strSymbol);
+        if ($ref->IsFundA())
         {
-        	if (in_arrayQdiiMix($strSymbol))
-        	{
-        		$ref = new HoldingsReference($strSymbol);
-        		$arFund[] = $ref;
-        	}
+        	if (in_arrayQdiiMix($strSymbol))		$arFund[] = new HoldingsReference($strSymbol);
         	else
         	{
-        		$fund = StockGetFundReference($strSymbol);
-        		$arFund[] = $fund;
-        		if ($ref = StockGetFundPairReference($strSymbol))		$arFundPairRef[] = $ref;
-        		else												$ref = $fund->GetStockRef();
+        		$arFund[] = StockGetFundReference($strSymbol);
+        		if ($pair_ref = StockGetFundPairReference($strSymbol))		$arFundPairRef[] = $pair_ref;
         	}
        	}
-    	else if ($ref = StockGetFundPairReference($strSymbol))	$arFundPairRef[] = $ref;
-		else if ($ab_ref = StockGetAbPairReference($strSymbol))
-    	{
-			if (in_array_ref($ab_ref, $arAbRef) == false)			$arAbRef[] = $ab_ref;
-			$strSymbolA = $ab_ref->GetSymbol();
-    		$ref = ($strSymbol == $strSymbolA) ? $ab_ref : $ab_ref->GetPairRef(); 
-    		if ($ah_ref = StockGetAhPairReference($strSymbolA))		_addAhPair($arAhRef, $arAdrRef, $ah_ref);
-    	}
-		else if ($ah_ref = StockGetAhPairReference($strSymbol))
-    	{
-    		$h_ref = _addAhPair($arAhRef, $arAdrRef, $ah_ref);
-   		    $ref = ($strSymbol == $h_ref->GetSymbol()) ? $h_ref : $ah_ref; 
-    		_addAbPair($arAbRef, $ah_ref);
-	   	}
-    	else if ($adr_ref = StockGetAdrPairReference($strSymbol))
-    	{
-			if (in_array_ref($adr_ref, $arAdrRef) == false)		$arAdrRef[] = $adr_ref;
-    		$h_ref = $adr_ref->GetPairRef();
-    		$strSymbolH = $h_ref->GetSymbol();
-    		$ref = ($strSymbol == $strSymbolH) ? $h_ref : $adr_ref; 
-			if ($ah_ref = StockGetAhPairReference($strSymbolH))
-			{
-				if (in_array_ref($ah_ref, $arAhRef) == false)		$arAhRef[] = $ah_ref;
-				_addAbPair($arAbRef, $ah_ref);
-			}
-    	}
-   		else	$ref = StockGetReference($strSymbol, $sym);
+    	else if ($pair_ref = StockGetFundPairReference($strSymbol))	$arFundPairRef[] = $pair_ref;
+   		else
+   		{
+	    	list($ab_ref, $ah_ref, $adr_ref) = StockGetPairReferences($strSymbol);
+    		if (in_array_ref($ab_ref, $arAbRef) == false)			$arAbRef[] = $ab_ref;
+    		if (in_array_ref($ah_ref, $arAhRef) == false)			$arAhRef[] = $ah_ref;
+    		if (in_array_ref($adr_ref, $arAdrRef) == false)		$arAdrRef[] = $adr_ref;
+	    }
 
         $arRef[] = $ref;
-        if ($sym->IsTradable())	$arTransactionRef[] = $ref;
+        if ($ref->IsTradable())	$arTransactionRef[] = $ref;
     }
     
     EchoReferenceParagraph($arRef, $bAdmin);

@@ -287,6 +287,17 @@ function StockPrefetchExtendedData()
     StockPrefetchArrayExtendedData(func_get_args());
 }
 
+function StockGetReference($strSymbol)
+{
+	$sym = new StockSymbol($strSymbol);
+
+/*    if ($sym->IsSinaFund())				return new FundReference($strSymbol);
+    else*/ if ($sym->IsSinaFuture())   		return new FutureReference($strSymbol);
+    else if ($sym->IsSinaForex())   		return new ForexReference($strSymbol);
+	else if ($sym->IsEastMoneyForex())	return new CnyReference($strSymbol);
+    										return new MyStockReference($strSymbol);
+}
+
 function StockGetFundReference($strSymbol)
 {
     if (in_arrayQdii($strSymbol))					$ref = new QdiiReference($strSymbol);
@@ -296,7 +307,7 @@ function StockGetFundReference($strSymbol)
     return $ref;
 }
 
-function StockGetAbPairReference($strSymbol)
+function _getAbPairReference($strSymbol)
 {
 	$pair_sql = new AbPairSql();
 	if ($pair_sql->GetPairSymbol($strSymbol))						return new AbPairReference($strSymbol);
@@ -304,7 +315,7 @@ function StockGetAbPairReference($strSymbol)
 	return false;
 }
 
-function StockGetAdrPairReference($strSymbol)
+function _getAdrPairReference($strSymbol)
 {
 	$pair_sql = new AdrPairSql();
 	if ($pair_sql->GetPairSymbol($strSymbol))						return new AdrPairReference($strSymbol);
@@ -312,12 +323,41 @@ function StockGetAdrPairReference($strSymbol)
 	return false;
 }
 
-function StockGetAhPairReference($strSymbol)
+function _getAhPairReference($strSymbol)
 {
 	$pair_sql = new AhPairSql();
 	if ($pair_sql->GetPairSymbol($strSymbol))						return new AhPairReference($strSymbol);
 	else if ($strSymbolA = $pair_sql->GetSymbol($strSymbol))		return new AhPairReference($strSymbolA);
 	return false;
+}
+
+function StockGetPairReferences($strSymbol)
+{
+    $ab_ref = false;
+    $ah_ref = false;
+    $adr_ref = false;
+    
+	if ($ab_ref = _getAbPairReference($strSymbol))
+    {
+    	if ($ah_ref = _getAhPairReference($ab_ref->GetSymbol()))
+    	{
+    		$h_ref = $ah_ref->GetPairRef();
+    		$adr_ref = _getAdrPairReference($h_ref->GetSymbol());
+    	}
+    }
+	else if ($ah_ref = _getAhPairReference($strSymbol))
+    {
+    	$h_ref = $ah_ref->GetPairRef();
+    	$adr_ref = _getAdrPairReference($h_ref->GetSymbol());
+    	$ab_ref = _getAbPairReference($ah_ref->GetSymbol());
+    }
+    else if ($adr_ref = _getAdrPairReference($strSymbol))
+    {
+    	$h_ref = $adr_ref->GetPairRef();
+    	if ($ah_ref = _getAhPairReference($h_ref->GetSymbol()))		$ab_ref = _getAbPairReference($ah_ref->GetSymbol());
+    }
+    
+    return array($ab_ref, $ah_ref, $adr_ref);
 }
 
 function StockGetHShareReference($sym)

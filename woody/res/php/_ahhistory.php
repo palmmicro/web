@@ -38,13 +38,13 @@ function _echoAhHistoryParagraph($ref, $h_ref, $iStart, $iNum, $bAdmin)
     if ($bAdmin)		$str .= ' '.GetUpdateStockHistoryLink($strSymbol).' '.GetUpdateStockHistoryLink($strSymbolH);
 
 	$cny_ref = $ref->GetCnyRef();
-	$ah_col = new TableColumnAhRatio();
+	$ah_col = new TableColumnRatio('A/H');
 	EchoTableParagraphBegin(array(new TableColumnDate(),
 								   new TableColumnStock($cny_ref->GetSymbol()),
 								   new TableColumnStock($strSymbol),
 								   new TableColumnStock($strSymbolH),
 								   $ah_col,
-								   new TableColumnHaRatio()
+								   new TableColumnRatio('H/A')
 								   ), $strSymbol.'ahhistory', $str);
 
    	$csv = new PageCsvFile();

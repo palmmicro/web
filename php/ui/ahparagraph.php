@@ -13,6 +13,7 @@ function _echoPairItem($ref)
 	if ($pair_ref = $ref->GetPairRef())
 	{
 		$ar[] = $pair_ref->GetMyStockLink();
+		$ar[] = $ref->GetPriceDisplay();
 		
 		$cny_ref = $ref->GetCnyRef();
 		$ar[] = $ref->GetPriceDisplay($ref->EstFromPair(floatval($pair_ref->GetPrice()), $cny_ref->GetVal()));
@@ -40,6 +41,7 @@ function EchoAbParagraph($arRef)
 	$str = GetAbCompareLink();
 	$ar = array(new TableColumnSymbol(),
 			      new TableColumnSymbol(STOCK_DISP_BSHARES),
+			      new TableColumnPrice(STOCK_DISP_ASHARES),
 				  new TableColumnRMB(STOCK_DISP_BSHARES),
 				  new TableColumnRatio('A/B'),
 				  new TableColumnRatio('B/A'));
@@ -52,9 +54,10 @@ function EchoAhParagraph($arRef)
 	if (count($arRef) == 1)	$str .= ' '.GetAhHistoryLink($arRef[0]->GetSymbol());
 	$ar = array(new TableColumnSymbol(),
 				 new TableColumnSymbol(STOCK_DISP_HSHARES),
+			     new TableColumnPrice(STOCK_DISP_ASHARES),
 				 new TableColumnRMB(STOCK_DISP_HSHARES),
-				 new TableColumnAhRatio(),
-				 new TableColumnHaRatio());
+				 new TableColumnRatio('A/H'),
+				 new TableColumnRatio('H/A'));
 	_echoPairParagraph($ar, 'ah', $str, $arRef);
 }
 
@@ -63,6 +66,7 @@ function EchoAdrhParagraph($arRef)
 	$str = GetAdrhCompareLink();
 	$ar = array(new TableColumnSymbol(),
 			     new TableColumnSymbol(STOCK_DISP_HSHARES),
+			     new TableColumnPrice('ADR'),
 				 new TableColumnUSD(STOCK_DISP_HSHARES),
 				 new TableColumnRatio('ADR/H'),
 				 new TableColumnRatio('H/ADR'));

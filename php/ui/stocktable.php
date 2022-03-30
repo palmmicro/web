@@ -173,22 +173,6 @@ class TableColumnRatio extends TableColumn
 	}
 }
 
-class TableColumnAhRatio extends TableColumnRatio
-{
-	function TableColumnAhRatio()
-	{
-        parent::TableColumnRatio('A/H');
-	}
-}
-
-class TableColumnHaRatio extends TableColumnRatio
-{
-	function TableColumnHaRatio()
-	{
-        parent::TableColumnRatio('H/A');
-	}
-}
-
 class TableColumnShare extends TableColumn
 {
 	function TableColumnShare()
@@ -253,7 +237,7 @@ class TableColumnHKD extends TableColumn
 {
 	function TableColumnHKD($strPrefix = false)
 	{
-        parent::TableColumn('港币$', 100, false, $strPrefix);
+        parent::TableColumn('港币$', 100, 'blue', $strPrefix);
 	}
 }
 
@@ -261,7 +245,7 @@ class TableColumnRMB extends TableColumn
 {
 	function TableColumnRMB($strPrefix = false)
 	{
-        parent::TableColumn('人民币￥', 100, false, $strPrefix);
+        parent::TableColumn('人民币￥', 100, 'blue', $strPrefix);
 	}
 }
 
@@ -269,7 +253,7 @@ class TableColumnUSD extends TableColumn
 {
 	function TableColumnUSD($strPrefix = false)
 	{
-        parent::TableColumn('美元$', 100, false, $strPrefix);
+        parent::TableColumn('美元$', 100, 'blue', $strPrefix);
 	}
 }
 
