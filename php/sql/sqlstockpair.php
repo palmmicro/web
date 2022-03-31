@@ -123,22 +123,34 @@ function SqlGetFundPair($strFund)
 	return $pair_sql->GetPairSymbol($strFund);
 }
 
+function SqlGetAbPair($strSymbolA)
+{
+	$pair_sql = new AbPairSql();
+	return $pair_sql->GetPairSymbol($strSymbolA);
+}
+
+function SqlGetBaPair($strSymbolB)
+{
+	$pair_sql = new AbPairSql();
+	return $pair_sql->GetSymbol($strSymbolB);
+}
+
 function SqlGetAhPair($strSymbolA)
 {
 	$pair_sql = new AhPairSql();
 	return $pair_sql->GetPairSymbol($strSymbolA);
 }
 
-function SqlGetAdrhPair($strSymbolAdr)
-{
-	$pair_sql = new AdrPairSql();
-	return $pair_sql->GetPairSymbol($strSymbolAdr);
-}
-
 function SqlGetHaPair($strSymbolH)
 {
 	$pair_sql = new AhPairSql();
 	return $pair_sql->GetSymbol($strSymbolH);
+}
+
+function SqlGetAdrhPair($strSymbolAdr)
+{
+	$pair_sql = new AdrPairSql();
+	return $pair_sql->GetPairSymbol($strSymbolAdr);
 }
 
 function SqlGetHadrPair($strSymbolH)

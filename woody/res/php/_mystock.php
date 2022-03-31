@@ -88,14 +88,6 @@ function _echoMyStockTransactions($acct, $ref)
 	}
 }
 
-function _hasSmaDisplay($sym)
-{
-/*    if ($sym->IsSinaFund())		return false;
-    else*/ if ($sym->IsFundA())   	return false;
-    else if ($sym->IsForex())   	return false;
-    return true;
-}
-
 function _getFundOptionLinks($strSymbol)
 {
 	return ' '.GetStockOptionLink(STOCK_OPTION_NAV, $strSymbol).' '.GetStockOptionLink(STOCK_OPTION_CALIBRATION, $strSymbol).' '.GetStockOptionLink(STOCK_OPTION_FUND, $strSymbol).' '.GetStockOptionLink(STOCK_OPTION_HOLDINGS, $strSymbol);
@@ -131,50 +123,56 @@ function _getMyStockLinks($sym)
     return $str;
 }
 
-function _echoMyStockData($acct, $ref)
+function _echoMyStockData($ref, $bAdmin)
 {
-    $hshare_ref = false;
-    $fund_pair_ref = false;
-    $holdings_ref = false;
-
     $strSymbol = $ref->GetSymbol();
     if ($ref->IsFundA())
     {
        	if (in_arrayQdiiMix($strSymbol))
        	{
        		$holdings_ref = new HoldingsReference($strSymbol);
-       		$ref = $holdings_ref;
+   			EchoHoldingsEstParagraph($holdings_ref);
+   			EchoTradingParagraph($ref);
+			EchoFundPairHistoryParagraph($holdings_ref);
        	}
-       	else
-       	{
-       		$fund = StockGetFundReference($strSymbol);
-       		$ref = $fund->GetStockRef(); 
-       		$fund_pair_ref = StockGetFundPairReference($strSymbol);
+       	else if ($fund_pair_ref = StockGetFundPairReference($strSymbol))
+		{
+			EchoFundArrayEstParagraph(array($fund_pair_ref));
+			EchoFundListParagraph(array($fund_pair_ref));
+			EchoFundPairTradingParagraph($fund_pair_ref);
+			EchoFundPairSmaParagraph($fund_pair_ref);
+			EchoFundPairHistoryParagraph($fund_pair_ref);
+		}
+		else
+		{
+			$fund = StockGetFundReference($strSymbol);
+			if ($fund->GetOfficialNav())		
+			{
+				EchoFundEstParagraph($fund);
+				EchoFundTradingParagraph($fund);
+			}
+			else	EchoTradingParagraph($ref);
+			EchoFundHistoryParagraph($fund);
        	}
     }
-   	else if ($fund_pair_ref = StockGetFundPairReference($strSymbol))	$ref = $fund_pair_ref;
-   	else if ($holdings_ref = StockGetHoldingsReference($strSymbol))	$ref = $holdings_ref;
-    else
-    {
-    	if ($ref_ar = StockGetHShareReference($ref))							list($ref, $hshare_ref) = $ref_ar;
-    	list($ab_ref, $ah_ref, $adr_ref) = StockGetPairReferences($strSymbol);
-    }
-    
-   	EchoReferenceParagraph(array($ref));
-   	if ($ref->IsFundA())
-   	{
-   		if ($fund->GetOfficialNav())		EchoFundEstParagraph($fund);
-   		EchoFundTradingParagraph($fund);
-   	}
-   	else if ($fund_pair_ref)
+   	else if ($fund_pair_ref = StockGetFundPairReference($strSymbol))
    	{
 		EchoFundArrayEstParagraph(array($fund_pair_ref));
-   		EchoFundListParagraph(array($fund_pair_ref));
-   		EchoFundPairTradingParagraph($fund_pair_ref);
+		EchoFundListParagraph(array($fund_pair_ref));
+		EchoFundPairSmaParagraph($fund_pair_ref);
+		EchoFundPairHistoryParagraph($fund_pair_ref);
    	}
-	else if ($holdings_ref)	EchoHoldingsEstParagraph($holdings_ref);
-   	else
+   	else if ($holdings_ref = StockGetHoldingsReference($strSymbol))
    	{
+		EchoHoldingsEstParagraph($holdings_ref);
+		EchoSmaParagraph($ref);
+		EchoFundPairHistoryParagraph($holdings_ref);
+   	}
+    else
+    {
+    	$hshare_ref = false;
+    	if ($ref_ar = StockGetHShareReference($ref))							list($ref, $hshare_ref) = $ref_ar;
+    	list($ab_ref, $ah_ref, $adr_ref) = StockGetPairReferences($strSymbol);
 		if ($ab_ref)		EchoAbParagraph(array($ab_ref));
 		if ($ah_ref)		EchoAhParagraph(array($ah_ref));
 		if ($adr_ref)		EchoAdrhParagraph(array($adr_ref));
@@ -183,44 +181,32 @@ function _echoMyStockData($acct, $ref)
    			if ($hshare_ref)	EchoAhTradingParagraph($hshare_ref);
    			else 				EchoTradingParagraph($ref);
    		}
-   	}
-
-   	if ($fund_pair_ref)   			EchoFundPairSmaParagraph($fund_pair_ref);
-   	else if (_hasSmaDisplay($ref))
-   	{
    		if ($hshare_ref)		EchoHShareSmaParagraph($ref, $hshare_ref);
    		else	        		EchoSmaParagraph($ref);
    	}
-
-   	if ($holdings_ref || $fund_pair_ref)	EchoFundPairHistoryParagraph($ref);
-   	else if ($ref->IsFundA())			EchoFundHistoryParagraph($fund);
    	
 	EchoNvCloseHistoryParagraph($ref);
 	EchoFundShareParagraph($ref);
    	EchoStockHistoryParagraph($ref);
-   	if (($holdings_ref == false) && ($fund_pair_ref == false))		_echoBenfordParagraph($ref);
+   	_echoBenfordParagraph($ref);
     
-   	_echoMyStockTransactions($acct, $ref);
-    if ($acct->IsAdmin())
+    if ($bAdmin)
     {
      	$str = GetMyStockLink();
     	if ($strStockId = $ref->GetStockId())
     	{
-    		$str .= '<br />id='.$strStockId;
-    		$str .= '<br />'._getMyStockLinks($ref);
-   			$str .= '<br />'.$ref->DebugLink();
+    		$str .= '<br />id='.$strStockId.'<br />'._getMyStockLinks($ref).'<br />'.$ref->DebugLink();
    			if ($ref->IsFundA())
    			{
    				$str .= '<br />';
    				if (in_arrayQdiiMix($strSymbol))
    				{
-   					$nav_ref = $ref->GetNavRef(); 
+   					$nav_ref = $holdings_ref->GetNavRef(); 
    					$str .= $nav_ref->DebugLink(); 
    				}
    				else	$str .= $fund->DebugLink(); 
    			}
-   			if (_hasSmaDisplay($ref)) 		$str .= '<br />'.$ref->DebugConfigLink();
-   			/*if ($holdings_ref)*/			$str .= '<br />'.GetHoldingsCsvLink($strSymbol);
+   			$str .= '<br />'.$ref->DebugConfigLink().'<br />'.GetHoldingsCsvLink($strSymbol);
     	}
     	EchoParagraph($str);
     }
@@ -230,14 +216,14 @@ function EchoAll()
 {
 	global $acct;
 	
+	$bAdmin = $acct->IsAdmin();
     if ($ref = $acct->EchoStockGroup())
     {
-    	_echoMyStockData($acct, $ref);
+    	EchoReferenceParagraph(array($ref));
+    	_echoMyStockData($ref, $bAdmin);
+    	_echoMyStockTransactions($acct, $ref);
     }
-    else
-    {
-    	EchoStockParagraph($acct->GetStart(), $acct->GetNum(), $acct->IsAdmin());
-    }
+	else	EchoStockParagraph($acct->GetStart(), $acct->GetNum(), $bAdmin);
     $acct->EchoLinks();
 }
 

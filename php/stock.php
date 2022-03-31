@@ -48,7 +48,6 @@ http://hq.sinajs.cn/list=int_nasdaq 纳斯达克
 http://hq.sinajs.cn/list=int_sp500 标普500
 http://hq.sinajs.cn/list=int_ftse 英金融时报指数
 */
-// http://www.cnblogs.com/wangxinsheng/p/4260726.html
 // http://blog.sina.com.cn/s/blog_7ed3ed3d0101gphj.html
 // http://hq.sinajs.cn/list=sh600151,sz000830,s_sh000001,s_sz399001,s_sz399106,s_sz399107,s_sz399108
 // 期货 http://hq.sinajs.cn/rn=1318986550609&amp;list=hf_CL,hf_GC,hf_SI,hf_CAD,hf_ZSD,hf_S,hf_C,hf_W
@@ -85,12 +84,15 @@ function GetSinaQuotes($strSinaSymbols)
 {
 	$strFileName = DebugGetPathName('debugsina.txt');
 	$iCount = count(explode(SINA_QUOTES_SEPARATOR, $strSinaSymbols));
-	if (DebugIsAdmin() && $iCount > 1)	DebugVal('total prefetch - '.$strSinaSymbols, $iCount);
+	if (DebugIsAdmin() && $iCount > 1)
+	{
+//		DebugVal('total prefetch - '.$strSinaSymbols, $iCount);
+	}
 	else
 	{
 		if (StockNeedFile($strFileName) == false)
 		{	// pause 1 minute after curl error response
-			DebugString('Ignored: '.$strSinaSymbols, true);
+//			DebugString('Ignored: '.$strSinaSymbols, true);
 			return false;
 		}
 	}
@@ -239,9 +241,12 @@ function _getAllSymbolArray($strSymbol)
     }
 	else if ($sym->IsSymbolA())
     {
-    	$ab_sql = new AbPairSql();
-    	if ($strSymbolB = $ab_sql->GetPairSymbol($strSymbol))		$ar[] = $strSymbolB;
-    	else if ($strSymbolA = $ab_sql->GetSymbol($strSymbol))	$ar[] = $strSymbolA;
+        if ($strSymbolB = SqlGetAbPair($strSymbol))		$ar[] = $strSymbolB;
+        else if ($strSymbolA = SqlGetBaPair($strSymbol))
+        {
+        	$ar[] = $strSymbolA;
+        	$strSymbol = $strSymbolA;
+        }
     		
         if ($strSymbolH = SqlGetAhPair($strSymbol))	
         {
@@ -251,7 +256,11 @@ function _getAllSymbolArray($strSymbol)
     }
     else if ($sym->IsSymbolH())
     {
-        if ($strSymbolA = SqlGetHaPair($strSymbol))				$ar[] = $strSymbolA;
+        if ($strSymbolA = SqlGetHaPair($strSymbol))
+        {
+        	$ar[] = $strSymbolA;
+        	if ($strSymbolB = SqlGetAbPair($strSymbolA))		$ar[] = $strSymbolB;
+        }
         if ($strSymbolAdr = SqlGetHadrPair($strSymbol))		$ar[] = $strSymbolAdr;
     }
     else
@@ -259,12 +268,17 @@ function _getAllSymbolArray($strSymbol)
     	if ($strSymbolH = SqlGetAdrhPair($strSymbol))
         {
            	$ar[] = $strSymbolH;
-            if ($strSymbolA = SqlGetHaPair($strSymbolH))		$ar[] = $strSymbolA;
+            if ($strSymbolA = SqlGetHaPair($strSymbolH))
+            {
+            	$ar[] = $strSymbolA;
+            	if ($strSymbolB = SqlGetAbPair($strSymbolA))		$ar[] = $strSymbolB;
+            }
         }
         
        	$ar = array_merge($ar, SqlGetHoldingsSymbolArray($strSymbol));
        	if ($strPairSymbol = SqlGetFundPair($strSymbol))			   	$ar[] = $strPairSymbol;
     }
+//    DebugPrint($ar, '_getAllSymbolArray', true);
     return $ar;
 }
 
@@ -279,7 +293,7 @@ function StockPrefetchArrayExtendedData($ar)
    		else								$arAll[] = $strSymbol;	// new stock symbol	
     }
     StockPrefetchArrayData($arAll);
-//    DebugPrint($arAll, 'StockPrefetchArrayExtendedData');
+//    DebugPrint($arAll, 'StockPrefetchArrayExtendedData', true);
 }
 
 function StockPrefetchExtendedData()
