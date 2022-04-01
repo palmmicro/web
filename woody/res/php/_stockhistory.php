@@ -10,7 +10,7 @@ function _getStockHistoryLinks($ref, $bAdmin)
 	$str = $ref->IsFund() ? GetFundLinks($strSymbol) : '';
     $str .= ' '.GetExternalStockHistoryLink($ref);
     if ($ref->IsTradable())	$str .= ' '.GetStockDividendLink($ref);
-    if ($bAdmin)	$str .= '<br />'.StockGetAllLink($strSymbol).' '.GetUpdateStockHistoryLink($strSymbol, '更新历史记录').' '.GetHistoryCsvLink($strSymbol);
+    if ($bAdmin)	$str .= '<br />'.StockGetAllLink($strSymbol).' '.GetUpdateStockHistoryLink($ref, '更新历史记录').' '.GetHistoryCsvLink($strSymbol);
     return $str;
 }
 

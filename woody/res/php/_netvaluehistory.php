@@ -113,7 +113,7 @@ function _echoNetValueHistory($ref, $iStart, $iNum, $bAdmin)
 	$ar = array(new TableColumnDate(), new TableColumnNav(), $change_col);
 	if ($est_ref)
 	{
-		$ar[] = new TableColumnStock($cny_ref->GetSymbol());
+		$ar[] = new TableColumnStock($cny_ref);
 		$ar[] = $change_col;
 		$ar[] = RefGetTableColumnNav($est_ref);
 		$ar[] = $change_col;

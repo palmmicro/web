@@ -132,32 +132,8 @@ function EchoFundTradingParagraph($fund, $callback = false)
     _echoTradingParagraph($str, $arColumn, $ref, $strOfficial, $strFair, $strRealtime, $callback); 
 }
 
-function EchoAhTradingParagraph($hshare_ref)
-{
-	$ref = $hshare_ref->a_ref;
-    $strSymbolH = RefGetMyStockLink($hshare_ref);
-    $strPriceH = $hshare_ref->GetPriceDisplay();
-   
-	$strPremium = GetTableColumnPremium();
-	
-    $arColumn = _getTradingTableColumn();
-	$arColumn[] = new TableColumnPremium(GetTableColumnStock($hshare_ref));
-    if ($hshare_ref->adr_ref)
-    {
-		$arColumn[] = new TableColumnPremium(GetTableColumnStock($hshare_ref->adr_ref));
-    	$strVal = $hshare_ref->FromUsdToCny($hshare_ref->adr_ref->GetPrice());
-    }
-    else	$strVal = false;
-    $strPrice = _getTradingParagraphStr($ref, $arColumn);
-    $str = "{$strPrice}相对于{$strSymbolH}交易价格{$strPriceH}港币的{$strPremium}";
-        
-    _echoTradingParagraph($str, $arColumn, $ref, $hshare_ref->GetCnyPrice(), $strVal); 
-}
-
 function EchoFundPairTradingParagraph($ref)
 {
-	if ($ref->IsSymbolA() == false)		return;
-	
     $strPairSymbol = RefGetMyStockLink($ref->GetPairNavRef());
 
     $arColumn = _getTradingTableColumn();
@@ -171,11 +147,27 @@ function EchoFundPairTradingParagraph($ref)
     _echoTradingParagraph($str, $arColumn, $ref, $ref->GetOfficialNav()); 
 }
 
-function EchoTradingParagraph($ref)
+function EchoTradingParagraph($ref, $ah_ref = false, $adr_ref = false)
 {
     $arColumn = _getTradingTableColumn();
     $str = _getTradingParagraphStr($ref, $arColumn);
-    _echoTradingParagraph($str, $arColumn, $ref); 
+    $strValH = false;
+    $strValAdr = false;
+    if ($ah_ref)
+    {
+    	$h_ref = $ah_ref->GetPairRef();
+    	$str .= '相对于'.GetTableColumnStock($h_ref).'港币'.$h_ref->GetPriceDisplay();
+    	$arColumn[] = new TableColumnStock($h_ref);
+    	$strValH = strval($ah_ref->EstFromPair());
+    	if ($adr_ref)
+    	{
+    		$str .= '和'.GetTableColumnStock($adr_ref).'美元'.$adr_ref->GetPriceDisplay();
+    		$arColumn[] = new TableColumnStock($adr_ref);
+    		$strValAdr = strval($ah_ref->EstFromPair($adr_ref->EstToPair()));
+    	}
+    	$str .= '的'.GetTableColumnPremium();
+    }
+    _echoTradingParagraph($str, $arColumn, $ref, $strValH, $strValAdr); 
 }
 
 ?>

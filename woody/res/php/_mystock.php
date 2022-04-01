@@ -173,14 +173,10 @@ function _echoMyStockData($ref, $bAdmin)
     	$hshare_ref = false;
     	if ($ref_ar = StockGetHShareReference($ref))							list($ref, $hshare_ref) = $ref_ar;
     	list($ab_ref, $ah_ref, $adr_ref) = StockGetPairReferences($strSymbol);
-		if ($ab_ref)		EchoAbParagraph(array($ab_ref));
-		if ($ah_ref)		EchoAhParagraph(array($ah_ref));
-		if ($adr_ref)		EchoAdrhParagraph(array($adr_ref));
-   		if ($ref->IsSymbolA())
-   		{
-   			if ($hshare_ref)	EchoAhTradingParagraph($hshare_ref);
-   			else 				EchoTradingParagraph($ref);
-   		}
+		if ($ab_ref)				EchoAbParagraph(array($ab_ref));
+		if ($ah_ref)				EchoAhParagraph(array($ah_ref));
+		if ($adr_ref)				EchoAdrhParagraph(array($adr_ref));
+   		if ($ref->IsSymbolA())	EchoTradingParagraph($ref, $ah_ref, $adr_ref);
    		if ($hshare_ref)		EchoHShareSmaParagraph($ref, $hshare_ref);
    		else	        		EchoSmaParagraph($ref);
    	}

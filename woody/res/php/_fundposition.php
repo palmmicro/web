@@ -134,7 +134,7 @@ function _echoFundPositionParagraph($ref, $cny_ref, $est_ref, $strSymbol, $strIn
 	EchoTableParagraphBegin(array(new TableColumnDate(),
 								   new TableColumnNav(),
 								   $change_col,
-								   new TableColumnStock($cny_ref->GetSymbol()),
+								   new TableColumnStock($cny_ref),
 								   $change_col,
 								   RefGetTableColumnNav($est_ref),
 								   $change_col,

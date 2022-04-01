@@ -83,14 +83,25 @@ class MyPairReference extends MyStockReference
     	return $this->cny_ref;
     }
     
-    function EstFromPair($fPairVal, $fCny)
+    function _getDefaultCny($strDate = false)
     {
+		return $this->cny_ref ? $this->cny_ref->GetVal($strDate) : 1.0;
+    }
+    
+    function EstFromPair($fPairVal = false, $fCny = false)
+    {
+    	if ($fPairVal == false)	$fPairVal = floatval($this->pair_ref->GetPrice());
+    	if ($fCny == false)		$fCny = $this->_getDefaultCny();
+    	
 		$fVal = QdiiGetVal($fPairVal, $fCny, $this->fFactor);
 		return FundAdjustPosition($this->fRatio, $fVal, ($this->fCalibrationVal ? $this->fCalibrationVal : $fVal));
     }
     
-    function EstToPair($fMyVal, $fCny)
+    function EstToPair($fMyVal = false, $fCny = false)
     {
+    	if ($fMyVal == false)	$fMyVal = floatval($this->GetPrice());
+    	if ($fCny == false)		$fCny = $this->_getDefaultCny();
+    	
 		$fVal = FundReverseAdjustPosition($this->fRatio, $fMyVal, ($this->fCalibrationVal ? $this->fCalibrationVal : $fMyVal));
 		return QdiiGetPeerVal($fVal, $fCny, $this->fFactor);
     }
@@ -109,7 +120,7 @@ class MyPairReference extends MyStockReference
     			$strPrice = $this->GetPrice();
     			$strPair = $this->pair_ref->GetPrice();
     		}
-    		if ((empty($strPrice) == false) && (empty($strPair) == false))		return floatval($strPrice) / $this->EstFromPair(floatval($strPair), ($this->cny_ref ? $this->cny_ref->GetVal($strDate) : 1.0));
+    		if ((empty($strPrice) == false) && (empty($strPair) == false))		return floatval($strPrice) / $this->EstFromPair(floatval($strPair), $this->_getDefaultCny($strDate));
     	}
     	return 1.0;
     }
@@ -332,14 +343,14 @@ class FundPairReference extends MyPairReference
     // (fEst - fPairNetValue)/(x - fNetValue) = fFactor / fRatio;
     // fRatio * (cny_now * fEst - cny * fPairNetValue)/(x - fNetValue) = cny * fPairNetValue / fNetValue 
     // x = (fRatio * (cny_now * fEst - cny * fPairNetValue) / (cny * fPairNetValue) + 1) * fNetValue;
-    function EstFromPair($strEst, $strCny = false)
+    function EstFromPair($strEst = false, $strCny = false)
     {
     	$fVal = (floatval($strEst) - floatval($this->strPairNav)) * $this->fRatio / $this->fFactor + floatval($this->strNav);
     	return $this->_adjustByCny($fVal, $strCny, ($this->IsSymbolA() ? false : true));
     }
 
     // (x - fPairNetValue)/(fEsts - fNetValue) = fFactor / fRatio;
-    function EstToPair($fEst, $strCny = false)
+    function EstToPair($fEst = false, $strCny = false)
     {
     	$fVal = ($fEst - floatval($this->strNav)) * $this->fFactor / $this->fRatio + floatval($this->strPairNav);
     	return $this->_adjustByCny($fVal, $strCny, $this->IsSymbolA());

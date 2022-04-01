@@ -12,6 +12,9 @@ class _AdrAccount extends GroupAccount
     var $us_ref;
     var $hk_ref;
     
+    var $ah_ref;
+    var $adr_ref;
+    
     var $fRatioAdrH;
 
     var $cn_convert;
@@ -22,6 +25,11 @@ class _AdrAccount extends GroupAccount
     {
         $strSymbolAdr = $this->GetName();
         StockPrefetchExtendedData($strSymbolAdr);
+        
+        $strSymbolH = SqlGetAdrhPair($strSymbolAdr);
+        $strSymbolA = SqlGetHaPair($strSymbolH);
+        $this->ah_ref = new AhPairReference($strSymbolA);
+        $this->adr_ref = new AdrPairReference($strSymbolAdr);
         
         $this->hk_ref = new HShareReference(SqlGetAdrhPair($strSymbolAdr));
         $this->cn_ref = $this->hk_ref->a_ref;
@@ -154,7 +162,7 @@ function EchoAll()
     $arRef = $acct->GetStockRefArray();
     _echoAdrPriceParagraph($arRef);
     EchoReferenceParagraph($arRef, $acct->IsAdmin());
-	EchoAhTradingParagraph($acct->hk_ref);
+	EchoTradingParagraph($acct->ah_ref, $acct->ah_ref, $acct->adr_ref);
     EchoHShareSmaParagraph($acct->cn_ref, $acct->hk_ref);
     EchoHShareSmaParagraph($acct->hk_ref, $acct->hk_ref);
 

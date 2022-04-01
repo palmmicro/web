@@ -28,21 +28,20 @@ function _echoAhHistoryItem($csv, $ref, $h_ref, $cny_ref, $record)
 function _echoAhHistoryParagraph($ref, $h_ref, $iStart, $iNum, $bAdmin)
 {
 	$strSymbol = $ref->GetSymbol();
-    $strSymbolH = $h_ref->GetSymbol();
  	
     $str = GetAhCompareLink();
 	$his_sql = GetStockHistorySql();
     $strStockId = $ref->GetStockId();
     $strMenuLink = StockGetMenuLink($strSymbol, $his_sql->Count($strStockId), $iStart, $iNum);
     $str .= ' '.$strMenuLink; 
-    if ($bAdmin)		$str .= ' '.GetUpdateStockHistoryLink($strSymbol).' '.GetUpdateStockHistoryLink($strSymbolH);
+    if ($bAdmin)		$str .= ' '.GetUpdateStockHistoryLink($ref).' '.GetUpdateStockHistoryLink($h_ref);
 
 	$cny_ref = $ref->GetCnyRef();
 	$ah_col = new TableColumnRatio('A/H');
 	EchoTableParagraphBegin(array(new TableColumnDate(),
-								   new TableColumnStock($cny_ref->GetSymbol()),
-								   new TableColumnStock($strSymbol),
-								   new TableColumnStock($strSymbolH),
+								   new TableColumnStock($cny_ref),
+								   new TableColumnStock($ref),
+								   new TableColumnStock($h_ref),
 								   $ah_col,
 								   new TableColumnRatio('H/A')
 								   ), $strSymbol.'ahhistory', $str);

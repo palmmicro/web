@@ -183,15 +183,15 @@ class TableColumnShare extends TableColumn
 
 class TableColumnStock extends TableColumn
 {
-	function TableColumnStock($strSymbol, $iWidth = 80)
+	function TableColumnStock($sym, $iWidth = 80)
 	{
-        parent::TableColumn($strSymbol, $iWidth, 'maroon');
+        parent::TableColumn($sym->GetSymbol(), $iWidth, 'maroon');
 	}
 }
 
 function GetTableColumnStock($sym)
 {
-	$col = new TableColumnStock($sym->GetSymbol());
+	$col = new TableColumnStock($sym);
 	return $col->GetDisplay();
 }
 
