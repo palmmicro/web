@@ -374,33 +374,6 @@ function StockGetPairReferences($strSymbol)
     return array($ab_ref, $ah_ref, $adr_ref);
 }
 
-function StockGetHShareReference($sym)
-{
-	$strSymbol = $sym->GetSymbol();
-   	if ($sym->IsSymbolA())
-   	{
-    	if ($strSymbolH = SqlGetAhPair($strSymbol))
-    	{
-        	$hshare_ref = new HShareReference($strSymbolH);
-   			return array($hshare_ref->a_ref, $hshare_ref);
-      	}
-    }
-    else if ($sym->IsSymbolH())
-    {
-       	$hshare_ref = new HShareReference($strSymbol);
-		return array($hshare_ref, $hshare_ref);
-    }
-   	else 	// if ($sym->IsSymbolUS())
-   	{
-    	if ($strSymbolH = SqlGetAdrhPair($strSymbol))
-    	{
-        	$hshare_ref = new HShareReference($strSymbolH);
-   			return array($hshare_ref->adr_ref, $hshare_ref);
-      	}
-    }
-    return false;
-}
-
 function UseSameDayNav($sym)
 {
 	$strSymbol = $sym->GetSymbol();

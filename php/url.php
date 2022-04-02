@@ -116,13 +116,11 @@ function UrlCleanString($str)
 
 // accessToken=eyJhbGciOiJIUzI1NiIsImtpZCI6ImRlZmF1bHQiLCJ0eXAiOiJKV1QifQ.eyJhdWQiOiJhY2Nlc3NfcmVzb3VyY2UiLCJleHAiOjE2NDAyMzcwOTQsImciOiJ3WVJUOGs5NmQzcnhydHd4IiwiaWF0IjoxNjQwMjM2Nzk0LCJ1c2VySWQiOi0xNDYwMzcwMTA2fQ.OcQAZ-1xdFtBu6XOZmh5OwXbHw1jFITdbdw8shqlRIE
 // continueFlag=24dc682e3f5892a79193842f97156bc8
-// from=singlemessage
 // from=groupmessage&isappinstalled=0&scene=1&clicktime=1579733595&enterid=1579733595
 // tdsourcetag=s_pcqq_aiomsg
 // xueqiu_status_id=140805627&xueqiu_status_from_source=sstl&xueqiu_status_source=statusdetail&xueqiu_private_from_source=0105&key_name=0106
-// xueqiu_comment_id=216058070&xueqiu_status_id=204652274&key_name=011701
+// xueqiu_comment_id=226049545&xueqiu_status_id=210729879&comment_from=comment_detail_page&key_name=011701
 // entryScene=zhida_05_001&jump_from=1_13_18_00
-// jump_from=1_05_37_01
 // fbclid=IwAR0fSj2-McWUF2fs80iiuVaKisnq9fbiicNmxZFJ8Z4BeD6EOQHc6EQGjwk
 function UrlGetQueryString()
 { 
@@ -134,6 +132,7 @@ function UrlGetQueryString()
 		{
 			if ((strpos($strQuery, 'accessToken=') === false) 
 				&& (strpos($strQuery, 'clicktime=') === false)
+				&& (strpos($strQuery, 'comment_from=') === false)
 				&& (strpos($strQuery, 'continueFlag=') === false)
 				&& (strpos($strQuery, 'enterid=') === false)
 				&& (strpos($strQuery, 'entryScene=') === false)

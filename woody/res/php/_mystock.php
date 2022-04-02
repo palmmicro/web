@@ -10,7 +10,6 @@ require_once('/php/ui/referenceparagraph.php');
 require_once('/php/ui/stockparagraph.php');
 require_once('/php/ui/ahparagraph.php');
 require_once('/php/ui/fundlistparagraph.php');
-require_once('/php/ui/hsharesmaparagraph.php');
 require_once('/php/ui/fundpairsmaparagraph.php');
 require_once('/php/ui/fundestparagraph.php');
 require_once('/php/ui/fundhistoryparagraph.php');
@@ -170,15 +169,14 @@ function _echoMyStockData($ref, $bAdmin)
    	}
     else
     {
-    	$hshare_ref = false;
-    	if ($ref_ar = StockGetHShareReference($ref))							list($ref, $hshare_ref) = $ref_ar;
     	list($ab_ref, $ah_ref, $adr_ref) = StockGetPairReferences($strSymbol);
 		if ($ab_ref)				EchoAbParagraph(array($ab_ref));
 		if ($ah_ref)				EchoAhParagraph(array($ah_ref));
 		if ($adr_ref)				EchoAdrhParagraph(array($adr_ref));
    		if ($ref->IsSymbolA())	EchoTradingParagraph($ref, $ah_ref, $adr_ref);
-   		if ($hshare_ref)		EchoHShareSmaParagraph($ref, $hshare_ref);
-   		else	        		EchoSmaParagraph($ref);
+		if ($ah_ref)				EchoAhPairSmaParagraph($ah_ref, $adr_ref);
+		else if ($adr_ref)		EchoFundPairSmaParagraph($adr_ref);
+		else						EchoSmaParagraph($ref);
    	}
    	
 	EchoNvCloseHistoryParagraph($ref);

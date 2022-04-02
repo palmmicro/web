@@ -3,7 +3,7 @@ require_once('_stock.php');
 require_once('_stockgroup.php');
 require_once('/php/ui/arbitrageparagraph.php');
 require_once('/php/ui/referenceparagraph.php');
-require_once('/php/ui/hsharesmaparagraph.php');
+require_once('/php/ui/fundpairsmaparagraph.php');
 require_once('/php/ui/tradingparagraph.php');
 
 class _AdrAccount extends GroupAccount 
@@ -163,8 +163,7 @@ function EchoAll()
     _echoAdrPriceParagraph($arRef);
     EchoReferenceParagraph($arRef, $acct->IsAdmin());
 	EchoTradingParagraph($acct->ah_ref, $acct->ah_ref, $acct->adr_ref);
-    EchoHShareSmaParagraph($acct->cn_ref, $acct->hk_ref);
-    EchoHShareSmaParagraph($acct->hk_ref, $acct->hk_ref);
+	EchoAhPairSmaParagraph($acct->ah_ref, $acct->adr_ref);
 
     if ($group = $acct->EchoTransaction()) 
     {
