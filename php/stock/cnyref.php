@@ -39,6 +39,16 @@ class HkdUsdReference
    		$this->uscny_ref = new CnyReference('USCNY');
    		$this->hkcny_ref = new CnyReference('HKCNY');
     }
+    
+    function GetUsRef()
+    {
+    	return $this->uscny_ref;
+    }
+
+    function GetHkRef()
+    {
+    	return $this->hkcny_ref;
+    }
 
 	function GetVal($strDate = false)
 	{

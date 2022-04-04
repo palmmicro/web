@@ -73,6 +73,11 @@ class MyPairReference extends MyStockReference
 		else	$this->fFactor = 1.0 / $this->fRatio; 
     }
     
+    function GetRatio()
+    {
+    	return $this->fRatio;
+    }
+    
     function GetPairRef()
     {
     	return $this->pair_ref;
@@ -83,7 +88,7 @@ class MyPairReference extends MyStockReference
     	return $this->cny_ref;
     }
     
-    function _getDefaultCny($strDate = false)
+    function GetDefaultCny($strDate = false)
     {
 		return $this->cny_ref ? $this->cny_ref->GetVal($strDate) : 1.0;
     }
@@ -91,7 +96,7 @@ class MyPairReference extends MyStockReference
     function EstFromPair($fPairVal = false, $fCny = false)
     {
     	if ($fPairVal == false)	$fPairVal = floatval($this->pair_ref->GetPrice());
-    	if ($fCny == false)		$fCny = $this->_getDefaultCny();
+    	if ($fCny == false)		$fCny = $this->GetDefaultCny();
     	
 		$fVal = QdiiGetVal($fPairVal, $fCny, $this->fFactor);
 		return FundAdjustPosition($this->fRatio, $fVal, ($this->fCalibrationVal ? $this->fCalibrationVal : $fVal));
@@ -100,7 +105,7 @@ class MyPairReference extends MyStockReference
     function EstToPair($fMyVal = false, $fCny = false)
     {
     	if ($fMyVal == false)	$fMyVal = floatval($this->GetPrice());
-    	if ($fCny == false)		$fCny = $this->_getDefaultCny();
+    	if ($fCny == false)		$fCny = $this->GetDefaultCny();
     	
 		$fVal = FundReverseAdjustPosition($this->fRatio, $fMyVal, ($this->fCalibrationVal ? $this->fCalibrationVal : $fMyVal));
 		return QdiiGetPeerVal($fVal, $fCny, $this->fFactor);
@@ -120,7 +125,7 @@ class MyPairReference extends MyStockReference
     			$strPrice = $this->GetPrice();
     			$strPair = $this->pair_ref->GetPrice();
     		}
-    		if ((empty($strPrice) == false) && (empty($strPair) == false))		return floatval($strPrice) / $this->EstFromPair(floatval($strPair), $this->_getDefaultCny($strDate));
+    		if ((empty($strPrice) == false) && (empty($strPair) == false))		return floatval($strPrice) / $this->EstFromPair(floatval($strPair), $this->GetDefaultCny($strDate));
     	}
     	return 1.0;
     }
@@ -337,7 +342,7 @@ class FundPairReference extends MyPairReference
     			$fVal *= $fCny;
     		}
     	}
-    	return strval($fVal);
+    	return $fVal;
     }
     
     // (fEst - fPairNetValue)/(x - fNetValue) = fFactor / fRatio;
@@ -368,7 +373,7 @@ class FundPairReference extends MyPairReference
 			$strEst = $this->pair_ref->GetPrice();
 		}
 		
-   		$strVal = $this->EstFromPair($strEst, $strCny);
+   		$strVal = strval($this->EstFromPair($strEst, $strCny));
    		StockUpdateEstResult($this->GetFundEstSql(), $this->GetStockId(), $strVal, $this->strOfficialDate);
         return $strVal;
     }

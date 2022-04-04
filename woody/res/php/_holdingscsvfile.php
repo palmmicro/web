@@ -81,7 +81,7 @@ class _HoldingsCsvFile extends DebugCsvFile
        	$this->fUSDHKD = $this->fUSDCNY / $this->fHKDCNY;
 		DebugString($strDebug);
     }
-    
+/*    
     function GetUSDCNY()
     {
     	return $this->fUSDCNY;
@@ -96,7 +96,7 @@ class _HoldingsCsvFile extends DebugCsvFile
     {
     	return $this->fUSDHKD;
     }
-    
+*/    
     function AddSum($fVal)
     {
     	$this->fSum += $fVal;

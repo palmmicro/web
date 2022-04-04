@@ -7,16 +7,16 @@ require_once('/php/stockhis.php');
 require_once('/php/benfordimagefile.php');
 require_once('/php/sql/sqldailystring.php');
 require_once('/php/ui/referenceparagraph.php');
+require_once('/php/ui/tradingparagraph.php');
+require_once('/php/ui/smaparagraph.php');
 require_once('/php/ui/stockparagraph.php');
 require_once('/php/ui/ahparagraph.php');
 require_once('/php/ui/fundlistparagraph.php');
-require_once('/php/ui/fundpairsmaparagraph.php');
 require_once('/php/ui/fundestparagraph.php');
 require_once('/php/ui/fundhistoryparagraph.php');
 require_once('/php/ui/fundshareparagraph.php');
 require_once('/php/ui/stockhistoryparagraph.php');
 require_once('/php/ui/nvclosehistoryparagraph.php');
-require_once('/php/ui/tradingparagraph.php');
 
 function _echoBenfordParagraph($ref)
 {
@@ -174,7 +174,13 @@ function _echoMyStockData($ref, $bAdmin)
 		if ($ah_ref)				EchoAhParagraph(array($ah_ref));
 		if ($adr_ref)				EchoAdrhParagraph(array($adr_ref));
    		if ($ref->IsSymbolA())	EchoTradingParagraph($ref, $ah_ref, $adr_ref);
-		if ($ah_ref)				EchoAhPairSmaParagraph($ah_ref, $adr_ref);
+   		
+		if ($ah_ref)
+		{
+			EchoAhPairSmaParagraph($ah_ref);
+			EchoFundPairSmaParagraph($ah_ref);
+			if ($adr_ref)		EchoFundPairSmaParagraph($adr_ref, '');
+		}
 		else if ($adr_ref)		EchoFundPairSmaParagraph($adr_ref);
 		else						EchoSmaParagraph($ref);
    	}

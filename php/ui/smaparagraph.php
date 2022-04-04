@@ -20,7 +20,7 @@ function _getSmaCallbackPriceDisplay($callback, $ref, $strVal)
 	if ($strVal)
 	{
 		$display_ref = call_user_func($callback, $ref);
-		return $display_ref->GetPriceDisplay(call_user_func($callback, $ref, $strVal));
+		return $display_ref->GetPriceDisplay(strval(call_user_func($callback, $ref, $strVal)));
 	}
 	return '';
 }
@@ -180,5 +180,44 @@ function EchoSmaParagraph($ref, $str = false, $cb_ref = false, $callback = false
     _echoSmaTableData($his, $cb_ref, $callback, $callback2);
     EchoTableParagraphEnd();
 }
+
+function _callbackQdiiSma($qdii_ref, $strEst = false)
+{
+	return $strEst ? $qdii_ref->GetQdiiValue($strEst) : $qdii_ref->GetStockRef();
+}
+
+function EchoQdiiSmaParagraph($qdii_ref, $callback2 = false)
+{
+    EchoSmaParagraph($qdii_ref->GetEstRef(), false, $qdii_ref, '_callbackQdiiSma', $callback2);
+}
+
+function _callbackFundPairSma($ref, $strEst = false)
+{
+	return $strEst ? $ref->EstFromPair($strEst) : $ref;
+}
+
+function EchoFundPairSmaParagraphs($ref, $arFundPairRef, $callback2 = false)
+{
+	foreach ($arFundPairRef as $fund_pair_ref)
+	{
+		EchoSmaParagraph($ref, '', $fund_pair_ref, '_callbackFundPairSma', $callback2);
+	}
+}
+
+function EchoFundPairSmaParagraph($ref, $str = false, $callback2 = false)
+{
+	EchoSmaParagraph($ref->GetPairRef(), $str, $ref, '_callbackFundPairSma', $callback2);
+}
+
+function _callbackAhPairSma($ref, $strEst = false)
+{
+	return $strEst ? $ref->EstToPair($strEst) : $ref->GetPairRef();
+}
+
+function EchoAhPairSmaParagraph($ref, $str = false, $callback2 = false)
+{
+	EchoSmaParagraph($ref, $str, $ref, '_callbackAhPairSma', $callback2);
+}
+
 
 ?>

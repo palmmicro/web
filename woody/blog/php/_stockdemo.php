@@ -6,7 +6,7 @@ require_once('/php/ui/ahparagraph.php');
 require_once('/php/ui/fundestparagraph.php');
 require_once('/php/ui/fundhistoryparagraph.php');
 require_once('/php/ui/fundshareparagraph.php');
-require_once('/php/ui/qdiismaparagraph.php');
+require_once('/php/ui/smaparagraph.php');
 require_once('/php/ui/nvclosehistoryparagraph.php');
 require_once('/php/ui/stockhistoryparagraph.php');
 

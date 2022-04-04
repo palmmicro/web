@@ -3,11 +3,11 @@ require_once('_stock.php');
 require_once('_stockgroup.php');
 require_once('/php/ui/referenceparagraph.php');
 require_once('/php/ui/tradingparagraph.php');
+require_once('/php/ui/smaparagraph.php');
+require_once('/php/ui/fundestparagraph.php');
+require_once('/php/ui/fundlistparagraph.php');
 require_once('/php/ui/fundhistoryparagraph.php');
 require_once('/php/ui/fundshareparagraph.php');
-require_once('/php/ui/fundpairsmaparagraph.php');
-require_once('/php/ui/fundlistparagraph.php');
-require_once('/php/ui/fundestparagraph.php');
 
 class _ChinaIndexAccount extends GroupAccount
 {

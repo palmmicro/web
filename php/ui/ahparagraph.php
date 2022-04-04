@@ -16,7 +16,7 @@ function _echoPairItem($ref)
 		$ar[] = $ref->GetPriceDisplay();
 		
 		$cny_ref = $ref->GetCnyRef();
-		$ar[] = $ref->GetPriceDisplay($ref->EstFromPair(floatval($pair_ref->GetPrice()), $cny_ref->GetVal()));
+		$ar[] = $ref->GetPriceDisplay(strval($ref->EstFromPair(floatval($pair_ref->GetPrice()), $cny_ref->GetVal())));
     
 		if ($fRatio = $ref->GetPriceRatio())
 		{
