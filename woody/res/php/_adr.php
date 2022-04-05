@@ -27,7 +27,7 @@ class _AdrAccount extends GroupAccount
         $strSymbolA = SqlGetHaPair($strSymbolH);
         $this->ah_ref = new AhPairReference($strSymbolA);
         $this->adr_ref = new AdrPairReference($strSymbolAdr);
-        $this->hk_ref = new HShareReference(SqlGetAdrhPair($strSymbolAdr));
+        $this->hk_ref = $this->ah_ref->GetPairRef();
 
         $this->fRatioAdrH = $this->adr_ref->GetRatio();
 
@@ -45,6 +45,21 @@ class _AdrAccount extends GroupAccount
     	return $this->ah_ref;
     }
     
+    function GetHkRef()
+    {
+    	return $this->hk_ref;
+    }
+
+    function FromCnyToUsd($fCny = false)
+    {
+    	return $this->adr_ref->EstFromPair($this->ah_ref->EstToPair($fCny));
+    }
+
+    function FromUsdToCny($fUsd = false)
+    {
+		return $this->ah_ref->EstFromPair($this->adr_ref->EstToPair($fUsd));
+	}
+    
     function OnConvert($cn_trans, $hk_trans, $us_trans)
     {
         $strGroupId = $this->GetGroupId();
@@ -54,8 +69,6 @@ class _AdrAccount extends GroupAccount
     	$fUSDCNY = floatval($uscny_ref->GetPrice());
     	$fHKDCNY = $this->ah_ref->GetDefaultCny();
     	$fUSDHKD = $fUSDCNY / $fHKDCNY; 
-//    	$fUSDHKD = 1.0 / $this->adr_ref->GetDefaultCny();
-//    	$fUSDCNY = $fUSDHKD * $fHKDCNY;  
 
         $this->cn_convert = new MyStockTransaction($this->ah_ref, $strGroupId);
         $this->cn_convert->Add($cn_trans);
@@ -83,8 +96,8 @@ function _echoArbitrageParagraph($acct, $group)
     $us_trans = $group->GetStockTransactionUS();
     $acct->OnConvert($cn_trans, $hk_trans, $us_trans);
     
-    $cn_ref = $acct->ah_ref;
-    $hk_ref = $acct->hk_ref;
+    $cn_ref = $acct->GetAhRef();
+    $hk_ref = $acct->GetHkRef();
     $us_ref = $acct->GetAdrRef();
     if ($group->arbi_trans == false)		return;
     
@@ -94,21 +107,21 @@ function _echoArbitrageParagraph($acct, $group)
     {
         $cn_arbi = $group->arbi_trans;
         EchoArbitrageTableItem2($cn_arbi, $acct->cn_convert); 
-        EchoArbitrageTableItem(-1 * $cn_arbi->iTotalShares, $hk_ref->GetPriceDisplay($hk_ref->EstFromCny($cn_arbi->GetAvgCost())), $acct->hk_convert); 
-        EchoArbitrageTableItem(intval(-1.0 * $cn_arbi->iTotalShares / $acct->fRatioAdrH), $us_ref->GetPriceDisplay($hk_ref->FromCnyToUsd($cn_arbi->GetAvgCost())), $acct->us_convert); 
+        EchoArbitrageTableItem(-1 * $cn_arbi->iTotalShares, $hk_ref->GetPriceDisplay(strval($cn_ref->EstToPair($cn_arbi->GetAvgCost()))), $acct->hk_convert); 
+        EchoArbitrageTableItem(intval(-1.0 * $cn_arbi->iTotalShares / $acct->fRatioAdrH), $us_ref->GetPriceDisplay(strval($acct->FromCnyToUsd($cn_arbi->GetAvgCost()))), $acct->us_convert); 
     }
     else if ($sym->IsSymbolH())
     {
         $hk_arbi = $group->arbi_trans;
-        EchoArbitrageTableItem(-1 * $hk_arbi->iTotalShares, $cn_ref->GetPriceDisplay($hk_ref->EstToCny($hk_arbi->GetAvgCost())), $acct->cn_convert); 
+        EchoArbitrageTableItem(-1 * $hk_arbi->iTotalShares, $cn_ref->GetPriceDisplay(strval($cn_ref->EstFromPair($hk_arbi->GetAvgCost()))), $acct->cn_convert); 
         EchoArbitrageTableItem2($hk_arbi, $acct->hk_convert); 
-        EchoArbitrageTableItem(intval(-1.0 * $hk_arbi->iTotalShares / $acct->fRatioAdrH), $us_ref->GetPriceDisplay($hk_ref->EstToUsd($hk_arbi->GetAvgCost())), $acct->us_convert); 
+        EchoArbitrageTableItem(intval(-1.0 * $hk_arbi->iTotalShares / $acct->fRatioAdrH), $us_ref->GetPriceDisplay(strval($us_ref->EstFromPair($hk_arbi->GetAvgCost()))), $acct->us_convert); 
     }
     else
     {
         $us_arbi = $group->arbi_trans;
-        EchoArbitrageTableItem(intval(-1.0 * $us_arbi->iTotalShares * $acct->fRatioAdrH), $cn_ref->GetPriceDisplay($hk_ref->FromUsdToCny($us_arbi->GetAvgCost())), $acct->cn_convert); 
-        EchoArbitrageTableItem(intval(-1.0 * $us_arbi->iTotalShares * $acct->fRatioAdrH), $hk_ref->GetPriceDisplay($hk_ref->EstFromUsd($us_arbi->GetAvgCost())), $acct->hk_convert); 
+        EchoArbitrageTableItem(intval(-1.0 * $us_arbi->iTotalShares * $acct->fRatioAdrH), $cn_ref->GetPriceDisplay(strval($acct->FromUsdToCny($us_arbi->GetAvgCost()))), $acct->cn_convert); 
+        EchoArbitrageTableItem(intval(-1.0 * $us_arbi->iTotalShares * $acct->fRatioAdrH), $hk_ref->GetPriceDisplay(strval($us_ref->EstToPair($us_arbi->GetAvgCost()))), $acct->hk_convert); 
         EchoArbitrageTableItem2($us_arbi, $acct->us_convert); 
     }
     
@@ -118,31 +131,31 @@ function _echoArbitrageParagraph($acct, $group)
 function _echoAdrPriceItem($ref)
 {
     global $acct;
-    $cn_ref = $acct->ah_ref;
-    $hk_ref = $acct->hk_ref;
+    $cn_ref = $acct->GetAhRef();
+    $hk_ref = $acct->GetHkRef();
     $us_ref = $acct->GetAdrRef();
     
 	$ar = array();
 	$ar[] = RefGetMyStockLink($ref);
 	
     $strPriceDisplay = $ref->GetPriceDisplay();
-    $strPrice = $ref->GetPrice();
+    $fPrice = floatval($ref->GetPrice());
     if ($ref->IsSymbolA())
     {
         $ar[] = $strPriceDisplay;
-        $ar[] = $hk_ref->GetPriceDisplay($hk_ref->EstFromCny($strPrice), $hk_ref->GetPrevPrice());
-        $ar[] = $us_ref->GetPriceDisplay($hk_ref->FromCnyToUsd($strPrice), $us_ref->GetPrevPrice());
+        $ar[] = $hk_ref->GetPriceDisplay(strval($cn_ref->EstToPair($fPrice)), $hk_ref->GetPrevPrice());
+        $ar[] = $us_ref->GetPriceDisplay(strval($acct->FromCnyToUsd($fPrice)), $us_ref->GetPrevPrice());
     }
     else if ($ref->IsSymbolH())
     {
-        $ar[] = $cn_ref->GetPriceDisplay($hk_ref->EstToCny($strPrice), $cn_ref->GetPrevPrice());
+        $ar[] = $cn_ref->GetPriceDisplay(strval($cn_ref->EstFromPair($fPrice)), $cn_ref->GetPrevPrice());
         $ar[] = $strPriceDisplay;
-        $ar[] = $us_ref->GetPriceDisplay($hk_ref->EstToUsd($strPrice), $us_ref->GetPrevPrice());
+        $ar[] = $us_ref->GetPriceDisplay(strval($us_ref->EstFromPair($fPrice)), $us_ref->GetPrevPrice());
     }
     else
     {
-        $ar[] = $cn_ref->GetPriceDisplay($hk_ref->FromUsdToCny($strPrice), $cn_ref->GetPrevPrice());
-        $ar[] = $hk_ref->GetPriceDisplay($hk_ref->EstFromUsd($strPrice), $hk_ref->GetPrevPrice());
+        $ar[] = $cn_ref->GetPriceDisplay(strval($acct->FromUsdToCny($fPrice)), $cn_ref->GetPrevPrice());
+        $ar[] = $hk_ref->GetPriceDisplay(strval($us_ref->EstToPair($fPrice)), $hk_ref->GetPrevPrice());
         $ar[] = $strPriceDisplay;
     }
     
@@ -156,18 +169,13 @@ function _echoAdrPriceParagraph($arRef)
 								   new TableColumnHKD(),
 								   new TableColumnUSD()
 								   ), 'adrprice');
-	
-	foreach ($arRef as $ref)
-	{
-		_echoAdrPriceItem($ref);
-	}
+	foreach ($arRef as $ref)		_echoAdrPriceItem($ref);
     EchoTableParagraphEnd();
 }
 
 function _callbackAdrSma($acct, $strEst = false)
 {
-	$adr_ref = $acct->GetAdrRef();
-	return $strEst ? $adr_ref->EstFromPair($acct->ah_ref->EstToPair($strEst)) : $adr_ref;
+	return $strEst ? $acct->FromCnyToUsd(floatval($strEst)) : $acct->GetAdrRef();
 }
 
 function EchoAll()
@@ -176,20 +184,20 @@ function EchoAll()
     
     $arRef = $acct->GetStockRefArray();
 	$adr_ref = $acct->GetAdrRef();
+	$ah_ref = $acct->GetAhRef();
 	
     _echoAdrPriceParagraph($arRef);
     EchoReferenceParagraph($arRef, $acct->IsAdmin());
-	EchoTradingParagraph($acct->ah_ref, $acct->ah_ref, $adr_ref);
-	EchoAhPairSmaParagraph($acct->ah_ref);
-	EchoSmaParagraph($acct->ah_ref, '', $acct, '_callbackAdrSma');
-	EchoFundPairSmaParagraph($acct->ah_ref);
+	EchoTradingParagraph($ah_ref, $ah_ref, $adr_ref);
+	EchoAhPairSmaParagraph($ah_ref);
+	EchoSmaParagraph($ah_ref, '', $acct, '_callbackAdrSma');
+	EchoFundPairSmaParagraph($ah_ref);
 	EchoFundPairSmaParagraph($adr_ref, '');
 
     if ($group = $acct->EchoTransaction()) 
     {
     	$cny_ref = $adr_ref->GetCnyRef();
         $acct->EchoMoneyParagraph($group, $cny_ref->GetUsRef(), $cny_ref->GetHkRef());
-//        $acct->EchoMoneyParagraph($group, $acct->hk_ref->uscny_ref, $acct->hk_ref->hkcny_ref);
         _echoArbitrageParagraph($acct, $group);
 	}
     
@@ -221,10 +229,9 @@ function GetMetaDescription()
    	$cny_ref = $adr_ref->GetCnyRef();
    	
     $strAdr = RefGetStockDisplay($adr_ref);
-    $strA = RefGetStockDisplay($acct->ah_ref);
-    $strH = RefGetStockDisplay($acct->hk_ref);
+    $strA = RefGetStockDisplay($acct->GetAhRef());
+    $strH = RefGetStockDisplay($acct->GetHkRef());
     $str = '根据'.SymGetStockName($cny_ref->GetUsRef()).'和'.SymGetStockName($cny_ref->GetHkRef()).'计算比较美股'.$strAdr.', A股'.$strA.'和港股'.$strH.'价格的网页工具.';
-//    $str = '根据'.SymGetStockName($acct->hk_ref->uscny_ref).'和'.SymGetStockName($acct->hk_ref->hkcny_ref).'计算比较美股'.$strAdr.', A股'.$strA.'和港股'.$strH.'价格的网页工具.';
     return CheckMetaDescription($str);
 }
 

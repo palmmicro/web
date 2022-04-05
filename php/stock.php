@@ -24,7 +24,6 @@ require_once('stock/qdiiref.php');
 require_once('stock/goldfundref.php');
 
 require_once('stock/forexref.php');
-require_once('stock/hshareref.php');
 require_once('stock/fundpairref.php');
 
 // ****************************** Stock symbol functions *******************************************************

@@ -62,7 +62,7 @@ function _echoPortfolioTableItem($trans)
         $ar[] = GetNumberDisplay($trans->GetValue());
         $ar[] = strval($iShares); 
         $ar[] = $trans->GetAvgCostDisplay();
-       	$ar[] = ($trans->GetTotalCost() > 0.0) ? $ref->GetPercentageDisplay($trans->GetAvgCost()) : '';
+       	$ar[] = ($trans->GetTotalCost() > 0.0) ? $ref->GetPercentageDisplay(strval($trans->GetAvgCost())) : '';
         switch ($strSymbol)
         {
 		case 'KWEB':

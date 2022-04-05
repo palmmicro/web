@@ -19,7 +19,7 @@ function _echoCombinedTransactionTableItem($group, $strDate, $strGroupItemId, $c
     if ($trans)
     {
         $strSymbol = $trans->GetSymbol();
-        $strCost = $combined_trans->GetAvgCost();
+        $strCost = strval($combined_trans->GetAvgCost());
         if ($fund && $fund->GetSymbol() == $strSymbol)
         {
             $strConvertedShares = strval($fund->GetEstQuantity($combined_trans->iTotalShares));
