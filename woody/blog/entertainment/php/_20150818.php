@@ -44,6 +44,28 @@ function Echo20160222($strHead)
 END;
 }
 
+function Echo20170128($strHead)
+{
+	$strWeiXin = GetLinkElement('微信公众号', '../palmmicro/20161014cn.php');
+	$str600028 = GetQuoteElement('600028');
+	$str00386 = GetQuoteElement('00386');
+	$strSource = GetExternalLink(GetAastocksUrl('ah'));
+	$strUpdate = DebugIsAdmin() ? GetInternalLink('/php/test/updateah.php', '更新AH股数据') : '';
+	
+	$strHead = GetHeadElement($strHead);
+    echo <<<END
+	$strHead
+<p>2017年1月28日
+<br />为了有效配合今年的打新计划，我打算扩大中国石化外的门票范围。但是同时沿用AH股价格比较的思路，只选取A股价格低于H股的作为门票。
+<br />{$strWeiXin}搞了几个月，使用者寥寥。不过开发微信公众号的过程中有个意外收获，帮助我彻底区分了净值计算和用户显示界面的代码。为了充分利用这个好处，我马上把它也包括在了微信公众号的查询结果中。输入查询{$str600028}或者{$str00386}试试看。
+<br />数据来源：{$strSource}	{$strUpdate}
+<br />同时增加个对比页面：
+END;
+
+   	$ref = new AhPairReference(AH_DEMO_SYMBOL);
+   	EchoAhParagraph(array($ref));
+}
+
 function Echo20191025($strHead)
 {
 	$strFundAccount = GetNameLink('fundaccount', FUND_ACCOUNT_DISPLAY);

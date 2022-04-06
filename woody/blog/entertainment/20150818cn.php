@@ -233,12 +233,9 @@ Wiki的QDII词条下显示了它是Qualified Domestic Institutional Investor的�
 <br />碰到XOP分红除权的日子, 就需要手工校准.
 </p>
 
-<h3><?php EchoNameTag('ahcompare', AH_COMPARE_DISPLAY); ?></h3>
-<p>2017年1月28日
-<br />为了有效配合今年的打新计划, 我打算扩大中国石化外的门票范围, 但是同时沿用AH股价格比较的思路, 只选取A股价格低于H股的作为门票.
-<br />替选股增加个对比页面.
-</p>
-<?php EchoAhDemo(); ?>
+<?php
+	Echo20170128('增加'.GetNameTag('ahcompare', AH_COMPARE_DISPLAY).'页面');
+?>
 
 <h3><a name="bollinger">布林</a>线</h3>
 <p>2017年4月2日

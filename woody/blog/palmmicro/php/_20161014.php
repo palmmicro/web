@@ -35,14 +35,6 @@ function EchoUpdateAdrLink()
 	}
 }
 
-function EchoUpdateAhLink()
-{
-   	if (DebugIsAdmin())
-	{
-		EchoInternalLink('/php/test/updateah.php', '更新AH股数据');
-	}
-}
-
 function EchoUpdateChinaFundLink()
 {
    	if (DebugIsAdmin())

@@ -58,15 +58,6 @@
 <?php EchoUpdateChinaFundLink(); ?>
 </p>
 
-<h3><?php EchoNameTag('ahcompare', AH_COMPARE_DISPLAY); ?></h3>
-<p>2017年1月30日
-<br />微信公众号搞了几个月, 使用者寥寥. 不过开发微信公众号的过程中有个意外收获, 帮助我彻底区分了净值计算和用户显示界面的代码.
-<br />为了充分利用这个好处, 在帮助有效配合今年打新加入<?php EchoNameLink('ahcompare', AH_COMPARE_DISPLAY, '../entertainment/20150818cn.php'); ?>后, 我马上把它也包括在了微信公众号的查询结果中.
-<br />数据来源: <?php EchoExternalLink(GetAastocksUrl('ah')); ?>		<?php EchoUpdateAhLink(); ?>
-<br />输入查<font color=gray>600028</font>或者<font color=gray>00386</font>试试看.
-</p>
-<?php EchoAhDemo(); ?>
-
 <h3><a name="uscny">人民币</a>汇率以及ADR和H股对比</h3>
 <p>2018年4月10日
 <br />沉寂已久的微信公众号在清明假期中突然有人来查了下<font color=gray>人民币汇率</font>, 因为没有任何匹配, 这个查询通知到了我的电子邮件中, 让我感觉一下子打了鸡血, 学习微信小程序开发的劲头一下子足了好多.
