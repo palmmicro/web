@@ -314,16 +314,9 @@ Wiki的QDII词条下显示了它是Qualified Domestic Institutional Investor的�
 </p>
 <?php EchoQdiiSmaDemo(); ?>
 
-<h3><?php EchoNameTag('adrhcompare', ADRH_COMPARE_DISPLAY); ?></h3>
-<p>2018年4月4日
-<br />雪球创始人方三文, 自称<?php EchoXueqieId('1955602780', '不明真相的群众'); ?>, 平时总是苦口婆心的把盈亏同源放在嘴边, 鼓动大家通过雪球资管做资产配置.
-但是他却认为自己对互联网企业有深刻理解, 在推销自己的私募的时候总是鼓吹腾讯和FB, 又把盈亏同源抛在脑后了.
-<br />最近2个月腾讯结束了屡创新高的行情, 开始跟FB一起下跌, 引发了大家抄底雪球方丈的热情.
-不仅港股腾讯00700每天巨量交易, 就连它在美股粉单市场的ADR在雪球上都热闹非凡.
-这吸引了我的注意力, 然后发现除了在<?php EchoNameLink('adr', ADR_DISPLAY); ?>中已经包括的外, 港股还有其它不少股票也有美股市场的ADR, 于是我按照原来<?php EchoNameLink('ahcompare', AH_COMPARE_DISPLAY); ?>的套路增加了个页面蹭一下热度.
-</p>
-<?php EchoAdrhDemo(); ?>
-<p><font color=gray>Life is like a snowball. The important thing is finding wet snow and a really long hill. — Warren Buffett</font></p>
+<?php
+	Echo20180404('增加'.GetNameTag('adrhcompare', ADRH_COMPARE_DISPLAY).'页面');
+?>
 
 <h3><?php EchoNameTag('nvclosehistory', NVCLOSE_HISTORY_DISPLAY); ?></h3>
 <p>2018年5月3日

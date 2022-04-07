@@ -65,12 +65,8 @@
 <br />当然这现在已经难不倒我了, 我可以依旧从数据库中把最近2天的中间价找出来, 拼成跟其他数据类似的格式提供给客户. 按惯例, 又全面整理了几天代码, 直到今天才完工.
 <br />因为微信查找中我没有做中文分词, 因此<font color=gray>人民币汇率</font>这种5个字的长查询其实是很难匹配的. 
 为了保证下次用户能查到, 我还特意手工把数据库中USCNY的说明从<font color=gray>美元人民币中间价</font>改成了<font color=gray>美元人民币汇率中间价</font>.
-<br />得意之余再补记一下, 上周蹭雪球热点港股腾讯ADR代码TCEHY时加了<?php EchoNameLink('adrhcompare', ADRH_COMPARE_DISPLAY, '../entertainment/20150818cn.php'); ?>后, 又继续把它集成到了微信查询中.
-<br />数据来源: <?php EchoExternalLink(GetAastocksUrl()); ?>		<?php EchoUpdateAdrLink(); ?>
-<br />输入查<font color=gray>00700</font>或者<font color=gray>腾讯</font>试试看.
 <!--<br /><img src=../photo/kingcrab.jpg alt="Jan 30, 2018. King crab, Woody and Sapphire in La Quinta Carlsbad." />-->
 </p>
-<?php EchoAdrhDemo(); ?>
 
 <h3><a name="abcompare">AB股</a>对比</h3>
 <p>2018年4月15日

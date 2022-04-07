@@ -27,14 +27,6 @@ function EchoUpdateAbLink($strType = 'sh')
 	}
 }
 
-function EchoUpdateAdrLink()
-{
-   	if (DebugIsAdmin())
-	{
-		EchoInternalLink('/php/test/updateadr.php', '更新H股ADR数据');
-	}
-}
-
 function EchoUpdateChinaFundLink()
 {
    	if (DebugIsAdmin())

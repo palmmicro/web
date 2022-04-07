@@ -209,7 +209,7 @@ function GetMetaDescription()
 	global $acct;
 	
   	$str = $acct->GetStockDisplay().FUND_POSITION_DISPLAY;
-    $str .= '。仅用于美股QDII基金，寻找对应ETF净值连续几天涨跌超过4%的机会测算A股基金的持仓仓位，LOF基金仓位可能会在80%-95%之间。';
+    $str .= '。仅用于美股QDII基金，寻找对应美股ETF净值连续几天累计涨跌超过4%的机会测算A股基金的实际持仓仓位。';
     return CheckMetaDescription($str);
 }
 

@@ -8,7 +8,7 @@ function GetTitle($bChinese)
 
 function GetMetaDescription($bChinese)
 {
-	return 'Emerald cat eye 5.94ct Taobao store Cat Eyes in Seattle. http://shop58325285.taobao.com/';
+	return 'Emerald cat eye 5.94ct stone on ring with GRS report. Taobao store Cat Eyes in Seattle. http://shop58325285.taobao.com/';
 }
 
 function EchoAll($bChinese)

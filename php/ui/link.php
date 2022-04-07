@@ -43,7 +43,7 @@ function EchoMyStockLink($strSymbol, $strDisplay = false)
 
 function EchoXueqieId($strId, $strDisplay)
 {
-    echo GetXueqiuIdLink($strId, $strDisplay);
+    echo GetXueQiuIdLink($strId, $strDisplay);
 }
 
 function EchoLinearRegressionLink($bChinese = true)

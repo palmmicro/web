@@ -106,6 +106,7 @@ function EchoTableParagraphBegin($ar, $strId, $str = '')
 
 	$strColumn = GetTableRow($strColumn);
 	$strColumn = GetHtmlElement($strColumn, 'thead');
+	$strId .= 'teble';
     echo <<<END
     
     <p>$str

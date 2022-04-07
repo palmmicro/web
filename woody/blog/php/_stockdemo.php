@@ -63,10 +63,4 @@ function EchoAbDemo($strSymbol = AB_DEMO_SYMBOL)
    	EchoAbParagraph(array($ref));
 }
 
-function EchoAdrhDemo($strSymbol = ADRH_DEMO_SYMBOL)
-{
-   	$ref = new AdrPairReference($strSymbol);
-   	EchoAdrhParagraph(array($ref));
-}
-
 ?>

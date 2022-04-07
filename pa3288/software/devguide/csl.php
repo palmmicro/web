@@ -2,7 +2,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>PA3288 Developer's Guide - Chip Support Libary</title>
-<meta name="description" content="PA3288 Chip Support Libary">
+<meta name="description" content="Palmmicro PA3288 Chip Support Libary development guide: Overview, GPIO, PLL, SPI, TIMER and USB.">
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>
 <script src="../../../js/copyright.js"></script>
