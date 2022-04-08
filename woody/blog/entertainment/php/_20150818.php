@@ -2,11 +2,6 @@
 require_once('_entertainment.php');
 require_once('/woody/blog/php/_stockdemo.php');
 
-function EchoCalibrationHistoryLink($strSymbol = FUND_DEMO_SYMBOL)
-{
-	echo GetCalibrationHistoryLink($strSymbol);
-}
-
 function EchoFundHistoryLink()
 {
 	EchoNameLink('fundhistory', FUND_HISTORY_DISPLAY);
@@ -40,6 +35,23 @@ function Echo20160222($strHead)
 <br />有人跟我指出{$strFundHistory}中净值的日期显示早了一天，我差点一口鲜血吐在了键盘上。用脚趾头想想，要计算华宝油气当天的交易溢价，肯定是要跟前一天的净值比较啊。当天的净值要等当晚美股收盘后才出来，否则的话我写这个净值估算有什么意义呢。
 <br />把当天的交易价格跟前一天的净值放在一起比较，其实也正是我平时最为推崇的不同数据显示方式引导不同思维模式的举措。 
 不过为了避免以后还有人搞混淆，我干脆另外加了一个单独的{$strNavHistoryLink}显示页面，算上最开始的{$strStockHistory}，现在总共有3个历史数据页面了。  
+</p>
+END;
+}
+
+function Echo20161006($strHead)
+{
+	$strSZ162411 = GetCalibrationHistoryLink(FUND_DEMO_SYMBOL, true).CALIBRATION_HISTORY_DISPLAY;
+	$strUSO = GetCalibrationHistoryLink('USO', true).CALIBRATION_HISTORY_DISPLAY;
+	$strQDII = GetNameLink('qdii');
+	
+	$strHead = GetHeadElement($strHead);
+    echo <<<END
+	$strHead
+<p>2016年10月6日
+<br />在华宝油气估值的时候，每次拿到官方发布的净值后都会根据净值当天的美股数据和美元人民币中间价做一次自动校准，从现在开始全部在{$strSZ162411}页面记录下来，方便观察长期趋势。校准时间就是拿到新的官方净值后第一次访问的时间。
+类似的版面上还有CL和{$strUSO}，用在{$strQDII}基金的实时估值上。
+<br />碰到XOP分红除权的日子，就需要进行手工校准。否则的话要等下一次自动校准后，估值结果才会再次正确。
 </p>
 END;
 }
@@ -82,6 +94,7 @@ function Echo20180404($strHead)
 	$strPairSql = GetCodeElement('PairSql');
 	$strStockPairSql = GetCodeElement('StockPairSql');
 	$strQDII = GetNameLink('qdii');
+	$strCalibration = GetNameLink('calibrationhistory', CALIBRATION_HISTORY_DISPLAY);
 	
 	$strHead = GetHeadElement($strHead);
     echo <<<END
@@ -99,7 +112,7 @@ function Echo20180404($strHead)
 <br />{$strStockPairSql}基于{$strPairSql}，额外加上了从stock_id到symbol的来回转换，ahpair表就是直接来自它。
 <br />跟A股和H股总是1:1不同，每股ADR可以对应100、1或者0.5等各种不同数值的H股。因此一个自然的做法是继续从{$strStockPairSql}派生adrpair表，加上这个额外的对应数值。不过这样一来，A/H和ADR/H比较页面能共用的代码就不多了。
 在{$strQDII}估值中原本就有基金仓位fundposition表，我脑洞一开，想到每股ADR对应多少股H股其实也是一种仓位上的体现，就把不是1:1的ADR/H对应数值也存到了这个表中。
-<br />更妙的是，想通了比例对应仓位后，A/H和ADR/H之间的价格转换跟QDII估值比较就只差一个校准值的概念了。具体的看，在A/H情况下，其实相当于校准值永远是1。而在ADR/H的情况下，校准值其实就是固定的(1/仓位)。
+<br />更妙的是，想通了比例对应仓位后，A/H和ADR/H之间的价格转换跟QDII估值比较就只差一个{$strCalibration}的概念了。具体的看，在A/H情况下，其实相当于校准值永远是1。而在ADR/H的情况下，校准值其实就是固定的(1/仓位)。
 这样一来，我不仅消除了三体问题、统一了A/H和ADR/H比较页面的代码，还顺便统一了目前用到的各种价格转换计算，顿时感觉打通了任督二脉！
 </p>
 END;

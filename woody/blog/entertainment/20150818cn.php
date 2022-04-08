@@ -226,14 +226,8 @@ Wiki的QDII词条下显示了它是Qualified Domestic Institutional Investor的�
 <br />说白了, 如果你发现了什么交易上的规律, 只是因为交易得不够多而已.
 </p>
 
-<h3>估值手工和自动<?php EchoNameTag('calibrationhistory', CALIBRATION_HISTORY_DISPLAY); ?></h3>
-<p>2016年10月6日
-<br />加入华宝油气<?php EchoCalibrationHistoryLink() ?>. 每天拿到官方净值后都会根据净值当天的美股数据和美元人民币中间价做一次自动校准, 现在统统记录下来, 方便观察长期趋势.
-校准时间就是拿到新的官方净值后第一次访问的时间. 类似的版面上还有CL和USO的<?php EchoCalibrationHistoryLink('USO') ?>.
-<br />碰到XOP分红除权的日子, 就需要手工校准.
-</p>
-
 <?php
+	Echo20161006('增加'.GetNameTag('calibrationhistory', CALIBRATION_HISTORY_DISPLAY).'页面');
 	Echo20170128('增加'.GetNameTag('ahcompare', AH_COMPARE_DISPLAY).'页面');
 ?>
 
