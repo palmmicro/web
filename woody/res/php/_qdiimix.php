@@ -49,10 +49,13 @@ class _QdiiMixAccount extends GroupAccount
     {
     	$ref = $this->ref;
     	$strStockId = $ref->GetStockId();
-    	$date_sql = new HoldingsDateSql();
     	$nav_sql = GetNavHistorySql();
     	$strNavDate = $nav_sql->GetDateNow($strStockId); 
-		if ($strNavDate == $date_sql->ReadDate($strStockId))								return;	// Already up to date
+    	
+    	$date_sql = new HoldingsDateSql();
+    	$strHoldingsDate = $date_sql->ReadDate($strStockId);
+		if ($strNavDate == $strHoldingsDate)												return;	// Already up to date
+    	if ($strHoldingsDate == $ref->GetOfficialDate())									return;
 		
 		$us_ref = $this->us_ref;
 		if ($us_ref)

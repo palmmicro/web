@@ -5,27 +5,25 @@ function _getPalmmicroMenuArray($bChinese)
 {
     if ($bChinese)
     {
-		return array('aboutus' => '关于我们',
+		return array('contactus' => '联系我们',
                        'pa6488' => 'PA6488',
                        'pa3288' => 'PA3288',
                        'ar1688' => 'AR1688',
                        'pa1688' => 'PA1688',
                        'res' => '资源共享',
                        'blank' => '',
-                       'account' => '我的帐号',
-                       'contactus' => '联系方式');
+                       'account' => '我的帐号');
     }
     else
     {
-		return array('aboutus' => 'About us',
+		return array('contactus' => 'Contact us',
                        'pa6488' => 'PA6488',
                        'pa3288' => 'PA3288',
                        'ar1688' => 'AR1688',
                        'pa1688' => 'PA1688',
                        'res' => 'Resources',
                        'blank' => '',
-                       'account' => 'My Account',
-                       'contactus' => 'Contact us');
+                       'account' => 'My Account');
     }
 }
 

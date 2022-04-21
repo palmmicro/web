@@ -6,7 +6,7 @@ function _getPortfolioTestVal($iShares, $strSymbol)
 	switch ($strSymbol)
     {
     case 'KWEB':
-		$iQuantity = 200;
+		$iQuantity = -500;	// -700
 		break;
 		
     case 'SZ162411':
@@ -65,11 +65,11 @@ function _echoPortfolioTableItem($trans)
        	$ar[] = ($trans->GetTotalCost() > 0.0) ? $ref->GetPercentageDisplay(strval($trans->GetAvgCost())) : '';
         switch ($strSymbol)
         {
-		case 'KWEB':
 		case 'XOP':
         	$ar[] = _getArbitrageTestStr($iShares, $strGroupId, $strStockId, $strSymbol);
         	break;
     		
+		case 'KWEB':
 		case 'SZ162411':
         	$ar[] = strval(_getPortfolioTestVal($iShares, $strSymbol));
         	break;
