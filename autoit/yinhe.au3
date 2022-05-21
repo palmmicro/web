@@ -259,7 +259,7 @@ Func YinheClose($hWnd, $idDebug)
 EndFunc
 
 Func _addSymbolSpecialKey($idDebug, $strSymbol)
-	If $strSymbol == '160216' Or $strSymbol == '160416' Or $strSymbol == '161226' Or $strSymbol == '163208' Or $strSymbol == '164906' Then
+	If $strSymbol == '160216' Or $strSymbol == '160416' Or $strSymbol == '161127' Or $strSymbol == '161226' Or $strSymbol == '163208' Or $strSymbol == '164906' Then
 		_DlgClickButton($idDebug, '请选择', '深圳股票')
 	EndIf
 EndFunc
@@ -359,6 +359,8 @@ Func YinheOrderFund($hWnd, $idDebug, $strSymbol)
 			$strAmount = '10000'
 		Case '160416'
 			$strAmount = '2000'
+		Case '161127'
+			$strAmount = '300'
 		Case '161226'
 			$strAmount = '50000'
 		Case '162411'
@@ -366,7 +368,7 @@ Func YinheOrderFund($hWnd, $idDebug, $strSymbol)
 		Case '163208'
 			$strAmount = '100'
 		Case '164906'
-			$strAmount = '1000'
+			$strAmount = '500'
 	EndSwitch
 
 	$strControlID = _yinheClickFund($hWnd, $idDebug, '申购')
@@ -800,7 +802,7 @@ Func YinheMain()
 	Local $arCheckboxAccount[$iMax]
 	$iMsg = 0
 
-	$idFormMain = GUICreate("银河海王星全自动拖拉机V0.53", 803, 506, 289, 0)
+	$idFormMain = GUICreate("银河海王星全自动拖拉机V0.55", 803, 506, 289, 0)
 
 	$idListViewAccount = GUICtrlCreateListView("客户号", 24, 24, 146, 454, BitOR($GUI_SS_DEFAULT_LISTVIEW,$WS_VSCROLL), BitOR($WS_EX_CLIENTEDGE,$LVS_EX_CHECKBOXES))
 	GUICtrlSendMsg(-1, $LVM_SETCOLUMNWIDTH, 0, 118)
@@ -812,7 +814,7 @@ Func YinheMain()
 
 	$idLabelSymbol = GUICtrlCreateLabel("基金代码", 192, 24, 52, 17)
 	$idListSymbol = GUICtrlCreateList("", 192, 48, 121, 97)
-	GUICtrlSetData(-1, '160216|160416|161226|162411|163208|164906', _getProfileString('Symbol', '162411'))
+	GUICtrlSetData(-1, '160216|160416|161127|161226|162411|163208|164906', _getProfileString('Symbol', '162411'))
 
 	$idLabelSellPrice = GUICtrlCreateLabel("卖出价格", 192, 160, 52, 17)
 	$idInputSellPrice = GUICtrlCreateInput("", 192, 184, 121, 21)

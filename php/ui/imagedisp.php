@@ -8,6 +8,11 @@ function QuoteImgElement($strFileName, $strTextCn, $strTextUs = '', $bChinese = 
 	return $strNewLine.GetImgElement(IMAGE_PATH.$strFileName, $strText).$strNewLine.GetQuoteElement($strText);
 }
 
+function ImgBuffettCards($bChinese = true)
+{
+	return QuoteImgElement('buffettplaycards.jpg', '巴菲特和盖茨一起打桥牌');
+}
+
 // chisquaredtest.jpg
 function ImgChiSquared($bChinese = true)
 {

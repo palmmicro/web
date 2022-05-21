@@ -25,40 +25,25 @@ function _getFundAmount($strSymbol, $strDate)
 		}
 		return 10000.0;
 		
+	case 'SZ161127':
+		return 300.0 * 0.988;
+		
 	case 'SZ162411':
-		if ($iTick >= strtotime('2020-07-14'))
-		{
-			$iAmount = 100;
-		}
-		else
-		{
-			$iAmount = 1000;
-		}
+		if ($iTick >= strtotime('2020-07-14'))	$iAmount = 100;
+		else										$iAmount = 1000;
 		return $iAmount * 0.985;
 		
 	case 'SZ162719':
-		if ($iTick >= strtotime('2020-08-06'))
-		{
-			$iAmount = 500;
-		}
-		else
-		{
-			$iAmount = 1000;
-		}
+		if ($iTick >= strtotime('2020-08-06'))	$iAmount = 500;
+		else										$iAmount = 1000;
 		return $iAmount * 0.988;
 
 	case 'SZ164906':
-		if ($iTick >= strtotime('2021-11-30'))
-		{
-			$iAmount = 1000;
-		}
-		else
-		{
-			$iAmount = 5000;
-		}
+		if ($iTick >= strtotime('2021-11-30'))	$iAmount = 1000;
+		else										$iAmount = 5000;
 		return $iAmount * 0.988;
 	}
-	return 500.0 * 0.988;	// SZ161127
+	return 500.0 * 0.988;
 }
 
 function _echoFundAccountItem($csv, $strDate, $strSharesDiff, $ref, $strSymbol, $strStockId, $his_sql, $nav_sql)

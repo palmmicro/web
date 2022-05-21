@@ -70,7 +70,8 @@ function GetQdiiLinks($sym)
 	$str .= GetSpySoftwareLinks();
 	if (in_arraySpyQdii($strSymbol))
 	{
-		$str .= GetASharesSoftwareLinks();
+//		$str .= GetASharesSoftwareLinks();
+		$str .= GetChinaInternetSoftwareLinks();
 		$str .= GetHangSengSoftwareLinks();
 	}
 	else if (in_arrayQqqQdii($strSymbol))

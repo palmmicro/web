@@ -87,8 +87,8 @@ function _getMetaDescriptionStr($strPage)
 				  'qdiimix' => '采用跟踪成分股变化的方式对同时有美股和港股持仓的中丐互怜等QDII基金进行净值估算，这样参考估值可以反应白天港股波动对净值的影响。',
 				  'qdiihk' => '把'.QDII_HK_DISPLAY.'从其它QDII页面分出来，不光能够优化网站和代码结构，还能更好的体验股市三大幻觉：A股要涨、美股见顶、港股便宜！',
 				  'oilfund' => '跟踪'.OIL_GROUP_DISPLAY.'期货的基金有升水损耗，不建议长期持有。跨市场套利时，不要赌几个小时后A股QDII基金折价溢价转折点，只做连续折价或者连续溢价套利。',
-				  'qqqfund' => QQQ_GROUP_DISPLAY.'基金的净值估算, 目前包括纳指ETF(SH513100)和纳指100(SZ159941)等. 使用纳斯达克100指数(^NDX)估值, QQQ仅用于参考.',
-				  'spyfund' => SPY_GROUP_DISPLAY.'基金的净值估算, 目前包括沪市标普500(SH513500)和深市标普500(SZ161125)等.使用标普500指数(^GSPC)估值, SPY仅用于参考.',
+				  'qqqfund' => QQQ_GROUP_DISPLAY.'基金的净值估算。使用纳斯达克100指数^NDX计算官方估值和参考估值，芝商所纳斯达克期货NQ计算实时估值，QQQ仅用于参考。',
+				  'spyfund' => SPY_GROUP_DISPLAY.'基金的净值估算。使用标普500指数^GSPC计算官方估值和参考估值，芝商所标普500期货ES计算实时估值，SPY仅用于参考。',
 				  );
     return $ar[$strPage];
 }
@@ -136,6 +136,9 @@ function _getGroupImageLink($strPage)
     	
     case 'oilfund':
     	return ImgPanicFree();
+    	
+    case 'spyfund':
+    	return ImgBuffettCards();
     }
     return false;
 }

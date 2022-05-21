@@ -209,7 +209,7 @@ function GetGuangFaSoftwareLinks($strDigitA)
 
 function GetGuoTaiSoftwareLinks($strDigitA)
 {
-    $ar = array('SH513100', 'SH518800', 'SZ160216');
+    $ar = array('SH513100', 'SH518800', 'SZ159612', 'SZ160216');
 	$strUrl = 'https://e.gtfund.com';
     return ' '.GetOfficialLink($strUrl.'/Etrade/Jijin/view/id/'.$strDigitA, $strDigitA).GetCategorySoftwareLinks($ar, GetExternalLink($strUrl, '国泰基金'));
 }
