@@ -70,10 +70,12 @@ function _echoMergeParagraph($arMerge)
 			else						$ar[] = RefGetMyStockLink($ref);
 			
 			$ar[] = strval($iTotal);
-/*			if ($strSymbol == 'XOP')
+			switch ($strSymbol)
 			{
-				$ar[] = strval($iTotal - 100);
-			}*/
+			case 'KWEB':
+				$ar[] = strval($iTotal + 200);
+				break;
+			}
 			RefEchoTableColumn($ref, $ar);
 		}
 	}
@@ -117,7 +119,7 @@ function _transEchoMergeParagraph($arTrans)
 		$arMerge[$strSymbol] = $cur_trans;
 	}
 	
-//	if (count($arMerge) > 0)		_echoMergeParagraph($arMerge);
+	if (count($arMerge) > 0)		_echoMergeParagraph($arMerge);
 }
 
 function _echoPortfolio($portfolio, $sql, $strMemberId, $bAdmin)

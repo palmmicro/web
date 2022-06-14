@@ -172,6 +172,25 @@ function StockGetFundPairReference($strSymbol)
 	return false;
 }
 
+function StockGetFundFeeRatio($strSymbol)
+{
+   	switch ($strSymbol)
+   	{
+   	case 'SZ160416':
+		return 0.0;
+    		
+	case 'SH501018':
+   	case 'SZ161127':
+	case 'SZ162719':
+   	case 'SZ164906':
+		return 0.012;
+    		
+   	case 'SZ161815':
+		return 0.016;
+   	}
+	return 0.015;
+}
+
 function RefGetStockDisplay($ref)
 {
     return SymGetStockName($ref).'【'.$ref->GetSymbol().'】';

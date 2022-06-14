@@ -207,9 +207,8 @@ function EchoAll()
 function GetAdrLinks($sym)
 {
 	$str = GetAastocksLink();
-//	$str .= GetASharesSoftwareLinks();
 	$str .= GetChinaInternetSoftwareLinks();
-	$str .= GetHangSengSoftwareLinks();
+	$str .= GetHSharesSoftwareLinks();
 	return $str.GetAdrRelated($sym);
 }
 

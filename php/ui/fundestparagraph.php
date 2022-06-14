@@ -81,8 +81,9 @@ function _getFundEstTableColumn($arRef, &$bFair)
     return $ar;
 }
 
-function _echoFundEstParagraph($arColumn, $bFair, $arRef, $str = '')
+function _echoFundEstParagraph($arColumn, $bFair, $arRef, $str = false)
 {
+	if ($str == false)	$str = GetTableColumnEst().'网页链接'; 
 	$iCount = count($arRef);
 	if ($iCount > 2)
 	{

@@ -168,7 +168,7 @@ function EchoAll()
 function GetQdiiMixLinks($sym)
 {
 	$str = GetSpySoftwareLinks();
-	$str .= GetHangSengSoftwareLinks();
+	$str .= GetHSharesSoftwareLinks();
 	$str .= GetChinaInternetSoftwareLinks();
 	return $str.GetQdiiMixRelated($sym->GetDigitA());
 }

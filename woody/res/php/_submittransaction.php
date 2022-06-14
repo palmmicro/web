@@ -110,23 +110,7 @@ class _SubmitTransactionAccount extends StockAccount
     	$sql = new StockGroupItemSql($strGroupId);
     	if (($strGroupItemId = $sql->GetId($strFundId)) == false)    return false;
     	
-    	$strSymbol = SqlGetStockSymbol($strFundId);
-    	switch ($strSymbol)
-    	{
-    	case 'SZ160416':
-    		$fFeeRatio = 0.0;
-    		break;
-    		
-    	case 'SZ161127':
-    	case 'SZ164906':
-    		$fFeeRatio = 0.012;
-    		break;
-    		
-    	default:
-    		$fFeeRatio = 0.015;
-    		break;
-    	}
-  	
+   		$fFeeRatio = StockGetFundFeeRatio(SqlGetStockSymbol($strFundId));
     	$fAmount = floatval($strAmount);
     	$fQuantity = $fAmount / (1.0 + $fFeeRatio) / floatval($strNetValue);
     	$strRemark = '}'.GetArbitrageQuantity($strFundId, $fQuantity).' '.STOCK_DISP_ORDER;

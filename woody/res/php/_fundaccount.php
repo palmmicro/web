@@ -9,41 +9,44 @@ function _getFundAmount($strSymbol, $strDate)
 	switch ($strSymbol)
 	{
 	case 'SH501018':
-		return 2000.0 * 0.988;
+		$iAmount = 2000;
+		break;
 		
 	case 'SZ160216':
-		return 10000.0;
+		$iAmount = 10000;
+		break;
 		
 	case 'SZ160416':
-		if ($iTick >= strtotime('2020-10-27'))
-		{
-			return 2000.0;
-		}
-		else if ($iTick >= strtotime('2020-09-11'))
-		{
-			return 1000.0;
-		}
-		return 10000.0;
+		if ($iTick >= strtotime('2020-10-27'))			$iAmount = 2000;
+		else if ($iTick >= strtotime('2020-09-11'))		$iAmount = 1000;
+		else												$iAmount = 10000;
+		break;
 		
 	case 'SZ161127':
-		return 300.0 * 0.988;
+		$iAmount = 300;
+		break;
 		
 	case 'SZ162411':
-		if ($iTick >= strtotime('2020-07-14'))	$iAmount = 100;
-		else										$iAmount = 1000;
-		return $iAmount * 0.985;
+		if ($iTick >= strtotime('2020-07-14'))			$iAmount = 100;
+		else												$iAmount = 1000;
+		break;
 		
 	case 'SZ162719':
-		if ($iTick >= strtotime('2020-08-06'))	$iAmount = 500;
-		else										$iAmount = 1000;
-		return $iAmount * 0.988;
+		if ($iTick >= strtotime('2020-08-06'))			$iAmount = 500;
+		else												$iAmount = 1000;
+		break;
 
 	case 'SZ164906':
-		if ($iTick >= strtotime('2021-11-30'))	$iAmount = 1000;
-		else										$iAmount = 5000;
-		return $iAmount * 0.988;
+		if ($iTick >= strtotime('2022-05-23'))			$iAmount = 500;
+		else if ($iTick >= strtotime('2021-11-30'))		$iAmount = 1000;
+		else												$iAmount = 5000;
+		break;
+		
+	default:
+		$iAmount = 500;
+		break;
 	}
-	return 500.0 * 0.988;
+	return $iAmount * (1.0 - StockGetFundFeeRatio($strSymbol));
 }
 
 function _echoFundAccountItem($csv, $strDate, $strSharesDiff, $ref, $strSymbol, $strStockId, $his_sql, $nav_sql)

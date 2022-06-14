@@ -122,6 +122,7 @@ function UrlCleanString($str)
 // xueqiu_comment_id=226049545&xueqiu_status_id=210729879&comment_from=comment_detail_page&key_name=011701
 // entryScene=zhida_05_001&jump_from=1_13_18_00
 // fbclid=IwAR0fSj2-McWUF2fs80iiuVaKisnq9fbiicNmxZFJ8Z4BeD6EOQHc6EQGjwk
+// share_token=9E9C328B-D19C-4188-AF1A-4FAD05D42D35&tt_from=weixin&wxshare_count=1
 function UrlGetQueryString()
 { 
 	if (isset($_SERVER['QUERY_STRING']))
@@ -142,7 +143,10 @@ function UrlGetQueryString()
 				&& (strpos($strQuery, 'jump_from=') === false)
 				&& (strpos($strQuery, 'key_name=') === false)
 				&& (strpos($strQuery, 'scene=') === false)
+				&& (strpos($strQuery, 'share_token=') === false)
 				&& (strpos($strQuery, 'tdsourcetag=') === false)
+				&& (strpos($strQuery, 'tt_from=') === false)
+				&& (strpos($strQuery, 'wxshare_count=') === false)
 				&& (strpos($strQuery, 'xueqiu_comment_id=') === false)
 				&& (strpos($strQuery, 'xueqiu_private_from_source=') === false)
 				&& (strpos($strQuery, 'xueqiu_status_from_source=') === false)

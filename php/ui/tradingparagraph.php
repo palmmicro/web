@@ -116,8 +116,7 @@ function EchoFundTradingParagraph($fund, $callback = false)
     		}
     	}
 
-    	$col = new TableColumnEst();
-    	$strEst = $col->GetDisplay();
+    	$strEst = GetTableColumnEst();
     	$strPremium = GetTableColumnPremium();
     	$str = "{$strPrice}相对于{$strEst}{$strEstPrice}的{$strPremium}";
     }

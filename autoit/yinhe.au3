@@ -691,7 +691,7 @@ Func YinheOperation($idProgress, $idDebug)
 
 	$strSymbol = _getProfileString('Symbol')
 	$strSellQuantity = _getProfileString('SellQuantity')
-	$iRemainQuantity = Number($strSellQuantity)
+	$iRemainQuantity = Number($strSellQuantity) + 50
 	For $i = 0 to $iMax - 1
 		_debugProgress($idProgress, $iMax, $i)
 		If $arAccountChecked[$i] == $GUI_CHECKED Then
@@ -723,8 +723,11 @@ Func YinheOperation($idProgress, $idDebug)
 			YinheClose($hWnd, $idDebug)
 		EndIf
 	Next
-	$iQuantity = Number($strSellQuantity) - $iRemainQuantity
-	If $iQuantity <> 0 Then _MsgDebug('实际下单：' & String($iQuantity))
+
+	If $strSellQuantity <> '' Then
+		$iQuantity = Number($strSellQuantity) - $iRemainQuantity + 50
+		If $iQuantity <> 0 Then _MsgDebug('实际下单：' & String($iQuantity))
+	EndIf
 
 	GUICtrlSetData($idProgress, 0)
 	GUICtrlSetState($idProgress, $GUI_DISABLE)
@@ -802,7 +805,7 @@ Func YinheMain()
 	Local $arCheckboxAccount[$iMax]
 	$iMsg = 0
 
-	$idFormMain = GUICreate("银河海王星全自动拖拉机V0.55", 803, 506, 289, 0)
+	$idFormMain = GUICreate("银河海王星单独委托版全自动拖拉机V0.56", 803, 506, 289, 0)
 
 	$idListViewAccount = GUICtrlCreateListView("客户号", 24, 24, 146, 454, BitOR($GUI_SS_DEFAULT_LISTVIEW,$WS_VSCROLL), BitOR($WS_EX_CLIENTEDGE,$LVS_EX_CHECKBOXES))
 	GUICtrlSendMsg(-1, $LVM_SETCOLUMNWIDTH, 0, 118)

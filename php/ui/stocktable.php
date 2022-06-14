@@ -43,6 +43,12 @@ class TableColumnEst extends TableColumn
 	}
 }
 
+function GetTableColumnEst()
+{
+	$col = new TableColumnEst();
+	return $col->GetDisplay();
+}
+
 class TableColumnOfficalEst extends TableColumnEst
 {
 	function TableColumnOfficalEst()

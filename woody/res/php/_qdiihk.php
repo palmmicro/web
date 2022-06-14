@@ -44,7 +44,6 @@ function GetQdiiHkLinks($sym)
 	$strSymbol = $sym->GetSymbol();
 	if (in_arrayHangSengQdiiHk($strSymbol))
 	{
-//		$str .= GetASharesSoftwareLinks();
 		$str .= GetChinaInternetSoftwareLinks();
 		$str .= GetSpySoftwareLinks();
 	}
