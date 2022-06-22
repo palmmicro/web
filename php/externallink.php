@@ -8,9 +8,10 @@ function GetOfficialLink($strHttp, $strDisplay)
     return GetExternalLink($strHttp, $strDisplay.'官网');
 }
 
+// https://www.spglobal.com/spdji/en/indices/equity/sp-oil-gas-exploration-production-select-industry-index/#overview
 function GetSpindicesOfficialLink($strTicker)
 {
-	$str = 'https://us.spindices.com/indices/';
+	$str = 'https://www.spglobal.com/spdji/en/indices/';
 	switch ($strTicker)
 	{
 	case 'DJSOEP':
@@ -41,6 +42,7 @@ function GetSpindicesOfficialLink($strTicker)
 		$str .= 'equity/sp-oil-gas-exploration-production-select-industry-index';
 		break;
 	}
+	$str .= '/#overview';
 	return GetOfficialLink($str, '^'.$strTicker);
 }
 

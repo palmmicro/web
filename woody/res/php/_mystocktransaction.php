@@ -20,8 +20,7 @@ function EchoAll()
         }
         else
         {   // Display transactions of the whole group
-            $strCombineLink = GetStockPhpLink('combinetransaction', '合并记录', 'groupid='.$strGroupId);
-            EchoParagraph($strCombineLink.' '.$strStockLinks);
+            EchoParagraph($strStockLinks);
            	EchoTransactionParagraph($acct, $strGroupId);
         }
     }

@@ -85,7 +85,7 @@ function GetSinaQuotes($strSinaSymbols)
 	$iCount = count(explode(SINA_QUOTES_SEPARATOR, $strSinaSymbols));
 	if (DebugIsAdmin() && $iCount > 1)
 	{
-//		DebugVal('total prefetch - '.$strSinaSymbols, $iCount);
+//		DebugVal($iCount, 'total prefetch - '.$strSinaSymbols);
 	}
 	else
 	{
@@ -98,7 +98,7 @@ function GetSinaQuotes($strSinaSymbols)
     
     if ($str = url_get_contents(GetSinaQuotesUrl($strSinaSymbols), false, 'http://stock.finance.sina.com.cn/usstock/quotes/SPY.html', $strFileName))
     {
-    	if ($iCount >= count(explode('=', $str)))		DebugVal('GetSinaQuotes failed', $iCount);		// Sina returns error in an empty file
+    	if ($iCount >= count(explode('=', $str)))		DebugVal($iCount, 'GetSinaQuotes failed');		// Sina returns error in an empty file
     	else												return $str;
     }
     return false;

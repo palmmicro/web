@@ -41,6 +41,7 @@ function GetSecondaryListingArray()
 				   'BILI' => '09626',
 				   'JD' => '09618',
 				   'NTES' => '09999',
+				   'TCOM' => '09961',
 				  );
 }
 

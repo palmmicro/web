@@ -42,6 +42,8 @@ function _getFundAmount($strSymbol, $strDate)
 		else												$iAmount = 5000;
 		break;
 		
+//   	case 'SZ161129':
+//   	case 'SZ161130':
 	default:
 		$iAmount = 500;
 		break;

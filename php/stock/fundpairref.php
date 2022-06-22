@@ -285,6 +285,7 @@ class FundPairReference extends MyPairReference
 			$this->strNav = $nav_sql->GetClose($strStockId, $strDate);
 			$this->strPairNav = PairNavGetClose($this->pair_nav_ref, $strDate);
 			$this->fFactor = $calibration_sql->GetCloseNow($strStockId);
+//			DebugVal($this->fFactor, '_onNormalEtfCalibration', true); 
 			return $strDate;
    		}
    		else
@@ -350,6 +351,7 @@ class FundPairReference extends MyPairReference
     // x = (fRatio * (cny_now * fEst - cny * fPairNetValue) / (cny * fPairNetValue) + 1) * fNetValue;
     function EstFromPair($strEst = false, $strCny = false)
     {
+//		DebugVal($this->fFactor, 'EstFromPair', true); 
     	$fVal = (floatval($strEst) - floatval($this->strPairNav)) * $this->fRatio / $this->fFactor + floatval($this->strNav);
     	return $this->_adjustByCny($fVal, $strCny, ($this->IsSymbolA() ? false : true));
     }
