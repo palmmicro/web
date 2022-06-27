@@ -73,17 +73,20 @@ function _botGetStockText($strSymbol)
     }
     else
     {
-       	$str = TextFromStockReference($ref);
-    	list($ab_ref, $ah_ref, $adr_ref) = StockGetPairReferences($strSymbol);
-    	$str .= TextPairRatio($ab_ref, STOCK_DISP_ASHARES, STOCK_DISP_BSHARES, 'A/B');  
-    	$str .= TextPairRatio($ah_ref, STOCK_DISP_ASHARES, STOCK_DISP_HSHARES, 'A/H');  
-    	$str .= TextPairRatio($adr_ref, 'ADR', STOCK_DISP_HSHARES, 'ADR/H');  
+		if ($str = TextFromStockReference($ref))
+		{
+			list($ab_ref, $ah_ref, $adr_ref) = StockGetPairReferences($strSymbol);
+			$str .= TextPairRatio($ab_ref, STOCK_DISP_ASHARES, STOCK_DISP_BSHARES, 'A/B');  
+			$str .= TextPairRatio($ah_ref, STOCK_DISP_ASHARES, STOCK_DISP_HSHARES, 'A/H');  
+			$str .= TextPairRatio($adr_ref, 'ADR', STOCK_DISP_HSHARES, 'ADR/H');
+		}
     }
     
    	if ($str == false)
    	{
-   		DebugString("($strSymbol:无数据)");
-   		return false;
+   		$str = "($strSymbol:无数据)";
+   		DebugString($str);
+		$str .= BOT_EOL;
    	}
    	
     return $str;
@@ -106,10 +109,6 @@ function _botGetStockArrayText($arSymbol, $str, $strVersion)
 			{
 				break;
 			}
-		}
-		else
-		{	// something is wrong, break to avoid timeout
-			break;
 		}
 	}
 	return $str;
