@@ -5,17 +5,20 @@ function _getPortfolioTestVal($iShares, $strSymbol)
 {
 	switch ($strSymbol)
     {
+    case 'KWEB':
+		$iQuantity = 275;
+		break;
+		
     case 'SNP':
 		$iQuantity = 400;
 		break;
 		
+    case 'XOP':
+		$iQuantity = 600;
+		break;
+/*
     case 'SPY':
 		$iQuantity = 100;
-		break;
-		
-/*
-    case 'KWEB':
-		$iQuantity = 239;
 		break;
 		
 	case 'XBI':
@@ -24,10 +27,6 @@ function _getPortfolioTestVal($iShares, $strSymbol)
 		
     case 'SZ162411':
 		$iQuantity = 91200;
-		break;
-		
-    case 'XOP':
-		$iQuantity = 100;
 		break;
 */		
 	default:
@@ -80,17 +79,17 @@ function _echoPortfolioTableItem($trans)
         {
 		case 'KWEB':
 		case 'XBI':
-//		case 'XOP':
+		case 'XOP':
         	$ar[] = _getArbitrageTestStr($iShares, $strGroupId, $strStockId, $strSymbol);
         	break;
    		
 		case 'SNP':
-		case 'SPY':
-//		case 'SZ162411':
+//		case 'SPY':
         	$ar[] = strval(_getPortfolioTestVal($iShares, $strSymbol));
         	break;
     		
         case 'SZ161127':
+		case 'SZ162411':
         case 'SZ164906':
         	$ar[] = GetArbitrageQuantity($strStockId, floatval($iShares));
 			break;

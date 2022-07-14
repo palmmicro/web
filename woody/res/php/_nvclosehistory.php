@@ -63,7 +63,7 @@ function GetMetaDescription()
 	global $acct;
 	
   	$str = $acct->GetMetaDisplay(NVCLOSE_HISTORY_DISPLAY);
-    $str .= '页面。不同的数据显示方式可能会带来不同的思路和想法。这里观察每天净值和收盘价偏离的情况，看偏离方向和大小是否跟当天涨跌和交易量相关。';
+    $str .= '页面。不同的数据显示方式会带来不同的思路。观察每天净值和收盘价偏离的情况，看是否跟当天涨跌和交易量相关。';
     return CheckMetaDescription($str);
 }
 
