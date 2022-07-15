@@ -73,7 +73,7 @@ function _echoMergeParagraph($arMerge)
 			switch ($strSymbol)
 			{
 			case 'KWEB':
-				$ar[] = strval($iTotal - 800);
+				$ar[] = strval($iTotal - 600);
 				break;
 /*				
 			case 'XOP':
