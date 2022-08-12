@@ -274,6 +274,16 @@ Func _isShenzhenFundAccount($strAccount)
 	Return False
 EndFunc
 
+Func _isShanghaiAccount($strAccount)
+	If StringInStr($strAccount, '沪') == 1 Then Return True
+	Return False
+EndFunc
+
+Func _isShanghaiFundAccount($strAccount)
+	If StringInStr($strAccount, '沪A F') == 1 Then Return True
+	Return False
+EndFunc
+
 #cs
 Func _TreeViewSelect($hWnd, $idDebug, $strControlID, $strItem)
 	ControlTreeView($hWnd, '', $strControlID, 'Select', $strItem)
@@ -502,8 +512,9 @@ Func YinheSell($hWnd, $idDebug, $strSymbol, $strPrice, $strSellQuantity, ByRef $
 	Return True
 EndFunc
 
-Func _yinheAddShenzhenMoneyEntry($hWnd, $idDebug)
-	_yinheSendSellSymbol($hWnd, $idDebug, '131810')
+Func _yinheAddMoneyEntry($hWnd, $idDebug)
+;	_yinheSendSellSymbol($hWnd, $idDebug, '131810')
+	_yinheSendSellSymbol($hWnd, $idDebug, '204001')
 	$strPriceControl = 'Edit2'
 	$strSuggestedPrice = _CtlGetText($hWnd, $idDebug, $strPriceControl)
 	$fPrice = Number($strSuggestedPrice, 3)
@@ -524,9 +535,11 @@ Func YinheMoney($hWnd, $idDebug)
 		If $strAccount == False Then ExitLoop
 
 		_yinheCloseNewDlg($idDebug)
-		If _isShenzhenAccount($strAccount) Then
-			If _isShenzhenFundAccount($strAccount) == False	Then
-				_yinheAddShenzhenMoneyEntry($hWnd, $idDebug)
+;		If _isShenzhenAccount($strAccount) Then
+;			If _isShenzhenFundAccount($strAccount) == False	Then
+		If _isShanghaiAccount($strAccount) Then
+			If _isShanghaiFundAccount($strAccount) == False	Then
+				_yinheAddMoneyEntry($hWnd, $idDebug)
 				ExitLoop
 			EndIf
 		EndIf
@@ -805,7 +818,7 @@ Func YinheMain()
 	Local $arCheckboxAccount[$iMax]
 	$iMsg = 0
 
-	$idFormMain = GUICreate("银河海王星单独委托版全自动拖拉机V0.56", 803, 506, 289, 0)
+	$idFormMain = GUICreate("银河海王星单独委托版全自动拖拉机V0.57", 803, 506, 289, 0)
 
 	$idListViewAccount = GUICtrlCreateListView("客户号", 24, 24, 146, 454, BitOR($GUI_SS_DEFAULT_LISTVIEW,$WS_VSCROLL), BitOR($WS_EX_CLIENTEDGE,$LVS_EX_CHECKBOXES))
 	GUICtrlSendMsg(-1, $LVM_SETCOLUMNWIDTH, 0, 118)
@@ -830,7 +843,7 @@ Func YinheMain()
 	$GroupOperation = GUICtrlCreateGroup("操作", 192, 288, 121, 193)
 	$RadioCash = GUICtrlCreateRadio("转账回银行", 208, 312, 89, 17)
 	GUICtrlSetState(-1, _getRadioState($RadioCash, $iMsg, 'Cash', $GUI_UNCHECKED))
-	$RadioMoney = GUICtrlCreateRadio("深市逆回购", 208, 336, 89, 17)
+	$RadioMoney = GUICtrlCreateRadio("逆回购", 208, 336, 89, 17)
 	GUICtrlSetState(-1, _getRadioState($RadioMoney, $iMsg, 'Money', $GUI_UNCHECKED))
 	$RadioOrder = GUICtrlCreateRadio("场内申购", 208, 360, 89, 17)
 	GUICtrlSetState(-1, _getRadioState($RadioOrder, $iMsg, 'Order', $GUI_CHECKED))

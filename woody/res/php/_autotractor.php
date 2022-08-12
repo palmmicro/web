@@ -2,7 +2,7 @@
 require_once('_stock.php');
 require_once('/php/ui/imagedisp.php');
 
-define('YINHE_AU3_VER', '56');
+define('YINHE_AU3_VER', '57');
 
 function EchoAll()
 {
@@ -38,7 +38,7 @@ function EchoAll()
     $strFund = GetInfoElement('基金代码').'加亮选中基金';
     $strQuantity = GetInfoElement('卖出或者赎回总数量').'或者'.GetQuoteElement('缺省为空').'全部';
     echo GetListElement(array('转账回银行：把剩余可转银行资金全部转回，这里假定了银行资金密码和该客户号的登录密码是一样的。',
-    							'深市逆回购：把剩余可用资金下单比场内价格低一毛卖出131810。',
+    							'逆回购：把剩余可用资金下单比场内价格低一毛卖出204001。',
     							'场内申购：按当日限购金额自动申购'.$strFund.'。',
     							'赎回：按'.$strQuantity.'赎回'.$strFund.'。',
     							'卖出：按'.GetInfoElement('卖出价格').'和'.$strQuantity.'卖出'.$strFund.'。银河证券在前一日的17:30会短暂开放夜市委托，打算第2天抢跌停卖的可以提前在这里执行，注意要手工输入正确的跌停价。',
