@@ -2,7 +2,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>PA3288开发指南 - 芯片支持库csl</title>
-<meta name="description" content="PA3288芯片支持库csl">
+<meta name="description" content="Palmmicro PA3288软件开发中的芯片支持库csl(Chip Support Libary)：Overview、GPIO、PLL、SPI、 TIMER和USB等。">
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>
 <script src="../../../js/copyright.js"></script>

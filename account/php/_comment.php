@@ -57,7 +57,7 @@ function GetTitle($bChinese = true)
 function GetMetaDescription($bChinese = true)
 {
 	$str = GetTitle($bChinese); 
-    if ($bChinese)	$str .= '集中管理页面。提供分评论人、评论链接和IP地址等筛选功能分页显示全部评论。包括满足条件的编辑和删除链接。原来网络日志的评论功能现在扩充到了全部PHP写的网页。';
+    if ($bChinese)	$str .= '集中管理页面。为所有PHP写的网页提供分评论人、评论链接和IP地址等筛选功能分页显示全部评论。包括满足条件的编辑和删除链接。';
     else				$str .= ' manage page, display all comments by user, page link and IP address, with related edit and delete links.';
 	return CheckMetaDescription($str);
 }

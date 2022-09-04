@@ -6,15 +6,11 @@ function _getPortfolioTestVal($iShares, $strSymbol)
 	switch ($strSymbol)
     {
     case 'KWEB':
-		$iQuantity = 516;
-		break;
-		
-    case 'SNP':
-		$iQuantity = 400;
+		$iQuantity = 275;
 		break;
 		
     case 'XOP':
-		$iQuantity = 400;
+		$iQuantity = -200;
 		break;
 /*
     case 'SPY':
@@ -83,11 +79,10 @@ function _echoPortfolioTableItem($trans)
         	$ar[] = _getArbitrageTestStr($iShares, $strGroupId, $strStockId, $strSymbol);
         	break;
    		
-		case 'SNP':
-//		case 'SPY':
+/*		case 'SPY':
         	$ar[] = strval(_getPortfolioTestVal($iShares, $strSymbol));
         	break;
-    		
+*/    		
         case 'SZ161127':
 		case 'SZ162411':
         case 'SZ164906':

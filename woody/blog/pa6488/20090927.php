@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>From PA1688 to PA6488 - Safe Mode Recovery</title>
-<meta name="description" content="Palmmicro products have safe mode recovery. If the device can not boot due to wrong software update, user can restore the correct software in safe mode.">
+<meta name="description" content="Palmmicro products have safe mode recovery. When device can not boot due to wrong software update, user can restore the correct software in safe mode.">
 <?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../../js/filetype.js"></script>
