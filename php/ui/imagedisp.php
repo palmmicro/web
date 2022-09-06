@@ -24,6 +24,11 @@ function ImgCramersRule($bChinese = true)
 	return QuoteImgElement('20190815.jpg', '用Cramer法则计算步骤', "Cramer's rule calculation steps", $bChinese);
 }
 
+function ImgLikeDog($bChinese = true)
+{
+	return QuoteImgElement('dog.jpg', '咦，那个人看上去好像一条狗！');
+}
+
 function ImgLinearRegression($bChinese = true)
 {
 	return QuoteImgElement('20190824.jpg', '线性回归计算步骤', 'Linear regression calculation steps', $bChinese);

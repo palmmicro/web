@@ -319,7 +319,7 @@ function GetUbsSdicSoftwareLinks($strDigitA)
 // http://www.99fund.com/main/products/pofund/164705/fundgk.shtml
 function GetUniversalSoftwareLinks($strDigitA)
 {
-    $ar = array('SH501043', 'SZ164701', 'SZ164705');
+    $ar = array('SH501043', 'SH513290', 'SZ164701', 'SZ164705');
 	$strUrl = 'http://www.99fund.com';
     return ' '.GetOfficialLink($strUrl.'/main/products/pofund/'.$strDigitA.'/fundgk.shtml', $strDigitA).GetCategorySoftwareLinks($ar, GetExternalLink($strUrl, '汇添富基金'));
 }

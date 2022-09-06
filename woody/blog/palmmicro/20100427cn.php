@@ -107,7 +107,7 @@ Yahoo网站服务早些时候给palmmicro.com换到了一个新IP地址: 98.136.
 <br /><img src=../photo/20210310f.jpg alt="Xueqiu forbidden phrase f" />
 <br />热门电影台词不能侵权.
 <br /><img src=../photo/20210310g.jpg alt="Xueqiu forbidden phrase g" />
-<br /><img src=../photo/dog.jpg alt="That man looks like a dog" />
+<?php echo ImgLikeDog(); ?>
 <br />举报制度不能揣测.
 <br /><img src=../photo/20210310h.jpg alt="Xueqiu forbidden phrase h" />
 <br />前朝末代皇帝的话不能引述.

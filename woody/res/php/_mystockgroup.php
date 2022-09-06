@@ -118,9 +118,6 @@ function _getGroupImageLink($strPage)
     case 'chinainternet':
     	return ImgMrFox();
     	
-	case 'qdiimix':
-    	return ImgHuangRong();
-
     case 'hangseng':
     	return QuoteImgElement('queen.jpg', '命运赠送的礼物都早已暗中标好了价格');
 
@@ -128,14 +125,20 @@ function _getGroupImageLink($strPage)
     case 'hstech':
     	return QuoteImgElement('luodayou.jpg', '罗大佑弹唱流到香江去看一看');
     	
+    case 'oilfund':
+    	return ImgPanicFree();
+    	
     case 'qdii':
     	return ImgWinMan();
     	
     case 'qdiihk':
     	return QuoteImgElement('ronin.jpg', 'Deirdre：你刚才到底在后面干什么？Sam：女士，如果一个地方我不知道如何走出去，就绝不会走进去。');
     	
-    case 'oilfund':
-    	return ImgPanicFree();
+	case 'qdiimix':
+    	return ImgHuangRong();
+
+    case 'qqqfund':
+    	return ImgLikeDog();
     	
     case 'spyfund':
     	return ImgBuffettCards();
