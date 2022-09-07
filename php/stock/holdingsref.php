@@ -120,7 +120,8 @@ class HoldingsReference extends MyStockReference
     function _estNav($strDate = false, $bStrict = false)
     {
     	$arStrict = GetSecondaryListingArray();    	
-    	$fAdjustH = $this->GetAdjustHkd($strDate);
+    	$fAdjustHkd = $this->GetAdjustHkd($strDate);
+		$fAdjustCny = $this->GetAdjustCny($strDate);
     	
 		$his_sql = GetStockHistorySql();
 		$fTotalChange = 0.0;
@@ -154,7 +155,8 @@ class HoldingsReference extends MyStockReference
 			if ($strAdjClose = $his_sql->GetAdjClose($strStockId, $this->strHoldingsDate))
 			{
 				$fChange = $fRatio * floatval($strPrice) / floatval($strAdjClose);
-				if ($ref->IsSymbolH())	$fChange *= $fAdjustH; 
+				if ($ref->IsSymbolA())		$fChange *= $fAdjustCny;
+				else if ($ref->IsSymbolH())	$fChange *= $fAdjustHkd; 
 				$fTotalChange += $fChange;
 			}
 		}
@@ -163,7 +165,7 @@ class HoldingsReference extends MyStockReference
 		$fTotalChange *= RefGetPosition($this);
 
 		$fNewNav = floatval($this->strNav) * (1.0 + $fTotalChange);
-		if ($this->IsFundA())		$fNewNav /= $this->GetAdjustCny($strDate);
+		if ($this->IsFundA())		$fNewNav /= $fAdjustCny;
 		return $fNewNav; 
     }
 

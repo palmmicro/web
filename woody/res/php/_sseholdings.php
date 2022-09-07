@@ -34,7 +34,11 @@ class _SseHoldingsFile extends _EtfHoldingsFile
     	else
     	{
     		$strHolding = trim($arWord[0]);
-    		if (is_numeric($strHolding))	$strHolding = BuildHongkongStockSymbol($strHolding);
+    		if (is_numeric($strHolding))
+    		{
+    			if (strlen($strHolding) <= 5)	$strHolding = BuildHongkongStockSymbol($strHolding);
+    			else								$strHolding = BuildChineseStockSymbol($strHolding);
+    		}
     		$this->AddHolding($strHolding, GbToUtf8(trim($arWord[1])), floatval(trim($arWord[6])));
     	}
     }
@@ -42,7 +46,23 @@ class _SseHoldingsFile extends _EtfHoldingsFile
 
 function ReadSseHoldingsFile($strSymbol, $strStockId)
 {
-	$strUrl = 'http://query.sse.com.cn/etfDownload/downloadETF2Bulletin.do?etfType=087';
+	switch ($strSymbol)
+	{
+	case 'SH513050':
+		$strEtfType = '087';
+		break;
+    		
+	case 'SH513220':
+		$strEtfType = '509';
+		break;
+
+	case 'SH513360':
+		$strEtfType = '395';
+		break;
+
+	}
+	$strUrl = 'http://query.sse.com.cn/etfDownload/downloadETF2Bulletin.do?etfType='.$strEtfType;
+	
 	if ($strDebug = StockSaveHoldingsCsv($strSymbol, $strUrl))
 	{
 		$csv = new _SseHoldingsFile($strDebug, $strStockId);

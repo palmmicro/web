@@ -54,7 +54,7 @@ function GetCategoryArray($strPage)
         break;
         
     case 'chinainternet':
-        $ar = array('SH513050', 'SZ159605', 'SZ159607', 'SZ164906');
+        $ar = array('SH513050', 'SH513220', 'SZ159605', 'SZ159607', 'SZ164906');
         break;
         
     case 'commodity':
@@ -180,9 +180,17 @@ function GetChinaInternetSoftwareLinks()
 
 function GetBoShiSoftwareLinks($strDigitA)
 {
-    $ar = array('SH513500', 'SZ159742', 'SZ159937');
+    $ar = array('SH513360', 'SH513500', 'SZ159742', 'SZ159937');
 	$strUrl = 'http://www.bosera.com';
     return ' '.GetOfficialLink($strUrl.'/fund/'.$strDigitA.'.html', $strDigitA).GetCategorySoftwareLinks($ar, GetExternalLink($strUrl, '博时基金'));
+}
+
+// http://www.cmfchina.com/main/513220/fundinfo.shtml
+function GetCmfSoftwareLinks($strDigitA)
+{
+    $ar = array('SH513220');
+	$strUrl = 'http://www.cmfchina.com';
+    return ' '.GetOfficialLink($strUrl.'/main/'.$strDigitA.'/fundinfo.shtml', $strDigitA).GetCategorySoftwareLinks($ar, GetExternalLink($strUrl, '招商基金'));
 }
 
 // http://www.dcfund.com.cn/dcjj/159740/index.jhtml

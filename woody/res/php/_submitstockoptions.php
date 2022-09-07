@@ -369,6 +369,8 @@ function _updateStockOptionCalibration($strSymbol, $strStockId, $strDate, $strVa
 				switch ($strSymbol)
 				{
 				case 'SH513050':
+				case 'SH513220':
+				case 'SH513360':
 					ReadSseHoldingsFile($strSymbol, $strStockId);
 					break;
 					

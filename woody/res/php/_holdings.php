@@ -38,16 +38,18 @@ function RefSort($arRef)
 	return array_merge(RefSortBySymbol($arA), RefSortBySymbol($arH), RefSortBySymbol($arUS));
 }
 
-function _echoHoldingItem($ref, $arRatio, $strDate, $his_sql, $fTotalChange, $fAdjustH)
+function _echoHoldingItem($ref, $arRatio, $strDate, $his_sql, $fTotalChange, $fAdjustCny, $fAdjustHkd)
 {
-	$bHk = $ref->IsSymbolH() ? true : false;
+	if ($ref->IsSymbolA())		$fAdjust = $fAdjustCny;
+	else if ($ref->IsSymbolH())	$fAdjust = $fAdjustHkd;
+	else							$fAdjust = false;
 	
 	$strStockId = $ref->GetStockId();
 	$strClose = $his_sql->GetAdjClose($strStockId, $strDate);
 	$strPrice = $ref->GetPrice();
 	$fRatio = floatval($arRatio[$strStockId]);
 	$fChange = $ref->GetPercentage($strClose, $strPrice) / 100.0;
-    if ($bHk)	$fChange *= $fAdjustH;
+    if ($fAdjust)		$fChange *= $fAdjust;
 	
 	$ar = array();
 	$ar[] = RefGetMyStockLink($ref);
@@ -56,7 +58,7 @@ function _echoHoldingItem($ref, $arRatio, $strDate, $his_sql, $fTotalChange, $fA
     $ar[] = $ref->GetPercentageDisplay($strClose, $strPrice);
     $ar[] = strval_round($fRatio * (1 + $fChange) / $fTotalChange, 2);
     $ar[] = strval_round($fRatio * $fChange, 4);
-    if ($bHk)	$ar[] = strval_round($fAdjustH, 4);
+    if ($fAdjust)		$ar[] = strval_round($fAdjust, 4);
     
     RefEchoTableColumn($ref, $ar);
 }
@@ -80,14 +82,17 @@ function EchoAll()
 										   new TableColumnChange('此后'),
 										   new TableColumnPercentage('新'),
 										   new TableColumnPercentage('影响'),
-										   new TableColumn('H股汇率调整', 100)
+										   new TableColumn('汇率调整', 100)
 										   ), 'holdings', '持仓和测算示意');
 	
-			$arRatio = $ref->GetHoldingsRatioArray();
 			$his_sql = GetStockHistorySql();
+			$arRatio = $ref->GetHoldingsRatioArray();
+			$fNavChange = $ref->GetNavChange();
+			$fAdjustCny = $ref->GetAdjustCny();
+			$fAdjustHkd = $ref->GetAdjustHkd();
 			foreach ($arHoldingRef as $holding_ref)
 			{
-				_echoHoldingItem($holding_ref, $arRatio, $strDate, $his_sql, $ref->GetNavChange(), $ref->GetAdjustHkd());
+				_echoHoldingItem($holding_ref, $arRatio, $strDate, $his_sql, $fNavChange, $fAdjustCny, $fAdjustHkd);
 			}
 			EchoTableParagraphEnd();
 		}
