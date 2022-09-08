@@ -77,6 +77,24 @@ function TestModifyTransactions($strGroupId, $strSymbol, $strNewSymbol)
 }
 */
 
+function TestDeleteOldSymbol($strSymbol)
+{
+	$sql = GetStockSql();
+	if ($strStockId = $sql->GetId($strSymbol))
+	{
+		$his_sql = GetStockHistorySql();
+		$his_sql->DeleteAll($strStockId);
+		
+		$sql->DeleteById($strStockId);
+		DebugString($strSymbol.' deleted');
+	}
+}
+
+function TestDeleteOldSymbols()
+{
+	foreach (func_get_args() as $strSymbol)	TestDeleteOldSymbol($strSymbol);
+}
+
 function DebugLogFile()
 {
     $strFileName = UrlGetRootDir().'logs/scripts.log';
@@ -125,10 +143,13 @@ function DebugClearPath($strSection)
 	DebugClearPath('csv');
 	DebugClearPath('image');
 
+	TestDeleteOldSymbols('ACH', 'CHU', 'CHL', 'LFC', 'SHI', 'SINA');
+	
     $his_sql = GetStockHistorySql();
     $iCount = $his_sql->DeleteClose();
 	if ($iCount > 0)	DebugVal($iCount, 'Zero close data');
 
+	
 //    $iCount = $his_sql->DeleteInvalidDate();		// this can be very slow!
 //	if ($iCount > 0)	DebugVal($iCount, 'Invalid or older date'); 
 	

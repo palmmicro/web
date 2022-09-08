@@ -58,10 +58,7 @@ function GetCategoryArray($strPage)
         break;
         
     case 'commodity':
-        $ar = array_merge(QdiiGetCommoditySymbolArray()
-        				   , QdiiGetGoldSymbolArray()
-    					   , GoldSilverGetSymbolArray()
-    					   , array('ACH'));
+        $ar = array_merge(QdiiGetCommoditySymbolArray(), QdiiGetGoldSymbolArray(), GoldSilverGetSymbolArray());
         break;
         
     case 'fundlist':
@@ -100,7 +97,7 @@ function GetCategoryArray($strPage)
     case 'oilfund':
     	$ar = array_merge(QdiiGetOilEtfSymbolArray()
     					   , QdiiGetOilSymbolArray()
-    					   , array('PTR', 'SHI', 'SNP'));
+    					   , array('PTR', 'SNP'));
         break;
         
     case 'qqqfund':
