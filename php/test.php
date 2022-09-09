@@ -49,8 +49,9 @@ function TestCmdLine()
     	DebugString($strSymbol.':'.$str.DebugGetStopWatchDisplay($fStart));
     }
 }
+
 /*
-function TestModifyTransactions($strGroupId, $strSymbol, $strNewSymbol)
+function TestModifyTransactions($strGroupId, $strSymbol, $strNewSymbol, $iRatio)
 {
 	$sql = new StockGroupItemSql($strGroupId);
 	$strGroupItemId = $sql->GetId(SqlGetStockId($strSymbol));
@@ -65,10 +66,10 @@ function TestModifyTransactions($strGroupId, $strSymbol, $strNewSymbol)
         	{
 //        		DebugPrint($record);
 //        		$sql->trans_sql->Update($record['id'], $strNewGroupItemId, $record['quantity'], $record['price'], $record['fees'], $record['remark'].$strSymbol);
-				$strQuantity = strval(10 * intval($record['quantity']));
-				$strPrice = strval(floatval($record['price']) * $fUshkd / 10.0);
+				$strQuantity = strval($iRatio * intval($record['quantity']));
+				$strPrice = strval(floatval($record['price']) * $fUshkd / $iRatio);
 				$strFees = strval(floatval($record['fees']) * $fUshkd);
-        		$sql->trans_sql->Update($record['id'], $strNewGroupItemId, $strQuantity, $strPrice, $strFees, $record['remark']);
+        		$sql->trans_sql->Update($record['id'], $strNewGroupItemId, $strQuantity, $strPrice, $strFees, $record['remark'].$strSymbol);
         	}
         }
         @mysql_free_result($result);
@@ -82,6 +83,9 @@ function TestDeleteOldSymbol($strSymbol)
 	$sql = GetStockSql();
 	if ($strStockId = $sql->GetId($strSymbol))
 	{
+		$sym = new StockSymbol($strSymbol);
+		unlinkEmptyFile(DebugGetSinaFileName($sym->GetSinaSymbol()));
+		
 		$his_sql = GetStockHistorySql();
 		$his_sql->DeleteAll($strStockId);
 		
@@ -143,7 +147,7 @@ function DebugClearPath($strSection)
 	DebugClearPath('csv');
 	DebugClearPath('image');
 
-	TestDeleteOldSymbols('ACH', 'CHU', 'CHL', 'LFC', 'SHI', 'SINA');
+	TestDeleteOldSymbols('ACH', 'CHU', 'CHL', 'HNP', 'LFC', 'PTR', 'SHI', 'SINA', 'SMI', 'SNP');
 	
     $his_sql = GetStockHistorySql();
     $iCount = $his_sql->DeleteClose();
@@ -155,8 +159,9 @@ function DebugClearPath($strSection)
 	
 //	CsindexGetData();
 
-//	TestModifyTransactions('1831', 'CHU', '00762');
 //	TestModifyTransactions('1376', 'UWT', 'USO');
+//	TestModifyTransactions('1831', 'CHU', '00762', 10);
+//	TestModifyTransactions('160', 'SNP', '00386', 100);
 
 //	phpinfo();
 ?>

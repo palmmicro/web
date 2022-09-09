@@ -42,12 +42,14 @@ class IpLookupAccount extends CommentAccount
     		$ar = json_decode($str, true);
     		if (isset($ar['hostname']))
     		{
-    			if ($ar['hostname'] == 'No Hostname')		unset($ar['hostname']);
+    			$strHostName = $ar['hostname'];
+    			if ($strHostName == 'No Hostname')		unset($ar['hostname']);
     			else
     			{
-    				if (strstr_array($ar['hostname'], array('bot', 'crawl', 'spider')))
+    				if (strstr_array($strHostName, array('bot', 'crawl', 'spider')))
     				{
     					$this->SetCrawler($strIp);
+    					DebugString('自动标注爬虫:'.$strHostName);
     				}
     			}
     		}

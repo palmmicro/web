@@ -201,7 +201,6 @@ function GetSinaCnStockLink($strSymbol)
     return GetExternalLink($strHttp, $strSymbol);
 }
 
-// http://stock.finance.sina.com.cn/usstock/quotes/SNP.html
 function GetSinaUsStockLink($sym)
 {
     $strSymbol = $sym->GetSymbol();

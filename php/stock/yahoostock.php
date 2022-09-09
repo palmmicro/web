@@ -188,6 +188,7 @@ function _yahooGetNetValueSymbol($sym, $strSymbol)
    		switch ($strSymbol)
    		{
 //   		case 'GSG':
+   		case 'IBB':
    		case 'KWEB':
    		case 'QQQ':
    		case 'SCHH':

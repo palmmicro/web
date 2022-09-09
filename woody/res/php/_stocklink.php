@@ -95,9 +95,7 @@ function GetCategoryArray($strPage)
         break;
         
     case 'oilfund':
-    	$ar = array_merge(QdiiGetOilEtfSymbolArray()
-    					   , QdiiGetOilSymbolArray()
-    					   , array('PTR', 'SNP'));
+    	$ar = array_merge(QdiiGetOilEtfSymbolArray(), QdiiGetOilSymbolArray());
         break;
         
     case 'qqqfund':

@@ -288,7 +288,7 @@ function _getPage($str)
    	    return substr($str, 0, $iPos);
    	}
    	
-   	// https://www.palmmicro.com/woody/res/snp ==> snp
+   	// https://www.palmmicro.com/woody/res/sz12411 ==> sz12411
 //   	DebugString($str);
     if (_cnEndString($str))
    	{

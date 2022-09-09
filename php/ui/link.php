@@ -33,7 +33,7 @@ function EchoFileLink($strPathName)
 
 function EchoSinaDebugLink($strSina)
 {
-	EchoFileLink('/debug/sina/'.$strSina.'.txt');
+	EchoFileLink(DebugGetSinaFileName($strSina));
 }
 
 function EchoMyStockLink($strSymbol, $strDisplay = false)

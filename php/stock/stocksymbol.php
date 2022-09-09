@@ -57,7 +57,7 @@ function in_arrayChinaIndex($strSymbol)
 
 function AdrGetSymbolArray()
 {
-    return array('CEA', 'PTR', 'SNP', 'ZNH');
+    return array('CEA', 'ZNH');
 }
 
 function GoldSilverGetSymbolArray()

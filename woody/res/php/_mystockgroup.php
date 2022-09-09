@@ -108,7 +108,22 @@ function _getSimilarLinks($strPage)
     default:
     	return false;
     }
-    return '<br />类似软件: '.$str;
+    return '<br />类似软件：'.$str;
+}
+
+function _getOldBugs($strPage)
+{
+    switch ($strPage)
+    {
+    case 'adrhcompare':
+    case 'ahcompare':
+    	$str = '2018年9月3日星期一，00386分红除权，导致AH和ADRH对比不准。SNP的分红除权在9月5日，而SH600028的分红除权在9月12日。';
+        break;
+        
+    default:
+    	return false;
+    }
+    return '<br />已知问题：'.$str;
 }
 
 function _getGroupImageLink($strPage)
@@ -176,6 +191,7 @@ function EchoAll()
         
     	$str = _getMetaDescriptionStr($strPage);
 		if ($strLinks = _getSimilarLinks($strPage))		$str .= $strLinks;
+		if ($strBugs = _getOldBugs($strPage))			$str .= $strBugs;
         if ($strImage = _getGroupImageLink($strPage))	$str .= $strImage;
         EchoParagraph($str);
     }
