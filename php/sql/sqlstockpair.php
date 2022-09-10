@@ -24,7 +24,7 @@ class StockPairSql extends PairSql
 		
 		if (count($ar) > 0)
 		{
-			foreach ($ar as $strStockId)	$arSymbol[] = $this->sql->GetKey($strStockId);
+			foreach ($ar as $strStockId)	$arSymbol[] = $this->sql->GetStockSymbol($strStockId);
 			sort($arSymbol);
 		}
 		return $arSymbol;
@@ -36,7 +36,7 @@ class StockPairSql extends PairSql
 		{
 			if ($strStockId = $this->GetId($strPairId))
 			{
-				return $this->sql->GetKey($strStockId);
+				return $this->sql->GetStockSymbol($strStockId);
 			}
 		}
 		return false;
@@ -48,7 +48,7 @@ class StockPairSql extends PairSql
 		{
 			if ($strPairId = $this->ReadPair($strStockId))
 			{
-				return $this->sql->GetKey($strPairId);
+				return $this->sql->GetStockSymbol($strPairId);
 			}
 		}
 		return false;

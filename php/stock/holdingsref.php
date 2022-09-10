@@ -29,7 +29,7 @@ class HoldingsReference extends MyStockReference
 			$sql = GetStockSql();
 			foreach ($this->arHoldingsRatio as $strId => $strRatio)
 			{
-    			$this->ar_holdings_ref[] = new MyStockReference($sql->GetKey($strId));
+    			$this->ar_holdings_ref[] = new MyStockReference($sql->GetStockSymbol($strId));
 			}
     	}
     }

@@ -10,7 +10,6 @@ function EchoAll($bChinese)
 {
     echo <<<END
 <p>Oct 14, 2016 Palmmicro <a href="palmmicro/20161014.php">Wechat Public Account</a> sz162411
-<br />March 7, 2016 <a href="palmmicro/20160307.php">The Backup of Dynamic DNS palmmicro.ddns.us</a>
 <br />Sep 9, 2010 <a href="palmmicro/20100909.php">Forgot Password?</a>
 <br />Apr 27, 2010 <a href="palmmicro/20100427.php">The Blocking History of Palmmicro.com</a>
 <br />Nov 14, 2009 <a href="palmmicro/20091114.php">Palmmicro MAC Address</a>

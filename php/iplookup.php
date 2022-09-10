@@ -48,8 +48,7 @@ class IpLookupAccount extends CommentAccount
     			{
     				if (strstr_array($strHostName, array('bot', 'crawl', 'spider')))
     				{
-    					$this->SetCrawler($strIp);
-    					DebugString('自动标注爬虫:'.$strHostName);
+    					if ($this->SetCrawler($strIp))	DebugString('自动标注爬虫:'.$strHostName);
     				}
     			}
     		}

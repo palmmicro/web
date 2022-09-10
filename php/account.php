@@ -100,7 +100,7 @@ class Account
     
     function GetPageUri($strPageId)
     {
-    	return $this->page_sql->GetKey($strPageId);
+    	return $this->page_sql->GetPageUri($strPageId);
     }
     
     function GetPageId($strPageUri = false)

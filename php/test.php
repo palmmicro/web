@@ -132,6 +132,39 @@ function DebugClearPath($strSection)
 	closedir($hDir);
 }
 
+function SqlClearStockGroupItem()
+{
+	$item_sql = new StockGroupItemSql();
+	DebugVal($item_sql->Count(), 'Total stock group items');
+	
+	$sql = GetStockSql();
+	$group_sql = new StockGroupSql();
+	$iCount = 0;
+	$ar = array();
+   	if ($result = $item_sql->GetAll())
+   	{
+   		while ($record = mysql_fetch_assoc($result)) 
+   		{
+   			$strGroupId = $record['stockgroup_id'];
+   			if ($group_sql->GetRecordById($strGroupId) == false)
+   			{
+   				$iCount ++;
+   				$ar[] = $record['id'];
+   				$strDebug = 'Missing group id: '.$strGroupId;
+   				if ($strSymbol = $sql->GetStockSymbol($record['stock_id']))	$strDebug .= ' with '.$strSymbol.' '.$sql->GetStockName($strSymbol);
+   				DebugString($strDebug);
+    		}
+    	}
+   		@mysql_free_result($result);
+    }
+    
+    if ($iCount > 0)
+    {
+    	DebugVal($iCount, 'Total error');
+    	foreach ($ar as $strId)		$item_sql->DeleteById($strId);
+    }
+}
+
 	$acct = new Account();
 	if ($acct->AllowCurl() == false)		die('Crawler not allowed on this page');
 
@@ -153,6 +186,7 @@ function DebugClearPath($strSection)
     $iCount = $his_sql->DeleteClose();
 	if ($iCount > 0)	DebugVal($iCount, 'Zero close data');
 
+//	SqlClearStockGroupItem();	
 	
 //    $iCount = $his_sql->DeleteInvalidDate();		// this can be very slow!
 //	if ($iCount > 0)	DebugVal($iCount, 'Invalid or older date'); 

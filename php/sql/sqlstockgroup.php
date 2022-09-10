@@ -159,7 +159,7 @@ function SqlGetStockGroupItemSymbolArray($item_sql)
     	$sql = GetStockSql();
      	foreach ($arStockId as $str => $strStockId)
     	{
-    		if ($strSymbol = $sql->GetKey($strStockId))
+    		if ($strSymbol = $sql->GetStockSymbol($strStockId))
     		{
     			$sym = new StockSymbol($strSymbol);
     			if ($sym->IsTradable())
@@ -188,7 +188,7 @@ function SqlGetStocksArray($strGroupId, $bCheckTransaction = false)
     {
     	foreach ($arStockId as $str => $strStockId)
     	{
-    		if ($strSymbol = $sql->GetKey($strStockId))	$ar[] = $strSymbol;
+    		if ($strSymbol = $sql->GetStockSymbol($strStockId))	$ar[] = $strSymbol;
     	}
     }
 	sort($ar);

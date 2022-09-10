@@ -70,7 +70,7 @@
 
 <h3>在腾讯云安装<a name="asterisk">Asterisk</a></h3>
 <p>2019年1月14日
-<br />由于免费<a href="../palmmicro/20160307cn.php">DDNS</a>太难用, Palmmicro的测试<a href="../../../contactus/pbxcn.html">IP-PBX</a>已经罢工很久了.
+<br />由于免费动态域名palmmicro.ddns.us太难用, Palmmicro的测试<a href="../../../contactus/pbxcn.html">IP-PBX</a>已经罢工很久了.
 最近有人找我测试SIP, 想起一直闲置的<a href="#qcloud">腾讯云</a>其实是有个公网IP的, 于是开始尝试在它上面安装Asterisk.
 <br />以下步骤基本上都来自于<?php echo GetExternalLink('https://wiki.asterisk.org/wiki/display/AST/Installing+Asterisk+From+Source', '官网WIKI'); ?>, 附加一点自己搜索的疑难解决方法.
 </p> 

@@ -28,7 +28,7 @@ function _echoBlogVisitorData($strId, $visitor_sql, $page_sql, $iStart, $iNum, $
 			$ar = array($record['date'], GetHM($record['time']));
 
 			$strDstId = $record[$strDstIndex];
-			$strUri = $page_sql->GetKey($strDstId);
+			$strUri = $page_sql->GetPageUri($strDstId);
             $strUriLink = ltrim($strUri, '/');
             $strUriLink = _getVisitorContentsDisplay($strUriLink);
 			$ar[] = SelectColumnItem($strUriLink, GetInternalLink($strUri, $strUriLink), $strDstId, $arBlogId);

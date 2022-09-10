@@ -102,7 +102,6 @@ class IpSql extends TableSql
     		{
     			return $this->UpdateIp($strIp, $record['visit'], $record['login'], $strStatus);
     		}
-    		return true;
     	}
     	return false;
     }

@@ -7,6 +7,11 @@ class PageSql extends KeyNameSql
     {
         parent::KeyNameSql(TABLE_PAGE, 'uri');
     }
+
+    function GetPageUri($strPageId)
+    {
+    	return $this->GetKey($strPageId);
+	}
 }
 
 class PageCommentSql extends VisitorSql

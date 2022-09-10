@@ -179,6 +179,11 @@ class StockSql extends KeyNameSql
     	}
     	return false;
     }
+
+    function GetStockSymbol($strStockId)
+    {
+    	return $this->GetKey($strStockId);
+	}
 }
 
 // ****************************** Stock symbol functionse *******************************************************
@@ -236,7 +241,7 @@ function SqlGetStockId($strSymbol)
 function SqlGetStockSymbol($strStockId)
 {
 	$sql = GetStockSql();
-	return $sql->GetKey($strStockId);
+	return $sql->GetStockSymbol($strStockId);
 }
 /*
 function SqlGetHisByDate($strStockId, $strDate)
@@ -289,7 +294,7 @@ function SqlGetHoldingsSymbolArray($strSymbol)
     	$ar = $holdings_sql->GetHoldingsArray($strStockId);
     	foreach ($ar as $strId => $strRatio)
     	{
-    		$arSymbol[] = $sql->GetKey($strId);
+    		$arSymbol[] = $sql->GetStockSymbol($strId);
     	}
     }
    	return $arSymbol;
