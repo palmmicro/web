@@ -69,6 +69,25 @@ class KeyStringSql extends KeySql
     	}
     	return false;
     }
+    
+    function BuildWhere_string($strString)
+    {
+    	return _SqlBuildWhere($this->strStringName, $strString);
+    }
+
+    function CountByString($strString)
+    {
+    	return $this->CountData($this->BuildWhere_string($strString));
+    }
+    
+    function DeleteByString($strString)
+    {
+    	if ($strString)
+    	{
+    		return $this->DeleteData($this->BuildWhere_string($strString));
+    	}
+    	return false;
+    }
 }
 
 class CommonPhraseSql extends KeyStringSql

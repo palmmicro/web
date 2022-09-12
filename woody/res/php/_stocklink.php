@@ -35,10 +35,6 @@ function GetCategoryArray($strPage)
         $ar = $pair_sql->GetSymbolArray();
         break;
   
-    case 'adr':
-        $ar = AdrGetSymbolArray();
-        break;
-        
     case 'adrhcompare':
    		$pair_sql = new AdrPairSql();
         $ar = $pair_sql->GetSymbolArray();

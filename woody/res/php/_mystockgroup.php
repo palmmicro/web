@@ -72,7 +72,6 @@ function _echoStockGroupArray($arStock, $bAdmin)
 function _getMetaDescriptionStr($strPage)
 {
 	$ar = array('abcompare' => AB_COMPARE_DISPLAY.'工具，按A/B价格比和B/A价格比排序。B股的正式名称是人民币特种股票，以外币认购和买卖，在中国上海和深圳证券交易所上市交易。',
-				  'adr' => '通过比较中国企业在美国发行的American Depositary Receipt(ADR)的中国A股价格、港股价格和美股价格，观察在三地市场上配对和轮动交易的机会。',
 				  'adrhcompare' => ADRH_COMPARE_DISPLAY.'工具，按ADR/H价格比和H/ADR价格比排序。这里H股泛指香港上市的所有企业，ADR也不限于传统意义，同时包括了二次回港上市美股。',
 				  'ahcompare' => AH_COMPARE_DISPLAY.'工具，按A/H价格比和H/A价格比排序。H股开始是指获中国证监会批核到香港上市的国有企业，也称国企股，现在已经扩大到两地上市私企。',
 				  'chinaindex' => CHINA_INDEX_DISPLAY.'基金工具, 计算基金净值, 同时分析比较各种套利对冲方案. 包括美股ASHR和多家国内基金公司的A股沪深300指数基金的配对交易等.',
@@ -216,7 +215,6 @@ function _getTitleStr($strPage)
 {
 	$strTool = '基金净值计算工具';
 	$ar = array('abcompare' => AB_COMPARE_DISPLAY,
-				  'adr' => ADR_DISPLAY,
 				  'adrhcompare' => ADRH_COMPARE_DISPLAY,
 			  	  'ahcompare' => AH_COMPARE_DISPLAY,
 			  	  'chinaindex' => CHINA_INDEX_DISPLAY.$strTool,

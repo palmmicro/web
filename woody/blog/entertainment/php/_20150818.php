@@ -81,7 +81,6 @@ END;
 function Echo20180404($strHead)
 {
 	$strXueQiu = GetXueQiuIdLink('1955602780', '不明真相的群众');
-	$strAdr = GetNameLink('adr', ADR_DISPLAY);
 	$strAhCompare= GetNameLink('ahcompare', AH_COMPARE_DISPLAY);
 	$str00700 = GetQuoteElement('00700');
 	$strTencent = GetQuoteElement('腾讯');
@@ -102,9 +101,8 @@ function Echo20180404($strHead)
 <p>2018年4月4日
 <br />雪球创始人方三文，自称{$strXueQiu}。平时总是苦口婆心的把盈亏同源放在嘴边，鼓动大家通过雪球资管做资产配置。但是他却认为自己对互联网企业有深刻理解，在推销自己私募的时候总是鼓吹腾讯和FB，又把盈亏同源抛在脑后了。
 <br />最近2个月腾讯结束了屡创新高的行情，开始跟FB一起下跌，引发了大家抄底雪球方丈的热情。不仅港股腾讯00700每天巨量交易，就连它在美股粉单市场的ADR在雪球上都热闹非凡。
-这吸引了我的注意力，然后发现除了在{$strAdr}中已经包括的外，港股还有其它不少股票也有美股市场的ADR。于是我按照原来{$strAhCompare}的套路增加了个页面蹭一下热度。同时也加入到了微信公众号的查询中：输入{$strTencent}或者{$str00700}试试看。
+这吸引了我的注意力，然后发现港股还有其它不少股票也有美股市场的American Depositary Receipt(ADR)。于是我按照原来{$strAhCompare}的套路增加了个页面蹭一下热度。同时也加入到了微信公众号的查询中：输入{$strTencent}或者{$str00700}试试看。
 <br />数据来源：{$strSource}	{$strUpdate}
-<br />两年半前刚接触ADR的时候，也正是我刚开始使用PHP类的时候。明知道三体会导致混沌，我还是咬着牙写了一个囊括了A/H/ADR三者关系复杂实现，然后至今没有敢再去读第2遍代码。在连续增加了更有普遍意义的A/H和ADR/H比较页面后，我看到了降维打击的可能性。
 <br />从数据库的表格开始，{$strTableSql}是所有表格的基类，它本身也可以用在只有一个整数id的表格。
 <br />{$strValSql}基于{$strTableSql}，试图包括所有一个整数id和一个val的表格，它本身可以用于id+浮点数的表格，例如基金仓位fundposition表。
 <br />{$strDateSql}和{$strIntSql}都基于{$strValSql}，分别对应id+YMD日期和id+整数的表格。
@@ -113,7 +111,7 @@ function Echo20180404($strHead)
 <br />跟A股和H股总是1:1不同，每股ADR可以对应100、1或者0.5等各种不同数值的H股。因此一个自然的做法是继续从{$strStockPairSql}派生adrpair表，加上这个额外的对应数值。不过这样一来，A/H和ADR/H比较页面能共用的代码就不多了。
 在{$strQDII}估值中原本就有基金仓位fundposition表，我脑洞一开，想到每股ADR对应多少股H股其实也是一种仓位上的体现，就把不是1:1的ADR/H对应数值也存到了这个表中。
 <br />更妙的是，想通了比例对应仓位后，A/H和ADR/H之间的价格转换跟QDII估值比较就只差一个{$strCalibration}的概念了。具体的看，在A/H情况下，其实相当于校准值永远是1。而在ADR/H的情况下，校准值其实就是固定的(1/仓位)。
-这样一来，我不仅消除了三体问题、统一了A/H和ADR/H比较页面的代码，还顺便统一了目前用到的各种价格转换计算，顿时感觉打通了任督二脉！
+这样一来，我不仅统一了A/H和ADR/H比较页面的代码，还顺便统一了目前用到的各种价格转换计算，顿时感觉打通了任督二脉！
 </p>
 END;
 

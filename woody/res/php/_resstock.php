@@ -14,8 +14,7 @@ function _menuStockSoftware($bChinese)
 	MenuContinueNewLine();
 
 	$strPage = UrlGetPage();
-    $arFunction = array('adr' => 'AdrGetSymbolArray',
-                      	   'chinaindex' => 'ChinaIndexGetSymbolArray',
+    $arFunction = array('chinaindex' => 'ChinaIndexGetSymbolArray',
                       	   'goldsilver' => 'GoldSilverGetSymbolArray',
                       	   'qdii' => 'QdiiGetSymbolArray',
                       	   'qdiimix' => 'QdiiMixGetSymbolArray',

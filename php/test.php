@@ -132,6 +132,14 @@ function DebugClearPath($strSection)
 	closedir($hDir);
 }
 
+function SqlDeleteStockGroup($strGroupName)
+{
+	$group_sql = new StockGroupSql();
+	$iCount = $group_sql->CountByString($strGroupName); 
+	DebugVal($iCount, 'Total stock group named '.$strGroupName);
+	if ($iCount > 0)	$group_sql->DeleteByString($strGroupName);
+}
+
 function SqlClearStockGroupItem()
 {
 	$item_sql = new StockGroupItemSql();
@@ -165,6 +173,36 @@ function SqlClearStockGroupItem()
     }
 }
 
+function SqlCleanStockTransaction()
+{
+	$trans_sql = new StockTransactionSql();
+	DebugVal($trans_sql->CountData(), 'Total stock transactions');
+	
+	$item_sql = new StockGroupItemSql();
+	$iCount = 0;
+	$ar = array();
+   	if ($result = $trans_sql->GetData())
+   	{
+   		while ($record = mysql_fetch_assoc($result)) 
+   		{
+   			$strItemId = $record['groupitem_id'];
+   			if ($item_sql->GetRecordById($strItemId) == false)
+   			{
+   				$iCount ++;
+   				$ar[] = $record['id'];
+   				DebugString('Missing stock group item id: '.$strItemId);
+    		}
+    	}
+   		@mysql_free_result($result);
+    }
+    
+    if ($iCount > 0)
+    {
+    	DebugVal($iCount, 'Total error');
+    	foreach ($ar as $strId)		$trans_sql->DeleteById($strId);
+    }
+}
+
 	$acct = new Account();
 	if ($acct->AllowCurl() == false)		die('Crawler not allowed on this page');
 
@@ -180,13 +218,15 @@ function SqlClearStockGroupItem()
 	DebugClearPath('csv');
 	DebugClearPath('image');
 
-	TestDeleteOldSymbols('ACH', 'CHU', 'CHL', 'HNP', 'LFC', 'PTR', 'SHI', 'SINA', 'SMI', 'SNP');
+	TestDeleteOldSymbols('ACH', 'CEO', 'CHA', 'CHU', 'CHL', 'GSH', 'HNP', 'LFC', 'PTR', 'SHI', 'SINA', 'SMI', 'SNP');
 	
     $his_sql = GetStockHistorySql();
     $iCount = $his_sql->DeleteClose();
 	if ($iCount > 0)	DebugVal($iCount, 'Zero close data');
 
+//	SqlDeleteStockGroup('ZNH');
 //	SqlClearStockGroupItem();	
+//	SqlCleanStockTransaction();
 	
 //    $iCount = $his_sql->DeleteInvalidDate();		// this can be very slow!
 //	if ($iCount > 0)	DebugVal($iCount, 'Invalid or older date'); 

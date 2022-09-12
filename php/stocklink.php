@@ -10,7 +10,6 @@ define('HANGSENG_GROUP_DISPLAY', '恒生指数');
 define('HSTECH_GROUP_DISPLAY', '恒生科技指数');
 define('HSHARES_GROUP_DISPLAY', 'H股中国企业指数');
 
-define('ADR_DISPLAY', 'ADR工具');
 define('CHINA_INDEX_DISPLAY', 'A股指数');
 define('GOLD_SILVER_DISPLAY', '黄金白银');
 define('QDII_DISPLAY', 'QDII工具');
@@ -19,8 +18,7 @@ define('QDII_HK_DISPLAY', '香港QDII');
 
 function GetStockMenuArray()
 {
-    return array('adr' => ADR_DISPLAY,
-                   'chinaindex' => CHINA_INDEX_DISPLAY,
+    return array('chinaindex' => CHINA_INDEX_DISPLAY,
                    'goldsilver' => GOLD_SILVER_DISPLAY,
                    'qdii' => QDII_DISPLAY,
                    'qdiimix' => QDII_MIX_DISPLAY,
