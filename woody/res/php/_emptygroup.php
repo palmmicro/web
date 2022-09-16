@@ -17,7 +17,7 @@ class SymbolAccount extends StockAccount
     	if ($ref = $this->GetRef())		return $ref;
     	else
     	{
-    		if ($strSymbol = StockCheckSymbol($this->GetQuery()))
+    		if ($strSymbol = $this->StockCheckSymbol($this->GetQuery()))
     		{
     			StockPrefetchExtendedData($strSymbol);
     			$ref = StockGetReference($strSymbol);

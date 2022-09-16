@@ -219,11 +219,50 @@ function Echo20200326($strHead)
 END;
 }
 
+function Echo20210227($strHead)
+{
+	$strBtok = GetExternalLink('https://0.plus');
+	$strWeb = GetExternalLink('https://web.telegram.im');
+	
+	$strHead = GetHeadElement($strHead);
+    echo <<<END
+	$strHead
+<p>2021年2月27日
+<br />因为微信个人订阅号的各种限制，最近削尖铅笔基于Telegram电报API开发了机器人@palmmicrobot，把微信公众号上的查询功能完全复制到了电报软件上。同时创建了@palmmicrocast频道，用来主动发布用户在各种渠道查询过程中碰到的可能需要提醒的信息。
+<br />电报是开源的，而且鼓励大家把它无缝集成到各种应用场景中。墙内使用电报可以从{$strBtok}下载安装Btok手机APP，也可以使用非官方的WEB版本{$strWeb}。
+<br />互联网不是法外之地，虽然墙外的电报软件能畅所欲言并且避免恶意举报，请大家记住Palmmicro的一切都是实名可以抓到我的，不要在电报中有关Palmmicro的地方乱说话！
+<br />不忘初心，接下来打算写个用电报机器人管理的基于MQTT协议的IoT模块。
+</p>
+END;
+}
+
+function Echo20210320($strHead)
+{
+	$strHead = GetHeadElement($strHead);
+    echo <<<END
+	$strHead
+<p>2021年3月20日
+<br />微信公众号发文章时出现<font color=red>剩余群发次数为0</font>的错误信息后，上网搜了一圈没找到解决方案。后来发现是最近写文章太积极，在已经发出文章的19日就开始写了20日的开头，等到20日要群发时，系统还没反应过来。
+<br />解决方法很简单，先保存到公众号创作管理的图文素材中，然后再重新打开编辑后发送，或者直接发送都可以。
+</p>
+END;
+}
+
+function Echo20210613($strHead)
+{
+	$strHead = GetHeadElement($strHead);
+    echo <<<END
+	$strHead
+<p>2021年6月13日
+<br />前几天微信公众平台进去后显示白板，隔一段时间后恢复正常，以为是临时审查工作过度繁忙导致。结果后来再次发作后一直不恢复了，等了几天后开始在网上查解决方案，发现是因为网站cookie过多，清除后解决问题。
+</p>
+END;
+}
+
 function Echo20210624($strHead)
 {
 	$strKWEB = GetHoldingsLink('KWEB', true);
 	$strQDII = GetNameLink('qdii');
-	$strChinaInternetTag = GetNameTag('chinainternet', '中丐互怜');
 	$strSZ164906 = GetStockLink('SZ164906');
 	$strFundHistory = GetNameLink('fundhistory', FUND_HISTORY_DISPLAY);
 	$strElementary = GetNameLink('elementary', '小学生');
@@ -234,7 +273,7 @@ function Echo20210624($strHead)
 	$strHead
 <p>2021年6月24日
 <br />虽然原则上来说XOP也可以使用这个页面，但是它其实是为同时有港股和美股的{$strKWEB}持仓准备的。
-<br />{$strQDII}基金总是越跌规模越大，流动性越好，前些年是华宝油气，而今年最热门的变成了{$strChinaInternetTag}。按SZ162411对应XOP的模式，中概互联的小弟SZ164906之前是用KWEB估值的。
+<br />{$strQDII}基金总是越跌规模越大，流动性越好，前些年是华宝油气，而今年最热门的变成了中丐互怜。按SZ162411对应XOP的模式，中概互联的小弟SZ164906之前是用KWEB估值的。
 不过因为中国互联有1/3的港股持仓，它的净值在港股交易时段会继续变化，所以原来的{$strSZ164906}页面其实没有什么实际用处。唯一的好处是在{$strFundHistory}中累积了几年的官方估值误差数据，帮我确认了用KWEB持仓估值中国互联的可行性。
 <br />跟A股LOF基金每个季度才公布一次前10大持仓不同，美股ETF每天都会公布自己的净值和详细持仓比例。因为KWEB和中国互联跟踪同一个中证海外中国互联网指数H11136，这样可以从KWEB官网下载持仓文件后，根据它的实际持仓估算出净值。然后SZ164906的参考估值也就可以跟随白天的港股交易变动了。
 <br />写了快6年的估值软件终于从{$strElementary}水平进化到了初中生水平，还是有些成就感的。暑假即将来到，了不起的狐狸爸爸要开始教已经读了一年小学的娃在Roblox上编程了。
@@ -264,9 +303,9 @@ END;
 function Echo20210728($strHead)
 {
 	$strSH513050 = GetStockLink('SH513050');
-	$strChinaInternet = GetNameLink('chinainternet', '中丐互怜');
 	$strSZ159605 = GetStockLink('SZ159605');
 	$strSZ159607 = GetStockLink('SZ159607');
+	$strHoldings = GetNameLink('holdings', HOLDINGS_DISPLAY);
 	$strFundPosition = GetNameLink('fundposition', FUND_POSITION_DISPLAY);
 	$strQdiiHk = GetNameLink('qdiihk', QDII_HK_DISPLAY);
 	$strQDII = GetNameLink('qdii', QDII_DISPLAY);
@@ -277,15 +316,55 @@ function Echo20210728($strHead)
 	$strHead
 <p>2021年7月28日
 <br />从QDII中分出来，采用跟踪成分股变化的方式对同时有美股和港股持仓的{$strSH513050}等进行净值估算。
-<br />A股大妈最喜欢干的事情就是抄底。随着过去半年来中概互联一路跌成了{$strChinaInternet}，中概互联网ETF的市场规模和流动性都在暴涨，就连原来叫中国互联的SZ164906都蹭热度借增加扩位简称的机会改名成了中概互联网LOF。看得我口水流一地，忍不住想做点什么蹭蹭热点。
+<br />A股大妈最喜欢干的事情就是抄底。随着过去半年来中概互联一路跌成了中丐互怜，中概互联网ETF的市场规模和流动性都在暴涨，就连原来叫中国互联的SZ164906都蹭热度借增加扩位简称的机会改名成了中概互联网LOF。看得我口水流一地，忍不住想做点什么蹭蹭热点。
 <br />跟SZ164906和KWEB跟踪同一个指数H11136不同，SH513050跟踪的是另外一个不同的中证海外中国互联网50指数H30533。H30533和H11136在成分股选择上基本一致，但是H30533对单一成分股最大仓位限制是30%，而H11136限制10%的最大仓位，这样导致它们俩在腾讯和阿里持仓比例上区别巨大。
 在中间的是跟踪中证海外中国互联网30指数930604的{$strSZ159605}和{$strSZ159607}，限制15%的最大仓位。另外，顾名思义930604的成分股数量要少50-30=20只。
-<br />SH513050的成分股和比例来自于上交所官网的ETF申购赎回清单，SZ159605和SZ159607来自深交所官网的ETF申购赎回清单，这样未来可以方便的继续扩大混合QDII的成员。SZ164906的成分股和比例依旧还是来自KWEB官网公布的每日持仓更新。
+<br />SH513050的成分股和比例来自于上交所官网的ETF申购赎回清单，SZ159605和SZ159607来自深交所官网的ETF申购赎回清单，这样未来可以方便的继续扩大混合QDII的成员。SZ164906的成分股和比例依旧还是来自KWEB官网公布的每日{$strHoldings}更新。
 <br />把SZ164906从老QDII挪到新的混合QDII其实是个相当痛苦的过程，原来以SZ162411为模板写的{$strFundPosition}等功能都要从QDII拓展出来，{$strQdiiHk}在这个过程中也跟着沾了光。
 <br />官方估值跟原来{$strQDII}一样，不过混合QDII的参考估值有所不同。除了当日汇率的变化外，参考估值在港股开盘后还会反应当日港股成分股的变动对净值的影响。
 $strImage
 </p>
 END;
 }
+
+function Echo20211129($strHead)
+{
+	$strImage = ImgGreatDynasty();
+	
+	$strHead = GetHeadElement($strHead);
+    echo <<<END
+	$strHead
+<p>2021年11月29日
+<br />今天很不高兴，写的中丐互怜LOF(164906)限购1000的文章竟然几小时后就被人举报删除了。死了张屠夫，不吃有毛猪，以后还是要努力坚持做自己的网站。
+<br />其实在早用了20年的QQ号因为建群举报被封后，我就预感到了微信迟早也会被封。如今离开了QQ没有关系，没有微信的话可是刷不了绿码连门都出不了，只能彻底放弃腾讯家包括公众号在内的一切公开使用了。
+$strImage
+</p>
+END;
+}
+
+function Echo20220914($strHead)
+{
+	$strEndWechat = GetNameLink('endwechat', '放弃微信');
+	$strChinaInternet = GetNameLink('chinainternet', '中丐互怜');
+	$strSH513220 = GetStockLink('SH513220', true);
+	$strSH513360 = GetStockLink('SH513360', true);
+	$strImage = ImgRuLai();
+	
+	$strHead = GetHeadElement($strHead);
+    echo <<<END
+	$strHead
+<p>2022年9月14日
+<br />在美军从越南撤退的时候，美国政府估计其中有相当大比例的染上了毒瘾。按当时的普遍研究，吸毒者复发的可能性高达90%以上，如何面对预期中几十万退伍的瘾君子成了一个严峻的问题。然后让严阵以待的社会学家们完全没有想到的是，事实上复发的比例不到5%。
+于是研究者们又挖空心思搞了一个新理论出来：只要远离了原来上瘾的环境，就不容易再次上瘾。
+<br />在我刚开始混雪球和搞微信公众号的时候，对成为股票套利大V曾经是满怀希望的。这个希望破灭在因为举报连续被封了8个QQ群，附带被封了用了20年的QQ号之后。我意识到套利者群体中其实不少人是满怀敌意的。而且即使不举报我，出于秘籍不能外传的心理，绝大多数套利者也不会愿意主动帮我分享，因此这条大V之路其实走不通。
+<br />不幸的是，我发现我上瘾了，每天花了大量的时间搞无效的网络社交。于是开始有意的让自己远离上瘾环境。公众号在去年11月因为举报封了我一篇文章，我就不再更新文章，{$strEndWechat}上6000多的订阅者；雪球在今年2月删除了我一条宣传网站的评论，我就弃用了13000多粉丝的woody1234帐号。从此彻底戒断大V梦想。
+<br />戒断上瘾总会有副作用，对我来说，就是口头上喊着要努力专心做好自己的网站，实际上在很长时间内却再也提不起兴致，以至于经常放在嘴边自嘲的每天20行代码都断了很久。
+<br />7月份的时候，我注意到{$strChinaInternet}来了个新成员{$strSH513220}，本来想简单的通过拷贝复制加上，却发现跟其它老丐帮成员不同，它居然还有A股成分股。一下子我的拖延症就犯了，一直拖到这个月才动手。
+<br />既然加上了A股成分股的处理，那么把老的同样同时有美股、港股和A股成分股的{$strSH513360}加上也就成了简单的拷贝复制。
+$strImage
+</p>
+END;
+}
+
 
 ?>

@@ -272,11 +272,18 @@ function StockGetGroupTransactionLinks($strGroupId)
 }
 
 // ****************************** Other internal link related functions *******************************************************
-function GetStockLink($strSymbol)
+function GetStockLink($strSymbol, $bFull = false)
 {
     if (in_arrayAll($strSymbol))
     {
-		return GetStockPageLink(strtolower($strSymbol), $strSymbol);
+    	if ($bFull)
+    	{
+    		$sql = GetStockSql();
+    		$strName = $sql->GetStockName($strSymbol);
+    		$strDisplay = strstr($strName, '-', true).'('.$strSymbol.')';
+    	}
+    	else	$strDisplay = $strSymbol;
+		return GetStockPageLink(strtolower($strSymbol), $strDisplay);
     }
     return false;
 }

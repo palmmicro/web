@@ -94,11 +94,6 @@ function TestDeleteOldSymbol($strSymbol)
 	}
 }
 
-function TestDeleteOldSymbols()
-{
-	foreach (func_get_args() as $strSymbol)	TestDeleteOldSymbol($strSymbol);
-}
-
 function DebugLogFile()
 {
     $strFileName = UrlGetRootDir().'logs/scripts.log';
@@ -218,7 +213,7 @@ function SqlCleanStockTransaction()
 	DebugClearPath('csv');
 	DebugClearPath('image');
 
-	TestDeleteOldSymbols('ACH', 'CEO', 'CHA', 'CHU', 'CHL', 'GSH', 'HNP', 'LFC', 'PTR', 'SHI', 'SINA', 'SMI', 'SNP');
+	foreach (GetOldSymbolArray() as $strSymbol)		TestDeleteOldSymbol($strSymbol);
 	
     $his_sql = GetStockHistorySql();
     $iCount = $his_sql->DeleteClose();

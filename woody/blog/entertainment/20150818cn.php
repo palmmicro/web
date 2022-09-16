@@ -344,9 +344,14 @@ Wiki的QDII词条下显示了它是Qualified Domestic Institutional Investor的�
 	Echo20191107('美国夏令时结束带来的软件BUG');
 	Echo20200113('华宝油气的C类份额');
 	Echo20200326('国泰商品已经只剩大半桶油');
+	Echo20210227('增加'.GetNameTag('telegram', 电报).'机器人');
+	Echo20210320('微信公众号剩余群发次数为0');
+	Echo20210613('微信公众平台进去后显示白板');
 	Echo20210624('增加'.GetNameTag('holdings', HOLDINGS_DISPLAY).'页面');
 	Echo20210714('增加'.GetNameTag('fundshare', FUND_SHARE_DISPLAY).'页面');
-	Echo20210728('增加'.GetNameTag('qdiimix', QDII_MIX_DISPLAY).'工具系列');
+	Echo20210728('为'.GetNameTag('chinainternet', '中丐互怜').'增加'.QDII_MIX_DISPLAY.'工具系列');
+	Echo20211129(GetNameTag('endwechat', '放弃微信').'公众号文章');
+	Echo20220914('为'.GetNameTag('qdiimix', QDII_MIX_DISPLAY).'补充A股成分股的持仓处理');
 ?>
 
 </div>

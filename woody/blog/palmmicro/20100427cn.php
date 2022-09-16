@@ -112,7 +112,7 @@ Yahoo网站服务早些时候给palmmicro.com换到了一个新IP地址: 98.136.
 <br /><img src=../photo/20210310h.jpg alt="Xueqiu forbidden phrase h" />
 <br />前朝末代皇帝的话不能引述.
 <br /><img src=../photo/20210310i.jpg alt="Xueqiu forbidden phrase i" />
-<br /><img src=../photo/daqingwangle.jpg alt="My Qing Dynasty already ended" />
+<?php echo ImgGreatDynasty(); ?>
 <br />电报是垃圾广告.
 <br /><img src=../photo/20210310j.jpg alt="Xueqiu forbidden phrase j" />
 <br />赵姓不能写.

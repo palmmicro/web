@@ -130,7 +130,7 @@ function _getGroupImageLink($strPage)
     switch ($strPage)
     {
     case 'chinainternet':
-    	return ImgMrFox();
+    	return ImgHuangRong();
     	
     case 'hangseng':
     	return QuoteImgElement('queen.jpg', '命运赠送的礼物都早已暗中标好了价格');
@@ -149,7 +149,7 @@ function _getGroupImageLink($strPage)
     	return QuoteImgElement('ronin.jpg', 'Deirdre：你刚才到底在后面干什么？Sam：女士，如果一个地方我不知道如何走出去，就绝不会走进去。');
     	
 	case 'qdiimix':
-    	return ImgHuangRong();
+    	return ImgRuLai();
 
     case 'qqqfund':
     	return ImgLikeDog();

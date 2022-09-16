@@ -55,6 +55,18 @@ class StockAccount extends TitleAccount
     	$this->ref = $ref;
     }
     
+    function StockCheckSymbol($str)
+    {
+    	if (in_array($str, GetOldSymbolArray()))
+   		{
+   			if ($this->SetCrawler(UrlGetIp()))	DebugString('自动标注爬虫');
+   		}
+   		
+    	if (strlen($str) > 10)				return false;
+    	if (strpos($str, "'") !== false)	return false;
+    	return $str;
+    }
+    
     function _checkPersonalGroupId($strGroupId)
     {	
     	if (method_exists($this, 'GetGroupId') == false)	return true;

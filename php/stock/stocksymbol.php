@@ -20,17 +20,15 @@ define('YAHOO_INDEX_CHAR', '^');
 define('STOCK_TIME_ZONE_CN', 'PRC');
 define('STOCK_TIME_ZONE_US', 'America/New_York');
 
-function StockCheckSymbol($str)
-{
-	if (strlen($str) > 10)				return false;
-	if (strpos($str, "'") !== false)	return false;
-	return $str;
-}
-
 function StrHasPrefix($str, $strPrefix)
 {
 	$iLen = strlen($strPrefix);
 	return (strncmp($str, $strPrefix, $iLen) == 0) ? substr($str, $iLen) : false; 
+}
+
+function GetOldSymbolArray()
+{
+	return array('ACH', 'CEO', 'CHA', 'CHU', 'CHL', 'GSH', 'HNP', 'LFC', 'PTR', 'SHI', 'SINA', 'SMI', 'SNP');
 }
 
 function GetSecondaryListingArray()

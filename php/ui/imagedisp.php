@@ -24,6 +24,16 @@ function ImgCramersRule($bChinese = true)
 	return QuoteImgElement('20190815.jpg', '用Cramer法则计算步骤', "Cramer's rule calculation steps", $bChinese);
 }
 
+function ImgGreatDynasty($bChinese = true)
+{
+	return QuoteImgElement('daqingwangle.jpg', '拉倒吧，联的大清都亡了！');
+}
+
+function ImgHuangRong($bChinese = true)
+{
+   	return QuoteImgElement('huangrong.jpg', '依稀往梦似曾见，心内波澜现。');
+}
+
 function ImgLikeDog($bChinese = true)
 {
 	return QuoteImgElement('dog.jpg', '咦，那个人看上去好像一条狗！');
@@ -41,7 +51,7 @@ function ImgMrFox($bChinese = true)
 
 function ImgPanicFree($bChinese = true)
 {
-	return QuoteImgElement('dashidai.jpg', '郑少秋饰演丁蟹：不要怕，是技术性调整，不要怕。');
+	return QuoteImgElement('dashidai.jpg', '不要怕，是技术性调整，不要怕。');
 }
 
 function ImgRobloxDice($bChinese = true)
@@ -51,12 +61,12 @@ function ImgRobloxDice($bChinese = true)
 
 function ImgWinMan($bChinese = true)
 {
-	return QuoteImgElement('gan.jpg', '赢了会所嫩模输了下海挖沙的老头');
+	return QuoteImgElement('gan.jpg', '赢了会所嫩模，输了下海挖沙！');
 }
 
-function ImgHuangRong($bChinese = true)
+function ImgRuLai($bChinese = true)
 {
-   	return QuoteImgElement('huangrong.jpg', '83版射雕英雄传中翁美玲扮演的小乞丐黄蓉');
+   	return QuoteImgElement('rulai.jpeg', '年轻人，我这儿有本秘籍。');
 }
 
 ?>
