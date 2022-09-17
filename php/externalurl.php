@@ -17,11 +17,6 @@ function YahooStockGetUrl($strYahooSymbol)
 	return YAHOO_STOCK_QUOTES_URL.$strYahooSymbol;
 }
 
-function GetYahooComponentsUrl($strYahooSymbol = '%5EDJI')
-{
-   	return YahooStockGetUrl($strYahooSymbol).'/components';
-}
-
 function GetSinaQuotesUrl($strSinaSymbols)
 {
 	return 'http://hq.sinajs.cn/list='.$strSinaSymbols;
