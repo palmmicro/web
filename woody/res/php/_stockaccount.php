@@ -59,11 +59,12 @@ class StockAccount extends TitleAccount
     {
     	if (in_array($str, GetOldSymbolArray()))
    		{
-   			if ($this->SetCrawler(UrlGetIp()))	DebugString('自动标注爬虫');
+   			if ($this->SetCrawler(UrlGetIp()))	DebugString('标注查退市股的爬虫');
    		}
    		
     	if (strlen($str) > 10)				return false;
     	if (strpos($str, "'") !== false)	return false;
+    	$str = rtrim($str, '/');
     	return $str;
     }
     

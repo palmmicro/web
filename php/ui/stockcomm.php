@@ -55,9 +55,9 @@ function GetArbitrageQuantity($strStockId, $fQuantity)
 	return strval(round($fQuantity / GetArbitrageRatio($strStockId)));
 }
 
-function GetTurnoverDisplay($fVolume, $fShare)
+function GetTurnoverDisplay($fVolume, $fShare, $iPrecision = 2)
 {
-	return strval_round(100.0 * $fVolume / ($fShare * 10000.0), 2).'%';
+	return strval_round(100.0 * $fVolume / ($fShare * 10000.0), $iPrecision).'%';
 }
 
 ?>

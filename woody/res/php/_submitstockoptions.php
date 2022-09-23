@@ -391,6 +391,7 @@ function _updateStockOptionCalibration($strSymbol, $strStockId, $strDate, $strVa
 				case 'KWEB':
 					//SaveKraneHoldingsCsvFile($strSymbol, $strDate);
 					ReadKraneHoldingsCsvFile($strSymbol, $strStockId, $strDate, $strVal);
+					_updateStockOptionCalibration('SZ164906', SqlGetStockId('SZ164906'), $strDate, $strVal);
 					break;
 				}
 			}

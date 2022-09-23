@@ -213,7 +213,10 @@ function SqlCleanStockTransaction()
 	DebugClearPath('csv');
 	DebugClearPath('image');
 
-	foreach (GetOldSymbolArray() as $strSymbol)		TestDeleteOldSymbol($strSymbol);
+//	foreach (GetOldSymbolArray() as $strSymbol)		TestDeleteOldSymbol($strSymbol);
+
+//	$sql = GetStockSql();
+//	$sql->AlterTable('INDEX ( `name` )');
 	
     $his_sql = GetStockHistorySql();
     $iCount = $his_sql->DeleteClose();

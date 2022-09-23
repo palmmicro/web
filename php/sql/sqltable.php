@@ -229,13 +229,9 @@ class TableSql
     
     function DeleteById($strId)
     {
-    	if ($strWhere = _SqlBuildWhere_id($strId))
-    	{
-    		return $this->DeleteData($strWhere);
-    	}
-    	return false;
+    	return ($strWhere = _SqlBuildWhere_id($strId)) ? $this->DeleteData($strWhere) : false;
     }
-/*
+
     function DeleteInvalid($callback)
     {
     	$ar = array();
@@ -243,10 +239,7 @@ class TableSql
     	{
     		while ($record = mysql_fetch_assoc($result)) 
     		{
-    			if ($this->$callback($record))
-    			{
-    				$ar[] = $record['id'];
-    			}
+    			if ($this->$callback($record))		$ar[] = $record['id'];
     		}
     		@mysql_free_result($result);
     	}
@@ -254,14 +247,10 @@ class TableSql
     	$iCount = count($ar);
     	if ($iCount > 0)
     	{
-    		foreach ($ar as $strId)
-    		{
-    			$this->DeleteById($strId);
-    		}
+    		foreach ($ar as $strId)		$this->DeleteById($strId);
     	}
     	return $iCount;
     }
-*/
 
 /*    
     function GetTableSchema()

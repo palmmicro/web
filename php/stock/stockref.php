@@ -332,13 +332,27 @@ class StockReference extends StockSymbol
         $this->bHasData = false;
         // DebugString($this->strFileName.' LoadSinaData found NO data');
     }
+
+    function _convertDateTimeToUS($strDate, $strTime)
+    {
+		$strTimeZone = $this->GetTimeZone();
+		
+		date_default_timezone_set(STOCK_TIME_ZONE_CN);
+		$iTime = strtotime($strDate.' '.$strTime);
+		date_default_timezone_set($strTimeZone);
+		
+        $this->strDate = DebugGetDate($iTime, $strTimeZone);
+        $this->strTime = DebugGetTime($iTime, $strTimeZone);
+    }
     
     function _onSinaFuture($ar)
     {
         $this->strPrice = $ar[0];
-        $this->strTime = $ar[6];
+//        $this->strTime = $ar[6];
         $this->strPrevPrice = $ar[7];
-        $this->strDate = $ar[12];
+//        $this->strDate = $ar[12];
+		$this->_convertDateTimeToUS($ar[12], $ar[6]);
+
         $this->strName = $ar[13];
 
         $this->strOpen = $ar[8];
@@ -419,12 +433,13 @@ class StockReference extends StockSymbol
             return;
         }
         
-        $this->strTime = $ar[0];
+//        $this->strTime = $ar[0];
         $this->strPrevPrice = $ar[3];
         $this->strPrice = $ar[8];
     	$this->strName = $ar[9];
 //        $this->strDate = $ar[10];
-		$this->strDate = end($ar);
+//		$this->strDate = end($ar);
+		$this->_convertDateTimeToUS(end($ar), $ar[0]);
     }       
 
     function GetStockLink()

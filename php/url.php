@@ -324,17 +324,7 @@ function UrlIsEnglish()
 
 function UrlGetUniqueString()
 {
-	$str = '';
-    if ($strQuery = UrlGetQueryString())
-    {
-    	$ar = explode('&', $strQuery);
-    	foreach ($ar as $strItem)
-    	{
-    		$str .= str_replace('=', '', $strItem);
-    	}
-    }
-	$str = str_replace('%', '', $str);
-    if (strlen($str) > 32)	$str = md5($str); 
+    $str = ($strQuery = UrlGetQueryString()) ? md5($strQuery) : ''; 
 	return UrlGetPage().$str;
 }
 

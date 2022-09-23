@@ -28,7 +28,7 @@ function _echoFundShareItem($record, $strStockId, $his_sql, $shares_sql)
 		{
 			$fShare = floatval($strShare);
 			$ar[] = GetTurnoverDisplay($fVolume, $fShare);
-			if (($fVolume > MIN_FLOAT_VAL) && ($fShareDiff > MIN_FLOAT_VAL))	$ar[] = GetTurnoverDisplay($fVolume, $fShareDiff);
+			if (($fVolume > MIN_FLOAT_VAL) && ($fShareDiff > MIN_FLOAT_VAL))	$ar[] = GetTurnoverDisplay($fVolume, $fShareDiff, 0);
 		}
 	}
 	

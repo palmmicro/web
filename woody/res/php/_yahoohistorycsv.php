@@ -12,6 +12,8 @@ class _YahooHistoryCsvFile extends DebugCsvFile
 	var $iTotal;
 	var $iModified;
 	
+	var $strLastDate;
+	
     function _YahooHistoryCsvFile($strDebug, $strStockId) 
     {
         parent::DebugCsvFile($strDebug);
@@ -22,6 +24,8 @@ class _YahooHistoryCsvFile extends DebugCsvFile
         
         $this->iTotal = 0;
         $this->iModified = 0;
+        
+        $this->strLastDate = '';
     }
     
     public function OnLineArray($arWord)
@@ -31,6 +35,8 @@ class _YahooHistoryCsvFile extends DebugCsvFile
     	$strDate = $arWord[0];
     	if ($strDate == 'Date')						return;
    		if ($this->oldest_ymd->IsTooOld($strDate))	return;
+    	if ($strDate == $this->strLastDate)		return;	// future have continue data 23 hours a day
+    	$this->strLastDate = $strDate; 
 
     	// Date,Open,High,Low,Close,Adj Close,Volume        		
     	$strOpen = $arWord[1];
@@ -74,6 +80,7 @@ function YahooUpdateStockHistory($ref)
     $ref->SetTimeZone();
     $iEnd = GetNowTick(); 
 	$strBegin = strval($iEnd - MAX_QUOTES_DAYS * SECONDS_IN_DAY);
+//	$strEnd = strval($iEnd - $iEnd % SECONDS_IN_DAY + 18 * SECONDS_IN_HOUR - 1);
 	$strEnd = strval($iEnd);
 	$strYahooSymbol = $ref->GetYahooSymbol();
 	$strUrl = "https://query1.finance.yahoo.com/v7/finance/download/$strYahooSymbol?period1=$strBegin&period2=$strEnd&interval=1d&events=history&includeAdjustedClose=true";

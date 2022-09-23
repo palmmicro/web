@@ -6,7 +6,7 @@
 // http://quotes.sina.cn/global/hq/quotes.php?code=NKY
 // https://finance.sina.com.cn/futures/quotes/NK.shtml
 
-define('SINA_FOREX_PREFIX', 'fx_s');
+define('SINA_FOREX_PREFIX', 'fx_susd');
 define('SINA_FUTURE_PREFIX', 'hf_');
 define('SINA_FUND_PREFIX', 'f_');
 define('SINA_HK_PREFIX', 'rt_hk');
@@ -739,13 +739,14 @@ class StockSymbol
     function GetYahooSymbol()
     {
         $strSymbol = str_replace('.', '-', $this->strSymbol);
-        if ($str = $this->IsSinaFutureUs())				return $str.'%3DF';				// CL=F
-        else if ($this->IsIndex())	            		return '%5E'.$this->strOthers;	// index ^HSI
-        else if ($this->IsSymbolH())						return $this->strOthers.'.hk';	// Hongkong market
+        if ($str = $this->IsSinaFutureUs())											return $str.'%3DF';				// CL=F
+        else if ($str = $this->IsNewSinaForex())										return strtoupper($str).'%3DF';	// CNH=F
+        else if ($this->IsIndex())	            									return '%5E'.$this->strOthers;	// index ^HSI
+        else if ($this->IsSymbolH())													return $this->strOthers.'.hk';	// Hongkong market
         else if ($this->IsSymbolA())
         {
-            if ($this->strPrefixA == SH_PREFIX)			return $this->strDigitA.'.ss';	// Shanghai market
-            else if ($this->strPrefixA == SZ_PREFIX)		return $this->strDigitA.'.sz';	// Shenzhen market
+            if ($this->strPrefixA == SH_PREFIX)										return $this->strDigitA.'.ss';	// Shanghai market
+            else if ($this->strPrefixA == SZ_PREFIX)									return $this->strDigitA.'.sz';	// Shenzhen market
         }
         return $strSymbol;
     }
@@ -766,7 +767,7 @@ class StockSymbol
     {
     	if ($this->IsIndex())			return false;
     	if ($this->IsIndexA())		return false;
-    	if ($this->IsForex())			return false;
+//    	if ($this->IsForex())			return false;
 //    	if ($this->IsSinaFuture())	return false;
     	return true;
     }
@@ -844,25 +845,16 @@ class StockSymbol
     function GetTimeZone()
     {
     	$strTimeZone = STOCK_TIME_ZONE_CN;
-        if ($this->IsSinaFund())     
-        {   // IsSinaFund must be called before IsSinaFuture
-        }
+       	// IsSinaFund must be called before IsSinaFuture
+        if ($this->IsSinaFund())								{}
         else if ($this->IsSinaFuture())
         {
+        	if ($this->IsSinaFutureUs())						$strTimeZone = STOCK_TIME_ZONE_US;
         }
-        else if ($this->IsSinaForex())
-        {
-        }
-        else if ($this->IsEastMoneyForex())
-        {
-        }
-        else if ($this->IsSymbolA() || $this->IsSymbolH())
-        {
-        }
-        else
-        {
-            $strTimeZone = STOCK_TIME_ZONE_US;
-        }
+        else if ($this->IsSinaForex())						$strTimeZone = STOCK_TIME_ZONE_US;
+        else if ($this->IsEastMoneyForex())					{}
+        else if ($this->IsSymbolA() || $this->IsSymbolH())	{}
+        else													$strTimeZone = STOCK_TIME_ZONE_US;
         return $strTimeZone;
     }
 

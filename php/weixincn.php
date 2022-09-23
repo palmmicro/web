@@ -50,7 +50,7 @@ class WeixinStock extends WeixinCallback
 		switch ($strContents)
 		{
 		case 'subscribe':
-			$str = '欢迎订阅。本账号为自动回复，不提供人工咨询服务。请用语音或者键盘输入要查找的内容，例如【162411】或者【油气】。';
+			$str = '欢迎订阅。本账号为自动回复，不提供人工咨询服务。请用语音或者键盘输入要查找的内容，例如【162411】或者【中概】。';
 			break;
 			
 		case 'unsubscribe':

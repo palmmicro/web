@@ -23,6 +23,17 @@ function _botGetStockArray($strKey)
     			$bPinYin = true;
     		}
     	}
+*/
+
+//    	$fStart = microtime(true);
+/*    	if ($result = $sql->GetData("symbol LIKE '%$strKey%' OR name LIKE '%$strKey%'", 'symbol ASC', strval(MAX_BOT_STOCK))) 
+    	{
+    		while ($record = mysql_fetch_assoc($result)) 
+    		{
+    			$ar[] = $record['symbol'];
+    		}
+    		@mysql_free_result($result);
+    	}
 */    	
     	if ($result = $sql->GetAll()) 
     	{
@@ -42,6 +53,7 @@ function _botGetStockArray($strKey)
     		}
     		@mysql_free_result($result);
     	}
+//    	DebugString($strKey.':'.DebugGetStopWatchDisplay($fStart));
     }
     return $ar;
 }
