@@ -146,7 +146,7 @@ function _getGroupImageLink($strPage)
     	return ImgWinMan();
     	
     case 'qdiihk':
-    	return QuoteImgElement('ronin.jpg', 'Deirdre：你刚才到底在后面干什么？Sam：女士，如果一个地方我不知道如何走出去，就绝不会走进去。');
+    	return ImgRonin();
     	
 	case 'qdiimix':
     	return ImgRuLai();

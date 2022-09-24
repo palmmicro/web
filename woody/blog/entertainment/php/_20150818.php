@@ -22,6 +22,25 @@ function EchoFundEstTables()
     EchoTableParagraphEnd();
 }
 
+function Echo20150827($strHead)
+{
+	$strImage = ImgRonin();
+	$strQDII = GetStockMenuLink('qdii');
+	$strSZ159920 = GetStockLink('SZ159920', true);
+	$strSH510900 = GetStockLink('SH510900', true);
+	$strSH513500 = GetStockLink('SH513500', true);
+	
+	$strHead = GetHeadElement($strHead);
+    echo <<<END
+	$strHead
+<p>2015年8月27日
+<br />整理代码最好的方式是多开发几个类似{$strQDII}。伴随最近抄底港股加入{$strSZ159920}和{$strSH510900}净值计算工具，观摩美股崩盘期间顺手加入了{$strSH513500}净值计算工具，也许日后会用上。
+<br />牢记股市三大幻觉：A股要涨、美股见顶、港股便宜！
+$strImage
+</p>
+END;
+}
+
 function Echo20160222($strHead)
 {
 	$strFundHistory = GetNameLink('fundhistory', FUND_HISTORY_DISPLAY);
@@ -138,7 +157,7 @@ function Echo20180327($strHead)
 </p>
 END;
 
-	EchoQdiiSmaDemo();
+	EchoQdiiSmaParagraph(StockGetFundReference(FUND_DEMO_SYMBOL));
 }
 
 function Echo20180404($strHead)

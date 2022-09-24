@@ -81,14 +81,17 @@ function _getFundEstTableColumn($arRef, &$bFair)
     return $ar;
 }
 
-function _echoFundEstParagraph($arColumn, $bFair, $arRef, $str = false)
+function _echoFundEstParagraph($arColumn, $bFair, $arRef, $str)
 {
-	if ($str == false)	$str = GetTableColumnEst().'网页链接'; 
-	$iCount = count($arRef);
-	if ($iCount > 2)
+	if ($str === false)
 	{
-		$arRef = RefSortByNumeric($arRef, '_callbackSortFundEst');
-		$str .= '共'.strval($iCount).'项';
+		$str = GetTableColumnEst().'网页链接'; 
+		$iCount = count($arRef);
+		if ($iCount > 2)
+		{
+			$arRef = RefSortByNumeric($arRef, '_callbackSortFundEst');
+			$str .= '共'.strval($iCount).'项';
+		}
 	}
 	
 	EchoTableParagraphBegin($arColumn, 'estimation', $str);
@@ -96,10 +99,10 @@ function _echoFundEstParagraph($arColumn, $bFair, $arRef, $str = false)
     EchoTableParagraphEnd();
 }
 
-function EchoFundArrayEstParagraph($arRef)
+function EchoFundArrayEstParagraph($arRef, $str = false)
 {
 	$arColumn = _getFundEstTableColumn($arRef, $bFair);
-	_echoFundEstParagraph($arColumn, $bFair, $arRef);
+	_echoFundEstParagraph($arColumn, $bFair, $arRef, $str);
 }
 
 function _getFundPositionStr($official_est_col, $strSymbol, $ref)

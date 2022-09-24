@@ -68,7 +68,7 @@ function EchoAll()
 
     $ref = $acct->GetRef();
     
-	EchoFundArrayEstParagraph(array($ref, $acct->us_ref));
+	EchoFundArrayEstParagraph(array($ref, $acct->us_ref), '');
     EchoReferenceParagraph(array_merge($acct->GetStockRefArray(), array($acct->a50_ref, $acct->cnh_ref)), $acct->IsAdmin());
     EchoFundListParagraph(array($ref, $acct->us_ref));
     EchoFundPairTradingParagraph($ref);

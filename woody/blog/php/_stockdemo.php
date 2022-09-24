@@ -27,12 +27,6 @@ function EchoReferenceDemo($strSymbol = FUND_DEMO_SYMBOL)
     EchoReferenceParagraph(array($ref));
 }
 
-function EchoQdiiSmaDemo($strSymbol = FUND_DEMO_SYMBOL)
-{
-	$fund_ref = StockGetFundReference($strSymbol);
-	EchoQdiiSmaParagraph($fund_ref);
-}
-
 function EchoStockHistoryDemo($strSymbol = STOCK_DEMO_SYMBOL)
 {
     $ref = new MyStockReference($strSymbol);

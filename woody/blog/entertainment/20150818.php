@@ -56,13 +56,6 @@ Unlike the usual <a href="../palmmicro/20080326.php">Palmmicro</a> visitors, 1/3
 Following the developer's advice, I copied the code github and put it separately in /php/class/<b>Mobile_Detect.php</b>.
 </p>
 
-<h3>Expansion</h3>
-<p>Aug 27, 2015
-<br />The best way to organize the source code is to write more similar QDII net value estimation software.
-I bought 2 HK ETF related QDII with recent stock market crash and added them.
-Although I only watched US market crash, I still added BOSERA S&P 500 net value tool for possible future usage.
-</p>
-
 <h3>Stock <a name="transaction">Transaction</a></h3>
 <p>Sep 13, 2015
 <br />After login, user can now input related stock transaction record. And we make SZ162411 and XOP arbitrage analysis based on those record.
@@ -126,11 +119,6 @@ and modified an actually unrelated code, what should be <font color=gray><code>$
 <p>Oct 6, 2016
 <br />SZ162411 calibration history.
 </p>
-
-<h3>Crazy <a name="nextsma">T+1</a> Moving Average</h3>
-<p>March 27, 2018
-</p>
-<?php EchoQdiiSmaDemo(); ?>
 
 </div>
 

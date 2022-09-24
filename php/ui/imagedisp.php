@@ -59,14 +59,19 @@ function ImgRobloxDice($bChinese = true)
 	return QuoteImgElement('robloxdice.jpg', '罗布乐思4个骰子加14验证码', 'Roblox 4 dices adding to 14 captcha', $bChinese);
 }
 
-function ImgWinMan($bChinese = true)
+function ImgRonin($bChinese = true)
 {
-	return QuoteImgElement('gan.jpg', '赢了会所嫩模，输了下海挖沙！');
+   	return QuoteImgElement('ronin.jpg', '女士，如果一个地方我不知道如何走出去，就绝不会走进去。', 'Lady, I never walk into a place I don\'t know how to walk out of.', $bChinese);
 }
 
 function ImgRuLai($bChinese = true)
 {
    	return QuoteImgElement('rulai.jpeg', '年轻人，我这儿有本秘籍。');
+}
+
+function ImgWinMan($bChinese = true)
+{
+	return QuoteImgElement('gan.jpg', '赢了会所嫩模，输了下海挖沙！');
 }
 
 ?>
