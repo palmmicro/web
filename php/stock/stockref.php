@@ -1,8 +1,6 @@
 <?php
 require_once('stocksymbol.php');
 
-define('STOCK_SINA_DATA', 'Sina Data');
-
 function _getFutureArray($strSymbol, $strFileName, $callback)
 {
     if (FutureNeedNewFile($strFileName))

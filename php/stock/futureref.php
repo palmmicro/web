@@ -1,6 +1,5 @@
 <?php
 
-// ****************************** FutureReference class *******************************************************
 class FutureReference extends MysqlReference
 {
 /*    function FutureReference($strSymbol) 

@@ -21,19 +21,6 @@ class MysqlReference extends StockReference
     	else
     	{
     		$this->_loadSqlId($this->GetSymbol());
-    		if ($this->strSqlId)
-    		{
-    			if ($this->bHasData)
-    			{	
-    				$this->SetTimeZone();
-    				$now_ymd = GetNowYMD();
-    				if ($now_ymd->GetYMD() == $this->GetDate())
-    				{
-    					$this->_updateStockHistory();
-    					$this->_updateStockEma($now_ymd);
-    				}
-    			}
-    		}
     	}
 
     	if ($this->strSqlId)
@@ -59,7 +46,7 @@ class MysqlReference extends StockReference
     function _loadSqlId($strSymbol)
     {
 		$sql = GetStockSql();
-        if ($this->bHasData)
+        if ($this->HasData())
         {
             $sql->InsertSymbol($strSymbol, $this->GetChineseName());
         }
@@ -115,54 +102,6 @@ class MysqlReference extends StockReference
     		return GbToUtf8($this->strChineseName);
     	}
     	return $this->strChineseName;
-    }
-    
-    function _invalidHistoryData($str)
-    {
-        if (empty($str))    return true;
-        if ($str == 'N/A')   return true;
-        return false;
-    }
-    
-    function _updateStockHistory()
-    {
-        $strOpen = $this->strOpen;
-        if ($this->_invalidHistoryData($strOpen))  return;
-        $strHigh = $this->strHigh;
-        if ($this->_invalidHistoryData($strHigh))  return;
-        $strLow = $this->strLow;
-        if ($this->_invalidHistoryData($strLow))  return;
-        $strClose = $this->GetPrice();
-        if ($this->_invalidHistoryData($strClose))  return;
-        
-        $his_sql = GetStockHistorySql();
-        return $his_sql->WriteHistory($this->strSqlId, $this->GetDate(), $strClose, $strOpen, $strHigh, $strLow, $this->GetVolume());
-    }
-    
-    // En = k * X0 + (1 - k) * Em; 其中m = n - 1; k = 2 / (n + 1)
-	function CalculateEMA($fPrice, $fPrev, $iDays)
-	{
-		$f = 2.0 / ($iDays + 1);
-		return $f * $fPrice + (1.0 - $f) * $fPrev;
-	}
-    
-	function _updateStockEmaDays($iDays)
-	{
-		$strDate = $this->GetDate();
-		$strStockId = $this->GetStockId();
-		$sql = GetStockEmaSql($iDays);
-		if ($strPrev = $sql->GetClosePrev($strStockId, $strDate))
-		{
-			$fCur = $this->CalculateEMA(floatval($this->GetPrice()), floatval($strPrev), $iDays);
-			$sql->WriteDaily($strStockId, $strDate, strval($fCur));
-		}
-	}
-	
-    function _updateStockEma($now_ymd)
-    {
-    	if ($now_ymd->IsStockTradingHourEnd() == false)	return;
-        $this->_updateStockEmaDays(50);
-        $this->_updateStockEmaDays(200);
     }
 }
 
