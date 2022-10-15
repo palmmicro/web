@@ -132,9 +132,7 @@ class MyStockGroup extends StockGroup
     function _checkSymbol($strSymbol)
     {
         if ($this->GetStockTransactionBySymbol($strSymbol))  return;
-        
-        $sym = new StockSymbol($strSymbol);
-        $this->_addTransaction($sym->IsSinaFuture() ? new FutureReference($strSymbol) : new MyStockReference($strSymbol));
+		$this->_addTransaction(StockGetReference($strSymbol));
     }
 /*        
     function AddTransaction($strSymbol, $iShares, $fCost)

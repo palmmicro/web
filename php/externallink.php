@@ -266,7 +266,7 @@ function GetSinaForexLink($sym)
 {
 	if ($str = $sym->IsNewSinaForex())
 	{
-		$strSymbol = strtoupper($str);
+		$strSymbol = 'USD'.strtoupper($str);
 	}
 	else
 	{
