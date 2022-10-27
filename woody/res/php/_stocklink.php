@@ -236,7 +236,7 @@ function GetHuaTaiSoftwareLinks($strDigitA)
 
 function GetHuaXiaSoftwareLinks($strDigitA)
 {
-    $ar = array('SH510330', 'SH513180', 'SH513300', 'SH513660', 'SZ159850', 'SZ159920');
+    $ar = array('SH510330', 'SH513180', 'SH513300', 'SH513660', 'SZ159655', 'SZ159850', 'SZ159920');
 	$strUrl = 'http://www.chinaamc.com';
     return ' '.GetOfficialLink($strUrl.'/fund/'.$strDigitA.'/index.shtml', $strDigitA).GetCategorySoftwareLinks($ar, GetExternalLink($strUrl, '华夏基金'));
 }

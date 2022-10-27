@@ -212,6 +212,23 @@ function _echoMyStockData($ref, $bAdmin)
     }
 }
 
+function GetMyStockLinks($ref)
+{
+	$str = '';
+	if ($ref)
+	{
+		if ($strDigitA = $ref->IsFundA())
+		{
+			$strName = SymGetStockName($ref);
+			if (stripos($strName, '华安') !== false)			$str .= GetHuaAnSoftwareLinks($strDigitA);
+			else if (stripos($strName, '华宝') !== false)		$str .= GetHuaBaoSoftwareLinks($strDigitA);
+			else if (stripos($strName, '华泰') !== false)		$str .= GetHuaTaiSoftwareLinks($strDigitA);
+			else if (stripos($strName, '华夏') !== false)		$str .= GetHuaXiaSoftwareLinks($strDigitA);
+		}
+	}
+	return $str;
+}
+
 function EchoAll()
 {
 	global $acct;
@@ -224,7 +241,7 @@ function EchoAll()
     	_echoMyStockTransactions($acct, $ref);
     }
 	else	EchoStockParagraph($acct->GetStart(), $acct->GetNum(), $bAdmin);
-    $acct->EchoLinks();
+    $acct->EchoLinks(false, 'GetMyStockLinks');
 }
 
 function GetMetaDescription()

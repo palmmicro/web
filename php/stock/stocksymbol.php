@@ -115,7 +115,7 @@ function in_arrayQqqQdii($strSymbol)
 
 function QdiiGetSpySymbolArray()
 {
-    return array('SH513500', 'SZ159612', 'SZ161125'); 
+    return array('SH513500', 'SZ159612', 'SZ159655', 'SZ161125'); 
 }
 
 function in_arraySpyQdii($strSymbol)
