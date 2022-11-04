@@ -220,7 +220,8 @@ function GetMyStockLinks($ref)
 		if ($strDigitA = $ref->IsFundA())
 		{
 			$strName = SymGetStockName($ref);
-			if (stripos($strName, '华安') !== false)			$str .= GetHuaAnSoftwareLinks($strDigitA);
+			if (stripos($strName, '广发') !== false)			$str .= GetGuangFaSoftwareLinks($strDigitA);
+			else if (stripos($strName, '华安') !== false)		$str .= GetHuaAnSoftwareLinks($strDigitA);
 			else if (stripos($strName, '华宝') !== false)		$str .= GetHuaBaoSoftwareLinks($strDigitA);
 			else if (stripos($strName, '华泰') !== false)		$str .= GetHuaTaiSoftwareLinks($strDigitA);
 			else if (stripos($strName, '华夏') !== false)		$str .= GetHuaXiaSoftwareLinks($strDigitA);
