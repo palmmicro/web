@@ -143,7 +143,7 @@ function in_arrayQdii($strSymbol)
 
 function QdiiHkGetTechSymbolArray()
 {
-    return array('SH513010', 'SH513130', 'SH513180', 'SH513260', 'SH513380', 'SH513580', 'SZ159740', 'SZ159741', 'SZ159742');
+    return array('SH513010', 'SH513130', 'SH513180', 'SH513260', 'SH513380', 'SH513580', 'SH513890', 'SZ159740', 'SZ159741', 'SZ159742');
 }
 
 function in_arrayTechQdiiHk($strSymbol)
