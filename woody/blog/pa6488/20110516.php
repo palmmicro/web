@@ -41,7 +41,8 @@
 <tr><td>May 16, 2011</td></tr>
 <tr><td>It was in 1992, one day Denvor told me very excitedly about a new technology named JPEG. He had just converted his Rie Miyazawa collection from BMP to JPG and saved a lot of floppy disks.
 He was also a little worried that the compression was lossy and the file displayed not so fast on Mo Jun's 286 PC. This was the first time I met JPEG.
-<br />The first time I got my hands on JPEG source code was in 1997. Dr Jia and I wrote a CMOS sensor bayer pattern interpolation algorithm test application. I used <a href="http://www.ijg.org/" target=_blank>IJG JPEG</a> version "6a 7-Feb-96" source code for JPG file read and write.
+<br />The first time I got my hands on JPEG source code was in ESS with Professor Cui in 1997. Dr Jia and I wrote a CMOS sensor bayer pattern interpolation algorithm test application for <a href="../palmmicro/20061123.php">Dr Wang</a>. 
+I used <a href="http://www.ijg.org/" target=_blank>IJG JPEG</a> version "6a 7-Feb-96" source code for JPG file read and write.
 A screen snapshot from the application is displayed below. I used Rie Miyazawa pictures extensively in the test.
 <br />When PA6488 <a href="20100109.php">web interface</a> need JPEG file support, I grabbed version "8b 16-May-2010" from IJG and quickly put it <a href="../../../pa6488/software/devguide/jpeg.html">working</a>.
 JPEG is only occasionally used and not critical for performance, so we did not optimize much of the code as we are doing with H.264.

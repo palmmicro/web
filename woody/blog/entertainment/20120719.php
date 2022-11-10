@@ -18,7 +18,7 @@
 I told them I would port an embedded Linux to their chip first. They showed me how they were developing VCD and DVD applications on their chip without using any operation system,
 and convinced me that video phone can be done in the same way.
 <br />I was lucky not to continue working on the chip software. The <a href="../palmmicro/20061123.php">ESS</a> video phone product turned out to be a complete failure a few years later as H.324 never got any market.
-However, I continued the way to do embedded application without using any operation system, from <a href="../../../pa1688/index.html">PA1688</a> to <a href="../../../ar1688/index.html">AR1688</a> and PA6488.  
+However, I met Dr Wang at ESS and continued the way to do embedded application without using any operation system since then, from <a href="../../../pa1688/index.html">PA1688</a> to <a href="../../../ar1688/index.html">AR1688</a> and PA6488.  
 <br />Years passed quickly, it was in late 2010 when I finally had my first experience with Linux programming tools, I compiled <a href="../ar1688/20101123.php">SDCC 3.0.0</a> on my own under Linux.  
 <br />While we were trying to find cheap <a href="20110608.php">WiFi</a> solution for our <a href="../../../pa6488/index.html">PA6488</a> based products, I got the chance to program on a WiFi router chip 2 weeks ago.
 Hoping to move audio processing work from PA6488 to the router chip in the future if we build the hardware together,
