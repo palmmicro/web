@@ -73,7 +73,7 @@ function _echoMergeParagraph($arMerge)
 			switch ($strSymbol)
 			{
 			case 'KWEB':
-				$ar[] = strval($iTotal + 1900);
+				$ar[] = strval($iTotal + 200);
 				break;
 				
 /*				
@@ -119,11 +119,7 @@ function _transEchoMergeParagraph($arTrans)
        	}
 	}
 
-	if ($cur_trans)
-	{
-		$arMerge[$strSymbol] = $cur_trans;
-	}
-	
+	if ($cur_trans)	$arMerge[$strSymbol] = $cur_trans;
 	if (count($arMerge) > 0)		_echoMergeParagraph($arMerge);
 }
 

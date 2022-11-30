@@ -129,6 +129,15 @@ Func _CtlClickButton($hWnd, $idDebug, $strButton)
 	Sleep(1000)
 EndFunc
 
+Func _yinheCloseMsgDlg($idDebug)
+	$strButton = '今日不再提示'
+	$hMsgWnd = WinGetHandle('消息标题', $strButton)
+	If $hMsgWnd <> 0 Then
+		If ControlCommand($hMsgWnd, '', 'Button4', 'IsChecked') == 0 Then _CtlClickButton($hMsgWnd, $idDebug, $strButton)
+		_CtlClickButton($hMsgWnd, $idDebug, '关闭')
+	EndIf
+EndFunc
+
 Func _yinheCloseNewDlg($idDebug)
 	_DlgClose($idDebug, '海王星条件单')
 	_DlgClose($idDebug, '海王星网格交易')
@@ -234,16 +243,11 @@ Func _yinheLoginDlg($idDebug, $strTitle, $strAccount, $strPassword)
 			WinActivate($hMainWnd)
 			ExitLoop
 		EndIf
-
-		$strButton = '今日不再提示'
-		$hMsgWnd = WinGetHandle('消息标题', $strButton)
-		If $hMsgWnd <> 0 Then
-			If ControlCommand($hMsgWnd, '', 'Button4', 'IsChecked') == 0 Then _CtlClickButton($hMsgWnd, $idDebug, $strButton)
-			_CtlClickButton($hMsgWnd, $idDebug, '关闭')
-		EndIf
-
+		_yinheCloseMsgDlg($idDebug)
 		_yinheCloseNewDlg($idDebug)
 	WEnd
+	Sleep(1000)
+	_yinheCloseMsgDlg($idDebug)
 	Return $hMainWnd
 EndFunc
 
@@ -816,7 +820,7 @@ Func YinheMain()
 	Local $arCheckboxAccount[$iMax]
 	$iMsg = 0
 
-	$idFormMain = GUICreate("银河海王星单独委托版全自动拖拉机V0.58", 803, 506, 289, 0)
+	$idFormMain = GUICreate("银河海王星单独委托版全自动拖拉机V0.59", 803, 506, 289, 0)
 
 	$idListViewAccount = GUICtrlCreateListView("客户号", 24, 24, 146, 454, BitOR($GUI_SS_DEFAULT_LISTVIEW,$WS_VSCROLL), BitOR($WS_EX_CLIENTEDGE,$LVS_EX_CHECKBOXES))
 	GUICtrlSendMsg(-1, $LVM_SETCOLUMNWIDTH, 0, 118)

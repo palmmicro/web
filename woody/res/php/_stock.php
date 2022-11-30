@@ -50,9 +50,11 @@ function _echoMoneyItem($strGroup, $fValue, $fProfit, $fConvertValue, $fConvertP
     	$ar[] = $strProfit;
     }
     
-    if ($strValue != '')	$ar[] = $strValue;
-    
-    if ($strGroup == DISP_ALL_CN)		$ar[] = GetNumberDisplay($fConvertProfit - 1146554.52);
+    if ($strValue != '')
+    {
+    	$ar[] = $strValue;
+        if ($strGroup == DISP_ALL_CN)		$ar[] = GetNumberDisplay($fConvertProfit - 1146554.52);		// woody@palmmicro.com only
+    }
    
     EchoTableColumn($ar);
 }
