@@ -255,13 +255,17 @@ function _updateStockOptionDividend($ref, $strSymbol, $strStockId, $his_sql, $st
 	{
 		DebugString('Dividend updated');
 		$calibration_sql = new CalibrationSql();
-		$fNav = floatval(SqlGetNavByDate($strStockId, $strDate));
+		$nav_sql = GetNavHistorySql();
+		$fNav = floatval($nav_sql->GetClose($strStockId, $strDate));
+//		$fNav = floatval(SqlGetNavByDate($strStockId, $strDate));
+
 		$fNewNav = $fNav - floatval($strVal); 
   		if ($strClose = $calibration_sql->GetClose($strStockId, $strDate))
   		{	// SPY
   			DebugString($strSymbol.' Change calibaration on '.$strDate);
   			$fFactor = floatval($strClose) * $fNav / $fNewNav;
   			$calibration_sql->WriteDaily($strStockId, $strDate, strval($fFactor));
+  			$nav_sql->WriteDaily($strStockId, $strDate, strval($fNewNav));
   		}
   		else if ($strSymbol == 'XOP')
   		{
