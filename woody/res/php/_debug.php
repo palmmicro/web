@@ -40,10 +40,10 @@ function _echoStockDebug()
     	while (!feof($file))
     	{
     		$strLine = fgets($file);
-    		if (strpos($strLine, 'timed out'))				_addDebugLine($arCurl, $strLine, $strLocalIp);
-    		else if (strpos($strLine, 'MySQL server'))		_addDebugLine($arMysql, $strLine, $strLocalIp);
-    		else if (strpos($strLine, 'Unknown URI'))		_addDebugLine($arUrl, $strLine, $strLocalIp);
-    		else if (strpos($strLine, 'Unknown IP'))		_addDebugLine($arIp, $strLine, $strLocalIp);
+    		if (strpos($strLine, 'timed out'))													_addDebugLine($arCurl, $strLine, $strLocalIp);
+    		else if (strpos($strLine, 'MySQL server') || strpos($strLine, 'SELECT * FROM'))	_addDebugLine($arMysql, $strLine, $strLocalIp);
+    		else if (strpos($strLine, 'Unknown URI'))											_addDebugLine($arUrl, $strLine, $strLocalIp);
+    		else if (strpos($strLine, 'Unknown IP'))											_addDebugLine($arIp, $strLine, $strLocalIp);
         }
         fclose($file);
     }
