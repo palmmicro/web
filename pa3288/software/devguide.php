@@ -2,7 +2,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>PA3288 Developer's Guide</title>
-<meta name="description" content="PA3288 Developer Guide">
+<meta name="description" content="PA3288 developer guide index page: quick start, data structure, function overview, using CSL, USB.">
 <link href="../../common/style.css" rel="stylesheet" type="text/css" />
 <script src="../../js/filetype.js"></script>
 <script src="../../js/copyright.js"></script>
