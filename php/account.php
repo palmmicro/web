@@ -43,7 +43,10 @@ class Account
 	    $this->ip_sql = new IpSql();
 	    $strStatus = $this->ip_sql->GetStatus($strIp);
 	    if ($strStatus == IP_STATUS_MALICIOUS)	die('401 Unauthorized');
-   		$this->ip_sql->InsertIp($strIp);
+//	    if ($strStatus != IP_STATUS_NORMAL)	die('401 Unauthorized');
+    	$this->bAllowCurl = ($strStatus != IP_STATUS_NORMAL) ? false : true;
+
+		$this->ip_sql->InsertIp($strIp);
 
 	    $strUri = UrlGetUri();
 	    $this->page_sql = new PageSql();
@@ -75,7 +78,6 @@ class Account
 	    	$this->visitor_sql->DeleteBySrc($strId);        
 	    }
 
-    	$this->bAllowCurl = ($strStatus != IP_STATUS_NORMAL) ? false : true;
 	   	if ($strEmail = UrlGetQueryValue('email'))
 	   	{
 	   		if (filter_var_email($strEmail))		$this->strMemberId = SqlGetIdByEmail($strEmail);

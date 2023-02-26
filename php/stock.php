@@ -96,7 +96,7 @@ function GetSinaQuotes($strSinaSymbols)
 		}
 	}
     
-    if ($str = url_get_contents(GetSinaQuotesUrl($strSinaSymbols), false, 'http://stock.finance.sina.com.cn/usstock/quotes/SPY.html', $strFileName))
+    if ($str = url_get_contents(GetSinaQuotesUrl($strSinaSymbols), false, GetSinaFinanceUrl(), $strFileName))
     {
     	if ($iCount >= count(explode('=', $str)))		DebugVal($iCount, 'GetSinaQuotes failed');		// Sina returns error in an empty file
     	else												return $str;

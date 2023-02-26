@@ -210,7 +210,7 @@ function _getPrimeNumberString($strNumber, $bChinese)
 
 function _getSinaJsString($strInput, $bChinese)
 {
-    if ($str = url_get_contents(GetSinaQuotesUrl($strInput), false, 'https://stock.finance.sina.com.cn/hkstock/quotes/HSI.html'))
+    if ($str = url_get_contents(GetSinaQuotesUrl($strInput), false, GetSinaFinanceUrl()))
     {
     	$arLine = explode("\n", $str);
     	$str = '';

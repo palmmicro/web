@@ -24,7 +24,7 @@ function GetSinaQuotesUrl($strSinaSymbols)
 
 function GetSinaFinanceUrl()
 {
-	return 'https://finance.sina.com.cn/';
+	return 'https://finance.sina.com.cn';
 }
 
 function GetSinaUsStockListUrl()

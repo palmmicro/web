@@ -197,7 +197,7 @@ function GetSinaFundLink($sym)
 function GetSinaCnStockLink($strSymbol)
 {
     $strLower = strtolower($strSymbol);
-    $strHttp = GetSinaFinanceUrl()."realstock/company/$strLower/nc.shtml";
+    $strHttp = GetSinaFinanceUrl()."/realstock/company/$strLower/nc.shtml";
     return GetExternalLink($strHttp, $strSymbol);
 }
 
@@ -258,7 +258,7 @@ function GetSinaFutureLink($sym)
 	{
 		$strSymbol = $sym->GetSymbol();
 	}
-    $strHttp = GetSinaFinanceUrl()."futures/quotes/$strSymbol.shtml";
+    $strHttp = GetSinaFinanceUrl()."/futures/quotes/$strSymbol.shtml";
     return GetExternalLink($strHttp, $strSymbol);
 }
 
@@ -272,7 +272,7 @@ function GetSinaForexLink($sym)
 	{
 		$strSymbol = $sym->GetSymbol();
 	}
-    $strHttp = GetSinaFinanceUrl()."money/forex/hq/$strSymbol.shtml";
+    $strHttp = GetSinaFinanceUrl()."/money/forex/hq/$strSymbol.shtml";
     return GetExternalLink($strHttp, $strSymbol);
 }
 
