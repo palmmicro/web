@@ -4,13 +4,13 @@ require_once('_stockgroup.php');
 require_once('_kraneholdingscsv.php');
 require_once('_sseholdings.php');
 require_once('_szseholdings.php');
-require_once('/php/stockhis.php');
-require_once('/php/ui/referenceparagraph.php');
-require_once('/php/ui/smaparagraph.php');
-require_once('/php/ui/tradingparagraph.php');
-require_once('/php/ui/fundhistoryparagraph.php');
-require_once('/php/ui/fundshareparagraph.php');
-require_once('/php/ui/fundestparagraph.php');
+require_once('../../php/stockhis.php');
+require_once('../../php/ui/referenceparagraph.php');
+require_once('../../php/ui/smaparagraph.php');
+require_once('../../php/ui/tradingparagraph.php');
+require_once('../../php/ui/fundhistoryparagraph.php');
+require_once('../../php/ui/fundshareparagraph.php');
+require_once('../../php/ui/fundestparagraph.php');
 
 class _QdiiMixAccount extends GroupAccount
 {

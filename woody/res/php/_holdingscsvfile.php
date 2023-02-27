@@ -1,5 +1,5 @@
 <?php
-require_once('/php/csvfile.php');
+require_once('../../php/csvfile.php');
 
 class _HoldingsCsvFile extends DebugCsvFile
 {

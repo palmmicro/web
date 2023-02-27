@@ -1,5 +1,5 @@
 <?php
-require_once('/php/ui/stocktable.php');
+require_once('../../php/ui/stocktable.php');
 
 function _getStocksString($strGroupId)
 {

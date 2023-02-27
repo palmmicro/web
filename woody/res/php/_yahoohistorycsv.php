@@ -1,6 +1,6 @@
 <?php
-require_once('/php/csvfile.php');
-require_once('/php/stockhis.php');
+require_once('../../php/csvfile.php');
+require_once('../../php/stockhis.php');
 
 class _YahooHistoryCsvFile extends DebugCsvFile
 {

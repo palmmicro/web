@@ -3,20 +3,20 @@ require_once('_stock.php');
 require_once('_emptygroup.php');
 require_once('_editmergeform.php');
 //require_once('_editstockoptionform.php');
-require_once('/php/stockhis.php');
-require_once('/php/benfordimagefile.php');
-require_once('/php/sql/sqldailystring.php');
-require_once('/php/ui/referenceparagraph.php');
-require_once('/php/ui/tradingparagraph.php');
-require_once('/php/ui/smaparagraph.php');
-require_once('/php/ui/stockparagraph.php');
-require_once('/php/ui/ahparagraph.php');
-require_once('/php/ui/fundlistparagraph.php');
-require_once('/php/ui/fundestparagraph.php');
-require_once('/php/ui/fundhistoryparagraph.php');
-require_once('/php/ui/fundshareparagraph.php');
-require_once('/php/ui/stockhistoryparagraph.php');
-require_once('/php/ui/nvclosehistoryparagraph.php');
+require_once('../../php/stockhis.php');
+require_once('../../php/benfordimagefile.php');
+require_once('../../php/sql/sqldailystring.php');
+require_once('../../php/ui/referenceparagraph.php');
+require_once('../../php/ui/tradingparagraph.php');
+require_once('../../php/ui/smaparagraph.php');
+require_once('../../php/ui/stockparagraph.php');
+require_once('../../php/ui/ahparagraph.php');
+require_once('../../php/ui/fundlistparagraph.php');
+require_once('../../php/ui/fundestparagraph.php');
+require_once('../../php/ui/fundhistoryparagraph.php');
+require_once('../../php/ui/fundshareparagraph.php');
+require_once('../../php/ui/stockhistoryparagraph.php');
+require_once('../../php/ui/nvclosehistoryparagraph.php');
 
 function _echoBenfordParagraph($ref)
 {

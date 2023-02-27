@@ -28,7 +28,7 @@ class _AdminDeleteAccount extends Account
 		$sql->SetStatus($strIp, IP_STATUS_NORMAL);
 	}
 
-    function AdminProcess()
+    public function AdminProcess()
     {
     	if ($strPathName = UrlGetQueryValue('file'))
     	{

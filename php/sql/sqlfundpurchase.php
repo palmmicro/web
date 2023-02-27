@@ -5,7 +5,7 @@ define('FUND_PURCHASE_AMOUNT', '100000');
 
 function SqlCreateFundPurchaseTable()
 {
-    $strQry = 'CREATE TABLE IF NOT EXISTS `camman`.`fundpurchase` ('
+    $strQry = 'CREATE TABLE IF NOT EXISTS `n5gl0n39mnyn183l_camman`.`fundpurchase` ('
          . ' `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,'
          . ' `member_id` INT UNSIGNED NOT NULL ,'
          . ' `stock_id` INT UNSIGNED NOT NULL ,'

@@ -14,7 +14,7 @@ require_once('internallink.php');
 require_once('_private.php');
 require_once('sql/_sqlcommon.php');
 
-define('DB_DATABASE', 'camman');
+define('DB_DATABASE', 'n5gl0n39mnyn183l_camman');
 
 define('TABLE_FUND_EST', 'fundest');
 define('TABLE_FUND_PURCHASE', 'fundpurchase');
@@ -171,7 +171,7 @@ function _errorHandler($errno, $errstr, $errfile, $errline)
 
 function _ConnectDatabase()
 {
-	$link = mysql_connect('mysql', 'woody', DB_PASSWORD);	// Connect to mysql server
+	$link = mysql_connect('mysql', 'n5gl0n39mnyn183l_woody', DB_PASSWORD);	// Connect to mysql server
 	if (!$link) 
 	{
 		return false;

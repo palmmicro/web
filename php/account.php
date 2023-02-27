@@ -222,7 +222,7 @@ class Account
     	$this->Back();
     }
 
-    function AdminProcess()
+    public function AdminProcess()
     {
     	DebugString('Empty Admin Process');
     }

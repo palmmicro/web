@@ -55,7 +55,7 @@ function GetExternalLink($strHttp, $strDisplay = false)
 
 function GetFileLink($strPathName)
 {
-    return GetExternalLink(UrlGetServer().$strPathName, basename($strPathName));
+    return GetExternalLink(UrlGetServer().'/'.substr($strPathName, strlen(UrlGetRootDir())), basename($strPathName));
 }
 
 function GetFileDebugLink($strPathName)

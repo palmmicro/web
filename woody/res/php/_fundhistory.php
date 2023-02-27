@@ -1,8 +1,8 @@
 <?php
 require_once('_stock.php');
 require_once('_emptygroup.php');
-require_once('/php/dateimagefile.php');
-require_once('/php/ui/fundhistoryparagraph.php');
+require_once('../../php/dateimagefile.php');
+require_once('../../php/ui/fundhistoryparagraph.php');
 
 function _echoFundHistory($strSymbol, $iStart, $iNum, $bAdmin)
 {

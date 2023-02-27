@@ -1,5 +1,5 @@
 <?php
-require_once('/php/stockgroup.php');
+require_once('../../php/stockgroup.php');
 
 class GroupIdAccount extends StockAccount
 {

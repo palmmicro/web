@@ -308,12 +308,13 @@ function _updateStockOptionCalibration($strSymbol, $strStockId, $strDate, $strVa
 	_updateOptionDailySql(new CalibrationSql(), $strStockId, $strDate, $strVal);
 }
 
-   	$acct = new Account();
-	
-   	if ($acct->GetLoginId() && isset($_POST['submit']))
-	{
-   		$bAdmin = $acct->IsAdmin();
-   		
+class _SubmitOptionsAccount extends Account
+{
+    public function Process($strLoginId)
+    {
+    	if (!isset($_POST['submit']))	return;
+
+   		$bAdmin = $this->IsAdmin();
 		$strEmail = SqlCleanString($_POST['login']);
 		$strSymbol = SqlCleanString($_POST['symbol']);
 		$strDate = isset($_POST['date']) ? SqlCleanString($_POST['date']) : '';
@@ -411,6 +412,5 @@ function _updateStockOptionCalibration($strSymbol, $strStockId, $strDate, $strVa
 		}
 		unset($_POST['submit']);
 	}
-
-	$acct->Back();
+}
 ?>

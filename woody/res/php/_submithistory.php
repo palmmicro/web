@@ -4,10 +4,11 @@ require_once('_emptygroup.php');
 //require_once('_spdrnavxls.php');
 require_once('_yahoohistorycsv.php');
 
-    $acct = new SymbolAccount();
-	if ($acct->IsAdmin())
-	{
-	    if ($ref = $acct->GetSymbolRef())
+class _AdminHistoryAccount extends SymbolAccount
+{
+    public function AdminProcess()
+    {
+	    if ($ref = $this->GetSymbolRef())
 	    {
 			YahooUpdateStockHistory($ref);
 	        
@@ -16,6 +17,6 @@ require_once('_yahoohistorycsv.php');
 //	        else									DebugNavXlsStr($ref);
 	    }
 	}
-	$acct->Back();
-	
+}
+
 ?>

@@ -1,8 +1,8 @@
 <?php
 require_once('_stock.php');
 require_once('_emptygroup.php');
-require_once('/php/ui/referenceparagraph.php');
-require_once('/php/ui/fundestparagraph.php');
+require_once('../../php/ui/referenceparagraph.php');
+require_once('../../php/ui/fundestparagraph.php');
 
 function RefSortBySymbol($arRef)
 {

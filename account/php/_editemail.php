@@ -1,7 +1,7 @@
 <?php
 require_once('_account.php');
-require_once('php/_editemailform.php');
-require_once('/php/ui/table.php');
+require_once('_editemailform.php');
+require_once('../php/ui/table.php');
 
 function _getEditEmailSubmit($strPage, $bChinese)
 {

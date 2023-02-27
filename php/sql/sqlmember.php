@@ -32,35 +32,6 @@ class MemberSql extends KeyNameSql
     }
 }
 
-/*
- CREATE TABLE `camman`.`member` (
-`id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,
-`email` VARCHAR( 128 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
-`password` VARCHAR( 32 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
-`ip` VARCHAR( 16 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
-`login` DATETIME NOT NULL ,
-`register` DATETIME NOT NULL ,
-`status` INT UNSIGNED NOT NULL ,
-`activity` INT NOT NULL ,
-INDEX ( `ip` ) ,
-UNIQUE (
-`email`
-)
-) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci
-
- CREATE TABLE `camman`.`profile` (
-`id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,
-`member_id` INT UNSIGNED NOT NULL ,
-`name` VARCHAR( 64 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL ,
-`phone` VARCHAR( 32 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL ,
-`address` VARCHAR( 128 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL ,
-`web` VARCHAR( 128 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL ,
-`signature` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL ,
-FOREIGN KEY (`member_id`) REFERENCES `member`(`id`) ON DELETE CASCADE
-) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci 
-
-*/
-
 // ****************************** Member table *******************************************************
 
 function SqlUpdateLoginField($strEmail, $strIp)

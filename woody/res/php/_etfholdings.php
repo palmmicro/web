@@ -1,5 +1,5 @@
 <?php
-require_once('/php/gb2312.php');
+require_once('../../php/gb2312.php');
 require_once('_holdingscsvfile.php');
 
 class _EtfHoldingsFile extends _HoldingsCsvFile

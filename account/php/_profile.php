@@ -1,10 +1,10 @@
 <?php
 require_once('_account.php');
 require_once('_editemailform.php');
-require_once('/php/stocklink.php');
-require_once('/php/sql/sqlstock.php');
-require_once('/php/ui/commentparagraph.php');
-require_once('/php/ui/fundpurchaseparagraph.php');
+require_once('../php/stocklink.php');
+require_once('../php/sql/sqlstock.php');
+require_once('../php/ui/commentparagraph.php');
+require_once('../php/ui/fundpurchaseparagraph.php');
 
 define('PROFILE_LOGIN_ACCOUNT', 'Login completed');
 define('PROFILE_PASSWORD_CHANGED', 'Password changed');

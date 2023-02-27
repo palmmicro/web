@@ -255,6 +255,4 @@ class _SubmitTransactionAccount extends StockAccount
     }
 }
 
-   	$acct = new _SubmitTransactionAccount();
-	$acct->Run();
 ?>

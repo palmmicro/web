@@ -11,7 +11,7 @@ class _AdminOperationAccount extends Account
 		$ref->ManualCalibration();
 	}
 
-    function AdminProcess()
+    public function AdminProcess()
     {
     	if ($strSymbol = UrlGetQueryValue('calibrationhistory'))
     	{

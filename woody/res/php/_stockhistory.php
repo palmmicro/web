@@ -1,7 +1,7 @@
 <?php
 require_once('_stock.php');
 require_once('_emptygroup.php');
-require_once('/php/ui/stockhistoryparagraph.php');
+require_once('../../php/ui/stockhistoryparagraph.php');
 
 function _getStockHistoryLinks($ref, $bAdmin)
 {

@@ -1,7 +1,7 @@
 <?php
-require_once('/php/layout.php');
-require_once('/php/visitorlogin.php');
-require_once('/php/_palmmicromenu.php');
+require_once('../php/layout.php');
+require_once('../php/visitorlogin.php');
+require_once('../php/_palmmicromenu.php');
 
 function _getAccountMenuArray($bChinese)
 {

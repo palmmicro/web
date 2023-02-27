@@ -2,11 +2,11 @@
 require_once('_stock.php');
 require_once('_idgroup.php');
 require_once('_editgroupform.php');
-require_once('/php/ui/referenceparagraph.php');
-require_once('/php/ui/ahparagraph.php');
-require_once('/php/ui/fundlistparagraph.php');
-require_once('/php/ui/fundestparagraph.php');
-require_once('/php/ui/imagedisp.php');
+require_once('../../php/ui/referenceparagraph.php');
+require_once('../../php/ui/ahparagraph.php');
+require_once('../../php/ui/fundlistparagraph.php');
+require_once('../../php/ui/fundestparagraph.php');
+require_once('../../php/ui/imagedisp.php');
 
 function in_array_ref($ref, $arRef)
 {

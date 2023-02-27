@@ -86,21 +86,4 @@ class StockTransactionSql extends TableSql
     }
 }
 
-// ****************************** Stock Transaction table *******************************************************
-/*
-function SqlCreateStockTransactionTable()
-{
-    $str = 'CREATE TABLE IF NOT EXISTS `camman`.`stocktransaction` ('
-        . '`id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,'
-        . '`groupitem_id` INT UNSIGNED NOT NULL ,'
-        . '`quantity` INT NOT NULL ,'
-        . '`price` DOUBLE(10,3) NOT NULL ,'
-        . '`fees` DOUBLE(8,3) NOT NULL ,'
-        . '`filled` DATETIME NOT NULL ,'
-        . '`remark` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL ,'
-        . ' FOREIGN KEY (`groupitem_id`) REFERENCES `stockgroupitem`(`id`) ON DELETE CASCADE'
-        . ') ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci'; 
-}
-*/
-
 ?>

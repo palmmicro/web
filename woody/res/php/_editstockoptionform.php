@@ -304,7 +304,7 @@ class SymbolEditAccount extends SymbolAccount
 	    }
 	</script>
 	
-	<form id="stockoptionForm" name="stockoptionForm" method="post" action="/woody/res/php/_submitstockoptions.php">
+	<form id="stockoptionForm" name="stockoptionForm" method="post" action="submitstockoptions.php">
         <div>
 		<p>$strMemo
 		<br /><input name="login" value="$strEmail" type="text" size="40" maxlength="128" class="textfield" id="login" $strEmailReadonly />
