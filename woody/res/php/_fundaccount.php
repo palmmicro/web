@@ -1,7 +1,7 @@
 <?php
 require_once('_stock.php');
 require_once('_emptygroup.php');
-require_once('/php/linearimagefile.php');
+require_once('../../php/linearimagefile.php');
 
 function _getFundAmount($strSymbol, $strDate)
 {

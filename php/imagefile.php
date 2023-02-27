@@ -138,7 +138,7 @@ class ImageFile
     {
     	$this->SaveFile();
     	$strRand = strval(rand());
-		return GetImgElement($this->strFileName.'?'.$strRand, $strRand.' automatical generated image, do NOT link');
+		return GetImgElement(UrlGetPathName($this->strFileName).'?'.$strRand, $strRand.' automatical generated image, do NOT link');
     }
 
     function GetName()

@@ -1,8 +1,8 @@
 <?php
 require_once('_stock.php');
 require_once('_emptygroup.php');
-require_once('/php/dateimagefile.php');
-require_once('/php/ui/editinputform.php');
+require_once('../../php/dateimagefile.php');
+require_once('../../php/ui/editinputform.php');
 
 function _echoFundPositionItem($csv, $ref, $cny_ref, $est_ref, $strDate, $strNetValue, $strPrevDate, $nav_sql, $strStockId, $est_sql, $strEstId, $strInput, $bAdmin)
 {

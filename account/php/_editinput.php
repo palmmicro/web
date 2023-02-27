@@ -1,17 +1,17 @@
 <?php
 require_once('_account.php');
-require_once('/php/externalurl.php');
-require_once('/php/gb2312.php');
-require_once('/php/iplookup.php');
-require_once('/php/stocklink.php');
-require_once('/php/benfordimagefile.php');
-require_once('/php/linearimagefile.php');
-require_once('/php/tutorial/dice.php');
-require_once('/php/tutorial/primenumber.php');
-require_once('/php/sql/sqlkeystring.php');
-require_once('/php/ui/editinputform.php');
-require_once('/php/ui/table.php');
-require_once('/php/ui/imagedisp.php');
+require_once('../php/externalurl.php');
+require_once('../php/gb2312.php');
+require_once('../php/iplookup.php');
+require_once('../php/stocklink.php');
+require_once('../php/benfordimagefile.php');
+require_once('../php/linearimagefile.php');
+require_once('../php/tutorial/dice.php');
+require_once('../php/tutorial/primenumber.php');
+require_once('../php/sql/sqlkeystring.php');
+require_once('../php/ui/editinputform.php');
+require_once('../php/ui/table.php');
+require_once('../php/ui/imagedisp.php');
 
 function HexView($strInput)
 {

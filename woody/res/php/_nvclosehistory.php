@@ -1,9 +1,9 @@
 <?php
 require_once('_stock.php');
 require_once('_emptygroup.php');
-require_once('/php/linearimagefile.php');
-require_once('/php/ui/pricepoolparagraph.php');
-require_once('/php/ui/nvclosehistoryparagraph.php');
+require_once('../../php/linearimagefile.php');
+require_once('../../php/ui/pricepoolparagraph.php');
+require_once('../../php/ui/nvclosehistoryparagraph.php');
 
 class _NvCloseCsvFile extends PricePoolCsvFile
 {

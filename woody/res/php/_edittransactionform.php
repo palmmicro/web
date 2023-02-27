@@ -266,7 +266,7 @@ function StockEditTransactionForm($acct, $strSubmit, $strGroupId = false, $strGr
 	    }
 	</script>
 
-	<form id="transactionForm" name="transactionForm" method="post" action="submittransaction.php$strPassQuery">
+	<form id="transactionForm" name="transactionForm" method="post" action="submittransaction.php{$strPassQuery}">
         <div>
 		<p><SELECT name="symbol" onChange=OnSymbol() size=1> $strSymbolsList </SELECT> 
 			  <SELECT name="type" onChange=OnType() size=1> <OPTION value=0>卖出</OPTION> <OPTION value=1>买入</OPTION> </SELECT>

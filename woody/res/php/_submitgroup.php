@@ -114,6 +114,4 @@ class _SubmitGroupAccount extends StockAccount
 	}
 }
 
-   	$acct = new _SubmitGroupAccount();
-	$acct->Run();
 ?>

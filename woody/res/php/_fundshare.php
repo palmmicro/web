@@ -1,8 +1,8 @@
 <?php
 require_once('_stock.php');
 require_once('_emptygroup.php');
-require_once('/php/stock/szse.php');
-require_once('/php/ui/fundshareparagraph.php');
+require_once('../../php/stock/szse.php');
+require_once('../../php/ui/fundshareparagraph.php');
 
 function EchoAll()
 {

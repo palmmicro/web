@@ -1,5 +1,5 @@
 <?php
-require_once('/php/csvfile.php');
+// need PageCsvFile in /php/csvfile.php
 
 class PriceGoal
 {

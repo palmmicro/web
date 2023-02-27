@@ -17,9 +17,6 @@ define('SZ_PREFIX', 'SZ');
 
 define('YAHOO_INDEX_CHAR', '^');
 
-define('STOCK_TIME_ZONE_CN', 'PRC');
-define('STOCK_TIME_ZONE_US', 'America/New_York');
-
 function StrHasPrefix($str, $strPrefix)
 {
 	$iLen = strlen($strPrefix);

@@ -1,7 +1,7 @@
 <?php
 require_once('_stock.php');
 require_once('_emptygroup.php');
-require_once('/php/ui/stocktable.php');
+require_once('../../php/ui/stocktable.php');
 
 function _echoCalibrationHistoryItem($sql, $fPosition, $strStockId, $record, $bAdmin)
 {

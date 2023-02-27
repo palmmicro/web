@@ -127,6 +127,7 @@ function _echoMyStockData($ref, $bAdmin)
     $strSymbol = $ref->GetSymbol();
     if ($ref->IsFundA())
     {
+    	$fund = false;
        	if (in_arrayQdiiMix($strSymbol))
        	{
        		$holdings_ref = new HoldingsReference($strSymbol);
@@ -204,7 +205,10 @@ function _echoMyStockData($ref, $bAdmin)
    					$nav_ref = $holdings_ref->GetNavRef(); 
    					$str .= $nav_ref->DebugLink(); 
    				}
-   				else	$str .= $fund->DebugLink(); 
+   				else
+   				{
+   					if ($fund)		$str .= $fund->DebugLink();
+   				}
    			}
    			$str .= '<br />'.$ref->DebugConfigLink().'<br />'.GetHoldingsCsvLink($strSymbol);
     	}

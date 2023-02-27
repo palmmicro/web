@@ -103,6 +103,11 @@ function UrlGetRootDir()
     return $strRoot;
 }
 
+function UrlGetPathName($strPathName)
+{
+	return UrlGetServer().'/'.substr($strPathName, strlen(UrlGetRootDir()));
+}
+
 // Function to sanitize values received from the form. Prevents SQL injection
 function UrlCleanString($str) 
 {

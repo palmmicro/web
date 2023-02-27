@@ -54,7 +54,7 @@ function StockEditGroupForm($acct, $strSubmit)
 	    }
 	</script>
 	
-	<form id="groupForm" name="groupForm" method="post" action="/woody/res/php/_submitgroup.php{$strPassQuery}">
+	<form id="groupForm" name="groupForm" method="post" action="submitgroup.php{$strPassQuery}">
         <div>
 		<p>$strStockGroup
 		<br /><input name="groupname" value="$strGroupName" type="text" size="20" maxlength="32" class="textfield" id="groupname" />
