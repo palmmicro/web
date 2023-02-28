@@ -1,17 +1,12 @@
 <?php
 require_once('stocktable.php');
 
-function _echoStockTableItem($strStockId, $strSymbol, $strName, $bAdmin)
+function _echoStockTableItem($strSymbol, $strName, $bAdmin)
 {
-	$ar = array();
-	
-	$ar[] = GetMyStockLink($strSymbol);
-	$ar[] = $strName;
+	$ar = array(GetMyStockLink($strSymbol), $strName);
 	if ($bAdmin)
 	{
-		$strEdit = GetStockOptionLink(STOCK_OPTION_EDIT, $strSymbol);
-        $strDelete = GetDeleteLink(STOCK_PHP_PATH.'_deletesymbol.php?symbol='.$strSymbol, '股票'.$strSymbol);
-        $ar[] = $strEdit.' '.$strDelete;
+		$ar[] = GetStockEditDeleteLink($strSymbol);
 	}
 
 	EchoTableColumn($ar);
@@ -23,7 +18,7 @@ function _echoStockTableData($sql, $iStart, $iNum, $bAdmin)
 	{
 		while ($record = mysql_fetch_assoc($result)) 
 		{
-			_echoStockTableItem($record['id'], $record['symbol'], $record['name'], $bAdmin);
+			_echoStockTableItem($record['symbol'], $record['name'], $bAdmin);
 		}
 		@mysql_free_result($result);
 	}

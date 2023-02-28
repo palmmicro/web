@@ -95,7 +95,7 @@ function _getFundOptionLinks($strSymbol)
 function _getMyStockLinks($sym)
 {
 	$strSymbol = $sym->GetSymbol();
-    $str = GetStockOptionLink(STOCK_OPTION_EDIT, $strSymbol);
+    $str = GetStockEditDeleteLink($strSymbol);
    	$str .= ' '.GetStockOptionLink(STOCK_OPTION_SPLIT, $strSymbol);
    	$str .= ' '.GetStockOptionLink(STOCK_OPTION_DIVIDEND, $strSymbol);
    	if (SqlGetFundPair($strSymbol) == false)

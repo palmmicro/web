@@ -220,46 +220,14 @@ class StockHistory
         }
     }
 
-    function _getEMA($iDays)
+    function _get_EMA($iDays)
     {
-		$sql = GetStockEmaSql($iDays);
-    	return $sql->GetClose($this->GetStockId(), $this->strStartDate);
-    }
-    
-    function _cfg_get_EMA($cfg, $iDays)
-    {
-		if ($this->_getEMA($iDays))
-		{
-			$this->_cfg_get_SMA($cfg, 'EMA'.strval($iDays));
-		}
-    }
+    	$strName = 'EMA'.strval($iDays);
+//    	DebugString($strName.' '.$this->strStartDate.' '.$this->GetStockId());
 
-    // En = k * X0 + (1 - k) * Em; 其中m = n - 1; k = 2 / (n + 1)
-/*	function _calcEMA($iDays, $afClose)
-	{
-		$iCount = count($afClose);
-		$iStart = ($iCount > $iDays * 2) ? $iDays * 2 : $iCount - 1;
-		
-		if ($iStart > 0)
-		{
-			$fVal = $afClose[$iStart];
-			$f = 2.0 / ($iDays + 1);
-			for ($i = $iStart - 1; $i >= 0; $i --)
-			{
-				$fVal = $f * $afClose[$i] + (1.0 - $f) * $fVal;
-			}
-			return strval($fVal);
-		}
-		return false;
-	}
-*/	
-    function _cfg_set_EMA($cfg, $iDays, $afClose)
-    {
-    	if ($strEma = $this->_getEMA($iDays))
-		{
-//			$this->_cfg_set_SMA($cfg, 'EMA'.strval($iDays), $strEma, $this->_calcEMA($iDays, $afClose));
-			$this->_cfg_set_SMA($cfg, 'EMA'.strval($iDays), $strEma, false);
-		}
+		$sql = GetStockEmaSql($iDays);
+    	$this->arSMA[$strName] = $sql->GetClose($this->GetStockId(), $this->strStartDate);
+       	$this->arNext[$strName] = false;
     }
     
     function _cfg_set_SMAs($cfg, $strPrefix, $afClose)
@@ -289,9 +257,6 @@ class StockHistory
 	    $this->_cfg_get_SMAs($cfg, 'D');
 	    $this->_cfg_get_SMAs($cfg, 'W');
 	    $this->_cfg_get_SMAs($cfg, 'M');
-        
-        $this->_cfg_get_EMA($cfg, 50);
-        $this->_cfg_get_EMA($cfg, 200);
     }
     
     function _saveConfigSMA($cfg)
@@ -329,9 +294,6 @@ class StockHistory
 	    $this->_cfg_set_SMAs($cfg, 'W', $afWeeklyClose);
 	    $this->_cfg_set_SMAs($cfg, 'M', $afMonthlyClose);
         
-        $this->_cfg_set_EMA($cfg, 50, $afClose);
-        $this->_cfg_set_EMA($cfg, 200, $afClose);
-
         $cfg->save_data();
     }
     
@@ -360,6 +322,9 @@ class StockHistory
             $cfg->set_var(SMA_SECTION, 'Date', $strCurDate);
             $this->_saveConfigSMA($cfg);
         }
+
+        $this->_get_EMA(50);
+        $this->_get_EMA(200);
     }
     
     function GetSym()

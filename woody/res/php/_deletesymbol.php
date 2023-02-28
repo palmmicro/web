@@ -131,14 +131,15 @@ function _deleteStockSymbol($ref)
 	$sql->DeleteById($strStockId);
 }
 
-    $acct = new SymbolAccount();
-	if ($acct->IsAdmin())
-	{
-	    if ($ref = $acct->GetSymbolRef())
+class _DeleteSymbolAccount extends SymbolAccount
+{
+    public function AdminProcess()
+    {
+	    if ($ref = $this->GetSymbolRef())
 	    {
 	        _deleteStockSymbol($ref);
 	    }
 	}
-	$acct->Back();
-	
+}
+
 ?>

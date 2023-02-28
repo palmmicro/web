@@ -34,8 +34,8 @@ function _getStockOptionNewName($ref, $strName)
 	$str = '';
 	$strChinese = $ref->GetChineseName();
 	$strEnglish = $ref->GetEnglishName();
-	if ($strChinese != $strName)									$str .= '+'.$strChinese;
-    if ($strEnglish != $strName && $strEnglish != $strChinese)	$str .= '+'.$strEnglish;
+	if ($strChinese != $strName)									$str .= '-'.$strChinese;
+    if ($strEnglish != $strName && $strEnglish != $strChinese)	$str .= '-'.$strEnglish;
     return $str;
 }
 

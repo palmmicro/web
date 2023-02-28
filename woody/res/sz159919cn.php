@@ -8,5 +8,5 @@ function GetChinaIndexRelated($strDigitA)
 	return $str;
 }
 
-require('/php/ui/_dispcn.php');
+require('../../php/ui/_dispcn.php');
 ?>

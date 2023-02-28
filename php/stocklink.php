@@ -191,6 +191,11 @@ function GetStockOptionLink($strOption, $strSymbol)
     return GetStockSymbolLink($strPage, $strSymbol, $strOption);
 }
 
+function GetStockEditDeleteLink($strSymbol)
+{
+	return GetStockOptionLink(STOCK_OPTION_EDIT, $strSymbol).' '.GetDeleteLink(STOCK_PATH.'deletesymbol.php?symbol='.$strSymbol, '股票'.$strSymbol);
+}
+
 define('AUTO_TRACTOR_DISPLAY', '拖拉机自动化');
 function GetAutoTractorLink($strQuery = false)
 {

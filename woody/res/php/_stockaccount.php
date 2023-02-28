@@ -62,7 +62,7 @@ class StockAccount extends TitleAccount
    			if ($this->SetCrawler(UrlGetIp()))	DebugString('标注查退市股的爬虫');
    		}
    		
-    	if (strlen($str) > 10)				return false;
+    	if (strlen($str) > 11)				return false;		// hf_CHA50CFD is the longest symbol
     	if (strpos($str, "'") !== false)	return false;
     	$str = rtrim($str, '/');
     	return $str;
