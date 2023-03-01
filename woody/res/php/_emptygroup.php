@@ -6,10 +6,13 @@ class SymbolAccount extends StockAccount
     {
         parent::StockAccount('symbol');
 
-		if ($strStockId = UrlGetQueryValue('id'))
-	   	{
-	   		if ($strSymbol = SqlGetStockSymbol($strStockId))	SwitchToLink(UrlGetUri().'?'.UrlAddQuery('symbol='.$strSymbol));
-	   	}
+        if ($this->GetQuery() == false)
+        {
+        	if ($strStockId = UrlGetQueryValue('id'))
+        	{
+        		if ($strSymbol = SqlGetStockSymbol($strStockId))	SwitchToLink(UrlGetUri().'?'.UrlAddQuery('symbol='.$strSymbol));
+        	}
+        }
     }
     
     function GetSymbolRef()

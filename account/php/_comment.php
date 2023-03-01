@@ -1,6 +1,6 @@
 <?php
 require_once('_account.php');
-require_once('/php/ui/commentparagraph.php');
+require_once('../php/ui/commentparagraph.php');
 
 function EchoAll($bChinese = true)
 {

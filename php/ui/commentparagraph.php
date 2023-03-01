@@ -78,7 +78,7 @@ class CommentAccount extends TitleAccount
     	$strDelete = '';
    		if ($this->IsAdmin() || $bCanModify)
    		{	
-   			$strDelete = GetDeleteLink('/account/php/_submitcomment.php?delete='.$record['id'], '评论', 'comment', $bChinese);
+   			$strDelete = GetDeleteLink('/php/_submitcomment.php?delete='.$record['id'], '评论', 'comment', $bChinese);
    		}
 
     	$strTime = $record['date'].' '.$record['time'];

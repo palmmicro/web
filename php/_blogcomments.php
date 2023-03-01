@@ -1,7 +1,7 @@
 <?php
 require_once('layout.php');
 require_once('visitorlogin.php');
-require_once('/account/php/_editcommentform.php');
+require_once('_editcommentform.php');
 
 function EchoBlogComments($bChinese = true)
 {

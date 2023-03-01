@@ -1,5 +1,5 @@
 <?php
-require_once('/php/account.php');
+require_once('account.php');
 require_once('_editcommentform.php');
 
 class _SubmitCommentAccount extends EditCommentAccount
@@ -137,4 +137,5 @@ class _SubmitCommentAccount extends EditCommentAccount
 
    	$acct = new _SubmitCommentAccount();
    	$acct->Run();
+
 ?>

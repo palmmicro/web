@@ -1,6 +1,6 @@
 <?php
 require_once('_account.php');
-require_once('php/_editcommentform.php');
+require_once('../php/_editcommentform.php');
 
 function _getEditCommentSubmit($bChinese)
 {
@@ -19,11 +19,11 @@ function GetMetaDescription($bChinese = true)
 	$str = _getEditCommentSubmit($bChinese);
     if ($bChinese)
     {
-    	$str = "本中文页面文件跟/account/php/_submitcomment.php和/account/php/_editcommentform.php一起配合完成{$str}的功能.";
+    	$str = "本中文页面文件跟../php/_submitcomment.php和../php/_editcommentform.php一起配合完成{$str}的功能.";
     }
     else
     {
-    	$str = "This English web page works together with php/_submitcomment.php and php/_editcommentform.php to $str.";
+    	$str = "This English web page works together with ../php/_submitcomment.php and ../php/_editcommentform.php to $str.";
     }
     return CheckMetaDescription($str);
 }

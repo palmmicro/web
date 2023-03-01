@@ -1,7 +1,7 @@
 <?php
 require_once('_account.php');
-require_once('/php/iplookup.php');
-require_once('/php/ui/table.php');
+require_once('../php/iplookup.php');
+require_once('../php/ui/table.php');
 
 define('MAX_VISITOR_CONTENTS', 35);
 function _getVisitorContentsDisplay($strContents)

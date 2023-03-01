@@ -1,6 +1,5 @@
 <?php
 define('STOCK_PATH', '/woody/res/');
-define('STOCK_PHP_PATH', '/woody/res/php/');
 
 function GetNameTag($strName, $strDisplay = false)
 {

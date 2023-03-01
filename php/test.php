@@ -204,7 +204,8 @@ function SqlCleanStockTransaction()
     echo '<meta http-equiv="content-type" content="text/html; charset=UTF-8">';
 
 	file_put_contents(DebugGetFile(), DEBUG_UTF8_BOM.'Start debug:'.PHP_EOL);
-	DebugString($_SERVER['DOCUMENT_ROOT']);
+//	DebugString($_SERVER['DOCUMENT_ROOT']);
+	DebugString(UrlGetRootDir());
 	DebugString(phpversion());
 	DebugLogFile();
 	echo strval(rand()).' Hello, world!<br />';

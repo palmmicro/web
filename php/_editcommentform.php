@@ -1,5 +1,5 @@
 <?php
-require_once('../php/ui/commentparagraph.php');
+require_once('ui/commentparagraph.php');
 
 define('BLOG_COMMENT_NEW', 'Post Comment');
 define('BLOG_COMMENT_NEW_CN', '发表评论');
@@ -37,13 +37,13 @@ class EditCommentAccount extends CommentAccount
 						   BLOG_COMMENT_EDIT => 'Clear to delete comment',
 						   BLOG_COMMENT_EDIT_CN => '清空可以删除评论',
 						   );
-	
+		
 		$strPassQuery = UrlPassQuery();
 		$strComment = $this->_getEditComment();
 		$str = GetRemarkElement($arTitle[$strSubmit]);
     
 		echo <<< END
-	<form id="commentForm" name="commentForm" method="post" action="/account/php/_submitcomment.php$strPassQuery">
+	<form id="commentForm" name="commentForm" method="post" action="/php/_submitcomment.php{$strPassQuery}">
         <div>
 		<p>$str
 	    <br /><textarea name="comment" rows="16" cols="75" id="comment">$strComment</textarea>
