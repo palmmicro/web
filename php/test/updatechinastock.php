@@ -1,6 +1,6 @@
 <?php
 require_once('_commonupdatestock.php');
-require_once('/php/csvfile.php');
+require_once('../csvfile.php');
 
 /*
 <li><a target="_blank" href="http://quote.eastmoney.com/sh204001.html">GC001(204001)</a></li>

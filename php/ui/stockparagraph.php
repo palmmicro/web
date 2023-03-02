@@ -3,7 +3,7 @@ require_once('stocktable.php');
 
 function _echoStockTableItem($strSymbol, $strName, $bAdmin)
 {
-	$ar = array(GetMyStockLink($strSymbol), $strName);
+	$ar = array(GetMyStockLink($strSymbol), GetXueqiuLink(new StockSymbol($strSymbol), $strName));
 	if ($bAdmin)
 	{
 		$ar[] = GetStockEditDeleteLink($strSymbol);

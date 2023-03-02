@@ -1,9 +1,9 @@
 <?php
-require_once('/php/account.php');
-require_once('/php/externalurl.php');
-require_once('/php/regexp.php');
-require_once('/php/gb2312.php');
-require_once('/php/stock/stocksymbol.php');
+require_once('../account.php');
+require_once('../externalurl.php');
+require_once('../regexp.php');
+require_once('../gb2312.php');
+require_once('../stock/stocksymbol.php');
 
-require_once('/php/sql/sqlstockpair.php');
+require_once('../sql/sqlstockpair.php');
 ?>

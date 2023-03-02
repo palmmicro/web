@@ -1,14 +1,14 @@
 <?php
-require_once('/php/stock.php');
-require_once('/php/stockhis.php');
-require_once('/php/ui/referenceparagraph.php');
-require_once('/php/ui/ahparagraph.php');
-require_once('/php/ui/fundestparagraph.php');
-require_once('/php/ui/fundhistoryparagraph.php');
-require_once('/php/ui/fundshareparagraph.php');
-require_once('/php/ui/smaparagraph.php');
-require_once('/php/ui/nvclosehistoryparagraph.php');
-require_once('/php/ui/stockhistoryparagraph.php');
+require_once('../../../php/stock.php');
+require_once('../../../php/stockhis.php');
+require_once('../../../php/ui/referenceparagraph.php');
+require_once('../../../php/ui/ahparagraph.php');
+require_once('../../../php/ui/fundestparagraph.php');
+require_once('../../../php/ui/fundhistoryparagraph.php');
+require_once('../../../php/ui/fundshareparagraph.php');
+require_once('../../../php/ui/smaparagraph.php');
+require_once('../../../php/ui/nvclosehistoryparagraph.php');
+require_once('../../../php/ui/stockhistoryparagraph.php');
 
 define('AB_DEMO_SYMBOL', 'SZ000488');
 define('ADRH_DEMO_SYMBOL', 'TCEHY');

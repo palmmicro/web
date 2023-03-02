@@ -130,7 +130,7 @@ function GetEastMoneyFundLink($sym)
     return $strSymbol;
 }
 
-function GetXueqiuLink($sym)
+function GetXueqiuLink($sym, $strDisplay = false)
 {
     $strSymbol = $sym->GetSymbol();
 	$strXueqiu = $strSymbol;
@@ -156,7 +156,7 @@ function GetXueqiuLink($sym)
 		}
 	}
     $strHttp = GetXueqiuUrl().'S/'.$strXueqiu;
-    return GetExternalLink($strHttp, $strSymbol);
+    return GetExternalLink($strHttp, ($strDisplay ? $strDisplay : $strSymbol));
 }
 
 function GetXueQiuIdLink($strId, $strDisplay)

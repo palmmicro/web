@@ -25,7 +25,7 @@ function StrHasPrefix($str, $strPrefix)
 
 function GetOldSymbolArray()
 {
-	return array('ACH', 'CEO', 'CHA', 'CHU', 'CHL', 'GSH', 'HNP', 'LFC', 'PTR', 'SHI', 'SINA', 'SMI', 'SNP');
+	return array('ACH', 'CEA', 'CEO', 'CHA', 'CHAD', 'CHU', 'CHL', 'GSH', 'HNP', 'LFC', 'PTR', 'SHI', 'SINA', 'SMI', 'SNP');
 }
 
 function GetSecondaryListingArray()
