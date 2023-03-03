@@ -1,6 +1,6 @@
 <?php
-require_once('/php/layout.php');
-require_once('/woody/php/_woodymenu.php');
+require_once('../../../php/layout.php');
+require_once('../../php/_woodymenu.php');
 
 function _menuLoopCateyes($bChinese)
 {

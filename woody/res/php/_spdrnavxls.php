@@ -1,5 +1,5 @@
 <?php
-require_once('/php/class/PHPExcel/IOFactory.php');
+require_once('../../php/class/PHPExcel/IOFactory.php');
 
 function _readXlsFile($bIshares, $strPathName, $nav_sql, $shares_sql, $strStockId)
 {

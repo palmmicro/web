@@ -33,5 +33,5 @@ function EchoAll($bChinese)
 END;
 }
 
-require('/php/ui/_disp.php');
+require('../../php/ui/_disp.php');
 ?>

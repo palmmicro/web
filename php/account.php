@@ -42,7 +42,7 @@ class Account
 	    $strIp = UrlGetIp();
 	    $this->ip_sql = new IpSql();
 	    $strStatus = $this->ip_sql->GetStatus($strIp);
-	    if ($strStatus == IP_STATUS_MALICIOUS)	die('401 Unauthorized');
+	    if ($strStatus == IP_STATUS_MALICIOUS)	die('403 Forbidden');
 //	    if ($strStatus != IP_STATUS_NORMAL)	die('401 Unauthorized');
     	$this->bAllowCurl = ($strStatus != IP_STATUS_NORMAL) ? false : true;
 

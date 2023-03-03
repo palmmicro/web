@@ -2,6 +2,8 @@
 require_once('_commonupdatestock.php');
 require_once('../csvfile.php');
 
+// http://query.sse.com.cn//sseQuery/commonExcelDd.do?sqlId=COMMON_SSE_CP_GPJCTPZ_GPLB_GP_L&type=inParams&CSRC_CODE=&STOCK_CODE=&REG_PROVINCE=&STOCK_TYPE=1&COMPANY_STATUS=2,4,5,7,8
+
 /*
 <li><a target="_blank" href="http://quote.eastmoney.com/sh204001.html">GC001(204001)</a></li>
 <li><a target="_blank" href="http://quote.eastmoney.com/sh501018.html">南方原油(501018)</a></li>

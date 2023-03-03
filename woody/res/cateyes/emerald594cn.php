@@ -37,5 +37,5 @@ X射线照射下, 祖母绿发很弱的纯红色荧光.
 END;
 }
 
-require('/php/ui/_dispcn.php');
+require('../../../php/ui/_dispcn.php');
 ?>
