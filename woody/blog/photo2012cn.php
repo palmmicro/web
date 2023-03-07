@@ -17,5 +17,5 @@ function EchoAll()
 END;
 }
 
-require('/php/ui/_dispcn.php');
+require('../../php/ui/_dispcn.php');
 ?>

@@ -7,7 +7,7 @@ require_once('../php/stocklink.php');
 require_once('../php/benfordimagefile.php');
 require_once('../php/linearimagefile.php');
 require_once('../php/tutorial/dice.php');
-require_once('../php/tutorial/primenumber.php');
+require_once('../php/tutorial/primenumber.php');	// require /php/sql/sqltable.php
 require_once('../php/sql/sqlkeystring.php');
 require_once('../php/ui/editinputform.php');
 require_once('../php/ui/table.php');

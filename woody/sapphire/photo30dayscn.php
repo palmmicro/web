@@ -1,5 +1,5 @@
 <?php
-require('php/_sapphire.php');
+require('php/_mia.php');
 
 function GetMetaDescription()
 {
@@ -59,5 +59,5 @@ function EchoAll()
 END;
 }
 
-require('/php/ui/_dispcn.php');
+require('../../php/ui/_dispcn.php');
 ?>
