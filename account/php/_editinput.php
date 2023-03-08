@@ -42,7 +42,7 @@ function _getCommonPhraseString($strInput, $strMemberId, $bChinese)
 		while ($record = mysql_fetch_assoc($result)) 
 		{
 			$strVal = $record['str'];
-		    $str .= GetOnClickLink('/account/php/_submitcommonphrase.php?delete='.$record['id'], $strConfirm.': '.$strVal.'?', $strVal).'<br />';
+		    $str .= GetOnClickLink('/account/submitcommonphrase.php?delete='.$record['id'], $strConfirm.': '.$strVal.'?', $strVal).'<br />';
 		}
 		@mysql_free_result($result);
 	}

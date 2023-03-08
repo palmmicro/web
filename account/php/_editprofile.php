@@ -1,6 +1,6 @@
 <?php
 require_once('_account.php');
-require_once('php/_editprofileform.php');
+require_once('_editprofileform.php');
 
 function _getEditProfileSubmit($bChinese)
 {

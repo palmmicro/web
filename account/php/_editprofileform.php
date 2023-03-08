@@ -39,7 +39,7 @@ function EditProfileForm($strSubmit, $strMemberId)
 	}
     
 	echo <<< END
-<form id="updateForm" name="updateForm" method="post" action="/account/php/_submitprofile.php$strPassQuery">
+<form id="updateForm" name="updateForm" method="post" action="submitprofile.php{$strPassQuery}">
   <table width="640" border="0" align="left" cellpadding="2" cellspacing="0">
     <tr>
       <td><b>{$arColumn[0]}</b></td>

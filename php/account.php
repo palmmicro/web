@@ -120,17 +120,12 @@ class Account
     	return $this->visitor_sql;
     }
     
-    function _switchToLogin()
-    {
-    	SwitchSetSess();
-    	SwitchTo('/account/login');
-    }
-
     function Auth()
     {
     	if ($this->GetLoginId() == false) 
     	{
-    		$this->_switchToLogin();
+    		SwitchSetSess();
+    		SwitchTo('/account/login');
     	}
     }
     
@@ -197,11 +192,6 @@ class Account
     	return $this->bAllowCurl;
     }
     
-    function Back()
-    {
-    	SwitchToSess();
-    }
-
     function IsAdmin()
     {
     	if ($this->GetLoginEmail() == ADMIN_EMAIL)
@@ -219,7 +209,7 @@ class Account
     		call_user_func($callback);
     		DebugString($callback.DebugGetStopWatchDisplay($fStart));
     	}
-    	$this->Back();
+    	SwitchToSess();
     }
 
     public function AdminProcess()
@@ -233,7 +223,7 @@ class Account
     	{
     		$this->AdminProcess();
     	}
-    	$this->Back();
+    	SwitchToSess();
     }
 
     public function Process($strLoginId)
@@ -247,7 +237,7 @@ class Account
     	{
     		$this->Process($strLoginId);
     	}
-    	$this->Back();
+    	SwitchToSess();
     }
 }
 

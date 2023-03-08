@@ -1,5 +1,5 @@
 <?php
-require_once('/php/account.php');
+require_once('../php/account.php');
 require_once('_editprofileform.php');
 
 function _onProfileChanged($strName, $strPhone, $strAddress, $strWeb, $strSignature, $strStatus)
@@ -38,26 +38,29 @@ function _onEdit($strMemberId)
 	return true;
 }
 
-   	$acct = new Account();
-	$strMemberId = $acct->GetLoginId();
-	if ($strMemberId && isset($_POST['submit']))
-	{
+class _SubmitProfileAccount extends Account
+{
+    public function Process($strLoginId)
+    {
+		if (!$strLoginId)					return;
+    	if (!isset($_POST['submit']))	return;
+
 		$strSubmit = $_POST['submit'];
 		if ($strSubmit == ACCOUNT_PROFILE_EDIT || $strSubmit == ACCOUNT_PROFILE_EDIT_CN)
 		{	// edit profile
-		    _onEdit($strMemberId);
+		    _onEdit($strLoginId);
 		}
 		unset($_POST['submit']);
 		
 		if ($strSubmit == ACCOUNT_PROFILE_EDIT)
 		{
-		    SwitchToLink("../profile.php");
+		    SwitchToLink('profile.php');
 		}
 		else if ($strSubmit == ACCOUNT_PROFILE_EDIT_CN)
 		{
-		    SwitchToLink("../profilecn.php");
+		    SwitchToLink('profilecn.php');
 		}
 	}
+}
 
-	$acct->Back();
 ?>

@@ -1,6 +1,6 @@
 <?php
-require_once('/php/_blogcomments.php');
-require_once('/php/ui/link.php');
+require_once('../php/_blogcomments.php');
+require_once('../php/ui/link.php');
 
 function _menuChishinBlogGroup($bChinese)
 {
