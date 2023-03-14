@@ -7,38 +7,42 @@ require_once('_commonupdatestock.php');
 <a href="http://stock.finance.sina.com.cn/usstock/quotes/YINN.html" rel="suggest" title="YINN,Direxion Daily FTSE China Bull 3X Shares,三倍做多A股新华50指数ETF">三倍做多(YINN)</a>
 */
 
-function _updateUsStock()
+class _AdminUsStockAccount extends Account
 {
-    $strUrl = GetSinaUsStockListUrl();
-    $str = url_get_contents($strUrl);
-    if ($str == false)	return;
+    public function AdminProcess()
+    {
+    	$strUrl = GetSinaUsStockListUrl();
+    	$str = url_get_contents($strUrl);
+    	if ($str == false)	return;
 
-    $str = GbToUtf8($str);
+    	$str = GbToUtf8($str);
 
-    $strBoundary = RegExpBoundary();
-    $strPattern = $strBoundary;
-    $strPattern .= RegExpParenthesis('title="', '[^"]*', '">');
-    $strPattern .= $strBoundary;
+    	$strBoundary = RegExpBoundary();
+    	$strPattern = $strBoundary;
+    	$strPattern .= RegExpParenthesis('title="', '[^"]*', '">');
+    	$strPattern .= $strBoundary;
     
-    $arMatch = array();
-    preg_match_all($strPattern, $str, $arMatch, PREG_SET_ORDER);
-    DebugVal(count($arMatch), '_updateUsStock');
-    $iCount = 0;
-	$sql = GetStockSql();
-   	foreach ($arMatch as $arItem)
-   	{
-   		$ar = explode(',', $arItem[1]);
-   		$strSymbol = reset($ar);
-   		$strName = end($ar);
-   		if ($sql->WriteSymbol($strSymbol, $strName))
-   		{
-   			DebugString($strSymbol.' '.$strName);
-   			$iCount ++;
-   		}
-   	}
-    DebugVal($iCount, 'US stock updated');
+    	$arMatch = array();
+    	preg_match_all($strPattern, $str, $arMatch, PREG_SET_ORDER);
+    	DebugVal(count($arMatch), '_updateUsStock');
+    	$iCount = 0;
+    	$sql = GetStockSql();
+    	foreach ($arMatch as $arItem)
+    	{
+    		$ar = explode(',', $arItem[1]);
+    		$strSymbol = reset($ar);
+    		$strName = end($ar);
+    		if ($sql->WriteSymbol($strSymbol, $strName))
+    		{
+    			DebugString($strSymbol.' '.$strName);
+    			$iCount ++;
+    		}
+    	}
+    	DebugVal($iCount, 'US stock updated');
+    }
 }
-	
-   	$acct = new Account();
-	$acct->AdminCommand('_updateUsStock');
+
+   	$acct = new _AdminUsStockAccount();
+	$acct->AdminRun();
+
 ?>

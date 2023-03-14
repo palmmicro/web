@@ -44,7 +44,7 @@
 <p>2016年10月20日
 <br />今天发现有个微信公众号用户用语音查询<font color=gray>交通银行</font>, 没查到因为数据库中根本没有它. 不过因此刺激了我给加上查询所有<a href="../entertainment/20141016cn.php">股票</a>交易数据的功能.
 <br />首先我要把A股3000多只股票都加到数据库中. 开始我想直接开个大循环从000001到699999从新浪拿数据, 后来觉得太蠢了, 还担心新浪的数据接口把我列入黑名单.
-不过接下来我从<?php EchoExternalLink(GetEastMoneyStockListUrl()); ?>找到了所有A股数据.
+不过接下来我从<?php EchoExternalLink(GetSinaChinaStockListUrl()); ?>找到了所有A股数据.
 <?php EchoUpdateChinaStockLink(); ?>
 <br />继续给数据库中加美股代码, 希望<?php EchoExternalLink(GetSinaUsStockListUrl()); ?>这个不完整的美股单子能满足绝大多数中国用户的查询.
 <?php EchoUpdateUsStockLink(); ?>

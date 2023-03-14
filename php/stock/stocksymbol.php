@@ -1,10 +1,9 @@
 <?php
 
-// http://hq.sinajs.cn/list=znb_NKY
+// http://hq.sinajs.cn/list=znb_NKY,hf_NK
 // http://hq.sinajs.cn/list=znb_UKX
 // http://hq.sinajs.cn/list=znb_DAX
 // http://quotes.sina.cn/global/hq/quotes.php?code=NKY
-// https://finance.sina.com.cn/futures/quotes/NK.shtml
 
 define('SINA_FOREX_PREFIX', 'fx_susd');
 define('SINA_FUTURE_PREFIX', 'hf_');

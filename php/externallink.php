@@ -176,7 +176,6 @@ function GetYahooNavLink($strSymbol)
     return GetExternalLink($strHttp, $strSymbol);
 }
 
-// http://finance.sina.com.cn/fund/quotes/162411/bc.shtml
 function GetSinaFundLink($sym)
 {
     $strDigit = $sym->IsFundA();
@@ -188,7 +187,7 @@ function GetSinaFundLink($sym)
     $strSymbol = $sym->GetSymbol();
     if ($strDigit)
     {
-        $strHttp = "http://finance.sina.com.cn/fund/quotes/$strDigit/bc.shtml";
+        $strHttp = GetSinaFinanceUrl()."/fund/quotes/$strDigit/bc.shtml";
         return GetExternalLink($strHttp, $strSymbol);
     }
     return $strSymbol;
@@ -212,11 +211,10 @@ function GetSinaUsStockLink($sym)
     {
         $str = $strSymbol;
     }
-    $strHttp = "http://stock.finance.sina.com.cn/usstock/quotes/$str.html";
+    $strHttp = GetSinaStockUrl()."/usstock/quotes/$str.html";
     return GetExternalLink($strHttp, $strSymbol);
 }
 
-// http://stock.finance.sina.com.cn/hkstock/quotes/00386.html
 function GetSinaHkStockLink($sym)
 {
     $strSymbol = $sym->GetSymbol();
@@ -228,7 +226,7 @@ function GetSinaHkStockLink($sym)
     {
         $str = $strSymbol;
     }
-    $strHttp = "http://stock.finance.sina.com.cn/hkstock/quotes/$str.html";
+    $strHttp = GetSinaStockUrl()."/hkstock/quotes/$str.html";
     return GetExternalLink($strHttp, $strSymbol);
 }
 
@@ -282,19 +280,17 @@ function GetExternalStockHistoryLink($sym)
     return GetExternalLink($strHttp, '历史数据');
 }
 
-// http://vip.stock.finance.sina.com.cn/corp/go.php/vISSUE_ShareBonus/stockid/000028.phtml
-// http://stock.finance.sina.com.cn/hkstock/dividends/00386.html
 // https://finance.yahoo.com/quote/XOP/history?filter=div
 function GetStockDividendUrl($sym)
 {
    	$strSymbol = $sym->GetSymbol();
     if ($strDigit = $sym->IsSymbolA())
     {
-    	return "http://vip.stock.finance.sina.com.cn/corp/go.php/vISSUE_ShareBonus/stockid/$strDigit.phtml";
+    	return GetSinaVipStockUrl()."/corp/go.php/vISSUE_ShareBonus/stockid/$strDigit.phtml";
     }
     else if ($sym->IsSymbolH())
     {
-    	return "http://stock.finance.sina.com.cn/hkstock/dividends/$strSymbol.html";
+    	return GetSinaStockUrl()."/hkstock/dividends/$strSymbol.html";
     }
     return YahooStockHistoryGetUrl($strSymbol).'?filter=div';
 }

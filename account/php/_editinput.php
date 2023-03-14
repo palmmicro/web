@@ -106,6 +106,27 @@ function _getDiceCaptchaString($strInput, $bChinese)
 	return ($bChinese ? '数据格式不对' : 'Wrong data format');
 }
 
+function _getEditInputString($strInput, $bChinese)
+{
+	if (substr($strInput, 0, 4) == 'http')
+	{
+    	if ($str = url_get_contents($strInput))
+    	{
+    		$strFileName = DebugGetPathName('editinput.txt');
+    		file_put_contents($strFileName, $str);
+    		DebugString('Saved '.$strInput.' to '.$strFileName);
+    		$str = GetFileDebugLink($strFileName);
+    	}
+    	else	$str = $bChinese ? 'Curl读错误' : 'Curl read error';
+	}
+	else
+	{
+    	$str = is_numeric($strInput) ? DebugGetDateTime($strInput) : urldecode($strInput);
+    	$str .= HexView($strInput);
+    }
+    return $str;
+}
+
 function _getLinearRegressionString($strInput, $bChinese)
 {
 	$arX = array();
@@ -330,8 +351,7 @@ function _echoInputResult($acct, $strPage, $strInput, $bChinese)
     	break;
     	
     case 'editinput':
-    	$str = is_numeric($strInput) ? DebugGetDateTime($strInput) : urldecode($strInput);
-    	$str .= HexView($strInput);
+    	$str = _getEditInputString($strInput, $bChinese);
     	break;
     		
     case 'ip':
@@ -413,11 +433,15 @@ function EchoAll($bChinese = true)
 	global $acct;
 	
 	$strPage = $acct->GetPage();
-    if (isset($_POST['submit']) && isset($_POST[EDIT_INPUT_NAME]))
+    if (isset($_POST['clear']))
+	{
+		unset($_POST['clear']);
+		$strInput = '';
+	}
+	else if (isset($_POST['submit']) && isset($_POST[EDIT_INPUT_NAME]))
 	{
 		unset($_POST['submit']);
 		$strInput = SqlCleanString($_POST[EDIT_INPUT_NAME]);
-//		$strInput = $_POST[EDIT_INPUT_NAME];
 	}
 	else if ($strInput = $acct->GetQuery())	
 	{

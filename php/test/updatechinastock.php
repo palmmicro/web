@@ -2,60 +2,113 @@
 require_once('_commonupdatestock.php');
 require_once('../csvfile.php');
 
-// http://query.sse.com.cn//sseQuery/commonExcelDd.do?sqlId=COMMON_SSE_CP_GPJCTPZ_GPLB_GP_L&type=inParams&CSRC_CODE=&STOCK_CODE=&REG_PROVINCE=&STOCK_TYPE=1&COMPANY_STATUS=2,4,5,7,8
+// https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeStockCount?node=hs_a
+// https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeData?page=1&num=100&sort=changepercent&asc=0&node=hs_a
+
+function GetSinaMarketJsonUrl()
+{
+	return GetSinaVipStockUrl().'/quotes_service/api/json_v2.php';
+}
+
+function GetSinaMarketCountUrl($strNode)
+{
+	return GetSinaMarketJsonUrl().'/Market_Center.getHQNodeStockCount?node='.$strNode;
+}
+
+function GetSinaMarketDataUrl($strNode, $iPage, $iNum)
+{
+	return GetSinaMarketJsonUrl().'/Market_Center.getHQNodeData?page='.strval($iPage).'&num='.strval($iNum).'&sort=changepercent&asc=0&node='.$strNode;
+}
+
+function GetSinaMarketCount($strNode)
+{
+	$strUrl = GetSinaMarketCountUrl($strNode);
+   	if ($str = url_get_contents($strUrl))
+   	{
+   		DebugString('read '.$strUrl.' as '.$str);
+   		$ar = json_decode($str, true);
+   		DebugPrint($ar);
+		return intval($ar);
+   	}
+   	return 0;
+}
 
 /*
-<li><a target="_blank" href="http://quote.eastmoney.com/sh204001.html">GC001(204001)</a></li>
-<li><a target="_blank" href="http://quote.eastmoney.com/sh501018.html">南方原油(501018)</a></li>
-<li><a target="_blank" href="http://quote.eastmoney.com/sh580019.html">石化CWB1(580019)</a></li>
-<li><a target="_blank" href="http://quote.eastmoney.com/sh600028.html">中国石化(600028)</a></li>
-<li><a target="_blank" href="http://quote.eastmoney.com/sh900950.html">新城B股(900950)</a></li>
-<li><a target="_blank" href="http://quote.eastmoney.com/sz000002.html">万科A(000002)</a></li>
-<li><a target="_blank" href="http://quote.eastmoney.com/sz031005.html">国安GAC1(031005)</a></li>
-<li><a target="_blank" href="http://quote.eastmoney.com/sz131810.html">R-001(131810)</a></li>
-<li><a target="_blank" href="http://quote.eastmoney.com/sz200429.html">粤高速B(200429)</a></li>
-<li><a target="_blank" href="http://quote.eastmoney.com/sz300033.html">同花顺(300033)</a></li>
+            [symbol] => sz300225
+            [code] => 300225
+            [name] => 金力泰
+            [trade] => 7.250
+            [pricechange] => 1.21
+            [changepercent] => 20.033
+            [buy] => 7.250
+            [sell] => 0.000
+            [settlement] => 6.040
+            [open] => 5.980
+            [high] => 7.250
+            [low] => 5.850
+            [volume] => 67297354
+            [amount] => 446749739
+            [ticktime] => 15:35:00
+            [per] => -31.522
+            [pb] => 4.466
+            [mktcap] => 354673.8425
+            [nmc] => 343465.554925
+            [turnoverratio] => 14.20538
 */
 
-function _updateChinaStock()
+function GetSinaMarketData($strNode, $iPage, $iNum)
 {
-    $strUrl = GetEastMoneyStockListUrl();
-    $str = url_get_contents($strUrl);
-    if ($str == false)	return;
-
-    $str = GbToUtf8($str);
-
-    $strBoundary = RegExpBoundary();
-    $strPattern = $strBoundary;
-    $strPattern .= RegExpParenthesis('html">', '[^<]*', '</a>');
-    $strPattern .= $strBoundary;
-    
-    $arMatch = array();
-    preg_match_all($strPattern, $str, $arMatch, PREG_SET_ORDER);
-    
-   	$csv = new PageCsvFile();
-    DebugVal(count($arMatch), $csv->GetName().' _updateChinaStock');
-
-    $iCount = 0;
-	$sql = GetStockSql();
-   	foreach ($arMatch as $arItem)
+	$strUrl = GetSinaMarketDataUrl($strNode, $iPage, $iNum);
+   	if ($str = url_get_contents($strUrl))
    	{
-   		$ar = explode('(', $arItem[1]);
-   		if ($strSymbol = BuildChineseStockSymbol(rtrim($ar[1], ')')))
-   		{
-   			$strName = $ar[0];
-   			if ($sql->WriteSymbol($strSymbol, $strName))
-   			{
-   				DebugString($strSymbol.' '.$strName);
-   				$iCount ++;
-   			}
-    		$csv->Write($strSymbol, $strName);
-		}
+   		DebugString('read '.$strUrl);
+   		$ar = json_decode($str, true);
+//   		DebugPrint($ar);
+		return $ar;
    	}
-    $csv->Close();
-    DebugVal($iCount, 'China stock updated');
+   	return false;
 }
+
+class _AdminChinaStockAccount extends Account
+{
+    public function AdminProcess()
+    {
+    	$strNode = 'hs_a';
+		$iCount = GetSinaMarketCount($strNode);
+		if ($iCount == 0)		return;
+		
+    	$iNum = 100;
+    	$iPage = 1;
+    	$iTotal = 0;
+    	$iChanged = 0;
+    	$sql = GetStockSql();
+    	do
+    	{
+			if ($ar = GetSinaMarketData($strNode, $iPage, $iNum))
+			{
+				$iStockNum = count($ar);
+				if ($iStockNum == 0)		break;
+				
+				$iTotal += $iStockNum;
+				$iPage ++;
+				foreach ($ar as $arStock)
+				{
+					$strSymbol = strtoupper($arStock['symbol']);
+					$strName = $arStock['name'];
+					if ($sql->WriteSymbol($strSymbol, $strName))
+					{
+						DebugString($strSymbol.' '.$strName);
+						$iChanged ++;
+					}
+				}
+			}
+		} while ($iTotal < $iCount);
+
+		DebugVal($iChanged);
+    }
+}
+
+   	$acct = new _AdminChinaStockAccount();
+	$acct->AdminRun();
 	
-   	$acct = new Account();
-	$acct->AdminCommand('_updateChinaStock');
 ?>

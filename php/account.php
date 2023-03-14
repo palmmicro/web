@@ -205,9 +205,7 @@ class Account
     {
     	if ($this->IsAdmin())
     	{
-    		$fStart = microtime(true);
     		call_user_func($callback);
-    		DebugString($callback.DebugGetStopWatchDisplay($fStart));
     	}
     	SwitchToSess();
     }
@@ -221,7 +219,9 @@ class Account
     {
     	if ($this->IsAdmin())
     	{
+    		$fStart = microtime(true);
     		$this->AdminProcess();
+    		DebugString(DebugGetStopWatchDisplay($fStart));
     	}
     	SwitchToSess();
     }

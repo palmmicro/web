@@ -27,9 +27,24 @@ function GetSinaFinanceUrl()
 	return 'https://finance.sina.com.cn';
 }
 
+function GetSinaStockUrl()
+{
+	return 'https://stock.finance.sina.com.cn';
+}
+
+function GetSinaVipStockUrl()
+{
+	return 'https://vip.stock.finance.sina.com.cn';
+}
+
+function GetSinaChinaStockListUrl()
+{
+	return GetSinaVipStockUrl().'/mkt/#stock_hs_up';
+}
+
 function GetSinaUsStockListUrl()
 {
-	return 'http://vip.stock.finance.sina.com.cn/usstock/ustotal.php';
+	return GetSinaVipStockUrl().'/usstock/ustotal.php';
 }
 
 function GetEastMoneyFundUrl()
@@ -40,11 +55,6 @@ function GetEastMoneyFundUrl()
 function GetEastMoneyFundListUrl()
 {
 	return GetEastMoneyFundUrl().'allfund.html';
-}
-
-function GetEastMoneyStockListUrl()
-{
-	return 'http://quote.eastmoney.com/stock_list.html';
 }
 
 // http://bond.jrj.com.cn/data/gz.shtml
