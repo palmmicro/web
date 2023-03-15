@@ -101,6 +101,11 @@ function GetSinaJsLink($bChinese = true)
     return _getAccountToolLink('sinajs', $bChinese);
 }
 
+function GetSinaQuotesLink($strSinaSymbols)
+{
+	return GetPhpLink(ACCT_PATH.'sinajs', 'sinajs='.$strSinaSymbols, GetSinaQuotesUrl($strSinaSymbols));
+}
+
 function GetLinearRegressionLink($bChinese = true)
 {
     return _getAccountToolLink('linearregression', $bChinese);

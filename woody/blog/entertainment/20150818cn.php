@@ -264,6 +264,7 @@ Wiki的QDII词条下显示了它是Qualified Domestic Institutional Investor的�
 	Echo20171001('200日和50日'.GetNameTag('ema').'均线');
 	Echo20180327('走火入魔的'.GetNameTag('nextsma', 'T+1').'均线');
 	Echo20180404('增加'.GetNameTag('adrhcompare', ADRH_COMPARE_DISPLAY).'页面');
+	Echo20180410('人民币汇率');
 ?>
 
 <h3><?php EchoNameTag('nvclosehistory', NVCLOSE_HISTORY_DISPLAY); ?></h3>
@@ -285,6 +286,11 @@ Wiki的QDII词条下显示了它是Qualified Domestic Institutional Investor的�
 <br />配合抄底<a href="../../res/chinaindexcn.php">A股指数</a>加入<a href="../../res/sh510300cn.php">300ETF</a>页面, 根据沪深300指数SH000300估算SH510300和ASHR的净值, 看看有没有华宝油气和XOP这种跨市场套利的机会.
 <br />为了避免原有代码进一步走向<a href="#chaos">混沌</a>, 不想从原有的<font color=olive>FundReference</font>类扩展这种新估值模式, 从<font color=olive>MysqlReference</font>类继承了一个新的<font color=olive>FundPairReference</font>.
 </p>
+
+<?php
+	Echo20190601('微信流量主');
+	Echo20190713('微信公众号不提供查询的数据');
+?>
 
 <h3>用线性回归的方法在华宝油气溢价套利时进行<?php EchoNameTag('fundaccount', FUND_ACCOUNT_DISPLAY); ?></h3>
 <p>2019年9月20日

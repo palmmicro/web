@@ -69,6 +69,11 @@ function ImgRuLai($bChinese = true)
    	return QuoteImgElement('rulai.jpeg', '年轻人，我这儿有本秘籍。');
 }
 
+function ImgTianHeng($bChinese = true)
+{
+	return QuoteImgElement('tianheng.jpg', '田横五百壮士');
+}
+
 function ImgWinMan($bChinese = true)
 {
 	return QuoteImgElement('gan.jpg', '赢了会所嫩模，输了下海挖沙！');

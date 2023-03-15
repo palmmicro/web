@@ -202,6 +202,56 @@ END;
    	EchoParagraph(GetQuoteElement('Life is like a snowball. The important thing is finding wet snow and a really long hill. — Warren Buffett'));
 }
 
+function Echo20180410($strHead)
+{
+	$strCNY = GetQuoteElement('人民币汇率');
+	$strLink = GetMyStockLink('USCNY');
+	$strOldUSCNY = GetQuoteElement('美元人民币中间价');
+	$strUSCNY = GetQuoteElement('美元人民币汇率中间价');
+	
+	$strHead = GetHeadElement($strHead);
+    echo <<<END
+	$strHead
+<p>2018年4月10日
+<br />沉寂已久的微信公众号在清明假期中突然有人来查了下{$strCNY}，因为没有任何匹配，这个查询通知到了我的电子邮件中，让我感觉一下子打了鸡血，学习微信小程序开发的劲头一下子足了好多。
+<br />微信订阅号中查不到用来估值的人民币汇率的确有点奇怪。原因是为了加快反应时间，向微信发的查询是不会去再去拿每天更新一次的人民币中间价数据的。
+<br />当然这现在已经难不倒我了，我可以从数据库中把最近2天的中间价找出来，拼成跟其他数据类似的格式提供给用户。按惯例，又全面整理了几天代码，直到今天才完工。
+<br />因为微信查找中我没有做中文分词，因此{$strCNY}这种5个字的长查询其实是很难匹配的。为了保证下次用户能查到，我还特意手工把数据库中{$strLink}的说明从{$strOldUSCNY}改成了{$strUSCNY}。
+</p>
+END;
+}
+
+function Echo20190601($strHead)
+{
+	$strImage = ImgTianHeng();
+	
+	$strHead = GetHeadElement($strHead);
+    echo <<<END
+	$strHead
+<p>2019年6月1日
+<br />两年多过去，微信公众号上现有517个用户，感觉基本上体现了目前华宝油气套利群体的规模。
+<br />佛前五百罗汉，田横五百壮士；微信用户超过五百人就可以开通流量主收广告费了。
+$strImage
+</p>
+END;
+}
+
+function Echo20190713($strHead)
+{
+	$strQuote = GetQuoteElement('019547');
+	$strLink = GetSinaQuotesLink('sh019547');
+	
+	$strHead = GetHeadElement($strHead);
+    echo <<<END
+	$strHead
+<p>2019年7月13日
+<br />昨天有人在微信公众号上查{$strQuote}没有匹配。看了一下{$strLink}，发现居然是国债。软件工具有人用终归是好事情，不过以前我好像听说过资产1000万美元以下的不应该考虑债券投资，所以还是按捺住了兴奋的心情，没有再次削尖铅笔给我的数据库加上所有A股债券数据。
+<br />还有一个更加深刻的原因是，因为查询时会从头到尾遍历一遍股票数据库，现在的查询速度已经快要慢到了公众号的极限，实在不能想象再加一两万条债券进去会怎么样。
+<br />基于相同的原因，既拖慢速度我自己又不用，公众号也不提供场外基金的数据查询。
+</p>
+END;
+}
+
 function Echo20191025($strHead)
 {
 	$strFundAccount = GetNameLink('fundaccount', FUND_ACCOUNT_DISPLAY);

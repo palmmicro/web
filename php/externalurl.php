@@ -57,14 +57,6 @@ function GetEastMoneyFundListUrl()
 	return GetEastMoneyFundUrl().'allfund.html';
 }
 
-// http://bond.jrj.com.cn/data/gz.shtml
-// http://bond.jrj.com.cn/data/qz.shtml
-// http://bond.jrj.com.cn/data/kzz.shtml
-function GetJrjBondListUrl($strType = 'gz')
-{
-	return 'http://bond.jrj.com.cn/data/'.$strType.'.shtml';
-}
-
 // http://www.aastocks.com/tc/market/adr.aspx
 // http://www.aastocks.com/tc/market/ah.aspx
 function GetAastocksUrl($strType = 'adr')

@@ -58,16 +58,6 @@
 <?php EchoUpdateChinaFundLink(); ?>
 </p>
 
-<h3><a name="uscny">人民币</a>汇率以及ADR和H股对比</h3>
-<p>2018年4月10日
-<br />沉寂已久的微信公众号在清明假期中突然有人来查了下<font color=gray>人民币汇率</font>, 因为没有任何匹配, 这个查询通知到了我的电子邮件中, 让我感觉一下子打了鸡血, 学习微信小程序开发的劲头一下子足了好多.
-<br />微信订阅号中查不到用来估值的人民币汇率的确有点奇怪. 原因是为了加快反应时间, 向微信发的查询是不会去拿东方财富网每天更新一次的人民币中间价数据的.
-<br />当然这现在已经难不倒我了, 我可以依旧从数据库中把最近2天的中间价找出来, 拼成跟其他数据类似的格式提供给客户. 按惯例, 又全面整理了几天代码, 直到今天才完工.
-<br />因为微信查找中我没有做中文分词, 因此<font color=gray>人民币汇率</font>这种5个字的长查询其实是很难匹配的. 
-为了保证下次用户能查到, 我还特意手工把数据库中USCNY的说明从<font color=gray>美元人民币中间价</font>改成了<font color=gray>美元人民币汇率中间价</font>.
-<!--<br /><img src=../photo/kingcrab.jpg alt="Jan 30, 2018. King crab, Woody and Sapphire in La Quinta Carlsbad." />-->
-</p>
-
 <h3><a name="abcompare">AB股</a>对比</h3>
 <p>2018年4月15日
 <br />折腾完H股后觉得意犹未尽, 一鼓作气继续加上AB股对比.
@@ -77,23 +67,6 @@
 <br />输入查<font color=gray>000488</font>或者<font color=gray>200488</font>试试看.
 </p>
 <?php EchoAbDemo(); ?>
-
-<h3>微信流量主</h3>
-<p>2019年6月1日
-<br />两年多过去, 微信公众号上现有517个用户, 感觉基本上体现了目前华宝油气套利群体的规模.
-<br />佛前五百罗汉, 田横五百士, 微信用户超过五百人就可以开通流量主收广告费了.
-</p>
-<!--
-<h3>用微信公众号查询<a name="chinabond">A股债券</a>数据</h3>
-<p>2019年7月13日
-<br />昨天有人在微信公众号上查<font color=gray>019547</font>没有匹配. 看了一下<?php EchoSinaQuotesLink('sh019547'); ?>, 发现居然是国债.
-软件工具有人用终归是好事情, 所以再次削尖铅笔给我的数据库加上所有A股债券数据.
-<br />数据来源: 
-<br /><?php EchoExternalLink(GetJrjBondListUrl()); ?>      <?php EchoUpdateChinaBondLink(); ?>
-<br /><?php EchoExternalLink(GetJrjBondListUrl('qz')); ?>  <?php EchoUpdateChinaBondLink('qz'); ?>
-<br /><?php EchoExternalLink(GetJrjBondListUrl('kzz')); ?> <?php EchoUpdateChinaBondLink('kzz'); ?>
-</p>
--->
 
 </div>
 
