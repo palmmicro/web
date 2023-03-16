@@ -51,10 +51,4 @@ function EchoNvCloseDemo($strSymbol = STOCK_DEMO_SYMBOL)
    	EchoNvCloseHistoryParagraph($ref);
 }
 
-function EchoAbDemo($strSymbol = AB_DEMO_SYMBOL)
-{
-   	$ref = new AbPairReference($strSymbol);
-   	EchoAbParagraph(array($ref));
-}
-
 ?>

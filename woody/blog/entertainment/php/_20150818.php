@@ -75,6 +75,32 @@ function Echo20161006($strHead)
 END;
 }
 
+function _getUpdateChinaStockLink($strNode, $strDisplay)
+{
+	return DebugIsAdmin() ? GetInternalLink('/php/test/updatechinastock.php?node='.$strNode, $strDisplay) : '';
+}
+
+function Echo20161020($strHead)
+{
+	$strNode = 'hs_a';
+	
+	$strQuote = GetQuoteElement('交通银行');
+	$strChinaStock = GetExternalLink(GetSinaChinaStockListUrl($strNode));
+	$strUpdateChinaStock = _getUpdateChinaStockLink($strNode, '更新A股数据');
+	$strUsStock = GetExternalLink(GetSinaUsStockListUrl());
+	$strUpdateUsStock = DebugIsAdmin() ? GetInternalLink('/php/test/updateusstock.php', '更新美股数据') : '';
+	
+	$strHead = GetHeadElement($strHead);
+    echo <<<END
+	$strHead
+<p>2016年10月20日
+<br />今天发现有个微信公众号用户用语音查询{$strQuote}，没查到因为数据库中根本没有它。不过因此刺激了我给加上查询所有股票交易数据的功能。
+<br />首先我要把A股3000多只股票都加到数据库中。开始我想直接开个大循环从000001到699999从新浪拿数据，后来觉得太蠢了，还担心新浪的数据接口把我列入黑名单。不过接下来我从{$strChinaStock}找到了所有A股数据。$strUpdateChinaStock
+<br />继续给数据库中加美股代码，希望{$strUsStock}这个不完整的美股单子能满足绝大多数中国用户的查询。$strUpdateUsStock
+</p>
+END;
+}
+
 function Echo20170128($strHead)
 {
 	$strWeiXin = GetLinkElement('微信公众号', '../palmmicro/20161014cn.php');
@@ -200,6 +226,29 @@ END;
    	$ref = new AdrPairReference(ADRH_DEMO_SYMBOL);
    	EchoAdrhParagraph(array($ref));
    	EchoParagraph(GetQuoteElement('Life is like a snowball. The important thing is finding wet snow and a really long hill. — Warren Buffett'));
+}
+
+function Echo20180405($strHead)
+{
+	$strNode = 'hs_b';
+	
+	$strChinaStock = GetExternalLink(GetSinaChinaStockListUrl($strNode));
+	$strUpdateChinaStock = _getUpdateChinaStockLink($strNode, '更新B股数据');
+	$str000488 = GetQuoteElement('000488');
+	$str200488 = GetQuoteElement('200488');
+	
+	$strHead = GetHeadElement($strHead);
+    echo <<<END
+	$strHead
+<p>2018年4月5日
+<br />折腾完H股后觉得意犹未尽，一鼓作气继续加上AB股对比。其实我自己连B股账户都没有，写这个就是完全为了测试一下现有代码的可扩展性。
+<br />数据来自{$strChinaStock}。$strUpdateChinaStock 
+<br />输入查{$str000488}或者{$str200488}试试看。
+</p>
+END;
+
+   	$ref = new AbPairReference(AB_DEMO_SYMBOL);
+   	EchoAbParagraph(array($ref));
 }
 
 function Echo20180410($strHead)

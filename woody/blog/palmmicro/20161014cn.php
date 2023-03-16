@@ -40,16 +40,6 @@
 <br /><img src=../../image/wx.jpg alt="Palmmicro wechat public account sz162411 small size QR code" />
 </p>
 
-<h3>用微信公众号查询<a name="chinastock">A股</a>交易数据</h3>
-<p>2016年10月20日
-<br />今天发现有个微信公众号用户用语音查询<font color=gray>交通银行</font>, 没查到因为数据库中根本没有它. 不过因此刺激了我给加上查询所有<a href="../entertainment/20141016cn.php">股票</a>交易数据的功能.
-<br />首先我要把A股3000多只股票都加到数据库中. 开始我想直接开个大循环从000001到699999从新浪拿数据, 后来觉得太蠢了, 还担心新浪的数据接口把我列入黑名单.
-不过接下来我从<?php EchoExternalLink(GetSinaChinaStockListUrl()); ?>找到了所有A股数据.
-<?php EchoUpdateChinaStockLink(); ?>
-<br />继续给数据库中加美股代码, 希望<?php EchoExternalLink(GetSinaUsStockListUrl()); ?>这个不完整的美股单子能满足绝大多数中国用户的查询.
-<?php EchoUpdateUsStockLink(); ?>
-</p>
-
 <h3>用微信公众号查询<a name="chinafund">A股基金</a>数据</h3>
 <p>2016年10月28日
 <br />昨天让我广发证券网上开户的经理帮忙宣传一下微信公众号查股票数据, 随即加进来2个人. 
@@ -57,16 +47,6 @@
 <br />从<?php EchoExternalLink(GetEastMoneyFundListUrl()); ?>找到了基金列表, 没想到全市场居然有上万基金. 然后继续写代码加入了其中可能可以场内交易的数据, 从此应该不怕被查.
 <?php EchoUpdateChinaFundLink(); ?>
 </p>
-
-<h3><a name="abcompare">AB股</a>对比</h3>
-<p>2018年4月15日
-<br />折腾完H股后觉得意犹未尽, 一鼓作气继续加上AB股对比.
-<br />数据来源: 
-<br /><?php EchoExternalLink(GetCnstocksUrl()); ?>		<?php EchoUpdateAbLink(); ?>
-<br /><?php EchoExternalLink(GetCnstocksUrl('sz')); ?>	<?php EchoUpdateAbLink('sz'); ?>
-<br />输入查<font color=gray>000488</font>或者<font color=gray>200488</font>试试看.
-</p>
-<?php EchoAbDemo(); ?>
 
 </div>
 

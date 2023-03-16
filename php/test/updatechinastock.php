@@ -3,7 +3,10 @@ require_once('_commonupdatestock.php');
 require_once('../csvfile.php');
 
 // https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeStockCount?node=hs_a
-// https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeData?page=1&num=100&sort=changepercent&asc=0&node=hs_a
+// https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeStockCount?node=hs_b
+
+// https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeData?page=1&num=100&sort=symbol&asc=1&node=hs_a
+// https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeData?page=1&num=100&sort=symbol&asc=1&node=hs_b
 
 function GetSinaMarketJsonUrl()
 {
@@ -17,7 +20,7 @@ function GetSinaMarketCountUrl($strNode)
 
 function GetSinaMarketDataUrl($strNode, $iPage, $iNum)
 {
-	return GetSinaMarketJsonUrl().'/Market_Center.getHQNodeData?page='.strval($iPage).'&num='.strval($iNum).'&sort=changepercent&asc=0&node='.$strNode;
+	return GetSinaMarketJsonUrl().'/Market_Center.getHQNodeData?page='.strval($iPage).'&num='.strval($iNum).'&sort=symbol&asc=1&node='.$strNode;
 }
 
 function GetSinaMarketCount($strNode)
@@ -69,11 +72,16 @@ function GetSinaMarketData($strNode, $iPage, $iNum)
    	return false;
 }
 
-class _AdminChinaStockAccount extends Account
+class _AdminChinaStockAccount extends TitleAccount
 {
+    function _AdminChinaStockAccount() 
+    {
+        parent::TitleAccount('node');
+    }
+    
     public function AdminProcess()
     {
-    	$strNode = 'hs_a';
+    	$strNode = $this->GetQuery();	// 'hs_a';
 		$iCount = GetSinaMarketCount($strNode);
 		if ($iCount == 0)		return;
 		
@@ -105,6 +113,7 @@ class _AdminChinaStockAccount extends Account
 		} while ($iTotal < $iCount);
 
 		DebugVal($iChanged);
+		DebugVal($iTotal);
     }
 }
 

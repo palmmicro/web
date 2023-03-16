@@ -37,9 +37,9 @@ function GetSinaVipStockUrl()
 	return 'https://vip.stock.finance.sina.com.cn';
 }
 
-function GetSinaChinaStockListUrl()
+function GetSinaChinaStockListUrl($strNode = 'hs_a')
 {
-	return GetSinaVipStockUrl().'/mkt/#stock_hs_up';
+	return GetSinaVipStockUrl().'/mkt/#'.$strNode;
 }
 
 function GetSinaUsStockListUrl()
@@ -62,13 +62,6 @@ function GetEastMoneyFundListUrl()
 function GetAastocksUrl($strType = 'adr')
 {
 	return 'http://www.aastocks.com/tc/market/'.$strType.'.aspx';
-}
-
-// http://data.cnstock.com/thematic/szAbShare.html
-// http://data.cnstock.com/thematic/shAbShare.html
-function GetCnstocksUrl($strType = 'sh')
-{
-	return 'http://data.cnstock.com/thematic/'.$strType.'AbShare.html';
 }
 
 function GetXueqiuUrl()

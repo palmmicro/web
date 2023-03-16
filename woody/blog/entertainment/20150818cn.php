@@ -222,6 +222,7 @@ Wiki的QDII词条下显示了它是Qualified Domestic Institutional Investor的�
 
 <?php
 	Echo20161006('增加'.GetNameTag('calibrationhistory', CALIBRATION_HISTORY_DISPLAY).'页面');
+	Echo20161020('用微信公众号查询A股交易数据');
 	Echo20170128('增加'.GetNameTag('ahcompare', AH_COMPARE_DISPLAY).'页面');
 ?>
 
@@ -264,6 +265,7 @@ Wiki的QDII词条下显示了它是Qualified Domestic Institutional Investor的�
 	Echo20171001('200日和50日'.GetNameTag('ema').'均线');
 	Echo20180327('走火入魔的'.GetNameTag('nextsma', 'T+1').'均线');
 	Echo20180404('增加'.GetNameTag('adrhcompare', ADRH_COMPARE_DISPLAY).'页面');
+	Echo20180405('增加'.GetNameTag('abcompare', AB_COMPARE_DISPLAY).'页面');
 	Echo20180410('人民币汇率');
 ?>
 
