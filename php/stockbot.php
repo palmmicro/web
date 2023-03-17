@@ -6,56 +6,28 @@ define('MAX_BOT_STOCK', 32);
 
 function _botGetStockArray($strKey)
 {
-	$sql = GetStockSql();
-    $ar = array();
-    
 //  if (!empty($strKey))     // "0" (0 as a string) is considered to be empty
 	$iLen = strlen($strKey); 
     if ($iLen > 0)
     {
-/*    	$bPinYin = false;
-    	if ($iLen == 4)
+    	$strLimit = strval(MAX_BOT_STOCK);
+    	$strSymbolWhere = "symbol LIKE '%$strKey%'";
+    	$strNameWhere = "name LIKE '%$strKey%'";
+    	if (is_numeric($strKey))
     	{
-    		if (preg_match('#[A-Za-z]+#', $strKey))
+    		if ($iLen == 6)
     		{
-    			DebugString('拼音简称:'.$strKey);
-    			$gb_sql = new GB2312Sql();
-    			$bPinYin = true;
+    			$strWhere = "symbol LIKE '__$strKey'";
+    			$strLimit = '1';
     		}
+    		else																	$strWhere = $strSymbolWhere;
     	}
-*/
+    	else if (mb_detect_encoding($strKey, 'ASCII', true) == false)		$strWhere = $strNameWhere;
+		else																		$strWhere = $strSymbolWhere.' OR '.$strNameWhere;
 
-    	$fStart = microtime(true);
-    	if ($result = $sql->GetData("symbol LIKE '%$strKey%' OR name LIKE '%$strKey%'", 'symbol ASC', strval(MAX_BOT_STOCK))) 
-    	{
-    		while ($record = mysql_fetch_assoc($result)) 
-    		{
-    			$ar[] = $record['symbol'];
-    		}
-    		@mysql_free_result($result);
-    	}
-/*    	
-    	if ($result = $sql->GetAll()) 
-    	{
-    		while ($record = mysql_fetch_assoc($result)) 
-    		{
-    			$strSymbol = $record['symbol'];
-    			$strName = $record['name'];
-    			if ((stripos($strSymbol, $strKey) !== false) 
-    				|| (stripos($strName, $strKey) !== false)
-//    				|| ($bPinYin && (stripos($gb_sql->GetStockPinYinName($strName), $strKey) !== false))
-    				)
-    			{
-    				$ar[] = $strSymbol;
-    				if (count($ar) >= MAX_BOT_STOCK)	
-    					break;
-    			}
-    		}
-    		@mysql_free_result($result);
-    	}*/
-    	DebugString($strKey.':'.DebugGetStopWatchDisplay($fStart, 3));
+    	return SqlGetStockSymbolAndId($strWhere, $strLimit);
     }
-    return $ar;
+    return false;
 }
 
 function _botGetStockText($strSymbol)
@@ -138,21 +110,28 @@ function StockBotGetStr($strText, $strVersion)
 	$strText = trim($strText, " ,.\n\r\t\v\0");
 	$strText = SqlCleanString($strText);
 
-	$arSymbol = _botGetStockArray($strText);
-	if ($iCount = count($arSymbol))
+   	$fStart = microtime(true);
+	if ($ar = _botGetStockArray($strText))
 	{
-		if ($iCount > 1)
+		DebugString($strText.':'.DebugGetStopWatchDisplay($fStart, 3));
+		
+		$arSymbol = array();
+		foreach ($ar as $strSymbol => $strId)		$arSymbol[] = $strSymbol;
+		if ($iCount = count($arSymbol))
 		{
-			$str = '(至少发现'.strval($iCount).'个匹配：';
-			foreach ($arSymbol as $strSymbol)	$str .= $strSymbol.' ';
-			$str = rtrim($str, ' ');
-			$str .= ')'.BOT_EOL.BOT_EOL;
+			if ($iCount > 1)
+			{
+				$str = '(至少发现'.strval($iCount).'个匹配：';
+				foreach ($arSymbol as $strSymbol)		$str .= $strSymbol.' ';
+				$str = rtrim($str, ' ');
+				$str .= ')'.BOT_EOL.BOT_EOL;
+			}
+			else
+			{
+				$str = '';
+			}
+			return _botGetStockArrayText($arSymbol, $str, $strVersion);
 		}
-		else
-		{
-			$str = '';
-		}
-		return _botGetStockArrayText($arSymbol, $str, $strVersion);
 	}
 	return false;
 }

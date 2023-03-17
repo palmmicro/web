@@ -134,12 +134,9 @@ function GetHistoryCsvLink($strSymbol)
 function StockGetSymbol($str)
 {
 	$str = trim($str);
+	if ($strSymbol = BuildChinaFundSymbol($str))		return $strSymbol;
+	if ($strSymbol = BuildChinaStockSymbol($str))	return $strSymbol;
 	if (strpos($str, '_') === false)	$str = strtoupper($str);
-    if (IsChineseStockDigit($str))
-    {
-        if (intval($str) >= 500000)	$str = SH_PREFIX.$str;
-        else							$str = SZ_PREFIX.$str;
-    }
     return $str;
 }
 

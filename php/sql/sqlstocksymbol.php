@@ -243,6 +243,40 @@ function SqlGetStockSymbol($strStockId)
 	$sql = GetStockSql();
 	return $sql->GetStockSymbol($strStockId);
 }
+
+function SqlDeleteStock($strStockId)
+{
+	$sql = GetStockSql();
+	$sql->DeleteById($strStockId);
+}
+
+function SqlGetStockSymbolAndId($strWhere, $strLimit = false)
+{
+	$sql = GetStockSql();
+    $ar = array();
+    
+   	if ($result = $sql->GetData($strWhere, 'symbol ASC', $strLimit)) 
+   	{
+   		while ($record = mysql_fetch_assoc($result)) 
+   		{
+   			$ar[$record['symbol']] = $record['id'];
+   		}
+   		@mysql_free_result($result);
+    }
+    return $ar;
+}
+
+function SqlDeleteStockHistory($strStockId)
+{
+	$his_sql = GetStockHistorySql();
+	$iTotal = $his_sql->Count($strStockId);
+	if ($iTotal > 0)
+	{
+		DebugVal($iTotal, 'Stock history existed');
+		$his_sql->DeleteAll($strStockId);
+	}
+}
+
 /*
 function SqlGetHisByDate($strStockId, $strDate)
 {

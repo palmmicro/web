@@ -7,7 +7,7 @@ function SinaFundNeedFile($sym, $strFileName)
 
 	if ($strDigit = $sym->IsSinaFund())
 	{
-   		if ($strSymbol = BuildChineseFundSymbol($strDigit))		$sym = new StockSymbol($strSymbol);
+   		if ($strSymbol = BuildChinaFundSymbol($strDigit))		$sym = new StockSymbol($strSymbol);
    		else
    		{
    			DebugString('SinaFundNeedFile unknown symbol:'.$sym->GetSymbol());

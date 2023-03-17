@@ -37,7 +37,7 @@ class _SseHoldingsFile extends _EtfHoldingsFile
     		if (is_numeric($strHolding))
     		{
     			if (strlen($strHolding) <= 5)	$strHolding = BuildHongkongStockSymbol($strHolding);
-    			else								$strHolding = BuildChineseStockSymbol($strHolding);
+    			else								$strHolding = BuildChinaStockSymbol($strHolding);
     		}
     		$this->AddHolding($strHolding, GbToUtf8(trim($arWord[1])), floatval(trim($arWord[6])));
     	}

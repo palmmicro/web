@@ -42,6 +42,21 @@ class PairSql extends IntSql
     {
     	return $this->ReadInt($strId);
     }
+    
+    function DeletePair($strAnyId)
+    {
+    	if ($this->GetRecord($strAnyId))
+    	{
+    		DebugString('Delete pair: '.$strAnyId);
+    		return $this->Delete($strAnyId);
+    	}
+    	else if ($this->ReadPair($strAnyId))
+    	{
+    		DebugString('Delete host: '.$strAnyId);
+    		return $this->DeleteById($strAnyId);
+    	}
+    	return false;
+    }
 }
 
 ?>

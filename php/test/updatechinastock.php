@@ -2,30 +2,15 @@
 require_once('_commonupdatestock.php');
 require_once('../csvfile.php');
 
-// https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeStockCount?node=hs_a
-// https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeStockCount?node=hs_b
-
-// https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeData?page=1&num=100&sort=symbol&asc=1&node=hs_a
-// https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeData?page=1&num=100&sort=symbol&asc=1&node=hs_b
-
 function GetSinaMarketJsonUrl()
 {
 	return GetSinaVipStockUrl().'/quotes_service/api/json_v2.php';
 }
 
-function GetSinaMarketCountUrl($strNode)
-{
-	return GetSinaMarketJsonUrl().'/Market_Center.getHQNodeStockCount?node='.$strNode;
-}
-
-function GetSinaMarketDataUrl($strNode, $iPage, $iNum)
-{
-	return GetSinaMarketJsonUrl().'/Market_Center.getHQNodeData?page='.strval($iPage).'&num='.strval($iNum).'&sort=symbol&asc=1&node='.$strNode;
-}
-
+// https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeStockCount?node=hs_a
 function GetSinaMarketCount($strNode)
 {
-	$strUrl = GetSinaMarketCountUrl($strNode);
+	$strUrl = GetSinaMarketJsonUrl().'/Market_Center.getHQNodeStockCount?node='.$strNode;
    	if ($str = url_get_contents($strUrl))
    	{
    		DebugString('read '.$strUrl.' as '.$str);
@@ -58,10 +43,10 @@ function GetSinaMarketCount($strNode)
             [nmc] => 343465.554925
             [turnoverratio] => 14.20538
 */
-
+// https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeData?page=1&num=100&sort=symbol&asc=1&node=hs_a
 function GetSinaMarketData($strNode, $iPage, $iNum)
 {
-	$strUrl = GetSinaMarketDataUrl($strNode, $iPage, $iNum);
+	$strUrl = 	GetSinaMarketJsonUrl().'/Market_Center.getHQNodeData?page='.strval($iPage).'&num='.strval($iNum).'&sort=symbol&asc=1&node='.$strNode;
    	if ($str = url_get_contents($strUrl))
    	{
    		DebugString('read '.$strUrl);
@@ -70,6 +55,27 @@ function GetSinaMarketData($strNode, $iPage, $iNum)
 		return $ar;
    	}
    	return false;
+}
+
+function GetChinaStockSymbolId($strNode)
+{
+	if ($strNode == 'hs_a')	$strWhere = "symbol LIKE 'SZ0_____' OR symbol LIKE 'SZ3_____' OR symbol LIKE 'BJ4_____' OR symbol LIKE 'SH6_____' OR symbol LIKE 'BJ8_____'";
+	else						$strWhere = "symbol LIKE 'SZ2_____' OR symbol LIKE 'SH9_____'";
+	return SqlGetStockSymbolAndId($strWhere);
+}
+
+function DeleteOldChinaStock($arSymbolId)
+{
+	$ab_sql = new AbPairSql();
+	$ah_sql = new AhPairSql();
+	foreach ($arSymbolId as $strSymbol => $strStockId)
+	{
+		if ($ab_sql->DeletePair($strStockId))	DebugString($strSymbol.' had ab_pair');
+		if ($ah_sql->DeletePair($strStockId))	DebugString($strSymbol.' had ah_pair');
+		SqlDeleteStockHistory($strStockId);
+		SqlDeleteStock($strStockId);
+		DebugString($strSymbol.' deleted');
+	}
 }
 
 class _AdminChinaStockAccount extends TitleAccount
@@ -84,6 +90,8 @@ class _AdminChinaStockAccount extends TitleAccount
     	$strNode = $this->GetQuery();	// 'hs_a';
 		$iCount = GetSinaMarketCount($strNode);
 		if ($iCount == 0)		return;
+		
+		$arSymbolId = GetChinaStockSymbolId($strNode);		
 		
     	$iNum = 100;
     	$iPage = 1;
@@ -108,12 +116,14 @@ class _AdminChinaStockAccount extends TitleAccount
 						DebugString($strSymbol.' '.$strName);
 						$iChanged ++;
 					}
+					if (isset($arSymbolId[$strSymbol]))	unset($arSymbolId[$strSymbol]);
 				}
 			}
 		} while ($iTotal < $iCount);
 
-		DebugVal($iChanged);
-		DebugVal($iTotal);
+		DebugVal($iChanged, 'Changed');
+		DebugVal($iTotal, 'All');
+		DeleteOldChinaStock($arSymbolId);
     }
 }
 

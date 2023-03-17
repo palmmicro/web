@@ -31,7 +31,7 @@ function _updateChinaFund()
    	foreach ($arMatch as $arItem)
    	{
    		$ar = explode('）', $arItem[1]);
-   		if ($strSymbol = BuildChineseFundSymbol($ar[0]))
+   		if ($strSymbol = BuildChinaFundSymbol($ar[0]))
    		{
    			$strName = $ar[1];
    			if ($sql->WriteSymbol($strSymbol, $strName))
