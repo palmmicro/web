@@ -202,31 +202,6 @@ function GetStockSql()
 	return $g_stock_sql;
 }
 
-function GetStockHistorySql()
-{
-	global $g_stock_sql;
-   	return $g_stock_sql->his_sql;
-}
-
-function GetNavHistorySql()
-{
-	global $g_stock_sql;
-   	return $g_stock_sql->nav_sql;
-}
-
-function GetHoldingsSql()
-{
-	global $g_stock_sql;
-   	return $g_stock_sql->holdings_sql;
-}
-
-function GetStockEmaSql($iDays)
-{
-	global $g_stock_sql;
-	if ($iDays == 50)		return $g_stock_sql->ema50_sql;
-	return $g_stock_sql->ema200_sql;
-}
-
 function SqlGetStockId($strSymbol)
 {
 	$sql = GetStockSql();
@@ -266,6 +241,12 @@ function SqlGetStockSymbolAndId($strWhere, $strLimit = false)
     return $ar;
 }
 
+function GetStockHistorySql()
+{
+	global $g_stock_sql;
+   	return $g_stock_sql->his_sql;
+}
+
 function SqlDeleteStockHistory($strStockId)
 {
 	$his_sql = GetStockHistorySql();
@@ -284,6 +265,36 @@ function SqlGetHisByDate($strStockId, $strDate)
 	return $his_sql->GetClose($strStockId, $strDate);
 }
 */
+
+function GetStockEmaSql($iDays)
+{
+	global $g_stock_sql;
+	if ($iDays == 50)		return $g_stock_sql->ema50_sql;
+	return $g_stock_sql->ema200_sql;
+}
+
+function SqlDeleteStockEma($strStockId)
+{
+	$ar = array(50, 200);
+	
+	foreach ($ar as $iDays)
+	{
+		$ema_sql = GetStockEmaSql($iDays);
+		$iTotal = $ema_sql->Count($strStockId);
+		if ($iTotal > 0)
+		{
+			DebugVal($iTotal, strval($iDays).' EMA existed');
+			$ema_sql->DeleteAll($strStockId);
+		}
+	}
+}
+
+function GetNavHistorySql()
+{
+	global $g_stock_sql;
+   	return $g_stock_sql->nav_sql;
+}
+
 function SqlGetNavByDate($strStockId, $strDate)
 {
 	$nav_sql = GetNavHistorySql();
@@ -309,6 +320,12 @@ function SqlGetHkcny()
 function SqlGetUshkd()
 {
 	return SqlGetUscny() / SqlGetHkcny(); 
+}
+
+function GetHoldingsSql()
+{
+	global $g_stock_sql;
+   	return $g_stock_sql->holdings_sql;
 }
 
 function SqlCountHoldings($strSymbol)

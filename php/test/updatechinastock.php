@@ -71,7 +71,7 @@ function DeleteOldChinaStock($arSymbolId)
 	foreach ($arSymbolId as $strSymbol => $strStockId)
 	{
 		if ($ab_sql->DeletePair($strStockId))	DebugString($strSymbol.' had ab_pair');
-		if ($ah_sql->DeletePair($strStockId))	DebugString($strSymbol.' had ah_pair');
+		SqlDeleteStockEma($strStockId);
 		SqlDeleteStockHistory($strStockId);
 		SqlDeleteStock($strStockId);
 		DebugString($strSymbol.' deleted');

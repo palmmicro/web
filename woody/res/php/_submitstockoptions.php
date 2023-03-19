@@ -119,12 +119,13 @@ function _updateStockOptionAh($strSymbolA, $strSymbolH)
 function _updateStockOptionEmaDays($strStockId, $iDays, $strDate, $strVal)
 {
 	$sql = GetStockEmaSql($iDays);
-	$sql->DeleteAll($strStockId);
 	$sql->WriteDaily($strStockId, $strDate, $strVal);
 }
 
 function _updateStockOptionEma($strSymbol, $strStockId, $strDate, $strVal)
 {
+	SqlDeleteStockEma($strStockId);
+	
 	if (strpos($strVal, '/') === false)		return;
 	$ar = explode('/', $strVal);
 	_updateStockOptionEmaDays($strStockId, 200, $strDate, $ar[0]);

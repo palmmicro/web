@@ -113,6 +113,7 @@ function _deleteStockSymbol($ref)
 		return;
 	}
 
+	SqlDeleteStockEma($strStockId);
 	SqlDeleteStockHistory($strStockId);
 	SqlDeleteStock($strStockId);
 	DebugString('Deleted');
