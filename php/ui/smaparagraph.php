@@ -142,10 +142,11 @@ function _getSmaParagraphWarning($ref)
 		$his_sql = GetStockHistorySql();
 		if ($record = $his_sql->GetRecordPrev($ref->GetStockId(), $ref->GetDate()))
 		{
-			if (abs(floatval($record['adjclose']) - floatval($ref->GetPrevPrice())) > 0.0005)
+			$fDiff = floatval($record['adjclose']) - floatval($ref->GetPrevPrice()); 
+			if (abs($fDiff) > 0.0005)
 			{
 				$strSymbol = $ref->GetSymbol();
-				$str = '<br />'.GetFontElement($strSymbol.' '.$record['date'].'收盘价冲突：').$record['adjclose'].' '.$ref->GetPrevPrice();
+				$str = '<br />'.GetFontElement($strSymbol.' '.$record['date'].'收盘价冲突：').$record['adjclose'].' - '.$ref->GetPrevPrice().' = '.strval_round($fDiff, 6);
 				if (DebugIsAdmin())
 				{
 					$str .= ' '.GetStockOptionLink(STOCK_OPTION_CLOSE, $strSymbol);

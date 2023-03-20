@@ -59,11 +59,13 @@ function GetSinaMarketData($strNode, $iPage, $iNum)
 
 function GetChinaStockSymbolId($strNode)
 {
-	if ($strNode == 'hs_a')	$strWhere = "symbol LIKE 'SZ0_____' OR symbol LIKE 'SZ3_____' OR symbol LIKE 'BJ4_____' OR symbol LIKE 'SH6_____' OR symbol LIKE 'BJ8_____'";
-	else						$strWhere = "symbol LIKE 'SZ2_____' OR symbol LIKE 'SH9_____'";
+	if ($strNode == 'hs_a')			$strWhere = "symbol LIKE 'SZ0_____' OR symbol LIKE 'SZ3_____' OR symbol LIKE 'BJ4_____' OR symbol LIKE 'SH6_____' OR symbol LIKE 'BJ8_____'";
+	else if ($strNode == 'hs_b')		$strWhere = "symbol LIKE 'SZ2_____' OR symbol LIKE 'SH9_____'";
+	else								$strWhere = "symbol LIKE 'SZ399___' OR symbol LIKE 'SH000___' OR symbol LIKE 'BJ899___'";		// hs_s
 	return SqlGetStockSymbolAndId($strWhere);
 }
 
+// 已知问题：GetChinaStockSymbolId会把深市指数包括在深市股票中，然后在DeleteOldChinaStock误删除掉所有深市指数。临时解决方法是先更新A股股票，再更新A股指数数据。
 function DeleteOldChinaStock($arSymbolId)
 {
 	$ab_sql = new AbPairSql();
@@ -119,6 +121,7 @@ class _AdminChinaStockAccount extends TitleAccount
 					if (isset($arSymbolId[$strSymbol]))	unset($arSymbolId[$strSymbol]);
 				}
 			}
+			else	break;
 		} while ($iTotal < $iCount);
 
 		DebugVal($iChanged, 'Changed');

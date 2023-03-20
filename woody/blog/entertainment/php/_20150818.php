@@ -22,6 +22,20 @@ function EchoFundEstTables()
     EchoTableParagraphEnd();
 }
 
+function Echo20150824($strHead)
+{
+	$strHead = GetHeadElement($strHead);
+    echo <<<END
+	$strHead
+<p>2015年8月24日
+<br />每次进phpMyAdmin去看历史数据虽然不算麻烦, 但是毕竟还是用自己写的网页看更有成就感!
+</p>
+END;
+
+	$ref = new MyStockReference(STOCK_DEMO_SYMBOL);
+   	EchoStockHistoryParagraph($ref);
+}
+
 function Echo20150827($strHead)
 {
 	$strImage = ImgRonin();
@@ -82,11 +96,14 @@ function _getUpdateChinaStockLink($strNode, $strDisplay)
 
 function Echo20161020($strHead)
 {
-	$strNode = 'hs_a';
+	$strNodeA = 'hs_a';
+	$strNodeS = 'hs_s';
 	
 	$strQuote = GetQuoteElement('交通银行');
-	$strChinaStock = GetExternalLink(GetSinaChinaStockListUrl($strNode));
-	$strUpdateChinaStock = _getUpdateChinaStockLink($strNode, '更新A股数据');
+	$strChinaStock = GetExternalLink(GetSinaChinaStockListUrl($strNodeA));
+	$strUpdateChinaStock = _getUpdateChinaStockLink($strNodeA, '更新A股数据');
+	$strChinaIndex = GetExternalLink(GetSinaChinaStockListUrl($strNodeS));
+	$strUpdateChinaIndex = _getUpdateChinaStockLink($strNodeS, '更新A股指数');
 	$strUsStock = GetExternalLink(GetSinaUsStockListUrl());
 	$strUpdateUsStock = DebugIsAdmin() ? GetInternalLink('/php/test/updateusstock.php', '更新美股数据') : '';
 	
@@ -96,6 +113,7 @@ function Echo20161020($strHead)
 <p>2016年10月20日
 <br />今天发现有个微信公众号用户用语音查询{$strQuote}，没查到因为数据库中根本没有它。不过因此刺激了我给加上查询所有股票交易数据的功能。
 <br />首先我要把A股3000多只股票都加到数据库中。开始我想直接开个大循环从000001到699999从新浪拿数据，后来觉得太蠢了，还担心新浪的数据接口把我列入黑名单。不过接下来我从{$strChinaStock}找到了所有A股数据。$strUpdateChinaStock
+<br />还有数量几乎跟股票同一个数量级的A股指数{$strChinaIndex}。$strUpdateChinaIndex
 <br />继续给数据库中加美股代码，希望{$strUsStock}这个不完整的美股单子能满足绝大多数中国用户的查询。$strUpdateUsStock
 </p>
 END;

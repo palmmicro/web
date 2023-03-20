@@ -60,13 +60,8 @@
 <br />使用<?php EchoExternalLink('http://mobiledetect.net/'); ?>判断是否手机用户访问, 代码从github复制下来按照原开发者的建议单独放在/php/class/<b>Mobile_Detect.php</b>中.
 </p>
 
-<h3>增加<?php EchoNameTag('stockhistory', STOCK_HISTORY_DISPLAY); ?>页面</h3>
-<p>2015年8月24日
-<br />每次进<?php EchoExternalLink('https://palmmicro.com/apps/phpMyAdmin/'); ?>去看历史数据虽然不算麻烦, 但是毕竟还是用自己写的网页看更有成就感!
-</p>
-<?php EchoStockHistoryDemo(); ?>
-
 <?php
+	Echo20150824('增加'.GetNameTag('stockhistory', STOCK_HISTORY_DISPLAY).'页面');
 	Echo20150827('扩大规模到'.GetNameTag('qdiihk', QDII_HK_DISPLAY));
 ?>
 
