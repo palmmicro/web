@@ -119,6 +119,23 @@ function Echo20161020($strHead)
 END;
 }
 
+function Echo20161028($strHead)
+{
+	$strQuote = GetQuoteElement('159915');
+	$strChinaFund = GetExternalLink(GetSinaChinaStockListUrl('open_fund'));
+	$strUpdateChinaETF = _getUpdateChinaStockLink('etf_hq_fund', '更新A股ETF数据');
+	$strUpdateChinaLOF = _getUpdateChinaStockLink('lof_hq_fund', '更新A股LOF数据');
+	
+	$strHead = GetHeadElement($strHead);
+    echo <<<END
+	$strHead
+<p>2016年10月28日
+<br />昨天让我广发证券网上开户的经理帮忙宣传一下微信公众号查股票数据，随即加进来2个人。其中一个上来就查{$strQuote}，发现没有数据后立马取消了订阅，又刺激了我给数据库加上所有A股基金数据。
+<br />从{$strChinaFund}找到了基金列表，没想到全市场居然有上万基金。然后继续写代码加入了其中可以场内交易ETF和LOF，从此应该不怕被查。$strUpdateChinaETF $strUpdateChinaLOF
+</p>
+END;
+}
+
 function Echo20170128($strHead)
 {
 	$strWeiXin = GetLinkElement('微信公众号', '../palmmicro/20161014cn.php');

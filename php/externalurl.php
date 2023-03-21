@@ -52,11 +52,6 @@ function GetEastMoneyFundUrl()
 	return 'http://fund.eastmoney.com/';
 }
 
-function GetEastMoneyFundListUrl()
-{
-	return GetEastMoneyFundUrl().'allfund.html';
-}
-
 // http://www.aastocks.com/tc/market/adr.aspx
 // http://www.aastocks.com/tc/market/ah.aspx
 function GetAastocksUrl($strType = 'adr')

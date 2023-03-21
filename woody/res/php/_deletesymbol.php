@@ -66,18 +66,6 @@ function _deleteHasFundPair($strSymbol)
 	return false;
 }
 
-function _deleteHasNetValue($strStockId)
-{
-	$nav_sql = GetNavHistorySql();
-	$iTotal = $nav_sql->Count($strStockId);
-	if ($iTotal > 0)
-	{
-		DebugVal($iTotal, 'Net value history existed');
-		$nav_sql->DeleteAll($strStockId);
-	}
-	return false;
-}
-
 function _deleteHasCalibration($strStockId)
 {
    	$calibration_sql = new CalibrationSql();
@@ -100,23 +88,21 @@ function _deleteStockSymbol($ref)
 	else if (_deleteHasAdrPair($strSymbol))			return;
 	else if (_deleteHasAhPair($strSymbol))			return;
 	else if (_deleteHasFundPair($strSymbol))			return;
-	else if (_deleteHasNetValue($strStockId))		return;
 	else if (_deleteHasCalibration($strStockId))		return;
-	else if (($iTotal = SqlCountTableData(TABLE_STOCK_GROUP_ITEM, _SqlBuildWhere_stock($strStockId))) > 0)
-	{
-		DebugVal($iTotal, 'Stock group item existed');
-		return;
-	}
 	else if (($iTotal = SqlCountFundPurchaseByStockId($strStockId)) > 0)
 	{
 		DebugVal($iTotal, 'Fund purchase existed');
 		return;
 	}
 
-	SqlDeleteStockEma($strStockId);
-	SqlDeleteStockHistory($strStockId);
-	SqlDeleteStock($strStockId);
-	DebugString('Deleted');
+	if (SqlDeleteStockGroupItemByStockId($strStockId))
+	{
+		SqlDeleteStockEma($strStockId);
+		SqlDeleteStockHistory($strStockId);
+		SqlDeleteNavHistory($strStockId);
+		SqlDeleteStock($strStockId);
+		DebugString('Deleted');
+	}
 }
 
 class _DeleteSymbolAccount extends SymbolAccount

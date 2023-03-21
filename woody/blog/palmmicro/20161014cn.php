@@ -1,4 +1,5 @@
-<?php require_once('php/_20161014.php'); ?>
+<?php require_once('php/_palmmicro.php');
+require_once('../php/_stockdemo.php'); ?>
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -38,14 +39,6 @@
 <br />虽然目前还没有多少功能, 大家已经可以扫描下面的二维码添加Palmmicro微信公众订阅号.
 选用<font color=orange>sz162411</font>作为微信号既符合目前提供的数据, 又是个没有办法的选择, 因为我太喜欢用palmmicro这个名字, 以至于它早早就被我自己的私人晒娃微信号占用了. 
 <br /><img src=../../image/wx.jpg alt="Palmmicro wechat public account sz162411 small size QR code" />
-</p>
-
-<h3>用微信公众号查询<a name="chinafund">A股基金</a>数据</h3>
-<p>2016年10月28日
-<br />昨天让我广发证券网上开户的经理帮忙宣传一下微信公众号查股票数据, 随即加进来2个人. 
-其中一个上来就查<font color=gray>159915</font>, 发现没有数据后立马取消了订阅, 又刺激了我给数据库加上所有A股基金数据.
-<br />从<?php EchoExternalLink(GetEastMoneyFundListUrl()); ?>找到了基金列表, 没想到全市场居然有上万基金. 然后继续写代码加入了其中可能可以场内交易的数据, 从此应该不怕被查.
-<?php EchoUpdateChinaFundLink(); ?>
 </p>
 
 </div>

@@ -295,6 +295,17 @@ function GetNavHistorySql()
    	return $g_stock_sql->nav_sql;
 }
 
+function SqlDeleteNavHistory($strStockId)
+{
+	$nav_sql = GetNavHistorySql();
+	$iTotal = $nav_sql->Count($strStockId);
+	if ($iTotal > 0)
+	{
+		DebugVal($iTotal, 'Net value history existed');
+		$nav_sql->DeleteAll($strStockId);
+	}
+}
+
 function SqlGetNavByDate($strStockId, $strDate)
 {
 	$nav_sql = GetNavHistorySql();

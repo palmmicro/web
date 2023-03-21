@@ -110,6 +110,11 @@ class StockGroupItemSql extends KeyTableSql
     	}
     	return false;
     }
+    
+    function CountByStockId($strStockId)
+    {
+    	return $this->CountData(_SqlBuildWhere_stock($strStockId));
+    }
 }    
 
 // ****************************** Stock Group Item table *******************************************************
@@ -142,7 +147,8 @@ function SqlAlterStockGroupItemTable()
 // ****************************** Stock Group functions *******************************************************
 function SqlGetStockGroupId($strGroupItemId)
 {
-    if ($record = SqlGetTableDataById(TABLE_STOCK_GROUP_ITEM, $strGroupItemId))
+	$sql = new StockGroupItemSql();
+    if ($record = $sql->GetRecordById($strGroupItemId))
     {
     	return $record['stockgroup_id'];
     }
@@ -219,20 +225,6 @@ function SqlDeleteStockGroupByMemberId($strMemberId)
 	}
 }
 
-function SqlDeleteStockGroupItemByGroupId($strGroupId)
-{
-	$sql = new StockGroupItemSql($strGroupId);
-	if ($result = $sql->GetAll())
-	{
-		while ($record = mysql_fetch_assoc($result)) 
-		{
-            $sql->trans_sql->Delete($record['id']);
-		}
-		@mysql_free_result($result);
-		$sql->DeleteAll();
-	}
-}
-
 function SqlUpdateStockGroup($strGroupId, $arNew)
 {
 	$sql = new StockGroupItemSql($strGroupId);
@@ -262,6 +254,32 @@ function SqlUpdateStockGroup($strGroupId, $arNew)
             $sql->DeleteById($strId);
 	    }
 	}
+}
+
+function SqlDeleteStockGroupItemByGroupId($strGroupId)
+{
+	$sql = new StockGroupItemSql($strGroupId);
+	if ($result = $sql->GetAll())
+	{
+		while ($record = mysql_fetch_assoc($result)) 
+		{
+            $sql->trans_sql->Delete($record['id']);
+		}
+		@mysql_free_result($result);
+		$sql->DeleteAll();
+	}
+}
+
+function SqlDeleteStockGroupItemByStockId($strStockId)
+{
+	$sql = new StockGroupItemSql();
+	$iTotal = $sql->CountByStockId($strStockId);
+	if ($iTotal > 0)
+	{
+		DebugVal($iTotal, 'Stock group item existed');
+		return false;
+	}
+	return true;
 }
 
 ?>

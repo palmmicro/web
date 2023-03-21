@@ -8,9 +8,28 @@ function GetSinaMarketJsonUrl()
 }
 
 // https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeStockCount?node=hs_a
+// https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeStockCountSimple?node=hs_s
+// https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeStockCountSimple?node=etf_hq_fund
+// https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeStockCountSimple?node=lof_hq_fund
+// https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHKStockCount?node=qbgg_hk
+// https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getUSCount?node=china_us
 function GetSinaMarketCount($strNode)
 {
-	$strUrl = GetSinaMarketJsonUrl().'/Market_Center.getHQNodeStockCount?node='.$strNode;
+	switch ($strNode)
+	{
+	case 'hs_a':
+	case 'hs_b':
+		$strCode = 'HQNodeStockCount';
+		break;
+		
+	case 'hs_s':
+	case 'etf_hq_fund':
+	case 'lof_hq_fund':
+		$strCode = 'HQNodeStockCountSimple';
+		break;
+	}
+	
+	$strUrl = GetSinaMarketJsonUrl().'/Market_Center.get'.$strCode.'?node='.$strNode;
    	if ($str = url_get_contents($strUrl))
    	{
    		DebugString('read '.$strUrl.' as '.$str);
@@ -43,10 +62,32 @@ function GetSinaMarketCount($strNode)
             [nmc] => 343465.554925
             [turnoverratio] => 14.20538
 */
+
+
 // https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeData?page=1&num=100&sort=symbol&asc=1&node=hs_a
+// https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeDataSimple?page=1&num=80&sort=symbol&asc=1&node=hs_s&_s_r_a=init
+// {"symbol":"sh000001","name":"\u4e0a\u8bc1\u6307\u6570","trade":"3255.6505","pricechange":"20.740","changepercent":"0.641","buy":"0","sell":"0","settlement":"3234.9103","open":"3240.8388","high":"3255.9997","low":"3237.8934","volume":301810779,"amount":388047055875,"code":"000001","ticktime":"15:30:39"},
+// https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeDataSimple?page=1&num=80&sort=symbol&asc=1&node=etf_hq_fund&_s_r_a=init
+// https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeDataSimple?page=1&num=80&sort=symbol&asc=1&node=lof_hq_fund&_s_r_a=init
+// https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHKStockData?page=1&num=80&sort=symbol&asc=1&node=qbgg_hk&_s_r_a=init
+// https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getUSList?page=1&num=80&sort=chg&asc=0&node=china_us&_s_r_a=init
 function GetSinaMarketData($strNode, $iPage, $iNum)
 {
-	$strUrl = 	GetSinaMarketJsonUrl().'/Market_Center.getHQNodeData?page='.strval($iPage).'&num='.strval($iNum).'&sort=symbol&asc=1&node='.$strNode;
+	switch ($strNode)
+	{
+	case 'hs_a':
+	case 'hs_b':
+		$strCode = 'HQNodeData';
+		break;
+		
+	case 'hs_s':
+	case 'etf_hq_fund':
+	case 'lof_hq_fund':
+		$strCode = 'HQNodeDataSimple';
+		break;
+	}
+	
+	$strUrl = 	GetSinaMarketJsonUrl().'/Market_Center.get'.$strCode.'?page='.strval($iPage).'&num='.strval($iNum).'&sort=symbol&asc=1&node='.$strNode;
    	if ($str = url_get_contents($strUrl))
    	{
    		DebugString('read '.$strUrl);
@@ -59,9 +100,29 @@ function GetSinaMarketData($strNode, $iPage, $iNum)
 
 function GetChinaStockSymbolId($strNode)
 {
-	if ($strNode == 'hs_a')			$strWhere = "symbol LIKE 'SZ0_____' OR symbol LIKE 'SZ3_____' OR symbol LIKE 'BJ4_____' OR symbol LIKE 'SH6_____' OR symbol LIKE 'BJ8_____'";
-	else if ($strNode == 'hs_b')		$strWhere = "symbol LIKE 'SZ2_____' OR symbol LIKE 'SH9_____'";
-	else								$strWhere = "symbol LIKE 'SZ399___' OR symbol LIKE 'SH000___' OR symbol LIKE 'BJ899___'";		// hs_s
+	switch ($strNode)
+	{
+	case 'hs_a':
+		$strWhere = "symbol LIKE 'SZ0_____' OR symbol LIKE 'SZ3_____' OR symbol LIKE 'BJ4_____' OR symbol LIKE 'SH6_____' OR symbol LIKE 'BJ8_____'";
+		break;
+		
+	case 'hs_b':
+		$strWhere = "symbol LIKE 'SZ2_____' OR symbol LIKE 'SH9_____'";
+		break;
+		
+	case 'hs_s':
+		$strWhere = "symbol LIKE 'SZ399___' OR symbol LIKE 'SH000___' OR symbol LIKE 'BJ899___'";		// hs_s
+		break;
+		
+	case 'etf_hq_fund':
+		$strWhere = "symbol LIKE 'SZ15____' OR symbol LIKE 'SH51____' OR symbol LIKE 'SH56____' OR symbol LIKE 'SH58____'";
+		break;
+		
+	case 'lof_hq_fund':
+		$strWhere = "symbol LIKE 'SZ16____' OR symbol LIKE 'SH50____'";
+		break;
+	}
+	
 	return SqlGetStockSymbolAndId($strWhere);
 }
 
@@ -73,10 +134,15 @@ function DeleteOldChinaStock($arSymbolId)
 	foreach ($arSymbolId as $strSymbol => $strStockId)
 	{
 		if ($ab_sql->DeletePair($strStockId))	DebugString($strSymbol.' had ab_pair');
-		SqlDeleteStockEma($strStockId);
-		SqlDeleteStockHistory($strStockId);
-		SqlDeleteStock($strStockId);
-		DebugString($strSymbol.' deleted');
+		if ($ah_sql->DeleteById($strStockId))	DebugString($strSymbol.' had ah_pair');
+		if (SqlDeleteStockGroupItemByStockId($strStockId))
+		{
+			SqlDeleteStockEma($strStockId);
+			SqlDeleteStockHistory($strStockId);
+			SqlDeleteNavHistory($strStockId);
+			SqlDeleteStock($strStockId);
+			DebugString($strSymbol.' deleted');
+		}
 	}
 }
 

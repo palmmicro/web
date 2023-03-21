@@ -218,6 +218,7 @@ Wiki的QDII词条下显示了它是Qualified Domestic Institutional Investor的�
 <?php
 	Echo20161006('增加'.GetNameTag('calibrationhistory', CALIBRATION_HISTORY_DISPLAY).'页面');
 	Echo20161020('用微信公众号查询A股交易数据');
+	Echo20161028('用微信公众号查询A股基金数据');
 	Echo20170128('增加'.GetNameTag('ahcompare', AH_COMPARE_DISPLAY).'页面');
 ?>
 
