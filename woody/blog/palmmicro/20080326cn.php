@@ -32,7 +32,6 @@
 <br />2008年9月10日, 我的注册过期了. 一个叫ENOM的公司立刻抢注了它并且放上去了木马病毒. 
 <br />今天我再次访问aredfox.com. 发现它已经成了一个靠为Google吸引流量赚钱的页面. 它还在ENOM的手上, 但是我估计对ENOM来说是个赔钱生意. 它的Alexa流量排名现在是24,246,365, 可能仅仅比一个空白页面稍微强一点. 
 <br />Palmmicro的用户们, 请访问<a href="#palmmicro">Palmmicro</a>.com看看, 我们又有个新页面了. 
-<br /><img src=../../image/wx.jpg alt="Palmmicro wechat public account sz162411 small size QR code" />
 </p> 
 
 <h3>Palmmicro.com.<a name="palmmicrocn">cn</a>的历史</h3>

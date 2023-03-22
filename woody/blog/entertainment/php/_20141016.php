@@ -5,7 +5,7 @@ function Echo20221231($strHead)
 {
 	$str2016 = GetNameLink('2016');
 	$str2021 = GetNameLink('2021');
-	$strImage = QuoteImgElement('20221231.jpg', '2022年最终持仓盈利107万人民币');
+	$strImage = GetWoodyImgQuote('20221231.jpg', '2022年最终持仓盈利107万人民币');
 	$strSZ159612 = GetStockLink('SZ159612');
 	$strSZ161127 = GetStockLink('SZ161127');
 	

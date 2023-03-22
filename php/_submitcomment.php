@@ -21,7 +21,7 @@ class _SubmitCommentAccount extends EditCommentAccount
 	function _onDelete($strId, $strMemberId)
 	{
 		$comment_sql = $this->GetCommentSql();
-		if ($this->_canModifyComment($strId, $comment_sql))
+		if ($this->IsAdmin() || $this->_canModifyComment($strId, $comment_sql))
 		{
 			if ($comment_sql->DeleteById($strId))
 	    	{

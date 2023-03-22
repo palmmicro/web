@@ -214,19 +214,15 @@ class TableSql
     
     function DeleteData($strWhere, $strLimit = false)
     {
-    	return SqlDeleteTableData($this->strName, $strWhere, $strLimit);
-    }
-
-    function DeleteCountData($strWhere)
-    {
     	$iCount = $this->CountData($strWhere);
     	if ($iCount > 0)
     	{
-    		DebugVal($iCount, 'DeleteCountData table '.$this->strName.' WHERE '.$strWhere);
-    		$this->DeleteData($strWhere);
+    		DebugVal($iCount, 'DeleteData table '.$this->strName.' WHERE '.$strWhere);
+    		return SqlDeleteTableData($this->strName, $strWhere, $strLimit);
     	}
+    	return false;
     }
-    
+
     function DeleteById($strId)
     {
     	return ($strWhere = _SqlBuildWhere_id($strId)) ? $this->DeleteData($strWhere) : false;

@@ -171,7 +171,7 @@ class DailyCloseSql extends KeySql
 
     function DeleteClose($str = '0.000000')
     {
-    	$this->DeleteCountData("close = '$str'");
+    	$this->DeleteData("close = '$str'");
     }
 
     function ModifyDaily($strKeyId, $strDate, $strClose)

@@ -30,7 +30,7 @@ function EchoAll()
     
     $str = GetRemarkElement('软件执行：');
     $str .= $strNewLine.'运行AutoIt3.exe后， 它会提示输入文件。给它'.$strYinheAu3.'或者'.$strYinheAu3Now.'都可以执行。';
-    $str .= QuoteImgElement('20211129auto.jpg', 'AutoIt'.AUTO_TRACTOR_DISPLAY.'软件0.49主界面');
+    $str .= GetWoodyImgQuote('20211129auto.jpg', 'AutoIt'.AUTO_TRACTOR_DISPLAY.'软件0.49主界面');
     $str .= $strNewLine.'在弹出的用户主界面用鼠标点击'.GetInfoElement('执行自动操作').'按键后，会看到它自动运行'.$strNepturn.'，然后一步步在每个'.GetInfoElement('客户号').'的6个深市账户各自执行选择的'.GetInfoElement('操作').
     		'。除了按ESC键主动退出和响应AutoIt脚本自己的错误提示消息框外，在结束前不能操作任何键盘或者鼠标，否则脚本可能会出错。';
     EchoParagraph($str);
@@ -47,7 +47,7 @@ function EchoAll()
     						   ), false);
 
     $str = GetRemarkElement('管理客户号：');
-    $str .= QuoteImgElement('20201029.jpg', 'AutoIt'.AUTO_TRACTOR_DISPLAY.'管理客户号界面');
+    $str .= GetWoodyImgQuote('20201029.jpg', 'AutoIt'.AUTO_TRACTOR_DISPLAY.'管理客户号界面');
     EchoParagraph($str);
     
    	$strManageAccount = GetInfoElement('添加或者修改选中客户号');

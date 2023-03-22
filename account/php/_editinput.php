@@ -79,7 +79,7 @@ function _getChiSquaredTestString($strInput, $bChinese)
 	{
 		$str = '';
 	}
-	$str .= ImgChiSquared($bChinese);
+	$str .= ImgChiSquared();
 	return $str;
 }
 
@@ -100,7 +100,7 @@ function _getDiceCaptchaString($strInput, $bChinese)
 		{
 			$str .= '<br/>'.$strDisplay;
 		}
-		$str .= ImgRobloxDice($bChinese);
+		$str .= ImgRobloxDice();
 		return $str;
 	}
 	return ($bChinese ? '数据格式不对' : 'Wrong data format');
@@ -168,7 +168,7 @@ function _getLinearRegressionString($strInput, $bChinese)
     	$str .= '<br />y = {'.(empty($strFunction) ? implode(',', $arY) : strval_round_implode($arY)).'}';
     	$str .= '<br /><br /><b>'.$jpg->GetEquation().'</b>';
     	$str .= '<br />'.$jpg->GetLink();
-    	$str .= ImgLinearRegression($bChinese);
+    	$str .= ImgLinearRegression();
     	return $str;
     }
 	return ($bChinese ? '数据不足' : 'Not enough data');
@@ -204,7 +204,7 @@ function _getCramersLawString($strInput, $bChinese)
 	{
 		$str = '';
 	}
-	$str .= ImgCramersRule($bChinese);
+	$str .= ImgCramersRule();
 	return $str;
 }
 
@@ -454,7 +454,7 @@ function EchoAll($bChinese = true)
     EchoEditInputForm(GetAccountToolStr($strPage, $bChinese), $strInput, $bChinese);
     _echoInputResult($acct, $strPage, $strInput, $bChinese);
     _echoInputRelated($strPage, $bChinese);
-    EchoParagraph(GetDevGuideLink('20100905', $strPage, $bChinese).'<br />'.GetCategoryLinks(GetAccountToolArray($bChinese), ACCT_PATH, $bChinese));
+    EchoParagraph(GetDevGuideLink($strPage, '20100905', $bChinese).'<br />'.GetCategoryLinks(GetAccountToolArray($bChinese), ACCT_PATH, $bChinese));
 }
 
 function _getAccountToolTitle($strPage, $strQuery, $bChinese)

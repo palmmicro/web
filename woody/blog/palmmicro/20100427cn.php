@@ -90,68 +90,70 @@ Yahoo网站服务早些时候给palmmicro.com换到了一个新IP地址: 98.136.
 
 <h3>那些<a name="xueqiu">雪球</a>小秘书不让我说的话</h3>
 <p>2021年3月10日
-<br />今天想蹭弘盈A的热度在雪球上吸粉, 混了一整天没什么收获. 收盘后总算有人问了句<?php EchoAutoTractorLink(); ?>的软件在哪里, 我回复后很快就被小秘书删除了.
+<br />今天想蹭弘盈A的热度在雪球上吸粉，混了一整天没什么收获。收盘后总算有人问了句<?php EchoAutoTractorLink(); ?>的软件在哪里，我回复后很快就被小秘书删除了。
 <br /><img src=../photo/20210310a.jpg alt="Xueqiu forbidden phrase a" />
 <br /><img src=../photo/tractor.jpg alt="Green tractors" />
-<br />感觉很不爽, 翻了下历史记录, 把那些雪球小秘书不让我说的话在这里全部记录下来. 在<a href="20161014cn.php">微信公众号</a>上写了篇图文, 结果也说我违规不让发, 只好放在这里了.
-<br />政府的老口号不能重复.
+<br />感觉很不爽，翻了下历史记录，把那些雪球小秘书不让我说的话在这里全部记录下来，在<a href="../entertainment/20150818cn.php#weixin">微信公众号</a>上写了篇图文，结果也说我违规不让发，只好放在这里了。
+<br />政府的老口号不能重复。
 <br /><img src=../photo/20210310b.jpg alt="Xueqiu forbidden phrase b" />
-<br />广为流传的笑话不让说.
+<br />广为流传的笑话不让说。
 <br /><img src=../photo/20210310c.jpg alt="Xueqiu forbidden phrase c" />
-<br />动物行为不能描述.
+<br />动物行为不能描述。
 <br /><img src=../photo/20210310d.jpg alt="Xueqiu forbidden phrase d" />
-<br /><a href="#gfw">墙</a>不能提.
+<br /><a href="#gfw">墙</a>不能提。
 <br /><img src=../photo/20210310e.jpg alt="Xueqiu forbidden phrase e" />
 <br /><img src=../../myphoto/2008/nude_s.jpg alt="Half nude Woody on the rim of Crater Lake" />
-<br />前国家主席的话不能乱改.
+<br />前国家主席的话不能乱改。
 <br /><img src=../photo/20210310f.jpg alt="Xueqiu forbidden phrase f" />
-<br />热门电影台词不能侵权.
+<br />热门电影台词不能侵权。
 <br /><img src=../photo/20210310g.jpg alt="Xueqiu forbidden phrase g" />
 <?php echo ImgLikeDog(); ?>
-<br />举报制度不能揣测.
+<br />举报制度不能揣测。
 <br /><img src=../photo/20210310h.jpg alt="Xueqiu forbidden phrase h" />
-<br />前朝末代皇帝的话不能引述.
+<br />前朝末代皇帝的话不能引述。
 <br /><img src=../photo/20210310i.jpg alt="Xueqiu forbidden phrase i" />
 <?php echo ImgGreatDynasty(); ?>
-<br />电报是垃圾广告.
+<br />电报是垃圾广告。
 <br /><img src=../photo/20210310j.jpg alt="Xueqiu forbidden phrase j" />
-<br />赵姓不能写.
+<br />赵姓不能写。
 <br /><img src=../photo/20210310k.jpg alt="Xueqiu forbidden phrase k" />
-<br />QQ群号不能发.
+<br />QQ群号不能发。
 <br /><img src=../photo/20210310l.jpg alt="Xueqiu forbidden phrase l" />
-<br />歪也是敏感词.
+<br />歪也是敏感词。
 <br /><img src=../photo/20210310m.jpg alt="Xueqiu forbidden phrase m" />
-<br />从这里开始是2019年的, 义和团是敏感词倒是能理解.
+<br />从这里开始是2019年的， 义和团是敏感词倒是能理解。
 <br /><img src=../photo/20210310n.jpg alt="Xueqiu forbidden phrase n" />
-<br />国民党不会也是敏感词吧?
+<br />国民党不会也是敏感词吧？
 <br /><img src=../photo/20210310o.jpg alt="Xueqiu forbidden phrase o" />
-<br />QQ号不能发.
+<br />QQ号不能发。
 <br /><img src=../photo/20210310p.jpg alt="Xueqiu forbidden phrase p" />
-<br />光溜溜不能写.
+<br />光溜溜不能写。
 <br /><img src=../photo/20210310q.jpg alt="Xueqiu forbidden phrase q" />
 <br /><img src=../photo/lenna.jpg alt="Part of Lenna from http://www.lenna.org/full/len_full.html" />
-<br />这个都挑不出单独的敏感词出来.
+<br />这个都挑不出单独的敏感词出来。
 <br /><img src=../photo/20210310r.jpg alt="Xueqiu forbidden phrase r" />
-<br />不能宣传其它网站.
+<br />不能宣传其它网站。
 <br /><img src=../photo/20210310s.jpg alt="Xueqiu forbidden phrase s" />
-<br />选票是敏感词?
+<br />选票是敏感词？
 <br /><img src=../photo/20210310t.jpg alt="Xueqiu forbidden phrase t" />
-<br />苹果广告不能引用.
+<br />苹果广告不能引用。
 <br /><img src=../photo/20210310u.jpg alt="Xueqiu forbidden phrase u" />
 <br /><img src=../photo/1984athleteb.jpg alt="This is why 1984 will not be 1984" />
-<br />不能推广微信公众号.
+<br />不能推广微信公众号。
 <br /><img src=../photo/20210310v.jpg alt="Xueqiu forbidden phrase v" />
-<br /><img src=../../image/wx.jpg alt="Palmmicro wechat public account sz162411 small size QR code" />
-<br />不能在发言中加网页链接.
+<?php echo ImgPalmmicroWeixin(); ?>
+<br />不能在发言中加网页链接。
 <br /><img src=../photo/20210310w.jpg alt="Xueqiu forbidden phrase w" />
-<br />道路以目不能写.
+<br />道路以目不能写。
 <br /><img src=../photo/20210310x.jpg alt="Xueqiu forbidden phrase x" />
-<br />智商不能写?
+<br />智商不能写？
 <br /><img src=../photo/20210310y.jpg alt="Xueqiu forbidden phrase y" />
-<br />2018年的, 共产主义不能评论.
+<br />2018年的，共产主义不能评论。
 <br /><img src=../photo/20210310z.jpg alt="Xueqiu forbidden phrase z" />
-<br />觉得在雪球聊天越来越没有意思了. 很迷惘, 觉得不能总用自媒体10万+的美好前景迷惑自己.
+<br />觉得在雪球聊天越来越没有意思了。很迷惘，觉得不能总用自媒体10万+的美好前景迷惑自己。
 <br /><img src=../photo/20210310.png alt="Xueqiu forbidden phrase collection" />
+</p> 
+
 </div>
 
 <?php _LayoutBottom(); ?>

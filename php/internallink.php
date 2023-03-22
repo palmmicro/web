@@ -4,7 +4,7 @@
 
 define('ACCT_PATH', '/account/');
 
-function GetDevGuideLink($strLink, $strVer = false, $bChinese = true)
+function GetDevGuideLink($strVer = false, $strLink = '20150818', $bChinese = true)
 {
     $str = '/woody/blog/entertainment/'.$strLink;
     $str .= UrlGetPhp($bChinese);

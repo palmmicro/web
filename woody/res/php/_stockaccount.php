@@ -59,7 +59,10 @@ class StockAccount extends TitleAccount
     {
     	if (in_array($str, GetOldSymbolArray()))
    		{
-   			if ($this->SetCrawler(UrlGetIp()))	DebugString('标注查退市股的爬虫');
+   			if (!$this->IsAdmin())
+   			{
+   				if ($this->SetCrawler(UrlGetIp()))	DebugString('标注查退市股的爬虫');
+   			}
    		}
    		
     	if (strlen($str) > 11)				return false;		// hf_CHA50CFD is the longest symbol
@@ -118,7 +121,7 @@ class StockAccount extends TitleAccount
     	$strNewLine = GetBreakElement();
     	
     	EchoHeadLine('相关链接');
-    	$str = GetCategoryLinks(GetStockMenuArray()).' '.GetAutoTractorLink().' '.GetSinaJsLink().' '.GetDevGuideLink('20150818', $strVer).$strNewLine;
+    	$str = GetCategoryLinks(GetStockMenuArray()).' '.GetAutoTractorLink().' '.GetSinaJsLink().' '.GetDevGuideLink($strVer).$strNewLine;
 		if ($strLoginId = $this->GetLoginId())
     	{
     		$str .= GetMyPortfolioLink().$this->_getPersonalLinks($strLoginId);

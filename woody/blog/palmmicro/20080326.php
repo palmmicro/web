@@ -32,7 +32,6 @@ We founded Palmmicro again in China, continue our small VoIP business with the n
 <br />On Sep 10, 2008, My registeration expired. Another company called ENOM took it at once and put it with trojan.
 <br />Today I visited it again and found it had become a search source making traffic money from Google. It is still in ENOM's hand, but I guess it is a bad business for ENOM to keep it. The Alexa traffic rank for aredfox.com is now 24,246,365, maybe just a little better than a blank page.
 <br />Palmmicro users, please visit <a href="#palmmicro">Palmmicro</a>.com, we have a new look now. 
-<br /><img src=../../image/wx.jpg alt="Palmmicro wechat public account sz162411 small size QR code" />
 </p> 
 
 <h3>The History of Palmmicro.com.<a name="palmmicrocn">cn</a></h3>

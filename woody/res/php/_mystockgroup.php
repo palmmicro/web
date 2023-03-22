@@ -133,11 +133,11 @@ function _getGroupImageLink($strPage)
     	return ImgHuangRong();
     	
     case 'hangseng':
-    	return QuoteImgElement('queen.jpg', '命运赠送的礼物都早已暗中标好了价格');
+    	return GetWoodyImgQuote('queen.jpg', '命运赠送的礼物都早已暗中标好了价格');
 
     case 'hshares':
     case 'hstech':
-    	return QuoteImgElement('luodayou.jpg', '罗大佑弹唱流到香江去看一看');
+    	return GetWoodyImgQuote('luodayou.jpg', '罗大佑弹唱流到香江去看一看');
     	
     case 'oilfund':
     	return ImgPanicFree();

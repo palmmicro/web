@@ -38,13 +38,13 @@ END;
 
 function Echo20150827($strHead)
 {
-	$strImage = ImgRonin();
+	$strHead = GetHeadElement($strHead);
 	$strQDII = GetStockMenuLink('qdii');
 	$strSZ159920 = GetStockLink('SZ159920', true);
 	$strSH510900 = GetStockLink('SH510900', true);
 	$strSH513500 = GetStockLink('SH513500', true);
+	$strImage = ImgRonin();
 	
-	$strHead = GetHeadElement($strHead);
     echo <<<END
 	$strHead
 <p>2015年8月27日
@@ -89,6 +89,42 @@ function Echo20161006($strHead)
 END;
 }
 
+function Echo20161014($strHead)
+{
+	$strHead = GetHeadElement($strHead);
+	$strFlyingpig33 = GetQuoteElement('flyingpig33');
+	$strWeixinLink = GetWeixinLink();
+	$strError = GetFontElement('Token验证失败');
+	$str162411 = GetQuoteElement('162411');
+	$str162411cn = GetQuoteElement('华宝油气');
+	$str1 = GetQuoteElement('1');
+	$strPA3288 = GetLinkElement('PA3288', '../../../pa3288/indexcn.html');
+	$strSz162411 = GetQuoteElement('sz162411');
+	$strImage = ImgPalmmicroWeixin();
+	
+    echo <<<END
+	$strHead
+<p>2016年10月14日
+<br />作为一个搞了16年互联网产品的公司，Palmmicro居然一直没有开发自己的手机App。世界变化快，现在貌似也不用自己开发App，大多数的需求用微信公众号就足够满足。
+<br />因为一年多前做华宝油气净值估算页面的时候就跟提供QDII基金估值的公众号小飞猪{$strFlyingpig33}学习过，我一直觉得加公众号是件非常简单的事情，没想到在启用{$strWeixinLink}开发模式消息接口的时候就碰到了问题。
+采用几乎是一目了然的微信示例PHP程序，我在设置服务器链接的时候不断被提示{$strError}，反复调试一整晚后才意识到是因为Yahoo网站服务在我的每个页面后都加了一段javascript统计代码。 
+<br />因为我早就在用Google Analytics做网站统计，其实我一直觉得Yahoo前两年加的这个功能是个累赘，没有提供什么新功能，反而拖累了网页反应速度。这下我就有了充分理由去掉它了。在Yahoo Small Business的新网站Aabaco Small Business里面又找了好半天，终于关闭了它。
+<br />接下来增加功能，现在最直接的需求就是用微信查华宝油气净值。采用对话方式，在消息中用语音或者键盘输入{$str162411}或者{$str162411cn}等获取它的各种估值以及具体估值的时间。
+<br />用户如果只输入{$str1}，会匹配到大量的结果。受微信消息长度2048字节的限制，只会显示匹配靠前的一部分出来。如果直接用微信语音的话，微信自带的语音识别貌似要小小的训练一下。例如，如果一开始就说{$str162411}，识别的结果可能不如人意，但是如果先用键盘输入一次{$str162411}，以后的语音识别就畅通无阻了。 
+<br />开发过程中碰到了一个问题，微信消息有必须在5秒之内返回的限制。而根据Google Analytics对过去30天5934次对华宝油气估值页面的Page Timings统计，平均反应时间是10秒，这样大概率会超过微信的5秒限制，导致消息回应失败。反应时间慢的主要原因是估值前可能需要先访问新浪股票数据和美元人民币中间价等不同网站。
+只好挽起袖子搞优化，尽可能的多在本地存数据，减少每次查询中对外部网站的访问。最后勉强把最长的回应时间控制在了4228毫秒，总算满足了要求。
+<br />回到公司的产品上来，这个微信公众号和本网站一起作为一个具体应用实例，为开发中的{$strPA3288}物联网IoT模块提供一个数据采集、存储和查询的总体解决方案。在这个基础上，我们可以提供全套的产品和软硬件技术，帮助客户建立自己的物联网数据管理分析应用系统。
+<br />虽然目前还没有多少功能，大家已经可以扫描下面的二维码添加Palmmicro微信公众订阅号。选用{$strSz162411}作为微信号既符合目前提供的数据，又是个没有办法的选择，因为我太喜欢用palmmicro这个名字，以至于它早早就被我自己的私人晒娃微信号占用了。 
+$strImage
+</p>
+END;
+}
+
+function _getWeixinLink()
+{
+	return GetNameLink('weixin', '微信公众号');
+}
+
 function _getUpdateChinaStockLink($strNode, $strDisplay)
 {
 	return DebugIsAdmin() ? GetInternalLink('/php/test/updatechinastock.php?node='.$strNode, $strDisplay) : '';
@@ -96,22 +132,25 @@ function _getUpdateChinaStockLink($strNode, $strDisplay)
 
 function Echo20161020($strHead)
 {
-	$strNodeA = 'hs_a';
-	$strNodeS = 'hs_s';
-	
+	$strHead = GetHeadElement($strHead);
+	$strWeixin = _getWeixinLink();
 	$strQuote = GetQuoteElement('交通银行');
+	
+	$strNodeA = 'hs_a';
 	$strChinaStock = GetExternalLink(GetSinaChinaStockListUrl($strNodeA));
 	$strUpdateChinaStock = _getUpdateChinaStockLink($strNodeA, '更新A股数据');
+	
+	$strNodeS = 'hs_s';
 	$strChinaIndex = GetExternalLink(GetSinaChinaStockListUrl($strNodeS));
 	$strUpdateChinaIndex = _getUpdateChinaStockLink($strNodeS, '更新A股指数');
+	
 	$strUsStock = GetExternalLink(GetSinaUsStockListUrl());
 	$strUpdateUsStock = DebugIsAdmin() ? GetInternalLink('/php/test/updateusstock.php', '更新美股数据') : '';
 	
-	$strHead = GetHeadElement($strHead);
     echo <<<END
 	$strHead
 <p>2016年10月20日
-<br />今天发现有个微信公众号用户用语音查询{$strQuote}，没查到因为数据库中根本没有它。不过因此刺激了我给加上查询所有股票交易数据的功能。
+<br />今天发现有个{$strWeixin}用户用语音查询{$strQuote}，没查到因为数据库中根本没有它。不过因此刺激了我给加上查询所有股票交易数据的功能。
 <br />首先我要把A股3000多只股票都加到数据库中。开始我想直接开个大循环从000001到699999从新浪拿数据，后来觉得太蠢了，还担心新浪的数据接口把我列入黑名单。不过接下来我从{$strChinaStock}找到了所有A股数据。$strUpdateChinaStock
 <br />还有数量几乎跟股票同一个数量级的A股指数{$strChinaIndex}。$strUpdateChinaIndex
 <br />继续给数据库中加美股代码，希望{$strUsStock}这个不完整的美股单子能满足绝大多数中国用户的查询。$strUpdateUsStock
@@ -121,16 +160,17 @@ END;
 
 function Echo20161028($strHead)
 {
+	$strHead = GetHeadElement($strHead);
+	$strWeixin = _getWeixinLink();
 	$strQuote = GetQuoteElement('159915');
 	$strChinaFund = GetExternalLink(GetSinaChinaStockListUrl('open_fund'));
 	$strUpdateChinaETF = _getUpdateChinaStockLink('etf_hq_fund', '更新A股ETF数据');
 	$strUpdateChinaLOF = _getUpdateChinaStockLink('lof_hq_fund', '更新A股LOF数据');
 	
-	$strHead = GetHeadElement($strHead);
     echo <<<END
 	$strHead
 <p>2016年10月28日
-<br />昨天让我广发证券网上开户的经理帮忙宣传一下微信公众号查股票数据，随即加进来2个人。其中一个上来就查{$strQuote}，发现没有数据后立马取消了订阅，又刺激了我给数据库加上所有A股基金数据。
+<br />昨天让我广发证券网上开户的经理帮忙宣传一下{$strWeixin}查股票数据，随即加进来2个人。其中一个上来就查{$strQuote}，发现没有数据后立马取消了订阅，又刺激了我给数据库加上所有A股基金数据。
 <br />从{$strChinaFund}找到了基金列表，没想到全市场居然有上万基金。然后继续写代码加入了其中可以场内交易ETF和LOF，从此应该不怕被查。$strUpdateChinaETF $strUpdateChinaLOF
 </p>
 END;
@@ -138,7 +178,7 @@ END;
 
 function Echo20170128($strHead)
 {
-	$strWeiXin = GetLinkElement('微信公众号', '../palmmicro/20161014cn.php');
+	$strWeixin = _getWeixinLink();
 	$str600028 = GetQuoteElement('600028');
 	$str00386 = GetQuoteElement('00386');
 	$strSource = GetExternalLink(GetAastocksUrl('ah'));
@@ -149,7 +189,7 @@ function Echo20170128($strHead)
 	$strHead
 <p>2017年1月28日
 <br />为了有效配合今年的打新计划，我打算扩大中国石化外的门票范围。但是同时沿用AH股价格比较的思路，只选取A股价格低于H股的作为门票。
-<br />{$strWeiXin}搞了几个月，使用者寥寥。不过开发微信公众号的过程中有个意外收获，帮助我彻底区分了净值计算和用户显示界面的代码。为了充分利用这个好处，我马上把它也包括在了微信公众号的查询结果中：输入{$str600028}或者{$str00386}试试看。
+<br />{$strWeixin}搞了几个月，使用者寥寥。不过开发的过程中有个意外收获，帮助我彻底区分了净值计算和用户显示界面的代码。为了充分利用这个好处，我马上把AH比较也包括在了查询结果中：输入{$str600028}或者{$str00386}试试看。
 <br />数据来源：{$strSource}	{$strUpdate}
 <br />同时增加个对比页面：
 END;
@@ -223,8 +263,10 @@ END;
 
 function Echo20180404($strHead)
 {
+	$strHead = GetHeadElement($strHead);
 	$strXueQiu = GetXueQiuIdLink('1955602780', '不明真相的群众');
 	$strAhCompare= GetNameLink('ahcompare', AH_COMPARE_DISPLAY);
+	$strWeixin = _getWeixinLink();
 	$str00700 = GetQuoteElement('00700');
 	$strTencent = GetQuoteElement('腾讯');
 	$strSource = GetExternalLink(GetAastocksUrl());
@@ -238,13 +280,12 @@ function Echo20180404($strHead)
 	$strQDII = GetNameLink('qdii');
 	$strCalibration = GetNameLink('calibrationhistory', CALIBRATION_HISTORY_DISPLAY);
 	
-	$strHead = GetHeadElement($strHead);
     echo <<<END
 	$strHead
 <p>2018年4月4日
 <br />雪球创始人方三文，自称{$strXueQiu}。平时总是苦口婆心的把盈亏同源放在嘴边，鼓动大家通过雪球资管做资产配置。但是他却认为自己对互联网企业有深刻理解，在推销自己私募的时候总是鼓吹腾讯和FB，又把盈亏同源抛在脑后了。
 <br />最近2个月腾讯结束了屡创新高的行情，开始跟FB一起下跌，引发了大家抄底雪球方丈的热情。不仅港股腾讯00700每天巨量交易，就连它在美股粉单市场的ADR在雪球上都热闹非凡。
-这吸引了我的注意力，然后发现港股还有其它不少股票也有美股市场的American Depositary Receipt(ADR)。于是我按照原来{$strAhCompare}的套路增加了个页面蹭一下热度。同时也加入到了微信公众号的查询中：输入{$strTencent}或者{$str00700}试试看。
+这吸引了我的注意力，然后发现港股还有其它不少股票也有美股市场的American Depositary Receipt(ADR)。于是我按照原来{$strAhCompare}的套路增加了个页面蹭一下热度。同时也加入到了{$strWeixin}的查询中：输入{$strTencent}或者{$str00700}试试看。
 <br />数据来源：{$strSource}	{$strUpdate}
 <br />从数据库的表格开始，{$strTableSql}是所有表格的基类，它本身也可以用在只有一个整数id的表格。
 <br />{$strValSql}基于{$strTableSql}，试图包括所有一个整数id和一个val的表格，它本身可以用于id+浮点数的表格，例如基金仓位fundposition表。
@@ -288,16 +329,17 @@ END;
 
 function Echo20180410($strHead)
 {
+	$strHead = GetHeadElement($strHead);
+	$strWeixin = _getWeixinLink();
 	$strCNY = GetQuoteElement('人民币汇率');
 	$strLink = GetMyStockLink('USCNY');
 	$strOldUSCNY = GetQuoteElement('美元人民币中间价');
 	$strUSCNY = GetQuoteElement('美元人民币汇率中间价');
 	
-	$strHead = GetHeadElement($strHead);
     echo <<<END
 	$strHead
 <p>2018年4月10日
-<br />沉寂已久的微信公众号在清明假期中突然有人来查了下{$strCNY}，因为没有任何匹配，这个查询通知到了我的电子邮件中，让我感觉一下子打了鸡血，学习微信小程序开发的劲头一下子足了好多。
+<br />沉寂已久的{$strWeixin}在清明假期中突然有人来查了下{$strCNY}，因为没有任何匹配，这个查询通知到了我的电子邮件中，让我感觉一下子打了鸡血，学习微信小程序开发的劲头一下子足了好多。
 <br />微信订阅号中查不到用来估值的人民币汇率的确有点奇怪。原因是为了加快反应时间，向微信发的查询是不会去再去拿每天更新一次的人民币中间价数据的。
 <br />当然这现在已经难不倒我了，我可以从数据库中把最近2天的中间价找出来，拼成跟其他数据类似的格式提供给用户。按惯例，又全面整理了几天代码，直到今天才完工。
 <br />因为微信查找中我没有做中文分词，因此{$strCNY}这种5个字的长查询其实是很难匹配的。为了保证下次用户能查到，我还特意手工把数据库中{$strLink}的说明从{$strOldUSCNY}改成了{$strUSCNY}。
@@ -307,13 +349,14 @@ END;
 
 function Echo20190601($strHead)
 {
+	$strHead = GetHeadElement($strHead);
+	$strWeixin = _getWeixinLink();
 	$strImage = ImgTianHeng();
 	
-	$strHead = GetHeadElement($strHead);
     echo <<<END
 	$strHead
 <p>2019年6月1日
-<br />两年多过去，微信公众号上现有517个用户，感觉基本上体现了目前华宝油气套利群体的规模。
+<br />两年多过去，{$strWeixin}上现有517个用户，感觉基本上体现了目前华宝油气套利群体的规模。
 <br />佛前五百罗汉，田横五百壮士；微信用户超过五百人就可以开通流量主收广告费了。
 $strImage
 </p>
@@ -322,14 +365,15 @@ END;
 
 function Echo20190713($strHead)
 {
+	$strHead = GetHeadElement($strHead);
+	$strWeixin = _getWeixinLink();
 	$strQuote = GetQuoteElement('019547');
 	$strLink = GetSinaQuotesLink('sh019547');
 	
-	$strHead = GetHeadElement($strHead);
     echo <<<END
 	$strHead
 <p>2019年7月13日
-<br />昨天有人在微信公众号上查{$strQuote}没有匹配。看了一下{$strLink}，发现居然是国债。软件工具有人用终归是好事情，不过以前我好像听说过资产1000万美元以下的不应该考虑债券投资，所以还是按捺住了兴奋的心情，没有再次削尖铅笔给我的数据库加上所有A股债券数据。
+<br />昨天有人在{$strWeixin}上查{$strQuote}没有匹配。看了一下{$strLink}，发现居然是国债。软件工具有人用终归是好事情，不过以前我好像听说过资产1000万美元以下的不应该考虑债券投资，所以还是按捺住了兴奋的心情，没有再次削尖铅笔给我的数据库加上所有A股债券数据。
 <br />还有一个更加深刻的原因是，因为查询时会从头到尾遍历一遍股票数据库，现在的查询速度已经快要慢到了公众号的极限，实在不能想象再加一两万条债券进去会怎么样。
 <br />基于相同的原因，既拖慢速度我自己又不用，公众号也不提供场外基金的数据查询。
 </p>
@@ -338,6 +382,7 @@ END;
 
 function Echo20191025($strHead)
 {
+	$strHead = GetHeadElement($strHead);
 	$strFundAccount = GetNameLink('fundaccount', FUND_ACCOUNT_DISPLAY);
 	$strNavHistory = GetNameLink('netvaluehistory', NETVALUE_HISTORY_DISPLAY);
 	$strNavHistoryLink = GetNavHistoryLink(FUND_DEMO_SYMBOL, 'num=0', '统计');
@@ -351,7 +396,6 @@ function Echo20191025($strHead)
 	$strOilFundTag = GetNameTag('oilfund', OIL_GROUP_DISPLAY);
 	$strImage = ImgPanicFree();
 	
-	$strHead = GetHeadElement($strHead);
     echo <<<END
 	$strHead
 <p>2019年10月25日
@@ -379,7 +423,7 @@ function Echo20191025($strHead)
 <br />因为国内监管的要求，SZ160216和SH501018这种FOF的持仓不能过于集中。SZ160216费了不少力气让自己的持仓跟USO保持100%一致。因为美股市场上没有足够多的原油ETF品种选择，它同时持有了小部分2倍日内杠杆的原油ETF和看多美元的ETF，甚至还有一点点贵金属ETF，说白了就是为了满足监管的分散要求。
 而SH501018更离谱，它持仓了很大一部分欧洲市场上的原油ETF，由于市场收盘时间不同，市场假期也有差异，我用USO给它估值就不准了，反向计算出来的仓位就更加不靠谱。
 <br />想给SH501018正确估值，使用SZ162411的这种单一品种参考模式是不行的。{$strMaster}计算{$strQDII}净值的Excel虽然在我的网页工具出来后落寞了许多，不过他说了，用XOP估算华宝油气净值只是{$strElementaryTag}水平，能够用实际的详细持仓明细估算南方原油净值才算初中生水平！
-<br />{$strWei}在雪球和微信公众号上写了一系列A股大时代的故事，一直用这个封面图片。因为我今天也忍不住开始讲{$strOilFundTag}基金历史的故事，就东施效颦也放个图。
+<br />{$strWei}在雪球和公众号上写了一系列A股大时代的故事，一直用这个封面图片。因为我今天也忍不住开始讲{$strOilFundTag}基金历史的故事，就东施效颦也放个图。
 $strImage
 </p>
 END;
@@ -387,11 +431,11 @@ END;
 
 function Echo20191107($strHead)
 {
+	$strHead = GetHeadElement($strHead);
 	$strFundAccount = GetNameLink('fundaccount', FUND_ACCOUNT_DISPLAY);
 	$strBegin = GetNameLink('daylightsavingbegin', '夏令时开始');
 	$strFundHistory = GetNameLink('fundhistory', FUND_HISTORY_DISPLAY);
 	
-	$strHead = GetHeadElement($strHead);
     echo <<<END
 	$strHead
 <p>2019年11月7日
@@ -405,6 +449,7 @@ END;
 function Echo20200113($strHead)
 {
 	$strHead = GetHeadElement($strHead);
+
     echo <<<END
 	$strHead
 <p>2020年1月13日
@@ -416,12 +461,12 @@ END;
 
 function Echo20200326($strHead)
 {
+	$strHead = GetHeadElement($strHead);
 	$strFundPosition = GetNameLink('fundposition', FUND_POSITION_DISPLAY);
 	$strSZ160216 = GetFundPositionLink('SZ160216', true);
 	$strSZ162719 = GetFundPositionLink('SZ162719', true);
 	$strSZ163208 = GetFundPositionLink('SZ163208', true);
 	
-	$strHead = GetHeadElement($strHead);
     echo <<<END
 	$strHead
 <p>2020年3月26日
@@ -437,14 +482,15 @@ END;
 
 function Echo20210227($strHead)
 {
+	$strHead = GetHeadElement($strHead);
+	$strWeixin = _getWeixinLink();
 	$strBtok = GetExternalLink('https://0.plus');
 	$strWeb = GetExternalLink('https://web.telegram.im');
 	
-	$strHead = GetHeadElement($strHead);
     echo <<<END
 	$strHead
 <p>2021年2月27日
-<br />因为微信个人订阅号的各种限制，最近削尖铅笔基于Telegram电报API开发了机器人@palmmicrobot，把微信公众号上的查询功能完全复制到了电报软件上。同时创建了@palmmicrocast频道，用来主动发布用户在各种渠道查询过程中碰到的可能需要提醒的信息。
+<br />因为微信个人订阅号的各种限制，最近削尖铅笔基于Telegram电报API开发了机器人@palmmicrobot，把{$strWeixin}上的查询功能完全复制到了电报软件上。同时创建了@palmmicrocast频道，用来主动发布用户在各种渠道查询过程中碰到的可能需要提醒的信息。
 <br />电报是开源的，而且鼓励大家把它无缝集成到各种应用场景中。墙内使用电报可以从{$strBtok}下载安装Btok手机APP，也可以使用非官方的WEB版本{$strWeb}。
 <br />互联网不是法外之地，虽然墙外的电报软件能畅所欲言并且避免恶意举报，请大家记住Palmmicro的一切都是实名可以抓到我的，不要在电报中有关Palmmicro的地方乱说话！
 <br />不忘初心，接下来打算写个用电报机器人管理的基于MQTT协议的IoT模块。
@@ -455,10 +501,13 @@ END;
 function Echo20210320($strHead)
 {
 	$strHead = GetHeadElement($strHead);
+	$strWeixin = _getWeixinLink();
+	$strError = GetFontElement('剩余群发次数为0');
+	
     echo <<<END
 	$strHead
 <p>2021年3月20日
-<br />微信公众号发文章时出现<font color=red>剩余群发次数为0</font>的错误信息后，上网搜了一圈没找到解决方案。后来发现是最近写文章太积极，在已经发出文章的19日就开始写了20日的开头，等到20日要群发时，系统还没反应过来。
+<br />{$strWeixin}发文章时出现{$strError}的错误信息后，上网搜了一圈没找到解决方案。后来发现是最近写文章太积极，在已经发出文章的19日就开始写了20日的开头，等到20日要群发时，系统还没反应过来。
 <br />解决方法很简单，先保存到公众号创作管理的图文素材中，然后再重新打开编辑后发送，或者直接发送都可以。
 </p>
 END;
@@ -467,6 +516,7 @@ END;
 function Echo20210613($strHead)
 {
 	$strHead = GetHeadElement($strHead);
+	
     echo <<<END
 	$strHead
 <p>2021年6月13日
@@ -477,6 +527,7 @@ END;
 
 function Echo20210624($strHead)
 {
+	$strHead = GetHeadElement($strHead);
 	$strKWEB = GetHoldingsLink('KWEB', true);
 	$strQDII = GetNameLink('qdii');
 	$strSZ164906 = GetStockLink('SZ164906');
@@ -484,7 +535,6 @@ function Echo20210624($strHead)
 	$strElementary = GetNameLink('elementary', '小学生');
 	$strImage = ImgMrFox();
 	
-	$strHead = GetHeadElement($strHead);
     echo <<<END
 	$strHead
 <p>2021年6月24日
@@ -500,10 +550,10 @@ END;
 
 function Echo20210714($strHead)
 {
+	$strHead = GetHeadElement($strHead);
 	$strNavHistory = GetNameLink('netvaluehistory', NETVALUE_HISTORY_DISPLAY);
 	$strFundLinks = GetFundLinks(FUND_DEMO_SYMBOL);
 	
-	$strHead = GetHeadElement($strHead);
     echo <<<END
 	$strHead
 <p>2021年7月14日
@@ -518,6 +568,7 @@ END;
 
 function Echo20210728($strHead)
 {
+	$strHead = GetHeadElement($strHead);
 	$strSH513050 = GetStockLink('SH513050');
 	$strSZ159605 = GetStockLink('SZ159605');
 	$strSZ159607 = GetStockLink('SZ159607');
@@ -527,7 +578,6 @@ function Echo20210728($strHead)
 	$strQDII = GetNameLink('qdii', QDII_DISPLAY);
 	$strImage = ImgHuangRong();
 	
-	$strHead = GetHeadElement($strHead);
     echo <<<END
 	$strHead
 <p>2021年7月28日
@@ -545,9 +595,9 @@ END;
 
 function Echo20211129($strHead)
 {
+	$strHead = GetHeadElement($strHead);
 	$strImage = ImgGreatDynasty();
 	
-	$strHead = GetHeadElement($strHead);
     echo <<<END
 	$strHead
 <p>2021年11月29日
@@ -560,20 +610,21 @@ END;
 
 function Echo20220914($strHead)
 {
-	$strEndWechat = GetNameLink('endwechat', '放弃微信');
+	$strHead = GetHeadElement($strHead);
+	$strWeixin = _getWeixinLink();
+	$strEndWechat = GetNameLink('endweixin', '放弃微信');
 	$strWoody1234 = GetXueQiuIdLink('2244868365', 'woody1234');
 	$strChinaInternet = GetNameLink('chinainternet', '中丐互怜');
 	$strSH513220 = GetStockLink('SH513220', true);
 	$strSH513360 = GetStockLink('SH513360', true);
 	$strImage = ImgRuLai();
 	
-	$strHead = GetHeadElement($strHead);
     echo <<<END
 	$strHead
 <p>2022年9月14日
 <br />在美军从越南撤退的时候，美国政府估计其中有相当大比例的染上了毒瘾。按当时的普遍研究，吸毒者复发的可能性高达90%以上，如何面对预期中几十万退伍的瘾君子成了一个严峻的问题。然后让严阵以待的社会学家们完全没有想到的是，事实上复发的比例不到5%。
 于是研究者们又挖空心思搞了一个新理论出来：只要远离了原来上瘾的环境，就不容易再次上瘾。
-<br />在我刚开始混雪球和搞微信公众号的时候，对成为股票套利大V曾经是满怀希望的。这个希望破灭在QQ群和号被封后。我意识到套利者群体中其实不少人是满怀敌意的。而且即使不举报我，出于秘籍不能外传的心理，绝大多数套利者也不会愿意主动帮我分享，因此这条大V之路其实走不通。
+<br />在我刚开始混雪球和搞{$strWeixin}的时候，对成为股票套利大V曾经是满怀希望的。这个希望破灭在QQ群和号被封后。我意识到套利者群体中其实不少人是满怀敌意的。而且即使不举报我，出于秘籍不能外传的心理，绝大多数套利者也不会愿意主动帮我分享，因此这条大V之路其实走不通。
 <br />不幸的是，我发现我上瘾了，每天花了大量的时间搞无效的网络社交。于是开始有意的让自己远离上瘾环境。公众号在去年11月因为举报封了我一篇文章，我就不再更新文章，{$strEndWechat}上6000多的订阅者；雪球在今年2月删除了我一条宣传网站的评论，我就弃用了13000多粉丝的{$strWoody1234}帐号。从此彻底戒断大V梦想。
 <br />戒断上瘾总会有副作用，对我来说，就是口头上喊着要努力专心做好自己的网站，实际上在很长时间内却再也提不起兴致，以至于经常放在嘴边自嘲的每天20行代码都断了很久。
 <br />7月份的时候，我注意到{$strChinaInternet}来了个新成员{$strSH513220}，本来想简单的通过拷贝复制加上，却发现跟其它老丐帮成员不同，它居然还有A股成分股。一下子我的拖延症就犯了，一直拖到这个月才动手。

@@ -170,7 +170,7 @@ Wiki的QDII词条下显示了它是Qualified Domestic Institutional Investor的�
 如果没有现成的实例可用，就会新构造一个。结果就是在首次统计持仓盈利的过程中，我会把几乎所有股票的数据都去新浪拿一遍，难怪那么慢。 
 <br />找到问题就好办了，首先判断stockgroup中stock对应的groupitem_id到底有没有交易记录，没有的话就不去构造<?php echo GetCodeElement('MyStockTransaction'); ?>类。另外预先统计好有交易记录的stock，统一去预取一下新浪数据。
 <br />随后我把预取数据的思路用在了所有需要读取新浪数据的地方，包括华宝油气净值计算在内，所有的页面反应速度都有不同程度的提升。原来我说因为网站服务器在美国所以访问慢的理由看来并不是那么准确的！
-<?php echo QuoteImgElement('pig.jpg', '一头特立独行的猪：趴在墙头看人杀猪。'); ?>
+<?php echo GetWoodyImgQuote('pig.jpg', '一头特立独行的猪：趴在墙头看人杀猪。'); ?>
 </p> 
 
 <h3><?php EchoNameTag('qdii', QDII_DISPLAY); ?>中考虑当日CL交易情况后的T+1估值</h3>
@@ -217,8 +217,9 @@ Wiki的QDII词条下显示了它是Qualified Domestic Institutional Investor的�
 
 <?php
 	Echo20161006('增加'.GetNameTag('calibrationhistory', CALIBRATION_HISTORY_DISPLAY).'页面');
-	Echo20161020('用微信公众号查询A股交易数据');
-	Echo20161028('用微信公众号查询A股基金数据');
+	Echo20161014('Palmmicro'.GetNameTag('weixin', 微信公众号).'sz162411');
+	Echo20161020('查询A股股票数据');
+	Echo20161028('查询A股基金数据');
 	Echo20170128('增加'.GetNameTag('ahcompare', AH_COMPARE_DISPLAY).'页面');
 ?>
 
@@ -311,7 +312,7 @@ Wiki的QDII词条下显示了它是Qualified Domestic Institutional Investor的�
 	Echo20210624('增加'.GetNameTag('holdings', HOLDINGS_DISPLAY).'页面');
 	Echo20210714('增加'.GetNameTag('fundshare', FUND_SHARE_DISPLAY).'页面');
 	Echo20210728('为'.GetNameTag('chinainternet', '中丐互怜').'增加'.QDII_MIX_DISPLAY.'工具系列');
-	Echo20211129(GetNameTag('endwechat', '放弃微信').'公众号文章');
+	Echo20211129(GetNameTag('endweixin', '放弃微信').'公众号文章');
 	Echo20220914('为'.GetNameTag('qdiimix', QDII_MIX_DISPLAY).'补充A股成分股的持仓处理');
 ?>
 

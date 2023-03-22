@@ -3,14 +3,13 @@ require('php/_blogtype.php');
 
 function GetMetaDescription()
 {
-	return 'Woody有关Palmmicro公司的网络日志列表. 包括Palmmicro微信公众号sz162411, palmmicro.com和其它停用的老域名的历史, 创始人王老板的故事等内容.';
+	return 'Woody有关Palmmicro公司的网络日志列表。包括Palmmicro MAC地址、palmmicro.com和其它停用的老域名的历史、创始人王老板的故事等内容。';
 }
 
 function EchoAll()
 {
     echo <<<END
-<p>2016年10月14日 Palmmicro<a href="palmmicro/20161014cn.php">微信公众号</a>sz162411
-<br />2010年9月9日 <a href="palmmicro/20100909cn.php">忘记密码?</a>
+<p>2010年9月9日 <a href="palmmicro/20100909cn.php">忘记密码?</a>
 <br />2010年4月27日 <a href="palmmicro/20100427cn.php">记录Palmmicro.com的被屏蔽历史</a>
 <br />2009年11月14日 <a href="palmmicro/20091114cn.php">Palmmicro的MAC地址</a>
 <br />2008年3月26日 <a href="palmmicro/20080326cn.php">Palmmicro</a>.com域名的历史
