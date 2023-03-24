@@ -102,7 +102,7 @@ function in_arrayCommodityQdii($strSymbol)
 
 function QdiiGetQqqSymbolArray()
 {
-    return array('SH513100', 'SH513300', 'SZ159632', 'SZ159941', 'SZ161130'); 
+    return array('SH513100', 'SH513110', 'SH513300', 'SZ159632', 'SZ159941', 'SZ161130'); 
 }
 
 function in_arrayQqqQdii($strSymbol)

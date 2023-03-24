@@ -4,20 +4,9 @@ require_once('stock.php');
 
 class _AdminOperationAccount extends Account
 {
-	function _onManualCalibration($strSymbol)
-	{
-		StockPrefetchExtendedData($strSymbol);
-		$ref = new FundPairReference($strSymbol);
-		$ref->ManualCalibration();
-	}
-
     public function AdminProcess()
     {
-    	if ($strSymbol = UrlGetQueryValue('calibrationhistory'))
-    	{
-    		$this->_onManualCalibration($strSymbol);
-    	}	
-    	else if ($strArbitrage = UrlGetQueryValue('fundarbitrage'))
+    	if ($strArbitrage = UrlGetQueryValue('fundarbitrage'))
     	{
     		$sql = new FundArbitrageSql();
     		$sql->WriteInt(UrlGetQueryValue('stockid'), $strArbitrage);

@@ -222,15 +222,14 @@ class FundPairReference extends MyPairReference
 
 	function ManualCalibration()
 	{
-		$ar = explode(' ', YahooGetWebData($this));
-		if (count($ar) < 3)	return false;
+		$ar = YahooGetNetValue($this);
+		if (!$ar)	return false;
    	
-		$strNav = $ar[0];
-		$strDate = $ar[2];
+		list($strNav, $strDate) = $ar;
 		$strStockId = $this->GetStockId();
 		$nav_sql = GetNavHistorySql();
 		$nav_sql->WriteDaily($strStockId, $strDate, $strNav);
-		DebugString($this->GetSymbol().' netvalue '.$strNav);
+//		DebugString($this->GetSymbol().' netvalue '.$strNav);
 		
 		if ($strPairNav = PairNavGetClose($this->pair_nav_ref, $strDate))
 		{

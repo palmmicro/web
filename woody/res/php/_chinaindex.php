@@ -31,34 +31,10 @@ class _ChinaIndexAccount extends GroupAccount
         GetChinaMoney($this->ref);
         SzseGetLofShares($this->ref);
         YahooUpdateNetValue($this->us_ref);
-        $this->_updateNavByCnh($this->us_ref, $this->cnh_ref);
+    	$this->us_ref->SetTimeZone();
+    	if ($this->us_ref->IsStockMarketTrading(GetNowYMD()))	$this->us_ref->ManualCalibration();
+    		
         $this->CreateGroup(array($this->ref, $this->ref->GetPairNavRef(), $this->us_ref));
-    }
-    
-    function _updateNavByCnh($us_ref, $cnh_ref)
-    {
-    	$us_ref->SetTimeZone();
-    	if ($us_ref->IsStockMarketTrading(GetNowYMD()) == false)	return;
-    	
-		$strDate = $us_ref->GetDate();
-		$strStockId = $us_ref->GetStockId();
-		$strPrice = $cnh_ref->GetPrice();
-		$sql = new EtfCnhSql();
-		if ($strCnh = $sql->GetClose($strStockId, $strDate))
-		{
-			if (abs(floatval($strCnh) - floatval($strPrice)) > 0.001)
-			{
-//				DebugString($strCnh.' '.$strPrice);
-				if ($strNav = $us_ref->ManualCalibration())
-				{
-					$sql->WriteDaily($strStockId, $strDate, $strPrice);
-				}
-			}
-		}
-		else
-		{
-			$sql->InsertDaily($strStockId, $strDate, $strPrice);
-		}
     }
 }
 
@@ -84,13 +60,6 @@ function EchoAll()
     	$acct->EchoMoneyParagraph($group, $acct->us_ref->cny_ref);
 	}
 	
-	if ($acct->IsAdmin())
-	{
-		$strSymbol = $acct->us_ref->GetSymbol(); 
-    	$str = GetInternalLink('/php/_submitoperation.php?'.'calibrationhistory'.'='.$strSymbol, '手工校准').$strSymbol;
-    	EchoParagraph($str);
-	}
-
     $acct->EchoLinks('chinaindex', 'GetChinaIndexLinks');
 }
 

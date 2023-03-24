@@ -27,6 +27,10 @@ function GetSinaMarketCount($strNode)
 	case 'lof_hq_fund':
 		$strCode = 'HQNodeStockCountSimple';
 		break;
+		
+	case 'qbgg_hk':
+		$strCode = 'HKStockCount';
+		break;
 	}
 	
 	$strUrl = GetSinaMarketJsonUrl().'/Market_Center.get'.$strCode.'?node='.$strNode;
@@ -34,7 +38,7 @@ function GetSinaMarketCount($strNode)
    	{
    		DebugString('read '.$strUrl.' as '.$str);
    		$ar = json_decode($str, true);
-   		DebugPrint($ar);
+//   		DebugPrint($ar);
 		return intval($ar);
    	}
    	return 0;
@@ -70,6 +74,7 @@ function GetSinaMarketCount($strNode)
 // https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeDataSimple?page=1&num=80&sort=symbol&asc=1&node=etf_hq_fund&_s_r_a=init
 // https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeDataSimple?page=1&num=80&sort=symbol&asc=1&node=lof_hq_fund&_s_r_a=init
 // https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHKStockData?page=1&num=80&sort=symbol&asc=1&node=qbgg_hk&_s_r_a=init
+// {"symbol":"00001","name":"\u957f\u548c","engname":"CKH HOLDINGS","tradetype":"EQTY","lasttrade":"48.650","prevclose":"49.150","open":"49.250","high":"49.250","low":"48.350","volume":"5901354","currentvolume":"1221500","amount":"286995867","ticktime":"2023-03-23 16:08:38","buy":"48.650","sell":"48.700","high_52week":"56.525","low_52week":"38.550","eps":"1.227","dividend":"0.000","stocks_sum":"3830044500","pricechange":"-0.500","changepercent":"-1.0172940","market_value":"186331664925.000","pe_ratio":"39.6495518"},
 // https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getUSList?page=1&num=80&sort=chg&asc=0&node=china_us&_s_r_a=init
 function GetSinaMarketData($strNode, $iPage, $iNum)
 {
@@ -84,6 +89,10 @@ function GetSinaMarketData($strNode, $iPage, $iNum)
 	case 'etf_hq_fund':
 	case 'lof_hq_fund':
 		$strCode = 'HQNodeDataSimple';
+		break;
+		
+	case 'qbgg_hk':
+		$strCode = 'HKStockData';
 		break;
 	}
 	
@@ -103,30 +112,33 @@ function GetChinaStockSymbolId($strNode)
 	switch ($strNode)
 	{
 	case 'hs_a':
-		$strWhere = "symbol LIKE 'SZ0_____' OR symbol LIKE 'SZ3_____' OR symbol LIKE 'BJ4_____' OR symbol LIKE 'SH6_____' OR symbol LIKE 'BJ8_____'";
+		$strWhere = "symbol REGEXP '^(SH6|BJ[48]|SZ[03])[0-9]{5}$' AND symbol NOT REGEXP '^SZ399'";
 		break;
 		
 	case 'hs_b':
-		$strWhere = "symbol LIKE 'SZ2_____' OR symbol LIKE 'SH9_____'";
+		$strWhere = "symbol REGEXP '^(SH9|SZ2)[0-9]{5}$'";
 		break;
 		
 	case 'hs_s':
-		$strWhere = "symbol LIKE 'SZ399___' OR symbol LIKE 'SH000___' OR symbol LIKE 'BJ899___'";		// hs_s
+		$strWhere = "symbol REGEXP '^(SH000|SZ399|BJ899)[0-9]{3}$'";
 		break;
 		
 	case 'etf_hq_fund':
-		$strWhere = "symbol LIKE 'SZ15____' OR symbol LIKE 'SH51____' OR symbol LIKE 'SH56____' OR symbol LIKE 'SH58____'";
+		$strWhere = "symbol REGEXP '^(SH5[168]|SZ15)[0-9]{4}$'";
 		break;
 		
-	case 'lof_hq_fund':
-		$strWhere = "symbol LIKE 'SZ16____' OR symbol LIKE 'SH50____'";
+	case 'lof_hq_fund':	
+		$strWhere = "symbol REGEXP '^(SH50|SZ16)[0-9]{4}$'";;
+		break;
+		
+	case 'qbgg_hk':
+		$strWhere = "symbol REGEXP '^[0-9]{5}$'";
 		break;
 	}
 	
 	return SqlGetStockSymbolAndId($strWhere);
 }
 
-// 已知问题：GetChinaStockSymbolId会把深市指数包括在深市股票中，然后在DeleteOldChinaStock误删除掉所有深市指数。临时解决方法是先更新A股股票，再更新A股指数数据。
 function DeleteOldChinaStock($arSymbolId)
 {
 	$ab_sql = new AbPairSql();
@@ -159,7 +171,8 @@ class _AdminChinaStockAccount extends TitleAccount
 		$iCount = GetSinaMarketCount($strNode);
 		if ($iCount == 0)		return;
 		
-		$arSymbolId = GetChinaStockSymbolId($strNode);		
+		$arSymbolId = GetChinaStockSymbolId($strNode);
+		DebugVal(count($arSymbolId), 'Original '.$strNode);
 		
     	$iNum = 100;
     	$iPage = 1;
@@ -192,6 +205,7 @@ class _AdminChinaStockAccount extends TitleAccount
 
 		DebugVal($iChanged, 'Changed');
 		DebugVal($iTotal, 'All');
+		DebugVal(count($arSymbolId), 'To be deleted old '.$strNode);
 		DeleteOldChinaStock($arSymbolId);
     }
 }

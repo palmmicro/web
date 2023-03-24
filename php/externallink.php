@@ -166,13 +166,13 @@ function GetXueQiuIdLink($strId, $strDisplay)
 
 function GetYahooStockLink($sym)
 {
-    $strHttp = YahooStockGetUrl($sym->GetYahooSymbol());
+    $strHttp = GetYahooStockUrl($sym->GetYahooSymbol());
     return GetExternalLink($strHttp, $sym->GetSymbol());
 }
 
 function GetYahooNavLink($strSymbol)
 {
-    $strHttp = YahooStockGetUrl(GetYahooNetValueSymbol($strSymbol));
+    $strHttp = GetYahooStockUrl(GetYahooNetValueSymbol($strSymbol));
     return GetExternalLink($strHttp, $strSymbol);
 }
 
@@ -276,7 +276,7 @@ function GetSinaForexLink($sym)
 
 function GetExternalStockHistoryLink($sym)
 {
-	$strHttp = YahooStockHistoryGetUrl($sym->GetYahooSymbol());
+	$strHttp = GetYahooStockHistoryUrl($sym->GetYahooSymbol());
     return GetExternalLink($strHttp, '历史数据');
 }
 
@@ -292,7 +292,7 @@ function GetStockDividendUrl($sym)
     {
     	return GetSinaStockUrl()."/hkstock/dividends/$strSymbol.html";
     }
-    return YahooStockHistoryGetUrl($strSymbol).'?filter=div';
+    return GetYahooStockHistoryUrl($strSymbol).'?filter=div';
 }
 
 function GetStockDividendLink($sym)

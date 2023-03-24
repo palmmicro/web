@@ -4,8 +4,6 @@ require_once('_emptygroup.php');
 require_once('_editmergeform.php');
 //require_once('_editstockoptionform.php');
 require_once('../../php/stockhis.php');
-require_once('../../php/benfordimagefile.php');
-require_once('../../php/sql/sqldailystring.php');
 require_once('../../php/ui/referenceparagraph.php');
 require_once('../../php/ui/tradingparagraph.php');
 require_once('../../php/ui/smaparagraph.php');
@@ -17,37 +15,6 @@ require_once('../../php/ui/fundhistoryparagraph.php');
 require_once('../../php/ui/fundshareparagraph.php');
 require_once('../../php/ui/stockhistoryparagraph.php');
 require_once('../../php/ui/nvclosehistoryparagraph.php');
-
-function _echoBenfordParagraph($ref)
-{
-	if ($ref->IsTradable() == false)		return;
-	if ($ref->IsFundA())					return;
-	if ($ref->CountNav() > 0)				return;	//	has netvalue, it is an ETF.
-	
-	$strSymbol = $ref->GetSymbol();
-	if (SqlGetFundPair($strSymbol))		return;
-	
-	$a_sql = new AnnualIncomeSql();
-	$q_sql = new QuarterIncomeSql();
-	$strStockId = $ref->GetStockId();
-	if ($ar = YahooUpdateFinancials($ref))
-	{
-		list($arAnnual, $arQuarter) = $ar;
-		$a_sql->WriteDailyArray($strStockId, $arAnnual);
-		$q_sql->WriteDailyArray($strStockId, $arQuarter);
-	}
-	
-	$arA = $a_sql->GetUniqueCloseArray($strStockId);
-	$arQ = $q_sql->GetUniqueCloseArray($strStockId);
-	if ((count($arA) > 0) && (count($arQ) > 0))
-	{
-		$str = GetBenfordsLawLink();
-		$jpg = new BenfordImageFile();
-		$jpg->Draw($arA, $arQ);
-		$str .= '<br />'.$jpg->GetAll('年报', '季报', '合并');
-		EchoParagraph($str);
-	}
-}
 
 function _echoMyStockTransactions($acct, $ref)
 {                         
@@ -189,7 +156,6 @@ function _echoMyStockData($ref, $bAdmin)
 	EchoNvCloseHistoryParagraph($ref);
 	EchoFundShareParagraph($ref);
    	EchoStockHistoryParagraph($ref);
-   	_echoBenfordParagraph($ref);
     
     if ($bAdmin)
     {

@@ -61,7 +61,7 @@ class _QdiiMixAccount extends GroupAccount
 		if ($us_ref)
 		{
 			$strUsId = $us_ref->GetStockId();
-			CopyHoldings($date_sql, $strUsId, $strStockId);
+			if ($strHoldingsDate != $date_sql->ReadDate($strUsId))		CopyHoldings($date_sql, $strUsId, $strStockId);
 			if ($strUsNav = $nav_sql->GetClose($strUsId, $strNavDate))
 			{
 				$uscny_ref = $ref->GetUscnyRef();

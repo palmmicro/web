@@ -207,6 +207,11 @@ function DebugGetSinaFileName($strSymbol)
     return DebugGetSymbolFile('sina', $strSymbol);
 }
 
+function DebugGetYahooFileName($strSymbol)
+{
+    return DebugGetSymbolFile('yahoo', $strSymbol);
+}
+
 function DebugGetYahooWebFileName($strSymbol)
 {
     return DebugGetSymbolFile('yahooweb', $strSymbol);

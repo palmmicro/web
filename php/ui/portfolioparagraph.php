@@ -6,7 +6,7 @@ function _getPortfolioTestVal($iShares, $strSymbol)
 	switch ($strSymbol)
     {
     case 'KWEB':
-		$iQuantity = 1988;
+		$iQuantity = 1653;
 		break;
 		
     case 'XOP':
@@ -43,7 +43,11 @@ function _getArbitrageTestStr($iShares, $strGroupId, $strStockId, $strSymbol)
 			if ($strStockId != $record['stock_id'])
 			{
 				$iArbitrageQuantity = intval($record['quantity']);
-				if ($iArbitrageQuantity > 0)	break;
+				if ($iArbitrageQuantity > 0)
+				{
+//					DebugVal($iArbitrageQuantity, $strSymbol);
+					break;
+				}
 			}
 		}
         @mysql_free_result($result);

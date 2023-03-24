@@ -217,12 +217,4 @@ class SharesDiffSql extends DailyCloseSql
     }
 }
 
-class EtfCnhSql extends DailyCloseSql
-{
-    function EtfCnhSql() 
-    {
-        parent::DailyCloseSql('etfcnh');
-    }
-}
-
 ?>

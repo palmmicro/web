@@ -83,7 +83,7 @@ function YahooUpdateStockHistory($ref)
 //	$strEnd = strval($iEnd - $iEnd % SECONDS_IN_DAY + 18 * SECONDS_IN_HOUR - 1);
 	$strEnd = strval($iEnd);
 	$strYahooSymbol = $ref->GetYahooSymbol();
-	$strUrl = "https://query1.finance.yahoo.com/v7/finance/download/$strYahooSymbol?period1=$strBegin&period2=$strEnd&interval=1d&events=history&includeAdjustedClose=true";
+	$strUrl = GetYahooQuotesUrl()."/download/$strYahooSymbol?period1=$strBegin&period2=$strEnd&interval=1d&events=history&includeAdjustedClose=true";
 	
 	if ($strDebug = StockSaveHistoryCsv($strSymbol, $strUrl))
 	{

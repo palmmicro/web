@@ -31,16 +31,12 @@ function TestCmdLine()
 	DebugString('cmd line test '.UrlGetQueryString());
     if ($strSymbol = UrlGetQueryValue('symbol'))
     {
-    	$strSrc = UrlGetQueryDisplay('src', 'yahoo');
+    	$strSrc = UrlGetQueryDisplay('src', 'sina');
     	$ref = new MyStockReference($strSymbol);
     	DebugString('Stock ID '.$ref->GetStockId());
     	$fStart = microtime(true);
     	switch ($strSrc)
     	{
-    	case 'yahoo':		
-    		$str = YahooGetWebData($ref);
-    		break;
-    	
     	case 'sina':
     		_debug_dividend($strSymbol);
 			break;

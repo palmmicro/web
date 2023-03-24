@@ -229,7 +229,7 @@ function GetHuaBaoSoftwareLinks($strDigitA)
 
 function GetHuaTaiSoftwareLinks($strDigitA)
 {
-    $ar = array('SH510300', 'SH513130');
+    $ar = array('SH510300', 'SH513110', 'SH513130');
 	$strUrl = 'http://www.huatai-pb.com';
     return ' '.GetOfficialLink($strUrl.'/products/zhishu/'.$strDigitA.'/summary/index.html', $strDigitA).GetCategorySoftwareLinks($ar, GetExternalLink($strUrl, '华泰柏瑞'));
 }

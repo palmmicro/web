@@ -41,7 +41,7 @@ The following are checked:
 <br />To set up my own trading rules, and to avoid following the market all night, I plan to trade XOP simply on Simple Moving Average (SMA) values.
 This version added the premium of current trading price comparing with XOP estimation of SZ162411 net value,
 and the days in past 100 trading days did the estimated SMA value fitted in the trading range.
-<br />The historic data of XOP only need to update once a day, using Yahoo stock historic data: <?php EchoExternalLink(YahooStockHistoryGetUrl('XOP')); ?>
+<br />The historic data of XOP only need to update once a day, using Yahoo stock historic data: <?php EchoExternalLink(GetYahooStockHistoryUrl('XOP')); ?>
 <br />The official fund net value only need to update once a day too.
 Using file <?php EchoSinaDebugLink('f_162411'); ?> for official SZ162411 net value from <?php EchoSinaQuotesLink('f_162411'); ?>,
 as I do not konw when the data will be updated, I update it once an hour stupidly.
