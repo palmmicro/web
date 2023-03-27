@@ -159,7 +159,7 @@ function GetXueqiuLink($sym, $strDisplay = false)
     return GetExternalLink($strHttp, ($strDisplay ? $strDisplay : $strSymbol));
 }
 
-function GetXueQiuIdLink($strId, $strDisplay)
+function GetXueqiuIdLink($strId, $strDisplay)
 {
     return GetExternalLink(GetXueqiuUrl().'u/'.$strId, $strDisplay);
 }

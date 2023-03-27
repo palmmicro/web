@@ -148,8 +148,9 @@ class StockSql extends KeyNameSql
     		$strOrig = $record['name'];
     		if ($strName != $strOrig)
     		{
-    			if (($bCheck == false) || (strpos($strOrig, '-') === false))
-    			{	// 股票说明中带'-'的是手工修改的, 防止在自动更新中被覆盖.
+//    			if (($bCheck == false) || (strpos($strOrig, '-') === false))					// 股票说明中带'-'的是手工修改的, 防止在自动更新中被覆盖.
+				if (($bCheck == false) || (in_arrayAll($record['symbol']) == false))		// 不自动更新有单独估值页面的品种
+				{
     				return $this->UpdateById($ar, $record['id']);
     			}
     		}

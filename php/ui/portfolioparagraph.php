@@ -6,7 +6,7 @@ function _getPortfolioTestVal($iShares, $strSymbol)
 	switch ($strSymbol)
     {
     case 'KWEB':
-		$iQuantity = 1653;
+		$iQuantity = 1453;
 		break;
 		
     case 'XOP':

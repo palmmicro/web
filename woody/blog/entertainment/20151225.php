@@ -50,7 +50,7 @@ Current data got from <?php EchoSinaQuotesLink('sz162411'); ?> and saved in <?ph
 
 <h3>The Interpretation of Sina Realtime <a name="future">Future</a> Data Interface</h3>
 <p>Jan 28, 2016
-<br />Recently I added date display in the time field of SZ162411 net value page following the advice of <?php EchoXueqieId('8907500725', 'oldwain'); ?>.
+<br />Recently I added date display in the time field of SZ162411 net value page following the advice of <?php EchoXueqiuId('8907500725', 'oldwain'); ?>.
 So the stock interface recorded last time was usaful this time. But I had to review the future interface format again, and adding this record for future use.
 <br />Current data got from <?php EchoSinaQuotesLink('hf_CL'); ?> and saved in file <?php EchoSinaDebugLink('hf_cl'); ?> as following:
 <br /><font color=gray>var hq_str_hf_CL="31.85,1.2719,31.85,31.86,31.88,30.14,
@@ -77,7 +77,7 @@ So the stock interface recorded last time was usaful this time. But I had to rev
 
 <h3>The Interpretation of Sina Realtime <a name="fund">Fund</a> Data Interface</h3>
 <p>Feb 16, 2016
-<br />On 9pm, <?php EchoXueqieId('5240589924', 'uqot'); ?> told me the calculation of <a href="20150818.php">SZ162411 Net Value</a> was wrong now. 
+<br />On 9pm, <?php EchoXueqiuId('5240589924', 'uqot'); ?> told me the calculation of <a href="20150818.php">SZ162411 Net Value</a> was wrong now. 
 I checked the debug information, and found that automatic calibration was done on 8pm.
 Current data got from <?php EchoSinaQuotesLink('f_162411'); ?> and saved in <?php EchoSinaDebugLink('f_162411'); ?> as following:
 <br /><font color=gray>var hq_str_f_162411="华宝兴业标普油气上游股票(QDII-LOF),

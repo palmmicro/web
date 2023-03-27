@@ -19,7 +19,7 @@
 <br />眼看Qualcomm收购CSR<?php echo GetLinkElement('股票', '20141016cn.php'); ?>的现金快要到账，最近我在琢磨在A股中国特色的QDII基金华宝油气和美股XOP之间套利。每天看Yahoo新浪等网站的股票行情，时不时还要用鼠标点开计算器算算转换价格，时间长了后有点烦。
 <br />后来我想起来5年前学习的<?php echo GetLinkElement('PHP', '20100905cn.php'); ?>，于是打算写我的第二个PHP程序，统一把套利需要常看的行情显示在一起。
 同时根据SPDR标普油气开采指数ETF(XOP)、标普油气开采指数(^SPSIOP)、以及美元对人民币的汇率计算<?php echo GetStockLink('SZ162411'); ?>净值。今天出了第一版，记录下相关开发过程以备日后查阅。A股的QDII基金缺乏及时的信息更新，希望这里能够补上这个生态位空缺。
-<br />谢谢<?php EchoXueqieId('6188729918', 'abkoooo'); ?>帮助提供了新浪实时美股数据接口的格式。
+<br />谢谢<?php EchoXueqiuId('6188729918', 'abkoooo'); ?>帮助提供了新浪实时美股数据接口的格式。
 美股、A股、期货和汇率都用新浪实时的数据接口：<?php EchoSinaQuotesLink('gb_xop,sz162411,hf_CL,USDCNY'); ?>
 <br />一开始发现无论怎么弄<?php echo GetCodeElement('fopen'); ?>打开这些链接都会失败，估计是我用的Yahoo网站服务不支持<?php echo GetCodeElement('allow_url_fopen'); ?>。 
 在网上找解决方法，发现应该用早就有的curl。抄了2段curl代码，仿照<?php echo GetCodeElement('file_get_contents'); ?>函数的名字加了个<?php echo GetCodeElement('url_get_contents'); ?>函数。
@@ -79,34 +79,10 @@
 <a href="../../res/sz163208cn.php">诺安油气</a>和<a href="../../res/sz165510cn.php">信诚四国</a>等页面.
 </p>
 
-<h3>增加<?php EchoNameTag('fundhistory', FUND_HISTORY_DISPLAY); ?>页面</h3>
-<p>2016年1月8日
-<br />在<?php EchoXueqieId('2091843424', '塔夫男'); ?>等人的建议下, 加入华宝油气基金历史表格记录每天的折价溢价情况. 最近几天的直接显示在当前页面, 同时增加单独显示全部历史数据的页面.
-</p>
-<?php EchoFundHistoryDemo(); ?>
-
-<h3>统一数据显示格式</h3>
-<p>2016年1月26日
-<br />在<?php EchoXueqieId('8907500725', 'oldwain'); ?>的建议下，在相关价格记录的时间中加入日期显示。原来版本中没有它是因为自己觉得交易日期很明显，完全没有必要出来占地方。不过既然有人觉得有问题，我就效仿白居易写诗先读给妇孺听的优良传统改了。
-估计跟我从2000年开始就在美股赔钱不同，很多人还是不熟悉美国股市交易时间。而在这里，美股数据后面跟的是美东日期和时间。
-<br />虽说是个小的分离数据和显示改动，但是忍不住哗啦哗啦又整理优化了一大片代码。
-把原来的<?php echo GetCodeElement('StockReference'); ?>类作为基础类，原来期货和汇率数据读取分别改为继承自它的<?php echo GetCodeElement('FutureReference'); ?>类和<?php echo GetCodeElement('ForexReference'); ?>类，达到统一数据显示格式的目的。
-</p>
-<?php EchoReferenceDemo(); ?>
-<p>华宝油气这个名称里的中文基本上大家都认识，而括号内的那些英文字母，绝大多数的美国人都不会认识。
-<br />把Google设置成显示英文结果，然后查QDII，百度百科的中文页面显示在搜索结果的第2位，第3位是Wiki。听过一个笑话，一个腹黑的HR问程序员求职者碰到问题怎么办，回答去查百度的都会被默默的拒掉，因此我就不去看它了。
-Wiki的QDII词条下显示了它是Qualified Domestic Institutional Investor的简称，同时用简体和繁体标注了合格境内机构投资者。
-<br />跟QDII一样，<?php EchoNameTag('lof'); ?>也是一个出生和仅用于中国的英文简写。它更惨，英文的Google完全没有收录它的中国用途：Listed Open-Ended Fund的简写，意思是上市型开放式基金。
-<br />跟QDII和LOF不同，ETF是个货真价实的英文简写。常出现的XOP就是美股的ETF。对我来说，A股的ETF和LOF的区别按重要性排列如下：
-</p>
-<?php echo GetListElement(array('ETF通常都是100%仓位，而LOF一般不会超过95%的仓位。仓位上的细节会决定估值的准确度。',
-								  'A股ETF和LOF可以从6位数字代码上区分。深市ETF代码从150000到159999，深市LOF代码从160000到169999。沪市ETF代码从510000到518999，沪市LOF代码从500000到509999。SH510900就是一个沪市ETF。',
-								  'A股ETF的申购门槛通常至少都是50万份或者100万份，我这种穷套利者玩不起，所以其实我到现在也没搞清楚具体到底是50万还是100万。在美股市场，ETF的申赎基本上都是由做市商完成的。可以看出，A股从制度上来说其实有利于套利群体。',
-								  'ETF的申赎会比同类型LOF早一个交易日确认。对有钱的套利者来说，就可以少担一个交易日的风险。'));
-	EchoParagraph(GetQuoteElement('夜深忽梦少年事 梦啼妆泪红阑干'));
-?>
-
 <?php
+	Echo20160108('增加'.GetNameTag('fundhistory', FUND_HISTORY_DISPLAY).'页面');
+	Echo20160126('统一数据显示格式');
+	Echo20160127('ETF和'.GetNameTag('lof'));
 	Echo20160222('增加'.GetNameTag('netvaluehistory', NETVALUE_HISTORY_DISPLAY).'页面');
 ?>
 
@@ -143,7 +119,7 @@ Wiki的QDII词条下显示了它是Qualified Domestic Institutional Investor的�
 
 <h3>新浪实时港股数据</h3>
 <p>2016年4月23日
-<br />在<?php EchoXueqieId('5174320624', '均金无忌'); ?>的帮助下使用新浪实时港股数据(<?php EchoSinaQuotesLink('rt_hk02828'); ?>),
+<br />在<?php EchoXueqiuId('5174320624', '均金无忌'); ?>的帮助下使用新浪实时港股数据(<?php EchoSinaQuotesLink('rt_hk02828'); ?>),
 替代原来延迟15分钟的<a href="20151225cn.php">新浪股票数据</a>.
 <br />刚过去的周4净值页面系列的当日总访问量创纪录的超过了2200, 激励我继续优化页面反应速度.
 </p>
@@ -184,7 +160,7 @@ Wiki的QDII词条下显示了它是Qualified Domestic Institutional Investor的�
 </p>
 <?php echo GetListElement(array('要使用^SPSIOP或者XOP的净值，而不是XOP的交易价，2者通常收盘并不一致。',
 								  '要使用'.GetLinkElement('美元人民币中间价', '20160615cn.php').'，而不是新浪的美元汇率实时交易价格。',
-								  GetNameLink('lof').'基金要按95%仓位的处理，而不是ETF基金的100%。'));
+								  _getLofLink().'基金要按95%仓位的处理，而不是ETF基金的100%。'));
 	EchoFundEstTables();
 ?>
 <p>从上表可以看出，参考估值和实时估值的区别仅仅是用不用CL的实时交易数据。相对于官方估值，当美元人民币中间价波动比较大的时候参考估值就值得关注了，此外在A股或者美股休市的日子里, 它也比官方估值更能反映实际的净值。
@@ -202,12 +178,12 @@ Wiki的QDII词条下显示了它是Qualified Domestic Institutional Investor的�
 
 <h3><?php EchoNameTag('thanousparadox', THANOUS_PARADOX_DISPLAY); ?></h3>
 <p>2016年9月18日
-<br />不知不觉中宣传和实践华宝油气和XOP跨市场套利已经快2年了. 期间碰到过<?php EchoXueqieId('4389829893', 'LIFEFORCE'); ?>这种自己动手回测验证一下能赚钱就果断开干的, 
-也有<?php EchoXueqieId('8871221437', '老孙'); ?>这种数学爱好者回测验证一下能赚个年化10%后就袖手旁观的,
-还有常胜将军<?php EchoXueqieId('1980527278', 'Billyye'); ?>这种觉得华宝油气可以看成无非是XOP延长了的盘前盘后交易没有多少套利意义的. 
+<br />不知不觉中宣传和实践华宝油气和XOP跨市场套利已经快2年了. 期间碰到过<?php EchoXueqiuId('4389829893', 'LIFEFORCE'); ?>这种自己动手回测验证一下能赚钱就果断开干的, 
+也有<?php EchoXueqiuId('8871221437', '老孙'); ?>这种数学爱好者回测验证一下能赚个年化10%后就袖手旁观的,
+还有常胜将军<?php EchoXueqiuId('1980527278', 'Billyye'); ?>这种觉得华宝油气可以看成无非是XOP延长了的盘前盘后交易没有多少套利意义的. 
 最气人的是thanous这种, 总是喜欢说大资金如何牛, 如果白天华宝油气在大交易量下溢价, 晚上XOP必然是要涨的, 彻底否定套利的根基.
-<br />最近几个月华宝油气折价多溢价少, 经历了几次溢价的情况后, 发现<?php EchoXueqieId('5421738073', 'thanous'); ?>的说法基本靠谱, 我于是开始按他的名字命名为小心愿定律. 中秋节前最后一个交易日华宝油气又溢价了, 
-<?php EchoXueqieId('6900406005', '大熊宝宝--林某人'); ?>建议我实际测算一下, 正好放假闲着也是闲着, 就削尖铅笔搞了个新页面测试<?php echo GetThanousParadoxLink(FUND_DEMO_SYMBOL); ?>.
+<br />最近几个月华宝油气折价多溢价少, 经历了几次溢价的情况后, 发现<?php EchoXueqiuId('5421738073', 'thanous'); ?>的说法基本靠谱, 我于是开始按他的名字命名为小心愿定律. 中秋节前最后一个交易日华宝油气又溢价了, 
+<?php EchoXueqiuId('6900406005', '大熊宝宝--林某人'); ?>建议我实际测算一下, 正好放假闲着也是闲着, 就削尖铅笔搞了个新页面测试<?php echo GetThanousParadoxLink(FUND_DEMO_SYMBOL); ?>.
 我网站记录了从去年底以来所有的华宝油气数据, 跑了下从去年底到现在的统计结果没有觉得小心愿定律能成立, 于是改名为小心愿佯谬. 但是去掉春节前后华宝油气因为停止申购导致的长期溢价的影响, 只考虑最近100个交易日的情况后, 
 有趣的结果出现了:
 <br /><img src=../photo/20160918.jpg alt="Screen shot of test Thanous Law on Sep 18, 2016" />

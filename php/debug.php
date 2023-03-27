@@ -212,11 +212,6 @@ function DebugGetYahooFileName($strSymbol)
     return DebugGetSymbolFile('yahoo', $strSymbol);
 }
 
-function DebugGetYahooWebFileName($strSymbol)
-{
-    return DebugGetSymbolFile('yahooweb', $strSymbol);
-}
-
 function DebugGetConfigFileName($strSymbol)
 {
     return DebugGetSymbolFile('config', $strSymbol);

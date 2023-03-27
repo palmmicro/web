@@ -28,6 +28,29 @@ require_once('stock/fundpairref.php');
 
 // ****************************** Stock symbol functions *******************************************************
 
+function StockGetSymbol($str)
+{
+	$str = trim($str);
+	if ($strSymbol = BuildChinaFundSymbol($str))		return $strSymbol;
+	if ($strSymbol = BuildChinaStockSymbol($str))	return $strSymbol;
+	if (strpos($str, '_') === false)	$str = strtoupper($str);
+    return $str;
+}
+
+function StockGetArraySymbol($ar)
+{
+    $arSymbol = array();
+    foreach ($ar as $str)
+    {
+    	if (!empty($str))
+    	{
+    		$arSymbol[] = StockGetSymbol($str);
+    	}
+    }
+    return $arSymbol;
+}
+
+
 function GetYahooNetValueSymbol($strEtfSymbol)
 {
     if (empty($strEtfSymbol))   return false;

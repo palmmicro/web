@@ -1,6 +1,32 @@
 <?php
+require_once('../../../php/stock.php');
+require_once('../../../php/stockhis.php');
+require_once('../../../php/ui/referenceparagraph.php');
+require_once('../../../php/ui/ahparagraph.php');
+require_once('../../../php/ui/fundestparagraph.php');
+require_once('../../../php/ui/fundhistoryparagraph.php');
+require_once('../../../php/ui/fundshareparagraph.php');
+require_once('../../../php/ui/smaparagraph.php');
+require_once('../../../php/ui/nvclosehistoryparagraph.php');
+require_once('../../../php/ui/stockhistoryparagraph.php');
 require_once('_entertainment.php');
-require_once('../php/_stockdemo.php');
+
+define('AB_DEMO_SYMBOL', 'SZ000488');
+define('ADRH_DEMO_SYMBOL', 'TCEHY');
+define('AH_DEMO_SYMBOL', 'SH600028');
+define('FUND_DEMO_SYMBOL', 'SZ162411');
+define('STOCK_DEMO_SYMBOL', 'XOP');
+
+function DemoPrefetchData()
+{
+    StockPrefetchExtendedData(AB_DEMO_SYMBOL, ADRH_DEMO_SYMBOL, AH_DEMO_SYMBOL, FUND_DEMO_SYMBOL, STOCK_DEMO_SYMBOL);
+}
+
+function EchoNvCloseDemo($strSymbol = STOCK_DEMO_SYMBOL)
+{
+    $ref = new MyStockReference($strSymbol);
+   	EchoNvCloseHistoryParagraph($ref);
+}
 
 function EchoFundHistoryLink()
 {
@@ -9,7 +35,7 @@ function EchoFundHistoryLink()
 
 function EchoFundEstTables()
 {
-	EchoFundEstDemo();
+	EchoFundArrayEstParagraph(array(StockGetFundReference(FUND_DEMO_SYMBOL)));
 
 	EchoTableParagraphBegin(array(new TableColumn('估值因素', 140),
 								   new TableColumnOfficalEst(),
@@ -25,15 +51,15 @@ function EchoFundEstTables()
 function Echo20150824($strHead)
 {
 	$strHead = GetHeadElement($strHead);
+	
     echo <<<END
 	$strHead
 <p>2015年8月24日
-<br />每次进phpMyAdmin去看历史数据虽然不算麻烦, 但是毕竟还是用自己写的网页看更有成就感!
+<br />每次进phpMyAdmin去看历史数据虽然不算麻烦，但是毕竟还是用自己写的网页看更有成就感！
 </p>
 END;
 
-	$ref = new MyStockReference(STOCK_DEMO_SYMBOL);
-   	EchoStockHistoryParagraph($ref);
+   	EchoStockHistoryParagraph(new MyStockReference(STOCK_DEMO_SYMBOL));
 }
 
 function Echo20150827($strHead)
@@ -55,13 +81,78 @@ $strImage
 END;
 }
 
+function Echo20160108($strHead)
+{
+	$strHead = GetHeadElement($strHead);
+	$strXueqiu = GetXueqiuIdLink('2091843424', '塔夫男');
+
+    echo <<<END
+	$strHead
+<p>2016年1月8日
+<br />在{$strXueqiu}等人的建议下，加入华宝油气基金历史表格记录每天的折价溢价情况。最近几天的直接显示在当前页面，同时增加单独显示全部历史数据的页面。
+</p>
+END;
+
+	EchoFundHistoryParagraph(StockGetFundReference(FUND_DEMO_SYMBOL));
+}
+
+function Echo20160126($strHead)
+{
+	$strHead = GetHeadElement($strHead);
+	$strXueqiu = GetXueqiuIdLink('8907500725', 'oldwain');
+	$strStockReference = GetCodeElement('StockReference');
+	$strFutureReference = GetCodeElement('FutureReference');
+	$strForexReference = GetCodeElement('ForexReference');
+
+    echo <<<END
+	$strHead
+<p>2016年1月26日
+<br />在{$strXueqiu}的建议下，在相关价格记录的时间中加入日期显示。原来版本中没有它是因为自己觉得交易日期很明显，完全没有必要出来占地方。不过既然有人觉得有问题，我就效仿白居易写诗先读给妇孺听的优良传统改了。
+估计跟我从2000年开始就在美股赔钱不同，很多人还是不熟悉美国股市交易时间。而在这里，美股数据后面跟的是美东日期和时间。
+<br />虽说是个小的分离数据和显示改动，但是忍不住哗啦哗啦又整理优化了一大片代码。
+把原来的{$strStockReference}类作为基础类，原来期货和汇率数据读取分别改为继承自它的{$strFutureReference}类和{$strForexReference}类，达到统一数据显示格式的目的。
+</p>
+END;
+
+    EchoReferenceParagraph(array(new MyStockReference(FUND_DEMO_SYMBOL)));
+}
+
+function Echo20160127($strHead)
+{
+	$strHead = GetHeadElement($strHead);
+	$strList = GetListElement(array('ETF通常都是100%仓位，而LOF一般不会超过95%的仓位。仓位上的细节会决定估值的准确度。',
+								  'A股可以从6位数字代码上区分。深市ETF代码从150000到159999，深市LOF代码从160000到169999。沪市ETF代码从510000到518999，沪市LOF代码从500000到509999。SH510900就是一个沪市ETF。',
+								  'A股ETF的申购门槛通常至少都是50万份或者100万份，我这种穷套利者玩不起，所以其实我到现在也没搞清楚具体到底是50万还是100万。在美股市场，ETF的申赎基本上都是由做市商完成的。可以看出，A股从制度上来说其实有利于套利群体。',
+								  'ETF的申赎会比同类型LOF早一个交易日确认。对有钱的套利者来说，就可以少担一个交易日的风险。'));
+	$strQuote = GetQuoteElement('夜深忽梦少年事 梦啼妆泪红阑干');
+
+    echo <<<END
+	$strHead
+<p>2016年1月27日
+<br />继续前一天的显示话题。华宝油气这个名称里的中文基本上大家都认识，而括号内的那些英文字母，绝大多数的美国人都不会认识。
+<br />把Google设置成显示英文结果，然后查QDII，百度百科的中文页面显示在搜索结果的第2位，第3位是Wiki。听过一个笑话，一个腹黑的HR问程序员求职者碰到问题怎么办，回答去查百度的都会被默默的拒掉，因此我就不去看它了。
+Wiki的QDII词条下显示了它是Qualified Domestic Institutional Investor的简称，同时用简体和繁体标注了合格境内机构投资者。
+<br />跟QDII一样，LOF也是一个出生和仅用于中国的英文简写。它更惨，英文的Google完全没有收录它的中国用途：Listed Open-Ended Fund的简写，意思是上市型开放式基金。
+<br />跟QDII和LOF不同，ETF是个货真价实的英文简写。常出现的XOP就是美股的ETF。对我来说，A股的ETF和LOF的区别按重要性排列如下：
+</p>
+	$strList
+<p>$strQuote
+</p>
+END;
+}
+
+function _getLofLink()
+{
+	return GetNameLink('lof');
+}
+
 function Echo20160222($strHead)
 {
+	$strHead = GetHeadElement($strHead);
 	$strFundHistory = GetNameLink('fundhistory', FUND_HISTORY_DISPLAY);
 	$strStockHistory = GetNameLink('stockhistory', STOCK_HISTORY_DISPLAY);
 	$strNavHistoryLink = GetNavHistoryLink(FUND_DEMO_SYMBOL);
 	
-	$strHead = GetHeadElement($strHead);
     echo <<<END
 	$strHead
 <p>2016年2月22日
@@ -74,11 +165,11 @@ END;
 
 function Echo20161006($strHead)
 {
+	$strHead = GetHeadElement($strHead);
 	$strSZ162411 = GetCalibrationHistoryLink(FUND_DEMO_SYMBOL, true).CALIBRATION_HISTORY_DISPLAY;
 	$strUSO = GetCalibrationHistoryLink('USO', true).CALIBRATION_HISTORY_DISPLAY;
 	$strQDII = GetNameLink('qdii');
 	
-	$strHead = GetHeadElement($strHead);
     echo <<<END
 	$strHead
 <p>2016年10月6日
@@ -164,6 +255,7 @@ function Echo20161028($strHead)
 	$strWeixin = _getWeixinLink();
 	$strQuote = GetQuoteElement('159915');
 	$strChinaFund = GetExternalLink(GetSinaChinaStockListUrl('open_fund'));
+	$strLof = _getLofLink();
 	$strUpdateChinaETF = _getUpdateChinaStockLink('etf_hq_fund', '更新A股ETF数据');
 	$strUpdateChinaLOF = _getUpdateChinaStockLink('lof_hq_fund', '更新A股LOF数据');
 	
@@ -171,39 +263,60 @@ function Echo20161028($strHead)
 	$strHead
 <p>2016年10月28日
 <br />昨天让我广发证券网上开户的经理帮忙宣传一下{$strWeixin}查股票数据，随即加进来2个人。其中一个上来就查{$strQuote}，发现没有数据后立马取消了订阅，又刺激了我给数据库加上所有A股基金数据。
-<br />从{$strChinaFund}找到了基金列表，没想到全市场居然有上万基金。然后继续写代码加入了其中可以场内交易ETF和LOF，从此应该不怕被查。$strUpdateChinaETF $strUpdateChinaLOF
+<br />从{$strChinaFund}找到了基金列表，没想到全市场居然有上万基金。然后继续写代码加入了其中可以场内交易ETF和{$strLof}，从此应该不怕被查。$strUpdateChinaETF $strUpdateChinaLOF
 </p>
 END;
 }
 
 function Echo20170128($strHead)
 {
+	$strHead = GetHeadElement($strHead);
 	$strWeixin = _getWeixinLink();
+	
+	$strNodeHk = 'qbgg_hk';
+	$strHkStock = GetExternalLink(GetSinaChinaStockListUrl($strNodeHk));
+	$strUpdateHkStock = _getUpdateChinaStockLink($strNodeHk, '更新港股数据');
+	
+	$str162411 = GetQuoteElement('162411');
 	$str600028 = GetQuoteElement('600028');
-	$str00386 = GetQuoteElement('00386');
+	$str000001 = GetQuoteElement('000001');
+	$str162411cn = GetQuoteElement('华宝油气');
+	$strSz162411 = GetQuoteElement('sz162411');
+	$strList = GetListElement(array('输入刚好是6位数字并且数值大于等于1000时，直接按照按照A股代码规律扩展后寻找唯一匹配。例如'.$str162411.'匹配SZ162411，'.$str600028.'匹配SH600028。',
+								  '输入刚好是6位数字并且数值小于1000时，寻找可能的沪市指数和深市股票最多2个匹配。例如'.$str000001.'匹配上证指数SH000001和平安银行SZ000001。',
+								  '当输入有非ASCII字符，比如中文'.$str162411cn.'时，不查找代码，而是只在名称字段寻找可能的最多32个匹配。',
+								  '其它情况如'.$strSz162411.'同时在代码和名称字段寻找可能的最多32个匹配。',
+								  ));
+	
+	$strHbyq = GetQuoteElement('hbyq');
 	$strSource = GetExternalLink(GetAastocksUrl('ah'));
 	$strUpdate = DebugIsAdmin() ? GetInternalLink('/php/test/updateah.php', '更新AH股数据') : '';
+	$str00386 = GetQuoteElement('00386');
 	
-	$strHead = GetHeadElement($strHead);
     echo <<<END
 	$strHead
 <p>2017年1月28日
 <br />为了有效配合今年的打新计划，我打算扩大中国石化外的门票范围。但是同时沿用AH股价格比较的思路，只选取A股价格低于H股的作为门票。
-<br />{$strWeixin}搞了几个月，使用者寥寥。不过开发的过程中有个意外收获，帮助我彻底区分了净值计算和用户显示界面的代码。为了充分利用这个好处，我马上把AH比较也包括在了查询结果中：输入{$str600028}或者{$str00386}试试看。
-<br />数据来源：{$strSource}	{$strUpdate}
-<br />同时增加个对比页面：
+<br />{$strWeixin}搞了几个月，使用者寥寥。不过开发的过程中有个意外收获，帮助我彻底区分了净值计算和用户显示界面的代码。为了充分利用这个好处，我打算把AH比较也包括在查询结果中，结果又牵扯出不少一开始未曾想到的改动。
+<br />首先要加入港股数据{$strHkStock}。$strUpdateHkStock
+<br />面对跟A股差不多一样多的港股，我犹豫了，担心会进一步拖累消息回应时间。然后我又打起了优化的主意：
+</p>
+	$strList
+<p>这样一来，输入{$str162411}永远会反应最快，{$str162411cn}第二，{$strSz162411}最慢。至于想输入{$strHbyq}拼音简称的，则什么都查不到！
+<br />AH数据来源：{$strSource}	{$strUpdate}
+<br />现在可以输入{$str600028}或者{$str00386}试试看，同时增加个对比页面：
+</p>
 END;
 
-   	$ref = new AhPairReference(AH_DEMO_SYMBOL);
-   	EchoAhParagraph(array($ref));
+   	EchoAhParagraph(array(new AhPairReference(AH_DEMO_SYMBOL)));
 }
 
 function Echo20171001($strHead)
 {
+	$strHead = GetHeadElement($strHead);
 	$strSMA = GetNameLink('sma');
 	$strBollinger = GetNameLink('bollinger', '布林');
 	
-	$strHead = GetHeadElement($strHead);
     echo <<<END
 	$strHead
 <p>2017年10月1日
@@ -219,11 +332,11 @@ END;
 
 function Echo20180327($strHead)
 {
+	$strHead = GetHeadElement($strHead);
 	$strSMA = GetNameLink('sma');
 	$strBollinger = GetNameLink('bollinger', '布林');
 	$strEMA = GetNameLink('ema');
 	
-	$strHead = GetHeadElement($strHead);
     echo <<<END
 	$strHead
 <p>2018年3月27日
@@ -264,7 +377,7 @@ END;
 function Echo20180404($strHead)
 {
 	$strHead = GetHeadElement($strHead);
-	$strXueQiu = GetXueQiuIdLink('1955602780', '不明真相的群众');
+	$strXueQiu = GetXueqiuIdLink('1955602780', '不明真相的群众');
 	$strAhCompare= GetNameLink('ahcompare', AH_COMPARE_DISPLAY);
 	$strWeixin = _getWeixinLink();
 	$str00700 = GetQuoteElement('00700');
@@ -299,21 +412,21 @@ function Echo20180404($strHead)
 </p>
 END;
 
-   	$ref = new AdrPairReference(ADRH_DEMO_SYMBOL);
-   	EchoAdrhParagraph(array($ref));
+   	EchoAdrhParagraph(array(new AdrPairReference(ADRH_DEMO_SYMBOL)));
    	EchoParagraph(GetQuoteElement('Life is like a snowball. The important thing is finding wet snow and a really long hill. — Warren Buffett'));
 }
 
 function Echo20180405($strHead)
 {
+	$strHead = GetHeadElement($strHead);
+
 	$strNode = 'hs_b';
-	
 	$strChinaStock = GetExternalLink(GetSinaChinaStockListUrl($strNode));
 	$strUpdateChinaStock = _getUpdateChinaStockLink($strNode, '更新B股数据');
+	
 	$str000488 = GetQuoteElement('000488');
 	$str200488 = GetQuoteElement('200488');
 	
-	$strHead = GetHeadElement($strHead);
     echo <<<END
 	$strHead
 <p>2018年4月5日
@@ -323,8 +436,7 @@ function Echo20180405($strHead)
 </p>
 END;
 
-   	$ref = new AbPairReference(AB_DEMO_SYMBOL);
-   	EchoAbParagraph(array($ref));
+   	EchoAbParagraph(array(new AbPairReference(AB_DEMO_SYMBOL)));
 }
 
 function Echo20180410($strHead)
@@ -388,11 +500,12 @@ function Echo20191025($strHead)
 	$strNavHistoryLink = GetNavHistoryLink(FUND_DEMO_SYMBOL, 'num=0', '统计');
 	$strFundPositionLink = GetFundPositionLink(FUND_DEMO_SYMBOL);
 	$strSZ160216 = GetFundPositionLink('SZ160216', true);
+	$strLof = _getLofLink();
 	$strSH501018 = GetFundPositionLink('SH501018', true);
-	$strMaster = GetXueQiuIdLink('1873146750', '惊艳大师');
+	$strMaster = GetXueqiuIdLink('1873146750', '惊艳大师');
 	$strQDII = GetNameLink('qdii');
 	$strElementaryTag = GetNameTag('elementary', '小学生');
-	$strWei = GetXueQiuIdLink('1135063033', '魏大户');
+	$strWei = GetXueqiuIdLink('1135063033', '魏大户');
 	$strOilFundTag = GetNameTag('oilfund', OIL_GROUP_DISPLAY);
 	$strImage = ImgPanicFree();
 	
@@ -413,7 +526,7 @@ function Echo20191025($strHead)
 不过这3天累计的涨幅达到了5.14%，我于是灵机一动，想到了可以优化一下算法：不用拘泥于单日的涨跌，只要连续几天的累计涨幅或者跌幅超过了4%就计算一次仓位。
 <br />这样我又增加了一个专门估算仓位的新页面：$strFundPositionLink
 <br />加了新页面后继续脑洞大开，我又加了一行输入界面，从此可以自行设置4%的阈值。
-<br />既然现在有了实测的数据，当然要把它们派上用场。不过我暂时只把SZ162411和{$strSZ160216}仓位用在了估值上，而跟SZ160216类似的{$strSH501018}仓位就一直坚持使用LOF缺省的95%的不变。在估值页面上显示了实际使用的估值仓位。
+<br />既然现在有了实测的数据，当然要把它们派上用场。不过我暂时只把SZ162411和{$strSZ160216}仓位用在了估值上，而跟SZ160216类似的{$strSH501018}仓位就一直坚持使用{$strLof}缺省的95%的不变。在估值页面上显示了实际使用的估值仓位。
 <br />国泰商品跟华宝油气是2011到2012年基本上同时代的第一批QDII基金，开始几年没啥人气。2015年传说中的著名网络写手烟雨江南邱晓华卸任基金经理前，把名字上依然保持着大宗商品的SZ160216改造成了一个纯油基金，净值几乎100%跟随USO和美油期货CL。
 也就是说，我可以用USO准确的给这4年以来的国泰商品估值。
 <br />100%跟随CL就意味着可以套利。在CL砸向2016初的26美元那一轮中，可以抄底油价又可以套利的国泰商品跟华宝油气一样迅速成长起来，QDII场内流动性仅次于华宝油气。在华宝油气2016年1月21日因为外汇额度彻底关门后，国泰商品也在2016年2月24日彻底关门。
@@ -463,6 +576,7 @@ function Echo20200326($strHead)
 {
 	$strHead = GetHeadElement($strHead);
 	$strFundPosition = GetNameLink('fundposition', FUND_POSITION_DISPLAY);
+	$strLof = _getLofLink();
 	$strSZ160216 = GetFundPositionLink('SZ160216', true);
 	$strSZ162719 = GetFundPositionLink('SZ162719', true);
 	$strSZ163208 = GetFundPositionLink('SZ163208', true);
@@ -470,7 +584,7 @@ function Echo20200326($strHead)
     echo <<<END
 	$strHead
 <p>2020年3月26日
-<br />从{$strFundPosition}可以看到，之前国泰商品仓位一直中规中矩的保持在LOF标准的95%附近。不过在3月6日开始的这一轮CL断崖式下跌后，它的仓位也随着断崖式下跌了。目前估算仓位59%，已经只有大半桶油。
+<br />从{$strFundPosition}可以看到，之前国泰商品仓位一直中规中矩的保持在{$strLof}标准的95%附近。不过在3月6日开始的这一轮CL断崖式下跌后，它的仓位也随着断崖式下跌了。目前估算仓位59%，已经只有大半桶油。
 <br />国泰商品在3月13日停止了申购，紧接着的3月16日周一广发石油也停止了申购。因为海外账户保证金不够的原因，突然的大额申购可能会让SZ160216和SZ162719这种QDII基金在随后的大约一周内出现明显的仓位降低。
 可以看到{$strSZ162719}仓位在3月20日就恢复到了正常的95%附近。那么，SZ160216一直没有恢复仓位，是不是它也采用了SZ162411类似的降仓位保申购的方式，尽可能吸引流动性？要知道，早已经在2月14日再次关门后的华宝油气因为美元资产净值的大幅降低，它如今的仓位已经由基金公司恪守的80%底线被动降低到了75%。
 <br />这个问题其实难于判断，因为在基金公司有意降低仓位保申购的可能性外，还有另外一个解释：在国泰商品的持仓中，能保持迅速跟上当月CL跌幅的USO只是其中之一，此外还有大量像USL这种持仓很多远期CL的，所以看上去表现就像{$strSZ160216}仓位不足了。
@@ -532,6 +646,7 @@ function Echo20210624($strHead)
 	$strQDII = GetNameLink('qdii');
 	$strSZ164906 = GetStockLink('SZ164906');
 	$strFundHistory = GetNameLink('fundhistory', FUND_HISTORY_DISPLAY);
+	$strLof = _getLofLink();
 	$strElementary = GetNameLink('elementary', '小学生');
 	$strImage = ImgMrFox();
 	
@@ -541,7 +656,7 @@ function Echo20210624($strHead)
 <br />虽然原则上来说XOP也可以使用这个页面，但是它其实是为同时有港股和美股的{$strKWEB}持仓准备的。
 <br />{$strQDII}基金总是越跌规模越大，流动性越好，前些年是华宝油气，而今年最热门的变成了中丐互怜。按SZ162411对应XOP的模式，中概互联的小弟SZ164906之前是用KWEB估值的。
 不过因为中国互联有1/3的港股持仓，它的净值在港股交易时段会继续变化，所以原来的{$strSZ164906}页面其实没有什么实际用处。唯一的好处是在{$strFundHistory}中累积了几年的官方估值误差数据，帮我确认了用KWEB持仓估值中国互联的可行性。
-<br />跟A股LOF基金每个季度才公布一次前10大持仓不同，美股ETF每天都会公布自己的净值和详细持仓比例。因为KWEB和中国互联跟踪同一个中证海外中国互联网指数H11136，这样可以从KWEB官网下载持仓文件后，根据它的实际持仓估算出净值。然后SZ164906的参考估值也就可以跟随白天的港股交易变动了。
+<br />跟A股{$strLof}基金每个季度才公布一次前10大持仓不同，美股ETF每天都会公布自己的净值和详细持仓比例。因为KWEB和中国互联跟踪同一个中证海外中国互联网指数H11136，这样可以从KWEB官网下载持仓文件后，根据它的实际持仓估算出净值。然后SZ164906的参考估值也就可以跟随白天的港股交易变动了。
 <br />写了快6年的估值软件终于从{$strElementary}水平进化到了初中生水平，还是有些成就感的。暑假即将来到，了不起的狐狸爸爸要开始教已经读了一年小学的娃在Roblox上编程了。
 $strImage
 </p>
@@ -613,7 +728,7 @@ function Echo20220914($strHead)
 	$strHead = GetHeadElement($strHead);
 	$strWeixin = _getWeixinLink();
 	$strEndWechat = GetNameLink('endweixin', '放弃微信');
-	$strWoody1234 = GetXueQiuIdLink('2244868365', 'woody1234');
+	$strWoody1234 = GetXueqiuIdLink('2244868365', 'woody1234');
 	$strChinaInternet = GetNameLink('chinainternet', '中丐互怜');
 	$strSH513220 = GetStockLink('SH513220', true);
 	$strSH513360 = GetStockLink('SH513360', true);
@@ -633,6 +748,5 @@ $strImage
 </p>
 END;
 }
-
 
 ?>

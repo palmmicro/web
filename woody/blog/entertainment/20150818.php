@@ -21,7 +21,7 @@ I was watching stock quotations on Yahoo and Sina everyday, and always need to c
 <br />Later I thought of my first <a href="20100905.php">PHP</a> application 5 years ago, and decided to write my second PHP application.
 It was planned to put all the usual stock quotations together, and to estimate SZ162411 net value based on XOP, ^SPSIOP and USDCNY exchange rate.
 Today the first version is released, and I am writing this record of programming details for future reference.
-<br />Thanks <?php EchoXueqieId('6188729918', 'abkoooo'); ?> for Sina realtime US stock data format.
+<br />Thanks <?php EchoXueqiuId('6188729918', 'abkoooo'); ?> for Sina realtime US stock data format.
 <br />Using Sina realtime source for US and Chinese stocks, oil futures and forex: <?php EchoSinaQuotesLink('gb_xop,sz162411,hf_CL,USDCNY'); ?>
 <br />At first I found that <i>fopen</i> will always fail to open those urls, maybe my Yahoo Web Hosting does not support <i>allow_url_fopen</i>. 
 I searched and found curl to solve this problem, copied some curl code to my <i>url_get_contents</i> function with name similar as <i>file_get_contents</i>.
@@ -99,7 +99,7 @@ The class only support config read and write on an existing file, still as a PHP
 
 <h3>Sina Realtime HK Stock Data</h3>
 <p>Apr 23, 2016
-<br />With the help of <?php EchoXueqieId('5174320624', 'rdcheju'); ?>,
+<br />With the help of <?php EchoXueqiuId('5174320624', 'rdcheju'); ?>,
 now using Sina realtime HK stock data(<?php EchoSinaQuotesLink('rt_hk02828'); ?>) to replace original <a href="20151225.php">Sina Stock Data</a> which has 15 minutes delay.
 <br />On last Thursday the total page view of my net value pages was over 2200, this encouraged me to do more page speed optimization.
 </p>

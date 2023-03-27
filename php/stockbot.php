@@ -17,10 +17,18 @@ function _botGetStockArray($strKey)
     	{
     		if ($iLen == 6)
     		{
-    			$strWhere = "symbol LIKE '__$strKey'";
     			$iKey = intval($strKey);
-    			if ($iKey < 1000)		$strLimit = '2';	// SH000028 and SZ000028
-    			else					$strLimit = '1';
+    			if ($iKey < 1000)		
+    			{
+    				$strWhere = "symbol LIKE '__$strKey'";
+    				$strLimit = '2';	// SH000028 and SZ000028
+    			}
+    			else
+    			{
+    				$strKey = StockGetSymbol($strKey);
+    				$strWhere = "symbol = '$strKey'";
+    				$strLimit = '1';
+    			}
     		}
     		else																	$strWhere = $strSymbolWhere;
     	}
