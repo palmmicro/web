@@ -218,11 +218,11 @@ function SqlCleanStockTransaction()
     $his_sql = GetStockHistorySql();
     $iCount = $his_sql->DeleteClose();
 	if ($iCount > 0)	DebugVal($iCount, 'Zero close data');
-
-//	SqlDeleteStockGroup('ZNH');
-//	SqlClearStockGroupItem();	
-//	SqlCleanStockTransaction();
-	
+/*
+	SqlDeleteStockGroup('SZ161714');
+	SqlClearStockGroupItem();	
+	SqlCleanStockTransaction();
+*/	
 //    $iCount = $his_sql->DeleteInvalidDate();		// this can be very slow!
 //	if ($iCount > 0)	DebugVal($iCount, 'Invalid or older date'); 
 	

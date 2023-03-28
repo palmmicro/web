@@ -150,7 +150,7 @@ function in_arrayTechQdiiHk($strSymbol)
 
 function QdiiHkGetHSharesSymbolArray()
 {
-    return array('SH510900', 'SH513680', 'SZ159823', 'SZ159850', 'SZ159954', 'SZ159960', 'SZ160717', 'SZ161831');
+    return array('SH510900', 'SZ159823', 'SZ159850', 'SZ159954', 'SZ159960', 'SZ160717', 'SZ161831');
 }
 
 function in_arrayHSharesQdiiHk($strSymbol)

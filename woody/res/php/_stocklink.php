@@ -254,14 +254,14 @@ function GetIcbcCsSoftwareLinks($strDigitA)
 	}
     return ' '.GetOfficialLink($strUrl.$str, $strDigitA).GetCategorySoftwareLinks($ar, GetExternalLink($strUrl, '工银瑞信'));
 }
-
+/*
 function GetJianXinSoftwareLinks($strDigitA)
 {
-    $ar = array('SH513680');
+    $ar = array('');
 	$strUrl = 'http://www.ccbfund.cn';
     return ' '.GetOfficialLink($strUrl.'/fund_info/info.jspx?fundCode='.$strDigitA, $strDigitA).GetCategorySoftwareLinks($ar, GetExternalLink($strUrl, '建信基金'));
 }
-
+*/
 function GetJiaoYinSchroderSoftwareLinks($strDigitA)
 {
     $ar = array('SZ164906');

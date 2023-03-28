@@ -12,6 +12,7 @@ function GetSinaMarketJsonUrl()
 // https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeStockCountSimple?node=etf_hq_fund
 // https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeStockCountSimple?node=lof_hq_fund
 // https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHKStockCount?node=qbgg_hk
+// https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getANHCount?node=aplush
 // https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getUSCount?node=china_us
 function GetSinaMarketCount($strNode)
 {
@@ -30,6 +31,10 @@ function GetSinaMarketCount($strNode)
 		
 	case 'qbgg_hk':
 		$strCode = 'HKStockCount';
+		break;
+		
+	case 'aplush':
+		$strCode = 'ANHCount';
 		break;
 	}
 	
@@ -75,6 +80,8 @@ function GetSinaMarketCount($strNode)
 // https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeDataSimple?page=1&num=80&sort=symbol&asc=1&node=lof_hq_fund&_s_r_a=init
 // https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHKStockData?page=1&num=80&sort=symbol&asc=1&node=qbgg_hk&_s_r_a=init
 // {"symbol":"00001","name":"\u957f\u548c","engname":"CKH HOLDINGS","tradetype":"EQTY","lasttrade":"48.650","prevclose":"49.150","open":"49.250","high":"49.250","low":"48.350","volume":"5901354","currentvolume":"1221500","amount":"286995867","ticktime":"2023-03-23 16:08:38","buy":"48.650","sell":"48.700","high_52week":"56.525","low_52week":"38.550","eps":"1.227","dividend":"0.000","stocks_sum":"3830044500","pricechange":"-0.500","changepercent":"-1.0172940","market_value":"186331664925.000","pe_ratio":"39.6495518"},
+// https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getANHData?page=1&num=80&sort=hrap&asc=0&node=aplush&_s_r_a=init
+// [{"a":"sh600011","h":"00902"},{"a":"sh600012","h":"00995"},{"a":"sh600016","h":"01988"},
 // https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getUSList?page=1&num=80&sort=chg&asc=0&node=china_us&_s_r_a=init
 function GetSinaMarketData($strNode, $iPage, $iNum)
 {
@@ -93,6 +100,10 @@ function GetSinaMarketData($strNode, $iPage, $iNum)
 		
 	case 'qbgg_hk':
 		$strCode = 'HKStockData';
+		break;
+		
+	case 'aplush':
+		$strCode = 'ANHData';
 		break;
 	}
 	
@@ -155,6 +166,7 @@ function DeleteOldChinaStock($arSymbolId)
 			SqlDeleteStock($strStockId);
 			DebugString($strSymbol.' deleted');
 		}
+		else	DebugString($strSymbol.' NOT deleted');
 	}
 }
 
@@ -164,13 +176,56 @@ class _AdminChinaStockAccount extends TitleAccount
     {
         parent::TitleAccount('node');
     }
-    
-    public function AdminProcess()
+
+    function _updateAhPairSql($strNode, $iCount)
     {
-    	$strNode = $this->GetQuery();	// 'hs_a';
-		$iCount = GetSinaMarketCount($strNode);
-		if ($iCount == 0)		return;
+    	$ah_sql = new AhPairSql();
+		$arOld = $ah_sql->GetAllIdVal();
+		DebugVal(count($arOld), 'Original '.$strNode);
 		
+    	$iNum = 100;
+    	$iPage = 1;
+    	$iTotal = 0;
+    	$iChanged = 0;
+    	$sql = GetStockSql();
+    	do
+    	{
+			if ($ar = GetSinaMarketData($strNode, $iPage, $iNum))
+			{
+				$iPairNum = count($ar);
+				if ($iPairNum == 0)		break;
+				
+				$iTotal += $iPairNum;
+				$iPage ++;
+				foreach ($ar as $arPair)
+				{
+					$strSymbolA = strtoupper($arPair['a']);
+					if ($strStockIdA = $sql->GetId($strSymbolA))
+					{
+						$strSymbolH = $arPair['h'];
+						if ($strStockIdH = $sql->GetId($strSymbolH))
+						{
+							if ($ah_sql->WritePair($strStockIdA, $strStockIdH))
+							{
+								DebugString($strSymbolA.' vs '.$strSymbolH);
+								$iChanged ++;
+							}
+							if (isset($arOld[$strStockIdA]))	unset($arOld[$strStockIdA]);
+						}
+					}
+				}
+			}
+			else	break;
+		} while ($iTotal < $iCount);
+
+		DebugVal($iTotal, 'All');
+		DebugVal($iChanged, 'Changed');
+		DebugVal(count($arOld), 'To be deleted old '.$strNode);
+		foreach ($arOld as $strId => $strPairId)	$ah_sql->DeleteById($strId);
+    }
+    
+    function _updateStockSql($strNode, $iCount)
+    {
 		$arSymbolId = GetChinaStockSymbolId($strNode);
 		DebugVal(count($arSymbolId), 'Original '.$strNode);
 		
@@ -203,10 +258,21 @@ class _AdminChinaStockAccount extends TitleAccount
 			else	break;
 		} while ($iTotal < $iCount);
 
-		DebugVal($iChanged, 'Changed');
 		DebugVal($iTotal, 'All');
+		DebugVal($iChanged, 'Changed');
 		DebugVal(count($arSymbolId), 'To be deleted old '.$strNode);
 		DeleteOldChinaStock($arSymbolId);
+    }
+    
+    public function AdminProcess()
+    {
+    	$strNode = $this->GetQuery();	// 'hs_a';
+		$iCount = GetSinaMarketCount($strNode);
+		if ($iCount > 0)
+		{
+			if ($strNode == 'aplush')		$this->_updateAhPairSql($strNode, $iCount);
+			else							$this->_updateStockSql($strNode, $iCount);
+		}
     }
 }
 

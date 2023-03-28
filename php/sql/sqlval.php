@@ -59,6 +59,21 @@ class ValSql extends TableSql
    		}
     	return false;
     }
+    
+    function GetAllIdVal()
+    {
+    	$ar = array();
+    
+    	if ($result = $this->GetData()) 
+    	{
+    		while ($record = mysql_fetch_assoc($result)) 
+    		{
+    			$ar[$record['id']] = $record[$this->strValName];
+    		}
+    		@mysql_free_result($result);
+    	}
+    	return $ar;
+    }
 }
 
 class FundPositionSql extends ValSql

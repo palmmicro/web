@@ -289,8 +289,11 @@ function Echo20170128($strHead)
 								  ));
 	
 	$strHbyq = GetQuoteElement('hbyq');
-	$strSource = GetExternalLink(GetAastocksUrl('ah'));
-	$strUpdate = DebugIsAdmin() ? GetInternalLink('/php/test/updateah.php', '更新AH股数据') : '';
+
+	$strNodeAh = 'aplush';
+	$strAhStock = GetExternalLink(GetSinaChinaStockListUrl($strNodeAh));
+	$strUpdateAhStock = _getUpdateChinaStockLink($strNodeAh, '更新AH股数据');
+	
 	$str00386 = GetQuoteElement('00386');
 	
     echo <<<END
@@ -298,12 +301,11 @@ function Echo20170128($strHead)
 <p>2017年1月28日
 <br />为了有效配合今年的打新计划，我打算扩大中国石化外的门票范围。但是同时沿用AH股价格比较的思路，只选取A股价格低于H股的作为门票。
 <br />{$strWeixin}搞了几个月，使用者寥寥。不过开发的过程中有个意外收获，帮助我彻底区分了净值计算和用户显示界面的代码。为了充分利用这个好处，我打算把AH比较也包括在查询结果中，结果又牵扯出不少一开始未曾想到的改动。
-<br />首先要加入港股数据{$strHkStock}。$strUpdateHkStock
-<br />面对跟A股差不多一样多的港股，我犹豫了，担心会进一步拖累消息回应时间。然后我又打起了优化的主意：
+<br />首先要加入港股数据{$strHkStock}。$strUpdateHkStock 面对跟A股差不多一样多的港股，我犹豫了，担心会进一步拖累消息回应时间。然后我又打起了优化的主意：
 </p>
 	$strList
 <p>这样一来，输入{$str162411}永远会反应最快，{$str162411cn}第二，{$strSz162411}最慢。至于想输入{$strHbyq}拼音简称的，则什么都查不到！
-<br />AH数据来源：{$strSource}	{$strUpdate}
+<br />AH数据来源：{$strAhStock} {$strUpdateAhStock}
 <br />现在可以输入{$str600028}或者{$str00386}试试看，同时增加个对比页面：
 </p>
 END;

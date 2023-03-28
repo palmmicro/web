@@ -201,15 +201,6 @@ class Account
     	return false;
     }
     
-    function AdminCommand($callback)
-    {
-    	if ($this->IsAdmin())
-    	{
-    		call_user_func($callback);
-    	}
-    	SwitchToSess();
-    }
-
     public function AdminProcess()
     {
     	DebugString('Empty Admin Process');
