@@ -329,11 +329,6 @@ function GetWeixinLink()
     return GetExternalLink($strHttp, '微信公众平台');
 }
 
-function GetAastocksLink($strType = 'adr')
-{
-	return GetExternalLink(GetAastocksUrl($strType), '阿思達克');
-}
-
 function GetJisiluGoldLink()
 {
 	return GetExternalLink(GetJisiluDataUrl().'etf/#tlink_1', '集思录');

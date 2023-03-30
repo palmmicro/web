@@ -384,7 +384,7 @@ function Echo20180404($strHead)
 	$strWeixin = _getWeixinLink();
 	$str00700 = GetQuoteElement('00700');
 	$strTencent = GetQuoteElement('腾讯');
-	$strSource = GetExternalLink(GetAastocksUrl());
+	$strSource = GetExternalLink(GetAastocksAdrUrl());
 	$strUpdate = DebugIsAdmin() ? GetInternalLink('/php/test/updateadr.php', '更新H股ADR数据') : '';
 	$strTableSql = GetCodeElement('TableSql');
 	$strValSql = GetCodeElement('ValSql');

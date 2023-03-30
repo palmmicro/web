@@ -87,9 +87,11 @@ function _yahooStockGetData($strSymbol, $strStockId)
 		{
 			$strNav = $arData['regularMarketPrice'];
 			$nav_sql = GetNavHistorySql();
-			$nav_sql->InsertDaily($strStockId, $strDate, $strNav);
-			DebugString('Update NAV for '.$arData['symbol'].' '.$strDate.' '.$strNav);
-			return array($strNav, $strDate);
+			if ($nav_sql->WriteDaily($strStockId, $strDate, $strNav))
+			{
+				DebugString('Update NAV for '.$arData['symbol'].' '.$strDate.' '.$strNav);
+				return array($strNav, $strDate);
+			}
 		}
    	}
     return false;

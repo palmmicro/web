@@ -97,11 +97,11 @@ function _getSimilarLinks($strPage)
     switch ($strPage)
     {
     case 'adrhcompare':
-    	$str = GetAastocksLink();
+    	$str = GetExternalLink(GetAastocksAdrUrl(), '阿思達克ADR').' '.GetExternalLink(GetAastocksSecondListingUrl(), '阿思達克二次回港上市').' '.GetExternalLink('https://www.gswarrants.com.hk/tc/tools/adr', '高盛');
         break;
   
     case 'ahcompare':
-    	$str = GetExternalLink(GetSinaChinaStockListUrl('aplush'), '新浪').' '.GetExternalLink('http://data.10jqka.com.cn/market/ahgbj/', '同花顺').' '.GetAastocksLink('ah');
+    	$str = GetExternalLink(GetSinaChinaStockListUrl('aplush'), '新浪').' '.GetExternalLink(GetAastocksAhUrl(), '阿思達克').' '.GetExternalLink('http://data.10jqka.com.cn/market/ahgbj/', '同花顺');
         break;
         
     default:

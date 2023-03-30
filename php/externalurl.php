@@ -50,11 +50,27 @@ function GetEastMoneyFundUrl()
 	return 'http://fund.eastmoney.com/';
 }
 
-// http://www.aastocks.com/tc/market/adr.aspx
-// http://www.aastocks.com/tc/market/ah.aspx
-function GetAastocksUrl($strType = 'adr')
+function GetAastocksUrl()
 {
-	return 'http://www.aastocks.com/tc/market/'.$strType.'.aspx';
+	return 'http://www.aastocks.com/tc/';
+}
+
+// http://www.aastocks.com/tc/usq/quote/adr.aspx?sort=0&order=1&type=0
+function GetAastocksAdrUrl()
+{
+	return GetAastocksUrl().'usq/quote/adr.aspx?sort=0&order=1&type=0';
+}
+
+// http://www.aastocks.com/tc/stocks/market/second-listing.aspx
+function GetAastocksSecondListingUrl()
+{
+	return GetAastocksUrl().'stocks/market/second-listing.aspx';
+}
+
+// http://www.aastocks.com/tc/stocks/market/ah.aspx
+function GetAastocksAhUrl()
+{
+	return GetAastocksUrl().'stocks/market/ah.aspx';
 }
 
 function GetXueqiuUrl()
