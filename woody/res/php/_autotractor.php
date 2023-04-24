@@ -2,7 +2,7 @@
 require_once('_stock.php');
 require_once('../../php/ui/imagedisp.php');
 
-define('YINHE_AU3_VER', '60');
+define('YINHE_AU3_VER', '61');
 
 function EchoAll()
 {
@@ -10,22 +10,25 @@ function EchoAll()
     
     EchoParagraph(GetRemarkElement('完整软件安装步骤：'));
     $strNepturnLink = GetExternalLink('http://www.chinastock.com.cn/newsite/online/downloadCenterDetail.html?softName=neptune', '银河证券官网');
-    $strNepturn = GetBoldElement('海王星单独委托版V2.95');
+    $strNepturn = GetBoldElement('海王星单独委托版V3.07');
     echo GetListElement(array('在'.$strNepturnLink.'下载并在缺省路径安装'.$strNepturn.'，桌面图标会显示'.GetInfoElement('中国银河证券海王星独立交易').'，注意它不同于'.GetFontElement('海王星金融终端').'软件。',
-    							'下载开源的'.GetExternalLink('https://tesseract-ocr.github.io/', 'Tesseract软件').'用来识别登录验证码。也可以在'.GetExternalLink('https://sourceforge.net/projects/tesseract-ocr-alt/files/', 'SourceForge').'下载一个镜像文件'.GetFileLink('/download/tesseract-ocr-setup-3.02.02.exe').'，然后一路回车缺省安装。',
+    							'下载并安装开源的'.GetExternalLink('https://www.autoitscript.com/site/autoit/downloads/', 'AutoIt').'工具软件包。普通用户实际仅需用到x86版本的AutoIt3.exe文件。一定要小心软件来源，千万不要运行来历不明的.exe文件。',
+    							'在本页面下载银河拖拉机自动化PC软件脚本的2个文件到同一个子目录下，分别是'.GetFileLink('/autoit/yinhe.au3').'和'.GetFileLink('/debug/autoitscript/yinheaccounts.au3').'。'));
+/*    							'下载开源的'.GetExternalLink('https://tesseract-ocr.github.io/', 'Tesseract软件').'用来识别登录验证码。也可以在'.GetExternalLink('https://sourceforge.net/projects/tesseract-ocr-alt/files/', 'SourceForge').'下载一个镜像文件'.GetFileLink('/download/tesseract-ocr-setup-3.02.02.exe').'，然后一路回车缺省安装。',
     							'下载并安装开源的'.GetExternalLink('https://www.autoitscript.com/site/autoit/downloads/', 'AutoIt').'工具软件包。普通用户实际仅需用到x86版本的AutoIt3.exe文件。一定要小心软件来源，千万不要运行来历不明的.exe文件。',
     							'在本页面下载银河拖拉机自动化PC软件脚本的3个文件到同一个子目录下，分别是'.GetFileLink('/autoit/yinhe.au3').'、'.GetFileLink('/debug/autoitscript/yinheaccounts.au3').'和'.GetFileLink('/debug/autoitscript/Tesseract.au3').'。'));
+*/    							
     
    	$strNewLine = GetBreakElement();
    	$strYinheAu3 = GetInfoElement('yinhe.au3');
    	$strYinheAu3Now = GetInfoElement('yinhe0'.YINHE_AU3_VER.'.au3');
     $str = GetRemarkElement('软件更新：');
-    $str .= $strNewLine.$strYinheAu3.'文件是唯一会日常更新的，目前版本为'.GetBoldElement('V0.'.YINHE_AU3_VER).'。下载前注意清除浏览器的下载文件缓存，确保下载到正确的版本。由于更新时无法覆盖所有的测试，每次下载新版本前注意备份好上一个能用的版本。例如保存成：'.$strYinheAu3Now;
+    $str .= $strNewLine.'只有'.$strYinheAu3.'文件是会日常更新的，目前版本为'.GetBoldElement('V0.'.YINHE_AU3_VER).'。下载前注意清除浏览器的下载文件缓存，确保下载到正确的版本。由于更新时无法覆盖所有的测试，每次下载新版本前注意备份好上一个能用的版本。例如保存成：'.$strYinheAu3Now;
     EchoParagraph($str);
 
     $str = GetRemarkElement('软件开发：');
     $str .= $strNewLine.'本网站全部源代码都公开放在了全球最大同性交友网站'.GetExternalLink('https://github.com/palmmicro', 'GitHub');
-    $str .= '。想自己进一步修改软件的除了上面的3个.au3文件外，还可能需要去下载制作用户界面时用到的'.GetInfoElement('yinhe.kxf').'和'.GetInfoElement('yinheaccount.kxf').'两个文件。';
+    $str .= '。想自己进一步修改软件的除了上面的.au3文件外，还可能需要去下载制作用户界面时用到的'.GetInfoElement('yinhe.kxf').'和'.GetInfoElement('yinheaccount.kxf').'两个文件。';
     EchoParagraph($str);
     
     $str = GetRemarkElement('软件执行：');
@@ -58,6 +61,7 @@ function EchoAll()
     							GetFontElement('废弃电脑前，要记得清除全部客户号记录，避免泄露。')));
     $acct->EchoLinks();
     echo GetKnownBugs(array('在小屏幕笔记本上，显示设置的'.GetInfoElement('缩放与布局').'中，'.GetInfoElement('更改文本、应用等项目的大小').'的选项缺省不是100%。这时AutoIt自带的WinGetPos函数不会跟着调整倍数，导致找不到验证码位置。',
+    						 '从0.61版本开始，使用海王星3.07新增加的PIN码安全方式登录。如果被提示没有PIN码或者过期，需要手工在证书管理中使用默认PIN码申请一下。',
     						 '网速很重要！在目前代码中有大量模拟按键或者鼠标后等待一秒的被动行为，在网速慢的时候会因为等待时间不够长而出错。我就可能需要在运行代码前先手工把电脑上的网络从天威宽带切换到自己手机上的移动4G热点。',
     						 '在基金概要文件那部分，IE会弹出框让选择打开或者下载，需要手工点一下，要不到不了下一步。给IE安装adobe的阅读pdf插件后能解决这个问题。在电脑上安装一下Adobe官方的免费PDF阅读器软件也可以解决这个问题。',
     						 'WIN7系统下海王星不能正常退出。可以运行系统自带的注册表编辑器regedit.exe，依次定位到HKEY_CURRENT_USER\Software\Microsoft\Windows\WindowsError Reporting，在右侧窗口中找到并双击打开DontshowUI，然后在弹出的窗口中将默认值0修改为1。'));

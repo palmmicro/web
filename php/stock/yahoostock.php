@@ -150,10 +150,22 @@ function YahooUpdateNetValue($ref)
     if ($nav_sql->GetRecord($strStockId, $strDate))	return;	// already have today's data
 	
     $now_ymd = GetNowYMD();
-   	if (($now_ymd->GetYMD() == $strDate) && $now_ymd->GetHourMinute() < 1655)
+    $iHourMinute = $now_ymd->GetHourMinute();
+   	if ($now_ymd->GetYMD() == $strDate)
    	{
-// 		DebugString($strSymbol.': Market not closed');
-   		return;
+   		if ($iHourMinute < 1655)
+   		{
+//   			DebugString($strSymbol.': Market not closed');
+   			return;
+   		}
+    }
+    else
+    {
+   		if ($iHourMinute > 900)
+   		{
+   			DebugString($strSymbol.': a trading day has begun');
+   			return;
+   		}
     }
 
     _yahooStockGetData($strNetValueSymbol, $strStockId);    

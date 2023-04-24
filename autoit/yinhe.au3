@@ -32,8 +32,9 @@
 
 #include <Date.au3>
 
-#include <Tesseract.au3>
 #include <yinheaccounts.au3>
+#cs
+#include <Tesseract.au3>
 
 Func _getVerifyCode($iLeft, $iTop, $iRight, $iBottom)
 	$strCode = _TesseractScreenCapture(0, '', 1, 2, $iLeft, $iTop, $iRight, $iBottom)
@@ -45,6 +46,7 @@ Func _getVerifyCode($iLeft, $iTop, $iRight, $iBottom)
 	EndIf
 	Return $strCode
 EndFunc
+#ce
 
 Func _MsgDebug($str)
 	MsgBox($MB_ICONINFORMATION, '自动化操作暂停中', $str)
@@ -191,12 +193,17 @@ EndFunc
 
 Func _yinheLoginDlg($idDebug, $strTitle, $strAccount, $strPassword)
 	_CtlDebug($idDebug, '等待"' & $strTitle & '"成为活跃窗口')
-	$hWnd = WinWaitActive($strTitle, '验证码')
+;	$hWnd = WinWaitActive($strTitle, '验证码')
+	$hWnd = WinWaitActive($strTitle, '默认PIN码')
 
 	If StringLeft($strAccount, 1) == '0' Then $strAccount = StringTrimLeft($strAccount, 1)
 	_CtlSetText($hWnd, $idDebug, 'Edit1', $strAccount)
+	ControlClick($hWnd, '', 'Button11')	;默认PIN码
+	Sleep(1000)
+	ControlCommand($hWnd, '', 'ComboBox4', 'SetCurrentSelection', 0)
 	_CtlSendPassword($hWnd, $idDebug, 'AfxWnd421', $strPassword)
 
+#cs
 	$strControl = 'Edit2'
     $arWinPos = WinGetPos($hWnd)
 	$arPos = ControlGetPos($hWnd, '', $strControl)
@@ -233,6 +240,8 @@ Func _yinheLoginDlg($idDebug, $strTitle, $strAccount, $strPassword)
 			_CtlSendPassword($hWnd, $idDebug, 'AfxWnd421', $strPassword)
 		EndIf
 	Until ControlCommand($hWnd, '', 'ComboBox4', 'IsEnabled') == 0
+#ce
+	ControlClick($hWnd, '', 'Button1')	;确定
 
 	$strMainTitle = '通达信网上交易V6'
 	$iTimeOut = 1
@@ -820,7 +829,7 @@ Func YinheMain()
 	Local $arCheckboxAccount[$iMax]
 	$iMsg = 0
 
-	$idFormMain = GUICreate("银河海王星单独委托版全自动拖拉机V0.60", 803, 506, 289, 0)
+	$idFormMain = GUICreate("银河海王星单独委托版全自动拖拉机V0.61", 803, 506, 289, 0)
 
 	$idListViewAccount = GUICtrlCreateListView("客户号", 24, 24, 146, 454, BitOR($GUI_SS_DEFAULT_LISTVIEW,$WS_VSCROLL), BitOR($WS_EX_CLIENTEDGE,$LVS_EX_CHECKBOXES))
 	GUICtrlSendMsg(-1, $LVM_SETCOLUMNWIDTH, 0, 118)
