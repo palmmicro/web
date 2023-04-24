@@ -198,8 +198,7 @@ Func _yinheLoginDlg($idDebug, $strTitle, $strAccount, $strPassword)
 
 	If StringLeft($strAccount, 1) == '0' Then $strAccount = StringTrimLeft($strAccount, 1)
 	_CtlSetText($hWnd, $idDebug, 'Edit1', $strAccount)
-	ControlClick($hWnd, '', 'Button11')	;默认PIN码
-	Sleep(1000)
+	If ControlCommand($hWnd, '', 'Button11', 'IsChecked') == 0 Then _CtlClickButton($hWnd, $idDebug, 'Button11')	;默认PIN码
 	ControlCommand($hWnd, '', 'ComboBox4', 'SetCurrentSelection', 0)
 	_CtlSendPassword($hWnd, $idDebug, 'AfxWnd421', $strPassword)
 
