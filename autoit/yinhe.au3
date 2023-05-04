@@ -131,11 +131,16 @@ Func _CtlClickButton($hWnd, $idDebug, $strButton)
 	Sleep(1000)
 EndFunc
 
+Func _CtlCheckButton($hWnd, $idDebug, $strControlID)
+	If ControlCommand($hWnd, '', $strControlID, 'IsChecked') == 0 Then
+		ControlClick($hWnd, '', $strControlID)
+	EndIf
+EndFunc
+
 Func _yinheCloseMsgDlg($idDebug)
-	$strButton = '今日不再提示'
-	$hMsgWnd = WinGetHandle('消息标题', $strButton)
+	$hMsgWnd = WinGetHandle('消息标题', '今日不再提示')
 	If $hMsgWnd <> 0 Then
-		If ControlCommand($hMsgWnd, '', 'Button4', 'IsChecked') == 0 Then _CtlClickButton($hMsgWnd, $idDebug, $strButton)
+		_CtlCheckButton($hMsgWnd, $idDebug, 'Button4')
 		_CtlClickButton($hMsgWnd, $idDebug, '关闭')
 	EndIf
 EndFunc
@@ -198,7 +203,8 @@ Func _yinheLoginDlg($idDebug, $strTitle, $strAccount, $strPassword)
 
 	If StringLeft($strAccount, 1) == '0' Then $strAccount = StringTrimLeft($strAccount, 1)
 	_CtlSetText($hWnd, $idDebug, 'Edit1', $strAccount)
-	If ControlCommand($hWnd, '', 'Button11', 'IsChecked') == 0 Then _CtlClickButton($hWnd, $idDebug, 'Button11')	;默认PIN码
+	_CtlCheckButton($hWnd, $idDebug, 'Button6')		; 记住账号
+	_CtlCheckButton($hWnd, $idDebug, 'Button11')	; 默认PIN码
 	ControlCommand($hWnd, '', 'ComboBox4', 'SetCurrentSelection', 0)
 	_CtlSendPassword($hWnd, $idDebug, 'AfxWnd421', $strPassword)
 

@@ -45,7 +45,7 @@ and the days in past 100 trading days did the estimated SMA value fitted in the 
 <br />The official fund net value only need to update once a day too.
 Using file <?php EchoSinaDebugLink('f_162411'); ?> for official SZ162411 net value from <?php EchoSinaQuotesLink('f_162411'); ?>,
 as I do not konw when the data will be updated, I update it once an hour stupidly.
-<br />Using debug file <?php EchoFileLink(DebugGetFile()); ?> for temp data checking.
+<br />Using debug file <?php echo GetDebugFileLink(); ?> for temp data checking.
 </p>
 
 <h3><a name="mobiledetect">Mobile Detect</a></h3>

@@ -5,11 +5,6 @@ function EchoExternalLink($strHttp, $strDisplay = false)
     echo GetExternalLink($strHttp, $strDisplay);
 }
 
-function EchoInternalLink($strPath, $strDisplay = false)
-{
-	echo GetInternalLink($strPath, $strDisplay);
-}
-
 function EchoNameTag($strName, $strDisplay = false)
 {
 	echo GetNameTag($strName, $strDisplay);
@@ -25,15 +20,9 @@ function EchoSinaQuotesLink($strSinaSymbols)
 	echo GetSinaQuotesLink($strSinaSymbols);
 }
 
-function EchoFileLink($strPathName)
-{
-    $str = GetFileLink($strPathName);
-    echo $str;
-}
-
 function EchoSinaDebugLink($strSina)
 {
-	EchoFileLink(DebugGetSinaFileName($strSina));
+	echo GetFileLink(DebugGetSinaFileName($strSina));
 }
 
 function EchoMyStockLink($strSymbol, $strDisplay = false)

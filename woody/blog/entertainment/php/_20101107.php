@@ -5,7 +5,7 @@ function EchoUpdateGbUtfLink()
 {
    	if (DebugIsAdmin())
 	{
-		EchoInternalLink('/php/test/updategbutf.php', '更新UNICODE码表');
+		echo GetInternalLink('/php/test/updategbutf.php', '更新UNICODE码表');
 	}
 }
 

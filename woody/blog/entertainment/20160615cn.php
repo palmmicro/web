@@ -50,7 +50,7 @@
 <p>2016年6月16日
 <br />昨晚自动校准用的东方财富的数据, 但是今天估算的<a href="../../res/sz162411cn.php">华宝油气</a>净值跟官方数据还是有偏差. 继续向zzzzv请教, 发现昨天用的东方财富USDCNY数据跟新浪USDCNY数据一样也是交易数据,
 东方财富人民币美元中间价要用<a href="http://hq2gjqh.eastmoney.com/EM_Futures2010NumericApplication/Index.aspx?type=z&ids=uscny0" target=_blank>USCNY</a>.
-数据保存在<?php EchoFileLink('/debug/eastmoney/uscny.txt'); ?>.
+数据保存在uscny.txt.
 </p>
 
 <h3><a name="chinamoney">中国外汇交易中心的中间价接口</a></h3>

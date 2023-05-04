@@ -50,7 +50,7 @@
 <br />XOP历史数据每天只需要更新一次, 采用Yahoo股票历史数据: <?php EchoExternalLink(GetYahooStockHistoryUrl('XOP')); ?>,
 <br />同样每天只需要更新一次的还有华宝油气基金官方净值, 来自于<?php EchoSinaQuotesLink('f_162411'); ?>,
 使用文件<?php EchoSinaDebugLink('f_162411'); ?>缓存, 因为不知道什么时候更新当日数据, 只好采用一个小时更新一次的笨办法.
-<br />增加调试文件<?php EchoFileLink(DebugGetFile()); ?>用于临时查看数据.
+<br />增加调试文件<?php echo GetDebugFileLink(); ?>用于临时查看数据.
 </p>
 
 <h3><a name="mobiledetect">检测手机</a></h3>

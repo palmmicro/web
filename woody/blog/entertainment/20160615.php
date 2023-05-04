@@ -54,7 +54,7 @@ The data as following:
 <br />The auto calibration last night used data from East Money, but today's SZ162411 net value still has small difference compared with official data.
 Continue to get advise from <u>zzzzv</u>, I found that the USDCNY data from East Money is actually the same USDCNY data from Sian, they are both trading data.
 To get USDCNY reference rate from East Money, symbol <a href="http://hq2gjqh.eastmoney.com/EM_Futures2010NumericApplication/Index.aspx?type=z&ids=uscny0" target=_blank>USCNY</a> is needed. 
-Data saved in <?php EchoFileLink('/debug/eastmoney/uscny.txt'); ?>.
+Data saved in uscny.txt.
 </p>
 
 </div>

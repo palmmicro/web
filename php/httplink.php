@@ -57,6 +57,16 @@ function GetFileLink($strPathName)
     return GetExternalLink(UrlGetPathName($strPathName), basename($strPathName));
 }
 
+function GetDebugFileLink()
+{
+    return GetFileLink(DebugGetFile());
+}
+
+function GetWebFileLink($strPathName)
+{
+    return GetFileLink(UrlGetRootDir().$strPathName);
+}
+
 function GetFileDebugLink($strPathName)
 {
     clearstatcache(true, $strPathName);
