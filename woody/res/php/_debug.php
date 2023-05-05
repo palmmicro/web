@@ -55,11 +55,26 @@ function _echoStockDebug()
     _echoDebugParagraph($arIp, 'IP异常');
 }
 
+function _echoFileDebug()
+{
+	echo <<< END
+	<form action="uploadfile.php" method="post" enctype="multipart/form-data">
+        <div>
+		<label for="file">Filename:</label>
+		<input type="file" name="file" id="file" /> 
+		<br />
+		<input type="submit" name="submit" value="Submit" />
+        </div>
+	</form>
+END;
+}
+
 function EchoAll()
 {
 	global $acct;
     
 	_echoStockDebug();
+	_echoFileDebug();
     $acct->EchoLinks();
 }
 

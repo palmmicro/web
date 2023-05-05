@@ -395,7 +395,6 @@ class _SubmitOptionsAccount extends Account
 				switch ($strSymbol)
 				{
 				case 'KWEB':
-					//SaveKraneHoldingsCsvFile($strSymbol, $strDate);
 					ReadKraneHoldingsCsvFile($strSymbol, $strStockId, $strDate, $strVal);
 					_updateStockOptionCalibration('SZ164906', SqlGetStockId('SZ164906'), $strDate, $strVal);
 					break;

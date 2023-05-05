@@ -18,6 +18,7 @@ class _KraneHoldingsCsvFile extends _HoldingsCsvFile
     	if (count($arWord) != 7)	return;
     	
     	$strName = $arWord[1];
+//    	DebugString($strName);
     	if (($strName == 'HONG KONG DOLLAR') || ($strName == 'Cash'))	return;
     	
     	$strRatio = $arWord[2];
@@ -40,10 +41,10 @@ class _KraneHoldingsCsvFile extends _HoldingsCsvFile
 // https://kraneshares.com/csv/01_12_2022_kweb_holdings.csv
 function SaveKraneHoldingsCsvFile($strSymbol, $strDate)
 {
-/*	$arYMD = explode('-', $strDate);
-	$strUrl = GetKraneUrl().'csv/'.$arYMD[1].'_'.$arYMD[2].'_'.$arYMD[0].'_'.strtolower($strSymbol).'_holdings.csv';
-	return StockSaveHoldingsCsv($strSymbol, $strUrl);*/
-	return _getDebugCsvStr($strSymbol, 'holdings');
+	$arYMD = explode('-', $strDate);
+//	$strUrl = GetKraneUrl().'csv/'.$arYMD[1].'_'.$arYMD[2].'_'.$arYMD[0].'_'.strtolower($strSymbol).'_holdings.csv';
+//	return StockSaveHoldingsCsv($strSymbol, $strUrl);
+	return $arYMD[1].'_'.$arYMD[2].'_'.$arYMD[0].'_'.strtolower($strSymbol).'_holdings';
 }
 
 function CopyHoldings($date_sql, $strStockId, $strDstId)
@@ -81,6 +82,7 @@ function ReadKraneHoldingsCsvFile($strSymbol, $strStockId, $strDate, $strNav)
 {
 	if ($strDebug = SaveKraneHoldingsCsvFile($strSymbol, $strDate))
 	{
+//		DebugString($strDebug);
 		$csv = new _KraneHoldingsCsvFile($strDebug, $strStockId, $strDate);
 		$csv->Read();
 		$fMarketValue = $csv->GetSum();
