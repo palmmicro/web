@@ -25,6 +25,11 @@ function GetStockMenuArray()
                    'qdiihk' => QDII_HK_DISPLAY);
 }
 
+function GetStockCategoryLinks()
+{
+	return GetCategoryLinks(GetStockMenuArray());
+}
+
 function GetStockPhpLink($strPage, $strDisplay, $strQuery = false)
 {
     return GetPhpLink(STOCK_PATH.$strPage, $strQuery, $strDisplay);

@@ -101,11 +101,11 @@ function SzseGetLofShares($ref)
 	$strDate = $ref->GetDate();
 	$strStockId = $ref->GetStockId();
 	if ($sql->GetRecord($strStockId, $strDate))		return;				// Already has today's data
-	if ($ref->GetHourMinute() < 930)						return;				// Data not updated until 9:30
+	if ($ref->GetHourMinute() < 915)						return;				// Data not updated until 9:15
 	
     date_default_timezone_set(STOCK_TIME_ZONE_CN);
 	$strFileName = DebugGetSymbolFile('szse', $ref->GetSymbol());
-	if (StockNeedFile($strFileName, 10 * SECONDS_IN_MIN) == false)	return;	// updates on every 10 minutes
+	if (StockNeedFile($strFileName, 2 * SECONDS_IN_MIN) == false)	return;	// updates on every 2 minutes
 
 	$strUrl = GetSzseUrl().'api/report/ShowReport/data?SHOWTYPE=JSON&CATALOGID=1945_LOF&txtQueryKeyAndJC='.$ref->GetDigitA();
    	if ($str = url_get_contents($strUrl))

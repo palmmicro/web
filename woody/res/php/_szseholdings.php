@@ -5,9 +5,9 @@ class _SzseHoldingsFile extends _EtfHoldingsFile
 {
 	var $bUse;
 	
-    function _SzseHoldingsFile($strDebug, $strStockId) 
+    function _SzseHoldingsFile($strFileName, $strStockId) 
     {
-        parent::_EtfHoldingsFile($strDebug, $strStockId);
+        parent::_EtfHoldingsFile($strFileName, $strStockId);
         $this->SetSeparator('?');
 
         $this->bUse = false;
@@ -79,17 +79,16 @@ class _SzseHoldingsFile extends _EtfHoldingsFile
     }
 }
 
-// http://www.szse.cn/modules/report/views/eft_download_new.html?path=%2Ffiles%2Ftext%2FETFDown%2F&filename=pcf_159605_20220311%3B159605ETF20220311&opencode=ETF15960520220311.txt
 // http://reportdocs.static.szse.cn/files/text/etf/ETF15960520220315.txt?random=0.12210692394619271
 function ReadSzseHoldingsFile($strSymbol, $strStockId, $strDate)
 {
     $strDigit = substr($strSymbol, 2);
     $strDate = str_replace('-', '', $strDate);
-//	$strUrl = GetSzseUrl().'modules/report/views/eft_download_new.html?path=%2Ffiles%2Ftext%2FETFDown%2F&filename=pcf_'.$strDigit.'_'.$strDate.'%3B'.$strDigit.'ETF'.$strDate.'&opencode=ETF'.$strDigit.$strDate.'.txt';
-	$strUrl = 'http://reportdocs.static.szse.cn/files/text/etf/ETF'.$strDigit.$strDate.'.txt?random='.strval(1.0 * rand() / getrandmax());
-	if ($strDebug = StockSaveHoldingsCsv($strSymbol, $strUrl))
+    $strFileName = 'ETF'.$strDigit.$strDate.'.txt';
+	$strUrl = 'http://reportdocs.static.szse.cn/files/text/etf/'.$strFileName.'?random='.strval(1.0 * rand() / getrandmax());
+	if (StockSaveDebugCsv($strFileName, $strUrl))
 	{
-		$csv = new _SzseHoldingsFile($strDebug, $strStockId);
+		$csv = new _SzseHoldingsFile($strFileName, $strStockId);
 		$csv->Read();
 		$csv->Done();
 	}

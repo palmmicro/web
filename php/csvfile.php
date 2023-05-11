@@ -2,15 +2,15 @@
 
 class CsvFile
 {
-    var $strFileName;
+    var $strPathName;
     var $file;
     
     var $strSeparator;
     var $strReport;
     
-    function CsvFile($strFileName) 
+    function CsvFile($strPathName) 
     {
-        $this->strFileName = $strFileName;
+        $this->strPathName = $strPathName;
         $this->file = false;
         
         $this->strSeparator = ',';
@@ -21,27 +21,27 @@ class CsvFile
         $this->strSeparator = $strSeparator;
     }
     
-    function GetName()
+    function GetPathName()
     {
-    	return $this->strFileName;
+    	return $this->strPathName;
     }
     
     function GetLink()
     {
-    	return GetFileLink($this->strFileName);
+    	return GetFileLink($this->strPathName);
     }
     
     function HasFile()
     {
     	clearstatcache();
-    	return file_exists($this->strFileName);
+    	return file_exists($this->strPathName);
     }
     
     function _open($strMode)
     {
     	if ($this->file == false)
     	{
-    		$this->file = fopen($this->strFileName, $strMode);
+    		$this->file = fopen($this->strPathName, $strMode);
     	}
     }
     
@@ -106,10 +106,10 @@ class CsvFile
 
 class DebugCsvFile extends CsvFile
 {
-    function DebugCsvFile($strDebug) 
+    function DebugCsvFile($strFileName) 
     {
     	$strPath = DebugGetPath('csv');				// test.php calls DebugClearPath('csv') to delete all DebugCsvFile
-        parent::CsvFile("$strPath/$strDebug.csv");
+        parent::CsvFile("$strPath/$strFileName");
     }
 }
 
@@ -120,7 +120,7 @@ class PageCsvFile extends DebugCsvFile
 	
     function PageCsvFile() 
     {
-        parent::DebugCsvFile(UrlGetUniqueString());
+        parent::DebugCsvFile(UrlGetUniqueString().'.csv');
     }
 
     public function OnLineArray($arWord)

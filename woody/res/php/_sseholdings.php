@@ -3,9 +3,9 @@ require_once('_etfholdings.php');
 
 class _SseHoldingsFile extends _EtfHoldingsFile
 {
-    function _SseHoldingsFile($strDebug, $strStockId) 
+    function _SseHoldingsFile($strFileName, $strStockId) 
     {
-        parent::_EtfHoldingsFile($strDebug, $strStockId);
+        parent::_EtfHoldingsFile($strFileName, $strStockId);
         $this->SetSeparator('|');
     }
     
@@ -62,10 +62,11 @@ function ReadSseHoldingsFile($strSymbol, $strStockId)
 
 	}
 	$strUrl = 'http://query.sse.com.cn/etfDownload/downloadETF2Bulletin.do?etfType='.$strEtfType;
+	$strFileName = $strSymbol.'.txt';
 	
-	if ($strDebug = StockSaveHoldingsCsv($strSymbol, $strUrl))
+	if (StockSaveDebugCsv($strFileName, $strUrl))
 	{
-		$csv = new _SseHoldingsFile($strDebug, $strStockId);
+		$csv = new _SseHoldingsFile($strFileName, $strStockId);
 		$csv->Read();
 		$csv->Done();
 	}

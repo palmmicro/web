@@ -5,9 +5,9 @@ class _KraneHoldingsCsvFile extends _HoldingsCsvFile
 {
 	var $bUse;
 	
-    function _KraneHoldingsCsvFile($strDebug, $strStockId, $strDate) 
+    function _KraneHoldingsCsvFile($strFileName, $strStockId, $strDate) 
     {
-        parent::_HoldingsCsvFile($strDebug, $strStockId);
+        parent::_HoldingsCsvFile($strFileName, $strStockId);
         $this->SetDate($strDate);
         
         $this->bUse = false;
@@ -35,16 +35,6 @@ class _KraneHoldingsCsvFile extends _HoldingsCsvFile
     		if ($this->InsertHolding($strHolding, $strName, $strRatio))		$this->AddSum(floatval(str_replace(',', '', $arWord[6])));
     	}
     }
-}
-
-// https://kraneshares.com/csv/06_22_2021_kweb_holdings.csv
-// https://kraneshares.com/csv/01_12_2022_kweb_holdings.csv
-function SaveKraneHoldingsCsvFile($strSymbol, $strDate)
-{
-	$arYMD = explode('-', $strDate);
-//	$strUrl = GetKraneUrl().'csv/'.$arYMD[1].'_'.$arYMD[2].'_'.$arYMD[0].'_'.strtolower($strSymbol).'_holdings.csv';
-//	return StockSaveHoldingsCsv($strSymbol, $strUrl);
-	return $arYMD[1].'_'.$arYMD[2].'_'.$arYMD[0].'_'.strtolower($strSymbol).'_holdings';
 }
 
 function CopyHoldings($date_sql, $strStockId, $strDstId)
@@ -78,12 +68,22 @@ function CopyHoldings($date_sql, $strStockId, $strDstId)
     $holdings_sql->InsertHoldingsArray($strDstId, $ar);
 }
 
+// https://kraneshares.com/csv/01_12_2022_kweb_holdings.csv
 function ReadKraneHoldingsCsvFile($strSymbol, $strStockId, $strDate, $strNav)
 {
-	if ($strDebug = SaveKraneHoldingsCsvFile($strSymbol, $strDate))
+	$arYMD = explode('-', $strDate);
+	$strFileName = $arYMD[1].'_'.$arYMD[2].'_'.$arYMD[0].'_'.strtolower($strSymbol).'_holdings.csv';
+	$strUrl = GetKraneUrl().'csv/'.$strFileName;
+	$strHeaders = array('User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36',
+//							'x-test: true',
+//							'x-test2: true',
+//							'stream: True'
+							);
+	
+	if (StockSaveDebugCsv($strFileName, $strUrl, $strHeaders))
+//	if (StockSaveDebugCsv($strFileName, $strUrl))
 	{
-//		DebugString($strDebug);
-		$csv = new _KraneHoldingsCsvFile($strDebug, $strStockId, $strDate);
+		$csv = new _KraneHoldingsCsvFile($strFileName, $strStockId, $strDate);
 		$csv->Read();
 		$fMarketValue = $csv->GetSum();
 		DebugVal($fMarketValue, 'ReadKraneHoldingsCsvFile');

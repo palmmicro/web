@@ -78,7 +78,7 @@ class  INIFile {
 		{
 //			$split_data = split('=', $data);
 			$split_data = explode('=', $data);
-			$this->GROUPS[$this->CURRENT_GROUP][$split_data[0]]=$split_data[1];
+			if (count($split_data) >= 2)	$this->GROUPS[$this->CURRENT_GROUP][$split_data[0]]=$split_data[1];
 		}
 	}
 
@@ -132,9 +132,10 @@ class  INIFile {
 	//checks if a group exists
 	function group_exists($group_name)
 	{
-		$group = $this->GROUPS[$group_name];
+		return isset($this->GROUPS[$group_name]);
+/*		$group = $this->GROUPS[$group_name];
 		if (empty($group)) return false;
-		else return true;
+		else return true;*/
 	}
 
 	//returns an associative array of the variables in one group	
@@ -153,12 +154,20 @@ class  INIFile {
 	//adds a new group
 	function add_group($group_name)
 	{
-		$new_group = $this->GROUPS[$group_name];
+		if (isset($this->GROUPS[$group_name]))
+		{
+			$this->Error("Group $group_name exists");
+		}
+		else
+		{
+			$this->GROUPS[$group_name] = array();
+		}
+/*		$new_group = $this->GROUPS[$group_name];
 		if(empty($new_group))
 		{
 			$this->GROUPS[$group_name] = array();
 		}
-		else $this->Error("Group $group_name exists");
+		else $this->Error("Group $group_name exists");*/
 	}
 
 

@@ -14,9 +14,9 @@ class _YahooHistoryCsvFile extends DebugCsvFile
 	
 	var $strLastDate;
 	
-    function _YahooHistoryCsvFile($strDebug, $strStockId) 
+    function _YahooHistoryCsvFile($strFileName, $strStockId) 
     {
-        parent::DebugCsvFile($strDebug);
+        parent::DebugCsvFile($strFileName);
         
         $this->strStockId = $strStockId;
         $this->his_sql = GetStockHistorySql();
@@ -74,9 +74,6 @@ class _YahooHistoryCsvFile extends DebugCsvFile
 // https://query1.finance.yahoo.com/v7/finance/download/XOP?period1=1611853537&period2=1643389537&interval=1d&events=history&includeAdjustedClose=true
 function YahooUpdateStockHistory($ref)
 {
-	$strSymbol = $ref->GetSymbol();
-	$strStockId = $ref->GetStockId();
-	
     $ref->SetTimeZone();
     $iEnd = GetNowTick(); 
 	$strBegin = strval($iEnd - MAX_QUOTES_DAYS * SECONDS_IN_DAY);
@@ -84,10 +81,12 @@ function YahooUpdateStockHistory($ref)
 	$strEnd = strval($iEnd);
 	$strYahooSymbol = $ref->GetYahooSymbol();
 	$strUrl = GetYahooQuotesUrl()."/download/$strYahooSymbol?period1=$strBegin&period2=$strEnd&interval=1d&events=history&includeAdjustedClose=true";
-	
-	if ($strDebug = StockSaveHistoryCsv($strSymbol, $strUrl))
+
+	$strSymbol = $ref->GetSymbol();
+	$strFileName = 'yahoohistory'.$strSymbol.'.csv';
+	if (StockSaveDebugCsv($strFileName, $strUrl))
 	{
-		$csv = new _YahooHistoryCsvFile($strDebug, $strStockId);
+		$csv = new _YahooHistoryCsvFile($strFileName, $ref->GetStockId());
 		$csv->Read();
 
 		DebugVal($csv->iTotal, 'Total');

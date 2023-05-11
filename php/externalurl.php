@@ -10,9 +10,11 @@ function GetYahooStockHistoryUrl($strYahooSymbol)
 	return GetYahooStockUrl($strYahooSymbol).'/history';
 }
 
-function GetYahooQuotesUrl()
+// https://query1.finance.yahoo.com/v7/finance/download/000300.ss?period1=1630006346&period2=1683574346&interval=1d&events=history&includeAdjustedClose=true
+// https://query1.finance.yahoo.com/v6/finance/quote?symbols=^ASHR-IV
+function GetYahooQuotesUrl($iVer = 7)
 {
-	return 'https://query1.finance.yahoo.com/v7/finance';
+	return 'https://query1.finance.yahoo.com/v'.strval($iVer).'/finance';
 }
 
 function GetSinaQuotesUrl($strSinaSymbols)

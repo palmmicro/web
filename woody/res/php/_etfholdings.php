@@ -6,9 +6,9 @@ class _EtfHoldingsFile extends _HoldingsCsvFile
 {
     var $fCash;
 	
-    function _EtfHoldingsFile($strDebug, $strStockId) 
+    function _EtfHoldingsFile($strFileName, $strStockId) 
     {
-        parent::_HoldingsCsvFile($strDebug, $strStockId);
+        parent::_HoldingsCsvFile($strFileName, $strStockId);
 
         $this->fCash = 0.0;
     }

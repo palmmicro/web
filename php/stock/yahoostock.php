@@ -73,25 +73,45 @@ function _yahooStockGetData($strSymbol, $strStockId)
    		if ($now_ymd->NeedFile($strFileName, SECONDS_IN_MIN) == false)		return false;
    	}
    	
-	$strUrl = GetYahooQuotesUrl().'/quote?symbols='.$strSymbol;
+	$strUrl = GetYahooQuotesUrl(6).'/quote?symbols='.$strSymbol;
    	if ($str = url_get_contents($strUrl))
    	{
-   		DebugString($strFileName.': Save new file');
+   		DebugString($strUrl.' save new file to '.$strFileName);
    		file_put_contents($strFileName, $str);
    		$ar = json_decode($str, true);
 //   		DebugPrint($ar);
-   		$arData = $ar['quoteResponse']['result'][0];
-		$ymd = new TickYMD($arData['regularMarketTime']);
-		$strDate = $now_ymd->GetYMD();
-		if ($ymd->GetYMD() == $strDate)
+		if (!isset($ar['quoteResponse']))			
 		{
-			$strNav = $arData['regularMarketPrice'];
-			$nav_sql = GetNavHistorySql();
-			if ($nav_sql->WriteDaily($strStockId, $strDate, $strNav))
-			{
-				DebugString('Update NAV for '.$arData['symbol'].' '.$strDate.' '.$strNav);
-				return array($strNav, $strDate);
-			}
+			DebugString('no quoteResponse');
+			return false;
+		}
+		$arQuoteResponse = $ar['quoteResponse'];
+		if (!isset($arQuoteResponse['result']))
+		{
+			DebugString('no quoteResponse result');
+			return false;
+		}
+		
+   		$arData = $arQuoteResponse['result'][0];
+		if (!isset($arData['regularMarketTime']))
+		{
+			DebugString('no quoteResponse result 0 regularMarketTime');
+			return false;
+		}
+		
+		$ymd = new TickYMD($arData['regularMarketTime']);
+		$strDate = $ymd->GetYMD();
+		if (!isset($arData['regularMarketPrice']))
+		{
+			DebugString('no quoteResponse result 0 regularMarketPrice');
+			return false;
+		}
+		$strNav = $arData['regularMarketPrice'];
+		$nav_sql = GetNavHistorySql();
+		if ($nav_sql->WriteDaily($strStockId, $strDate, $strNav))
+		{
+			DebugString('Update NAV for '.$arData['symbol'].' '.$strDate.' '.$strNav);
+			return array($strNav, $strDate);
 		}
    	}
     return false;
@@ -159,7 +179,7 @@ function YahooUpdateNetValue($ref)
    			return;
    		}
     }
-    else
+/*    else
     {
    		if ($iHourMinute > 900)
    		{
@@ -167,7 +187,7 @@ function YahooUpdateNetValue($ref)
    			return;
    		}
     }
-
+*/
     _yahooStockGetData($strNetValueSymbol, $strStockId);    
 }
 

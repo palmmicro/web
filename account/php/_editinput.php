@@ -454,7 +454,11 @@ function EchoAll($bChinese = true)
     EchoEditInputForm(GetAccountToolStr($strPage, $bChinese), $strInput, $bChinese);
     _echoInputResult($acct, $strPage, $strInput, $bChinese);
     _echoInputRelated($strPage, $bChinese);
-    EchoParagraph(GetDevGuideLink($strPage, '20100905', $bChinese).'<br />'.GetCategoryLinks(GetAccountToolArray($bChinese), ACCT_PATH, $bChinese));
+
+	$str = GetDevGuideLink($strPage, '20100905', $bChinese);
+	$str .= '<br />'.GetCategoryLinks(GetAccountToolArray($bChinese), ACCT_PATH, $bChinese);
+	if ($bChinese)	$str .= '<br />'.GetStockCategoryLinks();
+    EchoParagraph($str);
 }
 
 function _getAccountToolTitle($strPage, $strQuery, $bChinese)

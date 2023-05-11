@@ -176,7 +176,7 @@ function _echoMyStockData($ref, $bAdmin)
    					if ($fund)		$str .= $fund->DebugLink();
    				}
    			}
-   			$str .= '<br />'.$ref->DebugConfigLink().'<br />'.GetHoldingsCsvLink($strSymbol);
+   			$str .= '<br />'.$ref->DebugConfigLink();
     	}
     	EchoParagraph($str);
     }
