@@ -3,7 +3,6 @@ require_once('_account.php');
 require_once('../php/externalurl.php');
 require_once('../php/gb2312.php');
 require_once('../php/iplookup.php');
-require_once('../php/stocklink.php');
 require_once('../php/benfordimagefile.php');
 require_once('../php/linearimagefile.php');
 require_once('../php/tutorial/dice.php');
@@ -418,7 +417,8 @@ function _getDefaultInput($strPage)
     	break;
     		
    	case 'sinajs':
-    	$str = 'sz164906,f_164906,gb_kweb,rt_hkHSIII';
+//    	$str = 'sz164906,f_164906,gb_kweb,rt_hkHSIII';
+    	$str = 'f_164906,rt_hkHSIII';
    		break;
    		
     default:

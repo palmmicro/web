@@ -42,7 +42,7 @@ function UrlGetIp()
 	return false;
 }
 
-function url_get_contents($strUrl, $strHeaders = false, $strReferer = false, $strFileName = false)
+function url_get_contents($strUrl, $arExtraHeaders = false, $strReferer = false, $strFileName = false)
 {
 	global $acct;
 	if (method_exists($acct, 'AllowCurl'))
@@ -53,7 +53,20 @@ function url_get_contents($strUrl, $strHeaders = false, $strReferer = false, $st
     $ch = curl_init();  
     $timeout = 2;  
     curl_setopt($ch, CURLOPT_URL, $strUrl);
-    if ($strHeaders)	curl_setopt($ch, CURLOPT_HTTPHEADER, $strHeaders);
+    
+	$arHeaders = array('User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36',
+//							'x-test: true',
+//							'x-test2: true',
+//							'stream: True'
+							);
+    
+    if ($arExtraHeaders)	
+    {
+    	$arHeaders = array_merge($arHeaders, $arExtraHeaders);
+    	DebugPrint($arHeaders);
+    }
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $arHeaders);
+    
     if ($strReferer)	curl_setopt($ch, CURLOPT_REFERER, $strReferer);
 //	if ($strCookie)	curl_setopt($ch, CURLOPT_COOKIE, $strCookie);
 

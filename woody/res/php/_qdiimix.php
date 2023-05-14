@@ -12,6 +12,9 @@ require_once('../../php/ui/fundhistoryparagraph.php');
 require_once('../../php/ui/fundshareparagraph.php');
 require_once('../../php/ui/fundestparagraph.php');
 
+// SH501225 全球芯片LOF
+// SH501312 海外科技LOF
+
 class _QdiiMixAccount extends GroupAccount
 {
     var $us_ref;

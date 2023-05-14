@@ -190,12 +190,15 @@ function GetMyStockLinks($ref)
 		if ($strDigitA = $ref->IsFundA())
 		{
 			$strName = SymGetStockName($ref);
-			if (stripos($strName, '招商') !== false)			$str .= GetCmfSoftwareLinks($strDigitA);
+			if (stripos($strName, '博时') !== false)		$str .= GetBoShiSoftwareLinks($strDigitA);
+			else if (stripos($strName, '招商') !== false)		$str .= GetCmfSoftwareLinks($strDigitA);
 			else if (stripos($strName, '广发') !== false)		$str .= GetGuangFaSoftwareLinks($strDigitA);
 			else if (stripos($strName, '华安') !== false)		$str .= GetHuaAnSoftwareLinks($strDigitA);
 			else if (stripos($strName, '华宝') !== false)		$str .= GetHuaBaoSoftwareLinks($strDigitA);
 			else if (stripos($strName, '华泰') !== false)		$str .= GetHuaTaiSoftwareLinks($strDigitA);
 			else if (stripos($strName, '华夏') !== false)		$str .= GetHuaXiaSoftwareLinks($strDigitA);
+			else if (stripos($strName, '南方') !== false)		$str .= GetNanFangSoftwareLinks($strDigitA);
+			else if (stripos($strName, '添富') !== false)		$str .= GetUniversalSoftwareLinks($strDigitA);
 		}
 	}
 	return $str;

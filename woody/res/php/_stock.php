@@ -84,13 +84,13 @@ function _EchoMoneyGroupData($acct, $group, $strUSDCNY, $strHKDCNY)
 }
 
 // ****************************** Misc *******************************************************
-function StockSaveDebugCsv($strFileName, $strUrl, $strHeaders = false)
+function StockSaveDebugCsv($strFileName, $strUrl, $arExtraHeaders = false)
 {
    	$csv = new DebugCsvFile($strFileName);
    	$strPathName = $csv->GetPathName();
 	if (StockNeedFile($strPathName, 5 * SECONDS_IN_MIN) == false)	return false; 	// updates on every 5 minutes
 	
-	if ($str = url_get_contents($strUrl, $strHeaders))
+	if ($str = url_get_contents($strUrl, $arExtraHeaders))
 	{
 		file_put_contents($strPathName, $str);
 		DebugString('Saved '.$strUrl.' to '.$strFileName);

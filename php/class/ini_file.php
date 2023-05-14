@@ -176,7 +176,8 @@ class  INIFile {
 	//reads a single variable from a group
 	function read_var($group, $var_name)
 	{
-		$var_value = $this->GROUPS[$group][$var_name];
+		$var_value = false;
+		if (isset($this->GROUPS[$group][$var_name]))	$var_value = $this->GROUPS[$group][$var_name];
 //		if(!empty($var_value))
 /*		if ($var_value == false)
 		{

@@ -171,7 +171,7 @@ function GetChinaInternetSoftwareLinks()
 
 function GetBoShiSoftwareLinks($strDigitA)
 {
-    $ar = array('SH513360', 'SH513500', 'SZ159742', 'SZ159937');
+    $ar = array('SH513360', 'SH513500', 'SH513390', 'SZ159742', 'SZ159937');
 	$strUrl = 'http://www.bosera.com';
     return ' '.GetOfficialLink($strUrl.'/fund/'.$strDigitA.'.html', $strDigitA).GetCategorySoftwareLinks($ar, GetExternalLink($strUrl, '博时基金'));
 }
@@ -179,7 +179,7 @@ function GetBoShiSoftwareLinks($strDigitA)
 // http://www.cmfchina.com/main/513220/fundinfo.shtml
 function GetCmfSoftwareLinks($strDigitA)
 {
-    $ar = array('SH513220');
+    $ar = array('SH513220', 'SZ159659');
 	$strUrl = 'http://www.cmfchina.com';
     return ' '.GetOfficialLink($strUrl.'/main/'.$strDigitA.'/fundinfo.shtml', $strDigitA).GetCategorySoftwareLinks($ar, GetExternalLink($strUrl, '招商基金'));
 }
@@ -279,7 +279,7 @@ function GetJiaShiSoftwareLinks($strDigitA)
 
 function GetNanFangSoftwareLinks($strDigitA)
 {
-    $ar = array('SH501018', 'SH501302', 'SH513600', 'SZ159954', 'SZ160140');
+    $ar = array('SH501018', 'SH501302', 'SH513600', 'SH513650', 'SZ159954', 'SZ160140');
 	$strUrl = 'http://www.nffund.com';
     return ' '.GetOfficialLink($strUrl.'/main/jjcp/fundproduct/'.$strDigitA.'.shtml', $strDigitA).GetCategorySoftwareLinks($ar, GetExternalLink($strUrl, '南方基金'));
 }
@@ -318,7 +318,7 @@ function GetUbsSdicSoftwareLinks($strDigitA)
 // http://www.99fund.com/main/products/pofund/164705/fundgk.shtml
 function GetUniversalSoftwareLinks($strDigitA)
 {
-    $ar = array('SH501043', 'SH513260', 'SH513290', 'SZ164701', 'SZ164705');
+    $ar = array('SH501043', 'SH513260', 'SH513290', 'SZ159660', 'SZ164701', 'SZ164705');
 	$strUrl = 'http://www.99fund.com';
     return ' '.GetOfficialLink($strUrl.'/main/products/pofund/'.$strDigitA.'/fundgk.shtml', $strDigitA).GetCategorySoftwareLinks($ar, GetExternalLink($strUrl, '汇添富基金'));
 }

@@ -102,7 +102,7 @@ function in_arrayCommodityQdii($strSymbol)
 
 function QdiiGetQqqSymbolArray()
 {
-    return array('SH513100', 'SH513110', 'SH513300', 'SZ159632', 'SZ159941', 'SZ161130'); 
+    return array('SH513100', 'SH513110', 'SH513300', 'SH513390', 'SZ159632', 'SZ159659', 'SZ159660', 'SZ159941', 'SZ161130'); 
 }
 
 function in_arrayQqqQdii($strSymbol)
@@ -112,7 +112,7 @@ function in_arrayQqqQdii($strSymbol)
 
 function QdiiGetSpySymbolArray()
 {
-    return array('SH513500', 'SZ159612', 'SZ159655', 'SZ161125'); 
+    return array('SH513500', 'SH513650', 'SZ159612', 'SZ159655', 'SZ161125'); 
 }
 
 function in_arraySpyQdii($strSymbol)

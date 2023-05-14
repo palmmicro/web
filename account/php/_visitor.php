@@ -106,6 +106,7 @@ function EchoAll($bChinese = true)
     EchoParagraph($str);
     
     _echoBlogVisitorParagraph($strIp, $strId, $visitor_sql, $acct->GetPageSql(), $acct->GetStart(), $acct->GetNum(), $acct->IsAdmin(), $bChinese);
+	if ($bChinese)	EchoParagraph(GetStockCategoryLinks());
 }
 
 function GetMetaDescription($bChinese = true)

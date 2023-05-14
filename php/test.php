@@ -232,5 +232,5 @@ function SqlCleanStockTransaction()
 //	TestModifyTransactions('1831', 'CHU', '00762', 10);
 //	TestModifyTransactions('160', 'SNP', '00386', 100);
 
-//	phpinfo();
+	phpinfo();
 ?>

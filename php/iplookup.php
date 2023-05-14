@@ -1,4 +1,5 @@
 <?php
+require_once('stocklink.php');
 require_once('sql/sqlipaddress.php');
 require_once('ui/commentparagraph.php');
 

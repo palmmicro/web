@@ -1,7 +1,6 @@
 <?php
 require_once('../../php/layout.php');
 require_once('../../php/visitorlogin.php');
-require_once('../../php/stocklink.php');
 require_once('../php/_woodymenu.php');
 
 function _menuStockSoftware($bChinese)
