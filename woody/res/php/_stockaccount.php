@@ -121,7 +121,7 @@ class StockAccount extends TitleAccount
     	$strNewLine = GetBreakElement();
     	
     	EchoHeadLine('相关链接');
-    	$str = GetStockCategoryLinks().' '.GetAutoTractorLink().' '.GetSinaJsLink().' '.GetDevGuideLink($strVer).$strNewLine;
+    	$str = GetStockCategoryLinks().' '.GetAutoTractorLink().' '.GetSimpleTestLink().' '.GetDevGuideLink($strVer).$strNewLine;
 		if ($strLoginId = $this->GetLoginId())
     	{
     		$str .= GetMyPortfolioLink().$this->_getPersonalLinks($strLoginId);

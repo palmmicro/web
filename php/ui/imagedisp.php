@@ -33,6 +33,11 @@ function ImgCramersRule()
 	return GetWoodyImgQuote('20190815.jpg', '用Cramer法则计算步骤');
 }
 
+function ImgEasyThing()
+{
+   	return GetWoodyImgQuote('easything.jpeg', '成年人的生活中没有容易二字');
+}
+
 function ImgGreatDynasty()
 {
 	return GetWoodyImgQuote('daqingwangle.jpg', '拉倒吧，联的大清都亡了！');

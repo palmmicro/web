@@ -30,7 +30,7 @@ define('ACCOUNT_TOOL_CHI', 'Pearson\'s Chi-squared Test');
 define('ACCOUNT_TOOL_CRAMER', 'Cramer\'s Rule');
 define('ACCOUNT_TOOL_DICE', 'Dice Captcha');
 define('ACCOUNT_TOOL_PHRASE', 'Common Phrase');
-define('ACCOUNT_TOOL_EDIT', 'Temporary Test');
+define('ACCOUNT_TOOL_EDIT', 'Simple Test');
 define('ACCOUNT_TOOL_IP', 'IP Address Data');
 define('ACCOUNT_TOOL_LINEAR', 'Linear Regression');
 define('ACCOUNT_TOOL_PRIME', 'Prime Number');
@@ -41,7 +41,7 @@ define('ACCOUNT_TOOL_CHI_CN', 'Pearson卡方检验');
 define('ACCOUNT_TOOL_CRAMER_CN', '解二元一次方程组');
 define('ACCOUNT_TOOL_DICE_CN', '骰子验证码');
 define('ACCOUNT_TOOL_PHRASE_CN', '个人常用短语');
-define('ACCOUNT_TOOL_EDIT_CN', '临时测试');
+define('ACCOUNT_TOOL_EDIT_CN', '简单测试');
 define('ACCOUNT_TOOL_IP_CN', 'IP地址数据');
 define('ACCOUNT_TOOL_LINEAR_CN', '线性回归');
 define('ACCOUNT_TOOL_PRIME_CN', '分解质因数');
@@ -56,7 +56,7 @@ function GetAccountToolArray($bChinese)
                       'commonphrase' => ACCOUNT_TOOL_PHRASE_CN,
                       'cramersrule' => ACCOUNT_TOOL_CRAMER_CN,
                       'dicecaptcha' => ACCOUNT_TOOL_DICE_CN,
-					  'editinput' => ACCOUNT_TOOL_EDIT_CN,
+					  'simpletest' => ACCOUNT_TOOL_EDIT_CN,
                       'ip' => ACCOUNT_TOOL_IP_CN,
                       'linearregression' => ACCOUNT_TOOL_LINEAR_CN,
                       'primenumber' => ACCOUNT_TOOL_PRIME_CN,
@@ -70,7 +70,7 @@ function GetAccountToolArray($bChinese)
                       'commonphrase' => ACCOUNT_TOOL_PHRASE,
                       'cramersrule' => ACCOUNT_TOOL_CRAMER,
                       'dicecaptcha' => ACCOUNT_TOOL_DICE,
-					  'editinput' => ACCOUNT_TOOL_EDIT,
+					  'simpletest' => ACCOUNT_TOOL_EDIT,
 					  'ip' => ACCOUNT_TOOL_IP,
                       'linearregression' => ACCOUNT_TOOL_LINEAR,
                       'primenumber' => ACCOUNT_TOOL_PRIME,
@@ -131,9 +131,9 @@ function GetDiceCaptchaLink($bChinese = true)
     return _getAccountToolLink('dicecaptcha', $bChinese);
 }
 
-function GetEditInputLink($bChinese = true)
+function GetSimpleTestLink($bChinese = true)
 {
-    return _getAccountToolLink('editinput', $bChinese);
+    return _getAccountToolLink('simpletest', $bChinese);
 }
 
 function GetPrimeNumberLink($bChinese = true)

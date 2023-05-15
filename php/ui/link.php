@@ -60,11 +60,6 @@ function EchoDiceCaptchaLink($bChinese = true)
 	echo GetDiceCaptchaLink($bChinese);
 }
 
-function EchoEditInputLink($bChinese = true)
-{
-	echo GetEditInputLink($bChinese);
-}
-
 function EchoPrimeNumberLink($bChinese = true)
 {
 	echo GetPrimeNumberLink($bChinese);

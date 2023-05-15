@@ -105,13 +105,13 @@ function _getDiceCaptchaString($strInput, $bChinese)
 	return ($bChinese ? '数据格式不对' : 'Wrong data format');
 }
 
-function _getEditInputString($strInput, $bChinese)
+function _getSimpleTestString($strInput, $bChinese)
 {
 	if (substr($strInput, 0, 4) == 'http')
 	{
     	if ($str = url_get_contents($strInput))
     	{
-    		$strFileName = DebugGetPathName('editinput.txt');
+    		$strFileName = DebugGetPathName('simpletest.txt');
     		file_put_contents($strFileName, $str);
     		DebugString('Saved '.$strInput.' to '.$strFileName);
     		$str = GetFileDebugLink($strFileName);
@@ -123,6 +123,7 @@ function _getEditInputString($strInput, $bChinese)
     	$str = is_numeric($strInput) ? DebugGetDateTime($strInput) : urldecode($strInput);
     	$str .= HexView($strInput);
     }
+	$str .= ImgEasyThing();
     return $str;
 }
 
@@ -349,8 +350,8 @@ function _echoInputResult($acct, $strPage, $strInput, $bChinese)
     	$str = _getDiceCaptchaString($strInput, $bChinese);
     	break;
     	
-    case 'editinput':
-    	$str = _getEditInputString($strInput, $bChinese);
+    case 'simpletest':
+    	$str = _getSimpleTestString($strInput, $bChinese);
     	break;
     		
     case 'ip':
@@ -417,8 +418,7 @@ function _getDefaultInput($strPage)
     	break;
     		
    	case 'sinajs':
-//    	$str = 'sz164906,f_164906,gb_kweb,rt_hkHSIII';
-    	$str = 'f_164906,rt_hkHSIII';
+    	$str = 'sz164906,f_164906,gb_kweb,rt_hkHSIII';
    		break;
    		
     default:
@@ -505,7 +505,7 @@ function GetMetaDescription($bChinese = true)
     						: ' page, try to list all possible ways 4 dices adding up is 14, to solve the impossible Roblox verification.';
     	break;
     	
-  	case 'editinput':
+  	case 'simpletest':
   		$str .= $bChinese ? '页面. 测试代码暂时放在/account/_editinput.php中, 测试成熟后再分配具体长期使用的工具页面. 不成功的测试就可以直接放弃了.'
     						: ' page, testing source code in /account/_editinput.php first. Functions will be moved to permanent pages after test.';
   		break;
