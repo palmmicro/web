@@ -455,9 +455,8 @@ function EchoAll($bChinese = true)
     _echoInputResult($acct, $strPage, $strInput, $bChinese);
     _echoInputRelated($strPage, $bChinese);
 
-	$str = GetDevGuideLink($strPage, '20100905', $bChinese);
-	$str .= '<br />'.GetCategoryLinks(GetAccountToolArray($bChinese), ACCT_PATH, $bChinese);
-	if ($bChinese)	$str .= '<br />'.GetStockCategoryLinks();
+	$str = GetCategoryLinks(GetAccountToolArray($bChinese), ACCT_PATH, $bChinese);
+	if ($bChinese)	$str .= ' '.GetDevGuideLink($strPage).'<br />'.GetStockCategoryLinks();
     EchoParagraph($str);
 }
 

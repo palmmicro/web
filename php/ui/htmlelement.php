@@ -44,11 +44,6 @@ function GetFontElement($strContent, $strColor = 'red', $strStyle = false)
 	return GetHtmlElement($strContent, 'font', $ar);
 }
 
-function GetQuoteElement($strContent, $strStyle = false)
-{
-	return GetFontElement($strContent, 'gray', $strStyle);
-}
-
 function GetInfoElement($strContent)
 {
 	return GetFontElement($strContent, 'blue');
@@ -57,6 +52,16 @@ function GetInfoElement($strContent)
 function GetRemarkElement($strContent)
 {
 	return GetFontElement($strContent, 'green');
+}
+
+function GetQuoteElement($strContent, $strStyle = false)
+{
+	return GetFontElement($strContent, 'gray', $strStyle);
+}
+
+function GetBlockquoteElement($strContent)
+{
+	return GetHtmlElement(GetQuoteElement($strContent), 'blockquote');
 }
 
 function GetCodeElement($strContent)

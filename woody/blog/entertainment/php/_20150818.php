@@ -124,7 +124,7 @@ function Echo20160127($strHead)
 								  'A股可以从6位数字代码上区分。深市ETF代码从150000到159999，深市LOF代码从160000到169999。沪市ETF代码从510000到518999，沪市LOF代码从500000到509999。SH510900就是一个沪市ETF。',
 								  'A股ETF的申购门槛通常至少都是50万份或者100万份，我这种穷套利者玩不起，所以其实我到现在也没搞清楚具体到底是50万还是100万。在美股市场，ETF的申赎基本上都是由做市商完成的。可以看出，A股从制度上来说其实有利于套利群体。',
 								  'ETF的申赎会比同类型LOF早一个交易日确认。对有钱的套利者来说，就可以少担一个交易日的风险。'));
-	$strQuote = GetQuoteElement('夜深忽梦少年事 梦啼妆泪红阑干');
+	$strQuote = GetBlockquoteElement('夜深忽梦少年事 梦啼妆泪红阑干');
 
     echo <<<END
 	$strHead
@@ -136,8 +136,7 @@ Wiki的QDII词条下显示了它是Qualified Domestic Institutional Investor的�
 <br />跟QDII和LOF不同，ETF是个货真价实的英文简写。常出现的XOP就是美股的ETF。对我来说，A股的ETF和LOF的区别按重要性排列如下：
 </p>
 	$strList
-<p>$strQuote
-</p>
+	$strQuote
 END;
 }
 
@@ -394,6 +393,7 @@ function Echo20180404($strHead)
 	$strStockPairSql = GetCodeElement('StockPairSql');
 	$strQDII = GetNameLink('qdii');
 	$strCalibration = GetNameLink('calibrationhistory', CALIBRATION_HISTORY_DISPLAY);
+	$strQuote = GetBlockquoteElement('Life is like a snowball. The important thing is finding wet snow and a really long hill. — Warren Buffett');
 	
     echo <<<END
 	$strHead
@@ -412,10 +412,10 @@ function Echo20180404($strHead)
 <br />更妙的是，想通了比例对应仓位后，A/H和ADR/H之间的价格转换跟QDII估值比较就只差一个{$strCalibration}的概念了。具体的看，在A/H情况下，其实相当于校准值永远是1。而在ADR/H的情况下，校准值其实就是固定的(1/仓位)。
 这样一来，我不仅统一了A/H和ADR/H比较页面的代码，还顺便统一了目前用到的各种价格转换计算，顿时感觉打通了任督二脉！
 </p>
+	$strQuote
 END;
 
    	EchoAdrhParagraph(array(new AdrPairReference(ADRH_DEMO_SYMBOL)));
-   	EchoParagraph(GetQuoteElement('Life is like a snowball. The important thing is finding wet snow and a really long hill. — Warren Buffett'));
 }
 
 function Echo20180405($strHead)
@@ -490,6 +490,62 @@ function Echo20190713($strHead)
 <br />昨天有人在{$strWeixin}上查{$strQuote}没有匹配。看了一下{$strLink}，发现居然是国债。软件工具有人用终归是好事情，不过以前我好像听说过资产1000万美元以下的不应该考虑债券投资，所以还是按捺住了兴奋的心情，没有再次削尖铅笔给我的数据库加上所有A股债券数据。
 <br />还有一个更加深刻的原因是，因为查询时会从头到尾遍历一遍股票数据库，现在的查询速度已经快要慢到了公众号的极限，实在不能想象再加一两万条债券进去会怎么样。
 <br />基于相同的原因，既拖慢速度我自己又不用，公众号也不提供场外基金的数据查询。
+</p>
+END;
+}
+
+function Echo20190905($strHead)
+{
+	$strHead = GetHeadElement($strHead);
+	$strCramer = GetCramersRuleLink();
+	$strImage = ImgCramersRule();
+	$strQuote = GetBlockquoteElement("And what in heaven's name brought you to Casablanca?
+										<br />My health. I came to Casablanca for the waters.
+										<br />The waters? What waters? We're in the desert.
+										<br />I was misinformed.");
+	
+    echo <<<END
+	$strHead
+<p>2019年9月5日
+<br />过去两个月XOP持续暴跌吸引了大量抄底华宝油气的，在很短时间内耗光了华宝基金公司的外汇额度。华宝油气从7月31日起单日单个基金账户累计申购金额上限设置为10万，8月2日周五限额变成了1万，8月9日限额变成1000元人民币。
+就像超新星爆发给天文学家提供了难得的测距参考一样，限购给我提供了少有的观察套利者的机会，所以我每天都在乐此不疲的追踪相关数据。
+<br />8月29日华宝油气收盘价0.387，跟8月28日0.385的净值比溢价0.52%。很多溢价申购套利老手都不会放弃这个蚂蚁也是肉的赚钱机会。
+<br />9月5日华宝油气场内新增72万股，由于9月2日美股休市暂停申购，这个数据可以看成是对应8月29日场外申购后转场内的份额。假如都是在华宝官网0.1折最低费用申购的话，限购1000块人民币下满额申购了：
+<br />720000/(998.5/0.397) = 286场外帐户
+<br />再回头看一下9月3日，华宝油气场内新增695万股。假如这些新增都来自场内申购的话，对应8月29日场内限购1000块人民币下满额申购了：
+<br />6950000/(985/0.397) = 2801场内账户
+<br />之前还有一个机会可以同样看到在同一天场外申购的账户数比场内申购的账户数小一个数量级的情形，可以跟这个结果交叉验证。
+<br />8月13日场内新增7408万股，假定全部来自于8月6日(溢价1.78%)场外申购转场内和8月8日(溢价2.3%)的场内申购。假定每户都是用满1万申购额度，8月8日场内申购的净值为0.402，场内一折券商实际使用了9850块申购，每户实际到账2.450万股。
+假定场外都是使用华宝官网0.1折，实际使用申购金额为9998.5，8月6日申购的净值为0.391，每户实际到账2.557万股。用未知数x表示场内申购的账户数，未知数y表示场外申购转场内的账户数，假定在我们考虑的最近一段时间这2个账户数都是固定不变的。由此得出第一个方程：
+<br />2.450 * x + 2.557 * y = 7408
+<br />8月14日华宝油气场内新增810万股，本来按上面的逻辑新增应该全部来自于8月7日(溢价1.53%)场外申购转场内和8月9日(折价0.25%)的场内申购。8月9日是场内申购限购1000的第一天，不过可惜这天场内交易折价0.25%，应该同时出现了大量不限金额的赎回。多了一个无法定量的赎回变量，导致8月14日的数据无法像上面那列第2个方程。
+<br />8月15日场内新增1099万股，继续按前面的假设列方程。对应最后一天限购1万的8月8日(溢价2.3%)场外转场内，和限购1000的8月12日(溢价1.01%)场内申购。8日申购净值是0.402，12日申购净值是0.393。可以列出方程：
+<br />(985/0.393/10000) * x + (9998.5/0.402/10000) * y = 1099
+<br />保留4位有效数字合并常数后得到第二个方程：
+<br />0.2506 * x + 2.487 * y = 1099
+<br />使用Cramer法则{$strCramer}的通用工具，得到场内申购户数 x = 2864，场外申购户数 y = 153。
+<br />原则上来说按我的假设，任何两天的数据都可以用来联立一个二元一次方程组，解出场内申购和场外申购的账户数。我一定要选择从限购1万到限购1000的变化时两天的数据来估算是出于计算精度的考虑，为了避免两个大数字相减后得到一个跟误差范围同一数量级的小数字，让整个结论失去意义。
+$strImage
+</p>
+$strQuote
+END;
+}
+
+function Echo20190920($strHead)
+{
+	$strHead = GetHeadElement($strHead);
+	$strCramer = GetNameLink('cramersrule', ACCOUNT_TOOL_CRAMER_CN);
+	$strFundAccount = GetFundAccountLink(FUND_DEMO_SYMBOL);
+	$strLinear = GetLinearRegressionLink();
+	$strImage = ImgLinearRegression();
+	
+    echo <<<END
+	$strHead
+<p>2019年9月20日
+<br />在使用Cramer法则{$strCramer}得到华宝油气场内和场外申购账户数后，其实真正有帮助的结论只是场外申购账户比场内申购账户少一个数量级。因为其中我只区分了折价和溢价两种情况进行数据分析，但是实际上不同溢价时申购账户的区别其实是很大的。
+<br />因为场外账户远少于场内账户，我可以放心的忽略二者在不同申购日期下不同净值等细节，把所有申购都假设成为场内申购计算。把限购1000人民币以来所有溢价申购日期数据统一做线性回归，可以得到结果：{$strFundAccount}
+<br />顺便做一个通用一元{$strLinear}工具。
+$strImage
 </p>
 END;
 }
@@ -721,6 +777,19 @@ function Echo20211129($strHead)
 <br />今天很不高兴，写的中丐互怜LOF(164906)限购1000的文章竟然几小时后就被人举报删除了。死了张屠夫，不吃有毛猪，以后还是要努力坚持做自己的网站。
 <br />其实早在因为举报连续被封了8个QQ群，附带被封了用了20年的QQ号之后，我就预感到了微信迟早也会被封。如今离开了QQ没有关系，没有微信的话可是刷不了绿码连门都出不了，只能彻底放弃腾讯家包括公众号在内的一切公开使用了。
 $strImage
+</p>
+END;
+}
+
+function Echo20220121($strHead)
+{
+	$strHead = GetHeadElement($strHead);
+	$strSinaJs = GetSinaJsLink();
+	
+    echo <<<END
+	$strHead
+<p>2022年1月21日
+<br />在新浪股票数据接口加上Referer检查后，不能直接用浏览器看结果了，加上{$strSinaJs}调试工具页面。
 </p>
 END;
 }

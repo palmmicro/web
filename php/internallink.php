@@ -4,12 +4,11 @@
 
 define('ACCT_PATH', '/account/');
 
-function GetDevGuideLink($strVer = false, $strLink = '20150818', $bChinese = true)
+function GetDevGuideLink($strVer = false)
 {
-    $str = '/woody/blog/entertainment/'.$strLink;
-    $str .= UrlGetPhp($bChinese);
+    $str = '/woody/blog/entertainment/20150818cn.php';
     if ($strVer)	$str .= '#'.$strVer;
-    return GetInternalLink($str, $bChinese ? '开发记录' : 'Development Record');
+    return GetInternalLink($str, '开发记录');
 }
 
 function GetMemberLink($strMemberId, $bChinese = true)

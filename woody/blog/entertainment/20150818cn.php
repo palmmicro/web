@@ -265,19 +265,8 @@
 <?php
 	Echo20190601('微信流量主');
 	Echo20190713('微信公众号不提供查询的数据');
-?>
-
-<h3>用线性回归的方法在华宝油气溢价套利时进行<?php EchoNameTag('fundaccount', FUND_ACCOUNT_DISPLAY); ?></h3>
-<p>2019年9月20日
-<br />在使用Cramer法则<?php EchoNameLink('cramersrule', ACCOUNT_TOOL_CRAMER_CN, '20100905cn.php'); ?>得到华宝油气场内和场外申购账户数后, 其实真正有帮助的结论只是场外申购账户比场内申购账户少一个数量级. 
-因为其中我只区分了折价和溢价2种情况进行数据分析, 但是实际上不同溢价时申购账户的区别其实是很大的.
-<br />因为场外账户远少于场内账户, 我可以放心的忽略2者在申购不同日期下不同净值等细节, 把所有申购都假设成为场内申购计算. 把限购1000人民币以来所有溢价申购日期数据统一做线性回归, 可以得到下面的结果:
-<br /><?php echo GetFundAccountLink(FUND_DEMO_SYMBOL); ?>
-<br />顺便做一个通用一元<?php EchoLinearRegressionLink(); ?>工具.
-<?php echo ImgLinearRegression(); ?>
-</p>
-
-<?php
+	Echo20190905('用Cramer法则'.GetNameTag('cramersrule', ACCOUNT_TOOL_CRAMER_CN));
+	Echo20190920('用'.GetNameTag('linearregression', ACCOUNT_TOOL_LINEAR_CN).'的方法在华宝油气溢价套利时估算'.GetNameTag('fundaccount', FUND_ACCOUNT_DISPLAY));
 	Echo20191025('增加'.GetNameTag('fundposition', FUND_POSITION_DISPLAY).'页面');
 	Echo20191107('美国夏令时结束带来的软件BUG');
 	Echo20200113('华宝油气的C类份额');
@@ -289,6 +278,7 @@
 	Echo20210714('增加'.GetNameTag('fundshare', FUND_SHARE_DISPLAY).'页面');
 	Echo20210728('为'.GetNameTag('chinainternet', '中丐互怜').'增加'.QDII_MIX_DISPLAY.'工具系列');
 	Echo20211129(GetNameTag('endweixin', '放弃微信').'公众号文章');
+	Echo20220121(GetNameTag('sinajs', ACCOUNT_TOOL_SINAJS_CN).'调试工具');
 	Echo20220914('为'.GetNameTag('qdiimix', QDII_MIX_DISPLAY).'补充A股成分股的持仓处理');
 ?>
 

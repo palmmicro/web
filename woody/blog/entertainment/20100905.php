@@ -55,11 +55,6 @@ As PA6488 based camera is not available in market yet. Users can test the user m
 <br /><img src=../photo/benfordslaw.jpg alt="Benford's Law equation" />
 </p>
 
-<h3><?php EchoNameTag('sinajs', ACCOUNT_TOOL_SINAJS); ?></h3>
-<p>Jan 21, 2022
-<br /><?php echo GetSinaJsLink(false); ?> debug page after Referer check added.
-</p>
-
 </div>
 
 <?php _LayoutBottom(false); ?>

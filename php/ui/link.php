@@ -35,11 +35,6 @@ function EchoXueqiuId($strId, $strDisplay)
     echo GetXueqiuIdLink($strId, $strDisplay);
 }
 
-function EchoLinearRegressionLink($bChinese = true)
-{
-	echo GetLinearRegressionLink($bChinese);
-}
-
 function EchoBenfordsLawLink($bChinese = true)
 {
 	echo GetBenfordsLawLink($bChinese);
@@ -48,11 +43,6 @@ function EchoBenfordsLawLink($bChinese = true)
 function EchoChiSquaredTestLink($bChinese = true)
 {
 	echo GetChiSquaredTestLink($bChinese);
-}
-
-function EchoCramersRuleLink($bChinese = true)
-{
-	echo GetCramersRuleLink($bChinese);
 }
 
 function EchoDiceCaptchaLink($bChinese = true)
