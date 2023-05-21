@@ -106,6 +106,20 @@ function QdiiHkGetFutureSymbol($strSymbol)
 		return false;
 }
 
+function QdiiJpGetEstSymbol($strSymbol)
+{
+    if (in_arrayQdiiJp($strSymbol))			return 'znb_NKY';
+    else 
+        return false;
+}
+
+function QdiiJpGetFutureSymbol($strSymbol)
+{
+    if (in_arrayQdiiJp($strSymbol))			return 'hf_NK';
+    else 
+        return false;
+}
+
 class _QdiiReference extends FundReference
 {
     var $strOfficialCNY = false;
@@ -307,6 +321,26 @@ class QdiiHkReference extends _QdiiReference
             $this->est_ref = new MyStockReference($strEstSymbol);
         }
         if ($strFutureSymbol = QdiiHkGetFutureSymbol($strSymbol))
+        {
+            $this->future_ref = new FutureReference($strFutureSymbol);
+        }
+        
+        $this->EstNetValue();
+        $this->EstRealtimeNetValue();
+    }
+}
+
+class QdiiJpReference extends _QdiiReference
+{
+    function QdiiJpReference($strSymbol)
+    {
+        parent::_QdiiReference($strSymbol, 'JPCNY');
+        
+        if ($strEstSymbol = QdiiJpGetEstSymbol($strSymbol))
+        {
+            $this->est_ref = new MyStockReference($strEstSymbol);
+        }
+        if ($strFutureSymbol = QdiiJpGetFutureSymbol($strSymbol))
         {
             $this->future_ref = new FutureReference($strFutureSymbol);
         }

@@ -61,7 +61,10 @@ class StockAccount extends TitleAccount
    		{
    			if (!$this->IsAdmin())
    			{
-   				if ($this->SetCrawler(UrlGetIp()))	DebugString('标注查退市股的爬虫');
+   				if ($this->SetCrawler(UrlGetIp()))
+   				{
+//   					DebugString('标注查退市股的爬虫');
+   				}
    			}
    		}
    		
@@ -119,13 +122,14 @@ class StockAccount extends TitleAccount
     function EchoLinks($strVer = false, $callback = false)
     {
     	$strNewLine = GetBreakElement();
+    	$bAdmin = $this->IsAdmin(); 
     	
     	EchoHeadLine('相关链接');
     	$str = GetStockCategoryLinks().' '.GetAutoTractorLink().' '.GetSimpleTestLink().' '.GetDevGuideLink($strVer).$strNewLine;
 		if ($strLoginId = $this->GetLoginId())
     	{
     		$str .= GetMyPortfolioLink().$this->_getPersonalLinks($strLoginId);
-    		if ($this->IsAdmin())
+    		if ($bAdmin)
     		{
 				$strMemberId = $this->GetMemberId();
     			if (method_exists($this, 'GetGroupId'))
@@ -145,6 +149,7 @@ class StockAccount extends TitleAccount
     	else	$str .= GetCategoryLinks(GetStockCategoryArray());
     	EchoParagraph($str);
 //    	_echoRandomPromotion();
+		if (!$bAdmin)		LayoutWeixinPay();
     }
     
     function IsGroupReadOnly($strGroupId)

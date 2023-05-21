@@ -3,11 +3,11 @@
 // http://hq.sinajs.cn/list=znb_NKY,hf_NK
 // http://hq.sinajs.cn/list=znb_UKX
 // http://hq.sinajs.cn/list=znb_DAX
-// http://quotes.sina.cn/global/hq/quotes.php?code=NKY
 
 define('SINA_FOREX_PREFIX', 'fx_susd');
 define('SINA_FUTURE_PREFIX', 'hf_');
 define('SINA_FUND_PREFIX', 'f_');
+define('SINA_INDEX_PREFIX', 'znb_');
 define('SINA_HK_PREFIX', 'rt_hk');
 define('SINA_US_PREFIX', 'gb_');
 
@@ -199,11 +199,22 @@ function in_arrayQdiiHk($strSymbol)
     return in_array($strSymbol, QdiiHkGetSymbolArray());
 }
 
+function QdiiJpGetSymbolArray()
+{
+    return array('SH513000', 'SH513520', 'SH513880', 'SZ159866');
+}
+
+function in_arrayQdiiJp($strSymbol)
+{
+    return in_array($strSymbol, QdiiJpGetSymbolArray());
+}
+
 function GetAllSymbolArray()
 {
 	return array_merge(QdiiGetSymbolArray()
 			            , QdiiMixGetSymbolArray()
 			            , QdiiHkGetSymbolArray()
+			            , QdiiJpGetSymbolArray()
 					    , GoldSilverGetSymbolArray()
 					    , ChinaIndexGetSymbolArray()
 					    );
@@ -588,6 +599,7 @@ class StockSymbol
         switch ($this->strSymbol)
         {
         case 'USCNY':
+        case 'JPCNY':
         case 'HKCNY':
             return true;
         }
@@ -631,6 +643,11 @@ class StockSymbol
             return IsChinaStockDigit($strDigit);
         }
         return false;
+    }
+
+    function IsSinaGlobalIndex()
+    {
+    	return StrHasPrefix($this->strSymbol, SINA_INDEX_PREFIX); 
     }
     
     // AUO, AG1712
@@ -710,6 +727,8 @@ class StockSymbol
     
     function GetSinaSymbol()
     {
+    	if ($this->IsSinaGlobalIndex())			return $this->strSymbol;
+    	
         $strSymbol = str_replace('.', '', $this->strSymbol);
         $strLower = strtolower($strSymbol);
         if ($this->IsIndex())
@@ -773,8 +792,9 @@ class StockSymbol
     
     function IsTradable()
     {
-    	if ($this->IsIndex())			return false;
-    	if ($this->IsIndexA())		return false;
+    	if ($this->IsSinaGlobalIndex())	return false;
+    	if ($this->IsIndex())				return false;
+    	if ($this->IsIndexA())			return false;
 //    	if ($this->IsForex())			return false;
 //    	if ($this->IsSinaFuture())	return false;
     	return true;
@@ -782,7 +802,16 @@ class StockSymbol
     
     function IsBeforeStockMarket($iHourMinute)
     {
-   		if ($this->IsSymbolA())
+    	if ($str = $this->IsSinaGlobalIndex())
+    	{
+    		switch ($str)
+    		{
+    		case 'NKY':
+    			if ($iHourMinute < 800)		return true;
+    			break;
+    		}
+    	}
+   		else if ($this->IsSymbolA())
    		{
    			if ($iHourMinute < 915)		return true;
    		}
@@ -800,7 +829,16 @@ class StockSymbol
     
     function IsAfterStockMarket($iHourMinute)
     {
-   		if ($this->IsSymbolA())
+    	if ($str = $this->IsSinaGlobalIndex())
+    	{
+    		switch ($str)
+    		{
+    		case 'NKY':
+    			if ($iHourMinute > 1400)		return true;
+    			break;
+    		}
+    	}
+   		else if ($this->IsSymbolA())
    		{
 			if ($iHourMinute > 1505)
     		{
@@ -861,6 +899,7 @@ class StockSymbol
         }
         else if ($this->IsSinaForex())						$strTimeZone = STOCK_TIME_ZONE_US;
         else if ($this->IsEastMoneyForex())					{}
+		else if ($this->IsSinaGlobalIndex())					{}
         else if ($this->IsSymbolA() || $this->IsSymbolH())	{}
         else													$strTimeZone = STOCK_TIME_ZONE_US;
         return $strTimeZone;

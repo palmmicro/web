@@ -193,6 +193,12 @@ function EchoAll()
         	$cny_ref = $fund->GetCnyRef();
         	$est_ref = $fund->GetEstRef();
         }
+		else if (in_arrayQdiiJp($strSymbol))
+        {
+        	$fund = new QdiiJpference($strSymbol);
+        	$cny_ref = $fund->GetCnyRef();
+        	$est_ref = $fund->GetEstRef();
+        }
         else if ($strSymbol == 'SZ164906')
         {
         	$fund = $ref;

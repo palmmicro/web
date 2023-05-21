@@ -13,13 +13,13 @@ function _chinaMoneyNeedData($strDate, $nav_sql, $strUscnyId, $strHkcnyId)
 function ChinaMoneyGetUrl()
 {
 	return 'http://www.chinamoney.com.cn/r/cms/www/chinamoney/data/fx/ccpr.json';
-// 	return 'http://www.chinamoney.com.cn/r/cms/www/chinamoney/html/cn/latestRMBParityCn.html';
 }
 
 function GetChinaMoney($ref)
 {
 	$nav_sql = GetNavHistorySql();
     $strUscnyId = SqlGetStockId('USCNY');
+    $strJpcnyId = SqlGetStockId('JPCNY');
     $strHkcnyId = SqlGetStockId('HKCNY');
     if (_chinaMoneyNeedData($ref->GetDate(), $nav_sql, $strUscnyId, $strHkcnyId) == false)		return;
 	if ($ref->GetHourMinute() < 915)																		return;	// Data not updated until 9:15
@@ -50,6 +50,11 @@ function GetChinaMoney($ref)
     	{
     		DebugString('Insert USCNY');
 			$nav_sql->InsertDaily($strUscnyId, $strDate, $strPrice);
+		}
+		else if ($strPair == '100JPY/CNY')
+		{
+    		DebugString('Insert JPCNY');
+			$nav_sql->InsertDaily($strJpcnyId, $strDate, $strPrice);
 		}
     	else if ($strPair == 'HKD/CNY')
     	{

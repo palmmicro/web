@@ -120,10 +120,10 @@ function StockBotGetStr($strText, $strVersion)
 	$strText = trim($strText, " ,.\n\r\t\v\0");
 	$strText = SqlCleanString($strText);
 
-   	$fStart = microtime(true);
+//   	$fStart = microtime(true);
 	if ($ar = _botGetStockArray($strText))
 	{
-		DebugString($strText.':'.DebugGetStopWatchDisplay($fStart, 3));
+//		DebugString($strText.':'.DebugGetStopWatchDisplay($fStart, 3));
 		
 		$arSymbol = array();
 		foreach ($ar as $strSymbol => $strId)		$arSymbol[] = $strSymbol;

@@ -67,6 +67,7 @@ function StockNeedNewQuotes($sym, $strFileName, $iInterval = SECONDS_IN_MIN)
 		if ($sym->IsAfterStockMarket($file_ymd->GetHourMinute()))						return false;
 	}
 
+//	if ($sym->IsSinaGlobalIndex())
 	if ($sym->IsSymbolA())		return _checkBetweenMarketClose($now_ymd, $iFileTime, 2, 8);
 	else if ($sym->IsSymbolH())	return _checkBetweenMarketClose($now_ymd, $iFileTime, 3, 8);
 	return _checkBetweenMarketClose($now_ymd, $iFileTime, 16, 4);

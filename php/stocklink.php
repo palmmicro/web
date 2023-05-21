@@ -15,6 +15,7 @@ define('GOLD_SILVER_DISPLAY', '黄金白银');
 define('QDII_DISPLAY', 'QDII工具');
 define('QDII_MIX_DISPLAY', '混合QDII');
 define('QDII_HK_DISPLAY', '香港QDII');
+define('QDII_JP_DISPLAY', '日本QDII');
 
 function GetStockMenuArray()
 {
@@ -22,7 +23,8 @@ function GetStockMenuArray()
                    'goldsilver' => GOLD_SILVER_DISPLAY,
                    'qdii' => QDII_DISPLAY,
                    'qdiimix' => QDII_MIX_DISPLAY,
-                   'qdiihk' => QDII_HK_DISPLAY);
+                   'qdiihk' => QDII_HK_DISPLAY,
+                   'qdiijp' => QDII_JP_DISPLAY);
 }
 
 function GetStockCategoryLinks()

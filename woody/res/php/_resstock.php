@@ -17,7 +17,8 @@ function _menuStockSoftware($bChinese)
                       	   'goldsilver' => 'GoldSilverGetSymbolArray',
                       	   'qdii' => 'QdiiGetSymbolArray',
                       	   'qdiimix' => 'QdiiMixGetSymbolArray',
-                      	   'qdiihk' => 'QdiiHkGetSymbolArray');
+                      	   'qdiihk' => 'QdiiHkGetSymbolArray',
+                      	   'qdiijp' => 'QdiiJpGetSymbolArray');
     
     foreach ($arFunction as $strKey => $strFunction)
     {

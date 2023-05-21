@@ -230,9 +230,14 @@ function GetSinaHkStockLink($sym)
     return GetExternalLink($strHttp, $strSymbol);
 }
 
+// https://quotes.sina.cn/global/hq/quotes.php?code=NKY
 function GetSinaStockLink($sym)
 {
-    if ($sym->IsSymbolA())
+	if ($str = $sym->IsSinaGlobalIndex())
+	{
+		return GetExternalLink('https://quotes.sina.cn/global/hq/quotes.php?code='.$str, $str);
+	}
+    else if ($sym->IsSymbolA())
     {
     	if ($sym->IsFundA())
     	{

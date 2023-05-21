@@ -90,6 +90,10 @@ function GetCategoryArray($strPage)
         $ar = QdiiMixGetSymbolArray();
         break;
         
+    case 'qdiijp':
+        $ar = QdiiJpGetSymbolArray();
+        break;
+        
     case 'oilfund':
     	$ar = array_merge(QdiiGetOilEtfSymbolArray(), QdiiGetOilSymbolArray());
         break;
@@ -194,7 +198,7 @@ function GetDaChengSoftwareLinks($strDigitA)
 
 function GetEFundSoftwareLinks($strDigitA)
 {
-    $ar = array('SH510310', 'SH510900', 'SH513010', 'SH513050', 'SZ159934', 'SZ161116', 'SZ161125', 'SZ161126', 'SZ161127', 'SZ161128', 'SZ161129', 'SZ161130');
+    $ar = array('SH510310', 'SH510900', 'SH513000', 'SH513010', 'SH513050', 'SZ159934', 'SZ161116', 'SZ161125', 'SZ161126', 'SZ161127', 'SZ161128', 'SZ161129', 'SZ161130');
 	$strUrl = 'http://www.efunds.com.cn';
     return ' '.GetOfficialLink($strUrl.'/html/fund/'.$strDigitA.'_fundinfo.htm', $strDigitA).GetCategorySoftwareLinks($ar, GetExternalLink($strUrl, '易方达基金'));
 }
@@ -215,7 +219,7 @@ function GetGuoTaiSoftwareLinks($strDigitA)
 
 function GetHuaAnSoftwareLinks($strDigitA)
 {
-    $ar = array('SH513030', 'SH513080', 'SH513580', 'SH518880', 'SZ159632', 'SZ160416');
+    $ar = array('SH513030', 'SH513080', 'SH513580', 'SH513880', 'SH518880', 'SZ159632', 'SZ160416');
 	$strUrl = 'http://www.huaan.com.cn';
     return ' '.GetOfficialLink($strUrl.'/funds/'.$strDigitA.'/index.shtml', $strDigitA).GetCategorySoftwareLinks($ar, GetExternalLink($strUrl, '华安基金'));
 }
@@ -236,18 +240,23 @@ function GetHuaTaiSoftwareLinks($strDigitA)
 
 function GetHuaXiaSoftwareLinks($strDigitA)
 {
-    $ar = array('SH510330', 'SH513180', 'SH513300', 'SH513660', 'SZ159655', 'SZ159850', 'SZ159920');
+    $ar = array('SH510330', 'SH513180', 'SH513300', 'SH513520', 'SH513660', 'SZ159655', 'SZ159850', 'SZ159920');
 	$strUrl = 'http://www.chinaamc.com';
     return ' '.GetOfficialLink($strUrl.'/fund/'.$strDigitA.'/index.shtml', $strDigitA).GetCategorySoftwareLinks($ar, GetExternalLink($strUrl, '华夏基金'));
 }
 
-// http://www.icbccs.com.cn/gyrx/jjcp/qdi/gyydjjrmbfof/index.html
+// https://www.icbccs.com.cn/gyrx/jjcp/etf/gyrjETF/index.html
+// https://www.icbccs.com.cn/gyrx/jjcp/qdi/gyydjjrmbfof/index.html
 function GetIcbcCsSoftwareLinks($strDigitA)
 {
-    $ar = array('SZ164824');
-	$strUrl = 'http://www.icbccs.com.cn';
+    $ar = array('SZ159866', 'SZ164824');
+	$strUrl = 'https://www.icbccs.com.cn';
 	switch ($strDigitA)
 	{
+	case '159866':
+		$str = '/gyrx/jjcp/etf/gyrjETF/index.html';
+		break;
+		
 	case '164824':
 		$str = '/gyrx/jjcp/qdi/gyydjjrmbfof/index.html';
 		break;

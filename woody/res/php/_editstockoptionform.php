@@ -178,6 +178,11 @@ function _getStockOptionCalibration($strSymbol, $strDate)
        	$fund = new QdiiHkReference($strSymbol);
        	$est_ref = $fund->GetEstRef();
 	}
+	else if (in_arrayQdiiJp($strSymbol))
+	{
+       	$fund = new QdiiJpReference($strSymbol);
+       	$est_ref = $fund->GetEstRef();
+	}
 	else if ($strSymbol == 'SZ164906')
 	{
 		$est_ref = new MyStockReference('KWEB');

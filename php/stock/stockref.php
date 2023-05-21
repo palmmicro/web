@@ -297,6 +297,20 @@ class StockReference extends StockSymbol
         }
     }
     
+	function _onSinaGlobalIndex($ar)
+	{
+        $this->strPrevPrice = $ar[9];
+        $this->strPrice = $ar[1];
+        $this->strDate = $ar[6];
+        $this->strTime = $ar[7];
+        $this->strName = $ar[0];
+        
+        $this->strOpen = $ar[8];
+        $this->strHigh = $ar[10];
+        $this->strLow = $ar[11];
+        $this->strVolume = $ar[5];
+	}
+    
     function LoadSinaData()
     {
     	$this->strExternalLink = GetSinaStockLink($this);
@@ -305,9 +319,15 @@ class StockReference extends StockSymbol
         	$this->strFileName = DebugGetSinaFileName($strSinaSymbol);
         	$ar = _getSinaArray($this, $strSinaSymbol, $this->strFileName);
         	$iCount = count($ar); 
-        	if ($iCount >= 18)
+//        	if ($iCount >= 18)
+        	if ($iCount >= 12)
         	{
-        		if ($this->IsSymbolA())
+        		if ($this->IsSinaGlobalIndex())
+        		{
+        			$this->_onSinaGlobalIndex($ar);
+        			return;
+        		}
+        		else if ($this->IsSymbolA())
         		{
         			$this->_onSinaDataCN($ar);
         			return;
