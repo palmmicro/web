@@ -15,7 +15,7 @@ function _menuBlogGroup($bChinese)
 	$ar = GetBlogMenuArray($bChinese);
     
 	MenuBegin();
-	WoodyMenuItem($iLevel, 'index', $bChinese);
+	WoodyMenuItem($iLevel, 'blog', $bChinese);
 	MenuContinueNewLine();
 	MenuWriteItemLink($iLevel - 1, BLOG_GROUP, UrlGetPhp($bChinese), $ar[BLOG_GROUP]);
 	MenuContinueNewLine();

@@ -27,8 +27,8 @@ function HtmlMenuItem($arName, $iLevel, $strItem, $bChinese)
 
 function WoodyMenuItem($iLevel, $strItem, $bChinese = true)
 {
-    if ($bChinese)  $arName = array('index' => '网络日志', 'image' => '相片',  'res' => '资源共享'); 
-    else              $arName = array('index' => 'Blog',     'image' => 'Image', 'res' => 'Resources');
+    if ($bChinese)  $arName = array('index' => '资源共享', 'image' => '相片',  'blog' => '网络日志'); 
+    else              $arName = array('index' => 'Resource', 'image' => 'Image', 'blog' => 'Blog');
     
     HtmlMenuItem($arName, $iLevel, $strItem, $bChinese);
 }

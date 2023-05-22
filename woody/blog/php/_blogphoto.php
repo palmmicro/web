@@ -8,7 +8,7 @@ function _menuLoopBlogPhoto($bChinese)
     $iLevel = 1;
     
 	MenuBegin();
-	WoodyMenuItem($iLevel, 'index', $bChinese);
+	WoodyMenuItem($iLevel, 'blog', $bChinese);
 	WoodyMenuItem($iLevel, 'image', $bChinese);
 	MenuContinueNewLine();
     MenuDirFirstLast($arPhoto);

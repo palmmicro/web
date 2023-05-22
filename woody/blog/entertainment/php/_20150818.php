@@ -820,4 +820,28 @@ $strImage
 END;
 }
 
+function Echo20230522($strHead)
+{
+	$strHead = GetHeadElement($strHead);
+	$strChinaInternet = GetNameLink('chinainternet', '中丐互怜');
+	$strSH513000 = GetStockLink('SH513000', true);
+	$strSH513520 = GetStockLink('SH513520', true);
+	$strSH513880 = GetStockLink('SH513880', true);
+	$strSZ159866 = GetStockLink('SZ159866', true);
+	$strQdiiHk = GetNameLink('qdiihk', QDII_HK_DISPLAY);
+	$strNKY = GetSinaQuotesLink('znb_NKY');
+	$strNK = GetSinaQuotesLink('hf_NK');
+	
+    echo <<<END
+	$strHead
+<p>2023年5月22日
+<br />四个跟踪日经225指数的ETF上市好几年来一直不愠不火，我觉得它们流动性不好就没有去搞估值。
+直到最近有人趁巴菲特开股东大会宣传增持日本五大商社，日本股市创下三十多年新高接近1990年最高水平，易方达基金公司又因为{$strChinaInternet}缺QDII额度，{$strSH513000}每天限制单独一个人申购50万份的机会拉场内溢价到了20%，让我觉得不能再观望下去了！
+<br />{$strSH513520}同样因为限购总份额50万份也被拉到了接近20%的溢价，而{$strSH513880}和{$strSZ159866}则因为没怎么限购而基本上平价。
+<br />日本QDII跟{$strQdiiHk}的估值模式基本上是一致的。中国和日本股市都开市的日子里，用新浪日经225指数数据{$strNKY}做官方估值，日本股市下午两点收盘后官方估值就不再改变，直到晚上跟公布的实际净值比较和自动校准。
+同时全天都用新浪日经225指数期货数据{$strNK}做实时估值，可以反映日本股市收盘后的变化。
+</p>
+END;
+}
+
 ?>

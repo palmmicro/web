@@ -167,7 +167,7 @@ function GetXueqiuIdLink($strId, $strDisplay)
 function GetYahooStockLink($sym)
 {
     $strHttp = GetYahooStockUrl($sym->GetYahooSymbol());
-    return GetExternalLink($strHttp, $sym->GetSymbol());
+    return GetExternalLink($strHttp, $sym->GetDisplay());
 }
 
 function GetYahooNavLink($strSymbol)
@@ -254,29 +254,16 @@ function GetSinaStockLink($sym)
 
 function GetSinaFutureLink($sym)
 {
-	if ($strSymbol = $sym->IsSinaFutureUs())
-	{
-	}
-	else
-	{
-		$strSymbol = $sym->GetSymbol();
-	}
-    $strHttp = GetSinaFinanceUrl()."/futures/quotes/$strSymbol.shtml";
-    return GetExternalLink($strHttp, $strSymbol);
+	$strDisplay = $sym->GetDisplay();
+    $strHttp = GetSinaFinanceUrl()."/futures/quotes/$strDisplay.shtml";
+    return GetExternalLink($strHttp, $strDisplay);
 }
 
 function GetSinaForexLink($sym)
 {
-	if ($str = $sym->IsNewSinaForex())
-	{
-		$strSymbol = 'USD'.strtoupper($str);
-	}
-	else
-	{
-		$strSymbol = $sym->GetSymbol();
-	}
-    $strHttp = GetSinaFinanceUrl()."/money/forex/hq/$strSymbol.shtml";
-    return GetExternalLink($strHttp, $strSymbol);
+	$strDisplay = $sym->GetDisplay();
+    $strHttp = GetSinaFinanceUrl()."/money/forex/hq/$strDisplay.shtml";
+    return GetExternalLink($strHttp, $strDisplay);
 }
 
 function GetExternalStockHistoryLink($sym)
@@ -297,7 +284,7 @@ function GetStockDividendUrl($sym)
     {
     	return GetSinaStockUrl()."/hkstock/dividends/$strSymbol.html";
     }
-    return GetYahooStockHistoryUrl($strSymbol).'?filter=div';
+    return GetYahooStockHistoryUrl($sym->GetYahooSymbol()).'?filter=div';
 }
 
 function GetStockDividendLink($sym)

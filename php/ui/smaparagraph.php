@@ -126,8 +126,10 @@ function _echoSmaTableData($his, $cb_ref, $callback, $callback2)
 function _getSmaParagraphMemo($his)
 {
 	$sym = $his->GetSym();
-	if ($sym->IsSymbolUS())	$str = GetStockChartsLink($sym->GetSymbol());
-	else						$str = GetYahooStockLink($sym);
+
+	$str = GetYahooStockLink($sym);
+	if ($sym->IsSinaFutureUs() || $sym->IsNewSinaForex() || $sym->IsSinaGlobalIndex())		{}
+	else if ($sym->IsSymbolUS())																$str = GetStockChartsLink($sym->GetSymbol());
 	
 	$str .= ' '.$his->GetStartDate().'数据';
 	if ($strBullBear = $his->GetBullBear())		$str .= ' '.GetBoldElement($strBullBear);

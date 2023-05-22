@@ -7,7 +7,7 @@ function _menuBlogType($bChinese)
     $iLevel = 1;
     
 	MenuBegin();
-	WoodyMenuItem($iLevel, 'index', $bChinese);
+	WoodyMenuItem($iLevel, 'blog', $bChinese);
 	MenuContinueNewLine();
 	
     MenuSet(GetBlogMenuArray($bChinese));

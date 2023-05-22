@@ -460,16 +460,15 @@ class StockReference extends StockSymbol
 		$this->_convertDateTimeToUS(end($ar), $ar[0]);
     }       
 
-    function GetStockLink()
-    {
-		$strSymbol = $this->GetSymbol();
-		if ($str = GetStockLink($strSymbol))		return $str;
-		return	GetMyStockLink($strSymbol);
-	}
-
 	function GetMyStockLink()
 	{
-		return GetMyStockLink($this->GetSymbol());
+		return GetMyStockLink($this->GetSymbol(), $this->GetDisplay());
+	}
+	
+    function GetStockLink()
+    {
+		if ($str = GetStockLink($this->GetSymbol()))		return $str;
+		return	$this->GetMyStockLink();
 	}
 }
 

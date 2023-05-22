@@ -608,7 +608,7 @@ class StockSymbol
     
     function IsNewSinaForex()
     {
-    	return StrHasPrefix($this->strSymbol, SINA_FOREX_PREFIX); 
+    	return strtoupper(StrHasPrefix($this->strSymbol, SINA_FOREX_PREFIX)); 
     }
     
     function IsOldSinaForex()
@@ -765,8 +765,16 @@ class StockSymbol
     function GetYahooSymbol()
     {
         $strSymbol = str_replace('.', '-', $this->strSymbol);
-        if ($str = $this->IsSinaFutureUs())											return $str.'%3DF';				// CL=F
-        else if ($str = $this->IsNewSinaForex())										return strtoupper($str).'%3DF';	// CNH=F
+        if ($str = $this->IsSinaFutureUs())											return $str.'%3DF';	// CL=F
+        else if ($str = $this->IsNewSinaForex())										return $str.'%3DF';	// CNH=F
+		else if ($str = $this->IsSinaGlobalIndex())
+		{
+			switch ($str)
+			{
+			case 'NKY':
+				return '%5E'.'N225';
+			}
+		}
         else if ($this->IsIndex())	            									return '%5E'.$this->strOthers;	// index ^HSI
         else if ($this->IsSymbolH())													return $this->strOthers.'.hk';	// Hongkong market
         else if ($this->IsSymbolA())
@@ -909,6 +917,14 @@ class StockSymbol
     {
     	$strTimeZone = $this->GetTimeZone();
         if (date_default_timezone_get() != $strTimeZone)		date_default_timezone_set($strTimeZone);
+    }
+    
+    function GetDisplay()
+    {
+        if ($str = $this->IsSinaFutureUs())		return $str;
+        if ($str = $this->IsNewSinaForex())		return 'USD'.$str;
+		if ($str = $this->IsSinaGlobalIndex())	return $str;
+		return $this->GetSymbol();
     }
 
     public function GetSymbol()

@@ -135,7 +135,7 @@ function _yahooGetNetValueSymbol($sym, $strSymbol)
     {
     	return false;
     }
-    else if ($sym->IsIndex())
+    else if ($sym->IsIndex() || $sym->IsSinaGlobalIndex())
     {
 //   		return $strSymbol;
     	return false;

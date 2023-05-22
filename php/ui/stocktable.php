@@ -191,7 +191,7 @@ class TableColumnStock extends TableColumn
 {
 	function TableColumnStock($sym, $iWidth = 80)
 	{
-        parent::TableColumn($sym->GetSymbol(), $iWidth, 'maroon');
+        parent::TableColumn($sym->GetDisplay(), $iWidth, 'maroon');
 	}
 }
 
