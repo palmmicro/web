@@ -43,7 +43,7 @@ function _updateStockHistoryClose($ref, $strSymbol, $strStockId, $his_sql, $strY
 function _updateStockDescription($strSymbol, $strVal)
 {
 	$sql = GetStockSql();
-	if ($sql->WriteSymbol($strSymbol, $strVal, false))
+	if ($sql->WriteSymbol($strSymbol, $strVal))
 	{
 		trigger_error($_POST['submit'].' '.GetMyStockLink($strSymbol).' '.$strVal);
 	}

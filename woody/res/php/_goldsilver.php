@@ -1,6 +1,4 @@
 <?php
-require_once('_stock.php');
-require_once('_stockgroup.php');
 require_once('_fundgroup.php');
 
 class _GoldSilverAccount extends FundGroupAccount

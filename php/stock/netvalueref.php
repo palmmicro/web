@@ -23,6 +23,7 @@ class NetValueReference extends MysqlReference
         if ($this->IsFundA())
         {
         	$this->LoadSinaFundData();
+        	$this->bConvertGB2312 = true;     // Sina name is GB2312 coded
         }
         else
         {

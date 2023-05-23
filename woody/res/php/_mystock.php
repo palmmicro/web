@@ -94,7 +94,6 @@ function _echoMyStockData($ref, $bAdmin)
     $strSymbol = $ref->GetSymbol();
     if ($ref->IsFundA())
     {
-    	$fund = false;
        	if (in_arrayQdiiMix($strSymbol))
        	{
        		$holdings_ref = new HoldingsReference($strSymbol);
@@ -165,18 +164,10 @@ function _echoMyStockData($ref, $bAdmin)
     		$str .= '<br />id='.$strStockId.'<br />'._getMyStockLinks($ref).'<br />'.$ref->DebugLink();
    			if ($ref->IsFundA())
    			{
-   				$str .= '<br />';
-   				if (in_arrayQdiiMix($strSymbol))
-   				{
-   					$nav_ref = $holdings_ref->GetNavRef(); 
-   					$str .= $nav_ref->DebugLink(); 
-   				}
-   				else
-   				{
-   					if ($fund)		$str .= $fund->DebugLink();
-   				}
+   				$nav_ref = new NetValueReference($strSymbol);
+   				$str .= '<br />基金:'.$nav_ref->DebugLink(); 
    			}
-   			$str .= '<br />'.$ref->DebugConfigLink();
+   			$str .= '<br />均线:'.$ref->DebugConfigLink();
     	}
     	EchoParagraph($str);
     }
@@ -189,7 +180,8 @@ function GetMyStockLinks($ref)
 	{
 		if ($strDigitA = $ref->IsFundA())
 		{
-			$strName = SymGetStockName($ref);
+			$nav_ref = new NetValueReference($ref->GetSymbol());
+			$strName = $nav_ref->GetChineseName();
 			if (stripos($strName, '博时') !== false)		$str .= GetBoShiSoftwareLinks($strDigitA);
 			else if (stripos($strName, '招商') !== false)		$str .= GetCmfSoftwareLinks($strDigitA);
 			else if (stripos($strName, '广发') !== false)		$str .= GetGuangFaSoftwareLinks($strDigitA);

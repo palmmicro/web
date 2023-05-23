@@ -186,6 +186,11 @@ class FundPairReference extends MyPairReference
     	return $this->nav_ref->GetFundEstSql();
     }
     
+    function GetNavRef()
+    {
+    	return $this->nav_ref;
+    }
+    
     function GetPairNavRef()
     {
     	return $this->pair_nav_ref;

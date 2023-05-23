@@ -280,7 +280,7 @@
 	Echo20211129(GetNameTag('endweixin', '放弃微信').'公众号文章');
 	Echo20220121(GetNameTag('sinajs', ACCOUNT_TOOL_SINAJS_CN).'调试工具');
 	Echo20220914('为'.GetNameTag('qdiimix', QDII_MIX_DISPLAY).'补充A股成分股的持仓处理');
-	Echo20230522('增加'.GetNameTag('qdiijp', QDII_JP_DISPLAY).'的估值');
+	Echo20230521('增加'.GetNameTag('qdiijp', QDII_JP_DISPLAY).'的估值');
 ?>
 
 </div>

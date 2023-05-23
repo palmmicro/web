@@ -1,8 +1,6 @@
 <?php
-require_once('_stockgroup.php');
 require_once('_fundgroup.php');
 require_once('../../php/ui/arbitrageparagraph.php');
-require_once('../../php/ui/smaparagraph.php');
 require_once('../../php/ui/fundlistparagraph.php');
 
 function TradingUserDefined($strVal = false)

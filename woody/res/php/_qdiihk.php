@@ -1,5 +1,4 @@
 <?php
-require_once('_stock.php');
 require_once('_qdiigroup.php');
 
 class _QdiiHkAccount extends QdiiGroupAccount

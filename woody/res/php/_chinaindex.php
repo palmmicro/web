@@ -1,15 +1,8 @@
 <?php
-require_once('_stock.php');
-require_once('_stockgroup.php');
-require_once('../../php/ui/referenceparagraph.php');
-require_once('../../php/ui/tradingparagraph.php');
-require_once('../../php/ui/smaparagraph.php');
-require_once('../../php/ui/fundestparagraph.php');
+require_once('_fundgroup.php');
 require_once('../../php/ui/fundlistparagraph.php');
-require_once('../../php/ui/fundhistoryparagraph.php');
-require_once('../../php/ui/fundshareparagraph.php');
 
-class _ChinaIndexAccount extends GroupAccount
+class _ChinaIndexAccount extends FundGroupAccount
 {
 	var $us_ref;
 	var $a50_ref;
@@ -82,12 +75,6 @@ function GetMetaDescription()
     $strCNY = RefGetStockDisplay($acct->us_ref->cny_ref);
     $str = "用{$strEst}估算{$strDescription}净值. 参考{$strCNY}比较{$strUS}净值.";
     return CheckMetaDescription($str);
-}
-
-function GetTitle()
-{
-    global $acct;
-	return RefGetStockDisplay($acct->ref).STOCK_DISP_NAV;
 }
 
    	$acct = new _ChinaIndexAccount();

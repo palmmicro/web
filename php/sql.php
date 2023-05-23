@@ -176,7 +176,8 @@ function _ConnectDatabase()
 	{
 		return false;
 	}
-	
+	mysql_set_charset('utf8', $link);
+
 	$db = mysql_select_db(DB_DATABASE);		// Select database
 	if (!$db) 
 	{

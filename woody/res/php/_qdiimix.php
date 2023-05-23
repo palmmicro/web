@@ -1,21 +1,13 @@
 <?php
-require_once('_stock.php');
-require_once('_stockgroup.php');
+require_once('_fundgroup.php');
 require_once('_kraneholdingscsv.php');
 require_once('_sseholdings.php');
 require_once('_szseholdings.php');
-require_once('../../php/stockhis.php');
-require_once('../../php/ui/referenceparagraph.php');
-require_once('../../php/ui/smaparagraph.php');
-require_once('../../php/ui/tradingparagraph.php');
-require_once('../../php/ui/fundhistoryparagraph.php');
-require_once('../../php/ui/fundshareparagraph.php');
-require_once('../../php/ui/fundestparagraph.php');
 
 // SH501225 全球芯片LOF
 // SH501312 海外科技LOF
 
-class _QdiiMixAccount extends GroupAccount
+class _QdiiMixAccount extends FundGroupAccount
 {
     var $us_ref;
     var $cnh_ref;
@@ -180,15 +172,9 @@ function GetMetaDescription()
 {
     global $acct;
 
-    $strDescription = RefGetStockDisplay($acct->GetRef());
+    $strDescription = $acct->GetStockDisplay();
     $str = "根据美元和港币人民币汇率中间价以及成分股比例估算{$strDescription}净值的网页工具.";
     return CheckMetaDescription($str);
-}
-
-function GetTitle()
-{
-    global $acct;
-	return RefGetStockDisplay($acct->GetRef()).STOCK_DISP_NAV;
 }
 
    	$acct = new _QdiiMixAccount();

@@ -291,8 +291,7 @@ function GetStockLink($strSymbol, $bFull = false)
     	if ($bFull)
     	{
     		$sql = GetStockSql();
-    		$strName = $sql->GetStockName($strSymbol);
-    		$strDisplay = strstr($strName, '-', true).'('.$strSymbol.')';
+    		$strDisplay = $sql->GetStockName($strSymbol).'('.$strSymbol.')';
     	}
     	else	$strDisplay = $strSymbol;
 		return GetStockPageLink(strtolower($strSymbol), $strDisplay);
