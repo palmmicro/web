@@ -74,7 +74,7 @@ We called MySQL related function in <font color=olive>MysqlReference</font> clas
 <h3>US Daylight Saving Time</h3>
 <p>March 14, 2016
 <br />A bug is found as US enter daylight saving time: <font color=gray><code>date_default_timezone_set('EST')</code></font> is not considering daylight saving,
-need to use <font color=gray><code>date_default_timezone_set('America/New_York')</code></font> or <font color=gray><code>date_default_timezone_set('EDT')</code></font>.
+need to use <font color=gray><code>date_default_timezone_set('America/New_York')</code></font>.
 </p>
 
 <h3><a name="goldsilver">Gold ETF</a></h3>

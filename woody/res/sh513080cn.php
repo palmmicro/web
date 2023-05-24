@@ -1,11 +1,9 @@
 <?php 
-require('php/_qdii.php');
+require('php/_qdiieu.php');
 
-function GetQdiiRelated($strDigitA)
+function GetQdiiEuRelated($strDigitA)
 {
-	$str = GetASharesSoftwareLinks();
-	$str .= GetHangSengSoftwareLinks();
-	$str .= GetBreakElement().GetHuaAnSoftwareLinks($strDigitA);
+	$str = GetBreakElement().GetHuaAnSoftwareLinks($strDigitA);
 	return $str;
 }
 

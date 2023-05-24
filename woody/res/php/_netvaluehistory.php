@@ -100,6 +100,12 @@ function _echoNetValueHistory($ref, $iStart, $iNum, $bAdmin)
         $cny_ref = $ref->GetCnyRef();
         $est_ref = $ref->GetEstRef();
     }
+	else if (in_arrayQdiiEu($strSymbol))
+    {
+       	$ref = new QdiiEuReference($strSymbol);
+        $cny_ref = $ref->GetCnyRef();
+        $est_ref = $ref->GetEstRef();
+    }
     else if ($strSymbol == 'SZ164906')
     {
        	$cny_ref = new CnyReference('USCNY');

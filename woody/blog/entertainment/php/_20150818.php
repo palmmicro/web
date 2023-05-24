@@ -845,4 +845,24 @@ function Echo20230521($strHead)
 END;
 }
 
+function Echo20230525($strHead)
+{
+	$strHead = GetHeadElement($strHead);
+	$strQDII = GetNameLink('qdii');
+	$strQdiiJp = GetNameLink('qdiijp', QDII_JP_DISPLAY);
+	$strSH513030 = GetStockLink('SH513030', true);
+	$strSH513080 = GetStockLink('SH513080', true);
+	$strDAX = GetSinaQuotesLink('znb_DAX');
+	$strCAC = GetSinaQuotesLink('znb_CAC');
+	
+    echo <<<END
+	$strHead
+<p>2023年5月25日
+<br />华安基金公司的{$strQDII}基金不仅有跟踪美国和日本股市的ETF，还有德国和法国的。之前我都用美股市场上的ETF给{$strSH513030}和{$strSH513080}，误差一直很大。
+专门去看过它们的季报持仓，发现它们还真是在德国和法国市场上买股票，这样就像南方原油的估值一样，连收市时间都差几个小时，当然不准。
+<br />在加了{$strQdiiJp}后，我意识到可以用同样的模式给这两个ETF估值，股指数据分别来自于新浪的{$strDAX}和{$strCAC}。目前德国和法国都在夏令时，北京时间下午三点开市，晚上11点半收市。
+</p>
+END;
+}
+
 ?>

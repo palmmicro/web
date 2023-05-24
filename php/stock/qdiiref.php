@@ -64,8 +64,6 @@ function QdiiGetEstSymbol($strSymbol)
     else if (in_arrayCommodityQdii($strSymbol))		return 'GSG';
     else if (in_arraySpyQdii($strSymbol))			return '^GSPC';	// 'SPY';
     else if (in_arrayQqqQdii($strSymbol))			return '^NDX';	// 'QQQ';
-    else if ($strSymbol == 'SH513030')   			return 'EWG';		// 'DAX'
-    else if ($strSymbol == 'SH513080')   			return 'EWQ';
     else if ($strSymbol == 'SH513290')   			return 'IBB';
 	else if (in_arrayGoldQdii($strSymbol))   		return 'GLD';
     else 
@@ -118,6 +116,24 @@ function QdiiJpGetFutureSymbol($strSymbol)
     if (in_arrayQdiiJp($strSymbol))			return 'hf_NK';
     else 
         return false;
+}
+
+function QdiiEuGetEstSymbol($strSymbol)
+{
+	switch ($strSymbol)
+	{
+	case 'SH513030':
+		return 'znb_DAX';
+		
+	case 'SH513080':
+		return 'znb_CAC';
+	}
+	return false;
+}
+
+function QdiiEuGetFutureSymbol($strSymbol)
+{
+	return false;
 }
 
 class _QdiiReference extends FundReference
@@ -188,6 +204,8 @@ class _QdiiReference extends FundReference
                 $this->strOfficialCNY = $cny_ref->GetPrice();
             }
         }
+        
+        $this->EstRealtimeNetValue();
     }
 
     function EstRealtimeNetValue()
@@ -306,7 +324,6 @@ class QdiiReference extends _QdiiReference
         }
         
         $this->EstNetValue();
-        $this->EstRealtimeNetValue();
     }
 }
 
@@ -326,7 +343,6 @@ class QdiiHkReference extends _QdiiReference
         }
         
         $this->EstNetValue();
-        $this->EstRealtimeNetValue();
     }
 }
 
@@ -346,7 +362,25 @@ class QdiiJpReference extends _QdiiReference
         }
         
         $this->EstNetValue();
-        $this->EstRealtimeNetValue();
+    }
+}
+
+class QdiiEuReference extends _QdiiReference
+{
+    function QdiiEuReference($strSymbol)
+    {
+        parent::_QdiiReference($strSymbol, 'EUCNY');
+        
+        if ($strEstSymbol = QdiiEuGetEstSymbol($strSymbol))
+        {
+            $this->est_ref = new MyStockReference($strEstSymbol);
+        }
+        if ($strFutureSymbol = QdiiEuGetFutureSymbol($strSymbol))
+        {
+            $this->future_ref = new FutureReference($strFutureSymbol);
+        }
+        
+        $this->EstNetValue();
     }
 }
 

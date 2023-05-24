@@ -2,7 +2,6 @@
 
 class NetValueReference extends MysqlReference
 {
-	var $sql;
 	var $fund_est_sql;
 	
     function NetValueReference($strSymbol) 

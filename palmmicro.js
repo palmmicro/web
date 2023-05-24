@@ -2,7 +2,7 @@
 
 var _iTotalMenu1 = 8;
 var _arMenu1 = new Array(       "contactus",  "pa6488", "pa3288", "ar1688", "pa1688", "res",        "", "account"); 
-var _arMenu1Names = new Array(  "Contact us", "PA6488", "PA3288", "AR1688", "PA1688", "Resources",  "", "My Account"); 
+var _arMenu1Names = new Array(  "Contact us", "PA6488", "PA3288", "AR1688", "PA1688", "Resource",  "", "My Account"); 
 var _arMenu1CnNames = new Array("联系我们", "PA6488", "PA3288", "AR1688", "PA1688", "资源共享",   "", "我的帐号"); 
 
 function _NavLinkWriteIndexHtml()

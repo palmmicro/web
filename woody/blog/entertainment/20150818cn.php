@@ -97,8 +97,7 @@
 
 <h3>美国<a name="daylightsavingbegin">夏令时开始</a></h3>
 <p>2016年3月14日
-<br />美国进入夏令时, 发现一个bug: <font color=gray><code>date_default_timezone_set('EST')</code></font>是没有夏令时的, 
-要用<font color=gray><code>date_default_timezone_set('America/New_York')</code></font>或者<font color=gray><code>date_default_timezone_set('EDT')</code></font>.
+<br />美国进入夏令时, 发现一个bug: <font color=gray><code>date_default_timezone_set('EST')</code></font>是没有夏令时的, 要用<font color=gray><code>date_default_timezone_set('America/New_York')</code></font>.
 </p>
 
 <h3><?php EchoNameTag('goldsilver', GOLD_SILVER_DISPLAY); ?></h3>
@@ -281,6 +280,7 @@
 	Echo20220121(GetNameTag('sinajs', ACCOUNT_TOOL_SINAJS_CN).'调试工具');
 	Echo20220914('为'.GetNameTag('qdiimix', QDII_MIX_DISPLAY).'补充A股成分股的持仓处理');
 	Echo20230521('增加'.GetNameTag('qdiijp', QDII_JP_DISPLAY).'的估值');
+	Echo20230525('增加'.GetNameTag('qdiieu', QDII_EU_DISPLAY).'的估值');
 ?>
 
 </div>

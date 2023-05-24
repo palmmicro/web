@@ -28,7 +28,8 @@ function GetChinaMoney($ref)
     if (_chinaMoneyNeedData($ref->GetDate()) == false)				return;
 	if ($ref->GetHourMinute() < 915)									return;	// Data not updated until 9:15
     
-    date_default_timezone_set(STOCK_TIME_ZONE_CN);
+//    date_default_timezone_set('PRC');
+	$ref->SetTimeZone();
 	$strFileName = DebugGetChinaMoneyFile();
 	if (StockNeedFile($strFileName) == false)						return; 	// updates on every minute
 	

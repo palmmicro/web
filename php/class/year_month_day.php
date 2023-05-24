@@ -1,7 +1,6 @@
 <?php
 
-define('STOCK_TIME_ZONE_CN', 'PRC');
-define('STOCK_TIME_ZONE_US', 'America/New_York');
+// 'JST'
 
 class YearMonthDay
 {
@@ -226,8 +225,8 @@ class NowYMD extends TickYMD
     
     function NowYMD()
     {
-    	date_default_timezone_set(STOCK_TIME_ZONE_CN);
-        $this->strTimeZone = STOCK_TIME_ZONE_CN;
+        $this->strTimeZone = 'PRC';
+    	date_default_timezone_set($this->strTimeZone);
         
         parent::TickYMD(time());
     }

@@ -202,7 +202,7 @@ function SqlGetStockId($strSymbol)
 	{
 		return $strStockId;
 	}
-   	DebugString($strSymbol.' not in stock table');
+//   	DebugString($strSymbol.' not in stock table');
 	return false;
 }
 

@@ -120,7 +120,7 @@ function in_arraySpyQdii($strSymbol)
 
 function QdiiGetSymbolArray()
 {
-    $ar = array_merge(array('SH513030', 'SH513080', 'SH513290', 'SZ160140', 'SZ161126', 'SZ161127', 'SZ161128', 'SZ162415', 'SZ164824', 'SZ165510') 
+    $ar = array_merge(array('SH513290', 'SZ160140', 'SZ161126', 'SZ161127', 'SZ161128', 'SZ162415', 'SZ164824', 'SZ165510') 
     				   , QdiiGetGoldSymbolArray()
     				   , QdiiGetOilSymbolArray()
     				   , QdiiGetOilEtfSymbolArray()
@@ -207,12 +207,23 @@ function in_arrayQdiiJp($strSymbol)
     return in_array($strSymbol, QdiiJpGetSymbolArray());
 }
 
+function QdiiEuGetSymbolArray()
+{
+    return array('SH513030', 'SH513080');
+}
+
+function in_arrayQdiiEu($strSymbol)
+{
+    return in_array($strSymbol, QdiiEuGetSymbolArray());
+}
+
 function GetAllSymbolArray()
 {
 	return array_merge(QdiiGetSymbolArray()
 			            , QdiiMixGetSymbolArray()
 			            , QdiiHkGetSymbolArray()
 			            , QdiiJpGetSymbolArray()
+			            , QdiiEuGetSymbolArray()
 					    , GoldSilverGetSymbolArray()
 					    , ChinaIndexGetSymbolArray()
 					    );
@@ -597,6 +608,7 @@ class StockSymbol
         switch ($this->strSymbol)
         {
         case 'USCNY':
+        case 'EUCNY':
         case 'JPCNY':
         case 'HKCNY':
             return true;
@@ -769,6 +781,12 @@ class StockSymbol
 		{
 			switch ($str)
 			{
+			case 'CAC':
+				return '%5E'.'FCHI';
+				
+			case 'DAX':
+				return '%5E'.'GDAXI';
+				
 			case 'NKY':
 				return '%5E'.'N225';
 			}
@@ -812,8 +830,10 @@ class StockSymbol
     	{
     		switch ($str)
     		{
+			case 'CAC':
+			case 'DAX':
     		case 'NKY':
-    			if ($iHourMinute < 800)		return true;
+    			if ($iHourMinute < 900)		return true;
     			break;
     		}
     	}
@@ -839,8 +859,13 @@ class StockSymbol
     	{
     		switch ($str)
     		{
+			case 'CAC':
+			case 'DAX':
+    			if ($iHourMinute > 1745)		return true;
+    			break;
+    			
     		case 'NKY':
-    			if ($iHourMinute > 1400)		return true;
+    			if ($iHourMinute > 1505)		return true;
     			break;
     		}
     	}
@@ -896,19 +921,33 @@ class StockSymbol
 
     function GetTimeZone()
     {
-    	$strTimeZone = STOCK_TIME_ZONE_CN;
+    	$strEDT = 'America/New_York';
+    	
        	// IsSinaFund must be called before IsSinaFuture
         if ($this->IsSinaFund())								{}
         else if ($this->IsSinaFuture())
         {
-        	if ($this->IsSinaFutureUs())						$strTimeZone = STOCK_TIME_ZONE_US;
+        	if ($this->IsSinaFutureUs())						return $strEDT;
         }
-        else if ($this->IsSinaForex())						$strTimeZone = STOCK_TIME_ZONE_US;
+        else if ($this->IsSinaForex())						return $strEDT;
         else if ($this->IsEastMoneyForex())					{}
-		else if ($this->IsSinaGlobalIndex())					{}
+		else if ($str = $this->IsSinaGlobalIndex())
+		{
+			switch ($str)
+			{
+			case 'CAC':
+				return 'Europe/Paris';
+				
+			case 'DAX':
+				return 'Europe/Berlin';
+				
+			case 'NKY':
+				return 'Asia/Tokyo';
+			}
+		}
         else if ($this->IsSymbolA() || $this->IsSymbolH())	{}
-        else													$strTimeZone = STOCK_TIME_ZONE_US;
-        return $strTimeZone;
+        else													return $strEDT;
+        return 'PRC';
     }
 
     function SetTimeZone()

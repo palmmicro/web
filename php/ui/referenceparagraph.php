@@ -40,7 +40,7 @@ function _echoReferenceTableData($arRef, $bAdmin)
 
 function GetTimeDisplay()
 {
-    date_default_timezone_set(STOCK_TIME_ZONE_CN);
+    date_default_timezone_set('PRC');
 	$ymd = GetNowYMD();
 	$strTick = strval($ymd->GetTick() * 1000);
 	

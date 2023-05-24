@@ -103,7 +103,8 @@ function SzseGetLofShares($ref)
 	if ($sql->GetRecord($strStockId, $strDate))		return;				// Already has today's data
 	if ($ref->GetHourMinute() < 915)						return;				// Data not updated until 9:15
 	
-    date_default_timezone_set(STOCK_TIME_ZONE_CN);
+//    date_default_timezone_set('PRC');
+	$ref->SetTimeZone();
 	$strFileName = DebugGetSymbolFile('szse', $ref->GetSymbol());
 	if (StockNeedFile($strFileName, 2 * SECONDS_IN_MIN) == false)	return;	// updates on every 2 minutes
 

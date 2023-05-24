@@ -8,7 +8,7 @@ function _menuLoopCompany($bChinese)
     $iLevel = 1;
     
 	MenuBegin();
-	WoodyMenuItem($iLevel, 'res', $bChinese);
+	WoodyMenuItem($iLevel, 'index', $bChinese);
 	MenuContinueNewLine();
     MenuDirLoop($arCompany);
 	MenuContinueNewLine();

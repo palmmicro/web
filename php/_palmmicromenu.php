@@ -21,7 +21,7 @@ function _getPalmmicroMenuArray($bChinese)
                        'pa3288' => 'PA3288',
                        'ar1688' => 'AR1688',
                        'pa1688' => 'PA1688',
-                       'res' => 'Resources',
+                       'res' => 'Resource',
                        'blank' => '',
                        'account' => 'My Account');
     }

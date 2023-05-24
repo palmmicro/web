@@ -13,6 +13,7 @@ class MysqlReference extends StockReference
     function MysqlReference($strSymbol) 
     {
         parent::StockReference($strSymbol);
+		$this->SetTimeZone();
         $this->LoadData();
 
     	if ($this->strSqlId)

@@ -3,7 +3,7 @@ require_once('../../php/class/PHPExcel/IOFactory.php');
 
 function _readXlsFile($bIshares, $strPathName, $nav_sql, $shares_sql, $strStockId)
 {
-	date_default_timezone_set(STOCK_TIME_ZONE_US);
+//	date_default_timezone_set('America/New_York');
 	try 
 	{	// 读取excel文件
 		$inputFileType = PHPExcel_IOFactory::identify($strPathName);
@@ -90,6 +90,7 @@ function GetNavXlsStr($sym, $bAutoCheck = false)
 		if ($str = url_get_contents($strUrl))
 		{
 			file_put_contents($strPathName, $str);
+			$sym->SetTimeZone();
 			$strStockId = SqlGetStockId($strSymbol);
 			$nav_sql = GetNavHistorySql();
 			$shares_sql = new SharesHistorySql();

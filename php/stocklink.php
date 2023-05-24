@@ -16,6 +16,7 @@ define('QDII_DISPLAY', 'QDII工具');
 define('QDII_MIX_DISPLAY', '混合QDII');
 define('QDII_HK_DISPLAY', '香港QDII');
 define('QDII_JP_DISPLAY', '日本QDII');
+define('QDII_EU_DISPLAY', '欧洲QDII');
 
 function GetStockMenuArray()
 {
@@ -24,7 +25,8 @@ function GetStockMenuArray()
                    'qdii' => QDII_DISPLAY,
                    'qdiimix' => QDII_MIX_DISPLAY,
                    'qdiihk' => QDII_HK_DISPLAY,
-                   'qdiijp' => QDII_JP_DISPLAY);
+                   'qdiijp' => QDII_JP_DISPLAY,
+                   'qdiieu' => QDII_EU_DISPLAY);
 }
 
 function GetStockCategoryLinks()

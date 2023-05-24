@@ -339,6 +339,7 @@ function StockGetFundReference($strSymbol)
     if (in_arrayQdii($strSymbol))					$ref = new QdiiReference($strSymbol);
     else if (in_arrayQdiiHk($strSymbol))			$ref = new QdiiHkReference($strSymbol);
     else if (in_arrayQdiiJp($strSymbol))			$ref = new QdiiJpReference($strSymbol);
+    else if (in_arrayQdiiEu($strSymbol))			$ref = new QdiiEuReference($strSymbol);
     else if (in_arrayGoldSilver($strSymbol))		$ref = new GoldFundReference($strSymbol);
     else									        $ref = new FundReference($strSymbol);
     return $ref;

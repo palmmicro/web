@@ -9,7 +9,7 @@ function _menuStockSoftware($bChinese)
     $ar = GetStockMenuArray();
     
 	MenuBegin();
-	WoodyMenuItem($iLevel, 'res');
+	WoodyMenuItem($iLevel, 'index');
 	MenuContinueNewLine();
 
 	$strPage = UrlGetPage();
@@ -18,7 +18,8 @@ function _menuStockSoftware($bChinese)
                       	   'qdii' => 'QdiiGetSymbolArray',
                       	   'qdiimix' => 'QdiiMixGetSymbolArray',
                       	   'qdiihk' => 'QdiiHkGetSymbolArray',
-                      	   'qdiijp' => 'QdiiJpGetSymbolArray');
+                      	   'qdiijp' => 'QdiiJpGetSymbolArray',
+                      	   'qdiieu' => 'QdiiEuGetSymbolArray');
     
     foreach ($arFunction as $strKey => $strFunction)
     {

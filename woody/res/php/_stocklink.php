@@ -94,6 +94,10 @@ function GetCategoryArray($strPage)
         $ar = QdiiJpGetSymbolArray();
         break;
         
+    case 'qdiieu':
+        $ar = QdiiEuGetSymbolArray();
+        break;
+        
     case 'oilfund':
     	$ar = array_merge(QdiiGetOilEtfSymbolArray(), QdiiGetOilSymbolArray());
         break;

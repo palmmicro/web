@@ -237,7 +237,7 @@ class StockReference extends StockSymbol
     function _convertDateTimeFromUS($strDateTime, $strYear)
     {
         $iTime = strtotime($strDateTime);
-        $this->strTime = DebugGetTime($iTime, STOCK_TIME_ZONE_US);
+        $this->strTime = DebugGetTime($iTime, 'America/New_York');
         $this->strDate = $strYear.date('-m-d', $iTime);
     }
     
@@ -355,7 +355,7 @@ class StockReference extends StockSymbol
     {
 		$strTimeZone = $this->GetTimeZone();
 		
-		date_default_timezone_set(STOCK_TIME_ZONE_CN);
+		date_default_timezone_set('PRC');
 		$iTime = strtotime($strDate.' '.$strTime);
 		date_default_timezone_set($strTimeZone);
 		

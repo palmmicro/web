@@ -8,7 +8,7 @@ function _menuLoopBtbond($bChinese)
     $iLevel = 1;
     
 	MenuBegin();
-	WoodyMenuItem($iLevel + 1, 'res', $bChinese);
+	WoodyMenuItem($iLevel + 1, 'index', $bChinese);
 	MenuContinueNewLine();
     if ($bChinese)
     {

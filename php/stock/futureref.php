@@ -2,11 +2,6 @@
 
 class FutureReference extends MysqlReference
 {
-/*    function FutureReference($strSymbol) 
-    {
-        parent::MysqlReference($strSymbol);
-    }*/
-    
     public function LoadData()
     {
         $this->LoadSinaFutureData();

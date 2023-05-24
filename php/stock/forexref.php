@@ -2,11 +2,6 @@
 
 class ForexReference extends MysqlReference
 {
-/*    function ForexReference($strSymbol)
-    {
-        parent::MysqlReference($strSymbol);
-    }
-*/    
     public function LoadData()
     {
 		$this->LoadSinaForexData();

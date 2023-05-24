@@ -96,7 +96,7 @@ function _preg_match_csindex_data($str)
 				
 function CsindexGetData($strSymbol = 'H30533')
 {
-    date_default_timezone_set(STOCK_TIME_ZONE_CN);
+    date_default_timezone_set('PRC');
 	$strFileName = DebugGetSymbolFile('csindex', $strSymbol);
 //	if (StockNeedFile($strFileName, SECONDS_IN_HOUR) == false)		return;   		// update on every hour
 

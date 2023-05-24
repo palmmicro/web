@@ -22,7 +22,7 @@ function SinaFundNeedFile($sym, $strFileName)
 	$strNavDate = UseSameDayNav($sym) ? $strDate : $his_sql->GetDatePrev($strStockId, $strDate);
 	if (SqlGetNavByDate($strStockId, $strNavDate))		return false;
 
-    $sym->SetTimeZone();
+//    $sym->SetTimeZone();
     $now_ymd = GetNowYMD();
    	if (($now_ymd->GetYMD() == $strDate) && $now_ymd->GetHourMinute() < 1600)	return false;		// Market not closed
 
@@ -53,7 +53,7 @@ function StockNeedNewQuotes($sym, $strFileName, $iInterval = SECONDS_IN_MIN)
 	clearstatcache(true, $strFileName);
 	if (file_exists($strFileName) == false)	return true;
 
-	$sym->SetTimeZone();
+//	$sym->SetTimeZone();
     $now_ymd = GetNowYMD();
 	if (($iFileTime = $now_ymd->NeedFile($strFileName, $iInterval)) == false)		return false;	// update on every minute
 	
@@ -100,7 +100,7 @@ function FutureNeedNewFile($strFileName, $iInterval = SECONDS_IN_MIN)
 	clearstatcache(true, $strFileName);
 	if (file_exists($strFileName) == false)	return true;
 
-    date_default_timezone_set(STOCK_TIME_ZONE_US);
+//    date_default_timezone_set('America/New_York');
 	$now_ymd = GetNowYMD();
 	if (($iFileTime = $now_ymd->NeedFile($strFileName, $iInterval)) == false)		return false;	// update on every minute
 	
@@ -127,6 +127,7 @@ function _prefetchSinaData($arSym)
     foreach ($arSym as $str => $sym)
     {
         $strFileName = DebugGetSinaFileName($str);
+        $sym->SetTimeZone();
 		if ($sym->IsSinaFund())
         {   // fund, IsSinaFund must be called before IsSinaFuture
 			if (SinaFundNeedFile($sym, $strFileName) == false)		continue;

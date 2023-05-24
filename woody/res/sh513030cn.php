@@ -1,12 +1,9 @@
 <?php 
-require('php/_qdii.php');
+require('php/_qdiieu.php');
 
-function GetQdiiRelated($strDigitA)
+function GetQdiiEuRelated($strDigitA)
 {
-	$str = GetASharesSoftwareLinks();
-	$str .= GetHangSengSoftwareLinks();
-	$str .= GetBreakElement().GetHuaAnSoftwareLinks($strDigitA);
-//	$str .= _GetKnownBugs('注意DAX和SH513030跟踪的指数其实不同，只是成分相似，此处估算结果仅供参考。');
+	$str = GetBreakElement().GetHuaAnSoftwareLinks($strDigitA);
 	return $str;
 }
 

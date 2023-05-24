@@ -9,7 +9,6 @@ define('SMA_SECTION', 'SMA');
 
 function _ignoreCurrentTradingData($strDate, $sym)
 {        
-//    $sym->SetTimeZone();
     $ymd = GetNowYMD();
     if ($ymd->GetYMD() == $strDate)
     {
