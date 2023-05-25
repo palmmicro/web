@@ -1,7 +1,7 @@
 <?php
 require_once('_fundgroup.php');
 
-class _GoldSilverAccount extends FundGroupAccount
+class GoldSilverAccount extends FundGroupAccount
 {
     function Create() 
     {
@@ -58,6 +58,6 @@ function GetMetaDescription()
     return CheckMetaDescription($str);
 }
 
-   	$acct = new _GoldSilverAccount();
+   	$acct = new GoldSilverAccount();
    	$acct->Create();
 ?>

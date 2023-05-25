@@ -28,11 +28,6 @@ function EchoNvCloseDemo($strSymbol = STOCK_DEMO_SYMBOL)
    	EchoNvCloseHistoryParagraph($ref);
 }
 
-function EchoFundHistoryLink()
-{
-	EchoNameLink('fundhistory', FUND_HISTORY_DISPLAY);
-}
-
 function EchoFundEstTables()
 {
 	EchoFundArrayEstParagraph(array(StockGetFundReference(FUND_DEMO_SYMBOL)));
@@ -117,6 +112,11 @@ END;
     EchoReferenceParagraph(array(new MyStockReference(FUND_DEMO_SYMBOL)));
 }
 
+function _getLofLink()
+{
+	return GetNameLink('lof');
+}
+
 function Echo20160127($strHead)
 {
 	$strHead = GetHeadElement($strHead);
@@ -140,11 +140,6 @@ Wiki的QDII词条下显示了它是Qualified Domestic Institutional Investor的�
 END;
 }
 
-function _getLofLink()
-{
-	return GetNameLink('lof');
-}
-
 function Echo20160222($strHead)
 {
 	$strHead = GetHeadElement($strHead);
@@ -162,12 +157,52 @@ function Echo20160222($strHead)
 END;
 }
 
+function Echo20160325($strHead)
+{
+	$strHead = GetHeadElement($strHead);
+	$strSH518800 = GetStockLink('SH518800', true);
+	$strSH518880 = GetStockLink('SH518880', true);
+	$strSZ159934 = GetStockLink('SZ159934', true);
+	$strSZ159937 = GetStockLink('SZ159937', true);
+	$strGoldSilver = GetStockMenuLink('goldsilver');
+	$strFundHistory = GetNameLink('fundhistory', FUND_HISTORY_DISPLAY);
+	$strQdiiAccount = GetCodeElement('QdiiAccount');
+	$strGoldSilverAccount = GetCodeElement('GoldSilverAccount');
+	$strFundReference = GetCodeElement('FundReference');
+	$strSMA = GetNameLink('sma');
+	$strLof = _getLofLink();
+	$strSZ160719 = GetStockLink('SZ160719', true);
+	$strSZ161116 = GetStockLink('SZ161116', true);
+	$strSZ164701 = GetStockLink('SZ164701', true);
+	$strMobileDetect = GetNameLink('mobiledetect', 'Mobile-Detect');
+	$strIniFile = GetExternalLink('http://px.sklar.com/code.html?id=142&fmt=pl', INIFile);
+	
+    echo <<<END
+	$strHead
+<p>2016年3月25日
+<br />趁复活节假日的空挡为{$strSH518800}、{$strSH518880}、{$strSZ159934}和{$strSZ159937}增加{$strGoldSilver}页面。
+<br />一直有用户建议我在华宝油气等QDII的{$strFundHistory}表格上加入预估净值比较栏目。除了不愿意直接打自己嘴巴外的心理因素外，我迟迟没有加上它的原因主要是估值是跟着美股交易实时变化的，一直想不清楚这个时间上的对应关系。
+<br />在QDII的代码中，单独的预估净值变量原本放在{$strQdiiAccount}类中，而在新的黄金白银{$strGoldSilverAccount}类中又再次用到了{$strFundReference}类。
+自然而然的，我把预估净值的变量挪到了{$strFundReference}类中。当预估净值和当日净值的变量排列在一起后，突然之间数据结构引导思维方式的例子再次爆发，没有比在记录当日净值的时候同时记录预估净值更合理的了！
+同时记录和显示估值的时间，这样当看到估值时间落在美股交易结束前，那么有误差就是天经地义的事情，而不是我的算法有问题。计算估值是由用户访问页面的动作驱动的，如果某页面没有用户经常访问，那么就会出现这种异常时间估值。
+<br />由于在股票交易日的净值系列页面访问量已经稳定在了1000左右，最高的一天有接近1700，我一直在琢磨如何优化页面应对以后可能的更大的访问量高峰。
+把只会每天变化一次的{$strSMA}计算结果保存下来是很容易想到的，但是之前一直没有做。写完这4个黄金ETF的页面后，我意识到同一个GLD的SMA要在包括黄金{$strLof}的{$strSZ160719}、{$strSZ161116}和{$strSZ164701}共7个页面各算一遍，觉得不能再忍下去了。
+<br />基于之前在网上找{$strMobileDetect}代码的经验，我极大的低估了找一个现成的读写配置文件的PHP类的难度。比较容易找到的是一个要收费5美元的，号称同时支持文件和MySQL读写配置。而我就是不想多搞MySQL的表才想用文件存的，不免觉得这5美元有点浪费。
+最后好不容易才翻到免费的{$strIniFile}。这个类原本只支持在已经存在的配置文件上修改，让我这个PHP新手折腾改了好几个小时才顺利用上。
+END;
+}
+
+function _getQdiiLink()
+{
+	return GetNameLink('qdii');
+}
+
 function Echo20161006($strHead)
 {
 	$strHead = GetHeadElement($strHead);
 	$strSZ162411 = GetCalibrationHistoryLink(FUND_DEMO_SYMBOL, true).CALIBRATION_HISTORY_DISPLAY;
 	$strUSO = GetCalibrationHistoryLink('USO', true).CALIBRATION_HISTORY_DISPLAY;
-	$strQDII = GetNameLink('qdii');
+	$strQDII = _getQdiiLink();
 	
     echo <<<END
 	$strHead
@@ -177,6 +212,11 @@ function Echo20161006($strHead)
 <br />碰到XOP分红除权的日子，就需要进行手工校准。否则的话要等下一次自动校准后，估值结果才会再次正确。
 </p>
 END;
+}
+
+function _getWeixinLink()
+{
+	return GetNameLink('weixin', '微信公众号');
 }
 
 function Echo20161014($strHead)
@@ -208,11 +248,6 @@ function Echo20161014($strHead)
 $strImage
 </p>
 END;
-}
-
-function _getWeixinLink()
-{
-	return GetNameLink('weixin', '微信公众号');
 }
 
 function _getUpdateChinaStockLink($strNode, $strDisplay)
@@ -391,7 +426,7 @@ function Echo20180404($strHead)
 	$strIntSql = GetCodeElement('IntSql');
 	$strPairSql = GetCodeElement('PairSql');
 	$strStockPairSql = GetCodeElement('StockPairSql');
-	$strQDII = GetNameLink('qdii');
+	$strQDII = _getQdiiLink();
 	$strCalibration = GetNameLink('calibrationhistory', CALIBRATION_HISTORY_DISPLAY);
 	$strQuote = GetBlockquoteElement('Life is like a snowball. The important thing is finding wet snow and a really long hill. — Warren Buffett');
 	
@@ -561,7 +596,7 @@ function Echo20191025($strHead)
 	$strLof = _getLofLink();
 	$strSH501018 = GetFundPositionLink('SH501018', true);
 	$strMaster = GetXueqiuIdLink('1873146750', '惊艳大师');
-	$strQDII = GetNameLink('qdii');
+	$strQDII = _getQdiiLink();
 	$strElementaryTag = GetNameTag('elementary', '小学生');
 	$strWei = GetXueqiuIdLink('1135063033', '魏大户');
 	$strOilFundTag = GetNameTag('oilfund', OIL_GROUP_DISPLAY);
@@ -701,7 +736,7 @@ function Echo20210624($strHead)
 {
 	$strHead = GetHeadElement($strHead);
 	$strKWEB = GetHoldingsLink('KWEB', true);
-	$strQDII = GetNameLink('qdii');
+	$strQDII = _getQdiiLink();
 	$strSZ164906 = GetStockLink('SZ164906');
 	$strFundHistory = GetNameLink('fundhistory', FUND_HISTORY_DISPLAY);
 	$strLof = _getLofLink();
@@ -739,6 +774,18 @@ END;
 	EchoFundShareParagraph(StockGetFundReference(FUND_DEMO_SYMBOL));
 }
 
+function _getStockMenuLink($strItem)
+{
+    $ar = GetStockMenuArray();
+    return GetNameLink($strItem, $ar[$strItem]);
+}
+
+function _getStockMenuTag($strItem)
+{
+    $ar = GetStockMenuArray();
+    return GetNameTag($strItem, $ar[$strItem]);
+}
+
 function Echo20210728($strHead)
 {
 	$strHead = GetHeadElement($strHead);
@@ -747,8 +794,8 @@ function Echo20210728($strHead)
 	$strSZ159607 = GetStockLink('SZ159607');
 	$strHoldings = GetNameLink('holdings', HOLDINGS_DISPLAY);
 	$strFundPosition = GetNameLink('fundposition', FUND_POSITION_DISPLAY);
-	$strQdiiHk = GetNameLink('qdiihk', QDII_HK_DISPLAY);
-	$strQDII = GetNameLink('qdii', QDII_DISPLAY);
+	$strQdiiHk = _getStockMenuLink('qdiihk');
+	$strQdii = _getStockMenuLink('qdii');
 	$strImage = ImgHuangRong();
 	
     echo <<<END
@@ -760,7 +807,7 @@ function Echo20210728($strHead)
 在中间的是跟踪中证海外中国互联网30指数930604的{$strSZ159605}和{$strSZ159607}，限制15%的最大仓位。另外，顾名思义930604的成分股数量要少50-30=20只。
 <br />SH513050的成分股和比例来自于上交所官网的ETF申购赎回清单，SZ159605和SZ159607来自深交所官网的ETF申购赎回清单，这样未来可以方便的继续扩大混合QDII的成员。SZ164906的成分股和比例依旧还是来自KWEB官网公布的每日{$strHoldings}更新。
 <br />把SZ164906从老QDII挪到新的混合QDII其实是个相当痛苦的过程，原来以SZ162411为模板写的{$strFundPosition}等功能都要从QDII拓展出来，{$strQdiiHk}在这个过程中也跟着沾了光。
-<br />官方估值跟原来{$strQDII}一样，不过混合QDII的参考估值有所不同。除了当日汇率的变化外，参考估值在港股开盘后还会反应当日港股成分股的变动对净值的影响。
+<br />官方估值跟原来{$strQdii}一样，不过混合QDII的参考估值有所不同。除了当日汇率的变化外，参考估值在港股开盘后还会反应当日港股成分股的变动对净值的影响。
 $strImage
 </p>
 END;
@@ -828,7 +875,7 @@ function Echo20230521($strHead)
 	$strSH513520 = GetStockLink('SH513520', true);
 	$strSH513880 = GetStockLink('SH513880', true);
 	$strSZ159866 = GetStockLink('SZ159866', true);
-	$strQdiiHk = GetNameLink('qdiihk', QDII_HK_DISPLAY);
+	$strQdiiHk = _getStockMenuLink('qdiihk');
 	$strNKY = GetSinaQuotesLink('znb_NKY');
 	$strNK = GetSinaQuotesLink('hf_NK');
 	
@@ -848,12 +895,13 @@ END;
 function Echo20230525($strHead)
 {
 	$strHead = GetHeadElement($strHead);
-	$strQDII = GetNameLink('qdii');
-	$strQdiiJp = GetNameLink('qdiijp', QDII_JP_DISPLAY);
+	$strQDII = _getQdiiLink();
+	$strQdiiJp = _getStockMenuLink('qdiijp');
 	$strSH513030 = GetStockLink('SH513030', true);
 	$strSH513080 = GetStockLink('SH513080', true);
 	$strDAX = GetSinaQuotesLink('znb_DAX');
 	$strCAC = GetSinaQuotesLink('znb_CAC');
+	$strFundHistory = GetNameLink('fundhistory', FUND_HISTORY_DISPLAY);
 	
     echo <<<END
 	$strHead
@@ -861,6 +909,7 @@ function Echo20230525($strHead)
 <br />华安基金公司的{$strQDII}基金不仅有跟踪美国和日本股市的ETF，还有德国和法国的。之前我都用美股市场上的ETF给{$strSH513030}和{$strSH513080}，误差一直很大。
 专门去看过它们的季报持仓，发现它们还真是在德国和法国市场上买股票，这样就像南方原油的估值一样，连收市时间都差几个小时，当然不准。
 <br />在加了{$strQdiiJp}后，我意识到可以用同样的模式给这两个ETF估值，股指数据分别来自于新浪的{$strDAX}和{$strCAC}。目前德国和法国都在夏令时，北京时间下午三点开市，晚上11点半收市。
+隔一段日子后到{$strFundHistory}页面看估值误差，就知道这个改动是否成功了。
 </p>
 END;
 }

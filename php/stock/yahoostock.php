@@ -63,6 +63,7 @@ Array
         )
 )*/
 
+// https://query2.finance.yahoo.com/v7/finance/quote?symbols=%5ESPY-IV&formatted=true&crumb=xixceA79ORo&lang=en-US&region=US&corsDomain=finance.yahoo.com&fields=exchangeTimezoneName%2CexchangeTimezoneShortName%2CregularMarketTime%2CgmtOffSetMilliseconds
 function _yahooStockGetData($strSymbol, $strStockId)
 { 
     $now_ymd = GetNowYMD();

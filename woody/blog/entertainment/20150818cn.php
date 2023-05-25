@@ -62,7 +62,7 @@
 
 <?php
 	Echo20150824('增加'.GetNameTag('stockhistory', STOCK_HISTORY_DISPLAY).'页面');
-	Echo20150827('扩大规模到'.GetNameTag('qdiihk', QDII_HK_DISPLAY));
+	Echo20150827('扩大规模到'._getStockMenuTag('qdiihk'));
 ?>
 
 <h3>股票<a name="transaction">交易</a>记录</h3>
@@ -74,7 +74,7 @@
 
 <h3>开始自己写PHP的class类</h3>
 <p>2015年11月7日
-<br />分离数据和用户界面代码，把QDII用到的股票数据部分放到<font color=olive>StockReference</font>类中，用在<font color=olive>_QdiiAccount</font>类中。
+<br />分离数据和用户界面代码，把QDII用到的股票数据部分放到<font color=olive>StockReference</font>类中，用在<font color=olive>QdiiAccount</font>类中。
 <br />继续整理代码，为热心吃螃蟹的用户们增加<a href="../../res/sh513100cn.php">纳指ETF</a>、<a href="../../res/sz160717cn.php">恒生H股</a>、<a href="../../res/sz160216cn.php">国泰商品</a>、<a href="../../res/sz160416cn.php">石油基金</a>、 
 <a href="../../res/sz163208cn.php">诺安油气</a>和<a href="../../res/sz165510cn.php">信诚四国</a>等页面.
 </p>
@@ -100,21 +100,9 @@
 <br />美国进入夏令时, 发现一个bug: <font color=gray><code>date_default_timezone_set('EST')</code></font>是没有夏令时的, 要用<font color=gray><code>date_default_timezone_set('America/New_York')</code></font>.
 </p>
 
-<h3><?php EchoNameTag('goldsilver', GOLD_SILVER_DISPLAY); ?></h3>
-<p>2016年3月25日
-<br />趁复活节假日黄金期货GC停止交易, 校准</a>A股<a href="../../res/goldsilvercn.php">黄金白银</a>系列的净值计算工具. 目前包括<a href="../../res/sh518800cn.php">国泰黄金ETF</a>,
-<a href="../../res/sh518880cn.php">华安黄金ETF</a>, <a href="../../res/sz159934cn.php">易方达黄金ETF</a>, <a href="../../res/sz159937cn.php">博时黄金ETF</a>, <a href="../../res/sz164701cn.php">添富贵金LOF</a>, 
-<a href="../../res/sz160719cn.php">嘉实黄金LOF</a>和<a href="../../res/sz161116cn.php">易方达黄金LOF</a>.
-<br />一直有用户建议我在华宝油气等QDII的<?php EchoFundHistoryLink(); ?>表格上加入预估净值比较栏目. 除了不愿意直接打自己嘴巴外的心理因素外, 我迟迟没有加上它的原因主要是估值是实时变化的.
-我一直想不清楚是该加在美股收盘后的预估净值还是A股收盘后的.
-<br />在QDII的代码中, 单独的预估净值变量原本放在<font color=olive>_QdiiAccount</font>类中. 而在新的黄金白银<font color=olive>_GoldSilverAccount</font>类中又用到了<font color=olive>FundReference</font>类. 
-自然而然的, 我把预估净值的变量挪到了<font color=olive>FundReference</font>类中. 当预估净值和当日净值的变量排列在一起后, 突然之间数据结构引导思维方式的例子再次爆发, 没有比在记录当日净值的时候同时记录预估净值更合理的了!
-<br />由于在股票交易日的净值系列页面访问量已经稳定在了1000左右, 最高的一天有接近1700, 我一直在琢磨如何优化页面应对以后可能的更大的访问量高峰.
-把只会每天变化一次的<a href="#sma">SMA</a>计算结果保存下来是很容易想到的, 但是之前一直没有做. 在搞完7个黄金基金的校准后, 我意识到同一个GLD要在包括GC黄金期货的8个页面各算一遍, 觉得不能再忍下去了.
-<br />基于之前在网上找<a href="#mobiledetect">Mobile-Detect</a>代码的经验, 我极大的低估了找一个现成的读写配置文件的php类的难度. 比较容易找到的是一个要收费5美元的, 号称同时支持文件和mysql读写配置.
-而我就是不想多搞mysql的表才想用文件存的, 不免觉得这5美元有点浪费. 最后好不容易才翻到免费的<a href="http://px.sklar.com/code.html?id=142&fmt=pl" target=_blank>INIFile</a>.
-这个类原本只支持在已经存在的配置文件上修改, 让我这个PHP新手折腾改了好几个小时才顺利用上.
-</p>
+<?php
+	Echo20160325('增加'._getStockMenuTag('goldsilver').'页面');
+?>
 
 <h3>新浪实时港股数据</h3>
 <p>2016年4月23日
@@ -278,9 +266,9 @@
 	Echo20210728('为'.GetNameTag('chinainternet', '中丐互怜').'增加'.QDII_MIX_DISPLAY.'工具系列');
 	Echo20211129(GetNameTag('endweixin', '放弃微信').'公众号文章');
 	Echo20220121(GetNameTag('sinajs', ACCOUNT_TOOL_SINAJS_CN).'调试工具');
-	Echo20220914('为'.GetNameTag('qdiimix', QDII_MIX_DISPLAY).'补充A股成分股的持仓处理');
-	Echo20230521('增加'.GetNameTag('qdiijp', QDII_JP_DISPLAY).'的估值');
-	Echo20230525('增加'.GetNameTag('qdiieu', QDII_EU_DISPLAY).'的估值');
+	Echo20220914('为'._getStockMenuTag('qdiimix').'补充A股成分股的持仓处理');
+	Echo20230521('增加'._getStockMenuTag('qdiijp').'的估值');
+	Echo20230525('增加'._getStockMenuTag('qdiieu').'的估值');
 ?>
 
 </div>

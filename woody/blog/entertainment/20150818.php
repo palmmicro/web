@@ -77,26 +77,6 @@ We called MySQL related function in <font color=olive>MysqlReference</font> clas
 need to use <font color=gray><code>date_default_timezone_set('America/New_York')</code></font>.
 </p>
 
-<h3><a name="goldsilver">Gold ETF</a></h3>
-<p>March 25, 2016
-<br />As Gold future GC is not trading on Easter holiday, I get the chance to adjust the net value estimation for Chinese Gold ETF.
-<br />Different users have been suggesting to add estimation value in the <a href="#fundhistory">fund history</a> table of SZ162411.
-Except for not willing to show my possible error directly, I did not add it because the change is realtime, and I don't know when to record it, after US market close or Chinese market close?
-<br />In the QDII code, the variable for estimation value was originally in <font color=olive>_QdiiAccount</font> class.
-With my new <font color=olive>_GoldSilverAccount</font> class again having the same class member of <font color=olive>FundReference</font> class,
-naturally I moved the estimation value to <font color=olive>FundReference</font> class. And when estimaation value and net value variable are put together, the data structure leads my mind again,
-suddenly I realized that it is most reasonable to record the estimation value in the same time when the current day net value is recorded!
-<br />The average page view of my net value pages in a normal trading day is around 1000 now, the max day is nearly 1700. I have been optimizing my software for more page views in the future.
-As the <a href="#sma">SMA</a> caculation only need to be done once in a day, it is natural to save the result instead of calculate it with every page view.
-I have been thinking about it but never did anything, until I finished the adjustment of 7 gold ETF, I realized that the SMA of GLD need to be calculated in 8 pages including the GC gold future page.
-I feel I can not stand it any more.
-<br />Based on the experience of finding <a href="#mobiledetect">Mobile-Detect</a> code on internet, I underestimated the efforts to find a ready php class for config file read and write.
-An easy found one cost 5 USD, it says to support file and mysql for configuration at the same time, as I do not like too many tables in mysql and only interested in file config,
-I think 5 USD may be a waste of money.
-As last I found the free <a href="http://px.sklar.com/code.html?id=142&fmt=pl" target=_blank>INIFile</a>. 
-The class only support config read and write on an existing file, still as a PHP new programmer, I spent a few hours to modify it and finally made it works with my pages.
-</p>
-
 <h3>Sina Realtime HK Stock Data</h3>
 <p>Apr 23, 2016
 <br />With the help of <?php EchoXueqiuId('5174320624', 'rdcheju'); ?>,

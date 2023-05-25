@@ -1,7 +1,7 @@
 <?php
 require_once('_qdiigroup.php');
 
-class _QdiiAccount extends QdiiGroupAccount
+class QdiiAccount extends QdiiGroupAccount
 {
     var $oil_ref = false;
     var $cnh_ref;
@@ -90,6 +90,6 @@ function GetQdiiLinks($sym)
 	return $str.GetQdiiRelated($sym->GetDigitA());
 }
 
-   	$acct = new _QdiiAccount();
+   	$acct = new QdiiAccount();
    	$acct->Create();
 ?>
