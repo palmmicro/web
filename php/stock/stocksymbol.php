@@ -21,11 +21,6 @@ function StrHasPrefix($str, $strPrefix)
 	return (strncmp($str, $strPrefix, $iLen) == 0) ? substr($str, $iLen) : false; 
 }
 
-function GetOldSymbolArray()
-{
-	return array('ACH', 'CEA', 'CEO', 'CHA', 'CHAD', 'CHU', 'CHL', 'GSH', 'HNP', 'LFC', 'PTR', 'SHI', 'SINA', 'SMI', 'SNP', 'TVIX');
-}
-
 function GetSecondaryListingArray()
 {
 	return array(

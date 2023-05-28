@@ -57,17 +57,6 @@ class StockAccount extends TitleAccount
     
     function StockCheckSymbol($str)
     {
-    	if (in_array($str, GetOldSymbolArray()))
-   		{
-   			if (!$this->IsAdmin())
-   			{
-   				if ($this->SetCrawler(UrlGetIp()))
-   				{
-//   					DebugString('标注查退市股的爬虫');
-   				}
-   			}
-   		}
-   		
     	if (strlen($str) > 11)				return false;		// hf_CHA50CFD is the longest symbol
     	if (strpos($str, "'") !== false)	return false;
     	$str = rtrim($str, '/');

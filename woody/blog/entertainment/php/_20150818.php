@@ -28,21 +28,6 @@ function EchoNvCloseDemo($strSymbol = STOCK_DEMO_SYMBOL)
    	EchoNvCloseHistoryParagraph($ref);
 }
 
-function EchoFundEstTables()
-{
-	EchoFundArrayEstParagraph(array(StockGetFundReference(FUND_DEMO_SYMBOL)));
-
-	EchoTableParagraphBegin(array(new TableColumn('估值因素', 140),
-								   new TableColumnOfficalEst(),
-								   new TableColumnFairEst(),
-								   new TableColumnRealtimeEst()
-								   ), 'estcompare');
-	EchoTableColumn(array('T日美股交易',		'XOP净值',	'XOP净值',	'XOP净值'));
-	EchoTableColumn(array('CL期货',			'否',		'否',		'是'));
-	EchoTableColumn(array('美元人民币中间价',	'T日',		'T/T+1日',	'T/T+1日'));
-    EchoTableParagraphEnd();
-}
-
 function Echo20150824($strHead)
 {
 	$strHead = GetHeadElement($strHead);
@@ -129,7 +114,7 @@ function Echo20160127($strHead)
     echo <<<END
 	$strHead
 <p>2016年1月27日
-<br />继续前一天的显示话题。华宝油气这个名称里的中文基本上大家都认识，而括号内的那些英文字母，绝大多数的美国人都不会认识。
+<br />不知不觉在前面写了很多QDII。其实QDII和华宝油气这个名称里后面的LOF，绝大多数的美国人都不会认识。
 <br />把Google设置成显示英文结果，然后查QDII，百度百科的中文页面显示在搜索结果的第2位，第3位是Wiki。听过一个笑话，一个腹黑的HR问程序员求职者碰到问题怎么办，回答去查百度的都会被默默的拒掉，因此我就不去看它了。
 Wiki的QDII词条下显示了它是Qualified Domestic Institutional Investor的简称，同时用简体和繁体标注了合格境内机构投资者。
 <br />跟QDII一样，LOF也是一个出生和仅用于中国的英文简写。它更惨，英文的Google完全没有收录它的中国用途：Listed Open-Ended Fund的简写，意思是上市型开放式基金。
@@ -175,7 +160,7 @@ function Echo20160325($strHead)
 	$strSZ161116 = GetStockLink('SZ161116', true);
 	$strSZ164701 = GetStockLink('SZ164701', true);
 	$strMobileDetect = GetNameLink('mobiledetect', 'Mobile-Detect');
-	$strIniFile = GetExternalLink('http://px.sklar.com/code.html?id=142&fmt=pl', INIFile);
+	$strIniFile = GetExternalLink('http://px.sklar.com/code.html?id=142&fmt=pl', 'INIFile');
 	
     echo <<<END
 	$strHead
@@ -195,6 +180,64 @@ END;
 function _getQdiiLink()
 {
 	return GetNameLink('qdii');
+}
+
+function Echo20160818($strHead)
+{
+	$strHead = GetHeadElement($strHead);
+	$strJisilu = GetJisiluQdiiLink();
+	$strNav = GetTableColumnNav();
+	
+	$offical_col = new TableColumnOfficalEst();
+	$strOfficalEst = $offical_col->GetDisplay();
+	
+	$fair_col = new TableColumnFairEst();
+	$strFairEst = $fair_col->GetDisplay();
+	
+	$realtime_col = new TableColumnRealtimeEst();
+	$strRealtimeEst = $realtime_col->GetDisplay();
+	
+	$strEstList = GetListElement(array('要使用^SPSIOP或者XOP的净值，而不是XOP的交易价，两者通常并不一致。',
+								  '要使用'.GetLinkElement('美元人民币中间价', '20160615cn.php').'，而不是新浪的美元汇率实时交易价格，更不是离岸人民币价格。',
+								  _getLofLink().'基金要按95%仓位的处理，而不是ETF基金的100%。'));
+	$strFairEstCode = GetCodeElement('FairEst');
+	$strImage = ImgWinMan(); 
+	$strUsageList = GetListElement(array('验证估值算法准确程度和测算申购赎回的成本，看'.$strOfficalEst.'。',
+								  '按溢价折价决定当日是否套利和做跟XOP配对交易的，看'.$strFairEst.'。折价不申购，溢价不赎回。此外A股或者美股休市的日子里也应该看它。',
+								  '做跟美油期货CL配对交易的，看'.$strRealtimeEst.'。'));
+	
+    echo <<<END
+	$strHead
+<p>2016年8月18日
+<br />发现有人的Excel计算表格中有这一项，我也就顺应潮流把它加上了。大概是沿用{$strJisilu}的叫法，把已经公布的净值称为T-1、把估算的官方将要公布的下一日净值称为T、而把考虑了当日美油期货CL变动的称为T+1估值，大致意思是用白天CL的变动预测晚上XOP的变动。
+按我的看法，拉长到一年看CL和XOP对应关系可能是不错，但是具体到每一天就未必了，所以在自己的套利交易中目前是不考虑这个T+1估值的。当然需要进行期货交易也是我不做它的一个重要因素，怕不小心杠杆赌大了把自己搞破产。一手CL是1000桶，目前每桶油价大约50美元，也就是说每次要交易五万美元的货值。
+<br />因为特立独行的原因，我不喜欢T-1/T/T+1这种叫法。于是我在网页中把T-1直接写成了{$strNav}，T日估值称为{$strOfficalEst}，而把T+1估值称为{$strRealtimeEst}。另外还有一个{$strFairEst}，接下来解释一下这些看上去混乱的估值名称。
+<br />{$strFairEst}和{$strRealtimeEst}的区别仅仅是用不用CL的实时交易数据。{$strRealtimeEst}假定SZ162411和CL关联程度是100%，XOP和USO关联程度也是按照100%估算。由于估值依赖CL和USO在美股交易时段的自动校准，而期货总是免不了升水贴水，每个月20日左右CL期货换月的当天{$strRealtimeEst}是不准确的。
+另外因为CL期货的每日结算价格通常跟收盘价不同，CL期货收盘比美股晚一个小时的收盘价也不同于我在估值中实际用来参考的美股收盘时的CL价格，有可能出现CL价格的显示高(或低)于上一日，而{$strFairEst}低(或高)于{$strRealtimeEst}的情况。
+<br />先说明一下如何把华宝油气{$strOfficalEst}精确到0.001元。说实在话，刚开始我也不可能想到花了整整一年时间才做到这一点。
+</p>
+	$strEstList
+END;
+
+	EchoFundArrayEstParagraph(array(StockGetFundReference(FUND_DEMO_SYMBOL)));
+	EchoTableParagraphBegin(array(new TableColumn('估值因素', 140), $offical_col, $fair_col, $realtime_col), 'estcompare');
+	EchoTableColumn(array('T日美股交易',		'XOP净值',	'XOP净值',	'XOP净值'));
+	EchoTableColumn(array('CL期货',			'否',		'否',		'是'));
+	EchoTableColumn(array('美元人民币中间价',	'T日',		'T/T+1日',	'T/T+1日'));
+    EchoTableParagraphEnd();
+
+    echo <<<END2
+<p>相对于{$strOfficalEst}，当美元人民币中间价波动比较大的时候{$strFairEst}就值得关注了，此外在A股或者美股休市的日子里, 它也比{$strOfficalEst}更能反映实际的净值。
+至于为什么叫它{$strFairEst}，那是因为我也不知道给它取什么名字好。事实上，在英文版本和软件代码中我给它取名为{$strFairEstCode}，意思是一个公平的估值。
+<br />在A股开市日期的美股交易时段，这三个估值通常都是完全一致的，{$strFairEst}因此不会显示出来。如果偶尔出现{$strOfficalEst}和{$strRealtimeEst}不同，那是因为CL和USO的数据没能在同一分钟内自动校准或者软件改出了新BUG。
+显然在美股交易时段是没有T+1的美元人民币中间价的，此时的{$strRealtimeEst}用的只能是T日的美元人民币中间价。此时所有的估值和校准都是为美股结束后的{$strFairEst}和{$strRealtimeEst}做准备，用户只需要看{$strOfficalEst}即可。
+<br />在美股交易结束后，这3个估值就开始分道扬镳了。T日{$strOfficalEst}不会再变化。CL通常会在美股收盘后继续多交易一个小时，此时{$strRealtimeEst}也就会随之变化。
+等到第二天，软件会去自动拿通常在9点15分发布的T+1日美元人民币中间价，{$strFairEst}会因此改变固定在新值上，{$strRealtimeEst}也会在这时候开始用T+1日美元人民币中间价。
+	$strImage
+<br />写了这么多细节，最后着重列一下大家最关心的：
+</p>
+	$strUsageList
+END2;
 }
 
 function Echo20161006($strHead)
@@ -492,6 +535,25 @@ function Echo20180410($strHead)
 <br />微信订阅号中查不到用来估值的人民币汇率的确有点奇怪。原因是为了加快反应时间，向微信发的查询是不会去再去拿每天更新一次的人民币中间价数据的。
 <br />当然这现在已经难不倒我了，我可以从数据库中把最近2天的中间价找出来，拼成跟其他数据类似的格式提供给用户。按惯例，又全面整理了几天代码，直到今天才完工。
 <br />因为微信查找中我没有做中文分词，因此{$strCNY}这种5个字的长查询其实是很难匹配的。为了保证下次用户能查到，我还特意手工把数据库中{$strLink}的说明从{$strOldUSCNY}改成了{$strUSCNY}。
+</p>
+END;
+}
+
+function Echo20180620($strHead)
+{
+	$strHead = GetHeadElement($strHead);
+	$strChinaIndex = GetStockMenuLink('chinaindex');
+	$strSH510300 = GetStockLink('SH510300', true);
+	$strChaos = GetNameLink('chaos', '混沌');
+	$strFundReference = GetCodeElement('FundReference');
+	$strMysqlReference = GetCodeElement('MysqlReference');
+	$strFundPairReference = GetCodeElement('FundPairReference');
+	
+    echo <<<END
+	$strHead
+<p>2018年6月20日
+<br />配合抄底{$strChinaIndex}加入{$strSH510300}页面，根据沪深300指数SH000300估算SH510300和ASHR的净值，看看有没有华宝油气和XOP这种跨市场套利的机会。
+<br />为了避免原有代码进一步走向{$strChaos}，不想从原有的{$strFundReference}类扩展这种新估值模式，从{$strMysqlReference}类继承了一个新的{$strFundPairReference}。
 </p>
 END;
 }

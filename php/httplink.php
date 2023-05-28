@@ -3,21 +3,16 @@ define('STOCK_PATH', '/woody/res/');
 
 function GetNameTag($strName, $strDisplay = false)
 {
-	if ($strDisplay == false)	$strDisplay = strtoupper($strName);
-	return GetHtmlElement($strDisplay, 'a', array('name' => GetDoubleQuotes($strName)));
+	return GetHtmlElement(($strDisplay ? $strDisplay : strtoupper($strName)), 'a', array('name' => GetDoubleQuotes($strName)));
 }
 
 function GetNameLink($strName, $strDisplay = false, $strLink = '')
 {
-	if ($strDisplay == false)	$strDisplay = strtoupper($strName);
-	return GetLinkElement($strDisplay, $strLink.'#'.$strName);
+	return GetLinkElement(($strDisplay ? $strDisplay : strtoupper($strName)), $strLink.'#'.$strName);
 }
 
 function GetOnClickLink($strPath, $strQuestion, $strDisplay)
 {
-//    $strHttp = UrlGetServer().$strPath;
-//    $strLink = "<a href=\"$strHttp\" onclick=\"return confirm('$strQuestion')\">$strDisplay</a>";
-//    return $strLink;
 	return GetLinkElement($strDisplay, UrlGetServer().$strPath, array('onclick' => GetDoubleQuotes("return confirm('$strQuestion')")));
 }
 
@@ -38,18 +33,12 @@ function GetDeleteLink($strPath, $strCn, $strUs = '', $bChinese = true)
 
 function GetInternalLink($strPath, $strDisplay = false)
 {
-	if ($strDisplay == false)	$strDisplay = basename($strPath);
-	
-//    $strHttp = UrlGetServer().$strPath;
-//    $strLink = "<a href=\"$strHttp\">$strDisplay</a>";
-//    return $strLink;
-	return GetLinkElement($strDisplay, UrlGetServer().$strPath);
+	return GetLinkElement(($strDisplay ? $strDisplay : basename($strPath)), UrlGetServer().$strPath);
 }
 
 function GetExternalLink($strHttp, $strDisplay = false)
 {
-	if ($strDisplay == false)	$strDisplay = $strHttp;
-	return GetLinkElement($strDisplay, $strHttp, array('target' => '_blank'));
+	return GetLinkElement(($strDisplay ? $strDisplay : $strHttp), $strHttp, array('target' => '_blank'));
 }
 
 function GetFileLink($strPathName)

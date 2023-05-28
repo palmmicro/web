@@ -7,13 +7,22 @@ function _getDebugIp($strLine)
    	return $arWord[1];
 }
 
-function _addDebugLine(&$arDebug, $strLine, $strLocalIp)
+function _addDebugLine(&$arDebug, $strLine, $strLocalIp, $bAuto = false)
 {
 	$strIp = _getDebugIp($strLine);
 	if ($strIp != $strLocalIp)
 	{
 		if (isset($arDebug[$strIp]))	$arDebug[$strIp] ++;
 		else						    	$arDebug[$strIp] = 1;
+		
+		if ($bAuto)
+		{
+			if (strpos($strLine, 'account/comment'))	
+			{
+				global $acct;
+				$acct->SetMalicious($strIp);
+			}
+		}
 	}
 }
 
@@ -40,10 +49,10 @@ function _echoStockDebug()
     	while (!feof($file))
     	{
     		$strLine = fgets($file);
-    		if (strpos($strLine, 'timed out'))													_addDebugLine($arCurl, $strLine, $strLocalIp);
-    		else if (strpos($strLine, 'MySQL server') || strpos($strLine, 'SELECT * FROM'))	_addDebugLine($arMysql, $strLine, $strLocalIp);
-    		else if (strpos($strLine, 'Unknown URI'))											_addDebugLine($arUrl, $strLine, $strLocalIp);
-    		else if (strpos($strLine, 'Unknown IP'))											_addDebugLine($arIp, $strLine, $strLocalIp);
+    		if (strpos($strLine, 'Timeout was reached'))																									_addDebugLine($arCurl, $strLine, $strLocalIp);
+    		else if (strpos($strLine, 'MySQL server') || strpos($strLine, 'SELECT * FROM'))															_addDebugLine($arMysql, $strLine, $strLocalIp, true);
+    		else if (strpos($strLine, 'Unknown URI') || strpos($strLine, '分级A') || strpos($strLine, '分级B') || strpos($strLine, '退市'))	_addDebugLine($arUrl, $strLine, $strLocalIp);
+    		else if (strpos($strLine, 'Unknown IP'))																									_addDebugLine($arIp, $strLine, $strLocalIp);
         }
         fclose($file);
     }

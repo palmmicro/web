@@ -95,7 +95,7 @@ function _updateStockOptionAdr($strSymbol, $strVal)
 		}
 		else
 		{
-			$pair_sql->WriteSymbol($strAdr, $strSymbol);
+			$pair_sql->WritePairSymbol($strAdr, $strSymbol);
 			if (intval($strRatio) != 1)		$pos_sql->WriteVal($strStockId, $strRatio); 
 		}
 	}
@@ -106,14 +106,14 @@ function _updateStockOptionHa($strSymbolH, $strSymbolA)
 {
 	$pair_sql = new AhPairSql();
 	if (empty($strSymbolA))		$pair_sql->DeleteByPairSymbol($strSymbolH);
-	else							$pair_sql->WriteSymbol($strSymbolA, $strSymbolH);
+	else							$pair_sql->WritePairSymbol($strSymbolA, $strSymbolH);
 }
 
 function _updateStockOptionAh($strSymbolA, $strSymbolH)
 {
 	$pair_sql = new AhPairSql();
 	if (empty($strSymbolH))		$pair_sql->DeleteBySymbol($strSymbolA);
-	else							$pair_sql->WriteSymbol($strSymbolA, $strSymbolH);
+	else							$pair_sql->WritePairSymbol($strSymbolA, $strSymbolH);
 }
 
 function _updateStockOptionEmaDays($strStockId, $iDays, $strDate, $strVal)
@@ -185,7 +185,7 @@ function _updateStockOptionFund($strSymbol, $strVal)
 	}
 	else
 	{
-		$pair_sql->WriteSymbol($strSymbol, StockGetSymbol($strIndex));
+		$pair_sql->WritePairSymbol($strSymbol, StockGetSymbol($strIndex));
 		if ($strRatio)	$pos_sql->WriteVal($strStockId, $strRatio); 
 	}
 }

@@ -1,6 +1,7 @@
 <?php
 
 /*
+// https://query2.finance.yahoo.com/v7/finance/quote?symbols=%5ESPY-IV&formatted=true&crumb=xixceA79ORo&lang=en-US&region=US&corsDomain=finance.yahoo.com&fields=exchangeTimezoneName%2CexchangeTimezoneShortName%2CregularMarketTime%2CgmtOffSetMilliseconds
 Array
 (
     [quoteResponse] => Array
@@ -63,7 +64,89 @@ Array
         )
 )*/
 
-// https://query2.finance.yahoo.com/v7/finance/quote?symbols=%5ESPY-IV&formatted=true&crumb=xixceA79ORo&lang=en-US&region=US&corsDomain=finance.yahoo.com&fields=exchangeTimezoneName%2CexchangeTimezoneShortName%2CregularMarketTime%2CgmtOffSetMilliseconds
+/*
+// https://query1.finance.yahoo.com/v7/finance/options/XOP
+Array
+(
+    [optionChain] => Array
+        (
+            [result] => Array
+                (
+                    [0] => Array
+                        (
+                            [underlyingSymbol] => ^ASHR-IV
+                            [expirationDates] => Array
+                                (
+                                )
+
+                            [strikes] => Array
+                                (
+                                )
+
+                            [hasMiniOptions] => 
+                            [quote] => Array
+                                (
+                                    [language] => en-US
+                                    [region] => US
+                                    [quoteType] => INDEX
+                                    [typeDisp] => Index
+                                    [quoteSourceName] => Delayed Quote
+                                    [triggerable] => 1
+                                    [customPriceAlertConfidence] => HIGH
+                                    [currency] => USD
+                                    [exchange] => ASE
+                                    [shortName] => Xtrackers Harvest CSI 300 China
+                                    [longName] => Xtrackers Harvest CSI 300 China
+                                    [messageBoardId] => finmb_INDEXASHR-IV
+                                    [exchangeTimezoneName] => America/New_York
+                                    [exchangeTimezoneShortName] => EDT
+                                    [market] => us_market
+                                    [regularMarketChangePercent] => 0.35430536
+                                    [regularMarketPrice] => 27.3611
+                                    [gmtOffSetMilliseconds] => -14400000
+                                    [esgPopulated] => 
+                                    [regularMarketChange] => 0.09659958
+                                    [regularMarketTime] => 1685131485
+                                    [priceHint] => 2
+                                    [regularMarketDayHigh] => 27.3783
+                                    [regularMarketDayRange] => 27.3515 - 27.3783
+                                    [regularMarketDayLow] => 27.3515
+                                    [regularMarketVolume] => 0
+                                    [regularMarketPreviousClose] => 27.2645
+                                    [bid] => 0
+                                    [ask] => 0
+                                    [bidSize] => 0
+                                    [askSize] => 0
+                                    [fullExchangeName] => NYSE American
+                                    [regularMarketOpen] => 27.3618
+                                    [fiftyTwoWeekLowChange] => 0.009599686
+                                    [fiftyTwoWeekLowChangePercent] => 0.00035097476
+                                    [fiftyTwoWeekRange] => 27.3515 - 27.3783
+                                    [fiftyTwoWeekHighChange] => -0.01720047
+                                    [fiftyTwoWeekHighChangePercent] => -0.00062825193
+                                    [fiftyTwoWeekLow] => 27.3515
+                                    [fiftyTwoWeekHigh] => 27.3783
+                                    [sourceInterval] => 15
+                                    [exchangeDataDelayedBy] => 0
+                                    [tradeable] => 
+                                    [cryptoTradeable] => 
+                                    [marketState] => POST
+                                    [symbol] => ^ASHR-IV
+                                )
+
+                            [options] => Array
+                                (
+                                )
+
+                        )
+
+                )
+
+            [error] => 
+        )
+
+)
+*/
 function _yahooStockGetData($strSymbol, $strStockId)
 { 
     $now_ymd = GetNowYMD();
@@ -74,26 +157,30 @@ function _yahooStockGetData($strSymbol, $strStockId)
    		if ($now_ymd->NeedFile($strFileName, SECONDS_IN_MIN) == false)		return false;
    	}
    	
-	$strUrl = GetYahooQuotesUrl(6).'/quote?symbols='.$strSymbol;
+//	$strUrl = GetYahooQuotesUrl(7).'/quote?symbols='.$strSymbol;
+	$strUrl = GetYahooQuotesUrl(7).'/options/'.$strSymbol;
    	if ($str = url_get_contents($strUrl))
    	{
    		DebugString($strUrl.' save new file to '.$strFileName);
    		file_put_contents($strFileName, $str);
    		$ar = json_decode($str, true);
 //   		DebugPrint($ar);
-		if (!isset($ar['quoteResponse']))			
+//		if (!isset($ar['quoteResponse']))			
+		if (!isset($ar['optionChain']))			
 		{
 			DebugString('no quoteResponse');
 			return false;
 		}
-		$arQuoteResponse = $ar['quoteResponse'];
+//		$arQuoteResponse = $ar['quoteResponse'];
+		$arQuoteResponse = $ar['optionChain'];
 		if (!isset($arQuoteResponse['result']))
 		{
 			DebugString('no quoteResponse result');
 			return false;
 		}
 		
-   		$arData = $arQuoteResponse['result'][0];
+//   		$arData = $arQuoteResponse['result'][0];
+   		$arData = $arQuoteResponse['result'][0]['quote'];
 		if (!isset($arData['regularMarketTime']))
 		{
 			DebugString('no quoteResponse result 0 regularMarketTime');

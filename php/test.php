@@ -74,22 +74,6 @@ function TestModifyTransactions($strGroupId, $strSymbol, $strNewSymbol, $iRatio)
 }
 */
 
-function TestDeleteOldSymbol($strSymbol)
-{
-	$sql = GetStockSql();
-	if ($strStockId = $sql->GetId($strSymbol))
-	{
-		$sym = new StockSymbol($strSymbol);
-		unlinkEmptyFile(DebugGetSinaFileName($sym->GetSinaSymbol()));
-		
-		$his_sql = GetStockHistorySql();
-		$his_sql->DeleteAll($strStockId);
-		
-		$sql->DeleteById($strStockId);
-		DebugString($strSymbol.' deleted');
-	}
-}
-
 function DebugLogFile()
 {
     $strFileName = UrlGetRootDir().'logs/scripts.log';
@@ -209,8 +193,6 @@ function SqlCleanStockTransaction()
 	TestCmdLine();
 	DebugClearPath('csv');
 	DebugClearPath('image');
-
-//	foreach (GetOldSymbolArray() as $strSymbol)		TestDeleteOldSymbol($strSymbol);
 
 //	$sql = GetStockSql();
 //	$sql->AlterTable('INDEX ( `name` )');

@@ -54,7 +54,7 @@ class StockPairSql extends PairSql
 		return false;
 	}
 
-	function WriteSymbol($strSymbol, $strPairSymbol)
+	function WritePairSymbol($strSymbol, $strPairSymbol)
 	{
 		if ($strStockId = $this->sql->GetId($strSymbol))
 		{
