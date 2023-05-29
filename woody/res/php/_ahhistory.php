@@ -49,8 +49,8 @@ function _echoAhHistoryParagraph($ref, $h_ref, $iStart, $iNum, $bAdmin)
    	$csv = new PageCsvFile();
 	if ($result = $his_sql->GetAll($strStockId, $iStart, $iNum)) 
     {
-        while ($record = mysql_fetch_assoc($result))		_echoAhHistoryItem($csv, $ref, $h_ref, $cny_ref, $record);
-        @mysql_free_result($result);
+        while ($record = mysqli_fetch_assoc($result))		_echoAhHistoryItem($csv, $ref, $h_ref, $cny_ref, $record);
+        mysqli_free_result($result);
     }
     $csv->Close();
     

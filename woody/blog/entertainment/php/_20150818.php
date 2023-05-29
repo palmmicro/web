@@ -167,7 +167,7 @@ function Echo20160325($strHead)
 <p>2016年3月25日
 <br />趁复活节假日的空挡为{$strSH518800}、{$strSH518880}、{$strSZ159934}和{$strSZ159937}增加{$strGoldSilver}页面。
 <br />一直有用户建议我在华宝油气等QDII的{$strFundHistory}表格上加入预估净值比较栏目。除了不愿意直接打自己嘴巴外的心理因素外，我迟迟没有加上它的原因主要是估值是跟着美股交易实时变化的，一直想不清楚这个时间上的对应关系。
-<br />在QDII的代码中，单独的预估净值变量原本放在{$strQdiiAccount}类中，而在新的黄金白银{$strGoldSilverAccount}类中又再次用到了{$strFundReference}类。
+<br />在QDII的代码中，单独的预估净值变量原本放在{$strQdiiAccount}类中，而在新的{$strGoldSilverAccount}类中又再次用到了{$strFundReference}类。
 自然而然的，我把预估净值的变量挪到了{$strFundReference}类中。当预估净值和当日净值的变量排列在一起后，突然之间数据结构引导思维方式的例子再次爆发，没有比在记录当日净值的时候同时记录预估净值更合理的了！
 同时记录和显示估值的时间，这样当看到估值时间落在美股交易结束前，那么有误差就是天经地义的事情，而不是我的算法有问题。计算估值是由用户访问页面的动作驱动的，如果某页面没有用户经常访问，那么就会出现这种异常时间估值。
 <br />由于在股票交易日的净值系列页面访问量已经稳定在了1000左右，最高的一天有接近1700，我一直在琢磨如何优化页面应对以后可能的更大的访问量高峰。
@@ -855,6 +855,7 @@ function Echo20210728($strHead)
 	$strSZ159605 = GetStockLink('SZ159605');
 	$strSZ159607 = GetStockLink('SZ159607');
 	$strHoldings = GetNameLink('holdings', HOLDINGS_DISPLAY);
+	$strQdiiMix = GetStockMenuLink('qdiimix');
 	$strFundPosition = GetNameLink('fundposition', FUND_POSITION_DISPLAY);
 	$strQdiiHk = _getStockMenuLink('qdiihk');
 	$strQdii = _getStockMenuLink('qdii');
@@ -867,9 +868,9 @@ function Echo20210728($strHead)
 <br />A股大妈最喜欢干的事情就是抄底。随着过去半年来中概互联一路跌成了中丐互怜，中概互联网ETF的市场规模和流动性都在暴涨，就连原来叫中国互联的SZ164906都蹭热度借增加扩位简称的机会改名成了中概互联网LOF。看得我口水流一地，忍不住想做点什么蹭蹭热点。
 <br />跟SZ164906和KWEB跟踪同一个指数H11136不同，SH513050跟踪的是另外一个不同的中证海外中国互联网50指数H30533。H30533和H11136在成分股选择上基本一致，但是H30533对单一成分股最大仓位限制是30%，而H11136限制10%的最大仓位，这样导致它们俩在腾讯和阿里持仓比例上区别巨大。
 在中间的是跟踪中证海外中国互联网30指数930604的{$strSZ159605}和{$strSZ159607}，限制15%的最大仓位。另外，顾名思义930604的成分股数量要少50-30=20只。
-<br />SH513050的成分股和比例来自于上交所官网的ETF申购赎回清单，SZ159605和SZ159607来自深交所官网的ETF申购赎回清单，这样未来可以方便的继续扩大混合QDII的成员。SZ164906的成分股和比例依旧还是来自KWEB官网公布的每日{$strHoldings}更新。
-<br />把SZ164906从老QDII挪到新的混合QDII其实是个相当痛苦的过程，原来以SZ162411为模板写的{$strFundPosition}等功能都要从QDII拓展出来，{$strQdiiHk}在这个过程中也跟着沾了光。
-<br />官方估值跟原来{$strQdii}一样，不过混合QDII的参考估值有所不同。除了当日汇率的变化外，参考估值在港股开盘后还会反应当日港股成分股的变动对净值的影响。
+<br />SH513050的成分股和比例来自于上交所官网的ETF申购赎回清单，SZ159605和SZ159607来自深交所官网的ETF申购赎回清单，这样未来可以方便的继续扩大新成员。SZ164906的成分股和比例依旧还是来自KWEB官网公布的每日{$strHoldings}更新。
+<br />把SZ164906从老QDII挪到新的{$strQdiiMix}其实是个相当痛苦的过程，原来以SZ162411为模板写的{$strFundPosition}等功能都要从QDII拓展出来，{$strQdiiHk}在这个过程中也跟着沾了光。
+<br />官方估值跟原来{$strQdii}一样，不过参考估值有所不同。除了当日汇率的变化外，参考估值在港股开盘后还会反应当日港股成分股的变动对净值的影响。
 $strImage
 </p>
 END;
@@ -934,12 +935,13 @@ function Echo20230521($strHead)
 	$strHead = GetHeadElement($strHead);
 	$strSH513000 = GetStockLink('SH513000', true);
 	$strChinaInternet = GetNameLink('chinainternet', '中丐互怜');
-	$strSH513520 = GetStockLink('SH513520', true);
-	$strSH513880 = GetStockLink('SH513880', true);
-	$strSZ159866 = GetStockLink('SZ159866', true);
+	$strSH513520 = GetStockLink('SH513520');
+	$strSH513880 = GetStockLink('SH513880');
+	$strSZ159866 = GetStockLink('SZ159866');
+	$strQdiiJp = GetStockMenuLink('qdiijp');
 	$strQdiiHk = _getStockMenuLink('qdiihk');
-	$strNKY = GetSinaQuotesLink('znb_NKY');
-	$strNK = GetSinaQuotesLink('hf_NK');
+	$strNKY = GetSinaQuotesLink('znb_NKY', false);
+	$strNK = GetSinaQuotesLink('hf_NK', false);
 	
     echo <<<END
 	$strHead
@@ -948,7 +950,7 @@ function Echo20230521($strHead)
 <br />能够拉溢价的原因是多方面的，比如巴菲特月初开股东大会宣传增持日本五大商社，日本股市最近几天创下三十多年新高接近1990年最高水平，但是关键还是在于限购。
 易方达基金公司因为{$strChinaInternet}缺QDII额度，SH513000每天限制申购50万份。而作为ETF，它又要求每次最少申购50万份，这样每天只有一个幸(kai)运(hou)儿(men)能申购到。
 <br />{$strSH513520}同样因为限购总份额50万份也被拉到了接近20%的溢价，而{$strSH513880}和{$strSZ159866}则因为分别限购1500万和1亿份而基本上平价。
-<br />日本QDII跟{$strQdiiHk}的估值模式基本上是一致的。中国和日本股市都开市的日子里，用新浪日经225指数数据{$strNKY}做官方估值，日本股市北京时间下午两点收盘后官方估值就不再改变，直到晚上跟公布的实际净值比较和自动校准。
+<br />{$strQdiiJp}跟{$strQdiiHk}的估值模式基本上是一致的。中国和日本股市都开市的日子里，用新浪日经225指数数据{$strNKY}做官方估值，日本股市北京时间下午两点收盘后官方估值就不再改变，直到晚上跟公布的实际净值比较和自动校准。
 同时全天都用新浪日经225指数期货数据{$strNK}做实时估值，可以反映日本股市收盘后的变化。
 </p>
 END;
@@ -961,8 +963,8 @@ function Echo20230525($strHead)
 	$strQdiiJp = _getStockMenuLink('qdiijp');
 	$strSH513030 = GetStockLink('SH513030', true);
 	$strSH513080 = GetStockLink('SH513080', true);
-	$strDAX = GetSinaQuotesLink('znb_DAX');
-	$strCAC = GetSinaQuotesLink('znb_CAC');
+	$strDAX = GetSinaQuotesLink('znb_DAX', false);
+	$strCAC = GetSinaQuotesLink('znb_CAC', false);
 	$strFundHistory = GetNameLink('fundhistory', FUND_HISTORY_DISPLAY);
 	
     echo <<<END
@@ -976,4 +978,20 @@ function Echo20230525($strHead)
 END;
 }
 
+function Echo20230530($strHead)
+{
+	$strHead = GetHeadElement($strHead);
+	$strXueqiu = GetXueqiuIdLink('9933963417', 'Forest_g');
+	$strQdiiMix = _getStockMenuLink('qdiimix');
+	$strSH501225 = GetStockLink('SH501225', true);
+	$strImage = ImgJensenHuang();
+	
+    echo <<<END
+	$strHead
+<p>2023年5月30日
+<br />NVDA上周创历史的财报预期后，掀起了全球芯片股票的高潮，让我实在坐不住了。按{$strXueqiu}一个半月前的具体建议在{$strQdiiMix}中加上了{$strSH501225}的估值页面。
+$strImage
+</p>
+END;
+}
 ?>

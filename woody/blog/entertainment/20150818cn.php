@@ -241,6 +241,7 @@
 	Echo20220914('为'._getStockMenuTag('qdiimix').'补充A股成分股的持仓处理');
 	Echo20230521('增加'._getStockMenuTag('qdiijp').'的估值');
 	Echo20230525('增加'._getStockMenuTag('qdiieu').'的估值');
+	Echo20230530('在混合QDII中增加全球芯片LOF的估值');
 ?>
 
 </div>

@@ -56,7 +56,7 @@ function _echoThanousParadoxData($csv, $nav_sql, $ref, $strStockId, $est_ref, $i
     {
     	$his_sql = GetStockHistorySql();
     	$strEstStockId = $est_ref->GetStockId();
-        while ($record = mysql_fetch_assoc($result)) 
+        while ($record = mysqli_fetch_assoc($result)) 
         {
         	$strNetValue = rtrim0($record['close']);
         	if (empty($strNetValue) == false)
@@ -68,7 +68,7 @@ function _echoThanousParadoxData($csv, $nav_sql, $ref, $strStockId, $est_ref, $i
                 }
             }
         }
-        @mysql_free_result($result);
+        mysqli_free_result($result);
     }
 }
 

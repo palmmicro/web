@@ -56,7 +56,7 @@ function _echoFundAccountItem($csv, $strDate, $strSharesDiff, $ref, $strSymbol, 
     $iCount = 0;
     if ($result = $his_sql->GetFromDate($strStockId, $strDate, 5)) 
     {
-        while ($record = mysql_fetch_assoc($result)) 
+        while ($record = mysqli_fetch_assoc($result)) 
         {
             if ($iCount == 3)
             {
@@ -70,7 +70,7 @@ function _echoFundAccountItem($csv, $strDate, $strSharesDiff, $ref, $strSymbol, 
             
             $iCount ++;
         }
-        @mysql_free_result($result);
+        mysqli_free_result($result);
     }
 
    	$ar = array($strDate, $strSharesDiff);
@@ -109,12 +109,12 @@ function _echoFundAccountData($csv, $ref, $strSymbol, $strStockId, $his_sql, $na
 	$sql = new SharesDiffSql();
     if ($result = $sql->GetAll($strStockId)) 
     {
-        while ($record = mysql_fetch_assoc($result)) 
+        while ($record = mysqli_fetch_assoc($result)) 
         {
        		$strDate = $record['date'];
        		_echoFundAccountItem($csv, $strDate, rtrim0($record['close']), $ref, $strSymbol, $strStockId, $his_sql, $nav_sql);
         }
-        @mysql_free_result($result);
+        mysqli_free_result($result);
     }
 }
 
@@ -152,7 +152,7 @@ function _echoFundAccountPredictData($ref, $strSymbol, $strStockId, $his_sql, $n
     $iCount = 0;
     if ($result = $his_sql->GetFromDate($strStockId, $now_ymd->GetYMD(), 4)) 
     {
-        while ($record = mysql_fetch_assoc($result)) 
+        while ($record = mysqli_fetch_assoc($result)) 
         {
         	if ($iCount == 0)
         	{
@@ -170,7 +170,7 @@ function _echoFundAccountPredictData($ref, $strSymbol, $strStockId, $his_sql, $n
             
             $iCount ++;
         }
-        @mysql_free_result($result);
+        mysqli_free_result($result);
     }
     
    	$ar = array($strDate);

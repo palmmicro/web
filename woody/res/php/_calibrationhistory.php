@@ -43,11 +43,11 @@ function _echoCalibrationHistoryParagraph($ref, $iStart, $iNum, $bAdmin)
     {
     	$sql = ($ref->CountNav() > 0) ? GetNavHistorySql() : GetStockHistorySql(); 
     	$fPosition = RefGetPosition($ref);
-        while ($record = mysql_fetch_assoc($result)) 
+        while ($record = mysqli_fetch_assoc($result)) 
         {
 			_echoCalibrationHistoryItem($sql, $fPosition, $strStockId, $record, $bAdmin);
         }
-        @mysql_free_result($result);
+        mysqli_free_result($result);
     }
     EchoTableParagraphEnd($strMenuLink);
 }

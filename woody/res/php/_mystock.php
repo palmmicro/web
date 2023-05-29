@@ -26,7 +26,7 @@ function _echoMyStockTransactions($acct, $ref)
     $sql = $acct->GetGroupSql();
 	if ($result = $sql->GetAll($strMemberId)) 
 	{
-		while ($record = mysql_fetch_assoc($result)) 
+		while ($record = mysqli_fetch_assoc($result)) 
 		{
 		    $strGroupId = $record['id'];
 		    if ($strGroupItemId = SqlGroupHasStock($strGroupId, $strStockId, true))
@@ -34,7 +34,7 @@ function _echoMyStockTransactions($acct, $ref)
 		        $arGroup[$strGroupId] = $strGroupItemId;
 		    }
 		}
-		@mysql_free_result($result);
+		mysqli_free_result($result);
 	}
 	
 	$iCount = count($arGroup);

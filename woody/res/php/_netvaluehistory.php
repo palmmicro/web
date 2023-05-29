@@ -68,11 +68,11 @@ function _echoNetValueData($csv, $ref, $est_ref, $cny_ref, $iStart, $iNum)
 	$strStockId = $ref->GetStockId();
     if ($result = $nav_sql->GetAll($strStockId, $iStart, $iNum)) 
     {
-        while ($record = mysql_fetch_assoc($result)) 
+        while ($record = mysqli_fetch_assoc($result)) 
         {
 			_echoNetValueItem($csv, $nav_sql, $strStockId, $est_sql, $strEstId, rtrim0($record['close']), $record['date'], $ref, $est_ref, $cny_ref);
         }
-        @mysql_free_result($result);
+        mysqli_free_result($result);
     }
 }
 

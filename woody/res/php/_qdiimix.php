@@ -4,7 +4,7 @@ require_once('_kraneholdingscsv.php');
 require_once('_sseholdings.php');
 require_once('_szseholdings.php');
 
-// SH501225 全球芯片LOF
+// SH501225 全球芯片LOF SOXX*75%+SH516640*15%
 // SH501312 海外科技LOF
 
 class _QdiiMixAccount extends FundGroupAccount
@@ -35,7 +35,7 @@ class _QdiiMixAccount extends FundGroupAccount
 
         GetChinaMoney($this->ref);
         SzseGetLofShares($this->ref);
-		$this->_updateStockHoldings();
+        if ($strSymbol != 'SH501225')		$this->_updateStockHoldings();
 		
         $this->CreateGroup($arRef);
     }
@@ -139,7 +139,7 @@ function EchoAll()
     $hkcny_ref = $ref->GetHkcnyRef();
     
 	EchoHoldingsEstParagraph($ref);
-    EchoReferenceParagraph(array_merge($acct->GetStockRefArray(), array($acct->cnh_ref, $uscny_ref, $hkcny_ref)), $acct->IsAdmin());
+    EchoReferenceParagraph(array_merge($acct->GetStockRefArray(), $ref->GetHoldingRefArray(), array($acct->cnh_ref, $uscny_ref, $hkcny_ref)), $acct->IsAdmin());
     
 	if ($us_ref)
 	{

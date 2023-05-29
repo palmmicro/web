@@ -6,19 +6,6 @@ function GetUpdateStockHistoryLink($sym, $strDisplay = false)
 	return GetOnClickLink(STOCK_PATH.'submithistory.php?symbol='.$strSymbol, "确认更新{$strSymbol}历史记录?", ($strDisplay ? $strDisplay : $strSymbol));
 }
 
-function GetStockCategoryArray()
-{
-    return array('oilfund' => OIL_GROUP_DISPLAY,
-                   'commodity' => COMMODITY_GROUP_DISPLAY,
-                   'chinainternet' => CHINAINTERNET_GROUP_DISPLAY,
-                   'qqqfund' => QQQ_GROUP_DISPLAY,
-                   'spyfund' => SPY_GROUP_DISPLAY,
-                   'hangseng' => HANGSENG_GROUP_DISPLAY,
-                   'hshares' => HSHARES_GROUP_DISPLAY,
-                   'hstech' => HSTECH_GROUP_DISPLAY,
-                   );
-}
-
 function _getCategoryLink($strCategory)
 {
     $ar = GetStockCategoryArray();
@@ -288,6 +275,14 @@ function GetJiaShiSoftwareLinks($strDigitA)
     $ar = array('SZ159607', 'SZ159741', 'SZ159823', 'SZ159919', 'SZ160717', 'SZ160719', 'SZ160723');
 	$strUrl = 'http://www.jsfund.cn';
     return ' '.GetOfficialLink($strUrl.'/main/fund/'.$strDigitA.'/fundManager.shtml', $strDigitA).GetCategorySoftwareLinks($ar, GetExternalLink($strUrl, '嘉实基金'));
+}
+
+// http://www.igwfmc.com/main/jjcp/product/501225/detail.html
+function GetJingshunSoftwareLinks($strDigitA)
+{
+    $ar = array('SH501225');
+	$strUrl = 'http://www.igwfmc.com';
+    return ' '.GetOfficialLink($strUrl.'/main/jjcp/product/'.$strDigitA.'/detail.html', $strDigitA).GetCategorySoftwareLinks($ar, GetExternalLink($strUrl, '景顺长城基金'));
 }
 
 function GetNanFangSoftwareLinks($strDigitA)

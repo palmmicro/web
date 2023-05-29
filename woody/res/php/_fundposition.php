@@ -45,7 +45,7 @@ function _getSwitchDateArray($nav_sql, $strStockId, $est_sql, $strEstId)
 	$bFirst = true;
     if ($result = $nav_sql->GetAll($strStockId)) 
     {
-        while ($record = mysql_fetch_assoc($result)) 
+        while ($record = mysqli_fetch_assoc($result)) 
         {
        		$strDate = $record['date'];
        		if ($strEst = $est_sql->GetClose($strEstId, $strDate))
@@ -88,7 +88,7 @@ function _getSwitchDateArray($nav_sql, $strStockId, $est_sql, $strEstId)
    				$strOldDate = $strDate;
        		}
         }
-        @mysql_free_result($result);
+        mysqli_free_result($result);
     }
     return $arDate;
 }
@@ -106,7 +106,7 @@ function _echoFundPositionData($csv, $ref, $cny_ref, $est_ref, $strInput, $bAdmi
  	$iIndex = 0;
     if ($result = $nav_sql->GetAll($strStockId)) 
     {
-        while ($record = mysql_fetch_assoc($result)) 
+        while ($record = mysqli_fetch_assoc($result)) 
         {
        		$strDate = $record['date'];
        		$strNetValue = rtrim0($record['close']);
@@ -122,7 +122,7 @@ function _echoFundPositionData($csv, $ref, $cny_ref, $est_ref, $strInput, $bAdmi
        		}
        		else	$csv->Write($strDate, $strNetValue);
         }
-        @mysql_free_result($result);
+        mysqli_free_result($result);
     }
 }
 

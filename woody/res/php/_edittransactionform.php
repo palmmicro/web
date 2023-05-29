@@ -62,11 +62,11 @@ function _getGroupCommonPhrase($acct, $strGroupId)
    	$sql = new CommonPhraseSql();
 	if ($result = $sql->GetAll($acct->GetGroupMemberId($strGroupId))) 
 	{
-		while ($record = mysql_fetch_assoc($result)) 
+		while ($record = mysqli_fetch_assoc($result)) 
 		{
 			$ar[$record['id']] = $record['str'];
 		}
-		@mysql_free_result($result);
+		mysqli_free_result($result);
 	}
 	return $ar;
 }
@@ -88,9 +88,9 @@ function _getSuggestedRemark($item_sql, $strGroupItemId)
 		{
 			if ($result = $trans_sql->GetRecord($strGroupItemId, 0, 1)) 
 			{
-				$record = mysql_fetch_assoc($result); 
+				$record = mysqli_fetch_assoc($result); 
 				$strRemark = $record['remark'];
-				@mysql_free_result($result);
+				mysqli_free_result($result);
 			}
 		}
 	}
@@ -100,9 +100,9 @@ function _getSuggestedRemark($item_sql, $strGroupItemId)
 		{
 			if ($result = $item_sql->GetAllStockTransaction(0, 1)) 
 			{
-				$record = mysql_fetch_assoc($result); 
+				$record = mysqli_fetch_assoc($result); 
 				$strRemark = $record['remark'];
-				@mysql_free_result($result);
+				mysqli_free_result($result);
 			}
 		}
 	}
@@ -123,9 +123,9 @@ function _getGroupItemQuantityArray($item_sql)
     		{
     			if ($result = $trans_sql->GetRecord($strGroupItemId, 0, 1)) 
     			{
-    				$record = mysql_fetch_assoc($result); 
+    				$record = mysqli_fetch_assoc($result); 
     				$ar[$strGroupItemId] = ltrim($record['quantity'], '-');
-    				@mysql_free_result($result);
+    				mysqli_free_result($result);
     			}
     		}
     		else	$ar[$strGroupItemId] = '';

@@ -86,12 +86,12 @@ class StockAccount extends TitleAccount
     	$str = '';
     	if ($result = $this->group_sql->GetAll($strLoginId)) 
     	{
-    		while ($record = mysql_fetch_assoc($result)) 
+    		while ($record = mysqli_fetch_assoc($result)) 
     		{
     			$strGroupId = $record['id'];
     			if ($this->_checkPersonalGroupId($strGroupId))		$str .= $this->_getPersonalGroupLink($strGroupId);
     		}
-    		@mysql_free_result($result);
+    		mysqli_free_result($result);
     	}
     	if ($str != '')	$str = ' - '.trim($str);
     	return $str;

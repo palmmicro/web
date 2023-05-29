@@ -131,7 +131,7 @@ function _echoPortfolio($portfolio, $sql, $strMemberId, $bAdmin)
 	
 	if ($result = $sql->GetAll($strMemberId)) 
 	{
-		while ($record = mysql_fetch_assoc($result)) 
+		while ($record = mysqli_fetch_assoc($result)) 
 		{
 		    $group = new MyStockGroup($record['id'], array());
 		    if ($group->GetTotalRecords() > 0)
@@ -150,7 +150,7 @@ function _echoPortfolio($portfolio, $sql, $strMemberId, $bAdmin)
 		        }
 		    }
 		}
-		@mysql_free_result($result);
+		mysqli_free_result($result);
 	}
 
 	$arTrans = array_merge(_transSortBySymbol($arTransA), _transSortBySymbol($arTransH), _transSortBySymbol($arTransUS));
@@ -164,11 +164,11 @@ function _onPrefetch($sql, $strMemberId)
     $arSymbol = array();
 	if ($result = $sql->GetAll($strMemberId)) 
 	{
-		while ($record = mysql_fetch_assoc($result)) 
+		while ($record = mysqli_fetch_assoc($result)) 
 		{
 		    $arSymbol = array_merge($arSymbol, SqlGetStocksArray($record['id'], true));
 		}
-		@mysql_free_result($result);
+		mysqli_free_result($result);
 	}
     StockPrefetchArrayData($arSymbol);
 }

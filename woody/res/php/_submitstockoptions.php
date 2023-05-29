@@ -11,12 +11,12 @@ function _updateStockHistoryAdjCloseByDividend($ref, $strSymbol, $strStockId, $h
     if ($result = $his_sql->GetFromDate($strStockId, $strYMD)) 
     {
 //    	DebugString('START: '.$strYMD);
-        while ($record = mysql_fetch_assoc($result)) 
+        while ($record = mysqli_fetch_assoc($result)) 
         {
 //        	DebugString($record['date']);
             $ar[$record['id']] = floatval($record['adjclose']);
         }
-        @mysql_free_result($result);
+        mysqli_free_result($result);
     }
 
 	$fDividend = floatval($strDividend);
@@ -220,11 +220,11 @@ function _updateStockOptionSplitTransactions($ref, $strStockId, $his_sql, $strDa
 	$sql = new TableSql(TABLE_STOCK_GROUP);
     if ($result = $sql->GetData())
     {
-        while ($record = mysql_fetch_assoc($result)) 
+        while ($record = mysqli_fetch_assoc($result)) 
         {
         	_updateStockOptionSplitGroupTransactions($record['id'], $strStockId, $strDate, $fRatio, $fPrice);
         }
-        @mysql_free_result($result);
+        mysqli_free_result($result);
     }
 }
 
@@ -367,7 +367,6 @@ class _SubmitOptionsAccount extends Account
 		case STOCK_OPTION_HOLDINGS:
 			if ($bAdmin)
 			{
-//				_updateStockOptionHoldings($strSymbol, $strStockId, $strDate, $strVal);
 				switch ($strSymbol)
 				{
 				case 'SH513050':
@@ -379,6 +378,10 @@ class _SubmitOptionsAccount extends Account
 				case 'SZ159605':
 				case 'SZ159607':
 					ReadSzseHoldingsFile($strSymbol, $strStockId, $strDate);
+					break;
+					
+				default:
+					_updateStockOptionHoldings($strSymbol, $strStockId, $strDate, $strVal);
 					break;
 				}
 			}
