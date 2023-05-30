@@ -56,7 +56,7 @@ function TestModifyTransactions($strGroupId, $strSymbol, $strNewSymbol, $iRatio)
 	DebugVal($fUshkd);
     if ($result = $sql->GetAllStockTransaction()) 
     {
-        while ($record = mysql_fetch_assoc($result)) 
+        while ($record = mysqli_fetch_assoc($result)) 
         {
         	if ($strGroupItemId == $record['groupitem_id'])
         	{
@@ -68,7 +68,7 @@ function TestModifyTransactions($strGroupId, $strSymbol, $strNewSymbol, $iRatio)
         		$sql->trans_sql->Update($record['id'], $strNewGroupItemId, $strQuantity, $strPrice, $strFees, $record['remark'].$strSymbol);
         	}
         }
-        @mysql_free_result($result);
+        mysqli_free_result($result);
     }
    	UpdateStockGroupItem($strGroupId, $strGroupItemId);
 }
@@ -126,7 +126,7 @@ function SqlClearStockGroupItem()
 	$ar = array();
    	if ($result = $item_sql->GetAll())
    	{
-   		while ($record = mysql_fetch_assoc($result)) 
+   		while ($record = mysqli_fetch_assoc($result)) 
    		{
    			$strGroupId = $record['stockgroup_id'];
    			if ($group_sql->GetRecordById($strGroupId) == false)
@@ -138,7 +138,7 @@ function SqlClearStockGroupItem()
    				DebugString($strDebug);
     		}
     	}
-   		@mysql_free_result($result);
+   		mysqli_free_result($result);
     }
     
     if ($iCount > 0)
@@ -158,7 +158,7 @@ function SqlCleanStockTransaction()
 	$ar = array();
    	if ($result = $trans_sql->GetData())
    	{
-   		while ($record = mysql_fetch_assoc($result)) 
+   		while ($record = mysqli_fetch_assoc($result)) 
    		{
    			$strItemId = $record['groupitem_id'];
    			if ($item_sql->GetRecordById($strItemId) == false)
@@ -168,7 +168,7 @@ function SqlCleanStockTransaction()
    				DebugString('Missing stock group item id: '.$strItemId);
     		}
     	}
-   		@mysql_free_result($result);
+   		mysqli_free_result($result);
     }
     
     if ($iCount > 0)

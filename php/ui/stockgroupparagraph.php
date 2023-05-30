@@ -65,7 +65,7 @@ function _echoStockGroupTableData($acct, $strStockId, $strMemberId, $bAdmin)
 	$sql = $acct->GetGroupSql();
 	if ($result = $sql->GetAll($strMemberId)) 
 	{
-		while ($record = mysql_fetch_assoc($result)) 
+		while ($record = mysqli_fetch_assoc($result)) 
 		{
 			$strGroupId = $record['id'];
 			if (($strStockId == false) || SqlGroupHasStock($strGroupId, $strStockId))
@@ -74,7 +74,7 @@ function _echoStockGroupTableData($acct, $strStockId, $strMemberId, $bAdmin)
 				$iTotal ++;
 			}
 		}
-		@mysql_free_result($result);
+		mysqli_free_result($result);
 	}
 
 	if ($strStockId && $iTotal == 0)

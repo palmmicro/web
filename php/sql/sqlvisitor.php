@@ -115,11 +115,11 @@ class VisitorSql extends KeySql
     	if ($result = $this->GetDataBySrc($strSrcId)) 
     	{
     		$strIndex = $this->GetDstKeyIndex();
-    		while ($record = mysql_fetch_assoc($result)) 
+    		while ($record = mysqli_fetch_assoc($result)) 
     		{
     			$ar[] = $record[$strIndex];
     		}
-    		@mysql_free_result($result);
+    		mysqli_free_result($result);
     	}
     	$ar = array_unique($ar);
     	return count($ar);

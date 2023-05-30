@@ -26,11 +26,11 @@ function _echoStockHistoryData($ref, $csv, $his_sql, $strStockId, $iStart, $iNum
 {
     if ($result = $his_sql->GetAll($strStockId, $iStart, $iNum)) 
     {
-        while ($record = mysql_fetch_assoc($result)) 
+        while ($record = mysqli_fetch_assoc($result)) 
         {
             _echoStockHistoryItem($record, $ref, $csv);
         }
-        @mysql_free_result($result);
+        mysqli_free_result($result);
     }
 }
 

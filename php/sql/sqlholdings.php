@@ -40,12 +40,12 @@ class HoldingsSql extends KeySql
     	$ar = array();
     	if ($result = $this->GetAll($strStockId)) 
     	{
-    		while ($record = mysql_fetch_assoc($result)) 
+    		while ($record = mysqli_fetch_assoc($result)) 
     		{
     			$strHoldingId = $record['holding_id']; 
     			$ar[$strHoldingId] = $record['ratio'];
     		}
-    		@mysql_free_result($result);
+    		mysqli_free_result($result);
     	}
     	return $ar;
     }

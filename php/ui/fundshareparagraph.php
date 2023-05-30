@@ -63,8 +63,8 @@ function EchoFundShareParagraph($ref, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY,
 	$his_sql = GetStockHistorySql();
     if ($result = $shares_sql->GetAll($strStockId, $iStart, $iNum)) 
     {
-        while ($record = mysql_fetch_assoc($result))		_echoFundShareItem($record, $strStockId, $his_sql, $shares_sql);
-        @mysql_free_result($result);
+        while ($record = mysqli_fetch_assoc($result))		_echoFundShareItem($record, $strStockId, $his_sql, $shares_sql);
+        mysqli_free_result($result);
     }
     EchoTableParagraphEnd($strMenuLink);
 }

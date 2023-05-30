@@ -127,10 +127,10 @@ function UrlGetPathName($strPathName)
 function UrlCleanString($str) 
 {
 	$str = @trim($str);
-	if (get_magic_quotes_gpc()) 
-	{
+//	if (get_magic_quotes_gpc()) 
+//	{
 		$str = stripslashes($str);
-	}
+//	}
 	return $str;
 }
 

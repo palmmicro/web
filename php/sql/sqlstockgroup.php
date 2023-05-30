@@ -32,7 +32,7 @@ class StockGroupItemSql extends KeyTableSql
     	if ($result = $this->GetAll())
     	{
     		$ar = array();
-    		while ($record = mysql_fetch_assoc($result)) 
+    		while ($record = mysqli_fetch_assoc($result)) 
     		{
     			if ($bCheckTransaction)
     			{
@@ -40,7 +40,7 @@ class StockGroupItemSql extends KeyTableSql
     			}
     			$ar[$record['id']] = $record['stock_id'];
     		}
-    		@mysql_free_result($result);
+    		mysqli_free_result($result);
     		return $ar;
     	}
     	return false;
@@ -140,7 +140,6 @@ function SqlAlterStockGroupItemTable()
          . ' INDEX ( `record` )';
 //         . ' `quantity` INT DEFAULT \'0\'';
 //         . ' `cost` DOUBLE(10,3) DEFAULT \'0.0\'';
-	$result = @mysql_query($str);
 }
 */
 
@@ -216,11 +215,11 @@ function SqlDeleteStockGroupByMemberId($strMemberId)
 	$sql = new StockGroupSql();
 	if ($result = $sql->GetAll($strMemberId)) 
 	{
-		while ($record = mysql_fetch_assoc($result)) 
+		while ($record = mysqli_fetch_assoc($result)) 
 		{
 		    SqlDeleteStockGroupItemByGroupId($record['id']);
 		}
-		@mysql_free_result($result);
+		mysqli_free_result($result);
 		$sql->DeleteAll($strMemberId);
 	}
 }
@@ -261,11 +260,11 @@ function SqlDeleteStockGroupItemByGroupId($strGroupId)
 	$sql = new StockGroupItemSql($strGroupId);
 	if ($result = $sql->GetAll())
 	{
-		while ($record = mysql_fetch_assoc($result)) 
+		while ($record = mysqli_fetch_assoc($result)) 
 		{
             $sql->trans_sql->Delete($record['id']);
 		}
-		@mysql_free_result($result);
+		mysqli_free_result($result);
 		$sql->DeleteAll();
 	}
 }

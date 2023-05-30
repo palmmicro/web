@@ -202,11 +202,11 @@ class TableSql
     	{
     		if ($result = $this->$callback($strVal))
     		{
-    			while ($record = mysql_fetch_assoc($result)) 
+    			while ($record = mysqli_fetch_assoc($result)) 
     			{
     				$ar[] = $record['id'];
     			}
-    			@mysql_free_result($result);
+    			mysqli_free_result($result);
     		}
     	}
 		return $ar;
@@ -233,11 +233,11 @@ class TableSql
     	$ar = array();
     	if ($result = $this->GetAll()) 
     	{
-    		while ($record = mysql_fetch_assoc($result)) 
+    		while ($record = mysqli_fetch_assoc($result)) 
     		{
     			if ($this->$callback($record))		$ar[] = $record['id'];
     		}
-    		@mysql_free_result($result);
+    		mysqli_free_result($result);
     	}
 
     	$iCount = count($ar);

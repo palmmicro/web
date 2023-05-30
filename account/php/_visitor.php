@@ -23,7 +23,7 @@ function _echoBlogVisitorData($strId, $visitor_sql, $page_sql, $iStart, $iNum, $
     {
    		$strDstIndex = $visitor_sql->GetDstKeyIndex();
    		$strSrcIndex = $visitor_sql->GetSrcKeyIndex();
-        while ($record = mysql_fetch_assoc($result)) 
+        while ($record = mysqli_fetch_assoc($result)) 
         {
 			$ar = array($record['date'], GetHM($record['time']));
 
@@ -42,7 +42,7 @@ function _echoBlogVisitorData($strId, $visitor_sql, $page_sql, $iStart, $iNum, $
             
 		    EchoTableColumn($ar);
         }
-        @mysql_free_result($result);
+        mysqli_free_result($result);
     }
 }
 

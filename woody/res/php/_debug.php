@@ -49,7 +49,7 @@ function _echoStockDebug()
     	while (!feof($file))
     	{
     		$strLine = fgets($file);
-    		if (strpos($strLine, 'Timeout was reached'))																									_addDebugLine($arCurl, $strLine, $strLocalIp);
+    		if (strpos($strLine, 'Connection timed out'))																								_addDebugLine($arCurl, $strLine, $strLocalIp);
     		else if (strpos($strLine, 'MySQL server') || strpos($strLine, 'SELECT * FROM'))															_addDebugLine($arMysql, $strLine, $strLocalIp, true);
     		else if (strpos($strLine, 'Unknown URI') || strpos($strLine, '分级A') || strpos($strLine, '分级B') || strpos($strLine, '退市'))	_addDebugLine($arUrl, $strLine, $strLocalIp);
     		else if (strpos($strLine, 'Unknown IP'))																									_addDebugLine($arIp, $strLine, $strLocalIp);

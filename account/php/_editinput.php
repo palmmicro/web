@@ -38,12 +38,12 @@ function _getCommonPhraseString($strInput, $strMemberId, $bChinese)
 	$str = '';
 	if ($result = $sql->GetAll($strMemberId)) 
 	{
-		while ($record = mysql_fetch_assoc($result)) 
+		while ($record = mysqli_fetch_assoc($result)) 
 		{
 			$strVal = $record['str'];
 		    $str .= GetOnClickLink('/account/submitcommonphrase.php?delete='.$record['id'], $strConfirm.': '.$strVal.'?', $strVal).'<br />';
 		}
-		@mysql_free_result($result);
+		mysqli_free_result($result);
 	}
 	return $str;
 }

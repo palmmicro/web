@@ -4,7 +4,7 @@ require('php/_qdiimix.php');
 function GetQdiiMixRelated($strDigitA)
 {
 	$str = GetBreakElement();
-	$str .= GetJingShunSoftwareLinks($strDigitA);
+	$str .= GetHuaBaoSoftwareLinks($strDigitA);
 	return $str;
 }
 

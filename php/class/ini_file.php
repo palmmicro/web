@@ -58,11 +58,16 @@ class  INIFile {
 //		$ini_data = split("\n",$contents);
 		$ini_data = explode("\n",$contents);
 		
-		while(list($key, $data) = each($ini_data))
+/*		while(list($key, $data) = each($ini_data))
 		{
 			$this->parse_data($data);
 		}
-		
+*/
+		foreach ($ini_data as $key => $data)
+		{
+			$this->parse_data($data);
+		}
+
 		fclose($fp);
 	}
 	

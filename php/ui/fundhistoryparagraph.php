@@ -40,7 +40,7 @@ function _echoHistoryTableData($his_sql, $fund_est_sql, $csv, $ref, $strStockId,
 	
     if ($result = $his_sql->GetAll($strStockId, $iStart, $iNum)) 
     {
-        while ($arHistory = mysql_fetch_assoc($result)) 
+        while ($arHistory = mysqli_fetch_assoc($result)) 
         {
        		$strDate = $bSameDayNav ? $arHistory['date'] : $his_sql->GetDatePrev($strStockId, $arHistory['date']);
         	if ($strNav = $nav_sql->GetClose($strStockId, $strDate))
@@ -49,7 +49,7 @@ function _echoHistoryTableData($his_sql, $fund_est_sql, $csv, $ref, $strStockId,
         		_echoFundHistoryTableItem($csv, $strNav, $arHistory, $arFundEst, $ref, $est_ref, $est_sql, $bAdmin);
         	}
         }
-        @mysql_free_result($result);
+        mysqli_free_result($result);
     }
 }
 

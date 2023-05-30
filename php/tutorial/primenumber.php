@@ -29,7 +29,7 @@ function LookUpPrimeNumber($iNum)
 	$aiNum = array();
     if ($result = $pn_sql->GetByMaxId(intval(sqrt($iNum))))
     {
-        while ($record = mysql_fetch_assoc($result)) 
+        while ($record = mysqli_fetch_assoc($result)) 
         {
         	$iPrime = intval($record['id']);
         	if ($iPrime * $iPrime > $iNum)	break;
@@ -40,7 +40,7 @@ function LookUpPrimeNumber($iNum)
         	}
         }
         if ($iNum > 1) 		$aiNum[] = $iNum;
-        @mysql_free_result($result);
+        mysqli_free_result($result);
     }
 	return $aiNum;
 }

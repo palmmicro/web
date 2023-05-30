@@ -48,6 +48,11 @@ function ImgHuangRong()
    	return GetWoodyImgQuote('huangrong.jpg', '依稀往梦似曾见，心内波澜现。');
 }
 
+function ImgJensenHuang()
+{
+   	return GetWoodyImgQuote('nvda.png', '老黄路边KTV');
+}
+
 function ImgLikeDog()
 {
 	return GetWoodyImgQuote('dog.jpg', '咦，那个人看上去好像一条狗！');

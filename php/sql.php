@@ -28,16 +28,22 @@ define('TABLE_STOCK_GROUP_ITEM', 'stockgroupitem');
 define('TABLE_STOCK_SPLIT', 'stocksplit');
 define('TABLE_VISITOR', 'visitor');
 
+$g_link = false;
+
 function die_mysql_error($str)
 {
-	$str .= ' '.mysql_error();
+	global $g_link;
+	
+	$str .= ' '.mysqli_error($g_link);
     DebugString($str);
     die($str);
 }
 
 function SqlDieByQuery($strQry, $strDie)
 {
-	if ($result = @mysql_query($strQry)) 
+	global $g_link;
+	
+	if ($result = mysqli_query($g_link, $strQry)) 
 	{
 		return true;
 	}
@@ -50,10 +56,12 @@ function SqlDieByQuery($strQry, $strDie)
 
 function SqlGetTableData($strTableName, $strWhere = false, $strOrder = false, $strLimit = false)
 {
+	global $g_link;
+	
 	$strQry = 'SELECT * FROM '.$strTableName._SqlAddWhere($strWhere)._SqlAddOrder($strOrder)._SqlAddLimit($strLimit);
-	if ($result = mysql_query($strQry))
+	if ($result = mysqli_query($g_link, $strQry))
 	{
-	    if (mysql_num_rows($result) > 0) 
+	    if (mysqli_num_rows($result) > 0) 
 	    {
 	        return $result;
 	    }
@@ -67,13 +75,15 @@ function SqlGetTableData($strTableName, $strWhere = false, $strOrder = false, $s
 
 function SqlGetSingleTableData($strTableName, $strWhere = false, $strOrder = false)
 {
+	global $g_link;
+	
 	$strQry = 'SELECT * FROM '.$strTableName._SqlAddWhere($strWhere)._SqlAddOrder($strOrder)._SqlAddLimit('1');
-	if ($result = mysql_query($strQry)) 
+	if ($result = mysqli_query($g_link, $strQry)) 
 	{
-	    if (mysql_num_rows($result) == 1) 
+	    if (mysqli_num_rows($result) == 1) 
 	    {
-	        $record = mysql_fetch_assoc($result);
-	        @mysql_free_result($result);
+	        $record = mysqli_fetch_assoc($result);
+	        mysqli_free_result($result);
 	        return $record;
 	    }
 	}
@@ -110,10 +120,12 @@ function SqlDeleteTableDataById($strTableName, $strId)
 
 function SqlCountTableData($strTableName, $strWhere = false)
 {
+	global $g_link;
+	
 	$strQry = "SELECT count(*) as total FROM $strTableName"._SqlAddWhere($strWhere);
-	if ($result = mysql_query($strQry))
+	if ($result = mysqli_query($g_link, $strQry))
 	{
-		$record = mysql_fetch_array($result);
+		$record = mysqli_fetch_array($result);
 		return intval($record['total']);
 	}
 	return 0;
@@ -121,10 +133,12 @@ function SqlCountTableData($strTableName, $strWhere = false)
 
 function SqlCreateDatabase($strDb)
 {
+	global $g_link;
+	
 	$str = "CREATE DATABASE `$strDb` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci";
 	SqlDieByQuery($str, 'Create database failed');
 	
-	$db = mysql_select_db($strDb);		// Select database again
+	$db = mysqli_select_db($g_link, $strDb);		// Select database again
 	if (!$db) 
 	{
 		die_mysql_error('Unable to select database');
@@ -133,8 +147,10 @@ function SqlCreateDatabase($strDb)
 
 function SqlCleanString($str) 
 {
+	global $g_link;
+	
 	$str = UrlCleanString($str);
-	return mysql_real_escape_string($str);
+	return mysqli_real_escape_string($g_link, $str);
 }
 
 function _errorHandler($errno, $errstr, $errfile, $errline)
@@ -171,14 +187,16 @@ function _errorHandler($errno, $errstr, $errfile, $errline)
 
 function _ConnectDatabase()
 {
-	$link = mysql_connect('mysql', 'n5gl0n39mnyn183l_woody', DB_PASSWORD);	// Connect to mysql server
-	if (!$link) 
+	global $g_link;
+	
+	$g_link = mysqli_connect('mysql', 'n5gl0n39mnyn183l_woody', DB_PASSWORD);	// Connect to mysql server
+	if (!$g_link) 
 	{
 		return false;
 	}
-	mysql_set_charset('utf8', $link);
+	mysqli_set_charset($g_link, 'utf8');
 
-	$db = mysql_select_db(DB_DATABASE);		// Select database
+	$db = mysqli_select_db($g_link, DB_DATABASE);		// Select database
 	if (!$db) 
 	{
 	    DebugString('No database yet, create it');
@@ -200,7 +218,9 @@ function SqlConnectDatabase()
 */
 	if (_ConnectDatabase() == false)
 	{
-		$str = 'Failed to connect to server: '.mysql_error();
+		global $g_link;
+	
+		$str = 'Failed to connect to server: '.mysqli_error($g_link);
 		die($str);
 	}
 }

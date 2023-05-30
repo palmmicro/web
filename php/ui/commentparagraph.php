@@ -126,11 +126,11 @@ END;
     {
     	if ($result = $this->comment_sql->GetAll($strWhere, $iStart, $iNum)) 
     	{
-    		while ($record = mysql_fetch_assoc($result)) 
+    		while ($record = mysqli_fetch_assoc($result)) 
     		{
     			$this->_echoSingleComment($record, $strWhere, $bChinese);
     		}
-    		@mysql_free_result($result);
+    		mysqli_free_result($result);
     	}
     }
 }

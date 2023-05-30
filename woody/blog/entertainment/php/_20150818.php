@@ -985,12 +985,14 @@ function Echo20230530($strHead)
 	$strQdiiMix = _getStockMenuLink('qdiimix');
 	$strSH501225 = GetStockLink('SH501225', true);
 	$strImage = ImgJensenHuang();
+	$strSH501312 = GetStockLink('SH501312', true);
 	
     echo <<<END
 	$strHead
 <p>2023年5月30日
-<br />NVDA上周创历史的财报预期后，掀起了全球芯片股票的高潮，让我实在坐不住了。按{$strXueqiu}一个半月前的具体建议在{$strQdiiMix}中加上了{$strSH501225}的估值页面。
+<br />NVDA上周创历史的财报预期后，掀起了全球芯片股票的高潮，让我实在坐不住了。按{$strXueqiu}一个半月前的具体建议在{$strQdiiMix}中加上了同时持有美国和中国芯片股的{$strSH501225}估值页面。
 $strImage
+<br />不知道是持有多地上市股票的基金是今年的新潮流，还是只是为了躲开纳斯达克QDII基金的拥挤，华宝基金还搞了一个同时持有纳斯达克和香港科技的{$strSH501312}，顺便一并加了进来。
 </p>
 END;
 }

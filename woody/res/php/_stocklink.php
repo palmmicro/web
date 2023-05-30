@@ -217,7 +217,7 @@ function GetHuaAnSoftwareLinks($strDigitA)
 
 function GetHuaBaoSoftwareLinks($strDigitA)
 {
-    $ar = array('SZ162411', 'SZ162415');
+    $ar = array('SH501312', 'SZ162411', 'SZ162415');
 	$strUrl = 'http://www.fsfund.com';
     return ' '.GetOfficialLink($strUrl.'/funds/'.$strDigitA.'/index.shtml', $strDigitA).GetCategorySoftwareLinks($ar, GetExternalLink($strUrl, '华宝基金'));
 }
@@ -278,7 +278,7 @@ function GetJiaShiSoftwareLinks($strDigitA)
 }
 
 // http://www.igwfmc.com/main/jjcp/product/501225/detail.html
-function GetJingshunSoftwareLinks($strDigitA)
+function GetJingShunSoftwareLinks($strDigitA)
 {
     $ar = array('SH501225');
 	$strUrl = 'http://www.igwfmc.com';

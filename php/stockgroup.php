@@ -210,12 +210,12 @@ class MyStockGroup extends StockGroup
         {
         	if ($result = $item_sql->GetAllStockTransaction()) 
         	{   
-        		while ($record = mysql_fetch_assoc($result)) 
+        		while ($record = mysqli_fetch_assoc($result)) 
         		{
         			$strSymbol = $arGroupItemSymbol[$record['groupitem_id']];
         			if ($this->_onArbitrageTransaction($strSymbol, $record) == false)  break;
         		}
-        		@mysql_free_result($result);
+        		mysqli_free_result($result);
         	}
         }
     }
@@ -234,14 +234,14 @@ class MyStockGroup extends StockGroup
         $sql = new StockGroupItemSql($strGroupId);
         if ($result = $sql->GetAll()) 
         {   
-            while ($record = mysql_fetch_assoc($result)) 
+            while ($record = mysqli_fetch_assoc($result)) 
             {
                 if (intval($record['record']) > 0)
                 {
                     $this->SetValue(SqlGetStockSymbol($record['stock_id']), intval($record['record']), intval($record['quantity']), floatval($record['cost']));
                 }
             }
-            @mysql_free_result($result);
+            mysqli_free_result($result);
         }
     }
 }

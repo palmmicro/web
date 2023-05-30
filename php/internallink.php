@@ -100,9 +100,9 @@ function GetSinaJsLink($bChinese = true)
     return _getAccountToolLink('sinajs', $bChinese);
 }
 
-function GetSinaQuotesLink($strSinaSymbols)
+function GetSinaQuotesLink($strSinaSymbols, $bFull = true)
 {
-	return GetPhpLink(ACCT_PATH.'sinajs', 'sinajs='.$strSinaSymbols, GetSinaQuotesUrl($strSinaSymbols));
+	return GetPhpLink(ACCT_PATH.'sinajs', 'sinajs='.$strSinaSymbols, ($bFull ? GetSinaQuotesUrl($strSinaSymbols) : $strSinaSymbols));
 }
 
 function GetLinearRegressionLink($bChinese = true)

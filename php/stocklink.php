@@ -18,6 +18,19 @@ define('QDII_HK_DISPLAY', '香港QDII');
 define('QDII_JP_DISPLAY', '日本QDII');
 define('QDII_EU_DISPLAY', '欧洲QDII');
 
+function GetStockCategoryArray()
+{
+    return array('oilfund' => OIL_GROUP_DISPLAY,
+                   'commodity' => COMMODITY_GROUP_DISPLAY,
+                   'chinainternet' => CHINAINTERNET_GROUP_DISPLAY,
+                   'qqqfund' => QQQ_GROUP_DISPLAY,
+                   'spyfund' => SPY_GROUP_DISPLAY,
+                   'hangseng' => HANGSENG_GROUP_DISPLAY,
+                   'hshares' => HSHARES_GROUP_DISPLAY,
+                   'hstech' => HSTECH_GROUP_DISPLAY,
+                   );
+}
+
 function GetStockMenuArray()
 {
     return array('chinaindex' => CHINA_INDEX_DISPLAY,

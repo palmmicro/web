@@ -268,7 +268,7 @@ class StockHistory
         $his_sql = GetStockHistorySql();
     	if ($result = $his_sql->GetFromDate($this->GetStockId(), $this->strStartDate, MAX_QUOTES_DAYS))
     	{
-    		while ($record = mysql_fetch_assoc($result)) 
+    		while ($record = mysqli_fetch_assoc($result)) 
     		{
     			$fClose = floatval($record['adjclose']);
     			$afClose[] = $fClose;
@@ -286,7 +286,7 @@ class StockHistory
     			}
     			$strNextDayYMD = $strYMD;
     		}
-    		@mysql_free_result($result);
+    		mysqli_free_result($result);
     	}
 
 	    $this->_cfg_set_SMAs($cfg, 'D', $afClose);
@@ -346,7 +346,7 @@ class StockHistory
         $his_sql = GetStockHistorySql();
     	if ($result = $his_sql->GetAll($this->GetStockId(), 0, 2))
     	{
-    		while ($record = mysql_fetch_assoc($result)) 
+    		while ($record = mysqli_fetch_assoc($result)) 
     		{
     			$strDate = $record['date'];
                 if (_ignoreCurrentTradingData($strDate, $this->stock_ref))
@@ -355,9 +355,11 @@ class StockHistory
                 }
                 else 
                 {
+                	mysqli_free_result($result);
                 	return $strDate;
                 }
             }
+            mysqli_free_result($result);
         }
         return false;
     }

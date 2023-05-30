@@ -2,7 +2,7 @@
 require('_wxprivate.php');
 
 // 微信公众号公共模板, 返回输入信息
-define('WX_DEBUG_VER', '版本169');		
+define('WX_DEBUG_VER', '版本170');		
 
 define('BOT_EOL', "\r\n");
 define('MAX_BOT_MSG_LEN', 2048);
@@ -36,7 +36,8 @@ class WeixinCallback
     
     private function responseMsg()
     {
-		$postStr = $GLOBALS['HTTP_RAW_POST_DATA'];		//get post data, May be due to the different environments
+//		$postStr = $GLOBALS['HTTP_RAW_POST_DATA'];		//get post data, May be due to the different environments
+		$postStr = file_get_contents('php://input');
 		if (!empty($postStr))
 		{    //extract post data
             libxml_disable_entity_loader(true);     // libxml_disable_entity_loader is to prevent XML eXternal Entity Injection, the best way is to check the validity of xml by yourself.

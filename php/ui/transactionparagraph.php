@@ -56,11 +56,11 @@ function _echoSingleTransactionTableData($sql, $ref, $iStart, $iNum, $bReadOnly,
 {
 	if ($result = $sql->GetStockTransaction($ref->GetStockId(), $iStart, $iNum)) 
     {
-        while ($record = mysql_fetch_assoc($result)) 
+        while ($record = mysqli_fetch_assoc($result)) 
         {
             _echoTransactionTableItem($ref, $record, $bReadOnly, $bAdmin);
         }
-        @mysql_free_result($result);
+        mysqli_free_result($result);
     }
 }
 
@@ -69,7 +69,7 @@ function _echoAllTransactionTableData($sql, $iStart, $iNum, $bReadOnly, $bAdmin)
     $ar = array();
     if ($result = $sql->GetAllStockTransaction($iStart, $iNum)) 
     {
-        while ($record = mysql_fetch_assoc($result)) 
+        while ($record = mysqli_fetch_assoc($result)) 
         {
         	$strGroupItemId = $record['groupitem_id'];
         	if (array_key_exists($strGroupItemId, $ar))
@@ -85,7 +85,7 @@ function _echoAllTransactionTableData($sql, $iStart, $iNum, $bReadOnly, $bAdmin)
         	}
             _echoTransactionTableItem($ref, $record, $bReadOnly, $bAdmin);
         }
-        @mysql_free_result($result);
+        mysqli_free_result($result);
     }
 }
 

@@ -255,7 +255,7 @@ class FundPairReference extends MyPairReference
 
 	function _onNavResultCalibration($result, $calibration_sql, $strStockId)
 	{
-		while ($record = mysql_fetch_assoc($result)) 
+		while ($record = mysqli_fetch_assoc($result)) 
 		{
 			$this->strNav = rtrim0($record['close']);
 			$strDate = $record['date'];
@@ -263,11 +263,11 @@ class FundPairReference extends MyPairReference
 			{
 				$this->fFactor = $this->GetFactor($this->strPairNav, $this->strNav);
 				$calibration_sql->WriteDaily($strStockId, $strDate, strval($this->fFactor));
-   				@mysql_free_result($result);
+   				mysqli_free_result($result);
    				return $strDate;
    			}
    		}
-   		@mysql_free_result($result);
+   		mysqli_free_result($result);
    		return false;
    	}
  	

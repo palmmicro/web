@@ -66,11 +66,11 @@ class ValSql extends TableSql
     
     	if ($result = $this->GetData()) 
     	{
-    		while ($record = mysql_fetch_assoc($result)) 
+    		while ($record = mysqli_fetch_assoc($result)) 
     		{
     			$ar[$record['id']] = $record[$this->strValName];
     		}
-    		@mysql_free_result($result);
+    		mysqli_free_result($result);
     	}
     	return $ar;
     }

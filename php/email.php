@@ -13,7 +13,7 @@ function EmailHtml($strWho, $strSubject, $strContents)
 //    $strHeaders .= 'From: <'.ADMIN_EMAIL.'>'."\r\n";          // 更多报头
 
     return mail($strWho, $strSubject, wordwrap($strMessage, 70, "\r\n"), $strHeaders);*/
-    return mail($strWho, $strSubject, wordwrap($strContents, 70, "\r\n"), 'From: webmaster@palmmicro.com'."\r\n");
+    return mail($strWho, $strSubject, wordwrap($strContents, 70, "\r\n"), 'From: webmaster@palmmicro.com'."\r\n".'Reply-To: webmaster@palmmicro.com'."\r\n".'X-Mailer: PHP/'.phpversion());
 }
 
 ?>

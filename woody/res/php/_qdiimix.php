@@ -35,7 +35,7 @@ class _QdiiMixAccount extends FundGroupAccount
 
         GetChinaMoney($this->ref);
         SzseGetLofShares($this->ref);
-        if ($strSymbol != 'SH501225')		$this->_updateStockHoldings();
+        $this->_updateStockHoldings();
 		
         $this->CreateGroup($arRef);
     }
@@ -51,10 +51,17 @@ class _QdiiMixAccount extends FundGroupAccount
     	$strHoldingsDate = $date_sql->ReadDate($strStockId);
 		if ($strNavDate == $strHoldingsDate)												return;	// Already up to date
     	if ($strHoldingsDate == $ref->GetOfficialDate())									return;
+    	
+    	switch ($ref->GetSymbol())
+    	{
+        case 'SH501225':
+        case 'SH501312':
+        	$nav_ref = $ref->GetNavRef();
+        	if ($nav_ref->IsNewNav())		$date_sql->WriteDate($strStockId, $strNavDate);
+        	break;
 		
-		$us_ref = $this->us_ref;
-		if ($us_ref)
-		{
+        case 'SZ164906':
+			$us_ref = $this->us_ref;
 			$strUsId = $us_ref->GetStockId();
 			if ($strHoldingsDate != $date_sql->ReadDate($strUsId))		CopyHoldings($date_sql, $strUsId, $strStockId);
 			if ($strUsNav = $nav_sql->GetClose($strUsId, $strNavDate))
@@ -64,9 +71,9 @@ class _QdiiMixAccount extends FundGroupAccount
 				$calibration_sql = new CalibrationSql();
 				$calibration_sql->WriteDaily($strStockId, $strNavDate, strval($fFactor));
 			}
-		}
-    	else
-    	{
+			break;
+			
+		default:
     		$fund_est_sql = $ref->GetFundEstSql();
     		$strEstDate = $fund_est_sql->GetDateNow($strStockId);
     		if ($strEstDate == $strNavDate)													return;	//
@@ -80,6 +87,7 @@ class _QdiiMixAccount extends FundGroupAccount
     		$strSymbol = $ref->GetSymbol();
     		if ($ref->IsShangHaiEtf())		ReadSseHoldingsFile($strSymbol, $strStockId);
     		else if ($ref->IsShenZhenEtf())	ReadSzseHoldingsFile($strSymbol, $strStockId, $strDate);
+    		break;
     	}
     }
     

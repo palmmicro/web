@@ -6,7 +6,7 @@ function _getPortfolioTestVal($iShares, $strSymbol)
 	switch ($strSymbol)
     {
     case 'KWEB':
-		$iQuantity = 2924;
+		$iQuantity = 3124;
 		break;
 		
     case 'XOP':
@@ -38,7 +38,7 @@ function _getArbitrageTestStr($iShares, $strGroupId, $strStockId, $strSymbol)
 	$item_sql = new StockGroupItemSql($strGroupId);
 	if ($result = $item_sql->GetAll()) 
 	{   
-		while ($record = mysql_fetch_assoc($result)) 
+		while ($record = mysqli_fetch_assoc($result)) 
 		{
 			if ($strStockId != $record['stock_id'])
 			{
@@ -50,7 +50,7 @@ function _getArbitrageTestStr($iShares, $strGroupId, $strStockId, $strSymbol)
 				}
 			}
 		}
-        @mysql_free_result($result);
+        mysqli_free_result($result);
     }
 
     $iQuantity = _getPortfolioTestVal($iShares, $strSymbol); 

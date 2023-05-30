@@ -16,11 +16,11 @@ function _echoStockTableData($sql, $iStart, $iNum, $bAdmin)
 {
 	if ($result = $sql->GetAll($iStart, $iNum)) 
 	{
-		while ($record = mysql_fetch_assoc($result)) 
+		while ($record = mysqli_fetch_assoc($result)) 
 		{
 			_echoStockTableItem($record['symbol'], $record['name'], $bAdmin);
 		}
-		@mysql_free_result($result);
+		mysqli_free_result($result);
 	}
 }
 

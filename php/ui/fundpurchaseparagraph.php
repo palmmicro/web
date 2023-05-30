@@ -11,11 +11,11 @@ function _echoFundPurchaseTableData($strMemberId, $iStart, $iNum, $bChinese)
 {
 	if ($result = SqlGetFundPurchase($strMemberId, $iStart, $iNum)) 
 	{
-		while ($record = mysql_fetch_assoc($result)) 
+		while ($record = mysqli_fetch_assoc($result)) 
 		{
 			_echoFundPurchaseTableItem($record['stock_id'], $record['amount'], $bChinese);
 		}
-		@mysql_free_result($result);
+		mysqli_free_result($result);
 	}
 }
 

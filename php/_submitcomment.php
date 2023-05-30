@@ -41,7 +41,7 @@ class _SubmitCommentAccount extends EditCommentAccount
 		$arEmails = array(ADMIN_EMAIL);								// Array to store emails addresses to send to
 		if ($result = $comment_sql->GetDataByDst($strBlogId)) 
 		{
-			while ($record = mysql_fetch_assoc($result)) 
+			while ($record = mysqli_fetch_assoc($result)) 
 			{
 				$strNewEmail = SqlGetEmailById($record['member_id']);
 				$bFound = false;
@@ -58,7 +58,7 @@ class _SubmitCommentAccount extends EditCommentAccount
 					$arEmails[] = $strNewEmail;						// send to previous comments writer
 				}
 			}
-			@mysql_free_result($result);
+			mysqli_free_result($result);
 		}
 
 		foreach($arEmails as $strEmail) 

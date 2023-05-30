@@ -225,11 +225,11 @@ function SqlGetStockSymbolAndId($strWhere, $strLimit = false)
     
    	if ($result = $sql->GetData($strWhere, 'symbol ASC', $strLimit)) 
    	{
-   		while ($record = mysql_fetch_assoc($result)) 
+   		while ($record = mysqli_fetch_assoc($result)) 
    		{
    			$ar[$record['symbol']] = $record['id'];
    		}
-   		@mysql_free_result($result);
+   		mysqli_free_result($result);
     }
     return $ar;
 }

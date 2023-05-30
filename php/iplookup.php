@@ -23,12 +23,12 @@ function _ipLookupMemberTable($strIp, $strNewLine, $bChinese)
     $str = '';
     if ($result = SqlGetMemberByIp($strIp)) 
     {
-        while ($record = mysql_fetch_assoc($result)) 
+        while ($record = mysqli_fetch_assoc($result)) 
         {
             $strLink = GetMemberLink($record['id'], $bChinese);
             $str .= $strNewLine.$strLink.($bChinese ? '登录于' : ' login on ').$record['login'];
         }
-        @mysql_free_result($result);
+        mysqli_free_result($result);
     }
     return $str;
 }
@@ -68,11 +68,11 @@ class IpLookupAccount extends CommentAccount
 	    $str = '<br />';
 	    if ($result = $comment_sql->GetAll($strWhere, 0, MAX_COMMENT_DISPLAY)) 
 	    {
-	    	while ($record = mysql_fetch_assoc($result)) 
+	    	while ($record = mysqli_fetch_assoc($result)) 
 	    	{
 	    		$str .= '<br />'.$this->GetCommentDescription($record, $strWhere, $bChinese);
 	    	}
-	    	@mysql_free_result($result);
+	    	mysqli_free_result($result);
 	    }
 	    $str .= '<br />'.strval($iTotal).' '.GetAllCommentLink('ip='.$strIp, $bChinese).'<br />';
 	    return $str;
