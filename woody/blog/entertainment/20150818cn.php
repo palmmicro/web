@@ -235,13 +235,13 @@
 	Echo20210613('微信公众平台进去后显示白板');
 	Echo20210624('增加'.GetNameTag('holdings', HOLDINGS_DISPLAY).'页面');
 	Echo20210714('增加'.GetNameTag('fundshare', FUND_SHARE_DISPLAY).'页面');
-	Echo20210728('为'.GetNameTag('chinainternet', '中丐互怜').'增加'.QDII_MIX_DISPLAY.'工具系列');
+	Echo20210728('为'._getStockCategoryTag('chinainternet').'增加'.QDII_MIX_DISPLAY.'工具系列');
 	Echo20211129(GetNameTag('endweixin', '放弃微信').'公众号文章');
 	Echo20220121(GetNameTag('sinajs', ACCOUNT_TOOL_SINAJS_CN).'调试工具');
 	Echo20220914('为'._getStockMenuTag('qdiimix').'补充A股成分股的持仓处理');
 	Echo20230521('增加'._getStockMenuTag('qdiijp').'的估值');
 	Echo20230525('增加'._getStockMenuTag('qdiieu').'的估值');
-	Echo20230530('在混合QDII中增加全球芯片LOF的估值');
+	Echo20230530('增加全球芯片LOF和海外科技LOF的估值');
 ?>
 
 </div>

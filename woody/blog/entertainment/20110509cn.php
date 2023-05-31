@@ -1,4 +1,4 @@
-<?php require_once('php/_entertainment.php'); ?>
+<?php require_once('php/_20110509.php'); ?>
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -63,11 +63,9 @@
 从十月到目前的数据看, 也许只要再等一年就能拿到第四笔Adsense收入了.
 </p>
 
-<h3><a name="forth">第四笔</a>Adsense收入</h3>
-<p>2021年12月22日
-<br />在14个月后, 收到了第四笔100.98美元的收入. 跟一年多前想象的不同, 拖拉机软件并没有持续多久的热度, 今年是靠一路下跌的中丐互怜维持住了网站的流量. 
-最开始时候华宝油气一枝独秀的时代已经结束, 在过去的30天里<a href="../../res/sz164906cn.php">中概互联LOF</a>估值网页的访问量已经是华宝油气的三倍.
-</p>
+<?php
+	Echo20211222(GetNameTag('forth', '第四笔').'Adsense收入');
+?>
 
 </div>
 

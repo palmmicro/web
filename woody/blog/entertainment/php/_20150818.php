@@ -28,6 +28,30 @@ function EchoNvCloseDemo($strSymbol = STOCK_DEMO_SYMBOL)
    	EchoNvCloseHistoryParagraph($ref);
 }
 
+function _getStockMenuLink($strItem)
+{
+    $ar = GetStockMenuArray();
+    return GetNameLink($strItem, $ar[$strItem]);
+}
+
+function _getStockMenuTag($strItem)
+{
+    $ar = GetStockMenuArray();
+    return GetNameTag($strItem, $ar[$strItem]);
+}
+
+function _getStockCategoryLink($strItem)
+{
+    $ar = GetStockCategoryArray();
+    return GetNameLink($strItem, $ar[$strItem]);
+}
+
+function _getStockCategoryTag($strItem)
+{
+    $ar = GetStockCategoryArray();
+    return GetNameTag($strItem, $ar[$strItem]);
+}
+
 function Echo20150824($strHead)
 {
 	$strHead = GetHeadElement($strHead);
@@ -310,7 +334,7 @@ function Echo20161020($strHead)
 	
 	$strNodeS = 'hs_s';
 	$strChinaIndex = GetExternalLink(GetSinaChinaStockListUrl($strNodeS));
-	$strUpdateChinaIndex = _getUpdateChinaStockLink($strNodeS, '更新A股指数');
+	$strUpdateChinaIndex = _getUpdateChinaStockLink($strNodeS, '更新指数');
 	
 	$strUsStock = GetExternalLink(GetSinaUsStockListUrl());
 	$strUpdateUsStock = DebugIsAdmin() ? GetInternalLink('/php/test/updateusstock.php', '更新美股数据') : '';
@@ -320,7 +344,7 @@ function Echo20161020($strHead)
 <p>2016年10月20日
 <br />今天发现有个{$strWeixin}用户用语音查询{$strQuote}，没查到因为数据库中根本没有它。不过因此刺激了我给加上查询所有股票交易数据的功能。
 <br />首先我要把A股3000多只股票都加到数据库中。开始我想直接开个大循环从000001到699999从新浪拿数据，后来觉得太蠢了，还担心新浪的数据接口把我列入黑名单。不过接下来我从{$strChinaStock}找到了所有A股数据。$strUpdateChinaStock
-<br />还有数量几乎跟股票同一个数量级的A股指数{$strChinaIndex}。$strUpdateChinaIndex
+<br />还有数量上几乎跟股票同一个量级的指数{$strChinaIndex}。$strUpdateChinaIndex
 <br />继续给数据库中加美股代码，希望{$strUsStock}这个不完整的美股单子能满足绝大多数中国用户的查询。$strUpdateUsStock
 </p>
 END;
@@ -809,7 +833,7 @@ function Echo20210624($strHead)
 	$strHead
 <p>2021年6月24日
 <br />虽然原则上来说XOP也可以使用这个页面，但是它其实是为同时有港股和美股的{$strKWEB}持仓准备的。
-<br />{$strQDII}基金总是越跌规模越大，流动性越好，前些年是华宝油气，而今年最热门的变成了中丐互怜。按SZ162411对应XOP的模式，中概互联的小弟SZ164906之前是用KWEB估值的。
+<br />{$strQDII}基金总是越跌规模越大，流动性越好，前些年是华宝油气，而今年最热门的变成了中概互联。按SZ162411对应XOP的模式，中概互联的小弟SZ164906之前是用KWEB估值的。
 不过因为中国互联有1/3的港股持仓，它的净值在港股交易时段会继续变化，所以原来的{$strSZ164906}页面其实没有什么实际用处。唯一的好处是在{$strFundHistory}中累积了几年的官方估值误差数据，帮我确认了用KWEB持仓估值中国互联的可行性。
 <br />跟A股{$strLof}基金每个季度才公布一次前10大持仓不同，美股ETF每天都会公布自己的净值和详细持仓比例。因为KWEB和中国互联跟踪同一个中证海外中国互联网指数H11136，这样可以从KWEB官网下载持仓文件后，根据它的实际持仓估算出净值。然后SZ164906的参考估值也就可以跟随白天的港股交易变动了。
 <br />写了快6年的估值软件终于从{$strElementary}水平进化到了初中生水平，还是有些成就感的。暑假即将来到，了不起的狐狸爸爸要开始教已经读了一年小学的娃在Roblox上编程了。
@@ -836,22 +860,11 @@ END;
 	EchoFundShareParagraph(StockGetFundReference(FUND_DEMO_SYMBOL));
 }
 
-function _getStockMenuLink($strItem)
-{
-    $ar = GetStockMenuArray();
-    return GetNameLink($strItem, $ar[$strItem]);
-}
-
-function _getStockMenuTag($strItem)
-{
-    $ar = GetStockMenuArray();
-    return GetNameTag($strItem, $ar[$strItem]);
-}
-
 function Echo20210728($strHead)
 {
 	$strHead = GetHeadElement($strHead);
 	$strSH513050 = GetStockLink('SH513050');
+	$strChinaInternet = GetStockCategoryLink('chinainternet');
 	$strSZ159605 = GetStockLink('SZ159605');
 	$strSZ159607 = GetStockLink('SZ159607');
 	$strHoldings = GetNameLink('holdings', HOLDINGS_DISPLAY);
@@ -865,7 +878,7 @@ function Echo20210728($strHead)
 	$strHead
 <p>2021年7月28日
 <br />从QDII中分出来，采用跟踪成分股变化的方式对同时有美股和港股持仓的{$strSH513050}等进行净值估算。
-<br />A股大妈最喜欢干的事情就是抄底。随着过去半年来中概互联一路跌成了中丐互怜，中概互联网ETF的市场规模和流动性都在暴涨，就连原来叫中国互联的SZ164906都蹭热度借增加扩位简称的机会改名成了中概互联网LOF。看得我口水流一地，忍不住想做点什么蹭蹭热点。
+<br />A股大妈最喜欢干的事情就是抄底。随着过去半年来中概互联一路跌成了{$strChinaInternet}，中概互联网ETF的市场规模和流动性都在暴涨，就连原来叫中国互联的SZ164906都蹭热度借增加扩位简称的机会改名成了中概互联网LOF。看得我口水流一地，忍不住想做点什么蹭蹭热点。
 <br />跟SZ164906和KWEB跟踪同一个指数H11136不同，SH513050跟踪的是另外一个不同的中证海外中国互联网50指数H30533。H30533和H11136在成分股选择上基本一致，但是H30533对单一成分股最大仓位限制是30%，而H11136限制10%的最大仓位，这样导致它们俩在腾讯和阿里持仓比例上区别巨大。
 在中间的是跟踪中证海外中国互联网30指数930604的{$strSZ159605}和{$strSZ159607}，限制15%的最大仓位。另外，顾名思义930604的成分股数量要少50-30=20只。
 <br />SH513050的成分股和比例来自于上交所官网的ETF申购赎回清单，SZ159605和SZ159607来自深交所官网的ETF申购赎回清单，这样未来可以方便的继续扩大新成员。SZ164906的成分股和比例依旧还是来自KWEB官网公布的每日{$strHoldings}更新。
@@ -879,13 +892,14 @@ END;
 function Echo20211129($strHead)
 {
 	$strHead = GetHeadElement($strHead);
+	$strChinaInternet = _getStockCategoryLink('chinainternet');
 	$strImage = ImgGreatDynasty();
 	
     echo <<<END
 	$strHead
 <p>2021年11月29日
-<br />今天很不高兴，写的中丐互怜LOF(164906)限购1000的文章竟然几小时后就被人举报删除了。死了张屠夫，不吃有毛猪，以后还是要努力坚持做自己的网站。
-<br />其实早在因为举报连续被封了8个QQ群，附带被封了用了20年的QQ号之后，我就预感到了微信迟早也会被封。如今离开了QQ没有关系，没有微信的话可是刷不了绿码连门都出不了，只能彻底放弃腾讯家包括公众号在内的一切公开使用了。
+<br />今天很不高兴，写的《{$strChinaInternet}LOF(164906)限购1000》的文章竟然几小时后就被人举报删除了。死了张屠夫，不吃有毛猪，以后还是要努力坚持做自己的网站。
+<br />其实早在因为举报连续被封了八个QQ群，附带被封了用了二十多年的QQ号之后，我就预感到了微信迟早也会被封。如今离开了QQ没有关系，没有微信的话可是刷不了绿码连门都出不了，只能彻底放弃腾讯家包括公众号在内的一切公开使用了。
 $strImage
 </p>
 END;
@@ -910,7 +924,7 @@ function Echo20220914($strHead)
 	$strWeixin = _getWeixinLink();
 	$strEndWechat = GetNameLink('endweixin', '放弃微信');
 	$strWoody1234 = GetXueqiuIdLink('2244868365', 'woody1234');
-	$strChinaInternet = GetNameLink('chinainternet', '中丐互怜');
+	$strChinaInternet = _getStockCategoryLink('chinainternet');
 	$strSH513220 = GetStockLink('SH513220', true);
 	$strSH513360 = GetStockLink('SH513360', true);
 	$strImage = ImgRuLai();
@@ -934,7 +948,7 @@ function Echo20230521($strHead)
 {
 	$strHead = GetHeadElement($strHead);
 	$strSH513000 = GetStockLink('SH513000', true);
-	$strChinaInternet = GetNameLink('chinainternet', '中丐互怜');
+	$strChinaInternet = _getStockCategoryLink('chinainternet');
 	$strSH513520 = GetStockLink('SH513520');
 	$strSH513880 = GetStockLink('SH513880');
 	$strSZ159866 = GetStockLink('SZ159866');

@@ -30,8 +30,12 @@ class _EtfHoldingsFile extends _HoldingsCsvFile
     
     function Done()
     {
-		$this->UpdateHoldingsDate();
-		DebugVal(round($this->GetSum() - $this->fCash, 3), 'Done');
+		if ($this->UpdateHoldingsDate())
+		{
+			DebugVal(round($this->GetSum() - $this->fCash, 3), 'Done');
+			return true;
+		}
+		return false;
 	}
 	
     function AddHolding($strHolding, $strName, $fVal)

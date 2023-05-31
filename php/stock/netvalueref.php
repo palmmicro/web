@@ -3,7 +3,6 @@
 class NetValueReference extends MysqlReference
 {
 	var $fund_est_sql;
-	var $bNew = false;
 	
     function NetValueReference($strSymbol) 
     {
@@ -12,7 +11,9 @@ class NetValueReference extends MysqlReference
        	$this->fund_est_sql = new FundEstSql();
         if ($this->IsFundA())
         {
-       		$this->bNew = StockCompareEstResult($this->fund_est_sql, $this->GetStockId(), $this->GetPrice(), $this->GetDate(), $this->GetSymbol());
+       		if (StockCompareEstResult($this->fund_est_sql, $this->GetStockId(), $this->GetPrice(), $this->GetDate(), $this->GetSymbol()))
+       		{	// new NAV
+       		}
         }
     }
     
@@ -34,11 +35,6 @@ class NetValueReference extends MysqlReference
     function GetFundEstSql()
     {
     	return $this->fund_est_sql;
-    }
-
-    function IsNewNav()
-    {
-    	return $this->bNew;
     }
 }
 

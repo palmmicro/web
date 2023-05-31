@@ -48,8 +48,9 @@ class _HoldingsCsvFile extends DebugCsvFile
     	if ($this->strDate)
     	{
     		$date_sql = new HoldingsDateSql();
-    		$date_sql->WriteDate($this->strStockId, $this->strDate);
+    		return $date_sql->WriteDate($this->strStockId, $this->strDate);
     	}
+    	return false;
     }
     
     function GetDate()

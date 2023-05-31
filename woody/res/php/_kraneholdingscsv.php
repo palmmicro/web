@@ -40,7 +40,7 @@ class _KraneHoldingsCsvFile extends _HoldingsCsvFile
 function CopyHoldings($date_sql, $strStockId, $strDstId)
 {
 	$strDate = $date_sql->ReadDate($strStockId);
-	if (SqlGetNavByDate($strDstId, $strDate) === false)	return;
+	if (SqlGetNavByDate($strDstId, $strDate) === false)	return false;
 	$date_sql->WriteDate($strDstId, $strDate);
 	
     $holdings_sql = GetHoldingsSql();
@@ -66,6 +66,7 @@ function CopyHoldings($date_sql, $strStockId, $strDstId)
 
 	$holdings_sql->DeleteAll($strDstId);
     $holdings_sql->InsertHoldingsArray($strDstId, $ar);
+    return true;
 }
 
 // https://kraneshares.com/csv/01_12_2022_kweb_holdings.csv
@@ -82,12 +83,12 @@ function ReadKraneHoldingsCsvFile($strSymbol, $strStockId, $strDate, $strNav)
 		DebugVal($fMarketValue, 'ReadKraneHoldingsCsvFile');
 		if ($fMarketValue > MIN_FLOAT_VAL)
 		{
-			$csv->UpdateHoldingsDate();
-
-			$shares_sql = new SharesHistorySql();
-			$shares_sql->WriteDaily($strStockId, $strDate, strval_round($fMarketValue / floatval($strNav) / 10000.0));
-	
-			if ($strSymbol == 'KWEB')		CopyHoldings(new HoldingsDateSql(), $strStockId, SqlGetStockId('SZ164906'));
+			if ($csv->UpdateHoldingsDate())
+			{
+				$shares_sql = new SharesHistorySql();
+				$shares_sql->WriteDaily($strStockId, $strDate, strval_round($fMarketValue / floatval($strNav) / 10000.0));
+				if ($strSymbol == 'KWEB')		CopyHoldings(new HoldingsDateSql(), $strStockId, SqlGetStockId('SZ164906'));
+			}
 		}
 		else	DebugString('ReadKraneHoldingsCsvFile failed');
 	}

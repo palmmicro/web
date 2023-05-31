@@ -90,8 +90,9 @@ function ReadSzseHoldingsFile($strSymbol, $strStockId, $strDate)
 	{
 		$csv = new _SzseHoldingsFile($strFileName, $strStockId);
 		$csv->Read();
-		$csv->Done();
+		return $csv->Done();
 	}
+	return false;
 }
 
 ?>

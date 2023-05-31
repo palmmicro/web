@@ -20,7 +20,6 @@ class _QdiiMixAccount extends FundGroupAccount
 
         $this->cnh_ref = new ForexReference($strCNH);
         $this->ref = new HoldingsReference($strSymbol);
-        $arRef = array($this->ref);
         switch ($strSymbol)
         {
         case 'SZ164906':
@@ -31,16 +30,17 @@ class _QdiiMixAccount extends FundGroupAccount
         	$this->us_ref = false;
         	break;
         }
+
+        $this->_updateStockHoldings($strSymbol);
+        $arRef = array($this->ref);
         if ($this->us_ref)	$arRef[] = $this->us_ref; 
 
         GetChinaMoney($this->ref);
         SzseGetLofShares($this->ref);
-        $this->_updateStockHoldings();
-		
         $this->CreateGroup($arRef);
     }
     
-    private function _updateStockHoldings()
+    private function _updateStockHoldings($strSymbol)
     {
     	$ref = $this->ref;
     	$strStockId = $ref->GetStockId();
@@ -52,18 +52,21 @@ class _QdiiMixAccount extends FundGroupAccount
 		if ($strNavDate == $strHoldingsDate)												return;	// Already up to date
     	if ($strHoldingsDate == $ref->GetOfficialDate())									return;
     	
-    	switch ($ref->GetSymbol())
+    	$bUpdated = false;
+    	switch ($strSymbol)
     	{
         case 'SH501225':
         case 'SH501312':
-        	$nav_ref = $ref->GetNavRef();
-        	if ($nav_ref->IsNewNav())		$date_sql->WriteDate($strStockId, $strNavDate);
+        	if ($strNavDate != $strHoldingsDate)		
+        	{
+        		if ($date_sql->WriteDate($strStockId, $strNavDate))		$bUpdated = true;
+        	}
         	break;
 		
         case 'SZ164906':
 			$us_ref = $this->us_ref;
 			$strUsId = $us_ref->GetStockId();
-			if ($strHoldingsDate != $date_sql->ReadDate($strUsId))		CopyHoldings($date_sql, $strUsId, $strStockId);
+			if ($strHoldingsDate != $date_sql->ReadDate($strUsId))		$bUpdated = CopyHoldings($date_sql, $strUsId, $strStockId);
 			if ($strUsNav = $nav_sql->GetClose($strUsId, $strNavDate))
 			{
 				$uscny_ref = $ref->GetUscnyRef();
@@ -85,9 +88,16 @@ class _QdiiMixAccount extends FundGroupAccount
 			else if ($iHourMinute > 1600 && $iHourMinute < 2230)							return;	// 美股休市后第2天的盘前，有可能会有数据看上去像休市日数据，导致5分钟一次频繁下载老文件。这里有意错过每天美股盘前时间，并且考虑了夏令时的不同最坏情况。
 
     		$strSymbol = $ref->GetSymbol();
-    		if ($ref->IsShangHaiEtf())		ReadSseHoldingsFile($strSymbol, $strStockId);
-    		else if ($ref->IsShenZhenEtf())	ReadSzseHoldingsFile($strSymbol, $strStockId, $strDate);
+    		if ($ref->IsShangHaiEtf())		$bUpdated = ReadSseHoldingsFile($strSymbol, $strStockId);
+    		else if ($ref->IsShenZhenEtf())	$bUpdated = ReadSzseHoldingsFile($strSymbol, $strStockId, $strDate);
     		break;
+    	}
+    	
+    	if ($bUpdated)
+    	{
+    		unset($this->ref);
+    		$this->ref = new HoldingsReference($strSymbol);
+//    		DebugString('Holdings updated');
     	}
     }
     

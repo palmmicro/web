@@ -52,6 +52,12 @@ function GetStockPhpLink($strPage, $strDisplay, $strQuery = false)
     return GetPhpLink(STOCK_PATH.$strPage, $strQuery, $strDisplay);
 }
 
+function GetStockCategoryLink($strItem)
+{
+    $ar = GetStockCategoryArray();
+    return GetStockPhpLink($strItem, $ar[$strItem]);
+}
+
 function GetStockMenuLink($strItem)
 {
     $ar = GetStockMenuArray();
