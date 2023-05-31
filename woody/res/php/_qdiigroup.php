@@ -149,8 +149,9 @@ function GetMetaDescription()
     global $acct;
     
     $fund = $acct->GetRef();
-	$strBase = SymGetStockName($fund->GetCnyRef());
-    if ($est_ref = $fund->GetEstRef())     $strBase .= '、'.SymGetStockName($est_ref);
+    $cny_ref = $fund->GetCnyRef();
+	$strBase = SqlGetStockName($cny_ref->GetSymbol());
+    if ($est_ref = $fund->GetEstRef())     $strBase .= '、'.SqlGetStockName($est_ref->GetSymbol());
     
     $str = '根据'.$strBase.'等其它网站的数据估算'.$acct->GetStockDisplay().'净值的网页工具。';
     return CheckMetaDescription($str);

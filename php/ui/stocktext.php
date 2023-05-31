@@ -24,10 +24,11 @@ function TextFromStockReference($ref)
 {
     if ($ref->HasData() == false)        return false;
 
-    $str = SymGetStockName($ref).BOT_EOL;
+    $strSymbol = $ref->GetSymbol();
+    $str = SqlGetStockName($strSymbol).BOT_EOL;
     
     global $acct;
-    $str .= method_exists($acct, 'SetCallback') ? $ref->GetSymbol() : $ref->GetStockLink();  
+    $str .= method_exists($acct, 'SetCallback') ? $strSymbol : $ref->GetStockLink();  
     $str .= BOT_EOL;
     $str .= STOCK_DISP_PRICE._textPriceVolume($ref);
     $str .= STOCK_DISP_CHANGE.':'.$ref->GetPercentageText().BOT_EOL;
@@ -83,7 +84,8 @@ function TextFromFundReference($ref)
 {
     if ($ref->HasData() == false)                return false;
 
-    $strName = SymGetStockName($ref).BOT_EOL.$ref->GetSymbol().BOT_EOL;
+    $strSymbol = $ref->GetSymbol();
+    $strName = SqlGetStockName($strSymbol).BOT_EOL.$strSymbol.BOT_EOL;
     $stock_ref = $ref->GetStockRef();
     if ($stock_ref)
     {

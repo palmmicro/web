@@ -74,6 +74,11 @@ function ImgPanicFree()
 	return GetWoodyImgQuote('dashidai.jpg', '不要怕，是技术性调整，不要怕。');
 }
 
+function ImgQueen()
+{
+   	return GetWoodyImgQuote('queen.jpg', '命运赠送的礼物都早已暗中标好了价格');
+}
+
 function ImgRobloxDice()
 {
 	return GetWoodyImgQuote('robloxdice.jpg', '罗布乐思4个骰子加14验证码');
@@ -88,6 +93,11 @@ function ImgRonin()
 function ImgRuLai()
 {
    	return GetWoodyImgQuote('rulai.jpeg', '年轻人，我这儿有本秘籍。');
+}
+
+function ImgSantaFe()
+{
+	return GetWoodyImgQuote('santafe.jpg', '宫泽理惠Santa Fe写真');
 }
 
 function ImgTianHeng()

@@ -75,7 +75,7 @@ function _readXlsFile($bIshares, $strPathName, $nav_sql, $shares_sql, $strStockI
 function GetNavXlsStr($sym, $bAutoCheck = false)
 {
 	$strSymbol = $sym->GetSymbol();	
-   	if ($strUrl = GetEtfNavUrl($sym))
+   	if ($strUrl = GetEtfNavUrl($strSymbol))
 	{
 		$bIshares = (stripos($strUrl, 'ishares') !== false) ? true : false;
 		$strPathName = DebugGetPathName('NAV_'.$strSymbol.'.xls');

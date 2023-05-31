@@ -956,6 +956,7 @@ function Echo20230521($strHead)
 	$strQdiiHk = _getStockMenuLink('qdiihk');
 	$strNKY = GetSinaQuotesLink('znb_NKY', false);
 	$strNK = GetSinaQuotesLink('hf_NK', false);
+	$strImage = ImgSantaFe();
 	
     echo <<<END
 	$strHead
@@ -966,6 +967,7 @@ function Echo20230521($strHead)
 <br />{$strSH513520}同样因为限购总份额50万份也被拉到了接近20%的溢价，而{$strSH513880}和{$strSZ159866}则因为分别限购1500万和1亿份而基本上平价。
 <br />{$strQdiiJp}跟{$strQdiiHk}的估值模式基本上是一致的。中国和日本股市都开市的日子里，用新浪日经225指数数据{$strNKY}做官方估值，日本股市北京时间下午两点收盘后官方估值就不再改变，直到晚上跟公布的实际净值比较和自动校准。
 同时全天都用新浪日经225指数期货数据{$strNK}做实时估值，可以反映日本股市收盘后的变化。
+$strImage
 </p>
 END;
 }
@@ -980,6 +982,7 @@ function Echo20230525($strHead)
 	$strDAX = GetSinaQuotesLink('znb_DAX', false);
 	$strCAC = GetSinaQuotesLink('znb_CAC', false);
 	$strFundHistory = GetNameLink('fundhistory', FUND_HISTORY_DISPLAY);
+	$strImage = ImgQueen();
 	
     echo <<<END
 	$strHead
@@ -988,6 +991,7 @@ function Echo20230525($strHead)
 专门去看过它们的季报持仓，发现它们还真是在德国和法国市场上买股票，这样就像南方原油的估值一样，连收市时间都差几个小时，当然不准。
 <br />在加了{$strQdiiJp}后，我意识到可以用同样的模式给这两个ETF估值，股指数据分别来自于新浪的{$strDAX}和{$strCAC}。目前德国和法国都在夏令时，北京时间下午三点开市，晚上11点半收市。
 隔一段日子后到{$strFundHistory}页面看估值误差，就知道这个改动是否成功了。
+$strImage
 </p>
 END;
 }

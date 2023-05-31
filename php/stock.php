@@ -196,12 +196,6 @@ function StockUpdateEstResult($fund_est_sql, $strStockId, $strNetValue, $strDate
 }
 
 // ****************************** StockReference public functions *******************************************************
-function SymGetStockName($sym)
-{
-	$sql = GetStockSql();
-	return $sql->GetStockName($sym->GetSymbol());
-}
-
 function RefGetTableColumnNav($ref)
 {
 	$strStockDisplay = GetTableColumnStock($ref);

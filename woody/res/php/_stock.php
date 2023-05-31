@@ -140,7 +140,8 @@ function StockGetFundFeeRatio($strSymbol)
 
 function RefGetStockDisplay($ref)
 {
-    return SymGetStockName($ref).'【'.$ref->GetSymbol().'】';
+	$strSymbol = $ref->GetSymbol();
+    return SqlGetStockName($strSymbol).'【'.$strSymbol.'】';
 }
 
 function GetKnownBugs($arBug)

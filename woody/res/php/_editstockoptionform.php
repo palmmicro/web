@@ -41,7 +41,7 @@ function _getStockOptionNewName($ref, $strName)
 
 function _getStockOptionName($ref, $strSymbol)
 {
-	$strName = SymGetStockName($ref);
+	$strName = SqlGetStockName($strSymbol);
 	
     $str = $strName;
    	$str .= _getStockOptionNewName($ref, $strName);

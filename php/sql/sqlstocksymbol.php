@@ -195,15 +195,16 @@ function GetStockSql()
 	return $g_stock_sql;
 }
 
+function SqlGetStockName($strSymbol)
+{
+	$sql = GetStockSql();
+	return $sql->GetStockName($strSymbol);
+}
+
 function SqlGetStockId($strSymbol)
 {
 	$sql = GetStockSql();
-	if ($strStockId = $sql->GetId($strSymbol))
-	{
-		return $strStockId;
-	}
-//   	DebugString($strSymbol.' not in stock table');
-	return false;
+	return $sql->GetId($strSymbol);
 }
 
 function SqlGetStockSymbol($strStockId)

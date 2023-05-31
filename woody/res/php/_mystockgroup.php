@@ -135,8 +135,6 @@ function _getGroupImageLink($strPage)
     	return ImgHuangRong();
     	
     case 'hangseng':
-    	return GetWoodyImgQuote('queen.jpg', '命运赠送的礼物都早已暗中标好了价格');
-
     case 'hshares':
     case 'hstech':
     	return GetWoodyImgQuote('luodayou.jpg', '罗大佑弹唱流到香江去看一看');
@@ -146,12 +144,18 @@ function _getGroupImageLink($strPage)
     	
     case 'qdii':
     	return ImgWinMan();
-    	
+
+    case 'qdiieu':
+    	return ImgQueen();
+
     case 'qdiihk':
     	return ImgRonin();
     	
 	case 'qdiimix':
     	return ImgRuLai();
+
+	case 'qdiijp':
+    	return ImgSantaFe();
 
     case 'qqqfund':
     	return ImgLikeDog();

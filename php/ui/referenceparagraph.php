@@ -32,7 +32,7 @@ function _echoReferenceTableData($arRef, $bAdmin)
     {
     	if ($ref)
     	{
-    		_echoReferenceTableItem($ref, SymGetStockName($ref), $bAdmin);
+    		_echoReferenceTableItem($ref, SqlGetStockName($ref->GetSymbol()), $bAdmin);
    			if ($ref->extended_ref)	_echoReferenceTableItem($ref->extended_ref, GetHtmlElement(GetQuoteElement($ref->extended_ref->GetMarketSession()), 'i'), false);
     	}
     }
