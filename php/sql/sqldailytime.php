@@ -42,7 +42,7 @@ class FundEstSql extends DailyTimeSql
 {
     function FundEstSql() 
     {
-        parent::DailyTimeSql(TABLE_FUND_EST);
+        parent::DailyTimeSql('fundest');
     }
 }
 

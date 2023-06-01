@@ -46,7 +46,7 @@ define('ACCOUNT_TOOL_LINEAR_CN', '线性回归');
 define('ACCOUNT_TOOL_PRIME_CN', '分解质因数');
 define('ACCOUNT_TOOL_SINAJS_CN', '新浪股票接口');
 
-function GetAccountToolArray($bChinese)
+function GetAccountToolArray($bChinese = true)
 {
 	if ($bChinese)
 	{
@@ -79,25 +79,20 @@ function GetAccountToolArray($bChinese)
 	return $ar;
 }
 
-function GetAccountToolStr($strPage, $bChinese)
+function GetAccountToolStr($strPage, $bChinese = true)
 {
     $ar = GetAccountToolArray($bChinese);
 	return $ar[$strPage];
 }
 
-function _getAccountToolLink($strPage, $bChinese)
+function GetAccountToolLink($strPage, $bChinese = true)
 {
     return GetPhpLink(ACCT_PATH.$strPage, false, GetAccountToolStr($strPage, $bChinese), false, $bChinese);
 }
 
 function GetCommonPhraseLink($bChinese = true)
 {
-    return _getAccountToolLink('commonphrase', $bChinese);
-}
-
-function GetSinaJsLink($bChinese = true)
-{
-    return _getAccountToolLink('sinajs', $bChinese);
+    return GetAccountToolLink('commonphrase', $bChinese);
 }
 
 function GetSinaQuotesLink($strSinaSymbols, $bFull = true)
@@ -105,44 +100,34 @@ function GetSinaQuotesLink($strSinaSymbols, $bFull = true)
 	return GetPhpLink(ACCT_PATH.'sinajs', 'sinajs='.$strSinaSymbols, ($bFull ? GetSinaQuotesUrl($strSinaSymbols) : $strSinaSymbols));
 }
 
-function GetLinearRegressionLink($bChinese = true)
-{
-    return _getAccountToolLink('linearregression', $bChinese);
-}
-
 function GetBenfordsLawLink($bChinese = true)
 {
-    return _getAccountToolLink('benfordslaw', $bChinese);
+    return GetAccountToolLink('benfordslaw', $bChinese);
 }
 
 function GetChiSquaredTestLink($bChinese = true)
 {
-    return _getAccountToolLink('chisquaredtest', $bChinese);
-}
-
-function GetCramersRuleLink($bChinese = true)
-{
-    return _getAccountToolLink('cramersrule', $bChinese);
+    return GetAccountToolLink('chisquaredtest', $bChinese);
 }
 
 function GetDiceCaptchaLink($bChinese = true)
 {
-    return _getAccountToolLink('dicecaptcha', $bChinese);
+    return GetAccountToolLink('dicecaptcha', $bChinese);
 }
 
 function GetSimpleTestLink($bChinese = true)
 {
-    return _getAccountToolLink('simpletest', $bChinese);
+    return GetAccountToolLink('simpletest', $bChinese);
 }
 
 function GetPrimeNumberLink($bChinese = true)
 {
-    return _getAccountToolLink('primenumber', $bChinese);
+    return GetAccountToolLink('primenumber', $bChinese);
 }
 
 function GetIpAddressLink($bChinese = true)
 {
-    return _getAccountToolLink('ip', $bChinese);
+    return GetAccountToolLink('ip', $bChinese);
 }
 
 function _getIpLink($strPage, $strIp, $bChinese)

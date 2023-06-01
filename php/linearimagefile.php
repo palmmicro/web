@@ -70,7 +70,7 @@ class LinearImageFile extends PageImageFile
     
     function GetAllLinks()
     {
-    	return GetLinearRegressionLink().'<br />'.$this->GetEquation().'<br />'.$this->GetLink();
+    	return GetAccountToolLink('linearregression').'<br />'.$this->GetEquation().'<br />'.$this->GetLink();
     }
 }
 

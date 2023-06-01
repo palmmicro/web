@@ -26,15 +26,17 @@ function _stockGroupGetStockLinks($strGroupId)
 
 function _echoStockGroupTableItem($strGroupId, $acct, $bReadOnly, $bAdmin)
 {
+	$strGroupName = $acct->GetGroupName($strGroupId);
     $strEdit = '';
-    $strDelete = GetDeleteLink(STOCK_PATH.'submitgroup.php?delete='.$strGroupId, $acct->GetGroupName($strGroupId).'股票分组和相关交易记录');
-    if ($bReadOnly == false)
+    $strDelete = GetDeleteLink(STOCK_PATH.'submitgroup.php?delete='.$strGroupId, $strGroupName.'股票分组和相关交易记录');
+    if ($bReadOnly)
+    {
+    	if ($bAdmin == false)	$strDelete = '';
+    }
+    else
     {
     	$strEdit = GetEditLink(STOCK_PATH.'editstockgroup', $strGroupId);
-    }
-    else if ($bAdmin == false)
-    {
-        $strDelete = '';
+    	if ($bAdmin)				 $strDelete = GetDeleteLink('/php/_submitdelete.php?groupname='.$strGroupName, '全部名称为'.$strGroupName.'的股票分组');
     }
 
     $ar = array();

@@ -75,8 +75,7 @@
 <h3>开始自己写PHP的class类</h3>
 <p>2015年11月7日
 <br />分离数据和用户界面代码，把QDII用到的股票数据部分放到<font color=olive>StockReference</font>类中，用在<font color=olive>QdiiAccount</font>类中。
-<br />继续整理代码，为热心吃螃蟹的用户们增加<a href="../../res/sh513100cn.php">纳指ETF</a>、<a href="../../res/sz160717cn.php">恒生H股</a>、<a href="../../res/sz160216cn.php">国泰商品</a>、<a href="../../res/sz160416cn.php">石油基金</a>、 
-<a href="../../res/sz163208cn.php">诺安油气</a>和<a href="../../res/sz165510cn.php">信诚四国</a>等页面.
+<br />继续整理代码，为热心吃螃蟹的用户们增加<a href="../../res/sh513100cn.php">纳指ETF</a>、<a href="../../res/sz160717cn.php">恒生H股</a>、<a href="../../res/sz160216cn.php">国泰商品</a>、<a href="../../res/sz160416cn.php">石油基金</a>和<a href="../../res/sz163208cn.php">诺安油气</a>等页面.
 </p>
 
 <?php
@@ -224,8 +223,8 @@
 	Echo20180620('增加'._getStockMenuTag('chinaindex').'页面');
 	Echo20190601('微信流量主');
 	Echo20190713('微信公众号不提供查询的数据');
-	Echo20190905('用Cramer法则'.GetNameTag('cramersrule', ACCOUNT_TOOL_CRAMER_CN));
-	Echo20190920('用'.GetNameTag('linearregression', ACCOUNT_TOOL_LINEAR_CN).'的方法在华宝油气溢价套利时估算'.GetNameTag('fundaccount', FUND_ACCOUNT_DISPLAY));
+	Echo20190905('用Cramer法则'._getAccountToolTag('cramersrule'));
+	Echo20190920('用'._getAccountToolTag('linearregression').'的方法在华宝油气溢价套利时估算'.GetNameTag('fundaccount', FUND_ACCOUNT_DISPLAY));
 	Echo20191025('增加'.GetNameTag('fundposition', FUND_POSITION_DISPLAY).'页面');
 	Echo20191107('美国夏令时结束带来的软件BUG');
 	Echo20200113('华宝油气的C类份额');
@@ -237,7 +236,7 @@
 	Echo20210714('增加'.GetNameTag('fundshare', FUND_SHARE_DISPLAY).'页面');
 	Echo20210728('为'._getStockCategoryTag('chinainternet').'增加'.QDII_MIX_DISPLAY.'工具系列');
 	Echo20211129(GetNameTag('endweixin', '放弃微信').'公众号文章');
-	Echo20220121(GetNameTag('sinajs', ACCOUNT_TOOL_SINAJS_CN).'调试工具');
+	Echo20220121(_getAccountToolTag('sinajs').'调试工具');
 	Echo20220914('为'._getStockMenuTag('qdiimix').'补充A股成分股的持仓处理');
 	Echo20230521('增加'._getStockMenuTag('qdiijp').'的估值');
 	Echo20230525('增加'._getStockMenuTag('qdiieu').'的估值');

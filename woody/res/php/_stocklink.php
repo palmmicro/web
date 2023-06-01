@@ -333,7 +333,7 @@ function GetUniversalSoftwareLinks($strDigitA)
 
 function GetXinChengSoftwareLinks($strDigitA)
 {
-    $ar = array('SZ165510', 'SZ165513');
+    $ar = array('SZ165513');
 	$strUrl = 'http://www.citicprufunds.com.cn';
     return ' '.GetOfficialLink($strUrl.'/pc/productDetail?fundcode='.$strDigitA, $strDigitA).GetCategorySoftwareLinks($ar, GetExternalLink($strUrl, '信诚基金'));
 }

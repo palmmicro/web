@@ -28,6 +28,16 @@ function EchoNvCloseDemo($strSymbol = STOCK_DEMO_SYMBOL)
    	EchoNvCloseHistoryParagraph($ref);
 }
 
+function _getAccountToolLink($strItem)
+{
+    return GetNameLink($strItem, GetAccountToolStr($strItem));
+}
+
+function _getAccountToolTag($strItem)
+{
+    return GetNameTag($strItem, GetAccountToolStr($strItem));
+}
+
 function _getStockMenuLink($strItem)
 {
     $ar = GetStockMenuArray();
@@ -618,7 +628,7 @@ END;
 function Echo20190905($strHead)
 {
 	$strHead = GetHeadElement($strHead);
-	$strCramer = GetCramersRuleLink();
+	$strCramer = GetAccountToolLink('cramersrule');
 	$strImage = ImgCramersRule();
 	$strQuote = GetBlockquoteElement("And what in heaven's name brought you to Casablanca?
 										<br />My health. I came to Casablanca for the waters.
@@ -628,18 +638,18 @@ function Echo20190905($strHead)
     echo <<<END
 	$strHead
 <p>2019年9月5日
-<br />过去两个月XOP持续暴跌吸引了大量抄底华宝油气的，在很短时间内耗光了华宝基金公司的外汇额度。华宝油气从7月31日起单日单个基金账户累计申购金额上限设置为10万，8月2日周五限额变成了1万，8月9日限额变成1000元人民币。
+<br />过去两个月XOP持续暴跌吸引了大量抄底华宝油气的，在很短时间内耗光了华宝基金公司的外汇额度。从7月31日起单日单个基金账户累计申购金额上限设置为10万，8月2日周五限额变成了1万，8月9日限额变成1000元人民币。
 就像超新星爆发给天文学家提供了难得的测距参考一样，限购给我提供了少有的观察套利者的机会，所以我每天都在乐此不疲的追踪相关数据。
-<br />8月29日华宝油气收盘价0.387，跟8月28日0.385的净值比溢价0.52%。很多溢价申购套利老手都不会放弃这个蚂蚁也是肉的赚钱机会。
-<br />9月5日华宝油气场内新增72万股，由于9月2日美股休市暂停申购，这个数据可以看成是对应8月29日场外申购后转场内的份额。假如都是在华宝官网0.1折最低费用申购的话，限购1000块人民币下满额申购了：
+<br />8月29日收盘价0.387，跟8月28日0.385的净值比溢价0.52%。很多溢价申购套利老手都不会放弃这个蚂蚁也是肉的赚钱机会。
+<br />9月5日场内新增72万股，由于9月2日美股休市暂停申购，这个数据可以看成是对应8月29日场外申购后转场内的份额。假如都是在华宝官网0.1折最低费用申购的话，限购1000块人民币下满额申购了：
 <br />720000/(998.5/0.397) = 286场外帐户
-<br />再回头看一下9月3日，华宝油气场内新增695万股。假如这些新增都来自场内申购的话，对应8月29日场内限购1000块人民币下满额申购了：
+<br />再回头看一下9月3日，场内新增695万股。假如这些新增都来自场内申购的话，对应8月29日场内限购1000块人民币下满额申购了：
 <br />6950000/(985/0.397) = 2801场内账户
 <br />之前还有一个机会可以同样看到在同一天场外申购的账户数比场内申购的账户数小一个数量级的情形，可以跟这个结果交叉验证。
 <br />8月13日场内新增7408万股，假定全部来自于8月6日(溢价1.78%)场外申购转场内和8月8日(溢价2.3%)的场内申购。假定每户都是用满1万申购额度，8月8日场内申购的净值为0.402，场内一折券商实际使用了9850块申购，每户实际到账2.450万股。
 假定场外都是使用华宝官网0.1折，实际使用申购金额为9998.5，8月6日申购的净值为0.391，每户实际到账2.557万股。用未知数x表示场内申购的账户数，未知数y表示场外申购转场内的账户数，假定在我们考虑的最近一段时间这2个账户数都是固定不变的。由此得出第一个方程：
 <br />2.450 * x + 2.557 * y = 7408
-<br />8月14日华宝油气场内新增810万股，本来按上面的逻辑新增应该全部来自于8月7日(溢价1.53%)场外申购转场内和8月9日(折价0.25%)的场内申购。8月9日是场内申购限购1000的第一天，不过可惜这天场内交易折价0.25%，应该同时出现了大量不限金额的赎回。多了一个无法定量的赎回变量，导致8月14日的数据无法像上面那列第2个方程。
+<br />8月14日场内新增810万股，本来按上面的逻辑新增应该全部来自于8月7日(溢价1.53%)场外申购转场内和8月9日(折价0.25%)的场内申购。8月9日是场内申购限购1000的第一天，不过可惜这天场内交易折价0.25%，应该同时出现了大量不限金额的赎回。多了一个无法定量的赎回变量，导致8月14日的数据无法像上面那列第2个方程。
 <br />8月15日场内新增1099万股，继续按前面的假设列方程。对应最后一天限购1万的8月8日(溢价2.3%)场外转场内，和限购1000的8月12日(溢价1.01%)场内申购。8日申购净值是0.402，12日申购净值是0.393。可以列出方程：
 <br />(985/0.393/10000) * x + (9998.5/0.402/10000) * y = 1099
 <br />保留4位有效数字合并常数后得到第二个方程：
@@ -655,17 +665,16 @@ END;
 function Echo20190920($strHead)
 {
 	$strHead = GetHeadElement($strHead);
-	$strCramer = GetNameLink('cramersrule', ACCOUNT_TOOL_CRAMER_CN);
+	$strCramer = _getAccountToolLink('cramersrule');
 	$strFundAccount = GetFundAccountLink(FUND_DEMO_SYMBOL);
-	$strLinear = GetLinearRegressionLink();
+	$strLinear = GetAccountToolLink('linearregression');
 	$strImage = ImgLinearRegression();
 	
     echo <<<END
 	$strHead
 <p>2019年9月20日
 <br />在使用Cramer法则{$strCramer}得到华宝油气场内和场外申购账户数后，其实真正有帮助的结论只是场外申购账户比场内申购账户少一个数量级。因为其中我只区分了折价和溢价两种情况进行数据分析，但是实际上不同溢价时申购账户的区别其实是很大的。
-<br />因为场外账户远少于场内账户，我可以放心的忽略二者在不同申购日期下不同净值等细节，把所有申购都假设成为场内申购计算。把限购1000人民币以来所有溢价申购日期数据统一做线性回归，可以得到结果：{$strFundAccount}
-<br />顺便做一个通用一元{$strLinear}工具。
+<br />因为场外账户远少于场内账户，我可以放心的忽略二者在不同申购日期下不同净值等细节，把所有申购都假设成为场内申购计算。做一个通用工具，把限购1000人民币以来所有溢价申购日期数据统一做{$strLinear}，可以得到结果：{$strFundAccount}
 $strImage
 </p>
 END;
@@ -908,12 +917,13 @@ END;
 function Echo20220121($strHead)
 {
 	$strHead = GetHeadElement($strHead);
-	$strSinaJs = GetSinaJsLink();
+	$strForbidden = GetQuoteElement('Kinsoku jikou desu');
+	$strSinaJs = GetAccountToolLink('sinajs');
 	
     echo <<<END
 	$strHead
 <p>2022年1月21日
-<br />在新浪股票数据接口加上Referer检查后，不能直接用浏览器看结果了，加上{$strSinaJs}调试工具页面。
+<br />在新浪股票数据接口加上Referer检查后，直接用浏览器只能看到{$strForbidden}，加上{$strSinaJs}调试工具页面看结果。跟IP地址查询一样，为防止愚昧爬虫过度访问触发过多查询导致被新浪封杀，这个页面也需要登录。
 </p>
 END;
 }

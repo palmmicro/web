@@ -14,7 +14,7 @@ function _echoFundHistoryTableItem($csv, $strNav, $arHistory, $arFundEst, $ref, 
     	{
     		$ar[] = $ref->GetPriceDisplay($strEstValue, $strNav);
     		$strTime = GetHM($arFundEst['time']); 
-    		$ar[] = $bAdmin ? GetOnClickLink('/php/_submitdelete.php?'.TABLE_FUND_EST.'='.$arFundEst['id'], '确认删除估值记录'.$strEstValue.'？', $strTime) : $strTime;
+    		$ar[] = $bAdmin ? GetOnClickLink('/php/_submitdelete.php?'.'fundest'.'='.$arFundEst['id'], '确认删除估值记录'.$strEstValue.'？', $strTime) : $strTime;
     		$ar[] = $ref->GetPercentageDisplay($strNav, $strEstValue);
 		
     		if ($est_ref)

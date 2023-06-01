@@ -231,7 +231,7 @@ function _getPrimeNumberString($strNumber, $bChinese)
 
 function _getSinaJsString($strInput, $bChinese)
 {
-    if ($str = url_get_contents(GetSinaQuotesUrl($strInput), false, GetSinaFinanceUrl()))
+    if ($str = url_get_contents(GetSinaQuotesUrl($strInput), UrlGetRefererHeader(GetSinaFinanceUrl())))
     {
     	$arLine = explode("\n", $str);
     	$str = '';
@@ -495,7 +495,7 @@ function GetMetaDescription($bChinese = true)
   		break;
   		
    	case 'cramersrule':
-  		$str .= $bChinese ? '计算页面. Cramer法则求解二元一次方程组 a1 * X + b1 * Y = c1; a2 * X + b2 * Y = c2; 附带算法步骤图作为参考. '
+  		$str .= $bChinese ? '计算页面。Cramer法则求解方程组 a1 * X + b1 * Y = c1; a2 * X + b2 * Y = c2; 附带算法步骤图作为参考。'
     						: ' calculation, use Cramer\'s rule to solve a linear system of 2x2 equations, together with algorithm steps image.';
   		break;
   		

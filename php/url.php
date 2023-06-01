@@ -42,7 +42,12 @@ function UrlGetIp()
 	return false;
 }
 
-function url_get_contents($strUrl, $arExtraHeaders = false, $strReferer = false, $strFileName = false)
+function UrlGetRefererHeader($strReferer)
+{
+	return array('Referer: '.$strReferer);
+}
+
+function url_get_contents($strUrl, $arExtraHeaders = false, $strFileName = false)
 {
 	global $acct;
 	if (method_exists($acct, 'AllowCurl'))
@@ -63,11 +68,11 @@ function url_get_contents($strUrl, $arExtraHeaders = false, $strReferer = false,
     if ($arExtraHeaders)	
     {
     	$arHeaders = array_merge($arHeaders, $arExtraHeaders);
-    	DebugPrint($arHeaders);
+//    	DebugPrint($arHeaders);
     }
     curl_setopt($ch, CURLOPT_HTTPHEADER, $arHeaders);
     
-    if ($strReferer)	curl_setopt($ch, CURLOPT_REFERER, $strReferer);
+//    if ($strReferer)	curl_setopt($ch, CURLOPT_REFERER, $strReferer);
 //	if ($strCookie)	curl_setopt($ch, CURLOPT_COOKIE, $strCookie);
 
 //    curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0');						// Mozilla/5.0 (Windows NT 6.1; rv:19.0) Gecko/20100101 Firefox/19.0
