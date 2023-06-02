@@ -101,7 +101,8 @@ function _deleteStockSymbol($ref)
 		SqlDeleteStockHistory($strStockId);
 		SqlDeleteNavHistory($strStockId);
 		SqlDeleteStock($strStockId);
-		DebugString('Deleted');
+		DebugString('已删除');
+		SwitchRemoveFromSess('symbol='.$strSymbol);
 	}
 }
 

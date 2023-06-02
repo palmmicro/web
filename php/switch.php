@@ -25,6 +25,27 @@ function SwitchGetSess()
     return false;
 }
 
+function _removeFromSess($strQuery)
+{
+	if ($str = SwitchGetSess())
+	{
+		if (stripos($str, $strQuery))
+		{
+			$_SESSION['userurl'] = str_ireplace($strQuery, '', $str);
+			DebugString('new session url: '.$_SESSION['userurl']);
+			return true;
+		}
+	}
+	return false;
+}
+
+function SwitchRemoveFromSess($strQuery)
+{
+	if (_removeFromSess('&'.$strQuery))	return;
+	if (_removeFromSess('?'.$strQuery))	return;
+	_removeFromSess($strQuery);
+}
+
 function SwitchToSess()
 {
     if (isset($_SESSION['userurl'])) 

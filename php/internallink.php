@@ -95,9 +95,9 @@ function GetCommonPhraseLink($bChinese = true)
     return GetAccountToolLink('commonphrase', $bChinese);
 }
 
-function GetSinaQuotesLink($strSinaSymbols, $bFull = true)
+function GetSinaDataLink($strSinaSymbols, $bFull = true)
 {
-	return GetPhpLink(ACCT_PATH.'sinajs', 'sinajs='.$strSinaSymbols, ($bFull ? GetSinaQuotesUrl($strSinaSymbols) : $strSinaSymbols));
+	return GetPhpLink(ACCT_PATH.'sinajs', 'sinajs='.$strSinaSymbols, ($bFull ? GetSinaDataUrl($strSinaSymbols) : $strSinaSymbols));
 }
 
 function GetBenfordsLawLink($bChinese = true)
@@ -125,11 +125,6 @@ function GetPrimeNumberLink($bChinese = true)
     return GetAccountToolLink('primenumber', $bChinese);
 }
 
-function GetIpAddressLink($bChinese = true)
-{
-    return GetAccountToolLink('ip', $bChinese);
-}
-
 function _getIpLink($strPage, $strIp, $bChinese)
 {
     return GetPhpLink(ACCT_PATH.$strPage, 'ip='.$strIp, $strIp, false, $bChinese);
@@ -145,7 +140,12 @@ function GetVisitorLink($strIp, $bChinese = true)
 	return _getIpLink(TABLE_VISITOR, $strIp, $bChinese);
 }
 
-function GetAllCommentLink($strQuery, $bChinese)
+function GetAllVisitorLink($bChinese = true)
+{
+	return GetPhpLink(ACCT_PATH.TABLE_VISITOR, false, '访问统计', 'Visitor', $bChinese);
+}
+
+function GetAllCommentLink($strQuery, $bChinese = true)
 {
     return GetPhpLink(ACCT_PATH.'comment', $strQuery, '全部评论', 'All Comment', $bChinese);
 }

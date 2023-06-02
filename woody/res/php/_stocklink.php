@@ -187,11 +187,12 @@ function GetDaChengSoftwareLinks($strDigitA)
     return ' '.GetOfficialLink($strUrl.'/dcjj/'.$strDigitA.'/index.jhtml', $strDigitA).GetCategorySoftwareLinks($ar, GetExternalLink($strUrl, '大成基金'));
 }
 
+// https://www.efunds.com.cn/fund/510900.shtml
 function GetEFundSoftwareLinks($strDigitA)
 {
     $ar = array('SH510310', 'SH510900', 'SH513000', 'SH513010', 'SH513050', 'SZ159934', 'SZ161116', 'SZ161125', 'SZ161126', 'SZ161127', 'SZ161128', 'SZ161129', 'SZ161130');
-	$strUrl = 'http://www.efunds.com.cn';
-    return ' '.GetOfficialLink($strUrl.'/html/fund/'.$strDigitA.'_fundinfo.htm', $strDigitA).GetCategorySoftwareLinks($ar, GetExternalLink($strUrl, '易方达基金'));
+	$strUrl = 'https://www.efunds.com.cn';
+    return ' '.GetOfficialLink($strUrl.'/fund/'.$strDigitA.'.shtml', $strDigitA).GetCategorySoftwareLinks($ar, GetExternalLink($strUrl, '易方达基金'));
 }
 
 function GetGuangFaSoftwareLinks($strDigitA)

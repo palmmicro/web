@@ -15,9 +15,9 @@ function EchoNameLink($strName, $strDisplay = false, $strLink = '')
 	echo GetNameLink($strName, $strDisplay, $strLink);
 }
 
-function EchoSinaQuotesLink($strSinaSymbols)
+function EchoSinaDataLink($strSinaSymbols)
 {
-	echo GetSinaQuotesLink($strSinaSymbols);
+	echo GetSinaDataLink($strSinaSymbols);
 }
 
 function EchoSinaDebugLink($strSina)
@@ -58,11 +58,6 @@ function EchoPrimeNumberLink($bChinese = true)
 function EchoCommonPhraseLink($bChinese = true)
 {
 	echo GetCommonPhraseLink($bChinese);
-}
-
-function EchoIpAddressLink($bChinese = true)
-{
-	echo GetIpAddressLink($bChinese);
 }
 
 function EchoAutoTractorLink()

@@ -231,7 +231,7 @@ function _getPrimeNumberString($strNumber, $bChinese)
 
 function _getSinaJsString($strInput, $bChinese)
 {
-    if ($str = url_get_contents(GetSinaQuotesUrl($strInput), UrlGetRefererHeader(GetSinaFinanceUrl())))
+    if ($str = url_get_contents(GetSinaDataUrl($strInput), UrlGetRefererHeader(GetSinaFinanceUrl())))
     {
     	$arLine = explode("\n", $str);
     	$str = '';

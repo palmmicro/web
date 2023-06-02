@@ -62,6 +62,16 @@ function _getStockCategoryTag($strItem)
     return GetNameTag($strItem, $ar[$strItem]);
 }
 
+function _getStockLink($strSymbol)
+{
+    return GetNameLink($strSymbol, SqlGetStockName($strSymbol));
+}
+
+function _getStockTag($strSymbol)
+{
+    return GetNameTag($strSymbol, SqlGetStockName($strSymbol));
+}
+
 function Echo20150824($strHead)
 {
 	$strHead = GetHeadElement($strHead);
@@ -278,14 +288,13 @@ function Echo20161006($strHead)
 {
 	$strHead = GetHeadElement($strHead);
 	$strSZ162411 = GetCalibrationHistoryLink(FUND_DEMO_SYMBOL, true).CALIBRATION_HISTORY_DISPLAY;
-	$strUSO = GetCalibrationHistoryLink('USO', true).CALIBRATION_HISTORY_DISPLAY;
 	$strQDII = _getQdiiLink();
 	
     echo <<<END
 	$strHead
 <p>2016年10月6日
 <br />在华宝油气估值的时候，每次拿到官方发布的净值后都会根据净值当天的美股数据和美元人民币中间价做一次自动校准，从现在开始全部在{$strSZ162411}页面记录下来，方便观察长期趋势。校准时间就是拿到新的官方净值后第一次访问的时间。
-类似的版面上还有CL和{$strUSO}，用在{$strQDII}基金的实时估值上。
+类似的版面上还有CL和USO校准记录，用在{$strQDII}基金的实时估值上。
 <br />碰到XOP分红除权的日子，就需要进行手工校准。否则的话要等下一次自动校准后，估值结果才会再次正确。
 </p>
 END;
@@ -422,6 +431,31 @@ function Echo20170128($strHead)
 END;
 
    	EchoAhParagraph(array(new AhPairReference(AH_DEMO_SYMBOL)));
+}
+
+function Echo20170319($strHead)
+{
+	$strHead = GetHeadElement($strHead);
+	$strCalibration = GetNameLink('calibrationhistory', CALIBRATION_HISTORY_DISPLAY);
+	$strVisitor = GetAllVisitorLink();
+	$strPa1688 = GetInternalLink('/pa1688/indexcn.html', 'PA1688');
+	$strIpInfo = GetExternalLink(GetIpInfoUrl());
+	$strIp = GetAccountToolLink('ip');
+	$strUSO = GetCalibrationHistoryLink('USO', true);
+
+    echo <<<END
+	$strHead
+<p>2017年3月9日
+<br />因为偶然注意到CL和USO{$strCalibration}的数据异乎寻常的多，让我发现了从去年11月中旬开始，就有一个网络爬虫从相连的两个IP地址以每秒两次的频率自动爬华宝油气等四个页面，持续爬了快四个月。
+在惊讶之余，我的第一反应是每个月9.99美元跑PHP代码的Yahoo网站服务太值了，处理如此辛勤的爬虫，竟然没有让我这种最常用用户感觉到任何性能上的变化，看来未来即使正常访问量提高100倍都能应付过来。
+其实我估值软件每分钟才访问一次新浪股票数据，所以爬虫每秒都来爬是没有任何意义的，每分钟来爬一次足够了。
+<br />我的第二反应，是赶快加了一个对单个IP地址访问Palmmicro.com的次数{$strVisitor}，每当访问次数累计到1000次就强制要求登录一次。爬虫很快就被暂时挡在了数据之外，不过这也会在以后给正常访问的常用用户带来一点小麻烦。 
+<br />同时我很清醒的认识到，为了克服我设置的这个小障碍，爬虫要实现自动登录其实是很容易的。另外即使是目前这种状态，依旧有每秒两次的访问压在登录页面上，一样给服务器带来了不必要的额外压力。
+<br />十多年前当我在{$strPa1688}上做H.323的时候，曾经费尽心力从{$strIpInfo}这种类似网站查询设备所在的公网IP地址，留下了很坎坷的回忆。
+而今天在处理完网络爬虫的问题后，我突然意识到查询公网IP已经成了现成的副产品，激动之余写了这个{$strIp}的工具。为防止爬虫滥用，这个页面直接要求登录。
+<br />最后我感觉到每校准一次就增加一条记录没有必要，改成了每天只加一条记录，同时记下当天最后一次CL和{$strUSO}校准的时间。
+</p>
+END;
 }
 
 function Echo20171001($strHead)
@@ -613,7 +647,7 @@ function Echo20190713($strHead)
 	$strHead = GetHeadElement($strHead);
 	$strWeixin = _getWeixinLink();
 	$strQuote = GetQuoteElement('019547');
-	$strLink = GetSinaQuotesLink('sh019547');
+	$strLink = GetSinaDataLink('sh019547');
 	
     echo <<<END
 	$strHead
@@ -689,7 +723,8 @@ function Echo20191025($strHead)
 	$strFundPositionLink = GetFundPositionLink(FUND_DEMO_SYMBOL);
 	$strSZ160216 = GetFundPositionLink('SZ160216', true);
 	$strLof = _getLofLink();
-	$strSH501018 = GetFundPositionLink('SH501018', true);
+	$strSH501018Tag = _getStockTag('SH501018');
+	$strSH501018Link = GetStockLink('SH501018', true);
 	$strMaster = GetXueqiuIdLink('1873146750', '惊艳大师');
 	$strQDII = _getQdiiLink();
 	$strElementaryTag = GetNameTag('elementary', '小学生');
@@ -714,16 +749,16 @@ function Echo20191025($strHead)
 不过这3天累计的涨幅达到了5.14%，我于是灵机一动，想到了可以优化一下算法：不用拘泥于单日的涨跌，只要连续几天的累计涨幅或者跌幅超过了4%就计算一次仓位。
 <br />这样我又增加了一个专门估算仓位的新页面：$strFundPositionLink
 <br />加了新页面后继续脑洞大开，我又加了一行输入界面，从此可以自行设置4%的阈值。
-<br />既然现在有了实测的数据，当然要把它们派上用场。不过我暂时只把SZ162411和{$strSZ160216}仓位用在了估值上，而跟SZ160216类似的{$strSH501018}仓位就一直坚持使用{$strLof}缺省的95%的不变。在估值页面上显示了实际使用的估值仓位。
+<br />既然现在有了实测的数据，当然要把它们派上用场。不过我暂时只把SZ162411和{$strSZ160216}仓位用在了估值上，而其它的{$strLof}依旧使用缺省的95%仓位。如果小于1，在估值页面上会显示实际使用的估值仓位。
 <br />国泰商品跟华宝油气是2011到2012年基本上同时代的第一批QDII基金，开始几年没啥人气。2015年传说中的著名网络写手烟雨江南邱晓华卸任基金经理前，把名字上依然保持着大宗商品的SZ160216改造成了一个纯油基金，净值几乎100%跟随USO和美油期货CL。
 也就是说，我可以用USO准确的给这4年以来的国泰商品估值。
 <br />100%跟随CL就意味着可以套利。在CL砸向2016初的26美元那一轮中，可以抄底油价又可以套利的国泰商品跟华宝油气一样迅速成长起来，QDII场内流动性仅次于华宝油气。在华宝油气2016年1月21日因为外汇额度彻底关门后，国泰商品也在2016年2月24日彻底关门。
 <br />接下来神奇的事情发生了。随着油价迅速反弹，华宝油气很快就在2016年3月25日恢复了每日10万限额的申购，到了当年4月8日更是恢复到了50万。而国泰商品却一直到2017年的5月11日才恢复每日1000的限额申购，然后2018年8月21日至今一直是每日限额1万。
-民间传说是国泰基金把外汇额度挪到其它产品上去了。可能是因为关门时间太长，之前累积起来的流动性一去不复返，以至于现在连南方原油都不如。
-<br />事实上，当SH501018计划在2016年中间上市的时候，我看到的套利群体是对它寄予厚望的，希望它能重复国泰商品100%跟CL的模式方便大家赚钱。可惜南方基金没采用现成的套利促进流动性的模式，所以它到现在的流动性也还是苦哈哈。
-<br />因为国内监管的要求，SZ160216和SH501018这种FOF的持仓不能过于集中。SZ160216费了不少力气让自己的持仓跟USO保持100%一致。因为美股市场上没有足够多的原油ETF品种选择，它同时持有了小部分2倍日内杠杆的原油ETF和看多美元的ETF，甚至还有一点点贵金属ETF，说白了就是为了满足监管的分散要求。
-而SH501018更离谱，它持仓了很大一部分欧洲市场上的原油ETF，由于市场收盘时间不同，市场假期也有差异，我用USO给它估值就不准了，反向计算出来的仓位就更加不靠谱。
-<br />想给SH501018正确估值，使用SZ162411的这种单一品种参考模式是不行的。{$strMaster}计算{$strQDII}净值的Excel虽然在我的网页工具出来后落寞了许多，不过他说了，用XOP估算华宝油气净值只是{$strElementaryTag}水平，能够用实际的详细持仓明细估算南方原油净值才算初中生水平！
+民间传说是国泰基金把外汇额度挪到其它产品上去了。可能是因为关门时间太长，之前累积起来的流动性一去不复返，以至于现在都要被后来者追上了。
+<br />事实上，当{$strSH501018Tag}计划在2016年中间上市的时候，我看到的套利群体是对它寄予厚望的，希望它能重复国泰商品100%跟CL的模式方便大家赚钱。可惜南方基金没采用现成的套利促进流动性的模式，所以它到现在的流动性也还是苦哈哈。
+<br />因为国内监管的要求，FOF的持仓不能过于集中。SZ160216费了不少力气让自己的持仓跟USO保持100%一致。因为美股市场上没有足够多的原油ETF品种选择，它同时持有了小部分2倍日内杠杆的原油ETF和看多美元的ETF，甚至还有一点点贵金属ETF，说白了就是为了满足监管的分散要求。
+而{$strSH501018Link}更离谱，它持仓了很大一部分欧洲市场上的原油ETF，由于市场收盘时间不同，市场假期也有差异，我用USO给它估值就不准了，反向计算出来的仓位就更加不靠谱。
+<br />想给它正确估值，使用SZ162411的这种单一品种参考模式是不行的。{$strMaster}计算{$strQDII}净值的Excel虽然在我的网页工具出来后落寞了许多，不过他说了，用XOP估算华宝油气净值只是{$strElementaryTag}水平，能够用实际的详细持仓明细估算净值才算初中生水平！
 <br />{$strWei}在雪球和公众号上写了一系列A股大时代的故事，一直用这个封面图片。因为我今天也忍不住开始讲{$strOilFundTag}基金历史的故事，就东施效颦也放个图。
 $strImage
 </p>
@@ -917,13 +952,17 @@ END;
 function Echo20220121($strHead)
 {
 	$strHead = GetHeadElement($strHead);
-	$strForbidden = GetQuoteElement('Kinsoku jikou desu');
+	$strSZ162411 = GetExternalLink(GetSinaDataUrl('sz162411'));
+	$strError = GetFontElement('Kinsoku jikou desu!');
+	$strForbidden = GetQuoteElement('Forbidden');
 	$strSinaJs = GetAccountToolLink('sinajs');
+	$strIp = _getAccountToolLink('ip');
 	
     echo <<<END
 	$strHead
 <p>2022年1月21日
-<br />在新浪股票数据接口加上Referer检查后，直接用浏览器只能看到{$strForbidden}，加上{$strSinaJs}调试工具页面看结果。跟IP地址查询一样，为防止愚昧爬虫过度访问触发过多查询导致被新浪封杀，这个页面也需要登录。
+<br />在新浪股票数据接口加上Referer检查后，直接在浏览器中点开{$strSZ162411}只能看到日文的{$strError} 相当于英文的{$strForbidden}。从此加上{$strSinaJs}调试工具页面看结果。
+跟{$strIp}一样，是先从WEB服务器使用加Referer的HTTPHEADER查询数据，再显示出来。为防止愚昧爬虫过度访问触发过多查询导致我的WEB服务器被新浪封杀，这个页面也需要登录。
 </p>
 END;
 }
@@ -964,8 +1003,8 @@ function Echo20230521($strHead)
 	$strSZ159866 = GetStockLink('SZ159866');
 	$strQdiiJp = GetStockMenuLink('qdiijp');
 	$strQdiiHk = _getStockMenuLink('qdiihk');
-	$strNKY = GetSinaQuotesLink('znb_NKY', false);
-	$strNK = GetSinaQuotesLink('hf_NK', false);
+	$strNKY = GetSinaDataLink('znb_NKY', false);
+	$strNK = GetSinaDataLink('hf_NK', false);
 	$strImage = ImgSantaFe();
 	
     echo <<<END
@@ -989,8 +1028,9 @@ function Echo20230525($strHead)
 	$strQdiiJp = _getStockMenuLink('qdiijp');
 	$strSH513030 = GetStockLink('SH513030', true);
 	$strSH513080 = GetStockLink('SH513080', true);
-	$strDAX = GetSinaQuotesLink('znb_DAX', false);
-	$strCAC = GetSinaQuotesLink('znb_CAC', false);
+	$strSH501018 = _getStockLink('SH501018');
+	$strDAX = GetSinaDataLink('znb_DAX', false);
+	$strCAC = GetSinaDataLink('znb_CAC', false);
 	$strFundHistory = GetNameLink('fundhistory', FUND_HISTORY_DISPLAY);
 	$strImage = ImgQueen();
 	
@@ -998,7 +1038,7 @@ function Echo20230525($strHead)
 	$strHead
 <p>2023年5月25日
 <br />华安基金公司的{$strQDII}基金不仅有跟踪美国和日本股市的ETF，还有德国和法国的。之前我都用美股市场上的ETF给{$strSH513030}和{$strSH513080}，误差一直很大。
-专门去看过它们的季报持仓，发现它们还真是在德国和法国市场上买股票，这样就像南方原油的估值一样，连收市时间都差几个小时，当然不准。
+专门去看过它们的季报持仓，发现它们还真是在德国和法国市场上买股票，这样就像{$strSH501018}的估值一样，连收市时间都差几个小时，当然不准。
 <br />在加了{$strQdiiJp}后，我意识到可以用同样的模式给这两个ETF估值，股指数据分别来自于新浪的{$strDAX}和{$strCAC}。目前德国和法国都在夏令时，北京时间下午三点开市，晚上11点半收市。
 隔一段日子后到{$strFundHistory}页面看估值误差，就知道这个改动是否成功了。
 $strImage

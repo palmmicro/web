@@ -20,7 +20,7 @@
 <br />后来我想起来5年前学习的<?php echo GetLinkElement('PHP', '20100905cn.php'); ?>，于是打算写我的第二个PHP程序，统一把套利需要常看的行情显示在一起。
 同时根据SPDR标普油气开采指数ETF(XOP)、标普油气开采指数(^SPSIOP)、以及美元对人民币的汇率计算<?php echo GetStockLink('SZ162411'); ?>净值。今天出了第一版，记录下相关开发过程以备日后查阅。A股的QDII基金缺乏及时的信息更新，希望这里能够补上这个生态位空缺。
 <br />谢谢<?php EchoXueqiuId('6188729918', 'abkoooo'); ?>帮助提供了新浪实时美股数据接口的格式。
-美股、A股、期货和汇率都用新浪实时的数据接口：<?php EchoSinaQuotesLink('gb_xop,sz162411,hf_CL,USDCNY'); ?>
+美股、A股、期货和汇率都用新浪实时的数据接口：<?php EchoSinaDataLink('gb_xop,sz162411,hf_CL,USDCNY'); ?>
 <br />一开始发现无论怎么弄<?php echo GetCodeElement('fopen'); ?>打开这些链接都会失败，估计是我用的Yahoo网站服务不支持<?php echo GetCodeElement('allow_url_fopen'); ?>。 
 在网上找解决方法，发现应该用早就有的curl。抄了2段curl代码，仿照<?php echo GetCodeElement('file_get_contents'); ?>函数的名字加了个<?php echo GetCodeElement('url_get_contents'); ?>函数。
 <br />为提高页面反应速度，使用2个文件<?php EchoSinaDebugLink('gb_xop'); ?>和<?php EchoSinaDebugLink('sz162411'); ?>分别保存最后更新的股票数据，同时实施以下优化：
@@ -48,7 +48,7 @@
 <br />这样就很清楚了, 当我说5日线的时候, 我实际算的是前4个交易日收盘价的平均值. 当我说20周线的时候, 我实际算的是前19周每周最后一个交易日收盘价的平均值.
 这样算出来的不动点是极限值, 所以我整天装神弄鬼说XOP过了什么什么均线算强势, 没过什么什么均线算弱势. 而这些装神弄鬼的背后, 其实用到的都是小学数学.
 <br />XOP历史数据每天只需要更新一次, 采用Yahoo股票历史数据: <?php EchoExternalLink(GetYahooStockHistoryUrl('XOP')); ?>,
-<br />同样每天只需要更新一次的还有华宝油气基金官方净值, 来自于<?php EchoSinaQuotesLink('f_162411'); ?>,
+<br />同样每天只需要更新一次的还有华宝油气基金官方净值, 来自于<?php EchoSinaDataLink('f_162411'); ?>,
 使用文件<?php EchoSinaDebugLink('f_162411'); ?>缓存, 因为不知道什么时候更新当日数据, 只好采用一个小时更新一次的笨办法.
 <br />增加调试文件<?php echo GetDebugFileLink(); ?>用于临时查看数据.
 </p>
@@ -105,7 +105,7 @@
 
 <h3>新浪实时港股数据</h3>
 <p>2016年4月23日
-<br />在<?php EchoXueqiuId('5174320624', '均金无忌'); ?>的帮助下使用新浪实时港股数据(<?php EchoSinaQuotesLink('rt_hk02828'); ?>),
+<br />在<?php EchoXueqiuId('5174320624', '均金无忌'); ?>的帮助下使用新浪实时港股数据(<?php EchoSinaDataLink('rt_hk02828'); ?>),
 替代原来延迟15分钟的<a href="20151225cn.php">新浪股票数据</a>.
 <br />刚过去的周4净值页面系列的当日总访问量创纪录的超过了2200, 激励我继续优化页面反应速度.
 </p>
@@ -160,6 +160,7 @@
 	Echo20161020('查询A股股票数据');
 	Echo20161028('查询A股基金数据');
 	Echo20170128('增加'.GetNameTag('ahcompare', AH_COMPARE_DISPLAY).'页面');
+	Echo20170319('查询公网'._getAccountToolTag('ip'));
 ?>
 
 <h3><a name="bollinger">布林</a>线</h3>

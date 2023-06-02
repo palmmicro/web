@@ -157,8 +157,8 @@ function _yahooStockGetData($strSymbol, $strStockId)
    		if ($now_ymd->NeedFile($strFileName, SECONDS_IN_MIN) == false)		return false;
    	}
    	
-//	$strUrl = GetYahooQuotesUrl(7).'/quote?symbols='.$strSymbol;
-	$strUrl = GetYahooQuotesUrl(7).'/options/'.$strSymbol;
+//	$strUrl = GetYahooDataUrl().'/quote?symbols='.$strSymbol;
+	$strUrl = GetYahooDataUrl().'/options/'.$strSymbol;
    	if ($str = url_get_contents($strUrl))
    	{
    		DebugString($strUrl.' save new file to '.$strFileName);

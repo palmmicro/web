@@ -1,5 +1,10 @@
 <?php
 
+function GetIpInfoUrl()
+{
+	return 'http://ipinfo.io/';
+}
+
 function GetYahooStockUrl($strYahooSymbol)
 {
 	return 'https://finance.yahoo.com/quote/'.$strYahooSymbol;
@@ -10,14 +15,12 @@ function GetYahooStockHistoryUrl($strYahooSymbol)
 	return GetYahooStockUrl($strYahooSymbol).'/history';
 }
 
-// https://query1.finance.yahoo.com/v7/finance/download/000300.ss?period1=1630006346&period2=1683574346&interval=1d&events=history&includeAdjustedClose=true
-// https://query1.finance.yahoo.com/v6/finance/quote?symbols=^ASHR-IV
-function GetYahooQuotesUrl($iVer = 7)
+function GetYahooDataUrl()
 {
-	return 'https://query1.finance.yahoo.com/v'.strval($iVer).'/finance';
+	return 'https://query1.finance.yahoo.com/v7/finance';
 }
 
-function GetSinaQuotesUrl($strSinaSymbols)
+function GetSinaDataUrl($strSinaSymbols)
 {
 	return 'http://hq.sinajs.cn/list='.$strSinaSymbols;
 }	

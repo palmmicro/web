@@ -22,7 +22,7 @@ I was watching stock quotations on Yahoo and Sina everyday, and always need to c
 It was planned to put all the usual stock quotations together, and to estimate SZ162411 net value based on XOP, ^SPSIOP and USDCNY exchange rate.
 Today the first version is released, and I am writing this record of programming details for future reference.
 <br />Thanks <?php EchoXueqiuId('6188729918', 'abkoooo'); ?> for Sina realtime US stock data format.
-<br />Using Sina realtime source for US and Chinese stocks, oil futures and forex: <?php EchoSinaQuotesLink('gb_xop,sz162411,hf_CL,USDCNY'); ?>
+<br />Using Sina realtime source for US and Chinese stocks, oil futures and forex: <?php EchoSinaDataLink('gb_xop,sz162411,hf_CL,USDCNY'); ?>
 <br />At first I found that <i>fopen</i> will always fail to open those urls, maybe my Yahoo Web Hosting does not support <i>allow_url_fopen</i>. 
 I searched and found curl to solve this problem, copied some curl code to my <i>url_get_contents</i> function with name similar as <i>file_get_contents</i>.
 <br />To optimize web response time, I used 2 files <?php EchoSinaDebugLink('gb_xop'); ?> and <?php EchoSinaDebugLink('sz162411'); ?> to save last updated stock data.
@@ -43,7 +43,7 @@ This version added the premium of current trading price comparing with XOP estim
 and the days in past 100 trading days did the estimated SMA value fitted in the trading range.
 <br />The historic data of XOP only need to update once a day, using Yahoo stock historic data: <?php EchoExternalLink(GetYahooStockHistoryUrl('XOP')); ?>
 <br />The official fund net value only need to update once a day too.
-Using file <?php EchoSinaDebugLink('f_162411'); ?> for official SZ162411 net value from <?php EchoSinaQuotesLink('f_162411'); ?>,
+Using file <?php EchoSinaDebugLink('f_162411'); ?> for official SZ162411 net value from <?php EchoSinaDataLink('f_162411'); ?>,
 as I do not konw when the data will be updated, I update it once an hour stupidly.
 <br />Using debug file <?php echo GetDebugFileLink(); ?> for temp data checking.
 </p>
@@ -80,7 +80,7 @@ need to use <font color=gray><code>date_default_timezone_set('America/New_York')
 <h3>Sina Realtime HK Stock Data</h3>
 <p>Apr 23, 2016
 <br />With the help of <?php EchoXueqiuId('5174320624', 'rdcheju'); ?>,
-now using Sina realtime HK stock data(<?php EchoSinaQuotesLink('rt_hk02828'); ?>) to replace original <a href="20151225.php">Sina Stock Data</a> which has 15 minutes delay.
+now using Sina realtime HK stock data(<?php EchoSinaDataLink('rt_hk02828'); ?>) to replace original <a href="20151225.php">Sina Stock Data</a> which has 15 minutes delay.
 <br />On last Thursday the total page view of my net value pages was over 2200, this encouraged me to do more page speed optimization.
 </p>
 

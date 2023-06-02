@@ -1,12 +1,12 @@
 <?php
+require_once('externalurl.php');
 require_once('stocklink.php');
 require_once('sql/sqlipaddress.php');
 require_once('ui/commentparagraph.php');
 
-define('IPINFO_IO_IP_URL', 'http://ipinfo.io/');
 function _getIpInfoIpLookUpUrl($strIp)
 {
-    return IPINFO_IO_IP_URL.$strIp.'/json';
+    return GetIpInfoUrl().$strIp.'/json';
 }
 
 function strstr_array($strHaystack, $arNeedle)
@@ -106,7 +106,7 @@ class IpLookupAccount extends CommentAccount
     function IpLookupString($strIp, $bChinese)
     {
     	$fStart = microtime(true);
-    	$str = $strIp.' '.GetPhpLink(ACCT_PATH.TABLE_VISITOR, false, '访问统计', 'Visitor', $bChinese);
+    	$str = $strIp.' '.GetAllVisitorLink($bChinese);
     	$str .= '<br />'.GetExternalLink(_getIpInfoIpLookUpUrl($strIp), 'ipinfo.io').': ';
     	if ($arInfo = $this->_ipInfoLookUp($strIp))
     	{
