@@ -62,7 +62,7 @@
 
 <?php
 	Echo20150824('增加'.GetNameTag('stockhistory', STOCK_HISTORY_DISPLAY).'页面');
-	Echo20150827('扩大规模到'._getStockMenuTag('qdiihk'));
+	Echo20150827('qdiihk');
 ?>
 
 <h3>股票<a name="transaction">交易</a>记录</h3>
@@ -100,7 +100,7 @@
 </p>
 
 <?php
-	Echo20160325('增加'._getStockMenuTag('goldsilver').'页面');
+	Echo20160325('goldsilver');
 ?>
 
 <h3>新浪实时港股数据</h3>
@@ -136,7 +136,7 @@
 </p> 
 
 <?php
-	Echo20160818(_getStockMenuTag('qdii').'中考虑当日CL交易情况后的T+1估值');
+	Echo20160818('qdii');
 ?>
 
 <h3><?php EchoNameTag('thanousparadox', THANOUS_PARADOX_DISPLAY); ?></h3>
@@ -160,7 +160,7 @@
 	Echo20161020('查询A股股票数据');
 	Echo20161028('查询A股基金数据');
 	Echo20170128('增加'.GetNameTag('ahcompare', AH_COMPARE_DISPLAY).'页面');
-	Echo20170319('查询公网'._getAccountToolTag('ip'));
+	Echo20170319('ip');
 ?>
 
 <h3><a name="bollinger">布林</a>线</h3>
@@ -199,7 +199,9 @@
 </p>
 
 <?php
+	Echo20170410('simpletest');
 	Echo20171001('200日和50日'.GetNameTag('ema').'均线');
+	Echo20171226('commonphrase');
 	Echo20180327('走火入魔的'.GetNameTag('nextsma', 'T+1').'均线');
 	Echo20180404('增加'.GetNameTag('adrhcompare', ADRH_COMPARE_DISPLAY).'页面');
 	Echo20180405('增加'.GetNameTag('abcompare', AB_COMPARE_DISPLAY).'页面');
@@ -221,13 +223,15 @@
 </p>
 
 <?php
-	Echo20180620('增加'._getStockMenuTag('chinaindex').'页面');
+	Echo20180620('chinaindex');
 	Echo20190601('微信流量主');
 	Echo20190713('微信公众号不提供查询的数据');
-	Echo20190905('用Cramer法则'._getAccountToolTag('cramersrule'));
-	Echo20190920('用'._getAccountToolTag('linearregression').'的方法在华宝油气溢价套利时估算'.GetNameTag('fundaccount', FUND_ACCOUNT_DISPLAY));
+	Echo20190905('cramersrule');
+	Echo20190920('linearregression');
 	Echo20191025('增加'.GetNameTag('fundposition', FUND_POSITION_DISPLAY).'页面');
 	Echo20191107('美国夏令时结束带来的软件BUG');
+	Echo20191114('benfordslaw');
+	Echo20191115('chisquaredtest');
 	Echo20200113('华宝油气的C类份额');
 	Echo20200326('国泰商品已经只剩大半桶油');
 	Echo20210227('增加'.GetNameTag('telegram', '电报').'机器人');
@@ -235,12 +239,12 @@
 	Echo20210613('微信公众平台进去后显示白板');
 	Echo20210624('增加'.GetNameTag('holdings', HOLDINGS_DISPLAY).'页面');
 	Echo20210714('增加'.GetNameTag('fundshare', FUND_SHARE_DISPLAY).'页面');
-	Echo20210728('为'._getStockCategoryTag('chinainternet').'增加'.QDII_MIX_DISPLAY.'工具系列');
+	Echo20210728('chinainternet');
 	Echo20211129(GetNameTag('endweixin', '放弃微信').'公众号文章');
-	Echo20220121(_getAccountToolTag('sinajs').'调试工具');
-	Echo20220914('为'._getStockMenuTag('qdiimix').'补充A股成分股的持仓处理');
-	Echo20230521('增加'._getStockMenuTag('qdiijp').'的估值');
-	Echo20230525('增加'._getStockMenuTag('qdiieu').'的估值');
+	Echo20220121('sinajs');
+	Echo20220914('qdiimix');
+	Echo20230521('qdiijp');
+	Echo20230525('qdiieu');
 	Echo20230530('增加全球芯片LOF和海外科技LOF的估值');
 ?>
 

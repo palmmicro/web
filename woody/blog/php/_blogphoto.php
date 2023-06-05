@@ -1,6 +1,5 @@
 <?php
 require_once('../../php/layout.php');
-require_once('../../php/ui/imagedisp.php');
 require_once('../php/_woodymenu.php');
 
 function _menuLoopBlogPhoto($bChinese)

@@ -85,44 +85,40 @@ function GetAccountToolStr($strPage, $bChinese = true)
 	return $ar[$strPage];
 }
 
-function GetAccountToolLink($strPage, $bChinese = true)
+function GetAccountToolLink($strPage, $strQuery = false, $bChinese = true)
 {
-    return GetPhpLink(ACCT_PATH.$strPage, false, GetAccountToolStr($strPage, $bChinese), false, $bChinese);
+    return GetPhpLink(ACCT_PATH.$strPage, ($strQuery ? $strPage.'='.$strQuery : false), ($strQuery ? $strQuery : GetAccountToolStr($strPage, $bChinese)), false, $bChinese);
 }
 
 function GetCommonPhraseLink($bChinese = true)
 {
-    return GetAccountToolLink('commonphrase', $bChinese);
+    return GetAccountToolLink('commonphrase', false, $bChinese);
 }
 
-function GetSinaDataLink($strSinaSymbols, $bFull = true)
+function GetSinaDataLink($strSinaSymbols)
 {
-	return GetPhpLink(ACCT_PATH.'sinajs', 'sinajs='.$strSinaSymbols, ($bFull ? GetSinaDataUrl($strSinaSymbols) : $strSinaSymbols));
+//	return GetPhpLink(ACCT_PATH.'sinajs', 'sinajs='.$strSinaSymbols, ($bFull ? GetSinaDataUrl($strSinaSymbols) : $strSinaSymbols));
+	return GetAccountToolLink('sinajs', $strSinaSymbols);
 }
 
 function GetBenfordsLawLink($bChinese = true)
 {
-    return GetAccountToolLink('benfordslaw', $bChinese);
+    return GetAccountToolLink('benfordslaw', false, $bChinese);
 }
 
 function GetChiSquaredTestLink($bChinese = true)
 {
-    return GetAccountToolLink('chisquaredtest', $bChinese);
+    return GetAccountToolLink('chisquaredtest', false, $bChinese);
 }
 
 function GetDiceCaptchaLink($bChinese = true)
 {
-    return GetAccountToolLink('dicecaptcha', $bChinese);
-}
-
-function GetSimpleTestLink($bChinese = true)
-{
-    return GetAccountToolLink('simpletest', $bChinese);
+    return GetAccountToolLink('dicecaptcha', false, $bChinese);
 }
 
 function GetPrimeNumberLink($bChinese = true)
 {
-    return GetAccountToolLink('primenumber', $bChinese);
+    return GetAccountToolLink('primenumber', false, $bChinese);
 }
 
 function _getIpLink($strPage, $strIp, $bChinese)

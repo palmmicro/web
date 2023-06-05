@@ -86,14 +86,14 @@ END;
    	EchoStockHistoryParagraph(new MyStockReference(STOCK_DEMO_SYMBOL));
 }
 
-function Echo20150827($strHead)
+function Echo20150827($strPage)
 {
-	$strHead = GetHeadElement($strHead);
+	$strHead = GetHeadElement('扩大规模到'._getStockMenuTag($strPage));
 	$strQDII = GetStockMenuLink('qdii');
 	$strSZ159920 = GetStockLink('SZ159920', true);
 	$strSH510900 = GetStockLink('SH510900', true);
 	$strSH513500 = GetStockLink('SH513500', true);
-	$strImage = ImgRonin();
+	$strImage = ImgStockGroup($strPage);
 	
     echo <<<END
 	$strHead
@@ -186,14 +186,14 @@ function Echo20160222($strHead)
 END;
 }
 
-function Echo20160325($strHead)
+function Echo20160325($strPage)
 {
-	$strHead = GetHeadElement($strHead);
+	$strHead = GetHeadElement('增加'._getStockMenuTag($strPage).'页面');
 	$strSH518800 = GetStockLink('SH518800', true);
 	$strSH518880 = GetStockLink('SH518880', true);
 	$strSZ159934 = GetStockLink('SZ159934', true);
 	$strSZ159937 = GetStockLink('SZ159937', true);
-	$strGoldSilver = GetStockMenuLink('goldsilver');
+	$strGoldSilver = GetStockMenuLink($strPage);
 	$strFundHistory = GetNameLink('fundhistory', FUND_HISTORY_DISPLAY);
 	$strQdiiAccount = GetCodeElement('QdiiAccount');
 	$strGoldSilverAccount = GetCodeElement('GoldSilverAccount');
@@ -226,9 +226,9 @@ function _getQdiiLink()
 	return GetNameLink('qdii');
 }
 
-function Echo20160818($strHead)
+function Echo20160818($strPage)
 {
-	$strHead = GetHeadElement($strHead);
+	$strHead = GetHeadElement(_getStockMenuTag($strPage).'中考虑当日CL交易情况后的T+1估值');
 	$strJisilu = GetJisiluQdiiLink();
 	$strNav = GetTableColumnNav();
 	
@@ -245,7 +245,7 @@ function Echo20160818($strHead)
 								  '要使用'.GetLinkElement('美元人民币中间价', '20160615cn.php').'，而不是新浪的美元汇率实时交易价格，更不是离岸人民币价格。',
 								  _getLofLink().'基金要按95%仓位的处理，而不是ETF基金的100%。'));
 	$strFairEstCode = GetCodeElement('FairEst');
-	$strImage = ImgWinMan(); 
+	$strImage = ImgStockGroup($strPage); 
 	$strUsageList = GetListElement(array('验证估值算法准确程度和测算申购赎回的成本，看'.$strOfficalEst.'。',
 								  '按溢价折价决定当日是否套利和做跟XOP配对交易的，看'.$strFairEst.'。折价不申购，溢价不赎回。此外A股或者美股休市的日子里也应该看它。',
 								  '做跟美油期货CL配对交易的，看'.$strRealtimeEst.'。'));
@@ -433,14 +433,14 @@ END;
    	EchoAhParagraph(array(new AhPairReference(AH_DEMO_SYMBOL)));
 }
 
-function Echo20170319($strHead)
+function Echo20170319($strPage)
 {
-	$strHead = GetHeadElement($strHead);
+	$strHead = GetHeadElement('查询公网'._getAccountToolTag($strPage));
 	$strCalibration = GetNameLink('calibrationhistory', CALIBRATION_HISTORY_DISPLAY);
 	$strVisitor = GetAllVisitorLink();
 	$strPa1688 = GetInternalLink('/pa1688/indexcn.html', 'PA1688');
 	$strIpInfo = GetExternalLink(GetIpInfoUrl());
-	$strIp = GetAccountToolLink('ip');
+	$strIp = GetAccountToolLink($strPage);
 	$strUSO = GetCalibrationHistoryLink('USO', true);
 
     echo <<<END
@@ -454,6 +454,29 @@ function Echo20170319($strHead)
 <br />十多年前当我在{$strPa1688}上做H.323的时候，曾经费尽心力从{$strIpInfo}这种类似网站查询设备所在的公网IP地址，留下了很坎坷的回忆。
 而今天在处理完网络爬虫的问题后，我突然意识到查询公网IP已经成了现成的副产品，激动之余写了这个{$strIp}的工具。为防止爬虫滥用，这个页面直接要求登录。
 <br />最后我感觉到每校准一次就增加一条记录没有必要，改成了每天只加一条记录，同时记下当天最后一次CL和{$strUSO}校准的时间。
+</p>
+END;
+}
+
+function Echo20170410($strPage)
+{
+	$strHead = GetHeadElement(_getAccountToolTag($strPage).'用户界面');
+	$strIp = _getAccountToolLink('ip');
+	$strSimpleTest = GetAccountToolLink($strPage, '%3A%2F%2F');
+	$strUrldecode = GetCodeElement('urldecode');
+	$strIs_numeric = GetCodeElement('is_numeric');
+	$strCurl = GetCodeElement('curl');
+	$strHttp = GetQuoteElement('http');
+	$strImage = ImgAccountTool($strPage);
+	
+    echo <<<END
+	$strHead
+<p>2017年4月10日
+<br />做完{$strIp}这个简单的单行输入然后把输入显示出来的用户界面后，发现自己无意中实现了一个副产品。
+一直有人用各种参数试探攻击我的网页，所以早就想解码这些{$strSimpleTest}然后显示出来看看到底是些什么参数，没想到这个界面调用{$strUrldecode}后就直接实现了这个功能。
+<br />另外一个一直想解码显示的是从1970年1月1日开始所有秒数Unix的时间戳，也顺手加了{$strIs_numeric}区分后显示出来。
+<br />最重要的是，随着{$strCurl}使用不断增加，经常要重复写代码测试读取某个数据接口。我干脆加了个判断，如果输入以{$strHttp}开头，就调用{$strCurl}函数去读一下，然后保存下来进一步调试。
+$strImage
 </p>
 END;
 }
@@ -473,6 +496,34 @@ function Echo20171001($strHead)
 <br />用En表示今天的n日EMA值，其它沿用前面的符号： 
 <br />En = k * X0 + (1 - k) * Em; 其中m = n - 1; k = 2 / (n + 1)
 <br />不动点En = X0，得到En = Em，就是说今天的不动点就是昨天的值。所以唯一要做的就是每天收盘后算一下当天的EMA。
+</p>
+END;
+}
+
+function Echo20171226($strPage)
+{
+	$strHead = GetHeadElement(_getAccountToolTag($strPage));
+	$strPhrase = GetAccountToolLink($strPage);
+	$strPhpNet = GetExternalLink('https://www.php.net');
+	$strStrstr = GetCodeElement('strstr');
+	$strStrpos = GetQuoteElement('如果你仅仅想确定needle是否存在于haystack中，请使用速度更快、耗费内存更少的strpos函数。');
+	$strErrorStrpos = GetCodeElement('if (strpos($str, \'www.\'))');
+	$strCorrectStrpos = GetCodeElement('if (strpos($str, \'www.\') !== false)');
+	$strCorrectStrstr = GetCodeElement('if (strstr($str, \'www.\'))');
+	$strArray_merge = GetCodeElement('array_merge');
+	$strErrorArray_merge = GetCodeElement('$ar = array_merge($arA, $arH, $arUS)');
+	$strCorrectArray_merge = GetCodeElement('$ar = $arA + $arH + $arUS');
+	
+    echo <<<END
+	$strHead
+<p>2017年12月26日
+<br />记得2000年刚到硅谷工作，去电影院的时候总会在正片播放前看到一段让我自我感觉膨胀的广告。大意是如果你知道一个等号和两个等号的区别，就可以在我们这里找份工作了！
+写PHP还需要知道三个等号跟前两个的区别，事实上对习惯了C语言的人来说是个坑，我今天就不幸踩了一个。
+<br />在修改用来方便记录股票交易的{$strPhrase}代码的时候，我无意中在{$strPhpNet}上看到有关{$strStrstr}的一个信息：
+<br />{$strStrpos}
+<br />总是热衷于代码优化，我马上如获至宝当即改了几十个地方，却发现有些像{$strErrorStrpos}的代码变得不工作了。原因是会返回位置0，这时候要写成{$strCorrectStrpos}，才跟原来{$strCorrectStrstr}代码效果一致。
+<br />不过这不是我碰到的最深的PHP坑。最坑人的PHP函数是{$strArray_merge}，它在全数字下标的时候居然会把所有数字下标从头开始排序！
+这时候要把{$strErrorArray_merge}简单写成{$strCorrectArray_merge}。反过来，加法也不能随便写，无下标数组写加法也会出错！
 </p>
 END;
 }
@@ -607,10 +658,10 @@ function Echo20180410($strHead)
 END;
 }
 
-function Echo20180620($strHead)
+function Echo20180620($strPage)
 {
-	$strHead = GetHeadElement($strHead);
-	$strChinaIndex = GetStockMenuLink('chinaindex');
+	$strHead = GetHeadElement('增加'._getStockMenuTag($strPage).'页面');
+	$strChinaIndex = GetStockMenuLink($strPage);
 	$strSH510300 = GetStockLink('SH510300', true);
 	$strChaos = GetNameLink('chaos', '混沌');
 	$strFundReference = GetCodeElement('FundReference');
@@ -659,11 +710,11 @@ function Echo20190713($strHead)
 END;
 }
 
-function Echo20190905($strHead)
+function Echo20190905($strPage)
 {
-	$strHead = GetHeadElement($strHead);
-	$strCramer = GetAccountToolLink('cramersrule');
-	$strImage = ImgCramersRule();
+	$strHead = GetHeadElement('用Cramer法则'._getAccountToolTag($strPage));
+	$strCramer = GetAccountToolLink($strPage);
+	$strImage = ImgAccountTool($strPage);
 	$strQuote = GetBlockquoteElement("And what in heaven's name brought you to Casablanca?
 										<br />My health. I came to Casablanca for the waters.
 										<br />The waters? What waters? We're in the desert.
@@ -696,13 +747,13 @@ $strQuote
 END;
 }
 
-function Echo20190920($strHead)
+function Echo20190920($strPage)
 {
-	$strHead = GetHeadElement($strHead);
+	$strHead = GetHeadElement('用'._getAccountToolTag($strPage).'的方法在华宝油气溢价套利时估算'.GetNameTag('fundaccount', FUND_ACCOUNT_DISPLAY));
 	$strCramer = _getAccountToolLink('cramersrule');
 	$strFundAccount = GetFundAccountLink(FUND_DEMO_SYMBOL);
-	$strLinear = GetAccountToolLink('linearregression');
-	$strImage = ImgLinearRegression();
+	$strLinear = GetAccountToolLink($strPage);
+	$strImage = ImgAccountTool($strPage);
 	
     echo <<<END
 	$strHead
@@ -729,8 +780,8 @@ function Echo20191025($strHead)
 	$strQDII = _getQdiiLink();
 	$strElementaryTag = GetNameTag('elementary', '小学生');
 	$strWei = GetXueqiuIdLink('1135063033', '魏大户');
-	$strOilFundTag = GetNameTag('oilfund', OIL_GROUP_DISPLAY);
-	$strImage = ImgPanicFree();
+	$strOilFundTag = _getStockCategoryTag('oilfund');
+	$strImage = ImgStockGroup('oilfund');
 	
     echo <<<END
 	$strHead
@@ -778,6 +829,36 @@ function Echo20191107($strHead)
 <br />没想到9月份写的{$strFundAccount}让我意外发现了一个跟{$strBegin}配对的BUG。
 <br />我昨天看了一下11月4日轻微折价下的场内申购预估数量。 因为我平时做线性回归是不用折价日的申购数据的，所以特意留心了一下。结果今天发现{$strFundHistory}中11月4日的数据竟然没有显示出来。 
 <br />查了半天终于找到了问题：我原来用11月1日周五的日期加上3天的秒数，期望得到11月4日的日期。却没料到赶上了11月3日结束夏令时，3天的秒数不够，结果得到的是11月3日的日期。这个问题隐藏了好几年，但是以前一直没有像现在这样每天盯着折价溢价数据看，所以一直没发现。
+</p>
+END;
+}
+
+function Echo20191114($strPage)
+{
+	$strHead = GetHeadElement(_getAccountToolTag($strPage));
+	$strBenford = GetAccountToolLink($strPage);
+	$strImage = ImgAccountTool($strPage);
+	
+    echo <<<END
+	$strHead
+<p>2019年11月14日
+<br />{$strBenford}
+$strImage
+</p>
+END;
+}
+
+function Echo20191115($strPage)
+{
+	$strHead = GetHeadElement(_getAccountToolTag($strPage));
+	$strChiSquared = GetAccountToolLink($strPage);
+	$strImage = ImgAccountTool($strPage);
+	
+    echo <<<END
+	$strHead
+<p>2019年11月15日
+<br />{$strChiSquared}
+$strImage
 </p>
 END;
 }
@@ -904,11 +985,11 @@ END;
 	EchoFundShareParagraph(StockGetFundReference(FUND_DEMO_SYMBOL));
 }
 
-function Echo20210728($strHead)
+function Echo20210728($strPage)
 {
-	$strHead = GetHeadElement($strHead);
+	$strHead = GetHeadElement('为'._getStockCategoryTag($strPage).'增加'.QDII_MIX_DISPLAY.'工具系列');
 	$strSH513050 = GetStockLink('SH513050');
-	$strChinaInternet = GetStockCategoryLink('chinainternet');
+	$strChinaInternet = GetStockCategoryLink($strPage);
 	$strSZ159605 = GetStockLink('SZ159605');
 	$strSZ159607 = GetStockLink('SZ159607');
 	$strHoldings = GetNameLink('holdings', HOLDINGS_DISPLAY);
@@ -916,7 +997,7 @@ function Echo20210728($strHead)
 	$strFundPosition = GetNameLink('fundposition', FUND_POSITION_DISPLAY);
 	$strQdiiHk = _getStockMenuLink('qdiihk');
 	$strQdii = _getStockMenuLink('qdii');
-	$strImage = ImgHuangRong();
+	$strImage = ImgStockGroup($strPage);
 	
     echo <<<END
 	$strHead
@@ -949,13 +1030,13 @@ $strImage
 END;
 }
 
-function Echo20220121($strHead)
+function Echo20220121($strPage)
 {
-	$strHead = GetHeadElement($strHead);
+	$strHead = GetHeadElement(_getAccountToolTag($strPage).'调试工具');
 	$strSZ162411 = GetExternalLink(GetSinaDataUrl('sz162411'));
 	$strError = GetFontElement('Kinsoku jikou desu!');
 	$strForbidden = GetQuoteElement('Forbidden');
-	$strSinaJs = GetAccountToolLink('sinajs');
+	$strSinaJs = GetAccountToolLink($strPage);
 	$strIp = _getAccountToolLink('ip');
 	
     echo <<<END
@@ -967,16 +1048,16 @@ function Echo20220121($strHead)
 END;
 }
 
-function Echo20220914($strHead)
+function Echo20220914($strPage)
 {
-	$strHead = GetHeadElement($strHead);
+	$strHead = GetHeadElement('为'._getStockMenuTag($strPage).'补充A股成分股的持仓处理');
 	$strWeixin = _getWeixinLink();
 	$strEndWechat = GetNameLink('endweixin', '放弃微信');
 	$strWoody1234 = GetXueqiuIdLink('2244868365', 'woody1234');
 	$strChinaInternet = _getStockCategoryLink('chinainternet');
 	$strSH513220 = GetStockLink('SH513220', true);
 	$strSH513360 = GetStockLink('SH513360', true);
-	$strImage = ImgRuLai();
+	$strImage = ImgStockGroup($strPage);
 	
     echo <<<END
 	$strHead
@@ -993,19 +1074,20 @@ $strImage
 END;
 }
 
-function Echo20230521($strHead)
+function Echo20230521($strPage)
 {
-	$strHead = GetHeadElement($strHead);
+	$strHead = GetHeadElement('增加'._getStockMenuTag($strPage).'的估值');
 	$strSH513000 = GetStockLink('SH513000', true);
 	$strChinaInternet = _getStockCategoryLink('chinainternet');
 	$strSH513520 = GetStockLink('SH513520');
 	$strSH513880 = GetStockLink('SH513880');
 	$strSZ159866 = GetStockLink('SZ159866');
-	$strQdiiJp = GetStockMenuLink('qdiijp');
+	$strQdiiJp = GetStockMenuLink($strPage);
 	$strQdiiHk = _getStockMenuLink('qdiihk');
-	$strNKY = GetSinaDataLink('znb_NKY', false);
-	$strNK = GetSinaDataLink('hf_NK', false);
-	$strImage = ImgSantaFe();
+	$strNKY = GetSinaDataLink('znb_NKY');
+	$strNK = GetSinaDataLink('hf_NK');
+	$strGirl = GetInternalLink('/woody/blog/pa6488/20110516cn.php', '日本美女');
+	$strImage = ImgStockGroup($strPage);
 	
     echo <<<END
 	$strHead
@@ -1016,23 +1098,24 @@ function Echo20230521($strHead)
 <br />{$strSH513520}同样因为限购总份额50万份也被拉到了接近20%的溢价，而{$strSH513880}和{$strSZ159866}则因为分别限购1500万和1亿份而基本上平价。
 <br />{$strQdiiJp}跟{$strQdiiHk}的估值模式基本上是一致的。中国和日本股市都开市的日子里，用新浪日经225指数数据{$strNKY}做官方估值，日本股市北京时间下午两点收盘后官方估值就不再改变，直到晚上跟公布的实际净值比较和自动校准。
 同时全天都用新浪日经225指数期货数据{$strNK}做实时估值，可以反映日本股市收盘后的变化。
+<br />配张{$strGirl}图。
 $strImage
 </p>
 END;
 }
 
-function Echo20230525($strHead)
+function Echo20230525($strPage)
 {
-	$strHead = GetHeadElement($strHead);
+	$strHead = GetHeadElement('增加'._getStockMenuTag($strPage).'的估值');
 	$strQDII = _getQdiiLink();
 	$strQdiiJp = _getStockMenuLink('qdiijp');
 	$strSH513030 = GetStockLink('SH513030', true);
 	$strSH513080 = GetStockLink('SH513080', true);
 	$strSH501018 = _getStockLink('SH501018');
-	$strDAX = GetSinaDataLink('znb_DAX', false);
-	$strCAC = GetSinaDataLink('znb_CAC', false);
+	$strDAX = GetSinaDataLink('znb_DAX');
+	$strCAC = GetSinaDataLink('znb_CAC');
 	$strFundHistory = GetNameLink('fundhistory', FUND_HISTORY_DISPLAY);
-	$strImage = ImgQueen();
+	$strImage = ImgStockGroup($strPage);
 	
     echo <<<END
 	$strHead

@@ -35,16 +35,6 @@ function EchoXueqiuId($strId, $strDisplay)
     echo GetXueqiuIdLink($strId, $strDisplay);
 }
 
-function EchoBenfordsLawLink($bChinese = true)
-{
-	echo GetBenfordsLawLink($bChinese);
-}
-
-function EchoChiSquaredTestLink($bChinese = true)
-{
-	echo GetChiSquaredTestLink($bChinese);
-}
-
 function EchoDiceCaptchaLink($bChinese = true)
 {
 	echo GetDiceCaptchaLink($bChinese);
@@ -53,11 +43,6 @@ function EchoDiceCaptchaLink($bChinese = true)
 function EchoPrimeNumberLink($bChinese = true)
 {
 	echo GetPrimeNumberLink($bChinese);
-}
-
-function EchoCommonPhraseLink($bChinese = true)
-{
-	echo GetCommonPhraseLink($bChinese);
 }
 
 function EchoAutoTractorLink()

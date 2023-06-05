@@ -78,7 +78,6 @@ function _getChiSquaredTestString($strInput, $bChinese)
 	{
 		$str = '';
 	}
-	$str .= ImgChiSquared();
 	return $str;
 }
 
@@ -123,7 +122,6 @@ function _getSimpleTestString($strInput, $bChinese)
     	$str = is_numeric($strInput) ? DebugGetDateTime($strInput) : urldecode($strInput);
     	$str .= HexView($strInput);
     }
-	$str .= ImgEasyThing();
     return $str;
 }
 
@@ -168,7 +166,6 @@ function _getLinearRegressionString($strInput, $bChinese)
     	$str .= '<br />y = {'.(empty($strFunction) ? implode(',', $arY) : strval_round_implode($arY)).'}';
     	$str .= '<br /><br /><b>'.$jpg->GetEquation().'</b>';
     	$str .= '<br />'.$jpg->GetLink();
-    	$str .= ImgLinearRegression();
     	return $str;
     }
 	return ($bChinese ? '数据不足' : 'Not enough data');
@@ -204,7 +201,6 @@ function _getCramersLawString($strInput, $bChinese)
 	{
 		$str = '';
 	}
-	$str .= ImgCramersRule();
 	return $str;
 }
 
@@ -380,6 +376,7 @@ function _echoInputResult($acct, $strPage, $strInput, $bChinese)
     	break;
     }
     
+    $str .= ImgAccountTool($strPage);
     EchoParagraph($str);
 }
 

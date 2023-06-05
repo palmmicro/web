@@ -8,8 +8,6 @@ function GetMetaDescription()
 
 function EchoAll()
 {
-	$strSantaFe = ImgSantaFe();
-	
     echo <<<END
 <p>11月4日 <a href="pa1688/20111104cn.php">升级老PA168F的步骤</a>
 <br /><img src=photo/20111104.jpg></p>
@@ -25,7 +23,6 @@ function EchoAll()
 
 <p>5月16日 <a href="pa6488/20110516cn.php">JPEG总动员</a>
 <br /><img src=photo/20110516.jpg alt="Test interpolation algorithm with Rie Miyazawa Santa Fe JPEG file." />
-$strSantaFe
 </p>
 
 <p>5月9日 <a href="entertainment/20110509cn.php">Google</a>投放的广告

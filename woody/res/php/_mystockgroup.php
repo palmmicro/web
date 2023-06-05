@@ -127,45 +127,6 @@ function _getOldBugs($strPage)
     return '<br />已知问题：'.$str;
 }
 
-function _getGroupImageLink($strPage)
-{
-    switch ($strPage)
-    {
-    case 'chinainternet':
-    	return ImgHuangRong();
-    	
-    case 'hangseng':
-    case 'hshares':
-    case 'hstech':
-    	return GetWoodyImgQuote('luodayou.jpg', '罗大佑弹唱流到香江去看一看');
-    	
-    case 'oilfund':
-    	return ImgPanicFree();
-    	
-    case 'qdii':
-    	return ImgWinMan();
-
-    case 'qdiieu':
-    	return ImgQueen();
-
-    case 'qdiihk':
-    	return ImgRonin();
-    	
-	case 'qdiimix':
-    	return ImgRuLai();
-
-	case 'qdiijp':
-    	return ImgSantaFe();
-
-    case 'qqqfund':
-    	return ImgLikeDog();
-    	
-    case 'spyfund':
-    	return ImgBuffettCards();
-    }
-    return false;
-}
-
 function EchoAll()
 {
 	global $acct;
@@ -197,7 +158,7 @@ function EchoAll()
     	$str = _getMetaDescriptionStr($strPage);
 		if ($strLinks = _getSimilarLinks($strPage))		$str .= $strLinks;
 		if ($strBugs = _getOldBugs($strPage))			$str .= $strBugs;
-        if ($strImage = _getGroupImageLink($strPage))	$str .= $strImage;
+        $str .= ImgStockGroup($strPage);
         EchoParagraph($str);
     }
     $acct->EchoLinks($strPage);

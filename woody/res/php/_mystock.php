@@ -16,13 +16,12 @@ require_once('../../php/ui/fundshareparagraph.php');
 require_once('../../php/ui/stockhistoryparagraph.php');
 require_once('../../php/ui/nvclosehistoryparagraph.php');
 
-function _echoMyStockTransactions($acct, $ref)
+function _echoMyStockTransactions($acct, $ref, $strStockId)
 {                         
 	$strMemberId = $acct->GetLoginId();
 	if ($strMemberId == false)	return;	
 	
     $arGroup = array();
-    $strStockId = $ref->GetStockId();
     $sql = $acct->GetGroupSql();
 	if ($result = $sql->GetAll($strMemberId)) 
 	{
@@ -89,7 +88,7 @@ function _getMyStockLinks($sym)
     return $str;
 }
 
-function _echoMyStockData($ref, $bAdmin)
+function _echoMyStockData($ref, $strStockId, $bAdmin)
 {
     $strSymbol = $ref->GetSymbol();
     if ($ref->IsFundA())
@@ -154,12 +153,12 @@ function _echoMyStockData($ref, $bAdmin)
    	
 	EchoNvCloseHistoryParagraph($ref);
 	EchoFundShareParagraph($ref);
-   	EchoStockHistoryParagraph($ref);
+	EchoStockHistoryParagraph($ref);
     
     if ($bAdmin)
     {
      	$str = GetMyStockLink();
-    	if ($strStockId = $ref->GetStockId())
+     	if ($strStockId)
     	{
     		$str .= '<br />id='.$strStockId.'<br />'._getMyStockLinks($ref).'<br />'.$ref->DebugLink();
    			if ($ref->IsFundA())
@@ -204,8 +203,11 @@ function EchoAll()
     if ($ref = $acct->EchoStockGroup())
     {
     	EchoReferenceParagraph(array($ref));
-    	_echoMyStockData($ref, $bAdmin);
-    	_echoMyStockTransactions($acct, $ref);
+    	if ($strStockId = $ref->GetStockId())
+    	{
+    		_echoMyStockData($ref, $strStockId, $bAdmin);
+    		_echoMyStockTransactions($acct, $ref, $strStockId);
+    	}
     }
 	else	EchoStockParagraph($acct->GetStart(), $acct->GetNum(), $bAdmin);
     $acct->EchoLinks(false, 'GetMyStockLinks');

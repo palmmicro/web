@@ -2,7 +2,7 @@
 
 // http://hq.sinajs.cn/?list=gb_dji,gb_ixic,gb_inx,znb_UKX,znb_DAX,znb_INDEXCF,znb_CAC,znb_SMI,znb_FTSEMIB,znb_MADX,znb_OMX,znb_HEX,znb_OSEAX,znb_ISEQ,znb_AEX,znb_IBEX,znb_SX5E,znb_XU100,znb_NKY,znb_TWJQ,znb_FSSTI,znb_KOSPI,znb_FBMKLCI,znb_SET,znb_JCI,znb_PCOMP,znb_KSE100,znb_SENSEX,znb_VNINDEX,znb_CSEALL,znb_SASEIDX,znb_SPTSX,znb_MEXBOL,znb_IBOV,znb_MERVAL,znb_AS51,znb_NZSE50FG,znb_CASE,znb_JALSH
 
-define('SINA_FOREX_PREFIX', 'fx_susd');
+define('SINA_FOREX_PREFIX', 'fx_s');
 define('SINA_FUTURE_PREFIX', 'hf_');
 define('SINA_FUND_PREFIX', 'f_');
 define('SINA_INDEX_PREFIX', 'znb_');
@@ -771,7 +771,14 @@ class StockSymbol
     {
         $strSymbol = str_replace('.', '-', $this->strSymbol);
         if ($str = $this->IsSinaFutureUs())											return $str.'%3DF';	// CL=F
-        else if ($str = $this->IsNewSinaForex())										return $str.'%3DF';	// CNH=F
+        else if ($str = $this->IsNewSinaForex())
+        {
+        	switch ($str)
+        	{
+        	case 'USDCNH':
+        		return 'CNH'.'%3DF';	// CNH=F
+        	}
+        }
 		else if ($str = $this->IsSinaGlobalIndex())
 		{
 			switch ($str)
@@ -954,7 +961,7 @@ class StockSymbol
     function GetDisplay()
     {
         if ($str = $this->IsSinaFutureUs())		return $str;
-        if ($str = $this->IsNewSinaForex())		return 'USD'.$str;
+        if ($str = $this->IsNewSinaForex())		return $str;
 		if ($str = $this->IsSinaGlobalIndex())	return $str;
 		return $this->GetSymbol();
     }
