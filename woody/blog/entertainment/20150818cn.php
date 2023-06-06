@@ -136,6 +136,7 @@
 </p> 
 
 <?php
+	Echo20160609('用PHP把GB2312编码字符串转换成'.GetNameTag('utf8', 'UTF-8'));
 	Echo20160818('qdii');
 ?>
 
@@ -202,10 +203,12 @@
 	Echo20170410('simpletest');
 	Echo20171001('200日和50日'.GetNameTag('ema').'均线');
 	Echo20171226('commonphrase');
+	Echo20180216('从MySQL表中查找'.GetNameTag('GB2312').'对应的UNICODE');
 	Echo20180327('走火入魔的'.GetNameTag('nextsma', 'T+1').'均线');
 	Echo20180404('增加'.GetNameTag('adrhcompare', ADRH_COMPARE_DISPLAY).'页面');
 	Echo20180405('增加'.GetNameTag('abcompare', AB_COMPARE_DISPLAY).'页面');
 	Echo20180410('人民币汇率');
+	Echo20180416('终究躲不过去的'.GetNameTag('GB18030'));
 ?>
 
 <h3><?php EchoNameTag('nvclosehistory', NVCLOSE_HISTORY_DISPLAY); ?></h3>

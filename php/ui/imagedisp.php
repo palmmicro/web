@@ -48,6 +48,21 @@ function ImgRobloxDice()
 	return GetWoodyImgQuote('robloxdice.jpg', '罗布乐思4个骰子加14验证码');
 }
 
+function ImgSantaFe()
+{
+	return GetWoodyImgQuote('santafe.jpg', '宫泽理惠Santa Fe写真');
+}
+
+function ImgSapphireMermaid()
+{
+	return GetWoodyImgQuote('mermaid.jpg', 'Feb 3, 2018. Mermaid and Sapphire in SeaWorld San Diego.');
+}
+
+function ImgSapphireSolitaire()
+{
+	return GetWoodyImgQuote('solitaire.jpg', 'Jan 29, 2018. Solitaire Sapphire in LEGOLAND CALIFORNIA.');
+}
+
 function ImgTianHeng()
 {
 	return GetWoodyImgQuote('tianheng.jpg', '田横五百壮士');
@@ -103,7 +118,7 @@ function ImgStockGroup($strPage)
 		return GetWoodyImgQuote('rulai.jpeg', '年轻人，我这儿有本秘籍。');
 
 	case 'qdiijp':
-		return GetWoodyImgQuote('santafe.jpg', '宫泽理惠Santa Fe写真');
+		return ImgSantaFe();
 
     case 'qqqfund':
     	return ImgLikeDog();

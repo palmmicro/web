@@ -415,7 +415,7 @@ function _getDefaultInput($strPage)
     	break;
     		
    	case 'sinajs':
-    	$str = 'sz164906,f_164906,gb_kweb,rt_hkHSIII';
+    	$str = 'sz164906,f_164906,gb_kweb,b_TPX,rt_hkHSIII';
    		break;
    		
     default:

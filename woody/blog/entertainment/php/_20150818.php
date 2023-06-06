@@ -221,6 +221,28 @@ function Echo20160325($strPage)
 END;
 }
 
+function Echo20160609($strHead)
+{
+	$strHead = GetHeadElement($strHead);
+	$strPA6488 = GetInternalLink('/pa6488/indexcn.html', 'PA6488');
+	$strGB2312 = GetLinkElement('GB2312', '20101107cn.php');
+	$strMb_detect_encoding = GetCodeElement('mb_detect_encoding');
+	$strIconv = GetCodeElement('iconv');
+	$strTable = GetExternalLink('https://blog.csdn.net/longronglin/article/details/1355890', '对应码表');
+	$strGbToUtf8 = GetCodeElement('GbToUtf8');
+	$strUnicode_to_utf8 = GetExternalLink('https://segmentfault.com/a/1190000003020776', 'unicode_to_utf8');
+	
+    echo <<<END
+	$strHead
+<p>2016年6月9日
+<br />最近一直在扩展净值估算的软件。陆陆续续改了这么多年网页，原本计划的{$strPA6488}方案没有用上互联网管理功能，这里却眼看要成为业余股票网站了。
+<br />随着涉及的股票越来越多，我打算用直接采用新浪数据中的股票名称和说明，避免手工一个个输入。结果四年前碰到的问题又回来了，新浪的数据还在用{$strGB2312}编码，而我反复折腾{$strMb_detect_encoding}和{$strIconv}等PHP函数都无法把GB2312转换成UTF-8。
+<br />不过我已经不是当年的吴下阿蒙。我先上网找来了GB2312和UNICODE的{$strTable}，然后写了个转换工具，生成了按照GB2312作为key排序后的对应数组，最后在函数{$strGbToUtf8}中把查表得到的UNICODE调用网上找来的{$strUnicode_to_utf8}转换成UTF8。
+整个过程耗时一个晚上一气呵成，感觉好极了！
+</p>
+END;
+}
+
 function _getQdiiLink()
 {
 	return GetNameLink('qdii');
@@ -314,7 +336,7 @@ function Echo20161014($strHead)
 	$str162411 = GetQuoteElement('162411');
 	$str162411cn = GetQuoteElement('华宝油气');
 	$str1 = GetQuoteElement('1');
-	$strPA3288 = GetLinkElement('PA3288', '../../../pa3288/indexcn.html');
+	$strPA3288 = GetInternalLink('/pa3288/indexcn.html', 'PA3288');
 	$strSz162411 = GetQuoteElement('sz162411');
 	$strImage = ImgPalmmicroWeixin();
 	
@@ -438,7 +460,7 @@ function Echo20170319($strPage)
 	$strHead = GetHeadElement('查询公网'._getAccountToolTag($strPage));
 	$strCalibration = GetNameLink('calibrationhistory', CALIBRATION_HISTORY_DISPLAY);
 	$strVisitor = GetAllVisitorLink();
-	$strPa1688 = GetInternalLink('/pa1688/indexcn.html', 'PA1688');
+	$strPA1688 = GetInternalLink('/pa1688/indexcn.html', 'PA1688');
 	$strIpInfo = GetExternalLink(GetIpInfoUrl());
 	$strIp = GetAccountToolLink($strPage);
 	$strUSO = GetCalibrationHistoryLink('USO', true);
@@ -451,7 +473,7 @@ function Echo20170319($strPage)
 其实我估值软件每分钟才访问一次新浪股票数据，所以爬虫每秒都来爬是没有任何意义的，每分钟来爬一次足够了。
 <br />我的第二反应，是赶快加了一个对单个IP地址访问Palmmicro.com的次数{$strVisitor}，每当访问次数累计到1000次就强制要求登录一次。爬虫很快就被暂时挡在了数据之外，不过这也会在以后给正常访问的常用用户带来一点小麻烦。 
 <br />同时我很清醒的认识到，为了克服我设置的这个小障碍，爬虫要实现自动登录其实是很容易的。另外即使是目前这种状态，依旧有每秒两次的访问压在登录页面上，一样给服务器带来了不必要的额外压力。
-<br />十多年前当我在{$strPa1688}上做H.323的时候，曾经费尽心力从{$strIpInfo}这种类似网站查询设备所在的公网IP地址，留下了很坎坷的回忆。
+<br />十多年前当我在{$strPA1688}上做H.323的时候，曾经费尽心力从{$strIpInfo}这种类似网站查询设备所在的公网IP地址，留下了很坎坷的回忆。
 而今天在处理完网络爬虫的问题后，我突然意识到查询公网IP已经成了现成的副产品，激动之余写了这个{$strIp}的工具。为防止爬虫滥用，这个页面直接要求登录。
 <br />最后我感觉到每校准一次就增加一条记录没有必要，改成了每天只加一条记录，同时记下当天最后一次CL和{$strUSO}校准的时间。
 </p>
@@ -524,6 +546,25 @@ function Echo20171226($strPage)
 <br />总是热衷于代码优化，我马上如获至宝当即改了几十个地方，却发现有些像{$strErrorStrpos}的代码变得不工作了。原因是会返回位置0，这时候要写成{$strCorrectStrpos}，才跟原来{$strCorrectStrstr}代码效果一致。
 <br />不过这不是我碰到的最深的PHP坑。最坑人的PHP函数是{$strArray_merge}，它在全数字下标的时候居然会把所有数字下标从头开始排序！
 这时候要把{$strErrorArray_merge}简单写成{$strCorrectArray_merge}。反过来，加法也不能随便写，无下标数组写加法也会出错！
+</p>
+END;
+}
+
+function Echo20180216($strHead)
+{
+	$strHead = GetHeadElement($strHead);
+	$strUTF8 = GetNameLink('utf8', 'UTF-8');
+	$strImage = ImgSapphireMermaid();
+
+    echo <<<END
+	$strHead
+<p>2018年2月16日
+<br />随着我的股票网站软件功能越来越繁多，对网站的访问也越来越不稳定，经常需要重新刷新一次才能正常显示页面。很久以来我一直认为是从中国访问在美国的Yahoo网站服务不稳定造成的，也就一直没有深究。
+<br />这个春节在圣地亚哥溜娃一个月，我很悲哀的发现，在美国访问网站也经常需要重新刷新。联想到Google总是利用Chrome浏览器的输入抢先一步爬一下我要访问的网页的坏习惯，我意识到一定是程序哪里出现了执行效率问题，不能正确回应2个几乎同时的页面请求。
+庞大的{$strUTF8}全局数组马上成了最大的疑犯。
+<br />在我把全局数组放进函数后，情况更加恶化了。需要重新刷新的情况看上去像是少了一点，却出现了其它全局数据被莫名其妙的冲掉的新问题。
+<br />好在经过这么多年后，我对MySQL已经没有那么畏惧，在溜娃间隙中削尖铅笔加了一个GB2312和UNICODE的对应表，把查内存中的大数组改成了查数据库，终于解决了这个困扰了我一年半的刷新问题。发现帮助傻瓜编程的PHP也对程序优化有要求还是挺让我兴奋的，觉得这么多年来的优化软件经验终于又有了用武之地。
+$strImage
 </p>
 END;
 }
@@ -636,6 +677,36 @@ function Echo20180405($strHead)
 END;
 
    	EchoAbParagraph(array(new AbPairReference(AB_DEMO_SYMBOL)));
+}
+
+function Echo20180416($strHead)
+{
+	$strHead = GetHeadElement($strHead);
+	$strWeixin = _getWeixinLink();
+	$strAbcompare = GetNameLink('abcompare', AB_COMPARE_DISPLAY);
+	$strSZ200168 = GetMyStockLink('SZ200168');
+	$strZhe2 = GetQuoteElement('喆(zhe2)');
+	$strGB2312 = GetNameLink('GB2312');
+	$strUTF8 = GetNameLink('utf8', 'UTF-8');
+	$strSZ002752 = GetMyStockLink('SZ002752');
+	$strSZ300208 = GetMyStockLink('SZ300208');
+	$strSheng1 = GetQuoteElement('昇(sheng1)');
+	$strGB18030 = GetExternalLink('http://icu-project.org/repos/icu/data/trunk/charset/source/gb18030/gbkuni30.txt', 'GB18030');
+	$strUpdate = DebugIsAdmin() ? GetInternalLink('/php/test/updategbutf.php', '更新UNICODE码表') : '';
+	$strQuote = GetBlockquoteElement('欲练神功，必先自宫；虽然自宫，未必成功；如不自宫，也可成功。');
+	$strImage = ImgSapphireSolitaire();
+	
+    echo <<<END
+	$strHead
+<p>2018年4月16日
+<br />在给{$strWeixin}增加了{$strAbcompare}的数据后, 意外发现{$strSZ200168}股票名字中的{$strZhe2}在转{$strUTF8}后成了乱码。发现了一只蟑螂就说明有一窝。我把数据库中所有股票名字查看了一遍后，果然发现了{$strSZ002752}和{$strSZ300208}中的{$strSheng1}也是乱码。
+<br />产生乱码的原因很明显，这两个生僻字本身就不在只有六千多汉字的{$strGB2312}中。这意味着我需要一个{$strGB18030}和UNICODE的对应码表来扩展我的MySQL数据表。花了差不多一天功夫做完这些几乎算是推倒重来的修补后，我不禁又有了一种神功已成的感觉。 $strUpdate
+</p>
+	$strQuote
+<p>
+$strImage
+</p>
+END;
 }
 
 function Echo20180410($strHead)
