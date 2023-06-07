@@ -8,10 +8,12 @@ function GetMetaDescription($bChinese)
 
 function EchoAll($bChinese)
 {
+	$strSZ162411 = GetLinkElement('SZ162411', 'entertainment/20150818.php');
+	
     echo <<<END
 <p>June 15, 2016 EastMoney <a href="entertainment/20160615.php">USDCNY Reference Rate</a> Data Interface
 <br />Dec 25, 2015 The Interpretation of <a href="entertainment/20151225.php">Sina Stock Data</a> Interface
-<br />Aug 18, 2015 PHP Application to Estimate <a href="entertainment/20150818.php">SZ162411 Net Value</a>
+<br />Aug 18, 2015 PHP Application to Estimate $strSZ162411 Net Value
 <br />Dec 4, 2014 The Origin of <a href="entertainment/20141204.php">Sapphire Lin</a>
 <br />Oct 16, 2014 Rules for Giant Chinese State-owned <a href="entertainment/20141016.php">Stock</a>
 <br />June 15, 2014 Upgrade to <a href="entertainment/20140615.php">Visual Studio</a> 2013
@@ -27,9 +29,9 @@ function EchoAll($bChinese)
 <br />May 29, 2010 My First <a href="entertainment/20100529.php">Visual C++</a> 2008 Application
 <br />Feb 19, 2009 From Palmmicro to <a href="entertainment/20090219.php">CSR</a> in Ten Years
 <br />Aug 13, 2007 Around the World in 50 Days Paid by <a href="entertainment/20070813.php">SiRF</a>
-</p>
-<p><img src=../image/mylife.jpg alt="the exact description of my entertainment life" />
 <br /><img src=../myphoto/2005/sleeping_s.jpg alt="while you were sleeping" /></p>
+<br /><img src=../image/mylife.jpg alt="the exact description of my entertainment life" />
+</p>
 END;
 }
 

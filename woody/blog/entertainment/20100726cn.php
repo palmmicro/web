@@ -23,6 +23,7 @@
 <i>CamMan</i>能够用文件仿真摄像头工作, 因此它也可以当成原始视频播放器使用. 这里显示的是静止图像的经典<?php EchoExternalLink('http://www.lenna.org/full/len_full.html', 'Lenna'); ?>.
 <br /><font color=gray>If I had to do the same again, I would, my friend, Fernando. -- Fernando</font>
 <br /><img src=../photo/20100726.jpg alt="Screen shot of Speech Workshop, Raw Image Viewer and CamMan" />
+<?php echo ImgCompleteLenna(); ?>
 </p>
 
 </div>

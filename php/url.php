@@ -2,16 +2,6 @@
 define('URL_PHP', '.php');
 define('URL_CNPHP', 'cn.php');
 
-define('MENU_DIR_FIRST', 'First');
-define('MENU_DIR_PREV', 'Prev');
-define('MENU_DIR_NEXT', 'Next');
-define('MENU_DIR_LAST', 'Last');
-
-function UrlGetMenuArray()
-{
-    return array(MENU_DIR_FIRST => '第一页', MENU_DIR_PREV => '上一页', MENU_DIR_NEXT => '下一页', MENU_DIR_LAST => '最后一页');
-}
-
 function filter_valid_ip($strIp)
 {
 	if ($strIp)

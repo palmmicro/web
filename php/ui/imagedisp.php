@@ -12,14 +12,19 @@ function ImgPalmmicroWeixin($bChinese = true)
 	return GetImgQuote('/woody/image/wx.jpg', 'Palmmicro微信公众号sz162411小狐狸二维码', 'Palmmicro weixin public account sz162411 small fox QR code', $bChinese);
 }
 
-function GetWoodyImgQuote($strFileName, $strText)
+function GetWoodyImgQuote($strFileName, $strText, $strTextUs = '', $bChinese = true)
 {
-	return GetImgQuote('/woody/blog/photo/'.$strFileName, $strText);
+	return GetImgQuote('/woody/blog/photo/'.$strFileName, $strText, $strTextUs, $bChinese);
 }
 
 function ImgBuffettCards()
 {
 	return GetWoodyImgQuote('buffettplaycards.jpg', '巴菲特和盖茨一起打桥牌');
+}
+
+function ImgCompleteLenna($bChinese = true)
+{
+	return GetWoodyImgQuote('lenna.jpg', '经典测试图像Lenna部分原始图片', 'Part of the complete Lenna story', $bChinese);
 }
 
 function ImgGreatDynasty()
@@ -48,19 +53,19 @@ function ImgRobloxDice()
 	return GetWoodyImgQuote('robloxdice.jpg', '罗布乐思4个骰子加14验证码');
 }
 
-function ImgSantaFe()
+function ImgSantaFe($bChinese = true)
 {
-	return GetWoodyImgQuote('santafe.jpg', '宫泽理惠Santa Fe写真');
+	return GetWoodyImgQuote('santafe.jpg', '1991年宫泽理惠Santa Fe写真', '1991 Rie Miyazawa Santa Fe', $bChinese);
 }
 
-function ImgSapphireMermaid()
+function ImgSapphireMermaid($bChinese = true)
 {
-	return GetWoodyImgQuote('mermaid.jpg', 'Feb 3, 2018. Mermaid and Sapphire in SeaWorld San Diego.');
+	return GetWoodyImgQuote('mermaid.jpg', '圣地亚哥海洋世界的美人鱼', 'Mermaid and Sapphire in SeaWorld San Diego.', $bChinese);
 }
 
-function ImgSapphireSolitaire()
+function ImgSapphireSolitaire($bChinese = true)
 {
-	return GetWoodyImgQuote('solitaire.jpg', 'Jan 29, 2018. Solitaire Sapphire in LEGOLAND CALIFORNIA.');
+	return GetWoodyImgQuote('solitaire.jpg', '加州乐高积木公园独自玩耍', 'Solitaire Sapphire in LEGOLAND CALIFORNIA.', $bChinese);
 }
 
 function ImgTianHeng()

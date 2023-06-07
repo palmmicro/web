@@ -24,6 +24,7 @@ function _LayoutTopLeft($bChinese = true, $bAdsense = true)
 
 function _LayoutBottom($bChinese = true, $bAdsense = true)
 {
+	EchoBlogMenuArray($bChinese);
     LayoutTail($bChinese, $bAdsense);
 }
 

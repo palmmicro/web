@@ -8,7 +8,7 @@ function GetMetaDescription($bChinese)
 
 function EchoAll($bChinese)
 {
-	$strSantaFe = ImgSantaFe();
+	$strSantaFe = ImgSantaFe($bChinese);
 	
     echo <<<END
 <p>Nov 4 <a href="pa1688/20111104.php">Steps to Upgrade an Old PA168F</a>

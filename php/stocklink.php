@@ -1,5 +1,6 @@
 <?php
 require_once('ui/stocktable.php');
+require_once('stock/stocksymbol.php');
 
 define('OIL_GROUP_DISPLAY', '原油');
 define('COMMODITY_GROUP_DISPLAY', '大宗商品和金银');

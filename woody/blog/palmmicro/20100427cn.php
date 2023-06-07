@@ -129,7 +129,7 @@ Yahoo网站服务早些时候给palmmicro.com换到了一个新IP地址: 98.136.
 <br /><img src=../photo/20210310p.jpg alt="Xueqiu forbidden phrase p" />
 <br />光溜溜不能写。
 <br /><img src=../photo/20210310q.jpg alt="Xueqiu forbidden phrase q" />
-<br /><img src=../photo/lenna.jpg alt="Part of Lenna from http://www.lenna.org/full/len_full.html" />
+<?php echo ImgCompleteLenna(); ?>
 <br />这个都挑不出单独的敏感词出来。
 <br /><img src=../photo/20210310r.jpg alt="Xueqiu forbidden phrase r" />
 <br />不能宣传其它网站。

@@ -53,7 +53,7 @@ function MenuWriteTitleLink($strPage, $strType, $strDir, $strOutput)
     $strDisp = 'Unknown';
     if ($strType == URL_CNPHP)
     {
-        $arDir = UrlGetMenuArray();
+        $arDir = GetMenuArray();
         $strDisp = $arDir[$strDir];
     }
     else

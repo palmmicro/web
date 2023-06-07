@@ -34,6 +34,7 @@ The following are checked:
   <li>Using sz162411.txt for Chinese stock data after Chinese market closed.</li>
 </ol>
 <p>Similarly, oil future data is stored in file <?php EchoSinaDebugLink('hf_cl'); ?>, and USDCNY forex data in usdcny.txt.
+<?php echo ImgCompleteLenna(false); ?>
 </p>
 
 <h3><a name="sma">SMA</a></h3>

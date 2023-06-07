@@ -5,7 +5,7 @@ require_once('../php/_woodymenu.php');
 
 function _menuLoopBlogPhoto($bChinese)
 {
-    $arPhoto = array('photo2006', 'photo2007', 'photo2008', 'photo2009', 'photo2010', 'photo2011', 'photo2012', 'photo2013', 'photo2014'); 
+    $arPhoto = array('photo2006', 'photo2007', 'photo2008', 'photo2009', 'photo2010', 'photo2011', 'photo2012', 'photo2013', 'photo2014', 'photo2015'); 
     $iLevel = 1;
     
 	MenuBegin();
@@ -25,6 +25,7 @@ function _LayoutTopLeft($bChinese = true, $bAdsense = true)
 
 function _LayoutBottom($bChinese = true, $bAdsense = true)
 {
+	EchoBlogMenuArray($bChinese);
     LayoutTail($bChinese, $bAdsense);
 }
 

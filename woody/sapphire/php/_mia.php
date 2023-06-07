@@ -1,10 +1,11 @@
 <?php
 require_once('../../php/layout.php');
+require_once('../../php/ui/imagedisp.php');
 require_once('../php/_woodymenu.php');
 
 function _menuSapphirePhoto($bChinese)
 {
-    $arSapphirePhotos = array('photo2014', 'photo30days', 'photo2015', 'photo2016'); 
+    $arSapphirePhotos = array('photo2014', 'photo30days', 'photo2015', 'photo2016', 'photo2018'); 
     
 	MenuBegin();
 	WoodyMenuItem(1, 'image', $bChinese);

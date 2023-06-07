@@ -8,10 +8,12 @@ function GetMetaDescription()
 
 function EchoAll()
 {
+	$strSZ162411 = GetLinkElement('华宝油气', 'entertainment/20150818cn.php');
+	
     echo <<<END
 <p>2016年6月15日 东方财富<a href="entertainment/20160615cn.php">美元人民币中间价</a>汇率实时数据接口的字段意义
 <br />2015年12月25日 <a href="entertainment/20151225cn.php">新浪股票数据</a>接口的字段意义
-<br />2015年8月18日 <a href="entertainment/20150818cn.php">华宝油气净值</a>估算的PHP程序
+<br />2015年8月18日 {$strSZ162411}净值估算的PHP程序
 <br />2014年12月4日 <a href="entertainment/20141204cn.php">林近岚</a>的由来
 <br />2014年10月16日 从上证大型国有<a href="entertainment/20141016cn.php">股票</a>获利
 <br />2014年6月15日 升级到<a href="entertainment/20140615cn.php">Visual Studio</a> 2013
@@ -27,9 +29,9 @@ function EchoAll()
 <br />2010年5月29日 我的第一个<a href="entertainment/20100529cn.php">Visual C++</a> 2008程序
 <br />2009年2月19日 从Palmmicro到<a href="entertainment/20090219cn.php">CSR</a>的十年
 <br />2007年8月13日 <a href="entertainment/20070813cn.php">SiRF</a>出钱环游世界50天
+<br /><img src=../myphoto/2005/sleeping_s.jpg alt="while you were sleeping" />
+<br /><img src=../image/mylife.jpg alt="the exact description of my entertainment life" />
 </p>
-<p><img src=../image/mylife.jpg alt="the exact description of my entertainment life" />
-<br /><img src=../myphoto/2005/sleeping_s.jpg alt="while you were sleeping" /></p>
 END;
 }
 

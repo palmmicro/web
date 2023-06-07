@@ -24,6 +24,7 @@ Although our main focus was voice products for many years, it was used now and t
 <i>CamMan</i> can use file to simulate a live camera, and in this way, it also can be used as a raw video and image viewer, classical still image <?php EchoExternalLink('http://www.lenna.org/full/len_full.html', 'Lenna'); ?> is displayed.
 <br /><font color=gray>If I had to do the same again, I would, my friend, Fernando. -- Fernando</font>
 <br /><img src=../photo/20100726.jpg alt="Screen shot of Speech Workshop, Raw Image Viewer and CamMan" />
+<?php echo ImgCompleteLenna(false); ?>
 </p>
 
 </div>

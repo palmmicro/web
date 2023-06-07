@@ -8,6 +8,8 @@ function GetMetaDescription($bChinese)
 
 function EchoAll($bChinese)
 {
+	$strLenna = ImgCompleteLenna($bChinese);
+	
     echo <<<END
 <p>Dec 2 <a href="ar1688/20101202.php">Writing Program Flash</a>
 <br /><img src=photo/20101202.jpg></p>
@@ -19,7 +21,9 @@ function EchoAll($bChinese)
 <br /><img src=../../pa1688/user/g1681/soyo.jpg alt="Soyo G1681 (PA168V/AG-168V) 1-port FXS gateway front view." /></p>
 
 <p>July 26 <a href="entertainment/20100726.php">Raw Video Viewers</a>
-<br /><img src=photo/20100726.jpg alt="Screen shot of Speech Workshop, Raw Image Viewer and CamMan" /></p>
+<br /><img src=photo/20100726.jpg alt="Screen shot of Speech Workshop, Raw Image Viewer and CamMan" />
+$strLenna
+</p>
 
 <p>May 29 My First <a href="entertainment/20100529.php">Visual C++</a> 2008 Application
 <br /><img src=photo/20100529.jpg alt="Screen shot of My First Visual C++ 2008 Application Woody's Web Tool" /></p>

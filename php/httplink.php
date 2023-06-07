@@ -1,6 +1,16 @@
 <?php
 define('STOCK_PATH', '/woody/res/');
 
+define('MENU_DIR_FIRST', 'First');
+define('MENU_DIR_PREV', 'Prev');
+define('MENU_DIR_NEXT', 'Next');
+define('MENU_DIR_LAST', 'Last');
+
+function GetMenuArray()
+{
+    return array(MENU_DIR_FIRST => '第一页', MENU_DIR_PREV => '上一页', MENU_DIR_NEXT => '下一页', MENU_DIR_LAST => '最后一页');
+}
+
 function GetNameTag($strName, $strDisplay = false)
 {
 	return GetHtmlElement(($strDisplay ? $strDisplay : strtoupper($strName)), 'a', array('name' => GetDoubleQuotes($strName)));
@@ -102,7 +112,7 @@ function _getMenuLinkQuery($strId, $iStart, $iNum)
 
 function _getMenuDirLink($strDir, $strQueryId, $iStart, $iNum, $bChinese)
 {
-    $arDir = UrlGetMenuArray();
+    $arDir = GetMenuArray();
 	$strQuery = _getMenuLinkQuery($strQueryId, $iStart, $iNum);
 	return CopyPhpLink($strQuery, $arDir[$strDir], $strDir, $bChinese).' ';
 }
@@ -128,6 +138,14 @@ function GetMenuLink($strQueryId, $iTotal, $iStart, $iNum, $bChinese = true)
     {   // Next
         $str .= _getMenuDirLink(MENU_DIR_NEXT, $strQueryId, $iNextStart, $iNum, $bChinese);
         if ($iNextStart + $iNum < $iTotal)		$str .= _getMenuDirLink(MENU_DIR_LAST, $strQueryId, $iTotal - $iNum, $iNum, $bChinese);		// Last
+    }
+    
+    for ($i = 100; $i <= 500; $i += 100)
+    {
+    	$strNum = strval($i);
+    	if ($i == $iNum)	$str .= $strNum;
+    	else				$str .= CopyPhpLink(_getMenuLinkQuery($strQueryId, $iStart, $i), $strNum, $strNum, $bChinese);
+    	$str .= ' ';
     }
     return $str;
 }

@@ -31,6 +31,7 @@
 ?>
 <p>类似的，原油期货数据缓存在文件<?php EchoSinaDebugLink('hf_cl'); ?>，美元人民币汇率数据在usdcny.txt。
 <br /><?php echo GetQuoteElement('所有的代码最终都会烂到无法维护，成功的项目就是在烂掉之前发布出去的。'); ?>
+<?php echo ImgCompleteLenna(); ?>
 </p>
 
 <h3><a name="sma">SMA</a></h3>

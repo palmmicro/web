@@ -8,6 +8,14 @@ function GetBlogMenuArray($bChinese)
     return $arName;
 }
 
+function EchoBlogMenuArray($bChinese)
+{
+	LayoutBegin();
+	$str = GetCategoryLinks(GetBlogMenuArray($bChinese), '/woody/blog/', $bChinese);
+    EchoParagraph($str);
+	LayoutEnd();
+}
+
 function UrlGetHtml($bChinese = true)
 {
     return $bChinese ? 'cn.html' : '.html';
