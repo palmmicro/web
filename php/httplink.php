@@ -140,7 +140,7 @@ function GetMenuLink($strQueryId, $iTotal, $iStart, $iNum, $bChinese = true)
         if ($iNextStart + $iNum < $iTotal)		$str .= _getMenuDirLink(MENU_DIR_LAST, $strQueryId, $iTotal - $iNum, $iNum, $bChinese);		// Last
     }
     
-    for ($i = 100; $i <= 500; $i += 100)
+    for ($i = 100; $i <= min($iTotal, 500); $i += 100)
     {
     	$strNum = strval($i);
     	if ($i == $iNum)	$str .= $strNum;

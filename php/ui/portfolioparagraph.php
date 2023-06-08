@@ -10,7 +10,7 @@ function _getPortfolioTestVal($iShares, $strSymbol)
 		break;
 		
     case 'XOP':
-		$iQuantity = 0;
+		$iQuantity = -200;
 		break;
 
 /*    case 'SPY':

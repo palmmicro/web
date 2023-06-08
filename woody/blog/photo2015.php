@@ -9,7 +9,7 @@ function GetMetaDescription($bChinese)
 function EchoAll($bChinese)
 {
 	$strLenna = ImgCompleteLenna($bChinese);
-	$strSZ162411 = GetLinkElement('SZ162411', 'entertainment/20150818.php');
+	$strSZ162411 = GetBlogLink('20150818', $bChinese);
 	
     echo <<<END
 <p>Aug 18 PHP Application to Estimate $strSZ162411 Net Value

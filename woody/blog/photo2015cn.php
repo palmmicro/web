@@ -9,7 +9,7 @@ function GetMetaDescription()
 function EchoAll()
 {
 	$strLenna = ImgCompleteLenna();
-	$strSZ162411 = GetLinkElement('华宝油气', 'entertainment/20150818cn.php');
+	$strSZ162411 = GetBlogLink('20150818');
 
     echo <<<END
 <p>8月18日 {$strSZ162411}净值估算的PHP程序

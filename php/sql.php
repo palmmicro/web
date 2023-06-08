@@ -184,43 +184,25 @@ function _errorHandler($errno, $errstr, $errfile, $errline)
    	}
 }
 
-function _ConnectDatabase()
-{
-	global $g_link;
-	
-	$g_link = mysqli_connect('mysql', 'n5gl0n39mnyn183l_woody', DB_PASSWORD);	// Connect to mysql server
-	if (!$g_link) 
-	{
-		return false;
-	}
-	mysqli_set_charset($g_link, 'utf8');
-
-	$db = mysqli_select_db($g_link, DB_DATABASE);		// Select database
-	if (!$db) 
-	{
-	    DebugString('No database yet, create it');
-		SqlCreateDatabase(DB_DATABASE);
-	}
-	return true;
-}
-
 function SqlConnectDatabase()
 {
 	// 设置用户定义的错误处理函数
 	error_reporting(E_ALL);
 	set_error_handler('_errorHandler');
-/*	
-	if (UrlGetIp() != '222.125.92.104')
+
+//	if (UrlGetIp() != '222.125.92.104')		die('Failed to connect to server');
+
+	global $g_link;
+
+	$g_link = mysqli_connect('mysql', 'n5gl0n39mnyn183l_woody', DB_PASSWORD);	// Connect to mysql server
+	if (!$g_link)		die('Failed to connect to server');
+
+	mysqli_set_charset($g_link, 'utf8');
+	$db = mysqli_select_db($g_link, DB_DATABASE);		// Select database
+	if (!$db) 
 	{
-		die('Failed to connect to server');
-	}
-*/
-	if (_ConnectDatabase() == false)
-	{
-		global $g_link;
-	
-		$str = 'Failed to connect to server: '.mysqli_error($g_link);
-		die($str);
+	    DebugString('No database yet, create it');
+		SqlCreateDatabase(DB_DATABASE);
 	}
 }
 

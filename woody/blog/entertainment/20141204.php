@@ -25,7 +25,8 @@ Across the entire United States a total of only 94 babies also bear the same fir
 Since 1880 up to 2013, your name was recorded 2,469 times in the American baby names history.
 <br />-- From <a href="http://www.themeaningofnames.org/?n=Sapphire&m=11&d=8&y=1966&go=Go" target=_blank>themeaningofnames.org</a>
 </font></blockquote>
-<p><img src=../photo/20141204.jpg alt="Woody and Sapphire Lin are both worried!" />
+<p>
+<?php echo ImgWorriedWoody(false); ?>
 </p>
 </div>
 

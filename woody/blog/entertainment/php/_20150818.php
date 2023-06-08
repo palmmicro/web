@@ -553,6 +553,7 @@ END;
 function Echo20180216($strHead)
 {
 	$strHead = GetHeadElement($strHead);
+	$strSapphire = GetInternalLink('/woody/sapphire/photo2018cn.php', '圣地亚哥溜娃');
 	$strUTF8 = GetNameLink('utf8', 'UTF-8');
 	$strImage = ImgSapphireMermaid();
 
@@ -560,7 +561,7 @@ function Echo20180216($strHead)
 	$strHead
 <p>2018年2月16日
 <br />随着我的股票网站软件功能越来越繁多，对网站的访问也越来越不稳定，经常需要重新刷新一次才能正常显示页面。很久以来我一直认为是从中国访问在美国的Yahoo网站服务不稳定造成的，也就一直没有深究。
-<br />这个春节在圣地亚哥溜娃一个月，我很悲哀的发现，在美国访问网站也经常需要重新刷新。联想到Google总是利用Chrome浏览器的输入抢先一步爬一下我要访问的网页的坏习惯，我意识到一定是程序哪里出现了执行效率问题，不能正确回应2个几乎同时的页面请求。
+<br />这个春节在{$strSapphire}一个月，我很悲哀的发现，在美国访问网站也经常需要重新刷新。联想到Google总是利用Chrome浏览器的输入抢先一步爬一下我要访问的网页的坏习惯，我意识到一定是程序哪里出现了执行效率问题，不能正确回应两个几乎同时的页面请求。
 庞大的{$strUTF8}全局数组马上成了最大的疑犯。
 <br />在我把全局数组放进函数后，情况更加恶化了。需要重新刷新的情况看上去像是少了一点，却出现了其它全局数据被莫名其妙的冲掉的新问题。
 <br />好在经过这么多年后，我对MySQL已经没有那么畏惧，在溜娃间隙中削尖铅笔加了一个GB2312和UNICODE的对应表，把查内存中的大数组改成了查数据库，终于解决了这个困扰了我一年半的刷新问题。发现帮助傻瓜编程的PHP也对程序优化有要求还是挺让我兴奋的，觉得这么多年来的优化软件经验终于又有了用武之地。
@@ -694,7 +695,6 @@ function Echo20180416($strHead)
 	$strGB18030 = GetExternalLink('http://icu-project.org/repos/icu/data/trunk/charset/source/gb18030/gbkuni30.txt', 'GB18030');
 	$strUpdate = DebugIsAdmin() ? GetInternalLink('/php/test/updategbutf.php', '更新UNICODE码表') : '';
 	$strQuote = GetBlockquoteElement('欲练神功，必先自宫；虽然自宫，未必成功；如不自宫，也可成功。');
-	$strImage = ImgSapphireSolitaire();
 	
     echo <<<END
 	$strHead
@@ -703,9 +703,6 @@ function Echo20180416($strHead)
 <br />产生乱码的原因很明显，这两个生僻字本身就不在只有六千多汉字的{$strGB2312}中。这意味着我需要一个{$strGB18030}和UNICODE的对应码表来扩展我的MySQL数据表。花了差不多一天功夫做完这些几乎算是推倒重来的修补后，我不禁又有了一种神功已成的感觉。 $strUpdate
 </p>
 	$strQuote
-<p>
-$strImage
-</p>
 END;
 }
 

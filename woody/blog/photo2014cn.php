@@ -8,9 +8,13 @@ function GetMetaDescription()
 
 function EchoAll()
 {
+	$strSapphire = GetBlogLink('20141204');
+	$strWorried = ImgWorriedWoody();
+	
     echo <<<END
-<p>12月4日 <a href="entertainment/20141204cn.php">林近岚</a>的由来
-<br /><img src=photo/20141204.jpg alt="Woody and Sapphire Lin are both worried!" /></p>
+<p>12月4日 {$strSapphire}的由来
+$strWorried
+</p>
 
 <p>10月16日 从上证大型国有<a href="entertainment/20141016cn.php">股票</a>获利
 <br /><img src=photo/20141016.jpg alt="Screen shot of my Chinese A stock portfolio as of Oct 16 2014." /></p>

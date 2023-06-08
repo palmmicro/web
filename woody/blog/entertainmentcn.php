@@ -8,13 +8,14 @@ function GetMetaDescription()
 
 function EchoAll()
 {
-	$strSZ162411 = GetLinkElement('华宝油气', 'entertainment/20150818cn.php');
+	$strSZ162411 = GetBlogLink('20150818');
+	$strSapphire = GetBlogLink('20141204');
 	
     echo <<<END
 <p>2016年6月15日 东方财富<a href="entertainment/20160615cn.php">美元人民币中间价</a>汇率实时数据接口的字段意义
 <br />2015年12月25日 <a href="entertainment/20151225cn.php">新浪股票数据</a>接口的字段意义
 <br />2015年8月18日 {$strSZ162411}净值估算的PHP程序
-<br />2014年12月4日 <a href="entertainment/20141204cn.php">林近岚</a>的由来
+<br />2014年12月4日 {$strSapphire}的由来
 <br />2014年10月16日 从上证大型国有<a href="entertainment/20141016cn.php">股票</a>获利
 <br />2014年6月15日 升级到<a href="entertainment/20140615cn.php">Visual Studio</a> 2013
 <br />2012年8月11日 E路航Z1 <a href="entertainment/20120811cn.php">GPS</a>

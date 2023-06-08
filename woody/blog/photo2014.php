@@ -8,9 +8,13 @@ function GetMetaDescription($bChinese)
 
 function EchoAll($bChinese)
 {
+	$strSapphire = GetBlogLink('20141204', $bChinese);
+	$strWorried = ImgWorriedWoody($bChinese);
+	
     echo <<<END
-<p>Dec 4 <a href="entertainment/20141204.php">The Origin of Sapphire Lin</a>
-<br /><img src=photo/20141204.jpg alt="Woody and Sapphire Lin are both worried!" /></p>
+<p>Dec 4 The Origin of $strSapphire
+$strWorried
+</p>
 
 <p>Oct 16 Rules for Giant Chinese State-owned <a href="entertainment/20141016.php">Stock</a>
 <br /><img src=photo/20141016.jpg alt="Screen shot of my Chinese A stock portfolio as of Oct 16 2014" /></p>
