@@ -16,8 +16,8 @@
 <div>
 <h1>华宝油气净值估算的PHP程序</h1>
 <p>2015年8月18日
-<br />眼看Qualcomm收购CSR<?php echo GetLinkElement('股票', '20141016cn.php'); ?>的现金快要到账，最近我在琢磨在A股中国特色的QDII基金华宝油气和美股XOP之间套利。每天看Yahoo新浪等网站的股票行情，时不时还要用鼠标点开计算器算算转换价格，时间长了后有点烦。
-<br />后来我想起来5年前学习的<?php echo GetLinkElement('PHP', '20100905cn.php'); ?>，于是打算写我的第二个PHP程序，统一把套利需要常看的行情显示在一起。
+<br />眼看Qualcomm收购CSR<?php echo GetBlogLink(20141016); ?>的现金快要到账，最近我在琢磨在A股中国特色的QDII基金华宝油气和美股XOP之间套利。每天看Yahoo新浪等网站的股票行情，时不时还要用鼠标点开计算器算算转换价格，时间长了后有点烦。
+<br />后来我想起来5年前学习的<?php echo GetBlogLink(20100905); ?>，于是打算写我的第二个PHP程序，统一把套利需要常看的行情显示在一起。
 同时根据SPDR标普油气开采指数ETF(XOP)、标普油气开采指数(^SPSIOP)、以及美元对人民币的汇率计算<?php echo GetStockLink('SZ162411'); ?>净值。今天出了第一版，记录下相关开发过程以备日后查阅。A股的QDII基金缺乏及时的信息更新，希望这里能够补上这个生态位空缺。
 <br />谢谢<?php EchoXueqiuId('6188729918', 'abkoooo'); ?>帮助提供了新浪实时美股数据接口的格式。
 美股、A股、期货和汇率都用新浪实时的数据接口：<?php EchoSinaDataLink('gb_xop,sz162411,hf_CL,USDCNY'); ?>
@@ -54,14 +54,8 @@
 <br />增加调试文件<?php echo GetDebugFileLink(); ?>用于临时查看数据.
 </p>
 
-<h3><a name="mobiledetect">检测手机</a></h3>
-<p>2015年8月21日
-<br />发了这个工具小软件链接后, 昨天翻墙出去看了一下<a href="20110509cn.php">Google</a> Analytics的统计. 上线3天, 总共289个IP访问了584次.
-跟<a href="../palmmicro/20080326cn.php">Palmmicro</a>通常的客户访问网站极大不同的是, 访问这个工具的有1/3用的是手机. 于是匆忙加上为手机用户优化显示界面的代码.
-<br />使用<?php EchoExternalLink('http://mobiledetect.net/'); ?>判断是否手机用户访问, 代码从github复制下来按照原开发者的建议单独放在/php/class/<b>Mobile_Detect.php</b>中.
-</p>
-
 <?php
+	Echo20150821(GetNameTag('mobiledetect', '检测手机'));
 	Echo20150824('增加'.GetNameTag('stockhistory', STOCK_HISTORY_DISPLAY).'页面');
 	Echo20150827('qdiihk');
 ?>

@@ -72,6 +72,22 @@ function _getStockTag($strSymbol)
     return GetNameTag($strSymbol, SqlGetStockName($strSymbol));
 }
 
+function Echo20150821($strHead)
+{
+	$strHead = GetHeadElement($strHead);
+	$strGoogle = GetBlogLink(20110509);
+	$strPalmmicro = GetBlogLink(20080326);
+	$strMobileDetect = GetExternalLink('http://mobiledetect.net'); 
+	
+    echo <<<END
+	$strHead
+<p>2015年8月21日
+<br />发了这个工具小软件链接后，昨天翻墙出去看了一下{$strGoogle} Analytics的统计。上线三天，总共289个IP访问了584次。跟{$strPalmmicro}通常的客户访问网站极大不同的是，访问这个工具的有1/3用的是手机。于是匆忙加上为手机用户优化显示界面的代码。
+<br />使用{$strMobileDetect}判断是否手机用户访问，代码从github复制下来按照原开发者的建议单独放在/php/class/Mobile_Detect.php中。
+</p>
+END;
+}
+
 function Echo20150824($strHead)
 {
 	$strHead = GetHeadElement($strHead);

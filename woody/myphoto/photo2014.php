@@ -8,7 +8,7 @@ function GetMetaDescription($bChinese)
 
 function EchoAll($bChinese)
 {
-	$strSapphire = GetBlogLink('20141204', $bChinese);
+	$strSapphire = GetBlogLink(20141204, $bChinese);
 	$strWorried = ImgWorriedWoody($bChinese);
 	
     echo <<<END

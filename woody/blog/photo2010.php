@@ -9,16 +9,16 @@ function GetMetaDescription($bChinese)
 function EchoAll($bChinese)
 {
 	$strLenna = ImgCompleteLenna($bChinese);
+	$strPHP = GetHtmlElement('Sep 5 My First '.GetBlogLink(20100905, $bChinese).' Application '.ImgPhpBest($bChinese));
 	
     echo <<<END
 <p>Dec 2 <a href="ar1688/20101202.php">Writing Program Flash</a>
 <br /><img src=photo/20101202.jpg></p>
 
-<p>Nov 7 Moving Blog - GB18030 and <a href="entertainment/20101107.php">GB2312</a>
-<br /><img src=photo/20101114.jpg alt="Google Analytics reports of Palmmicro.com visitor location information on Oct, 2010." /></p>
-
 <p>Sep 7 <a href="pa1688/20100907.php">A Hard Day's Night</a>
 <br /><img src=../../pa1688/user/g1681/soyo.jpg alt="Soyo G1681 (PA168V/AG-168V) 1-port FXS gateway front view." /></p>
+
+$strPHP
 
 <p>July 26 <a href="entertainment/20100726.php">Raw Video Viewers</a>
 <br /><img src=photo/20100726.jpg alt="Screen shot of Speech Workshop, Raw Image Viewer and CamMan" />

@@ -22,7 +22,7 @@
 <br />因为这么多年来都没有培养成功我的止损习惯，我决定只操作A股的大型国企股票，这样市场不好的时候我一样可以安心持有。 
 <br />希望能带来平均每年10%的收益，但愿未来能够成功。  
 <br /><font color=gray>当你为朋友立传时，一定要做得像你在为他报仇雪恨那样。 -- 福楼拜的鹦鹉</font>
-<br /><img src=../photo/20141016.jpg alt="Screen shot of my Chinese A stock portfolio as of Oct 16 2014" />
+<?php echo ImgPortfolio20141016(); ?>
 <br /><font color=gray>Just like I'd never gone, I knew the song. -- La Isla Bonita</font>
 </p>
 

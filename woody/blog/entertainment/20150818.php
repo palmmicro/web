@@ -49,14 +49,6 @@ as I do not konw when the data will be updated, I update it once an hour stupidl
 <br />Using debug file <?php echo GetDebugFileLink(); ?> for temp data checking.
 </p>
 
-<h3><a name="mobiledetect">Mobile Detect</a></h3>
-<p>Aug 21, 2015
-<br />After released the link of this tool, I checked the data of <a href="20110509.php">Google</a> Analytics yesterday. During the 3 days there are 584 visits from 289 different IP address.
-Unlike the usual <a href="../palmmicro/20080326.php">Palmmicro</a> visitors, 1/3 of the tool visitors used mobile phone. So I added the UI optimization for mobile phone in a hurry.
-<br />Using <?php EchoExternalLink('http://mobiledetect.net/'); ?> to detect if it is a mobile phone visit.
-Following the developer's advice, I copied the code github and put it separately in /php/class/<b>Mobile_Detect.php</b>.
-</p>
-
 <h3>Stock <a name="transaction">Transaction</a></h3>
 <p>Sep 13, 2015
 <br />After login, user can now input related stock transaction record. And we make SZ162411 and XOP arbitrage analysis based on those record.

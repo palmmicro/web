@@ -9,6 +9,7 @@ function GetMetaDescription()
 function EchoAll()
 {
 	$strSantaFe = ImgSantaFe();
+	$strGoogle = GetHtmlElement('5月9日 '.GetBlogLink(20110509).'投放的广告 '.ImgWoody20060701());
 	
     echo <<<END
 <p>11月4日 <a href="pa1688/20111104cn.php">升级老PA168F的步骤</a>
@@ -28,8 +29,7 @@ function EchoAll()
 $strSantaFe
 </p>
 
-<p>5月9日 <a href="entertainment/20110509cn.php">Google</a>投放的广告
-<br /><img src=photo/20120505.jpg alt="Adsense anniversary summary and analytics statistics." /></p>
+$strGoogle
 
 <p>4月20日 <a href="pa1688/20110420cn.php">额的神啊! AT323话机居然LM386一直在工作! </a>
 <br /><img src=../../pa1688/user/at323/whitepcb_s.jpg alt="ATCOM IP PHONE AT323 internal PCB image." /></p>

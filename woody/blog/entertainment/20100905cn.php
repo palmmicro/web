@@ -21,7 +21,7 @@
 <br />由于我已经有了这么多PHP知识, 当<a href="../../../pa6488/indexcn.html">PA6488</a>摄像头管理器软件<a href="../../../pa6488/software/cammancn.html">CamMan</a>需要用户管理功能的时候, 我马上开始了在公司网站的PHP开发.
 现在用户已经可以注册帐号测试. 由于基于PA6488的摄像头还没有面世, 用户可以先在这个网络日志上测试评论功能. 只有注册用户才能发表评论. 
 <br />这就是我的第一个PHP程序: 用户和网络日志评论的CRUD(Create创建/Retrieve读取/Update更新/Delete删除). 
-<br /><img src=../photo/phpisbest.jpg alt="PHP is the best programming language in the world!" />
+<?php echo ImgPhpBest(); ?>
 </p> 
 <blockquote><font color=gray>女神: 你能让这个论坛的人都吵起来, 我今晚就跟你走. 
 <br />程序猿: PHP语言是最好的语言!

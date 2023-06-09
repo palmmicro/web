@@ -8,13 +8,10 @@ function GetMetaDescription($bChinese)
 
 function EchoAll($bChinese)
 {
-	$strLenna = ImgCompleteLenna($bChinese);
-	$strSZ162411 = GetBlogLink('20150818', $bChinese);
+	$strLenna = GetHtmlElement('Aug 18 PHP Application to Estimate '.GetBlogLink(20150818, $bChinese).' Net Value '.ImgCompleteLenna($bChinese));
 	
     echo <<<END
-<p>Aug 18 PHP Application to Estimate $strSZ162411 Net Value
 $strLenna
-</p>
 END;
 }
 

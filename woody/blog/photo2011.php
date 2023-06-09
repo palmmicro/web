@@ -9,6 +9,7 @@ function GetMetaDescription($bChinese)
 function EchoAll($bChinese)
 {
 	$strSantaFe = ImgSantaFe($bChinese);
+	$strGoogle = GetHtmlElement('May 9 '.GetBlogLink(20110509, $bChinese).' AdSense '.ImgWoody20060701($bChinese));
 	
     echo <<<END
 <p>Nov 4 <a href="pa1688/20111104.php">Steps to Upgrade an Old PA168F</a>
@@ -28,8 +29,7 @@ function EchoAll($bChinese)
 $strSantaFe
 </p>
 
-<p>May 9 <a href="entertainment/20110509.php">Google</a> AdSense
-<br /><img src=photo/20120505.jpg alt="Adsense anniversary summary and analytics statistics." /></p>
+$strGoogle
 
 <p>Apr 20 <a href="pa1688/20110420.php">My God the LM386 in AT323 Phone is Working ALL the Time!</a>
 <br /><img src=../../pa1688/user/at323/whitepcb_s.jpg alt="ATCOM IP PHONE AT323 internal PCB image." /></p>

@@ -8,6 +8,8 @@ function GetMetaDescription()
 
 function EchoAll()
 {
+	$strImg0701 = ImgWoody20060701();
+	
     echo <<<END
 <!--<p>4月2日, 北京郊外. <a href="2006/flower.jpg" target=_blank>放大</a>
 <br /><img src=2006/flower_s.jpg></p>-->
@@ -28,7 +30,8 @@ function EchoAll()
 <br /><img src=2006/longmenjian_s.jpg></p>
 
 <p><a href="http://www.lvye.org/modules/lvyebb/viewtopic.php?view=1&post_id=1545134" target=_blank>7月1日</a>, 每次上百花山我总是会迷路. 
-<br /><img src=2006/baihuashan.jpg alt="Woody on Bai Hua Shan in 2006" /></p>
+$strImg0701
+</p>
 END;
 }
 

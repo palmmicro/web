@@ -8,7 +8,7 @@ function GetMetaDescription()
 
 function EchoAll()
 {
-	$strSapphire = GetBlogLink('20141204');
+	$strSapphire = GetBlogLink(20141204);
 	$strWorried = ImgWorriedWoody();
 	
     echo <<<END

@@ -8,13 +8,10 @@ function GetMetaDescription()
 
 function EchoAll()
 {
-	$strLenna = ImgCompleteLenna();
-	$strSZ162411 = GetBlogLink('20150818');
+	$strLenna = GetHtmlElement('8月18日 '.GetBlogLink(20150818).'净值估算的PHP程序 '.ImgCompleteLenna());
 
     echo <<<END
-<p>8月18日 {$strSZ162411}净值估算的PHP程序
 $strLenna
-</p>
 END;
 }
 

@@ -8,6 +8,8 @@ function GetMetaDescription($bChinese)
 
 function EchoAll($bChinese)
 {
+	$strImg0701 = ImgWoody20060701(false);
+	
     echo <<<END
 <!--<p>Apr 2. Flowers outside Beijing city. <a href="2006/flower.jpg" target=_blank>Large</a>
 <br /><img src=2006/flower_s.jpg></p>-->
@@ -28,7 +30,8 @@ function EchoAll($bChinese)
 <br /><img src=2006/longmenjian_s.jpg></p>
 
 <p><a href="http://www.lvye.org/modules/lvyebb/viewtopic.php?view=1&post_id=1545134" target=_blank>July 1</a>, I always feel lost on this Baihua Mountain. 
-<br /><img src=2006/baihuashan.jpg alt="Woody on Bai Hua Shan in 2006" /></p>
+$strImg0701
+</p>
 END;
 }
 

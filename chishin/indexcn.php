@@ -17,9 +17,8 @@
 </p>
 <p>ATCOM老孙在2006年写的这篇文章总结了几个人和他们成立的公司之间的关联, 人物包括Chi-Shin Wang, Y.W. Sing和Jan Fandrianto, 公司有8x8, Tigerjet, Komodo, Sipura和Centrality等.
 <br /><a href="/woody/blog/palmmicro/20061123cn.php">Jan, Sing和Wang不得不说的故事 - VoIP华人鼻祖</a>
-<br /><img src=/woody/groupphoto/company/20070920.jpg alt="Chi-Shin Wang, Tang Li and me in Half Moon Bay." />
-</p>
-</p>王老板当年亲自设计的Palmmicro Logo.
+<?php echo ImgWoody20070920(); ?>
+<br />王老板当年亲自设计的Palmmicro Logo.
 <br /><img src=/res/logo/palmmicro.jpg alt="Original palmmicro logo designed by Chi-Shin Wang." />
 </p>
 </div>

@@ -41,7 +41,7 @@ But my past experience taught me it mostly probably would be another bad big dec
 </ol>
 <p>I wish to get an average of 10% annual return based on those trading rules, hope it is real in the future. 
 <br /><font color=gray>Just like I'd never gone, I knew the song. -- La Isla Bonita</font>
-<br /><img src=../photo/20141016.jpg alt="Screen shot of my Chinese A stock portfolio as of Oct 16 2014" />
+<?php echo ImgPortfolio20141016(false); ?>
 </p>
 
 <h3><a name="2015">2015</a> Summary</h3>

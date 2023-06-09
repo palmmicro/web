@@ -20,7 +20,7 @@ I saw a google search box in moftime.com about a year ago. But when I tried to u
 But I did not catch those service details until I read an article about the market promotion business module of 360buy during my trip from Beijing to Shenzhen last week.
 <br />I registered the service after I understood AdSense, it took google a week to approve my account.
 Now I have added the Google search box <font color=gray>AdSense for Search</font> and advertisements <font color=gray>AdSense for Content</font> in all my blogs, as it is showed on this page at the bottom.
-<br /><img src=../../myphoto/2006/baihuashan.jpg alt="Woody on Bai Hua Shan in 2006" />
+<?php echo ImgWoody20060701(false); ?>
 </p>
 
 <h3>Adsense Anniversary Summary</h3>
