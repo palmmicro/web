@@ -68,11 +68,6 @@ function ImgPortfolio20141016($bChinese = true)
 	return GetWoodyImgQuote('20141016.jpg', '2014年10月16日A股持仓截屏', 'Screen shot of my Chinese A stock portfolio as of Oct 16 2014', $bChinese);
 }
 
-function ImgRobloxDice()
-{
-	return GetWoodyImgQuote('robloxdice.jpg', '罗布乐思4个骰子加14验证码');
-}
-
 function ImgSantaFe($bChinese = true)
 {
 	return GetWoodyImgQuote('santafe.jpg', '1991年宫泽理惠Santa Fe写真', '1991 Rie Miyazawa Santa Fe', $bChinese);
@@ -111,8 +106,14 @@ function ImgAccountTool($strPage)
 	case 'cramersrule':
 		return GetWoodyImgQuote('20190815.jpg', '用Cramer法则计算步骤');
 
+    case 'dicecaptcha':
+    	return GetWoodyImgQuote('robloxdice.jpg', '罗布乐思4个骰子加14验证码');
+    	
 	case 'linearregression':
-		return GetWoodyImgQuote('20190824.jpg', '线性回归计算步骤');
+		return GetWoodyImgQuote('20190824.jpg', ACCOUNT_TOOL_LINEAR_CN.'计算步骤');
+
+	case 'primenumber':
+		return GetWoodyImgQuote('primenumber.jpg', '激励我写'.ACCOUNT_TOOL_PRIME_CN.'工具的图片');
 
 	case 'simpletest':
 		return GetWoodyImgQuote('easything.jpeg', '成年人的生活中没有容易二字');

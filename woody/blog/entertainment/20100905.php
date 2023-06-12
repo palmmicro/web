@@ -28,12 +28,6 @@ As PA6488 based camera is not available in market yet. Users can test the user m
 <?php echo ImgPhpBest(false); ?>
 </p> 
 
-<h3><?php EchoNameTag('primenumber', ACCOUNT_TOOL_PRIME); ?> Tool</h3>
-<p>Apr 12, 2019
-<br /><?php EchoPrimeNumberLink(false); ?> tool.
-<br /><img src=../photo/primenumber.jpg alt="The picture that encouraged me to write this prime nnumber tool." />
-</p>
-
 </div>
 
 <?php _LayoutBottom(false); ?>

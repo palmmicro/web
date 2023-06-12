@@ -349,12 +349,13 @@ function Echo20161014($strHead)
 	$strFlyingpig33 = GetQuoteElement('flyingpig33');
 	$strWeixinLink = GetWeixinLink();
 	$strError = GetFontElement('Token验证失败');
-	$str162411 = GetQuoteElement('162411');
-	$str162411cn = GetQuoteElement('华宝油气');
-	$str1 = GetQuoteElement('1');
+	$str162411 = GetRemarkElement('162411');
+	$str162411cn = GetRemarkElement('华宝油气');
+	$str1 = GetRemarkElement('1');
 	$strPA3288 = GetInternalLink('/pa3288/indexcn.html', 'PA3288');
 	$strSz162411 = GetQuoteElement('sz162411');
 	$strImage = ImgPalmmicroWeixin();
+	$strPalmmicro = GetQuoteElement('palmmicro');
 	
     echo <<<END
 	$strHead
@@ -362,13 +363,13 @@ function Echo20161014($strHead)
 <br />作为一个搞了16年互联网产品的公司，Palmmicro居然一直没有开发自己的手机App。世界变化快，现在貌似也不用自己开发App，大多数的需求用微信公众号就足够满足。
 <br />因为一年多前做华宝油气净值估算页面的时候就跟提供QDII基金估值的公众号小飞猪{$strFlyingpig33}学习过，我一直觉得加公众号是件非常简单的事情，没想到在启用{$strWeixinLink}开发模式消息接口的时候就碰到了问题。
 采用几乎是一目了然的微信示例PHP程序，我在设置服务器链接的时候不断被提示{$strError}，反复调试一整晚后才意识到是因为Yahoo网站服务在我的每个页面后都加了一段javascript统计代码。 
-<br />因为我早就在用Google Analytics做网站统计，其实我一直觉得Yahoo前两年加的这个功能是个累赘，没有提供什么新功能，反而拖累了网页反应速度。这下我就有了充分理由去掉它了。在Yahoo Small Business的新网站Aabaco Small Business里面又找了好半天，终于关闭了它。
+<br />因为我早就在用Google Analytics做网站统计，其实我一直觉得Yahoo前两年加的这个功能是个累赘，没有提供什么新功能，反而拖累了网页反应速度。这下我就有了充分理由去掉它。在Yahoo Small Business的新网站Aabaco Small Business里面又找了好半天，终于关闭了它。
 <br />接下来增加功能，现在最直接的需求就是用微信查华宝油气净值。采用对话方式，在消息中用语音或者键盘输入{$str162411}或者{$str162411cn}等获取它的各种估值以及具体估值的时间。
-<br />用户如果只输入{$str1}，会匹配到大量的结果。受微信消息长度2048字节的限制，只会显示匹配靠前的一部分出来。如果直接用微信语音的话，微信自带的语音识别貌似要小小的训练一下。例如，如果一开始就说{$str162411}，识别的结果可能不如人意，但是如果先用键盘输入一次{$str162411}，以后的语音识别就畅通无阻了。 
-<br />开发过程中碰到了一个问题，微信消息有必须在5秒之内返回的限制。而根据Google Analytics对过去30天5934次对华宝油气估值页面的Page Timings统计，平均反应时间是10秒，这样大概率会超过微信的5秒限制，导致消息回应失败。反应时间慢的主要原因是估值前可能需要先访问新浪股票数据和美元人民币中间价等不同网站。
-只好挽起袖子搞优化，尽可能的多在本地存数据，减少每次查询中对外部网站的访问。最后勉强把最长的回应时间控制在了4228毫秒，总算满足了要求。
+<br />用户如果只输入{$str1}，会匹配到大量的结果。受微信消息长度2048字节的限制，只会显示匹配靠前的一部分出来。如果直接用微信语音的话，微信自带的语音识别貌似要小小的训练一下。例如，如果一开始就说{$str162411}，识别的结果可能不如人意，但是如果先用键盘输入一次{$str162411}，以后的语音识别就会畅通无阻。 
+<br />开发过程中碰到一个问题，微信消息有必须在5秒之内返回的限制。而根据Google Analytics过去三十天5934次对华宝油气估值页面的Page Timings统计，平均反应时间是10秒，这样大概率会超过微信的5秒限制，导致消息回应失败。反应时间慢的主要原因是估值前可能需要先访问新浪股票数据和美元人民币中间价等不同网站。
+只好挽起袖子搞优化，尽可能的多在本地存数据，减少每次查询中对外部网站的访问。最后勉强把最长的回应时间控制在4228毫秒，总算满足了要求。
 <br />回到公司的产品上来，这个微信公众号和本网站一起作为一个具体应用实例，为开发中的{$strPA3288}物联网IoT模块提供一个数据采集、存储和查询的总体解决方案。在这个基础上，我们可以提供全套的产品和软硬件技术，帮助客户建立自己的物联网数据管理分析应用系统。
-<br />虽然目前还没有多少功能，大家已经可以扫描下面的二维码添加Palmmicro微信公众订阅号。选用{$strSz162411}作为微信号既符合目前提供的数据，又是个没有办法的选择，因为我太喜欢用palmmicro这个名字，以至于它早早就被我自己的私人晒娃微信号占用了。 
+<br />虽然目前还没有多少功能，大家已经可以扫描下面的二维码添加Palmmicro微信公众订阅号。选用{$strSz162411}作为微信号既符合目前提供的数据，又是个没有办法的选择，因为我太喜欢用{$strPalmmicro}这个名字，以至于它早早就被我自己的私人晒娃微信号占用了。 
 $strImage
 </p>
 END;
@@ -383,7 +384,7 @@ function Echo20161020($strHead)
 {
 	$strHead = GetHeadElement($strHead);
 	$strWeixin = _getWeixinLink();
-	$strQuote = GetQuoteElement('交通银行');
+	$strQuote = GetRemarkElement('交通银行');
 	
 	$strNodeA = 'hs_a';
 	$strChinaStock = GetExternalLink(GetSinaChinaStockListUrl($strNodeA));
@@ -411,7 +412,7 @@ function Echo20161028($strHead)
 {
 	$strHead = GetHeadElement($strHead);
 	$strWeixin = _getWeixinLink();
-	$strQuote = GetQuoteElement('159915');
+	$strQuote = GetRemarkElement('159915');
 	$strChinaFund = GetExternalLink(GetSinaChinaStockListUrl('open_fund'));
 	$strLof = _getLofLink();
 	$strUpdateChinaETF = _getUpdateChinaStockLink('etf_hq_fund', '更新A股ETF数据');
@@ -420,7 +421,7 @@ function Echo20161028($strHead)
     echo <<<END
 	$strHead
 <p>2016年10月28日
-<br />昨天让我广发证券网上开户的经理帮忙宣传一下{$strWeixin}查股票数据，随即加进来2个人。其中一个上来就查{$strQuote}，发现没有数据后立马取消了订阅，又刺激了我给数据库加上所有A股基金数据。
+<br />昨天让我广发证券网上开户的经理帮忙宣传一下{$strWeixin}查股票数据，随即加进来两个人。其中一个上来就查{$strQuote}，发现没有数据后立马取消了订阅，又刺激了我给数据库加上所有A股基金数据。
 <br />从{$strChinaFund}找到了基金列表，没想到全市场居然有上万基金。然后继续写代码加入了其中可以场内交易ETF和{$strLof}，从此应该不怕被查。$strUpdateChinaETF $strUpdateChinaLOF
 </p>
 END;
@@ -435,24 +436,24 @@ function Echo20170128($strHead)
 	$strHkStock = GetExternalLink(GetSinaChinaStockListUrl($strNodeHk));
 	$strUpdateHkStock = _getUpdateChinaStockLink($strNodeHk, '更新港股数据');
 	
-	$str162411 = GetQuoteElement('162411');
-	$str600028 = GetQuoteElement('600028');
-	$str000001 = GetQuoteElement('000001');
-	$str162411cn = GetQuoteElement('华宝油气');
-	$strSz162411 = GetQuoteElement('sz162411');
-	$strList = GetListElement(array('输入刚好是6位数字并且数值大于等于1000时，直接按照按照A股代码规律扩展后寻找唯一匹配。例如'.$str162411.'匹配SZ162411，'.$str600028.'匹配SH600028。',
-								  '输入刚好是6位数字并且数值小于1000时，寻找可能的沪市指数和深市股票最多2个匹配。例如'.$str000001.'匹配上证指数SH000001和平安银行SZ000001。',
+	$str162411 = GetRemarkElement('162411');
+	$str600028 = GetRemarkElement('600028');
+	$str000001 = GetRemarkElement('000001');
+	$str162411cn = GetRemarkElement('华宝油气');
+	$strSz162411 = GetRemarkElement('sz162411');
+	$strList = GetListElement(array('输入刚好是六位数字并且数值大于等于1000时，直接按照按照A股代码规律扩展后寻找唯一匹配。例如'.$str162411.'匹配SZ162411，'.$str600028.'匹配SH600028。',
+								  '输入刚好是六位数字并且数值小于1000时，寻找可能的沪市指数和深市股票最多两个匹配。例如'.$str000001.'匹配上证指数SH000001和平安银行SZ000001。',
 								  '当输入有非ASCII字符，比如中文'.$str162411cn.'时，不查找代码，而是只在名称字段寻找可能的最多32个匹配。',
 								  '其它情况如'.$strSz162411.'同时在代码和名称字段寻找可能的最多32个匹配。',
 								  ));
 	
-	$strHbyq = GetQuoteElement('hbyq');
+	$strHbyq = GetRemarkElement('hbyq');
 
 	$strNodeAh = 'aplush';
 	$strAhStock = GetExternalLink(GetSinaChinaStockListUrl($strNodeAh));
 	$strUpdateAhStock = _getUpdateChinaStockLink($strNodeAh, '更新AH股数据');
 	
-	$str00386 = GetQuoteElement('00386');
+	$str00386 = GetRemarkElement('00386');
 	
     echo <<<END
 	$strHead
@@ -636,8 +637,8 @@ function Echo20180404($strHead)
 	$strXueQiu = GetXueqiuIdLink('1955602780', '不明真相的群众');
 	$strAhCompare= GetNameLink('ahcompare', AH_COMPARE_DISPLAY);
 	$strWeixin = _getWeixinLink();
-	$str00700 = GetQuoteElement('00700');
-	$strTencent = GetQuoteElement('腾讯');
+	$str00700 = GetRemarkElement('00700');
+	$strTencent = GetRemarkElement('腾讯');
 	$strSource = GetExternalLink(GetAastocksAdrUrl());
 	$strUpdate = DebugIsAdmin() ? GetInternalLink('/php/test/updateadr.php', '更新H股ADR数据') : '';
 	$strTableSql = GetCodeElement('TableSql');
@@ -681,8 +682,8 @@ function Echo20180405($strHead)
 	$strChinaStock = GetExternalLink(GetSinaChinaStockListUrl($strNode));
 	$strUpdateChinaStock = _getUpdateChinaStockLink($strNode, '更新B股数据');
 	
-	$str000488 = GetQuoteElement('000488');
-	$str200488 = GetQuoteElement('200488');
+	$str000488 = GetRemarkElement('000488');
+	$str200488 = GetRemarkElement('200488');
 	
     echo <<<END
 	$strHead
@@ -726,7 +727,7 @@ function Echo20180410($strHead)
 {
 	$strHead = GetHeadElement($strHead);
 	$strWeixin = _getWeixinLink();
-	$strCNY = GetQuoteElement('人民币汇率');
+	$strCNY = GetRemarkElement('人民币汇率');
 	$strLink = GetMyStockLink('USCNY');
 	$strOldUSCNY = GetQuoteElement('美元人民币中间价');
 	$strUSCNY = GetQuoteElement('美元人民币汇率中间价');
@@ -736,8 +737,8 @@ function Echo20180410($strHead)
 <p>2018年4月10日
 <br />沉寂已久的{$strWeixin}在清明假期中突然有人来查了下{$strCNY}，因为没有任何匹配，这个查询通知到了我的电子邮件中，让我感觉一下子打了鸡血，学习微信小程序开发的劲头一下子足了好多。
 <br />微信订阅号中查不到用来估值的人民币汇率的确有点奇怪。原因是为了加快反应时间，向微信发的查询是不会去再去拿每天更新一次的人民币中间价数据的。
-<br />当然这现在已经难不倒我了，我可以从数据库中把最近2天的中间价找出来，拼成跟其他数据类似的格式提供给用户。按惯例，又全面整理了几天代码，直到今天才完工。
-<br />因为微信查找中我没有做中文分词，因此{$strCNY}这种5个字的长查询其实是很难匹配的。为了保证下次用户能查到，我还特意手工把数据库中{$strLink}的说明从{$strOldUSCNY}改成了{$strUSCNY}。
+<br />当然这现在已经难不倒我，可以从数据库中把最近两天的中间价找出来，拼成跟其他数据类似的格式提供给用户。按惯例，又全面整理好几天代码，直到今天才完工。
+<br />因为微信查找中我没有做中文分词，因此{$strCNY}这种五个字的长查询其实是很难匹配的。为了保证下次用户能查到，我还特意手工把数据库中{$strLink}的说明从{$strOldUSCNY}改成了{$strUSCNY}。
 </p>
 END;
 }
@@ -761,6 +762,39 @@ function Echo20180620($strPage)
 END;
 }
 
+function Echo20190412($strPage)
+{
+	$strHead = GetHeadElement(_getAccountToolTag($strPage));
+	$strPrimeNumber = GetAccountToolLink($strPage);
+	$strImage = ImgAccountTool($strPage);
+
+	$strList = GetListElement(array('68的平方根在8和9之间，从2到8都除一遍就可以。68/2=34；68=2*?。',
+								  	  '因为34还是偶数，继续来除2。34/2=17；68=2*2*?。',
+								  	  '17不是3的整数倍数。',
+								  	  '17不是4的整数倍数。这里可以看到，虽然原来68是4的整数倍数，但是已经在前面处理过了。',
+								  	  '对数字5来说，因为5*5已经比17大，不用继续除下去。最终结果就是68=2*2*17。'));
+	
+	$strGB2312 = GetNameLink('GB2312');
+	$strMia = GetBlogLink(20141204);
+	$strQuote = GetBlockquoteElement('做人要是没有梦想，跟咸鱼有什么两样？');
+	
+    echo <<<END
+	$strHead
+<p>2019年4月12日
+<br />昨天是王小波忌日，让我对最近的胸闷和牙疼症状充满了警惕。整理华宝油气净值的软件代码真有种死去活来的感觉，经常怀疑自己到底在干什么。今天看到这个图片，觉得该做点简单的东西恢复一下信心，就削尖铅笔写了这个{$strPrimeNumber}的工具。
+$strImage
+<br />算法可以用最直接的方式实现。对指定的数字n，从2开始一个个反复除到n的平方根为止就行。下面用数字68举个具体的例子：
+</p>
+$strList
+<p>接下来一个最直接的优化想法，就是先把一定范围内的已知质数算出来，这样在进行上面的计算时，就不用算17是不是4的整数倍数。
+基于{$strGB2312}大数组的教训，这次直接把前4972个质数存到了MySQL的表中。不过结果让我很失望，查数据库中已知质数表的结果反而要比直接算要明显的慢。
+<br />网上查了下效率更高的算法，读过陶哲轩写的Pollard Rho的文章后觉得自己到底还是个数学白痴，放弃。
+<br />不过我还是很积极的在php下新建了一个子目录tutorial，把这个新文件primenumber.php放了进去。同时开始憧憬几年后真的开始自己做软硬件课件教{$strMia}编程序的话，今天这些工作可以做为其中的一节软件课。 
+</p>
+$strQuote
+END;
+}
+
 function Echo20190601($strHead)
 {
 	$strHead = GetHeadElement($strHead);
@@ -781,13 +815,13 @@ function Echo20190713($strHead)
 {
 	$strHead = GetHeadElement($strHead);
 	$strWeixin = _getWeixinLink();
-	$strQuote = GetQuoteElement('019547');
+	$strInput = GetRemarkElement('019547');
 	$strLink = GetSinaDataLink('sh019547');
 	
     echo <<<END
 	$strHead
 <p>2019年7月13日
-<br />昨天有人在{$strWeixin}上查{$strQuote}没有匹配。看了一下{$strLink}，发现居然是国债。软件工具有人用终归是好事情，不过以前我好像听说过资产1000万美元以下的不应该考虑债券投资，所以还是按捺住了兴奋的心情，没有再次削尖铅笔给我的数据库加上所有A股债券数据。
+<br />昨天有人在{$strWeixin}上查{$strInput}没有匹配。看了一下{$strLink}，发现居然是国债。软件工具有人用终归是好事情，不过以前我好像听说过资产一千万美元以下的不应该考虑债券投资，所以还是按捺住了兴奋的心情，没有再次削尖铅笔给我的数据库加上所有A股债券数据。
 <br />还有一个更加深刻的原因是，因为查询时会从头到尾遍历一遍股票数据库，现在的查询速度已经快要慢到了公众号的极限，实在不能想象再加一两万条债券进去会怎么样。
 <br />基于相同的原因，既拖慢速度我自己又不用，公众号也不提供场外基金的数据查询。
 </p>
@@ -1027,6 +1061,31 @@ function Echo20210613($strHead)
 END;
 }
 
+function Echo20210622($strHead)
+{
+	$strHead = GetHeadElement($strHead);
+	$strWeixin = _getWeixinLink();
+	$strReport = GetRemarkElement('161116&nbsp;');
+	$strQuote = GetQuoteElement('161116');
+	$strSimpleTest = _getAccountToolLink('simpletest');
+	$strTrim = GetCodeElement('$strText = trim($strText, " ,.\n\r\t\v\0")');
+	$strInput = GetRemarkElement('161116&amp;nbsp;');
+	$strUTF8 = GetNameLink('utf8', 'UTF-8');
+	$strReplace = GetCodeElement('$strText = str_replace("\xC2\xA0", \'\', $strText)');
+	
+    echo <<<END
+	$strHead
+<p>2021年6月22日
+<br />收到来自{$strWeixin}的通知邮件，说有用户查询{$strReport}没有找到匹配的信息，我简直不敢相信自己的眼睛。
+<br />登录公众号管理系统，把其中用户发送的内容复制到微信PC版本的输入界面中，显示除了{$strQuote}外，还额外换了两行。果然这样发出去是会匹配失败的，其中应该包含了没想到过的未知字符。
+<br />在{$strSimpleTest}用户界面加上十六进制显示后，发现{$strQuote}后多出一个0x20的空格。我猜可能因为输入控件是单行的所以换行被过滤掉了，干脆就放弃自己分析未知字符。
+<br />目前我用的jEdit编辑器没有十六进制显示的功能，于是去下载很多年没再用过的UltraEdit，然而它显示{$strQuote}后是20 0D 0A，这3个太正常了，早已经在{$strTrim}中处理过。
+<br />这下搞得黔驴技穷，只好找用户问到底输入的是什么。被告知是从一篇公众号文章复制过来的，我跑去看文章页面源代码，发现原文是{$strInput}，微信复制后产生了一个{$strUTF8}的双字节空格字符。加一句{$strReplace}后终于解决问题。
+</p>
+END;
+}
+
+
 function Echo20210624($strHead)
 {
 	$strHead = GetHeadElement($strHead);
@@ -1046,6 +1105,21 @@ function Echo20210624($strHead)
 不过因为中国互联有1/3的港股持仓，它的净值在港股交易时段会继续变化，所以原来的{$strSZ164906}页面其实没有什么实际用处。唯一的好处是在{$strFundHistory}中累积了几年的官方估值误差数据，帮我确认了用KWEB持仓估值中国互联的可行性。
 <br />跟A股{$strLof}基金每个季度才公布一次前10大持仓不同，美股ETF每天都会公布自己的净值和详细持仓比例。因为KWEB和中国互联跟踪同一个中证海外中国互联网指数H11136，这样可以从KWEB官网下载持仓文件后，根据它的实际持仓估算出净值。然后SZ164906的参考估值也就可以跟随白天的港股交易变动了。
 <br />写了快6年的估值软件终于从{$strElementary}水平进化到了初中生水平，还是有些成就感的。暑假即将来到，了不起的狐狸爸爸要开始教已经读了一年小学的娃在Roblox上编程了。
+$strImage
+</p>
+END;
+}
+
+function Echo20210702($strPage)
+{
+	$strHead = GetHeadElement(_getAccountToolTag($strPage));
+	$strRoblox = GetAccountToolLink($strPage);
+	$strImage = ImgAccountTool($strPage);
+	
+    echo <<<END
+	$strHead
+<p>2021年7月2日
+<br />罗布乐思Roblox{$strRoblox}。
 $strImage
 </p>
 END;

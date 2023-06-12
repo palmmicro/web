@@ -5,7 +5,7 @@ define('MAX_COMMENT_DISPLAY', 5);
 function EchoCommentLinkParagraph($str, $strQuery, $bChinese)
 {
     $str = GetRemarkElement($str);
-    $str .= ' '.GetAllCommentLink($strQuery, $bChinese);
+	if ($strQuery)	$str .= ' '.GetAllCommentLink($strQuery, $bChinese);
     EchoParagraph($str);
 }
 

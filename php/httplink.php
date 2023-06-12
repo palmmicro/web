@@ -6,6 +6,8 @@ define('MENU_DIR_PREV', 'Prev');
 define('MENU_DIR_NEXT', 'Next');
 define('MENU_DIR_LAST', 'Last');
 
+define('DEFAULT_PAGE_NUM', 100);
+
 function GetMenuArray()
 {
     return array(MENU_DIR_FIRST => '第一页', MENU_DIR_PREV => '上一页', MENU_DIR_NEXT => '下一页', MENU_DIR_LAST => '最后一页');
@@ -102,11 +104,20 @@ function CopyPhpLink($strQuery, $strCn, $strUs = false, $bChinese = true)
 function _getMenuLinkQuery($strId, $iStart, $iNum)
 {
     $str = '';
-    if ($strId)
+    if ($strId)			$str = $strId;
+    
+    if ($iStart != 0)
     {
-        $str = $strId.'&';
+    	if ($str != '')	$str .= '&';
+    	$str .= 'start='.strval($iStart); 
     }
-    $str .= 'start='.strval($iStart).'&num='.strval($iNum);
+    
+    if ($iNum != DEFAULT_PAGE_NUM)
+    {
+    	if ($str != '')	$str .= '&';
+    	$str .= 'num='.strval($iNum);
+    }
+    	
     return $str;
 }
 
@@ -140,7 +151,7 @@ function GetMenuLink($strQueryId, $iTotal, $iStart, $iNum, $bChinese = true)
         if ($iNextStart + $iNum < $iTotal)		$str .= _getMenuDirLink(MENU_DIR_LAST, $strQueryId, $iTotal - $iNum, $iNum, $bChinese);		// Last
     }
     
-    for ($i = 100; $i <= min($iTotal, 500); $i += 100)
+    for ($i = DEFAULT_PAGE_NUM; $i <= min($iTotal, 500); $i += DEFAULT_PAGE_NUM)
     {
     	$strNum = strval($i);
     	if ($i == $iNum)	$str .= $strNum;

@@ -18,7 +18,7 @@
 <p>2015年8月18日
 <br />眼看Qualcomm收购CSR<?php echo GetBlogLink(20141016); ?>的现金快要到账，最近我在琢磨在A股中国特色的QDII基金华宝油气和美股XOP之间套利。每天看Yahoo新浪等网站的股票行情，时不时还要用鼠标点开计算器算算转换价格，时间长了后有点烦。
 <br />后来我想起来5年前学习的<?php echo GetBlogLink(20100905); ?>，于是打算写我的第二个PHP程序，统一把套利需要常看的行情显示在一起。
-同时根据SPDR标普油气开采指数ETF(XOP)、标普油气开采指数(^SPSIOP)、以及美元对人民币的汇率计算<?php echo GetStockLink('SZ162411'); ?>净值。今天出了第一版，记录下相关开发过程以备日后查阅。A股的QDII基金缺乏及时的信息更新，希望这里能够补上这个生态位空缺。
+同时根据SPDR标普油气开采指数ETF(XOP)、标普油气开采指数(^SPSIOP)、以及美元对人民币的汇率计算<?php echo GetStockLink('SZ162411', true); ?>净值。今天出了第一版，记录下相关开发过程以备日后查阅。A股的QDII基金缺乏及时的信息更新，希望这里能够补上这个生态位空缺。
 <br />谢谢<?php EchoXueqiuId('6188729918', 'abkoooo'); ?>帮助提供了新浪实时美股数据接口的格式。
 美股、A股、期货和汇率都用新浪实时的数据接口：<?php EchoSinaDataLink('gb_xop,sz162411,hf_CL,USDCNY'); ?>
 <br />一开始发现无论怎么弄<?php echo GetCodeElement('fopen'); ?>打开这些链接都会失败，估计是我用的Yahoo网站服务不支持<?php echo GetCodeElement('allow_url_fopen'); ?>。 
@@ -222,6 +222,7 @@
 
 <?php
 	Echo20180620('chinaindex');
+	Echo20190412('primenumber');
 	Echo20190601('微信流量主');
 	Echo20190713('微信公众号不提供查询的数据');
 	Echo20190905('cramersrule');
@@ -235,7 +236,9 @@
 	Echo20210227('增加'.GetNameTag('telegram', '电报').'机器人');
 	Echo20210320('微信公众号剩余群发次数为0');
 	Echo20210613('微信公众平台进去后显示白板');
+	Echo20210622('UTF-8的双字节空格字符');
 	Echo20210624('增加'.GetNameTag('holdings', HOLDINGS_DISPLAY).'页面');
+	Echo20210702('dicecaptcha');
 	Echo20210714('增加'.GetNameTag('fundshare', FUND_SHARE_DISPLAY).'页面');
 	Echo20210728('chinainternet');
 	Echo20211129(GetNameTag('endweixin', '放弃微信').'公众号文章');

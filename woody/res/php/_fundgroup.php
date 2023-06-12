@@ -19,10 +19,21 @@ class FundGroupAccount extends GroupAccount
     function GetStockDisplay()
     {
     	$ref = $this->GetRef();
-    	if (method_exists($ref, 'GetStockRef'))		return RefGetStockDisplay($ref->GetStockRef()).$ref->GetChineseName();
-    	
-    	$nav_ref = $ref->GetNavRef();
-    	return RefGetStockDisplay($ref).$nav_ref->GetChineseName();
+    	if (method_exists($ref, 'GetStockRef'))
+    	{
+    		$stock_ref = $ref->GetStockRef();
+    		$nav_ref = $ref;
+    	}
+    	else
+    	{
+    		$stock_ref = $ref;
+    		$nav_ref = $ref->GetNavRef();
+    	}
+
+    	$str = $nav_ref->GetChineseName();
+    	$str = str_replace('(人民币份额)', '', $str);
+    	$str = str_replace('(人民币)', '', $str);
+    	return RefGetStockDisplay($stock_ref).$str;
     }
 }
 

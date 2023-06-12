@@ -10,8 +10,6 @@ require_once('../../php/_woodymenu.php');
 
 function _menuBlogGroup($bChinese)
 {
-    global $arBlogs;
-    
     $iLevel = 2;
 	$ar = GetBlogMenuArray($bChinese);
     
@@ -20,7 +18,7 @@ function _menuBlogGroup($bChinese)
 	MenuContinueNewLine();
 	MenuWriteItemLink($iLevel - 1, BLOG_GROUP, UrlGetPhp($bChinese), $ar[BLOG_GROUP]);
 	MenuContinueNewLine();
-    MenuDirFirstLast($arBlogs);
+    MenuDirFirstLast(GetBlogArray());
 	MenuContinueNewLine();
     MenuSwitchLanguage($bChinese);
     MenuEnd();

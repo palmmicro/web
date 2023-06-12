@@ -35,16 +35,6 @@ function EchoXueqiuId($strId, $strDisplay)
     echo GetXueqiuIdLink($strId, $strDisplay);
 }
 
-function EchoDiceCaptchaLink($bChinese = true)
-{
-	echo GetDiceCaptchaLink($bChinese);
-}
-
-function EchoPrimeNumberLink($bChinese = true)
-{
-	echo GetPrimeNumberLink($bChinese);
-}
-
 function EchoAutoTractorLink()
 {
 	echo GetAutoTractorLink();

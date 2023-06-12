@@ -98,7 +98,6 @@ function _getDiceCaptchaString($strInput, $bChinese)
 		{
 			$str .= '<br/>'.$strDisplay;
 		}
-		$str .= ImgRobloxDice();
 		return $str;
 	}
 	return ($bChinese ? '数据格式不对' : 'Wrong data format');
@@ -518,7 +517,7 @@ function GetMetaDescription($bChinese = true)
   		break;
   		
   	case 'primenumber':
-  		$str .= $bChinese ? '页面. 质数又称素数, 该数除了1和它本身以外不再有其他的因数, 否则称为合数. 每个合数都可以写成几个质数相乘的形式. 其中每个质数都是这个合数的因数, 叫做这个合数的分解质因数.'
+  		$str .= $bChinese ? '页面。质数又称素数，该数除了1和它本身以外不再有其他的因数，否则称为合数。每个合数都可以写成几个质数相乘的形式。其中每个质数都是这个合数的因数，叫做这个合数的'.ACCOUNT_TOOL_PRIME_CN.'。'
     						: ' page. A prime number (or a prime) is a natural number greater than 1 that has no positive divisors other than 1 and itself.';	//  A natural number greater than 1 that is not a prime number is called a composite number
     	break;
     	

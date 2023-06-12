@@ -8,10 +8,10 @@ function EchoBlogComments($bChinese = true)
     global $acct;
     
 	$strBlogId = $acct->GetPageId();
-    $strQuery = 'page_id='.$strBlogId;
    	$strWhere = $acct->BuildWhereByPage($strBlogId);
     
     $iTotal = $acct->CountComments($strWhere);
+    $strQuery = false;
     if ($iTotal == 0)
     {
 	    $str = $bChinese ? '本页面尚无任何评论.' : 'No comments for this page yet.';
@@ -20,6 +20,7 @@ function EchoBlogComments($bChinese = true)
     {
 		$str = $bChinese ? '本页面评论' : ' Comments for this page';
 		$str .= ' '.strval($iTotal);
+		if ($iTotal > MAX_COMMENT_DISPLAY)	$strQuery = 'page_id='.$strBlogId;
     }
 	
 	LayoutBegin();

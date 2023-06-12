@@ -111,16 +111,6 @@ function GetChiSquaredTestLink($bChinese = true)
     return GetAccountToolLink('chisquaredtest', false, $bChinese);
 }
 
-function GetDiceCaptchaLink($bChinese = true)
-{
-    return GetAccountToolLink('dicecaptcha', false, $bChinese);
-}
-
-function GetPrimeNumberLink($bChinese = true)
-{
-    return GetAccountToolLink('primenumber', false, $bChinese);
-}
-
 function _getIpLink($strPage, $strIp, $bChinese)
 {
     return GetPhpLink(ACCT_PATH.$strPage, 'ip='.$strIp, $strIp, false, $bChinese);
