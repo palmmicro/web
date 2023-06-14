@@ -101,16 +101,6 @@ function GetSinaDataLink($strSinaSymbols)
 	return GetAccountToolLink('sinajs', $strSinaSymbols);
 }
 
-function GetBenfordsLawLink($bChinese = true)
-{
-    return GetAccountToolLink('benfordslaw', false, $bChinese);
-}
-
-function GetChiSquaredTestLink($bChinese = true)
-{
-    return GetAccountToolLink('chisquaredtest', false, $bChinese);
-}
-
 function _getIpLink($strPage, $strIp, $bChinese)
 {
     return GetPhpLink(ACCT_PATH.$strPage, 'ip='.$strIp, $strIp, false, $bChinese);

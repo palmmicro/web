@@ -15,6 +15,8 @@ function EchoAll()
 	$strGoogle = GetBlogLink(20110509);
 	$strPHP = GetBlogLink(20100905);
 	
+	$strSZ161130 = VideoSZ161130();
+	
     echo <<<END
 <p>2016年6月15日 东方财富<a href="entertainment/20160615cn.php">美元人民币中间价</a>汇率实时数据接口的字段意义
 <br />2015年12月25日 <a href="entertainment/20151225cn.php">新浪股票数据</a>接口的字段意义
@@ -37,6 +39,7 @@ function EchoAll()
 <br /><img src=../myphoto/2005/sleeping_s.jpg alt="while you were sleeping" />
 <br /><img src=../image/mylife.jpg alt="the exact description of my entertainment life" />
 </p>
+$strSZ161130
 END;
 }
 

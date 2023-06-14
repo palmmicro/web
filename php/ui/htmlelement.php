@@ -20,7 +20,11 @@ function GetHtmlElement($strContent, $strTag = 'p', $arAttribute = false)
 	$strStart = $strTag;
 	if ($arAttribute)
 	{
-		foreach ($arAttribute as $strAttribute => $strValue)	$strStart .= ' '.$strAttribute.'='.$strValue;
+		foreach ($arAttribute as $strAttribute => $strValue)
+		{
+			$strStart .= ' '.$strAttribute;
+			if ($strValue !== false)		$strStart .= '='.$strValue;
+		}
 	}
 	return "<$strStart>$strContent</$strTag>";
 }

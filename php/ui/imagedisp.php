@@ -42,11 +42,6 @@ function ImgGreatDynasty()
 	return GetWoodyImgQuote('daqingwangle.jpg', '拉倒吧，联的大清都亡了！');
 }
 
-function ImgJensenHuang()
-{
-   	return GetWoodyImgQuote('nvda.png', '老黄路边KTV');
-}
-
 function ImgLikeDog()
 {
 	return GetWoodyImgQuote('dog.jpg', '咦，那个人看上去好像一条狗！');
@@ -130,8 +125,10 @@ function ImgStockGroup($strPage)
     	
     case 'hangseng':
     case 'hshares':
+    	return GetWoodyImgQuote('luodayou.jpg', '小河弯弯向南流，流到香江去看一看。');
+    	
     case 'hstech':
-    	return GetWoodyImgQuote('luodayou.jpg', '罗大佑弹唱流到香江去看一看');
+    	return GetWoodyImgQuote('hardlife.jpg', '人生永远都在艰难模式');
     	
     case 'oilfund':
     	return GetWoodyImgQuote('dashidai.jpg', '不要怕，是技术性调整，不要怕。');

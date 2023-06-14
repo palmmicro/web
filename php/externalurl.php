@@ -113,6 +113,27 @@ function GetKraneUrl()
 	return 'https://kraneshares.com/';
 }
 
+// https://www.cmegroup.com/markets/equities/sp/e-mini-sandp500.quotes.html
+// https://www.cmegroup.com/markets/equities/nasdaq/e-mini-nasdaq-100.quotes.html
+// https://www.cmegroup.com/markets/fx/cross-rates/usd-cnh.html
+function GetCmeUrl($strSymbol)
+{
+	$str = 'https://www.cmegroup.com/markets/';
+	switch ($strSymbol)
+	{
+	case 'hf_ES':
+		return $str.'equities/sp/e-mini-sandp500.quotes.html';
+		
+	case 'hf_NQ':
+		return $str.'equities/nasdaq/e-mini-nasdaq-100.quotes.html';
+		
+	case 'fx_susdcnh':
+		return $str.'fx/cross-rates/usd-cnh.html';
+	}
+	
+	return false;
+}
+
 // https://www.ssga.com/us/en/individual/etfs/funds/spdr-sp-biotech-etf-xbi
 function GetSpdrEtfUrl()
 {

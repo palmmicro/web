@@ -24,6 +24,7 @@ function EchoAll()
 
 <p>11月30日. 趁小妞的两个单眼皮彻底消失前抓紧合影一个. <a href="2015/large/home.jpg" target=_blank>放大</a>
 <br /><img src=2015/home.jpg alt="Sapphire's double eyelid disappeared today." /></p>
+
 END;
 }
 

@@ -65,6 +65,7 @@ function GetQdiiLinks($sym)
 	}
 	
 	$strFutureSymbol = QdiiGetFutureSymbol($strSymbol);
+	if ($strCmeUrl = GetCmeUrl($strFutureSymbol))				$str .= ' '.GetExternalLink($strCmeUrl, '芝商所');
 	
 	$str .= GetSpySoftwareLinks();
 	if (in_arraySpyQdii($strSymbol))

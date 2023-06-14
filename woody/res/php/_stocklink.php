@@ -273,7 +273,7 @@ function GetJiaoYinSchroderSoftwareLinks($strDigitA)
 // http://www.jsfund.cn/main/fund/159823/fundManager.shtml
 function GetJiaShiSoftwareLinks($strDigitA)
 {
-    $ar = array('SZ159607', 'SZ159741', 'SZ159823', 'SZ159919', 'SZ160717', 'SZ160719', 'SZ160723');
+    $ar = array('SZ159501', 'SZ159607', 'SZ159741', 'SZ159823', 'SZ159919', 'SZ160717', 'SZ160719', 'SZ160723');
 	$strUrl = 'http://www.jsfund.cn';
     return ' '.GetOfficialLink($strUrl.'/main/fund/'.$strDigitA.'/fundManager.shtml', $strDigitA).GetCategorySoftwareLinks($ar, GetExternalLink($strUrl, '嘉实基金'));
 }
@@ -360,5 +360,17 @@ function GetYinHuaSoftwareLinks($strDigitA)
 1. 嵌入式软件工程师，参与PA1688芯片设计过程中的软件验证、底层驱动程序开发、运行在PA1688上的精简TCPIP协议栈以及H.323和SIP通信协议开发等工作。
 2. 项目经理，负责跟清华大学国家重点语音实验室合作在PA1688的DSP上完成G.723.1和G.729等标准语音压缩算法的软件实现。
 3. 产品总监，负责基于PA1688芯片的网络电话和单口网关等VoIP总体解决方案的研发和市场推广。此方案曾经是中国低端VoIP市场的领跑者，用户包括华为3COM等知名公司。
+
+我以前加过一个低风险投资群，当我发现群里大多数人都把卖PUT当成低风险投资后就退了。
+以前我也搞过自己的群，群里就有来自那个地方风险群的惊艳大师。
+大师以套利著称，而且连续几年下来都是谨小慎微严格对冲的。
+大师唯一的软肋，就是也把卖PUT当成了低风险投资。
+2020年5月的美油期货CL，他在油价25美元的时候双卖了18美元的PUT和32美元的CALL, 如意算盘是当月跌到18以上或者涨到32以下都能躺赚。
+大家现在都知道，那期CL就是著名的负油价。很快就跌破了18，让大师亏钱平仓了。
+大师赌上了瘾，继续卖了1000手5月合约10美元的PUT。每手是1000桶，这笔PUT货值1个亿的美元。
+随着油价跌破10美元，大师被强平。
+大师输红了眼，继续又卖了1000手6月合约10美元的PUT。几天后6月合约再次跌破10美元，最低到了6美元，大师多年赚的美元全部灰飞烟灭。
+老房子着火最可怕
+
 */
 ?>
