@@ -64,17 +64,19 @@ function _EchoMoneyGroupData($acct, $group, $strUSDCNY, $strHKDCNY)
 	if ($strGroupId = $group->GetGroupId())
 	{
 		$strLink = $acct->GetGroupLink($strGroupId);
+		$strLinkUSD = StockGetTransactionLink($strGroupId, false, '$');
 	}
 	else
 	{
 		$strLink = DISP_ALL_CN;
+		$strLinkUSD = '$';
 	}
 	
     $group->ConvertCurrency($strUSDCNY, $strHKDCNY);
     _echoMoneyItem($strLink, $group->multi_amount->fCNY, $group->multi_profit->fCNY, $group->multi_amount->fConvertCNY, $group->multi_profit->fConvertCNY);
     if ((empty($group->multi_amount->fUSD) == false) || (empty($group->multi_profit->fUSD) == false))
     {
-        _echoMoneyItem('$', $group->multi_amount->fUSD, $group->multi_profit->fUSD, $group->multi_amount->fConvertUSD, $group->multi_profit->fConvertUSD);
+        _echoMoneyItem($strLinkUSD, $group->multi_amount->fUSD, $group->multi_profit->fUSD, $group->multi_amount->fConvertUSD, $group->multi_profit->fConvertUSD);
     }
     if ((empty($group->multi_amount->fHKD) == false) || (empty($group->multi_profit->fHKD) == false))
     {

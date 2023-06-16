@@ -179,7 +179,7 @@ function _errorHandler($errno, $errstr, $errfile, $errline)
 
 		$strIp = UrlGetIp();
 		$str .= '<br />'.GetVisitorLink($strIp);
-   		if (EmailHtml(ADMIN_EMAIL, $strSubject.' '.$strIp, $str) == false)	$strDebug .= ' mail failed too';
+   		if (EmailHtml('woodypalmmicro@gmail.com', $strSubject.' '.$strIp, $str) == false)	$strDebug .= ' mail failed too';
    		DebugString($strDebug);
    	}
 }

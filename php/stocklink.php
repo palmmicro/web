@@ -70,24 +70,18 @@ function GetStockPageLink($strPage, $strDisplay, $strQuery = false)
 	return GetPageLink(STOCK_PATH, $strPage, $strQuery, $strDisplay);
 }
 
-function GetStockSymbolLink($strPage, $strSymbol, $strDisplay, $strExtraQuery = false)
+function GetStockSymbolLink($strPage, $strSymbol, $strDisplay = false, $strExtraQuery = false)
 {
 	$strQuery = 'symbol='.$strSymbol;
-	if ($strExtraQuery)
-	{
-		$strQuery .= '&'.$strExtraQuery;
-	}
-	return GetStockPageLink($strPage, $strDisplay, $strQuery);
+	if ($strExtraQuery)	$strQuery .= '&'.$strExtraQuery;
+	return GetStockPageLink($strPage, ($strDisplay ? $strDisplay : $strSymbol), $strQuery);
 }
 
 define('ALL_STOCK_DISPLAY', '全部股票代码');
 function GetMyStockLink($strSymbol = false, $strDisplay = false)
 {
 	$strPage = 'mystock';
-	if ($strSymbol)
-	{
-		return GetStockSymbolLink($strPage, $strSymbol, ($strDisplay ? $strDisplay : $strSymbol));
-	}
+	if ($strSymbol)		return GetStockSymbolLink($strPage, $strSymbol, $strDisplay);
 	return GetStockPageLink($strPage, ALL_STOCK_DISPLAY);
 }
 
@@ -161,9 +155,9 @@ function GetThanousParadoxLink($strSymbol)
 }
 
 define('FUND_ACCOUNT_DISPLAY', '基金场内申购账户');
-function GetFundAccountLink($strSymbol)
+function GetFundAccountLink($strSymbol, $iNum = false)
 {
-    return GetStockSymbolLink('fundaccount', $strSymbol, FUND_ACCOUNT_DISPLAY);
+    return GetStockSymbolLink('fundaccount', $strSymbol, ($iNum ? strval($iNum) : FUND_ACCOUNT_DISPLAY));
 }
 
 define('FUND_POSITION_DISPLAY', '仓位估算');

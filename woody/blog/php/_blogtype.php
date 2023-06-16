@@ -1,7 +1,6 @@
 <?php
 require_once('../../php/layout.php');
 require_once('../../php/bloglink.php');
-require_once('../../php/ui/videodisp.php');
 require_once('../php/_woodymenu.php');
 
 function _menuBlogType($bChinese)
