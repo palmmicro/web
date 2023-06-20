@@ -126,7 +126,7 @@ class StockAccount extends TitleAccount
     				if ($strGroupId = $this->GetGroupId())		$strMemberId = $this->GetGroupMemberId($strGroupId);
     			}
    				if ($strMemberId != $strLoginId)	$str .= $strNewLine.GetMemberLink($strMemberId);
-    			$str .= $strNewLine.GetStockPhpLink('debug', STOCK_DISP_DEBUG).' '.GetDebugFileLink().' '.GetWebFileLink('php/test.php');
+    			$str .= $strNewLine.GetStockPhpLink('debug', STOCK_DISP_DEBUG).' '.GetDebugFileLink().' '.GetFileLink('/php/test.php');
     		}
     		$str .= $strNewLine;
     	}

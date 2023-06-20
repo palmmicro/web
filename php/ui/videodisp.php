@@ -11,11 +11,16 @@ function GetVideoParagraph($strPathName, $iWidth, $iHeight, $strTextCn, $strText
 {
 	$iScreenWidth = LayoutScreenWidthOk();
 	
-	if (!$iScreenWidth || $iScreenWidth < $iWidth)	return '';
-	
-	$strVideo = GetHtmlElement('<source src="'.$strPathName.'" type="video/mp4">', 'video', array('width' => GetDoubleQuotes(strval($iWidth)), 'height' => GetDoubleQuotes(strval($iHeight)), 'controls' => false));   
-   	$strText = $bChinese ? $strTextCn : $strTextUs;
-	return GetHtmlElement($strText.GetBreakElement().$strVideo);
+	if (!$iScreenWidth || $iScreenWidth < $iWidth)
+	{
+		$str = GetFileLink($strPathName);
+	}
+	else
+	{
+		$strVideo = GetHtmlElement('<source src="'.$strPathName.'" type="video/mp4">', 'video', array('width' => GetDoubleQuotes(strval($iWidth)), 'height' => GetDoubleQuotes(strval($iHeight)), 'controls' => false));   
+		$str = ($bChinese ? $strTextCn : $strTextUs).GetBreakElement().$strVideo;
+	}
+	return GetHtmlElement($str);
 }
 
 function VideoSZ161130($bChinese = true)

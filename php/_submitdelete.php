@@ -104,7 +104,7 @@ class _AdminDeleteAccount extends Account
     	if ($strPathName = UrlGetQueryValue('file'))
     	{
     		unlinkEmptyFile($strPathName);
-    		trigger_error('Deleted debug file: '.GetFileLink($strPathName)); 
+    		trigger_error('Deleted debug file: '.GetFileLink($strPathName, true)); 
     	}
     	else if ($strGroupName = UrlGetQueryValue('groupname'))
     	{

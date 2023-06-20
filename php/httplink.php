@@ -53,19 +53,14 @@ function GetExternalLink($strHttp, $strDisplay = false)
 	return GetLinkElement(($strDisplay ? $strDisplay : $strHttp), $strHttp, array('target' => '_blank'));
 }
 
-function GetFileLink($strPathName)
+function GetFileLink($strPathName, $bFullPath = false)
 {
-    return GetExternalLink(UrlGetPathName($strPathName), basename($strPathName));
+    return GetExternalLink(($bFullPath ? UrlGetPathName($strPathName) : $strPathName), basename($strPathName));
 }
 
 function GetDebugFileLink()
 {
-    return GetFileLink(DebugGetFile());
-}
-
-function GetWebFileLink($strPathName)
-{
-    return GetFileLink(UrlGetRootDir().$strPathName);
+    return GetFileLink(DebugGetFile(), true);
 }
 
 function GetFileDebugLink($strPathName)
@@ -73,7 +68,7 @@ function GetFileDebugLink($strPathName)
     clearstatcache(true, $strPathName);
     if (file_exists($strPathName))
     {
-		$strLink = GetFileLink($strPathName);
+		$strLink = GetFileLink($strPathName, true);
 		$strDelete = GetOnClickLink('/php/_submitdelete.php?file='.$strPathName, '确认删除调试文件'.$strPathName.'？', DebugFormat_date('m-d H:i:s', filemtime($strPathName)));
 		return "$strLink($strDelete)";
     }
@@ -151,7 +146,7 @@ function GetMenuLink($strQueryId, $iTotal, $iStart, $iNum, $bChinese = true)
         if ($iNextStart + $iNum < $iTotal)		$str .= _getMenuDirLink(MENU_DIR_LAST, $strQueryId, $iTotal - $iNum, $iNum, $bChinese);		// Last
     }
     
-    for ($i = DEFAULT_PAGE_NUM; $i <= min($iTotal, 500); $i += DEFAULT_PAGE_NUM)
+    for ($i = DEFAULT_PAGE_NUM; $i <= min(($iTotal + DEFAULT_PAGE_NUM - 1), 500); $i += DEFAULT_PAGE_NUM)
     {
     	$strNum = strval($i);
     	if ($i == $iNum)	$str .= $strNum;

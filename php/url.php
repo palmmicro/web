@@ -115,7 +115,7 @@ function UrlGetRootDir()
 
 function UrlGetPathName($strPathName)
 {
-	return UrlGetServer().'/'.substr($strPathName, strlen(UrlGetRootDir()));
+	return '/'.substr($strPathName, strlen(UrlGetRootDir()));
 }
 
 // Function to sanitize values received from the form. Prevents SQL injection
@@ -138,6 +138,7 @@ function UrlCleanString($str)
 // entryScene=zhida_05_001&jump_from=1_13_18_00
 // fbclid=IwAR0fSj2-McWUF2fs80iiuVaKisnq9fbiicNmxZFJ8Z4BeD6EOQHc6EQGjwk
 // share_token=9E9C328B-D19C-4188-AF1A-4FAD05D42D35&tt_from=weixin&wxshare_count=1
+// ivk_sa=1024320u
 function UrlGetQueryString()
 { 
 	if (isset($_SERVER['QUERY_STRING']))
@@ -154,6 +155,7 @@ function UrlGetQueryString()
 				&& (strpos($strQuery, 'entryScene=') === false)
 				&& (strpos($strQuery, 'fbclid=') === false)
 				&& (strpos($strQuery, 'from=') === false)
+				&& (strpos($strQuery, 'ivk_sa=') === false)
 				&& (strpos($strQuery, 'isappinstalled=') === false)
 				&& (strpos($strQuery, 'jump_from=') === false)
 				&& (strpos($strQuery, 'key_name=') === false)

@@ -13,7 +13,7 @@ function EchoAll()
     $strNepturn = GetBoldElement('海王星单独委托版V3.07');
     echo GetListElement(array('在'.$strNepturnLink.'下载并在缺省路径安装'.$strNepturn.'，桌面图标会显示'.GetInfoElement('中国银河证券海王星独立交易').'，注意它不同于'.GetFontElement('海王星金融终端').'软件。',
     							'下载并安装开源的'.GetExternalLink('https://www.autoitscript.com/site/autoit/downloads/', 'AutoIt').'工具软件包。普通用户实际仅需用到x86版本的AutoIt3.exe文件。一定要小心软件来源，千万不要运行来历不明的.exe文件。',
-    							'在本页面下载银河拖拉机自动化PC软件脚本的2个文件到同一个子目录下，分别是'.GetWebFileLink('autoit/yinhe.au3').'和'.GetWebFileLink('debug/autoitscript/yinheaccounts.au3').'。'));
+    							'在本页面下载银河拖拉机自动化PC软件脚本的2个文件到同一个子目录下，分别是'.GetFileLink('/autoit/yinhe.au3').'和'.GetFileLink('/debug/autoitscript/yinheaccounts.au3').'。'));
 /*    							'下载开源的'.GetExternalLink('https://tesseract-ocr.github.io/', 'Tesseract软件').'用来识别登录验证码。也可以在'.GetExternalLink('https://sourceforge.net/projects/tesseract-ocr-alt/files/', 'SourceForge').'下载一个镜像文件'.GetFileLink('/download/tesseract-ocr-setup-3.02.02.exe').'，然后一路回车缺省安装。',
     							'在本页面下载银河拖拉机自动化PC软件脚本的3个文件到同一个子目录下，分别是'.GetFileLink('/autoit/yinhe.au3').'、'.GetFileLink('/debug/autoitscript/yinheaccounts.au3').'和'.GetFileLink('/debug/autoitscript/Tesseract.au3').'。'));
 */    							

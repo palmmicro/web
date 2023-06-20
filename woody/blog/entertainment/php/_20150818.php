@@ -1020,13 +1020,13 @@ function Echo20200915($strPage)
 {
 	$strHead = GetHeadElement('跟踪'._getStockCategoryTag($strPage).'的SZ161130近期溢价申购套利回顾');
 	$strXueqiu = GetExternalLink('https://xueqiu.com/2244868365/144000143', '听无敌哥讲那油气交易爆仓和破产的事情');
+	$strSZ161130 = GetStockLink('SZ161130', true);
 	$strVideo = VideoSZ161130();
 	$strQqqFund = GetStockCategoryLink($strPage);
 	$strImgQqq = GetWoodyImgQuote('20200915QQQ.jpg', '9月11日QQQ官网显示的前十大持仓');
 	$strImgMnq = GetWoodyImgQuote('20200915MNQ.jpg', '9月14日芝商所官网显示的MNQ行情');
 	$strSH513100 = GetStockLink('SH513100');
 	$strSZ159941 = GetStockLink('SZ159941');
-	$strSZ161130 = GetStockLink('SZ161130', true);
 	$strImgNdx = GetWoodyImgQuote('20200915NDX.jpg', '9月14日stockchars.com显示的NDX技术分析图');
 	$strSMA = GetNameLink('sma');
 	$strBollinger = GetNameLink('bollinger', '布林');
@@ -1041,7 +1041,8 @@ function Echo20200915($strPage)
     echo <<<END
 	$strHead
 <p>2020年9月15日
-<br />在{$strXueqiu}之后，雪球运营人员再次让我在9月11日做了一次直播。视频在下面。讲得不好，本文是增强的文字版本，同时更新了最新的数据。
+<br />跟上次{$strXueqiu}一样，雪球运营人员总是在我的华宝油气和XOP亏得不能自理的时候让我做直播。不过常年卖惨这种人设只有元神元卫南才能乐此不疲的坚持下来，于是建议聊聊最近自己袖手旁观没有参与的{$strSZ161130}溢价申购套利。
+9月11日直播的视频在下面。讲得不好，准备的纳斯达克内容二十分钟就讲完了，后来基本上又回到了油气的东拉西扯上。本文是增强的文字版本，同时更新了最新的数据。
 </p>
 $strVideo
 <p>美股市场指数代码总是五花八门。雪球上{$strQqqFund}显示的代码是.NDX，而YAHOO上的代码是^NDX。通常大家都觉得它代表美股科技股，其实更确切的分类说法是除金融公司外的一百家最大公司按市值加权的指数。跟踪它的ETF很多，最热门的有QQQ一倍做多、PSQ一倍做空、TQQQ三倍做多和SQQQ三倍做空等。
@@ -1049,7 +1050,7 @@ $strVideo
 <br />这个指数群众基础非常好，可以从QQQ官网上9月11日前十大持仓比例看出，全部都是人民群众喜闻乐见的高科技公司。其中GOOGL和GOOG其实都是谷歌，二者加起来3.64+3.56=7.2%，在苹果、亚马逊和微软之后排第四。今年以来股价暴涨了好几倍的特斯拉目前排在第六，超过了上一个因为人工智能暴涨的NVDA。
 <br />$strImgMnq
 <br />芝商所对应的期货有NQ和MNQ等。NQ货值是MNQ的十倍。说起来MNQ也是芝商所今年跟负油价一起搞出来的创新，这样能有更多散户参与股指期货的交易。一手MNQ按当前一万多点的指数乘以2美元计算，目前货值2万多美元，20倍左右的杠杆，1/3货值的保证金。
-<br />A股市场上跟踪的基金也不少。除了不能套利的160213等场外基金，场内的{$strSH513100}长期关门，{$strSZ159941}每次一百万份起步每天限购一百万份，也就是每天一个幸运儿，这样每天每账户限购五百人民币的{$strSZ161130}成了套利党的香馍馍。
+<br />A股市场上跟踪的基金也不少。除了不能套利的160213等场外基金，场内的{$strSH513100}长期关门，{$strSZ159941}每次一百万份起步每天限购一百万份，也就是每天一个幸运儿，这样每天每账户限购五百人民币的SZ161130成了套利党的香馍馍。
 <br />$strImgNdx
 <br />NDX八月份进入连续创历史新高的模式，除了在8月10日那周回调了一次二十日{$strSMA}，也就是布林中轨，其它时间一直在沿{$strBollinger}上轨上涨不停新高。目前这一轮回调到了号称是美股小牛熊分界线五十日{$strEMA}，有可能会继续跌到布林下轨附近。
 <br />SZ161130对上涨一开始是犹豫的，8月21日之前都是折价。8月24日开始，追高的来了，把它拉到了溢价，然后溢价一路上涨，9月3日最高值为7.99%。
