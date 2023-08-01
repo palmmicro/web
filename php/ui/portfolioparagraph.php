@@ -6,11 +6,11 @@ function _getPortfolioTestVal($iShares, $strSymbol)
 	switch ($strSymbol)
     {
     case 'KWEB':
-		$iQuantity = 1510;
+		$iQuantity = 1114;
 		break;
 		
     case 'XOP':
-		$iQuantity = 0;
+		$iQuantity = -153;
 		break;
 
 /*    case 'SPY':
@@ -53,8 +53,12 @@ function _getArbitrageTestStr($iShares, $strGroupId, $strStockId, $strSymbol)
         mysqli_free_result($result);
     }
 
-    $iQuantity = _getPortfolioTestVal($iShares, $strSymbol); 
-	return strval($iArbitrageQuantity + $iQuantity * GetArbitrageRatio($record['stock_id']));
+    if ($record)
+    {
+    	$iQuantity = _getPortfolioTestVal($iShares, $strSymbol); 
+    	return strval($iArbitrageQuantity + $iQuantity * GetArbitrageRatio($record['stock_id']));
+    }
+    return '';
 }
 
 function _echoPortfolioTableItem($trans)

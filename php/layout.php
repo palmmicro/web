@@ -80,10 +80,22 @@ END;
 }
 */
 
-function LayoutWeixinPay()
+function LayoutWeixinPay($bRandom = true)
 {
-	$strImage = GetImgElement('/woody/image/wxpay.jpg', 'QRcode to pay 1 RMB to Woody in Weixin');
-	$strText = GetRemarkElement('觉得这个网站有用？可以用微信打赏支持一下！');
+	$iVal = $bRandom ? rand(1, 2) : 1;
+	switch ($iVal)
+	{
+	case 1:
+		$strImage = GetImgElement('/woody/image/wxpay.jpg', '微信打赏一块钱给Woody的二维码');
+		$strText = GetRemarkElement('觉得这个网站有用？可以用微信打赏支持一下！');
+		break;
+        	
+	case 2:
+		$strImage = GetImgElement('/woody/image/zp987374695.jpg', '华宝拖拉机开户联系人微信（zp987374695）二维码');
+		$strText = GetFontElement('华宝拖拉机开户联系人微信zp987374695二维码', 'orange');
+		break;
+	}
+	
     echo <<<END
 
     <p>$strImage
@@ -214,10 +226,10 @@ function LayoutEnd()
 END;
 }
 
-function _echoWeixinPay()
+function _echoWeixinPay($bRandom = true)
 {
 	LayoutBegin();
-	LayoutWeixinPay();
+	LayoutWeixinPay($bRandom);
 	LayoutEnd();
 }
 
