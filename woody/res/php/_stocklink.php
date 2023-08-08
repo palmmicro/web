@@ -281,7 +281,7 @@ function GetJiaShiSoftwareLinks($strDigitA)
 // http://www.igwfmc.com/main/jjcp/product/501225/detail.html
 function GetJingShunSoftwareLinks($strDigitA)
 {
-    $ar = array('SH501225');
+    $ar = array('SH501225', 'SZ159509');
 	$strUrl = 'http://www.igwfmc.com';
     return ' '.GetOfficialLink($strUrl.'/main/jjcp/product/'.$strDigitA.'/detail.html', $strDigitA).GetCategorySoftwareLinks($ar, GetExternalLink($strUrl, '景顺长城基金'));
 }
