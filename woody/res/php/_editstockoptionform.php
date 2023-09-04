@@ -107,7 +107,7 @@ function _getStockOptionFund($strSymbol)
 function _getStockOptionEmaDays($strStockId, $strDate, $iDays)
 {
 	$sql = GetStockEmaSql($iDays);
-	return $sql->GetClose($strStockId, $strDate);
+	return round($sql->GetClose($strStockId, $strDate), 2);
 }
 
 function _getStockOptionEma($strStockId, $strDate)

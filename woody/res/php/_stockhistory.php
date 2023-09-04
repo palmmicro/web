@@ -22,7 +22,7 @@ function EchoAll()
     {
    		$strLinks = _getStockHistoryLinks($ref, $acct->IsAdmin());
    		$csv = new PageCsvFile();
-   		EchoStockHistoryParagraph($ref, $strLinks, $csv, $acct->GetStart(), $acct->GetNum());
+   		EchoStockHistoryParagraph($ref, $strLinks, $csv, $acct->GetStart(), $acct->GetNum(), $acct->IsAdmin());
    		$csv->Close();
     }
     $acct->EchoLinks('stockhistory');

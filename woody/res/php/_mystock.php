@@ -217,7 +217,8 @@ function GetMetaDescription()
 {
 	global $acct;
 	
-    $str = $acct->GetSymbolDisplay($acct->GetWhoseAllDisplay());
+    $str = $acct->GetSymbolDisplay();
+    if ($str == '')	$str = $acct->GetWhoseAllDisplay().$acct->GetStartNumDisplay();
 	$str .= '参考数据, AH对比, SMA均线, 布林线, 净值估算等本网站提供的内容. 可以用来按代码查询股票基本情况, 登录状态下还显示相关股票分组中的用户交易记录.';
     return CheckMetaDescription($str);
 }
@@ -225,7 +226,9 @@ function GetMetaDescription()
 function GetTitle()
 {
 	global $acct;
-	return $acct->GetSymbolDisplay(ALL_STOCK_DISPLAY);
+	$str = $acct->GetSymbolDisplay();
+    if ($str == '')	$str = ALL_STOCK_DISPLAY.$acct->GetStartNumDisplay();
+	return $str;
 }
 
     $acct = new SymbolAccount();

@@ -1,40 +1,37 @@
 <?php
 require_once('stocktable.php');
 
-function _echoStockHistoryItem($record, $ref, $csv)
+function _echoStockHistoryItem($record, $ref, $csv, $bAdmin)
 {
+	$ar = array();
+	
+	$strDate = $record['date'];
+   	$ar[] = $bAdmin ? GetOnClickLink('/php/_submitdelete.php?'.'stockhistory'.'='.$record['id'], '确认删除'.$strDate.'历史记录？', $strDate) : $strDate;
+   	
 	$strPrev = $ref->GetPrevPrice();
-	$strOpen = $ref->GetPriceDisplay($record['open'], $strPrev);
- 	$strHigh = $ref->GetPriceDisplay($record['high'], $strPrev);
- 	$strLow = $ref->GetPriceDisplay($record['low'], $strPrev);
- 	$strClose = $ref->GetPriceDisplay($record['close'], $strPrev);
-	$strAdjClose = $ref->GetPriceDisplay($record['adjclose'], $strPrev);
-    echo <<<END
-    <tr>
-        <td class=c1>{$record['date']}</td>
-        <td class=c1>$strOpen</td>
-        <td class=c1>$strHigh</td>
-        <td class=c1>$strLow</td>
-        <td class=c1>$strClose</td>
-        <td class=c1>{$record['volume']}</td>
-        <td class=c1>$strAdjClose</td>
-    </tr>
-END;
+	$ar[] = $ref->GetPriceDisplay($record['open'], $strPrev);
+ 	$ar[] = $ref->GetPriceDisplay($record['high'], $strPrev);
+ 	$ar[] = $ref->GetPriceDisplay($record['low'], $strPrev);
+ 	$ar[] = $ref->GetPriceDisplay($record['close'], $strPrev);
+    $ar[] = $record['volume'];
+	$ar[] = $ref->GetPriceDisplay($record['adjclose'], $strPrev);
+	
+ 	EchoTableColumn($ar);
 }
 
-function _echoStockHistoryData($ref, $csv, $his_sql, $strStockId, $iStart, $iNum)
+function _echoStockHistoryData($ref, $csv, $his_sql, $strStockId, $iStart, $iNum, $bAdmin)
 {
     if ($result = $his_sql->GetAll($strStockId, $iStart, $iNum)) 
     {
         while ($record = mysqli_fetch_assoc($result)) 
         {
-            _echoStockHistoryItem($record, $ref, $csv);
+            _echoStockHistoryItem($record, $ref, $csv, $bAdmin);
         }
         mysqli_free_result($result);
     }
 }
 
-function EchoStockHistoryParagraph($ref, $str = false, $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY)
+function EchoStockHistoryParagraph($ref, $str = false, $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY, $bAdmin = false)
 {
     $strSymbol = $ref->GetSymbol();
     $strStockId = $ref->GetStockId();
@@ -51,7 +48,7 @@ function EchoStockHistoryParagraph($ref, $str = false, $csv = false, $iStart = 0
 								   new TableColumnPrice('复权')
 								   ), $strSymbol.'stockhistory', $str.'<br />'.$strMenuLink);
    
-    _echoStockHistoryData($ref, $csv, $his_sql, $strStockId, $iStart, $iNum);
+    _echoStockHistoryData($ref, $csv, $his_sql, $strStockId, $iStart, $iNum, $bAdmin);
     EchoTableParagraphEnd($strMenuLink);
 }
 
