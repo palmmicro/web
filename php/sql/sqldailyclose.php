@@ -111,6 +111,8 @@ class DailyCloseSql extends KeySql
     
     public function InsertDaily($strKeyId, $strDate, $strClose)
     {
+    	if ($strDate == '')									return false;
+    	
         if ($this->GetRecord($strKeyId, $strDate))			return false;
     	return $this->InsertArray($this->MakeFieldArray($strKeyId, $strDate, $strClose));
     }
