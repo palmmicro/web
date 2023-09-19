@@ -182,7 +182,7 @@ function GetCmfSoftwareLinks($strDigitA)
 // http://www.dcfund.com.cn/dcjj/159740/index.jhtml
 function GetDaChengSoftwareLinks($strDigitA)
 {
-    $ar = array('SZ159740', 'SZ160924');
+    $ar = array('SZ159513', 'SZ159740', 'SZ160924');
 	$strUrl = 'http://www.dcfund.com.cn';
     return ' '.GetOfficialLink($strUrl.'/dcjj/'.$strDigitA.'/index.jhtml', $strDigitA).GetCategorySoftwareLinks($ar, GetExternalLink($strUrl, '大成基金'));
 }
