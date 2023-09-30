@@ -96,7 +96,7 @@ function in_arrayCommodityQdii($strSymbol)
 
 function QdiiGetQqqSymbolArray()
 {
-    return array('SH513100', 'SH513110', 'SH513300', 'SH513390', 'SZ159501', 'SZ159509', 'SZ159513', 'SZ159632', 'SZ159659', 'SZ159660', 'SZ159696', 'SZ159941', 'SZ161130'); 
+    return array('SH513100', 'SH513110', 'SH513300', 'SH513390', 'SZ159501', 'SZ159513', 'SZ159632', 'SZ159659', 'SZ159660', 'SZ159696', 'SZ159941', 'SZ161130'); 
 }
 
 function in_arrayQqqQdii($strSymbol)
@@ -169,7 +169,7 @@ function QdiiHkGetIndexSymbolArray()
 
 function QdiiMixGetSymbolArray()
 {
-    $ar = array('SH501225', 'SH501312', 'SH513050', 'SH513220', 'SH513360', 'SZ159605', 'SZ159607', 'SZ164906'); 
+    $ar = array('SH501225', 'SH501312', 'SH513050', 'SH513220', 'SH513360', 'SZ159509', 'SZ159605', 'SZ159607', 'SZ164906'); 
     return $ar;
 }
 
@@ -794,7 +794,17 @@ class StockSymbol
 				return '%5E'.'N225';
 			}
 		}
-        else if ($this->IsIndex())	            									return '%5E'.$this->strOthers;	// index ^HSI
+        else if ($this->IsIndex())
+        {
+			switch ($strSymbol)
+			{
+			case '^HSTECH':
+				return $this->strOthers.'.hk';
+				
+			default:
+				return '%5E'.$this->strOthers;	// index ^HSI
+			}
+        }
         else if ($this->IsSymbolH())													return $this->strOthers.'.hk';	// Hongkong market
         else if ($this->IsSymbolA())
         {

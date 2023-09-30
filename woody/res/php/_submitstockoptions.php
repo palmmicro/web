@@ -375,6 +375,7 @@ class _SubmitOptionsAccount extends Account
 					ReadSseHoldingsFile($strSymbol, $strStockId);
 					break;
 					
+				case 'SZ159509':
 				case 'SZ159605':
 				case 'SZ159607':
 					ReadSzseHoldingsFile($strSymbol, $strStockId, $strDate);

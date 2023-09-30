@@ -1,9 +1,11 @@
 <?php 
-require('php/_qdii.php');
+require('php/_qdiimix.php');
 
-function GetQdiiRelated($strDigitA)
+function GetQdiiMixRelated($strDigitA)
 {
-	$str = GetBreakElement().GetJingShunSoftwareLinks($strDigitA);
+	$str = GetBreakElement();
+	$str .= GetExternalLink('https://indexes.nasdaqomx.com/Index/Overview/NDXTMC', 'NDXTMC'); 
+	$str .= ' '.GetJingShunSoftwareLinks($strDigitA);
 	return $str;
 }
 

@@ -3,13 +3,11 @@ require_once('stockgroupparagraph.php');
 
 function _echoTransactionTableItem($ref, $record, $bReadOnly, $bAdmin)
 {
-	$ar = array();
-	
 	$strDate = GetSqlTransactionDate($record);
 	$strQuantity = $record['quantity']; 
-    $ar[] = $strDate;
-    $ar[] = $ref->GetSymbol();
-    $ar[] = $strQuantity;
+    $strSymbol = $ref->GetSymbol();
+    
+    $ar = array($strDate, $strSymbol, $strQuantity);
     $strPrice = $record['price'];
     $ar[] = $ref->GetPriceDisplay($strPrice);
     $ar[] = strval_round(floatval($record['fees']), 2);
@@ -21,17 +19,17 @@ function _echoTransactionTableItem($ref, $record, $bReadOnly, $bAdmin)
    		if (strlen($strRemark) > 0)
    		{
 			$strRemark = GetOnClickLink(STOCK_PATH.'submittransaction.php?empty='.$strId, '确认清空备注：'.$strRemark.'？', '清空').$strRemark;
-   			if ($ref->IsFundA())
-   			{
-   				if (strpos($strRemark, STOCK_DISP_ORDER) !== false)
-   				{
-   					$nav_sql = GetNavHistorySql();
-   					$strNetValue = $nav_sql->GetClosePrev($ref->GetStockId(), $strDate);
-   					if ($strNetValue != $strPrice)
-   					{
-   						$strRemark .= GetOnClickLink(STOCK_PATH.'submittransaction.php?adjust='.$strId.'&netvalue='.$strNetValue, '确认校准到净值: '.$strNetValue.'？', '校准');
-   					}
-   				}
+			if (strpos($strRemark, STOCK_DISP_ORDER) !== false)
+			{
+				$nav_sql = GetNavHistorySql();
+				$strStockId = $ref->GetStockId();
+				if (in_arrayQdii($strSymbol) || in_arrayQdiiMix($strSymbol))		$strNetValue = $nav_sql->GetClosePrev($strStockId, $strDate);
+				else																	$strNetValue = $nav_sql->GetClose($strStockId, $strDate);
+				
+				if ($strNetValue != $strPrice)
+				{
+					$strRemark .= GetOnClickLink(STOCK_PATH.'submittransaction.php?adjust='.$strId.'&netvalue='.$strNetValue, '确认校准到净值: '.$strNetValue.'？', '校准');
+				}
    			}
    		}
    	}
