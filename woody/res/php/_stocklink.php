@@ -195,6 +195,13 @@ function GetEFundSoftwareLinks($strDigitA)
     return ' '.GetOfficialLink($strUrl.'/fund/'.$strDigitA.'.shtml', $strDigitA).GetCategorySoftwareLinks($ar, GetExternalLink($strUrl, '易方达基金'));
 }
 
+function GetFuGuoSoftwareLinks($strDigitA)
+{
+    $ar = array('SH513870');
+	$strUrl = 'https://www.fullgoal.com.cn';
+    return ' '.GetOfficialLink($strUrl.'/funds/zhishu/'.$strDigitA.'/index.html', $strDigitA).GetCategorySoftwareLinks($ar, GetExternalLink($strUrl, '富国基金'));
+}
+
 function GetGuangFaSoftwareLinks($strDigitA)
 {
     $ar = array('SH513380', 'SZ159605', 'SZ159941', 'SZ162719');
@@ -227,7 +234,7 @@ function GetHuaTaiSoftwareLinks($strDigitA)
 {
     $ar = array('SH510300', 'SH513110', 'SH513130');
 	$strUrl = 'http://www.huatai-pb.com';
-    return ' '.GetOfficialLink($strUrl.'/products/zhishu/'.$strDigitA.'/summary/index.html', $strDigitA).GetCategorySoftwareLinks($ar, GetExternalLink($strUrl, '华泰柏瑞'));
+    return ' '.GetOfficialLink($strUrl.'/products/zhishu/'.$strDigitA.'/index.html', $strDigitA).GetCategorySoftwareLinks($ar, GetExternalLink($strUrl, '华泰柏瑞'));
 }
 
 function GetHuaXiaSoftwareLinks($strDigitA)
