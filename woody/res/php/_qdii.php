@@ -64,6 +64,11 @@ function GetQdiiLinks($sym)
 		$str .= ' '.GetInvescoOfficialLink('QQQ');
 	}
 	
+	if (in_arrayXopQdii($strSymbol))
+	{
+		$str .= ' '.GetSpdrOfficialLink('XOP').' '.GetSpindicesOfficialLink('SPSIOP');
+	}
+	
 	$strFutureSymbol = QdiiGetFutureSymbol($strSymbol);
 	if ($strCmeUrl = GetCmeUrl($strFutureSymbol))				$str .= ' '.GetExternalLink($strCmeUrl, '芝商所');
 	

@@ -49,7 +49,7 @@ function QdiiGetStockArbitrage($strEst, $strNetValue, $strCny, $strPosition)
 // https://markets.ft.com/data/indices/tearsheet/charts?s=SPGOGUP:REU
 function QdiiGetEstSymbol($strSymbol)
 {
-    if ($strSymbol == 'SZ162411')         			return 'XOP';	// '^SPSIOP'
+    if (in_arrayXopQdii($strSymbol))					return 'XOP';	// '^SPSIOP'
     else if ($strSymbol == 'SZ162719')   			return 'IEO'; // '^DJSOEP'
     else if ($strSymbol == 'SZ162415')   			return 'XLY';	// '^IXY'
     else if (in_arrayOilQdii($strSymbol)) 			return 'USO';
@@ -71,14 +71,14 @@ function QdiiGetEstSymbol($strSymbol)
 
 function QdiiGetFutureEtfSymbol($strSymbol)
 {
-    if (in_arrayOilEtfQdii($strSymbol))     return 'USO';
+    if (in_arrayOilEtfQdii($strSymbol) || in_arrayXopQdii($strSymbol))     return 'USO';
     else
     	return false;
 }
 
 function QdiiGetFutureSymbol($strSymbol)
 {
-    if (in_arrayOilEtfQdii($strSymbol) || in_arrayOilQdii($strSymbol))     return 'hf_CL';
+    if (in_arrayOilEtfQdii($strSymbol) || in_arrayXopQdii($strSymbol) || in_arrayOilQdii($strSymbol))     return 'hf_CL';
     else if (in_arrayGoldQdii($strSymbol))   return 'hf_GC';
     else if (in_arraySpyQdii($strSymbol))   return 'hf_ES';
     else if (in_arrayQqqQdii($strSymbol))   return 'hf_NQ';

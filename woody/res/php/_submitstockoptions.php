@@ -270,13 +270,16 @@ function _updateStockOptionDividend($ref, $strSymbol, $strStockId, $his_sql, $st
   		}
   		else if ($strSymbol == 'XOP')
   		{
-  			$strLof = 'SZ162411';
-  			$strLofId = SqlGetStockId($strLof);
-  			if ($strClose = $calibration_sql->GetClose($strLofId, $strDate))
-  			{
-  				DebugString($strLof.' Change calibaration on '.$strDate);
-  				$fFactor = floatval($strClose) * $fNewNav / $fNav;
-  				$calibration_sql->WriteDaily($strLofId, $strDate, strval($fFactor));
+//  			$strQdii = 'SZ162411';	// 'SZ159518'
+			foreach (QdiiGetXopSymbolArray() as $strQdii)
+			{
+				$strQdiiId = SqlGetStockId($strQdii);
+				if ($strClose = $calibration_sql->GetClose($strQdiiId, $strDate))
+				{
+					DebugString($strQdii.' Change calibaration on '.$strDate);
+					$fFactor = floatval($strClose) * $fNewNav / $fNav;
+					$calibration_sql->WriteDaily($strQdiiId, $strDate, strval($fFactor));
+				}
   			}
   		}
   		
