@@ -182,6 +182,7 @@ function GetMyStockLinks($ref)
 			$nav_ref = new NetValueReference($ref->GetSymbol());
 			$strName = $nav_ref->GetChineseName();
 			if (stripos($strName, '博时') !== false)		$str .= GetBoShiSoftwareLinks($strDigitA);
+			else if (stripos($strName, '易方达') !== false)	$str .= GetEFundSoftwareLinks($strDigitA);
 			else if (stripos($strName, '招商') !== false)		$str .= GetCmfSoftwareLinks($strDigitA);
 			else if (stripos($strName, '广发') !== false)		$str .= GetGuangFaSoftwareLinks($strDigitA);
 			else if (stripos($strName, '华安') !== false)		$str .= GetHuaAnSoftwareLinks($strDigitA);
