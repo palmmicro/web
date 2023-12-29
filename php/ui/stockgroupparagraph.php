@@ -51,7 +51,7 @@ function _echoNewStockGroupTableItem($strStockId, $strLoginId = false)
     $ar = array();
     
 	$strSymbol = SqlGetStockSymbol($strStockId);
-	$ar[] = ($strLoginId) ? '' : GetStockLink($strSymbol);
+	$ar[] = ($strLoginId) ? '' : GetGroupStockLink($strSymbol);
    	$ar[] = GetMyStockLink($strSymbol);
    	if ($strLoginId)
    	{

@@ -6,7 +6,7 @@ function Echo20211222($strHead)
 	$strHead = GetHeadElement($strHead);
 	$strThird = GetNameLink('third', '第三笔');
 	$strChinaInternet = GetStockCategoryLink('chinainternet');
-	$strSZ164906 = GetStockLink('SZ164906', true);
+	$strSZ164906 = GetGroupStockLink('SZ164906', true);
 
     echo <<<END
 	$strHead

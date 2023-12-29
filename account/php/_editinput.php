@@ -295,7 +295,7 @@ function _echoLinearRegressionRelated()
 	$strTaobaoLog = GetQuoteElement(_getTaobaoSalesLogData());
 	$strBenford = GetQuoteElement('1,'.GetStandardBenfordData());
 
-	$strSZ162411 = GetStockLink('SZ162411', true);	
+	$strSZ162411 = GetGroupStockLink('SZ162411', true);	
 	$strBaba = GetMyStockLink('BABA');
 	echo <<< END
 	<p>测试数据:</p>

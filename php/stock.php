@@ -21,7 +21,6 @@ require_once('stock/holdingsref.php');
 require_once('stock/futureref.php');
 require_once('stock/fundref.php');
 require_once('stock/qdiiref.php');
-require_once('stock/goldfundref.php');
 
 require_once('stock/forexref.php');
 require_once('stock/fundpairref.php');
@@ -244,11 +243,6 @@ function _getAllSymbolArray($strSymbol)
         	if ($strEstSymbol = QdiiHkGetEstSymbol($strSymbol))		        $ar[] = $strEstSymbol; 
         	if ($strFutureSymbol = QdiiHkGetFutureSymbol($strSymbol))			$ar[] = $strFutureSymbol; 
         }
-        else if (in_arrayGoldSilver($strSymbol))
-        {
-			$ar[] = GoldSilverGetCnFutureSymbol($strSymbol);
-			$ar[] = GoldSilverGetFutureSymbol($strSymbol);
-        }
 //      else if (in_arrayChinaIndex($strSymbol))
         else
         {
@@ -334,7 +328,6 @@ function StockGetFundReference($strSymbol)
     else if (in_arrayQdiiHk($strSymbol))			$ref = new QdiiHkReference($strSymbol);
     else if (in_arrayQdiiJp($strSymbol))			$ref = new QdiiJpReference($strSymbol);
     else if (in_arrayQdiiEu($strSymbol))			$ref = new QdiiEuReference($strSymbol);
-    else if (in_arrayGoldSilver($strSymbol))		$ref = new GoldFundReference($strSymbol);
     else									        $ref = new FundReference($strSymbol);
     return $ref;
 }

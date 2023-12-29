@@ -11,8 +11,8 @@ function Echo20221231($strHead)
 	$str2016 = GetNameLink('2016');
 	$str2021 = GetNameLink('2021');
 	$strImage = GetWoodyImgQuote('20221231.jpg', '2022年最终持仓盈利107万人民币');
-	$strSZ159612 = GetStockLink('SZ159612');
-	$strSZ161127 = GetStockLink('SZ161127');
+	$strSZ159612 = GetGroupStockLink('SZ159612');
+	$strSZ161127 = GetGroupStockLink('SZ161127');
 	$strChinaInternet = GetStockCategoryLink('chinainternet');
 	
 	$strHead = GetHeadElement($strHead);
@@ -53,18 +53,18 @@ function Echo20231231($strHead)
 	$str2021 = GetNameLink('2021');
 	$str2022 = GetNameLink('2022');
 	$strImage = GetWoodyImgQuote('20231231.jpg', '2023年最终持仓盈利17万人民币');
-	$strTLT = GetStockLink('TLT');
+	$strTLT = GetMyStockLink('TLT');
 	
 	$strHead = GetHeadElement($strHead);
-	$strList = GetListElement(array('@CHU分组赚了接近2万人民币，00762年度上涨9%，却重新回到了熊市。',
-								  '@Gamestonk分组加入了无处安放的'.$strTLT.'交易，实在不知道新增加个什么分组好，就是跟着雪球群众凑了凑热闹赚了1000多美元。美元20年国债收益率从4%到5%涨一个百分点，它能跌20%，坐了一圈过山车后，想想早已经下决心不做跟踪期货的ETF，也许跟踪国债的ETF一样也是散户的坑。',
+	$strList = GetListElement(array('@CHU分组赚了1万多人民币，00762年度上涨9%，却重新回到了熊市。',
+								  '@Gamestonk分组加入了无处安放的'.$strTLT.'交易，实在不知道新增加个什么分组好，就是跟着雪球群众凑了凑热闹赚了1000多美元。美元20年国债收益率从4%到5%涨一个百分点，它能跌20%，坐了一圈过山车后，想想早已经下决心不做跟踪期货的ETF，也许跟踪国债的ETF一样也是散户的坑。'
+								  	.'另外，因为想通了需要右侧交易的期货和天灵盖均线大法的天然不匹配，我删除了需要期货对冲交易的黄金白银基金全部估值页面，把几年未动的SH518880的交易也挪到了这个专业捡垃圾分组。',
 								  '@HSCE分组上半年轮动了几次SH501900和SZ160717，后来510900开始一跌就溢价，让我只能在布林下轨附近申购160717了。',
 								  _groupUnchanged('@LOTTERY/@OILPAIR/@OILQDII'),
 								  '@SNP分组赚了约6万人民币。00386年度上涨了12%，也是却重回熊市。',
 								  '@TICKET分组成了SH600104的独角戏。',
 								  _groupUnchanged('@VIX'),
 								  'SH510300分组居然赚了钱，沪深300年度可是跌了11%。',
-								  _groupUnchanged('SH518880'),
 								  'SZ159612分组合并了上年度的SH513500分组，合并了ES的交易，用这种方式下决心不再进行任何期货交易。SPY度涨了22%，这里一共亏了8万人民币。',
 								  _groupUnchanged('SZ161127'),
 								  'SZ162411分组贡献了11万人民币盈利。',

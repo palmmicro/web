@@ -467,7 +467,7 @@ class StockReference extends StockSymbol
 	
     function GetStockLink()
     {
-		if ($str = GetStockLink($this->GetSymbol()))		return $str;
+		if ($str = GetGroupStockLink($this->GetSymbol()))		return $str;
 		return	$this->GetMyStockLink();
 	}
 }

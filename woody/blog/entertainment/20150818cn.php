@@ -18,7 +18,7 @@
 <p>2015年8月18日
 <br />眼看Qualcomm收购CSR<?php echo GetBlogLink(20141016); ?>的现金快要到账，最近我在琢磨在A股中国特色的QDII基金华宝油气和美股XOP之间套利。每天看Yahoo新浪等网站的股票行情，时不时还要用鼠标点开计算器算算转换价格，时间长了后有点烦。
 <br />后来我想起来5年前学习的<?php echo GetBlogLink(20100905); ?>，于是打算写我的第二个PHP程序，统一把套利需要常看的行情显示在一起。
-同时根据SPDR标普油气开采指数ETF(XOP)、标普油气开采指数(^SPSIOP)、以及美元对人民币的汇率计算<?php echo GetStockLink('SZ162411', true); ?>净值。今天出了第一版，记录下相关开发过程以备日后查阅。A股的QDII基金缺乏及时的信息更新，希望这里能够补上这个生态位空缺。
+同时根据SPDR标普油气开采指数ETF(XOP)、标普油气开采指数(^SPSIOP)、以及美元对人民币的汇率计算<?php echo GetGroupStockLink('SZ162411', true); ?>净值。今天出了第一版，记录下相关开发过程以备日后查阅。A股的QDII基金缺乏及时的信息更新，希望这里能够补上这个生态位空缺。
 <br />谢谢<?php EchoXueqiuId('6188729918', 'abkoooo'); ?>帮助提供了新浪实时美股数据接口的格式。
 美股、A股、期货和汇率都用新浪实时的数据接口：<?php EchoSinaDataLink('gb_xop,sz162411,hf_CL,USDCNY'); ?>
 <br />一开始发现无论怎么弄<?php echo GetCodeElement('fopen'); ?>打开这些链接都会失败，估计是我用的Yahoo网站服务不支持<?php echo GetCodeElement('allow_url_fopen'); ?>。 
@@ -78,24 +78,7 @@
 	Echo20160126('统一数据显示格式');
 	Echo20160127('ETF和'.GetNameTag('lof'));
 	Echo20160222('增加'.GetNameTag('netvaluehistory', NETVALUE_HISTORY_DISPLAY).'页面');
-?>
-
-<h3>周期3意味着<a name="chaos">混沌</a></h3>
-<p>2016年2月26日
-<br />华宝油气持续溢价10%已经成了常态, 最近最高甚至到了17%, 华宝油气和XOP套利没法做了.
-<br />继续整理同类代码, 这次下手目标是MySQL相关部分. 加入<font color=olive>MysqlReference</font>类继承自<font color=olive>StockReference</font>类. 集中代码处理历史记录和净值校准等数据库内容.
-再加入<font color=olive>MyStockReference</font>类继承自<font color=olive>MysqlReference</font>, 从此代替<font color=olive>StockReference</font>类作为股票数据实例.
-<font color=olive>FundReference</font>, <font color=olive>FutureReference</font>和<font color=olive>ForexReference</font>同时也改为继承自<font color=olive>MysqlReference</font>.
-从<font color=olive>MysqlReference</font>开始调用了数据库相关函数.
-</p>
-
-<h3>美国<a name="daylightsavingbegin">夏令时开始</a></h3>
-<p>2016年3月14日
-<br />美国进入夏令时, 发现一个bug: <font color=gray><code>date_default_timezone_set('EST')</code></font>是没有夏令时的, 要用<font color=gray><code>date_default_timezone_set('America/New_York')</code></font>.
-</p>
-
-<?php
-	Echo20160325('goldsilver');
+	Echo20160226('周期3意味着'.GetNameTag('chaos', '混沌'));
 ?>
 
 <h3>新浪实时港股数据</h3>
@@ -228,7 +211,6 @@
 	Echo20190905('cramersrule');
 	Echo20190920('linearregression');
 	Echo20191025('增加'.GetNameTag('fundposition', FUND_POSITION_DISPLAY).'页面');
-	Echo20191107('美国夏令时结束带来的软件BUG');
 	Echo20191114('benfordslaw');
 	Echo20191115('chisquaredtest');
 	Echo20200113('华宝油气的C类份额');

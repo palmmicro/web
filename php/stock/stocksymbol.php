@@ -44,16 +44,6 @@ function in_arrayChinaIndex($strSymbol)
     return in_array($strSymbol, ChinaIndexGetSymbolArray());
 }
 
-function GoldSilverGetSymbolArray()
-{
-    return array('SH518800', 'SH518880', 'SZ159934', 'SZ159937', 'SZ161226'); 
-}
-
-function in_arrayGoldSilver($strSymbol)
-{
-    return in_array($strSymbol, GoldSilverGetSymbolArray());
-}
-
 function QdiiGetGoldSymbolArray()
 {
     return array('SZ160719', 'SZ161116', 'SZ164701'); 
@@ -231,7 +221,6 @@ function GetAllSymbolArray()
 			            , QdiiHkGetSymbolArray()
 			            , QdiiJpGetSymbolArray()
 			            , QdiiEuGetSymbolArray()
-					    , GoldSilverGetSymbolArray()
 					    , ChinaIndexGetSymbolArray()
 					    );
 }

@@ -3,7 +3,7 @@ require_once('ui/stocktable.php');
 require_once('stock/stocksymbol.php');
 
 define('OIL_GROUP_DISPLAY', '原油');
-define('COMMODITY_GROUP_DISPLAY', '大宗商品和金银');
+define('COMMODITY_GROUP_DISPLAY', '大宗商品');
 define('CHINAINTERNET_GROUP_DISPLAY', '中丐互怜');
 define('QQQ_GROUP_DISPLAY', '纳斯达克100');
 define('SPY_GROUP_DISPLAY', '标普500');
@@ -12,12 +12,13 @@ define('HSTECH_GROUP_DISPLAY', '恒生科技指数');
 define('HSHARES_GROUP_DISPLAY', 'H股中国企业指数');
 
 define('CHINA_INDEX_DISPLAY', 'A股指数');
-define('GOLD_SILVER_DISPLAY', '黄金白银');
 define('QDII_DISPLAY', 'QDII工具');
 define('QDII_MIX_DISPLAY', '混合QDII');
 define('QDII_HK_DISPLAY', '香港QDII');
 define('QDII_JP_DISPLAY', '日本QDII');
 define('QDII_EU_DISPLAY', '欧洲QDII');
+
+define('FUND_DEMO_SYMBOL', 'SZ162411');
 
 function GetStockCategoryArray()
 {
@@ -35,7 +36,6 @@ function GetStockCategoryArray()
 function GetStockMenuArray()
 {
     return array('chinaindex' => CHINA_INDEX_DISPLAY,
-                   'goldsilver' => GOLD_SILVER_DISPLAY,
                    'qdii' => QDII_DISPLAY,
                    'qdiimix' => QDII_MIX_DISPLAY,
                    'qdiihk' => QDII_HK_DISPLAY,
@@ -104,7 +104,7 @@ function GetStockHistoryLink($strSymbol)
 }
 
 define('FUND_HISTORY_DISPLAY', '基金溢价记录');
-function GetFundHistoryLink($strSymbol)
+function GetFundHistoryLink($strSymbol = FUND_DEMO_SYMBOL)
 {
     return GetStockSymbolLink('fundhistory', $strSymbol, FUND_HISTORY_DISPLAY);
 }
@@ -125,14 +125,13 @@ function GetNvCloseHistoryLink($strSymbol)
 function GetFundLinks($strSymbol)
 {
 	$bChinaIndex = in_arrayChinaIndex($strSymbol);
-	$bGoldSilver = in_arrayGoldSilver($strSymbol);
     $bQdii = in_arrayQdii($strSymbol);
 	$bQdiiHk = in_arrayQdiiHk($strSymbol);
 	$bQdiiMix = in_arrayQdiiMix($strSymbol);
 	$bSpecial = ($strSymbol == 'SZ164906') ? true : false;
 
 	$str = GetStockHistoryLink($strSymbol).' '.GetFundHistoryLink($strSymbol).' '.GetNavHistoryLink($strSymbol).' '.GetNvCloseHistoryLink($strSymbol).' '.GetFundShareLink($strSymbol);
-	if ($bChinaIndex || $bGoldSilver || $bQdii || $bQdiiHk || $bQdiiMix)
+	if ($bChinaIndex || $bQdii || $bQdiiHk || $bQdiiMix)
 	{
 		$str .= ' '.GetCalibrationHistoryLink($strSymbol);
 		if ($bQdii || $bQdiiHk || $bSpecial)	$str .= ' '.GetFundPositionLink($strSymbol);
@@ -155,7 +154,7 @@ function GetThanousParadoxLink($strSymbol)
 }
 
 define('FUND_ACCOUNT_DISPLAY', '基金场内申购账户');
-function GetFundAccountLink($strSymbol, $iNum = false)
+function GetFundAccountLink($strSymbol = FUND_DEMO_SYMBOL, $iNum = false)
 {
     return GetStockSymbolLink('fundaccount', $strSymbol, ($iNum ? strval($iNum) : FUND_ACCOUNT_DISPLAY));
 }
@@ -300,7 +299,7 @@ function StockGetGroupTransactionLinks($strGroupId)
 }
 
 // ****************************** Other internal link related functions *******************************************************
-function GetStockLink($strSymbol, $bFull = false)
+function GetGroupStockLink($strSymbol, $bFull = false)
 {
     if (in_arrayAll($strSymbol))		return GetStockPageLink(strtolower($strSymbol), ($bFull ? SqlGetStockName($strSymbol).'('.$strSymbol.')' : $strSymbol));
     return false;

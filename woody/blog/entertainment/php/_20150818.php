@@ -14,7 +14,6 @@ require_once('_entertainment.php');
 define('AB_DEMO_SYMBOL', 'SZ000488');
 define('ADRH_DEMO_SYMBOL', 'TCEHY');
 define('AH_DEMO_SYMBOL', 'SH600028');
-define('FUND_DEMO_SYMBOL', 'SZ162411');
 define('STOCK_DEMO_SYMBOL', 'XOP');
 
 function DemoPrefetchData()
@@ -106,9 +105,9 @@ function Echo20150827($strPage)
 {
 	$strHead = GetHeadElement('扩大规模到'._getStockMenuTag($strPage));
 	$strQDII = GetStockMenuLink('qdii');
-	$strSZ159920 = GetStockLink('SZ159920', true);
-	$strSH510900 = GetStockLink('SH510900', true);
-	$strSH513500 = GetStockLink('SH513500', true);
+	$strSZ159920 = GetGroupStockLink('SZ159920', true);
+	$strSH510900 = GetGroupStockLink('SH510900', true);
+	$strSH513500 = GetGroupStockLink('SH513500', true);
 	$strImage = ImgStockGroup($strPage);
 	
     echo <<<END
@@ -202,38 +201,39 @@ function Echo20160222($strHead)
 END;
 }
 
-function Echo20160325($strPage)
+function Echo20160226($strHead)
 {
-	$strHead = GetHeadElement('增加'._getStockMenuTag($strPage).'页面');
-	$strSH518800 = GetStockLink('SH518800', true);
-	$strSH518880 = GetStockLink('SH518880', true);
-	$strSZ159934 = GetStockLink('SZ159934', true);
-	$strSZ159937 = GetStockLink('SZ159937', true);
-	$strGoldSilver = GetStockMenuLink($strPage);
+	$strHead = GetHeadElement($strHead);
+	$strMysqlReference = GetCodeElement('MysqlReference');
+	$strStockReference = GetCodeElement('StockReference');
+	$strMyStockReference = GetCodeElement('MyStockReference');
+	$strFundReference = GetCodeElement('FundReference');
+	$strFutureReference = GetCodeElement('FutureReference');
+	$strForexReference = GetCodeElement('ForexReference');
 	$strFundHistory = GetNameLink('fundhistory', FUND_HISTORY_DISPLAY);
 	$strQdiiAccount = GetCodeElement('QdiiAccount');
-	$strGoldSilverAccount = GetCodeElement('GoldSilverAccount');
-	$strFundReference = GetCodeElement('FundReference');
 	$strSMA = GetNameLink('sma');
 	$strLof = _getLofLink();
-	$strSZ160719 = GetStockLink('SZ160719', true);
-	$strSZ161116 = GetStockLink('SZ161116', true);
-	$strSZ164701 = GetStockLink('SZ164701', true);
+	$strSZ160719 = GetGroupStockLink('SZ160719', true);
+	$strSZ161116 = GetGroupStockLink('SZ161116', true);
+	$strSZ164701 = GetGroupStockLink('SZ164701', true);
 	$strMobileDetect = GetNameLink('mobiledetect', 'Mobile-Detect');
 	$strIniFile = GetExternalLink('http://px.sklar.com/code.html?id=142&fmt=pl', 'INIFile');
 	
     echo <<<END
 	$strHead
-<p>2016年3月25日
-<br />趁复活节假日的空挡为{$strSH518800}、{$strSH518880}、{$strSZ159934}和{$strSZ159937}增加{$strGoldSilver}页面。
-<br />一直有用户建议我在华宝油气等QDII的{$strFundHistory}表格上加入预估净值比较栏目。除了不愿意直接打自己嘴巴外的心理因素外，我迟迟没有加上它的原因主要是估值是跟着美股交易实时变化的，一直想不清楚这个时间上的对应关系。
-<br />在QDII的代码中，单独的预估净值变量原本放在{$strQdiiAccount}类中，而在新的{$strGoldSilverAccount}类中又再次用到了{$strFundReference}类。
-自然而然的，我把预估净值的变量挪到了{$strFundReference}类中。当预估净值和当日净值的变量排列在一起后，突然之间数据结构引导思维方式的例子再次爆发，没有比在记录当日净值的时候同时记录预估净值更合理的了！
+<p>2016年2月26日
+<br />华宝油气持续溢价10%已经成了常态，最近最高甚至到了17%，华宝油气和XOP套利没法做了。
+<br />继续整理同类代码，这次下手目标是MySQL相关部分。 加入{$strMysqlReference}类继承自{$strStockReference}类，集中代码处理历史记录和净值校准等数据库内容。再加入{$strMyStockReference}类继承自{$strMysqlReference}，从此代替{$strStockReference}类作为股票数据实例。
+{$strFundReference}、{$strFutureReference}和{$strForexReference}同时也改为继承自{$strMysqlReference}，从{$strMysqlReference}开始调用了数据库相关函数。
+<br />一直有用户建议我在华宝油气等QDII的{$strFundHistory}表格上加入预估净值比较栏目。除了不愿意直接打自己嘴巴外的心理因素外，迟迟没有加上它的原因主要是估值是跟着美股交易实时变化的，一直想不清楚这个时间上的对应关系。
+<br />在QDII的代码中，单独的预估净值变量原本放在{$strQdiiAccount}类中，在这次改动时，我把预估净值的变量挪到了{$strFundReference}类中。当预估净值和当日净值的变量排列在一起后，突然之间数据结构引导思维方式的例子再次爆发，没有比在记录当日净值的时候同时记录预估净值更合理的了！
 同时记录和显示估值的时间，这样当看到估值时间落在美股交易结束前，那么有误差就是天经地义的事情，而不是我的算法有问题。计算估值是由用户访问页面的动作驱动的，如果某页面没有用户经常访问，那么就会出现这种异常时间估值。
-<br />由于在股票交易日的净值系列页面访问量已经稳定在了1000左右，最高的一天有接近1700，我一直在琢磨如何优化页面应对以后可能的更大的访问量高峰。
-把只会每天变化一次的{$strSMA}计算结果保存下来是很容易想到的，但是之前一直没有做。写完这4个黄金ETF的页面后，我意识到同一个GLD的SMA要在包括黄金{$strLof}的{$strSZ160719}、{$strSZ161116}和{$strSZ164701}共7个页面各算一遍，觉得不能再忍下去了。
-<br />基于之前在网上找{$strMobileDetect}代码的经验，我极大的低估了找一个现成的读写配置文件的PHP类的难度。比较容易找到的是一个要收费5美元的，号称同时支持文件和MySQL读写配置。而我就是不想多搞MySQL的表才想用文件存的，不免觉得这5美元有点浪费。
+<br />由于在股票交易日的净值系列页面访问量已经稳定在了1000左右，最高的一天有接近1700，我一直在琢磨如何优化页面应对以后可能的更大的访问量高峰。把只会每天变化一次的{$strSMA}计算结果保存下来是很容易想到的，但是之前一直没有做。
+这次整理代码时我意识到同一个GLD的SMA要在包括黄金{$strLof}的{$strSZ160719}、{$strSZ161116}和{$strSZ164701}共3个页面各算一遍，觉得不能再忍下去了。
+基于之前在网上找{$strMobileDetect}代码的经验，我极大的低估了找一个现成的读写配置文件的PHP类的难度。比较容易找到的是一个要收费5美元的，号称同时支持文件和MySQL读写配置。而我就是不想多搞MySQL的表才想用文件存的，不免觉得这5美元有点浪费。
 最后好不容易才翻到免费的{$strIniFile}。这个类原本只支持在已经存在的配置文件上修改，让我这个PHP新手折腾改了好几个小时才顺利用上。
+</p>
 END;
 }
 
@@ -747,7 +747,7 @@ function Echo20180620($strPage)
 {
 	$strHead = GetHeadElement('增加'._getStockMenuTag($strPage).'页面');
 	$strChinaIndex = GetStockMenuLink($strPage);
-	$strSH510300 = GetStockLink('SH510300', true);
+	$strSH510300 = GetGroupStockLink('SH510300', true);
 	$strChaos = GetNameLink('chaos', '混沌');
 	$strFundReference = GetCodeElement('FundReference');
 	$strMysqlReference = GetCodeElement('MysqlReference');
@@ -869,7 +869,7 @@ function Echo20190920($strPage)
 {
 	$strHead = GetHeadElement('用'._getAccountToolTag($strPage).'的方法在华宝油气溢价套利时估算'.GetNameTag('fundaccount', FUND_ACCOUNT_DISPLAY));
 	$strCramer = _getAccountToolLink('cramersrule');
-	$strFundAccount = GetFundAccountLink(FUND_DEMO_SYMBOL);
+	$strFundAccount = GetFundAccountLink();
 	$strLinear = GetAccountToolLink($strPage);
 	$strImage = ImgAccountTool($strPage);
 	
@@ -893,7 +893,7 @@ function Echo20191025($strHead)
 	$strSZ160216 = GetFundPositionLink('SZ160216', true);
 	$strLof = _getLofLink();
 	$strSH501018Tag = _getStockTag('SH501018');
-	$strSH501018Link = GetStockLink('SH501018', true);
+	$strSH501018Link = GetGroupStockLink('SH501018', true);
 	$strMaster = GetXueqiuIdLink('1873146750', '惊艳大师');
 	$strQDII = _getQdiiLink();
 	$strElementaryTag = GetNameTag('elementary', '小学生');
@@ -930,23 +930,6 @@ function Echo20191025($strHead)
 <br />想给它正确估值，使用SZ162411的这种单一品种参考模式是不行的。{$strMaster}计算{$strQDII}净值的Excel虽然在我的网页工具出来后落寞了许多，不过他说了，用XOP估算华宝油气净值只是{$strElementaryTag}水平，能够用实际的详细持仓明细估算净值才算初中生水平！
 <br />{$strWei}在雪球和公众号上写了一系列A股大时代的故事，一直用这个封面图片。因为我今天也忍不住开始讲{$strOilFundTag}基金历史的故事，就东施效颦也放个图。
 $strImage
-</p>
-END;
-}
-
-function Echo20191107($strHead)
-{
-	$strHead = GetHeadElement($strHead);
-	$strFundAccount = GetNameLink('fundaccount', FUND_ACCOUNT_DISPLAY);
-	$strBegin = GetNameLink('daylightsavingbegin', '夏令时开始');
-	$strFundHistory = GetNameLink('fundhistory', FUND_HISTORY_DISPLAY);
-	
-    echo <<<END
-	$strHead
-<p>2019年11月7日
-<br />没想到9月份写的{$strFundAccount}让我意外发现了一个跟{$strBegin}配对的BUG。
-<br />我昨天看了一下11月4日轻微折价下的场内申购预估数量。 因为我平时做线性回归是不用折价日的申购数据的，所以特意留心了一下。结果今天发现{$strFundHistory}中11月4日的数据竟然没有显示出来。 
-<br />查了半天终于找到了问题：我原来用11月1日周五的日期加上3天的秒数，期望得到11月4日的日期。却没料到赶上了11月3日结束夏令时，3天的秒数不够，结果得到的是11月3日的日期。这个问题隐藏了好几年，但是以前一直没有像现在这样每天盯着折价溢价数据看，所以一直没发现。
 </p>
 END;
 }
@@ -1020,19 +1003,19 @@ function Echo20200915($strPage)
 {
 	$strHead = GetHeadElement('跟踪'._getStockCategoryTag($strPage).'的SZ161130近期溢价申购套利回顾');
 	$strXueqiu = GetExternalLink('https://xueqiu.com/2244868365/144000143', '听无敌哥讲那油气交易爆仓和破产的事情');
-	$strSZ161130 = GetStockLink('SZ161130', true);
+	$strSZ161130 = GetGroupStockLink('SZ161130', true);
 	$strVideo = VideoSZ161130();
 	$strQqqFund = GetStockCategoryLink($strPage);
 	$strImgQqq = GetWoodyImgQuote('20200915QQQ.jpg', '9月11日QQQ官网显示的前十大持仓');
 	$strImgMnq = GetWoodyImgQuote('20200915MNQ.jpg', '9月14日芝商所官网显示的MNQ行情');
-	$strSH513100 = GetStockLink('SH513100');
-	$strSZ159941 = GetStockLink('SZ159941');
+	$strSH513100 = GetGroupStockLink('SH513100');
+	$strSZ159941 = GetGroupStockLink('SZ159941');
 	$strImgNdx = GetWoodyImgQuote('20200915NDX.jpg', '9月14日stockchars.com显示的NDX技术分析图');
 	$strSMA = GetNameLink('sma');
 	$strBollinger = GetNameLink('bollinger', '布林');
 	$strEMA = GetNameLink('ema');
 	$strAccount161129 = GetFundAccountLink('SZ161129', 235530);
-	$strSZ161129 = GetStockLink('SZ161129', true);
+	$strSZ161129 = GetGroupStockLink('SZ161129', true);
 	$strFundAccount = GetNameLink('fundaccount', FUND_ACCOUNT_DISPLAY);
 	$strAccount161130 = GetFundAccountLink('SZ161130', 59882);
 	$strFundPosition = GetNameLink('fundposition', FUND_POSITION_DISPLAY);
@@ -1133,13 +1116,12 @@ function Echo20210622($strHead)
 END;
 }
 
-
 function Echo20210624($strHead)
 {
 	$strHead = GetHeadElement($strHead);
 	$strKWEB = GetHoldingsLink('KWEB', true);
 	$strQDII = _getQdiiLink();
-	$strSZ164906 = GetStockLink('SZ164906');
+	$strSZ164906 = GetGroupStockLink('SZ164906');
 	$strFundHistory = GetNameLink('fundhistory', FUND_HISTORY_DISPLAY);
 	$strLof = _getLofLink();
 	$strElementary = GetNameLink('elementary', '小学生');
@@ -1194,10 +1176,10 @@ END;
 function Echo20210728($strPage)
 {
 	$strHead = GetHeadElement('为'._getStockCategoryTag($strPage).'增加'.QDII_MIX_DISPLAY.'工具系列');
-	$strSH513050 = GetStockLink('SH513050');
+	$strSH513050 = GetGroupStockLink('SH513050');
 	$strChinaInternet = GetStockCategoryLink($strPage);
-	$strSZ159605 = GetStockLink('SZ159605');
-	$strSZ159607 = GetStockLink('SZ159607');
+	$strSZ159605 = GetGroupStockLink('SZ159605');
+	$strSZ159607 = GetGroupStockLink('SZ159607');
 	$strHoldings = GetNameLink('holdings', HOLDINGS_DISPLAY);
 	$strQdiiMix = GetStockMenuLink('qdiimix');
 	$strFundPosition = GetNameLink('fundposition', FUND_POSITION_DISPLAY);
@@ -1261,8 +1243,8 @@ function Echo20220914($strPage)
 	$strEndWechat = GetNameLink('endweixin', '放弃微信');
 	$strWoody1234 = GetXueqiuIdLink('2244868365', 'woody1234');
 	$strChinaInternet = _getStockCategoryLink('chinainternet');
-	$strSH513220 = GetStockLink('SH513220', true);
-	$strSH513360 = GetStockLink('SH513360', true);
+	$strSH513220 = GetGroupStockLink('SH513220', true);
+	$strSH513360 = GetGroupStockLink('SH513360', true);
 	$strImage = ImgStockGroup($strPage);
 	
     echo <<<END
@@ -1283,11 +1265,11 @@ END;
 function Echo20230521($strPage)
 {
 	$strHead = GetHeadElement('增加'._getStockMenuTag($strPage).'的估值');
-	$strSH513000 = GetStockLink('SH513000', true);
+	$strSH513000 = GetGroupStockLink('SH513000', true);
 	$strChinaInternet = _getStockCategoryLink('chinainternet');
-	$strSH513520 = GetStockLink('SH513520');
-	$strSH513880 = GetStockLink('SH513880');
-	$strSZ159866 = GetStockLink('SZ159866');
+	$strSH513520 = GetGroupStockLink('SH513520');
+	$strSH513880 = GetGroupStockLink('SH513880');
+	$strSZ159866 = GetGroupStockLink('SZ159866');
 	$strQdiiJp = GetStockMenuLink($strPage);
 	$strQdiiHk = _getStockMenuLink('qdiihk');
 	$strNKY = GetSinaDataLink('znb_NKY');
@@ -1315,8 +1297,8 @@ function Echo20230525($strPage)
 	$strHead = GetHeadElement('增加'._getStockMenuTag($strPage).'的估值');
 	$strQDII = _getQdiiLink();
 	$strQdiiJp = _getStockMenuLink('qdiijp');
-	$strSH513030 = GetStockLink('SH513030', true);
-	$strSH513080 = GetStockLink('SH513080', true);
+	$strSH513030 = GetGroupStockLink('SH513030', true);
+	$strSH513080 = GetGroupStockLink('SH513080', true);
 	$strSH501018 = _getStockLink('SH501018');
 	$strDAX = GetSinaDataLink('znb_DAX');
 	$strCAC = GetSinaDataLink('znb_CAC');
@@ -1340,9 +1322,9 @@ function Echo20230530($strHead)
 	$strHead = GetHeadElement($strHead);
 	$strXueqiu = GetXueqiuIdLink('9933963417', 'Forest_g');
 	$strQdiiMix = _getStockMenuLink('qdiimix');
-	$strSH501225 = GetStockLink('SH501225', true);
+	$strSH501225 = GetGroupStockLink('SH501225', true);
 	$strImage = GetWoodyImgQuote('nvda.png', '老黄路边KTV');
-	$strSH501312 = GetStockLink('SH501312', true);
+	$strSH501312 = GetGroupStockLink('SH501312', true);
 	
     echo <<<END
 	$strHead
@@ -1357,7 +1339,7 @@ END;
 function Echo20230614($strHead)
 {
 	$strHead = GetHeadElement($strHead);
-	$strSZ159501 = GetStockLink('SZ159501', true);
+	$strSZ159501 = GetGroupStockLink('SZ159501', true);
 	$strQqqFund = GetStockCategoryLink('qqqfund');
 	$strNdx = _getStockCategoryLink('qqqfund');
 	$strImage = GetWoodyImgQuote('CMENQ20230614s.jpg', '纳斯达克100期货和现货价格比较');

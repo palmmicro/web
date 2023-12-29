@@ -1,4 +1,4 @@
-<?php require_once('php/_entertainment.php'); ?>
+<?php require_once('php/_20100905.php'); ?>
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -29,6 +29,12 @@
 <br />女神: 服了你了, 我们走吧, 你想干啥都行. 
 <br />程序猿: 今天不行, 我一定要说服他们, PHP语言是最好的语言. 
 </font></blockquote>
+
+<?php
+	Echo20160314('美国'.GetNameTag('daylightsaving', '夏令时').'开始');
+	Echo20191107('美国夏令时结束带来的软件问题');
+	Echo20230227('终于升级到'.GetNameTag('PHP7'));
+?>
 
 </div>
 

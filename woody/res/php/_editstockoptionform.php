@@ -165,9 +165,6 @@ function _getStockOptionCalibration($strSymbol, $strDate)
 	if (in_arrayChinaIndex($strSymbol))
 	{
 	}
-	else if (in_arrayGoldSilver($strSymbol))
-	{
-	}
 	else if (in_arrayQdii($strSymbol))
 	{
        	$fund = new QdiiReference($strSymbol);

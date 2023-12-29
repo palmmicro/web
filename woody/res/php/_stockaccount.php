@@ -24,7 +24,7 @@ class StockAccount extends TitleAccount
     {
     	if ($strGroupName = $this->GetGroupName($strGroupId))
     	{
-    		if ($strLink = GetStockLink($strGroupName))		return $strLink; 
+    		if ($strLink = GetGroupStockLink($strGroupName))		return $strLink; 
     		return GetMyStockGroupLink('groupid='.$strGroupId, $strGroupName);
     	}
     	return '';

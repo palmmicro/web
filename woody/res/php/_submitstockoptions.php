@@ -293,7 +293,6 @@ function _updateStockOptionCalibration($strSymbol, $strStockId, $strDate, $strVa
 	if (!empty($strVal))
 	{
 		if (in_arrayChinaIndex($strSymbol))									return;
-		else if (in_arrayGoldSilver($strSymbol))								return;
 		else if (in_arrayQdii($strSymbol) || $strSymbol == 'SZ164906')		$strCNY = SqlGetNavByDate(SqlGetStockId('USCNY'), $strDate);
        	else if (in_arrayQdiiHk($strSymbol))									$strCNY = SqlGetNavByDate(SqlGetStockId('HKCNY'), $strDate);
        	else if (in_arrayQdiiJp($strSymbol))									$strCNY = SqlGetNavByDate(SqlGetStockId('JPCNY'), $strDate);
