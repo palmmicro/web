@@ -53,7 +53,7 @@ function _echoMoneyItem($strGroup, $fValue, $fProfit, $fConvertValue, $fConvertP
     if ($strValue != '')
     {
     	$ar[] = $strValue;
-        if ($strGroup == DISP_ALL_CN)		$ar[] = GetNumberDisplay($fConvertProfit - 2220445.73);		// woody@palmmicro.com only
+        if ($strGroup == DISP_ALL_CN)		$ar[] = GetNumberDisplay($fConvertProfit - 2315311.68);		// woody@palmmicro.com only
     }
    
     EchoTableColumn($ar);
