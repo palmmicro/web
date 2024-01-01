@@ -12,6 +12,16 @@ function ImgPalmmicroWeixin($bChinese = true)
 	return GetImgQuote('/woody/image/wx.jpg', 'Palmmicro微信公众号sz162411小狐狸二维码', 'Palmmicro weixin public account sz162411 small fox QR code', $bChinese);
 }
 
+function ImgWoodyHomepage($bChinese = true)
+{
+	return GetImgQuote('/woody/image/iwantyou.jpg', '天生会摆酷', 'Be cool', $bChinese);
+}
+
+function ImgWoodyBike($bChinese = true)
+{
+	return GetImgQuote('/woody/image/mybike.jpg', '2007年早春，我的宝马。', 'Early spring of 2007, my precious bike.', $bChinese);
+}
+
 function ImgWoody20060701($bChinese = true)
 {
 	return GetImgQuote('/woody/myphoto/2006/baihuashan.jpg', '2006年7月1日绿野百花山', 'July 1, 2006. Baihua Mountain.', $bChinese);

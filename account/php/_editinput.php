@@ -452,7 +452,7 @@ function EchoAll($bChinese = true)
     _echoInputResult($acct, $strPage, $strInput, $bChinese);
     _echoInputRelated($strPage, $bChinese);
 
-	$str = GetCategoryLinks(GetAccountToolArray($bChinese), ACCT_PATH, $bChinese);
+	$str = GetAccountToolLinks($bChinese);
 	if ($bChinese)	$str .= ' '.GetDevGuideLink($strPage).'<br />'.GetStockCategoryLinks();
     EchoParagraph($str);
 }

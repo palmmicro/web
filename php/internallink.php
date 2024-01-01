@@ -46,7 +46,7 @@ define('ACCOUNT_TOOL_LINEAR_CN', '线性回归');
 define('ACCOUNT_TOOL_PRIME_CN', '分解质因数');
 define('ACCOUNT_TOOL_SINAJS_CN', '新浪股票接口');
 
-function GetAccountToolArray($bChinese = true)
+function _getAccountToolArray($bChinese = true)
 {
 	if ($bChinese)
 	{
@@ -79,9 +79,14 @@ function GetAccountToolArray($bChinese = true)
 	return $ar;
 }
 
+function GetAccountToolLinks($bChinese = true)
+{
+	return GetCategoryLinks(_getAccountToolArray($bChinese), ACCT_PATH, $bChinese);
+}
+
 function GetAccountToolStr($strPage, $bChinese = true)
 {
-    $ar = GetAccountToolArray($bChinese);
+    $ar = _getAccountToolArray($bChinese);
 	return $ar[$strPage];
 }
 

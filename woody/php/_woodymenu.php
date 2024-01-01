@@ -8,14 +8,19 @@ function GetBlogMenuArray($bChinese)
     return $arName;
 }
 
+function GetBlogMenuLinks($bChinese = true)
+{
+	return GetCategoryLinks(GetBlogMenuArray($bChinese), '/woody/blog/', $bChinese);
+}
+
 function EchoBlogMenuArray($bChinese)
 {
 	LayoutBegin();
-	$str = GetCategoryLinks(GetBlogMenuArray($bChinese), '/woody/blog/', $bChinese);
-    EchoParagraph($str);
+	EchoParagraph(GetBlogMenuLinks($bChinese));
 	LayoutEnd();
 }
 
+/*
 function UrlGetHtml($bChinese = true)
 {
     return $bChinese ? 'cn.html' : '.html';
@@ -32,13 +37,31 @@ function HtmlMenuItem($arName, $iLevel, $strItem, $bChinese)
         }
     }
 }
+*/
 
-function WoodyMenuItem($iLevel, $strItem, $bChinese = true)
+function PhpMenuItem($arName, $iLevel, $strItem, $bChinese)
+{
+    foreach ($arName as $strKey => $strDisplay)
+    {
+        if ($strItem == $strKey)
+        {
+          	MenuWriteItemLink($iLevel, $strItem, UrlGetPhp($bChinese), $strDisplay);
+        	break;
+        }
+    }
+}
+
+function GetWoodyMenuArray($bChinese)
 {
     if ($bChinese)  $arName = array('index' => '资源共享', 'image' => '相片',  'blog' => '网络日志'); 
     else              $arName = array('index' => 'Resource', 'image' => 'Image', 'blog' => 'Blog');
-    
-    HtmlMenuItem($arName, $iLevel, $strItem, $bChinese);
+    return $arName;
+}
+
+function WoodyMenuItem($iLevel, $strItem, $bChinese = true)
+{
+//    HtmlMenuItem(GetWoodyMenuArray($bChinese), $iLevel, $strItem, $bChinese);
+    PhpMenuItem(GetWoodyMenuArray($bChinese), $iLevel, $strItem, $bChinese);
 }
 
 ?>
