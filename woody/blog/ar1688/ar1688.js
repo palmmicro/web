@@ -6,7 +6,7 @@ function NavigateAr1688()
     var iLevel = 2;
     
 	NavBegin();
-	WoodyMenuItem(iLevel, "index");
+	WoodyMenuItem(iLevel, "blog");
 	NavContinueNewLine();
 	BlogMenuItem(iLevel - 1, "ar1688");
 	NavContinueNewLine();

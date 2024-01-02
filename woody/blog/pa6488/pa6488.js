@@ -6,7 +6,7 @@ function NavigatePa6488()
     var iLevel = 2;
     
 	NavBegin();
-	WoodyMenuItem(iLevel, "index");
+	WoodyMenuItem(iLevel, "blog");
 	NavContinueNewLine();
 	BlogMenuItem(iLevel - 1, "pa6488");
 	NavContinueNewLine();

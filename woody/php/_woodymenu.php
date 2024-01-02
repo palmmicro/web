@@ -16,7 +16,7 @@ function GetBlogMenuLinks($bChinese = true)
 function EchoBlogMenuArray($bChinese)
 {
 	LayoutBegin();
-	EchoParagraph(GetBlogMenuLinks($bChinese));
+	EchoParagraph(GetBlogMenuLinks($bChinese).'<br />'.GetWoodyMenuLinks($bChinese));
 	LayoutEnd();
 }
 
@@ -63,5 +63,16 @@ function WoodyMenuItem($iLevel, $strItem, $bChinese = true)
 //    HtmlMenuItem(GetWoodyMenuArray($bChinese), $iLevel, $strItem, $bChinese);
     PhpMenuItem(GetWoodyMenuArray($bChinese), $iLevel, $strItem, $bChinese);
 }
+
+function GetWoodyMenuLinks($bChinese = true)
+{
+	return GetCategoryLinks(GetWoodyMenuArray($bChinese), '/woody/', $bChinese);
+}
+
+function GetWoodyMenuParagraph($bChinese = true)
+{
+	return GetHtmlElement(GetWoodyMenuLinks($bChinese));
+}
+
 
 ?>

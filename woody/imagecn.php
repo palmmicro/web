@@ -14,6 +14,7 @@ function GetMetaDescription()
 function EchoAll()
 {
 	$strImage = ImgWoodyBike();
+	$strMenu = GetWoodyMenuParagraph();
 	
     echo <<<END
 <p>个人相册：<a href="myphoto/photo2015cn.php">2015</a> <a href="myphoto/photo2014cn.php">2014</a> <a href="myphoto/photo2012cn.php">2012</a> <a href="myphoto/photo2011cn.php">2011</a>
@@ -32,6 +33,7 @@ function EchoAll()
 
 <p>$strImage
 </p>
+$strMenu
 END;
 }
 

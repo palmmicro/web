@@ -15,6 +15,7 @@ function EchoAll($bChinese)
 {
 	$strAccount = GetAccountToolLinks($bChinese);
 	$strImage = ImgWoodyHomepage($bChinese);
+	$strMenu = GetWoodyMenuParagraph($bChinese);
 	
     echo <<<END
 <p>My Tool Software
@@ -28,6 +29,7 @@ function EchoAll($bChinese)
 
 <p>$strImage
 </p>
+$strMenu
 END;
 }
 

@@ -14,6 +14,7 @@ function GetMetaDescription()
 function EchoAll()
 {
 	$strCategory = GetBlogMenuLinks();
+	$strMenu = GetWoodyMenuParagraph();
 	
     echo <<<END
 <p>分类：$strCategory
@@ -139,6 +140,7 @@ function EchoAll()
 <br />2006年9月29日 <a href="blog/ar1688/20060929cn.php">软件升级</a>
 <br />2006年9月28日 <a href="blog/ar1688/20060928cn.php">什么是AR1688</a>
 </p>
+$strMenu
 END;
 }
 

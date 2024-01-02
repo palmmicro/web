@@ -14,6 +14,7 @@ function GetMetaDescription($bChinese)
 function EchoAll($bChinese)
 {
 	$strCategory = GetBlogMenuLinks($bChinese);
+	$strMenu = GetWoodyMenuParagraph($bChinese);
 	
     echo <<<END
 <p>Category: $strCategory 
@@ -139,6 +140,7 @@ function EchoAll($bChinese)
 <br />Sep 29, 2006 <a href="blog/ar1688/20060929.php">Firmware Upgrade</a>
 <br />Sep 28, 2006 <a href="blog/ar1688/20060928.php">What is AR1688</a>
 </p>
+$strMenu
 END;
 }
 

@@ -14,6 +14,7 @@ function GetMetaDescription($bChinese)
 function EchoAll($bChinese)
 {
 	$strImage = ImgWoodyBike($bChinese);
+	$strMenu = GetWoodyMenuParagraph($bChinese);
 	
     echo <<<END
 <p>Album of myself: <a href="myphoto/photo2015.php">2015</a> <a href="myphoto/photo2014.php">2014</a> <a href="myphoto/photo2012.php">2012</a> <a href="myphoto/photo2011.php">2011</a>
@@ -31,6 +32,7 @@ function EchoAll($bChinese)
 
 <p>$strImage
 </p>
+$strMenu
 END;
 }
 

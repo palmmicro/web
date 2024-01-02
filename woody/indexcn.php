@@ -17,6 +17,7 @@ function EchoAll()
 	$strStock = GetStockCategoryLinks();
 	$strAccount = GetAccountToolLinks();
 	$strImage = ImgWoodyHomepage();
+	$strMenu = GetWoodyMenuParagraph();
 	
     echo <<<END
 <p>我的股票软件
@@ -39,6 +40,7 @@ function EchoAll()
 
 <p>$strImage
 </p>
+$strMenu
 END;
 }
 

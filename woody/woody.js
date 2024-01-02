@@ -22,11 +22,11 @@ function WoodyMenuItem(iLevel, strItem)
         {
             if (FileIsEnglish())
             {
-            	NavWriteItemLink(iLevel, strItem, FileTypeHtml(), _arMenu0Names[i]);
+            	NavWriteItemLink(iLevel, strItem, FileTypePhp(), _arMenu0Names[i]);
             }
             else
             {
-            	NavWriteItemLink(iLevel, strItem, FileTypeCnHtml(), _arMenu0CnNames[i]);
+            	NavWriteItemLink(iLevel, strItem, FileTypeCnPhp(), _arMenu0CnNames[i]);
             }
         	break;
         }
