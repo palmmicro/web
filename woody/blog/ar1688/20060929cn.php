@@ -18,7 +18,7 @@
 <body bgproperties=fixed leftmargin=0 topmargin=0>
 <table width=100% height=105 order=0 cellpadding=0 cellspacing=0 bgcolor=#049ACC>
 <tr>
-<td width=780 height=105 align=left valign=top><a href="/woody/"><img src=../../image/image.jpg alt="Woody Home Page" /></a></td>
+<td width=780 height=105 align=left valign=top><a href="/"><img src=/image/image_palmmicro.jpg alt="Palmmicro Name Logo" /></a></td>
 <td align=left valign=top></td>
 </tr>
 </table>
