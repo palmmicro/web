@@ -9,9 +9,9 @@ define('BLOG_COMMENT_EDIT_CN', '修改评论');
 
 class EditCommentAccount extends CommentAccount
 {
-	function EditCommentAccount() 
+	public function __construct() 
     {
-        parent::CommentAccount('edit', array('editcomment'));
+        parent::__construct('edit', array('editcomment'));
     }
 
     function _getEditComment()

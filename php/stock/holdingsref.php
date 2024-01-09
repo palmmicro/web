@@ -98,8 +98,16 @@ class HoldingsReference extends MyStockReference
     
     function GetAdjustCny($strDate = false)
     {
-		$fOldUSDCNY = floatval($this->uscny_ref->GetClose($this->strHoldingsDate));
 		$fUSDCNY = floatval($this->uscny_ref->GetPrice());
+		if ($strOldUSDCNY = $this->uscny_ref->GetClose($this->strHoldingsDate))
+		{
+			$fOldUSDCNY = floatval($strOldUSDCNY);
+		}
+		else
+		{
+			$fOldUSDCNY = $fUSDCNY;
+		}
+		
 		if ($strDate)
 		{
 			if ($strUSDCNY = $this->uscny_ref->GetClose($strDate))		$fUSDCNY = floatval($strUSDCNY);

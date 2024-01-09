@@ -157,7 +157,9 @@ function EchoAll()
     $hkcny_ref = $ref->GetHkcnyRef();
     
 	EchoHoldingsEstParagraph($ref);
-    EchoReferenceParagraph(array_merge($acct->GetStockRefArray(), $ref->GetHoldingRefArray(), array($acct->cnh_ref, $uscny_ref, $hkcny_ref)), $acct->IsAdmin());
+    EchoReferenceParagraph(array_merge($acct->GetStockRefArray(), 
+    									//$ref->GetHoldingRefArray(), 
+    									array($acct->cnh_ref, $uscny_ref, $hkcny_ref)), $acct->IsAdmin());
     
 	if ($us_ref)
 	{

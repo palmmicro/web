@@ -7,9 +7,9 @@ class StockAccount extends TitleAccount
     var $group_sql;
     var $ref = false;		// MysqlReference class
     
-    function StockAccount($strQueryItem = false, $arLoginTitle = false) 
+    public function __construct($strQueryItem = false, $arLoginTitle = false) 
     {
-        parent::TitleAccount($strQueryItem, $arLoginTitle);
+        parent::__construct($strQueryItem, $arLoginTitle);
         
         $this->strName = StockGetSymbol($this->GetPage());
 	    $this->group_sql = new StockGroupSql();
@@ -111,15 +111,16 @@ class StockAccount extends TitleAccount
     function EchoLinks($strVer = false, $callback = false)
     {
     	$strNewLine = GetBreakElement();
-    	$bAdmin = $this->IsAdmin(); 
+    	$strWeixinPay = GetHtmlElement(GetWeixinPay());
+    	$bAdmin = $this->IsAdmin();
     	
-    	EchoHeadLine('相关链接');
     	$str = GetStockCategoryLinks().$strNewLine.GetAutoTractorLink().' '.GetAccountToolLink('simpletest').' '.GetDevGuideLink($strVer).' '.GetWoodyMenuLinks().$strNewLine;
 		if ($strLoginId = $this->GetLoginId())
     	{
     		$str .= GetMyPortfolioLink().$this->_getPersonalLinks($strLoginId);
     		if ($bAdmin)
     		{
+    			$strWeixinPay = '';
 				$strMemberId = $this->GetMemberId();
     			if (method_exists($this, 'GetGroupId'))
     			{
@@ -136,9 +137,15 @@ class StockAccount extends TitleAccount
     		$str .= call_user_func($callback, $ref);
     	}
     	else	$str .= GetCategoryLinks(GetStockCategoryArray());
-    	EchoParagraph($str);
-//    	_echoRandomPromotion();
-		if (!$bAdmin)		LayoutWeixinPay();
+    	
+		$strHead = GetHeadElement('相关链接');
+		$str = GetHtmlElement($str);
+		echo <<<END
+			
+	$strHead
+	$str
+	$strWeixinPay
+END;
     }
     
     function IsGroupReadOnly($strGroupId)

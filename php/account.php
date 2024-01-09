@@ -34,7 +34,7 @@ class Account
 
     var $bAllowCurl;
     
-    function Account() 
+    public function __construct() 
     {
     	session_start();
     	SqlConnectDatabase();
@@ -240,9 +240,9 @@ class TitleAccount extends Account
     var $iStart;
     var $iNum;
     
-    function TitleAccount($strQueryItem = false, $arLoginTitle = false) 
+    public function __construct($strQueryItem = false, $arLoginTitle = false) 
     {
-        parent::Account();
+        parent::__construct();
     	$this->strPage = UrlGetPage();
     	if ($arLoginTitle)
     	{

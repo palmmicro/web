@@ -172,9 +172,9 @@ function DeleteOldChinaStock($arSymbolId)
 
 class _AdminChinaStockAccount extends TitleAccount
 {
-    function _AdminChinaStockAccount() 
+    public function __construct() 
     {
-        parent::TitleAccount('node');
+        parent::__construct('node');
     }
 
     function _updateAhPairSql($strNode, $iCount)

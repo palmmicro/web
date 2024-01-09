@@ -3,7 +3,7 @@ require_once('ui/stocktable.php');
 require_once('stock/stocksymbol.php');
 
 define('OIL_GROUP_DISPLAY', '原油');
-define('COMMODITY_GROUP_DISPLAY', '大宗商品');
+define('COMMODITY_GROUP_DISPLAY', '大宗商品和黄金');
 define('CHINAINTERNET_GROUP_DISPLAY', '中丐互怜');
 define('QQQ_GROUP_DISPLAY', '纳斯达克100');
 define('SPY_GROUP_DISPLAY', '标普500');

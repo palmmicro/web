@@ -4,11 +4,6 @@ require_once('_editcommentform.php');
 
 class _SubmitCommentAccount extends EditCommentAccount
 {
-	function _SubmitCommentAccount() 
-    {
-        parent::EditCommentAccount();
-    }
-
     function _canModifyComment($strId, $comment_sql)
     {
     	if ($record = $comment_sql->GetRecordById($strId))

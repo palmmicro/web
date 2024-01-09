@@ -5,7 +5,7 @@ class GroupIdAccount extends StockAccount
 {
     function GroupIdAccount() 
     {
-        parent::StockAccount('groupid');
+        parent::__construct('groupid');
     }
     
     function GetGroupId()

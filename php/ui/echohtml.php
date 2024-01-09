@@ -1,22 +1,12 @@
 <?php
 
-function EchoHtmlElement($str, $strElement)
+function EchoParagraph($str)
 {
-	$str = GetHtmlElement($str, $strElement);
+	$str = GetHtmlElement($str);
     echo <<<END
 
 	$str
 END;
-}
-
-function EchoHeadLine($str)
-{
-	EchoHtmlElement($str, 'h3');
-}
-
-function EchoParagraph($str)
-{
-	EchoHtmlElement($str, 'p');
 }
 
 function EchoDocType()
@@ -42,11 +32,16 @@ END;
 
 function EchoHead($bChinese = true)
 {
-	echo '<meta http-equiv="content-type" content="text/html; charset=UTF-8">';
-	EchoHtmlElement(GetTitle($bChinese), 'title');
-	echo '<meta name="description" content="'.GetMetaDescription($bChinese).'">';
+	$strTitle = GetHtmlElement(GetTitle($bChinese), 'title');
+	$strMeta = GetMetaDescription($bChinese);
+    echo <<<END
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+$strTitle
+<meta name="description" content="$strMeta">
+<link href="/common/style.css" rel="stylesheet" type="text/css" />
+END;
+
 	EchoInsideHead();
-	echo '<link href="/common/style.css" rel="stylesheet" type="text/css" />';
 }
 
 function EchoBody($bChinese = true, $bDisplay = true)
@@ -55,7 +50,11 @@ function EchoBody($bChinese = true, $bDisplay = true)
 	_LayoutTopLeft($bChinese, $bAdsense);
 	
 	LayoutBegin();
-	EchoHtmlElement(GetTitle($bChinese), 'h1');
+	$strHead = GetHtmlElement(GetTitle($bChinese), 'h1');
+    echo <<<END
+	
+    $strHead
+END;
 	EchoAll($bChinese);
 	LayoutEnd();
 	

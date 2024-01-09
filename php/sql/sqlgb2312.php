@@ -70,7 +70,7 @@ function get_first_pin_yin($str)
 
 class GB2312Sql extends TableSql
 {
-    function GB2312Sql() 
+    public function __construct() 
     {
         parent::TableSql('gb2312');
     }
@@ -108,15 +108,15 @@ class GB2312Sql extends TableSql
     	$iCount = 0;
     	for ($i = 0; $i < strlen($str); $i++)
     	{
-    		$iChar1 = ord($str{$i});
+    		$iChar1 = ord($str[$i]);
     		if ($iChar1 < 0x80)		continue;
 		
     		if (($iChar1 & 0xE0) == 0xE0) 
     		{	// 第一个字节判断通过
-    			$iChar2 = ord($str{$i + 1});
+    			$iChar2 = ord($str[$i + 1]);
     			if (($iChar2 & 0x80) == 0x80) 
     			{	// 第二个字节判断通过
-    				$iChar3 = ord($str{$i + 2});
+    				$iChar3 = ord($str[$i + 2]);
     				if (($iChar3 & 0x80) == 0x80)
     				{	// 的确是UTF-8	
     					$iUtf = ($iChar1 & 0x1F) << 12;

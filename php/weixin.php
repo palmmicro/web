@@ -2,7 +2,7 @@
 require('_wxprivate.php');
 
 // 微信公众号公共模板, 返回输入信息
-define('WX_DEBUG_VER', '版本171');		
+define('WX_DEBUG_VER', '版本172');		
 
 define('BOT_EOL', "\r\n");
 define('MAX_BOT_MSG_LEN', 2048);

@@ -17,7 +17,7 @@ function HexView($strInput)
 	$str = '<br />Hex: ';
    	for ($i = 0; $i < strlen($strInput); $i++)
    	{
-   		$iChar = ord($strInput{$i});
+   		$iChar = ord($strInput[$i]);
    		$str .= sprintf('%02X, ', $iChar);
    	}
    	return rtrim($str, ', ');

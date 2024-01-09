@@ -12,7 +12,7 @@ function _wxDebug($strUserName, $strText, $strSubject)
 
 function _wxEmailInfo()
 {
-	return '发往'.ADMIN_EMAIL.'邮箱。(目前邮箱系统异常，请在雪球上联系woody1234)'.BOT_EOL;
+	return '发往'.ADMIN_EMAIL.'邮箱。'.BOT_EOL;
 }
 
 class WeixinStock extends WeixinCallback

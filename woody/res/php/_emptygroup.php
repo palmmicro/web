@@ -2,9 +2,9 @@
 
 class SymbolAccount extends StockAccount
 {
-    function SymbolAccount() 
+    public function __construct() 
     {
-        parent::StockAccount('symbol');
+        parent::__construct('symbol');
 
         if ($this->GetQuery() == false)
         {

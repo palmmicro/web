@@ -13,9 +13,9 @@ class CommentAccount extends TitleAccount
 {
 	var $comment_sql;
 	
-    function CommentAccount($strQueryItem = false, $arLoginTitle = false) 
+    public function __construct($strQueryItem = false, $arLoginTitle = false) 
     {
-        parent::TitleAccount($strQueryItem, $arLoginTitle);
+        parent::__construct($strQueryItem, $arLoginTitle);
         $this->comment_sql = new PageCommentSql();
     }
     

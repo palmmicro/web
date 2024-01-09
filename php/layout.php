@@ -21,33 +21,6 @@ function LayoutIsMobilePhone()
 }
 
 /*
-function _echoRandomPromotion()
-{
-	$iVal = rand(1, 3);
-	switch ($iVal)
-	{
-	case 1:
-		LayoutPromotion('iwantyou', 'IB盈透证券推荐开户链接：');
-		break;
-        	
-	case 2:
-		LayoutWeixinPay();
-		break;
-
-	case 3:
-		LayoutPromotion('dongfang');
-		break;
-		
-	case 4:
-		LayoutPromotion('huabao');
-		break;
-		
-	case 5:
-		LayoutPromotion('yinhe', '著名网红营业部开户。请联系客服调整佣金 -- QQ:2531998595 微信:yhzqjn3');
-		break;
-	}
-}
-
 function LayoutPromotion($str, $strText = '')
 {
 	switch ($str)
@@ -80,7 +53,7 @@ END;
 }
 */
 
-function LayoutWeixinPay($bRandom = true)
+function GetWeixinPay($bRandom = true)
 {
 	$iVal = $bRandom ? rand(1, 2) : 1;
 	switch ($iVal)
@@ -96,11 +69,7 @@ function LayoutWeixinPay($bRandom = true)
 		break;
 	}
 	
-    echo <<<END
-
-    <p>$strImage
-    	<br />$strText</p>
-END;
+	return $strImage.'<br />'.$strText;
 }
 
 function LayoutScreenWidthOk()
@@ -229,7 +198,7 @@ END;
 function _echoWeixinPay($bRandom = true)
 {
 	LayoutBegin();
-	LayoutWeixinPay($bRandom);
+	EchoParagraph(GetWeixinPay($bRandom));
 	LayoutEnd();
 }
 
