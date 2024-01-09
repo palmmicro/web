@@ -12,9 +12,9 @@ define('HSTECH_GROUP_DISPLAY', '恒生科技指数');
 define('HSHARES_GROUP_DISPLAY', 'H股中国企业指数');
 
 define('CHINA_INDEX_DISPLAY', 'A股指数');
-define('QDII_DISPLAY', 'QDII工具');
+define('QDII_DISPLAY', '美股QDII');
 define('QDII_MIX_DISPLAY', '混合QDII');
-define('QDII_HK_DISPLAY', '香港QDII');
+define('QDII_HK_DISPLAY', '港股QDII');
 define('QDII_JP_DISPLAY', '日本QDII');
 define('QDII_EU_DISPLAY', '欧洲QDII');
 

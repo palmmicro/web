@@ -25,9 +25,9 @@ class MyPairReference extends MyStockReference
 
     var $fRatio;
 	
-    function MyPairReference($strSymbol) 
+    public function __construct($strSymbol) 
     {
-        parent::MyStockReference($strSymbol);
+        parent::__construct($strSymbol);
         if ($this->pair_sql)
         {
         	if ($strPair = $this->pair_sql->GetPairSymbol($strSymbol))	
@@ -133,28 +133,28 @@ class MyPairReference extends MyStockReference
 
 class AbPairReference extends MyPairReference
 {
-    function AbPairReference($strSymbolA) 
+    public function __construct($strSymbolA) 
     {
         $this->pair_sql = new AbPairSql();
-        parent::MyPairReference($strSymbolA);
+        parent::__construct($strSymbolA);
     }
 }
 
 class AdrPairReference extends MyPairReference
 {
-    function AdrPairReference($strAdr) 
+    public function __construct($strAdr) 
     {
         $this->pair_sql = new AdrPairSql();
-        parent::MyPairReference($strAdr);
+        parent::__construct($strAdr);
     }
 }
 
 class AhPairReference extends MyPairReference
 {
-    function AhPairReference($strSymbolA) 
+    public function __construct($strSymbolA) 
     {
         $this->pair_sql = new AhPairSql();
-        parent::MyPairReference($strSymbolA);
+        parent::__construct($strSymbolA);
     }
 }
 
@@ -169,10 +169,10 @@ class FundPairReference extends MyPairReference
     
     var $strOfficialDate;	// Official net value est date
  
-    function FundPairReference($strSymbol) 
+    public function __construct($strSymbol) 
     {
         $this->pair_sql = new FundPairSql();
-        parent::MyPairReference($strSymbol);
+        parent::__construct($strSymbol);
         
        	$this->nav_ref = new NetValueReference($strSymbol);
        	if ($strDate = $this->_onCalibration($strSymbol))

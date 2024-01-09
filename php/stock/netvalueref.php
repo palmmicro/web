@@ -4,9 +4,9 @@ class NetValueReference extends MysqlReference
 {
 	var $fund_est_sql;
 	
-    function NetValueReference($strSymbol) 
+    public function __construct($strSymbol) 
     {
-        parent::MysqlReference($strSymbol);
+        parent::__construct($strSymbol);
         
        	$this->fund_est_sql = new FundEstSql();
         if ($this->IsFundA())

@@ -60,7 +60,7 @@ class MaxMin
     var $fMax;
     var $fMin;
     
-    function MaxMin() 
+    public function __construct() 
     {
         $this->fMax = false;
         $this->fMin = false;

@@ -12,7 +12,7 @@ class MultiCurrency
     var $fConvertHKD;
     var $fConvertUSD;
     
-    function MultiCurrency() 
+    public function __construct() 
     {
         $this->fCNY = 0.0;
         $this->fHKD = 0.0;

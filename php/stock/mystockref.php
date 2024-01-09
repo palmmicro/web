@@ -2,9 +2,9 @@
 
 class MyStockReference extends MysqlReference
 {
-    function MyStockReference($strSymbol) 
+    public function __construct($strSymbol) 
     {
-        parent::MysqlReference($strSymbol);
+        parent::__construct($strSymbol);
         
     	if ($strStockId = $this->GetStockId())
    		{

@@ -10,9 +10,9 @@ class MysqlReference extends StockReference
     
     var $iNavCount = 0;
     
-    function MysqlReference($strSymbol) 
+    public function __construct($strSymbol) 
     {
-        parent::StockReference($strSymbol);
+        parent::__construct($strSymbol);
 		$this->SetTimeZone();
         $this->LoadData();
 

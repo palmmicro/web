@@ -373,7 +373,7 @@ class StockHistory
     	return false;
     }
     
-    function StockHistory($ref) 
+    public function __construct($ref) 
     {
         $this->stock_ref = $ref;
         $this->aiNum = array(5, 10, 20);

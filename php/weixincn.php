@@ -17,7 +17,7 @@ function _wxEmailInfo()
 
 class WeixinStock extends WeixinCallback
 {
-    function WeixinStock() 
+    public function __construct() 
     {
     	SqlConnectDatabase();
     }

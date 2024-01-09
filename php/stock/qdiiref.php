@@ -139,9 +139,9 @@ class _QdiiReference extends FundReference
 {
     var $strOfficialCNY = false;
     
-    function _QdiiReference($strSymbol, $strForex)
+    public function __construct($strSymbol, $strForex)
     {
-        parent::FundReference($strSymbol);
+        parent::__construct($strSymbol);
         $this->SetForex($strForex);
     }
     
@@ -305,9 +305,9 @@ class _QdiiReference extends FundReference
 
 class QdiiReference extends _QdiiReference
 {
-    function QdiiReference($strSymbol)
+    public function __construct($strSymbol)
     {
-        parent::_QdiiReference($strSymbol, 'USCNY');
+        parent::__construct($strSymbol, 'USCNY');
         
         if ($strEstSymbol = QdiiGetEstSymbol($strSymbol))
         {
@@ -328,9 +328,9 @@ class QdiiReference extends _QdiiReference
 
 class QdiiHkReference extends _QdiiReference
 {
-    function QdiiHkReference($strSymbol)
+    public function __construct($strSymbol)
     {
-        parent::_QdiiReference($strSymbol, 'HKCNY');
+        parent::__construct($strSymbol, 'HKCNY');
         
         if ($strEstSymbol = QdiiHkGetEstSymbol($strSymbol))
         {
@@ -347,9 +347,9 @@ class QdiiHkReference extends _QdiiReference
 
 class QdiiJpReference extends _QdiiReference
 {
-    function QdiiJpReference($strSymbol)
+    public function __construct($strSymbol)
     {
-        parent::_QdiiReference($strSymbol, 'JPCNY');
+        parent::__construct($strSymbol, 'JPCNY');
         
         if ($strEstSymbol = QdiiJpGetEstSymbol($strSymbol))
         {
@@ -366,9 +366,9 @@ class QdiiJpReference extends _QdiiReference
 
 class QdiiEuReference extends _QdiiReference
 {
-    function QdiiEuReference($strSymbol)
+    public function __construct($strSymbol)
     {
-        parent::_QdiiReference($strSymbol, 'EUCNY');
+        parent::__construct($strSymbol, 'EUCNY');
         
         if ($strEstSymbol = QdiiEuGetEstSymbol($strSymbol))
         {

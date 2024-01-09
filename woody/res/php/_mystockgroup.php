@@ -191,7 +191,7 @@ function _getTitleStr($strPage)
 			  	  'hshares' => HSHARES_GROUP_DISPLAY.$strTool,
 			  	  'hstech' => HSTECH_GROUP_DISPLAY.$strTool,
 			  	  'oilfund'	=> OIL_GROUP_DISPLAY.$strTool,
-			  	  'qdii' => QDII_DISPLAY,
+			  	  'qdii' => QDII_DISPLAY.$strTool,
 			  	  'qdiieu' => QDII_EU_DISPLAY.$strTool,
 			  	  'qdiihk' => QDII_HK_DISPLAY.$strTool,
 			  	  'qdiijp' => QDII_JP_DISPLAY.$strTool,

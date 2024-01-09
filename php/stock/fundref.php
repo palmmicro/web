@@ -33,9 +33,9 @@ class FundReference extends MysqlReference
     var $fund_est_sql = false;
     var $calibration_sql = false;
     
-    function FundReference($strSymbol) 
+    public function __construct($strSymbol) 
     {
-        parent::MysqlReference($strSymbol);
+        parent::__construct($strSymbol);
 
         if ($this->IsFundA())
         {

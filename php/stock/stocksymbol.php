@@ -982,7 +982,7 @@ class StockSymbol
         return $this->strSymbol;
     }
     
-    function StockSymbol($strSymbol)
+    public function __construct($strSymbol)
     {
         $this->strSymbol = $strSymbol;
     }

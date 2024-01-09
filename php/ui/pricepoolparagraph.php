@@ -95,7 +95,7 @@ function _echoPricePoolItem($str, $goal)
 END;
 }
 
-function _echoPricePoolParagraph($pool, $strSymbol, $strTradingSymbol = '', $arColumnEx, $arRow)
+function _echoPricePoolParagraph($pool, $strSymbol, $strTradingSymbol, $arColumnEx, $arRow)
 {
     $arColumn = array($strSymbol.'交易', '天数');
 

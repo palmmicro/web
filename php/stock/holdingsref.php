@@ -12,9 +12,9 @@ class HoldingsReference extends MyStockReference
     var $strHoldingsDate;
     var $arHoldingsRatio = array();
     
-    function HoldingsReference($strSymbol) 
+    public function __construct($strSymbol) 
     {
-        parent::MyStockReference($strSymbol);
+        parent::__construct($strSymbol);
        	$this->nav_ref = new NetValueReference($strSymbol);
    		$this->hkcny_ref = new CnyReference('HKCNY');
    		$this->uscny_ref = new CnyReference('USCNY');

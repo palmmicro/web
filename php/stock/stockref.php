@@ -75,9 +75,9 @@ class StockReference extends StockSymbol
     var $bHasData = true;
     var $extended_ref = false;          // US stock extended trading StockReference
     
-    function StockReference($strSymbol)
+    public function __construct($strSymbol)
     {
-		parent::StockSymbol($strSymbol);
+		parent::__construct($strSymbol);
         $this->strConfigName = DebugGetConfigFileName($this->GetSymbol());
     }
 
@@ -476,9 +476,9 @@ class StockReference extends StockSymbol
 
 class ExtendedTradingReference extends StockReference
 {
-    function ExtendedTradingReference($ar, $strSymbol)
+    public function __construct($ar, $strSymbol)
     {
-        parent::StockReference($strSymbol);
+        parent::__construct($strSymbol);
         
         $this->strExternalLink = GetYahooNavLink($strSymbol);
         $this->strPrice = $ar[21];

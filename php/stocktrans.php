@@ -7,7 +7,7 @@ class StockTransaction
     var $fTotalCost;            // Total cost of stock shares
     var $iTotalRecords;
 
-    function StockTransaction() 
+    public function __construct() 
     {
         $this->SetValue();
     }
@@ -59,7 +59,7 @@ class MyStockTransaction extends StockTransaction
     var $strGroupId;
     var $strStockGroupItemId;
     
-    function MyStockTransaction($ref, $strGroupId = false) 
+    public function __construct($ref, $strGroupId = false) 
     {
         $this->ref = $ref;
         $this->strGroupId = $strGroupId;
@@ -71,7 +71,7 @@ class MyStockTransaction extends StockTransaction
             	$this->strStockGroupItemId = $sql->GetId($ref->GetStockId());
             }
         }
-        parent::StockTransaction();
+        parent::__construct();
     }
 
     function GetRef()

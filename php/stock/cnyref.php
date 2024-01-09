@@ -34,7 +34,7 @@ class HkdUsdReference
 	var $uscny_ref;
 	var $hkcny_ref;
     
-    function HkdUsdReference()
+    public function __construct()
     {
    		$this->uscny_ref = new CnyReference('USCNY');
    		$this->hkcny_ref = new CnyReference('HKCNY');

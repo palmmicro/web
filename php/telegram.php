@@ -3,7 +3,7 @@ require('_tgprivate.php');
 require_once('stockbot.php');
 
 // 电报公共模板, 返回输入信息
-define('TG_DEBUG_VER', '版本017');		
+define('TG_DEBUG_VER', '版本018');		
 
 define('BOT_EOL', "\r\n");
 define('MAX_BOT_MSG_LEN', 2048);
@@ -118,7 +118,7 @@ class TelegramCallback
 
 class TelegramStock extends TelegramCallback
 {
-    function TelegramStock() 
+    public function __construct() 
     {
     	SqlConnectDatabase();
     }

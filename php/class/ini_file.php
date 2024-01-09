@@ -33,7 +33,7 @@ class  INIFile {
 	var $GROUPS = array();
 	var $CURRENT_GROUP = '';
 	
-	function INIFile($inifilename='')
+	public function __construct($inifilename='')
 	{
 		$this->INI_FILE_NAME = $inifilename;
 		if(!empty($inifilename))
