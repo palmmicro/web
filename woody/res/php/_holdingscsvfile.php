@@ -15,9 +15,9 @@ class _HoldingsCsvFile extends DebugCsvFile
 	var $his_sql;
 	var $holdings_sql;
 	
-    function _HoldingsCsvFile($strFileName, $strStockId) 
+    public function __construct($strFileName, $strStockId) 
     {
-        parent::DebugCsvFile($strFileName);
+        parent::__construct($strFileName);
         
         $this->fSum = 0.0;
         $this->strStockId = $strStockId;

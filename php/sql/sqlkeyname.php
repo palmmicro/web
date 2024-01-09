@@ -5,10 +5,10 @@ class KeyNameSql extends TableSql
 {
 	var $strKeyName;
 	
-    function KeyNameSql($strTableName, $strKeyName = 'parameter')
+    public function __construct($strTableName, $strKeyName = 'parameter')
     {
         $this->strKeyName = $strKeyName;
-        parent::TableSql($strTableName);
+        parent::__construct($strTableName);
     }
 
     function InsertKey($strKey)

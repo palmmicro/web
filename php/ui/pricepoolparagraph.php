@@ -9,7 +9,7 @@ class PriceGoal
     var $iUnchanged;
     var $iLower;
 
-    function PriceGoal() 
+    public function __construct() 
     {
         $this->iTotal = 0;
         
@@ -42,7 +42,7 @@ class PricePool
 	var $u_goal;
 	var $l_goal;
 
-    function PricePool() 
+    public function __construct() 
     {
         $this->h_goal = new PriceGoal();
         $this->u_goal = new PriceGoal();
@@ -70,9 +70,9 @@ class PricePoolCsvFile extends PageCsvFile
 {
 	var $pool;
 	
-    function PricePoolCsvFile() 
+    public function __construct() 
     {
-        parent::PageCsvFile();
+        parent::__construct();
         $this->pool = new PricePool();
     }
 }

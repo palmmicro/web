@@ -3,7 +3,7 @@ require_once('../../php/stockgroup.php');
 
 class GroupIdAccount extends StockAccount
 {
-    function GroupIdAccount() 
+    public function __construct() 
     {
         parent::__construct('groupid');
     }

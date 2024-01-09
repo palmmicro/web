@@ -3,9 +3,9 @@ require_once('sqldailyclose.php');
 
 class DailyStringSql extends DailyCloseSql
 {
-    function DailyStringSql($strTableName, $strKeyPrefix = 'stock') 
+    public function __construct($strTableName, $strKeyPrefix = 'stock') 
     {
-        parent::DailyCloseSql($strTableName, $strKeyPrefix);
+        parent::__construct($strTableName, $strKeyPrefix);
     }
 
     public function Create()

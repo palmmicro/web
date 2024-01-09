@@ -72,7 +72,7 @@ class GB2312Sql extends TableSql
 {
     public function __construct() 
     {
-        parent::TableSql('gb2312');
+        parent::__construct('gb2312');
     }
     
     function Create()

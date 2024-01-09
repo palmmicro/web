@@ -4,9 +4,9 @@ require_once('sqltable.php');
 // ****************************** StockTransactionSql class *******************************************************
 class StockTransactionSql extends TableSql
 {
-    function StockTransactionSql()
+    public function __construct()
     {
-        parent::TableSql('stocktransaction');
+        parent::__construct('stocktransaction');
     }
     
     function _buildWhereOr_groupitem($arGroupItemId)

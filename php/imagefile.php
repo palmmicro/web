@@ -26,7 +26,7 @@ class ImageFile
     var $fFontAngle;
     var $strFontFile;
     
-    function ImageFile($strPathName, $iWidth, $iHeight) 
+    public function __construct($strPathName, $iWidth, $iHeight) 
     {
         $this->strPathName = $strPathName;
         $this->iWidth = $iWidth;
@@ -154,9 +154,9 @@ class PageImageFile extends ImageFile
     var $fMaxY;
     var $fMinY = 0.0;
 
-    function PageImageFile($strIndex = '1') 
+    public function __construct($strIndex = '1') 
     {
-        parent::ImageFile(DebugGetImageName(UrlGetUniqueString().$strIndex), 640, 480);
+        parent::__construct(DebugGetImageName(UrlGetUniqueString().$strIndex), 640, 480);
     }
 
     function _getPos($f, $fMax, $fMin)

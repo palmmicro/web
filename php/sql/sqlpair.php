@@ -3,9 +3,9 @@ require_once('sqlint.php');
 
 class PairSql extends IntSql
 {
-    function PairSql($strTableName, $strIdName = 'stock')
+    public function __construct($strTableName, $strIdName = 'stock')
     {
-        parent::IntSql($strTableName, $this->Add_id($strIdName));
+        parent::__construct($strTableName, $this->Add_id($strIdName));
     }
 
     public function Create()

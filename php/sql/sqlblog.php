@@ -3,9 +3,9 @@ require_once('sqlkeyname.php');
 
 class PageSql extends KeyNameSql
 {
-    function PageSql()
+    public function __construct()
     {
-        parent::KeyNameSql(TABLE_PAGE, 'uri');
+        parent::__construct(TABLE_PAGE, 'uri');
     }
 
     function GetPageUri($strPageId)
@@ -18,10 +18,10 @@ class PageCommentSql extends VisitorSql
 {
 	var $strIpKey;
 	
-    function PageCommentSql()
+    public function __construct()
     {
     	$this->strIpKey = $this->Add_id('ip');
-        parent::VisitorSql(TABLE_PAGE_COMMENT, TABLE_PAGE, TABLE_MEMBER);
+        parent::__construct(TABLE_PAGE_COMMENT, TABLE_PAGE, TABLE_MEMBER);
     }
 
     public function Create()

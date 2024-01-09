@@ -3,9 +3,9 @@ require_once('sqlkey.php');
 
 class DailyCloseSql extends KeySql
 {
-    function DailyCloseSql($strTableName, $strKeyPrefix = 'stock') 
+    public function __construct($strTableName, $strKeyPrefix = 'stock') 
     {
-        parent::KeySql($strTableName, $strKeyPrefix);
+        parent::__construct($strTableName, $strKeyPrefix);
     }
 
     function ComposeUniqueDateStr()
@@ -189,33 +189,33 @@ class DailyCloseSql extends KeySql
 
 class StockSplitSql extends DailyCloseSql
 {
-    function StockSplitSql() 
+    public function __construct() 
     {
-        parent::DailyCloseSql(TABLE_STOCK_SPLIT);
+        parent::__construct(TABLE_STOCK_SPLIT);
     }
 }
 
 class StockDividendSql extends DailyCloseSql
 {
-    function StockDividendSql() 
+    public function __construct() 
     {
-        parent::DailyCloseSql(TABLE_STOCK_DIVIDEND);
+        parent::__construct(TABLE_STOCK_DIVIDEND);
     }
 }
 
 class SharesHistorySql extends DailyCloseSql
 {
-    function SharesHistorySql() 
+    public function __construct() 
     {
-        parent::DailyCloseSql('shareshistory');
+        parent::__construct('shareshistory');
     }
 }
 
 class SharesDiffSql extends DailyCloseSql
 {
-    function SharesDiffSql() 
+    public function __construct() 
     {
-        parent::DailyCloseSql('sharesdiff');
+        parent::__construct('sharesdiff');
     }
 }
 

@@ -48,9 +48,9 @@ class _TransAccount extends GroupIdAccount
 {
 	var $strSymbol;
 	
-    function _TransAccount() 
+    public function __construct() 
     {
-        parent::GroupIdAccount();
+        parent::__construct();
         
         $this->strSymbol = $this->StockCheckSymbol(UrlGetQueryValue('symbol'));
     }

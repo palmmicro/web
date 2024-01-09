@@ -6,11 +6,11 @@ class KeyTableSql extends TableSql
 	var $strKey;
 	var $strKeyId;
 	
-    function KeyTableSql($strTableName, $strKeyId, $strKeyPrefix) 
+    public function __construct($strTableName, $strKeyId, $strKeyPrefix) 
     {
     	$this->strKeyId = $strKeyId;
     	$this->strKey = $this->Add_id($strKeyPrefix);
-        parent::TableSql($strTableName);
+        parent::__construct($strTableName);
     }
     
     function ComposeKeyStr()

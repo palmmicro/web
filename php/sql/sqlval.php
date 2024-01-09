@@ -5,10 +5,10 @@ class ValSql extends TableSql
 {
 	var $strValName;
 	
-    function ValSql($strTableName, $strValName = 'close')
+    public function __construct($strTableName, $strValName = 'close')
     {
         $this->strValName = $strValName;
-        parent::TableSql($strTableName);
+        parent::__construct($strTableName);
     }
 
     function GetValName()
@@ -78,9 +78,9 @@ class ValSql extends TableSql
 
 class FundPositionSql extends ValSql
 {
-    function FundPositionSql()
+    public function __construct()
     {
-        parent::ValSql('fundposition');
+        parent::__construct('fundposition');
     }
 }
 

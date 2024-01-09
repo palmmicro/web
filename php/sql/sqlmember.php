@@ -6,10 +6,10 @@ class MemberSql extends KeyNameSql
 {
 	var $strIpKey;
 	
-    function MemberSql()
+    public function __construct()
     {
     	$this->strIpKey = $this->Add_id('ip');
-        parent::KeyNameSql(TABLE_MEMBER.'2', 'email');
+        parent::__construct(TABLE_MEMBER.'2', 'email');
     }
 
     public function Create()

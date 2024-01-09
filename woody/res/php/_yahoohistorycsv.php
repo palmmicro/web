@@ -14,9 +14,9 @@ class _YahooHistoryCsvFile extends DebugCsvFile
 	
 	var $strLastDate;
 	
-    function _YahooHistoryCsvFile($strFileName, $strStockId) 
+    public function __construct($strFileName, $strStockId) 
     {
-        parent::DebugCsvFile($strFileName);
+        parent::__construct($strFileName);
         
         $this->strStockId = $strStockId;
         $this->his_sql = GetStockHistorySql();

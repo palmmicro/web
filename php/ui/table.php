@@ -26,7 +26,7 @@ class TableColumn
 	var $strText;
 	var $iWidth;
 	
-	function TableColumn($strText = '', $iWidth = 80, $strColor = false, $strPrefix = false)
+	public function __construct($strText = '', $iWidth = 80, $strColor = false, $strPrefix = false)
 	{
 		$this->iWidth = $iWidth;
 		$this->strText = $strColor ? GetFontElement($strText, $strColor) : $strText;
@@ -56,9 +56,9 @@ class TableColumn
 
 class TableColumnDate extends TableColumn
 {
-	function TableColumnDate($strPrefix = false, $bChinese = true)
+	public function __construct($strPrefix = false, $bChinese = true)
 	{
-        parent::TableColumn(($bChinese ? '日期' : 'Date'), 100, false, $strPrefix);
+        parent::__construct(($bChinese ? '日期' : 'Date'), 100, false, $strPrefix);
 	}
 }
 
@@ -70,17 +70,17 @@ function GetTableColumnDate()
 
 class TableColumnIP extends TableColumn
 {
-	function TableColumnIP()
+	public function __construct()
 	{
-        parent::TableColumn('IP', 140);
+        parent::__construct('IP', 140);
 	}
 }
 
 class TableColumnTime extends TableColumn
 {
-	function TableColumnTime($bChinese = true)
+	public function __construct($bChinese = true)
 	{
-        parent::TableColumn(($bChinese ? '时间' : 'Time'), 50);
+        parent::__construct(($bChinese ? '时间' : 'Time'), 50);
 	}
 }
 

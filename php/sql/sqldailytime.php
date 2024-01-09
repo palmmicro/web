@@ -3,9 +3,9 @@ require_once('sqldailyclose.php');
 
 class DailyTimeSql extends DailyCloseSql
 {
-    function DailyTimeSql($strTableName, $strKeyPrefix = 'stock') 
+    public function __construct($strTableName, $strKeyPrefix = 'stock') 
     {
-        parent::DailyCloseSql($strTableName, $strKeyPrefix);
+        parent::__construct($strTableName, $strKeyPrefix);
     }
 
     public function Create()
@@ -40,17 +40,17 @@ class DailyTimeSql extends DailyCloseSql
 
 class FundEstSql extends DailyTimeSql
 {
-    function FundEstSql() 
+    public function __construct() 
     {
-        parent::DailyTimeSql('fundest');
+        parent::__construct('fundest');
     }
 }
 
 class CalibrationSql extends DailyTimeSql
 {
-    function CalibrationSql() 
+    public function __construct() 
     {
-        parent::DailyTimeSql('calibrationhistory');
+        parent::__construct('calibrationhistory');
     }
 }
 

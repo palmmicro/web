@@ -3,9 +3,9 @@ require_once('sqlkey.php');
 
 class HoldingsSql extends KeySql
 {
-    function HoldingsSql() 
+    public function __construct() 
     {
-        parent::KeySql('holdings', 'stock');
+        parent::__construct('holdings', 'stock');
     }
 
     public function Create()

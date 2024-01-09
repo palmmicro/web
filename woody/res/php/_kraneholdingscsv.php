@@ -5,9 +5,9 @@ class _KraneHoldingsCsvFile extends _HoldingsCsvFile
 {
 	var $bUse;
 	
-    function _KraneHoldingsCsvFile($strFileName, $strStockId, $strDate) 
+    public function __construct($strFileName, $strStockId, $strDate) 
     {
-        parent::_HoldingsCsvFile($strFileName, $strStockId);
+        parent::__construct($strFileName, $strStockId);
         $this->SetDate($strDate);
         
         $this->bUse = false;

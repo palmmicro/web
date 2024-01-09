@@ -17,9 +17,9 @@ function GetIpId($strIp)
 
 class IpSql extends TableSql
 {
-    function IpSql()
+    public function __construct()
     {
-        parent::TableSql('ip');
+        parent::__construct('ip');
     }
 
     public function Create()

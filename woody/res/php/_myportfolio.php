@@ -7,11 +7,6 @@ require_once('../../php/ui/referenceparagraph.php');
 class _MyPortfolio extends StockGroup
 {
     var $arStockGroup = array();
-    
-    function _MyPortfolio() 
-    {
-        parent::StockGroup();
-    }
 }
 
 function _transSortBySymbol($arTrans)
@@ -73,7 +68,7 @@ function _echoMergeParagraph($arMerge)
 			switch ($strSymbol)
 			{
 			case 'KWEB':
-				$ar[] = strval($iTotal + 2000 - 1361);
+				$ar[] = strval($iTotal + 2100 - 1361);
 				break;
 			}
 			RefEchoTableColumn($ref, $ar);

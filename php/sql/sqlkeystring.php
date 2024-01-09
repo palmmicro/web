@@ -6,12 +6,12 @@ class KeyStringSql extends KeySql
 	var $iMaxStringLen;
 	var $strStringName;
 	
-    function KeyStringSql($strTableName, $strKeyPrefix = TABLE_MEMBER, $strStringName = 'str', $iMaxStringLen = 32) 
+    public function __construct($strTableName, $strKeyPrefix = TABLE_MEMBER, $strStringName = 'str', $iMaxStringLen = 32) 
     {
         $this->iMaxStringLen = $iMaxStringLen;
         $this->strStringName = $strStringName;
         
-        parent::KeySql($strTableName, $strKeyPrefix);
+        parent::__construct($strTableName, $strKeyPrefix);
     }
 
     public function Create()
@@ -92,9 +92,9 @@ class KeyStringSql extends KeySql
 
 class CommonPhraseSql extends KeyStringSql
 {
-    function CommonPhraseSql() 
+    public function __construct() 
     {
-        parent::KeyStringSql('commonphrase');
+        parent::__construct('commonphrase');
     }
 }
 

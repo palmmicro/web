@@ -6,25 +6,25 @@ require_once('sqlholdings.php');
 
 class NavHistorySql extends DailyCloseSql
 {
-    function NavHistorySql() 
+    public function __construct() 
     {
-        parent::DailyCloseSql('netvaluehistory');
+        parent::__construct('netvaluehistory');
     }
 }
 
 class StockEmaSql extends DailyCloseSql
 {
-    function StockEmaSql($iDays) 
+    public function __construct($iDays) 
     {
-        parent::DailyCloseSql('stockema'.strval($iDays));
+        parent::__construct('stockema'.strval($iDays));
     }
 }
 
 class StockHistorySql extends DailyCloseSql
 {
-    function StockHistorySql() 
+    public function __construct() 
     {
-        parent::DailyCloseSql('stockhistory');
+        parent::__construct('stockhistory');
     }
 
     public function Create()
@@ -116,9 +116,9 @@ class StockSql extends KeyNameSql
     var $ema50_sql;
     var $ema200_sql;
     
-    function StockSql()
+    public function __construct()
     {
-        parent::KeyNameSql('stock', 'symbol');
+        parent::__construct('stock', 'symbol');
         
        	$this->his_sql = new StockHistorySql();
        	$this->nav_sql = new NavHistorySql();

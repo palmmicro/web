@@ -3,9 +3,9 @@ require_once('sqlval.php');
 
 class IntSql extends ValSql
 {
-    function IntSql($strTableName, $strIntName = 'num')
+    public function __construct($strTableName, $strIntName = 'num')
     {
-        parent::ValSql($strTableName, $strIntName);
+        parent::__construct($strTableName, $strIntName);
     }
 
     function CreateIntTable($strExtra = '')
@@ -34,9 +34,9 @@ class IntSql extends ValSql
 
 class FundArbitrageSql extends IntSql
 {
-    function FundArbitrageSql()
+    public function __construct()
     {
-        parent::IntSql('fundarbitrage');
+        parent::__construct('fundarbitrage');
     }
 }
 

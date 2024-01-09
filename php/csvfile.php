@@ -8,7 +8,7 @@ class CsvFile
     var $strSeparator;
     var $strReport;
     
-    function CsvFile($strPathName) 
+    public function __construct($strPathName) 
     {
         $this->strPathName = $strPathName;
         $this->file = false;
@@ -106,10 +106,10 @@ class CsvFile
 
 class DebugCsvFile extends CsvFile
 {
-    function DebugCsvFile($strFileName) 
+    public function __construct($strFileName) 
     {
     	$strPath = DebugGetPath('csv');				// test.php calls DebugClearPath('csv') to delete all DebugCsvFile
-        parent::CsvFile("$strPath/$strFileName");
+        parent::__construct("$strPath/$strFileName");
     }
 }
 
@@ -118,9 +118,9 @@ class PageCsvFile extends DebugCsvFile
 	var $arColumn = array();
 	var $iColumn;
 	
-    function PageCsvFile() 
+    public function __construct() 
     {
-        parent::DebugCsvFile(UrlGetUniqueString().'.csv');
+        parent::__construct(UrlGetUniqueString().'.csv');
     }
 
     public function OnLineArray($arWord)

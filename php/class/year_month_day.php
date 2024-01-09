@@ -7,7 +7,7 @@ class YearMonthDay
     var $iTime;
     var $local;     // localtime
     
-    function YearMonthDay($iTick) 
+    public function __construct($iTick) 
     {
         $this->iTime = $iTick;
         $this->SetLocal();
@@ -125,7 +125,7 @@ class YearMonthDay
 
 class StringYMD extends YearMonthDay
 {
-    function StringYMD($strYMD)
+    public function __construct($strYMD)
     {
         $arYMD = explode('-', $strYMD);
         if (count($arYMD) != 3)
@@ -137,15 +137,15 @@ class StringYMD extends YearMonthDay
         {
         	$iTick = mktime(0, 0, 0, intval($arYMD[1]), intval($arYMD[2]), intval($arYMD[0]));
         }
-        parent::YearMonthDay($iTick);
+        parent::__construct($iTick);
     }
 }
 
 class OldestYMD extends StringYMD
 {
-    function OldestYMD()
+    public function __construct()
     {
-        parent::StringYMD('2014-01-01');
+        parent::__construct('2014-01-01');
     }
     
     function IsTooOld($strYMD)
@@ -178,11 +178,6 @@ class OldestYMD extends StringYMD
 
 class TickYMD extends YearMonthDay
 {
-    function TickYMD($iTick)
-    {
-        parent::YearMonthDay($iTick);
-    }
-    
     function GetHour()
     {
         return $this->local[2];
@@ -223,12 +218,12 @@ class NowYMD extends TickYMD
 {
     var $strTimeZone;
     
-    function NowYMD()
+    public function __construct()
     {
         $this->strTimeZone = 'PRC';
     	date_default_timezone_set($this->strTimeZone);
         
-        parent::TickYMD(time());
+        parent::__construct(time());
     }
     
     function CheckTimeZone()

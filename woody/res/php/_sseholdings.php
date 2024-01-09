@@ -3,9 +3,9 @@ require_once('_etfholdings.php');
 
 class _SseHoldingsFile extends _EtfHoldingsFile
 {
-    function _SseHoldingsFile($strFileName, $strStockId) 
+    public function __construct($strFileName, $strStockId) 
     {
-        parent::_EtfHoldingsFile($strFileName, $strStockId);
+        parent::__construct($strFileName, $strStockId);
         $this->SetSeparator('|');
     }
     

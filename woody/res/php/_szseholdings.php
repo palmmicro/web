@@ -5,9 +5,9 @@ class _SzseHoldingsFile extends _EtfHoldingsFile
 {
 	var $bUse;
 	
-    function _SzseHoldingsFile($strFileName, $strStockId) 
+    public function __construct($strFileName, $strStockId) 
     {
-        parent::_EtfHoldingsFile($strFileName, $strStockId);
+        parent::__construct($strFileName, $strStockId);
         $this->SetSeparator('?');
 
         $this->bUse = false;

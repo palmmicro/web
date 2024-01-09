@@ -11,7 +11,7 @@ class StockGroup
     
     var $strGroupId = false;
     
-    function StockGroup() 
+    public function __construct() 
     {
         $this->multi_amount = new MultiCurrency();
         $this->multi_profit = new MultiCurrency();
@@ -220,9 +220,9 @@ class MyStockGroup extends StockGroup
         }
     }
     
-    function MyStockGroup($strGroupId, $arRef) 
+    public function __construct($strGroupId, $arRef) 
     {
-        parent::StockGroup();
+        parent::__construct();
         
         $this->strGroupId = $strGroupId;
         $this->arbi_trans = false;

@@ -5,41 +5,41 @@ require_once('table.php');
 
 class TableColumnAmount extends TableColumn
 {
-	function TableColumnAmount($strPrefix = false)
+	public function __construct($strPrefix = false)
 	{
-        parent::TableColumn('金额', 120, false, $strPrefix);
+        parent::__construct('金额', 120, false, $strPrefix);
 	}
 }
 
 class TableColumnCalibration extends TableColumn
 {
-	function TableColumnCalibration()
+	public function __construct()
 	{
-        parent::TableColumn('校准值', 150);
+        parent::__construct('校准值', 150);
 	}
 }
 
 class TableColumnChange extends TableColumn
 {
-	function TableColumnChange($strPrefix = false)
+	public function __construct($strPrefix = false)
 	{
-        parent::TableColumn(STOCK_DISP_CHANGE, 70, false, $strPrefix);
+        parent::__construct(STOCK_DISP_CHANGE, 70, false, $strPrefix);
 	}
 }
 
 class TableColumnError extends TableColumn
 {
-	function TableColumnError()
+	public function __construct()
 	{
-        parent::TableColumn('误差', 70);
+        parent::__construct('误差', 70);
 	}
 }
 
 class TableColumnEst extends TableColumn
 {
-	function TableColumnEst($strPrefix = false)
+	public function __construct($strPrefix = false)
 	{
-        parent::TableColumn(STOCK_DISP_EST, 80, 'magenta', $strPrefix);
+        parent::__construct(STOCK_DISP_EST, 80, 'magenta', $strPrefix);
 	}
 }
 
@@ -51,57 +51,57 @@ function GetTableColumnEst()
 
 class TableColumnOfficalEst extends TableColumnEst
 {
-	function TableColumnOfficalEst()
+	public function __construct()
 	{
-        parent::TableColumnEst(STOCK_DISP_OFFICIAL);
+        parent::__construct(STOCK_DISP_OFFICIAL);
 	}
 }
 
 class TableColumnFairEst extends TableColumnEst
 {
-	function TableColumnFairEst()
+	public function __construct()
 	{
-        parent::TableColumnEst(STOCK_DISP_FAIR);
+        parent::__construct(STOCK_DISP_FAIR);
 	}
 }
 
 class TableColumnRealtimeEst extends TableColumnEst
 {
-	function TableColumnRealtimeEst()
+	public function __construct()
 	{
-        parent::TableColumnEst(STOCK_DISP_REALTIME);
+        parent::__construct(STOCK_DISP_REALTIME);
 	}
 }
 
 class TableColumnHolding extends TableColumn
 {
-	function TableColumnHolding($strPrefix = false)
+	public function __construct($strPrefix = false)
 	{
-        parent::TableColumn(STOCK_DISP_HOLDING, 105, false, $strPrefix);
+        parent::__construct(STOCK_DISP_HOLDING, 105, false, $strPrefix);
 	}
 }
 
 class TableColumnName extends TableColumn
 {
-	function TableColumnName($strPrefix = false, $iWidth = 270)
+	public function __construct($strPrefix = false, $iWidth = 270)
 	{
-        parent::TableColumn('名称', $iWidth, false, $strPrefix);
+        parent::__construct('名称', $iWidth, false, $strPrefix);
 	}
 }
 
 class TableColumnGroupName extends TableColumnName
 {
-	function TableColumnGroupName()
+	public function __construct()
 	{
-        parent::TableColumnName('分组', 110);
+        parent::__construct('分组', 110);
 	}
 }
 
 class TableColumnNav extends TableColumn
 {
-	function TableColumnNav($strPrefix = false)
+	public function __construct($strPrefix = false)
 	{
-        parent::TableColumn(STOCK_DISP_NAV, 90, 'olive', $strPrefix);
+        parent::__construct(STOCK_DISP_NAV, 90, 'olive', $strPrefix);
 	}
 }
 
@@ -113,25 +113,25 @@ function GetTableColumnNav()
 
 class TableColumnPercentage extends TableColumn
 {
-	function TableColumnPercentage($strPrefix = false, $iWidth = 100)
+	public function __construct($strPrefix = false, $iWidth = 100)
 	{
-        parent::TableColumn('比例(%)', $iWidth, false, $strPrefix);
+        parent::__construct('比例(%)', $iWidth, false, $strPrefix);
 	}
 }
 
 class TableColumnPosition extends TableColumn
 {
-	function TableColumnPosition()
+	public function __construct()
 	{
-        parent::TableColumn('仓位', 70);
+        parent::__construct('仓位', 70);
 	}
 }
 
 class TableColumnPremium extends TableColumn
 {
-	function TableColumnPremium($strPrefix = false)
+	public function __construct($strPrefix = false)
 	{
-        parent::TableColumn(STOCK_DISP_PREMIUM, 70, 'orange', $strPrefix);
+        parent::__construct(STOCK_DISP_PREMIUM, 70, 'orange', $strPrefix);
 	}
 }
 
@@ -143,9 +143,9 @@ function GetTableColumnPremium()
 
 class TableColumnPrice extends TableColumn
 {
-	function TableColumnPrice($strPrefix = false)
+	public function __construct($strPrefix = false)
 	{
-        parent::TableColumn(STOCK_DISP_PRICE, 70, 'blue', $strPrefix);
+        parent::__construct(STOCK_DISP_PRICE, 70, 'blue', $strPrefix);
 	}
 }
 
@@ -157,41 +157,41 @@ function GetTableColumnPrice()
 
 class TableColumnProfit extends TableColumn
 {
-	function TableColumnProfit($strPrefix = false)
+	public function __construct($strPrefix = false)
 	{
-        parent::TableColumn(STOCK_DISP_PROFIT, 105, 'red', $strPrefix);
+        parent::__construct(STOCK_DISP_PROFIT, 105, 'red', $strPrefix);
 	}
 }
 
 class TableColumnQuantity extends TableColumn
 {
-	function TableColumnQuantity($strPrefix = false)
+	public function __construct($strPrefix = false)
 	{
-        parent::TableColumn(STOCK_DISP_QUANTITY, 100, 'indigo', $strPrefix);
+        parent::__construct(STOCK_DISP_QUANTITY, 100, 'indigo', $strPrefix);
 	}
 }
 
 class TableColumnRatio extends TableColumn
 {
-	function TableColumnRatio($strPrefix = false)
+	public function __construct($strPrefix = false)
 	{
-        parent::TableColumn(STOCK_DISP_RATIO, 100, false, $strPrefix);
+        parent::__construct(STOCK_DISP_RATIO, 100, false, $strPrefix);
 	}
 }
 
 class TableColumnShare extends TableColumn
 {
-	function TableColumnShare()
+	public function __construct()
 	{
-        parent::TableColumn('份额(万)', 110);
+        parent::__construct('份额(万)', 110);
 	}
 }
 
 class TableColumnStock extends TableColumn
 {
-	function TableColumnStock($sym, $iWidth = 80)
+	public function __construct($sym, $iWidth = 80)
 	{
-        parent::TableColumn($sym->GetDisplay(), $iWidth, 'maroon');
+        parent::__construct($sym->GetDisplay(), $iWidth, 'maroon');
 	}
 }
 
@@ -203,9 +203,9 @@ function GetTableColumnStock($sym)
 
 class TableColumnSymbol extends TableColumn
 {
-	function TableColumnSymbol($strPrefix = false, $iWidth = 80)
+	public function __construct($strPrefix = false, $iWidth = 80)
 	{
-        parent::TableColumn(STOCK_DISP_SYMBOL, $iWidth, 'maroon', $strPrefix);
+        parent::__construct(STOCK_DISP_SYMBOL, $iWidth, 'maroon', $strPrefix);
 	}
 }
 
@@ -217,49 +217,49 @@ function GetTableColumnSymbol()
 
 class TableColumnTest extends TableColumn
 {
-	function TableColumnTest()
+	public function __construct()
 	{
-        parent::TableColumn('测试', 110);
+        parent::__construct('测试', 110);
 	}
 }
 
 class TableColumnTotalShares extends TableColumn
 {
-	function TableColumnTotalShares()
+	public function __construct()
 	{
-        parent::TableColumn('总数量', 90);
+        parent::__construct('总数量', 90);
 	}
 }
 
 class TableColumnTurnover extends TableColumn
 {
-	function TableColumnTurnover($strPrefix = false, $iWidth = 100)
+	public function __construct($strPrefix = false, $iWidth = 100)
 	{
-        parent::TableColumn(STOCK_DISP_TURNOVER, $iWidth, 'green', $strPrefix);
+        parent::__construct(STOCK_DISP_TURNOVER, $iWidth, 'green', $strPrefix);
 	}
 }
 
 class TableColumnHKD extends TableColumn
 {
-	function TableColumnHKD($strPrefix = false)
+	public function __construct($strPrefix = false)
 	{
-        parent::TableColumn('港币$', 100, 'blue', $strPrefix);
+        parent::__construct('港币$', 100, 'blue', $strPrefix);
 	}
 }
 
 class TableColumnRMB extends TableColumn
 {
-	function TableColumnRMB($strPrefix = false)
+	public function __construct($strPrefix = false)
 	{
-        parent::TableColumn('人民币￥', 100, 'blue', $strPrefix);
+        parent::__construct('人民币￥', 100, 'blue', $strPrefix);
 	}
 }
 
 class TableColumnUSD extends TableColumn
 {
-	function TableColumnUSD($strPrefix = false)
+	public function __construct($strPrefix = false)
 	{
-        parent::TableColumn('美元$', 100, 'blue', $strPrefix);
+        parent::__construct('美元$', 100, 'blue', $strPrefix);
 	}
 }
 

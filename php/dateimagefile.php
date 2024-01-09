@@ -5,9 +5,9 @@ class DateImageFile extends PageImageFile
 {
 	var $strText;
 	
-    function DateImageFile($strIndex = '1') 
+    public function __construct($strIndex = '1') 
     {
-        parent::PageImageFile($strIndex);
+        parent::__construct($strIndex);
         $this->strText = '';
     }
     

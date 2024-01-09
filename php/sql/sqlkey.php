@@ -5,10 +5,10 @@ class KeySql extends TableSql
 {
 	var $strKey;
 	
-    function KeySql($strTableName, $strKeyPrefix = TABLE_PAGE) 
+    public function __construct($strTableName, $strKeyPrefix = TABLE_PAGE) 
     {
     	$this->strKey = $this->Add_id($strKeyPrefix);
-        parent::TableSql($strTableName);
+        parent::__construct($strTableName);
     }
     
     function GetKeyIndex()

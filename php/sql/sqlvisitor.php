@@ -5,10 +5,10 @@ class VisitorSql extends KeySql
 {
 	var $strSrcKey;
 	
-    function VisitorSql($strTableName = TABLE_VISITOR, $strDstPrefix = TABLE_PAGE, $strSrcPrefix = 'ip')
+    public function __construct($strTableName = TABLE_VISITOR, $strDstPrefix = TABLE_PAGE, $strSrcPrefix = 'ip')
     {
     	$this->strSrcKey = $this->Add_id($strSrcPrefix);
-        parent::KeySql($strTableName, $strDstPrefix);
+        parent::__construct($strTableName, $strDstPrefix);
     }
 
     function GetSrcKeyIndex()

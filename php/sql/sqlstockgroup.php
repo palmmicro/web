@@ -5,9 +5,9 @@ require_once('sqlstocktransaction.php');
 // ****************************** StockGroupSql class *******************************************************
 class StockGroupSql extends KeyStringSql
 {
-    function StockGroupSql() 
+    public function __construct() 
     {
-        parent::KeyStringSql(TABLE_STOCK_GROUP, TABLE_MEMBER, 'groupname', 64);
+        parent::__construct(TABLE_STOCK_GROUP, TABLE_MEMBER, 'groupname', 64);
     }
 }
 
@@ -16,9 +16,9 @@ class StockGroupItemSql extends KeyTableSql
 {
 	var $trans_sql;	// StockTransactionSql
 	
-    function StockGroupItemSql($strGroupId = false) 
+    public function __construct($strGroupId = false) 
     {
-        parent::KeyTableSql(TABLE_STOCK_GROUP_ITEM, $strGroupId, TABLE_STOCK_GROUP);
+        parent::__construct(TABLE_STOCK_GROUP_ITEM, $strGroupId, TABLE_STOCK_GROUP);
         $this->trans_sql = new StockTransactionSql();
     }
 

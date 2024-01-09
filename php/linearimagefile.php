@@ -8,9 +8,9 @@ class LinearImageFile extends PageImageFile
     var $fB;
     var $fR;
     
-    function LinearImageFile($strIndex = '1') 
+    public function __construct($strIndex = '1') 
     {
-        parent::PageImageFile($strIndex);
+        parent::__construct($strIndex);
     }
 
     function Draw($arX, $arY)

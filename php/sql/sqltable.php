@@ -4,7 +4,7 @@ class TableSql
 {
 	var $strName;
 	
-    function TableSql($strTableName) 
+    public function __construct($strTableName) 
     {
     	$this->strName = $strTableName;
         $this->Create();

@@ -3,9 +3,9 @@ require_once('sqlval.php');
 
 class DateSql extends ValSql
 {
-    function DateSql($strTableName)
+    public function __construct($strTableName)
     {
-        parent::ValSql($strTableName, 'date');
+        parent::__construct($strTableName, 'date');
     }
 
     public function Create()
@@ -28,17 +28,17 @@ class DateSql extends ValSql
 
 class HoldingsDateSql extends DateSql
 {
-    function HoldingsDateSql()
+    public function __construct()
     {
-        parent::DateSql('holdingsdate');
+        parent::__construct('holdingsdate');
     }
 }
 
 class NavFileDateSql extends DateSql
 {
-    function NavFileDateSql()
+    public function __construct()
     {
-        parent::DateSql('navfiledate');
+        parent::__construct('navfiledate');
     }
 }
 

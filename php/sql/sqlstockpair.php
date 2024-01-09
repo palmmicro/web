@@ -5,9 +5,9 @@ class StockPairSql extends PairSql
 {
 	var $sql;
 	
-    function StockPairSql($strTableName)
+    public function __construct($strTableName)
     {
-        parent::PairSql($strTableName);
+        parent::__construct($strTableName);
         
 		$this->sql = GetStockSql();
     }
@@ -87,33 +87,33 @@ class StockPairSql extends PairSql
 
 class AdrPairSql extends StockPairSql
 {
-    function AdrPairSql()
+    public function __construct()
     {
-        parent::StockPairSql('adrpair');
+        parent::__construct('adrpair');
     }
 }
 
 class AhPairSql extends StockPairSql
 {
-    function AhPairSql() 
+    public function __construct() 
     {
-        parent::StockPairSql('ahpair');
+        parent::__construct('ahpair');
     }
 }
 
 class AbPairSql extends StockPairSql
 {
-    function AbPairSql() 
+    public function __construct() 
     {
-        parent::StockPairSql('abpair');
+        parent::__construct('abpair');
     }
 }
 
 class FundPairSql extends StockPairSql
 {
-    function FundPairSql() 
+    public function __construct() 
     {
-        parent::StockPairSql('fundpair');
+        parent::__construct('fundpair');
     }
 }
 
