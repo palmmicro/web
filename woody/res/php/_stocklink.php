@@ -32,6 +32,10 @@ function GetCategoryArray($strPage)
         $ar = $pair_sql->GetSymbolArray();
         break;
   
+    case 'biotech':
+        $ar = QdiiGetXbiSymbolArray(); 
+        break;
+
     case 'chinaindex':
     	$ar = ChinaIndexGetSymbolArray();
         break;
@@ -121,6 +125,11 @@ function GetOilSoftwareLinks()
 function GetCommoditySoftwareLinks()
 {
     return _getCategorySoftwareLinks('commodity');
+}
+
+function GetXbiSoftwareLinks()
+{
+    return _getCategorySoftwareLinks('biotech');
 }
 
 function GetQqqSoftwareLinks()
@@ -276,7 +285,7 @@ function GetJiaoYinSchroderSoftwareLinks($strDigitA)
 // http://www.jsfund.cn/main/fund/159823/fundManager.shtml
 function GetJiaShiSoftwareLinks($strDigitA)
 {
-    $ar = array('SZ159501', 'SZ159518', 'SZ159607', 'SZ159741', 'SZ159823', 'SZ159919', 'SZ160717', 'SZ160719', 'SZ160723');
+    $ar = array('SZ159501', 'SZ159502', 'SZ159518', 'SZ159607', 'SZ159741', 'SZ159823', 'SZ159919', 'SZ160717', 'SZ160719', 'SZ160723');
 	$strUrl = 'http://www.jsfund.cn';
     return ' '.GetOfficialLink($strUrl.'/main/fund/'.$strDigitA.'/fundManager.shtml', $strDigitA).GetCategorySoftwareLinks($ar, GetExternalLink($strUrl, '嘉实基金'));
 }

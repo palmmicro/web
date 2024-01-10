@@ -69,6 +69,11 @@ function GetQdiiLinks($sym)
 		$str .= ' '.GetSpdrOfficialLink('XOP').' '.GetSpindicesOfficialLink('SPSIOP');
 	}
 	
+	if (in_arrayXbiQdii($strSymbol))
+	{
+		$str .= ' '.GetSpdrOfficialLink('XBI').' '.GetSpindicesOfficialLink('SPSIBI');
+	}
+	
 	$strFutureSymbol = QdiiGetFutureSymbol($strSymbol);
 	if ($strCmeUrl = GetCmeUrl($strFutureSymbol))				$str .= ' '.GetExternalLink($strCmeUrl, '芝商所');
 	
@@ -82,6 +87,11 @@ function GetQdiiLinks($sym)
 	{
 		$str .= GetQqqSoftwareLinks();
 		$str .= GetChinaInternetSoftwareLinks();
+	}
+	else if (in_arrayXbiQdii($strSymbol))
+	{
+		$str .= GetQqqSoftwareLinks();
+		$str .= GetXbiSoftwareLinks();
 	}
 	else if ($strFutureSymbol == 'hf_CL')
 	{

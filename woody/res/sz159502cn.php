@@ -4,7 +4,7 @@ require('php/_qdii.php');
 function GetQdiiRelated($strDigitA)
 {
 	$str = GetBreakElement($strDigitA);
-	$str .= GetEFundSoftwareLinks($strDigitA);
+	$str .= GetJiaShiSoftwareLinks($strDigitA);
 	return $str;
 }
 

@@ -56,7 +56,7 @@ function QdiiGetEstSymbol($strSymbol)
     else if ($strSymbol == 'SZ160140')   			return 'SCHH';
     else if ($strSymbol == 'SZ160416')   			return 'IXC';	// '^SPGOGUP'
     else if ($strSymbol == 'SZ161126')   			return 'XLV';
-    else if ($strSymbol == 'SZ161127')   			return 'XBI';
+    else if (in_arrayXbiQdii($strSymbol))   			return 'XBI';
     else if ($strSymbol == 'SZ161128')   			return 'XLK';
     else if ($strSymbol == 'SZ163208')   			return 'XLE';
     else if ($strSymbol == 'SZ164824')   			return 'INDA';

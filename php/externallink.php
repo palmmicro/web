@@ -41,6 +41,10 @@ function GetSpindicesOfficialLink($strTicker)
 	case 'SPSIOP':
 		$str .= 'equity/sp-oil-gas-exploration-production-select-industry-index';
 		break;
+		
+	case 'SPSIBI':
+		$str .= 'equity/sp-biotechnology-select-industry-index';
+		break;
 	}
 	$str .= '/#overview';
 	return GetOfficialLink($str, '^'.$strTicker);
