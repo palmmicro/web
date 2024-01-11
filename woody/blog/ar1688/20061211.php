@@ -64,7 +64,7 @@ Same as in include, there are no standard SDCC library used in our project.
 <br /><font color=magenta>Updated on Aug 18, 2010</font>
 <br />Compiler of tools in SDCC\bin upgraded to VC2008 since version <a href="20100818.php">0.48</a>.
 <br />&nbsp;
-<br /><font color=magenta>Updated on June 15, 2014</font>
+<br /><font color=magenta>Updated on Jun 15, 2014</font>
 <br />Compiler of tools in SDCC\bin upgraded to <a href="../entertainment/20140615.php">Visual Studio</a> 2013.
 </td></tr>
 </table>

@@ -37,7 +37,7 @@
 <table>
 <tr><td class=THead><B>Safe Mode Upgrade</B></td></tr>
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-<tr><td>June 24, 2008</td></tr>
+<tr><td>Jun 24, 2008</td></tr>
 <tr><td>Safe mode program is stored at the first 64k bytes (<a href="20070605.php">page0</a>) space on the program flash. When safe mode is running, the second 32k bytes instructions are running on program flash itself, using Z80 address space 0x8000-0xffff, while the first 8k bytes are copied to <a href="../../../ar1688/index.html">AR1688</a> internal SRAM and running there, using Z80 address space 0x0000-0x3fff.
 <br />Some functions can only run on SRAM, for example, program flash writing routines.
 <br />When running TFTP upgrade, TFTP program is running on flash, saving all received data into DSP memory, when it reaches 64k bytes, we will switch to run program flash writing routines in SRAM, and write the 64k bytes data to its proper address, and then switch back to run TFTP protocol on program flash.

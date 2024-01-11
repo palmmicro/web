@@ -37,5 +37,16 @@ function _LayoutBottom($bChinese = true, $bAdsense = true)
     LayoutTail($bChinese, $bAdsense);
 }
 
+function GetTitle($bChinese)
+{
+	return GetBlogTitle(intval(UrlGetPage()), $bChinese, false);
+}
+
+function EchoAll($bChinese)
+{
+	echo '<p>'.GetBlogYmd($bChinese);
+	EchoAllBlog($bChinese);
+}
+
    	$acct = new EditCommentAccount();
 ?>

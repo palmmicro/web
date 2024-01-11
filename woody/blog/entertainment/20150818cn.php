@@ -135,8 +135,7 @@
 
 <?php
 	Echo20161006('增加'.GetNameTag('calibrationhistory', CALIBRATION_HISTORY_DISPLAY).'页面');
-	Echo20161014('Palmmicro'.GetNameTag('weixin', '微信公众号').'sz162411');
-	Echo20161020('查询A股股票数据');
+	Echo20161020(GetNameTag('weixin', '微信公众号').'查询A股股票数据');
 	Echo20161028('查询A股基金数据');
 	Echo20170128('增加'.GetNameTag('ahcompare', AH_COMPARE_DISPLAY).'页面');
 	Echo20170319('ip');

@@ -38,7 +38,7 @@
 <table>
 <tr><td class=THead><B>How to Compile AR1688 API with Linux</B></td></tr>
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-<tr><td>June 9, 2007</td></tr>
+<tr><td>Jun 9, 2007</td></tr>
 <tr><td>This is one of the frequently asked questions of AR1688 software <a href="20061211.php">API</a>. The answer is possible, but with some extra work. 
 Please check the makefile in SDCC\src, there are 4 tools used:
 <br />AZ80 = $(PATH_SDCC)BIN\as-z80
@@ -77,7 +77,7 @@ I will definitely remember to put all MFC related code in separate places.
 The <a href="20101123.php#20101208">3.0.1 #6078</a> version we are using now is a different from 3.0.0, but we did not keep the source file at that time, so we can not compile a Linux version to use today.
 And both 3.1.0 and 3.2.0 have hidden bugs. I had to begin to debug the current SDCC snapshot again, in the hope of a new workable version. I filed my 23rd bug report on SDCC web site last Friday.
 <br />&nbsp;
-<br /><font color=magenta>Updated on March 11, 2013</font>
+<br /><font color=magenta>Updated on Mar 11, 2013</font>
 <br />Alex pointed out that #6078 source code was available on SourceForge svn, and modified sdcc\<b>Makefile</b> again to include the download and compile of SDCC #6078.
 <br /><font color=gray>attached modified Makefile with new action "make sdcc",
 that downloads sdcc revision #6078 from https://sdcc.svn.sourceforge.net/svnroot/sdcc/trunk/sdcc (only z80 related files) in folder ./sdcc_6078.

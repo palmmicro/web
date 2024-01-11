@@ -37,7 +37,7 @@
 <table>
 <tr><td class=THead><B>Too Late Good News</B></td></tr>
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-<tr><td>June 7, 2007</td></tr>
+<tr><td>Jun 7, 2007</td></tr>
 <tr><td>I feel rather sad today after a very small <a href="../../../pa1688/index.html">PA1688</a> manufacturer reported that their ALC202A problem finally fixed with 1.58.003 firmware. Although it is good news, it is really too late, we should have fixed this at least 3 years ago.
 <br />PA1688 uses AC97 interface to work with external analog audio codec. We used WM9703 from Wolfson in the first FPGA board. Later WM9703 was replaced by WM9707. During all those years we had been searching for other compatible AC97 chip to replace it. ALC202A from Realtek was one of them, and the one most close to success.
 <br />The bug was actually very simple. The customer's engineer noticed a signal abnormal during reset. We were using GPIO to reset AC97. And then he noticed the signal was correct when using external reset signal to reset ALC202A instead of GPIO.  I checked the software, and found the software GPIO reset was done after AC97 interface clock enabled. After moving GPIO reset before AC97 interface clock enabled, everything ok.

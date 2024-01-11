@@ -37,7 +37,7 @@
 <table>
 <tr><td class=THead><B>AR1688 Z80 Memory Map</B></td></tr>
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-<tr><td>July 6, 2008</td></tr>
+<tr><td>Jul 6, 2008</td></tr>
 <tr><td>Bill Gates retired a few days ago. On that day when I was playing with my 8-bit toy, I can not help to remember a programming joke about him. It was over 30 years ago, when he and the lucky Paul Allen were building BASIC on an 8-bit CPU, they were told that the memory size they could use had been increased from 4k bytes to 8k bytes. They were happy to know it and also worried about what to do with those extra spaces. 
 <br />I am 30 years behind Bill Gates, 30 years later, I am still working on 8-bit CPU and worrying about memory spaces calculated in kilobytes.
 <br />Z80 has 64k bytes memory space. We are using it in the following way:

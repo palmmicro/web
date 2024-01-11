@@ -1,5 +1,6 @@
 <?php
 require_once('../php/layout.php');
+require_once('../php/bloglink.php');
 require_once('../php/ui/imagedisp.php');
 require_once('_woodymenu.php');
 

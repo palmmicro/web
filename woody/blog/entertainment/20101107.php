@@ -57,7 +57,7 @@ The image below shows 885 visits from 230 cities in the world for the past 30 da
 </p>
 
 <h3>Browsers Used by Palmmicro Web Visitors</h3>
-<p>March 28, 2011
+<p>Mar 28, 2011
 <br />With the coming of IE9 and Firefox4, the news of web browsers are booming once again.
 The most disturbing among them is that 360 is working with <b>the father of GFW</b> to provide a secure web browser for Chinese users.
 <br />360 also said that according to Baidu, there were 18% users using so called 360 web browsers. I am using Google Analytics to track Palmmicro.com traffic,
@@ -67,7 +67,7 @@ let us see browsers used by Palmmicro web visitors according to Google in the im
 </p>
 
 <h3>Replacing GB2312 with UTF-8</h3>
-<p>March 8, 2012
+<p>Mar 8, 2012
 <br />Growing up with <a href="../ar1688/20080216.php">GB2312</a>, and puzzled by Microsoft's 2 bytes unicode in the past 2 years, I was ignoring UTF-8 for most of the time.
 It is funny that I was still debugging GB18030 and GB2312 in late 2010. However, as I was getting more and more UTF-8 encoded Chinese emails sent from iPads during the past year,
 I began to think it must be important, since Apple always boasts of the easy to use of its products.
@@ -81,7 +81,7 @@ I can not figure out an easy way to convert them in current MySQL database.
 </p>
 
 <h3>Converting GB2312 Encoded String to UTF-8 Using PHP</h3>
-<p>June 9, 2016
+<p>Jun 9, 2016
 <br .>I have been adding more features for <a href="20150818.php">SZ162411 Net Value</a> tool recently. Working on web page now and then for so many years, 
 my original planned <a href="../../../pa6488/index.html">PA6488</a> and <a href="../../../pa3288/index.html">PA3288</a> products web management is still unavailable,
 and palmmicro.com is becoming an amateur stock web site.

@@ -37,7 +37,7 @@
 <table>
 <tr><td class=THead><B>Pound Key as Call Key</B></td></tr>
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-<tr><td>March 20, 2009</td></tr>
+<tr><td>Mar 20, 2009</td></tr>
 <tr><td>Early IP phone and ATA users were "forced" to use '#' key to call out. Unlike PSTN, the devices usually didn't know when was the end of dialing. In old <a href="20060929.php">H.323</a> days lots of IP to IP calls were made, especially when testing with NetMeeting which came free with Windows system. Since '*' key was used in internet address as '.', the only choice was to use '#' as key to call out.
 <br />PSTN service providers did not like H.323 at all. But when their backbone network were changing into IP, they guess they need something at the terminal side too. MGCP protocol was the answer, but it is really a bad one. The only good thing for MGCP is that it has "digit maps", so devices know when the numbers are completed.
 <br />SIP and <a href="20071110.php">IAX2</a> protocol did not consider the dialing difficulty at first. But later they added things like "Overlapped Sending" and "Server's Dial Plan" to solve this problem.

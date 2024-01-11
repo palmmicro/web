@@ -21,7 +21,7 @@ After the new CEO's visit to Beijing at the end of the year, I knew it clearly t
 And then a WiFi VoIP solution to replace PA1688 later.
 <br />I signed a contract with a chip design company in China, paid NRE for the 8051+USB chip, and started learning USB software programming.
 Soon I found Keil has provided complete USB examples we need, with USB HID, audio and mass storage class on its MCB2140 board with Philips LPC2148 chip.
-<br />The USB FXS gateway product idea was good. MagicJack sold tens of millions of such products years later, earned enough money to take over the first VoIP company VocalTec in a reverse takeover on July 16, 2010.
+<br />The USB FXS gateway product idea was good. MagicJack sold tens of millions of such products years later, earned enough money to take over the first VoIP company VocalTec in a reverse takeover on Jul 16, 2010.
 But we did not finish our solution. 
 <br />At the end of 2005 the CEO finally fired us. Although the layoff letter came a few months later than I expected,
 the decision of discontinuing PA1688 shocked me. I had to give up the USB chip and find a new solution to replace PA1688 for our customers as soon as possible.

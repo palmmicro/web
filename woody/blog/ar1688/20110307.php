@@ -38,7 +38,7 @@
 <table>
 <tr><td class=THead><B>Interactive Voice Response</B></td></tr>
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-<tr><td>March 7, 2011</td></tr>
+<tr><td>Mar 7, 2011</td></tr>
 <tr><td>Last week an <a href="../../../ar1688/index.html">AR1688</a> developer asked if he can add more functions in the phone to read out different voice messages. I added ivr.c today and uploaded 0.51.002 software API to <a href="../../../ar1688/software/sw051.html">0.51</a> test software web page.
 Based on those, he can do the following complicated steps to make out more from our fading 8-bit system.
 <br />1. Record raw PCM voice data using software like CoolEdit, with single channel, 8k sampling, 16-bit format. Current IP address original PCM data can be download from <a href="../../../pa1688/index.html">PA1688</a> page <a href="../../../pa1688/download/misc/ivr.rar">here</a>.

@@ -37,7 +37,7 @@
 
 <table>
 <tr><td class=THead><B>Router, PPPoE and DM9003</B></td></tr>
-<tr><td>July 29, 2008</td></tr>
+<tr><td>Jul 29, 2008</td></tr>
 <tr><td>Many users like to ask, do you support PPPoE? It seems to be a simple and professional question, but now I understand it in a different way.
 When someone asking PPPoE, you can be sure that what he really like to know is, do your IP phone has router functions?
 <br />The answer is no, AR1688 does not have router functions and we can not add it in future software due to <a href="20080121.php">Z80</a> processing power limitations.
@@ -52,7 +52,7 @@ Because of this, the PPPoE network performance with DM9003 is obviously worse th
 </td></tr>
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
 <tr><td class=THead>PoE and PPPoE</td></tr>
-<tr><td class=Update>Updated on July 30, 2008</td></tr>
+<tr><td class=Update>Updated on Jul 30, 2008</td></tr>
 <tr><td>Compared with the PPPoE/Router confusion, much less user will get confused with PoE and PPPoE, but still has!
 <br />PoE: Power over ethernet.
 <br />PPPoE: PPP over ethernet. PPP is the protocol used in modem, before the broadband is built into every home.

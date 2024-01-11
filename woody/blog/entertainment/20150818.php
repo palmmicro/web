@@ -65,7 +65,7 @@ We called MySQL related function in <font color=olive>MysqlReference</font> clas
 </p>
 
 <h3>US Daylight Saving Time</h3>
-<p>March 14, 2016
+<p>Mar 14, 2016
 <br />A bug is found as US enter daylight saving time: <font color=gray><code>date_default_timezone_set('EST')</code></font> is not considering daylight saving,
 need to use <font color=gray><code>date_default_timezone_set('America/New_York')</code></font>.
 </p>

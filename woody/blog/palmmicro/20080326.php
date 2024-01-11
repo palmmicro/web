@@ -13,15 +13,15 @@
 
 <div>
 <h1>The History of <a name="palmmicro">Palmmicro</a> Domain</h1>
-<p>March 26, 2008
+<p>Mar 26, 2008
 <br />In early 1999, <a href="20061123.php">Dr Wang</a> founded Palm Microsystems Inc in Santa Clara and began to use palmmicro.com.
 <br />In late 2002, Palmmicro changed its name to Centrality, the domain registration expired in 2003.
 <br />A domain trading company owned it from Dec 25, 2003 to Dec 25, 2007. During this period, Centrality discontinued its <a href="../../../pa1688/index.html">PA1688</a> VoIP business and later acquired by <a href="../entertainment/20070813.php">SiRF</a>.
 We founded Palmmicro again in China, continue our small VoIP business with the new <a href="../../../ar1688/index.html">AR1688</a> chip.
 <br />On Feb 5, 2008, the expired domain name came into <i>Redemption Period</i>.
-<br />On March 6, the domain name became <i>Pending Delete</i>.
-<br />On March 13, the domain was strangely registered by an Oregon domain trading company. I was so disappointed at that time.
-<br />On today, March 26, I tried <?php EchoExternalLink('https://who.is'); ?> search again, and found the domain name available. I registered it under my name at once.
+<br />On Mar 6, the domain name became <i>Pending Delete</i>.
+<br />On Mar 13, the domain was strangely registered by an Oregon domain trading company. I was so disappointed at that time.
+<br />On today, Mar 26, I tried <?php EchoExternalLink('https://who.is'); ?> search again, and found the domain name available. I registered it under my name at once.
 <br /><font color=gray>Last Sep, Dr Wang, Tang Li and me.</font>
 <?php echo ImgWoody20070920(false); ?>
 </p>
@@ -35,7 +35,7 @@ We founded Palmmicro again in China, continue our small VoIP business with the n
 </p> 
 
 <h3>The History of Palmmicro.com.<a name="palmmicrocn">cn</a></h3>
-<p>March 30, 2010
+<p>Mar 30, 2010
 <br />In 2001, palmmicro.com.cn was first used by Palmmicro Shanghai office, which is now part of <a href="../entertainment/20090219.php">CSR</a>.
 <br />As the original Palmmicro changed its name to Centrality in 2002, palmmicro.com.cn expired in 2003.
 <br />On Feb 23, 2004, I registered the domain again, redirected it to aredfox.com, using as our Chinese web site. For many years a lot of normal company web sites like palmmicro.com can not be visited from China, and we have to run a separate web site in China for our customers.

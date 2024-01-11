@@ -38,7 +38,7 @@
 <table>
 <tr><td class=THead><B>Out of Stock</B></td></tr>
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-<tr><td>June 25, 2010</td></tr>
+<tr><td>Jun 25, 2010</td></tr>
 <tr><td>We built nearly 100 AR168M VoIP modules 28 months ago. About 30 customers had bought the <a href="20080225.php">module</a> during this period and 10% of them had finally put the design into production by now. 
 <br>Maybe because of world economic recovery is on the way, or because of nobody else is still doing VoIP,
 or our existed customers products based <a href="../../../ar1688/module.html">AR168M</a> had somewhat attracted world attention,

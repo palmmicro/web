@@ -13,7 +13,7 @@
 
 <div>
 <h1>WiFi Ethernet Bridge</h1>
-<p>June 8, 2011
+<p>Jun 8, 2011
 <br />One of the most frequently asked questions about <a href="../pa6488/20090819.php">PA648C</a> video over IP module is how to connect it to a WiFi network.
 Since PA648C only have an Ethernet interface, what we need is a WiFi Ethernet bridge. It is easy and cheap.
 <br />We can get a TP-LINK TL-WR740N wireless router in Chinese retail market for about 100RMB (about 15.4USD) now. It has built-in WDS function and can be configured to use as WiFi Ethernet bridge in the following way:

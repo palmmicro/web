@@ -38,8 +38,8 @@
 <table>
 <tr><td class=THead><B>Small Device C Compiler 2.9.0</B></td></tr>
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-<tr><td>March 29, 2009</td></tr>
-<tr><td>Once a year, the open source <a href="../../../res/index.html#sdcc">SDCC</a> development team will update a major version. On March 22 they released 2.9.0.
+<tr><td>Mar 29, 2009</td></tr>
+<tr><td>Once a year, the open source <a href="../../../res/index.html#sdcc">SDCC</a> development team will update a major version. On Mar 22 they released 2.9.0.
 <br />The Windows SDCC binary files still use MSVC 6.0 to compile. But the 10 years old MSVC 6.0 can not run with Windows Vista any more.
 As I was out most of the time in last week with my Windows Vista laptop, I was not able to try it until this weekend.
 <br />The only thing related with our AR1688 Z80 in the 2.9.0 release note is <font color=gray>many optimizations to reduce code size and increase speed in the Z80 backend</font>.

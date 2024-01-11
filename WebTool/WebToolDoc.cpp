@@ -1273,7 +1273,7 @@ void CWebToolDoc::OnTreeCopy()
 			InsertFormFiles(dlg, strPathName, hParent);
 		}
 	}
-
+/*
 	if (!dlg.m_bModifyBlog)		return;
 
 	str = ctrl.GetItemText(hParent);
@@ -1300,6 +1300,7 @@ void CWebToolDoc::OnTreeCopy()
 	{
 		file.ModifyRoot(strPathName, str, dlg.m_strChineseTitle, TRUE);
 	}
+*/
 }
 
 void CWebToolDoc::OnUpdateTreeCopy(CCmdUI *pCmdUI)

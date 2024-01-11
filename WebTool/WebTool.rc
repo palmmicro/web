@@ -250,8 +250,8 @@ FONT 8, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
     DEFPUSHBUTTON   "OK",IDOK,242,40,50,14,WS_GROUP
     ICON            IDR_MAINFRAME,IDC_STATIC,14,14,20,20
-    LTEXT           "Woody's Web Tool, Version 4.06",IDC_STATIC,42,14,114,8,SS_NOPREFIX
-    LTEXT           "Copyright (C) 2010-2022 Palmmicro Communications Inc. All Rights Reserved.",IDC_STATIC,41,25,254,8
+    LTEXT           "Woody's Web Tool, Version 4.1",IDC_STATIC,42,14,114,8,SS_NOPREFIX
+    LTEXT           "Copyright (C) 2010-2024 Palmmicro Communications Inc. All Rights Reserved.",IDC_STATIC,41,25,254,8
 END
 
 IDD_ITERATEBOX DIALOGEX 0, 0, 625, 207
@@ -378,8 +378,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 4,0,0,0
- PRODUCTVERSION 4,0,0,0
+ FILEVERSION 4,1,0,0
+ PRODUCTVERSION 4,1,0,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -396,12 +396,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "Palmmicro"
             VALUE "FileDescription", "Woody's Web Tool"
-            VALUE "FileVersion", "4.0.0.0"
+            VALUE "FileVersion", "4.1.0.0"
             VALUE "InternalName", "WebTool.exe"
-            VALUE "LegalCopyright", "Copyright (C) 2010-2020 Palmmicro Communications Inc.  All rights reserved."
+            VALUE "LegalCopyright", "Copyright (C) 2010-2024 Palmmicro Communications Inc.  All rights reserved."
             VALUE "OriginalFilename", "WebTool.exe"
             VALUE "ProductName", "Woody's Web Tool"
-            VALUE "ProductVersion", "4.0.0.0"
+            VALUE "ProductVersion", "4.1.0.0"
         END
     END
     BLOCK "VarFileInfo"

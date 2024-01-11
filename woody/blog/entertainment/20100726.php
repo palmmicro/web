@@ -13,7 +13,7 @@
 
 <div>
 <h1>Raw Video Viewers</h1>
-<p>July 26, 2010
+<p>Jul 26, 2010
 <br />The screen-captured image here includes 3 raw video and image viewers I wrote and used in video coding from 1997 to 2010.
 <br />The large upper one <i>Speech Workshop</i> was started in 1996 using Microsoft Visual C++ 4.2. It has a none video related program name because it started as a raw voice player and analyzer used in voice coding.
 The video part was added in 1997 when I began H.263 studying. I was switching from Borland C++ to MS <a href="20100529.php">Visual C++</a> at that time,

@@ -43,7 +43,7 @@
 However, even when the whole world include us at <a href="../palmmicro/20080326.php">Palmmicro</a> believe 8-bit controller can not go any where further, the <a href="../../../res/index.html#sdcc">SDCC</a> compiler development team never stopped.
 So the compiler update information had become an important part of our software release note and my AR1688 blog post.
 <br />Philipp, the current major SDCC Z80 developer, announced a new register allocator design to reduce <a href="20081202.php">Z80</a> code size early this year. After several month he finished it.
-I always believe smaller code size is better for all AR1688 users. I began to test it in June, after several bug reports and fixes, in July I was able to compiler our AR1688 code with the new register allocator.
+I always believe smaller code size is better for all AR1688 users. I began to test it in Jun, after several bug reports and fixes, in Jul I was able to compiler our AR1688 code with the new register allocator.
 However, while it still had code generating bugs, the most annoying about the new version was the compilation time.
 The total AR1688 software compilation time had increased from 2 minutes to about 30 minutes on my Sony <a href="../pa6488/20090808.php">VGN-FW235J</a> with 4G RAM.
 <br />In Sep, Borut announced the 64-bit SDCC support on 64-bit Windows. I tested it as the first reported-result user, hoping it can reduce the compilation time.
@@ -61,7 +61,7 @@ I realized that I must start my SDCC bugs tracking work again in order to keep u
 <br />Actually it was not the first time the same function compiled wrong, some code are born to be different and hard to compile. I reported <i>_DspLoadFile</i> function compiled wrong (in a different way) with both bug 3381400 and 3407632.
 To avoid another 10 hours of bug tracking, I will round up the usual suspects first next time!
 <br />&nbsp;
-<br /><font color=magenta>Updated on March 17, 2012</font>
+<br /><font color=magenta>Updated on Mar 17, 2012</font>
 <br />Last year SDCC team released 3.1.0 version. However, after nearly 5 months, it is still a mess when compiling AR1688 software.
 <br />We did not have much problem when SDCC <a href="20090329.php">2.9.0</a> released on 2009. When SDCC 3.0.0 was released on 2010, it took us about 2 weeks to catch up with the new version.
 With today's <a href="../../../ar1688/software/sw057.html">0.57</a> test software, we are still using <font color=gray>SDCC 3.0.1 #6078 (Dec 7 2010) (MINGW32)</font>.

@@ -33,12 +33,12 @@ However, I found the server had moved it to a new IP address: 216.39.62.190.
 <blockquote><font color=gray>On September 14, 1987, a computer laboratory in Beijing successfully sent an email that said, "Across the Great Wall we can reach every corner of the world." The message was sent to a German university.</font></blockquote>
 
 <h3>Independence Day</h3>
-<p>July 5, 2011
-<br />I have not tried to visit palmmicro.com from China for a long time because I think it is hopeless. As near as on the glorious day of July 1,
+<p>Jul 5, 2011
+<br />I have not tried to visit palmmicro.com from China for a long time because I think it is hopeless. As near as on the glorious day of Jul 1,
 a large number of websites including my favorite <a href="http://www.priceline.com" target=_blank>priceline.com</a> were blocked in China, and set free on the next day.
 <br />I am surprised to see a palmmicro registeration email from xxx@bjtu.edu.cn today because it is from a Beijing university. Then I visited palmmicro.com in Changsha successfully,
 as I expected after receiving the email, palmmicro.com is set free in China now.
-<br />My first guess for the unblock reason was because of Independence Day, then I thought it might be the result of a general free movement after July 1.
+<br />My first guess for the unblock reason was because of Independence Day, then I thought it might be the result of a general free movement after Jul 1.
 After I checked with <a href="http://www.who.is" target=_blank>www.who.is</a>, I found the real reason, 
 Yahoo Web Hosting moved palmmicro.com to a new IP address 98.136.92.206 sometime earlier.
 <br />Over the past year when palmmicro.com is blocked, I have collected 4 IP in the black list: 216.39.57.104, 216.39.62.189, 216.39.62.190 and 216.39.62.191.
@@ -66,7 +66,7 @@ Add a table below for more records in the future.
         <td class=c1 align="center"></td>
       </tr>
       <tr>
-        <td class=c1 align="center">July 5, 2011</td>
+        <td class=c1 align="center">Jul 5, 2011</td>
         <td class=c1 align="center"></td>
         <td class=c1 align="center">98.136.92.206</td>
       </tr>

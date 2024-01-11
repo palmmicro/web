@@ -37,7 +37,7 @@
 <table>
 <tr><td class=THead><B>Debug FAQ</B></td></tr>
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-<tr><td>July 4, 2007</td></tr>
+<tr><td>Jul 4, 2007</td></tr>
 <tr><td>We are ready to support customers in many ways, including phone, MSN and email. Phone calls work well as long as it is made in Chinese. But most of us speak English not as good as American or Indians. 
 I got a few calls from India yesterday, more than half of the time I was guessing what the other side is talking about, and the other half time, I guess the other side was guessing what was my idea too! 
 I like MSN because I grow up with Microsoft software, but I can see many others hate M$ every time my suggestion of using MSN is turned down. 

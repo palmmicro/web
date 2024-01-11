@@ -25,7 +25,7 @@ During those years, <a href="../palmmicro/20080326.php">Palmmicro</a> became Cen
 </p>
 
 <h3>Ten Years of <a name="another">Another</a> Man</h3>
-<p>March 3, 2009
+<p>Mar 3, 2009
 <br />Only old people like to talk about history.
 <br />I sat in front of him, did not find much changes on him. He is still thin and full of energy. It was 12 years ago when I first met him, and we had not made much contact all those years.
 He still introduces me to others according to his old memory <font color=gray>This guy says he can do everything</font>.

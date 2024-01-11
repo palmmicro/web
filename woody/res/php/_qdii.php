@@ -88,7 +88,7 @@ function GetQdiiLinks($sym)
 		$str .= GetQqqSoftwareLinks();
 		$str .= GetChinaInternetSoftwareLinks();
 	}
-	else if (in_arrayXbiQdii($strSymbol))
+	else if (in_arrayXbiQdii($strSymbol) || $strSymbol == 'SH513290')
 	{
 		$str .= GetQqqSoftwareLinks();
 		$str .= GetXbiSoftwareLinks();

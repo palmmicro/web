@@ -33,7 +33,7 @@
 <?php
 	Echo20160314('美国'.GetNameTag('daylightsaving', '夏令时').'开始');
 	Echo20191107('美国夏令时结束带来的软件问题');
-	Echo20230227('终于升级到'.GetNameTag('PHP7'));
+	Echo20230227('终于跨越了PHP5');
 ?>
 
 </div>

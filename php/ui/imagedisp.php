@@ -9,7 +9,7 @@ function GetImgQuote($strPathName, $strTextCn, $strTextUs = '', $bChinese = true
 
 function ImgPalmmicroWeixin($bChinese = true)
 {
-	return GetImgQuote('/woody/image/wx.jpg', 'Palmmicro微信公众号sz162411小狐狸二维码', 'Palmmicro weixin public account sz162411 small fox QR code', $bChinese);
+	return GetImgQuote('/woody/image/wx.jpg', 'Palmmicro微信公众号sz162411小狐狸二维码', 'Palmmicro WeChat public account sz162411 small fox QR code', $bChinese);
 }
 
 function ImgWoodyHomepage($bChinese = true)
@@ -24,7 +24,7 @@ function ImgWoodyBike($bChinese = true)
 
 function ImgWoody20060701($bChinese = true)
 {
-	return GetImgQuote('/woody/myphoto/2006/baihuashan.jpg', '2006年7月1日绿野百花山', 'July 1, 2006. Baihua Mountain.', $bChinese);
+	return GetImgQuote('/woody/myphoto/2006/baihuashan.jpg', '2006年7月1日绿野百花山', 'Jul 1, 2006. Baihua Mountain.', $bChinese);
 }
 
 function ImgWoody20070920($bChinese = true)
@@ -130,12 +130,15 @@ function ImgStockGroup($strPage)
 {
     switch ($strPage)
     {
+//    case 'biotech':
+
     case 'chinainternet':
     	return GetWoodyImgQuote('huangrong.jpg', '依稀往梦似曾见，心内波澜现。');
     	
     case 'hangseng':
-    case 'hshares':
     	return GetWoodyImgQuote('luodayou.jpg', '小河弯弯向南流，流到香江去看一看。');
+
+//    case 'hshares':
     	
     case 'hstech':
     	return GetWoodyImgQuote('hardlife.jpg', '人生永远都在艰难模式');

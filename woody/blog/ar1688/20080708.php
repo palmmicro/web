@@ -37,7 +37,7 @@
 <table>
 <tr><td class=THead><B>AR168M VoIP Module Example</B></td></tr>
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-<tr><td>July 8, 2008</td></tr>
+<tr><td>Jul 8, 2008</td></tr>
 <tr><td>Steven Young is an undergraduate student from Beijing University of Posts and Telecommunication. He had done an Atmel AVR mega 128L hardware board and related software to work with <a href="../../../ar1688/module.html">AR168M</a> VoIP module earlier this year. The full hardware and software design is now for open <a href="../../../ar1688/module/IpPhone_Mega.rar">download</a>.
 <br />The mega board has connected a 2x16 LCD and 4x4 keypad to make a fully working IP phone. The hardware schematic is in OrCAD format. The open source software is compiled using WinAVR2004.
 <br />Steven can be reached by email <a href="mailto:warmbupt@gmail.com">warmbupt@gmail.com</a>. He will be glad to make more development based on the mega-AR168M system upon request.

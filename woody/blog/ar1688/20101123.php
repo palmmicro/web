@@ -99,7 +99,7 @@ Starting from current 0.49.026 version, <font color=blue>--std-c99</font> option
 <br />Because there is so little users testing current 0.49 with SDCC 3.0.0, we decided to delay 0.50 software release until it is fully tested. 
 Instead, I added a separate <a href="../../../ar1688/software/sw049.html">0.49</a> web page for easy access of testing software.
 <br />&nbsp;
-<br /><font color=magenta>Updated on July 19, 2012</font>
+<br /><font color=magenta>Updated on Jul 19, 2012</font>
 <br />Now VirtualBox can read .iso file directly, no more DVD simulation needed.
 </td></tr>
 </table>

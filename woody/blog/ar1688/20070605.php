@@ -37,7 +37,7 @@
 <table>
 <tr><td class=THead><B>How to Upgrade Font</B></td></tr>
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-<tr><td>June 5, 2007</td></tr>
+<tr><td>Jun 5, 2007</td></tr>
 <tr><td>All current <a href="../../../ar1688/index.html">AR1688</a> IP phone designs use 2Mx8 bits program flash, and share the same software structure. The program flash is separated in 32 different 64k space we call pages. 
 For example, the first 64k is called page0, and is responsible for safe mode recovery. Phone settings and address books are in the seconds 64k space which is called page1. 
 <br />Page8 to page 11 are used to store font. The size is 256k bytes in total. Just big enough to put 16x16 Chinese font for those about 6000 Chinese characters which are used most common. 
@@ -53,7 +53,7 @@ We need to use a back door of AR1688 firmware to upgrade font in following steps
 <br /><font color=magenta>Updated on Feb 16, 2008</font>
 <br />ISO 8859 font does not need to be upgraded separately since version <a href="20080216.php">0.28</a>.
 <br />&nbsp;
-<br /><font color=magenta>Updated on July 4, 2012</font>
+<br /><font color=magenta>Updated on Jul 4, 2012</font>
 <br />Font can be upgraded by using command line "tftp -i xxx.xxx.xxx.xxx put font_xxxxxxxx.dat" directly since version <a href="../../../ar1688/software/sw057.html">0.57</a>. 
 </td></tr>
 </table>

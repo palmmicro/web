@@ -13,7 +13,7 @@
 
 <div>
 <h1>VoIP Loser's Songs</h1>
-<p>March 23, 2011
+<p>Mar 23, 2011
 <br />People are asking why I uploaded such a tired image as my display picture. Because I like this picture taken on Feb, I always wear a tired smile in recent months.
 <br />Also in Feb, I was listening a loser's song <b>South of the Border</b> again and again. It was from <b>Cape No.7</b> movie.
 In the movie, several losers in a small Taiwan town formed a local band to perform with a visiting Japanese super star.

@@ -15,13 +15,13 @@ function EchoAll($bChinese)
 <!--<p><a href="http://www.lvye.org/modules/lvyebb/viewtopic.php?view=1&post_id=43635140" target=_blank>May 29</a>. Fatter than yellow flower. <a href="http://www.lvye.org/modules/lvyebb/viewtopic.php?view=1&post_id=43636540" target=_blank>Photo</a> taken by YiGong <a href="2009/flower.jpg" target=_blank>Large</a>
 <br /><img src=2009/flower_s.jpg></p>-->
 
-<p>June 7. Two pigs in Pike Place Market. Photo taken by WeiJiang <a href="2009/pig.jpg" target=_blank>Large</a>
+<p>Jun 7. Two pigs in Pike Place Market. Photo taken by WeiJiang <a href="2009/pig.jpg" target=_blank>Large</a>
 <br /><img src=2009/pig_s.jpg></p>
 
-<p><a href="http://www.lvye.org/modules/lvyebb/viewtopic.php?view=1&post_id=43660382" target=_blank>June 28</a>. HaiTuo Mountain. <a href="http://www.lvye.org/modules/lvyebb/viewtopic.php?view=1&post_id=43663434" target=_blank>Photo</a> taken by FenHongChuagLian <a href="2009/haituoshan.jpg" target=_blank>Large</a> <font color=#545454>I'm not really interested in fishing. I am only interested in sitting in a boat and doing nothing at all! <B><em>One Man in a Boat. New Concept English, Book Two</em></B></font>
+<p><a href="http://www.lvye.org/modules/lvyebb/viewtopic.php?view=1&post_id=43660382" target=_blank>Jun 28</a>. HaiTuo Mountain. <a href="http://www.lvye.org/modules/lvyebb/viewtopic.php?view=1&post_id=43663434" target=_blank>Photo</a> taken by FenHongChuagLian <a href="2009/haituoshan.jpg" target=_blank>Large</a> <font color=#545454>I'm not really interested in fishing. I am only interested in sitting in a boat and doing nothing at all! <B><em>One Man in a Boat. New Concept English, Book Two</em></B></font>
 <br /><img src=2009/haituoshan_s.jpg></p>
 
-<!--<p><a href="http://www.lvye.org/modules/lvyebb/viewtopic.php?view=1&post_id=43683210" target=_blank>July 26</a>. My magic shoes. <a href="http://www.lvye.org/modules/lvyebb/viewtopic.php?view=1&post_id=43685656" target=_blank>Photo</a> taken by LingGuo <a href="2009/shoes.jpg" target=_blank>Large</a>
+<!--<p><a href="http://www.lvye.org/modules/lvyebb/viewtopic.php?view=1&post_id=43683210" target=_blank>Jul 26</a>. My magic shoes. <a href="http://www.lvye.org/modules/lvyebb/viewtopic.php?view=1&post_id=43685656" target=_blank>Photo</a> taken by LingGuo <a href="2009/shoes.jpg" target=_blank>Large</a>
 <br /><img src=2009/shoes_s.jpg></p>-->
 
 <p><a href="http://www.lvye.org/modules/lvyebb/viewtopic.php?view=1&post_id=43689023" target=_blank>Aug 1</a>. Wake up. Photo taken by LingGuo <a href="2009/wakeup.jpg" target=_blank>Large</a>

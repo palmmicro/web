@@ -13,7 +13,7 @@
 
 <div>
 <h1>My First Embedded Linux Application</h1>
-<p>July 19, 2012
+<p>Jul 19, 2012
 <br />1997, after I finished the Windows based H.324 <a href="../pa6488/20110524.php">video</a> phone in Fremont, engineers in ESS asked my plan to port the application to their DVD chip.
 I told them I would port an embedded Linux to their chip first. They showed me how they were developing VCD and DVD applications on their chip without using any operation system,
 and convinced me that video phone can be done in the same way.

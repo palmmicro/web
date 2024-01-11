@@ -21,8 +21,7 @@ class _SseHoldingsFile extends _EtfHoldingsFile
     			break;
     			
 			case 'PreTradingDay':
-    			$strDate = $ar[1];
-    			$this->SetDate(substr($strDate, 0, 4).'-'.substr($strDate, 4, 2).'-'.substr($strDate, 6, 2));
+    			$this->SetDate(ConvertYMD($ar[1]));
 				$this->DeleteAllHoldings();
     			break;
     		

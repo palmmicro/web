@@ -37,7 +37,7 @@
 <table>
 <tr><td class=THead><B>AR168M VoIP Module High Level UI Protocols</B></td></tr>
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-<tr><td>March 29, 2008</td></tr>
+<tr><td>Mar 29, 2008</td></tr>
 <tr><td>With the release of recent 0.30 software, our <a href="../../../ar1688/module.html">AR168M</a> VoIP Module is fully ready in both hardware and software. We can ship it in small quantity now.
 <br />To test the <a href="20080225.php">module</a>, we have used an external 8051 controller to work with the module to build a complete IP phone reference design.
 The 8051 hardware schematics is available with all other standard <a href="../../../ar1688/index.html">AR1688</a> hardware designs.

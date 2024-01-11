@@ -55,7 +55,7 @@ The function acts sort of like an interrupt routine, it will save necessary info
 <br />Nothing is impossible.
 </td></tr>
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-<tr><td class=Update>Updated on July 29, 2015</td></tr>
+<tr><td class=Update>Updated on Jul 29, 2015</td></tr>
 <tr><td>The interrupt like function need quite some resources, we recently found a stack overflow problem when user added some of his own code.
 To help debug, we added <b><i>SYS_MINI_RUN</i></b> in <b>version.h</b>, the RTP first Minu Run for RTL8019AS will only work when it is defined.
 </td></tr>

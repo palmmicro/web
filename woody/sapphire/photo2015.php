@@ -21,10 +21,10 @@ function EchoAll($bChinese)
 <p>Sep 24. Sleeping in my new car seat. <a href="2015/large/20150924.jpg" target=_blank>Large</a>
 <br /><img src=2015/20150924.jpg alt="Sapphire sleeping in her new car seat." /></p>
 
-<p>June 17. Dressing up as a real little girl. <a href="2015/large/20150617.jpg" target=_blank>Large</a>
+<p>Jun 17. Dressing up as a real little girl. <a href="2015/large/20150617.jpg" target=_blank>Large</a>
 <br /><img src=2015/20150617.jpg alt="Sapphire dressing up as a real little girl." /></p>
 
-<p>June 5. Drinking water on her own. <a href="2015/large/20150605.jpg" target=_blank>Large</a>
+<p>Jun 5. Drinking water on her own. <a href="2015/large/20150605.jpg" target=_blank>Large</a>
 <br /><img src=2015/20150605.jpg alt="Sapphire drinking water on her own." /></p>
 
 <p>May 26. My first airplane trip. <a href="2015/large/20150526.jpg" target=_blank>Large</a>

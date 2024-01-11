@@ -18,7 +18,7 @@ function EchoAll($bChinese)
 <p>Aug 14 <a href="pa1688/20110814.php">The Logical Steps to Rescue a PA168Q</a>
 <br /><img src=photo/20110814.jpg alt="Palmmicro.com visitor overview from Google Analytics on Aug 12, 2011." /></p>
 
-<p>June 8 <a href="entertainment/20110608.php">WiFi</a> Ethernet Bridge
+<p>Jun 8 <a href="entertainment/20110608.php">WiFi</a> Ethernet Bridge
 <br /><img src=photo/20110608.jpg alt="WiFi Ethernet bridge WDS settings screenshot." /></p>
 
 <p>May 24 <a href="pa6488/20110524.php">H.263 Compatibility</a>

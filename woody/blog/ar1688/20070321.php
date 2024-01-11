@@ -37,7 +37,7 @@
 <table>
 <tr><td class=THead><B>Digit Maps</B></td></tr>
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-<tr><td>March 21, 2007</td></tr>
+<tr><td>Mar 21, 2007</td></tr>
 <tr><td>We used to support 7 different communication protocols in <a href="../../../pa1688/index.html">PA1688</a>. Many of them never bring in serious revenues. MGCP is among one of those losers. However, the work on MGCP has lead to function for other protocols. SIP and IAX2 are protocols currently supported in <a href="../../../ar1688/index.html">AR1688</a>, both have digit maps functions supported similar with MGCP.
 <br />In RFC 3435 section 2.1.5, there is detail digit maps explanations. Digit maps are used to decide when user on the phone has finished dialing by matching rules defined in digit maps. In MGCP case, digit maps in IP phone are from server messages.
 In our implementation of SIP and <a href="20060929.php">IAX2</a>, digit maps are stored together with settings, pre-defined by user or system, and can be automatically updated with settings in auto provision.

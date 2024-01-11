@@ -76,7 +76,7 @@ Forget all those old steps, here is all the steps to add your own native languag
 <br />6) Add necessary ISO 8859-X font in src\<B>font.c</B>, or update other <a href="20070605.php">font</a> in the 256k bytes program flash font data storage space.
 <br />For users with less programming experience, only step 4 and 5 are necessary, we will do the other works after we have received the translations for step 4&5.
 <br />&nbsp;
-<br /><font color=magenta>Updated on March 11, 2008</font>
+<br /><font color=magenta>Updated on Mar 11, 2008</font>
 <br />Current AR1688 software has supported Chinese, English, French, Italian, Romanian, Russian, Spanish and Turkish. What is more, Alex also added extended char input method in Romanian and Russian version. So we have step 7 now with 0.29 test software.
 <br />7) Find src\res\us\<B>inputmap.h</B>, change it to your own native language. src\res\ro\<B>inputmap.h</B> is Romanian example and src\res\ru\<B>inputmap.h</B> is Russian example.
 Different <B>inputmap.h</B> is included with <b><i>RES_XX</i></b> define in src\<B>menu.c</B>. 

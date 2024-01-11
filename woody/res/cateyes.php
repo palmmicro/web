@@ -28,7 +28,7 @@ function EchoAll($bChinese)
 <p>Model <a href="cateyes/baozi.php">Baozi</a> and Duoduo <a href="cateyes/models/baozi/large/srilanka.jpg" target=_blank>Large</a>
 <br /><img src=cateyes/models/baozi/srilanka.jpg alt="Scottish fold female cat and British shorthair male cat in front of a Sri Lanka jewelry map" /></p>
 
-<p>July 29, 2012. Shop owner and me in Kuala Lumpur, Malaysia. Photo by CT Khoo <a href="../groupphoto/world/large/KualaLumpur.jpg" target=_blank>Large</a>
+<p>Jul 29, 2012. Shop owner and me in Kuala Lumpur, Malaysia. Photo by CT Khoo <a href="../groupphoto/world/large/KualaLumpur.jpg" target=_blank>Large</a>
 <br /><img src=../groupphoto/world/KualaLumpur.jpg alt="Lobster meal at a Chinese restaurant in Kuala Lumpur." /></p>
 END;
 }

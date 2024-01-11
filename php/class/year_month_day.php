@@ -1,6 +1,10 @@
 <?php
 
 // 'JST'
+function ConvertYMD($strDate)
+{
+	return substr($strDate, 0, 4).'-'.substr($strDate, 4, 2).'-'.substr($strDate, 6, 2);
+}
 
 class YearMonthDay
 {
@@ -21,6 +25,16 @@ class YearMonthDay
     function GetYMD()
     {
         return DebugGetDate($this->iTime, false);
+    }
+    
+    function GetDisplay($bChinese)
+    {
+    	return $bChinese ? date("Y年n月j日", $this->iTime) : date("M j, Y", $this->iTime);
+    }
+    
+    function GetMonthDayDisplay($bChinese)
+    {
+    	return $bChinese ? date("n月j日", $this->iTime) : date("M j,", $this->iTime);
     }
     
     function GetTick()
@@ -138,6 +152,14 @@ class StringYMD extends YearMonthDay
         	$iTick = mktime(0, 0, 0, intval($arYMD[1]), intval($arYMD[2]), intval($arYMD[0]));
         }
         parent::__construct($iTick);
+    }
+}
+
+class PageYMD extends StringYMD
+{
+    public function __construct($iDate = false)
+    {
+        parent::__construct(ConvertYMD($iDate ? strval($iDate) : UrlGetPage()));
     }
 }
 

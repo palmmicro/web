@@ -37,7 +37,7 @@
 <table>
 <tr><td class=THead><B>Ring Tone and Hold Music</B></td></tr>
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-<tr><td>March 28, 2007</td></tr>
+<tr><td>Mar 28, 2007</td></tr>
 <tr><td>After answering an email about PA1688 ring tone upgrade resulted in noise, I realized that it is time to explain the ring tone difference between PA1688 and <a href="../../../ar1688/index.html">AR1688</a>. The ring tone format for the 2 chips are different. Upgrade AR1688 ring tone to PA1688 devices will result in ring tone noise. Upgrade PA1688 ring tone to AR1688 devices, normally AR1688 will not accept it after a simple name check.
 <br />The major confusion comes from web page download address. Users need to download PA1688 ring tones <a href="../../../pa1688/ring.html">here</a> and AR1688 ring tones <a href="../../../ar1688/ring.html">here</a>.
 <br />Difference between PA1688 and AR1688 ring tones: 

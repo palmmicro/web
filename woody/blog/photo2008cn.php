@@ -8,7 +8,7 @@ function GetMetaDescription()
 
 function EchoAll()
 {
-	$strPalmmicro = GetHtmlElement('3月26日 '.GetBlogLink(20080326).'域名的历史 '.ImgWoody20070920());
+	$strPalmmicro = GetHtmlElement(GetBlogTitle(20080326).ImgWoody20070920());
 	
     echo <<<END
 <p>11月24日 <a href="ar1688/20081124cn.php">Micrel KSZ8842网络芯片</a>

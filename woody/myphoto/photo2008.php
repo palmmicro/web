@@ -24,7 +24,7 @@ function EchoAll($bChinese)
 <!--<p><a href="http://www.go2eu.com/bbs/viewthread.php?tid=112203" target=_blank>May 22</a>. Sea. Photo taken by Vincent <a href="2008/sea.jpg" target=_blank>Large</a>
 <br /><img src=2008/sea_s.jpg></p>-->
 
-<p><a href="http://www.lvye.org/modules/lvyebb/viewtopic.php?view=1&post_id=43360066" target=_blank>July 26</a>. The persuit of happyness. <a href="http://www.lvye.org/modules/lvyebb/viewtopic.php?view=1&post_id=43363123" target=_blank>Photo</a>
+<p><a href="http://www.lvye.org/modules/lvyebb/viewtopic.php?view=1&post_id=43360066" target=_blank>Jul 26</a>. The persuit of happyness. <a href="http://www.lvye.org/modules/lvyebb/viewtopic.php?view=1&post_id=43363123" target=_blank>Photo</a>
 <br /><img src=2008/baihuashan.jpg alt="Woody on Bai Hua Shan in 2008" /></p>
 
 <p><a href="http://www.lvye.org/modules/lvyebb/viewtopic.php?view=1&post_id=43447742" target=_blank>Oct 26</a>. Away from her shoes.

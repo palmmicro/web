@@ -37,7 +37,7 @@
 <table>
 <tr><td class=THead><B>8051 Software Details</B></td></tr>
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-<tr><td>March 30, 2008</td></tr>
+<tr><td>Mar 30, 2008</td></tr>
 <tr><td>Although the IP phone reference design based on <a href="../../../ar1688/module.html">AR168M</a> VoIP <a href="20080225.php">module</a> and an external 8051 <a href="20080329.php">UI</a> controller is for demo purpose, 
 it actually can be used in real production and still maintain a very low BOM cost, because the 8051 we used is also very cost effective. Here is some details of the open source software in SDCC\mcs51.
 <br />1. Compile with open source SDCC compiler, using small memory mode

@@ -8,7 +8,7 @@ function GetMetaDescription($bChinese)
 
 function EchoAll($bChinese)
 {
-	$strPalmmicro = GetHtmlElement('Mar 26 The History of '.GetBlogLink(20080326, $bChinese).' Domain '.ImgWoody20070920($bChinese));
+	$strPalmmicro = GetHtmlElement(GetBlogTitle(20080326, $bChinese).ImgWoody20070920($bChinese));
 	
     echo <<<END
 <p>Nov 24 <a href="ar1688/20081124.php">Micrel KSZ8842</a>
@@ -17,10 +17,10 @@ function EchoAll($bChinese)
 <p>Aug 6 <a href="pa1688/20080806.php">Non-Standard PA1688 Based Devices</a>
 <br /><img src=../../pa1688/user/ke1000/1.jpg alt="Non-standard PA1688 based Koncept KE1000 IP phone front picture." /></p>
 
-<p>July 29 <a href="ar1688/20080729.php">Router, PPPoE and DM9003</a>
+<p>Jul 29 <a href="ar1688/20080729.php">Router, PPPoE and DM9003</a>
 <br /><img src=../../ar1688/user/gp1266/03.jpg alt="GP1266 IP phone POWER, LAN1 and LAN2 interface." /></p>
 
-<p>June 15 <a href="ar1688/20080615.php">A Farewell to RTL8019AS</a>
+<p>Jun 15 <a href="ar1688/20080615.php">A Farewell to RTL8019AS</a>
 <br /><img src=../../pa1688/user/pb35/rtl8019as.jpg alt="RTL8019AS chip on China Roby PB-35 IP phone inside PCB board." /></p>
 
 $strPalmmicro

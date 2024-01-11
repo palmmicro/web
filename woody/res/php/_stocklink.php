@@ -33,7 +33,7 @@ function GetCategoryArray($strPage)
         break;
   
     case 'biotech':
-        $ar = QdiiGetXbiSymbolArray(); 
+        $ar = array_merge(QdiiGetXbiSymbolArray(), array('SH513290')); 
         break;
 
     case 'chinaindex':

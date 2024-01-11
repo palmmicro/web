@@ -13,7 +13,7 @@
 
 <div>
 <h1>Upgrade to Visual Studio 2013</h1>
-<p>June 15, 2014
+<p>Jun 15, 2014
 <br />I was planning to replace my 5 year old Sony VGN-FW235J early this year, but the news of Sony selling its VAIO PC business stopped me from an immediate action.
 I have been using Sony laptops since 2000 and do not know what to buy next, so I continued to use it until its hard disk crashed recently. 
 <br />My VS2008/VC9 crashed away with the hard disk. I felt very uncomfortable without a VC compiler in hand, so I started installing VS2013/VC12 on my another Sony VPCEG.

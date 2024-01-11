@@ -19,10 +19,10 @@ function EchoAll($bChinese)
 <br />Apr 20, 2011 <a href="pa1688/20110420.php">My God the LM386 in AT323 Phone is Working ALL the Time!</a>
 <br />Feb 25, 2011 <a href="pa1688/20110225.php">PA1688 Device Killer</a>
 <br />Sep 7, 2010 <a href="pa1688/20100907.php">A Hard Day's Night</a>
-<br />June 6, 2010 <a href="pa1688/20100606.php">False Alarm</a>
+<br />Jun 6, 2010 <a href="pa1688/20100606.php">False Alarm</a>
 <br />Dec 15, 2009 <a href="pa1688/20091215.php">Mistakes I Made on Last Sunday</a>
 <br />Aug 6, 2008 <a href="pa1688/20080806.php">Non-Standard PA1688 Based Devices</a>
-<br />June 7, 2007 <a href="pa1688/20070607.php">Too Late Good News</a>
+<br />Jun 7, 2007 <a href="pa1688/20070607.php">Too Late Good News</a>
 </p>
 END;
 }

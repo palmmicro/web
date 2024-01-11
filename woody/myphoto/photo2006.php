@@ -23,13 +23,13 @@ function EchoAll($bChinese)
 <!--<p>May 27. Beijing country park pass photo. <a href="2006/nianpiao.jpg" target=_blank>Large</a>
 <br /><img src=2006/nianpiao_s.jpg></p>-->
 
-<p><a href="http://www.lvye.org/modules/lvyebb/viewtopic.php?view=1&post_id=1528559" target=_blank>June 10</a>. Dangerous Miaofeng Mountain. <a href="2006/miaofengshan.jpg" target=_blank>Large</a>
+<p><a href="http://www.lvye.org/modules/lvyebb/viewtopic.php?view=1&post_id=1528559" target=_blank>Jun 10</a>. Dangerous Miaofeng Mountain. <a href="2006/miaofengshan.jpg" target=_blank>Large</a>
 <br /><img src=2006/miaofengshan_s.jpg></p>
 
-<p><a href="http://www.lvye.org/modules/lvyebb/viewtopic.php?view=1&post_id=1537444" target=_blank>June 25</a>. Longmen Valley. Photo taken by BianDou <a href="2006/longmenjian.jpg" target=_blank>Large</a>
+<p><a href="http://www.lvye.org/modules/lvyebb/viewtopic.php?view=1&post_id=1537444" target=_blank>Jun 25</a>. Longmen Valley. Photo taken by BianDou <a href="2006/longmenjian.jpg" target=_blank>Large</a>
 <br /><img src=2006/longmenjian_s.jpg></p>
 
-<p><a href="http://www.lvye.org/modules/lvyebb/viewtopic.php?view=1&post_id=1545134" target=_blank>July 1</a>, I always feel lost on this Baihua Mountain. 
+<p><a href="http://www.lvye.org/modules/lvyebb/viewtopic.php?view=1&post_id=1545134" target=_blank>Jul 1</a>, I always feel lost on this Baihua Mountain. 
 $strImg0701
 </p>
 END;

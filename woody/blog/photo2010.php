@@ -20,7 +20,7 @@ function EchoAll($bChinese)
 
 $strPHP
 
-<p>July 26 <a href="entertainment/20100726.php">Raw Video Viewers</a>
+<p>Jul 26 <a href="entertainment/20100726.php">Raw Video Viewers</a>
 <br /><img src=photo/20100726.jpg alt="Screen shot of Speech Workshop, Raw Image Viewer and CamMan" />
 $strLenna
 </p>

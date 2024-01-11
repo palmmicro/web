@@ -13,7 +13,7 @@
 
 <div>
 <h1>EastMoney USDCNY Reference Rate Data Interface</h1>
-<p>June 15, 2016
+<p>Jun 15, 2016
 <br />The forex data of <a href="20151225.php">Sina Stock Data</a> is realtime trading data, but USDCNY reference rate is widely used in QDII,
 so the <a href="20150818.php">SZ162411 Net Value</a> calculation may have 0.1 cent of difference compared with final official data. 
 As the difference is so small, and I also believe the trading price will move to reference rate during the day, I was not changing it. After all, I will not trade based 0.1 cent any way.
@@ -50,7 +50,7 @@ The data as following:
 ?>
 
 <h3><a name="uscny">USCNY and USDCNY</a></h3>
-<p>June 16, 2016
+<p>Jun 16, 2016
 <br />The auto calibration last night used data from East Money, but today's SZ162411 net value still has small difference compared with official data.
 Continue to get advise from <u>zzzzv</u>, I found that the USDCNY data from East Money is actually the same USDCNY data from Sian, they are both trading data.
 To get USDCNY reference rate from East Money, symbol <a href="http://hq2gjqh.eastmoney.com/EM_Futures2010NumericApplication/Index.aspx?type=z&ids=uscny0" target=_blank>USCNY</a> is needed. 

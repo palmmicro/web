@@ -13,6 +13,12 @@ function GetMetaDescription()
 
 function EchoAll()
 {
+	$strWechat = GetBlogTitle(20161014);
+	$strSZ162411 = GetBlogLink(20150818);
+	$strGoogle = GetBlogLink(20110509);
+	$strPHP = GetBlogLink(20100905);
+	$strPalmmicro = GetBlogTitle(20080326);
+	
 	$strCategory = GetBlogMenuLinks();
 	$strMenu = GetWoodyMenuParagraph();
 	
@@ -25,9 +31,11 @@ function EchoAll()
 </p>
 
 <p>全部： 
-<br /><a name="2016">2016</a>年6月15日 东方财富<a href="blog/entertainment/20160615cn.php">美元人民币中间价</a>汇率实时数据接口的字段意义
+<br /><a name="2016">2016</a>
+<br />$strWechat
+<br />2016年6月15日 东方财富<a href="blog/entertainment/20160615cn.php">美元人民币中间价</a>汇率实时数据接口的字段意义
 <br /><a name="2015">2015</a>年12月25日 <a href="blog/entertainment/20151225cn.php">新浪股票数据</a>接口的字段意义
-<br />2015年8月18日 <a href="blog/entertainment/20150818cn.php">华宝油气</a>净值估算的PHP程序
+<br />2015年8月18日 {$strSZ162411}净值估算的PHP程序
 <br /><a name="2014">2014</a>年12月4日 <a href="blog/entertainment/20141204cn.php">林近岚</a>的由来
 <br />2014年10月16日 从上证大型国有<a href="blog/entertainment/20141016cn.php">股票</a>获利
 <br />2014年6月15日 升级到<a href="blog/entertainment/20140615cn.php">Visual Studio</a> 2013
@@ -51,7 +59,7 @@ function EchoAll()
 <br />2011年6月8日 Ethernet转<a href="blog/entertainment/20110608cn.php">WiFi</a>
 <br />2011年5月24日 <a href="blog/pa6488/20110524cn.php">兼容H.263</a>
 <br />2011年5月16日 <a href="blog/pa6488/20110516cn.php">JPEG总动员</a>
-<br />2011年5月9日 <a href="blog/entertainment/20110509cn.php">Google</a>投放的广告
+<br />2011年5月9日 {$strGoogle}投放的广告
 <br />2011年4月27日 <a href="blog/pa1688/20110427cn.php">过度软件优化</a>
 <br />2011年4月20日 <a href="blog/pa1688/20110420cn.php">额的神啊! AT323话机居然LM386一直在工作!</a>
 <br />2011年4月11日 <a href="blog/pa6488/20110411cn.php">从PA1688到PA6488 - 产品演化过程中的串口功能</a>
@@ -67,7 +75,7 @@ function EchoAll()
 <br />2010年11月7日 网络日志搬家 - GB18030和<a href="blog/entertainment/20101107cn.php">GB2312</a>
 <br />2010年9月9日 <a href="blog/palmmicro/20100909cn.php">忘记密码? </a>
 <br />2010年9月7日 <a href="blog/pa1688/20100907cn.php">夜以继日瞎忙</a>
-<br />2010年9月5日 我的第一个<a href="blog/entertainment/20100905cn.php">PHP</a>程序
+<br />2010年9月5日 我的第一个{$strPHP}程序
 <br />2010年8月18日 <a href="blog/ar1688/20100818cn.php">用VC2008编译AR1688 Windows下工具</a>
 <br />2010年7月26日 <a href="blog/entertainment/20100726cn.php">原始视频播放器</a>
 <br />2010年6月25日 <a href="blog/ar1688/20100625cn.php">卖到断货</a>
@@ -105,7 +113,7 @@ function EchoAll()
 <br />2008年5月12日 <a href="blog/ar1688/20080512cn.php">显示短消息</a>
 <br />2008年3月30日 <a href="blog/ar1688/20080330cn.php">8051软件细节</a>
 <br />2008年3月29日 <a href="blog/ar1688/20080329cn.php">AR168M VoIP模块高层用户界面协议</a>
-<br />2008年3月26日 <a href="blog/palmmicro/20080326cn.php">Palmmicro</a>.com域名的历史
+<br />$strPalmmicro
 <br />2008年2月25日 <a href="blog/ar1688/20080225cn.php">AR168M VoIP模块</a>
 <br />2008年2月22日 <a href="blog/ar1688/20080222cn.php">在AR1688软件中添加ISO 8859-2字库的具体步骤</a>
 <br />2008年2月16日 <a href="blog/ar1688/20080216cn.php">字库资源</a>

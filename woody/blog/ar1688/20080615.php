@@ -38,7 +38,7 @@
 <table>
 <tr><td class=THead><B>A Farewell to RTL8019AS</B></td></tr>
 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-<tr><td>June 15, 2008</td></tr>
+<tr><td>Jun 15, 2008</td></tr>
 <tr><td>Back in year 2000, we were one of those first to put Realtek RTL8019AS 10Base-T ethernet chip into embedded systems.
 The first RTL8019AS driver software on <a href="../../../pa1688/index.html">PA1688</a> was modified from the NE2000 driver in Windows DDK source code. 
 Over the years, we have become so familiar with all those RTL8019AS registers and memory buffers. With lots of optimizations and almost none extra memory copy,
@@ -73,7 +73,7 @@ Although the noise is not as widely complained as the hot problem among our cust
 The support people told me that they had helped many other DM9000/DM9003 related customers in their designs just for this special problem!
 It sounds actually like a bad news for me, because I understand it as a common problem among all DM9000/DM9003 users. Anyway, what can you do with a dead horse?
 <br />&nbsp;
-<br /><font color=magenta>Updated on March 15, 2011</font>
+<br /><font color=magenta>Updated on Mar 15, 2011</font>
 <br />Both AR1688 and PA1688 are not dedicated IP phone chips. They all need external ethernet chips. All PA1688 devices used RTL8019AS.
 Although we supported <a href="20081124.php">Micrel KSZ8842</a> to work with AR1688 since late 2008, in fact most AR1688 devices still used RTL8019AS in the same way as PA1688.
 We had not done much new work during the past 5 years.
