@@ -8,7 +8,7 @@ function GetMetaDescription($bChinese)
 
 function EchoAll($bChinese)
 {
-	$strSZ162411 = GetBlogLink(20150818, $bChinese);
+	$strSZ162411 = GetBlogTitle(20150818, $bChinese);
 	$strSapphire = GetBlogLink(20141204, $bChinese);
 	$strStock = GetBlogLink(20141016, $bChinese);
 
@@ -18,7 +18,7 @@ function EchoAll($bChinese)
     echo <<<END
 <p>Jun 15, 2016 EastMoney <a href="entertainment/20160615.php">USDCNY Reference Rate</a> Data Interface
 <br />Dec 25, 2015 The Interpretation of <a href="entertainment/20151225.php">Sina Stock Data</a> Interface
-<br />Aug 18, 2015 PHP Application to Estimate $strSZ162411 Net Value
+<br />$strSZ162411
 <br />Dec 4, 2014 The Origin of $strSapphire
 <br />Oct 16, 2014 Rules for Giant Chinese State-owned $strStock
 <br />Jun 15, 2014 Upgrade to <a href="entertainment/20140615.php">Visual Studio</a> 2013

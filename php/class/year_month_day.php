@@ -34,7 +34,7 @@ class YearMonthDay
     
     function GetMonthDayDisplay($bChinese)
     {
-    	return $bChinese ? date("n月j日", $this->iTime) : date("M j,", $this->iTime);
+    	return $bChinese ? date("n月j日", $this->iTime) : date("M j", $this->iTime);
     }
     
     function GetTick()

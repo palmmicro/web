@@ -12,12 +12,11 @@ function GetMetaDescription()
 	return '跟本网站相关的开发和分析及赚钱的网络资源，家人和朋友们开的公司，自己开发的软件。包括Woody的Web Tool，华宝油气(sz162411)净值计算，IP地址查询等工具。';
 }
 
-function EchoAll()
+function EchoAllWoody()
 {
 	$strStock = GetStockCategoryLinks();
 	$strAccount = GetAccountToolLinks();
 	$strImage = ImgWoodyHomepage();
-	$strMenu = GetWoodyMenuParagraph();
 	
     echo <<<END
 <p>我的股票软件
@@ -40,7 +39,6 @@ function EchoAll()
 
 <p>$strImage
 </p>
-$strMenu
 END;
 }
 

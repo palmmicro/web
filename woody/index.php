@@ -11,11 +11,10 @@ function GetMetaDescription($bChinese)
 	return 'Web development resources, companies founded by family and friends, and software developed by myself.';
 }
 
-function EchoAll($bChinese)
+function EchoAllWoody($bChinese)
 {
 	$strAccount = GetAccountToolLinks($bChinese);
 	$strImage = ImgWoodyHomepage($bChinese);
-	$strMenu = GetWoodyMenuParagraph($bChinese);
 	
     echo <<<END
 <p>My Tool Software
@@ -29,7 +28,6 @@ function EchoAll($bChinese)
 
 <p>$strImage
 </p>
-$strMenu
 END;
 }
 

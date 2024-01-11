@@ -11,10 +11,9 @@ function GetMetaDescription()
 	return 'Woody的相片分类和入口页面。包括我的日常照片，女儿林近岚(英文名Sapphire)的日常照片和满月艺术照，以及我的网络日志相关图片。用2007年早春拍的我的自行车作为封面。';
 }
 
-function EchoAll()
+function EchoAllWoody()
 {
 	$strImage = ImgWoodyBike();
-	$strMenu = GetWoodyMenuParagraph();
 	
     echo <<<END
 <p>个人相册：<a href="myphoto/photo2015cn.php">2015</a> <a href="myphoto/photo2014cn.php">2014</a> <a href="myphoto/photo2012cn.php">2012</a> <a href="myphoto/photo2011cn.php">2011</a>
@@ -33,7 +32,6 @@ function EchoAll()
 
 <p>$strImage
 </p>
-$strMenu
 END;
 }
 
