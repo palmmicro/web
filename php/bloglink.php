@@ -1,14 +1,22 @@
 <?php
 
-function GetBlogYmd($bChinese = true, $iDate = false)
+class BlogPageYMD extends StringYMD
 {
-	$ymd = new PageYMD($iDate);
+    public function __construct($strPage)
+    {
+        parent::__construct(ConvertYMD($strPage));
+    }
+}
+
+function GetBlogYmd($strDate, $bChinese = true)
+{
+	$ymd = new BlogPageYMD($strDate);
 	return $ymd->GetDisplay($bChinese);
 }
 
-function GetBlogMonthDay($bChinese = true, $iDate = false)
+function GetBlogMonthDay($strDate, $bChinese = true)
 {
-	$ymd = new PageYMD($iDate);
+	$ymd = new BlogPageYMD($strDate);
 	return $ymd->GetMonthDayDisplay($bChinese);
 }
 
@@ -92,7 +100,8 @@ function GetBlogTitle($iDate, $bChinese = true, $bLink = true)
 	if ($bLink)
 	{
 		$strPage = UrlGetPage();
-		$strDate = ($strPage == 'blog' || substr($strPage, 0, 5) == 'photo') ? GetBlogMonthDay($bChinese, $iDate) : GetBlogYmd($bChinese, $iDate); 
+		$strDate = strval($iDate);
+		$strDate = ($strPage == 'blog' || substr($strPage, 0, 5) == 'photo') ? GetBlogMonthDay($strDate, $bChinese) : GetBlogYmd($strDate, $bChinese); 
 		return $strDate.' '.$strTitle;
 	}
 	return $strTitle;

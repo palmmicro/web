@@ -32,20 +32,23 @@ function _LayoutTopLeft($bChinese = true, $bAdsense = true)
 
 function _LayoutBottom($bChinese = true, $bAdsense = true)
 {
-	EchoBlogMenuArray($bChinese);
+	LayoutBlogMenuArray($bChinese);
 	EchoBlogComments($bChinese);
     LayoutTail($bChinese, $bAdsense);
 }
 
 function GetTitle($bChinese)
 {
-	return GetBlogTitle(intval(UrlGetPage()), $bChinese, false);
+	global $acct;
+	
+	return GetBlogTitle(intval($acct->GetPage()), $bChinese, false);
 }
 
-function EchoAll($bChinese)
+function EchoBlogDate($bChinese = true)
 {
-	echo '<p>'.GetBlogYmd($bChinese);
-	EchoAllBlog($bChinese);
+	global $acct;
+	
+	echo '<p>'.GetBlogYmd($acct->GetPage(), $bChinese);
 }
 
    	$acct = new EditCommentAccount();

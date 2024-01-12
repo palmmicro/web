@@ -11,7 +11,7 @@ function GetMetaDescription()
 	return 'Woody的全部网络日志分类和列表。包括PA1688、AR1688、PA3288和PA6488方案话题。Palmmicro公司内容以及我自己的娱乐部分。从开始按照年份时间编排。';
 }
 
-function EchoAllWoody()
+function EchoAll()
 {
 	$strWechat = GetBlogTitle(20161014);
 	$strSZ162411 = GetBlogTitle(20150818);

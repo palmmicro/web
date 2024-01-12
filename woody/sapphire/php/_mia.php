@@ -3,14 +3,12 @@ require_once('../../php/layout.php');
 require_once('../../php/ui/imagedisp.php');
 require_once('../php/_woodymenu.php');
 
-function _menuSapphirePhoto($bChinese)
+function _menuMiaPhoto($bChinese)
 {
-    $arSapphirePhotos = array('photo2014', 'photo30days', 'photo2015', 'photo2016', 'photo2018'); 
-    
 	MenuBegin();
 	WoodyMenuItem(1, 'image', $bChinese);
 	MenuContinueNewLine();
-    MenuDirFirstLast($arSapphirePhotos);
+    MenuDirFirstLast(GetPhotoPageArray(GetMiaPhotoYears()));
 	MenuContinueNewLine();
     MenuSwitchLanguage($bChinese);
     MenuEnd();
@@ -18,11 +16,12 @@ function _menuSapphirePhoto($bChinese)
 
 function _LayoutTopLeft($bChinese = true, $bAdsense = true)
 {
-    LayoutTopLeft('_menuSapphirePhoto', true, $bChinese, $bAdsense);
+    LayoutTopLeft('_menuMiaPhoto', true, $bChinese, $bAdsense);
 }
 
 function _LayoutBottom($bChinese = true, $bAdsense = true)
 {
+	LayoutMiaPhotoArray($bChinese);
     LayoutTail($bChinese, $bAdsense);
 }
 
@@ -30,7 +29,7 @@ function GetTitle($bChinese = true)
 {
 	global $acct;
 	
-	$strYear = substr($acct->GetPage(), -4, 4);
+	$strYear = $acct->GetPageYear();
 	if (is_numeric($strYear))
 	{
 		if ($bChinese)	$strYear .= '年';
@@ -41,7 +40,7 @@ function GetTitle($bChinese = true)
 	}
 	
 	if ($bChinese)	$str = '林近岚'.$strYear.'相片';
-	else				$str = 'Sapphire '.$strYear.' Photos';
+	else				$str = 'Mia '.$strYear.' Photos';
 
 	return $str;
 }

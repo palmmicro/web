@@ -1,5 +1,57 @@
 <?php
-// Provide enhanced function replacement of ../woody.js
+
+function GetMyPhotoYears()
+{
+	return array(2006, 2007, 2008, 2009, 2010, 2011, 2012, 2014, 2015);
+}
+
+function GetMiaPhotoYears()
+{
+	return array(2014, 2015, 2016, 2018);
+}
+
+function GetBlogPhotoYears()
+{
+	$ar = array();
+	for ($i = 2006; $i <= 2016; $i ++)	$ar[] = $i;
+	return $ar;
+}
+
+function GetPhotoPageArray($arYears)
+{
+	$arPhoto = array();
+	foreach ($arYears as $iYear)
+	{
+		$arPhoto[] = 'photo'.strval($iYear);
+	}
+	return $arPhoto;
+}
+
+function GetPhotoMenuArray($arYears)
+{
+	$arPhoto = array();
+	foreach ($arYears as $iYear)
+	{
+		$strYear = strval($iYear);
+		$arPhoto['photo'.$strYear] = $strYear;
+	}
+	return $arPhoto;
+}
+
+function GetBlogPhotoLinks($bChinese = true)
+{
+	return GetCategoryLinks(GetPhotoMenuArray(GetBlogPhotoYears()), '/woody/blog/', $bChinese);
+}
+
+function GetMyPhotoLinks($bChinese = true)
+{
+	return GetCategoryLinks(GetPhotoMenuArray(GetMyPhotoYears()), '/woody/myphoto/', $bChinese);
+}
+
+function GetMiaPhotoLinks($bChinese = true)
+{
+	return GetCategoryLinks(GetPhotoMenuArray(GetMiaPhotoYears()), '/woody/sapphire/', $bChinese);
+}
 
 function GetBlogMenuArray($bChinese)
 {
@@ -13,11 +65,29 @@ function GetBlogMenuLinks($bChinese = true)
 	return GetCategoryLinks(GetBlogMenuArray($bChinese), '/woody/blog/', $bChinese);
 }
 
-function EchoBlogMenuArray($bChinese)
+function LayoutWoodyMenuArray($bChinese)
 {
 	LayoutBegin();
-	EchoParagraph(GetBlogMenuLinks($bChinese).'<br />'.GetWoodyMenuLinks($bChinese));
+	EchoParagraph(GetCategoryLinks(GetWoodyMenuArray($bChinese), '/woody/', $bChinese));
 	LayoutEnd();
+}
+
+function LayoutBlogMenuArray($bChinese)
+{
+	LayoutBegin();
+	EchoParagraph(GetBlogMenuLinks($bChinese));
+	LayoutEnd();
+	
+	LayoutWoodyMenuArray($bChinese);
+}
+
+function LayoutMiaPhotoArray($bChinese)
+{
+	LayoutBegin();
+	EchoParagraph(GetMiaPhotoLinks($bChinese));
+	LayoutEnd();
+
+	LayoutWoodyMenuArray($bChinese);
 }
 
 /*
@@ -63,16 +133,5 @@ function WoodyMenuItem($iLevel, $strItem, $bChinese = true)
 //    HtmlMenuItem(GetWoodyMenuArray($bChinese), $iLevel, $strItem, $bChinese);
     PhpMenuItem(GetWoodyMenuArray($bChinese), $iLevel, $strItem, $bChinese);
 }
-
-function GetWoodyMenuLinks($bChinese = true)
-{
-	return GetCategoryLinks(GetWoodyMenuArray($bChinese), '/woody/', $bChinese);
-}
-
-function GetWoodyMenuParagraph($bChinese = true)
-{
-	return GetHtmlElement(GetWoodyMenuLinks($bChinese));
-}
-
 
 ?>

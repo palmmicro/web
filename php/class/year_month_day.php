@@ -155,14 +155,6 @@ class StringYMD extends YearMonthDay
     }
 }
 
-class PageYMD extends StringYMD
-{
-    public function __construct($iDate = false)
-    {
-        parent::__construct(ConvertYMD($iDate ? strval($iDate) : UrlGetPage()));
-    }
-}
-
 class OldestYMD extends StringYMD
 {
     public function __construct()

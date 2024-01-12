@@ -20,6 +20,7 @@ function _echo20161014($bChinese)
 	$strQuotePalmmicro = GetQuoteElement('palmmicro');
 	$strImage = ImgPalmmicroWeixin($bChinese);
 	
+	EchoBlogDate($bChinese);
     echo <<<END
 <br />As a company that has been engaged in Internet products for 16 years, $strPalmmicro has never developed its own mobile application software. The world is changing rapidly, and now it seems that there is no need to develop your own applications. 
 Most needs can be met by using the WeChat public account.
@@ -44,7 +45,7 @@ $strImage
 END;
 }
 
-function EchoAllBlog($bChinese)
+function EchoAll($bChinese)
 {
 	_echo20161014($bChinese);
 }

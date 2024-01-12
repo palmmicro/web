@@ -11,7 +11,7 @@ function GetMetaDescription($bChinese)
 	return "List and classification of all Woody's blogs. Including solution topics of PA1688, AR1688, PA3288 and PA6488, Palmmicro company and my entertainment.";
 }
 
-function EchoAllWoody($bChinese)
+function EchoAll($bChinese)
 {
 	$strWechat = GetBlogTitle(20161014, $bChinese);
 	$strSZ162411 = GetBlogTitle(20150818, $bChinese);

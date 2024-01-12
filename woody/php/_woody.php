@@ -20,13 +20,8 @@ function _LayoutTopLeft($bChinese = true, $bAdsense = true)
 
 function _LayoutBottom($bChinese = true, $bAdsense = true)
 {
+	LayoutWoodyMenuArray($bChinese);
     LayoutTail($bChinese, $bAdsense);
-}
-
-function EchoAll($bChinese)
-{
-	EchoAllWoody($bChinese);
-	echo GetWoodyMenuParagraph($bChinese);
 }
 
    	$acct = new Account();

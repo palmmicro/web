@@ -11,7 +11,7 @@ function GetMetaDescription($bChinese)
 	return 'Web development resources, companies founded by family and friends, and software developed by myself.';
 }
 
-function EchoAllWoody($bChinese)
+function EchoAll($bChinese)
 {
 	$strAccount = GetAccountToolLinks($bChinese);
 	$strImage = ImgWoodyHomepage($bChinese);

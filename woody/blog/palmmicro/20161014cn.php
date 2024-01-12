@@ -20,9 +20,10 @@ function _echo20161014()
 	$str1 = GetRemarkElement('1');
 	$strPA3288 = GetInternalLink('/pa3288/indexcn.html', 'PA3288');
 	$strQuoteSz162411 = GetQuoteElement('sz162411');
-	$strImage = ImgPalmmicroWeixin();
 	$strQuotePalmmicro = GetQuoteElement('palmmicro');
+	$strImage = ImgPalmmicroWeixin();
 	
+	EchoBlogDate();
     echo <<<END
 <br />作为一个搞了16年互联网产品的公司，{$strPalmmicro}居然一直没有开发自己的手机应用软件。世界变化快，现在貌似也不用自己搞应用，大多数的需求用微信公众号就足够满足。
 <br />因为一年多前做{$strSZ162411}净值估算页面的时候就跟提供QDII基金估值的公众号小飞猪{$strFlyingpig33}学习过，我一直觉得加公众号是件非常简单的事情，没想到在启用{$strWeixinLink}开发模式消息接口的时候就碰到了问题。
@@ -39,7 +40,7 @@ $strImage
 END;
 }
 
-function EchoAllBlog()
+function EchoAll()
 {
 	_echo20161014();
 }

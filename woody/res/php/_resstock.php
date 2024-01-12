@@ -47,6 +47,7 @@ function _LayoutTopLeft($bChinese = true, $bAdsense = true)
 
 function _LayoutBottom($bChinese = true, $bAdsense = true)
 {
+	LayoutWoodyMenuArray($bChinese);
     VisitorLogin($bChinese);
     LayoutTail($bChinese, $bAdsense);
 }
