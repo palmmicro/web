@@ -83,7 +83,7 @@ class TableColumnHolding extends TableColumn
 
 class TableColumnName extends TableColumn
 {
-	public function __construct($strPrefix = false, $iWidth = 270)
+	public function __construct($strPrefix = false, $iWidth = 150)
 	{
         parent::__construct('名称', $iWidth, false, $strPrefix);
 	}

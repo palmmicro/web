@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<title>华宝油气净值估算的PHP程序</title>
+<title><?php echo GetBlogTitle(20150818, true, false); ?></title>
 <meta name="description" content="根据SPDR标普油气开采指数ETF(XOP)、标普油气开采指数(^SPSIOP)和美元对人民币的汇率计算QDII基金华宝油气(SZ162411)净值的PHP程序的开发过程记录。">
 <?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
@@ -14,7 +14,7 @@
 <?php DemoPrefetchData(); ?>
 
 <div>
-<h1>华宝油气净值估算的PHP程序</h1>
+<h1><?php echo GetBlogTitle(20150818, true, false); ?></h1>
 <p>2015年8月18日
 <br />眼看Qualcomm收购CSR<?php echo GetBlogLink(20141016); ?>的现金快要到账，最近我在琢磨在A股中国特色的QDII基金华宝油气和美股XOP之间套利。每天看Yahoo新浪等网站的股票行情，时不时还要用鼠标点开计算器算算转换价格，时间长了后有点烦。
 <br />后来我想起来5年前学习的<?php echo GetBlogLink(20100905); ?>，于是打算写我的第二个PHP程序，统一把套利需要常看的行情显示在一起。

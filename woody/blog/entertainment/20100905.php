@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<title>My First PHP Application</title>
+<title><?php echo GetBlogTitle(20100905, false, false); ?></title>
 <meta name="description" content="My first PHP application: user and blog comment CRUD (Create/Retrieve/Update/Delete). And other PHP tools software after it.">
 <?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
@@ -12,7 +12,7 @@
 <?php _LayoutTopLeft(false); ?>
 
 <div>
-<h1>My First PHP Application</h1>
+<h1><?php echo GetBlogTitle(20100905, false, false); ?></h1>
 <p>Sep 5, 2010
 <br />The first time I heard about PHP was from an <a href="../../../ar1688/index.html">AR1688</a> developer.
 He told me he had written some PHP script in AR1688 web pages to calculate the total size of the pages in bytes, so the web interface would not fail silently when oversized.

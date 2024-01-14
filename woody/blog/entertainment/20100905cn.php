@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<title>我的第一个PHP程序</title>
+<title><?php echo GetBlogTitle(20100905, true, false); ?></title>
 <meta name="description" content="Palmmicro PA6488开发的副产品. 我的第一个PHP程序: 用户和网络日志评论的CRUD(Create创建/Retrieve读取/Update更新/Delete删除).">
 <?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
@@ -12,7 +12,7 @@
 <?php _LayoutTopLeft(); ?>
 
 <div>
-<h1>我的第一个PHP程序</h1>
+<h1><?php echo GetBlogTitle(20100905, true, false); ?></h1>
 <p>2010年9月5日
 <br />第一次听到PHP是从一个<a href="../../../ar1688/indexcn.html">AR1688</a>开发者那里. 他告诉我他在网页界面中写了些PHP代码自动计算网页总字节大小, 这样可以避免AR1688网页界面因为超过大小限制而静悄悄的自动罢工.
 不过我现在知道他有关PHP的部分并不正确, 也许他想说的是Javascript的代码. 

@@ -8,7 +8,7 @@ function GetMetaDescription($bChinese)
 
 function EchoAll($bChinese)
 {
-	$strPalmmicro = GetHtmlElement(GetBlogTitle(20080326, $bChinese).ImgWoody20070920($bChinese));
+	$strPalmmicro = GetBlogPictureParagraph(20080326, 'ImgHalfMoonBay', $bChinese);
 	
     echo <<<END
 <p>Nov 24 <a href="ar1688/20081124.php">Micrel KSZ8842</a>

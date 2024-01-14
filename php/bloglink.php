@@ -90,6 +90,7 @@ function GetBlogTitle($iDate, $bChinese = true, $bLink = true)
 		break;
 		
 	case 20100905:
+		$strTitle = $bChinese ? '我的第一个'.$strDisplay.'程序' : 'My First '.$strDisplay.' Application';
 		break;
 		
 	case 20080326:
@@ -105,6 +106,28 @@ function GetBlogTitle($iDate, $bChinese = true, $bLink = true)
 		return $strDate.' '.$strTitle;
 	}
 	return $strTitle;
+}
+
+function GetBlogPictureParagraph($iDate, $callback, $bChinese = true)
+{
+	return GetHtmlElement(GetBlogTitle($iDate, $bChinese).call_user_func($callback, $bChinese));
+}
+
+function GetPhotoParagraph($strPathName, $strTextCn, $strTextUs = '', $bChinese = true)
+{
+	$strQuote = ImgAutoQuote($strPathName, $strTextCn, $strTextUs, $bChinese);
+	$strDate = basename($strPathName, '.jpg');
+	if (is_numeric($strDate) && strlen($strDate) == 8)
+	{
+		$strQuote = GetBlogMonthDay($strDate, $bChinese).' '.$strQuote;
+	}
+	return GetHtmlElement($strQuote);
+}
+
+function ImgPalmmicroWechat($bChinese = true)
+{
+	$strTitle = GetBlogTitle(20161014, $bChinese, false);
+	return GetImgQuote('/woody/image/wx.jpg', $strTitle.'小狐狸二维码', $strTitle.' small fox QR code', $bChinese);
 }
 
 ?>

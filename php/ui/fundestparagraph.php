@@ -2,11 +2,18 @@
 require_once('stocktable.php');
 
 // $ref from FundReference
-function _echoFundEstTableItem($ref, $bFair)
+function _echoFundEstTableItem($ref, $bFair, $bWide = false)
 {
     if (RefHasData($ref) == false)      return;
 
-    $ar = array($ref->GetStockLink(), $ref->GetNav());
+    $ar = array($ref->GetStockLink());
+    if ($bWide)
+    {
+    	$stock_ref = (method_exists($ref, 'GetStockRef')) ? $ref->GetStockRef() : $ref;
+    	$ar = array_merge($ar, GetStockReferenceArray($stock_ref));
+    }
+    
+    $ar[] = $ref->GetNav();
     
     $strOfficialPrice = $ref->GetOfficialNav();
     $ar[] = $ref->GetPriceDisplay($strOfficialPrice);
@@ -32,7 +39,7 @@ function _echoFundEstTableItem($ref, $bFair)
     	}
     }
     
-    RefEchoTableColumn($ref, $ar);
+	RefEchoTableColumn($ref, $ar, $bWide);
 }
 
 function _callbackSortFundEst($ref)
@@ -46,13 +53,14 @@ function _callbackSortFundEst($ref)
 	return $ref->GetPercentage($strNav);
 }
 
-function _getFundEstTableColumn($arRef, &$bFair)
+function _getFundEstTableColumn($arRef, &$bFair, $bWide = false)
 {
 	$premium_col = new TableColumnPremium();
-	$ar = array(new TableColumnSymbol(),
-				  new TableColumnNav(),
-				  new TableColumnOfficalEst(),
-				  $premium_col);
+	$ar = array(new TableColumnSymbol());
+	if ($bWide)	$ar = array_merge($ar, GetStockReferenceColumn());
+	$ar[] = new TableColumnNav();
+	$ar[] = new TableColumnOfficalEst();
+	$ar[] = $premium_col;
 	
 	$bFair = false;
     foreach ($arRef as $ref)
@@ -81,7 +89,7 @@ function _getFundEstTableColumn($arRef, &$bFair)
     return $ar;
 }
 
-function _echoFundEstParagraph($arColumn, $bFair, $arRef, $str)
+function _echoFundEstParagraph($arColumn, $bFair, $arRef, $str, $bWide = false)
 {
 	if ($str === false)
 	{
@@ -95,14 +103,14 @@ function _echoFundEstParagraph($arColumn, $bFair, $arRef, $str)
 	}
 	
 	EchoTableParagraphBegin($arColumn, 'estimation', $str);
-    foreach ($arRef as $ref)		_echoFundEstTableItem($ref, $bFair);
+    foreach ($arRef as $ref)		_echoFundEstTableItem($ref, $bFair, $bWide);
     EchoTableParagraphEnd();
 }
 
-function EchoFundArrayEstParagraph($arRef, $str = false)
+function EchoFundArrayEstParagraph($arRef, $str = false, $bWide = false)
 {
-	$arColumn = _getFundEstTableColumn($arRef, $bFair);
-	_echoFundEstParagraph($arColumn, $bFair, $arRef, $str);
+	$arColumn = _getFundEstTableColumn($arRef, $bFair, $bWide);
+	_echoFundEstParagraph($arColumn, $bFair, $arRef, $str, $bWide);
 }
 
 function _getFundPositionStr($official_est_col, $strSymbol, $ref)

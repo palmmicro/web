@@ -41,22 +41,6 @@ function ImgAutoQuote($strPathName, $strTextCn, $strTextUs = '', $bChinese = tru
 	return $strQuote;
 }
 
-function GetImgParagraph($strPathName, $strTextCn, $strTextUs = '', $bChinese = true)
-{
-	$strQuote = ImgAutoQuote($strPathName, $strTextCn, $strTextUs, $bChinese);
-	$strDate = basename($strPathName, '.jpg');
-	if (is_numeric($strDate) && strlen($strDate) == 8)
-	{
-		$strQuote = GetBlogMonthDay($strDate, $bChinese).' '.$strQuote;
-	}
-	return GetHtmlElement($strQuote);
-}
-
-function ImgPalmmicroWeixin($bChinese = true)
-{
-	return GetImgQuote('/woody/image/wx.jpg', 'Palmmicro微信公众号sz162411小狐狸二维码', 'Palmmicro WeChat public account sz162411 small fox QR code', $bChinese);
-}
-
 function ImgWoodyHomepage($bChinese = true)
 {
 	return GetImgQuote('/woody/myphoto/2016/becool.jpg', '天生会摆酷', 'Be cool', $bChinese);
@@ -72,9 +56,9 @@ function ImgWoody20060701($bChinese = true)
 	return GetImgQuote('/woody/myphoto/2006/baihuashan.jpg', '2006年7月1日绿野百花山', 'Jul 1, 2006. Baihua Mountain.', $bChinese);
 }
 
-function ImgWoody20070920($bChinese = true)
+function ImgHalfMoonBay($bChinese = true)
 {
-	return GetImgQuote('/woody/groupphoto/company/20070920.jpg', '2007年9月20日王老板在加州半月湾', 'Sep 20, 2007. Chi-Shin Wang in Half Moon Bay.', $bChinese);
+	return GetImgQuote('/woody/groupphoto/company/20070920.jpg', '2007年9月20日王老板王老板、唐丽和我在加州半月湾。', 'Sep 20, 2007 Dr Wang, Tang Li and me in Half Moon Bay.', $bChinese);
 }
 
 function GetWoodyImgQuote($strFileName, $strText, $strTextUs = '', $bChinese = true)

@@ -141,7 +141,7 @@ Yahoo网站服务早些时候给palmmicro.com换到了一个新IP地址: 98.136.
 <br /><img src=../photo/1984athleteb.jpg alt="This is why 1984 will not be 1984" />
 <br />不能推广微信公众号。
 <br /><img src=../photo/20210310v.jpg alt="Xueqiu forbidden phrase v" />
-<?php echo ImgPalmmicroWeixin(); ?>
+<?php echo ImgPalmmicroWechat(); ?>
 <br />不能在发言中加网页链接。
 <br /><img src=../photo/20210310w.jpg alt="Xueqiu forbidden phrase w" />
 <br />道路以目不能写。

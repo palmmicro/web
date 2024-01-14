@@ -8,7 +8,7 @@ function GetMetaDescription($bChinese)
 
 function EchoAll($bChinese)
 {
-	$strWechat = GetHtmlElement(GetBlogTitle(20161014, $bChinese).ImgPalmmicroWeixin($bChinese));
+	$strWechat = GetBlogPictureParagraph(20161014, 'ImgPalmmicroWechat', $bChinese);
 	
     echo <<<END
 $strWechat

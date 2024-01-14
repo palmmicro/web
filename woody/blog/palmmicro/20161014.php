@@ -3,7 +3,7 @@ require('php/_palmmicro.php');
 
 function GetMetaDescription($bChinese)
 {
-	return 'The full story of Palmmicro Wechat public account, from its beginning to the disappointing end.';
+	return 'The full story of Palmmicro WeChat public account, from its beginning to the disappointing end.';
 }
 
 function _echo20161014($bChinese)
@@ -18,7 +18,7 @@ function _echo20161014($bChinese)
 	$strPA3288 = GetInternalLink('/pa3288/index.html', 'PA3288');
 	$strQuoteSz162411 = GetQuoteElement('sz162411');
 	$strQuotePalmmicro = GetQuoteElement('palmmicro');
-	$strImage = ImgPalmmicroWeixin($bChinese);
+	$strImage = ImgPalmmicroWechat($bChinese);
 	
 	EchoBlogDate($bChinese);
     echo <<<END

@@ -13,7 +13,7 @@ function EchoAll($bChinese)
 	$strStock = GetBlogLink(20141016, $bChinese);
 
 	$strGoogle = GetBlogLink(20110509, $bChinese);
-	$strPHP = GetBlogLink(20100905, $bChinese);
+	$strPHP = GetBlogTitle(20100905, $bChinese);
 	
     echo <<<END
 <p>Jun 15, 2016 EastMoney <a href="entertainment/20160615.php">USDCNY Reference Rate</a> Data Interface
@@ -29,7 +29,7 @@ function EchoAll($bChinese)
 <br />May 9, 2011 $strGoogle AdSense
 <br />Mar 23, 2011 <a href="entertainment/20110323.php">VoIP</a> Loser's Songs
 <br />Nov 7, 2010 Moving Blog - GB18030 and <a href="entertainment/20101107.php">GB2312</a>
-<br />Sep 5, 2010 My First $strPHP Application
+<br />$strPHP
 <br />Jul 26, 2010 <a href="entertainment/20100726.php">Raw Video Viewers</a>
 <br />May 29, 2010 My First <a href="entertainment/20100529.php">Visual C++</a> 2008 Application
 <br />Feb 19, 2009 From Palmmicro to <a href="entertainment/20090219.php">CSR</a> in Ten Years

@@ -13,7 +13,7 @@ function EchoAll()
 	$strStock = GetBlogLink(20141016);
 
 	$strGoogle = GetBlogLink(20110509);
-	$strPHP = GetBlogLink(20100905);
+	$strPHP = GetBlogTitle(20100905);
 	
     echo <<<END
 <p>2016年6月15日 东方财富<a href="entertainment/20160615cn.php">美元人民币中间价</a>汇率实时数据接口的字段意义
@@ -29,7 +29,7 @@ function EchoAll()
 <br />2011年5月9日 {$strGoogle}投放的广告
 <br />2011年3月23日 <a href="entertainment/20110323cn.php">VoIP</a>失败者之歌
 <br />2010年11月7日 网络日志搬家 - GB18030和<a href="entertainment/20101107cn.php">GB2312</a>
-<br />2010年9月5日 我的第一个{$strPHP}程序
+<br />$strPHP
 <br />2010年7月26日 <a href="entertainment/20100726cn.php">原始视频播放器</a>
 <br />2010年5月29日 我的第一个<a href="entertainment/20100529cn.php">Visual C++</a> 2008程序
 <br />2009年2月19日 从Palmmicro到<a href="entertainment/20090219cn.php">CSR</a>的十年

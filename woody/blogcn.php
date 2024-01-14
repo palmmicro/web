@@ -16,7 +16,7 @@ function EchoAll()
 	$strWechat = GetBlogTitle(20161014);
 	$strSZ162411 = GetBlogTitle(20150818);
 	$strGoogle = GetBlogLink(20110509);
-	$strPHP = GetBlogLink(20100905);
+	$strPHP = GetBlogTitle(20100905);
 	$strPalmmicro = GetBlogTitle(20080326);
 	
 	$strCategory = GetBlogMenuLinks();
@@ -80,7 +80,7 @@ function EchoAll()
 <br />11月7日 网络日志搬家 - GB18030和<a href="blog/entertainment/20101107cn.php">GB2312</a>
 <br />9月9日 <a href="blog/palmmicro/20100909cn.php">忘记密码? </a>
 <br />9月7日 <a href="blog/pa1688/20100907cn.php">夜以继日瞎忙</a>
-<br />9月5日 我的第一个{$strPHP}程序
+<br />$strPHP
 <br />8月18日 <a href="blog/ar1688/20100818cn.php">用VC2008编译AR1688 Windows下工具</a>
 <br />7月26日 <a href="blog/entertainment/20100726cn.php">原始视频播放器</a>
 <br />6月25日 <a href="blog/ar1688/20100625cn.php">卖到断货</a>

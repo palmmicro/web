@@ -8,7 +8,7 @@ function GetMetaDescription()
 
 function EchoAll()
 {
-	$strWechat = GetHtmlElement(GetBlogTitle(20161014).ImgPalmmicroWeixin());
+	$strWechat = GetBlogPictureParagraph(20161014, 'ImgPalmmicroWechat');
 
     echo <<<END
 $strWechat

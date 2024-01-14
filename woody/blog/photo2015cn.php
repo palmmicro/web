@@ -8,7 +8,7 @@ function GetMetaDescription()
 
 function EchoAll()
 {
-	$strLenna = GetHtmlElement(GetBlogTitle(20150818).ImgCompleteLenna());
+	$strLenna = GetBlogPictureParagraph(20150818, 'ImgCompleteLenna');
 
     echo <<<END
 $strLenna

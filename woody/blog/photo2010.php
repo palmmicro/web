@@ -9,7 +9,7 @@ function GetMetaDescription($bChinese)
 function EchoAll($bChinese)
 {
 	$strLenna = ImgCompleteLenna($bChinese);
-	$strPHP = GetHtmlElement('Sep 5 My First '.GetBlogLink(20100905, $bChinese).' Application '.ImgPhpBest($bChinese));
+	$strPHP = GetBlogPictureParagraph(20100905, 'ImgPhpBest', $bChinese);
 	
     echo <<<END
 <p>Dec 2 <a href="ar1688/20101202.php">Writing Program Flash</a>

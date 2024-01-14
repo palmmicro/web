@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<title>PHP Application to Estimate SZ162411 Net Value</title>
+<title><?php echo GetBlogTitle(20150818, false, false); ?></title>
 <meta name="description" content="My second PHP application, to estimate the net value of SZ162411 based on XOP, ^SPSIOP and USDCNY exchange rate.">
 <?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
@@ -14,7 +14,7 @@
 <?php DemoPrefetchData(); ?>
 
 <div>
-<h1>PHP Application to Estimate SZ162411 Net Value</h1>
+<h1><?php echo GetBlogTitle(20150818, false, false); ?></h1>
 <p>Aug 18, 2015
 <br />As my CSR <a href="20141016.php">Stock</a> is turning into cash soon, I am considering to use the USD to trade XOP while using my other CNY to trade SZ162411 together. 
 I was watching stock quotations on Yahoo and Sina everyday, and always need to click on the calculator application to convert the price between XOP and SZ162411, soon I got bored. 

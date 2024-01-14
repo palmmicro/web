@@ -1,12 +1,10 @@
 <?php
 require_once('stocktable.php');
 
-// $ref from StockReference
-function _echoReferenceTableItem($ref, $strDescription, $bAdmin)
+function GetStockReferenceArray($ref)
 {
 	$ar = array();
-   	$ar[] = $ref->GetExternalLink();
-   	
+	
     if ($ref->HasData())
     {
     	$ar[] = $ref->GetPriceDisplay();
@@ -21,9 +19,21 @@ function _echoReferenceTableItem($ref, $strDescription, $bAdmin)
     	$ar[] = '';
     	$ar[] = '';
     }
+    $ar[] = SqlGetStockName($ref->GetSymbol());
     
-	$ar[] = $bAdmin ? $ref->DebugLink() : $strDescription;
-    EchoTableColumn($ar, false, ($bAdmin ? $strDescription : false));
+    return $ar;
+}
+
+// $ref from StockReference
+function _echoReferenceTableItem($ref, $strDescription, $bAdmin)
+{
+	$ar = array_merge(array($ref->GetExternalLink()), GetStockReferenceArray($ref));
+	if ($strDescription || $bAdmin)
+	{
+		array_pop($ar);
+		$ar[] = $bAdmin ? $ref->DebugLink() : $strDescription;
+	}
+    EchoTableColumn($ar);
 }
 
 function _echoReferenceTableData($arRef, $bAdmin)
@@ -32,7 +42,7 @@ function _echoReferenceTableData($arRef, $bAdmin)
     {
     	if ($ref)
     	{
-    		_echoReferenceTableItem($ref, SqlGetStockName($ref->GetSymbol()), $bAdmin);
+    		_echoReferenceTableItem($ref, false, $bAdmin);
    			if ($ref->extended_ref)	_echoReferenceTableItem($ref->extended_ref, GetHtmlElement(GetQuoteElement($ref->extended_ref->GetMarketSession()), 'i'), false);
     	}
     }
@@ -60,17 +70,22 @@ END;
 	return '<span id="time"></span>';
 }
 
+function GetStockReferenceColumn()
+{
+	return array(new TableColumnPrice(),
+				   new TableColumnChange(),
+				   new TableColumnDate(),
+				   new TableColumnTime(),
+				   new TableColumnName());
+}
+
 function EchoReferenceParagraph($arRef, $bAdmin = false)
 {
 	$str = '参考数据 '.GetTimeDisplay();
-	EchoTableParagraphBegin(array(new TableColumnSymbol(),
-								   new TableColumnPrice(),
-								   new TableColumnChange(),
-								   new TableColumnDate(),
-								   new TableColumnTime(),
-								   new TableColumnName()
-								   ), 'reference', $str);
-
+	$ar = array_merge(array(new TableColumnSymbol()), GetStockReferenceColumn());
+	array_pop($ar);
+	$ar[] = $bAdmin ? new TableColumn('调试数据', 270) : new TableColumnName(false, 270);
+	EchoTableParagraphBegin($ar, 'reference', $str);
 	_echoReferenceTableData($arRef, $bAdmin);
     EchoTableParagraphEnd();
 }

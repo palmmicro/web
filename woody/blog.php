@@ -15,6 +15,7 @@ function EchoAll($bChinese)
 {
 	$strWechat = GetBlogTitle(20161014, $bChinese);
 	$strSZ162411 = GetBlogTitle(20150818, $bChinese);
+	$strPHP = GetBlogTitle(20100905, $bChinese);
 	$strPalmmicro = GetBlogTitle(20080326, $bChinese);
 	
 	$strCategory = GetBlogMenuLinks($bChinese);
@@ -78,7 +79,7 @@ function EchoAll($bChinese)
 <br />Nov 7 Moving Blog - GB18030 and <a href="blog/entertainment/20101107.php">GB2312</a>
 <br />Sep 9 <a href="blog/palmmicro/20100909.php">Forgot Password?</a>
 <br />Sep 7 <a href="blog/pa1688/20100907.php">A Hard Day's Night</a>
-<br />Sep 5 My First <a href="blog/entertainment/20100905.php">PHP</a> Application
+<br />$strPHP
 <br />Aug 18 <a href="blog/ar1688/20100818.php">AR1688 Windows Tools Compiled with VC2008</a>
 <br />Jul 26 <a href="blog/entertainment/20100726.php">Raw Video Viewers</a>
 <br />Jun 25 <a href="blog/ar1688/20100625.php">Out of Stock</a>

@@ -22,7 +22,7 @@ function in_array_ref($ref, $arRef)
 	return true;
 }
 
-function _echoStockGroupArray($arStock, $bAdmin)
+function _echoStockGroupArray($arStock, $bWide, $bAdmin)
 {
     StockPrefetchArrayExtendedData($arStock);
 
@@ -59,11 +59,11 @@ function _echoStockGroupArray($arStock, $bAdmin)
         if ($ref->IsTradable())	$arTransactionRef[] = $ref;
     }
     
-    EchoReferenceParagraph($arRef, $bAdmin);
-    if (count($arFund) > 0)     			EchoFundArrayEstParagraph($arFund);
-    if (count($arAbRef) > 0)				EchoAbParagraph($arAbRef);
-    if (count($arAhRef) > 0)				EchoAhParagraph($arAhRef);
-    if (count($arAdrRef) > 0)			EchoAdrhParagraph($arAdrRef);
+	if ($bAdmin || $bWide == false)		EchoReferenceParagraph($arRef, $bAdmin);
+    if (count($arFund) > 0)     			EchoFundArrayEstParagraph($arFund, false, $bWide);
+    if (count($arAbRef) > 0)				EchoAbParagraph($arAbRef, $bWide);
+    if (count($arAhRef) > 0)				EchoAhParagraph($arAhRef, $bWide);
+    if (count($arAdrRef) > 0)			EchoAdrhParagraph($arAdrRef, $bWide);
     if (count($arFundPairRef) > 0)		EchoFundListParagraph($arFundPairRef);
     
     return $arTransactionRef;
@@ -140,7 +140,7 @@ function EchoAll()
         	$arStock = SqlGetStocksArray($strGroupId);
         	if (count($arStock) > 0)
         	{
-        		$arTransactionRef = _echoStockGroupArray($arStock, $bAdmin);
+        		$arTransactionRef = _echoStockGroupArray($arStock, false, $bAdmin);
         		$group = new MyStockGroup($strGroupId, $arTransactionRef);
         		if ($acct->EchoStockTransaction($group))		$acct->EchoMoneyParagraph($group, new CnyReference('USCNY'), new CnyReference('HKCNY'));
         	}
@@ -153,7 +153,7 @@ function EchoAll()
     }
     else
     {
-        _echoStockGroupArray(StockGetArraySymbol(GetCategoryArray($strPage)), $bAdmin);
+        _echoStockGroupArray(StockGetArraySymbol(GetCategoryArray($strPage)), ((LayoutGetDisplayWidth() >= 1080) ? true : false), $bAdmin);
         
     	$str = _getMetaDescriptionStr($strPage);
 		if ($strLinks = _getSimilarLinks($strPage))		$str .= $strLinks;

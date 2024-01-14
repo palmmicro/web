@@ -39,9 +39,9 @@ function RefSortByNumeric($arRef, $callback)
     return $arSort;
 }
 
-function RefEchoTableColumn($ref, $ar, $strColor = false)
+function RefEchoTableColumn($ref, $ar, $bWide = false)
 {
-    EchoTableColumn($ar, $strColor, SqlGetStockName($ref->GetSymbol()));
+    EchoTableColumn($ar, false, $bWide ? false : SqlGetStockName($ref->GetSymbol()));
 }
 
 function GetArbitrageRatio($strStockId)

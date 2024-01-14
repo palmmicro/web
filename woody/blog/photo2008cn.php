@@ -8,7 +8,7 @@ function GetMetaDescription()
 
 function EchoAll()
 {
-	$strPalmmicro = GetHtmlElement(GetBlogTitle(20080326).ImgWoody20070920());
+	$strPalmmicro = GetBlogPictureParagraph(20080326, 'ImgHalfMoonBay');
 	
     echo <<<END
 <p>11月24日 <a href="ar1688/20081124cn.php">Micrel KSZ8842网络芯片</a>

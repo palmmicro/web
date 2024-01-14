@@ -9,7 +9,7 @@ function GetMetaDescription()
 function EchoAll()
 {
 	$strLenna = ImgCompleteLenna();
-	$strPHP = GetHtmlElement('9月5日 我的第一个'.GetBlogLink(20100905).'程序 '.ImgPhpBest());
+	$strPHP = GetBlogPictureParagraph(20100905, 'ImgPhpBest');
 	
     echo <<<END
 <p>12月2日 <a href="ar1688/20101202cn.php">烧录程序存储器</a>
