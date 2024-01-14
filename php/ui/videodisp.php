@@ -9,9 +9,7 @@
 
 function GetVideoParagraph($strPathName, $iWidth, $iHeight, $strTextCn, $strTextUs = '', $bChinese = true)
 {
-	$iScreenWidth = LayoutScreenWidthOk();
-	
-	if (!$iScreenWidth || $iScreenWidth < $iWidth)
+	if (LayoutGetDisplayWidth() < $iWidth)
 	{
 		$str = GetFileLink($strPathName);
 	}

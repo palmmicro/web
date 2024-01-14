@@ -2,7 +2,7 @@
 
 function GetMyPhotoYears()
 {
-	return array(2006, 2007, 2008, 2009, 2010, 2011, 2012, 2014, 2015);
+	return array(2006, 2007, 2008, 2009, 2010, 2011, 2012, 2014, 2015, 2016, 2020);
 }
 
 function GetMiaPhotoYears()
@@ -33,7 +33,7 @@ function GetPhotoMenuArray($arYears)
 	foreach ($arYears as $iYear)
 	{
 		$strYear = strval($iYear);
-		$arPhoto['photo'.$strYear] = $strYear;
+		$arPhoto['photo'.$strYear] = substr($strYear, -2, 2);
 	}
 	return $arPhoto;
 }

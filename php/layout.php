@@ -8,7 +8,8 @@ require_once('ui/echohtml.php');
 require_once('class/Mobile_Detect.php');
 
 define('DEFAULT_DISPLAY_WIDTH', 900);
-define('MIN_SCRREN_WIDTH', DEFAULT_DISPLAY_WIDTH + 15 + DEFAULT_ADSENSE_WIDTH);		// 隔15个像素再显示最右边的广告, 见下面width=15
+define('LEFT_MENU_WIDTH', 30 + 120 + 30 + 50);										// 最左边菜单宽度 width=30, 120, 30, 50
+define('MIN_SCRREN_WIDTH', DEFAULT_DISPLAY_WIDTH + 10 + DEFAULT_ADSENSE_WIDTH);		// 隔10个像素再显示最右边的广告, 见下面width=10
 
 function LayoutIsMobilePhone()
 {
@@ -20,39 +21,7 @@ function LayoutIsMobilePhone()
     return false;
 }
 
-/*
-function LayoutPromotion($str, $strText = '')
-{
-	switch ($str)
-	{
-	case 'dongfang':
-		$strLink = 'http://ognfhcacesaf4get.mikecrm.com/sEJIKQZ';
-		break;
-		
-	case 'huabao':
-		$strLink = 'https://m.touker.com/marketing/activity/KJFG.htm?channel=Vpalmmicro';
-		break;
-		
-	case 'iwantyou':
-		$strLink = 'https://ibkr.com/referral/rongrong586';
-		break;
-		
-	case 'yinhe':
-		$strLink = 'https://www.chinastock.com.cn/wskh/osoa/views/orderPage2.html?bn=2305&rn=23050226&bc=null&mc=230502262';
-		break;
-	}
-	
-	$strLink = GetExternalLink($strLink);
-	$strImage = GetImgElement("/woody/image/$str.jpg", "$str promo"); 
-    echo <<<END
-
-    <p>$strImage
-		<br />$strText
-		<br />$strLink</p>
-END;
-}
-*/
-
+//	https://ibkr.com/referral/rongrong586
 function GetWeixinPay($bRandom = true)
 {
 	$iVal = $bRandom ? rand(1, 2) : 1;
@@ -78,11 +47,22 @@ function LayoutScreenWidthOk()
 	{
 		if ($strWidth = $_COOKIE['screen'])
 		{	// cookie in _layoutBanner worked 
-			$iWidth = intval($strWidth) - 20;	// 假设右侧垂直滚动条是20像素
+			$iWidth = intval($strWidth);
+			$iWidth -= 20;	// 假设右侧垂直滚动条最多20像素
 			if ($iWidth >= MIN_SCRREN_WIDTH)	return $iWidth;
 		}
 	}
 	return false;
+}
+
+function LayoutGetDisplayWidth()
+{
+	if ($iWidth = LayoutScreenWidthOk())
+	{
+		$iWidth -= 10 + DEFAULT_ADSENSE_WIDTH + LEFT_MENU_WIDTH;
+		return ($iWidth < 640) ? 640 : $iWidth;
+	}
+	return 640;
 }
 
 function _layoutBanner($bChinese)
@@ -130,7 +110,7 @@ END;*/
 
 function _layoutBelowMenu($iWidth)
 {
-	if ($iWidth)		$strExtra = 'width='.strval($iWidth - MIN_SCRREN_WIDTH + DEFAULT_DISPLAY_WIDTH - 30 - 120 - 30 - 50);
+	if ($iWidth)		$strExtra = 'width='.strval($iWidth - MIN_SCRREN_WIDTH + DEFAULT_DISPLAY_WIDTH - LEFT_MENU_WIDTH);
 	else 				$strExtra = '';
 	
     echo <<<END
@@ -217,7 +197,7 @@ function LayoutTail($bChinese = true, $bAdsense = false)
     		echo <<<END
 
 </td>
-<td width=15 valign=top>&nbsp;</td>
+<td width=10 valign=top>&nbsp;</td>
 <td valign=top>
 END;
     		if ($bAdsense)	AdsenseLeft();

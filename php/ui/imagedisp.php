@@ -7,6 +7,51 @@ function GetImgQuote($strPathName, $strTextCn, $strTextUs = '', $bChinese = true
 	return $strNewLine.GetImgElement($strPathName, $strText).$strNewLine.GetQuoteElement($strText);
 }
 
+function ImgAutoQuote($strPathName, $strTextCn, $strTextUs = '', $bChinese = true)
+{
+	$iFit = LayoutGetDisplayWidth();
+	
+	$imgOrg = imagecreatefromjpeg($strPathName);
+	$iWidth = imagesx($imgOrg);
+	if ($iWidth > $iFit)
+	{
+		$iHeight = imagesy($imgOrg);
+		$iFitHeight = intval($iFit * $iHeight / $iWidth);
+		
+		$strFit = strval($iFit);
+		$strNewName = substr($strPathName, 0, strlen($strPathName) - 4).'x'.$strFit.'.jpg';
+		if (!file_exists($strNewName))
+		{
+			$imgNew = imagecreatetruecolor($iFit, $iFitHeight);
+			imagecopyresampled($imgNew, $imgOrg, 0, 0, 0, 0, $iFit, $iFitHeight, $iWidth, $iHeight);
+
+			imagejpeg($imgNew, $strNewName);
+			imagedestroy($imgNew);
+		}
+		
+		$strExtra = ' '.$strFit.'x'.strval($iFitHeight);
+		$strQuote = GetExternalLink($strPathName, $bChinese ? '原图' : 'Original').GetImgQuote($strNewName, $strTextCn.$strExtra, $strTextUs.$strExtra, $bChinese);
+	}
+	else
+	{
+		$strQuote = GetImgQuote($strPathName, $strTextCn, $strTextUs, $bChinese);
+	}
+	imagedestroy($imgOrg);
+	
+	return $strQuote;
+}
+
+function GetImgParagraph($strPathName, $strTextCn, $strTextUs = '', $bChinese = true)
+{
+	$strQuote = ImgAutoQuote($strPathName, $strTextCn, $strTextUs, $bChinese);
+	$strDate = basename($strPathName, '.jpg');
+	if (is_numeric($strDate) && strlen($strDate) == 8)
+	{
+		$strQuote = GetBlogMonthDay($strDate, $bChinese).' '.$strQuote;
+	}
+	return GetHtmlElement($strQuote);
+}
+
 function ImgPalmmicroWeixin($bChinese = true)
 {
 	return GetImgQuote('/woody/image/wx.jpg', 'Palmmicro微信公众号sz162411小狐狸二维码', 'Palmmicro WeChat public account sz162411 small fox QR code', $bChinese);
@@ -14,7 +59,7 @@ function ImgPalmmicroWeixin($bChinese = true)
 
 function ImgWoodyHomepage($bChinese = true)
 {
-	return GetImgQuote('/woody/image/iwantyou.jpg', '天生会摆酷', 'Be cool', $bChinese);
+	return GetImgQuote('/woody/myphoto/2016/becool.jpg', '天生会摆酷', 'Be cool', $bChinese);
 }
 
 function ImgWoodyBike($bChinese = true)
