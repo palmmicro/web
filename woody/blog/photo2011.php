@@ -9,7 +9,7 @@ function GetMetaDescription($bChinese)
 function EchoAll($bChinese)
 {
 	$strSantaFe = ImgSantaFe($bChinese);
-	$strGoogle = GetHtmlElement('May 9 '.GetBlogLink(20110509, $bChinese).' AdSense '.ImgWoody20060701($bChinese));
+	$strGoogle = GetBlogPictureParagraph(20110509, 'ImgWoody20060701', $bChinese);
 	
     echo <<<END
 <p>Nov 4 <a href="pa1688/20111104.php">Steps to Upgrade an Old PA168F</a>

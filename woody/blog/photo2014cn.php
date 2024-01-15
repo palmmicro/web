@@ -9,7 +9,7 @@ function GetMetaDescription()
 function EchoAll()
 {
 	$strSapphire = GetHtmlElement('12月4日 '.GetBlogLink(20141204).'的由来 '.ImgWorriedWoody());
-	$strStock = GetHtmlElement('10月16日 从上证大型国有'.GetBlogLink(20141016).'获利 '.ImgPortfolio20141016());
+	$strStock = GetBlogPictureParagraph(20141016, 'ImgPortfolio20141016');
 	
     echo <<<END
 $strSapphire

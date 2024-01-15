@@ -84,9 +84,11 @@ function GetBlogTitle($iDate, $bChinese = true, $bLink = true)
 		break;
 		
 	case 20141016:
+		$strTitle = $bChinese ? '从上证大型国有'.$strDisplay.'获利' : 'Trading Rules for Giant Chinese State-owned '.$strDisplay;
 		break;
 		
 	case 20110509:
+		$strTitle = $strDisplay.($bChinese ? '投放的广告' : ' AdSense');
 		break;
 		
 	case 20100905:
@@ -129,5 +131,19 @@ function ImgPalmmicroWechat($bChinese = true)
 	$strTitle = GetBlogTitle(20161014, $bChinese, false);
 	return GetImgQuote('/woody/image/wx.jpg', $strTitle.'小狐狸二维码', $strTitle.' small fox QR code', $bChinese);
 }
+
+function ImgPortfolio20141016($bChinese = true)
+{
+	$strDate = '20141016';
+	$strYmd = GetBlogYmd($strDate, $bChinese);
+	return GetWoodyImgQuote($strDate.'.jpg', $strYmd.'A股持仓截屏', 'Screen shot of my Chinese A stock portfolio as of '.$strYmd.'.', $bChinese);
+}
+
+function ImgWoody20060701($bChinese = true)
+{
+	$strYmd = GetBlogYmd('20060701', $bChinese);
+	return GetImgQuote('/woody/myphoto/2006/baihuashan.jpg', $strYmd.'绿野百花山', $strYmd.' Baihua Mountain with Lvye.', $bChinese);
+}
+
 
 ?>

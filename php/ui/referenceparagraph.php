@@ -28,12 +28,13 @@ function GetStockReferenceArray($ref)
 function _echoReferenceTableItem($ref, $strDescription, $bAdmin)
 {
 	$ar = array_merge(array($ref->GetExternalLink()), GetStockReferenceArray($ref));
+	$strFirstHint = false;
 	if ($strDescription || $bAdmin)
 	{
-		array_pop($ar);
+		$strFirstHint = array_pop($ar);
 		$ar[] = $bAdmin ? $ref->DebugLink() : $strDescription;
 	}
-    EchoTableColumn($ar);
+    EchoTableColumn($ar, false, $strFirstHint);
 }
 
 function _echoReferenceTableData($arRef, $bAdmin)

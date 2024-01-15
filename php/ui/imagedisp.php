@@ -51,11 +51,6 @@ function ImgWoodyBike($bChinese = true)
 	return GetImgQuote('/woody/image/mybike.jpg', '2007年早春，我的宝马。', 'Early spring of 2007, my precious bike.', $bChinese);
 }
 
-function ImgWoody20060701($bChinese = true)
-{
-	return GetImgQuote('/woody/myphoto/2006/baihuashan.jpg', '2006年7月1日绿野百花山', 'Jul 1, 2006. Baihua Mountain.', $bChinese);
-}
-
 function ImgHalfMoonBay($bChinese = true)
 {
 	return GetImgQuote('/woody/groupphoto/company/20070920.jpg', '2007年9月20日王老板王老板、唐丽和我在加州半月湾。', 'Sep 20, 2007 Dr Wang, Tang Li and me in Half Moon Bay.', $bChinese);
@@ -95,11 +90,6 @@ function ImgMrFox()
 function ImgPhpBest($bChinese = true)
 {
 	return GetWoodyImgQuote('phpisbest.jpg', 'PHP是世界上最好的编程语言！', 'PHP is the best programming language in the world!', $bChinese);
-}
-
-function ImgPortfolio20141016($bChinese = true)
-{
-	return GetWoodyImgQuote('20141016.jpg', '2014年10月16日A股持仓截屏', 'Screen shot of my Chinese A stock portfolio as of Oct 16 2014', $bChinese);
 }
 
 function ImgSantaFe($bChinese = true)

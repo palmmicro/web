@@ -1,5 +1,5 @@
 <?php
-require('php/_woody.php');
+require('php/_blog.php');
 
 function GetTitle($bChinese)
 {
@@ -15,35 +15,34 @@ function EchoAll($bChinese)
 {
 	$strWechat = GetBlogTitle(20161014, $bChinese);
 	$strSZ162411 = GetBlogTitle(20150818, $bChinese);
+	$strStock = GetBlogTitle(20141016, $bChinese);
+	$strGoogle = GetBlogTitle(20110509, $bChinese);
 	$strPHP = GetBlogTitle(20100905, $bChinese);
 	$strPalmmicro = GetBlogTitle(20080326, $bChinese);
 	
 	$strCategory = GetBlogMenuLinks($bChinese);
+	$strYears = GetBlogYearLinks();
+	$arYears = GetBlogYearTags();
 	
     echo <<<END
-<p>Category: $strCategory 
-</p>
-
-<p>Year: <a href="#2016">2016</a> <a href="#2015">2015</a> <a href="#2014">2014</a> <a href="#2013">2013</a> 
-<a href="#2012">2012</a> <a href="#2011">2011</a> <a href="#2010">2010</a> <a href="#2009">2009</a> <a href="#2008">2008</a> <a href="#2007">2007</a> <a href="#2006">2006</a>
-</p>
-
+<p>Category: $strCategory</p>
+<p>Year: $strYears</p>
 <p>All:
-<br /><a name="2016">2016</a>
+{$arYears[2016]} 
 <br />$strWechat
 <br />Jun 15 EastMoney <a href="blog/entertainment/20160615.php">USDCNY Reference Rate</a> Data Interface
-<br /><a name="2015">2015</a>
+{$arYears[2015]} 
 <br />Dec 25 The Interpretation of <a href="blog/entertainment/20151225.php">Sina Stock Data</a> Interface
 <br />$strSZ162411
-<br /><a name="2014">2014</a>
+{$arYears[2014]} 
 <br />Dec 4 The Origin of <a href="blog/entertainment/20141204.php">Sapphire Lin</a>
-<br />Oct 16 Rules for Giant Chinese State-owned <a href="blog/entertainment/20141016.php">Stock</a>
+<br />$strStock
 <br />Jun 15 Upgrade to <a href="blog/entertainment/20140615.php">Visual Studio</a> 2013
 <br />Apr 5 <a href="blog/pa1688/20140405.php">The Good, the Bad and the Ugly</a>
-<br /><a name="2013">2013</a>
+{$arYears[2013]} 
 <br />Aug 31 <a href="blog/pa3288/20130831.php">USB</a>
 <br />Feb 10 <a href="blog/pa1688/20130210.php">Redial Key as Mute Key</a>
-<br /><a name="2012">2012</a>
+{$arYears[2012]} 
 <br />Nov 11 <a href="blog/ar1688/20121111.php">Logic Puzzle: Find the Differences ...</a>
 <br />Aug 11 Eroda Z1 <a href="blog/entertainment/20120811.php">GPS</a>
 <br />Jul 19 My First Embedded <a href="blog/entertainment/20120719.php">Linux</a> Application
@@ -51,7 +50,7 @@ function EchoAll($bChinese)
 <br />Mar 29 <a href="blog/entertainment/20120329.php">Expo Professionals</a>
 <br />Feb 13 <a href="blog/ar1688/20120213.php">AR168M VoIP Module without UART Functions</a>
 <br />Feb 10 <a href="blog/pa1688/20120210.php">Email Records: the Death of an AudioPlus VOIP616 IP Phone</a>
-<br /><a name="2011">2011</a>
+{$arYears[2011]} 
 <br />Dec 5 <a href="blog/ar1688/20111205.php">AR168M VoIP Module Function Test</a>
 <br />Nov 20 <a href="blog/pa6488/20111120.php">From PA1688 to PA6488 - Ethernet PHY Ready?</a>
 <br />Nov 13 <a href="blog/pa1688/20111113.php">The End of IAX2</a>
@@ -62,7 +61,7 @@ function EchoAll($bChinese)
 <br />Jun 8 <a href="blog/entertainment/20110608.php">WiFi</a> Ethernet Bridge
 <br />May 24 <a href="blog/pa6488/20110524.php">H.263 Compatibility</a>
 <br />May 16 <a href="blog/pa6488/20110516.php">JPEG Story</a>
-<br />May 9 <a href="blog/entertainment/20110509.php">Google</a> AdSense
+<br />$strGoogle
 <br />Apr 27 <a href="blog/pa1688/20110427.php">Software Over-Optimization</a>
 <br />Apr 20 <a href="blog/pa1688/20110420.php">My God the LM386 in AT323 Phone is Working ALL the Time!</a>
 <br />Apr 11 <a href="blog/pa6488/20110411.php">From PA1688 to PA6488 - UART Function in Product Evolution</a>
@@ -71,7 +70,7 @@ function EchoAll($bChinese)
 <br />Mar 23 <a href="blog/entertainment/20110323.php">VoIP</a> Loser's Songs
 <br />Mar 7 <a href="blog/ar1688/20110307.php">Interactive Voice Response</a>
 <br />Feb 25 <a href="blog/pa1688/20110225.php">PA1688 Device Killer</a>
-<br /><a name="2010">2010</a>
+{$arYears[2010]} 
 <br />Dec 25 <a href="blog/pa6488/20101225.php">EFSL File System</a>
 <br />Dec 13 <a href="blog/pa6488/20101213.php">From PA1688 to PA6488 - G.729 Test Vectors</a>
 <br />Dec 2 <a href="blog/ar1688/20101202.php">Writing Program Flash</a>
@@ -88,7 +87,7 @@ function EchoAll($bChinese)
 <br />Apr 27 <a href="blog/palmmicro/20100427.php">The Blocking History of Palmmicro.com</a>
 <br />Feb 11 <a href="blog/pa6488/20100211.php">From PA1688 to PA6488 - Software API License Terms</a>
 <br />Jan 9 <a href="blog/pa6488/20100109.php">From PA1688 to PA6488 - Web Interface</a>
-<br /><a name="2009">2009</a>
+{$arYears[2009]} 
 <br />Dec 15 <a href="blog/pa1688/20091215.php">Mistakes I Made on Last Sunday</a>
 <br />Nov 14 <a href="blog/palmmicro/20091114.php">Palmmicro MAC Address</a>
 <br />Sep 27 <a href="blog/pa6488/20090927.php">From PA1688 to PA6488 - Safe Mode Recovery</a>
@@ -103,7 +102,7 @@ function EchoAll($bChinese)
 <br />Mar 20 <a href="blog/ar1688/20090320.php">Pound Key as Call Key</a>
 <br />Feb 19 From Palmmicro to <a href="blog/entertainment/20090219.php">CSR</a> in Ten Years
 <br />Feb 17 <a href="blog/ar1688/20090217.php">Low Cost Phone</a>
-<br /><a name="2008">2008</a>
+{$arYears[2008]} 
 <br />Dec 2 <a href="blog/ar1688/20081202.php">AR1688 Z80 Performance</a>
 <br />Nov 24 <a href="blog/ar1688/20081124.php">Micrel KSZ8842</a>
 <br />Sep 3 <a href="blog/ar1688/20080903.php">GPIO Control</a>
@@ -125,7 +124,7 @@ function EchoAll($bChinese)
 <br />Feb 16 <a href="blog/ar1688/20080216.php">Font Resources</a>
 <br />Jan 21 <a href="blog/ar1688/20080121.php">Z80 Speed</a>
 <br />Jan 20 <a href="blog/ar1688/20080120.php">Do NOT Upgrade "Long" Ring Tone</a>
-<br /><a name="2007">2007</a>
+{$arYears[2007]} 
 <br />Nov 27 <a href="blog/ar1688/20071127.php">Another Chip Select Signal</a>
 <br />Nov 19 <a href="blog/ar1688/20071119.php">Simple UART</a>
 <br />Nov 16 <a href="blog/ar1688/20071116.php">RTP First</a>
@@ -145,7 +144,7 @@ function EchoAll($bChinese)
 <br />Mar 21 <a href="blog/ar1688/20070321.php">Digit Maps</a>
 <br />Mar 7 <a href="blog/ar1688/20070307.php">iLBC Codec Ready</a>
 <br />Feb 16 <a href="blog/ar1688/20070216.php">Why Support ADPCM G.726 32k Codec</a>
-<br /><a name="2006">2006</a>
+{$arYears[2006]} 
 <br />Dec 14 <a href="blog/ar1688/20061214.php">AR168F IP Phone Software Features</a>
 <br />Dec 13 <a href="blog/ar1688/20061213.php">AR168F IP Phone Hardware Features</a>
 <br />Dec 12 <a href="blog/ar1688/20061212.php">Chip Features</a>

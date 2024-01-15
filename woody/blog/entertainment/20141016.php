@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<title>Rules for Giant Chinese State-owned Stock</title>
+<title><?php echo GetBlogTitle(20141016, false, false); ?></title>
 <meta name="description" content="On the day Qualcomm agreed to buy CSR, wrote rules to trade and benefit from Chinese A stock market after years of loss in US stock market.">
 <?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
@@ -12,7 +12,7 @@
 <?php _LayoutTopLeft(false); ?>
 
 <div>
-<h1>Rules for Giant Chinese State-owned Stock</h1>
+<h1><?php echo GetBlogTitle(20141016, false, false); ?></h1>
 <p>Oct 16, 2014</p>
 <p>Yesterday was a lucky day for me. The news of Qualcomm agreed to buy <a href="20090219.php">CSR</a> in cash pushed my only UK stock 30% higher. 
 And Air China (SH601111), my only heavily owned Chinese A stock at this time, rose 10% to the max of changes allowed in a trading day in China.  

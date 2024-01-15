@@ -9,7 +9,7 @@ function GetMetaDescription($bChinese)
 function EchoAll($bChinese)
 {
 	$strSapphire = GetHtmlElement('Dec 4 The Origin of '.GetBlogLink(20141204, $bChinese).' '.ImgWorriedWoody($bChinese));
-	$strStock = GetHtmlElement('Oct 16 Rules for Giant Chinese State-owned '.GetBlogLink(20141016, $bChinese).' '.ImgPortfolio20141016($bChinese));
+	$strStock = GetBlogPictureParagraph(20141016, 'ImgPortfolio20141016', $bChinese);
 	
     echo <<<END
 $strSapphire

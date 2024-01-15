@@ -2,7 +2,7 @@
 
 function GetMyPhotoYears()
 {
-	return array(2006, 2007, 2008, 2009, 2010, 2011, 2012, 2014, 2015, 2016, 2020);
+	return array(2006, 2007, 2008, 2009, 2010, 2011, 2012, 2014, 2015, 2016, 2020, 2021);
 }
 
 function GetMiaPhotoYears()
@@ -12,9 +12,10 @@ function GetMiaPhotoYears()
 
 function GetBlogPhotoYears()
 {
-	$ar = array();
+/*	$ar = array();
 	for ($i = 2006; $i <= 2016; $i ++)	$ar[] = $i;
-	return $ar;
+	return $ar;*/
+	return array(2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016);
 }
 
 function GetPhotoPageArray($arYears)
@@ -33,7 +34,7 @@ function GetPhotoMenuArray($arYears)
 	foreach ($arYears as $iYear)
 	{
 		$strYear = strval($iYear);
-		$arPhoto['photo'.$strYear] = substr($strYear, -2, 2);
+		$arPhoto['photo'.$strYear] = $strYear;	// substr($strYear, -2, 2);
 	}
 	return $arPhoto;
 }

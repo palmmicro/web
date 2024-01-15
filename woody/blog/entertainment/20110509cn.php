@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<title>Google投放的广告</title>
+<title><?php echo GetBlogTitle(20110509, true, false); ?></title>
 <meta name="description" content="为什么我在网络日志上加入了Google AdSense的广告. 一周年投放广告的总结. GFW让这里成了Palmmicro.com唯一放Google的搜索框(AdSense for Search)的地方.">
 <?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
@@ -12,10 +12,10 @@
 <?php _LayoutTopLeft(); ?>
 
 <div>
-<h1>Google投放的<a name="adsense">广告</a></h1>
+<h1><?php echo GetBlogTitle(20110509, true, false); ?></h1>
 <p>2011年5月9日
 <br />随着我网络日志中内容增多, 有时候我发现有必要搜索曾经写过什么题材和内容. 我记得大约一年多前看到过绿野一个摄影爱好者搞的莫非时光网站上有个Google搜索框. 我找到了Google Site Search却放弃了, 因为它每年要收至少100美元的服务费.
-<br />在我使用Google Analytics和Google Webmaster的过去这一年中, 我经常会看到AdSense和AdWords的链接. 但是直到上周我从北京到深圳的路上读了篇有关京东商城如何做网络推广的文章后, 才理解这2个服务的意思.
+<br />在我使用Google Analytics和Google Webmaster的过去这一年中, 我经常会看到<a name="adsense">AdSense</a>和AdWords的链接. 但是直到上周我从北京到深圳的路上读了篇有关京东商城如何做网络推广的文章后, 才理解这2个服务的意思.
 <br />随后我注册了AdSense服务, Google用了一周批准我的帐户. 现在我把Google的搜索框<font color=gray>AdSense for Search</font>以及投放的广告<font color=gray>AdSense for Content</font>放到了我所有的日志上, 就像本页最下面显示的一样.
 <?php echo ImgWoody20060701(); ?>
 </p>

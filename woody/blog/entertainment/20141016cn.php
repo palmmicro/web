@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<title>从上证大型国有股票获利</title>
+<title><?php echo GetBlogTitle(20141016, true, false); ?></title>
 <meta name="description" content="在Qualcomm同意现金收购CSR和中国国航(SH601111)罕见涨停的幸运日总结2年多来自己谨小慎微的A股市场大型国有股买卖获利方案。">
 <?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
@@ -12,7 +12,7 @@
 <?php _LayoutTopLeft(); ?>
 
 <div>
-<h1>从上证大型国有股票获利</h1>
+<h1><?php echo GetBlogTitle(20141016, true, false); ?></h1>
 <p>2014年10月16日
 <br />昨天是我的幸运日。Qualcomm同意现金收购<a href="20090219cn.php">CSR</a>的新闻让我这唯一的英国股票上涨了30%，而<?php EchoMyStockLink('SH601111', '中国国航'); ?>这只目前我唯一重仓的A股，在昨天拉了个涨停。
 <br />我从2000年开始在美国市场上买卖股票，一直都是一个失败的投资。我总是在股票刚开始赚钱的时候就很快卖掉然后看它一路继续往上涨，而会把严重亏损的股票一直持有很多年。

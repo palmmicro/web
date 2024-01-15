@@ -1,5 +1,5 @@
 <?php
-require('php/_woody.php');
+require('php/_blog.php');
 
 function GetTitle()
 {
@@ -15,36 +15,34 @@ function EchoAll()
 {
 	$strWechat = GetBlogTitle(20161014);
 	$strSZ162411 = GetBlogTitle(20150818);
-	$strGoogle = GetBlogLink(20110509);
+	$strStock = GetBlogTitle(20141016);
+	$strGoogle = GetBlogTitle(20110509);
 	$strPHP = GetBlogTitle(20100905);
 	$strPalmmicro = GetBlogTitle(20080326);
 	
 	$strCategory = GetBlogMenuLinks();
+	$strYears = GetBlogYearLinks();
+	$arYears = GetBlogYearTags();
 	
     echo <<<END
-<p>分类：$strCategory
-</p>
-
-<p>年份：
-<a href="#2016">2016</a> <a href="#2015">2015</a> <a href="#2014">2014</a> <a href="#2013">2013</a> <a href="#2012">2012</a> <a href="#2011">2011</a> <a href="#2010">2010</a> <a href="#2009">2009</a> <a href="#2008">2008</a> <a href="#2007">2007</a> <a href="#2006">2006</a>
-</p>
-
+<p>分类：$strCategory</p>
+<p>年份：$strYears</p>
 <p>全部： 
-<br /><a name="2016">2016</a>
+{$arYears[2016]} 
 <br />$strWechat
 <br />6月15日 东方财富<a href="blog/entertainment/20160615cn.php">美元人民币中间价</a>汇率实时数据接口的字段意义
-<br /><a name="2015">2015</a>
+{$arYears[2015]} 
 <br />12月25日 <a href="blog/entertainment/20151225cn.php">新浪股票数据</a>接口的字段意义
 <br />$strSZ162411
-<br /><a name="2014">2014</a>
+{$arYears[2014]} 
 <br />12月4日 <a href="blog/entertainment/20141204cn.php">林近岚</a>的由来
-<br />10月16日 从上证大型国有<a href="blog/entertainment/20141016cn.php">股票</a>获利
+<br />$strStock
 <br />6月15日 升级到<a href="blog/entertainment/20140615cn.php">Visual Studio</a> 2013
 <br />4月5日 <a href="blog/pa1688/20140405cn.php">好的坏的和丑陋的</a>
-<br /><a name="2013">2013</a>
+{$arYears[2013]} 
 <br />8月31日 <a href="blog/pa3288/20130831cn.php">USB接口</a>
 <br />2月10日 <a href="blog/pa1688/20130210cn.php">用重拨键当静音键</a>
-<br /><a name="2012">2012</a>
+{$arYears[2012]} 
 <br />11月11日 <a href="blog/ar1688/20121111cn.php">找出两幅图不同之处</a>
 <br />8月11日 E路航Z1 <a href="blog/entertainment/20120811cn.php">GPS</a>
 <br />7月19日 我的第一个嵌入式<a href="blog/entertainment/20120719cn.php">Linux</a>程序
@@ -52,7 +50,7 @@ function EchoAll()
 <br />3月29日 <a href="blog/entertainment/20120329cn.php">展会专家</a>
 <br />2月13日 <a href="blog/ar1688/20120213cn.php">不带串口功能的AR168M网络语音模块</a>
 <br />2月10日 <a href="blog/pa1688/20120210cn.php">电子邮件记录: 一台AudioPlus VOIP616网络电话的死亡</a>
-<br /><a name="2011">2011</a>
+{$arYears[2011]} 
 <br />12月5日 <a href="blog/ar1688/20111205cn.php">AR168M网络语音模块功能测试</a>
 <br />11月20日 <a href="blog/pa6488/20111120cn.php">从PA1688到PA6488 - 以太网PHY开始工作了吗? </a>
 <br />11月13日 <a href="blog/pa1688/20111113cn.php">IAX2的末日</a>
@@ -63,7 +61,7 @@ function EchoAll()
 <br />6月8日 Ethernet转<a href="blog/entertainment/20110608cn.php">WiFi</a>
 <br />5月24日 <a href="blog/pa6488/20110524cn.php">兼容H.263</a>
 <br />5月16日 <a href="blog/pa6488/20110516cn.php">JPEG总动员</a>
-<br />5月9日 {$strGoogle}投放的广告
+<br />$strGoogle
 <br />4月27日 <a href="blog/pa1688/20110427cn.php">过度软件优化</a>
 <br />4月20日 <a href="blog/pa1688/20110420cn.php">额的神啊! AT323话机居然LM386一直在工作!</a>
 <br />4月11日 <a href="blog/pa6488/20110411cn.php">从PA1688到PA6488 - 产品演化过程中的串口功能</a>
@@ -72,7 +70,7 @@ function EchoAll()
 <br />3月23日 <a href="blog/entertainment/20110323cn.php">VoIP</a>失败者之歌
 <br />3月7日 <a href="blog/ar1688/20110307cn.php">语音提示</a>
 <br />2月25日 <a href="blog/pa1688/20110225cn.php">PA1688设备杀手</a>
-<br /><a name="2010">2010</a>
+{$arYears[2010]} 
 <br />12月25日 <a href="blog/pa6488/20101225cn.php">EFSL文件系统</a>
 <br />12月13日 <a href="blog/pa6488/20101213cn.php">从PA1688到PA6488 - G.729测试序列</a>
 <br />12月2日 <a href="blog/ar1688/20101202cn.php">烧录程序存储器</a>
@@ -89,7 +87,7 @@ function EchoAll()
 <br />4月27日 <a href="blog/palmmicro/20100427cn.php">记录Palmmicro.com的被屏蔽历史</a>
 <br />2月11日 <a href="blog/pa6488/20100211cn.php">从PA1688到PA6488 - 软件API的版权协议</a>
 <br />1月9日 <a href="blog/pa6488/20100109cn.php">从PA1688到PA6488 - 网页界面</a>
-<br /><a name="2009">2009</a>
+{$arYears[2009]} 
 <br />12月15日 <a href="blog/pa1688/20091215cn.php">上周日所犯的错误</a>
 <br />11月14日 <a href="blog/palmmicro/20091114cn.php">Palmmicro的MAC地址</a>
 <br />9月27日 <a href="blog/pa6488/20090927cn.php">从PA1688到PA6488 - 安全模式恢复</a>
@@ -104,7 +102,7 @@ function EchoAll()
 <br />3月20日 <a href="blog/ar1688/20090320cn.php">按#键呼叫</a>
 <br />2月19日 从Palmmicro到<a href="blog/entertainment/20090219cn.php">CSR</a>的十年
 <br />2月17日 <a href="blog/ar1688/20090217cn.php">低成本电话</a>
-<br /><a name="2008">2008</a>
+{$arYears[2008]} 
 <br />12月2日 <a href="blog/ar1688/20081202cn.php">AR1688 Z80性能</a>
 <br />11月24日 <a href="blog/ar1688/20081124cn.php">Micrel KSZ8842网络芯片</a>
 <br />9月3日 <a href="blog/ar1688/20080903cn.php">GPIO控制</a>
@@ -126,7 +124,7 @@ function EchoAll()
 <br />2月16日 <a href="blog/ar1688/20080216cn.php">字库资源</a>
 <br />1月21日 <a href="blog/ar1688/20080121cn.php">Z80速度</a>
 <br />1月20日 <a href="blog/ar1688/20080120cn.php">不要升级"长"铃音</a>
-<br /><a name="2007">2007</a>
+{$arYears[2007]} 
 <br />11月27日 <a href="blog/ar1688/20071127cn.php">另外一个片选信号</a>
 <br />11月19日 <a href="blog/ar1688/20071119cn.php">简单串口</a>
 <br />11月16日 <a href="blog/ar1688/20071116cn.php">RTP优先</a>
@@ -146,7 +144,7 @@ function EchoAll()
 <br />3月21日 <a href="blog/ar1688/20070321cn.php">拨号映射</a>
 <br />3月7日 <a href="blog/ar1688/20070307cn.php">iLBC编码算法完成</a>
 <br />2月16日 <a href="blog/ar1688/20070216cn.php">为什么支持ADPCM G.726 32k编码算法</a>
-<br /><a name="2006">2006</a>
+{$arYears[2006]} 
 <br />12月14日 <a href="blog/ar1688/20061214cn.php">AR168F网络电话的软件特性</a>
 <br />12月13日 <a href="blog/ar1688/20061213cn.php">AR168F网络电话的硬件特性</a>
 <br />12月12日 <a href="blog/ar1688/20061212cn.php">芯片特性</a>

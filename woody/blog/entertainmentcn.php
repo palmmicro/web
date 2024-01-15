@@ -10,9 +10,8 @@ function EchoAll()
 {
 	$strSZ162411 = GetBlogTitle(20150818);
 	$strSapphire = GetBlogLink(20141204);
-	$strStock = GetBlogLink(20141016);
-
-	$strGoogle = GetBlogLink(20110509);
+	$strStock = GetBlogTitle(20141016);
+	$strGoogle = GetBlogTitle(20110509);
 	$strPHP = GetBlogTitle(20100905);
 	
     echo <<<END
@@ -20,13 +19,13 @@ function EchoAll()
 <br />2015年12月25日 <a href="entertainment/20151225cn.php">新浪股票数据</a>接口的字段意义
 <br />$strSZ162411
 <br />2014年12月4日 {$strSapphire}的由来
-<br />2014年10月16日 从上证大型国有{$strStock}获利
+<br />$strStock
 <br />2014年6月15日 升级到<a href="entertainment/20140615cn.php">Visual Studio</a> 2013
 <br />2012年8月11日 E路航Z1 <a href="entertainment/20120811cn.php">GPS</a>
 <br />2012年7月19日 我的第一个嵌入式<a href="entertainment/20120719cn.php">Linux</a>程序
 <br />2012年3月29日 <a href="entertainment/20120329cn.php">展会专家</a>
 <br />2011年6月8日 Ethernet转<a href="entertainment/20110608cn.php">WiFi</a>
-<br />2011年5月9日 {$strGoogle}投放的广告
+<br />$strGoogle
 <br />2011年3月23日 <a href="entertainment/20110323cn.php">VoIP</a>失败者之歌
 <br />2010年11月7日 网络日志搬家 - GB18030和<a href="entertainment/20101107cn.php">GB2312</a>
 <br />$strPHP

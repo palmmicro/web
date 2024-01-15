@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<title>Google AdSense</title>
+<title><?php echo GetBlogTitle(20110509, false, false); ?></title>
 <meta name="description" content="Why I added Google AdSense in my blog and my adsense performance in the first year. Google payment history records.">
 <?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
@@ -12,11 +12,11 @@
 <?php _LayoutTopLeft(false); ?>
 
 <div>
-<h1>Google <a name="adsense">AdSense</a></h1>
+<h1><?php echo GetBlogTitle(20110509, false, false); ?></h1>
 <p>May 9, 2011
 <br />With more and more contents in my blog, sometimes I find it necessary to search what topics and details I have written in the past.
 I saw a google search box in moftime.com about a year ago. But when I tried to use Google Site Search, I found the sevice charge was at least 100 USD per year and gave up the plan.
-<br />During my usage of Google Analytics and Google Webmaster in the past year, I can always see the AdSense and AdWords links.
+<br />During my usage of Google Analytics and Google Webmaster in the past year, I can always see the <a name="adsense">AdSense</a> and AdWords links.
 But I did not catch those service details until I read an article about the market promotion business module of 360buy during my trip from Beijing to Shenzhen last week.
 <br />I registered the service after I understood AdSense, it took google a week to approve my account.
 Now I have added the Google search box <font color=gray>AdSense for Search</font> and advertisements <font color=gray>AdSense for Content</font> in all my blogs, as it is showed on this page at the bottom.

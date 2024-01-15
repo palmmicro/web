@@ -9,7 +9,7 @@ function GetMetaDescription()
 function EchoAll()
 {
 	$strSantaFe = ImgSantaFe();
-	$strGoogle = GetHtmlElement('5月9日 '.GetBlogLink(20110509).'投放的广告 '.ImgWoody20060701());
+	$strGoogle = GetBlogPictureParagraph(20110509, 'ImgWoody20060701');
 	
     echo <<<END
 <p>11月4日 <a href="pa1688/20111104cn.php">升级老PA168F的步骤</a>
