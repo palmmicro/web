@@ -8,7 +8,7 @@ function GetMetaDescription($bChinese)
 
 function EchoAll($bChinese)
 {
-	$strSapphire = GetBlogLink(20141204, $bChinese);
+	$strMia = GetBlogTitle(20141204, $bChinese);
 	$strWorried = ImgWorriedWoody($bChinese);
 	
     echo <<<END
@@ -18,12 +18,12 @@ function EchoAll($bChinese)
 <p>Nov 16. When a child is born. <a href="2014/large/hospital.jpg" target=_blank>Large</a>
 <br /><img src=2014/hospital.jpg alt="In the hospital where Sapphire was born" /></p>
 
-<p>Nov 21. The Origin of $strSapphire. <a href="../blog/photo/large/20141204.jpg" target=_blank>Large</a>
+<p>$strMia. <a href="../blog/photo/large/20141204.jpg" target=_blank>Large</a>
 $strWorried
 </p>
 
-<p>Dec 13. Sapphire <a href="../sapphire/photo30days.php">30 Days</a>. <a href="../sapphire/30days/large/dad10.jpg" target=_blank>Large</a>
-<br /><img src=../sapphire/30days/dad10.jpg alt="Sapphire Lin in red hat and red dot dress with Woody." /></p>
+<p>Dec 13. Sapphire <a href="../mia/photo30days.php">30 Days</a>. <a href="../mia/30days/large/dad10.jpg" target=_blank>Large</a>
+<br /><img src=../mia/30days/dad10.jpg alt="Sapphire Lin in red hat and red dot dress with Woody." /></p>
 END;
 }
 

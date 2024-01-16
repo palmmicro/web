@@ -8,11 +8,11 @@ function GetMetaDescription()
 
 function EchoAll()
 {
-	$strSapphire = GetHtmlElement('12月4日 '.GetBlogLink(20141204).'的由来 '.ImgWorriedWoody());
+	$strMia = GetBlogPictureParagraph(20141204, 'ImgWorriedWoody');
 	$strStock = GetBlogPictureParagraph(20141016, 'ImgPortfolio20141016');
 	
     echo <<<END
-$strSapphire
+$strMia
 $strStock
 
 <p>4月5日 <a href="pa1688/20140405cn.php">好的坏的和丑陋的</a>

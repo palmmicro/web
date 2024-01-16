@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<title>林近岚的由来</title>
+<title><?php echo GetBlogTitle(20141204, true, false); ?></title>
 <meta name="description" content="记录我女儿Sapphire的名字来历, 以及如何由林赛福到林岚, 最后确定成林近岚的过程. 顺便抱怨一下只有毛爷爷诗词可读的父母这一带人给我们起的没文化的名字. 我的也许不算最差的!">
 <?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
@@ -12,10 +12,10 @@
 <?php _LayoutTopLeft(); ?>
 
 <div>
-<h1>林近岚的由来</h1>
+<h1><?php echo GetBlogTitle(20141204, true, false); ?></h1>
 <p>2014年12月4日
 <br />取名字是件很困难的事情, 这是我的公司还在使用<a href="../palmmicro/20080326cn.php">Palmmicro</a>这个名字的原因.
-<br />每个小孩子都不喜欢自己的名字. 我猜我女儿也不会喜欢她的大名林近岚和英文名<a href="../../sapphire/photo2014cn.php">Sapphire</a>. 事实上我想她不会喜欢任何我取的名字, 所以我采用了最直接的命名法.
+<br />每个小孩子都不喜欢自己的名字. 我猜我女儿也不会喜欢她的大名林近岚和英文名<a href="../../mia/photo2014cn.php">Sapphire</a>. 事实上我想她不会喜欢任何我取的名字, 所以我采用了最直接的命名法.
 因为我相信她的<a href="../../res/cateyescn.php">珠宝狂</a>妈妈是在斯里兰卡科伦坡的世界贸易中心里面一家小店买了2颗矢车菊蓝宝石后怀上她的, 于是英文名字就叫Sapphire了.
 <br />在她出生前的几个月中, 我一直用Sapphire的谐音叫她林赛福. 不过这个名字在她出生后招到了一致的反对. 我妈妈作为一家之主掌握着户口本. 她说不就是要取个蓝宝石的意思吗, 那就叫林岚好了, 不然不给上户口.
 <br />我有个小学女同学叫钟岚, 有个中学女同学叫肖岚. 上网随便搜一下, 叫林岚的至少有6000多个. 我就说, 至少中间加个仄音, 取个平仄平的不重名的名字吧. 习主席名字中的近很不错, 林近岚又没有重名, 我们就这么定了!
@@ -55,7 +55,7 @@ Since 1880 up to 2013, your name was recorded 2,469 times in the American baby n
 <h3>长沙</h3>
 <p>2015年4月26日
 <br />毛主席说: 火宫殿的臭豆腐, 闻起来臭, 吃起来香.
-<br /><img src=../../sapphire/2015/20150426.jpg alt="Sapphire Lin's first trip to Changsha." />
+<br /><img src=../../mia/2015/20150426.jpg alt="Sapphire Lin's first trip to Changsha." />
 <br /><img src=../../myphoto/1973/100days_s.jpg alt="Woody's 100 days photo." />
 </p>
 

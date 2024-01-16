@@ -15,6 +15,7 @@ function EchoAll()
 {
 	$strWechat = GetBlogTitle(20161014);
 	$strSZ162411 = GetBlogTitle(20150818);
+	$strMia = GetBlogTitle(20141204);
 	$strStock = GetBlogTitle(20141016);
 	$strGoogle = GetBlogTitle(20110509);
 	$strPHP = GetBlogTitle(20100905);
@@ -35,7 +36,7 @@ function EchoAll()
 <br />12月25日 <a href="blog/entertainment/20151225cn.php">新浪股票数据</a>接口的字段意义
 <br />$strSZ162411
 {$arYears[2014]} 
-<br />12月4日 <a href="blog/entertainment/20141204cn.php">林近岚</a>的由来
+<br />$strMia
 <br />$strStock
 <br />6月15日 升级到<a href="blog/entertainment/20140615cn.php">Visual Studio</a> 2013
 <br />4月5日 <a href="blog/pa1688/20140405cn.php">好的坏的和丑陋的</a>

@@ -8,11 +8,11 @@ function GetMetaDescription($bChinese)
 
 function EchoAll($bChinese)
 {
-	$strSapphire = GetHtmlElement('Dec 4 The Origin of '.GetBlogLink(20141204, $bChinese).' '.ImgWorriedWoody($bChinese));
+	$strMia = GetBlogPictureParagraph(20141204, 'ImgWorriedWoody', $bChinese);
 	$strStock = GetBlogPictureParagraph(20141016, 'ImgPortfolio20141016', $bChinese);
 	
     echo <<<END
-$strSapphire
+$strMia
 $strStock
 
 <p>Apr 5 <a href="pa1688/20140405.php">The Good, the Bad and the Ugly</a>

@@ -15,6 +15,7 @@ function EchoAll($bChinese)
 {
 	$strWechat = GetBlogTitle(20161014, $bChinese);
 	$strSZ162411 = GetBlogTitle(20150818, $bChinese);
+	$strMia = GetBlogTitle(20141204, $bChinese);
 	$strStock = GetBlogTitle(20141016, $bChinese);
 	$strGoogle = GetBlogTitle(20110509, $bChinese);
 	$strPHP = GetBlogTitle(20100905, $bChinese);
@@ -35,7 +36,7 @@ function EchoAll($bChinese)
 <br />Dec 25 The Interpretation of <a href="blog/entertainment/20151225.php">Sina Stock Data</a> Interface
 <br />$strSZ162411
 {$arYears[2014]} 
-<br />Dec 4 The Origin of <a href="blog/entertainment/20141204.php">Sapphire Lin</a>
+<br />$strMia
 <br />$strStock
 <br />Jun 15 Upgrade to <a href="blog/entertainment/20140615.php">Visual Studio</a> 2013
 <br />Apr 5 <a href="blog/pa1688/20140405.php">The Good, the Bad and the Ugly</a>

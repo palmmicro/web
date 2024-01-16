@@ -40,7 +40,7 @@ function GetBlogLink($iDate, $bChinese = true, $bLink = true)
 		
 	case 20141204:
 		$strDisplay = '林近岚';
-		$strUs = 'Sapphire Lin';
+		$strUs = 'Mia Lin';
 		break;
 		
 	case 20141016:
@@ -81,6 +81,7 @@ function GetBlogTitle($iDate, $bChinese = true, $bLink = true)
 		break;
 		
 	case 20141204:
+		$strTitle = $bChinese ? $strDisplay.'的由来' : 'The Origin of '.$strDisplay;
 		break;
 		
 	case 20141016:
@@ -145,5 +146,9 @@ function ImgWoody20060701($bChinese = true)
 	return GetImgQuote('/woody/myphoto/2006/baihuashan.jpg', $strYmd.'绿野百花山', $strYmd.' Baihua Mountain with Lvye.', $bChinese);
 }
 
+function ImgWorriedWoody($bChinese = true)
+{
+	return GetWoodyImgQuote('20141204.jpg', '我们两个都有点发愁', 'Woody and Sapphire Lin are both worried!', $bChinese);
+}
 
 ?>

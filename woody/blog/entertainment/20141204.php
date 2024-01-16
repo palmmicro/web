@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<title>The Origin of Sapphire Lin</title>
+<title><?php echo GetBlogTitle(20141204, false, false); ?></title>
 <meta name="description" content="What does the name Sapphire Lin mean? Here is the story told by her father. Actually, a much shortened one from the original Chinese version.">
 <?php EchoInsideHead(); ?>
 <link href="../../../common/style.css" rel="stylesheet" type="text/css" />
@@ -12,10 +12,10 @@
 <?php _LayoutTopLeft(false); ?>
 
 <div>
-<h1>The Origin of Sapphire Lin</h1>
+<h1><?php echo GetBlogTitle(20141204, false, false); ?></h1>
 <p>Dec 4, 2014
 <br />It is a difficult task to pick a name. This is why I am still using <a href="../palmmicro/20080326.php">Palmmicro</a> as the company name.
-<br />Every child hates his or her name. I guess my daughter will not like her name <a href="../../sapphire/photo2014.php">Sapphire</a> either. Actually I think she will not like ANY name from me. 
+<br />Every child hates his or her name. I guess my daughter will not like her name <a href="../../mia/photo2014.php">Sapphire</a> either. Actually I think she will not like ANY name from me. 
 So I just named her with the most straightforward one,
 because I believe her <a href="../../res/cateyes.php">jewelry mania</a> mother got pregnant after she bought two cornflower blue sapphire stones from a small shop in World Trade Center of Colombo, Sri Lanka.
 </p>

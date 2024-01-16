@@ -538,7 +538,7 @@ END;
 function Echo20180216($strHead)
 {
 	$strHead = GetHeadElement($strHead);
-	$strSapphire = GetInternalLink('/woody/sapphire/photo2018cn.php', '圣地亚哥溜娃');
+	$strSapphire = GetInternalLink('/woody/mia/photo2018cn.php', '圣地亚哥溜娃');
 	$strUTF8 = GetNameLink('utf8', 'UTF-8');
 	$strImage = ImgSapphireMermaid();
 

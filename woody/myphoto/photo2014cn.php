@@ -8,7 +8,7 @@ function GetMetaDescription()
 
 function EchoAll()
 {
-	$strSapphire = GetBlogLink(20141204);
+	$strMia = GetBlogTitle(20141204);
 	$strWorried = ImgWorriedWoody();
 	
     echo <<<END
@@ -18,12 +18,12 @@ function EchoAll()
 <p>11月16日. 闺女出生后在医院测试长时间闲置的相机. <a href="2014/large/hospital.jpg" target=_blank>放大</a>
 <br /><img src=2014/hospital.jpg alt="In the hospital where Sapphire was born" /></p>
 
-<p>11月21日. {$strSapphire}的由来. <a href="https://ci-baby.taobao.com" target=_blank>小西</a>拍摄 <a href="../blog/photo/large/20141204.jpg" target=_blank>放大</a>
+<p>$strMia. <a href="https://ci-baby.taobao.com" target=_blank>小西</a>拍摄 <a href="../blog/photo/large/20141204.jpg" target=_blank>放大</a>
 $strWorried
 </p>
 
-<p>12月13日. <a href="../sapphire/photo30dayscn.php">满月艺术照</a>, 跟沾光的爸爸合影. <a href="../sapphire/30days/large/dad10.jpg" target=_blank>放大</a>
-<br /><img src=../sapphire/30days/dad10.jpg alt="Sapphire Lin in red hat and red dot dress with Woody." /></p>
+<p>12月13日. <a href="../mia/photo30dayscn.php">满月艺术照</a>, 跟沾光的爸爸合影. <a href="../mia/30days/large/dad10.jpg" target=_blank>放大</a>
+<br /><img src=../mia/30days/dad10.jpg alt="Sapphire Lin in red hat and red dot dress with Woody." /></p>
 END;
 }
 

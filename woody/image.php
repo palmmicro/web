@@ -18,11 +18,13 @@ function EchoAll($bChinese)
 	$strBlogPhoto = GetBlogPhotoLinks($bChinese);
 	$strImage = ImgWoodyBike($bChinese);
 	
+	$strMia = GetBlogLink(20141204, $bChinese);
+	
     echo <<<END
 <p>Album of myself: $strMyPhoto
 </p>
 
-<p>Album of <a href="blog/entertainment/20141204.php">Sapphire</a>: <a href="sapphire/photo30days.php">30 Days</a> $strMiaPhoto
+<p>Album of $strMia: <a href="mia/photo30days.php">30 Days</a> $strMiaPhoto
 </p>
 
 <p>Blog pictures: $strBlogPhoto

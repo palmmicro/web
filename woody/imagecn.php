@@ -18,11 +18,13 @@ function EchoAll()
 	$strBlogPhoto = GetBlogPhotoLinks();
 	$strImage = ImgWoodyBike();
 	
+	$strMia = GetBlogLink(20141204);
+	
     echo <<<END
 <p>个人相册：$strMyPhoto
 </p>
 
-<p><a href="blog/entertainment/20141204cn.php">林近岚</a>相册：<a href="sapphire/photo30dayscn.php">满月艺术照</a> $strMiaPhoto
+<p>{$strMia}相册：<a href="mia/photo30dayscn.php">满月艺术照</a> $strMiaPhoto
 </p>
 
 <p>网络日志图片：$strBlogPhoto

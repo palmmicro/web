@@ -12,12 +12,12 @@ function EchoAll()
 <p>4月1日. 唐宫海鲜舫, 每天都在忙着吃饭. <a href="2015/large/tanggong.jpg" target=_blank>放大</a>
 <br /><img src=2015/tanggong.jpg alt="Sapphire in Tang Gong seafood restaurant." /></p>
 
-<p>4月26日. 毛主席说: 火宫殿的臭豆腐, 闻起来臭, 吃起来香. <a href="../sapphire/2015/large/20150426.jpg" target=_blank>放大</a>
-<br /><img src=../sapphire/2015/20150426.jpg alt="Sapphire Lin's first trip to Changsha." />
+<p>4月26日. 毛主席说: 火宫殿的臭豆腐, 闻起来臭, 吃起来香. <a href="../mia/2015/large/20150426.jpg" target=_blank>放大</a>
+<br /><img src=../mia/2015/20150426.jpg alt="Sapphire Lin's first trip to Changsha." />
 <br /><img src=1973/100days_s.jpg alt="Woody's 100 days photo." /></p>
 
-<p>6月1日. 麦兜说: 马尔代夫, 蓝天白云, 椰林树影, 水清沙幼, 是坐落于印度洋上的世外桃源. <a href="../sapphire/2015/large/20150601.jpg" target=_blank>放大</a>
-<br /><img src=../sapphire/2015/20150601.jpg alt="Sapphire Lin's trip to Vilamendhoo, Maldives." /></p>
+<p>6月1日. 麦兜说: 马尔代夫, 蓝天白云, 椰林树影, 水清沙幼, 是坐落于印度洋上的世外桃源. <a href="../mia/2015/large/20150601.jpg" target=_blank>放大</a>
+<br /><img src=../mia/2015/20150601.jpg alt="Sapphire Lin's trip to Vilamendhoo, Maldives." /></p>
 
 <p>10月6日. 小妞第一次到北京. <a href="2015/large/beijing.jpg" target=_blank>放大</a>
 <br /><img src=2015/beijing.jpg alt="Sapphire's first trip to Beijing." /></p>

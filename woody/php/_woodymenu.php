@@ -51,7 +51,7 @@ function GetMyPhotoLinks($bChinese = true)
 
 function GetMiaPhotoLinks($bChinese = true)
 {
-	return GetCategoryLinks(GetPhotoMenuArray(GetMiaPhotoYears()), '/woody/sapphire/', $bChinese);
+	return GetCategoryLinks(GetPhotoMenuArray(GetMiaPhotoYears()), '/woody/mia/', $bChinese);
 }
 
 function GetBlogMenuArray($bChinese)

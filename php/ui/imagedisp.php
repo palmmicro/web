@@ -107,11 +107,6 @@ function ImgSapphireSolitaire($bChinese = true)
 	return GetWoodyImgQuote('solitaire.jpg', '加州乐高积木公园独自玩耍', 'Solitaire Sapphire in LEGOLAND CALIFORNIA.', $bChinese);
 }
 
-function ImgWorriedWoody($bChinese = true)
-{
-	return GetWoodyImgQuote('20141204.jpg', '我们两个都有点发愁', 'Woody and Sapphire Lin are both worried!', $bChinese);
-}
-
 function ImgTianHeng()
 {
 	return GetWoodyImgQuote('tianheng.jpg', '田横五百壮士');

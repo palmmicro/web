@@ -9,7 +9,7 @@ function GetMetaDescription()
 function EchoAll()
 {
 	$strSZ162411 = GetBlogTitle(20150818);
-	$strSapphire = GetBlogLink(20141204);
+	$strMia = GetBlogTitle(20141204);
 	$strStock = GetBlogTitle(20141016);
 	$strGoogle = GetBlogTitle(20110509);
 	$strPHP = GetBlogTitle(20100905);
@@ -18,7 +18,7 @@ function EchoAll()
 <p>2016年6月15日 东方财富<a href="entertainment/20160615cn.php">美元人民币中间价</a>汇率实时数据接口的字段意义
 <br />2015年12月25日 <a href="entertainment/20151225cn.php">新浪股票数据</a>接口的字段意义
 <br />$strSZ162411
-<br />2014年12月4日 {$strSapphire}的由来
+<br />$strMia
 <br />$strStock
 <br />2014年6月15日 升级到<a href="entertainment/20140615cn.php">Visual Studio</a> 2013
 <br />2012年8月11日 E路航Z1 <a href="entertainment/20120811cn.php">GPS</a>

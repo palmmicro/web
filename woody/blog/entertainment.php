@@ -9,7 +9,7 @@ function GetMetaDescription($bChinese)
 function EchoAll($bChinese)
 {
 	$strSZ162411 = GetBlogTitle(20150818, $bChinese);
-	$strSapphire = GetBlogLink(20141204, $bChinese);
+	$strMia = GetBlogTitle(20141204, $bChinese);
 	$strStock = GetBlogTitle(20141016, $bChinese);
 	$strGoogle = GetBlogTitle(20110509, $bChinese);
 	$strPHP = GetBlogTitle(20100905, $bChinese);
@@ -18,7 +18,7 @@ function EchoAll($bChinese)
 <p>Jun 15, 2016 EastMoney <a href="entertainment/20160615.php">USDCNY Reference Rate</a> Data Interface
 <br />Dec 25, 2015 The Interpretation of <a href="entertainment/20151225.php">Sina Stock Data</a> Interface
 <br />$strSZ162411
-<br />Dec 4, 2014 The Origin of $strSapphire
+<br />$strMia
 <br />$strStock
 <br />Jun 15, 2014 Upgrade to <a href="entertainment/20140615.php">Visual Studio</a> 2013
 <br />Aug 11, 2012 Eroda Z1 <a href="entertainment/20120811.php">GPS</a>
