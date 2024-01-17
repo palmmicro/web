@@ -42,9 +42,6 @@ function EchoAll()
 <p>小红帽和红点衣.<a href="30days/large/red.jpg" target=_blank>放大</a>
 <br /><img src=30days/red.jpg alt="Sapphire Lin in red hat and red dot dress." /></p>
 
-<!--<p>跟爸爸合影.<a href="30days/large/dad10.jpg" target=_blank>放大</a>
-<br /><img src=30days/dad10.jpg alt="Sapphire Lin in red hat and red dot dress with Woody." /></p>
-
 <p>Feet. <a href="30days/large/feet.jpg" target=_blank>放大</a>
 <br /><img src=30days/feet.jpg alt="Sapphire Lin's feet." /></p>-->
 

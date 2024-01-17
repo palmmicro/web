@@ -1,13 +1,13 @@
 <?php
 
-function GetImgQuote($strPathName, $strTextCn, $strTextUs = '', $bChinese = true)
+function GetImgQuote($strPathName, $strTextCn = '', $strTextUs = '', $bChinese = true)
 {
    	$strNewLine = GetBreakElement();
    	$strText = $bChinese ? $strTextCn : $strTextUs;
 	return $strNewLine.GetImgElement($strPathName, $strText).$strNewLine.GetQuoteElement($strText);
 }
 
-function ImgAutoQuote($strPathName, $strTextCn, $strTextUs = '', $bChinese = true)
+function ImgAutoQuote($strPathName, $strTextCn = '', $strTextUs = '', $bChinese = true)
 {
 	$iDisplayHeight = LayoutGetDisplayHeight();
 	$iFit = LayoutGetDisplayWidth();
@@ -30,7 +30,7 @@ function ImgAutoQuote($strPathName, $strTextCn, $strTextUs = '', $bChinese = tru
 	if ($iWidth > $iFit)
 	{
 		$strFit = strval($iFit);
-		$strNewName = substr($strPathName, 0, strlen($strPathName) - 4).'x'.$strFit.'.jpg';
+		$strNewName = substr($strPathName, 0, strlen($strPathName) - 4).'x'.$strFit.'__.jpg';
 		if (!file_exists($strNewName))
 		{
 			$imgNew = imagecreatetruecolor($iFit, $iFitHeight);

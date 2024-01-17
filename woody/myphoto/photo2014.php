@@ -8,7 +8,8 @@ function GetMetaDescription($bChinese)
 
 function EchoAll($bChinese)
 {
-	$strMia = GetBlogPictureParagraph(20141204, 'ImgWorriedWoody', $bChinese);
+	$strMia = GetBlogPictureParagraph(20141204, 'ImgWorriedWoody', $bChinese, 'by Xiao Xi on '.GetPhotoDirLink(20141121, true, $bChinese));
+	$strDad = GetPhotoDirLink(20141211, true, $bChinese).' Sapphire <a href="../mia/photo30days.php">30 Days</a> '.ImgAutoQuote('/woody/image/20141211/IMG_5889.JPG', '', 'Sapphire Lin in red hat and red dot dress with Woody', $bChinese);
 	
     echo <<<END
 <p><a href="http://www.doyouhike.net/forum/leisure/1013822,0,0,1.html" target=_blank>Jan 11</a>. Sunshine on my shoulders. <a href="2014/large/sunshine.jpg" target=_blank>Large</a>
@@ -18,9 +19,7 @@ function EchoAll($bChinese)
 <br /><img src=2014/hospital.jpg alt="In the hospital where Sapphire was born" /></p>
 
 $strMia
-
-<p>Dec 13. Sapphire <a href="../mia/photo30days.php">30 Days</a>. <a href="../mia/30days/large/dad10.jpg" target=_blank>Large</a>
-<br /><img src=../mia/30days/dad10.jpg alt="Sapphire Lin in red hat and red dot dress with Woody." /></p>
+<p>$strDad</p>
 END;
 }
 

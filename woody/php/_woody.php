@@ -24,5 +24,5 @@ function _LayoutBottom($bChinese = true, $bAdsense = true)
     LayoutTail($bChinese, $bAdsense);
 }
 
-   	$acct = new Account();
+   	$acct = new TitleAccount();
 ?>
