@@ -8,6 +8,7 @@ function GetMetaDescription($bChinese)
 
 function EchoAll($bChinese)
 {
+	$strSnowball = GetBlogTitle(20201205, $bChinese);
 	$strSZ162411 = GetBlogTitle(20150818, $bChinese);
 	$strMia = GetBlogTitle(20141204, $bChinese);
 	$strStock = GetBlogTitle(20141016, $bChinese);
@@ -15,7 +16,8 @@ function EchoAll($bChinese)
 	$strPHP = GetBlogTitle(20100905, $bChinese);
 	
     echo <<<END
-<p>Jun 15, 2016 EastMoney <a href="entertainment/20160615.php">USDCNY Reference Rate</a> Data Interface
+<p>$strSnowball
+<br />Jun 15, 2016 EastMoney <a href="entertainment/20160615.php">USDCNY Reference Rate</a> Data Interface
 <br />Dec 25, 2015 The Interpretation of <a href="entertainment/20151225.php">Sina Stock Data</a> Interface
 <br />$strSZ162411
 <br />$strMia

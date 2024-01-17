@@ -113,6 +113,12 @@ function UrlGetRootDir()
     return $strRoot;
 }
 
+function UrlModifyRootFileName($strFileName)
+{
+	if (substr($strFileName, 0, 1) == '/')		return	UrlGetRootDir().substr($strFileName, 1);
+	return $strFileName;
+}
+
 function UrlGetPathName($strPathName)
 {
 	return '/'.substr($strPathName, strlen(UrlGetRootDir()));

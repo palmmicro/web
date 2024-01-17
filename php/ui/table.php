@@ -102,7 +102,6 @@ function EchoTableParagraphBegin($ar, $strId, $str = '')
 		$strColumn .= $col->GetHead();
 	}
     $strWidth = strval($iTotal);
-//	if ($iTotal > 640)	trigger_error('Table too wide: '.$strWidth);
 	if ($iTotal > LayoutGetDisplayWidth())	trigger_error('Table too wide: '.$strWidth);
 
 	$strColumn = GetTableRow($strColumn);

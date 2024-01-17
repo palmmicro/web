@@ -1,9 +1,9 @@
-<?php
-require('php/_photo2020.php');
+<?php 
+require('php/_blogphoto.php');
 
 function GetMetaDescription($bChinese)
 {
-	return 'Woody 2020 personal photos and related links. Including Xueqiu carnival.';
+	return 'Pictures from Woody 2020 blog. Including Snowball carnival 2020 etc.';
 }
 
 function EchoAll($bChinese)

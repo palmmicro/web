@@ -8,8 +8,7 @@ function GetMetaDescription()
 
 function EchoAll()
 {
-	$strMia = GetBlogTitle(20141204);
-	$strWorried = ImgWorriedWoody();
+	$strMia = GetBlogPictureParagraph(20141204, 'ImgWorriedWoody', true, '小西拍摄');
 	
     echo <<<END
 <p><a href="http://www.doyouhike.net/forum/leisure/1013822,0,0,1.html" target=_blank>1月11日</a>. 梅林后山的阳光. 小雪拍摄 <a href="2014/large/sunshine.jpg" target=_blank>放大</a>
@@ -18,9 +17,7 @@ function EchoAll()
 <p>11月16日. 闺女出生后在医院测试长时间闲置的相机. <a href="2014/large/hospital.jpg" target=_blank>放大</a>
 <br /><img src=2014/hospital.jpg alt="In the hospital where Sapphire was born" /></p>
 
-<p>$strMia. <a href="https://ci-baby.taobao.com" target=_blank>小西</a>拍摄 <a href="../blog/photo/large/20141204.jpg" target=_blank>放大</a>
-$strWorried
-</p>
+$strMia
 
 <p>12月13日. <a href="../mia/photo30dayscn.php">满月艺术照</a>, 跟沾光的爸爸合影. <a href="../mia/30days/large/dad10.jpg" target=_blank>放大</a>
 <br /><img src=../mia/30days/dad10.jpg alt="Sapphire Lin in red hat and red dot dress with Woody." /></p>

@@ -9,15 +9,26 @@ function GetImgQuote($strPathName, $strTextCn, $strTextUs = '', $bChinese = true
 
 function ImgAutoQuote($strPathName, $strTextCn, $strTextUs = '', $bChinese = true)
 {
+	$iDisplayHeight = LayoutGetDisplayHeight();
 	$iFit = LayoutGetDisplayWidth();
 	
-	$imgOrg = imagecreatefromjpeg($strPathName);
+	$imgOrg = imagecreatefromjpeg(UrlModifyRootFileName($strPathName));
 	$iWidth = imagesx($imgOrg);
+	$iHeight = imagesy($imgOrg);
+	$iFitHeight = intval($iFit * $iHeight / $iWidth);
+	if ($iFitHeight > $iDisplayHeight)
+	{
+		$iFit = DEFAULT_WIDTH;
+		$iFitHeight = intval($iFit * $iHeight / $iWidth);
+		if ($iFitHeight < $iDisplayHeight)
+		{
+			$iFitHeight = $iDisplayHeight;
+			$iFit = intval($iWidth * $iFitHeight / $iHeight);
+		}
+	}
+	
 	if ($iWidth > $iFit)
 	{
-		$iHeight = imagesy($imgOrg);
-		$iFitHeight = intval($iFit * $iHeight / $iWidth);
-		
 		$strFit = strval($iFit);
 		$strNewName = substr($strPathName, 0, strlen($strPathName) - 4).'x'.$strFit.'.jpg';
 		if (!file_exists($strNewName))
@@ -25,7 +36,7 @@ function ImgAutoQuote($strPathName, $strTextCn, $strTextUs = '', $bChinese = tru
 			$imgNew = imagecreatetruecolor($iFit, $iFitHeight);
 			imagecopyresampled($imgNew, $imgOrg, 0, 0, 0, 0, $iFit, $iFitHeight, $iWidth, $iHeight);
 
-			imagejpeg($imgNew, $strNewName);
+			imagejpeg($imgNew, UrlModifyRootFileName($strNewName));
 			imagedestroy($imgNew);
 		}
 		

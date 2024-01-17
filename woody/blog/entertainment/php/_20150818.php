@@ -970,7 +970,7 @@ END;
 function Echo20200915($strPage)
 {
 	$strHead = GetHeadElement('跟踪'._getStockCategoryTag($strPage).'的SZ161130近期溢价申购套利回顾');
-	$strXueqiu = GetExternalLink('https://xueqiu.com/2244868365/144000143', '听无敌哥讲那油气交易爆仓和破产的事情');
+	$strXueqiu = GetExternalLink(GetXueqiuWoodyUrl().'144000143', '听无敌哥讲那油气交易爆仓和破产的事情');
 	$strSZ161130 = GetGroupStockLink('SZ161130', true);
 	$strVideo = VideoSZ161130();
 	$strQqqFund = GetStockCategoryLink($strPage);

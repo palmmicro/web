@@ -2,6 +2,7 @@
 require_once('../../php/layout.php');
 require_once('../../php/ui/imagedisp.php');
 require_once('../php/_woodymenu.php');
+require_once('../php/_imageaccount.php');
 
 function _menuMiaPhoto($bChinese)
 {
@@ -36,7 +37,12 @@ function GetTitle($bChinese = true)
 	}
 	else
 	{
-		$strYear = $bChinese ? '满月' : '30 Days';
+		switch ($strYear)
+		{
+		case '30days':
+			$strYear = $bChinese ? '满月' : '30 Days';
+			break;
+		}
 	}
 	
 	if ($bChinese)	$str = '林近岚'.$strYear.'相片';
@@ -45,5 +51,5 @@ function GetTitle($bChinese = true)
 	return $str;
 }
 
-   	$acct = new TitleAccount();
+   	$acct = new ImageAccount();
 ?>

@@ -7,6 +7,7 @@ require_once('adsense.php');
 require_once('ui/echohtml.php');
 require_once('class/Mobile_Detect.php');
 
+define('DEFAULT_WIDTH', 640);
 define('DEFAULT_DISPLAY_WIDTH', 900);
 define('LEFT_MENU_WIDTH', 30 + 120 + 30 + 50);										// 最左边菜单宽度 width=30, 120, 30, 50
 define('MIN_SCRREN_WIDTH', DEFAULT_DISPLAY_WIDTH + 10 + DEFAULT_ADSENSE_WIDTH);		// 隔10个像素再显示最右边的广告, 见下面width=10
@@ -43,9 +44,9 @@ function GetWeixinPay($bRandom = true)
 
 function LayoutScreenWidthOk()
 {
-	if (isset($_COOKIE['screen']))
+	if (isset($_COOKIE['screenwidth']))
 	{
-		if ($strWidth = $_COOKIE['screen'])
+		if ($strWidth = $_COOKIE['screenwidth'])
 		{	// cookie in _layoutBanner worked 
 			$iWidth = intval($strWidth);
 			$iWidth -= 20;	// 假设右侧垂直滚动条最多20像素
@@ -60,9 +61,23 @@ function LayoutGetDisplayWidth()
 	if ($iWidth = LayoutScreenWidthOk())
 	{
 		$iWidth -= 10 + DEFAULT_ADSENSE_WIDTH + LEFT_MENU_WIDTH;
-		return ($iWidth < 640) ? 640 : $iWidth;
+		return ($iWidth < DEFAULT_WIDTH) ? DEFAULT_WIDTH : $iWidth;
 	}
-	return 640;
+	return DEFAULT_WIDTH;
+}
+
+function LayoutGetDisplayHeight()
+{
+	if (isset($_COOKIE['screenheight']))
+	{
+		if ($strHeight = $_COOKIE['screenheight'])
+		{	// cookie in _layoutBanner worked 
+			$iHeight = intval($strHeight);
+			$iHeight -= 144;	// image_palmmicro.jpg 800*105像素
+			return $iHeight;
+		}
+	}
+	return 480;
 }
 
 function _layoutBanner($bChinese)
@@ -82,7 +97,9 @@ function _layoutBanner($bChinese)
 
 <script>
 	var width = window.screen.width;
-	document.cookie = "screen=" + width + "; path=/";
+	var height = window.screen.height;
+	document.cookie = "screenheight=" + height + "; path=/";
+	document.cookie = "screenwidth=" + width + "; path=/";
 </script>
 END;
 }

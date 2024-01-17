@@ -261,12 +261,6 @@ class TitleAccount extends Account
     	return $this->strPage;
     }
     
-    // photo2006 -> 2006
-    function GetPageYear()
-    {
-    	return substr($this->strPage, -4, 4);
-    }
-    
     function GetQuery()
     {
     	return $this->strQuery;

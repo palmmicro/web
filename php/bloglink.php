@@ -27,6 +27,11 @@ function GetBlogLink($iDate, $bChinese = true, $bLink = true)
 	
 	switch ($iDate)
 	{
+	case 20201205:
+		$strDisplay = '雪球';
+		$strUs = 'Snowball';
+		break;
+		
 	case 20161014:
 		$strMenu = 'palmmicro';
 		$strDisplay = '微信';
@@ -72,6 +77,10 @@ function GetBlogTitle($iDate, $bChinese = true, $bLink = true)
 	
 	switch ($iDate)
 	{
+	case 20201205:
+		$strTitle = $bChinese ? $strDisplay.'私募的作业' : 'Homework for '.$strDisplay.' Private Equity';
+		break;
+		
 	case 20161014:
 		$strTitle = $bChinese ? 'Palmmicro'.$strDisplay.'公众号sz162411' : 'Palmmicro '.$strDisplay.' Public Account sz162411';
 		break;
@@ -111,9 +120,9 @@ function GetBlogTitle($iDate, $bChinese = true, $bLink = true)
 	return $strTitle;
 }
 
-function GetBlogPictureParagraph($iDate, $callback, $bChinese = true)
+function GetBlogPictureParagraph($iDate, $callback, $bChinese = true, $strExtra = ' ')
 {
-	return GetHtmlElement(GetBlogTitle($iDate, $bChinese).call_user_func($callback, $bChinese));
+	return GetHtmlElement(GetBlogTitle($iDate, $bChinese).' '.$strExtra.' '.call_user_func($callback, $bChinese));
 }
 
 function GetPhotoParagraph($strPathName, $strTextCn, $strTextUs = '', $bChinese = true)
@@ -148,7 +157,12 @@ function ImgWoody20060701($bChinese = true)
 
 function ImgWorriedWoody($bChinese = true)
 {
-	return GetWoodyImgQuote('20141204.jpg', '我们两个都有点发愁', 'Woody and Sapphire Lin are both worried!', $bChinese);
+	return ImgAutoQuote('/woody/blog/photo/20141204.jpg', '我们两个都有点发愁', 'Woody and Sapphire Lin are both worried!', $bChinese);
+}
+
+function ImgSnowballCarnival($bChinese = true)
+{
+	return ImgAutoQuote('/woody/myphoto/2020/20201205.jpg', '2020年雪球嘉年华之夜', '2020 Snowball carnival night', $bChinese);
 }
 
 ?>

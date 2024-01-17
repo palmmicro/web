@@ -37,7 +37,7 @@ function EchoAll()
 
 function GetQdiiJpLinks($sym)
 {
-	$str = GetJisiluQdiiLink(true);
+	$str = GetJisiluQdiiLink(true).' '.GetExternalLink(GetCmeUrl('NIY'), '芝商所NIY期货');
 	$str .= GetSpySoftwareLinks();
 	$str .= GetChinaInternetSoftwareLinks();
 	$str .= GetHangSengSoftwareLinks();

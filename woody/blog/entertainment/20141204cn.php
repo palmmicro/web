@@ -33,9 +33,9 @@ Since 1880 up to 2013, your name was recorded 2,469 times in the American baby n
 <br />-- 摘自<a href="http://www.themeaningofnames.org/?n=Sapphire&m=11&d=8&y=1966&go=Go" target=_blank>themeaningofnames.org</a>
 </font></blockquote>
 <p>
-<?php echo ImgWorriedWoody(); ?>
+<font color=gray>给我舞台我就能华丽登场 -- 叮咯咙咚呛</font>
+<br /><?php echo ImgWorriedWoody(); ?>
 </p>
-<blockquote><font color=gray>给我舞台我就能华丽登场 -- 叮咯咙咚呛</font></blockquote>
 
 <h3>林蓉榕和林九霞</h3>
 <p>2014年12月26日

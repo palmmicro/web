@@ -3,6 +3,7 @@ require_once('../../php/layout.php');
 require_once('../../php/bloglink.php');
 require_once('../../php/ui/imagedisp.php');
 require_once('../php/_woodymenu.php');
+require_once('../php/_imageaccount.php');
 
 function _menuLoopBlogPhoto($bChinese)
 {
@@ -43,5 +44,5 @@ function GetTitle($bChinese = true)
 	return $strYear;
 }
 
-   	$acct = new TitleAccount();
+   	$acct = new ImageAccount();
 ?>

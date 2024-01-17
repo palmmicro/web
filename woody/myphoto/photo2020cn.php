@@ -8,10 +8,10 @@ function GetMetaDescription()
 
 function EchoAll()
 {
-	$strXueqiu = Img20201205();
+	$strSnowball = GetBlogPictureParagraph(20201205, 'ImgSnowballCarnival');
 	
     echo <<<END
-$strXueqiu
+$strSnowball
 END;
 }
 

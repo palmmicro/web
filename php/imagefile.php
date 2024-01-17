@@ -156,7 +156,9 @@ class PageImageFile extends ImageFile
 
     public function __construct($strIndex = '1') 
     {
-        parent::__construct(DebugGetImageName(UrlGetUniqueString().$strIndex), 640, 480);
+    	$iWidth = LayoutGetDisplayWidth();
+		$iHeight = intval($iWidth * 360 / DEFAULT_WIDTH);
+        parent::__construct(DebugGetImageName(UrlGetUniqueString().$strIndex), $iWidth, $iHeight);
     }
 
     function _getPos($f, $fMax, $fMin)

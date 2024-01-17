@@ -83,6 +83,11 @@ function GetXueqiuUrl()
 	return 'https://xueqiu.com/';
 }
 
+function GetXueqiuWoodyUrl()
+{
+	return GetXueqiuUrl().'2244868365/';
+}
+
 function GetJisiluDataUrl()
 {
 	return 'https://www.jisilu.cn/data/';
@@ -116,6 +121,7 @@ function GetKraneUrl()
 // https://www.cmegroup.com/markets/equities/sp/e-mini-sandp500.quotes.html
 // https://www.cmegroup.com/markets/equities/nasdaq/e-mini-nasdaq-100.quotes.html
 // https://www.cmegroup.com/markets/fx/cross-rates/usd-cnh.html
+// https://www.cmegroup.com/markets/equities/international-indices/nikkei-225-yen.html
 function GetCmeUrl($strSymbol)
 {
 	$str = 'https://www.cmegroup.com/markets/';
@@ -129,6 +135,9 @@ function GetCmeUrl($strSymbol)
 		
 	case 'fx_susdcnh':
 		return $str.'fx/cross-rates/usd-cnh.html';
+		
+	case 'NIY':
+		return $str.'equities/international-indices/nikkei-225-yen.html';
 	}
 	
 	return false;
