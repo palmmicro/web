@@ -7,6 +7,11 @@ function GetImgQuote($strPathName, $strTextCn = '', $strTextUs = '', $bChinese =
 	return $strNewLine.GetImgElement($strPathName, $strText).$strNewLine.GetQuoteElement($strText);
 }
 
+function GetImgAutoSuffix()
+{
+	return '__.jpg';
+}
+
 function ImgAutoQuote($strPathName, $strTextCn = '', $strTextUs = '', $bChinese = true)
 {
 	$iDisplayHeight = LayoutGetDisplayHeight();
@@ -30,13 +35,15 @@ function ImgAutoQuote($strPathName, $strTextCn = '', $strTextUs = '', $bChinese 
 	if ($iWidth > $iFit)
 	{
 		$strFit = strval($iFit);
-		$strNewName = substr($strPathName, 0, strlen($strPathName) - 4).'x'.$strFit.'__.jpg';
-		if (!file_exists($strNewName))
+		$strNewName = substr($strPathName, 0, strlen($strPathName) - 4).'x'.$strFit.GetImgAutoSuffix();
+		$strNewRootName = UrlModifyRootFileName($strNewName); 
+		if (!file_exists($strNewRootName))
+//		if (!file_exists($strNewName))
 		{
+			DebugString('Converting '.$strNewName);
 			$imgNew = imagecreatetruecolor($iFit, $iFitHeight);
 			imagecopyresampled($imgNew, $imgOrg, 0, 0, 0, 0, $iFit, $iFitHeight, $iWidth, $iHeight);
-
-			imagejpeg($imgNew, UrlModifyRootFileName($strNewName));
+			imagejpeg($imgNew, $strNewRootName);
 			imagedestroy($imgNew);
 		}
 		

@@ -8,6 +8,8 @@ function GetMetaDescription()
 
 function EchoAll()
 {
+	$strMia30Days = GetMia30DaysLink();
+	
     echo <<<END
 <p>12月26日. 全副武装出门. 去妇幼保健院再做一次42天体检, 10斤, 56厘米. <a href="large/20141226.jpg" target=_blank>放大</a>
 <br /><img src=2014/20141226.jpg alt="Sapphire Lin going out." /></p>
@@ -18,7 +20,7 @@ function EchoAll()
 <p>12月14日. 发现后脑勺上有个胎记. <a href="large/20141214.jpg" target=_blank>放大</a>
 <br /><img src=2014/20141214.jpg alt="Sapphire Lin's birthmark on the head." /></p>
 
-<p>12月13日. 今天我<a href="photo30dayscn.php">满月</a>. <a href="large/20141213.jpg" target=_blank>放大</a>
+<p>12月13日. 今天我{$strMia30Days}. <a href="large/20141213.jpg" target=_blank>放大</a>
 <br /><img src=2014/20141213.jpg alt="Sapphire Lin on Dec 13, 2014." />
 <br /><img src=2014/20141213_2.jpg alt="Sapphire Lin is one month now." /></p>
 

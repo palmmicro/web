@@ -14,7 +14,7 @@ function GetMetaDescription()
 function EchoAll()
 {
 	$strMyPhoto = GetMyPhotoLinks();
-	$strMiaPhoto = GetMiaPhotoLinks();
+	$strMiaPhoto = GetMia30DaysLink().' '.GetMiaPhotoLinks();
 	$strBlogPhoto = GetBlogPhotoLinks();
 	$strImage = ImgWoodyBike();
 	
@@ -24,7 +24,7 @@ function EchoAll()
 <p>个人相册：$strMyPhoto
 </p>
 
-<p>{$strMia}相册：<a href="mia/photo30dayscn.php">满月艺术照</a> $strMiaPhoto
+<p>{$strMia}相册：$strMiaPhoto
 </p>
 
 <p>网络日志图片：$strBlogPhoto

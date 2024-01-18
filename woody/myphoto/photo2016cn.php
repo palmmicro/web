@@ -1,5 +1,5 @@
 <?php
-require('php/_photo2016.php');
+require_once('php/_photo2016.php');
 
 function GetMetaDescription()
 {

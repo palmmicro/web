@@ -42,14 +42,8 @@ function EchoAll()
 <p>小红帽和红点衣.<a href="30days/large/red.jpg" target=_blank>放大</a>
 <br /><img src=30days/red.jpg alt="Sapphire Lin in red hat and red dot dress." /></p>
 
-<p>Feet. <a href="30days/large/feet.jpg" target=_blank>放大</a>
-<br /><img src=30days/feet.jpg alt="Sapphire Lin's feet." /></p>-->
-
 <p>脚放妈妈手中.<a href="30days/large/feet_mom.jpg" target=_blank>放大</a>
 <br /><img src=30days/feet_mom.jpg alt="Sapphire Lin's feet in Mom's hands." /></p>
-
-<!--<p>Foot in Mom's hand. <a href="30days/large/foot_mom.jpg" target=_blank>放大</a>
-<br /><img src=30days/foot_mom.jpg alt="Sapphire Lin's foot in Mom's hand." /></p>-->
 
 <p>手放爸爸妈妈手中.<a href="30days/large/hand_mom_dad2.jpg" target=_blank>放大</a>
 <br /><img src=30days/hand_mom_dad2.jpg alt="Sapphire Lin's hand in Mom and Dad's hands." /></p>

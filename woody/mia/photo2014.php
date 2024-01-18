@@ -8,6 +8,8 @@ function GetMetaDescription($bChinese)
 
 function EchoAll($bChinese)
 {
+	$strMia30Days = GetMia30DaysLink($bChinese);
+	
     echo <<<END
 <p>Dec 26. Going out. <a href="large/20141226.jpg" target=_blank>Large</a>
 <br /><img src=2014/20141226.jpg alt="Sapphire Lin going out." /></p>
@@ -18,7 +20,7 @@ function EchoAll($bChinese)
 <p>Dec 14. Birthmark on the head. <a href="large/20141214.jpg" target=_blank>Large</a>
 <br /><img src=2014/20141214.jpg alt="Sapphire Lin's birthmark on the head." /></p>
 
-<p>Dec 13. I'm <a href="photo30days.php">30 days</a> old today. <a href="large/20141213.jpg" target=_blank>Large</a>
+<p>Dec 13. I'm $strMia30Days old today. <a href="large/20141213.jpg" target=_blank>Large</a>
 <br /><img src=2014/20141213.jpg alt="Sapphire Lin on Dec 13, 2014." />
 <br /><img src=2014/20141213_2.jpg alt="Sapphire Lin is one month now." /></p>
 

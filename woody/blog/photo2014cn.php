@@ -8,7 +8,7 @@ function GetMetaDescription()
 
 function EchoAll()
 {
-	$strMia = GetBlogPictureParagraph(20141204, 'ImgWorriedWoody');
+	$strMia = GetMiaParagraph(true, false);
 	$strStock = GetBlogPictureParagraph(20141016, 'ImgPortfolio20141016');
 	
     echo <<<END

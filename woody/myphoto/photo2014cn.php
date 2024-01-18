@@ -1,5 +1,5 @@
 <?php
-require('php/_myphoto.php');
+require_once('php/_photo2014.php');
 
 function GetMetaDescription()
 {
@@ -8,9 +8,8 @@ function GetMetaDescription()
 
 function EchoAll()
 {
-	$strMia = GetBlogPictureParagraph(20141204, 'ImgWorriedWoody', true, '小西拍摄于'.GetPhotoDirLink(20141121));
-	$strDad = GetPhotoDirLink(20141211).' <a href="../mia/photo30dayscn.php">满月艺术照</a> '.ImgAutoQuote('/woody/image/20141211/IMG_5889.JPG', '跟沾光的爸爸合影');
-	
+	$strMia = GetMiaParagraph();
+	$strMiaDad = GetMiaDadParagraph();
 	
     echo <<<END
 <p><a href="http://www.doyouhike.net/forum/leisure/1013822,0,0,1.html" target=_blank>1月11日</a>. 梅林后山的阳光. 小雪拍摄 <a href="2014/large/sunshine.jpg" target=_blank>放大</a>
@@ -20,7 +19,7 @@ function EchoAll()
 <br /><img src=2014/hospital.jpg alt="In the hospital where Sapphire was born" /></p>
 
 $strMia
-<p>$strDad</p>
+$strMiaDad
 END;
 }
 

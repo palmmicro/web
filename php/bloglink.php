@@ -120,18 +120,13 @@ function GetBlogTitle($iDate, $bChinese = true, $bLink = true)
 	return $strTitle;
 }
 
-function GetBlogPictureParagraph($iDate, $callback, $bChinese = true, $strExtra = ' ')
-{
-	return GetHtmlElement(GetBlogTitle($iDate, $bChinese).' '.$strExtra.' '.call_user_func($callback, $bChinese));
-}
-
 function IsDigitDate($strDate)
 {
 	if (strlen($strDate) != 8)	return false;
 	return is_numeric($strDate);
 }
 
-function GetPhotoDirLink($strDate, $bMonthDay = true, $bChinese = true)
+function GetPhotoDirLink($strDate, $bChinese = true, $bMonthDay = true)
 {
 	$strDisplay = $bMonthDay ? GetBlogMonthDay($strDate, $bChinese) : GetBlogYmd($strDate, $bChinese);
 	return GetPhpLink('/woody/photo', 'photo='.$strDate, $strDisplay, false, $bChinese);
@@ -169,7 +164,7 @@ function ImgWoody20060701($bChinese = true)
 
 function ImgWorriedWoody($bChinese = true)
 {
-	return ImgAutoQuote('/woody/image/20141121/E55A5341.JPG', '我们两个都有点发愁', 'Woody and Sapphire Lin are both worried!', $bChinese);
+	return ImgAutoQuote('/woody/image/20141121/E55A5341.JPG', '我们两个都有点发愁', 'Woody and Mia Lin are both worried!', $bChinese);
 }
 
 function ImgSnowballCarnival($bChinese = true)

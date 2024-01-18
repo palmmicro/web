@@ -8,7 +8,7 @@ function GetMetaDescription($bChinese)
 
 function EchoAll($bChinese)
 {
-	$strMia = GetBlogPictureParagraph(20141204, 'ImgWorriedWoody', $bChinese);
+	$strMia = GetMiaParagraph($bChinese, false);
 	$strStock = GetBlogPictureParagraph(20141016, 'ImgPortfolio20141016', $bChinese);
 	
     echo <<<END
