@@ -1,5 +1,5 @@
 <?php
-require('php/_mia.php');
+require_once('php/_photo30days.php');
 
 function GetMetaDescription()
 {
@@ -8,12 +8,12 @@ function GetMetaDescription()
 
 function EchoAll()
 {
+	$strBlue = PhotoMiaBlue(true, '<a href="php30days/bluecn.php">蓝色系列</a>');
+	$strBluePuppy = PhotoMiaBluePuppy();
+	
     echo <<<END
-<p>白衣蓝帽.<a href="30days/large/blue.jpg" target=_blank>放大</a> <a href="php30days/bluecn.php">更多</a>
-<br /><img src=30days/blue.jpg alt="Sapphire Lin dress in white and blue." /></p>
-
-<p>蓝帽和来福.<a href="30days/large/blue_puppy.jpg" target=_blank>放大</a>
-<br /><img src=30days/blue_puppy.jpg alt="Sapphire Lin dress in blue with puppy." /></p>
+$strBlue
+$strBluePuppy
 
 <p>小红帽和来福.<a href="30days/large/hat_puppy2.jpg" target=_blank>放大</a> <a href="php30days/hatcn.php">更多</a>
 <br /><img src=30days/hat_puppy2.jpg alt="Sapphire Lin in red hat with puppy." /></p>

@@ -8,8 +8,8 @@ function GetMetaDescription()
 
 function EchoAll()
 {
-	$strMia = GetMiaParagraph();
-	$strMiaDad = GetMiaDadParagraph();
+	$strMia = PhotoMia();
+	$strMiaDad = PhotoMiaDad();
 	
     echo <<<END
 <p><a href="http://www.doyouhike.net/forum/leisure/1013822,0,0,1.html" target=_blank>1月11日</a>. 梅林后山的阳光. 小雪拍摄 <a href="2014/large/sunshine.jpg" target=_blank>放大</a>

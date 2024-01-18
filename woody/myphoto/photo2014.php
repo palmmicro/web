@@ -8,8 +8,8 @@ function GetMetaDescription($bChinese)
 
 function EchoAll($bChinese)
 {
-	$strMia = GetMiaParagraph($bChinese);
-	$strMiaDad = GetMiaDadParagraph($bChinese);
+	$strMia = PhotoMia($bChinese);
+	$strMiaDad = PhotoMiaDad($bChinese);
 	
     echo <<<END
 <p><a href="http://www.doyouhike.net/forum/leisure/1013822,0,0,1.html" target=_blank>Jan 11</a>. Sunshine on my shoulders. <a href="2014/large/sunshine.jpg" target=_blank>Large</a>

@@ -8,7 +8,7 @@ function GetMetaDescription()
 
 function EchoAll()
 {
-	$strSnowball = GetSnowballParagraph();
+	$strSnowball = PhotoSnowball();
 	
     echo <<<END
 $strSnowball

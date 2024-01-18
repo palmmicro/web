@@ -8,7 +8,7 @@ function GetMetaDescription($bChinese)
 
 function EchoAll($bChinese)
 {
-	$strSnowball = GetSnowballParagraph($bChinese);
+	$strSnowball = PhotoSnowball($bChinese);
 	
     echo <<<END
 $strSnowball

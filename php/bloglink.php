@@ -132,15 +132,15 @@ function GetPhotoDirLink($strDate, $bChinese = true, $bMonthDay = true)
 	return GetPhpLink('/woody/photo', 'photo='.$strDate, $strDisplay, false, $bChinese);
 }
 
-function GetPhotoParagraph($strPathName, $strTextCn, $strTextUs = '', $bChinese = true)
+function GetPhotoParagraph($strPathName, $strTextCn, $strTextUs = '', $bChinese = true, $strExtra = '')
 {
-	$strQuote = ImgAutoQuote($strPathName, $strTextCn, $strTextUs, $bChinese);
+	$str = $strExtra.' '.ImgAutoQuote($strPathName, $strTextCn, $strTextUs, $bChinese);
 	$strDate = basename($strPathName, '.jpg');
 	if (IsDigitDate($strDate))
 	{
-		$strQuote = GetBlogMonthDay($strDate, $bChinese).' '.$strQuote;
+		$str = GetBlogMonthDay($strDate, $bChinese).' '.$str;
 	}
-	return GetHtmlElement($strQuote);
+	return GetHtmlElement($str);
 }
 
 function ImgPalmmicroWechat($bChinese = true)

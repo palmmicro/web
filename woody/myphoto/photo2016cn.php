@@ -8,7 +8,7 @@ function GetMetaDescription()
 
 function EchoAll()
 {
-	$strDisney = Img20161113();
+	$strDisney = Photo20161113();
 	
     echo <<<END
 $strDisney
