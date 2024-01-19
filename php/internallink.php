@@ -2,7 +2,7 @@
 
 // ****************************** Internal none-stock link functions *******************************************************
 
-define('ACCT_PATH', '/account/');
+define('PATH_ACCOUNT', '/account/');
 
 function GetDevGuideLink($strVer = false)
 {
@@ -19,7 +19,7 @@ function GetMemberLink($strMemberId, $bChinese = true)
 	    {
 	        $strName = $strEmail;
 	    }
-	    return GetPhpLink(ACCT_PATH.'profile', 'email='.$strEmail, $strName, false, $bChinese);
+	    return GetPhpLink(PATH_ACCOUNT.'profile', 'email='.$strEmail, $strName, false, $bChinese);
 	}
     return '';
 }
@@ -81,7 +81,7 @@ function _getAccountToolArray($bChinese = true)
 
 function GetAccountToolLinks($bChinese = true)
 {
-	return GetCategoryLinks(_getAccountToolArray($bChinese), ACCT_PATH, $bChinese);
+	return GetCategoryLinks(_getAccountToolArray($bChinese), PATH_ACCOUNT, $bChinese);
 }
 
 function GetAccountToolStr($strPage, $bChinese = true)
@@ -92,7 +92,7 @@ function GetAccountToolStr($strPage, $bChinese = true)
 
 function GetAccountToolLink($strPage, $strQuery = false, $bChinese = true)
 {
-    return GetPhpLink(ACCT_PATH.$strPage, ($strQuery ? $strPage.'='.$strQuery : false), ($strQuery ? $strQuery : GetAccountToolStr($strPage, $bChinese)), false, $bChinese);
+    return GetPhpLink(PATH_ACCOUNT.$strPage, ($strQuery ? $strPage.'='.$strQuery : false), ($strQuery ? $strQuery : GetAccountToolStr($strPage, $bChinese)), false, $bChinese);
 }
 
 function GetCommonPhraseLink($bChinese = true)
@@ -102,13 +102,13 @@ function GetCommonPhraseLink($bChinese = true)
 
 function GetSinaDataLink($strSinaSymbols)
 {
-//	return GetPhpLink(ACCT_PATH.'sinajs', 'sinajs='.$strSinaSymbols, ($bFull ? GetSinaDataUrl($strSinaSymbols) : $strSinaSymbols));
+//	return GetPhpLink(PATH_ACCOUNT.'sinajs', 'sinajs='.$strSinaSymbols, ($bFull ? GetSinaDataUrl($strSinaSymbols) : $strSinaSymbols));
 	return GetAccountToolLink('sinajs', $strSinaSymbols);
 }
 
 function _getIpLink($strPage, $strIp, $bChinese)
 {
-    return GetPhpLink(ACCT_PATH.$strPage, 'ip='.$strIp, $strIp, false, $bChinese);
+    return GetPhpLink(PATH_ACCOUNT.$strPage, 'ip='.$strIp, $strIp, false, $bChinese);
 }
 
 function GetIpLink($strIp, $bChinese = true)
@@ -123,12 +123,12 @@ function GetVisitorLink($strIp, $bChinese = true)
 
 function GetAllVisitorLink($bChinese = true)
 {
-	return GetPhpLink(ACCT_PATH.TABLE_VISITOR, false, '访问统计', 'Visitor', $bChinese);
+	return GetPhpLink(PATH_ACCOUNT.TABLE_VISITOR, false, '访问统计', 'Visitor', $bChinese);
 }
 
 function GetAllCommentLink($strQuery, $bChinese = true)
 {
-    return GetPhpLink(ACCT_PATH.'comment', $strQuery, '全部评论', 'All Comment', $bChinese);
+    return GetPhpLink(PATH_ACCOUNT.'comment', $strQuery, '全部评论', 'All Comment', $bChinese);
 }
 
 ?>

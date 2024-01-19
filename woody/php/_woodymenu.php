@@ -41,7 +41,7 @@ function GetPhotoMenuArray($arYears)
 
 function GetBlogPhotoLinks($bChinese = true)
 {
-	return GetCategoryLinks(GetPhotoMenuArray(GetBlogPhotoYears()), '/woody/blog/', $bChinese);
+	return GetCategoryLinks(GetPhotoMenuArray(GetBlogPhotoYears()), PATH_BLOG, $bChinese);
 }
 
 function GetMyPhotoLinks($bChinese = true)
@@ -68,7 +68,7 @@ function GetBlogMenuArray($bChinese)
 
 function GetBlogMenuLinks($bChinese = true)
 {
-	return GetCategoryLinks(GetBlogMenuArray($bChinese), '/woody/blog/', $bChinese);
+	return GetCategoryLinks(GetBlogMenuArray($bChinese), PATH_BLOG, $bChinese);
 }
 
 function LayoutWoodyMenuArray($bChinese)

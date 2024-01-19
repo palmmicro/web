@@ -52,7 +52,7 @@ function GetStockCategoryLinks()
 
 function GetStockPhpLink($strPage, $strDisplay, $strQuery = false)
 {
-    return GetPhpLink(STOCK_PATH.$strPage, $strQuery, $strDisplay);
+    return GetPhpLink(PATH_STOCK.$strPage, $strQuery, $strDisplay);
 }
 
 function GetStockCategoryLink($strItem)
@@ -69,7 +69,7 @@ function GetStockMenuLink($strItem)
 
 function GetStockPageLink($strPage, $strDisplay, $strQuery = false)
 {
-	return GetPageLink(STOCK_PATH, $strPage, $strQuery, $strDisplay);
+	return GetPageLink(PATH_STOCK, $strPage, $strQuery, $strDisplay);
 }
 
 function GetStockSymbolLink($strPage, $strSymbol, $strDisplay = false, $strExtraQuery = false)
@@ -217,7 +217,7 @@ function GetStockOptionLink($strOption, $strSymbol)
 
 function GetStockEditDeleteLink($strSymbol)
 {
-	return GetStockOptionLink(STOCK_OPTION_EDIT, $strSymbol).' '.GetDeleteLink(STOCK_PATH.'deletesymbol.php?symbol='.$strSymbol, '股票'.$strSymbol);
+	return GetStockOptionLink(STOCK_OPTION_EDIT, $strSymbol).' '.GetDeleteLink(PATH_STOCK.'deletesymbol.php?symbol='.$strSymbol, '股票'.$strSymbol);
 }
 
 define('AUTO_TRACTOR_DISPLAY', '拖拉机自动化');

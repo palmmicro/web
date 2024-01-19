@@ -35,6 +35,10 @@ function _LayoutTopLeft($bChinese = true, $bAdsense = true)
 
 function _LayoutBottom($bChinese = true, $bAdsense = true)
 {
+	LayoutBegin();
+	EchoParagraph(GetPhotoDirLink(20141211, $bChinese, false).' '.GetMia30DaysLink($bChinese));
+	LayoutEnd();
+
 	LayoutMiaPhotoArray($bChinese);
     LayoutTail($bChinese, $bAdsense);
 }

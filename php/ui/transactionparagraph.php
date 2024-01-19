@@ -18,7 +18,7 @@ function _echoTransactionTableItem($ref, $record, $bReadOnly, $bAdmin)
    	{
    		if (strlen($strRemark) > 0)
    		{
-			$strRemark = GetOnClickLink(STOCK_PATH.'submittransaction.php?empty='.$strId, '确认清空备注：'.$strRemark.'？', '清空').$strRemark;
+			$strRemark = GetOnClickLink(PATH_STOCK.'submittransaction.php?empty='.$strId, '确认清空备注：'.$strRemark.'？', '清空').$strRemark;
 			if (strpos($strRemark, STOCK_DISP_ORDER) !== false)
 			{
 				$nav_sql = GetNavHistorySql();
@@ -28,7 +28,7 @@ function _echoTransactionTableItem($ref, $record, $bReadOnly, $bAdmin)
 				
 				if ($strNetValue != $strPrice)
 				{
-					$strRemark .= GetOnClickLink(STOCK_PATH.'submittransaction.php?adjust='.$strId.'&netvalue='.$strNetValue, '确认校准到净值: '.$strNetValue.'？', '校准');
+					$strRemark .= GetOnClickLink(PATH_STOCK.'submittransaction.php?adjust='.$strId.'&netvalue='.$strNetValue, '确认校准到净值: '.$strNetValue.'？', '校准');
 				}
    			}
    		}
@@ -36,10 +36,10 @@ function _echoTransactionTableItem($ref, $record, $bReadOnly, $bAdmin)
 	$ar[] = $strRemark;
     	
     $strEdit = '';
-   	$strDelete = GetDeleteLink(STOCK_PATH.'submittransaction.php?delete='.$strId, $strDate.' '.$strQuantity.STOCK_TRANSACTION_DISPLAY);
+   	$strDelete = GetDeleteLink(PATH_STOCK.'submittransaction.php?delete='.$strId, $strDate.' '.$strQuantity.STOCK_TRANSACTION_DISPLAY);
     if ($bReadOnly == false)
     {
-    	$strEdit = GetEditLink(STOCK_PATH.'editstocktransaction', $strId);
+    	$strEdit = GetEditLink(PATH_STOCK.'editstocktransaction', $strId);
     }
     else if ($bAdmin == false)
     {

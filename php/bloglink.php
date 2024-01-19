@@ -1,4 +1,5 @@
 <?php
+define('PATH_BLOG', '/woody/blog/');
 
 class BlogPageYMD extends StringYMD
 {
@@ -67,7 +68,7 @@ function GetBlogLink($iDate, $bChinese = true, $bLink = true)
 		break;
 	}
 	
-	if ($bLink)	return GetPhpLink('/woody/blog/'.$strMenu.'/'.strval($iDate), false, $strDisplay, $strUs, $bChinese);
+	if ($bLink)	return GetPhpLink(PATH_BLOG.$strMenu.'/'.strval($iDate), false, $strDisplay, $strUs, $bChinese);
 	return $bChinese ? $strDisplay : ($strUs ? $strUs : $strDisplay);   
 }
 

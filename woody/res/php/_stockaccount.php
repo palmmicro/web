@@ -168,7 +168,7 @@ END;
     				$strSymbol = $ref->GetSymbol();
     				if (($strAmount = SqlGetFundPurchaseAmount($this->GetLoginId(), $strStockId)) === false)		$strAmount = FUND_PURCHASE_AMOUNT;
     				$strQuery = sprintf('groupid=%s&fundid=%s&amount=%s&netvalue=%.3f', $strGroupId, $strStockId, $strAmount, floatval($ref->GetOfficialNav()));
-    				$str = GetOnClickLink(STOCK_PATH.'submittransaction.php?'.$strQuery, '确认添加对冲申购记录?', '申购').$strSymbol.'人民币'.$strAmount.'元';
+    				$str = GetOnClickLink(PATH_STOCK.'submittransaction.php?'.$strQuery, '确认添加对冲申购记录?', '申购').$strSymbol.'人民币'.$strAmount.'元';
     				$str .= ' '.GetStockOptionLink(STOCK_OPTION_AMOUNT, $strSymbol);
     				EchoParagraph($str);
     			}

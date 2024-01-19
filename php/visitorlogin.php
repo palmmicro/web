@@ -2,7 +2,7 @@
 
 function _getLoginLink($strCn, $strUs, $bChinese)
 {
-    return GetPhpLink(ACCT_PATH.'login', false, $strCn, $strUs, $bChinese);
+    return GetPhpLink(PATH_ACCOUNT.'login', false, $strCn, $strUs, $bChinese);
 }
 
 function VisitorLogin($bChinese)
@@ -20,7 +20,7 @@ function VisitorLogin($bChinese)
 	else
 	{
 	    $strLoginLink = _getLoginLink('登录', 'login', $bChinese);
-	    $strRegisterLink = GetPhpLink(ACCT_PATH.'register', false, '注册', 'register', $bChinese);
+	    $strRegisterLink = GetPhpLink(PATH_ACCOUNT.'register', false, '注册', 'register', $bChinese);
 		$str = $bChinese ? '更多选项？请先'.$strLoginLink.'或者'.$strRegisterLink.'。' : 'More options? Please '.$strLoginLink.' or '.$strRegisterLink.' account.';
 	}
 

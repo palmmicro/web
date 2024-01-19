@@ -8,15 +8,14 @@ function GetMetaDescription()
 
 function EchoAll()
 {
-	$strBlue = PhotoMiaBlue(true, '<a href="php30days/bluecn.php">蓝色系列</a>');
+	$strBlue = PhotoMiaBlue(true, GetInternalLink(PATH_30DAYS.'bluecn.php', '蓝色系列'));
 	$strBluePuppy = PhotoMiaBluePuppy();
+	$strRed = PhotoMiaRed(true, GetInternalLink(PATH_30DAYS.'hatcn.php', '圣诞小红帽系列'));
 	
     echo <<<END
 $strBlue
 $strBluePuppy
-
-<p>小红帽和来福.<a href="30days/large/hat_puppy2.jpg" target=_blank>放大</a> <a href="php30days/hatcn.php">更多</a>
-<br /><img src=30days/hat_puppy2.jpg alt="Sapphire Lin in red hat with puppy." /></p>
+$strRed
 
 <p>白衣粉花.<a href="30days/large/white.jpg" target=_blank>放大</a>
 <br /><img src=30days/white.jpg alt="Sapphire Lin in white dress with flower." /></p>

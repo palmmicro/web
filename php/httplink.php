@@ -1,5 +1,5 @@
 <?php
-define('STOCK_PATH', '/woody/res/');
+define('PATH_STOCK', '/woody/res/');
 
 define('MENU_DIR_FIRST', 'First');
 define('MENU_DIR_PREV', 'Prev');
@@ -175,7 +175,7 @@ function GetPageLink($strPath, $strPage, $strQuery, $strDisplay, $bChinese = tru
     return GetPhpLink($strPath.$strPage, $strQuery, $strDisplay, false, $bChinese);
 }
 
-function GetCategoryLinks($arCategory, $strPath = STOCK_PATH, $bChinese = true)
+function GetCategoryLinks($arCategory, $strPath = PATH_STOCK, $bChinese = true)
 {
     $str = '';
     foreach ($arCategory as $strCategory => $strDisplay)
