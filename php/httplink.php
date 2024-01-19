@@ -75,13 +75,8 @@ function GetFileDebugLink($strPathName)
     return '';
 }
 
-function GetPhpLink($strPathPage, $strQuery, $strDisplay, $strUs = false, $bChinese = true)
+function GetPhpLink($strPathPage, $strQuery, $strDisplay, $bChinese = true)
 {
-	if ($strUs && ($bChinese == false))
-	{
-		$strDisplay = $strUs;
-	}
-	
     $str = $strPathPage;
     $str .= UrlGetPhp($bChinese);
     if ($strQuery)
@@ -91,9 +86,9 @@ function GetPhpLink($strPathPage, $strQuery, $strDisplay, $strUs = false, $bChin
     return GetInternalLink($str, $strDisplay);
 }
 
-function CopyPhpLink($strQuery, $strCn, $strUs = false, $bChinese = true)
+function CopyPhpLink($strQuery, $strDisplay, $bChinese = true)
 {
-	return GetPhpLink(UrlGetUriPage(), $strQuery, $strCn, $strUs, $bChinese);
+	return GetPhpLink(UrlGetUriPage(), $strQuery, $strDisplay, $bChinese);
 }
 
 function _getMenuLinkQuery($strId, $iStart, $iNum)
@@ -120,7 +115,7 @@ function _getMenuDirLink($strDir, $strQueryId, $iStart, $iNum, $bChinese)
 {
     $arDir = GetMenuArray();
 	$strQuery = _getMenuLinkQuery($strQueryId, $iStart, $iNum);
-	return CopyPhpLink($strQuery, $arDir[$strDir], $strDir, $bChinese).' ';
+	return CopyPhpLink($strQuery, ($bChinese ? $arDir[$strDir] : $strDir), $bChinese).' ';
 }
 
 function GetMenuLink($strQueryId, $iTotal, $iStart, $iNum, $bChinese = true)
@@ -149,8 +144,8 @@ function GetMenuLink($strQueryId, $iTotal, $iStart, $iNum, $bChinese = true)
     for ($i = DEFAULT_PAGE_NUM; $i <= min(($iTotal + DEFAULT_PAGE_NUM - 1), 500); $i += DEFAULT_PAGE_NUM)
     {
     	$strNum = strval($i);
-    	if ($i == $iNum)	$str .= $strNum;
-    	else				$str .= CopyPhpLink(_getMenuLinkQuery($strQueryId, $iStart, $i), $strNum, $strNum, $bChinese);
+    	if ($i == $iNum)	$str .= GetInfoElement($strNum);
+    	else				$str .= CopyPhpLink(_getMenuLinkQuery($strQueryId, $iStart, $i), $strNum, $bChinese);
     	$str .= ' ';
     }
     return $str;
@@ -158,12 +153,12 @@ function GetMenuLink($strQueryId, $iTotal, $iStart, $iNum, $bChinese = true)
 
 function GetNewLink($strPathPage, $strNew, $bChinese = true)
 {
-    return GetPhpLink($strPathPage, 'new='.$strNew, DISP_NEW_CN, DISP_NEW_US, $bChinese);
+    return GetPhpLink($strPathPage, 'new='.$strNew, ($bChinese ? DISP_NEW_CN : DISP_NEW_US), $bChinese);
 }
 
 function GetEditLink($strPathPage, $strEdit, $bChinese = true)
 {
-    return GetPhpLink($strPathPage, 'edit='.$strEdit, DISP_EDIT_CN, DISP_EDIT_US, $bChinese);
+    return GetPhpLink($strPathPage, 'edit='.$strEdit, ($bChinese ? DISP_EDIT_CN : DISP_EDIT_US), $bChinese);
 }
 
 function GetPageLink($strPath, $strPage, $strQuery, $strDisplay, $bChinese = true)
@@ -172,7 +167,7 @@ function GetPageLink($strPath, $strPage, $strQuery, $strDisplay, $bChinese = tru
     {
         return GetInfoElement($strDisplay);
     }
-    return GetPhpLink($strPath.$strPage, $strQuery, $strDisplay, false, $bChinese);
+    return GetPhpLink($strPath.$strPage, $strQuery, $strDisplay, $bChinese);
 }
 
 function GetCategoryLinks($arCategory, $strPath = PATH_STOCK, $bChinese = true)

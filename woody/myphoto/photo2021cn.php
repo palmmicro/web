@@ -1,5 +1,5 @@
 <?php
-require('php/_photo2021.php');
+require_once('php/_myphoto.php');
 
 function GetMetaDescription()
 {
@@ -8,7 +8,7 @@ function GetMetaDescription()
 
 function EchoAll()
 {
-	$strVivo = Photo20210207();
+	$strVivo = GetPhotoParagraph('2021/20210207.jpg', '新VIVO手机测试照');
 	
     echo <<<END
 $strVivo

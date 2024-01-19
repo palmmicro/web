@@ -24,34 +24,28 @@ function GetBlogMonthDay($strDate, $bChinese = true)
 function GetBlogLink($iDate, $bChinese = true, $bLink = true)
 {
 	$strMenu = 'entertainment';
-	$strUs = false;
 	
 	switch ($iDate)
 	{
 	case 20201205:
-		$strDisplay = '雪球';
-		$strUs = 'Snowball';
+		$strDisplay = $bChinese ? '雪球' : 'Snowball';
 		break;
 		
 	case 20161014:
 		$strMenu = 'palmmicro';
-		$strDisplay = '微信';
-		$strUs = 'WeChat';
+		$strDisplay = $bChinese ? '微信' : 'WeChat';
 		break;
 		
 	case 20150818:
-		$strDisplay = '华宝油气';
-		$strUs = 'SZ162411';
+		$strDisplay = $bChinese ? '华宝油气' : 'SZ162411';
 		break;
 		
 	case 20141204:
-		$strDisplay = '林近岚';
-		$strUs = 'Mia Lin';
+		$strDisplay = $bChinese ? '林近岚' : 'Mia Lin';
 		break;
 		
 	case 20141016:
-		$strDisplay = '股票';
-		$strUs = 'Stock';
+		$strDisplay = $bChinese ? '股票' : 'Stock';
 		break;
 		
 	case 20110509:
@@ -68,8 +62,7 @@ function GetBlogLink($iDate, $bChinese = true, $bLink = true)
 		break;
 	}
 	
-	if ($bLink)	return GetPhpLink(PATH_BLOG.$strMenu.'/'.strval($iDate), false, $strDisplay, $strUs, $bChinese);
-	return $bChinese ? $strDisplay : ($strUs ? $strUs : $strDisplay);   
+	return $bLink ? GetPhpLink(PATH_BLOG.$strMenu.'/'.strval($iDate), false, $strDisplay, $bChinese) : $strDisplay;
 }
 
 function GetBlogTitle($iDate, $bChinese = true, $bLink = true)
@@ -130,12 +123,12 @@ function IsDigitDate($strDate)
 function GetPhotoDirLink($strDate, $bChinese = true, $bMonthDay = true)
 {
 	$strDisplay = $bMonthDay ? GetBlogMonthDay($strDate, $bChinese) : GetBlogYmd($strDate, $bChinese);
-	return GetPhpLink('/woody/photo', 'photo='.$strDate, $strDisplay, false, $bChinese);
+	return GetPhpLink('/woody/photo', 'photo='.$strDate, $strDisplay, $bChinese);
 }
 
-function GetPhotoParagraph($strPathName, $strTextCn, $strTextUs = '', $bChinese = true, $strExtra = '')
+function GetPhotoParagraph($strPathName, $strText = '', $bChinese = true, $strExtra = '')
 {
-	$str = $strExtra.' '.ImgAutoQuote($strPathName, $strTextCn, $strTextUs, $bChinese);
+	$str = $strExtra.' '.ImgAutoQuote($strPathName, $strText, $bChinese);
 	$strDate = basename($strPathName, '.jpg');
 	if (IsDigitDate($strDate))
 	{
@@ -146,8 +139,7 @@ function GetPhotoParagraph($strPathName, $strTextCn, $strTextUs = '', $bChinese 
 
 function ImgPalmmicroWechat($bChinese = true)
 {
-	$strTitle = GetBlogTitle(20161014, $bChinese, false);
-	return GetImgQuote('/woody/image/wx.jpg', $strTitle.'小狐狸二维码', $strTitle.' small fox QR code', $bChinese);
+	return GetImgQuote('/woody/image/wx.jpg', GetBlogTitle(20161014, $bChinese, false).($bChinese ? '小狐狸二维码' : ' small fox QR code'), $bChinese);
 }
 
 function ImgPortfolio20141016($bChinese = true)
@@ -159,18 +151,17 @@ function ImgPortfolio20141016($bChinese = true)
 
 function ImgWoody20060701($bChinese = true)
 {
-	$strYmd = GetBlogYmd('20060701', $bChinese);
-	return GetImgQuote('/woody/myphoto/2006/baihuashan.jpg', $strYmd.'绿野百花山', $strYmd.' Baihua Mountain with Lvye.', $bChinese);
+	return GetImgQuote('/woody/myphoto/2006/baihuashan.jpg', GetBlogYmd('20060701', $bChinese).($bChinese ? '绿野百花山' : ' Baihua Mountain with Lvye.'), $bChinese);
 }
 
 function ImgWorriedWoody($bChinese = true)
 {
-	return ImgAutoQuote('/woody/image/20141121/E55A5341.JPG', '我们两个都有点发愁', 'Woody and Mia Lin are both worried!', $bChinese);
+	return ImgAutoQuote('/woody/image/20141121/E55A5341.JPG', ($bChinese ? '我们两个都有点发愁' : 'Woody and Mia Lin are both worried!'), $bChinese);
 }
 
 function ImgSnowballCarnival($bChinese = true)
 {
-	return ImgAutoQuote('/woody/myphoto/2020/20201205.jpg', '2020年雪球嘉年华之夜', '2020 Snowball carnival night', $bChinese);
+	return ImgAutoQuote('/woody/myphoto/2020/20201205.jpg', ($bChinese ? '2020年雪球嘉年华之夜' : '2020 Snowball carnival night'), $bChinese);
 }
 
 ?>

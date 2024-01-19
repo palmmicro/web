@@ -1,9 +1,17 @@
 <?php
 define('PATH_20141211', '/woody/image/20141211/');
 
+function Get30DaysMenuArray($bChinese)
+{
+    if ($bChinese)  $arName = array('blue' => '蓝色', 'hat' => '圣诞小红帽',    'crown' => '王冠',   'yellow' => '黄色',   'leopard' => '豹纹');
+    else              $arName = array('blue' => 'Blue', 'hat' => 'Christmas Hat', 'crown' => 'Crown', 'yellow' => 'Yellow', 'leopard' => 'Leopard');
+//    foreach ($arName as $strKey => $str)	$arName[$strKey] .= $bChinese ? '系列' : ' Series';
+    return $arName;
+}
+
 function _getPhotoParagraph($strFileName, $strTextCn, $strTextUs = '', $bChinese = true, $strExtra = '')
 {
-	return GetPhotoParagraph(PATH_20141211.$strFileName, $strTextCn, $strTextUs, $bChinese, $strExtra);
+	return GetPhotoParagraph(PATH_20141211.$strFileName, ($bChinese ? $strTextCn : $strTextUs), $bChinese, $strExtra);
 }
 
 function PhotoMiaRedAll($bChinese = true)

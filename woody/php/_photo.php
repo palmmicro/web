@@ -50,7 +50,7 @@ function EchoAll($bChinese)
 				$strPathName = $strDir.'/'.$strFile;
 				if (is_file($strPathName)) 
 				{	// Process the file
-					$str .= GetHtmlElement(ImgAutoQuote($strPathName, '', '', $bChinese));
+					$str .= GetHtmlElement(ImgAutoQuote($strPathName, '', $bChinese));
 				}
 			}
 		}

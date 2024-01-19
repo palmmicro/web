@@ -56,7 +56,7 @@ function GetMiaPhotoLinks($bChinese = true)
 
 function GetMia30DaysLink($bChinese = true)
 {
-	return GetPhpLink('/woody/mia/photo30days', false, '满月', '30 Days', $bChinese);
+	return GetPhpLink('/woody/mia/photo30days', false, ($bChinese ? '满月' : '30 Days'), $bChinese);
 }
 
 function GetBlogMenuArray($bChinese)

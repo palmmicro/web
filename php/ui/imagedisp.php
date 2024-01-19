@@ -1,9 +1,8 @@
 <?php
 
-function GetImgQuote($strPathName, $strTextCn = '', $strTextUs = '', $bChinese = true)
+function GetImgQuote($strPathName, $strText = '', $bChinese = true)
 {
    	$strNewLine = GetBreakElement();
-   	$strText = $bChinese ? $strTextCn : $strTextUs;
 	return $strNewLine.GetImgElement($strPathName, $strText).$strNewLine.GetQuoteElement($strText);
 }
 
@@ -12,7 +11,7 @@ function GetImgAutoSuffix()
 	return '__.jpg';
 }
 
-function ImgAutoQuote($strPathName, $strTextCn = '', $strTextUs = '', $bChinese = true)
+function ImgAutoQuote($strPathName, $strText = '', $bChinese = true)
 {
 	$iDisplayHeight = LayoutGetDisplayHeight();
 	$iFit = LayoutGetDisplayWidth();
@@ -47,12 +46,11 @@ function ImgAutoQuote($strPathName, $strTextCn = '', $strTextUs = '', $bChinese 
 			imagedestroy($imgNew);
 		}
 		
-		$strExtra = ' '.$strFit.'x'.strval($iFitHeight);
-		$strQuote = GetExternalLink($strPathName, $bChinese ? '原图' : 'Original').GetImgQuote($strNewName, $strTextCn.$strExtra, $strTextUs.$strExtra, $bChinese);
+		$strQuote = GetExternalLink($strPathName, $bChinese ? '原图' : 'Original').GetImgQuote($strNewName, $strText.' '.$strFit.'x'.strval($iFitHeight), $bChinese);
 	}
 	else
 	{
-		$strQuote = GetImgQuote($strPathName, $strTextCn, $strTextUs, $bChinese);
+		$strQuote = GetImgQuote($strPathName, $strText, $bChinese);
 	}
 	imagedestroy($imgOrg);
 	
@@ -61,22 +59,22 @@ function ImgAutoQuote($strPathName, $strTextCn = '', $strTextUs = '', $bChinese 
 
 function ImgWoodyHomepage($bChinese = true)
 {
-	return GetImgQuote('/woody/myphoto/2016/becool.jpg', '天生会摆酷', 'Be cool', $bChinese);
+	return GetImgQuote('/woody/myphoto/2016/becool.jpg', ($bChinese ? '天生会摆酷' : 'Be cool'), $bChinese);
 }
 
 function ImgWoodyBike($bChinese = true)
 {
-	return GetImgQuote('/woody/image/mybike.jpg', '2007年早春，我的宝马。', 'Early spring of 2007, my precious bike.', $bChinese);
+	return GetImgQuote('/woody/image/mybike.jpg', ($bChinese ? '2007年早春，我的宝马。' : 'Early spring of 2007, my precious bike.'), $bChinese);
 }
 
 function ImgHalfMoonBay($bChinese = true)
 {
-	return GetImgQuote('/woody/groupphoto/company/20070920.jpg', '2007年9月20日王老板王老板、唐丽和我在加州半月湾。', 'Sep 20, 2007 Dr Wang, Tang Li and me in Half Moon Bay.', $bChinese);
+	return GetImgQuote('/woody/groupphoto/company/20070920.jpg', ($bChinese ? '2007年9月20日王老板王老板、唐丽和我在加州半月湾。' : 'Sep 20, 2007 Dr Wang, Tang Li and me in Half Moon Bay.'), $bChinese);
 }
 
 function GetWoodyImgQuote($strFileName, $strText, $strTextUs = '', $bChinese = true)
 {
-	return GetImgQuote('/woody/blog/photo/'.$strFileName, $strText, $strTextUs, $bChinese);
+	return GetImgQuote('/woody/blog/photo/'.$strFileName, ($bChinese ? $strText : $strTextUs), $bChinese);
 }
 
 function ImgBuffettCards()

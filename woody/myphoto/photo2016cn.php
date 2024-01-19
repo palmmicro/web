@@ -1,5 +1,5 @@
 <?php
-require_once('php/_photo2016.php');
+require_once('php/_myphoto.php');
 
 function GetMetaDescription()
 {
@@ -8,7 +8,7 @@ function GetMetaDescription()
 
 function EchoAll()
 {
-	$strDisney = Photo20161113();
+	$strDisney = GetPhotoParagraph('2016/20161113.jpg', '林近岚在香港迪斯尼过两岁生日');
 	
     echo <<<END
 $strDisney

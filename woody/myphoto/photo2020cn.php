@@ -1,5 +1,5 @@
 <?php
-require('php/_photo2020.php');
+require_once('php/_myphoto.php');
 
 function GetMetaDescription()
 {

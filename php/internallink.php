@@ -19,7 +19,7 @@ function GetMemberLink($strMemberId, $bChinese = true)
 	    {
 	        $strName = $strEmail;
 	    }
-	    return GetPhpLink(PATH_ACCOUNT.'profile', 'email='.$strEmail, $strName, false, $bChinese);
+	    return GetPhpLink(PATH_ACCOUNT.'profile', 'email='.$strEmail, $strName, $bChinese);
 	}
     return '';
 }
@@ -92,7 +92,7 @@ function GetAccountToolStr($strPage, $bChinese = true)
 
 function GetAccountToolLink($strPage, $strQuery = false, $bChinese = true)
 {
-    return GetPhpLink(PATH_ACCOUNT.$strPage, ($strQuery ? $strPage.'='.$strQuery : false), ($strQuery ? $strQuery : GetAccountToolStr($strPage, $bChinese)), false, $bChinese);
+    return GetPhpLink(PATH_ACCOUNT.$strPage, ($strQuery ? $strPage.'='.$strQuery : false), ($strQuery ? $strQuery : GetAccountToolStr($strPage, $bChinese)), $bChinese);
 }
 
 function GetCommonPhraseLink($bChinese = true)
@@ -102,13 +102,12 @@ function GetCommonPhraseLink($bChinese = true)
 
 function GetSinaDataLink($strSinaSymbols)
 {
-//	return GetPhpLink(PATH_ACCOUNT.'sinajs', 'sinajs='.$strSinaSymbols, ($bFull ? GetSinaDataUrl($strSinaSymbols) : $strSinaSymbols));
 	return GetAccountToolLink('sinajs', $strSinaSymbols);
 }
 
 function _getIpLink($strPage, $strIp, $bChinese)
 {
-    return GetPhpLink(PATH_ACCOUNT.$strPage, 'ip='.$strIp, $strIp, false, $bChinese);
+    return GetPhpLink(PATH_ACCOUNT.$strPage, 'ip='.$strIp, $strIp, $bChinese);
 }
 
 function GetIpLink($strIp, $bChinese = true)
@@ -123,12 +122,12 @@ function GetVisitorLink($strIp, $bChinese = true)
 
 function GetAllVisitorLink($bChinese = true)
 {
-	return GetPhpLink(PATH_ACCOUNT.TABLE_VISITOR, false, '访问统计', 'Visitor', $bChinese);
+	return GetPhpLink(PATH_ACCOUNT.TABLE_VISITOR, false, ($bChinese ? '访问统计' : 'Visitor'), $bChinese);
 }
 
 function GetAllCommentLink($strQuery, $bChinese = true)
 {
-    return GetPhpLink(PATH_ACCOUNT.'comment', $strQuery, '全部评论', 'All Comment', $bChinese);
+    return GetPhpLink(PATH_ACCOUNT.'comment', $strQuery, ($bChinese ? '全部评论' : 'All Comment'), $bChinese);
 }
 
 ?>
