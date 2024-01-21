@@ -1,16 +1,11 @@
 <?php
 require_once('php/_photo30days.php');
 
-function GetMetaDescription($bChinese)
-{
-	return 'Sapphire 30 days photos. Taken by professional photographers from Shenzhen Far East International Medical Center.';
-}
-
 function EchoAll($bChinese)
 {
-	$strBlue = PhotoMiaBlue($bChinese, GetInternalLink(PATH_30DAYS.'blue.php', 'Blue Series'));
+	$strBlue = PhotoMiaBlue($bChinese, Get30DaysLink('blue', $bChinese));
 	$strBluePuppy = PhotoMiaBluePuppy($bChinese);
-	$strRed = PhotoMiaRed($bChinese, GetInternalLink(PATH_30DAYS.'hat.php', 'Christmas Hat Series'));
+	$strRed = PhotoMiaRed($bChinese, Get30DaysLink('hat', $bChinese));
 	
     echo <<<END
 $strBlue

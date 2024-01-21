@@ -54,9 +54,14 @@ function GetMiaPhotoLinks($bChinese = true)
 	return GetCategoryLinks(GetPhotoMenuArray(GetMiaPhotoYears()), '/woody/mia/', $bChinese);
 }
 
+function GetMia30DaysDisplay($bChinese = true)
+{
+	return $bChinese ? '满月' : '30 Days';
+}
+
 function GetMia30DaysLink($bChinese = true)
 {
-	return GetPhpLink('/woody/mia/photo30days', false, ($bChinese ? '满月' : '30 Days'), $bChinese);
+	return GetPhpLink('/woody/mia/photo30days', false, GetMia30DaysDisplay($bChinese), $bChinese);
 }
 
 function GetBlogMenuArray($bChinese)

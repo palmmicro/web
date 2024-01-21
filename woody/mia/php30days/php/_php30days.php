@@ -7,20 +7,14 @@ require_once('_photo.php');
 
 function _menuLoop30Days($bChinese)
 {
-    $ar30Days = array('blue', 'hat', 'crown', 'yellow', 'leopard'); 
+	$strDisplay = GetMia30DaysDisplay($bChinese);
+	$ar30Days = array_keys(Get30DaysMenuArray($bChinese));		// array('blue', 'hat', 'crown', 'yellow', 'leopard'); 
     $iLevel = 1;
     
 	MenuBegin();
 	WoodyMenuItem($iLevel + 1, 'image', $bChinese);
 	MenuContinueNewLine();
-    if ($bChinese)
-    {
-       	MenuWriteItemLink($iLevel, 'photo30days', URL_CNPHP, '满月艺术照');
-    }
-    else
-    {
-       	MenuWriteItemLink($iLevel, 'photo30days', URL_PHP, '30 Days');
-    }
+   	MenuWriteItemLink($iLevel, 'photo30days', UrlGetPhp($bChinese), $strDisplay);
 	MenuContinueNewLine();
     MenuDirLoop($ar30Days);
 	MenuContinueNewLine();
@@ -36,12 +30,12 @@ function _LayoutTopLeft($bChinese = true, $bAdsense = true)
 function _LayoutBottom($bChinese = true, $bAdsense = true)
 {
 	LayoutBegin();
-	EchoParagraph(GetPhotoDirLink(20141211, $bChinese, false).' '.GetMia30DaysLink($bChinese).' '.GetCategoryLinks(Get30DaysMenuArray($bChinese), '/woody/mia/php30days/', $bChinese));
+	EchoParagraph(GetPhotoDirLink(20141211, $bChinese, false).' '.GetMia30DaysLink($bChinese).' '.GetCategoryLinks(Get30DaysMenuArray($bChinese), PATH_30DAYS, $bChinese));
 	LayoutEnd();
 
 	LayoutMiaPhotoArray($bChinese);
     LayoutTail($bChinese, $bAdsense);
 }
 
-   	$acct = new Account();
+   	$acct = new TitleAccount();
 ?>

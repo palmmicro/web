@@ -1,16 +1,6 @@
 <?php
 require('php/_php30days.php');
 
-function GetTitle($bChinese)
-{
-	return 'Sapphire 30 Days Photos - Leopard Series';
-}
-
-function GetMetaDescription($bChinese)
-{
-	return 'Sapphire 30 days photos. Leopard series. Taken by professional photographers from Shenzhen Far East International Medical Center.';
-}
-
 function EchoAll($bChinese)
 {
     echo <<<END

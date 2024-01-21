@@ -1,5 +1,5 @@
 <?php
-require('php/_mia.php');
+require_once('php/_miatitle.php');
 
 function GetMetaDescription()
 {

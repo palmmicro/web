@@ -46,7 +46,7 @@ function ImgAutoQuote($strPathName, $strText = '', $bChinese = true)
 			imagedestroy($imgNew);
 		}
 		
-		$strQuote = GetExternalLink($strPathName, $bChinese ? '原图' : 'Original').GetImgQuote($strNewName, $strText.' '.$strFit.'x'.strval($iFitHeight), $bChinese);
+		$strQuote = GetImgQuote($strNewName, $strText.' '.$strFit.'x'.strval($iFitHeight), $bChinese).' '.GetExternalLink($strPathName, $bChinese ? '原图' : 'Original');
 	}
 	else
 	{

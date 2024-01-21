@@ -1,12 +1,42 @@
 <?php
 define('PATH_20141211', '/woody/image/20141211/');
+define('PATH_30DAYS', '/woody/mia/php30days/');
 
 function Get30DaysMenuArray($bChinese)
 {
     if ($bChinese)  $arName = array('blue' => '蓝色', 'hat' => '圣诞小红帽',    'crown' => '王冠',   'yellow' => '黄色',   'leopard' => '豹纹');
     else              $arName = array('blue' => 'Blue', 'hat' => 'Christmas Hat', 'crown' => 'Crown', 'yellow' => 'Yellow', 'leopard' => 'Leopard');
-//    foreach ($arName as $strKey => $str)	$arName[$strKey] .= $bChinese ? '系列' : ' Series';
     return $arName;
+}
+
+function Get30DaysDisplay($strPage, $bChinese = true)
+{
+	$ar = Get30DaysMenuArray($bChinese);
+    if (isset($ar[$strPage]))	return $ar[$strPage].($bChinese ? '系列' : ' Series');
+    return false;
+}
+
+function Get30DaysLink($strPage, $bChinese = true)
+{
+    return GetPhpLink(PATH_30DAYS.$strPage, false, Get30DaysDisplay($strPage, $bChinese), $bChinese);
+}
+
+function GetTitle($bChinese)
+{
+	global $acct;
+	
+	$str = $bChinese ? '林近岚' : 'Mia ';
+	$str .= GetMia30DaysDisplay($bChinese);
+	$str .= $bChinese ? '艺术照' : ' Photos';
+	if ($strSeries = Get30DaysDisplay($acct->GetPage(), $bChinese))		$str .= ' - '.$strSeries;
+	return $str;
+}
+
+function GetMetaDescription($bChinese)
+{
+	$str = GetTitle($bChinese);
+	$str .= $bChinese ? '。2014年12月12号由深圳远东妇儿科医院馨月馆月子中心的专业摄影师拍摄和处理。大家看看值多少钱，我反正觉得超级不值！' : '. Taken by professional photographers from Shenzhen Far East International Medical Center.';
+	return CheckMetaDescription($str);
 }
 
 function _getPhotoParagraph($strFileName, $strTextCn, $strTextUs = '', $bChinese = true, $strExtra = '')
@@ -16,12 +46,12 @@ function _getPhotoParagraph($strFileName, $strTextCn, $strTextUs = '', $bChinese
 
 function PhotoMiaRedAll($bChinese = true)
 {
-	return _getPhotoParagraph('4.jpg', '圣诞小红帽系列', 'Mia in Christmas red hat', $bChinese);
+	return _getPhotoParagraph('4.jpg', Get30DaysDisplay('hat'), 'Mia in Christmas red hat', $bChinese);
 }
 
 function PhotoMiaBlueAll($bChinese = true)
 {
-	return _getPhotoParagraph('7.jpg', '蓝色系列', 'Mia in blue', $bChinese);
+	return _getPhotoParagraph('7.jpg', Get30DaysDisplay('blue'), 'Mia in blue', $bChinese);
 }
 
 function PhotoMiaBlue($bChinese = true, $strExtra = '')

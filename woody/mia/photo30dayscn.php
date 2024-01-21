@@ -1,16 +1,11 @@
 <?php
 require_once('php/_photo30days.php');
 
-function GetMetaDescription()
-{
-	return '林近岚(英文名Sapphire)的满月艺术照. 2014年12月12号和13号由深圳远东妇儿科医院馨月馆月子中心的专业摄影师拍摄和处理. 大家看看值多少钱, 我反正觉得超级不值!';
-}
-
 function EchoAll()
 {
-	$strBlue = PhotoMiaBlue(true, GetInternalLink(PATH_30DAYS.'bluecn.php', '蓝色系列'));
+	$strBlue = PhotoMiaBlue(true, Get30DaysLink('blue'));
 	$strBluePuppy = PhotoMiaBluePuppy();
-	$strRed = PhotoMiaRed(true, GetInternalLink(PATH_30DAYS.'hatcn.php', '圣诞小红帽系列'));
+	$strRed = PhotoMiaRed(true, Get30DaysLink('hat'));
 	
     echo <<<END
 $strBlue
