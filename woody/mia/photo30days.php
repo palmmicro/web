@@ -8,6 +8,8 @@ function EchoAll($bChinese)
 	$strRed = PhotoMiaRed($bChinese, Get30DaysLink('hat', $bChinese));
 	$strWhite = PhotoMiaWhite($bChinese);
 	$strWhiteFull = PhotoMiaWhiteFull($bChinese);
+	$strCrown = PhotoMiaCrown($bChinese, Get30DaysLink('crown', $bChinese));
+	$strCrownMom = PhotoMiaCrownMom($bChinese);
 	
     echo <<<END
 $strBlue
@@ -15,17 +17,13 @@ $strBluePuppy
 $strRed
 $strWhite
 $strWhiteFull
+$strCrown
+$strCrownMom
 
-<p>Thinking. <a href="30days/large/green4.jpg" target=_blank>Large</a> <a href="php30days/crown.php">More</a>
-<br /><img src=30days/green4.jpg alt="Sapphire Lin thinking." /></p>
-
-<p>With Mom. <a href="30days/large/green_mom2.jpg" target=_blank>Large</a>
-<br /><img src=30days/green_mom2.jpg alt="Sapphire Lin with Mom." /></p>
-
-<p>Dress in yellow knit with pink flower. <a href="30days/large/knit_flower7.jpg" target=_blank>Large</a> <a href="php30days/yellow.php">More</a>
+<p>Dress in yellow knit with pink flower. <a href="30days/large/knit_flower7.jpg" target=_blank>Large</a> <a href="30days/yellow.php">More</a>
 <br /><img src=30days/knit_flower7.jpg alt="Sapphire Lin dress in yellow knit with pink flower." /></p>
 
-<p>With puppy. <a href="30days/large/leopard_puppy2.jpg" target=_blank>Large</a> <a href="php30days/leopard.php">More</a>
+<p>With puppy. <a href="30days/large/leopard_puppy2.jpg" target=_blank>Large</a> <a href="30days/leopard.php">More</a>
 <br /><img src=30days/leopard_puppy2.jpg alt="Sapphire Lin with puppy." /></p>
 
 <p>On Mom's back. <a href="30days/large/leopard_mom4.jpg" target=_blank>Large</a>

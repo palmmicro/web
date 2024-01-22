@@ -1,5 +1,5 @@
 <?php
-require('php/_php30days.php');
+require('php/_30days.php');
 
 function EchoAll()
 {

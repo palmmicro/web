@@ -1,5 +1,5 @@
 <?php
-require_once('_php30days.php');
+require_once('_30days.php');
 
 function EchoAll($bChinese)
 {

@@ -1,6 +1,6 @@
 <?php
 define('PATH_20141211', '/woody/image/20141211/');
-define('PATH_30DAYS', '/woody/mia/php30days/');
+define('PATH_30DAYS', '/woody/mia/30days/');
 
 function Get30DaysMenuArray($bChinese)
 {
@@ -49,6 +49,11 @@ function PhotoMiaRedAll($bChinese = true)
 	return _getPhotoParagraph('4.jpg', Get30DaysDisplay('hat'), 'In Christmas red hat', $bChinese);
 }
 
+function PhotoMiaCrownAll($bChinese = true)
+{
+	return _getPhotoParagraph('6.jpg', Get30DaysDisplay('crown'), 'In crown', $bChinese);
+}
+
 function PhotoMiaBlueAll($bChinese = true)
 {
 	return _getPhotoParagraph('7.jpg', Get30DaysDisplay('blue'), 'In blue', $bChinese);
@@ -94,12 +99,12 @@ function PhotoMiaBlueGazing($bChinese = true)
 	return _getPhotoParagraph('IMG_5372.JPG', '凝望的蓝帽全身照', 'In blue hat, gazing.', $bChinese);
 }
 
-function PhotoMiaRedLost($bChinese = true, $strExtra = '')
+function PhotoMiaRedLost($bChinese = true)
 {
 	return _getPhotoParagraph('IMG_5375.JPG', '来福丢了', 'Where is my puppy?', $bChinese);
 }
 
-function PhotoMiaRedHalf($bChinese = true, $strExtra = '')
+function PhotoMiaRedHalf($bChinese = true)
 {
 	return _getPhotoParagraph('IMG_5378.JPG', '圣诞小红帽和来福半身照', 'In Christmas red hat with puppy, half view.', $bChinese);
 }
@@ -109,10 +114,34 @@ function PhotoMiaRed($bChinese = true, $strExtra = '')
 	return _getPhotoParagraph('IMG_5382.JPG', '圣诞小红帽和来福', 'In Christmas red hat with puppy', $bChinese, $strExtra);
 }
 
-function PhotoMiaRedWondering($bChinese = true, $strExtra = '')
+function PhotoMiaRedWondering($bChinese = true)
 {
 	return _getPhotoParagraph('IMG_5386.JPG', '疑惑中的圣诞小红帽和来福', 'In Christmas red hat with puppy, wondering.', $bChinese);
 }
 
+function PhotoMiaCrownMom($bChinese = true)
+{
+	return _getPhotoParagraph('IMG_5394.JPG', '跟妈妈合影', 'In crown with mom', $bChinese);
+}
+
+function PhotoMiaCrownFull($bChinese = true)
+{
+	return _getPhotoParagraph('IMG_5399.JPG', '王冠全身照', 'In crown, full view', $bChinese);
+}
+
+function PhotoMiaCrownHalf($bChinese = true)
+{
+	return _getPhotoParagraph('IMG_5400.JPG', '王冠半身照', 'In crown, half view', $bChinese);
+}
+
+function PhotoMiaCrownSad($bChinese = true)
+{
+	return _getPhotoParagraph('IMG_5403.JPG', '有点忧伤', 'A little sad', $bChinese);
+}
+
+function PhotoMiaCrown($bChinese = true, $strExtra = '')
+{
+	return _getPhotoParagraph('IMG_5405.JPG', '第一次认真思考人生', 'Thinking about life for the first time', $bChinese, $strExtra);
+}
 
 ?>

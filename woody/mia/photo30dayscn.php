@@ -8,6 +8,8 @@ function EchoAll()
 	$strRed = PhotoMiaRed(true, Get30DaysLink('hat'));
 	$strWhite = PhotoMiaWhite();
 	$strWhiteFull = PhotoMiaWhiteFull();
+	$strCrown = PhotoMiaCrown(true, Get30DaysLink('crown'));
+	$strCrownMom = PhotoMiaCrownMom();
 	
     echo <<<END
 $strBlue
@@ -15,17 +17,13 @@ $strBluePuppy
 $strRed
 $strWhite
 $strWhiteFull
+$strCrown
+$strCrownMom
 
-<p>第一次认真思考人生.<a href="30days/large/green4.jpg" target=_blank>放大</a> <a href="php30days/crowncn.php">更多</a>
-<br /><img src=30days/green4.jpg alt="Sapphire Lin thinking." /></p>
-
-<p>跟妈妈合影.<a href="30days/large/green_mom2.jpg" target=_blank>放大</a>
-<br /><img src=30days/green_mom2.jpg alt="Sapphire Lin with Mom." /></p>
-
-<p>黄色毛衣和粉色小花.<a href="30days/large/knit_flower7.jpg" target=_blank>放大</a> <a href="php30days/yellowcn.php">更多</a>
+<p>黄色毛衣和粉色小花.<a href="30days/large/knit_flower7.jpg" target=_blank>放大</a> <a href="30days/yellowcn.php">更多</a>
 <br /><img src=30days/knit_flower7.jpg alt="Sapphire Lin dress in yellow knit with pink flower." /></p>
 
-<p>跟来福合影.<a href="30days/large/leopard_puppy2.jpg" target=_blank>放大</a> <a href="php30days/leopardcn.php">更多</a>
+<p>跟来福合影.<a href="30days/large/leopard_puppy2.jpg" target=_blank>放大</a> <a href="30days/leopardcn.php">更多</a>
 <br /><img src=30days/leopard_puppy2.jpg alt="Sapphire Lin with puppy." /></p>
 
 <p>趴妈妈背上.<a href="30days/large/leopard_mom4.jpg" target=_blank>放大</a>
