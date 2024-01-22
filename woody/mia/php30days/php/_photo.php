@@ -46,42 +46,52 @@ function _getPhotoParagraph($strFileName, $strTextCn, $strTextUs = '', $bChinese
 
 function PhotoMiaRedAll($bChinese = true)
 {
-	return _getPhotoParagraph('4.jpg', Get30DaysDisplay('hat'), 'Mia in Christmas red hat', $bChinese);
+	return _getPhotoParagraph('4.jpg', Get30DaysDisplay('hat'), 'In Christmas red hat', $bChinese);
 }
 
 function PhotoMiaBlueAll($bChinese = true)
 {
-	return _getPhotoParagraph('7.jpg', Get30DaysDisplay('blue'), 'Mia in blue', $bChinese);
+	return _getPhotoParagraph('7.jpg', Get30DaysDisplay('blue'), 'In blue', $bChinese);
+}
+
+function PhotoMiaWhite($bChinese = true)
+{
+	return _getPhotoParagraph('IMG_5338.JPG', '白衣头花', 'In white dress with flower', $bChinese);
+}
+
+function PhotoMiaWhiteFull($bChinese = true)
+{
+	return _getPhotoParagraph('IMG_5342.JPG', '白衣头花全身照', 'In white dress with flower, full view.', $bChinese);
 }
 
 function PhotoMiaBlue($bChinese = true, $strExtra = '')
 {
-	return _getPhotoParagraph('IMG_5347.JPG', '白衣蓝帽', 'Mia in white dress and blue hat', $bChinese, $strExtra);
+	return _getPhotoParagraph('IMG_5347.JPG', '白衣蓝帽', 'In white dress and blue hat', $bChinese, $strExtra);
 }
 
 function PhotoMiaBlueHalf($bChinese = true)
 {
-	return _getPhotoParagraph('IMG_5351.JPG', '白衣蓝帽半身照', 'Mia in white dress and blue hat, half view.', $bChinese);
+	return _getPhotoParagraph('IMG_5351.JPG', '白衣蓝帽半身照', 'In white dress and blue hat, half view.', $bChinese);
 }
 
 function PhotoMiaBlueFull($bChinese = true)
 {
-	return _getPhotoParagraph('IMG_5358.JPG', '蓝帽全身照', 'Mia in blue hat, full view.', $bChinese);
+	return _getPhotoParagraph('IMG_5358.JPG', '蓝帽全身照', 'In blue hat, full view.', $bChinese);
 }
 
 function PhotoMiaBlueYawning($bChinese = true)
 {
-	return _getPhotoParagraph('IMG_5360.JPG', '打哈欠的蓝帽全身照', 'Mia in blue hat, yawning.', $bChinese);
+	return _getPhotoParagraph('IMG_5360.JPG', '打哈欠的蓝帽全身照', 'In blue hat, yawning.', $bChinese);
 }
 
 function PhotoMiaBluePuppy($bChinese = true)
 {
-	return _getPhotoParagraph('IMG_5371.JPG', '带来福的蓝帽全身照', 'Mia in blue hat, with puppy.', $bChinese);
+	return _getPhotoParagraph('IMG_5371.JPG', '带来福的蓝帽全身照', 'In blue hat, with puppy.', $bChinese);
 }
 
 function PhotoMiaBlueGazing($bChinese = true)
 {
-	return _getPhotoParagraph('IMG_5372.JPG', '凝望的蓝帽全身照', 'Mia in blue hat, gazing.', $bChinese);
+	return _getPhotoParagraph('IMG_5372.JPG', '凝望的蓝帽全身照', 'In blue hat, gazing.', $bChinese);
 }
 
 function PhotoMiaRedLost($bChinese = true, $strExtra = '')
@@ -91,17 +101,17 @@ function PhotoMiaRedLost($bChinese = true, $strExtra = '')
 
 function PhotoMiaRedHalf($bChinese = true, $strExtra = '')
 {
-	return _getPhotoParagraph('IMG_5378.JPG', '圣诞小红帽和来福半身照', 'Mia in Christmas red hat with puppy, half view.', $bChinese);
+	return _getPhotoParagraph('IMG_5378.JPG', '圣诞小红帽和来福半身照', 'In Christmas red hat with puppy, half view.', $bChinese);
 }
 
 function PhotoMiaRed($bChinese = true, $strExtra = '')
 {
-	return _getPhotoParagraph('IMG_5382.JPG', '圣诞小红帽和来福', 'Mia in Christmas red hat with puppy', $bChinese, $strExtra);
+	return _getPhotoParagraph('IMG_5382.JPG', '圣诞小红帽和来福', 'In Christmas red hat with puppy', $bChinese, $strExtra);
 }
 
 function PhotoMiaRedWondering($bChinese = true, $strExtra = '')
 {
-	return _getPhotoParagraph('IMG_5386.JPG', '疑惑中的圣诞小红帽和来福', 'Mia in Christmas red hat with puppy, wondering.', $bChinese);
+	return _getPhotoParagraph('IMG_5386.JPG', '疑惑中的圣诞小红帽和来福', 'In Christmas red hat with puppy, wondering.', $bChinese);
 }
 
 

@@ -6,17 +6,15 @@ function EchoAll()
 	$strBlue = PhotoMiaBlue(true, Get30DaysLink('blue'));
 	$strBluePuppy = PhotoMiaBluePuppy();
 	$strRed = PhotoMiaRed(true, Get30DaysLink('hat'));
+	$strWhite = PhotoMiaWhite();
+	$strWhiteFull = PhotoMiaWhiteFull();
 	
     echo <<<END
 $strBlue
 $strBluePuppy
 $strRed
-
-<p>白衣粉花.<a href="30days/large/white.jpg" target=_blank>放大</a>
-<br /><img src=30days/white.jpg alt="Sapphire Lin in white dress with flower." /></p>
-
-<p>白衣粉花全身照.<a href="30days/large/white2.jpg" target=_blank>放大</a>
-<br /><img src=30days/white2.jpg alt="Sapphire Lin in white dress with flower, full view." /></p>
+$strWhite
+$strWhiteFull
 
 <p>第一次认真思考人生.<a href="30days/large/green4.jpg" target=_blank>放大</a> <a href="php30days/crowncn.php">更多</a>
 <br /><img src=30days/green4.jpg alt="Sapphire Lin thinking." /></p>

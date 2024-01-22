@@ -31,7 +31,7 @@ class GroupIdAccount extends StockAccount
     	{
     		if ($strMemberId = $this->GetGroupMemberId($strGroupId))
     		{
-    			return $this->GetWhoseDisplay($strMemberId).$this->GetGroupName($strGroupId); 
+    			return $this->GetGroupName($strGroupId).'【'.$this->GetWhoseDisplay($strMemberId).'】'; 
     		}
     		return '';
     	}

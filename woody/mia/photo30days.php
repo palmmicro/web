@@ -6,17 +6,15 @@ function EchoAll($bChinese)
 	$strBlue = PhotoMiaBlue($bChinese, Get30DaysLink('blue', $bChinese));
 	$strBluePuppy = PhotoMiaBluePuppy($bChinese);
 	$strRed = PhotoMiaRed($bChinese, Get30DaysLink('hat', $bChinese));
+	$strWhite = PhotoMiaWhite($bChinese);
+	$strWhiteFull = PhotoMiaWhiteFull($bChinese);
 	
     echo <<<END
 $strBlue
 $strBluePuppy
 $strRed
-
-<p>White dress with flower. <a href="30days/large/white.jpg" target=_blank>Large</a>
-<br /><img src=30days/white.jpg alt="Sapphire Lin in white dress with flower." /></p>
-
-<p>White dress with flower, full view. <a href="30days/large/white2.jpg" target=_blank>Large</a>
-<br /><img src=30days/white2.jpg alt="Sapphire Lin in white dress with flower, full view." /></p>
+$strWhite
+$strWhiteFull
 
 <p>Thinking. <a href="30days/large/green4.jpg" target=_blank>Large</a> <a href="php30days/crown.php">More</a>
 <br /><img src=30days/green4.jpg alt="Sapphire Lin thinking." /></p>
