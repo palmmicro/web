@@ -1,30 +1,28 @@
 <?php
-require('php/_30days.php');
+require_once('php/_yellow.php');
 
 function EchoAll($bChinese)
 {
+	$strYellowAll = PhotoMiaYellowAll($bChinese);
+	$strYellow = PhotoMiaYellow($bChinese);
+	$strYellowHalf = PhotoMiaYellowHalf($bChinese);
+	$strYellowFull = PhotoMiaYellowFull($bChinese);
+	$strYellowTired = PhotoMiaYellowTired($bChinese);
+	$strYellowUnhappy = PhotoMiaYellowUnhappy($bChinese);
+	$strYellowLeft = PhotoMiaYellowLeft($bChinese);
+	$strYellowRight = PhotoMiaYellowRight($bChinese);
+	$strYellowBetter = PhotoMiaYellowBetter($bChinese);
+	
     echo <<<END
-<p>Dress in yellow knit with pink flower. <a href="../30days/large/knit_flower7.jpg" target=_blank>Large</a>
-<br /><img src=../30days/knit_flower7.jpg alt="Sapphire Lin dress in yellow knit with pink flower." /></p>
-
-<p>How many pictures are you going to take? <a href="../30days/large/knit_flower6.jpg" target=_blank>Large</a>
-<br /><img src=../30days/knit_flower6.jpg alt="Sapphire Lin dress in yellow knit with pink flower, how many pictures are you going to take?" /></p>
-
-<p>Let us count it... <a href="../30days/large/knit_flower5.jpg" target=_blank>Large</a>
-<br /><img src=../30days/knit_flower5.jpg alt="Sapphire Lin dress in yellow knit with pink flower, let us count it..." /></p>
-
-<p>I am getting tired. <a href="../30days/large/knit_flower4.jpg" target=_blank>Large</a>
-<br /><img src=../30days/knit_flower4.jpg alt="Sapphire Lin dress in yellow knit with pink flower, I am getting tired." /></p>
-
-<p>I am going to cry now. <a href="../30days/large/knit_flower3.jpg" target=_blank>Large</a>
-<br /><img src=../30days/knit_flower3.jpg alt="Sapphire Lin dress in yellow knit with pink flower, I am going to cry now." /></p>
-
-<p>Isn't it stupid to put a flower on my left? <a href="../30days/large/knit_flower2.jpg" target=_blank>Large</a>
-<br /><img src=../30days/knit_flower2.jpg alt="Sapphire Lin dress in yellow knit with pink flower. Isn't it stupid to put a flower on my left?" /></p>
-
-<p>It is stupid to put a flower on my right too! <a href="../30days/large/knit_flower.jpg" target=_blank>Large</a>
-<br /><img src=../30days/knit_flower.jpg alt="Sapphire Lin dress in yellow knit with pink flower. It is stupid to put a flower on my right too!" /></p>
-
+$strYellowAll
+$strYellow
+$strYellowHalf
+$strYellowFull
+$strYellowTired
+$strYellowUnhappy
+$strYellowLeft
+$strYellowRight
+$strYellowBetter
 <p>Ok, this is better. <a href="../30days/large/knit_flower8.jpg" target=_blank>Large</a>
 <br /><img src=../30days/knit_flower8.jpg alt="Sapphire Lin dress in yellow knit with pink flower. Ok, this is better." /></p>
 

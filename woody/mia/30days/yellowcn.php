@@ -1,5 +1,5 @@
 <?php
-require('php/_30days.php');
+require_once('php/_yellow.php');
 
 function EchoAll()
 {

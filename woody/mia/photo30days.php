@@ -10,6 +10,7 @@ function EchoAll($bChinese)
 	$strWhiteFull = PhotoMiaWhiteFull($bChinese);
 	$strCrown = PhotoMiaCrown($bChinese, Get30DaysLink('crown', $bChinese));
 	$strCrownMom = PhotoMiaCrownMom($bChinese);
+	$strYellow = PhotoMiaYellow($bChinese, Get30DaysLink('yellow', $bChinese));
 	
     echo <<<END
 $strBlue
@@ -19,9 +20,7 @@ $strWhite
 $strWhiteFull
 $strCrown
 $strCrownMom
-
-<p>Dress in yellow knit with pink flower. <a href="30days/large/knit_flower7.jpg" target=_blank>Large</a> <a href="30days/yellow.php">More</a>
-<br /><img src=30days/knit_flower7.jpg alt="Sapphire Lin dress in yellow knit with pink flower." /></p>
+$strYellow
 
 <p>With puppy. <a href="30days/large/leopard_puppy2.jpg" target=_blank>Large</a> <a href="30days/leopard.php">More</a>
 <br /><img src=30days/leopard_puppy2.jpg alt="Sapphire Lin with puppy." /></p>

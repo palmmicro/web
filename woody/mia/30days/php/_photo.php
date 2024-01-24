@@ -44,6 +44,11 @@ function _getPhotoParagraph($strFileName, $strTextCn, $strTextUs = '', $bChinese
 	return GetPhotoParagraph(PATH_20141211.$strFileName, ($bChinese ? $strTextCn : $strTextUs), $bChinese, $strExtra);
 }
 
+function PhotoMiaYellowAll($bChinese = true)
+{
+	return _getPhotoParagraph('2.jpg', Get30DaysDisplay('yellow'), 'In yellow', $bChinese);
+}
+
 function PhotoMiaRedAll($bChinese = true)
 {
 	return _getPhotoParagraph('4.jpg', Get30DaysDisplay('hat'), 'In Christmas red hat', $bChinese);
@@ -57,6 +62,46 @@ function PhotoMiaCrownAll($bChinese = true)
 function PhotoMiaBlueAll($bChinese = true)
 {
 	return _getPhotoParagraph('7.jpg', Get30DaysDisplay('blue'), 'In blue', $bChinese);
+}
+
+function PhotoMiaYellowRight($bChinese = true)
+{
+	return _getPhotoParagraph('IMG_5276.JPG', '在右边也同样蠢！', 'It is stupid to put a flower on my right too!', $bChinese);
+}
+
+function PhotoMiaYellowLeft($bChinese = true)
+{
+	return _getPhotoParagraph('IMG_5284.JPG', '在我左边放朵花是不是看上去很蠢？', "Isn't it stupid to put a flower on my left?", $bChinese);
+}
+
+function PhotoMiaYellowUnhappy($bChinese = true)
+{
+	return _getPhotoParagraph('IMG_5286.JPG', '我要哭了', 'I am going to cry now', $bChinese);
+}
+
+function PhotoMiaYellowTired($bChinese = true)
+{
+	return _getPhotoParagraph('IMG_5290.JPG', '我累了', 'I am getting tired', $bChinese);
+}
+
+function PhotoMiaYellowFull($bChinese = true)
+{
+	return _getPhotoParagraph('IMG_5292.JPG', '开始数数...', 'Let me count it...', $bChinese);
+}
+
+function PhotoMiaYellowHalf($bChinese = true)
+{
+	return _getPhotoParagraph('IMG_5294.JPG', '你们要拍多少张？', 'How many pictures are you going to take?', $bChinese);
+}
+
+function PhotoMiaYellow($bChinese = true, $strExtra = '')
+{
+	return _getPhotoParagraph('IMG_5295.JPG', '黄色毛衣和小花', 'In yellow knit with flower', $bChinese, $strExtra);
+}
+
+function PhotoMiaYellowBetter($bChinese = true)
+{
+	return _getPhotoParagraph('IMG_5302.JPG', '这样稍微好点', 'Ok, this is better.', $bChinese);
 }
 
 function PhotoMiaWhite($bChinese = true)
