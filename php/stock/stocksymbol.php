@@ -181,7 +181,7 @@ function QdiiHkGetIndexSymbolArray()
 
 function QdiiMixGetSymbolArray()
 {
-    $ar = array('SH501225', 'SH501312', 'SH513050', 'SH513220', 'SH513360', 'SZ159509', 'SZ159605', 'SZ159607', 'SZ164906'); 
+    $ar = array('SH501225', 'SH501312', 'SH513050', 'SH513220', 'SH513360', 'SH513850', 'SZ159509', 'SZ159605', 'SZ159607', 'SZ164906'); 
     return $ar;
 }
 

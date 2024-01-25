@@ -10,7 +10,7 @@ function _getPortfolioTestVal($iShares, $strSymbol)
 		break;
 		
     case 'KWEB':
-		$iQuantity = 1521;
+		$iQuantity = 1121;
 		break;
 		
     case 'SH510300':
@@ -61,7 +61,6 @@ function _getArbitrageTestStr($iShares, $strGroupId, $strStockId, $strSymbol)
 				$iArbitrageQuantity = intval($record['quantity']);
 				if ($iArbitrageQuantity > 0)
 				{
-//					DebugVal($iArbitrageQuantity, $strSymbol);
 					break;
 				}
 			}
