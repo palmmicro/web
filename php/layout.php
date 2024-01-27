@@ -66,6 +66,12 @@ function LayoutGetDisplayWidth()
 	return DEFAULT_WIDTH;
 }
 
+function LayoutUseWide()
+{
+	if ($_SESSION['mobile'])	return true;
+	return (LayoutGetDisplayWidth() >= 1080) ? true : false;
+}
+
 function LayoutGetDisplayHeight()
 {
 	if (isset($_COOKIE['screenheight']))

@@ -29,6 +29,7 @@ class _HoldingsCsvFile extends DebugCsvFile
     
     function InsertHolding($strSymbol, $strName, $strRatio)
     {
+        $strSymbol = str_replace('/', '.', $strSymbol);	// BRK/B -> BRK.B
 		$this->sql->InsertSymbol($strSymbol, $strName);
     	if ($strStockId = $this->sql->GetId($strSymbol))
     	{

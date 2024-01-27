@@ -178,6 +178,7 @@ class StockHistory
     
     var $arSMA = array();
     var $arNext = array();
+    var $arTest = array();
     
     var $strStartDate;		// 2014-11-13
     
@@ -227,6 +228,7 @@ class StockHistory
 		$sql = GetStockEmaSql($iDays);
     	$this->arSMA[$strName] = $sql->GetClose($this->GetStockId(), $this->strStartDate);
        	$this->arNext[$strName] = false;
+       	$this->arTest[$strName] = false;
     }
     
     function _cfg_set_SMAs($cfg, $strPrefix, $afClose)
@@ -257,13 +259,9 @@ class StockHistory
 	    $this->_cfg_get_SMAs($cfg, 'W');
 	    $this->_cfg_get_SMAs($cfg, 'M');
     }
-    
-    function _saveConfigSMA($cfg)
-    {
-        $afClose = array();
-        $afWeeklyClose = array();
-        $afMonthlyClose = array();
 
+    function _getDayWeekMonthData(&$afClose, &$afWeeklyClose, &$afMonthlyClose)
+    {
         $strNextDayYMD = false;
         $his_sql = GetStockHistorySql();
     	if ($result = $his_sql->GetFromDate($this->GetStockId(), $this->strStartDate, MAX_QUOTES_DAYS))
@@ -288,7 +286,40 @@ class StockHistory
     		}
     		mysqli_free_result($result);
     	}
-
+    }
+    
+    function _saveConfigSMA($cfg)
+    {
+        $afClose = array();
+        $afWeeklyClose = array();
+        $afMonthlyClose = array();
+        $this->_getDayWeekMonthData($afClose, $afWeeklyClose, $afMonthlyClose);
+/*
+        $strNextDayYMD = false;
+        $his_sql = GetStockHistorySql();
+    	if ($result = $his_sql->GetFromDate($this->GetStockId(), $this->strStartDate, MAX_QUOTES_DAYS))
+    	{
+    		while ($record = mysqli_fetch_assoc($result)) 
+    		{
+    			$fClose = floatval($record['adjclose']);
+    			$afClose[] = $fClose;
+            
+    			$strYMD = $record['date'];
+    			if (_isWeekEnd($strYMD, $strNextDayYMD))	
+    			{
+    				$afWeeklyClose[] = $fClose;
+//    				DebugString($strYMD.' '.$record['adjclose'], true);
+    			}
+    			if (_isMonthEnd($strYMD, $strNextDayYMD))	
+    			{
+    				$afMonthlyClose[] = $fClose;
+//    				DebugString($strYMD.' '.$record['adjclose'], true);
+    			}
+    			$strNextDayYMD = $strYMD;
+    		}
+    		mysqli_free_result($result);
+    	}
+*/
 	    $this->_cfg_set_SMAs($cfg, 'D', $afClose);
 	    $this->_cfg_set_SMAs($cfg, 'W', $afWeeklyClose);
 	    $this->_cfg_set_SMAs($cfg, 'M', $afMonthlyClose);
@@ -324,6 +355,55 @@ class StockHistory
 
         $this->_get_EMA(50);
         $this->_get_EMA(200);
+    }
+
+    function _onTestData($strPrefix, $afClose)
+    {
+        foreach ($this->aiNum as $i)
+        {
+            $this->arTest[$strPrefix.strval($i)] = _estSma($afClose, $i);
+        }
+        list($strUp, $strDown) = _estBollingerBands($afClose, BOLL_DAYS);
+        $this->arTest[$strPrefix.'BOLLUP'] = $strUp;
+        $this->arTest[$strPrefix.'BOLLDN'] = $strDown;
+    }
+    
+    function _onTest()
+    {
+    	$fPrice = floatval($this->stock_ref->GetPrice());
+        $afClose = array($fPrice);
+        $afWeeklyClose = array($fPrice);
+        $afMonthlyClose = array($fPrice);
+        $this->_getDayWeekMonthData($afClose, $afWeeklyClose, $afMonthlyClose);
+/*
+        $strNextDayYMD = false;
+        $his_sql = GetStockHistorySql();
+    	if ($result = $his_sql->GetFromDate($this->GetStockId(), $this->strStartDate, MAX_QUOTES_DAYS))
+    	{
+    		while ($record = mysqli_fetch_assoc($result)) 
+    		{
+    			$fClose = floatval($record['adjclose']);
+    			$afClose[] = $fClose;
+            
+    			$strYMD = $record['date'];
+    			if (_isWeekEnd($strYMD, $strNextDayYMD))	
+    			{
+    				$afWeeklyClose[] = $fClose;
+//    				DebugString($strYMD.' '.$record['adjclose'], true);
+    			}
+    			if (_isMonthEnd($strYMD, $strNextDayYMD))	
+    			{
+    				$afMonthlyClose[] = $fClose;
+//    				DebugString($strYMD.' '.$record['adjclose'], true);
+    			}
+    			$strNextDayYMD = $strYMD;
+    		}
+    		mysqli_free_result($result);
+    	}
+*/
+	    $this->_onTestData('D', $afClose);
+	    $this->_onTestData('W', $afWeeklyClose);
+	    $this->_onTestData('M', $afMonthlyClose);
     }
     
     function GetSym()
@@ -373,7 +453,7 @@ class StockHistory
     	return false;
     }
     
-    public function __construct($ref) 
+    public function __construct($ref, $bTest = false) 
     {
         $this->stock_ref = $ref;
         $this->aiNum = array(5, 10, 20);
@@ -381,6 +461,8 @@ class StockHistory
 		$ref->SetTimeZone();
 		$this->strStartDate = $this->_getStartDate();
         $this->_configSMA();
+        
+        if ($bTest)	$this->_onTest();
     }
 }
 

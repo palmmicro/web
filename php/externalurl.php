@@ -17,7 +17,7 @@ function GetYahooStockHistoryUrl($strYahooSymbol)
 
 function GetYahooDataUrl()
 {
-	return 'https://query1.finance.yahoo.com/v7/finance';
+	return 'https://query1.finance.yahoo.com/v6/finance';
 }
 
 function GetSinaDataUrl($strSinaSymbols)

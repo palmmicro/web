@@ -169,6 +169,7 @@ function _yahooStockGetData($strSymbol, $strStockId)
 		if (!isset($ar['optionChain']))			
 		{
 			DebugString('no quoteResponse');
+//			DebugPrint($ar);
 			return false;
 		}
 //		$arQuoteResponse = $ar['quoteResponse'];

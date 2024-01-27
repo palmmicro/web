@@ -153,7 +153,7 @@ function EchoAll()
     }
     else
     {
-        _echoStockGroupArray(StockGetArraySymbol(GetCategoryArray($strPage)), ((LayoutGetDisplayWidth() >= 1080) ? true : false), $bAdmin);
+        _echoStockGroupArray(StockGetArraySymbol(GetCategoryArray($strPage)), LayoutUseWide(), $bAdmin);
         
     	$str = _getMetaDescriptionStr($strPage);
 		if ($strLinks = _getSimilarLinks($strPage))		$str .= $strLinks;

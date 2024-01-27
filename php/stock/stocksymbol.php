@@ -746,7 +746,7 @@ class StockSymbol
     {
     	if ($this->IsSinaGlobalIndex())			return $this->strSymbol;
     	
-        $strSymbol = str_replace('.', '', $this->strSymbol);
+        $strSymbol = str_replace('.', '$', $this->strSymbol);
         $strLower = strtolower($strSymbol);
         if ($this->IsIndex())
         {

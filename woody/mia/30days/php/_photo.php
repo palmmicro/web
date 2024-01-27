@@ -64,9 +64,54 @@ function PhotoMiaBlueAll($bChinese = true)
 	return _getPhotoParagraph('7.jpg', Get30DaysDisplay('blue'), 'In blue', $bChinese);
 }
 
+function PhotoMiaLeopardAll($bChinese = true)
+{
+	return _getPhotoParagraph('9.jpg', Get30DaysDisplay('leopard'), 'In leopard', $bChinese);
+}
+
+function PhotoMiaLeopardSmile($bChinese = true)
+{
+	return _getPhotoParagraph('IMG_5208.JPG', '谁也不知道我在笑啥', 'Nobody knows why I am smiling', $bChinese);
+}
+
+function PhotoMiaLeopard($bChinese = true, $strExtra = '')
+{
+	return _getPhotoParagraph('IMG_5226.JPG', '豹纹装和来福', 'In leopard print, with puppy.', $bChinese, $strExtra);
+}
+
+function PhotoMiaLeopardTired($bChinese = true)
+{
+	return _getPhotoParagraph('IMG_5228.JPG', '拍照真是一件累人的事情，来福和我都困了。', 'Both puppy and I are sleepy and tired', $bChinese);
+}
+
+function PhotoMiaLeopardHalf($bChinese = true)
+{
+	return _getPhotoParagraph('IMG_5233.JPG', '豹纹半身照', 'In leopard print, half view.', $bChinese);
+}
+
+function PhotoMiaLeopardPuppy($bChinese = true)
+{
+	return _getPhotoParagraph('IMG_5239.JPG', '跟来福合影，我们像不像？', 'Do I look like this puppy?', $bChinese);
+}
+
+function PhotoMiaLeopardClose($bChinese = true)
+{
+	return _getPhotoParagraph('IMG_5249.JPG', '来福靠太近了吧！', 'The puppy is too close!', $bChinese);
+}
+
+function PhotoMiaLeopardMom($bChinese = true)
+{
+	return _getPhotoParagraph('IMG_5273.JPG', '趴妈妈背上', "On mom's back", $bChinese);
+}
+
 function PhotoMiaYellowRight($bChinese = true)
 {
 	return _getPhotoParagraph('IMG_5276.JPG', '在右边也同样蠢！', 'It is stupid to put a flower on my right too!', $bChinese);
+}
+
+function PhotoMiaYellowProtesting($bChinese = true)
+{
+	return _getPhotoParagraph('IMG_5279.JPG', '我要抗议！', 'I am protesting now!', $bChinese);
 }
 
 function PhotoMiaYellowLeft($bChinese = true)
@@ -77,6 +122,11 @@ function PhotoMiaYellowLeft($bChinese = true)
 function PhotoMiaYellowUnhappy($bChinese = true)
 {
 	return _getPhotoParagraph('IMG_5286.JPG', '我要哭了', 'I am going to cry now', $bChinese);
+}
+
+function PhotoMiaYellowConfused($bChinese = true)
+{
+	return _getPhotoParagraph('IMG_5289.JPG', '我迷糊了', 'I am confused', $bChinese);
 }
 
 function PhotoMiaYellowTired($bChinese = true)
@@ -102,6 +152,21 @@ function PhotoMiaYellow($bChinese = true, $strExtra = '')
 function PhotoMiaYellowBetter($bChinese = true)
 {
 	return _getPhotoParagraph('IMG_5302.JPG', '这样稍微好点', 'Ok, this is better.', $bChinese);
+}
+
+function PhotoMiaYellowTooMuch($bChinese = true)
+{
+	return _getPhotoParagraph('IMG_5308.JPG', '不过实在拍太多了！', 'But it is really too much!', $bChinese);
+}
+
+function PhotoMiaYellowNoFlower($bChinese = true)
+{
+	return _getPhotoParagraph('IMG_5317.JPG', '我不要花，我的来福呢？', 'I really hate the flower, where is my puppy?', $bChinese);
+}
+
+function PhotoMiaFeetInHand($bChinese = true)
+{
+	return _getPhotoParagraph('IMG_5319.JPG', '脚放妈妈手中', "Feet in mom's hands", $bChinese);
 }
 
 function PhotoMiaWhite($bChinese = true)
@@ -187,6 +252,16 @@ function PhotoMiaCrownSad($bChinese = true)
 function PhotoMiaCrown($bChinese = true, $strExtra = '')
 {
 	return _getPhotoParagraph('IMG_5405.JPG', '第一次认真思考人生', 'Thinking about life for the first time', $bChinese, $strExtra);
+}
+
+function PhotoMiaRedDot($bChinese = true)
+{
+	return _getPhotoParagraph('IMG_5887.JPG', '圣诞小红帽和红点衣', 'In Christmas red hat and red dot dress', $bChinese);
+}
+
+function PhotoMiaHandInHand($bChinese = true)
+{
+	return _getPhotoParagraph('IMG_5899.JPG', '手放爸爸妈妈手中', "Hand in mom and dad's hands", $bChinese);
 }
 
 ?>

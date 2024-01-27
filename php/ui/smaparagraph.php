@@ -25,7 +25,7 @@ function _getSmaCallbackPriceDisplay($callback, $ref, $strVal)
 	return '';
 }
 
-function _echoSmaTableItem($his, $strKey, $strVal, $cb_ref, $callback, $callback2, $strColor)
+function _echoSmaTableItem($his, $strKey, $strVal, $cb_ref, $callback, $callback2, $strColor, $bTest)
 {
     $stock_ref = $his->stock_ref;
 
@@ -43,11 +43,17 @@ function _echoSmaTableItem($his, $strKey, $strVal, $cb_ref, $callback, $callback
    		$ar[] = '';
    		$ar[] = '';
    	}
+   	if ($bTest)
+   	{
+   		if ($strTest = $his->arTest[$strKey])		$ar[] = $stock_ref->GetPriceDisplay($strTest);
+   		else									   		$ar[] = '';
+   	}
    	
     if ($callback)
     {
     	$ar[] = _getSmaCallbackPriceDisplay($callback, $cb_ref, $strVal);
     	$ar[] = _getSmaCallbackPriceDisplay($callback, $cb_ref, $strNext);
+    	if ($bTest)	$ar[] = _getSmaCallbackPriceDisplay($callback, $cb_ref, $strTest);
     }
     
     if ($callback2)	$ar[] = call_user_func($callback2, $strVal, $strNext);
@@ -88,7 +94,7 @@ class MaxMin
     }
 }
 
-function _echoSmaTableData($his, $cb_ref, $callback, $callback2)
+function _echoSmaTableData($his, $cb_ref, $callback, $callback2, $bTest)
 {
     $mm = new MaxMin();
     $mmB = new MaxMin();
@@ -119,7 +125,7 @@ function _echoSmaTableData($his, $cb_ref, $callback, $callback2)
             if ($mm->Fit($fVal))         $strColor = 'silver';
             else 							$strColor = 'yellow';
         }
-        _echoSmaTableItem($his, $strKey, $strVal, $cb_ref, $callback, $callback2, $strColor);
+        _echoSmaTableItem($his, $strKey, $strVal, $cb_ref, $callback, $callback2, $strColor, $bTest);
     }
 }
 
@@ -162,13 +168,16 @@ function _getSmaParagraphWarning($ref)
 
 function EchoSmaParagraph($ref, $str = false, $cb_ref = false, $callback = false, $callback2 = false)
 {
-	$his = new StockHistory($ref);
+   	$bTest = LayoutUseWide() && DebugIsAdmin();
+	$his = new StockHistory($ref, $bTest);
 	if ($str === false)	$str = _getSmaParagraphMemo($his);
 	$str .= _getSmaParagraphWarning($ref);
 
 	$premium_col = new TableColumnPremium();
 	$next_col = new TableColumnEst('T+1');
+	$test_col = new TableColumnEst('测试');
 	$ar = array(new TableColumn('均线', 90), new TableColumnEst(), $premium_col, $next_col, $premium_col);
+	if ($bTest)	$ar[] = $test_col;
 	if ($callback)
     {
     	$est_ref = call_user_func($callback, $cb_ref);
@@ -176,11 +185,12 @@ function EchoSmaParagraph($ref, $str = false, $cb_ref = false, $callback = false
 
     	$ar[] = new TableColumnEst(GetTableColumnStock($est_ref));
     	$ar[] = $next_col;
+    	if ($bTest)	$ar[] = $test_col;
     }
     if ($callback2)	$ar[] = new TableColumn(call_user_func($callback2), 90);
 
 	EchoTableParagraphBegin($ar, 'smatable', $str);
-    _echoSmaTableData($his, $cb_ref, $callback, $callback2);
+    _echoSmaTableData($his, $cb_ref, $callback, $callback2, $bTest);
     EchoTableParagraphEnd();
 }
 
@@ -222,5 +232,38 @@ function EchoAhPairSmaParagraph($ref, $str = false, $callback2 = false)
 	EchoSmaParagraph($ref, $str, $ref, '_callbackAhPairSma', $callback2);
 }
 
+function GetFutureInterestPremium($fRate = 0.045)
+{
+	$end_ymd = new StringYMD('2024-03-15');
+	date_default_timezone_set('America/New_York');
+	$now_ymd = GetNowYMD();
+	$begin_ymd = new StringYMD($now_ymd->GetYMD());
+	$iDay = ($end_ymd->GetTick() - $begin_ymd->GetTick()) / SECONDS_IN_DAY;
+	return 1.0 + $fRate * $iDay / 365.0;
+}
+
+function _callbackFutureSma($future_ref, $strEst = false)
+{
+	if ($strEst)
+	{
+		$f = round(4.0 * floatval($strEst) * GetFutureInterestPremium());
+		return strval_round($f / 4.0, 2);
+	}
+	return $future_ref;
+}
+
+function EchoFutureSmaParagraph($ref, $callback2 = false)
+{
+	if ($future_ref = $ref->GetFutureRef())
+	{
+		$strSymbol = $future_ref->GetSymbol();
+		if ($strSymbol != 'hf_ES' && $strSymbol != 'hf_NQ')		return;
+		
+		$est_ref = $ref->GetEstRef();
+		$fPremium = floatval($future_ref->GetPrice()) / floatval($est_ref->GetPrice());
+		$str = '实时数据溢价：'.strval_round($fPremium, 4).'、理论溢价：'.strval_round(GetFutureInterestPremium(), 4).'。';
+		EchoSmaParagraph($est_ref, $str, $future_ref, '_callbackFutureSma', $callback2);
+	}
+}
 
 ?>
