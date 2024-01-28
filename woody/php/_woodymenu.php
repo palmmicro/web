@@ -7,7 +7,7 @@ function GetMyPhotoYears()
 
 function GetMiaPhotoYears()
 {
-	return array(2014, 2015, 2016, 2018);
+	return array(2014, 2015, 2016, 2018, 2022);
 }
 
 function GetBlogPhotoYears()
@@ -61,7 +61,7 @@ function GetMia30DaysDisplay($bChinese = true)
 
 function GetMia30DaysLink($bChinese = true)
 {
-	return GetPhpLink('/woody/mia/photo30days', false, GetMia30DaysDisplay($bChinese), $bChinese);
+	return GetPhpLink('/woody/mia/30days/index', false, GetMia30DaysDisplay($bChinese), $bChinese);
 }
 
 function GetBlogMenuArray($bChinese)

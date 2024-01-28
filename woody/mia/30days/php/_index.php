@@ -1,18 +1,22 @@
 <?php
-require_once('30days/php/_photo.php');
-require_once('_mia.php');
+require_once('_30days.php');
+
+function _get30DaysLink($strPage, $bChinese = true)
+{
+    return GetPhpLink(PATH_30DAYS.$strPage, false, Get30DaysDisplay($strPage, $bChinese), $bChinese);
+}
 
 function EchoAll($bChinese)
 {
-	$strBlue = PhotoMiaBlue($bChinese, Get30DaysLink('blue', $bChinese));
+	$strBlue = PhotoMiaBlue($bChinese, _get30DaysLink('blue', $bChinese));
 	$strBluePuppy = PhotoMiaBluePuppy($bChinese);
-	$strRed = PhotoMiaRed($bChinese, Get30DaysLink('hat', $bChinese));
+	$strRed = PhotoMiaRed($bChinese, _get30DaysLink('hat', $bChinese));
 	$strWhite = PhotoMiaWhite($bChinese);
 	$strWhiteFull = PhotoMiaWhiteFull($bChinese);
-	$strCrown = PhotoMiaCrown($bChinese, Get30DaysLink('crown', $bChinese));
+	$strCrown = PhotoMiaCrown($bChinese, _get30DaysLink('crown', $bChinese));
 	$strCrownMom = PhotoMiaCrownMom($bChinese);
-	$strYellow = PhotoMiaYellow($bChinese, Get30DaysLink('yellow', $bChinese));
-	$strLeopard = PhotoMiaLeopard($bChinese, Get30DaysLink('leopard', $bChinese));
+	$strYellow = PhotoMiaYellow($bChinese, _get30DaysLink('yellow', $bChinese));
+	$strLeopard = PhotoMiaLeopard($bChinese, _get30DaysLink('leopard', $bChinese));
 	$strLeopardMom = PhotoMiaLeopardMom($bChinese);
 	$strRedDot = PhotoMiaRedDot($bChinese);
 	$strFeetInHand = PhotoMiaFeetInHand($bChinese);

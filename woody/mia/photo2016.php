@@ -1,10 +1,5 @@
 <?php
-require_once('php/_miatitle.php');
-
-function GetMetaDescription($bChinese)
-{
-	return 'Sapphire 2016 personal photos and related links. Although I spent a lot of time on it, I guess Sapphire might hate those in the future.';
-}
+require_once('php/_mia.php');
 
 function EchoAll($bChinese)
 {
