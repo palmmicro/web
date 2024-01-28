@@ -2,8 +2,7 @@
 require_once('_stock.php');
 require_once('../../php/ui/imagedisp.php');
 
-// 嗯，那是因为最近2年我都只开了一辆拖拉机申购，很久没测试多辆卖出这个功能了。下周一要卖3辆拖拉机的货，我周末把这个问题改过来。。。
-define('YINHE_AU3_VER', '63');
+define('YINHE_AU3_VER', '64');
 
 function EchoAll()
 {

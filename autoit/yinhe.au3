@@ -18,6 +18,7 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #ce
 
+#include <WinAPI.au3>
 #include <ButtonConstants.au3>
 #include <EditConstants.au3>
 #include <GUIConstantsEx.au3>
@@ -26,6 +27,10 @@
 #include <ProgressConstants.au3>
 #include <StaticConstants.au3>
 #include <WindowsConstants.au3>
+;#include <SendMessage.au3>
+;#include <Misc.au3>
+#include <Array.au3>
+
 
 #include <GuiTreeView.au3>
 #include <GuiListView.au3>
@@ -341,6 +346,7 @@ Func _yinheClickItem($hWnd, $idDebug, $strLevel1, $strLevel2 = False)
 	_yinheCloseNewDlg($idDebug)
 EndFunc
 
+#cs
 Func _yinheAddShenzhenOrderEntry($hWnd, $idDebug, $strControlID, $strAccount, $strSymbol, $strAmount)
 	If _CtlSendString($hWnd, $idDebug, 'Edit1', $strSymbol) Then _addSymbolSpecialKey($idDebug, $strSymbol)
 	ControlCommand($hWnd, '', $strControlID, 'SelectString', $strAccount)
@@ -372,6 +378,7 @@ Func _yinheAddShenzhenOrderEntry($hWnd, $idDebug, $strControlID, $strAccount, $s
 	If $strSymbol == '161226' Then	Return False
 	Return True
 EndFunc
+#ce
 
 Func _yinheClickFund($hWnd, $idDebug, $strType)
 	$str = '基金' & $strType
@@ -403,6 +410,39 @@ Func YinheOrderFund($hWnd, $idDebug, $strSymbol)
 			$strAmount = '5000'
 	EndSwitch
 
+	_yinheClickItem($hWnd, $idDebug, '场内开放式基金', '多股东基金申购')
+	_CtlWaitText($hWnd, $idDebug, 'Static1', '基金代码:')
+	If _CtlSendString($hWnd, $idDebug, 'Edit1', $strSymbol) Then _addSymbolSpecialKey($idDebug, $strSymbol)
+	$strCash = _CtlGetText($hWnd, $idDebug, 'Static5')
+
+	$idListView = ControlGetHandle($hWnd, '', 'SysListView321')
+;	$itemCount = _GUICtrlListView_GetItemCount($idListView)
+	$itemCount = ControlListView('', '', $idListView, 'GetItemCount')
+;	$subitemCount = ControlListView('', '', $idListView, 'GetSubItemCount')
+
+	If Number($strCash, 3) < Number($itemCount * $strAmount, 3) Then
+		_CtlDebug($idDebug, $strSymbol & '申购资金不足')
+		Return
+	EndIf
+	_CtlSendString($hWnd, $idDebug, 'Edit2', $strAmount)
+
+	$arWinPos = WinGetPos($idListView)
+	For $i = 0 To $itemCount - 1
+		$arRect = _GUICtrlListView_GetSubItemRect($idListView, $i, 0)
+;		$text = StringFormat("Subitem Rectangle : [%d, %d, %d, %d]", $arRect[0], $arRect[1], $arRect[2], $arRect[3])
+;		$strDebug = $i & $text
+;		_CtlDebug($idDebug, $strDebug)
+		MouseClick($MOUSE_CLICK_PRIMARY, $arWinPos[0] + $arRect[0] + 10, $arWinPos[1] + $arRect[1] + 10)
+	Next
+
+	ControlClick($hWnd, '', 'Button1')
+	Sleep(1000)
+	_DlgClickButton($idDebug, '基金风险告知书', '我已阅读并同意签署')
+	_DlgClickButton($idDebug, '提示信息', '确认')
+	_DlgClickButton($idDebug, '提示', '确认')
+	_DlgClickButton($idDebug, '提示', '确认')
+
+#cs
 	$strControlID = _yinheClickFund($hWnd, $idDebug, '申购')
 	$iSel = 0
 	While 1
@@ -414,6 +454,7 @@ Func YinheOrderFund($hWnd, $idDebug, $strSymbol)
 			If _yinheAddShenzhenOrderEntry($hWnd, $idDebug, $strControlID, $strAccount, $strSymbol, $strAmount) == False Then ExitLoop
 		EndIf
 	WEnd
+#ce
 EndFunc
 
 Func _yinheSendSellQuantity($hWnd, $idDebug, $iTotal = 0, $strCtlAvailable = 'Static8', $strCtlQuantity = 'Edit5')
@@ -838,7 +879,7 @@ Func YinheMain()
 	Local $arCheckboxAccount[$iMax]
 	$iMsg = 0
 
-	$idFormMain = GUICreate("银河海王星单独委托版全自动拖拉机V0.63", 803, 506, 289, 0)
+	$idFormMain = GUICreate("银河海王星单独委托版全自动拖拉机V0.64", 803, 506, 289, 0)
 
 	$idListViewAccount = GUICtrlCreateListView("客户号", 24, 24, 146, 454, BitOR($GUI_SS_DEFAULT_LISTVIEW,$WS_VSCROLL), BitOR($WS_EX_CLIENTEDGE,$LVS_EX_CHECKBOXES))
 	GUICtrlSendMsg(-1, $LVM_SETCOLUMNWIDTH, 0, 118)
