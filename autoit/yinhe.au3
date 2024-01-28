@@ -53,10 +53,6 @@ Func _getVerifyCode($iLeft, $iTop, $iRight, $iBottom)
 EndFunc
 #ce
 
-Func _MsgDebug($str)
-	MsgBox($MB_ICONINFORMATION, '自动化操作暂停中', $str)
-EndFunc
-
 Func _CtlDebug($idDebug, $str)
 	$strDebug = _NowTime(5) & " " & $str
 	ConsoleWrite($strDebug & @CRLF)
@@ -808,7 +804,7 @@ Func YinheOperation($idProgress, $idDebug)
 
 	If $strSellQuantity <> '' Then
 		$iQuantity = Number($strSellQuantity) - $iRemainQuantity + 50
-		If $iQuantity <> 0 Then _MsgDebug('实际下单：' & String($iQuantity))
+		If $iQuantity <> 0 Then _CtlDebug($idDebug, '实际下单：' & String($iQuantity))
 	EndIf
 
 	GUICtrlSetData($idProgress, 0)
