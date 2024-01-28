@@ -438,6 +438,14 @@ Func YinheOrderFund($hWnd, $idDebug, $strSymbol)
 	ControlClick($hWnd, '', 'Button1')
 	Sleep(1000)
 	_DlgClickButton($idDebug, '基金风险告知书', '我已阅读并同意签署')
+	$hFileWnd = WinWait('基金概要文件', '本人已认真阅读并确认上述内容', 10)
+	If $hFileWnd <> 0 Then
+		WinActivate($hFileWnd)
+		ControlClick($hFileWnd, '', 'Button11')	;本人已认真阅读并确认上述内容
+		Sleep(1000)
+		ControlClick($hFileWnd, '', 'Button1')	;确认
+		Sleep(1000)
+	EndIf
 	_DlgClickButton($idDebug, '提示信息', '确认')
 	_DlgClickButton($idDebug, '提示', '确认')
 	_DlgClickButton($idDebug, '提示', '确认')
