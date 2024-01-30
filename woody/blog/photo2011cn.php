@@ -1,11 +1,6 @@
 <?php 
 require('php/_blogphoto.php');
 
-function GetMetaDescription()
-{
-	return 'Woody的2011年网络日志中使用的图片列表和日志链接. 包括ATCOM AT323网络电话内部PCB图像, 测试插值算法的Rie Miyazawa Santa Fe JPEG图片等.';
-}
-
 function EchoAll()
 {
 	$strSantaFe = ImgSantaFe();

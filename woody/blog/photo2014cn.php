@@ -1,11 +1,6 @@
 <?php 
 require('php/_blogphoto.php');
 
-function GetMetaDescription()
-{
-	return 'Woody的2014年网络日志中使用的图片列表和日志链接. 包括PA1688 eHOG单口FXS网关内部PCB, 10月16日中国A股股票持仓的抓屏图等.';
-}
-
 function EchoAll()
 {
 	$strMia = PhotoMia(true, false);

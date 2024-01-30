@@ -1,11 +1,6 @@
 <?php 
 require('php/_blogphoto.php');
 
-function GetMetaDescription($bChinese)
-{
-	return 'Pictures from Woody 2014 blog. Including PA1688 eHOG 1-port FXS gateway internal PCB and Chinese stock portfolio etc.';
-}
-
 function EchoAll($bChinese)
 {
 	$strMia = PhotoMia($bChinese, false);

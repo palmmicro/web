@@ -1,11 +1,6 @@
 <?php 
 require('php/_blogphoto.php');
 
-function GetMetaDescription()
-{
-	return 'Woody的2007年网络日志中使用的图片列表和日志链接. 包括一个基于Infineon 21553芯片的网络电话上使用的典型的PA1688 00-09-45 MAC地址等.';
-}
-
 function EchoAll()
 {
     echo <<<END

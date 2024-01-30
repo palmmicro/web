@@ -13,6 +13,7 @@ function GetMetaDescription($bChinese)
 
 function EchoAll($bChinese)
 {
+	$strUsdInterest = GetBlogTitle(20230614, $bChinese);
 	$strSnowball = GetBlogTitle(20201205, $bChinese);
 	$strWechat = GetBlogTitle(20161014, $bChinese);
 	$strSZ162411 = GetBlogTitle(20150818, $bChinese);
@@ -30,6 +31,8 @@ function EchoAll($bChinese)
 <p>Category: $strCategory</p>
 <p>Year: $strYears</p>
 <p>All:
+{$arYears[2023]} 
+<br />$strUsdInterest
 {$arYears[2020]} 
 <br />$strSnowball
 {$arYears[2016]} 

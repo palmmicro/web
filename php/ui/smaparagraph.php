@@ -25,9 +25,9 @@ function _getSmaCallbackPriceDisplay($callback, $ref, $strVal)
 	return '';
 }
 
-function _echoSmaTableItem($his, $strKey, $strVal, $cb_ref, $callback, $callback2, $strColor, $bTest)
+function _echoSmaTableItem($his, $strKey, $strVal, $cb_ref, $callback, $callback2, $strColor, $bAfterHour)
 {
-    $stock_ref = $his->stock_ref;
+    $stock_ref = $his->GetRef();
 
     $ar = array();
     $ar[] = _getSmaRow($strKey);
@@ -43,17 +43,17 @@ function _echoSmaTableItem($his, $strKey, $strVal, $cb_ref, $callback, $callback
    		$ar[] = '';
    		$ar[] = '';
    	}
-   	if ($bTest)
+   	if ($bAfterHour)
    	{
-   		if ($strTest = $his->arTest[$strKey])		$ar[] = $stock_ref->GetPriceDisplay($strTest);
-   		else									   		$ar[] = '';
+   		if ($strAfterHour = $his->arAfterHour[$strKey])	$ar[] = $stock_ref->GetPriceDisplay($strAfterHour);
+   		else									   				$ar[] = '';
    	}
    	
     if ($callback)
     {
     	$ar[] = _getSmaCallbackPriceDisplay($callback, $cb_ref, $strVal);
     	$ar[] = _getSmaCallbackPriceDisplay($callback, $cb_ref, $strNext);
-    	if ($bTest)	$ar[] = _getSmaCallbackPriceDisplay($callback, $cb_ref, $strTest);
+    	if ($bAfterHour)	$ar[] = _getSmaCallbackPriceDisplay($callback, $cb_ref, $strAfterHour);
     }
     
     if ($callback2)	$ar[] = call_user_func($callback2, $strVal, $strNext);
@@ -94,7 +94,7 @@ class MaxMin
     }
 }
 
-function _echoSmaTableData($his, $cb_ref, $callback, $callback2, $bTest)
+function _echoSmaTableData($his, $cb_ref, $callback, $callback2, $bAfterHour)
 {
     $mm = new MaxMin();
     $mmB = new MaxMin();
@@ -125,13 +125,13 @@ function _echoSmaTableData($his, $cb_ref, $callback, $callback2, $bTest)
             if ($mm->Fit($fVal))         $strColor = 'silver';
             else 							$strColor = 'yellow';
         }
-        _echoSmaTableItem($his, $strKey, $strVal, $cb_ref, $callback, $callback2, $strColor, $bTest);
+        _echoSmaTableItem($his, $strKey, $strVal, $cb_ref, $callback, $callback2, $strColor, $bAfterHour);
     }
 }
 
 function _getSmaParagraphMemo($his)
 {
-	$sym = $his->GetSym();
+	$sym = $his->GetRef();
 
 	$str = GetYahooStockLink($sym);
 	if ($sym->IsSinaFutureUs() || $sym->IsNewSinaForex() || $sym->IsSinaGlobalIndex())		{}
@@ -168,16 +168,18 @@ function _getSmaParagraphWarning($ref)
 
 function EchoSmaParagraph($ref, $str = false, $cb_ref = false, $callback = false, $callback2 = false)
 {
-   	$bTest = LayoutUseWide() && DebugIsAdmin();
-	$his = new StockHistory($ref, $bTest);
+   	$bAfterHour = LayoutUseWide();
+	$his = new StockHistory($ref, $bAfterHour);
+	if ($bAfterHour)	$bAfterHour = $his->NeedAfterHourEst();
+	
 	if ($str === false)	$str = _getSmaParagraphMemo($his);
 	$str .= _getSmaParagraphWarning($ref);
 
 	$premium_col = new TableColumnPremium();
 	$next_col = new TableColumnEst('T+1');
-	$test_col = new TableColumnEst('测试');
+	$afterhour_col = new TableColumnEst('盘后');
 	$ar = array(new TableColumn('均线', 90), new TableColumnEst(), $premium_col, $next_col, $premium_col);
-	if ($bTest)	$ar[] = $test_col;
+	if ($bAfterHour)	$ar[] = $afterhour_col;
 	if ($callback)
     {
     	$est_ref = call_user_func($callback, $cb_ref);
@@ -185,12 +187,12 @@ function EchoSmaParagraph($ref, $str = false, $cb_ref = false, $callback = false
 
     	$ar[] = new TableColumnEst(GetTableColumnStock($est_ref));
     	$ar[] = $next_col;
-    	if ($bTest)	$ar[] = $test_col;
+    	if ($bAfterHour)	$ar[] = $afterhour_col;
     }
     if ($callback2)	$ar[] = new TableColumn(call_user_func($callback2), 90);
 
 	EchoTableParagraphBegin($ar, 'smatable', $str);
-    _echoSmaTableData($his, $cb_ref, $callback, $callback2, $bTest);
+    _echoSmaTableData($his, $cb_ref, $callback, $callback2, $bAfterHour);
     EchoTableParagraphEnd();
 }
 

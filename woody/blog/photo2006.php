@@ -1,11 +1,6 @@
 <?php
 require('php/_blogphoto.php');
 
-function GetMetaDescription($bChinese)
-{
-	return 'Pictures from Woody 2006 blog. Including photo with Sun Yanhong and Li Jing in central park NYC etc.';
-}
-
 function EchoAll($bChinese)
 {
     echo <<<END

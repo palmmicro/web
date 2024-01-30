@@ -94,7 +94,7 @@ function _echoThanousParadoxParagraph($strSymbol, $iStart, $iNum)
 								   ), 'thanousparadox', $str);
 
    	$csv = new PageCsvFile();
-	_echoThanousParadoxData($csv, $nav_sql, $ref->stock_ref, $strStockId, $est_ref, $iStart, $iNum);
+	_echoThanousParadoxData($csv, $nav_sql, $ref->GetStockRef(), $strStockId, $est_ref, $iStart, $iNum);
     $csv->Close();
     EchoTableParagraphEnd($strMenuLink);
 

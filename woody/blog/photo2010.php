@@ -1,11 +1,6 @@
 <?php 
 require('php/_blogphoto.php');
 
-function GetMetaDescription($bChinese)
-{
-	return 'Pictures from Woody 2010 blog. Including AR168DS programmer image and Soyo G1681 front view etc.';
-}
-
 function EchoAll($bChinese)
 {
 	$strLenna = ImgCompleteLenna($bChinese);

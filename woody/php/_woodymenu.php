@@ -15,7 +15,7 @@ function GetBlogPhotoYears()
 /*	$ar = array();
 	for ($i = 2006; $i <= 2016; $i ++)	$ar[] = $i;
 	return $ar;*/
-	return array(2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2020);
+	return array(2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2020, 2023);
 }
 
 function GetPhotoPageArray($arYears)

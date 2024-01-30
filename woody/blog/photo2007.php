@@ -1,11 +1,6 @@
 <?php 
 require('php/_blogphoto.php');
 
-function GetMetaDescription($bChinese)
-{
-	return 'Pictures from Woody 2007 blog. Including photo of a typical PA1688 00-09-45 MAC address on an Infineon 21553 IP phone etc.';
-}
-
 function EchoAll($bChinese)
 {
     echo <<<END

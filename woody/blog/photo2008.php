@@ -1,11 +1,6 @@
 <?php 
 require('php/_blogphoto.php');
 
-function GetMetaDescription($bChinese)
-{
-	return 'Pictures from Woody 2008 blog. Including photo with Chi-Shin Wang and Tang Li in Half Moon Bay etc.';
-}
-
 function EchoAll($bChinese)
 {
 	$strPalmmicro = GetBlogPictureParagraph(20080326, 'ImgHalfMoonBay', $bChinese);

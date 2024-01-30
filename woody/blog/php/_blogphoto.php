@@ -44,5 +44,12 @@ function GetTitle($bChinese = true)
 	return $strYear;
 }
 
+function GetMetaDescription($bChinese)
+{
+	$str = GetTitle($bChinese);
+	$str .= $bChinese ? '和相关链接。图片的来源五花八门，有直接来自Woody的个人相册，也有各个时期各式各样的搞笑网图。' : ' and related links. Some pictures are from album of myself, while most other are from internet.';
+	return CheckMetaDescription($str);
+}
+
    	$acct = new ImageAccount();
 ?>

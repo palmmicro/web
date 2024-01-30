@@ -7,7 +7,7 @@ define('BOLL_DAYS', 20);
 
 define('SMA_SECTION', 'SMA');
 
-function _ignoreCurrentTradingData($strDate, $sym)
+function _ignoreCurrentTradingData($strDate)
 {        
     $ymd = GetNowYMD();
     if ($ymd->GetYMD() == $strDate)
@@ -178,7 +178,7 @@ class StockHistory
     
     var $arSMA = array();
     var $arNext = array();
-    var $arTest = array();
+    var $arAfterHour = array();
     
     var $strStartDate;		// 2014-11-13
     
@@ -228,7 +228,7 @@ class StockHistory
 		$sql = GetStockEmaSql($iDays);
     	$this->arSMA[$strName] = $sql->GetClose($this->GetStockId(), $this->strStartDate);
        	$this->arNext[$strName] = false;
-       	$this->arTest[$strName] = false;
+       	$this->arAfterHour[$strName] = false;
     }
     
     function _cfg_set_SMAs($cfg, $strPrefix, $afClose)
@@ -361,11 +361,11 @@ class StockHistory
     {
         foreach ($this->aiNum as $i)
         {
-            $this->arTest[$strPrefix.strval($i)] = _estSma($afClose, $i);
+            $this->arAfterHour[$strPrefix.strval($i)] = _estSma($afClose, $i);
         }
         list($strUp, $strDown) = _estBollingerBands($afClose, BOLL_DAYS);
-        $this->arTest[$strPrefix.'BOLLUP'] = $strUp;
-        $this->arTest[$strPrefix.'BOLLDN'] = $strDown;
+        $this->arAfterHour[$strPrefix.'BOLLUP'] = $strUp;
+        $this->arAfterHour[$strPrefix.'BOLLDN'] = $strDown;
     }
     
     function _onTest()
@@ -406,7 +406,7 @@ class StockHistory
 	    $this->_onTestData('M', $afMonthlyClose);
     }
     
-    function GetSym()
+    function GetRef()
     {
         return $this->stock_ref;
     }
@@ -421,7 +421,7 @@ class StockHistory
         return $this->stock_ref->GetStockId();
     }
     
-    function _getStartDate()
+    function _calcStartDate()
     {
         $his_sql = GetStockHistorySql();
     	if ($result = $his_sql->GetAll($this->GetStockId(), 0, 2))
@@ -429,7 +429,7 @@ class StockHistory
     		while ($record = mysqli_fetch_assoc($result)) 
     		{
     			$strDate = $record['date'];
-                if (_ignoreCurrentTradingData($strDate, $this->stock_ref))
+                if (_ignoreCurrentTradingData($strDate))
                 {
                 	continue;
                 }
@@ -453,16 +453,29 @@ class StockHistory
     	return false;
     }
     
-    public function __construct($ref, $bTest = false) 
+    function NeedAfterHourEst()
+    {
+    	$ref = $this->GetRef();
+    	if ($this->GetStartDate() == $ref->GetDate())	return false;
+    	if ($ref->IsSymbolUS())
+    	{
+    		$ref->SetTimeZone();
+    		$now_ymd = GetNowYMD();
+    		return ($now_ymd->GetHourMinute() > 1530) ? true : false;
+    	}
+    	return false;
+    }
+    
+    public function __construct($ref, $bAfterHour = false) 
     {
         $this->stock_ref = $ref;
         $this->aiNum = array(5, 10, 20);
 
 		$ref->SetTimeZone();
-		$this->strStartDate = $this->_getStartDate();
+		$this->strStartDate = $this->_calcStartDate();
         $this->_configSMA();
         
-        if ($bTest)	$this->_onTest();
+        if ($bAfterHour && $this->NeedAfterHourEst())	$this->_onTest();
     }
 }
 

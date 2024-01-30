@@ -1,11 +1,6 @@
 <?php
 require('php/_blogphoto.php');
 
-function GetMetaDescription()
-{
-	return 'Woody的2006年网络日志中使用的图片列表和日志链接. 包括跟写华人VoIP鼻祖Chi-Shin Wang原文的ATCOM老孙和李敬在纽约中央公园的合影等.';
-}
-
 function EchoAll()
 {
     echo <<<END

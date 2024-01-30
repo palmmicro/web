@@ -13,6 +13,7 @@ function GetMetaDescription()
 
 function EchoAll()
 {
+	$strUsdInterest = GetBlogTitle(20230614);
 	$strSnowball = GetBlogTitle(20201205);
 	$strWechat = GetBlogTitle(20161014);
 	$strSZ162411 = GetBlogTitle(20150818);
@@ -29,7 +30,9 @@ function EchoAll()
     echo <<<END
 <p>分类：$strCategory</p>
 <p>年份：$strYears</p>
-<p>全部： 
+<p>全部：
+{$arYears[2023]} 
+<br />$strUsdInterest
 {$arYears[2020]} 
 <br />$strSnowball
 {$arYears[2016]} 

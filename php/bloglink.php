@@ -27,6 +27,10 @@ function GetBlogLink($iDate, $bChinese = true, $bLink = true)
 	
 	switch ($iDate)
 	{
+	case 20230614:
+		$strDisplay = $bChinese ? '美元利息' : 'USD Interest';
+		break;
+		
 	case 20201205:
 		$strDisplay = $bChinese ? '雪球' : 'Snowball';
 		break;
@@ -68,9 +72,12 @@ function GetBlogLink($iDate, $bChinese = true, $bLink = true)
 function GetBlogTitle($iDate, $bChinese = true, $bLink = true)
 {
 	$strDisplay = GetBlogLink($iDate, $bChinese, $bLink); 
-	
 	switch ($iDate)
 	{
+	case 20230614:
+		$strTitle = $bChinese ? '纳斯达克100期货升水和'.$strDisplay.'的关系' : 'Nasdaq 100 Futures Premium and '.$strDisplay;
+		break;
+		
 	case 20201205:
 		$strTitle = $bChinese ? $strDisplay.'私募的作业' : 'Homework for '.$strDisplay.' Private Equity';
 		break;
@@ -162,6 +169,13 @@ function ImgWorriedWoody($bChinese = true)
 function ImgSnowballCarnival($bChinese = true)
 {
 	return ImgAutoQuote('/woody/myphoto/2020/20201205.jpg', ($bChinese ? '2020年雪球嘉年华之夜' : '2020 Snowball carnival night'), $bChinese);
+}
+
+function ImgCMENQ20230614($bChinese = true)
+{
+	$strDate = '20230614';
+	$strYmd = GetBlogYmd($strDate, $bChinese);
+	return ImgAutoQuote('/woody/blog/photo/'.$strDate.'.jpg', ($bChinese ? $strYmd.'纳斯达克100期货和现货价格比较' : 'Nasdaq 100 futures and market price comparison on '.$strYmd.'.'), $bChinese);
 }
 
 ?>

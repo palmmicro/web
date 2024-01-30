@@ -1,11 +1,6 @@
 <?php 
 require('php/_blogphoto.php');
 
-function GetMetaDescription()
-{
-	return 'Woody的2008年网络日志中使用的图片列表和日志链接. 包括跟王老板和唐丽在Half Moon Bay的合影, RTL8019AS芯片和RTL8305芯片等.';
-}
-
 function EchoAll()
 {
 	$strPalmmicro = GetBlogPictureParagraph(20080326, 'ImgHalfMoonBay');

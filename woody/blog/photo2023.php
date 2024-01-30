@@ -1,4 +1,4 @@
 <?php 
-require('php/_photo2015.php');
+require('php/_photo2023.php');
 require('../../php/ui/_disp.php');
 ?>

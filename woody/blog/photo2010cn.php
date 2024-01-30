@@ -1,11 +1,6 @@
 <?php 
 require('php/_blogphoto.php');
 
-function GetMetaDescription()
-{
-	return 'Woody的2010年网络日志中使用的图片列表和日志链接. 包括AR168DS烧录器图片, Soyo G1681(PA168V/AG-168V)网关正面图, 司马台长城等.';
-}
-
 function EchoAll()
 {
 	$strLenna = ImgCompleteLenna();
