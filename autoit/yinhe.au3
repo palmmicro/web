@@ -121,7 +121,7 @@ Func _CtlSelectString($hWnd, $idDebug, $strControlID, ByRef $iSel)
 	Sleep(2000)
 	$iSel += 1
 	$str = ControlCommand($hWnd, '', $strControlID, 'GetCurrentSelection')
-	_CtlDebug($idDebug, '选择"' & $str & '"')
+	_CtlDebug($idDebug, '选择第' & String($iSel) & '个账户"' & $str & '"')
 	Return $str
 EndFunc
 
@@ -412,18 +412,29 @@ Func YinheOrderFund($hWnd, $idDebug, $strSymbol)
 	$strCash = _CtlGetText($hWnd, $idDebug, 'Static5')
 
 	$idListView = ControlGetHandle($hWnd, '', 'SysListView321')
-;	$itemCount = _GUICtrlListView_GetItemCount($idListView)
-	$itemCount = ControlListView('', '', $idListView, 'GetItemCount')
-;	$subitemCount = ControlListView('', '', $idListView, 'GetSubItemCount')
+;	$iItemCount = _GUICtrlListView_GetItemCount($idListView)
+	$iItemCount = ControlListView($hWnd, '', $idListView, 'GetItemCount')
 
-	If Number($strCash, 3) < Number($itemCount * $strAmount, 3) Then
-		_CtlDebug($idDebug, $strSymbol & '申购资金不足')
+#cs
+	$iSubitemCount = ControlListView($hWnd, '', $idListView, 'GetSubItemCount')
+	_CtlDebug($idDebug, '总列数：' & String($iSubitemCount))
+	For $i = 0 To $iItemCount - 1
+		For $j = 0 To $iSubitemCount - 1
+			$strText = ControlListView($hWnd, '', $idListView, 'GetText', $i, $j)
+			_CtlDebug($idDebug, String($i) & String($j) & $strText)
+		Next
+	Next
+#ce
+
+	$iTotalAmount = $iItemCount * Number($strAmount)
+	If Number($strCash, 3) < $iTotalAmount Then
+		_CtlDebug($idDebug, $strSymbol & '申购资金不足' & String($iTotalAmount))
 		Return
 	EndIf
 	_CtlSendString($hWnd, $idDebug, 'Edit2', $strAmount)
 
 	$arWinPos = WinGetPos($idListView)
-	For $i = 0 To $itemCount - 1
+	For $i = 0 To $iItemCount - 1
 		$arRect = _GUICtrlListView_GetSubItemRect($idListView, $i, 0)
 ;		$text = StringFormat("Subitem Rectangle : [%d, %d, %d, %d]", $arRect[0], $arRect[1], $arRect[2], $arRect[3])
 ;		$strDebug = $i & $text
@@ -433,7 +444,7 @@ Func YinheOrderFund($hWnd, $idDebug, $strSymbol)
 
 	ControlClick($hWnd, '', 'Button1')
 	Sleep(1000)
-	_DlgClickButton($idDebug, '基金风险告知书', '我已阅读并同意签署')
+	_DlgClickButton($idDebug, '基金风险揭示', '我已阅读并同意签署')
 	$hFileWnd = WinWait('基金概要文件', '本人已认真阅读并确认上述内容', 10)
 	If $hFileWnd <> 0 Then
 		WinActivate($hFileWnd)
@@ -883,7 +894,7 @@ Func YinheMain()
 	Local $arCheckboxAccount[$iMax]
 	$iMsg = 0
 
-	$idFormMain = GUICreate("银河海王星单独委托版全自动拖拉机V0.64", 803, 506, 289, 0)
+	$idFormMain = GUICreate("银河海王星单独委托版全自动拖拉机V0.65", 803, 506, 289, 0)
 
 	$idListViewAccount = GUICtrlCreateListView("客户号", 24, 24, 146, 454, BitOR($GUI_SS_DEFAULT_LISTVIEW,$WS_VSCROLL), BitOR($WS_EX_CLIENTEDGE,$LVS_EX_CHECKBOXES))
 	GUICtrlSendMsg(-1, $LVM_SETCOLUMNWIDTH, 0, 118)

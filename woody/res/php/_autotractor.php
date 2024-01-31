@@ -2,7 +2,7 @@
 require_once('_stock.php');
 require_once('../../php/ui/imagedisp.php');
 
-define('YINHE_AU3_VER', '64');
+define('YINHE_AU3_VER', '65');
 
 function EchoAll()
 {
@@ -10,7 +10,7 @@ function EchoAll()
     
     EchoParagraph(GetRemarkElement('完整软件安装步骤：'));
     $strNepturnLink = GetExternalLink('http://www.chinastock.com.cn/newsite/online/downloadCenterDetail.html?softName=neptune', '银河证券官网');
-    $strNepturn = GetBoldElement('海王星单独委托版V3.07');
+    $strNepturn = GetBoldElement('海王星单独委托版V3.13');
     echo GetListElement(array('在'.$strNepturnLink.'下载并在缺省路径安装'.$strNepturn.'，桌面图标会显示'.GetInfoElement('中国银河证券海王星独立交易').'，注意它不同于'.GetFontElement('海王星金融终端').'软件。',
     							'下载并安装开源的'.GetExternalLink('https://www.autoitscript.com/site/autoit/downloads/', 'AutoIt').'工具软件包。普通用户实际仅需用到x86版本的AutoIt3.exe文件。一定要小心软件来源，千万不要运行来历不明的.exe文件。',
     							'在本页面下载银河拖拉机自动化PC软件脚本的2个文件到同一个子目录下，分别是'.GetFileLink('/autoit/yinhe.au3').'和'.GetFileLink('/debug/autoitscript/yinheaccounts.au3').'。'));
@@ -31,7 +31,7 @@ function EchoAll()
     EchoParagraph($str);
     
     $str = GetRemarkElement('软件执行：');
-    $str .= $strNewLine.'运行AutoIt3.exe后， 它会提示输入文件。给它'.$strYinheAu3.'或者'.$strYinheAu3Now.'都可以执行。';
+    $str .= $strNewLine.'首先关闭本机上所有在运行的'.$strNepturn.'，在运行x86版本的AutoIt3.exe后，它会提示输入文件。给它'.$strYinheAu3.'或者'.$strYinheAu3Now.'都可以执行。';
     $str .= GetWoodyImgQuote('20211129auto.jpg', 'AutoIt'.AUTO_TRACTOR_DISPLAY.'软件0.49主界面');
     $str .= $strNewLine.'在弹出的用户主界面用鼠标点击'.GetInfoElement('执行自动操作').'按键后，会看到它自动运行'.$strNepturn.'，然后一步步在每个'.GetInfoElement('客户号').'的6个深市账户各自执行选择的'.GetInfoElement('操作').
     		'。除了按ESC键主动退出和响应AutoIt脚本自己的错误提示消息框外，在结束前不能操作任何键盘或者鼠标，否则脚本可能会出错。';
@@ -65,6 +65,8 @@ function EchoAll()
     						 '网速很重要！在目前代码中有大量模拟按键或者鼠标后等待一秒的被动行为，在网速慢的时候会因为等待时间不够长而出错。我就可能需要在运行代码前先手工把电脑上的网络从天威宽带切换到自己手机上的移动4G热点。',
     						 '在基金概要文件那部分，IE会弹出框让选择打开或者下载，需要手工点一下，要不到不了下一步。给IE安装adobe的阅读pdf插件后能解决这个问题。在电脑上安装一下Adobe官方的免费PDF阅读器软件也可以解决这个问题。',
     						 'WIN7系统下海王星不能正常退出。可以运行系统自带的注册表编辑器regedit.exe，依次定位到HKEY_CURRENT_USER\Software\Microsoft\Windows\WindowsError Reporting，在右侧窗口中找到并双击打开DontshowUI，然后在弹出的窗口中将默认值0修改为1。'));
+    
+    EchoParagraph(GetWeixinPay(3));
 }
 
 function GetMetaDescription()

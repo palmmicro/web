@@ -52,7 +52,7 @@
 <br />进入移动互联网时代, Google赖以起家的羊毛出在猪身上的广告模式明显落伍了. 国内BAT慢慢变成了AT, 百度落伍的原因当然很多, 不过在我看来最重要的一点就是它没有成功的移动支付渠道. 
 <br />努力拥抱知识付费时代, 我给自己的网站也加上了流行的微信打赏.
 </p>
-<?php EchoParagraph(GetWeixinPay(false)); ?>
+<?php EchoParagraph(GetWeixinPay(1)); ?>
 
 <h3><a name="third">第三笔</a>Adsense收入</h3>
 <p>2020年10月24日

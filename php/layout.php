@@ -23,10 +23,10 @@ function LayoutIsMobilePhone()
 }
 
 //	https://ibkr.com/referral/rongrong586
-function GetWeixinPay($bRandom = true)
+function GetWeixinPay($iType = 0)
 {
-	$iVal = $bRandom ? rand(1, 2) : 1;
-	switch ($iVal)
+	if ($iType == 0)	$iType = rand(1, 3);
+	switch ($iType)
 	{
 	case 1:
 		$strImage = GetImgElement('/woody/image/wxpay.jpg', '微信打赏一块钱给Woody的二维码');
@@ -36,6 +36,11 @@ function GetWeixinPay($bRandom = true)
 	case 2:
 		$strImage = GetImgElement('/woody/image/zp987374695.jpg', '华宝拖拉机开户联系人微信（zp987374695）二维码');
 		$strText = GetFontElement('华宝拖拉机开户联系人微信zp987374695二维码', 'orange');
+		break;
+       	
+	case 3:
+		$strImage = GetImgElement('/woody/image/tractorsgroup.jpg', '华宝拖拉机开户微信群临时二维码');
+		$strText = GetFontElement('华宝拖拉机开户微信群临时二维码', 'maroon');
 		break;
 	}
 	
@@ -198,10 +203,10 @@ function LayoutEnd()
 END;
 }
 
-function _echoWeixinPay($bRandom = true)
+function _echoWeixinPay($iType = 0)
 {
 	LayoutBegin();
-	EchoParagraph(GetWeixinPay($bRandom));
+	EchoParagraph(GetWeixinPay($iType));
 	LayoutEnd();
 }
 
