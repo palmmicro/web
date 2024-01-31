@@ -10,6 +10,7 @@ function EchoAll()
 {
 	$strUsdInterest = GetBlogTitle(20230614);
 	$strSnowball = GetBlogTitle(20201205);
+	$strFuturesPremium = GetBlogTitle(20200424);
 	$strSZ162411 = GetBlogTitle(20150818);
 	$strMia = GetBlogTitle(20141204);
 	$strStock = GetBlogTitle(20141016);
@@ -19,6 +20,7 @@ function EchoAll()
     echo <<<END
 <p>$strUsdInterest
 <br />$strSnowball
+<br />$strFuturesPremium
 <br />2016年6月15日 东方财富<a href="entertainment/20160615cn.php">美元人民币中间价</a>汇率实时数据接口的字段意义
 <br />2015年12月25日 <a href="entertainment/20151225cn.php">新浪股票数据</a>接口的字段意义
 <br />$strSZ162411

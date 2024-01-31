@@ -15,6 +15,7 @@ function EchoAll()
 {
 	$strUsdInterest = GetBlogTitle(20230614);
 	$strSnowball = GetBlogTitle(20201205);
+	$strFuturesPremium = GetBlogTitle(20200424);
 	$strWechat = GetBlogTitle(20161014);
 	$strSZ162411 = GetBlogTitle(20150818);
 	$strMia = GetBlogTitle(20141204);
@@ -35,6 +36,7 @@ function EchoAll()
 <br />$strUsdInterest
 {$arYears[2020]} 
 <br />$strSnowball
+<br />$strFuturesPremium
 {$arYears[2016]} 
 <br />$strWechat
 <br />6月15日 东方财富<a href="blog/entertainment/20160615cn.php">美元人民币中间价</a>汇率实时数据接口的字段意义

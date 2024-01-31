@@ -35,6 +35,10 @@ function GetBlogLink($iDate, $bChinese = true, $bLink = true)
 		$strDisplay = $bChinese ? '雪球' : 'Snowball';
 		break;
 		
+	case 20200424:
+		$strDisplay = $bChinese ? '期货升水' : 'Futures Premium';
+		break;
+		
 	case 20161014:
 		$strMenu = 'palmmicro';
 		$strDisplay = $bChinese ? '微信' : 'WeChat';
@@ -80,6 +84,10 @@ function GetBlogTitle($iDate, $bChinese = true, $bLink = true)
 		
 	case 20201205:
 		$strTitle = $bChinese ? $strDisplay.'私募的作业' : 'Homework for '.$strDisplay.' Private Equity';
+		break;
+
+	case 20200424:
+		$strTitle = $bChinese ? '原油'.$strDisplay.'和油轮运价的对照计算' : 'Crude Oil '.$strDisplay.' and Tanker Rate';
 		break;
 		
 	case 20161014:
@@ -176,6 +184,11 @@ function ImgCMENQ20230614($bChinese = true)
 	$strDate = '20230614';
 	$strYmd = GetBlogYmd($strDate, $bChinese);
 	return ImgAutoQuote('/woody/blog/photo/'.$strDate.'.jpg', ($bChinese ? $strYmd.'纳斯达克100期货和现货价格比较' : 'Nasdaq 100 futures and market price comparison on '.$strYmd.'.'), $bChinese);
+}
+
+function ImgBelieveMe($bChinese = true)
+{
+	return ImgAutoQuote('/woody/blog/photo/believe.jpg', ($bChinese ? '至于你信不信，我反正信了。' : 'You believe it or not, I believe it anyway.'), $bChinese);
 }
 
 ?>

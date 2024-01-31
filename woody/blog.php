@@ -15,6 +15,7 @@ function EchoAll($bChinese)
 {
 	$strUsdInterest = GetBlogTitle(20230614, $bChinese);
 	$strSnowball = GetBlogTitle(20201205, $bChinese);
+	$strFuturesPremium = GetBlogTitle(20200424, $bChinese);
 	$strWechat = GetBlogTitle(20161014, $bChinese);
 	$strSZ162411 = GetBlogTitle(20150818, $bChinese);
 	$strMia = GetBlogTitle(20141204, $bChinese);
@@ -35,6 +36,7 @@ function EchoAll($bChinese)
 <br />$strUsdInterest
 {$arYears[2020]} 
 <br />$strSnowball
+<br />$strFuturesPremium
 {$arYears[2016]} 
 <br />$strWechat
 <br />Jun 15 EastMoney <a href="blog/entertainment/20160615.php">USDCNY Reference Rate</a> Data Interface
