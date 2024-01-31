@@ -1,14 +1,11 @@
 <?php
 require('php/_myphoto.php');
 
-function GetMetaDescription()
-{
-	return 'Woody的2008年个人图片和相关链接. 开始用车轮丈量美国, 用脚步丈量京郊. 图片来自于穷游网和北京绿野航天东风队的摄影爱好者们.';
-}
-
 function EchoAll()
 {
     echo <<<END
+<p>用车轮丈量美国, 用脚步丈量京郊. 图片来自于穷游网和北京绿野航天东风队的摄影爱好者们.</p>
+
 <p><a href="http://www.go2eu.com/bbs/viewthread.php?tid=112203" target=_blank>5月19日</a>, 加油. Vincent拍摄 <a href="2008/pumping.jpg" target=_blank>放大</a>
 <br /><img src=2008/pumping_s.jpg></p>
 

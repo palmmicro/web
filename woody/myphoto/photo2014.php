@@ -1,11 +1,6 @@
 <?php
 require_once('php/_photo2014.php');
 
-function GetMetaDescription($bChinese)
-{
-	return 'Woody 2014 personal photos and related links. Including sunshine on my shoulders in Mei Lin, and the testing shot after my daughter was born.';
-}
-
 function EchoAll($bChinese)
 {
 	$strMia = PhotoMia($bChinese);

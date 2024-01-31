@@ -1,14 +1,11 @@
 <?php
 require('php/_myphoto.php');
 
-function GetMetaDescription()
-{
-	return 'Woody的2011年个人图片和相关链接. 这一年跟一工在香港和深圳活动了几次, 留下了不少他的作品. 其它的依旧都来自于北京绿野航天东风队的摄影爱好者们.';
-}
-
 function EchoAll()
 {
     echo <<<END
+<p>这一年跟一工在香港和深圳活动了几次, 留下了不少他的作品. 其它的依旧都来自于北京绿野航天东风队的摄影爱好者们.</p>
+
 <p>2月27日. 不撞南墙不回头. <a href="../blog/entertainment/20110323cn.php">VoIP</a>失败者疲惫无奈的笑容是我最近的招牌表情. 一工拍摄 <a href="2011/wutong.jpg" target=_blank>放大</a>
 <br /><img src=2011/wutong_s.jpg alt="tired smile on Shenzhen Wutong Mountain" /></p>
 

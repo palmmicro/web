@@ -1,11 +1,6 @@
 <?php
 require_once('php/_photo2014.php');
 
-function GetMetaDescription()
-{
-	return 'Woody的2014年个人图片和相关链接. 包括小雪拍的深圳二四莲1000期活动时在梅林后山晒太阳乐不可支的照片, 和闺女林近岚出生后在医院测试长时间闲置相机的结果.';
-}
-
 function EchoAll()
 {
 	$strMia = PhotoMia();

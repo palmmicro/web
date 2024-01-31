@@ -43,5 +43,12 @@ function GetTitle($bChinese = true)
 	return $strYear;
 }
 
+function GetMetaDescription($bChinese)
+{
+	$str = GetTitle($bChinese);
+	$str .= $bChinese ? '和相关链接。2012年之前的主题基本上是脚步丈量京郊和车轮丈量美国，2014年后主要都是溜娃。' : ' and related links. Before 2012, mostly traveling the suburbs of Beijing on foot and the United States on wheels. After 2014, mainly about Mia.';
+	return CheckMetaDescription($str);
+}
+
    	$acct = new ImageAccount();
 ?>

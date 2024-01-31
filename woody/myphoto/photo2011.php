@@ -1,11 +1,6 @@
 <?php
 require('php/_myphoto.php');
 
-function GetMetaDescription($bChinese)
-{
-	return 'Woody 2011 personal photos and related links. YiGong provided most of them during our Hongkong and Shenzhen trips this year.';
-}
-
 function EchoAll($bChinese)
 {
     echo <<<END

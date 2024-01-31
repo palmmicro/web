@@ -1,14 +1,11 @@
 <?php
 require('php/_myphoto.php');
 
-function GetMetaDescription()
-{
-	return 'Woody的2015年个人图片和相关链接. 包括马尔代夫Vilamendhoo岛, 和长沙火宫殿等. 从今年开始的相片中都带着女儿林近岚了, 看到哪一年她会开始拒绝吧.';
-}
-
 function EchoAll()
 {
     echo <<<END
+<p>从今年开始的相片中都带着女儿林近岚了，看到哪一年她会开始拒绝。</p>
+
 <p>4月1日. 唐宫海鲜舫, 每天都在忙着吃饭. <a href="2015/large/tanggong.jpg" target=_blank>放大</a>
 <br /><img src=2015/tanggong.jpg alt="Sapphire in Tang Gong seafood restaurant." /></p>
 

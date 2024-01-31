@@ -1,16 +1,12 @@
 <?php
 require('php/_myphoto.php');
 
-function GetMetaDescription()
-{
-	return 'Woody的2006年个人图片和相关链接. 开始跟绿野走京郊, 突然之间有人给我拍照了. 此外只有一张来自于携程上找人自驾美国的旅行.';
-}
-
 function EchoAll()
 {
 	$strImg0701 = ImgWoody20060701();
 	
     echo <<<END
+<p>开始跟绿野走京郊, 突然之间有人给我拍照了.</p>  
 <!--<p>4月2日, 北京郊外. <a href="2006/flower.jpg" target=_blank>放大</a>
 <br /><img src=2006/flower_s.jpg></p>-->
 

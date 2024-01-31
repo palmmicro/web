@@ -1,11 +1,6 @@
 <?php
 require('php/_myphoto.php');
 
-function GetMetaDescription($bChinese)
-{
-	return 'Woody 2015 personal photos and related links. Including trips to Vilamendhoo, Maldives and Changsha.';
-}
-
 function EchoAll($bChinese)
 {
     echo <<<END
