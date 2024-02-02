@@ -72,9 +72,10 @@ function ImgHalfMoonBay($bChinese = true)
 	return GetImgQuote('/woody/groupphoto/company/20070920.jpg', ($bChinese ? '2007年9月20日王老板王老板、唐丽和我在加州半月湾。' : 'Sep 20, 2007 Dr Wang, Tang Li and me in Half Moon Bay.'), $bChinese);
 }
 
+define('PATH_BLOG_PHOTO', '/woody/blog/photo/');
 function GetWoodyImgQuote($strFileName, $strText, $strTextUs = '', $bChinese = true)
 {
-	return GetImgQuote('/woody/blog/photo/'.$strFileName, ($bChinese ? $strText : $strTextUs), $bChinese);
+	return GetImgQuote(PATH_BLOG_PHOTO.$strFileName, ($bChinese ? $strText : $strTextUs), $bChinese);
 }
 
 function ImgBuffettCards()
@@ -151,7 +152,7 @@ function ImgAccountTool($strPage)
 		return GetWoodyImgQuote('primenumber.jpg', '激励我写'.ACCOUNT_TOOL_PRIME_CN.'工具的图片');
 
 	case 'simpletest':
-		return GetWoodyImgQuote('easything.jpeg', '成年人的生活中没有容易二字');
+		return GetWoodyImgQuote('easything.jpg', '成年人的生活中没有容易二字');
 	}
 	return '';
 }
@@ -166,7 +167,7 @@ function ImgStockGroup($strPage)
     	return GetWoodyImgQuote('huangrong.jpg', '依稀往梦似曾见，心内波澜现。');
     	
     case 'hangseng':
-    	return GetWoodyImgQuote('luodayou.jpg', '小河弯弯向南流，流到香江去看一看。');
+    	return ImgAutoQuote(PATH_BLOG_PHOTO.'luody.jpg', '小河弯弯向南流，流到香江去看一看。');
 
 //    case 'hshares':
     	
@@ -186,7 +187,7 @@ function ImgStockGroup($strPage)
    		return GetWoodyImgQuote('ronin.jpg', '女士，如果一个地方我不知道如何走出去，就绝不会走进去。');	// Lady, I never walk into a place I don't know how to walk out of.
     	
 	case 'qdiimix':
-		return GetWoodyImgQuote('rulai.jpeg', '年轻人，我这儿有本秘籍。');
+		return ImgAutoQuote(PATH_BLOG_PHOTO.'rulai.jpg', '年轻人，我这儿有本秘籍。');
 
 	case 'qdiijp':
 		return ImgSantaFe();

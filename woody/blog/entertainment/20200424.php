@@ -8,8 +8,8 @@ function GetMetaDescription($bChinese)
 
 function EchoAll($bChinese)
 {
-	$strNegOil = ImgAutoQuote('/woody/blog/photo/negoilfuture.jpg', 'Screen shot of CME negative oil future price', false);
-	$strTankerRate = ImgAutoQuote('/woody/blog/photo/tanker20200417.jpg', 'Screen shot of tanker rate on Apr 17, 2020.', false);
+	$strNegOil = ImgAutoQuote(PATH_BLOG_PHOTO.'negoilfuture.jpg', 'Screen shot of CME negative oil future price', false);
+	$strTankerRate = ImgAutoQuote(PATH_BLOG_PHOTO.'tanker20200417.jpg', 'Screen shot of tanker rate on Apr 17, 2020.', false);
 	$strImage = ImgBelieveMe($bChinese);
 	
 	EchoBlogDate($bChinese);

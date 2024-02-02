@@ -3,7 +3,7 @@ require_once('_30days.php');
 
 function _get30DaysLink($strPage, $bChinese = true)
 {
-    return GetPhpLink(PATH_30DAYS.$strPage, false, Get30DaysDisplay($strPage, $bChinese), $bChinese);
+    return GetPhpLink(PATH_MIA_30DAYS.$strPage, false, Get30DaysDisplay($strPage, $bChinese), $bChinese);
 }
 
 function EchoAll($bChinese)

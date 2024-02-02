@@ -5,8 +5,6 @@ require_once('../../../php/ui/imagedisp.php');
 require_once('../../php/_woodymenu.php');
 require_once('_photo.php');
 
-define('PATH_30DAYS', '/woody/mia/30days/');
-
 function Get30DaysMenuArray($bChinese)
 {
     if ($bChinese)  $arName = array('blue' => '蓝色', 'hat' => '圣诞小红帽',    'crown' => '王冠',   'yellow' => '黄色',   'leopard' => '豹纹');
@@ -23,7 +21,7 @@ function _menuLoop30Days($bChinese)
 	MenuBegin();
 	WoodyMenuItem($iLevel + 1, 'image', $bChinese);
 	MenuContinueNewLine();
-   	MenuWriteItemLink($iLevel - 1, 'index', UrlGetPhp($bChinese), $strDisplay);
+   	MenuWriteItemLink($iLevel - 1, 'index', UrlGetPhp($bChinese), $strDisplay, true);
 	MenuContinueNewLine();
     MenuDirLoop($ar30Days);
 	MenuContinueNewLine();
@@ -39,7 +37,7 @@ function _LayoutTopLeft($bChinese = true, $bAdsense = true)
 function _LayoutBottom($bChinese = true, $bAdsense = true)
 {
 	LayoutBegin();
-	EchoParagraph(GetPhotoDirLink(20141211, $bChinese, false).' '.GetMia30DaysLink($bChinese).' '.GetCategoryLinks(Get30DaysMenuArray($bChinese), PATH_30DAYS, $bChinese));
+	EchoParagraph(GetPhotoDirLink(20141211, $bChinese, false).' '.GetMia30DaysLink($bChinese).' '.GetCategoryLinks(Get30DaysMenuArray($bChinese), PATH_MIA_30DAYS, $bChinese));
 	LayoutEnd();
 
 	LayoutMiaPhotoArray($bChinese);

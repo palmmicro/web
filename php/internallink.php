@@ -107,7 +107,7 @@ function GetSinaDataLink($strSinaSymbols)
 
 function _getIpLink($strPage, $strIp, $bChinese)
 {
-    return GetPhpLink(PATH_ACCOUNT.$strPage, 'ip='.$strIp, $strIp, $bChinese);
+    return GetPageLink(PATH_ACCOUNT, $strPage, 'ip='.$strIp, $strIp, $bChinese);
 }
 
 function GetIpLink($strIp, $bChinese = true)

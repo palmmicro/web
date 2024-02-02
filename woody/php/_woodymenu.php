@@ -59,9 +59,10 @@ function GetMia30DaysDisplay($bChinese = true)
 	return $bChinese ? '满月' : '30 Days';
 }
 
+define('PATH_MIA_30DAYS', '/woody/mia/30days/');
 function GetMia30DaysLink($bChinese = true)
 {
-	return GetPhpLink('/woody/mia/30days/index', false, GetMia30DaysDisplay($bChinese), $bChinese);
+	return GetPageLink(PATH_MIA_30DAYS, 'index', false, GetMia30DaysDisplay($bChinese), $bChinese);
 }
 
 function GetBlogMenuArray($bChinese)

@@ -183,12 +183,12 @@ function ImgCMENQ20230614($bChinese = true)
 {
 	$strDate = '20230614';
 	$strYmd = GetBlogYmd($strDate, $bChinese);
-	return ImgAutoQuote('/woody/blog/photo/'.$strDate.'.jpg', ($bChinese ? $strYmd.'纳斯达克100期货和现货价格比较' : 'Nasdaq 100 futures and market price comparison on '.$strYmd.'.'), $bChinese);
+	return ImgAutoQuote(PATH_BLOG_PHOTO.$strDate.'.jpg', ($bChinese ? $strYmd.'纳斯达克100期货和现货价格比较' : 'Nasdaq 100 futures and market price comparison on '.$strYmd.'.'), $bChinese);
 }
 
 function ImgBelieveMe($bChinese = true)
 {
-	return ImgAutoQuote('/woody/blog/photo/believe.jpg', ($bChinese ? '至于你信不信，我反正信了。' : 'You believe it or not, I believe it anyway.'), $bChinese);
+	return ImgAutoQuote(PATH_BLOG_PHOTO.'believe.jpg', ($bChinese ? '至于你信不信，我反正信了。' : 'You believe it or not, I believe it anyway.'), $bChinese);
 }
 
 ?>

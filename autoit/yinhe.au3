@@ -411,16 +411,17 @@ Func YinheOrderFund($hWnd, $idDebug, $strSymbol)
 	If _CtlSendString($hWnd, $idDebug, 'Edit1', $strSymbol) Then _addSymbolSpecialKey($idDebug, $strSymbol)
 	$strCash = _CtlGetText($hWnd, $idDebug, 'Static5')
 
-	$idListView = ControlGetHandle($hWnd, '', 'SysListView321')
+	$strControlID = 'SysListView321'
+	$idListView = ControlGetHandle($hWnd, '', $strControlID)
 ;	$iItemCount = _GUICtrlListView_GetItemCount($idListView)
-	$iItemCount = ControlListView($hWnd, '', $idListView, 'GetItemCount')
+	$iItemCount = ControlListView($hWnd, '', $strControlID, 'GetItemCount')
 
 #cs
-	$iSubitemCount = ControlListView($hWnd, '', $idListView, 'GetSubItemCount')
+	$iSubitemCount = ControlListView($hWnd, '', $strControlID, 'GetSubItemCount')
 	_CtlDebug($idDebug, '总列数：' & String($iSubitemCount))
 	For $i = 0 To $iItemCount - 1
 		For $j = 0 To $iSubitemCount - 1
-			$strText = ControlListView($hWnd, '', $idListView, 'GetText', $i, $j)
+			$strText = ControlListView($hWnd, '', $strControlID, 'GetText', $i, $j)
 			_CtlDebug($idDebug, String($i) & String($j) & $strText)
 		Next
 	Next

@@ -106,7 +106,7 @@ class IpLookupAccount extends CommentAccount
     function IpLookupString($strIp, $bChinese)
     {
     	$fStart = microtime(true);
-    	$str = $strIp.' '.GetAllVisitorLink($bChinese);
+    	$str = GetVisitorLink($strIp, $bChinese).' '.GetAllVisitorLink($bChinese);
     	$str .= '<br />'.GetExternalLink(_getIpInfoIpLookUpUrl($strIp), 'ipinfo.io').': ';
     	if ($arInfo = $this->_ipInfoLookUp($strIp))
     	{

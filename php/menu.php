@@ -14,31 +14,49 @@ function MenuGetLink($strPathName, $strDisp)
 	return GetHtmlElement(GetLinkElement($strDisp, $strPathName, array('class' => 'A2')));
 }
 
-function MenuWriteItemLink($iLevel, $strPage, $strType, $strDisp)
+function _getMenuFontStyle()
 {
+	return 'font-size:10pt; font-weight:bold';
+}
+
+function _echoMenuEnabled($strDisplay)
+{
+   	EchoParagraph(GetFontElement($strDisplay, 'yellow', _getMenuFontStyle()));
+}
+
+function MenuWriteItemLink($iLevel, $strPage, $strType, $strDisplay, $bCheck = false)
+{
+    if ($bCheck)
+    {
+    	if ($strPage == UrlGetPage())
+    	{
+    		_echoMenuEnabled($strDisplay);
+    		return;
+    	}
+    }
+    
     $strLevel = '';
     for ($i = 0; $i < $iLevel; $i ++)
     {
     	$strLevel .= '../';
     }
-    echo MenuGetLink($strLevel.$strPage.$strType, $strDisp);
+    echo MenuGetLink($strLevel.$strPage.$strType, $strDisplay);
 }
 
-function MenuWriteLink($strPage, $strType, $strDisp, $strOutput)
+function MenuWriteLink($strPage, $strType, $strDisplay, $strOutput)
 {
-	$strStyle = 'font-size:10pt; font-weight:bold';
     switch ($strOutput)
     {
     case MENU_OUTPUT_LINK:
-    	MenuWriteItemLink(0, $strPage, $strType, $strDisp);
+    	MenuWriteItemLink(0, $strPage, $strType, $strDisplay);
     	break;
     	
     case MENU_OUTPUT_DISABLED:
-    	EchoParagraph(GetQuoteElement($strDisp, $strStyle));
+    	EchoParagraph(GetQuoteElement($strDisplay, _getMenuFontStyle()));
         break;
         
     case MENU_OUTPUT_ENABLED:
-    	EchoParagraph(GetFontElement($strDisp, 'yellow', $strStyle));
+    	_echoMenuEnabled($strDisplay);
         break;
     }
 }

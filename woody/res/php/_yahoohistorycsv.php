@@ -80,7 +80,7 @@ function YahooUpdateStockHistory($ref)
 //	$strEnd = strval($iEnd - $iEnd % SECONDS_IN_DAY + 18 * SECONDS_IN_HOUR - 1);
 	$strEnd = strval($iEnd);
 	$strYahooSymbol = $ref->GetYahooSymbol();
-	$strUrl = GetYahooDataUrl()."/download/$strYahooSymbol?period1=$strBegin&period2=$strEnd&interval=1d&events=history&includeAdjustedClose=true";
+	$strUrl = GetYahooDataUrl('7')."/download/$strYahooSymbol?period1=$strBegin&period2=$strEnd&interval=1d&events=history&includeAdjustedClose=true";
 
 	$strSymbol = $ref->GetSymbol();
 	$strFileName = 'yahoohistory'.$strSymbol.'.csv';

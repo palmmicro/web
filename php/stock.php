@@ -120,7 +120,7 @@ function GetSinaQuotes($strSinaSymbols)
     
     if ($str = url_get_contents(GetSinaDataUrl($strSinaSymbols), UrlGetRefererHeader(GetSinaFinanceUrl()), $strFileName))
     {
-    	if ($iCount >= count(explode('=', $str)))		DebugVal($iCount, 'GetSinaQuotes failed');		// Sina returns error in an empty file
+    	if ($iCount >= count(explode('=', $str)))		DebugVal($iCount, 'GetSinaQuotes failed: '.$str);		// Sina returns error in an empty file
     	else												return $str;
     }
     return false;
