@@ -18,7 +18,6 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #ce
 
-#include <WinAPI.au3>
 #include <ButtonConstants.au3>
 #include <EditConstants.au3>
 #include <GUIConstantsEx.au3>
@@ -27,17 +26,20 @@
 #include <ProgressConstants.au3>
 #include <StaticConstants.au3>
 #include <WindowsConstants.au3>
+
+#include <WinAPI.au3>
 ;#include <SendMessage.au3>
 ;#include <Misc.au3>
 #include <Array.au3>
-
-
 #include <GuiTreeView.au3>
 #include <GuiListView.au3>
-
 #include <Date.au3>
 
 #include <yinheaccounts.au3>
+
+const $YINHE = 0
+const $HUABAO = 1
+
 #cs
 #include <Tesseract.au3>
 
@@ -197,10 +199,14 @@ Func _CtlWaitText($hWnd, $idDebug, $strControl, $strText)
 	Until $strText == _CtlGetText($hWnd, $idDebug, $strControl)
 EndFunc
 
-Func _yinheLoginDlg($idDebug, $strTitle, $strAccount, $strPassword)
+Func _loginDlg($iSoftware, $idDebug, $strTitle, $strAccount, $strPassword)
 	_CtlDebug($idDebug, '等待"' & $strTitle & '"成为活跃窗口')
-;	$hWnd = WinWaitActive($strTitle, '验证码')
-	$hWnd = WinWaitActive($strTitle, '默认PIN码')
+	If ($iSoftware == $YINHE)	Then
+		$strText = '默认PIN码'
+	Else
+		$strText = '自动安全码'
+	EndIf
+	$hWnd = WinWaitActive($strTitle, $strText)
 
 	If StringLeft($strAccount, 1) == '0' Then $strAccount = StringTrimLeft($strAccount, 1)
 	_CtlSetText($hWnd, $idDebug, 'Edit1', $strAccount)
@@ -266,9 +272,18 @@ Func _yinheLoginDlg($idDebug, $strTitle, $strAccount, $strPassword)
 	Return $hMainWnd
 EndFunc
 
-Func YinheLogin($idDebug, $strAccount, $strPassword)
-	Run('C:\中国银河证券海王星独立交易\Tc.exe', 'C:\中国银河证券海王星独立交易\')
-	Return _yinheLoginDlg($idDebug, '通达信网上交易', $strAccount, $strPassword)
+Func RunLogin($iSoftware, $idDebug, $strAccount, $strPassword)
+	_CtlDebug($idDebug, String($iSoftware))
+	If ($iSoftware == $YINHE)	Then
+		$strDir = '中国银河证券海王星独立交易'
+		$strTitle = '通达信网上交易'
+	Else
+		$strDir = 'tc_hbzq'
+		$strTitle = '华宝证券网上交易'
+	EndIf
+	$strPath = 'C:\' & $strDir & '\'
+	Run($strPath & 'Tc.exe', $strPath)
+	Return _loginDlg($iSoftware, $idDebug, $strTitle, $strAccount, $strPassword)
 EndFunc
 
 Func YinheClose($hWnd, $idDebug)
@@ -671,7 +686,7 @@ Func YinheCash($hWnd, $idDebug, $strPassword)
 	EndIf
 EndFunc
 
-Func _yinheAddOtherAccount($hWnd, $idDebug, $strAccount, $strPassword)
+Func _yinheAddOtherAccount($hWnd, $iSoftware, $idDebug, $strAccount, $strPassword)
 	WinActivate($hWnd)
     $arWinPos = WinGetPos($hWnd)
 	$arPos = ControlGetPos($hWnd, '', 'ComboBox1')
@@ -682,17 +697,17 @@ Func _yinheAddOtherAccount($hWnd, $idDebug, $strAccount, $strPassword)
 	Send('{ENTER}')
 	Sleep(1000)
 	_yinheCloseNewDlg($idDebug)
-	_yinheLoginDlg($idDebug, '添加帐号', $strAccount, $strPassword)
+	_loginDlg($iSoftware, $idDebug, '添加帐号', $strAccount, $strPassword)
 EndFunc
 
 Func _debugProgress($idProgress, $iMax, $iCur)
 	GUICtrlSetData($idProgress, Number(100 * ($iCur + 1) / $iMax))
 EndFunc
 
-Func YinheInquire($hWnd, $idProgress, $idDebug, Const ByRef $arAccountNumber, Const ByRef $arAccountPassword, Const ByRef $arAccountChecked, $iMax, $iCur)
+Func YinheInquire($hWnd, $idProgress, $iSoftware, $idDebug, Const ByRef $arAccountNumber, Const ByRef $arAccountPassword, Const ByRef $arAccountChecked, $iMax, $iCur)
 	For $i = $iCur + 1 to $iMax - 1
 		_debugProgress($idProgress, $iMax, $i)
-		If $arAccountChecked[$i] == $GUI_CHECKED Then _yinheAddOtherAccount($hWnd, $idDebug, $arAccountNumber[$i], $arAccountPassword[$i])
+		If $arAccountChecked[$i] == $GUI_CHECKED Then _yinheAddOtherAccount($hWnd, $iSoftware, $idDebug, $arAccountNumber[$i], $arAccountPassword[$i])
 	Next
 
 	_yinheClickItem($hWnd, $idDebug, '查询', '当日委托')
@@ -749,34 +764,45 @@ Func _yinheToggleAccount(Const ByRef $arCheckbox, $iMax)
 	Next
 EndFunc
 
-Func _yinheLoadAccount()
-	$iMax = _getProfileInt('AccountTotal')
+Func _getSoftwarePrefix($iSoftware)
+	If ($iSoftware == $YINHE)	Then
+		$strPrefix = ''
+	Else
+		$strPrefix = 'h'
+	EndIf
+	return $strPrefix
+EndFunc
+
+Func _loadAccounts($iSoftware)
+	$strPrefix = _getSoftwarePrefix($iSoftware)
+	$iMax = _getProfileInt($strPrefix & 'AccountTotal')
 	If $iMax == 0 Then
 		$iMax = UBound($arPassword)		; get array size
-		_putProfileInt('AccountTotal', $iMax)
+		_putProfileInt($strPrefix & 'AccountTotal', $iMax)
 
 		For $i = 0 to $iMax - 1
 			$strIndex = String($i)
-			_putProfileString('AccountNumber' & $strIndex, $arAccount[$i])
-			_putProfileString('AccountPassword' & $strIndex, $arPassword[$i])
+			_putProfileString($strPrefix & 'AccountNumber' & $strIndex, $arAccount[$i])
+			_putProfileString($strPrefix & 'AccountPassword' & $strIndex, $arPassword[$i])
 		Next
 	EndIf
 	Return $iMax
 EndFunc
 
-Func YinheOperation($idProgress, $idDebug)
+Func RunOperation($iSoftware, $idProgress, $idDebug)
 	GUICtrlSetState($idProgress, $GUI_ENABLE)
 
-	$iMax = _getProfileInt('AccountTotal')
+	$strPrefix = _getSoftwarePrefix($iSoftware)
+	$iMax = _getProfileInt($strPrefix & 'AccountTotal')
 	Local $arAccountNumber[$iMax]
 	Local $arAccountPassword[$iMax]
 	Local $arAccountChecked[$iMax]
 
 	For $i = 0 to $iMax - 1
 		$strIndex = String($i)
-		$arAccountNumber[$i] = _getProfileString('AccountNumber' & $strIndex)
-		$arAccountPassword[$i] = _getProfileString('AccountPassword' & $strIndex)
-		$arAccountChecked[$i] = _getProfileInt('AccountState' & $strIndex)
+		$arAccountNumber[$i] = _getProfileString($strPrefix & 'AccountNumber' & $strIndex)
+		$arAccountPassword[$i] = _getProfileString($strPrefix & 'AccountPassword' & $strIndex)
+		$arAccountChecked[$i] = _getProfileInt($strPrefix & 'AccountState' & $strIndex)
 	Next
 
 	$strSymbol = _getProfileString('Symbol')
@@ -787,7 +813,7 @@ Func YinheOperation($idProgress, $idDebug)
 		If $arAccountChecked[$i] == $GUI_CHECKED Then
 			_GUICtrlListBox_ResetContent($idDebug)
 			$strPassword = $arAccountPassword[$i]
-			$hWnd = YinheLogin($idDebug, $arAccountNumber[$i], $strPassword)
+			$hWnd = RunLogin($iSoftware, $idDebug, $arAccountNumber[$i], $strPassword)
 			If _getProfileInt('Order') == $GUI_CHECKED Then
 				YinheOrderFund($hWnd, $idDebug, $strSymbol)
 			ElseIf _getProfileInt('Redeem') == $GUI_CHECKED Then
@@ -807,7 +833,7 @@ Func YinheOperation($idProgress, $idDebug)
 			ElseIf _getProfileInt('Cancel') == $GUI_CHECKED Then
 				YinheCancelAll($hWnd, $idDebug, $strSymbol)
 			ElseIf _getProfileInt('Login') == $GUI_CHECKED Then
-				YinheInquire($hWnd, $idProgress, $idDebug, $arAccountNumber, $arAccountPassword, $arAccountChecked, $iMax, $i)
+				YinheInquire($hWnd, $idProgress, $iSoftware, $idDebug, $arAccountNumber, $arAccountPassword, $arAccountChecked, $iMax, $i)
 				ExitLoop
 			EndIf
 			YinheClose($hWnd, $idDebug)
@@ -823,13 +849,15 @@ Func YinheOperation($idProgress, $idDebug)
 	GUICtrlSetState($idProgress, $GUI_DISABLE)
 EndFunc
 
-Func _getSelectedPassword($idSelectedItem, Const ByRef $arCheckboxAccount, $iMax)
-	Return _getProfileString('AccountPassword' & String(_getSelectedListViewIndex($idSelectedItem, $arCheckboxAccount, $iMax)))
+Func _getSelectedPassword($iSoftware, $idSelectedItem, Const ByRef $arCheckboxAccount, $iMax)
+	Return _getProfileString(_getSoftwarePrefix($iSoftware) & 'AccountPassword' & String(_getSelectedListViewIndex($idSelectedItem, $arCheckboxAccount, $iMax)))
 EndFunc
 
+#cs
 Func _getSelectedAccount($idSelectedItem, Const ByRef $arCheckboxAccount, $iMax)
 	Return _getProfileString('AccountNumber' & String(_getSelectedListViewIndex($idSelectedItem, $arCheckboxAccount, $iMax)))
 EndFunc
+#ce
 
 Func _getSelectedListViewIndex($idSelectedItem, Const ByRef $arCheckboxAccount, $iMax)
 	For $i = 0 to $iMax - 1
@@ -838,23 +866,25 @@ Func _getSelectedListViewIndex($idSelectedItem, Const ByRef $arCheckboxAccount, 
 	Return $i
 EndFunc
 
-Func _onNewAccount($idDebug, ByRef $iMax, $strDlgAccount, $strDlgPassword)
+Func _onNewAccount($iSoftware, $idDebug, ByRef $iMax, $strDlgAccount, $strDlgPassword)
 	$strIndex = String($iMax)
 	$iMax += 1
-	_putProfileInt('AccountTotal', $iMax)
+	$strPrefix = _getSoftwarePrefix($iSoftware)
+	_putProfileInt($strPrefix & 'AccountTotal', $iMax)
 	_CtlDebug($idDebug, '新账号： ' & $strDlgAccount)
-	_putProfileString('AccountNumber' & $strIndex, $strDlgAccount)
-	_putProfileString('AccountPassword' & $strIndex, $strDlgPassword)
+	_putProfileString($strPrefix & 'AccountNumber' & $strIndex, $strDlgAccount)
+	_putProfileString($strPrefix & 'AccountPassword' & $strIndex, $strDlgPassword)
 EndFunc
 
-Func _onEditAccount($idDebug, $iIndex, $strDlgAccount, $strDlgPassword)
-	$strPasswordName = 'AccountPassword' & String($iIndex)
+Func _onEditAccount($iSoftware, $idDebug, $iIndex, $strDlgAccount, $strDlgPassword)
+	$strPrefix = _getSoftwarePrefix($iSoftware)
+	$strPasswordName = $strPrefix & 'AccountPassword' & String($iIndex)
 	If $strDlgPassword <> _getProfileString($strPasswordName) Then
 		_CtlDebug($idDebug, '密码更改')
 		_putProfileString($strPasswordName, $strDlgPassword)
 	EndIf
 
-	$strAccountName = 'AccountNumber' & String($iIndex)
+	$strAccountName = $strPrefix & 'AccountNumber' & String($iIndex)
 	If $strDlgAccount <> _getProfileString($strAccountName) Then
 		_CtlDebug($idDebug, '账号更改： ' & $strDlgAccount)
 		_putProfileString($strAccountName, $strDlgAccount)
@@ -882,24 +912,30 @@ Func _onMenuDel()
 	EndIf
 EndFunc
 
-Func _loadListViewAccount($idListViewAccount, ByRef $arCheckboxAccount, $iMax)
+Func _onRadioSoftware($iMsg, $RadioYinhe, $RadioHuabao)
+	If ($iMsg == $RadioYinhe)	Then
+		$iSoftware = $YINHE
+;	ElseIf ($iSoftware == $RadioHuabao)
+	Else
+		$iSoftware = $HUABAO
+	EndIf
+	return $iSoftware
+EndFunc
+
+Func _loadListViewAccount($iSoftware, $idListViewAccount, ByRef $arCheckboxAccount, $iMax)
+	$strPrefix = _getSoftwarePrefix($iSoftware)
 	For $i = 0 to $iMax - 1
 		$strIndex = String($i)
-		$arCheckboxAccount[$i] = GUICtrlCreateListViewItem(_getProfileString('AccountNumber' & $strIndex), $idListViewAccount)
-		GUICtrlSetState(-1, _getProfileInt('AccountState' & $strIndex, $GUI_CHECKED))
+		$arCheckboxAccount[$i] = GUICtrlCreateListViewItem(_getProfileString($strPrefix & 'AccountNumber' & $strIndex), $idListViewAccount)
+		GUICtrlSetState(-1, _getProfileInt($strPrefix & 'AccountState' & $strIndex, $GUI_CHECKED))
 	Next
 EndFunc
 
 Func YinheMain()
-	$iMax = _yinheLoadAccount()
-	Local $arCheckboxAccount[$iMax]
-	$iMsg = 0
-
-	$idFormMain = GUICreate("银河海王星单独委托版全自动拖拉机V0.65", 803, 506, 289, 0)
+	$idFormMain = GUICreate("通达信单独委托版全自动拖拉机0.66", 803, 506, 289, 0)
 
 	$idListViewAccount = GUICtrlCreateListView("客户号", 24, 24, 146, 454, BitOR($GUI_SS_DEFAULT_LISTVIEW,$WS_VSCROLL), BitOR($WS_EX_CLIENTEDGE,$LVS_EX_CHECKBOXES))
 	GUICtrlSendMsg(-1, $LVM_SETCOLUMNWIDTH, 0, 118)
-	_loadListViewAccount($idListViewAccount, $arCheckboxAccount, $iMax)
 
 	$idMenuAccount = GUICtrlCreateContextMenu($idListViewAccount)
 	$idMenuEdit = GUICtrlCreateMenuItem('添加或者修改选中客户号', $idMenuAccount)
@@ -918,6 +954,7 @@ Func YinheMain()
 	GUICtrlSetData(-1, _getProfileString('SellQuantity'))
 
 	$GroupOperation = GUICtrlCreateGroup("操作", 192, 288, 121, 193)
+	$iMsg = 0
 	$RadioCash = GUICtrlCreateRadio("转账回银行", 208, 312, 89, 17)
 	GUICtrlSetState(-1, _getRadioState($RadioCash, $iMsg, 'Cash', $GUI_UNCHECKED))
 	$RadioMoney = GUICtrlCreateRadio("逆回购", 208, 336, 89, 17)
@@ -936,11 +973,24 @@ Func YinheMain()
 
 	$idProgressDebug = GUICtrlCreateProgress(336, 24, 438, 17)
 	GUICtrlSetState(-1, $GUI_DISABLE)
-	$idListDebug = GUICtrlCreateList("", 336, 48, 441, 383, BitOR($LBS_NOTIFY,$LBS_MULTIPLESEL,$WS_VSCROLL,$WS_BORDER))
+	$idListDebug = GUICtrlCreateList("", 336, 48, 441, 344, BitOR($LBS_NOTIFY,$LBS_MULTIPLESEL,$WS_VSCROLL,$WS_BORDER))
+
 	$idMenuDebug = GUICtrlCreateContextMenu($idListDebug)
 	$idMenuCopy = GUICtrlCreateMenuItem('复制到剪贴板', $idMenuDebug)
 
-	$idButtonRun = GUICtrlCreateButton("执行自动操作(&R)", 336, 456, 107, 25)
+	$GroupSoftware = GUICtrlCreateGroup("软件", 336, 400, 225, 81)
+	$iSoftware = 0
+	$RadioYinhe = GUICtrlCreateRadio("银河证券海王星单独委托版3.13", 352, 424, 193, 17)
+	GUICtrlSetState(-1, _getRadioState($RadioYinhe, $iSoftware, 'Yinhe', $GUI_CHECKED))
+	$RadioHuabao = GUICtrlCreateRadio("华宝证券通达信版独立交易8.17", 352, 448, 193, 17)
+	GUICtrlSetState(-1, _getRadioState($RadioHuabao, $iSoftware, 'Huabao', $GUI_UNCHECKED))
+	GUICtrlCreateGroup("", -99, -99, 1, 1)
+	$iSoftware = _onRadioSoftware($iSoftware, $RadioYinhe, $RadioHuabao)
+	$iMax = _loadAccounts($iSoftware)
+	Local $arCheckboxAccount[$iMax]
+	_loadListViewAccount($iSoftware, $idListViewAccount, $arCheckboxAccount, $iMax)
+
+	$idButtonRun = GUICtrlCreateButton("执行自动操作(&R)", 672, 456, 107, 25)
 	GUICtrlSetState(-1, $GUI_FOCUS)
 	GUISetState(@SW_SHOW)
 
@@ -980,12 +1030,22 @@ Func YinheMain()
 					GUICtrlSetState($idListSymbol, $GUI_ENABLE)
 				EndIf
 
+			Case $RadioYinhe, $RadioHuabao
+				$iSoftware = _onRadioSoftware($iMsg, $RadioYinhe, $RadioHuabao)
+				$iMax = _loadAccounts($iSoftware)
+				_GUICtrlListView_DeleteAllItems($idListViewAccount)
+				If ($iMax <> 0)	Then
+					ReDim $arCheckboxAccount[$iMax]
+					_loadListViewAccount($iSoftware, $idListViewAccount, $arCheckboxAccount, $iMax)
+				EndIf
+
 			Case $idListViewAccount
 				_yinheToggleAccount($arCheckboxAccount, $iMax)
 
 			Case $idButtonRun
+				$strPrefix = _getSoftwarePrefix($iSoftware)
 				For $i = 0 to $iMax - 1
-					_putProfileInt('AccountState' & String($i), GUICtrlRead($arCheckboxAccount[$i], $GUI_READ_EXTENDED))
+					_putProfileInt($strPrefix & 'AccountState' & String($i), GUICtrlRead($arCheckboxAccount[$i], $GUI_READ_EXTENDED))
 				Next
 				_putProfileString('Symbol', GUICtrlRead($idListSymbol))
 				_putProfileInt('Cash', GUICtrlRead($RadioCash))
@@ -995,12 +1055,14 @@ Func YinheMain()
 				_putProfileInt('Sell', GUICtrlRead($RadioSell))
 				_putProfileInt('Cancel', GUICtrlRead($RadioCancel))
 				_putProfileInt('Login', GUICtrlRead($RadioLogin))
+				_putProfileInt('Yinhe', GUICtrlRead($RadioYinhe))
+				_putProfileInt('Huabao', GUICtrlRead($RadioHuabao))
 				_putProfileString('SellPrice', GUICtrlRead($idInputSellPrice))
 				_putProfileString('SellQuantity', GUICtrlRead($idInputSellQuantity))
 				GUICtrlSetState($idButtonRun, $GUI_DISABLE)
 				GUICtrlSetState($idListViewAccount, $GUI_DISABLE)
 				GUICtrlSetState($idListDebug, $GUI_DISABLE)
-				YinheOperation($idProgressDebug, $idListDebug)
+				RunOperation($iSoftware, $idProgressDebug, $idListDebug)
 				GUICtrlSetState($idButtonRun, $GUI_ENABLE)
 				GUICtrlSetState($idListViewAccount, $GUI_ENABLE)
 				GUICtrlSetState($idListDebug, $GUI_ENABLE)
@@ -1020,7 +1082,7 @@ Func YinheMain()
 				Else
 					$strDlgCaption = '修改'
 					$strDlgAccount = StringTrimRight(GUICtrlRead($idSelectedItem), 1)
-					$strDlgPassword = _getSelectedPassword($idSelectedItem, $arCheckboxAccount, $iMax)
+					$strDlgPassword = _getSelectedPassword($iSoftware, $idSelectedItem, $arCheckboxAccount, $iMax)
 				EndIf
 				$idDlgAccount = GUICreate($strDlgCaption, 284, 199, -1, -1, $GUI_SS_DEFAULT_GUI, -1, $idFormMain)
 				$idLabelAccount = GUICtrlCreateLabel('客户号', 24, 24, 40, 17)
@@ -1043,15 +1105,15 @@ Func YinheMain()
 						$strDlgPassword = GUICtrlRead($idEditPassword)
 						If $strDlgAccount <> '' And $strDlgPassword <> '' Then
 							If $idSelectedItem == 0 Then
-								_onNewAccount($idListDebug, $iMax, $strDlgAccount, $strDlgPassword)
+								_onNewAccount($iSoftware, $idListDebug, $iMax, $strDlgAccount, $strDlgPassword)
 								ReDim $arCheckboxAccount[$iMax]
 								$arCheckboxAccount[$iMax - 1] = GUICtrlCreateListViewItem($strDlgAccount, $idListViewAccount)
 								GUICtrlSetState(-1, $GUI_CHECKED)
 							Else
 								$iIndex = _getSelectedListViewIndex($idSelectedItem, $arCheckboxAccount, $iMax)
-								If _onEditAccount($idListDebug, $iIndex, $strDlgAccount, $strDlgPassword) Then
+								If _onEditAccount($iSoftware, $idListDebug, $iIndex, $strDlgAccount, $strDlgPassword) Then
 									_GUICtrlListView_DeleteAllItems($idListViewAccount)
-									_loadListViewAccount($idListViewAccount, $arCheckboxAccount, $iMax)
+									_loadListViewAccount($iSoftware, $idListViewAccount, $arCheckboxAccount, $iMax)
 								EndIf
 							EndIf
 						EndIf

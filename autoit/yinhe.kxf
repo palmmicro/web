@@ -5,7 +5,7 @@
 		<property name="Top" vt="Int16">192</property>
 		<property name="Width" vt="Int16">818</property>
 		<property name="Height" vt="Int16">544</property>
-		<property name="Caption" vt="WString">银河海王星全自动拖拉机V0.37</property>
+		<property name="Caption" vt="WString">通达信单独委托版全自动拖拉机0.66</property>
 		<property name="Color" vt="Ident">clBtnFace</property>
 		<property name="Font.Charset" vt="Ident">DEFAULT_CHARSET</property>
 		<property name="Font.Color" vt="Ident">clWindowText</property>
@@ -17,7 +17,7 @@
 		<property name="Style" vt="Int32">-1798701056</property>
 		<property name="ExStyle" vt="Int16">256</property>
 		<property name="Version" vt="String">1.04</property>
-		<property name="Description" vt="WString">银河海王星全自动拖拉机</property>
+		<property name="Description" vt="WString">拖拉机自动化</property>
 		<property name="FormOptOnEvent" vt="False">False</property>
 		<property name="FormOptExpVars" vt="False">False</property>
 		<property name="FormOptPopulate" vt="False">False</property>
@@ -33,7 +33,7 @@
 	<components>
 		<object type="TAButton" name="idButtonRun">
 			<properties>
-				<property name="Left" vt="Int16">336</property>
+				<property name="Left" vt="Int16">672</property>
 				<property name="Top" vt="Int16">456</property>
 				<property name="Width" vt="Int8">107</property>
 				<property name="Height" vt="Int8">25</property>
@@ -57,7 +57,7 @@
 				<property name="CtrlStyle" vt="Int32">1342308359</property>
 				<property name="CtrlExStyle" vt="Int8">0</property>
 				<property name="Caption" vt="WString">操作</property>
-				<property name="TabOrder" vt="Int8">7</property>
+				<property name="TabOrder" vt="Int8">6</property>
 				<property name="Resizing" vt="Set"/>
 			</properties>
 			<components>
@@ -97,7 +97,7 @@
 						<property name="Top" vt="Int8">48</property>
 						<property name="Width" vt="Int8">89</property>
 						<property name="Height" vt="Int8">17</property>
-						<property name="Caption" vt="WString">深市逆回购</property>
+						<property name="Caption" vt="WString">逆回购</property>
 						<property name="TabOrder" vt="Int8">2</property>
 						<property name="OnClick" vt="String">Radio4Click</property>
 						<property name="CtrlStyle" vt="Int32">1342242825</property>
@@ -174,7 +174,7 @@
 				<property name="Top" vt="Int16">184</property>
 				<property name="Width" vt="Int8">121</property>
 				<property name="Height" vt="Int8">21</property>
-				<property name="TabOrder" vt="Int8">4</property>
+				<property name="TabOrder" vt="Int8">3</property>
 				<property name="CtrlStyle" vt="Int32">1342374016</property>
 				<property name="CtrlExStyle" vt="Int16">512</property>
 				<property name="Resizing" vt="Set">DockHeight</property>
@@ -188,7 +188,7 @@
 				<property name="Width" vt="Int8">52</property>
 				<property name="Height" vt="Int8">17</property>
 				<property name="Caption" vt="WString">卖出价格</property>
-				<property name="TabOrder" vt="Int8">3</property>
+				<property name="TabOrder" vt="Int8">2</property>
 				<property name="HaveVariable" vt="False">False</property>
 				<property name="CtrlStyle" vt="Int32">1342308608</property>
 				<property name="CtrlExStyle" vt="Int8">0</property>
@@ -211,7 +211,7 @@
 						<li vt="String">162411</li>
 					</list>
 				</property>
-				<property name="TabOrder" vt="Int8">2</property>
+				<property name="TabOrder" vt="Int8">1</property>
 				<property name="CtrlStyle" vt="Int32">1352859651</property>
 				<property name="CtrlExStyle" vt="Int16">512</property>
 				<property name="Resizing" vt="Set"/>
@@ -226,7 +226,7 @@
 				<property name="Width" vt="Int8">52</property>
 				<property name="Height" vt="Int8">17</property>
 				<property name="Caption" vt="WString">基金代码</property>
-				<property name="TabOrder" vt="Int8">1</property>
+				<property name="TabOrder" vt="Int8">0</property>
 				<property name="HaveVariable" vt="False">False</property>
 				<property name="CtrlStyle" vt="Int32">1342308608</property>
 				<property name="CtrlExStyle" vt="Int8">0</property>
@@ -266,7 +266,7 @@
 				<property name="Width" vt="Int16">438</property>
 				<property name="Height" vt="Int8">17</property>
 				<property name="Enabled" vt="False">False</property>
-				<property name="TabOrder" vt="Int8">8</property>
+				<property name="TabOrder" vt="Int8">7</property>
 				<property name="CtrlStyle" vt="Int32">1342308352</property>
 				<property name="CtrlExStyle" vt="Int8">0</property>
 				<property name="Resizing" vt="Set"/>
@@ -278,9 +278,9 @@
 				<property name="Left" vt="Int16">336</property>
 				<property name="Top" vt="Int8">48</property>
 				<property name="Width" vt="Int16">441</property>
-				<property name="Height" vt="Int16">383</property>
+				<property name="Height" vt="Int16">344</property>
 				<property name="ItemHeight" vt="Int8">13</property>
-				<property name="TabOrder" vt="Int8">9</property>
+				<property name="TabOrder" vt="Int8">8</property>
 				<property name="CtrlStyle" vt="Int32">1352859657</property>
 				<property name="CtrlExStyle" vt="Int16">512</property>
 				<property name="Resizing" vt="Set"/>
@@ -294,7 +294,7 @@
 				<property name="Width" vt="Int8">112</property>
 				<property name="Height" vt="Int8">17</property>
 				<property name="Caption" vt="WString">卖出或者赎回总数量</property>
-				<property name="TabOrder" vt="Int8">5</property>
+				<property name="TabOrder" vt="Int8">4</property>
 				<property name="HaveVariable" vt="False">False</property>
 				<property name="CtrlStyle" vt="Int32">1342308608</property>
 				<property name="CtrlExStyle" vt="Int8">0</property>
@@ -309,12 +309,57 @@
 				<property name="Top" vt="Int16">248</property>
 				<property name="Width" vt="Int8">121</property>
 				<property name="Height" vt="Int8">21</property>
-				<property name="TabOrder" vt="Int8">6</property>
+				<property name="TabOrder" vt="Int8">5</property>
 				<property name="CtrlStyle" vt="Int32">1342374016</property>
 				<property name="CtrlExStyle" vt="Int16">512</property>
 				<property name="Resizing" vt="Set">DockHeight</property>
 			</properties>
 			<components/>
+		</object>
+		<object type="TAGroup" name="GroupSoftware">
+			<properties>
+				<property name="Left" vt="Int16">336</property>
+				<property name="Top" vt="Int16">400</property>
+				<property name="Width" vt="Int16">225</property>
+				<property name="Height" vt="Int8">81</property>
+				<property name="CtrlStyle" vt="Int32">1342308359</property>
+				<property name="CtrlExStyle" vt="Int8">0</property>
+				<property name="Caption" vt="WString">软件</property>
+				<property name="TabOrder" vt="Int8">11</property>
+				<property name="Resizing" vt="Set"/>
+				<property name="Description" vt="String">GroupSoftware</property>
+			</properties>
+			<components>
+				<object type="TARadio" name="RadioYinhe">
+					<properties>
+						<property name="Left" vt="Int8">16</property>
+						<property name="Top" vt="Int8">24</property>
+						<property name="Width" vt="Int16">193</property>
+						<property name="Height" vt="Int8">17</property>
+						<property name="Caption" vt="WString">银河证券海王星单独委托版3.13</property>
+						<property name="TabOrder" vt="Int8">0</property>
+						<property name="CtrlStyle" vt="Int32">1342242825</property>
+						<property name="CtrlExStyle" vt="Int8">0</property>
+						<property name="Resizing" vt="Set">DockHeight</property>
+						<property name="Description" vt="String">RadioYinhe</property>
+					</properties>
+					<components/>
+				</object>
+				<object type="TARadio" name="RadioHuabao">
+					<properties>
+						<property name="Left" vt="Int8">16</property>
+						<property name="Top" vt="Int8">48</property>
+						<property name="Width" vt="Int16">193</property>
+						<property name="Height" vt="Int8">17</property>
+						<property name="Caption" vt="WString">华宝证券通达信版独立交易8.17</property>
+						<property name="TabOrder" vt="Int8">1</property>
+						<property name="CtrlStyle" vt="Int32">1342242825</property>
+						<property name="CtrlExStyle" vt="Int8">0</property>
+						<property name="Resizing" vt="Set">DockHeight</property>
+					</properties>
+					<components/>
+				</object>
+			</components>
 		</object>
 	</components>
 </object>

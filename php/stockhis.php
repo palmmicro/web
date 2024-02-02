@@ -457,13 +457,13 @@ class StockHistory
     {
     	$ref = $this->GetRef();
     	if ($this->GetStartDate() == $ref->GetDate())	return false;
-    	if ($ref->IsSymbolUS())
-    	{
+//    	if ($ref->IsSymbolUS())
+//    	{
     		$ref->SetTimeZone();
     		$now_ymd = GetNowYMD();
     		return ($now_ymd->GetHourMinute() > 1530) ? true : false;
-    	}
-    	return false;
+//    	}
+//    	return false;
     }
     
     public function __construct($ref, $bAfterHour = false) 
