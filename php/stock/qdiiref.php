@@ -64,6 +64,7 @@ function QdiiGetEstSymbol($strSymbol)
     else if (in_arraySpyQdii($strSymbol))			return '^GSPC';	// 'SPY';
     else if (in_arrayQqqQdii($strSymbol))			return '^NDX';	// 'QQQ';
     else if ($strSymbol == 'SH513290')   			return 'IBB';
+    else if ($strSymbol == 'SH513400')   			return '^DJI';
 	else if (in_arrayGoldQdii($strSymbol))   		return 'GLD';
     else 
         return false;

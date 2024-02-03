@@ -126,7 +126,7 @@ function in_arrayXbiQdii($strSymbol)
 
 function QdiiGetSymbolArray()
 {
-    $ar = array_merge(array('SH513290', 'SZ160140', 'SZ161126', 'SZ161128', 'SZ162415', 'SZ164824') 
+    $ar = array_merge(array('SH513290', 'SH513400', 'SZ160140', 'SZ161126', 'SZ161128', 'SZ162415', 'SZ164824') 
     				   , QdiiGetGoldSymbolArray()
     				   , QdiiGetOilSymbolArray()
     				   , QdiiGetXbiSymbolArray()

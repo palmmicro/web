@@ -111,7 +111,7 @@ class StockAccount extends TitleAccount
     function EchoLinks($strVer = false, $callback = false)
     {
     	$strNewLine = GetBreakElement();
-    	$strWeixinPay = GetHtmlElement(GetWeixinPay());
+    	$strWeixinPay = GetHtmlElement(GetWeixinPay(($this->GetPage() == 'autotractor') ? 3 : 0));
     	$bAdmin = $this->IsAdmin();
     	
     	$str = GetStockCategoryLinks().$strNewLine.GetAhCompareLink().' '.GetAutoTractorLink().' '.GetAccountToolLink('simpletest').' '.GetDevGuideLink($strVer).$strNewLine;

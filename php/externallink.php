@@ -14,6 +14,10 @@ function GetSpindicesOfficialLink($strTicker)
 	$str = 'https://www.spglobal.com/spdji/en/indices/';
 	switch ($strTicker)
 	{
+	case 'DJI':
+		$str .= 'equity/dow-jones-industrial-average';
+		break;
+		
 	case 'DJSOEP':
 		$str .= 'equity/dow-jones-us-select-oil-exploration-production-index';
 		break;
@@ -142,6 +146,10 @@ function GetXueqiuLink($sym, $strDisplay = false)
     {
     	switch ($strSymbol)
     	{
+   		case '^DJI':
+			$strXueqiu = '.DJI';
+			break;
+			
     	case '^GSPC':
 			$strXueqiu = '.INX';
 			break;
@@ -156,6 +164,10 @@ function GetXueqiuLink($sym, $strDisplay = false)
 			
 		case '^HSTECH':
 			$strXueqiu = 'HKHSTECH';
+			break;
+
+   		case '^NDX':
+			$strXueqiu = '.NDX';
 			break;
 		}
 	}
@@ -314,6 +326,7 @@ function GetStockChartsLink($strSymbol)
 {
 	if ($strSymbol == '^GSPC')		$str = '$SPX';
 	else if ($strSymbol == '^NDX')	$str = '$NDX';
+	else if ($strSymbol == '^DJI')	$str = '$INDU';
 	else								$str = $strSymbol;
     $strHttp = 'http://stockcharts.com/h-sc/ui?s='.$str.'&p=D&b=5&g=0&id=p39648755011';
     return GetExternalLink($strHttp, $strSymbol);
