@@ -36,7 +36,8 @@ function EchoAll()
     $strAllSoftware = $strNepturn.'或者'.$strHuabao;
     $str = GetRemarkElement('软件执行：');
     $str .= $strNewLine.'首先关闭本机上所有在运行的'.$strAllSoftware.'，在运行x86版本的AutoIt3.exe后，它会提示输入文件。给它'.$strYinheAu3.'或者'.$strYinheAu3Now.'都可以执行。';
-    $str .= GetWoodyImgQuote('20211129auto.jpg', 'AutoIt'.AUTO_TRACTOR_DISPLAY.'软件0.49主界面');
+//    $str .= GetWoodyImgQuote('20211129auto.jpg', 'AutoIt'.AUTO_TRACTOR_DISPLAY.'软件0.49主界面');
+	$str .= ImgAutoQuote(PATH_BLOG_PHOTO.'autoit066screen.jpg', 'AutoIt'.AUTO_TRACTOR_DISPLAY.'软件0.66主界面');
     $str .= $strNewLine.'在弹出的用户主界面用鼠标点击'.GetInfoElement('执行自动操作').'按键后，会看到它自动运行'.$strAllSoftware.'，然后一步步在每个'.GetInfoElement('客户号').'的全部最多3个深市股票账户和3个深市基金账户中各自执行选择的'.GetInfoElement('操作').
     		'。除了按ESC键主动退出和响应AutoIt脚本自己的错误提示消息框外，在结束前不能操作任何键盘或者鼠标，否则脚本可能会出错。';
     EchoParagraph($str);
@@ -53,7 +54,7 @@ function EchoAll()
     						   ), false);
 
     $str = GetRemarkElement('管理客户号：');
-    $str .= GetWoodyImgQuote('20201029.jpg', 'AutoIt'.AUTO_TRACTOR_DISPLAY.'管理客户号界面');
+    $str .= GetWoodyImgQuote('20201029.jpg', 'AutoIt'.AUTO_TRACTOR_DISPLAY.'软件0.1管理客户号界面');
     EchoParagraph($str);
     
    	$strManageAccount = GetInfoElement('添加或者修改选中客户号');
