@@ -39,7 +39,7 @@ function GetWeixinPay($iType = 0)
 		break;
        	
 	case 3:
-		$strImage = GetImgElement('/woody/image/tractorsgroup.jpg', '华宝拖拉机开户微信群临时二维码');
+		$strImage = GetImgElement('/woody/image/tractorsgroup2.jpg', '华宝拖拉机开户微信群临时二维码');
 		$strText = GetFontElement('华宝拖拉机开户微信群临时二维码', 'maroon');
 		break;
 	}

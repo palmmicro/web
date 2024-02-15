@@ -37,7 +37,7 @@ function EchoAll()
     $str = GetRemarkElement('软件执行：');
     $str .= $strNewLine.'首先关闭本机上所有在运行的'.$strAllSoftware.'，在运行x86版本的AutoIt3.exe后，它会提示输入文件。给它'.$strYinheAu3.'或者'.$strYinheAu3Now.'都可以执行。';
 //    $str .= GetWoodyImgQuote('20211129auto.jpg', 'AutoIt'.AUTO_TRACTOR_DISPLAY.'软件0.49主界面');
-	$str .= ImgAutoQuote(PATH_BLOG_PHOTO.'autoit066screen.jpg', 'AutoIt'.AUTO_TRACTOR_DISPLAY.'软件0.66主界面');
+	$str .= ImgAutoQuote(PATH_BLOG_PHOTO.'autoit066screen.jpg', '2024年2月4日AutoIt'.AUTO_TRACTOR_DISPLAY.'软件0.66主界面');
     $str .= $strNewLine.'在弹出的用户主界面用鼠标点击'.GetInfoElement('执行自动操作').'按键后，会看到它自动运行'.$strAllSoftware.'，然后一步步在每个'.GetInfoElement('客户号').'的全部最多3个深市股票账户和3个深市基金账户中各自执行选择的'.GetInfoElement('操作').
     		'。除了按ESC键主动退出和响应AutoIt脚本自己的错误提示消息框外，在结束前不能操作任何键盘或者鼠标，否则脚本可能会出错。';
     EchoParagraph($str);
@@ -54,7 +54,7 @@ function EchoAll()
     						   ), false);
 
     $str = GetRemarkElement('管理客户号：');
-    $str .= GetWoodyImgQuote('20201029.jpg', 'AutoIt'.AUTO_TRACTOR_DISPLAY.'软件0.1管理客户号界面');
+    $str .= GetWoodyImgQuote('20201029.jpg', '2020年10月29日AutoIt'.AUTO_TRACTOR_DISPLAY.'软件0.1管理客户号界面');
     EchoParagraph($str);
     
    	$strManageAccount = GetInfoElement('添加或者修改选中客户号');
@@ -62,6 +62,7 @@ function EchoAll()
     							'添加：没选中任何客户号时，按鼠标右键，选择'.$strManageAccount.'菜单，会继续弹出对话框添加新客户号。',
     							'批量手工添加和修改：脚本运行后会把客户号和密码存储在注册表中。用AutoIt自带的SciTE.exe编辑'.GetInfoElement('yinheaccount.au3').'，缺省下载文件里面有3个账号的位置，不够的可以自己加。注意别换行，增加账号和密码后记得改动数字3。'.
     							$strNewLine.'保存后在客户号区域按鼠标右键，选择'.GetInfoElement('清除全部客户号记录').'，然后关闭AutoIt.exe软件重新运行，就会使用改动后的客户号和密码。',
+    							'点击'.GetInfoElement('客户号').'可以切换全选或者全不选',
     							GetFontElement('废弃电脑前，要记得清除全部客户号记录，避免泄露。')));
     $acct->EchoLinks();
 //    	'在小屏幕笔记本上，显示设置的'.GetInfoElement('缩放与布局').'中，'.GetInfoElement('更改文本、应用等项目的大小').'的选项缺省不是100%。这时AutoIt自带的WinGetPos函数不会跟着调整倍数，导致找不到验证码位置。',
