@@ -19,6 +19,8 @@ function ImgAutoQuote($strPathName, $strText = '', $bChinese = true)
 	$imgOrg = imagecreatefromjpeg(UrlModifyRootFileName($strPathName));
 	$iWidth = imagesx($imgOrg);
 	$iHeight = imagesy($imgOrg);
+//	DebugString($strPathName.':'.strval($iWidth).'x'.strval($iHeight), true);
+	
 	$iFitHeight = intval($iFit * $iHeight / $iWidth);
 	if ($iFitHeight > $iDisplayHeight)
 	{
@@ -129,6 +131,11 @@ function ImgTianHeng()
 	return GetWoodyImgQuote('tianheng.jpg', '田横五百壮士');
 }
 
+function ImgBelieveMe($bChinese = true)
+{
+	return ImgAutoQuote(PATH_BLOG_PHOTO.'believe.jpg', ($bChinese ? '至于你信不信，我反正信了。' : 'You believe it or not, I believe it anyway.'), $bChinese);
+}
+
 function ImgAccountTool($strPage)
 {
 	switch ($strPage)
@@ -197,6 +204,9 @@ function ImgStockGroup($strPage)
     	
     case 'spyfund':
     	return ImgBuffettCards();
+    	
+    case 'mscius50':
+    	return ImgBelieveMe();
     }
     return '';
 }

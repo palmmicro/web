@@ -178,10 +178,23 @@ function QdiiHkGetIndexSymbolArray()
 {
     return array('^HSI', '^HSCE', '^HSTECH');
 }
+ 
+function GetChinaInternetSymbolArray()
+{
+	return array('SH513050', 'SH513220', 'SZ159605', 'SZ159607', 'SZ164906');
+}
+
+function GetMsciUs50SymbolArray()
+{
+	return array('SH513850', 'SZ159577');
+}
 
 function QdiiMixGetSymbolArray()
 {
-    $ar = array('SH501225', 'SH501312', 'SH513050', 'SH513220', 'SH513360', 'SH513850', 'SZ159509', 'SZ159605', 'SZ159607', 'SZ164906'); 
+    $ar = array_merge(array('SH501225', 'SH501312', 'SH513360', 'SZ159509') 
+    				   , GetChinaInternetSymbolArray()
+    				   , GetMsciUs50SymbolArray());
+    sort($ar);
     return $ar;
 }
 

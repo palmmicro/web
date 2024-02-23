@@ -29,7 +29,11 @@ class WeixinStock extends WeixinCallback
 
 	function GetUnknownText($strContents, $strUserName)
 	{
-		_wxDebug($strUserName, GetRemarkElement('内容：').$strContents, 'Wechat message');
+		if ($strSymbol = BuildChinaFundSymbol($strContents))	{}
+		else if ($strSymbol = BuildChinaStockSymbol($strContents))	{}
+		else	$strSymbol = $strContents;
+
+		_wxDebug($strUserName, GetRemarkElement('内容：').GetXueqiuLink(new StockSymbol($strSymbol)), 'Wechat message');
 		$str = $strContents.BOT_EOL;
 		$str .= '本公众号目前只提供部分股票交易和净值估算自动查询。因为没有匹配到信息，此消息内容已经'._wxEmailInfo();
 		return $str;

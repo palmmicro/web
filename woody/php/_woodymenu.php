@@ -2,7 +2,7 @@
 
 function GetMyPhotoYears()
 {
-	return array(2006, 2007, 2008, 2009, 2010, 2011, 2012, 2014, 2015, 2016, 2020, 2021);
+	return array(2006, 2007, 2008, 2009, 2010, 2011, 2012, 2014, 2015, 2016, 2020, 2021, 2023);
 }
 
 function GetMiaPhotoYears()

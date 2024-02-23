@@ -131,8 +131,13 @@ function GetBlogTitle($iDate, $bChinese = true, $bLink = true)
 
 function IsDigitDate($strDate)
 {
-	if (strlen($strDate) != 8)	return false;
-	return is_numeric($strDate);
+	if (strlen($strDate) != 8)
+	{	// IMG_20231005_154925
+		$strPattern = '/IMG_(\d{8})_\d{6}/';
+//    	$arMatches = array();
+		return preg_match($strPattern, $strDate, $arMatches) ? $arMatches[1] : false;
+	}
+	return is_numeric($strDate) ? $strDate : false;
 }
 
 function GetPhotoDirLink($strDate, $bChinese = true, $bMonthDay = true)
@@ -144,8 +149,7 @@ function GetPhotoDirLink($strDate, $bChinese = true, $bMonthDay = true)
 function GetPhotoParagraph($strPathName, $strText = '', $bChinese = true, $strExtra = '')
 {
 	$str = $strExtra.' '.ImgAutoQuote($strPathName, $strText, $bChinese);
-	$strDate = basename($strPathName, '.jpg');
-	if (IsDigitDate($strDate))
+	if ($strDate = IsDigitDate(basename($strPathName, '.jpg')))
 	{
 		$str = GetBlogMonthDay($strDate, $bChinese).' '.$str;
 	}
@@ -184,11 +188,6 @@ function ImgCMENQ20230614($bChinese = true)
 	$strDate = '20230614';
 	$strYmd = GetBlogYmd($strDate, $bChinese);
 	return ImgAutoQuote(PATH_BLOG_PHOTO.$strDate.'.jpg', ($bChinese ? $strYmd.'纳斯达克100期货和现货价格比较' : 'Nasdaq 100 futures and market price comparison on '.$strYmd.'.'), $bChinese);
-}
-
-function ImgBelieveMe($bChinese = true)
-{
-	return ImgAutoQuote(PATH_BLOG_PHOTO.'believe.jpg', ($bChinese ? '至于你信不信，我反正信了。' : 'You believe it or not, I believe it anyway.'), $bChinese);
 }
 
 ?>

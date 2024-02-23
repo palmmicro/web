@@ -90,6 +90,7 @@ function _getMetaDescriptionStr($strPage)
 				  'qdiimix' => '采用跟踪成分股变化的方式对同时有美股、港股和A股持仓的'.CHINAINTERNET_GROUP_DISPLAY.'等'.QDII_MIX_DISPLAY.'基金进行净值估算，这样参考估值可以反应白天港股和A股波动对净值的影响。',
 				  'qqqfund' => QQQ_GROUP_DISPLAY.'基金的净值估算。使用纳斯达克100指数^NDX计算官方估值和参考估值，芝商所纳斯达克期货NQ计算实时估值，QQQ仅用于参考。',
 				  'spyfund' => SPY_GROUP_DISPLAY.'基金的净值估算。使用标普500指数^GSPC计算官方估值和参考估值，芝商所标普500期货ES计算实时估值，SPY仅用于参考。',
+				  'mscius50' => '当易方达刚开始发这个中国特色指数基金时，我在雪球上嘲笑了这种领先美国的做法，等到汇添富继续发基金时，我发现MSCI官网上就查不到跟踪这个'.MSCIUS50_GROUP_DISPLAY.'指数的基金信息了！',
 				  );
     return $ar[$strPage];
 }
@@ -200,6 +201,7 @@ function _getTitleStr($strPage)
 			  	  'qdiimix' => QDII_MIX_DISPLAY.$strTool,
 			  	  'qqqfund'	=> QQQ_GROUP_DISPLAY.$strTool,
 			  	  'spyfund'	=> SPY_GROUP_DISPLAY.$strTool,
+			  	  'mscius50' => MSCIUS50_GROUP_DISPLAY.$strTool,
 			  	  );
 	return $ar[$strPage];
 }

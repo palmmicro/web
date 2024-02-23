@@ -41,7 +41,7 @@ function GetCategoryArray($strPage)
         break;
         
     case 'chinainternet':
-        $ar = array('SH513050', 'SH513220', 'SZ159605', 'SZ159607', 'SZ164906');
+        $ar = GetChinaInternetSymbolArray();
         break;
         
     case 'commodity':
@@ -95,6 +95,10 @@ function GetCategoryArray($strPage)
 
     case 'spyfund':
     	$ar = QdiiGetSpySymbolArray();
+        break;
+
+    case 'mscius50':
+        $ar = GetMsciUs50SymbolArray();
         break;
     }
     return $ar;
@@ -341,7 +345,7 @@ function GetUbsSdicSoftwareLinks($strDigitA)
 // http://www.99fund.com/main/products/pofund/164705/fundgk.shtml
 function GetUniversalSoftwareLinks($strDigitA)
 {
-    $ar = array('SH501043', 'SH513260', 'SH513290', 'SZ159660', 'SZ164701', 'SZ164705');
+    $ar = array('SH501043', 'SH513260', 'SH513290', 'SZ159577', 'SZ159660', 'SZ164701', 'SZ164705');
 	$strUrl = 'http://www.99fund.com';
     return ' '.GetOfficialLink($strUrl.'/main/products/pofund/'.$strDigitA.'/fundgk.shtml', $strDigitA).GetCategorySoftwareLinks($ar, GetExternalLink($strUrl, '汇添富基金'));
 }

@@ -25,7 +25,7 @@ function LayoutIsMobilePhone()
 //	https://ibkr.com/referral/rongrong586
 function GetWeixinPay($iType = 0)
 {
-	if ($iType == 0)	$iType = rand(1, 3);
+	if ($iType == 0)	$iType = rand(1, 2);
 	switch ($iType)
 	{
 	case 1:
@@ -34,13 +34,8 @@ function GetWeixinPay($iType = 0)
 		break;
         	
 	case 2:
-		$strImage = GetImgElement('/woody/image/zp987374695.jpg', '华宝拖拉机开户联系人微信（zp987374695）二维码');
-		$strText = GetFontElement('华宝拖拉机开户联系人微信zp987374695二维码', 'orange');
-		break;
-       	
-	case 3:
 		$strImage = GetImgElement('/woody/image/tractorsgroup3.jpg', '华宝拖拉机开户微信群临时二维码');
-		$strText = GetFontElement('华宝拖拉机开户微信群临时二维码', 'maroon');
+		$strText = GetFontElement('华宝拖拉机开户微信群临时二维码', 'orange');
 		break;
 	}
 	
