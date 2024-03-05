@@ -61,13 +61,13 @@ class _HoldingsCsvFile extends DebugCsvFile
     
     public function SetDate($strDate)
     {
-		DebugString('_HoldingsCsvFile SetDate: '.$strDate);
+		DebugString(__CLASS__.'->'.__FUNCTION__.': '.$strDate);
     	$this->strDate = $strDate;
     }
 
     function CalcCurrency($strDate)
     {
-    	$strDebug = '_HoldingsCsvFile CalcCurrency: '.$strDate;
+    	$strDebug = __CLASS__.'->'.__FUNCTION__.': '.$strDate;
         $strUscnyId = $this->sql->GetId('USCNY');
         $strHkcnyId = $this->sql->GetId('HKCNY');
         $nav_sql = GetNavHistorySql();

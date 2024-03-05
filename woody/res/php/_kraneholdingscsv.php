@@ -80,7 +80,7 @@ function ReadKraneHoldingsCsvFile($strSymbol, $strStockId, $strDate, $strNav)
 		$csv = new _KraneHoldingsCsvFile($strFileName, $strStockId, $strDate);
 		$csv->Read();
 		$fMarketValue = $csv->GetSum();
-		DebugVal($fMarketValue, 'ReadKraneHoldingsCsvFile');
+		DebugVal($fMarketValue, __FUNCTION__);
 		if ($fMarketValue > MIN_FLOAT_VAL)
 		{
 			if ($csv->UpdateHoldingsDate())
@@ -90,7 +90,7 @@ function ReadKraneHoldingsCsvFile($strSymbol, $strStockId, $strDate, $strNav)
 				if ($strSymbol == 'KWEB')		CopyHoldings(new HoldingsDateSql(), $strStockId, SqlGetStockId('SZ164906'));
 			}
 		}
-		else	DebugString('ReadKraneHoldingsCsvFile failed');
+		else	DebugString(__FUNCTION__.' failed');
 	}
 }
 

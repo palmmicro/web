@@ -33,7 +33,7 @@ class WeixinStock extends WeixinCallback
 		else if ($strSymbol = BuildChinaStockSymbol($strContents))	{}
 		else	$strSymbol = $strContents;
 
-		_wxDebug($strUserName, GetRemarkElement('内容：').GetXueqiuLink(new StockSymbol($strSymbol)), 'Wechat message');
+		_wxDebug($strUserName, GetRemarkElement('内容：').GetXueqiuLink(new StockSymbol($strSymbol), $strContents), 'Wechat message');
 		$str = $strContents.BOT_EOL;
 		$str .= '本公众号目前只提供部分股票交易和净值估算自动查询。因为没有匹配到信息，此消息内容已经'._wxEmailInfo();
 		return $str;
@@ -86,7 +86,7 @@ class WeixinStock extends WeixinCallback
 			fclose($fp);  
 //      	unset($img, $url);
 
-        	$strLink = GetInternalLink($strFileName, $strFileName);
+        	$strLink = GetInternalLink(UrlGetPathName($strFileName));
         	$strContents .= "(已经保存到{$strLink})";
         }
     

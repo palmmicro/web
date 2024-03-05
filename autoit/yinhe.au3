@@ -292,7 +292,7 @@ Func AppClose($hWnd, $idDebug)
 EndFunc
 
 Func _addSymbolSpecialKey($idDebug, $strSymbol)
-	If $strSymbol == '160216' Or $strSymbol == '160416' Or $strSymbol == '161126' Or $strSymbol == '161127' Or $strSymbol == '161226' Or $strSymbol == '163208' Or $strSymbol == '164824' Or $strSymbol == '164906' Then
+	If $strSymbol == '160216' Or $strSymbol == '160416' Or $strSymbol == '160717' Or $strSymbol == '161126' Or $strSymbol == '161127' Or $strSymbol == '161226' Or $strSymbol == '163208' Or $strSymbol == '164824' Or $strSymbol == '164906' Then
 		_DlgClickButton($idDebug, '请选择', '深圳股票')
 	EndIf
 EndFunc
@@ -1010,7 +1010,7 @@ Func AppMain()
 
 	$idLabelSymbol = GUICtrlCreateLabel("基金代码", 192, 24, 52, 17)
 	$idListSymbol = GUICtrlCreateList("", 192, 48, 121, 97)
-	GUICtrlSetData(-1, '160216|160416|161126|161127|161226|162411|163208|164824|164906', _getProfileString('Symbol', '164824'))
+	GUICtrlSetData(-1, '160216|160416|160717|161126|161127|161226|162411|163208|164824|164906', _getProfileString('Symbol', '164824'))
 
 	$idLabelSellPrice = GUICtrlCreateLabel("卖出价格", 192, 160, 52, 17)
 	$idInputSellPrice = GUICtrlCreateInput("", 192, 184, 121, 21)

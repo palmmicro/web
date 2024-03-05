@@ -58,7 +58,7 @@ function SwitchToSess()
     }
     else
     {
-    	DebugString('SwitchToSess lost ...');
+    	DebugString(__FUNCTION__.' lost ...');
     }
 /*	if (isset($_SERVER["HTTP_REFERER"]))
 	{

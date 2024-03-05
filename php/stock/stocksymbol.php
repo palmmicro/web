@@ -707,7 +707,7 @@ class StockSymbol
     function GetSinaFundSymbol()
     {
         if ($this->IsFundA())   return SINA_FUND_PREFIX.$this->strDigitA;
-        DebugString('GetSinaFundSymbol() exception '.$this->strSymbol);
+        DebugString(__FUNCTION__.' exception '.$this->strSymbol);
         return false;
     }
     

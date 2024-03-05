@@ -226,7 +226,7 @@ class StockReference extends StockSymbol
 			$iTime = strtotime($this->GetDateTime());
             $strDate = DebugGetDate($iTime, $strTimeZone);
             $strTime = DebugGetTime($iTime, $strTimeZone);
-//            DebugString('CheckAdjustFactorTime: '.$etf_ref->GetSymbol().' '.$etf_ref->GetDate().' '.$etf_ref->GetTimeHM().' vs '.$strDate.' '.$strTime);
+//            DebugString(__FUNCTION__.': '.$etf_ref->GetSymbol().' '.$etf_ref->GetDate().' '.$etf_ref->GetTimeHM().' vs '.$strDate.' '.$strTime);
         }
         if ($strDate != $etf_ref->GetDate())			return false;
         if (GetHM($strTime) != $etf_ref->GetTimeHM())	return false;
@@ -348,7 +348,7 @@ class StockReference extends StockSymbol
         	}
         }
         $this->bHasData = false;
-        // DebugString($this->strFileName.' LoadSinaData found NO data');
+        // DebugString(__FUNCTION__.': '.$this->strFileName.' found NO data');
     }
 
     function _convertDateTimeToUS($strDate, $strTime)

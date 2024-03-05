@@ -10,7 +10,7 @@ function SinaFundNeedFile($sym, $strFileName)
    		if ($strSymbol = BuildChinaFundSymbol($strDigit))		$sym = new StockSymbol($strSymbol);
    		else
    		{
-   			DebugString('SinaFundNeedFile unknown symbol:'.$sym->GetSymbol());
+   			DebugString(__FUNCTION__.' unknown symbol:'.$sym->GetSymbol());
    			return false;
    		}
 	}

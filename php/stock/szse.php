@@ -112,27 +112,28 @@ function SzseGetLofShares($ref)
    	if ($str = url_get_contents($strUrl))
     {
    		file_put_contents($strFileName, $str);
-   		$ar = json_decode($str, true);
-   		
-   		$ar0 = $ar[0];
-   		if (isset($ar0['metadata']))
+   		if ($ar = json_decode($str, true))
    		{
-   			$arMetaData = $ar0['metadata'];
-   			if ($arMetaData['subname'] == $strDate)
+   			$ar0 = $ar[0];
+   			if (isset($ar0['metadata']))
    			{
-   				if (isset($ar0['data']))
+   				$arMetaData = $ar0['metadata'];
+   				if ($arMetaData['subname'] == $strDate)
    				{
-   					$arData = $ar0['data'];
-   					$arData0 = $arData[0];
-   					$strClose = str_replace(',', '', $arData0['dqgm']);
-   					$sql->WriteDaily($strStockId, $strDate, $strClose);
-   					DebugString('SzseGetLofShares '.$strClose);
+   					if (isset($ar0['data']))
+   					{
+   						$arData = $ar0['data'];
+   						$arData0 = $arData[0];
+   						$strClose = str_replace(',', '', $arData0['dqgm']);
+   						$sql->WriteDaily($strStockId, $strDate, $strClose);
+   						DebugString(__FUNCTION__.': '.$strClose);
+   					}
+   					else	DebugString(__FUNCTION__.' no data');
    				}
-   				else	DebugString('No data');
+   				else	DebugString(__FUNCTION__.' different date: '.$arMetaData['subname'].' '.$strDate);
    			}
-   			else	DebugString('different date: '.$arMetaData['subname'].' '.$strDate);
+   			else	DebugString(__FUNCTION__.' no metadata');
    		}
-   		else	DebugString('No metadata');
    	}
 }
 

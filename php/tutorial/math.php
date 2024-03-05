@@ -96,7 +96,7 @@ function GammaDensity($f, $fAlpha, $fBeta)
 function GammaDistribution($f, $fAlpha, $fBeta)
 {
 //	$fGamma = GammaFunction($fAlpha);
-//	DebugVal($fGamma, 'GammaDistribution');
+//	DebugVal($fGamma, __FUNCTION__);
 //	return pow($f, $fAlpha - 1) * exp(0 - ($f / $fBeta)) / pow($fBeta, $fAlpha) / $fGamma;
 
 	$a = $fAlpha;
@@ -132,7 +132,7 @@ function PearsonChiSquaredTest($arExpected, $arObserved)
 		
 		$fSum += pow($arObserved[$i] - $fExpected, 2) / $fExpected;
 	}
-//	DebugVal($fSum, 'PearsonChiSquaredTest');
+//	DebugVal($fSum, __FUNCTION__);
 
 //	if ($iCount % 2)	
 //	{
