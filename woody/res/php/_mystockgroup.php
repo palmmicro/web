@@ -82,6 +82,8 @@ function _getMetaDescriptionStr($strPage)
 				  'hangseng' => HANGSENG_GROUP_DISPLAY.'基金的净值估算。使用恒生指数【^HSI】计算官方估值和参考估值、使用恒生指数期货【hf_HSI】提供港股不开盘期间的实时估值。',
 				  'hshares' => '港交所在2017年后玩弄文字游戏把H股国企指数改成'.HSHARES_GROUP_DISPLAY.'，大量加入非国有企业成分股，就是为了吸引迷信鹅厂的国内韭菜跨过香江去夺取港股定价权！',
 				  'hstech' => '厌倦了港交所加印花税的贪婪，本来没想跟踪'.HSTECH_GROUP_DISPLAY.'基金的净值。不过在无意中发现了KTEC后，觉得还是应该补上，为日后可能的跨市场套利机会做好准备。',
+				  'lof' => '本网站有估值的'.LOF_GROUP_DISPLAY.'汇总，方便申购不起ETF的穷人发现套利机会。使用拖拉机自动化软件前注意查询基金的限购状态和限购方式等具体内容。',
+				  'mscius50' => '当易方达刚开始发这个中国特色指数基金时，我在雪球上嘲笑了这种领先美国的做法，等到汇添富继续发基金时，我发现MSCI官网上就查不到跟踪这个'.MSCIUS50_GROUP_DISPLAY.'指数的基金信息了！',
 				  'oilfund' => '跟踪'.OIL_GROUP_DISPLAY.'期货的基金有升水损耗，不建议长期持有。跨市场套利时，不要赌几个小时后A股QDII基金折价溢价转折点，只做连续折价或者连续溢价套利。',
 				  'qdii' => QDII_DISPLAY.'官方估值用来验证计算方式的准确性。以参考估值为准，折价不申购、溢价不赎回。上涨赚溢价、下跌赚净值，不要怂，就是干！',
 				  'qdiieu' => '加了'.QDII_JP_DISPLAY.'后，我意识到华安基金的德国和法国指数ETF可以也用同样的模式估值，忍不住再加上这个'.QDII_EU_DISPLAY.'页面，看看能不能解决之前一直估值不准的问题。',
@@ -90,7 +92,6 @@ function _getMetaDescriptionStr($strPage)
 				  'qdiimix' => '采用跟踪成分股变化的方式对同时有美股、港股和A股持仓的'.CHINAINTERNET_GROUP_DISPLAY.'等'.QDII_MIX_DISPLAY.'基金进行净值估算，这样参考估值可以反应白天港股和A股波动对净值的影响。',
 				  'qqqfund' => QQQ_GROUP_DISPLAY.'基金的净值估算。使用纳斯达克100指数^NDX计算官方估值和参考估值，芝商所纳斯达克期货NQ计算实时估值，QQQ仅用于参考。',
 				  'spyfund' => SPY_GROUP_DISPLAY.'基金的净值估算。使用标普500指数^GSPC计算官方估值和参考估值，芝商所标普500期货ES计算实时估值，SPY仅用于参考。',
-				  'mscius50' => '当易方达刚开始发这个中国特色指数基金时，我在雪球上嘲笑了这种领先美国的做法，等到汇添富继续发基金时，我发现MSCI官网上就查不到跟踪这个'.MSCIUS50_GROUP_DISPLAY.'指数的基金信息了！',
 				  );
     return $ar[$strPage];
 }
@@ -193,6 +194,8 @@ function _getTitleStr($strPage)
 			  	  'hangseng' => HANGSENG_GROUP_DISPLAY.$strTool,
 			  	  'hshares' => HSHARES_GROUP_DISPLAY.$strTool,
 			  	  'hstech' => HSTECH_GROUP_DISPLAY.$strTool,
+			  	  'lof' => LOF_GROUP_DISPLAY,
+			  	  'mscius50' => MSCIUS50_GROUP_DISPLAY.$strTool,
 			  	  'oilfund'	=> OIL_GROUP_DISPLAY.$strTool,
 			  	  'qdii' => QDII_DISPLAY.$strTool,
 			  	  'qdiieu' => QDII_EU_DISPLAY.$strTool,
@@ -201,7 +204,6 @@ function _getTitleStr($strPage)
 			  	  'qdiimix' => QDII_MIX_DISPLAY.$strTool,
 			  	  'qqqfund'	=> QQQ_GROUP_DISPLAY.$strTool,
 			  	  'spyfund'	=> SPY_GROUP_DISPLAY.$strTool,
-			  	  'mscius50' => MSCIUS50_GROUP_DISPLAY.$strTool,
 			  	  );
 	return $ar[$strPage];
 }

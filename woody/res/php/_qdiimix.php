@@ -22,6 +22,10 @@ class _QdiiMixAccount extends FundGroupAccount
         $this->ref = new HoldingsReference($strSymbol);
         switch ($strSymbol)
         {
+        case 'SH501225':
+        	$this->us_ref = new MyStockReference('SMH');
+        	break;
+        	
         case 'SZ164906':
         	$this->us_ref = new HoldingsReference('KWEB');
         	break;
@@ -161,13 +165,17 @@ function EchoAll()
     									//$ref->GetHoldingRefArray(), 
     									array($acct->cnh_ref, $uscny_ref, $hkcny_ref)), $acct->IsAdmin());
     
-	if ($us_ref)
+	if ($ref->GetSymbol() == 'SZ164906')
 	{
 		EchoFundTradingParagraph($ref, '_callbackQdiiMixTrading');
 		EchoHoldingsEstParagraph($us_ref);
 		EchoSmaParagraph($us_ref, false, $ref, '_callbackQdiiMixSma');
 	}
-	else	EchoFundTradingParagraph($ref);
+	else	
+	{
+		EchoFundTradingParagraph($ref);
+		if ($us_ref)	EchoSmaParagraph($us_ref);
+	}
 
     EchoFundPairHistoryParagraph($ref);
    	EchoFundShareParagraph($ref);

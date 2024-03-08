@@ -164,6 +164,7 @@ function _getLofLink()
 function Echo20160127($strHead)
 {
 	$strHead = GetHeadElement($strHead);
+	$strLOF = GetStockCategoryLink('lof');
 	$strList = GetListElement(array('ETF通常都是100%仓位，而LOF一般不会超过95%的仓位。仓位上的细节会决定估值的准确度。',
 								  'A股可以从6位数字代码上区分。深市ETF代码从150000到159999，深市LOF代码从160000到169999。沪市ETF代码从510000到518999，沪市LOF代码从500000到509999。SH510900就是一个沪市ETF。',
 								  'A股ETF的申购门槛通常至少都是50万份或者100万份，我这种穷套利者玩不起，所以其实我到现在也没搞清楚具体到底是50万还是100万。在美股市场，ETF的申赎基本上都是由做市商完成的。可以看出，A股从制度上来说其实有利于套利群体。',
@@ -177,7 +178,7 @@ function Echo20160127($strHead)
 <br />把Google设置成显示英文结果，然后查QDII，百度百科的中文页面显示在搜索结果的第2位，第3位是Wiki。听过一个笑话，一个腹黑的HR问程序员求职者碰到问题怎么办，回答去查百度的都会被默默的拒掉，因此我就不去看它了。
 Wiki的QDII词条下显示了它是Qualified Domestic Institutional Investor的简称，同时用简体和繁体标注了合格境内机构投资者。
 <br />跟QDII一样，LOF也是一个出生和仅用于中国的英文简写。它更惨，英文的Google完全没有收录它的中国用途：Listed Open-Ended Fund的简写，意思是上市型开放式基金。
-<br />跟QDII和LOF不同，ETF是个货真价实的英文简写。常出现的XOP就是美股的ETF。对我来说，A股的ETF和LOF的区别按重要性排列如下：
+<br />跟QDII和LOF不同，ETF是个货真价实的英文简写。常出现的XOP就是美股的ETF。对我来说，A股的ETF和{$strLOF}的区别按重要性排列如下：
 </p>
 	$strList
 	$strQuote
@@ -1291,7 +1292,7 @@ function Echo20230530($strHead)
 	$strXueqiu = GetXueqiuIdLink('9933963417', 'Forest_g');
 	$strQdiiMix = _getStockMenuLink('qdiimix');
 	$strSH501225 = GetGroupStockLink('SH501225', true);
-	$strImage = GetWoodyImgQuote('nvda.png', '老黄路边KTV');
+	$strImage = ImgStockGroup('lof');
 	$strSH501312 = GetGroupStockLink('SH501312', true);
 	
     echo <<<END

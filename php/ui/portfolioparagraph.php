@@ -13,11 +13,11 @@ function _getPortfolioTestVal($iShares, $strSymbol)
 		$iQuantity = 1121;
 		break;
 		
-    case 'SH510300':
+/*    case 'SH510300':
 		$iQuantity = 30000;
 		break;
 
-/*    case 'SH600104':
+    case 'SH600104':
 		$iQuantity = 2000;
 		break;
 
@@ -103,7 +103,7 @@ function _echoPortfolioTableItem($trans)
         	break;
 
 		case 'ASHR':
-		case 'SH510300':
+//		case 'SH510300':
 //		case 'SH600104':
 //		case 'SPY':
 //		case 'TLT':

@@ -180,6 +180,12 @@ function ImgStockGroup($strPage)
     	
     case 'hstech':
     	return GetWoodyImgQuote('hardlife.jpg', '人生永远都在艰难模式');
+
+    case 'lof':
+    	return GetWoodyImgQuote('nvda.png', '老黄路边KTV');
+    	
+    case 'mscius50':
+    	return ImgBelieveMe();
     	
     case 'oilfund':
     	return GetWoodyImgQuote('dashidai.jpg', '不要怕，是技术性调整，不要怕。');
@@ -192,21 +198,18 @@ function ImgStockGroup($strPage)
 
     case 'qdiihk':
    		return GetWoodyImgQuote('ronin.jpg', '女士，如果一个地方我不知道如何走出去，就绝不会走进去。');	// Lady, I never walk into a place I don't know how to walk out of.
-    	
-	case 'qdiimix':
-		return ImgAutoQuote(PATH_BLOG_PHOTO.'rulai.jpg', '年轻人，我这儿有本秘籍。');
 
 	case 'qdiijp':
 		return ImgSantaFe();
+		
+	case 'qdiimix':
+		return ImgAutoQuote(PATH_BLOG_PHOTO.'rulai.jpg', '年轻人，我这儿有本秘籍。');
 
     case 'qqqfund':
     	return ImgLikeDog();
     	
     case 'spyfund':
     	return ImgBuffettCards();
-    	
-    case 'mscius50':
-    	return ImgBelieveMe();
     }
     return '';
 }

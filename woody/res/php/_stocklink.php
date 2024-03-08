@@ -64,29 +64,42 @@ function GetCategoryArray($strPage)
     case 'hstech':
     	$ar = QdiiHkGetTechSymbolArray();
         break;
+
+    case 'lof':
+        $ar = array();
+        foreach (GetAllSymbolArray() as $strSymbol)
+        {
+        	$sym = new StockSymbol($strSymbol);
+        	if ($sym->IsLofA())	$ar[] = $strSymbol;
+        }
+        break;
+
+    case 'mscius50':
+        $ar = GetMsciUs50SymbolArray();
+        break;
+        
+    case 'oilfund':
+    	$ar = array_merge(QdiiGetXopSymbolArray(), QdiiGetOilEtfSymbolArray(), QdiiGetOilSymbolArray());
+        break;
         
     case 'qdii':
         $ar = QdiiGetSymbolArray();
-        break;
-        
-    case 'qdiihk':
-        $ar = QdiiHkGetSymbolArray();
-        break;
-        
-    case 'qdiimix':
-        $ar = QdiiMixGetSymbolArray();
-        break;
-        
-    case 'qdiijp':
-        $ar = QdiiJpGetSymbolArray();
         break;
         
     case 'qdiieu':
         $ar = QdiiEuGetSymbolArray();
         break;
         
-    case 'oilfund':
-    	$ar = array_merge(QdiiGetXopSymbolArray(), QdiiGetOilEtfSymbolArray(), QdiiGetOilSymbolArray());
+    case 'qdiihk':
+        $ar = QdiiHkGetSymbolArray();
+        break;
+        
+    case 'qdiijp':
+        $ar = QdiiJpGetSymbolArray();
+        break;
+        
+    case 'qdiimix':
+        $ar = QdiiMixGetSymbolArray();
         break;
         
     case 'qqqfund':
@@ -95,10 +108,6 @@ function GetCategoryArray($strPage)
 
     case 'spyfund':
     	$ar = QdiiGetSpySymbolArray();
-        break;
-
-    case 'mscius50':
-        $ar = GetMsciUs50SymbolArray();
         break;
     }
     return $ar;

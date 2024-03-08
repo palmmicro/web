@@ -2,16 +2,17 @@
 require_once('ui/stocktable.php');
 require_once('stock/stocksymbol.php');
 
-define('OIL_GROUP_DISPLAY', '原油');
-define('COMMODITY_GROUP_DISPLAY', '大宗商品和黄金');
 define('BIOTECH_GROUP_DISPLAY', '生物科技');
+define('CHINAINTERNET_GROUP_DISPLAY', '中丐互怜');
+define('COMMODITY_GROUP_DISPLAY', '大宗商品和黄金');
+define('HANGSENG_GROUP_DISPLAY', '恒生指数');
+define('HSHARES_GROUP_DISPLAY', 'H股中国企业指数');
+define('HSTECH_GROUP_DISPLAY', '恒生科技指数');
+define('LOF_GROUP_DISPLAY', 'LOF基金');
+define('MSCIUS50_GROUP_DISPLAY', 'MSCI美国50');
+define('OIL_GROUP_DISPLAY', '原油');
 define('QQQ_GROUP_DISPLAY', '纳斯达克100');
 define('SPY_GROUP_DISPLAY', '标普500');
-define('MSCIUS50_GROUP_DISPLAY', 'MSCI美国50');
-define('CHINAINTERNET_GROUP_DISPLAY', '中丐互怜');
-define('HANGSENG_GROUP_DISPLAY', '恒生指数');
-define('HSTECH_GROUP_DISPLAY', '恒生科技指数');
-define('HSHARES_GROUP_DISPLAY', 'H股中国企业指数');
 
 define('CHINA_INDEX_DISPLAY', 'A股指数');
 define('QDII_DISPLAY', '美股QDII');
@@ -24,16 +25,17 @@ define('FUND_DEMO_SYMBOL', 'SZ162411');
 
 function GetStockCategoryArray()
 {
-    return array('oilfund' => OIL_GROUP_DISPLAY,
-                   'commodity' => COMMODITY_GROUP_DISPLAY,
-                   'biotech' => BIOTECH_GROUP_DISPLAY,
-                   'qqqfund' => QQQ_GROUP_DISPLAY,
-                   'spyfund' => SPY_GROUP_DISPLAY,
-                   'mscius50' => MSCIUS50_GROUP_DISPLAY,
+    return array('biotech' => BIOTECH_GROUP_DISPLAY,
                    'chinainternet' => CHINAINTERNET_GROUP_DISPLAY,
+                   'commodity' => COMMODITY_GROUP_DISPLAY,
                    'hangseng' => HANGSENG_GROUP_DISPLAY,
                    'hshares' => HSHARES_GROUP_DISPLAY,
                    'hstech' => HSTECH_GROUP_DISPLAY,
+                   'lof' => LOF_GROUP_DISPLAY,
+                   'mscius50' => MSCIUS50_GROUP_DISPLAY,
+                   'oilfund' => OIL_GROUP_DISPLAY,
+                   'qqqfund' => QQQ_GROUP_DISPLAY,
+                   'spyfund' => SPY_GROUP_DISPLAY,
                    );
 }
 

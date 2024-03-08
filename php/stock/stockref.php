@@ -278,8 +278,9 @@ class StockReference extends StockSymbol
     function _onSinaDataCN($ar)
     {
         $this->strPrevPrice = $ar[2];
-        $this->strPrice = $ar[3];
-        $this->strDate = $ar[30];
+//        $this->strPrice = $ar[3];
+		$this->strPrice = ($ar[3] == '0.000') ? $ar[2] : $ar[3]; 
+		$this->strDate = $ar[30];
         $this->strTime = $ar[31];
         $this->strName = $ar[0];
         
