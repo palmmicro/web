@@ -182,7 +182,8 @@ function ImgStockGroup($strPage)
     	return GetWoodyImgQuote('hardlife.jpg', '人生永远都在艰难模式');
 
     case 'lof':
-    	return GetWoodyImgQuote('nvda.png', '老黄路边KTV');
+//    	return GetWoodyImgQuote('nvda.png', '老黄路边KTV');
+		return ImgAutoQuote(PATH_BLOG_PHOTO.'freefood.jpg', '又要到饭了兄弟们');
     	
     case 'mscius50':
     	return ImgBelieveMe();

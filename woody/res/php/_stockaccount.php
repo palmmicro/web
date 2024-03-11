@@ -114,7 +114,7 @@ class StockAccount extends TitleAccount
     	$strWeixinPay = GetHtmlElement(GetWeixinPay(($this->GetPage() == 'autotractor') ? 2 : 0));
     	$bAdmin = $this->IsAdmin();
     	
-    	$str = GetStockCategoryLinks().$strNewLine.GetAhCompareLink().' '.GetAutoTractorLink().' '.GetAccountToolLink('simpletest').' '.GetDevGuideLink($strVer).$strNewLine;
+    	$str = GetStockMenuLinks().$strNewLine.GetAllLofLink().' '.GetAhCompareLink().' '.GetAutoTractorLink().' '.GetAccountToolLink('simpletest').' '.GetDevGuideLink($strVer).$strNewLine;
 		if ($strLoginId = $this->GetLoginId())
     	{
     		$str .= GetMyPortfolioLink().$this->_getPersonalLinks($strLoginId);

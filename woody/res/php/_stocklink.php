@@ -6,16 +6,10 @@ function GetUpdateStockHistoryLink($sym, $strDisplay = false)
 	return GetOnClickLink(PATH_STOCK.'submithistory.php?symbol='.$strSymbol, "确认更新{$strSymbol}历史记录?", ($strDisplay ? $strDisplay : $strSymbol));
 }
 
-function _getCategoryLink($strCategory)
-{
-    $ar = GetStockCategoryArray();
-    return GetStockPhpLink($strCategory, $ar[$strCategory]);
-}
-
-function GetCategoryArray($strPage)
+function GetCategoryArray($strItem)
 {
     $ar = array();
-    switch ($strPage)
+    switch ($strItem)
     {
     case 'abcompare':
    		$pair_sql = new AbPairSql();
@@ -123,51 +117,49 @@ function GetCategorySoftwareLinks($arTitle, $strCategory)
     return $str;
 }
 
-function _getCategorySoftwareLinks($strCategory)
+function GetStockCategoryLinks($strItem)
 {
-    $ar = GetCategoryArray($strCategory);
-    $strLink = _getCategoryLink($strCategory);
-    return GetCategorySoftwareLinks($ar, $strLink);
+    return GetCategorySoftwareLinks(GetCategoryArray($strItem), GetStockCategoryLink($strItem));
 }
 
 function GetOilSoftwareLinks()
 {
-    return _getCategorySoftwareLinks('oilfund');
+    return GetStockCategoryLinks('oilfund');
 }
 
 function GetCommoditySoftwareLinks()
 {
-    return _getCategorySoftwareLinks('commodity');
+    return GetStockCategoryLinks('commodity');
 }
 
 function GetXbiSoftwareLinks()
 {
-    return _getCategorySoftwareLinks('biotech');
+    return GetStockCategoryLinks('biotech');
 }
 
 function GetQqqSoftwareLinks()
 {
-    return _getCategorySoftwareLinks('qqqfund');
+    return GetStockCategoryLinks('qqqfund');
 }
 
 function GetSpySoftwareLinks()
 {
-    return _getCategorySoftwareLinks('spyfund');
+    return GetStockCategoryLinks('spyfund');
 }
 
 function GetHangSengSoftwareLinks()
 {
-    return _getCategorySoftwareLinks('hangseng');
+    return GetStockCategoryLinks('hangseng');
 }
 
 function GetHSharesSoftwareLinks()
 {
-    return _getCategorySoftwareLinks('hshares');
+    return GetStockCategoryLinks('hshares');
 }
 
 function GetHsTechSoftwareLinks()
 {
-    return _getCategorySoftwareLinks('hstech');
+    return GetStockCategoryLinks('hstech');
 }
 
 function GetASharesSoftwareLinks()
@@ -179,7 +171,7 @@ function GetASharesSoftwareLinks()
 
 function GetChinaInternetSoftwareLinks()
 {
-    return _getCategorySoftwareLinks('chinainternet');
+    return GetStockCategoryLinks('chinainternet');
 }
 
 function GetBoShiSoftwareLinks($strDigitA)

@@ -164,7 +164,7 @@ function _getLofLink()
 function Echo20160127($strHead)
 {
 	$strHead = GetHeadElement($strHead);
-	$strLOF = GetStockCategoryLink('lof');
+	$strLOF = GetAllLofLink();
 	$strList = GetListElement(array('ETF通常都是100%仓位，而LOF一般不会超过95%的仓位。仓位上的细节会决定估值的准确度。',
 								  'A股可以从6位数字代码上区分。深市ETF代码从150000到159999，深市LOF代码从160000到169999。沪市ETF代码从510000到518999，沪市LOF代码从500000到509999。SH510900就是一个沪市ETF。',
 								  'A股ETF的申购门槛通常至少都是50万份或者100万份，我这种穷套利者玩不起，所以其实我到现在也没搞清楚具体到底是50万还是100万。在美股市场，ETF的申赎基本上都是由做市商完成的。可以看出，A股从制度上来说其实有利于套利群体。',

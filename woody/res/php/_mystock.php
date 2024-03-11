@@ -179,7 +179,17 @@ function GetMyStockLinks($ref)
 	{
 		if ($strDigitA = $ref->IsFundA())
 		{
-			$nav_ref = new NetValueReference($ref->GetSymbol());
+			$strSymbol = $ref->GetSymbol();
+			foreach (GetStockCategoryArray() as $strItem => $strDisplay)
+			{
+				if (in_array($strSymbol, GetCategoryArray($strItem)))
+				{
+					$str .= GetStockCategoryLinks($strItem).GetBreakElement();
+					break;
+				}
+			}
+			
+			$nav_ref = new NetValueReference($strSymbol);
 			$strName = $nav_ref->GetChineseName();
 			if (stripos($strName, '博时') !== false)		$str .= GetBoShiSoftwareLinks($strDigitA);
 			else if (stripos($strName, '易方达') !== false)	$str .= GetEFundSoftwareLinks($strDigitA);

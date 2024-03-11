@@ -8,11 +8,12 @@ define('COMMODITY_GROUP_DISPLAY', '大宗商品和黄金');
 define('HANGSENG_GROUP_DISPLAY', '恒生指数');
 define('HSHARES_GROUP_DISPLAY', 'H股中国企业指数');
 define('HSTECH_GROUP_DISPLAY', '恒生科技指数');
-define('LOF_GROUP_DISPLAY', 'LOF基金');
 define('MSCIUS50_GROUP_DISPLAY', 'MSCI美国50');
 define('OIL_GROUP_DISPLAY', '原油');
 define('QQQ_GROUP_DISPLAY', '纳斯达克100');
 define('SPY_GROUP_DISPLAY', '标普500');
+
+define('LOF_ALL_DISPLAY', 'LOF基金');
 
 define('CHINA_INDEX_DISPLAY', 'A股指数');
 define('QDII_DISPLAY', '美股QDII');
@@ -31,7 +32,6 @@ function GetStockCategoryArray()
                    'hangseng' => HANGSENG_GROUP_DISPLAY,
                    'hshares' => HSHARES_GROUP_DISPLAY,
                    'hstech' => HSTECH_GROUP_DISPLAY,
-                   'lof' => LOF_GROUP_DISPLAY,
                    'mscius50' => MSCIUS50_GROUP_DISPLAY,
                    'oilfund' => OIL_GROUP_DISPLAY,
                    'qqqfund' => QQQ_GROUP_DISPLAY,
@@ -49,7 +49,7 @@ function GetStockMenuArray()
                    'qdiieu' => QDII_EU_DISPLAY);
 }
 
-function GetStockCategoryLinks()
+function GetStockMenuLinks()
 {
 	return GetCategoryLinks(GetStockMenuArray());
 }
@@ -57,6 +57,11 @@ function GetStockCategoryLinks()
 function GetStockPhpLink($strPage, $strDisplay, $strQuery = false)
 {
     return GetPhpLink(PATH_STOCK.$strPage, $strQuery, $strDisplay);
+}
+
+function GetAllLofLink()
+{
+    return GetStockPhpLink('lof', LOF_ALL_DISPLAY);
 }
 
 function GetStockCategoryLink($strItem)

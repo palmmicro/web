@@ -14,7 +14,7 @@ function GetMetaDescription()
 
 function EchoAll()
 {
-	$strStock = GetStockCategoryLinks();
+	$strStock = GetStockMenuLinks();
 	$strAccount = GetAccountToolLinks();
 	$strImage = ImgWoodyHomepage();
 	
