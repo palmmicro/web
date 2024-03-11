@@ -440,6 +440,8 @@ Func _getFundAmount($strSymbol)
 			$strAmount = '100'
 		Case '164906'
 			$strAmount = '5000'
+		Case '501225'
+			$strAmount = '10000'
 	EndSwitch
 	return $strAmount
 EndFunc
@@ -455,6 +457,7 @@ Func YinheOrderFund($hWnd, $idDebug, $strSymbol)
 	$idListView = ControlGetHandle($hWnd, '', $strControlID)
 ;	$iItemCount = _GUICtrlListView_GetItemCount($idListView)
 	$iItemCount = ControlListView($hWnd, '', $strControlID, 'GetItemCount')
+	If $strSymbol == '161226' Or $strSymbol == '501225' Then $iItemCount = 1
 
 #cs
 	$iSubitemCount = ControlListView($hWnd, '', $strControlID, 'GetSubItemCount')
@@ -999,7 +1002,7 @@ Func _loadListViewAccount($iSoftware, $idListViewAccount, ByRef $arCheckboxAccou
 EndFunc
 
 Func AppMain()
-	$idFormMain = GUICreate("通达信单独委托版全自动拖拉机0.66", 803, 506, 289, 0)
+	$idFormMain = GUICreate("通达信单独委托版全自动拖拉机0.67", 803, 506, 289, 0)
 
 	$idListViewAccount = GUICtrlCreateListView("客户号", 24, 24, 146, 454, BitOR($GUI_SS_DEFAULT_LISTVIEW,$WS_VSCROLL), BitOR($WS_EX_CLIENTEDGE,$LVS_EX_CHECKBOXES))
 	GUICtrlSendMsg(-1, $LVM_SETCOLUMNWIDTH, 0, 118)
@@ -1010,7 +1013,7 @@ Func AppMain()
 
 	$idLabelSymbol = GUICtrlCreateLabel("基金代码", 192, 24, 52, 17)
 	$idListSymbol = GUICtrlCreateList("", 192, 48, 121, 97)
-	GUICtrlSetData(-1, '160216|160416|160717|161126|161127|161226|162411|163208|164824|164906', _getProfileString('Symbol', '164824'))
+	GUICtrlSetData(-1, '160216|160416|160717|161126|161127|161226|162411|163208|164824|164906|501225|510300', _getProfileString('Symbol', '164824'))
 
 	$idLabelSellPrice = GUICtrlCreateLabel("卖出价格", 192, 160, 52, 17)
 	$idInputSellPrice = GUICtrlCreateInput("", 192, 184, 121, 21)
