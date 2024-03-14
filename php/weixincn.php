@@ -33,7 +33,7 @@ class WeixinStock extends WeixinCallback
 		else if ($strSymbol = BuildChinaStockSymbol($strContents))	{}
 		else	$strSymbol = $strContents;
 
-		_wxDebug($strUserName, GetRemarkElement('内容：').GetXueqiuLink(new StockSymbol($strSymbol), $strContents), 'Wechat message');
+		_wxDebug($strUserName, GetRemarkElement('内容：').GetXueqiuLink(new StockSymbol($strSymbol), $strContents).' '.GetMyStockLink($strSymbol, '更新数据'), 'Wechat message');
 		$str = $strContents.BOT_EOL;
 		$str .= '本公众号目前只提供部分股票交易和净值估算自动查询。因为没有匹配到信息，此消息内容已经'._wxEmailInfo();
 		return $str;
@@ -43,7 +43,6 @@ class WeixinStock extends WeixinCallback
 	{
         if (stripos($strText, 'Q群') !== false)			return '本公众号不再提供群聊技术支持，有问题请'._wxEmailInfo();
         else if (strpos($strText, '商务合作') !== false)	return '请把具体合作内容和方式'._wxEmailInfo();
-        else if (strpos($strText, '广发原油') !== false)	return '2020年6月19日公众号文章标题写错了，应该是广发石油(162719)。'.BOT_EOL;
         
         if ($str = StockBotGetStr($strText, $this->GetVersion()))		return $str;
 		return $this->GetUnknownText($strText, $strUserName);

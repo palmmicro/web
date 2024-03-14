@@ -2,6 +2,7 @@
 	Title:   		拖拉机自动化
 	Filename:  		yinhe.au3
 	Description: 	拖拉机账户自动申购、卖出、撤单、逆回购和银证转账回银行。
+					https://palmmicro.com/woody/res/autotractorcn.php
 	Author:   		Woody Lin
 
 	This program is free software: you can redistribute it and/or modify
@@ -317,6 +318,30 @@ Func _isShanghaiFundAccount($strAccount)
 	Return False
 EndFunc
 
+Func _isShenzhenLof($strSymbol)
+	$iVal = Number($strSymbol)
+	If $iVal >= 160000 And $iVal < 170000 Then return True
+	return False
+EndFunc
+
+Func _isShanghaiLof($strSymbol)
+	$iVal = Number($strSymbol)
+	If $iVal >= 500000 And $iVal < 510000 Then return True
+	return False
+EndFunc
+
+Func _isShenzhenSymbol($strSymbol)
+	$iVal = Number($strSymbol)
+	If $iVal < 400000 Then return True
+	return False
+EndFunc
+
+Func _isShanghaiSymbol($strSymbol)
+	$iVal = Number($strSymbol)
+	If $iVal >= 500000 Then return True
+	return False
+EndFunc
+
 #cs
 Func _TreeViewSelect($hWnd, $idDebug, $strControlID, $strItem)
 	ControlTreeView($hWnd, '', $strControlID, 'Select', $strItem)
@@ -385,12 +410,12 @@ Func _yinheAddShenzhenOrderEntry($hWnd, $idDebug, $strControlID, $strAccount, $s
 	_DlgClickButton($idDebug, '提示', '确认')
 	_DlgClickButton($idDebug, '提示', '确认')
 
-	If $strSymbol == '161226' Then	Return False
+	If $strSymbol == '161226' Or $strSymbol == '501225' Then	Return False
 	Return True
 EndFunc
 #ce
 
-Func _huabaoAddShenzhenOrderEntry($hWnd, $idDebug, $strControlID, $strAccount, $strSymbol, $strAmount)
+Func _huabaoAddOrderEntry($hWnd, $idDebug, $strControlID, $strAccount, $strSymbol, $strAmount)
 	If _CtlSendString($hWnd, $idDebug, 'Edit1', $strSymbol) Then _addSymbolSpecialKey($idDebug, $strSymbol)
 	ControlCommand($hWnd, '', $strControlID, 'SelectString', $strAccount)
 
@@ -408,7 +433,7 @@ Func _huabaoAddShenzhenOrderEntry($hWnd, $idDebug, $strControlID, $strAccount, $
 	_DlgClickButton($idDebug, '提示', '确认')
 	_DlgClickButton($idDebug, '提示', '确认')
 
-	If $strSymbol == '161226' Then	Return False
+	If $strSymbol == '161226' Or $strSymbol == '501225' Then	Return False
 	Return True
 EndFunc
 
@@ -530,8 +555,8 @@ Func HuabaoOrderFund($hWnd, $idDebug, $strSymbol)
 		If $strAccount == False Then ExitLoop
 
 		_closeNewDlg($idDebug)
-		If _isShenzhenAccount($strAccount) Then
-			If _huabaoAddShenzhenOrderEntry($hWnd, $idDebug, $strControlID, $strAccount, $strSymbol, $strAmount) == False Then ExitLoop
+		If (_isShenzhenAccount($strAccount) And _isShenzhenLof($strSymbol)) Or (_isShanghaiAccount($strAccount) And _isShanghaiLof($strSymbol)) Then
+			If _huabaoAddOrderEntry($hWnd, $idDebug, $strControlID, $strAccount, $strSymbol, $strAmount) == False Then ExitLoop
 		EndIf
 	WEnd
 EndFunc
@@ -619,7 +644,7 @@ Func _clickTreeSell($hWnd, $iSoftware, $idDebug)
 	Return 'ComboBox3'
 EndFunc
 
-Func _addShenzhenSellEntry($hWnd, $iSoftware, $idDebug, $strSymbol, $strPrice, $strSellQuantity, ByRef $iRemainQuantity)
+Func _addSellEntry($hWnd, $iSoftware, $idDebug, $strSymbol, $strPrice, $strSellQuantity, ByRef $iRemainQuantity)
 	_sendSellSymbol($hWnd, $idDebug, $strSymbol)
 	$strPriceControl = 'Edit2'
 	$strSuggestedPrice = _CtlGetText($hWnd, $idDebug, $strPriceControl)
@@ -653,9 +678,9 @@ Func RunSell($hWnd, $iSoftware, $idDebug, $strSymbol, $strPrice, $strSellQuantit
 			If $strAccount == False Then ExitLoop
 
 			_closeNewDlg($idDebug)
-			If _isShenzhenAccount($strAccount) Then
+			If (_isShenzhenAccount($strAccount) And _isShenzhenSymbol($strSymbol)) Or (_isShanghaiAccount($strAccount) And _isShanghaiSymbol($strSymbol)) Then
 				_CtlDebug($idDebug, '剩余卖出数量：' & String($iRemainQuantity))
-				$iSold = _addShenzhenSellEntry($hWnd, $iSoftware, $idDebug, $strSymbol, $strPrice, $strSellQuantity, $iRemainQuantity)
+				$iSold = _addSellEntry($hWnd, $iSoftware, $idDebug, $strSymbol, $strPrice, $strSellQuantity, $iRemainQuantity)
 				$iTotal += $iSold
 				If $iSold == -1 Then
 					Return False
@@ -1002,7 +1027,7 @@ Func _loadListViewAccount($iSoftware, $idListViewAccount, ByRef $arCheckboxAccou
 EndFunc
 
 Func AppMain()
-	$idFormMain = GUICreate("通达信单独委托版全自动拖拉机0.68", 803, 506, 289, 0)
+	$idFormMain = GUICreate("通达信单独委托版全自动拖拉机0.69", 803, 506, 289, 0)
 
 	$idListViewAccount = GUICtrlCreateListView("客户号", 24, 24, 146, 454, BitOR($GUI_SS_DEFAULT_LISTVIEW,$WS_VSCROLL), BitOR($WS_EX_CLIENTEDGE,$LVS_EX_CHECKBOXES))
 	GUICtrlSendMsg(-1, $LVM_SETCOLUMNWIDTH, 0, 118)

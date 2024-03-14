@@ -236,7 +236,7 @@ function EchoAhPairSmaParagraph($ref, $str = false, $callback2 = false)
 
 function GetFutureInterestPremium($fRate = 0.045)
 {
-	$end_ymd = new StringYMD('2024-03-15');
+	$end_ymd = new StringYMD('2024-06-21');
 	date_default_timezone_set('America/New_York');
 	$now_ymd = GetNowYMD();
 	$begin_ymd = new StringYMD($now_ymd->GetYMD());
