@@ -332,13 +332,23 @@ EndFunc
 
 Func _isShenzhenSymbol($strSymbol)
 	$iVal = Number($strSymbol)
-	If $iVal < 400000 Then return True
+	If $iVal < 200000 Then return True
 	return False
 EndFunc
 
 Func _isShanghaiSymbol($strSymbol)
 	$iVal = Number($strSymbol)
-	If $iVal >= 500000 Then return True
+	If $iVal >= 200000 Then return True
+	return False
+EndFunc
+
+Func _isAccountMatchSymbol($strAccount, $strSymbol)
+	If (_isShenzhenAccount($strAccount) And _isShenzhenSymbol($strSymbol)) Or (_isShanghaiAccount($strAccount) And _isShanghaiSymbol($strSymbol)) Then	Return True
+	Return False
+EndFunc
+
+Func _isSingleAccountSymbol($strSymbol)
+	If $strSymbol == '161226' Or $strSymbol == '501225' Then	Return True
 	return False
 EndFunc
 
@@ -410,7 +420,7 @@ Func _yinheAddShenzhenOrderEntry($hWnd, $idDebug, $strControlID, $strAccount, $s
 	_DlgClickButton($idDebug, '提示', '确认')
 	_DlgClickButton($idDebug, '提示', '确认')
 
-	If $strSymbol == '161226' Or $strSymbol == '501225' Then	Return False
+	If _isSingleAccountSymbol($strSymbol) Then	Return False
 	Return True
 EndFunc
 #ce
@@ -433,7 +443,7 @@ Func _huabaoAddOrderEntry($hWnd, $idDebug, $strControlID, $strAccount, $strSymbo
 	_DlgClickButton($idDebug, '提示', '确认')
 	_DlgClickButton($idDebug, '提示', '确认')
 
-	If $strSymbol == '161226' Or $strSymbol == '501225' Then	Return False
+	If _isSingleAccountSymbol($strSymbol) Then	Return False
 	Return True
 EndFunc
 
@@ -482,7 +492,7 @@ Func YinheOrderFund($hWnd, $idDebug, $strSymbol)
 	$idListView = ControlGetHandle($hWnd, '', $strControlID)
 ;	$iItemCount = _GUICtrlListView_GetItemCount($idListView)
 	$iItemCount = ControlListView($hWnd, '', $strControlID, 'GetItemCount')
-	If $strSymbol == '161226' Or $strSymbol == '501225' Then $iItemCount = 1
+	If _isSingleAccountSymbol($strSymbol) Then $iItemCount = 1
 
 #cs
 	$iSubitemCount = ControlListView($hWnd, '', $strControlID, 'GetSubItemCount')
@@ -534,7 +544,7 @@ Func YinheOrderFund($hWnd, $idDebug, $strSymbol)
 		If $strAccount == False Then ExitLoop
 
 		_closeNewDlg($idDebug)
-		If _isShenzhenAccount($strAccount) Then
+		If _isAccountMatchSymbol($strAccount, $strSymbol) Then
 			If _yinheAddShenzhenOrderEntry($hWnd, $idDebug, $strControlID, $strAccount, $strSymbol, $strAmount) == False Then ExitLoop
 		EndIf
 	WEnd
@@ -555,7 +565,7 @@ Func HuabaoOrderFund($hWnd, $idDebug, $strSymbol)
 		If $strAccount == False Then ExitLoop
 
 		_closeNewDlg($idDebug)
-		If (_isShenzhenAccount($strAccount) And _isShenzhenLof($strSymbol)) Or (_isShanghaiAccount($strAccount) And _isShanghaiLof($strSymbol)) Then
+		If _isAccountMatchSymbol($strAccount, $strSymbol) Then
 			If _huabaoAddOrderEntry($hWnd, $idDebug, $strControlID, $strAccount, $strSymbol, $strAmount) == False Then ExitLoop
 		EndIf
 	WEnd
@@ -608,7 +618,7 @@ Func YinheRedeemFund($hWnd, $idDebug, $strSymbol, $strSellQuantity, ByRef $iRema
 		If $strAccount == False Then ExitLoop
 
 		_closeNewDlg($idDebug)
-		If _isShenzhenAccount($strAccount) Then
+		If _isAccountMatchSymbol($strAccount, $strSymbol) Then
 			_CtlDebug($idDebug, '剩余赎回数量：' & String($iRemainQuantity))
 			If _yinheAddShenzhenRedeemEntry($hWnd, $idDebug, $strSymbol, $strSellQuantity, $iRemainQuantity) == False Then	Return False
 		EndIf
@@ -678,7 +688,7 @@ Func RunSell($hWnd, $iSoftware, $idDebug, $strSymbol, $strPrice, $strSellQuantit
 			If $strAccount == False Then ExitLoop
 
 			_closeNewDlg($idDebug)
-			If (_isShenzhenAccount($strAccount) And _isShenzhenSymbol($strSymbol)) Or (_isShanghaiAccount($strAccount) And _isShanghaiSymbol($strSymbol)) Then
+			If _isAccountMatchSymbol($strAccount, $strSymbol) Then
 				_CtlDebug($idDebug, '剩余卖出数量：' & String($iRemainQuantity))
 				$iSold = _addSellEntry($hWnd, $iSoftware, $idDebug, $strSymbol, $strPrice, $strSellQuantity, $iRemainQuantity)
 				$iTotal += $iSold
@@ -1027,7 +1037,7 @@ Func _loadListViewAccount($iSoftware, $idListViewAccount, ByRef $arCheckboxAccou
 EndFunc
 
 Func AppMain()
-	$idFormMain = GUICreate("通达信单独委托版全自动拖拉机0.69", 803, 506, 289, 0)
+	$idFormMain = GUICreate("通达信单独委托版全自动拖拉机0.70", 803, 506, 289, 0)
 
 	$idListViewAccount = GUICtrlCreateListView("客户号", 24, 24, 146, 454, BitOR($GUI_SS_DEFAULT_LISTVIEW,$WS_VSCROLL), BitOR($WS_EX_CLIENTEDGE,$LVS_EX_CHECKBOXES))
 	GUICtrlSendMsg(-1, $LVM_SETCOLUMNWIDTH, 0, 118)
