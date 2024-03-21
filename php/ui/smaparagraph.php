@@ -234,7 +234,7 @@ function EchoAhPairSmaParagraph($ref, $str = false, $callback2 = false)
 	EchoSmaParagraph($ref, $str, $ref, '_callbackAhPairSma', $callback2);
 }
 
-function GetFutureInterestPremium($fRate = 0.045)
+function GetFutureInterestPremium($fRate = 0.048)
 {
 	$end_ymd = new StringYMD('2024-06-21');
 	date_default_timezone_set('America/New_York');

@@ -34,8 +34,8 @@ function GetWeixinPay($iType = 0)
 		break;
         	
 	case 2:
-		$strImage = GetImgElement('/woody/image/tractorsgroup6.jpg', '华宝拖拉机开户微信群临时二维码');
-		$strText = GetFontElement('华宝拖拉机开户微信群临时二维码', 'orange');
+		$strImage = GetImgElement('/woody/image/tractorsgroup7.jpg', '华宝拖拉机开户微信群临时二维码');
+		$strText = GetFontElement('华宝拖拉机开户微信群临时二维码', 'blue');
 		break;
 	}
 	

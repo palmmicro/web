@@ -2,7 +2,9 @@
 require_once('_stock.php');
 require_once('../../php/ui/imagedisp.php');
 
-define('YINHE_AU3_VER', '69');
+// https://kraneshares.com/product-json/?pid=477&type=premium-discount&start=2024-03-14&end=2024-03-15
+
+define('YINHE_AU3_VER', '71');
 
 function EchoAll()
 {
@@ -38,7 +40,7 @@ function EchoAll()
     $str .= $strNewLine.'首先关闭本机上所有在运行的'.$strAllSoftware.'，在运行x86版本的AutoIt3.exe后，它会提示输入文件。给它'.$strYinheAu3.'或者'.$strYinheAu3Now.'都可以执行。';
 //    $str .= GetWoodyImgQuote('20211129auto.jpg', 'AutoIt'.AUTO_TRACTOR_DISPLAY.'软件0.49主界面');
 	$str .= ImgAutoQuote(PATH_BLOG_PHOTO.'autoit066screen.jpg', '2024年2月4日AutoIt'.AUTO_TRACTOR_DISPLAY.'软件0.66主界面');
-    $str .= $strNewLine.'在弹出的用户主界面用鼠标点击'.GetInfoElement('执行自动操作').'按键后，会看到它自动运行'.$strAllSoftware.'，然后一步步在每个'.GetInfoElement('客户号').'的全部最多3个深市股票账户和3个深市基金账户中各自执行选择的'.GetInfoElement('操作').
+    $str .= $strNewLine.'在弹出的用户主界面用鼠标点击'.GetInfoElement('执行自动操作').'按键后，会看到它自动运行'.$strAllSoftware.'，然后一步步在每个'.GetInfoElement('客户号').'的全部可用账户中各自执行选择的'.GetInfoElement('操作').
     		'。除了按ESC键主动退出和响应AutoIt脚本自己的错误提示消息框外，在结束前不能操作任何键盘或者鼠标，否则脚本可能会出错。';
     EchoParagraph($str);
     
