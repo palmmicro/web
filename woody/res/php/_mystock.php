@@ -88,6 +88,16 @@ function _getMyStockLinks($sym)
     return $str;
 }
 
+function _callbackCnhSma($ref, $strEst = false)
+{
+	if ($strEst)
+	{
+		$f = round(2000.0 * floatval($strEst) * GetFutureInterestPremium(-0.020, '2024-06-16'));
+		return strval_round($f / 2000.0, 4);
+	}
+	return $ref;
+}
+
 function _echoMyStockData($ref, $strStockId, $bAdmin)
 {
     $strSymbol = $ref->GetSymbol();
@@ -148,7 +158,11 @@ function _echoMyStockData($ref, $strStockId, $bAdmin)
 			if ($adr_ref)		EchoFundPairSmaParagraph($adr_ref, '');
 		}
 		else if ($adr_ref)		EchoFundPairSmaParagraph($adr_ref);
-		else						EchoSmaParagraph($ref);
+		else						
+		{
+			if ($strSymbol == 'fx_susdcnh')	EchoSmaParagraph($ref, false, $ref, '_callbackCnhSma');
+			else								EchoSmaParagraph($ref);
+		}
    	}
    	
 	EchoNvCloseHistoryParagraph($ref);

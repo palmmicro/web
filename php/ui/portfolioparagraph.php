@@ -115,6 +115,10 @@ function _echoPortfolioTableItem($trans)
         case 'SZ164906':
         	$ar[] = GetArbitrageQuantity($strStockId, floatval($iShares));
 			break;
+
+		case 'hf_ES':
+        	$ar[] = strval($iShares / 5);
+			break;
    		}
     }
 

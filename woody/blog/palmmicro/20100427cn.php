@@ -93,7 +93,7 @@ Yahoo网站服务早些时候给palmmicro.com换到了一个新IP地址: 98.136.
 <br />今天想蹭弘盈A的热度在雪球上吸粉，混了一整天没什么收获。收盘后总算有人问了句<?php EchoAutoTractorLink(); ?>的软件在哪里，我回复后很快就被小秘书删除了。
 <br /><img src=../photo/20210310a.jpg alt="Xueqiu forbidden phrase a" />
 <br /><img src=../photo/tractor.jpg alt="Green tractors" />
-<br />感觉很不爽，翻了下历史记录，把那些雪球小秘书不让我说的话在这里全部记录下来，在<a href="../entertainment/20150818cn.php#weixin">微信公众号</a>上写了篇图文，结果也说我违规不让发，只好放在这里了。
+<br />感觉很不爽，翻了下历史记录，把那些雪球小秘书不让我说的话在这里全部记录下来，在<?php echo GetBlogLink(20161014) ?>上写了篇图文，结果也说我违规不让发，只好放在这里了。
 <br />政府的老口号不能重复。
 <br /><img src=../photo/20210310b.jpg alt="Xueqiu forbidden phrase b" />
 <br />广为流传的笑话不让说。

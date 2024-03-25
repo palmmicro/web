@@ -24,7 +24,7 @@ class WeixinStock extends WeixinCallback
 
     function GetVersion()
     {
-    	return WX_DEBUG_VER.' '.GetDevGuideLink('weixin');
+    	return WX_DEBUG_VER.' '.GetInternalLink('/woody/blog/palmmicro/20161014cn.php', '开发说明');
     }
 
 	function GetUnknownText($strContents, $strUserName)

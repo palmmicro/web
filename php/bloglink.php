@@ -41,7 +41,7 @@ function GetBlogLink($iDate, $bChinese = true, $bLink = true)
 		
 	case 20161014:
 		$strMenu = 'palmmicro';
-		$strDisplay = $bChinese ? '微信' : 'WeChat';
+		$strDisplay = $bChinese ? '微信公众号' : 'WeChat Public Account';
 		break;
 		
 	case 20150818:
@@ -91,7 +91,7 @@ function GetBlogTitle($iDate, $bChinese = true, $bLink = true)
 		break;
 		
 	case 20161014:
-		$strTitle = $bChinese ? 'Palmmicro'.$strDisplay.'公众号sz162411' : 'Palmmicro '.$strDisplay.' Public Account sz162411';
+		$strTitle = $bChinese ? 'Palmmicro'.$strDisplay.'sz162411' : 'Palmmicro '.$strDisplay.' sz162411';
 		break;
 		
 	case 20150818:

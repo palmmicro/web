@@ -184,7 +184,6 @@
 	Echo20180327('走火入魔的'.GetNameTag('nextsma', 'T+1').'均线');
 	Echo20180404('增加'.GetNameTag('adrhcompare', ADRH_COMPARE_DISPLAY).'页面');
 	Echo20180405('增加'.GetNameTag('abcompare', AB_COMPARE_DISPLAY).'页面');
-	Echo20180410('人民币汇率');
 	Echo20180416('终究躲不过去的'.GetNameTag('GB18030'));
 ?>
 
@@ -205,8 +204,6 @@
 <?php
 	Echo20180620('chinaindex');
 	Echo20190412('primenumber');
-	Echo20190601('微信流量主');
-	Echo20190713('微信公众号不提供查询的数据');
 	Echo20190905('cramersrule');
 	Echo20190920('linearregression');
 	Echo20191025('增加'.GetNameTag('fundposition', FUND_POSITION_DISPLAY).'页面');
@@ -215,15 +212,10 @@
 	Echo20200113('华宝油气的C类份额');
 	Echo20200326('国泰商品已经只剩大半桶油');
 	Echo20200915('qqqfund');
-	Echo20210227('增加'.GetNameTag('telegram', '电报').'机器人');
-	Echo20210320('微信公众号剩余群发次数为0');
-	Echo20210613('微信公众平台进去后显示白板');
-	Echo20210622('UTF-8的双字节空格字符');
 	Echo20210624('增加'.GetNameTag('holdings', HOLDINGS_DISPLAY).'页面');
 	Echo20210702('dicecaptcha');
 	Echo20210714('增加'.GetNameTag('fundshare', FUND_SHARE_DISPLAY).'页面');
 	Echo20210728('chinainternet');
-	Echo20211129(GetNameTag('endweixin', '放弃微信').'公众号文章');
 	Echo20220121('sinajs');
 	Echo20220914('qdiimix');
 	Echo20230521('qdiijp');

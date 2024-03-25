@@ -154,7 +154,7 @@ function GetMetaDescription()
 	$strBase = SqlGetStockName($cny_ref->GetSymbol());
     if ($est_ref = $fund->GetEstRef())     $strBase .= '、'.SqlGetStockName($est_ref->GetSymbol());
     
-    $str = '根据'.$strBase.'等其它网站的数据估算'.$acct->GetStockDisplay().'净值的网页工具。';
+    $str = '根据'.$strBase.'等其它网站的数据来源估算'.$acct->GetStockDisplay().'净值的网页工具。';
     return CheckMetaDescription($str);
 }
 
