@@ -12,9 +12,9 @@ function EchoAll()
     
     EchoParagraph(GetRemarkElement('完整软件安装步骤：'));
     $strNepturnLink = GetExternalLink('https://www.chinastock.com.cn/newsite/online/downloadCenterDetail.html?softName=neptune', '银河证券官网');
-    $strNepturn = GetBoldElement('海王星单独委托版3.13');
+    $strNepturn = GetBoldElement('海王星单独委托版3.14');
     $strHuabaoLink = GetExternalLink('https://www.cnhbstock.com/view/software/software.html?col=0', '华宝证券官网');
-    $strHuabao = GetBoldElement('通达信版独立交易8.17');
+    $strHuabao = GetBoldElement('通达信版独立交易8.18');
     echo GetListElement(array('在'.$strNepturnLink.'下载并在缺省路径C:\中国银河证券海王星独立交易\Tc.exe位置安装'.$strNepturn.'，桌面图标会显示'.GetInfoElement('中国银河证券海王星独立交易').'，注意它不同于'.GetFontElement('海王星金融终端').'软件。',
     							'在'.$strHuabaoLink.'下载并在缺省路径C:\tc_hbzq\Tc.exe位置安装'.$strHuabao.'，桌面图标会显示'.GetInfoElement('华宝证券独立交易').'。',
     							'下载并安装开源的'.GetExternalLink('https://www.autoitscript.com/site/autoit/downloads/', 'AutoIt').'工具软件包。普通用户实际仅需用到x86版本的AutoIt3.exe文件。一定要小心软件来源，千万不要运行来历不明的.exe文件。',
@@ -50,7 +50,7 @@ function EchoAll()
     							'逆回购：把剩余可用资金下单比场内价格低一毛卖出204001。',
     							'场内申购：按当日限购金额自动申购'.$strFund.'。',
     							'赎回：按'.$strQuantity.'赎回'.$strFund.'。暂时不支持华宝证券。',
-    							'卖出：按'.GetInfoElement('卖出价格').'和'.$strQuantity.'卖出'.$strFund.'。全部卖出时填一个大于所有账号数量之和的数即可。银河证券在前一日的17:30会短暂开放夜市委托，打算第二天抢跌停卖的可以提前在这里执行，注意要手工输入正确的跌停价。',
+    							'卖出：按'.GetInfoElement('卖出价格').'和'.$strQuantity.'卖出'.$strFund.'。全部卖出时填一个大于所有账号数量之和再加100的数即可，因为软件会对100股以下的碎股四舍五入。银河证券在前一日的17:30会短暂开放夜市委托，打算第二天抢跌停卖的可以提前在这里执行，注意要手工输入正确的跌停价。',
     							'全部撤单：'.$strFund.'的全部申购、赎回或者卖出订单都会被一次性撤销。暂时不支持华宝证券。',
     							'仅登录查询：跟前面所有操作不同，这里登录全部打勾的客户号后不会自动退出'.$strAllSoftware.'。'
     						   ), false);
