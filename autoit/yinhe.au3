@@ -153,6 +153,7 @@ Func _closeNewDlg($idDebug)
 	_DlgClose($idDebug, '海王星条件单')
 	_DlgClose($idDebug, '海王星网格交易')
 	_DlgClose($idDebug, '股票、可转债及可交换债')
+	_DlgClose($idDebug, '风险测评信息')
 EndFunc
 
 Func _DlgClickButton($idDebug, $strTitle, $strButton)
