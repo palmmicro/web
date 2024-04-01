@@ -1,5 +1,4 @@
 <?php
-define('PATH_BLOG', '/woody/blog/');
 
 class BlogPageYMD extends StringYMD
 {

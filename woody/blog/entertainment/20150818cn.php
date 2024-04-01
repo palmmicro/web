@@ -114,7 +114,6 @@
 </p> 
 
 <?php
-	Echo20160609('用PHP把GB2312编码字符串转换成'.GetNameTag('utf8', 'UTF-8'));
 	Echo20160818('qdii');
 ?>
 
@@ -138,7 +137,6 @@
 	Echo20161020(GetNameTag('weixin', '微信公众号').'查询A股股票数据');
 	Echo20161028('查询A股基金数据');
 	Echo20170128('增加'.GetNameTag('ahcompare', AH_COMPARE_DISPLAY).'页面');
-	Echo20170319('ip');
 ?>
 
 <h3><a name="bollinger">布林</a>线</h3>
@@ -177,14 +175,10 @@
 </p>
 
 <?php
-	Echo20170410('simpletest');
 	Echo20171001('200日和50日'.GetNameTag('ema').'均线');
-	Echo20171226('commonphrase');
-	Echo20180216('从MySQL表中查找'.GetNameTag('GB2312').'对应的UNICODE');
 	Echo20180327('走火入魔的'.GetNameTag('nextsma', 'T+1').'均线');
 	Echo20180404('增加'.GetNameTag('adrhcompare', ADRH_COMPARE_DISPLAY).'页面');
 	Echo20180405('增加'.GetNameTag('abcompare', AB_COMPARE_DISPLAY).'页面');
-	Echo20180416('终究躲不过去的'.GetNameTag('GB18030'));
 ?>
 
 <h3><?php EchoNameTag('nvclosehistory', NVCLOSE_HISTORY_DISPLAY); ?></h3>
@@ -203,20 +197,13 @@
 
 <?php
 	Echo20180620('chinaindex');
-	Echo20190412('primenumber');
-	Echo20190905('cramersrule');
-	Echo20190920('linearregression');
 	Echo20191025('增加'.GetNameTag('fundposition', FUND_POSITION_DISPLAY).'页面');
-	Echo20191114('benfordslaw');
-	Echo20191115('chisquaredtest');
 	Echo20200113('华宝油气的C类份额');
 	Echo20200326('国泰商品已经只剩大半桶油');
 	Echo20200915('qqqfund');
 	Echo20210624('增加'.GetNameTag('holdings', HOLDINGS_DISPLAY).'页面');
-	Echo20210702('dicecaptcha');
 	Echo20210714('增加'.GetNameTag('fundshare', FUND_SHARE_DISPLAY).'页面');
 	Echo20210728('chinainternet');
-	Echo20220121('sinajs');
 	Echo20220914('qdiimix');
 	Echo20230521('qdiijp');
 	Echo20230525('qdiieu');

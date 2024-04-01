@@ -310,7 +310,7 @@ function StockGetGroupTransactionLinks($strGroupId)
 }
 
 // ****************************** Other internal link related functions *******************************************************
-function GetGroupStockLink($strSymbol, $bFull = false)
+function GetGroupStockLink($strSymbol = FUND_DEMO_SYMBOL, $bFull = false)
 {
     if (in_arrayAll($strSymbol))		return GetStockPageLink(strtolower($strSymbol), ($bFull ? SqlGetStockName($strSymbol).'('.$strSymbol.')' : $strSymbol));
     return false;

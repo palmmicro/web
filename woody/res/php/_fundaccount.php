@@ -252,7 +252,8 @@ function EchoAll()
             EchoRemarks($strSymbol);
         }
     }
-    $acct->EchoLinks('fundaccount');
+//    $acct->EchoLinks('fundaccount');
+    $acct->EchoLinks();
 }
 
 function GetMetaDescription()

@@ -3,12 +3,11 @@
 // ****************************** Internal none-stock link functions *******************************************************
 
 define('PATH_ACCOUNT', '/account/');
+define('PATH_BLOG', '/woody/blog/');
 
-function GetDevGuideLink($strVer = false)
+function GetDevLink($strBlog)
 {
-    $str = '/woody/blog/entertainment/20150818cn.php';
-    if ($strVer)	$str .= '#'.$strVer;
-    return GetInternalLink($str, '开发记录');
+    return GetInternalLink(PATH_BLOG.$strBlog, '开发记录');
 }
 
 function GetMemberLink($strMemberId, $bChinese = true)
