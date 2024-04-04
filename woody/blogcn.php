@@ -15,6 +15,7 @@ function EchoAll()
 {
 	$strUsdInterest = GetBlogTitle(20230614);
 	$strSnowball = GetBlogTitle(20201205);
+	$strNasdaq100 = GetBlogTitle(20200915);
 	$strFuturesPremium = GetBlogTitle(20200424);
 	$strWechat = GetBlogTitle(20161014);
 	$strSZ162411 = GetBlogTitle(20150818);
@@ -36,6 +37,7 @@ function EchoAll()
 <br />$strUsdInterest
 {$arYears[2020]} 
 <br />$strSnowball
+<br />$strNasdaq100
 <br />$strFuturesPremium
 {$arYears[2016]} 
 <br />$strWechat

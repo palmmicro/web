@@ -200,7 +200,6 @@
 	Echo20191025('增加'.GetNameTag('fundposition', FUND_POSITION_DISPLAY).'页面');
 	Echo20200113('华宝油气的C类份额');
 	Echo20200326('国泰商品已经只剩大半桶油');
-	Echo20200915('qqqfund');
 	Echo20210624('增加'.GetNameTag('holdings', HOLDINGS_DISPLAY).'页面');
 	Echo20210714('增加'.GetNameTag('fundshare', FUND_SHARE_DISPLAY).'页面');
 	Echo20210728('chinainternet');

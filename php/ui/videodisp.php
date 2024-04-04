@@ -12,6 +12,7 @@ function GetVideoParagraph($strPathName, $iWidth, $iHeight, $strPosterFile, $str
 	if (LayoutGetDisplayWidth() < $iWidth)
 	{
 		$str = GetFileLink($strPathName);
+		$str .= ImgAutoQuote($strPosterFile, $strText, $bChinese);
 	}
 	else
 	{

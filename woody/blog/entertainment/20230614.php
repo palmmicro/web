@@ -8,18 +8,18 @@ function GetMetaDescription($bChinese)
 
 function EchoAll($bChinese)
 {
+	$strNasdaq100 = GetBlogLink(20200915, $bChinese);
 	$strFuturesPremium = GetBlogLink(20200424, $bChinese);
 	$strImage = ImgCMENQ20230614($bChinese);
 	
 	EchoBlogDate($bChinese);
     echo <<<END
-<br />As SZ159501 ETF starts trading today, the Nasdaq 100 funds on the Chinese market have reached the edge of being counted on both hands, and half of them are newly opened this year, which shows its popularity.
+<br />As SZ159501 ETF starts trading today, the $strNasdaq100 funds on the Chinese market have reached the edge of being counted on both hands, and half of them are newly opened this year, which shows its popularity.
 <br />The realtime netvalue estimation of these funds uses futures NQ from Sina data. Sina's futures data always provides the so-called main contract, which means it may switch earlier. 
 For example, according to NQ data, Sina switched to contracts expiring in September two days earlier. In the past year, whenever this happens, someone always asks, why is the realtime netvalue estimation so high?
 <br />Because as the USD raises interest rates, the futures premium of the Nasdaq 100 and S&P 500 have continued to rise.
 $strImage
-</p>
-<p>This is a screenshot as best I could before writing it. CME data is delayed by ten minutes, Snowball data is basically realtime. 
+<br />This is a screenshot as best I could before writing it. CME data is delayed by ten minutes, Snowball data is basically realtime. 
 It can be seen that the contract settled on Jun 16 (14983) has only a small premium compared to the market price (about 14980 ten minutes ago), but the Sep contract has a premium of about 1.2% compared to Jun (15169/14983=1.012).
 Dec also had the same premium of 1.2% relative to Sep.
 <br />Everyone likes to say that futures reflect expectations, so this premium can easily be interpreted as the public believing that US stocks will always rise, but this is wrong. 

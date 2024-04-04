@@ -34,6 +34,10 @@ function GetBlogLink($iDate, $bChinese = true, $bLink = true)
 		$strDisplay = $bChinese ? '雪球' : 'Snowball';
 		break;
 		
+	case 20200915:
+		$strDisplay = $bChinese ? '纳斯达克100' : 'Nasdaq 100';
+		break;
+		
 	case 20200424:
 		$strDisplay = $bChinese ? '期货升水' : 'Futures Premium';
 		break;
@@ -85,6 +89,10 @@ function GetBlogTitle($iDate, $bChinese = true, $bLink = true)
 		$strTitle = $bChinese ? $strDisplay.'私募的作业' : 'Homework for '.$strDisplay.' Private Equity';
 		break;
 
+	case 20200915:
+		$strTitle = $bChinese ? '跟踪'.$strDisplay.'的SZ161130近期溢价申购套利回顾' : 'Recent Trading of SZ161130 Tracking '.$strDisplay;
+		break;
+		
 	case 20200424:
 		$strTitle = $bChinese ? '原油'.$strDisplay.'和油轮运价的对照计算' : 'Crude Oil '.$strDisplay.' and Tanker Rate';
 		break;

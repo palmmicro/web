@@ -31,6 +31,12 @@ function PhotoSnowball($bChinese = true)
 	return GetBlogPictureParagraph(20201205, 'ImgSnowballCarnival', $bChinese);
 }
 
+function VideoNasdaq100($bChinese = true)
+{
+	$str = GetBlogTitle(20200915, $bChinese);
+	return GetHtmlElement($str).VideoSZ161130($bChinese);
+}
+
 class ImageAccount extends TitleAccount
 {
     // photo2006 -> 2006

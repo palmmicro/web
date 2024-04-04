@@ -188,6 +188,7 @@ function _echo20180416($strHead)
 	$strGB18030 = GetExternalLink('http://icu-project.org/repos/icu/data/trunk/charset/source/gb18030/gbkuni30.txt', 'GB18030');
 	$strUNICODE = GetNameLink('UNICODE');
 	$strUpdate = DebugIsAdmin() ? GetInternalLink('/php/test/updategbutf.php', '更新UNICODE码表') : '';
+	$strImage = ImgAlwaysWin();
 	$strQuote = GetBlockquoteElement('欲练神功，必先自宫；虽然自宫，未必成功；如不自宫，也可成功。');
 	
     echo <<<END
@@ -195,6 +196,7 @@ function _echo20180416($strHead)
 <p>2018年4月16日
 <br />在给{$strWechat}增加了{$strAbcompare}的数据后, 意外发现{$strSZ200168}股票名字中的{$strZhe2}在转UTF-8后成了乱码。发现了一只蟑螂就说明有一窝。我把数据库中所有股票名字查看了一遍后，果然发现了{$strSZ002752}和{$strSZ300208}中的{$strSheng1}也是乱码。
 <br />产生乱码的原因很明显，这两个生僻字本身就不在只有六千多汉字的{$strGB2312}中。这意味着我需要一个{$strGB18030}和{$strUNICODE}的对应码表来扩展我的MySQL数据表。花了差不多一天功夫做完这些几乎算是推倒重来的修补后，我不禁又有了一种神功已成的感觉。 $strUpdate
+$strImage
 </p>
 	$strQuote
 END;

@@ -22,6 +22,25 @@ function LayoutIsMobilePhone()
     return false;
 }
 
+function ResizeJpg($strPathName, $iNewWidth = 300, $iNewHeight = 420)
+{
+	$strNewName = substr($strPathName, 0, strlen($strPathName) - 4).'x'.strval($iNewWidth).'y'.strval($iNewHeight).'__'.substr($strPathName, -4, 4);
+	$strNewRootName = UrlModifyRootFileName($strNewName); 
+	if (!file_exists($strNewRootName))
+	{
+		$imgOrg = imagecreatefromjpeg(UrlModifyRootFileName($strPathName));
+		$iWidth = imagesx($imgOrg);
+		$iHeight = imagesy($imgOrg);
+		DebugString('Converting '.$strNewName);
+		$imgNew = imagecreatetruecolor($iNewWidth, $iNewHeight);
+		imagecopyresampled($imgNew, $imgOrg, 0, 0, 0, 0, $iNewWidth, $iNewHeight, $iWidth, $iHeight);
+		imagejpeg($imgNew, $strNewRootName);
+		imagedestroy($imgNew);
+		imagedestroy($imgOrg);
+	}
+	return $strNewName;
+}
+
 //	https://ibkr.com/referral/rongrong586
 function GetWeixinPay($iType = 0)
 {
@@ -34,8 +53,10 @@ function GetWeixinPay($iType = 0)
 		break;
         	
 	case 2:
-		$strImage = GetImgElement('/woody/image/tractorsgroup8.jpg', '华宝拖拉机开户微信群临时二维码');
-		$strText = GetFontElement('华宝拖拉机开户微信群临时二维码', 'yellow');
+		$strPathName = ResizeJpg('/debug/wechat/oJw6iwd-zXaDio9uFzXggqBQYBZ8.jpg');
+		$strRemark = '华宝拖拉机开户微信群临时二维码';
+		$strImage = GetImgElement($strPathName, $strRemark);
+		$strText = GetFontElement($strRemark, 'orange');
 		break;
 	}
 	

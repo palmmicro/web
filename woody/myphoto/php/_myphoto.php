@@ -2,6 +2,7 @@
 require_once('../../php/layout.php');
 require_once('../../php/bloglink.php');
 require_once('../../php/ui/imagedisp.php');
+require_once('../../php/ui/videodisp.php');
 require_once('../php/_woodymenu.php');
 require_once('../php/_imageaccount.php');
 

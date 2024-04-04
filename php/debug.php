@@ -177,6 +177,12 @@ function DebugGetImageName($str)
     return "$strPath/$str.jpg";
 }
 
+function DebugGetWechatImageName($str)
+{
+    $strPath = DebugGetPath('wechat');
+    return "$strPath/$str.jpg";
+}
+
 function DebugGetFontName($str)
 {
     $strPath = DebugGetPath('font');

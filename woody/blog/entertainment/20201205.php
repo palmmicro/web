@@ -23,7 +23,6 @@ Unfortunately, the second prize was running out of stock. She said she could giv
 At first I planned to tell her that I picked up a badge in the trash can outside of the door, but I felt that this would not be conducive to me getting the first prize. 
 So I changed my excuse and said that I was an extremely heavy user of Snowball, the phone software really affected my eyesight and sleep, so I was forced to uninstall it. My honest face probably impressed her, and she finally agreed.
 <br />Finally it was my turn to ask questions, and I asked if I could take a photo to use as the cover of post. As soon as they heard my request, all three pretty girls hid aside, so there was no picture of pretty girl in this article.
-<br />
 $strImage
 </p>
 END;

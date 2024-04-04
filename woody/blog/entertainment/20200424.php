@@ -21,13 +21,11 @@ And at the same time, I reminded myself not to forget the pitfalls I stepped on 
 Today I will do some elementary school-level mathematical calculations on this conclusion.
 <br />It feels like a lifetime ago since then. On Mar 6, oil futures CL fell 10% to $40, and then continued to fall 30% to $30 on Mon, Mar 9, and then fell all the way to negative numbers -$37.63.
 $strNegOil
-</p>
-<p>Before CME can design a complex number oil price system, this screenshot will be shown to the public again and again as part of a historical portrait.
+<br />Before CME can design a complex number oil price system, this screenshot will be shown to the public again and again as part of a historical portrait.
 <br />According to the official explanation of CME, negative oil prices reflect the overproduction of crude oil that cannot be stored, and desperate producers have to pay cash to have the oil removed. 
 In this environment, oil tankers have become ideal temporary storage locations, and tanker rate has become storage costs.
 $strTankerRate
-</p>
-<p>This picture shows the tanker rates announced on Apr 17. Taking the very large tanker VLCC as an example, the average price for the whole year of 2019 was US$25,600 per day, while the price this week was US$185,700 per day. 
+<br />This picture shows the tanker rates announced on Apr 17. Taking the very large tanker VLCC as an example, the average price for the whole year of 2019 was US$25,600 per day, while the price this week was US$185,700 per day. 
 The difference of US$160,000 per day between the two can be regarded as the storage costs used as oil tanks.
 <br />As new positions for the May contract can no longer be opened on Apr 20, the premium difference per barrel between the Jun contract and the Oct contract in the screenshot of oil futures CL at that time is:
 <br />31.86 - 22.23 = 9.63 USD.

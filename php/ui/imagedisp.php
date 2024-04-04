@@ -136,6 +136,11 @@ function ImgBelieveMe($bChinese = true)
 	return ImgAutoQuote(PATH_BLOG_PHOTO.'believe.jpg', ($bChinese ? '至于你信不信，我反正信了。' : 'You believe it or not, I believe it anyway.'), $bChinese);
 }
 
+function ImgAlwaysWin()
+{
+	return ImgAutoQuote(PATH_BLOG_PHOTO.'linqingxia.jpg', '东方不败林青霞');
+}
+
 function ImgAccountTool($strPage)
 {
 	switch ($strPage)
@@ -168,8 +173,9 @@ function ImgStockGroup($strPage)
 {
     switch ($strPage)
     {
-//    case 'biotech':
-
+    case 'biotech':
+		return ImgAlwaysWin();
+    	
     case 'chinainternet':
     	return GetWoodyImgQuote('huangrong.jpg', '依稀往梦似曾见，心内波澜现。');
     	
