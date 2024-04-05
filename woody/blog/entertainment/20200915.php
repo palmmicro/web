@@ -29,8 +29,8 @@ $strImgMnq
 <br />The futures corresponding to the index include NQ and MNQ of CME Group. The value of NQ is ten times that of MNQ. Speaking of which, MNQ is also an innovation created by CME Group this year with negative oil prices, so that more mini investors can participate in stock index futures trading.
 One order of MNQ is calculated based on the current index points multiplied by 2 US dollars. The current value is more than 20,000 US dollars, a leverage of about 20 times.
 <br />There are also many funds tracking the index in Chinese market. In addition to 161130, there are SH513100 and SZ159941 ect.
-</p>
 $strVideo
+</p>
 END;
 }
 

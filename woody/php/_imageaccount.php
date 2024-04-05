@@ -33,8 +33,7 @@ function PhotoSnowball($bChinese = true)
 
 function VideoNasdaq100($bChinese = true)
 {
-	$str = GetBlogTitle(20200915, $bChinese);
-	return GetHtmlElement($str).VideoSZ161130($bChinese);
+	return GetHtmlElement(GetBlogTitle(20200915, $bChinese).VideoSZ161130($bChinese));
 }
 
 class ImageAccount extends TitleAccount

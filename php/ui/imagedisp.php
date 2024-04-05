@@ -221,4 +221,33 @@ function ImgStockGroup($strPage)
     return '';
 }
 
+/*
+<video width="720" height="1280" controls poster="../blog/photo/20200915.jpg">
+	<source src="../blog/photo/sz161130.mp4" type="video/mp4">
+	你的浏览器不支持video标签
+</video>
+*/
+
+function GetVideoControl($strPathName, $iWidth, $iHeight, $strText = '', $bChinese = true)
+{
+	$strPosterFile = substr($strPathName, 0, strlen($strPathName) - 4).'.jpg';
+	$strNewLine = GetBreakElement();
+	if (LayoutGetDisplayWidth() < $iWidth)
+	{
+		$str = GetFileLink($strPathName);
+		$str .= ImgAutoQuote($strPosterFile, $strText, $bChinese);
+	}
+	else
+	{
+		$str = GetHtmlElement('<source src="'.$strPathName.'" type="video/mp4">', 'video', array('width' => GetDoubleQuotes(strval($iWidth)), 'height' => GetDoubleQuotes(strval($iHeight)), 'controls' => false, 'poster' => GetDoubleQuotes($strPosterFile)));   
+		$str .= $strNewLine.GetQuoteElement($strText);
+	}
+	return $strNewLine.$str;
+}
+
+function VideoSZ161130($bChinese = true)
+{
+	return GetVideoControl(PATH_BLOG_PHOTO.'sz161130.mp4', 720, 1280, ($bChinese ? '关于SZ161130的直播视频回放' : 'SZ161130 live broadcast video playback'), $bChinese);
+}
+
 ?>

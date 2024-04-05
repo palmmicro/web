@@ -6,7 +6,6 @@ require_once('../../../php/externallink.php');
 require_once('../../../php/ui/link.php');
 require_once('../../../php/ui/blogtable.php');
 require_once('../../../php/ui/imagedisp.php');
-require_once('../../../php/ui/videodisp.php');
 require_once('../../php/_woodymenu.php');
 
 function _menuBlogGroup($bChinese)
