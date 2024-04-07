@@ -12,7 +12,7 @@ function EchoAll($bChinese)
 	$strImgQqq = ImgAutoQuote(PATH_BLOG_PHOTO.'20200915QQQ.jpg', 'Sep 11. Top 10 holdings on QQQ official website.', $bChinese);
 	$strGoogle = GetBlogLink(20110509, $bChinese);
 	$strImgMnq = ImgAutoQuote(PATH_BLOG_PHOTO.'20200915MNQ.jpg', 'Sep 14. MNQ quotes displayed on CME official website.', $bChinese);
-	$strVideo = VideoSZ161130($bChinese);
+	$strVideo = VidAboutSZ161130($bChinese);
 
 	EchoBlogDate();
     echo <<<END

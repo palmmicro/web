@@ -33,7 +33,7 @@ function GetMetaDescription($bChinese)
 
 function EchoAll($bChinese)
 {
-	$str = '';
+	$strAll = '';
 	if ($strDir = _getPhotoDir())
 	{
 		$strSuffix = GetImgAutoSuffix();
@@ -50,7 +50,19 @@ function EchoAll($bChinese)
 				$strPathName = $strDir.'/'.$strFile;
 				if (is_file($strPathName)) 
 				{	// Process the file
-					$str .= GetHtmlElement(ImgAutoQuote($strPathName, '', $bChinese));
+					if (strtolower(substr($strPathName, -4, 4)) == '.jpg')
+					{
+						$strVideoFile = substr($strPathName, 0, strlen($strPathName) - 4).'.mp4';
+						if (file_exists($strVideoFile))
+						{
+							$str = GetVideoControl($strVideoFile, '', $bChinese);
+						}
+						else
+						{
+							$str = ImgAutoQuote($strPathName, '', $bChinese);
+						}
+						$strAll .= GetHtmlElement($str);
+					}
 				}
 			}
 		}
@@ -58,7 +70,7 @@ function EchoAll($bChinese)
 	
     echo <<<END
 
-$str
+$strAll
 END;
 }
 

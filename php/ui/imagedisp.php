@@ -228,26 +228,37 @@ function ImgStockGroup($strPage)
 </video>
 */
 
-function GetVideoControl($strPathName, $iWidth, $iHeight, $strText = '', $bChinese = true)
+function GetVideoControl($strPathName, $strText = '', $bChinese = true)
 {
 	$strPosterFile = substr($strPathName, 0, strlen($strPathName) - 4).'.jpg';
-	$strNewLine = GetBreakElement();
-	if (LayoutGetDisplayWidth() < $iWidth)
+	$strPosterRootName = UrlModifyRootFileName($strPosterFile); 
+	if (file_exists($strPosterRootName))
 	{
-		$str = GetFileLink($strPathName);
-		$str .= ImgAutoQuote($strPosterFile, $strText, $bChinese);
+		$imageInfo = getimagesize($strPosterRootName);
+		if ($imageInfo !== false) 
+		{
+			$iWidth = $imageInfo[0]; // Width is at index 0
+			$iHeight = $imageInfo[1]; // Height is at index 1
+			$strNewLine = GetBreakElement();
+			if (LayoutGetDisplayWidth() < $iWidth)
+			{
+				$str = GetFileLink($strPathName);
+				$str .= ImgAutoQuote($strPosterFile, $strText, $bChinese);
+			}
+			else
+			{
+				$str = GetHtmlElement('<source src="'.$strPathName.'" type="video/mp4">', 'video', array('width' => GetDoubleQuotes(strval($iWidth)), 'height' => GetDoubleQuotes(strval($iHeight)), 'controls' => false, 'poster' => GetDoubleQuotes($strPosterFile)));   
+				$str .= $strNewLine.GetQuoteElement($strText);
+			}
+			return $strNewLine.$str;
+		}
 	}
-	else
-	{
-		$str = GetHtmlElement('<source src="'.$strPathName.'" type="video/mp4">', 'video', array('width' => GetDoubleQuotes(strval($iWidth)), 'height' => GetDoubleQuotes(strval($iHeight)), 'controls' => false, 'poster' => GetDoubleQuotes($strPosterFile)));   
-		$str .= $strNewLine.GetQuoteElement($strText);
-	}
-	return $strNewLine.$str;
+	return '';
 }
 
-function VideoSZ161130($bChinese = true)
+function VidAboutSZ161130($bChinese = true)
 {
-	return GetVideoControl(PATH_BLOG_PHOTO.'sz161130.mp4', 720, 1280, ($bChinese ? '关于SZ161130的直播视频回放' : 'SZ161130 live broadcast video playback'), $bChinese);
+	return GetVideoControl(PATH_BLOG_PHOTO.'sz161130.mp4', ($bChinese ? '关于SZ161130的直播视频回放' : 'SZ161130 live broadcast video playback'), $bChinese);
 }
 
 ?>
