@@ -22,7 +22,7 @@ function EchoSinaDataLink($strSinaSymbols)
 
 function EchoSinaDebugLink($strSina)
 {
-	echo GetFileLink(DebugGetSinaFileName($strSina), true);
+	echo GetSinaDebugLink($strSina);
 }
 
 function EchoMyStockLink($strSymbol, $strDisplay = false)

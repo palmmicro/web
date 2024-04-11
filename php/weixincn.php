@@ -82,7 +82,7 @@ class WeixinStock extends WeixinCallback
 		if ($img = url_get_contents($strUrl))
 		{
 			$size = strlen($img);
-			$strFileName = DebugGetWechatImageName($strUserName); 
+			$strFileName = DebugGetWechatImageName(substr(md5($strUserName.DebugGetTime()), 16)); 
 			$fp = @fopen($strFileName, 'w');  
 			fwrite($fp, $img);  
 			fclose($fp);  

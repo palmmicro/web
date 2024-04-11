@@ -139,8 +139,8 @@ class StockReference extends StockSymbol
     function GetPercentageDisplay($strDivisor = false, $strDividend = false)
     {
    		$strDisp = $this->GetPercentageText($strDivisor, $strDividend);
-   		if (substr($strDisp, -1, 1) == '%')		$strColor = (substr($strDisp, 0, 1) == '-') ? 'red' : 'black';
-   		else							   			$strColor = 'gray';
+   		if (str_ends_with($strDisp, '%'))		$strColor = str_starts_with($strDisp, '-') ? 'red' : 'black';
+   		else							   		$strColor = 'gray';
     	return GetFontElement($strDisp, $strColor);
     }
     

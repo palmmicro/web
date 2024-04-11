@@ -3,7 +3,7 @@ require('_tgprivate.php');
 require_once('stockbot.php');
 
 // 电报公共模板, 返回输入信息
-define('TG_DEBUG_VER', '版本018');		
+define('TG_DEBUG_VER', '版本019');		
 
 define('BOT_EOL', "\r\n");
 define('MAX_BOT_MSG_LEN', 2048);
@@ -71,7 +71,7 @@ class TelegramCallback
 		if (isset($message['text'])) 
 		{	// incoming text message
 			$text = $message['text'];
-			if (substr($text, 0, 1) == '/')
+			if (str_starts_with($text, '/'))
 			{
 				$strCmd = trim(ltrim($text, '/'));
 				switch ($strCmd)

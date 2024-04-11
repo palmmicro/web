@@ -69,7 +69,7 @@ function url_get_contents($strUrl, $arExtraHeaders = false, $strFileName = false
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);  
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);  
     curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
-    if (substr($strUrl, 0, 5) == 'https')
+    if (str_starts_with($strUrl, 'https'))
     {
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
@@ -115,7 +115,7 @@ function UrlGetRootDir()
 
 function UrlModifyRootFileName($strFileName)
 {
-	if (substr($strFileName, 0, 1) == '/')		return	UrlGetRootDir().substr($strFileName, 1);
+	if (str_starts_with($strFileName, '/'))		return	UrlGetRootDir().substr($strFileName, 1);
 	return $strFileName;
 }
 
@@ -245,7 +245,7 @@ function UrlGetCur()
 
 function UrlIsValid($str)
 {
-   	if (substr($str, 0, 2) == '//')			return false;
+   	if (str_starts_with($str, '//'))			return false;
    	if (strpos($str, '..') !== false)		return false;
    	if (stripos($str, URL_PHP) === false)	return false;
    	return true;
@@ -274,7 +274,7 @@ function UrlGetUri()
 
 function _cnEndString($str)
 {
-   	if (substr($str, -2, 2) == 'cn')
+   	if (str_ends_with($str, 'cn'))
    	{
    	    return true;
    	}

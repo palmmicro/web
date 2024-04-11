@@ -105,7 +105,7 @@ function _getDiceCaptchaString($strInput, $bChinese)
 
 function _getSimpleTestString($strInput, $bChinese)
 {
-	if (substr($strInput, 0, 4) == 'http')
+	if (str_starts_with($strInput, 'http'))
 	{
     	if ($str = url_get_contents($strInput))
     	{
@@ -224,6 +224,64 @@ function _getPrimeNumberString($strNumber, $bChinese)
 	return $str;
 }
 
+function _getSinaJsChineseStockArray($bChinese)
+{
+	if ($bChinese)	return	 array('GB2312编码的股票名字', STOCK_DISP_OPEN, '昨日收盘价', '当前价格，收盘后数据可以当成今日收盘价？', STOCK_DISP_HIGH, STOCK_DISP_LOW, '当前买价，跟序号11买一字段相同。', '当前卖价，跟序号21卖一字段相同。', STOCK_DISP_QUANTITY, '总成交金额', 
+										'买一股数', '买一价格，跟序号6相同。', '二', '二', '三', '三', '四', '四', '五', '五', '卖一股数', '卖一价格，跟序号7相同。', '二', '二', '三', '三', '四', '四', '五', '五', '日期', '时间', '结束符？');
+	return	 array('GB2312 coded stock name', 'Today open', 'Last close', 'Current price, used as today close after market close?', 'Today high', 'Today low', 'Current bid, same as index 11 bid1.', 'Current ask, same as index 21 ask1.', 'Total quantity', 'Total amount', 
+					'Bid1 quantity', 'Bid1 price, same as index 6.', '2', '2', '3', '3', '4', '4', '5', '5', 'Ask1 quantity', 'Ask1 price, same as index 7.', '2', '2', '3', '3', '4', '4', '5', '5', 'Date', 'Time', 'End of data?');
+}
+
+function _getSinaJsFundArray($bChinese)
+{
+	if ($bChinese)	return	 array('GB2312编码的名字', '目前净值', '累计净值', '上一个交易日净值', '日期', '？');
+	return	 array('GB2312 coded name', 'Current net value', 'Accumulated net value', 'Previous trading day net value', 'Date', '?');
+}
+
+function _getSinaJsAmericanArray($bChinese)
+{
+	if ($bChinese)	return	 array('GB2312编码的中文名字', '当前价格，收盘后数据可以当成今日收盘价？', '相对昨日收盘价的变化百分比', '中国时区日期和时间', '相对昨日收盘价的变化', STOCK_DISP_OPEN, STOCK_DISP_HIGH, STOCK_DISP_LOW, '52周'.STOCK_DISP_HIGH, '52周'.STOCK_DISP_LOW, 
+										STOCK_DISP_QUANTITY, '10日均量', '市值', '每股收益', '市盈率', '？', '贝塔系数', '股息', '收益率', '股本', '？', '盘前盘后交易', '盘前盘后交易变化百分比', '盘前盘后交易变化', '美东时区盘前盘后交易日期和时间',
+										'美东时区日期和时间', '昨日收盘价', '盘前盘后交易'.STOCK_DISP_QUANTITY, '未知，从此项开始以下为2020年9月22日新增。', '年份，可能是为了24和25项在年末时用strtotime函数会搞错年份而加。', '总成交金额，除以第10项换算成当日均价后跟雪球显示的不一致。');
+	return	 array('GB2312 coded Chinese name', 'Current price, used as today close after market close?', '% Change from last close', 'PRC date time', 'Change from last close', 'Open price', 'Today high', 'Today low', '52 weeks high', '52 weeks low', 
+										'Total quantity', '10 days average quantity', 'Market value', 'EPS', 'PE', '?', 'Beta', 'Dividends', 'Rate of return', 'Share capital', '?', 'Extended trading', 'Extended trading % change', 'Extended trading change', 'EST extended trading date time',
+										'EST date time', 'Last close', 'Extended trading quantity', '?', 'Year', 'Total amount');
+}
+
+function _getSinaJsFutureArray($bChinese)
+{
+	if ($bChinese)	return	 array('当前价格', '相对上一日结算价的变化百分比', '当前买价', '当前卖价', STOCK_DISP_HIGH, STOCK_DISP_LOW, '时间', '上一日结算价格', STOCK_DISP_OPEN, '持仓量', '当前买量？', '当前卖量？', '日期', 'GB2312编码的名字');
+	return	 array('Current price', 'The percentage of current price change', 'Bid price', 'Ask price', 'Today high', 'Today low', 'Time', 'Last close', 'Open price', 'Total quantity', 'Bid quantity?', 'Ask quantity?', 'Date', 'GB2312 coded name');
+}
+
+function _getSinaJsHongkongArray($bChinese)
+{
+	if ($bChinese)	return	 array('英文名字', 'GB2312编码的中文名字', STOCK_DISP_OPEN, '昨日收盘价', STOCK_DISP_HIGH, STOCK_DISP_LOW, '当前价格，收盘后数据可以当成今日收盘价？', '相对昨日收盘价的变化', '相对昨日收盘价的变化百分比', '当前买价？', '当前卖价？', '总成交金额', STOCK_DISP_QUANTITY, 
+										'市盈率？', '周息率？', '52周'.STOCK_DISP_HIGH, '52周'.STOCK_DISP_LOW, '日期', '时间');
+	return	 array('English name', 'GB2312 coded Chinese name', 'Open price', 'Last close', 'Today high', 'Today low', 'Current price, used as today close after market close?', 'Change from last close', '% Change from last close', 'Bid price?', 'Ask price?', 'Total amount', 'Total quantity', 
+					'PE?', 'Interest rate?', '52 weeks high', '52 weeks low', 'Date', 'Time');
+}
+
+// var hq_str_sz164906="中国互联" ==> sz164906;
+function _getSinaSymbol($strFirst)
+{
+	$str = str_replace('var hq_str_', '', $strFirst);
+	$iEqualsIndex = strpos($str, '=');
+	if ($iEqualsIndex !== false)	$str = substr($str, 0, $iEqualsIndex);
+//	DebugString($str);
+	return $str;
+}
+
+function _getSinaJsInterpretationArray($strSymbol, $bChinese)
+{
+	if (preg_match('/^(sh|sz|bj)\d{6}$/', $strSymbol))					return _getSinaJsChineseStockArray($bChinese);
+	else if (preg_match('/^'.SINA_FUND_PREFIX.'\d{6}$/', $strSymbol))	return _getSinaJsFundArray($bChinese);
+	else if (str_starts_with($strSymbol, SINA_US_PREFIX))				return _getSinaJsAmericanArray($bChinese);
+	else if (str_starts_with($strSymbol, SINA_FUTURE_PREFIX))			return _getSinaJsFutureArray($bChinese);
+	else if (str_starts_with($strSymbol, SINA_HK_PREFIX))				return _getSinaJsHongkongArray($bChinese);	// rt_hkHSCEI, rt_hk00386
+	return false;
+}
+
 function _getSinaJsString($strInput, $bChinese)
 {
     if ($str = url_get_contents(GetSinaDataUrl($strInput), UrlGetRefererHeader(GetSinaFinanceUrl())))
@@ -237,12 +295,17 @@ function _getSinaJsString($strInput, $bChinese)
     		{
     			$iCount = 0;
     			$arItem = explode(',', $strLine);
-//    			$str .= $strLine.$strNewLine;
+    			$strSymbol = _getSinaSymbol($arItem[0]);
+    			$strFileName = DebugGetSinaFileName($strSymbol);
+		        file_put_contents($strFileName, $strLine);
+    			$str .= GetFileLink($strFileName, true).$strNewLine;
+    			$arMeaning = _getSinaJsInterpretationArray($strSymbol, $bChinese);
 	    		foreach ($arItem as $strItem)
 	    		{
-	    			$str .= strval($iCount).': ';
+	    			$str .= GetRemarkElement(strval($iCount)).': ';
 	    			if ($strItem == '')	$str .= '('.($bChinese ? '空' : 'Empty').')';
 	    			else					$str .= GetQuoteElement(GbToUtf8($strItem));
+					if ($arMeaning && isset($arMeaning[$iCount]))	$str .= ' ==> '.GetInfoElement($arMeaning[$iCount]);
 	    			$str .= $strNewLine;
 	    			$iCount ++;
 	    		}
@@ -415,7 +478,7 @@ function _getDefaultInput($strPage)
     	break;
     		
    	case 'sinajs':
-    	$str = 'sz164906,f_164906,gb_kweb,b_TPX,rt_hkHSIII';
+    	$str = 'sz162411,f_162411,gb_xop,hf_CL,rt_hk00386,b_TPX,rt_hkHSIII';
    		break;
    		
     default:

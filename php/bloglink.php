@@ -130,7 +130,7 @@ function GetBlogTitle($iDate, $bChinese = true, $bLink = true)
 	{
 		$strPage = UrlGetPage();
 		$strDate = strval($iDate);
-		$strDate = ($strPage == 'blog' || substr($strPage, 0, 5) == 'photo') ? GetBlogMonthDay($strDate, $bChinese) : GetBlogYmd($strDate, $bChinese); 
+		$strDate = ($strPage == 'blog' || str_starts_with($strPage, 'photo')) ? GetBlogMonthDay($strDate, $bChinese) : GetBlogYmd($strDate, $bChinese); 
 		return $strDate.' '.$strTitle;
 	}
 	return $strTitle;

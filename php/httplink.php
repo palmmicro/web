@@ -63,6 +63,11 @@ function GetDebugFileLink()
     return GetFileLink(DebugGetFile(), true);
 }
 
+function GetSinaDebugLink($strSina)
+{
+	return GetFileLink(DebugGetSinaFileName($strSina), true);
+}
+
 function GetFileDebugLink($strPathName)
 {
     clearstatcache(true, $strPathName);
