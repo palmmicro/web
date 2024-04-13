@@ -57,7 +57,7 @@
 <?php
 	Echo20150821(GetNameTag('mobiledetect', '检测手机'));
 	Echo20150824('增加'.GetNameTag('stockhistory', STOCK_HISTORY_DISPLAY).'页面');
-	Echo20150827('qdiihk');
+	EchoPage20150827('qdiihk');
 ?>
 
 <h3>股票<a name="transaction">交易</a>记录</h3>
@@ -77,27 +77,12 @@
 	Echo20160108('增加'.GetNameTag('fundhistory', FUND_HISTORY_DISPLAY).'页面');
 	Echo20160126('统一数据显示格式');
 	Echo20160127('ETF和'.GetNameTag('lof'));
+	Echo20160216('增加'.GetNameTag('calibrationhistory', CALIBRATION_HISTORY_DISPLAY).'页面');
 	Echo20160222('增加'.GetNameTag('netvaluehistory', NETVALUE_HISTORY_DISPLAY).'页面');
-	Echo20160226('周期3意味着'.GetNameTag('chaos', '混沌'));
+	Echo20160226('周期三意味着'.GetNameTag('chaos', '混沌'));
+	Echo20160423('新浪实时港股数据');
+	Echo20160515('近几年来最低级的错误');
 ?>
-
-<h3>新浪实时港股数据</h3>
-<p>2016年4月23日
-<br />在<?php EchoXueqiuId('5174320624', '均金无忌'); ?>的帮助下使用新浪实时港股数据(<?php EchoSinaDataLink('rt_hk02828'); ?>),
-替代原来延迟15分钟的<a href="20151225cn.php">新浪股票数据</a>.
-<br />刚过去的周4净值页面系列的当日总访问量创纪录的超过了2200, 激励我继续优化页面反应速度.
-</p>
-
-<h3>近几年来最低级的bug</h3>
-<p>2016年5月15日
-<br />上周人民币又开始贬值, 让华宝油气估值暴露出一个新bug, 到了13号周5的时候, 我的估值居然比官方数据高了差不多一个百分点了.
-周末开始查问题, 发现最后一次自动校准还是12号晚上拿到11号的官方净值后, 而本应该在13号晚上拿到12号官方净值后的自动校准居然没有做. 也就是说, 在过去的一段时间内, 自动校准都不知不觉的晚了一天,
-只不过在汇率平稳的情况下这个问题暴露不出来而已.
-<br />找到问题并不难, 春节后为了用最简单的方法解决中美轮流休市导致的估值问题, 因为只有港股QDII会出现QDII净值数据比ETF新的情况, 我按照是否港股QDII重新整理了部分代码,
-对美股QDII就不考虑根据今天的QDII净值和昨天ETF价格校准的情况了. 结果无意改了个其实无关的代码,
-把<font color=gray><code>$iHours = STOCK_HOUR_END + ($this->usdhkd_ref ? 0 : 24);</code></font>写成了<font color=gray><code>$iHours = STOCK_HOUR_END + ($this->usdhkd_ref) ? 0 : 24;</code></font>
-<br />不过这个bug严重打击了我的自信心. 这一次我没法用自己是个6年的PHP<font color=red>新手</font>来自嘲了, 在我自豪的写了25年的C语言中, 这同样是个超级低级的错误!
-</p>
 
 <h3><?php EchoNameTag('myportfolio', MY_PORTFOLIO_DISPLAY); ?></h3>
 <p>2016年6月5日
@@ -114,7 +99,8 @@
 </p> 
 
 <?php
-	Echo20160818('qdii');
+	Echo20160615('东方财富美元人民币中间价'.GetNameTag('uscny'));
+	EchoPage20160818('qdii');
 ?>
 
 <h3><?php EchoNameTag('thanousparadox', THANOUS_PARADOX_DISPLAY); ?></h3>
@@ -133,7 +119,8 @@
 </p>
 
 <?php
-	Echo20161006('增加'.GetNameTag('calibrationhistory', CALIBRATION_HISTORY_DISPLAY).'页面');
+	Echo20161008('新浪国内期货实时数据接口的字段意义');
+	Echo20161017('新浪实时美股数据接口的字段意义');
 	Echo20161020(GetNameTag('weixin', '微信公众号').'查询A股股票数据');
 	Echo20161028('查询A股基金数据');
 	Echo20170128('增加'.GetNameTag('ahcompare', AH_COMPARE_DISPLAY).'页面');
@@ -179,6 +166,7 @@
 	Echo20180327('走火入魔的'.GetNameTag('nextsma', 'T+1').'均线');
 	Echo20180404('增加'.GetNameTag('adrhcompare', ADRH_COMPARE_DISPLAY).'页面');
 	Echo20180405('增加'.GetNameTag('abcompare', AB_COMPARE_DISPLAY).'页面');
+	Echo20180413('中国外汇交易中心的中间价接口');
 ?>
 
 <h3><?php EchoNameTag('nvclosehistory', NVCLOSE_HISTORY_DISPLAY); ?></h3>

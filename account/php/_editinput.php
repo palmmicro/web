@@ -234,8 +234,8 @@ function _getSinaJsChineseStockArray($bChinese)
 
 function _getSinaJsFundArray($bChinese)
 {
-	if ($bChinese)	return	 array('GB2312编码的名字', '目前净值', '累计净值', '上一个交易日净值', '日期', '？');
-	return	 array('GB2312 coded name', 'Current net value', 'Accumulated net value', 'Previous trading day net value', 'Date', '?');
+	if ($bChinese)	return	 array('GB2312编码的名字', '目前净值', '累计净值', '昨日净值', '日期', '？');
+	return	 array('GB2312 coded name', 'Current net value', 'Accumulated net value', 'Previous net value', 'Date', '?');
 }
 
 function _getSinaJsAmericanArray($bChinese)
@@ -244,14 +244,14 @@ function _getSinaJsAmericanArray($bChinese)
 										STOCK_DISP_QUANTITY, '10日均量', '市值', '每股收益', '市盈率', '？', '贝塔系数', '股息', '收益率', '股本', '？', '盘前盘后交易', '盘前盘后交易变化百分比', '盘前盘后交易变化', '美东时区盘前盘后交易日期和时间',
 										'美东时区日期和时间', '昨日收盘价', '盘前盘后交易'.STOCK_DISP_QUANTITY, '未知，从此项开始以下为2020年9月22日新增。', '年份，可能是为了24和25项在年末时用strtotime函数会搞错年份而加。', '总成交金额，除以第10项换算成当日均价后跟雪球显示的不一致。');
 	return	 array('GB2312 coded Chinese name', 'Current price, used as today close after market close?', '% Change from last close', 'PRC date time', 'Change from last close', 'Open price', 'Today high', 'Today low', '52 weeks high', '52 weeks low', 
-										'Total quantity', '10 days average quantity', 'Market value', 'EPS', 'PE', '?', 'Beta', 'Dividends', 'Rate of return', 'Share capital', '?', 'Extended trading', 'Extended trading % change', 'Extended trading change', 'EST extended trading date time',
-										'EST date time', 'Last close', 'Extended trading quantity', '?', 'Year', 'Total amount');
+										'Total quantity', '10 days average quantity', 'Market value', 'EPS', 'PE', '?', 'Beta', 'Dividends', 'Rate of return', 'Share capital', '?', 'Extended trading', 'Extended trading % change', 'Extended trading change', 'EDT extended trading date time',
+										'EDT date time', 'Last close', 'Extended trading quantity', '?', 'Year', 'Total amount');
 }
 
 function _getSinaJsFutureArray($bChinese)
 {
-	if ($bChinese)	return	 array('当前价格', '相对上一日结算价的变化百分比', '当前买价', '当前卖价', STOCK_DISP_HIGH, STOCK_DISP_LOW, '时间', '上一日结算价格', STOCK_DISP_OPEN, '持仓量', '当前买量？', '当前卖量？', '日期', 'GB2312编码的名字');
-	return	 array('Current price', 'The percentage of current price change', 'Bid price', 'Ask price', 'Today high', 'Today low', 'Time', 'Last close', 'Open price', 'Total quantity', 'Bid quantity?', 'Ask quantity?', 'Date', 'GB2312 coded name');
+	if ($bChinese)	return	 array('当前价格', '相对昨日结算价的变化百分比', '当前买价', '当前卖价', STOCK_DISP_HIGH, STOCK_DISP_LOW, '时间', '昨日结算价', STOCK_DISP_OPEN, '持仓量', '当前买量？', '当前卖量？', '日期', 'GB2312编码的名字');
+	return	 array('Current price', 'The percentage of current price change', 'Bid price', 'Ask price', 'Today high', 'Today low', 'Time', 'Last adjusted close', 'Open price', 'Volume', 'Bid quantity?', 'Ask quantity?', 'Date', 'GB2312 coded name');
 }
 
 function _getSinaJsHongkongArray($bChinese)
@@ -260,6 +260,12 @@ function _getSinaJsHongkongArray($bChinese)
 										'市盈率？', '周息率？', '52周'.STOCK_DISP_HIGH, '52周'.STOCK_DISP_LOW, '日期', '时间');
 	return	 array('English name', 'GB2312 coded Chinese name', 'Open price', 'Last close', 'Today high', 'Today low', 'Current price, used as today close after market close?', 'Change from last close', '% Change from last close', 'Bid price?', 'Ask price?', 'Total amount', 'Total quantity', 
 					'PE?', 'Interest rate?', '52 weeks high', '52 weeks low', 'Date', 'Time');
+}
+
+function _getSinaJsChineseFutureArray($bChinese)
+{
+	if ($bChinese)	return	 array('名字', '时间HH:MM:SS', STOCK_DISP_OPEN, STOCK_DISP_HIGH, STOCK_DISP_LOW, '昨日收盘价', '买价', '卖价', '最新价', '结算价', '昨日结算价', '买量', '卖量', '持仓量', STOCK_DISP_QUANTITY, '商品交易所简称', '品种名简称', '日期');
+	return	 array('Name', 'Time HH:MM:SS', 'Open price', 'Today high', 'Today low', 'Last close', 'Bid', 'Ask', 'Current price', 'Adjusted close', 'Last adjusted close', 'Bid quantity', 'Ask quantity', 'Volume', 'Total quantity', 'Exchange short name', 'Short name', 'Date');
 }
 
 // var hq_str_sz164906="中国互联" ==> sz164906;
@@ -279,6 +285,7 @@ function _getSinaJsInterpretationArray($strSymbol, $bChinese)
 	else if (str_starts_with($strSymbol, SINA_US_PREFIX))				return _getSinaJsAmericanArray($bChinese);
 	else if (str_starts_with($strSymbol, SINA_FUTURE_PREFIX))			return _getSinaJsFutureArray($bChinese);
 	else if (str_starts_with($strSymbol, SINA_HK_PREFIX))				return _getSinaJsHongkongArray($bChinese);	// rt_hkHSCEI, rt_hk00386
+	else if (str_ends_with($strSymbol, '0'))								return _getSinaJsChineseFutureArray($bChinese);
 	return false;
 }
 
@@ -478,7 +485,7 @@ function _getDefaultInput($strPage)
     	break;
     		
    	case 'sinajs':
-    	$str = 'sz162411,f_162411,gb_xop,hf_CL,rt_hk00386,b_TPX,rt_hkHSIII';
+    	$str = 'sz162411,f_162411,gb_xop,hf_CL,rt_hk00386,AU0,b_TPX,rt_hkHSIII';
    		break;
    		
     default:

@@ -80,19 +80,6 @@ The stupid editor always need to save as <i>UTF-8 without signature</i>.
 I can not figure out an easy way to convert them in current MySQL database.
 </p>
 
-<h3>Converting GB2312 Encoded String to UTF-8 Using PHP</h3>
-<p>Jun 9, 2016
-<br .>I have been adding more features for <a href="20150818.php">SZ162411 Net Value</a> tool recently. Working on web page now and then for so many years, 
-my original planned <a href="../../../pa6488/index.html">PA6488</a> and <a href="../../../pa3288/index.html">PA3288</a> products web management is still unavailable,
-and palmmicro.com is becoming an amateur stock web site.
-<br .>As more and more stocks are involved, I plan to use the stock information in <a href="20151225.php">Sina Stock Data</a> directly instead of input them by hand.
-Now the problem of 4 years ago comes back, the data from Sina is still GB2312 encoded, and I still can not convert them from GB2312 to UTF8 by native PHP functions like <i>mb_detect_encoding</i> and <i>iconv</i>.
-<br .>But I am much more experienced in PHP now. First I downloaded the GB2312 and UNICODE converting <a href="http://blog.csdn.net/longronglin/article/details/1355890" target=_blank>table</a> from internet,
-Then I wrote a converting tool to generate an array $arGB2312 sorted by GB2312 as key, and finallly function <i>GbToUtf8</i> searched UNICODE from $arGB2312 table,
-and called a small function <a href="https://segmentfault.com/a/1190000003020776" target=_blank><i>unicode_to_utf8</i></a> to convert it to UTF8. 
-The whole process was done in a night, it really feels good!
-</p>
-
 </div>
 
 <?php _LayoutBottom(false); ?>

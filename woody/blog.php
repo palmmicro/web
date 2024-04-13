@@ -41,9 +41,7 @@ function EchoAll($bChinese)
 <br />$strFuturesPremium
 {$arYears[2016]} 
 <br />$strWechat
-<br />Jun 15 EastMoney <a href="blog/entertainment/20160615.php">USDCNY Reference Rate</a> Data Interface
 {$arYears[2015]} 
-<br />Dec 25 The Interpretation of <a href="blog/entertainment/20151225.php">Sina Stock Data</a> Interface
 <br />$strSZ162411
 {$arYears[2014]} 
 <br />$strMia

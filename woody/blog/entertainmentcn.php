@@ -23,8 +23,6 @@ function EchoAll()
 <br />$strSnowball
 <br />$strNasdaq100
 <br />$strFuturesPremium
-<br />2016年6月15日 东方财富<a href="entertainment/20160615cn.php">美元人民币中间价</a>汇率实时数据接口的字段意义
-<br />2015年12月25日 <a href="entertainment/20151225cn.php">新浪股票数据</a>接口的字段意义
 <br />$strSZ162411
 <br />$strMia
 <br />$strStock

@@ -91,10 +91,11 @@ END;
    	EchoStockHistoryParagraph(new MyStockReference(STOCK_DEMO_SYMBOL));
 }
 
-function Echo20150827($strPage)
+function EchoPage20150827($strPage)
 {
 	$strHead = GetHeadElement('扩大规模到'._getStockMenuTag($strPage));
-	$strQDII = GetStockMenuLink('qdii');
+	$strQdiiHk = GetStockMenuLink('qdiihk');
+	$strQdii = GetStockMenuLink('qdii');
 	$strSZ159920 = GetGroupStockLink('SZ159920', true);
 	$strSH510900 = GetGroupStockLink('SH510900', true);
 	$strSH513500 = GetGroupStockLink('SH513500', true);
@@ -103,7 +104,7 @@ function Echo20150827($strPage)
     echo <<<END
 	$strHead
 <p>2015年8月27日
-<br />整理代码最好的方式是多开发几个类似{$strQDII}。伴随最近抄底港股加入{$strSZ159920}和{$strSH510900}净值计算工具，观摩美股崩盘期间顺手加入了{$strSH513500}净值计算工具，也许日后会用上。
+<br />整理代码最好的方式是多开发几个类似{$strQdiiHk}和{$strQdii}。伴随最近抄底港股加入{$strSZ159920}和{$strSH510900}净值计算工具，观摩美股崩盘期间顺手加入了{$strSH513500}净值计算工具，也许日后会用上。
 <br />牢记股市三大幻觉：A股要涨、美股见顶、港股便宜！
 $strImage
 </p>
@@ -114,11 +115,13 @@ function Echo20160108($strHead)
 {
 	$strHead = GetHeadElement($strHead);
 	$strXueqiu = GetXueqiuIdLink('2091843424', '塔夫男');
+	$strLink = GetSinaDataLink('sz162411');
 
     echo <<<END
 	$strHead
 <p>2016年1月8日
 <br />在{$strXueqiu}等人的建议下，加入华宝油气基金历史表格记录每天的折价溢价情况。最近几天的直接显示在当前页面，同时增加单独显示全部历史数据的页面。
+<br />开始动手后发现几个月前分析的新浪A股实时数据接口的字段意义已经差不多忘光了。好记性不如烂笔头，本着磨刀不误砍柴工的精神，先在这里完整记录一下，以便日后查阅：{$strLink}
 </p>
 END;
 
@@ -129,6 +132,7 @@ function Echo20160126($strHead)
 {
 	$strHead = GetHeadElement($strHead);
 	$strXueqiu = GetXueqiuIdLink('8907500725', 'oldwain');
+	$strLink = GetSinaDataLink('hf_CL');
 	$strStockReference = GetCodeElement('StockReference');
 	$strFutureReference = GetCodeElement('FutureReference');
 	$strForexReference = GetCodeElement('ForexReference');
@@ -136,7 +140,8 @@ function Echo20160126($strHead)
     echo <<<END
 	$strHead
 <p>2016年1月26日
-<br />在{$strXueqiu}的建议下，在相关价格记录的时间中加入日期显示。原来版本中没有它是因为自己觉得交易日期很明显，完全没有必要出来占地方。不过既然有人觉得有问题，我就效仿白居易写诗先读给妇孺听的优良传统改了。
+<br />在{$strXueqiu}的建议下，在相关价格记录的时间中加入日期显示。这下上次的A股接口记录就派上用场了，不过新浪外盘期货的格式又重新看了一遍，加个记录以防以后还要用：{$strLink}
+<br />原来版本中没有它是因为自己觉得交易日期很明显，完全没有必要出来占地方。不过既然有人觉得有问题，我就效仿白居易写诗先读给妇孺听的优良传统改了。
 估计跟我从2000年开始就在美股赔钱不同，很多人还是不熟悉美国股市交易时间。而在这里，美股数据后面跟的是美东日期和时间。
 <br />虽说是个小的分离数据和显示改动，但是忍不住哗啦哗啦又整理优化了一大片代码。
 把原来的{$strStockReference}类作为基础类，原来期货和汇率数据读取分别改为继承自它的{$strFutureReference}类和{$strForexReference}类，达到统一数据显示格式的目的。
@@ -175,11 +180,32 @@ Wiki的QDII词条下显示了它是Qualified Domestic Institutional Investor的�
 END;
 }
 
+function Echo20160216($strHead)
+{
+	$strHead = GetHeadElement($strHead);
+	$strXueqiu = GetXueqiuIdLink('5240589924', 'uqot');
+	$strLink = GetSinaDataLink('f_162411');
+	$strSZ162411 = GetCalibrationHistoryLink(FUND_DEMO_SYMBOL, true).CALIBRATION_HISTORY_DISPLAY;
+	
+    echo <<<END
+	$strHead
+<p>2016年2月16日
+<br />晚上九点多的时候，{$strXueqiu}跟我说华宝油气净值出问题了。我看了一下调试信息，发现八点的时候做了一次自动校准。按照流程，拿到15日的SZ162411净值后先跟15日XOP的收盘值校准，但是昨天美股因为总统日没有交易，这一步没有成功。
+接下来进入使用前一个交易日的数据校准的代码，而不幸的是美股的上周五交易日刚好碰上中国春节假期，A股没有交易。数据中的上一个交易日净值是春节前的，于是软件拿节前最后一个交易日的华宝油气净值跟上周五XOP收盘价做了错误的自动校准。这种问题只在中美轮流休市的情况下才会出现，而过去的一周恰好是这种情况！
+<br />我先用手工校准的功能恢复了正确的数据，然后趁着又看了一遍新浪基金数据接口字段意义的热乎劲，依旧加个记录备用：$strLink
+<br />接下来我想到，这么追着做以前日期的自动校准太蠢了，应该只做当天的然后存下来，如果当天不满足自动校准的条件，就用最近保存的校准数据估值就是了。
+本来每次拿到官方发布的净值后都会根据净值当天的美股数据做一次自动校准，从现在开始全部在{$strSZ162411}页面记录下来，同时还方便观察长期趋势。校准时间就是拿到新的官方净值后第一次访问的时间。
+<br />碰到XOP分红除权的日子，就需要进行手工校准。否则的话要等下一次自动校准后，估值结果才会再次正确。
+</p>
+END;
+}
+
 function Echo20160222($strHead)
 {
 	$strHead = GetHeadElement($strHead);
 	$strFundHistory = GetNameLink('fundhistory', FUND_HISTORY_DISPLAY);
 	$strStockHistory = GetNameLink('stockhistory', STOCK_HISTORY_DISPLAY);
+	$strCalibrationHistory = GetNameLink('calibrationhistory', CALIBRATION_HISTORY_DISPLAY);
 	$strNavHistoryLink = GetNavHistoryLink(FUND_DEMO_SYMBOL);
 	
     echo <<<END
@@ -187,7 +213,7 @@ function Echo20160222($strHead)
 <p>2016年2月22日
 <br />有人跟我指出{$strFundHistory}中净值的日期显示早了一天，我差点一口鲜血吐在了键盘上。用脚趾头想想，要计算华宝油气当天的交易溢价，肯定是要跟前一天的净值比较啊。当天的净值要等当晚美股收盘后才出来，否则的话我写这个净值估算有什么意义呢。
 <br />把当天的交易价格跟前一天的净值放在一起比较，其实也正是我平时最为推崇的不同数据显示方式引导不同思维模式的举措。 
-不过为了避免以后还有人搞混淆，我干脆另外加了一个单独的{$strNavHistoryLink}显示页面，算上最开始的{$strStockHistory}，现在总共有3个历史数据页面了。  
+不过为了避免以后还有人搞混淆，我干脆另外加了一个单独的{$strNavHistoryLink}显示页面，算上最开始的{$strStockHistory}和前几天加的{$strCalibrationHistory}，现在总共有四个历史数据页面了。  
 </p>
 END;
 }
@@ -228,12 +254,66 @@ function Echo20160226($strHead)
 END;
 }
 
+function Echo20160423($strHead)
+{
+	$strHead = GetHeadElement($strHead);
+	$strQdiiHk = _getStockMenuLink('qdiihk');
+	$strStockReference = GetCodeElement('StockReference');
+	$strXueqiu = GetXueqiuIdLink('5174320624', '均金无忌');
+	$strLink = GetSinaDataLink('rt_hkHSCEI');
+	
+    echo <<<END
+	$strHead
+<p>2016年4月23日
+<br />用Yahoo拿港股数据给{$strQdiiHk}估值搞了半年后，一贯后知后觉的我才在{$strXueqiu}的帮助下发现新浪也有港股数据。这次吸取以往教训，挽起袖子改我的{$strStockReference}类前先写这个格式文档：$strLink
+<br />刚过去的周四净值页面系列的当日总访问量创纪录的超过了2200，激励我继续优化页面反应速度。
+</p>
+END;
+}
+
+function Echo20160515($strHead)
+{
+	$strHead = GetHeadElement($strHead);
+	$strCalibrationHistory = GetNameLink('calibrationhistory', CALIBRATION_HISTORY_DISPLAY);
+	$strQdiiHk = _getStockMenuLink('qdiihk');
+	$strCorrect = GetCodeElement('$iHours = STOCK_HOUR_END + ($this->usdhkd_ref ? 0 : 24)');
+	$strWrong = GetCodeElement('$iHours = STOCK_HOUR_END + ($this->usdhkd_ref) ? 0 : 24');
+	
+    echo <<<END
+	$strHead
+<p>2016年5月15日
+<br />上周人民币又开始贬值，让华宝油气估值暴露出一个新错误，到了13日周五的时候，我的估值居然比官方数据高了差不多一个百分点。
+周末开始查问题，发现最后一次自动校准还是12日晚上拿到11日的官方净值后，而本应该在13日晚上拿到12日官方净值后的自动校准居然没有做。也就是说，在过去的一段时间内，自动校准都不知不觉的晚了一天，只不过在汇率平稳的情况下这个问题暴露不出来而已。
+<br />找到问题并不难，春节后用最简单的增加{$strCalibrationHistory}方法解决中美轮流休市导致的估值问题时，我还按照是否{$strQdiiHk}重新整理了部分代码，结果无意改了个其实无关的代码，把{$strCorrect}写成了{$strWrong}。
+<br />不过这个错误严重打击了我的自信心。这一次我没法用自己是个六年的PHP新手来自嘲了，在我自豪的写了25年的C语言中，这同样是个超级低级的错误！
+</p>
+END;
+}
+
+function Echo20160615($strHead)
+{
+	$strHead = GetHeadElement($strHead);
+	$strUSDCNY = GetSinaDataLink('USDCNY');
+	$strQdii = GetStockMenuLink('qdii');
+	$strXueqiu = GetXueqiuIdLink('6706948861', 'zzzzv');
+    $strUSCNY = GetExternalLink('https://quote.eastmoney.com/cnyrate/USDCNYC.html', 'USCNY');
+	
+    echo <<<END
+	$strHead
+<p>2016年6月15日
+<br />因为从新浪拿的{$strUSDCNY}是实时交易数据，而{$strQdii}净值使用的是美元人民币中间价，在华宝油气净值估算中跟最终官方数据相比有时候会出现0.1分的误差。考虑到误差不大，我也不会去做0.1分钱的套利，而且我还相信交易值总会往中间价靠拢，所以我一直没有去改它。
+<br />今年以来国泰商品的基金经理费心费力，在国内监管部门要求多个不同美股ETF持仓的条件下，居然一直维持了净值和USO几乎完全相同的变动，由此在白天引发了大量跟原油期货CL的套利交易。
+高手像{$strXueqiu}已经做到了0.05分的套利，这样就必须使用中间价了，他还根据长期经验给我确认了交易值不会往中间价靠拢，并且给我提供了他手头的Excel+VBA工具中使用的东方财富美元人民币中间价{$strUSCNY}的接口。
+</p>
+END;
+}
+
 function _getQdiiLink()
 {
 	return GetNameLink('qdii');
 }
 
-function Echo20160818($strPage)
+function EchoPage20160818($strPage)
 {
 	$strHead = GetHeadElement(_getStockMenuTag($strPage).'中考虑当日CL交易情况后的T+1估值');
 	$strJisilu = GetJisiluQdiiLink();
@@ -247,9 +327,10 @@ function Echo20160818($strPage)
 	
 	$realtime_col = new TableColumnRealtimeEst();
 	$strRealtimeEst = $realtime_col->GetDisplay();
+	$strUSO = GetCalibrationHistoryLink('USO', true);
 	
 	$strEstList = GetListElement(array('要使用^SPSIOP或者XOP的净值，而不是XOP的交易价，两者通常并不一致。',
-								  '要使用'.GetLinkElement('美元人民币中间价', '20160615cn.php').'，而不是新浪的美元汇率实时交易价格，更不是离岸人民币价格。',
+								  '要使用'.GetNameLink('uscny', '美元人民币中间价').'，而不是新浪的美元汇率实时交易价格，更不是离岸人民币价格。',
 								  _getLofLink().'基金要按95%仓位的处理，而不是ETF基金的100%。'));
 	$strFairEstCode = GetCodeElement('FairEst');
 	$strImage = ImgStockGroup($strPage); 
@@ -263,7 +344,7 @@ function Echo20160818($strPage)
 <br />发现有人的Excel计算表格中有这一项，我也就顺应潮流把它加上了。大概是沿用{$strJisilu}的叫法，把已经公布的净值称为T-1、把估算的官方将要公布的下一日净值称为T、而把考虑了当日美油期货CL变动的称为T+1估值，大致意思是用白天CL的变动预测晚上XOP的变动。
 按我的看法，拉长到一年看CL和XOP对应关系可能是不错，但是具体到每一天就未必了，所以在自己的套利交易中目前是不考虑这个T+1估值的。当然需要进行期货交易也是我不做它的一个重要因素，怕不小心杠杆赌大了把自己搞破产。一手CL是1000桶，目前每桶油价大约50美元，也就是说每次要交易五万美元的货值。
 <br />因为特立独行的原因，我不喜欢T-1/T/T+1这种叫法。于是我在网页中把T-1直接写成了{$strNav}，T日估值称为{$strOfficalEst}，而把T+1估值称为{$strRealtimeEst}。另外还有一个{$strFairEst}，接下来解释一下这些看上去混乱的估值名称。
-<br />{$strFairEst}和{$strRealtimeEst}的区别仅仅是用不用CL的实时交易数据。{$strRealtimeEst}假定SZ162411和CL关联程度是100%，XOP和USO关联程度也是按照100%估算。由于估值依赖CL和USO在美股交易时段的自动校准，而期货总是免不了升水贴水，每个月20日左右CL期货换月的当天{$strRealtimeEst}是不准确的。
+<br />{$strFairEst}和{$strRealtimeEst}的区别仅仅是用不用CL的实时交易数据。{$strRealtimeEst}假定SZ162411和CL关联程度是100%，XOP和USO关联程度也是按照100%估算。由于估值依赖CL和{$strUSO}在美股交易时段的自动校准，而期货总是免不了升水贴水，每个月20日左右CL期货换月的当天{$strRealtimeEst}是不准确的。
 另外因为CL期货的每日结算价格通常跟收盘价不同，CL期货收盘比美股晚一个小时的收盘价也不同于我在估值中实际用来参考的美股收盘时的CL价格，有可能出现CL价格的显示高(或低)于上一日，而{$strFairEst}低(或高)于{$strRealtimeEst}的情况。
 <br />先说明一下如何把华宝油气{$strOfficalEst}精确到0.001元。说实在话，刚开始我也不可能想到花了整整一年时间才做到这一点。
 </p>
@@ -280,7 +361,7 @@ END;
     echo <<<END2
 <p>相对于{$strOfficalEst}，当美元人民币中间价波动比较大的时候{$strFairEst}就值得关注了，此外在A股或者美股休市的日子里, 它也比{$strOfficalEst}更能反映实际的净值。
 至于为什么叫它{$strFairEst}，那是因为我也不知道给它取什么名字好。事实上，在英文版本和软件代码中我给它取名为{$strFairEstCode}，意思是一个公平的估值。
-<br />在A股开市日期的美股交易时段，这三个估值通常都是完全一致的，{$strFairEst}因此不会显示出来。如果偶尔出现{$strOfficalEst}和{$strRealtimeEst}不同，那是因为CL和USO的数据没能在同一分钟内自动校准或者软件改出了新BUG。
+<br />在A股开市日期的美股交易时段，这三个估值通常都是完全一致的，{$strFairEst}因此不会显示出来。如果偶尔出现{$strOfficalEst}和{$strRealtimeEst}不同，那是因为CL和USO的数据没能在同一分钟内自动校准或者软件改出了新错误。
 显然在美股交易时段是没有T+1的美元人民币中间价的，此时的{$strRealtimeEst}用的只能是T日的美元人民币中间价。此时所有的估值和校准都是为美股结束后的{$strFairEst}和{$strRealtimeEst}做准备，用户只需要看{$strOfficalEst}即可。
 <br />在美股交易结束后，这3个估值就开始分道扬镳了。T日{$strOfficalEst}不会再变化。CL通常会在美股收盘后继续多交易一个小时，此时{$strRealtimeEst}也就会随之变化。
 等到第二天，软件会去自动拿通常在9点15分发布的T+1日美元人民币中间价，{$strFairEst}会因此改变固定在新值上，{$strRealtimeEst}也会在这时候开始用T+1日美元人民币中间价。
@@ -291,18 +372,30 @@ END;
 END2;
 }
 
-function Echo20161006($strHead)
+function Echo20161008($strHead)
 {
 	$strHead = GetHeadElement($strHead);
-	$strSZ162411 = GetCalibrationHistoryLink(FUND_DEMO_SYMBOL, true).CALIBRATION_HISTORY_DISPLAY;
-	$strQDII = _getQdiiLink();
+	$strLink = GetSinaDataLink('AU0');
 	
     echo <<<END
 	$strHead
-<p>2016年10月6日
-<br />在华宝油气估值的时候，每次拿到官方发布的净值后都会根据净值当天的美股数据和美元人民币中间价做一次自动校准，从现在开始全部在{$strSZ162411}页面记录下来，方便观察长期趋势。校准时间就是拿到新的官方净值后第一次访问的时间。
-类似的版面上还有CL和USO校准记录，用在{$strQDII}基金的实时估值上。
-<br />碰到XOP分红除权的日子，就需要进行手工校准。否则的话要等下一次自动校准后，估值结果才会再次正确。
+<p>2016年10月8日
+<br />国际黄金价格在国庆期间暴跌，为了寻找内外盘套利的机会，赶快把国内黄金期货的数据看了一下：$strLink
+</p>
+END;
+}
+
+function Echo20161017($strHead)
+{
+	$strHead = GetHeadElement($strHead);
+	$strSMA = GetNameLink('sma');
+	$strLink = GetSinaDataLink('gb_xop');
+	
+    echo <<<END
+	$strHead
+<p>2016年10月17日
+<br />最近在股票交易中对{$strSMA}均线的依赖越来越严重，而同时Yahoo的负面用户体验和甩卖消息越来越多，让我比较担心哪一天Yahoo突然不提供历史数据了，毕竟是一个非公开的东西。
+于是下决心自己开始记录历史数据，刚开始改程序就发现去年写的读取新浪实时美股数据的代码中缺Yahoo历史数据中提供的的开盘价、最高价、最低价和成交量，又重新看了一遍数据接口的字段意义：{$strLink}
 </p>
 END;
 }
@@ -489,7 +582,7 @@ function Echo20180404($strHead)
 	$strPairSql = GetCodeElement('PairSql');
 	$strStockPairSql = GetCodeElement('StockPairSql');
 	$strQDII = _getQdiiLink();
-	$strCalibration = GetNameLink('calibrationhistory', CALIBRATION_HISTORY_DISPLAY);
+	$strCalibrationHistory = GetNameLink('calibrationhistory', CALIBRATION_HISTORY_DISPLAY);
 	$strQuote = GetBlockquoteElement('Life is like a snowball. The important thing is finding wet snow and a really long hill. — Warren Buffett');
 	
     echo <<<END
@@ -506,7 +599,7 @@ function Echo20180404($strHead)
 <br />{$strStockPairSql}基于{$strPairSql}，额外加上了从stock_id到symbol的来回转换，ahpair表就是直接来自它。
 <br />跟A股和H股总是1:1不同，每股ADR可以对应100、1或者0.5等各种不同数值的H股。因此一个自然的做法是继续从{$strStockPairSql}派生adrpair表，加上这个额外的对应数值。不过这样一来，A/H和ADR/H比较页面能共用的代码就不多了。
 在{$strQDII}估值中原本就有基金仓位fundposition表，我脑洞一开，想到每股ADR对应多少股H股其实也是一种仓位上的体现，就把不是1:1的ADR/H对应数值也存到了这个表中。
-<br />更妙的是，想通了比例对应仓位后，A/H和ADR/H之间的价格转换跟QDII估值比较就只差一个{$strCalibration}的概念了。具体的看，在A/H情况下，其实相当于校准值永远是1。而在ADR/H的情况下，校准值其实就是固定的(1/仓位)。
+<br />更妙的是，想通了比例对应仓位后，A/H和ADR/H之间的价格转换跟QDII估值比较就只差一个{$strCalibrationHistory}的概念了。具体的看，在A/H情况下，其实相当于校准值永远是1。而在ADR/H的情况下，校准值其实就是固定的(1/仓位)。
 这样一来，我不仅统一了A/H和ADR/H比较页面的代码，还顺便统一了目前用到的各种价格转换计算，顿时感觉打通了任督二脉！
 </p>
 	$strQuote
@@ -536,6 +629,26 @@ function Echo20180405($strHead)
 END;
 
    	EchoAbParagraph(array(new AbPairReference(AB_DEMO_SYMBOL)));
+}
+
+function Echo20180413($strHead)
+{
+	$strHead = GetHeadElement($strHead);
+	$strUSCNY = GetNameLink('uscny');
+	$strLink = GetExternalLink('http://www.chinamoney.com.cn/r/cms/www/chinamoney/data/fx/ccpr.json');
+	
+    echo <<<END
+	$strHead
+<p>2018年4月13日
+<br />不知道是不是没有人用，去年东方财富的中间价{$strUSCNY}数据接口混乱了两个月，总是给个老数据出来，偶尔才冒个当天的新数据。这样吊着我的胃口，害我一直在没当天新数据的时候手工更新数据库。
+而等我下定决心克服自己的爬虫厌恶情绪打算去中国外汇交易中心网站爬数据后，东方财富的中间价接口却又奇迹般恢复正常了。
+<br />前天晚上的时候东方财富又出错了，这次不是给老数据，而是干脆就没有数据了。昨天白天我抱怨了一下，正打算重新挽起袖子写爬虫，没想到QQ群里的海风突然告诉我他找到了中国外汇交易中心的中间价接口：{$strLink}。
+<br />真是个天大的利好啊，我赶快把手头的微信小程序和IB自动交易编程放在一边，在晚上炒美股的时候改写了中间价的读取数据方式，过几个小时就能用上了。
+基于中国外汇交易中心的第一手数据，这样能够有效的在每天9点15后就拿到当天的中间价，从而可以根据按当天中间价调整后的华宝油气参考估值决定是否要在9点20前撤销掉集合竞价的买卖单。
+<br />软件总是会越写越乱。在两年前的结构设计中, 放在/php/stock/目录下的文件本来是打算只放跟MySQL数据库无关的基本股票数据采集处理代码的。但是这个结构在两个月前把GB2312对应的UNICODE码表放到MySQL数据库时就被打破了，因为读取新浪股票数据后需要把它GB2312编码的中文转换成UTF-8。
+<br />发现自己短时间违背了两次原则后，我感觉恶向胆边生，想干脆一口气把原来幻想独立于MySQL而方便测试和移植的基础股票类全部取消掉，给自己的理由是结构更紧凑了！
+</p>
+END;
 }
 
 function Echo20180620($strPage)

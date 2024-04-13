@@ -41,9 +41,7 @@ function EchoAll()
 <br />$strFuturesPremium
 {$arYears[2016]} 
 <br />$strWechat
-<br />6月15日 东方财富<a href="blog/entertainment/20160615cn.php">美元人民币中间价</a>汇率实时数据接口的字段意义
 {$arYears[2015]} 
-<br />12月25日 <a href="blog/entertainment/20151225cn.php">新浪股票数据</a>接口的字段意义
 <br />$strSZ162411
 {$arYears[2014]} 
 <br />$strMia
