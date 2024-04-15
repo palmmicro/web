@@ -3,6 +3,8 @@ require('php/_myphoto.php');
 
 function EchoAll()
 {
+	$strKeep = GetQuoteElement('Keep walking');
+
     echo <<<END
 <p>这一年跟一工在香港和深圳活动了几次, 留下了不少他的作品. 其它的依旧都来自于北京绿野航天东风队的摄影爱好者们.</p>
 
@@ -24,7 +26,7 @@ function EchoAll()
 <p>9月17日. 莲花山邓爷爷脚下. 一工拍摄 <a href="2011/lianhua.jpg" target=_blank>放大</a>
 <br /><img src=2011/lianhua_s.jpg alt="航天东风队深圳梅林水库和莲花山活动" /></p>
 
-<p><a href="http://www.lvye.org/modules/lvyebb/viewtopic.php?view=1&post_id=44119889" target=_blank>10月29日</a>. 雄关漫道真如铁, 而今迈步从头越. 空灵拍摄 <a href="2011/yanyu.jpg" target=_blank>放大</a>
+<p><a href="http://www.lvye.org/modules/lvyebb/viewtopic.php?view=1&post_id=44119889" target=_blank>10月29日</a>. 雄关漫道真如铁, 而今迈步从头越. $strKeep 空灵拍摄 <a href="2011/yanyu.jpg" target=_blank>放大</a>
 <br /><img src=2011/yanyu_s.jpg alt="延庆燕羽山活动" /></p>
 END;
 }

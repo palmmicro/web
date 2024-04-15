@@ -15,7 +15,7 @@ function EchoAll()
 <!--<p><a href="http://www.go2eu.com/bbs/viewthread.php?tid=235853" target=_blank>3月23日</a>, 穷途末路. <a href="http://xianfffff.photo.163.com" target=_blank>点点</a>拍摄 <a href="2010/ushighway1.jpg" target=_blank>放大</a>
 <br /><img src=2010/ushighway1_s.jpg></p>
 
-<p><a href="http://www.go2eu.com/bbs/viewthread.php?tid=235853" target=_blank>3月28日</a>, 谁都不容易. <a href="http://xianfffff.photo.163.com" target=_blank>点点</a>拍摄 <a href="2010/elvispresley.jpg" target=_blank>放大</a>
+<p><a href="http://www.go2eu.com/bbs/viewthread.php?tid=235853" target=_blank>3月28日</a>, 谁都不容易. It must be hard being a king <a href="http://xianfffff.photo.163.com" target=_blank>点点</a>拍摄 <a href="2010/elvispresley.jpg" target=_blank>放大</a>
 <br /><img src=2010/elvispresley_s.jpg></p>-->
 
 <p><a href="http://www.go2eu.com/bbs/viewthread.php?tid=235853" target=_blank>4月3日</a>, <a href="http://blog.sina.com.cn/s/blog_4930ecbc0100pkug.html" target=_blank>Chaco</a> NHP. 探访印第安人的<a href="http://blog.sina.com.cn/s/blog_4930ecbc0100plkc.html" target=_blank>历史</a>, 感慨中国文明的幸运. <a href="http://xianfffff.photo.163.com" target=_blank>点点</a>拍摄 <a href="2010/chaco.jpg" target=_blank>放大</a>

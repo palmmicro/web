@@ -10,7 +10,7 @@ function EchoAll()
 <!--<p><a href="http://www.lvye.org/modules/lvyebb/viewtopic.php?view=1&post_id=43635140" target=_blank>5月29日</a>, 人比黄花胖. <a href="http://www.lvye.org/modules/lvyebb/viewtopic.php?view=1&post_id=43636540" target=_blank>照片</a>由一工拍摄 <a href="2009/flower.jpg" target=_blank>放大</a>
 <br /><img src=2009/flower_s.jpg></p>-->
 
-<p>6月7日, 两头猪. 魏江拍摄 <a href="2009/pig.jpg" target=_blank>放大</a>
+<p>6月7日, Pike Place Market的两头猪. 魏江拍摄 <a href="2009/pig.jpg" target=_blank>放大</a>
 <br /><img src=2009/pig_s.jpg></p>
 
 <p><a href="http://www.lvye.org/modules/lvyebb/viewtopic.php?view=1&post_id=43660382" target=_blank>6月28日</a>, 海陀途中. <a href="http://www.lvye.org/modules/lvyebb/viewtopic.php?view=1&post_id=43663434" target=_blank>照片</a>由粉红窗帘拍摄 <a href="2009/haituoshan.jpg" target=_blank>放大</a> <font color=#545454>I'm not really interested in fishing. I am only interested in sitting in a boat and doing nothing at all! <B><em>One Man in a Boat. New Concept English, Book Two</em></B></font>

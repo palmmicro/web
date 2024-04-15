@@ -13,7 +13,6 @@ function GetMetaDescription($bChinese)
 
 function EchoAll($bChinese)
 {
-	$strMyPhoto = GetMyPhotoLinks($bChinese);
 	$strMiaPhoto = GetMia30DaysLink($bChinese).' '.GetMiaPhotoLinks($bChinese);
 	$strBlogPhoto = GetBlogPhotoLinks($bChinese);
 	$strImage = ImgWoodyBike($bChinese);
@@ -21,9 +20,6 @@ function EchoAll($bChinese)
 	$strMia = GetBlogLink(20141204, $bChinese);
 	
     echo <<<END
-<p>Album of myself: $strMyPhoto
-</p>
-
 <p>Album of $strMia: $strMiaPhoto
 </p>
 

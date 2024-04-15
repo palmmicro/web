@@ -13,7 +13,7 @@ function EchoAll()
 <br /><img src=../mia/2015/20150426.jpg alt="Sapphire Lin's first trip to Changsha." />
 <br /><img src=1973/100days_s.jpg alt="Woody's 100 days photo." /></p>
 
-<p>6月1日. 麦兜说: 马尔代夫, 蓝天白云, 椰林树影, 水清沙幼, 是坐落于印度洋上的世外桃源. <a href="../mia/2015/large/20150601.jpg" target=_blank>放大</a>
+<p>6月1日. 麦兜说: 马尔代夫, 蓝天白云, 椰林树影, 水清沙幼, 是坐落于印度洋上的世外桃源. Vilamendhoo, Maldives <a href="../mia/2015/large/20150601.jpg" target=_blank>放大</a>
 <br /><img src=../mia/2015/20150601.jpg alt="Sapphire Lin's trip to Vilamendhoo, Maldives." /></p>
 
 <p>10月6日. 小妞第一次到北京. <a href="2015/large/beijing.jpg" target=_blank>放大</a>

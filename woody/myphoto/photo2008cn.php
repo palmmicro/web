@@ -3,6 +3,8 @@ require('php/_myphoto.php');
 
 function EchoAll()
 {
+	$strPersuit = GetQuoteElement('The persuit of happyness');
+
     echo <<<END
 <p>用车轮丈量美国, 用脚步丈量京郊. 图片来自于穷游网和北京绿野航天东风队的摄影爱好者们.</p>
 
@@ -15,13 +17,13 @@ function EchoAll()
 <p><a href="http://www.go2eu.com/bbs/viewthread.php?tid=112203" target=_blank>5月21日</a>, Crater Lake. 小英罗拍摄 <a href="2008/craterlake.jpg" target=_blank>放大</a>
 <br /><img src=2008/craterlake_s.jpg></p>
 
-<p><a href="http://www.go2eu.com/bbs/viewthread.php?tid=112203" target=_blank>5月21日</a>, 无题. 奖励品拍摄 <a href="2008/nude.jpg" target=_blank>放大</a>
+<p><a href="http://www.go2eu.com/bbs/viewthread.php?tid=112203" target=_blank>5月21日</a>, Truman Show. 奖励品拍摄 <a href="2008/nude.jpg" target=_blank>放大</a>
 <br /><img src=2008/nude_s.jpg alt="Half nude Woody on the rim of Crater Lake" /></p>
 
 <!--<p><a href="http://www.go2eu.com/bbs/viewthread.php?tid=112203" target=_blank>5月22日</a>, 海边. Vincent拍摄 <a href="2008/sea.jpg" target=_blank>放大</a>
 <br /><img src=2008/sea_s.jpg></p>-->
 
-<p><a href="http://www.lvye.org/modules/lvyebb/viewtopic.php?view=1&post_id=43360066" target=_blank>7月26日</a>, 百花山. <a href="http://www.lvye.org/modules/lvyebb/viewtopic.php?view=1&post_id=43363123" target=_blank>照片</a>
+<p><a href="http://www.lvye.org/modules/lvyebb/viewtopic.php?view=1&post_id=43360066" target=_blank>7月26日</a>, 百花山. $strPersuit <a href="http://www.lvye.org/modules/lvyebb/viewtopic.php?view=1&post_id=43363123" target=_blank>照片</a>
 <br /><img src=2008/baihuashan.jpg alt="Woody on Bai Hua Shan in 2008" /></p>
 
 <p><a href="http://www.lvye.org/modules/lvyebb/viewtopic.php?view=1&post_id=43447742" target=_blank>10月26日</a>, 远离鞋子. 

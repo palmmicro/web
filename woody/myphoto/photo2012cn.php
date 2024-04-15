@@ -3,8 +3,10 @@ require('php/_myphoto.php');
 
 function EchoAll()
 {
+	$strWhile = GetQuoteElement('While they were sleeping');
+
     echo <<<END
-<p><a href="http://www.lvye.org/modules/lvyebb/viewtopic.php?view=1&post_id=44158328" target=_blank>4月14日</a>. 人群中的孤独. 心语拍摄 <a href="2012/large/awake.jpg" target=_blank>放大</a>
+<p><a href="http://www.lvye.org/modules/lvyebb/viewtopic.php?view=1&post_id=44158328" target=_blank>4月14日</a>. 人群中的孤独. $strWhile 心语拍摄 <a href="2012/large/awake.jpg" target=_blank>放大</a>
 <br /><img src=2012/awake.jpg></p>
 
 <p><a href="http://www.lvye.org/modules/lvyebb/viewtopic.php?view=1&post_id=44164336" target=_blank>5月12日</a>. 笨鸟要先飞. 红利拍摄 <a href="2012/large/jump.jpg" target=_blank>放大</a>
