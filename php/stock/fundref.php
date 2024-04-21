@@ -178,6 +178,11 @@ class FundReference extends MysqlReference
     	return $this->future_ref;
     }
 
+    function GetFutureEtfRef()
+    {
+    	return $this->future_etf_ref;
+    }
+
     function GetCnyRef()
     {
     	return $this->cny_ref;

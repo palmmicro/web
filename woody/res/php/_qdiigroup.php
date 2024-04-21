@@ -66,12 +66,12 @@ class QdiiGroupAccount extends FundGroupAccount
     	
     	EchoFundTradingParagraph($ref, 'TradingUserDefined');    
     	EchoQdiiSmaParagraph($ref);
-    	EchoFutureSmaParagraph($ref);
     	if (count($this->ar_leverage_ref) > 0)	
     	{
     		EchoFundListParagraph($this->ar_leverage_ref);
     		EchoFundPairSmaParagraphs($ref->GetEstRef(), $this->ar_leverage_ref);
     	}
+    	EchoFutureSmaParagraph($ref);
     	EchoFundHistoryParagraph($ref);
     	EchoFundShareParagraph($ref);
     }

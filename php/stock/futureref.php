@@ -22,8 +22,8 @@ class FutureReference extends MysqlReference
     function LoadEtfFactor($etf_ref)
     {
     	$strEtfSymbol = $etf_ref->GetSymbol();
-    	if ($strEtfSymbol == 'USO' || $strEtfSymbol == 'GLD')
-    	{
+//    	if ($strEtfSymbol == 'USO' || $strEtfSymbol == 'GLD')
+//    	{
       		$strEtfId = $etf_ref->GetStockId();
     		$calibration_sql = new CalibrationSql();
     		if ($this->CheckAdjustFactorTime($etf_ref))
@@ -38,7 +38,7 @@ class FutureReference extends MysqlReference
     				$this->fFactor = floatval($strClose);
     			}
     		}
-    	}
+//    	}
         return $this->fFactor;
     }
 

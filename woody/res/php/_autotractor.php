@@ -4,7 +4,7 @@ require_once('../../php/ui/imagedisp.php');
 
 // https://kraneshares.com/product-json/?pid=477&type=premium-discount&start=2024-03-14&end=2024-03-15
 
-define('YINHE_AU3_VER', '71');
+define('YINHE_AU3_VER', '72');
 
 function EchoAll()
 {
@@ -15,9 +15,10 @@ function EchoAll()
     $strNepturn = GetBoldElement('海王星单独委托版3.14');
     $strHuabaoLink = GetExternalLink('https://www.cnhbstock.com/view/software/software.html?col=0', '华宝证券官网');
     $strHuabao = GetBoldElement('通达信版独立交易8.18');
+    $strAutoIt =  GetBoldElement('AutoIt3.exe');
     echo GetListElement(array('在'.$strNepturnLink.'下载并在缺省路径C:\中国银河证券海王星独立交易\Tc.exe位置安装'.$strNepturn.'，桌面图标会显示'.GetInfoElement('中国银河证券海王星独立交易').'，注意它不同于'.GetFontElement('海王星金融终端').'软件。',
     							'在'.$strHuabaoLink.'下载并在缺省路径C:\tc_hbzq\Tc.exe位置安装'.$strHuabao.'，桌面图标会显示'.GetInfoElement('华宝证券独立交易').'。',
-    							'下载并安装开源的'.GetExternalLink('https://www.autoitscript.com/site/autoit/downloads/', 'AutoIt').'工具软件包。普通用户实际仅需用到x86版本的AutoIt3.exe文件。一定要小心软件来源，千万不要运行来历不明的.exe文件。',
+    							'下载并安装开源的'.GetExternalLink('https://www.autoitscript.com/site/autoit/downloads/', 'AutoIt').'工具软件包。普通用户实际仅需用到x86版本的'.$strAutoIt.'文件。一定要小心软件来源，千万不要运行来历不明的.exe文件，同时也要留意不要让本机上的杀毒软件误拦截'.$strAutoIt.'的运行。',
     							'在本页面下载银河华宝拖拉机自动化PC软件脚本的2个文件到同一个子目录下，分别是'.GetFileLink('/autoit/yinhe.au3').'和'.GetFileLink('/debug/autoitscript/yinheaccounts.au3').'。'));
 /*    							'下载开源的'.GetExternalLink('https://tesseract-ocr.github.io/', 'Tesseract软件').'用来识别登录验证码。也可以在'.GetExternalLink('https://sourceforge.net/projects/tesseract-ocr-alt/files/', 'SourceForge').'下载一个镜像文件'.GetFileLink('/download/tesseract-ocr-setup-3.02.02.exe').'，然后一路回车缺省安装。',
     							'在本页面下载银河拖拉机自动化PC软件脚本的3个文件到同一个子目录下，分别是'.GetFileLink('/autoit/yinhe.au3').'、'.GetFileLink('/debug/autoitscript/yinheaccounts.au3').'和'.GetFileLink('/debug/autoitscript/Tesseract.au3').'。'));
@@ -37,7 +38,7 @@ function EchoAll()
 
     $strAllSoftware = $strNepturn.'或者'.$strHuabao;
     $str = GetRemarkElement('软件执行：');
-    $str .= $strNewLine.'首先关闭本机上所有在运行的'.$strAllSoftware.'，在运行x86版本的AutoIt3.exe后，它会提示输入文件。给它'.$strYinheAu3.'或者'.$strYinheAu3Now.'都可以执行。';
+    $str .= $strNewLine.'首先关闭本机上所有在运行的'.$strAllSoftware.'，在运行x86版本的'.$strAutoIt.'后，它会提示输入文件。给它'.$strYinheAu3.'或者'.$strYinheAu3Now.'都可以执行。';
 //    $str .= GetWoodyImgQuote('20211129auto.jpg', 'AutoIt'.AUTO_TRACTOR_DISPLAY.'软件0.49主界面');
 	$str .= ImgAutoQuote(PATH_BLOG_PHOTO.'autoit066screen.jpg', '2024年2月4日AutoIt'.AUTO_TRACTOR_DISPLAY.'软件0.66主界面');
     $str .= $strNewLine.'在弹出的用户主界面用鼠标点击'.GetInfoElement('执行自动操作').'按键后，会看到它自动运行'.$strAllSoftware.'，然后一步步在每个打勾的'.GetInfoElement('客户号').'的全部可用账户中各自执行选择的'.GetInfoElement('操作').
@@ -77,7 +78,7 @@ function EchoAll()
 
 function GetMetaDescription()
 {
-  	$str = '利用PC上的AutoIt脚本工具软件实现华宝油气(SZ162411)等场内基金拖拉机账户的自动化登录、申购、卖出和全部撤单，提高几万套利党人的时间效率。';
+  	$str = '利用PC上的AutoIt脚本工具软件实现华宝油气(SZ162411)等场内基金拖拉机账户的自动化登录、申购、卖出和全部撤单。解放双手，提高几万套利党人的时间效率。';
     return CheckMetaDescription($str);
 }
 

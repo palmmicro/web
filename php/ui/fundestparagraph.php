@@ -136,11 +136,12 @@ function EchoFundEstParagraph($ref)
     	$col = $bFair ? $arColumn[6] : $arColumn[4]; 
     	$est_ref = $ref->GetEstRef();
     	$future_ref = $ref->GetFutureRef();
-    	$future_etf_ref = $ref->future_etf_ref;
+    	$future_etf_ref = $ref->GetFutureEtfRef();
+    	$strFutureEtfSymbol = $future_etf_ref->GetSymbol();
     
-    	$str .= '期货'.$col->GetDisplay().$future_ref->GetMyStockLink().'关联程度按照100%估算';
-    	if ($future_etf_ref && ($future_etf_ref != $est_ref))		$str .= '，'.$est_ref->GetMyStockLink().'和'.GetCalibrationHistoryLink($future_etf_ref->GetSymbol(), true).'关联程度按照100%估算';
-    	$str .= '。';
+    	$str .= '期货'.$col->GetDisplay().$future_ref->GetMyStockLink().'和'.GetCalibrationHistoryLink($strFutureEtfSymbol, true);
+    	if ($future_etf_ref != $est_ref)	$str .= '、'.$est_ref->GetMyStockLink().'和'.$future_etf_ref->GetMyStockLink();
+    	$str .= '关联程度按照100%估算。';
     }
     
 	_echoFundEstParagraph($arColumn, $bFair, $arRef, $str);

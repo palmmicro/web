@@ -62,7 +62,7 @@ END;
 function _echo20190601($strHead)
 {
 	$strHead = GetHeadElement($strHead);
-	$strSZ162411 = GetGroupStockLink('SZ162411');
+	$strSZ162411 = GetGroupStockLink();
 	$strImage = ImgTianHeng();
 	
     echo <<<END

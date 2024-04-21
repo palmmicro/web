@@ -9,7 +9,7 @@ function GetMetaDescription()
 function EchoAll()
 {
 	$strXueqiu = GetExternalLink(GetXueqiuWoodyUrl().'144000143', '听无敌哥讲那油气交易爆仓和破产的事情');
-	$strSZ162411 = GetBlogLink(20150818);
+	$strSZ162411Blog = GetBlogLink(20150818);
 	$strSZ161130 = GetGroupStockLink('SZ161130', true);
 	$strQqqFund = GetStockCategoryLink('qqqfund');
 	$strImgQqq = ImgAutoQuote(PATH_BLOG_PHOTO.'20200915QQQ.jpg', '9月11日QQQ官网显示的前十大持仓');
@@ -23,10 +23,11 @@ function EchoAll()
 	$strAccount161130 = GetFundAccountLink('SZ161130', 59882);
 	$strFundPosition = GetFundPositionLink('SZ161130');
 	$strVideo = VidAboutSZ161130();
+	$strSZ162411Link = GetGroupStockLink();
 
 	EchoBlogDate();
     echo <<<END
-<br />跟上次{$strXueqiu}一样，雪球运营人员总是在我的{$strSZ162411}和XOP亏得不能自理的时候让我做直播。不过常年卖惨这种人设只有元卫南才能乐此不疲的坚持下来，于是建议聊聊最近自己袖手旁观没有参与的{$strSZ161130}溢价申购套利。
+<br />跟上次{$strXueqiu}一样，雪球运营人员总是在我的{$strSZ162411Blog}和XOP亏得不能自理的时候让我做直播。不过常年卖惨这种人设只有元卫南才能乐此不疲的坚持下来，于是建议聊聊最近自己袖手旁观没有参与的{$strSZ161130}溢价申购套利。
 9月11日直播的视频在最下面。讲得不好，准备的纳斯达克内容二十分钟就讲完了，后来基本上又回到了油气的东拉西扯上。本文是增强的文字版本，同时更新了最新的数据。
 <br />美股市场指数代码总是五花八门。雪球上{$strQqqFund}显示的代码是.NDX，而YAHOO上的代码是^NDX。通常大家都觉得它代表美股科技股，其实更确切的分类说法是除金融公司外的一百家最大公司按市值加权的指数。跟踪它的ETF很多，最热门的有QQQ一倍做多、PSQ一倍做空、TQQQ三倍做多和SQQQ三倍做空等。
 $strImgQqq
@@ -34,6 +35,7 @@ $strImgQqq
 $strImgMnq
 <br />芝商所对应的期货有NQ和MNQ等。NQ货值是MNQ的十倍。说起来MNQ也是芝商所今年跟负油价一起搞出来的创新，这样能有更多散户参与股指期货的交易。一手MNQ按当前一万多点的指数乘以2美元计算，目前货值2万多美元，20倍左右的杠杆。
 <br />A股市场上跟踪的基金也不少。除了不能套利的160213等场外基金，场内的{$strSH513100}长期关门，{$strSZ159941}每次一百万份起步每天限购一百万份，也就是每天一个幸运儿，这样每天每账户限购五百人民币的SZ161130成了套利党的香馍馍。
+这些基金的官方估值和参考估值都是直接延续{$strSZ162411Link}估值方式，实时估值则是在参考估值的基础上，叠加了NQ期货实时数据的影响。
 $strImgNdx
 <br />NDX八月份进入连续创历史新高的模式，除了在8月10日那周回调了一次二十日SMA，也就是布林中轨，其它时间一直在沿布林上轨上涨不停新高。目前这一轮回调到了号称是美股小牛熊分界线五十日EMA，有可能会继续跌到布林下轨附近。
 <br />SZ161130对上涨一开始是犹豫的，8月21日之前都是折价。8月24日开始，追高的来了，把它拉到了溢价，然后溢价一路上涨，9月3日最高值为7.99%。

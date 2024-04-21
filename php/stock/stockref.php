@@ -224,6 +224,7 @@ class StockReference extends StockSymbol
         {
 //            $iTime = $this->_totime($this->strTimeZone);
 			$iTime = strtotime($this->GetDateTime());
+			if ($etf_ref->GetSymbol() == 'znb_NKY')	$iTime -= 30;
             $strDate = DebugGetDate($iTime, $strTimeZone);
             $strTime = DebugGetTime($iTime, $strTimeZone);
 //            DebugString(__FUNCTION__.': '.$etf_ref->GetSymbol().' '.$etf_ref->GetDate().' '.$etf_ref->GetTimeHM().' vs '.$strDate.' '.$strTime);
@@ -481,7 +482,7 @@ class ExtendedTradingReference extends StockReference
     {
         parent::__construct($strSymbol);
         
-        $this->strExternalLink = GetYahooNavLink($strSymbol);
+        $this->strExternalLink = '';	// GetYahooNavLink($strSymbol);
         $this->strPrice = $ar[21];
         $this->_convertDateTimeFromUS($ar[24], $ar[29]);
         $this->strPrevPrice = $ar[26];

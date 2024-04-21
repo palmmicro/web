@@ -979,7 +979,7 @@ class StockSymbol
 				return 'Europe/Berlin';
 				
 			case 'NKY':
-				return 'Asia/Tokyo';
+				return 'PRC';	//  'Asia/Tokyo';
 			}
 		}
         else if ($this->IsSymbolA() || $this->IsSymbolH())	{}

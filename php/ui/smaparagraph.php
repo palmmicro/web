@@ -145,7 +145,7 @@ function _getSmaParagraphMemo($his)
 
 function _getSmaParagraphWarning($ref)
 {
-	if (RefHasData($ref))
+	if (RefHasData($ref) && ($ref->IsSinaFuture() == false))
 	{
 		$his_sql = GetStockHistorySql();
 		if ($record = $his_sql->GetRecordPrev($ref->GetStockId(), $ref->GetDate()))
@@ -262,7 +262,8 @@ function EchoFutureSmaParagraph($ref, $callback2 = false)
 		if ($strSymbol != 'hf_ES' && $strSymbol != 'hf_NQ')		return;
 		
 		$est_ref = $ref->GetEstRef();
-		$fPremium = floatval($future_ref->GetPrice()) / floatval($est_ref->GetPrice());
+//		$fPremium = floatval($future_ref->GetPrice()) / floatval($est_ref->GetPrice());
+		$fPremium = $future_ref->fFactor;
 		$str = '实时数据溢价：'.strval_round($fPremium, 4).'、理论溢价：'.strval_round(GetFutureInterestPremium(), 4).'。';
 		EchoSmaParagraph($est_ref, $str, $future_ref, '_callbackFutureSma', $callback2);
 	}

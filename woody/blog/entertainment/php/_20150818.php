@@ -926,4 +926,29 @@ $strImage
 END;
 }
 
+function EchoPage20240419($strPage)
+{
+	$strHead = GetHeadElement(_getStockCategoryTag($strPage).'基金实时估值的优化');
+	$strNasdaq100 = GetBlogLink(20200915);
+	$strSZ161130 = GetGroupStockLink('SZ161130');
+	$strFuturesPremium = GetBlogLink(20200424);
+	$strUsdInterest = GetBlogLink(20230614);
+	$strXueqiu = GetXueqiuIdLink('9075963410', '似酒闻香');
+	$strCalibration = GetNameLink('calibrationhistory', CALIBRATION_HISTORY_DISPLAY);
+	$strNDX = GetCalibrationHistoryLink('^NDX', true);
+	$strCode  = GetCodeElement('if ($strEtfSymbol == \'USO\' || $strEtfSymbol == \'GLD\')');
+	$strImage = ImgStockGroup($strPage); 
+	
+    echo <<<END
+	$strHead
+<p>2024年4月19日
+<br />解释完{$strUsdInterest}带来的{$strFuturesPremium}导致{$strNasdaq100}的实时估值偏高后，我就把它们丢在一边了，因为自己没钱申购ETF，而仅有的{$strSZ161130}LOF常年关门，平时根本没机会用到它。
+前几天{$strXueqiu}突然问我为什么不用当前NQ期货和美股收盘时的NQ价格比较计算实时估值，我下意识的回答因为没有一个好的方式在美股收盘时拿NQ数据，然后突然意识到这跟我需要把USO和美油期货CL自动校准以及保存{$strCalibration}一样，在美股交易时自动校准一下当天的NQ期货和{$strNDX}指数就行了。
+原来的做法就是画蛇添足，代码现成到只需要注释掉一行{$strCode}。
+<br />即便如此，还是拖了几天才完成这个说明，不知道自己平时都在忙什么！
+$strImage
+</p>
+END;
+}
+
 ?>

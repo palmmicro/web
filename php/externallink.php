@@ -185,13 +185,13 @@ function GetYahooStockLink($sym)
     $strHttp = GetYahooStockUrl($sym->GetYahooSymbol());
     return GetExternalLink($strHttp, $sym->GetDisplay());
 }
-
+/*
 function GetYahooNavLink($strSymbol)
 {
     $strHttp = GetYahooStockUrl(GetYahooNetValueSymbol($strSymbol));
     return GetExternalLink($strHttp, $strSymbol);
 }
-
+*/
 function GetSinaFundLink($sym)
 {
     $strDigit = $sym->IsFundA();

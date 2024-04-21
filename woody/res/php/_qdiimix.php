@@ -201,7 +201,7 @@ function GetMetaDescription()
     global $acct;
 
     $strDescription = $acct->GetStockDisplay();
-    $str = "根据美元和港币人民币汇率中间价以及成分股比例估算{$strDescription}净值的网页工具.";
+    $str = "根据美元人民币汇率中间价和港币人民币汇率中间价以及成分股持仓涨跌比例估算{$strDescription}净值的网页工具.";
     return CheckMetaDescription($str);
 }
 
