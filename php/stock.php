@@ -25,7 +25,7 @@ require_once('stock/qdiiref.php');
 require_once('stock/forexref.php');
 require_once('stock/fundpairref.php');
 
-// ****************************** Stock symbol functions *******************************************************
+define('FUND_DEMO_SYMBOL', 'SZ162411');
 
 function StockGetSymbol($str)
 {
@@ -322,7 +322,7 @@ function StockGetReference($strSymbol)
     										return new MyStockReference($strSymbol);
 }
 
-function StockGetFundReference($strSymbol)
+function StockGetFundReference($strSymbol = FUND_DEMO_SYMBOL)
 {
     if (in_arrayQdii($strSymbol))					$ref = new QdiiReference($strSymbol);
     else if (in_arrayQdiiHk($strSymbol))			$ref = new QdiiHkReference($strSymbol);

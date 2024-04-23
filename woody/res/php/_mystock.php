@@ -9,6 +9,7 @@ require_once('../../php/ui/tradingparagraph.php');
 require_once('../../php/ui/smaparagraph.php');
 require_once('../../php/ui/stockparagraph.php');
 require_once('../../php/ui/ahparagraph.php');
+require_once('../../php/ui/calibrationhistoryparagraph.php');
 require_once('../../php/ui/fundlistparagraph.php');
 require_once('../../php/ui/fundestparagraph.php');
 require_once('../../php/ui/fundhistoryparagraph.php');

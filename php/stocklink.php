@@ -22,8 +22,6 @@ define('QDII_HK_DISPLAY', '港股QDII');
 define('QDII_JP_DISPLAY', '日本QDII');
 define('QDII_EU_DISPLAY', '欧洲QDII');
 
-define('FUND_DEMO_SYMBOL', 'SZ162411');
-
 function GetStockCategoryArray()
 {
     return array('biotech' => BIOTECH_GROUP_DISPLAY,

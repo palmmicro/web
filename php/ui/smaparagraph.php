@@ -1,5 +1,6 @@
 <?php
-require_once('stocktable.php');
+//require_once('stocktable.php');
+require_once('calibrationhistoryparagraph.php');
 
 function _getSmaRow($strKey)
 {
@@ -260,12 +261,11 @@ function EchoFutureSmaParagraph($ref, $callback2 = false)
 	{
 		$strSymbol = $future_ref->GetSymbol();
 		if ($strSymbol != 'hf_ES' && $strSymbol != 'hf_NQ')		return;
+
+    	EchoCalibrationHistoryParagraph($ref->GetFutureEtfRef(), 0, 1);
 		
-		$est_ref = $ref->GetEstRef();
-//		$fPremium = floatval($future_ref->GetPrice()) / floatval($est_ref->GetPrice());
-		$fPremium = $future_ref->fFactor;
-		$str = '实时数据溢价：'.strval_round($fPremium, 4).'、理论溢价：'.strval_round(GetFutureInterestPremium(), 4).'。';
-		EchoSmaParagraph($est_ref, $str, $future_ref, '_callbackFutureSma', $callback2);
+		$str = '理论溢价：'.strval_round(GetFutureInterestPremium(), 4).'。';
+		EchoSmaParagraph($ref->GetEstRef(), $str, $future_ref, '_callbackFutureSma', $callback2);
 	}
 }
 

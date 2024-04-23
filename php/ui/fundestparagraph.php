@@ -1,5 +1,6 @@
 <?php
-require_once('stocktable.php');
+//require_once('stocktable.php');
+require_once('calibrationhistoryparagraph.php');
 
 // $ref from FundReference
 function _echoFundEstTableItem($ref, $bFair, $bWide = false)
@@ -118,7 +119,7 @@ function _getFundPositionStr($official_est_col, $strSymbol, $ref)
 	$str = '、'.$official_est_col->GetDisplay().$ref->GetOfficialDate().'。';
 	$fPosition = RefGetPosition($ref);
 	if ($fPosition < 1.0)		$str .= GetFundPositionLink($strSymbol).'值使用'.strval($fPosition).'，';
-	if ($strArbitrage = FundGetArbitrage($ref->GetStockId()))		$str .= GetCalibrationHistoryLink($strSymbol).'对冲值'.$strArbitrage.'。';
+	if ($strArbitrage = FundGetArbitrage($ref->GetStockId()))		$str .= '对冲值使用'.$strArbitrage.'。';
 	return $str;
 }
 
@@ -130,7 +131,6 @@ function EchoFundEstParagraph($ref)
 	$strSymbol = $ref->GetSymbol();
 	$str = GetTableColumnNav().$ref->GetDate();
 	$str .= _getFundPositionStr($arColumn[2], $strSymbol, $ref);
-	$str .= '最近校准'.$ref->GetTimeNow().'。';
     if ($ref->GetRealtimeNav())
     {
     	$col = $bFair ? $arColumn[6] : $arColumn[4]; 
@@ -145,6 +145,7 @@ function EchoFundEstParagraph($ref)
     }
     
 	_echoFundEstParagraph($arColumn, $bFair, $arRef, $str);
+   	EchoCalibrationHistoryParagraph($ref, 0, 1);
 }
 
 function EchoHoldingsEstParagraph($ref)

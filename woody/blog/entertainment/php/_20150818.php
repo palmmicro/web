@@ -3,6 +3,7 @@ require_once('../../../php/stock.php');
 require_once('../../../php/stockhis.php');
 require_once('../../../php/ui/referenceparagraph.php');
 require_once('../../../php/ui/ahparagraph.php');
+require_once('../../../php/ui/calibrationhistoryparagraph.php');
 require_once('../../../php/ui/fundestparagraph.php');
 require_once('../../../php/ui/fundhistoryparagraph.php');
 require_once('../../../php/ui/fundshareparagraph.php');
@@ -125,7 +126,7 @@ function Echo20160108($strHead)
 </p>
 END;
 
-	EchoFundHistoryParagraph(StockGetFundReference(FUND_DEMO_SYMBOL));
+	EchoFundHistoryParagraph(StockGetFundReference());
 }
 
 function Echo20160126($strHead)
@@ -185,7 +186,6 @@ function Echo20160216($strHead)
 	$strHead = GetHeadElement($strHead);
 	$strXueqiu = GetXueqiuIdLink('5240589924', 'uqot');
 	$strLink = GetSinaDataLink('f_162411');
-	$strSZ162411 = GetCalibrationHistoryLink(FUND_DEMO_SYMBOL, true).CALIBRATION_HISTORY_DISPLAY;
 	
     echo <<<END
 	$strHead
@@ -194,10 +194,12 @@ function Echo20160216($strHead)
 接下来进入使用前一个交易日的数据校准的代码，而不幸的是美股的上周五交易日刚好碰上中国春节假期，A股没有交易。数据中的上一个交易日净值是春节前的，于是软件拿节前最后一个交易日的华宝油气净值跟上周五XOP收盘价做了错误的自动校准。这种问题只在中美轮流休市的情况下才会出现，而过去的一周恰好是这种情况！
 <br />我先用手工校准的功能恢复了正确的数据，然后趁着又看了一遍新浪基金数据接口字段意义的热乎劲，依旧加个记录备用：$strLink
 <br />接下来我想到，这么追着做以前日期的自动校准太蠢了，应该只做当天的然后存下来，如果当天不满足自动校准的条件，就用最近保存的校准数据估值就是了。
-本来每次拿到官方发布的净值后都会根据净值当天的美股数据做一次自动校准，从现在开始全部在{$strSZ162411}页面记录下来，同时还方便观察长期趋势。校准时间就是拿到新的官方净值后第一次访问的时间。
+本来每次拿到官方发布的净值后都会根据净值当天的美股数据做一次自动校准，从现在开始全部记录下来，同时还方便观察长期趋势。校准时间就是拿到新的官方净值后第一次访问的时间。
 <br />碰到XOP分红除权的日子，就需要进行手工校准。否则的话要等下一次自动校准后，估值结果才会再次正确。
 </p>
 END;
+
+	EchoCalibrationHistoryParagraph(StockGetFundReference());
 }
 
 function Echo20160222($strHead)
@@ -351,7 +353,7 @@ function EchoPage20160818($strPage)
 	$strEstList
 END;
 
-	EchoFundArrayEstParagraph(array(StockGetFundReference(FUND_DEMO_SYMBOL)));
+	EchoFundArrayEstParagraph(array(StockGetFundReference()));
 	EchoTableParagraphBegin(array(new TableColumn('估值因素', 140), $offical_col, $fair_col, $realtime_col), 'estcompare');
 	EchoTableColumn(array('T日美股交易',		'XOP净值',	'XOP净值',	'XOP净值'));
 	EchoTableColumn(array('CL期货',			'否',		'否',		'是'));
@@ -562,7 +564,7 @@ function Echo20180327($strHead)
 </p>
 END;
 
-	EchoQdiiSmaParagraph(StockGetFundReference(FUND_DEMO_SYMBOL));
+	EchoQdiiSmaParagraph(StockGetFundReference());
 }
 
 function Echo20180404($strHead)
@@ -795,7 +797,7 @@ function Echo20210714($strHead)
 </p>
 END;
 	
-	EchoFundShareParagraph(StockGetFundReference(FUND_DEMO_SYMBOL));
+	EchoFundShareParagraph(StockGetFundReference());
 }
 
 function Echo20210728($strPage)

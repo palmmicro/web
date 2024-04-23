@@ -182,7 +182,8 @@ function ImgStockGroup($strPage)
     case 'hangseng':
     	return ImgAutoQuote(PATH_BLOG_PHOTO.'luody.jpg', '小河弯弯向南流，流到香江去看一看。');
 
-//    case 'hshares':
+    case 'hshares':
+    	return ImgAutoQuote(PATH_BLOG_PHOTO.'ChowYunFat.jpg', '英雄本色');
     	
     case 'hstech':
     	return GetWoodyImgQuote('hardlife.jpg', '人生永远都在艰难模式');

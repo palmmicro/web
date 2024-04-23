@@ -54,15 +54,6 @@ class FundReference extends MysqlReference
     	return $this->fund_est_sql;
     }
 
-    function GetTimeNow()
-    {
-    	if ($this->calibration_sql)
-    	{
-    		return $this->calibration_sql->GetTimeNow($this->GetStockId());
-    	}
-    	return false;
-    }
-    
     public function LoadData()
     {
         $this->LoadSinaFundData();

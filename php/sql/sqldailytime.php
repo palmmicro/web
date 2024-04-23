@@ -27,7 +27,7 @@ class DailyTimeSql extends DailyCloseSql
         $strTime = DebugGetTime();
 		return $this->UpdateById(array('close' => $strClose, 'time' => $strTime), $strId);
     }
-
+/*
     function GetTimeNow($strKeyId = false)
     {
     	if ($record = $this->GetRecordNow($strKeyId))
@@ -36,6 +36,7 @@ class DailyTimeSql extends DailyCloseSql
     	}
     	return false;
     }
+*/    
 }
 
 class FundEstSql extends DailyTimeSql

@@ -5,7 +5,7 @@ define('TABLE_COMMON_DISPLAY', 10);
 
 function IsTableCommonDisplay($iStart, $iNum)
 {
-	return (($iStart == 0) && ($iNum == TABLE_COMMON_DISPLAY))	 ? true : false;
+	return (($iStart == 0) && ($iNum <= TABLE_COMMON_DISPLAY))	 ? true : false;
 }
 
 function GetTableRow($str)
