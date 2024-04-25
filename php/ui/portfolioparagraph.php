@@ -18,7 +18,7 @@ function _getPortfolioTestVal($iShares, $strSymbol)
 		break;
 
     case 'SH600104':
-		$iQuantity = 4000;
+		$iQuantity = 6000;
 		break;
 
     case 'TLT':

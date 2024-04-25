@@ -159,7 +159,7 @@ function _echoFundPositionParagraph($ref, $cny_ref, $est_ref, $strSymbol, $strIn
 		$jpg2 = new DateImageFile(2);
 		if ($jpg2->Draw($csv->ReadColumn(3), $csv->ReadColumn(1)))
 		{
-			$str .= $strNewLine.'&nbsp;'.$strNewLine.$jpg2->GetAll('对冲值', $strSymbol);
+			$str .= $strNewLine.'&nbsp;'.$strNewLine.$jpg2->GetAll(STOCK_DISP_CONVERT, $strSymbol);
 		}
 		EchoTableParagraphEnd($str);
    	}

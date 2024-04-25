@@ -1,6 +1,9 @@
 <?php
+// aqua, black, blue, fuchsia, gray, green, lime, maroon, navy, olive, purple, red, silver, teal, white, yellow
+
 define('STOCK_DISP_ASHARES', 'A股');
 define('STOCK_DISP_BSHARES', 'B股');
+define('STOCK_DISP_CONVERT', '对冲值');	// navy
 define('STOCK_DISP_CHANGE', '涨幅');
 define('STOCK_DISP_EST', '估值');			// magenta
 define('STOCK_DISP_FAIR', '参考');
@@ -18,8 +21,8 @@ define('STOCK_DISP_PROFIT', '盈利');		// red
 define('STOCK_DISP_QUANTITY', '成交量');	// indigo
 define('STOCK_DISP_RATIO', '比价');
 define('STOCK_DISP_REALTIME', '实时');
-define('STOCK_DISP_TURNOVER', '换手');		// green
 define('STOCK_DISP_SYMBOL', '代码');		// maroon
+define('STOCK_DISP_TURNOVER', '换手');		// green
 
 define('STOCK_DISP_DEBUG', '调试信息');
 

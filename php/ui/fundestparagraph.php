@@ -119,7 +119,7 @@ function _getFundPositionStr($official_est_col, $strSymbol, $ref)
 	$str = '、'.$official_est_col->GetDisplay().$ref->GetOfficialDate().'。';
 	$fPosition = RefGetPosition($ref);
 	if ($fPosition < 1.0)		$str .= GetFundPositionLink($strSymbol).'值使用'.strval($fPosition).'，';
-	if ($strArbitrage = FundGetArbitrage($ref->GetStockId()))		$str .= '对冲值使用'.$strArbitrage.'。';
+	if ($strArbitrage = FundGetArbitrage($ref->GetStockId()))		$str .= '建议'.GetTableColumnConvert().$strArbitrage.'。';
 	return $str;
 }
 

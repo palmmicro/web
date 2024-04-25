@@ -1,13 +1,15 @@
 <?php
 require_once('stocktable.php');
 
-function _echoCalibrationHistoryItem($fPosition, $strStockId, $record, $bAdmin)
+function _echoCalibrationHistoryItem($fPosition, $nav_sql, $strStockId, $record, $bAdmin)
 {
-	$fCalibration = floatval($record['close']); 
-	$ar = array($record['date'], strval_round($fCalibration, 4), $record['time']);
+	$fCalibration = floatval($record['close']);
+	$strDate = $record['date'];
+	$ar = array($strDate, strval_round($fCalibration, 4), $record['time']);
 
 	if ($fPosition)
 	{
+		$ar[] = $nav_sql->GetClose($strStockId, $strDate);
 		$strArbitrage = strval(round($fCalibration / $fPosition));
 		if ($bAdmin)	$strArbitrage = GetOnClickLink('/php/_submitoperation.php?stockid='.$strStockId.'&fundarbitrage='.$strArbitrage, "确认使用{$strArbitrage}作为参考对冲值？", $strArbitrage);
 		$ar[] = $strArbitrage;
@@ -36,16 +38,22 @@ function EchoCalibrationHistoryParagraph($ref, $iStart = 0, $iNum = TABLE_COMMON
    	if ($ref->IsFundA())
    	{
     	$fPosition = RefGetPosition($ref);
-    	$ar[] = new TableColumn('对冲值');
+    	$nav_sql = GetNavHistorySql();
+    	$ar[] = new TableColumnNav();
+    	$ar[] = new TableColumnConvert();
    	}
-   	else	$fPosition = false;
+   	else
+	{
+		$fPosition = false;
+		$nav_sql = false;
+	}
 
 	EchoTableParagraphBegin($ar, $strSymbol.'calibrationhistory', $strLink);
     if ($result = $calibration_sql->GetAll($strStockId, $iStart, $iNum)) 
     {
         while ($record = mysqli_fetch_assoc($result)) 
         {
-			_echoCalibrationHistoryItem($fPosition, $strStockId, $record, $bAdmin);
+			_echoCalibrationHistoryItem($fPosition, $nav_sql, $strStockId, $record, $bAdmin);
         }
         mysqli_free_result($result);
     }

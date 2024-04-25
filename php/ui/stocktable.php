@@ -27,6 +27,20 @@ class TableColumnChange extends TableColumn
 	}
 }
 
+class TableColumnConvert extends TableColumn
+{
+	public function __construct()
+	{
+        parent::__construct(STOCK_DISP_CONVERT, 80, 'navy');
+	}
+}
+
+function GetTableColumnConvert()
+{
+	$col = new TableColumnConvert();
+	return $col->GetDisplay();
+}
+
 class TableColumnError extends TableColumn
 {
 	public function __construct()

@@ -20,7 +20,6 @@ function GetTableColumnHead($iWidth, $strDisplay)
 	return GetHtmlElement($strDisplay, 'th', array('class' => 'c1', 'width' => $strWidth, 'align' => 'left'));
 }
 
-// aqua, black, blue, fuchsia, gray, green, lime, maroon, navy, olive, purple, red, silver, teal, white, yellow
 class TableColumn
 {
 	var $strText;

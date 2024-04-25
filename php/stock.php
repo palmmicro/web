@@ -25,8 +25,6 @@ require_once('stock/qdiiref.php');
 require_once('stock/forexref.php');
 require_once('stock/fundpairref.php');
 
-define('FUND_DEMO_SYMBOL', 'SZ162411');
-
 function StockGetSymbol($str)
 {
 	$str = trim($str);
