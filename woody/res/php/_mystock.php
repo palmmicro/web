@@ -104,45 +104,30 @@ function _echoMyStockData($ref, $strStockId, $bAdmin)
     $strSymbol = $ref->GetSymbol();
     if ($ref->IsFundA())
     {
-       	if (in_arrayQdiiMix($strSymbol))
-       	{
-       		$holdings_ref = new HoldingsReference($strSymbol);
-   			EchoHoldingsEstParagraph($holdings_ref);
-   			EchoTradingParagraph($ref);
-			EchoFundPairHistoryParagraph($holdings_ref);
-       	}
-       	else if ($fund_pair_ref = StockGetFundPairReference($strSymbol))
+		$fund = StockGetFundReference($strSymbol);
+		if ($fund->GetOfficialNav())		
 		{
-			EchoFundArrayEstParagraph(array($fund_pair_ref));
-			EchoFundListParagraph(array($fund_pair_ref));
-			EchoFundPairTradingParagraph($fund_pair_ref);
-			EchoFundPairSmaParagraph($fund_pair_ref);
-			EchoFundPairHistoryParagraph($fund_pair_ref);
+			EchoFundArrayEstParagraph(array($fund));
+			EchoFundTradingParagraph($fund);
 		}
-		else
+		else	
 		{
-			$fund = StockGetFundReference($strSymbol);
-			if ($fund->GetOfficialNav())		
-			{
-				EchoFundEstParagraph($fund);
-				EchoFundTradingParagraph($fund);
-			}
-			else	EchoTradingParagraph($ref);
-			EchoFundHistoryParagraph($fund);
+			EchoTradingParagraph($ref);
        	}
+		EchoFundHistoryParagraph($fund);
     }
    	else if ($fund_pair_ref = StockGetFundPairReference($strSymbol))
    	{
 		EchoFundArrayEstParagraph(array($fund_pair_ref));
 		EchoFundListParagraph(array($fund_pair_ref));
 		EchoFundPairSmaParagraph($fund_pair_ref);
-		EchoFundPairHistoryParagraph($fund_pair_ref);
+		EchoFundHistoryParagraph($fund_pair_ref);
    	}
    	else if ($holdings_ref = StockGetHoldingsReference($strSymbol))
    	{
 		EchoHoldingsEstParagraph($holdings_ref);
 		EchoSmaParagraph($ref);
-		EchoFundPairHistoryParagraph($holdings_ref);
+		EchoFundHistoryParagraph($holdings_ref);
    	}
     else
     {

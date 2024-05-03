@@ -36,16 +36,6 @@ function QdiiGetStockPosition($strEstPrev, $strEst, $strPrev, $strNetValue, $str
 	return false;
 }
 
-function QdiiGetStockArbitrage($strEst, $strNetValue, $strCny, $strPosition)
-{
-	$fDivisor = floatval($strNetValue) * floatval($strPosition);
-	if ($fDivisor == 0.0)
-	{
-		return '0';
-	}
-	return strval(intval(floatval($strCny) * floatval($strEst) / $fDivisor, 0));
-}
-
 // https://markets.ft.com/data/indices/tearsheet/charts?s=SPGOGUP:REU
 function QdiiGetEstSymbol($strSymbol)
 {

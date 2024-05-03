@@ -43,8 +43,8 @@ function EchoAll()
     EchoFundPairTradingParagraph($ref);
     EchoFundPairSmaParagraph($ref);
     EchoFundPairSmaParagraph($acct->us_ref, '');
-    EchoFundPairHistoryParagraph($ref);
-    EchoFundPairHistoryParagraph($acct->us_ref);
+    EchoFundHistoryParagraph($ref);
+    EchoFundHistoryParagraph($acct->us_ref);
 //   	EchoFundShareParagraph($ref);
 //   	EchoFundShareParagraph($acct->us_ref);
 

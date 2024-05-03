@@ -138,16 +138,18 @@ function GetFundLinks($strSymbol)
 	$bChinaIndex = in_arrayChinaIndex($strSymbol);
     $bQdii = in_arrayQdii($strSymbol);
 	$bQdiiHk = in_arrayQdiiHk($strSymbol);
+	$bQdiiJp = in_arrayQdiiJp($strSymbol);
+	$bQdiiEu = in_arrayQdiiEu($strSymbol);
 	$bQdiiMix = in_arrayQdiiMix($strSymbol);
 	$bSpecial = ($strSymbol == 'SZ164906') ? true : false;
 
 	$str = GetStockHistoryLink($strSymbol).' '.GetFundHistoryLink($strSymbol).' '.GetNavHistoryLink($strSymbol).' '.GetNvCloseHistoryLink($strSymbol).' '.GetFundShareLink($strSymbol);
-	if ($bChinaIndex || $bQdii || $bQdiiHk || $bQdiiMix)
+	if ($bChinaIndex || $bQdii || $bQdiiHk || $bQdiiJp || $bQdiiEu || $bQdiiMix)
 	{
 		$str .= ' '.GetCalibrationHistoryLink($strSymbol);
-		if ($bQdii || $bQdiiHk || $bSpecial)	$str .= ' '.GetFundPositionLink($strSymbol);
-		if ($bQdii || $bSpecial)					$str .= ' '.GetFundAccountLink($strSymbol);
-		if ($bQdii)								$str .= ' '.GetThanousParadoxLink($strSymbol);
+		if ($bQdii || $bQdiiHk || $bQdiiJp || $bQdiiEu || $bSpecial)	$str .= ' '.GetFundPositionLink($strSymbol);
+		if ($bQdii || $bSpecial)												$str .= ' '.GetFundAccountLink($strSymbol);
+		if ($bQdii)															$str .= ' '.GetThanousParadoxLink($strSymbol);
 	}
 	return $str;
 }

@@ -33,10 +33,7 @@ class FutureReference extends MysqlReference
     		}
     		else
     		{
-    			if ($strClose = $calibration_sql->GetCloseNow($strEtfId))
-    			{
-    				$this->fFactor = floatval($strClose);
-    			}
+    			if ($strClose = $calibration_sql->GetCloseNow($strEtfId))	$this->fFactor = floatval($strClose);
     		}
 //    	}
         return $this->fFactor;

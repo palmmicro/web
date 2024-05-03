@@ -95,6 +95,7 @@ function EchoFundTradingParagraph($fund, $callback = false)
    	
     $arColumn = _getTradingTableColumn();
     $strPrice = _getTradingParagraphStr($ref, $arColumn);
+	$strRealtime = false;
     if ($strOfficial = $fund->GetOfficialNav())
     {
     	$arColumn[] = new TableColumnPremium(STOCK_DISP_OFFICIAL);
@@ -124,7 +125,6 @@ function EchoFundTradingParagraph($fund, $callback = false)
 	{
 		$str = $strPrice;
 		$strFair = false;
-		$strRealtime = false;
 	}
     if ($callback)     	$arColumn[] = new TableColumn(call_user_func($callback));
 	

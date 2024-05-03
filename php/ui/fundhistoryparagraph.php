@@ -90,14 +90,13 @@ function _echoFundHistoryParagraph($fund_est_sql, $ref, $est_ref, $csv, $iStart,
     EchoTableParagraphEnd($strMenuLink);
 }
 
-function EchoFundHistoryParagraph($fund, $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY, $bAdmin = false)
+function EchoFundHistoryParagraph($ref, $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY, $bAdmin = false)
 {
-    _echoFundHistoryParagraph($fund->GetFundEstSql(), $fund->GetStockRef(), $fund->GetEstRef(), $csv, $iStart, $iNum, $bAdmin);
-}
-
-function EchoFundPairHistoryParagraph($ref, $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY, $bAdmin = false)
-{
-	if (method_exists($ref, 'GetFundEstSql'))
+	if (method_exists($ref, 'GetStockRef'))
+	{
+		_echoFundHistoryParagraph($ref->GetFundEstSql(), $ref->GetStockRef(), $ref->GetEstRef(), $csv, $iStart, $iNum, $bAdmin);
+	}
+	else if (method_exists($ref, 'GetFundEstSql'))
 	{
 		$est_ref = method_exists($ref, 'GetPairRef') ? $ref->GetPairRef() : false;
 		_echoFundHistoryParagraph($ref->GetFundEstSql(), $ref, $est_ref, $csv, $iStart, $iNum, $bAdmin);

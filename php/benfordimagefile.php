@@ -53,11 +53,6 @@ class BenfordImageFile extends PageImageFile
 	var $iTotal2;
 	var $iTotal3;
 	
-    public function __construct($strIndex = '1') 
-    {
-        parent::__construct($strIndex);
-    }
-    
     function Draw($arTarget, $arTarget2 = false)
     {
     	list($this->iTotal, $ar) = GetBenfordData($arTarget);

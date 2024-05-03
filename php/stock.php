@@ -241,6 +241,16 @@ function _getAllSymbolArray($strSymbol)
         	if ($strEstSymbol = QdiiHkGetEstSymbol($strSymbol))		        $ar[] = $strEstSymbol; 
         	if ($strFutureSymbol = QdiiHkGetFutureSymbol($strSymbol))			$ar[] = $strFutureSymbol; 
         }
+        else if (in_arrayQdiiJp($strSymbol))
+        {
+        	if ($strEstSymbol = QdiiJpGetEstSymbol($strSymbol))		        $ar[] = $strEstSymbol; 
+        	if ($strFutureSymbol = QdiiJpGetFutureSymbol($strSymbol))			$ar[] = $strFutureSymbol; 
+        }
+        else if (in_arrayQdiiEu($strSymbol))
+        {
+        	if ($strEstSymbol = QdiiEuGetEstSymbol($strSymbol))		        $ar[] = $strEstSymbol; 
+        	if ($strFutureSymbol = QdiiEuGetFutureSymbol($strSymbol))			$ar[] = $strFutureSymbol; 
+        }
 //      else if (in_arrayChinaIndex($strSymbol))
         else
         {
@@ -320,14 +330,21 @@ function StockGetReference($strSymbol)
     										return new MyStockReference($strSymbol);
 }
 
+function StockGetQdiiReference($strSymbol)
+{
+    if (in_arrayQdii($strSymbol))					return new QdiiReference($strSymbol);
+    else if (in_arrayQdiiHk($strSymbol))			return new QdiiHkReference($strSymbol);
+    else if (in_arrayQdiiJp($strSymbol))			return new QdiiJpReference($strSymbol);
+    else if (in_arrayQdiiEu($strSymbol))			return new QdiiEuReference($strSymbol);
+    return false;
+}
+
 function StockGetFundReference($strSymbol = FUND_DEMO_SYMBOL)
 {
-    if (in_arrayQdii($strSymbol))					$ref = new QdiiReference($strSymbol);
-    else if (in_arrayQdiiHk($strSymbol))			$ref = new QdiiHkReference($strSymbol);
-    else if (in_arrayQdiiJp($strSymbol))			$ref = new QdiiJpReference($strSymbol);
-    else if (in_arrayQdiiEu($strSymbol))			$ref = new QdiiEuReference($strSymbol);
-    else									        $ref = new FundReference($strSymbol);
-    return $ref;
+	if ($ref = StockGetQdiiReference($strSymbol))	return $ref;
+	else if (in_arrayQdiiMix($strSymbol))			return new HoldingsReference($strSymbol);
+	else if (in_arrayChinaIndex($strSymbol))			return new FundPairReference($strSymbol);
+	return new FundReference($strSymbol);
 }
 
 function _getAbPairReference($strSymbol)

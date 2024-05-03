@@ -20,7 +20,7 @@ function _echoFundHistory($strSymbol, $iStart, $iNum, $bAdmin)
    	else
    	{
    		if (($ref = StockGetFundPairReference($strSymbol)) === false)		$ref = StockGetHoldingsReference($strSymbol);
- 		if ($ref)	EchoFundPairHistoryParagraph($ref, $csv, $iStart, $iNum, $bAdmin);
+ 		if ($ref)	EchoFundHistoryParagraph($ref, $csv, $iStart, $iNum, $bAdmin);
    	}
     $csv->Close();
     

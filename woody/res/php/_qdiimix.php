@@ -177,7 +177,7 @@ function EchoAll()
 		if ($us_ref)	EchoSmaParagraph($us_ref);
 	}
 
-    EchoFundPairHistoryParagraph($ref);
+    EchoFundHistoryParagraph($ref);
    	EchoFundShareParagraph($ref);
 
     if ($group = $acct->EchoTransaction()) 

@@ -31,7 +31,7 @@ function EchoCalibrationHistoryParagraph($ref, $iStart = 0, $iNum = TABLE_COMMON
    	else
    	{
    		$strMenuLink = StockGetMenuLink($strSymbol, $calibration_sql->Count($strStockId), $iStart, $iNum);
-   		$strLink =  GetFundLinks($strSymbol).' '.$strMenuLink;
+   		$strLink = GetFundLinks($strSymbol).'<br />'.$strMenuLink;
    	}
     
    	$ar = array(new TableColumnDate(), new TableColumnCalibration(), new TableColumnTime());

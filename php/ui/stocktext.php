@@ -86,7 +86,22 @@ function TextFromFundReference($ref)
 
     $strSymbol = $ref->GetSymbol();
     $strName = SqlGetStockName($strSymbol).BOT_EOL.$strSymbol.BOT_EOL;
-    $stock_ref = $ref->GetStockRef();
+	if (method_exists($ref, 'GetStockRef'))
+	{
+		$stock_ref = $ref->GetStockRef();
+		$strNetValue = $ref->GetPrice();
+		$strDate = $ref->GetDate();
+		$strPercentage = $ref->GetPercentageText();
+	}
+	else
+	{
+		$stock_ref = $ref;
+		$nav_ref = $ref->GetNavRef();
+		$strNetValue = $nav_ref->GetPrice();
+		$strDate = $nav_ref->GetDate();
+		$strPercentage = $nav_ref->GetPercentageText();
+	}
+	
     if ($stock_ref)
     {
         if (($str = TextFromStockReference($stock_ref)) == false)
@@ -99,26 +114,13 @@ function TextFromFundReference($ref)
         $str = $strName;
     }
     
-    $strDate = $ref->GetDate();
-    $strNetValue = $ref->GetPrice();
     $str .= STOCK_DISP_NAV.':'.$strNetValue.' '.$strDate.BOT_EOL;
-    $str .= STOCK_DISP_NAV.STOCK_DISP_CHANGE.':'.$ref->GetPercentageText().BOT_EOL;
+    $str .= STOCK_DISP_NAV.STOCK_DISP_CHANGE.':'.$strPercentage.BOT_EOL;
     if ($stock_ref)
     {
     	if ($stock_ref->GetDate() == $strDate)	$str .= _textPremium($stock_ref, $strNetValue).BOT_EOL;
     	$str .= _textEstNav($ref, $stock_ref);
     }
-    return $str;
-}
-
-function TextFromHoldingsReference($ref)
-{
-	if (($str = TextFromStockReference($ref)) === false)	return false;
-	
-	$nav_ref = $ref->GetNavRef();
-    $str .= STOCK_DISP_NAV.':'.$nav_ref->GetPrice().' '.$nav_ref->GetDate().BOT_EOL;
-    $str .= STOCK_DISP_NAV.STOCK_DISP_CHANGE.':'.$nav_ref->GetPercentageText().BOT_EOL;
-   	$str .= _textEstNav($ref, $ref);
     return $str;
 }
 

@@ -1,7 +1,5 @@
 <?php
-require_once('_stock.php');
-require_once('_emptygroup.php');
-require_once('../../php/dateimagefile.php');
+require_once('stocktable.php');
 
 function _echoNetValueItem($csv, $nav_sql, $strStockId, $est_sql, $strEstId, $strNetValue, $strDate, $ref, $est_ref, $cny_ref)
 {
@@ -76,51 +74,40 @@ function _echoNetValueData($csv, $ref, $est_ref, $cny_ref, $iStart, $iNum)
     }
 }
 
-function _echoNetValueHistory($ref, $iStart, $iNum, $bAdmin)
+function EchoNetValueHistoryParagraph($ref, $csv = false, $iStart = 0, $iNum = TABLE_COMMON_DISPLAY, $bAdmin = false)
 {
 	if (($iTotal = $ref->CountNav()) == 0)	return;
 	
 	$strSymbol = $ref->GetSymbol();
-    $str = GetFundLinks($strSymbol);
-    if (in_arrayQdii($strSymbol))
-    {
-    	$ref = new QdiiReference($strSymbol);
-    	$cny_ref = $ref->GetCnyRef();
-    	$est_ref = $ref->GetEstRef();
-    }
-	else if (in_arrayQdiiHk($strSymbol))
-    {
-       	$ref = new QdiiHkReference($strSymbol);
-        $cny_ref = $ref->GetCnyRef();
-        $est_ref = $ref->GetEstRef();
-    }
-	else if (in_arrayQdiiJp($strSymbol))
-    {
-       	$ref = new QdiiJpReference($strSymbol);
-        $cny_ref = $ref->GetCnyRef();
-        $est_ref = $ref->GetEstRef();
-    }
-	else if (in_arrayQdiiEu($strSymbol))
-    {
-       	$ref = new QdiiEuReference($strSymbol);
-        $cny_ref = $ref->GetCnyRef();
-        $est_ref = $ref->GetEstRef();
-    }
-    else if ($strSymbol == 'SZ164906')
-    {
-       	$cny_ref = new CnyReference('USCNY');
-       	$est_ref = new MyStockReference('KWEB');
-    }
+	if (IsTableCommonDisplay($iStart, $iNum))
+	{
+   		$strMenuLink = '';
+   		$strLink = GetNavHistoryLink($strSymbol);
+	}
+	else
+	{
+		$strMenuLink = StockGetMenuLink($strSymbol, $iTotal, $iStart, $iNum);
+   		$strLink = GetFundLinks($strSymbol);
+   		if ($bAdmin)	$strLink .= '<br />'.StockGetAllLink($strSymbol);
+   		$strLink .= '<br />'.$strMenuLink;
+   	}
+	
+   	if ($fund_ref = StockGetQdiiReference($strSymbol))
+   	{
+   		$cny_ref = $fund_ref->GetCnyRef();
+   		$est_ref = $fund_ref->GetEstRef();
+   	}
+   	else if ($strSymbol == 'SZ164906')
+   	{
+   		$cny_ref = new CnyReference('USCNY');
+   		$est_ref = new MyStockReference('KWEB');
+   	}
     else
     {
     	$cny_ref = false;
     	$est_ref = false;
     }
-    if ($bAdmin)	$str .= '<br />'.StockGetAllLink($strSymbol);
     
-   	$strMenuLink = StockGetMenuLink($strSymbol, $iTotal, $iStart, $iNum);
-	$str .= '<br />'.$strMenuLink;
-
 	$change_col = new TableColumnChange();
 	$ar = array(new TableColumnDate(), new TableColumnNav(), $change_col);
 	if ($est_ref)
@@ -132,50 +119,11 @@ function _echoNetValueHistory($ref, $iStart, $iNum, $bAdmin)
 		$position_col = new TableColumnPosition();
 		$ar[] = $position_col;
 	}
-	EchoTableParagraphBegin($ar, 'netvaluehistory', $str);
-	
-   	$csv = new PageCsvFile();
+	EchoTableParagraphBegin($ar, 'netvaluehistory', $strLink);
 	_echoNetValueData($csv, $ref, $est_ref, $cny_ref, $iStart, $iNum);
-    $csv->Close();
+    EchoTableParagraphEnd($strMenuLink);
     
-    $str = $strMenuLink;
-    if ($csv->HasFile())
-    {
-    	$jpg = new DateImageFile();
-   		if ($jpg->Draw($csv->ReadColumn(2), $csv->ReadColumn(1)))
-   		{
-   			$str .= '<br />'.$csv->GetLink().'<br />'.$jpg->GetAll(($est_ref ? $position_col->GetDisplay() : ''), $strSymbol);
-   		}
-   	}
-    EchoTableParagraphEnd($str);
+    return $est_ref ? $position_col->GetDisplay() : '';
 }
 
-function EchoAll()
-{
-	global $acct;
-	
-    if ($ref = $acct->EchoStockGroup())
-    {
-   		_echoNetValueHistory($ref, $acct->GetStart(), $acct->GetNum(), $acct->IsAdmin());
-    }
-    $acct->EchoLinks('netvaluehistory');
-}
-
-function GetMetaDescription()
-{
-	global $acct;
-	
-  	$str = $acct->GetMetaDisplay(NETVALUE_HISTORY_DISPLAY);
-    $str .= '页面。用于某基金历史净值超过一定数量后的显示。最近的基金净值记录一般会直接显示在该基金页面。';
-    return CheckMetaDescription($str);
-}
-
-function GetTitle()
-{
-	global $acct;
-	return $acct->GetTitleDisplay(NETVALUE_HISTORY_DISPLAY);
-}
-
-    $acct = new SymbolAccount();
 ?>
-

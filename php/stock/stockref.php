@@ -173,11 +173,6 @@ class StockReference extends StockSymbol
         return $this->strDate;
     }
     
-    function GetDateTime()
-    {
-        return $this->strDate.' '.$this->strTime;
-    }
-    
     // 06:56:22 => 06:56
 	function GetTimeHM()
 	{
@@ -222,12 +217,12 @@ class StockReference extends StockSymbol
         }
         else
         {
-//            $iTime = $this->_totime($this->strTimeZone);
-			$iTime = strtotime($this->GetDateTime());
-			if ($etf_ref->GetSymbol() == 'znb_NKY')	$iTime -= 30;
+        	$this->SetTimeZone();
+			$iTime = strtotime($this->strDate.' '.$this->strTime);
+//			if ($etf_ref->GetSymbol() == 'znb_NKY')	$iTime -= 30;
             $strDate = DebugGetDate($iTime, $strTimeZone);
             $strTime = DebugGetTime($iTime, $strTimeZone);
-//            DebugString(__FUNCTION__.': '.$etf_ref->GetSymbol().' '.$etf_ref->GetDate().' '.$etf_ref->GetTimeHM().' vs '.$strDate.' '.$strTime);
+//            DebugString(__FUNCTION__.': '.$strTimeZone.' '.$etf_ref->GetSymbol().' '.$etf_ref->GetDate().' '.$etf_ref->GetTimeHM().' vs '.$strDate.' '.$strTime);
         }
         if ($strDate != $etf_ref->GetDate())			return false;
         if (GetHM($strTime) != $etf_ref->GetTimeHM())	return false;

@@ -22,7 +22,7 @@ function in_array_ref($ref, $arRef)
 	return true;
 }
 
-function _echoStockGroupArray($arStock, $bWide, $bAdmin)
+function _echoStockGroupArray($arStock, $bWide)
 {
     StockPrefetchArrayExtendedData($arStock);
 
@@ -32,21 +32,15 @@ function _echoStockGroupArray($arStock, $bWide, $bAdmin)
     $arAbRef = array();
     $arAhRef = array();
     $arAdrRef = array();
-    $arFundPairRef = array();
     
     foreach ($arStock as $strSymbol)
     {
 		$ref = StockGetReference($strSymbol);
         if ($ref->IsFundA())
         {
-        	if (in_arrayQdiiMix($strSymbol))		$arFund[] = new HoldingsReference($strSymbol);
-        	else
-        	{
-        		$arFund[] = StockGetFundReference($strSymbol);
-        		if ($pair_ref = StockGetFundPairReference($strSymbol))		$arFundPairRef[] = $pair_ref;
-        	}
+       		$fund = StockGetFundReference($strSymbol);
+       		if ($fund->GetOfficialNav())	$arFund[] = $fund;
        	}
-    	else if ($pair_ref = StockGetFundPairReference($strSymbol))	$arFundPairRef[] = $pair_ref;
    		else
    		{
 	    	list($ab_ref, $ah_ref, $adr_ref) = StockGetPairReferences($strSymbol);
@@ -59,12 +53,11 @@ function _echoStockGroupArray($arStock, $bWide, $bAdmin)
         if ($ref->IsTradable())	$arTransactionRef[] = $ref;
     }
     
-	if ($bAdmin || $bWide == false)		EchoReferenceParagraph($arRef, $bAdmin);
+	if ($bWide == false)					EchoReferenceParagraph($arRef);
     if (count($arFund) > 0)     			EchoFundArrayEstParagraph($arFund, false, $bWide);
     if (count($arAbRef) > 0)				EchoAbParagraph($arAbRef, $bWide);
     if (count($arAhRef) > 0)				EchoAhParagraph($arAhRef, $bWide);
     if (count($arAdrRef) > 0)			EchoAdrhParagraph($arAdrRef, $bWide);
-    if (count($arFundPairRef) > 0)		EchoFundListParagraph($arFundPairRef);
     
     return $arTransactionRef;
 }
@@ -133,7 +126,6 @@ function EchoAll()
 {
 	global $acct;
 	
-	$bAdmin = $acct->IsAdmin();
 	$strPage = $acct->GetPage();
     if ($strPage == 'mystockgroup')
     {
@@ -142,7 +134,7 @@ function EchoAll()
         	$arStock = SqlGetStocksArray($strGroupId);
         	if (count($arStock) > 0)
         	{
-        		$arTransactionRef = _echoStockGroupArray($arStock, false, $bAdmin);
+        		$arTransactionRef = _echoStockGroupArray($arStock, false);
         		$group = new MyStockGroup($strGroupId, $arTransactionRef);
         		if ($acct->EchoStockTransaction($group))		$acct->EchoMoneyParagraph($group, new CnyReference('USCNY'), new CnyReference('HKCNY'));
         	}
@@ -155,7 +147,7 @@ function EchoAll()
     }
     else
     {
-        _echoStockGroupArray(StockGetArraySymbol(GetCategoryArray($strPage)), LayoutUseWide(), $bAdmin);
+        _echoStockGroupArray(StockGetArraySymbol(GetCategoryArray($strPage)), LayoutUseWide());
         
     	$str = _getMetaDescriptionStr($strPage);
 		if ($strLinks = _getSimilarLinks($strPage))		$str .= $strLinks;

@@ -3,14 +3,8 @@ require_once('imagefile.php');
 
 class DateImageFile extends PageImageFile
 {
-	var $strText;
+	var $strText = '';
 	
-    public function __construct($strIndex = '1') 
-    {
-        parent::__construct($strIndex);
-        $this->strText = '';
-    }
-    
     function _textDateVal($str, $strDate, $fVal)
     {
 		$this->strText .= $str.'：'.$strDate.' '.GetFontElement(strval_round($fVal, 2), $this->strLineColor).'<br />';

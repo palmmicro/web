@@ -26,11 +26,9 @@ function _echoFundPositionItem($csv, $ref, $cny_ref, $est_ref, $strDate, $strNet
 			if ($strPosition = QdiiGetStockPosition($strEstPrev, $strEst, $strPrev, $strNetValue, $strCnyPrev, $strCny, $strInput))
 			{
 				$bWritten = true;
-				$strArbitrage = QdiiGetStockArbitrage($strEst, $strNetValue, $strCny, $strPosition);
-				$csv->Write($strDate, $strNetValue, $strPosition, $strArbitrage);
-				
+				$csv->Write($strDate, $strNetValue, $strPosition);
 				if ($bAdmin)	$strPosition = GetOnClickLink('/php/_submitoperation.php?stockid='.$strStockId.'&fundposition='.$strPosition, "确认使用{$strPosition}作为估值仓位？", $strPosition);
-				$ar[] = $strPosition;	// .'/'.$strArbitrage;
+				$ar[] = $strPosition;
 			}
 		}
 	}
@@ -147,20 +145,11 @@ function _echoFundPositionParagraph($ref, $cny_ref, $est_ref, $strSymbol, $strIn
 	
 	if ($csv->HasFile())
 	{
-		$strNewLine = GetBreakElement();
-		$str = $strNewLine.$csv->GetLink();
-
 		$jpg = new DateImageFile();
-		if ($jpg->Draw($csv->ReadColumn(2), $csv->ReadColumn(1)))
-		{
-			$str .= $strNewLine.$jpg->GetAll($position_col->GetDisplay(), $strSymbol);
-		}
-
-		$jpg2 = new DateImageFile(2);
-		if ($jpg2->Draw($csv->ReadColumn(3), $csv->ReadColumn(1)))
-		{
-			$str .= $strNewLine.'&nbsp;'.$strNewLine.$jpg2->GetAll(STOCK_DISP_CONVERT, $strSymbol);
-		}
+		$strNewLine = GetBreakElement();
+		
+		$str = $strNewLine.$csv->GetLink();
+		if ($jpg->Draw($csv->ReadColumn(2), $csv->ReadColumn(1)))	$str .= $strNewLine.$jpg->GetAll($position_col->GetDisplay(), $strSymbol);
 		EchoTableParagraphEnd($str);
    	}
 }
@@ -181,31 +170,12 @@ function EchoAll()
     	
    		$fund = false;
    		$strSymbol = $ref->GetSymbol();
-        if (in_arrayQdii($strSymbol))
+        if ($fund = StockGetQdiiReference($strSymbol))
         {
-        	$fund = new QdiiReference($strSymbol);
         	$cny_ref = $fund->GetCnyRef();
         	$est_ref = $fund->GetEstRef();
         }
-		else if (in_arrayQdiiHk($strSymbol))
-        {
-        	$fund = new QdiiHkReference($strSymbol);
-        	$cny_ref = $fund->GetCnyRef();
-        	$est_ref = $fund->GetEstRef();
-        }
-		else if (in_arrayQdiiJp($strSymbol))
-        {
-        	$fund = new QdiiJpference($strSymbol);
-        	$cny_ref = $fund->GetCnyRef();
-        	$est_ref = $fund->GetEstRef();
-        }
-		else if (in_arrayQdiiEu($strSymbol))
-        {
-        	$fund = new QdiiEuference($strSymbol);
-        	$cny_ref = $fund->GetCnyRef();
-        	$est_ref = $fund->GetEstRef();
-        }
-        else if ($strSymbol == 'SZ164906')
+       else if ($strSymbol == 'SZ164906')
         {
         	$fund = $ref;
         	$cny_ref = new CnyReference('USCNY');
