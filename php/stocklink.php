@@ -121,7 +121,7 @@ function GetFundHistoryLink($strSymbol = FUND_DEMO_SYMBOL)
 }
 
 define('NETVALUE_HISTORY_DISPLAY', '净值记录');
-function GetNavHistoryLink($strSymbol, $strExtraQuery = false, $strExtraDisplay = false)
+function GetNetValueHistoryLink($strSymbol, $strExtraQuery = false, $strExtraDisplay = false)
 {
 	$strDisplay = $strExtraQuery ? $strExtraDisplay : NETVALUE_HISTORY_DISPLAY;
     return GetStockSymbolLink('netvaluehistory', $strSymbol, $strDisplay, $strExtraQuery);
@@ -143,7 +143,7 @@ function GetFundLinks($strSymbol)
 	$bQdiiMix = in_arrayQdiiMix($strSymbol);
 	$bSpecial = ($strSymbol == 'SZ164906') ? true : false;
 
-	$str = GetStockHistoryLink($strSymbol).' '.GetFundHistoryLink($strSymbol).' '.GetNavHistoryLink($strSymbol).' '.GetNvCloseHistoryLink($strSymbol).' '.GetFundShareLink($strSymbol);
+	$str = GetStockHistoryLink($strSymbol).' '.GetFundHistoryLink($strSymbol).' '.GetNetValueHistoryLink($strSymbol).' '.GetNvCloseHistoryLink($strSymbol).' '.GetFundShareLink($strSymbol);
 	if ($bChinaIndex || $bQdii || $bQdiiHk || $bQdiiJp || $bQdiiEu || $bQdiiMix)
 	{
 		$str .= ' '.GetCalibrationHistoryLink($strSymbol);
@@ -172,7 +172,7 @@ function GetFundAccountLink($strSymbol = FUND_DEMO_SYMBOL, $iNum = false)
     return GetStockSymbolLink('fundaccount', $strSymbol, ($iNum ? strval($iNum) : FUND_ACCOUNT_DISPLAY));
 }
 
-define('FUND_POSITION_DISPLAY', '仓位估算');
+define('FUND_POSITION_DISPLAY', STOCK_DISP_POSITION.'估算');
 function GetFundPositionLink($strSymbol, $bDisplaySymbol = false)
 {
     return GetStockSymbolLink('fundposition', $strSymbol, ($bDisplaySymbol ? $strSymbol : FUND_POSITION_DISPLAY));

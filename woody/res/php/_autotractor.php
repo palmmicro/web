@@ -4,7 +4,7 @@ require_once('../../php/ui/imagedisp.php');
 
 // https://kraneshares.com/product-json/?pid=477&type=premium-discount&start=2024-03-14&end=2024-03-15
 
-define('YINHE_AU3_VER', '72');
+define('YINHE_AU3_VER', '73');
 
 function EchoAll()
 {
@@ -12,11 +12,11 @@ function EchoAll()
     
     EchoParagraph(GetRemarkElement('完整软件安装步骤：'));
     $strNepturnLink = GetExternalLink('https://www.chinastock.com.cn/newsite/online/downloadCenterDetail.html?softName=neptune', '银河证券官网');
-    $strNepturn = GetBoldElement('海王星单独委托版3.14');
+    $strNepturn = GetBoldElement('海王星单独委托版3.16');
     $strHuabaoLink = GetExternalLink('https://www.cnhbstock.com/view/software/software.html?col=0', '华宝证券官网');
     $strHuabao = GetBoldElement('通达信版独立交易8.18');
     $strAutoIt =  GetBoldElement('AutoIt3.exe');
-    echo GetListElement(array('在'.$strNepturnLink.'下载并在缺省路径C:\中国银河证券海王星独立交易\Tc.exe位置安装'.$strNepturn.'，桌面图标会显示'.GetInfoElement('中国银河证券海王星独立交易').'，注意它不同于'.GetFontElement('海王星金融终端').'软件。',
+    echo GetListElement(array('在'.$strNepturnLink.'下载并在缺省路径C:\中国银河证券海王星独立交易\Tc.exe位置安装'.$strNepturn.'，桌面图标会显示'.GetInfoElement('中国银河证券海王星独立交易').'，注意它不同于'.GetFontElement('海王星金融终端').'软件。VPN下在银河官网下载经常会停留在8M字节不动，要关闭后才能完整下载。',
     							'在'.$strHuabaoLink.'下载并在缺省路径C:\tc_hbzq\Tc.exe位置安装'.$strHuabao.'，桌面图标会显示'.GetInfoElement('华宝证券独立交易').'。',
     							'下载并安装开源的'.GetExternalLink('https://www.autoitscript.com/site/autoit/downloads/', 'AutoIt').'工具软件包。普通用户实际仅需用到x86版本的'.$strAutoIt.'文件。一定要小心软件来源，千万不要运行来历不明的.exe文件，同时也要留意不要让本机上的杀毒软件误拦截'.$strAutoIt.'的运行。',
     							'在本页面下载银河华宝拖拉机自动化PC软件脚本的2个文件到同一个子目录下，分别是'.GetFileLink('/autoit/yinhe.au3').'和'.GetFileLink('/debug/autoitscript/yinheaccounts.au3').'。'));
@@ -72,6 +72,7 @@ function EchoAll()
     echo GetKnownBugs(array(
     						 '从0.61版本开始，使用海王星3.07新增加的PIN码安全方式登录。如果被提示没有PIN码或者过期，需要手工在证书管理中使用默认PIN码申请一下。',
     						 '在小屏幕电脑上，海王星窗口内容可能会被遮挡，需要手工最大化后才能继续运行。可以先手工登录一次，把窗口扩大到比最大化小一点的状态后退出，下一次就能成功自动运行。',
+    						 '海王星不能在虚拟机中使用。',
     						 '网速很重要！在目前代码中有大量模拟按键或者鼠标后等待一秒的被动行为，在网速慢的时候会因为等待时间不够长而出错。我就可能需要在运行代码前先手工把电脑上的网络从天威宽带切换到自己手机上的移动4G热点。',
     						 '在基金概要文件那部分，IE会弹出框让选择打开或者下载，需要手工点一下，要不到不了下一步。给IE安装adobe的阅读pdf插件后能解决这个问题。在电脑上安装一下Adobe官方的免费PDF阅读器软件也可以解决这个问题。',
     						 'WIN7系统下海王星不能正常退出。可以运行系统自带的注册表编辑器regedit.exe，依次定位到HKEY_CURRENT_USER\Software\Microsoft\Windows\WindowsError Reporting，在右侧窗口中找到并双击打开DontshowUI，然后在弹出的窗口中将默认值0修改为1。'));

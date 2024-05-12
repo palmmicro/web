@@ -11,7 +11,7 @@ function EchoAll()
     if ($ref = $acct->EchoStockGroup())
     {
     	$csv = new PageCsvFile();
-   		$strName = EchoNetValueHistoryParagraph($ref, $csv, $acct->GetStart(), $acct->GetNum(), $acct->IsAdmin());
+   		EchoNetValueHistoryParagraph($ref, $csv, $acct->GetStart(), $acct->GetNum(), $acct->IsAdmin());
    		$csv->Close();
    		
    		if ($csv->HasFile())
@@ -19,7 +19,7 @@ function EchoAll()
    			$jpg = new DateImageFile();
    			if ($jpg->Draw($csv->ReadColumn(2), $csv->ReadColumn(1)))
    			{
-   				EchoParagraph($csv->GetLink().'<br />'.$jpg->GetAll($strName, $ref->GetSymbol()));
+   				EchoParagraph($csv->GetLink().'<br />'.$jpg->GetAll(STOCK_DISP_POSITION, $ref->GetSymbol()));
    			}
    		}
     }

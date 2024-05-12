@@ -137,7 +137,7 @@ class TableColumnPosition extends TableColumn
 {
 	public function __construct()
 	{
-        parent::__construct('仓位', 70);
+        parent::__construct(STOCK_DISP_POSITION, 70);
 	}
 }
 

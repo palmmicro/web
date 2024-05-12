@@ -280,7 +280,7 @@ Func AppOpen($iSoftware, $idDebug, $strAccount, $strPassword)
 		$strTitle = '通达信网上交易'
 	Else
 		$strDir = 'tc_hbzq'
-		$strTitle = '华宝证券网上交易'
+		$strTitle = 'V8.18'
 	EndIf
 	$strPath = 'C:\' & $strDir & '\'
 	Run($strPath & 'Tc.exe', $strPath)
@@ -1072,7 +1072,7 @@ Func AppMain()
 
 	$GroupSoftware = GUICtrlCreateGroup("软件", 336, 400, 225, 81)
 	$iSoftware = 0
-	$RadioYinhe = GUICtrlCreateRadio("银河证券海王星单独委托版3.14", 352, 424, 193, 17)
+	$RadioYinhe = GUICtrlCreateRadio("银河证券海王星单独委托版3.16", 352, 424, 193, 17)
 	GUICtrlSetState(-1, _getRadioState($RadioYinhe, $iSoftware, 'Yinhe', $GUI_CHECKED))
 	$RadioHuabao = GUICtrlCreateRadio("华宝证券通达信版独立交易8.18", 352, 448, 193, 17)
 	GUICtrlSetState(-1, _getRadioState($RadioHuabao, $iSoftware, 'Huabao', $GUI_UNCHECKED))

@@ -22,19 +22,18 @@ class DateImageFile extends PageImageFile
     
     function Draw($arFocus, $arBase)
     {
-    	if (count($arFocus) < 2)		return false;
-
     	$iCount = count($arBase);
     	if ($iCount < 2)		return false;
     	
     	$this->fMaxX = $iCount;
     	$this->fMaxY = max($arBase);
-
     	for ($i = 1; $i < 10; $i ++)		$this->DrawAxisY($i * $iCount / 10.0);
     	
     	$arBase = array_reverse($arBase);
     	$this->DrawComparePolyLine($arBase);
 
+    	if ($arFocus == false || count($arFocus) < 2)		return true;
+    	
     	$arFocus = array_reverse($arFocus);	// ksort($arFocus);
     	reset($arFocus);
     	$this->_textCurDateVal('开始日期', $arFocus);
@@ -77,7 +76,8 @@ class DateImageFile extends PageImageFile
     function GetAll($strName, $strCompare)
     {
     	$str = $this->strText;
-    	$str .= GetFontElement($strName, $this->strLineColor).' '.GetFontElement($strCompare, $this->strCompareColor);
+    	if ($str != '')	$str .= GetFontElement($strName, $this->strLineColor).' ';
+    	$str .= GetFontElement($strCompare, $this->strCompareColor);
     	$str .= '<br />'.$this->GetLink();
     	return $str;
 	}

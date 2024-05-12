@@ -7,6 +7,7 @@ require_once('../../../php/ui/calibrationhistoryparagraph.php');
 require_once('../../../php/ui/fundestparagraph.php');
 require_once('../../../php/ui/fundhistoryparagraph.php');
 require_once('../../../php/ui/fundshareparagraph.php');
+require_once('../../../php/ui/netvaluehistoryparagraph.php');
 require_once('../../../php/ui/smaparagraph.php');
 require_once('../../../php/ui/nvclosehistoryparagraph.php');
 require_once('../../../php/ui/stockhistoryparagraph.php');
@@ -208,16 +209,17 @@ function Echo20160222($strHead)
 	$strFundHistory = GetNameLink('fundhistory', FUND_HISTORY_DISPLAY);
 	$strStockHistory = GetNameLink('stockhistory', STOCK_HISTORY_DISPLAY);
 	$strCalibrationHistory = GetNameLink('calibrationhistory', CALIBRATION_HISTORY_DISPLAY);
-	$strNavHistoryLink = GetNavHistoryLink(FUND_DEMO_SYMBOL);
 	
     echo <<<END
 	$strHead
 <p>2016年2月22日
 <br />有人跟我指出{$strFundHistory}中净值的日期显示早了一天，我差点一口鲜血吐在了键盘上。用脚趾头想想，要计算华宝油气当天的交易溢价，肯定是要跟前一天的净值比较啊。当天的净值要等当晚美股收盘后才出来，否则的话我写这个净值估算有什么意义呢。
 <br />把当天的交易价格跟前一天的净值放在一起比较，其实也正是我平时最为推崇的不同数据显示方式引导不同思维模式的举措。 
-不过为了避免以后还有人搞混淆，我干脆另外加了一个单独的{$strNavHistoryLink}显示页面，算上最开始的{$strStockHistory}和前几天加的{$strCalibrationHistory}，现在总共有四个历史数据页面了。  
+不过为了避免以后还有人搞混淆，我干脆另外加了一个单独的显示页面，算上最开始的{$strStockHistory}和前几天加的{$strCalibrationHistory}，现在总共有四个历史数据页面了。  
 </p>
 END;
+
+	EchoNetValueHistoryParagraph(StockGetFundReference());
 }
 
 function Echo20160226($strHead)
@@ -677,7 +679,7 @@ function Echo20191025($strHead)
 	$strHead = GetHeadElement($strHead);
 	$strFundAccount = GetFundAccountLink();
 	$strNavHistory = GetNameLink('netvaluehistory', NETVALUE_HISTORY_DISPLAY);
-	$strNavHistoryLink = GetNavHistoryLink(FUND_DEMO_SYMBOL, 'num=0', '统计');
+	$strNavHistoryLink = GetNetValueHistoryLink(FUND_DEMO_SYMBOL, 'num=0', '统计');
 	$strFundPositionLink = GetFundPositionLink(FUND_DEMO_SYMBOL);
 	$strSZ160216 = GetFundPositionLink('SZ160216', true);
 	$strLof = _getLofLink();

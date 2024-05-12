@@ -15,6 +15,7 @@ define('STOCK_DISP_NAV', '净值');			// olive
 define('STOCK_DISP_OFFICIAL', '官方');
 define('STOCK_DISP_OPEN', '开盘');
 define('STOCK_DISP_ORDER', '申购');
+define('STOCK_DISP_POSITION', '仓位');
 define('STOCK_DISP_PREMIUM', '溢价');		// orange
 define('STOCK_DISP_PRICE', '价格');		// blue
 define('STOCK_DISP_PROFIT', '盈利');		// red

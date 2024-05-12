@@ -173,7 +173,7 @@ function StockCompareEstResult($fund_est_sql, $strStockId, $strNetValue, $strDat
        		$fPercentage = StockGetPercentage($strNetValue, $strEstValue);
        		if (($fPercentage !== false) && (abs($fPercentage) > 1.0))
        		{
-       			$strLink = GetNavHistoryLink($strSymbol);
+       			$strLink = GetNetValueHistoryLink($strSymbol);
        			$str = sprintf('%s%s 实际值%s 估值%s 误差:%.2f%%', $strSymbol, $strLink, $strNetValue, $strEstValue, $fPercentage); 
        			trigger_error('Net value estimation error '.$str);
        		}

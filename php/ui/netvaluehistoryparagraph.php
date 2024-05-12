@@ -33,7 +33,7 @@ function _echoNetValueItem($csv, $nav_sql, $strStockId, $est_sql, $strEstId, $st
 					if ($strVal = QdiiGetStockPosition($strEstPrev, $strEst, $strPrev, $strNetValue, $strCnyPrev, $strCny))
 					{
 						$bWritten = true;
-						$csv->Write($strDate, $strNetValue, $strVal);
+						if ($csv)	$csv->Write($strDate, $strNetValue, $strVal);
 						$ar[] = $strVal;
 					}
 				}
@@ -41,7 +41,10 @@ function _echoNetValueItem($csv, $nav_sql, $strStockId, $est_sql, $strEstId, $st
 		}
 	}
 	
-	if ($bWritten == false)		$csv->Write($strDate, $strNetValue);
+	if ($bWritten == false)
+	{
+		if ($csv)	$csv->Write($strDate, $strNetValue);
+	}
 	EchoTableColumn($ar);
 }
 
@@ -82,7 +85,7 @@ function EchoNetValueHistoryParagraph($ref, $csv = false, $iStart = 0, $iNum = T
 	if (IsTableCommonDisplay($iStart, $iNum))
 	{
    		$strMenuLink = '';
-   		$strLink = GetNavHistoryLink($strSymbol);
+   		$strLink = GetNetValueHistoryLink($strSymbol);
 	}
 	else
 	{
@@ -116,14 +119,11 @@ function EchoNetValueHistoryParagraph($ref, $csv = false, $iStart = 0, $iNum = T
 		$ar[] = $change_col;
 		$ar[] = RefGetTableColumnNav($est_ref);
 		$ar[] = $change_col;
-		$position_col = new TableColumnPosition();
-		$ar[] = $position_col;
+		$ar[] = new TableColumnPosition();
 	}
 	EchoTableParagraphBegin($ar, 'netvaluehistory', $strLink);
 	_echoNetValueData($csv, $ref, $est_ref, $cny_ref, $iStart, $iNum);
     EchoTableParagraphEnd($strMenuLink);
-    
-    return $est_ref ? $position_col->GetDisplay() : '';
 }
 
 ?>

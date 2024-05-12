@@ -1,6 +1,7 @@
 <?php
 //require_once('stocktable.php');
 require_once('calibrationhistoryparagraph.php');
+require_once('netvaluehistoryparagraph.php');
 
 // $ref from FundReference
 function _echoFundEstTableItem($ref, $bFair, $bWide = false)
@@ -14,11 +15,10 @@ function _echoFundEstTableItem($ref, $bFair, $bWide = false)
     	$ar = array_merge($ar, GetStockReferenceArray($stock_ref));
     }
     
-    $ar[] = $ref->GetNav();
-    
     $strOfficialPrice = $ref->GetOfficialNav();
     $ar[] = $ref->GetPriceDisplay($strOfficialPrice);
-    $ar[] = $ref->GetPercentageDisplay($strOfficialPrice);
+    $ar[] = $ref->GetOfficialDate();
+	$ar[] = $ref->GetPercentageDisplay($strOfficialPrice);
     
     if ($strFairPrice = $ref->GetFairNav())
     {
@@ -59,8 +59,8 @@ function _getFundEstTableColumn($arRef, &$bFair, $bWide = false)
 	$premium_col = new TableColumnPremium();
 	$ar = array(new TableColumnSymbol());
 	if ($bWide)	$ar = array_merge($ar, GetStockReferenceColumn());
-	$ar[] = new TableColumnNav();
 	$ar[] = new TableColumnOfficalEst();
+	$ar[] = new TableColumnDate();
 	$ar[] = $premium_col;
 	
 	$bFair = false;
@@ -114,11 +114,11 @@ function EchoFundArrayEstParagraph($arRef, $str = false, $bWide = false)
 	_echoFundEstParagraph($arColumn, $bFair, $arRef, $str, $bWide);
 }
 
-function _getFundPositionStr($official_est_col, $strSymbol, $ref)
+function _getFundPositionStr($ref)
 {
-	$str = '、'.$official_est_col->GetDisplay().$ref->GetOfficialDate().'。';
+	$str = '';
 	$fPosition = RefGetPosition($ref);
-	if ($fPosition < 1.0)		$str .= GetFundPositionLink($strSymbol).'值使用'.strval($fPosition).'，';
+	if ($fPosition < 1.0)		$str .= GetFundPositionLink($ref->GetSymbol()).'值使用'.strval($fPosition).'。';
 	if ($strArbitrage = FundGetArbitrage($ref->GetStockId()))		$str .= '建议'.GetTableColumnConvert().$strArbitrage.'。';
 	return $str;
 }
@@ -128,9 +128,7 @@ function EchoFundEstParagraph($ref)
 	$arRef = array($ref);
 	$arColumn = _getFundEstTableColumn($arRef, $bFair);
 	
-	$strSymbol = $ref->GetSymbol();
-	$str = GetTableColumnNav().$ref->GetDate();
-	$str .= _getFundPositionStr($arColumn[2], $strSymbol, $ref);
+	$str = _getFundPositionStr($ref);
     if ($ref->GetRealtimeNav())
     {
     	$col = $bFair ? $arColumn[6] : $arColumn[4]; 
@@ -153,13 +151,11 @@ function EchoHoldingsEstParagraph($ref)
 	$arRef = array($ref);
 	$arColumn = _getFundEstTableColumn($arRef, $bFair);
 	
-	$strSymbol = $ref->GetSymbol();
-	$nav_ref = $ref->GetNavRef();
-	$str = GetTableColumnNav().$nav_ref->GetDate();
-	$str .= _getFundPositionStr($arColumn[2], $strSymbol, $ref);
-	$str .= GetHoldingsLink($strSymbol).'更新于'.$ref->GetHoldingsDate().'。';
+	$str = _getFundPositionStr($ref);
+	$str .= GetHoldingsLink($ref->GetSymbol()).'更新于'.$ref->GetHoldingsDate().'。';
 
 	_echoFundEstParagraph($arColumn, $bFair, $arRef, $str);
+   	EchoNetValueHistoryParagraph($ref, false, 0, 1);
 }
 
 ?>
