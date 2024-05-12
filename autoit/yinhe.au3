@@ -280,7 +280,7 @@ Func AppOpen($iSoftware, $idDebug, $strAccount, $strPassword)
 		$strTitle = '通达信网上交易'
 	Else
 		$strDir = 'tc_hbzq'
-		$strTitle = 'V8.18'
+		$strTitle = '华宝证券网上交易'
 	EndIf
 	$strPath = 'C:\' & $strDir & '\'
 	Run($strPath & 'Tc.exe', $strPath)
