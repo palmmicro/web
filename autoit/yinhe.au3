@@ -208,7 +208,9 @@ Func _loginDlg($iSoftware, $idDebug, $strTitle, $strAccount, $strPassword)
 	Else
 		$strText = '自动安全码'
 	EndIf
+	AutoItSetOption('WinTitleMatchMode', 2)
 	$hWnd = WinWaitActive($strTitle, $strText)
+	AutoItSetOption('WinTitleMatchMode', 1)
 
 	If StringLeft($strAccount, 1) == '0' Then $strAccount = StringTrimLeft($strAccount, 1)
 	_CtlSetText($hWnd, $idDebug, 'Edit1', $strAccount)
@@ -277,14 +279,12 @@ EndFunc
 Func AppOpen($iSoftware, $idDebug, $strAccount, $strPassword)
 	If ($iSoftware == $YINHE)	Then
 		$strDir = '中国银河证券海王星独立交易'
-		$strTitle = '通达信网上交易'
 	Else
 		$strDir = 'tc_hbzq'
-		$strTitle = '华宝证券网上交易'
 	EndIf
 	$strPath = 'C:\' & $strDir & '\'
 	Run($strPath & 'Tc.exe', $strPath)
-	Return _loginDlg($iSoftware, $idDebug, $strTitle, $strAccount, $strPassword)
+	Return _loginDlg($iSoftware, $idDebug, '网上交易', $strAccount, $strPassword)
 EndFunc
 
 Func AppClose($hWnd, $idDebug)
@@ -1042,7 +1042,7 @@ Func _loadListViewAccount($iSoftware, $idListViewAccount, ByRef $arCheckboxAccou
 EndFunc
 
 Func AppMain()
-	$idFormMain = GUICreate("通达信单独委托版全自动拖拉机0.73", 803, 506, 289, 0)
+	$idFormMain = GUICreate("通达信单独委托版全自动拖拉机0.74", 803, 506, 289, 0)
 
 	$idListViewAccount = GUICtrlCreateListView("客户号", 24, 24, 146, 454, BitOR($GUI_SS_DEFAULT_LISTVIEW,$WS_VSCROLL), BitOR($WS_EX_CLIENTEDGE,$LVS_EX_CHECKBOXES))
 	GUICtrlSendMsg(-1, $LVM_SETCOLUMNWIDTH, 0, 118)
