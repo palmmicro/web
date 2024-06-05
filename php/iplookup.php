@@ -47,7 +47,7 @@ class IpLookupAccount extends CommentAccount
     			if ($strHostName == 'No Hostname')		unset($ar['hostname']);
     			else
     			{
-    				if (strstr_array($strHostName, array('bot', 'crawl', 'spider')))
+    				if (strstr_array($strHostName, array('bot', 'crawl', 'proxy', 'spider')))
     				{
     					if ($this->SetCrawler($strIp))	DebugString('自动标注爬虫:'.$strHostName);
     				}

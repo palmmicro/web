@@ -1,12 +1,14 @@
 <?php
 require_once('stocktable.php');
 
+// 1.877.388.6581
+
 function _getPortfolioTestVal($iShares, $strSymbol)
 {
 	switch ($strSymbol)
     {
     case 'KWEB':
-		$iQuantity = 1121;
+		$iQuantity = 1721;
 		break;
 		
     case 'XOP':
@@ -14,13 +16,13 @@ function _getPortfolioTestVal($iShares, $strSymbol)
 		break;
 
     case 'SH600104':
-		$iQuantity = 16000;
+		$iQuantity = 26000;
 		break;
-
+/*
     case 'TLT':
 		$iQuantity = 100;
 		break;
-/*
+
     case 'ASHR':
 		$iQuantity = 601;
 		break;
@@ -106,7 +108,7 @@ function _echoPortfolioTableItem($trans)
 //		case 'SH510300':
 		case 'SH600104':
 //		case 'SPY':
-		case 'TLT':
+//		case 'TLT':
         	$ar[] = strval(_getPortfolioTestVal($iShares, $strSymbol));
 			break;
 

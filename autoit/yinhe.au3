@@ -294,7 +294,7 @@ Func AppClose($hWnd, $idDebug)
 EndFunc
 
 Func _addSymbolSpecialKey($idDebug, $strSymbol)
-	If $strSymbol == '160216' Or $strSymbol == '160416' Or $strSymbol == '160717' Or $strSymbol == '161116'  Or $strSymbol == '161125' Or $strSymbol == '161126' Or $strSymbol == '161127' Or $strSymbol == '161226' Or $strSymbol == '163208' Or $strSymbol == '164824' Or $strSymbol == '164906' Then
+	If $strSymbol == '160216' Or $strSymbol == '160416' Or $strSymbol == '160717' Or $strSymbol == '161116'  Or $strSymbol == '161125' Or $strSymbol == '161126' Or $strSymbol == '161127' Or $strSymbol == '161128' Or $strSymbol == '161226' Or $strSymbol == '163208' Or $strSymbol == '164824' Or $strSymbol == '164906' Then
 		_DlgClickButton($idDebug, '请选择', '深圳股票')
 	EndIf
 EndFunc
@@ -470,6 +470,8 @@ Func _getFundAmount($strSymbol)
 			$strAmount = '300'
 		Case '161127'
 			$strAmount = '300'
+		Case '161128'
+			$strAmount = '100'
 		Case '161226'
 			$strAmount = '50000'
 		Case '162411'
@@ -1042,7 +1044,7 @@ Func _loadListViewAccount($iSoftware, $idListViewAccount, ByRef $arCheckboxAccou
 EndFunc
 
 Func AppMain()
-	$idFormMain = GUICreate("通达信单独委托版全自动拖拉机0.74", 803, 506, 289, 0)
+	$idFormMain = GUICreate("通达信单独委托版全自动拖拉机0.75", 803, 506, 289, 0)
 
 	$idListViewAccount = GUICtrlCreateListView("客户号", 24, 24, 146, 454, BitOR($GUI_SS_DEFAULT_LISTVIEW,$WS_VSCROLL), BitOR($WS_EX_CLIENTEDGE,$LVS_EX_CHECKBOXES))
 	GUICtrlSendMsg(-1, $LVM_SETCOLUMNWIDTH, 0, 118)
@@ -1053,7 +1055,7 @@ Func AppMain()
 
 	$idLabelSymbol = GUICtrlCreateLabel("基金代码", 192, 24, 52, 17)
 	$idListSymbol = GUICtrlCreateList("", 192, 48, 121, 97)
-	GUICtrlSetData(-1, '160216|160416|160717|161116|161125|161126|161127|161226|162411|163208|164824|164906|501225|510300', _getProfileString('Symbol', '161116'))
+	GUICtrlSetData(-1, '160216|160416|160717|161116|161125|161126|161127|161128|161226|162411|163208|164824|164906|501225|510300', _getProfileString('Symbol', '161116'))
 
 	$idLabelSellPrice = GUICtrlCreateLabel("卖出价格", 192, 160, 52, 17)
 	$idInputSellPrice = GUICtrlCreateInput("", 192, 184, 121, 21)
