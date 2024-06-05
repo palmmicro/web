@@ -54,7 +54,7 @@ function _botGetStockText($strSymbol)
     		{
 //    			$str .= BOT_EOL.TextFromStockReference($fund_ref->GetCnyRef()); 
     			$str .= BOT_EOL.TextFromStockReference($est_ref); 
-    			if ($future_ref = $fund_ref->GetFutureRef())	$str .= BOT_EOL.TextFromStockReference($future_ref);
+    			if ($realtime_ref = $fund_ref->GetRealtimeRef())	$str .= BOT_EOL.TextFromStockReference($realtime_ref);
     		}
 	    }
     }

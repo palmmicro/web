@@ -173,6 +173,10 @@ function _getStockOptionCalibration($strSymbol, $strDate)
 	{
 		$est_ref = new MyStockReference('KWEB');
 	}
+	else if ($strSymbol == 'INDA')
+	{
+		$est_ref = new MyStockReference('znb_SENSEX');
+	}
 
 	return $est_ref ? _getBestEstNav($est_ref, $strDate) : '对方净值';
 }

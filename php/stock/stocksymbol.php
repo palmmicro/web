@@ -820,6 +820,9 @@ class StockSymbol
 				
 			case 'NKY':
 				return '%5E'.'N225';
+				
+			case 'SENSEX':
+				return '%5E'.'BSESN';
 			}
 		}
         else if ($this->IsIndex())
@@ -876,7 +879,11 @@ class StockSymbol
     		case 'NKY':
     			if ($iHourMinute < 900)		return true;
     			break;
-    		}
+
+			case 'SENSEX':
+    			if ($iHourMinute < 1200)		return true;
+    			break;
+   		}
     	}
    		else if ($this->IsSymbolA())
    		{
@@ -907,6 +914,10 @@ class StockSymbol
     			
     		case 'NKY':
     			if ($iHourMinute > 1505)		return true;
+    			break;
+
+			case 'SENSEX':
+    			if ($iHourMinute > 1805)		return true;
     			break;
     		}
     	}
@@ -983,6 +994,7 @@ class StockSymbol
 				return 'Europe/Berlin';
 				
 			case 'NKY':
+			case 'SENSEX':
 				return 'PRC';	//  'Asia/Tokyo';
 			}
 		}

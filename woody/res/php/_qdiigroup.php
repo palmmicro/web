@@ -35,9 +35,21 @@ class QdiiGroupAccount extends FundGroupAccount
     	$stock_ref = $ref->GetStockRef();
        	$est_ref = $ref->GetEstRef();
        	$arRef = array($stock_ref, $est_ref);
-		if ($future_ref = $ref->GetFutureRef())		$arRef[] = $future_ref;
+		if ($realtime_ref = $ref->GetRealtimeRef())		$arRef[] = $realtime_ref;
     	
-        YahooUpdateNetValue($est_ref);
+        if ($ar = YahooUpdateNetValue($est_ref))
+        {
+        	list($strNav, $strDate) = $ar;
+        	if ($est_ref->GetSymbol() == 'INDA')
+        	{
+        		if ($realtime_ref->GetDate() == $strDate)
+        		{
+        			$calibration_sql = new CalibrationSql();
+        			$calibration_sql->WriteDaily($est_ref->GetStockId(), $strDate, strval(EtfGetCalibration($realtime_ref->GetPrice(), $strNav)));
+        		}
+        	}
+        }
+        
         GetChinaMoney($stock_ref);
         SzseGetLofShares($stock_ref);
         

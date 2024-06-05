@@ -25,6 +25,7 @@ function _getFundAmount($strSymbol, $strDate)
 		
    	case 'SZ161116':
 	case 'SZ161125':
+	case 'SZ161128':
 	case 'SZ164824':
 		$iAmount = 100;
 		break;

@@ -955,4 +955,24 @@ $strImage
 END;
 }
 
+function Echo20240606($strHead)
+{
+	$strHead = GetHeadElement($strHead);
+	$strSZ164824 = GetGroupStockLink('SZ164824', true);
+	$strQdiiJp = _getStockMenuLink('qdiijp');
+	$strQdiiEu = _getStockMenuLink('qdiieu');
+	$strSina = GetExternalLink('https://finance.sina.com.cn/money/globalindex/', '新浪环球市场');
+	$strSENSEX = GetSinaDataLink('znb_SENSEX');
+	$strCalibration = GetNameLink('calibrationhistory', CALIBRATION_HISTORY_DISPLAY);
+	
+    echo <<<END
+	$strHead
+<p>2024年6月6日
+<br />在全世界的集体看好下，印度股市一路新高，A股场内唯一{$strSZ164824}更是备受追捧，在今年年初接近耗尽QDII额度时开始了限购100的套利盛宴。倒不是说赚了多少钱，而是热闹非凡，套利做了这么多年，第一次如此顺畅，每天只需要闭着眼睛申购闭着眼睛卖，就把讨饭的钱给赚到了。
+<br />过去几年一直用INDA给它估值，虽然一直都知道并不太准，但是直到6月4日印度股市盘中跌八个百分点的时候，我才意识到判断溢价申购时必须考虑当天印度股市的涨跌，否则可能会完全错误。于是这两天削尖铅笔给它新加了实时估值。
+<br />跟处理{$strQdiiJp}和{$strQdiiEu}类似，印度股指数据来自于{$strSina}中的{$strSENSEX}。以前其它品种的实时估值用的都是期货，虽然共用了{$strCalibration}，但是手工校准和自动校准的模式都不相同，代码因此在继续恶化膨胀。
+</p>
+END;
+}
+
 ?>

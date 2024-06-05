@@ -245,27 +245,27 @@ function GetFutureInterestPremium($fRate = 0.045, $strEndDate = '2024-06-21')
 	return 1.0 + $fRate * $iDay / 365.0;
 }
 
-function _callbackFutureSma($future_ref, $strEst = false)
+function _callbackFutureSma($ref, $strEst = false)
 {
 	if ($strEst)
 	{
 		$f = round(4.0 * floatval($strEst) * GetFutureInterestPremium());
 		return strval_round($f / 4.0, 2);
 	}
-	return $future_ref;
+	return $ref;
 }
 
 function EchoFutureSmaParagraph($ref, $callback2 = false)
 {
-	if ($future_ref = $ref->GetFutureRef())
+	if ($realtime_ref = $ref->GetRealtimeRef())
 	{
-		$strSymbol = $future_ref->GetSymbol();
+		$strSymbol = $realtime_ref->GetSymbol();
 		if ($strSymbol != 'hf_ES' && $strSymbol != 'hf_NQ')		return;
 
-    	EchoCalibrationHistoryParagraph($ref->GetFutureEtfRef(), 0, 1);
+    	EchoCalibrationHistoryParagraph($ref->GetRtEtfRef(), 0, 1);
 		
 		$str = '理论溢价：'.strval_round(GetFutureInterestPremium(), 4).'。';
-		EchoSmaParagraph($ref->GetEstRef(), $str, $future_ref, '_callbackFutureSma', $callback2);
+		EchoSmaParagraph($ref->GetEstRef(), $str, $realtime_ref, '_callbackFutureSma', $callback2);
 	}
 }
 

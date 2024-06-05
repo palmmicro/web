@@ -60,19 +60,20 @@ function QdiiGetEstSymbol($strSymbol)
         return false;
 }
 
-function QdiiGetFutureEtfSymbol($strSymbol)
+function QdiiGetRtEtfSymbol($strSymbol)
 {
     if (in_arrayOilEtfQdii($strSymbol) || in_arrayXopQdii($strSymbol))     return 'USO';
     else
     	return false;
 }
 
-function QdiiGetFutureSymbol($strSymbol)
+function QdiiGetRealtimeSymbol($strSymbol)
 {
     if (in_arrayOilEtfQdii($strSymbol) || in_arrayXopQdii($strSymbol) || in_arrayOilQdii($strSymbol))     return 'hf_CL';
     else if (in_arrayGoldQdii($strSymbol))   return 'hf_GC';
-    else if (in_arraySpyQdii($strSymbol))   return 'hf_ES';
-    else if (in_arrayQqqQdii($strSymbol))   return 'hf_NQ';
+    else if (in_arraySpyQdii($strSymbol))	return 'hf_ES';
+    else if (in_arrayQqqQdii($strSymbol))	return 'hf_NQ';
+    else if ($strSymbol == 'SZ164824')		return 'znb_SENSEX';		
 	else
 	    return false;
 }
@@ -87,7 +88,7 @@ function QdiiHkGetEstSymbol($strSymbol)
         return false;
 }
 
-function QdiiHkGetFutureSymbol($strSymbol)
+function QdiiHkGetRealtimeSymbol($strSymbol)
 {
     if (in_arrayHangSengQdiiHk($strSymbol))			return 'hf_HSI';
 	else
@@ -101,7 +102,7 @@ function QdiiJpGetEstSymbol($strSymbol)
         return false;
 }
 
-function QdiiJpGetFutureSymbol($strSymbol)
+function QdiiJpGetRealtimeSymbol($strSymbol)
 {
     if (in_arrayQdiiJp($strSymbol))			return 'hf_NK';
     else 
@@ -121,7 +122,7 @@ function QdiiEuGetEstSymbol($strSymbol)
 	return false;
 }
 
-function QdiiEuGetFutureSymbol($strSymbol)
+function QdiiEuGetRealtimeSymbol($strSymbol)
 {
 	return false;
 }
@@ -211,22 +212,22 @@ class _QdiiReference extends FundReference
         	$this->fFairNetValue = $this->GetQdiiValue($strEstVal);
        	}
         
-		if ($future_ref = $this->GetFutureRef())
+		if ($realtime_ref = $this->GetRealtimeRef())
         {
-            if ($this->future_etf_ref == false)
+            if ($this->rt_etf_ref == false)
             {
-                $this->future_etf_ref = $est_ref;
+                $this->rt_etf_ref = $est_ref;
             }
-            $future_ref->LoadEtfFactor($this->future_etf_ref);
+            $realtime_ref->LoadEtfFactor($this->rt_etf_ref);
             
-            $fFutureEtfPrice = floatval($this->future_etf_ref->GetPrice());
-            if ($fFutureEtfPrice != 0.0)
+            $fRtEtfPrice = floatval($this->rt_etf_ref->GetPrice());
+            if ($fRtEtfPrice != 0.0)
             {
             	$fRealtime = floatval($this->_getEstVal($strDate));
-            	$fFuture = $future_ref->EstByEtf($fFutureEtfPrice);
-            	if ($fFuture != 0.0)
+            	$fVal = $realtime_ref->EstByEtf($fRtEtfPrice);
+            	if ($fVal != 0.0)
             	{
-            		$fRealtime *= floatval($future_ref->GetPrice()) / $fFuture;
+            		$fRealtime *= floatval($realtime_ref->GetPrice()) / $fVal;
             	}
             	$this->fRealtimeNetValue = $this->GetQdiiValue(strval($fRealtime));
             }
@@ -304,13 +305,13 @@ class QdiiReference extends _QdiiReference
         {
         	$this->est_ref = new MyStockReference($strEstSymbol);
         }
-        if ($strFutureEtfSymbol = QdiiGetFutureEtfSymbol($strSymbol))
+        if ($strRtEtfSymbol = QdiiGetRtEtfSymbol($strSymbol))
         {
-            $this->future_etf_ref = new MyStockReference($strFutureEtfSymbol);
+            $this->rt_etf_ref = new MyStockReference($strRtEtfSymbol);
         }
-        if ($strFutureSymbol = QdiiGetFutureSymbol($strSymbol))
+        if ($strRealtimeSymbol = QdiiGetRealtimeSymbol($strSymbol))
         {
-            $this->future_ref = new FutureReference($strFutureSymbol);
+            $this->realtime_ref = StockGetReference($strRealtimeSymbol);
         }
         
         $this->EstNetValue();
@@ -327,9 +328,9 @@ class QdiiHkReference extends _QdiiReference
         {
             $this->est_ref = new MyStockReference($strEstSymbol);
         }
-        if ($strFutureSymbol = QdiiHkGetFutureSymbol($strSymbol))
+        if ($strRealtimeSymbol = QdiiHkGetRealtimeSymbol($strSymbol))
         {
-            $this->future_ref = new FutureReference($strFutureSymbol);
+            $this->realtime_ref = StockGetReference($strRealtimeSymbol);
         }
         
         $this->EstNetValue();
@@ -346,9 +347,9 @@ class QdiiJpReference extends _QdiiReference
         {
             $this->est_ref = new MyStockReference($strEstSymbol);
         }
-        if ($strFutureSymbol = QdiiJpGetFutureSymbol($strSymbol))
+        if ($strRealtimeSymbol = QdiiJpGetRealtimeSymbol($strSymbol))
         {
-            $this->future_ref = new FutureReference($strFutureSymbol);
+            $this->realtime_ref = StockGetReference($strRealtimeSymbol);
         }
         
         $this->EstNetValue();
@@ -365,9 +366,9 @@ class QdiiEuReference extends _QdiiReference
         {
             $this->est_ref = new MyStockReference($strEstSymbol);
         }
-        if ($strFutureSymbol = QdiiEuGetFutureSymbol($strSymbol))
+        if ($strRealtimeSymbol = QdiiEuGetRealtimeSymbol($strSymbol))
         {
-            $this->future_ref = new FutureReference($strFutureSymbol);
+            $this->realtime_ref = StockGetReference($strRealtimeSymbol);
         }
         
         $this->EstNetValue();

@@ -279,7 +279,7 @@ function YahooUpdateNetValue($ref)
    		}
     }
 */
-    _yahooStockGetData($strNetValueSymbol, $strStockId);    
+	return _yahooStockGetData($strNetValueSymbol, $strStockId);    
 }
 
 ?>

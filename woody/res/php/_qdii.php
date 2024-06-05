@@ -74,8 +74,8 @@ function GetQdiiLinks($sym)
 		$str .= ' '.GetSpdrOfficialLink('XBI').' '.GetSpindicesOfficialLink('SPSIBI');
 	}
 	
-	$strFutureSymbol = QdiiGetFutureSymbol($strSymbol);
-	if ($strCmeUrl = GetCmeUrl($strFutureSymbol))				$str .= ' '.GetExternalLink($strCmeUrl, '芝商所');
+	$strRealtimeSymbol = QdiiGetRealtimeSymbol($strSymbol);
+	if ($strCmeUrl = GetCmeUrl($strRealtimeSymbol))				$str .= ' '.GetExternalLink($strCmeUrl, '芝商所');
 	
 	$str .= GetSpySoftwareLinks();
 	if (in_arraySpyQdii($strSymbol))
@@ -93,12 +93,12 @@ function GetQdiiLinks($sym)
 		$str .= GetQqqSoftwareLinks();
 		$str .= GetXbiSoftwareLinks();
 	}
-	else if ($strFutureSymbol == 'hf_CL')
+	else if ($strRealtimeSymbol == 'hf_CL')
 	{
 		$str .= GetOilSoftwareLinks();
 		$str .= GetChinaInternetSoftwareLinks();
 	}
-	else if ($strFutureSymbol == 'hf_GC' || in_arrayCommodityQdii($strSymbol))								
+	else if ($strRealtimeSymbol == 'hf_GC' || in_arrayCommodityQdii($strSymbol))								
 	{
 		$str .= GetCommoditySoftwareLinks();
 		$str .= GetOilSoftwareLinks();

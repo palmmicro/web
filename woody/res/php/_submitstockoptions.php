@@ -292,17 +292,25 @@ function _updateStockOptionCalibration($strSymbol, $strStockId, $strDate, $strVa
 	DebugString($strSymbol.' '.$strDate.' '.$strVal);
 	if (!empty($strVal))
 	{
-		if (in_arrayChinaIndex($strSymbol))									return;
-		else if (in_arrayQdii($strSymbol) || $strSymbol == 'SZ164906')		$strCNY = SqlGetNavByDate(SqlGetStockId('USCNY'), $strDate);
-       	else if (in_arrayQdiiHk($strSymbol))									$strCNY = SqlGetNavByDate(SqlGetStockId('HKCNY'), $strDate);
-       	else if (in_arrayQdiiJp($strSymbol))									$strCNY = SqlGetNavByDate(SqlGetStockId('JPCNY'), $strDate);
-       	else if (in_arrayQdiiEu($strSymbol))									$strCNY = SqlGetNavByDate(SqlGetStockId('EUCNY'), $strDate);
-		else 																	return;
-
-		if ($strCNY == false)	return;
 		$strNav = SqlGetNavByDate($strStockId, $strDate);
 		if ($strNav == false)	return;
-		$strVal = strval(QdiiGetCalibration($strVal, $strCNY, $strNav));
+		
+		if ($strSymbol == 'INDA')
+		{
+			$strVal = strval(EtfGetCalibration($strVal, $strNav));
+		}
+		else
+		{
+			if (in_arrayChinaIndex($strSymbol))									return;
+			else if (in_arrayQdii($strSymbol) || $strSymbol == 'SZ164906')		$strCNY = SqlGetNavByDate(SqlGetStockId('USCNY'), $strDate);
+			else if (in_arrayQdiiHk($strSymbol))									$strCNY = SqlGetNavByDate(SqlGetStockId('HKCNY'), $strDate);
+			else if (in_arrayQdiiJp($strSymbol))									$strCNY = SqlGetNavByDate(SqlGetStockId('JPCNY'), $strDate);
+			else if (in_arrayQdiiEu($strSymbol))									$strCNY = SqlGetNavByDate(SqlGetStockId('EUCNY'), $strDate);
+			else 																	return;
+
+			if ($strCNY == false)	return;
+			$strVal = strval(QdiiGetCalibration($strVal, $strCNY, $strNav));
+		}
 	}
 	_updateOptionDailySql(new CalibrationSql(), $strStockId, $strDate, $strVal);
 }

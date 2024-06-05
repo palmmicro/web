@@ -18,7 +18,6 @@ require_once('stock/mystockref.php');
 require_once('stock/cnyref.php');
 require_once('stock/netvalueref.php');
 require_once('stock/holdingsref.php');
-require_once('stock/futureref.php');
 require_once('stock/fundref.php');
 require_once('stock/qdiiref.php');
 
@@ -233,23 +232,23 @@ function _getAllSymbolArray($strSymbol)
         else if (in_arrayQdii($strSymbol))
         {
         	if ($strEstSymbol = QdiiGetEstSymbol($strSymbol))	        		$ar[] = $strEstSymbol; 
-        	if ($strFutureSymbol = QdiiGetFutureSymbol($strSymbol))			$ar[] = $strFutureSymbol; 
-        	if ($strFutureEtfSymbol = QdiiGetFutureEtfSymbol($strSymbol))		$ar[] = $strFutureEtfSymbol; 
+        	if ($strRealtimeSymbol = QdiiGetRealtimeSymbol($strSymbol))		$ar[] = $strRealtimeSymbol; 
+        	if ($strRtEtfSymbol = QdiiGetRtEtfSymbol($strSymbol))				$ar[] = $strRtEtfSymbol; 
         }
         else if (in_arrayQdiiHk($strSymbol))
         {
         	if ($strEstSymbol = QdiiHkGetEstSymbol($strSymbol))		        $ar[] = $strEstSymbol; 
-        	if ($strFutureSymbol = QdiiHkGetFutureSymbol($strSymbol))			$ar[] = $strFutureSymbol; 
+        	if ($strRealtimeSymbol = QdiiHkGetRealtimeSymbol($strSymbol))		$ar[] = $strRealtimeSymbol; 
         }
         else if (in_arrayQdiiJp($strSymbol))
         {
         	if ($strEstSymbol = QdiiJpGetEstSymbol($strSymbol))		        $ar[] = $strEstSymbol; 
-        	if ($strFutureSymbol = QdiiJpGetFutureSymbol($strSymbol))			$ar[] = $strFutureSymbol; 
+        	if ($strRealtimeSymbol = QdiiJpGetRealtimeSymbol($strSymbol))		$ar[] = $strRealtimeSymbol; 
         }
         else if (in_arrayQdiiEu($strSymbol))
         {
         	if ($strEstSymbol = QdiiEuGetEstSymbol($strSymbol))		        $ar[] = $strEstSymbol; 
-        	if ($strFutureSymbol = QdiiEuGetFutureSymbol($strSymbol))			$ar[] = $strFutureSymbol; 
+        	if ($strRealtimeSymbol = QdiiEuGetRealtimeSymbol($strSymbol))		$ar[] = $strRealtimeSymbol; 
         }
 //      else if (in_arrayChinaIndex($strSymbol))
         else

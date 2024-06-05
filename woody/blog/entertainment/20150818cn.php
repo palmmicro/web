@@ -196,6 +196,7 @@
 	Echo20230525('qdiieu');
 	Echo20230530('增加全球芯片LOF和海外科技LOF的估值');
 	EchoPage20240419('qqqfund');
+	Echo20240606('印度基金LOF的实时估值');
 ?>
 
 </div>

@@ -133,12 +133,11 @@ function EchoFundEstParagraph($ref)
     {
     	$col = $bFair ? $arColumn[6] : $arColumn[4]; 
     	$est_ref = $ref->GetEstRef();
-    	$future_ref = $ref->GetFutureRef();
-    	$future_etf_ref = $ref->GetFutureEtfRef();
-    	$strFutureEtfSymbol = $future_etf_ref->GetSymbol();
+    	$realtime_ref = $ref->GetRealtimeRef();
+    	$rt_etf_ref = $ref->GetRtEtfRef();
     
-    	$str .= '期货'.$col->GetDisplay().$future_ref->GetMyStockLink().'和'.GetCalibrationHistoryLink($strFutureEtfSymbol, true);
-    	if ($future_etf_ref != $est_ref)	$str .= '、'.$est_ref->GetMyStockLink().'和'.$future_etf_ref->GetMyStockLink();
+    	$str .= $col->GetDisplay().$realtime_ref->GetMyStockLink().'和'.GetCalibrationHistoryLink($rt_etf_ref->GetSymbol(), true);
+    	if ($rt_etf_ref != $est_ref)	$str .= '、'.$est_ref->GetMyStockLink().'和'.$rt_etf_ref->GetMyStockLink();
     	$str .= '关联程度按照100%估算。';
     }
     
