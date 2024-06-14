@@ -5,7 +5,7 @@ require_once('_sseholdings.php');
 require_once('_szseholdings.php');
 
 // SH501225 全球芯片LOF SOXX*75%+SH516640*15%
-// SH501312 海外科技LOF
+// SH501312 海外科技LOF ARKW*19.57;ARKK*19.54;ARKF*16.61;ARKG*12.08;ARKQ*5.33;QQQ*8.95;SOXX*7.35;XLK*5.25
 
 class _QdiiMixAccount extends FundGroupAccount
 {

@@ -114,6 +114,7 @@ function QdiiEuGetEstSymbol($strSymbol)
 	switch ($strSymbol)
 	{
 	case 'SH513030':
+	case 'SZ159561':
 		return 'znb_DAX';
 		
 	case 'SH513080':
@@ -224,7 +225,8 @@ class _QdiiReference extends FundReference
             if ($fRtEtfPrice != 0.0)
             {
             	$fRealtime = floatval($this->_getEstVal($strDate));
-            	$fVal = $realtime_ref->EstByEtf($fRtEtfPrice);
+//            	$fVal = $realtime_ref->EstByEtf($fRtEtfPrice);
+            	$fVal = $realtime_ref->EstByEtf(($this->rt_etf_ref == $est_ref) ? $fRealtime : $fRtEtfPrice);
             	if ($fVal != 0.0)
             	{
             		$fRealtime *= floatval($realtime_ref->GetPrice()) / $fVal;

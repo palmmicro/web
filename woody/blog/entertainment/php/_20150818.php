@@ -964,13 +964,17 @@ function Echo20240606($strHead)
 	$strSina = GetExternalLink('https://finance.sina.com.cn/money/globalindex/', '新浪环球市场');
 	$strSENSEX = GetSinaDataLink('znb_SENSEX');
 	$strCalibration = GetNameLink('calibrationhistory', CALIBRATION_HISTORY_DISPLAY);
+	$strQdii = _getStockMenuLink('qdii');
 	
     echo <<<END
 	$strHead
 <p>2024年6月6日
-<br />在全世界的集体看好下，印度股市一路新高，A股场内唯一{$strSZ164824}更是备受追捧，在今年年初接近耗尽QDII额度时开始了限购100的套利盛宴。倒不是说赚了多少钱，而是热闹非凡，套利做了这么多年，第一次如此顺畅，每天只需要闭着眼睛申购闭着眼睛卖，就把讨饭的钱给赚到了。
+<br />在全世界的集体看好下，印度股市一路新高，A股场内唯一{$strSZ164824}更是备受追捧，在今年年初接近耗尽QDII额度时开始了限购100的套利盛宴。盛宴倒不是说赚了多少钱，而是热闹非凡，套利做了这么多年，第一次如此顺畅，每天只需要闭着眼睛申购闭着眼睛卖，就把讨饭的钱给赚到了。
 <br />过去几年一直用INDA给它估值，虽然一直都知道并不太准，但是直到6月4日印度股市盘中跌八个百分点的时候，我才意识到判断溢价申购时必须考虑当天印度股市的涨跌，否则可能会完全错误。于是这两天削尖铅笔给它新加了实时估值。
-<br />跟处理{$strQdiiJp}和{$strQdiiEu}类似，印度股指数据来自于{$strSina}中的{$strSENSEX}。以前其它品种的实时估值用的都是期货，虽然共用了{$strCalibration}，但是手工校准和自动校准的模式都不相同，代码因此在继续恶化膨胀。
+<br />跟处理{$strQdiiJp}和{$strQdiiEu}类似，印度股指数据来自于{$strSina}中的{$strSENSEX}。以前其它品种的实时估值用的都是期货，虽然共用了{$strCalibration}，但是手工校准和自动校准的模式都不相同，我的PHP代码因此在继续恶化膨胀。
+<br />印度股市在北京时间11点45分开盘后，实时估值会开始跟随变化，一直到北京时间下午6点收盘。
+<br />美股晚上开盘后，官方估值会随着的日期变化而变化，但是并不会跟实时估值一致，因为当天INDA的交易通常不会跟SENSEX完全重合。要等到美股收盘后一个小时，我会自动去Yahoo拿当天INDA的净值，然后跟SENSEX当天收盘价自动校准，此时官方估值就会跟实时估值一致。
+<br />北京时间早上9点15分，我会自动更新当天的美元人民币中间价，参考估值会开始显示，并且跟实时估值一致，直到A股上午收盘。由于中间价每天都变化，{$strQdii}的官方估值和参考估值通常也不会一致。
 </p>
 END;
 }

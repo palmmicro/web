@@ -234,7 +234,7 @@ function in_arrayQdiiJp($strSymbol)
 
 function QdiiEuGetSymbolArray()
 {
-    return array('SH513030', 'SH513080');
+    return array('SH513030', 'SH513080', 'SZ159561');
 }
 
 function in_arrayQdiiEu($strSymbol)
@@ -868,6 +868,7 @@ class StockSymbol
     	return true;
     }
     
+    // https://cn.investing.com/blog/article-193
     function IsBeforeStockMarket($iHourMinute)
     {
     	if ($str = $this->IsSinaGlobalIndex())
@@ -881,7 +882,7 @@ class StockSymbol
     			break;
 
 			case 'SENSEX':
-    			if ($iHourMinute < 1200)		return true;
+    			if ($iHourMinute < 1145)		return true;
     			break;
    		}
     	}
@@ -909,15 +910,15 @@ class StockSymbol
     		{
 			case 'CAC':
 			case 'DAX':
-    			if ($iHourMinute > 1745)		return true;
+    			if ($iHourMinute > 1805)		return true;	// DAX30 指数交易时间为09:00 - 17:30（CET）
     			break;
     			
     		case 'NKY':
-    			if ($iHourMinute > 1505)		return true;
+    			if ($iHourMinute > 1535)		return true;	// 東證所的交易時間（開盤時間）從上午9點到上午11點30分及 下午0點30分到下午3點的2個時間段
     			break;
 
 			case 'SENSEX':
-    			if ($iHourMinute > 1805)		return true;
+    			if ($iHourMinute > 1835)		return true;
     			break;
     		}
     	}
