@@ -320,7 +320,7 @@ function GetNuoAnSoftwareLinks($strDigitA)
 
 function GetPenghuaSoftwareLinks($strDigitA)
 {
-    $ar = array('SH501025', 'SH513400');
+    $ar = array('SZ160644', 'SH501025', 'SH513400');
 	$strUrl = 'https://www.phfund.com.cn';
     return ' '.GetOfficialLink($strUrl.'/web/FUND_'.$strDigitA, $strDigitA).GetCategorySoftwareLinks($ar, GetExternalLink($strUrl, '鹏华基金'));
 }

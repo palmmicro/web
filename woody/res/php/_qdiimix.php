@@ -6,6 +6,7 @@ require_once('_szseholdings.php');
 
 // SH501225 全球芯片LOF SOXX*75%+SH516640*15%
 // SH501312 海外科技LOF ARKW*19.57;ARKK*19.54;ARKF*16.61;ARKG*12.08;ARKQ*5.33;QQQ*8.95;SOXX*7.35;XLK*5.25
+// SZ160644 NVDA*9.92;MSFT*9.57;TSM*7.97;PDD*7.44;GOOGL*7.34;00700*7.07;09988*6.69;META*6.49;AMZN*5.58;03690*4.37
 
 class _QdiiMixAccount extends FundGroupAccount
 {
@@ -59,15 +60,16 @@ class _QdiiMixAccount extends FundGroupAccount
     	$bUpdated = false;
     	switch ($strSymbol)
     	{
-        case 'SH501225':
-        case 'SH501312':
+		case 'SZ160644':
+		case 'SH501225':
+		case 'SH501312':
         	if ($strNavDate != $strHoldingsDate)		
         	{
         		if ($date_sql->WriteDate($strStockId, $strNavDate))		$bUpdated = true;
         	}
         	break;
 		
-        case 'SZ164906':
+		case 'SZ164906':
 			$us_ref = $this->us_ref;
 			$strUsId = $us_ref->GetStockId();
 			if ($strHoldingsDate != $date_sql->ReadDate($strUsId))		$bUpdated = CopyHoldings($date_sql, $strUsId, $strStockId);

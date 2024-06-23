@@ -1,14 +1,12 @@
 <?php
 require_once('stocktable.php');
 
-// 1.877.388.6581
-
 function _getPortfolioTestVal($iShares, $strSymbol)
 {
 	switch ($strSymbol)
     {
     case 'KWEB':
-		$iQuantity = 2121;
+		$iQuantity = 3121;
 		break;
 		
     case 'SH600104':

@@ -195,7 +195,7 @@ function GetMsciUs50SymbolArray()
 
 function QdiiMixGetSymbolArray()
 {
-    $ar = array_merge(array('SH501225', 'SH501312', 'SH513360', 'SZ159509') 
+    $ar = array_merge(array('SH501225', 'SH501312', 'SH513360', 'SZ159509', 'SZ160644') 
     				   , GetChinaInternetSymbolArray()
     				   , GetMsciUs50SymbolArray());
     sort($ar);

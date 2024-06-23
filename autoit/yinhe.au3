@@ -205,6 +205,7 @@ Func _loginDlg($iSoftware, $idDebug, $strTitle, $strAccount, $strPassword)
 	_CtlDebug($idDebug, '等待"' & $strTitle & '"成为活跃窗口')
 	If ($iSoftware == $YINHE)	Then
 		$strText = '默认PIN码'
+		If StringLeft($strAccount, 1) == '0' Then $strAccount = StringTrimLeft($strAccount, 1)
 	Else
 		$strText = '自动安全码'
 	EndIf
@@ -212,7 +213,6 @@ Func _loginDlg($iSoftware, $idDebug, $strTitle, $strAccount, $strPassword)
 	$hWnd = WinWaitActive($strTitle, $strText)
 	AutoItSetOption('WinTitleMatchMode', 1)
 
-	If StringLeft($strAccount, 1) == '0' Then $strAccount = StringTrimLeft($strAccount, 1)
 	_CtlSetText($hWnd, $idDebug, 'Edit1', $strAccount)
 	_CtlCheckButton($hWnd, $idDebug, 'Button6')		; 记住账号
 	_CtlCheckButton($hWnd, $idDebug, 'Button11')	; 默认PIN码
@@ -1044,7 +1044,7 @@ Func _loadListViewAccount($iSoftware, $idListViewAccount, ByRef $arCheckboxAccou
 EndFunc
 
 Func AppMain()
-	$idFormMain = GUICreate("通达信单独委托版全自动拖拉机0.75", 803, 506, 289, 0)
+	$idFormMain = GUICreate("通达信单独委托版全自动拖拉机0.76", 803, 506, 289, 0)
 
 	$idListViewAccount = GUICtrlCreateListView("客户号", 24, 24, 146, 454, BitOR($GUI_SS_DEFAULT_LISTVIEW,$WS_VSCROLL), BitOR($WS_EX_CLIENTEDGE,$LVS_EX_CHECKBOXES))
 	GUICtrlSendMsg(-1, $LVM_SETCOLUMNWIDTH, 0, 118)
@@ -1076,7 +1076,7 @@ Func AppMain()
 	$iSoftware = 0
 	$RadioYinhe = GUICtrlCreateRadio("银河证券海王星单独委托版3.16", 352, 424, 193, 17)
 	GUICtrlSetState(-1, _getRadioState($RadioYinhe, $iSoftware, 'Yinhe', $GUI_CHECKED))
-	$RadioHuabao = GUICtrlCreateRadio("华宝证券通达信版独立交易8.18", 352, 448, 193, 17)
+	$RadioHuabao = GUICtrlCreateRadio("华宝证券通达信版独立交易8.19", 352, 448, 193, 17)
 	GUICtrlSetState(-1, _getRadioState($RadioHuabao, $iSoftware, 'Huabao', $GUI_UNCHECKED))
 	GUICtrlCreateGroup("", -99, -99, 1, 1)
 	$iMax = _onRadioSoftware($iSoftware, $RadioYinhe, $RadioHuabao)

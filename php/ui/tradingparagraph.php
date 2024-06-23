@@ -12,11 +12,13 @@ function _getTradingTableColumn()
 
 function _getTradingNumber($strNumber)
 {
+	if ($strNumber == '')	return '';
+	
     $fNum = (floatval($strNumber) + 50) / 100.0;
     return strval(intval($fNum));
 }
 
-function _echoTradingTableItem($i, $strAskBid, $strPrice, $strQuantity, $ref, $strEstPrice, $strEstPrice2, $strEstPrice3, $callback)
+function _echoTradingTableItem($strColor, $strAskBid, $strPrice, $strQuantity, $ref, $strEstPrice, $strEstPrice2, $strEstPrice3, $callback)
 {
 	if ($strQuantity == '0')	return;
 	
@@ -33,7 +35,17 @@ function _echoTradingTableItem($i, $strAskBid, $strPrice, $strQuantity, $ref, $s
     	$ar[] = call_user_func($callback, $strPrice);
     }
     
-    EchoTableColumn($ar, ($i == 0) ? 'yellow' : false);
+    EchoTableColumn($ar, $strColor);
+}
+
+function _getTradingColor($i)
+{
+	return ($i == 0) ? 'yellow' : false;
+}
+
+function _getTradingIndex($i)
+{
+	return strval($i + 1);
 }
 
 function _echoTradingTableData($ref, $strEstPrice, $strEstPrice2, $strEstPrice3, $callback)
@@ -42,7 +54,7 @@ function _echoTradingTableData($ref, $strEstPrice, $strEstPrice2, $strEstPrice3,
     {
     	if (isset($ref->arAskQuantity[$i]))
     	{
-    		_echoTradingTableItem($i, '卖'.strval($i + 1), $ref->arAskPrice[$i], $ref->arAskQuantity[$i], $ref, $strEstPrice, $strEstPrice2, $strEstPrice3, $callback);
+    		_echoTradingTableItem(_getTradingColor($i), '卖'._getTradingIndex($i), $ref->arAskPrice[$i], $ref->arAskQuantity[$i], $ref, $strEstPrice, $strEstPrice2, $strEstPrice3, $callback);
     	}
     }
 
@@ -50,8 +62,14 @@ function _echoTradingTableData($ref, $strEstPrice, $strEstPrice2, $strEstPrice3,
     {
     	if (isset($ref->arBidQuantity[$i]))
     	{
-    		_echoTradingTableItem($i, '买'.strval($i + 1), $ref->arBidPrice[$i], $ref->arBidQuantity[$i], $ref, $strEstPrice, $strEstPrice2, $strEstPrice3, $callback);
+    		_echoTradingTableItem(_getTradingColor($i), '买'._getTradingIndex($i), $ref->arBidPrice[$i], $ref->arBidQuantity[$i], $ref, $strEstPrice, $strEstPrice2, $strEstPrice3, $callback);
     	}
+    }
+
+    if ($ref->IsFundA())
+    {
+    	$strPrice = $ref->IsStockMarketTrading(GetNowYMD()) ? $ref->GetPrevPrice() : $ref->GetPrice();
+   		_echoTradingTableItem('gray', '跌停', strval_round(floatval($strPrice) * 0.9, 3), '', $ref, $strEstPrice, $strEstPrice2, $strEstPrice3, $callback);
     }
 }
 
