@@ -69,7 +69,7 @@ function _echoTradingTableData($ref, $strEstPrice, $strEstPrice2, $strEstPrice3,
     if ($ref->IsFundA())
     {
     	$strPrice = $ref->IsStockMarketTrading(GetNowYMD()) ? $ref->GetPrevPrice() : $ref->GetPrice();
-   		_echoTradingTableItem('gray', '跌停', strval_round(floatval($strPrice) * 0.9, 3), '', $ref, $strEstPrice, $strEstPrice2, $strEstPrice3, $callback);
+   		_echoTradingTableItem('orange', '跌停', strval_round(floatval($strPrice) * 0.9, 3), '', $ref, $strEstPrice, $strEstPrice2, $strEstPrice3, $callback);
     }
 }
 
