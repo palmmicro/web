@@ -226,6 +226,13 @@ function GetGuoTaiSoftwareLinks($strDigitA)
     return ' '.GetOfficialLink($strUrl.'/Etrade/Jijin/view/id/'.$strDigitA, $strDigitA).GetCategorySoftwareLinks($ar, GetExternalLink($strUrl, '国泰基金'));
 }
 
+function GetHftSoftwareLinks($strDigitA)
+{
+    $ar = array('SH501300');
+	$strUrl = 'https://www.hftfund.com';
+    return ' '.GetOfficialLink($strUrl.'/products/qdii/'.$strDigitA.'/index.html', $strDigitA).GetCategorySoftwareLinks($ar, GetExternalLink($strUrl, '海富通基金'));
+}
+
 function GetHuaAnSoftwareLinks($strDigitA)
 {
     $ar = array('SH513030', 'SH513080', 'SH513580', 'SH513880', 'SZ159632', 'SZ160416');
