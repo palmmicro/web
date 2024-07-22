@@ -173,6 +173,18 @@ Func _DlgClickButton($idDebug, $strTitle, $strButton)
 	EndIf
 EndFunc
 
+#cs
+Func _DlgCloseButton($idDebug, $strTitle, $strButton = '关闭')
+	$hNewWnd = WinGetHandle($strTitle, $strButton)
+	If $hNewWnd <> 0 Then
+		_CtlClickButton($hNewWnd, $idDebug, $strButton)
+		_CtlDebug($idDebug, '"' & $strButton & '"对话框"' & $strTitle & '"')
+		Return True
+	EndIf
+	Return False
+EndFunc
+#ce
+
 Func _DlgClose($idDebug, $strTitle, $strText = '关闭')
 	$hNewWnd = WinGetHandle($strTitle, $strText)
 	If $hNewWnd <> 0 Then
@@ -481,7 +493,7 @@ Func _getFundAmount($strSymbol)
 		Case '164824'
 			$strAmount = '100'
 		Case '164906'
-			$strAmount = '5000'
+			$strAmount = '10000'
 		Case '501225'
 			$strAmount = '1000'
 	EndSwitch
@@ -665,6 +677,7 @@ Func _addSellEntry($hWnd, $iSoftware, $idDebug, $strSymbol, $strPrice, $strSellQ
 	_sendSellSymbol($hWnd, $idDebug, $strSymbol)
 	$strPriceControl = 'Edit2'
 	$strSuggestedPrice = _CtlGetText($hWnd, $idDebug, $strPriceControl)
+;	_DlgCloseButton($idDebug, '请选择', '深圳股票')
 	If $strPrice <> '' Then
 		If $strSuggestedPrice <> $strPrice Then	_CtlSetText($hWnd, $idDebug, $strPriceControl, $strPrice)
 	EndIf
@@ -1044,7 +1057,7 @@ Func _loadListViewAccount($iSoftware, $idListViewAccount, ByRef $arCheckboxAccou
 EndFunc
 
 Func AppMain()
-	$idFormMain = GUICreate("通达信单独委托版全自动拖拉机0.76", 803, 506, 289, 0)
+	$idFormMain = GUICreate("通达信单独委托版全自动拖拉机0.77", 803, 506, 289, 0)
 
 	$idListViewAccount = GUICtrlCreateListView("客户号", 24, 24, 146, 454, BitOR($GUI_SS_DEFAULT_LISTVIEW,$WS_VSCROLL), BitOR($WS_EX_CLIENTEDGE,$LVS_EX_CHECKBOXES))
 	GUICtrlSendMsg(-1, $LVM_SETCOLUMNWIDTH, 0, 118)

@@ -35,6 +35,7 @@ function EchoAll()
     $str = GetRemarkElement('软件开发：');
     $str .= $strNewLine.'本网站全部源代码都公开放在了全球最大同性交友网站'.GetExternalLink('https://github.com/palmmicro', 'GitHub');
     $str .= '。想自己进一步修改软件的除了上面的.au3文件外，还可能需要去下载制作用户界面时用到的'.GetInfoElement('yinhe.kxf').'和'.GetInfoElement('yinheaccount.kxf').'两个文件。';
+    $str .= $strNewLine.GetXueqiuIdLink('2747564710', '磨刀霍霍向猪羊01').'增加了场外申购和场外转托管到场内的'.GetExternalLink('https://github.com/wzqwsrf/web/tree/feature-yufei/autoit', '代码').'，感兴趣的可以自行下载测试。';
     EchoParagraph($str);
 
     $strAllSoftware = $strNepturn.'或者'.$strHuabao;
@@ -73,8 +74,9 @@ function EchoAll()
     echo GetKnownBugs(array(
     						 '从0.61版本开始，使用海王星3.07新增加的PIN码安全方式登录。如果被提示没有PIN码或者过期，需要手工在证书管理中使用默认PIN码申请一下。',
     						 '在小屏幕电脑上，海王星窗口内容可能会被遮挡，需要手工最大化后才能继续运行。可以先手工登录一次，把窗口扩大到比最大化小一点的状态后退出，下一次就能成功自动运行。',
+    						 '使用双屏或者多屏如果有问题的话，改成单屏显示。',
     						 '卖出一个账户后就退出时，需要把卖出或者赎回总数量设置到足够大，比如1000000。',
-    						 '海王星不能在虚拟机中使用。',
+    						 '除了Parallels Desktop for Mac外，海王星不能在大多数虚拟机中使用。',
     						 '网速很重要！在目前代码中有大量模拟按键或者鼠标后等待一秒的被动行为，在网速慢的时候会因为等待时间不够长而出错。我就可能需要在运行代码前先手工把电脑上的网络从天威宽带切换到自己手机上的移动4G热点。',
     						 '在基金概要文件那部分，IE会弹出框让选择打开或者下载，需要手工点一下，要不到不了下一步。给IE安装adobe的阅读pdf插件后能解决这个问题。在电脑上安装一下Adobe官方的免费PDF阅读器软件也可以解决这个问题。',
     						 'WIN7系统下海王星不能正常退出。可以运行系统自带的注册表编辑器regedit.exe，依次定位到HKEY_CURRENT_USER\Software\Microsoft\Windows\WindowsError Reporting，在右侧窗口中找到并双击打开DontshowUI，然后在弹出的窗口中将默认值0修改为1。'));
