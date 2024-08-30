@@ -294,18 +294,27 @@ class StockReference extends StockSymbol
         }
     }
     
-	function _onSinaGlobalIndex($ar)
+	function _onSinaGlobalIndex($ar, $iCount)
 	{
-        $this->strPrevPrice = $ar[9];
-        $this->strPrice = $ar[1];
-        $this->strDate = $ar[6];
-        $this->strTime = $ar[7];
         $this->strName = $ar[0];
+        $this->strPrice = $ar[1];
+        if ($iCount == 6)
+        {
+        	$this->strPrevPrice = strval(floatval($this->strPrice) - floatval($ar[2]));
+        	$ymd = new TickYMD(intval($ar[5]));
+        	$this->strDate = $ymd->GetYMD();
+        	$this->strTime = $ymd->GetHMS();
+        }
+        else
+        {
+        	$this->strPrevPrice = $ar[9];
+        	$this->strDate = $ar[6];
+        	$this->strTime = $ar[7];
         
-        $this->strOpen = $ar[8];
-        $this->strHigh = $ar[10];
-        $this->strLow = $ar[11];
-        $this->strVolume = $ar[5];
+        	$this->strOpen = $ar[8];
+        	$this->strHigh = $ar[10];
+        	$this->strLow = $ar[11];
+        }
 	}
     
     function LoadSinaData()
@@ -316,12 +325,11 @@ class StockReference extends StockSymbol
         	$this->strFileName = DebugGetSinaFileName($strSinaSymbol);
         	$ar = _getSinaArray($this, $strSinaSymbol, $this->strFileName);
         	$iCount = count($ar); 
-//        	if ($iCount >= 18)
-        	if ($iCount >= 12)
+        	if ($iCount >= 6)
         	{
         		if ($this->IsSinaGlobalIndex())
         		{
-        			$this->_onSinaGlobalIndex($ar);
+        			$this->_onSinaGlobalIndex($ar, $iCount);
         			return;
         		}
         		else if ($this->IsSymbolA())

@@ -1,6 +1,6 @@
 <?php
 
-// SZ164212 SH501226 SH513800 SZ159696
+// SZ164212 SH501226 SZ159696
 
 /* https://finance.sina.com.cn/money/globalindex/ 
 gb_dji,gb_ixic,gb_inx,
@@ -183,6 +183,54 @@ function QdiiHkGetIndexSymbolArray()
     return array('^HSI', '^HSCE', '^HSTECH');
 }
  
+function QdiiHkGetSymbolArray()
+{
+    $ar = array_merge(array('SH501025') 
+    				   , QdiiHkGetTechSymbolArray()
+    				   , QdiiHkGetHSharesSymbolArray()
+    				   , QdiiHkGetHangSengSymbolArray());
+    sort($ar);
+    return $ar;
+}
+
+function in_arrayQdiiHk($strSymbol)
+{
+    return in_array($strSymbol, QdiiHkGetSymbolArray());
+}
+
+function QdiiJpGetNkySymbolArray()
+{
+    return array('SH513000', 'SH513520', 'SH513880', 'SZ159866');
+}
+
+function in_arrayNkyQdiiJp($strSymbol)
+{
+    return in_array($strSymbol, QdiiJpGetNkySymbolArray());
+}
+
+function QdiiJpGetSymbolArray()
+{
+    $ar = array_merge(array('SH513800') 
+    				   , QdiiJpGetNkySymbolArray());
+    sort($ar);
+    return $ar;
+}
+
+function in_arrayQdiiJp($strSymbol)
+{
+    return in_array($strSymbol, QdiiJpGetSymbolArray());
+}
+
+function QdiiEuGetSymbolArray()
+{
+    return array('SH513030', 'SH513080', 'SZ159561');
+}
+
+function in_arrayQdiiEu($strSymbol)
+{
+    return in_array($strSymbol, QdiiEuGetSymbolArray());
+}
+
 function GetChinaInternetSymbolArray()
 {
 	return array('SH513050', 'SH513220', 'SZ159605', 'SZ159607', 'SZ164906');
@@ -205,41 +253,6 @@ function QdiiMixGetSymbolArray()
 function in_arrayQdiiMix($strSymbol)
 {
     return in_array($strSymbol, QdiiMixGetSymbolArray());
-}
-
-function QdiiHkGetSymbolArray()
-{
-    $ar = array_merge(array('SH501025') 
-    				   , QdiiHkGetTechSymbolArray()
-    				   , QdiiHkGetHSharesSymbolArray()
-    				   , QdiiHkGetHangSengSymbolArray());
-    sort($ar);
-    return $ar;
-}
-
-function in_arrayQdiiHk($strSymbol)
-{
-    return in_array($strSymbol, QdiiHkGetSymbolArray());
-}
-
-function QdiiJpGetSymbolArray()
-{
-    return array('SH513000', 'SH513520', 'SH513880', 'SZ159866');
-}
-
-function in_arrayQdiiJp($strSymbol)
-{
-    return in_array($strSymbol, QdiiJpGetSymbolArray());
-}
-
-function QdiiEuGetSymbolArray()
-{
-    return array('SH513030', 'SH513080', 'SZ159561');
-}
-
-function in_arrayQdiiEu($strSymbol)
-{
-    return in_array($strSymbol, QdiiEuGetSymbolArray());
 }
 
 function GetAllSymbolArray()

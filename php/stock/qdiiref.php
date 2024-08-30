@@ -98,14 +98,15 @@ function QdiiHkGetRealtimeSymbol($strSymbol)
 
 function QdiiJpGetEstSymbol($strSymbol)
 {
-    if (in_arrayQdiiJp($strSymbol))			return 'znb_NKY';
+    if ($strSymbol == 'SH513800')   		 		return 'znb_TPX';
+	else if (in_arrayNkyQdiiJp($strSymbol))		return 'znb_NKY';
     else 
         return false;
 }
 
 function QdiiJpGetRealtimeSymbol($strSymbol)
 {
-    if (in_arrayQdiiJp($strSymbol))			return 'hf_NK';
+	if (in_arrayNkyQdiiJp($strSymbol))			return 'hf_NK';
     else 
         return false;
 }

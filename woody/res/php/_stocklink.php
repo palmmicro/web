@@ -312,7 +312,7 @@ function GetJingShunSoftwareLinks($strDigitA)
 
 function GetNanFangSoftwareLinks($strDigitA)
 {
-    $ar = array('SH501018', 'SH501302', 'SH513600', 'SH513650', 'SZ159954', 'SZ160140');
+    $ar = array('SH501018', 'SH501302', 'SH513600', 'SH513650', 'SH513800', 'SZ159954', 'SZ160140');
 	$strUrl = 'http://www.nffund.com';
     return ' '.GetOfficialLink($strUrl.'/main/jjcp/fundproduct/'.$strDigitA.'.shtml', $strDigitA).GetCategorySoftwareLinks($ar, GetExternalLink($strUrl, '南方基金'));
 }

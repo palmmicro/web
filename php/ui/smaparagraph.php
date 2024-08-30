@@ -249,8 +249,9 @@ function _callbackFutureSma($ref, $strEst = false)
 {
 	if ($strEst)
 	{
-		$f = round(4.0 * floatval($strEst) * GetFutureInterestPremium());
-		return strval_round($f / 4.0, 2);
+		$f = floatval($strEst) * GetFutureInterestPremium();
+		if (DebugIsAdmin())	$f += 60.5;
+		return strval_round(round(4.0 * $f) / 4.0, 2);
 	}
 	return $ref;
 }
