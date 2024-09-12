@@ -219,7 +219,6 @@ class StockReference extends StockSymbol
         {
         	$this->SetTimeZone();
 			$iTime = strtotime($this->strDate.' '.$this->strTime);
-//			if ($etf_ref->GetSymbol() == 'znb_NKY')	$iTime -= 30;
             $strDate = DebugGetDate($iTime, $strTimeZone);
             $strTime = DebugGetTime($iTime, $strTimeZone);
 //            DebugString(__FUNCTION__.': '.$strTimeZone.' '.$etf_ref->GetSymbol().' '.$etf_ref->GetDate().' '.$etf_ref->GetTimeHM().' vs '.$strDate.' '.$strTime);
@@ -274,8 +273,8 @@ class StockReference extends StockSymbol
     function _onSinaDataCN($ar)
     {
         $this->strPrevPrice = $ar[2];
-//        $this->strPrice = $ar[3];
-		$this->strPrice = ($ar[3] == '0.000') ? $ar[2] : $ar[3]; 
+        $this->strPrice = $ar[3];
+//		$this->strPrice = ($ar[3] == '0.000') ? $ar[2] : $ar[3]; 
 		$this->strDate = $ar[30];
         $this->strTime = $ar[31];
         $this->strName = $ar[0];

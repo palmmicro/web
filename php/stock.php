@@ -21,7 +21,6 @@ require_once('stock/holdingsref.php');
 require_once('stock/fundref.php');
 require_once('stock/qdiiref.php');
 
-require_once('stock/forexref.php');
 require_once('stock/fundpairref.php');
 
 function StockGetSymbol($str)

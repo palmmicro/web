@@ -3,6 +3,7 @@
 // SZ164212 SH501226 SZ159696
 
 /* https://finance.sina.com.cn/money/globalindex/ 
+https://finance.sina.com.cn/money/globalindex/asia.shtml
 gb_dji,gb_ixic,gb_inx,
 znb_UKX,znb_DAX,znb_INDEXCF,znb_CAC,znb_SMI,znb_FTSEMIB,znb_MADX,znb_OMX,znb_HEX,znb_OSEAX,znb_ISEQ,znb_AEX,znb_IBEX,znb_SX5E,znb_XU100,znb_NKY,znb_TWJQ,znb_FSSTI,znb_KOSPI,znb_FBMKLCI,znb_SET,znb_JCI,znb_PCOMP,znb_KSE100,znb_SENSEX,znb_VNINDEX,znb_CSEALL,znb_SASEIDX,znb_SPTSX,znb_MEXBOL,znb_IBOV,znb_MERVAL,znb_AS51,znb_NZSE50FG,znb_CASE,znb_JALSH
 */
@@ -890,7 +891,8 @@ class StockSymbol
     		{
 			case 'CAC':
 			case 'DAX':
-    		case 'NKY':
+			case 'NKY':
+			case 'TPX':
     			if ($iHourMinute < 900)		return true;
     			break;
 
@@ -927,6 +929,7 @@ class StockSymbol
     			break;
     			
     		case 'NKY':
+			case 'TPX':
     			if ($iHourMinute > 1535)		return true;	// 東證所的交易時間（開盤時間）從上午9點到上午11點30分及 下午0點30分到下午3點的2個時間段
     			break;
 
@@ -1008,6 +1011,7 @@ class StockSymbol
 				return 'Europe/Berlin';
 				
 			case 'NKY':
+			case 'TPX':
 			case 'SENSEX':
 				return 'PRC';	//  'Asia/Tokyo';
 			}

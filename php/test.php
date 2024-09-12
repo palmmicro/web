@@ -2,7 +2,6 @@
 require_once('account.php');
 require_once('stock.php');
 //require_once('stocktrans.php');
-//require_once('stock/csindex.php');		// 中证指数有限公司
 require_once('stock/sinastock.php');
 
 //require_once('sql/sqlkeystring.php');
@@ -133,8 +132,6 @@ function DebugClearPath($strSection)
 //    $iCount = $his_sql->DeleteInvalidDate();		// this can be very slow!
 //	if ($iCount > 0)	DebugVal($iCount, 'Invalid or older date'); 
 	
-//	CsindexGetData();
-
 //	TestModifyTransactions('1376', 'UWT', 'USO');
 //	TestModifyTransactions('1831', 'CHU', '00762', 10);
 //	TestModifyTransactions('160', 'SNP', '00386', 100);

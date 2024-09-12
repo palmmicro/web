@@ -14,6 +14,7 @@ class MysqlReference extends StockReference
         parent::__construct($strSymbol);
 		$this->SetTimeZone();
         $this->LoadData();
+        if (IsZeroString($this->strPrice))	$this->strPrice = $this->strPrevPrice;
 
     	if ($this->strSqlId)
     	{	// Already set, like in CnyReference
@@ -154,6 +155,15 @@ class FutureReference extends MysqlReference
     		}
 //    	}
         return $this->fFactor;
+    }
+}
+
+class ForexReference extends MysqlReference
+{
+    public function LoadData()
+    {
+		$this->LoadSinaForexData();
+        $this->bConvertGB2312 = true;     // Sina name is GB2312 coded
     }
 }
 
