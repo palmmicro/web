@@ -2,9 +2,6 @@
 
 function SinaFundNeedFile($sym, $strFileName)
 {
-	clearstatcache(true, $strFileName);
-	if (file_exists($strFileName) == false)	return true;
-
 	if ($strDigit = $sym->IsSinaFund())
 	{
    		if ($strSymbol = BuildChinaFundSymbol($strDigit))		$sym = new StockSymbol($strSymbol);
@@ -50,10 +47,6 @@ function _checkBetweenMarketClose($now_ymd, $iFileTime, $iWeekday, $iWeekend)
 
 function StockNeedNewQuotes($sym, $strFileName, $iInterval = SECONDS_IN_MIN)
 {
-	clearstatcache(true, $strFileName);
-	if (file_exists($strFileName) == false)	return true;
-
-//	$sym->SetTimeZone();
     $now_ymd = GetNowYMD();
 	if (($iFileTime = $now_ymd->NeedFile($strFileName, $iInterval)) == false)		return false;	// update on every minute
 	
@@ -97,10 +90,6 @@ function _isFutureMarketTrading($ymd)
 
 function FutureNeedNewFile($strFileName, $iInterval = SECONDS_IN_MIN)
 {
-	clearstatcache(true, $strFileName);
-	if (file_exists($strFileName) == false)	return true;
-
-//    date_default_timezone_set('America/New_York');
 	$now_ymd = GetNowYMD();
 	if (($iFileTime = $now_ymd->NeedFile($strFileName, $iInterval)) == false)		return false;	// update on every minute
 	

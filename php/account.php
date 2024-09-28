@@ -62,18 +62,19 @@ class Account
 	    	$iPageCount = $this->visitor_sql->CountUniqueDst($strId);
 	    	$strDebug = '访问次数: '.strval($iCount).'<br />不同页面数: '.strval($iPageCount).'<br />';
 	    	if ($this->GetLoginId())						$strDebug .= 'logined!<br />';
-	    	if ($strStatus == IP_STATUS_CRAWLER)			$strDebug .= '已标注的老爬虫';
-	    	else
+//	    	if ($strStatus == IP_STATUS_CRAWLER)			$strDebug .= '已标注的老爬虫';
+//	    	else
+	    	if ($strStatus != IP_STATUS_CRAWLER)
 	    	{
 	    		if ($iPageCount >= ($iCount / 100))		$strDebug .= '疑似爬虫';
 	    		else
 	    		{
 	    			$strDebug .= '新标注爬虫';
 	    			$this->SetCrawler($strIp);
-	    			$strStatus = IP_STATUS_CRAWLER;
+//	    			$strStatus = IP_STATUS_CRAWLER;
 	    		}
+	    		trigger_error($strDebug);
 	    	}
-	    	trigger_error($strDebug);
 	    	$this->ip_sql->AddVisit($strIp, $iCount);
 	    	$this->visitor_sql->DeleteBySrc($strId);        
 	    }

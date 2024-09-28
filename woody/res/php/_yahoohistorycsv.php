@@ -102,8 +102,6 @@ function YahooUpdateStockHistory($ref)
 	}
 }
 
-// https://query1.finance.yahoo.com/v7/finance/chart/AAPL?range=2y&interval=1d&indicators=quote&includeTimestamps=true
-
 /*
 // 1 - Get cookie
 //https://stackoverflow.com/questions/76065035/yahoo-finance-v7-api-now-requiring-cookies-python

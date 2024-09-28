@@ -2,48 +2,12 @@
 require_once('account.php');
 require_once('stock.php');
 //require_once('stocktrans.php');
-require_once('stock/sinastock.php');
 
 //require_once('sql/sqlkeystring.php');
 
 define('DEBUG_UTF8_BOM', "\xef\xbb\xbf");
 
 // http://www.todayir.com/en/index.php HSFML25
-
-function _debug_dividend($strSymbol)
-{
-	if ($arMatch = SinaGetStockDividendA($strSymbol))
-	{
-		$iVal = count($arMatch);
-	
-		DebugVal($iVal);
-		for ($j = 0; $j < $iVal; $j ++)
-		{
-			DebugString($arMatch[$j][0]);
-			for ($i = 1; $i < 9; $i ++) DebugString($arMatch[$j][$i]);
-		}
-	}
-}
-
-function TestCmdLine()
-{
-	DebugString('cmd line test '.UrlGetQueryString());
-    if ($strSymbol = UrlGetQueryValue('symbol'))
-    {
-    	$strSrc = UrlGetQueryDisplay('src', 'sina');
-    	$ref = new MyStockReference($strSymbol);
-    	DebugString('Stock ID '.$ref->GetStockId());
-    	$fStart = microtime(true);
-    	switch ($strSrc)
-    	{
-    	case 'sina':
-    		_debug_dividend($strSymbol);
-			break;
-    	}
-    	if (empty($str))	$str = '(Not found)';
-    	DebugString($strSymbol.':'.$str.DebugGetStopWatchDisplay($fStart));
-    }
-}
 
 /*
 function TestModifyTransactions($strGroupId, $strSymbol, $strNewSymbol, $iRatio)
@@ -118,7 +82,6 @@ function DebugClearPath($strSection)
 	DebugLogFile();
 	echo strval(rand()).' Hello, world!<br />';
 	
-	TestCmdLine();
 	DebugClearPath('csv');
 	DebugClearPath('image');
 

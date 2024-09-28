@@ -87,13 +87,8 @@ function explodeQuote($str)
 
 function StockNeedFile($strFileName, $iInterval = SECONDS_IN_MIN)
 {
-   	clearstatcache(true, $strFileName);
-   	if (file_exists($strFileName))
-   	{
-   		$now_ymd = GetNowYMD();
-   		return $now_ymd->NeedFile($strFileName, $iInterval);
-   	}
-   	return true;
+	$now_ymd = GetNowYMD();
+	return $now_ymd->NeedFile($strFileName, $iInterval);
 }
 
 define('SINA_QUOTES_SEPARATOR', ',');

@@ -53,7 +53,7 @@ function GetWeixinPay($iType = 0)
 		break;
         	
 	case 2:
-		$strPathName = ResizeJpg('/debug/wechat/8c77fbf420a45902.jpg');
+		$strPathName = ResizeJpg('/debug/wechat/6fc5352ee086eecf.jpg');
 		$strRemark = '华宝拖拉机开户微信群临时二维码';
 		$strImage = GetImgElement($strPathName, $strRemark);
 		$strText = GetFontElement($strRemark, 'navy');

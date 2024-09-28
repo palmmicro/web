@@ -109,6 +109,7 @@ function _getSimpleTestString($strInput, $bChinese)
 	{
     	if ($str = url_get_contents($strInput))
     	{
+    		if ($ar = json_decode($str, true))		DebugPrint($ar);
     		$strFileName = DebugGetPathName('simpletest.txt');
     		file_put_contents($strFileName, $str);
     		DebugString('Saved '.$strInput.' to '.$strFileName);

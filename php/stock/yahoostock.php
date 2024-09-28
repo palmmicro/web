@@ -78,11 +78,9 @@ Array
                             [expirationDates] => Array
                                 (
                                 )
-
                             [strikes] => Array
                                 (
                                 )
-
                             [hasMiniOptions] => 
                             [quote] => Array
                                 (
@@ -133,30 +131,21 @@ Array
                                     [marketState] => POST
                                     [symbol] => ^ASHR-IV
                                 )
-
                             [options] => Array
                                 (
                                 )
-
                         )
-
                 )
-
             [error] => 
         )
-
 )
 */
+
 function _yahooStockGetData($strSymbol, $strStockId)
 { 
-    $now_ymd = GetNowYMD();
 	$strFileName = DebugGetYahooFileName($strSymbol);
-   	clearstatcache(true, $strFileName);
-   	if (file_exists($strFileName))
-   	{
-   		if ($now_ymd->NeedFile($strFileName, SECONDS_IN_MIN) == false)		return false;
-   	}
-   	
+	if (StockNeedFile($strFileName) == false)	return false; 	// updates on every minute
+
 //	$strUrl = GetYahooDataUrl().'/quote?symbols='.$strSymbol;
 	$strUrl = GetYahooDataUrl().'/options/'.$strSymbol;
    	if ($str = url_get_contents($strUrl))

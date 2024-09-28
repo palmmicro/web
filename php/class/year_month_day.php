@@ -52,7 +52,8 @@ class YearMonthDay
     
     function NeedFile($strFileName, $iInterval = SECONDS_IN_MIN)
     {
-   		$iFileTime = filemtime($strFileName);
+    	clearstatcache(true, $strFileName);
+    	$iFileTime = file_exists($strFileName) ? filemtime($strFileName) : 1;
    		return ($this->GetTick() < ($iFileTime + $iInterval)) ? false : $iFileTime;
     }
     
