@@ -23,13 +23,22 @@ class HoldingsReference extends MyStockReference
     	$date_sql = new HoldingsDateSql();
     	if ($this->strHoldingsDate = $date_sql->ReadDate($strStockId))
     	{
-			$this->strNav = SqlGetNavByDate($strStockId, $this->strHoldingsDate);
-			$holdings_sql = GetHoldingsSql();
-			$this->arHoldingsRatio = $holdings_sql->GetHoldingsArray($strStockId);
-			$sql = GetStockSql();
-			foreach ($this->arHoldingsRatio as $strId => $strRatio)
+			if ($this->strNav = SqlGetNavByDate($strStockId, $this->strHoldingsDate))
 			{
-    			$this->ar_holdings_ref[] = new MyStockReference($sql->GetStockSymbol($strId));
+				$holdings_sql = GetHoldingsSql();
+				$this->arHoldingsRatio = $holdings_sql->GetHoldingsArray($strStockId);
+				$sql = GetStockSql();
+				foreach ($this->arHoldingsRatio as $strId => $strRatio)
+				{
+					$this->ar_holdings_ref[] = new MyStockReference($sql->GetStockSymbol($strId));
+				}
+			}
+			else	
+			{
+				DebugString(__CLASS__.'->'.__FUNCTION__.': Missing NAV on '.$this->strHoldingsDate);
+//				$nav_ref = new NetValueReference($strSymbol);
+//				$nav_sql = GetNavHistorySql();
+//				$nav_sql->InsertDaily($strStockId, $this->strHoldingsDate, $nav_ref->GetPrevPrice());
 			}
     	}
     }

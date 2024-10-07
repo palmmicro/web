@@ -1,5 +1,6 @@
 <?php
 require_once('../../php/csvfile.php');
+//require_once('_yahoohistorychart.php');
 
 class _HoldingsCsvFile extends DebugCsvFile
 {
@@ -33,7 +34,11 @@ class _HoldingsCsvFile extends DebugCsvFile
 		$this->sql->InsertSymbol($strSymbol, $strName);
     	if ($strStockId = $this->sql->GetId($strSymbol))
     	{
-    		if ($this->his_sql->GetRecord($strStockId, $this->strDate) == false)		$this->DebugReport($strSymbol.' missing data on '.$this->strDate);
+    		if ($this->his_sql->GetRecord($strStockId, $this->strDate) == false)
+    		{
+    			$this->DebugReport($strSymbol.' missing data on '.$this->strDate);
+//    			UpdateYahooHistoryChart(new MyStockReference($strSymbol));
+    		}
 			return $this->holdings_sql->InsertHolding($this->strStockId, $strStockId, $strRatio);
 		}
 		return false;

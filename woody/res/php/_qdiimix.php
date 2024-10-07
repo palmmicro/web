@@ -54,6 +54,10 @@ class _QdiiMixAccount extends FundGroupAccount
     	
     	$date_sql = new HoldingsDateSql();
     	$strHoldingsDate = $date_sql->ReadDate($strStockId);
+/*    	if (in_arrayHkMix($strSymbol))
+    	{
+    		if ($strHoldingsDate == '2024-09-27')	return;
+    	}*/
 		if ($strNavDate == $strHoldingsDate)												return;	// Already up to date
     	if ($strHoldingsDate == $ref->GetOfficialDate())									return;
     	
@@ -91,7 +95,7 @@ class _QdiiMixAccount extends FundGroupAccount
     		
     		$iHourMinute = $ref->GetHourMinute();
     		if ($iHourMinute < 930)															return;	// Data not updated until 9:30
-			else if ($iHourMinute > 1600 && $iHourMinute < 2230)							return;	// 美股休市后第2天的盘前，有可能会有数据看上去像休市日数据，导致5分钟一次频繁下载老文件。这里有意错过每天美股盘前时间，并且考虑了夏令时的不同最坏情况。
+			else if ($iHourMinute > 1455)													return;	// Stop autoupdate after market close. 美股休市后第2天的盘前，有可能会有数据看上去像休市日数据，导致5分钟一次频繁下载老文件。这里有意错过每天美股盘前时间，并且考虑了夏令时的不同最坏情况。
 
     		$strSymbol = $ref->GetSymbol();
     		if ($ref->IsShangHaiEtf())		$bUpdated = ReadSseHoldingsFile($strSymbol, $strStockId);

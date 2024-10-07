@@ -50,6 +50,11 @@ function _getTradingIndex($i)
 
 function _echoTradingTableData($ref, $strEstPrice, $strEstPrice2, $strEstPrice3, $callback)
 {
+   	$strPrice = $ref->IsStockMarketTrading(GetNowYMD()) ? $ref->GetPrevPrice() : $ref->GetPrice();
+   	$iPrecision = $ref->IsFundA() ? 3 : 2;
+   	$strColor = 'orange';
+	_echoTradingTableItem($strColor, '涨停', strval_round(floatval($strPrice) * 1.1, $iPrecision), '', $ref, $strEstPrice, $strEstPrice2, $strEstPrice3, $callback);
+    
     for ($i = TRADING_QUOTE_NUM - 1; $i >= 0; $i --)
     {
     	if (isset($ref->arAskQuantity[$i]))
@@ -66,11 +71,7 @@ function _echoTradingTableData($ref, $strEstPrice, $strEstPrice2, $strEstPrice3,
     	}
     }
 
-    if ($ref->IsFundA())
-    {
-    	$strPrice = $ref->IsStockMarketTrading(GetNowYMD()) ? $ref->GetPrevPrice() : $ref->GetPrice();
-   		_echoTradingTableItem('orange', '跌停', strval_round(floatval($strPrice) * 0.9, 3), '', $ref, $strEstPrice, $strEstPrice2, $strEstPrice3, $callback);
-    }
+	_echoTradingTableItem($strColor, '跌停', strval_round(floatval($strPrice) * 0.9, $iPrecision), '', $ref, $strEstPrice, $strEstPrice2, $strEstPrice3, $callback);
 }
 
 function _checkTradingQuantity($ref)

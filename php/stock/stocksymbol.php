@@ -161,7 +161,7 @@ function in_arrayTechQdiiHk($strSymbol)
 
 function QdiiHkGetHSharesSymbolArray()
 {
-    return array('SH510900', 'SZ159823', 'SZ159850', 'SZ159954', 'SZ159960', 'SZ160717', 'SZ161831');
+    return array('SH510900', 'SZ159850', 'SZ159954', 'SZ159960', 'SZ160717', 'SZ161831');
 }
 
 function in_arrayHSharesQdiiHk($strSymbol)
@@ -242,10 +242,21 @@ function GetMsciUs50SymbolArray()
 	return array('SH513850', 'SZ159577');
 }
 
+function GetHkMixSymbolArray()
+{
+	return array('SH513090', 'SH513230', 'SH513750', 'SZ159570', 'SZ159792');
+}
+
+function in_arrayHkMix($strSymbol)
+{
+    return in_array($strSymbol, GetHkMixSymbolArray());
+}
+
 function QdiiMixGetSymbolArray()
 {
     $ar = array_merge(array('SH501225', 'SH501312', 'SH513360', 'SZ159509', 'SZ160644') 
     				   , GetChinaInternetSymbolArray()
+    				   , GetHkMixSymbolArray()
     				   , GetMsciUs50SymbolArray());
     sort($ar);
     return $ar;

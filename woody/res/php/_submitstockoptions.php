@@ -380,16 +380,21 @@ class _SubmitOptionsAccount extends Account
 				switch ($strSymbol)
 				{
 				case 'SH513050':
+				case 'SH513090':
 				case 'SH513220':
+				case 'SH513230':
 				case 'SH513360':
+				case 'SH513750':
 				case 'SH513850':
 					ReadSseHoldingsFile($strSymbol, $strStockId);
 					break;
 					
 				case 'SZ159509':
+				case 'SZ159570':
 				case 'SZ159577':
 				case 'SZ159605':
 				case 'SZ159607':
+				case 'SZ159792':
 					ReadSzseHoldingsFile($strSymbol, $strStockId, $strDate);
 					break;
 					
