@@ -44,7 +44,7 @@ function ResizeJpg($strPathName, $iNewWidth = 300, $iNewHeight = 420)
 //	https://ibkr.com/referral/rongrong586
 function GetWeixinPay($iType = 0)
 {
-	if ($iType == 0)	$iType = rand(1, 2);
+	if ($iType == 0)	$iType = rand(1, 3);
 	switch ($iType)
 	{
 	case 1:
@@ -55,6 +55,13 @@ function GetWeixinPay($iType = 0)
 	case 2:
 		$strPathName = ResizeJpg('/debug/wechat/bec5dabc01d8c812.jpg');
 		$strRemark = '华宝拖拉机开户微信群拉朋友进群二维码';
+		$strImage = GetImgElement($strPathName, $strRemark);
+		$strText = GetFontElement($strRemark, 'navy');
+		break;
+        	
+	case 3:
+		$strPathName = ResizeJpg('/debug/wechat/844b9d9c2aca87df.jpg');
+		$strRemark = '香港保诚保险投保微信群二维码';
 		$strImage = GetImgElement($strPathName, $strRemark);
 		$strText = GetFontElement($strRemark, 'navy');
 		break;

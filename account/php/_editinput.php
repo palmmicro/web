@@ -12,6 +12,8 @@ require_once('../php/ui/editinputform.php');
 require_once('../php/ui/table.php');
 require_once('../php/ui/imagedisp.php');
 
+require_once('../php/stock.php');
+
 function HexView($strInput)
 {
 	$str = '<br />Hex: ';
@@ -125,17 +127,93 @@ function _getSimpleTestString($strInput, $bChinese)
     return $str;
 }
 
-function _getLinearRegressionString($strInput, $bChinese)
+function _getPercentage($ar, $i, $iGap, $bSameDay)
 {
-	$arX = array();
-	$arY = array();
-	
-	if ($strFunction = strstr($strInput, '(', true))
+	if (!$bSameDay)	$i --;
+	return strval(floatval($ar[$i]) / floatval($ar[$i + $iGap]) - 1.0);
+}
+
+function _getArrayDisplay($ar, $strSeparator, $strNewLine, $iCol = 10)
+{
+	$str = '';
+	$iTotal = count($ar);
+	for ($i = 0; $i < $iTotal; $i += $iCol)
 	{
-		$strInput = ltrim($strInput, $strFunction.'(');
-		$strInput = rtrim($strInput, ')');
+		for ($j = 0; $j < $iCol; $j ++)
+		{
+			if ($i + $j < $iTotal)	$str .= mysql_round($ar[$i + $j], 4).$strSeparator;
+			else						break;
+		}
+		$str .= $strNewLine;
+    }
+    return rtrim($str, $strSeparator.$strNewLine);
+}
+
+function _getLinearRegressionStockArrays(&$arX, &$arY, $strInput, $strSeparator, $strNewLine)
+{
+	$iGap = 20;
+//	$iGap = 1;
+	$iTotal = 400 + $iGap + 1;
+
+    $arRef = array();
+	foreach (StockGetSymbolArray($strInput) as $strSymbol)
+	{
+		$ref = new MyStockReference($strSymbol);
+		if ($ref->HasData())
+		{
+			UpdateYahooHistoryChart($ref);
+			$arRef[] = $ref;
+		}
+	}
+	if (count($arRef) != 2)	return '';
+	
+	$arCloseX = array();
+	$arCloseY = array();
+	$x_ref = $arRef[0];
+	$y_ref = $arRef[1];
+	$strStockIdY = $y_ref->GetStockId();
+	$his_sql = GetStockHistorySql();
+	$iCount = 0;
+    if ($result = $his_sql->GetAll($x_ref->GetStockId()))
+   	{
+   		while ($record = mysqli_fetch_assoc($result)) 
+   		{
+   			if ($strY = $his_sql->GetAdjClose($strStockIdY, $record['date'], true))
+   			{
+   				$strX = rtrim0($record['adjclose']);
+   				if (!IsZeroString($strX) && !IsZeroString($strY))
+   				{
+   					$arCloseX[] = $strX;
+   					$arCloseY[] = $strY;
+   					$iCount ++;
+   					if ($iCount == $iTotal)	break;
+   				}
+   			}
+		}
+		mysqli_free_result($result);
+	}
+
+//	$bSameDayX = true;
+//	$bSameDayY = true;
+	$bSameDayX = UseSameDayNav($x_ref);
+	$bSameDayY = UseSameDayNav($y_ref);
+	$iStart = ($bSameDayX && $bSameDayY) ? 0 : 1;
+	for ($i = $iStart; $i < $iTotal - $iGap + $iStart - 1; $i += $iGap)
+	{
+		$arX[] = _getPercentage($arCloseX, $i, $iGap, $bSameDayX);
+		$arY[] = _getPercentage($arCloseY, $i, $iGap, $bSameDayY);
 	}
 	
+  	$str = GetStockHistoryLink($x_ref->GetSymbol(), 'x').' = {';
+  	$str .= _getArrayDisplay($arX, $strSeparator, $strNewLine);
+    $str .= '}'.$strNewLine.GetStockHistoryLink($y_ref->GetSymbol(), 'y').' = {';
+  	$str .= _getArrayDisplay($arY, $strSeparator, $strNewLine);
+   	$str .= '}';
+	return $str;
+}
+
+function _getLinearRegressionArrays(&$arX, &$arY, $strInput, $strSeparator, $strNewLine, $strFunction)
+{
 	$fCount = 0.0;
 	$ar = explode(';', $strInput);
 	foreach ($ar as $str)
@@ -158,14 +236,34 @@ function _getLinearRegressionString($strInput, $bChinese)
 		$arX[] = $fX;
 		$arY[] = empty($strFunction) ? $fY : call_user_func($strFunction, $fY);
 	}
+	
+    $str = 'x = {'.implode($strSeparator, $arX).'}';
+    $str .= $strNewLine.'y = {'.(empty($strFunction) ? implode($strSeparator, $arY) : strval_round_implode($arY, $strSeparator)).'}';
+	return $str;
+}
+
+function _getLinearRegressionString($strInput, $bChinese)
+{
+	$arX = array();
+	$arY = array();
+	
+	if ($strFunction = strstr($strInput, '(', true))
+	{
+		$strInput = ltrim($strInput, $strFunction.'(');
+		$strInput = rtrim($strInput, ')');
+	}
+
+   	$strNewLine = GetBreakElement();
+   	$strSeparator = ', ';
+	if ($strFunction == 'stock')		$str = _getLinearRegressionStockArrays($arX, $arY, $strInput, $strSeparator, $strNewLine);
+	else								$str = _getLinearRegressionArrays($arX, $arY, $strInput, $strSeparator, $strNewLine, $strFunction);
 
     $jpg = new LinearImageFile();
     if ($jpg->Draw($arX, $arY))
     {
-    	$str = 'x = {'.implode(',', $arX).'}';
-    	$str .= '<br />y = {'.(empty($strFunction) ? implode(',', $arY) : strval_round_implode($arY)).'}';
-    	$str .= '<br /><br /><b>'.$jpg->GetEquation().'</b>';
-    	$str .= '<br />'.$jpg->GetLink();
+//    	if ($strFunction == 'stock')		$str .= $strNewLine.($bChinese ? '皮尔逊相关系数：' : 'Pearson correlation coefficient: ').PearsonCorrelation($arX, $arY);
+    	$str .= $strNewLine.$strNewLine.GetBoldElement($jpg->GetEquation());
+    	$str .= $strNewLine.$jpg->GetLink();
     	return $str;
     }
 	return ($bChinese ? '数据不足' : 'Not enough data');
@@ -365,9 +463,12 @@ function _echoLinearRegressionRelated()
 	$strTaobaoSqrt = GetQuoteElement(_getTaobaoDouble11SqrtData());
 	$strTaobaoLog = GetQuoteElement(_getTaobaoSalesLogData());
 	$strBenford = GetQuoteElement('1,'.GetStandardBenfordData());
+	$strStockHistory = GetQuoteElement('stock(600028,00386)');
 
 	$strSZ162411 = GetGroupStockLink('SZ162411', true);	
 	$strBaba = GetMyStockLink('BABA');
+	$strSH600028 = GetMyStockLink('SH600028');
+	$str00386 = GetMyStockLink('00386');
 	echo <<< END
 	<p>测试数据:</p>
 	<ol>
@@ -375,6 +476,7 @@ function _echoLinearRegressionRelated()
 	    <li>淘宝天猫从x=0(2009年)开始双11交易额y(亿元): $strTaobaoSqrt</li>
 	    <li>阿里{$strBaba}历年x=0(2010年)财报中的总销售额y(亿元): $strTaobaoLog</li>
 	    <li>本福特标准分布: $strBenford</li>
+	    <li>{$strSH600028}和{$str00386}股票价格相关程度: $strStockHistory</li>
     </ol>
 END;
 }

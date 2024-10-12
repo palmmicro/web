@@ -14,7 +14,7 @@ function GetStandardBenfordArray($iTotal = 1)
 
 function GetStandardBenfordData($iTotal = 1)
 {
-	return strval_round_implode(GetStandardBenfordArray($iTotal), '; ');
+	return strval_round_implode(GetStandardBenfordArray($iTotal));
 }
 
 function GetBenfordData($ar)

@@ -109,9 +109,9 @@ function GetHoldingsLink($strSymbol, $bDisplaySymbol = false)
 }
 
 define('STOCK_HISTORY_DISPLAY', '历史价格');
-function GetStockHistoryLink($strSymbol)
+function GetStockHistoryLink($strSymbol, $strDisplay = false)
 {
-    return GetStockSymbolLink('stockhistory', $strSymbol, STOCK_HISTORY_DISPLAY);
+    return GetStockSymbolLink('stockhistory', $strSymbol, ($strDisplay ? $strDisplay : STOCK_HISTORY_DISPLAY));
 }
 
 define('FUND_HISTORY_DISPLAY', '基金溢价记录');

@@ -3,7 +3,6 @@ require_once('_stock.php');
 require_once('_emptygroup.php');
 //require_once('_spdrnavxls.php');
 //require_once('_yahoohistorycsv.php');
-require_once('_yahoohistorychart.php');
 
 class _AdminHistoryAccount extends SymbolAccount
 {

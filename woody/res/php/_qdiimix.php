@@ -54,10 +54,6 @@ class _QdiiMixAccount extends FundGroupAccount
     	
     	$date_sql = new HoldingsDateSql();
     	$strHoldingsDate = $date_sql->ReadDate($strStockId);
-/*    	if (in_arrayHkMix($strSymbol))
-    	{
-    		if ($strHoldingsDate == '2024-09-27')	return;
-    	}*/
 		if ($strNavDate == $strHoldingsDate)												return;	// Already up to date
     	if ($strHoldingsDate == $ref->GetOfficialDate())									return;
     	
@@ -91,7 +87,10 @@ class _QdiiMixAccount extends FundGroupAccount
     		$strEstDate = $fund_est_sql->GetDateNow($strStockId);
     		if ($strEstDate == $strNavDate)													return;	//
     		$strDate = $ref->GetDate();
-    		if ($strEstDate == $strDate)													return;	// A day too early
+    		if (!in_arrayHkMix($strSymbol))
+    		{
+    			if ($strEstDate == $strDate)													return;	// A day too early
+    		}
     		
     		$iHourMinute = $ref->GetHourMinute();
     		if ($iHourMinute < 930)															return;	// Data not updated until 9:30

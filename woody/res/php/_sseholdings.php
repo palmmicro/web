@@ -74,6 +74,10 @@ function ReadSseHoldingsFile($strSymbol, $strStockId)
 	case 'SH513850':
 		$strEtfType = '577';
 		break;
+
+	case 'SH513990':
+		$strEtfType = '244';
+		break;
 	}
 	$strUrl = 'http://query.sse.com.cn/etfDownload/downloadETF2Bulletin.do?etfType='.$strEtfType;
 	$strFileName = $strSymbol.'.txt';

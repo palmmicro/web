@@ -45,6 +45,12 @@ function StockGetArraySymbol($ar)
     return $arSymbol;
 }
 
+function StockGetSymbolArray($strSymbols)
+{
+	$str = str_replace(array(',', '，', "\\n", "\\r", "\\r\\n"), ' ', $strSymbols);
+    $ar = explode(' ', $str);
+    return StockGetArraySymbol($ar);
+}
 
 function GetYahooNetValueSymbol($strEtfSymbol)
 {
@@ -396,10 +402,8 @@ function StockGetPairReferences($strSymbol)
 function UseSameDayNav($sym)
 {
 	$strSymbol = $sym->GetSymbol();
-	if (in_arrayQdii($strSymbol) || in_arrayQdiiMix($strSymbol))
-	{
-		return false;
-	}
+	if (in_arrayQdii($strSymbol))				return false;
+	else if (in_arrayQdiiMix($strSymbol))	return	in_arrayHkMix($strSymbol);
 	return true;
 }
 

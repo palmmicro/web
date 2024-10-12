@@ -2,17 +2,10 @@
 require_once('_stock.php');
 require_once('_editgroupform.php');
 
-function _stockGetSymbolArray($strSymbols)
-{
-	$str = str_replace(array(',', '，', "\\n", "\\r", "\\r\\n"), ' ', $strSymbols);
-    $ar = explode(' ', $str);
-    return StockGetArraySymbol($ar);
-}
-
 function _getStockIdArray($strSymbols)
 {
 	$arStockId = array();
-    $arSymbol = _stockGetSymbolArray($strSymbols);
+    $arSymbol = StockGetSymbolArray($strSymbols);
 	foreach ($arSymbol as $strSymbol)
 	{
 	    $strStockId = SqlGetStockId($strSymbol);

@@ -244,7 +244,7 @@ function GetMsciUs50SymbolArray()
 
 function GetHkMixSymbolArray()
 {
-	return array('SH513090', 'SH513230', 'SH513750', 'SZ159570', 'SZ159792');
+	return array('SH513090', 'SH513230', 'SH513750', 'SH513990', 'SZ159567', 'SZ159570','SZ159751', 'SZ159792');
 }
 
 function in_arrayHkMix($strSymbol)

@@ -7,6 +7,7 @@ define('SECONDS_IN_DAY', 86400);
 
 // 13.6 in MySQL
 define('MIN_FLOAT_VAL', 0.000001);
+define('FLOAT_PRECISION', 6);
 
 function IsZeroString($strZero)
 {
@@ -31,7 +32,12 @@ function strval_round($fVal, $iPrecision = false)
 	return strval(round($fVal, $iPrecision));
 }
 
-function strval_round_implode($arVal, $strSeparator = ', ')
+function mysql_round($str, $iPrecision = FLOAT_PRECISION)
+{
+	return strval_round(floatval($str), $iPrecision);
+}
+
+function strval_round_implode($arVal, $strSeparator = ': ')
 {
 	$str = '';
 	foreach ($arVal as $fVal)

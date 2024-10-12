@@ -99,10 +99,13 @@ class StockHistorySql extends DailyCloseSql
     	return false;
     }
     
-    function GetAdjClose($strStockId, $strDate)
+    function GetAdjClose($strStockId, $strDate, $bStrict = false)
     {
     	$str = $this->_getAdjCloseString('GetRecord', $strStockId, $strDate);
-		if ($str === false)		$str = $this->_getAdjCloseString('GetRecordPrev', $strStockId, $strDate);	// when hongkong market on holiday
+    	if ($bStrict === false)
+    	{
+    		if ($str === false)		$str = $this->_getAdjCloseString('GetRecordPrev', $strStockId, $strDate);	// when hongkong market on holiday
+    	}
 		return $str;
     }
 }
@@ -298,6 +301,12 @@ function SqlDeleteNavHistory($strStockId)
 		DebugVal($iTotal, 'Net value history existed');
 		$nav_sql->DeleteAll($strStockId);
 	}
+}
+
+function SqlSetNav($strStockId, $strDate, $strNav)
+{
+	$nav_sql = GetNavHistorySql();
+	return $nav_sql->InsertDaily($strStockId, $strDate, $strNav);
 }
 
 function SqlGetNavByDate($strStockId, $strDate)

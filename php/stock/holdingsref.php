@@ -37,8 +37,8 @@ class HoldingsReference extends MyStockReference
 			{
 				DebugString(__CLASS__.'->'.__FUNCTION__.': Missing NAV on '.$this->strHoldingsDate);
 //				$nav_ref = new NetValueReference($strSymbol);
-//				$nav_sql = GetNavHistorySql();
-//				$nav_sql->InsertDaily($strStockId, $this->strHoldingsDate, $nav_ref->GetPrevPrice());
+//				SqlSetNav($strStockId, $this->strHoldingsDate, $nav_ref->GetPrevPrice());
+//				if ($this->strHoldingsDate == $nav_ref->GetDate())		SqlSetNav($strStockId, $this->strHoldingsDate, $nav_ref->GetPrice());
 			}
     	}
     }
@@ -215,8 +215,7 @@ class HoldingsReference extends MyStockReference
    		
    		if ($strH)
    		{
-   			if ($strH == $strUS)		return $strH;
-   			else if (strtotime($strH) < strtotime($strUS))		return $strH;
+   			if (($strUS === false) || ($strH == $strUS) || (strtotime($strH) < strtotime($strUS)))		return $strH;
    		}
 		return $strUS;
     }

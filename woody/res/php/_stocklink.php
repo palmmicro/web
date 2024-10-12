@@ -184,7 +184,7 @@ function GetBoShiSoftwareLinks($strDigitA)
 // http://www.cmfchina.com/main/513220/fundinfo.shtml
 function GetCmfSoftwareLinks($strDigitA)
 {
-    $ar = array('SH513220', 'SZ159659');
+    $ar = array('SH513220', 'SH513990', 'SZ159659');
 	$strUrl = 'http://www.cmfchina.com';
     return ' '.GetOfficialLink($strUrl.'/main/'.$strDigitA.'/fundinfo.shtml', $strDigitA).GetCategorySoftwareLinks($ar, GetExternalLink($strUrl, '招商基金'));
 }
@@ -327,7 +327,7 @@ function GetNuoAnSoftwareLinks($strDigitA)
 
 function GetPenghuaSoftwareLinks($strDigitA)
 {
-    $ar = array('SZ160644', 'SH501025', 'SH513400');
+    $ar = array('SH501025', 'SH513400', 'SZ159751', 'SZ160644');
 	$strUrl = 'https://www.phfund.com.cn';
     return ' '.GetOfficialLink($strUrl.'/web/FUND_'.$strDigitA, $strDigitA).GetCategorySoftwareLinks($ar, GetExternalLink($strUrl, '鹏华基金'));
 }
@@ -367,7 +367,7 @@ function GetXinChengSoftwareLinks($strDigitA)
 
 function GetYinHuaSoftwareLinks($strDigitA)
 {
-    $ar = array('SZ161815', 'SZ161831');
+    $ar = array('SZ159567', 'SZ161815', 'SZ161831');
 	$strUrl = 'http://www.yhfund.com.cn';
     return ' '.GetOfficialLink($strUrl.'/main/qxjj/'.$strDigitA.'/fndFacts.shtml', $strDigitA).GetCategorySoftwareLinks($ar, GetExternalLink($strUrl, '银华基金'));
 }

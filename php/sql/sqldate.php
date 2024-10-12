@@ -26,6 +26,14 @@ class DateSql extends ValSql
     }
 }
 
+class StockHistoryDateSql extends DateSql
+{
+    public function __construct()
+    {
+        parent::__construct('stockhistorydate');
+    }
+}
+
 class HoldingsDateSql extends DateSql
 {
     public function __construct()
