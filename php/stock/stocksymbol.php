@@ -823,14 +823,28 @@ class StockSymbol
 */
     function GetYahooSymbol()
     {
+    	$strFutureSuffix = '%3DF';	// CL=F
+    	$strIndexPrefix = '%5E';		// ^HSI
+    	$strHK = '.hk';
+    	
         $strSymbol = str_replace('.', '-', $this->strSymbol);
-        if ($str = $this->IsSinaFutureUs())											return $str.'%3DF';	// CL=F
+        if ($str = $this->IsSinaFutureUs())
+        {
+        	switch ($str)
+        	{
+        	case 'CHA50CFD':
+				return 'XIN9.FGI';
+				
+			default:
+				return $str.$strFutureSuffix;	// CL=F
+			}
+        }
         else if ($str = $this->IsNewSinaForex())
         {
         	switch ($str)
         	{
         	case 'USDCNH':
-        		return 'CNH'.'%3DF';	// CNH=F
+        		return 'CNH'.$strFutureSuffix;	// CNH=F
         	}
         }
 		else if ($str = $this->IsSinaGlobalIndex())
@@ -838,16 +852,16 @@ class StockSymbol
 			switch ($str)
 			{
 			case 'CAC':
-				return '%5E'.'FCHI';
+				return $strIndexPrefix.'FCHI';
 				
 			case 'DAX':
-				return '%5E'.'GDAXI';
+				return $strIndexPrefix.'GDAXI';
 				
 			case 'NKY':
-				return '%5E'.'N225';
+				return $strIndexPrefix.'N225';
 				
 			case 'SENSEX':
-				return '%5E'.'BSESN';
+				return $strIndexPrefix.'BSESN';
 			}
 		}
         else if ($this->IsIndex())
@@ -855,13 +869,13 @@ class StockSymbol
 			switch ($strSymbol)
 			{
 			case '^HSTECH':
-				return $this->strOthers.'.hk';
+				return $this->strOthers.$strHK;
 				
 			default:
-				return '%5E'.$this->strOthers;	// index ^HSI
+				return $strIndexPrefix.$this->strOthers;	// index ^HSI
 			}
         }
-        else if ($this->IsSymbolH())													return $this->strOthers.'.hk';	// Hongkong market
+        else if ($this->IsSymbolH())													return $this->strOthers.$strHK;	// Hongkong market
         else if ($this->IsSymbolA())
         {
             if ($this->strPrefixA == SH_PREFIX)										return $this->strDigitA.'.ss';	// Shanghai market

@@ -1,7 +1,8 @@
 <?php
 require_once('_emptygroup.php');
+require_once('../../php/stock/kraneshares.php');
 
-function _getStockOptionDate($strSubmit, $ref)
+function _getStockOptionDate($strSubmit, $ref, $strSymbol)
 {
     $strStockId = $ref->GetStockId();
 	$his_sql = GetStockHistorySql();
@@ -21,9 +22,13 @@ function _getStockOptionDate($strSubmit, $ref)
 
 	case STOCK_OPTION_CALIBRATION:
 	case STOCK_OPTION_NAV:
-		$nav_sql = GetNavHistorySql();
-		if ($strDate = $nav_sql->GetDateNow($strStockId))							return $strDate;
-		if ($strDate = $his_sql->GetDateNow($strStockId))							return $strDate;
+		if ($strSymbol == 'KWEB')		return $his_sql->GetDatePrev($strStockId, $ref->GetDate());
+		else
+		{
+			$nav_sql = GetNavHistorySql();
+			if ($strDate = $nav_sql->GetDateNow($strStockId))							return $strDate;
+			if ($strDate = $his_sql->GetDateNow($strStockId))							return $strDate;
+		}
 		break;
 	}
 	return '';
@@ -78,6 +83,19 @@ function _getStockOptionHa($strSymbol)
 		return $strA;
 	}
 	return 'A';
+}
+
+function _getStockOptionNav($ref, $strSymbol, $strStockId, $strDate)
+{
+	if ($strSymbol == 'KWEB')
+	{
+		if ($strDiff = GetKraneNav($ref))
+		{
+			$his_sql = GetStockHistorySql();
+			return strval_round(floatval($his_sql->GetClose($strStockId, $strDate)) * (1.0 - floatval($strDiff)), FLOAT_PRECISION);
+		}
+	}
+	return SqlGetNavByDate($strStockId, $strDate);
 }
 
 function _getStockOptionAdr($strSymbol)
@@ -220,7 +238,7 @@ function _getStockOptionVal($strSubmit, $strLoginId, $ref, $strSymbol, $strDate)
 		return 'STOCK1*10.1;STOCK2*20.2;STOCK3*30.3;STOCK4*39.4';
 
 	case STOCK_OPTION_NAV:
-		return SqlGetNavByDate($strStockId, $strDate);
+		return _getStockOptionNav($ref, $strSymbol, $strStockId, $strDate);
 
 	case STOCK_OPTION_SHARE_DIFF:
 		return _getStockOptionSharesDiff($strStockId, $strDate);
@@ -284,7 +302,7 @@ class SymbolEditAccount extends SymbolAccount
 		$strSymbolReadonly = HtmlElementReadonly();
 	
 		$strDateDisabled = '';
-		if (($strDate = _getStockOptionDate($strSubmit, $ref)) == '')
+		if (($strDate = _getStockOptionDate($strSubmit, $ref, $strSymbol)) == '')
 		{
 			$strDateDisabled = HtmlElementDisabled();
 		}

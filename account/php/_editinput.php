@@ -151,14 +151,19 @@ function _getArrayDisplay($ar, $strSeparator, $strNewLine, $iCol = 10)
 
 function _getLinearRegressionStockArrays(&$arX, &$arY, $strInput, $strSeparator, $strNewLine)
 {
-	$iGap = 20;
-//	$iGap = 1;
-	$iTotal = 400 + $iGap + 1;
-
+    $arInput = GetInputSymbolArray($strInput);
+    if (count($arInput) == 3)
+    {
+    	$iGap = intval($arInput[2]);
+    	$iGap = min(20, max(1, $iGap));
+    	unset($arInput[2]);
+    }
+    else	$iGap = 20;
+    
     $arRef = array();
-	foreach (StockGetSymbolArray($strInput) as $strSymbol)
+	foreach ($arInput as $strSymbol)
 	{
-		$ref = new MyStockReference($strSymbol);
+		$ref = StockGetReference($strSymbol);
 		if ($ref->HasData())
 		{
 			UpdateYahooHistoryChart($ref);
@@ -173,6 +178,7 @@ function _getLinearRegressionStockArrays(&$arX, &$arY, $strInput, $strSeparator,
 	$y_ref = $arRef[1];
 	$strStockIdY = $y_ref->GetStockId();
 	$his_sql = GetStockHistorySql();
+	$iTotal = 400 + $iGap + 1;
 	$iCount = 0;
     if ($result = $his_sql->GetAll($x_ref->GetStockId()))
    	{
@@ -198,7 +204,7 @@ function _getLinearRegressionStockArrays(&$arX, &$arY, $strInput, $strSeparator,
 	$bSameDayX = UseSameDayNav($x_ref);
 	$bSameDayY = UseSameDayNav($y_ref);
 	$iStart = ($bSameDayX && $bSameDayY) ? 0 : 1;
-	for ($i = $iStart; $i < $iTotal - $iGap + $iStart - 1; $i += $iGap)
+	for ($i = $iStart; $i < $iCount - $iGap + $iStart - 1; $i += $iGap)
 	{
 		$arX[] = _getPercentage($arCloseX, $i, $iGap, $bSameDayX);
 		$arY[] = _getPercentage($arCloseY, $i, $iGap, $bSameDayY);
@@ -255,18 +261,17 @@ function _getLinearRegressionString($strInput, $bChinese)
 
    	$strNewLine = GetBreakElement();
    	$strSeparator = ', ';
-	if ($strFunction == 'stock')		$str = _getLinearRegressionStockArrays($arX, $arY, $strInput, $strSeparator, $strNewLine);
-	else								$str = _getLinearRegressionArrays($arX, $arY, $strInput, $strSeparator, $strNewLine, $strFunction);
+	if ($strFunction == 'stock')		$strData = _getLinearRegressionStockArrays($arX, $arY, $strInput, $strSeparator, $strNewLine);
+	else								$strData = _getLinearRegressionArrays($arX, $arY, $strInput, $strSeparator, $strNewLine, $strFunction);
 
     $jpg = new LinearImageFile();
     if ($jpg->Draw($arX, $arY))
     {
-//    	if ($strFunction == 'stock')		$str .= $strNewLine.($bChinese ? '皮尔逊相关系数：' : 'Pearson correlation coefficient: ').PearsonCorrelation($arX, $arY);
-    	$str .= $strNewLine.$strNewLine.GetBoldElement($jpg->GetEquation());
+    	$str = GetBoldElement($jpg->GetEquation());
     	$str .= $strNewLine.$jpg->GetLink();
-    	return $str;
     }
-	return ($bChinese ? '数据不足' : 'Not enough data');
+	else	$str = GetFontElement($bChinese ? '数据不足' : 'Not enough data');
+   	return $str.$strNewLine.$strData;
 }
 
 function _getLinearEquationString($strA, $strB, $strC)
@@ -463,7 +468,7 @@ function _echoLinearRegressionRelated()
 	$strTaobaoSqrt = GetQuoteElement(_getTaobaoDouble11SqrtData());
 	$strTaobaoLog = GetQuoteElement(_getTaobaoSalesLogData());
 	$strBenford = GetQuoteElement('1,'.GetStandardBenfordData());
-	$strStockHistory = GetQuoteElement('stock(600028,00386)');
+	$strStockHistory = GetQuoteElement('stock(600028,00386,1)');
 
 	$strSZ162411 = GetGroupStockLink('SZ162411', true);	
 	$strBaba = GetMyStockLink('BABA');
@@ -476,7 +481,7 @@ function _echoLinearRegressionRelated()
 	    <li>淘宝天猫从x=0(2009年)开始双11交易额y(亿元): $strTaobaoSqrt</li>
 	    <li>阿里{$strBaba}历年x=0(2010年)财报中的总销售额y(亿元): $strTaobaoLog</li>
 	    <li>本福特标准分布: $strBenford</li>
-	    <li>{$strSH600028}和{$str00386}股票价格相关程度: $strStockHistory</li>
+	    <li>用每天的涨跌幅计算{$strSH600028}和{$str00386}股票价格相关程度: $strStockHistory</li>
     </ol>
 END;
 }

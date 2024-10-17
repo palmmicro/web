@@ -34,35 +34,6 @@ function LinearRegression($arX, $arY)
 	return array($fA, $fB, $fR);
 }
 
-function PearsonCorrelation($array1, $array2) 
-{
-    $n = count($array1);
-
-    // 计算均值
-    $mean1 = array_sum($array1) / $n;
-    $mean2 = array_sum($array2) / $n;
-
-    // 计算协方差
-    $covariance = 0;
-    $variance1 = 0;
-    $variance2 = 0;
-
-    for ($i = 0; $i < $n; $i++) {
-        $covariance += ($array1[$i] - $mean1) * ($array2[$i] - $mean2);
-        $variance1 += pow($array1[$i] - $mean1, 2);
-        $variance2 += pow($array2[$i] - $mean2, 2);
-    }
-
-    $covariance /= $n;
-    $variance1 = sqrt($variance1 / $n);
-    $variance2 = sqrt($variance2 / $n);
-
-    // 计算皮尔逊相关系数
-    $correlation = $covariance / ($variance1 * $variance2);
-
-    return $correlation;
-}
-
 function CramersRule($fA1, $fB1, $fC1, $fA2, $fB2, $fC2)
 {
 	$f = $fA1 * $fB2 - $fB1 * $fA2;

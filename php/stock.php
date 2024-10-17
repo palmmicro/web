@@ -32,7 +32,7 @@ function StockGetSymbol($str)
     return $str;
 }
 
-function StockGetArraySymbol($ar)
+function StockGetSymbolArray($ar)
 {
     $arSymbol = array();
     foreach ($ar as $str)
@@ -45,11 +45,11 @@ function StockGetArraySymbol($ar)
     return $arSymbol;
 }
 
-function StockGetSymbolArray($strSymbols)
+function GetInputSymbolArray($strSymbols)
 {
 	$str = str_replace(array(',', '，', "\\n", "\\r", "\\r\\n"), ' ', $strSymbols);
     $ar = explode(' ', $str);
-    return StockGetArraySymbol($ar);
+    return StockGetSymbolArray($ar);
 }
 
 function GetYahooNetValueSymbol($strEtfSymbol)

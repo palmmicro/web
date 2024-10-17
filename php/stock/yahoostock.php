@@ -455,9 +455,16 @@ function UpdateYahooHistoryChart($ref)
 			DebugString('no chart result');
 			return false;
 		}
+
+		$arResult = $arChart['result'][0];
+		if (!isset($arResult['timestamp']))
+		{
+			DebugString('no chart result 0 timestamp');
+			return false;
+		}
 		
-   		$arTimeStamp = $arChart['result'][0]['timestamp'];
-   		$arIndicators = $arChart['result'][0]['indicators'];
+   		$arTimeStamp = $arResult['timestamp'];
+   		$arIndicators = $arResult['indicators'];
 		if (!isset($arIndicators['quote']))
 		{
 			DebugString('no chart result 0 indicators quote');
@@ -523,13 +530,10 @@ function UpdateYahooHistoryChart($ref)
 		
 		DebugVal($iTotal, 'Total');
 		DebugVal($iModified, 'Modified');
-		if ($ref->IsSymbolA() || $ref->IsSymbolH())
-		{   // Yahoo has wrong Chinese and Hongkong holiday record with '0' volume 
-//			if ($ref->IsIndex() == false)
-//			{
-				$his_sql->DeleteByZeroVolume($strStockId);
-//			}
-		}
+//		if ($ref->IsSymbolA() || $ref->IsSymbolH())
+//		{   // Yahoo has wrong Chinese and Hongkong holiday record with '0' volume 
+			$his_sql->DeleteByZeroVolume($strStockId);
+//		}
 		$date_sql->WriteDate($strStockId, $strCurDate);
 		return true;
    	}

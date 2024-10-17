@@ -53,6 +53,8 @@ function GetWeixinPay($iType = 0)
 		break;
         	
 	case 2:
+//		$strPathName = ResizeJpg('/debug/wechat/59692929fecbbe0d.jpg');
+//		$strRemark = '华宝拖拉机开户微信群二维码';
 		$strPathName = ResizeJpg('/debug/wechat/bec5dabc01d8c812.jpg');
 		$strRemark = '华宝拖拉机开户微信群拉朋友进群二维码';
 		$strImage = GetImgElement($strPathName, $strRemark);
@@ -67,7 +69,7 @@ function GetWeixinPay($iType = 0)
 		break;
 	}
 	
-	return $strImage.'<br />'.$strText;
+	return $strImage.GetBreakElement().$strText;
 }
 
 function LayoutScreenWidthOk()

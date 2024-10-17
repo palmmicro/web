@@ -2,8 +2,6 @@
 require_once('_stock.php');
 require_once('../../php/ui/imagedisp.php');
 
-// https://kraneshares.com/product-json/?pid=477&type=premium-discount&start=2024-03-14&end=2024-03-15
-
 define('YINHE_AU3_VER', '76');
 
 function EchoAll()

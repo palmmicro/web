@@ -69,7 +69,6 @@ function CopyHoldings($date_sql, $strStockId, $strDstId)
     return true;
 }
 
-// https://kraneshares.com/csv/01_12_2022_kweb_holdings.csv
 function ReadKraneHoldingsCsvFile($strSymbol, $strStockId, $strDate, $strNav)
 {
 	$arYMD = explode('-', $strDate);

@@ -5,7 +5,7 @@ require_once('_editgroupform.php');
 function _getStockIdArray($strSymbols)
 {
 	$arStockId = array();
-    $arSymbol = StockGetSymbolArray($strSymbols);
+    $arSymbol = GetInputSymbolArray($strSymbols);
 	foreach ($arSymbol as $strSymbol)
 	{
 	    $strStockId = SqlGetStockId($strSymbol);

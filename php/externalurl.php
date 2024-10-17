@@ -113,6 +113,7 @@ function GetSseUrl()
 
 // https://kraneshares.com/kweb/
 // https://kraneshares.com/csv/06_22_2021_kweb_holdings.csv
+// https://kraneshares.com/product-json/?pid=477&type=premium-discount&start=2024-03-15&end=2024-03-15
 function GetKraneUrl()
 {
 	return 'https://kraneshares.com/';

@@ -147,7 +147,7 @@ function EchoAll()
     }
     else
     {
-        _echoStockGroupArray(StockGetArraySymbol(GetCategoryArray($strPage)), LayoutUseWide());
+        _echoStockGroupArray(StockGetSymbolArray(GetCategoryArray($strPage)), LayoutUseWide());
         
     	$str = _getMetaDescriptionStr($strPage);
 		if ($strLinks = _getSimilarLinks($strPage))		$str .= $strLinks;
